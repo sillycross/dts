@@ -1,0 +1,45 @@
+<?php
+
+//修改了本文件任何设置后务必在modulemng.php里[进入编辑模式]=>[保存]=>[应用更改]
+
+//是否开启代码预处理
+//代码预处理可以大幅提升模块加载速度，但这要求其他模块的init函数不可以引用input模块
+//如果开启了这个选项，任何对modules文件夹的修改都必须在modulemng.php里重新[进入编辑模式]=>[保存]=>[应用更改]才能真正生效
+//除非处于调试状态，否则强烈建议开启
+$___MOD_CODE_ADV1 = 0;
+
+//是否开启eval预处理
+//要求CODE_ADV1开启方可开启
+//这会大幅降低模块加载速度，但提高模块执行速度
+//如果开启了这个选项，任何对modules文件夹的修改都必须在modulemng.php里重新[进入编辑模式]=>[保存]=>[应用更改]才能真正生效
+//建议配合daemon模式使用，如未开启daemon模式建议关闭，调试时建议关闭，在单机版中建议关闭
+//只要不要写过于奇葩的语句（比如eval(import_module(eval('echo \'sys\';')));这种……）一般都不会出问题
+//如果调用各种import函数/宏的时候参数都是常量或简单变量，就肯定不会有事
+$___MOD_CODE_ADV2 = 0;
+
+//是否使用daemon模式，daemon模式可以完全消除模块加载时间
+//要求CODE_ADV1和CODE_ADV2均开启方可开启
+//要求php开启socket扩展，须从服务器命令行中启动acdts-daemonctl.sh
+//服务器版中有条件则建议开启，单机版中关闭就行
+$___MOD_SRV = 0;
+//daemon模式下连接密码，各项命令都要验证密码
+$___MOD_CONN_PASSWD = '233';
+//daemon模式下端口号范围
+$___MOD_CONN_PORT_LOW = 20000;
+$___MOD_CONN_PORT_HIGH = 21000;
+//daemon模式下最终结果通过数据库还是文件返回（1为数据库），推荐选择文件，数据库似乎实践中表现极差
+$___MOD_CONN_W_DB = 0;
+//daemon模式下server无连接情况下的唤醒时间（秒），daemon的实际执行时间大约是服务器设置的max_execution_time减去这个值
+//不要超过服务器设置max_execution_time的五分之一，尽可能低一些，但不要低于5秒
+$___MOD_SRV_WAKETIME = 60;
+//daemon模式下，如果一台非根daemon在主动退出前已经超过这个时间（秒）没有接到任何命令了，它将不会要求启动一台新daemon替代它
+$___MOD_VANISH_TIME = 300;
+//daemon模式下日志级别 
+//4=全部日志（极大量，仅供调试）, 3=仅重要日志、警告和错误, 2=仅警告和错误, 1=仅错误, 0=不记录任何日志
+$___MOD_LOG_LEVEL = 2;
+
+//默认修正
+//非command页面不使用代码缓存后的结果，加快加载速度（因为非游戏界面无法利用daemon）
+if (!defined('IN_MODULEMNG') && !defined('IN_COMMAND')) $___MOD_CODE_ADV2 = 0;
+
+?>

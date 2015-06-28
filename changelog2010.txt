@@ -1,0 +1,164 @@
+2010.12.29
+//略改动了结局对话。
+//殴系空手相当于持有熟练度/2攻击力的武器。
+//修正了战斗时会重复中同一种异常状态的错误
+//调整了商店里特殊道具的数量
+
+2010.12.28
+//新增即死地雷，商店出售。阔剑地雷效果上调
+//修改BOSS对话
+//NPC 思念体-AC众 将掉落300效的灵符武器
+//改动了初始物品中陷阱的效果
+
+2010.12.25
+//现在战斗中受伤或者进入异常状态将会在消息中显示
+//现在根据NPC身份不同，台词也不同了
+//改动了一些游戏数据
+//修改了雷达显示NPC的种类
+//对剧情做了细节的调整
+
+改动的文件:
+/gamedata/
+		system.php 						//NPC对话改为按身份判断
+		
+/gamedata/cache/
+		combatcfg_1.php				//略微修改熟练度对伤害的影响
+		mapitem_1.php 					//添加灵符系道具
+		mixitem_1.php						//修改灵系合成公式
+		shopitem_1.php 					//大幅增加了商店物品的数量，同时也提高了强化类物品的价格效果比
+		npc_1.php						//修改了NPC掉落物品
+
+/include/
+		news.func.php					//增加受伤时的新闻播报
+		
+/include/game/
+		combat.func.php 			//增加受伤时的消息播报
+		itemmain.func.php				//修复了踩陷阱死亡以后陷阱会留在手中的BUG
+		event.func.php				//修改了特殊事件的字体显示
+		item2.func.php				//修改了雷达显示NPC的种类
+		
+
+2010.12.23
+//修正道具合成跟道具合并页面与FF不兼容的问题
+//添加新属性“电气”，增加新受伤状态“麻痹”
+//修改了游戏剧情，暂时鬼隐了林无月，新增三个首席执行官
+
+2010.12.21
+//系统内，修改了重击判断逻辑，虽然外面看不出来。修改了伤害状态判断的逻辑，虽然外面还是看不出来。
+//新增了高级NPC的各种对话。NPC对话可以用开关关闭。
+//现在肌肉兄贵和根性兄贵初始的HP和SP将会是满的
+//添加新属性“爆炸攻击”，并且修改了属性攻击的伤害计算方式
+//爆系的保证伤害值设定取消，但是爆炸攻击属性则保证伤害值。大部分爆系是爆炸攻击属性，也有一部分没有爆炸攻击属性。
+//修改受伤状态的字色
+//修改道具属性的显示方式，虽然外面看不出来。		
+
+2010.12.20
+//为BOSS林无月专门增加了对话
+//改动了射程判断
+
+改动的文件:
+/gamedata/
+		system.php 						//添加NPC对话，将射程移到combatcfg，增加伤害判断文字
+/gamedata/cache/
+		combatcfg_1.php				//将射程移到此并作了修改，增加受伤状态变量，添加新属性爆炸和电气
+		gamecfg_1.php				//增加受伤状态变量，修改起来就方便了
+		mapitem_1.php 					//地图物品略改，在禁区增加了林无月设置的陷阱
+		mixitem_1.php						//增加合成物品
+		shopitem_1.php 					//商店道具略改
+		npc_1.php						//NPC资料大改
+		style_1.css					//略改动表格宽度
+/img/
+/include/
+		game.func.php 				//改动属性显示的逻辑
+		state.func.php				//改动烧伤死亡的变量名
+/include/admin/
+		
+/include/game/
+		attr.func.php					//增加受伤状态的判断。
+		combat.func.php 			//增加了NPC对话，改动了射程判断，改动了显示受伤信息的逻辑，改动了属性攻击的逻辑，改动了爆系武器的伤害判断
+		item2.func.php				//改动了一些文字
+		search.func.php				//改动了移动探索减体力和生命的判断逻辑
+		special.func.php			//改动包扎伤口的字色
+/install/
+
+/templates/default/
+		profile.htm						//略改动了表格宽度
+		game.htm							//略改动了表格宽度
+		battle.htm						//略改动了表格宽度
+		sp_inf.htm						//改动了字色
+		itemmerge.htm					//修正FF兼容性
+		itemmix								//修正FF兼容性
+		end.htm								//结局文字修改
+		notice.htm						//开头画面修改
+		news.htm							//消息界面修改
+
+2010.12.19
+//解毒剂种类改为“药剂”
+//雷达强化！现在雷达可以探测玩家和NPC了
+
+改动的文件:
+/gamedata/
+		system.php 						//
+		player.sql  					//
+/gamedata/cache/
+		gamecfg_1.php					//
+		combatcfg_1.php				//添加数种属性
+		mapitem_1.php 					//地图物品略改
+		shopitem_1.php 					//商店道具略改
+		npc_1.php						//NPC资料略改
+/img/
+/include/
+		game.func.php 				//增加烧伤和冰冻状态显示
+		state.func.php				//增加烧伤死亡
+/include/admin/
+		
+/include/game/
+		attr.func.php					//烧伤状态影响攻击力，冻伤减防御力
+		combat.func.php 			//去除了冗余部分，增加了火焰和冰冻两种属性
+		item.func.php					//添加解冻药水和烧伤药剂，枪械弹药种类增加。雷达修改，雷达用电池修改
+		item2.func.php				//添加新雷达，注释掉了旧雷达
+		search.func.php				//冻伤状态影响移动和探索消耗的体力，增加烧伤死亡
+/install/
+
+/templates/default/
+
+		radar.htm							//雷达强化
+	
+/根目录
+	 chat.php								//把误加的引号改了回来
+		
+2010.12.17
+//对combat.func.php作了简化
+//伤害惩罚加重，现在如果伤害超过2000会扣除2/3的HP，而伤害超过5000则扣除4/5的HP
+//内定称号、地图物品、商店道具、NPC资料修改。现在安装钉子方便一些了，反正不能超量购买，对吧。
+//增加了物品名称的限制长度，修正了物品耐久改为整数以后导致的与无限耐不兼容的问题
+//解毒剂种类改为“药剂”
+
+改动的文件:
+/gamedata/
+		system.php 						//改动内定称号、枪械弹药种类
+		player.sql  					//增加了物品名称的限制长度，修正了物品耐久改为整数以后导致的与无限耐不兼容的问题
+/gamedata/cache/
+		gamecfg_1.php					//去除了跟combatcfg重复的部分
+		combatcfg_1.php				//添加数种属性
+		mapitem_1.php 					//地图物品略改
+		shopitem_1.php 					//商店道具略改
+		npc_1.php						//NPC资料略改
+/img/
+/include/
+		game.func.php 				//增加烧伤和冰冻状态显示
+/include/admin/
+		pcmng.php 						//增加物品名长度
+/include/game/
+		attr.func.php					//烧伤状态影响攻击力，冻伤减防御力
+		combat.func.php 			//去除了冗余部分，增加了火焰和冰冻两种属性
+		item.func.php					//添加解冻药水和烧伤药剂，枪械弹药种类增加
+		itemmain.func.php 		//灵符武器可以正确合并了
+		search.func.php				//冻伤状态影响移动和探索消耗的体力
+/install/
+		bra.sql 						  //增加了物品名称的限制长度，修正了物品耐久改为整数以后导致的与无限耐不兼容的问题
+/templates/default/
+		sp_shop.htm 					//修改文字
+	
+/根目录
+   valid.php 						//初始经验改动

@@ -1,0 +1,27 @@
+<!--{eval $___TEMP_SKILL_ID=在这里写上你的技能编号;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+在这里写上你的技能名称
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+在这里写上你的技能描述，注意排版
+</span></td>
+<td class=b3 width=46>
+在这里写上你的技能的操作（如果有）
+例如
+<!--{if $skillpoint >= 1}-->
+<input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill12_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="治疗">
+<!--{else}-->
+<input type="button" style="width:46px" disabled="true" value="治疗">
+<!--{/if}-->
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+在这里写上还没有获得这个技能时的提示（例如需要等级XX级之类）
+建议如果有多条要求，做成动态提示（满足一条去掉一条），如果是有获得进度的技能亦可显示进度
+建议在技能模块里写一个函数返回没有获得技能时的提示，然后这里用eval功能调用它
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

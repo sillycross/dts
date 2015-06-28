@@ -1,0 +1,15 @@
+<!--{eval eval(import_module('wound'));}-->
+<td class="b2"><span>{lang inf}</span></td>
+<td class="b3">
+	<span>
+		<!--{if $inf}-->
+			<!--{loop $infinfo $key $val}-->
+				<!--{if strpos($inf,$key)!==false}-->
+					$val
+				<!--{/if}-->
+			<!--{/loop}-->
+		<!--{else}-->
+			无
+		<!--{/if}-->
+	</span>
+</td>

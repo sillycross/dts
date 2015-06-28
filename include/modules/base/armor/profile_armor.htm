@@ -1,0 +1,40 @@
+<tr>
+	<TD class=b2 height="26"><span><!--{if $arbs}-->$iteminfo['DB']<!--{else}--><span class="grey">$iteminfo['DB']</span><!--{/if}--></span></TD>
+	<TD class=b3>
+	<!--{if CURSCRIPT == 'game' && $mode == 'command' && $arbe}--><span><input type="button" value="卸下" onclick="$('mode').value='itemmain';$('command').value='offarb';postCmd('gamecmd','command.php');return false;"</span><!--{/if}-->
+	<span><!--{if $arbs}-->$arb<!--{else}-->$noarb<!--{/if}--></span>
+	</TD>
+	<TD class=b3><span>$tpldata['arbsk_words']</span></TD>
+	<TD class=b3><span>$arbe</span></TD>
+	<TD class=b3><span>$arbs</span></TD>
+</tr>
+<tr>
+	<TD class=b2 height="26"><span><!--{if $arhs}-->$iteminfo['DH']<!--{else}--><span class="grey">$iteminfo['DH']</span><!--{/if}--></span></TD>
+	<TD class=b3>
+	<!--{if CURSCRIPT == 'game' && $mode == 'command' && $arhs}--><span><input type="button" value="卸下" onclick="$('mode').value='itemmain';$('command').value='offarh';postCmd('gamecmd','command.php');return false;"</span><!--{/if}-->
+	<span><!--{if $arhs}-->$arh<!--{else}-->$noitm<!--{/if}--></span>
+	</TD>
+	<TD class=b3><span>$tpldata['arhsk_words']</span></TD>
+	<TD class=b3><span>$arhe</span></TD>
+	<TD class=b3><span>$arhs</span></TD>
+</tr>
+<tr>
+	<TD class=b2 height="26"><span><!--{if $aras}-->$iteminfo['DA']<!--{else}--><span class="grey">$iteminfo['DA']</span><!--{/if}--></span></TD>
+	<TD class=b3>
+	<!--{if CURSCRIPT == 'game' && $mode == 'command' && $aras}--><span><input type="button" value="卸下" onclick="$('mode').value='itemmain';$('command').value='offara';postCmd('gamecmd','command.php');return false;"</span><!--{/if}-->
+	<span><!--{if $aras}-->$ara<!--{else}-->$noitm<!--{/if}--></span>
+	</TD>
+	<TD class=b3><span>$tpldata['arask_words']</span></TD>
+	<TD class=b3><span>$arae</span></TD>
+	<TD class=b3><span>$aras</span></TD>
+</tr>
+<tr>
+	<TD class=b2 height="26"><span><!--{if $arfs}-->$iteminfo['DF']<!--{else}--><span class="grey">$iteminfo['DF']</span><!--{/if}--></span></TD>
+	<TD class=b3>
+	<!--{if CURSCRIPT == 'game' && $mode == 'command' && $arfs}--><span><input type="button" value="卸下" onclick="$('mode').value='itemmain';$('command').value='offarf';postCmd('gamecmd','command.php');return false;"</span><!--{/if}-->
+	<span><!--{if $arfs}-->$arf<!--{else}-->$noitm<!--{/if}--></span>
+	</TD>
+	<TD class=b3><span>$tpldata['arfsk_words']</span></TD>
+	<TD class=b3><span>$arfe</span></TD>
+	<TD class=b3><span>$arfs</span></TD>
+</tr>

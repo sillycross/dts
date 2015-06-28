@@ -1,0 +1,21 @@
+<table align="center">
+	<tr>
+		<td>{lang gender}</td>
+		<td>
+			<input type="radio" id="male" name="gender" onclick="userIconMover()" value="m" <!--{if $gender != "f"}-->checked<!--{/if}--> >$sexinfo['m']<br />
+			<input type="radio" name="gender" onclick="userIconMover()" value="f" <!--{if $gender == "f"}-->checked<!--{/if}-->>$sexinfo['f']
+		</td>
+		<td> </td>
+	</tr>
+	<tr>
+		<td>{lang icon}</td>
+		<td>
+			<select id="icon" name="icon" onchange="userIconMover()"><!--{loop $iconarray $icon}-->$icon<!--{/loop}--></select>（0为随机）
+		</td>
+		<td>
+			<div id="userIconImg" class="iconImg" >
+				<img src="img/<!--{if $gender != 'f'}-->m<!--{else}-->f<!--{/if}-->_{$select_icon}.gif" alt="$select_icon">
+			</div>
+		</td>
+	</tr>
+</table>

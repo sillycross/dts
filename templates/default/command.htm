@@ -1,0 +1,65 @@
+<input type="hidden" id="mode" name="mode" value="command">
+<input type="hidden" id="command" name="command" value="menu">
+<input type="hidden" id="subcmd" name="subcmd" value="">
+现在想要做什么？<br /><br />
+
+<!--{if (defined('MOD_EXPLORE'))}-->
+{template MOD_EXPLORE_EXPLORE}
+<!--{/if}-->
+
+<br />
+	<!--{if $itms1}-->
+	<input type="button" class="cmdbutton" <!--{if strpos($itmk1,'W')===0 || strpos($itmk1,'D')===0 || strpos($itmk1,'A')===0}-->value="装备"<!--{else}-->value="使用"<!--{/if}--> onclick="$('mode').value='command';$('command').value='itm1';postCmd('gamecmd','command.php');this.disabled=true;"><span class="yellow">{$itm1}</span>/{$itme1}/{$itms1}<br>
+	<!--{/if}-->
+	<!--{if $itms2}-->
+	<input type="button" class="cmdbutton" <!--{if strpos($itmk2,'W')===0 || strpos($itmk2,'D')===0 || strpos($itmk2,'A')===0}-->value="装备"<!--{else}-->value="使用"<!--{/if}--> onclick="$('mode').value='command';$('command').value='itm2';postCmd('gamecmd','command.php');this.disabled=true;"><span class="yellow">{$itm2}</span>/{$itme2}/{$itms2}<br>
+	<!--{/if}-->
+	<!--{if $itms3}-->
+	<input type="button" class="cmdbutton" <!--{if strpos($itmk3,'W')===0 || strpos($itmk3,'D')===0 || strpos($itmk3,'A')===0}-->value="装备"<!--{else}-->value="使用"<!--{/if}--> onclick="$('mode').value='command';$('command').value='itm3';postCmd('gamecmd','command.php');this.disabled=true;"><span class="yellow">{$itm3}</span>/{$itme3}/{$itms3}<br>
+	<!--{/if}-->
+	<!--{if $itms4}-->
+	<input type="button" class="cmdbutton" <!--{if strpos($itmk4,'W')===0 || strpos($itmk4,'D')===0 || strpos($itmk4,'A')===0}-->value="装备"<!--{else}-->value="使用"<!--{/if}--> onclick="$('mode').value='command';$('command').value='itm4';postCmd('gamecmd','command.php');this.disabled=true;"><span class="yellow">{$itm4}</span>/{$itme4}/{$itms4}<br>
+	<!--{/if}-->
+	<!--{if $itms5}-->
+	<input type="button" class="cmdbutton" <!--{if strpos($itmk5,'W')===0 || strpos($itmk5,'D')===0 || strpos($itmk5,'A')===0}-->value="装备"<!--{else}-->value="使用"<!--{/if}--> onclick="$('mode').value='command';$('command').value='itm5';postCmd('gamecmd','command.php');this.disabled=true;"><span class="yellow">{$itm5}</span>/{$itme5}/{$itms5}<br>
+	<!--{/if}-->
+	<!--{if $itms6}-->
+	<input type="button" class="cmdbutton" <!--{if strpos($itmk6,'W')===0 || strpos($itmk6,'D')===0 || strpos($itmk6,'A')===0}-->value="装备"<!--{else}-->value="使用"<!--{/if}--> onclick="$('mode').value='command';$('command').value='itm6';postCmd('gamecmd','command.php');this.disabled=true;"><span class="yellow">{$itm6}</span>/{$itme6}/{$itms6}<br>
+	<!--{/if}-->
+<br>
+
+<!--{if defined('MOD_ITEMMIX')}-->
+{template MOD_ITEMMIX_ITEMMIX_CMD}
+<!--{/if}-->
+<!--{if defined('MOD_ITEMMAIN')}-->
+{template MOD_ITEMMAIN_ITMCOMMAND}
+<!--{/if}-->
+<!--{if defined('MOD_REST')}-->
+{template MOD_REST_REST_CMD}
+<!--{/if}-->
+<!--{if defined('MOD_TEAM')}-->
+{template MOD_TEAM_TEAM_COMMAND}
+<!--{/if}-->
+<!--{if defined('MOD_ITEMSHOP')}-->
+{template MOD_ITEMSHOP_ITEMSHOP_CMD}
+<!--{/if}-->
+<!--{if defined('MOD_CLUBBASE')}-->
+{template MOD_CLUBBASE_SKILLPAGE_PROFILE}
+<!--{/if}-->
+<!--{if defined('MOD_WEPCHANGE')}-->
+{template MOD_WEPCHANGE_WEPCHANGE_PROFILE}
+<!--{/if}-->
+<!--{if defined('MOD_SONG')}-->
+{template MOD_SONG_SONG_PROFILE}
+<!--{/if}-->
+<br>
+<!--{if defined('MOD_CLUBBASE')}-->
+{template MOD_CLUBBASE_PROFILESKILLPAGE}
+<!--{/if}-->
+<br>
+<!--{if $club == 7}-->
+	<input type="button" class="cmdbutton" id="sp_adtsk" name="sp_adtsk" value="武器带电" onclick="$('command').value='special';$('subcmd').name='sp_cmd';$('subcmd').value='sp_adtsk';postCmd('gamecmd','command.php');this.disabled=true;">
+<!--{elseif $club == 8}-->
+	<input type="button" class="cmdbutton" id="sp_adtsk" name="sp_adtsk" value="武器淬毒" onclick="$('command').value='special';$('subcmd').name='sp_cmd';$('subcmd').value='sp_adtsk';postCmd('gamecmd','command.php');this.disabled=true;">
+	<input type="button" class="cmdbutton" id="sp_poison" name="sp_poison" value="检查毒物" onclick="$('command').value='special';$('subcmd').name='sp_cmd';$('subcmd').value='sp_poison';postCmd('gamecmd','command.php');this.disabled=true;">
+<!--{/if}-->

@@ -1,0 +1,82 @@
+<!--{if !defined('IN_HELP')}-->
+{template command}
+<input type="hidden" id="skillpara1" name="skillpara1" value="">
+<input type="hidden" id="skillpara2" name="skillpara2" value="">
+<input type="hidden" id="skillpara3" name="skillpara3" value="">
+<input type="hidden" id="skillpara4" name="skillpara4" value="">
+<input type="hidden" id="skillpara5" name="skillpara5" value="">
+<!--{/if}-->
+<!--{if defined('IN_HELP')}-->
+<div id="fmsgbox$nowclub" style="display: none;">
+<!--{else}-->
+<div id="fmsgbox">
+<!--{/if}-->
+<div style="position:fixed; left:0px; top:0px; z-index:2; margin:auto auto; filter:alpha(opacity=20); opacity:0.2; min-width:100%; max-width:100%; min-height:100%; max-height:100%; background-color:#000000">
+</div>
+<div style="position:fixed; left:0px; top:0px; z-index:3; margin:auto auto; min-width:100%; max-width:100%; min-height:100%; max-height:100%;">
+<div style="position:absolute; z-index:4; top:50%; margin-top:-270px; margin-left:auto; margin-right:auto; min-width:100%; max-width:100%; ">
+<div style="position:relative; z-index:4; margin-left:auto; margin-right:auto; filter:alpha(opacity=20); opacity:0.2; min-width:540px; max-width:540px; min-height:540px; max-height:540px; background-color:#000000">
+</div>
+</div>
+</div>
+<div style="position:fixed; left:0px; top:0px; z-index:3; margin:auto auto; min-width:100%; max-width:100%; min-height:100%; max-height:100%;" <!--{if !defined('IN_HELP')}-->onclick="$('mode').value='command';$('command').value='menu';$('fmsgbox').parentNode.removeChild($('fmsgbox'));"<!--{else}-->onclick="$('fmsgbox$nowclub').style.display = 'none';"<!--{/if}-->>
+<div style="position:absolute; z-index:5; top:50%; margin-top:-265px; margin-left:auto; margin-right:auto; min-width:100%; max-width:100%; ">
+<div style="position:relative; min-width:530px; max-width:530px; min-height:530px; max-height:530px; z-index:5; margin:0 auto; filter:alpha(opacity=95); opacity:0.95; background-color:#000000" onclick="if (event.stopPropagation) event.stopPropagation(); else event.cancelBubble = true; ">
+<div style="position:relative; margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; z-index:6; background-color:rgba(17,17,17,0.5); *BACKGROUND:rgb(17,17,17); *filter:alpha(opacity=50); BORDER: #000 0px none; color: #fff; text-align: center; border-right: #111 1px solid;font:10pt '微软雅黑' serif;">
+<!--
+<div style="position:absolute; right:12px; top:10px; width:8px; height:8px; z-index:7;">
+<a onclick="postCmd('gamecmd','command.php');" style="text-decoration: none"><font size="5">×</font></a>
+</div>
+-->
+<div style="position:relative; margin-left:8px; margin-top:0px; margin-right:0px; margin-bottom:8px; min-height:530px; max-height:530px; text-align:left; overflow-x:hidden; overflow-y:auto;" >
+<!--{if defined('IN_HELP')}-->
+<div class="scroll-pane$nowclub" style="max-height:514px; width:518px; overflow-x:hidden; overflow-y:auto; margin-top:8px; position:relative;">
+<!--{else}-->
+<div class="scroll-pane" style="max-height:514px; width:518px; overflow-x:hidden; overflow-y:auto; margin-top:8px; position:relative;">
+<!--{/if}-->
+<div style="position:relative; height:auto; margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; ">
+<p style="margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px;">
+<!--{if !defined('IN_HELP')}-->
+<!--于是经过各种边框，最后工作区的大小是height:514px width:509px--> 
+<!--{if $club==0}-->
+你还没有选择内定称号，请在主界面中选择一个内定称号后再查看技能。<br>
+<span class="yellow">点击技能界面外任意位置可以返回主界面。</span><br><br>
+<!--{else}-->
+<!--{eval \player\update_sdata();}-->
+你目前有<span class="lime">$skillpoint</span>点技能点供自由分配，升级时可以获取新的技能点。<br>
+以下是你的内定称号的技能列表。<br><br>
+<!--{/if}-->
+<!--{else}-->
+<!--{eval eval(import_module('clubbase'));}-->
+以下是$clubinfo[$nowclub]称号的技能列表。<br>
+技能点在升级时获得。鼠标移动到非开局解锁的技能上可以查看其描述。<br><br>
+<!--{/if}-->
+</p>
+<TABLE border="0" cellSpacing=0 cellPadding=0 width=509px>
+<tr>
+<td width="0"></td>
+<TD class=b1 width="40"><span>名称</span></TD>
+<TD class=b1><span></span></TD>
+</tr>
+<!--{eval \clubbase\get_skillpage();}-->
+</table>
+<br>
+<!--{if !defined('IN_HELP')}-->
+<input class="cmdbutton" onclick="$('mode').value='command';$('command').value='menu';$('fmsgbox').parentNode.removeChild($('fmsgbox'));" value="返回主界面" type="button">
+<!--{else}-->
+<input class="cmdbutton" onclick="$('fmsgbox$nowclub').style.display = 'none';" value="返回主界面" type="button">
+<!--{/if}-->
+&nbsp;&nbsp;&nbsp; 提示:点击技能界面外任意位置也可以返回主界面
+<br><br>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--{if !defined('IN_HELP')}-->
+<img type="hidden" src="img/blank.png" onload="if ($('fmsgbox-container').firstChild!=null) $('fmsgbox-container').removeChild($('fmsgbox-container').firstChild);$('fmsgbox-container').appendChild($('fmsgbox')); jQuery(function() { jQuery('.scroll-pane').jScrollPane(); });">
+<!--{/if}-->
+<!--{eval $mode='command'}-->

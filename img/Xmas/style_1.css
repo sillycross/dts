@@ -1,0 +1,85 @@
+﻿body {text-align: center; background-position: 50% 50%; background-image: url("../../img/STAR.gif"); background-attachment: fixed; background-repeat: no-repeat; font: 12px Tahoma, Verdana;cursor: crosshair; margin: 0; background-color: #111; color:#ddd;}
+a {font: bold 10pt "微软雅黑" serif;text-decoration: none;color: #ddd; cursor: crosshair;line-height:16px}
+a:hover {color: #98fb98;text-decoration:underline}
+table {align:center;border: 0px;}
+tr {font-size: 10pt; margin: 0px;}
+td {font-size: 10pt; margin: 0px;}
+th {font-size: 10pt; margin: 0px;}
+p {line-height:16px;}
+li {font: bold 10pt "微软雅黑" serif;line-height:16px}
+input {cursor: crosshair;}
+.title {font-family: "微软雅黑"; margin: 6px;color: #ff0078; width: 100%;filter:blur(add=1,direction=90,strength=12):glow(strength=5,color=gold); font-weight:900; text-decoration:underline;font-size: 30px;}
+.subtitle {font-family: "微软雅黑"; margin: 6px;color: #ff0078; width: 100%;font-size: 24px;font-weight:400;}
+.headerlink{}
+.small {font-size: 9pt}
+.b1 {background-color:rgba(98,135,163,0.6); *BACKGROUND: rgb(93,246,199); *filter:alpha(opacity=60); BORDER: #000 0px none; TEXT-ALIGN: center; COLOR: #fff; border-right: #084888 4px solid; border-bottom: #084888 4px solid;font:bold 10pt "微软雅黑" serif;}
+.b2 {background-color:rgba(98,135,163,0.6); *BACKGROUND: rgb(84,135,134); *filter:alpha(opacity=80); BORDER: #000 0px none; TEXT-ALIGN: center; COLOR: #fff; border-right: #084888 4px solid;font:10pt "微软雅黑" serif;}
+.b3 {background-color:rgba(17,17,17,0.5); *BACKGROUND:#111; *filter:alpha(opacity=50); BORDER: #000 0px none; color: #fff; text-align: center; border-right: #084888 4px solid;font:10pt "微软雅黑" serif;}
+.b4 {BORDER: #000 0px none; color: #fff; text-align: center;font: 10pt "微软雅黑" serif;}
+.b5 {BORDER: #000 0px none; color: #fff; text-align: center; border-right: #111 5px solid;font: 10pt "微软雅黑" serif;}
+.map {background-color:rgba(17,17,17,0.5); *BACKGROUND:#111; *filter:alpha(opacity=50);BORDER: #111 1px solid;text-align: center;font: bold 10pt "微软雅黑" serif;}
+.map2 {BORDER: #111 1px solid;text-align: center;font: bold 10pt "微软雅黑" serif;}
+.maptdred {background-color:rgba(255,0,0,0.25); *BACKGROUND:#f00; *filter:alpha(opacity=25);BORDER: #111 1px solid;text-align: center;font: bold 10pt "微软雅黑" serif;}
+.maptdyellow {background-color:rgba(255,255,0,0.25); *BACKGROUND:#ff0; *filter:alpha(opacity=25);BORDER: #111 1px solid;text-align: center;font: bold 10pt "微软雅黑" serif;}
+.maptdlime {background-color:rgba(0,255,0,0.2); *BACKGROUND:#0f0; *filter:alpha(opacity=20);BORDER: #111 1px solid;text-align: center;font: bold 10pt "微软雅黑" serif;}
+.mapspanred{color:#f00;position:relative;font-size: 9pt;line-height:16px}
+.mapspanlime{color:#0f0;position:relative;font-size: 9pt;line-height:16px}
+.mapspanyellow{color:#ff0;position:relative;font-size: 9pt;line-height:16px}
+.admin td {BORDER: #000 3px transparent; TEXT-ALIGN: center; BACKGROUND: RGB(64,172,140); COLOR: #fff; border-right: #111 5px solid;font: 10pt "微软雅黑" serif;}
+
+
+.clit {color: #feea23; font:18pt "微软雅黑" serif; }
+.yellow{color:#ffff00; font: bold 10pt "微软雅黑" serif;line-height:16px}
+.clan{color: #00ffff;font: bold 10pt "微软雅黑" serif;line-height:16px}
+.blue{color: #0000ff;font: bold 10pt "微软雅黑" serif;line-height:16px}
+.red{color: #ff0000;font: bold 10pt "微软雅黑" serif;line-height:16px}
+.green{color: #008000;font: bold 10pt "微软雅黑" serif;line-height:16px}
+.lime{color: #00ff00;font: bold 10pt "微软雅黑" serif;line-height:16px}
+.purple{color: #9900cc;font: bold 10pt "微软雅黑" serif;line-height:16px}
+.evergreen{color:#98fb98;font: bold 10pt "微软雅黑" serif;line-height:16px}
+.evergreen2{color:#98fb98;font:18pt "微软雅黑" serif;}
+.dmg {color:#ff0000;font: bold 10pt "微软雅黑" serif;}
+.grey{color:#999; font: bold 10pt "微软雅黑" serif;line-height:16px}
+
+
+#main {
+white-space:nowrap;
+vertical-align:middle;
+}
+.battle td{
+text-align: center;
+}
+#chatlist{
+MARGIN: 0px;
+height:140px;
+width:635px;
+word-break:break-all;
+overflow:auto;
+position:relative;
+}
+#sendchat{
+MARGIN: 0px;
+padding:0px;
+border:0px; 
+height:35px;
+width:635px;
+}
+#chatmsg{
+width:450px;
+border-right: #ddc 2px solid;
+border-top: #666 2px solid;
+border-left: #666 2px solid;
+border-bottom: #ddc 2px solid;
+}
+.nttx{
+	position:relative;line-height:16px
+}
+#log{
+	line-height:15px
+}
+.footerline {
+height: 1px;
+background-image: url("../../img/footer_line.gif");
+}
+.clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; } 
+.clearfix {display: inline-table;} /* Hides from IE-mac \*/ * html .clearfix {height: 1%;} .clearfix {display: block;} /* End hide from IE-mac */ 

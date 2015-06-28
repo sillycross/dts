@@ -1,0 +1,78 @@
+﻿body {text-align: center; background-position: 50% 50%; background-image: url("../../img/STAR.png"); background-attachment: fixed; background-repeat: no-repeat; font: 12px Tahoma, Verdana;cursor: crosshair; margin: 0; background-color: #111111; color: #ffffff;}
+a {text-decoration: none;color: #bbb; cursor: crosshair;}
+a:hover {color: #bff;}
+table {border: 1px;}
+tr {font-size: 10pt}
+td {font-size: 10pt}
+th {font-size: 10pt}
+input {cursor: crosshair;}
+select {background-color:#ded8cb}
+.title {font-family: "黑体"; margin: 6px;color: #ff0000; width: 100%;filter:blur(add=1,direction=90,strength=12):glow(strength=5,color=gold); font-weight:900; text-decoration:underline;font-size: 30px;}
+.subtitle {margin: 6px;color: #ff0000; width: 100%;font-size: 24px;font-weight:400;}
+.headerlink{}
+.small {font-size: 9pt}
+.b1 {background-color:rgba(93,246,199,0.6); *BACKGROUND: RGB(93,246,199); *filter:alpha(opacity=60); BORDER: #000 0px none; TEXT-ALIGN: center; COLOR: #fff; border-right: #111 5px solid; border-bottom: #111 5px solid}
+.b2 {background-color:rgba(84,135,134,0.8); *BACKGROUND: RGB(84,135,134); *filter:alpha(opacity=80); BORDER: #000 0px none; TEXT-ALIGN: center; COLOR: #fff; border-right: #111 5px solid}
+.b3 {background-color:rgba(17,17,17,0.5); *BACKGROUND:#111111; *filter:alpha(opacity=50); BORDER: #000 0px none; color: #fff; text-align: center; border-right: #111 5px solid}
+.b4 {BORDER: #000 0px none; color: #fff; text-align: center}
+.b5 {BORDER: #000 0px none; color: #fff; text-align: center; border-right: #111 5px solid}
+.admin td {BORDER: #000 3px transparent; TEXT-ALIGN: center; BACKGROUND: RGB(64,172,140); COLOR: #fff; border-right: #111 5px solid}
+.t1 {text-align:center; font-weight: bold; color: black; border-left-style: none; border-right: 1.5pt solid black; border-top-style: none; border-bottom: 1.5pt solid black}
+.t2 {text-align:center; font-weight: bold; color: black; border-left-style: none; border-right-style: none; border-top-style: none; border-bottom: 1.5pt solid black}
+.t3 {text-align:center; font-weight: bold; color: black; border-left-style: none; border-right: 1.5pt solid black; border-top-style: none; border-bottom-style: none}
+.t4 {text-align:center; font-weight: normal; color: black; border-style: none; background-color: #808080}
+.t5 {text-align:center; font-weight: normal; color: black; border-style: none; background-color: #333333}
+.clit {color: #feea23; font: 900 18pt serif; }
+.yellow{color:#ffff00; font: 900 serif;}
+.clan{color: #00ffff;font: 900 serif;}
+.blue{color: #0000ff;font: 900 serif;}
+.red{color: #ff0000;font: 900 serif;}
+.green{color: #008000;font: 900 serif;}
+.lime{color: #00ff00;font: 900 serif;}
+.purple{color: #9900cc;font: 900 serif;}
+.dmg {font-size: 900 12pt; color: #ff0000}
+
+
+
+#main {
+white-space:nowrap;
+vertical-align:middle;
+}
+.battle td{
+text-align: center;
+}
+#chatlist{
+MARGIN: 0px;
+height:185px;
+width:600px;
+word-break:break-all;
+overflow:auto;
+position:relative;
+}
+#sendchat{
+MARGIN: 0px;
+padding:0px;
+border:0px; 
+height:30px;
+width:600px;
+}
+#chatmsg{
+width:400px;
+border-right: #ddc 2px solid;
+border-top: #666 2px solid;
+border-left: #666 2px solid;
+border-bottom: #ddc 2px solid;
+background-color: #ded8cb;
+}
+#nttdtext{
+	position:relative;
+}
+#log{
+	position:relative;
+}
+.footerline {
+height: 1px;
+background-image: url("../../img/footer_line.gif");
+}
+.clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; } 
+.clearfix {display: inline-table;} /* Hides from IE-mac \*/ * html .clearfix {height: 1%;} .clearfix {display: block;} /* End hide from IE-mac */ 

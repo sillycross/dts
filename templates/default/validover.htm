@@ -1,0 +1,60 @@
+{template header}
+
+
+
+
+<div class="subtitle" >{lang validover}</div>
+<p><img border="0" src="img/story_0.gif" style="align:center"></p>
+<table border="0" cellspacing="0" align="center">
+  <tbody>
+	<tr>
+		<td class="b1"><span>{lang name}</span></td>
+		<td class="b3"><span>$cuser</span></td>
+		<td rowspan="3" colspan="2" class="b3"><span><img src="./img/{$gd}_{$icon}.gif" border="0" /></span></td>
+	</tr>
+	<tr>
+		<td class="b1"><span>{lang sNo}</span></td>
+		<td class="b3"><span>{$sexinfo[$gd]}{$sNo}号</span></td>
+		
+	</tr>
+	<tr>
+		<td class="b1"><span>{lang club}</span></td>
+		<td class="b3"><span>无</span></td>
+	</tr>
+	<tr>
+		<td class="b1"><span>{lang hp}</span></td>
+		<td class="b3"><span>$hp / $mhp</span></td>
+		<td class="b1"><span>{lang sp}</span></td>
+		<td class="b3"><span>$sp / $msp</span></td>
+	</tr>
+	<tr>
+		<td class="b1"><span>{lang att}</span></td>
+		<td class="b3"><span>$att</span></td>
+		<td class="b1"><span>{lang def}</span></td>
+		<td class="b3"><span>$def</span></td>
+	</tr>
+	<tr>
+		<td class="b1"><span>{lang wep}</span></td>
+		<td class="b3" colspan="3"><span>$wep</span></td>
+	</tr>
+	<tr>
+		<td class="b1"><span>{lang startpack}1</span></td>
+		<td class="b3" colspan="3"><span>$itm[3]</span></td>
+	</tr>
+	<tr>
+		<td class="b1"><span>{lang startpack}2</span></td>
+		<td class="b3" colspan="3"><span>$itm[4]</span></td>
+	</tr>
+  </tbody>
+</table>
+<p align="center">“{$cuser}，对吧？正在为您创建虚拟身份……<br>
+“创建完成！您可以凭这个身份参加我们的特别活动了。
+<br>
+“会场入口就在前面。动漫祭的开幕仪式就要开始了，请您尽快入场。”<br><br>
+
+<form method="post"  action="valid.php" style="margin: 0px">
+<input type="hidden" name="mode" value="notice">
+<input type="submit" name="enter" value="{lang enternotice}">
+</form>
+</p>
+{template footer}

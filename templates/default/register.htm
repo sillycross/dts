@@ -1,0 +1,23 @@
+{template header}
+<div class="subtitle" align="center">{lang register}</div>
+
+<p align="center">
+	<span id="notice"></span>
+	<span id="info" class="yellow"></span>
+</p>
+<center>
+	<form method="post" id="reg" name="reg">
+		<input type="hidden" name="cmd" value="post_register">
+		<span class ="yellow">{lang basicdata}</span>
+		{template userbasicdata}<br />
+		<span class ="yellow">{lang advanceddata}</span>
+		{template usergdicon}<br />
+		{template userwords}<br />
+		<div id="postreg">
+			<input type="submit" id="post" onClick="postCmd('reg','register.php');return false;" value="{lang submit}">
+			<input type="reset" id="reset" name="reset" value="{lang reset}">
+		</div>
+	</form>
+</center>
+<br />
+{template footer}

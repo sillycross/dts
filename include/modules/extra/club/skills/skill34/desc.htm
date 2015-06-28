@@ -1,0 +1,38 @@
+<!--{eval eval(import_module('skill34'));}-->
+<!--{eval eval(import_module('itemmain'));}-->
+<!--{eval $___TEMP_SKILL_ID=34;}-->
+<!--{eval $nchoice = \skillbase\skill_getvalue(34,'choice'); }-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+百战
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+选择任一单体减半防御属性，你视为具有它。<br>
+当前选择是：<span class="yellow"><!--{if $nchoice!=''}-->$itemspkinfo[$nchoice]<!--{else}-->无<!--{/if}--></span>
+&nbsp;
+变更选择为：
+<select name="skill34_choice" id="skill34_choice" onchange="$('mode').value='special';$('command').value='skill34_special';$('subcmd').value='upgrade';$('skillpara1').value=$('skill34_choice').value;postCmd('gamecmd','command.php');this.disabled=true;">
+<!--{loop \skill34\get_avaliable_attr() $key}-->
+<!--{if $key!=$nchoice}-->
+<option value="$key">$itemspkinfo[$key]<br />
+<!--{/if}-->
+<!--{/loop}-->
+</select>
+&nbsp;
+可随时改变
+<br>
+</span></td>
+<td class=b3 width=46>
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+在“格挡”和“猛击”上共计花费至少14技能点以解锁<br>
+<!--{eval $skill34_cprogress=\skill34\get_unlock34_progress($sdata);}-->
+<!--{if $skill34_cprogress>0}-->
+<span class="clan">当前进度$skill34_cprogress/14</span>
+<!--{/if}-->
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

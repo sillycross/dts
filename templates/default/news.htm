@@ -1,0 +1,41 @@
+{template header}
+<div id="notice"></div>
+<div class="subtitle" >{lang news}</div>
+
+<div align="left">
+<div class="clearfix">
+<span style="float:left;" ><img border="0" src="img/question.gif"></span>
+<span>{lang newsnotice}</span>
+</div>
+<br>
+<!--{eval eval(import_module('weather'));}-->
+<span class="evergreen">当前时间：{lang gamedate}</span><br />
+<span class="evergreen">当前天气：{$wthinfo[$weather]}</span><br />
+<!--{if $gamestate==40}--><span class="yellow">游戏已经进入连斗阶段！</span><br /><!--{/if}-->
+<!--{if $gamestate==50}--><span class="red">游戏已经进入死斗模式！</span><br /><!--{/if}-->
+<!--{if $hack}--><span class="evergreen">（禁区已解除）</span><!--{/if}-->
+{template areainfo}
+<br><br>
+<form method="post" name="news" onSubmit="return false;">
+	<input type="hidden" id="newsmode" name="newsmode" value="last">
+	<button onClick="$('newsmode').value='last';postCmd('news','news.php');">显示最新的{$newslimit}条消息</button>
+	<button onClick="$('newsmode').value='all';postCmd('news','news.php');">显示全部消息</button>
+	<button onClick="$('newsmode').value='chat';postCmd('news','news.php');">显示最新聊天纪录</button>
+</form>
+
+
+<div id="newsinfo">
+<!--{if $newsmode == 'all'}-->
+{template newsinfo}
+<!--{else}-->
+{template lastnews}
+<!--{/if}-->
+</div>
+
+</div>
+<br>
+<form method="post" name="backindex" action="index.php">
+<input type="submit" name="enter" value="{lang backindex}">
+</form>
+
+{template footer}

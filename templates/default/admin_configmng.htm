@@ -1,0 +1,48 @@
+<form method="post" name="configmng" onsubmit="admin.php">
+<input type="hidden" id="mode" name="mode" value="configmng">
+<input type="hidden" id="command" name="command" value="">
+
+<table class="admin">
+	<tr>
+		<th>$lang['variable']</th>
+		<th>$lang['value']</th>
+		<th>$lang['comment']</th>
+	</tr>
+	<tr>
+	  <td>$lang['moveut']</td>
+	  <td><input type="text" name="moveut" value="$moveut" size="5">小时<input type="text" name="moveutmin" value="$moveutmin" size="5">分钟</td>
+	  <td>$lang['moveut_comment']<br>{$lang['orin_time']}{$orin_time}<br>{$lang['set_time']}{$set_time}</td>
+	</tr>
+	<tr>
+	  <td>$lang['authkey']</td>
+	  <td><input type="text" name="authkey" value="$authkey" size="30" disabled="true"></td>
+	  <td>$lang['authkey_comment']</td>
+	</tr>
+	<tr>
+	  <td>$lang['tplrefresh']</td>
+	  <td><input type="radio" name="tplrefresh" value="1" <!--{if $tplrefresh}-->checked="true"<!--{/if}-->>$lang['on']&nbsp;&nbsp;&nbsp;<input type="radio" name="tplrefresh" value="0" <!--{if !$tplrefresh}-->checked="true"<!--{/if}-->>$lang['off']</td>
+	  <td>$lang['tplrefresh_comment']</td>
+	</tr>
+	<tr>
+	  <td>$lang['errorinfo']</td>
+	  <td><input type="radio" name="errorinfo" value="1" <!--{if $errorinfo}-->checked="true"<!--{/if}-->>$lang['on']&nbsp;&nbsp;&nbsp;<input type="radio" name="errorinfo" value="0" <!--{if !$errorinfo}-->checked="true"<!--{/if}-->>$lang['off']</td>
+	  <td>$lang['errorinfo_comment']</td>
+	</tr>
+	<tr>
+	  <td>$lang['bbsurl']</td>
+	  <td><input type="text" name="bbsurl" value="$bbsurl" size="30"></td>
+	  <td>$lang['bbsurl_comment']</td>
+	</tr>
+	<tr>
+	  <td>$lang['gameurl']</td>
+	  <td><input type="text" name="gameurl" value="$gameurl" size="30"></td>
+	  <td>$lang['gameurl_comment']</td>
+	</tr>
+	<tr>
+	  <td>$lang['homepage']</td>
+	  <td><input type="text" name="homepage" value="$homepage" size="30"></td>
+	  <td>$lang['homepage_comment']</td>
+	</tr>
+</table>
+<input type="submit" value="提交" onclick="$('command').value='edit';">
+</form>

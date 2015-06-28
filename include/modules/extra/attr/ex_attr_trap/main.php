@@ -1,0 +1,94 @@
+<?php
+
+namespace ex_attr_trap
+{
+	function init()
+	{
+		eval(import_module('itemmain'));
+		$itemspkinfo['M'] = '陷阱探测';
+		$itemspkinfo['m'] = '陷阱迎击';
+	}
+	
+	//陷阱探测回避加成
+	function calculate_trapdetect_rate()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		/*
+		if($club == 7){//电脑社使用探雷器效率增加
+			$escrate += 45;
+		*/
+		return 35;
+	}
+	
+	function get_trap_escape_rate()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (\attrbase\check_itmsk('M'))
+			return calculate_trapdetect_rate()+$chprocess();
+		else  return $chprocess();
+	}
+	
+	//陷阱迎击触发率
+	function calculate_trapdef_proc_rate()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 40;
+	}
+	
+	function trap_deal_damage()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','trap','logger'));
+		
+		if (\attrbase\check_itmsk('m'))
+		{
+			$proc_rate = calculate_trapdef_proc_rate();
+			$dice = rand(0,99);
+			if ($dice < $proc_rate)
+			{
+				//迎击触发
+				if ($playerflag) 
+				{
+					addnews($now,'trapdef',$name,$trname,$itm0);
+					if(!$selflag)
+					{
+						$w_log = "<span class=\"yellow\">{$name}触发了你设置的陷阱{$itm0}，但是没有受到任何伤害！</span><br>";
+						\logger\logsave ( $itmsk0, $now, $w_log ,'b');
+					}	
+				}	
+				$log .= "糟糕，你触发了{$trperfix}陷阱<span class=\"yellow\">$itm0</span>！<br>不过，身上装备着的自动迎击系统启动了！<span class=\"yellow\">在迎击功能的保护下你毫发无伤。</span><br>";
+				return;
+			}
+		}
+		$chprocess();
+	}
+	
+	function trap_miss_broken()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('logger'));
+		if (\attrbase\check_itmsk('M')) $log.='在探雷装备的帮助下，';
+		$chprocess();
+	}
+	
+	function trap_miss_reused()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('logger'));
+		if (\attrbase\check_itmsk('M')) $log.='在探雷装备的帮助下，';
+		$chprocess();
+	}
+	
+	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)	
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player'));
+		
+		if($news == 'trapdef') 
+			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}依靠迎击装备抵御了{$b}设置的陷阱{$c}的伤害</span><br>\n";
+		
+		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+	}
+}
+
+?>

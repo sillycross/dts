@@ -1,0 +1,31 @@
+<table align="center">
+	<tr><td>
+		<span id="main">
+		{template profile}
+		<span>
+		</td>
+		<td>
+		<table border="1" width="250" height="300" cellspacing="0" cellpadding="0" >
+			<tr height="1">
+				<td height="20" class="b1"><span><span class="yellow">系统状况</span></td>
+			</tr>
+			<tr><td valign="top"class="b3" style="text-align: left"><div>
+			第 $gid 回生存游戏<br>
+			参加人数： $vnum 人<br>
+			胜利方式： $gwin[$wmode]<br>
+			游戏进行时间：$gdate<br>
+			游戏开始时间：$gsdate<br>           
+			游戏结束时间：$gedate<br>
+			本场最高伤害者： $hdp ($hdmg)<br>
+			本场最多杀人者： $hkp ($hkill)<br>
+<br>
+<form method="post" name="back" action="winner.php">
+<input type="submit" name="submit" value="{lang back}">
+</form>
+
+				</div></td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+</table>

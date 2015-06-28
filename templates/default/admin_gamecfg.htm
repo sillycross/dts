@@ -1,0 +1,92 @@
+<form method="post" name="gamecfgmng" onsubmit="admin.php">
+	<input type="hidden" name="mode" value="gamecfgmng">
+	<input type="hidden" id="command" name="command" value="">
+	<table class="admin">
+		<tr>
+			<th>{$lang['variable']}</th>
+			<th>{$lang['value']}</th>
+			<th>{$lang['comment']}</th>
+		</tr>
+		<tr>
+			<td>{$lang['areahour']}</td>
+			<td><input type="text" name="areahour" value="{$areahour}" size="30"></td>
+			<td>{$lang['areahour_comment']}</td>
+		</tr>
+		<tr>
+			<td>{$lang['areaadd']}</td>
+			<td><input type="text" name="areaadd" value="{$areaadd}" size="30"></td>
+			<td>{$lang['areaadd_comment']}</td>
+		</tr>
+		<tr>
+			<td>{$lang['arealimit']}</td>
+			<td><input type="text" name="arealimit" value="{$arealimit}" size="30"></td>
+			<td>{$lang['arealimit_comment']}</td>
+		</tr>
+		<tr>
+			<td>{$lang['areaesc']}</td>
+			<td><input type="text" name="areaesc" value="{$areaesc}" size="30"></td>
+			<td>{$lang['areaesc_comment']}</td>
+		</tr>
+		<tr>
+			<td>{$lang['antiAFKertime']}</td>
+			<td><input type="text" name="antiAFKertime" value="{$antiAFKertime}" size="30"></td>
+			<td>{$lang['antiAFKertime_comment']}</td>
+		</tr>
+		<tr>
+			<td>{$lang['corpseprotect']}</td>
+			<td><input type="text" name="corpseprotect" value="{$corpseprotect}" size="30"></td>
+			<td>{$lang['corpseprotect_comment']}</td>
+		</tr>
+		<tr>
+			<td>{$lang['coldtimeon']}</td>
+			<td><input type="radio" name="coldtimeon" value="1" <!--{if $coldtimeon}-->checked="true"<!--{/if}-->>$lang['on']&nbsp;&nbsp;&nbsp;<input type="radio" name="coldtimeon" value="0" <!--{if !$coldtimeon}-->checked="true"<!--{/if}-->>$lang['off']</td>
+			<td>{$lang['coldtimeon_comment']}</td>
+		</tr>
+		<tr>
+			<td>{$lang['showcoldtimer']}</td>
+			<td><input type="radio" name="showcoldtimer" value="1" <!--{if $showcoldtimer}-->checked="true"<!--{/if}-->>$lang['on']&nbsp;&nbsp;&nbsp;<input type="radio" name="showcoldtimer" value="0" <!--{if !$showcoldtimer}-->checked="true"<!--{/if}-->>$lang['off']</td>
+			<td>{$lang['showcoldtimer_comment']}</td>
+		</tr>
+		<tr>
+			<td>{$lang['validlimit']}</td>
+			<td><input type="text" name="validlimit" value="{$validlimit}" size="30"></td>
+			<td>{$lang['validlimit_comment']}</td>
+		</tr>
+		<tr>
+			<td>{$lang['combolimit']}</td>
+			<td><input type="text" name="combolimit" value="{$combolimit}" size="30"></td>
+			<td>{$lang['combolimit_comment']}</td>
+		</tr>
+		<tr>
+			<td>{$lang['deathlimit']}</td>
+			<td><input type="text" name="deathlimit" value="{$deathlimit}" size="30"></td>
+			<td>{$lang['deathlimit_comment']}</td>
+		</tr>
+		<tr>
+			<td>{$lang['splimit']}</td>
+			<td><input type="text" name="splimit" value="{$splimit}" size="30"></td>
+			<td>{$lang['splimit_comment']}</td>
+		</tr>
+		<tr>
+			<td>{$lang['hplimit']}</td>
+			<td><input type="text" name="hplimit" value="{$hplimit}" size="30"></td>
+			<td>{$lang['hplimit_comment']}</td>
+		</tr>
+		<tr>
+			<td>{$lang['sleep_time']}</td>
+			<td><input type="text" name="sleep_time" value="{$sleep_time}" size="30"></td>
+			<td>{$lang['sleep_time_comment']}</td>
+		</tr>
+		<tr>
+			<td>{$lang['heal_time']}</td>
+			<td><input type="text" name="heal_time" value="{$heal_time}" size="30"></td>
+			<td>{$lang['heal_time_comment']}</td>
+		</tr>
+		<tr>
+			<td>{$lang['teamlimit']}</td>
+			<td><input type="text" name="teamlimit" value="{$teamlimit}" size="30"></td>
+			<td>{$lang['teamlimit_comment']}</td>
+		</tr>
+	</table>
+	<input type="submit" value="修改" onclick="$('command').value='edit';">
+</form>

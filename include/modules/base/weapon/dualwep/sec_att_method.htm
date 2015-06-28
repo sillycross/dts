@@ -1,0 +1,5 @@
+<!--{eval eval(import_module('dualwep'));}-->
+<!--{eval $secattmethod=\dualwep\get_sec_attack_method($sdata);}-->
+<!--{if ($secattmethod!='')}-->
+<input type="button" class="cmdbutton" style="width:98" name="w2" value="{$attinfo[$secattmethod]}" onclick="$('command').value='$secattmethod';postCmd('gamecmd','command.php');this.disabled=true;"><br>
+<!--{/if}-->   

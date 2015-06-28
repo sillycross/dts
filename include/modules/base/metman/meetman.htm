@@ -1,0 +1,116 @@
+<!--{eval eval(import_module('metman'));}-->
+<table border="0" width=720px height=380px cellspacing="0" cellpadding="0" valign="middle">
+	<TR align="center" >
+		<TD valign="middle" class="b5">
+			<TABLE border="0" width=720px height=380px align="center" cellspacing="0" cellpadding="0" class="battle">
+				<tr>
+					<td>
+						<table border="0" cellspacing="0" cellpadding="0" width="100%">
+							<tr>
+								<td>
+									<table border="0"  cellspacing="0" cellpadding="0" valign="top" width="100%">
+										<tr>
+											<td class="b1" colspan=2 height=20px><span>Lv. $tdata['lvl']</span></td>											
+											<td class="b1" colspan=2><span>$tdata['name']</span></td>											
+											<td class="b1" colspan=2><span>$tdata['sNoinfo']</span></td>											
+											<td class="b5" rowspan=4 width=140px colspan=1 height=80px><IMG src="img/$tdata['iconImg']" height=80px border="0" align="middle" <!--{if $w_hp==0}-->style="filter:Xray()"<!--{/if}--> /></td>
+										</tr>
+										<tr>
+											<td class="b2" width=75px height=20px><span>{lang rage}</span></td>
+											<td class="b3" width=90px><span>$tdata['ragestate']</span></td>
+											<td class="b2" width=75px><span>{lang sp}</span></td>
+											<td class="b3" width=90px><span>$tdata['spstate']</span></td>
+											<td class="b2" width=100px><span>{lang hp}</span></td>
+											<td class="b3" width=145px><span>$tdata['hpstate']</span></td>
+										</tr>
+										<tr>
+											<td class="b2" height=20px><span>{lang wep}{lang effect}</span></td>
+											<td class="b3"><span>$tdata['wepestate']</span></td>
+											<td class="b2"><span>{lang wep}{lang kind1}</span></td>
+											<td class="b3"><span><!--{if (isset($iteminfo[$tdata['wepk']]))}-->$iteminfo[$tdata['wepk']]<!--{else}-->$tdata['wepk']<!--{/if}--></span></td>
+											<td class="b2"><span>{lang wep}</span></td>
+											<td class="b3"><span>$tdata['wep']</span></td>
+										</tr>
+										<tr>
+											<!--{if defined('MOD_TACTIC')}-->
+											{template MOD_TACTIC_ENEMY_TACTIC}
+											<!--{else}-->
+											<td class="b2"><span></span></td><td class="b3"><span></span></td>
+											<!--{/if}-->
+											<!--{if defined('MOD_POSE')}-->
+											{template MOD_POSE_ENEMY_POSE}
+											<!--{else}-->
+											<td class="b2"><span></span></td><td class="b3"><span></span></td>
+											<!--{/if}-->
+											<td class="b2"><span>{lang inf}</span></td>
+											<td class="b3"><span><!--{if $tdata['infdata']}-->$tdata['infdata']<!--{else}-->无<!--{/if}--></span></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</TR>
+				<tr>
+					<TD class="b3" height="100%">
+						<span><B><FONT color="#ff0000" size="5" face="黑体">$battle_title</FONT></B></span>
+					</TD>
+				</TR>
+				<tr>
+					<td>
+						<table border="0" width=720px cellspacing="0" cellpadding="0" valign="middle">
+							<tr>
+								<td class="b5" rowspan=4 colspan=1 width=140px height=80px><IMG src="img/$iconImg" height=80px border="0" align="middle" <!--{if $hp==0}-->style="filter:Xray()"<!--{/if}--> /></td>
+								<td class="b1" colspan=2 height=20px><span>$typeinfo[$type]({$sexinfo[$gd]}{$sNo}号)</span></td>
+								<td class="b1" colspan=2><span>$name</span></td>
+								<td class="b1" colspan=2><span>Lv. $lvl</span></td>
+							</tr>
+							<tr>
+								<td class="b2" width=100px height=20px><span>{lang hp}</span></td>
+								<td class="b3" width=145px><span><span class="$hpcolor">$hp / $mhp</span></span></td>
+								<td class="b2" width=75px><span>{lang sp}</span></td>
+								<td class="b3" width=90px><span>$sp / $msp</span></td>
+								<td class="b2" width=75px><span>{lang rage}</span></td>
+								<td class="b3" width=90px><span><!--{if $rage >=30}--><span class="yellow">$rage</span><!--{else}-->$rage<!--{/if}--></span></td>
+							</tr>
+							<tr>
+								<td class="b2" height=20px><span>{lang wep}</span></td>
+								<td class="b3"><span>$wep</span></td>
+								<td class="b2"><span>{lang wep}{lang kind1}</span></td>
+								<td class="b3"><span>$iteminfo[$wepk]</span></td>
+								<td class="b2"><span>{lang wep}{lang effect}</span></td>
+								<td class="b3"><span>$wepe</span></td>
+							</tr>
+							<tr>
+								<td class="b2" height=20px><span>{lang inf}</span></td>
+								<td class="b3">
+									<span>
+										<!--{if $inf}-->
+											<!--{loop $infinfo $key $val}-->
+												<!--{if strpos($inf,$key)!==false}-->
+													$val
+												<!--{/if}-->
+											<!--{/loop}-->
+										<!--{else}-->
+										无
+										<!--{/if}-->
+									</span>
+								</td>
+								<!--{if defined('MOD_POSE')}-->
+								{template MOD_POSE_POSE_PROFILE}
+								<!--{else}-->
+								<td class="b2"><span></span></td><td class="b3"><span></span></td>
+								<!--{/if}-->
+								<!--{if defined('MOD_TACTIC')}-->
+								{template MOD_TACTIC_TACTIC_PROFILE}
+								<!--{else}-->
+								<td class="b2"><span></span></td><td class="b3"><span></span></td>
+								<!--{/if}-->
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</TABLE>
+		</TD>
+	</TR>
+</table>

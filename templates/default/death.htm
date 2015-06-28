@@ -1,0 +1,13 @@
+<br>
+<div class="subtitle">$stateinfo[$state]</div>
+<div>$dinfo[$state]</div>
+<div>死亡时间：$dtime</div>
+<!--{if !empty($kname) && (in_array($state,Array(20,21,22,23,24,28,29)))}--><div>凶手：$kname</div><!--{/if}-->
+<br>
+<span class="dmg">你死了。</span>
+<br><br>
+<!--{if isset($weibolog) && strpos($gameurl,'dianbo')!==false}-->
+<input type="button" value="我靠！怒电波之！" onclick="window.location.href='http://dianbo.me/index.php?app=home&mod=Widget&act=share&url=http%3A%2F%2Flg.dianbo.me%2F&title=%{$weibolog}%'">
+<!--{else}-->
+<input type="button" class="cmdbutton" value="我靠！" disabled>
+<!--{/if}-->

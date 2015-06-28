@@ -1,0 +1,27 @@
+{template header}
+
+
+
+
+<div class="subtitle" >{lang validover}</div>
+
+<table border="1" cellspacing="0" align="center">
+  <tbody>
+	<tr><td class="b1">{lang name}</td><td colspan="3" class="b3">$cuser</td></tr>
+	<tr><td class="b1">{lang sNo}</td><td colspan="3" class="b3">$sexinfo[$gd] $sNo 号</td></tr>
+	<tr><td class="b1">{lang club}</td><td colspan="3" class="b3">$clubinfo[$club]</td></tr>
+	<tr><td class="b1">{lang hp}</td><td class="b3">100/100</td><td width="39" class="b1">{lang sp}</td><td class="b3">300</td></tr>
+	<tr><td class="b1">{lang att}</td><td class="b3">95</td><td class="b1">{lang wep}</td><td class="b3">$wep</td></tr>
+	<tr><td class="b1">{lang def}</td><td class="b3">105</td><td class="b1">{lang arb}</td><td class="b3">$arb</td></tr>
+  </tbody>
+</table>
+<p align="center">$cuser 对吧？<br>
+转校手续刚办完，明天就是毕业旅行。<br>
+你可真幸运，千万记着不要迟到！<br><br>
+
+<form method="post"  action="valid.php" style="margin: 0px">
+<input type="hidden" name="mode" value="notice">
+<input type="submit" name="enter" value="{lang enternotice}">
+</form>
+</p>
+{template footer}
