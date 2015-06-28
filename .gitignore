@@ -3,9 +3,4 @@ nohup.out
 include/modules/core/sys/config/server.config.php
 include/modulemng.config.php
 gamedata/adminlog.php
-gamedata/bak/*
-gamedata/modinit/*
-gamedata/run/*
-gamedata/templates/*
-gamedata/tmp/server/*
-gamedata/tmp/response/*
+
