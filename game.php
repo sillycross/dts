@@ -31,6 +31,8 @@ if($gamestate == 0) {
 	header("Location: end.php");exit();
 }
 
+\player\load_playerdata(\player\fetch_playerdata($cuser));
+
 \player\init_playerdata();
 \player\init_profile();
 

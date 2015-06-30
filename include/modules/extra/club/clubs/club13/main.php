@@ -8,7 +8,7 @@ namespace club13
 		$clubinfo[13] = '根性兄贵';
 		$clublist[13] = Array(
 			'type' => 1,
-			'probability' => 10000, 
+			'probability' => 100, 
 			'skills' => Array(
 				29,11,12,		//生命成长增加
 				31,28,30,

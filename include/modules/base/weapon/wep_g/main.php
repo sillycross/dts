@@ -4,7 +4,7 @@ namespace wep_g
 {
 	function init() 
 	{
-		eval(import_module('sys','weapon','itemmain'));
+		eval(import_module('weapon','itemmain'));
 		if (defined('MOD_NOISE')) eval(import_module('noise'));
 		
 		//武器类型依赖的熟练度名称

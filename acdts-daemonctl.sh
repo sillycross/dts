@@ -35,10 +35,10 @@ luanch_new_daemon()
 }
 
 #服务器地址
-sv=`php -r 'include "./include/modules/core/sys/config/server.config.php"; echo $server_address;'`
+sv=`php -r 'error_reporting(0); include "./include/modules/core/sys/config/server.config.php"; echo $server_address;'`
 
 #获取连接密码
-pw=`php -r 'include "./include/modulemng.config.php"; echo $___MOD_CONN_PASSWD;'`
+pw=`php -r 'error_reporting(0); include "./include/modulemng.config.php"; echo $___MOD_CONN_PASSWD;'`
 
 for ((;1;))
 do
@@ -51,7 +51,7 @@ do
 	fi
 	
 	#获取模式
-	md=`php -r 'include "./include/modulemng.config.php"; echo $___MOD_SRV;'`
+	md=`php -r 'error_reporting(0); include "./include/modulemng.config.php"; echo $___MOD_SRV;'`
 
 	if [ $md -eq 1 ]; then
 		if [ -f ./gamedata/tmp/server/request_new_server ]; then

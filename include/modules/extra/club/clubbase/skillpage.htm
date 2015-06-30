@@ -61,13 +61,14 @@
 <!--{eval \clubbase\get_skillpage();}-->
 </table>
 <br>
+<p>
 <!--{if !defined('IN_HELP')}-->
 <input class="cmdbutton" onclick="$('mode').value='command';$('command').value='menu';$('fmsgbox').parentNode.removeChild($('fmsgbox'));" value="返回主界面" type="button">
 <!--{else}-->
 <input class="cmdbutton" onclick="$('fmsgbox$nowclub').style.display = 'none';" value="返回主界面" type="button">
 <!--{/if}-->
-&nbsp;&nbsp;&nbsp; 提示:点击技能界面外任意位置也可以返回主界面
-<br><br>
+&nbsp;&nbsp;&nbsp; 提示:点击技能界面外任意位置也可以返回主界面<br>
+</p>
 </div>
 </div>
 </div>
@@ -79,4 +80,4 @@
 <!--{if !defined('IN_HELP')}-->
 <img type="hidden" src="img/blank.png" onload="if ($('fmsgbox-container').firstChild!=null) $('fmsgbox-container').removeChild($('fmsgbox-container').firstChild);$('fmsgbox-container').appendChild($('fmsgbox')); jQuery(function() { jQuery('.scroll-pane').jScrollPane(); });">
 <!--{/if}-->
-<!--{eval $mode='command'}-->
+<!--{eval $mode='command';}-->

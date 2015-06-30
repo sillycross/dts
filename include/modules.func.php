@@ -152,6 +152,23 @@ function __INIT_MODULE__($modname,$modpath)
 function import_module()
 {
 	$lis=func_get_args(); $ret='';
+	if (defined('IN_MODULEMNG') && defined('IN_MODULE_ACTIVATE'))
+	{
+		//modulemng里确定init模块中没有引用sys或input，惟一的例外是player，这个情况比较特殊，而且使用的内容是静态的，所以可以接受……
+		global $___TEMP_MOD_INITING_FLAG, $___TEMP_CUR_INITING_MODULE_NAME;
+		if ($___TEMP_MOD_INITING_FLAG && strtoupper($___TEMP_CUR_INITING_MODULE_NAME)!='SYS' && strtoupper($___TEMP_CUR_INITING_MODULE_NAME)!='PLAYER')
+		{
+			foreach ($lis as $key) 
+			{
+				if (strtoupper($key)=='INPUT' || strtoupper($key)=='SYS')
+				{
+					global $faillog;
+					$faillog = "<span class=\"red\">你在{$___TEMP_CUR_INITING_MODULE_NAME}的init函数中import了input或sys模块，这是不允许的。</span>";
+					die();
+				}
+			}
+		}
+	}
 	foreach ($lis as $key)
 	{
 		global $___MOD_SRV;

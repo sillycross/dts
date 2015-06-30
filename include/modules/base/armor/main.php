@@ -4,7 +4,7 @@ namespace armor
 {
 	function init()
 	{
-		eval(import_module('sys','player','itemmain'));
+		eval(import_module('player','itemmain'));
 		global $armor_equip_list, $armor_iteminfo;
 		$equip_list=array_merge($equip_list,$armor_equip_list);
 		$battle_equip_list=array_merge($battle_equip_list,$armor_equip_list);

@@ -10,6 +10,7 @@ function __SOCKET_ERRORLOG__($data)	//注意ERRORLOG将直接导致脚本退出
 		__SOCKET_WARNLOG__($data);
 		global $___TEMP_runmode, $___TEMP_CONN_PORT;
 		$data = $___TEMP_runmode.' on port '.$___TEMP_CONN_PORT.' : '.$data;
+		date_default_timezone_set('Etc/GMT');
 		$now = time() + 8*3600 + 0*60;   
 		list($usec,$tsec)=explode(' ',microtime());
 		$usec=round($usec*1000);
@@ -26,6 +27,7 @@ function __SOCKET_WARNLOG__($data)
 	__SOCKET_LOG__($data);
 	global $___TEMP_runmode, $___TEMP_CONN_PORT;
 	$data = $___TEMP_runmode.' on port '.$___TEMP_CONN_PORT.' : '.$data;
+	date_default_timezone_set('Etc/GMT');
 	$now = time() + 8*3600 + 0*60;   
 	list($usec,$tsec)=explode(' ',microtime());
 	$usec=round($usec*1000);
@@ -40,6 +42,7 @@ function __SOCKET_LOG__($data)
 	__SOCKET_DEBUGLOG__($data);
 	global $___TEMP_runmode, $___TEMP_CONN_PORT;
 	$data = $___TEMP_runmode.' on port '.$___TEMP_CONN_PORT.' : '.$data;
+	date_default_timezone_set('Etc/GMT');
 	$now = time() + 8*3600 + 0*60;   
 	list($usec,$tsec)=explode(' ',microtime());
 	$usec=round($usec*1000);
@@ -53,6 +56,7 @@ function __SOCKET_DEBUGLOG__($data)
 	global $___MOD_LOG_LEVEL; if ($___MOD_LOG_LEVEL<4) return;
 	global $___TEMP_runmode, $___TEMP_CONN_PORT;
 	$data = $___TEMP_runmode.' on port '.$___TEMP_CONN_PORT.' : '.$data;
+	date_default_timezone_set('Etc/GMT');
 	$now = time() + 8*3600 + 0*60;   
 	list($usec,$tsec)=explode(' ',microtime());
 	$usec=round($usec*1000);
@@ -117,7 +121,8 @@ function __SOCKET_SEND_TO_SERVER__()
 	}
 	else 
 	{
-		writeover('./gamedata/tmp/response/'.$___TEMP_uid,$___TEMP_data);
+		global $___MOD_TMP_FILE_DIRECTORY;
+		writeover($___MOD_TMP_FILE_DIRECTORY.$___TEMP_uid,$___TEMP_data);
 	}
 	
 	//连接server
@@ -170,9 +175,12 @@ function __SOCKET_SEND_TO_SERVER__()
 	}
 	else
 	{
-		$___TEMP_res=file_get_contents('./gamedata/tmp/response/'.$___TEMP_uid);
-		unlink('./gamedata/tmp/response/'.$___TEMP_uid);
+		global $___MOD_TMP_FILE_DIRECTORY;
+		$___TEMP_res=file_get_contents($___MOD_TMP_FILE_DIRECTORY.$___TEMP_uid);
+		unlink($___MOD_TMP_FILE_DIRECTORY.$___TEMP_uid);
 	}
+	
+	__SOCKET_DEBUGLOG__("已载入回应文件。");
 	
 	global $cli_pagestartime;
 	$timecost = get_script_runtime($cli_pagestartime);
@@ -240,15 +248,21 @@ function __SOCKET_LOAD_DATA__(&$___TEMP_connection)
 	}
 	else
 	{
-		if (!file_exists(GAME_ROOT.'./gamedata/tmp/response/'.$___TEMP_socket_data))
+		global $___MOD_TMP_FILE_DIRECTORY;
+		if (!file_exists($___MOD_TMP_FILE_DIRECTORY.$___TEMP_socket_data))
 		{
 			__SOCKET_WARNLOG__("警告：文件 {$___TEMP_socket_data} 不存在。结束流程。");
 			return false;
 		}
-		$x=file_get_contents(GAME_ROOT.'./gamedata/tmp/response/'.$___TEMP_socket_data);
+		$x=file_get_contents($___MOD_TMP_FILE_DIRECTORY.$___TEMP_socket_data);
 	}  
+	
+	__SOCKET_DEBUGLOG__("已读取信息文件。");
+	
 	eval('$___TEMP_PLAYER_CMD='.$x.';');
 			
+	__SOCKET_DEBUGLOG__("已载入信息文件。");
+	
 	global $___LOCAL_INPUT__VARS__INPUT_VAR_LIST;
 	$___LOCAL_INPUT__VARS__INPUT_VAR_LIST=Array();
 	foreach ($___TEMP_PLAYER_CMD as $key => $value)
@@ -256,14 +270,16 @@ function __SOCKET_LOAD_DATA__(&$___TEMP_connection)
 		$___LOCAL_INPUT__VARS__INPUT_VAR_LIST[$key]=$value;
 	}
 	
+	//其他模块都已经在上次执行完成后重新初始化过了，现在只需初始化一下SYS模块即可（这是因为SYS模块的信息是需要不断更新的）
 	global $___TEMP_MOD_LIST_n, $___TEMP_MOD_NAME;
 	for ($i=1; $i<=$___TEMP_MOD_LIST_n; $i++) 
-		if (strtoupper($___TEMP_MOD_NAME[$i])!='INPUT') 
+		if (strtoupper($___TEMP_MOD_NAME[$i])=='SYS') 
 		{
-			eval($___TEMP_MOD_NAME[$i].'\\___pre_init();');
-			eval($___TEMP_MOD_NAME[$i].'\\init();');
-			eval($___TEMP_MOD_NAME[$i].'\\___post_init();');
+			$funcname = $___TEMP_MOD_NAME[$i].'\\___pre_init'; $funcname();
+			$funcname = $___TEMP_MOD_NAME[$i].'\\init'; $funcname();
+			$funcname = $___TEMP_MOD_NAME[$i].'\\___post_init'; $funcname();
 		}
+					
 	__SOCKET_DEBUGLOG__("初始化信息成功。开始执行。");
 	
 	return $___TEMP_socket_data;

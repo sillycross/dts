@@ -31,8 +31,28 @@ function gameerrorhandler($code, $msg, $file, $line){
 
 function gexit($message = '',$file = '', $line = 0) {
 	global $charset,$title,$extrahead,$allowcsscache,$errorinfo;
-	include template('error');
-	exit();
+	if (defined('IN_DAEMON'))
+	{
+		if (defined('GEXIT_RETURN_JSON'))
+		{
+			$gamedata['url'] = 'error.php';
+			$gamedata['errormsg'] = $message;
+			ob_clean();
+			$jgamedata = compatible_json_encode($gamedata);
+			echo $jgamedata;
+		}
+		else
+		{
+			ob_clean();
+			include template('error');
+		}
+	}
+	else
+	{
+		ob_clean();
+		include template('error');
+		exit();
+	}
 }
 
 function output($content = '') {
@@ -50,7 +70,7 @@ function output($content = '') {
 function gstrfilter($str) {
 	if(is_array($str)) {
 		foreach($str as $key => $val) {
-			$str[$key] = gstrfilter($val);
+			$str[gstrfilter($key)] = gstrfilter($val);
 		}
 	} else {		
 		if($GLOBALS['magic_quotes_gpc']) {
@@ -357,41 +377,6 @@ function systemputchat($time,$type,$msg = ''){
 }
 
 //////////////////////////////
-
-//这个函数应该完成所有外层错误处理（通过了这个函数就代表正式进入游戏了，不应该返回没有登录或者游戏已经结束之类的错误）
-function do_ingame_error_checks()
-{
-	eval(import_module('sys'));
-	//判断是否进入游戏
-	if(!$cuser||!$cpass) { gexit($_ERROR['no_login'],__file__,__line__); } 
-
-	$result = $db->query("SELECT * FROM {$tablepre}players WHERE name = '$cuser' AND type = 0");
-
-	if(!$db->num_rows($result)) { header("Location: valid.php");exit(); }
-
-	$pdata = $db->fetch_array($result);
-
-	//判断是否密码错误
-	if($pdata['pass'] != $cpass) {
-		$tr = $db->query("SELECT `password` FROM {$tablepre}users WHERE username='$cuser'");
-		$tp = $db->fetch_array($tr);
-		$password = $tp['password'];
-		if($password == $cpass) {
-			$db->query("UPDATE {$tablepre}players SET pass='$password' WHERE name='$cuser'");
-		} else {
-			gexit($_ERROR['wrong_pw'],__file__,__line__);
-		}
-	}
-	
-	if($gamestate == 0) {
-		$gamedata['url'] = 'end.php';
-		ob_clean();
-		$jgamedata = compatible_json_encode($gamedata);
-		echo $jgamedata;
-		ob_end_flush();
-		exit();
-	}
-}
 
 ////暂时丢在这……
 function set_credits(){

@@ -46,7 +46,7 @@ namespace skill34
 	function check_unlocked34(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return (get_unlock34_progress($pa)>=14);
+		return (get_unlock34_progress($pa)>=15);
 	}
 	
 	function get_avaliable_attr()

@@ -17,14 +17,6 @@ namespace player
 			global ${$pdata['Field']}; 
 			array_push($db_player_structure,$pdata['Field']);
 		}
-		if (CURSCRIPT == 'game')
-		{
-			$result = $db->query("SELECT * FROM {$tablepre}players WHERE name = '$cuser' AND type = 0");
-			if(!$db->num_rows($result)) return;
-			$pdata = $db->fetch_array($result);
-			foreach ($pdata as $key => $value) $$key=$value;
-			global $sdata; $sdata=$pdata;
-		}
 	}
 	
 	//注意这个函数只能找人

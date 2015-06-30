@@ -38,7 +38,7 @@ function module_validity_check($file)
 	}
 	
 	global $___TEMP_DRY_RUN, $___TEMP_DRY_RUN_COUNTER;
-	$___TEMP_DRY_RUN=1;
+	$___TEMP_DRY_RUN=1; 
 	$mod_exist['root']=1; $dependency=Array(); $dependency_optional=Array(); $sup_func_list=Array();
 	for ($i=1; $i<=$n; $i++) $dependency[$i]=Array();
 	for ($i=1; $i<=$n; $i++) $dependency_optional[$i]=Array();

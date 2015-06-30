@@ -8,8 +8,14 @@ namespace skillbase
 	
 	function init() 
 	{
-		eval(import_module('player'));
-		global $ppid; $ppid = $pid;
+		global $ppid; $ppid = -1;
+	}
+	
+	function skillbase_set_ppid()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('skillbase','player'));
+		$ppid = $pid;
 	}
 	
 	function b64_conv_to_value($c)
@@ -197,6 +203,7 @@ namespace skillbase
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skillbase'));
 		$skillid=(int)$skillid;
+		if ($ppid==-1) skillbase_set_ppid();
 		if ($pa == NULL || $pa['pid']==$ppid) return ((isset($acquired_list[$skillid])) && ($acquired_list[$skillid]==1));
 		return ((isset($pa['acquired_list'][$skillid])) && ($pa['acquired_list'][$skillid]==1));
 	}
@@ -205,6 +212,7 @@ namespace skillbase
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skillbase'));
+		if ($ppid==-1) skillbase_set_ppid();
 		if ($pa == NULL || $pa['pid']==$ppid)
 		{
 			$ret=Array();
@@ -224,6 +232,7 @@ namespace skillbase
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skillbase'));
 		$skillkey=$skillid.'_'.$skillkey;
+		if ($ppid==-1) skillbase_set_ppid();
 		if ($pa == NULL || $pa['pid']==$ppid) 
 		{
 			$parameter_list[$skillkey]=$skillvalue;
@@ -239,6 +248,7 @@ namespace skillbase
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skillbase'));
 		$skillkey=$skillid.'_'.$skillkey;
+		if ($ppid==-1) skillbase_set_ppid();
 		if ($pa == NULL || $pa['pid']==$ppid) 
 		{
 			if (isset($parameter_list[$skillkey])) return $parameter_list[$skillkey]; else return NULL;
@@ -254,6 +264,7 @@ namespace skillbase
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skillbase'));
 		$skillkey=$skillid.'_'.$skillkey;
+		if ($ppid==-1) skillbase_set_ppid();
 		if ($pa == NULL || $pa['pid']==$ppid) 
 		{
 			unset($parameter_list[$skillkey]);

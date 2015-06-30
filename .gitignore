@@ -3,4 +3,9 @@ nohup.out
 include/modules/core/sys/config/server.config.php
 include/modulemng.config.php
 gamedata/adminlog.php
-
+gamedata/combatinfo.php
+gamedata/newsinfo.php
+gamedata/adminmsg.htm
+gamedata/systemmsg.htm
+gamedata/modules.list.temp.php
+gamedata/modules.list.pass.php

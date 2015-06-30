@@ -11,6 +11,9 @@ if ($___MOD_SRV)
 {
 	if (isset($_POST['conn_passwd']) && $_POST['conn_passwd']==$___MOD_CONN_PASSWD && isset($_POST['command']) && $_POST['command']=='start')
 	{
+		define('IN_DAEMON', TRUE);
+		define('GEXIT_RETURN_JSON', TRUE);
+		
 		//脚本以server模式被启动
 		//让调用端不再等待立即退出
 		ob_end_clean();
@@ -121,12 +124,12 @@ if ($___MOD_SRV)
 					__SOCKET_DEBUGLOG__("收到了一个新连接。");
 					if (($___TEMP_uid=__SOCKET_LOAD_DATA__($___TEMP_connection))!==false)
 					{
-						$___TEMP_EXEC_START_TIME=microtime();
-						
 						$___TEMP_WORKFLAG=1;
 						eval(import_module('sys','map','player','logger','itemmain','input'));
 						sys\routine();
 
+						$___TEMP_EXEC_START_TIME=microtime();
+						
 						include GAME_ROOT.'./command.php';
 						
 						$___TEMP_WORKFLAG=0;
@@ -134,13 +137,16 @@ if ($___MOD_SRV)
 						$___TEMP_tiused=get_script_runtime($___TEMP_EXEC_START_TIME);
 						__SOCKET_DEBUGLOG__("执行完成。command.php本体耗时 ".$___TEMP_tiused." 秒。");
 						
+						$jgamedata = ob_get_contents();
+						ob_end_flush();
+						
 						if ($___MOD_CONN_W_DB)
 						{
 							$___TEMP_db->query("UPDATE {$___TEMP_tablepre}temp SET value='".base64_encode($jgamedata)."' WHERE sid='{$___TEMP_uid}'");
 						}
 						else
 						{
-							writeover('./gamedata/tmp/response/'.$___TEMP_uid,$jgamedata);
+							writeover($___MOD_TMP_FILE_DIRECTORY.$___TEMP_uid,$jgamedata);
 						}
 						//返回消息给client
 						if (!__SOCKET_CHECK_WITH_TIMEOUT__($___TEMP_connection, 'w', 0, 200000))	
@@ -157,7 +163,7 @@ if ($___MOD_SRV)
 					__SOCKET_DEBUGLOG__("关闭连接。");
 					
 					//收尾工作，清除所有全局变量
-					$___TEMP_remain_list=Array('_SERVER','GLOBALS','magic_quotes_gpc','module_hook_list','language');
+					$___TEMP_remain_list=Array('_SERVER','GLOBALS','magic_quotes_gpc','module_hook_list','language','_ERROR');
 									
 					$___TEMP_a=array_keys(get_defined_vars());
 					foreach ($___TEMP_a as $___TEMP_key) 
@@ -170,6 +176,21 @@ if ($___MOD_SRV)
 						if (in_array($___TEMP_key,$___TEMP_remain_list)) continue;
 						unset($$___TEMP_key);
 					}
+					
+					//执行模拟载入代码，为下一次执行做准备
+					
+					$___LOCAL_INPUT__VARS__INPUT_VAR_LIST=Array();
+					
+					for ($i=1; $i<=$___TEMP_MOD_LIST_n; $i++) 
+						if (strtoupper($___TEMP_MOD_NAME[$i])!='INPUT') 
+						{
+							$funcname = $___TEMP_MOD_NAME[$i].'\\___pre_init'; $funcname();
+							$funcname = $___TEMP_MOD_NAME[$i].'\\init'; $funcname();
+							$funcname = $___TEMP_MOD_NAME[$i].'\\___post_init'; $funcname();
+							unset($funcname);
+						}
+					unset($i);
+		
 					$___TEMP_tiused=get_script_runtime($___TEMP_EXEC_START_TIME);
 					__SOCKET_DEBUGLOG__("执行完成。核心占用时间 ".$___TEMP_tiused." 秒。");
 				}
@@ -205,27 +226,16 @@ if ($___MOD_SRV)
 		
 		$___TEMP_runmode = 'Client';
 		$___TEMP_CONN_PORT = -1;
-		
+			
 		//来自浏览器的调用，应该转发给server
 		$cli_pagestartime=microtime(true); 
 
 		define('NO_MOD_LOAD', TRUE);	//不在common.inc载入任何模块
 		define('NO_SYS_UPDATE', TRUE);
 		require GAME_ROOT.'./include/common.inc.php';
-		////////////////////////////////////////////////////////////////
-		//只载入input模块和sys模块
-		//更“结构化”的写法是载入core，但这样会稍微慢一点
-		//作为游戏核心，这点速度值得追求
-		//注意这里把路径写死了
-		require GAME_ROOT.'./include/modules/core/input/module.inc.php';
-		require GAME_ROOT.'./include/modules/core/sys/module.inc.php';
-		////////////////////////////////////////////////////////////////
 		require GAME_ROOT.'./include/socket.func.php';
-		eval(import_module('sys'));
-		$___TEMP_db=$db;
-		$___TEMP_tablepre=$tablepre;
-	
-		do_ingame_error_checks();
+		
+		__SOCKET_DEBUGLOG__('Client开始执行。');
 	
 		if ($handle=opendir(GAME_ROOT.'./gamedata/tmp/server')) 
 		{
@@ -256,6 +266,9 @@ if ($___MOD_SRV)
 		else  __SOCKET_ERRORLOG__('无法打开gamedata/tmp/server目录。');
 		
 		__SOCKET_SEND_TO_SERVER__();
+		
+		__SOCKET_DEBUGLOG__('Client执行完成。');
+	
 		die();
 	}
 	else
@@ -272,16 +285,62 @@ else	//未开启server-client模式，正常执行准备流程
 	
 	$timecost2 = get_script_runtime($pagestartime);
 	
-	do_ingame_error_checks();
+}
+
+////////////////////////////////////////////////////////////////////////////
+//////////////////////////游戏前玩家信息检查///////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+
+if(!$cuser||!$cpass) 
+{ 
+	gexit($_ERROR['no_login'],__file__,__line__); 
+	return;
+} 
+
+$result = $db->query("SELECT * FROM {$tablepre}players WHERE name = '$cuser' AND type = 0");
+
+if(!$db->num_rows($result)) 
+{ 
+	$gamedata['url'] = 'valid.php';
+	ob_clean();
+	$jgamedata = compatible_json_encode($gamedata);
+	echo $jgamedata;
+	return;
+}
+
+$pdata = $db->fetch_array($result);
+
+//判断是否密码错误
+if($pdata['pass'] != $cpass) {
+	$tr = $db->query("SELECT `password` FROM {$tablepre}users WHERE username='$cuser'");
+	$tp = $db->fetch_array($tr);
+	$password = $tp['password'];
+	if($password == $cpass) {
+		$db->query("UPDATE {$tablepre}players SET pass='$password' WHERE name='$cuser'");
+	} else {
+		gexit($_ERROR['wrong_pw'],__file__,__line__);
+		return;
+	}
+}
+	
+if($gamestate == 0) {
+	$gamedata['url'] = 'end.php';
+	ob_clean();
+	$jgamedata = compatible_json_encode($gamedata);
+	echo $jgamedata;
+	return;
 }
 
 ////////////////////////////////////////////////////////////////////////////
 ////////////////////////////正式进入游戏//////////////////////////////////////
 ///////////从这里开始，不应该有任何错误信息返回，应该只返回$jgamedata///////////////
 ////////////////////////////////////////////////////////////////////////////
-
+	
 //初始化各变量
 $log = $cmd = $main = '';
+
+//$timecost = get_script_runtime($pagestartime);
+//$timecostlis = (string)$timecost;
 
 $pagestartimez=microtime(true); 
 
@@ -305,6 +364,9 @@ if ($___MOD_SRV)
 	$timecost = sprintf("%.4f",$timecost); 
 	if ($timecost >= 0.05) __SOCKET_WARNLOG__("本次操作同步问题触发窗口达到了 $timecost 秒");
 }
+
+//$timecost = get_script_runtime($pagestartime);
+//$timecostlis .= '/'.$timecost;
 
 //显示指令执行结果
 player\prepare_response_content();
@@ -344,16 +406,6 @@ if($hp <= 0) {
 	$log .= '游戏流程故障，请联系管理员<br>';
 }
 
-$timecost = get_script_runtime($pagestartime);
-
-if (isset($timecost2)) $log.="<span class=\"grey\">模块加载时间: $timecost2 秒</span><br>"; 
-if ($___MOD_SRV)
-{
-	$log.="<span class=\"grey\">核心运行时间: $timecost 秒</span><br>"; 
-	$log.="<span class=\"grey\">页面运行时间: _____PAGE_RUNNING_TIME_____ 秒</span>"; 
-}
-else  $log.="<span class=\"grey\">页面运行时间: $timecost 秒</span>"; 
-
 if(isset($url)){$gamedata['url'] = $url;}
 $gamedata['innerHTML']['pls'] = $plsinfo[$pls];
 $gamedata['innerHTML']['anum'] = $alivenum;
@@ -361,7 +413,6 @@ $gamedata['innerHTML']['anum'] = $alivenum;
 ob_clean();
 $main ? include template($main) : include template('profile');
 $gamedata['innerHTML']['main'] = ob_get_contents();
-$gamedata['innerHTML']['log'] = $log;
 if(isset($error)){$gamedata['innerHTML']['error'] = $error;}
 $gamedata['value']['teamID'] = $teamID;
 if($teamID){
@@ -370,13 +421,25 @@ if($teamID){
 	$gamedata['innerHTML']['chattype'] = "<select name=\"chattype\" value=\"2\"><option value=\"0\" selected>$chatinfo[0]</select>";
 }
 
+$timecost = get_script_runtime($pagestartime);
+if (isset($timecost2)) $log.="<span class=\"grey\">模块加载时间: $timecost2 秒</span><br>"; 
+if ($___MOD_SRV)
+{
+	$log.="<span class=\"grey\">核心运行时间: $timecost 秒</span><br>"; 
+	$log.="<span class=\"grey\">页面运行时间: _____PAGE_RUNNING_TIME_____ 秒</span>"; 
+}
+else  $log.="<span class=\"grey\">页面运行时间: $timecost 秒</span>"; 
+
+$gamedata['innerHTML']['log'] = $log;
+
 $jgamedata = compatible_json_encode($gamedata);
 
-if (!$___MOD_SRV)
-{
-	ob_clean();
-	echo $jgamedata;
-	ob_end_flush();
-}
+//$timecost = get_script_runtime($pagestartime);
+//$timecostlis .= '/'.$timecost;
+
+//$jgamedata = str_replace('_____CORE_RUNNING_TIME_____',$timecostlis,$jgamedata);
+
+ob_clean();
+echo $jgamedata;
 
 ?>

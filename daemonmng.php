@@ -2,7 +2,7 @@
 
 function check_authority()
 {
-	require GAME_ROOT.'./config.inc.php';
+	require GAME_ROOT.'./include/modules/core/sys/config/server.config.php';
 	$_COOKIE=gstrfilter($_COOKIE);
 	$cuser=$_COOKIE[$tablepre.'user'];
 	$cpass=$_COOKIE[$tablepre.'pass'];

@@ -5,7 +5,7 @@ namespace skill35
 	//物理伤害增加
 	$attgain = Array(20,50,80);
 	//升级所需技能点数值
-	$upgradecost = Array(10,10,-1);
+	$upgradecost = Array(10,11,-1);
 	//触发率
 	$proc_rate = 25;
 	

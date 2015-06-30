@@ -13,9 +13,14 @@
 &nbsp;
 变更选择为：
 <select name="skill34_choice" id="skill34_choice" onchange="$('mode').value='special';$('command').value='skill34_special';$('subcmd').value='upgrade';$('skillpara1').value=$('skill34_choice').value;postCmd('gamecmd','command.php');this.disabled=true;">
+<!--{if $nchoice==''}-->
+<option value="" selected>无<br />
+<!--{/if}-->
 <!--{loop \skill34\get_avaliable_attr() $key}-->
 <!--{if $key!=$nchoice}-->
 <option value="$key">$itemspkinfo[$key]<br />
+<!--{else}-->
+<option value="$key" selected>$itemspkinfo[$key]<br />
 <!--{/if}-->
 <!--{/loop}-->
 </select>
@@ -28,10 +33,10 @@
 {template MOD_CLUBBASE_SKILLDESC_MID2}
 <!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
 <span class="yellow">
-在“格挡”和“猛击”上共计花费至少14技能点以解锁<br>
+在“格挡”和“猛击”上共计花费至少15技能点以解锁<br>
 <!--{eval $skill34_cprogress=\skill34\get_unlock34_progress($sdata);}-->
 <!--{if $skill34_cprogress>0}-->
-<span class="clan">当前进度$skill34_cprogress/14</span>
+<span class="clan">当前进度$skill34_cprogress/15</span>
 <!--{/if}-->
 </span>
 <!--{/if}-->

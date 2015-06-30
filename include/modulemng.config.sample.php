@@ -28,7 +28,13 @@ $___MOD_CONN_PASSWD = '233';
 $___MOD_CONN_PORT_LOW = 20000;
 $___MOD_CONN_PORT_HIGH = 21000;
 //daemon模式下最终结果通过数据库还是文件返回（1为数据库），推荐选择文件，数据库似乎实践中表现极差
+//××××××警告：使用数据库的选项现在已经被在代码中被废弃。现在唯一可用选项就是文件。××××××
 $___MOD_CONN_W_DB = 0;
+//daemon模式下，如最终结果通过文件返回，临时文件存放目录
+//默认使用游戏内目录
+$___MOD_TMP_FILE_DIRECTORY = GAME_ROOT.'./gamedata/tmp/response/';
+//但如有可能，请取消注释下一行代码使用tmp。由于tmp在内存里，速度更快
+//$___MOD_TMP_FILE_DIRECTORY = '/tmp/';
 //daemon模式下server无连接情况下的唤醒时间（秒），daemon的实际执行时间大约是服务器设置的max_execution_time减去这个值
 //不要超过服务器设置max_execution_time的五分之一，尽可能低一些，但不要低于5秒
 $___MOD_SRV_WAKETIME = 60;

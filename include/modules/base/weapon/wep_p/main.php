@@ -4,7 +4,7 @@ namespace wep_p
 {
 	function init() 
 	{
-		eval(import_module('sys','weapon','itemmain'));
+		eval(import_module('weapon','itemmain'));
 		
 		//武器类型依赖的熟练度名称
 		$skillinfo['P'] = 'wp';

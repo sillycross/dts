@@ -9,7 +9,7 @@ namespace metman
 	function init()
 	{
 		global $tdata; $tdata=Array(); 
-		eval(import_module('sys','player'));
+		eval(import_module('player'));
 		foreach ($db_player_structure as $key) global ${'w_'.$key};
 	}
 	

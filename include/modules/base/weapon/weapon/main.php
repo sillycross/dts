@@ -4,7 +4,7 @@ namespace weapon
 {
 	function init() 
 	{
-		eval(import_module('sys','player'));
+		eval(import_module('player'));
 		global $wep_equip_list;
 		$equip_list=array_merge($equip_list,$wep_equip_list);
 		$battle_equip_list=array_merge($battle_equip_list,$wep_equip_list);
@@ -340,11 +340,18 @@ namespace weapon
 		
 		apply_weapon_skill_gain($pa, $pd, $active);
 		
-		apply_attack_exp_gain($pa, $pd, $active);
-		
 		$chprocess($pa, $pd, $active);
 	}
 	
+	function attack_finish(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		$chprocess($pa, $pd, $active);
+		
+		apply_attack_exp_gain($pa, $pd, $active);
+	}
+		
 	function calculate_counter_rate(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

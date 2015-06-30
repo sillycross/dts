@@ -84,7 +84,11 @@ if ($___MOD_CODE_ADV1)
 		global $___TEMPV_a,$___TEMPC_a,$___TEMPC_b,$___TEMPV_b;
 		$___TEMPV_a=array_keys(get_defined_vars());
 		$___TEMPC_a=get_defined_constants();
+		//这一步载入模块时也同时会确认init函数没有import sys或input，实际的判断是在modules.func里做的
+		global $___TEMP_MOD_INITING_FLAG, $___TEMP_CUR_INITING_MODULE_NAME; 
+		$___TEMP_MOD_INITING_FLAG=1; $___TEMP_CUR_INITING_MODULE_NAME = $___TEMP_MOD_LOAD_NAME[$___TEMP_MOD_LOAD_i];
 		require $___TEMP_MOD_LOAD_CMD[$___TEMP_MOD_LOAD_i];
+		$___TEMP_MOD_INITING_FLAG=0;
 		$___TEMPC_b=get_defined_constants();
 		$___TEMPV_b=array_keys(get_defined_vars());
 		$str1='';
