@@ -37,6 +37,14 @@ namespace armor
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
+		eval(import_module('logger'));
+		if ($active)
+		{
+			$log .= "{$pd['name']}的<span class=\"red\">".$pd[$whicharmor]."</span>受损过重，无法再装备了！<br>";
+			$pd['armorbreaklog'] .= "你的<span class=\"red\">".$pd[$whicharmor]."</span>受损过重，无法再装备了！<br>";
+		}
+		else  $log .= "你的<span class=\"red\">".$pd[$whicharmor]."</span>受损过重，无法再装备了！<br>";
+		
 		$pd[$whicharmor] = ''; $pd[$whicharmor.'e'] = 0; $pd[$whicharmor.'s'] = 0; $pd[$whicharmor.'sk'] = '';
 						
 		if ($whicharmor=='arb')
@@ -70,14 +78,8 @@ namespace armor
 				$log .= "你的".$pd[$which]."的耐久度下降了{$x}！<br>";
 			}
 					
-			if ($pd[$which.'s']<=0)
-			{	
-				if ($active)
-					$log .= "{$pd['name']}的<span class=\"red\">".$pd[$which]."</span>受损过重，无法再装备了！<br>";
-				else  $log .= "你的<span class=\"red\">".$pd[$which]."</span>受损过重，无法再装备了！<br>";
-						
-				armor_break($pa, $pd, $active, $which);
-			}
+			if ($pd[$which.'s']<=0) armor_break($pa, $pd, $active, $which);
+			
 			return $x;
 		}
 		else  return 0;
@@ -140,6 +142,22 @@ namespace armor
 			return;
 		}
 		$chprocess($theitem);
+	}
+	
+	function assault_prepare(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if ($active) $pd['armorbreaklog']=''; else $pa['armorbreaklog']='';
+		$chprocess($pa, $pd, $active);
+	}
+	
+	function assault_finish(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if ($active) 
+			$pd['battlelog'].=$pd['armorbreaklog'];
+		else  $pa['battlelog'].=$pa['armorbreaklog'];
+		$chprocess($pa, $pd, $active);
 	}
 }
 
