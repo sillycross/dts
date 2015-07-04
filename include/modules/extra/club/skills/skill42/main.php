@@ -61,6 +61,14 @@ namespace skill42
 		$chprocess($pa, $pd, $active);
 	}
 	
+	//先攻率+10%
+	function calculate_active_obbs(&$ldata,&$edata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (!\skillbase\skill_query(42,$ldata) || !check_unlocked42($ldata)) return $chprocess($ldata,$edata);
+		return $chprocess($ldata,$edata)*1.1;
+	}
+	
 	//暂时获得并解锁神速
 	function skill42_temp_acquire41(&$pa)
 	{

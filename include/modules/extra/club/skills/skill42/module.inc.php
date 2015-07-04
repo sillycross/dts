@@ -3,8 +3,8 @@
 namespace skill42
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase battle attack logger weapon skill41';
-	$___MODULE_dependency_optional = '';
+	$___MODULE_dependency = 'skillbase battle attack enemy logger weapon skill41';
+	$___MODULE_dependency_optional = 'weather';	//先攻率在各种基本修正完成后再修正
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';
 	$___MODULE_templatelist = 'desc';
