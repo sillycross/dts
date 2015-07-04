@@ -52,6 +52,23 @@ function demiSecTimerStarter(msec){
 	timerid = setInterval("demiSecTimer()",itv);
 }
 
+function AutopowerLogTimer()
+{
+	curnum = parseInt($('autopower_curnum').innerHTML);
+	totnum = parseInt($('autopower_totnum').innerHTML);
+	if (curnum>1 && curnum<=totnum)
+		$('autopower'+Number(curnum-1).toString()).style.display = 'none';
+	
+	$('autopower'+Number(curnum).toString()).style.display = 'inline';
+	$('autopower_curnum').innerHTML=Number(curnum+1).toString();
+	
+	if (curnum == totnum)
+	{	
+		clearInterval(AutopowerTimerId);
+		delete AutopowerTimerId;
+	}
+}
+
 function itemmixchooser(){
 	for(i=1;i<=6;i++){
 		var mname = 'mitm'+i;
@@ -138,6 +155,13 @@ function showData(sdata){
 	}
 	if(shwData['timer'] && typeof(timerid)=='undefined'){
 		demiSecTimerStarter(shwData['timer']);
+	}
+	if ($('autopower_totnum'))
+	{
+		AutopowerLogTimer();
+		totnum = parseInt($('autopower_totnum').innerHTML);
+		if (totnum>1) 
+			AutopowerTimerId=setInterval("AutopowerLogTimer()",parseInt($('autopower_cd').innerHTML));
 	}
 }
 

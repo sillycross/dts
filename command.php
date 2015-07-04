@@ -274,12 +274,12 @@ if ($___MOD_SRV)
 	else
 	{
 		//否则是由server自行引用的command.php，开始执行
-		$pagestartime=microtime(); 
+		$pagestartime=microtime(true); 
 	}
 }
 else	//未开启server-client模式，正常执行准备流程
 {
-	$pagestartime=microtime(); 
+	$pagestartime=microtime(true); 
 
 	require GAME_ROOT.'./include/common.inc.php';
 	

@@ -1,10 +1,10 @@
 <?php
 
-namespace blessstone
+namespace autopower
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'sys player itemmain logger input';
-	$___MODULE_dependency_optional = 'empowers';
+	$___MODULE_dependency = 'sys player itemmain logger cooldown input';
+	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';
 	$___MODULE_templatelist = '';

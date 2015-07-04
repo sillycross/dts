@@ -50,6 +50,46 @@ namespace wepchange
 		
 		$chprocess();
 	}
+	
+	function use_nail($itm, $itme)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		eval(import_module('player','logger'));
+		if (strpos($wepsk,'j')!==false)
+		{
+			$log.='多重武器不能改造。<br>';
+			return 0;
+		}
+		return $chprocess($itm,$itme);
+	}
+	
+	function use_stone($itm, $itme)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		eval(import_module('player','logger'));
+		if (strpos($wepsk,'j')!==false)
+		{
+			$log.='多重武器不能改造。<br>';
+			return 0;
+		}
+		return $chprocess($itm,$itme);
+	}
+	
+	function use_anya($itm)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		eval(import_module('player','logger'));
+		if (strpos($wepsk,'j')!==false)
+		{
+			$log.='多重武器不能改造。<br>';
+			return 0;
+		}
+		return $chprocess($itm);
+	}
+	
 }
 
 ?>

@@ -44,6 +44,7 @@ namespace itemmix
 			foreach(Array('/锋利的/','/电气/','/毒性/','/-改$/') as $value){
 				$mitm = preg_replace($value,'',$mitm);
 			}
+			$mitm = str_replace('钉棍棒','棍棒',$mitm);
 			$mixitem[] = $mitm;
 		}
 		

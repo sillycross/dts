@@ -389,7 +389,10 @@ namespace weapon
 		$r1 = get_weapon_range($pa, $active);
 		$r2 = get_weapon_range($pd, 1-$active);
 		if ($r1 >= $r2 && $r1 != 0 && $r2 != 0)
-			return (check_counter_dice($pa, $pd, $active) && $chprocess($pa,$pd,$active));
+		{
+			if (!$chprocess($pa,$pd,$active)) return 0;
+			return check_counter_dice($pa, $pd, $active);
+		}
 		else  return 0;
 	}
 	
