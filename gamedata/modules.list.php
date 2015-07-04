@@ -70,6 +70,7 @@ club99,extra/club/clubs/club99/,1
 club17,extra/club/clubs/club17/,1
 club20,extra/club/clubs/club20/,1
 club13,extra/club/clubs/club13/,1
+club14,extra/club/clubs/club14/,1
 wep_n,base/weapon/wep_n/,1
 wep_p,base/weapon/wep_p/,1
 wep_k,base/weapon/wep_k/,1
@@ -87,6 +88,9 @@ item_uv,base/items/item_uv/,1
 rage,extra/attr/rage/,1
 skill30,extra/club/skills/skill30/,1
 skill35,extra/club/skills/skill35/,1
+skill41,extra/club/skills/skill41/,1
+skill45,extra/club/skills/skill45/,1
+skill46,extra/club/skills/skill46/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 miracletrap,base/items/miracletrap/,1
@@ -106,6 +110,7 @@ skill28,extra/club/skills/skill28/,1
 skill37,extra/club/skills/skill37/,1
 skill36,extra/club/skills/skill36/,1
 skill38,extra/club/skills/skill38/,1
+skill42,extra/club/skills/skill42/,1
 dualwep,base/weapon/dualwep/,1
 ammunition,base/items/ammunition/,1
 ex_attr_silencer,extra/attr/ex_attr_silencer/,1
@@ -115,9 +120,11 @@ empowers,base/items/empowers/,1
 skill32,extra/club/skills/skill32/,1
 pose,base/pose/,1
 skill1,base/skills/skill1/,1
+skill43,extra/club/skills/skill43/,1
 ex_dmg_def,extra/attr/ex_dmg_def/,1
 ex_dmg_nullify,extra/attr/ex_dmg_nullify/,1
 skill25,extra/club/skills/skill25/,1
+skill44,extra/club/skills/skill44/,1
 ex_phy_nullify,extra/attr/ex_phy_nullify/,1
 wepchange,extra/attr/wepchange/,1
 blessstone,extra/attr/blessstone/,1
@@ -129,4 +136,3 @@ ex_gender_attr,extra/attr/ex_gender_attr/,1
 ex_attr_pierce,extra/attr/ex_attr_pierce/,1
 addnpc,base/addnpc/,1
 skill27,extra/club/skills/skill27/,1
-club14,extra/club/clubs/club14/,0

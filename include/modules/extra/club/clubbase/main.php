@@ -6,7 +6,7 @@ namespace clubbase
 	
 	//获得内定称号，$pa为NULL时代表当前玩家
 	//注意这个函数不检查玩家是否可以获得这个称号
-	function club_acquire($clubid, &$pa)
+	function club_acquire($clubid, &$pa = NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -25,7 +25,7 @@ namespace clubbase
 	}
 	
 	//因为某些原因失去内定称号，$pa为NULL时代表当前玩家
-	function club_lost(&$pa)
+	function club_lost(&$pa = NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -185,7 +185,7 @@ namespace clubbase
 		eval(import_module('clubbase','player'));
 		foreach ($clublist[$club]['skills'] as $key) 
 			if (defined('MOD_SKILL'.$key.'_INFO'))
-				if (strpos(constant('MOD_SKILL'.$key.'_INFO'),'club;')!==false && strpos(constant('MOD_SKILL'.$key.'_INFO'),'battle;')!==false)
+				if (strpos(constant('MOD_SKILL'.$key.'_INFO'),'club;')!==false && strpos(constant('MOD_SKILL'.$key.'_INFO'),'battle;')!==false && \skillbase\skill_query($key))
 				{
 					$flag = 0;
 					if (strpos(constant('MOD_SKILL'.$key.'_INFO'),'hidden;')!==false) $flag = 1;
@@ -205,6 +205,29 @@ namespace clubbase
 						}
 					}
 				}
+		foreach (\skillbase\get_acquired_skill_array() as $key) 
+			if (!in_array($key,$clublist[$club]['skills']))
+				if (defined('MOD_SKILL'.$key.'_INFO'))
+					if (strpos(constant('MOD_SKILL'.$key.'_INFO'),'club;')!==false && strpos(constant('MOD_SKILL'.$key.'_INFO'),'battle;')!==false)
+					{
+						$flag = 0;
+						if (strpos(constant('MOD_SKILL'.$key.'_INFO'),'hidden;')!==false) $flag = 1;
+						if (!$flag) 
+						{
+							$func = 'skill'.$key.'\\check_unlocked'.$key;
+							if ($func($sdata)) $flag = 1;
+						}
+						if ($flag)
+						{
+							$which--;
+							if ($which==0)
+							{
+								if ($zflag) echo '<br>';
+								include template(constant('MOD_SKILL'.$key.'_BATTLECMD'));
+								return;
+							}
+						}
+					}
 	}
 					
 	function get_profile_skill_buttons()
@@ -213,7 +236,7 @@ namespace clubbase
 		eval(import_module('player','clubbase'));
 		$___TEMP_inclist = Array();
 		foreach ($clublist[$club]['skills'] as $key) 
-			if (defined('MOD_SKILL'.$key.'_INFO') && strpos(constant('MOD_SKILL'.$key.'_INFO'),'club;')!==false && strpos(constant('MOD_SKILL'.$key.'_INFO'),'active;')!==false) 
+			if (defined('MOD_SKILL'.$key.'_INFO') && strpos(constant('MOD_SKILL'.$key.'_INFO'),'club;')!==false && strpos(constant('MOD_SKILL'.$key.'_INFO'),'active;')!==false && \skillbase\skill_query($key)) 
 			{ 
 				$flag = 0; 
 				if (strpos(constant('MOD_SKILL'.$key.'_INFO'),'hidden;')!==false) $flag = 1; 
@@ -250,7 +273,7 @@ namespace clubbase
 		eval(import_module('player','clubbase'));
 		$___TEMP_inclist = Array();
 		foreach ($clublist[$club]['skills'] as $key) 
-			if (defined('MOD_SKILL'.$key.'_INFO') && strpos(constant('MOD_SKILL'.$key.'_INFO'),'club;')!==false && strpos(constant('MOD_SKILL'.$key.'_INFO'),'hidden;')===false) 
+			if (defined('MOD_SKILL'.$key.'_INFO') && strpos(constant('MOD_SKILL'.$key.'_INFO'),'club;')!==false && strpos(constant('MOD_SKILL'.$key.'_INFO'),'hidden;')===false && \skillbase\skill_query($key)) 
 				array_push($___TEMP_inclist,template(constant('MOD_SKILL'.$key.'_DESC')));
 
 		foreach (\skillbase\get_acquired_skill_array() as $key) 

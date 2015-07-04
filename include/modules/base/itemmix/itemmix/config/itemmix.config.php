@@ -27,7 +27,7 @@ $mixinfo = array
 	array('class' => 'hidden', 'stuff' => array('纯白片翼','纯白片翼'),'result' => array('纯白双翼','WK',150,200,'kb'),),
 	array('class' => 'wk', 'stuff' => array('白色的羽毛','闪耀的羽毛','彩虹光芒的羽毛','翼人的羽毛'),'result' => array('悲叹片翼','WK',3200,200,'ai'),),
 	array('class' => 'wk', 'stuff' => array('白色的羽毛','凤凰之羽','露琪亚之羽','绿宝石方块'),'result' => array('精灵片翼','WK',300,200,'uid'),),
-	array('class' => 'wk', 'stuff' => array('『祝福宝石』','『风魔激光刃』'),'result' => array('Azurewrath','WK',122,122,'rci'),),
+	array('class' => 'wk', 'stuff' => array('『祝福宝石』','『风魔激光刃』'),'result' => array('Azurewrath','WK',82,82,'rci'),),
 	array('class' => 'wk', 'stuff' => array('悲叹之种','Azurewrath'),'result' => array('憎恨裂片','WK',840,76,'rNce'),),
 	array('class' => 'wk', 'stuff' => array('悲叹之种','☆碧藍怒火☆'),'result' => array('★憎恨裂片★','WK',1240,94,'ripe'),),
 	array('class' => 'wk', 'stuff' => array('绿色方块','绿色方块'),'result' => array('沾满绿锈的铜刀','WK',52,52,'p'),),

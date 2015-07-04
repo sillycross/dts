@@ -12,8 +12,8 @@ namespace battle
 	//但如果你想返回1，应当返回$chprocess($pa,$pd,$active)
 	//上述是没有LOG的情况，对于有LOG的情况更麻烦一点：
 	//为了保证LOG不会自相矛盾，如果你想返回0，可以直接发LOG
-	//但如果你想返回1，LOG不能在这个函数里发送，请自己开一个标记记下来，然后在
-	//然后再进行你的判断和发对应log，并返回结果
+	//但如果你想返回1，LOG不能在这个函数里发送，请自己开一个标记记下来（这个标记应该在battle_prepare里初始化）
+	//然后接管counter_assault，如果存在标记则发对应log
 	//这样才能保证不会出现你认为可以反击发了log然后其他模块认为不可以反击，导致log自相矛盾的情况
 	function check_can_counter(&$pa, &$pd, $active)
 	{

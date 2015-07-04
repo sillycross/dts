@@ -143,7 +143,8 @@ namespace weapon
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$primary_dmg=get_primary_dmg($pa, $pd, $active) * get_primary_dmg_multiplier($pa, $pd, $active);
-		$fixed_dmg=get_fixed_dmg($pa, $pd, $active) * get_fixed_dmg_multiplier($pa, $pd, $active);
+		$fixed_dmg=get_fixed_dmg($pa, $pd, $active);
+		if ($fixed_dmg>0) $fixed_dmg *= get_fixed_dmg_multiplier($pa, $pd, $active);
 		return round($primary_dmg + $fixed_dmg);
 	}
 	

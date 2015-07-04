@@ -3,7 +3,7 @@
 namespace autopower
 {
 	global $max_autopower_num; $max_autopower_num = 15;	//一次装载的钉子/磨刀石数量
-	global $autopower_penalty; $autopower_penalty = 1.4;	//使用自动钉/磨刀的CD惩罚，玩家将进入一个物品CD×使用钉子数量×惩罚的CD中
+	global $autopower_penalty; $autopower_penalty = 1.5;	//使用自动钉/磨刀的CD惩罚，玩家将进入一个物品CD×使用钉子数量×惩罚的CD中
 	
 	function init() {}
 	
