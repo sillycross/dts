@@ -24,11 +24,11 @@
 							<tr>
 								<td colspan="2" height="80" class="b3"><span><img src="img/$iconImg" border="0" style="width:140;height:80" <!--{if $hp==0}-->style="filter:Xray()"<!--{/if}--> /></span></td>
 							</tr>
-							<tr>
+							<tr title="你的攻击力是基础攻击力与武器攻击力的和，武器攻击力等于武器的效果值×2">
 								<td class="b2"><span>{lang att}</span></td>
-								<td class="b3"><span>$att + $wepe</span></td>
+								<td class="b3"><span>$att + <!--{eval echo $wepe*2;}--></span></td>
 							</tr>
-							<tr>
+							<tr title="你的防御力是基础防御力与所有防具防御力的和，防具防御力等于防具的效果值">
 								<td class="b2"><span>{lang def}</span></td>
 								<td class="b3"><span>$def + $ardef</span></td>
 							</tr>

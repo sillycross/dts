@@ -164,7 +164,8 @@ if ($___MOD_SRV)
 					
 					//收尾工作，清除所有全局变量
 					$___TEMP_remain_list=Array('_SERVER','GLOBALS','magic_quotes_gpc','module_hook_list','language','_ERROR');
-									
+							
+					$___TEMP_a=Array();
 					$___TEMP_a=array_keys(get_defined_vars());
 					foreach ($___TEMP_a as $___TEMP_key) 
 					{
@@ -176,6 +177,7 @@ if ($___MOD_SRV)
 						if (in_array($___TEMP_key,$___TEMP_remain_list)) continue;
 						unset($$___TEMP_key);
 					}
+					unset($___TEMP_a);
 					
 					//执行模拟载入代码，为下一次执行做准备
 					
@@ -191,8 +193,11 @@ if ($___MOD_SRV)
 						}
 					unset($i);
 		
+					//system('sync && echo 3 > /proc/sys/vm/drop_caches');  
+					
 					$___TEMP_tiused=get_script_runtime($___TEMP_EXEC_START_TIME);
 					__SOCKET_DEBUGLOG__("执行完成。核心占用时间 ".$___TEMP_tiused." 秒。");
+					__SOCKET_WARNLOG__('Memory Usage: '.memory_get_usage());
 				}
 			}
 			//现在待处理队列为空

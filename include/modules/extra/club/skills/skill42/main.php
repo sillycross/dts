@@ -61,12 +61,25 @@ namespace skill42
 		$chprocess($pa, $pd, $active);
 	}
 	
-	//先攻率+10%
+	//击杀敌人时攻击+2防御+4
+	function player_kill_enemy(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (\skillbase\skill_query(42,$pa) && check_unlocked42($pa))
+		{
+			$pa['att']+=2; $pa['def']+=4;
+		}
+		$chprocess($pa, $pd, $active);
+	}
+	
+	//先攻率+12%
 	function calculate_active_obbs(&$ldata,&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(42,$ldata) || !check_unlocked42($ldata)) return $chprocess($ldata,$edata);
-		return $chprocess($ldata,$edata)*1.1;
+		$r = 1;
+		if (\skillbase\skill_query(42,$ldata) && check_unlocked42($ldata)) $r*=1.12;
+		if (\skillbase\skill_query(42,$edata) && check_unlocked42($edata)) $r/=1.12;
+		return $chprocess($ldata,$edata)*$r;
 	}
 	
 	//暂时获得并解锁神速

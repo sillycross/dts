@@ -88,7 +88,7 @@ namespace skill46
 		if ($pa['bskill']==46) 
 		{
 			eval(import_module('logger'));
-			$r=Array(1.3);
+			$r=Array(1.5);
 			if ($active)
 				$log.='<span class="yellow">你把敌人按在地上一顿暴打！</span><br>';
 			else  $log.='<span class="yellow">敌人把你按在地上一顿暴打！</span><br>';

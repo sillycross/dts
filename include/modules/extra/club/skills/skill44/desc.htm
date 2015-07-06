@@ -13,7 +13,7 @@
 <span class="lime">当前级别$clv/$totlv</span>&nbsp;
 <!--{if $upgradecost[$clv] !== -1}-->消耗<span class="lime">$upgradecost[$clv]</span>点技能点升至下一级<!--{/if}--><br>
 每一点基础防御降低<span class="yellow">$dmgreduction[$clv]%</span>固定伤害或爆炸伤害(最高50%)<br>
-当前选择：你受到的<!--{if $choice==0}-->固定伤害<!--{else}-->爆炸伤害<!--{/if}-->将降低 <span class="yellow">$redperc%</span>
+当前选择：降低你受到的<span class="yellow"><!--{if $choice==0}-->固定伤害<!--{else}-->爆炸伤害<!--{/if}--></span> 
 <input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill44_special';$('subcmd').value='upgrade';$('skillpara1').value=2;postCmd('gamecmd','command.php');this.disabled=true;" value="切换">
 </span></td>
 <td class=b3 width=46>
