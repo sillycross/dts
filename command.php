@@ -197,7 +197,6 @@ if ($___MOD_SRV)
 					
 					$___TEMP_tiused=get_script_runtime($___TEMP_EXEC_START_TIME);
 					__SOCKET_DEBUGLOG__("执行完成。核心占用时间 ".$___TEMP_tiused." 秒。");
-					__SOCKET_WARNLOG__('Memory Usage: '.memory_get_usage());
 				}
 			}
 			//现在待处理队列为空
