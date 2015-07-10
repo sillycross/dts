@@ -91,6 +91,7 @@ skill35,extra/club/skills/skill35/,1
 skill41,extra/club/skills/skill41/,1
 skill45,extra/club/skills/skill45/,1
 skill46,extra/club/skills/skill46/,1
+skill52,extra/club/skills/skill52/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 miracletrap,base/items/miracletrap/,1
@@ -119,10 +120,13 @@ empowers,base/items/empowers/,1
 skill32,extra/club/skills/skill32/,1
 pose,base/pose/,1
 skill1,base/skills/skill1/,1
+skill49,extra/club/skills/skill49/,1
 ex_dmg_def,extra/attr/ex_dmg_def/,1
 ex_dmg_nullify,extra/attr/ex_dmg_nullify/,1
 skill25,extra/club/skills/skill25/,1
 skill44,extra/club/skills/skill44/,1
+skill47,extra/club/skills/skill47/,1
+skill48,extra/club/skills/skill48/,1
 ex_phy_nullify,extra/attr/ex_phy_nullify/,1
 wepchange,extra/attr/wepchange/,1
 blessstone,extra/attr/blessstone/,1
@@ -130,9 +134,11 @@ skill33,extra/club/skills/skill33/,1
 weather,base/weather/,1
 skill34,extra/club/skills/skill34/,1
 skill26,extra/club/skills/skill26/,1
+skill51,extra/club/skills/skill51/,1
 ex_gender_attr,extra/attr/ex_gender_attr/,1
 ex_attr_pierce,extra/attr/ex_attr_pierce/,1
 skill42,extra/club/skills/skill42/,1
 addnpc,base/addnpc/,1
+skill50,extra/club/skills/skill50/,1
 skill27,extra/club/skills/skill27/,1
 skill43,extra/club/skills/skill43/,1

@@ -381,7 +381,9 @@ namespace weapon
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('weapon'));
-		return $rangeinfo[$pa['wep_kind']];
+		if (isset($pa['wep_kind']))
+			return $rangeinfo[$pa['wep_kind']];
+		else  return $rangeinfo[$pa['wepk'][1]];
 	}
 	
 	function check_can_counter(&$pa, &$pd, $active)

@@ -2,9 +2,6 @@
 
 namespace skill46
 {
-	//怒气消耗
-	$ragecost = 70; 
-	
 	function init() 
 	{
 		define('MOD_SKILL46_INFO','club;battle;');
@@ -13,6 +10,7 @@ namespace skill46
 	function acquire46(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		\skillbase\skill_setvalue(46,'rmtime','2',$pa);
 	}
 	
 	function lost46(&$pa)
@@ -35,14 +33,13 @@ namespace skill46
 	function check_unlocked46(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return $pa['lvl']>=12;
+		return $pa['lvl']>=15;
 	}
 	
-	function get_rage_cost46(&$pa = NULL)
+	function get_remaintime46(&$pa = NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('skill46'));
-		return $ragecost;
+		return \skillbase\skill_getvalue(46,'rmtime',$pa);
 	}
 	
 	function strike_prepare(&$pa, &$pd, $active)
@@ -57,14 +54,15 @@ namespace skill46
 		}
 		else
 		{
-			$rcost = get_rage_cost46($pa);
-			if ($pa['rage']>=$rcost)
+			$remtime = (int)get_remaintime46($pa);
+			if ($remtime>=1)
 			{
 				eval(import_module('logger'));
 				if ($active)
 					$log.="<span class=\"lime\">你对{$pd['name']}发动了技能「暴打」！</span><br>";
 				else  $log.="<span class=\"lime\">{$pa['name']}对你发动了技能「暴打」！</span><br>";
-				$pa['rage']-=$rcost;
+				$remtime--; 
+				\skillbase\skill_setvalue(46,'rmtime',$remtime,$pa);
 				$pd['skill46_flag']=1;
 				addnews ( 0, 'bskill46', $pa['name'], $pd['name'] );
 			}
@@ -88,7 +86,7 @@ namespace skill46
 		if ($pa['bskill']==46) 
 		{
 			eval(import_module('logger'));
-			$r=Array(1.5);
+			$r=Array(1.65);
 			if ($active)
 				$log.='<span class="yellow">你把敌人按在地上一顿暴打！</span><br>';
 			else  $log.='<span class="yellow">敌人把你按在地上一顿暴打！</span><br>';
@@ -116,7 +114,7 @@ namespace skill46
 		if ($pa!=NULL && $pa['skill46_flag'])
 		{
 			//所有称号技能失效
-			if (defined('MOD_SKILL'.$skillid.'_INFO') && strpos(constant('MOD_SKILL'.$skillid.'_INFO'),'club;')!==false)
+			if (defined('MOD_SKILL'.$skillid.'_INFO') && strpos(constant('MOD_SKILL'.$skillid.'_INFO'),'club;')!==false && strpos(constant('MOD_SKILL'.$skillid.'_INFO'),'hidden;')===false)
 				return 0;
 		}
 		return $chprocess($skillid,$pa);

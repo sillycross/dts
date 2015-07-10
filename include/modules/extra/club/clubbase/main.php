@@ -199,7 +199,7 @@ namespace clubbase
 						$which--;
 						if ($which==0)
 						{
-							if ($zflag) echo '<br>';
+							if ($zflag) echo '<span style="display:block;height:6px;">&nbsp;</span>';
 							include template(constant('MOD_SKILL'.$key.'_BATTLECMD'));
 							return;
 						}
@@ -222,7 +222,7 @@ namespace clubbase
 							$which--;
 							if ($which==0)
 							{
-								if ($zflag) echo '<br>';
+								if ($zflag) echo '<span style="display:block;height:6px;">&nbsp;</span>';
 								include template(constant('MOD_SKILL'.$key.'_BATTLECMD'));
 								return;
 							}

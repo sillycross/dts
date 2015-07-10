@@ -22,7 +22,24 @@ namespace battle
 	function battle_finish(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+	}
+	
+	function battle(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		assault_prepare($pa,$pd,$active);
+		assault($pa,$pd,$active);
+		assault_finish($pa,$pd,$active);
+	} 
+	
+	function battle_wrapper(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		battle_prepare($pa, $pd, $active);
+		battle($pa, $pd, $active);
+		battle_finish($pa, $pd, $active);
 		
+		//写回数据库
 		eval(import_module('sys','logger','player','metman'));
 		
 		if ($active) 
@@ -51,7 +68,7 @@ namespace battle
 		if ($active)
 		{
 			$edata=$pd;
-			\player\player_save($pd);
+			\player\player_save($pa); \player\player_save($pd);
 			\metman\metman_load_playerdata($pd);
 			if ($pd['type']==0) save_enemy_battlelog($pd);
 			\player\load_playerdata($pa);
@@ -59,7 +76,7 @@ namespace battle
 		else
 		{
 			$edata=$pa;
-			\player\player_save($pa);
+			\player\player_save($pa); \player\player_save($pd);
 			\metman\metman_load_playerdata($pa);
 			if ($pa['type']==0) save_enemy_battlelog($pa);
 			\player\load_playerdata($pd);
@@ -80,22 +97,6 @@ namespace battle
 			ob_clean();
 			$action = '';
 		}
-	}
-	
-	function battle(&$pa, &$pd, $active)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		assault_prepare($pa,$pd,$active);
-		assault($pa,$pd,$active);
-		assault_finish($pa,$pd,$active);
-	} 
-	
-	function battle_wrapper(&$pa, &$pd, $active)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		battle_prepare($pa, $pd, $active);
-		battle($pa, $pd, $active);
-		battle_finish($pa, $pd, $active);
 	}
 }
 

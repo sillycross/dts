@@ -56,13 +56,13 @@ namespace skill41
 		return $chprocess($pa,$pd,$active)*1.1;
 	}
 	
-	//每次攻击增加一点基础攻击
+	//每次攻击50%几率增加一点基础攻击
 	function attack_finish(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (\skillbase\skill_query(41,$pa) && check_unlocked41($pa))
 		{
-			$pa['att']++;
+			if (rand(0,99)<50) $pa['att']++;
 		}
 		$chprocess($pa, $pd, $active);
 	}
