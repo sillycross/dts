@@ -1,0 +1,5 @@
+<?php if(!defined('IN_GAME')) exit('Access Denied'); global $___LOCAL_DUALWEP__VARS__dualwep_iteminfo; $dualwep_iteminfo=&$___LOCAL_DUALWEP__VARS__dualwep_iteminfo;   $secattmethod=\dualwep\get_sec_attack_method($sdata); if(($secattmethod!='')) { ?>
+<?php if (!defined('GEXIT_RETURN_JSON')) { ?><input type="button" class="cmdbutton" style="width:98" name="w2" value="<?php } else { echo '___aaho'; } ?><?php echo $attinfo[$secattmethod]?><?php if (!defined('GEXIT_RETURN_JSON')) { ?>" onclick="$('command').value='<?php } else { echo '___aae1'; } ?><?php echo $secattmethod?><?php if (!defined('GEXIT_RETURN_JSON')) { ?>';postCmd('gamecmd','command.php');this.disabled=true;"><br>
+<?php } else { echo '___aae2'; } ?><?php } ?>
+<?php if (!defined('GEXIT_RETURN_JSON')) { ?>   
+<?php } else { echo '___aahp'; } ?>

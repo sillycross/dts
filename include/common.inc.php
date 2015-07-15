@@ -12,6 +12,14 @@ if(PHP_VERSION < '5.4.0') {
 	exit('PHP version must >= 5.4.0!');
 }
 
+//奇怪的gzdecode hack
+if (!function_exists('gzdecode')) {
+    function gzdecode($data)
+    {
+        return gzinflate(substr($data,10,-8));
+    }
+}
+
 require GAME_ROOT.'./include/global.func.php';
 
 $___TEMP_pagestart_time=getmicrotime();

@@ -8,6 +8,11 @@ if(!defined('IN_GAME')) {
 //              底层机制函数
 //----------------------------------------
 
+function mgzdecode($data)
+{
+	return gzinflate(substr($data,10,-8));
+}
+    
 function gameerrorhandler($code, $msg, $file, $line){
 	global $errorinfo;
 	if(!$errorinfo){return;}
