@@ -77,6 +77,7 @@ namespace skill54
 		if ($active)
 			$log.='<span class="yellow">技能「圣盾」降低了敌人受到的属性伤害！</span><br>';
 		else  $log.='<span class="yellow">技能「圣盾」降低了你受到的属性伤害！</span><br>';
+		return $chprocess($pa, $pd, $active);
 	}
 	
 	function calculate_ex_single_dmg_multiple(&$pa, &$pd, $active, $key)
