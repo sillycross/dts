@@ -1,2 +1,0 @@
-<?php if(!defined('IN_GAME')) exit('Access Denied'); ?>
-<?php if (!defined('GEXIT_RETURN_JSON')) { ?><span class="evergreen"><b>现在的禁区是：</b></span>&nbsp;无月之影&nbsp;三体星&nbsp;白穗神社&nbsp;夏之镇&nbsp;清水池<br><span class="evergreen"><b>下回的禁区是：</b></span><b>11时30分：</b> &nbsp;天使队移动格纳库&nbsp;&nbsp;幻想世界&nbsp;&nbsp;对天使用作战本部&nbsp;&nbsp;SCP研究设施&nbsp;；<b>12时0分：</b> &nbsp;梦幻馆&nbsp;&nbsp;妖精驿站&nbsp;&nbsp;FARGO前基地&nbsp;&nbsp;初始之树&nbsp;；<b>12时30分：</b> &nbsp;守矢神社&nbsp;&nbsp;RF高校&nbsp;&nbsp;端点&nbsp;&nbsp;常磐森林&nbsp;<?php } else { echo '___aao5'; } ?>
