@@ -31,7 +31,7 @@
 			<!--{if defined('MOD_REPLAY')}-->
 			<TD class="b3">
 				<span>
-					<input type="button" style="width:60px;height:40px;" value="录像回放" <!--{if $info['wmode'] && $info['wmode'] !=4 }-->onclick="document['list']['start'].value = '$start'; $('command').value='replay';$('gnum').value='$gid';document.info.submit();"<!--{else}-->disabled<!--{/if}-->>
+					<input type="button" style="width:80px;height:40px;-webkit-appearance:default-button;" value="录像回放" <!--{if $info['wmode'] && $info['wmode'] !=4 }-->onclick="document['list']['start'].value = '$start'; $('command').value='replay';$('gnum').value='$gid';document.info.submit();"<!--{else}-->disabled<!--{/if}-->>
 				</span>
 			</TD>
 			<!--{else}-->
@@ -39,8 +39,8 @@
 			<!--{/if}-->
 			<TD class="b3" width=60px>
 				<span>
-					<input type="button" style="width:60px;height:20px;" value="角色信息" <!--{if $info['wmode'] && $info['wmode'] != 1 && $info['wmode'] !=4 && $info['wmode'] != 6}-->onclick="$('command').value='info';$('gnum').value='$gid';document.info.submit();"<!--{else}-->disabled<!--{/if}-->>
-					<input type="button" style="width:60px;height:20px;" value="该局状况" <!--{if $info['wmode'] && $info['wmode'] !=4}-->onclick="$('command').value='news';$('gnum').value='$gid';document.info.submit();"<!--{else}-->disabled<!--{/if}-->>
+					<input type="button" style="width:80px;height:20px;" value="角色信息" <!--{if $info['wmode'] && $info['wmode'] != 1 && $info['wmode'] !=4 && $info['wmode'] != 6}-->onclick="$('command').value='info';$('gnum').value='$gid';document.info.submit();"<!--{else}-->disabled<!--{/if}-->>
+					<input type="button" style="width:80px;height:20px;" value="该局状况" <!--{if $info['wmode'] && $info['wmode'] !=4}-->onclick="$('command').value='news';$('gnum').value='$gid';document.info.submit();"<!--{else}-->disabled<!--{/if}-->>
 				</span>
 			</TD>
 		</TR>
