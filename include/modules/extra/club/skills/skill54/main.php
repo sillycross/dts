@@ -87,7 +87,7 @@ namespace skill54
 		eval(import_module('skill54'));
 		$clv = \skillbase\skill_getvalue(54,'lvl',$pd);
 		$clv = (int)$clv;
-		return $chprocess($pa, $pd, $active, $key)*$dmgreduction[$clv];
+		return $chprocess($pa, $pd, $active, $key)*(1-$dmgreduction[$clv]/100);
 	}	
 }
 

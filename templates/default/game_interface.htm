@@ -51,7 +51,7 @@
 		</td>
 	</tr>
 </table> 
-<!--{if CURSCRIPT=='game' && !defined('IN_REPLAY')}-->
+<!--{if CURSCRIPT=='game' && !defined('IN_REPLAY') && ($hp>0 || $log!='')}-->
 <script type="text/javascript">
 $('mode').value='command';$('command').value='enter';postCmd('gamecmd','command.php');
 </script>
