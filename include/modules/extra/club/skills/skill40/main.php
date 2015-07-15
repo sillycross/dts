@@ -5,6 +5,8 @@ namespace skill40
 	function init() 
 	{
 		define('MOD_SKILL40_INFO','club;');
+		eval(import_module('clubbase'));
+		$clubskillname[40] = '活化';
 	}
 	
 	function acquire40(&$pa)

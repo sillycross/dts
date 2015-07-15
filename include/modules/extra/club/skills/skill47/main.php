@@ -8,6 +8,8 @@ namespace skill47
 	function init() 
 	{
 		define('MOD_SKILL47_INFO','club;battle;');
+		eval(import_module('clubbase'));
+		$clubskillname[47] = '花雨';
 	}
 	
 	function acquire47(&$pa)
@@ -58,7 +60,7 @@ namespace skill47
 		else
 		{
 			$rcost = get_rage_cost47($pa);
-			if ($pa['rage']>=$rcost && $pa['wepk']=='WC')
+			if ($pa['rage']>=$rcost && $pa['wep_kind']=='C')
 			{
 				eval(import_module('logger'));
 				if ($active)

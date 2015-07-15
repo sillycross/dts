@@ -10,7 +10,7 @@
 	cellPadding=0 align=center border=0>
 	<TBODY>
 		<TR>
-			<TD colSpan=7 class="b3" height=30px>
+			<TD colSpan=8 class="b3" height=30px>
 			<span><B style="FONT-SIZE: 120%; color: #98fb98">“ACFUN大逃杀”游戏帮助目录</B></span>
 			</TD>
 		</TR>
@@ -36,13 +36,12 @@
 			<TD class="b3" width=105px>
 			<span><A href="help.php#战斗说明">战斗说明</A></span>
 			</TD>
-		</TR>
-		<TR>
-			
-			<TD class="b3" height=25px>
+			<TD class="b3" width=105px>
 			<span><A href="help.php#熟练度">熟练度</A></span>
 			</TD>
-			<TD class="b3">
+		</TR>
+		<TR>
+			<TD class="b3" height=25px>
 			<span><A href="help.php#基础姿态">基础姿态</A></span>
 			</TD>
 			<TD class="b3">
@@ -60,17 +59,16 @@
 			<TD class="b3">
 			<span><A href="help.php#重击和必杀">重击和必杀</A></span>
 			</TD>
-		</TR>
-		<TR>
-			
-			<TD class="b3" height=25px>
+			<TD class="b3">
 			<span><A href="help.php#受伤与状态">受伤与状态</A></span>
 			</TD>
 			<TD class="b3">
 			<span><A href="help.php#毒药和陷阱">毒药和陷阱</A></span>
 			</TD>
-			<TD class="b3">
-			<span><A href="help.php#内定称号">内定称号</A></span>
+		</TR>
+		<TR>
+			<TD class="b3" height=25px>
+			<span><A href="help.php#称号与技能">称号与技能</A></span>
 			</TD>
 			<TD class="b3">
 			<span><A href="help.php#道具合成">道具合成</A></span>
@@ -80,6 +78,9 @@
 			</TD>
 			<TD class="b3">
 			<span><A href="help.php#天气">天气</A></span>
+			</TD>
+			<TD class="b3">
+			<span><A href="help.php#NPC简介">NPC简介</A></span>
 			</TD>
 			<TD class="b3">
 			<span><A href="help.php#玩家守则">玩家守则</A></span>
@@ -1527,13 +1528,13 @@ NPC也会发出重击和必杀技，请随时小心。</p>
 自己设的陷阱可能会被自己触发，自己下毒的食物可能会被自己捡到并且误食，所以在设下陷阱或是下毒的时候要谨慎。<BR>
 陷阱类道具会造成不超过道具效果值的伤害，下毒的食物会造成与食物效果值一样的伤害。</p>
 <BR>
-<p><a name="内定称号"><span class="subtitle2">16.内定称号</span></a></p>
+<p><a name="称号与技能"><span class="subtitle2">16.称号与技能</span></a></p>
 
 <br>
-<p>玩家进入游戏时，会随机分配到一个内定称号。<BR>
+<p>
 内定称号分为“一般”和“特殊”两种类型。<BR>
-一般内定称号增加熟练度，获得几率较高；特殊内定称号会赋予玩家特殊能力，获得几率较低。<BR>
-内定称号对玩家的影响如下表：</p>
+玩家进入游戏时，会随机分配到三个内定称号，其中1个“一般”类型称号和2个“特殊”类型称号，玩家可从中任选一个作为自己的称号。<BR>
+不同的内定称号有不同的特性与技能，请参见下表：</p>
 <BR>
 
 <!--{eval eval(import_module('clubbase'));}-->
@@ -1570,8 +1571,7 @@ NPC也会发出重击和必杀技，请随时小心。</p>
 		</td>
 		<td class="b3">
 			<span>
-			<!--{eval $nowclub=1;}-->
-			<input class="cmdbutton" onclick="$('fmsgbox$nowclub').style.display = 'block'; jQuery(function() { jQuery('.scroll-pane$nowclub').jScrollPane(); });" value="点我查看称号技能" type="button">
+			<input class="cmdbutton" onclick="bubblebox_show('club1');" value="点我查看称号技能" type="button">
 			</span>
 		</td>
 	</tr>
@@ -1615,8 +1615,7 @@ NPC也会发出重击和必杀技，请随时小心。</p>
 		</td>
 		<td class="b3">
 		<span>
-		<!--{eval $nowclub=4;}-->
-		<input class="cmdbutton" onclick="$('fmsgbox$nowclub').style.display = 'block'; jQuery(function() { jQuery('.scroll-pane$nowclub').jScrollPane(); });" value="点我查看称号技能" type="button">
+		<input class="cmdbutton" onclick="bubblebox_show('club4');" value="点我查看称号技能" type="button">
 		</span>
 		</td>
 	</tr>
@@ -1642,7 +1641,7 @@ NPC也会发出重击和必杀技，请随时小心。</p>
 		<span>一般</span>
 		</td>
 		<td class="b3">
-		<span>开局获得20灵系熟练；升级时额外增加灵系熟练</span>
+		<span>开局获得20灵系熟练；升级时额外增加灵系熟练；</span>
 		</td>
 		<td class="b3">
 		<span>尚未实现……</span>
@@ -1656,12 +1655,11 @@ NPC也会发出重击和必杀技，请随时小心。</p>
 		<span>特殊</span>
 		</td>
 		<td class="b3">
-		<span>可将各类方块或宝石镶嵌至武器或防具上，为其增加效耐值、添加属性<sup>※</sup>；升级时生命成长微小提高</span>
+		<span>可将各类方块或宝石镶嵌至武器或防具上，为其增加效耐值、添加属性<sup>※</sup>；升级时生命成长微小提高；</span>
 		</td>
 		<td class="b3">
 		<span>
-		<!--{eval $nowclub=20;}-->
-		<input class="cmdbutton" onclick="$('fmsgbox$nowclub').style.display = 'block'; jQuery(function() { jQuery('.scroll-pane$nowclub').jScrollPane(); });" value="点我查看称号技能" type="button">
+		<input class="cmdbutton" onclick="bubblebox_show('club20');" value="点我查看称号技能" type="button">
 		</span>
 		</td>
 	</tr>
@@ -1673,12 +1671,11 @@ NPC也会发出重击和必杀技，请随时小心。</p>
 		<span>特殊</span>
 		</td>
 		<td class="b3">
-		<span>初始生命+200，生命成长率大幅提高；技能点换取生命数值大幅提高；食用补给生命回复效果×2.5倍</span>
+		<span>初始生命+200，生命成长率大幅提高；技能点换取生命数值大幅提高；食用补给生命回复效果×2.5倍；</span>
 		</td>
 		<td class="b3">
 		<span>
-		<!--{eval $nowclub=13;}-->
-		<input class="cmdbutton" onclick="$('fmsgbox$nowclub').style.display = 'block'; jQuery(function() { jQuery('.scroll-pane$nowclub').jScrollPane(); });" value="点我查看称号技能" type="button">
+		<input class="cmdbutton" onclick="bubblebox_show('club13');" value="点我查看称号技能" type="button">
 		</span>
 		</td>
 	</tr>
@@ -1694,8 +1691,7 @@ NPC也会发出重击和必杀技，请随时小心。</p>
 		</td>
 		<td class="b3">
 		<span>
-		<!--{eval $nowclub=14;}-->
-		<input class="cmdbutton" onclick="$('fmsgbox$nowclub').style.display = 'block'; jQuery(function() { jQuery('.scroll-pane$nowclub').jScrollPane(); });" value="点我查看称号技能" type="button">
+		<input class="cmdbutton" onclick="bubblebox_show('club14');" value="点我查看称号技能" type="button">
 		</span>
 		</td>
 	</tr>
@@ -1708,12 +1704,32 @@ NPC也会发出重击和必杀技，请随时小心。</p>
 		<span>特殊</span>
 		</td>
 		<td class="b3">
-		<span>移动和探索体力消耗大幅减少，而且减少程度随着等级提升会上升；陷阱回避率增加，而遭遇陷阱几率减少</span>
+		<span>移动和探索体力消耗大幅减少，而且减少程度随着等级提升会上升；陷阱回避率增加，而遭遇陷阱几率减少；</span>
 		</td>
 		<td class="b3">
-		<span>无</span>
+		<span>
+		<input class="cmdbutton" onclick="bubblebox_show('club6');" value="点我查看称号技能" type="button">
+		</span>
 		</td>
 	</tr>
+	<tr>
+		<td class="b2" height=20px>
+		<span>富家子弟</span>
+		</td>
+		<td class="b3">
+		<span>特殊</span>
+		</td>
+		<td class="b3">
+		<span>初始资金500元；购买物品所需金钱数下降；</span>
+		</td>
+		<td class="b3">
+		<span>
+		<input class="cmdbutton" onclick="bubblebox_show('club11');" value="点我查看称号技能" type="button">
+		</span>
+		</td>
+	</tr>
+	-->
+	<!--
 	<tr>
 		<td class="b2" height=20px>
 		<span>高速成长</span>
@@ -1779,20 +1795,6 @@ NPC也会发出重击和必杀技，请随时小心。</p>
 		</td>
 		<td class="b3">
 		<span>全系熟练+50；升级时额外增加全系熟练</span>
-		</td>
-		<td class="b3">
-		<span>无</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>富家子弟</span>
-		</td>
-		<td class="b3">
-		<span>特殊</span>
-		</td>
-		<td class="b3">
-		<span>初始资金500元；购买物品所需金钱数下降</span>
 		</td>
 		<td class="b3">
 		<span>无</span>
@@ -2785,8 +2787,13 @@ NPC也会发出重击和必杀技，请随时小心。</p>
 <BR>
 <BR>
 
+<p><a name="NPC简介"><span class="subtitle2">20.NPC简介</span></a></p>
+<br>
+{template npchelp}
 <BR>
-<p><a name="玩家守则"><span class="subtitle2">20.玩家守则</span></a></p>
+
+<BR>
+<p><a name="玩家守则"><span class="subtitle2">21.玩家守则</span></a></p>
 <p><span class="evergreen">
 1。请文明地进行游戏。使用不雅昵称或口出脏话，而且不听劝阻的人，不保证其继续游戏的权利。<br>
 2。请放松地进行游戏，勿为游戏中的突发事件而走极端。<br>
@@ -2795,7 +2802,7 @@ NPC也会发出重击和必杀技，请随时小心。</p>
 感谢能遵守以上三条的人的默默支持，祝你们都能享受到“ACFUN大逃杀”的游戏乐趣。</span></p>
 
 </div>
-<a href="changelog2011.html">更新履历</a><br>
+<a href="changelog2015.txt">已经更新的更新履历</a><br>
 
 
 

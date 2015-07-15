@@ -1,3 +1,7 @@
+<!--{if defined('IN_REPLAY')}-->
+<div style="position:relative; height:100%; width:100%;">
+<div class="skill_unacquired">
+<!--{/if}-->
 <table id="chat" border="0" width="720" cellspacing="0" cellpadding="0" style="valign:top">
 	<tr>
 		<td height="20px" width="100%" class="b1"><span>{lang chat}</span></td>
@@ -5,9 +9,11 @@
 	<tr>
 		<td valign="top" class="b3" style="text-align: left" height="1px">
 			<div id="chatlist" class="chatlist">
+				<!--{if !defined('IN_REPLAY')}-->
 				<!--{loop $chatdata['msg'] $msg}-->
 				$msg
 				<!--{/loop}-->
+				<!--{/if}-->
 			</div>
 		</td>
 	</tr>
@@ -31,8 +37,20 @@
 					<input type="button" id="send" onClick="document['sendchat']['sendmode'].value='send';chat('send',$chatrefresh);return false;" value="{lang send}">
 					<input type="button" id="ref" onClick="document['sendchat']['sendmode'].value='ref';chat('ref',$chatrefresh);return false;" value="{lang refresh}">
 				</form>
+			<!--{if !defined('IN_REPLAY')}-->
 			<script type="text/javascript">chat('ref',$chatrefresh);</script>
+			<!--{/if}-->
 			</div>
 		</td>
 	</tr>
 </table> 
+<!--{if defined('IN_REPLAY')}-->
+</div>
+<div class="skill_unacquired_hint">
+<table border="0" cellSpacing=0 cellPadding=0 height=100% width=100%>
+<tr><td valign="center" align="center">
+回放录像聊天记录暂未实现
+</td></tr>
+</table>
+</div></div>
+<!--{/if}-->

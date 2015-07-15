@@ -11,6 +11,8 @@ namespace skill49
 	function init() 
 	{
 		define('MOD_SKILL49_INFO','club;battle;upgrade;');
+		eval(import_module('clubbase'));
+		$clubskillname[49] = '潜能';
 	}
 	
 	function acquire49(&$pa)
@@ -87,7 +89,7 @@ namespace skill49
 		else
 		{
 			$rcost = get_rage_cost49($pa);
-			if ($pa['rage']>=$rcost && $pa['wepk']=='WC')
+			if ($pa['rage']>=$rcost && $pa['wep_kind']=='C')
 			{
 				eval(import_module('logger'));
 				if ($active)

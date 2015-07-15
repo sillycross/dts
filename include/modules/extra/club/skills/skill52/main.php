@@ -9,6 +9,8 @@ namespace skill52
 	function init() 
 	{
 		define('MOD_SKILL52_INFO','club;upgrade;');
+		eval(import_module('clubbase'));
+		$clubskillname[52] = '臂力';
 	}
 	
 	function acquire52(&$pa)

@@ -139,6 +139,7 @@ if ($___MOD_SRV)
 						
 						$jgamedata = ob_get_contents();
 						ob_end_flush();
+						$jgamedata = base64_encode(gzencode($jgamedata));
 						
 						if ($___MOD_CONN_W_DB)
 						{
@@ -161,6 +162,25 @@ if ($___MOD_SRV)
 					}
 					socket_close($___TEMP_connection);  
 					__SOCKET_DEBUGLOG__("关闭连接。");
+					
+					if (defined('MOD_REPLAY')) 
+					{
+						if (!isset($jgamedata['url']))
+						{
+							$pid=(int)$pid;
+							if (!file_exists(GAME_ROOT.'./gamedata/tmp/replay/'.$pid))
+							{
+								mymkdir(GAME_ROOT.'./gamedata/tmp/replay/'.$pid);
+							}
+							else  if (!is_dir(GAME_ROOT.'./gamedata/tmp/replay/'.$pid))
+							{
+								unlink(GAME_ROOT.'./gamedata/tmp/replay/'.$pid);
+								mymkdir(GAME_ROOT.'./gamedata/tmp/replay/'.$pid);
+							}
+							
+							file_put_contents(GAME_ROOT.'./gamedata/tmp/replay/'.$pid.'/replay.txt',\replay\replay_record_op($oprecorder).','.($___PAGE_STARTTIME_VALUE-$starttime+$moveut*3600+$moveutmin*60).','.$___MOD_TMP_FILE_DIRECTORY.$___TEMP_uid.','."\n",FILE_APPEND);
+						}
+					}
 					
 					//收尾工作，清除所有全局变量
 					$___TEMP_remain_list=Array('_SERVER','GLOBALS','magic_quotes_gpc','module_hook_list','language','_ERROR');
@@ -425,6 +445,7 @@ if($teamID){
 	$gamedata['innerHTML']['chattype'] = "<select name=\"chattype\" value=\"2\"><option value=\"0\" selected>$chatinfo[0]</select>";
 }
 
+/*
 $timecost = get_script_runtime($pagestartime);
 if (isset($timecost2)) $log.="<span class=\"grey\">模块加载时间: $timecost2 秒</span><br>"; 
 if ($___MOD_SRV)
@@ -433,16 +454,16 @@ if ($___MOD_SRV)
 	$log.="<span class=\"grey\">页面运行时间: _____PAGE_RUNNING_TIME_____ 秒</span>"; 
 }
 else  $log.="<span class=\"grey\">页面运行时间: $timecost 秒</span>"; 
+*/
 
 $gamedata['innerHTML']['log'] = $log;
-
-$jgamedata = compatible_json_encode($gamedata);
 
 //$timecost = get_script_runtime($pagestartime);
 //$timecostlis .= '/'.$timecost;
 
 //$jgamedata = str_replace('_____CORE_RUNNING_TIME_____',$timecostlis,$jgamedata);
 
+$jgamedata=compatible_json_encode($gamedata);
 ob_clean();
 echo $jgamedata;
 

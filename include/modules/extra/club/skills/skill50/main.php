@@ -5,6 +5,8 @@ namespace skill50
 	function init() 
 	{
 		define('MOD_SKILL50_INFO','club;');
+		eval(import_module('clubbase'));
+		$clubskillname[50] = '枭眼';
 	}
 	
 	function acquire50(&$pa)

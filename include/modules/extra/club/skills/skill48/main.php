@@ -14,6 +14,8 @@ namespace skill48
 	function init() 
 	{
 		define('MOD_SKILL48_INFO','club;battle;');
+		eval(import_module('clubbase'));
+		$clubskillname[48] = '附魔';
 		eval(import_module('itemmain','ex_dmg_att'));
 		global $skill48_ex_map, $skill48_ex_kind_list; 
 		$skill48_ex_kind_list=Array();
@@ -70,7 +72,7 @@ namespace skill48
 	function get_single_status_html48($key, $value)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$z=\skillbase\skill_getvalue(48,$key);
+		$z=(int)\skillbase\skill_getvalue(48,$key);
 		if ($z<15) 
 			$sty='<span class="grey">';
 		else if ($z<30)
@@ -142,7 +144,7 @@ namespace skill48
 		else
 		{
 			$rcost = get_rage_cost48($pa);
-			if ($pa['rage']>=$rcost && $pa['wepk']=='WC')
+			if ($pa['rage']>=$rcost && $pa['wep_kind']=='C')
 			{
 				eval(import_module('logger'));
 				if ($active)

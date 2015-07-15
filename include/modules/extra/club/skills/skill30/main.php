@@ -8,6 +8,8 @@ namespace skill30
 	function init() 
 	{
 		define('MOD_SKILL30_INFO','club;battle;');
+		eval(import_module('clubbase'));
+		$clubskillname[30] = '压制';
 	}
 	
 	function acquire30(&$pa)

@@ -1,0 +1,3 @@
+<?php if(!defined('IN_GAME')) exit('Access Denied'); ?>
+<input type="button" class="cmdbutton" id="itemmix" name="itemmix" value="道具合成" onclick="$('command').value='itemmain';$('subcmd').name='itemcmd';$('subcmd').value='itemmix';postCmd('gamecmd','command.php');this.disabled=true;">
+ 

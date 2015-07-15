@@ -15,10 +15,10 @@
 			<TD class="b1"><span>使用武器</span></TD>
 			<TD class="b1"><span>最高伤害</span></TD>
 			<TD class="b1"><span>杀人最多</span></TD>
-			<TD class="b1"><span>查看信息</span></TD>
+			<TD class="b1" colspan=2><span>查看信息</span></TD>
 		</TR>
 		<!--{loop $winfo $gid $info}-->
-		<TR height="20">
+		<TR height="40">
 			<TD class="b2"><span>$gid</span></TD>
 			<TD class="b3"><span>$gwin[$info['wmode']]</span></TD>
 			<TD class="b3" style="white-space: nowrap;"><!--{if $info['name']}--><span class="evergreen">$info['name']</span><!--{else}--><span class="grey">无</span><!--{/if}--></TD>
@@ -28,10 +28,19 @@
 			<TD class="b3"><!--{if $info['wep']}--><span class="white">$info['wep']</span><!--{else}--><span class="grey">无</span><!--{/if}--></TD>
 			<TD class="b3"><!--{if $info['hdmg']}--><span class="white">$info['hdp']</span><!--{else}--><span class="grey">无</span><!--{/if}--></TD>
 			<TD class="b3"><!--{if $info['hkill']}--><span class="white">$info['hkp']</span><!--{else}--><span class="grey">无</span><!--{/if}--></TD>
+			<!--{if defined('MOD_REPLAY')}-->
 			<TD class="b3">
 				<span>
-					<input type="button" value="角色信息" <!--{if $info['wmode'] && $info['wmode'] != 1 && $info['wmode'] !=4 && $info['wmode'] != 6}-->onclick="$('command').value='info';$('gnum').value='$gid';document.info.submit();"<!--{else}-->disabled<!--{/if}-->>
-					<input type="button" value="该局状况" <!--{if $info['wmode'] && $info['wmode'] !=4}-->onclick="$('command').value='news';$('gnum').value='$gid';document.info.submit();"<!--{else}-->disabled<!--{/if}-->>
+					<input type="button" style="width:60px;height:40px;" value="录像回放" <!--{if $info['wmode'] && $info['wmode'] !=4 }-->onclick="document['list']['start'].value = '$start'; $('command').value='replay';$('gnum').value='$gid';document.info.submit();"<!--{else}-->disabled<!--{/if}-->>
+				</span>
+			</TD>
+			<!--{else}-->
+			<td></td>
+			<!--{/if}-->
+			<TD class="b3" width=60px>
+				<span>
+					<input type="button" style="width:60px;height:20px;" value="角色信息" <!--{if $info['wmode'] && $info['wmode'] != 1 && $info['wmode'] !=4 && $info['wmode'] != 6}-->onclick="$('command').value='info';$('gnum').value='$gid';document.info.submit();"<!--{else}-->disabled<!--{/if}-->>
+					<input type="button" style="width:60px;height:20px;" value="该局状况" <!--{if $info['wmode'] && $info['wmode'] !=4}-->onclick="$('command').value='news';$('gnum').value='$gid';document.info.submit();"<!--{else}-->disabled<!--{/if}-->>
 				</span>
 			</TD>
 		</TR>
@@ -47,3 +56,7 @@
 <br>
 <!--{if isset($listinfo)}-->$listinfo<!--{/if}-->
 </form>
+
+<!--{if $command=='replay' && defined('MOD_REPLAY')}-->
+<!--{eval \replay\get_replay_by_gnum($gnum,$rep_winmode);}-->
+<!--{/if}-->

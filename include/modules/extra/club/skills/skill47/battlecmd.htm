@@ -1,6 +1,6 @@
 <!--{eval $rageneed = \skill47\get_rage_cost47();}-->
 <!--{if $rage>=$rageneed}-->
-<!--{if $wepk == 'WC'}-->
+<!--{if substr($wepk,0,2) == 'WC'}-->
 <input type="button" class="cmdbutton" style="width:98" name="" value="花雨" 
 onclick="$('command').value='$w1';$('bskill').value=47;postCmd('gamecmd','command.php');this.disabled=true;"><br />
 <div style="width:90%; text-align:left;">

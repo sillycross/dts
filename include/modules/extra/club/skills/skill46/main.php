@@ -4,7 +4,9 @@ namespace skill46
 {
 	function init() 
 	{
-		define('MOD_SKILL46_INFO','club;battle;');
+		define('MOD_SKILL46_INFO','club;battle;limited;');
+		eval(import_module('clubbase'));
+		$clubskillname[46] = '暴打';
 	}
 	
 	function acquire46(&$pa)

@@ -9,6 +9,8 @@ namespace skill44
 	function init() 
 	{
 		define('MOD_SKILL44_INFO','club;upgrade;');
+		eval(import_module('clubbase'));
+		$clubskillname[44] = '金刚';
 	}
 	
 	function acquire44(&$pa)

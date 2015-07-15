@@ -8,6 +8,8 @@ namespace skill45
 	function init() 
 	{
 		define('MOD_SKILL45_INFO','club;battle;');
+		eval(import_module('clubbase'));
+		$clubskillname[45] = '重拳';
 	}
 	
 	function acquire45(&$pa)

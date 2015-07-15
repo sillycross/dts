@@ -8,6 +8,8 @@ namespace skill38
 	function init() 
 	{
 		define('MOD_SKILL38_INFO','club;battle;');
+		eval(import_module('clubbase'));
+		$clubskillname[38] = '闷棍';
 	}
 	
 	function acquire38(&$pa)

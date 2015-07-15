@@ -5,6 +5,8 @@ namespace skill34
 	function init() 
 	{
 		define('MOD_SKILL34_INFO','club;upgrade;');
+		eval(import_module('clubbase'));
+		$clubskillname[34] = '百战';
 	}
 	
 	function acquire34(&$pa)
@@ -35,10 +37,10 @@ namespace skill34
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$sum = 0;
 		eval(import_module('skill32'));
-		$clv = \skillbase\skill_getvalue(32,'lvl',$pa);
+		$clv = (int)\skillbase\skill_getvalue(32,'lvl',$pa);
 		for ($i=0; $i<$clv; $i++) $sum+=$upgradecost[$i];
 		eval(import_module('skill35'));
-		$clv = \skillbase\skill_getvalue(35,'lvl',$pa);
+		$clv = (int)\skillbase\skill_getvalue(35,'lvl',$pa);
 		for ($i=0; $i<$clv; $i++) $sum+=$upgradecost[$i];
 		return $sum;
 	}

@@ -31,16 +31,9 @@ namespace clubbase
 		
 		eval(import_module('clubbase','logger'));
 		
-		if ($pa == NULL)
-		{
-			eval(import_module('player'));
-			$clubid = $club;
-		}
-		else  $clubid = $pa['club'];
-		
-		foreach ($clublist[$clubid]['skills'] as $key)
-			if (defined('MOD_SKILL'.$key))
-				\skillbase\skill_lost($key,$pa);
+		foreach (\skillbase\get_acquired_skill_array($pa) as $skillid) 
+			if (defined('MOD_SKILL'.$skillid.'_INFO') && strpos(constant('MOD_SKILL'.$skillid.'_INFO'),'club;')!==false)
+				\skillbase\skill_lost($skillid,$pa);
 
 		if ($pa == NULL)
 		{

@@ -5,6 +5,8 @@ namespace skill51
 	function init() 
 	{
 		define('MOD_SKILL51_INFO','club;');
+		eval(import_module('clubbase'));
+		$clubskillname[51] = '百出';
 	}
 	
 	function acquire51(&$pa)

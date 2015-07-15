@@ -1,0 +1,58 @@
+<div id="notice"></div>
+<table id="game_interface" border="0" cellspacing="10" cellpadding="0" align="center">
+	<tr valign=top>
+		<td>
+			<div id="main">
+				<!--{if $main=='battle'}-->
+					{template battle}
+				<!--{else}-->
+					{template profile}
+				<!--{/if}-->
+			</div>
+		</td>
+		<td valign="top" rowspan="2">
+			<table border="0" width="300" height="560" cellspacing="0" cellpadding="0" >
+				<tr>
+					<td height="20" class="b1">
+						<div>
+							<span class="yellow" id="pls">$plsinfo[$pls]</span>【<span class="red">剩余：<span id="anum">$alivenum</span>人</span>】
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td valign="top" class="b3" height="540" style="text-align: left;overflow:auto;overflow-x:hidden;">
+						<div id="log">$log</div>
+						<div>
+							<form method="post" id="gamecmd" name="gamecmd" style="margin: 0px" >
+								<input type="hidden" id="oprecorder" name="oprecorder" value=""> 
+								<div id="cmd">
+									<!--{if $hp <= 0}-->
+									{template death}
+									<!--{elseif $state >=1 && $state <= 3}-->
+									{template rest}
+									<!--{elseif $itms0}-->
+									{template MOD_ITEMMAIN_ITEMFIND}
+									<!--{elseif $cmd}-->
+									$cmd
+									<!--{else}-->
+									{template command}
+									<!--{/if}-->
+								</div>						
+							</form>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			{template chat}
+		</td>
+	</tr>
+</table> 
+<!--{if CURSCRIPT=='game' && !defined('IN_REPLAY')}-->
+<script type="text/javascript">
+$('mode').value='command';$('command').value='enter';postCmd('gamecmd','command.php');
+</script>
+<!--{/if}-->

@@ -6,8 +6,8 @@
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
-<!--{eval $clv=\skillbase\skill_getvalue(44,'lvl');}-->
-<!--{eval $choice=\skillbase\skill_getvalue(44,'choice');}-->
+<!--{eval $clv=(int)\skillbase\skill_getvalue(44,'lvl');}-->
+<!--{eval $choice=(int)\skillbase\skill_getvalue(44,'choice');}-->
 <!--{eval $totlv = count($upgradecost)-1; }-->
 <!--{eval $redperc = min(50,$dmgreduction[$clv]*$def);}-->
 <span class="lime">当前级别$clv/$totlv</span>&nbsp;

@@ -89,6 +89,7 @@ namespace npc
 				'itmk2' => 'Y',
 				'itme2' => 1,
 				'itms2' => 1,
+				'description' => '红杀将军 红暮，坐镇于无月之影的BOSS，达成锁定解除结局所必须击杀的NPC。 <span class="yellow">没事还是不要惹她好了……</span>',
 				),
 			),
 		),
@@ -130,6 +131,10 @@ namespace npc
 		'arak' => 'DA',
 		'arae' => 75,
 		'aras' => 100,
+		'art' => 'ACFUN的账号',
+		'artk' => 'A',
+		'arte' => 20,
+		'arts' => 10,
 //		'itm5' => '好人卡',
 //		'itmk5' => 'Y',
 //		'itme5' => 1,
@@ -155,6 +160,7 @@ namespace npc
 			'itme2' => 33,
 			'itms2' => 2,
 			'itmsk2' => 'r',
+			'description' => '全息幻象 水濑 名雪-改，掉落优秀的爆系武器。',
 			),
 		1 => array
 			(
@@ -175,6 +181,7 @@ namespace npc
 			'itme2' => 33,
 			'itms2' => 2,
 			'itmsk2' => 'r',
+			'description' => '全息幻象 立华 奏-改，掉落优秀的殴系武器。',
 			),
 		2 => array
 			(
@@ -194,6 +201,7 @@ namespace npc
 			'itmk2' => 'Y',
 			'itme2' => 40,
 			'itms2' => 8,
+			'description' => '全息幻象 思念体-海马 濑人，掉落优秀的斩系武器、强效的磨刀石。',
 			),
 		3 => array
 			(
@@ -217,6 +225,7 @@ namespace npc
 			'itmk3' => 'WF',
 			'itme3' => 340,
 			'itms3' => 300,
+			'description' => '全息幻象 思念体-触手众，掉落优秀的灵系武器、强效的钉子以及具有补给净化功能的饰品。',
 			),
 		),
 	),
@@ -429,6 +438,7 @@ namespace npc
 				'itme2' => 500,
 				'itms2' => 100,
 				'itmsk2' => 'cd',
+				'description' => '杏仁豆腐 冴月 麟，对玩家有较大威胁，掉落启动死斗模式的钥匙，和很强力的灵系武器。',
 				),
 			1 => array
 				(
@@ -446,6 +456,7 @@ namespace npc
 				'itme2' => 500,
 				'itms2' => 6,
 				'itmsk2' => 'd',
+				'description' => '杏仁豆腐 某四面，对玩家有较大威胁，掉落启动死斗模式的钥匙，和很强力的射系武器。',
 				),
 			),
 		),
@@ -520,6 +531,7 @@ namespace npc
 				'itmk2' => 'Y',
 				'itme2' => 1,
 				'itms2' => 1,
+				'description' => '黑幕 Acg_Xilin，对玩家具有很大威胁，如果防御值没有达到2000最好不要惹他（她）。掉落可以杀死任意一名玩家的道具“死亡笔记”，和大量的金钱。',
 				),
 			),
 		),
@@ -685,6 +697,7 @@ namespace npc
 				'itmk1' => 'Y',
 				'itme1' => 1,
 				'itms1' => 1,
+				'description' => '坐镇于冰封墓场的NPC，几乎无敌的存在。<span class="yellow">没事还是不要惹她好了……</span>',
 				),
 			),
 		),
@@ -757,6 +770,7 @@ namespace npc
 				'itmk1' => 'Z',
 				'itme1' => 1,
 				'itms1' => 1,
+				'description' => '真职人 Hank，使用带有全属性的爆系武器，掉落极优秀的防具。',
 				),
 				
 				1 => array
@@ -772,6 +786,7 @@ namespace npc
 				'itmk1' => 'Z',
 				'itme1' => 1,
 				'itms1' => 1,
+				'description' => '真职人 爱情上甘岭，使用带有全属性的斩系武器，掉落极优秀的防具。',
 				),
 				
 				2 => array
@@ -811,6 +826,7 @@ namespace npc
 				'itmk1' => 'Z',
 				'itme1' => 1,
 				'itms1' => 1,
+				'description' => '真职人 221，使用带有全属性的殴系武器，掉落极优秀的防具。',
 				
 				),
 				3 => array
@@ -851,6 +867,7 @@ namespace npc
 				'itmk1' => 'Z',
 				'itme1' => 1,
 				'itms1' => 1,
+				'description' => '真职人 Erul Tron，使用带有全属性的射系武器，掉落极优秀的防具。',
 				),
 				
 				4 => array
@@ -896,6 +913,7 @@ namespace npc
 				'itme2' => 88,
 				'itms2' => 88,
 				'itmsk2' => 'kN',
+				'description' => '真职人 亚玛丽欧·维拉蒂安，使用带有全属性的殴系武器，掉落极优秀的防具。',
 				),
 				
 				5 => array
@@ -936,6 +954,7 @@ namespace npc
 				'arte' => 1,
 				'arts' => 1,
 				'artsk' => 'Bb',
+				'description' => '真职人 便当盒，ACFUN大逃杀吉祥物，卖萌的存在，拥有888万点HP和双抹消饰品，几乎无法杀死。',
 				),
 			),
 		),
@@ -1072,6 +1091,7 @@ namespace npc
 			'arte' => 1,
 			'arts' => 1,
 			'artsk' => 'H',
+			'description' => '数据碎片 讲解员 梦美，<span class="yellow">被击杀后会变身为攻击力极强的NPC</span>。',
 			),
 			1 => array
 			(
@@ -1104,6 +1124,7 @@ namespace npc
 			'arte' => 1,
 			'arts' => 1,
 			'artsk' => 'H',
+			'description' => '数据碎片 喧哗少女 叶留佳，<span class="yellow">被击杀后会变身为攻击力极强的NPC</span>。',
 			),
 			2 => array
 			(
@@ -1136,6 +1157,7 @@ namespace npc
 			'arte' => 1,
 			'arts' => 1,
 			'artsk' => 'H',
+			'description' => '数据碎片 风纪委员 静流，<span class="yellow">被击杀后会变身为攻击力极强的NPC</span>。',
 			),
 		),
 	), 
@@ -1718,6 +1740,7 @@ namespace npc
 			'itme4' => 10,
 			'itms4' => 1,
 			'itmsk4' => 'Z',
+			'description' => '武神 虚子，<span class="yellow">旧英灵四天王之首，被称为英灵殿唯一的良心。（咦？）</span><br><span class="red">刷新虚子时随机选择一个副本。</span>',
 			),
 			1 => array
 			(
@@ -1774,6 +1797,7 @@ namespace npc
 			'itme3' => 153,
 			'itms3' => 1,
 			'itmsk3' => 'Z',
+			'description' => '武神 虚子，<span class="yellow">旧英灵四天王之首，被称为英灵殿唯一的良心。（咦？）</span><br><span class="red">虚子分裂是由于电波与时空节点融合后扭曲虚空的幻象所造成的。</span>',
 			),
 			2 => array
 			(
@@ -1828,6 +1852,7 @@ namespace npc
 			'itmk3' => 'Z',
 			'itme3' => 1,
 			'itms3' => 1,
+			'description' => '武神 水月，<span class="yellow">旧英灵四天王之一。</span>身上的火金符对玩家威胁很大，称号为换装迷宫，台词来源于圣经。初始武器自带双抹，但威力不足。',
 			),
 			3 => array
 			(
@@ -1871,6 +1896,7 @@ namespace npc
 			'arte' => 233,
 			'arts' => 233,
 			'artsk' => 'z',
+			'description' => '武神 黑色奪魂曲，<span class="yellow">英灵殿吉祥物。</span>攻击力低，二形态血量为1000W，自带双抹，同时武器拥有贯穿属性，具有一定威胁。',
 			),
 			4 => array
 			(
@@ -1909,6 +1935,7 @@ namespace npc
 			'itme1' => 4000,
 			'itms1' => '∞',
 			'itmsk1' => 'g',
+			'description' => '武神 北京推倒你，<span class="yellow">曾经被誉为最弱武神，经过BUFF后变的丧心病狂起来。</span>武器为空手，但拥有6000点的基础熟练，隐隐有成为小黑熊的架势。',
 			),
 			5 => array
 			(
@@ -1923,6 +1950,7 @@ namespace npc
 			'wepe' => 2600,
 			'weps' => 4000,
 			'wepsk' => 'n',
+			'description' => '武神 BorisX，<span class="yellow">旧英灵四天王之一，经过BUFF后变的更加丧心病狂。</span>武器为重枪，同时具有1150点的基础熟练，而且血量也有所提升，大家看见之后绕着走就行了。',
 			),
 			6 => array
 			(
@@ -1937,6 +1965,7 @@ namespace npc
 			'wepe' => 1900,
 			'weps' => 999,
 			'wepsk' => 'rdn',
+			'description' => '武神 Renamon，<span class="yellow">旧时代毫无存在感的武神之一，被BUFF能拯救她阿卡林的命运吗？</span>血量为武神中最高，同时武器基础效和全熟在被BUFF后隐隐有与当年黄鸡寻星比肩的势头。',
 			),
 			7 => array
 			(
@@ -1950,6 +1979,7 @@ namespace npc
 			'wepe' => 2100,
 			'weps' => 999,
 			'wepsk' => 'rne',
+			'description' => '武神 beijuzhu，<span class="yellow">旧时代毫无存在感的武神之一，被BUFF能拯救他阿卡林的命运吗？</span>虽然和小狐一样，武器基础效得到了BUFF，但看起来还是很弱小。',
 			),
 			8 => array
 			(
@@ -1965,6 +1995,7 @@ namespace npc
 			'wepe' => 10000,
 			'weps' => 999,
 			'wepsk' => 'cdn',
+			'description' => '武神 捂脸姬，<span class="yellow">旧时代毫无存在感的武神之一，被BUFF能拯救她阿卡林的命运吗？</span>少数没有强袭姿态的武神之一，但是武器基础效直接被提高了十倍，看起来很危险的样子。',
 			),
 			9 => array
 			(
@@ -1980,6 +2011,7 @@ namespace npc
 			'wepe' => 2000,
 			'weps' => 999,
 			'wepsk' => 'nre',
+			'description' => '武神 Yoshiko-G，<span class="yellow">四面衍生物，特征是毒舌与傲娇。</span>武神中基础防御力仅低于lemon，在得到BUFF后翻身农奴把歌唱，自带迅疾和静息技能，同时称号变为天赋，要被耀西子教做人了吗！？',
 			),
 			10 => array
 			(
@@ -2054,6 +2086,7 @@ namespace npc
 			'itme6' => 20,
 			'itms6' => 20,
 			'itmsk6' => 'z',
+			'description' => '武神 lemon，<span class="yellow">旧英灵四天王之一，经过BUFF后，好像没啥影响。</span><span class="yellow">拥有最高的基础攻击与防御，十分吓人，当然现在比起来好像也不是那么吓人了。</span>',
 			),
 		),
 	),
@@ -2148,6 +2181,7 @@ namespace npc
 			'itme5' => 10000,
 			'itms5' => '∞',
 			'itmsk5' => 'nrfkx',
+			'description' => '天神 冴月麟MK-II，ACFUN大逃杀的最初创作者。KEY社的铁杆粉丝。会切换武器。（没有键 催泪弹是刻意的）',
 			),
 			1 => array
 			(
@@ -2172,6 +2206,7 @@ namespace npc
 			'itme1' => 4444,
 			'itms1' => 444,
 			'itmsk1' => 'rfdpn',
+			'description' => '天神 星莲船四面BOSS，AC大逃杀程序员、抖M。虽然武器的攻击力不高，但由于重型枪械的百分比伤害设定，实际上对玩家拥有即死效果。',
 			),
 		),
 	),
@@ -2235,6 +2270,7 @@ namespace npc
 				'wepe' => 8888,
 				'weps' => 8888,
 				'wepsk' => 'nrd',
+				'description' => 'SCP-682，坐镇于SCP研究设施，完全无敌的存在，要是不幸被打到的话，必死无疑。最好的避免方法，就是<span class="yellow">永远不要去SCP研究设施</span>。',
 				),
 				1 => array
 				(
@@ -2245,6 +2281,7 @@ namespace npc
 				'wepe' => 8888,
 				'weps' => 8888,
 				'wepsk' => 'nrd',
+				'description' => 'SCP-173，坐镇于SCP研究设施，完全无敌的存在，要是不幸被打到的话，必死无疑。最好的避免方法，就是<span class="yellow">永远不要去SCP研究设施</span>。',
 				),
 				2 => array
 				(
@@ -2255,6 +2292,7 @@ namespace npc
 				'wepe' => 8888,
 				'weps' => 8888,
 				'wepsk' => 'nrd',
+				'description' => 'SCP-076，坐镇于SCP研究设施，完全无敌的存在，要是不幸被打到的话，必死无疑。最好的避免方法，就是<span class="yellow">永远不要去SCP研究设施</span>。',
 				),
 				3 => array
 				(
@@ -2265,6 +2303,7 @@ namespace npc
 				'wepe' => 8888,
 				'weps' => 8888,
 				'wepsk' => 'nrd',
+				'description' => 'SCP-958，坐镇于SCP研究设施，完全无敌的存在，要是不幸被打到的话，必死无疑。最好的避免方法，就是<span class="yellow">永远不要去SCP研究设施</span>。',
 				),
 			),
 		),
@@ -2340,6 +2379,7 @@ namespace npc
 				'wepk' => 'WG',
 				'wepe' => 50,
 				'weps' => 50,
+				'description' => '无威胁的小兵，也是数目最多的NPC。neta自ACFUN上那些各类不气死人不罢休的喷子，碰见了就上去给他一击吧。',
 				),
 			1 => array
 				(
@@ -2349,6 +2389,7 @@ namespace npc
 				'wepk' => 'WP',
 				'wepe' => 50,
 				'weps' => 50,
+				'description' => '无威胁的小兵，也是数目最多的NPC。neta自ACFUN上那些搬运nico视频的职人，碰见了就上去给他一击吧。',
 				),
 			2 => array
 				(
@@ -2358,6 +2399,7 @@ namespace npc
 				'wepk' => 'WK',
 				'wepe' => 50,
 				'weps' => 50,
+				'description' => '无威胁的小兵，也是数目最多的NPC。neta自ACFUN上那些翻唱名曲毁耳不倦的职人，碰见了就上去给他一击吧。',
 				),
 			3 => array
 				(
@@ -2367,6 +2409,7 @@ namespace npc
 				'wepk' => 'WC',
 				'wepe' => 50,
 				'weps' => 50,
+				'description' => '无威胁的小兵，也是数目最多的NPC。neta自ACFUN上那些弹幕当积木摆的职人，碰见了就上去给他一击吧。',
 				),
 			),
 		),

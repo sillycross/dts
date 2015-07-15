@@ -2,10 +2,13 @@ input,core/input/,1
 sys,core/sys/,1
 map,core/map/,1
 gameflow_base,core/gameflow/gameflow_base/,1
+bubblebox,extra/misc/bubblebox/,1
+bmp_util,extra/misc/bmp_util/,1
 player,core/player/,1
 gameflow_antiafk,core/gameflow/gameflow_antiafk/,1
 logger,base/logger/,1
 skillbase,base/skillbase/,1
+replay,extra/misc/replay/,1
 explore,base/explore/,1
 noise,base/noise/,1
 lvlctl,base/lvlctl/,1
@@ -71,6 +74,9 @@ club17,extra/club/clubs/club17/,1
 club20,extra/club/clubs/club20/,1
 club13,extra/club/clubs/club13/,1
 club14,extra/club/clubs/club14/,1
+sklearn_util,extra/club/sklearn_util/,1
+club6,extra/club/clubs/club6/,1
+club11,extra/club/clubs/club11/,1
 wep_n,base/weapon/wep_n/,1
 wep_p,base/weapon/wep_p/,1
 wep_k,base/weapon/wep_k/,1
@@ -92,6 +98,8 @@ skill41,extra/club/skills/skill41/,1
 skill45,extra/club/skills/skill45/,1
 skill46,extra/club/skills/skill46/,1
 skill52,extra/club/skills/skill52/,1
+skill53,extra/club/skills/skill53/,1
+skill55,extra/club/skills/skill55/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 miracletrap,base/items/miracletrap/,1
@@ -127,11 +135,13 @@ skill25,extra/club/skills/skill25/,1
 skill44,extra/club/skills/skill44/,1
 skill47,extra/club/skills/skill47/,1
 skill48,extra/club/skills/skill48/,1
+skill54,extra/club/skills/skill54/,1
 ex_phy_nullify,extra/attr/ex_phy_nullify/,1
 wepchange,extra/attr/wepchange/,1
 blessstone,extra/attr/blessstone/,1
 skill33,extra/club/skills/skill33/,1
 weather,base/weather/,1
+npcinfo,extra/misc/npcinfo/,1
 skill34,extra/club/skills/skill34/,1
 skill26,extra/club/skills/skill26/,1
 skill51,extra/club/skills/skill51/,1
@@ -142,3 +152,4 @@ addnpc,base/addnpc/,1
 skill50,extra/club/skills/skill50/,1
 skill27,extra/club/skills/skill27/,1
 skill43,extra/club/skills/skill43/,1
+skill56,extra/club/skills/skill56/,1

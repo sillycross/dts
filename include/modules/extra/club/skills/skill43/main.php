@@ -4,7 +4,9 @@ namespace skill43
 {
 	function init() 
 	{
-		define('MOD_SKILL43_INFO','club;upgrade;');
+		define('MOD_SKILL43_INFO','club;upgrade;limited;');
+		eval(import_module('clubbase'));
+		$clubskillname[43] = '龙胆';
 	}
 	
 	function acquire43(&$pa)
