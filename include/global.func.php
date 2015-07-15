@@ -243,7 +243,7 @@ function clear_dir($dirName, $keep_root = 0)	//递归清空目录
 	{
 		while (($item=readdir($handle))!==false) 
 		{
-			if ($item!='.' && $item!='..') 
+			if ($item!='.' && $item!='..' && $item!='.gitignore') 
 			{
 				if (is_dir($dirName.'/'.$item)) 
 				{
