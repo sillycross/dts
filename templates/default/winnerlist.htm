@@ -2,6 +2,7 @@
 
 <form method="post" name="info" onsubmit="winner.php">
 <input type="hidden" id="command" name="command" value="info">
+<input type="hidden" id="start" name="start" value="$gamenum">
 <input type="hidden" id="gnum" name="gnum" value="">
 <center>
 	<TABLE border="1" cellspacing="0" cellpadding="0">
@@ -31,7 +32,7 @@
 			<!--{if defined('MOD_REPLAY')}-->
 			<TD class="b3">
 				<span>
-					<input type="button" style="width:80px;height:40px;-webkit-appearance:default-button;" value="录像回放" <!--{if $info['wmode'] && $info['wmode'] !=4 }-->onclick="document['list']['start'].value = '$start'; $('command').value='replay';$('gnum').value='$gid';document.info.submit();"<!--{else}-->disabled<!--{/if}-->>
+					<input type="button" style="width:80px;height:40px;-webkit-appearance:default-button;" value="录像回放" <!--{if $info['wmode'] && $info['wmode'] !=4 }-->onclick="$('start').value = '$start'; $('command').value='replay';$('gnum').value='$gid';document.info.submit();"<!--{else}-->disabled<!--{/if}-->>
 				</span>
 			</TD>
 			<!--{else}-->

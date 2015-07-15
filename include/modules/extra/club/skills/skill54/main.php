@@ -74,7 +74,9 @@ namespace skill54
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!\skillbase\skill_query(54,$pd) || !check_unlocked54($pd)) return $chprocess($pa, $pd, $active);
 		eval(import_module('logger'));
-		$log.='<span class="yellow">技能「圣盾」降低了你受到的属性伤害！</span><br>';
+		if ($active)
+			$log.='<span class="yellow">技能「圣盾」降低了敌人受到的属性伤害！</span><br>';
+		else  $log.='<span class="yellow">技能「圣盾」降低了你受到的属性伤害！</span><br>';
 	}
 	
 	function calculate_ex_single_dmg_multiple(&$pa, &$pd, $active, $key)
