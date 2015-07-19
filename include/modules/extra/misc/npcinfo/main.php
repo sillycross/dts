@@ -19,13 +19,15 @@ namespace npcinfo
 		}
 	}
 	
-	function npcinfo_get_npc_description($npckind, $npcsubkind)
+	function npcinfo_get_npc_description($npckind, $npcsubkind, &$npcdata = NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		eval(import_module('sys','player','clubbase','npc','tactic','pose','map'));
 		$nownpc = array_merge($npcinit,$npcinfo[$npckind]);
 		$nownpc = array_merge($nownpc,$npcinfo[$npckind]['sub'][$npcsubkind]);
-		$nownpc['___count']=ceil($npcinfo[$npckind]['num']/sizeof($npcinfo[$npckind]['sub']));
+		if ($npcdata)
+			$nownpc = array_merge($nownpc,$npcdata);
+		else  $nownpc['___count']=ceil($npcinfo[$npckind]['num']/sizeof($npcinfo[$npckind]['sub']));
 		include template('MOD_NPCINFO_NPCINFO');
 	}
 	

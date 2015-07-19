@@ -54,7 +54,7 @@ namespace gameflow_combo
 		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
 	}
 	
-	function check_corpse_discover($edata)
+	function check_corpse_discover(&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));

@@ -9,22 +9,32 @@
 					<td>
 						<table border="1" height=100% width=100% cellspacing="0" cellpadding="0">
 							<tr>
+								
 								<td width=100px align="center" class="b1">
 									NPC类别
 								</td>
 								<td width=100px align="center" class="b3">
 									$typeinfo[$npckind]
 								</td>
+								<!--{if isset($nownpc['___count'])}-->
 								<td width=100px align="center" class="b1">
 									数目
 								</td>
 								<td width=100px align="center" class="b3">
 									$nownpc['___count']
 								</td>
+								<!--{else}-->
 								<td width=100px align="center" class="b1">
-									所处地点
+									数目
 								</td>
 								<td width=100px align="center" class="b3">
+									1
+								</td>
+								<!--{/if}-->
+								<td width=80px align="center" class="b1">
+									所处地点
+								</td>
+								<td width=120px align="center" class="b3">
 									<!--{if $nownpc['pls']==99}-->
 									随机
 									<!--{else}-->
@@ -51,10 +61,10 @@
 									$nownpc['name']
 									</span>
 								</td>
-								<td width=100px align="center" class="b1">
+								<td width=80px align="center" class="b1">
 									性别
 								</td>
-								<td width=100px align="center" class="b3">
+								<td width=120px align="center" class="b3">
 									<!--{if $nownpc['gd']=='m'}-->
 									男
 									<!--{else}-->
@@ -83,30 +93,30 @@
 								<td width=100px align="center" class="b3">
 									$poseinfo[$nownpc['pose']]
 								</td>
-								<td width=100px align="center" class="b1">
+								<td width=80px align="center" class="b1">
 									{lang tactic}
 								</td>
-								<td width=100px align="center" class="b3">
+								<td width=120px align="center" class="b3">
 									$tacinfo[$nownpc['tactic']]
 								</td>
 							</tr>
 							<tr>
 								<td width=100px align="center" class="b1">
-									生命上限
+									<!--{if isset($nownpc['___count'])}-->生命上限<!--{else}-->生命状况<!--{/if}-->
 								</td>
 								<td width=100px align="center" class="b3">
-									$nownpc['mhp']
+									<!--{if isset($nownpc['___count'])}-->$nownpc['mhp']<!--{else}--><span class="<!--{if $nownpc['hp'] <= $nownpc['mhp']*0.2}-->red<!--{elseif $nownpc['hp'] <= $nownpc['mhp']*0.5}-->yellow<!--{else}-->clan<!--{/if}-->">$nownpc['hp'] / $nownpc['mhp']</span><!--{/if}-->
 								</td>
 								<td width=100px align="center" class="b1">
 									熟练度
 								</td>
 								<td width=100px align="center" class="b3">
-									$nownpc['skill']
+									<!--{if isset($nownpc['___count'])}-->$nownpc['skill']<!--{else}-->$nownpc['wp']<!--{/if}-->
 								</td>
-								<td width=100px align="center" class="b1">
+								<td width=80px align="center" class="b1">
 									怒气值
 								</td>
-								<td width=100px align="center" class="b3">
+								<td width=120px align="center" class="b3">
 									$nownpc['rage']
 								</td>
 							</tr>
@@ -123,11 +133,11 @@
 								<td width=100px align="center" class="b3">
 									$nownpc['def']
 								</td>
-								<td width=100px align="center" class="b1">
-									掉落金钱
+								<td width=80px align="center" class="b1">
+									持有金钱
 								</td>
-								<td width=100px align="center" class="b3">
-									$nownpc['money']
+								<td width=120px align="center" class="b3">
+									<span>$nownpc['money']</span>元
 								</td>
 							</tr>
 						</table>

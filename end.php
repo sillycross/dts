@@ -19,6 +19,7 @@ if($pdata['pass'] != $cpass) {
 	}
 }
 
+eval(import_module('player'));
 \player\load_playerdata($pdata);
 \player\init_playerdata();
 extract($pdata);

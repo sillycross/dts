@@ -103,7 +103,10 @@ function postCmd(formName,sendto){
 		}
 	}
 	oXmlHttp.send(sBody);
-	$('oprecorder').value=""; last_sender='';
+	if ($('oprecorder'))
+	{
+		$('oprecorder').value=""; last_sender='';
+	}
 }
 
 function datalib_decode(val)
@@ -381,13 +384,14 @@ replay_cursor_now_mouseon = 0;
 replay_now = 0;
 replay_nowframe = 0;
 replay_clickrec = 0;
+replay_force_refresh = 0;
 
 function replay_set_time(t)
 {
 	replay_now=t;
 	$('replay_now_player_time').innerHTML=replay_cursor_get_time(replay_now);
 	var replay_nframe = replay_get_frame(replay_now);
-	if (replay_nframe != replay_nowframe)
+	if (replay_nframe != replay_nowframe || replay_force_refresh == 1)
 	{
 		replay_nowframe = replay_nframe;
 		showData(replay_data[replay_nowframe]);
@@ -525,8 +529,77 @@ function replay_pause_handler()
 
 replay_timestep = 20;
 
+replay_player_id = -1;
+
+function replay_clear_playerbutton_background(t)
+{
+	$('replay_playerbutton_'+Number(t).toString()+'_background').style.backgroundColor='transparent';
+}
+
+function replay_set_playerbutton_background(t)
+{
+	$('replay_playerbutton_'+Number(t).toString()+'_background').style.backgroundColor='#'+replay_data_full[t]['color'];
+}
+
+function replay_load_player(t)
+{
+	//似乎js的array和object都是默认就是地址引用的…… 直接赋值就可以达到引用的效果了……
+	if (replay_player_id != -1 ) replay_clear_playerbutton_background(replay_player_id);
+	replay_player_id =t; replay_set_playerbutton_background(replay_player_id);
+	$('replay_bar_coreu2').src="gamedata/replays/"+replay_data_full[t]['repfileid']+".rep.bmp";
+	$('replay_bar_coreu1').src="gamedata/replays/"+replay_data_full[t]['repfileid']+".rep.bmp";
+	$('replay_bar_core').src="gamedata/replays/"+replay_data_full[t]['repfileid']+".rep.bmp";
+	$('replay_bar_cored1').src="gamedata/replays/"+replay_data_full[t]['repfileid']+".rep.bmp";
+	$('replay_bar_cored2').src="gamedata/replays/"+replay_data_full[t]['repfileid']+".rep.bmp";
+	replay_data=replay_data_full[t]['replay_data'];
+	replay_header=replay_data_full[t]['replay_header'];
+	replay_oprecord=replay_data_full[t]['replay_oprecord'];
+	if (typeof in_replay_mode=='undefined' || in_replay_mode==0) return;
+	//更新页面
+	replay_force_refresh = 1;
+	replay_set_time(replay_now);
+	replay_force_refresh = 0;
+}
+
+function replay_switch_player(t)
+{
+	if (replay_cursor_drag_flag) return;
+	replay_load_player(t);
+}
+
+function replayload_progressbar(p)
+{
+	$('progressbar-inner').style.width=p+'%';
+	$('progressbar-text').innerHTML=p+'%';
+}
+
+function replayload_progressbar2(p)
+{
+	$('progressbar-inner2').style.width=p+'%';
+	$('progressbar-text2').innerHTML=p+'%';
+}
+
 function replay_init()
 {
+	//保存刚刚载入的玩家信息
+	replay_data_full[replay_player_now_num]['replay_header']=replay_header;
+	replay_data_full[replay_player_now_num]['replay_data']=replay_data;
+	replay_data_full[replay_player_now_num]['replay_oprecord']=replay_oprecord;
+	delete replay_header;
+	delete replay_data;
+	replay_player_now_num++;
+	if (replay_player_now_num<replay_player_num_tot)
+	{
+		replayload_progressbar(0);
+		replayload_progressbar2(Math.round(replay_player_now_num/replay_player_num_tot*100));
+		$('replay_loader_now_player_num').innerHTML=replay_player_now_num+1;
+		$('replay_loader_now_player').innerHTML=replay_data_full[replay_player_now_num]['repname'];
+		$('replay_loader_now_repsz').innerHTML=replay_data_full[replay_player_now_num]['repsz'];
+		$('replay_loader_now_opcnt').innerHTML=replay_data_full[replay_player_now_num]['repopcnt'];
+		jQuery.cachedScript("gamedata/replays/"+replay_data_full[replay_player_now_num]['repfileid']+".replay.header.js");
+		return;
+	}
+	replay_load_player(0);
 	in_replay_mode = 1;
 	no_json_decode = 1;
 	$('replay_tot_player_time').innerHTML=replay_cursor_get_time(replay_header['replay_timelen']);
@@ -645,6 +718,9 @@ function replay_show()
 		replay_cursor_set_position_by_time(replay_now);
 	}
 }
+
+replay_more_player_submenu_mouse_on = 0;
+replay_more_player_mouse_on = 0;
 
 function replay_record_DOM_path(sender)
 {

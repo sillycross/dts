@@ -20,11 +20,17 @@ namespace skill56
 		'arte' => 1,
 		'arts' => 1,
 		'artsk' => 'H',
-		'money' => 1200,
+		'money' => $skill56_need,
 		'sub' => array
 		(
 			0 => array
 			(
+			'probability' => 500,
+			//佣兵每分钟的工资，移动需要支付的两分钟的工资
+			'mercsalary' => 500,	//肥宅花钱如流水，太肥懒得动
+			//解雇后的行动，0为呆在原地，1为离开战场
+			//即使呆在原地，也不会与雇主进入战斗界面（因为设计意图就是强力佣兵跑路，弱渣留下继续给人送钱）
+			'mercfireaction' => 0,	
 			'club' => 0,
 			'name' => '肥宅',
 			'icon' => 150,
@@ -65,6 +71,9 @@ namespace skill56
 			),
 			1 => array
 			(
+			'probability' => 200,
+			'mercsalary' => 20,
+			'mercfireaction' => 0,	
 			'club' => 17,
 			'name' => '春原 阳平',
 			'icon' => 151,
@@ -105,6 +114,9 @@ namespace skill56
 			),
 			2 => array
 			(
+			'probability' => 200,
+			'mercsalary' => 30,
+			'mercfireaction' => 0,	
 			'club' => 11,
 			'name' => '真猎人',
 			'icon' => 152,
@@ -145,6 +157,9 @@ namespace skill56
 			),
 			3 => array
 			(
+			'probability' => 200,
+			'mercsalary' => 50,
+			'mercfireaction' => 0,	
 			'club' => 9,
 			'name' => '彩虹独角兽',
 			'icon' => 153,
@@ -185,6 +200,9 @@ namespace skill56
 			),
 			4 => array
 			(
+			'probability' => 150,
+			'mercsalary' => 80,
+			'mercfireaction' => 0,	
 			'club' => 9,
 			'name' => '海星王',
 			'icon' => 154,
@@ -225,6 +243,9 @@ namespace skill56
 			),
 			5 => array
 			(
+			'probability' => 150,
+			'mercsalary' => 90,
+			'mercfireaction' => 0,	
 			'club' => 9,
 			'name' => '红帽少年',
 			'icon' => 155,
@@ -265,6 +286,9 @@ namespace skill56
 			),
 			6 => array
 			(
+			'probability' => 180,
+			'mercsalary' => 100,
+			'mercfireaction' => 1,	
 			'club' => 4,
 			'name' => '海豹部队',
 			'icon' => 156,
@@ -305,6 +329,9 @@ namespace skill56
 			),
 			7 => array
 			(
+			'probability' => 120,
+			'mercsalary' => 100,
+			'mercfireaction' => 1,	
 			'club' => 9,
 			'name' => '圣德太子',
 			'icon' => 157,
@@ -345,6 +372,9 @@ namespace skill56
 			),
 			8 => array
 			(
+			'probability' => 100,
+			'mercsalary' => 125,
+			'mercfireaction' => 1,	
 			'club' => 4,
 			'name' => 'FV4202',
 			'icon' => 158,
@@ -385,6 +415,9 @@ namespace skill56
 			),
 			9 => array
 			(
+			'probability' => 90,
+			'mercsalary' => 150,
+			'mercfireaction' => 1,	
 			'club' => 2,
 			'name' => '萨鲁法尔大王',
 			'icon' => 159,
@@ -425,6 +458,9 @@ namespace skill56
 			),
 			10 => array
 			(
+			'probability' => 80,
+			'mercsalary' => 150,
+			'mercfireaction' => 1,	
 			'club' => 14,
 			'name' => 'Chuck Norris',
 			'icon' => 160,

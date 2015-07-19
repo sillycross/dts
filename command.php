@@ -139,7 +139,6 @@ if ($___MOD_SRV)
 						
 						$jgamedata = ob_get_contents();
 						ob_end_flush();
-						$jgamedata = base64_encode(gzencode($jgamedata));
 						
 						if ($___MOD_CONN_W_DB)
 						{
@@ -163,7 +162,7 @@ if ($___MOD_SRV)
 					socket_close($___TEMP_connection);  
 					__SOCKET_DEBUGLOG__("关闭连接。");
 					
-					if (defined('MOD_REPLAY')) 
+					if (defined('MOD_REPLAY') && $___MOD_SRV && $___MOD_CODE_ADV3) 
 					{
 						if (!isset($jgamedata['url']))
 						{
@@ -463,7 +462,7 @@ $gamedata['innerHTML']['log'] = $log;
 
 //$jgamedata = str_replace('_____CORE_RUNNING_TIME_____',$timecostlis,$jgamedata);
 
-$jgamedata=compatible_json_encode($gamedata);
+$jgamedata=base64_encode(gzencode(compatible_json_encode($gamedata)));
 ob_clean();
 echo $jgamedata;
 

@@ -1,2 +1,2 @@
 录像回放功能！
-需要CODE_ADV3开启
+需要MOD_SRV和CODE_ADV3开启

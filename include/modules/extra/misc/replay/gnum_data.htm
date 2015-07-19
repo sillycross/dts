@@ -14,6 +14,10 @@
 </td>
 </tr></table>
 <br>
+观看全员录像（可以随意切换到任意玩家的视角，但录像文件相对较大）<br>
+<input type="button" style="width:160px;" value="观看全体玩家录像" onclick="window.location.href='replay.php?repid=$gnum'"><br>
+<br>
+观看单个玩家录像（不可切换视角，录像文件较小）<br>
 <table>
 <tr>
 <td class="b1" width=200px>
@@ -31,7 +35,7 @@
 <td class="b3" >$key['repname']<!--{if isset($key['is_winner'])}--><span class="red">&nbsp;(优胜者)</span><!--{/if}--></td>
 <td class="b3">$key['repopcnt']</td>
 <td class="b3">
-<input type="button" style="width:60px;" value="观看录像" onclick="window.location.href='replay.php?repid=$key['link']'">
+<input type="button" style="width:80px;" value="观看录像" onclick="window.location.href='replay.php?repid=$key['link']'">
 </td>
 </tr>
 <!--{/loop}-->

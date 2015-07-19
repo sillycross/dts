@@ -153,3 +153,4 @@ skill50,extra/club/skills/skill50/,1
 skill27,extra/club/skills/skill27/,1
 skill43,extra/club/skills/skill43/,1
 skill56,extra/club/skills/skill56/,1
+skill57,extra/club/skills/skill57/,1

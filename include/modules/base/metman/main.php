@@ -91,7 +91,7 @@ namespace metman
 		return 0;
 	}
 	
-	function check_alive_discover($edata)
+	function check_alive_discover(&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -108,19 +108,19 @@ namespace metman
 		}
 	}
 	
-	function check_corpse_discover($edata)
+	function check_corpse_discover(&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return 1;
 	}
 	
-	function check_corpse_discover_dice($edata)
+	function check_corpse_discover_dice(&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return 1;
 	}
 	
-	function check_player_discover($edata)
+	function check_player_discover(&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if($edata['hp'] > 0)
@@ -170,7 +170,7 @@ namespace metman
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','player','logger','metman'));
-		$result = $db->query("SELECT * FROM {$tablepre}players WHERE pls='$pls' AND pid!='$pid'");
+		$result = $db->query("SELECT pid FROM {$tablepre}players WHERE pls='$pls' AND pid!='$pid'");
 		if(!$db->num_rows($result)){
 			$log .= '<span class="yellow">周围一个人都没有。</span><br>';
 			$mode = 'command';
@@ -184,18 +184,23 @@ namespace metman
 		$hideflag = false;
 		foreach($enemyarray as $enum){
 			$db->data_seek($result, $enum);
-			$edata = $db->fetch_array($result);
-			$z=check_player_discover($edata);
-			if ($z==-1)
+			$z=$db->fetch_array($result);
+			$edata = \player\fetch_playerdata_by_pid($z['pid']);
+			if (isset($edata['infochanged']) && $edata['infochanged']) \player\player_save($edata);
+			if ($edata['pls']==$pls)	
 			{
-				//这不是bug，是原版本的奇葩设定，请参见corpse模块注释
-				\explore\discover('search2');
-				return;
-			}
-			if ($z)
-			{
-				meetman($edata['pid']);
-				return;
+				$z=check_player_discover($edata);
+				if ($z==-1)
+				{
+					//这不是bug，是原版本的奇葩设定，请参见corpse模块注释
+					\explore\discover('search2');
+					return;
+				}
+				if ($z)
+				{
+					meetman($edata['pid']);
+					return;
+				}
 			}
 		}
 		if($hideflag == true){

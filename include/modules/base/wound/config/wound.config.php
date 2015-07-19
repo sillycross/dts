@@ -30,7 +30,7 @@ namespace wound
 	$wep_infatt = Array('N' => 'b', 'P' => 'bha', 'K' =>'bhaf', 'G' =>'bhaf', 'C'=> 'bh', 'D' => 'bhaf', 'F'=> 'bhaf', 'J'=> 'bhaf');
 	
 	//各种攻击方式的致伤率
-	$wep_infobbs = Array('N' => 5, 'P' => 15, 'K' => 55, 'G' => 25, 'C' => 10, 'D' => 45, 'F' => 30, 'J'=> 100);
+	$wep_infobbs = Array('N' => 5, 'P' => 15, 'K' => 55, 'G' => 25, 'C' => 10, 'D' => 55, 'F' => 30, 'J'=> 100);
 	
 	//包扎伤口需要的体力
 	$inf_recover_sp_cost = 50;

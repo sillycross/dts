@@ -8,11 +8,57 @@ namespace replay
 	
 	function init() {}
 	
+	function get_html_color($r, $g, $b)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$a=Array($r, $g, $b); $ret='';
+		foreach ($a as $key)
+		{
+			$key=round($key);
+			if ($key<0) $key=0;
+			if ($key>255) $key=255;
+			$s='';
+			for ($i=0; $i<=1; $i++)
+			{
+				$x=$key%16;
+				if ($x<10) $s=(chr(ord('0')+$x)).$s; else $s=(chr(ord('a')+$x-10)).$s;
+				$key=(int)floor($key/16);
+			}
+			$ret.=$s;
+		}
+		return $ret;
+	}
+	
+	function get_ident_textcolor($u)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$u=md5($u); $hash=0;
+		for ($i=0; $i<31; $i++)
+		{
+			$z=0;
+			if ('0'<=$u[$i] && $u[$i]<='9') $z=ord($u[$i])-ord('0');
+			if ('a'<=$u[$i] && $u[$i]<='f') $z=ord($u[$i])-ord('a')+10;
+			if ('A'<=$u[$i] && $u[$i]<='F') $z=ord($u[$i])-ord('A')+10;
+			$hash=($hash*16+$z)%360;
+		}
+		if ($hash<60) 
+			return get_html_color(255,$hash/60*255,0);
+		else if ($hash<120) 
+			return get_html_color(255-($hash-60)/60*255,255,0);
+		else if ($hash<180) 
+			return get_html_color(0,255,($hash-120)/60*255);
+		else if ($hash<240) 
+			return get_html_color(0,255-($hash-180)/60*255,255);
+		else if ($hash<300) 
+			return get_html_color(($hash-240)/60*255,0,255);
+		else  return get_html_color(255,0,255-($hash-300)/60*255);
+	}
+	
 	function gamestate_prepare_game()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		global $___MOD_SRV;
-		if (!$___MOD_SRV) return $chprocess();
+		global $___MOD_SRV, $___MOD_CODE_ADV3;
+		if (!$___MOD_SRV || $___MOD_CODE_ADV3) return $chprocess();
 		//游戏准备时，保存上局的录像文件并清空目录准备下一局
 		$curdatalib = file_get_contents(GAME_ROOT.'./gamedata/javascript/datalib.current.txt');
 		eval(import_module('replay','sys'));
