@@ -641,8 +641,8 @@ function replay_stimulate_click(t)
 	{
 		if (z.tagName=='SELECT')
 		{
-			var xx=jQuery(z).offset().left+'px';
-			var yy=jQuery(z).offset().top+'px';
+			var xx=Number(jQuery(z).offset().left-jQuery(window).scrollLeft()).toString()+'px';
+			var yy=Number(jQuery(z).offset().top-jQuery(window).scrollTop()).toString()+'px';
 			z.style.position='fixed';
 			z.style.zIndex=9000;
 			z.style.left=xx;

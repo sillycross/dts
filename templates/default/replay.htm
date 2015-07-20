@@ -175,8 +175,8 @@ $('replay_bar').addEventListener('mousedown',replay_bar_mouse_down_handler);
 <!--{/loop}-->
 <!--{if $replay_player_num_tot>4}-->
 <td width=1px></td>
-<td id="replay_more_players_top_positioner" style="cursor:pointer;" onmouseover="$('replay_more_players').style.left=Number(jQuery('#replay_more_players_left_positioner').offset().left+10).toString()+'px';
-$('replay_more_players').style.top=Number(jQuery('#replay_more_players_top_positioner').offset().top-4).toString()+'px';$('replay_more_players').style.display='block'; replay_more_player_mouse_on = 1;"
+<td id="replay_more_players_top_positioner" style="cursor:pointer;" onmouseover="$('replay_more_players').style.left=Number(jQuery('#replay_more_players_left_positioner').offset().left-jQuery(window).scrollLeft()+10).toString()+'px';
+$('replay_more_players').style.top=Number(jQuery('#replay_more_players_top_positioner').offset().top-jQuery(window).scrollTop()-4).toString()+'px';$('replay_more_players').style.display='block'; replay_more_player_mouse_on = 1;"
 onmouseout="replay_more_player_mouse_on = 0; if (!replay_more_player_mouse_on && !replay_more_player_submenu_mouse_on) $('replay_more_players').style.display='none';">
 <div class="noselect" style="z-index:10020; z-index:10020;font-size:16px; margin-right:12px;">更多玩家<span id="replay_more_players_left_positioner">&raquo;</span></div>
 <div id="replay_more_players" style="z-index:10020; position:fixed; display:none;" onmouseover="replay_more_player_submenu_mouse_on = 1;" onmouseout="replay_more_player_submenu_mouse_on = 0; if (!replay_more_player_mouse_on && !replay_more_player_submenu_mouse_on) $('replay_more_players').style.display='none';">
