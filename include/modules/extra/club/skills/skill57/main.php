@@ -91,6 +91,7 @@ namespace skill57
 			}
 			if ($infochanged && $employer!==NULL) \player\player_save($employer);
 		}
+		
 		$chprocess($pa);
 	}
 

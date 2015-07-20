@@ -58,7 +58,7 @@ namespace replay
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		global $___MOD_SRV, $___MOD_CODE_ADV3;
-		if (!$___MOD_SRV || $___MOD_CODE_ADV3) return $chprocess();
+		if (!$___MOD_SRV || !$___MOD_CODE_ADV3) return $chprocess();
 		//游戏准备时，保存上局的录像文件并清空目录准备下一局
 		$curdatalib = file_get_contents(GAME_ROOT.'./gamedata/javascript/datalib.current.txt');
 		eval(import_module('replay','sys'));
