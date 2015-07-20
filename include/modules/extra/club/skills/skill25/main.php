@@ -5,6 +5,8 @@ namespace skill25
 	function init() 
 	{
 		define('MOD_SKILL25_INFO','club;');
+		eval(import_module('clubbase'));
+		$clubskillname[25] = '圣光';
 	}
 	
 	function acquire25(&$pa)

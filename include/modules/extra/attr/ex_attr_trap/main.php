@@ -35,31 +35,40 @@ namespace ex_attr_trap
 		return 40;
 	}
 	
+	//判定迎击触发
+	function check_trapdef_proc()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','trap','logger'));
+		$proc_rate = calculate_trapdef_proc_rate();
+		$dice = rand(0,99);
+		if ($dice < $proc_rate)
+		{
+			//迎击触发
+			if ($playerflag) 
+			{
+				addnews($now,'trapdef',$name,$trname,$itm0);
+				if(!$selflag)
+				{
+					$w_log = "<span class=\"yellow\">{$name}触发了你设置的陷阱{$itm0}，但是没有受到任何伤害！</span><br>";
+					\logger\logsave ( $itmsk0, $now, $w_log ,'b');
+				}	
+			}	
+			$log .= "糟糕，你触发了{$trperfix}陷阱<span class=\"yellow\">$itm0</span>！<br>不过，身上装备着的自动迎击系统启动了！<span class=\"yellow\">在迎击功能的保护下你毫发无伤。</span><br>";
+			return 1;
+		}
+		return 0;
+	}
+	
 	function trap_deal_damage()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','trap','logger'));
 		
 		if (\attrbase\check_itmsk('m'))
-		{
-			$proc_rate = calculate_trapdef_proc_rate();
-			$dice = rand(0,99);
-			if ($dice < $proc_rate)
-			{
-				//迎击触发
-				if ($playerflag) 
-				{
-					addnews($now,'trapdef',$name,$trname,$itm0);
-					if(!$selflag)
-					{
-						$w_log = "<span class=\"yellow\">{$name}触发了你设置的陷阱{$itm0}，但是没有受到任何伤害！</span><br>";
-						\logger\logsave ( $itmsk0, $now, $w_log ,'b');
-					}	
-				}	
-				$log .= "糟糕，你触发了{$trperfix}陷阱<span class=\"yellow\">$itm0</span>！<br>不过，身上装备着的自动迎击系统启动了！<span class=\"yellow\">在迎击功能的保护下你毫发无伤。</span><br>";
+			if (check_trapdef_proc())
 				return;
-			}
-		}
+	
 		$chprocess();
 	}
 	

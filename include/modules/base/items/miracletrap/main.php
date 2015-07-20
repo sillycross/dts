@@ -32,6 +32,15 @@ namespace miracletrap
 		if ($itmk0 == 'TOc') return $hp;
 		return $chprocess();
 	}
+	
+	function check_trapdef_proc()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//奇迹陷阱不可以被迎击
+		eval(import_module('player'));
+		if ($itmk0 == 'TOc') return 0;
+		return $chprocess();
+	}
 }
 
 ?>

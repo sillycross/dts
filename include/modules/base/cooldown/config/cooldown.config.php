@@ -11,7 +11,7 @@ namespace cooldown
 	//探索的冷却时间，单位微秒
 	$searchcoldtime=900;
 	//使用物品的冷却时间，单位微秒
-	$itemusecoldtime=300;
+	$itemusecoldtime=350;
 }
 
 ?>

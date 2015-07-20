@@ -39,18 +39,17 @@ namespace blessstone
 		$chprocess($theitem);
 	}
 	
-		
 	function use_blessstone($itmn = 0) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','player','itemmain','logger','input'));
 		
 		$itmn = (int)$itmn;
-		$baoshi = & ${'itm'.$itmp};
-		$baoshie = & ${'itme'.$itmp};
-		$baoshis = & ${'itms'.$itmp};
-		$baoshik = & ${'itmk'.$itmp};
-		$baoshisk = & ${'itmsk'.$itmp};	
+		$gem = & ${'itm'.$itmp};
+		$geme = & ${'itme'.$itmp};
+		$gems = & ${'itms'.$itmp};
+		$gemk = & ${'itmk'.$itmp};
+		$gemsk = & ${'itmsk'.$itmp};	
 		
 		if ( $itmn < 1 || $itmn > 6 ) {
 			$log .= '此道具不存在，请重新选择。';
@@ -64,7 +63,7 @@ namespace blessstone
 		$itmk = & ${'itmk'.$itmn};
 		$itmsk = & ${'itmsk'.$itmn};
 		
-		if($baoshis <= 0 || ($baoshi != '『灵魂宝石』' && $baoshi != '『祝福宝石』')) {
+		if($gems <= 0 || ($gem != '『灵魂宝石』' && $gem != '『祝福宝石』')) {
 			$log .= '强化道具选择错误，请重新选择。<br>';
 			$mode = 'command';
 			return;
@@ -83,28 +82,43 @@ namespace blessstone
 		}else{
 			preg_match("/\[\+([0-9])\]/",$itm,$zitmlv);
 			$zitmlv = $zitmlv[1];
-			if($zitmlv >= 4 && $baoshi != '『灵魂宝石』'){
+			if($zitmlv >= 4 && $gem != '『灵魂宝石』'){
 				$log .= '你所选的宝石只能强化装备到[+4]哦!DA☆ZE<br>';
-			$mode = 'command';
+				$mode = 'command';
 				return;
 			}else{
-				if (($zitmlv==3)&&($baoshi=='『祝福宝石』')){
-					$gailv = rand(1,3);
+				if (($zitmlv==3)&&($gem=='『祝福宝石』')){
+					if ($gems<2)
+					{
+						$log .= '你需要至少2颗祝福宝石才能强化装备到[+4]哦!DA☆ZE<br>';
+						$mode = 'command';
+						return;
+					}
+					if ($gems==2) 	//两颗成功率1/3
+					{
+						$gems--;
+						$dice = rand(1,30);
+					}
+					else 			//3颗必定成功
+					{
+						$gems -= 2;
+						$dice = 1;
+					}
 				}elseif ($zitmlv >= 4){
-					$gailv = rand(1,$zitmlv-2);
+					$dice = rand(1,10*($zitmlv-2));
 				}elseif ($zitmlv >= 6){
-					$gailv = rand(1,$zitmlv-1);
+					$dice = rand(1,10*($zitmlv-1));
 				}elseif ($zitmlv >= 10){
-					$gailv = rand(1,$zitmlv);
+					$dice = rand(1,10*$zitmlv);
 				}else{
-					$gailv = 1;
+					$dice = 1;
 				}
-				if ($gailv == 1 ){
+				if ($dice <= 10 ){
 					$flag = true;
 				}else{$flag = false;}
 			}	
 		}	
-		addnews ( $now, 'newwep2', $name, $baoshi, $o_itm );
+		addnews ( $now, 'newwep2', $name, $gem, $o_itm );
 		if ($flag){
 			$log .= "<span class=\"yellow\">『一道神圣的闪光照耀在你的眼睛上，当你恢复视力时，发现你的装备闪耀着彩虹般的光芒』</span><br>";
 			$nzitmlv = $zitmlv +1;
@@ -118,14 +132,14 @@ namespace blessstone
 			$itmsk = '';
 			$log .="<span class=\"yellow\">『一道神圣的闪光照耀在你的眼睛上，当你恢复视力时，发现你的装备变成了{$itm}』</span><br>";
 		}			
-		$baoshis--;
-		if($baoshis <= 0){
-			$log .= "<span class=\"red\">$baoshi</span> 用光了。<br>";
-			$baoshi = $baoshik = $baoshisk = '';$baoshie = $baoshis = 0;
+		$gems--;
+		if($gems <= 0){
+			$log .= "<span class=\"red\">$gem</span> 用光了。<br>";
+			$gem = $gemk = $gemsk = '';$geme = $gems = 0;
 		}	
 		$mode = 'command';
 		return;
-	}	
+	}
 	
 	function act()
 	{
@@ -140,6 +154,18 @@ namespace blessstone
 		}
 		
 		$chprocess();
+	}
+	
+	function use_stone($itm, $itme)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		eval(import_module('player','logger'));
+		if(strpos ( $wepsk, 'Z' ) !== false){
+			$log .= '咦……刀刃过于薄了，感觉稍微磨一点都会造成不可逆的损伤呢……<br>';
+			return 0;
+		}
+		return $chprocess($itm,$itme);
 	}
 	
 	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)

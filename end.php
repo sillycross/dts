@@ -19,8 +19,10 @@ if($pdata['pass'] != $cpass) {
 	}
 }
 
-extract($pdata);
+eval(import_module('player'));
+\player\load_playerdata($pdata);
 \player\init_playerdata();
+extract($pdata);
 
 if($hp<=0 || $state>=10) {
 	$result = $db->query("SELECT lastword FROM {$tablepre}users WHERE username='$name'");

@@ -24,7 +24,8 @@ require GAME_ROOT.'./include/modules.func.php';
 	
 ///////////////////Load Module Start///////////////////////
 
-if (defined('IN_MODULEMNG') || defined('NO_MOD_LOAD')) return;
+if (defined('IN_MODULEMNG')) return;
+
 //be sure to unset everything before loading modules!!
 
 if (!defined('LOAD_CORE_ONLY'))
@@ -39,6 +40,17 @@ else
 if (!file_exists($file)) throw new Exception('module list file not found');
 $content=openfile($file);
 $in=sizeof($content); $___TEMP_MOD_LIST_n=0;
+
+if (defined('NO_MOD_LOAD'))
+{
+	for ($i=0; $i<$in; $i++)
+	{
+		list($modname,$modpath,$inuse) = explode(',',$content[$i]);
+		if ($inuse==1) define('MOD_'.strtoupper($modname),TRUE);
+	}
+	return;
+}
+
 for ($i=0; $i<$in; $i++)
 {
 	list($modname,$modpath,$inuse) = explode(',',$content[$i]);

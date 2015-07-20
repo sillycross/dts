@@ -24,6 +24,7 @@ if($command == 'info') {
 	}
 } else {
 	if(!isset($start) || !$start){
+		$start = 0;
 		$result = $db->query("SELECT gid,name,icon,gd,wep,wmode,getime,motto,hdp,hdmg,hkp,hkill FROM {$tablepre}winners ORDER BY gid desc LIMIT $winlimit");
 	} else {
 		$result = $db->query("SELECT gid,name,icon,gd,wep,wmode,getime,motto,hdp,hdmg,hkp,hkill FROM {$tablepre}winners WHERE gid<='$start' ORDER BY gid desc LIMIT $winlimit");
@@ -41,6 +42,17 @@ if($command == 'info') {
 		$enum = $snum-$winlimit+1;
 		$listinfo .= "<input style='width: 120px;' type='button' value='{$snum} ~ {$enum} 回' onClick=\"document['list']['start'].value = '$snum'; document['list'].submit();\">";
 		if(is_int(($i+1)/3)&&$i){$listinfo .= '<br>';}
+	}
+	
+	if ($command=='replay')
+	{
+		$result = $db->query("SELECT wmode FROM {$tablepre}winners where gid='$gnum'");
+		if ($db->num_rows($result))
+		{
+			$zz = $db->fetch_array($result);
+			$rep_winmode = $zz['wmode'];
+		}
+		else  $rep_winmode = 4;
 	}
 }
 

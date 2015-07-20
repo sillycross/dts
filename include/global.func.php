@@ -8,6 +8,11 @@ if(!defined('IN_GAME')) {
 //              底层机制函数
 //----------------------------------------
 
+function mgzdecode($data)
+{
+	return gzinflate(substr($data,10,-8));
+}
+    
 function gameerrorhandler($code, $msg, $file, $line){
 	global $errorinfo;
 	if(!$errorinfo){return;}
@@ -122,7 +127,9 @@ function template($file, $templateid = 0, $tpldir = '') {
 		$tplfile = $file.'.htm';
 		$xdname=dirname($file); 
 		$xdname=substr($xdname,strlen(GAME_ROOT));
-		$xdname=substr($xdname,strlen(__MOD_DIR__));
+		if (strpos($xdname,'./include/modules/')===0)
+			$xdname=substr($xdname,strlen('./include/modules/'));
+		else  $xdname=substr($xdname,strlen('./gamedata/run/'));
 		$xdname=str_replace('/','_',$xdname);
 		$xbname=basename($file);
 		$objfile = GAME_ROOT.'./gamedata/templates/'.$templateid.'_mod_'.$xdname.'_'.$xbname.'.tpl.php';
@@ -132,8 +139,9 @@ function template($file, $templateid = 0, $tpldir = '') {
 		return template($file, 1, './templates/default/');
 	}
 	*/
-	if($tplrefresh == 1) {
-		if(!file_exists($objfile) || filemtime($tplfile) > filemtime($objfile)) {
+	global $___TEMP_template_force_refresh;
+	if($tplrefresh == 1 || (isset($___TEMP_template_force_refresh) && $___TEMP_template_force_refresh==1)) {
+		if ((!file_exists($objfile) || filemtime($tplfile) > filemtime($objfile)) || (isset($___TEMP_template_force_refresh) && $___TEMP_template_force_refresh==1)) {
 			require_once GAME_ROOT.'./include/template.func.php';
 			parse_template($tplfile, $objfile, $templateid, $tpldir);
 		}
@@ -183,7 +191,7 @@ function dir_clear($dir) {
 
 //读取文件
 function readover($filename,$method="rb"){
-	strpos($filename,'..')!==false && exit('Forbidden');
+	strpos($filename,'..')!==false && debug_print_backtrace() && exit('Forbidden');
 	//$filedata=file_get_contents($filename);
 	$handle=fopen($filename,$method);
 	if(flock($handle,LOCK_SH)){
@@ -199,7 +207,7 @@ function readover($filename,$method="rb"){
 
 //写入文件
 function writeover($filename,$data,$method="rb+",$iflock=1,$check=1,$chmod=1){
-	$check && strpos($filename,'..')!==false && exit('Forbidden');
+	$check && strpos($filename,'..')!==false && debug_print_backtrace() && exit('Forbidden');
 	touch($filename);
 	$handle=fopen($filename,$method);
 	if($iflock){
@@ -228,18 +236,18 @@ function openfile($filename){
 	return $filedb;
 }
 
-function clear_dir($dirName)	//递归清空目录
+function clear_dir($dirName, $keep_root = 0)	//递归清空目录
 {
 	if ($dirName[strlen($dirName)-1]=='/') $dirName=substr($dirName,0,-1);
 	if ($handle=opendir($dirName)) 
 	{
 		while (($item=readdir($handle))!==false) 
 		{
-			if ($item!='.' && $item!='..') 
+			if ($item!='.' && $item!='..' && $item!='.gitignore') 
 			{
 				if (is_dir($dirName.'/'.$item)) 
 				{
-					clear_dir($dirName.'/'.$item);
+					clear_dir($dirName.'/'.$item,0);
 				} else {
 					if (!unlink($dirName.'/'.$item))
 					{
@@ -249,10 +257,11 @@ function clear_dir($dirName)	//递归清空目录
 			}
 		}
 		closedir($handle);
-		if (!rmdir($dirName))
-		{
-			__SOCKET_WARNLOG__("clear_dir错误：无法删除目录{$dirName}。");
-		}
+		if (!$keep_root)
+			if (!rmdir($dirName))
+			{
+				__SOCKET_WARNLOG__("clear_dir错误：无法删除目录{$dirName}。");
+			}
 		
 	}
 	else
@@ -317,7 +326,7 @@ function copy_dir($source, $destination)		//递归复制目录
 	}
 }
 
-function compatible_json_encode($data){	
+function compatible_json_encode(&$data){	
 	$jdata = json_encode($data);
 	return $jdata;	
 }

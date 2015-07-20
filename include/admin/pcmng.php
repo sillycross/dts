@@ -8,6 +8,8 @@ if(!isset($checkmode)){$checkmode = '';}
 if(!isset($checkinfo)){$checkinfo = '';}
 if(!isset($pagemode)){$pagemode = '';}
 
+if (defined('MOD_CLUBBASE')) eval(import_module('clubbase'));
+
 $cmd_info = '';
 $start = getstart($start,$pagemode);
 $resultinfo = '';

@@ -15,7 +15,7 @@ namespace skillbase
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skillbase','player'));
-		$ppid = $pid;
+		if (isset($pid) && $pid>0) $ppid = $pid;
 	}
 	
 	function b64_conv_to_value($c)

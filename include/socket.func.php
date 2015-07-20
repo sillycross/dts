@@ -177,7 +177,8 @@ function __SOCKET_SEND_TO_SERVER__()
 	{
 		global $___MOD_TMP_FILE_DIRECTORY;
 		$___TEMP_res=file_get_contents($___MOD_TMP_FILE_DIRECTORY.$___TEMP_uid);
-		unlink($___MOD_TMP_FILE_DIRECTORY.$___TEMP_uid);
+		if (!defined('MOD_REPLAY')) 	//如果录像模式开启，最后删缓存的工作由录像模块进行
+			unlink($___MOD_TMP_FILE_DIRECTORY.$___TEMP_uid);
 	}
 	
 	__SOCKET_DEBUGLOG__("已载入回应文件。");
@@ -185,7 +186,9 @@ function __SOCKET_SEND_TO_SERVER__()
 	global $cli_pagestartime;
 	$timecost = get_script_runtime($cli_pagestartime);
 	if ($timecost > 0.15) __SOCKET_WARNLOG__("警告：本次操作耗时较长，耗时为 ".$timecost." 秒。");
+	/*
 	$___TEMP_res = str_replace('_____PAGE_RUNNING_TIME_____',(string)$timecost,$___TEMP_res);
+	*/
 	ob_clean();
 	echo $___TEMP_res;
 	ob_end_flush();

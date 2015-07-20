@@ -12,6 +12,8 @@ namespace skill35
 	function init() 
 	{
 		define('MOD_SKILL35_INFO','club;upgrade;');
+		eval(import_module('clubbase'));
+		$clubskillname[35] = '猛击';
 	}
 	
 	function acquire35(&$pa)

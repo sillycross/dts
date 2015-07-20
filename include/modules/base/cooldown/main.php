@@ -26,9 +26,10 @@ namespace cooldown
 			return;
 		}
 		
+		if($coldtimeon) $cmdcdtime=$movecoldtime;
+		
 		$chprocess($moveto);
 		
-		if($coldtimeon) $cmdcdtime=$movecoldtime;
 	}
 	
 	function search() {
@@ -47,10 +48,11 @@ namespace cooldown
 			$mode = 'command';
 			return;
 		}
+	
+		if($coldtimeon) $cmdcdtime=$searchcoldtime;
 		
 		$chprocess();
-		
-		if($coldtimeon) $cmdcdtime=$searchcoldtime;
+	
 	}
 	
 	function itemuse_wrapper($item)
@@ -71,9 +73,9 @@ namespace cooldown
 			return;
 		}
 		
-		$chprocess($item);
-		
 		if($coldtimeon) $cmdcdtime=$itemusecoldtime;
+		
+		$chprocess($item);
 	}
 	
 	function get_pstime()

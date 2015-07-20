@@ -40,8 +40,11 @@ $log = '';
 //读取聊天信息
 $chatdata = getchat(0,$teamID);
 
-player\pre_act();
-player\post_act();
+if ($hp<=0)
+{
+	player\pre_act();
+	player\post_act();
+}
 
 //var_dump($itm3);
 if($hp <= 0){

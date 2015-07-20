@@ -28,7 +28,7 @@ namespace wep_k
 		//每点熟练度增加的伤害
 		$skill_dmg['K'] = 0.65;
 		//各种攻击方式的武器损伤概率
-		$wepimprate['K'] = 30;
+		$wepimprate['K'] = 35;
 		//以该类武器击杀敌人后的死亡状态标号
 		$wepdeathstate['K'] = 22;
 		

@@ -234,6 +234,62 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2)
 	echo '<font color="blue">代码预处理CODE_ADV2完成。</font><br><br>';
 }
 
+clear_dir(GAME_ROOT.'./gamedata/templates',1);
+
+global $___MOD_CODE_ADV3;
+if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2 && $___MOD_CODE_ADV3)
+{
+	$___TEMP_template_force_refresh = 1;
+	$___TEMP_codeadv3=Array(); $___TEMP_codeadv3_c=0; $___TEMP_codeadv3_v=Array();
+	include GAME_ROOT.'./include/modulemng.codeadv3.func.php';
+	echo '<font color="blue">正在进行代码预处理CODE_ADV3..</font><br>';
+	for ($i=1; $i<=$n; $i++)
+	{
+		echo '开始处理模块'.$modn[$i].'...<br>'; ob_end_flush(); flush();
+		foreach ($codelist[$i] as $key)
+			if (substr($key,strlen($key)-4)=='.htm')
+			{
+				echo '&nbsp;&nbsp;&nbsp;&nbsp;正在处理模板'.$key.'.. '; ob_end_flush(); flush();
+				$objfile = template('MOD_'.strtoupper($modn[$i]).'_'.strtoupper(substr($key,0,-4)));
+				$data = highlight_file($objfile,true);
+				writeover($objfile,parse_codeadv3($data));
+				echo '完成。<br>'; ob_end_flush(); flush();
+			}
+		echo '完成。<br>'; ob_end_flush(); flush();
+	}
+	
+	if ($handle=opendir(GAME_ROOT.'./templates/default')) 
+	{
+		while (($sid=readdir($handle))!==false) 
+		{
+			if ($sid=='.' || $sid=='..') continue;
+			if (!is_dir(GAME_ROOT.'./templates/default/'.(string)$sid))
+			{
+				if ($sid=='help.htm') continue;
+				if ($sid=='mixhelp.htm') continue;
+				if (substr($sid,strlen($sid)-4)=='.htm')
+				{
+					echo '&nbsp;&nbsp;&nbsp;&nbsp;正在处理模板'.$sid.'.. '; ob_end_flush(); flush();
+					$objfile = template(substr($sid,0,-4));
+					$data = highlight_file($objfile,true);
+					writeover($objfile,parse_codeadv3($data));
+					echo '完成。<br>'; ob_end_flush(); flush();
+				}
+			}
+		}
+	}
+	echo '<font color="blue">代码预处理CODE_ADV3完成。</font><br><br>';
+	
+	$str='___temp_s = new String(\''.base64_encode(gzencode(json_encode($___TEMP_codeadv3_v))).'\');
+	___datalib = JSON.parse(JXG.decompress(___temp_s));
+	delete ___temp_s;
+	';
+	
+	$file='datalib.'.uniqid('',true).'.js';
+	writeover(GAME_ROOT.'./gamedata/javascript/'.$file,$str);
+	writeover(GAME_ROOT.'./gamedata/javascript/datalib.current.txt',$file);
+}
+
 $faillog='';
 
 copy(GAME_ROOT.'./gamedata/modules.list.pass.php',GAME_ROOT.'./gamedata/modules.list.php');

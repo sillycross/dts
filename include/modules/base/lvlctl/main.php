@@ -29,15 +29,9 @@ namespace lvlctl
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','logger','lvlctl'));
 		$lvuphp += rand ( 9, 11 );
-		//}
-		$lvupsp += rand( 4,6);
-		//if (${$perfix . 'club'} == 14) {
-		//$lvupatt += rand ( 4, 6 );
-		//$lvupdef += rand ( 5, 8 );
-		//} else {
+		$lvupsp += rand( 4, 6 );
 		$lvupatt += rand ( 2, 4 );
 		$lvupdef += rand ( 3, 5 );
-		//}
 				
 		//if ($skname == 'all') {
 		//$lvupskill += rand ( 2, 4 );

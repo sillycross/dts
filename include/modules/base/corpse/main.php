@@ -8,7 +8,7 @@ namespace corpse
 	//Q：为什么要写这么一个脑残的函数？
 	//A：尊重原版本设定，如果遇到了不是合法目标的尸体是要直接重新执行一次discover全判定流程的
 	//   虽然这设定非常奇葩，但改了可能产生大量的平衡性问题，因此保留
-	function check_corpse_discover($edata)
+	function check_corpse_discover(&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -29,7 +29,7 @@ namespace corpse
 		else  return 0;
 	}
 	
-	function check_corpse_discover_dice($edata)
+	function check_corpse_discover_dice(&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('corpse'));

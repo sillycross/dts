@@ -12,8 +12,8 @@ namespace addnpc
 		$plsnum = sizeof($plsinfo);
 		$npc=array_merge($npcinit,$anpcinfo[$xtype]);
 		//$npcwordlist = Array();
+		$summon_pid = -1;
 		if(!$npc){
-			var_dump($anpcinfo);
 			return;
 		} else {
 			for($i=0;$i< $num;$i++){
@@ -24,6 +24,8 @@ namespace addnpc
 				$npc['sNo'] = $i;
 				$npc['hp'] = $npc['mhp'];
 				$npc['sp'] = $npc['msp'];
+				$spid = uniqid('',true);
+				$npc['pass']=$spid;
 				if(!isset($npc['state'])){$npc['state'] = 0;}
 				$npc['wp'] = $npc['wk'] = $npc['wg'] = $npc['wc'] = $npc['wd'] = $npc['wf'] = $npc['skill'];
 				if($npc['gd'] == 'r'){$npc['gd'] = rand(0,1) ? 'm':'f';}
@@ -41,8 +43,20 @@ namespace addnpc
 				$newsname=$typeinfo[$xtype].' '.$npc['name'];
 				//$npcwordlist[] = $typeinfo[$type].' '.$npc['name'];
 				addnews($now, 'addnpc', $newsname);
+				$result = $db->query("SELECT pid FROM {$tablepre}players where pass='$spid' AND type>0");
+				if ($db->num_rows($result))
+				{
+					$zz = $db->fetch_array($result);
+					$summon_pid = $zz['pid'];
+				}
+				else
+				{
+					//出BUG了
+					$summon_pid = -1;
+				}
 			}
 		}
+		/*
 		if($num > $npc['num']){
 		//if($num > 1){
 			$newsname=$typeinfo[$xtype];
@@ -54,8 +68,8 @@ namespace addnpc
 			//$newsname=$typeinfo[$type].' '.$npc['name'];
 			//addnews($time, 'addnpc', $newsname);
 		}
-		
-		return $xsub;
+		*/
+		return $summon_pid;
 	}
 	
 	function itemuse(&$theitem) 

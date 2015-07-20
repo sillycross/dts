@@ -10,6 +10,8 @@ namespace skill32
 	function init() 
 	{
 		define('MOD_SKILL32_INFO','club;upgrade;');
+		eval(import_module('clubbase'));
+		$clubskillname[32] = '格挡';
 	}
 	
 	function acquire32(&$pa)

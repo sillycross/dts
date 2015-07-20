@@ -11,7 +11,7 @@ namespace club20
 			'probability' => 100, 
 			'skills' => Array(
 				10,11,12,		
-				23,24,25,26,27,		
+				54,23,24,25,26,27,		
 			)
 		);
 	}

@@ -4,7 +4,7 @@
 <!--{if $club!=0}-->
 	$clubinfo[$club]
 <!--{else}-->
-	<select id="clubsel" name="clubsel" onchange="$('mode').value='special';$('command').value=$('clubsel').value;postCmd('gamecmd','command.php');return false;" <!--{if CURSCRIPT != 'game' || $mode != 'command'}-->disabled<!--{/if}-->>
+	<select id="clubsel" name="clubsel" onchange="$('mode').value='special';$('command').value=$('clubsel').value;replay_record_DOM_path(this.options[this.selectedIndex]);postCmd('gamecmd','command.php');return false;" <!--{if CURSCRIPT != 'game' || $mode != 'command'}-->disabled<!--{/if}-->>
 		<!--{loop \clubbase\get_club_choice_array() $key $value}-->
 			<option value="clubsel$key"<!--{if $club == $key}-->selected<!--{/if}-->>$clubinfo[$value]
 		<!--{/loop}-->
