@@ -131,6 +131,7 @@ function template($file, $templateid = 0, $tpldir = '') {
 			$xdname=substr($xdname,strlen('./include/modules/'));
 		else  $xdname=substr($xdname,strlen('./gamedata/run/'));
 		$xdname=str_replace('/','_',$xdname);
+		$xdname=str_replace("\\",'_',$xdname);//for windows
 		$xbname=basename($file);
 		$objfile = GAME_ROOT.'./gamedata/templates/'.$templateid.'_mod_'.$xdname.'_'.$xbname.'.tpl.php';
 	}
