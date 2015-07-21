@@ -5,6 +5,8 @@ namespace skill33
 	function init() 
 	{
 		define('MOD_SKILL33_INFO','club;upgrade;');
+		eval(import_module('clubbase'));
+		$clubskillname[33] = '应变';
 	}
 	
 	function acquire33(&$pa)

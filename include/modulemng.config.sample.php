@@ -17,6 +17,11 @@ $___MOD_CODE_ADV1 = 0;
 //如果调用各种import函数/宏的时候参数都是常量或简单变量，就肯定不会有事
 $___MOD_CODE_ADV2 = 0;
 
+//是否开启模板html预处理
+//要求CODE_ADV1与CODE_ADV2均开启方可开启
+//这可以大幅降低流量消耗（降低70%）
+$___MOD_CODE_ADV3 = 0;
+
 //是否使用daemon模式，daemon模式可以完全消除模块加载时间
 //要求CODE_ADV1和CODE_ADV2均开启方可开启
 //要求php开启socket扩展，须从服务器命令行中启动acdts-daemonctl.sh
@@ -33,8 +38,6 @@ $___MOD_CONN_W_DB = 0;
 //daemon模式下，如最终结果通过文件返回，临时文件存放目录
 //默认使用游戏内目录
 $___MOD_TMP_FILE_DIRECTORY = GAME_ROOT.'./gamedata/tmp/response/';
-//但如有可能，请取消注释下一行代码使用tmp。由于tmp在内存里，速度更快
-//$___MOD_TMP_FILE_DIRECTORY = '/tmp/';
 //daemon模式下server无连接情况下的唤醒时间（秒），daemon的实际执行时间大约是服务器设置的max_execution_time减去这个值
 //不要超过服务器设置max_execution_time的五分之一，尽可能低一些，但不要低于5秒
 $___MOD_SRV_WAKETIME = 60;

@@ -6,7 +6,7 @@
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
-<!--{eval $clv = \skillbase\skill_getvalue(32,'lvl'); }-->
+<!--{eval $clv = (int)\skillbase\skill_getvalue(32,'lvl'); }-->
 <!--{eval $totlv = count($upgradecost)-1; }-->
 <span class="lime">当前级别$clv/$totlv</span>&nbsp;
 <!--{if $upgradecost[$clv] !== -1}-->消耗<span class="lime">$upgradecost[$clv]</span>点技能点升至下一级<!--{/if}--><br>

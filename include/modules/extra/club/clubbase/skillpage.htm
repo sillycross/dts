@@ -6,35 +6,14 @@
 <input type="hidden" id="skillpara4" name="skillpara4" value="">
 <input type="hidden" id="skillpara5" name="skillpara5" value="">
 <!--{/if}-->
+
 <!--{if defined('IN_HELP')}-->
-<div id="fmsgbox$nowclub" style="display: none;">
+<!--{eval \bubblebox\bubblebox_set_style('id:club'.$nowclub.';height:514;width:518;cancellable:1;');}-->
 <!--{else}-->
-<div id="fmsgbox">
+<!--{eval \bubblebox\bubblebox_set_style('id:clubskill;height:514;width:518;cancellable:1;');}-->
 <!--{/if}-->
-<div style="position:fixed; left:0px; top:0px; z-index:2; margin:auto auto; filter:alpha(opacity=20); opacity:0.2; min-width:100%; max-width:100%; min-height:100%; max-height:100%; background-color:#000000">
-</div>
-<div style="position:fixed; left:0px; top:0px; z-index:3; margin:auto auto; min-width:100%; max-width:100%; min-height:100%; max-height:100%;">
-<div style="position:absolute; z-index:4; top:50%; margin-top:-270px; margin-left:auto; margin-right:auto; min-width:100%; max-width:100%; ">
-<div style="position:relative; z-index:4; margin-left:auto; margin-right:auto; filter:alpha(opacity=20); opacity:0.2; min-width:540px; max-width:540px; min-height:540px; max-height:540px; background-color:#000000">
-</div>
-</div>
-</div>
-<div style="position:fixed; left:0px; top:0px; z-index:3; margin:auto auto; min-width:100%; max-width:100%; min-height:100%; max-height:100%;" <!--{if !defined('IN_HELP')}-->onclick="$('mode').value='command';$('command').value='menu';$('fmsgbox').parentNode.removeChild($('fmsgbox'));"<!--{else}-->onclick="$('fmsgbox$nowclub').style.display = 'none';"<!--{/if}-->>
-<div style="position:absolute; z-index:5; top:50%; margin-top:-265px; margin-left:auto; margin-right:auto; min-width:100%; max-width:100%; ">
-<div style="position:relative; min-width:530px; max-width:530px; min-height:530px; max-height:530px; z-index:5; margin:0 auto; filter:alpha(opacity=95); opacity:0.95; background-color:#000000" onclick="if (event.stopPropagation) event.stopPropagation(); else event.cancelBubble = true; ">
-<div style="position:relative; margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; z-index:6; background-color:rgba(17,17,17,0.5); *BACKGROUND:rgb(17,17,17); *filter:alpha(opacity=50); BORDER: #000 0px none; color: #fff; text-align: center; border-right: #111 1px solid;font:10pt '微软雅黑' serif;">
-<!--
-<div style="position:absolute; right:12px; top:10px; width:8px; height:8px; z-index:7;">
-<a onclick="postCmd('gamecmd','command.php');" style="text-decoration: none"><font size="5">×</font></a>
-</div>
--->
-<div style="position:relative; margin-left:8px; margin-top:0px; margin-right:0px; margin-bottom:8px; min-height:530px; max-height:530px; text-align:left; overflow-x:hidden; overflow-y:auto;" >
-<!--{if defined('IN_HELP')}-->
-<div class="scroll-pane$nowclub" style="max-height:514px; width:518px; overflow-x:hidden; overflow-y:auto; margin-top:8px; position:relative;">
-<!--{else}-->
-<div class="scroll-pane" style="max-height:514px; width:518px; overflow-x:hidden; overflow-y:auto; margin-top:8px; position:relative;">
-<!--{/if}-->
-<div style="position:relative; height:auto; margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; ">
+
+{template MOD_BUBBLEBOX_START}
 <p style="margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px;">
 <!--{if !defined('IN_HELP')}-->
 <!--于是经过各种边框，最后工作区的大小是height:514px width:509px--> 
@@ -62,22 +41,14 @@
 </table>
 <br>
 <p>
-<!--{if !defined('IN_HELP')}-->
-<input class="cmdbutton" onclick="$('mode').value='command';$('command').value='menu';$('fmsgbox').parentNode.removeChild($('fmsgbox'));" value="返回主界面" type="button">
-<!--{else}-->
-<input class="cmdbutton" onclick="$('fmsgbox$nowclub').style.display = 'none';" value="返回主界面" type="button">
-<!--{/if}-->
+
+<input class="cmdbutton" onclick="bubblebox_hide_all();" value="返回主界面" type="button">
+
 &nbsp;&nbsp;&nbsp; 提示:点击技能界面外任意位置也可以返回主界面<br>
 </p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+{template MOD_BUBBLEBOX_END}
+
 <!--{if !defined('IN_HELP')}-->
-<img type="hidden" src="img/blank.png" onload="if ($('fmsgbox-container').firstChild!=null) $('fmsgbox-container').removeChild($('fmsgbox-container').firstChild);$('fmsgbox-container').appendChild($('fmsgbox')); jQuery(function() { jQuery('.scroll-pane').jScrollPane(); });">
+<img style="display:none;" type="hidden" src="img/blank.png" onload="bubblebox_show('clubskill');">
 <!--{/if}-->
 <!--{eval $mode='command';}-->

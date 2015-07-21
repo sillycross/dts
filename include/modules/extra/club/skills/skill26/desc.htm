@@ -6,8 +6,8 @@
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
-<!--{eval $clv = \skillbase\skill_getvalue(26,'lvl'); }-->
-<!--{if $clv == 1}-->
+<!--{eval $clv = (int)\skillbase\skill_getvalue(26,'lvl'); }-->
+<!--{if $clv <= 1}-->
 <span class="yellow">战斗技</span>：消耗<span class="yellow">$ragecost[1]</span>点怒气发动，本次攻击伤害全部视为<span class="red">火焰</span>伤害<br>
 可花费<span class="lime">$upgradecost</span>点技能点升级，升级后伤害变为<span class="red">灼焰</span>伤害，消耗<span class="yellow">$ragecost[2]</span>点怒气
 <!--{else}-->

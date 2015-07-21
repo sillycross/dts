@@ -27,7 +27,7 @@
 											<td class="b2" height=20px><span>{lang wep}{lang effect}</span></td>
 											<td class="b3"><span>$tdata['wepestate']</span></td>
 											<td class="b2"><span>{lang wep}{lang kind1}</span></td>
-											<td class="b3"><span><!--{if (isset($iteminfo[$tdata['wepk']]))}-->$iteminfo[$tdata['wepk']]<!--{else}-->$tdata['wepk']<!--{/if}--></span></td>
+											<td class="b3"><span><!--{if (isset($iteminfo[$tdata['wepk']]))}--><!--{eval echo \itemmain\parse_itmk_words($tdata['wepk']);}--><!--{else}-->$tdata['wepk']<!--{/if}--></span></td>
 											<td class="b2"><span>{lang wep}</span></td>
 											<td class="b3"><span>$tdata['wep']</span></td>
 										</tr>
@@ -77,7 +77,7 @@
 								<td class="b2" height=20px><span>{lang wep}</span></td>
 								<td class="b3"><span>$wep</span></td>
 								<td class="b2"><span>{lang wep}{lang kind1}</span></td>
-								<td class="b3"><span>$iteminfo[$wepk]</span></td>
+								<td class="b3"><span><!--{eval echo \itemmain\parse_itmk_words($wepk);}--></span></td>
 								<td class="b2"><span>{lang wep}{lang effect}</span></td>
 								<td class="b3"><span>$wepe</span></td>
 							</tr>

@@ -8,6 +8,8 @@ namespace skill36
 	function init() 
 	{
 		define('MOD_SKILL36_INFO','club;battle;');
+		eval(import_module('clubbase'));
+		$clubskillname[36] = '偷袭';
 	}
 	
 	function acquire36(&$pa)

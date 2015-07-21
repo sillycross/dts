@@ -1,0 +1,235 @@
+<?php
+
+namespace skill48
+{
+	//怒气消耗
+	$ragecost = 16; 
+	
+	//共享属性加成的属性
+	$skill48_ex_map = Array(
+		'f' => 'u',
+		'k' => 'i',
+	);
+	
+	function init() 
+	{
+		define('MOD_SKILL48_INFO','club;battle;');
+		eval(import_module('clubbase'));
+		$clubskillname[48] = '附魔';
+		eval(import_module('itemmain','ex_dmg_att'));
+		global $skill48_ex_map, $skill48_ex_kind_list; 
+		$skill48_ex_kind_list=Array();
+		foreach ($ex_attack_list as $key)
+			if (!isset($skill48_ex_map[$key]))
+			{
+				$str=$itemspkinfo[$key];
+				foreach ($skill48_ex_map as $k => $v)
+					if ($v==$key)
+						$str.='/'.$itemspkinfo[$k];
+				$skill48_ex_kind_list[$key]=$str;
+			}
+	}
+	
+	function acquire48(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('skill48'));
+		\skillbase\skill_setvalue(48,'tot','0',$pa);
+		foreach ($skill48_ex_kind_list as $key => $value)
+			\skillbase\skill_setvalue(48,$key,'0',$pa);
+	}
+	
+	function lost48(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+	}
+	
+	function skill_onload_event(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($pa);
+	}
+	
+	function skill_onsave_event(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($pa);
+	}
+	
+	function check_unlocked48(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $pa['lvl']>=5;
+	}
+	
+	function get_rage_cost48(&$pa = NULL)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('skill48'));
+		return $ragecost;
+	}
+	
+	function get_single_status_html48($key, $value)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$z=(int)\skillbase\skill_getvalue(48,$key);
+		if ($z<15) 
+			$sty='<span class="grey">';
+		else if ($z<30)
+			$sty='<span style="color:#ffff88">';
+		else if ($z<60)
+			$sty='<span style="color:#ffff00;">';
+		else if ($z<90)
+			$sty='<span style="color:#ff7700;">';
+		else  $sty='<span style="color:#ff0000;">';
+
+		$str=$sty.$value.':+'.$z.'%</span>';
+		return $str;
+	}
+	
+	function get_status_html48()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//以相对智能的方式生成html
+		eval(import_module('skill48'));
+		$sz=count($skill48_ex_kind_list);
+		if ($sz%4==0)
+			$lz=4;
+		else if ($sz%3==0) 
+			$lz=3;
+		else if ($sz%4>=$sz%3)
+			$lz=4;
+		else  $lz=3;
+		
+		$s=Array();
+		foreach ($skill48_ex_kind_list as $key => $value) $s[$key]=strlen($value);
+		asort($s);
+		
+		$t=Array();
+		foreach ($s as $key => $value) array_push($t,$key);
+		
+		$rz=floor($sz/$lz); $rz=(int)$rz; 
+		for ($i=0; $i<$rz; $i++)
+		{
+			for ($j=0; $j<$lz; $j++)
+			{
+				$id=$j*$rz+$i; $key=$t[$id]; $value=$skill48_ex_kind_list[$key];
+				if ($j>0) echo '&nbsp;&nbsp';
+				echo get_single_status_html48($key,$value);
+			}
+			echo '<br>';
+		}
+		if ($sz%$lz!=0)
+		{
+			for ($i=$sz-$sz%$lz; $i<$sz; $i++)
+			{
+				$key=$t[$i]; $value=$skill48_ex_kind_list[$key];
+				if ($i>0) echo '&nbsp;&nbsp';
+				echo get_single_status_html48($key,$value);
+			}
+			echo '<br>';
+		}
+	}
+	
+	function strike_prepare(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if ($pa['bskill']!=48) return $chprocess($pa, $pd, $active);
+		if (!\skillbase\skill_query(48,$pa) || !check_unlocked48($pa))
+		{
+			eval(import_module('logger'));
+			$log .= '你尚未解锁这个技能！';
+			$pa['bskill']=0;
+		}
+		else
+		{
+			$rcost = get_rage_cost48($pa);
+			if ($pa['rage']>=$rcost && $pa['wep_kind']=='C')
+			{
+				eval(import_module('logger'));
+				if ($active)
+					$log.="<span class=\"lime\">你对{$pd['name']}发动了技能「附魔」！</span><br>";
+				else  $log.="<span class=\"lime\">{$pa['name']}对你发动了技能「附魔」！</span><br>";
+				$pa['rage']-=$rcost;
+				addnews ( 0, 'bskill48', $pa['name'], $pd['name'] );
+				
+				//更新附魔发动次数
+				$ori_val=(int)\skillbase\skill_getvalue(48,'tot',$pa);
+				$ori_val++;
+				\skillbase\skill_setvalue(48,'tot',$ori_val,$pa);
+		
+				eval(import_module('ex_dmg_att','skill48'));
+				$lis=Array();
+				$ex_attack_array = \attrbase\get_ex_attack_array($pa, $pd, $active);
+				foreach ( $ex_attack_list as $key )
+					if (in_array($key, $ex_attack_array))
+						if (isset($skill48_ex_map[$key]))
+							array_push($lis,$skill48_ex_map[$key]);
+						else  array_push($lis,$key);
+				
+				if (count($lis)>0)
+					$pa['skill48_flag']=$lis[rand(0,count($lis)-1)];
+				else  unset($pa['skill48_flag']);
+			}
+			else
+			{
+				if ($active)
+				{
+					eval(import_module('logger'));
+					$log.='怒气不足或其他原因不能发动。<br>';
+				}
+				$pa['bskill']=0;
+			}
+		}
+		$chprocess($pa, $pd, $active);
+	}	
+	
+	//主动发动附魔，叠属性伤害加成
+	function calculate_ex_attack_dmg(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if ($pa['bskill']!=48) return $chprocess($pa, $pd, $active);
+		
+		$r=$chprocess($pa, $pd, $active);
+		
+		eval(import_module('itemmain','logger'));
+		if (isset($pa['skill48_flag']))
+		{
+			if ($active)
+				$log.='技能「附魔」使你的<span class="yellow">'.$itemspkinfo[$pa['skill48_flag']].'</span>伤害永久提高了<span class="yellow">3%</span>。<br>';
+			else  $log.='技能「附魔」使敌人的<span class="yellow">'.$itemspkinfo[$pa['skill48_flag']].'</span>伤害永久提高了<span class="yellow">3%</span>。<br>';
+			$ori_val=(int)\skillbase\skill_getvalue(48,$pa['skill48_flag'],$pa);
+			$ori_val+=3;
+			if ($ori_val>120) $ori_val=120;
+			\skillbase\skill_setvalue(48,$pa['skill48_flag'],$ori_val,$pa);
+		}
+		return $r;
+	}
+	
+	//属性伤害增加（被动）
+	function calculate_ex_single_dmg_multiple(&$pa, &$pd, $active, $key)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (!\skillbase\skill_query(48,$pa) || !check_unlocked48($pa)) return $chprocess($pa, $pd, $active, $key);
+		
+		eval(import_module('skill48'));
+		$z=$key; if (isset($skill48_ex_map[$z])) $z=$skill48_ex_map[$z];
+		$ori_val=(int)\skillbase\skill_getvalue(48,$z,$pa);
+		return $chprocess($pa, $pd, $active, $key)*(1+$ori_val/100);
+	}
+	
+	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		eval(import_module('sys','player'));
+		
+		if($news == 'bskill48') 
+			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}对{$b}发动了技能<span class=\"yellow\">「附魔」</span></span><br>\n";
+		
+		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+	}
+	
+}
+
+?>

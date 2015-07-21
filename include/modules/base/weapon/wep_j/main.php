@@ -15,19 +15,19 @@ namespace wep_j
 		$iteminfo['WJ'] = '重型枪械';
 		
 		//基础反击率
-		$counter_obbs['J'] = 35;
+		$counter_obbs['J'] = 20;
 		//射程
-		$rangeinfo['J'] = 1;
+		$rangeinfo['J'] = 8;
 		//基础命中率
-		$hitrate_obbs['J'] = 85;
+		$hitrate_obbs['J'] = 10;
 		//各种攻击方式的最高命中率
-		$hitrate_max_obbs['J'] = 96;
+		$hitrate_max_obbs['J'] = 98;
 		//每点熟练增加的命中
-		$hitrate_r['J'] = 0.1;
+		$hitrate_r['J'] = 0.2;
 		//各种攻击方式的伤害变动范围，越少越稳定。
 		$dmg_fluc['J'] = 10;
 		//每点熟练度增加的伤害
-		$skill_dmg['J'] = 0.1;
+		$skill_dmg['J'] = 0.7;
 		//各种攻击方式的武器损伤概率
 		$wepimprate['J'] = 10000;
 		//以该类武器击杀敌人后的死亡状态标号

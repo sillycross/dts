@@ -100,8 +100,8 @@ namespace npcchat
 	function cannot_counter(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['type'] || $pd['type']) npcchat($pa, $pd, $active, 'cannot_counter');
 		$chprocess($pa, $pd, $active);
+		if ($pa['type'] || $pd['type']) npcchat($pa, $pd, $active, 'cannot_counter');
 	}
 	
 	function player_kill_enemy(&$pa,&$pd,$active)

@@ -5,6 +5,8 @@ namespace skill28
 	function init() 
 	{
 		define('MOD_SKILL28_INFO','club;');
+		eval(import_module('clubbase'));
+		$clubskillname[28] = '毅重';
 	}
 	
 	function acquire28(&$pa)

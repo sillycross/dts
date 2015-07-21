@@ -143,7 +143,8 @@ namespace weapon
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$primary_dmg=get_primary_dmg($pa, $pd, $active) * get_primary_dmg_multiplier($pa, $pd, $active);
-		$fixed_dmg=get_fixed_dmg($pa, $pd, $active) * get_fixed_dmg_multiplier($pa, $pd, $active);
+		$fixed_dmg=get_fixed_dmg($pa, $pd, $active);
+		if ($fixed_dmg>0) $fixed_dmg *= get_fixed_dmg_multiplier($pa, $pd, $active);
 		return round($primary_dmg + $fixed_dmg);
 	}
 	
@@ -380,7 +381,9 @@ namespace weapon
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('weapon'));
-		return $rangeinfo[$pa['wep_kind']];
+		if (isset($pa['wep_kind']))
+			return $rangeinfo[$pa['wep_kind']];
+		else  return $rangeinfo[$pa['wepk'][1]];
 	}
 	
 	function check_can_counter(&$pa, &$pd, $active)
@@ -389,7 +392,10 @@ namespace weapon
 		$r1 = get_weapon_range($pa, $active);
 		$r2 = get_weapon_range($pd, 1-$active);
 		if ($r1 >= $r2 && $r1 != 0 && $r2 != 0)
-			return (check_counter_dice($pa, $pd, $active) && $chprocess($pa,$pd,$active));
+		{
+			if (!$chprocess($pa,$pd,$active)) return 0;
+			return check_counter_dice($pa, $pd, $active);
+		}
 		else  return 0;
 	}
 	

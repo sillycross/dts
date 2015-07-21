@@ -19,7 +19,7 @@ namespace ex_rapid_attr
 	function get_rapid_wepimp_increase(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return 1.2;
+		return 1.3;
 	}
 	
 	//武器损伤率随连击次数增加

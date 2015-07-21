@@ -33,6 +33,7 @@ namespace skill5
 	function skill_onsave_event(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('skillbase'));
 		if (\skillbase\skill_query(5,$pa)) \skillbase\skill_lost(5,$pa);
 		$chprocess($pa);
 	}

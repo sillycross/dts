@@ -3,13 +3,15 @@
 namespace skill26
 {
 	//升级所需技能点数值
-	$upgradecost = 12;
+	$upgradecost = 10;
 	//怒气消耗
-	$ragecost[1] = 20; $ragecost[2] = 30;
+	$ragecost[1] = 20; $ragecost[2] = 25;
 	
 	function init() 
 	{
 		define('MOD_SKILL26_INFO','club;battle;upgrade;');
+		eval(import_module('clubbase'));
+		$clubskillname[26] = '聚能';
 	}
 	
 	function acquire26(&$pa)
