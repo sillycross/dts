@@ -29,6 +29,9 @@ while ($data = $db->fetch_array($result))
 		{
 			$roomdata = json_decode(mgzdecode(base64_decode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['roomid'].'.txt'))),1);
 			
+			$infochanged = 0;
+			if (update_roomstate($roomdata,0)) $infochanged = 1;
+			
 			//自动踢人
 			if ($roomdata['roomstat']==1 && time()>=$roomdata['kicktime'])
 			{
@@ -37,9 +40,10 @@ while ($data = $db->fetch_array($result))
 					{
 						room_new_chat($roomdata,"<span class=\"grey\">{$roomdata['player'][$i]['name']}因为长时间未准备，被系统踢出了房间。</span><br>");
 						$roomdata['player'][$i]['name']='';
+						$infochanged = 1;
 					}
-				room_save_broadcast($data['roomid'],$roomdata);
 			}
+			if ($infochanged) room_save_broadcast($data['roomid'],$roomdata);
 			
 			for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
 			{
@@ -74,6 +78,7 @@ while ($data = $db->fetch_array($result))
 		if (file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['roomid'].'.txt'))
 		{
 			$roomdata = json_decode(mgzdecode(base64_decode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['roomid'].'.txt'))),1);
+			if (update_roomstate($roomdata,1)) room_save_broadcast($data['roomid'],$roomdata);
 			$roomlist[$data['roomid']]['id'] = $data['roomid'];
 			$roomlist[$data['roomid']]['status']=$data['status'];
 			$roomlist[$data['roomid']]['roomtype'] = $roomdata['roomtype'];

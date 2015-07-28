@@ -119,6 +119,9 @@ if ($roomdata['roomstat']==2)
 	die();
 }
 
+if ($zz['status']==2) $runflag = 1; else $runflag = 0;
+update_roomstate($roomdata,$runflag);
+
 //更新踢人状态
 if ($roomdata['roomstat']==1 && time()>=$roomdata['kicktime'])
 {

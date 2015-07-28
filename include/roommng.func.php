@@ -1,29 +1,43 @@
 <?php
 
-function update_roomstate(&$roomdata)
+function update_roomstate(&$roomdata, $runflag)
 {
 	eval(import_module('sys'));
+	
 	global $roomtypelist;
 	$flag=1;
 	for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
 		if (!$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']=='')
 			$flag = 0;
 	
-	if ($flag && $roomdata['roomstat']==0)
+	$changeflag = 0;
+	if (!$runflag && $flag && $roomdata['roomstat']==0)
 	{
 		$roomdata['roomstat']=1;
 		$roomdata['kicktime']=time()+30;
+		$roomdata['timestamp']++;
 		for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++) $roomdata['player'][$i]['ready']=0;
+		$changeflag = 1;
 	}
 	
-	if (!$flag) $roomdata['roomstat']=0;
+	if (!$flag) { $roomdata['roomstat']=0; $changeflag = 1; }
+	return $changeflag;
 }
 
 function room_save_broadcast($roomid, &$roomdata)
 {
 	//保存数据并广播
-	if (defined('MOD_SYS')) eval(import_module('sys')); else global $db;
-	update_roomstate($roomdata);
+	eval(import_module('sys'));
+	$result = $db->query("SELECT status FROM {$gtablepre}rooms WHERE roomid = '$roomid'");
+	$runflag = 0;
+	if ($db->num_rows($result)) 
+	{ 
+		$zz=$db->fetch_array($result); 
+		if ($zz['status']==2) $runflag = 1; 
+	}
+	
+	update_roomstate($roomdata,$runflag);
+	
 	writeover(GAME_ROOT.'./gamedata/tmp/rooms/'.$roomid.'.txt', base64_encode(gzencode(compatible_json_encode($roomdata))));
 	$result = $db->query("SELECT * FROM {$gtablepre}roomlisteners WHERE roomid = '$roomid' AND timestamp < '{$roomdata['timestamp']}'");
 	if ($db->num_rows($result))
