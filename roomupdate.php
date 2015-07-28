@@ -2,6 +2,7 @@
 
 error_reporting(0);
 
+define('GEXIT_RETURN_JSON',TRUE);
 define('NO_MOD_LOAD', TRUE);	
 define('NO_SYS_UPDATE', TRUE);
 require './include/common.inc.php';

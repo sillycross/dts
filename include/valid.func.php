@@ -8,10 +8,11 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon)
 	$alivenum++;
 	$name = $xuser;
 	$pass = $xpass;
-	$gd = $xgender;
+	global $gd; $gd = $xgender;
 	$type = 0;
 	$endtime = $now;
-	$sNo = $validnum;
+	global $sNo; $sNo = $validnum;
+	global $hp,$mhp,$sp,$msp,$att,$def,$wep,$itm,$icon; 
 	$hp = $mhp = $hplimit;
 	$sp = $msp = $splimit;
 	$rand = rand(0,15);
