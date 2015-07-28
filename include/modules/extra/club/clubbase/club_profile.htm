@@ -1,10 +1,10 @@
 <!--{eval eval(import_module('clubbase'));}-->
-<td class="b2"><span>{lang club}</span></td>
-<td class="b3"><span>
+<td class="b2" height="20"><span>{lang club}</span></td>
+<td class="b3" height="20"><span>
 <!--{if $club!=0}-->
 	$clubinfo[$club]
 <!--{else}-->
-	<select id="clubsel" name="clubsel" onchange="$('mode').value='special';$('command').value=$('clubsel').value;replay_record_DOM_path(this.options[this.selectedIndex]);postCmd('gamecmd','command.php');return false;" <!--{if CURSCRIPT != 'game' || $mode != 'command'}-->disabled<!--{/if}-->>
+	<select style="height:20px;" id="clubsel" name="clubsel" onchange="$('mode').value='special';$('command').value=$('clubsel').value;replay_record_DOM_path(this.options[this.selectedIndex]);postCmd('gamecmd','command.php');return false;" <!--{if CURSCRIPT != 'game' || $mode != 'command'}-->disabled<!--{/if}-->>
 		<!--{loop \clubbase\get_club_choice_array() $key $value}-->
 			<option value="clubsel$key"<!--{if $club == $key}-->selected<!--{/if}-->>$clubinfo[$value]
 		<!--{/loop}-->

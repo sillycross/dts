@@ -7,8 +7,16 @@
 	</tr>
 	<tr>
 		<td><span class="yellow">{lang now}：</span></td>
+		
 		<td style="text-align:left;"><span class="evergreen">{lang gamedate}</span></td>
-		<td rowspan="4" style="width:400px;vertical-align:top;text-align:left;padding:0 0 0 25px;"><span class="evergreen">$adminmsg</span></td>
+		<td rowspan="4" style="width:400px; height:100%; vertical-align:top;text-align:left;padding:0 0 0 25px;">
+		<table style="width:100%; height:100%; border:0;padding:0;">
+		<tr><td style="width:400px; height:160px; vertical-align:top;text-align:left;"> 
+		<span class="evergreen">$adminmsg</span>
+		</td></tr><tr><td style="width:400px; vertical-align:bottom;text-align:left;">
+		{template roomlist}
+		</td></tr></table>
+		</td>
 	</tr>
 	<tr>
 		<td><span class="yellow">{lang systemmsg}：</span></td>
@@ -16,7 +24,7 @@
 	</tr>
 	<tr>
 		<td><span class="yellow">{lang gameinfo}：</span></td>
-		<td style="text-align:left;"><span class="evergreen"><span class="evergreen2">{lang numinfo}{$gstate[$gamestate]}</span></span></td>
+		<td style="text-align:left;"><span class="evergreen"><span class="evergreen2"><!--{if $room_prefix!=''}--><!--{if $room_prefix=='n'}--><span class="yellow">新手区&nbsp;</span>{lang numinfo}<!--{else}--><!--{if $room_prefix[0]=='s'}--><span class="yellow"><!--{eval echo '房间&nbsp;'.substr($room_prefix,1).'&nbsp;';}--></span><!--{/if}--><!--{/if}--><!--{else}-->{lang numinfo}<!--{/if}-->{$gstate[$gamestate]}</span></span></td>
 	</tr>
 	<tr>
 		<td colspan="2" style="vertical-align:top;">
@@ -38,9 +46,11 @@
 				<!--{/if}-->
 				</div>
 				<div>
+				<!--{if $room_prefix=='' || $room_prefix[0]!='s'}-->
 				上局结果：<span id="lastwin">$gwin[$winmode]</span>
 				<!--{if $winner}-->
 				，优胜者：<span id="lastwinner">$winner</span>
+				<!--{/if}-->
 				<!--{/if}-->
 				</div>
 				
@@ -79,5 +89,7 @@
 		</td>
 	</tr>
 </table>
+<!--{if $room_prefix!='' && $room_prefix[0]=='s'}-->
 
+<!--{/if}-->
 {template footer}

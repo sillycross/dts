@@ -94,25 +94,15 @@ namespace map
 	
 	function movehtm($atime = 0) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
+		//愚蠢的movehtm函数已经被移除…… 现在move.htm和areainfo.htm都由模板自动生成
+		return;
+	}
+
+	function get_next_areadata_html()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','map'));
-		$movehtm = GAME_ROOT.TPLDIR.'/move.htm';
-		$movedata = '<option value="main">■ 移动 ■<br />';
-		
-		foreach($plsinfo as $key => $value) {
-			if(array_search($key,$arealist) > $areanum || $hack){
-			$movedata .= "<option value=\"$key\"><!--{if \$pls == $key}--><--现在位置--><!--{else}-->$value($xyinfo[$key])<!--{/if}--><br />";
-			}
-		} 
-		writeover($movehtm,$movedata);
-		
-		$areahtm = GAME_ROOT.TPLDIR.'/areainfo.htm';
-		$areadata = '<span class="evergreen"><b>现在的禁区是：</b></span>';
-		for($i=0;$i<=$areanum;$i++){
-			$areadata .= '&nbsp;'.$plsinfo[$arealist[$i]];
-		}
-		$areadata .= '<br><span class="evergreen"><b>下回的禁区是：</b></span>';
-		
+		$areadata='';
 		if(!$atime){
 			$atime = $areatime;
 		}
@@ -152,10 +142,9 @@ namespace map
 				$areadata .= '&nbsp;'.$plsinfo[$arealist[$areanum+$areaadd*2+$i]].'&nbsp;';
 			}
 		}
-		writeover($areahtm,$areadata);
-		return;
+		echo $areadata;
 	}
-
+	
 	function updategame()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

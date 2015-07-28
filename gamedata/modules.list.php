@@ -1,9 +1,10 @@
 input,core/input/,1
+bubblebox,extra/misc/bubblebox/,1
+glowbutton,extra/misc/glowbutton/,1
 sys,core/sys/,1
 map,core/map/,1
-gameflow_base,core/gameflow/gameflow_base/,1
-bubblebox,extra/misc/bubblebox/,1
 bmp_util,extra/misc/bmp_util/,1
+gameflow_base,core/gameflow/gameflow_base/,1
 player,core/player/,1
 gameflow_antiafk,core/gameflow/gameflow_antiafk/,1
 logger,base/logger/,1
@@ -56,6 +57,7 @@ team,base/team/,1
 battle,base/battle/,1
 item_misc,base/items/item_misc/,1
 gameflow_combo,core/gameflow/gameflow_combo/,1
+advteam,extra/misc/advteam/,1
 attack,base/attack/,1
 clubbase,extra/club/clubbase/,1
 weapon,base/weapon/weapon/,1

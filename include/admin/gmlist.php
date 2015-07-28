@@ -3,7 +3,7 @@ if(!defined('IN_ADMIN')) {
 	exit('Access Denied');
 }
 
-$result = $db->query("SELECT uid,username,groupid FROM {$tablepre}users WHERE groupid > 1 ORDER BY groupid DESC");
+$result = $db->query("SELECT uid,username,groupid FROM {$gtablepre}users WHERE groupid > 1 ORDER BY groupid DESC");
 while($gm = $db->fetch_array($result)) {
 	$gmdata[$gm['uid']] = $gm;
 }
@@ -15,7 +15,7 @@ if($command == 'add') {
 	} elseif ($addgroup < 2 || $addgroup >= $mygroup || $addgroup > 10) {
 		$cmd_info =  '权限设置错误！';
 	} else {
-		$result = $db->query("SELECT uid,username,groupid FROM {$tablepre}users WHERE username='$addname'");
+		$result = $db->query("SELECT uid,username,groupid FROM {$gtablepre}users WHERE username='$addname'");
 		if(!$db->num_rows($result)) { 
 			$cmd_info =  '此账号不存在。'; 
 		} else {
@@ -24,7 +24,7 @@ if($command == 'add') {
 				$cmd_info =  '此账号已经是管理员！'; 
 			}else{
 				$uid = $newgm['uid'];
-				$db->query("UPDATE {$tablepre}users SET groupid='$addgroup' WHERE uid='$uid'");
+				$db->query("UPDATE {$gtablepre}users SET groupid='$addgroup' WHERE uid='$uid'");
 				adminlog('addgm',$addname,$addgroup);
 				$cmd_info =  "管理员 {$addname} 添加成功，权限等级：{$addgroup}";
 				$newgm['groupid'] = $addgroup;
@@ -40,7 +40,7 @@ if($command == 'add') {
 		if($gmdata[$adminuid]['groupid'] >= $mygroup){
 			$cmd_info = "权限不够，不能删除管理员 {$gmdata[$adminuid]['username']}！";
 		} else {
-			$db->query("UPDATE {$tablepre}users SET groupid=1 WHERE uid='$uid'");
+			$db->query("UPDATE {$gtablepre}users SET groupid=1 WHERE uid='$uid'");
 			adminlog('delgm',$gmdata[$adminuid]['username']);
 			$cmd_info =  "管理员 {$gmdata[$adminuid]['username']} 的管理权限被删除！";
 			unset($gmdata[$adminuid]);
@@ -58,7 +58,7 @@ if($command == 'add') {
 		} elseif($gmdata[$adminuid]['groupid'] >= $mygroup) {
 			$cmd_info =  "权限不够，不能编辑管理员 {$editname} ！<br>";
 		} else {
-			$db->query("UPDATE {$tablepre}users SET groupid='$editgroup' WHERE uid='$adminuid'");
+			$db->query("UPDATE {$gtablepre}users SET groupid='$editgroup' WHERE uid='$adminuid'");
 			adminlog('editgm',$gmdata[$adminuid]['username'],$editgroup);
 			$cmd_info =  "管理员 {$gmdata[$adminuid]['username']} 权限修改成功，权限等级：{$editgroup}";
 			$gmdata[$adminuid]['groupid'] = $editgroup;

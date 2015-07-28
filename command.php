@@ -167,17 +167,17 @@ if ($___MOD_SRV)
 						if (!isset($jgamedata['url']))
 						{
 							$pid=(int)$pid;
-							if (!file_exists(GAME_ROOT.'./gamedata/tmp/replay/'.$pid))
+							if (!file_exists(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$pid))
 							{
-								mymkdir(GAME_ROOT.'./gamedata/tmp/replay/'.$pid);
+								create_dir(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$pid);
 							}
-							else  if (!is_dir(GAME_ROOT.'./gamedata/tmp/replay/'.$pid))
+							else  if (!is_dir(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$pid))
 							{
-								unlink(GAME_ROOT.'./gamedata/tmp/replay/'.$pid);
-								mymkdir(GAME_ROOT.'./gamedata/tmp/replay/'.$pid);
+								unlink(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$pid);
+								create_dir(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$pid);
 							}
 							
-							file_put_contents(GAME_ROOT.'./gamedata/tmp/replay/'.$pid.'/replay.txt',\replay\replay_record_op($oprecorder).','.($___PAGE_STARTTIME_VALUE-$starttime+$moveut*3600+$moveutmin*60).','.$___MOD_TMP_FILE_DIRECTORY.$___TEMP_uid.','."\n",FILE_APPEND);
+							file_put_contents(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$pid.'/replay.txt',\replay\replay_record_op($oprecorder).','.($___PAGE_STARTTIME_VALUE-$starttime+$moveut*3600+$moveutmin*60).','.$___MOD_TMP_FILE_DIRECTORY.$___TEMP_uid.','."\n",FILE_APPEND);
 						}
 					}
 					
@@ -326,7 +326,7 @@ if(!$db->num_rows($result))
 { 
 	$gamedata['url'] = 'valid.php';
 	ob_clean();
-	$jgamedata = compatible_json_encode($gamedata);
+	$jgamedata = base64_encode(gzencode(compatible_json_encode($gamedata)));
 	echo $jgamedata;
 	return;
 }
@@ -335,7 +335,7 @@ $pdata = $db->fetch_array($result);
 
 //判断是否密码错误
 if($pdata['pass'] != $cpass) {
-	$tr = $db->query("SELECT `password` FROM {$tablepre}users WHERE username='$cuser'");
+	$tr = $db->query("SELECT `password` FROM {$gtablepre}users WHERE username='$cuser'");
 	$tp = $db->fetch_array($tr);
 	$password = $tp['password'];
 	if($password == $cpass) {
@@ -349,7 +349,7 @@ if($pdata['pass'] != $cpass) {
 if($gamestate == 0) {
 	$gamedata['url'] = 'end.php';
 	ob_clean();
-	$jgamedata = compatible_json_encode($gamedata);
+	$jgamedata = base64_encode(gzencode(compatible_json_encode($gamedata)));
 	echo $jgamedata;
 	return;
 }

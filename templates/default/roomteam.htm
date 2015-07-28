@@ -1,0 +1,164 @@
+<!--{if $roomdata['roomtype']==0}-->
+<table CellSpacing=0 CellPadding=0 width=100%>
+<tr>
+	<td class="b3" height=10px colspan=5>
+	</td>
+</tr>
+<tr>
+	<td class="b3" height=25px width=70px>
+	</td>
+	<td class="b3" height=25px width=150px>
+		<span style="color:#ff0022;">红队</span>
+	</td>
+	<td class="b3" height=25px width=70px>
+	</td>
+	<td class="b3" height=25px width=150px>
+		<span style="color:#5900ff;">蓝队</span>
+	</td>
+	<td class="b3" height=25px width=70px>
+	</td>
+</tr>
+<tr>
+	<td class="b3" height=40px width=70px>
+	</td>
+	<!--{eval $i=0;}-->
+	<td id="room-position-$i" class="b3" width=150px align=center style="position:relative;">
+		{template roomslot}
+	</td>
+	<td class="b3" height=40px width=70px>
+	</td>
+	<!--{eval $i=1;}-->
+	<td id="room-position-$i" class="b3" width=150px align=center style="position:relative;">
+		{template roomslot}
+	</td>
+	<td class="b3" height=40px width=70px>
+	</td>
+</tr>
+<tr>
+	<td class="b3" height=15px colspan=5>
+	</td>
+</tr>
+</table>
+<!--{/if}-->
+<!--{if $roomdata['roomtype']==1}-->
+<table CellSpacing=0 CellPadding=0 width=100%>
+<tr>
+	<td class="b3" height=40px width=50px>
+	</td>
+	<td class="b3" height=40px width=30px rowspan=2>
+		<span style="color:#ff0022;">红<br>队<br></span>
+	</td>
+	<!--{eval $i=0;}-->
+	<td class="b3" id="room-position-$i" width=150px align=center style="position:relative;">
+		{template roomslot}
+	</td>
+	<td class="b3" height=40px width=50px>
+	</td>
+	<!--{eval $i=2;}-->
+	<td class="b3" id="room-position-$i" width=150px align=center style="position:relative;">
+		{template roomslot}
+	</td>
+	<td class="b3" height=40px width=30px rowspan=2>
+		<span style="color:#5900ff;">蓝<br>队<br></span>
+	</td>
+	<td class="b3" height=40px width=50px>
+	</td>
+</tr>
+<tr>
+	<td class="b3" height=40px width=50px>
+	</td>
+	<!--{eval $i=1;}-->
+	<td id="room-position-$i" class="b3" width=150px align=center style="position:relative;">
+		{template roomslot}
+	</td>
+	<td class="b3" height=40px width=50px>
+	<!--{eval $i=3;}-->
+	<td id="room-position-$i" class="b3" width=150px align=center style="position:relative;">
+		{template roomslot}
+	</td>
+	<td class="b3" height=40px width=50px>
+	</td>
+</tr>
+</table>
+<!--{/if}-->
+<!--{if $roomdata['roomtype']==2}-->
+<table CellSpacing=0 CellPadding=0 width=100%>
+<tr>
+	<td class="b3" height=40px width=20px>
+	</td>
+	<td class="b3" height=40px width=40px>
+		<span style="color:#ff0022;">红队</span>
+	</td>
+	<!--{loop range(0,2) $i}-->
+	<td class="b3" id="room-position-$i" width=150px align=center style="position:relative;">
+		{template roomslot}
+	</td>
+	<!--{/loop}-->
+</tr>
+<tr>
+	<td class="b3" height=40px width=20px>
+	</td>
+	<td class="b3" height=40px width=40px>
+		<span style="color:#5900ff;">蓝队</span>
+	</td>
+	<!--{loop range(3,5) $i}-->
+	<td id="room-position-$i" class="b3" width=150px align=center style="position:relative;">
+		{template roomslot}
+	</td>
+	<!--{/loop}-->
+</tr>
+</table>
+<!--{/if}-->
+<!--{if $roomdata['roomtype']==3}-->
+<table CellSpacing=0 CellPadding=0 width=100%>
+<tr>
+	<td class="b3" height=10px colspan=7>
+	</td>
+</tr>
+<tr>
+	<td class="b3" height=25px width=15px>
+	</td>
+	<td class="b3" height=25px width=150px>
+		<span style="color:#ff0022;">红队</span>
+	</td>
+	<td class="b3" height=25px width=15px>
+	</td>
+	<td class="b3" height=25px width=150px>
+		<span style="color:#5900ff;">蓝队</span>
+	</td>
+	<td class="b3" height=25px width=15px>
+	</td>
+	<td class="b3" height=25px width=150px>
+		<span style="color:#8cff00;">绿队</span>
+	</td>
+	<td class="b3" height=25px width=15px>
+	</td>
+</tr>
+<tr>
+	<td class="b3" height=40px width=15px>
+	</td>
+	<!--{eval $i=0;}-->
+	<td id="room-position-$i" class="b3" width=150px align=center style="position:relative;">
+		{template roomslot}
+	</td>
+	<td class="b3" height=40px width=15px>
+	</td>
+	<!--{eval $i=1;}-->
+	<td id="room-position-$i" class="b3" width=150px align=center style="position:relative;">
+		{template roomslot}
+	</td>
+	<td class="b3" height=40px width=15px>
+	</td>
+	<!--{eval $i=2;}-->
+	<td id="room-position-$i" class="b3" width=150px align=center style="position:relative;">
+		{template roomslot}
+	</td>
+	<td class="b3" height=40px width=15px>
+	</td>
+</tr>
+<tr>
+	<td class="b3" height=15px colspan=7>
+	</td>
+</tr>
+</table>
+<!--{/if}-->

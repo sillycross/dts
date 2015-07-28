@@ -1,8 +1,8 @@
 <!--{eval eval(import_module('pose'));}-->
-<td class="b2"><span>{lang pose}</span></td>
-<td class="b3">
-	<span>
-		<select id="pose" name="pose" onchange="$('mode').value='special';$('command').value=$('pose').value;postCmd('gamecmd','command.php');return false;" <!--{if CURSCRIPT != 'game' || $mode != 'command'}-->disabled<!--{/if}-->>
+<td class="b2" height="20"><span>{lang pose}</span></td>
+<td class="b3" style="height:20px;">
+	<span style="height:20px;">
+		<select style="height:20px;" id="pose" name="pose" onchange="$('mode').value='special';$('command').value=$('pose').value;postCmd('gamecmd','command.php');return false;" <!--{if CURSCRIPT != 'game' || $mode != 'command'}-->disabled<!--{/if}-->>
 		<!--{loop $poseinfo $key $value}-->
 		<!--{if ($value)&&($pose_player_usable[$key])}-->
 		<option value="pose$key"<!--{if $pose == $key}-->selected<!--{/if}-->>$value

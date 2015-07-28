@@ -26,9 +26,9 @@
 
 <div id="newsinfo">
 <!--{if $newsmode == 'all'}-->
-{template newsinfo}
+<!--{eval echo file_get_contents($newshtm);}-->
 <!--{else}-->
-{template lastnews}
+<!--{eval echo file_get_contents($lnewshtm);}-->
 <!--{/if}-->
 </div>
 

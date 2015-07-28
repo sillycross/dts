@@ -18,6 +18,8 @@ input {cursor: crosshair;}
 .b3 {background-color:rgba(17,17,17,0.5); *BACKGROUND:rgb(17,17,17); *filter:alpha(opacity=50); BORDER: #000 0px none; color: #fff; text-align: center; border-right: #111 1px solid;font:10pt "微软雅黑" serif;}
 .b4 {BORDER: #000 0px none; color: #fff; text-align: center;font: 10pt "微软雅黑" serif;}
 .b5 {BORDER: #000 0px none; color: #fff; text-align: center;font: 10pt "微软雅黑" serif;}
+.b6 {background-color:rgba(0,99,0,0.65); *BACKGROUND:rgb(0,99,0); *filter:alpha(opacity=65); BORDER: #000 0px none; color: #fff; text-align: center; border-right: #111 1px solid;font:10pt "微软雅黑" serif;}
+.b7 {background-color:rgba(99,0,0,0.65); *BACKGROUND:rgb(99,0,0); *filter:alpha(opacity=65); BORDER: #000 0px none; color: #fff; text-align: center; border-right: #111 1px solid;font:10pt "微软雅黑" serif;}
 .map {background-color:rgba(17,17,17,0.5); *BACKGROUND:rgb(17,17,17); *filter:alpha(opacity=50);BORDER: #111 1px solid;text-align: center;font: bold 10pt "微软雅黑" serif;}
 .map2 {BORDER: #111 1px solid;text-align: center;font: bold 10pt "微软雅黑" serif;}
 .maptdred {background-color:rgba(255,0,0,0.25); *BACKGROUND:#f00; *filter:alpha(opacity=25);BORDER: #111 1px solid;text-align: center;font: bold 10pt "微软雅黑" serif;}
@@ -71,6 +73,7 @@ table.admin td.tdtitle {
 .lime{color: #00ff00;font: bold 10pt "微软雅黑" serif;line-height:16px}
 .purple{color: #9900cc;font: bold 10pt "微软雅黑" serif;line-height:16px}
 .evergreen{color:#98fb98;font: bold 10pt "微软雅黑" serif;line-height:16px}
+.white{color:#ffffff;font: bold 10pt "微软雅黑" serif;line-height:16px}
 .evergreen2{color:#98fb98;font:18pt "微软雅黑" serif;}
 .dmg {color:#ff0000;font: bold 10pt "微软雅黑" serif;}
 .grey{color:#999; font: bold 10pt "微软雅黑" serif;line-height:16px}

@@ -22,6 +22,7 @@ namespace skill52
 	function lost52(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		\skillbase\skill_delvalue(52,'lvl',$pa);
 	}
 	
 	function skill_onload_event(&$pa)

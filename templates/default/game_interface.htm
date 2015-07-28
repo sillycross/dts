@@ -24,7 +24,10 @@
 						<div id="log">$log</div>
 						<div>
 							<form method="post" id="gamecmd" name="gamecmd" style="margin: 0px" >
-								<input type="hidden" id="oprecorder" name="oprecorder" value=""> 
+								<div id="cmd_extrahead">
+									<input type="hidden" id="oprecorder" name="oprecorder" value="">
+									<input type="hidden" id="game_roomid" name="game_roomid" value="$room_prefix">
+								</div>
 								<div id="cmd">
 									<!--{if $hp <= 0}-->
 									{template death}
@@ -51,8 +54,3 @@
 		</td>
 	</tr>
 </table> 
-<!--{if CURSCRIPT=='game' && !defined('IN_REPLAY') && ($hp>0 || $log!='')}-->
-<script type="text/javascript">
-$('mode').value='command';$('command').value='enter';postCmd('gamecmd','command.php');
-</script>
-<!--{/if}-->

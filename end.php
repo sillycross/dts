@@ -9,7 +9,7 @@ if(!$db->num_rows($result)) { header("Location: index.php");exit(); }
 
 $pdata = $db->fetch_array($result);
 if($pdata['pass'] != $cpass) {
-	$tr = $db->query("SELECT `password` FROM {$tablepre}users WHERE username='$cuser'");
+	$tr = $db->query("SELECT `password` FROM {$gtablepre}users WHERE username='$cuser'");
 	$tp = $db->fetch_array($tr);
 	$password = $tp['password'];
 	if($password == $cpass) {
@@ -25,7 +25,7 @@ eval(import_module('player'));
 extract($pdata);
 
 if($hp<=0 || $state>=10) {
-	$result = $db->query("SELECT lastword FROM {$tablepre}users WHERE username='$name'");
+	$result = $db->query("SELECT lastword FROM {$gtablepre}users WHERE username='$name'");
 	$motto = $db->result($result,0);
 	$dtime = date("Y年m月d日H时i分s秒",$endtime);
 	if($bid) {

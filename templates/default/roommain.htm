@@ -1,0 +1,91 @@
+<!--{if $roomdata['roomstat']!=2}-->
+<table CellSpacing=0 CellPadding=0 width=100%>
+<tr>
+	<td class="b3" height=40px colspan=2>
+	<span style="font-size:30px; line-height:40px;">房间$roomid&nbsp;-&nbsp;$roomtypelist[$roomdata['roomtype']]['name']</span>
+	<!--{if $upos==0}-->
+	<div style="position:absolute; top:14px; left: 500px;">
+	<!--{eval glowbutton\glowbutton_set_style('id:rmedit;color:ffffff;clickable:1;max-text-width:70;line-height:20;margin-x:0;margin-y:0;');}-->
+	<!--{eval glowbutton\glowbutton_set_mousedown_event("bubblebox_show('persistent-rmeditbox');");}-->
+	{template MOD_GLOWBUTTON_START}
+	修改模式
+	{template MOD_GLOWBUTTON_END}
+	</div>
+	<!--{/if}-->
+	</td>
+</tr>
+<tr>
+	<td class="b3" height=8px colspan=2>
+	</td>
+</tr>
+<tr>
+	<td width=515px>
+	{template roomteam}
+	</td>
+	<td class="b3" width=85px>
+	<!--{if $roomdata['roomstat']==1 && $upos>=0 && !$roomdata['player'][$upos]['ready']}-->
+	<!--{eval glowbutton\glowbutton_set_style('id:room-ready;color:ffff00;clickable:1;max-text-width:30;line-height:50;margin-y:0;');}-->
+	<!--{eval glowbutton\glowbutton_set_mousedown_event("$('command').value='ready';postCmd('roomcmd','roomcmd.php');");}-->
+	<!--{else}-->
+	<!--{if $roomdata['roomstat']==1 && $upos>=0 && $roomdata['player'][$upos]['ready']}-->
+	<!--{eval glowbutton\glowbutton_set_style('id:room-ready;color:00ff00;clickable:0;glow-on-hover:0;max-text-width:30;line-height:50;margin-y:0;');}-->
+	<!--{else}-->
+	<!--{eval glowbutton\glowbutton_set_style('id:room-ready;color:888888;clickable:0;glow-on-hover:0;max-text-width:30;line-height:50;margin-y:0;');}-->
+	<!--{/if}-->
+	<!--{/if}-->
+	{template MOD_GLOWBUTTON_START}
+	准备
+	{template MOD_GLOWBUTTON_END}
+	</td>
+</tr>
+<tr>
+	<td class="b3" height=7px>
+	</td>
+	<td class="b3" rowspan=3>
+	<!--{eval glowbutton\glowbutton_set_style('id:room-leave;color:ffffff;clickable:1;max-text-width:60;line-height:20;margin-x:5;margin-y:0;');}-->
+	<!--{eval glowbutton\glowbutton_set_mousedown_event("$('command').value='leave';postCmd('roomcmd','roomcmd.php');");}-->
+	{template MOD_GLOWBUTTON_START}
+	离开房间
+	{template MOD_GLOWBUTTON_END}
+	</td>
+</tr>
+<tr>
+	<td class="b3" height=20px>
+	<span style="20px" id="room_banner">
+	<!--{if $roomdata['roomstat']!=1}-->
+		<!--{if $upos == -1}-->
+		<span class="yellow">请点击一个空位置以进入。</span>
+		<!--{else}-->
+		请等待人满后点击“准备”按钮。点击一个空位置可以移动位置。
+		<!--{/if}-->
+	<!--{else}-->
+		<!--{eval $kicktimeleft = $roomdata['kicktime']-time()+1;}-->
+		<!--{if $upos>=0}-->
+			<!--{if !$roomdata['player'][$upos]['ready']}-->
+			<span class="yellow">请点击“准备”按钮，<span id="roomkick_timer">$kicktimeleft</span>秒后没有准备的玩家将被自动踢出房间。</span>
+			<!--{else}-->
+			请等待其他人准备，<span id="roomkick_timer">$kicktimeleft</span>秒后没有准备的玩家将被自动踢出房间。
+			<!--{/if}-->
+		<!--{else}-->
+			<span id="roomkick_timer">$kicktimeleft</span>秒后没有准备的玩家将被自动踢出房间。
+		<!--{/if}-->
+	<!--{/if}-->
+	</span>
+	</td>
+</tr>
+<tr>
+	<td class="b3" height=7px>
+	</td>
+</tr>
+<tr>
+	<td height=15px colspan=5>
+	</td>
+</tr>
+</table>
+<!--{else}-->
+<table CellSpacing=0 CellPadding=0 width=100% height=398px>
+<tr><td height=398px class="b3">
+<span class="yellow">游戏即将开始，请等待几秒钟，页面将自动跳转至游戏界面<br>
+如果页面很久都没有跳转，请手动 <a href="game.php">点击这里</a> 进入游戏<br></span>
+</td></tr></table>
+<!--{/if}-->

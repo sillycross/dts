@@ -21,6 +21,10 @@ set_error_handler('gameerrorhandler');
 $magic_quotes_gpc = get_magic_quotes_gpc();
 
 require GAME_ROOT.'./include/modules.func.php';
+
+define('STYLEID', '1');
+define('TEMPLATEID', '1');
+define('TPLDIR', './templates/default');
 	
 ///////////////////Load Module Start///////////////////////
 
@@ -81,5 +85,6 @@ else
 if (defined('NO_SYS_UPDATE')) return;
 
 if (CURSCRIPT != 'chat') sys\routine();
+
 
 ?>

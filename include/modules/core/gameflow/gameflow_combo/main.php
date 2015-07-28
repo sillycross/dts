@@ -80,7 +80,7 @@ namespace gameflow_combo
 		eval(import_module('sys','player','logger'));
 		if (defined('MOD_TEAM'))
 		{
-			if($gamestate>=40){
+			if($gamestate>=40 && !in_array($gametype,$teamwin_mode)){
 				$log .= '<span class="yellow">连斗阶段无法赠送物品！</span><br>';
 				$action = '';
 				$mode = 'command';
@@ -90,13 +90,13 @@ namespace gameflow_combo
 		}
 	}
 	
-	function findteam($edata)
+	function findteam(&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
 		if (defined('MOD_TEAM'))
 		{
-			if($gamestate>=40){
+			if($gamestate>=40 && !in_array($gametype,$teamwin_mode)){
 				$log .= '<span class="yellow">连斗阶段所有队伍取消！</span><br>';
 				
 				$mode = 'command';

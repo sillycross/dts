@@ -1,8 +1,8 @@
--- MySQL dump 10.15  Distrib 10.0.17-MariaDB, for Linux (x86_64)
+-- MySQL dump 10.15  Distrib 10.0.20-MariaDB, for Linux (x86_64)
 --
 -- Host: localhost    Database: test
 -- ------------------------------------------------------
--- Server version	10.0.17-MariaDB-log
+-- Server version	10.0.20-MariaDB-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -30,26 +30,7 @@ CREATE TABLE `acbra2_chat` (
   `recv` char(15) NOT NULL DEFAULT '',
   `msg` char(60) NOT NULL DEFAULT '',
   PRIMARY KEY (`cid`)
-) ENGINE=MEMORY AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `acbra2_gambling`
---
-
-DROP TABLE IF EXISTS `acbra2_gambling`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `acbra2_gambling` (
-  `gid` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
-  `uid` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `uname` char(15) NOT NULL DEFAULT '',
-  `bid` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `bname` char(15) NOT NULL DEFAULT '',
-  `wager` int(10) unsigned NOT NULL DEFAULT '0',
-  `odds` decimal(8,4) unsigned NOT NULL DEFAULT '0.0000',
-  PRIMARY KEY (`gid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MEMORY AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -86,6 +67,13 @@ CREATE TABLE `acbra2_game` (
   `kdown` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `gameotherinfo` char(255) NOT NULL DEFAULT '',
   `is_solo` int(10) NOT NULL DEFAULT '0',
+  `hdamage` int(10) unsigned NOT NULL DEFAULT '0',
+  `hplayer` char(15) NOT NULL DEFAULT '',
+  `noisetime` int(10) unsigned NOT NULL DEFAULT '0',
+  `noisepls` int(10) unsigned NOT NULL DEFAULT '0',
+  `noiseid` int(10) unsigned NOT NULL DEFAULT '0',
+  `noiseid2` int(10) unsigned NOT NULL DEFAULT '0',
+  `noisemode` char(30) NOT NULL DEFAULT '',
   PRIMARY KEY (`gamenum`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -123,7 +111,7 @@ CREATE TABLE `acbra2_mapitem` (
   `itmsk` char(5) NOT NULL DEFAULT '',
   `pls` tinyint(3) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`iid`)
-) ENGINE=MyISAM AUTO_INCREMENT=7527 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=9456 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -142,27 +130,7 @@ CREATE TABLE `acbra2_maptrap` (
   `itmsk` char(5) NOT NULL DEFAULT '',
   `pls` tinyint(3) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`tid`)
-) ENGINE=MyISAM AUTO_INCREMENT=171 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `acbra2_newsinfo`
---
-
-DROP TABLE IF EXISTS `acbra2_newsinfo`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `acbra2_newsinfo` (
-  `nid` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
-  `time` int(10) unsigned NOT NULL DEFAULT '0',
-  `news` char(15) NOT NULL DEFAULT '',
-  `a` varchar(255) NOT NULL DEFAULT '',
-  `b` varchar(255) NOT NULL DEFAULT '',
-  `c` varchar(255) NOT NULL DEFAULT '',
-  `d` varchar(255) NOT NULL DEFAULT '',
-  `e` varchar(255) NOT NULL DEFAULT '',
-  PRIMARY KEY (`nid`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=298 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -218,74 +186,103 @@ CREATE TABLE `acbra2_players` (
   `wepk` char(5) NOT NULL DEFAULT '',
   `wepe` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `weps` char(5) NOT NULL DEFAULT '0',
-  `wepsk` char(5) NOT NULL DEFAULT '',
+  `wepsk` char(40) NOT NULL DEFAULT '',
   `arb` char(30) NOT NULL DEFAULT '',
   `arbk` char(5) NOT NULL DEFAULT '',
   `arbe` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `arbs` char(5) NOT NULL DEFAULT '0',
-  `arbsk` char(5) NOT NULL DEFAULT '',
+  `arbsk` char(40) NOT NULL DEFAULT '',
   `arh` char(30) NOT NULL DEFAULT '',
   `arhk` char(5) NOT NULL DEFAULT '',
   `arhe` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `arhs` char(5) NOT NULL DEFAULT '0',
-  `arhsk` char(5) NOT NULL DEFAULT '',
+  `arhsk` char(40) NOT NULL DEFAULT '',
   `ara` char(30) NOT NULL DEFAULT '',
   `arak` char(5) NOT NULL DEFAULT '',
   `arae` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `aras` char(5) NOT NULL DEFAULT '0',
-  `arask` char(5) NOT NULL DEFAULT '',
+  `arask` char(40) NOT NULL DEFAULT '',
   `arf` char(30) NOT NULL DEFAULT '',
   `arfk` char(5) NOT NULL DEFAULT '',
   `arfe` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `arfs` char(5) NOT NULL DEFAULT '0',
-  `arfsk` char(5) NOT NULL DEFAULT '',
+  `arfsk` char(40) NOT NULL DEFAULT '',
   `art` char(30) NOT NULL DEFAULT '',
-  `artk` char(5) NOT NULL DEFAULT '',
+  `artk` char(40) NOT NULL DEFAULT '',
   `arte` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `arts` char(5) NOT NULL DEFAULT '0',
-  `artsk` char(5) NOT NULL DEFAULT '',
+  `artsk` char(40) NOT NULL DEFAULT '',
   `itm0` char(30) NOT NULL DEFAULT '',
   `itmk0` char(5) NOT NULL DEFAULT '',
   `itme0` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `itms0` char(5) NOT NULL DEFAULT '0',
-  `itmsk0` char(5) NOT NULL DEFAULT '',
+  `itmsk0` char(40) NOT NULL DEFAULT '',
   `itm1` char(30) NOT NULL DEFAULT '',
   `itmk1` char(5) NOT NULL DEFAULT '',
   `itme1` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `itms1` char(5) NOT NULL DEFAULT '0',
-  `itmsk1` char(5) NOT NULL DEFAULT '',
+  `itmsk1` char(40) NOT NULL DEFAULT '',
   `itm2` char(30) NOT NULL DEFAULT '',
   `itmk2` char(5) NOT NULL DEFAULT '',
   `itme2` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `itms2` char(5) NOT NULL DEFAULT '0',
-  `itmsk2` char(5) NOT NULL DEFAULT '',
+  `itmsk2` char(40) NOT NULL DEFAULT '',
   `itm3` char(30) NOT NULL DEFAULT '',
   `itmk3` char(5) NOT NULL DEFAULT '',
   `itme3` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `itms3` char(5) NOT NULL DEFAULT '0',
-  `itmsk3` char(5) NOT NULL DEFAULT '',
+  `itmsk3` char(40) NOT NULL DEFAULT '',
   `itm4` char(30) NOT NULL DEFAULT '',
   `itmk4` char(5) NOT NULL DEFAULT '',
   `itme4` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `itms4` char(5) NOT NULL DEFAULT '0',
-  `itmsk4` char(5) NOT NULL DEFAULT '',
+  `itmsk4` char(40) NOT NULL DEFAULT '',
   `itm5` char(30) NOT NULL DEFAULT '',
   `itmk5` char(5) NOT NULL DEFAULT '',
   `itme5` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `itms5` char(5) NOT NULL DEFAULT '0',
-  `itmsk5` char(5) NOT NULL DEFAULT '',
+  `itmsk5` char(40) NOT NULL DEFAULT '',
   `itm6` char(30) NOT NULL DEFAULT '',
   `itmk6` char(5) NOT NULL DEFAULT '',
   `itme6` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `itms6` char(5) NOT NULL DEFAULT '0',
-  `itmsk6` char(5) NOT NULL DEFAULT '',
+  `itmsk6` char(40) NOT NULL DEFAULT '',
   `nskill` text NOT NULL,
   `nskillpara` text NOT NULL,
   `skillpoint` int(11) NOT NULL DEFAULT '0',
+  `flare` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`pid`),
   KEY `TYPE` (`type`,`sNo`),
   KEY `NAME` (`name`,`type`)
-) ENGINE=MyISAM AUTO_INCREMENT=355 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=354 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `acbra2_rooms`
+--
+
+DROP TABLE IF EXISTS `acbra2_rooms`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `acbra2_rooms` (
+  `status` int(10) unsigned NOT NULL DEFAULT '0',
+  `roomid` int(10) unsigned NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `acbra2_roomlisteners`
+--
+
+DROP TABLE IF EXISTS `acbra2_roomlisteners`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `acbra2_roomlisteners` (
+  `port` int(10) unsigned NOT NULL DEFAULT '0',
+  `timestamp` int(10) unsigned NOT NULL DEFAULT '0',
+  `roomid` int(10) unsigned NOT NULL DEFAULT '0',
+  `uniqid` char(35) NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -308,20 +305,7 @@ CREATE TABLE `acbra2_shopitem` (
   `itmsk` char(5) NOT NULL DEFAULT '',
   PRIMARY KEY (`sid`),
   KEY `KIND` (`kind`,`area`)
-) ENGINE=MyISAM AUTO_INCREMENT=173 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `acbra2_temp`
---
-
-DROP TABLE IF EXISTS `acbra2_temp`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `acbra2_temp` (
-  `sid` char(30) NOT NULL DEFAULT '',
-  `value` mediumtext NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=175 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -354,9 +338,10 @@ CREATE TABLE `acbra2_users` (
   `lastword` char(30) NOT NULL DEFAULT '',
   `oid` char(20) NOT NULL DEFAULT '',
   `can_solo` int(10) NOT NULL DEFAULT '0',
+  `roomid` char(15) NOT NULL DEFAULT '',
   PRIMARY KEY (`uid`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=MyISAM AUTO_INCREMENT=30392 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=30397 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -406,67 +391,67 @@ CREATE TABLE `acbra2_winners` (
   `wepk` char(5) NOT NULL DEFAULT '',
   `wepe` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `weps` char(5) NOT NULL DEFAULT '0',
-  `wepsk` char(5) NOT NULL DEFAULT '',
+  `wepsk` char(40) NOT NULL DEFAULT '',
   `arb` char(30) NOT NULL DEFAULT '',
   `arbk` char(5) NOT NULL DEFAULT '',
   `arbe` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `arbs` char(5) NOT NULL DEFAULT '0',
-  `arbsk` char(5) NOT NULL DEFAULT '',
+  `arbsk` char(40) NOT NULL DEFAULT '',
   `arh` char(30) NOT NULL DEFAULT '',
   `arhk` char(5) NOT NULL DEFAULT '',
   `arhe` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `arhs` char(5) NOT NULL DEFAULT '0',
-  `arhsk` char(5) NOT NULL DEFAULT '',
+  `arhsk` char(40) NOT NULL DEFAULT '',
   `ara` char(30) NOT NULL DEFAULT '',
   `arak` char(5) NOT NULL DEFAULT '',
   `arae` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `aras` char(5) NOT NULL DEFAULT '0',
-  `arask` char(5) NOT NULL DEFAULT '',
+  `arask` char(40) NOT NULL DEFAULT '',
   `arf` char(30) NOT NULL DEFAULT '',
   `arfk` char(5) NOT NULL DEFAULT '',
   `arfe` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `arfs` char(5) NOT NULL DEFAULT '0',
-  `arfsk` char(5) NOT NULL DEFAULT '',
+  `arfsk` char(40) NOT NULL DEFAULT '',
   `art` char(30) NOT NULL DEFAULT '',
   `artk` char(5) NOT NULL DEFAULT '',
   `arte` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `arts` char(5) NOT NULL DEFAULT '0',
-  `artsk` char(5) NOT NULL DEFAULT '',
+  `artsk` char(40) NOT NULL DEFAULT '',
   `itm0` char(30) NOT NULL DEFAULT '',
   `itmk0` char(5) NOT NULL DEFAULT '',
   `itme0` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `itms0` char(5) NOT NULL DEFAULT '0',
-  `itmsk0` char(5) NOT NULL DEFAULT '',
+  `itmsk0` char(40) NOT NULL DEFAULT '',
   `itm1` char(30) NOT NULL DEFAULT '',
   `itmk1` char(5) NOT NULL DEFAULT '',
   `itme1` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `itms1` char(5) NOT NULL DEFAULT '0',
-  `itmsk1` char(5) NOT NULL DEFAULT '',
+  `itmsk1` char(40) NOT NULL DEFAULT '',
   `itm2` char(30) NOT NULL DEFAULT '',
   `itmk2` char(5) NOT NULL DEFAULT '',
   `itme2` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `itms2` char(5) NOT NULL DEFAULT '0',
-  `itmsk2` char(5) NOT NULL DEFAULT '',
+  `itmsk2` char(40) NOT NULL DEFAULT '',
   `itm3` char(30) NOT NULL DEFAULT '',
   `itmk3` char(5) NOT NULL DEFAULT '',
   `itme3` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `itms3` char(5) NOT NULL DEFAULT '0',
-  `itmsk3` char(5) NOT NULL DEFAULT '',
+  `itmsk3` char(40) NOT NULL DEFAULT '',
   `itm4` char(30) NOT NULL DEFAULT '',
   `itmk4` char(5) NOT NULL DEFAULT '',
   `itme4` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `itms4` char(5) NOT NULL DEFAULT '0',
-  `itmsk4` char(5) NOT NULL DEFAULT '',
+  `itmsk4` char(40) NOT NULL DEFAULT '',
   `itm5` char(30) NOT NULL DEFAULT '',
   `itmk5` char(5) NOT NULL DEFAULT '',
   `itme5` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `itms5` char(5) NOT NULL DEFAULT '0',
-  `itmsk5` char(5) NOT NULL DEFAULT '',
+  `itmsk5` char(40) NOT NULL DEFAULT '',
   `itm6` char(30) NOT NULL DEFAULT '',
   `itmk6` char(5) NOT NULL DEFAULT '',
   `itme6` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `itms6` char(5) NOT NULL DEFAULT '0',
-  `itmsk6` char(5) NOT NULL DEFAULT '',
+  `itmsk6` char(40) NOT NULL DEFAULT '',
   `motto` char(30) NOT NULL DEFAULT '',
   `wmode` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `vnum` smallint(5) unsigned NOT NULL DEFAULT '0',
@@ -487,6 +472,25 @@ CREATE TABLE `acbra2_winners` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Table structure for table `acbra2_newsinfo`
+--
+
+DROP TABLE IF EXISTS `acbra2_newsinfo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `acbra2_newsinfo` (
+  `nid` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `time` int(10) unsigned NOT NULL DEFAULT '0',
+  `news` char(15) NOT NULL DEFAULT '',
+  `a` varchar(255) NOT NULL DEFAULT '',
+  `b` varchar(255) NOT NULL DEFAULT '',
+  `c` varchar(255) NOT NULL DEFAULT '',
+  `d` varchar(255) NOT NULL DEFAULT '',
+  `e` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`nid`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -497,4 +501,4 @@ CREATE TABLE `acbra2_winners` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-06-28  0:07:01
+-- Dump completed on 2015-07-28  0:02:13

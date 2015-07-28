@@ -4,6 +4,18 @@ namespace team
 {
 	function init() {}
 	
+	function check_alive_discover(&$edata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//团队模式下非雾天不会在探索中遇到队友
+		eval(import_module('sys','player','metman','logger'));
+		if($teamID && (!$fog) && $teamID == $edata['teamID'] && in_array($gametype,$teamwin_mode))
+		{
+			return 0;
+		}
+		return $chprocess($edata);
+	}
+	
 	function meetman($sid)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -11,22 +23,23 @@ namespace team
 		eval(import_module('sys','player','metman','logger'));
 		
 		$edata=\player\fetch_playerdata_by_pid($sid);
-		if($edata['hp']>0 && $teamID && (!$fog) && $gamestate<40 && $teamID == $edata['teamID'])
+		if($edata['hp']>0 && $teamID && (!$fog) && $gamestate<40 && $teamID == $edata['teamID'] && !in_array($gametype,$teamwin_mode))
 		{
-			extract($edata,EXTR_PREFIX_ALL,'w');
-			$action = 'team'.$edata['pid'];
 			findteam($edata);
 			return;
 		} 
 		$chprocess($sid);
 	}
 
-	function findteam($edata)
+	function findteam(&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','player','metman','logger'));
 		
+		extract($edata,EXTR_PREFIX_ALL,'w');
+		$action = 'team'.$edata['pid'];
+			
 		$battle_title = '发现队友';
 		\metman\init_battle(1);
 		
@@ -60,7 +73,6 @@ namespace team
 			return;
 		}
 
-		extract($edata,EXTR_PREFIX_ALL,'w');
 		if($edata['pls'] != $pls) {
 			$log .= '<span class="yellow">'.$edata['name'].'</span>已经离开了<span class="yellow">'.$plsinfo[$pls].'</span>。<br>';
 			$mode = 'command';
@@ -71,7 +83,7 @@ namespace team
 			$mode = 'command';
 			$action = '';
 			return;
-		} elseif(!$teamID || $edata['teamID']!=$teamID || $pid==$w_pid){
+		} elseif(!$teamID || $edata['teamID']!=$teamID || $pid==$edata['pid']){
 			$log .= '<span class="yellow">'.$edata['name'].'</span>并非你的队友，不能接受物品。<br>';
 			$mode = 'command';
 			$action = '';
@@ -99,13 +111,13 @@ namespace team
 			$itmsk = & ${'itmsk'.$itmn};
 
 			for($i = 1;$i <= 6; $i++){
-				if(!${'w_itms'.$i}) {
-					${'w_itm'.$i} = $itm; ${'w_itmk'.$i} = $itmk; 
-					${'w_itme'.$i} = $itme; ${'w_itms'.$i} = $itms; ${'w_itmsk'.$i} = $itmsk;
-					$log .= "你将<span class=\"yellow\">${'w_itm'.$i}</span>送给了<span class=\"yellow\">$w_name</span>。<br>";
-					$x = "<span class=\"yellow\">$name</span>将<span class=\"yellow\">${'w_itm'.$i}</span>送给了你。";
-					if(!$w_type) \logger\logsave($w_pid,$now,$x,'t');
-					addnews($now,'senditem',$name,$w_name,$itm);
+				if(!$edata['itms'.$i]) {
+					$edata['itm'.$i] = $itm; $edata['itmk'.$i] = $itmk; 
+					$edata['itme'.$i] = $itme; $edata['itms'.$i] = $itms; $edata['itmsk'.$i] = $itmsk;
+					$log .= "你将<span class=\"yellow\">".$edata['itm'.$i]."</span>送给了<span class=\"yellow\">{$edata['name']}</span>。<br>";
+					$x = "<span class=\"yellow\">$name</span>将<span class=\"yellow\">".$edata['itm'.$i]."</span>送给了你。";
+					if(!$edata['type']) \logger\logsave($edata['pid'],$now,$x,'t');
+					addnews($now,'senditem',$name,$edata['name'],$itm);
 					\player\player_save($edata);
 					$itm = $itmk = $itmsk = '';
 					$itme = $itms = 0;
@@ -113,7 +125,7 @@ namespace team
 					return;
 				}
 			}
-			$log .= "<span class=\"yellow\">$w_name</span> 的包裹已经满了，不能赠送物品。<br>";
+			$log .= "<span class=\"yellow\">{$edata['name']}</span> 的包裹已经满了，不能赠送物品。<br>";
 		}
 		$action = '';
 		$mode = 'command';

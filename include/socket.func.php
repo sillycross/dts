@@ -95,7 +95,12 @@ function __SOCKET_SEND_TO_SERVER__()
 	foreach ($_POST as $key => $value) $___TEMP_data[$key]=$value;
 		
 	global $cli_pagestartime;
+
 	$___TEMP_data['___PAGE_STARTTIME_VALUE'] = $cli_pagestartime;
+	if (isset($___TEMP_data['game_roomid'])) 
+		$game_roomid = $___TEMP_data['game_roomid'];
+	else  $game_roomid = '';
+	$___TEMP_data['___GAME_ROOMID'] = $game_roomid;
 	
 	//防止注入，去掉不合法变量名，去掉可能的global名称
 	$___TEMP_data_keys = array_keys($___TEMP_data);
@@ -122,7 +127,17 @@ function __SOCKET_SEND_TO_SERVER__()
 	else 
 	{
 		global $___MOD_TMP_FILE_DIRECTORY;
-		writeover($___MOD_TMP_FILE_DIRECTORY.$___TEMP_uid,$___TEMP_data);
+		if (!file_exists($___MOD_TMP_FILE_DIRECTORY.$game_roomid.'_'))
+		{
+			create_dir($___MOD_TMP_FILE_DIRECTORY.$game_roomid.'_');
+		}
+		else  if (!is_dir($___MOD_TMP_FILE_DIRECTORY.$game_roomid.'_'))
+		{
+			unlink($___MOD_TMP_FILE_DIRECTORY.$game_roomid.'_');
+			create_dir($___MOD_TMP_FILE_DIRECTORY.$game_roomid.'_');
+		}
+							
+		writeover($___MOD_TMP_FILE_DIRECTORY.$game_roomid.'_/'.$___TEMP_uid,$___TEMP_data);
 	}
 	
 	//连接server
@@ -139,7 +154,7 @@ function __SOCKET_SEND_TO_SERVER__()
 	
 	//发送消息给server
 	global $___MOD_CONN_PASSWD;
-	if (!socket_write($___TEMP_socket,$___MOD_CONN_PASSWD.$___TEMP_uid."\n")) __SOCKET_ERRORLOG__("socket_write失败");
+	if (!socket_write($___TEMP_socket,$___MOD_CONN_PASSWD.$game_roomid.'_/'.$___TEMP_uid."\n")) __SOCKET_ERRORLOG__("socket_write失败");
 
 	__SOCKET_DEBUGLOG__("消息已发送，等待回应。");
 	
@@ -176,9 +191,9 @@ function __SOCKET_SEND_TO_SERVER__()
 	else
 	{
 		global $___MOD_TMP_FILE_DIRECTORY;
-		$___TEMP_res=file_get_contents($___MOD_TMP_FILE_DIRECTORY.$___TEMP_uid);
+		$___TEMP_res=file_get_contents($___MOD_TMP_FILE_DIRECTORY.$game_roomid.'_/'.$___TEMP_uid);
 		if (!defined('MOD_REPLAY')) 	//如果录像模式开启，最后删缓存的工作由录像模块进行
-			unlink($___MOD_TMP_FILE_DIRECTORY.$___TEMP_uid);
+			unlink($___MOD_TMP_FILE_DIRECTORY.$room_prefix.'_/'.$___TEMP_uid);
 	}
 	
 	__SOCKET_DEBUGLOG__("已载入回应文件。");

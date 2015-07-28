@@ -18,6 +18,7 @@ namespace skill33
 	function lost33(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		\skillbase\skill_delvalue(33,'choice',$pa);
 	}
 	
 	function skill_onload_event(&$pa)

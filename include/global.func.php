@@ -4,6 +4,8 @@ if(!defined('IN_GAME')) {
 	exit('Access Denied');
 }
 
+require GAME_ROOT.'./include/roommng.config.php';
+
 //----------------------------------------
 //              底层机制函数
 //----------------------------------------
@@ -43,8 +45,7 @@ function gexit($message = '',$file = '', $line = 0) {
 			$gamedata['url'] = 'error.php';
 			$gamedata['errormsg'] = $message;
 			ob_clean();
-			$jgamedata = compatible_json_encode($gamedata);
-			echo $jgamedata;
+			echo base64_encode(gzencode(compatible_json_encode($gamedata)));
 		}
 		else
 		{
@@ -54,9 +55,20 @@ function gexit($message = '',$file = '', $line = 0) {
 	}
 	else
 	{
-		ob_clean();
-		include template('error');
-		exit();
+		if (defined('GEXIT_RETURN_JSON'))
+		{
+			$gamedata['url'] = 'error.php';
+			$gamedata['errormsg'] = $message;
+			ob_clean();
+			echo base64_encode(gzencode(compatible_json_encode($gamedata)));
+			exit();
+		}
+		else
+		{
+			ob_clean();
+			include template('error');
+			exit();
+		}
 	}
 }
 
@@ -159,8 +171,8 @@ function content($file = '') {
 }
 
 function gsetcookie($var, $value, $life = 0, $prefix = 1) {
-	global $tablepre, $cookiedomain, $cookiepath, $now, $_SERVER;
-	setcookie(($prefix ? $tablepre : '').$var, $value,
+	global $tablepre, $gtablepre, $cookiedomain, $cookiepath, $now, $_SERVER;
+	setcookie(($prefix ? $gtablepre : '').$var, $value,
 		$life ? $now + $life : 0, $cookiepath,
 		$cookiedomain, $_SERVER['SERVER_PORT'] == 443 ? 1 : 0);
 }
@@ -251,7 +263,7 @@ function clear_dir($dirName, $keep_root = 0)	//递归清空目录
 				} else {
 					if (!unlink($dirName.'/'.$item))
 					{
-						__SOCKET_WARNLOG__("clear_dir错误：无法删除文件。");
+						//__SOCKET_WARNLOG__("clear_dir错误：无法删除文件。");
 					}
 				}
 			}
@@ -260,13 +272,13 @@ function clear_dir($dirName, $keep_root = 0)	//递归清空目录
 		if (!$keep_root)
 			if (!rmdir($dirName))
 			{
-				__SOCKET_WARNLOG__("clear_dir错误：无法删除目录{$dirName}。");
+				//__SOCKET_WARNLOG__("clear_dir错误：无法删除目录{$dirName}。");
 			}
 		
 	}
 	else
 	{
-		__SOCKET_WARNLOG__('clear_dir错误: 进入目录'.$dirname."失败。");
+		//__SOCKET_WARNLOG__('clear_dir错误: 进入目录'.$dirname."失败。");
 	}
 }
 
@@ -389,13 +401,13 @@ function systemputchat($time,$type,$msg = ''){
 
 ////暂时丢在这……
 function set_credits(){
-	global $db,$tablepre,$winmode,$gamenum,$winner,$pdata;
+	global $db,$gtablepre,$tablepre,$winmode,$gamenum,$winner,$pdata;
 	$result = $db->query("SELECT * FROM {$tablepre}players WHERE type='0'");
 	$list = $creditlist = $updatelist = Array();
 	while($data = $db->fetch_array($result)){
 		$list[$data['name']]['players'] = $data;
 	}	
-	$result = $db->query("SELECT * FROM {$tablepre}users WHERE lastgame='$gamenum'");
+	$result = $db->query("SELECT * FROM {$gtablepre}users WHERE lastgame='$gamenum'");
 	while($data = $db->fetch_array($result)){
 		$list[$data['username']]['users'] = $data;
 	}
@@ -417,7 +429,7 @@ function set_credits(){
 //			}			
 		}
 	}
-	$db->multi_update("{$tablepre}users", $updatelist, 'username');
+	$db->multi_update("{$gtablepre}users", $updatelist, 'username');
 //	if(!empty($udghkey)){
 //		$udghkey = implode(',',$udghkey);
 //		$db->multi_update("{$tablepre}players", $upghlist, 'name', "name IN ($udghkey)");

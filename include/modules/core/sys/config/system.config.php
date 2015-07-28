@@ -48,15 +48,8 @@ namespace sys
 	//游戏进行中是否显示聊天。0为不显示，数字为显示条数
 	$chatinnews = 50;
 
-	//开启gzip压缩功能？0为不开启，1为开启
-	//$gzipcompress=0;
-
-	/*template settings*/
-	//模板编号。默认为1
-	define('STYLEID', '1');
-	define('TEMPLATEID', '1');
-	define('TPLDIR', './templates/default');
-
+	//团队模式游戏类型列表
+	$teamwin_mode = Array(11,12);
 }
 
 ?>
