@@ -110,77 +110,80 @@ namespace sys
 					$winnum = 0;
 					$winner = '';
 				}
-				if (!in_array($gametype,$teamwin_mode))
-				{
-					//非团队模式，判断最后幸存
-					if($alivenum == 1) {
-						$winmode = 2;
-						$winnum = 1;
-						$wdata = $db->fetch_array($result);
-						$winner = $wdata['name'];
-						$db->query("UPDATE {$tablepre}players SET state='5' where pid='{$wdata['pid']}'");
-					} 
-					else
-					{	//不满足游戏结束条件，返回
-						save_gameinfo();
-						return;
-					}
-				}
 				else
 				{
-					$result = $db->query("SELECT teamID FROM {$tablepre}players WHERE type = 0 AND hp > 0");
-					$flag=1; $first=1; 
-					while($data = $db->fetch_array($result)) 
+					if (!in_array($gametype,$teamwin_mode))
 					{
-						if ($first) 
-						{ 
-							$first=0; $firstteamID=$data['teamID'];
-						}
-						else  if ($firstteamID!=$data['teamID'] || !$data['teamID'])
-						{
-							//如果有超过一种teamID，或有超过一个人没有teamID，则游戏还未就结束
-							$flag=0; break;
-						}
-					}
-					if ($flag && !$first)
-					{
-						if (!$firstteamID)	//单人胜利
-						{	
-							$db->query("UPDATE {$tablepre}players SET state='5' WHERE type = 0 AND hp > 0");
-							$result = $db->query("SELECT name,gd,icon,wep FROM {$tablepre}players WHERE type = 0 AND hp > 0");
-							$zz = $db->fetch_array($result);
-							$winner = $zz['name'];
+						//非团队模式，判断最后幸存
+						if($alivenum == 1) {
+							$winmode = 2;
 							$winnum = 1;
-						}
-						else				//团队胜利
-						{
-							$db->query("UPDATE {$tablepre}players SET state='5' WHERE type = 0 AND teamID = '$firstteamID'");
-							$result = $db->query("SELECT name FROM {$tablepre}players WHERE type = 0 AND teamID = '$firstteamID'");
-							$winnum=$db->num_rows($result);
-							if ($winnum == 1)
-							{
-								$result = $db->query("SELECT name,gd,icon,wep FROM {$tablepre}players WHERE type = 0 AND teamID = '$firstteamID'");
-								$zz = $db->fetch_array($result);
-								$winner = $zz['name'];
-							}
+							$wdata = $db->fetch_array($result);
+							$winner = $wdata['name'];
+							$db->query("UPDATE {$tablepre}players SET state='5' where pid='{$wdata['pid']}'");
+						} 
+						else
+						{	//不满足游戏结束条件，返回
+							save_gameinfo();
+							return;
 						}
 					}
 					else
-					{	//不满足游戏结束条件，返回
-						save_gameinfo();
-						return;
-					}
-					
-					if ($winnum > 1)
-					{	
-						$namelist=''; $gdlist=''; $iconlist=''; $weplist='';
+					{
+						$result = $db->query("SELECT teamID FROM {$tablepre}players WHERE type = 0 AND hp > 0");
+						$flag=1; $first=1; 
 						while($data = $db->fetch_array($result)) 
 						{
-							$namelist.=$data['name'].',';
+							if ($first) 
+							{ 
+								$first=0; $firstteamID=$data['teamID'];
+							}
+							else  if ($firstteamID!=$data['teamID'] || !$data['teamID'])
+							{
+								//如果有超过一种teamID，或有超过一个人没有teamID，则游戏还未就结束
+								$flag=0; break;
+							}
 						}
-						$winner = substr($namelist,0,-1);
+						if ($flag && !$first)
+						{
+							if (!$firstteamID)	//单人胜利
+							{	
+								$db->query("UPDATE {$tablepre}players SET state='5' WHERE type = 0 AND hp > 0");
+								$result = $db->query("SELECT name,gd,icon,wep FROM {$tablepre}players WHERE type = 0 AND hp > 0");
+								$zz = $db->fetch_array($result);
+								$winner = $zz['name'];
+								$winnum = 1;
+							}
+							else				//团队胜利
+							{
+								$db->query("UPDATE {$tablepre}players SET state='5' WHERE type = 0 AND teamID = '$firstteamID'");
+								$result = $db->query("SELECT name FROM {$tablepre}players WHERE type = 0 AND teamID = '$firstteamID'");
+								$winnum=$db->num_rows($result);
+								if ($winnum == 1)
+								{
+									$result = $db->query("SELECT name,gd,icon,wep FROM {$tablepre}players WHERE type = 0 AND teamID = '$firstteamID'");
+									$zz = $db->fetch_array($result);
+									$winner = $zz['name'];
+								}
+							}
+						}
+						else
+						{	//不满足游戏结束条件，返回
+							save_gameinfo();
+							return;
+						}
+						
+						if ($winnum > 1)
+						{	
+							$namelist=''; $gdlist=''; $iconlist=''; $weplist='';
+							while($data = $db->fetch_array($result)) 
+							{
+								$namelist.=$data['name'].',';
+							}
+							$winner = substr($namelist,0,-1);
+						}
+						$winmode = 2;
 					}
-					$winmode = 2;
 				}
 			}
 		} else {//提供了游戏结束模式的情况下
