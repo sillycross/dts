@@ -253,7 +253,7 @@ namespace sys
 		systemputchat($time,'gameover');
 		$newsinfo = nparse_news(0,65535);
 		$room_gprefix = '';
-		if ($room_prefix!='') $room_gprefix = (((string)$room_prefix)[0]).'.';
+		if ($room_prefix!='') $room_gprefix = (substr($room_prefix,0,1)).'.';
 		writeover(GAME_ROOT."./gamedata/bak/{$room_gprefix}{$gamenum}_newsinfo.html",$newsinfo,'wb+');
 		set_credits();
 		return;
