@@ -20,6 +20,7 @@ namespace lvlctl
 		checklvlup($v, $pa);
 		if ($flag) 
 		{
+			\player\player_save($sdata);
 			\player\load_playerdata($sdata);
 		}
 	}

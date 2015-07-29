@@ -85,8 +85,9 @@ namespace item_misc
 					$log .= '好像什么也没发生嘛？<br>咦，按钮上的标签写着什么？“危险，勿触”……？<br>';
 					$log .= '呜哇，按钮爆炸了！<br>';
 					$state = 30;
-					\player\update_sdata(); $sdata['nosource'] = 1; $sdata['attackwith'] = '';
+					\player\update_sdata(); $sdata['sourceless'] = 1; $sdata['attackwith'] = '';
 					\player\kill($sdata,$sdata);
+					\player\player_save($sdata);
 					\player\load_playerdata($sdata);
 				}
 				return;
@@ -174,8 +175,9 @@ namespace item_misc
 					$log .= '你头晕脑胀地躺到了地上，<br>感觉整个人都被救济了。<br>';
 					$log .= '然后你失去了意识。<br>';
 					$state = 35;
-					\player\update_sdata(); $sdata['nosource'] = 1; $sdata['attackwith'] = '';
+					\player\update_sdata(); $sdata['sourceless'] = 1; $sdata['attackwith'] = '';
 					\player\kill($sdata,$sdata);
+					\player\player_save($sdata);
 					\player\load_playerdata($sdata);
 				}
 				return;
@@ -332,6 +334,7 @@ namespace item_misc
 				\player\update_sdata(); 
 				\player\kill($sdata,$edata);
 				\player\player_save($edata);
+				\player\player_save($sdata);
 				\player\load_playerdata($sdata);
 				$killnum++;
 			}

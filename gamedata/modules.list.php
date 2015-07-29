@@ -79,6 +79,8 @@ club14,extra/club/clubs/club14/,1
 sklearn_util,extra/club/sklearn_util/,1
 club6,extra/club/clubs/club6/,1
 club11,extra/club/clubs/club11/,1
+skill58,extra/club/skills/skill58/,1
+club24,extra/club/clubs/club24/,1
 wep_n,base/weapon/wep_n/,1
 wep_p,base/weapon/wep_p/,1
 wep_k,base/weapon/wep_k/,1
@@ -100,8 +102,14 @@ skill41,extra/club/skills/skill41/,1
 skill45,extra/club/skills/skill45/,1
 skill46,extra/club/skills/skill46/,1
 skill52,extra/club/skills/skill52/,1
+skill60,extra/club/skills/skill60/,1
+skill61,extra/club/skills/skill61/,1
+skill62,extra/club/skills/skill62/,1
+skill63,extra/club/skills/skill63/,1
+skill64,extra/club/skills/skill64/,1
 skill53,extra/club/skills/skill53/,1
 skill55,extra/club/skills/skill55/,1
+skill59,extra/club/skills/skill59/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 miracletrap,base/items/miracletrap/,1

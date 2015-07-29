@@ -28,12 +28,18 @@ namespace scpdrink
 				} else {
 					$state = 31;
 					$log .= '你失去了知觉。<br>';
-					\player\update_sdata(); $sdata['nosource'] = 1; $sdata['attackwith'] = $itm;
+					\player\update_sdata(); $sdata['sourceless'] = 1; $sdata['attackwith'] = $itm;
 					\player\kill($sdata,$sdata);
+					\player\player_save($sdata);
 					\player\load_playerdata($sdata);
 				}
 				return;
 			} elseif (strpos($itm, '溶剂SCP-294')===0) {
+			
+				if (defined('MOD_CLUBBASE')) \clubbase\club_lost();
+				$club = 17;
+				if (defined('MOD_CLUBBASE')) \clubbase\club_acquire($club);
+				
 				if($itm == '溶剂SCP-294_PT_Poini_Kune'){
 					$log .= '你考虑了一会，一扬手喝下了杯中中冒着紫色幽光的液体。<br><span class="yellow">你感到全身就像燃烧起来一样，不禁扪心自问这值得么？</span><br>';
 					if ($mhp > 573){
@@ -102,13 +108,11 @@ namespace scpdrink
 				if($deathflag){
 					$log .= '<span class="yellow">看起来你的身体无法承受药剂的能量……<br>果然这一点都不值得……<br></span>';
 					$state = 34;
-					\player\update_sdata(); $sdata['nosource'] = 1; $sdata['attackwith'] = $itm;
+					\player\update_sdata(); $sdata['sourceless'] = 1; $sdata['attackwith'] = $itm;
 					\player\kill($sdata,$sdata);
+					\player\player_save($sdata);
 					\player\load_playerdata($sdata);
 				} else {
-					if (defined('MOD_CLUBBASE')) \clubbase\club_lost();
-					$club = 17;
-					if (defined('MOD_CLUBBASE')) \clubbase\club_acquire($club);
 					addnews ( $now, 'notworthit', $name );
 				}
 				\itemmain\itms_reduce($theitem);

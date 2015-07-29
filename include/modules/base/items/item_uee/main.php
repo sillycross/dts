@@ -38,8 +38,9 @@ namespace item_uee
 			$log .= "<span class=\"evergreen\">“小心隔墙有耳哦。”</span>——林无月<br>";
 			$log .= '你擅自入侵禁区控制系统，被控制系统远程消灭！<br>';
 			$state = 14;
-			\player\update_sdata(); $sdata['nosource'] = 1; $sdata['attackwith'] = '';
+			\player\update_sdata(); $sdata['sourceless'] = 1; $sdata['attackwith'] = '';
 			\player\kill($sdata,$sdata);
+			\player\player_save($sdata);
 			\player\load_playerdata($sdata);
 		}
 	}

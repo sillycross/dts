@@ -1,0 +1,27 @@
+<!--{eval eval(import_module('skill63'));}-->
+<!--{eval $___TEMP_SKILL_ID=63;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+噩梦
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<!--{eval $skill63_cnt = (int)\skillbase\skill_getvalue(63,'t');}-->
+<!--{if $skill63_cnt>0}-->
+<span class="yellow">战斗技</span>&nbsp;&nbsp;<span class="red">限定技&nbsp;本局还可发动<span>$skill63_cnt</span>次</span><br>
+本次战斗的敌人对你的造成的伤害将永久降低<span class="yellow">20%</span><br>
+<!--{else}-->
+<!--{eval $skill63_nm = \skillbase\skill_getvalue(63,'n');}-->
+<span class="yellow">战斗技</span>&nbsp;&nbsp;<span class="red">限定技&nbsp;已发动</span><br>
+敌人<span class="clan">$skill63_nm</span>在战斗中对你造成的伤害将永久减少<span class="yellow">20%</span><br>
+<!--{/if}-->
+</span></td>
+<td class=b3 width=46>
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+21级时解锁
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

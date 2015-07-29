@@ -223,7 +223,7 @@ namespace player
 	//例：常规击杀，有伤害来源，$pa为击杀者，$pd为死者，$pa['attackwith']为武器名
 	//例：死于自己设置的陷阱，有伤害来源（来源是自己），$pa为死者自己，$pd亦为死者自己，$pa['attackwith']为陷阱名，$pd['sourceless']为假
 	//例：死于野生陷阱，无伤害来源，$pa为死者自己，$pd亦为死者自己，$pa['attackwith']为陷阱名，$pd['sourceless']为真
-	//调用完了记得player_save（或load_playerdata如果是自己）双方数据才能生效！！
+	//调用完了记得player_save（而且如果是自己还需要再load_playerdata）双方数据才能生效！！
 	function kill(&$pa, &$pd) 
 	{	
 		if (eval(__MAGIC__)) return $___RET_VALUE;

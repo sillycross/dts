@@ -1,0 +1,21 @@
+<!--{eval eval(import_module('skill61'));}-->
+<!--{eval $___TEMP_SKILL_ID=61;}-->
+<!--{eval $skprocrate = \skill61\get_sk_procrate61();}-->
+<!--{eval $hpprocrate = \skill61\get_hp_procrate61();}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+黑暗
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+当你攻击敌人时，你有<span class="yellow">$skprocrate%</span>几率吸取敌人<span class="yellow">1</span>点全系熟练，<br>
+<span class="yellow">$hpprocrate%</span>几率吸取敌人<span class="yellow">1</span>点生命上限
+</span></td>
+<td class=b3 width=46>
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}
