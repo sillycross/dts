@@ -1,0 +1,62 @@
+{template header}
+<div class="subtitle" align="center">{lang user}</div>
+<center>
+	<div style="width:600px;text-align:left;"><span style="line-height:30px;font-size:15px;">账户基本资料</span></div>
+	<table style="text-align: center;" CellSpacing=0 CellPadding=0>
+	<tr>
+		<td>
+			<table>
+			<tr>
+				<td>{lang username}</td>
+				<td width=55px>&nbsp;</td>
+				<td>$username</td>
+			</tr>
+			<tr>
+				<td>{lang validgames}</td>
+				<td width=55px>&nbsp;</td>
+				<td>$validgames</td>
+			</tr>
+			<tr>
+				<td>{lang wingames}</td>
+				<td width=55px>&nbsp;</td>
+				<td>$wingames</td>
+			</tr>
+			<tr>
+				<td>{lang winrate}</td>
+				<td width=55px>&nbsp;</td>
+				<td>$winning_rate</td>
+			</tr>
+			<!--{if defined('MOD_ELORATING')}-->
+			<tr>
+				<td>天梯积分</td>
+				<td width=55px>&nbsp;</td>
+				<td><!--{if $elo_history==''}-->1500<!--{else}--><span style="color:<!--{eval echo \elorating\elorating_get_color($elo_rating);}-->"><span style="font-weight:bold;">$elo_rating</span></span><!--{/if}--></td>
+			</tr>
+			<!--{/if}-->
+			<tr>
+				<td>{lang credits}</td>
+				<td width=55px>&nbsp;</td>
+				<td>$credits</td>
+			</tr>
+			</table>
+		</td>
+		<td width=60px>&nbsp;</td>
+		<td>
+			<table>
+			<tr><td>
+				<div id="userIconImg" class="iconImg" >
+					<img src="img/<!--{if $gender != 'f'}-->m<!--{else}-->f<!--{/if}-->_{$select_icon}.gif" alt="$select_icon">
+				</div>	
+			</td></tr>
+			<tr><td>
+				<!--{if ($curuser) }--><button type="button" onclick="window.location.href='user.php'">编辑我的账户资料</button><!--{/if}-->
+			</td></tr>
+			</table>
+		</td>
+	</tr>
+	</table>
+	<!--{if defined('MOD_ELORATING')}--><!--{eval \elorating\elorating_show();}--><!--{/if}-->
+	<br><br>
+</center>
+{template footer}
+

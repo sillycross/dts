@@ -84,6 +84,11 @@ namespace addnpc
 		if (strpos ( $itmk, 'Y' ) === 0 || strpos ( $itmk, 'Z' ) === 0) 
 		{
 			if ($itm == '挑战者之印') {
+				if (in_array($gametype,Array(10,11,12,13)))
+				{
+					$log.="你使用了{$itm}，但是什么也没有发生（当前游戏模式下不允许PVE）。<br>";
+					return;
+				}
 				$log .= '你已经呼唤了幻影执行官，现在寻找并击败他们，<br>并且搜寻他们的ID卡吧！<br>';
 				addnpc ( 7, 0,1);
 				addnpc ( 7, 1,1);
@@ -93,6 +98,11 @@ namespace addnpc
 				$itme = $itms = 0;
 				return;
 			} elseif ($itm == '破灭之诗') {
+				if (in_array($gametype,Array(10,11,12,13)))
+				{
+					$log.="你使用了{$itm}，但是什么也没有发生（当前游戏模式下不允许PVE）。<br>";
+					return;
+				}
 				$rp = 0;
 				$log .= '在你唱出那单一的旋律的霎那，<br>整个虚拟世界起了翻天覆地的变化……<br>';
 				addnpc ( 4, 0,1);
@@ -109,6 +119,11 @@ namespace addnpc
 				$itme = $itms = 0;
 				return;
 			} elseif ($itm == '黑色碎片') {
+				if (in_array($gametype,Array(10,11,12,13)))
+				{
+					$log.="你使用了{$itm}，但是什么也没有发生（当前游戏模式下不允许PVE）。<br>";
+					return;
+				}
 				$log .= '你已经呼唤了一个未知的存在，现在寻找并击败她，<br>并且搜寻她的游戏解除钥匙吧！<br>';
 				addnews ($now , 'dfphase', $name);
 				addnpc ( 12, 0,1);

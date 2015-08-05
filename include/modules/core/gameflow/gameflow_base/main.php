@@ -58,9 +58,6 @@ namespace gameflow_base
 		
 		eval(import_module('sys')); 
 		if($gamestate >= 40) {
-			if($alivenum <= 1) {
-				\sys\gameover();
-			}
 			//队伍胜利模式游戏结束判断
 			if (in_array($gametype,$teamwin_mode))
 			{
@@ -79,6 +76,13 @@ namespace gameflow_base
 					}
 				}
 				if ($flag && !$first)
+				{
+					\sys\gameover();
+				}
+			}
+			else
+			{
+				if($alivenum <= 1) 
 				{
 					\sys\gameover();
 				}

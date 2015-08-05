@@ -380,6 +380,52 @@ function swap(&$a, &$b)
 	$c=$a; $a=$b; $b=$c;
 }
 
+//把一个非负整数用64进制编码/解码
+
+function base64_char_decode($c)
+{
+	if ('a'<=$c && $c<='z') return ord($c)-ord('a');
+	if ('A'<=$c && $c<='Z') return ord($c)-ord('A')+26;
+	if ('0'<=$c && $c<='9') return ord($c)-ord('0')+52;
+	if ($c=='+') return 62;
+	if ($c=='-') return 63;
+	return 0;
+}
+	
+function base64_char_encode($c)
+{
+	if ($c>=0)
+	{
+		if ($c<=25) return chr(ord('a')+$c);
+		if ($c<=51) return chr(ord('A')+$c-26);
+		if ($c<=61) return chr(ord('0')+$c-52);
+		if ($c==62) return '+';
+		if ($c==63) return '-';
+	}
+	return ' ';
+}
+
+function base64_encode_number($val, $len)
+{
+	$ret='';
+	for ($i=0; $i<$len; $i++)
+	{
+		$ret=base64_char_encode($val%64).$ret;
+		$val=(int)floor($val/64);
+	}
+	return $ret;
+}
+
+function base64_decode_number($val)
+{
+	$ret=0;
+	for ($i=0; $i<strlen($val); $i++)
+	{
+		$ret=$ret*64+base64_char_decode($val[$i]);
+	}
+	return $ret;
+}
+
 //因为调用次数太多，懒得一个一个改了
 function save_gameinfo() {	
 	\sys\save_gameinfo();

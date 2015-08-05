@@ -1,0 +1,10 @@
+<br>
+<div style="height:400px; width:600px;">
+<div style="position:relative; height:280px; width:600px;">
+<div style="text-align:left;"><span style="line-height:20px;font-size:15px;">天梯积分曲线图</span></div>
+<div style="text-align:left; margin-bottom:8px;"><!--{if $elo_history!=''}--><span style="line-height:20px;font-size:15px; margin-left:40px;">当前为<span style="color:<!--{eval echo \elorating\elorating_get_color($elo_rating);}-->"><!--{eval echo \elorating\elorating_get_title($elo_rating);}-->&nbsp;(<span style="font-weight:bold;">$elo_rating</span>)</span>&nbsp;&nbsp;历史最高记录为<span style="color:<!--{eval echo \elorating\elorating_get_color($elo_max_rating);}-->"><!--{eval echo \elorating\elorating_get_title($elo_max_rating);}-->&nbsp;(<span style="font-weight:bold;">$elo_max_rating</span>)</span></span><!--{/if}--></div>
+<div style="position:relative;">
+<!--{eval \elorating\elorating_draw($data);}-->
+</div>
+</div>
+</div>

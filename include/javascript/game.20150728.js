@@ -924,3 +924,19 @@ function room_kick_timer()
 		postCmd('roomcmd','roomcmd.php');	//发送踢人命令
 	}
 }
+
+function show_fixed_div(t)
+{
+	if ($(t))
+	{
+		$(t).style.display='block';
+	}
+}
+
+function hide_fixed_div(t)
+{
+	if ($(t))
+	{
+		$(t).style.display='none';
+	}
+}
