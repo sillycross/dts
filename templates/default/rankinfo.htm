@@ -10,13 +10,19 @@
 		<TD class="b1"><span>{lang validgames}</span></TD>
 		<TD class="b1"><span>{lang wingames}</span></TD>
 		<TD class="b1"><span>{lang winrate}</span></TD>
+		<!--{if defined('MOD_ELORATING')}-->
+		<TD class="b1"><span>天梯积分</span></TD>
+		<!--{/if}-->
+		<!--
 		<TD class="b1"><span>{lang lastgame}</span></TD>
+		-->
 	</TR>
 	<!--{loop $rankdata $urdata}-->
 	<TR height="20">
 		<TD class="b2"><span><!--{if $urdata['number']==1}--><a title="触手！"><span class="red">榜首</span></a><!--{elseif $urdata['number']<=10}--><span class="yellow">$urdata['number']</span><!--{else}-->$urdata['number']<!--{/if}--></span></TD>
 		<TD class="b3"><span>$urdata['uid']</span></TD>
-		<TD class="b3"><span>$urdata['username']</span></TD>
+		<!--{eval $urdata['urlname']=htmlentities(urlencode($urdata['username']));}-->
+		<TD class="b3"><a style="cursor:pointer;" href="user_profile.php?playerID=$urdata['urlname']"><span>$urdata['username']</span></a></TD>
 		<TD class="b3"><span><!--{if $urdata['gender']}-->$sexinfo[$urdata['gender']]<!--{else}-->$sexinfo[0]<!--{/if}--></span></TD>
 		<TD class="b3"><span><IMG src="img/$urdata['img']" width="70" height="40" border="0" align="absmiddle"></span></TD>
 		<TD class="b3"><span>$urdata['motto']</span></TD>
@@ -24,7 +30,12 @@
 		<TD class="b3"><span>$urdata['validgames']</span></TD>
 		<TD class="b3"><span>$urdata['wingames']</span></TD>
 		<TD class="b3"><span>$urdata['winrate']</span></TD>
+		<!--{if defined('MOD_ELORATING')}-->
+		<TD class="b3"><!--{if $urdata['elo_history']==''}-->1500<!--{else}--><span style="color:<!--{eval echo \elorating\elorating_get_color($urdata['elo_rating']);}-->"><span style="font-weight:bold;">$urdata['elo_rating']</span></span><!--{/if}--></td></TD>
+		<!--{/if}-->
+		<!--
 		<TD class="b3"><span>$urdata['lastgame']</span></TD>
+		-->
 	</TR>
 	<!--{/loop}-->
 </TABLE>

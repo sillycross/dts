@@ -29,7 +29,7 @@ if ($_REQUEST["playerID"]=="")
 }
 else
 {
-	$uname=$_REQUEST["playerID"];
+	$uname=urldecode($_REQUEST["playerID"]);
 	$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$uname'");
 	if(!$db->num_rows($result)) { gexit($_ERROR['user_not_exists'],__file__,__line__); }
 	$udata = $db->fetch_array($result);

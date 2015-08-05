@@ -358,7 +358,8 @@ if ($command=='ready' && !$not_ready_command_flag)
 		if ($flag)
 		{
 			include_once GAME_ROOT.'./include/valid.func.php';
-			//开始游戏
+			//开始游戏，并设置好游戏模式类型（2v2和3v3为队伍胜利模式）
+			$gametype = 10 + $roomdata['roomtype'];
 			$starttime = $now;
 			save_gameinfo();
 			\sys\routine();
@@ -391,8 +392,7 @@ if ($command=='ready' && !$not_ready_command_flag)
 					enter_battlefield($pdata['username'],$pdata['password'],$pdata['gender'],$pdata['icon']);
 					$db->query("UPDATE {$tablepre}players SET teamID='{$roomtypelist[$roomdata['roomtype']]['teamID'][$roomtypelist[$roomdata['roomtype']]['leader-position'][$i]]}' WHERE name='$pname'");
 				}
-			//进入连斗，并设置好游戏模式类型（2v2和3v3为队伍胜利模式）
-			$gametype = 10 + $roomdata['roomtype'];
+			//进入连斗
 			$gamestate = 40;
 			addnews($now,'combo');
 			systemputchat($now,'combo');

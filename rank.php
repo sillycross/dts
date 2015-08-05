@@ -44,6 +44,8 @@ if(!isset($command) || $start != $ostart){
 	}elseif($checkmode == 'winrate'){
 		$mingames = $winratemingames >= 1 ? $winratemingames : 1;
 		$result = $db->query("SELECT * FROM {$gtablepre}users WHERE validgames>='$mingames' ORDER BY (wingames/validgames) DESC, credits DESC, uid ASC LIMIT $start,$ranklimit");
+	}elseif($checkmode == 'elorate'){
+		$result = $db->query("SELECT * FROM {$gtablepre}users ORDER BY elo_rating DESC, uid ASC LIMIT $start,$ranklimit");
 	}	
 	$rankdata = Array();
 	$n = $start+1;
@@ -68,7 +70,7 @@ if(!isset($command) || $start != $ostart){
 		$showdata['value']['checkmode'] = $checkmode;
 		//$showdata['innerHTML']['pageinfo'] = "第<span class=\"yellow\">$startnum</span>条至第<span class=\"yellow\">$endnum</span>条";
 		$showdata['value']['start'] = $start;
-		$jgamedata = compatible_json_encode($showdata);
+		$jgamedata = base64_encode(gzencode(compatible_json_encode($showdata)));
 		echo $jgamedata;
 		ob_end_flush();
 	}else{
