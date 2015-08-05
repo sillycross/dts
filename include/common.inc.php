@@ -25,7 +25,7 @@ require GAME_ROOT.'./include/modules.func.php';
 define('STYLEID', '1');
 define('TEMPLATEID', '1');
 define('TPLDIR', './templates/default');
-	
+
 ///////////////////Load Module Start///////////////////////
 
 if (defined('IN_MODULEMNG')) return;

@@ -174,7 +174,7 @@ function showData(sdata){
 	
 	//回放模式中不需要解压
 	if (typeof in_replay_mode == 'undefined' || in_replay_mode == 0)
-		sdata=JXG.decompress(sdata);
+		sdata= decodeURIComponent( escape( JXG.decompress(sdata) ) );
 	
 	if (typeof no_json_decode == 'undefined' || no_json_decode == 0)
 		shwData = JSON.parse(sdata);
