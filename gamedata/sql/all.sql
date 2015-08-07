@@ -30,7 +30,7 @@ CREATE TABLE `acbra2_chat` (
   `recv` char(15) NOT NULL DEFAULT '',
   `msg` char(60) NOT NULL DEFAULT '',
   PRIMARY KEY (`cid`)
-) ENGINE=MEMORY AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MEMORY AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -111,7 +111,7 @@ CREATE TABLE `acbra2_mapitem` (
   `itmsk` char(5) NOT NULL DEFAULT '',
   `pls` tinyint(3) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`iid`)
-) ENGINE=MyISAM AUTO_INCREMENT=9456 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=9494 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -254,7 +254,7 @@ CREATE TABLE `acbra2_players` (
   PRIMARY KEY (`pid`),
   KEY `TYPE` (`type`,`sNo`),
   KEY `NAME` (`name`,`type`)
-) ENGINE=MyISAM AUTO_INCREMENT=354 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=356 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -339,6 +339,10 @@ CREATE TABLE `acbra2_users` (
   `oid` char(20) NOT NULL DEFAULT '',
   `can_solo` int(10) NOT NULL DEFAULT '0',
   `roomid` char(15) NOT NULL DEFAULT '',
+  `elo_rating` int(10) unsigned NOT NULL DEFAULT '1500',
+  `elo_volatility` int(10) unsigned NOT NULL DEFAULT '400',
+  `elo_playedtimes` int(10) unsigned NOT NULL DEFAULT '0',
+  `elo_history` text NOT NULL,
   PRIMARY KEY (`uid`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=MyISAM AUTO_INCREMENT=30397 DEFAULT CHARSET=utf8;
@@ -489,7 +493,7 @@ CREATE TABLE `acbra2_newsinfo` (
   `d` varchar(255) NOT NULL DEFAULT '',
   `e` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`nid`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -501,4 +505,4 @@ CREATE TABLE `acbra2_newsinfo` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-07-28  0:02:13
+-- Dump completed on 2015-08-07  4:25:25
