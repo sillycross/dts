@@ -36,19 +36,7 @@ namespace sys
 		if(!$noisepls){$noisepls = 0;}
 		if(!$noiseid){$noiseid = 0;}
 		if(!$noiseid2){$noiseid2 = 0;}
-		$combatinfo = "<?php\n\nif(!defined('IN_GAME')){exit('Access Denied');}\n\n\$hdamage = {$hdamage};\n\$hplayer = '{$hplayer}';\n\$noisetime = {$noisetime};\n\$noisepls = {$noisepls};\n\$noiseid = {$noiseid};\n\$noiseid2 = {$noiseid2};\n\$noisemode = '{$noisemode}';\n\n?>";
-		//$combatinfo = "{$hdamage},{$hplayer},{$noisetime},{$noisepls},{$noiseid},{$noiseid2},{$noisemode},\n";
-		$dir = GAME_ROOT.'./gamedata/';
-		if($fp = fopen("{$dir}combatinfo.php", 'w')) {
-			if(flock($fp,LOCK_EX)) {
-				fwrite($fp, $combatinfo);
-			} else {
-				exit("Couldn't save combat info !");
-			}
-			fclose($fp);
-		} else {
-			gexit('Can not write to cache files, please check directory ./gamedata/ .', __file__, __line__);
-		}
+		$db->query("UPDATE {$tablepre}game SET hdamage='$hdamage', hplayer='$hplayer', noisetime='$noisetime', noisepls='$noisepls', noiseid='$noiseid', noiseid2='$noiseid2', noisemode='$noisemode';");
 		return;
 	}
 	
@@ -56,29 +44,20 @@ namespace sys
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		$t = $t ? $t : $now;
-		$newsfile = GAME_ROOT.'./gamedata/newsinfo.php';
+		$newsfile = GAME_ROOT.'./gamedata/tmp/news/newsinfo_'.$room_prefix.'.php';
 		touch($newsfile);
 		if(is_array($a)){
 			$a=implode('_',$a);
 		}
-	//	$newsfile = GAME_ROOT.'./gamedata/newsinfo.php';
-	//	$newsdata = readover($newsfile); //file_get_contents($newsfile);
-	//	if(is_array($a)) {
-	//		$news = "$t,$n,".implode('-',$a).",$b,$c,$d,\n";
-	//	} elseif(isset($n)) {
-	//		$news = "$t,$n,$a,$b,$c,$d,\n";
-	//	}
-	//	$newsdata = substr_replace($newsdata,$news,53,0);
-	//	writeover($newsfile,$newsdata,'wb');
 	
 		//这尼玛写的太坑了吧…… 不管了直接import map模块进来了……
 		eval(import_module('map'));
 		if(strpos($n,'death11') === 0  || strpos($n,'death32') === 0) {
-			$result = $db->query("SELECT lastword FROM {$tablepre}users WHERE username = '$a'");
+			$result = $db->query("SELECT lastword FROM {$gtablepre}users WHERE username = '$a'");
 			$e = $lastword = $db->result($result, 0);
 			$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,recv,msg) VALUES ('3','$t','$a','$plsinfo[$c]','$lastword')");
 		}	elseif(strpos($n,'death15') === 0 || strpos($n,'death16') === 0) {
-			$result = $db->query("SELECT lastword FROM {$tablepre}users WHERE username = '$a'");
+			$result = $db->query("SELECT lastword FROM {$gtablepre}users WHERE username = '$a'");
 			$e = $lastword = $db->result($result, 0);
 			$result = $db->query("SELECT pls FROM {$tablepre}players WHERE name = '$a' AND type = '0'");
 			$place = $db->result($result, 0);

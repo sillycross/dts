@@ -130,7 +130,7 @@ namespace trap
 		trap_deal_damage();
 		
 		if($hp <= 0) {
-			$log .= "你被{$trperfix}陷阱杀死了！";
+			$log .= "<span class=\"red\">你被{$trperfix}陷阱杀死了！</span>";
 			$state = 27;
 			\player\update_sdata();
 			if (!$selflag && $playerflag) 	//有来源且不是自己
@@ -150,6 +150,7 @@ namespace trap
 			{
 				\player\player_save($edata);
 			}
+			\player\player_save($sdata);
 			\player\load_playerdata($sdata);
 			
 			if (isset($sdata['sourceless'])) unset($sdata['sourceless']);

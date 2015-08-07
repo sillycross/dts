@@ -26,19 +26,19 @@ if($gamestate >= 20){
 	$cmd_info = "当前游戏未开始！";
 }
 
-//$db->query("ALTER TABLE {$tablepre}winners ADD itmsk6 char(5) not null default '' AFTER itmsk5");
-//$db->query("ALTER TABLE {$tablepre}winners ADD itms6 char(5) not null default '0' AFTER itmsk5");
-//$db->query("ALTER TABLE {$tablepre}winners ADD itme6 mediumint unsigned NOT NULL default '0' AFTER itmsk5");
-//$db->query("ALTER TABLE {$tablepre}winners ADD itmk6 char(5) not null default '' AFTER itmsk5");
-//$db->query("ALTER TABLE {$tablepre}winners ADD itm6 CHAR( 30 ) NOT NULL default '' AFTER itmsk5");
-//$db->query("ALTER TABLE {$tablepre}winners CHANGE itme0 itme0 mediumint unsigned NOT NULL default '0'");
-//$db->query("ALTER TABLE {$tablepre}winners CHANGE itme1 itme1 mediumint unsigned NOT NULL default '0'");
-//$db->query("ALTER TABLE {$tablepre}winners CHANGE itme2 itme2 mediumint unsigned NOT NULL default '0'");
-//$db->query("ALTER TABLE {$tablepre}winners CHANGE itme3 itme3 mediumint unsigned NOT NULL default '0'");
-//$db->query("ALTER TABLE {$tablepre}winners CHANGE itme4 itme4 mediumint unsigned NOT NULL default '0'");
-//$db->query("ALTER TABLE {$tablepre}winners CHANGE itme5 itme5 mediumint unsigned NOT NULL default '0'");
-//$db->query("ALTER TABLE {$tablepre}users ADD validgames smallint unsigned NOT NULL default '0' AFTER credits");
-//$db->query("ALTER TABLE {$tablepre}users ADD wingames smallint unsigned NOT NULL default '0' AFTER validgames");
+//$db->query("ALTER TABLE {$wtablepre}winners ADD itmsk6 char(5) not null default '' AFTER itmsk5");
+//$db->query("ALTER TABLE {$wtablepre}winners ADD itms6 char(5) not null default '0' AFTER itmsk5");
+//$db->query("ALTER TABLE {$wtablepre}winners ADD itme6 mediumint unsigned NOT NULL default '0' AFTER itmsk5");
+//$db->query("ALTER TABLE {$wtablepre}winners ADD itmk6 char(5) not null default '' AFTER itmsk5");
+//$db->query("ALTER TABLE {$wtablepre}winners ADD itm6 CHAR( 30 ) NOT NULL default '' AFTER itmsk5");
+//$db->query("ALTER TABLE {$wtablepre}winners CHANGE itme0 itme0 mediumint unsigned NOT NULL default '0'");
+//$db->query("ALTER TABLE {$wtablepre}winners CHANGE itme1 itme1 mediumint unsigned NOT NULL default '0'");
+//$db->query("ALTER TABLE {$wtablepre}winners CHANGE itme2 itme2 mediumint unsigned NOT NULL default '0'");
+//$db->query("ALTER TABLE {$wtablepre}winners CHANGE itme3 itme3 mediumint unsigned NOT NULL default '0'");
+//$db->query("ALTER TABLE {$wtablepre}winners CHANGE itme4 itme4 mediumint unsigned NOT NULL default '0'");
+//$db->query("ALTER TABLE {$wtablepre}winners CHANGE itme5 itme5 mediumint unsigned NOT NULL default '0'");
+//$db->query("ALTER TABLE {$gtablepre}users ADD validgames smallint unsigned NOT NULL default '0' AFTER credits");
+//$db->query("ALTER TABLE {$gtablepre}users ADD wingames smallint unsigned NOT NULL default '0' AFTER validgames");
 
 include template('admin_menu');
 

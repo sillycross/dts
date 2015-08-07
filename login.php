@@ -116,11 +116,11 @@ $groupid = 1;
 $credits = 0;
 $gender = 0;
 
-$result = $db->query("SELECT * FROM {$tablepre}users WHERE username = '$username'");
+$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username = '$username'");
 if(!$db->num_rows($result)) {
 	gexit($_ERROR['user_not_exists'],__file__,__line__);
 	//$groupid = 1;
-	//$db->query("INSERT INTO {$tablepre}users (username,`password`,groupid,ip,credits,gender) VALUES ('$username', '$password', '$groupid', '$onlineip', '$credits', '$gender')");
+	//$db->query("INSERT INTO {$gtablepre}users (username,`password`,groupid,ip,credits,gender) VALUES ('$username', '$password', '$groupid', '$onlineip', '$credits', '$gender')");
 } else {
 	$userdata = $db->fetch_array($result);
 	if($userdata['groupid'] <= 0){
@@ -129,7 +129,7 @@ if(!$db->num_rows($result)) {
 		gexit($_ERROR['wrong_pw'],__file__,__line__);
 	}
 }
-$db->query("UPDATE {$tablepre}users SET ip='$onlineip' WHERE username = '$username'");
+$db->query("UPDATE {$gtablepre}users SET ip='$onlineip' WHERE username = '$username'");
 
 gsetcookie('user',$username);
 gsetcookie('pass',$password);

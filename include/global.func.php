@@ -4,6 +4,8 @@ if(!defined('IN_GAME')) {
 	exit('Access Denied');
 }
 
+require GAME_ROOT.'./include/roommng.config.php';
+
 //----------------------------------------
 //              底层机制函数
 //----------------------------------------
@@ -43,8 +45,7 @@ function gexit($message = '',$file = '', $line = 0) {
 			$gamedata['url'] = 'error.php';
 			$gamedata['errormsg'] = $message;
 			ob_clean();
-			$jgamedata = compatible_json_encode($gamedata);
-			echo $jgamedata;
+			echo base64_encode(gzencode(compatible_json_encode($gamedata)));
 		}
 		else
 		{
@@ -54,9 +55,20 @@ function gexit($message = '',$file = '', $line = 0) {
 	}
 	else
 	{
-		ob_clean();
-		include template('error');
-		exit();
+		if (defined('GEXIT_RETURN_JSON'))
+		{
+			$gamedata['url'] = 'error.php';
+			$gamedata['errormsg'] = $message;
+			ob_clean();
+			echo base64_encode(gzencode(compatible_json_encode($gamedata)));
+			exit();
+		}
+		else
+		{
+			ob_clean();
+			include template('error');
+			exit();
+		}
 	}
 }
 
@@ -160,8 +172,8 @@ function content($file = '') {
 }
 
 function gsetcookie($var, $value, $life = 0, $prefix = 1) {
-	global $tablepre, $cookiedomain, $cookiepath, $now, $_SERVER;
-	setcookie(($prefix ? $tablepre : '').$var, $value,
+	global $tablepre, $gtablepre, $cookiedomain, $cookiepath, $now, $_SERVER;
+	setcookie(($prefix ? $gtablepre : '').$var, $value,
 		$life ? $now + $life : 0, $cookiepath,
 		$cookiedomain, $_SERVER['SERVER_PORT'] == 443 ? 1 : 0);
 }
@@ -252,7 +264,7 @@ function clear_dir($dirName, $keep_root = 0)	//递归清空目录
 				} else {
 					if (!unlink($dirName.'/'.$item))
 					{
-						__SOCKET_WARNLOG__("clear_dir错误：无法删除文件。");
+						//__SOCKET_WARNLOG__("clear_dir错误：无法删除文件。");
 					}
 				}
 			}
@@ -261,13 +273,13 @@ function clear_dir($dirName, $keep_root = 0)	//递归清空目录
 		if (!$keep_root)
 			if (!rmdir($dirName))
 			{
-				__SOCKET_WARNLOG__("clear_dir错误：无法删除目录{$dirName}。");
+				//__SOCKET_WARNLOG__("clear_dir错误：无法删除目录{$dirName}。");
 			}
 		
 	}
 	else
 	{
-		__SOCKET_WARNLOG__('clear_dir错误: 进入目录'.$dirname."失败。");
+		//__SOCKET_WARNLOG__('clear_dir错误: 进入目录'.$dirname."失败。");
 	}
 }
 
@@ -369,6 +381,52 @@ function swap(&$a, &$b)
 	$c=$a; $a=$b; $b=$c;
 }
 
+//把一个非负整数用64进制编码/解码
+
+function base64_char_decode($c)
+{
+	if ('a'<=$c && $c<='z') return ord($c)-ord('a');
+	if ('A'<=$c && $c<='Z') return ord($c)-ord('A')+26;
+	if ('0'<=$c && $c<='9') return ord($c)-ord('0')+52;
+	if ($c=='+') return 62;
+	if ($c=='-') return 63;
+	return 0;
+}
+	
+function base64_char_encode($c)
+{
+	if ($c>=0)
+	{
+		if ($c<=25) return chr(ord('a')+$c);
+		if ($c<=51) return chr(ord('A')+$c-26);
+		if ($c<=61) return chr(ord('0')+$c-52);
+		if ($c==62) return '+';
+		if ($c==63) return '-';
+	}
+	return ' ';
+}
+
+function base64_encode_number($val, $len)
+{
+	$ret='';
+	for ($i=0; $i<$len; $i++)
+	{
+		$ret=base64_char_encode($val%64).$ret;
+		$val=(int)floor($val/64);
+	}
+	return $ret;
+}
+
+function base64_decode_number($val)
+{
+	$ret=0;
+	for ($i=0; $i<strlen($val); $i++)
+	{
+		$ret=$ret*64+base64_char_decode($val[$i]);
+	}
+	return $ret;
+}
+
 //因为调用次数太多，懒得一个一个改了
 function save_gameinfo() {	
 	\sys\save_gameinfo();
@@ -390,13 +448,13 @@ function systemputchat($time,$type,$msg = ''){
 
 ////暂时丢在这……
 function set_credits(){
-	global $db,$tablepre,$winmode,$gamenum,$winner,$pdata;
+	global $db,$gtablepre,$tablepre,$winmode,$gamenum,$winner,$pdata;
 	$result = $db->query("SELECT * FROM {$tablepre}players WHERE type='0'");
 	$list = $creditlist = $updatelist = Array();
 	while($data = $db->fetch_array($result)){
 		$list[$data['name']]['players'] = $data;
 	}	
-	$result = $db->query("SELECT * FROM {$tablepre}users WHERE lastgame='$gamenum'");
+	$result = $db->query("SELECT * FROM {$gtablepre}users WHERE lastgame='$gamenum'");
 	while($data = $db->fetch_array($result)){
 		$list[$data['username']]['users'] = $data;
 	}
@@ -418,7 +476,7 @@ function set_credits(){
 //			}			
 		}
 	}
-	$db->multi_update("{$tablepre}users", $updatelist, 'username');
+	$db->multi_update("{$gtablepre}users", $updatelist, 'username');
 //	if(!empty($udghkey)){
 //		$udghkey = implode(',',$udghkey);
 //		$db->multi_update("{$tablepre}players", $upghlist, 'name', "name IN ($udghkey)");

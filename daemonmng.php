@@ -4,13 +4,13 @@ function check_authority()
 {
 	require GAME_ROOT.'./include/modules/core/sys/config/server.config.php';
 	$_COOKIE=gstrfilter($_COOKIE);
-	$cuser=$_COOKIE[$tablepre.'user'];
-	$cpass=$_COOKIE[$tablepre.'pass'];
+	$cuser=$_COOKIE[$gtablepre.'user'];
+	$cpass=$_COOKIE[$gtablepre.'pass'];
 	require GAME_ROOT.'./include/db_'.$database.'.class.php';
 	$db = new dbstuff;
 	$db->connect($dbhost, $dbuser, $dbpw, $dbname, $pconnect);
 	unset($dbhost, $dbuser, $dbpw, $dbname, $pconnect);
-	$result = $db->query("SELECT * FROM {$tablepre}users WHERE username='$cuser'");
+	$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$cuser'");
 	if(!$db->num_rows($result)) { echo "<span><font color=\"red\">Cookie无效，请登录。</font></span><br>"; die(); }
 	$udata = $db->fetch_array($result);
 	if($udata['password'] != $cpass) { echo "<span><font color=\"red\">Cookie无效，请登录。</font></span><br>"; die(); }

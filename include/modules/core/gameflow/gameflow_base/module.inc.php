@@ -3,7 +3,7 @@
 namespace gameflow_base
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'sys';
+	$___MODULE_dependency = 'sys map';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

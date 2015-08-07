@@ -46,19 +46,48 @@ namespace gameflow_base
 				gamestate_start_game();
 			}
 		}
-		
-		if($gamestate >= 40) {
-			if($alivenum <= 1) {
-				\sys\gameover();
-			}
-		}
 	}
 	
 	function updategame()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		gamestateupdate();
+		
 		$chprocess();
+		
+		gamestateupdate();
+		
+		eval(import_module('sys')); 
+		if($gamestate >= 40) {
+			//队伍胜利模式游戏结束判断
+			if (in_array($gametype,$teamwin_mode))
+			{
+				$result = $db->query("SELECT teamID FROM {$tablepre}players WHERE type = 0 AND hp > 0");
+				$flag=1; $first=1; 
+				while($data = $db->fetch_array($result)) 
+				{
+					if ($first) 
+					{ 
+						$first=0; $firstteamID=$data['teamID'];
+					}
+					else  if ($firstteamID!=$data['teamID'] || !$data['teamID'])
+					{
+						//如果有超过一种teamID，或有超过一个人没有teamID，则游戏还未就结束
+						$flag=0; break;
+					}
+				}
+				if ($flag && !$first)
+				{
+					\sys\gameover();
+				}
+			}
+			else
+			{
+				if($alivenum <= 1) 
+				{
+					\sys\gameover();
+				}
+			}
+		}
 	}
 }
 

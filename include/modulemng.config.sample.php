@@ -49,6 +49,6 @@ $___MOD_LOG_LEVEL = 2;
 
 //默认修正
 //非command页面不使用代码缓存后的结果，加快加载速度（因为非游戏界面无法利用daemon）
-if (!defined('IN_MODULEMNG') && !defined('IN_COMMAND')) $___MOD_CODE_ADV2 = 0;
+if (!defined('IN_MODULEMNG') && !defined('IN_COMMAND') && CURSCRIPT!=='news') $___MOD_CODE_ADV2 = 0;
 
 ?>

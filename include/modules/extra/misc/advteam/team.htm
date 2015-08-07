@@ -1,0 +1,117 @@
+<!--{if $teammate_num>0}-->
+	<!--{loop $teammateinfo $key $value}-->
+	<tr>
+		<!--{if $key==1}-->
+		<td class="b1" rowspan=$teammate_num><span>队友</span></td>
+		<!--{/if}-->
+		<td height="20" colspan="2"
+			<!--{if $value['dummy']==1}-->
+			class="b3"
+			<!--{else}-->
+			<!--{if $value['hp']==0}-->
+			class="b7"
+			<!--{else}-->
+			<!--{if $value['pls']==$pls}-->
+			class="b6"
+			<!--{else}-->
+			class="b3"
+			<!--{/if}-->
+			<!--{/if}-->
+			<!--{/if}-->
+		>
+			<span>
+			<!--{if $value['dummy']==1}-->
+			-
+			<!--{else}-->
+			$value['name']
+			<!--{/if}-->
+			</span>
+		</td>
+		<td height="20"
+			<!--{if $value['dummy']==1}-->
+			class="b3"
+			<!--{else}-->
+			<!--{if $value['hp']==0}-->
+			class="b7"
+			<!--{else}-->
+			<!--{if $value['pls']==$pls}-->
+			class="b6"
+			<!--{else}-->
+			class="b3"
+			<!--{/if}-->
+			<!--{/if}-->
+			<!--{/if}-->
+		>
+			<span>
+			<!--{if $value['dummy']==1}-->
+			-
+			<!--{else}-->
+			$plsinfo[$value['pls']]
+			<!--{/if}-->
+			</span>
+		</td>
+		<td  height="20"
+			<!--{if $value['dummy']==1}-->
+			class="b3"
+			<!--{else}-->
+			<!--{if $value['hp']==0}-->
+			class="b7"
+			<!--{else}-->
+			<!--{if $value['pls']==$pls}-->
+			class="b6"
+			<!--{else}-->
+			class="b3"
+			<!--{/if}-->
+			<!--{/if}-->
+			<!--{/if}-->
+		>
+			<!--{if $value['dummy']==1}-->
+			<span>-</span>
+			<!--{else}-->
+			<!--{if $value['flare'] && {$value['hp']}>0}-->
+			<span class="red" style="background-color:yellow">请求支援</span>
+			<!--{else}-->
+			<!--{if {$value['hp']}==0}-->
+			<span>已死亡</span>
+			<!--{else}-->
+			<span>-</span>
+			<!--{/if}-->
+			<!--{/if}-->
+			<!--{/if}-->
+		</td>
+		<td height="20"
+			<!--{if $value['dummy']==1}-->
+			class="b3"
+			<!--{else}-->
+			<!--{if $value['hp']==0}-->
+			class="b7"
+			<!--{else}-->
+			<!--{if $value['pls']==$pls}-->
+			class="b6"
+			<!--{else}-->
+			class="b3"
+			<!--{/if}-->
+			<!--{/if}-->
+			<!--{/if}-->
+		>
+			<span>
+			<!--{if $value['dummy']==1}-->
+			-
+			<!--{else}-->
+			<input type="button" value="赠送物品" onclick="$('mode').value='advteamspecial';$('command').value='findteam{$value['pid']}';postCmd('gamecmd','command.php');return false;" <!--{if CURSCRIPT != 'game' || {$value['pls']}!=$pls || {$value['hp']}==0 || $hp<=0}-->disabled<!--{/if}-->>
+			<!--{/if}-->
+			</span>
+		</td>
+		<!--{if $key==1}-->
+		<td height="20" rowspan=$teammate_num align="center" class="b3">
+			<!--{if $flare && $hp>0}-->
+			<span class="red">正在请求队友支援。<input type="button" value="停止请求" onclick="$('mode').value='advteamspecial';$('command').value='stopflare';postCmd('gamecmd','command.php');return false;" <!--{if CURSCRIPT != 'game' || $hp<=0}-->disabled<!--{/if}-->>
+			</span>
+			<!--{else}-->
+			<input type="button" value="向队友发出支援请求" onclick="$('mode').value='advteamspecial';$('command').value='sendflare';postCmd('gamecmd','command.php');return false;" <!--{if CURSCRIPT != 'game' || $hp<=0}-->disabled<!--{/if}-->>
+			<!--{/if}-->
+		</td>
+		<!--{/if}-->
+	</tr>
+	<!--{/loop}-->
+<!--{/if}-->

@@ -110,27 +110,27 @@ namespace skill23
 		if ($gem=='红色方块')	//火焰
 			if ($t1=='wep')
 				$buff=Array(Array(35,'u'));
-			else  $buff=Array(Array(50,'P'),Array(50,'U'));
+			else  $buff=Array(Array(65,'P'),Array(35,'U'));
 		else  if ($gem=='黄色方块')	//重辅
 			if ($t1=='wep')
 				$buff=Array(Array(100,'c'));
-			else  $buff=Array(Array(50,'D'),Array(50,'c'));
+			else  $buff=Array(Array(65,'D'),Array(35,'c'));
 		else  if ($gem=='蓝色方块')	//冻气
 			if ($t1=='wep')
 				$buff=Array(Array(35,'i'));
-			else  $buff=Array(Array(50,'G'),Array(50,'I'));
+			else  $buff=Array(Array(65,'G'),Array(35,'I'));
 		else  if ($gem=='绿色方块')	//带毒
 			if ($t1=='wep')
 				$buff=Array(Array(35,'p'));
-			else  $buff=Array(Array(50,'K'),Array(50,'q'));
+			else  $buff=Array(Array(65,'K'),Array(35,'q'));
 		else  if ($gem=='金色方块')	//电击
 			if ($t1=='wep')
 				$buff=Array(Array(35,'e'));
-			else  $buff=Array(Array(50,'C'),Array(50,'E'));
+			else  $buff=Array(Array(65,'C'),Array(35,'E'));
 		else  if ($gem=='银色方块')	//音波
 			if ($t1=='wep')
 				$buff=Array(Array(35,'w'));
-			else  $buff=Array(Array(50,'F'),Array(50,'W'));
+			else  $buff=Array(Array(65,'F'),Array(35,'W'));
 		else  if ($gem=='红宝石方块')	//火焰/灼焰
 			if ($t1=='wep')
 				$buff=Array(Array(65,'u'),Array(35,'f'));
@@ -139,9 +139,11 @@ namespace skill23
 			if ($t1=='wep')
 				$buff=Array(Array(65,'i'),Array(35,'k'));
 			else  $buff=Array(Array(100,'I'));
-		else  if ($gem=='绿宝石方块')	//随机防御属性
+		else  if ($gem=='绿宝石方块')	//武器：随机攻击属性 装备：随机防御属性
 		{	
-			$buff=Array(Array(15,'C'),Array(15,'D'),Array(15,'F'),Array(15,'G'),Array(15,'K'),Array(15,'P'),Array(2,'A'),Array(2,'a'),Array(2,'l'),Array(2,'g'),Array(2,'H'));
+			if ($t1=='wep')
+				$buff=Array(Array(15,'u'),Array(15,'i'),Array(15,'p'),Array(15,'e'),Array(15,'w'),Array(6,'f'),Array(6,'k'),Array(6,'n'),Array(6,'N'),Array(1,'d'));
+			else  $buff=Array(Array(15,'C'),Array(15,'D'),Array(15,'F'),Array(15,'G'),Array(15,'K'),Array(15,'P'),Array(3,'A'),Array(3,'a'),Array(4,'H'));
 		}
 		else  if ($gem=='水晶方块')	//连击/HP制御
 			if ($t1=='wep')

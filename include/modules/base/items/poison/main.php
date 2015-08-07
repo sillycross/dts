@@ -92,6 +92,7 @@ namespace poison
 				if($killmsg){$log .= "<span class=\"yellow\">{$wdata['name']}对你说：“{$killmsg}”</span><br>";}
 				
 				if ($playerflag && !$selflag) \player\player_save($wdata);
+				\player\player_save($sdata);
 				\player\load_playerdata($sdata);
 			} 
 			\itemmain\itms_reduce($theitem);

@@ -12,7 +12,7 @@ if(!$cuser || !defined('IN_GAME')) {
 
 if(($sendmode == 'send')&&$chatmsg) {
 	if(strpos($chatmsg,'/') === 0) {
-		$result = $db->query("SELECT groupid FROM {$tablepre}users WHERE username='$cuser'");
+		$result = $db->query("SELECT groupid FROM {$gtablepre}users WHERE username='$cuser'");
 		$groupid = $db->result($result);
 		if($groupid > 1) {
 			if(strpos($chatmsg,'/post') === 0) {

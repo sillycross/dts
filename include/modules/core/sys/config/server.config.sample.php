@@ -57,7 +57,7 @@
 // [EN] !ATTENTION! Do NOT modify following after your board was settle down
 // [CH] 游戏投入使用后不能修改的变量
 
-	$tablepre = 'acbra2_';   			// 表名前缀, 同一数据库安装多个游戏请修改此处
+	$gtablepre = 'acbra2_';   			// 表名前缀, 同一数据库安装多个游戏请修改此处
 						// table prefix, modify this when you are installingmore than 1 Discuz! in the same database.
 
 	$authkey = 'bra';		//game encrypt key ,the same of plus key

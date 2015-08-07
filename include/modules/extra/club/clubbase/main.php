@@ -56,15 +56,17 @@ namespace clubbase
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','clubbase'));
-		$result = $db->query("SELECT gid FROM {$tablepre}winners ORDER BY gid desc LIMIT 1");
-		$t=$db->fetch_array($result); $curgid=$t['gid']+1;
-		$result = $db->query("SELECT uid FROM {$tablepre}users WHERE username='$name'");
-		$t=$db->fetch_array($result); $curuid=$t['uid']+2;
-		$result = $db->query("SELECT pid FROM {$tablepre}players WHERE name='$name' AND type=0");
-		$t=$db->fetch_array($result); $curpid=$result['pid']+3;
+		
+		//取消了费时的数据库查询，反正现在这样也预测不了了
+		$curgid=$gamenum;
+		$curuid=233;
+		$curpid=$pid+3;
 		
 		$mod_value = 5000077;
 		$base_value = 6397;
+		
+		$sttime = $starttime;
+		$vatime = 233;
 		
 		$ret = Array(0);
 		for ($clubtype = 0; $clubtype <= 1; $clubtype++)

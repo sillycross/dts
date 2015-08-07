@@ -45,8 +45,9 @@ namespace skill6
 		$log .= "<span class=\"red\">烧伤发作</span>减少了<span class=\"red\">$damage</span>点生命！<br>";
 		if($hp <= 0 ){
 			$state = 18;
-			\player\update_sdata(); $sdata['nosource'] = 1;
+			\player\update_sdata(); $sdata['sourceless'] = 1;
 			\player\kill($sdata,$sdata);
+			\player\player_save($sdata);
 			\player\load_playerdata($sdata);
 		}
 	}

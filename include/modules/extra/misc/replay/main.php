@@ -54,31 +54,37 @@ namespace replay
 		else  return get_html_color(255,0,255-($hash-300)/60*255);
 	}
 	
-	function gamestate_prepare_game()
+	function post_gameover_events()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		$chprocess();
+		
+		eval(import_module('replay','sys'));
+		
 		global $___MOD_SRV, $___MOD_CODE_ADV3;
-		if (!$___MOD_SRV || !$___MOD_CODE_ADV3) return $chprocess();
+		if (!$___MOD_SRV || !$___MOD_CODE_ADV3) return;
 		//游戏准备时，保存上局的录像文件并清空目录准备下一局
 		$curdatalib = file_get_contents(GAME_ROOT.'./gamedata/javascript/datalib.current.txt');
-		eval(import_module('replay','sys'));
-		$result = $db->query("SELECT name,gstime,getime FROM {$tablepre}winners WHERE gid={$gamenum}");
+		$result = $db->query("SELECT name,gstime,getime FROM {$wtablepre}winners WHERE gid={$gamenum}");
 		$data = $db->fetch_array($result);
 		$gametimelen = (int)$data['getime']-(int)$data['gstime'];
 		$winname = $data['name'];
 		$result = $db->query("SELECT name,pid FROM {$tablepre}players WHERE type = 0");
 		$plis = Array();
+		$room_gprefix = '';
+		if ($room_prefix!='') $room_gprefix = ((string)$room_prefix[0]).'.';
 		while($data = $db->fetch_array($result))
 		{
-			if (is_dir(GAME_ROOT.'./gamedata/tmp/replay/'.$data['pid']) && file_exists(GAME_ROOT.'./gamedata/tmp/replay/'.$data['pid'].'/replay.txt'))
+			if (is_dir(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$data['pid']) && file_exists(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$data['pid'].'/replay.txt'))
 			{
 				$totsz = 0;
 				$arr=Array(); $opdatalist=Array(); $opreclist=Array();
-				$arr['replay_gamenum'] = $gamenum;
+				$arr['replay_gamenum'] = $room_gprefix.((string)$gamenum);
 				$arr['replay_player'] = $data['name'];
 				$arr['replay_timelen'] = $gametimelen;
 				$arr['replay_optime'] = Array();
-				$oplist = openfile(GAME_ROOT.'./gamedata/tmp/replay/'.$data['pid'].'/replay.txt');
+				$oplist = openfile(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$data['pid'].'/replay.txt');
 				$cnt = sizeof($oplist);
 				$arr['replay_datapart'] = ((int)floor($cnt/$partsize));
 				if ($cnt%$partsize!=0) $arr['replay_datapart']++;
@@ -90,17 +96,17 @@ namespace replay
 						array_push($arr['replay_optime'],round($optime*10000)/10000);
 						array_push($opdatalist,$opdata);
 					}
-					
+				
 				$jreplaydata = compatible_json_encode($arr);
 				$jreplaydata = '___temp_s = new String(\''.base64_encode(gzencode($jreplaydata,9)).'\');
 				replay_header = JSON.parse(JXG.decompress(___temp_s));
 				delete ___temp_s;
 				replay_data = new Array();
 				replayload_progressbar('.round(100/($arr['replay_datapart']+2)).');
-				jQuery.cachedScript("gamedata/replays/'.$gamenum.'.'.$data['pid'].'.replay.oprecord.js");
+				jQuery.cachedScript("gamedata/replays/'.$room_gprefix.$gamenum.'.'.$data['pid'].'.replay.oprecord.js");
 				';
 				
-				writeover(GAME_ROOT.'./gamedata/replays/'.$gamenum.'.'.$data['pid'].'.replay.header.js',$jreplaydata);
+				writeover(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.'.$data['pid'].'.replay.header.js',$jreplaydata);
 				$totsz += strlen($jreplaydata);
 				
 				$jreplaydata = compatible_json_encode($opreclist);
@@ -109,10 +115,10 @@ namespace replay
 				delete ___temp_s;
 				replay_data = new Array();
 				replayload_progressbar('.round(100/($arr['replay_datapart']+2)*2).');
-				jQuery.cachedScript("gamedata/replays/'.$gamenum.'.'.$data['pid'].'.replay.data.0.js");
+				jQuery.cachedScript("gamedata/replays/'.$room_gprefix.$gamenum.'.'.$data['pid'].'.replay.data.0.js");
 				';
 				
-				writeover(GAME_ROOT.'./gamedata/replays/'.$gamenum.'.'.$data['pid'].'.replay.oprecord.js',$jreplaydata);
+				writeover(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.'.$data['pid'].'.replay.oprecord.js',$jreplaydata);
 				$totsz += strlen($jreplaydata);
 				
 				for($i = 0; $i < $arr['replay_datapart']; $i++) 
@@ -132,16 +138,16 @@ namespace replay
 					replayload_progressbar('.round(100/($arr['replay_datapart']+2)*($i+3)).');
 					';
 					if ($i+1<$arr['replay_datapart'])
-						$jreplaydata .='jQuery.cachedScript("gamedata/replays/'.$gamenum.'.'.$data['pid'].'.replay.data.'.($i+1).'.js");';
+						$jreplaydata .='jQuery.cachedScript("gamedata/replays/'.$room_gprefix.$gamenum.'.'.$data['pid'].'.replay.data.'.($i+1).'.js");';
 					else  $jreplaydata .='replay_init();';
 						
-					writeover(GAME_ROOT.'./gamedata/replays/'.$gamenum.'.'.$data['pid'].'.replay.data.'.$i.'.js',$jreplaydata);
+					writeover(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.'.$data['pid'].'.replay.data.'.$i.'.js',$jreplaydata);
 					
 					$totsz += strlen($jreplaydata);
 				}
 				
 				$totsz = (round($totsz / 1024 * 10)/10).'KB';
-				writeover(GAME_ROOT.'./gamedata/replays/'.$gamenum.'.'.$data['pid'].'.rep',base64_encode($curdatalib).','.$gamenum.','.base64_encode($data['name']).','.$totsz.','.$cnt.',');
+				writeover(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.'.$data['pid'].'.rep',base64_encode($curdatalib).','.$gamenum.','.base64_encode($data['name']).','.$totsz.','.$cnt.',');
 				
 				//生成缩略图
 				$pic_len = 1000;
@@ -188,7 +194,7 @@ namespace replay
 					$content[$i][2]=255-$csz[$i];
 				}
 				
-				file_put_contents(GAME_ROOT.'./gamedata/replays/'.$gamenum.'.'.$data['pid'].'.rep.bmp',\bmp_util\gen_bmp($content,$pic_len,1));
+				file_put_contents(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.'.$data['pid'].'.rep.bmp',\bmp_util\gen_bmp($content,$pic_len,1));
 			
 				$data['opnum']=-$cnt;
 				if ($data['name']==$winname) $data['opnum']=-2000000000;
@@ -209,12 +215,11 @@ namespace replay
 			foreach ($value as $wz)
 				$sstr.=$wz['pid'].',';
 		
-		file_put_contents(GAME_ROOT.'./gamedata/replays/'.$gamenum.'.rep.index',$sstr);
+		file_put_contents(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.rep.index',$sstr);
 		
-		clear_dir(GAME_ROOT.'./gamedata/tmp/replay/',1);
+		clear_dir(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/',1);
 		global $___MOD_TMP_FILE_DIRECTORY;
-		clear_dir($___MOD_TMP_FILE_DIRECTORY,1);
-		$chprocess();
+		clear_dir($___MOD_TMP_FILE_DIRECTORY.$room_prefix.'_/',1);
 	}
 	
 	function replay_validify_record($str)
@@ -265,21 +270,24 @@ namespace replay
 	function get_replay_by_gnum($gnum,$wmode)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!file_exists(GAME_ROOT.'./gamedata/replays/'.$gnum.'.rep.index'))
+		eval(import_module('sys'));
+		$room_gprefix = '';
+		if ($room_prefix!='') $room_gprefix = ((string)$room_prefix[0]).'.';
+		if (!file_exists(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gnum.'.rep.index'))
 		{
 			include template('MOD_REPLAY_GNUM_NO_REPLAY');
 			return;
 		}
-		$arr=explode(',',file_get_contents(GAME_ROOT.'./gamedata/replays/'.$gnum.'.rep.index'));
+		$arr=explode(',',file_get_contents(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gnum.'.rep.index'));
 		$lis=Array(); 
 		if ($wmode!=4 && $wmode!=1 && $wmode!=6) $ff=1;
 		foreach ($arr as $key)
 		{
 			if ($key=='') continue;
 			$x=(int)$key;
-			if (file_exists(GAME_ROOT.'./gamedata/replays/'.$gnum.'.'.$x.'.rep'))
+			if (file_exists(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gnum.'.'.$x.'.rep'))
 			{
-				list($repdatalib,$repgnum,$repname,$repsz,$repopcnt) = explode(',',file_get_contents(GAME_ROOT.'./gamedata/replays/'.$gnum.'.'.$x.'.rep'));
+				list($repdatalib,$repgnum,$repname,$repsz,$repopcnt) = explode(',',file_get_contents(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gnum.'.'.$x.'.rep'));
 				$repdatalib=base64_decode($repdatalib);
 				$repname=base64_decode($repname);
 				$d=Array(); $d['repname']=$repname; $d['repsz']=$repsz; $d['repopcnt']=$repopcnt; $d['link']=$gnum.'.'.$x;

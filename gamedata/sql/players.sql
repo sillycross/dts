@@ -114,6 +114,7 @@ CREATE TABLE bra_players (
   nskill text not null default '',
   nskillpara text NOT NULL default '',
   skillpoint int NOT NULL default '0',
+  flare int(10) NOT NULL default '0',
 
   PRIMARY KEY  (pid),
   INDEX TYPE (type, sNo),

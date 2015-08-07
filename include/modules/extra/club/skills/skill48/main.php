@@ -42,6 +42,10 @@ namespace skill48
 	function lost48(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('skill48'));
+		\skillbase\skill_delvalue(48,'tot',$pa);
+		foreach ($skill48_ex_kind_list as $key => $value)
+			\skillbase\skill_delvalue(48,$key,$pa);
 	}
 	
 	function skill_onload_event(&$pa)

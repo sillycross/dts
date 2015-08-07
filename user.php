@@ -7,7 +7,7 @@ require './include/user.func.php';
 
 if(!$cuser||!$cpass) { gexit($_ERROR['no_login'],__file__,__line__); }
 
-$result = $db->query("SELECT * FROM {$tablepre}users WHERE username='$cuser'");
+$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$cuser'");
 if(!$db->num_rows($result)) { gexit($_ERROR['login_check'],__file__,__line__); }
 $udata = $db->fetch_array($result);
 if($udata['password'] != $cpass) { gexit($_ERROR['wrong_pw'], __file__, __line__); }
@@ -45,7 +45,7 @@ if($mode == 'edit') {
 		$gamedata['innerHTML']['info'] .= $_INFO['pass_failure'].'<br />';
 	}
 	
-	$db->query("UPDATE {$tablepre}users SET gender='$gender', icon='$icon',{$passqry}motto='$motto',  killmsg='$killmsg', lastword='$lastword' WHERE username='$cuser'");
+	$db->query("UPDATE {$gtablepre}users SET gender='$gender', icon='$icon',{$passqry}motto='$motto',  killmsg='$killmsg', lastword='$lastword' WHERE username='$cuser'");
 	if($db->affected_rows()){
 		$gamedata['innerHTML']['info'] .= $_INFO['data_success'];
 	}else{

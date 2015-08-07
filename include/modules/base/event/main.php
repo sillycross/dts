@@ -150,8 +150,9 @@ namespace event
 					if($dice2 == 40 && $rp > 40){
 						$log = ($log . "咦，头顶上……好像有一名少女被弹幕击中了……？<BR>“对不起、对不起！”伴随着焦急的道歉声，少女以及她乘坐的机体向你笔直坠落下来。<br>你还来不及反应，重达数十吨的机体便直接落在了你的头上。<br>");
 						$state = 33;
-						\player\update_sdata(); $sdata['nosource'] = 1; $sdata['attackwith'] = '';
+						\player\update_sdata(); $sdata['sourceless'] = 1; $sdata['attackwith'] = '';
 						\player\kill($sdata,$sdata);
+						\player\player_save($sdata);
 						\player\load_playerdata($sdata);
 						return;
 					}
@@ -406,8 +407,9 @@ namespace event
 
 		if($hp<=0 && $state < 10){
 			$state = 13;
-			\player\update_sdata(); $sdata['nosource'] = 1; $sdata['attackwith'] = '';
+			\player\update_sdata(); $sdata['sourceless'] = 1; $sdata['attackwith'] = '';
 			\player\kill($sdata,$sdata);
+			\player\player_save($sdata);
 			\player\load_playerdata($sdata);
 		}
 		return;
@@ -427,8 +429,9 @@ namespace event
 				if($hp <= 0){$hp = 1;}
 			}else{
 				$state = 36;
-				\player\update_sdata(); $sdata['nosource'] = 1; $sdata['attackwith'] = '';
+				\player\update_sdata(); $sdata['sourceless'] = 1; $sdata['attackwith'] = '';
 				\player\kill($sdata,$sdata);
+				\player\player_save($sdata);
 				\player\load_playerdata($sdata);
 				return;
 			}	
@@ -442,8 +445,9 @@ namespace event
 				if($hp <= 0){$hp = 1;}
 			}else{
 				$state = 37;
-				\player\update_sdata(); $sdata['nosource'] = 1; $sdata['attackwith'] = '';
+				\player\update_sdata(); $sdata['sourceless'] = 1; $sdata['attackwith'] = '';
 				\player\kill($sdata,$sdata);
+				\player\player_save($sdata);
 				\player\load_playerdata($sdata);
 				return;
 			}		
@@ -457,8 +461,9 @@ namespace event
 				if($hp <= 0){$hp = 1;}
 			}else{
 				$state = 38;
-				\player\update_sdata(); $sdata['nosource'] = 1; $sdata['attackwith'] = '';
+				\player\update_sdata(); $sdata['sourceless'] = 1; $sdata['attackwith'] = '';
 				\player\kill($sdata,$sdata);
+				\player\player_save($sdata);
 				\player\load_playerdata($sdata);
 				return;
 			}	

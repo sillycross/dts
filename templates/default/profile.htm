@@ -1,7 +1,7 @@
 <table border="0" width="720" height="100%" cellspacing="0" cellpadding="0"  valign="middle">
 	<tr>
 		<td>
-			<table border="0" width="720" cellspacing="0" cellpadding="0"  valign="middle">
+			<table border="0" width="720" cellspacing="0" cellpadding="0"  valign="middle" >
 				<tr>
 					<td width="73"></td><td width="82"></td><td width="72"></td><td width="123"></td><td width="61"></td><td width="82"></td><td width="221"></td>
 				</tr>
@@ -15,9 +15,9 @@
 					<!--{/if}-->
 					<td colspan="1" class="b1"><span>{lang gamedate}<!--{if $gamestate == 40 }--><span class="yellow">{lang combo}</span><!--{/if}--><!--{if $gamestate == 50 }--><span class="red">{lang duel}</span><!--{/if}--></span></td>
 				</tr>
-				<tr height="165">
-					<td colspan="2" valign="top">
-						<table border="0" width=156 height=100% cellspacing="0" cellpadding="0" valign="middle">
+				<tr>
+					<td colspan="2" valign="top" height=180>
+						<table border="0" width=156 height=180 cellspacing="0" cellpadding="0" valign="middle" >
 							<tr>
 								<td width="73"></td><td width="82"></td>
 							</tr>
@@ -25,84 +25,84 @@
 								<td colspan="2" height="80" class="b3"><span><img src="img/$iconImg" border="0" style="width:140;height:80" <!--{if $hp==0}-->style="filter:Xray()"<!--{/if}--> /></span></td>
 							</tr>
 							<tr title="你的攻击力是基础攻击力与武器攻击力的和，武器攻击力等于武器的效果值×2">
-								<td class="b2"><span>{lang att}</span></td>
-								<td class="b3"><span>$att + <!--{eval echo $wepe*2;}--></span></td>
+								<td class="b2" height="20"><span>{lang att}</span></td>
+								<td class="b3" height="20"><span>$att + <!--{eval echo $wepe*2;}--></span></td>
 							</tr>
 							<tr title="你的防御力是基础防御力与所有防具防御力的和，防具防御力等于防具的效果值">
-								<td class="b2"><span>{lang def}</span></td>
-								<td class="b3"><span>$def + $ardef</span></td>
+								<td class="b2" height="20"><span>{lang def}</span></td>
+								<td class="b3" height="20"><span>$def + $ardef</span></td>
 							</tr>
 							<tr>
 								<!--{if defined('MOD_POSE')}-->
 								{template MOD_POSE_POSE_PROFILE_CMD}
 								<!--{else}-->
-								<td class="b2"></td><td class="b3"></td>
+								<td class="b2" height="20"></td><td class="b3"></td>
 								<!--{/if}-->
 							</tr>
 							<tr>
 								<!--{if defined('MOD_TACTIC')}-->
 								{template MOD_TACTIC_TACTIC_PROFILE_CMD}
 								<!--{else}-->
-								<td class="b2"></td><td class="b3"></td>
+								<td class="b2" height="20"></td><td class="b3"></td>
 								<!--{/if}-->
 							</tr>
 							<tr>
-								<td class="b2">■■：</td>
-								<td class="b3">■■。</td>
+								<td class="b2" height="20">■■：</td>
+								<td class="b3" height="20">■■。</td>
 							</tr>
 						</table>
 					</td>
-					<td colspan="2" valign="top">
-						<table border="0" width="196" height=100% cellspacing="0" cellpadding="0"  valign="middle">
+					<td colspan="2" valign="top" height=180>
+						<table border="0" width="196" height=180 cellspacing="0" cellpadding="0"  valign="middle" >
 							<tr>
 								<td width="72"></td><td width="123">
 							</tr>
 							<tr>
-								<td class="b2"><span>{lang level}</span></td>
-								<td class="b3"><span>Lv. $lvl</span></td>
+								<td class="b2" height="20"><span>{lang level}</span></td>
+								<td class="b3" height="20"><span>Lv. $lvl</span></td>
 							</tr>
 							<tr>
-								<td class="b2"><span>{lang exp}</span></td>
-								<td class="b3"><span>$exp / $upexp</span></td>
+								<td class="b2" height="20"><span>{lang exp}</span></td>
+								<td class="b3" height="20"><span>$exp / $upexp</span></td>
 							</tr>
 							<tr>
-								<td class="b2"><span>{lang team}</span></td>
-								<td class="b3"><span><!--{if $teamID && $gamestate < 40 }-->$teamID<!--{else}--> 无 <!--{/if}--></span></td>
+								<td class="b2" height="20"><span>{lang team}</span></td>
+								<td class="b3" height="20"><span><!--{if $teamID && $gamestate < 40 }-->$teamID<!--{else}--> 无 <!--{/if}--></span></td>
 							</tr>
 							
 							<!--{if defined('MOD_CLUBBASE')}-->
 							{template MOD_CLUBBASE_CLUB_PROFILE}
 							<!--{else}-->
-							<td class="b2"></td><td class="b3"></td>
+							<td class="b2" height="20"></td><td class="b3" height="20"></td>
 							<!--{/if}-->
 							</tr>
 							<tr>
-								<td class="b2"><span>{lang money}</span></td>
-								<td class="b3"><span>$money {lang moneyunit}</span></td>
+								<td class="b2" height="20"><span>{lang money}</span></td>
+								<td class="b3" height="20"><span>$money {lang moneyunit}</span></td>
 							</tr>
 							<tr>
 								<!--{if defined('MOD_WOUND')}-->
 								{template MOD_WOUND_WOUND_PROFILE}
 								<!--{else}-->
-								<td class="b2"></td><td class="b3"></td>
+								<td class="b2" height="20"></td><td class="b3" height="20"></td>
 								<!--{/if}-->
 							</tr>
 							<tr>
-								<td class="b2"><span>{lang sp}</span></td>
-								<td class="b3"><span><span class="<!--{if $sp <= $msp*0.2}-->grey<!--{elseif $sp <= $msp*0.5}-->yellow<!--{else}-->clan<!--{/if}-->">$sp / $msp</span></span></td>
+								<td class="b2" height="20"><span>{lang sp}</span></td>
+								<td class="b3" height="20"><span><span class="<!--{if $sp <= $msp*0.2}-->grey<!--{elseif $sp <= $msp*0.5}-->yellow<!--{else}-->clan<!--{/if}-->">$sp / $msp</span></span></td>
 							</tr>
 							<tr>
-								<td class="b2"><span>{lang hp}</span></td>
-								<td class="b3"><span><span class="<!--{if $hp <= $mhp*0.2}-->red<!--{elseif $hp <= $mhp*0.5}-->yellow<!--{else}-->clan<!--{/if}-->">$hp / $mhp</span></span></td>
+								<td class="b2" height="20"><span>{lang hp}</span></td>
+								<td class="b3" height="20"><span><span class="<!--{if $hp <= $mhp*0.2}-->red<!--{elseif $hp <= $mhp*0.5}-->yellow<!--{else}-->clan<!--{/if}-->">$hp / $mhp</span></span></td>
 							</tr>
 							<tr>
-								<td class="b2"><span>{lang ss}</span></td>
-								<td class="b3"><span class="<!--{if $ss <= $mss*0.2}-->red<!--{elseif $ss <= $mss*0.5}-->yellow<!--{else}-->clan<!--{/if}-->">$ss / $mss</span></td>
+								<td class="b2" height="20"><span>{lang ss}</span></td>
+								<td class="b3" height="20"><span class="<!--{if $ss <= $mss*0.2}-->red<!--{elseif $ss <= $mss*0.5}-->yellow<!--{else}-->clan<!--{/if}-->">$ss / $mss</span></td>
 							</tr>
 						</table>
 					</td>
-					<td colspan="2" valign="top">
-						<table border="0" width="144" height=100% cellspacing="0" cellpadding="0"  valign="middle">
+					<td colspan="2" valign="top" height=180>
+						<table border="0" width="144" height=180 cellspacing="0" cellpadding="0"  valign="middle" >
 							<tr>
 								<td width="61"></td><td width="82"></td>
 							</tr>
@@ -110,30 +110,33 @@
 							{template MOD_WEAPON_PROFILE_WEPSKILL}
 							<!--{/if}-->
 							<tr>
-								<td class="b2"><span>{lang rage}</span></td>
-								<td class="b3"><span><!--{if $rage >= 30}--><span class="yellow">$rage</span><!--{else}-->$rage<!--{/if}--></span></td>
+								<td class="b2" height="20"><span>{lang rage}</span></td>
+								<td class="b3" height="20"><span><!--{if $rage >= 30}--><span class="yellow">$rage</span><!--{else}-->$rage<!--{/if}--></span></td>
 							</tr>
 							<tr>
-								<td class="b2"><span>技能点</span></td>
-								<td class="b3"><!--{if $skillpoint>0}--><span class="lime">$skillpoint<!--{else}-->$skillpoint<!--{/if}--></span></td>
+								<td class="b2" height="20"><span>技能点</span></td>
+								<td class="b3" height="20"><!--{if $skillpoint>0}--><span class="lime">$skillpoint<!--{else}-->$skillpoint<!--{/if}--></span></td>
 							</tr>
 							<tr>
-								<td class="b2"><span>{lang killnum}</span></td>
-								<td class="b3"><span>$killnum</span></td>
+								<td class="b2" height="20"><span>{lang killnum}</span></td>
+								<td class="b3" height="20"><span>$killnum</span></td>
 							</tr>
 						</table>
 					</td>
-					<td colspan="1" valign="top">
-						<table border="0" width="221" height="100%" cellspacing="0" cellpadding="0"  valign="middle">
+					<td colspan="1" valign="top" height=180>
+						<table border="0" width="221" height=180 cellspacing="0" cellpadding="0"  valign="middle" >
 							<tr>
 								<td width="221"></td>
 							</tr>
 							<tr>
 								<td class="b3">
-									<div>
-										<table border="0" width=215px height=160px cellspacing="0" cellpadding="0" style="position:relative">
-											<tr height=160px>
-												<td width=160px background="img/state1.gif" style="position:relative;background-repeat:no-repeat;background-position:right top;">
+									<div style="margin-left:4px; margin-right:5px;">
+										<table border="0" width=215px height=180px cellspacing="0" cellpadding="0" style="position:relative">
+											<tr>
+												<td height=10px colspan=2></td>
+											</tr>
+											<tr>
+												<td height=170px width=160px background="img/state1.gif" style="position:relative;background-repeat:no-repeat;background-position:right top;">
 													<div style="border:0; margin:0; cellspacing:0; cellpadding:0; position:absolute;z-index:1;top:0;left:0;">
 														<!--{if defined('MOD_WOUND')}-->
 														{template MOD_WOUND_WOUND_PICTURE}
@@ -152,7 +155,7 @@
 														$newspimg
 													</div>
 												</td>
-												<td width=55px background="img/state2.gif" style="position:relative;background-repeat:no-repeat;background-position:left top;">
+												<td height=170px width=55px background="img/state2.gif" style="position:relative;background-repeat:no-repeat;background-position:left top;">
 													<div style="border:0; margin:0; cellspacing:0; cellpadding:0; position:absolute;top:0px;right:55px;z-index:0;">
 														$newhpimg
 													</div>
@@ -165,6 +168,9 @@
 						</table>
 					</td>
 				</tr>
+				<!--{if defined('MOD_ADVTEAM')}-->
+				<!--{eval \advteam\get_advteam_html();}-->
+				<!--{/if}-->
 			</table>
 		</td>
 	</tr>

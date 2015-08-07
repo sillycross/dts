@@ -2,11 +2,44 @@
 
 namespace attack
 {
+	//最终伤害修正接口
+	//类似物理伤害修正，返回的是一个数组
+	function get_final_dmg_multiplier(&$pa, &$pd, &$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return Array();
+	}
+	
 	//伤害通告
 	function player_damaged_enemy(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
+		$dmg=$pa['dmg_dealt'];
+		
+		eval(import_module('logger'));
+		
+		//获取最终伤害修正系数，类似物理伤害修正系数，这里返回的是一个数组
+		$multiplier = get_final_dmg_multiplier($pa, $pd, $active);
+		
+		if ((isset($pa['physical_dmg_dealt']) && $dmg>0 && $dmg!=$pa['physical_dmg_dealt']) 
+			|| ($dmg>0 && count($multiplier)>0))	//好吧这个写法有点糟糕……
+			{
+				$fin_dmg=$dmg; $mult_words='';
+				foreach ($multiplier as $key)
+				{
+					$fin_dmg=$fin_dmg*$key;
+					$mult_words.="×{$key}";
+				}
+				$fin_dmg=round($fin_dmg);
+				if ($fin_dmg < 1) $fin_dmg = 1;
+				if ($mult_words=='')
+					$log .= "<span class=\"yellow\">造成的总伤害：<span class=\"red\">{$dmg}</span>。</span><br>";
+				else  $log .= "<span class=\"yellow\">造成的总伤害：</span>{$dmg}{$mult_words}＝<span class=\"red\">{$fin_dmg}</span><span class=\"yellow\">。</span><br>";
+				$pa['dmg_dealt']=$fin_dmg;
+			}
+			
+		//扣血并更新最高伤害
 		$pd['hp']-=$pa['dmg_dealt'];
 		
 		eval(import_module('sys')); 
@@ -17,13 +50,7 @@ namespace attack
 			\sys\save_combatinfo();
 		}
 		
-		$dmg=$pa['dmg_dealt'];
-		
-		eval(import_module('logger'));
-		
-		if (isset($pa['physical_dmg_dealt']) && $dmg>0 && $dmg!=$pa['physical_dmg_dealt']) //好吧这个写法有点糟糕……
-			$log .= "<span class=\"yellow\">造成的总伤害：<span class=\"red\">{$dmg}</span>。</span><br>";
-		
+		//发log
 		if (!$active)
 			if ($pa['is_counter'])
 				$pa['battlelog'] .= "对其做出了<span class=\"yellow\">{$dmg}</span>点反击。<br>";

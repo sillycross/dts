@@ -9,11 +9,27 @@ $repid=$_GET['repid'];
 if (!isset($repid)) { header("Location: winner.php"); exit(); } 
 
 //过滤repid
-for ($i=0; $i<strlen($repid); $i++)
+if (!(('0'<=$repid[0] && $repid[0]<='9') || ('a'<=$repid[0] && $repid[0]<='z') || $repid[0]=='.'))
+{
+	header("Location: winner.php"); exit(); 
+}
+
+for ($i=1; $i<strlen($repid); $i++)
 	if (!(('0'<=$repid[$i] && $repid[$i]<='9') || $repid[$i]=='.'))
 	{ 
 		header("Location: winner.php"); exit(); 
 	} 
+
+if ('a'<=$repid[0] && $repid[0]<='z')
+{
+	if (strpos($repid,'.')===false)
+	{
+		header("Location: winner.php"); exit(); 
+	} 
+	$prefix = substr($repid,0,strpos($repid,'.')+1);
+	$repid = substr($repid,strpos($repid,'.')+1);
+}
+else  $prefix = '';
 
 $cn=0;
 for ($i=0; $i<strlen($repid); $i++)
@@ -23,6 +39,8 @@ for ($i=0; $i<strlen($repid); $i++)
 if ($cn>1) { header("Location: winner.php"); exit(); } 
 
 if (strlen($repid)>20) { header("Location: winner.php"); exit(); } 
+
+$repid = $prefix.$repid;
 
 if ($cn==1)
 {
@@ -51,10 +69,9 @@ else
 	}
 	$arr=$narr;
 }
-
 $replay_player_num_tot=count($arr);
 
-if (count($replay_player_num_tot)==0)
+if ($replay_player_num_tot==0)
 {
 	include template('no_replay'); exit(); 
 } 

@@ -75,7 +75,7 @@ function dniconMover(){
 }
 
 function showNotice(sNotice) {
-	$('notice').innerText = sNotice;
+	if ($('notice')) $('notice').innerText = sNotice;
 }
 
 function sl(id) {
@@ -86,6 +86,8 @@ function sl(id) {
 in_replay_mode = 0;
 last_sender = '';
 
+js_stop_flag = 0;
+
 function postCmd(formName,sendto){
 	if (in_replay_mode == 1) return;
 	replay_listener();	//IE Hack，处理IE不支持catch的问题
@@ -95,23 +97,48 @@ function postCmd(formName,sendto){
 	oXmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	oXmlHttp.onreadystatechange = function () {
 		if (oXmlHttp.readyState == 4) {
+			if (sendto=='roomupdate.php')
+			{
+				if ($('connect-status-text')) 
+					$('connect-status-text').innerHTML='<span class="grey">正在连接..</span>';
+			}
 			if (oXmlHttp.status == 200) {
-				showData(oXmlHttp.responseText);
+				if (oXmlHttp.responseText!='')
+				{
+					showData(oXmlHttp.responseText);
+				}
 			} else {
 				showNotice(oXmlHttp.statusText);
+			}
+			if (sendto=='roomupdate.php' && !js_stop_flag)
+			{
+				//这是一个长轮询……
+				room_get_update();
 			}
 		}
 	}
 	oXmlHttp.send(sBody);
+	if (sendto=='roomupdate.php')
+	{
+		if ($('connect-status-text')) $('connect-status-text').innerHTML='<span class="grey">连接已建立</span>';
+	}	
 	if ($('oprecorder'))
 	{
 		$('oprecorder').value=""; last_sender='';
 	}
 }
 
+function sleep(millis)
+{
+	var date = new Date();
+	var curDate = null;
+	do { curDate = new Date(); } while(curDate-date < millis);
+}
+
 function datalib_decode(val)
 {
 	if (typeof ___datalib == 'undefined') return val;
+	val = val.toString();
 	var ret = ''; var i=0;
 	while (i<val.length)
 	{
@@ -129,7 +156,11 @@ function datalib_decode(val)
 	return ret;
 }
 
+room_cur_chat_maxcid = 0;
+
 function showData(sdata){
+	if (js_stop_flag) return;
+	
 	////////////////////////////////////////////////////////////////////////
 	///////////////////////////////气泡框相关/////////////////////////////////
 	////////////////////////////////////////////////////////////////////////
@@ -143,7 +174,7 @@ function showData(sdata){
 	
 	//回放模式中不需要解压
 	if (typeof in_replay_mode == 'undefined' || in_replay_mode == 0)
-		sdata=JXG.decompress(sdata);
+		sdata= decodeURIComponent( escape( JXG.decompress(sdata) ) );
 	
 	if (typeof no_json_decode == 'undefined' || no_json_decode == 0)
 		shwData = JSON.parse(sdata);
@@ -152,12 +183,16 @@ function showData(sdata){
 	if(shwData['url']) {
 		if (in_replay_mode==0)
 		{
+			js_stop_flag = 1;
 			if (datalib_decode(shwData['url']) == 'error.php')	//gexit error
 			{
 				var form = jQuery('<form action="error.php" name="errorpost" method="post" style="display:none;"><input type="text" name="errormsg" value="' + datalib_decode(shwData['errormsg']) + '" /></form>');
 				jQuery('body').append(form); form.submit();
 			}
-			else  window.location.href = datalib_decode(shwData['url']);
+			else  
+			{
+				window.location.href = datalib_decode(shwData['url']);
+			}
 		}
 	}else if(!shwData['innerHTML']) {
 		$('error').innerHTML=sdata;
@@ -169,14 +204,33 @@ function showData(sdata){
 				$(id).value = datalib_decode(sDv[id]);
 			}
 		}
-		sDi = shwData['innerHTML'];
 		
+		sDi = shwData['innerHTML'];
 		for(var id in sDi){
 			if($(id)!=null){
 				if(sDi['id'] !== ''){
 					$(id).innerHTML = datalib_decode(sDi[id]);
 				}else{
 					$(id).innerHTML = '';
+				}
+			}
+		}
+		
+		if (shwData['lastchat'])
+		{
+			sDc = shwData['lastchat'];
+			for(var id in sDc)
+			{
+				if (sDc[id]['cid']>room_cur_chat_maxcid)
+				{
+					roomchat_changed_flag = 0;
+					room_cur_chat_maxcid = sDc[id]['cid'];
+					if ($('chatdata-text')) 
+					{
+						$('chatdata-text').innerHTML+=sDc[id]['data'];
+						roomchat_changed_flag = 1;
+					}
+					if (roomchat_changed_flag) roomchat_refresh();
 				}
 			}
 		}
@@ -189,12 +243,21 @@ function showData(sdata){
 	//////////////////////////////自动强化特效////////////////////////////////
 	////////////////////////////////////////////////////////////////////////
 	
-	if ($('autopower_totnum'))
+	if ($('autopower_totnum') && typeof(AutopowerTimerId)=='undefined')
 	{
 		AutopowerLogTimer();
 		totnum = parseInt($('autopower_totnum').innerHTML);
 		if (totnum>1) 
 			AutopowerTimerId=setInterval("AutopowerLogTimer()",parseInt($('autopower_cd').innerHTML));
+	}
+	
+	////////////////////////////////////////////////////////////////////////
+	////////////////////////////////房间踢人/////////////////////////////////
+	////////////////////////////////////////////////////////////////////////
+	
+	if ($('roomkick_timer') && typeof(RoomKickTimerId)=='undefined')
+	{
+		RoomKickTimerId=setInterval("room_kick_timer()",1000);
 	}
 }
 
@@ -298,6 +361,12 @@ function skill_unacquired_mouseout(e)
 
 function AutopowerLogTimer()
 {
+	if (!$('autopower_curnum'))
+	{
+		clearInterval(AutopowerTimerId);
+		delete AutopowerTimerId;
+		return;
+	}
 	curnum = parseInt($('autopower_curnum').innerHTML);
 	totnum = parseInt($('autopower_totnum').innerHTML);
 	if (curnum>1 && curnum<=totnum)
@@ -324,15 +393,25 @@ function bubblebox_hide_all()
 		$('fmsgbox-container').firstChild.style.display = 'none';
 		$('hidden-fmsgbox-container').appendChild($('fmsgbox-container').firstChild);
 	}
+	while ($('hidden-persistent-fmsgbox-container').firstChild!=null) 
+	{
+		$('hidden-persistent-fmsgbox-container').firstChild.style.display = 'none';
+		$('hidden-fmsgbox-container').appendChild($('hidden-persistent-fmsgbox-container').firstChild);
+	}
 }
 
 function bubblebox_clear_all()
 {
-	bubblebox_hide_all();
+	while ($('fmsgbox-container').firstChild!=null) 
+	{
+		if ($('fmsgbox-container').firstChild.getAttribute('id').substr(0,17)=='fmsgboxpersistent')
+			$('hidden-persistent-fmsgbox-container').appendChild($('fmsgbox-container').firstChild);
+		else  $('fmsgbox-container').removeChild($('fmsgbox-container').firstChild);
+	}
 	while ($('hidden-fmsgbox-container').firstChild!=null) 
 	{
 		if ($('hidden-fmsgbox-container').firstChild.getAttribute('id').substr(0,17)=='fmsgboxpersistent')
-			$('hidden-persistent-fmsgbox-container').appendChild($('fmsgbox-container').firstChild);
+			$('hidden-persistent-fmsgbox-container').appendChild($('hidden-fmsgbox-container').firstChild);
 		else  $('hidden-fmsgbox-container').removeChild($('hidden-fmsgbox-container').firstChild);
 	}
 }
@@ -340,9 +419,12 @@ function bubblebox_clear_all()
 function bubblebox_show(bid)
 {
 	bubblebox_hide_all();
-	$('fmsgbox-container').appendChild($('fmsgbox'+(bid.toString())));
-	$('fmsgbox'+(bid.toString())).style.display = 'block';
-	jQuery(function() { jQuery('.scroll-pane'+(bid.toString())).jScrollPane(); });
+	if ($('fmsgbox'+(bid.toString())))
+	{
+		$('fmsgbox-container').appendChild($('fmsgbox'+(bid.toString())));
+		$('fmsgbox'+(bid.toString())).style.display = 'block';
+		jQuery(function() { jQuery('.scroll-pane'+(bid.toString())).jScrollPane(); });
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -773,3 +855,88 @@ function replay_listener(e)
 //这样似乎惟一的问题是select的onchange event因为某些神秘原因会覆盖掉onclick event... 考虑到select+onchange用的不多，手动处理吧
 
 document.addEventListener('click',replay_listener,true);
+
+////////////////////////////////////////////////////////////////////////
+/////////////////////////////发光按钮相关/////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
+function glowbutton_highlight(id)
+{
+	$('glowbutton-'+id+'-background').style.backgroundColor=$('glowbutton-'+id+'-color-container').innerHTML;
+}
+
+function glowbutton_dehighlight(id)
+{
+	$('glowbutton-'+id+'-background').style.backgroundColor='none';
+}
+
+////////////////////////////////////////////////////////////////////////
+///////////////////////////////房间相关//////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
+function room_get_update()
+{
+	postCmd('roomcmd','roomupdate.php');
+}
+
+function roomchat_refresh()
+{
+	jQuery(function() 
+	{ 
+		var api = jQuery('.scroll-pane-chat').data('jsp');
+		api.destroy();
+	});
+	jQuery(function() 
+	{ 
+		jQuery('.scroll-pane-chat').jScrollPane(); 
+	});
+	jQuery(function() 
+	{ 
+		var api = jQuery('.scroll-pane-chat').data('jsp');
+		api.scrollToPercentY(100);
+	});
+}
+
+function room_enter(t)
+{
+	window.location.href='roomcmd.php?command=enterroom&para1='+t;
+}
+
+function room_quit(t)
+{
+	window.location.href='roomcmd.php?command=leave';
+}
+
+function room_kick_timer()
+{
+	if (!$('roomkick_timer'))
+	{
+		clearInterval(RoomKickTimerId);
+		delete RoomKickTimerId;
+		return;
+	}
+	curnum = parseInt($('roomkick_timer').innerHTML);
+	curnum --;
+	$('roomkick_timer').innerHTML = Number(curnum).toString();
+	if (curnum<=0)
+	{
+		if ($('command')) $('command').value=''; 
+		postCmd('roomcmd','roomcmd.php');	//发送踢人命令
+	}
+}
+
+function show_fixed_div(t)
+{
+	if ($(t))
+	{
+		$(t).style.display='block';
+	}
+}
+
+function hide_fixed_div(t)
+{
+	if ($(t))
+	{
+		$(t).style.display='none';
+	}
+}

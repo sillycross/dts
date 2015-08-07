@@ -46,8 +46,9 @@ namespace skill5
 		$log .= "<span class=\"purple\">毒发</span>减少了<span class=\"red\">$damage</span>点生命！<br>";
 		if($hp <= 0 ){
 			$state = 12;
-			\player\update_sdata(); $sdata['nosource'] = 1;
+			\player\update_sdata(); $sdata['sourceless'] = 1;
 			\player\kill($sdata,$sdata);
+			\player\player_save($sdata);
 			\player\load_playerdata($sdata);
 		}
 	}

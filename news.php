@@ -6,9 +6,9 @@ require './include/common.inc.php';
 //$t_s=getmicrotime();
 //require_once GAME_ROOT.'./include/JSON.php';
 
-$newsfile = GAME_ROOT.'./gamedata/newsinfo.php';
-$newshtm = GAME_ROOT.TPLDIR.'/newsinfo.htm';
-$lnewshtm = GAME_ROOT.TPLDIR.'/lastnews.htm';
+$newsfile = GAME_ROOT.'./gamedata/tmp/news/newsinfo_'.$room_prefix.'.php';
+$newshtm = GAME_ROOT.'./gamedata/tmp/news/newsinfo_'.$room_prefix.'.htm';
+$lnewshtm = GAME_ROOT.'./gamedata/tmp/news/lastnews_'.$room_prefix.'.htm';
 
 if(filemtime($newsfile) > filemtime($lnewshtm)) {
 	$lnewsinfo = \sys\nparse_news(0,$newslimit);
@@ -18,7 +18,7 @@ if(!isset($newsmode)){$newsmode = '';}
 
 if($newsmode == 'last') {
 	
-	include template('lastnews');
+	echo file_get_contents($lnewshtm);
 	$newsdata['innerHTML']['newsinfo'] = ob_get_contents();
 	if(isset($error)){$newsdata['innerHTML']['error'] = $error;}
 	ob_clean();
@@ -33,7 +33,7 @@ if($newsmode == 'last') {
 		$newsinfo = \sys\nparse_news(0,65535);
 		writeover($newshtm,$newsinfo);
 	}
-	include template('newsinfo');
+	echo file_get_contents($newshtm);
 	$newsdata['innerHTML']['newsinfo'] = ob_get_contents();
 	if(isset($error)){$newsdata['innerHTML']['error'] = $error;}
 	ob_clean();

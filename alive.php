@@ -21,7 +21,7 @@ if(!isset($alivemode) || $alivemode == 'last'){
 //}
 while($playerdata = $db->fetch_array($query)) {
 	$playerdata['iconImg'] = "{$playerdata['gd']}_{$playerdata['icon']}.gif";
-	$result = $db->query("SELECT motto FROM {$tablepre}users WHERE username = '".$playerdata['name']."'");
+	$result = $db->query("SELECT motto FROM {$gtablepre}users WHERE username = '".$playerdata['name']."'");
 	$playerdata['motto'] = $db->result($result, 0);
 	$alivedata[] = $playerdata;
 }

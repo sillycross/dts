@@ -78,6 +78,8 @@ namespace sys
 			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}的尸体被时空特使别动队销毁了</span><br>\n";
 		if($news == 'editpc') 
 			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}遭到了黑幕的生化改造！</span><br>\n";
+		if($news == 'roominfo')
+			return "<li>{$hour}时{$min}分{$sec}秒，本局游戏为<span class=\"yellow\">{$a}</span>，{$b}<br>\n";
 		
 		return "<li>$time,$news,$a,$b,$c,$d<br>\n";
 	}

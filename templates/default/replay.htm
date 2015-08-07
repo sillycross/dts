@@ -89,7 +89,7 @@ onmouseout="replay_bar_now_mouseon = 0; if (replay_cursor_drag_flag==0) { $('rep
 </div>
 
 <!-- 悬浮提示 START -->
-<div id="replay_hint" class="b3" style="z-index:10020; position:fixed; left:0px; top:0px; display:none; text-align:left;">
+<div id="replay_hint" class="b3" style="z-index:20020; position:fixed; left:0px; top:0px; display:none; text-align:left;">
 <div class="noselect" style="filter:alpha(opacity=95); opacity:0.95; background-color:#000000">
 <span style="height:5px; display:block;">&nbsp;</span>
 <span id="replay_hint_inner" style="margin-left:5px; margin-right:5px;">
@@ -158,22 +158,25 @@ $('replay_bar').addEventListener('mousedown',replay_bar_mouse_down_handler);
 </td>
 <!-- 时间显示 END -->
 
-<td width="15px"></td>
-
-<td><div class="noselect" style="z-index:10020;font-size:16px">&nbsp;视角&nbsp;&nbsp;</div></td>
-
 <!-- 玩家显示 START -->
-<!--{loop range(0,min(3,$replay_player_num_tot-1)) $i}-->
-<td width=110px>
-<div style="z-index:10020;cursor:pointer;height:32px; width:102px;" <!--{eval echo 'onmouseover="$(\'replay_playerbutton_'.$i.'\').style.boxShadow=\'0px 0px 6px #'.$repindexdata[$i]['color'].'\';$(\'replay_playerbutton_'.$i.'\').style.MozBoxShadow=\'0px 0px 6px #'.$repindexdata[$i]['color'].'\';$(\'replay_playerbutton_'.$i.'\').style.WebkitBoxShadow=\'0px 0px 6px #'.$repindexdata[$i]['color'].'\';"'; echo ' onmouseout="$(\'replay_playerbutton_'.$i.'\').style.boxShadow=\'none\';$(\'replay_playerbutton_'.$i.'\').style.MozBoxShadow=\'none\';$(\'replay_playerbutton_'.$i.'\').style.WebkitBoxShadow=\'none\';"';}--> onmousedown="replay_switch_player($i);">
-<div <!--{eval echo 'id="replay_playerbutton_'.$i.'_background"';}--> style="height:30px; width:100px; filter:alpha(opacity=20); opacity:0.2; border:1px transparent; -moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px;"></div>
-<div <!--{eval echo 'id="replay_playerbutton_'.$i.'"';}--> style="position:relative; top:-31px; left:-1px; height:30px; width:100px; border:1px #$repindexdata[$i]['color'] solid; -moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px; color:#$repindexdata[$i]['color']; text-align:center; line-height:30px; filter:alpha(opacity=75); opacity:0.75; ">
+<!--{if $replay_player_num_tot==6}-->
+<td width="1px"></td>
+<!--{else}-->
+<td width="15px"></td>
+<!--{/if}-->
+<td><div class="noselect" style="z-index:10020;font-size:16px">&nbsp;视角&nbsp;&nbsp;</div></td>
+<!--{eval if ($replay_player_num_tot>6) $rep_show_more_player = 1; else $rep_show_more_player = 0;}-->
+<!--{loop range(0,min(($rep_show_more_player==1?3:5),$replay_player_num_tot-1)) $i}-->
+<td <!--{if $replay_player_num_tot==6}-->width=95px<!--{else}-->width=110px<!--{/if}-->>
+<div style="z-index:10020;cursor:pointer;height:32px; <!--{if $replay_player_num_tot==6}-->width:87px;<!--{else}-->width:102px;<!--{/if}-->" <!--{eval echo 'onmouseover="$(\'replay_playerbutton_'.$i.'\').style.boxShadow=\'0px 0px 6px #'.$repindexdata[$i]['color'].'\';$(\'replay_playerbutton_'.$i.'\').style.MozBoxShadow=\'0px 0px 6px #'.$repindexdata[$i]['color'].'\';$(\'replay_playerbutton_'.$i.'\').style.WebkitBoxShadow=\'0px 0px 6px #'.$repindexdata[$i]['color'].'\';"'; echo ' onmouseout="$(\'replay_playerbutton_'.$i.'\').style.boxShadow=\'none\';$(\'replay_playerbutton_'.$i.'\').style.MozBoxShadow=\'none\';$(\'replay_playerbutton_'.$i.'\').style.WebkitBoxShadow=\'none\';"';}--> onmousedown="replay_switch_player($i);">
+<div <!--{eval echo 'id="replay_playerbutton_'.$i.'_background"';}--> style="height:30px; <!--{if $replay_player_num_tot==6}-->width:85px;<!--{else}-->width:100px;<!--{/if}--> filter:alpha(opacity=20); opacity:0.2; border:1px transparent; -moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px;"></div>
+<div <!--{eval echo 'id="replay_playerbutton_'.$i.'"';}--> style="position:relative; top:-31px; left:-1px; height:30px; <!--{if $replay_player_num_tot==6}-->width:85px;<!--{else}-->width:100px;<!--{/if}--> border:1px #$repindexdata[$i]['color'] solid; -moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px; color:#$repindexdata[$i]['color']; text-align:center; line-height:30px; filter:alpha(opacity=75); opacity:0.75; ">
 <div class="noselect" style="margin-left:10px; margin-right:10px;overflow-x:hidden;overflow-y:hidden;white-space:nowrap;">$repindexdata[$i]['repname']</div>
 </div>
 </div>
 </td>
 <!--{/loop}-->
-<!--{if $replay_player_num_tot>4}-->
+<!--{if $rep_show_more_player}-->
 <td width=1px></td>
 <td id="replay_more_players_top_positioner" style="cursor:pointer;" onmouseover="$('replay_more_players').style.left=Number(jQuery('#replay_more_players_left_positioner').offset().left-jQuery(window).scrollLeft()+10).toString()+'px';
 $('replay_more_players').style.top=Number(jQuery('#replay_more_players_top_positioner').offset().top-jQuery(window).scrollTop()-4).toString()+'px';$('replay_more_players').style.display='block'; replay_more_player_mouse_on = 1;"

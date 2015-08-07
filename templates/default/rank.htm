@@ -7,8 +7,9 @@
 	<input type="hidden" name="command" id="command" value="ref">
 	<input type="hidden" name="checkmode" id="checkmode" value="credits">
 	<div>
-		<input type="button" id="credits" value="按积分顺序排列" onClick="document['showrank']['start'].value='0';document['showrank']['checkmode'].value='credits';document['showrank']['command'].value='ref';postCmd('showrank','rank.php');return false;">
-		<input type="button" id="credits" value="按胜率顺序排列" onClick="document['showrank']['start'].value='0';document['showrank']['checkmode'].value='winrate';document['showrank']['command'].value='ref';postCmd('showrank','rank.php');return false;">
+		<input type="button" id="credits" value="按天梯积分排列" onClick="document['showrank']['start'].value='0';document['showrank']['checkmode'].value='elorate';document['showrank']['command'].value='ref';postCmd('showrank','rank.php');return false;">
+		<input type="button" id="credits" value="按总积分排列" onClick="document['showrank']['start'].value='0';document['showrank']['checkmode'].value='credits';document['showrank']['command'].value='ref';postCmd('showrank','rank.php');return false;">
+		<input type="button" id="credits" value="按胜率排列" onClick="document['showrank']['start'].value='0';document['showrank']['checkmode'].value='winrate';document['showrank']['command'].value='ref';postCmd('showrank','rank.php');return false;">
 	</div>
 	<div>
 		<input type="button" id="last" name="last" value="上一页" onClick="document['showrank']['command'].value='last';postCmd('showrank','rank.php');return false;">
