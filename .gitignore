@@ -10,4 +10,3 @@ gamedata/modules.list.pass.php
 templates/default/mixhelp.htm
 gamedata/combatinfo.php
 gamedata/newsinfo.php
-include/modulemng.config.sample.php
