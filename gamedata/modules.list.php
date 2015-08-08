@@ -66,6 +66,7 @@ npcchat,base/npcchat/,1
 skill21,extra/club/skills/skill21/,1
 ex_hp_def,extra/attr/ex_hp_def/,1
 skill40,extra/club/skills/skill40/,1
+skill204,extra/club/skills/skill204/,1
 club1,extra/club/clubs/club1/,1
 club2,extra/club/clubs/club2/,1
 club3,extra/club/clubs/club3/,1
@@ -108,6 +109,7 @@ skill61,extra/club/skills/skill61/,1
 skill62,extra/club/skills/skill62/,1
 skill63,extra/club/skills/skill63/,1
 skill64,extra/club/skills/skill64/,1
+skill203,extra/club/skills/skill203/,1
 skill53,extra/club/skills/skill53/,1
 skill55,extra/club/skills/skill55/,1
 skill59,extra/club/skills/skill59/,1
@@ -137,9 +139,11 @@ ex_dmg_att,extra/attr/ex_dmg_att/,1
 ex_attr_charge,extra/attr/ex_attr_charge/,1
 empowers,base/items/empowers/,1
 skill32,extra/club/skills/skill32/,1
+skill202,extra/club/skills/skill202/,1
 pose,base/pose/,1
 skill1,base/skills/skill1/,1
 skill49,extra/club/skills/skill49/,1
+skill201,extra/club/skills/skill201/,1
 ex_dmg_def,extra/attr/ex_dmg_def/,1
 ex_dmg_nullify,extra/attr/ex_dmg_nullify/,1
 skill25,extra/club/skills/skill25/,1
@@ -147,12 +151,14 @@ skill44,extra/club/skills/skill44/,1
 skill47,extra/club/skills/skill47/,1
 skill48,extra/club/skills/skill48/,1
 skill54,extra/club/skills/skill54/,1
+skill205,extra/club/skills/skill205/,1
 ex_phy_nullify,extra/attr/ex_phy_nullify/,1
 wepchange,extra/attr/wepchange/,1
 blessstone,extra/attr/blessstone/,1
 skill33,extra/club/skills/skill33/,1
 weather,base/weather/,1
 npcinfo,extra/misc/npcinfo/,1
+skill206,extra/club/skills/skill206/,1
 skill34,extra/club/skills/skill34/,1
 skill26,extra/club/skills/skill26/,1
 skill51,extra/club/skills/skill51/,1
@@ -165,9 +171,3 @@ skill27,extra/club/skills/skill27/,1
 skill43,extra/club/skills/skill43/,1
 skill56,extra/club/skills/skill56/,1
 skill57,extra/club/skills/skill57/,1
-skill201,extra/club/skills/skill201/,1
-skill202,extra/club/skills/skill202/,1
-skill203,extra/club/skills/skill203/,1
-skill204,extra/club/skills/skill204/,1
-skill205,extra/club/skills/skill205/,1
-skill206,extra/club/skills/skill206/,1
