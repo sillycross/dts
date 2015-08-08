@@ -8,7 +8,7 @@ namespace club4
 		$clubinfo[4] = '灌篮高手';
 		$clublist[4] = Array(
 			'type' => 0,
-			'probability' => 10000, 
+			'probability' => 100, 
 			'skills' => Array(
 				10,11,12,	
 				16,		//投熟

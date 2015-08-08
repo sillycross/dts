@@ -1,0 +1,20 @@
+<!--{eval eval(import_module('skill206'));}-->
+<!--{eval $___TEMP_SKILL_ID=206;}-->
+<!--{eval $sk206r=\skill206\get_gunner_skillpoint_need($sdata);}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+爆头
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+使用射系武器伤害超过80%目标当前生命值时自动将其秒杀。
+</span></td>
+<td class=b3 width=46>
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+还需在<span class="clan">静息</span>或<span class="clan">破甲</span>上投入<span class="clan">{$sk206r}</span>点技能点来解锁</span>
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}
