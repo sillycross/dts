@@ -1,0 +1,19 @@
+<!--{eval $___TEMP_SKILL_ID=204;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+掠夺
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<!--{eval $gold_p = (min(25,$lvl)*8);}-->
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+击杀NPC时立即获得<span class="yellow">$gold_p</span>元。
+</span></td>
+<td class=b3 width=46>
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+8级时解锁
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

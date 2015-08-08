@@ -8,7 +8,7 @@ namespace club24
 		$clubinfo[24] = '亡灵骑士';
 		$clublist[24] = Array(
 			'type' => 1,
-			'probability' => 100000, 
+			'probability' => 100, 
 			'skills' => Array(
 				10,11,12,		
 				24,		//骑士系人物HP成长

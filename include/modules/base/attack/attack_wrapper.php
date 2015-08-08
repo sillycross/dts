@@ -10,6 +10,11 @@ namespace attack
 		return Array();
 	}
 	
+	function apply_damage(&$pa,&$pd,$active){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$pd['hp']-=$pa['dmg_dealt'];
+	}
+	
 	//伤害通告
 	function player_damaged_enemy(&$pa, &$pd, $active)
 	{
@@ -40,7 +45,8 @@ namespace attack
 			}
 			
 		//扣血并更新最高伤害
-		$pd['hp']-=$pa['dmg_dealt'];
+		
+		apply_damage($pa,$pd,$active);
 		
 		eval(import_module('sys')); 
 		if (!$pa['type'] && $pa['dmg_dealt']>$hdamage)
