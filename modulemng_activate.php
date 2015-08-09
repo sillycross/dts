@@ -161,11 +161,9 @@ if ($___MOD_CODE_ADV1)
 		$modpath=$___TEMP_MOD_LOAD_PATH[$___TEMP_MOD_LOAD_i];
 		$modpath='__MOD_DIR__.\''.$modpath.'\'';
 		
-		$modpath=str_replace('/','\\',$modpath);
-		$pathlen=strlen($modpath);
-		$modpath=substr($modpath,0,$pathlen-2)."/'";
+		$modpath_suf=str_replace('\\','/',$modpath);//噫
 		
-		$suf=substr(md5($modpath),0,8);
+		$suf=substr(md5($modpath_suf),0,8);
 		$tplfile = GAME_ROOT.'./include/modules.init.template.adv.php';
 		$objfile = GAME_ROOT.'./gamedata/modinit/1_mod'.$modname.'.'.$suf.'.init.adv.php';
 		

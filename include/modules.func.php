@@ -121,7 +121,8 @@ function __INIT_MODULE__($modname,$modpath)
 	$modpath=substr($modpath,strlen(GAME_ROOT));
 	$modpath=substr($modpath,strlen('include/modules/'));
 	$modpath='__MOD_DIR__.\''.$modpath.'\'';
-	$suf=substr(md5($modpath),0,8);
+	$modpath_suf=str_replace('\\','/',$modpath);//都是斜杠的锅
+	$suf=substr(md5($modpath_suf),0,8);
 	$tplfile = GAME_ROOT.'./include/modules.init.template.php';
 	
 	global $___MOD_CODE_ADV1;

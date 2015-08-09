@@ -96,6 +96,16 @@ namespace skill202
 		return $extrahit2; 
 	}
 	
+	function get_skill202_extra_dmgrate(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('skill202','player','logger'));
+		if (!\skillbase\skill_query(202, $pa) || !check_unlocked202($pa)) return 0;
+		if ($pa['wep_kind']!='G') return 0;
+		$extd = $extrdmg[\skillbase\skill_getvalue(202,'lvl',$pa)];
+		return $extd; 
+	}
+	
 	function calculate_inf_rate(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -112,18 +122,24 @@ namespace skill202
 		$chprocess($pa, $pd, $active, $hurtposition);
 	}
 	
-	function get_skill202_extra_dmg(&$pa, &$pd, $active)
+	function apply_weapon_inf(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('skill202','player','logger','wound'));
-		if (!\skillbase\skill_query(202, $pa) || !check_unlocked202($pa)) return 0;
-		if ($pa['wep_kind']!='G') return 0;
-		$extradmg = $extrdmg[\skillbase\skill_getvalue(202,'lvl',$pa)];
-		$inf_count=0;
-		for ($i=0;$i<(strlen($inf_place));$i++){
-			if ($pa['attack_wounded_'.$inf_place[$i]]>0) $inf_count++;
+		
+		$chprocess($pa, $pd, $active);
+		
+		eval(import_module('armor','logger'));
+		$pa['skill202_count']=0;
+		if ((\skillbase\skill_query(202,$pa))&&(check_unlocked202($pa))&&($pa['wep_kind']=="G"))
+		{
+			for ($i=0; $i<strlen($inf_place); $i++)
+			{
+				if (isset($pa['attack_wounded_'.$inf_place[$i]])&&$pa['attack_wounded_'.$inf_place[$i]]>0)
+				{
+					$pa['skill202_count']++;
+				}
+			}
 		}
-		return $extradmg*$inf_count; 
 	}
 	
 	function get_final_dmg_multiplier(&$pa, &$pd, $active)
@@ -132,7 +148,7 @@ namespace skill202
 		$r=Array();
 		if ((\skillbase\skill_query(202,$pa))&&(check_unlocked202($pa))&&($pa['wep_kind']=="G"))
 		{
-			$var_202=get_skill202_extra_dmg($pa, $pd, $active);
+			$var_202=$pa['skill202_count']*get_skill202_extra_dmgrate($pa,$pd,$active);
 			eval(import_module('logger'));
 			if ($var_202>0)
 			{
@@ -140,8 +156,9 @@ namespace skill202
 					$log.="<span class=\"yellow\">破甲使你造成的最终伤害提高了{$var_202}%！</span><br>";
 				else  $log.="<span class=\"yellow\">破甲使敌人造成的最终伤害提高了{$var_202}%！</span><br>";
 				$r=Array(1+$var_202/100);
-			}
+			}	
 		}
+		unset($pa['skill202_count']);
 		return array_merge($r,$chprocess($pa,$pd,$active));
 	}
 }
