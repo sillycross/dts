@@ -42,7 +42,7 @@ namespace skill204
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ((\skillbase\skill_query(204,$pa))&&(check_unlocked204($pa))&&($pd['type']>0))
 		{
-			$var_204=(min(25,$pa['lvl'])*8);
+			$var_204=(min(25,$pa['lvl'])*5);
 			$pa['money']+=$var_204;
 		}
 		$chprocess($pa, $pd, $active);
