@@ -3,7 +3,7 @@
 namespace skill205
 {
 
-	$ragecost=80;
+	$ragecost=85;
 	
 	function init() 
 	{
@@ -120,18 +120,11 @@ namespace skill205
 		return $chprocess($pa, $pd, $active, $key);
 	}
 	
-	function apply_weapon_inf(&$pa, &$pd, $active)
+	function calculate_weapon_wound_multiplier(&$pa, &$pd, $active, $hurtposition) 
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('armor','wound','logger'));
-		if ($pa['bskill']==205)
-		for ($i=0; $i<strlen($inf_place); $i++)
-			if (isset($pa['attack_wounded_'.$inf_place[$i]]) && $pa['attack_wounded_'.$inf_place[$i]]>0)
-			{
-				$pa['attack_wounded_'.$inf_place[$i]]*=2;
-			}
-		
-		$chprocess($pa, $pd, $active);
+		if ($pa['bskill']!=205) return $chprocess($pa, $pd, $active, $hurtposition);
+		return $chprocess($pa, $pd, $active, $hurtposition)*2;
 	}
 
 	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)

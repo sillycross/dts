@@ -48,11 +48,17 @@ namespace wound
 		return $wep_infobbs[$pa['wep_kind']];
 	}
 	
+	function calculate_weapon_wound_multiplier(&$pa, &$pd, $active, $hurtposition) 
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 1;
+	}
+	
 	//成功触发受伤效果
 	function weapon_wound_success(&$pa, &$pd, $active, $hurtposition)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$pa['attack_wounded_'.$hurtposition]++;
+		$pa['attack_wounded_'.$hurtposition]+=calculate_weapon_wound_multiplier($pa, $pd, $active, $hurtposition);
 	}
 	
 	//判定受伤是否发生
@@ -85,6 +91,19 @@ namespace wound
 		if ($is_hit) check_weapon_inf($pa, $pd, $active);
 	}
 	
+	function apply_weapon_wound_real(&$pa, &$pd, $active, $hurtposition)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('wound','logger'));
+		if ($active)
+			$log .= "{$pd['name']}的<span class=\"red\">".$infinfo[$hurtposition]."</span>部受伤了！<br>";
+		else  $log .= "你的<span class=\"red\">".$infinfo[$hurtposition]."</span>部受伤了！<br>";
+		if (get_inf($hurtposition, $pd))
+		{
+			addnews($now,'inf',$pa['name'],$pd['name'],$hurtposition);
+		}
+	}
+	
 	function apply_weapon_inf(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -93,13 +112,7 @@ namespace wound
 		{
 			if (isset($pa['attack_wounded_'.$inf_place[$i]]) && $pa['attack_wounded_'.$inf_place[$i]]>0)
 			{
-				if ($active)
-					$log .= "{$pd['name']}的<span class=\"red\">".$infinfo[$inf_place[$i]]."</span>部受伤了！<br>";
-				else  $log .= "你的<span class=\"red\">".$infinfo[$inf_place[$i]]."</span>部受伤了！<br>";
-				if (get_inf($inf_place[$i], $pd))
-				{
-					addnews($now,'inf',$pa['name'],$pd['name'],$inf_place[$i]);
-				}
+				apply_weapon_wound_real($pa, $pd, $active, $inf_place[$i]);
 			}
 		}
 	}
