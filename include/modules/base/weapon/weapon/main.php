@@ -111,7 +111,7 @@ namespace weapon
 		$pd['fin_def']=get_def($pa,$pd,$active)*get_def_multiplier($pa,$pd,$active);
 		$att_pow=$pa['fin_att']; $def_pow=$pd['fin_def']; $ws=$pa['fin_skill']; $wp_kind=$pa['wep_kind'];
 		$damage = ($att_pow/$def_pow)*$ws*$skill_dmg[$wp_kind];
-		$fluc = get_1st_dmg_factor($pa,$pd,$active,$dmg_fluc[$wp_kind]);
+		$fluc = rand(get_1st_dmg_factor_l($pa,$pd,$active,$dmg_fluc[$wp_kind]),get_1st_dmg_factor_h($pa,$pd,$active,$dmg_fluc[$wp_kind]));
 		$dmg_factor = (100+$fluc)/100;
 		$damage = round ( $damage * $dmg_factor * rand ( 4, 10 ) / 10 );
 		if ($damage<1) $damage=1;
@@ -119,9 +119,14 @@ namespace weapon
 	}
 	
 	//获取一次浮动
-	function get_1st_dmg_factor(&$pa,&$pd,$active,$basefluc){
+	function get_1st_dmg_factor_l(&$pa,&$pd,$active,$basefluc){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return rand(-$basefluc,$basefluc);
+		return -$basefluc;
+	}
+	
+	function get_1st_dmg_factor_h(&$pa,&$pd,$active,$basefluc){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $basefluc;
 	}
 	
 	//基础伤害修正系数
