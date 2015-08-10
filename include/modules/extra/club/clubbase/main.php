@@ -173,7 +173,7 @@ namespace clubbase
 		return $func($sdata);
 	}
 	
-	function get_battle_skill_entry($which)
+	function get_battle_skill_entry(&$edata,$which)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($which==3) $zflag = 1; else $zflag = 0;

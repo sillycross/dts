@@ -76,7 +76,6 @@ namespace itemshop
 		$result=$db->query("SELECT * FROM {$tablepre}shopitem WHERE sid = '$item'");
 		$shopiteminfo = $db->fetch_array($result);
 		return $shopiteminfo;
-		//$price = $club == 11 ? round($iteminfo['price']*0.75) : $iteminfo['price'];
 	}
 	
 	function itembuy($item,$shop,$bnum=1) {
@@ -138,6 +137,13 @@ namespace itemshop
 		return;
 	}
 	
+	function check_in_shop_area($p)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('itemshop'));
+		return in_array($p,$shops);
+	}
+	
 	function act()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -161,7 +167,7 @@ namespace itemshop
 		
 		if($mode == 'shop') 	//次级shop页面的操作
 		{
-			if(in_array($pls,$shops)){
+			if(check_in_shop_area($pls)){
 				if ($command == 'menu') {	//离开商店
 					$mode = 'command';
 					return;

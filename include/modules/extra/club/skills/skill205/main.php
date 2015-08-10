@@ -102,10 +102,13 @@ namespace skill205
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($pa['bskill']==205) 
 		{
-			eval(import_module('logger'));
-			if ($active)
-				$log.='<span class="yellow">「咆哮」使你造成的属性伤害提高了80%！</span><br>';
-			else  $log.='<span class="yellow">「咆哮」使敌人造成的属性伤害提高了80%！</span><br>';
+			if (count(\attrbase\get_ex_attack_array($pa,$pd,$active))>0)
+			{
+				eval(import_module('logger'));
+				if ($active)
+					$log.='<span class="yellow">「咆哮」使你造成的属性伤害提高了80%！</span><br>';
+				else  $log.='<span class="yellow">「咆哮」使敌人造成的属性伤害提高了80%！</span><br>';
+			}
 		}
 		return $chprocess($pa, $pd, $active);
 	}

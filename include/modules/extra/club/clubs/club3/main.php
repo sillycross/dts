@@ -8,7 +8,7 @@ namespace club3
 		$clubinfo[3] = '狙击鹰眼';
 		$clublist[3] = Array(
 			'type' => 0,
-			'probability' => 10000, 
+			'probability' => 100, 
 			'skills' => Array(
 				10,11,12,	
 				15,		//射熟
