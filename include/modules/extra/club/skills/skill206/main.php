@@ -54,7 +54,7 @@ namespace skill206
 	
 	function apply_damage(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(206,$pa) || !check_unlocked206($pa)) $chprocess($pa,$pd,$active);
+		if (!\skillbase\skill_query(206,$pa) || !check_unlocked206($pa)) return $chprocess($pa,$pd,$active);
 		if ((($pd['hp']*0.8)<$pa['dmg_dealt'])&&($pd['hp']>$pa['dmg_dealt'])&&($pa['wep_kind']=='G')){
 			$pa['dmg_dealt']=$pd['hp'];
 			eval(import_module('logger'));

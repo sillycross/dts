@@ -110,6 +110,8 @@ skill62,extra/club/skills/skill62/,1
 skill63,extra/club/skills/skill63/,1
 skill64,extra/club/skills/skill64/,1
 skill203,extra/club/skills/skill203/,1
+skill207,extra/club/skills/skill207/,1
+skill209,extra/club/skills/skill209/,1
 skill53,extra/club/skills/skill53/,1
 skill55,extra/club/skills/skill55/,1
 skill59,extra/club/skills/skill59/,1
@@ -144,6 +146,7 @@ pose,base/pose/,1
 skill1,base/skills/skill1/,1
 skill49,extra/club/skills/skill49/,1
 skill201,extra/club/skills/skill201/,1
+skill210,extra/club/skills/skill210/,1
 ex_dmg_def,extra/attr/ex_dmg_def/,1
 ex_dmg_nullify,extra/attr/ex_dmg_nullify/,1
 skill25,extra/club/skills/skill25/,1
@@ -160,6 +163,7 @@ weather,base/weather/,1
 npcinfo,extra/misc/npcinfo/,1
 skill206,extra/club/skills/skill206/,1
 skill34,extra/club/skills/skill34/,1
+skill208,extra/club/skills/skill208/,1
 skill26,extra/club/skills/skill26/,1
 skill51,extra/club/skills/skill51/,1
 ex_gender_attr,extra/attr/ex_gender_attr/,1

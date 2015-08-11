@@ -117,7 +117,7 @@ namespace skill202
 	function weapon_wound_success(&$pa, &$pd, $active, $hurtposition) 
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(202,$pa) || !check_unlocked202($pa)) $chprocess($pa, $pd, $active, $hurtposition);
+		if (!\skillbase\skill_query(202,$pa) || !check_unlocked202($pa)) return $chprocess($pa, $pd, $active, $hurtposition);
 		$pa['attack_wounded_'.$hurtposition]+=get_skill202_extra_hit2($pa, $pd, $active);
 		$chprocess($pa, $pd, $active, $hurtposition);
 	}
@@ -128,7 +128,7 @@ namespace skill202
 		
 		$chprocess($pa, $pd, $active);
 		
-		eval(import_module('armor','logger'));
+		eval(import_module('wound','logger'));
 		$pa['skill202_count']=0;
 		if ((\skillbase\skill_query(202,$pa))&&(check_unlocked202($pa))&&($pa['wep_kind']=="G"))
 		{
