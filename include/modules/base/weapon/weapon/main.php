@@ -405,11 +405,30 @@ namespace weapon
 		else  return $rangeinfo[$pa['wepk'][1]];
 	}
 	
+	//No comment
+	function get_weapon_range_counterer(&$pa, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('weapon'));
+		if (isset($pa['wep_kind']))
+			return $rangeinfo[$pa['wep_kind']];
+		else  return $rangeinfo[$pa['wepk'][1]];
+	}
+	
+	function get_weapon_range_counteree(&$pa, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('weapon'));
+		if (isset($pa['wep_kind']))
+			return $rangeinfo[$pa['wep_kind']];
+		else  return $rangeinfo[$pa['wepk'][1]];
+	}
+	
 	function check_can_counter(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$r1 = get_weapon_range($pa, $active);
-		$r2 = get_weapon_range($pd, 1-$active);
+		$r1 = get_weapon_range_counterer($pa, $active);
+		$r2 = get_weapon_range_counteree($pd, 1-$active);
 		if ($r1 >= $r2 && $r1 != 0 && $r2 != 0)
 		{
 			if (!$chprocess($pa,$pd,$active)) return 0;
