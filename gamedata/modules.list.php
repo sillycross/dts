@@ -18,7 +18,6 @@ skill11,extra/club/skills/skill11/,1
 skill10,extra/club/skills/skill10/,1
 itemmain,base/itemmain/,1
 skill4,base/skills/skill4/,1
-skill39,extra/club/skills/skill39/,1
 npc,base/npc/,1
 skill13,extra/club/skills/skill13/,1
 skill14,extra/club/skills/skill14/,1
@@ -27,7 +26,6 @@ skill16,extra/club/skills/skill16/,1
 skill17,extra/club/skills/skill17/,1
 skill18,extra/club/skills/skill18/,1
 skill24,extra/club/skills/skill24/,1
-skill29,extra/club/skills/skill29/,1
 metman,base/metman/,1
 itemmix,base/itemmix/itemmix/,1
 itemshop,base/itemshop/,1
@@ -45,7 +43,7 @@ trap,base/items/trap/,1
 itemmix_sync,base/itemmix/itemmix_sync/,1
 itemmix_overlay,base/itemmix/itemmix_overlay/,1
 skill20,extra/club/skills/skill20/,1
-skill31,extra/club/skills/skill31/,1
+skill69,extra/club/skills/skill69/,1
 attrbase,extra/attr/attrbase/,1
 cooldown,base/cooldown/,1
 enemy,base/enemy/,1
@@ -65,8 +63,11 @@ weapon,base/weapon/weapon/,1
 npcchat,base/npcchat/,1
 skill21,extra/club/skills/skill21/,1
 ex_hp_def,extra/attr/ex_hp_def/,1
-skill40,extra/club/skills/skill40/,1
 skill204,extra/club/skills/skill204/,1
+skill39,extra/club/skills/skill39/,1
+skill29,extra/club/skills/skill29/,1
+skill31,extra/club/skills/skill31/,1
+skill40,extra/club/skills/skill40/,1
 club1,extra/club/clubs/club1/,1
 club2,extra/club/clubs/club2/,1
 club3,extra/club/clubs/club3/,1
@@ -83,6 +84,9 @@ club6,extra/club/clubs/club6/,1
 club11,extra/club/clubs/club11/,1
 skill58,extra/club/skills/skill58/,1
 club24,extra/club/clubs/club24/,1
+skill67,extra/club/skills/skill67/,1
+skill68,extra/club/skills/skill68/,1
+club18,extra/club/clubs/club18/,1
 wep_n,base/weapon/wep_n/,1
 wep_p,base/weapon/wep_p/,1
 wep_k,base/weapon/wep_k/,1
@@ -112,8 +116,12 @@ skill64,extra/club/skills/skill64/,1
 skill203,extra/club/skills/skill203/,1
 skill207,extra/club/skills/skill207/,1
 skill209,extra/club/skills/skill209/,1
+skill66,extra/club/skills/skill66/,1
+skill70,extra/club/skills/skill70/,1
+skill71,extra/club/skills/skill71/,1
 skill53,extra/club/skills/skill53/,1
 skill55,extra/club/skills/skill55/,1
+skill72,extra/club/skills/skill72/,1
 skill59,extra/club/skills/skill59/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
@@ -144,6 +152,7 @@ skill32,extra/club/skills/skill32/,1
 skill202,extra/club/skills/skill202/,1
 pose,base/pose/,1
 skill1,base/skills/skill1/,1
+skill65,extra/club/skills/skill65/,1
 skill49,extra/club/skills/skill49/,1
 skill201,extra/club/skills/skill201/,1
 skill210,extra/club/skills/skill210/,1

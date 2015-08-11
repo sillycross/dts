@@ -1,0 +1,54 @@
+<!--{eval eval(import_module('skill72'));}-->
+<!--{eval $___TEMP_SKILL_ID=72;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+学习
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<!--{eval $skill72_num=(int)\skillbase\skill_getvalue(72,'t'); $skill72_left=$sk72_max_learn_num-$skill72_num;}-->
+<!--{eval $skill72_bnum=(int)\skillbase\skill_getvalue(72,'b'); $skill72_bleft=1-$skill72_bnum;}-->
+你可以学习任意<span class="yellow">$sk72_max_learn_num</span>个非限定技能，其中至多<span class="yellow">1</span>个战斗技能<br>
+<!--{if $skill72_num>0 && $skill72_left>0}-->
+<span class="clan">你还可以学习<span>$skill72_left</span>个技能，其中至多<span>$skill72_bleft</span>个战斗技能。</span>
+<!--{else}-->
+<!--{if $skill72_left==0}-->
+<span class="clan">学习技能数目已达上限</span>
+<!--{/if}-->
+<!--{/if}-->
+
+<!--{if $skill72_left>0}-->
+<!--{eval \bubblebox\bubblebox_set_style('id:learntable72;height:400;width:672;cancellable:1;margin-right:8;');}-->
+{template MOD_BUBBLEBOX_START}
+<p style="margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px;">
+以下是你可以学习的称号技能列表。限定技不可以被学习，<!--{if $skill72_bleft==0}-->战斗技能学习数目已达上限，<!--{/if}-->因此它们没有被显示。<br>
+<span class="yellow">请注意使用“查看”按钮查看技能时，技能的解锁条件没有显示。</span>请阅读帮助以获得完整的技能解锁要求。<br>
+少数几个技能出于游戏平衡原因，相对原版技能有所削弱，也请注意查看。<br>
+“费用”一栏指的是学习该技能需要消耗的技能点数目。<br>
+<br>
+</p>
+<!--{eval \sklearn_util\get_skilllearn_table('\\skill72\\sklearn_checker72');}-->
+<br>
+<!--{if defined('IN_HELP')}-->
+<input type="button" onclick="bubblebox_show('club18');" value="返回">
+<!--{else}-->
+<input type="button" onclick="bubblebox_show('clubskill');" value="返回">
+<!--{/if}-->
+{template MOD_BUBBLEBOX_END}
+<!--{/if}-->
+
+</span></td>
+<td class=b3 width=46>
+<!--{if $skill72_left>0}-->
+<input type="button" style="width:46px" onclick="bubblebox_show('learntable72');" value="学习">
+<!--{else}-->
+<input type="button" style="width:46px" disabled="true" value="学习">
+<!--{/if}-->
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

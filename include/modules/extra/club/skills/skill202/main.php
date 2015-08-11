@@ -81,29 +81,9 @@ namespace skill202
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill202','player','logger'));
 		if (!\skillbase\skill_query(202, $pa) || !check_unlocked202($pa)) return 1;
-		if ($pa['wep_kind']!='G') return 1;
+		if ($pa['wep_kind']!='G' && $pa['wep_kind']!='J') return 1;
 		$infrgainrate = $infrgain[\skillbase\skill_getvalue(202,'lvl',$pa)];
 		return 1+($infrgainrate)/100;
-	}
-	
-	function get_skill202_extra_hit2(&$pa, &$pd, $active)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('skill202','player','logger'));
-		if (!\skillbase\skill_query(202, $pa) || !check_unlocked202($pa)) return 0;
-		if ($pa['wep_kind']!='G') return 0;
-		$extrahit2 = $exthit2[\skillbase\skill_getvalue(202,'lvl',$pa)];
-		return $extrahit2; 
-	}
-	
-	function get_skill202_extra_dmgrate(&$pa, &$pd, $active)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('skill202','player','logger'));
-		if (!\skillbase\skill_query(202, $pa) || !check_unlocked202($pa)) return 0;
-		if ($pa['wep_kind']!='G') return 0;
-		$extd = $extrdmg[\skillbase\skill_getvalue(202,'lvl',$pa)];
-		return $extd; 
 	}
 	
 	function calculate_inf_rate(&$pa, &$pd, $active)
@@ -114,39 +94,61 @@ namespace skill202
 		return $t*$chprocess($pa, $pd, $active);
 	}
 	
-	function weapon_wound_success(&$pa, &$pd, $active, $hurtposition) 
+	function get_skill202_extra_wounds(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('skill202','player','logger'));
+		if (!\skillbase\skill_query(202, $pa) || !check_unlocked202($pa)) return 0;
+		if ($pa['wep_kind']!='G' && $pa['wep_kind']!='J') return 0;
+		$extrahit2 = $exthit2[\skillbase\skill_getvalue(202,'lvl',$pa)];
+		return $extrahit2; 
+	}
+	
+	function calculate_weapon_wound_multiplier(&$pa, &$pd, $active, $hurtposition) 
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!\skillbase\skill_query(202,$pa) || !check_unlocked202($pa)) return $chprocess($pa, $pd, $active, $hurtposition);
-		$pa['attack_wounded_'.$hurtposition]+=get_skill202_extra_hit2($pa, $pd, $active);
-		$chprocess($pa, $pd, $active, $hurtposition);
+		return $chprocess($pa, $pd, $active, $hurtposition)*(1+get_skill202_extra_wounds($pa, $pd, $active));
 	}
 	
-	function apply_weapon_inf(&$pa, &$pd, $active)
+	function get_skill202_extra_dmgrate(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('skill202','player','logger'));
+		if (!\skillbase\skill_query(202, $pa) || !check_unlocked202($pa)) return 0;
+		if ($pa['wep_kind']!='G' && $pa['wep_kind']!='J') return 0;
+		$extd = $extrdmg[\skillbase\skill_getvalue(202,'lvl',$pa)];
+		return $extd; 
+	}
+	
+	function apply_weapon_wound_real(&$pa, &$pd, $active, $hurtposition)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($pa, $pd, $active, $hurtposition);
+		
+		if ((\skillbase\skill_query(202,$pa))&&(check_unlocked202($pa))&&($pa['wep_kind']=="G" || $pa['wep_kind']=='J'))
+		{
+			$pa['skill202_count']++;
+		}
+	}
+	
+	function strike_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		$chprocess($pa, $pd, $active);
-		
-		eval(import_module('wound','logger'));
-		$pa['skill202_count']=0;
-		if ((\skillbase\skill_query(202,$pa))&&(check_unlocked202($pa))&&($pa['wep_kind']=="G"))
+
+		if ((\skillbase\skill_query(202,$pa))&&(check_unlocked202($pa))&&($pa['wep_kind']=="G" || $pa['wep_kind']=='J'))
 		{
-			for ($i=0; $i<strlen($inf_place); $i++)
-			{
-				if (isset($pa['attack_wounded_'.$inf_place[$i]])&&$pa['attack_wounded_'.$inf_place[$i]]>0)
-				{
-					$pa['skill202_count']++;
-				}
-			}
+			$pa['skill202_count']=0;
 		}
 	}
-	
+		
 	function get_final_dmg_multiplier(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r=Array();
-		if ((\skillbase\skill_query(202,$pa))&&(check_unlocked202($pa))&&($pa['wep_kind']=="G"))
+		if ((\skillbase\skill_query(202,$pa))&&(check_unlocked202($pa))&&($pa['wep_kind']=="G" || $pa['wep_kind']=='J'))
 		{
 			$var_202=$pa['skill202_count']*get_skill202_extra_dmgrate($pa,$pd,$active);
 			eval(import_module('logger'));
@@ -157,8 +159,8 @@ namespace skill202
 				else  $log.="<span class=\"yellow\">破甲使敌人造成的最终伤害提高了{$var_202}%！</span><br>";
 				$r=Array(1+$var_202/100);
 			}	
+			unset($pa['skill202_count']);
 		}
-		unset($pa['skill202_count']);
 		return array_merge($r,$chprocess($pa,$pd,$active));
 	}
 }

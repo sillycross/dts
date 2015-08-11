@@ -40,9 +40,12 @@ namespace skill204
 	function player_kill_enemy(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ((\skillbase\skill_query(204,$pa))&&(check_unlocked204($pa))&&($pd['type']>0))
+		if ((\skillbase\skill_query(204,$pa))&&(check_unlocked204($pa)))
 		{
-			$var_204=(min(25,$pa['lvl'])*5);
+			eval(import_module('logger'));
+			$gold_r = ($pa['club']==3?2.5:1.5);
+			$var_204=round($pa['lvl']*$gold_r);
+			$log.='<span class="yellow">掠夺技能使你立即获得了'.$var_204.'元！<br></span>';
 			$pa['money']+=$var_204;
 		}
 		$chprocess($pa, $pd, $active);

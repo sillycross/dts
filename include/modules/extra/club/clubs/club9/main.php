@@ -8,10 +8,11 @@ namespace club9
 		$clubinfo[9] = '超能力者';
 		$clublist[9] = Array(
 			'type' => 0,
-			'probability' => 70, 
+			'probability' => 70000, 
 			'skills' => Array(
 				10,11,12,	
 				18,		//灵熟
+				65,
 			)
 		);
 	}

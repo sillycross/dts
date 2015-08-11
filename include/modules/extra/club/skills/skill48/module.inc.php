@@ -3,7 +3,7 @@
 namespace skill48
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase sys player weapon itemmain ex_dmg_att attrbase logger';
+	$___MODULE_dependency = 'skillbase sys player weapon itemmain ex_dmg_att attrbase logger clubbase';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';
