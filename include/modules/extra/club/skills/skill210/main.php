@@ -90,7 +90,7 @@ namespace skill210
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r=Array();
 		eval(import_module('logger','skill210'));
-		if ((\skillbase\skill_query(210,$pa))&&(check_skill210_state($pa)==1)&&(rand(0,99)<100)) 
+		if ((\skillbase\skill_query(210,$pa))&&(check_skill210_state($pa)==1)&&(rand(0,99)<20)&&($pa['wepk'][1]=='K')) 
 		{
 			if ($active)
 				$log.='<span class="red">暴击！</span><span class="yellow">「歼灭」使你造成的物理伤害提高了20%！</span><br>';
@@ -102,7 +102,7 @@ namespace skill210
 	
 	function get_basic_ex_dmg(&$pa,&$pd,$active,$key){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(210,$pa) || !(check_skill210_state($pa)==1)) return $chprocess($pa, $pd, $active,$key);
+		if (!\skillbase\skill_query(210,$pa) || !(check_skill210_state($pa)==1) ||!($pa['wepk'][1]=='K')) return $chprocess($pa, $pd, $active,$key);
 		$damage = $ex_base_dmg[$key]+$pa['wepe']/$ex_wep_dmg[$key]+$pa['fin_skill']/$ex_skill_dmg[$key];
 		eval(import_module('ex_dmg_att'));
 		return $chprocess($pa, $pd, $active)+$pa['att']/$ex_wep_dmg[$key];
