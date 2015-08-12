@@ -1,0 +1,21 @@
+<!--{eval eval(import_module('skill71'));}-->
+<!--{eval $ragecost = \skill71\get_rage_cost71();}-->
+<!--{eval $___TEMP_SKILL_ID=71;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+解构
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<!--{eval $sk71_coef=($club==18?0.15:0.3);}-->
+<span class="yellow">战斗技</span>&nbsp;&nbsp;本次攻击物理伤害<span class="yellow">+20%</span>；如果成功击杀敌人，<br>你额外获得<span class="lime">(敌人等级-<span>$sk71_coef</span>×你的等级)</span>点经验；消耗<span class="yellow">$ragecost</span>点怒气
+</span></td>
+<td class=b3 width=46>
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+3级时解锁
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

@@ -91,7 +91,7 @@ namespace skill201
 		if (!\skillbase\skill_query(201, $pa) || !check_unlocked201($pa)) return 1;
 		if ($pa['wep_kind']!='G') return 1;
 		$rbgainrate = $rbgain[\skillbase\skill_getvalue(201,'lvl',$pa)];
-		return 1-($rbgainrate)/100;
+		return 1+($rbgainrate)/100;
 	}
 	
 	function get_rapid_accuracy_loss(&$pa, &$pd, $active)

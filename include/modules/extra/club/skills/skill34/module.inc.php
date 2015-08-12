@@ -3,7 +3,7 @@
 namespace skill34
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase player ex_phy_def ex_dmg_def itemmain attrbase logger input';
+	$___MODULE_dependency = 'skillbase player ex_phy_def ex_dmg_def itemmain attrbase logger clubbase input';
 	$___MODULE_dependency_optional = 'skill32 skill35';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

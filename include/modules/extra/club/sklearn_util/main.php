@@ -28,7 +28,7 @@ namespace sklearn_util
 		for ($i=1; $i<=4; $i++) 
 		{
 			if ($is_show_cost)
-				echo '<td class="b1" width="40px">技能</td><td class="b1" width="20px">消耗</td><td class="b1" width="80px">操作</td>';
+				echo '<td class="b1" width="40px">技能</td><td class="b1" width="20px">费</td><td class="b1" width="80px">操作</td>';
 			else  echo '<td class="b1" width="60px">技能</td><td class="b1" width="80px">操作</td>';
 		}
 		echo '</tr>';

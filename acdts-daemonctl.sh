@@ -14,12 +14,12 @@ luanch_new_daemon()
 	for ((;1;))
 	do
 		#大概是这样的…… 
-		#-t 1 设置失败不重试 dns解析时限15秒，connect时限5秒
+		#-t 1 设置失败不重试 dns解析时限30秒，connect时限5秒
 		#这样如果没成功发出http请求，wget会在timeout的25秒时限内退出并返回非0值
 		#如果command.php执行正常，会一直不返回，这样wget就会被timeout杀掉返回124
 		#如果command.php出bug了，wget会正常返回0
 		#这样就可以根据返回值判定是哪种情况了……
-		timeout 25 wget -q -t 1 --dns-timeout=15 --connect-timeout=5 ${sv}/command.php --post-data="conn_passwd=${pw}&command=start${extr}" -O /dev/null
+		timeout 40 wget -q -t 1 --dns-timeout=30 --connect-timeout=5 ${sv}/command.php --post-data="conn_passwd=${pw}&command=start${extr}" -O /dev/null
 		local retv=$?
 		if [ $retv -eq 124 ]; then	#正常启动
 			#echo 'seems like a success'

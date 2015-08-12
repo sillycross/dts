@@ -45,6 +45,14 @@ namespace blessstone
 		eval(import_module('sys','player','itemmain','logger','input'));
 		
 		$itmn = (int)$itmn;
+		$itmp = (int)$itmp;
+		
+		if ( $itmp < 1 || $itmp > 6 ) {
+			$log .= '此道具不存在，请重新选择。';
+			$mode = 'command';
+			return;
+		}
+		
 		$gem = & ${'itm'.$itmp};
 		$geme = & ${'itme'.$itmp};
 		$gems = & ${'itms'.$itmp};
