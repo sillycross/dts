@@ -11,6 +11,7 @@ logger,base/logger/,1
 skillbase,base/skillbase/,1
 replay,extra/misc/replay/,1
 elorating,extra/misc/elorating/,1
+achievement_base,extra/achievement/achievement_base/,1
 explore,base/explore/,1
 noise,base/noise/,1
 lvlctl,base/lvlctl/,1
@@ -44,6 +45,7 @@ itemmix_sync,base/itemmix/itemmix_sync/,1
 itemmix_overlay,base/itemmix/itemmix_overlay/,1
 skill20,extra/club/skills/skill20/,1
 skill69,extra/club/skills/skill69/,1
+skill300,extra/achievement/skills/skill300/,1
 attrbase,extra/attr/attrbase/,1
 cooldown,base/cooldown/,1
 enemy,base/enemy/,1
@@ -117,6 +119,7 @@ skill203,extra/club/skills/skill203/,1
 skill66,extra/club/skills/skill66/,1
 skill70,extra/club/skills/skill70/,1
 skill71,extra/club/skills/skill71/,1
+skill74,extra/club/skills/skill74/,1
 skill53,extra/club/skills/skill53/,1
 skill55,extra/club/skills/skill55/,1
 skill72,extra/club/skills/skill72/,1
@@ -138,6 +141,7 @@ item_uc,base/items/item_uc/,1
 skill12,extra/club/skills/skill12/,1
 skill28,extra/club/skills/skill28/,1
 skill37,extra/club/skills/skill37/,1
+skill73,extra/club/skills/skill73/,1
 skill36,extra/club/skills/skill36/,1
 skill38,extra/club/skills/skill38/,1
 dualwep,base/weapon/dualwep/,1

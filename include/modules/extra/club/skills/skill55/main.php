@@ -3,7 +3,7 @@
 namespace skill55
 {
 	//变更技能需要的金钱
-	$skill55_need = 150;
+	$skill55_need = 50;
 	
 	function init() 
 	{

@@ -12,7 +12,7 @@ namespace club9
 			'skills' => Array(
 				10,11,12,	
 				18,		//灵熟
-				65,
+				65,73,74,
 			)
 		);
 	}
