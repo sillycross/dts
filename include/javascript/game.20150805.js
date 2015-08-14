@@ -940,3 +940,63 @@ function hide_fixed_div(t)
 		$(t).style.display='none';
 	}
 }
+
+////////////////////////////////////////////////////////////////////////
+////////////////////////////buff图标相关/////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
+function BuffIconSecTimer()
+{
+	var x=jQuery(".bufficon_style_1");
+	for (var i=0; i<x.length; i++)
+	{
+		var a=x[i];
+		var t=parseInt(a.firstElementChild.innerHTML);
+		var nt=parseInt(a.firstElementChild.nextElementSibling.innerHTML);
+		var od=parseInt(a.firstElementChild.nextElementSibling.nextElementSibling.innerHTML);
+		nt++;
+		if (nt>=t)
+		{
+			nt=t;
+			if (od==1)
+			{
+				a.style.display="none";
+				continue;
+			}
+		}
+		a.firstElementChild.nextElementSibling.innerHTML=nt;
+		var wh=Math.round(nt/t*32);
+		var z=a.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling;
+		z.nextElementSibling.firstElementChild.firstElementChild.nextElementSibling.firstElementChild.nextElementSibling.innerHTML=Number(t-nt).toString();;
+		z.style.top=(Number(wh).toString())+'px';
+		z.firstElementChild.style.top=(Number(-wh).toString())+'px';
+		delete a; delete t; delete nt; delete od; delete wh; delete z;
+	}
+	var x=jQuery(".bufficon_style_2");
+	for (var i=0; i<x.length; i++)
+	{
+		var a=x[i];
+		var t=parseInt(a.firstElementChild.innerHTML);
+		var nt=parseInt(a.firstElementChild.nextElementSibling.innerHTML);
+		if (nt<=t)
+		{
+			nt++;
+			if (nt>t)
+			{
+				a.firstElementChild.nextElementSibling.nextElementSibling.firstElementChild.style.display='block';
+				a.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.style.display='none';
+			}
+		}
+		a.firstElementChild.nextElementSibling.innerHTML=nt;
+		if (nt>t) nt=t;
+		var wh=Math.round(nt/t*32);
+		var z=a.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.nextElementSibling;
+		console.debug(z);
+		z.nextElementSibling.nextElementSibling.firstElementChild.firstElementChild.nextElementSibling.firstElementChild.nextElementSibling.innerHTML=Number(t-nt).toString();;
+		z.style.height=(Number(wh).toString())+'px';
+		delete a; delete t; delete nt; delete od; delete wh; delete z;
+	}
+	delete x; 
+}
+
+setInterval("BuffIconSecTimer()",1000);

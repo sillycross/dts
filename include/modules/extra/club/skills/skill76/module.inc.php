@@ -1,6 +1,6 @@
 <?php
 
-namespace skill210
+namespace skill76
 {
 	////////// MODULE HEADER START ///////////////
 	$___MODULE_dependency = 'skillbase player weapon sys logger attack ex_dmg_att bufficons';

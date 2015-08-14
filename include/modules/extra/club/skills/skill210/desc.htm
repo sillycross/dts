@@ -6,21 +6,25 @@
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
-<!--{eval $skill210_lst = (int)\skillbase\skill_getvalue(210,'lastuse'); $skill210_time = ($now-$skill210_lst);$skill210_cd=(1440-$skill210_time);$skill210_rem=(240-$skill210_time);}-->
-<span class="L5">流浪剑客这下牛逼了</span><br>
-<!--{if $skill210_time>1440}-->
-使用斩系武器时，获得以下效果：命中率提高<span class="L5">10000%</span>；20%概率造成<span class="red">200%</span>物理伤害；基础攻击力会加成属性伤害；<br>
-持续<span class="clan">240</span>秒，冷却<span class="clan">1200</span>秒。
-<!--{elseif $skill210_time>240}-->
-<span class="grey">使用斩系武器时，获得以下效果：命中率提高10000%；20%概率造成200%物理伤害；基础攻击力会加成属性伤害；</span><br>
-冷却时间还剩<span class="clan">$skill210_cd</span>秒。<br>
+<!--{eval $skill210_lst = (int)\skillbase\skill_getvalue(210,'lastuse'); $skill210_time = ($now-$skill210_lst);$skill210_cd_left=($skill210_cd+$skill210_act_time-$skill210_time);$skill210_rem=($skill210_act_time-$skill210_time);}-->
+发动后获得增益效果：<br>
+<!--{if $club==2}-->
+你持斩系武器时，敌方对你的攻击的命中率将降低<span class="yellow">25%</span>，<br>
+你的攻击有<span class="yellow">12%</span>概率造成<span class="red">200%</span>物理伤害；<br>
 <!--{else}-->
-使用斩系武器时，获得以下效果：命中率提高<span class="L5">10000%</span>；20%概率造成<span class="red">200%</span>物理伤害；基础攻击力会加成属性伤害；<br>
-<span class="yellow">技能发动中！持续时间还剩<span class="clan">$skill210_rem</span>秒。</span><br>
+你持斩系武器时，你的攻击有<span class="yellow">12%</span>概率造成<span class="red">140%</span>物理伤害；<br>
+<!--{/if}-->
+增益效果持续时间<span class="yellow">$skill210_act_time</span>秒，冷却时间<span class="clan">$skill210_cd</span>秒。<br>
+<!--{if $skill210_time>$skill210_act_time && $skill210_time<$skill210_cd+$skill210_act_time}-->
+<span class="clan">技能冷却中，冷却时间还剩<span>$skill210_cd_left</span>秒。</span><br>
+<!--{else}-->
+<!--{if $skill210_time<=$skill210_act_time}-->
+<span class="yellow">技能发动中！持续时间还剩<span>$skill210_rem</span>秒。</span><br>
+<!--{/if}-->
 <!--{/if}-->
 </span></td>
 <td class=b3 width=46>
-<!--{if $skill210_time>1440}-->
+<!--{if $skill210_time>$skill210_cd+$skill210_act_time}-->
 <input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill210_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="发动">
 <!--{else}-->
 <input type="button" style="width:46px" disabled="true" value="发动">
@@ -29,7 +33,7 @@
 {template MOD_CLUBBASE_SKILLDESC_MID2}
 <!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
 <span class="yellow">
-20级时解锁
+21级时解锁
 </span>
 <!--{/if}-->
 {template MOD_CLUBBASE_SKILLDESC_END}

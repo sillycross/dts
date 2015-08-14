@@ -12,6 +12,7 @@ skillbase,base/skillbase/,1
 replay,extra/misc/replay/,1
 elorating,extra/misc/elorating/,1
 achievement_base,extra/achievement/achievement_base/,1
+bufficons,extra/misc/bufficons/,1
 explore,base/explore/,1
 noise,base/noise/,1
 lvlctl,base/lvlctl/,1
@@ -116,7 +117,6 @@ skill62,extra/club/skills/skill62/,1
 skill63,extra/club/skills/skill63/,1
 skill64,extra/club/skills/skill64/,1
 skill203,extra/club/skills/skill203/,1
-skill207,extra/club/skills/skill207/,1
 skill209,extra/club/skills/skill209/,1
 skill66,extra/club/skills/skill66/,1
 skill70,extra/club/skills/skill70/,1
@@ -156,6 +156,7 @@ skill32,extra/club/skills/skill32/,1
 skill202,extra/club/skills/skill202/,1
 pose,base/pose/,1
 skill1,base/skills/skill1/,1
+skill207,extra/club/skills/skill207/,1
 skill65,extra/club/skills/skill65/,1
 skill49,extra/club/skills/skill49/,1
 skill201,extra/club/skills/skill201/,1
@@ -168,6 +169,8 @@ skill47,extra/club/skills/skill47/,1
 skill48,extra/club/skills/skill48/,1
 skill54,extra/club/skills/skill54/,1
 skill205,extra/club/skills/skill205/,1
+skill75,extra/club/skills/skill75/,1
+skill76,extra/club/skills/skill76/,1
 ex_phy_nullify,extra/attr/ex_phy_nullify/,1
 wepchange,extra/attr/wepchange/,1
 blessstone,extra/attr/blessstone/,1

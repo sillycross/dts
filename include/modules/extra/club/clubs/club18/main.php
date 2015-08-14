@@ -8,7 +8,7 @@ namespace club18
 		$clubinfo[18] = '天赋异秉';
 		$clublist[18] = Array(
 			'type' => 1,
-			'probability' => 10000, 
+			'probability' => 100, 
 			'skills' => Array(
 				10,11,12,
 				70,

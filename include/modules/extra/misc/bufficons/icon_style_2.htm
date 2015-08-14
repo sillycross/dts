@@ -1,0 +1,75 @@
+<td>
+<div class="bufficon_style_2" style="position:relative; height:32px; width:32px; margin-right:1px;">
+<span style="display:none">$para['totsec']</span>
+<span style="display:none">$para['nowsec']</span>
+<div>
+<div style="position:absolute; display:none;">
+<div style="position:absolute;">
+<img src="$src" style="cursor:pointer;" 
+	onmouseover="
+	   this.parentNode.parentNode.nextElementSibling.style.top
+	=  Number(jQuery(this).offset().top-jQuery(window).scrollTop()+35).toString()+'px';
+	   this.parentNode.parentNode.nextElementSibling.style.left
+	=  Number(jQuery(this).offset().left-jQuery(window).scrollLeft()).toString()+'px';
+	   this.parentNode.parentNode.nextElementSibling.style.display='block';"
+	onmouseout="this.parentNode.parentNode.nextElementSibling.style.display='none';"
+	<!--{if $para['clickable']}-->
+	onclick="$para['onclick']"
+	<!--{/if}-->
+>
+</div>
+<!--{if !$para['clickable']}-->
+<div style="position:absolute; filter:alpha(opacity=60); opacity:0.6; ">
+<img src="img/bufficon-cover.png" 
+	onmouseover="
+	   this.parentNode.parentNode.nextElementSibling.style.top
+	=  Number(jQuery(this).offset().top-jQuery(window).scrollTop()+35).toString()+'px';
+	   this.parentNode.parentNode.nextElementSibling.style.left
+	=  Number(jQuery(this).offset().left-jQuery(window).scrollLeft()).toString()+'px';
+	   this.parentNode.parentNode.nextElementSibling.style.display='block';"
+	onmouseout="this.parentNode.parentNode.nextElementSibling.style.display='none';"
+>
+</div>
+<!--{else}-->
+<div style="position:absolute;"></div>
+<!--{/if}-->
+</div>
+<div class="b3" style="position:fixed; z-index:10; display:none; text-align:left;">
+<div style="filter:alpha(opacity=95); opacity:0.95; background-color:#000000">
+<span style="height:5px; display:block;">&nbsp;</span>
+<span style="display:block; margin-left:5px; margin-right:5px;">
+$para['activate_hint']
+</span>
+<span style="height:5px; display:block;">&nbsp;</span>
+</div>
+</div>
+</div>
+<div>
+<div style="position:absolute; filter:alpha(opacity=50); opacity:0.5; ">
+<img src="$src">
+</div>
+<div style="position:absolute; height:$wh; overflow:hidden;">
+<img src="$src">
+</div>
+<div style="position:absolute; filter:alpha(opacity=60); opacity:0.6; ">
+<img src="img/bufficon-cover.png" 
+	onmouseover="
+	   this.parentNode.nextElementSibling.style.top
+	=  Number(jQuery(this).offset().top-jQuery(window).scrollTop()+35).toString()+'px';
+	   this.parentNode.nextElementSibling.style.left
+	=  Number(jQuery(this).offset().left-jQuery(window).scrollLeft()).toString()+'px';
+	   this.parentNode.nextElementSibling.style.display='block';"
+	onmouseout="this.parentNode.nextElementSibling.style.display='none';">
+</div>
+<div class="b3" style="position:fixed; z-index:10; display:none; text-align:left;">
+<div style="filter:alpha(opacity=95); opacity:0.95; background-color:#000000">
+<span style="height:5px; display:block;">&nbsp;</span>
+<span style="display:block; margin-left:5px; margin-right:5px;">
+<span>冷却时间还剩</span><span>$para['lsec']</span>秒
+</span>
+<span style="height:5px; display:block;">&nbsp;</span>
+</div>
+</div>
+</div>
+</div>
+</td>

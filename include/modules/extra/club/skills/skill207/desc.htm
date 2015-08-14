@@ -10,7 +10,9 @@
 <!--{eval $totlv = count($upgradecost)-1; }-->
 <span class="lime">当前级别$clv/$totlv</span>&nbsp;
 <!--{if $upgradecost[$clv] !== -1}-->消耗<span class="lime">$upgradecost[$clv]</span>点技能点升至下一级<!--{/if}--><br>
-持斩系武器时，你的回避率将提高<span class="yellow">$evagain[$clv]%</span>，基础伤害浮动提高<span class="yellow">$flucgain[$clv]%</span>，判定反击时有<span class="yellow">$rangerate[$clv]%</span>概率无视射程。（然并卵，你还是不能反击爆系）<br><!--{if $upgradecost[$clv] == -1}--><span class="clan"><!--{else}--><span class="grey">技能到达满级时，<!--{/if}-->你的反击率提高40%。</span><br>
+持斩系武器时，你的命中率<span class="yellow">+$accgain[$clv]%</span>，连击命中率惩罚降低<span class="yellow">$rbgain[$clv]%</span>，<br>
+武器伤害浮动范围<span class="yellow">+$flucgain[$clv]%</span>，有<span class="yellow">$rangerate[$clv]%</span>概率允许超射程反击(爆系除外)<br>
+<!--{if $upgradecost[$clv] == -1}--><span class="clan"><!--{else}--><span>当技能到达满级时，<!--{/if}-->你的反击率将提高30%</span><br>
 </span></td>
 <td class=b3 width=46>
 <!--{if $upgradecost[$clv] !== -1}-->

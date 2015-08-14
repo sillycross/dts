@@ -25,7 +25,7 @@ namespace skill208
 	function check_unlocked208(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return $pa['lvl']>=10;
+		return $pa['lvl']>=11;
 	}
 	
 	function skill_onload_event(&$pa)
@@ -82,18 +82,11 @@ namespace skill208
 		$chprocess($pa, $pd, $active);
 	}	
 	
-	function get_ex_phy_def_proc_rate(&$pa, &$pd, $active)
+	function check_physical_def_attr(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($pa['bskill']!=208) return $chprocess($pa, $pd, $active);
-		return 0;
-	}
-	
-	function get_ex_dmg_def_proc_rate(&$pa, &$pd, $active, $key)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill']!=208) return $chprocess($pa, $pd, $active);
-		return 0;
+		return Array();
 	}
 	
 	function get_final_dmg_multiplier(&$pa, &$pd, $active)
@@ -104,9 +97,9 @@ namespace skill208
 		{
 			eval(import_module('logger'));
 			if ($active)
-				$log.='<span class="yellow">「强袭」使你造成的最终伤害提高了35%！</span><br>';
-			else  $log.='<span class="yellow">「强袭」使敌人造成的最终伤害提高了35%！</span><br>';
-			$r=Array(1.35);
+				$log.='<span class="yellow">「强袭」使你造成的最终伤害提高了40%！</span><br>';
+			else  $log.='<span class="yellow">「强袭」使敌人造成的最终伤害提高了40%！</span><br>';
+			$r=Array(1.4);
 		}
 		return array_merge($r,$chprocess($pa,$pd,$active));
 	}

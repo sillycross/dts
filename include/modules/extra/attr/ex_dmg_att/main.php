@@ -22,8 +22,10 @@ namespace ex_dmg_att
 	}
 	
 	//计算单个属性伤害
-	function get_basic_ex_dmg(&$pa,&$pd,$active,$key){
+	function get_basic_ex_dmg(&$pa,&$pd,$active,$key)
+	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('ex_dmg_att'));
 		$damage = $ex_base_dmg[$key]+$pa['wepe']/$ex_wep_dmg[$key]+$pa['fin_skill']/$ex_skill_dmg[$key];
 		return $damage;
 	}

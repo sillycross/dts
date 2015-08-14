@@ -16,8 +16,8 @@
 					<td colspan="1" class="b1"><span>{lang gamedate}<!--{if $gamestate == 40 }--><span class="yellow">{lang combo}</span><!--{/if}--><!--{if $gamestate == 50 }--><span class="red">{lang duel}</span><!--{/if}--></span></td>
 				</tr>
 				<tr>
-					<td colspan="2" valign="top" height=180>
-						<table border="0" width=156 height=180 cellspacing="0" cellpadding="0" valign="middle" >
+					<td colspan="2" valign="top" height=192>
+						<table border="0" width=156 height=192 cellspacing="0" cellpadding="0" valign="middle" >
 							<tr>
 								<td width="73"></td><td width="82"></td>
 							</tr>
@@ -47,12 +47,15 @@
 								<!--{/if}-->
 							</tr>
 							<tr>
-								<td class="b2" height="20">■■：</td>
-								<td class="b3" height="20">■■。</td>
+								<!--{if defined('MOD_BUFFICONS')}-->
+								{template MOD_BUFFICONS_PROFILE}
+								<!--{else}-->
+								<td colspan=2 height=32></td>
+								<!--{/if}-->
 							</tr>
 						</table>
 					</td>
-					<td colspan="2" valign="top" height=180>
+					<td colspan="2" valign="top" height=192>
 						<table border="0" width="196" height=180 cellspacing="0" cellpadding="0"  valign="middle" >
 							<tr>
 								<td width="72"></td><td width="123">
@@ -96,13 +99,13 @@
 								<td class="b3" height="20"><span><span class="<!--{if $hp <= $mhp*0.2}-->red<!--{elseif $hp <= $mhp*0.5}-->yellow<!--{else}-->clan<!--{/if}-->">$hp / $mhp</span></span></td>
 							</tr>
 							<tr>
-								<td class="b2" height="20"><span>{lang ss}</span></td>
-								<td class="b3" height="20"><span class="<!--{if $ss <= $mss*0.2}-->red<!--{elseif $ss <= $mss*0.5}-->yellow<!--{else}-->clan<!--{/if}-->">$ss / $mss</span></td>
+								<td class="b2" height="32"><span>{lang ss}</span></td>
+								<td class="b3" height="32"><span class="<!--{if $ss <= $mss*0.2}-->red<!--{elseif $ss <= $mss*0.5}-->yellow<!--{else}-->clan<!--{/if}-->">$ss / $mss</span></td>
 							</tr>
 						</table>
 					</td>
-					<td colspan="2" valign="top" height=180>
-						<table border="0" width="144" height=180 cellspacing="0" cellpadding="0"  valign="middle" >
+					<td colspan="2" valign="top" height=192>
+						<table border="0" width="144" height=192 cellspacing="0" cellpadding="0"  valign="middle" >
 							<tr>
 								<td width="61"></td><td width="82"></td>
 							</tr>
@@ -118,13 +121,13 @@
 								<td class="b3" height="20"><!--{if $skillpoint>0}--><span class="lime">$skillpoint<!--{else}-->$skillpoint<!--{/if}--></span></td>
 							</tr>
 							<tr>
-								<td class="b2" height="20"><span>{lang killnum}</span></td>
-								<td class="b3" height="20"><span>$killnum</span></td>
+								<td class="b2" height="32"><span>{lang killnum}</span></td>
+								<td class="b3" height="32"><span>$killnum</span></td>
 							</tr>
 						</table>
 					</td>
-					<td colspan="1" valign="top" height=180>
-						<table border="0" width="221" height=180 cellspacing="0" cellpadding="0"  valign="middle" >
+					<td colspan="1" valign="top" height=192>
+						<table border="0" width="221" height=192 cellspacing="0" cellpadding="0"  valign="middle" >
 							<tr>
 								<td width="221"></td>
 							</tr>

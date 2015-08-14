@@ -37,14 +37,12 @@ namespace skill209
 		$chprocess($pa);
 	}
 		
-	function get_1st_dmg_factor_l(&$pa,&$pd,$active,$basefluc){
+	function get_weapon_fluc_percentage(&$pa, &$pd, $active)
+	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ((\skillbase\skill_query(209,$pa))&&(check_unlocked209($pa))&&($pa['wepk'][1]=="K")){
-			eval(import_module('logger'));
-			$log.="<span class=\"lime\">「舞钢」使你的斩击更加致命！</span><br>";
-			return 0;
-		}
-		$chprocess($pa, $pd, $active);
+		if ((\skillbase\skill_query(209,$pa))&&(check_unlocked209($pa))&&($pa['wep_kind']=='K'))
+			return abs($chprocess($pa, $pd, $active));
+		else  return $chprocess($pa, $pd, $active);
 	}
 }
 

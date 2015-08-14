@@ -2,14 +2,15 @@
 
 namespace skill207
 {
-	//回避率提高
-	$evagain = Array(0,3,6,9,12,16,20);
+	//命中率提高
+	$accgain = Array(0,2,4,6,8,11,14);
+	$rbgain = Array(0,2,4,6,8,10,12);
 	//浮动变化
 	$flucgain = Array(0,5,10,15,20,25,30);
 	//无视射程概率
 	$rangerate = Array(0,20,40,60,80,100,100);
 	//升级所需技能点数值
-	$upgradecost = Array(3,3,3,4,4,5,-1);
+	$upgradecost = Array(3,3,4,4,4,5,-1);
 	
 	function init() 
 	{
@@ -72,14 +73,38 @@ namespace skill207
 		$log.='升级成功。<br>';
 	}
 	
-	function get_skill207_evasion_bonus(&$pa, &$pd, $active)
+	function get_skill207_extra_acc_gain(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill207','player','logger'));
-		if (!\skillbase\skill_query(207, $pd) || !check_unlocked207($pd)) return 1;
-		if ($pd['wep_kind']!='K') return 1;
-		$eva = $evagain[\skillbase\skill_getvalue(207,'lvl',$pd)];
-		return 1-$eva/100;
+		if (!\skillbase\skill_query(207, $pa) || !check_unlocked207($pa)) return 1;
+		if ($pa['wep_kind']!='K') return 1;
+		$accgainrate = $accgain[\skillbase\skill_getvalue(207,'lvl',$pa)];
+		return 1+($accgainrate)/100;
+	}
+	
+	function get_skill207_extra_rb_gain(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('skill207','player','logger'));
+		if (!\skillbase\skill_query(207, $pa) || !check_unlocked207($pa)) return 1;
+		if ($pa['wep_kind']!='K') return 1;
+		$rbgainrate = $rbgain[\skillbase\skill_getvalue(207,'lvl',$pa)];
+		return 1+($rbgainrate)/100;
+	}
+	
+	function get_rapid_accuracy_loss(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (!\skillbase\skill_query(207,$pa) || !check_unlocked207($pa)) return $chprocess($pa, $pd, $active);
+		return $chprocess($pa, $pd, $active)*get_skill207_extra_rb_gain($pa, $pd, $active);
+	}
+	
+	function get_hitrate(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (!\skillbase\skill_query(207,$pa) || !check_unlocked207($pa)) return $chprocess($pa, $pd, $active);
+		return $chprocess($pa, $pd, $active)*get_skill207_extra_acc_gain($pa, $pd, $active);
 	}
 	
 	function get_skill207_fluc_bonus(&$pa, &$pd, $active)
@@ -102,30 +127,19 @@ namespace skill207
 		return $ra;
 	}
 	
-	function get_hitrate(&$pa,&$pd,$active)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(207,$pd) || !check_unlocked207($pd)) return $chprocess($pa, $pd, $active);
-		return $chprocess($pa, $pd, $active)*get_skill207_evasion_bonus($pa, $pd, $active);
-	}
-	
-	function get_1st_dmg_factor_l(&$pa,&$pd,$active,$basefluc){
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(207,$pa) || !check_unlocked207($pa)) return $chprocess($pa, $pd, $active);
-		return $chprocess($pa, $pd, $active,$basefluc)*get_skill207_fluc_bonus($pa, $pd, $active);
-	}
-	
-	function get_1st_dmg_factor_h(&$pa,&$pd,$active,$basefluc){
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(207,$pa) || !check_unlocked207($pa)) return $chprocess($pa, $pd, $active);
-		return $chprocess($pa, $pd, $active,$basefluc)*get_skill207_fluc_bonus($pa, $pd, $active);
-	}
-	
-	function get_weapon_range_counterer(&$pa, $active)
+	function get_weapon_fluc_max_range(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!\skillbase\skill_query(207,$pa) || !check_unlocked207($pa)) return $chprocess($pa, $pd, $active);
-		if (rand(0,99)<get_skill207_rangerate($pa, $active)) return 233333+$chprocess($pa, $pd, $active);
+		return $chprocess($pa, $pd, $active)*get_skill207_fluc_bonus($pa, $pd, $active);
+	}
+	
+	function check_counterable_by_weapon_range(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (!\skillbase\skill_query(207,$pa) || !check_unlocked207($pa)) return $chprocess($pa, $pd, $active);
+		if (rand(0,99)<get_skill207_rangerate($pa, $active) && \weapon\get_weapon_range($pd, 1-$active)!=0) 
+			return 1;
 		return $chprocess($pa, $pd, $active);
 	}
 	
@@ -137,7 +151,7 @@ namespace skill207
 		eval(import_module('skill207'));
 		$clv = (int)\skillbase\skill_getvalue(207,'lvl');
 		$r=1;
-		if ($clv>=6) $r=1.4;
+		if ($clv>=6) $r=1.3;
 		return $chprocess($pa, $pd, $active)*$r;
 	}
 }
