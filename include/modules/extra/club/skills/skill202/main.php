@@ -124,7 +124,6 @@ namespace skill202
 	function apply_weapon_wound_real(&$pa, &$pd, $active, $hurtposition)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
 		$chprocess($pa, $pd, $active, $hurtposition);
 		
 		if ((\skillbase\skill_query(202,$pa))&&(check_unlocked202($pa))&&($pa['wep_kind']=="G" || $pa['wep_kind']=='J'))
@@ -138,7 +137,7 @@ namespace skill202
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		$chprocess($pa, $pd, $active);
-		
+
 		if ((\skillbase\skill_query(202,$pa))&&(check_unlocked202($pa))&&($pa['wep_kind']=="G" || $pa['wep_kind']=='J'))
 		{
 			$pa['skill202_count']=0;
