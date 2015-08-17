@@ -25,7 +25,7 @@ namespace skill208
 	function check_unlocked208(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return $pa['lvl']>=11;
+		return $pa['lvl']>=15;
 	}
 	
 	function skill_onload_event(&$pa)
@@ -87,6 +87,13 @@ namespace skill208
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($pa['bskill']!=208) return $chprocess($pa, $pd, $active);
 		return Array();
+	}
+	
+	function check_ex_single_dmg_def_attr(&$pa, &$pd, $active, $key)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if ($pa['bskill']!=208) return $chprocess($pa, $pd, $active,$key);
+		return 1;
 	}
 	
 	function get_final_dmg_multiplier(&$pa, &$pd, $active)

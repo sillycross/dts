@@ -2,8 +2,8 @@
 
 namespace skill210
 {
-	$skill210_cd = 360;
-	$skill210_act_time = 240;
+	$skill210_cd = 600;
+	$skill210_act_time = 60;
 	
 	function init() 
 	{
@@ -88,11 +88,21 @@ namespace skill210
 		return 3;
 	}
 	
-	function get_hitrate(&$pa,&$pd,$active)
+	/*function get_hitrate(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!\skillbase\skill_query(210,$pd) || !(check_skill210_state($pd)==1) || $pd['club']!=2 || $pd['wepk']!='WK') return $chprocess($pa, $pd, $active);
 		return $chprocess($pa, $pd, $active)*0.75;
+	}*/
+	
+	function get_basic_ex_dmg(&$pa,&$pd,$active,$key)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (!\skillbase\skill_query(210,$pa) || !(check_skill210_state($pa)==1) || $pa['wepk']!='WK') return $chprocess($pa, $pd, $active,$key);
+		eval(import_module('ex_dmg_att'));
+		$var_210=$pa['att']/$ex_wep_dmg[$key];
+		if ($pa['club']!=2) $var_210=$var_210/2;
+		return $var_210+$chprocess($pa,$pd,$active,$key);
 	}
 	
 	function get_physical_dmg_multiplier(&$pa, &$pd, $active)
@@ -100,12 +110,28 @@ namespace skill210
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r=Array();
 		eval(import_module('logger','skill210'));
-		if ((\skillbase\skill_query(210,$pa))&&(check_skill210_state($pa)==1)&&(rand(0,99)<12)&&($pa['wep_kind']=='K')) 
+		if ((\skillbase\skill_query(210,$pa))&&(check_skill210_state($pa)==1)&&(rand(0,99)<15)&&($pa['wep_kind']=='K')&&($pa['club']!=2)) 
 		{
-			$z=($pa['club']==2?2:1.4);
+			$z=1.5;
 			if ($active)
 				$log.='<span class="red">暴击！</span><span class="lime">「歼灭」使你造成了'.$z.'倍物理伤害！</span><br>';
 			else  $log.='<span class="red">暴击！</span><span class="lime">「歼灭」使敌人造成了'.$z.'倍物理伤害！</span><br>';
+			$r=Array($z);
+		}
+		return array_merge($r,$chprocess($pa,$pd,$active));
+	}
+	
+	function get_final_dmg_multiplier(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$r=Array();
+		eval(import_module('logger','skill210'));
+		if ((\skillbase\skill_query(210,$pa))&&(check_skill210_state($pa)==1)&&(rand(0,99)<20)&&($pa['wep_kind']=='K')&&($pa['club']==2)) 
+		{
+			$z=1.5;
+			if ($active)
+				$log.='<span class="red">暴击！</span><span class="lime">「歼灭」使你造成了'.$z.'倍最终伤害！</span><br>';
+			else  $log.='<span class="red">暴击！</span><span class="lime">「歼灭」使敌人造成了'.$z.'倍最终伤害！</span><br>';
 			$r=Array($z);
 		}
 		return array_merge($r,$chprocess($pa,$pd,$active));
