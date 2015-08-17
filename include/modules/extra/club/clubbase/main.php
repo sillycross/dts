@@ -145,7 +145,7 @@ namespace clubbase
 			return;
 		}
 		
-		if ($mode == 'special' && substr($command,0,5) == 'skill' && substr($command,-8)=='_special' && $subcmd=='upgrade') 
+		if ($mode == 'special' && substr($command,0,5) == 'skill' && substr($command,-8)=='_special' && ($subcmd=='upgrade' || $subcmd=='upgrade2')) 
 		{
 			$id=substr($command,5,-8); $id=(int)$id;
 			if (defined('MOD_SKILL'.$id.'_INFO') && strpos(constant('MOD_SKILL'.$id.'_INFO'),'upgrade;')!==false && \skillbase\skill_query($id))
@@ -157,7 +157,9 @@ namespace clubbase
 			{
 				$log.='你不能发动这个技能。<br>';
 			}
-			$mode = MOD_CLUBBASE_SKILLPAGE;
+			if ($subcmd=='upgrade2')
+				$mode = 'command';
+			else  $mode = MOD_CLUBBASE_SKILLPAGE;
 			return;
 		}
 			
@@ -173,7 +175,7 @@ namespace clubbase
 		return $func($sdata);
 	}
 	
-	function get_battle_skill_entry($which)
+	function get_battle_skill_entry(&$edata,$which)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($which==3) $zflag = 1; else $zflag = 0;

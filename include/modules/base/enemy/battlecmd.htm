@@ -15,14 +15,14 @@
 <!--{if (defined('MOD_WEAPON'))}-->
 {template MOD_WEAPON_ATT_METHOD}
 <!--{/if}-->
-<!--{eval \clubbase\get_battle_skill_entry(3);}-->
+<!--{eval \clubbase\get_battle_skill_entry($edata,3);}-->
 <br><input type="button" class="cmdbutton" name="back" value="逃跑" onclick="postCmd('gamecmd','command.php');this.disabled=true;"> 
 </td>
 <td width=100px align="center" style="vertical-align:top">
-<!--{eval \clubbase\get_battle_skill_entry(1);}-->
+<!--{eval \clubbase\get_battle_skill_entry($edata,1);}-->
 </td>
 <td width=100px align="center" style="vertical-align:top">
-<!--{eval \clubbase\get_battle_skill_entry(2);}-->
+<!--{eval \clubbase\get_battle_skill_entry($edata,2);}-->
 </td>
 </tr></table>
 <!--{/if}-->

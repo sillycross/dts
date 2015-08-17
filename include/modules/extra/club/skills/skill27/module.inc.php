@@ -3,7 +3,7 @@
 namespace skill27
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase player armor logger wound';
+	$___MODULE_dependency = 'skillbase player armor logger wound clubbase';
 	$___MODULE_dependency_optional = 'skill26';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

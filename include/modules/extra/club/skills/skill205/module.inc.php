@@ -3,7 +3,7 @@
 namespace skill205
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase player weapon sys logger ex_dmg_att attrbase armor';
+	$___MODULE_dependency = 'skillbase player weapon sys logger ex_dmg_att attrbase armor wound';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

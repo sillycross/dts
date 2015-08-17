@@ -3,7 +3,7 @@
 namespace skill205
 {
 
-	$ragecost=80;
+	$ragecost=85;
 	
 	function init() 
 	{
@@ -102,10 +102,13 @@ namespace skill205
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($pa['bskill']==205) 
 		{
-			eval(import_module('logger'));
-			if ($active)
-				$log.='<span class="yellow">「咆哮」使你造成的属性伤害提高了80%！</span><br>';
-			else  $log.='<span class="yellow">「咆哮」使敌人造成的属性伤害提高了80%！</span><br>';
+			if (count(\attrbase\get_ex_attack_array($pa,$pd,$active))>0)
+			{
+				eval(import_module('logger'));
+				if ($active)
+					$log.='<span class="yellow">「咆哮」使你造成的属性伤害提高了80%！</span><br>';
+				else  $log.='<span class="yellow">「咆哮」使敌人造成的属性伤害提高了80%！</span><br>';
+			}
 		}
 		return $chprocess($pa, $pd, $active);
 	}
@@ -120,18 +123,11 @@ namespace skill205
 		return $chprocess($pa, $pd, $active, $key);
 	}
 	
-	function apply_weapon_inf(&$pa, &$pd, $active)
+	function calculate_weapon_wound_multiplier(&$pa, &$pd, $active, $hurtposition) 
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('armor','wound','logger'));
-		if ($pa['bskill']==205)
-		for ($i=0; $i<strlen($inf_place); $i++)
-			if (isset($pa['attack_wounded_'.$inf_place[$i]]) && $pa['attack_wounded_'.$inf_place[$i]]>0)
-			{
-				$pa['attack_wounded_'.$inf_place[$i]]*=2;
-			}
-		
-		$chprocess($pa, $pd, $active);
+		if ($pa['bskill']!=205) return $chprocess($pa, $pd, $active, $hurtposition);
+		return $chprocess($pa, $pd, $active, $hurtposition)*2;
 	}
 
 	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)

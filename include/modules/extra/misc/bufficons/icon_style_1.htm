@@ -1,0 +1,41 @@
+<td>
+<div class="bufficon_style_1" style="position:relative; height:32px; width:32px; margin-right:1px;">
+<span style="display:none">$para['totsec']</span>
+<span style="display:none">$para['nowsec']</span>
+<span style="display:none">$para['disappear']</span>
+<div style="position:absolute; filter:alpha(opacity=60); opacity:0.6; ">
+<img src="img/bufficon-cover.png">
+</div>
+<div style="position:absolute;">
+<img	style="filter:alpha(opacity=40); opacity:0.4;" src="$src"
+	onmouseover="
+	   this.parentNode.nextElementSibling.nextElementSibling.style.top
+	=  Number(jQuery(this).offset().top-jQuery(window).scrollTop()+35).toString()+'px';
+	   this.parentNode.nextElementSibling.nextElementSibling.style.left
+	=  Number(jQuery(this).offset().left-jQuery(window).scrollLeft()).toString()+'px';
+	   this.parentNode.nextElementSibling.nextElementSibling.style.display='block';"
+	onmouseout="this.parentNode.nextElementSibling.nextElementSibling.style.display='none';">
+</div>
+<div style="position:absolute; top:$wh; overflow:hidden;">
+<div style="position:relative; top:-$wh;">
+<img	src="$src" 
+	onmouseover="
+	   this.parentNode.parentNode.nextElementSibling.style.top
+	=  Number(jQuery(this).offset().top-jQuery(window).scrollTop()+35).toString()+'px';
+	   this.parentNode.parentNode.nextElementSibling.style.left
+	=  Number(jQuery(this).offset().left-jQuery(window).scrollLeft()).toString()+'px';
+	   this.parentNode.parentNode.nextElementSibling.style.display='block';"
+	onmouseout="this.parentNode.parentNode.nextElementSibling.style.display='none';">
+</div>
+</div>
+<div class="b3" style="position:fixed; z-index:10; display:none; text-align:left;">
+<div style="filter:alpha(opacity=95); opacity:0.95; background-color:#000000">
+<span style="height:5px; display:block;">&nbsp;</span>
+<span style="display:block; margin-left:5px; margin-right:5px;">
+<span>$para['hint']<br>
+生效时间还剩</span><span>$para['lsec']</span>秒
+</span>
+<span style="height:5px; display:block;">&nbsp;</span>
+</div>
+</div>
+</td>

@@ -22,12 +22,20 @@ namespace ex_dmg_att
 	}
 	
 	//计算单个属性伤害
+	function get_basic_ex_dmg(&$pa,&$pd,$active,$key)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('ex_dmg_att'));
+		$damage = $ex_base_dmg[$key]+$pa['wepe']/$ex_wep_dmg[$key]+$pa['fin_skill']/$ex_skill_dmg[$key];
+		return $damage;
+	}
+	
 	function calculate_ex_single_original_dmg(&$pa, &$pd, $active, $key)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('ex_dmg_att'));
 		//基础伤害+武器效/属性的武器效果成长+熟练/属性的熟练成长
-		$damage = $ex_base_dmg[$key]+$pa['wepe']/$ex_wep_dmg[$key]+$pa['fin_skill']/$ex_skill_dmg[$key];
+		$damage=get_basic_ex_dmg($pa,$pd,$active,$key);
 		//最大伤害限制公式
 		if ($ex_max_dmg[$key]>0) $damage = $ex_max_dmg[$key] * $damage / ( $damage + $ex_max_dmg[$key] / 2 );
 		//得意武器类型翻倍

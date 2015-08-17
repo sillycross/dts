@@ -55,11 +55,18 @@ namespace weapon
 		return $pd['internal_def'];
 	}
 	
+	function get_skill_by_kind(&$pa, &$pd, $active, $wep_kind)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('weapon'));
+		return $pa[$wep_kind];
+	}
+	
 	function get_skill(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('weapon'));
-		return $pa[$skillinfo[$pa['wep_kind']]];
+		return get_skill_by_kind($pa, $pd, $active, $skillinfo[$pa['wep_kind']]);
 	}
 	
 	function get_attack_method(&$pdata)
@@ -102,6 +109,22 @@ namespace weapon
 		return $hitrate;
 	}
 	
+	//浮动最大值
+	function get_weapon_fluc_max_range(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('weapon'));
+		return $dmg_fluc[$pa['wep_kind']];
+	}
+	
+	//浮动
+	function get_weapon_fluc_percentage(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$x=get_weapon_fluc_max_range($pa,$pd,$active);
+		return rand(-$x,$x);
+	}
+	
 	//基础伤害
 	function get_primary_dmg(&$pa, &$pd, $active)
 	{
@@ -111,22 +134,11 @@ namespace weapon
 		$pd['fin_def']=get_def($pa,$pd,$active)*get_def_multiplier($pa,$pd,$active);
 		$att_pow=$pa['fin_att']; $def_pow=$pd['fin_def']; $ws=$pa['fin_skill']; $wp_kind=$pa['wep_kind'];
 		$damage = ($att_pow/$def_pow)*$ws*$skill_dmg[$wp_kind];
-		$fluc = rand(get_1st_dmg_factor_l($pa,$pd,$active,$dmg_fluc[$wp_kind]),get_1st_dmg_factor_h($pa,$pd,$active,$dmg_fluc[$wp_kind]));
+		$fluc = get_weapon_fluc_percentage($pa, $pd, $active);
 		$dmg_factor = (100+$fluc)/100;
 		$damage = round ( $damage * $dmg_factor * rand ( 4, 10 ) / 10 );
 		if ($damage<1) $damage=1;
 		return $damage;
-	}
-	
-	//获取一次浮动
-	function get_1st_dmg_factor_l(&$pa,&$pd,$active,$basefluc){
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return -$basefluc;
-	}
-	
-	function get_1st_dmg_factor_h(&$pa,&$pd,$active,$basefluc){
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return $basefluc;
 	}
 	
 	//基础伤害修正系数
@@ -398,12 +410,20 @@ namespace weapon
 		else  return $rangeinfo[$pa['wepk'][1]];
 	}
 	
-	function check_can_counter(&$pa, &$pd, $active)
+	function check_counterable_by_weapon_range(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r1 = get_weapon_range($pa, $active);
 		$r2 = get_weapon_range($pd, 1-$active);
 		if ($r1 >= $r2 && $r1 != 0 && $r2 != 0)
+			return 1;
+		else  return 0;
+	}
+	
+	function check_can_counter(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (check_counterable_by_weapon_range($pa, $pd, $active))
 		{
 			if (!$chprocess($pa,$pd,$active)) return 0;
 			return check_counter_dice($pa, $pd, $active);

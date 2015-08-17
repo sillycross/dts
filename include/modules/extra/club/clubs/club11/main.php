@@ -8,10 +8,11 @@ namespace club11
 		$clubinfo[11] = '富家子弟';
 		$clublist[11] = Array(
 			'type' => 1,
-			'probability' => 0, 
+			'probability' => 100, 
 			'skills' => Array(
 				10,11,12,	
-				55,56,
+				69,
+				68,55,67,56,66,
 			)
 		);
 	}
