@@ -156,6 +156,7 @@ namespace attack
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		player_damaged_enemy($pa,$pd,$active);
 		if ($pd['hp']<=0) player_kill_enemy($pa, $pd, $active);
+		unset($pa['physical_dmg_dealt']);
 	}
 	
 	function attack_wrapper(&$pa, &$pd, $active)
