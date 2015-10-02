@@ -90,9 +90,6 @@ club24,extra/club/clubs/club24/,1
 skill67,extra/club/skills/skill67/,1
 skill68,extra/club/skills/skill68/,1
 club18,extra/club/clubs/club18/,1
-skill211,extra/club/skills/skill211/,1
-skill212,extra/club/skills/skill212/,1
-skill214,extra/club/skills/skill214/,1
 wep_n,base/weapon/wep_n/,1
 wep_p,base/weapon/wep_p/,1
 wep_k,base/weapon/wep_k/,1
@@ -125,8 +122,6 @@ skill66,extra/club/skills/skill66/,1
 skill70,extra/club/skills/skill70/,1
 skill71,extra/club/skills/skill71/,1
 skill74,extra/club/skills/skill74/,1
-skill213,extra/club/skills/skill213/,1
-skill216,extra/club/skills/skill216/,1
 skill53,extra/club/skills/skill53/,1
 skill55,extra/club/skills/skill55/,1
 skill72,extra/club/skills/skill72/,1
@@ -165,6 +160,7 @@ skill207,extra/club/skills/skill207/,1
 skill65,extra/club/skills/skill65/,1
 skill49,extra/club/skills/skill49/,1
 skill201,extra/club/skills/skill201/,1
+skill210,extra/club/skills/skill210/,1
 ex_dmg_def,extra/attr/ex_dmg_def/,1
 ex_dmg_nullify,extra/attr/ex_dmg_nullify/,1
 skill25,extra/club/skills/skill25/,1
@@ -175,7 +171,6 @@ skill54,extra/club/skills/skill54/,1
 skill205,extra/club/skills/skill205/,1
 skill75,extra/club/skills/skill75/,1
 skill76,extra/club/skills/skill76/,1
-skill210,extra/club/skills/skill210/,1
 ex_phy_nullify,extra/attr/ex_phy_nullify/,1
 wepchange,extra/attr/wepchange/,1
 blessstone,extra/attr/blessstone/,1
@@ -185,7 +180,6 @@ npcinfo,extra/misc/npcinfo/,1
 skill206,extra/club/skills/skill206/,1
 skill34,extra/club/skills/skill34/,1
 skill208,extra/club/skills/skill208/,1
-skill215,extra/club/skills/skill215/,1
 skill26,extra/club/skills/skill26/,1
 skill51,extra/club/skills/skill51/,1
 ex_gender_attr,extra/attr/ex_gender_attr/,1

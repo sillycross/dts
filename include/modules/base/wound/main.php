@@ -112,9 +112,8 @@ namespace wound
 		{
 			if (isset($pa['attack_wounded_'.$inf_place[$i]]) && $pa['attack_wounded_'.$inf_place[$i]]>0)
 			{
-				apply_weapon_wound_real($pa, $pd, $active, $inf_place[$i]);	
+				apply_weapon_wound_real($pa, $pd, $active, $inf_place[$i]);
 			}
-			unset($pa['attack_wounded_'.$inf_place[$i]]);
 		}
 	}
 	

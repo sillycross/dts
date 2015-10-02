@@ -81,7 +81,7 @@ if($dberrno == 1114) {
 			if(function_exists('errorlog')) {
 				errorlog('MySQL', basename($GLOBALS['_SERVER']['PHP_SELF'])." : $dberror - ".cutstr($sql, 120), 0);
 			}
-			
+
 			if($GLOBALS['dbreport']) {
 				echo "<br><br>An error report has been dispatched to our administrator.";
 				@sendmail($GLOBALS['adminemail'], '[bra!] MySQL Error Report',
