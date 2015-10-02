@@ -8,12 +8,13 @@ namespace club5
 		$clubinfo[5] = '拆弹专家';
 		$clublist[5] = Array(
 			'type' => 0,
-			'probability' => 100, 
+			'probability' => 10000, 
 			'skills' => Array(
 				10,11,12,	
 				17,		//爆熟
 				19,		//陷阱相关 
 				20,		//爆系合成耐久
+				211,212,213,214,215,216,
 			)
 		);
 	}

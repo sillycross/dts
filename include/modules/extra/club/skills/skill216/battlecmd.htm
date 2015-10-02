@@ -1,0 +1,20 @@
+<!--{eval $remtime=(int)\skill216\get_remaintime216();}-->
+<!--{if substr($wepk,0,2) == 'WD'}-->
+<!--{if $remtime>0}-->
+<input type="button" class="cmdbutton" style="width:98" name="" value="双响" 
+onclick="$('command').value='$w1';$('bskill').value=216;postCmd('gamecmd','command.php');this.disabled=true;"><br />
+<div style="width:90%; text-align:left;">
+本次战斗你将连续攻击2次；本局还可发动<span class="red">$remtime</span>次
+</div>
+<!--{else}-->
+<input type="button" class="cmdbutton" style="width:98" name="" value="双响" disabled="true"><br />
+<div style="width:90%; text-align:left;">
+本局发动次数已达上限
+</div>
+<!--{/if}-->
+<!--{else}-->
+<input type="button" class="cmdbutton" style="width:98" name="" value="双响" disabled="true"><br />
+<div style="width:90%; text-align:left;">
+手持<span class="yellow">爆系武器</span>方可发动
+</div>
+<!--{/if}-->
