@@ -10,7 +10,7 @@ namespace skill207
 	//无视射程概率
 	$rangerate = Array(0,20,40,60,80,100,100);
 	//升级所需技能点数值
-	$upgradecost = Array(3,3,4,4,4,5,-1);
+	$upgradecost = Array(4,4,4,4,5,5,-1);
 	
 	function init() 
 	{

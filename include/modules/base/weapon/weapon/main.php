@@ -362,6 +362,7 @@ namespace weapon
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		apply_weapon_imp($pa, $pd, $active);
+		unset($pa['wepimp']);
 		
 		apply_weapon_skill_gain($pa, $pd, $active);
 		

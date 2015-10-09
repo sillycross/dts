@@ -86,7 +86,7 @@ namespace skill74
 		$chprocess($pa, $pd, $active);
 	}	
 	
-	function get_physical_dmg_multiplier(&$pa, &$pd, $active)
+	function get_final_dmg_multiplier(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r=Array();
