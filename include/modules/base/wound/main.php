@@ -114,7 +114,6 @@ namespace wound
 			{
 				apply_weapon_wound_real($pa, $pd, $active, $inf_place[$i]);	
 			}
-			unset($pa['attack_wounded_'.$inf_place[$i]]);
 		}
 	}
 	
@@ -124,7 +123,7 @@ namespace wound
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		//应用受伤
 		apply_weapon_inf($pa, $pd, $active);
-		
+		unset($pa['attack_wounded_'.$inf_place[$i]]);
 		$chprocess($pa, $pd, $active);
 	}
 	
