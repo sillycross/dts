@@ -8,7 +8,7 @@ namespace club2
 		$clubinfo[2] = '见敌必斩';
 		$clublist[2] = Array(
 			'type' => 0,
-			'probability' => 10000, 
+			'probability' => 100, 
 			'skills' => Array(
 				10,11,12,	
 				14,		//斩熟

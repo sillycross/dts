@@ -8,7 +8,7 @@ namespace club5
 		$clubinfo[5] = '拆弹专家';
 		$clublist[5] = Array(
 			'type' => 0,
-			'probability' => 10000, 
+			'probability' => 100, 
 			'skills' => Array(
 				10,11,12,	
 				17,		//爆熟
