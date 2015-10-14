@@ -25,40 +25,80 @@ function parse_template($tplfile, $objfile, $templateid, $tpldir) {
 	$var_regexp = "((\\\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)(\[[a-zA-Z0-9_\-\.\"\'\[\]\$\x7f-\xff]+\])*)";
 	$const_regexp = "([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)";
 
-	$template = preg_replace("/([\n\r]+)\t+/s", "\\1", $template);
-	$template = preg_replace("/\<\!\-\-\{(.+?)\}\-\-\>/s", "{\\1}", $template);
-	$template = preg_replace("/\{lang\s+(.+?)\}/ies", "languagevar('\\1')", $template);
+	$template = preg_replace_callback("/([\n\r]+)\t+/s", function($r) {
+		return $r[1];
+	}, $template);
+	$template = preg_replace_callback("/\<\!\-\-\{(.+?)\}\-\-\>/s", function($r) {
+		return "{".$r[1]."}";
+	}, $template);
+	$template = preg_replace_callback("/\{lang\s+(.+?)\}/is", function($r) {
+		return languagevar($r[1]);
+	}, $template);
 	$template = str_replace("{LF}", "<?=\"\\n\"?>", $template);
 
-	$template = preg_replace("/\{(\\\$[a-zA-Z0-9_\[\]\'\"\$\.\x7f-\xff]+)\}/s", "<?=\\1?>", $template);
-	$template = preg_replace("/$var_regexp/es", "addquote('<?=\\1?>')", $template);
-	$template = preg_replace("/\<\?\=\<\?\=$var_regexp\?\>\?\>/es", "addquote('<?=\\1?>')", $template);
+	$template = preg_replace_callback("/\{(\\\$[a-zA-Z0-9_\[\]\'\"\$\.\x7f-\xff]+)\}/s", function($r) {
+		return "<?=".$r[1]."?>";
+	}, $template);
+	$template = preg_replace_callback("/".$var_regexp."/s", function($r) {
+		return addquote("<?=".$r[1]."?>");
+	}, $template);
+	$template = preg_replace_callback("/\<\?\=\<\?\=".$var_regexp."\?\>\?\>/s", function($r) {
+		return addquote("<?=".$r[1]."?>");
+	}, $template);
 
-	$template = "<? if(!defined('IN_GAME')) exit('Access Denied'); ?>\n$template";
-	$template = preg_replace("/[\n\r\t]*\{template\s+([a-z0-9_]+)\}[\n\r\t]*/is", "\n<? include template('\\1'); ?>\n", $template);
-	$template = preg_replace("/[\n\r\t]*\{template\s+(.+?)\}[\n\r\t]*/is", "\n<? include template(\\1); ?>\n", $template);
-	$template = preg_replace("/[\n\r\t]*\{eval\s+(.+?)\}[\n\r\t]*/ies", "stripvtags('\n<? \\1 ?>\n','')", $template);
-	$template = preg_replace("/[\n\r\t]*\{echo\s+(.+?)\}[\n\r\t]*/ies", "stripvtags('\n<? echo \\1; ?>\n','')", $template);
-	$template = preg_replace("/[\n\r\t]*\{elseif\s+(.+?)\}[\n\r\t]*/ies", "stripvtags('\n<? } elseif(\\1) { ?>\n','')", $template);
-	$template = preg_replace("/[\n\r\t]*\{else\}[\n\r\t]*/is", "\n<? } else { ?>\n", $template);
+	$template = "<? if(!defined('IN_GAME')) exit('Access Denied'); ?>\n".$template;
+	$template = preg_replace_callback("/[\n\r\t]*\{template\s+([a-z0-9_]+)\}[\n\r\t]*/is", function($r) {
+		return "\n<? include template('".$r[1]."'); ?>\n";
+	}, $template);
+	$template = preg_replace_callback("/[\n\r\t]*\{template\s+(.+?)\}[\n\r\t]*/is", function($r) {
+		return "\n<? include template(".$r[1]."); ?>\n";
+	}, $template);
+	$template = preg_replace_callback("/[\n\r\t]*\{eval\s+(.+?)\}[\n\r\t]*/is", function($r) {
+		return stripvtags("\n<? ".$r[1]." ?>\n","");
+	}, $template);
+	$template = preg_replace_callback("/[\n\r\t]*\{echo\s+(.+?)\}[\n\r\t]*/is", function($r) {
+		return stripvtags("\n<? echo ".$r[1]."; ?>\n","");
+	}, $template);
+	$template = preg_replace_callback("/[\n\r\t]*\{elseif\s+(.+?)\}[\n\r\t]*/is", function($r) {
+		return stripvtags("\n<? } elseif(".$r[1].") { ?>\n","");
+	}, $template);
+	$template = preg_replace_callback("/[\n\r\t]*\{else\}[\n\r\t]*/is", function($r) {
+		return "\n<? } else { ?>\n";
+	}, $template);
 
 	for($i = 0; $i < $nest; $i++) {
-		$template = preg_replace("/[\n\r\t]*\{loop\s+(\S+)\s+(\S+)\}[\n\r]*(.+?)[\n\r]*\{\/loop\}[\n\r\t]*/ies", "stripvtags('\n<? if(is_array(\\1)) { foreach(\\1 as \\2) { ?>','\n\\3\n<? } } ?>\n')", $template);
-		$template = preg_replace("/[\n\r\t]*\{loop\s+(\S+)\s+(\S+)\s+(\S+)\}[\n\r\t]*(.+?)[\n\r\t]*\{\/loop\}[\n\r\t]*/ies", "stripvtags('\n<? if(is_array(\\1)) { foreach(\\1 as \\2 => \\3) { ?>','\n\\4\n<? } } ?>\n')", $template);
-		$template = preg_replace("/[\n\r\t]*\{if\s+(.+?)\}[\n\r]*(.+?)[\n\r]*\{\/if\}[\n\r\t]*/ies", "stripvtags('\n<? if(\\1) { ?>','\n\\2\n<? } ?>\n')", $template);
+		$template = preg_replace_callback("/[\n\r\t]*\{loop\s+(\S+)\s+(\S+)\}[\n\r]*(.+?)[\n\r]*\{\/loop\}[\n\r\t]*/is", function($r) {
+			return stripvtags("\n<? if(is_array(".$r[1].")) { foreach(".$r[1]." as ".$r[2].") { ?>","\n".$r[3]."\n<? } } ?>\n");
+		}, $template);
+		$template = preg_replace_callback("/[\n\r\t]*\{loop\s+(\S+)\s+(\S+)\s+(\S+)\}[\n\r\t]*(.+?)[\n\r\t]*\{\/loop\}[\n\r\t]*/is", function($r) {
+			return stripvtags("\n<? if(is_array(".$r[1].")) { foreach(".$r[1]." as ".$r[2]." => ".$r[3].") { ?>","\n".$r[4]."\n<? } } ?>\n");
+		}, $template);
+		$template = preg_replace_callback("/[\n\r\t]*\{if\s+(.+?)\}[\n\r]*(.+?)[\n\r]*\{\/if\}[\n\r\t]*/is", function($r) {
+			return stripvtags("\n<? if(".$r[1].") { ?>","\n".$r[2]."\n<? } ?>\n");
+		}, $template);
 	}
 
-	$template = preg_replace("/\{$const_regexp\}/s", "<?=\\1?>", $template);
-	$template = preg_replace("/ \?\>[\n\r]*\<\? /s", " ", $template);
-	
-	$template = preg_replace("/\<\?/s", "<?php", $template);
-	$template = preg_replace("/\<\?php\=/s", "<?php echo ", $template);
+	$template = preg_replace_callback("/\{".$const_regexp."\}/s", function($r) {
+		return "<?=".$r[1]."?>";
+	}, $template);
+	$template = preg_replace_callback("/ \?\>[\n\r]*\<\? /s", function($r) {
+		return " ";
+	}, $template);
+
+	$template = preg_replace_callback("/\<\?/s", function($r) {
+		return "<?php";
+	}, $template);
+	$template = preg_replace_callback("/\<\?php\=/s", function($r) {
+		return "<?php echo ";
+	}, $template);
 
 	if(!$fp = fopen($objfile, 'w')) {
 		gexit("Directory './gamedata/templates/' not found or have no access!");
 	}
 
-	$template = preg_replace("/\"(http)?[\w\.\/:]+\?[^\"]+?&[^\"]+?\"/e", "transamp('\\0')", $template);
+	$template = preg_replace_callback("/\"(http)?[\w\.\/:]+\?[^\"]+?&[^\"]+?\"/", function($r) {
+		return transamp($r[0]);
+	}, $template);
 	flock($fp, 2);
 	fwrite($fp, $template);
 	fclose($fp);
@@ -72,7 +112,9 @@ function transamp($str) {
 }
 
 function addquote($var) {
-	return str_replace("\\\"", "\"", preg_replace("/\[([a-zA-Z0-9_\-\.\x7f-\xff]+)\]/s", "['\\1']", $var));
+	return str_replace("\\\"", "\"", preg_replace_callback("/\[([a-zA-Z0-9_\-\.\x7f-\xff]+)\]/s", function($r) {
+		return "['".$r[1]."']";
+	}, $var));
 }
 
 function languagevar($var) {
@@ -84,7 +126,9 @@ function languagevar($var) {
 }
 
 function stripvtags($expr, $statement) {
-	$expr = str_replace("\\\"", "\"", preg_replace("/\<\?\=(\\\$.+?)\?\>/s", "\\1", $expr));
+	$expr = str_replace("\\\"", "\"", preg_replace_callback("/\<\?\=(\\\$.+?)\?\>/s", function($r) {
+		return $r[1];
+	}, $expr));
 	$statement = str_replace("\\\"", "\"", $statement);
 	return $expr.$statement;
 }
