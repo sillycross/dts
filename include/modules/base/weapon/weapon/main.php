@@ -373,9 +373,9 @@ namespace weapon
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		$chprocess($pa, $pd, $active);
-		
 		apply_attack_exp_gain($pa, $pd, $active);
+		
+		$chprocess($pa, $pd, $active);
 	}
 		
 	function calculate_counter_rate(&$pa, &$pd, $active)
