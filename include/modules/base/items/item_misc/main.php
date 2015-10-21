@@ -59,7 +59,69 @@ namespace item_misc
 				$state = 6;
 				$url = 'end.php';
 				\sys\gameover ( $now, 'end3', $name );
-			} elseif ($itm == '杏仁豆腐的ID卡') {
+			}elseif ($itm == '『C.H.A.O.S』') {
+				$flag=false;
+				$log.="一阵强光刺得你睁不开眼。<br>强光逐渐凝成了光球，你揉揉眼睛，发现包裹里的东西全都不翼而飞了。<br>";
+				for ($i=1;$i<=6;$i++){
+					global ${'itm'.$i},${'itmk'.$i},${'itme'.$i},${'itms'.$i},${'itmsk'.$i};
+					$itm = & ${'itm'.$i};
+					$itmk = & ${'itmk'.$i};
+					$itme = & ${'itme'.$i};
+					$itms = & ${'itms'.$i};
+					$itmsk = & ${'itmsk'.$i};
+					if ($itm=='黑色发卡') {$flag=true;}
+					$itm = '';
+					$itmk = '';
+					$itme = 0;
+					$itms = 0;
+					$itmsk = '';
+				}
+				$karma=$rp*$killnum-$def+$att;
+				$f1=false;
+				//『G.A.M.E.O.V.E.R』itmk:Y itme:1 itms:1 itmsk:zxZ
+				if (($ss>=600)&&($killnum<=15)){
+					$itm0='『T.E.R.R.A』';
+					$itmk0='Y';
+					$itme0=1;
+					$itms0=1;
+					$itmsk0='z';
+					include_once GAME_ROOT . './include/game/itemmain.func.php';
+					\itemmain\itemget();
+					$f1=true;
+				}
+				if ($karma<=2000){
+					$itm0='『A.Q.U.A』';
+					$itmk0='Y';
+					$itme0=1;
+					$itms0=1;
+					$itmsk0='x';
+					include_once GAME_ROOT . './include/game/itemmain.func.php';
+					\itemmain\itemget();
+					$f1=true;
+				}
+				if ($flag==true){
+					$itm0='『V.E.N.T.U.S』';
+					$itmk0='Y';
+					$itme0=1;
+					$itms0=1;
+					$itmsk0='Z';
+					include_once GAME_ROOT . './include/game/itemmain.func.php';
+					\itemmain\itemget();
+					$f1=true;
+				}
+				if ($f1==false){
+					$itm0='『S.C.R.A.P』';
+					$itmk0='Y';
+					$itme0=1;
+					$itms0=1;
+					include_once GAME_ROOT . './include/game/itemmain.func.php';
+					\itemmain\itemget();
+				}
+			}elseif ($itm == '『G.A.M.E.O.V.E.R』') {
+				$state = 6;
+				$url = 'end.php';
+				\sys\gameover ( $now, 'end7', $name );
+			}elseif ($itm == '杏仁豆腐的ID卡') {
 				$duelstate = \gameflow_duel\duel($now,$itm);
 				if($duelstate == 50){
 					$log .= "<span class=\"yellow\">你使用了{$itm}。</span><br><span class=\"evergreen\">“干得不错呢，看来咱应该专门为你清扫一下战场……”</span><br><span class=\"evergreen\">“所有的NPC都离开战场了。好好享受接下来的杀戮吧，祝你好运。”</span>——林无月<br>";

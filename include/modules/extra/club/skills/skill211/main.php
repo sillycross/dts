@@ -12,7 +12,7 @@ namespace skill211
 	{
 		define('MOD_SKILL211_INFO','club;upgrade;');
 		eval(import_module('clubbase'));
-		$clubskillname[211] = '谨慎';
+		$clubskillname[211] = '潜行';
 	}
 	
 	function acquire211(&$pa)
