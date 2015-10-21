@@ -1686,7 +1686,7 @@ namespace npc
 		(
 			0 => array
 			(
-			'name' => '虚子',
+			'name' => '黑熊',
 			'gd' => 'm',
 			'icon' => 101,
 			'club' => 18,
@@ -1739,11 +1739,6 @@ namespace npc
 			'itme3' => 153,
 			'itms3' => 1,
 			'itmsk3' => 'Z',
-			'itm4' => '【资本主义红暮祸国殃民大家千万不要萌她】',
-			'itmk4' => 'm',
-			'itme4' => 10,
-			'itms4' => 1,
-			'itmsk4' => 'Z',
 			'description' => '武神 虚子，<span class="yellow">旧英灵四天王之首，被称为英灵殿唯一的良心。（咦？）</span><br><span class="red">刷新虚子时随机选择一个副本。</span>',
 			),
 			1 => array
