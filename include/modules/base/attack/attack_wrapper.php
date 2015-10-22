@@ -148,6 +148,7 @@ namespace attack
 			load_user_combat_command($pa);
 		else  load_auto_combat_command($pa);
 		load_auto_combat_command($pd);
+		$pa['dmg_dealt']=0;
 	}
 	
 	//攻击结束
