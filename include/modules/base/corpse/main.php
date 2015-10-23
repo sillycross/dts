@@ -164,6 +164,26 @@ namespace corpse
 			$action = '';
 			$mode = 'command';
 			return;
+		} elseif($item == 'destroy') {
+			$edata['weps'] = 0;
+			$edata['arbs'] = 0;
+			$edata['arhs'] = 0;
+			$edata['aras'] = 0;
+			$edata['arfs'] = 0;
+			$edata['arts'] = 0;
+			$edata['itms0'] = 0;
+			$edata['itms1'] = 0;
+			$edata['itms2'] = 0;
+			$edata['itms3'] = 0;
+			$edata['itms4'] = 0;
+			$edata['itms5'] = 0;
+			$edata['itms6'] = 0;
+			$edata['money'] = 0;
+			\player\player_save($edata);
+			$log .= '尸体成功销毁！';
+			$action = '';
+			$mode = 'command';
+			return;
 		} else {
 			$mode = 'command';
 			$action = '';
