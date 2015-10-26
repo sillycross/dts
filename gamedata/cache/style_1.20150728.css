@@ -123,6 +123,10 @@ background-image: url("../../img/footer_line.gif");
 	width:80px;height:25px;margin:2;
 }
 
+input.bigbutton{
+	width:120px;height:25px;margin:2;
+}
+
 .auto-style1 {
 	border-width: 0px;
 }

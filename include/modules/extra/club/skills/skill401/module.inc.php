@@ -1,13 +1,13 @@
 <?php
 
-namespace enemy
+namespace skill401
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'sys player logger metman map corpse input bubblebox';
+	$___MODULE_dependency = 'skillbase player weapon logger clubbase';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
-	$___MODULE_codelist = 'main.php config/enemy.config.php';
-	$___MODULE_templatelist = 'battlecmd';
+	$___MODULE_codelist = 'main.php';
+	$___MODULE_templatelist = 'desc';
 	////////// MODULE HEADER END /////////////////
 	require __INIT_MODULE__(__NAMESPACE__,__DIR__);
 }
