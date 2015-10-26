@@ -7,7 +7,7 @@ namespace addnpc
 	function addnpc($xtype,$xsub,$num,$time = 0) 
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','map','logger','addnpc','lvlctl'));
+		eval(import_module('sys','player','map','logger','addnpc','lvlctl','skillbase'));
 		$time = $time == 0 ? $now : $time;
 		$plsnum = sizeof($plsinfo);
 		$npc=array_merge($npcinit,$anpcinfo[$xtype]);
@@ -53,6 +53,21 @@ namespace addnpc
 				{
 					//出BUG了
 					$summon_pid = -1;
+				}
+				if (is_array($npc['skills'])){
+					$qry="SELECT * FROM {$tablepre}players WHERE type>'0' ORDER BY pid DESC LIMIT 1";
+					$result=$db->query($qry);
+					$pr=$db->fetch_array($result);
+					$pp=\player\fetch_playerdata_by_pid($pr['pid']);
+					foreach ($npc['skills'] as $key=>$value){
+						if (defined('MOD_SKILL'.$key)){
+							\skillbase\skill_acquire($key,$pp);
+							if ($value>0){
+								\skillbase\skill_setvalue($key,'lvl',$value,$pp);
+							}
+						}	
+					}
+					\player\player_save($pp);
 				}
 			}
 		}

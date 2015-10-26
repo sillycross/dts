@@ -16,6 +16,7 @@ namespace skill21
 				'state' => 1,
 				'pose'=> 1,
 				'tactic' => 3,
+				'skills' => array('400'=>'4','401'=>'4'),
 				'killnum' => 99,
 				'mhp' => 30000000,
 				'msp' => 4000,

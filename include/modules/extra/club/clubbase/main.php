@@ -145,12 +145,6 @@ namespace clubbase
 			return;
 		}
 		
-		if ($mode == 'special' && $command == 'viewnskills') 
-		{
-			$mode = MOD_CLUBBASE_NSKILLPAGE;
-			return;
-		}
-		
 		if ($mode == 'special' && substr($command,0,5) == 'skill' && substr($command,-8)=='_special' && ($subcmd=='upgrade' || $subcmd=='upgrade2')) 
 		{
 			$id=substr($command,5,-8); $id=(int)$id;
