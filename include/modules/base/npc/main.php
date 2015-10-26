@@ -21,7 +21,7 @@ namespace npc
 		
 		$chprocess($xmode);
 		
-		eval(import_module('sys','map','player','npc','lvlctl'));
+		eval(import_module('sys','map','player','npc','lvlctl','skillbase'));
 		if ($xmode & 8) {
 			//echo " - NPC初始化 - ";
 			$db->query("DELETE FROM {$tablepre}players WHERE type>0 ");
@@ -67,6 +67,22 @@ namespace npc
 						$qry = "INSERT INTO {$tablepre}players ".$npcqrylit." VALUES ".$npcqry;
 						$db->query($qry);
 						unset($qry);
+						
+						if (is_array($npc['skills'])){
+							$qry="SELECT * FROM {$tablepre}players WHERE type>'0' ORDER BY pid DESC LIMIT 1";
+							$result=$db->query($qry);
+							$pr=$db->fetch_array($result);
+							$pp=\player\fetch_playerdata_by_pid($pr['pid']);
+							foreach ($npc['skills'] as $key=>$value){
+								if (defined('MOD_SKILL'.$key)){
+									\skillbase\skill_acquire($key,$pp);
+									if ($value>0){
+										\skillbase\skill_setvalue($key,'lvl',$value,$pp);
+									}
+								}	
+							}
+							\player\player_save($pp);
+						}
 						
 						unset($npc);
 					}
