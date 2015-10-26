@@ -53,7 +53,7 @@ namespace skill21
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess($pa, $pd, $active);
-		eval(import_module('logger'));
+		eval(import_module('logger','skillbase'));
 		if (\skillbase\skill_query(21,$pd))
 		{
 			$npcdata = evonpc($pd['type'],$pd['name']);
@@ -64,6 +64,21 @@ namespace skill21
 					$pd[$key] = $val;
 				}
 				\skillbase\skill_lost(21,$pd);
+				//进化时失去所有专有技能
+				foreach (\skillbase\get_acquired_skill_array($pd) as $key) 
+					if (defined('MOD_SKILL'.$key.'_INFO') && strpos(constant('MOD_SKILL'.$key.'_INFO'),'club;')!==false && strpos(constant('MOD_SKILL'.$key.'_INFO'),'NPC;')!==false) 
+						\skillbase\skill_lost($key,$pd);
+				//然后获得新的专有技能
+				if (is_array($npcdata['skills'])){
+					foreach ($npcdata['skills'] as $key=>$value){
+						if (defined('MOD_SKILL'.$key)){
+							\skillbase\skill_acquire($key,$pd);
+							if ($value>0){
+								\skillbase\skill_setvalue($key,'lvl',$value,$pd);
+							}
+						}	
+					}
+				}
 				$pd['npc_evolved'] = 1;
 			}	
 		}

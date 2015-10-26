@@ -194,6 +194,7 @@ namespace addnpc
 			'club' => 99,
 			'bid' => 0,
 			'inf' => '',
+			'skills' => array('401'=>'5'),
 			'state' => 1,
 			'rage' => 10,
 			'pose'=> 4,
