@@ -39,6 +39,7 @@ if(filemtime($mixfile) > filemtime($writefile)){
 		'item'=> array('其他道具','yellow'),
 		);
 	$mixhelpinfo = '';
+	include_once GAME_ROOT . './include/itemplace.func.php';
 	foreach($mixitem as $class => $list){
 		$classname = $mixclass[$class][0];
 		$classcolor = $mixclass[$class][1];
@@ -64,12 +65,15 @@ if(filemtime($mixfile) > filemtime($writefile)){
 			if(!isset($val['stuff'][4])){$val['stuff'][4] = '-';}
 			$mixhelpinfo .= 
 			"<tr>
-				<td class=\"b3\" height=20px><span>{$val['stuff'][0]}</span></td>
-				<td class=\"b3\"><span>{$val['stuff'][1]}</span></td>
-				<td class=\"b3\"><span>{$val['stuff'][2]}</span></td>
-				<td class=\"b3\"><span>{$val['stuff'][3]}</span></td>
-				<td class=\"b3\"><span>{$val['stuff'][4]}</span></td>
-				<td class=\"b3\">→</td>
+				<td class=\"b3\" height='19px' title='" . get_item_place ( $val ['stuff'] [0] ) . "'><span>{$val['stuff'][0]}</span></td>";
+			for($i = 1; $i < 5; $i ++) {
+				$mixhelpinfo .= "<td class=\"b3\"";
+				if ($val ['stuff'] [$i] != '-') {
+					$mixhelpinfo .= "title='" . get_item_place ( $val ['stuff'] [$i] ) . "'";
+				}
+				$mixhelpinfo .= "><span>{$val['stuff'][$i]}</span></td>";
+			}
+			$mixhelpinfo .= "<td class=\"b3\">→</td>
 				<td class=\"b3\"><span>{$val['result'][0]}</span></td>
 				<td class=\"b3\"><span>{$val['result'][1]}/{$val['result'][2]}/{$val['result'][3]}{$itmskword}</span></td>
 			</tr>
@@ -116,9 +120,6 @@ DIV.FAQ DD {
 </STYLE>
 EOT;
 
-
-include template('help');
-
-
+include template ( 'help' );
 
 ?>
