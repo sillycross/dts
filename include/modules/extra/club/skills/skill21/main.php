@@ -66,7 +66,7 @@ namespace skill21
 				\skillbase\skill_lost(21,$pd);
 				//进化时失去所有专有技能
 				foreach (\skillbase\get_acquired_skill_array($pd) as $key) 
-					if (defined('MOD_SKILL'.$key.'_INFO') && strpos(constant('MOD_SKILL'.$key.'_INFO'),'club;')!==false && strpos(constant('MOD_SKILL'.$key.'_INFO'),'NPC;')!==false) 
+					if (defined('MOD_SKILL'.$key.'_INFO') && strpos(constant('MOD_SKILL'.$key.'_INFO'),'club;')!==false && strpos(constant('MOD_SKILL'.$key.'_INFO'),'unique;')!==false) 
 						\skillbase\skill_lost($key,$pd);
 				//然后获得新的专有技能
 				if (is_array($npcdata['skills'])){

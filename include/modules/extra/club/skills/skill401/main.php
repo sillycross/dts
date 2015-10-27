@@ -7,7 +7,7 @@ namespace skill401
 	
 	function init() 
 	{
-		define('MOD_SKILL401_INFO','club;NPC;');
+		define('MOD_SKILL401_INFO','club;unique;locked;');
 		eval(import_module('clubbase'));
 		$clubskillname[401] = '硬化';
 	}
@@ -48,10 +48,18 @@ namespace skill401
 		eval(import_module('skill401','player','logger'));
 		if (!\skillbase\skill_query(401, $pd) || !check_unlocked401($pd)) return Array();
 		$l401=\skillbase\skill_getvalue(401,'lvl',$pd);
-		if (rand(0,99)<100){
-			if ($l401==5)
-				$log.="<span class=\"yellow\">{$pd['name']}的护甲使其几乎刀枪不入！</span><br>";
-			else  $log.="<span class=\"yellow\">{$pd['name']}坚硬的护甲减少了你造成的物理伤害！</span><br>";
+		if ($l401>0){
+			if ($active){
+				if ($l401==5)
+					$log.="<span class=\"yellow\">{$pd['name']}的护甲使其几乎刀枪不入！</span><br>";
+				else  
+					$log.="<span class=\"yellow\">{$pd['name']}坚硬的护甲减少了你造成的物理伤害！</span><br>";
+			}else{
+				if ($l401==5)
+					$log.="<span class=\"yellow\">你的护甲使你几乎刀枪不入！</span><br>";
+				else  
+					$log.="<span class=\"yellow\">你坚硬的护甲减少了{$pa['name']}造成的物理伤害！</span><br>";
+			}
 			$dmggain = (100-$dmgreduce[$l401])/100;
 			return Array($dmggain);
 		}

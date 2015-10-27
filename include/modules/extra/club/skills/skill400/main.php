@@ -8,7 +8,7 @@ namespace skill400
 
 	function init() 
 	{
-		define('MOD_SKILL400_INFO','club;NPC;');
+		define('MOD_SKILL400_INFO','club;unique;locked;');
 		eval(import_module('clubbase'));
 		$clubskillname[400] = '重击';
 	}
@@ -51,10 +51,17 @@ namespace skill400
 		$l400=\skillbase\skill_getvalue(400,'lvl',$pa);
 		if (rand(0,99)<$procrate[$l400])
 		{
-			if ($l400==5)
-				$log.="<span class=\"yellow\">{$pa['name']}朝你打出了猛烈的一击！</span><br>";
-			else  $log.="<span class=\"yellow\">{$pa['name']}朝你打出了重击！</span><br>";
-			
+			if ($active){
+				if ($l400==5)
+					$log.="<span class=\"yellow\">你朝{$pd['name']}打出了猛烈的一击！</span><br>";
+				else
+					$log.="<span class=\"yellow\">你朝{$pd['name']}打出了重击！</span><br>";
+			}else{
+				if ($l400==5)
+					$log.="<span class=\"yellow\">{$pa['name']}朝你打出了猛烈的一击！</span><br>";
+				else
+					$log.="<span class=\"yellow\">{$pa['name']}朝你打出了重击！</span><br>";
+			}
 			$dmggain = (100+$attgain[$l400])/100;
 			return Array($dmggain);
 		}
