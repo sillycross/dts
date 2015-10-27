@@ -287,8 +287,8 @@ namespace clubbase
 		eval(import_module('player','clubbase'));
 		$___TEMP_inclist = Array();
 		foreach (\skillbase\get_acquired_skill_array($pn) as $key) 
-				if (defined('MOD_SKILL'.$key.'_INFO') && strpos(constant('MOD_SKILL'.$key.'_INFO'),'club;')!==false && strpos(constant('MOD_SKILL'.$key.'_INFO'),'NPC;')!==false) 
-					array_push($___TEMP_inclist,template(constant('MOD_SKILL'.$key.'_DESC'))); 
+				if (defined('MOD_SKILL'.$key.'_INFO') && strpos(constant('MOD_SKILL'.$key.'_INFO'),'club;')!==false && strpos(constant('MOD_SKILL'.$key.'_INFO'),'unique;')!==false) 
+					array_push($___TEMP_inclist,template(constant('MOD_SKILL'.$key.'_NDESC'))); 
 		
 		foreach ($___TEMP_inclist as $___TEMP_template_name) include $___TEMP_template_name;
 	}

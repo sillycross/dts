@@ -11,8 +11,7 @@ namespace sklearn_util
 			strpos(constant('MOD_SKILL'.$skillid.'_INFO'),'club;')!==false && 
 			strpos(constant('MOD_SKILL'.$skillid.'_INFO'),'locked;')===false && 
 			strpos(constant('MOD_SKILL'.$skillid.'_INFO'),'hidden;')===false &&
-			strpos(constant('MOD_SKILL'.$skillid.'_INFO'),'limited;')===false &&
-			strpos(constant('MOD_SKILL'.$skillid.'_INFO'),'NPC;')===false)
+			strpos(constant('MOD_SKILL'.$skillid.'_INFO'),'limited;')===false)
 				return 1;
 	}
 	
