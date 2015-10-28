@@ -2356,7 +2356,7 @@ namespace npc
 			'itme2' => 500,
 			'itms2' => 150,
 			'itm3' => '挂在腿上的大爷',
-			'itmk3' => 'DA',
+			'itmk3' => 'DF',
 			'itme3' => 500,
 			'itms3' => 150,
 			'itmsk3' => 'a',
