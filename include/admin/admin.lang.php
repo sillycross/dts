@@ -234,6 +234,8 @@ $lang = array
 	'urlist_comment' => '管理玩家帐户信息',
 	'gamecheck' => '当前游戏自检',
 	'gamecheck_comment' => '修正游戏人数异常和移动下拉框消失的功能',
+	'rankclear' => '排行榜重置',
+	'rankclear_comment' => '重置积分榜，使用前确认你在做什么',
 	
 	'pcmng' => '玩家数据管理',
 	'pcmng_comment' => '修改当前局玩家的各数值，不影响帐号',
