@@ -41,6 +41,8 @@ if($start + $ranklimit > $count){
 if(!isset($command) || $start != $ostart){
 	if(!isset($checkmode) || $checkmode == 'credits'){
 		$result = $db->query("SELECT * FROM {$gtablepre}users WHERE validgames>0 ORDER BY credits DESC, wingames DESC, uid ASC LIMIT $start,$ranklimit");
+	}elseif($checkmode == 'total'){
+		$result = $db->query("SELECT * FROM {$gtablepre}users WHERE validgames>0 ORDER BY totalcredits DESC, credits DESC, uid ASC LIMIT $start,$ranklimit");
 	}elseif($checkmode == 'winrate'){
 		$mingames = $winratemingames >= 1 ? $winratemingames : 1;
 		$result = $db->query("SELECT * FROM {$gtablepre}users WHERE validgames>='$mingames' ORDER BY (wingames/validgames) DESC, credits DESC, uid ASC LIMIT $start,$ranklimit");

@@ -10,6 +10,7 @@
 		<TD class="b1"><span>{lang validgames}</span></TD>
 		<TD class="b1"><span>{lang wingames}</span></TD>
 		<TD class="b1"><span>{lang winrate}</span></TD>
+		<TD class="b1"><span>荣誉等级</span></TD>
 		<!--{if defined('MOD_ELORATING')}-->
 		<TD class="b1"><span>天梯积分</span></TD>
 		<!--{/if}-->
@@ -30,6 +31,7 @@
 		<TD class="b3"><span>$urdata['validgames']</span></TD>
 		<TD class="b3"><span>$urdata['wingames']</span></TD>
 		<TD class="b3"><span>$urdata['winrate']</span></TD>
+		<TD class="b3"><span>$urdata['totalcredits']</span></TD>
 		<!--{if defined('MOD_ELORATING')}-->
 		<TD class="b3"><!--{if $urdata['elo_history']==''}-->1500<!--{else}--><span style="color:<!--{eval echo \elorating\elorating_get_color($urdata['elo_rating']);}-->"><span style="font-weight:bold;">$urdata['elo_rating']</span></span><!--{/if}--></td></TD>
 		<!--{/if}-->
