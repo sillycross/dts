@@ -1,0 +1,124 @@
+<?php
+
+namespace skill223
+{
+
+	function init() 
+	{
+		define('MOD_SKILL223_INFO','club;battle;locked;');
+		eval(import_module('clubbase'));
+		$clubskillname[223] = '暗杀';
+	}
+	
+	function acquire223(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		\skillbase\skill_setvalue(223,'rmtime','2',$pa);
+	}
+	
+	function lost223(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+	}
+	
+	function check_unlocked223(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $pa['lvl']>=20;
+	}
+	
+	function skill_onload_event(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($pa);
+	}
+	
+	function skill_onsave_event(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($pa);
+	}
+	
+	function get_remaintime223(&$pa = NULL)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return \skillbase\skill_getvalue(223,'rmtime',$pa);
+	}
+	
+	function strike_prepare(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if ($pa['bskill']!=223) return $chprocess($pa, $pd, $active);
+		if (!\skillbase\skill_query(223,$pa) || !check_unlocked223($pa))
+		{
+			eval(import_module('logger'));
+			$log .= '你尚未解锁这个技能！';
+			$pa['bskill']=0;
+		}
+		else
+		{
+			$remtime = (int)get_remaintime223($pa);
+			if ($remtime>=1)
+			{
+				eval(import_module('logger'));
+				if ($active)
+					$log.="<span class=\"lime\">你对{$pd['name']}发动了技能「暗杀」！</span><br>";
+				else  $log.="<span class=\"lime\">{$pa['name']}对你发动了技能「暗杀」！</span><br>";
+				$remtime--; 
+				\skillbase\skill_setvalue(223,'rmtime',$remtime,$pa);
+				addnews ( 0, 'bskill223', $pa['name'], $pd['name'] );
+			}
+			else
+			{
+				if ($active)
+				{
+					eval(import_module('logger'));
+					$log.='怒气不足或其他原因不能发动。<br>';
+				}
+				$pa['bskill']=0;
+			}
+		}
+		$chprocess($pa, $pd, $active);
+	}	
+	
+	function get_hitrate(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if ($pa['bskill']!=223) return $chprocess($pa, $pd, $active);
+		return 10000;
+	}
+	
+	function get_final_dmg_multiplier(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$r=Array();
+		if ($pa['bskill']==223) 
+		{
+			eval(import_module('logger'));
+			$var_203=50;
+			if (isset($pd['original_inf'])){
+				$var_203+=(50*strlen($pd['original_inf']));
+			}
+			if ($active)
+				$log.="<span class=\"yellow\">「暗杀」使你造成的最终伤害提高了{$var_203}%！</span><br>";
+			else  $log.="<span class=\"yellow\">「暗杀」使敌人造成的最终伤害提高了{$var_203}！</span><br>";
+			$var_203=($var_203+100)/100;
+			$r=Array($var_203);
+		}
+		return array_merge($r,$chprocess($pa,$pd,$active));
+	}
+
+	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		eval(import_module('sys','player'));
+		
+		if($news == 'bskill223') 
+			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}对{$b}发动了技能<span class=\"yellow\">「暗杀」</span></span><br>\n";
+		
+		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+	}
+}
+
+?>

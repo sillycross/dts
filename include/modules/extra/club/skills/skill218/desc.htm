@@ -1,22 +1,21 @@
-<!--{eval eval(import_module('skill202'));}-->
-<!--{eval $___TEMP_SKILL_ID=202;}-->
+<!--{eval eval(import_module('skill218'));}-->
+<!--{eval $___TEMP_SKILL_ID=218;}-->
 {template MOD_CLUBBASE_SKILLDESC_START}
 <span>
-破甲
+渗透
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
-<!--{eval $clv = (int)\skillbase\skill_getvalue(202,'lvl'); }-->
+<!--{eval $clv = (int)\skillbase\skill_getvalue(218,'lvl'); }-->
 <!--{eval $totlv = count($upgradecost)-1; }-->
 <span class="lime">当前级别$clv/$totlv</span>&nbsp;
 <!--{if $upgradecost[$clv] !== -1}-->消耗<span class="lime">$upgradecost[$clv]</span>点技能点升至下一级<!--{/if}--><br>
-<!--{eval $sk202d=$exthit2[$clv]+1;}-->
-持射系武器时，你的攻击致伤率<span class="yellow">+$infrgain[$clv]%</span>，造成的防具损坏效果<span class="yellow">×$sk202d</span><br>战斗中每造成敌人一处受伤，最终伤害增加<span class="yellow">$extrdmg[$clv]%</span><br>
+你造成异常状态的概率提高<span class="yellow">$infrgain[$clv]%</span>，对已受伤或有异常状态的敌人造成的最终伤害提高<span class="yellow">$extdmg[$clv]%</span><br>
 </span></td>
 <td class=b3 width=46>
 <!--{if $upgradecost[$clv] !== -1}-->
 <!--{if $skillpoint>=$upgradecost[$clv]}-->
-<input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill202_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="升级">
+<input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill218_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="升级">
 <!--{else}-->
 <input type="button" style="width:46px" disabled="true" value="升级">
 <!--{/if}-->
