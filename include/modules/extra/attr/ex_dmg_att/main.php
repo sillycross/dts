@@ -91,7 +91,7 @@ namespace ex_dmg_att
 		if (!isset($ex_inf[$key])) return 0; 	//本属性无可以造成的异常状态
 		if (\skillbase\skill_query($ex_inf[$key], $pd)) return 0;	//敌方已经有此异常状态了
 		$rate = $ex_inf_r[$key]+$pa['fin_skill']*$ex_skill_inf_r[$key];
-		return $rate;
+		return min($rate,$ex_max_inf_r[$key]);
 	}
 	
 	function check_ex_inf_infliction(&$pa, &$pd, $active, $key)
@@ -99,7 +99,7 @@ namespace ex_dmg_att
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','ex_dmg_att','wound','logger'));
 		//判定造成异常状态
-		$inf_rate = min ( calculate_ex_inf_rate($pa, $pd, $active, $key), $ex_max_inf_r[$key] );
+		$inf_rate = calculate_ex_inf_rate($pa, $pd, $active, $key);
 		$inf_dice = rand(0,99);
 		if ($inf_dice < $inf_rate)
 		{

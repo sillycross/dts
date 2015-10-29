@@ -40,6 +40,7 @@ item_ub,base/items/item_ub/,1
 item_uee,base/items/item_uee/,1
 song,base/items/song/,1
 skill23,extra/club/skills/skill23/,1
+skill220,extra/club/skills/skill220/,1
 corpse,base/corpse/,1
 trap,base/items/trap/,1
 itemmix_sync,base/itemmix/itemmix_sync/,1
@@ -84,6 +85,8 @@ club13,extra/club/clubs/club13/,1
 club14,extra/club/clubs/club14/,1
 sklearn_util,extra/club/sklearn_util/,1
 club6,extra/club/clubs/club6/,1
+club8,extra/club/clubs/club8/,1
+club7,extra/club/clubs/club7/,1
 club11,extra/club/clubs/club11/,1
 skill58,extra/club/skills/skill58/,1
 club24,extra/club/clubs/club24/,1
@@ -93,6 +96,7 @@ club18,extra/club/clubs/club18/,1
 skill211,extra/club/skills/skill211/,1
 skill212,extra/club/skills/skill212/,1
 skill214,extra/club/skills/skill214/,1
+skill221,extra/club/skills/skill221/,1
 wep_n,base/weapon/wep_n/,1
 wep_p,base/weapon/wep_p/,1
 wep_k,base/weapon/wep_k/,1
@@ -151,6 +155,7 @@ rest,base/rest/,1
 ex_rapid_attr,extra/attr/ex_rapid_attr/,1
 item_uc,base/items/item_uc/,1
 skill12,extra/club/skills/skill12/,1
+skill223,extra/club/skills/skill223/,1
 skill28,extra/club/skills/skill28/,1
 skill37,extra/club/skills/skill37/,1
 skill73,extra/club/skills/skill73/,1
@@ -170,6 +175,11 @@ skill207,extra/club/skills/skill207/,1
 skill65,extra/club/skills/skill65/,1
 skill49,extra/club/skills/skill49/,1
 skill201,extra/club/skills/skill201/,1
+skill600,extra/club/skills/skill600/,1
+skill222,extra/club/skills/skill222/,1
+skill218,extra/club/skills/skill218/,1
+skill217,extra/club/skills/skill217/,1
+skill219,extra/club/skills/skill219/,1
 ex_dmg_def,extra/attr/ex_dmg_def/,1
 ex_dmg_nullify,extra/attr/ex_dmg_nullify/,1
 skill25,extra/club/skills/skill25/,1

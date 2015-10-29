@@ -25,7 +25,11 @@ namespace attack
 		eval(import_module('logger'));
 		
 		//获取最终伤害修正系数，类似物理伤害修正系数，这里返回的是一个数组
-		$multiplier = get_final_dmg_multiplier($pa, $pd, $active);
+		if ($dmg>0){
+			$multiplier = get_final_dmg_multiplier($pa, $pd, $active);
+		}else{
+			$multiplier= Array();
+		}
 		
 		if ((isset($pa['physical_dmg_dealt']) && $dmg>0 && $dmg!=$pa['physical_dmg_dealt']) 
 			|| ($dmg>0 && count($multiplier)>0))	//好吧这个写法有点糟糕……

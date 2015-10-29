@@ -1,0 +1,19 @@
+<!--{eval eval(import_module('skill222'));}-->
+<!--{eval $___TEMP_SKILL_ID=222;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+催化
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<span class="yellow">战斗技</span>&nbsp;&nbsp;本次攻击毒性伤害<span class="yellow">+50%</span>，引发的「衰弱」状态持续时间延长至<span class="yellow">75</span>秒<br>消耗<span class="yellow">$ragecost</span>点怒气
+</span></td>
+<td class=b3 width=46>
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+12级时解锁
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

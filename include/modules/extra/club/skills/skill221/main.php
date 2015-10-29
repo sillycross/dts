@@ -1,0 +1,66 @@
+<?php
+
+namespace skill221
+{
+	function init() 
+	{
+		define('MOD_SKILL221_INFO','club;');
+		eval(import_module('clubbase'));
+		$clubskillname[221] = '衰弱';
+	}
+	
+	function acquire221(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+	}
+	
+	function lost221(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+	}
+	
+	function skill_onload_event(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($pa);
+	}
+	
+	function skill_onsave_event(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($pa);
+	}
+	
+	function check_unlocked221(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 1;
+	}
+	
+	function get_skill221_lasttime(&$pa,&$pd,&$active){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 250;
+	}
+
+	function strike_finish(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (\skillbase\skill_query(221,$pa))
+		{
+			eval(import_module('logger','skill221','skill600','sys','skill221'));
+			$var_221=get_skill221_lasttime($pa,$pd,$active);
+			if (!\skillbase\skill_query(600,$pd)){
+				\skillbase\skill_acquire(600,$pd);
+				$var_221_2=$now;
+			}else{
+				$var_221_2=\skillbase\skill_getvalue(600,'end',$pd);
+				if ($var_221_2<$now) $var_221_2=$now;
+			}
+			\skillbase\skill_setvalue(600,'start',$var_221_2,$pd);
+			\skillbase\skill_setvalue(600,'end',$var_221_2+$var_221,$pd);
+		}
+		$chprocess($pa,$pd,$active);
+	}
+}
+
+?>
