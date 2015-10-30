@@ -47,7 +47,7 @@ namespace skill221
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (\skillbase\skill_query(221,$pa))
 		{
-			eval(import_module('logger','skill221','skill600','sys','skill221'));
+			eval(import_module('logger','skill221','skill600','sys'));
 			$var_221=get_skill221_lasttime($pa,$pd,$active);
 			if (!\skillbase\skill_query(600,$pd)){
 				\skillbase\skill_acquire(600,$pd);
