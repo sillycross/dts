@@ -105,7 +105,7 @@ namespace attack
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','logger'));
+		eval(import_module('sys','logger','player'));
 		if ($active)
 		{
 			$log .= "<span class=\"yellow\">{$pd['name']}</span><span class=\"red\">被你杀死了！</span><br>";
@@ -128,6 +128,17 @@ namespace attack
 		else
 		{
 			if ($kilmsg!='') $log.="<span class=\"yellow\">{$pa['name']}对你说：“{$kilmsg}”</span><br>";
+		}
+		
+		\player\player_save($pa);
+		\player\player_save($pd);
+		if ($active)
+		{
+			\player\load_playerdata($pa);
+		}
+		else
+		{
+			\player\load_playerdata($pd);
 		}
 	}
 	
