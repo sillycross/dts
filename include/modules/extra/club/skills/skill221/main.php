@@ -39,7 +39,7 @@ namespace skill221
 	
 	function get_skill221_lasttime(&$pa,&$pd,&$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return 25;
+		return 15;
 	}
 
 	function strike_finish(&$pa, &$pd, $active)

@@ -7,7 +7,7 @@ namespace skill217
 	
 	function init() 
 	{
-		define('MOD_SKILL217_INFO','club;upgrade;locked;');
+		define('MOD_SKILL217_INFO','club;upgrade;');
 		eval(import_module('clubbase'));
 		$clubskillname[217] = '特攻';
 	}
