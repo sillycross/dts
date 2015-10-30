@@ -94,12 +94,18 @@ namespace ex_dmg_att
 		return min($rate,$ex_max_inf_r[$key]);
 	}
 	
+	function get_ex_inf_rate_modifier(&$pa, &$pd, $active, $key)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 0;
+	}
+	
 	function check_ex_inf_infliction(&$pa, &$pd, $active, $key)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','ex_dmg_att','wound','logger'));
 		//判定造成异常状态
-		$inf_rate = calculate_ex_inf_rate($pa, $pd, $active, $key);
+		$inf_rate = calculate_ex_inf_rate($pa, $pd, $active, $key)+get_ex_inf_rate_modifier($pa, $pd, $active, $key);
 		$inf_dice = rand(0,99);
 		if ($inf_dice < $inf_rate)
 		{
