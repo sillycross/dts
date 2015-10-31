@@ -43,41 +43,28 @@
 <!--{if $roomdata['roomtype']==1}-->
 <table CellSpacing=0 CellPadding=0 width=100%>
 <tr>
-	<td class="b3" height=40px width=50px>
+	<td class="b3" height=40px width=20px>
 	</td>
-	<td class="b3" height=40px width=30px rowspan=2>
-		<span style="color:#ff0022;">红<br>队<br></span>
+	<td class="b3" height=40px width=40px>
+		<span style="color:#ff0022;">红队</span>
 	</td>
-	<!--{eval $i=0;}-->
-	<td class="b3" id="room-position-$i" width=150px align=center style="position:relative;">
-		{template roomslot}
+	<!--{loop range(0,4) $i}-->
+	<td class="b3" id="room-position-$i" width=90px align=center style="position:relative;">
+		{template roomslot_s}
 	</td>
-	<td class="b3" height=40px width=50px>
-	</td>
-	<!--{eval $i=2;}-->
-	<td class="b3" id="room-position-$i" width=150px align=center style="position:relative;">
-		{template roomslot}
-	</td>
-	<td class="b3" height=40px width=30px rowspan=2>
-		<span style="color:#5900ff;">蓝<br>队<br></span>
-	</td>
-	<td class="b3" height=40px width=50px>
-	</td>
+	<!--{/loop}-->
 </tr>
 <tr>
-	<td class="b3" height=40px width=50px>
+	<td class="b3" height=40px width=20px>
 	</td>
-	<!--{eval $i=1;}-->
-	<td id="room-position-$i" class="b3" width=150px align=center style="position:relative;">
-		{template roomslot}
+	<td class="b3" height=40px width=40px>
+		<span style="color:#5900ff;">蓝队</span>
 	</td>
-	<td class="b3" height=40px width=50px>
-	<!--{eval $i=3;}-->
-	<td id="room-position-$i" class="b3" width=150px align=center style="position:relative;">
-		{template roomslot}
+	<!--{loop range(5,9) $i}-->
+	<td id="room-position-$i" class="b3" width=90px align=center style="position:relative;">
+		{template roomslot_s}
 	</td>
-	<td class="b3" height=40px width=50px>
-	</td>
+	<!--{/loop}-->
 </tr>
 </table>
 <!--{/if}-->
@@ -89,9 +76,9 @@
 	<td class="b3" height=40px width=40px>
 		<span style="color:#ff0022;">红队</span>
 	</td>
-	<!--{loop range(0,2) $i}-->
-	<td class="b3" id="room-position-$i" width=150px align=center style="position:relative;">
-		{template roomslot}
+	<!--{loop range(0,4) $i}-->
+	<td class="b3" id="room-position-$i" width=90px align=center style="position:relative;">
+		{template roomslot_s}
 	</td>
 	<!--{/loop}-->
 </tr>
@@ -101,9 +88,21 @@
 	<td class="b3" height=40px width=40px>
 		<span style="color:#5900ff;">蓝队</span>
 	</td>
-	<!--{loop range(3,5) $i}-->
-	<td id="room-position-$i" class="b3" width=150px align=center style="position:relative;">
-		{template roomslot}
+	<!--{loop range(5,9) $i}-->
+	<td id="room-position-$i" class="b3" width=90px align=center style="position:relative;">
+		{template roomslot_s}
+	</td>
+	<!--{/loop}-->
+</tr>
+<tr>
+	<td class="b3" height=40px width=20px>
+	</td>
+	<td class="b3" height=40px width=40px>
+		<span style="color:#8cff00;">绿队</span>
+	</td>
+	<!--{loop range(10,14) $i}-->
+	<td id="room-position-$i" class="b3" width=90px align=center style="position:relative;">
+		{template roomslot_s}
 	</td>
 	<!--{/loop}-->
 </tr>
@@ -112,53 +111,116 @@
 <!--{if $roomdata['roomtype']==3}-->
 <table CellSpacing=0 CellPadding=0 width=100%>
 <tr>
-	<td class="b3" height=10px colspan=7>
+	<td class="b3" height=40px width=20px>
 	</td>
-</tr>
-<tr>
-	<td class="b3" height=25px width=15px>
-	</td>
-	<td class="b3" height=25px width=150px>
+	<td class="b3" height=40px width=40px>
 		<span style="color:#ff0022;">红队</span>
 	</td>
-	<td class="b3" height=25px width=15px>
+	<!--{loop range(0,4) $i}-->
+	<td class="b3" id="room-position-$i" width=90px align=center style="position:relative;">
+		{template roomslot_s}
 	</td>
-	<td class="b3" height=25px width=150px>
+	<!--{/loop}-->
+</tr>
+<tr>
+	<td class="b3" height=40px width=20px>
+	</td>
+	<td class="b3" height=40px width=40px>
 		<span style="color:#5900ff;">蓝队</span>
 	</td>
-	<td class="b3" height=25px width=15px>
+	<!--{loop range(5,9) $i}-->
+	<td id="room-position-$i" class="b3" width=90px align=center style="position:relative;">
+		{template roomslot_s}
 	</td>
-	<td class="b3" height=25px width=150px>
+	<!--{/loop}-->
+</tr>
+<tr>
+	<td class="b3" height=40px width=20px>
+	</td>
+	<td class="b3" height=40px width=40px>
 		<span style="color:#8cff00;">绿队</span>
 	</td>
-	<td class="b3" height=25px width=15px>
+	<!--{loop range(10,14) $i}-->
+	<td id="room-position-$i" class="b3" width=90px align=center style="position:relative;">
+		{template roomslot_s}
 	</td>
+	<!--{/loop}-->
 </tr>
 <tr>
-	<td class="b3" height=40px width=15px>
+	<td class="b3" height=40px width=20px>
 	</td>
-	<!--{eval $i=0;}-->
-	<td id="room-position-$i" class="b3" width=150px align=center style="position:relative;">
-		{template roomslot}
+	<td class="b3" height=40px width=40px>
+		<span style="color:#ffc700;">黄队</span>
 	</td>
-	<td class="b3" height=40px width=15px>
+	<!--{loop range(15,19) $i}-->
+	<td id="room-position-$i" class="b3" width=90px align=center style="position:relative;">
+		{template roomslot_s}
 	</td>
-	<!--{eval $i=1;}-->
-	<td id="room-position-$i" class="b3" width=150px align=center style="position:relative;">
-		{template roomslot}
+	<!--{/loop}-->
+</tr>
+</table>
+<!--{/if}-->
+<!--{if $roomdata['roomtype']==4}-->
+<table CellSpacing=0 CellPadding=0 width=100%>
+<tr>
+	<td class="b3" height=40px width=20px>
 	</td>
-	<td class="b3" height=40px width=15px>
+	<td class="b3" height=40px width=40px>
+		<span style="color:#ff0022;">红队</span>
 	</td>
-	<!--{eval $i=2;}-->
-	<td id="room-position-$i" class="b3" width=150px align=center style="position:relative;">
-		{template roomslot}
+	<!--{loop range(0,4) $i}-->
+	<td class="b3" id="room-position-$i" width=90px align=center style="position:relative;">
+		{template roomslot_s}
 	</td>
-	<td class="b3" height=40px width=15px>
-	</td>
+	<!--{/loop}-->
 </tr>
 <tr>
-	<td class="b3" height=15px colspan=7>
+	<td class="b3" height=40px width=20px>
 	</td>
+	<td class="b3" height=40px width=40px>
+		<span style="color:#5900ff;">蓝队</span>
+	</td>
+	<!--{loop range(5,9) $i}-->
+	<td id="room-position-$i" class="b3" width=90px align=center style="position:relative;">
+		{template roomslot_s}
+	</td>
+	<!--{/loop}-->
+</tr>
+<tr>
+	<td class="b3" height=40px width=20px>
+	</td>
+	<td class="b3" height=40px width=40px>
+		<span style="color:#8cff00;">绿队</span>
+	</td>
+	<!--{loop range(10,14) $i}-->
+	<td id="room-position-$i" class="b3" width=90px align=center style="position:relative;">
+		{template roomslot_s}
+	</td>
+	<!--{/loop}-->
+</tr>
+<tr>
+	<td class="b3" height=40px width=20px>
+	</td>
+	<td class="b3" height=40px width=40px>
+		<span style="color:#ffc700;">黄队</span>
+	</td>
+	<!--{loop range(15,19) $i}-->
+	<td id="room-position-$i" class="b3" width=90px align=center style="position:relative;">
+		{template roomslot_s}
+	</td>
+	<!--{/loop}-->
+</tr>
+<tr>
+	<td class="b3" height=40px width=20px>
+	</td>
+	<td class="b3" height=40px width=40px>
+		<span style="color:#fcfcfc;">白队</span>
+	</td>
+	<!--{loop range(20,24) $i}-->
+	<td id="room-position-$i" class="b3" width=90px align=center style="position:relative;">
+		{template roomslot_s}
+	</td>
+	<!--{/loop}-->
 </tr>
 </table>
 <!--{/if}-->

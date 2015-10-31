@@ -368,17 +368,21 @@ if ($command=='ready' && !$not_ready_command_flag)
 			{	
 				addnews($now,'roominfo',$roomtypelist[$roomdata['roomtype']]['name'],'对决者:&nbsp;'.room_getteamhtml($roomdata,0).'&nbsp;<span class="yellow">VS</span>&nbsp;'.room_getteamhtml($roomdata,1).'！');
 			}
-			else  if ($roomdata['roomtype']==1)	//2v2
+			else  if ($roomdata['roomtype']==1)	//2
 			{
-				addnews($now,'roominfo',$roomtypelist[$roomdata['roomtype']]['name'],'对决者:&nbsp;<span style="color:#ff0022">红队&nbsp;'.room_getteamhtml($roomdata,0).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#5900ff">蓝队 '.room_getteamhtml($roomdata,2).'</span>！');
+				addnews($now,'roominfo',$roomtypelist[$roomdata['roomtype']]['name'],'对决者:&nbsp;<span style="color:#ff0022">红队&nbsp;'.room_getteamhtml($roomdata,0).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#5900ff">蓝队 '.room_getteamhtml($roomdata,5).'</span>！');
 			}
-			else  if ($roomdata['roomtype']==2)	//3v3
+			else  if ($roomdata['roomtype']==2)	//3
 			{
-				addnews($now,'roominfo',$roomtypelist[$roomdata['roomtype']]['name'],'对决者:&nbsp;<span style="color:#ff0022">红队&nbsp;'.room_getteamhtml($roomdata,0).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#5900ff">蓝队 '.room_getteamhtml($roomdata,3).'</span>！');
+				addnews($now,'roominfo',$roomtypelist[$roomdata['roomtype']]['name'],'对决者:&nbsp;<span style="color:#ff0022">红队&nbsp;'.room_getteamhtml($roomdata,0).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#5900ff">蓝队 '.room_getteamhtml($roomdata,5).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#8cff00">绿队 '.room_getteamhtml($roomdata,10).'</span>！');
 			}
-			else  if ($roomdata['roomtype']==3)	//1v1v1
+			else  if ($roomdata['roomtype']==3)	//4
 			{
-				addnews($now,'roominfo',$roomtypelist[$roomdata['roomtype']]['name'],'对决者:&nbsp;'.room_getteamhtml($roomdata,0).'&nbsp;<span class="yellow">VS</span>&nbsp;'.room_getteamhtml($roomdata,1).'&nbsp;<span class="yellow">VS</span>&nbsp;'.room_getteamhtml($roomdata,2).'！');
+				addnews($now,'roominfo',$roomtypelist[$roomdata['roomtype']]['name'],'对决者:&nbsp;<span style="color:#ff0022">红队&nbsp;'.room_getteamhtml($roomdata,0).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#5900ff">蓝队 '.room_getteamhtml($roomdata,5).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#8cff00">绿队 '.room_getteamhtml($roomdata,10).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#ffc700">黄队 '.room_getteamhtml($roomdata,15).'</span>！');
+			}
+			else  if ($roomdata['roomtype']==4)	//5
+			{
+				addnews($now,'roominfo',$roomtypelist[$roomdata['roomtype']]['name'],'对决者:&nbsp;<span style="color:#ff0022">红队&nbsp;'.room_getteamhtml($roomdata,0).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#5900ff">蓝队 '.room_getteamhtml($roomdata,5).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#8cff00">绿队 '.room_getteamhtml($roomdata,10).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#ffc700">黄队 '.room_getteamhtml($roomdata,15).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#fefefe">白队 '.room_getteamhtml($roomdata,20).'</span>！');
 			}
 			//所有玩家进入游戏
 			for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)

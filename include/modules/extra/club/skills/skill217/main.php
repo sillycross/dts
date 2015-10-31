@@ -3,7 +3,7 @@
 namespace skill217
 {
 	$dmggain = Array(10,20,30,40,50);
-	$upgradecost = Array(6,6,7,7,-1);
+	$upgradecost = Array(6,6,6,6,-1);
 	
 	function init() 
 	{
