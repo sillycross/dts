@@ -494,7 +494,7 @@ function set_credits(){
 
 function get_credit_up($data,$winner = '',$winmode = 0){
 	global $gametype;
-	if (in_array($gametype,Array(10,11,12,13))) return 0;
+	if (in_array($gametype,Array(10,11,12,13,14))) return 0;
 	if($data['name'] == $winner){//获胜
 		if($winmode == 2){$up = 200;}//最后幸存+200
 		elseif($winmode == 3){$up = 500;}//解禁+500
