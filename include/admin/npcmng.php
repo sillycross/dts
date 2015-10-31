@@ -49,7 +49,7 @@ if($command == 'kill' || $command == 'live' || $command == 'del') {
 						$operlist[${'npc_'.$i}] = $npcdata[$i]['name'].'(PID:'.$npcdata[$i]['pid'].')';	
 						$npcdata[$i]['hp'] = 0;
 						$npcdata[$i]['state'] = 16;
-						$deathnum --;$alivenum++;
+						$deathnum ++;$alivenum--;
 						adminlog('delnpc',$npcdata[$i]['name']);
 					}else{
 						$operlist2[${'npc_'.$i}] = $npcdata[$i]['name'].'(PID:'.$npcdata[$i]['pid'].')';
