@@ -51,7 +51,7 @@ if($command == 'kill' || $command == 'live' || $command == 'del') {
 						$operlist[${'pc_'.$i}] = $pcdata[$i]['name'];	
 						$pcdata[$i]['hp'] = 0;
 						$pcdata[$i]['state'] = 16;
-						$deathnum --;$alivenum++;
+						$deathnum ++;$alivenum--;
 						adminlog('delpc',$pcdata[$i]['name']);
 						addnews($now,'death16',$pcdata[$i]['name']);
 					}else{
