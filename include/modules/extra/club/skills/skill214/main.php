@@ -62,8 +62,8 @@ namespace skill214
 	function calculate_itemfind_obbs_multiplier()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(214,$pd) || !check_unlocked214($pd)) return $chprocess();
-		$choice = \skillbase\skill_getvalue(214,'choice',$pd);
+		if (!\skillbase\skill_query(214) || !check_unlocked214()) return $chprocess();
+		$choice = \skillbase\skill_getvalue(214,'choice');
 		if ($choice==3) return 1.15*$chprocess();
 		return $chprocess();
 	}
@@ -71,8 +71,8 @@ namespace skill214
 	function calculate_meetman_rate($schmode)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(214,$pd) || !check_unlocked214($pd)) return $chprocess($schmode);
-		$choice = \skillbase\skill_getvalue(214,'choice',$pd);
+		if (!\skillbase\skill_query(214) || !check_unlocked214()) return $chprocess($schmode);
+		$choice = \skillbase\skill_getvalue(214,'choice');
 		if ($choice==1) return 1.15*$chprocess($schmode);
 		return $chprocess($schmode);
 	}

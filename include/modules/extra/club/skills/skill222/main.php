@@ -3,7 +3,7 @@
 namespace skill222
 {
 
-	$ragecost=35;
+	$ragecost=50;
 	
 	function init() 
 	{

@@ -4,7 +4,7 @@ namespace skill218
 {
 	$infrgain = Array(0,10,20,30,40,50,60);
 	$extdmg = Array(0,5,10,15,20,25,30);
-	$upgradecost = Array(3,4,4,4,4,4,-1);
+	$upgradecost = Array(4,4,4,4,5,5,-1);
 	
 	function init() 
 	{
