@@ -19,6 +19,8 @@ $admin_cmd_list = Array(
 	'npcmng' => 5,
 	'gameinfomng' => 5,
 	'antiAFKmng' => 4,
+	'rankclear' => 9,
+	'roomclose' => 7,
 );
 
 if(!$cuser||!$cpass) { gexit($_ERROR['no_login'],__file__,__line__); }

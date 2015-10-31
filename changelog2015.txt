@@ -120,3 +120,12 @@ NPC简介回归，把PVE相关NPC收到了气泡框里
 
 见敌必斩技能完成（感谢虚子实现代码）
 新增buff系统模块
+
+--------------- 2015/10/27 ----------------
+
+1.修改了注册页面，账号框的长度，显示对齐。templates/default/userbasicdata.htm
+2.修改了模板工具里函数的废弃参数部分代码。include/template.func.php
+	preg_replace的废弃参数/e
+3.增加了物品掉落:
+	修改了help.php
+	新增文件include/itemplace.func.php用于查询物品掉落情况

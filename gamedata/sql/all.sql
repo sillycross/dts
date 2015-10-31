@@ -323,6 +323,7 @@ CREATE TABLE `acbra2_users` (
   `lastgame` smallint(5) unsigned NOT NULL DEFAULT '0',
   `ip` char(15) NOT NULL DEFAULT '',
   `credits` int(10) NOT NULL DEFAULT '0',
+  `totalcredits` int(10) NOT NULL DEFAULT '0',
   `credits2` mediumint(9) NOT NULL DEFAULT '0',
   `achievement` text NOT NULL,
   `nick` text NOT NULL,

@@ -7,7 +7,7 @@ namespace addnpc
 	function addnpc($xtype,$xsub,$num,$time = 0) 
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','map','logger','addnpc','lvlctl'));
+		eval(import_module('sys','player','map','logger','addnpc','lvlctl','skillbase'));
 		$time = $time == 0 ? $now : $time;
 		$plsnum = sizeof($plsinfo);
 		$npc=array_merge($npcinit,$anpcinfo[$xtype]);
@@ -54,6 +54,21 @@ namespace addnpc
 					//出BUG了
 					$summon_pid = -1;
 				}
+				if (is_array($npc['skills'])){
+					$qry="SELECT * FROM {$tablepre}players WHERE type>'0' ORDER BY pid DESC LIMIT 1";
+					$result=$db->query($qry);
+					$pr=$db->fetch_array($result);
+					$pp=\player\fetch_playerdata_by_pid($pr['pid']);
+					foreach ($npc['skills'] as $key=>$value){
+						if (defined('MOD_SKILL'.$key)){
+							\skillbase\skill_acquire($key,$pp);
+							if ($value>0){
+								\skillbase\skill_setvalue($key,'lvl',$value,$pp);
+							}
+						}	
+					}
+					\player\player_save($pp);
+				}
 			}
 		}
 		/*
@@ -84,7 +99,7 @@ namespace addnpc
 		if (strpos ( $itmk, 'Y' ) === 0 || strpos ( $itmk, 'Z' ) === 0) 
 		{
 			if ($itm == '挑战者之印') {
-				if (in_array($gametype,Array(10,11,12,13)))
+				if (in_array($gametype,Array(10,11,12,13,14)))
 				{
 					$log.="你使用了{$itm}，但是什么也没有发生（当前游戏模式下不允许PVE）。<br>";
 					return;
@@ -98,7 +113,7 @@ namespace addnpc
 				$itme = $itms = 0;
 				return;
 			} elseif ($itm == '破灭之诗') {
-				if (in_array($gametype,Array(10,11,12,13)))
+				if (in_array($gametype,Array(10,11,12,13,14)))
 				{
 					$log.="你使用了{$itm}，但是什么也没有发生（当前游戏模式下不允许PVE）。<br>";
 					return;
@@ -119,7 +134,7 @@ namespace addnpc
 				$itme = $itms = 0;
 				return;
 			} elseif ($itm == '黑色碎片') {
-				if (in_array($gametype,Array(10,11,12,13)))
+				if (in_array($gametype,Array(10,11,12,13,14)))
 				{
 					$log.="你使用了{$itm}，但是什么也没有发生（当前游戏模式下不允许PVE）。<br>";
 					return;

@@ -155,8 +155,8 @@ namespace skill202
 			if ($var_202>0)
 			{
 				if ($active)
-					$log.="<span class=\"yellow\">破甲使你造成的最终伤害提高了{$var_202}%！</span><br>";
-				else  $log.="<span class=\"yellow\">破甲使敌人造成的最终伤害提高了{$var_202}%！</span><br>";
+					$log.="<span class=\"yellow\">「破甲」使你造成的最终伤害提高了{$var_202}%！</span><br>";
+				else  $log.="<span class=\"yellow\">「破甲」使敌人造成的最终伤害提高了{$var_202}%！</span><br>";
 				$r=Array(1+$var_202/100);
 			}	
 			unset($pa['skill202_count']);

@@ -70,7 +70,7 @@ namespace skill26
 	function check_ex_inf_infliction(&$pa, &$pd, $active, $key)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill']!=26) return $chprocess($pa, $pd, $active);
+		if ($pa['bskill']!=26) return $chprocess($pa, $pd, $active,$key);
 		if ($pa['skill26_flag3']==1) return;
 		$chprocess($pa, $pd, $active, $key);
 	}

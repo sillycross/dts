@@ -493,10 +493,13 @@ function set_credits(){
 }
 
 function get_credit_up($data,$winner = '',$winmode = 0){
+	global $gametype;
+	if (in_array($gametype,Array(10,11,12,13,14))) return 0;
 	if($data['name'] == $winner){//获胜
 		if($winmode == 2){$up = 200;}//最后幸存+200
 		elseif($winmode == 3){$up = 500;}//解禁+500
 		elseif($winmode == 5){$up = 100;}//核弹+100
+		elseif($winmode == 7){$up = 1200;}//解离+1200
 		else{$up = 50;}//其他胜利方式+50（暂时没有这种胜利方式）
 	}
 	elseif($data['hp']>0){$up = 25;}//存活但不是获胜者+25

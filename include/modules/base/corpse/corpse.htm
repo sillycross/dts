@@ -1,6 +1,7 @@
 想要从尸体上拾取什么？<br><br>
 <input type="hidden" name="mode" value="corpse">
-<input type="radio" name="command" id="menu" value="menu" <!--{if !$w_money}-->checked<!--{/if}-->><a onclick=sl('menu'); href="javascript:void(0);" >返回</a><br><br>
+<input type="radio" name="command" id="destroy" value="destroy" <!--{if !$w_money}-->checked<!--{/if}-->><a onclick=sl('destroy'); href="javascript:void(0);" >销毁尸体</a><br>
+<input type="radio" name="command" id="menu" value="menu" ><a onclick=sl('menu'); href="javascript:void(0);" >返回</a><br><br>
 <!--{if $w_weps && $w_wepe}-->
 <input type="radio" name="command" id="wep" value="wep"><a onclick=sl('wep'); href="javascript:void(0);" >$w_wep/$w_wepk_words/$w_wepe/$w_weps<!--{if $w_wepsk_words}-->/$w_wepsk_words<!--{/if}--></a><br>
 <!--{/if}-->
@@ -44,4 +45,4 @@
 <input type="radio" name="command" id="money" value="money" checked><a onclick=sl('money'); href="javascript:void(0);" >$w_money {lang moneyunit} </a><br>
 <!--{/if}-->
 
-<input type="button" name="submit" value="提交" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="button" name="submit" id="z" value="[Z]提交" onclick="postCmd('gamecmd','command.php');this.disabled=true;">

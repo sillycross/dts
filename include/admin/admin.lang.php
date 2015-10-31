@@ -234,6 +234,10 @@ $lang = array
 	'urlist_comment' => '管理玩家帐户信息',
 	'gamecheck' => '当前游戏自检',
 	'gamecheck_comment' => '修正游戏人数异常和移动下拉框消失的功能',
+	'rankclear' => '排行榜重置',
+	'rankclear_comment' => '重置积分榜，使用前确认你在做什么',
+	'roomclose' => '关闭闲置房间',
+	'roomclose_comment' => '关闭长期闲置的房间',
 	
 	'pcmng' => '玩家数据管理',
 	'pcmng_comment' => '修改当前局玩家的各数值，不影响帐号',
@@ -247,6 +251,7 @@ $lang = array
 	'antiAFKmng_comment' => '手动清除一定时间内未行动的玩家',
 	'sttimemng' => '开始时间管理',
 	'sttimemng_comment' => '设定下局游戏的开始时间',
+	
 	
 	'on' => '开启',
 	'off' => '关闭',

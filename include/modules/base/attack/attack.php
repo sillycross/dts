@@ -6,7 +6,6 @@ namespace attack
 	function strike_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$pa['dmg_dealt']=0;
 	}
 	
 	//打击进行

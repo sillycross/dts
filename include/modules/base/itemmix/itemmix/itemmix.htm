@@ -10,5 +10,5 @@
 <!--{if $itms5}--><input type="checkbox" id="mitm5" name="mitm5" value="0"><a onclick="$('mitm5').click();" href="javascript:void(0);">$itm5/$itme5/$itms5</a><br><!--{/if}-->
 <!--{if $itms6}--><input type="checkbox" id="mitm6" name="mitm6" value="0"><a onclick="$('mitm6').click();" href="javascript:void(0);">$itm6/$itme6/$itms6</a><br><!--{/if}-->
 <br>
-<input type="button" class="cmdbutton" name="submit" value="提交" onclick="$('command').value='itemmix';itemmixchooser();postCmd('gamecmd','command.php');this.disabled=true;">
-<input type="button" class="cmdbutton" name="submit" value="放弃" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="button" class="cmdbutton" name="submit" id="z" value="[Z]提交" onclick="$('command').value='itemmix';itemmixchooser();postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="button" class="cmdbutton" name="submit" id="x" value="[X]放弃" onclick="postCmd('gamecmd','command.php');this.disabled=true;">

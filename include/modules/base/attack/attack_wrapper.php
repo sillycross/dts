@@ -25,7 +25,11 @@ namespace attack
 		eval(import_module('logger'));
 		
 		//获取最终伤害修正系数，类似物理伤害修正系数，这里返回的是一个数组
-		$multiplier = get_final_dmg_multiplier($pa, $pd, $active);
+		if ($dmg>0){
+			$multiplier = get_final_dmg_multiplier($pa, $pd, $active);
+		}else{
+			$multiplier= Array();
+		}
 		
 		if ((isset($pa['physical_dmg_dealt']) && $dmg>0 && $dmg!=$pa['physical_dmg_dealt']) 
 			|| ($dmg>0 && count($multiplier)>0))	//好吧这个写法有点糟糕……
@@ -101,7 +105,7 @@ namespace attack
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','logger'));
+		eval(import_module('sys','logger','player'));
 		if ($active)
 		{
 			$log .= "<span class=\"yellow\">{$pd['name']}</span><span class=\"red\">被你杀死了！</span><br>";
@@ -124,6 +128,17 @@ namespace attack
 		else
 		{
 			if ($kilmsg!='') $log.="<span class=\"yellow\">{$pa['name']}对你说：“{$kilmsg}”</span><br>";
+		}
+		
+		\player\player_save($pa);
+		\player\player_save($pd);
+		if ($active)
+		{
+			\player\load_playerdata($pa);
+		}
+		else
+		{
+			\player\load_playerdata($pd);
 		}
 	}
 	
@@ -148,6 +163,7 @@ namespace attack
 			load_user_combat_command($pa);
 		else  load_auto_combat_command($pa);
 		load_auto_combat_command($pd);
+		$pa['dmg_dealt']=0;
 	}
 	
 	//攻击结束
@@ -156,6 +172,7 @@ namespace attack
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		player_damaged_enemy($pa,$pd,$active);
 		if ($pd['hp']<=0) player_kill_enemy($pa, $pd, $active);
+		unset($pa['physical_dmg_dealt']);
 	}
 	
 	function attack_wrapper(&$pa, &$pd, $active)

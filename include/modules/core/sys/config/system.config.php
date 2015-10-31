@@ -49,7 +49,7 @@ namespace sys
 	$chatinnews = 50;
 
 	//团队模式游戏类型列表
-	$teamwin_mode = Array(11,12);
+	$teamwin_mode = Array(11,12,13,14);
 }
 
 ?>

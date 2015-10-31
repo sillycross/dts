@@ -112,7 +112,7 @@ namespace wound
 		{
 			if (isset($pa['attack_wounded_'.$inf_place[$i]]) && $pa['attack_wounded_'.$inf_place[$i]]>0)
 			{
-				apply_weapon_wound_real($pa, $pd, $active, $inf_place[$i]);
+				apply_weapon_wound_real($pa, $pd, $active, $inf_place[$i]);	
 			}
 		}
 	}
@@ -122,8 +122,10 @@ namespace wound
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		//应用受伤
+		eval(import_module('wound'));
 		apply_weapon_inf($pa, $pd, $active);
-		
+		for ($i=0; $i<strlen($inf_place); $i++)
+			unset($pa['attack_wounded_'.$inf_place[$i]]);
 		$chprocess($pa, $pd, $active);
 	}
 	
