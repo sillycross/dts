@@ -25,5 +25,5 @@
 	<!--{if $itms6}--><option value="6">包裹6：$itm6/$itme6/$itms6<!--{else}--><option value="6">包裹6<!--{/if}-->
 </select>
 <br>
-<input type="button" class="cmdbutton" name="submit" value="提交" onclick="$('command').value='itemmove';postCmd('gamecmd','command.php');this.disabled=true;">
-<input type="button" class="cmdbutton" name="submit" value="放弃" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="button" class="cmdbutton" name="submit" id="z" value="[Z]提交" onclick="$('command').value='itemmove';postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="button" class="cmdbutton" name="submit" id="x" value="[X]放弃" onclick="postCmd('gamecmd','command.php');this.disabled=true;">

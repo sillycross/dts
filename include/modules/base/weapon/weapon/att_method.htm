@@ -1,6 +1,6 @@
 <!--{eval eval(import_module('weapon'));}-->
 <!--{eval $attmethod=\weapon\get_attack_method($sdata);}-->
-<input type="button" class="cmdbutton" style="width:98" name="w1" value="{$attinfo[$attmethod]}" onclick="$('command').value='$attmethod';postCmd('gamecmd','command.php');this.disabled=true;"><br>
+<input type="button" class="cmdbutton" id="z" style="width:98" name="w1" value="[Z]{$attinfo[$attmethod]}" onclick="$('command').value='$attmethod';postCmd('gamecmd','command.php');this.disabled=true;"><br>
 <!--{if (defined('MOD_DUALWEP'))}-->
 {template MOD_DUALWEP_SEC_ATT_METHOD}
 <!--{/if}-->

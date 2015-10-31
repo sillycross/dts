@@ -27,7 +27,7 @@ namespace blessstone
 						$flag = true;
 					}
 				}
-				$cmd .= '<br><input type="button" onclick="postCmd(\'gamecmd\',\'command.php\');" value="提交">';
+				$cmd .= '<br><input type="button" id="z" onclick="postCmd(\'gamecmd\',\'command.php\');" value="[Z]提交">';
 				if (! $flag) {
 					$log .='唔？你的包裹里没有可以强化的装备，是不是没有脱下来呢？DA☆ZE<br><br>';
 				}else{

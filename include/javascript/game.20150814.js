@@ -5,8 +5,39 @@ function hotkey(evt)
 		var ky = evt.keyCode ? evt.keyCode : evt.which;
 		if(!evt.ctrlKey && !evt.altKey && !evt.shiftKey){
 			if(ky==90){
-				$('submit').click();
+				$('z').click();
 			}
+			if(ky==88){
+				$('x').click();
+			}
+			if((ky>=49)&&(ky<=54)){
+				var kc=(ky-48).toString();
+				$(kc).click();
+			}
+			if(ky==65){
+				$('a').click();
+			}
+			if(ky==67){
+				$('c').click();
+			}
+			if(ky==68){
+				$('d').click();
+			}	
+			if(ky==69){
+				$('e').click();
+			}
+			if(ky==83){
+				$('s').click();
+			}
+			if(ky==81){
+				$('q').click();
+			}
+			if(ky==86){
+				$('v').click();
+			}	
+			if(ky==87){
+				$('w').click();
+			}			
 		}
 	}	
 }
