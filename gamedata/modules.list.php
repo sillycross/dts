@@ -78,6 +78,7 @@ club3,extra/club/clubs/club3/,1
 club4,extra/club/clubs/club4/,1
 club5,extra/club/clubs/club5/,1
 club9,extra/club/clubs/club9/,1
+club10,extra/club/clubs/club10/,1
 club99,extra/club/clubs/club99/,1
 club17,extra/club/clubs/club17/,1
 club20,extra/club/clubs/club20/,1
@@ -136,9 +137,14 @@ skill403,extra/club/skills/skill403/,1
 skill400,extra/club/skills/skill400/,1
 skill402,extra/club/skills/skill402/,1
 skill401,extra/club/skills/skill401/,1
+skill225,extra/club/skills/skill225/,1
+skill226,extra/club/skills/skill226/,1
+skill228,extra/club/skills/skill228/,1
+skill229,extra/club/skills/skill229/,1
 skill53,extra/club/skills/skill53/,1
 skill55,extra/club/skills/skill55/,1
 skill72,extra/club/skills/skill72/,1
+skill227,extra/club/skills/skill227/,1
 skill59,extra/club/skills/skill59/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1

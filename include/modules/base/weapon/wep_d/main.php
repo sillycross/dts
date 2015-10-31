@@ -9,7 +9,7 @@ namespace wep_d
 		//武器类型依赖的熟练度名称
 		$skillinfo['D'] = 'wd';
 		//武器类型攻击动词
-		$attinfo['D'] = '设置引信伏击';
+		$attinfo['D'] = '伏击';
 		//武器类型名
 		$iteminfo['WD'] = '爆炸物';
 		
