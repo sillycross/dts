@@ -95,15 +95,15 @@ namespace skill223
 		if ($pa['bskill']==223) 
 		{
 			eval(import_module('logger'));
-			$var_203=50;
+			$var_223=50;
 			if (isset($pd['original_inf'])){
-				$var_203+=(50*strlen($pd['original_inf']));
+				$var_223+=(50*strlen($pd['original_inf']));
 			}
 			if ($active)
-				$log.="<span class=\"yellow\">「暗杀」使你造成的最终伤害提高了{$var_203}%！</span><br>";
-			else  $log.="<span class=\"yellow\">「暗杀」使敌人造成的最终伤害提高了{$var_203}！</span><br>";
-			$var_203=($var_203+100)/100;
-			$r=Array($var_203);
+				$log.="<span class=\"yellow\">「暗杀」使你造成的最终伤害提高了{$var_223}%！</span><br>";
+			else  $log.="<span class=\"yellow\">「暗杀」使敌人造成的最终伤害提高了{$var_223}！</span><br>";
+			$var_223=($var_223+100)/100;
+			$r=Array($var_223);
 		}
 		return array_merge($r,$chprocess($pa,$pd,$active));
 	}
