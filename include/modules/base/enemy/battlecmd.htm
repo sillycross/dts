@@ -6,7 +6,7 @@
 <!--{if (defined('MOD_WEAPON'))}-->
 {template MOD_WEAPON_ATT_METHOD}
 <!--{/if}-->
-<br><input type="button" class="cmdbutton" name="back" value="逃跑" onclick="postCmd('gamecmd','command.php');this.disabled=true;"> 
+<br><input type="button" class="cmdbutton" name="back" id="x" value="[X]逃跑" onclick="postCmd('gamecmd','command.php');this.disabled=true;"> 
 <!--{else}-->
 <input type="hidden" id="bskill" name="bskill" value="0">
 <input type="hidden" id="bskillpara" name="bskillpara" value="">
@@ -16,7 +16,7 @@
 {template MOD_WEAPON_ATT_METHOD}
 <!--{/if}-->
 <!--{eval \clubbase\get_battle_skill_entry($edata,3);}-->
-<br><input type="button" class="cmdbutton" name="back" value="逃跑" onclick="postCmd('gamecmd','command.php');this.disabled=true;"> 
+<br><input type="button" class="cmdbutton" name="back" id="x" value="[X]逃跑" onclick="postCmd('gamecmd','command.php');this.disabled=true;"> 
 </td>
 <td width=100px align="center" style="vertical-align:top">
 <!--{eval \clubbase\get_battle_skill_entry($edata,1);}-->
@@ -28,7 +28,7 @@
 <tr>
 <td width=200px align="center" style="vertical-align:top">
 <!--{if (($edata['type']>0)&&(!$fog))}-->
-<br><br><input type="button" class="bigbutton" name="sklist" value="查看NPC技能" onclick="bubblebox_show('npcskill');"> 
+<br><br><input type="button" class="bigbutton" id="c" name="sklist" value="[C]查看NPC技能" onclick="bubblebox_show('npcskill');"> 
 <!--{/if}-->
 </td>
 </tr></table>
@@ -53,7 +53,7 @@
 <br>
 <p>
 
-<input class="cmdbutton" onclick="bubblebox_hide_all();" value="关闭技能列表" type="button">
+<input class="cmdbutton" onclick="bubblebox_hide_all();" value="关闭窗口" type="button">
 
 &nbsp;&nbsp;&nbsp; 提示:点击技能界面外任意位置也可以关闭技能列表<br>
 </p>

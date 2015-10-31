@@ -1,9 +1,9 @@
 你想要做什么？<br>
 
 <input type="hidden" name="mode" value="itemmain">
-<input type="radio" name="command" id="menu" value="menu"><a onclick=sl('menu'); href="javascript:void(0);" >返回</a><br>
+<input type="radio" name="command" id="menu" value="menu" checked><a onclick=sl('menu'); href="javascript:void(0);" >返回</a><br>
 <input type="radio" name="command" id="itemmerge" value="itemmerge"><a onclick=sl('itemmerge'); href="javascript:void(0);">合并两个道具</a><br>
-<input type="radio" name="command" id="itemmove" value="itemmove" checked><a onclick=sl('itemmove'); href="javascript:void(0);">移动或交换道具的位置</a><br>
+<input type="radio" name="command" id="itemmove" value="itemmove"><a onclick=sl('itemmove'); href="javascript:void(0);">移动或交换道具的位置</a><br>
 <br>
 请选择参与合并/移动/交换位置的两个道具：<br><br>
 <input type="hidden" name="from" id="from" value="0">
@@ -28,4 +28,4 @@
 <!--{if $itms6}--><option value="6">包裹6：$itm6/$itme6/$itms6<!--{else}--><option value="6">包裹6：将道具1移动到这里<!--{/if}-->
 </select>
 <br><br>
-<input type="button" class="cmdbutton" name="submit" value="提交" onclick="$('from').value=$('merge1').value;$('to').value=$('merge2').value;postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="button" class="cmdbutton" name="submit" id="z" value="[Z]提交" onclick="$('from').value=$('merge1').value;$('to').value=$('merge2').value;postCmd('gamecmd','command.php');this.disabled=true;">
