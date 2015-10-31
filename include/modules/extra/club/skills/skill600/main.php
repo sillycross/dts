@@ -48,7 +48,7 @@ namespace skill600
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('logger','skill600'));
-		if ((strpos ( $theitem['itmk'], 'C' ) === 0)&&(check_skill600_state()==1)) 
+		if ((strpos ( $theitem['itmk'], 'C' ) === 0)&&(\skillbase\skill_query(600))&&(check_skill600_state()==1)) 
 		{
 			$log .= '你喝了一小口药剂，感觉自己根本就喝不下去！';
 			$mode = 'command';
@@ -61,7 +61,7 @@ namespace skill600
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player','logger','skill600'));
-		if (\skillbase\skill_query(600))
+		if ((\skillbase\skill_query(600))&&(check_skill600_state()==1))
 		{
 			$log.='你现在不能处理伤口或异常状态！<br>';
 			$mode = 'command';
