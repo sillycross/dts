@@ -181,7 +181,7 @@ function datalib_decode(val)
 		else
 		{
 			ret = ret + val[i];
-			i++;
+			i=i+1;
 		}
 	}
 	return ret;
