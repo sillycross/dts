@@ -3,7 +3,7 @@
 namespace skill48
 {
 	//怒气消耗
-	$ragecost = 16; 
+	$ragecost = 8; 
 	
 	//共享属性加成的属性
 	$skill48_ex_map = Array(
