@@ -6,7 +6,7 @@ namespace skill214
 	{
 		define('MOD_SKILL214_INFO','club;upgrade;');
 		eval(import_module('clubbase'));
-		$clubskillname[214] = '应变';
+		$clubskillname[214] = '专注';
 	}
 	
 	function acquire214(&$pa)
