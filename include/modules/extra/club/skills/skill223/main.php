@@ -5,7 +5,7 @@ namespace skill223
 
 	function init() 
 	{
-		define('MOD_SKILL223_INFO','club;battle;locked;');
+		define('MOD_SKILL223_INFO','club;battle;limited;');
 		eval(import_module('clubbase'));
 		$clubskillname[223] = '暗杀';
 	}

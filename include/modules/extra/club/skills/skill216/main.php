@@ -5,7 +5,7 @@ namespace skill216
 	
 	function init() 
 	{
-		define('MOD_SKILL216_INFO','club;battle;');
+		define('MOD_SKILL216_INFO','club;battle;limited;');
 		eval(import_module('clubbase'));
 		$clubskillname[216] = '双响';
 	}
