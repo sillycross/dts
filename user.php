@@ -45,7 +45,17 @@ if($mode == 'edit') {
 		$gamedata['innerHTML']['info'] .= $_INFO['pass_failure'].'<br />';
 	}
 	
-	$db->query("UPDATE {$gtablepre}users SET gender='$gender', icon='$icon',{$passqry}motto='$motto',  killmsg='$killmsg', lastword='$lastword' WHERE username='$cuser'");
+	$carr = explode('_',$udata['cardlist']);
+	$cflag=0;
+	foreach ($carr as $val){
+		if ($val==$card){
+			$cflag=true;
+			break;
+		}
+	}
+	if (!$cflag) $card=0;
+	
+	$db->query("UPDATE {$gtablepre}users SET gender='$gender', icon='$icon',{$passqry}motto='$motto',  killmsg='$killmsg', lastword='$lastword' ,card='$card' WHERE username='$cuser'");
 	if($db->affected_rows()){
 		$gamedata['innerHTML']['info'] .= $_INFO['data_success'];
 	}else{
@@ -55,7 +65,7 @@ if($mode == 'edit') {
 	$gamedata['value']['opass'] = $gamedata['value']['npass'] = $gamedata['value']['rnpass'] = '';
 	if(isset($error)){$gamedata['innerHTML']['error'] = $error;}
 	ob_clean();
-	$jgamedata = compatible_json_encode($gamedata);
+	$jgamedata = base64_encode(gzencode(compatible_json_encode($gamedata)));
 	echo $jgamedata;
 	ob_end_flush();
 	
@@ -64,7 +74,19 @@ if($mode == 'edit') {
 	extract($udata);
 	$iconarray = get_iconlist($icon);
 	$select_icon = $icon;
+	if ($cardlist==""){
+		$cardlist="0";
+		$db->query("UPDATE {$gtablepre}users SET cardlist='$cardlist' WHERE username='$username'");
+	}
+	$carr = explode('_',$cardlist);
+	$clist = Array();
+	$cad=$card;
+	require config('card',$gamecfg);
+	foreach($carr as $key => $val){
+		$clist[$key] = $val;
+	}
 	include template('user');
+	
 }
 
 ?> 

@@ -456,7 +456,7 @@ function systemputchat($time,$type,$msg = ''){
 
 ////暂时丢在这……
 function set_credits(){
-	global $db,$gtablepre,$tablepre,$winmode,$gamenum,$winner,$pdata;
+	global $db,$gtablepre,$tablepre,$winmode,$gamenum,$winner,$pdata,$now,$gametype;
 	$result = $db->query("SELECT * FROM {$tablepre}players WHERE type='0'");
 	$list = $creditlist = $updatelist = Array();
 	while($data = $db->fetch_array($result)){
@@ -469,11 +469,17 @@ function set_credits(){
 	foreach($list as $key => $val){
 		if(isset($val['players']) && isset($val['users'])){
 			$credits = get_credit_up($val['players'],$winner,$winmode) + $val['users']['credits'];
+			$gold = get_gold_up($val['players'],$winner,$winmode) + $val['users']['gold'];
 			$validgames = $val['users']['validgames'] + 1;
 			$wingames = $key == $winner ? $val['users']['wingames'] + 1 : $val['users']['wingames'];
 			//$obtain = get_honour_obtain($val['players'],$val['users']);
 			//$honour = $val['users']['honour'] . $obtain;
-			$updatelist[] = Array('username' => $key, 'credits' => $credits, 'wingames' => $wingames, 'validgames' => $validgames);
+			$lastwin=$val['users']['lastwin'];
+			if (($winner==$val['players']['name'])&&(($now-$lastwin)>72000)&&(!in_array($gametype,Array(10,11,12,13,14)))){
+				$lastwin=$now;
+				$gold+=200;//首胜
+			}
+			$updatelist[] = Array('username' => $key, 'credits' => $credits, 'wingames' => $wingames, 'validgames' => $validgames,'lastwin'=>$lastwin,'gold'=>$gold);
 //			if(!empty($obtain)){
 //				$udghkey[] = $key;
 //				if($pdata['name'] == $key){
@@ -521,6 +527,20 @@ function get_credit_up($data,$winner = '',$winmode = 0){
 //		$skill = $data[$val];
 //		$up += round($skill / 100);//每100点熟练加1
 //	}
+	return $up;
+}
+
+function get_gold_up($data,$winner = '',$winmode = 0){
+	global $gametype,$now;
+	if (in_array($gametype,Array(10,11,12,13,14))) return 0;//嘻嘻
+	if($data['name'] == $winner){//获胜
+		if($winmode == 3){$up = 70;}//解禁
+		elseif($winmode == 7){$up = 150;}//解离
+		else{$up = 35;}//其他胜利方式
+	}else{$up = 10;}
+	if($data['killnum']){
+		$up += $data['killnum'] * 2;//杀一玩家
+	}
 	return $up;
 }
 
