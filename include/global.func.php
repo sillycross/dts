@@ -534,9 +534,9 @@ function get_gold_up($data,$winner = '',$winmode = 0){
 	global $gametype,$now;
 	if (in_array($gametype,Array(10,11,12,13,14))) return 0;//嘻嘻
 	if($data['name'] == $winner){//获胜
-		if($winmode == 3){$up = 80;}//解禁
-		elseif($winmode == 7){$up = 160;}//解离
-		else{$up = 40;}//其他胜利方式
+		if($winmode == 3){$up = 70;}//解禁
+		elseif($winmode == 7){$up = 150;}//解离
+		else{$up = 35;}//其他胜利方式
 	}else{$up = 10;}
 	if($data['killnum']){
 		$up += $data['killnum'] * 2;//杀一玩家
