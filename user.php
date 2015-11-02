@@ -74,6 +74,10 @@ if($mode == 'edit') {
 	extract($udata);
 	$iconarray = get_iconlist($icon);
 	$select_icon = $icon;
+	if ($cardlist==""){
+		$cardlist="0";
+		$db->query("UPDATE {$gtablepre}users SET cardlist='$cardlist' WHERE username='$username'");
+	}
 	$carr = explode('_',$cardlist);
 	$clist = Array();
 	$cad=$card;
