@@ -13,13 +13,15 @@
 		<span class ="yellow">{lang basicdata}</span>
 		{template userbasicdata}<br />
 		<span class ="yellow">{lang advanceddata}</span>
-		{template usergdicon}<br />
-		{template userwords}<br />
+		{template useradvdata}
+		{template usercarddata}
 		<div id="postdata">
+			<br />
 			<input type="submit" id="post" onClick="postCmd('userdata','user.php');return false;" value="{lang submit}">
 			<input type="reset" id="reset" name="reset" value="{lang reset}">
 		</div>
 	</form>
 </center>
 	<br />
+
 {template footer} 

@@ -251,6 +251,8 @@ CREATE TABLE `acbra2_players` (
   `nskillpara` text NOT NULL,
   `skillpoint` int(11) NOT NULL DEFAULT '0',
   `flare` int(10) NOT NULL DEFAULT '0',
+  `card` int(10) NOT NULL DEFAULT '0',
+  `cardname` text NOT NULL,
   PRIMARY KEY (`pid`),
   KEY `TYPE` (`type`,`sNo`),
   KEY `NAME` (`name`,`type`)
@@ -345,6 +347,14 @@ CREATE TABLE `acbra2_users` (
   `elo_playedtimes` int(10) unsigned NOT NULL DEFAULT '0',
   `elo_history` text NOT NULL,
   `n_achievements` text NOT NULL,
+  `gold` int(10) unsigned NOT NULL DEFAULT '0',
+  `cardlist` text NOT NULL,
+  `card` int(10) unsigned NOT NULL DEFAULT '0',
+  `cd_s` int(10) unsigned NOT NULL DEFAULT '0',
+  `cd_a` int(10) unsigned NOT NULL DEFAULT '0',
+  `cd_a1` int(10) unsigned NOT NULL DEFAULT '0',
+  `cd_b` int(10) unsigned NOT NULL DEFAULT '0',
+  `lastwin` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`uid`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=MyISAM AUTO_INCREMENT=30397 DEFAULT CHARSET=utf8;
@@ -474,6 +484,7 @@ CREATE TABLE `acbra2_winners` (
   `weplist` char(255) NOT NULL DEFAULT '',
   `iconlist` char(80) NOT NULL DEFAULT '',
   `gdlist` char(50) NOT NULL DEFAULT '',
+  `cardname` text NOT NULL,
   UNIQUE KEY `gid` (`gid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;

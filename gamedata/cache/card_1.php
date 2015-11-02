@@ -1,0 +1,76 @@
+<?php
+$cardindex=array(
+	'S'=>array(1),
+	'A'=>array(2),
+	'B'=>array(3),
+	'C'=>array(4),
+);
+$cards=array(
+	0=>array(
+		'pls'=>'0',//测试
+	),
+	1=>array(
+		'exp'=>'120',
+	),
+	2=>array(
+		'club'=>'3',
+		'wep'=>'「Falchion Rider」',
+		'wepk'=>'WG',
+		'wepe'=>'120',
+		'weps'=>'50',
+		'wepsk'=>'ur',
+	),
+	3=>array(
+		'itm1'=>'面糊饼',
+		'itmk1'=>'HB',
+		'itme1'=>'120',
+		'itms1'=>'30',
+		'itmsk1'=>'z',
+		'itm2'=>'面糊汤',
+		'itmk2'=>'HB',
+		'itme2'=>'120',
+		'itms2'=>'30',
+		'itmsk2'=>'z',
+	),
+	4=>array(
+		'wp'=>'5',
+		'wk'=>'5',
+		'wc'=>'5',
+		'wg'=>'5',
+		'wf'=>'5',
+		'wd'=>'5',
+	),
+);
+$carddesc=array(
+	0=>array(
+		'name'=>'参展者',
+		'rare'=>'C',
+		'desc'=>'默认的身份卡',
+		'effect'=>'无',
+	),
+	1=>array(
+		'name'=>'残留的思念',
+		'rare'=>'S',
+		'desc'=>'镇守键刃墓场的BOSS',
+		'effect'=>'开局经验固定为120点',
+	),
+	2=>array(
+		'name'=>'初音大魔王',
+		'rare'=>'A',
+		'desc'=>'2011年愚人节宇宙巡航机活动的优胜者',
+		'effect'=>'称号固定为狙击鹰眼，开局装备强力的射系武器',
+	),
+	3=>array(
+		'name'=>'面糊饼职人',
+		'rare'=>'B',
+		'desc'=>'善于制作面糊饼的著名面点师傅',
+		'effect'=>'强化开局补给',
+	),
+	4=>array(
+		'name'=>'AC专业职人',
+		'rare'=>'C',
+		'desc'=>'死后会召唤强力NPC的特殊小兵',
+		'effect'=>'开局全熟+5',
+	),
+);
+?>

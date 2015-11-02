@@ -1,0 +1,40 @@
+var cdesc=[
+	[
+		'参展者',
+		'C',
+		'默认的身份卡',
+		'无',
+	],
+	[
+		'残留的思念',
+		'S',
+		'镇守键刃墓场的BOSS',
+		'开局经验固定为120点',
+	],
+	[
+		'初音大魔王',
+		'A',
+		'2011年愚人节宇宙巡航机活动的优胜者',
+		'称号固定为狙击鹰眼，开局装备强力的射系武器',
+	],
+	[
+		'面糊饼职人',
+		'B',
+		'善于制作面糊饼的著名面点师傅',
+		'强化开局补给',
+	],
+	[
+		'AC专业职人',
+		'C',
+		'死后会召唤强力NPC的特殊小兵',
+		'开局全熟+5',
+	]
+]
+
+function cardMover(){
+	ind=$('cardsel').selectedIndex;
+	$('cname').innerHTML=cdesc[ind][0];
+	$('crare').innerHTML=cdesc[ind][1];
+	$('cdesc').innerHTML=cdesc[ind][2];
+	$('ceffect').innerHTML=cdesc[ind][3];
+}

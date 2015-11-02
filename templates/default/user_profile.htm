@@ -38,6 +38,16 @@
 				<td width=55px>&nbsp;</td>
 				<td>$credits</td>
 			</tr>
+			<tr>
+				<td>切糕</td>
+				<td width=55px>&nbsp;</td>
+				<td>$gold</td>
+			</tr>
+			<tr onclick="bubblebox_show('carddata');">
+				<td>身份卡</td>
+				<td width=55px>&nbsp;</td>
+				<td><span class="{$rarecolor}">$cr $carr['name']</span></td>
+			</tr>
 			</table>
 		</td>
 		<td width=60px>&nbsp;</td>
@@ -51,12 +61,52 @@
 			<tr><td>
 				<!--{if ($curuser) }--><button type="button" onclick="window.location.href='user.php'">编辑我的账户资料</button><!--{/if}-->
 			</td></tr>
+			<tr><td>
+				<!--{if ($curuser) }--><button type="button" onclick="window.location.href='kuji.php'" <!--{if $gold<100}-->disabled<!--{/if}-->>我要抽卡</button><!--{/if}-->
+			</td></tr>
 			</table>
 		</td>
 	</tr>
 	</table>
+	<div style="width:600px;text-align:center;"><!--{if $curuser && !$cf}--><span class="yellow">您现在不能使用该等级的身份卡，请更换！</span><!--{/if}--><span class="clan">点击身份卡可以查看其详细信息</span></div>
+	<div style="width:600px;text-align:center;">
+		<!--{if $curuser && !$sf}--><span class="orange">{$std}开始才可再使用S级身份卡</span><br><!--{/if}-->
+		<!--{if $curuser && !$af}--><span class="linen">{$atd}开始才可再使用A级身份卡</span><br><!--{/if}-->
+		<!--{if $curuser && !$bf}--><span class="brickred">{$btd}开始才可再使用B级身份卡</span><br><!--{/if}-->
+	</div>
 	<!--{if defined('MOD_ELORATING')}--><!--{eval \elorating\elorating_show();}--><!--{/if}-->
 	<br><br>
 </center>
+
+<!--{eval \bubblebox\bubblebox_set_style('id:carddata;height:363;width:283;cancellable:1;');}-->
+{template MOD_BUBBLEBOX_START}
+<p style="margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px;">
+<br>
+以下是该身份卡的数据。<br><br>
+</p>
+	<table CellSpacing=0 CellPadding=1 width="250" height="240">
+		<tr height="40">
+			<td class=b2 width="40" height="40">卡名</td>
+			<td class=b3 width="210" height="40">$carr['name']</td>
+		</tr>
+		<tr height="40">
+			<td class=b2 width="40" height="40">罕贵</td>
+			<td class=b3 width="210" height="40">$carr['rare']</td>
+		</tr>
+		<tr height="80">
+			<td class=b2 width="40" height="80">介绍</td>
+			<td class=b3 width="210" height="80">$carr['desc']</td>
+		</tr>
+		<tr height="80">
+			<td class=b2 width="40" height="80">效果</td>
+			<td class=b3 width="210" height="80">$carr['effect']</td>
+		</tr>
+	</table>
+	<br/>
+<input class="cmdbutton" onclick="bubblebox_hide_all();" value="关闭窗口" type="button">
+</p>
+{template MOD_BUBBLEBOX_END}
+
+
 {template footer}
 
