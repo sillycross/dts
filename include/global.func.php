@@ -477,7 +477,7 @@ function set_credits(){
 			$lastwin=$val['users']['lastwin'];
 			if (($winner==$val['players']['name'])&&(($now-$lastwin)>86400)&&(!in_array($gametype,Array(10,11,12,13,14)))){
 				$lastwin=$now;
-				$gold+=150;//首胜+150
+				$gold+=100;//首胜
 			}
 			$updatelist[] = Array('username' => $key, 'credits' => $credits, 'wingames' => $wingames, 'validgames' => $validgames,'lastwin'=>$lastwin,'gold'=>$gold);
 //			if(!empty($obtain)){
@@ -534,10 +534,10 @@ function get_gold_up($data,$winner = '',$winmode = 0){
 	global $gametype,$now;
 	if (in_array($gametype,Array(10,11,12,13,14))) return 0;//嘻嘻
 	if($data['name'] == $winner){//获胜
-		if($winmode == 3){$up = 90;}//解禁
-		elseif($winmode == 7){$up = 170;}//解离
-		else{$up = 40;}//其他胜利方式
-	}else{$up = 10;}
+		if($winmode == 3){$up = 60;}//解禁
+		elseif($winmode == 7){$up = 120;}//解离
+		else{$up = 30;}//其他胜利方式
+	}else{$up = 5;}
 	if($data['killnum']){
 		$up += $data['killnum'] * 2;//杀一玩家
 	}

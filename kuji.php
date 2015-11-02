@@ -22,7 +22,7 @@ require config('card',$gamecfg);
 //weight
 $sw=1;
 $aw=6;
-$bw=35;
+$bw=26;
 $cw=100;
 
 $r=rand(1,$cw);
