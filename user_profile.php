@@ -51,9 +51,9 @@ if (($now-$udata['cd_s'])<86400){
 	list($min,$hour,$day,$month,$year)=explode(',',date("i,H,j,n,Y",$ntime));
 	$std=$year."年".$month."月".$day."日".$hour."时".$min."分";
 }
-if (($now-$udata['cd_a'])<86400){
+if (($now-$udata['cd_a'])<43200){
 	$af=false;
-	$ntime=$udata['cd_a']+86400;
+	$ntime=$udata['cd_a']+43200;
 	list($min,$hour,$day,$month,$year)=explode(',',date("i,H,j,n,Y",$ntime));
 	$atd=$year."年".$month."月".$day."日".$hour."时".$min."分";
 }
