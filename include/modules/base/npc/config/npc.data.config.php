@@ -2312,7 +2312,7 @@ namespace npc
 			),
 		2 => array
 			(
-			'name' => 'YaphetS_',
+			'name' => 'YS',
 			'gd' => 'm',
 			'icon' => 111,
 			'wep' => '毁灭阴影',

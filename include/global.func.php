@@ -534,10 +534,10 @@ function get_gold_up($data,$winner = '',$winmode = 0){
 	global $gametype,$now;
 	if (in_array($gametype,Array(10,11,12,13,14))) return 0;//嘻嘻
 	if($data['name'] == $winner){//获胜
-		if($winmode == 3){$up = 80;}//解禁
-		elseif($winmode == 7){$up = 170;}//解离
-		else{$up = 50;}//其他胜利方式
-	}else{$up = 15;}
+		if($winmode == 3){$up = 60;}//解禁
+		elseif($winmode == 7){$up = 150;}//解离
+		else{$up = 40;}//其他胜利方式
+	}else{$up = 10;}
 	return $up;
 }
 

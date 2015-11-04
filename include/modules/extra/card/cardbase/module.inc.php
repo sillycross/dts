@@ -3,7 +3,7 @@
 namespace cardbase
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'sys player';
+	$___MODULE_dependency = 'sys player attack';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php config/card.config.php';

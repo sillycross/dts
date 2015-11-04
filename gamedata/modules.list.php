@@ -10,7 +10,6 @@ gameflow_antiafk,core/gameflow/gameflow_antiafk/,1
 logger,base/logger/,1
 skillbase,base/skillbase/,1
 replay,extra/misc/replay/,1
-cardbase,extra/card/cardbase/,1
 elorating,extra/misc/elorating/,1
 achievement_base,extra/achievement/achievement_base/,1
 bufficons,extra/misc/bufficons/,1
@@ -63,6 +62,7 @@ item_misc,base/items/item_misc/,1
 gameflow_combo,core/gameflow/gameflow_combo/,1
 advteam,extra/misc/advteam/,1
 attack,base/attack/,1
+cardbase,extra/card/cardbase/,1
 clubbase,extra/club/clubbase/,1
 weapon,base/weapon/weapon/,1
 npcchat,base/npcchat/,1

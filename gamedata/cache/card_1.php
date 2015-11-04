@@ -21,7 +21,7 @@ $cards=array(
 		'wep'=>'「Falchion Rider」',
 		'wepk'=>'WG',
 		'wepe'=>'76',
-		'weps'=>'76',
+		'weps'=>'∞',
 		'wepsk'=>'ur',
 	),
 	3=>array(
