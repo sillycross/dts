@@ -67,10 +67,10 @@ if($mode == 'enter') {
 			$db->query("UPDATE {$gtablepre}users SET cd_s='$now' WHERE username='".$udata['username']."'" );
 		}
 	}else if ($r=="A"){
-		if (($now-$udata['cd_a'])<86400){
+		if (($now-$udata['cd_a'])<43200){
 			$cf=false;
 		}else{
-			$db->query("UPDATE {$gtablepre}users SET cd_a1='$now',cd_a='".$udata['cd_a1']."' WHERE username='".$udata['username']."'" );
+			$db->query("UPDATE {$gtablepre}users SET cd_a='$now' WHERE username='".$udata['username']."'" );
 		}
 	}else if ($r=="B"){
 		if (($now-$udata['cd_b'])<10800){
@@ -124,7 +124,7 @@ if($mode == 'enter') {
 	if (($now-$udata['cd_s'])<86400){
 		$sf=false;
 	}
-	if (($now-$udata['cd_a'])<86400){
+	if (($now-$udata['cd_a'])<43200){
 		$af=false;
 	}
 	if (($now-$udata['cd_b'])<10800){
@@ -133,7 +133,7 @@ if($mode == 'enter') {
 	$stime=$udata['cd_s']+86400;
 	list($min,$hour,$day,$month,$year)=explode(',',date("i,H,j,n,Y",$stime));
 	$std=$year."年".$month."月".$day."日".$hour."时".$min."分";
-	$atime=$udata['cd_a']+86400;
+	$atime=$udata['cd_a']+43200;
 	list($min,$hour,$day,$month,$year)=explode(',',date("i,H,j,n,Y",$atime));
 	$atd=$year."年".$month."月".$day."日".$hour."时".$min."分";
 	$btime=$udata['cd_b']+10800;
