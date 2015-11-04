@@ -59,7 +59,7 @@ namespace cardbase
 			get_qiegao($qiegaogain,$pa);
 		}
 		if (($pd['type']==2)&&(($areanum/$areaadd)<1)){//幻象
-			$qiegaogain=rand(11,23);
+			$qiegaogain=rand(9,19);
 			get_qiegao($qiegaogain,$pa);
 		}
 		if ($qiegaogain>0)
