@@ -13,6 +13,22 @@ $udata = $db->fetch_array($result);
 if($udata['password'] != $cpass) { gexit($_ERROR['wrong_pw'], __file__, __line__); }
 if($udata['groupid'] <= 0) { gexit($_ERROR['user_ban'], __file__, __line__); }
 
+//write card json
+//$objfile = GAME_ROOT."./gamedata/templates/{$templateid}_$file.tpl.php";
+require config('card',$gamecfg);
+
+$jfile=GAME_ROOT."./gamedata/cache/card.json";
+$cdfile=GAME_ROOT."./gamedata/cache/card_1.php";
+if ((!file_exists($jfile)) || (filemtime($cdfile) > filemtime($jfile))){
+	if(!$fp = fopen($jfile, 'w')) {
+		gexit("咕咕咕");
+	}
+	$jdesc=json_encode($carddesc,JSON_UNESCAPED_UNICODE);
+	flock($fp, 2);
+	fwrite($fp, $jdesc);
+	fclose($fp);
+}
+
 if(!isset($mode)){
 	$mode = 'show';
 }
@@ -81,7 +97,7 @@ if($mode == 'edit') {
 	$carr = explode('_',$cardlist);
 	$clist = Array();
 	$cad=$card;
-	require config('card',$gamecfg);
+	
 	foreach($carr as $key => $val){
 		$clist[$key] = $val;
 	}

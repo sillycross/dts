@@ -44,7 +44,7 @@ $winning_rate=$validgames?round($wingames/$validgames*100)."%":'0%';
 require config('card',$gamecfg);
 $carr=$carddesc[$card];
 $cr=$carr['rare'];
-$cf=true;$sf=true;$af=true;$bf=true;
+$cf=true;$sf=true;$af=true;$bf=true;$ff=true;
 if (($now-$udata['cd_s'])<86400){
 	$sf=false;
 	$ntime=$udata['cd_s']+86400;
@@ -62,6 +62,12 @@ if (($now-$udata['cd_b'])<10800){
 	$ntime=$udata['cd_b']+10800;
 	list($min,$hour,$day,$month,$year)=explode(',',date("i,H,j,n,Y",$ntime));
 	$btd=$year."年".$month."月".$day."日".$hour."时".$min."分";
+}
+if (($now-$udata['lastwin'])<72000){
+	$ff=false;
+	$ntime=$udata['lastwin']+72000;
+	list($min,$hour,$day,$month,$year)=explode(',',date("i,H,j,n,Y",$ntime));
+	$ftd=$year."年".$month."月".$day."日".$hour."时".$min."分";
 }
 if ($cr=="S"){
 	$rarecolor="orange";
