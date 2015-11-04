@@ -103,7 +103,9 @@ namespace skill210
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r=Array();
 		eval(import_module('logger','skill210'));
-		if ((\skillbase\skill_query(210,$pa))&&(check_skill210_state($pa)==1)&&(rand(0,99)<15)&&($pa['wep_kind']=='K')&&($pa['club']!=2)) 
+		$var_210=20;
+		if ($pa['card']==5) $var_210=40;
+		if ((\skillbase\skill_query(210,$pa))&&(check_skill210_state($pa)==1)&&(rand(0,99)<$var_210)&&($pa['wep_kind']=='K')&&($pa['club']!=2)) 
 		{
 			$z=2;
 			if ($active)
@@ -119,7 +121,9 @@ namespace skill210
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r=Array();
 		eval(import_module('logger','skill210'));
-		if ((\skillbase\skill_query(210,$pa))&&(check_skill210_state($pa)==1)&&(rand(0,99)<20)&&($pa['wep_kind']=='K')&&($pa['club']==2)) 
+		$var_210=20;
+		if ($pa['card']==5) $var_210=40;
+		if ((\skillbase\skill_query(210,$pa))&&(check_skill210_state($pa)==1)&&(rand(0,99)<$var_210)&&($pa['wep_kind']=='K')&&($pa['club']==2)) 
 		{
 			$z=2;
 			if ($active)
