@@ -1,4 +1,5 @@
 *.swp
+ideas.txt
 nohup.out
 include/modules/core/sys/config/server.config.php
 include/modulemng.config.php
