@@ -16,7 +16,7 @@ if($udata['gold'] < 100) { gexit($_ERROR['not_enough_gold'], __file__, __line__)
 
 extract($udata);
 
-if ($cardlist=="") $cardlist="0";
+if ($udata['cardlist']=="") $udata['cardlist']="0";
 require config('card',$gamecfg);
 
 //weight
@@ -37,6 +37,7 @@ if ($r<=$sw){
 }
 $c=count($arr)-1;
 $r=$arr[rand(0,$c)];
+/*
 $carr = explode('_',$cardlist);
 $clist = Array();
 foreach($carr as $key => $val){
@@ -50,6 +51,16 @@ if (in_array($r,$clist)){
 	$cflag=true;
 	$cardlist.="_".$r;
 }
-$db->query("UPDATE {$gtablepre}users SET gold='$gold',cardlist='$cardlist' WHERE username='$cuser'");
+$db->query("UPDATE {$gtablepre}users SET gold='$gold',cardlist='$cardlist' WHERE username='$cuser'");*/
+$cflag=false;
+if ((\cardbase\get_card($r,$udata))==1){
+	\cardbase\get_qiegao(-100,$udata);
+	$gold=$gold-100;
+	$cflag=true;
+}else{
+	\cardbase\get_qiegao(-70,$udata);
+	$gold=$gold-70;
+}
+//$db->query("UPDATE {$gtablepre}users SET gold='$gold' WHERE username='$cuser'");
 include template('kujiresult');
 ?> 

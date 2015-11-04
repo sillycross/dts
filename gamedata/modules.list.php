@@ -10,6 +10,7 @@ gameflow_antiafk,core/gameflow/gameflow_antiafk/,1
 logger,base/logger/,1
 skillbase,base/skillbase/,1
 replay,extra/misc/replay/,1
+cardbase,extra/card/cardbase/,1
 elorating,extra/misc/elorating/,1
 achievement_base,extra/achievement/achievement_base/,1
 bufficons,extra/misc/bufficons/,1
