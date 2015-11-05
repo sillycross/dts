@@ -102,6 +102,7 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 	require config('card',$gamecfg);
 	$cardfix=$cards[$card];
 	$cardname=$carddesc[$card]['name'];
+	$cardrare=$carddesc[$card]['rare'];
 	///////////////////////////////////////////////////////////////
 	foreach ($cardfix as $key => $value){
 		if (substr($key,0,3)=="itm"){
@@ -134,11 +135,19 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 	}
 	\player\player_save($pp);
 	///////////////////////////////////////////////////////////////
-	
+	if ($cardrare=="S"){
+		$rarecolor="orange";
+	}else if ($cardrare=='A'){
+		$rarecolor="linen";
+	}else if ($cardrare=='B'){
+		$rarecolor="brickred";
+	}else if ($cardrare=='C'){
+		$rarecolor="seagreen";
+	}
 	if($udata['groupid'] >= 6 || $cuser == $gamefounder){
-		addnews($now,'newgm',$name,"{$sexinfo[$gd]}{$sNo}号",$ip);
+		addnews($now,'newgm',"<span class=\"".$rarecolor."\">".$cardname.'</span> '.$name,"{$sexinfo[$gd]}{$sNo}号",$ip);
 	}else{
-		addnews($now,'newpc',$name,"{$sexinfo[$gd]}{$sNo}号",$ip);
+		addnews($now,'newpc',"<span class=\"".$rarecolor."\">".$cardname.'</span> '.$name,"{$sexinfo[$gd]}{$sNo}号",$ip);
 	}
 	
 	if($validnum >= $validlimit && $gamestate == 20){
