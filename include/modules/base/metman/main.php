@@ -226,8 +226,7 @@ namespace metman
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$dice = rand(0,99);
-		$t=calculate_meetman_rate($schmode);
-		if($dice < $t) {
+		if($dice < calculate_meetman_rate($schmode)) {
 			discover_player();
 			return;
 		} 
