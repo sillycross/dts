@@ -13,6 +13,7 @@ namespace corpse
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','player','corpse'));
+		if ($edata['state']==16) return 0;
 		$flag=0;
 		foreach($equip_list as $k_value)
 		{
@@ -179,6 +180,7 @@ namespace corpse
 			$edata['itms5'] = 0;
 			$edata['itms6'] = 0;
 			$edata['money'] = 0;
+			$edata['state'] = 16;
 			\player\player_save($edata);
 			$log .= '尸体成功销毁！';
 			$action = '';

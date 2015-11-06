@@ -30,14 +30,23 @@ namespace ex_dmg_att
 		return $damage;
 	}
 	
+	function get_ex_dmg_restriction(&$pa,&$pd,$active,$key)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('ex_dmg_att'));
+		return $ex_max_dmg[$key];
+	}
+	
 	function calculate_ex_single_original_dmg(&$pa, &$pd, $active, $key)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('ex_dmg_att'));
 		//基础伤害+武器效/属性的武器效果成长+熟练/属性的熟练成长
 		$damage=get_basic_ex_dmg($pa,$pd,$active,$key);
+		
 		//最大伤害限制公式
-		if ($ex_max_dmg[$key]>0) $damage = $ex_max_dmg[$key] * $damage / ( $damage + $ex_max_dmg[$key] / 2 );
+		$ex_dmg_restriction=get_ex_dmg_restriction($pa,$pd,$active,$key);
+		if ($ex_dmg_restriction>0) $damage = $ex_max_dmg[$key] * $damage / ( $damage + $ex_max_dmg[$key] / 2 );
 		//得意武器类型翻倍
 		if ($pa['wep_kind']==$ex_good_wep[$key]) $damage *= 2;
 		//浮动
