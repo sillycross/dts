@@ -153,9 +153,19 @@ namespace metman
 	function calculate_meetman_rate_by_mode($schmode)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($schmode == 'search') return 40;
-		if ($schmode == 'move') return 70;
-		if ($schmode == 'search2') return 100;//wuha
+		eval(import_module('sys','player'));
+		$result = $db->query("SELECT pid FROM {$tablepre}players WHERE pls='$pls' AND pid!='$pid' AND state!='16'");
+		$pcount=$db->num_rows($result);
+		if(!$pcount){//没有人
+			if ($schmode == 'search') return 40;
+			if ($schmode == 'move') return 40;
+			if ($schmode == 'search2') return 40;
+		}
+		$erate=$pcount*2;
+		if ($erate>20) $erate=20;
+		if ($schmode == 'search') return 20+$erate;
+		if ($schmode == 'move') return 40+$erate;
+		if ($schmode == 'search2') return 100;
 		return 0;
 	}
 	
@@ -216,7 +226,9 @@ namespace metman
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$dice = rand(0,99);
-		if($dice < calculate_meetman_rate($schmode)) {
+		$t=calculate_meetman_rate($schmode);
+		echo $t;
+		if($dice < $t) {
 			discover_player();
 			return;
 		} 
