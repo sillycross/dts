@@ -170,7 +170,7 @@ namespace metman
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','player','logger','metman'));
-		$result = $db->query("SELECT pid FROM {$tablepre}players WHERE pls='$pls' AND pid!='$pid'");
+		$result = $db->query("SELECT pid FROM {$tablepre}players WHERE pls='$pls' AND pid!='$pid' AND state!='16'");
 		if(!$db->num_rows($result)){
 			$log .= '<span class="yellow">周围一个人都没有。</span><br>';
 			$mode = 'command';
@@ -206,7 +206,7 @@ namespace metman
 		if($hideflag == true){
 			$log .= '似乎有人隐藏着……<br>';
 		}else{
-			$log .= '<span class="yellow">周围一个人都没有。</span><br>';
+			$log .= '<span class="yellow">周围似乎一个人都没有。</span><br>';
 		}
 		$mode = 'command';
 		return;
