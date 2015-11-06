@@ -155,7 +155,7 @@ namespace metman
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($schmode == 'search') return 40;
 		if ($schmode == 'move') return 70;
-		if ($schmode == 'search2') return 55;
+		if ($schmode == 'search2') return 90;
 		return 0;
 	}
 	

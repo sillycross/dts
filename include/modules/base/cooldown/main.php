@@ -8,6 +8,21 @@ namespace cooldown
 		$cmdcdtime=0; $rmcdtime=0;
 	}
 	
+	function get_move_coldtime(&$dest){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $movecoldtime;
+	}
+	
+	function get_search_coldtime(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $searchcoldtime;
+	}
+	
+	function get_itemuse_coldtime(&$item){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $itemusecoldtime;
+	}
+	
 	function move($moveto = 99) 
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -26,7 +41,7 @@ namespace cooldown
 			return;
 		}
 		
-		if($coldtimeon) $cmdcdtime=$movecoldtime;
+		if($coldtimeon) $cmdcdtime=get_move_coldtime($moveto);
 		
 		$chprocess($moveto);
 		
@@ -49,7 +64,7 @@ namespace cooldown
 			return;
 		}
 	
-		if($coldtimeon) $cmdcdtime=$searchcoldtime;
+		if($coldtimeon) $cmdcdtime=get_search_coldtime();
 		
 		$chprocess();
 	
@@ -73,7 +88,7 @@ namespace cooldown
 			return;
 		}
 		
-		if($coldtimeon) $cmdcdtime=$itemusecoldtime;
+		if($coldtimeon) $cmdcdtime=get_itemuse_coldtime($item);
 		
 		$chprocess($item);
 	}
