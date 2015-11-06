@@ -28,6 +28,7 @@ skill16,extra/club/skills/skill16/,1
 skill17,extra/club/skills/skill17/,1
 skill18,extra/club/skills/skill18/,1
 skill24,extra/club/skills/skill24/,1
+skill411,extra/club/skills/skill411/,1
 metman,base/metman/,1
 itemmix,base/itemmix/itemmix/,1
 itemshop,base/itemshop/,1
@@ -134,6 +135,8 @@ skill74,extra/club/skills/skill74/,1
 skill213,extra/club/skills/skill213/,1
 skill216,extra/club/skills/skill216/,1
 skill404,extra/club/skills/skill404/,1
+skill405,extra/club/skills/skill405/,1
+skill406,extra/club/skills/skill406/,1
 skill403,extra/club/skills/skill403/,1
 skill400,extra/club/skills/skill400/,1
 skill402,extra/club/skills/skill402/,1
@@ -142,6 +145,8 @@ skill225,extra/club/skills/skill225/,1
 skill226,extra/club/skills/skill226/,1
 skill228,extra/club/skills/skill228/,1
 skill229,extra/club/skills/skill229/,1
+skill408,extra/club/skills/skill408/,1
+skill409,extra/club/skills/skill409/,1
 skill53,extra/club/skills/skill53/,1
 skill55,extra/club/skills/skill55/,1
 skill72,extra/club/skills/skill72/,1
@@ -166,12 +171,14 @@ skill223,extra/club/skills/skill223/,1
 skill28,extra/club/skills/skill28/,1
 skill37,extra/club/skills/skill37/,1
 skill73,extra/club/skills/skill73/,1
+skill410,extra/club/skills/skill410/,1
 skill36,extra/club/skills/skill36/,1
 skill38,extra/club/skills/skill38/,1
 dualwep,base/weapon/dualwep/,1
 ammunition,base/items/ammunition/,1
 ex_attr_silencer,extra/attr/ex_attr_silencer/,1
 ex_dmg_att,extra/attr/ex_dmg_att/,1
+skill407,extra/club/skills/skill407/,1
 ex_attr_charge,extra/attr/ex_attr_charge/,1
 empowers,base/items/empowers/,1
 skill32,extra/club/skills/skill32/,1

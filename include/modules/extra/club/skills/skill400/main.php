@@ -2,9 +2,9 @@
 
 namespace skill400
 {
-	$paneldesc=array('重击','重击1','重击2','重击3','重击4','烈击');
-	$attgain=array(0,20,30,50,100,100);
-	$procrate=array(0,20,25,30,35,75);
+	$paneldesc=array('重击','重击1','重击2','重击3','重击4','烈击','烈击');
+	$attgain=array(0,20,30,50,100,100,50);
+	$procrate=array(0,20,25,30,35,75,95);
 
 	function init() 
 	{
@@ -52,7 +52,7 @@ namespace skill400
 		if (rand(0,99)<$procrate[$l400])
 		{
 			if ($active){
-				if ($l400==5)
+				if ($l400>=5)
 					$log.="<span class=\"yellow\">你朝{$pd['name']}打出了猛烈的一击！</span><br>";
 				else
 					$log.="<span class=\"yellow\">你朝{$pd['name']}打出了重击！</span><br>";

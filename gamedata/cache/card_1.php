@@ -1,9 +1,9 @@
 <?php
 $cardindex=array(
-	'S'=>array(1,5,16),
-	'A'=>array(2,13,14,20,32,37),
-	'B'=>array(3,12,15,21,22,23,24,25,26,27,35),
-	'C'=>array(4,6,7,8,9,10,11,17,18,19,28,29,30,31,33,34,36),
+	'S'=>array(1,5,16,38,39,40,41),
+	'A'=>array(2,13,14,20,32,37,43,44,45,46,47,48,49,50),
+	'B'=>array(3,12,15,21,22,23,24,25,26,27,35,51,52,53,54,55,56),
+	'C'=>array(4,6,7,8,9,10,11,17,18,19,28,29,30,31,33,34,36,57,58,59,60,61,62),
 );
 $cards=array(
 	0=>array(
@@ -13,15 +13,10 @@ $cards=array(
 		'exp'=>'120',
 	),
 	2=>array(
-		'club'=>'3',
-		'skills'=>array(
-			'10'=>'0','11'=>'0','12'=>'0','15'=>'0','201'=>'0','202'=>'0',
-			'203'=>'0','204'=>'0','205'=>'0','206'=>'0',
-		),
 		'wep'=>'「Falchion Rider」',
 		'wepk'=>'WG',
 		'wepe'=>'76',
-		'weps'=>'36',
+		'weps'=>'21',
 		'wepsk'=>'ur',
 	),
 	3=>array(
@@ -106,7 +101,7 @@ $cards=array(
 	14=>array(
 		'itm1'=>'大象粪便提取物',
 		'itmk1'=>'HB',
-		'itme1'=>'150',
+		'itme1'=>'76',
 		'itms1'=>'∞',
 		'itmsk1'=>'',
 	),
@@ -225,16 +220,87 @@ $cards=array(
 		'money'=>'50','wp'=>'20','wk'=>'20','wc'=>'20','wg'=>'20','wd'=>'20','wf'=>'20',
 	),
 	38=>array(
-		'hp'=>'500',
+		'skills'=>array('405'=>'0'),
 	),
 	39=>array(
-		'hp'=>'500',
+		'skills'=>array('400'=>'6'),
 	),
 	40=>array(
-		'hp'=>'500',
+		'hp'=>'260','mhp'=>'260','skills'=>array('10'=>'0','11'=>'0','12'=>'0','406'=>'0'),'club'=>'17',
 	),
 	41=>array(
-		'hp'=>'500',
+		'skills'=>array('407'=>'0'),
+	),
+	42=>array(
+		'skills'=>array('405'=>'0'),
+	),
+	43=>array(
+		'skills'=>array('409'=>'0'),
+	),
+	44=>array(
+		'skills'=>array('410'=>'0'),
+	),
+	45=>array(
+		'skills'=>array('408'=>'1'),
+	),
+	46=>array(
+		'skills'=>array('408'=>'2'),
+	),
+	47=>array(
+		'skills'=>array('408'=>'3'),
+	),
+	48=>array(
+		'skills'=>array('408'=>'4'),
+	),
+	49=>array(
+		'skills'=>array('411'=>'0'),
+	),
+	50=>array(
+		'skills'=>array('408'=>'5'),
+	),
+	51=>array(
+		'wp'=>'35',
+	),
+	52=>array(
+		'wk'=>'35',
+	),
+	53=>array(
+		'wc'=>'35',
+	),
+	54=>array(
+		'wg'=>'35',
+	),
+	55=>array(
+		'wd'=>'35',
+	),
+	56=>array(
+		'wp'=>'15','wk'=>'15','wc'=>'15','wg'=>'15','wd'=>'15',
+	),
+	57=>array(
+		'att'=>'115','def'=>'115',
+	),
+	58=>array(
+		'wep'=>'需求清单',
+		'wepk'=>'WF',
+		'wepe'=>'66',
+		'weps'=>'44',
+		'wepsk'=>'d',
+	),
+	59=>array(
+		'itm6'=>'红牛',
+		'itmk6'=>'Ca',
+		'itme6'=>'1',
+		'itms6'=>'10',
+		'itmsk6'=>'Z',
+	),
+	60=>array(
+		'att'=>'15','def'=>'155',
+	),
+	61=>array(
+		'sp'=>'40','msp'=>'40','exp'=>'70',
+	),
+	62=>array(
+		'skills'=>array('66'=>'0'),
 	),
 );
 $carddesc=array(
@@ -257,7 +323,7 @@ $carddesc=array(
 		'rare'=>'A',
 		'desc'=>'2011年愚人节宇宙巡航机活动的优胜者',
 		'pack'=>'Standard Pack',
-		'effect'=>'称号固定为狙击鹰眼，开局装备强力的射系武器',
+		'effect'=>'开局装备强力的射系武器',
 	),
 	3=>array(
 		'name'=>'面糊饼职人',
@@ -505,32 +571,179 @@ $carddesc=array(
 		'effect'=>'初始属性不知道高到哪里去了',
 	),
 	38=>array(
-		'name'=>'Fleur',
+		'name'=>'『芙蓉（Fleur）』',
 		'rare'=>'S',
-		'desc'=>'第一次活动奖励',
+		'desc'=>'低调行事的年轻女性，红暮的青梅竹马。目前是红暮的影一样的存在。担当红杀组织中并不存在的隐秘行动课程的教头。',
 		'pack'=>'Crimson Swear',
-		'effect'=>'没想好',
+		'effect'=>'被发现率下降，爆系和斩系伤害提高',
 	),
 	39=>array(
-		'name'=>'Crimson',
+		'name'=>'『红暮（Crimson）』',
 		'rare'=>'S',
-		'desc'=>'红暮',
+		'desc'=>'英姿飒爽的年轻女性。表面上是城内世家的千金，湾城最大的实业『金龙通讯社』的CEO，实际是佣兵组织红杀的现任当家',
 		'pack'=>'Crimson Swear',
-		'effect'=>'没想好',
+		'effect'=>'战斗中极高概率发动重击',
 	),
 	40=>array(
-		'name'=>'Azure',
+		'name'=>'『蓝凝（Azure）』',
 		'rare'=>'S',
-		'desc'=>'蓝凝',
+		'desc'=>"<span class=\"clan\">“蓝凝我觉得啊，这个地方没什么好写的。”<br>“总之我比红暮可强的多了，哈哈哈！”</span>",
 		'pack'=>'Crimson Swear',
-		'effect'=>'没想好',
+		'effect'=>"<span class=\"clan\">“蓝凝觉得你进游戏实际体验一下比较好哦！”</span>",
 	),
 	41=>array(
-		'name'=>'Lila',
+		'name'=>'『丁香（Lila）』',
 		'rare'=>'S',
-		'desc'=>'丁香',
+		'desc'=>'芙蓉的妹妹，现年初二，在一般的平民初中就读。是学校演剧部的部长，也备有无数的戏服用品。爱好是写剧本和读其他人的剧本',
 		'pack'=>'Crimson Swear',
-		'effect'=>'没想好',
+		'effect'=>'根据当前HP百分比提高攻击力或防御力',
+	),
+	42=>array(
+		'name'=>'Tianming "Fleur" Li',
+		'rare'=>'S',
+		'desc'=>'低调行事的年轻女性，红暮的青梅竹马。目前是红暮的影一样的存在。担当红杀组织中并不存在的隐秘行动课程的教头。',
+		'pack'=>'Crimson Swear',
+		'effect'=>'被发现率下降，爆系和斩系伤害提高',
+	),
+	43=>array(
+		'name'=>'『飞龙（Wyvern）』',
+		'rare'=>'A',
+		'desc'=>'红暮和蓝凝的爷爷。前代红杀将军。在二人的父亲『幻铁』行踪不明后，抚养二人长大。目前隐居在城外的乡村中卖中药为生。',
+		'pack'=>'Crimson Swear',
+		'effect'=>'减少受到的战斗伤害和陷阱伤害',
+	),
+	44=>array(
+		'name'=>'『翼虎（Manticore）』',
+		'rare'=>'A',
+		'desc'=>'『飞龙』的好友。前代红杀菁英。据说只要他的盾还在身上，没什么东西能伤的了他。目前他的盾由红暮收藏，他自己则在飞龙之前已经退役了。',
+		'pack'=>'Crimson Swear',
+		'effect'=>'探索体力消耗为1，战斗怒气获得+4',
+	),
+	45=>array(
+		'name'=>'『铁城（Rook）』',
+		'rare'=>'A',
+		'desc'=>'红杀的拳脚教头',
+		'pack'=>'Crimson Swear',
+		'effect'=>'殴系伤害+25%，拳头伤害+40%',
+	),
+	46=>array(
+		'name'=>'『灵翼（Bishop）』',
+		'rare'=>'A',
+		'desc'=>'红杀的火器教头',
+		'pack'=>'Crimson Swear',
+		'effect'=>'远程兵器伤害+20%',
+	),
+	47=>array(
+		'name'=>'『破石（Knight）』',
+		'rare'=>'A',
+		'desc'=>'红杀的冷兵器教头',
+		'pack'=>'Crimson Swear',
+		'effect'=>'斩系伤害+20%，投系伤害+15%',
+	),
+	48=>array(
+		'name'=>'『银锤（Pawn）』',
+		'rare'=>'A',
+		'desc'=>'红杀的爆炸物教头',
+		'pack'=>'Crimson Swear',
+		'effect'=>'爆系伤害+15%',
+	),
+	49=>array(
+		'name'=>'『电返（King）』',
+		'rare'=>'A',
+		'desc'=>'红杀的信息技术教头',
+		'pack'=>'Crimson Swear',
+		'effect'=>'升级时获得2-4点全熟练',
+	),
+	50=>array(
+		'name'=>'『三步（Queen）』',
+		'rare'=>'A',
+		'desc'=>'红杀的轻功体能教头',
+		'pack'=>'Crimson Swear',
+		'effect'=>'战斗中对手的射程越远，造成的伤害就越高',
+	),
+	51=>array(
+		'name'=>'红杀特工P',
+		'rare'=>'B',
+		'desc'=>'善于肉搏的红杀特工',
+		'pack'=>'Crimson Swear',
+		'effect'=>'开局殴熟+35',
+	),
+	52=>array(
+		'name'=>'红杀特工K',
+		'rare'=>'B',
+		'desc'=>'善于使用冷兵器的红杀特工',
+		'pack'=>'Crimson Swear',
+		'effect'=>'开局斩熟+35',
+	),
+	53=>array(
+		'name'=>'红杀特工C',
+		'rare'=>'B',
+		'desc'=>'善于使用飞行道具的红杀特工',
+		'pack'=>'Crimson Swear',
+		'effect'=>'开局投熟+35',
+	),
+	54=>array(
+		'name'=>'红杀特工G',
+		'rare'=>'B',
+		'desc'=>'善于使用枪械的红杀特工',
+		'pack'=>'Crimson Swear',
+		'effect'=>'开局射熟+35',
+	),
+	55=>array(
+		'name'=>'红杀特工D',
+		'rare'=>'B',
+		'desc'=>'善于使用爆炸物的红杀特工',
+		'pack'=>'Crimson Swear',
+		'effect'=>'开局爆熟+35',
+	),
+	56=>array(
+		'name'=>'红杀特工A',
+		'rare'=>'B',
+		'desc'=>'战斗风格多变的红杀特工',
+		'pack'=>'Crimson Swear',
+		'effect'=>'开局灵熟以外的熟练度+15',
+	),
+	57=>array(
+		'name'=>'书卷使卡玛',
+		'rare'=>'C',
+		'desc'=>'在时空特使里默默无闻打工的工作人员。某次事件之后就消失了',
+		'pack'=>'Crimson Swear',
+		'effect'=>'开局攻防为115',
+	),
+	58=>array(
+		'name'=>'G.D.S 项目经理',
+		'rare'=>'C',
+		'desc'=>'他因为乱改需求已经被人盯上了',
+		'pack'=>'Crimson Swear',
+		'effect'=>'可以用改需求折磨别人',
+	),
+	59=>array(
+		'name'=>'G.D.S 文员',
+		'rare'=>'C',
+		'desc'=>'因为长期加班导致谢顶的中年男人',
+		'pack'=>'Crimson Swear',
+		'effect'=>'他准备了很多提神的饮料',
+	),
+	60=>array(
+		'name'=>'G.D.S 保安',
+		'rare'=>'C',
+		'desc'=>'他一般没有什么出手的机会，所以锻炼方向有点走偏',
+		'pack'=>'Crimson Swear',
+		'effect'=>'初始攻击大幅降低，防御大幅提高',
+	),
+	61=>array(
+		'name'=>'G.D.S 领导',
+		'rare'=>'C',
+		'desc'=>'由于长期坐办公室，他的身材已经严重走形了',
+		'pack'=>'Crimson Swear',
+		'effect'=>'初始经验值为70，但体力大幅下降',
+	),
+	62=>array(
+		'name'=>'G.D.S 扫地大妈',
+		'rare'=>'C',
+		'desc'=>'金龙通讯社的第一道坚强防线，在公司的日常运转中也发挥着极大的作用',
+		'pack'=>'Crimson Swear',
+		'effect'=>'获得技能「人杰」',
 	),
 );
 ?>

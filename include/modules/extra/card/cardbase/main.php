@@ -53,18 +53,37 @@ namespace cardbase
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess($pa, $pd, $active);
 		eval(import_module('cardbase','sys','logger','map'));
-		$qiegaogain=0;
-		if (($pd['type']==90)&&(($areanum/$areaadd)<1)&&(rand(0,99)<10)){//杂兵
-			$qiegaogain=rand(7,15);
-			get_qiegao($qiegaogain,$pa);
+		if (!in_array($gametype,Array(10,11,12,13,14))){	
+			$qiegaogain=0;
+			if (($pd['type']==90)&&(($areanum/$areaadd)<1)&&(rand(0,99)<10)){//杂兵
+				$qiegaogain=rand(7,15);
+				get_qiegao($qiegaogain,$pa);
+			}
+			if (($pd['type']==2)&&(($areanum/$areaadd)<1)){//幻象
+				$qiegaogain=rand(9,19);
+				get_qiegao($qiegaogain,$pa);
+			}
+			if ($qiegaogain>0)
+				$log.="<span class=\"orange\">敌人掉落了{$qiegaogain}单位的切糕！</span><br>";
 		}
-		if (($pd['type']==2)&&(($areanum/$areaadd)<1)){//幻象
-			$qiegaogain=rand(9,19);
-			get_qiegao($qiegaogain,$pa);
-		}
-		if ($qiegaogain>0)
-			$log.="<span class=\"orange\">敌人掉落了{$qiegaogain}单位的切糕！</span><br>";
 	}	
+	
+	function itemmix_success()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','logger','map','cardbase'));
+		if (!in_array($gametype,Array(10,11,12,13,14))){
+			if (($itm0=="绝冲大剑【神威】")&&(($areanum/$areaadd)<2)){
+				if (get_card(42)==1){
+					$log.="恭喜您获得了活动奖励卡<span class=\"orange\">Fleur</span>！<br>";
+				}else{
+					$log.="您已经拥有活动奖励卡了，系统奖励您<span class=\"yellow\">100</span>切糕！<br>";
+					get_qiegao(100);
+				}
+			}
+		}
+		$chprocess();	
+	}
 }
 
 ?>
