@@ -10,16 +10,19 @@ namespace cooldown
 	
 	function get_move_coldtime(&$dest){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('cooldown'));
 		return $movecoldtime;
 	}
 	
 	function get_search_coldtime(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('cooldown'));
 		return $searchcoldtime;
 	}
 	
 	function get_itemuse_coldtime(&$item){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('cooldown'));
 		return $itemusecoldtime;
 	}
 	
