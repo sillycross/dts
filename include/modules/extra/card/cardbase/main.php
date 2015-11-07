@@ -3,7 +3,17 @@
 namespace cardbase
 {
 	function init() {}
-	
+
+	function get_user_cards($username){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player'));
+		$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$username'");
+		$pu = $db->fetch_array($result);
+		extract($pu,EXTR_PREFIX_ALL,'p');
+		$carr = explode('_',$p_cardlist);
+		return $carr;
+	}	
+
 	function get_card($ci,$pa=NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -101,6 +111,7 @@ namespace cardbase
 		eval(import_module('cardbase'));
 		return $packlist;
 	}
+
 
 	function in_card_pack($packname) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;

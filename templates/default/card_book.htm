@@ -2,17 +2,53 @@
 
 <div class="subtitle" align="center">卡册</div>
 <center>
-	<!--{loop $packlist $packname}-->
-	<a href="cardbook.php?packName={$packname}">{$packname}</a>
-	<!--{/loop}-->
+	<!--{if $curuser}-->
+		<!--{loop $packlist $packname}-->
+		<a href="cardbook.php?packName={$packname}">{$packname}</a>
+		<!--{/loop}-->
+	<!--{else}-->
+		<!--{loop $packlist $packname}-->
+		<a href="cardbook.php?packName={$packname}&playerID={$n}">{$packname}</a>
+		<!--{/loop}-->
+	<!--{/if}-->
 </center>
-<!--{if $pack}-->
+<!--{if $unlock_cards}-->
 <center>
-包介绍：暂无
+<p>包介绍：暂无</p>
+<p>$unlock_num/$pack_num</p>
 </center>
 <center>
-	<p>这里是卡牌的位置，现在这里还没写好，目测一行四个下去</p>
-	<p>准备参照技能的样式，区分解锁和未解锁</p>
+	<ul style="width:1000px;list-style-type:none;">
+		<!--{loop $unlock_cards $card}-->
+		<li style="float:left;margin:5px">
+			<table width="240" height="240" cellspacing="0" cellpadding="1" align="center">
+				<tbody>
+					<tr height="40">
+						<td width="40" height="40" class="b2">卡名</td>
+						<td width="210" height="40" class="b3" id="cname">$card["name"]</td>
+					</tr>
+					<tr height="40">
+						<td width="40" height="40" class="b2">罕贵</td>
+						<td width="210" height="40" class="b3" id="crare">$card["rare"]</td>
+					</tr>
+					<tr height="40">
+						<td width="40" height="40" class="b2">系列</td>
+						<td width="210" height="40" class="b3" id="cpack">$card["pack"]</td>
+					</tr>
+					<tr height="70">
+						<td width="40" height="140" class="b2">介绍</td>
+						<td width="210" height="140" class="b3" id="cdesc">$card["desc"]</td>
+					</tr>
+					<tr height="70">
+						<td width="40" height="70" class="b2">效果</td>
+						<td width="210" height="70" class="b3" id="ceffect">$card["effect"]</td>
+					</tr>
+				</tbody>
+			</table>
+		</li>
+		<!--{/loop}-->
+		<div style="clear:both;"></div>
+	</ul>
 </center>
 <!--{/if}-->
 <form method="post" name="backindex" action="index.php">
