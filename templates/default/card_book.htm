@@ -17,7 +17,7 @@
 <p>包介绍：暂无</p>
 <p>$unlock_num/$pack_num</p>
 <!--{if $unlock_cards}-->
-<p>下面是你拥有的卡片</p>
+<p>下面是你拥有的卡片和未解锁的卡片</p>
 <!--{else}-->
 <p>一张卡都没有呢</p>
 <!--{/if}-->
@@ -47,6 +47,34 @@
 					<tr height="70">
 						<td width="40" height="70" class="b2">效果</td>
 						<td width="210" height="70" class="b3" id="ceffect">$card["effect"]</td>
+					</tr>
+				</tbody>
+			</table>
+		</li>
+		<!--{/loop}-->
+		<!--{loop $lock_cards $card}-->
+		<li class="lockcard" style="float:left;margin:5px">
+			<table width="240" height="240" cellspacing="0" cellpadding="1" align="center">
+				<tbody>
+					<tr height="40">
+						<td width="40" height="40" class="b2">卡名</td>
+						<td width="210" height="40" class="b3" id="cname">$card["name"]</td>
+					</tr>
+					<tr height="40">
+						<td width="40" height="40" class="b2">罕贵</td>
+						<td width="210" height="40" class="b3" id="crare">$card["rare"]</td>
+					</tr>
+					<tr height="40">
+						<td width="40" height="40" class="b2">系列</td>
+						<td width="210" height="40" class="b3" id="cpack">$card["pack"]</td>
+					</tr>
+					<tr height="70">
+						<td width="40" height="140" class="b2">介绍</td>
+						<td width="210" height="140" class="b3" id="cdesc">???</td>
+					</tr>
+					<tr height="70">
+						<td width="40" height="70" class="b2">效果</td>
+						<td width="210" height="70" class="b3" id="ceffect">???</td>
 					</tr>
 				</tbody>
 			</table>

@@ -43,6 +43,7 @@ if ($pname!="") {
 			if (array_key_exists($card_index, $pack))
 				$unlock_cards[$card_index]=$pack[$card_index];
 		}
+		$lock_cards = array_diff_key($pack, $unlock_cards);
 		$pack_num = count($pack);
 		$unlock_num = count($unlock_cards);
 	}
