@@ -1,0 +1,23 @@
+{template header}
+
+<div class="subtitle" align="center">卡册</div>
+<center>
+	<!--{loop $packlist $packname}-->
+	<a href="cardbook.php?packName={$packname}">{$packname}</a>
+	<!--{/loop}-->
+</center>
+<!--{if $pack}-->
+<center>
+包介绍：暂无
+</center>
+<center>
+	<p>这里是卡牌的位置，现在这里还没写好，目测一行四个下去</p>
+	<p>准备参照技能的样式，区分解锁和未解锁</p>
+</center>
+<!--{/if}-->
+<form method="post" name="backindex" action="index.php">
+	<input type="submit" name="enter" value="{lang backindex}">
+</form>
+
+{template footer}
+

@@ -84,6 +84,29 @@ namespace cardbase
 		}
 		$chprocess();	
 	}
+	function get_card_pack($card_pack_name) {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('cardbase'));
+		$card_pack = Array();
+		foreach ($carddesc as $ci => $card) {
+			if ($card["pack"] == $card_pack_name)
+				$card_pack[$ci] = $card;
+		}
+		//return  json_encode($card_pack, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT)."test";
+		return $card_pack;
+	}
+
+	function get_card_pack_list($packname) {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('cardbase'));
+		return $packlist;
+	}
+
+	function in_card_pack($packname) {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('cardbase'));
+		return in_array($packname, $packlist);
+	}
 }
 
 ?>
