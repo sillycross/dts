@@ -20,13 +20,13 @@ namespace tactic
 		return $chprocess($pa, $pd, $active);
 	}
 	
-	function calculate_meetman_rate_by_mode($schmode)
+	function calculate_meetman_rate($schmode)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
-		$r = 0;
-		if ($tactic == 4) $r = -10;		//重视躲避不容易遇见敌人
-		return $chprocess($schmode) + $r;
+		$r = 1;
+		if ($tactic == 4) $r = 0.9;		//重视躲避不容易遇见敌人
+		return $chprocess($schmode) * $r;
 	}
 	
 	function calculate_meetman_obbs(&$edata)

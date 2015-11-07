@@ -68,8 +68,8 @@ namespace gameflow_combo
 		eval(import_module('sys'));
 		if($gamestate >= 40) 
 		{
-			if ($schmode == 'search') return $chprocess($schmode)+20;
-			if ($schmode == 'move') return $chprocess($schmode)+10;
+			if ($schmode == 'search') return $chprocess($schmode)*1.2;
+			if ($schmode == 'move') return $chprocess($schmode)*1.1;
 		}
 		return $chprocess($schmode);
 	}
@@ -163,7 +163,7 @@ namespace gameflow_combo
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
 		$r=0;
-		if($gamestate >= 40) $r=3;	//连斗以后略容易踩陷阱
+		if($gamestate >= 40) $r=2.5;	//连斗以后略容易踩陷阱
 		return $chprocess()+$r;
 	}
 }		

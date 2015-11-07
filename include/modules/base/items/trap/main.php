@@ -54,7 +54,14 @@ namespace trap
 		eval(import_module('sys','player','trap'));
 		$trapresult = $db->query("SELECT * FROM {$tablepre}maptrap WHERE pls = '$pls' ORDER BY itmk DESC");
 		$trpnum = $db->num_rows($trapresult);
-		$real_trap_obbs = $trap_min_obbs + $trpnum/4;
+		$result = $db->query("SELECT pid FROM {$tablepre}players WHERE pls='$pls' AND pid!='$pid' AND state!='16'");
+		$pnum=$db->num_rows($result);
+		$exr=0;
+		if ($pnum<=4) $exr=0.5;
+		if ($pnum<=2) $exr=0.9;
+		if ($pnum==1) $exr=1.4;
+		if ($pnum==0) $exr=0.2;
+		$real_trap_obbs = $trap_min_obbs + $trpnum/4+$exr;
 		return $real_trap_obbs;
 		/*
 		if($club == 6){$real_trap_obbs-=5;}//人肉搜索称号遭遇陷阱概率减少

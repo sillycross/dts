@@ -161,10 +161,10 @@ namespace metman
 			if ($schmode == 'move') return 40;
 			if ($schmode == 'search2') return 40;
 		}
-		$erate=$pcount*2;
-		if ($erate>20) $erate=20;
-		if ($schmode == 'search') return 20+$erate;
-		if ($schmode == 'move') return 40+$erate;
+		$erate=$pcount*3;
+		if ($erate>33) $erate=33;
+		if ($schmode == 'search') return 7+$erate;
+		if ($schmode == 'move') return 37+$erate;
 		if ($schmode == 'search2') return 100;
 		return 0;
 	}
