@@ -33,18 +33,19 @@ if ($_REQUEST["playerID"]=="") {
 
 $packlist = \cardbase\get_card_pack_list();
 
-$packname = $_REQUEST["packName"];
-if ($packname!="" && \cardbase\in_card_pack($packname)) {
-	$pack = \cardbase\get_card_pack($packname);
-	$user_cards = \cardbase\get_user_cards($n);
-	$unlock_cards = array();
-	foreach ($user_cards as $card_index) {
-		if (array_key_exists($card_index, $pack))
-			$unlock_cards[$card_index]=$pack[$card_index];
+$pname = $_REQUEST["packName"];
+if ($pname!="") {
+	if (\cardbase\in_card_pack($pname)) {
+		$pack = \cardbase\get_card_pack($pname);
+		$user_cards = \cardbase\get_user_cards($n);
+		$unlock_cards = array();
+		foreach ($user_cards as $card_index) {
+			if (array_key_exists($card_index, $pack))
+				$unlock_cards[$card_index]=$pack[$card_index];
+		}
+		$pack_num = count($pack);
+		$unlock_num = count($unlock_cards);
 	}
-	$pack_num = count($pack);
-	$unlock_num = count($unlock_cards);
 }
-
 include template('card_book');
 

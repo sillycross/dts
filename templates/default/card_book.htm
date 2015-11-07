@@ -12,10 +12,15 @@
 		<!--{/loop}-->
 	<!--{/if}-->
 </center>
-<!--{if $unlock_cards}-->
+<!--{if $pname}-->
 <center>
 <p>包介绍：暂无</p>
 <p>$unlock_num/$pack_num</p>
+<!--{if $unlock_cards}-->
+<p>下面是你拥有的卡片</p>
+<!--{else}-->
+<p>一张卡都没有呢</p>
+<!--{/if}-->
 </center>
 <center>
 	<ul style="width:1000px;list-style-type:none;">
@@ -49,6 +54,10 @@
 		<!--{/loop}-->
 		<div style="clear:both;"></div>
 	</ul>
+</center>
+<!--{else}-->
+<center>
+<p>选择一个卡册</p>
 </center>
 <!--{/if}-->
 <form method="post" name="backindex" action="index.php">
