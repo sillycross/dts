@@ -1857,7 +1857,7 @@ namespace npc
 			),
 			3 => array
 			(
-			'name' => '黑色奪魂曲',
+			'name' => '芬里爾《黑曲》',
 			'gd' => 'f',
 			'icon' => 104,
 			'club' => 99,
