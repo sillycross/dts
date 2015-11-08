@@ -156,3 +156,8 @@ div.skill_unacquired_hint_transparent
 	background-color:#000000; 
 	filter:alpha(opacity=0.1); -moz-opacity:0.1; opacity:0.1; -khtml-opacity: 0.1;
 }
+.lockcard
+{
+	background-color: #ffffff;
+	opacity: 0.3;
+}

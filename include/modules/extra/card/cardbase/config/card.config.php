@@ -1,4 +1,8 @@
 <?php
+$packlist=array(
+	"Standard Pack",
+	"Crimson Swear",
+);
 $cardindex=array(
 	'S'=>array(1,5,16,38,39,40,41),
 	'A'=>array(2,13,14,20,32,37,43,44,45,46,47,48,49,50),
