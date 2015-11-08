@@ -38,22 +38,22 @@ namespace pose
 		$tdata['pose']=$w_pose;
 	}
 	
-	function calculate_meetman_rate_by_mode($schmode)	//遇敌率
+	function calculate_meetman_rate($schmode)	//遇敌率
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
-		$r = 0;
+		$r = 1;
 		if ($schmode == 'search') 
 		{
-			if($pose==3) $r = -15;	//探索姿态不容易遇见敌人
-			if($pose==4) $r = 10;	//隐藏姿态容易遇见敌人
+			if($pose==3) $r = 0.85;	//探索姿态不容易遇见敌人
+			if($pose==4) $r = 1.1;	//隐藏姿态容易遇见敌人
 		}
 		if ($schmode == 'move') 
 		{
-			if($pose==3) $r = -15;
-			if($pose==4) $r = 10;
+			if($pose==3) $r = 0.85;
+			if($pose==4) $r = 1.1;
 		}
-		return $chprocess($schmode)+$r;
+		return $chprocess($schmode)*$r;
 	}
 	
 	function check_can_counter(&$pa, &$pd, $active)

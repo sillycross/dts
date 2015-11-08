@@ -51,8 +51,8 @@ namespace gameflow_duel
 		eval(import_module('sys'));
 		if($gamestate >= 50) 
 		{
-			if ($schmode == 'search') return $chprocess($schmode)+10;
-			if ($schmode == 'move') return $chprocess($schmode)+5;
+			if ($schmode == 'search') return $chprocess($schmode)*1.1;
+			if ($schmode == 'move') return $chprocess($schmode)*1.05;
 		}
 		return $chprocess($schmode);
 	}

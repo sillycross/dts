@@ -64,6 +64,13 @@
 			<tr><td>
 				<!--{if ($curuser) }--><button type="button" onclick="window.location.href='kuji.php'" <!--{if $gold<100}-->disabled<!--{/if}-->>我要抽卡</button><!--{/if}-->
 			</td></tr>
+			<tr><td>
+				<!--{if ($curuser) }-->
+					<button type="button" onclick="window.location.href='cardbook.php'">查看我的卡册</button>
+				<!--{else}-->
+					<button type="button" onclick="window.location.href='cardbook.php?playerID={$uname}'">查看他的卡册</button>
+				<!--{/if}-->
+			</td></tr>
 			</table>
 		</td>
 	</tr>
