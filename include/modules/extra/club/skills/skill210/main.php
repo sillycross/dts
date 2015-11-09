@@ -42,7 +42,7 @@ namespace skill210
 		return $pa['lvl']>=21;
 	}
 	
-	function upgrade210()
+	function activate210()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill210','player','logger','sys'));
@@ -149,7 +149,7 @@ namespace skill210
 				'clickable' => 1,
 				'hint' => '技能「歼灭」',
 				'activate_hint' => '点击发动技能「歼灭」',
-				'onclick' => "$('mode').value='special';$('command').value='skill210_special';$('subcmd').value='upgrade2';postCmd('gamecmd','command.php');this.disabled=true;",
+				'onclick' => "$('mode').value='special';$('command').value='skill210_special';$('subcmd').value='activate';postCmd('gamecmd','command.php');this.disabled=true;",
 			);
 			if ($skill210_time<$skill210_act_time)
 			{

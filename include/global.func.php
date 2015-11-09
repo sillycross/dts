@@ -476,8 +476,9 @@ function set_credits(){
 			//$honour = $val['users']['honour'] . $obtain;
 			$lastwin=$val['users']['lastwin'];
 			if (($winner==$val['players']['name'])&&(($now-$lastwin)>72000)&&(!in_array($gametype,Array(10,11,12,13,14)))){
+				if ($lastwin==0) $gold+=800;//帐号首次获胜
 				$lastwin=$now;
-				$gold+=200;//首胜
+				$gold+=200;//首胜	
 			}
 			$updatelist[] = Array('username' => $key, 'credits' => $credits, 'wingames' => $wingames, 'validgames' => $validgames,'lastwin'=>$lastwin,'gold'=>$gold);
 //			if(!empty($obtain)){

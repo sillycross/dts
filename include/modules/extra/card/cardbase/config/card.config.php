@@ -2,6 +2,7 @@
 $packlist=array(
 	"Standard Pack",
 	"Crimson Swear",
+	"Event Bonus",
 );
 $cardindex=array(
 	'S'=>array(1,5,16,38,39,40,41),
@@ -306,6 +307,20 @@ $cards=array(
 	62=>array(
 		'skills'=>array('66'=>'0'),
 	),
+	63=>array(
+		'club'=>'7',
+		'skills'=>array(
+			'10'=>'0','11'=>'0','12'=>'0','230'=>'0','231'=>'0','232'=>'0',
+			'233'=>'0','234'=>'0','235'=>'0','236'=>'0','237'=>'0','238'=>'0',
+		),
+	),
+	64=>array(
+		'club'=>'7',
+		'skills'=>array(
+			'10'=>'0','11'=>'0','12'=>'0','230'=>'0','231'=>'0','232'=>'0',
+			'233'=>'0','234'=>'0','235'=>'0','236'=>'0','237'=>'0','238'=>'0',
+		),
+	),
 );
 $carddesc=array(
 	0=>array(
@@ -606,7 +621,7 @@ $carddesc=array(
 		'name'=>'Tianming "Fleur" Li',
 		'rare'=>'S',
 		'desc'=>'低调行事的年轻女性，红暮的青梅竹马。目前是红暮的影一样的存在。担当红杀组织中并不存在的隐秘行动课程的教头。',
-		'pack'=>'Crimson Swear',
+		'pack'=>'Event Bonus',
 		'effect'=>'被发现率下降，爆系和斩系伤害提高',
 	),
 	43=>array(
@@ -748,6 +763,20 @@ $carddesc=array(
 		'desc'=>'金龙通讯社的第一道坚强防线，在公司的日常运转中也发挥着极大的作用',
 		'pack'=>'Crimson Swear',
 		'effect'=>'获得技能「人杰」',
+	),
+	63=>array(
+		'name'=>'"Topcoder" Lemon',
+		'rare'=>'S',
+		'desc'=>'神牛牪犇sillycross，Project.NEW（新电波）的主要负责人，代码力深不可测',
+		'pack'=>'Event Bonus',
+		'effect'=>'称号固定为锡安成员，且0级即解锁过载',
+	),
+	64=>array(
+		'name'=>'Lemon',
+		'rare'=>'S',
+		'desc'=>'神牛牪犇sillycross，Project.NEW（新电波）的主要负责人，代码力深不可测',
+		'pack'=>'N/A',
+		'effect'=>'称号固定为锡安成员，且0级即解锁过载',
 	),
 );
 ?>
