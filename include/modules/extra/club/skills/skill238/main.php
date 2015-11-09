@@ -4,7 +4,7 @@ namespace skill238
 {
 	function init() 
 	{
-		define('MOD_SKILL238_INFO','club;');
+		define('MOD_SKILL238_INFO','club;locked;');
 		eval(import_module('clubbase'));
 		$clubskillname[238] = '过载';
 	}
