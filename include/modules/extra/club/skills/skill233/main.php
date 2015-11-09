@@ -36,6 +36,7 @@ namespace skill233
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('item_uee'));
 		if (\skillbase\skill_query(233)) return 95;
+		return $chprocess();
 	}
 	
 	function post_hack_events($itmn = 0)
@@ -43,6 +44,7 @@ namespace skill233
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
 		if (\skillbase\skill_query(233)) return;
+		$chprocess($itmn);
 	}
 }
 
