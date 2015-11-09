@@ -4,7 +4,7 @@ namespace skill232
 {
 	$shieldgain = Array(110,140,170,200,230,260);
 	$upgradecost = Array(4,4,5,5,5,-1);
-	$skill232_cd = 360;
+	$skill232_cd = 300;
 	
 	function init() 
 	{
