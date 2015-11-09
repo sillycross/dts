@@ -44,6 +44,7 @@ namespace skill407
 		eval(import_module('weapon'));
 		$var_407=0;
 		if (($pd['hp']>($pd['mhp']/2))&&(\skillbase\skill_query(407,$pd))&&(check_unlocked407($pd))) $var_407=get_att($pd,$pa,1-$active);
+		if ($var_407>100000) $var_407=100000;
 		return $chprocess($pa,$pd,$active)+($var_407/2);
 	}
 	
