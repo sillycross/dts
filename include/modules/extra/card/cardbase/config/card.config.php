@@ -765,17 +765,17 @@ $carddesc=array(
 		'effect'=>'获得技能「人杰」',
 	),
 	63=>array(
-		'name'=>'"Topcoder" Lemon',
+		'name'=>'"Topcoder"',
 		'rare'=>'S',
-		'desc'=>'神牛牪犇sillycross，Project.NEW（新电波）的主要负责人，代码力深不可测',
+		'desc'=>'不愿透露姓名的究极神牛，代码力深不可测',
 		'pack'=>'Event Bonus',
 		'effect'=>'称号固定为锡安成员，且0级即解锁过载',
 	),
 	64=>array(
-		'name'=>'Lemon',
+		'name'=>'"Topcoder"',
 		'rare'=>'S',
-		'desc'=>'神牛牪犇sillycross，Project.NEW（新电波）的主要负责人，代码力深不可测',
-		'pack'=>'N/A',
+		'desc'=>'不愿透露姓名的究极神牛，代码力深不可测',
+		'pack'=>'Retro Pack',
 		'effect'=>'称号固定为锡安成员，且0级即解锁过载',
 	),
 );
