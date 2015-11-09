@@ -33,7 +33,7 @@ namespace skill227
 	function check_unlocked227(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return $pa['lvl']>=11;
+		return $pa['lvl']>=15;
 	}
 	
 	function sklearn_checker227($a='', $b='')

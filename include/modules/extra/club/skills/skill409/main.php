@@ -57,7 +57,7 @@ namespace skill409
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
-		if ((\skillbase\skill_query(409))&&(check_unlocked409()))return 0.9*$chprocess();
+		if ((\skillbase\skill_query(409))&&(check_unlocked409()))return round(0.9*$chprocess());
 		return $chprocess();
 	}
 }

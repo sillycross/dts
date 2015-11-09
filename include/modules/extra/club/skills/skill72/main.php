@@ -66,6 +66,9 @@ namespace skill72
 		
 		228 => 18,
 		229 => 16,
+		
+		236 => 4,
+		237 => 13,
 	);
 	
 	function init() 

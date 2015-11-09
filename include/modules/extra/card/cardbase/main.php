@@ -81,7 +81,7 @@ namespace cardbase
 	function itemmix_success()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','logger','map','cardbase'));
+		/*eval(import_module('sys','player','logger','map','cardbase'));
 		if (!in_array($gametype,Array(10,11,12,13,14))){
 			if (($itm0=="绝冲大剑【神威】")&&(($areanum/$areaadd)<2)){
 				if (get_card(42)==1){
@@ -91,7 +91,7 @@ namespace cardbase
 					get_qiegao(100);
 				}
 			}
-		}
+		}*/
 		$chprocess();	
 	}
 	function get_card_pack($card_pack_name) {
