@@ -45,7 +45,7 @@ namespace skill234
 		
 	function wdecode(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','itemmain','logger','skill234','skillbase'));
+		eval(import_module('sys','player','itemmain','logger','skill234','skillbase','map'));
 		if(\skillbase\skill_query(234)){
 			$req1=$goal234[\skillbase\skill_getvalue(234,'cur1')];
 			$req2=$goal234[\skillbase\skill_getvalue(234,'cur2')];
@@ -74,7 +74,7 @@ namespace skill234
 					${'itms'.$position} =1;
 					\skillbase\skill_lost(234);
 					
-					if (!in_array($gametype,Array(10,11,12,13,14))){
+					if ((($areanum/$areaadd)<4)&&(!in_array($gametype,Array(10,11,12,13,14)))){
 						if (\cardbase\get_card(63)==1){
 							$log.="恭喜您获得了活动奖励卡<span class=\"orange\">lemon</span>！<br>";
 						}else{
