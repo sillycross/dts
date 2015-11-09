@@ -8,7 +8,7 @@ namespace skill232
 	
 	function init() 
 	{
-		define('MOD_SKILL232_INFO','club;upgrade;');
+		define('MOD_SKILL232_INFO','club;upgrade;locked;');
 		eval(import_module('clubbase'));
 		$clubskillname[232] = '力场';
 	}
