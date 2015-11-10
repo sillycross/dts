@@ -313,11 +313,11 @@ namespace skill21
 		)
 	),
 		21 => array(
-			'黑色奪魂曲' => array
+			'芬里爾《黑曲》' => array
 			(
-				'name' => '黑色奪魂曲',
+				'name' => 'KHIBIKI《黑曲》',
 				'gd' => 'f',
-				'icon' => 104,
+				'icon' => 113,
 				'club' => 9,
 				'inf' => '',
 				'rage' => 100,
@@ -329,6 +329,7 @@ namespace skill21
 				'att' => 233,
 				'def' => 233,
 				'lvl' => 30,
+				'mode' => 3,
 				'skill' => 200,
 				'money' => 23333,
 				'wep' => '超⑨制霸武神斩',

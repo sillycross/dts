@@ -103,10 +103,17 @@ namespace skill208
 		if ($pa['bskill']==208) 
 		{
 			eval(import_module('logger'));
-			if ($active)
-				$log.='<span class="yellow">「强袭」使你造成的最终伤害提高了40%！</span><br>';
-			else  $log.='<span class="yellow">「强袭」使敌人造成的最终伤害提高了40%！</span><br>';
-			$r=Array(1.4);
+			if ($pa['card']==5){
+				if ($active)
+					$log.='<span class="yellow">「强袭」使你造成的最终伤害提高了100%！</span><br>';
+				else  $log.='<span class="yellow">「强袭」使敌人造成的最终伤害提高了100%！</span><br>';
+				$r=Array(2);
+			}else{
+				if ($active)
+					$log.='<span class="yellow">「强袭」使你造成的最终伤害提高了40%！</span><br>';
+				else  $log.='<span class="yellow">「强袭」使敌人造成的最终伤害提高了40%！</span><br>';
+				$r=Array(1.4);
+			}
 		}
 		return array_merge($r,$chprocess($pa,$pd,$active));
 	}

@@ -3,7 +3,7 @@
 namespace player
 {
 	global $db_player_structure, $gamedata, $cmd, $main, $sdata;
-	global $fog,$upexp,$lvlupexp,$iconImg,$ardef;
+	global $fog,$upexp,$lvlupexp,$iconImg,$iconImgB,$ardef;
 	global $hpcolor,$spcolor,$newhpimg,$newspimg, $tpldata; $tpldata;
 	
 	function init()
@@ -81,6 +81,7 @@ namespace player
 		
 		eval(import_module('sys','player'));
 		$iconImg = $gd.'_'.$icon.'.gif';
+		$iconImgB = $gd.'_'.$icon.'a.gif';
 		$ardef = $arbe + $arhe + $arae + $arfe;
 
 		if(!$weps) {
@@ -119,10 +120,10 @@ namespace player
 			$spcolor = 'clan';
 		}
 		
-		$newhppre = 5+floor(151*(1-$hp/$mhp));
-		$newhpimg = '<img src="img/red2.gif" style="position:absolute; clip:rect('.$newhppre.'px,55px,160px,0px);">';
-		$newsppre = 5+floor(151*(1-$sp/$msp));
-		$newspimg = '<img src="img/yellow2.gif" style="position:absolute; clip:rect('.$newsppre.'px,55px,160px,0px);">';
+		$newhppre = 9+floor(151*(1-$hp/$mhp));
+		$newhpimg = '<img src="img/hpman.gif" style="position:absolute; clip:rect('.$newhppre.'px,55px,160px,0px);">';
+		$newsppre = 9+floor(151*(1-$sp/$msp));
+		$newspimg = '<img src="img/spman.gif" style="position:absolute; clip:rect('.$newsppre.'px,55px,160px,0px);">';
 		
 		return;
 	}

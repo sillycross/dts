@@ -1,6 +1,6 @@
 <?php
 
-function enter_battlefield($xuser,$xpass,$xgender,$xicon)
+function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 {
 	eval(import_module('sys'));
 	if ($xgender!='m' && $xgender!='f') $xgender='m';
@@ -21,6 +21,7 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon)
 	$pls = 0;
 	$killnum = 0;
 	$lvl = 0;
+	$skillpoint = 0;
 	$exp = $areanum * 20;
 	$money = 20;
 	$rage = 0;
@@ -67,42 +68,7 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon)
 	if(strpos($wepk,'WG') === 0){
 		$itm[3] = '手枪子弹'; $itmk[3] = 'GB'; $itme[3] = 1; $itms[3] = 12; $itmsk[3] = '';
 	}
-	
-//	$itm[5] = '好人卡'; $itmk[5] = 'Y'; $itme[5] = 1; $itms[5] = 20; $itmsk[5] = '';
-	//$itm[5] = '特别赠礼'; $itmk[5] = 'p'; $itme[5] = 1; $itms[5] = 1; $itmsk[5] = '';
-//	$shenzhuang = rand(1,10);
-//	switch ($shenzhuang) {
-//		case 1:
-//			$itm[5] = '圭一少年的球棒'; $itmk[5] = 'WP'; $itme[5] = 1800; $itms[5] = 100; $itmsk[5] = 'e';
-//		break;
-//		case 2:
-//			$itm[5] = '简称为UCW的三弦'; $itmk[5] = 'WK'; $itme[5] = 1800; $itms[5] = 100; $itmsk[5] = 'p';
-//		break;
-//		case 3:
-//			$itm[5] = '燃素粒子火焰炮'; $itmk[5] = 'WG'; $itme[5] = 1800; $itms[5] = 100; $itmsk[5] = 'u';
-//		break;
-//		case 4:
-//			$itm[5] = '水晶的超级球'; $itmk[5] = 'WC'; $itme[5] = 1800; $itms[5] = 100; $itmsk[5] = 'ir';
-//		break;
-//		case 5:
-//			$itm[5] = '久违的KEY系催泪弹'; $itmk[5] = 'WD'; $itme[5] = 1800; $itms[5] = 100; $itmsk[5] = 'd';
-//		break;
-//		case 6:
-//			$itm[5] = '梦想天生'; $itmk[5] = 'WF'; $itme[5] = 1800; $itms[5] = 100; $itmsk[5] = 'd';
-//		break;
-//		case 7:
-//			$itm[5] = '这样的装备没问题么的铠甲'; $itmk[5] = 'DB'; $itme[5] = 1800; $itms[5] = 100; $itmsk[5] = 'E';
-//		break;
-//		case 8:
-//			$itm[5] = '这样的装备没问题么的头盔'; $itmk[5] = 'DH'; $itme[5] = 1800; $itms[5] = 100; $itmsk[5] = 'q';
-//		break;
-//		case 9:
-//			$itm[5] = '这样的装备没问题么的手套'; $itmk[5] = 'DA'; $itme[5] = 1800; $itms[5] = 100; $itmsk[5] = 'U';
-//		break;
-//		case 10:
-//			$itm[5] = '这样的装备没问题么的靴子'; $itmk[5] = 'DF'; $itme[5] = 1800; $itms[5] = 100; $itmsk[5] = 'I';
-//		break;
-//	}
+
 	if ($name == 'Amarillo_NMC') {
 		$msp += 500;$mhp += 500;$hp += 500;$sp += 500;
 		$att += 200;$def += 200;
@@ -128,44 +94,60 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon)
 	}elseif($name == '枪毙的某神' || $name == '精灵们的手指舞') {
 		$art = 'TDG地雷的证明';$artk = 'A'; $arte = 1; $arts = 1; $artsk = 'zZ';
 	}
-//	
-//	if(strpos($ip,'124.226.190')===0){
-//		$msp = $sp = 16;$mhp = $hp = 6666;
-//		$att = 1;$def = 1;$lvl = 0;
-//		$money = 0;$club=17;
-//		$itm[1] = '管理员之怒1'; $itmk[1] = 'HH'; $itme[1] = 100; $itms[1] = 30; $itmsk[1] = '';
-//		$itm[2] = '管理员之怒2'; $itmk[2] = 'HS'; $itme[2] = 15; $itms[2] = 30; $itmsk[2] = '';
-//		$itm[3] = '废物'; $itmk[3] = 'Y'; $itme[3] = 1; $itms[3] = 1; $itmsk[3] = '';
-//		$itm[4] = '废物'; $itmk[4] = 'Y'; $itme[4] = 1; $itms[4] = 1; $itmsk[4] = '';
-//		$wep = '啊哈哈哈我已经天下无敌了！';$wepk = 'WF';$wepe = 1;$weps = 8765;$wepsk = '';
-//		$arb = '超级无敌纸防御';$arbk = 'DB'; $arbe = 30000; $arbs = 1; $arbsk = '';
-//		$arh = '超级无敌纸防御';$arhk = 'DH'; $arhe = 30000; $arhs = 1; $arhsk = '';
-//		$ara = '超级无敌纸防御';$arak = 'DA'; $arae = 30000; $aras = 1; $arask = '';
-//		$arf = '超级无敌纸防御';$arfk = 'DF'; $arfe = 30000; $arfs = 1; $arfsk = '';
-//		$art = '不发装备了，这个收好';$artk = 'A'; $arte = 1; $arts = 1; $artsk = 'HcM';
-//	}
-
-//	if ($name == '内衣') {
-//		$itm[3] = '奖品-泽克西斯之荣耀模样的杏仁豆腐'; $itmk[3] = 'HB'; $itme[3] = 50; $itms[3] = 15; $itmsk[2] = 'z';
-//		$itm[4] = '奖品-Flint Lock模样的杏仁豆腐'; $itmk[4] = 'HB'; $itme[4] = 50; $itms[4] = 15; $itmsk[3] = 'z';
-//		$itm[5] = '『灵魂宝石』模样的杏仁豆腐'; $itmk[5] = 'HB'; $itme[5] = 50; $itms[5] = 15; $itmsk[4] = 'Z';
-//		$wep = '奖品-福林洛克';$wepk = 'WP';$wepe = 85;$weps = 85;$wepsk = 'dZ';
-//		$arb = '奖品-黑暗星云之祝福';$arbk = 'DB'; $arbe = 85; $arbs = 85; $arbsk = 'AaZ';
-//		$arh = '奖品-黄色铃铛';$arhk = 'DH'; $arhe = 85; $arhs = 85; $arhsk = 'AaZ';
-//		$ara = '奖品-地元素挂饰';$arak = 'DA'; $arae = 85; $aras = 85; $arask = 'AaZ';
-//		$arf = '奖品-福林克之靴';$arfk = 'DF'; $arfe = 85; $arfs = 85; $arfsk = 'AaZ';
-//		$art = '奖品-泽克西斯菁英';$artk = 'A'; $arte = 85; $arts = 85; $artsk = 'AaZ';
-//	}
 	$state = 0;
 	$bid = 0;
 
 	$inf = $teamID = $teamPass = '';
-	$db->query("INSERT INTO {$tablepre}players (name,pass,type,endtime,gd,sNo,icon,club,hp,mhp,sp,msp,att,def,pls,lvl,`exp`,money,bid,inf,rage,pose,tactic,killnum,state,wp,wk,wg,wc,wd,wf,teamID,teamPass,wep,wepk,wepe,weps,arb,arbk,arbe,arbs,arh,arhk,arhe,arhs,ara,arak,arae,aras,arf,arfk,arfe,arfs,art,artk,arte,arts,itm0,itmk0,itme0,itms0,itm1,itmk1,itme1,itms1,itm2,itmk2,itme2,itms2,itm3,itmk3,itme3,itms3,itm4,itmk4,itme4,itms4,itm5,itmk5,itme5,itms5,itm6,itmk6,itme6,itms6,wepsk,arbsk,arhsk,arask,arfsk,artsk,itmsk0,itmsk1,itmsk2,itmsk3,itmsk4,itmsk5,itmsk6) VALUES ('$name','$pass','$type','$endtime','$gd','$sNo','$icon','$club','$hp','$mhp','$sp','$msp','$att','$def','$pls','$lvl','$exp','$money','$bid','$inf','$rage','$pose','$tactic','$state','$killnum','$wp','$wk','$wg','$wc','$wd','$wf','$teamID','$teamPass','$wep','$wepk','$wepe','$weps','$arb','$arbk','$arbe','$arbs','$arh','$arhk','$arhe','$arhs','$ara','$arak','$arae','$aras','$arf','$arfk','$arfe','$arfs','$art','$artk','$arte','$arts','$itm[0]','$itmk[0]','$itme[0]','$itms[0]','$itm[1]','$itmk[1]','$itme[1]','$itms[1]','$itm[2]','$itmk[2]','$itme[2]','$itms[2]','$itm[3]','$itmk[3]','$itme[3]','$itms[3]','$itm[4]','$itmk[4]','$itme[4]','$itms[4]','$itm[5]','$itmk[5]','$itme[5]','$itms[5]','$itm[6]','$itmk[6]','$itme[6]','$itms[6]','$wepsk','$arbsk','$arhsk','$arask','$arfsk','$artsk','$itmsk[0]','$itmsk[1]','$itmsk[2]','$itmsk[3]','$itmsk[4]','$itmsk[5]','$itmsk[6]')");
+	///////////////////////////////////////////////////////////////
+	require config('card',$gamecfg);
+	$cardfix=$cards[$card];
+	$cardname=$carddesc[$card]['name'];
+	$cardrare=$carddesc[$card]['rare'];
+	///////////////////////////////////////////////////////////////
+	foreach ($cardfix as $key => $value){
+		if (substr($key,0,3)=="itm"){
+			$tt=substr($key,-1);
+			$ts=substr($key,0,strlen($key)-1);
+			${$ts}[$tt]=$value;
+		}else{
+			${$key}=$value;
+		}
+	}
+	///////////////////////////////////////////////////////////////
+	$db->query("INSERT INTO {$tablepre}players (name,pass,type,endtime,gd,sNo,icon,club,hp,mhp,sp,msp,att,def,pls,lvl,`exp`,money,bid,inf,rage,pose,tactic,killnum,state,wp,wk,wg,wc,wd,wf,teamID,teamPass,wep,wepk,wepe,weps,arb,arbk,arbe,arbs,arh,arhk,arhe,arhs,ara,arak,arae,aras,arf,arfk,arfe,arfs,art,artk,arte,arts,itm0,itmk0,itme0,itms0,itm1,itmk1,itme1,itms1,itm2,itmk2,itme2,itms2,itm3,itmk3,itme3,itms3,itm4,itmk4,itme4,itms4,itm5,itmk5,itme5,itms5,itm6,itmk6,itme6,itms6,wepsk,arbsk,arhsk,arask,arfsk,artsk,itmsk0,itmsk1,itmsk2,itmsk3,itmsk4,itmsk5,itmsk6,card,cardname,skillpoint) VALUES ('$name','$pass','$type','$endtime','$gd','$sNo','$icon','$club','$hp','$mhp','$sp','$msp','$att','$def','$pls','$lvl','$exp','$money','$bid','$inf','$rage','$pose','$tactic','$state','$killnum','$wp','$wk','$wg','$wc','$wd','$wf','$teamID','$teamPass','$wep','$wepk','$wepe','$weps','$arb','$arbk','$arbe','$arbs','$arh','$arhk','$arhe','$arhs','$ara','$arak','$arae','$aras','$arf','$arfk','$arfe','$arfs','$art','$artk','$arte','$arts','$itm[0]','$itmk[0]','$itme[0]','$itms[0]','$itm[1]','$itmk[1]','$itme[1]','$itms[1]','$itm[2]','$itmk[2]','$itme[2]','$itms[2]','$itm[3]','$itmk[3]','$itme[3]','$itms[3]','$itm[4]','$itmk[4]','$itme[4]','$itms[4]','$itm[5]','$itmk[5]','$itme[5]','$itms[5]','$itm[6]','$itmk[6]','$itme[6]','$itms[6]','$wepsk','$arbsk','$arhsk','$arask','$arfsk','$artsk','$itmsk[0]','$itmsk[1]','$itmsk[2]','$itmsk[3]','$itmsk[4]','$itmsk[5]','$itmsk[6]','$card','$cardname','$skillpoint')");
 	$db->query("UPDATE {$gtablepre}users SET lastgame='$gamenum' WHERE username='$name'");
+	
+	///////////////////////////////////////////////////////////////
+	$pp=\player\fetch_playerdata($name);
+	//为了灵活性，直接处理所有技能，在固定称号的时候记得要写入skills不然进游戏就没技能了
+	//if (isset($cardfix['club'])){
+	//	\clubbase\club_acquire($cardfix['club'],$pp);
+	//}
+	if (is_array($cardfix['skills'])){
+		foreach ($cardfix['skills'] as $key=>$value){
+			if (defined('MOD_SKILL'.$key)){
+				\skillbase\skill_acquire($key,$pp);
+				if ($value>0){
+					\skillbase\skill_setvalue($key,'lvl',$value,$pp);
+				}
+			}	
+		}
+	}
+	\player\player_save($pp);
+	///////////////////////////////////////////////////////////////
+	if ($cardrare=="S"){
+		$rarecolor="orange";
+	}else if ($cardrare=='A'){
+		$rarecolor="linen";
+	}else if ($cardrare=='B'){
+		$rarecolor="brickred";
+	}else if ($cardrare=='C'){
+		$rarecolor="seagreen";
+	}
 	if($udata['groupid'] >= 6 || $cuser == $gamefounder){
-		addnews($now,'newgm',$name,"{$sexinfo[$gd]}{$sNo}号",$ip);
+		addnews($now,'newgm',"<span class=\"".$rarecolor."\">".$cardname.'</span> '.$name,"{$sexinfo[$gd]}{$sNo}号",$ip);
 	}else{
-		addnews($now,'newpc',$name,"{$sexinfo[$gd]}{$sNo}号",$ip);
+		addnews($now,'newpc',"<span class=\"".$rarecolor."\">".$cardname.'</span> '.$name,"{$sexinfo[$gd]}{$sNo}号",$ip);
 	}
 	
 	if($validnum >= $validlimit && $gamestate == 20){

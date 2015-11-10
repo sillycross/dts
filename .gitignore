@@ -1,4 +1,5 @@
 *.swp
+ideas.txt
 nohup.out
 include/modules/core/sys/config/server.config.php
 include/modulemng.config.php
@@ -10,3 +11,4 @@ gamedata/modules.list.pass.php
 templates/default/mixhelp.htm
 gamedata/combatinfo.php
 gamedata/newsinfo.php
+test.php

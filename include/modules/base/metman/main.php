@@ -153,9 +153,19 @@ namespace metman
 	function calculate_meetman_rate_by_mode($schmode)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($schmode == 'search') return 40;
-		if ($schmode == 'move') return 70;
-		if ($schmode == 'search2') return 55;
+		eval(import_module('sys','player'));
+		$result = $db->query("SELECT pid FROM {$tablepre}players WHERE pls='$pls' AND pid!='$pid' AND state!='16'");
+		$pcount=$db->num_rows($result);
+		if(!$pcount){//没有人
+			if ($schmode == 'search') return 40;
+			if ($schmode == 'move') return 40;
+			if ($schmode == 'search2') return 40;
+		}
+		$erate=$pcount*3;
+		if ($erate>33) $erate=33;
+		if ($schmode == 'search') return 7+$erate;
+		if ($schmode == 'move') return 37+$erate;
+		if ($schmode == 'search2') return 100;
 		return 0;
 	}
 	
@@ -170,7 +180,7 @@ namespace metman
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','player','logger','metman'));
-		$result = $db->query("SELECT pid FROM {$tablepre}players WHERE pls='$pls' AND pid!='$pid'");
+		$result = $db->query("SELECT pid FROM {$tablepre}players WHERE pls='$pls' AND pid!='$pid' AND state!='16'");
 		if(!$db->num_rows($result)){
 			$log .= '<span class="yellow">周围一个人都没有。</span><br>';
 			$mode = 'command';
@@ -206,7 +216,7 @@ namespace metman
 		if($hideflag == true){
 			$log .= '似乎有人隐藏着……<br>';
 		}else{
-			$log .= '<span class="yellow">周围一个人都没有。</span><br>';
+			$log .= '<span class="yellow">周围似乎一个人都没有。</span><br>';
 		}
 		$mode = 'command';
 		return;

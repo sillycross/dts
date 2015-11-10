@@ -10,7 +10,7 @@
 <!--{else}-->
 <input type="hidden" id="bskill" name="bskill" value="0">
 <input type="hidden" id="bskillpara" name="bskillpara" value="">
-<table cellSpacing=0 cellPadding=0>
+<table cellSpacing=0 cellPadding=0 width=300px style="table-layout:fixed;">
 <tr><td width=100px align="center" style="vertical-align:top">
 <!--{if (defined('MOD_WEAPON'))}-->
 {template MOD_WEAPON_ATT_METHOD}
@@ -25,36 +25,6 @@
 <!--{eval \clubbase\get_battle_skill_entry($edata,2);}-->
 </td>
 </tr>
-<tr>
-<td width=200px align="center" style="vertical-align:top">
-<!--{if (($edata['type']>0)&&(!$fog))}-->
-<br><br><input type="button" class="bigbutton" id="c" name="sklist" value="[C]查看NPC技能" onclick="bubblebox_show('npcskill');"> 
-<!--{/if}-->
-</td>
-</tr></table>
-<!--{/if}-->
-
-<!--{eval \bubblebox\bubblebox_set_style('id:npcskill;height:353;width:518;cancellable:1;');}-->
-
-{template MOD_BUBBLEBOX_START}
-<p style="margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px;">
-<br>
-<!--于是经过各种边框，最后工作区的大小是height:514px width:509px--> 
-以下是该NPC<span class="yellow">独有</span>的技能列表。<br><br>
-</p>
-<TABLE border="0" cellSpacing=0 cellPadding=0 width=509px>
-<tr>
-<td width="0"></td>
-<TD class=b1 width="40"><span>名称</span></TD>
-<TD class=b1><span></span></TD>
-</tr>
-<!--{eval \clubbase\get_nskillpage($edata);}-->
 </table>
-<br>
-<p>
+<!--{/if}-->
 
-<input class="cmdbutton" onclick="bubblebox_hide_all();" value="关闭窗口" type="button">
-
-&nbsp;&nbsp;&nbsp; 提示:点击技能界面外任意位置也可以关闭技能列表<br>
-</p>
-{template MOD_BUBBLEBOX_END}

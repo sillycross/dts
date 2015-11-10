@@ -9,7 +9,7 @@ namespace wep_n
 		//武器类型依赖的熟练度名称
 		$skillinfo['N'] = 'wp';
 		//武器类型攻击动词
-		$attinfo['N'] = '徒手殴打';
+		$attinfo['N'] = '殴打';
 		//武器类型名
 		$iteminfo['WN'] = '空手';
 		

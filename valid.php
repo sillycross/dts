@@ -18,6 +18,18 @@ if($udata['groupid'] <= 0) { gexit($_ERROR['user_ban'], __file__, __line__); }
 if($gamestate >= 30 && $udata['groupid'] < 6 && $cuser != $gamefounder) {
 	gexit($_ERROR['valid_stop'],__file__,__line__);
 }
+require config('card',$gamecfg);
+$jfile=GAME_ROOT."./gamedata/cache/card.json";
+$cdfile=GAME_ROOT."./gamedata/cache/card_1.php";
+if ((!file_exists($jfile)) || (filemtime($cdfile) > filemtime($jfile))){
+	if(!$fp = fopen($jfile, 'w')) {
+		gexit("咕咕咕");
+	}
+	$jdesc=json_encode($carddesc,JSON_UNESCAPED_UNICODE);
+	flock($fp, 2);
+	fwrite($fp, $jdesc);
+	fclose($fp);
+}
 
 if($mode == 'enter') {
 	if($iplimit) {
@@ -26,7 +38,12 @@ if($mode == 'enter') {
 	}	
 
 	$ip = real_ip();
-	$db->query("UPDATE {$gtablepre}users SET gender='$gender', icon='$icon', motto='$motto', killmsg='$killmsg', lastword='$lastword' WHERE username='".$udata['username']."'" );
+	if ($udata['cardlist']==""){
+		$ucl="0";
+	}else{
+		$ucl=$udata['cardlist'];
+	}
+	$db->query("UPDATE {$gtablepre}users SET gender='$gender', icon='$icon', motto='$motto', killmsg='$killmsg', card='$card',lastword='$lastword' ,cardlist='".$ucl."' WHERE username='".$udata['username']."'" );
 	if($validnum >= $validlimit) {
 		gexit($_ERROR['player_limit'],__file__, __line__);
 	}
@@ -38,8 +55,37 @@ if($mode == 'enter') {
 		$gender = 'm';
 	}
 	
+	require config('card',$gamecfg);
+	$cc=$card;
+	$cardinfo=$carddesc[$cc];
+	$r=$cardinfo['rare'];
+	$cf=true;
+	if ($r=="S"){
+		if (($now-$udata['cd_s'])<86400){
+			$cf=false;
+		}else{
+			$db->query("UPDATE {$gtablepre}users SET cd_s='$now' WHERE username='".$udata['username']."'" );
+		}
+	}else if ($r=="A"){
+		if (($now-$udata['cd_a'])<43200){
+			$cf=false;
+		}else{
+			$db->query("UPDATE {$gtablepre}users SET cd_a='$now' WHERE username='".$udata['username']."'" );
+		}
+	}else if ($r=="B"){
+		if (($now-$udata['cd_b'])<10800){
+			$cf=false;
+		}else{
+			$db->query("UPDATE {$gtablepre}users SET cd_b='$now' WHERE username='".$udata['username']."'" );
+		}
+	}
+	if ($cf==false){
+		$cc=0;
+		$cardinfo=$carddesc[0];
+	}
 	include_once GAME_ROOT.'./include/valid.func.php';
-	enter_battlefield($cuser,$cpass,$gender,$icon);
+	enter_battlefield($cuser,$cpass,$gender,$icon,$cc);
+	
 	
 	include template('validover');
 } elseif($mode == 'notice') {
@@ -50,6 +96,11 @@ if($mode == 'enter') {
 	include template('tutorial');
 } else {
 	extract($udata);
+	if ($udata['cardlist']==""){
+		$udata['cardlist']="0";
+		$cardlist="0";
+		$db->query("UPDATE {$tablepre}users SET cardlist='$cardlist' WHERE username = '$username'");
+	}
 	$result = $db->query("SELECT * FROM {$tablepre}players WHERE name = '$cuser' AND type = 0");
 	if($db->num_rows($result)) {
 		header("Location: game.php");exit();
@@ -60,33 +111,36 @@ if($mode == 'enter') {
 	}
 	$iconarray = get_iconlist($icon);
 	$select_icon = $icon;
+
+	$r=$carddesc[$card]['rare'];
+	$cad=$udata['card'];
+	$carr = explode('_',$udata['cardlist']);
+	$clist = Array();
+	foreach($carr as $key => $val){
+		$clist[$key] = $val;
+	}
+	$cad=$card;
+	$sf=true;$af=true;$bf=true;
+	if (($now-$udata['cd_s'])<86400){
+		$sf=false;
+	}
+	if (($now-$udata['cd_a'])<43200){
+		$af=false;
+	}
+	if (($now-$udata['cd_b'])<10800){
+		$bf=false;	
+	}
+	$stime=$udata['cd_s']+86400;
+	list($min,$hour,$day,$month,$year)=explode(',',date("i,H,j,n,Y",$stime));
+	$std=$year."年".$month."月".$day."日".$hour."时".$min."分";
+	$atime=$udata['cd_a']+43200;
+	list($min,$hour,$day,$month,$year)=explode(',',date("i,H,j,n,Y",$atime));
+	$atd=$year."年".$month."月".$day."日".$hour."时".$min."分";
+	$btime=$udata['cd_b']+10800;
+	list($min,$hour,$day,$month,$year)=explode(',',date("i,H,j,n,Y",$btime));
+	$btd=$year."年".$month."月".$day."日".$hour."时".$min."分";
 	include template('valid');
 }
-
-/*
-function makeclub() {
-	global $wp,$wk,$wg,$wc,$wd,$wf,$money,$mhp,$msp,$hp,$sp,$att,$def;
-	$wp = $wk = $wg = $wc = $wd = $wf = 0;
-	$dice = rand(0,105);
-	if($dice < 10)		{$club = 1;$wp = 30;}//殴25
-	elseif($dice < 20)	{$club = 2;$wk = 30;}//斩25
-	elseif($dice < 30)	{$club = 3;$wc = 30;}//投25
-	elseif($dice < 40)	{$club = 4;$wg = 30;}//射25
-	elseif($dice < 50)	{$club = 5;$wd = 20;}//爆25
-	elseif($dice < 55)	{$club = 6;}//移动、探索消耗减
-	elseif($dice < 60)	{$club = 7;}//P(HACK)=1
-	elseif($dice < 65)	{$club = 8;}//查毒可
-	elseif($dice < 75)	{$club = 9;$wf = 20;}//能使用必杀，灵25
-	elseif($dice < 80)	{$club = 10;}//攻击熟练+2
-	elseif($dice < 85)	{$club = 11;$money = 500;}//出击钱数500
-	elseif($dice < 90)	{$club = 12;$wp = $wk = $wg = $wc = $wd = $wf = 50;}//全熟练50
-	elseif($dice < 95)	{$club = 13;$mhp = $mhp + 200;$hp = $mhp;}//生命上限提高200
-	elseif($dice < 100)	{$club = 14;$att = $att + 200;$def = $def + 200;}//攻防+100
-	elseif($dice <= 105) {$club = 18;}//回复量增加
-	else				{$club = makeclub();}
-	return $club;
-}
-*/
 ?>
 
 

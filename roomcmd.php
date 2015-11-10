@@ -393,7 +393,7 @@ if ($command=='ready' && !$not_ready_command_flag)
 					$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username = '$pname'");
 					if($db->num_rows($result)!=1) continue;
 					$pdata = $db->fetch_array($result);
-					enter_battlefield($pdata['username'],$pdata['password'],$pdata['gender'],$pdata['icon']);
+					enter_battlefield($pdata['username'],$pdata['password'],$pdata['gender'],$pdata['icon'],$pdata['card']);
 					$db->query("UPDATE {$tablepre}players SET teamID='{$roomtypelist[$roomdata['roomtype']]['teamID'][$roomtypelist[$roomdata['roomtype']]['leader-position'][$i]]}' WHERE name='$pname'");
 				}
 			//进入连斗

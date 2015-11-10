@@ -1,0 +1,13 @@
+<!--{eval $rageneed = \skill237\get_rage_cost237();}-->
+<!--{if $rage>=$rageneed}-->
+<input type="button" class="cmdbutton" style="width:98" name="" value="EMP" 
+onclick="$('command').value='$w1';$('bskill').value=237;postCmd('gamecmd','command.php');this.disabled=true;"><br />
+<div style="width:90%; text-align:left;">
+造成<span class="yellow">130%</span>物理伤害；延长目标的行动CD；消耗<span class="red">$rageneed</span>怒气
+</div>
+<!--{else}-->
+<input type="button" class="cmdbutton" style="width:98" name="" value="EMP" disabled="true"><br />
+<div style="width:90%; text-align:left;">
+需要<span class="red">$rageneed</span>怒气方可发动
+</div>
+<!--{/if}-->

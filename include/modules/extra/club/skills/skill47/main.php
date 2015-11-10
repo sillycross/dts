@@ -3,7 +3,7 @@
 namespace skill47
 {
 	//怒气消耗
-	$ragecost = 12; 
+	$ragecost = 5; 
 	
 	function init() 
 	{

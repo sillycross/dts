@@ -51,10 +51,11 @@ if($command == 'kill' || $command == 'live' || $command == 'del') {
 						$operlist[${'pc_'.$i}] = $pcdata[$i]['name'];	
 						$pcdata[$i]['hp'] = 0;
 						$pcdata[$i]['state'] = 16;
-						$deathnum --;$alivenum++;
+						$deathnum ++;$alivenum--;
 						adminlog('delpc',$pcdata[$i]['name']);
 						addnews($now,'death16',$pcdata[$i]['name']);
 					}else{
+						$pcdata[$i]['state'] = 16;
 						$operlist2[${'pc_'.$i}] = $pcdata[$i]['name'];
 						adminlog('delcp',$pcdata[$i]['name']);
 						addnews($now,'delcp',$pcdata[$i]['name']);
@@ -76,7 +77,7 @@ if($command == 'kill' || $command == 'live' || $command == 'del') {
 			$operword = '被清除';
 			$qryword = "UPDATE {$tablepre}players SET hp='0',state='16',weps='0',arbs='0',arhs='0',aras='0',arfs='0',arts='0',itms0='0',itms1='0',itms2='0',itms3='0',itms4='0',itms5='0',itms6='0',money='0' ";
 			$operword2 = '的尸体被清除';
-			$qryword2 = "UPDATE {$tablepre}players SET weps='0',arbs='0',arhs='0',aras='0',arfs='0',arts='0',itms0='0',itms1='0',itms2='0',itms3='0',itms4='0',itms5='0',itms6='0',money='0' ";
+			$qryword2 = "UPDATE {$tablepre}players SET weps='0',state='16',arbs='0',arhs='0',aras='0',arfs='0',arts='0',itms0='0',itms1='0',itms2='0',itms3='0',itms4='0',itms5='0',itms6='0',money='0' ";
 		}
 		if($operlist){
 			$qrywhere = '('.implode(',',array_keys($operlist)).')';

@@ -26,7 +26,7 @@ namespace npc
 		( 
 		1 => array
 			(
-			'mode' => 1,
+			'mode' => 3,
 			'num' => 1,
 			'pass' => 'bra',
 			'club' => 0,
@@ -641,7 +641,7 @@ namespace npc
 		
 		9 => array
 			(
-			'mode' => 1,
+			'mode' => 3,
 			'num' => 1,
 			'pass' => 'bra',
 			'club' => 0,
@@ -1857,8 +1857,9 @@ namespace npc
 			),
 			3 => array
 			(
-			'name' => '黑色奪魂曲',
+			'name' => '芬里爾《黑曲》',
 			'gd' => 'f',
+			'mode' => 3,
 			'icon' => 104,
 			'club' => 99,
 			'mhp' => 10000,
@@ -2312,7 +2313,7 @@ namespace npc
 			),
 		2 => array
 			(
-			'name' => 'YaphetS_',
+			'name' => 'YS',
 			'gd' => 'm',
 			'icon' => 111,
 			'wep' => '毁灭阴影',

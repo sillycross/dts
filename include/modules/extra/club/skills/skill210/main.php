@@ -2,8 +2,8 @@
 
 namespace skill210
 {
-	$skill210_cd = 600;
-	$skill210_act_time = 60;
+	$skill210_cd = 900;
+	$skill210_act_time = 120;
 	
 	function init() 
 	{
@@ -16,14 +16,7 @@ namespace skill210
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','skill210'));
-		if ($pa['club']==2)
-		{
-			\skillbase\skill_setvalue(210,'lastuse',-3000,$pa);
-		}
-		else
-		{
-			\skillbase\skill_setvalue(210,'lastuse',$now+$skill210_act_time,$pa);
-		}
+		\skillbase\skill_setvalue(210,'lastuse',-3000,$pa);
 	}
 	
 	function lost210(&$pa)
@@ -49,7 +42,7 @@ namespace skill210
 		return $pa['lvl']>=21;
 	}
 	
-	function upgrade210()
+	function activate210()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill210','player','logger','sys'));
@@ -110,9 +103,11 @@ namespace skill210
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r=Array();
 		eval(import_module('logger','skill210'));
-		if ((\skillbase\skill_query(210,$pa))&&(check_skill210_state($pa)==1)&&(rand(0,99)<15)&&($pa['wep_kind']=='K')&&($pa['club']!=2)) 
+		$var_210=20;
+		if ($pa['card']==5) $var_210=40;
+		if ((\skillbase\skill_query(210,$pa))&&(check_skill210_state($pa)==1)&&(rand(0,99)<$var_210)&&($pa['wep_kind']=='K')&&($pa['club']!=2)) 
 		{
-			$z=1.5;
+			$z=2;
 			if ($active)
 				$log.='<span class="red">暴击！</span><span class="lime">「歼灭」使你造成了'.$z.'倍物理伤害！</span><br>';
 			else  $log.='<span class="red">暴击！</span><span class="lime">「歼灭」使敌人造成了'.$z.'倍物理伤害！</span><br>';
@@ -126,9 +121,11 @@ namespace skill210
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r=Array();
 		eval(import_module('logger','skill210'));
-		if ((\skillbase\skill_query(210,$pa))&&(check_skill210_state($pa)==1)&&(rand(0,99)<20)&&($pa['wep_kind']=='K')&&($pa['club']==2)) 
+		$var_210=20;
+		if ($pa['card']==5) $var_210=40;
+		if ((\skillbase\skill_query(210,$pa))&&(check_skill210_state($pa)==1)&&(rand(0,99)<$var_210)&&($pa['wep_kind']=='K')&&($pa['club']==2)) 
 		{
-			$z=1.5;
+			$z=2;
 			if ($active)
 				$log.='<span class="red">暴击！</span><span class="lime">「歼灭」使你造成了'.$z.'倍最终伤害！</span><br>';
 			else  $log.='<span class="red">暴击！</span><span class="lime">「歼灭」使敌人造成了'.$z.'倍最终伤害！</span><br>';
@@ -152,7 +149,7 @@ namespace skill210
 				'clickable' => 1,
 				'hint' => '技能「歼灭」',
 				'activate_hint' => '点击发动技能「歼灭」',
-				'onclick' => "$('mode').value='special';$('command').value='skill210_special';$('subcmd').value='upgrade2';postCmd('gamecmd','command.php');this.disabled=true;",
+				'onclick' => "$('mode').value='special';$('command').value='skill210_special';$('subcmd').value='activate';postCmd('gamecmd','command.php');this.disabled=true;",
 			);
 			if ($skill210_time<$skill210_act_time)
 			{

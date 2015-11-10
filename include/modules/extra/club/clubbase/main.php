@@ -145,19 +145,19 @@ namespace clubbase
 			return;
 		}
 		
-		if ($mode == 'special' && substr($command,0,5) == 'skill' && substr($command,-8)=='_special' && ($subcmd=='upgrade' || $subcmd=='upgrade2')) 
+		if ($mode == 'special' && substr($command,0,5) == 'skill' && substr($command,-8)=='_special' && ($subcmd=='upgrade' || $subcmd=='activate')) 
 		{
 			$id=substr($command,5,-8); $id=(int)$id;
 			if (defined('MOD_SKILL'.$id.'_INFO') && strpos(constant('MOD_SKILL'.$id.'_INFO'),'upgrade;')!==false && \skillbase\skill_query($id))
 			{
-				$func='skill'.$id.'\\upgrade'.$id;
+				$func='skill'.$id.'\\'.$subcmd.$id;
 				$func();
 			}
 			else
 			{
 				$log.='你不能发动这个技能。<br>';
 			}
-			if ($subcmd=='upgrade2')
+			if ($subcmd=='activate')
 				$mode = 'command';
 			else  $mode = MOD_CLUBBASE_SKILLPAGE;
 			return;

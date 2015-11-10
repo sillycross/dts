@@ -1,0 +1,33 @@
+<!--{eval eval(import_module('skill232','sys'));}-->
+<!--{eval $___TEMP_SKILL_ID=232;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+力场
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<!--{eval $clv = (int)\skillbase\skill_getvalue(232,'lvl'); }-->
+<!--{eval $totlv = count($upgradecost)-1; }-->
+<!--{eval $skill232_lst = (int)\skillbase\skill_getvalue(232,'lastuse'); $skill232_time = ($now-$skill232_lst);$skill232_cd_left=($skill232_cd-$skill232_time);}-->
+<span class="lime">当前级别$clv/$totlv</span>&nbsp;
+<!--{if $upgradecost[$clv] !== -1}-->消耗<span class="lime">$upgradecost[$clv]</span>点技能点升至下一级<!--{/if}--><br>
+恢复满生命值并获得<span class="yellow">$shieldgain[$clv]</span>点护盾，冷却时间<span class="clan">300</span>秒<br>
+<!--{if $skill232_time<$skill232_cd}-->
+<span class="clan">技能冷却中，冷却时间还剩<span>$skill232_cd_left</span>秒。</span><br>
+<!--{/if}-->
+</span></td>
+<td class=b3 width=46>
+<!--{if $upgradecost[$clv] !== -1}-->
+<!--{if $skillpoint>=$upgradecost[$clv]}-->
+<input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill232_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="升级">
+<!--{else}-->
+<input type="button" style="width:46px" disabled="true" value="升级">
+<!--{/if}-->
+<!--{/if}-->
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

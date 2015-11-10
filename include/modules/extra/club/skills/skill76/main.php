@@ -58,7 +58,7 @@ namespace skill76
 		return 3;
 	}
 	
-	function upgrade76()
+	function activate76()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill76','player','logger','sys'));
@@ -102,7 +102,7 @@ namespace skill76
 				'clickable' => 1,
 				'hint' => '技能「充能」',
 				'activate_hint' => '点击发动技能「充能」',
-				'onclick' => "$('mode').value='special';$('command').value='skill76_special';$('subcmd').value='upgrade2';postCmd('gamecmd','command.php');this.disabled=true;",
+				'onclick' => "$('mode').value='special';$('command').value='skill76_special';$('subcmd').value='activate';postCmd('gamecmd','command.php');this.disabled=true;",
 			);
 			if ($skill76_time<$skill76_cd)
 			{
