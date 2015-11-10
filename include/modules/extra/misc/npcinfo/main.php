@@ -25,6 +25,9 @@ namespace npcinfo
 		eval(import_module('sys','player','clubbase','npc','tactic','pose','map'));
 		$nownpc = array_merge($npcinit,$npcinfo[$npckind]);
 		$nownpc = array_merge($nownpc,$npcinfo[$npckind]['sub'][$npcsubkind]);
+		if ($nownpc['mode']==3){//有大头像
+			$nownpc['icon'].='a';
+		}
 		if ($npcdata)
 			$nownpc = array_merge($nownpc,$npcdata);
 		else  $nownpc['___count']=ceil($npcinfo[$npckind]['num']/sizeof($npcinfo[$npckind]['sub']));
