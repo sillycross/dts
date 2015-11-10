@@ -120,9 +120,9 @@ namespace player
 			$spcolor = 'clan';
 		}
 		
-		$newhppre = 5+floor(151*(1-$hp/$mhp));
+		$newhppre = 9+floor(151*(1-$hp/$mhp));
 		$newhpimg = '<img src="img/hpman.gif" style="position:absolute; clip:rect('.$newhppre.'px,55px,160px,0px);">';
-		$newsppre = 5+floor(151*(1-$sp/$msp));
+		$newsppre = 9+floor(151*(1-$sp/$msp));
 		$newspimg = '<img src="img/spman.gif" style="position:absolute; clip:rect('.$newsppre.'px,55px,160px,0px);">';
 		
 		return;
