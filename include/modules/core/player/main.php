@@ -121,9 +121,9 @@ namespace player
 		}
 		
 		$newhppre = 5+floor(151*(1-$hp/$mhp));
-		$newhpimg = '<img src="img/red2.gif" style="position:absolute; clip:rect('.$newhppre.'px,55px,160px,0px);">';
+		$newhpimg = '<img src="img/hpman.gif" style="position:absolute; clip:rect('.$newhppre.'px,55px,160px,0px);">';
 		$newsppre = 5+floor(151*(1-$sp/$msp));
-		$newspimg = '<img src="img/yellow2.gif" style="position:absolute; clip:rect('.$newsppre.'px,55px,160px,0px);">';
+		$newspimg = '<img src="img/spman.gif" style="position:absolute; clip:rect('.$newsppre.'px,55px,160px,0px);">';
 		
 		return;
 	}
