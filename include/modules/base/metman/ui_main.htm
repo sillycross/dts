@@ -1,0 +1,40 @@
+<!--
+Table Design:
+  140p |  440p  | 140p
+/======================\
+|      |               |
+|      | Enemy Profile |    
+|      |               |
+| Icon +========+======|
+|      |        |      |
+|      | Title  |      |
+|      |        |      |
+|======+========+ Icon |
+|               |      |
+|   My Profile  |      |
+|               |      |
+\======================/
+-->
+<TABLE border="0" width=720px height=420px align="center" cellspacing="0" cellpadding="0" class="battle">
+	<tr>
+		<td class="b8" valign="top" width=140px rowspan=2>
+			<IMG src="img/$tdata['iconImg']" width=140px border="0" align="middle" <!--{if $w_hp==0}-->style="filter:Xray()"<!--{/if}--> />
+		</td>
+		<td colspan=2 width=580px>
+		{template MOD_METMAN_ENEMY_PROFILE}
+		</td>
+	</tr>
+	<tr>
+		<TD class="b8" height=260px width=440px>
+			<span><B><FONT color="#ff0000" size="5" face="黑体">$battle_title</FONT></B></span>
+		</TD>
+		<td class="b8" width=140px rowspan="2" valign="bottom">
+			<IMG src="img/$iconImgB" width=140px border="0" align="middle" <!--{if $hp==0}-->style="filter:Xray()"<!--{/if}--> />
+		</td>
+	</TR>
+	<tr>
+		<td colspan=2 width=580px>
+		{template MOD_METMAN_MY_PROFILE}
+		</td>
+	</tr>
+</table>

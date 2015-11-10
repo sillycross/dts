@@ -1,0 +1,37 @@
+ <table border="0" cellspacing="0" height=80px width=580px cellpadding="0" width="100%" valign="middle">
+	<tr>
+		<td class="b1" colspan=2 height=20px><span>Lv. $tdata['lvl']</span></td>											
+		<td class="b1" colspan=2><span>$tdata['name']</span></td>											
+		<td class="b1" colspan=2><span>$tdata['sNoinfo']</span></td>											
+	</tr>
+	<tr>
+		<td class="b2" width=70px height=20px><span>{lang rage}</span></td>
+		<td class="b3" width=95px><span>$tdata['ragestate']</span></td>
+		<td class="b2" width=70px><span>{lang sp}</span></td>
+		<td class="b3" width=105px><span>$tdata['spstate']</span></td>
+		<td class="b2" width=70px><span>{lang hp}</span></td>
+		<td class="b3" width=170px><span>$tdata['hpstate']</span></td>
+	</tr>
+	<tr>
+		<td class="b2" height=20px><span>{lang wep}{lang effect}</span></td>
+		<td class="b3"><span>$tdata['wepestate']</span></td>
+		<td class="b2"><span>{lang wep}{lang kind1}</span></td>
+		<td class="b3"><span><!--{if (isset($iteminfo[$tdata['wepk']]))}--><!--{eval echo \itemmain\parse_itmk_words($tdata['wepk']);}--><!--{else}-->$tdata['wepk']<!--{/if}--></span></td>
+		<td class="b2"><span>{lang wep}</span></td>
+		<td class="b3"><span>$tdata['wep']</span></td>
+	</tr>
+	<tr>
+		<!--{if defined('MOD_TACTIC')}-->
+		{template MOD_TACTIC_ENEMY_TACTIC}
+		<!--{else}-->
+		<td class="b2"><span></span></td><td class="b3"><span></span></td>
+		<!--{/if}-->
+		<!--{if defined('MOD_POSE')}-->
+		{template MOD_POSE_ENEMY_POSE}
+		<!--{else}-->
+		<td class="b2"><span></span></td><td class="b3"><span></span></td>
+		<!--{/if}-->
+		<td class="b2"><span>{lang inf}</span></td>
+		<td class="b3"><span><!--{if $tdata['infdata']}-->$tdata['infdata']<!--{else}-->无<!--{/if}--></span></td>
+	</tr>	
+</table>
