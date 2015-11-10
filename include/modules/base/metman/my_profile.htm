@@ -1,0 +1,40 @@
+<table border="0" width=580px height=80px cellspacing="0" cellpadding="0" valign="middle">
+	<tr>
+		<td class="b1" colspan=2 height=20px><span>$typeinfo[$type]({$sexinfo[$gd]}{$sNo}号)</span></td>
+		<td class="b1" colspan=2><span>$name</span></td>
+		<td class="b1" colspan=2><span>Lv. $lvl</span></td>
+	</tr>
+	<tr>
+		<td class="b2" width=70px height=20px><span>{lang hp}</span></td>
+		<td class="b3" width=170px><span><span class="$hpcolor">$hp / $mhp</span></span></td>
+		<td class="b2" width=70px><span>{lang sp}</span></td>
+		<td class="b3" width=105px><span>$sp / $msp</span></td>
+		<td class="b2" width=70px><span>{lang rage}</span></td>
+		<td class="b3" width=95px><span><!--{if $rage >=30}--><span class="yellow">$rage</span><!--{else}-->$rage<!--{/if}--></span></td>
+	</tr>
+	<tr>
+		<td class="b2" height=20px><span>{lang wep}</span></td>
+		<td class="b3"><span>$wep</span></td>
+		<td class="b2"><span>{lang wep}{lang kind1}</span></td>
+		<td class="b3"><span><!--{eval echo \itemmain\parse_itmk_words($wepk);}--></span></td>
+		<td class="b2"><span>{lang wep}{lang effect}</span></td>
+		<td class="b3"><span>$wepe</span></td>
+	</tr>
+	<tr>
+		<!--{if defined('MOD_WOUND')}-->
+		{template MOD_WOUND_WOUND_PROFILE}
+		<!--{else}-->
+		<td class="b2"><span></span></td><td class="b3"><span></span></td>
+		<!--{/if}-->
+		<!--{if defined('MOD_POSE')}-->
+		{template MOD_POSE_POSE_PROFILE}
+		<!--{else}-->
+		<td class="b2"><span></span></td><td class="b3"><span></span></td>
+		<!--{/if}-->
+		<!--{if defined('MOD_TACTIC')}-->
+		{template MOD_TACTIC_TACTIC_PROFILE}
+		<!--{else}-->
+		<td class="b2"><span></span></td><td class="b3"><span></span></td>
+		<!--{/if}-->
+	</tr>
+</table>
