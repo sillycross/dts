@@ -71,6 +71,7 @@ namespace metman
 		$tdata['sNoinfo'] = "$typeinfo[$w_type]({$sexinfo[$w_gd]}{$w_sNo}号)";
 		$w_i = $w_type > 0 ? 'n' : $w_gd;
 		$tdata['iconImg'] = $w_i.'_'.$w_icon.'.gif';
+		if ($w_type==0) $tdata['iconImg'] = $w_i.'_'.$w_icon.'a.gif';
 		$tdata['name']=$w_name;
 		$tdata['wep']=$w_wep;
 		$tdata['lvl']=$w_lvl;
