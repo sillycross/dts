@@ -3,7 +3,7 @@
 namespace player
 {
 	global $db_player_structure, $gamedata, $cmd, $main, $sdata;
-	global $fog,$upexp,$lvlupexp,$iconImg,$ardef;
+	global $fog,$upexp,$lvlupexp,$iconImg,$iconImgB,$ardef;
 	global $hpcolor,$spcolor,$newhpimg,$newspimg, $tpldata; $tpldata;
 	
 	function init()
@@ -81,6 +81,7 @@ namespace player
 		
 		eval(import_module('sys','player'));
 		$iconImg = $gd.'_'.$icon.'.gif';
+		$iconImgB = $gd.'_'.$icon.'a.gif';
 		$ardef = $arbe + $arhe + $arae + $arfe;
 
 		if(!$weps) {
