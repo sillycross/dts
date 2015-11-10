@@ -4,7 +4,7 @@ namespace player
 {
 	global $db_player_structure, $gamedata, $cmd, $main, $sdata;
 	global $fog,$upexp,$lvlupexp,$iconImg,$iconImgB,$ardef;
-	global $hpcolor,$spcolor,$newhpimg,$newspimg, $tpldata; $tpldata;
+	global $hpcolor,$spcolor,$newhpimg,$newspimg,$splt,$hplt, $tpldata; $tpldata;
 	
 	function init()
 	{
@@ -124,7 +124,10 @@ namespace player
 		$newhpimg = '<img src="img/hpman.gif" style="position:absolute; clip:rect('.$newhppre.'px,55px,160px,0px);">';
 		$newsppre = 9+floor(151*(1-$sp/$msp));
 		$newspimg = '<img src="img/spman.gif" style="position:absolute; clip:rect('.$newsppre.'px,55px,160px,0px);">';
-		
+		$spltp = floor(151*(1-$sp/$msp));
+		$splt = '<img src="img/statebar.gif" style="position:absolute;top:'.$spltp.'px;">';
+		$hpltp = floor(151*(1-$hp/$mhp));
+		$hplt = '<img src="img/statebar.gif" style="position:absolute;top:'.$hpltp.'px;">';
 		return;
 	}
 
