@@ -26,7 +26,7 @@ namespace npc
 		( 
 		1 => array
 			(
-			'mode' => 1,
+			'mode' => 3,
 			'num' => 1,
 			'pass' => 'bra',
 			'club' => 0,
@@ -641,7 +641,7 @@ namespace npc
 		
 		9 => array
 			(
-			'mode' => 1,
+			'mode' => 3,
 			'num' => 1,
 			'pass' => 'bra',
 			'club' => 0,
@@ -1859,6 +1859,7 @@ namespace npc
 			(
 			'name' => '芬里爾《黑曲》',
 			'gd' => 'f',
+			'mode' => 3,
 			'icon' => 104,
 			'club' => 99,
 			'mhp' => 10000,

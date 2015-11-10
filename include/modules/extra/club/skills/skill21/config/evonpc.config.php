@@ -329,6 +329,7 @@ namespace skill21
 				'att' => 233,
 				'def' => 233,
 				'lvl' => 30,
+				'mode' => 3,
 				'skill' => 200,
 				'money' => 23333,
 				'wep' => '超⑨制霸武神斩',
