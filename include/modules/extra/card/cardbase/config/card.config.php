@@ -765,7 +765,7 @@ $carddesc=array(
 		'effect'=>'获得技能「人杰」',
 	),
 	63=>array(
-		'name'=>'"Topcoder"',
+		'name'=>'"Sexycoder"',
 		'rare'=>'S',
 		'desc'=>'不愿透露姓名的究极神牛，代码力深不可测',
 		'pack'=>'Event Bonus',
