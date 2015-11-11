@@ -124,10 +124,10 @@ namespace player
 		$newhpimg = '<img src="img/hpman.gif" style="position:absolute; clip:rect('.$newhppre.'px,55px,160px,0px);">';
 		$newsppre = 9+floor(151*(1-$sp/$msp));
 		$newspimg = '<img src="img/spman.gif" style="position:absolute; clip:rect('.$newsppre.'px,55px,160px,0px);">';
-		$spltp = floor(151*(1-$sp/$msp));
-		$splt = '<img src="img/statebar.gif" style="position:absolute;top:'.$spltp.'px;">';
-		$hpltp = floor(151*(1-$hp/$mhp));
-		$hplt = '<img src="img/statebar.gif" style="position:absolute;top:'.$hpltp.'px;">';
+		$spltp = 6+floor(151*(1-$sp/$msp));
+		$splt = '<img src="img/splt.gif" style="position:absolute; clip:rect('.$spltp.'px,55px,160px,0px);">';
+		$hpltp = 6+floor(151*(1-$hp/$mhp));
+		$hplt = '<img src="img/hplt.gif" style="position:absolute; clip:rect('.$hpltp.'px,55px,160px,0px);">';
 		return;
 	}
 

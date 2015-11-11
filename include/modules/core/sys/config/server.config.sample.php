@@ -87,7 +87,7 @@
 	$gameurl = 'http://lg.dianbo.me/';    // the url of game program files,for the full-window mode
 									//游戏程序地址，用于全屏模?
 
-	$homepage = 'http://www.amarilloviridian.com/';      // game homepage
+	$homepage = 'http://soul573.com/';      // game homepage
 									//官方网站地址
 
 	$title = '电 波 大 逃 杀';     //game title
