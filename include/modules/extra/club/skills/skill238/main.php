@@ -36,8 +36,7 @@ namespace skill238
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess($pa);
 	}
-	//这个技能已经很变态了
-	/*	
+
 	function calculate_ex_single_dmg_multiple(&$pa, &$pd, $active, $key)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -47,7 +46,7 @@ namespace skill238
 		}
 		return $chprocess($pa, $pd, $active, $key);
 	}
-	*/
+	
 	function get_ex_dmg_restriction(&$pa,&$pd,$active,$key)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
