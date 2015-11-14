@@ -123,7 +123,7 @@ namespace cardbase
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('cardbase'));
 		$ktype=(int)$type;
-		$func='kuji'.$ktype.'\\draw'.$ktype;
+		$func='kuji'.$ktype.'\\kujidraw'.$ktype;
 		if (defined('MOD_KUJI'.$ktype)) {
 			$kr=$func($pa);
 			if (!is_array($kr)){

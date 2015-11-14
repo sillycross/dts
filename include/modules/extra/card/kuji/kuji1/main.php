@@ -4,7 +4,7 @@ namespace kuji1
 {
 	function init() {}
 	
-	function draw1(&$pa){
+	function kujidraw1(&$pa){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('cardbase','kuji1'));
 		if ($pa['gold']<1000) return -1;

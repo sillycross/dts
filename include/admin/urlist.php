@@ -107,6 +107,7 @@ if($urcmd == 'ban' || $urcmd == 'unban' || $urcmd == 'del') {
 		$urdata[$no]['motto'] = $urmotto = astrfilter(${'motto_'.$no});
 		$urdata[$no]['killmsg'] = $urkillmsg = astrfilter(${'killmsg_'.$no});
 		$urdata[$no]['lastword'] = $urlastword = astrfilter(${'lastword_'.$no});
+		$urdata[$no]['gold'] = $urgold = astrfilter(${'gold_'.$no});
 		$urdata[$no]['icon'] = $uricon = (int)(${'icon_'.$no});
 		if(!in_array(${'gender_'.$no},array('0','m','f'))){
 			$urdata[$no]['gender'] = $urgender = '0';
@@ -115,10 +116,10 @@ if($urcmd == 'ban' || $urcmd == 'unban' || $urcmd == 'del') {
 		}
 		if(!empty(${'pass_'.$no})){
 			$urpass = md5(${'pass_'.$no});
-			$db->query("UPDATE {$gtablepre}users SET motto='$urmotto',killmsg='$urkillmsg',lastword='$urlastword',icon='$uricon',gender='$urgender',password='$urpass' WHERE uid='$uid'");
+			$db->query("UPDATE {$gtablepre}users SET motto='$urmotto',killmsg='$urkillmsg',lastword='$urlastword',icon='$uricon',gender='$urgender',password='$urpass',gold='$urgold' WHERE uid='$uid'");
 			$cmd_info = "帐户 ".$urdata[$no]['username']." 的密码及其他信息已修改！";
 		}else{
-			$db->query("UPDATE {$gtablepre}users SET motto='$urmotto',killmsg='$urkillmsg',lastword='$urlastword',icon='$uricon',gender='$urgender' WHERE uid='$uid'");
+			$db->query("UPDATE {$gtablepre}users SET motto='$urmotto',killmsg='$urkillmsg',lastword='$urlastword',icon='$uricon',gender='$urgender',gold='$urgold' WHERE uid='$uid'");
 			$cmd_info = "帐户 ".$urdata[$no]['username']." 的信息已修改！";
 		}		
 	}
