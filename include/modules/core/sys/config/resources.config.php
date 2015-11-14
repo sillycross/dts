@@ -143,7 +143,7 @@ namespace sys
 		//'banned_name' => '用户名含有违禁用语，请更改用户名',
 		//'banned_ip' => '此IP已被封禁，请与管理员联系',
 		//'long_name' => '用户名过长，请重新输入用户名'
-		'not_enough_gold'=>'你的切糕不足，不能抽卡',
+		'kuji_failure'=>'切糕不足，或输入了错误的抽卡参数',
 	);
 	
 }
