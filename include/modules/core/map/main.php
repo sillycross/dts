@@ -4,7 +4,7 @@ namespace map
 {
 	function init() {}
 	
-	function add_new_killarea($where)
+	function add_new_killarea($where,$atime)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
@@ -21,7 +21,7 @@ namespace map
 			for ($x=0; $x<=$areanum; $x++)
 			{
 				if ($x>$plsnum) continue;
-				add_new_killarea($arealist[$x]);
+				add_new_killarea($arealist[$x],$atime);
 			}
 			
 			if($areanum >= $plsnum) 

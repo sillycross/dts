@@ -91,7 +91,7 @@ namespace npc
 		}
 	}
 	
-	function add_new_killarea($where)
+	function add_new_killarea($where,$atime)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
