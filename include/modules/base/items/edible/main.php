@@ -48,6 +48,7 @@ namespace edible
 			if ($sp < $msp) {
 				$spup = get_edible_spup($theitem);
 				$spup = min($msp-$sp,$spup);
+				$spup = max(0,$spup);
 				edible_recover($itm,0,$spup);
 				\itemmain\itms_reduce($theitem);
 			} else {
@@ -57,6 +58,7 @@ namespace edible
 			if ($hp < $mhp) {
 				$hpup = get_edible_hpup($theitem);
 				$hpup = min($mhp-$hp,$hpup);
+				$hpup = max(0,$hpup);
 				edible_recover($itm,$hpup,0);
 				\itemmain\itms_reduce($theitem);
 			} else {
@@ -68,6 +70,8 @@ namespace edible
 				$hpup = get_edible_hpup($theitem);
 				$spup = min($msp-$sp,$spup);
 				$hpup = min($mhp-$hp,$hpup);
+				$spup = max(0,$spup);
+				$hpup = max(0,$hpup);
 				edible_recover($itm,$hpup,$spup);
 				\itemmain\itms_reduce($theitem);
 			} else {
