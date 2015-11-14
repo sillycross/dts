@@ -112,7 +112,7 @@ namespace npc
 				$db->query("UPDATE {$tablepre}players SET pls='$pls' WHERE pid=$pid");
 			}
 		}
-		$chprocess($where);
+		$chprocess($where,$atime);
 	}
 	
 	function get_player_killmsg(&$pdata)
