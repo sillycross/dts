@@ -1,40 +1,47 @@
 {template header}
-
+<!--{eval eval(import_module('cardbase'));}-->
 <div class="subtitle" align="center">抽卡结果</div>
+
 <center>
-	<table CellSpacing=0 CellPadding=1 width="250" height="240">
-		<tr height="40">
-			<td class=b2 width="40" height="40">卡名</td>
-			<td class=b3 width="210" height="40">$carddesc[$r]['name']</td>
-		</tr>
-		<tr height="40">
-			<td class=b2 width="40" height="40">罕贵</td>
-			<td class=b3 width="210" height="40">$carddesc[$r]['rare']</td>
-		</tr>
-		<tr height="80">
-			<td class=b2 width="40" height="80">介绍</td>
-			<td class=b3 width="210" height="80">$carddesc[$r]['desc']</td>
-		</tr>
-		<tr height="80">
-			<td class=b2 width="40" height="80">效果</td>
-			<td class=b3 width="210" height="80">$carddesc[$r]['effect']</td>
-		</tr>
-	</table>
+<ul style="width:1000px;list-style-type:none;">
+	<!--{loop $kres $k $r}-->
+	<li style="float:left;margin:5px">
+		<table CellSpacing=0 CellPadding=1 width="240" height="240">
+			<tr height="40">
+				<td class=b2 width="40" height="40">卡名</td>
+				<td class=b3 width="210" height="40">$isnew[$k] $carddesc[$r]['name']</td>
+			</tr>
+			<tr height="40">
+				<td class=b2 width="40" height="40">罕贵</td>
+				<td class=b3 width="210" height="40">$carddesc[$r]['rare']</td>
+			</tr>
+			<tr height="80">
+				<td class=b2 width="40" height="80">介绍</td>
+				<td class=b3 width="210" height="80">$carddesc[$r]['desc']</td>
+			</tr>
+			<tr height="80">
+				<td class=b2 width="40" height="80">效果</td>
+				<td class=b3 width="210" height="80">$carddesc[$r]['effect']</td>
+			</tr>
+		</table>
+	</li>
+	<!--{/loop}-->
+</ul>
+<div style="clear:both;"></div>
 	<br />
 		<span class="yellow">
-		<!--{if !$cflag}-->
-		由于您已经拥有该身份卡，系统返还您<span class="evergreen">30</span>切糕
-		<!--{/if}-->
 		<br />
-		剩余切糕：<span class="evergreen">$gold</span></span>
+		剩余切糕：<span class="evergreen">$udata['gold']</span></span>
 	<br />
-</center>
-<form method="post" name="kujiagain" action="kuji.php">
-	<input type="submit" name="enter" value="再抽一发"<!--{if $gold<100}-->disabled<!--{/if}-->>
-</form>
-<form method="post" name="backindex" action="index.php">
-	<input type="submit" name="enter" value="{lang backindex}">
-</form>
 
+</center>
+<!--{if $udata['gold']>$kreq[$ktype]}-->
+<form method="post" name="kujiagain" action="kuji.php?type=$ktype">
+	<input type="submit" name="enter" value="再抽一发">
+</form>
+<!--{/if}-->
+<form method="post" name="backindex" action="kujilist.php">
+	<input type="submit" name="enter" value="返回选择页面">
+</form>
 {template footer}
 

@@ -53,7 +53,7 @@ namespace cardbase
 			else $n=$pa['name'];
 		}
 		$result = $db->query("SELECT gold FROM {$gtablepre}users WHERE username='$n'");
-		$cg = $db->result($result);
+		$cg = $db->result($result,0);
 		$cg=$cg+$num;
 		if ($cg<0) $cg=0;
 		$db->query("UPDATE {$gtablepre}users SET gold='$cg' WHERE username='$n'");
@@ -117,6 +117,27 @@ namespace cardbase
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('cardbase'));
 		return in_array($packname, $packlist);
+	}
+	
+	function kuji($type,&$pa){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('cardbase'));
+		$ktype=(int)$type;
+		$func='kuji'.$ktype.'\\draw'.$ktype;
+		if (defined('MOD_KUJI'.$ktype)) {
+			$kr=$func($pa);
+			if (!is_array($kr)){
+				if ($kr==-1){
+					return -1;
+				}else{
+					$dr=array($kr);
+				}
+			}else{
+				$dr=$kr;
+			}
+			return $dr;
+		}
+		return -1;
 	}
 }
 

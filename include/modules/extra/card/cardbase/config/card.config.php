@@ -1,4 +1,5 @@
 <?php
+namespace cardbase{
 $packlist=array(
 	"Standard Pack",
 	"Crimson Swear",
@@ -779,4 +780,5 @@ $carddesc=array(
 		'effect'=>'称号固定为锡安成员，且0级即解锁过载',
 	),
 );
+}
 ?>
