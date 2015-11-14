@@ -160,7 +160,7 @@ namespace player
 			}
 		} 
 		$alivenum = $db->result($db->query("SELECT COUNT(*) FROM {$tablepre}players WHERE hp>0 AND type=0"), 0);
-		$chprocess($where);
+		$chprocess($where,$atime);
 	}
 	
 	function update_sdata()
