@@ -1,16 +1,7 @@
 {template header}
 <!--{eval eval(import_module('cardbase'));}-->
 <div class="subtitle" align="center">抽卡结果</div>
-<div align="center">
-<span class="yellow">剩余切糕：<span class="evergreen">$udata['gold']</span></span><br />
-<br />
-<!--{if $udata['gold']>=$kreq[$ktype]}-->
-<form method="post" name="kujiagain" action="kuji.php?type=$ktype">
-	<input type="submit" name="enter" value="再抽一发">
-</form>
-<!--{/if}-->
 
-</div>
 <center>
 <ul style="width:1000px;list-style-type:none;">
 	<!--{loop $kres $k $r}-->
@@ -37,11 +28,19 @@
 	<!--{/loop}-->
 </ul>
 <div style="clear:both;"></div>
-<br>
+	<br />
+		<span class="yellow">
+		剩余切糕：<span class="evergreen">$udata['gold']</span></span>
+	<br />
+<br />
+</center>
+<!--{if $udata['gold']>=$kreq[$ktype]}-->
+<form method="post" name="kujiagain" action="kuji.php?type=$ktype">
+	<input type="submit" name="enter" value="再抽一发">
+</form>
+<!--{/if}-->
 <form method="post" name="backindex" action="kujilist.php">
 	<input type="submit" name="enter" value="返回选择页面">
 </form>
-</center>
-
 {template footer}
 
