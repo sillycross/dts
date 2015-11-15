@@ -3,11 +3,11 @@
 namespace attack
 {
 	
-	function post_damage_news(&$pa, &$pd, $active)
+	function post_damage_news(&$pa, &$pd, $active, $dmg)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 
-		$d=$pa['dmg_dealt']; $p1=$pa['name']; $p2=$pd['name'];
+		$d=$dmg; $p1=$pa['name']; $p2=$pd['name'];
 		
 		eval(import_module('sys'));
 		if (($d >= 100) && ($d < 150)) {

@@ -2063,6 +2063,7 @@ namespace npc
 			),
 			10 => array
 			(
+			'mode' => 3,
 			'name' => 'lemon',
 			'gd' => 'r',
 			'icon' => 0,
@@ -2073,7 +2074,7 @@ namespace npc
 			'att' => 32767,
 			'def' => 32767,
 			'skill' => 1150,
-			'skills' => 15566,	//9号技能和11号技能
+			'skills'=>array('412'=>'0'),	//反演233
 			'wep' => '火绳枪',
 			'wepk' => 'WG',
 			'wepe' => 30,
