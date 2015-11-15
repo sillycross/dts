@@ -7,7 +7,7 @@ define('GAME_ROOT', dirname(__FILE__).'/');
 error_reporting(0);
 $magic_quotes_gpc = get_magic_quotes_gpc();
 require GAME_ROOT.'./include/global.func.php';
-//check_authority();
+check_authority();
 	
 require GAME_ROOT.'./include/modulemng.config.php';
 require GAME_ROOT.'./include/modulemng.func.php';
