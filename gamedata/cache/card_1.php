@@ -869,7 +869,7 @@ $carddesc=array(
 		'rare'=>'S',
 		'desc'=>'ACFUN大逃杀画师，这次更新的大头像和新UI都出自她手',
 		'pack'=>'Way of Life',
-		'effect'=>'免疫偶数战斗伤害',
+		'effect'=>'减半偶数战斗伤害，直至其为奇数',
 	),
 	66=>array(
 		'name'=>'"KEY男"',
