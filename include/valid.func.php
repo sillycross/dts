@@ -100,6 +100,21 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 	$inf = $teamID = $teamPass = '';
 	///////////////////////////////////////////////////////////////
 	require config('card',$gamecfg);
+	if ($card==81){
+		$arr=array('0');
+		$r=rand(1,100);
+		if ($r<=20){
+			$arr=$cardindex['S'];
+		}else if($r<=60){
+			$arr=$cardindex['A'];
+		}else if($r<=80){
+			$arr=$cardindex['B'];
+		}else{
+			$arr=$cardindex['C'];
+		}
+		$c=count($arr)-1;
+		$card=$arr[rand(0,$c)];
+	}
 	$cardfix=$cards[$card];
 	$cardname=$carddesc[$card]['name'];
 	$cardrare=$carddesc[$card]['rare'];

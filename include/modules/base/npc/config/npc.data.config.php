@@ -974,7 +974,7 @@ namespace npc
 				'club' => 17,
 				'lvl' => 1,
 				'mhp' => 6666666,
-				'skills'=>array('412'=>'1'),
+				'skills'=>array('415'=>'1'),
 				'skill' => 20,
 				'def' => 20,
 				'wep' => '武裝幻想『DAYDREAM』',

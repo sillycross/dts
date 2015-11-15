@@ -43,6 +43,15 @@ if($mode == 'enter') {
 	}else{
 		$ucl=$udata['cardlist'];
 	}
+	$carr = explode('_',$ucl);
+	$cflag=0;
+	foreach ($carr as $val){
+		if ($val==$card){
+			$cflag=true;
+			break;
+		}
+	}
+	if (!$cflag) $card=0;
 	$db->query("UPDATE {$gtablepre}users SET gender='$gender', icon='$icon', motto='$motto', killmsg='$killmsg', card='$card',lastword='$lastword' ,cardlist='".$ucl."' WHERE username='".$udata['username']."'" );
 	if($validnum >= $validlimit) {
 		gexit($_ERROR['player_limit'],__file__, __line__);

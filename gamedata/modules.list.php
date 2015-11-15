@@ -75,6 +75,7 @@ skill204,extra/club/skills/skill204/,1
 kuji0,extra/card/kuji/kuji0/,1
 kuji1,extra/card/kuji/kuji1/,1
 kuji2,extra/card/kuji/kuji2/,1
+skill418,extra/club/skills/skill418/,1
 skill39,extra/club/skills/skill39/,1
 skill29,extra/club/skills/skill29/,1
 skill31,extra/club/skills/skill31/,1
@@ -161,6 +162,8 @@ skill237,extra/club/skills/skill237/,1
 skill415,extra/club/skills/skill415/,1
 skill414,extra/club/skills/skill414/,1
 skill412,extra/club/skills/skill412/,1
+skill416,extra/club/skills/skill416/,1
+skill419,extra/club/skills/skill419/,1
 skill53,extra/club/skills/skill53/,1
 skill55,extra/club/skills/skill55/,1
 skill72,extra/club/skills/skill72/,1
