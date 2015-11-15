@@ -47,6 +47,7 @@ trap,base/items/trap/,1
 itemmix_sync,base/itemmix/itemmix_sync/,1
 itemmix_overlay,base/itemmix/itemmix_overlay/,1
 skill20,extra/club/skills/skill20/,1
+skill413,extra/club/skills/skill413/,1
 skill69,extra/club/skills/skill69/,1
 skill300,extra/achievement/skills/skill300/,1
 attrbase,extra/attr/attrbase/,1
@@ -74,6 +75,7 @@ skill204,extra/club/skills/skill204/,1
 kuji0,extra/card/kuji/kuji0/,1
 kuji1,extra/card/kuji/kuji1/,1
 kuji2,extra/card/kuji/kuji2/,1
+skill418,extra/club/skills/skill418/,1
 skill39,extra/club/skills/skill39/,1
 skill29,extra/club/skills/skill29/,1
 skill31,extra/club/skills/skill31/,1
@@ -157,7 +159,11 @@ skill229,extra/club/skills/skill229/,1
 skill408,extra/club/skills/skill408/,1
 skill409,extra/club/skills/skill409/,1
 skill237,extra/club/skills/skill237/,1
+skill415,extra/club/skills/skill415/,1
+skill414,extra/club/skills/skill414/,1
 skill412,extra/club/skills/skill412/,1
+skill416,extra/club/skills/skill416/,1
+skill419,extra/club/skills/skill419/,1
 skill53,extra/club/skills/skill53/,1
 skill55,extra/club/skills/skill55/,1
 skill72,extra/club/skills/skill72/,1

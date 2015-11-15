@@ -90,7 +90,7 @@ namespace skill232
 		\skillbase\skill_setvalue(232,'lastuse',$now);
 		$clv=\skillbase\skill_getvalue(232,'lvl');
 		$sc = $shieldgain[$clv];
-		$hp=$mhp+$sc;
+		if ($hp<($mhp+$sc)) $hp=$mhp+$sc;
 		addnews ( 0, 'bskill232', $name );
 		$log.='<span class="lime">技能「力场」发动成功。</span><br>';
 	}
