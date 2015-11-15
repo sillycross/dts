@@ -42,7 +42,7 @@ namespace skill414
 	function get_hitrate(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(414,$pa) || $pa['wep_kind']=='D') return $chprocess($pa, $pd, $active);
+		if (!\skillbase\skill_query(414,$pa) || $pa['wep_kind']=='D' || $pa['wep_kind']=='J') return $chprocess($pa, $pd, $active);
 		return $chprocess($pa, $pd, $active)*10000;
 	}
 }
