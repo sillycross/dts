@@ -2,8 +2,8 @@
 $cardindex=array(
 	'S'=>array(1,5,16,38,39,40,41),
 	'A'=>array(2,13,14,20,32,37,43,44,45,46,47,48,49,50),
-	'B'=>array(3,12,15,21,22,23,24,25,26,27,35,51,52,53,54,55,56),
-	'C'=>array(4,6,7,8,9,10,11,17,18,19,28,29,30,31,33,34,36,57,58,59,60,61,62),
+	'B'=>array(3,12,15,21,22,23,24,25,26,27,28,35,51,52,53,54,55,56),
+	'C'=>array(4,6,7,8,9,10,11,17,18,19,29,30,31,33,34,36,57,58,59,60,61,62),
 );
 $cards=array(
 	0=>array(
@@ -316,6 +316,45 @@ $cards=array(
 			'233'=>'0','234'=>'0','235'=>'0','236'=>'0','237'=>'0','238'=>'0',
 		),
 	),
+	65=>array(
+		'skills'=>array('415'=>'0'),
+	),
+	66=>array(
+		'skills'=>array('413'=>'0'),
+	),
+	67=>array(
+		'skills'=>array('225'=>'0'),
+	),
+	68=>array(
+		'itm6'=>'【风神的神德】',
+		'itmk6'=>'EW',
+		'itme6'=>'1',
+		'itms6'=>'1',
+		'itmsk6'=>'6',
+	),
+	69=>array(
+		'itm6'=>'驱云弹',
+		'itmk6'=>'EW',
+		'itme6'=>'1',
+		'itms6'=>'1',
+		'itmsk6'=>'1',
+	),
+	70=>array(
+		'wep'=>'飞龙刀【紅葉】',
+		'wepk'=>'WK',
+		'wepe'=>'80',
+		'weps'=>'40',
+		'wepsk'=>'uc',
+	),
+	71=>array(
+		'skills'=>array('414'=>'0'),
+	),
+	72=>array(
+		'itm3'=>'红色方块','itmk3'=>'X','itme3'=>'1','itms3'=>'1','itmsk3'=>'',
+		'itm4'=>'黄色方块','itmk4'=>'X','itme4'=>'1','itms4'=>'1','itmsk4'=>'',
+		'itm5'=>'蓝色方块','itmk5'=>'X','itme5'=>'1','itms5'=>'1','itmsk5'=>'',
+		'itm6'=>'绿色方块','itmk6'=>'X','itme6'=>'1','itms6'=>'1','itmsk6'=>'',
+	),
 );
 $carddesc=array(
 	0=>array(
@@ -516,7 +555,7 @@ $carddesc=array(
 	),
 	28=>array(
 		'name'=>'夏之岛住民',
-		'rare'=>'C',
+		'rare'=>'B',
 		'desc'=>'熟练的宝石骑士玩家',
 		'pack'=>'Standard Pack',
 		'effect'=>'称号固定为宝石骑士',
@@ -770,8 +809,64 @@ $carddesc=array(
 		'name'=>'"Topcoder"',
 		'rare'=>'S',
 		'desc'=>'不愿透露姓名的究极神牛，代码力深不可测',
-		'pack'=>'Retro Pack',
+		'pack'=>'Way of Life',
 		'effect'=>'称号固定为锡安成员，且0级即解锁过载',
+	),
+	65=>array(
+		'name'=>'"KHIBIKI《黑曲》"',
+		'rare'=>'S',
+		'desc'=>'ACFUN大逃杀画师，这次更新的大头像和新UI都出自她手',
+		'pack'=>'Way of Life',
+		'effect'=>'免疫偶数战斗伤害',
+	),
+	66=>array(
+		'name'=>'"KEY男"',
+		'rare'=>'A',
+		'desc'=>'经常出没在清水池的神秘人物',
+		'pack'=>'Way of Life',
+		'effect'=>'合成KEY系武器时耐久度增加',
+	),
+	67=>array(
+		'name'=>'霜火协奏曲',
+		'rare'=>'S',
+		'desc'=>'ACFUN大逃杀史上第一神触',
+		'pack'=>'Way of Life',
+		'effect'=>'战斗中获得的熟练度+1（不与高速成长特性叠加）',
+	),
+	68=>array(
+		'name'=>'狂信徒',
+		'rare'=>'A',
+		'desc'=>'大家都很讨厌他，他自己却没什么自觉',
+		'pack'=>'Way of Life',
+		'effect'=>'开局携带【风神的神德】',
+	),
+	69=>array(
+		'name'=>'活雷锋',
+		'rare'=>'A',
+		'desc'=>'一个有益于人民的人',
+		'pack'=>'Way of Life',
+		'effect'=>'开局携带驱云弹',
+	),
+	70=>array(
+		'name'=>'情怀玩家',
+		'rare'=>'B',
+		'desc'=>'他的精神寄托就是这把刀了',
+		'pack'=>'Way of Life',
+		'effect'=>'开局装备火焰属性的斩系武器',
+	),
+	71=>array(
+		'name'=>'枪毙的某神',
+		'rare'=>'S',
+		'desc'=>'著名的小黄系列玩家，设计了《小黄的大师球》和初版游戏王的合成',
+		'pack'=>'Way of Life',
+		'effect'=>'使用爆系以外的武器时命中率为100%',
+	),
+	72=>array(
+		'name'=>'NS2173',
+		'rare'=>'A',
+		'desc'=>'猜猜他能上几个属性',
+		'pack'=>'Way of Life',
+		'effect'=>'开局携带四个方块',
 	),
 );
 ?>

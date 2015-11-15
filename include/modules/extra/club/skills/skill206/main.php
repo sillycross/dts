@@ -55,13 +55,15 @@ namespace skill206
 	function apply_damage(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!\skillbase\skill_query(206,$pa) || !check_unlocked206($pa)) return $chprocess($pa,$pd,$active);
-		if ((($pd['hp']*0.85)<$pa['dmg_dealt'])&&($pd['hp']>$pa['dmg_dealt'])&&($pa['wep_kind']=='G')){
-			$pa['dmg_dealt']=$pd['hp'];
+		$chprocess($pa,$pd,$active);
+		if ((($pd['hp']*0.85)<(0.15*$pa['dmg_dealt']))&&($pd['hp']>0)&&($pa['wep_kind']=='G')){
+			$pa['dmg_dealt']+=$pd['hp'];
+			$pd['hp']=0;
 			eval(import_module('logger'));
 			if ($active) $log .= "<span class=\"red\">你的攻击直接将敌人爆头！</span><br>";
 			else $log .= "<span class=\"red\">敌人的攻击直接将你爆头！</span><br>";
 		}
-		$chprocess($pa,$pd,$active);
+		
 	}
 	
 }

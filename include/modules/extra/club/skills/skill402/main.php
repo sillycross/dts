@@ -53,14 +53,16 @@ namespace skill402
 	function apply_damage(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!\skillbase\skill_query(402,$pa) || !check_unlocked402($pa)) return $chprocess($pa,$pd,$active);
+		$chprocess($pa,$pd,$active);
 		$var_402=get_skill402_procrate($pa,$pd,$active);
 		if ((rand(0,99)<$var_402)&&($pd['mhp']<5000000)){
 			$pa['dmg_dealt']=$pd['hp'];
+			$pd['hp']=0;
 			eval(import_module('logger'));
 			if ($active) $log .= "<span class=\"red\">一股来自东方的神秘力量直接杀死了你的敌人！</span><br>";
 			else $log .= "<span class=\"red\">一股来自东方的神秘力量直接杀死了你！</span><br>";
 		}
-		$chprocess($pa,$pd,$active);
+		
 	}
 }
 
