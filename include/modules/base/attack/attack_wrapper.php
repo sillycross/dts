@@ -70,7 +70,7 @@ namespace attack
 			else  $pd['battlelog'] .= "你受到其<span class=\"yellow\">{$dmg}</span>点攻击，";
 			
 		//发伤害新闻
-		post_damage_news($pa, $pd, $active);
+		post_damage_news($pa, $pd, $active, $pa['dmg_dealt']);
 	}
 	
 	//攻击/反击通告

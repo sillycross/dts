@@ -79,7 +79,7 @@ namespace battle
 	function counter_assault_wrapper(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['hp']>0)
+		if ($pa['hp']>0 && $pd['hp']>0)
 		{
 			$pa['is_counter']=1;
 			if (check_can_counter($pa, $pd,$active)) 

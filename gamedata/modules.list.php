@@ -157,6 +157,7 @@ skill229,extra/club/skills/skill229/,1
 skill408,extra/club/skills/skill408/,1
 skill409,extra/club/skills/skill409/,1
 skill237,extra/club/skills/skill237/,1
+skill412,extra/club/skills/skill412/,1
 skill53,extra/club/skills/skill53/,1
 skill55,extra/club/skills/skill55/,1
 skill72,extra/club/skills/skill72/,1
