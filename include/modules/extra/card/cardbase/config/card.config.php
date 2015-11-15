@@ -882,7 +882,7 @@ $carddesc=array(
 		'rare'=>'A',
 		'desc'=>'经常出没在清水池的神秘人物',
 		'pack'=>'Way of Life',
-		'effect'=>'合成KEY物品时耐久度增加',
+		'effect'=>'合成KEY系武器时耐久度增加',
 	),
 	67=>array(
 		'name'=>'霜火协奏曲',
