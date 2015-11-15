@@ -841,7 +841,7 @@ $carddesc=array(
 		'rare'=>'C',
 		'desc'=>'由于长期坐办公室，他的身材已经严重走形了',
 		'pack'=>'Crimson Swear',
-		'effect'=>'初始经验值为70，但体力大幅下降',
+		'effect'=>'初始经验值为65，但体力大幅下降',
 	),
 	62=>array(
 		'name'=>'G.D.S 扫地大妈',
@@ -981,7 +981,7 @@ $carddesc=array(
 		'rare'=>'A',
 		'desc'=>'来自早已消亡的篝火服的神秘玩家',
 		'pack'=>'Way of Life',
-		'effect'=>'随机发动一张身份卡的效果<br>S:20% A:40% B:30% C:20%',
+		'effect'=>'随机发动一张身份卡的效果<br>S:20% A:40% B:20% C:20%',
 	),
 	82=>array(
 		'name'=>'姨妈挑战者',
