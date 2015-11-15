@@ -930,7 +930,7 @@ namespace npc
 				'club' => 17,
 				'lvl' => 1,
 				'mhp' => 8888888,
-				'skills'=>array('402'=>'5'),
+				'skills'=>array('401'=>'5'),
 				'skill' => 20,
 				'def' => 88888,
 				'wep' => '灭罪「正直者の死」',
