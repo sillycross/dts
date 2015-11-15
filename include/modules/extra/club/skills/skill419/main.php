@@ -49,9 +49,9 @@ namespace skill419
 		{
 			eval(import_module('logger'));
 			if ($active)
-				$log.="<span class=\"yellow\">「暗夜」使你造成的最终伤害提高了10%！</span><br>";
-			else  $log.="<span class=\"yellow\">「暗夜」使敌人造成的最终伤害提高了10%！</span><br>";
-			$r=Array(1.1);	
+				$log.="<span class=\"yellow\">「暗夜」使你造成的最终伤害提高了12%！</span><br>";
+			else  $log.="<span class=\"yellow\">「暗夜」使敌人造成的最终伤害提高了12%！</span><br>";
+			$r=Array(1.12);	
 		}
 		return array_merge($r,$chprocess($pa,$pd,$active));
 	}
