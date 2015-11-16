@@ -1,9 +1,9 @@
 <?php
 
-namespace skill414
+namespace skill420
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase player weapon sys logger attack bufficons';
+	$___MODULE_dependency = 'skillbase player itemmain sys logger clubbase bufficons';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

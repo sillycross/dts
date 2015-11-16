@@ -351,10 +351,7 @@ $cards=array(
 		'skills'=>array('414'=>'0'),
 	),
 	72=>array(
-		'itm3'=>'红色方块','itmk3'=>'X','itme3'=>'1','itms3'=>'1','itmsk3'=>'',
-		'itm4'=>'黄色方块','itmk4'=>'X','itme4'=>'1','itms4'=>'1','itmsk4'=>'',
-		'itm5'=>'蓝色方块','itmk5'=>'X','itme5'=>'1','itms5'=>'1','itmsk5'=>'',
-		'itm6'=>'绿色方块','itmk6'=>'X','itme6'=>'1','itms6'=>'1','itmsk6'=>'',
+		'skills'=>array('420'=>'0'),
 	),
 	73=>array(
 		'arf' => '灯笼裤','arfk' => 'DF','arfe' => '140','arfs' => '30','arfsk' => '',
@@ -399,7 +396,7 @@ $cards=array(
 		'att'=>'250','def'=>'250','skills'=>array('417'=>'0'),
 	),
 	83=>array(
-		'ara' => '团队之星','arak' => 'DA','arae' => '30','aras' => '5','arask' => 'a',
+		'ara' => '团队之星','arak' => 'DA','arae' => '15','aras' => '3','arask' => 'a',
 	),
 	84=>array(
 		'skills'=>array('418'=>'0'),
@@ -900,7 +897,7 @@ $carddesc=array(
 		'effect'=>'开局携带驱云弹',
 	),
 	70=>array(
-		'name'=>'情怀玩家',
+		'name'=>'情怀挑战者',
 		'rare'=>'B',
 		'desc'=>'他的精神寄托就是这把刀了',
 		'pack'=>'Way of Life',
@@ -911,14 +908,14 @@ $carddesc=array(
 		'rare'=>'S',
 		'desc'=>'著名的小黄系列玩家，设计了《小黄的大师球》和初版游戏王的合成',
 		'pack'=>'Way of Life',
-		'effect'=>'使用爆系以外的武器时命中率为100%',
+		'effect'=>'获得一段时间内必中（对某些武器无效）的技能',
 	),
 	72=>array(
-		'name'=>'NS2173',
+		'name'=>'方块挑战者',
 		'rare'=>'A',
 		'desc'=>'猜猜他能上几个属性',
 		'pack'=>'Way of Life',
-		'effect'=>'开局携带四个方块',
+		'effect'=>'每隔一段时间可以生成一个方块',
 	),
 	73=>array(
 		'name'=>'苹果姐姐',
@@ -956,7 +953,7 @@ $carddesc=array(
 		'effect'=>'对玩家伤害+10%，对NPC伤害-10%',
 	),
 	78=>array(
-		'name'=>'王五子',
+		'name'=>'死斗挑战者',
 		'rare'=>'B',
 		'desc'=>'史上最快死斗缔造者',
 		'pack'=>'Way of Life',
