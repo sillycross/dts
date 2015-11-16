@@ -34,7 +34,7 @@ namespace skill413
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
 		if(\skillbase\skill_query(413) && (strpos($itm0,'【KEY系') === 0)&&($itms0 !== $nosta))
-			$itms0 = ceil($itms0*1.3); 
+			$itms0 = ceil($itms0*1.2); 
 			
 		$chprocess();
 	}
