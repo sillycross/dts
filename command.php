@@ -373,7 +373,7 @@ $gamedata = array();
 \player\init_playerdata();
 
 player\pre_act();
-if ($hp>0) player\act();
+if (($hp>0)&&($state<10)) player\act();
 player\post_act();
 
 $endtime = $now;
