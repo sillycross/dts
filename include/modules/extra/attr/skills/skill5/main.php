@@ -62,7 +62,7 @@ namespace skill5
 			$damage = round($mhp * 0.03125) + rand(0,10);
 			deal_poison_move_damage($damage);
 		}
-		if ($hp>0) $chprocess();
+		if (($hp>0)&&($state<10)) $chprocess();
 	}
 	
 	function move_to_area($moveto)	//毒发移动掉血
@@ -74,7 +74,7 @@ namespace skill5
 			$damage = round($mhp * 0.0625) + rand(0,10);
 			deal_poison_move_damage($damage);
 		}
-		if ($hp>0) $chprocess($moveto);
+		if (($hp>0)&&($state<10)) $chprocess($moveto);
 	}
 	
 	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)	//毒发死亡新闻
