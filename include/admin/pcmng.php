@@ -69,13 +69,13 @@ if($command == 'kill' || $command == 'live' || $command == 'del') {
 	if($operlist || $operlist2 || $dfaillist || $gfaillist){
 		if($command == 'kill'){
 			$operword = '被杀死';
-			$qryword = "UPDATE {$tablepre}players SET hp='0',state='15' ";
+			$qryword = "UPDATE {$tablepre}players SET player_dead_flag='1', hp='0',state='15' ";
 		}elseif($command == 'live'){
 			$operword = '被复活';
-			$qryword = "UPDATE {$tablepre}players SET hp=mhp,state='0' ";
+			$qryword = "UPDATE {$tablepre}players SET player_dead_flag='0', hp=mhp,state='0' ";
 		}elseif($command == 'del'){
 			$operword = '被清除';
-			$qryword = "UPDATE {$tablepre}players SET hp='0',state='16',weps='0',arbs='0',arhs='0',aras='0',arfs='0',arts='0',itms0='0',itms1='0',itms2='0',itms3='0',itms4='0',itms5='0',itms6='0',money='0' ";
+			$qryword = "UPDATE {$tablepre}players SET player_dead_flag='1', hp='0',state='16',weps='0',arbs='0',arhs='0',aras='0',arfs='0',arts='0',itms0='0',itms1='0',itms2='0',itms3='0',itms4='0',itms5='0',itms6='0',money='0' ";
 			$operword2 = '的尸体被清除';
 			$qryword2 = "UPDATE {$tablepre}players SET weps='0',state='16',arbs='0',arhs='0',aras='0',arfs='0',arts='0',itms0='0',itms1='0',itms2='0',itms3='0',itms4='0',itms5='0',itms6='0',money='0' ";
 		}
