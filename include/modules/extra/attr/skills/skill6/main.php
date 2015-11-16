@@ -61,7 +61,7 @@ namespace skill6
 			$damage = round($mhp * 0.03125) + rand(0,10);
 			deal_burn_move_damage($damage);
 		}
-		if (($hp>0)&&($state<10)) $chprocess();
+		if ($hp>0) $chprocess();
 	}
 	
 	function move_to_area($moveto)	//烧伤移动掉血
@@ -73,7 +73,7 @@ namespace skill6
 			$damage = round($mhp * 0.0625) + rand(0,10);
 			deal_burn_move_damage($damage);
 		}
-		if (($hp>0)&&($state<10)) $chprocess($moveto);
+		if ($hp>0) $chprocess($moveto);
 	}
 	
 	function get_att_multiplier(&$pa,&$pd,$active)	//烧伤攻击力下降

@@ -182,30 +182,6 @@ namespace player
 			{
 				if (isset($data[$key])) $ndata[$key]=$data[$key];
 			}
-			$odata=\player\fetch_playerdata_by_pid($spid);
-			if ($odata['state']>=10){//不准复活
-				$ndata['hp']=0;$ndata['state']=$odata['state'];
-			}
-			if (sizeof($ndata)>0)
-				$db->array_update("{$tablepre}players",$ndata,"pid='$spid'");
-		}
-		return;
-	}
-	
-	function player_save2($data)//旧playersave，仅在导致玩家复活的时候使用
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
-		eval(import_module('sys','player'));
-		if(isset($data['pid']))
-		{
-			$spid = $data['pid'];
-			unset($data['pid']);
-			$ndata=Array();
-			foreach ($db_player_structure as $key)
-			{
-				if (isset($data[$key])) $ndata[$key]=$data[$key];
-			}
 			if (sizeof($ndata)>0)
 				$db->array_update("{$tablepre}players",$ndata,"pid='$spid'");
 		}
@@ -280,9 +256,6 @@ namespace player
 	function pre_act()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (($state>=10)&&($hp>0)){
-			$hp=0;
-		}
 	}
 	
 	function act()	

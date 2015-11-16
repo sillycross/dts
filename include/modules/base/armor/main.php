@@ -50,7 +50,7 @@ namespace armor
 		if ($whicharmor=='arb')
 		{
 			eval(import_module('armor'));
-			$pd['arb'] = $noarb; $pd['arbs'] = $nosta;$pd['arbk']='DN';
+			$pd['arb'] = $noarb; $pd['arbs'] = $nosta;
 		}
 	}
 	
