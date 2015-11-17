@@ -51,7 +51,7 @@ namespace wep_f
 		return $chprocess($pa, $pd, $active)+$r;
 	}
 	
-	function get_WF_sp_cost(&$pa, &$pd, $active)
+	function get_wf_sp_cost(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return round(0.4*$pa['wepe']);
