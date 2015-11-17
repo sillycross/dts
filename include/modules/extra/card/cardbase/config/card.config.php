@@ -858,14 +858,14 @@ $carddesc=array(
 		'rare'=>'S',
 		'desc'=>'不愿透露姓名的究极神牛，代码力深不可测',
 		'pack'=>'Event Bonus',
-		'effect'=>'称号固定为锡安成员，且0级即解锁过载',
+		'effect'=>'称号固定为锡安成员，技能「过载」强化，且开局即解锁',
 	),
 	64=>array(
 		'name'=>'"Topcoder"',
 		'rare'=>'S',
 		'desc'=>'不愿透露姓名的究极神牛，代码力深不可测',
 		'pack'=>'Way of Life',
-		'effect'=>'称号固定为锡安成员，且0级即解锁过载',
+		'effect'=>'称号固定为锡安成员，且开局即解锁过载',
 	),
 	65=>array(
 		'name'=>'"KHIBIKI《黑曲》"',

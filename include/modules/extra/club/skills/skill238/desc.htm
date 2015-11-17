@@ -5,7 +5,11 @@
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
-移除电击伤害的阈值，电击伤害提高25%
+<!--{if $pa['card']==63}-->
+你造成的电击伤害没有上限，且电击伤害提高<span class="yellow">25%</span>
+<!--{else}-->
+你造成的电击伤害没有上限
+<!--{/if}-->
 </span></td>
 <td class=b3 width=46>
 </td>
