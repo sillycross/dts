@@ -1,8 +1,8 @@
--- MySQL dump 10.15  Distrib 10.0.20-MariaDB, for Linux (x86_64)
+-- MySQL dump 10.15  Distrib 10.0.21-MariaDB, for Linux (x86_64)
 --
 -- Host: localhost    Database: test
 -- ------------------------------------------------------
--- Server version	10.0.20-MariaDB-log
+-- Server version	10.0.21-MariaDB-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -30,7 +30,7 @@ CREATE TABLE `acbra2_chat` (
   `recv` char(15) NOT NULL DEFAULT '',
   `msg` char(60) NOT NULL DEFAULT '',
   PRIMARY KEY (`cid`)
-) ENGINE=MEMORY AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -111,7 +111,7 @@ CREATE TABLE `acbra2_mapitem` (
   `itmsk` char(5) NOT NULL DEFAULT '',
   `pls` tinyint(3) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`iid`)
-) ENGINE=MyISAM AUTO_INCREMENT=10934 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=7410 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,7 +130,7 @@ CREATE TABLE `acbra2_maptrap` (
   `itmsk` char(5) NOT NULL DEFAULT '',
   `pls` tinyint(3) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`tid`)
-) ENGINE=MyISAM AUTO_INCREMENT=414 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=171 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -253,10 +253,11 @@ CREATE TABLE `acbra2_players` (
   `flare` int(10) NOT NULL DEFAULT '0',
   `card` int(10) NOT NULL DEFAULT '0',
   `cardname` text NOT NULL,
+  `player_dead_flag` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`pid`),
   KEY `TYPE` (`type`,`sNo`),
   KEY `NAME` (`name`,`type`)
-) ENGINE=MyISAM AUTO_INCREMENT=354 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=363 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -357,7 +358,7 @@ CREATE TABLE `acbra2_users` (
   `lastwin` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`uid`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=MyISAM AUTO_INCREMENT=30397 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=30399 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -506,7 +507,7 @@ CREATE TABLE `acbra2_newsinfo` (
   `d` varchar(255) NOT NULL DEFAULT '',
   `e` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`nid`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -518,4 +519,4 @@ CREATE TABLE `acbra2_newsinfo` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-12  0:45:08
+-- Dump completed on 2015-11-16 13:59:40

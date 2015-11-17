@@ -40,10 +40,19 @@ $log = '';
 //读取聊天信息
 $chatdata = getchat(0,$teamID);
 
-if ($hp<=0)
+$hp_backup_temp=$hp;
+$player_dead_flag_backup_temp=$player_dead_flag;
+
+if ($hp<=0 || $player_dead_flag)
 {
 	player\pre_act();
 	player\post_act();
+}
+
+if ($hp!=$hp_backup_temp || $player_dead_flag!=$player_dead_flag_backup_temp)
+{
+	\player\update_sdata();
+	\player\player_save($sdata);
 }
 
 //var_dump($itm3);

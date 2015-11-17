@@ -117,6 +117,7 @@ CREATE TABLE bra_players (
   flare int(10) NOT NULL default '0',
   card int(10) NOT NULL DEFAULT '0',
   cardname text NOT NULL,
+  `player_dead_flag` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY  (pid),
   INDEX TYPE (type, sNo),
   INDEX NAME (name, type)

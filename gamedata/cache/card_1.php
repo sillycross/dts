@@ -929,7 +929,7 @@ $carddesc=array(
 		'rare'=>'C',
 		'desc'=>'在严苛的原版BR环境中生存下来的玩家',
 		'pack'=>'Way of Life',
-		'effect'=>'初始生命+300，体力+300',
+		'effect'=>'初始生命+300，体力+300<br>（生命上限/体力上限不变）',
 	),
 	75=>array(
 		'name'=>'精锐挑战者',
