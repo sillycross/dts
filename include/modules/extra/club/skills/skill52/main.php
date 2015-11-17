@@ -70,14 +70,22 @@ namespace skill52
 		$log.='升级成功。<br>';
 	}
 	
+	function get_skill52_extra_counter_gain(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('skill52','player','logger'));
+		if (!\skillbase\skill_query(52, $pa) || !check_unlocked52($pa)) return 1;
+		if ($pa['wepk'][1]!='C') return 1;
+		$crate = $counterperc[\skillbase\skill_getvalue(52,'lvl',$pa)];
+		return 1+($crate)/100;
+	}
+	
 	function calculate_counter_rate_multiplier(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!\skillbase\skill_query(52,$pa) || !check_unlocked52($pa)) return $chprocess($pa, $pd, $active);
-		if ($pa['wepk']!='WC') return $chprocess($pa, $pd, $active);
-		eval(import_module('skill52'));
-		$clv = (int)\skillbase\skill_getvalue(52,'lvl');
-		$r=(100+$counterperc[$clv])/100;
+		if ($pa['wepk'][1]!='C') return $chprocess($pa, $pd, $active);
+		$r=get_skill52_extra_counter_gain($pa, $pd, $active);
 		return $chprocess($pa, $pd, $active)*$r;
 	}
 }

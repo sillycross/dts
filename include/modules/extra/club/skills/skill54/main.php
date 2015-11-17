@@ -84,14 +84,20 @@ namespace skill54
 		return $chprocess($pa, $pd, $active);
 	}
 	
+	function get_skill54_exdmg_reduce(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('skill54','player','logger'));
+		if (!\skillbase\skill_query(54, $pd) || !check_unlocked54($pd)) return 1;
+		$drate = $dmgreduction[\skillbase\skill_getvalue(54,'lvl',$pd)];
+		return 1-($drate)/100;
+	}
+	
 	function calculate_ex_single_dmg_multiple(&$pa, &$pd, $active, $key)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!\skillbase\skill_query(54,$pd) || !check_unlocked54($pd)) return $chprocess($pa, $pd, $active, $key);
-		eval(import_module('skill54'));
-		$clv = \skillbase\skill_getvalue(54,'lvl',$pd);
-		$clv = (int)$clv;
-		return $chprocess($pa, $pd, $active, $key)*(1-$dmgreduction[$clv]/100);
+		return $chprocess($pa, $pd, $active, $key)*get_skill54_exdmg_reduce($pa, $pd, $active);
 	}	
 }
 
