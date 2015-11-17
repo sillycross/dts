@@ -157,7 +157,7 @@ namespace player
 				$deathpls = $sub['pls'];
 				$bid = 0;
 				$endtime = $atime;
-				$db->query("UPDATE {$tablepre}players SET hp='$hp', bid='$bid', state='$state', endtime='$endtime' player_dead_flag='1' WHERE pid=$pid");
+				$db->query("UPDATE {$tablepre}players SET hp='$hp', bid='$bid', state='$state', endtime='$endtime' WHERE pid=$pid");
 				addnews($endtime,"death$state",$sub['name'],$sub['type'],$deathpls);
 				$deathnum++;
 			}

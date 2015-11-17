@@ -74,55 +74,31 @@ namespace skill65
 		$log.='升级成功。<br>';
 	}
 	
-	function get_skill65_extra_dog_gain(&$pa, &$pd, $active)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('skill65','player','logger'));
-		if (!\skillbase\skill_query(65, $pd) || !check_unlocked65($pd)) return 1;
-		if ($pd['wepk'][1]!='F') return 1;
-		$drate = $dodgerate[\skillbase\skill_getvalue(65,'lvl',$pd)];
-		return 1-($drate)/100;
-	}
-	
 	function get_hitrate(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(65,$pd) || !check_unlocked65($pd)) return $chprocess($pa, $pd, $active);
-		return $chprocess($pa, $pd, $active)*get_skill65_extra_dog_gain($pa, $pd, $active);
-	}
-	
-	function get_skill65_extra_rdog_gain(&$pa, &$pd, $active)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('skill65','player','logger'));
-		if (!\skillbase\skill_query(65, $pd) || !check_unlocked65($pd)) return 1;
-		if ($pd['wepk'][1]!='F') return 1;
-		$drate = $rhitpunish[\skillbase\skill_getvalue(65,'lvl',$pd)];
-		return 1-($drate)/100;
+		if (!\skillbase\skill_query(65,$pa) || !check_unlocked65($pa)) return $chprocess($pa, $pd, $active);
+		eval(import_module('skill65'));
+		$clv = (int)\skillbase\skill_getvalue(65,'lvl',$pa);
+		return $chprocess($pa, $pd, $active)*(1-$dodgerate[$clv]/100);
 	}
 	
 	function get_rapid_accuracy_loss(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(65,$pd) || !check_unlocked65($pd)) return $chprocess($pa, $pd, $active);
-		return $chprocess($pa, $pd, $active)*get_skill65_extra_rdog_gain($pa, $pd, $active);
+		if (!\skillbase\skill_query(65,$pa) || !check_unlocked65($pa)) return $chprocess($pa, $pd, $active);
+		eval(import_module('skill65'));
+		$clv = (int)\skillbase\skill_getvalue(65,'lvl',$pa);
+		return $chprocess($pa, $pd, $active)*(1-$rhitpunish[$clv]/100);
 	}
 	
-	function get_skill65_cost_reduce(&$pa, &$pd, $active)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('skill65','player','logger'));
-		if (!\skillbase\skill_query(65, $pa) || !check_unlocked65($pa)) return 1;
-		if ($pa['wep_kind']!='F') return 1;
-		$drate = $spredrate[\skillbase\skill_getvalue(65,'lvl',$pa)];
-		return 1-($drate)/100;
-	}
-	
-	function get_wf_sp_cost(&$pa, &$pd, $active)
+	function get_WF_sp_cost(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!\skillbase\skill_query(65,$pa) || !check_unlocked65($pa)) return $chprocess($pa, $pd, $active);
-		return round($chprocess($pa, $pd, $active)*get_skill65_cost_reduce($pa, $pd, $active));
+		eval(import_module('skill65'));
+		$clv = (int)\skillbase\skill_getvalue(65,'lvl',$pa);
+		return round($chprocess($pa, $pd, $active)*(1-$spredrate[$clv]/100));
 	}
 }
 
