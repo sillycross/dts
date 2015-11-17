@@ -108,7 +108,7 @@ namespace skill65
 		return $chprocess($pa, $pd, $active)*get_skill65_extra_rdog_gain($pa, $pd, $active);
 	}
 	
-	function get_skill65_WF_cost_reduce(&$pa, &$pd, $active)
+	function get_skill65_cost_reduce(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill65','player','logger'));
@@ -118,11 +118,11 @@ namespace skill65
 		return 1-($drate)/100;
 	}
 	
-	function get_WF_sp_cost(&$pa, &$pd, $active)
+	function get_wf_sp_cost(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!\skillbase\skill_query(65,$pa) || !check_unlocked65($pa)) return $chprocess($pa, $pd, $active);
-		return round($chprocess($pa, $pd, $active)*get_skill65_WF_cost_reduce($pa, $pd, $active));
+		return round($chprocess($pa, $pd, $active)*get_skill65_cost_reduce($pa, $pd, $active));
 	}
 }
 
