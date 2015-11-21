@@ -380,7 +380,7 @@ $cards=array(
 		'itmsk6'=>'Z',
 	),
 	79=>array(
-		'hp'=>'800','sp'=>'800','mhp'=>'800','msp'=>'800','club'=>'17',
+		'hp'=>'800','mhp'=>'800','club'=>'17',
 	),
 	80=>array(
 		'club'=>'7',
@@ -964,7 +964,7 @@ $carddesc=array(
 		'rare'=>'C',
 		'desc'=>'来自春原服的新人玩家',
 		'pack'=>'Way of Life',
-		'effect'=>'最大生命值和体力值大幅提高，但是无法选择称号',
+		'effect'=>'最大生命值大幅提高，但是无法选择称号',
 	),
 	80=>array(
 		'name'=>'兵马俑',
