@@ -139,6 +139,8 @@ namespace skill23
 			if ($t1=='wep')
 				$buff=Array(Array(65,'i'),Array(35,'k'));
 			else  $buff=Array(Array(100,'I'));
+		else  if ($gem=='黄鸡方块')	//天然/菁英
+			$buff=Array(Array(1,'Z'),Array(99,'z'));
 		else  if ($gem=='绿宝石方块')	//武器：随机攻击属性 装备：随机防御属性
 		{	
 			if ($t1=='wep')

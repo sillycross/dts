@@ -175,7 +175,7 @@ $mixinfo = array
 	array('class' => 'cube', 'stuff' => array('绿宝石方块','绿色方块'),'result' => array('绿色的宝石镖','WC',240,180,'p'),),
 	array('class' => 'cube', 'stuff' => array('绿宝石方块','金色方块'),'result' => array('金色的宝石炸弹','WD',240,180,'d'),),
 	array('class' => 'cube', 'stuff' => array('绿宝石方块','银色方块'),'result' => array('银色的宝石符卡','WF',240,180,'w'),),
-	array('class' => 'hidden', 'stuff' => array('绿宝石方块','黄鸡方块'),'result' => array('黄鸡的宝石大炮','WJ',1,1,'zo'),),
+	array('class' => 'hidden', 'stuff' => array('绿宝石方块','黄鸡方块'),'result' => array('黄鸡的宝石大炮','WJ',1,1,'uiwepo'),),
 	array('class' => 'cube', 'stuff' => array('红色的宝石刀','悲叹之种'),'result' => array('★恐惧的黑色安息日★','WK',240,320,'rud'),),
 	array('class' => 'cube', 'stuff' => array('银色的宝石符卡','悲叹之种'),'result' => array('★失落的银色镇魂歌★','WF',240,320,'rwd'),),
 	array('class' => 'cube', 'stuff' => array('绿宝石方块','水晶方块'),'result' => array('水晶宝石盾','DA',240,180,'PC'),),
@@ -190,7 +190,7 @@ $mixinfo = array
 	array('class' => 'cube', 'stuff' => array('金色方块','金色方块','金色方块'),'result' => array('★齿轮飞碟★','WC',152,386,'rd'),),
 	array('class' => 'cube', 'stuff' => array('银色方块','银色方块','银色方块'),'result' => array('★精神破坏★','WF',152,251,'rw'),),
 	array('class' => 'cube', 'stuff' => array('水晶方块','水晶方块','水晶方块'),'result' => array('★灭亡之歌★','TN',960,2,),),
-	array('class' => 'hidden', 'stuff' => array('黄鸡方块','黄鸡方块','黄鸡方块'),'result' => array('★黄鸡风暴★','WK',90,35,'zd'),),
+	array('class' => 'hidden', 'stuff' => array('黄鸡方块','黄鸡方块','黄鸡方块'),'result' => array('★黄鸡风暴★','WK',90,35,'rpd'),),
 	
 	
 	array('class' => 'wf', 'stuff' => array('空白符卡','☆博丽护符☆'),'result' => array('梦符『梦想妙珠』','WF',40,'∞','r'),),
