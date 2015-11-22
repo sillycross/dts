@@ -63,11 +63,11 @@ namespace attack
 		//发log
 		if (!$active)
 			if ($pa['is_counter'])
-				$pa['battlelog'] .= "对其做出了<span class=\"yellow\">{$dmg}</span>点反击。<br>";
-			else  $pa['battlelog'] .= "你对其做出<span class=\"yellow\">{$dmg}</span>点攻击，";
+				$pa['battlelog'] .= "对其做出了<span class=\"yellow\">{$pa['dmg_dealt']}</span>点反击。<br>";
+			else  $pa['battlelog'] .= "你对其做出<span class=\"yellow\">{$pa['dmg_dealt']}</span>点攻击，";
 		else  if ($pa['is_counter'])
-				$pd['battlelog'] .= "受到其<span class=\"yellow\">{$dmg}</span>点反击。<br>";
-			else  $pd['battlelog'] .= "你受到其<span class=\"yellow\">{$dmg}</span>点攻击，";
+				$pd['battlelog'] .= "受到其<span class=\"yellow\">{$pa['dmg_dealt']}</span>点反击。<br>";
+			else  $pd['battlelog'] .= "你受到其<span class=\"yellow\">{$pa['dmg_dealt']}</span>点攻击，";
 			
 		//发伤害新闻
 		post_damage_news($pa, $pd, $active, $pa['dmg_dealt']);
