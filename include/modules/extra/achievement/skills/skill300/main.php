@@ -6,6 +6,7 @@ namespace skill300
 	{
 		define('MOD_SKILL300_INFO','achievement;');
 		define('MOD_SKILL300_ACHIEVEMENT_ID','0');
+		define('MOD_SKILL300_ACHIEVEMENT_TYPE','1');
 	}
 	
 	function acquire300(&$pa)
@@ -38,12 +39,25 @@ namespace skill300
 		if ($data=='')					
 			$x=0;						
 		else	$x=base64_decode_number($data);		
+		$ox=$x;
 		$x+=\skillbase\skill_getvalue(300,'cnt',$pa);		
-		$x=min($x,(1<<30)-1);		
+		$x=min($x,(1<<30)-1);
+		
+		if (($ox<32767)&&($x>=32767)){
+			\cardbase\get_qiegao(200,$pa);
+		}
+		if (($ox<142857)&&($x>=142857)){
+			\cardbase\get_qiegao(300,$pa);
+		}
+		if (($ox<999983)&&($x>=999983)){
+			\cardbase\get_qiegao(500,$pa);
+			\cardbase\get_card(86,$pa);
+		}
+		
 		return base64_encode_number($x,5);		
 	}
 	
-	function edible_recover($itm, $hpup, $spup)
+	/*function edible_recover($itm, $hpup, $spup)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (\skillbase\skill_query(300))
@@ -53,14 +67,46 @@ namespace skill300
 			\skillbase\skill_setvalue(300,'cnt',$x);
 		}
 		$chprocess($itm,$hpup,$spup);
+	}*/
+	
+	function get_edible_spup(&$theitem)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (\skillbase\skill_query(300))
+		{
+			$x=(int)\skillbase\skill_getvalue(300,'cnt');
+			$x+=$theitem['itme'];
+			\skillbase\skill_setvalue(300,'cnt',$x);
+		}
+		return $chprocess($theitem);
+	}
+	
+	function get_edible_hpup(&$theitem)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (\skillbase\skill_query(300))
+		{
+			$x=(int)\skillbase\skill_getvalue(300,'cnt');
+			$x+=$theitem['itme'];
+			\skillbase\skill_setvalue(300,'cnt',$x);
+		}
+		return $chprocess($theitem);
 	}
 
 	function show_achievement300($data)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')
-			$x=0;
-		else	$x=base64_decode_number($data);	
+			$p300=0;
+		else	$p300=base64_decode_number($data);	
+		$c300=0;
+		if ($p300>=999983){
+			$c300=999;
+		}else if ($p300>=142857){
+			$c300=2;
+		}else if ($p300>=32767){
+			$c300=1;
+		}
 		include template('MOD_SKILL300_DESC');
 	}
 }

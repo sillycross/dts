@@ -410,6 +410,9 @@ $cards=array(
 	85=>array(
 		'skills'=>array('419'=>'0'),
 	),
+	86=>array(
+		'skills'=>array('421'=>'0'),
+	),
 );
 $carddesc=array(
 	0=>array(
@@ -1013,6 +1016,13 @@ $carddesc=array(
 		'desc'=>'出没时间异于常人的玩家',
 		'pack'=>'Way of Life',
 		'effect'=>'服务器时间1:00~7:00期间造成的战斗伤害提高12%',
+	),
+	86=>array(
+		'name'=>'暴食挑战者',
+		'rare'=>'B',
+		'desc'=>'就算只少了10点体力也要啃培根蛋的玩家',
+		'pack'=>'Event Bonus',
+		'effect'=>'食用补给效果提高',
 	),
 );
 }
