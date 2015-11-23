@@ -46,6 +46,7 @@ $db->query("ALTER TABLE {$tablepre}users ADD lastwin int(10) unsigned not null d
 $db->query("ALTER TABLE {$tablepre}players ADD card int(10) unsigned not null default '0' AFTER flare");
 $db->query("ALTER TABLE {$tablepre}players ADD cardname text not null AFTER flare");*/
 //$db->query("UPDATE {$tablepre}users SET gold=gold+150");
+//$db->query("UPDATE {$tablepre}users SET n_achievements=''");
 include template('admin_menu');
 
 ?>

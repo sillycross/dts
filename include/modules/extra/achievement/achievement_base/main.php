@@ -2,6 +2,13 @@
 
 namespace achievement_base
 {
+	$achtcount=1;
+	$achtype=array(
+		//0=>'其他成就',
+		1=>'道具成就',
+		10=>'结局成就',
+	);
+	
 	function init() {}
 	
 	function post_gameover_events()
@@ -40,26 +47,37 @@ namespace achievement_base
 		$chprocess();
 	}
 	
-	function show_achievements()
+	function show_achievements($un,$at)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys'));
-		$res = $db->query("SELECT n_achievements FROM {$gtablepre}users WHERE username='$cuser'");
+		eval(import_module('sys','achievement_base'));
+		$res = $db->query("SELECT n_achievements FROM {$gtablepre}users WHERE username='$un'");
 		if (!$db->num_rows($res)) return;
 		$zz=$db->fetch_array($res); $ach=$zz['n_achievements']; 
 		$achdata=explode(';',$ach); 
+		$c=0;
 		for ($key=1; $key<=1000; $key++)
-			if (defined('MOD_SKILL'.$key.'_INFO') && defined('MOD_SKILL'.$key.'_ACHIEVEMENT_ID'))
-				if (strpos(constant('MOD_SKILL'.$key.'_INFO'),'achievement;')!==false)
+			if (defined('MOD_SKILL'.$key.'_INFO') && defined('MOD_SKILL'.$key.'_ACHIEVEMENT_ID') && defined('MOD_SKILL'.$key.'_ACHIEVEMENT_TYPE'))
+				if ((strpos(constant('MOD_SKILL'.$key.'_INFO'),'achievement;')!==false)&&(constant('MOD_SKILL'.$key.'_ACHIEVEMENT_TYPE')==$at))
 				{
 					$id=((int)(constant('MOD_SKILL'.$key.'_ACHIEVEMENT_ID')));
 					if (isset($achdata[$id])) $s=((string)$achdata[$id]); else $s='';
 					$func='\\skill'.$key.'\\show_achievement'.$key;
-					echo '成就编号'.$id.' 技能编号'.$key.' 成就信息<br><br>';
+					$c++;
+					if ($c%3==1) echo "<tr>";
+					echo '<td width="300" align="left" valign="top">';
 					$func($s);
-					echo '<br><br>';
+					echo "</td>";
+					if ($c%3==0) echo "</tr>";
 				}
+		while ($c<3){//不足3个的分类补位
+			$c++;
+			echo '<td width="300" align="left" valign="top" style="border-style:none">';
+			echo "</td>";
+			if ($c%3==0) echo "</tr>";
+		}
+		if ($c%3!=0) echo "</tr>";
 	}		
 }
 

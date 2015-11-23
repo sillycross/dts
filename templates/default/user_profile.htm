@@ -27,7 +27,7 @@
 				<td>$winning_rate</td>
 			</tr>
 			<!--{if defined('MOD_ELORATING')}-->
-			<tr>
+			<tr onclick="bubblebox_show('elodata');">
 				<td>天梯积分</td>
 				<td width=55px>&nbsp;</td>
 				<td><!--{if $elo_history==''}-->1500<!--{else}--><span style="color:<!--{eval echo \elorating\elorating_get_color($elo_rating);}-->"><span style="font-weight:bold;">$elo_rating</span></span><!--{/if}--></td>
@@ -75,16 +75,36 @@
 		</td>
 	</tr>
 	</table>
-	<div style="width:600px;text-align:center;"><!--{if $curuser && !$cf}--><span class="yellow">您现在不能使用该等级的身份卡，请更换！</span><!--{/if}--><span class="clan">点击身份卡可以查看其详细信息</span></div>
+	<div style="width:600px;text-align:center;"><!--{if $curuser && !$cf}--><span class="yellow">您现在不能使用该等级的身份卡，请更换！</span><!--{/if}--><span class="clan">点击天梯积分和身份卡可以查看详细信息</span></div>
 	<div style="width:600px;text-align:center;">
 		<span class="yellow"><!--{if $curuser && !$ff}-->下次可获得额外奖励时间：{$ftd}<!--{else}-->现在获胜可获得额外切糕奖励<!--{/if}--></span><br>
 		<!--{if $curuser && !$sf}--><span class="orange">{$std}开始才可再使用S级身份卡</span><br><!--{/if}-->
 		<!--{if $curuser && !$af}--><span class="linen">{$atd}开始才可再使用A级身份卡</span><br><!--{/if}-->
 		<!--{if $curuser && !$bf}--><span class="brickred">{$btd}开始才可再使用B级身份卡</span><br><!--{/if}-->
 	</div>
-	<!--{if defined('MOD_ELORATING')}--><!--{eval \elorating\elorating_show();}--><!--{/if}-->
+	<!--{if defined('MOD_ACHIEVEMENT_BASE')}-->
+		<table>
+		<!--{eval eval(import_module('achievement_base'));}-->
+		<!--{loop $achtype $k $v}-->
+			<tr><td>
+			<div class="subtitle" align="left">$v</div>
+			<table border="1">
+				<!--{eval \achievement_base\show_achievements($username,$k);}-->
+			</table>
+			</td></tr>
+		<!--{/loop}-->
+		</table>
+	<!--{/if}-->
 	<br><br>
 </center>
+
+<!--{if defined('MOD_ELORATING')}-->
+<!--{eval \bubblebox\bubblebox_set_style('id:elodata;height:450;width:650;cancellable:1;');}-->
+{template MOD_BUBBLEBOX_START}
+<!--{eval \elorating\elorating_show();}-->
+<input class="cmdbutton" onclick="bubblebox_hide_all();" value="关闭窗口" type="button">
+{template MOD_BUBBLEBOX_END}
+<!--{/if}-->
 
 <!--{eval \bubblebox\bubblebox_set_style('id:carddata;height:363;width:283;cancellable:1;');}-->
 {template MOD_BUBBLEBOX_START}

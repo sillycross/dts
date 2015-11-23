@@ -1,5 +1,5 @@
 <?php
-$cardcount=81;
+$cardcount=86;
 $cardindex=array(
 	'S'=>array(1,5,16,38,39,40,41,64,65,67,71),
 	'A'=>array(2,13,14,20,23,32,37,43,44,45,46,47,48,49,50,66,68,69,72,75,81),
@@ -403,6 +403,9 @@ $cards=array(
 	),
 	85=>array(
 		'skills'=>array('419'=>'0'),
+	),
+	86=>array(
+		'skills'=>array('421'=>'0'),
 	),
 );
 $carddesc=array(
@@ -929,7 +932,7 @@ $carddesc=array(
 		'rare'=>'C',
 		'desc'=>'在严苛的原版BR环境中生存下来的玩家',
 		'pack'=>'Way of Life',
-		'effect'=>'初始生命+300，体力+300<br>（生命上限/体力上限不变）',
+		'effect'=>'初始生命+300，体力+300',
 	),
 	75=>array(
 		'name'=>'精锐挑战者',
@@ -1007,6 +1010,13 @@ $carddesc=array(
 		'desc'=>'出没时间异于常人的玩家',
 		'pack'=>'Way of Life',
 		'effect'=>'服务器时间1:00~7:00期间造成的战斗伤害提高12%',
+	),
+	86=>array(
+		'name'=>'暴食挑战者',
+		'rare'=>'B',
+		'desc'=>'就算只少了10点体力也要啃培根蛋的玩家',
+		'pack'=>'Event Bonus',
+		'effect'=>'食用补给效果提高',
 	),
 );
 ?>
