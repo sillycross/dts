@@ -2,11 +2,14 @@
 
 namespace achievement_base
 {
-	$achtcount=1;
 	$achtype=array(
 		//0=>'其他成就',
 		1=>'道具成就',
 		10=>'结局成就',
+	);
+	$achlist=array(//为了方便调整各成就的显示顺序放在这里了
+		1=>array(300,302,303,304),
+		10=>array(305,301,306,307),
 	);
 	
 	function init() {}
@@ -57,9 +60,9 @@ namespace achievement_base
 		$zz=$db->fetch_array($res); $ach=$zz['n_achievements']; 
 		$achdata=explode(';',$ach); 
 		$c=0;
-		for ($key=1; $key<=1000; $key++)
-			if (defined('MOD_SKILL'.$key.'_INFO') && defined('MOD_SKILL'.$key.'_ACHIEVEMENT_ID') && defined('MOD_SKILL'.$key.'_ACHIEVEMENT_TYPE'))
-				if ((strpos(constant('MOD_SKILL'.$key.'_INFO'),'achievement;')!==false)&&(constant('MOD_SKILL'.$key.'_ACHIEVEMENT_TYPE')==$at))
+		foreach ($achlist[$at] as $key)
+			if (defined('MOD_SKILL'.$key.'_INFO') && defined('MOD_SKILL'.$key.'_ACHIEVEMENT_ID'))
+				if ((strpos(constant('MOD_SKILL'.$key.'_INFO'),'achievement;')!==false)&&(strpos(constant('MOD_SKILL'.$key.'_INFO'),'hidden;')==false))
 				{
 					$id=((int)(constant('MOD_SKILL'.$key.'_ACHIEVEMENT_ID')));
 					if (isset($achdata[$id])) $s=((string)$achdata[$id]); else $s='';

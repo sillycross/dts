@@ -407,6 +407,9 @@ $cards=array(
 	86=>array(
 		'skills'=>array('421'=>'0'),
 	),
+	87=>array(
+		'skills'=>array('422'=>'0'),
+	),
 );
 $carddesc=array(
 	0=>array(
@@ -1017,6 +1020,13 @@ $carddesc=array(
 		'desc'=>'就算只少了10点体力也要啃培根蛋的玩家',
 		'pack'=>'Event Bonus',
 		'effect'=>'食用补给效果提高',
+	),
+	87=>array(
+		'name'=>'未来战士',
+		'rare'=>'A',
+		'desc'=>'中二动画里盛行的枪斗术他掌握的很好',
+		'pack'=>'Event Bonus',
+		'effect'=>'可以用枪托杀人',
 	),
 );
 ?>

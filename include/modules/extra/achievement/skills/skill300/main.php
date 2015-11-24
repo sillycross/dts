@@ -6,7 +6,6 @@ namespace skill300
 	{
 		define('MOD_SKILL300_INFO','achievement;');
 		define('MOD_SKILL300_ACHIEVEMENT_ID','0');
-		define('MOD_SKILL300_ACHIEVEMENT_TYPE','1');
 	}
 	
 	function acquire300(&$pa)
@@ -23,7 +22,9 @@ namespace skill300
 	function skill_onload_event(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(300,$pa)) \skillbase\skill_acquire(300,$pa);
+		eval(import_module('sys'));
+		if ((!in_array($gametype,Array(10,11,12,13,14)))&&(!\skillbase\skill_query(300,$pa))) //也可以做一些只有房间模式有效的成就
+			\skillbase\skill_acquire(300,$pa);
 		$chprocess($pa);
 	}
 	

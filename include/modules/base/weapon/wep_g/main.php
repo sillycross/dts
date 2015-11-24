@@ -41,8 +41,10 @@ namespace wep_g
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('weapon'));
-		if (substr($pdata['wepk'],1,1) == 'G' && $pdata['weps']==$nosta) 
+		if (substr($pdata['wepk'],1,1) == 'G' && $pdata['weps']==$nosta) {
+			$pdata['is_wpg']=true;
 			return 'P';
+		}
 		else  return $chprocess($pdata);
 	}
 	
