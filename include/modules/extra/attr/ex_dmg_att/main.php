@@ -172,7 +172,7 @@ namespace ex_dmg_att
 		
 		$chprocess($pa, $pd, $active);
 		
-		if ($pa['is_hit'] && strpos($pa['wepk'],$pa['wep_kind'])!==false)	//命中才开始判定属性伤害，枪械作为钝器使用无属性伤害
+		if ($pa['is_hit'] && ($pa['is_wpg']!=true))	//命中才开始判定属性伤害，枪械作为钝器使用无属性伤害
 		{
 			$dmg = calculate_ex_attack_dmg($pa, $pd, $active);
 			$pa['dmg_dealt'] += $dmg;

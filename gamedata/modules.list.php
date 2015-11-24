@@ -18,6 +18,8 @@ noise,base/noise/,1
 lvlctl,base/lvlctl/,1
 skill11,extra/club/skills/skill11/,1
 skill10,extra/club/skills/skill10/,1
+skill305,extra/achievement/skills/skill305/,1
+skill306,extra/achievement/skills/skill306/,1
 itemmain,base/itemmain/,1
 skill4,base/skills/skill4/,1
 npc,base/npc/,1
@@ -48,6 +50,9 @@ itemmix_sync,base/itemmix/itemmix_sync/,1
 itemmix_overlay,base/itemmix/itemmix_overlay/,1
 skill20,extra/club/skills/skill20/,1
 skill413,extra/club/skills/skill413/,1
+skill302,extra/achievement/skills/skill302/,1
+skill303,extra/achievement/skills/skill303/,1
+skill304,extra/achievement/skills/skill304/,1
 skill69,extra/club/skills/skill69/,1
 skill300,extra/achievement/skills/skill300/,1
 attrbase,extra/attr/attrbase/,1
@@ -66,6 +71,7 @@ gameflow_combo,core/gameflow/gameflow_combo/,1
 advteam,extra/misc/advteam/,1
 attack,base/attack/,1
 skill301,extra/achievement/skills/skill301/,1
+skill307,extra/achievement/skills/skill307/,1
 cardbase,extra/card/cardbase/,1
 clubbase,extra/club/clubbase/,1
 weapon,base/weapon/weapon/,1
@@ -197,6 +203,7 @@ skill38,extra/club/skills/skill38/,1
 dualwep,base/weapon/dualwep/,1
 ammunition,base/items/ammunition/,1
 ex_attr_silencer,extra/attr/ex_attr_silencer/,1
+skill422,extra/club/skills/skill422/,1
 ex_dmg_att,extra/attr/ex_dmg_att/,1
 skill407,extra/club/skills/skill407/,1
 ex_attr_charge,extra/attr/ex_attr_charge/,1

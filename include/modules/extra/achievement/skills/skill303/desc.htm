@@ -1,0 +1,19 @@
+<table><tr>
+<td>
+<!--{if ($c303) }--><img src="img/ach/D.gif"><!--{else}--><img src="img/ach/N.gif"><!--{/if}-->
+</td>
+<td valign="top" align="left">
+<b>
+<!--{if ($c303=='0') }-->篝火的引导<!--{/if}-->
+<!--{if ($c303=='1') }-->世界的树形图<!--{/if}-->
+<!--{if ($c303=='2') }-->地=月<!--{/if}-->
+<!--{if ($c303=='999') }-->地=月<!--{/if}-->
+</b>
+<!--{if ($c303=='999') }--><span class="lime">[完成]</span><!--{else}--><!--{if ($c303==0) }--><span class="red">[未完成]</span><!--{else}--><span class="clan">[进行中]</span><!--{/if}--><!--{/if}--><br>
+<font color="yellow">合成次数： {$p303}次<br></font>
+<!--{if ($c303=='0') }--><font color="olive">奖励： 切糕150<br></font> 合成物品【KEY系燃烧弹】1次<br><!--{/if}-->
+<!--{if ($c303=='1') }--><font color="olive">奖励： 切糕500<br></font> 合成物品【KEY系燃烧弹】5次<br><!--{/if}-->
+<!--{if ($c303=='2') }--><font color="olive">奖励： 切糕2500<br></font> 合成物品【KEY系燃烧弹】30次<br><!--{/if}-->
+<!--{if ($c303=='999') }--><font color="olive">奖励： 切糕2500<br></font> 合成物品【KEY系燃烧弹】30次<br><!--{/if}-->
+</td>
+</tr></table>

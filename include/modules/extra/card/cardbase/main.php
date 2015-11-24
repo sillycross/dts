@@ -101,6 +101,7 @@ namespace cardbase
 		}*/
 		$chprocess();	
 	}
+	
 	function get_card_pack($card_pack_name) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('cardbase'));
