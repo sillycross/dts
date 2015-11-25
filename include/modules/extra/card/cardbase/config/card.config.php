@@ -416,6 +416,9 @@ $cards=array(
 	87=>array(
 		'skills'=>array('422'=>'0'),
 	),
+	88=>array(
+		'skills'=>array('423'=>'0'),
+	),
 );
 $carddesc=array(
 	0=>array(
@@ -1033,6 +1036,13 @@ $carddesc=array(
 		'desc'=>'中二动画里盛行的枪斗术他掌握的很好',
 		'pack'=>'Event Bonus',
 		'effect'=>'可以用枪托杀人',
+	),
+	88=>array(
+		'name'=>'Dr.Clef',
+		'rare'=>'S',
+		'desc'=>'撒旦本人',
+		'pack'=>'Event Bonus',
+		'effect'=>'可以和SCP谈笑风生',
 	),
 );
 }

@@ -1,0 +1,19 @@
+<table><tr>
+<td>
+<!--{if ($c310) }--><img src="img/ach/D.gif"><!--{else}--><img src="img/ach/N.gif"><!--{/if}-->
+</td>
+<td valign="top" align="left">
+<b>
+<!--{if ($c310=='0') }-->脚本小子<!--{/if}-->
+<!--{if ($c310=='1') }-->黑客<!--{/if}-->
+<!--{if ($c310=='2') }-->幻境解离者？<!--{/if}-->
+<!--{if ($c310=='999') }-->幻境解离者？<!--{/if}-->
+</b>
+<!--{if ($c310=='999') }--><span class="lime">[完成]</span><!--{else}--><!--{if ($c310==0) }--><span class="red">[未完成]</span><!--{else}--><span class="clan">[进行中]</span><!--{/if}--><!--{/if}--><br>
+<font color="yellow">击杀总数： {$p310}名<br></font>
+<!--{if ($c310=='0') }--><font color="olive">奖励： 切糕100 <br></font> 击杀100名NPC<br><!--{/if}-->
+<!--{if ($c310=='1') }--><font color="olive">奖励： 切糕400 <span class="linen">随机A级卡片</span><br></font> 击杀2500名NPC<br><!--{/if}-->
+<!--{if ($c310=='2') }--><font color="olive">奖励： 切糕1500 <span class="linen">随机A级卡片</span><br></font> 击杀10000名NPC<br><!--{/if}-->
+<!--{if ($c310=='999') }--><font color="olive">奖励： 切糕1500 <span class="linen">随机A级卡片</span><br></font> 击杀10000名NPC<br><!--{/if}-->
+</td>
+</tr></table>
