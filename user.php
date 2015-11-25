@@ -20,13 +20,8 @@ require config('card',$gamecfg);
 $jfile=GAME_ROOT."./gamedata/cache/card.json";
 $cdfile=GAME_ROOT."./gamedata/cache/card_1.php";
 if ((!file_exists($jfile)) || (filemtime($cdfile) > filemtime($jfile))){
-	if(!$fp = fopen($jfile, 'w')) {
-		gexit("咕咕咕");
-	}
 	$jdesc=json_encode($carddesc,JSON_UNESCAPED_UNICODE);
-	flock($fp, 2);
-	fwrite($fp, $jdesc);
-	fclose($fp);
+	writeover($jfile,$jdesc);
 }
 
 if(!isset($mode)){

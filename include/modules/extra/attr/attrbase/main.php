@@ -21,8 +21,9 @@ namespace attrbase
 	function get_ex_attack_array(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['is_wpg']!=true)
+		if (strpos($pa['wepk'],$pa['wep_kind'])!==false)
 			$ret = \itemmain\get_itmsk_array($pa['wepsk']);
+			
 		if (defined('MOD_ARMOR_ART'))
 		{
 			$ret = array_merge($ret,\itemmain\get_itmsk_array($pa['artsk']));

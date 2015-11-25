@@ -82,7 +82,13 @@ namespace itemmix
 				itemreduce('itm'.$val);
 			}
 
-			list($itm0,$itmk0,$itme0,$itms0,$itmsk0) = $minfo['result'];
+			$itm0 = $minfo['result'][0];
+			$itmk0 = $minfo['result'][1];
+			$itme0 = $minfo['result'][2];
+			$itms0 = $minfo['result'][3];
+			if (isset($minfo['result'][4]))
+				$itmsk0 = $minfo['result'][4];
+			else  $itmsk0 = '';
 			
 			itemmix_success();
 		}
