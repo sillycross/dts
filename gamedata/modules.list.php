@@ -53,6 +53,7 @@ skill413,extra/club/skills/skill413/,1
 skill302,extra/achievement/skills/skill302/,1
 skill303,extra/achievement/skills/skill303/,1
 skill304,extra/achievement/skills/skill304/,1
+skill308,extra/achievement/skills/skill308/,1
 skill69,extra/club/skills/skill69/,1
 skill300,extra/achievement/skills/skill300/,1
 attrbase,extra/attr/attrbase/,1
