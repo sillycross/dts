@@ -166,13 +166,20 @@ namespace ex_dmg_att
 		return $tot;
 	}
 			
+	function attr_dmg_check_not_WPG(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//必须作为本系武器使用才有属性伤害（枪械当钝器没有）
+		return (strpos($pa['wepk'],$pa['wep_kind'])!==false);
+	}
+	
 	function strike(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		$chprocess($pa, $pd, $active);
 		
-		if ($pa['is_hit'] && ($pa['is_wpg']!=true))	//命中才开始判定属性伤害，枪械作为钝器使用无属性伤害
+		if ($pa['is_hit'] && attr_dmg_check_not_WPG($pa, $pd, $active))	//命中才开始判定属性伤害，枪械作为钝器使用无属性伤害
 		{
 			$dmg = calculate_ex_attack_dmg($pa, $pd, $active);
 			$pa['dmg_dealt'] += $dmg;

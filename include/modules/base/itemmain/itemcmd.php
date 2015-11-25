@@ -186,7 +186,7 @@ namespace itemmain
 				${'itme'.$i} = $itme0;
 				${'itms'.$i} = $itms0;
 				${'itmsk'.$i} = $itmsk0;
-				$itm0 = $itmk0 = $itmsk = '';
+				$itm0 = $itmk0 = $itmsk0 = '';
 				$itme0 = $itms0 = 0;
 				$mode = 'command';
 				return;

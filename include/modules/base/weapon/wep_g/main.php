@@ -42,16 +42,15 @@ namespace wep_g
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('weapon'));
 		if (substr($pdata['wepk'],1,1) == 'G' && $pdata['weps']==$nosta) {
-			$pdata['is_wpg']=true;
 			return 'P';
 		}
 		else  return $chprocess($pdata);
 	}
 	
-	function get_WG_att_as_WP(&$pa,&$pd,$active)
+	function get_WG_att_as_WP_modifier(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return round($pa['wepe']/5);
+		return 0.1;
 	}
 	
 	function get_external_att(&$pa,&$pd,$active)
@@ -59,7 +58,7 @@ namespace wep_g
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('weapon'));
 		if ($pa['wep_kind']=='P' && substr($pa['wepk'],1,1) == 'G')
-			return get_WG_att_as_WP($pa,$pd,$active);
+			return get_WG_att_as_WP_modifier($pa,$pd,$active)*$chprocess($pa, $pd, $active);
 		else  return $chprocess($pa, $pd, $active);
 	}
 	
