@@ -1,20 +1,20 @@
 <?php
 
-namespace skill308
+namespace skill309
 {
 	function init() 
 	{
-		define('MOD_SKILL308_INFO','achievement;');
-		define('MOD_SKILL308_ACHIEVEMENT_ID','8');
+		define('MOD_SKILL309_INFO','achievement;');
+		define('MOD_SKILL309_ACHIEVEMENT_ID','9');
 	}
 	
-	function acquire308(&$pa)
+	function acquire309(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		\skillbase\skill_setvalue(308,'cnt','0',$pa);
+		\skillbase\skill_setvalue(309,'cnt','0',$pa);
 	}
 	
-	function lost308(&$pa)
+	function lost309(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
@@ -23,8 +23,8 @@ namespace skill308
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		if ((!in_array($gametype,Array(10,11,12,13,14)))&&(!\skillbase\skill_query(308,$pa))) 
-			\skillbase\skill_acquire(308,$pa);
+		if ((!in_array($gametype,Array(10,11,12,13,14)))&&(!\skillbase\skill_query(309,$pa))) 
+			\skillbase\skill_acquire(309,$pa);
 		$chprocess($pa);
 	}
 	
@@ -34,18 +34,19 @@ namespace skill308
 		$chprocess($pa);
 	}
 	
-	function finalize308(&$pa, $data)
+	function finalize309(&$pa, $data)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')					
 			$x=0;						
 		else	$x=base64_decode_number($data);		
 		$ox=$x;
-		$x=\skillbase\skill_getvalue(308,'cnt',$pa);		
+		$x=\skillbase\skill_getvalue(309,'cnt',$pa);		
 		if ($ox!=0) $x=min($x,$ox);
 		
-		if (($x!=0)&&($x<=300)&&(($ox>300)||($ox==0))){
+		if (($x!=0)&&($x<=900)&&(($ox>900)||($ox==0))){
 			\cardbase\get_qiegao(666,$pa);
+			\cardbase\get_card(72,$pa);
 		}
 		
 		return base64_encode_number($x,5);		
@@ -55,23 +56,23 @@ namespace skill308
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','map'));
-		if ($itm0=="【KEY系催泪弹】"){
-			\skillbase\skill_setvalue(308,'cnt',$now-$starttime);
+		if ($itm0=="火水木金土符『贤者之石』"){
+			\skillbase\skill_setvalue(309,'cnt',$now-$starttime);
 		}
 		$chprocess();	
 	}
 
-	function show_achievement308($data)
+	function show_achievement309($data)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')
-			$p308=0;
-		else	$p308=base64_decode_number($data);	
-		$c308=0;
-		if (($p308<=300)&&($p308!=0)){
-			$c308=999;
+			$p309=0;
+		else	$p309=base64_decode_number($data);	
+		$c309=0;
+		if (($p309<=900)&&($p309!=0)){
+			$c309=999;
 		}
-		include template('MOD_SKILL308_DESC');
+		include template('MOD_SKILL309_DESC');
 	}
 }
 

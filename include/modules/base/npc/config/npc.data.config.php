@@ -2418,7 +2418,7 @@ namespace npc
 			'mode' => 1,
 			'num' => 4,
 			'pass' => 'bra',
-			'club' => 99,
+			'club' => 17,
 			'bid' => 0,
 			'inf' => '',
 			'rage' => 188,

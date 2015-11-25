@@ -54,6 +54,7 @@ skill302,extra/achievement/skills/skill302/,1
 skill303,extra/achievement/skills/skill303/,1
 skill304,extra/achievement/skills/skill304/,1
 skill308,extra/achievement/skills/skill308/,1
+skill309,extra/achievement/skills/skill309/,1
 skill69,extra/club/skills/skill69/,1
 skill300,extra/achievement/skills/skill300/,1
 attrbase,extra/attr/attrbase/,1
@@ -80,6 +81,9 @@ npcchat,base/npcchat/,1
 skill21,extra/club/skills/skill21/,1
 ex_hp_def,extra/attr/ex_hp_def/,1
 skill204,extra/club/skills/skill204/,1
+skill310,extra/achievement/skills/skill310/,1
+skill311,extra/achievement/skills/skill311/,1
+skill312,extra/achievement/skills/skill312/,1
 kuji0,extra/card/kuji/kuji0/,1
 kuji1,extra/card/kuji/kuji1/,1
 kuji2,extra/card/kuji/kuji2/,1
@@ -174,6 +178,7 @@ skill412,extra/club/skills/skill412/,1
 skill416,extra/club/skills/skill416/,1
 skill419,extra/club/skills/skill419/,1
 skill414,extra/club/skills/skill414/,1
+skill423,extra/club/skills/skill423/,1
 skill53,extra/club/skills/skill53/,1
 skill55,extra/club/skills/skill55/,1
 skill72,extra/club/skills/skill72/,1
@@ -204,7 +209,6 @@ skill38,extra/club/skills/skill38/,1
 dualwep,base/weapon/dualwep/,1
 ammunition,base/items/ammunition/,1
 ex_attr_silencer,extra/attr/ex_attr_silencer/,1
-skill422,extra/club/skills/skill422/,1
 ex_dmg_att,extra/attr/ex_dmg_att/,1
 skill407,extra/club/skills/skill407/,1
 ex_attr_charge,extra/attr/ex_attr_charge/,1
@@ -218,6 +222,7 @@ skill65,extra/club/skills/skill65/,1
 skill49,extra/club/skills/skill49/,1
 skill201,extra/club/skills/skill201/,1
 skill600,extra/club/skills/skill600/,1
+skill422,extra/club/skills/skill422/,1
 skill231,extra/club/skills/skill231/,1
 skill230,extra/club/skills/skill230/,1
 skill224,extra/club/skills/skill224/,1
