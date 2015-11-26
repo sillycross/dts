@@ -72,7 +72,7 @@ namespace skill310
 		{
 			$x=(int)\skillbase\skill_getvalue(310,'cnt');
 			$x+=1;
-			\skillbase\skill_setvalue(310,'cnt',$x);
+			\skillbase\skill_setvalue(310,'cnt',$x,$pa);
 		}
 	}	
 	
