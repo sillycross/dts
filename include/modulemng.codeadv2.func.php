@@ -146,7 +146,7 @@ function check_eval_magic($tplfile, &$content, &$i2, &$ret)
 	$ret = get_magic_content(strtolower($funcname));
 	//测试
 	//统计函数调用个数
-	$ret='global $___TEMP_CALLS_COUNT; $___TEMP_CALLS_COUNT[\''.$funcname.'\']=1; '.$ret;
+	//$ret='global $___TEMP_CALLS_COUNT; $___TEMP_CALLS_COUNT[\''.$funcname.'\']=1; '.$ret;
 	$ret=str_replace("\n",' ',$ret);
 	return 1;
 }

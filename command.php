@@ -446,7 +446,7 @@ if($teamID){
 
 //测试
 //函数调用计数
-$log.="<span class=\"grey\">Fn call count: ".count($___TEMP_CALLS_COUNT)."</span><br>"; 
+//$log.="<span class=\"grey\">Fn call count: ".count($___TEMP_CALLS_COUNT)."</span><br>"; 
 /*
 $timecost = get_script_runtime($pagestartime);
 if (isset($timecost2)) $log.="<span class=\"grey\">模块加载时间: $timecost2 秒</span><br>"; 
