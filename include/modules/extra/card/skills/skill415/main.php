@@ -44,15 +44,26 @@ namespace skill415
 		if (!\skillbase\skill_query(415,$pd) || !check_unlocked415($pd)) return $chprocess($pa,$pd,$active);
 		eval(import_module('logger'));
 		$var_415=\skillbase\skill_getvalue(415,'lvl',$pd);
+		$pa['dmg_dealt']=(int)$pa['dmg_dealt'];
 		if (($var_415==0)&&(($pa['dmg_dealt']%2)==0)){
-			while (($pa['dmg_dealt']%2)==0) $pa['dmg_dealt']=floor($pa['dmg_dealt']/2);	
-			if ($active) $log .= "<span class=\"yellow\">你的攻击被敌人吸收了！</span><br>";
-			else $log .= "<span class=\"yellow\">敌人的攻击被你吸收了！</span><br>";
+			$tz=1;
+			while ($pa['dmg_dealt']>0 && ($pa['dmg_dealt']%2)==0) 
+			{
+				$pa['dmg_dealt']=floor($pa['dmg_dealt']/2);	
+				$tz*=2;
+			}
+			if ($tz>1)
+			{
+				if ($active) 
+					$log .= "<span class=\"yellow\">你的攻击被敌人的技能「影像」防御了，伤害降低至{$tz}分之一！</span><br>";
+				else 
+					$log .= "<span class=\"yellow\">敌人的攻击被你的技能「影像」防御了，伤害降低至{$tz}分之一！</span><br>";
+			}
 		}
 		if (($var_415==1)&&(($pa['dmg_dealt']%1000)!=666)){
 			$pa['dmg_dealt']=0;
-			if ($active) $log .= "<span class=\"yellow\">你的攻击被敌人完全吸收了！</span><br>";
-			else $log .= "<span class=\"yellow\">敌人的攻击被你完全吸收了！</span><br>";
+			if ($active) $log .= "<span class=\"yellow\">敌人的技能「影像」使你的攻击没有造成任何效果！</span><br>";
+			else $log .= "<span class=\"yellow\">你的技能「影像」使敌人的攻击没有造成任何效果！</span><br>";
 		}
 		$chprocess($pa,$pd,$active);
 	}

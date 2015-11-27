@@ -57,7 +57,8 @@ namespace skill309
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','map'));
 		if ($itm0=="火水木金土符『贤者之石』"){
-			\skillbase\skill_setvalue(309,'cnt',$now-$starttime);
+			if ((int)(\skillbase\skill_getvalue(309,'cnt'))==0)
+				\skillbase\skill_setvalue(309,'cnt',$now-$starttime);
 		}
 		$chprocess();	
 	}

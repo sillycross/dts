@@ -56,7 +56,8 @@ namespace skill308
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','map'));
 		if ($itm0=="【KEY系催泪弹】"){
-			\skillbase\skill_setvalue(308,'cnt',$now-$starttime);
+			if ((int)(\skillbase\skill_getvalue(308,'cnt'))==0)
+				\skillbase\skill_setvalue(308,'cnt',$now-$starttime);
 		}
 		$chprocess();	
 	}
