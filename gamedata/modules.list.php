@@ -20,6 +20,7 @@ skill11,extra/club/skills/skill11/,1
 skill10,extra/club/skills/skill10/,1
 skill305,extra/achievement/skills/skill305/,1
 skill306,extra/achievement/skills/skill306/,1
+skill313,extra/achievement/skills/skill313/,1
 itemmain,base/itemmain/,1
 skill4,base/skills/skill4/,1
 npc,base/npc/,1
@@ -74,6 +75,7 @@ advteam,extra/misc/advteam/,1
 attack,base/attack/,1
 skill301,extra/achievement/skills/skill301/,1
 skill307,extra/achievement/skills/skill307/,1
+instance5,extra/instance/instance5/,1
 cardbase,extra/card/cardbase/,1
 clubbase,extra/club/clubbase/,1
 weapon,base/weapon/weapon/,1

@@ -224,3 +224,34 @@
 </tr>
 </table>
 <!--{/if}-->
+<!--{if $roomdata['roomtype']==5}-->
+<table CellSpacing=0 CellPadding=0 width=100%>
+<tr>
+	<td class="b3" height=10px colspan=5>
+	</td>
+</tr>
+<tr>
+	<td class="b3" height=25px width=100px>
+	</td>
+	<td class="b3" height=25px width=310px>
+		<span style="color:#ff9933;">挑战内容：在1禁前获得尽可能多的金钱</span>
+	</td>
+	<td class="b3" height=25px width=100px>
+	</td>
+</tr>
+<tr>
+	<td class="b3" height=40px width=100px>
+	</td>
+	<!--{eval $i=0;}-->
+	<td id="room-position-$i" class="b3" width=310px align=center style="position:relative;">
+		{template roomslot}
+	</td>
+	<td class="b3" height=40px width=100px>
+	</td>
+</tr>
+<tr>
+	<td class="b3" height=15px colspan=5>
+	</td>
+</tr>
+</table>
+<!--{/if}-->

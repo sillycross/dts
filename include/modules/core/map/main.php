@@ -9,6 +9,26 @@ namespace map
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
+	function check_addarea_gameover($atime){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','map'));
+		$plsnum = sizeof($plsinfo) - 1;
+		if($areanum >= $plsnum) 
+		{
+			\sys\gameover($atime,'end1');
+			return;
+		}
+			
+		if(($alivenum == 1)&&($gamestate >= 30)) { 
+			\sys\gameover($atime);
+			return;
+		} elseif(($alivenum <= 0)&&($gamestate >= 30)) {
+			\sys\gameover($atime,'end1');
+		} else {
+			\sys\rs_game(16+32);
+		}
+	}
+	
 	function add_once_area($atime) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -39,24 +59,7 @@ namespace map
 			addnews($atime, 'addarea',$areaaddlist,$weather);
 			systemputchat($atime,'areaadd',$areaaddlist);
 			
-			if($areanum >= $plsnum) 
-			{
-				\sys\gameover($atime,'end1');
-				return;
-			}
-				
-			if(($alivenum == 1)&&($gamestate >= 30)) { 
-				\sys\gameover($atime);
-				return;
-			} elseif(($alivenum <= 0)&&($gamestate >= 30)) {
-				\sys\gameover($atime,'end1');
-				return $atime;
-			} else {
-				\sys\rs_game(16+32);
-				//$areatime += $areahour*3600;
-				//addarea($areatime);
-				return;
-			}
+			check_addarea_gameover($atime);
 		} else {
 			return;
 		}
