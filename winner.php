@@ -7,6 +7,7 @@ require './include/common.inc.php';
 eval(import_module('player'));
 
 if (isset($_POST['user_prefix'])) $room_prefix=$user_prefix; else $user_prefix = $room_prefix[0];
+if (isset($_POST['show_all'])) $showall=$show_all; else $showall=1;
 $room_gprefix = '';
 if ($room_prefix!='') $room_gprefix = ((string)$room_prefix).'.';
 if ($room_gprefix!='') $wtablepre = $gtablepre . $room_gprefix[0]; else $wtablepre = $gtablepre;
@@ -30,9 +31,17 @@ if($command == 'info') {
 } else {
 	if(!isset($start) || !$start){
 		$start = 0;
-		$result = $db->query("SELECT gid,gametype,teamID,winnum,namelist,name,icon,gd,wep,wmode,getime,motto,hdp,hdmg,hkp,hkill FROM {$wtablepre}winners ORDER BY gid desc LIMIT $winlimit");
+		if ($showall==1){
+			$result = $db->query("SELECT gid,gametype,teamID,winnum,namelist,name,icon,gd,wep,wmode,getime,motto,hdp,hdmg,hkp,hkill FROM {$wtablepre}winners ORDER BY gid desc LIMIT $winlimit");
+		}else{
+			$result = $db->query("SELECT gid,gametype,teamID,winnum,namelist,name,icon,gd,wep,wmode,getime,motto,hdp,hdmg,hkp,hkill FROM {$wtablepre}winners WHERE wmode!='1' ORDER BY gid desc LIMIT $winlimit");
+		}
 	} else {
-		$result = $db->query("SELECT gid,gametype,teamID,winnum,namelist,name,icon,gd,wep,wmode,getime,motto,hdp,hdmg,hkp,hkill FROM {$wtablepre}winners WHERE gid<='$start' ORDER BY gid desc LIMIT $winlimit");
+		if ($showall==1){
+			$result = $db->query("SELECT gid,gametype,teamID,winnum,namelist,name,icon,gd,wep,wmode,getime,motto,hdp,hdmg,hkp,hkill FROM {$wtablepre}winners WHERE gid<='$start' ORDER BY gid desc LIMIT $winlimit");
+		}else{
+			$result = $db->query("SELECT gid,gametype,teamID,winnum,namelist,name,icon,gd,wep,wmode,getime,motto,hdp,hdmg,hkp,hkill FROM {$wtablepre}winners WHERE gid<='$start' AND wmode!='1' ORDER BY gid desc LIMIT $winlimit");
+		}
 	}
 	while($wdata = $db->fetch_array($result)) {
 		$wdata['date'] = date("Y-m-d",$wdata['getime']);
