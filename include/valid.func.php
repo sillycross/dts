@@ -43,7 +43,7 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 	$itm[2] = '矿泉水'; $itmk[2] = 'HS'; $itme[2] = 100; $itms[2] = 30;
 
 	//solo局补给增加，配发探测器
-	if (in_array($gametype,$elorated_mode))
+	if (in_array($gametype,Array(10,11,12,13,14)))
 	{
 		$itms[1] = 50; $itms[2] = 50;
 		$itm[5] = '生命探测器'; $itmk[5] = 'ER'; $itme[5] = 5; $itms[5] = 1;

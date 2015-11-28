@@ -397,15 +397,10 @@ if ($command=='ready' && !$not_ready_command_flag)
 					$db->query("UPDATE {$tablepre}players SET teamID='{$roomtypelist[$roomdata['roomtype']]['teamID'][$roomtypelist[$roomdata['roomtype']]['leader-position'][$i]]}' WHERE name='$pname'");
 				}
 			//进入连斗
-			if (in_array($roomtypelist['roomtype'],array(0,1,2,3,4))){
-				$gamestate = 40;
-				addnews($now,'combo');
-				systemputchat($now,'combo');
-			}else{
-				$gamestate = 30;
-			}
+			$gamestate = 40;
+			addnews($now,'combo');
+			systemputchat($now,'combo');
 			save_gameinfo();
-			
 			//再次广播信息，这次让所有玩家跳转到游戏中
 			$roomdata['roomstat']=0;
 			$db->query("UPDATE {$gtablepre}rooms SET status=2 WHERE roomid='$roomid'");

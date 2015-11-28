@@ -306,7 +306,7 @@ namespace elorating
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		if ($room_prefix[0]=='s' && in_array($gametype,$elorated_mode))
+		if ($room_prefix[0]=='s' && in_array($gametype,Array(10,11,12,13,14)))
 		{
 			$tlist=Array();
 			$result = $db->query("SELECT name,hp,state,teamID,killnum FROM {$tablepre}players WHERE type = 0");

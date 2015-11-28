@@ -23,7 +23,7 @@ namespace skill308
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		if ((!in_array($gametype,$ach_ignore_mode))&&(!\skillbase\skill_query(308,$pa))) 
+		if ((!in_array($gametype,Array(10,11,12,13,14)))&&(!\skillbase\skill_query(308,$pa))) 
 			\skillbase\skill_acquire(308,$pa);
 		$chprocess($pa);
 	}
@@ -41,8 +41,7 @@ namespace skill308
 			$x=0;						
 		else	$x=base64_decode_number($data);		
 		$ox=$x;
-		$x=\skillbase\skill_getvalue(308,'cnt',$pa);	
-		if ($x==0) $x=$ox;
+		$x=\skillbase\skill_getvalue(308,'cnt',$pa);		
 		if ($ox!=0) $x=min($x,$ox);
 		
 		if (($x!=0)&&($x<=300)&&(($ox>300)||($ox==0))){
@@ -55,7 +54,7 @@ namespace skill308
 	function itemmix_success()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player'));
+		eval(import_module('sys','player','logger','map'));
 		if ($itm0=="【KEY系催泪弹】"){
 			\skillbase\skill_setvalue(308,'cnt',$now-$starttime);
 		}

@@ -74,7 +74,7 @@ namespace skill234
 					${'itms'.$position} =1;
 					\skillbase\skill_lost(234);
 					
-					if ((($areanum/$areaadd)<4)&&(!in_array($gametype,$qiegao_ignore_mode))){
+					if ((($areanum/$areaadd)<4)&&(!in_array($gametype,Array(10,11,12,13,14)))){
 						if (\cardbase\get_card(63)==1){
 							$log.="恭喜您获得了活动奖励卡<span class=\"orange\">lemon</span>！<br>";
 						}else{

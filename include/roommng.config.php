@@ -194,29 +194,6 @@ $roomtypelist = Array(
  		),
 		'show-team-leader' => 1,
 	),
-	/*5 => Array(
-		'name' => '<span class="lime">PVE</span> 英雄模式',
-		'pnum' => 4,
-		'leader-position' => Array(
-			0 => 0,
-			1 => 1,
-			2 => 2,
-			3 => 3,
-		),
-		'color' => Array(
-			0 => 'ff0022',
-			1 => '5900ff',
-			2 => '8cff00',
-			3 => 'ffc700',
-		),
-		'teamID' => Array(
-			0 => '主攻',
-			1 => '副攻', 
-			2 => '辅助',
-			3 => '辅助',
- 		),
-		'show-team-leader' => 0,
-	),*/
 );
 	
 ?>
