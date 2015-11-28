@@ -41,7 +41,8 @@ namespace skill309
 			$x=0;						
 		else	$x=base64_decode_number($data);		
 		$ox=$x;
-		$x=\skillbase\skill_getvalue(309,'cnt',$pa);		
+		$x=\skillbase\skill_getvalue(309,'cnt',$pa);
+		if ($x==0) $x=$ox;
 		if ($ox!=0) $x=min($x,$ox);
 		
 		if (($x!=0)&&($x<=900)&&(($ox>900)||($ox==0))){
