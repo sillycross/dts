@@ -23,7 +23,7 @@ namespace skill311
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		if ((!in_array($gametype,Array(10,11,12,13,14)))&&(!\skillbase\skill_query(311,$pa))) //也可以做一些只有房间模式有效的成就
+		if ((!in_array($gametype,$ach_ignore_mode))&&(!\skillbase\skill_query(311,$pa))) //也可以做一些只有房间模式有效的成就
 			\skillbase\skill_acquire(311,$pa);
 		$chprocess($pa);
 	}

@@ -224,3 +224,67 @@
 </tr>
 </table>
 <!--{/if}-->
+<!--{if $roomdata['roomtype']==5}-->
+<table CellSpacing=0 CellPadding=0 width=100%>
+<tr>
+	<td class="b3" height=10px colspan=5>
+	</td>
+</tr>
+<tr>
+	<td class="b3" height=25px width=65px>
+	</td>
+	<td class="b3" height=25px width=80px>
+		<span style="color:#ff0022;">主攻</span>
+	</td>
+	<td class="b3" height=25px width=10px>
+	</td>
+	<td class="b3" height=25px width=80px>
+		<span style="color:#5900ff;">副攻</span>
+	</td>
+	<td class="b3" height=25px width=10px>
+	</td>
+	<td class="b3" height=25px width=80px>
+		<span style="color:#8cff00;">辅助</span>
+	</td>
+	<td class="b3" height=25px width=10px>
+	</td>
+	<td class="b3" height=25px width=80px>
+		<span style="color:#ffc700;">辅助</span>
+	</td>
+	<td class="b3" height=25px width=65px>
+	</td>
+</tr>
+<tr>
+	<td class="b3" height=40px width=65px>
+	</td>
+	<!--{eval $i=0;}-->
+	<td id="room-position-$i" class="b3" width=80px align=center style="position:relative;">
+		{template roomslot_s}
+	</td>
+	<td class="b3" height=40px width=10px>
+	</td>
+	<!--{eval $i=1;}-->
+	<td id="room-position-$i" class="b3" width=80px align=center style="position:relative;">
+		{template roomslot_s}
+	</td>
+	<td class="b3" height=40px width=10px>
+	</td>
+	<!--{eval $i=2;}-->
+	<td id="room-position-$i" class="b3" width=80px align=center style="position:relative;">
+		{template roomslot_s}
+	</td>
+	<td class="b3" height=40px width=10px>
+	</td>
+	<!--{eval $i=3;}-->
+	<td id="room-position-$i" class="b3" width=80px align=center style="position:relative;">
+		{template roomslot_s}
+	</td>
+	<td class="b3" height=40px width=65px>
+	</td>
+</tr>
+<tr>
+	<td class="b3" height=15px colspan=5>
+	</td>
+</tr>
+</table>
+<!--{/if}-->
