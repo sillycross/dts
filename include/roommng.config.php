@@ -194,6 +194,23 @@ $roomtypelist = Array(
  		),
 		'show-team-leader' => 1,
 	),
+	5 => Array(
+		'name' => '<span class="yellow">伐木挑战</span>',
+		'pnum' => 1,	//最大参与人数
+		'leader-position' => Array(	//各个编号位置的所属队伍队长位置
+			0 => 0,
+		),
+		'color' => Array(		//队伍颜色，只需对队长设置即可
+			0 => 'ff0022',
+		),
+		'teamID' => Array(	//队伍名，只需对队长设置即可
+			0 => '挑战者',
+		),
+		'show-team-leader' => 0,	//是否显示“队长”标签（如队伍大于1人设为1）
+		'card' => array(
+			0 => '0',
+		)
+	),
 );
 	
 ?>

@@ -99,7 +99,7 @@ namespace addnpc
 		if (strpos ( $itmk, 'Y' ) === 0 || strpos ( $itmk, 'Z' ) === 0) 
 		{
 			if ($itm == '挑战者之印') {
-				if (in_array($gametype,Array(10,11,12,13,14)))
+				if (in_array($gametype,$pve_ignore_mode))
 				{
 					$log.="你使用了{$itm}，但是什么也没有发生（当前游戏模式下不允许PVE）。<br>";
 					return;
@@ -113,7 +113,7 @@ namespace addnpc
 				$itme = $itms = 0;
 				return;
 			} elseif ($itm == '破灭之诗') {
-				if (in_array($gametype,Array(10,11,12,13,14)))
+				if (in_array($gametype,$pve_ignore_mode))
 				{
 					$log.="你使用了{$itm}，但是什么也没有发生（当前游戏模式下不允许PVE）。<br>";
 					return;
@@ -134,7 +134,7 @@ namespace addnpc
 				$itme = $itms = 0;
 				return;
 			} elseif ($itm == '黑色碎片') {
-				if (in_array($gametype,Array(10,11,12,13,14)))
+				if (in_array($gametype,$pve_ignore_mode))
 				{
 					$log.="你使用了{$itm}，但是什么也没有发生（当前游戏模式下不允许PVE）。<br>";
 					return;

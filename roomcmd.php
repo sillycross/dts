@@ -384,6 +384,10 @@ if ($command=='ready' && !$not_ready_command_flag)
 			{
 				addnews($now,'roominfo',$roomtypelist[$roomdata['roomtype']]['name'],'对决者:&nbsp;<span style="color:#ff0022">红队&nbsp;'.room_getteamhtml($roomdata,0).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#5900ff">蓝队 '.room_getteamhtml($roomdata,5).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#8cff00">绿队 '.room_getteamhtml($roomdata,10).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#ffc700">黄队 '.room_getteamhtml($roomdata,15).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#fefefe">白队 '.room_getteamhtml($roomdata,20).'</span>！');
 			}
+			else if ($roomdata['roomtype']==5)	//单人挑战
+			{	
+				addnews($now,'roominfo',$roomtypelist[$roomdata['roomtype']]['name'],'挑战者:&nbsp;'.room_getteamhtml($roomdata,0).'！');
+			}
 			//所有玩家进入游戏
 			for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
 				if (!$roomdata['player'][$i]['forbidden'])
@@ -393,14 +397,23 @@ if ($command=='ready' && !$not_ready_command_flag)
 					$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username = '$pname'");
 					if($db->num_rows($result)!=1) continue;
 					$pdata = $db->fetch_array($result);
-					enter_battlefield($pdata['username'],$pdata['password'],$pdata['gender'],$pdata['icon'],$pdata['card']);
+					$pcard = $pdata['card'];
+					if (isset($roomtypelist[$roomdata['roomtype']]['card'])){
+						$pcard=$roomtypelist[$roomdata['roomtype']]['card'][$i];
+					}
+					enter_battlefield($pdata['username'],$pdata['password'],$pdata['gender'],$pdata['icon'],$pcard);
 					$db->query("UPDATE {$tablepre}players SET teamID='{$roomtypelist[$roomdata['roomtype']]['teamID'][$roomtypelist[$roomdata['roomtype']]['leader-position'][$i]]}' WHERE name='$pname'");
 				}
 			//进入连斗
-			$gamestate = 40;
-			addnews($now,'combo');
-			systemputchat($now,'combo');
+			if (in_array($roomdata['roomtype'],array(0,1,2,3,4))){
+				$gamestate = 40;
+				addnews($now,'combo');
+				systemputchat($now,'combo');
+			}else{
+				$gamestate = 30;
+			}
 			save_gameinfo();
+			
 			//再次广播信息，这次让所有玩家跳转到游戏中
 			$roomdata['roomstat']=0;
 			$db->query("UPDATE {$gtablepre}rooms SET status=2 WHERE roomid='$roomid'");
@@ -413,4 +426,3 @@ if ($command=='ready' && !$not_ready_command_flag)
 }
 
 ?>
-

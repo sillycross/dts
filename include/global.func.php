@@ -475,7 +475,7 @@ function set_credits(){
 			//$obtain = get_honour_obtain($val['players'],$val['users']);
 			//$honour = $val['users']['honour'] . $obtain;
 			$lastwin=$val['users']['lastwin'];
-			if (($winner==$val['players']['name'])&&(($now-$lastwin)>72000)&&(!in_array($gametype,Array(10,11,12,13,14)))){
+			if (($winner==$val['players']['name'])&&(($now-$lastwin)>72000)&&(!in_array($gametype,$qiegao_ignore_mode))){
 				if ($lastwin==0) $gold+=800;//帐号首次获胜
 				$lastwin=$now;
 				$gold+=200;//首胜	
@@ -501,7 +501,7 @@ function set_credits(){
 
 function get_credit_up($data,$winner = '',$winmode = 0){
 	global $gametype;
-	if (in_array($gametype,Array(10,11,12,13,14))) return 0;
+	if (in_array($gametype,$qiegao_ignore_mode)) return 0;
 	if($data['name'] == $winner){//获胜
 		if($winmode == 2){$up = 200;}//最后幸存+200
 		elseif($winmode == 3){$up = 500;}//解禁+500
@@ -533,7 +533,7 @@ function get_credit_up($data,$winner = '',$winmode = 0){
 
 function get_gold_up($data,$winner = '',$winmode = 0){
 	global $gametype,$now;
-	if (in_array($gametype,Array(10,11,12,13,14))) return 0;//嘻嘻
+	if (in_array($gametype,$qiegao_ignore_mode)) return 0;//嘻嘻
 	if($data['name'] == $winner){//获胜
 		if($winmode == 3){$up = 60;}//解禁
 		elseif($winmode == 7){$up = 150;}//解离
