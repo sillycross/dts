@@ -413,6 +413,9 @@ $cards=array(
 	88=>array(
 		'skills'=>array('423'=>'0'),
 	),
+	89=>array(
+		'money'=>'1000',
+	),
 );
 $carddesc=array(
 	0=>array(
@@ -1037,6 +1040,13 @@ $carddesc=array(
 		'desc'=>'撒旦本人',
 		'pack'=>'Event Bonus',
 		'effect'=>'可以和SCP谈笑风生',
+	),
+	89=>array(
+		'name'=>'富一代',
+		'rare'=>'S',
+		'desc'=>'富二代的爸爸',
+		'pack'=>'Event Bonus',
+		'effect'=>'开局金钱为1000',
 	),
 );
 ?>

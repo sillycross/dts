@@ -4,6 +4,14 @@ namespace itemshop
 {
 	function init() {}
 	
+	function get_shoplist(){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		eval(import_module('sys'));
+		$file = __DIR__.'/config/shopitem.config.php';
+		$sl = openfile($file);
+		return $sl;
+	}
+	
 	function rs_game($xmode)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
@@ -18,9 +26,9 @@ namespace itemshop
 			$sql = file_get_contents("{$sqldir}shopitem.sql");
 			$sql = str_replace("\r", "\n", str_replace(' bra_', ' '.$tablepre, $sql));
 			$db->queries($sql);
-
-			$file = __DIR__.'/config/shopitem.config.php';
-			$shoplist = openfile($file);
+			
+			$shoplist=get_shoplist();
+			
 			$qry = '';
 			foreach($shoplist as $lst){
 				if(!empty($lst) && strpos($lst,',')!==false){
