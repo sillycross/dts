@@ -466,6 +466,7 @@ function set_credits(){
 	while($data = $db->fetch_array($result)){
 		$list[$data['username']]['users'] = $data;
 	}
+	eval(import_module('sys'));
 	foreach($list as $key => $val){
 		if(isset($val['players']) && isset($val['users'])){
 			$credits = get_credit_up($val['players'],$winner,$winmode) + $val['users']['credits'];
@@ -501,6 +502,7 @@ function set_credits(){
 
 function get_credit_up($data,$winner = '',$winmode = 0){
 	global $gametype;
+	eval(import_module('sys'));
 	if (in_array($gametype,$qiegao_ignore_mode)) return 0;
 	if($data['name'] == $winner){//获胜
 		if($winmode == 2){$up = 200;}//最后幸存+200
@@ -533,6 +535,7 @@ function get_credit_up($data,$winner = '',$winmode = 0){
 
 function get_gold_up($data,$winner = '',$winmode = 0){
 	global $gametype,$now;
+	eval(import_module('sys'));
 	if (in_array($gametype,$qiegao_ignore_mode)) return 0;//嘻嘻
 	if($data['name'] == $winner){//获胜
 		if($winmode == 3){$up = 60;}//解禁

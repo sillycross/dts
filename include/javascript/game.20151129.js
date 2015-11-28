@@ -3,7 +3,15 @@ function hotkey(evt)
 	if(document.activeElement.tagName != 'INPUT'){
 		evt = (evt) ? evt : ((window.event) ? window.event : '');
 		var ky = evt.keyCode ? evt.keyCode : evt.which;
-		if(!evt.ctrlKey && !evt.altKey && !evt.shiftKey){
+		tdiv=document.getElementById("timer");
+		flag=1;
+		if (tdiv!=undefined) {
+			rt=tdiv.innerText;
+			if (rt[0]!='0') flag=0;
+			if (rt[1]!='.') flag=0;
+			if (rt[2]!='0') flag=0;
+		}	
+		if(!evt.ctrlKey && !evt.altKey && !evt.shiftKey && flag==1){
 			if(ky==90){
 				$('z').click();
 			}
