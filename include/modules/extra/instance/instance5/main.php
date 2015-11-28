@@ -45,7 +45,10 @@ namespace instance5
 				return;
 			}
 			if ($areanum>=$areaadd){//限时1禁
-				\sys\gameover($atime,'end8');
+				$result = $db->query("SELECT * FROM {$tablepre}players WHERE hp>0 AND type=0");
+				$wdata = $db->fetch_array($result);
+				$winner = $wdata['name'];
+				\sys\gameover($atime,'end8',$winner);
 				return;
 			}
 		}
