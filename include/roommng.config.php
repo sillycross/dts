@@ -3,7 +3,7 @@
 //房间设置
 
 //最大房间数目
-$max_room_num = 50;
+$max_room_num = 5;
 
 //长轮询端口号范围
 $room_poll_port_low = 25000;
