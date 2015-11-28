@@ -75,7 +75,6 @@ advteam,extra/misc/advteam/,1
 attack,base/attack/,1
 skill301,extra/achievement/skills/skill301/,1
 skill307,extra/achievement/skills/skill307/,1
-instance5,extra/instance/instance5/,1
 cardbase,extra/card/cardbase/,1
 clubbase,extra/club/clubbase/,1
 weapon,base/weapon/weapon/,1
@@ -258,6 +257,7 @@ skill26,extra/club/skills/skill26/,1
 skill51,extra/club/skills/skill51/,1
 ex_gender_attr,extra/attr/ex_gender_attr/,1
 ex_attr_pierce,extra/attr/ex_attr_pierce/,1
+instance5,extra/instance/instance5/,1
 skill42,extra/club/skills/skill42/,1
 addnpc,base/addnpc/,1
 skill50,extra/club/skills/skill50/,1

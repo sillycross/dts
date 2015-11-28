@@ -51,6 +51,7 @@ namespace skill313
 		}
 		if (($ox<100000)&&($x>=100000)){
 			\cardbase\get_qiegao(2400,$pa);
+			\cardbase\get_card(89,$pa);
 		}
 		
 		return base64_encode_number($x,5);		
