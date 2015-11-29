@@ -12,61 +12,69 @@ function hotkey(evt)
 		if(!evt.ctrlKey && !evt.altKey && !evt.shiftKey){
 			if (flag==1){
 				if(ky==90){
-					$('zz').click();
+					k=document.getElementById("zz");
+					if (k) $('zz').click(); else $('z').click();
 				}
 				if(ky==65){
-					$('aa').click();
+					k=document.getElementById("aa");
+					if (k) $('aa').click(); else $('a').click();
 				}
 				if(ky==68){
-					$('dd').click();
+					k=document.getElementById("dd");
+					if (k) $('dd').click(); else $('d').click();
 				}	
 				if(ky==69){
-					$('ee').click();
+					k=document.getElementById("ee");
+					if (k) $('e').click(); else $('e').click();
 				}
 				if(ky==83){
-					$('ss').click();
+					k=document.getElementById("ss");
+					if (k) $('ss').click(); else $('s').click();
 				}
 				if(ky==81){
-					$('qq').click();
+					k=document.getElementById("qq");
+					if (k) $('qq').click(); else $('q').click();
 				}	
 				if(ky==87){
-					$('ww').click();
+					k=document.getElementById("ww");
+					if (k) $('ww').click(); else $('w').click();
 				}	
+			}else{
+				if(ky==90){
+					$('z').click();
+				}
+				if(ky==88){
+					$('x').click();
+				}
+				if((ky>=49)&&(ky<=54)){
+					var kc=(ky-48).toString();
+					$(kc).click();
+				}
+				if(ky==65){
+					$('a').click();
+				}
+				if(ky==67){
+					$('c').click();
+				}
+				if(ky==68){
+					$('d').click();
+				}	
+				if(ky==69){
+					$('e').click();
+				}
+				if(ky==83){
+					$('s').click();
+				}
+				if(ky==81){
+					$('q').click();
+				}
+				if(ky==86){
+					$('v').click();
+				}	
+				if(ky==87){
+					$('w').click();
+				}
 			}
-			if(ky==90){
-				$('z').click();
-			}
-			if(ky==88){
-				$('x').click();
-			}
-			if((ky>=49)&&(ky<=54)){
-				var kc=(ky-48).toString();
-				$(kc).click();
-			}
-			if(ky==65){
-				$('a').click();
-			}
-			if(ky==67){
-				$('c').click();
-			}
-			if(ky==68){
-				$('d').click();
-			}	
-			if(ky==69){
-				$('e').click();
-			}
-			if(ky==83){
-				$('s').click();
-			}
-			if(ky==81){
-				$('q').click();
-			}
-			if(ky==86){
-				$('v').click();
-			}	
-			if(ky==87){
-				$('w').click();
-			}	
 		}
 	}	
 }
