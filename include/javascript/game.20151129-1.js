@@ -11,6 +11,9 @@ function hotkey(evt)
 			if (rt[1]!='.') flag=0;
 			if (rt[2]!='0') flag=0;
 		}	
+		if(ky==88){
+			flag=1;
+		}	
 		if(!evt.ctrlKey && !evt.altKey && !evt.shiftKey && flag==1){
 			if(ky==90){
 				$('z').click();

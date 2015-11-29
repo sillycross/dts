@@ -160,7 +160,7 @@ namespace cooldown
 		}
 		if($hp > 0 && $coldtimeon && $showcoldtimer && $rmcdtime){
 			$x1=$rmcdtime/1000; $x1=(int)$x1; $y1=($rmcdtime%1000)/100; $y1=(int)$y1;
-			$log .= "行动冷却时间：<span id=\"timer\" class=\"yellow\">{$x1}.{$y1}</span>秒<br>";
+			$log .= "行动冷却时间：<span id=\"timer\" class=\"yellow\">{$x1}.{$y1}</span>秒<script type=\"text/javascript\">demiSecTimerStarter($rmcdtime);</script><br>";
 		}
 	}
 	
