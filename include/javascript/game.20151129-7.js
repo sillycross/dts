@@ -49,6 +49,9 @@ function hotkey(evt)
 					var kc=(ky-48).toString();
 					$(kc).click();
 				}
+				if(ky==88){
+					$('x').click();
+				}
 			}else{
 				if(ky==90){
 					$('z').click();
