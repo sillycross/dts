@@ -85,6 +85,8 @@ function demiSecTimer(){
 	}	else {
 		clearInterval(timerid);
 		delete timerid;
+		tdiv=document.getElementById("timer");  
+		tdiv.parentNode.removeChild(div);  
 	}
 }
 
