@@ -1,20 +1,38 @@
+var ms;
 function hotkey(evt) 
 { 
 	if(document.activeElement.tagName != 'INPUT'){
 		evt = (evt) ? evt : ((window.event) ? window.event : '');
 		var ky = evt.keyCode ? evt.keyCode : evt.which;
-		tdiv=document.getElementById("timer");
 		flag=1;
-		if (tdiv!=undefined) {
-			rt=tdiv.innerText;
-			if (rt[0]!='0') flag=0;
-			if (rt[1]!='.') flag=0;
-			if (rt[2]!='0') flag=0;
+		if (ms!=undefined) {
+			if (ms>0) flag=0;
 		}	
-		if(ky==88){
-			flag=1;
-		}	
-		if(!evt.ctrlKey && !evt.altKey && !evt.shiftKey && flag==1){
+		//双字母id=冷却时间内不可执行的操作 单字母可以执行
+		if(!evt.ctrlKey && !evt.altKey && !evt.shiftKey){
+			if (flag==1){
+				if(ky==90){
+					$('zz').click();
+				}
+				if(ky==65){
+					$('aa').click();
+				}
+				if(ky==68){
+					$('dd').click();
+				}	
+				if(ky==69){
+					$('ee').click();
+				}
+				if(ky==83){
+					$('ss').click();
+				}
+				if(ky==81){
+					$('qq').click();
+				}	
+				if(ky==87){
+					$('ww').click();
+				}	
+			}
 			if(ky==90){
 				$('z').click();
 			}
@@ -48,7 +66,7 @@ function hotkey(evt)
 			}	
 			if(ky==87){
 				$('w').click();
-			}			
+			}	
 		}
 	}	
 }
@@ -83,10 +101,9 @@ function demiSecTimer(){
 		var dsec = Math.floor((ms%1000)/100);
 		$('timer').innerHTML = sec + '.' + dsec;
 	}	else {
+		ms=0;
 		clearInterval(timerid);
-		delete timerid;
-		tdiv=document.getElementById("timer");  
-		tdiv.parentNode.removeChild(div);  
+		delete timerid; 
 	}
 }
 
