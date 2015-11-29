@@ -91,7 +91,7 @@ function demiSecTimer(){
 function demiSecTimerStarter(msec){
 	itv = 100;//by millisecend
 	ms = msec;
-	timerid = setInterval("demiSecTimer()",itv);
+	timerid = setInterval(demiSecTimer,itv);
 }
 
 function itemmixchooser(){
