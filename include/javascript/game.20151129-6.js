@@ -25,7 +25,7 @@ function hotkey(evt)
 				}	
 				if(ky==69){
 					k=document.getElementById("ee");
-					if (k) $('e').click(); else $('e').click();
+					if (k) $('ee').click(); else $('e').click();
 				}
 				if(ky==83){
 					k=document.getElementById("ss");
@@ -39,6 +39,16 @@ function hotkey(evt)
 					k=document.getElementById("ww");
 					if (k) $('ww').click(); else $('w').click();
 				}	
+				if(ky==67){
+					$('c').click();
+				}
+				if(ky==86){
+					$('v').click();
+				}	
+				if((ky>=49)&&(ky<=54)){
+					var kc=(ky-48).toString();
+					$(kc).click();
+				}
 			}else{
 				if(ky==90){
 					$('z').click();
