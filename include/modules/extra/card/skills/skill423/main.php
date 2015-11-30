@@ -4,7 +4,7 @@ namespace skill423
 {
 	function init() 
 	{
-		define('MOD_SKILL423_INFO','club;unique;locked;');
+		define('MOD_SKILL423_INFO','club;unique;hidden;');
 		eval(import_module('clubbase'));
 		$clubskillname[423] = '魔鬼';
 	}
