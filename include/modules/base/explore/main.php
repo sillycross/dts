@@ -11,13 +11,6 @@ namespace explore
 		
 		$movesp = 15;
 		
-		if($club == 6){
-			if($lvl>=20){
-				$movesp -= 14;
-			}else{
-				$movesp -= 10+floor($lvl/5);
-			}
-		}
 		return $movesp;
 	}
 	
@@ -47,7 +40,7 @@ namespace explore
 			return;
 		}
 		
-		$movesp=calculate_move_sp_cost();
+		$movesp=max(calculate_move_sp_cost(),1);
 		
 		if($sp <= $movesp){
 			$log .= "体力不足，不能移动！<br>还是先睡会儿吧！<br>";
@@ -72,14 +65,7 @@ namespace explore
 		eval(import_module('sys','player','map'));
 		
 		$schsp =15;
-
-		if($club == 6){
-			if($lvl>=20){
-				$schsp -= 14;
-			}else{
-				$schsp -= 10+floor($lvl/5);
-			}
-		}
+		
 		return $schsp;
 	}
 	
@@ -98,7 +84,7 @@ namespace explore
 			return;
 		}
 
-		$schsp=calculate_search_sp_cost();
+		$schsp=max(1,calculate_search_sp_cost());
 
 		if($sp <= $schsp){
 			$log .= "体力不足，不能探索！<br>还是先睡会儿吧！<br>";

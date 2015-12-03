@@ -48,7 +48,7 @@ namespace skill410
 	function calculate_search_sp_cost()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ((\skillbase\skill_query(410))&&(check_unlocked410())) return 1;
+		if ((\skillbase\skill_query(410))&&(check_unlocked410())) return $chprocess()-12;
 		return $chprocess();
 	}
 }
