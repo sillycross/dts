@@ -269,6 +269,7 @@ skill51,extra/club/skills/skill51/,1
 ex_gender_attr,extra/attr/ex_gender_attr/,1
 ex_attr_pierce,extra/attr/ex_attr_pierce/,1
 instance5,extra/instance/instance5/,1
+instance6,extra/instance/instance6/,1
 skill42,extra/club/skills/skill42/,1
 addnpc,base/addnpc/,1
 skill50,extra/club/skills/skill50/,1

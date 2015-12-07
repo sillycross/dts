@@ -211,6 +211,27 @@ $roomtypelist = Array(
 			0 => '0',
 		)
 	),
+	6 => Array(
+		'name' => '<span class="green">PVE</span> 解离模式',
+		'pnum' => 3,	//最大参与人数
+		'leader-position' => Array(	//各个编号位置的所属队伍队长位置
+			0 => 0,
+			1 => 0,
+			2 => 0,
+		),
+		'color' => Array(		//队伍颜色，只需对队长设置即可
+			0 => 'ff0022',
+		),
+		'teamID' => Array(	//队伍名，只需对队长设置即可
+			0 => '挑战者',
+		),
+		'show-team-leader' => 1,	//是否显示“队长”标签（如队伍大于1人设为1）
+		'card' => array(
+			0 => '90',
+			1 => '91',
+			2 => '92',
+		)
+	),
 );
 	
 ?>
