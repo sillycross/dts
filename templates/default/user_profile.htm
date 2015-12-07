@@ -77,7 +77,7 @@
 	</table>
 	<div style="width:600px;text-align:center;"><!--{if $curuser && !$cf}--><span class="yellow">您现在不能使用该等级的身份卡，请更换！</span><!--{/if}--><span class="clan">点击天梯积分和身份卡可以查看详细信息</span></div>
 	<div style="width:600px;text-align:center;">
-		<span class="yellow"><!--{if $curuser && !$ff}-->下次可获得额外奖励时间：{$ftd}<!--{else}-->现在获胜可获得额外切糕奖励<!--{/if}--></span><br>
+		<!--{if $curuser}--><!--{if !$ff}--><span class="yellow">下次可获取每日任务时间：{$ftd}</span><!--{else}--><button type="button" onclick="window.location.href='user_profile.php?action=refdaily';this.disabled=true">点击获得新的每日任务</button><!--{/if}--><!--{/if}--><br>
 		<!--{if $curuser && !$sf}--><span class="orange">{$std}开始才可再使用S级身份卡</span><br><!--{/if}-->
 		<!--{if $curuser && !$af}--><span class="linen">{$atd}开始才可再使用A级身份卡</span><br><!--{/if}-->
 		<!--{if $curuser && !$bf}--><span class="brickred">{$btd}开始才可再使用B级身份卡</span><br><!--{/if}-->

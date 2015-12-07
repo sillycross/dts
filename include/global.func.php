@@ -476,11 +476,12 @@ function set_credits(){
 			//$obtain = get_honour_obtain($val['players'],$val['users']);
 			//$honour = $val['users']['honour'] . $obtain;
 			$lastwin=$val['users']['lastwin'];
-			if (($winner==$val['players']['name'])&&(($now-$lastwin)>72000)&&(!in_array($gametype,$qiegao_ignore_mode))){
+			//首胜已放入每日任务
+			/*if (($winner==$val['players']['name'])&&(($now-$lastwin)>72000)&&(!in_array($gametype,$qiegao_ignore_mode))){
 				if ($lastwin==0) $gold+=800;//帐号首次获胜
 				$lastwin=$now;
-				$gold+=200;//首胜	
-			}
+				$gold+=200;
+			}*/
 			$updatelist[] = Array('username' => $key, 'credits' => $credits, 'wingames' => $wingames, 'validgames' => $validgames,'lastwin'=>$lastwin,'gold'=>$gold);
 //			if(!empty($obtain)){
 //				$udghkey[] = $key;
