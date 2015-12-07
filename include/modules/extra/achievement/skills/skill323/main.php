@@ -76,6 +76,7 @@ namespace skill323
 		if ($data=='')
 			$p323=0;
 		else	$p323=base64_decode_number($data);	
+		if ($data=='VWXYZ') $p323=0;
 		$c323=0;
 		if (($p323<=2400)&&($p323!=0)){
 			$c323=999;
