@@ -36,12 +36,11 @@ namespace skill322
 	
 	function finalize322(&$pa, $data)
 	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($data=='VWXYZ') return 'VWXYZ';
-		if ($data=='') return 'VWXYZ';
+		if (eval(__MAGIC__)) return $___RET_VALUE;	
 		if ($data=='')					
 			$x=0;						
 		else	$x=base64_decode_number($data);		
+		if ($data=='VWXYZ') $x=0;
 		$ox=$x;
 		$x=\skillbase\skill_getvalue(322,'cnt',$pa);		
 		if ($x==0) $x=$ox;
@@ -74,6 +73,7 @@ namespace skill322
 		if ($data=='')
 			$p322=0;
 		else	$p322=base64_decode_number($data);	
+		if ($data=='VWXYZ') $p322=0;
 		$c322=0;
 		if (($p322<=1800)&&($p322!=0)){
 			$c322=999;
