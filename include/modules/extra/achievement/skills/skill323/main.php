@@ -37,10 +37,10 @@ namespace skill323
 	function finalize323(&$pa, $data)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($data=='VWXYZ') $x=0;
 		if ($data=='')					
 			$x=0;						
 		else	$x=base64_decode_number($data);		
+		if ($data=='VWXYZ') $x=0;
 		$ox=$x;
 		$x=\skillbase\skill_getvalue(323,'cnt',$pa);		
 		if ($x==0) $x=$ox;

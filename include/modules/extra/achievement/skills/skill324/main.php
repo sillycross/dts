@@ -36,7 +36,8 @@ namespace skill324
 	function finalize324(&$pa, $data)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($data=='VWXYZ') $x=0;
+		if ($data=='VWXYZ') return 'VWXYZ';
+		if ($data=='') return 'VWXYZ';
 		if ($data=='')					
 			$x=0;						
 		else	$x=base64_decode_number($data);		
