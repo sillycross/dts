@@ -388,6 +388,10 @@ if ($command=='ready' && !$not_ready_command_flag)
 			{	
 				addnews($now,'roominfo',$roomtypelist[$roomdata['roomtype']]['name'],'挑战者:&nbsp;'.room_getteamhtml($roomdata,0).'！');
 			}
+			else if ($roomdata['roomtype']==6)	//PVE
+			{	
+				addnews($now,'roominfo',$roomtypelist[$roomdata['roomtype']]['name'],'挑战者:&nbsp;'.room_getteamhtml($roomdata,0).'！');
+			}
 			//所有玩家进入游戏
 			for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
 				if (!$roomdata['player'][$i]['forbidden'])

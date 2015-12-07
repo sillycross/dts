@@ -23,7 +23,7 @@ namespace skill323
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		if ((!in_array($gametype,$ach_ignore_mode))&&(!\skillbase\skill_query(323,$pa))) 
+		if (((!in_array($gametype,$ach_ignore_mode))||($gametype==16))&&(!\skillbase\skill_query(323,$pa))) 
 			\skillbase\skill_acquire(323,$pa);
 		$chprocess($pa);
 	}
