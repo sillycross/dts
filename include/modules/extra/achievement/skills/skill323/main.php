@@ -37,8 +37,7 @@ namespace skill323
 	function finalize323(&$pa, $data)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($data=='VWXYZ') return 'VWXYZ';
-		if ($data=='') return 'VWXYZ';
+		if ($data=='VWXYZ') $x=0;
 		if ($data=='')					
 			$x=0;						
 		else	$x=base64_decode_number($data);		
