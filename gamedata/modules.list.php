@@ -21,6 +21,7 @@ skill10,extra/club/skills/skill10/,1
 skill305,extra/achievement/skills/skill305/,1
 skill306,extra/achievement/skills/skill306/,1
 skill313,extra/achievement/skills/skill313/,1
+skill324,extra/achievement/skills/skill324/,1
 itemmain,base/itemmain/,1
 skill4,base/skills/skill4/,1
 npc,base/npc/,1
@@ -56,6 +57,9 @@ skill303,extra/achievement/skills/skill303/,1
 skill304,extra/achievement/skills/skill304/,1
 skill308,extra/achievement/skills/skill308/,1
 skill309,extra/achievement/skills/skill309/,1
+skill317,extra/achievement/skills/skill317/,1
+skill319,extra/achievement/skills/skill319/,1
+skill320,extra/achievement/skills/skill320/,1
 skill69,extra/club/skills/skill69/,1
 skill300,extra/achievement/skills/skill300/,1
 attrbase,extra/attr/attrbase/,1
@@ -75,6 +79,11 @@ advteam,extra/misc/advteam/,1
 attack,base/attack/,1
 skill301,extra/achievement/skills/skill301/,1
 skill307,extra/achievement/skills/skill307/,1
+skill318,extra/achievement/skills/skill318/,1
+skill322,extra/achievement/skills/skill322/,1
+skill323,extra/achievement/skills/skill323/,1
+skill316,extra/achievement/skills/skill316/,1
+skill321,extra/achievement/skills/skill321/,1
 cardbase,extra/card/cardbase/,1
 clubbase,extra/club/clubbase/,1
 weapon,base/weapon/weapon/,1
@@ -85,6 +94,8 @@ skill204,extra/club/skills/skill204/,1
 skill310,extra/achievement/skills/skill310/,1
 skill311,extra/achievement/skills/skill311/,1
 skill312,extra/achievement/skills/skill312/,1
+skill314,extra/achievement/skills/skill314/,1
+skill315,extra/achievement/skills/skill315/,1
 kuji0,extra/card/kuji/kuji0/,1
 kuji1,extra/card/kuji/kuji1/,1
 kuji2,extra/card/kuji/kuji2/,1

@@ -374,9 +374,9 @@ $cards=array(
 	),
 	78=>array(
 		'itm6'=>'杏仁豆腐的ID卡',
-		'itmk6'=>'Y',
-		'itme6'=>'1',
-		'itms6'=>'1',
+		'itmk6'=>'HB',
+		'itme6'=>'77',
+		'itms6'=>'77',
 		'itmsk6'=>'Z',
 	),
 	79=>array(
