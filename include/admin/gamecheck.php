@@ -31,19 +31,6 @@ while ($row=$db->fetch_array($result)){
 	foreach ($row as $val)
 		echo $val."<br>";
 }*/
-
-$res = $db->query("SELECT * FROM {$gtablepre}users");
-while($data = $db->fetch_array($res)) {
-	$n=$data['username'];
-	$ach=$data['n_achievements'];
-	$achdata=explode(';',$ach);
-	$maxid=24;
-	if ($achdata[22]=='VWXYZ') $achdata[22]='aaaaa';
-	if ($achdata[23]=='VWXYZ') $achdata[23]='aaaaa';
-	$nachdata='';
-	for ($i=0; $i<=$maxid; $i++) $nachdata.=$achdata[$i].';';
-	$db->query("UPDATE {$gtablepre}users SET n_achievements = '$nachdata' WHERE username='{$n}'");	
-}
 /*
 $db->query("ALTER TABLE {$tablepre}swinners ADD cardname text not null AFTER gdlist");
 $db->query("ALTER TABLE {$tablepre}winners ADD cardname text not null AFTER gdlist");
