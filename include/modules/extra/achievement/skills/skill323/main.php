@@ -40,7 +40,6 @@ namespace skill323
 		if ($data=='')					
 			$x=0;						
 		else	$x=base64_decode_number($data);		
-		if ($data=='VWXYZ') $x=0;
 		$ox=$x;
 		$x=\skillbase\skill_getvalue(323,'cnt',$pa);		
 		if ($x==0) $x=$ox;
@@ -76,7 +75,6 @@ namespace skill323
 		if ($data=='')
 			$p323=0;
 		else	$p323=base64_decode_number($data);	
-		if ($data=='VWXYZ') $p323=0;
 		$c323=0;
 		if (($p323<=2400)&&($p323!=0)){
 			$c323=999;
