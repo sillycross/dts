@@ -63,7 +63,7 @@ namespace skill311
 		eval(import_module('cardbase','sys','logger','map'));
 		if ((\skillbase\skill_query(311,$pa))&&($pd['type']==0))
 		{
-			$x=(int)\skillbase\skill_getvalue(311,'cnt');
+			$x=(int)\skillbase\skill_getvalue(311,'cnt',$pa);
 			$x+=1;
 			\skillbase\skill_setvalue(311,'cnt',$x,$pa);
 		}

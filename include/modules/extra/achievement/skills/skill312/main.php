@@ -58,7 +58,7 @@ namespace skill312
 		eval(import_module('cardbase','sys','logger','map'));
 		if ((\skillbase\skill_query(312,$pa))&&($pd['type']==88))
 		{
-			$x=(int)\skillbase\skill_getvalue(312,'cnt');
+			$x=(int)\skillbase\skill_getvalue(312,'cnt',$pa);
 			$x+=1;
 			\skillbase\skill_setvalue(312,'cnt',$x,$pa);
 		}
