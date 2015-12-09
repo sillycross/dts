@@ -90,7 +90,7 @@ CREATE TABLE `acbra2_log` (
   `toid` smallint(5) unsigned NOT NULL DEFAULT '0',
   `type` char(1) NOT NULL DEFAULT '',
   `time` int(10) unsigned NOT NULL DEFAULT '0',
-  `log` text NOT NULL,
+  `log` text NOT NULL DEFAULT '',
   PRIMARY KEY (`lid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -111,7 +111,7 @@ CREATE TABLE `acbra2_mapitem` (
   `itmsk` char(5) NOT NULL DEFAULT '',
   `pls` tinyint(3) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`iid`)
-) ENGINE=MyISAM AUTO_INCREMENT=7410 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,7 +130,7 @@ CREATE TABLE `acbra2_maptrap` (
   `itmsk` char(5) NOT NULL DEFAULT '',
   `pls` tinyint(3) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`tid`)
-) ENGINE=MyISAM AUTO_INCREMENT=171 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -247,17 +247,17 @@ CREATE TABLE `acbra2_players` (
   `itme6` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `itms6` char(5) NOT NULL DEFAULT '0',
   `itmsk6` char(40) NOT NULL DEFAULT '',
-  `nskill` text NOT NULL,
-  `nskillpara` text NOT NULL,
+  `nskill` text NOT NULL DEFAULT '',
+  `nskillpara` text NOT NULL DEFAULT '',
   `skillpoint` int(11) NOT NULL DEFAULT '0',
   `flare` int(10) NOT NULL DEFAULT '0',
   `card` int(10) NOT NULL DEFAULT '0',
-  `cardname` text NOT NULL,
+  `cardname` text NOT NULL DEFAULT '',
   `player_dead_flag` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`pid`),
   KEY `TYPE` (`type`,`sNo`),
   KEY `NAME` (`name`,`type`)
-) ENGINE=MyISAM AUTO_INCREMENT=363 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -308,7 +308,7 @@ CREATE TABLE `acbra2_shopitem` (
   `itmsk` char(5) NOT NULL DEFAULT '',
   PRIMARY KEY (`sid`),
   KEY `KIND` (`kind`,`area`)
-) ENGINE=MyISAM AUTO_INCREMENT=175 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -328,9 +328,9 @@ CREATE TABLE `acbra2_users` (
   `credits` int(10) NOT NULL DEFAULT '0',
   `totalcredits` int(10) NOT NULL DEFAULT '0',
   `credits2` mediumint(9) NOT NULL DEFAULT '0',
-  `achievement` text NOT NULL,
-  `nick` text NOT NULL,
-  `nicks` text NOT NULL,
+  `achievement` text NOT NULL DEFAULT '',
+  `nick` text NOT NULL DEFAULT '',
+  `nicks` text NOT NULL DEFAULT '',
   `sktime` int(11) NOT NULL DEFAULT '0',
   `validgames` smallint(5) unsigned NOT NULL DEFAULT '0',
   `wingames` smallint(5) unsigned NOT NULL DEFAULT '0',
@@ -346,10 +346,10 @@ CREATE TABLE `acbra2_users` (
   `elo_rating` int(10) unsigned NOT NULL DEFAULT '1500',
   `elo_volatility` int(10) unsigned NOT NULL DEFAULT '400',
   `elo_playedtimes` int(10) unsigned NOT NULL DEFAULT '0',
-  `elo_history` text NOT NULL,
-  `n_achievements` text NOT NULL,
+  `elo_history` text NOT NULL DEFAULT '',
+  `n_achievements` text NOT NULL DEFAULT '',
   `gold` int(10) unsigned NOT NULL DEFAULT '0',
-  `cardlist` text NOT NULL,
+  `cardlist` text NOT NULL DEFAULT '',
   `card` int(10) unsigned NOT NULL DEFAULT '0',
   `cd_s` int(10) unsigned NOT NULL DEFAULT '0',
   `cd_a` int(10) unsigned NOT NULL DEFAULT '0',
@@ -358,7 +358,7 @@ CREATE TABLE `acbra2_users` (
   `lastwin` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`uid`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=MyISAM AUTO_INCREMENT=30399 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -485,7 +485,7 @@ CREATE TABLE `acbra2_winners` (
   `weplist` char(255) NOT NULL DEFAULT '',
   `iconlist` char(80) NOT NULL DEFAULT '',
   `gdlist` char(50) NOT NULL DEFAULT '',
-  `cardname` text NOT NULL,
+  `cardname` text NOT NULL DEFAULT '',
   UNIQUE KEY `gid` (`gid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -507,7 +507,7 @@ CREATE TABLE `acbra2_newsinfo` (
   `d` varchar(255) NOT NULL DEFAULT '',
   `e` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`nid`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

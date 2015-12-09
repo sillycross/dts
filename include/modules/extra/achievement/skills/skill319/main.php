@@ -46,7 +46,7 @@ namespace skill319
 		$x+=\skillbase\skill_getvalue(319,'cnt',$pa);		
 		$x=min($x,(1<<30)-1);
 		
-		if (($ox<1)&&($x>=15)){
+		if (($ox<15)&&($x>=15)){
 			\cardbase\get_qiegao(485,$pa);
 			\cardbase\get_card(12,$pa);
 		}
