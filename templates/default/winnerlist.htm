@@ -27,7 +27,7 @@
 		<!--{loop $winfo $gid $info}-->
 		<TR height="40">
 			<TD class="b2"><span>$gid</span></TD>
-			<TD class="b3"><span><!--{if $info['gametype']==0}-->常规局<!--{else}--><!--{if 10<=$info['gametype'] && $info['gametype']<20}--><span class="yellow">$roomtypelist[$info['gametype']-10]['name']</span><!--{/if}--><!--{/if}--></span></TD>
+			<TD class="b3"><span>$gtinfo[$info['gametype']]</span></TD>
 			<TD class="b3"><span><!--{if $info['winnum']>1}-->团队幸存<!--{else}-->$gwin[$info['wmode']]<!--{/if}--></span></TD>
 			<!--{if $info['winnum']>1}-->
 			<TD class="b3" colspan><span class="yellow">$info['teamID']</span></TD>

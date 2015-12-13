@@ -359,7 +359,8 @@ if ($command=='ready' && !$not_ready_command_flag)
 		{
 			include_once GAME_ROOT.'./include/valid.func.php';
 			//开始游戏，并设置好游戏模式类型（2v2和3v3为队伍胜利模式）
-			$gametype = 10 + $roomdata['roomtype'];
+			//$gametype = 10 + $roomdata['roomtype'];
+			$gametype = $roomtypelist[$roomdata['roomtype']]['gtype'];//hao蠢
 			$starttime = $now;
 			save_gameinfo();
 			\sys\routine();

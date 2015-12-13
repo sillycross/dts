@@ -163,6 +163,10 @@ namespace poison
 		eval(import_module('sys','player','input'));
 		if($mode == 'item' && $usemode == 'poison') 
 		{
+			if ($command=='menu'){
+				$mode = 'command';
+				return;
+			}
 			$item = substr($command,3);
 			poison($item);
 			return;
