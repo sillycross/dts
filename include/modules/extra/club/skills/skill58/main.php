@@ -55,6 +55,7 @@ namespace skill58
 				}
 				$pd['state']=0; $pd['hp']=$pd['mhp'];
 				$pd['skill58_flag']=1;
+				$deathnum--;
 				if ($pd['type']==0) $alivenum++;
 				save_gameinfo();
 				
