@@ -55,9 +55,9 @@ namespace skill415
 			if ($tz>1)
 			{
 				if ($active) 
-					$log .= "<span class=\"yellow\">你的攻击被敌人的技能「影像」防御了，伤害降低至{$tz}分之一！</span><br>";
+					$log .= "<span class=\"yellow\">你的攻击被敌人的技能「影像」防御了，伤害降低至{$tz}分之1！</span><br>";
 				else 
-					$log .= "<span class=\"yellow\">敌人的攻击被你的技能「影像」防御了，伤害降低至{$tz}分之一！</span><br>";
+					$log .= "<span class=\"yellow\">敌人的攻击被你的技能「影像」防御了，伤害降低至{$tz}分之1！</span><br>";
 			}
 		}
 		if (($var_415==1)&&(($pa['dmg_dealt']%1000)!=666)){

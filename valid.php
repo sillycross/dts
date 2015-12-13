@@ -103,7 +103,7 @@ if($mode == 'enter') {
 	if ($udata['cardlist']==""){
 		$udata['cardlist']="0";
 		$cardlist="0";
-		$db->query("UPDATE {$tablepre}users SET cardlist='$cardlist' WHERE username = '$username'");
+		$db->query("UPDATE {$gtablepre}users SET cardlist='$cardlist' WHERE username = '$username'");
 	}
 	$result = $db->query("SELECT * FROM {$tablepre}players WHERE name = '$cuser' AND type = 0");
 	if($db->num_rows($result)) {

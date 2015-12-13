@@ -88,8 +88,10 @@ namespace itemmix
 			$itms0 = $minfo['result'][3];
 			if (isset($minfo['result'][4]))
 				$itmsk0 = $minfo['result'][4];
-			else  $itmsk0 = '';
-			
+			else{
+				$itmsk0 = '';
+				$minfo['result'][4]='';
+			}
 			itemmix_success();
 		}
 		return;
