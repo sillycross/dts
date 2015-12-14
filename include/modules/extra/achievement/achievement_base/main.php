@@ -44,8 +44,13 @@ namespace achievement_base
 						$id=((int)(constant('MOD_SKILL'.$key.'_ACHIEVEMENT_ID')));
 						if ($id>$maxid) $maxid=$id;
 						if (isset($achdata[$id])) $s=((string)$achdata[$id]); else $s='';
-						$func='\\skill'.$key.'\\finalize'.$key;
-						$achdata[$id]=$func($edata,$s);
+						$f=false;
+						if (strpos(constant('MOD_SKILL'.$key.'_INFO'),'daily;')==false) $f=true;
+						if (($s!='')&&($s!='VWXYZ')) $f=true;
+						if ($f){
+							$func='\\skill'.$key.'\\finalize'.$key;
+							$achdata[$id]=$func($edata,$s);
+						}
 					}
 			
 			$nachdata='';
