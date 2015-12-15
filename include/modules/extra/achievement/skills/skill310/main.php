@@ -66,14 +66,13 @@ namespace skill310
 	
 	function player_kill_enemy(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa, $pd, $active);
-		eval(import_module('cardbase','sys','logger','map'));
 		if ((\skillbase\skill_query(310,$pa))&&($pd['type']>0))
 		{
 			$x=(int)\skillbase\skill_getvalue(310,'cnt',$pa);
 			$x+=1;
 			\skillbase\skill_setvalue(310,'cnt',$x,$pa);
 		}
+		$chprocess($pa, $pd, $active);
 	}	
 	
 	function show_achievement310($data)

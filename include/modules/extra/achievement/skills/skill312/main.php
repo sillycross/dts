@@ -54,14 +54,13 @@ namespace skill312
 	
 	function player_kill_enemy(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa, $pd, $active);
-		eval(import_module('cardbase','sys','logger','map'));
 		if ((\skillbase\skill_query(312,$pa))&&($pd['type']==88))
 		{
 			$x=(int)\skillbase\skill_getvalue(312,'cnt',$pa);
 			$x+=1;
 			\skillbase\skill_setvalue(312,'cnt',$x,$pa);
 		}
+		$chprocess($pa, $pd, $active);
 	}	
 	
 	function show_achievement312($data)
