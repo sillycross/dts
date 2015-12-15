@@ -59,14 +59,13 @@ namespace skill311
 	
 	function player_kill_enemy(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa, $pd, $active);
-		eval(import_module('cardbase','sys','logger','map'));
 		if ((\skillbase\skill_query(311,$pa))&&($pd['type']==0))
 		{
 			$x=(int)\skillbase\skill_getvalue(311,'cnt',$pa);
 			$x+=1;
 			\skillbase\skill_setvalue(311,'cnt',$x,$pa);
 		}
+		$chprocess($pa, $pd, $active);
 	}	
 	
 	function show_achievement311($data)

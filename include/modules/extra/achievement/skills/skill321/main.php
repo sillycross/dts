@@ -53,14 +53,13 @@ namespace skill321
 	
 	function player_kill_enemy(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa, $pd, $active);
-		eval(import_module('cardbase','sys','logger','map'));
 		if ((\skillbase\skill_query(321,$pa))&&($pd['type']==2))
 		{
 			$x=(int)\skillbase\skill_getvalue(321,'cnt',$pa);
 			$x+=1;
 			\skillbase\skill_setvalue(321,'cnt',$x,$pa);
 		}
+		$chprocess($pa, $pd, $active);		
 	}	
 	
 	function show_achievement321($data)
