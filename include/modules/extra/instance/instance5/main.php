@@ -51,8 +51,10 @@ namespace instance5
 				\sys\gameover($atime,'end8',$winner);
 				return;
 			}
+			\sys\rs_game(16+32);
+			return;
 		}
-		$chprocess();	
+		$chprocess($atime);	
 	}
 }
 
