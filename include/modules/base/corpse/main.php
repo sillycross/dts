@@ -118,7 +118,8 @@ namespace corpse
 			return;
 		}
 
-		$edata = $db->fetch_array($result);
+		//$edata = $db->fetch_array($result);
+		$edata=\player\fetch_playerdata_by_pid($corpseid);
 		
 		if($edata['hp']>0) {
 			$log .= '对方尚未死亡！<br>';
