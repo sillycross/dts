@@ -25,18 +25,6 @@ namespace skill234
 		\skillbase\skill_setvalue(234,'cur2',0,$pa);
 	}
 	
-	function skill_onload_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa);
-	}
-	
-	function skill_onsave_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa);
-	}
-	
 	function check_unlocked234(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

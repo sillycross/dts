@@ -23,19 +23,7 @@ namespace skill404
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		\skillbase\skill_delvalue(404,'lvl',$pa);
 	}
-	
-	function skill_onload_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa);
-	}
-	
-	function skill_onsave_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa);
-	}
-	
+
 	function check_unlocked404(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

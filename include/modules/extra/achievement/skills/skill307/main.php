@@ -27,13 +27,7 @@ namespace skill307
 			\skillbase\skill_acquire(307,$pa);
 		$chprocess($pa);
 	}
-	
-	function skill_onsave_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa);
-	}
-	
+
 	function finalize307(&$pa, $data)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

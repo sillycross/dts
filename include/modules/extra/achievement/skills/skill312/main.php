@@ -27,13 +27,7 @@ namespace skill312
 			\skillbase\skill_acquire(312,$pa);
 		$chprocess($pa);
 	}
-	
-	function skill_onsave_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa);
-	}
-	
+
 	function finalize312(&$pa, $data)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

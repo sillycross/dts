@@ -18,18 +18,6 @@ namespace skill417
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
-	function skill_onload_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa);
-	}
-	
-	function skill_onsave_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa);
-	}
-	
 	function get_move_coldtime(&$dest){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (\skillbase\skill_query(417)) return $chprocess($dest)*1.7;

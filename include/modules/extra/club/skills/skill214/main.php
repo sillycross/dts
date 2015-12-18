@@ -21,18 +21,6 @@ namespace skill214
 		\skillbase\skill_delvalue(214,'choice',$pa);
 	}
 	
-	function skill_onload_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa);
-	}
-	
-	function skill_onsave_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa);
-	}
-	
 	function check_unlocked214(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

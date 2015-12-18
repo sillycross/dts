@@ -26,18 +26,6 @@ namespace skill71
 		return $pa['lvl']>=3;
 	}
 	
-	function skill_onload_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa);
-	}
-	
-	function skill_onsave_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa);
-	}
-	
 	function get_rage_cost71(&$pa = NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
