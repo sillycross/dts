@@ -19,18 +19,6 @@ namespace skill233
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
-	function skill_onload_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa);
-	}
-	
-	function skill_onsave_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa);
-	}
-	
 	function calculate_hack_proc_rate()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

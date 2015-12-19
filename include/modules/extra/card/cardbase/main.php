@@ -127,13 +127,13 @@ namespace cardbase
 		return in_array($packname, $packlist);
 	}
 	
-	function kuji($type,&$pa){
+	function kuji($type, &$pa, $is_dryrun = false){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('cardbase'));
 		$ktype=(int)$type;
 		$func='kuji'.$ktype.'\\kujidraw'.$ktype;
 		if (defined('MOD_KUJI'.$ktype)) {
-			$kr=$func($pa);
+			$kr=$func($pa, $is_dryrun);
 			if (!is_array($kr)){
 				if ($kr==-1){
 					return -1;

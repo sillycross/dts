@@ -24,18 +24,6 @@ namespace skill238
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return (($pa['lvl']>=20)||($pa['card']==63)||($pa['card']==64));
 	}
-	
-	function skill_onload_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa);
-	}
-	
-	function skill_onsave_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa);
-	}
 
 	function calculate_ex_single_dmg_multiple(&$pa, &$pd, $active, $key)
 	{

@@ -27,12 +27,6 @@ namespace skill324
 		$chprocess($pa);
 	}
 	
-	function skill_onsave_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa);
-	}
-	
 	function finalize324(&$pa, $data)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

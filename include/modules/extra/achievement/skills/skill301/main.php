@@ -28,12 +28,6 @@ namespace skill301
 		$chprocess($pa);
 	}
 	
-	function skill_onsave_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa);
-	}
-	
 	function finalize301(&$pa, $data)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

@@ -26,18 +26,6 @@ namespace skill212
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
-	function skill_onload_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa);
-	}
-	
-	function skill_onsave_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa);
-	}
-	
 	function check_unlocked212(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

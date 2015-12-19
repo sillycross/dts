@@ -24,18 +24,6 @@ namespace skill39
 		return 1;
 	}
 	
-	function skill_onload_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa);
-	}
-	
-	function skill_onsave_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa);
-	}
-	
 	function upgrade39()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

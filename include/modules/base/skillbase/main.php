@@ -26,8 +26,7 @@ namespace skillbase
 		if ('0'<=$c && $c<='9') return ord($c)-ord('0')+52;
 		if ($c=='+') return 62;
 		if ($c=='-') return 63;
-		eval(import_module('player'));
-		throw new Exception('bad nskill value '.$nskill);
+		throw new Exception('bad nskill value '.$c);
 	}
 	
 	function value_conv_to_b64($c)

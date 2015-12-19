@@ -25,18 +25,6 @@ namespace skill400
 		\skillbase\skill_delvalue(400,'lvl',$pa);
 	}
 	
-	function skill_onload_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa);
-	}
-	
-	function skill_onsave_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa);
-	}
-	
 	function check_unlocked400(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
