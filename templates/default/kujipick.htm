@@ -1,0 +1,39 @@
+{template header}
+<!--{eval eval(import_module('cardbase'));}-->
+<div class="subtitle" align="center">抽卡</div>
+<center>
+<div style="width:1024px;">
+<div style="width:950px; text-align:left">请随便选一张翻开吧。</div>
+<ul style="width:1000px;list-style-type:none; ">
+	<!--{loop Array(1,2,3,4) $i}-->
+	<li style="float:left;margin:5px">
+		<div style="
+		cursor:pointer; 
+		position:relative; -moz-border-radius:8px; 
+		-webkit-border-radius:8px;
+		border-radius:8px; height:290px; width:240px; overflow:hidden; 
+		"
+		title="点击翻开">
+		<img src="img/cardback.png" onclick="$('cardchoice').value=$i; document.flipcard.submit();"></img>
+		</div>
+	</li>
+	<!--{/loop}-->
+</ul>
+<div style="clear:both;"></div>
+	<br />
+		<span class="yellow">
+		剩余切糕：<span class="evergreen">$udata['gold']</span></span>
+	<br />
+<br />
+</div>
+</center>
+点击卡片以抽卡
+<br>
+<form method="post" name="backindex" action="kujilist.php">
+	<input type="submit" name="enter" value="返回选择页面">
+</form>
+<form method="post" name="flipcard" action="kuji.php?type=$ktype">
+	<input type="hidden" id="cardchoice" name="choice" value="">
+</form>
+{template footer}
+

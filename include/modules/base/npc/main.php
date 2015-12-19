@@ -91,7 +91,7 @@ namespace npc
 		}
 	}
 	
-	function add_new_killarea($where)
+	function add_new_killarea($where,$atime)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -112,7 +112,7 @@ namespace npc
 				$db->query("UPDATE {$tablepre}players SET pls='$pls' WHERE pid=$pid");
 			}
 		}
-		$chprocess($where);
+		$chprocess($where,$atime);
 	}
 	
 	function get_player_killmsg(&$pdata)

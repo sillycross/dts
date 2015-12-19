@@ -34,18 +34,19 @@ while ($row=$db->fetch_array($result)){
 /*
 $db->query("ALTER TABLE {$tablepre}swinners ADD cardname text not null AFTER gdlist");
 $db->query("ALTER TABLE {$tablepre}winners ADD cardname text not null AFTER gdlist");
-$db->query("ALTER TABLE {$tablepre}users ADD gold int(10) unsigned not null default '0' AFTER n_achievements");
-$db->query("ALTER TABLE {$tablepre}users ADD cardlist text not null AFTER n_achievements");
-$db->query("ALTER TABLE {$tablepre}users ADD card int(10) unsigned not null default '0' AFTER n_achievements");
-$db->query("ALTER TABLE {$tablepre}users ADD cd_s int(10) unsigned not null default '0' AFTER n_achievements");
-$db->query("ALTER TABLE {$tablepre}users ADD cd_a int(10) unsigned not null default '0' AFTER n_achievements");
-$db->query("ALTER TABLE {$tablepre}users ADD cd_a1 int(10) unsigned not null default '0' AFTER n_achievements");
-$db->query("ALTER TABLE {$tablepre}users ADD cd_a int(10) unsigned not null default '0' AFTER n_achievements");
-$db->query("ALTER TABLE {$tablepre}users ADD cd_b int(10) unsigned not null default '0' AFTER n_achievements");
-$db->query("ALTER TABLE {$tablepre}users ADD lastwin int(10) unsigned not null default '0' AFTER n_achievements");
+$db->query("ALTER TABLE {$gtablepre}users ADD gold int(10) unsigned not null default '0' AFTER n_achievements");
+$db->query("ALTER TABLE {$gtablepre}users ADD cardlist text not null AFTER n_achievements");
+$db->query("ALTER TABLE {$gtablepre}users ADD card int(10) unsigned not null default '0' AFTER n_achievements");
+$db->query("ALTER TABLE {$gtablepre}users ADD cd_s int(10) unsigned not null default '0' AFTER n_achievements");
+$db->query("ALTER TABLE {$gtablepre}users ADD cd_a int(10) unsigned not null default '0' AFTER n_achievements");
+$db->query("ALTER TABLE {$gtablepre}users ADD cd_a1 int(10) unsigned not null default '0' AFTER n_achievements");
+$db->query("ALTER TABLE {$gtablepre}users ADD cd_a int(10) unsigned not null default '0' AFTER n_achievements");
+$db->query("ALTER TABLE {$gtablepre}users ADD cd_b int(10) unsigned not null default '0' AFTER n_achievements");
+$db->query("ALTER TABLE {$gtablepre}users ADD lastwin int(10) unsigned not null default '0' AFTER n_achievements");
 $db->query("ALTER TABLE {$tablepre}players ADD card int(10) unsigned not null default '0' AFTER flare");
 $db->query("ALTER TABLE {$tablepre}players ADD cardname text not null AFTER flare");*/
-//$db->query("UPDATE {$tablepre}users SET gold=gold+150");
+//$db->query("UPDATE {$gtablepre}users SET gold=gold+150");
+//$db->query("UPDATE {$gtablepre}users SET n_achievements=''");
 include template('admin_menu');
 
 ?>

@@ -143,7 +143,10 @@ function check_eval_magic($tplfile, &$content, &$i2, &$ret)
 	if (!check_word($content,$i,';')) return 0;
 	$funcname = parse_get_funcname($content,$i2);
 	$i2=$i;
-	$ret = get_magic_content($funcname);
+	$ret = get_magic_content(strtolower($funcname));
+	//测试
+	//统计函数调用个数
+	//$ret='global $___TEMP_CALLS_COUNT; $___TEMP_CALLS_COUNT[\''.$funcname.'\']=1; '.$ret;
 	$ret=str_replace("\n",' ',$ret);
 	return 1;
 }
@@ -197,7 +200,7 @@ function preparse($modname, $id, $tplfile)
 	{
 		$key();
 		global $___TEMP_DESIRE_PARENTNAME,$___TEMP_EVACODE,$___TEMP_CHPROCESS;
-		$___TEMP_modfuncs[substr($key,strpos($key,'\\',0)+1)]=Array(
+		$___TEMP_modfuncs[strtolower(substr($key,strpos($key,'\\',0)+1))]=Array(
 			'parent' => $___TEMP_DESIRE_PARENTNAME,
 			'evacode' => $___TEMP_EVACODE,
 			'chprocess' => $___TEMP_CHPROCESS,

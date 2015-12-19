@@ -95,7 +95,7 @@ namespace sys
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		if($gamestate < 10) return;
-		if((!$gmode)||(($gmode==2)&&(!$winname))) {//在没提供游戏结束模式的情况下，自行判断模式
+		if((!$gmode)||(($gmode=='end2')&&(!$winname))) {//在没提供游戏结束模式的情况下，自行判断模式
 			if($validnum <= 0) {//无激活者情况下，全部死亡
 				$alivenum = 0;
 				$winnum = 0;

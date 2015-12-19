@@ -31,6 +31,8 @@ namespace sys
 			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"red\">本局游戏被GM中止</span><br>\n";
 		if($news == 'end7') 
 			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"evergreen\">{$a}完成了他的使命。</span><br>\n";
+		if($news == 'end8') 
+			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"red\">限制时间到，本局游戏结束。</span><br>\n";
 		if(strpos($news,'death') === 0) {
 			$dname = $typeinfo[$b].' '.$a;
 			if(!$e){

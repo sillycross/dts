@@ -2,12 +2,14 @@
 
 <form method="post" name="info" onsubmit="winner.php">
 <input type="hidden" id="user_prefix" name="user_prefix" value="$user_prefix">
+<input type="hidden" id="show_all" name="show_all" value="$show_all">
 <input type="hidden" id="command" name="command" value="info">
 <input type="hidden" id="start" name="start" value="$gamenum">
 <input type="hidden" id="gnum" name="gnum" value="">
 <center>
-	<input type="button" value="查看标准区历史优胜" onclick="$('user_prefix').value='';$('command').value='list';$('start').value='0';document.info.submit();">
-	<input type="button" value="查看房间区历史优胜" onclick="$('user_prefix').value='s';$('command').value='list';$('start').value='0';document.info.submit();">
+	<input type="button" value="查看标准区历史优胜" onclick="$('user_prefix').value='';$('show_all').value='1';$('command').value='list';$('start').value='0';document.info.submit();">
+	<input type="button" value="查看房间区优胜记录" onclick="$('user_prefix').value='s';$('show_all').value='0';$('command').value='list';$('start').value='0';document.info.submit();">
+	<input type="button" value="查看房间区所有记录" onclick="$('user_prefix').value='s';$('show_all').value='1';$('command').value='list';$('start').value='0';document.info.submit();">
 	<TABLE border="1" cellspacing="0" cellpadding="0">
 		<TR height="20">
 			<TD class="b1"><span>回</span></TD>
@@ -25,7 +27,7 @@
 		<!--{loop $winfo $gid $info}-->
 		<TR height="40">
 			<TD class="b2"><span>$gid</span></TD>
-			<TD class="b3"><span><!--{if $info['gametype']==0}-->常规局<!--{else}--><!--{if 10<=$info['gametype'] && $info['gametype']<20}--><span class="yellow">$roomtypelist[$info['gametype']-10]['name']</span><!--{/if}--><!--{/if}--></span></TD>
+			<TD class="b3"><span>$gtinfo[$info['gametype']]</span></TD>
 			<TD class="b3"><span><!--{if $info['winnum']>1}-->团队幸存<!--{else}-->$gwin[$info['wmode']]<!--{/if}--></span></TD>
 			<!--{if $info['winnum']>1}-->
 			<TD class="b3" colspan><span class="yellow">$info['teamID']</span></TD>

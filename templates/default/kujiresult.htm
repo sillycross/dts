@@ -1,40 +1,81 @@
 {template header}
-
+<!--{eval eval(import_module('cardbase'));}-->
 <div class="subtitle" align="center">抽卡结果</div>
 <center>
-	<table CellSpacing=0 CellPadding=1 width="250" height="240">
-		<tr height="40">
-			<td class=b2 width="40" height="40">卡名</td>
-			<td class=b3 width="210" height="40">$carddesc[$r]['name']</td>
-		</tr>
-		<tr height="40">
-			<td class=b2 width="40" height="40">罕贵</td>
-			<td class=b3 width="210" height="40">$carddesc[$r]['rare']</td>
-		</tr>
-		<tr height="80">
-			<td class=b2 width="40" height="80">介绍</td>
-			<td class=b3 width="210" height="80">$carddesc[$r]['desc']</td>
-		</tr>
-		<tr height="80">
-			<td class=b2 width="40" height="80">效果</td>
-			<td class=b3 width="210" height="80">$carddesc[$r]['effect']</td>
-		</tr>
-	</table>
+<div style="width:1024px;">
+<div style="width:950px; text-align:left">抽卡结果</div>
+<ul style="width:1000px;list-style-type:none; ">
+	<!--{loop $kres $k $r}-->
+	<li style="float:left;margin:5px">
+		
+		<div style="
+		<!--{if $ktype==0 || $ktype==2}-->
+		cursor:pointer; 
+		<!--{/if}-->
+		
+		position:relative; -moz-border-radius:8px; 
+		-webkit-border-radius:8px;
+		border-radius:8px; height:290px; width:240px; overflow:hidden; 
+		
+		<!--{if isset($ishighlight[$k]) && $ishighlight[$k]}-->
+		 box-shadow: 0 0 16px rgba(0,255,255, 1);
+		-webkit-box-shadow: 0 0 12px rgba(80, 200, 240, 1);
+		-moz-box-shadow: 0 0 12px rgba(80, 200, 240, 1);
+		<!--{/if}-->
+		"
+		<!--{if $ktype==0 || $ktype==2}-->
+		title="点击再抽一发"
+		onclick="window.location.href='kuji.php?type=$ktype';"
+		<!--{/if}-->>
+		<table CellSpacing=0 CellPadding=0 style="height:290px; width:240px">
+			<tr height="40">
+				<td class=b2 width="38" height="40">卡名</td>
+				<td class=b3 width="202" height="40">$isnew[$k] $carddesc[$r]['name']</td>
+			</tr>
+			<tr height="40">
+				<td class=b2 width="38" height="40">罕贵</td>
+				<td class=b3 width="202" height="40">$carddesc[$r]['rare']</td>
+			</tr>
+			<tr height="140">
+				<td class=b2 width="38" height="140">介绍</td>
+				<td class=b3 width="202" height="140">$carddesc[$r]['desc']</td>
+			</tr>
+			<tr height="70">
+				<td class=b2 width="38" height="70">效果</td>
+				<td class=b3 width="202" height="70">$carddesc[$r]['effect']</td>
+			</tr>
+		</table>
+		<!--{if isset($ishighlight[$k]) && !$ishighlight[$k]}-->
+		<div style="position:absolute; top:0px; left:0px; background-color:#000000; 
+		height:290px; width:240px; 
+		filter:alpha(opacity=30); -moz-opacity:0.3; opacity:0.3; -khtml-opacity: 0.3;">
+		</div>
+		<!--{/if}-->
+		</div>
+	</li>
+	<!--{/loop}-->
+</ul>
+<div style="clear:both;"></div>
 	<br />
 		<span class="yellow">
-		<!--{if !$cflag}-->
-		由于您已经拥有该身份卡，系统返还您<span class="evergreen">30</span>切糕
-		<!--{/if}-->
-		<br />
-		剩余切糕：<span class="evergreen">$gold</span></span>
+		剩余切糕：<span class="evergreen">$udata['gold']</span></span>
 	<br />
+<br />
+</div>
+</div>
 </center>
-<form method="post" name="kujiagain" action="kuji.php">
-	<input type="submit" name="enter" value="再抽一发"<!--{if $gold<100}-->disabled<!--{/if}-->>
+<!--{if $udata['gold']>=$kreq[$ktype]}-->
+<!--{if $ktype==0 || $ktype==2}-->
+点击任意卡片可以再抽一发
+<br>
+<!--{else}-->
+<form method="post" name="kujiagain" action="kuji.php?type=$ktype">
+	<input type="submit" name="enter" value="再抽一发">
 </form>
-<form method="post" name="backindex" action="index.php">
-	<input type="submit" name="enter" value="{lang backindex}">
+<!--{/if}-->
+<!--{/if}-->
+<form method="post" name="backindex" action="kujilist.php">
+	<input type="submit" name="enter" value="返回选择页面">
 </form>
-
 {template footer}
 

@@ -25,18 +25,6 @@ namespace skill232
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
-	function skill_onload_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa);
-	}
-	
-	function skill_onsave_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa);
-	}
-	
 	function check_unlocked232(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -90,7 +78,7 @@ namespace skill232
 		\skillbase\skill_setvalue(232,'lastuse',$now);
 		$clv=\skillbase\skill_getvalue(232,'lvl');
 		$sc = $shieldgain[$clv];
-		$hp=$mhp+$sc;
+		if ($hp<($mhp+$sc)) $hp=$mhp+$sc;
 		addnews ( 0, 'bskill232', $name );
 		$log.='<span class="lime">技能「力场」发动成功。</span><br>';
 	}

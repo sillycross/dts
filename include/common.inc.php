@@ -72,7 +72,7 @@ for ($___TEMP_MOD_LOAD_i=1; $___TEMP_MOD_LOAD_i<=$___TEMP_MOD_LIST_n; $___TEMP_M
 	require $___TEMP_MOD_LOAD_CMD[$___TEMP_MOD_LOAD_i];
 
 /////////////////////Load Module End////////////////////////
-	
+
 if ((CURSCRIPT == 'game' || CURSCRIPT =='winner' || CURSCRIPT =='news' || CURSCRIPT =='alive') && !defined('LOAD_CORE_ONLY'))
 {
 	eval(import_module('sys','map','player','logger','itemmain','input'));

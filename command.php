@@ -444,17 +444,19 @@ if($teamID){
 	$gamedata['innerHTML']['chattype'] = "<select name=\"chattype\" value=\"2\"><option value=\"0\" selected>$chatinfo[0]</select>";
 }
 
+//测试
+//函数调用计数
+//$log.="<span class=\"grey\">Fn call count: ".count($___TEMP_CALLS_COUNT)."</span><br>"; 
 /*
 $timecost = get_script_runtime($pagestartime);
 if (isset($timecost2)) $log.="<span class=\"grey\">模块加载时间: $timecost2 秒</span><br>"; 
 if ($___MOD_SRV)
 {
 	$log.="<span class=\"grey\">核心运行时间: $timecost 秒</span><br>"; 
-	$log.="<span class=\"grey\">页面运行时间: _____PAGE_RUNNING_TIME_____ 秒</span>"; 
+	$log.="<span class=\"grey\">页面运行时间: _____PAGE_RUNNING_TIME_____ 秒</span>"; //这个好像显示不了
 }
-else  $log.="<span class=\"grey\">页面运行时间: $timecost 秒</span>"; 
+else  $log.="<span class=\"grey\">页面运行时间: $timecost 秒$ts</span>"; 
 */
-
 $gamedata['innerHTML']['log'] = $log;
 
 //$timecost = get_script_runtime($pagestartime);

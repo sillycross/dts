@@ -27,18 +27,6 @@ namespace skill44
 		\skillbase\skill_delvalue(44,'choice',$pa);
 	}
 	
-	function skill_onload_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa);
-	}
-	
-	function skill_onsave_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa);
-	}
-	
 	function check_unlocked44(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

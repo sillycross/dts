@@ -4,13 +4,6 @@ define('CURSCRIPT', 'user_profile');
 
 require './include/common.inc.php';
 
-if ($server_addr!=$cache_server_addr && $is_cache_server)
-{
-        header("Location: {$server_addr}user_profile.php");
-        exit(); 
-}
-
-
 require './include/user.func.php';
 
 $_REQUEST = gstrfilter($_REQUEST);
@@ -38,6 +31,14 @@ else
 	if ($uname==$cuser) $curuser=true;
 }
 
+if ($curuser && $_REQUEST["action"]=="refdaily" && ($now-$udata['cd_a1'])>=43200){
+	$db->query("UPDATE {$gtablepre}users SET cd_a1='$now' WHERE username='".$udata['username']."'" );
+	\achievement_base\get_daily_quest($username);
+	$udata['cd_a1']=$now;
+	$refdaily_flag = true;
+}
+else  $refdaily_flag = false;
+
 $iconarray = get_iconlist($icon);
 $select_icon = $icon;
 $winning_rate=$validgames?round($wingames/$validgames*100)."%":'0%';
@@ -63,11 +64,14 @@ if (($now-$udata['cd_b'])<10800){
 	list($min,$hour,$day,$month,$year)=explode(',',date("i,H,j,n,Y",$ntime));
 	$btd=$year."年".$month."月".$day."日".$hour."时".$min."分";
 }
-if (($now-$udata['lastwin'])<72000){
+if (($now-$udata['cd_a1'])<43200){
 	$ff=false;
-	$ntime=$udata['lastwin']+72000;
+	$ntime=$udata['cd_a1']+43200;
 	list($min,$hour,$day,$month,$year)=explode(',',date("i,H,j,n,Y",$ntime));
-	$ftd=$year."年".$month."月".$day."日".$hour."时".$min."分";
+	list($cmin,$chour,$cday,$cmonth,$cyear)=explode(',',date("i,H,j,n,Y",$now));
+	if ($cday==$day && $cmonth==$month && $cyear==$year)
+		$ftd="今天".$hour."时".$min."分";
+	else  $ftd="明天".$hour."时".$min."分";
 }
 if ($cr=="S"){
 	$rarecolor="orange";

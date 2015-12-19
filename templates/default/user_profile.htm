@@ -27,7 +27,7 @@
 				<td>$winning_rate</td>
 			</tr>
 			<!--{if defined('MOD_ELORATING')}-->
-			<tr>
+			<tr onclick="bubblebox_show('elodata');">
 				<td>天梯积分</td>
 				<td width=55px>&nbsp;</td>
 				<td><!--{if $elo_history==''}-->1500<!--{else}--><span style="color:<!--{eval echo \elorating\elorating_get_color($elo_rating);}-->"><span style="font-weight:bold;">$elo_rating</span></span><!--{/if}--></td>
@@ -43,7 +43,7 @@
 				<td width=55px>&nbsp;</td>
 				<td>$gold</td>
 			</tr>
-			<tr onclick="bubblebox_show('carddata');">
+			<tr style="cursor:pointer;" title="点击查看身份卡详细信息" onclick="bubblebox_show('carddata');">
 				<td>身份卡</td>
 				<td width=55px>&nbsp;</td>
 				<td><span class="{$rarecolor}">$cr $carr['name']</span></td>
@@ -62,7 +62,7 @@
 				<!--{if ($curuser) }--><button type="button" onclick="window.location.href='user.php'">编辑我的账户资料</button><!--{/if}-->
 			</td></tr>
 			<tr><td>
-				<!--{if ($curuser) }--><button type="button" onclick="window.location.href='kuji.php'" <!--{if $gold<100}-->disabled<!--{/if}-->>我要抽卡</button><!--{/if}-->
+				<!--{if ($curuser) }--><button type="button" onclick="window.location.href='kujilist.php'">我要抽卡</button><!--{/if}-->
 			</td></tr>
 			<tr><td>
 				<!--{if ($curuser) }-->
@@ -75,16 +75,39 @@
 		</td>
 	</tr>
 	</table>
-	<div style="width:600px;text-align:center;"><!--{if $curuser && !$cf}--><span class="yellow">您现在不能使用该等级的身份卡，请更换！</span><!--{/if}--><span class="clan">点击身份卡可以查看其详细信息</span></div>
+	<div style="width:600px;text-align:center;"><!--{if $curuser && !$cf}--><span class="yellow">您现在不能使用该等级的身份卡，请更换！</span><!--{/if}--><span class="clan">点击天梯积分和身份卡可以查看详细信息</span></div>
 	<div style="width:600px;text-align:center;">
-		<span class="yellow"><!--{if $curuser && !$ff}-->下次可获得额外奖励时间：{$ftd}<!--{else}-->现在获胜可获得额外切糕奖励<!--{/if}--></span><br>
 		<!--{if $curuser && !$sf}--><span class="orange">{$std}开始才可再使用S级身份卡</span><br><!--{/if}-->
 		<!--{if $curuser && !$af}--><span class="linen">{$atd}开始才可再使用A级身份卡</span><br><!--{/if}-->
 		<!--{if $curuser && !$bf}--><span class="brickred">{$btd}开始才可再使用B级身份卡</span><br><!--{/if}-->
 	</div>
-	<!--{if defined('MOD_ELORATING')}--><!--{eval \elorating\elorating_show();}--><!--{/if}-->
+	<!--{if defined('MOD_ACHIEVEMENT_BASE')}-->
+		<table>
+		<!--{eval eval(import_module('achievement_base'));}-->
+		<!--{loop $achtype $k $v}-->
+			<tr><td>
+			<span class="subtitle" align="left">$v</span>
+			<!--{if $v=='日常任务'}-->
+			<!--{if $curuser}--><!--{if !$ff}--><span class="yellow">下次可获取每日任务时间：{$ftd}</span><!--{else}--><button type="button" onclick="window.location.href='user_profile.php?action=refdaily';this.disabled=true">点击获得新的每日任务</button><!--{/if}--><!--{/if}-->
+			<br>
+			<!--{/if}-->
+			<table border="1">
+				<!--{eval \achievement_base\show_achievements($username,$k);}-->
+			</table>
+			</td></tr>
+		<!--{/loop}-->
+		</table>
+	<!--{/if}-->
 	<br><br>
 </center>
+
+<!--{if defined('MOD_ELORATING')}-->
+<!--{eval \bubblebox\bubblebox_set_style('id:elodata;height:450;width:650;cancellable:1;');}-->
+{template MOD_BUBBLEBOX_START}
+<!--{eval \elorating\elorating_show();}-->
+<input class="cmdbutton" onclick="bubblebox_hide_all();" value="关闭窗口" type="button">
+{template MOD_BUBBLEBOX_END}
+<!--{/if}-->
 
 <!--{eval \bubblebox\bubblebox_set_style('id:carddata;height:363;width:283;cancellable:1;');}-->
 {template MOD_BUBBLEBOX_START}
@@ -119,6 +142,18 @@
 </p>
 {template MOD_BUBBLEBOX_END}
 
+<!--{if $refdaily_flag}-->
+<!--{eval \bubblebox\bubblebox_set_style('id:newdailyquest;height:200;width:930;cancellable:1;');}-->
+{template MOD_BUBBLEBOX_START}
+<div class="subtitle">获得的每日任务：</div>
+<table border="1">
+<!--{eval \achievement_base\show_achievements($username,20);}-->
+</table>
+<br>
+<button type="button" onclick="bubblebox_hide_all();">关闭</button> 点击气泡框外任意位置也可关闭窗口
+{template MOD_BUBBLEBOX_END}
+<script>bubblebox_show('newdailyquest');</script>
+<!--{/if}-->
 
 {template footer}
 

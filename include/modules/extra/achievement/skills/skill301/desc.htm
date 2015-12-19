@@ -1,0 +1,19 @@
+<table><tr>
+<td>
+<!--{if ($c301=='999') }--><img src="img/ach/301.gif"><!--{/if}-->
+<!--{if ($c301=='0') }--><img src="img/ach/N.gif"><!--{/if}-->
+<!--{if (($c301!='999')&&($c301!='0')) }--><img src="img/ach/D.gif"><!--{/if}-->
+</td>
+<td valign="top" align="left">
+<b>
+<!--{if ($c301=='0') }-->锁定解除<!--{/if}-->
+<!--{if ($c301=='1') }-->最后的荣光<!--{/if}-->
+<!--{if ($c301=='999') }-->最后的荣光<!--{/if}-->
+</b>
+<!--{if ($c301=='999') }--><span class="lime">[完成]</span><!--{else}--><!--{if ($c301==0) }--><span class="red">[未完成]</span><!--{else}--><span class="clan">[进行中]</span><!--{/if}--><!--{/if}--><br>
+<font color="yellow">目前进度： {$p301}次<br></font>
+<!--{if ($c301=='0') }--><font color="olive">奖励： 切糕300 <br></font> 完成结局：锁定解除 1次<br><!--{/if}-->
+<!--{if ($c301=='1') }--><font color="olive">奖励： 切糕1600 <br></font> 完成结局：锁定解除 10次<br><!--{/if}-->
+<!--{if ($c301=='999') }--><font color="olive">奖励： 切糕1600 <br></font> 完成结局：锁定解除 10次<br><!--{/if}-->
+</td>
+</tr></table>

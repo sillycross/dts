@@ -63,14 +63,14 @@ namespace attack
 		//发log
 		if (!$active)
 			if ($pa['is_counter'])
-				$pa['battlelog'] .= "对其做出了<span class=\"yellow\">{$dmg}</span>点反击。<br>";
-			else  $pa['battlelog'] .= "你对其做出<span class=\"yellow\">{$dmg}</span>点攻击，";
+				$pa['battlelog'] .= "对其做出了<span class=\"yellow\">{$pa['dmg_dealt']}</span>点反击。<br>";
+			else  $pa['battlelog'] .= "你对其做出<span class=\"yellow\">{$pa['dmg_dealt']}</span>点攻击，";
 		else  if ($pa['is_counter'])
-				$pd['battlelog'] .= "受到其<span class=\"yellow\">{$dmg}</span>点反击。<br>";
-			else  $pd['battlelog'] .= "你受到其<span class=\"yellow\">{$dmg}</span>点攻击，";
+				$pd['battlelog'] .= "受到其<span class=\"yellow\">{$pa['dmg_dealt']}</span>点反击。<br>";
+			else  $pd['battlelog'] .= "你受到其<span class=\"yellow\">{$pa['dmg_dealt']}</span>点攻击，";
 			
 		//发伤害新闻
-		post_damage_news($pa, $pd, $active);
+		post_damage_news($pa, $pd, $active, $pa['dmg_dealt']);
 	}
 	
 	//攻击/反击通告
@@ -129,17 +129,6 @@ namespace attack
 		{
 			if ($kilmsg!='') $log.="<span class=\"yellow\">{$pa['name']}对你说：“{$kilmsg}”</span><br>";
 		}
-		
-		\player\player_save($pa);
-		\player\player_save($pd);
-		if ($active)
-		{
-			\player\load_playerdata($pa);
-		}
-		else
-		{
-			\player\load_playerdata($pd);
-		}
 	}
 	
 	//当玩家主动发起攻击时，加载玩家提供的攻击参数
@@ -171,7 +160,19 @@ namespace attack
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		player_damaged_enemy($pa,$pd,$active);
-		if ($pd['hp']<=0) player_kill_enemy($pa, $pd, $active);
+		if ($pd['hp']<=0){
+			player_kill_enemy($pa, $pd, $active);
+			\player\player_save($pa);
+			\player\player_save($pd);
+			if ($active)
+			{
+				\player\load_playerdata($pa);
+			}
+			else
+			{
+				\player\load_playerdata($pd);
+			}
+		}
 		unset($pa['physical_dmg_dealt']);
 	}
 	

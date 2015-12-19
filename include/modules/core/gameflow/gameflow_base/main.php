@@ -48,14 +48,8 @@ namespace gameflow_base
 		}
 	}
 	
-	function updategame()
-	{
+	function checkendgame(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
-		$chprocess();
-		
-		gamestateupdate();
-		
 		eval(import_module('sys')); 
 		if($gamestate >= 40) {
 			//队伍胜利模式游戏结束判断
@@ -88,6 +82,17 @@ namespace gameflow_base
 				}
 			}
 		}
+	}
+	
+	function updategame()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		$chprocess();
+		
+		gamestateupdate();
+		
+		checkendgame();
 	}
 }
 

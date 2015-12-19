@@ -16,12 +16,8 @@ namespace gameflow_combo
 		save_gameinfo();
 	}
 	
-	function gamestateupdate()
-	{
+	function checkcombo(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
-		$chprocess();
-		
 		eval(import_module('sys','gameflow_combo'));
 		if($gamestate < 40 && $gamestate >= 30 && $alivenum <= $combolimit) {//判定进入连斗条件1：停止激活时玩家数少于特定值
 			$gamestate = 40;
@@ -39,6 +35,15 @@ namespace gameflow_combo
 				systemputchat($now,'comboupdate',$combonum);
 			}		
 		}
+	}
+	
+	function gamestateupdate()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		$chprocess();
+		
+		checkcombo();
 	}
 	
 	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)

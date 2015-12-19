@@ -25,18 +25,6 @@ namespace skill234
 		\skillbase\skill_setvalue(234,'cur2',0,$pa);
 	}
 	
-	function skill_onload_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa);
-	}
-	
-	function skill_onsave_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa);
-	}
-	
 	function check_unlocked234(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -74,7 +62,7 @@ namespace skill234
 					${'itms'.$position} =1;
 					\skillbase\skill_lost(234);
 					
-					if ((($areanum/$areaadd)<4)&&(!in_array($gametype,Array(10,11,12,13,14)))){
+					if ((($areanum/$areaadd)<4)&&(!in_array($gametype,$qiegao_ignore_mode))){
 						if (\cardbase\get_card(63)==1){
 							$log.="恭喜您获得了活动奖励卡<span class=\"orange\">lemon</span>！<br>";
 						}else{

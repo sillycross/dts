@@ -20,18 +20,6 @@ namespace skill58
 		\skillbase\skill_delvalue(58,'r',$pa);
 	}
 	
-	function skill_onload_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa);
-	}
-
-	function skill_onsave_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa);
-	}
-	
 	function kill(&$pa, &$pd)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -55,6 +43,7 @@ namespace skill58
 				}
 				$pd['state']=0; $pd['hp']=$pd['mhp'];
 				$pd['skill58_flag']=1;
+				$deathnum--;
 				if ($pd['type']==0) $alivenum++;
 				save_gameinfo();
 				

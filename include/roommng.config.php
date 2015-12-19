@@ -3,7 +3,7 @@
 //房间设置
 
 //最大房间数目
-$max_room_num = 50;
+$max_room_num = 5;
 
 //长轮询端口号范围
 $room_poll_port_low = 25000;
@@ -14,6 +14,7 @@ $roomtypelist = Array(
 	
 	0 => Array(
 		'name' => 'SOLO模式',
+		'gtype' => 10, //对应的游戏模式编号
 		'pnum' => 2,	//最大参与人数
 		'leader-position' => Array(	//各个编号位置的所属队伍队长位置
 			0 => 0,
@@ -32,6 +33,7 @@ $roomtypelist = Array(
 	
 	1 => Array(
 		'name' => '二队模式',
+		'gtype' => 11, //对应的游戏模式编号
 		'pnum' => 10,
 		'leader-position' => Array(
 			0 => 0,
@@ -79,6 +81,7 @@ $roomtypelist = Array(
 	),*/
 	2 => Array(
 		'name' => '三队模式',
+		'gtype' => 12, //对应的游戏模式编号
 		'pnum' => 15,
 		'leader-position' => Array(
 			0 => 0,
@@ -111,6 +114,7 @@ $roomtypelist = Array(
 	),
 	3 => Array(
 		'name' => '四队模式',
+		'gtype' => 13, //对应的游戏模式编号
 		'pnum' => 20,
 		'leader-position' => Array(
 			0 => 0,
@@ -150,6 +154,7 @@ $roomtypelist = Array(
 	),
 	4 => Array(
 		'name' => '五队模式',
+		'gtype' => 14, //对应的游戏模式编号
 		'pnum' => 25,
 		'leader-position' => Array(
 			0 => 0,
@@ -193,6 +198,46 @@ $roomtypelist = Array(
 			20 => '白队',
  		),
 		'show-team-leader' => 1,
+	),
+	5 => Array(
+		'name' => '<span class="yellow">伐木挑战</span>',
+		'gtype' => 15, //对应的游戏模式编号
+		'pnum' => 1,	//最大参与人数
+		'leader-position' => Array(	//各个编号位置的所属队伍队长位置
+			0 => 0,
+		),
+		'color' => Array(		//队伍颜色，只需对队长设置即可
+			0 => 'ff0022',
+		),
+		'teamID' => Array(	//队伍名，只需对队长设置即可
+			0 => '挑战者',
+		),
+		'show-team-leader' => 0,	//是否显示“队长”标签（如队伍大于1人设为1）
+		'card' => array(
+			0 => '0',
+		)
+	),
+	6 => Array(
+		'name' => '<span class="green">PVE</span> 解离模式',
+		'gtype' => 16, //对应的游戏模式编号
+		'pnum' => 3,	//最大参与人数
+		'leader-position' => Array(	//各个编号位置的所属队伍队长位置
+			0 => 0,
+			1 => 0,
+			2 => 0,
+		),
+		'color' => Array(		//队伍颜色，只需对队长设置即可
+			0 => 'ff0022',
+		),
+		'teamID' => Array(	//队伍名，只需对队长设置即可
+			0 => '挑战者',
+		),
+		'show-team-leader' => 1,	//是否显示“队长”标签（如队伍大于1人设为1）
+		'card' => array(
+			0 => '90',
+			1 => '91',
+			2 => '92',
+		)
 	),
 );
 	

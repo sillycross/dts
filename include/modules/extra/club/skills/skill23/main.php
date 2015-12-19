@@ -16,18 +16,6 @@ namespace skill23
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
-	
-	function skill_onload_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa);
-	}
-	
-	function skill_onsave_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa);
-	}
 		
 	function gemming_itme_buff(&$itm,&$itmk,&$itme,&$itms,&$itmsk,$lb,$ub)
 	{
@@ -139,6 +127,8 @@ namespace skill23
 			if ($t1=='wep')
 				$buff=Array(Array(65,'i'),Array(35,'k'));
 			else  $buff=Array(Array(100,'I'));
+		else  if ($gem=='黄鸡方块')	//天然/菁英
+			$buff=Array(Array(1,'Z'),Array(99,'z'));
 		else  if ($gem=='绿宝石方块')	//武器：随机攻击属性 装备：随机防御属性
 		{	
 			if ($t1=='wep')

@@ -1,9 +1,10 @@
 <?php
+$cardcount=86;
 $cardindex=array(
-	'S'=>array(1,5,16,38,39,40,41),
-	'A'=>array(2,13,14,20,32,37,43,44,45,46,47,48,49,50),
-	'B'=>array(3,12,15,21,22,23,24,25,26,27,35,51,52,53,54,55,56),
-	'C'=>array(4,6,7,8,9,10,11,17,18,19,28,29,30,31,33,34,36,57,58,59,60,61,62),
+	'S'=>array(1,5,16,38,39,40,41,64,65,67,71),
+	'A'=>array(2,13,14,20,23,32,37,43,44,45,46,47,48,49,50,66,68,69,72,75,81),
+	'B'=>array(3,12,15,21,22,24,25,26,27,28,35,51,52,53,54,55,56,70,73,76,78,80,83),
+	'C'=>array(4,6,7,8,9,10,11,17,18,19,29,30,31,33,34,36,57,58,59,60,61,62,74,77,79,82,84,85),
 );
 $cards=array(
 	0=>array(
@@ -164,7 +165,7 @@ $cards=array(
 	26=>array(
 		'club'=>'18',
 		'skills'=>array(
-			'10'=>'0','39'=>'0','12'=>'0','70'=>'0','72'=>'0','71'=>'0',
+			'10'=>'0','11'=>'0','12'=>'0','70'=>'0','72'=>'0','71'=>'0',
 		),
 	),
 	27=>array(
@@ -297,7 +298,7 @@ $cards=array(
 		'att'=>'15','def'=>'155',
 	),
 	61=>array(
-		'sp'=>'40','msp'=>'40','exp'=>'70',
+		'sp'=>'40','msp'=>'40','exp'=>'65',
 	),
 	62=>array(
 		'skills'=>array('66'=>'0'),
@@ -316,10 +317,130 @@ $cards=array(
 			'233'=>'0','234'=>'0','235'=>'0','236'=>'0','237'=>'0','238'=>'0',
 		),
 	),
+	65=>array(
+		'skills'=>array('415'=>'0'),
+	),
+	66=>array(
+		'skills'=>array('413'=>'0'),
+	),
+	67=>array(
+		'skills'=>array('225'=>'0'),
+	),
+	68=>array(
+		'itm6'=>'【风神的神德】',
+		'itmk6'=>'EW',
+		'itme6'=>'1',
+		'itms6'=>'1',
+		'itmsk6'=>'6',
+	),
+	69=>array(
+		'itm6'=>'驱云弹',
+		'itmk6'=>'EW',
+		'itme6'=>'1',
+		'itms6'=>'1',
+		'itmsk6'=>'1',
+	),
+	70=>array(
+		'wep'=>'飞龙刀【紅葉】',
+		'wepk'=>'WK',
+		'wepe'=>'80',
+		'weps'=>'40',
+		'wepsk'=>'uc',
+	),
+	71=>array(
+		'skills'=>array('414'=>'0'),
+	),
+	72=>array(
+		'skills'=>array('420'=>'0'),
+	),
+	73=>array(
+		'arf' => '灯笼裤','arfk' => 'DF','arfe' => '140','arfs' => '30','arfsk' => '',
+	),
+	74=>array(
+		'hp'=>'700','sp'=>'700',
+	),
+	75=>array(
+		'wep' => '触手的力量','wepk'=>'WG','wepe'=>'75','weps'=>'200','wepsk'=>'',
+		'arb' => 'SSS战队校服','arbk' => 'DB','arbe' => '150','arbs' => '100','arbsk' => '',
+		'arh' => '鼓舞士气的头带','arhk' => 'DH','arhe' => '75','arhs' => '100','arhsk' => '',
+		'arf' => '橙黄学生鞋','arfk' => 'DA','arfe' => '75','arfs' => '100','arfsk' => '',
+		'ara' => '广播装置手表α','arak' => 'DF','arae' => '75','aras' => '100','arask' => '',
+	),
+	76=>array(
+		'skills'=>array('416'=>'0'),
+	),
+	77=>array(
+		'skills'=>array('416'=>'1'),
+	),
+	78=>array(
+		'itm6'=>'杏仁豆腐的ID卡',
+		'itmk6'=>'HB',
+		'itme6'=>'77',
+		'itms6'=>'77',
+		'itmsk6'=>'Z',
+	),
+	79=>array(
+		'hp'=>'800','mhp'=>'800','club'=>'17',
+	),
+	80=>array(
+		'club'=>'7',
+		'skills'=>array(
+			'10'=>'0','11'=>'0','12'=>'0','230'=>'0','231'=>'0','232'=>'0',
+			'233'=>'0','234'=>'0','235'=>'0','236'=>'0','237'=>'0','238'=>'0',
+		),
+	),
+	81=>array(
+		'pls'=>'0',
+	),
+	82=>array(
+		'att'=>'250','def'=>'250','skills'=>array('417'=>'0'),
+	),
+	83=>array(
+		'ara' => '团队之星','arak' => 'DA','arae' => '15','aras' => '3','arask' => 'a',
+	),
+	84=>array(
+		'skills'=>array('418'=>'0'),
+	),
+	85=>array(
+		'skills'=>array('419'=>'0'),
+	),
+	86=>array(
+		'skills'=>array('421'=>'0'),
+	),
+	87=>array(
+		'skills'=>array('422'=>'0'),
+	),
+	88=>array(
+		'skills'=>array('423'=>'0'),
+	),
+	89=>array(
+		'money'=>'1000',
+	),
+	90=>array(
+		'club'=>'18',
+		'skills'=>array(
+			'10'=>'0','11'=>'0','12'=>'0','70'=>'0','72'=>'0',
+			'73'=>'0','58'=>'0','59'=>'0','61'=>'0',
+		),
+	),
+	91=>array(
+		'club'=>'6',
+		'skills'=>array(
+			'10'=>'0','39'=>'0','12'=>'0','53'=>'0','74'=>'0',
+			'66'=>'0','204'=>'0',
+		),
+	),
+	92=>array(
+		'club'=>'11',
+		'skills'=>array(
+			'10'=>'0','11'=>'0','12'=>'0','69'=>'0','232'=>'0',
+			'23'=>'0','233'=>'0','410'=>'0',
+		),
+	),
 );
 $carddesc=array(
 	0=>array(
-		'name'=>'参展者',
+		'name'=>'挑战者',
 		'rare'=>'C',
 		'desc'=>'默认的身份卡',
 		'pack'=>'Standard Pack',
@@ -481,7 +602,7 @@ $carddesc=array(
 	),
 	23=>array(
 		'name'=>'宇宙神触',
-		'rare'=>'B',
+		'rare'=>'A',
 		'desc'=>'熟练的高速成长玩家',
 		'pack'=>'Standard Pack',
 		'effect'=>'称号固定为高速成长',
@@ -516,7 +637,7 @@ $carddesc=array(
 	),
 	28=>array(
 		'name'=>'夏之岛住民',
-		'rare'=>'C',
+		'rare'=>'B',
 		'desc'=>'熟练的宝石骑士玩家',
 		'pack'=>'Standard Pack',
 		'effect'=>'称号固定为宝石骑士',
@@ -631,7 +752,7 @@ $carddesc=array(
 		'rare'=>'A',
 		'desc'=>'『飞龙』的好友。前代红杀菁英。据说只要他的盾还在身上，没什么东西能伤的了他。目前他的盾由红暮收藏，他自己则在飞龙之前已经退役了。',
 		'pack'=>'Crimson Swear',
-		'effect'=>'探索体力消耗为1，战斗怒气获得+4',
+		'effect'=>'探索体力消耗-12，战斗怒气获得+4',
 	),
 	45=>array(
 		'name'=>'『铁城（Rook）』',
@@ -750,7 +871,7 @@ $carddesc=array(
 		'rare'=>'C',
 		'desc'=>'由于长期坐办公室，他的身材已经严重走形了',
 		'pack'=>'Crimson Swear',
-		'effect'=>'初始经验值为70，但体力大幅下降',
+		'effect'=>'初始经验值为65，但体力大幅下降',
 	),
 	62=>array(
 		'name'=>'G.D.S 扫地大妈',
@@ -760,18 +881,214 @@ $carddesc=array(
 		'effect'=>'获得技能「人杰」',
 	),
 	63=>array(
-		'name'=>'"Topcoder"',
+		'name'=>'"Sexycoder"',
 		'rare'=>'S',
 		'desc'=>'不愿透露姓名的究极神牛，代码力深不可测',
 		'pack'=>'Event Bonus',
-		'effect'=>'称号固定为锡安成员，且0级即解锁过载',
+		'effect'=>'称号固定为锡安成员，技能「过载」强化，且开局即解锁',
 	),
 	64=>array(
 		'name'=>'"Topcoder"',
 		'rare'=>'S',
 		'desc'=>'不愿透露姓名的究极神牛，代码力深不可测',
-		'pack'=>'Retro Pack',
-		'effect'=>'称号固定为锡安成员，且0级即解锁过载',
+		'pack'=>'Way of Life',
+		'effect'=>'称号固定为锡安成员，且开局即解锁过载',
+	),
+	65=>array(
+		'name'=>'"KHIBIKI《黑曲》"',
+		'rare'=>'S',
+		'desc'=>'ACFUN大逃杀画师，这次更新的大头像和新UI都出自她手',
+		'pack'=>'Way of Life',
+		'effect'=>'减半偶数战斗伤害，直至其为奇数',
+	),
+	66=>array(
+		'name'=>'"KEY男"',
+		'rare'=>'A',
+		'desc'=>'经常出没在清水池的神秘人物',
+		'pack'=>'Way of Life',
+		'effect'=>'合成KEY系武器时耐久度增加',
+	),
+	67=>array(
+		'name'=>'霜火协奏曲',
+		'rare'=>'S',
+		'desc'=>'ACFUN大逃杀史上第一神触',
+		'pack'=>'Way of Life',
+		'effect'=>'战斗中获得的熟练度+1（不与高速成长特性叠加）',
+	),
+	68=>array(
+		'name'=>'狂信徒',
+		'rare'=>'A',
+		'desc'=>'大家都很讨厌他，他自己却没什么自觉',
+		'pack'=>'Way of Life',
+		'effect'=>'开局携带【风神的神德】',
+	),
+	69=>array(
+		'name'=>'活雷锋',
+		'rare'=>'A',
+		'desc'=>'一个有益于人民的人',
+		'pack'=>'Way of Life',
+		'effect'=>'开局携带驱云弹',
+	),
+	70=>array(
+		'name'=>'情怀挑战者',
+		'rare'=>'B',
+		'desc'=>'他的精神寄托就是这把刀了',
+		'pack'=>'Way of Life',
+		'effect'=>'开局装备火焰属性的斩系武器',
+	),
+	71=>array(
+		'name'=>'枪毙的某神',
+		'rare'=>'S',
+		'desc'=>'著名的小黄系列玩家，设计了《小黄的大师球》和初版游戏王的合成',
+		'pack'=>'Way of Life',
+		'effect'=>'获得一段时间内必中（对某些武器无效）的技能',
+	),
+	72=>array(
+		'name'=>'方块挑战者',
+		'rare'=>'A',
+		'desc'=>'猜猜他能上几个属性',
+		'pack'=>'Way of Life',
+		'effect'=>'每隔一段时间可以生成一个方块',
+	),
+	73=>array(
+		'name'=>'苹果姐姐',
+		'rare'=>'B',
+		'desc'=>'唉',
+		'pack'=>'Way of Life',
+		'effect'=>'你知道的',
+	),
+	74=>array(
+		'name'=>'BR挑战者',
+		'rare'=>'C',
+		'desc'=>'在严苛的原版BR环境中生存下来的玩家',
+		'pack'=>'Way of Life',
+		'effect'=>'初始生命+300，体力+300',
+	),
+	75=>array(
+		'name'=>'精锐挑战者',
+		'rare'=>'A',
+		'desc'=>'不管怎么看，这都是一位标准的触手',
+		'pack'=>'Way of Life',
+		'effect'=>'初始装备与思念体-触手众相同',
+	),
+	76=>array(
+		'name'=>'时空挑战者',
+		'rare'=>'B',
+		'desc'=>'精通查危险、移NPC、刷局、隐藏合成等各种高级PVE技巧的时空服玩家',
+		'pack'=>'Way of Life',
+		'effect'=>'对玩家伤害-50%，对NPC伤害+30%',
+	),
+	77=>array(
+		'name'=>'电波挑战者',
+		'rare'=>'C',
+		'desc'=>'为了胜利不择手段的电波服玩家',
+		'pack'=>'Way of Life',
+		'effect'=>'对玩家伤害+10%，对NPC伤害-10%',
+	),
+	78=>array(
+		'name'=>'死斗挑战者',
+		'rare'=>'B',
+		'desc'=>'史上最快死斗缔造者',
+		'pack'=>'Way of Life',
+		'effect'=>'开局携带杏仁豆腐的ID卡',
+	),
+	79=>array(
+		'name'=>'春原挑战者',
+		'rare'=>'C',
+		'desc'=>'来自春原服的新人玩家',
+		'pack'=>'Way of Life',
+		'effect'=>'最大生命值大幅提高，但是无法选择称号',
+	),
+	80=>array(
+		'name'=>'兵马俑',
+		'rare'=>'B',
+		'desc'=>'熟练的西安成员玩家',
+		'pack'=>'Way of Life',
+		'effect'=>'称号固定为锡安成员',
+	),
+	81=>array(
+		'name'=>'篝火挑战者',
+		'rare'=>'A',
+		'desc'=>'来自早已消亡的篝火服的神秘玩家',
+		'pack'=>'Way of Life',
+		'effect'=>'随机发动一张身份卡的效果<br>S:20% A:40% B:20% C:20%',
+	),
+	82=>array(
+		'name'=>'姨妈挑战者',
+		'rare'=>'C',
+		'desc'=>'在速度不良的服务器中磨练出了钢铁般意志的玩家',
+		'pack'=>'Way of Life',
+		'effect'=>'初始攻防和行动CD都提高<br>推荐网速不佳的时候使用这张卡',
+	),
+	83=>array(
+		'name'=>'团战挑战者',
+		'rare'=>'B',
+		'desc'=>'每周都来到团战服打卡上班的玩家',
+		'pack'=>'Way of Life',
+		'effect'=>'开局装备带有属性防御的防具',
+	),
+	84=>array(
+		'name'=>'切糕挑战者',
+		'rare'=>'C',
+		'desc'=>'比起入场更喜欢下注切糕的玩家',
+		'pack'=>'Way of Life',
+		'effect'=>'杂兵掉落的切糕数量增加50%',
+	),
+	85=>array(
+		'name'=>'海外挑战者',
+		'rare'=>'C',
+		'desc'=>'出没时间异于常人的玩家',
+		'pack'=>'Way of Life',
+		'effect'=>'服务器时间1:00~7:00期间造成的战斗伤害提高12%',
+	),
+	86=>array(
+		'name'=>'暴食挑战者',
+		'rare'=>'B',
+		'desc'=>'就算只少了10点体力也要啃培根蛋的玩家',
+		'pack'=>'Event Bonus',
+		'effect'=>'食用补给效果提高',
+	),
+	87=>array(
+		'name'=>'未来战士',
+		'rare'=>'A',
+		'desc'=>'中二动画里盛行的枪斗术他掌握的很好',
+		'pack'=>'Event Bonus',
+		'effect'=>'可以用枪托杀人',
+	),
+	88=>array(
+		'name'=>'Dr.Clef',
+		'rare'=>'S',
+		'desc'=>'撒旦本人',
+		'pack'=>'Event Bonus',
+		'effect'=>'可以和SCP谈笑风生',
+	),
+	89=>array(
+		'name'=>'富一代',
+		'rare'=>'S',
+		'desc'=>'富二代的爸爸',
+		'pack'=>'Event Bonus',
+		'effect'=>'开局金钱为1000',
+	),
+	90=>array(
+		'name'=>'攻坚',
+		'rare'=>'S',
+		'desc'=>'mode16 card1',
+		'pack'=>'hidden',
+		'effect'=>'',
+	),
+	91=>array(
+		'name'=>'副手',
+		'rare'=>'S',
+		'desc'=>'mode16 card2',
+		'pack'=>'hidden',
+		'effect'=>'',
+	),
+	92=>array(
+		'name'=>'辅助',
+		'rare'=>'S',
+		'desc'=>'mode16 card3',
+		'pack'=>'hidden',
+		'effect'=>'',
 	),
 );
 ?>

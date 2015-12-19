@@ -22,13 +22,8 @@ require config('card',$gamecfg);
 $jfile=GAME_ROOT."./gamedata/cache/card.json";
 $cdfile=GAME_ROOT."./gamedata/cache/card_1.php";
 if ((!file_exists($jfile)) || (filemtime($cdfile) > filemtime($jfile))){
-	if(!$fp = fopen($jfile, 'w')) {
-		gexit("咕咕咕");
-	}
 	$jdesc=json_encode($carddesc,JSON_UNESCAPED_UNICODE);
-	flock($fp, 2);
-	fwrite($fp, $jdesc);
-	fclose($fp);
+	writeover($jfile,$jdesc);
 }
 
 if($mode == 'enter') {
@@ -43,6 +38,15 @@ if($mode == 'enter') {
 	}else{
 		$ucl=$udata['cardlist'];
 	}
+	$carr = explode('_',$ucl);
+	$cflag=0;
+	foreach ($carr as $val){
+		if ($val==$card){
+			$cflag=true;
+			break;
+		}
+	}
+	if (!$cflag) $card=0;
 	$db->query("UPDATE {$gtablepre}users SET gender='$gender', icon='$icon', motto='$motto', killmsg='$killmsg', card='$card',lastword='$lastword' ,cardlist='".$ucl."' WHERE username='".$udata['username']."'" );
 	if($validnum >= $validlimit) {
 		gexit($_ERROR['player_limit'],__file__, __line__);
@@ -99,7 +103,7 @@ if($mode == 'enter') {
 	if ($udata['cardlist']==""){
 		$udata['cardlist']="0";
 		$cardlist="0";
-		$db->query("UPDATE {$tablepre}users SET cardlist='$cardlist' WHERE username = '$username'");
+		$db->query("UPDATE {$gtablepre}users SET cardlist='$cardlist' WHERE username = '$username'");
 	}
 	$result = $db->query("SELECT * FROM {$tablepre}players WHERE name = '$cuser' AND type = 0");
 	if($db->num_rows($result)) {
