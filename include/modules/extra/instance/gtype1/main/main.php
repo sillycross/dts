@@ -85,8 +85,9 @@ namespace gtype1
 				}
 				arsort($wl);
 				$rk=0;
-				foreach ($wl as $k=>$v){
+				foreach ($wl as $kk=>$v){
 					$rk++;
+					$k=\player\fetch_playerdata($kk);
 					if ($v>=5){
 						\cardbase\get_qiegao(150,$k);
 					}
@@ -109,7 +110,7 @@ namespace gtype1
 					}
 					if ($rk<=3){
 						\cardbase\get_qiegao(500,$k);
-						addnews(0,'g1announce',$rk,$k,$v);
+						addnews(0,'g1announce',$rk,$kk,$v);
 					}		
 				}
 				\sys\gameover($atime,'end8',$winner);
