@@ -61,7 +61,7 @@ if($command == 'edit') {
 		}
 		//$adminlog = '';
 		//$gamecfg_file = config('gamecfg',$gamecfg);
-		$systemfile = file_get_contents(GAME_ROOT.'./include/modules/core/sys/config/system.config.php');
+		$systemfile = file_get_contents(dirname(dirname(__FILE__)).'./modules/core/sys/config/system.config.php');
 		foreach($edlist as $key => $val){
 			if($key != 'adminmsg' && $key != 'systemmsg'){
 				if($edfmt[$key] == 'int' || $edfmt[$key] == 'b'){
@@ -72,7 +72,7 @@ if($command == 'edit') {
 			}
 			//$adminlog .= setadminlog('systemcfgmng',$key,$val);
 		}
-		file_put_contents(GAME_ROOT.'./include/modules/core/sys/config/system.config.php',$systemfile);
+		file_put_contents(dirname(dirname(__FILE__)).'./modules/core/sys/config/system.config.php',$systemfile);
 		//putadminlog($adminlog);
 		adminlog('systemmng');
 		$cmd_info .= '系统环境修改完毕';
