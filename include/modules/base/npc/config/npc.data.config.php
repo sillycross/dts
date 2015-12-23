@@ -689,6 +689,7 @@ namespace npc
 				0 => array
 				(
 				'name' => '蓝凝',
+				'skills' => array('432'=>'0',),
 				'icon' => 52,
 				'wep' => '『AZURE RONDO』',
 				'wepk' => 'WK',

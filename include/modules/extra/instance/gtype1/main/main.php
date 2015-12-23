@@ -8,7 +8,7 @@ namespace gtype1
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		
+		if ($room_prefix!='') return $chprocess();
 		list($sec,$min,$hour,$day,$month,$year,$wday) = explode(',',date("s,i,H,j,n,Y,w",$now));
 		$tg=$gamenum-3;
 		$res=$db->query("SELECT gametype FROM {$gtablepre}winners WHERE gid='$tg'");
@@ -85,8 +85,9 @@ namespace gtype1
 				}
 				arsort($wl);
 				$rk=0;
-				foreach ($wl as $k=>$v){
+				foreach ($wl as $kk=>$v){
 					$rk++;
+					$k=\player\fetch_playerdata($kk);
 					if ($v>=5){
 						\cardbase\get_qiegao(150,$k);
 					}
@@ -109,7 +110,7 @@ namespace gtype1
 					}
 					if ($rk<=3){
 						\cardbase\get_qiegao(500,$k);
-						addnews(0,'g1announce',$rk,$k,$v);
+						addnews(0,'g1announce',$rk,$kk,$v);
 					}		
 				}
 				\sys\gameover($atime,'end8',$winner);
