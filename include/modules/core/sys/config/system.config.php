@@ -47,6 +47,9 @@ namespace sys
 	$chatrefresh = 15000;
 	//游戏进行中是否显示聊天。0为不显示，数字为显示条数
 	$chatinnews = 50;
+	
+	//是否开启曜日活动
+	$disableevent = 0;
 
 	//团队模式游戏类型列表
 	$teamwin_mode = Array(11,12,13,14);
