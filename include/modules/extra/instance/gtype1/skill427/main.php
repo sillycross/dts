@@ -32,14 +32,14 @@ namespace skill427
 		$chprocess($pa,$pd);
 		
 		eval(import_module('sys','logger'));
-		if (($pa['type']==88)||($pa['type']==1)){
-			$log.= "<span class=\"linen\">都告诉你了，对某些NPC无效……快去死吧。</span><br>";
-			return;
-		}
 		
 		if (in_array($pd['state'],Array(20,21,22,23,24,25,27,29)))
 			if (\skillbase\skill_query(427,$pd))
 			{
+				if (($pa['type']==88)||($pa['type']==1)){
+					$log.= "<span class=\"linen\">都告诉你了，对某些NPC无效……快去死吧。</span><br>";
+					return;
+				}
 				\skillbase\skill_setvalue(427,'r','1',$pd);
 				if ($pd['state']==27 && !$pd['sourceless'])	//陷阱
 				{
