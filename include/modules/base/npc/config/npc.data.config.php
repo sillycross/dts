@@ -659,7 +659,7 @@ namespace npc
 			'msp' => 4000,
 			'att' => 200000,
 			'def' => 4000,
-			'lvl' => 25,
+			'lvl' => 97,
 			'skill' => 1800,
 			'money' => 1,
 			'arb' => '奥术盔甲B - 霜',
