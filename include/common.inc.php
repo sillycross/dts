@@ -3,6 +3,7 @@
 //set_magic_quotes_runtime(0);
 
 @ini_set('xdebug.max_nesting_level',5000);
+ignore_user_abort(1);
 
 if (!defined('IN_GAME')) define('IN_GAME', TRUE);
 if (!defined('GAME_ROOT')) define('GAME_ROOT', substr(dirname(__FILE__), 0, -7));

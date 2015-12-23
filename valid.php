@@ -64,6 +64,12 @@ if($mode == 'enter') {
 	$cardinfo=$carddesc[$cc];
 	$r=$cardinfo['rare'];
 	$cf=true;
+	
+	if ($gametype==1){
+		unset($r);
+		$cc=93;
+	}
+	
 	if ($r=="S"){
 		if (($now-$udata['cd_s'])<86400){
 			$cf=false;
