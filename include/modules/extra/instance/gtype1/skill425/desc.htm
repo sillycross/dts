@@ -1,0 +1,30 @@
+<!--{eval eval(import_module('skill425','sys'));}-->
+<!--{eval $___TEMP_SKILL_ID=425;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+重载
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<!--{eval $skill425_lst = (int)\skillbase\skill_getvalue(425,'lastuse'); $skill425_time = ($now-$skill425_lst);$skill425_cd_left=($skill425_cd-$skill425_time);}-->
+更换除错所需求的物品，冷却时间<span class="clan">90</span>秒<br>
+可以花费<span class="yellow">500</span>元买通管理员来无视CD发动技能<br>
+<!--{if $skill425_lst!=0}-->
+<!--{if $skill425_time<$skill425_cd}-->
+<span class="clan">技能冷却中，冷却时间还剩<span>$skill425_cd_left</span>秒。</span><br>
+<!--{/if}-->
+<!--{/if}-->
+</span></td>
+<td class=b3 width=46>
+<!--{if $skill425_time>$skill425_cd}-->
+<input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill425_special';$('subcmd').value='activate';postCmd('gamecmd','command.php');this.disabled=true;" value="发动">
+<!--{else}-->
+<input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill425_special';$('subcmd').value='activate';postCmd('gamecmd','command.php');this.disabled=true;" value="花钱">
+<!--{/if}-->
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

@@ -60,6 +60,7 @@ skill309,extra/achievement/skills/skill309/,1
 skill317,extra/achievement/skills/skill317/,1
 skill319,extra/achievement/skills/skill319/,1
 skill320,extra/achievement/skills/skill320/,1
+skill431,extra/card/skills/skill431/,1
 skill69,extra/club/skills/skill69/,1
 skill300,extra/achievement/skills/skill300/,1
 attrbase,extra/attr/attrbase/,1
@@ -135,6 +136,11 @@ skill233,extra/club/skills/skill233/,1
 skill234,extra/club/skills/skill234/,1
 skill235,extra/club/skills/skill235/,1
 skill420,extra/card/skills/skill420/,1
+skill424,extra/instance/gtype1/skill424/,1
+skill426,extra/instance/gtype1/skill426/,1
+skill428,extra/instance/gtype1/skill428/,1
+skill429,extra/instance/gtype1/skill429/,1
+skill430,extra/card/skills/skill430/,1
 skill236,extra/club/skills/skill236/,1
 skill221,extra/club/skills/skill221/,1
 wep_n,base/weapon/wep_n/,1
@@ -196,6 +202,8 @@ skill55,extra/club/skills/skill55/,1
 skill72,extra/club/skills/skill72/,1
 skill227,extra/club/skills/skill227/,1
 skill59,extra/club/skills/skill59/,1
+skill425,extra/instance/gtype1/skill425/,1
+skill427,extra/instance/gtype1/skill427/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 miracletrap,base/items/miracletrap/,1
@@ -268,6 +276,7 @@ skill26,extra/club/skills/skill26/,1
 skill51,extra/club/skills/skill51/,1
 ex_gender_attr,extra/attr/ex_gender_attr/,1
 ex_attr_pierce,extra/attr/ex_attr_pierce/,1
+gtype1,extra/instance/gtype1/main/,1
 instance5,extra/instance/instance5/,1
 instance6,extra/instance/instance6/,1
 skill42,extra/club/skills/skill42/,1

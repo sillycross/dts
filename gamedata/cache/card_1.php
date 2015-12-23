@@ -437,6 +437,27 @@ $cards=array(
 			'23'=>'0','233'=>'0','410'=>'0',
 		),
 	),
+	93=>array(
+		'club'=>'7',
+		'skills'=>array(
+			'10'=>'0','11'=>'0','12'=>'0','424'=>'0','425'=>'0',
+			'426'=>'0','427'=>'0','429'=>'0','428'=>'0','235'=>'0',
+		),
+		'itm6'=>'任务指令书A',
+		'itmk6'=>'Y',
+		'itme6'=>'1',
+		'itms6'=>'1',
+		'itmsk6'=>'',
+	),
+	94=>array(
+		'skills'=>array('430'=>'0'),
+	),
+	95=>array(
+		'skills'=>array('431'=>'0'),
+	),
+	96=>array(
+		'skills'=>array('431'=>'0'),
+	),
 );
 $carddesc=array(
 	0=>array(
@@ -1089,6 +1110,34 @@ $carddesc=array(
 		'desc'=>'mode16 card3',
 		'pack'=>'hidden',
 		'effect'=>'',
+	),
+	93=>array(
+		'name'=>'软件测试工程师',
+		'rare'=>'S',
+		'desc'=>'mode1 card1',
+		'pack'=>'hidden',
+		'effect'=>'',
+	),
+	94=>array(
+		'name'=>'大自然的搬运工',
+		'rare'=>'A',
+		'desc'=>'他能找到别人找不到的东西',
+		'pack'=>'Event Bonus',
+		'effect'=>'每60秒可以随机获得一个地图上刷新的物品',
+	),
+	95=>array(
+		'name'=>'『冰炎（Rimefire）』',
+		'rare'=>'S',
+		'desc'=>'==Classified==',
+		'pack'=>'Crimson Swear',
+		'effect'=>'每次通常合成物品经验+3，全熟+3',
+	),
+	96=>array(
+		'name'=>'"Rimefire"',
+		'rare'=>'S',
+		'desc'=>'==Classified==',
+		'pack'=>'Event Bonus',
+		'effect'=>'每次通常合成物品经验+3，全熟+3',
 	),
 );
 ?>

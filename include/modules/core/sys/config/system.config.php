@@ -51,9 +51,9 @@ namespace sys
 	//团队模式游戏类型列表
 	$teamwin_mode = Array(11,12,13,14);
 	//不可完成一般成就的游戏类型列表(这个是不是放到achievement_base里比较好？不过这么写可以省一个import)
-	$ach_ignore_mode = Array(10,11,12,13,14,15,16);
+	$ach_ignore_mode = Array(10,11,12,13,14,15,16,1);
 	//不可获得胜利切糕的游戏类型
-	$qiegao_ignore_mode = Array(10,11,12,13,14,15,16);
+	$qiegao_ignore_mode = Array(10,11,12,13,14,15,16,1);
 	//计算天梯积分的游戏类型
 	$elorated_mode=Array(10,11,12,13,14);
 	//不允许PVE的游戏类型
