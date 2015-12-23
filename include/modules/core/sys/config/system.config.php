@@ -60,7 +60,7 @@ namespace sys
 	//计算天梯积分的游戏类型
 	$elorated_mode=Array(10,11,12,13,14);
 	//不允许PVE的游戏类型
-	$pve_ignore_mode=Array(10,11,12,13,14);
+	$pve_ignore_mode=Array(1,10,11,12,13,14);
 	//我好像写了一些很蠢的东西
 }
 
