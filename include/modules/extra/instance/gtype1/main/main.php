@@ -24,7 +24,7 @@ namespace gtype1
 				$gametype=0;
 			}
 		}*/
-		if (($month==12)&&($day>=24)&&($day<=26)&&(($hour<2)||($hour>=17))){
+		if (($month==12)&&($day==27)&&(($hour<2))){
 			$gametype=1;
 		}else{
 			$gametype=0;
