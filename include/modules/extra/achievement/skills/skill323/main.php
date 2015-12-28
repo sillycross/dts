@@ -42,7 +42,7 @@ namespace skill323
 		$arr=$cardindex['S'];
 		$c=count($arr)-1;
 		$cr=$arr[rand(0,$c)];
-		if (($x!=0)&&($x<=2400)&&(($ox>2400)||($ox==0))){
+		if (($x!=0)&&($x<=2700)&&(($ox>2700)||($ox==0))){
 			\cardbase\get_qiegao(666,$pa);
 			\cardbase\get_card($cr,$pa);
 		}
@@ -70,7 +70,7 @@ namespace skill323
 			$p323=0;
 		else	$p323=base64_decode_number($data);	
 		$c323=0;
-		if (($p323<=2400)&&($p323!=0)){
+		if (($p323<=2700)&&($p323!=0)){
 			$c323=999;
 		}
 		include template('MOD_SKILL323_DESC');

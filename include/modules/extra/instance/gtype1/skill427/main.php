@@ -66,12 +66,7 @@ namespace skill427
 				
 				//陷阱杀人得技能点一起放在这里
 				if ($pd['state']==27){
-					$pa['skillpoint']+=2;
-					if (\skillbase\skill_query(424,$pa)){
-						$clv=\skillbase\skill_getvalue(424,'lvl',$pa); 
-						$clv++;
-						\skillbase\skill_setvalue(424,'lvl',$clv,$pa); 
-					}
+					$pa['skillpoint']+=3;
 				}
 				
 				addnews ( $now, 'revival', $pd['name'] );
