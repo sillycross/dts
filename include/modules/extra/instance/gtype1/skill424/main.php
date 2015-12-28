@@ -84,7 +84,7 @@ namespace skill424
 				$mode = 'command';
 				return;
 			}else{
-				$log .= "你没有进行除错所需的物品。<br />";
+				$log .= "本次除错需要物品<span class=\"yellow\">$req1</span>或<span class=\"yellow\">$req2</span>。你没有进行除错所需的物品。<br />";
 				$mode = 'command';
 				return;
 			}

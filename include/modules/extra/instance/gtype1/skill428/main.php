@@ -2,8 +2,10 @@
 
 namespace skill428
 {
-	$dmggain = Array(0,10,20,30,40,50);
-	$upgradecost = Array(3,3,4,4,5,-1);
+	$dmggain = Array(0,20,40,65);
+	$extralvllost = Array(0,1,2,2);
+	$skptbonus = Array(2,2,3,4);
+	$upgradecost = Array(6,7,8,-1);
 	
 	function init() 
 	{
@@ -78,21 +80,20 @@ namespace skill428
 		return $chprocess();
 	}
 	
-		
-	
 	function kill(&$pa, &$pd)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','logger'));
-
+		eval(import_module('sys','logger','skill428'));
 		//陷阱杀人得奖励
-		if (($gametype==1)&&($pd['state']==27)&&($pa['type']==0)){
-			$pa['skillpoint']+=2;
-			if (\skillbase\skill_query(424,$pa)){
-				$clv=\skillbase\skill_getvalue(424,'lvl',$pa); 
-				$clv++;
-				\skillbase\skill_setvalue(424,'lvl',$clv,$pa); 
+		if (($gametype==1)&&($pd['state']==27)&&($pa['type']==0) && (\skillbase\skill_query(428,$pa))){
+			$clv = \skillbase\skill_getvalue(428,'lvl',$pa);
+			$pa['skillpoint']+=$skptbonus[$clv];	//获得技能点奖励
+			if (\skillbase\skill_query(424,$pd)){	//敌方额外损失破解层数
+				$lv=\skillbase\skill_getvalue(424,'lvl',$pd); 
+				$lv-=$extralvllost[$clv]; 
+				if ($lv<0) $lv=0;
+				\skillbase\skill_setvalue(424,'lvl',$lv,$pd); 
 			}
 		}
 		$chprocess($pa,$pd);	

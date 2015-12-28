@@ -23,7 +23,7 @@ namespace gtype1
 				$gametype=0;
 			}
 		}
-		if ($disableevent) $gametype=0;
+		if ($disableevent) $gametype=0; 
 		$chprocess();
 	}
 	
@@ -83,7 +83,9 @@ namespace gtype1
 					}
 				}
 				arsort($wl);
-				$rk=0;
+				$rk=0; 
+				$max_announce_num = 3;	//进行状况展示人数
+				$bestlist = Array();	//进行状况中展示的前X名列表
 				foreach ($wl as $kk=>$v){
 					$rk++;
 					$k=\player\fetch_playerdata($kk);
@@ -107,11 +109,16 @@ namespace gtype1
 					if ($rk<=2){
 						\cardbase\get_card(95,$k);
 					}
-					if ($rk<=3){
+					if ($rk<=$max_announce_num){
 						\cardbase\get_qiegao(500,$k);
-						addnews(0,'g1announce',$rk,$kk,$v);
+						$bestlist[$rk] = Array(0=>$kk, 1=>$v);
 					}		
 				}
+				
+				for ($i=$max_announce_num; $i>=1; $i--) 
+					if (isset($bestlist[$i]))
+						addnews(0,'g1announce',$i,$bestlist[$i][0],$bestlist[$i][1]);
+						
 				\sys\gameover($atime,'end8',$winner);
 				return;
 			}
