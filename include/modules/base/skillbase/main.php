@@ -43,6 +43,21 @@ namespace skillbase
 		throw new Exception('bad char in skillbase '.$c);
 	}
 	
+	function parse_skill_parameter_data($nskparas)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$para=explode(',',$nskparas);
+		$cn=count($para);
+		
+		$para_list=Array();
+		if ($cn%2!=1) throw new Exception('bad nskillpara value '.$nskparas);
+		for ($i=0; $i<($cn-1)/2; $i++)
+		{
+			$para_list[base64_decode($para[$i*2])]=base64_decode($para[$i*2+1]);
+		}
+		return $para_list;
+	}
+	
 	function skillbase_load(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -55,17 +70,10 @@ namespace skillbase
 			$c=b64_conv_to_value($pa['nskill'][$i*2])*64+b64_conv_to_value($pa['nskill'][$i*2+1]);
 			$ac_list[$c]=1;
 		}
-		$para=explode(',',$pa['nskillpara']);
-		$cn=count($para);
 		
-		$para_list=Array();
-		if ($cn%2!=1) throw new Exception('bad nskillpara value '.$pa['nskillpara']);
-		for ($i=0; $i<($cn-1)/2; $i++)
-		{
-			$para_list[base64_decode($para[$i*2])]=base64_decode($para[$i*2+1]);
-		}
 		$pa['acquired_list']=$ac_list;
-		$pa['parameter_list']=$para_list;
+		$pa['parameter_list']=parse_skill_parameter_data($pa['nskillpara']);
+		
 		if ($pa['pid']==$pid)
 		{
 			eval(import_module('skillbase'));
@@ -256,6 +264,15 @@ namespace skillbase
 		{
 			if (isset($pa['parameter_list'][$skillkey])) return $pa['parameter_list'][$skillkey]; else return NULL;
 		}
+	}
+	
+	//这个函数与上面那个区别在于，这个是直接从nskillpara串中读出某个元素的值，不需要初始化player结构
+	function skill_getvalue_direct($skillid, $skillkey, $paradata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$skillkey=$skillid.'_'.$skillkey;
+		$para_list=parse_skill_parameter_data($paradata);
+		if (isset($para_list[$skillkey])) return $para_list[$skillkey]; else return NULL;
 	}
 	
 	function skill_delvalue($skillid, $skillkey, &$pa = NULL)
