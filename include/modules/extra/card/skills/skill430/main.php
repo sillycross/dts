@@ -53,11 +53,11 @@ namespace skill430
 		$file=GAME_ROOT."./include/modules/base/itemmain/config/mapitem.config.php";//真是丑陋！
 		$itemlist = openfile($file);
 		$in = sizeof($itemlist);
-		$i=rand(1,$in-1);
+		$i=rand(4,$in-1);//妈了个臀
 		list($iarea,$imap,$inum,$iname,$ikind,$ieff,$ista,$iskind) = explode(',',$itemlist[$i]);
 		$itm0=$iname;$itme0=$ieff;$itms0=$ista;$itmsk0=$iskind;$itmk0=$ikind;
 		addnews ( 0, 'bskill430', $name,$iname );
-		\itemmain\itemget();	
+		\itemmain\itemget();
 	}
 	
 	//return 1:技能生效中 2:技能冷却中 3:技能冷却完毕 其他:不能使用这个技能
