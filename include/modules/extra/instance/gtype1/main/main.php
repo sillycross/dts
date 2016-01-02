@@ -4,7 +4,7 @@ namespace gtype1
 {
 	function init() {}
 	
-	function reset_game()
+	function prepare_new_game()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
