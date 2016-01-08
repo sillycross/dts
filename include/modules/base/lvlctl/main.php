@@ -54,21 +54,21 @@ namespace lvlctl
 	
 		$up_exp_temp = round ( (2 * $pa['lvl'] + 1) * $baseexp );
 		$pa['exp']+=$v;
-		if ($pa['exp'] >= $up_exp_temp && $pa['lvl'] < 255) 
+		if ($pa['exp'] >= $up_exp_temp && $pa['lvl'] < 65535) 
 		{
 			//升级判断
 			$lvup = 1 + floor ( ($pa['exp'] - $up_exp_temp) / $baseexp / 2 );
-			$lvup = $lvup > 255 - $pa['lvl'] ? 255 - $pa['lvl'] : $lvup;
+			$lvup = $lvup > 65535 - $pa['lvl'] ? 65535 - $pa['lvl'] : $lvup;
 			
 			$lvuphp = $lvupatt = $lvupdef = $lvupskill = $lvupsp = $lvupspref = $lvupskpt = 0; $sklog = '';
 			for($i = 0; $i < $lvup; $i += 1) 
 			{
-				if ($pa['lvl'] < 255) lvlup($pa);
+				if ($pa['lvl'] < 65535) lvlup($pa);
 			}
 			$up_exp_temp = round ( (2 * $pa['lvl'] + 1) * $baseexp );
 			
-			if ($pa['lvl'] >= 255) {
-				$pa['lvl'] = 255;
+			if ($pa['lvl'] >= 65535) {
+				$pa['lvl'] = 65535;
 				$pa['exp'] = $up_exp_temp;
 			}
 			$pa['upexp'] = $up_exp_temp;
@@ -108,8 +108,8 @@ namespace lvlctl
 				$w_log = "<span class=\"yellow\">你升了{$lvup}级！生命上限+{$lvuphp}，体力上限+{$lvupsp}，攻击+{$lvupatt}，防御+{$lvupdef}，体力恢复了{$lvupspref}{$sklog}，获得了{$lvupskpt}点技能点！</span><br>";
 				\logger\logsave ( $pa['pid'], $now, $w_log,'s');
 			}
-		} elseif ($pa['lvl'] >= 255) {
-			$pa['lvl'] = 255;
+		} elseif ($pa['lvl'] >= 65535) {
+			$pa['lvl'] = 65535;
 			$pa['exp'] = $up_exp_temp;
 		}
 		return;

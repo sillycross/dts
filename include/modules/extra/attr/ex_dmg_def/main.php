@@ -33,6 +33,14 @@ namespace ex_dmg_def
 		return 90;
 	}
 	
+	function check_ex_dmg_def_proc(&$pa, &$pd, $active, $key)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$proc_rate = get_ex_dmg_def_proc_rate($pa, $pd, $active, $key);
+		$dice = rand(0,99);
+		return ($dice<$proc_rate);
+	}
+	
 	function check_ex_single_dmg_def_attr(&$pa, &$pd, $active, $key)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -43,9 +51,7 @@ namespace ex_dmg_def
 			$ex_def_array = \attrbase\get_ex_def_array($pa, $pd, $active);
 			if (in_array($def_kind[$key], $ex_def_array) || in_array('a', $ex_def_array))
 			{
-				$proc_rate = get_ex_dmg_def_proc_rate($pa, $pd, $active, $key);
-				$dice = rand(0,99);
-				if ($dice<$proc_rate)
+				if (check_ex_dmg_def_proc($pa, $pd, $active, $key))
 				{
 					$log .= "{$exdmgname[$key]}被防具防御了！";
 					$r = 0.5;

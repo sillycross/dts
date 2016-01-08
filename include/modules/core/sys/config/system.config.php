@@ -50,7 +50,9 @@ namespace sys
 	
 	//是否开启曜日活动
 	$disableevent = 0;
-
+	//是否开启沙盒模式
+	$disable_sandbox_mode = 0;
+	
 	//房间游戏模式列表
 	$room_mode = Array(10,11,12,13,14,15,16);
 	//团队模式游戏类型列表

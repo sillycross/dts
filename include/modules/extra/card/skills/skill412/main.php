@@ -45,7 +45,7 @@ namespace skill412
 		if ($c%2==0) return 1; else return -1;
 	}
 	
-	function apply_damage(&$pa,&$pd,$active)
+	function apply_total_damage_modifier_down(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (\skillbase\skill_query(412,$pd) && check_unlocked412($pd) && $pa['dmg_dealt']>0)

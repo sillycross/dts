@@ -10,6 +10,16 @@ namespace attack
 		return Array();
 	}
 	
+	function apply_total_damage_modifier_down(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+	}
+	
+	function apply_total_damage_modifier_up(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+	}
+	
 	function apply_damage(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$pd['hp']-=$pa['dmg_dealt'];
@@ -47,9 +57,13 @@ namespace attack
 				else  $log .= "<span class=\"yellow\">造成的总伤害：</span>{$dmg}{$mult_words}＝<span class=\"red\">{$fin_dmg}</span><span class=\"yellow\">。</span><br>";
 				$pa['dmg_dealt']=$fin_dmg;
 			}
-			
-		//扣血并更新最高伤害
 		
+		//应用对总伤害的修正
+		//先应用降低类，后应用提高类
+		apply_total_damage_modifier_down($pa,$pd,$active);
+		apply_total_damage_modifier_up($pa,$pd,$active);
+		
+		//扣血并更新最高伤害
 		apply_damage($pa,$pd,$active);
 		
 		eval(import_module('sys')); 
