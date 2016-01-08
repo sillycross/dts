@@ -40,7 +40,7 @@ namespace skill206
 		return (get_gunner_skillpoint_need($pa)<=0);
 	}
 	
-	function apply_damage(&$pa,&$pd,$active){
+	function apply_total_damage_modifier_up(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!\skillbase\skill_query(206,$pa) || !check_unlocked206($pa)) return $chprocess($pa,$pd,$active);
 		$chprocess($pa,$pd,$active);

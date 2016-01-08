@@ -38,7 +38,7 @@ namespace skill402
 		return $r;
 	}
 
-	function apply_damage(&$pa,&$pd,$active){
+	function apply_total_damage_modifier_up(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!\skillbase\skill_query(402,$pa) || !check_unlocked402($pa)) return $chprocess($pa,$pd,$active);
 		$chprocess($pa,$pd,$active);

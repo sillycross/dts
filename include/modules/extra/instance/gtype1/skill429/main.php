@@ -63,7 +63,7 @@ namespace skill429
 		return $rate;
 	}
 
-	function apply_damage(&$pa,&$pd,$active){
+	function apply_total_damage_modifier_down(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!\skillbase\skill_query(429,$pa) || !check_unlocked429($pa)) return $chprocess($pa,$pd,$active);
 		$var_429=get_skill429_dmg($pa);
