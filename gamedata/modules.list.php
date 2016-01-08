@@ -141,6 +141,9 @@ skill426,extra/instance/gtype1/skill426/,1
 skill428,extra/instance/gtype1/skill428/,1
 skill429,extra/instance/gtype1/skill429/,1
 skill430,extra/card/skills/skill430/,1
+club21,extra/club/clubs/club21/,1
+skill240,extra/club/skills/skill240/,1
+skill241,extra/club/skills/skill241/,1
 skill236,extra/club/skills/skill236/,1
 skill221,extra/club/skills/skill221/,1
 wep_n,base/weapon/wep_n/,1
@@ -197,7 +200,9 @@ skill416,extra/card/skills/skill416/,1
 skill419,extra/card/skills/skill419/,1
 skill414,extra/card/skills/skill414/,1
 skill423,extra/card/skills/skill423/,1
+skill239,extra/club/skills/skill239/,1
 skill432,extra/card/skills/skill432/,1
+skill242,extra/club/skills/skill242/,1
 skill53,extra/club/skills/skill53/,1
 skill55,extra/club/skills/skill55/,1
 skill72,extra/club/skills/skill72/,1
@@ -270,6 +275,7 @@ skill33,extra/club/skills/skill33/,1
 weather,base/weather/,1
 npcinfo,extra/misc/npcinfo/,1
 skill206,extra/club/skills/skill206/,1
+skill243,extra/club/skills/skill243/,1
 skill34,extra/club/skills/skill34/,1
 skill208,extra/club/skills/skill208/,1
 skill215,extra/club/skills/skill215/,1

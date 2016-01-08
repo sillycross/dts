@@ -3,7 +3,7 @@
 namespace skill239
 {
 	//命中率获得比例
-	$sk239_ratio = Array(10,20,30,40,50);
+	$sk239_ratio = Array(10,16,24,32,40);
 	//升级所需技能点数值
 	$upgradecost = Array(4,4,5,5,-1);
 	
@@ -70,7 +70,7 @@ namespace skill239
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('weapon'));
 		if (!\skillbase\skill_query(239, $pa) || !check_unlocked239($pa)) return $chprocess($pa,$pd,$active);
-		return $chprocess($pa,$pd,$active)+round($pa['att']*get_skill239_percentage(&$pa, &$pd, $active)/100.0);
+		return $chprocess($pa,$pd,$active)+round($pa['att']*get_skill239_percentage($pa, $pd, $active)/100.0);
 	}
 }
 

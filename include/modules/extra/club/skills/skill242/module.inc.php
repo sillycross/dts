@@ -1,9 +1,9 @@
 <?php
 
-namespace skill239
+namespace skill242
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase player weapon clubbase';
+	$___MODULE_dependency = 'skillbase clubbase sklearn_util';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';
