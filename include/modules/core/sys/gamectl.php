@@ -30,7 +30,7 @@ namespace sys
 		$noiseid = 0;
 		$noiseid2 = 0;
 		$noisemode = '';
-		$gametype = 0;
+		//$gametype = 0;
 		$gamestate = 10;
 		
 		save_combatinfo();
