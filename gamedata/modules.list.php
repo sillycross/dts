@@ -144,6 +144,7 @@ skill430,extra/card/skills/skill430/,1
 club21,extra/club/clubs/club21/,1
 skill240,extra/club/skills/skill240/,1
 skill241,extra/club/skills/skill241/,1
+skill433,extra/card/skills/skill433/,1
 skill236,extra/club/skills/skill236/,1
 skill221,extra/club/skills/skill221/,1
 wep_n,base/weapon/wep_n/,1
