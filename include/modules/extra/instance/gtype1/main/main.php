@@ -73,21 +73,38 @@ namespace gtype1
 				$ml=-1;
 				$winner='';
 				$wl=array();
+				$wc=0;
 				while($pt = $db->fetch_array($result)) {
 					$pa=\player\fetch_playerdata_by_pid($pt['pid']);
 					$cl=(int)\skillbase\skill_getvalue(424,'lvl',$pa);
-					$wl[$pa['name']]=$cl;
+					//$wl[$pa['name']]=$cl;
 					if ($cl>$ml){
 						$ml=$cl;
 						$winner=$pa['name'];
 					}
+					$wc++;
+					$wl[$wc]['n']=$pa['name'];
+					$wl[$wc]['p']=$pa['pid'];
+					$wl[$wc]['c']=$cl;
 				}
-				arsort($wl);
+				//arsort($wl);
+				for ($i=1;$i<$wc;$i++){
+					for ($j=$i+1;$j<=$wc;$j++){
+						if (($wl[$i]['c']<$wl[$j]['c'])||($wl[$i]['c']==$wl[$j]['c'])&&($wl[$i]['p']<$wl[$j]['p'])){
+							$tt=$wl[$i];
+							$wl[$i]=$wl[$j];
+							$wl[$j]=$tt;
+						}
+					}
+				}
 				$rk=0; 
 				$max_announce_num = 3;	//进行状况展示人数
 				$bestlist = Array();	//进行状况中展示的前X名列表
-				foreach ($wl as $kk=>$v){
-					$rk++;
+				//foreach ($wl as $kk=>$v){
+				for ($rk=1;$rk<=$wc;$rk++){
+					//$rk++;
+					$kk=$wl[$rk]['n'];
+					$v=$wl[$rk]['c'];
 					$k=\player\fetch_playerdata($kk);
 					if ($v>=5){
 						\cardbase\get_qiegao(150,$k);

@@ -37,7 +37,8 @@ namespace ex_hp_def
 		eval(import_module('logger'));
 		if (in_array('h',\attrbase\get_ex_def_array($pa, $pd, $active)))
 		{
-			$dmg_dice = rand(1950,2050);
+			//$dmg_dice = rand(1950,2050);
+			$dmg_dice = 1997;
 			if ($pa['dmg_dealt'] > $dmg_dice)
 			{
 				$proc_rate = get_dmg_def_proc_rate($pa, $pd, $active);
