@@ -33,7 +33,7 @@ namespace item_uv
 					}
 					else
 					{
-						$log.="你读完了<span class=\"red\">$itm</span>，感觉受益匪浅。你获得了技能「<span class=\"yellow\">".$clubskillname[$sk_kind]."</span>」！<br>";
+						$log.="你读完了<span class=\"red\">$itm</span>，感觉受益匪浅。你获得了技能「<span class=\"yellow\">".$clubskillname[$sk_kind]."</span>」，请前往技能界面查看。<br>";
 						\skillbase\skill_acquire($sk_kind);
 						\itemmain\itms_reduce($theitem);
 					}
