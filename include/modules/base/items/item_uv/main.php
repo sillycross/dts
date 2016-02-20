@@ -19,6 +19,33 @@ namespace item_uv
 		
 		if (strpos ( $itmk, 'V' ) === 0) 
 		{
+			//特殊的技能书类型VS，效果是获得技能编号为itmsk的技能
+			if (strpos ( $itmk, 'VS' ) === 0)	//技能书
+			{
+				eval(import_module('clubbase'));
+				$sk_kind = (int)$itmsk;
+				if ($sk_kind<1) $sk_kind = 1;
+				if (defined('MOD_SKILL'.$sk_kind) && $clubskillname[$sk_kind]!='')
+				{
+					if (\skillbase\skill_query($sk_kind))
+					{
+						$log.="你翻开了<span class=\"red\">$itm</span>，发现这本书就是昨天刚刚看过的那本。你随手把书放回了包里。<br>";
+					}
+					else
+					{
+						$log.="你读完了<span class=\"red\">$itm</span>，感觉受益匪浅。你获得了技能「<span class=\"yellow\">".$clubskillname[$sk_kind]."</span>」！<br>";
+						\skillbase\skill_acquire($sk_kind);
+						\itemmain\itms_reduce($theitem);
+					}
+				}
+				else
+				{
+					$log.="技能书参数错误，这应该是一个BUG，请联系管理员。<br>";
+				}
+				return;
+			}
+			
+			//下面是普通的技能书处理（效果是加某个系的熟练）
 			$skill_minimum = 100;
 			$skill_limit = 300;
 			$log .= "你阅读了<span class=\"red\">$itm</span>。<br>";

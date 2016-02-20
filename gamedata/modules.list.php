@@ -290,6 +290,7 @@ instance6,extra/instance/instance6/,1
 skill42,extra/club/skills/skill42/,1
 addnpc,base/addnpc/,1
 skill50,extra/club/skills/skill50/,1
+skill245,extra/club/skills/skill245/,1
 skill244,extra/club/skills/skill244/,1
 skill27,extra/club/skills/skill27/,1
 skill43,extra/club/skills/skill43/,1

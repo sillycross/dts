@@ -82,6 +82,43 @@ namespace weather
 		else  return $chprocess($pa,$pd,$active);
 	}
 	
+	function calculate_hailstorm_weather_damage()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return round($mhp/12) + rand(0,20);
+	}
+	
+	function deal_hailstorm_weather_damage()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','logger'));
+		$damage = calculate_hailstorm_weather_damage();
+		$hp -= $damage;
+		$log .= "被<span class=\"blue\">冰雹</span>击中，生命减少了<span class=\"red\">$damage</span>点！<br>";
+		if($hp <= 0 ) {
+			$state = 17;
+			\player\update_sdata();
+			$sdata['selflag'] = 1;
+			\player\kill($sdata,$sdata);
+			return;
+		}
+	}
+	
+	function apply_tornado_weather_effect()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','map','player','logger'));
+		if($hack)
+		{
+			$pls = rand(0,sizeof($plsinfo)-1);
+		}
+		else 
+		{
+			$pls = rand($areanum+1,sizeof($plsinfo)-1);$pls=$arealist[$pls];
+		}
+		$log .= "但是强烈的龙卷风把你吹到了<span class=\"yellow\">$plsinfo[$pls]</span>！<br>";
+	}
+	
 	function move_to_area($moveto)	//天气对移动的特效
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -89,28 +126,12 @@ namespace weather
 		eval(import_module('sys','map','player','logger'));
 		if($weather == 11)	//龙卷风
 		{
-			if($hack)
-			{
-				$pls = rand(0,sizeof($plsinfo)-1);
-			}
-			else 
-			{
-				$pls = rand($areanum+1,sizeof($plsinfo)-1);$pls=$arealist[$pls];
-			}
-			$log .= "但是强烈的龙卷风把你吹到了<span class=\"yellow\">$plsinfo[$pls]</span>！<br>";
+			apply_tornado_weather_effect();
 		} 
 		else  if($weather == 13) 	//冰雹
 		{
-			$damage = round($mhp/12) + rand(0,20);
-			$hp -= $damage;
-			$log .= "被<span class=\"blue\">冰雹</span>击中，生命减少了<span class=\"red\">$damage</span>点！<br>";
-			if($hp <= 0 ) {
-				$state = 17;
-				\player\update_sdata();
-				$sdata['selflag'] = 1;
-				\player\kill($sdata,$sdata);
-				return;
-			}
+			deal_hailstorm_weather_damage();
+			if ($hp<=0) return;
 		} 
 		else  if($weather == 14)	//离子暴
 		{
@@ -165,16 +186,8 @@ namespace weather
 		eval(import_module('sys','map','player','logger'));
 		if($weather == 13) 
 		{
-			$damage = round($mhp/12) + rand(0,20);
-			$hp -= $damage;
-			$log .= "被<span class=\"blue\">冰雹</span>击中，生命减少<span class=\"red\">$damage</span>点！<br>";
-			if($hp <= 0 ) {
-				$state = 17;
-				\player\update_sdata();
-				$sdata['selflag'] = 1;
-				\player\kill($sdata,$sdata);
-				return;
-			}
+			deal_hailstorm_weather_damage();
+			if ($hp<=0) return;
 		} 
 		else  if($weather == 14)	//离子暴
 		{
