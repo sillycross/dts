@@ -97,6 +97,7 @@ skill311,extra/achievement/skills/skill311/,1
 skill312,extra/achievement/skills/skill312/,1
 skill314,extra/achievement/skills/skill314/,1
 skill315,extra/achievement/skills/skill315/,1
+skill443,extra/card/skills/skill443/,1
 kuji0,extra/card/kuji/kuji0/,1
 kuji1,extra/card/kuji/kuji1/,1
 kuji2,extra/card/kuji/kuji2/,1
@@ -202,6 +203,17 @@ skill419,extra/card/skills/skill419/,1
 skill414,extra/card/skills/skill414/,1
 skill423,extra/card/skills/skill423/,1
 skill239,extra/club/skills/skill239/,1
+skill437,extra/card/skills/skill437/,1
+skill438,extra/card/skills/skill438/,1
+skill439,extra/card/skills/skill439/,1
+skill440,extra/card/skills/skill440/,1
+skill441,extra/card/skills/skill441/,1
+skill442,extra/card/skills/skill442/,1
+skill446,extra/card/skills/skill446/,1
+skill447,extra/card/skills/skill447/,1
+skill449,extra/card/skills/skill449/,1
+skill450,extra/card/skills/skill450/,1
+skill452,extra/card/skills/skill452/,1
 skill432,extra/card/skills/skill432/,1
 skill242,extra/club/skills/skill242/,1
 skill53,extra/club/skills/skill53/,1
@@ -242,8 +254,10 @@ ex_attr_charge,extra/attr/ex_attr_charge/,1
 empowers,base/items/empowers/,1
 skill32,extra/club/skills/skill32/,1
 skill202,extra/club/skills/skill202/,1
+skill445,extra/card/skills/skill445/,1
 pose,base/pose/,1
 skill1,base/skills/skill1/,1
+skill444,extra/card/skills/skill444/,1
 skill207,extra/club/skills/skill207/,1
 skill65,extra/club/skills/skill65/,1
 skill49,extra/club/skills/skill49/,1
@@ -269,6 +283,8 @@ skill75,extra/club/skills/skill75/,1
 skill76,extra/club/skills/skill76/,1
 skill210,extra/club/skills/skill210/,1
 skill238,extra/club/skills/skill238/,1
+skill434,extra/card/skills/skill434/,1
+skill448,extra/card/skills/skill448/,1
 ex_phy_nullify,extra/attr/ex_phy_nullify/,1
 wepchange,extra/attr/wepchange/,1
 blessstone,extra/attr/blessstone/,1
@@ -295,4 +311,6 @@ skill244,extra/club/skills/skill244/,1
 skill27,extra/club/skills/skill27/,1
 skill43,extra/club/skills/skill43/,1
 skill56,extra/club/skills/skill56/,1
+skill435,extra/card/skills/skill435/,1
 skill57,extra/club/skills/skill57/,1
+skill436,extra/card/skills/skill436/,1

@@ -28,9 +28,10 @@ namespace skill238
 	function calculate_ex_single_dmg_multiple(&$pa, &$pd, $active, $key)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ((\skillbase\skill_query(238,$pa))&&(check_unlocked238($pa))&&($key=='e')&&($pa['card']==63))
+		if ((\skillbase\skill_query(238,$pa))&&(check_unlocked238($pa))&&($key=='e'))
 		{
-			return $chprocess($pa, $pd, $active, $key)*1.25;
+			if ($pa['card']==63) return $chprocess($pa, $pd, $active, $key)*1.5;
+			if ($pa['card']==64) return $chprocess($pa, $pd, $active, $key)*1.25;
 		}
 		return $chprocess($pa, $pd, $active, $key);
 	}

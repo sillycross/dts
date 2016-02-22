@@ -3,7 +3,7 @@
 namespace skill244
 {
 
-	$ragecost=60;
+	$ragecost=70;
 	
 	function init() 
 	{
@@ -48,13 +48,13 @@ namespace skill244
 		else
 		{
 			$rcost = get_rage_cost244($pa);
-			if ($pa['rage']>=$rcost || $pa['skillpoint']>=1)
+			if ($pa['rage']>=$rcost || $pa['skillpoint']>=2)
 			{
 				eval(import_module('logger'));
 				if ($active)
 					$log.="<span class=\"lime\">你对{$pd['name']}发动了技能「归约」！</span><br>";
 				else  $log.="<span class=\"lime\">{$pa['name']}对你发动了技能「归约」！</span><br>";
-				if ($pa['rage']>=$rcost) $pa['rage']-=$rcost; else $pa['skillpoint']--;
+				if ($pa['rage']>=$rcost) $pa['rage']-=$rcost; else $pa['skillpoint']-=2;
 				addnews ( 0, 'bskill244', $pa['name'], $pd['name'] );
 			}
 			else
