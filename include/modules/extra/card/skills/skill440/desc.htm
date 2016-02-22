@@ -1,0 +1,26 @@
+<!--{eval eval(import_module('skill440','sys'));}-->
+<!--{eval $___TEMP_SKILL_ID=440;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+父爱
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<!--{eval $skill440_lst = (int)\skillbase\skill_getvalue(440,'lastuse'); $skill440_time = ($now-$skill440_lst);$skill440_cd_left=($skill440_cd-$skill440_time);}-->
+<span class="yellow">战斗技</span>&nbsp;&nbsp;本次战斗中敌方玩家所有称号技能无效，技能冷却时间<span class="clan">$skill440_cd</span>秒<br>
+<!--{if $skill440_lst!=0}-->
+<!--{if $skill440_time<$skill440_cd}-->
+<span class="clan">技能冷却中，冷却时间还剩<span>$skill440_cd_left</span>秒。</span><br>
+<!--{else}-->
+<span class="yellow">技能已经就绪，可以发动<span>
+<!--{/if}-->
+<!--{/if}-->
+</span></td>
+<td class=b3 width=46>
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}
