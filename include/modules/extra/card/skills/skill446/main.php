@@ -3,7 +3,7 @@
 namespace skill446
 {
 	$skill446_cd = 36000;
-	$skill446_act_time = 25;
+	$skill446_act_time = 30;
 	
 	function init() 
 	{
@@ -110,6 +110,7 @@ namespace skill446
 				$z['style']=2;
 				$z['totsec']=$skill446_cd;
 				$z['nowsec']=$skill446_time-$skill446_act_time;
+				\skillbase\skill_lost(446);	//仅限一次，进入CD即自动失去技能
 			}
 			else 
 			{

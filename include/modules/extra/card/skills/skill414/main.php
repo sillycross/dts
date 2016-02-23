@@ -104,6 +104,7 @@ namespace skill414
 				$z['style']=2;
 				$z['totsec']=$skill414_cd;
 				$z['nowsec']=$skill414_time-$skill414_act_time;
+				\skillbase\skill_lost(414);
 			}
 			else 
 			{
