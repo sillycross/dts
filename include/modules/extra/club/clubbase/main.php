@@ -294,11 +294,17 @@ namespace clubbase
 	}
 	
 	//载入玩家发动的攻击技能
-	function load_user_combat_command(&$pdata)
+	function load_user_battleskill_command(&$pdata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('input'));
 		$pdata['bskill']=$bskill; $pdata['bskillpara']=$bskillpara;
+	}
+	
+	function load_user_combat_command(&$pdata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		load_user_battleskill_command($pdata);
 		$chprocess($pdata);
 	}
 	

@@ -49,12 +49,6 @@ if ($hp<=0 || $player_dead_flag)
 	player\post_act();
 }
 
-if ($hp!=$hp_backup_temp || $player_dead_flag!=$player_dead_flag_backup_temp)
-{
-	\player\update_sdata();
-	\player\player_save($sdata);
-}
-
 //var_dump($itm3);
 if($hp <= 0){
 	$dtime = date("Y年m月d日H时i分s秒",$endtime);
@@ -75,5 +69,11 @@ if($hp <= 0){
 player\prepare_initial_response_content();
 
 include template('game');
+
+if ($hp!=$hp_backup_temp || $player_dead_flag!=$player_dead_flag_backup_temp)
+{
+	\player\update_sdata();
+	\player\player_save($sdata);
+}
 
 ?>

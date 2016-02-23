@@ -38,6 +38,15 @@ namespace enemy
 		return 1.0;
 	}
 	
+	//判定主动，判定成功代表可以主动选择是否战斗，失败则被动强制进入战斗
+	function check_enemy_meet_active(&$ldata,&$edata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$active_r = calculate_active_obbs($ldata,$edata)*calculate_active_obbs_multiplier($ldata,$edata);
+		$active_dice = rand(0,99);
+		return ($active_dice < $active_r);
+	}
+	
 	function meetman($sid)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -50,16 +59,12 @@ namespace enemy
 		if ($edata['hp']>0)
 		{
 			extract($edata,EXTR_PREFIX_ALL,'w');
-			
-			$ldata=$sdata;
-			$active_r = calculate_active_obbs($ldata,$edata)*calculate_active_obbs_multiplier($ldata,$edata);
-			$active_dice = rand(0,99);
-			if($active_dice <  $active_r) {
+			if (check_enemy_meet_active($sdata,$edata)) {
 				$action = 'enemy'.$edata['pid'];
 				findenemy($edata);
 				return;
 			} else {
-				battle_wrapper($edata,$ldata,0);
+				battle_wrapper($edata,$sdata,0);
 				return;
 			}
 		}

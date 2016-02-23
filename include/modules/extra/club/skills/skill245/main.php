@@ -34,25 +34,25 @@ namespace skill245
 	function calculate_weather_meetman_obbs(&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_query(245)) return abs($chprocess()); else return $chprocess();
+		if (\skillbase\skill_query(245)) return abs($chprocess($edata)); else return $chprocess($edata);
 	}
 	
 	function calculate_weather_active_obbs(&$ldata,&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_query(245,$ldata)) return abs($chprocess()); else return $chprocess();
+		if (\skillbase\skill_query(245,$ldata)) return abs($chprocess($ldata,$edata)); else return $chprocess($ldata,$edata);
 	}
 	
 	function calculate_weather_attack_modifier(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_query(245,$pa)) return abs($chprocess()); else return $chprocess();
+		if (\skillbase\skill_query(245,$pa)) return abs($chprocess($pa,$pd,$active)); else return $chprocess($pa,$pd,$active);
 	}
 	
 	function calculate_weather_defend_modifier(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_query(245,$pd)) return abs($chprocess()); else return $chprocess();
+		if (\skillbase\skill_query(245,$pd)) return abs($chprocess($pa,$pd,$active)); else return $chprocess($pa,$pd,$active);
 	}
 	
 	function deal_hailstorm_weather_damage()
