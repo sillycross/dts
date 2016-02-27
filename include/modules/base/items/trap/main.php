@@ -263,6 +263,13 @@ namespace trap
 		trap();
 	}
 	
+	function get_traplist() 
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player'));
+		return $db->query("SELECT * FROM {$tablepre}maptrap WHERE pls = '$pls' ORDER BY itmk DESC");
+	}
+	
 	function trapcheck()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -270,7 +277,7 @@ namespace trap
 		$real_trap_obbs = calculate_real_trap_obbs();
 		$trap_dice=rand(0,$trap_max_obbs-1);
 		if($trap_dice < $real_trap_obbs){//踩陷阱判断
-			$trapresult = $db->query("SELECT * FROM {$tablepre}maptrap WHERE pls = '$pls' ORDER BY itmk DESC");
+			$trapresult = get_traplist();
 			$trpnum = $db->num_rows($trapresult);
 			if ($trpnum == 0) return 0;
 			$itemno = rand(0,$trpnum-1);

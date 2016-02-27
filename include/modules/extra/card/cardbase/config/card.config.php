@@ -533,6 +533,9 @@ $cards=array(
 	116=>array(
 		'skills'=>array('452'=>'0'),
 	),
+	117=>array(
+		'skills'=>array('247'=>'0'),
+	),
 );
 $carddesc=array(
 	0=>array(
@@ -1353,6 +1356,13 @@ $carddesc=array(
 		'desc'=>'这不是撤退，是转进',
 		'pack'=>'Best DOTO',
 		'effect'=>'战斗中被动受到大伤害时将传送到随机地图',
+	),
+	117=>array(
+		'name'=>'星莲船挑战者',
+		'rare'=>'B',
+		'desc'=>'AC大逃杀元老人物之一',
+		'pack'=>'Way of Life',
+		'effect'=>'获得技能「挖坑」（误',
 	),
 );
 }
