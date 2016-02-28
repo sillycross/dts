@@ -528,6 +528,9 @@ $cards=array(
 	117=>array(
 		'skills'=>array('247'=>'0'),
 	),
+	118=>array(
+		'money'=>0,
+	),
 );
 $carddesc=array(
 	0=>array(
@@ -1355,6 +1358,13 @@ $carddesc=array(
 		'desc'=>'AC大逃杀元老人物之一',
 		'pack'=>'Way of Life',
 		'effect'=>'获得技能「挖坑」（误',
+	),
+	118=>array(
+		'name'=>'富零代',
+		'rare'=>'C',
+		'desc'=>'富一代的一贫如洗的爸爸',
+		'pack'=>'Event Bonus',
+		'effect'=>'开局金钱为0元',
 	),
 );
 ?>
