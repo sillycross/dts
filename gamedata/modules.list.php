@@ -262,6 +262,7 @@ skill207,extra/club/skills/skill207/,1
 skill65,extra/club/skills/skill65/,1
 skill49,extra/club/skills/skill49/,1
 skill201,extra/club/skills/skill201/,1
+skill248,extra/club/skills/skill248/,1
 skill600,extra/club/skills/skill600/,1
 ex_attr_trap,extra/attr/ex_attr_trap/,1
 skill422,extra/card/skills/skill422/,1
