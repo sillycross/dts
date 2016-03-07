@@ -97,6 +97,7 @@ skill312,extra/achievement/skills/skill312/,1
 skill314,extra/achievement/skills/skill314/,1
 skill315,extra/achievement/skills/skill315/,1
 skill443,extra/card/skills/skill443/,1
+skill325,extra/achievement/skills/skill325/,1
 kuji0,extra/card/kuji/kuji0/,1
 kuji1,extra/card/kuji/kuji1/,1
 kuji2,extra/card/kuji/kuji2/,1

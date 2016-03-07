@@ -531,6 +531,9 @@ $cards=array(
 	118=>array(
 		'money'=>0,
 	),
+	119=>array(
+		'pls'=>0,
+	),
 );
 $carddesc=array(
 	0=>array(
@@ -1365,6 +1368,13 @@ $carddesc=array(
 		'desc'=>'富一代的一贫如洗的爸爸',
 		'pack'=>'Event Bonus',
 		'effect'=>'开局金钱为0元',
+	),
+	119=>array(
+		'name'=>'常磐之心',
+		'rare'=>'A',
+		'desc'=>'技能尚未实装，请耐心等待^_^',
+		'pack'=>'Event Bonus',
+		'effect'=>'暂时没有效果',
 	),
 );
 ?>
