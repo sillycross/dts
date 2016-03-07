@@ -56,7 +56,8 @@ namespace skill325
 	function player_kill_enemy(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_query(325,$pa) && $pd['type']>0 && $pa['attackwith']=='精灵球')
+		eval(import_module('map'));
+		if (\skillbase\skill_query(325,$pa) && $pd['type']>0 && $pa['attackwith']=='精灵球' && $areanum==0)
 		{
 			$x=(int)\skillbase\skill_getvalue(325,'cnt',$pa);
 			$x+=1;
