@@ -57,7 +57,7 @@ namespace skill325
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('map'));
-		if (\skillbase\skill_query(325,$pa) && $pd['type']>0 && $pa['attackwith']=='精灵球' && $areanum==0)
+		if (\skillbase\skill_query(325,$pa) && $pd['type']>0 && $pa['attackwith']=='精灵球' && $areanum==0 && (!isset($pa['bskill']) || $pa['bskill']==0))
 		{
 			$x=(int)\skillbase\skill_getvalue(325,'cnt',$pa);
 			$x+=1;
