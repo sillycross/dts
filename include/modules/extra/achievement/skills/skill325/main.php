@@ -73,7 +73,7 @@ namespace skill325
 			$p325=0;
 		else	$p325=base64_decode_number($data);	
 		$c325=0;
-		if ($p325>=10)
+		if ($p325>=1)
 			$c325=1;
 		else if ($p325>=100)
 			$c325=999;
