@@ -1,0 +1,24 @@
+<!--{eval eval(import_module('skill453','sys'));}-->
+<!--{eval $___TEMP_SKILL_ID=453;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+狂击
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+连续主动攻击并命中同一目标时，造成的最终伤害每次增加<span class="yellow">20</span>%<br>
+2分钟未作出攻击会自动失去1层强化效果，反击不触发本技能
+</span></td>
+<td class=b3 width=46>
+<!--{if $skill453_time>$skill453_cd+$skill453_act_time}-->
+<input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill453_special';$('subcmd').value='activate';postCmd('gamecmd','command.php');this.disabled=true;" value="发动">
+<!--{else}-->
+<input type="button" style="width:46px" disabled="true" value="发动">
+<!--{/if}-->
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}
