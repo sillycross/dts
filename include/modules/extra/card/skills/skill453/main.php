@@ -19,6 +19,7 @@ namespace skill453
 		eval(import_module('sys','skill453'));
 		\skillbase\skill_setvalue(453,'lasthit',$now,$pa);
 		\skillbase\skill_setvalue(453,'target','',$pa);
+		\skillbase\skill_setvalue(453,'tarpid',0,$pa);
 		\skillbase\skill_setvalue(453,'cnt',0,$pa);
 	}
 	
@@ -41,10 +42,10 @@ namespace skill453
 		{
 			sk453_skill_status_update();
 			eval(import_module('sys','logger'));
-			$target = \skillbase\skill_getvalue(453,'target',$pa); 
-			if ($pd['name']==$target)
+			$tarpid = (int)\skillbase\skill_getvalue(453,'tarpid',$pa); 
+			$skill453_count = (int)\skillbase\skill_getvalue(453,'cnt',$pa); 
+			if ($pd['pid']==$tarpid && $skill453_count>0)
 			{
-				$skill453_count = (int)\skillbase\skill_getvalue(453,'cnt',$pa); 
 				$rat=$skill453_count*20;
 				if ($active)
 					$log.='<span class="yellow">你对敌人的连续攻击使伤害增加了'.$rat.'%！</span><br>';
@@ -60,6 +61,7 @@ namespace skill453
 				\skillbase\skill_setvalue(453,'cnt',1,$pa); 
 				\skillbase\skill_setvalue(453,'lasthit',$now,$pa);
 				\skillbase\skill_setvalue(453,'target',$pd['name'],$pa); 
+				\skillbase\skill_setvalue(453,'tarpid',$pd['pid'],$pa); 
 			}
 		}
 		return array_merge($r,$chprocess($pa,$pd,$active));

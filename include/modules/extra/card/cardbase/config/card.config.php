@@ -1357,7 +1357,7 @@ $carddesc=array(
 		'rare'=>'C',
 		'desc'=>'他就是传说中的黑球卡',
 		'pack'=>'Best DOTO',
-		'effect'=>'冷却时间-5%',
+		'effect'=>'冷却时间-25%',
 	),
 	116=>array(
 		'name'=>'帕克',
