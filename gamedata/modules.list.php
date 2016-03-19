@@ -22,6 +22,7 @@ skill305,extra/achievement/skills/skill305/,1
 skill306,extra/achievement/skills/skill306/,1
 skill313,extra/achievement/skills/skill313/,1
 skill324,extra/achievement/skills/skill324/,1
+skill326,extra/achievement/skills/skill326/,1
 itemmain,base/itemmain/,1
 skill4,base/skills/skill4/,1
 npc,base/npc/,1
