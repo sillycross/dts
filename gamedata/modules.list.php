@@ -22,6 +22,7 @@ skill305,extra/achievement/skills/skill305/,1
 skill306,extra/achievement/skills/skill306/,1
 skill313,extra/achievement/skills/skill313/,1
 skill324,extra/achievement/skills/skill324/,1
+skill326,extra/achievement/skills/skill326/,1
 itemmain,base/itemmain/,1
 skill4,base/skills/skill4/,1
 npc,base/npc/,1
@@ -97,6 +98,7 @@ skill312,extra/achievement/skills/skill312/,1
 skill314,extra/achievement/skills/skill314/,1
 skill315,extra/achievement/skills/skill315/,1
 skill443,extra/card/skills/skill443/,1
+skill325,extra/achievement/skills/skill325/,1
 kuji0,extra/card/kuji/kuji0/,1
 kuji1,extra/card/kuji/kuji1/,1
 kuji2,extra/card/kuji/kuji2/,1
@@ -215,6 +217,7 @@ skill449,extra/card/skills/skill449/,1
 skill450,extra/card/skills/skill450/,1
 skill452,extra/card/skills/skill452/,1
 skill246,extra/club/skills/skill246/,1
+skill453,extra/card/skills/skill453/,1
 skill432,extra/card/skills/skill432/,1
 skill242,extra/club/skills/skill242/,1
 skill53,extra/club/skills/skill53/,1
@@ -262,6 +265,7 @@ skill207,extra/club/skills/skill207/,1
 skill65,extra/club/skills/skill65/,1
 skill49,extra/club/skills/skill49/,1
 skill201,extra/club/skills/skill201/,1
+skill248,extra/club/skills/skill248/,1
 skill600,extra/club/skills/skill600/,1
 ex_attr_trap,extra/attr/ex_attr_trap/,1
 skill422,extra/card/skills/skill422/,1
