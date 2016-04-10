@@ -2,7 +2,7 @@
 
 namespace skill420
 {
-	$skill420_cd = 450;
+	$skill420_cd = 300;
 	
 	function init() 
 	{
@@ -15,7 +15,7 @@ namespace skill420
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','skill420'));
-		\skillbase\skill_setvalue(420,'lastuse',$now,$pa);
+		\skillbase\skill_setvalue(420,'lastuse',0,$pa);
 	}
 	
 	function lost420(&$pa)

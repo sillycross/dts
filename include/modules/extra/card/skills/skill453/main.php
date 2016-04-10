@@ -44,25 +44,22 @@ namespace skill453
 			eval(import_module('sys','logger'));
 			$tarpid = (int)\skillbase\skill_getvalue(453,'tarpid',$pa); 
 			$skill453_count = (int)\skillbase\skill_getvalue(453,'cnt',$pa); 
-			if ($pd['pid']==$tarpid && $skill453_count>0)
-			{
-				$rat=$skill453_count*20;
-				if ($active)
-					$log.='<span class="yellow">你对敌人的连续攻击使伤害增加了'.$rat.'%！</span><br>';
-				else  $log.='<span class="yellow">敌人对你的连续攻击使伤害增加了'.$rat.'%！</span><br>';
-				$r=Array(1+$rat/100.0);
-				$skill453_count++;
-				\skillbase\skill_setvalue(453,'cnt',$skill453_count,$pa); 
-				\skillbase\skill_setvalue(453,'lasthit',$now,$pa);
-			}
-			else
+			
+			if ($pd['pid']!=$tarpid || $skill453_count==0)
 			{
 				//主动攻击其他目标，重置层数
-				\skillbase\skill_setvalue(453,'cnt',1,$pa); 
-				\skillbase\skill_setvalue(453,'lasthit',$now,$pa);
+				$skill453_count=0;
 				\skillbase\skill_setvalue(453,'target',$pd['name'],$pa); 
 				\skillbase\skill_setvalue(453,'tarpid',$pd['pid'],$pa); 
 			}
+			$skill453_count++;
+			$rat=$skill453_count*20;
+			if ($active)
+				$log.='<span class="yellow">你对敌人的连续攻击使伤害增加了'.$rat.'%！</span><br>';
+			else  $log.='<span class="yellow">敌人对你的连续攻击使伤害增加了'.$rat.'%！</span><br>';
+			$r=Array(1+$rat/100.0);
+			\skillbase\skill_setvalue(453,'cnt',$skill453_count,$pa); 
+			\skillbase\skill_setvalue(453,'lasthit',$now,$pa);
 		}
 		return array_merge($r,$chprocess($pa,$pd,$active));
 	}
