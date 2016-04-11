@@ -50,8 +50,8 @@ namespace skill326
 		$o=ceil(strlen($data)/3);
 		
 		if ($o==10) \cardbase\get_qiegao(888,$pa);
-		if ($o==25) \cardbase\get_card(81,$pa);
-		if ($o==50) \cardbase\get_qiegao(1500,$pa);
+		if ($o==25) { \cardbase\get_card(81,$pa); \cardbase\get_qiegao(1200,$pa); }
+		if ($o==50) \cardbase\get_qiegao(1600,$pa);
 		if ($o==75) \cardbase\get_qiegao(2000,$pa);
 		if ($o==100) \cardbase\get_qiegao(2500,$pa);
 		

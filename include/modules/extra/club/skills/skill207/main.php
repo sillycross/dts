@@ -137,7 +137,7 @@ namespace skill207
 		if (!\skillbase\skill_query(207,$pa) || !check_unlocked207($pa)) return $chprocess($pa, $pd, $active);
 		if ($pa['wepk']!='WK') return $chprocess($pa, $pd, $active);
 		eval(import_module('skill207'));
-		$clv = (int)\skillbase\skill_getvalue(207,'lvl');
+		$clv = (int)\skillbase\skill_getvalue(207,'lvl',$pa);
 		$r=1;
 		if ($clv>=6) $r=1.3;
 		return $chprocess($pa, $pd, $active)*$r;
