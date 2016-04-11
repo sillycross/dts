@@ -41,6 +41,7 @@ namespace skill319
 		if (($ox<15)&&($x>=15)){
 			\cardbase\get_qiegao(485,$pa);
 			\cardbase\get_card(12,$pa);
+			\cardbase\get_energy(5,$pa);
 		}
 		
 		return base64_encode_number($x,5);		

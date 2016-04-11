@@ -53,7 +53,7 @@ namespace skill453
 				\skillbase\skill_setvalue(453,'tarpid',$pd['pid'],$pa); 
 			}
 			$skill453_count++;
-			$rat=$skill453_count*20;
+			$rat=$skill453_count*15;
 			if ($active)
 				$log.='<span class="yellow">你对敌人的连续攻击使伤害增加了'.$rat.'%！</span><br>';
 			else  $log.='<span class="yellow">敌人对你的连续攻击使伤害增加了'.$rat.'%！</span><br>';
@@ -95,7 +95,7 @@ namespace skill453
 			$skill453_lst = (int)\skillbase\skill_getvalue(453,'lasthit'); 
 			$skill453_target = \skillbase\skill_getvalue(453,'target'); 
 			$skill453_count = (int)\skillbase\skill_getvalue(453,'cnt'); 
-			$rat=$skill453_count*20;
+			$rat=$skill453_count*15;
 			
 			$nlostime = $skill453_buff_lose_time-($now-$skill453_lst);
 			
