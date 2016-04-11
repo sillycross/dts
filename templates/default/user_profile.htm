@@ -48,6 +48,11 @@
 				<td width=55px>&nbsp;</td>
 				<td><span class="{$rarecolor}">$cr $carr['name']</span></td>
 			</tr>
+			<tr>
+				<td>能量</td>
+				<td width=55px>&nbsp;</td>
+				<td>$energy</td>
+			</tr>
 			</table>
 		</td>
 		<td width=60px>&nbsp;</td>
@@ -75,12 +80,7 @@
 		</td>
 	</tr>
 	</table>
-	<div style="width:600px;text-align:center;"><!--{if $curuser && !$cf}--><span class="yellow">您现在不能使用该等级的身份卡，请更换！</span><!--{/if}--><span class="clan">点击天梯积分和身份卡可以查看详细信息</span></div>
-	<div style="width:600px;text-align:center;">
-		<!--{if $curuser && !$sf}--><span class="orange">{$std}开始才可再使用S级身份卡</span><br><!--{/if}-->
-		<!--{if $curuser && !$af}--><span class="linen">{$atd}开始才可再使用A级身份卡</span><br><!--{/if}-->
-		<!--{if $curuser && !$bf}--><span class="brickred">{$btd}开始才可再使用B级身份卡</span><br><!--{/if}-->
-	</div>
+	<div style="width:600px;text-align:center;"><!--{if $curuser && !$cf}--><span class="yellow">您的能量不足以使用当前身份卡</span><!--{/if}--><span class="clan">点击天梯积分和身份卡可以查看详细信息</span></div>
 	<!--{if defined('MOD_ACHIEVEMENT_BASE')}-->
 		<table>
 		<!--{eval eval(import_module('achievement_base'));}-->
@@ -115,7 +115,7 @@
 <br>
 以下是该身份卡的数据。<br><br>
 </p>
-	<table CellSpacing=0 CellPadding=1 width="250" height="240">
+	<table CellSpacing=0 CellPadding=1 width="250" height="260">
 		<tr height="40">
 			<td class=b2 width="40" height="40">卡名</td>
 			<td class=b3 width="210" height="40">$carr['name']</td>
@@ -125,8 +125,12 @@
 			<td class=b3 width="210" height="40">$carr['rare']</td>
 		</tr>
 		<tr height="40">
-			<td class=b2 width="40" height="40">系列</td>
-			<td class=b3 width="210" height="40">$carr['pack']</td>
+			<td class=b2 width="40" height="40">能量</td>
+			<!--{if $ck>0}-->
+			<td class=b3 width="210" height="40">消耗 $ack</td>
+			<!--{else}-->
+			<td class=b3 width="210" height="40">获得 $ack</td>
+			<!--{/if}-->
 		</tr>
 		<tr height="70">
 			<td class=b2 width="40" height="70">介绍</td>

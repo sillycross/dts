@@ -42,6 +42,24 @@ namespace cardbase
 		}
 	}
 	
+	function get_energy($num,$pa=NULL)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player'));
+		if ($pa==NULL){
+			$n=$name;
+		}else{
+			if (isset($pa['username'])) $n=$pa['username'];
+			else $n=$pa['name'];
+		}
+		$result = $db->query("SELECT energy FROM {$gtablepre}users WHERE username='$n'");
+		$cg = $db->result($result,0);
+		$cg=$cg+$num;
+		if ($cg<0) $cg=0;
+		if ($cg>300) $cg=300;
+		$db->query("UPDATE {$gtablepre}users SET energy='$cg' WHERE username='$n'");
+	}
+	
 	function get_qiegao($num,$pa=NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
