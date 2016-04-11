@@ -86,6 +86,12 @@ namespace itemshop
 		return $shopiteminfo;
 	}
 	
+	function calculate_shop_itembuy_cost($price,$bnum)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $price*$bnum;
+	}
+	
 	function itembuy($item,$shop,$bnum=1) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -100,6 +106,8 @@ namespace itemshop
 		}
 
 		$bnum = (int)$bnum;
+		$cost=calculate_shop_itembuy_cost($price,$bnum);
+		
 		//list($num,$price,$iname,$ikind,$ieff,$ista,$isk) = explode(',',$iteminfo);
 		if($shopiteminfo['num'] <= 0) {
 			$log .= '此物品已经售空！<br><br>';
@@ -113,11 +121,11 @@ namespace itemshop
 			$log .= '购买数量必须小于存货数量。<br><br>';
 			$mode = 'command';
 			return;
-		} elseif($money < $price*$bnum) {
+		} elseif($money < $cost) {
 			$log .= '你的钱不够，不能购买此物品！<br><br>';
 			$mode = 'command';
 			return;
-		} elseif(!preg_match('/^(WC|WD|WF|Y|B|C|TN|GB|H|V|M)/',$shopiteminfo['itmk'])&&$bnum>1) {
+		} elseif(!preg_match('/^(WC|WD|WF|Y|B|C|TN|GB|H|P|V|M|X|p|ygo)/',$shopiteminfo['itmk'])&&$bnum>1) {
 			$log .= '此物品一次只能购买一个。<br><br>';
 			$mode = 'command';
 			return;
@@ -131,7 +139,7 @@ namespace itemshop
 		$sid = $shopiteminfo['sid'];
 		$db->query("UPDATE {$tablepre}shopitem SET num = '$inum' WHERE sid = '$sid'");
 
-		$money -= $price*$bnum;
+		$money -= $cost;
 	
 		addnews($now,'itembuy',$name,$iteminfo['item']);
 		$log .= "购买成功。";
