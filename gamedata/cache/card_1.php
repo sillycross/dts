@@ -372,7 +372,7 @@ $cards=array(
 		'skills'=>array('416'=>'1'),
 	),
 	78=>array(
-		'itm6'=>'杏仁豆腐的ID卡',
+		'itm6'=>'杏仁豆腐的ID卡模样的杏仁豆腐',
 		'itmk6'=>'HB',
 		'itme6'=>'77',
 		'itms6'=>'77',
