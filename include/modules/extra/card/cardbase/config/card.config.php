@@ -421,7 +421,7 @@ $cards=array(
 		'skills'=>array('423'=>'0'),
 	),
 	89=>array(
-		'money'=>'1000',
+		'money'=>'500',
 	),
 	90=>array(
 		'club'=>'18',
@@ -1178,7 +1178,7 @@ $carddesc=array(
 		'rare'=>'S',
 		'desc'=>'富二代的爸爸',
 		'pack'=>'Event Bonus',
-		'effect'=>'开局金钱为1000',
+		'effect'=>'开局金钱为500',
 	),
 	90=>array(
 		'name'=>'攻坚',
@@ -1234,7 +1234,7 @@ $carddesc=array(
 		'rare'=>'B',
 		'desc'=>'来自蛋服的反meta玩家',
 		'pack'=>'Way of Life',
-		'effect'=>'获得技能「断肠」（杀死你的玩家失去所有称号技能，然后获得技能「断肠」）',
+		'effect'=>'获得技能「断肠」（主动杀死你的玩家失去所有称号技能，然后获得技能「断肠」）',
 	),
 	98=>array(
 		'name'=>'DK^BurNIng',
@@ -1360,7 +1360,7 @@ $carddesc=array(
 		'rare'=>'C',
 		'desc'=>'他就是传说中的黑球卡',
 		'pack'=>'Best DOTO',
-		'effect'=>'冷却时间-25%',
+		'effect'=>'冷却时间-10%',
 	),
 	116=>array(
 		'name'=>'帕克',
@@ -1395,7 +1395,7 @@ $carddesc=array(
 		'rare'=>'A',
 		'desc'=>'这张卡的设计者没玩过DOTA所以不知道怎么写介绍',
 		'pack'=>'Best DOTO',
-		'effect'=>'连续攻击同一目标时（包含第一次），造成的最终伤害每次增加20%',
+		'effect'=>'连续攻击同一目标时（包含第一次），造成的最终伤害每次增加13%',
 	),
 	121=>array(
 		'name'=>'团购挑战者',
