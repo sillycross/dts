@@ -39,7 +39,6 @@ namespace skill324
 		
 		if (($ox<21)&&($x>=21)){
 			\cardbase\get_qiegao(140,$pa);
-			\cardbase\get_energy(10,$pa);
 		}
 		
 		return base64_encode_number($x,5);		

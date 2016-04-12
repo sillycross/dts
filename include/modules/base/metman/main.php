@@ -68,6 +68,7 @@ namespace metman
 			$tdata['wepestate'] = "$wepeinfo[0]";
 		}
 		
+		$tdata['cardinfo'] = $w_cardname;
 		$tdata['sNoinfo'] = "$typeinfo[$w_type]({$sexinfo[$w_gd]}{$w_sNo}号)";
 		$w_i = $w_type > 0 ? 'n' : $w_gd;
 		$tdata['iconImg'] = $w_i.'_'.$w_icon.'.gif';
