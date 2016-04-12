@@ -92,10 +92,10 @@ if($mode == 'edit') {
 	$carr = explode('_',$cardlist);
 	$clist = Array();
 	$cad=$card;
+	
 	foreach($carr as $key => $val){
 		$clist[$key] = $val;
 	}
-	$ack=abs($carddesc[$cad]['cost']);
 	include template('user');
 	
 }

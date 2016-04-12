@@ -62,7 +62,7 @@ if($mode == 'enter') {
 	require config('card',$gamecfg);
 	$cc=$card;
 	$cardinfo=$carddesc[$cc];
-	$r=$cardinfo['cost'];
+	$r=$cardinfo['rare'];
 	$cf=true;
 	
 	if ($gametype==1){
@@ -70,14 +70,7 @@ if($mode == 'enter') {
 		$cc=93;
 	}
 	
-	if ($udata['energy']>=$r){
-		$cl=$udata['energy']-$r;
-		if ($cl>300) $cl=300;
-		$db->query("UPDATE {$gtablepre}users SET energy='$cl' WHERE username='".$udata['username']."'" );
-	}else{
-		$cf=false;
-	}
-	/*if ($r=="S"){
+	if ($r=="S"){
 		if (($now-$udata['cd_s'])<86400){
 			$cf=false;
 		}else{
@@ -95,7 +88,7 @@ if($mode == 'enter') {
 		}else{
 			$db->query("UPDATE {$gtablepre}users SET cd_b='$now' WHERE username='".$udata['username']."'" );
 		}
-	}*/
+	}
 	if ($cf==false){
 		$cc=0;
 		$cardinfo=$carddesc[0];
@@ -137,9 +130,7 @@ if($mode == 'enter') {
 		$clist[$key] = $val;
 	}
 	$cad=$card;
-	$en=$udata['energy'];
-	$ack=abs($carddesc[$card]['cost']);
-	/*$sf=true;$af=true;$bf=true;
+	$sf=true;$af=true;$bf=true;
 	if (($now-$udata['cd_s'])<86400){
 		$sf=false;
 	}
@@ -157,7 +148,7 @@ if($mode == 'enter') {
 	$atd=$year."年".$month."月".$day."日".$hour."时".$min."分";
 	$btime=$udata['cd_b']+10800;
 	list($min,$hour,$day,$month,$year)=explode(',',date("i,H,j,n,Y",$btime));
-	$btd=$year."年".$month."月".$day."日".$hour."时".$min."分";*/
+	$btd=$year."年".$month."月".$day."日".$hour."时".$min."分";
 	include template('valid');
 }
 ?>

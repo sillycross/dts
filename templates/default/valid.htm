@@ -15,8 +15,9 @@
 		{template useradvdata}
 		{template usercarddata}
 		</center>
-		<br>
-		<span class="orange">当前卡片能量：{$en}</span><br>
+		<!--{if $stime>$now}--><span class="orange">{$std}开始才可再使用S级身份卡</span><br><!--{/if}-->
+		<!--{if $atime>$now}--><span class="linen">{$atd}开始才可再使用A级身份卡</span><br><!--{/if}-->
+		<!--{if $btime>$now}--><span class="brickred">{$btd}开始才可再使用B级身份卡</span><br><!--{/if}-->
 		<br />
 		<input type="submit" name="enter" value="{lang submit}">
 		<input type="reset" name="reset" value="{lang reset}">
