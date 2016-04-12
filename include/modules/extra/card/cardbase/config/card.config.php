@@ -1360,7 +1360,7 @@ $carddesc=array(
 		'rare'=>'C',
 		'desc'=>'他就是传说中的黑球卡',
 		'pack'=>'Best DOTO',
-		'effect'=>'冷却时间-25%',
+		'effect'=>'冷却时间-10%',
 	),
 	116=>array(
 		'name'=>'帕克',
@@ -1395,7 +1395,7 @@ $carddesc=array(
 		'rare'=>'A',
 		'desc'=>'这张卡的设计者没玩过DOTA所以不知道怎么写介绍',
 		'pack'=>'Best DOTO',
-		'effect'=>'连续攻击同一目标时（包含第一次），造成的最终伤害每次增加20%',
+		'effect'=>'连续攻击同一目标时（包含第一次），造成的最终伤害每次增加13%',
 	),
 	121=>array(
 		'name'=>'团购挑战者',
