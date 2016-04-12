@@ -413,7 +413,7 @@ $cards=array(
 		'skills'=>array('423'=>'0'),
 	),
 	89=>array(
-		'money'=>'1000',
+		'money'=>'500',
 	),
 	90=>array(
 		'club'=>'18',
@@ -1170,7 +1170,7 @@ $carddesc=array(
 		'rare'=>'S',
 		'desc'=>'富二代的爸爸',
 		'pack'=>'Event Bonus',
-		'effect'=>'开局金钱为1000',
+		'effect'=>'开局金钱为500',
 	),
 	90=>array(
 		'name'=>'攻坚',
