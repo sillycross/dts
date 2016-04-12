@@ -1226,7 +1226,7 @@ $carddesc=array(
 		'rare'=>'B',
 		'desc'=>'来自蛋服的反meta玩家',
 		'pack'=>'Way of Life',
-		'effect'=>'获得技能「断肠」（杀死你的玩家失去所有称号技能，然后获得技能「断肠」）',
+		'effect'=>'获得技能「断肠」（主动杀死你的玩家失去所有称号技能，然后获得技能「断肠」）',
 	),
 	98=>array(
 		'name'=>'DK^BurNIng',

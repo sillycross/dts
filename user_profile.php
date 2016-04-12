@@ -64,7 +64,6 @@ if (($now-$udata['cd_b'])<10800){
 	list($min,$hour,$day,$month,$year)=explode(',',date("i,H,j,n,Y",$ntime));
 	$btd=$year."年".$month."月".$day."日".$hour."时".$min."分";
 }
-*/
 if (($now-$udata['cd_a1'])<43200){
 	$ff=false;
 	$ntime=$udata['cd_a1']+43200;

@@ -30,7 +30,7 @@ namespace skill433
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		if ($pa['type']==0 && \skillbase\skill_query(433,$pd))	//被玩家击杀才有效
+		if ($pa['type']==0 && \skillbase\skill_query(433,$pd) && $pa['user_commanded']==1)	//被玩家击杀才有效
 		{
 			eval(import_module('sys','logger'));
 			$log.='<span class="yellow">敌人的技能「断肠」使你失去了所有称号技能！</span>';
@@ -42,6 +42,8 @@ namespace skill433
 		}
 		$chprocess($pa,$pd);	
 	}
+	
+	
 }
 
 ?>
