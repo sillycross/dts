@@ -72,7 +72,7 @@ if (($now-$udata['cd_a1'])<43200){
 	if ($cday==$day && $cmonth==$month && $cyear==$year)
 		$ftd="今天".$hour."时".$min."分";
 	else  $ftd="明天".$hour."时".$min."分";
-}*/
+}
 if ($cr=="S"){
 	$rarecolor="orange";
 	if (!$sf) $cf=false;
