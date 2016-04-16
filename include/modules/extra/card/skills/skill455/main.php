@@ -3,6 +3,7 @@
 namespace skill455
 {
 	$skill455_act_time = 360;
+	$skill455_no_effect_array = Array(1,9,20,21,22,88);	//不免疫的npc类别
 	
 	function init() 
 	{
@@ -32,7 +33,7 @@ namespace skill455
 		if (!\skillbase\skill_query(455,$pd)) return $chprocess($pa,$pd,$active);
 		eval(import_module('sys','logger','skill455'));
 		$x=$now-$starttime;
-		if ($x<=$skill455_act_time && $pa['type']!=88 && $pa['type']!=1){	//scp和蓝凝无效
+		if ($x<=$skill455_act_time && !in_array($pa['type'],$skill455_no_effect_array)){	//scp和蓝凝无效
 			$pa['dmg_dealt']=0;
 			if ($active) $log .= "<span class=\"yellow\">敌人的技能「无敌」使你的攻击没有造成任何伤害！</span><br>";
 			else $log .= "<span class=\"yellow\">你的技能「无敌」使敌人的攻击没有造成任何伤害！</span><br>";
@@ -46,10 +47,11 @@ namespace skill455
 		
 		$chprocess($pa,$pd);
 		
+		eval(import_module('skill455'));
 		if (in_array($pd['state'],Array(20,21,22,23,24,25,27,29)))
-			if (\skillbase\skill_query(455,$pd) && ($pa['type']==88 || $pa['type']==1))
+			if (\skillbase\skill_query(455,$pd) && in_array($pa['type'],$skill455_no_effect_array))
 			{
-				eval(import_module('sys','logger','skill455'));
+				eval(import_module('sys','logger'));
 				$x=$now-$starttime;
 				if ($x<=$skill455_act_time)
 				{
