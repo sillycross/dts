@@ -41,12 +41,17 @@ namespace skill409
 		return array_merge($r,$chprocess($pa,$pd,$active));
 	}
 	
-	function get_trap_damage()
+	function get_trap_damage_multiplier(&$pa, &$pd, $trap, $damage)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player'));
-		if ((\skillbase\skill_query(409))&&(check_unlocked409()))return round(0.9*$chprocess());
-		return $chprocess();
+		$r=Array();
+		if (\skillbase\skill_query(409,$pd)) 
+		{
+			eval(import_module('logger'));
+			$log.='「不动」使你受到的陷阱伤害降低了10%！<br>';
+			$r=Array(0.9);
+		}
+		return array_merge($r,$chprocess($pa,$pd,$trap,$damage));
 	}
 }
 

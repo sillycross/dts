@@ -258,6 +258,7 @@ dualwep,base/weapon/dualwep/,1
 ammunition,base/items/ammunition/,1
 ex_attr_silencer,extra/attr/ex_attr_silencer/,1
 ex_dmg_att,extra/attr/ex_dmg_att/,1
+skill458,extra/card/skills/skill458/,1
 skill407,extra/card/skills/skill407/,1
 ex_attr_charge,extra/attr/ex_attr_charge/,1
 empowers,base/items/empowers/,1

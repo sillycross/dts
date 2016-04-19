@@ -99,11 +99,7 @@ $cards=array(
 		'skills'=>array('402'=>'1'),
 	),
 	14=>array(
-		'itm1'=>'大象粪便提取物',
-		'itmk1'=>'HB',
-		'itme1'=>'76',
-		'itms1'=>'∞',
-		'itmsk1'=>'',
+		'skills'=>array('458'=>'0'),
 	),
 	15=>array(
 		'skills'=>array('229'=>'0'),
@@ -654,7 +650,7 @@ $carddesc=array(
 		'rare'=>'A',
 		'desc'=>'该介绍已被吃掉',
 		'pack'=>'Standard Pack',
-		'effect'=>'开局获得可无限使用的补给',
+		'effect'=>'可把任何物品当作补给食用<br>有毒补给对你视为无毒',
 	),
 	15=>array(
 		'name'=>'常威',
