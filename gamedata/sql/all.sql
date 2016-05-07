@@ -254,6 +254,7 @@ CREATE TABLE `acbra2_players` (
   `card` int(10) NOT NULL DEFAULT '0',
   `cardname` text NOT NULL DEFAULT '',
   `player_dead_flag` int(10) unsigned NOT NULL DEFAULT '0',
+  `corpse_clear_flag` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`pid`),
   KEY `TYPE` (`type`,`sNo`),
   KEY `NAME` (`name`,`type`)
@@ -350,6 +351,8 @@ CREATE TABLE `acbra2_users` (
   `n_achievements` text NOT NULL DEFAULT '',
   `gold` int(10) unsigned NOT NULL DEFAULT '0',
   `cardlist` text NOT NULL DEFAULT '',
+  `cardenergy` text NOT NULL DEFAULT '',
+  `cardenergylastupd` int(10) unsigned NOT NULL DEFAULT '0',
   `card` int(10) unsigned NOT NULL DEFAULT '0',
   `cd_s` int(10) unsigned NOT NULL DEFAULT '0',
   `cd_a` int(10) unsigned NOT NULL DEFAULT '0',

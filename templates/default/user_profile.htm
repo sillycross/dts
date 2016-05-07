@@ -27,7 +27,7 @@
 				<td>$winning_rate</td>
 			</tr>
 			<!--{if defined('MOD_ELORATING')}-->
-			<tr onclick="bubblebox_show('elodata');">
+			<tr style="cursor:pointer;" title="点击查看天梯积分详细信息" onclick="bubblebox_show('elodata');">
 				<td>天梯积分</td>
 				<td width=55px>&nbsp;</td>
 				<td><!--{if $elo_history==''}-->1500<!--{else}--><span style="color:<!--{eval echo \elorating\elorating_get_color($elo_rating);}-->"><span style="font-weight:bold;">$elo_rating</span></span><!--{/if}--></td>
@@ -66,21 +66,16 @@
 			</td></tr>
 			<tr><td>
 				<!--{if ($curuser) }-->
-					<button type="button" onclick="window.location.href='cardbook.php'">查看我的卡册</button>
+					<button type="button" onclick="window.location.href='cardbook.php?packName=Standard Pack'">查看我的卡册</button>
 				<!--{else}-->
-					<button type="button" onclick="window.location.href='cardbook.php?playerID={$uname}'">查看他的卡册</button>
+					<button type="button" onclick="window.location.href='cardbook.php?playerID={$uname}&packName=Standard Pack'">查看他的卡册</button>
 				<!--{/if}-->
 			</td></tr>
 			</table>
 		</td>
 	</tr>
 	</table>
-	<div style="width:600px;text-align:center;"><!--{if $curuser && !$cf}--><span class="yellow">您现在不能使用该等级的身份卡，请更换！</span><!--{/if}--><span class="clan">点击天梯积分和身份卡可以查看详细信息</span></div>
-	<div style="width:600px;text-align:center;">
-		<!--{if $curuser && !$sf}--><span class="orange">{$std}开始才可再使用S级身份卡</span><br><!--{/if}-->
-		<!--{if $curuser && !$af}--><span class="linen">{$atd}开始才可再使用A级身份卡</span><br><!--{/if}-->
-		<!--{if $curuser && !$bf}--><span class="brickred">{$btd}开始才可再使用B级身份卡</span><br><!--{/if}-->
-	</div>
+	<div style="width:600px;text-align:center;"><span class="clan">点击天梯积分和身份卡可以查看详细信息</span></div>
 	<!--{if defined('MOD_ACHIEVEMENT_BASE')}-->
 		<table>
 		<!--{eval eval(import_module('achievement_base'));}-->

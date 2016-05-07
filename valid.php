@@ -18,13 +18,8 @@ if($udata['groupid'] <= 0) { gexit($_ERROR['user_ban'], __file__, __line__); }
 if($gamestate >= 30 && $udata['groupid'] < 6 && $cuser != $gamefounder) {
 	gexit($_ERROR['valid_stop'],__file__,__line__);
 }
-require config('card',$gamecfg);
-$jfile=GAME_ROOT."./gamedata/cache/card.json";
-$cdfile=GAME_ROOT."./gamedata/cache/card_1.php";
-if ((!file_exists($jfile)) || (filemtime($cdfile) > filemtime($jfile))){
-	$jdesc=json_encode($carddesc,JSON_UNESCAPED_UNICODE);
-	writeover($jfile,$jdesc);
-}
+
+eval(import_module('cardbase'));
 
 if($mode == 'enter') {
 	if($iplimit) {
@@ -33,21 +28,14 @@ if($mode == 'enter') {
 	}	
 
 	$ip = real_ip();
-	if ($udata['cardlist']==""){
-		$ucl="0";
-	}else{
-		$ucl=$udata['cardlist'];
-	}
-	$carr = explode('_',$ucl);
-	$cflag=0;
-	foreach ($carr as $val){
-		if ($val==$card){
-			$cflag=true;
-			break;
-		}
-	}
-	if (!$cflag) $card=0;
-	$db->query("UPDATE {$gtablepre}users SET gender='$gender', icon='$icon', motto='$motto', killmsg='$killmsg', card='$card',lastword='$lastword' ,cardlist='".$ucl."' WHERE username='".$udata['username']."'" );
+	
+	$userCardData = \cardbase\get_user_cardinfo($cuser);
+	$card_ownlist = $userCardData['cardlist'];;
+	$card_energy = $userCardData['cardenergy'];
+	
+	if (!in_array($card,$card_ownlist)) $card=0;
+	
+	$db->query("UPDATE {$gtablepre}users SET gender='$gender', icon='$icon', motto='$motto', killmsg='$killmsg', card='$card', lastword='$lastword' WHERE username='".$udata['username']."'" );
 	if($validnum >= $validlimit) {
 		gexit($_ERROR['player_limit'],__file__, __line__);
 	}
@@ -59,7 +47,6 @@ if($mode == 'enter') {
 		$gender = 'm';
 	}
 	
-	require config('card',$gamecfg);
 	$cc=$card;
 	$cardinfo=$carddesc[$cc];
 	$r=$cardinfo['rare'];
@@ -70,29 +57,35 @@ if($mode == 'enter') {
 		$cc=93;
 	}
 	
-	if ($r=="S"){
-		if (($now-$udata['cd_s'])<86400){
-			$cf=false;
-		}else{
-			$db->query("UPDATE {$gtablepre}users SET cd_s='$now' WHERE username='".$udata['username']."'" );
-		}
-	}else if ($r=="A"){
-		if (($now-$udata['cd_a'])<43200){
-			$cf=false;
-		}else{
-			$db->query("UPDATE {$gtablepre}users SET cd_a='$now' WHERE username='".$udata['username']."'" );
-		}
-	}else if ($r=="B"){
-		if (($now-$udata['cd_b'])<10800){
-			$cf=false;
-		}else{
-			$db->query("UPDATE {$gtablepre}users SET cd_b='$now' WHERE username='".$udata['username']."'" );
-		}
+	if ($carddesc[$cc]['rare']!='C')
+	{
+		$rst = $db->query("SELECT pid FROM {$tablepre}players WHERE card = '$cc' AND type = 0");
+		if($db->num_rows($rst)) $cf=false;
 	}
+	
+	if ($card_energy[$cc]<$carddesc[$cc]['energy'])
+	{
+		$cf=false;
+	}
+		
+	if ($r=="S" && $now-$udata['cd_s']<86400)
+	{
+		$cf=false;
+	}
+	
 	if ($cf==false){
 		$cc=0;
 		$cardinfo=$carddesc[0];
 	}
+	else
+	{
+		$userCardData['cardenergy'][$cc]=0;
+		\cardbase\save_cardenergy($userCardData,$cuser);
+	
+		if ($r=="S") 
+			$db->query("UPDATE {$gtablepre}users SET cd_s='$now' WHERE username='".$udata['username']."'" );
+	}
+	
 	include_once GAME_ROOT.'./include/valid.func.php';
 	enter_battlefield($cuser,$cpass,$gender,$icon,$cc);
 	
@@ -106,11 +99,7 @@ if($mode == 'enter') {
 	include template('tutorial');
 } else {
 	extract($udata);
-	if ($udata['cardlist']==""){
-		$udata['cardlist']="0";
-		$cardlist="0";
-		$db->query("UPDATE {$gtablepre}users SET cardlist='$cardlist' WHERE username = '$username'");
-	}
+	
 	$result = $db->query("SELECT * FROM {$tablepre}players WHERE name = '$cuser' AND type = 0");
 	if($db->num_rows($result)) {
 		header("Location: game.php");exit();
@@ -122,33 +111,57 @@ if($mode == 'enter') {
 	$iconarray = get_iconlist($icon);
 	$select_icon = $icon;
 
-	$r=$carddesc[$card]['rare'];
-	$cad=$udata['card'];
-	$carr = explode('_',$udata['cardlist']);
-	$clist = Array();
-	foreach($carr as $key => $val){
-		$clist[$key] = $val;
-	}
-	$cad=$card;
-	$sf=true;$af=true;$bf=true;
+	$userCardData = \cardbase\get_user_cardinfo($cuser);
+	$card_ownlist = $userCardData['cardlist'];;
+	$card_energy = $userCardData['cardenergy'];
+	$cardChosen = $userCardData['cardchosen'];
+
+	/*
+	 * $card_disabledlist id => errid
+	 * id: 卡片ID errid: 不能使用这张卡的原因
+	 * e0: S卡总体CD
+	 * e1: 单卡CD
+	 * e2: 有人于本局使用了同名卡
+	 *
+	 * $card_error errid => msg
+	 */
+	$card_disabledlist=Array();
+	$card_error=Array();
+	
+	$energy_recover_rate = \cardbase\get_energy_recover_rate($card_ownlist, $udata['gold']);
+	
+	//最低优先级错误原因：同名非C卡
+	$result = $db->query("SELECT card FROM {$tablepre}players WHERE type = 0");
+	$t=Array();
+	while ($cdata = $db->fetch_array($result)) $t[$cdata['card']]=1;
+	
+	foreach ($card_ownlist as $key)
+		if ($carddesc[$key]['rare']!='C' && isset($t[$key])) 
+		{
+			$card_disabledlist[$key]='e2';
+			$card_error['e2'] = '这张卡片暂时不能使用，因为本局已经有其他人使用了这张卡片<br>请下局早点入场吧！';
+		}
+	
+	//次高优先级错误原因：单卡CD
+	foreach ($card_ownlist as $key)
+		if ($card_energy[$key]<$carddesc[$key]['energy'])
+		{
+			$t=($carddesc[$key]['energy']-$card_energy[$key])/$energy_recover_rate[$carddesc[$key]['rare']];
+			$card_disabledlist[$key]='e1'.$key;
+			$card_error['e1'.$key] = '这张卡片暂时不能使用，因为它目前正处于蓄能状态<br>这张卡片需要蓄积'.$carddesc[$key]['energy'].'点能量方可使用，预计在'.convert_tm($t).'后蓄能完成';
+		}
+	
+	//最高优先级错误原因：s卡的24小时限制
+	$card_error['e0'] = '这张卡片暂时不能使用，因为最近24小时内你已经使用过S卡了<br>在'.convert_tm(86400-($now-$udata['cd_s'])).'后你才能再次使用S卡';
+	
 	if (($now-$udata['cd_s'])<86400){
-		$sf=false;
+		foreach ($card_ownlist as $key)
+			if ($carddesc[$key]['rare']=='S')
+				$card_disabledlist[$key]='e0';
 	}
-	if (($now-$udata['cd_a'])<43200){
-		$af=false;
-	}
-	if (($now-$udata['cd_b'])<10800){
-		$bf=false;	
-	}
-	$stime=$udata['cd_s']+86400;
-	list($min,$hour,$day,$month,$year)=explode(',',date("i,H,j,n,Y",$stime));
-	$std=$year."年".$month."月".$day."日".$hour."时".$min."分";
-	$atime=$udata['cd_a']+43200;
-	list($min,$hour,$day,$month,$year)=explode(',',date("i,H,j,n,Y",$atime));
-	$atd=$year."年".$month."月".$day."日".$hour."时".$min."分";
-	$btime=$udata['cd_b']+10800;
-	list($min,$hour,$day,$month,$year)=explode(',',date("i,H,j,n,Y",$btime));
-	$btd=$year."年".$month."月".$day."日".$hour."时".$min."分";
+	
+	$hideDisableButton = 1;
+	$showCardUnavailableHint = 1;
 	include template('valid');
 }
 ?>

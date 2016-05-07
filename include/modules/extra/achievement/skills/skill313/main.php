@@ -41,10 +41,11 @@ namespace skill313
 			\cardbase\get_qiegao(300,$pa);
 		}
 		if (($ox<60000)&&($x>=60000)){
-			\cardbase\get_qiegao(800,$pa);
+			\cardbase\get_qiegao(400,$pa);
+			\cardbase\get_card(23,$pa);
 		}
 		if (($ox<100000)&&($x>=100000)){
-			\cardbase\get_qiegao(2400,$pa);
+			\cardbase\get_qiegao(500,$pa);
 			\cardbase\get_card(89,$pa);
 		}
 		if (($ox<360000)&&($x>=360000)){

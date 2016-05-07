@@ -67,21 +67,25 @@ table.admin td.tdtitle {
 
 .clit {color: #feea23; font:18pt "微软雅黑" serif; }
 .yellow{color:#ffff00; font: bold 10pt "微软雅黑" serif;line-height:16px}
-.orange{color:#ff9900; font: bold 10pt "微软雅黑" serif;line-height:16px}
+.orange{color:#ff9900; font: 10pt "微软雅黑" serif;line-height:16px}
+.orangeDisabled{color:#804c00; font: 10pt "微软雅黑" serif;line-height:16px}
 .clan{color: #00ffff;font: bold 10pt "微软雅黑" serif;line-height:16px}
 .blue{color: #0000ff;font: bold 10pt "微软雅黑" serif;line-height:16px}
 .red{color: #ff0000;font: bold 10pt "微软雅黑" serif;line-height:16px}
 .green{color: #008000;font: bold 10pt "微软雅黑" serif;line-height:16px}
 .lime{color: #00ff00;font: bold 10pt "微软雅黑" serif;line-height:16px}
 .purple{color: #9900cc;font: bold 10pt "微软雅黑" serif;line-height:16px}
-.brickred{color:#fa8072;font: bold 10pt "微软雅黑" serif;line-height:16px}
-.seagreen{color:#4eee94;font: bold 10pt "微软雅黑" serif;line-height:16px}
+.brickred{color:#fa8072;font: 10pt "微软雅黑" serif;line-height:16px}
+.brickredDisabled{color:#7d4039;font: 10pt "微软雅黑" serif;line-height:16px}
+.seagreen{color:#4eee94;font: 10pt "微软雅黑" serif;line-height:16px}
+.seagreenDisabled{color:#27774a;font: 10pt "微软雅黑" serif;line-height:16px}
 .evergreen{color:#98fb98;font: bold 10pt "微软雅黑" serif;line-height:16px}
 .white{color:#ffffff;font: bold 10pt "微软雅黑" serif;line-height:16px}
 .evergreen2{color:#98fb98;font:18pt "微软雅黑" serif;}
 .dmg {color:#ff0000;font: bold 10pt "微软雅黑" serif;}
 .grey{color:#999; font: bold 10pt "微软雅黑" serif;line-height:16px}
-.linen{color:rgb(200,192,184); font: bold 10pt "微软雅黑" serif;line-height:16px}
+.linen{color:rgb(200,192,184); font: 10pt "微软雅黑" serif;line-height:16px}
+.linenDisabled{color:rgb(100,96,92); font: 10pt "微软雅黑" serif;line-height:16px}
 .L5{color: #ff0000;font: bold 10pt "微软雅黑" serif;line-height:16px;background:url("../../img/backround4.gif") repeat-x;}
 
 #main {

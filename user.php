@@ -5,6 +5,8 @@ define('CURSCRIPT', 'user');
 require './include/common.inc.php';
 require './include/user.func.php';
 
+eval(import_module('cardbase'));
+
 if(!$cuser||!$cpass) { gexit($_ERROR['no_login'],__file__,__line__); }
 
 $result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$cuser'");
@@ -12,17 +14,6 @@ if(!$db->num_rows($result)) { gexit($_ERROR['login_check'],__file__,__line__); }
 $udata = $db->fetch_array($result);
 if($udata['password'] != $cpass) { gexit($_ERROR['wrong_pw'], __file__, __line__); }
 if($udata['groupid'] <= 0) { gexit($_ERROR['user_ban'], __file__, __line__); }
-
-//write card json
-//$objfile = GAME_ROOT."./gamedata/templates/{$templateid}_$file.tpl.php";
-require config('card',$gamecfg);
-
-$jfile=GAME_ROOT."./gamedata/cache/card.json";
-$cdfile=GAME_ROOT."./gamedata/cache/card_1.php";
-if ((!file_exists($jfile)) || (filemtime($cdfile) > filemtime($jfile))){
-	$jdesc=json_encode($carddesc,JSON_UNESCAPED_UNICODE);
-	writeover($jfile,$jdesc);
-}
 
 if(!isset($mode)){
 	$mode = 'show';
@@ -67,11 +58,12 @@ if($mode == 'edit') {
 	if (!$cflag) $card=0;
 	
 	$db->query("UPDATE {$gtablepre}users SET gender='$gender', icon='$icon',{$passqry}motto='$motto',  killmsg='$killmsg', lastword='$lastword' ,card='$card' WHERE username='$cuser'");
-	if($db->affected_rows()){
+	//affected_rows好像一直返回0，不知怎么回事
+	//if($db->affected_rows()){
 		$gamedata['innerHTML']['info'] .= $_INFO['data_success'];
-	}else{
-		$gamedata['innerHTML']['info'] .= $_INFO['data_failure'];
-	}
+	//}else{
+	//	$gamedata['innerHTML']['info'] .= $_INFO['data_failure'];
+	//}
 	
 	$gamedata['value']['opass'] = $gamedata['value']['npass'] = $gamedata['value']['rnpass'] = '';
 	if(isset($error)){$gamedata['innerHTML']['error'] = $error;}
@@ -85,17 +77,12 @@ if($mode == 'edit') {
 	extract($udata);
 	$iconarray = get_iconlist($icon);
 	$select_icon = $icon;
-	if ($cardlist==""){
-		$cardlist="0";
-		$db->query("UPDATE {$gtablepre}users SET cardlist='$cardlist' WHERE username='$username'");
-	}
-	$carr = explode('_',$cardlist);
-	$clist = Array();
-	$cad=$card;
 	
-	foreach($carr as $key => $val){
-		$clist[$key] = $val;
-	}
+	$userCardData = \cardbase\get_user_cardinfo($cuser);
+	$card_ownlist = $userCardData['cardlist'];;
+	$card_energy = $userCardData['cardenergy'];
+	$cardChosen = $userCardData['cardchosen'];
+	
 	include template('user');
 	
 }

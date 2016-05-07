@@ -1,0 +1,198 @@
+<!--{eval if (!isset($cardChosen)) $cardChosen=0; }-->
+<!--{eval $chosencard=$cardChosen; }-->
+<!--{eval $current_pack = array_search($carddesc[$chosencard]['pack'],$packlist);}-->
+<!--{eval if (!isset($hideDisableButton)) $hideDisableButton = 0;}-->
+<script>
+carderrmsg = <!--{eval if (isset($card_error)) echo compatible_json_encode($card_error); else echo 0;}-->;
+isShowAll = 0;
+current_pack = $current_pack;
+chosen_card_id = $chosencard;
+cardinfo=<!--{eval echo compatible_json_encode($carddesc);}-->;
+handleShowCardMouseOver = function(id) 
+{ 
+	id=parseInt(id);
+	$('cname').innerHTML=cardinfo[id].name;
+	$('crare').innerHTML=cardinfo[id].rare;
+	$('cpack').innerHTML=cardinfo[id].pack;
+	$('cdesc').innerHTML=cardinfo[id].desc;
+	$('ceffect').innerHTML=cardinfo[id].effect;
+}
+handleShowCardMouseOut = function(id) 
+{ 
+	id=parseInt(id);
+	$('cname').innerHTML=cardinfo[chosen_card_id].name;
+	$('crare').innerHTML=cardinfo[chosen_card_id].rare;
+	$('cpack').innerHTML=cardinfo[chosen_card_id].pack;
+	$('cdesc').innerHTML=cardinfo[chosen_card_id].desc;
+	$('ceffect').innerHTML=cardinfo[chosen_card_id].effect;
+}
+handleShowCardMouseClick = function(id) 
+{ 
+	id=parseInt(id);
+	jQuery('#cardbg'+chosen_card_id+'-0').attr('src','img/cardbg.png');
+	if ($hideDisableButton == 1) jQuery('#cardbg'+chosen_card_id+'-1').attr('src','img/cardbg.png');
+	chosen_card_id = id;
+	handleShowCardMouseOver(id);
+	jQuery('#cardbg'+chosen_card_id+'-0').attr('src','img/cardbg-selected.png');
+	if ($hideDisableButton == 1) jQuery('#cardbg'+chosen_card_id+'-1').attr('src','img/cardbg-selected.png');
+	if (jQuery('#cardUnavailableHint')) jQuery('#cardUnavailableHint').html('');
+}
+handleCardPackMouseClick = function(id) 
+{
+	if (id==current_pack) return;
+	jQuery('#cardpanel'+id+'-'+isShowAll).css({display:'block'});
+	jQuery('#cardpackbg'+id).attr('src','img/cardpack-selected.png');
+	jQuery('#cardpanel'+current_pack+'-'+isShowAll).css({display:'none'});
+	jQuery('#cardpackbg'+current_pack).attr('src','img/cardpack.png');
+	current_pack=id;
+}
+handleShowAvailableOnlyClick = function(t)
+{
+	var isChecked = t.checked;
+	if (isChecked)
+	{
+		jQuery('#cardpanel'+current_pack+'-0').css({display:'block'});
+		jQuery('#cardpanel'+current_pack+'-1').css({display:'none'});
+		isShowAll = 0;
+	}
+	else
+	{
+		jQuery('#cardpanel'+current_pack+'-1').css({display:'block'});
+		jQuery('#cardpanel'+current_pack+'-0').css({display:'none'});
+		isShowAll = 1;
+	}
+}
+handleShowCardErrorMouseOut = function() 
+{
+	$('cardErrMsg').style.display="none";
+}
+</script>
+<div style="height:320px; width:1125px; margin:auto">
+<div style="display:inline-block; height:320px; width:160px; vertical-align:top;">
+	<div style="height:10px;"></div>
+	<!--{eval $packid=-1;}-->
+	<!--{loop $packlist $cardpack}-->
+		<!--{eval $packid++;}-->
+		<div style="position:relative; height:40px; width:160px;">
+			<div style="position:absolute; left:0px; top:0px;">
+				<img id="cardpackbg$packid" src="<!--{if $packid==$current_pack}-->img/cardpack-selected.png<!--{else}-->img/cardpack.png<!--{/if}-->">
+			</div>
+			<div style="position:absolute; right:5px; top:5px;">
+				$cardpack
+			</div>
+			<div style="position:absolute; left:0px; top:0px; height:40px; width:160px; cursor:pointer;" onmousedown="handleCardPackMouseClick($packid);">
+			</div>
+		</div>
+	<!--{/loop}-->
+</div><div style="display:inline-block; height:320px; width:710px;">
+	<div style="position: relative; height:320px; width:710px;"> 
+		<!--{eval $packid=-1;}-->
+		<!--{loop $packlist $cardpack}-->
+			<!--{eval $packid++;}-->
+			<!--{loop Array(0,1) $showDisableVal}-->
+			<!--{if $showDisableVal<=$hideDisableButton}-->
+			<div id="cardpanel$packid-$showDisableVal" class="b3" style="position:absolute; left:0px; top:0px; height:320px; width:710px; text-align:left; display: <!--{if $packid==$current_pack && $showDisableVal==0}-->block<!--{else}-->none<!--{/if}-->">
+				<div style="height:10px;"></div>
+				<!--坑爹的html中的空格问题，每个div的close tag只好在生成下一个div时输出了-->
+				<div style="display:inline-block; width:10px;">
+				<!--{eval $row=0; $flag=1; $last=-1;}-->
+				<!--{loop $cardindex $cardrank $t}-->
+				<!--{loop Array(0,1) $disableValue}-->
+				<!--{if $disableValue<=$showDisableVal}-->
+					<!--{loop $carddesc $cardid $t}-->
+					<!--{if $carddesc[$cardid]['pack']==$cardpack && $carddesc[$cardid]['rare']==$cardrank && in_array($cardid,$card_ownlist)}-->
+						<!--{eval $carddisabled = in_array($cardid, array_keys($card_disabledlist));}-->
+						<!--{if $carddisabled==$disableValue}-->
+							<!--{if $row==0}-->
+							</div><div style="display:inline-block; width:175px; vertical-align:top;">
+							<!--{/if}-->
+							<!--{eval if (!$carddisabled) $flag=2;}-->
+							<!--{eval if ($carddisabled && ($last==-1 || $carddesc[$cardid]['rare']!=$carddesc[$last]['rare'])) $flag=1;}-->
+							<!--{eval $cardname=$carddesc[$cardid]['name'];}-->
+							<!--{eval $cl=Array('S'=>'orange','A'=>'linen','B'=>'brickred','C'=>'seagreen')[$cardrank];}-->
+							<!--{eval if ($carddisabled) $cl.='Disabled';}-->
+							<div style="height:25px; width:170px; <!--{if !$carddisabled}-->cursor:pointer;<!--{/if}-->">
+								<div style="position:absolute; top:0px; left:0px;">
+								<img src=<!--{if !$carddisabled}-->"img/cardborder-$cardrank.png"<!--{else}-->"img/cardborder-$cardrank-disabled-1.png"<!--{/if}-->>
+								</div>
+								<div style="position:absolute; top:0px; left:0px;">
+								<img id="cardbg$cardid-$showDisableVal" src=<!--{if $chosencard==$cardid && !$carddisabled}-->"img/cardbg-selected.png"<!--{else}-->"img/cardbg.png"<!--{/if}-->>
+								</div>
+								<div style="position:absolute; top:4px; left:5px;" >
+								<span class="$cl">$cardrank $cardname</span>
+								</div>
+								<!--{if !$carddisabled}--> 
+								<div style="position:absolute; top:0px; left:0px; height:25px; width:170px;"
+									onmouseover="handleShowCardMouseOver($cardid);" 
+									onmouseout="handleShowCardMouseOut($cardid);" 
+									onmousedown="handleShowCardMouseClick($cardid);"></div>
+								<!--{else}-->
+								<!--{eval $nowcarderror = $card_error[$card_disabledlist[$cardid]];}-->
+								<div id="carderr$cardid" style="position:absolute; top:0px; left:0px; height:25px; width:170px;"
+									title="$nowcarderror"></div>
+								<!--{/if}-->
+							</div>
+							<!--{eval $row=$row+1; $last=$cardid;}-->
+							<!--{if $row==12}-->
+							<!--{eval $row=0; $flag=1; }-->
+							<!--{/if}-->
+						<!--{/if}-->
+					<!--{/if}-->
+					<!--{/loop}-->
+				<!--{/if}-->
+				<!--{/loop}-->
+				<!--{/loop}-->
+				</div>
+			</div>
+			<!--{/if}-->
+			<!--{/loop}-->
+		<!--{/loop}-->
+		<!--{if $hideDisableButton}-->
+		<div style="position: absolute; right:5px; bottom:5px;">
+		<input type="checkbox" onclick="handleShowAvailableOnlyClick(this);" checked>只显示目前可用卡片
+		</div>
+		<!--{/if}-->
+	</div>
+</div><div style="display:inline-block; width:5px;"></div><div style="display:inline-block; height:320px; width:250px; vertical-align:top;">
+	<div style="height:30px;">
+	<span class="yellow" style="line-height:30px">当前被选择的卡片</span>
+	</div>
+	<div style="position: relative; height:260px; width:250px;">
+		<div id="chosenCard" style="position:absolute; top:0px; left:0px; display:block;">
+			<table align="center" CellSpacing=0 CellPadding=1 width="250" height="260">
+				<tr height="40">
+					<td class=b2 width="40" height="40">卡名</td>
+					<td id="cname" class=b3 width="210" height="40">$carddesc[$chosencard]['name']</td>
+				</tr>
+				<tr height="40">
+					<td class=b2 width="40" height="40">罕贵</td>
+					<td id="crare" class=b3 width="210" height="40">$carddesc[$chosencard]['rare']</td>
+				</tr>
+				<tr height="40">
+					<td class=b2 width="40" height="40">系列</td>
+					<td id="cpack" class=b3 width="210" height="40">$carddesc[$chosencard]['pack']</td>
+				</tr>
+				<tr height="70">
+					<td class=b2 width="40" height="70">介绍</td>
+					<td id="cdesc" class=b3 width="210" height="70">$carddesc[$chosencard]['desc']</td>
+				</tr>
+				<tr height="70">
+					<td class=b2 width="40" height="70">效果</td>
+					<td id="ceffect" class=b3 width="210" height="70">$carddesc[$chosencard]['effect']</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div style="height:30px;">
+	<!--{if $showCardUnavailableHint && in_array($chosencard, array_keys($card_disabledlist))}-->
+	<span id="cardUnavailableHint" class="yellow" style="line-height:30px">当前卡片暂时不可用，请重新选择！</span>
+	<!--{/if}-->
+	</div>
+</div>
+</div>
+<!-- 悬浮错误提示框 -->
+<div id="cardErrMsg" style="position:fixed; left:0px; top:0px; display:none; text-align:left;  filter:alpha(opacity=95); opacity:0.95; background-color:#000000">
+<div id="cardErrMsgInner" class="noselect" style="margin-left:3px; margin-right:3px; margin-top:3px; margin-bottom:3px;">
+</div>
+</div>
+
