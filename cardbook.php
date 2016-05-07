@@ -43,7 +43,7 @@ if ($pname!="") {
 	if (\cardbase\in_card_pack($pname)) {
 		$pack = \cardbase\get_card_pack($pname);
 		
-		$energy_recover_rate = \cardbase\get_energy_recover_rate(user_cards, $gold);
+		$energy_recover_rate = \cardbase\get_energy_recover_rate($user_cards, $gold);
 		
 		$unlock_cards = array();
 		foreach ($user_cards as $card_index) {
