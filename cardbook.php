@@ -33,14 +33,15 @@ if ($_REQUEST["playerID"]=="") {
 	$n=$uname;
 }
 
+$userCardData = \cardbase\get_user_cardinfo($n);
+$user_cards = $userCardData['cardlist'];;
+$card_energy = $userCardData['cardenergy'];
+$cardChosen = $userCardData['cardchosen'];
+
 $pname = $_REQUEST["packName"];
 if ($pname!="") {
 	if (\cardbase\in_card_pack($pname)) {
 		$pack = \cardbase\get_card_pack($pname);
-		$userCardData = \cardbase\get_user_cardinfo($cuser);
-		$user_cards = $userCardData['cardlist'];;
-		$card_energy = $userCardData['cardenergy'];
-		$cardChosen = $userCardData['cardchosen'];
 		
 		$energy_recover_rate = \cardbase\get_energy_recover_rate(user_cards, $gold);
 		
