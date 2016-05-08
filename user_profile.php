@@ -55,6 +55,16 @@ if (($now-$udata['cd_s'])<86400){
 	$std=$year."年".$month."月".$day."日".$hour."时".$min."分";
 }
 
+if (($now-$udata['cd_a1'])<43200){
+	$ff=false;
+	$ntime=$udata['cd_a1']+43200;
+	list($min,$hour,$day,$month,$year)=explode(',',date("i,H,j,n,Y",$ntime));
+	list($cmin,$chour,$cday,$cmonth,$cyear)=explode(',',date("i,H,j,n,Y",$now));
+	if ($cday==$day && $cmonth==$month && $cyear==$year)
+		$ftd="今天".$hour."时".$min."分";
+	else  $ftd="明天".$hour."时".$min."分";
+}
+
 if ($cr=="S"){
 	$rarecolor="orange";
 	if (!$sf) $cf=false;
