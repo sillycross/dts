@@ -282,18 +282,6 @@ namespace clubbase
 		foreach ($___TEMP_inclist as $___TEMP_template_name) include $___TEMP_template_name;
 	}
 	
-	function get_nskillpage($pn)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('player','clubbase'));
-		$___TEMP_inclist = Array();
-		foreach (\skillbase\get_acquired_skill_array($pn) as $key) 
-				if (defined('MOD_SKILL'.$key.'_INFO') && strpos(constant('MOD_SKILL'.$key.'_INFO'),'club;')!==false && strpos(constant('MOD_SKILL'.$key.'_INFO'),'unique;')!==false) 
-					array_push($___TEMP_inclist,template(constant('MOD_SKILL'.$key.'_NDESC'))); 
-		
-		foreach ($___TEMP_inclist as $___TEMP_template_name) include $___TEMP_template_name;
-	}
-	
 	//载入玩家发动的攻击技能
 	function load_user_battleskill_command(&$pdata)
 	{
@@ -333,6 +321,18 @@ namespace clubbase
 		$chprocess($pa, $pd, $active);
 	}
 	
+	function get_npcskillpage($pn)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player','clubbase'));
+		$___TEMP_inclist = Array();
+		foreach (\skillbase\get_acquired_skill_array($pn) as $key) 
+				if (defined('MOD_SKILL'.$key.'_INFO') && strpos(constant('MOD_SKILL'.$key.'_INFO'),'club;')!==false && strpos(constant('MOD_SKILL'.$key.'_INFO'),'unique;')!==false) 
+					array_push($___TEMP_inclist,template(constant('MOD_SKILL'.$key.'_DESC'))); 
+		
+		$who = $pn;
+		foreach ($___TEMP_inclist as $___TEMP_template_name) include $___TEMP_template_name;
+	}
 }
 
 ?>

@@ -2,7 +2,7 @@
 
 namespace skill401
 {
-	$paneldesc=array('硬化','硬化1','硬化2','硬化3','硬化4','钢化');
+	$paneldesc=array('硬化','硬化','硬化','硬化','硬化','钢化');
 	$dmgreduce=array(0,10,20,30,50,90);
 	
 	function init() 
