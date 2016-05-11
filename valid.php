@@ -57,33 +57,35 @@ if($mode == 'enter') {
 		$cc=93;
 	}
 	
-	if ($carddesc[$cc]['rare']!='C')
-	{
-		$rst = $db->query("SELECT pid FROM {$tablepre}players WHERE card = '$cc' AND type = 0");
-		if($db->num_rows($rst)) $cf=false;
-	}
-	
-	if ($card_energy[$cc]<$carddesc[$cc]['energy'])
-	{
-		$cf=false;
-	}
+	if ($gametype==0){
+		if ($carddesc[$cc]['rare']!='C')
+		{
+			$rst = $db->query("SELECT pid FROM {$tablepre}players WHERE card = '$cc' AND type = 0");
+			if($db->num_rows($rst)) $cf=false;
+		}
 		
-	if ($r=="S" && $now-$udata['cd_s']<86400)
-	{
-		$cf=false;
-	}
-	
-	if ($cf==false){
-		$cc=0;
-		$cardinfo=$carddesc[0];
-	}
-	else
-	{
-		$userCardData['cardenergy'][$cc]=0;
-		\cardbase\save_cardenergy($userCardData,$cuser);
-	
-		if ($r=="S") 
-			$db->query("UPDATE {$gtablepre}users SET cd_s='$now' WHERE username='".$udata['username']."'" );
+		if ($card_energy[$cc]<$carddesc[$cc]['energy'])
+		{
+			$cf=false;
+		}
+			
+		if ($r=="S" && $now-$udata['cd_s']<86400)
+		{
+			$cf=false;
+		}
+		
+		if ($cf==false){
+			$cc=0;
+			$cardinfo=$carddesc[0];
+		}
+		else
+		{
+			$userCardData['cardenergy'][$cc]=0;
+			\cardbase\save_cardenergy($userCardData,$cuser);
+			
+			if ($r=="S") 
+				$db->query("UPDATE {$gtablepre}users SET cd_s='$now' WHERE username='".$udata['username']."'" );
+		}
 	}
 	
 	include_once GAME_ROOT.'./include/valid.func.php';
