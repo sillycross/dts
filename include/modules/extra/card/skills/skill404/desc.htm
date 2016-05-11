@@ -1,6 +1,6 @@
 <!--{eval eval(import_module('skill404'));}-->
 <!--{eval $___TEMP_SKILL_ID=404;}-->
-<!--{eval $clv = (int)\skillbase\skill_getvalue(404,'lvl'); }-->
+<!--{eval $clv = (int)\skillbase\skill_getvalue(404,'lvl',$who); }-->
 <!--{eval $skname = $paneldesc[$clv]; }-->
 {template MOD_CLUBBASE_SKILLDESC_START}
 <span>
@@ -8,7 +8,7 @@ $skname
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
-生命值在50%以下时攻击附带<span class="yellow">$extdmg[$clv]</span>点物理伤害。<br>
+你的生命值在50%以下时，攻击将额外附加<span class="yellow">$extdmg[$clv]</span>点物理伤害<br>
 </span></td>
 <td class=b3 width=46>
 </td>

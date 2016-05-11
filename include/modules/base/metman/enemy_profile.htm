@@ -1,4 +1,4 @@
- <table border="0" cellspacing="0" height=80px width=580px cellpadding="0" width="100%" valign="middle">
+ <table border="0" cellspacing="0" height=100px width=580px cellpadding="0" width="100%" valign="middle">
 	<tr>
 		<td class="b1" colspan=2 height=20px><span>Lv. $tdata['lvl']</span></td>											
 		<td class="b1" colspan=2><span>$tdata['cardinfo'] $tdata['name']</span></td>											
@@ -31,7 +31,16 @@
 		<!--{else}-->
 		<td class="b2"><span></span></td><td class="b3"><span></span></td>
 		<!--{/if}-->
-		<td class="b2"><span>{lang inf}</span></td>
+		<td height="20px" class="b2"><span>{lang inf}</span></td>
 		<td class="b3"><span><!--{if $tdata['infdata']}-->$tdata['infdata']<!--{else}-->无<!--{/if}--></span></td>
 	</tr>	
+	<tr>
+		<td class="b8" height="20px"></td><td class="b8" height="20px"></td>
+		<td class="b8" height="20px"></td><td class="b8" height="20px"></td>
+		<!--{if defined('MOD_CLUBBASE')}-->
+		{template MOD_CLUBBASE_NPCSKILL_BUTTON}
+		<!--{else}-->
+		<td class="b8" height="20px"></td><td class="b8" height="20px"></td>
+		<!--{/if}-->
+	</tr>
 </table>

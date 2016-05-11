@@ -2,7 +2,7 @@
 
 namespace skill404
 {
-	$paneldesc=array('底力','底力1','底力2','底力3','底力4','斗魂');
+	$paneldesc=array('底力','底力','底力','底力','底力','斗魂');
 	$extdmg=array(0,120,300,600,1200,45000);
 	
 	function init() 

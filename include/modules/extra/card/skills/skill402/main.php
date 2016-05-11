@@ -2,7 +2,7 @@
 
 namespace skill402
 {
-	$paneldesc=array('直死','直死1','直死2','直死3','直死4','抹杀');
+	$paneldesc=array('直死','直死','直死','直死','直死','抹杀');
 	$procrate=array(0,1,3,10,30,100);
 	
 	function init() 

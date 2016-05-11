@@ -34,7 +34,7 @@ namespace npc
 			'inf' => '',
 			'rage' => 0,
 			'pose'=> 2,
-			'skills'=>array('401'=>'3','400'=>'5',),
+			'skills'=>array('401'=>'3','400'=>'5','459'=>'0'),
 			'tactic' => 3,
 			'killnum' => 0,
 			'teamID' => '',
@@ -99,7 +99,6 @@ namespace npc
 		'mode' => 2,
 		'num' => 16,
 		'pass' => 'bra',
-		'skills' => array('400'=>'1',),
 		'club' => 0,
 		'bid' => 0,
 		'inf' => '',
@@ -694,7 +693,7 @@ namespace npc
 				0 => array
 				(
 				'name' => '蓝凝',
-				'skills' => array('432'=>'0',),
+				'skills' => array('432'=>'0','459'=>'0'),
 				'icon' => 52,
 				'wep' => '『AZURE RONDO』',
 				'wepk' => 'WK',

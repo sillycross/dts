@@ -10,7 +10,7 @@ namespace club6
 			'type' => 1,
 			'probability' => 0, 
 			'skills' => Array(
-				10,11,12,	
+				10,11,12,
 				
 			)
 		);

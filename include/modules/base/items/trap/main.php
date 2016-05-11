@@ -112,20 +112,78 @@ namespace trap
 		}
 	}
 	
+	//陷阱的乘法伤害修正，类似战斗伤害修正，返回的是一个数组
+	function get_trap_damage_multiplier(&$pa, &$pd, $trap, $damage)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return Array();
+	}
+	
+	//陷阱的最终伤害修正，类似战斗伤害，先执行提高类修正，再执行降低类修正
+	function get_trap_final_damage_modifier_up(&$pa, &$pd, $tritm, $damage)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $damage;
+	}
+	
+	function get_trap_final_damage_modifier_down(&$pa, &$pd, $tritm, $damage)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $damage;
+	}
+	
+	//陷阱命中后事件
+	function post_traphit_events(&$pa, &$pd, $tritm, $damage)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+	}
+	
 	function trap_deal_damage()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','trap','logger'));
 		
 		$bid = $itmsk0;
+		$pa=\player\fetch_playerdata_by_pid($bid);
 		$damage = get_trap_damage();
+		
+		$log .= "糟糕，你触发了{$trperfix}陷阱<span class=\"yellow\">$itm0</span>！";
+	
+		$tritm=Array();
+		$tritm['itm']=$itm0; $tritm['itmk']=$itmk0; 
+		$tritm['itme']=$itme0; $tritm['itms']=$itms0; $tritm['itmsk']=$itmsk0;
+		$multiplier = get_trap_damage_multiplier($pa, $sdata, $tritm, $damage);
+		
+		if (count($multiplier)>0)
+		{
+			$fin_dmg=$damage; $mult_words='';
+			foreach ($multiplier as $key)
+			{
+				$fin_dmg=$fin_dmg*$key;
+				$mult_words.="×{$key}";
+			}
+			$fin_dmg=round($fin_dmg);
+			if ($fin_dmg < 1) $fin_dmg = 1;
+			$log .= "你受到了{$damage}{$mult_words}＝<span class=\"dmg\">{$fin_dmg}</span>点伤害。<br>";
+			$damage = $fin_dmg;
+		}
+		else
+		{
+			$log.="你受到了<span class=\"dmg\">$damage</span>点伤害！<br>";
+		}
+		
+		$damage = get_trap_final_damage_modifier_up($pa, $sdata, $tritm, $damage);
+		
+		$damage = get_trap_final_damage_modifier_down($pa, $sdata, $tritm, $damage);
+
 		$hp -= $damage;
+		
+		if ($damage>0) post_traphit_events($pa, $sdata, $tritm, $damage);
 		
 		if($playerflag){
 			addnews($now,'trap',$name,$trname,$itm0,$damage);
 		}
-		$log .= "糟糕，你触发了{$trperfix}陷阱<span class=\"yellow\">$itm0</span>！受到<span class=\"dmg\">$damage</span>点伤害！<br>";
-	
+		
 		send_trap_enemylog(1);
 	}
 	
@@ -309,7 +367,9 @@ namespace trap
 		eval(import_module('sys','player'));
 		
 		if($news == 'trap') 
-			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}中了{$b}设置的陷阱{$c}，受到了{$d}点伤害！</span><br>\n";
+			if ($d>0)
+				return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}中了{$b}设置的陷阱{$c}，受到了{$d}点伤害！</span><br>\n";
+			else  return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}中了{$b}设置的陷阱{$c}</span><br>\n";
 		if($news == 'trapmiss') 
 			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}回避了{$b}设置的陷阱{$c}</span><br>\n";
 		if($news == 'death27') {

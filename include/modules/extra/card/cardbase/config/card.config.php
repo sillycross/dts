@@ -9,9 +9,9 @@ $packlist=array(
 );
 $cardindex=array(
 	'S'=>array(1,5,16,38,39,40,41,64,65,67,71,95,99,100,101,102),
-	'A'=>array(2,13,14,20,23,32,37,43,44,45,46,47,48,49,50,66,68,69,72,75,81,103,104,105,106,120,121),
-	'B'=>array(3,12,15,21,22,24,25,26,27,28,35,51,52,53,54,55,56,70,73,76,78,80,83,97,107,108,109,110,111,112,117),
-	'C'=>array(4,6,7,8,9,10,11,17,18,19,29,30,31,33,34,36,57,58,59,60,61,62,74,77,79,82,84,85,113,114,115,116),
+	'A'=>array(2,13,14,20,23,32,37,43,44,45,46,47,48,49,50,66,68,69,72,75,81,103,104,105,106,117,120,121),
+	'B'=>array(3,12,15,21,22,24,25,26,27,28,35,51,52,53,54,55,56,70,73,76,78,80,83,97,107,108,109,110,111,112,123,124),
+	'C'=>array(4,6,7,8,9,10,11,17,18,19,29,30,31,33,34,36,57,58,59,60,61,62,74,77,79,82,84,85,113,114,115,116,122),
 );
 $cards=array(
 	0=>array(
@@ -107,11 +107,7 @@ $cards=array(
 		'skills'=>array('402'=>'1'),
 	),
 	14=>array(
-		'itm1'=>'大象粪便提取物',
-		'itmk1'=>'HB',
-		'itme1'=>'76',
-		'itms1'=>'∞',
-		'itmsk1'=>'',
+		'skills'=>array('458'=>'0'),
 	),
 	15=>array(
 		'skills'=>array('229'=>'0'),
@@ -380,7 +376,7 @@ $cards=array(
 		'skills'=>array('416'=>'1'),
 	),
 	78=>array(
-		'itm6'=>'杏仁豆腐的ID卡',
+		'itm6'=>'杏仁豆腐的ID卡模样的杏仁豆腐',
 		'itmk6'=>'HB',
 		'itme6'=>'77',
 		'itms6'=>'77',
@@ -548,6 +544,15 @@ $cards=array(
 	121=>array(
 		'skills'=>array('454'=>'0'),
 	),
+	122=>array(
+		'skills'=>array('457'=>'0'),
+	),
+	123=>array(
+		'skills'=>array('455'=>'0'),
+	),
+	124=>array(
+		'skills'=>array('456'=>'0'),
+	),
 );
 $carddesc=array(
 	0=>array(
@@ -556,6 +561,7 @@ $carddesc=array(
 		'desc'=>'默认的身份卡',
 		'pack'=>'Standard Pack',
 		'effect'=>'无',
+		'energy'=>0,
 	),
 	1=>array(
 		'name'=>'残留的思念',
@@ -563,6 +569,7 @@ $carddesc=array(
 		'desc'=>'镇守键刃墓场的BOSS',
 		'pack'=>'Standard Pack',
 		'effect'=>'开局经验固定为120点',
+		'energy'=>100,
 	),
 	2=>array(
 		'name'=>'初音大魔王',
@@ -570,6 +577,7 @@ $carddesc=array(
 		'desc'=>'2011年愚人节宇宙巡航机活动的优胜者',
 		'pack'=>'Standard Pack',
 		'effect'=>'开局装备强力的射系武器',
+		'energy'=>120,
 	),
 	3=>array(
 		'name'=>'面糊饼职人',
@@ -577,6 +585,7 @@ $carddesc=array(
 		'desc'=>'善于制作面糊饼的著名面点师傅',
 		'pack'=>'Standard Pack',
 		'effect'=>'强化开局补给',
+		'energy'=>80,
 	),
 	4=>array(
 		'name'=>'AC专业职人',
@@ -584,6 +593,7 @@ $carddesc=array(
 		'desc'=>'死后会召唤强力NPC的特殊小兵',
 		'pack'=>'Standard Pack',
 		'effect'=>'开局全熟+5',
+		'energy'=>0,
 	),
 	5=>array(
 		'name'=>'虚子',
@@ -591,6 +601,7 @@ $carddesc=array(
 		'desc'=>'这个小卡片系统的作者，爱好是红暮和加强斩系',
 		'pack'=>'Standard Pack',
 		'effect'=>'拥有强化的斩系技能和黑衣组织技能，开局装备寻星者',
+		'energy'=>150,
 	),
 	6=>array(
 		'name'=>'殴系触手',
@@ -598,6 +609,7 @@ $carddesc=array(
 		'desc'=>'熟练的殴系玩家',
 		'pack'=>'Standard Pack',
 		'effect'=>'称号固定为街头霸王',
+		'energy'=>0,
 	),
 	7=>array(
 		'name'=>'斩系触手',
@@ -605,6 +617,7 @@ $carddesc=array(
 		'desc'=>'熟练的斩系玩家',
 		'pack'=>'Standard Pack',
 		'effect'=>'称号固定为见敌必斩',
+		'energy'=>0,
 	),
 	8=>array(
 		'name'=>'投系触手',
@@ -612,6 +625,7 @@ $carddesc=array(
 		'desc'=>'熟练的投系玩家',
 		'pack'=>'Standard Pack',
 		'effect'=>'称号固定为灌篮高手',
+		'energy'=>0,
 	),
 	9=>array(
 		'name'=>'射系触手',
@@ -619,6 +633,7 @@ $carddesc=array(
 		'desc'=>'熟练的射系玩家',
 		'pack'=>'Standard Pack',
 		'effect'=>'称号固定为狙击鹰眼',
+		'energy'=>0,
 	),
 	10=>array(
 		'name'=>'灵系触手',
@@ -626,6 +641,7 @@ $carddesc=array(
 		'desc'=>'熟练的灵系玩家',
 		'pack'=>'Standard Pack',
 		'effect'=>'称号固定为超能力者',
+		'energy'=>0,
 	),
 	11=>array(
 		'name'=>'爆系触手',
@@ -633,6 +649,7 @@ $carddesc=array(
 		'desc'=>'熟练的爆系玩家',
 		'pack'=>'Standard Pack',
 		'effect'=>'称号固定为拆弹专家',
+		'energy'=>0,
 	),
 	12=>array(
 		'name'=>'姜瘤儿',
@@ -640,6 +657,7 @@ $carddesc=array(
 		'desc'=>'一名头很硬的著名游戏玩家',
 		'pack'=>'Standard Pack',
 		'effect'=>'获得技能「重击1」「硬化1」',
+		'energy'=>100,
 	),
 	13=>array(
 		'name'=>'熊本熊',
@@ -647,13 +665,15 @@ $carddesc=array(
 		'desc'=>'日本熊本县的吉祥物，和大逃杀没有任何关系',
 		'pack'=>'Standard Pack',
 		'effect'=>'获得技能「直死1」',
+		'energy'=>120,
 	),
 	14=>array(
 		'name'=>'贝尔格里尔斯',
 		'rare'=>'A',
 		'desc'=>'该介绍已被吃掉',
 		'pack'=>'Standard Pack',
-		'effect'=>'开局获得可无限使用的补给',
+		'effect'=>'可把任何物品当作补给食用<br>有毒补给对你视为无毒',
+		'energy'=>100,
 	),
 	15=>array(
 		'name'=>'常威',
@@ -661,6 +681,7 @@ $carddesc=array(
 		'desc'=>'我是天生神功',
 		'pack'=>'Standard Pack',
 		'effect'=>'获得高速成长技能「神功」',
+		'energy'=>100,
 	),
 	16=>array(
 		'name'=>'tabris',
@@ -668,6 +689,7 @@ $carddesc=array(
 		'desc'=>'经常死于不明AOE的顽强神触',
 		'pack'=>'Standard Pack',
 		'effect'=>'获得技能「重击3」「硬化3」，但踩雷率提高',
+		'energy'=>100,
 	),
 	17=>array(
 		'name'=>'沙包长者',
@@ -675,6 +697,7 @@ $carddesc=array(
 		'desc'=>'身经百战见的多了……的沙包',
 		'pack'=>'Standard Pack',
 		'effect'=>'开局获得3个技能点',
+		'energy'=>0,
 	),
 	18=>array(
 		'name'=>'业务员',
@@ -682,6 +705,7 @@ $carddesc=array(
 		'desc'=>'穿着正式骨骼精奇的白领',
 		'pack'=>'Standard Pack',
 		'effect'=>'开局装备完整的防具',
+		'energy'=>0,
 	),
 	19=>array(
 		'name'=>'铁男',
@@ -689,6 +713,7 @@ $carddesc=array(
 		'desc'=>'为什么要放铁男？',
 		'pack'=>'Standard Pack',
 		'effect'=>'获得技能「重击1」',
+		'energy'=>0,
 	),
 	20=>array(
 		'name'=>'十万只脚本狗',
@@ -696,6 +721,7 @@ $carddesc=array(
 		'desc'=>'SC出品的一秒钟能合两把A刀的恐怖AI',
 		'pack'=>'Standard Pack',
 		'effect'=>'获得技能「追击1」，但踩雷率提高',
+		'energy'=>100,
 	),
 	21=>array(
 		'name'=>'暗杀者',
@@ -703,6 +729,7 @@ $carddesc=array(
 		'desc'=>'熟练的黑衣组织玩家',
 		'pack'=>'Standard Pack',
 		'effect'=>'称号固定为黑衣组织',
+		'energy'=>100,
 	),
 	22=>array(
 		'name'=>'霸道总裁',
@@ -710,6 +737,7 @@ $carddesc=array(
 		'desc'=>'熟练的富家子弟玩家',
 		'pack'=>'Standard Pack',
 		'effect'=>'称号固定为富家子弟',
+		'energy'=>100,
 	),
 	23=>array(
 		'name'=>'宇宙神触',
@@ -717,6 +745,7 @@ $carddesc=array(
 		'desc'=>'熟练的高速成长玩家',
 		'pack'=>'Standard Pack',
 		'effect'=>'称号固定为高速成长',
+		'energy'=>80,
 	),
 	24=>array(
 		'name'=>'无解肥',
@@ -724,6 +753,7 @@ $carddesc=array(
 		'desc'=>'熟练的根性兄贵玩家',
 		'pack'=>'Standard Pack',
 		'effect'=>'称号固定为根性兄贵',
+		'energy'=>100,
 	),
 	25=>array(
 		'name'=>'三国杀高玩',
@@ -731,6 +761,7 @@ $carddesc=array(
 		'desc'=>'熟练的肌肉兄贵玩家',
 		'pack'=>'Standard Pack',
 		'effect'=>'称号固定为肌肉兄贵',
+		'energy'=>100,
 	),
 	26=>array(
 		'name'=>'全能骑士',
@@ -738,6 +769,7 @@ $carddesc=array(
 		'desc'=>'熟练的天赋异禀玩家',
 		'pack'=>'Standard Pack',
 		'effect'=>'称号固定为天赋异禀',
+		'energy'=>100,
 	),
 	27=>array(
 		'name'=>'黑锋精英',
@@ -745,6 +777,7 @@ $carddesc=array(
 		'desc'=>'熟练的亡灵骑士玩家',
 		'pack'=>'Standard Pack',
 		'effect'=>'称号固定为亡灵骑士',
+		'energy'=>100,
 	),
 	28=>array(
 		'name'=>'夏之岛住民',
@@ -752,6 +785,7 @@ $carddesc=array(
 		'desc'=>'熟练的宝石骑士玩家',
 		'pack'=>'Standard Pack',
 		'effect'=>'称号固定为宝石骑士',
+		'energy'=>100,
 	),
 	29=>array(
 		'name'=>'富二代',
@@ -759,6 +793,7 @@ $carddesc=array(
 		'desc'=>'其实他也不是特别有钱',
 		'pack'=>'Standard Pack',
 		'effect'=>'起始金钱为100',
+		'energy'=>0,
 	),
 	30=>array(
 		'name'=>'穆里尼奥',
@@ -766,6 +801,7 @@ $carddesc=array(
 		'desc'=>'和全世界为敌的男人',
 		'pack'=>'Standard Pack',
 		'effect'=>'起始怒气为100',
+		'energy'=>0,
 	),
 	31=>array(
 		'name'=>'变态',
@@ -773,6 +809,7 @@ $carddesc=array(
 		'desc'=>'单纯的变态',
 		'pack'=>'Standard Pack',
 		'effect'=>'？？？',
+		'energy'=>0,
 	),
 	32=>array(
 		'name'=>'BurNIng',
@@ -780,6 +817,7 @@ $carddesc=array(
 		'desc'=>'这个人用鸟习惯特别不好',
 		'pack'=>'Standard Pack',
 		'effect'=>'自带雷达',
+		'energy'=>80,
 	),
 	33=>array(
 		'name'=>'拳法家',
@@ -787,6 +825,7 @@ $carddesc=array(
 		'desc'=>'孤高的拳法家，对各种小伎俩不屑一顾',
 		'pack'=>'Standard Pack',
 		'effect'=>'拳法家不需要多余的技能',
+		'energy'=>0,
 	),
 	34=>array(
 		'name'=>'草药学家',
@@ -794,6 +833,7 @@ $carddesc=array(
 		'desc'=>'神农的后人，不需要吃也能判定食物是否有毒',
 		'pack'=>'Standard Pack',
 		'effect'=>'可以查毒',
+		'energy'=>0,
 	),
 	35=>array(
 		'name'=>'2009',
@@ -801,6 +841,7 @@ $carddesc=array(
 		'desc'=>'著名的生物学家，兼任创世神',
 		'pack'=>'Standard Pack',
 		'effect'=>'可以召唤保安',
+		'energy'=>100,
 	),
 	36=>array(
 		'name'=>'残疾人',
@@ -808,6 +849,7 @@ $carddesc=array(
 		'desc'=>'由于不明原因只有一只手的残疾人',
 		'pack'=>'Standard Pack',
 		'effect'=>'为什么他只有一只手呢',
+		'energy'=>0,
 	),
 	37=>array(
 		'name'=>'华莱士',
@@ -815,6 +857,7 @@ $carddesc=array(
 		'desc'=>'美国著名新闻工作者',
 		'pack'=>'Standard Pack',
 		'effect'=>'初始属性不知道高到哪里去了',
+		'energy'=>100,
 	),
 	38=>array(
 		'name'=>'『芙蓉（Fleur）』',
@@ -822,6 +865,7 @@ $carddesc=array(
 		'desc'=>'低调行事的年轻女性，红暮的青梅竹马。目前是红暮的影一样的存在。担当红杀组织中并不存在的隐秘行动课程的教头。',
 		'pack'=>'Crimson Swear',
 		'effect'=>'被发现率下降，爆系和斩系伤害提高',
+		'energy'=>100,
 	),
 	39=>array(
 		'name'=>'『红暮（Crimson）』',
@@ -829,6 +873,7 @@ $carddesc=array(
 		'desc'=>'英姿飒爽的年轻女性。表面上是城内世家的千金，湾城最大的实业『金龙通讯社』的CEO，实际是佣兵组织红杀的现任当家',
 		'pack'=>'Crimson Swear',
 		'effect'=>'战斗中极高概率发动重击',
+		'energy'=>180,
 	),
 	40=>array(
 		'name'=>'『蓝凝（Azure）』',
@@ -836,6 +881,7 @@ $carddesc=array(
 		'desc'=>"<span class=\"clan\">“蓝凝我觉得啊，这个地方没什么好写的。”<br>“总之我比红暮可强的多了，哈哈哈！”</span>",
 		'pack'=>'Crimson Swear',
 		'effect'=>"<span class=\"clan\">“蓝凝觉得你进游戏实际体验一下比较好哦！”</span>",
+		'energy'=>90,
 	),
 	41=>array(
 		'name'=>'『丁香（Lila）』',
@@ -843,6 +889,7 @@ $carddesc=array(
 		'desc'=>'芙蓉的妹妹，现年初二，在一般的平民初中就读。是学校演剧部的部长，也备有无数的戏服用品。爱好是写剧本和读其他人的剧本',
 		'pack'=>'Crimson Swear',
 		'effect'=>'根据当前HP百分比提高攻击力或防御力',
+		'energy'=>100,
 	),
 	42=>array(
 		'name'=>'Tianming "Fleur" Li',
@@ -850,6 +897,7 @@ $carddesc=array(
 		'desc'=>'低调行事的年轻女性，红暮的青梅竹马。目前是红暮的影一样的存在。担当红杀组织中并不存在的隐秘行动课程的教头。',
 		'pack'=>'Event Bonus',
 		'effect'=>'被发现率下降，爆系和斩系伤害提高',
+		'energy'=>50,
 	),
 	43=>array(
 		'name'=>'『飞龙（Wyvern）』',
@@ -857,6 +905,7 @@ $carddesc=array(
 		'desc'=>'红暮和蓝凝的爷爷。前代红杀将军。在二人的父亲『幻铁』行踪不明后，抚养二人长大。目前隐居在城外的乡村中卖中药为生。',
 		'pack'=>'Crimson Swear',
 		'effect'=>'减少受到的战斗伤害和陷阱伤害',
+		'energy'=>100,
 	),
 	44=>array(
 		'name'=>'『翼虎（Manticore）』',
@@ -864,6 +913,7 @@ $carddesc=array(
 		'desc'=>'『飞龙』的好友。前代红杀菁英。据说只要他的盾还在身上，没什么东西能伤的了他。目前他的盾由红暮收藏，他自己则在飞龙之前已经退役了。',
 		'pack'=>'Crimson Swear',
 		'effect'=>'探索体力消耗-12，战斗怒气获得+4',
+		'energy'=>100,
 	),
 	45=>array(
 		'name'=>'『铁城（Rook）』',
@@ -871,6 +921,7 @@ $carddesc=array(
 		'desc'=>'红杀的拳脚教头',
 		'pack'=>'Crimson Swear',
 		'effect'=>'殴系伤害+25%，拳头伤害+40%',
+		'energy'=>100,
 	),
 	46=>array(
 		'name'=>'『灵翼（Bishop）』',
@@ -878,6 +929,7 @@ $carddesc=array(
 		'desc'=>'红杀的火器教头',
 		'pack'=>'Crimson Swear',
 		'effect'=>'远程兵器伤害+20%',
+		'energy'=>100,
 	),
 	47=>array(
 		'name'=>'『破石（Knight）』',
@@ -885,6 +937,7 @@ $carddesc=array(
 		'desc'=>'红杀的冷兵器教头',
 		'pack'=>'Crimson Swear',
 		'effect'=>'斩系伤害+20%，投系伤害+15%',
+		'energy'=>100,
 	),
 	48=>array(
 		'name'=>'『银锤（Pawn）』',
@@ -892,6 +945,7 @@ $carddesc=array(
 		'desc'=>'红杀的爆炸物教头',
 		'pack'=>'Crimson Swear',
 		'effect'=>'爆系伤害+15%',
+		'energy'=>80,
 	),
 	49=>array(
 		'name'=>'『电返（King）』',
@@ -899,6 +953,7 @@ $carddesc=array(
 		'desc'=>'红杀的信息技术教头',
 		'pack'=>'Crimson Swear',
 		'effect'=>'升级时获得2-4点全熟练',
+		'energy'=>100,
 	),
 	50=>array(
 		'name'=>'『三步（Queen）』',
@@ -906,6 +961,7 @@ $carddesc=array(
 		'desc'=>'红杀的轻功体能教头',
 		'pack'=>'Crimson Swear',
 		'effect'=>'战斗中对手的射程越远，造成的伤害就越高',
+		'energy'=>100,
 	),
 	51=>array(
 		'name'=>'红杀特工P',
@@ -913,6 +969,7 @@ $carddesc=array(
 		'desc'=>'善于肉搏的红杀特工',
 		'pack'=>'Crimson Swear',
 		'effect'=>'开局殴熟+35',
+		'energy'=>100,
 	),
 	52=>array(
 		'name'=>'红杀特工K',
@@ -920,6 +977,7 @@ $carddesc=array(
 		'desc'=>'善于使用冷兵器的红杀特工',
 		'pack'=>'Crimson Swear',
 		'effect'=>'开局斩熟+35',
+		'energy'=>100,
 	),
 	53=>array(
 		'name'=>'红杀特工C',
@@ -927,6 +985,7 @@ $carddesc=array(
 		'desc'=>'善于使用飞行道具的红杀特工',
 		'pack'=>'Crimson Swear',
 		'effect'=>'开局投熟+35',
+		'energy'=>100,
 	),
 	54=>array(
 		'name'=>'红杀特工G',
@@ -934,6 +993,7 @@ $carddesc=array(
 		'desc'=>'善于使用枪械的红杀特工',
 		'pack'=>'Crimson Swear',
 		'effect'=>'开局射熟+35',
+		'energy'=>100,
 	),
 	55=>array(
 		'name'=>'红杀特工D',
@@ -941,6 +1001,7 @@ $carddesc=array(
 		'desc'=>'善于使用爆炸物的红杀特工',
 		'pack'=>'Crimson Swear',
 		'effect'=>'开局爆熟+35',
+		'energy'=>100,
 	),
 	56=>array(
 		'name'=>'红杀特工A',
@@ -948,6 +1009,7 @@ $carddesc=array(
 		'desc'=>'战斗风格多变的红杀特工',
 		'pack'=>'Crimson Swear',
 		'effect'=>'开局灵熟以外的熟练度+15',
+		'energy'=>100,
 	),
 	57=>array(
 		'name'=>'书卷使卡玛',
@@ -955,6 +1017,7 @@ $carddesc=array(
 		'desc'=>'在时空特使里默默无闻打工的工作人员。某次事件之后就消失了',
 		'pack'=>'Crimson Swear',
 		'effect'=>'开局攻防为115',
+		'energy'=>0,
 	),
 	58=>array(
 		'name'=>'G.D.S 项目经理',
@@ -962,6 +1025,7 @@ $carddesc=array(
 		'desc'=>'他因为乱改需求已经被人盯上了',
 		'pack'=>'Crimson Swear',
 		'effect'=>'可以用改需求折磨别人',
+		'energy'=>0,
 	),
 	59=>array(
 		'name'=>'G.D.S 文员',
@@ -969,6 +1033,7 @@ $carddesc=array(
 		'desc'=>'因为长期加班导致谢顶的中年男人',
 		'pack'=>'Crimson Swear',
 		'effect'=>'他准备了很多提神的饮料',
+		'energy'=>0,
 	),
 	60=>array(
 		'name'=>'G.D.S 保安',
@@ -976,6 +1041,7 @@ $carddesc=array(
 		'desc'=>'他一般没有什么出手的机会，所以锻炼方向有点走偏',
 		'pack'=>'Crimson Swear',
 		'effect'=>'初始攻击大幅降低，防御大幅提高',
+		'energy'=>0,
 	),
 	61=>array(
 		'name'=>'G.D.S 领导',
@@ -983,6 +1049,7 @@ $carddesc=array(
 		'desc'=>'由于长期坐办公室，他的身材已经严重走形了',
 		'pack'=>'Crimson Swear',
 		'effect'=>'初始经验值为65，但体力大幅下降',
+		'energy'=>0,
 	),
 	62=>array(
 		'name'=>'G.D.S 扫地大妈',
@@ -990,6 +1057,7 @@ $carddesc=array(
 		'desc'=>'金龙通讯社的第一道坚强防线，在公司的日常运转中也发挥着极大的作用',
 		'pack'=>'Crimson Swear',
 		'effect'=>'获得技能「人杰」',
+		'energy'=>0,
 	),
 	63=>array(
 		'name'=>'"Sexycoder"',
@@ -997,6 +1065,7 @@ $carddesc=array(
 		'desc'=>'不愿透露姓名的究极神牛，代码力深不可测',
 		'pack'=>'Event Bonus',
 		'effect'=>'称号固定为锡安成员，技能「过载」大幅强化，且开局即解锁',
+		'energy'=>80,
 	),
 	64=>array(
 		'name'=>'"Topcoder"',
@@ -1004,6 +1073,7 @@ $carddesc=array(
 		'desc'=>'不愿透露姓名的究极神牛，代码力深不可测',
 		'pack'=>'Way of Life',
 		'effect'=>'称号固定为锡安成员，技能「过载」强化，且开局即解锁',
+		'energy'=>100,
 	),
 	65=>array(
 		'name'=>'"KHIBIKI《黑曲》"',
@@ -1011,6 +1081,7 @@ $carddesc=array(
 		'desc'=>'ACFUN大逃杀画师，这次更新的大头像和新UI都出自她手',
 		'pack'=>'Way of Life',
 		'effect'=>'减半偶数战斗伤害，直至其为奇数',
+		'energy'=>100,
 	),
 	66=>array(
 		'name'=>'"KEY男"',
@@ -1018,6 +1089,7 @@ $carddesc=array(
 		'desc'=>'经常出没在清水池的神秘人物',
 		'pack'=>'Way of Life',
 		'effect'=>'合成KEY系武器时耐久度增加',
+		'energy'=>80,
 	),
 	67=>array(
 		'name'=>'霜火协奏曲',
@@ -1025,6 +1097,7 @@ $carddesc=array(
 		'desc'=>'ACFUN大逃杀史上第一神触',
 		'pack'=>'Way of Life',
 		'effect'=>'战斗中获得的熟练度+1（不与高速成长特性叠加）',
+		'energy'=>100,
 	),
 	68=>array(
 		'name'=>'狂信徒',
@@ -1032,6 +1105,7 @@ $carddesc=array(
 		'desc'=>'大家都很讨厌他，他自己却没什么自觉',
 		'pack'=>'Way of Life',
 		'effect'=>'开局携带【风神的神德】',
+		'energy'=>200,
 	),
 	69=>array(
 		'name'=>'活雷锋',
@@ -1039,6 +1113,7 @@ $carddesc=array(
 		'desc'=>'一个有益于人民的人',
 		'pack'=>'Way of Life',
 		'effect'=>'开局携带驱云弹',
+		'energy'=>200,
 	),
 	70=>array(
 		'name'=>'情怀挑战者',
@@ -1046,6 +1121,7 @@ $carddesc=array(
 		'desc'=>'他的精神寄托就是这把刀了',
 		'pack'=>'Way of Life',
 		'effect'=>'开局装备火焰属性的斩系武器',
+		'energy'=>100,
 	),
 	71=>array(
 		'name'=>'枪毙的某神',
@@ -1053,6 +1129,7 @@ $carddesc=array(
 		'desc'=>'著名的小黄系列玩家，设计了《小黄的大师球》和初版游戏王的合成',
 		'pack'=>'Way of Life',
 		'effect'=>'获得一段时间内必中（对某些武器无效）的技能',
+		'energy'=>100,
 	),
 	72=>array(
 		'name'=>'方块挑战者',
@@ -1060,6 +1137,7 @@ $carddesc=array(
 		'desc'=>'猜猜他能上几个属性',
 		'pack'=>'Way of Life',
 		'effect'=>'每隔一段时间可以生成一个方块',
+		'energy'=>100,
 	),
 	73=>array(
 		'name'=>'苹果姐姐',
@@ -1067,6 +1145,7 @@ $carddesc=array(
 		'desc'=>'唉',
 		'pack'=>'Way of Life',
 		'effect'=>'你知道的',
+		'energy'=>100,
 	),
 	74=>array(
 		'name'=>'BR挑战者',
@@ -1074,6 +1153,7 @@ $carddesc=array(
 		'desc'=>'在严苛的原版BR环境中生存下来的玩家',
 		'pack'=>'Way of Life',
 		'effect'=>'初始生命+300，体力+300',
+		'energy'=>0,
 	),
 	75=>array(
 		'name'=>'精锐挑战者',
@@ -1081,6 +1161,7 @@ $carddesc=array(
 		'desc'=>'不管怎么看，这都是一位标准的触手',
 		'pack'=>'Way of Life',
 		'effect'=>'初始装备与思念体-触手众相同',
+		'energy'=>100,
 	),
 	76=>array(
 		'name'=>'时空挑战者',
@@ -1088,6 +1169,7 @@ $carddesc=array(
 		'desc'=>'精通查危险、移NPC、刷局、隐藏合成等各种高级PVE技巧的时空服玩家',
 		'pack'=>'Way of Life',
 		'effect'=>'对玩家伤害-50%，对NPC伤害+30%',
+		'energy'=>150,
 	),
 	77=>array(
 		'name'=>'电波挑战者',
@@ -1095,6 +1177,7 @@ $carddesc=array(
 		'desc'=>'为了胜利不择手段的电波服玩家',
 		'pack'=>'Way of Life',
 		'effect'=>'对玩家伤害+10%，对NPC伤害-10%',
+		'energy'=>0,
 	),
 	78=>array(
 		'name'=>'死斗挑战者',
@@ -1102,6 +1185,7 @@ $carddesc=array(
 		'desc'=>'史上最快死斗缔造者',
 		'pack'=>'Way of Life',
 		'effect'=>'开局携带杏仁豆腐的ID卡',
+		'energy'=>100,
 	),
 	79=>array(
 		'name'=>'春原挑战者',
@@ -1109,6 +1193,7 @@ $carddesc=array(
 		'desc'=>'来自春原服的新人玩家',
 		'pack'=>'Way of Life',
 		'effect'=>'最大生命值大幅提高，但是无法选择称号',
+		'energy'=>0,
 	),
 	80=>array(
 		'name'=>'兵马俑',
@@ -1116,6 +1201,7 @@ $carddesc=array(
 		'desc'=>'熟练的西安成员玩家',
 		'pack'=>'Way of Life',
 		'effect'=>'称号固定为锡安成员',
+		'energy'=>100,
 	),
 	81=>array(
 		'name'=>'篝火挑战者',
@@ -1123,6 +1209,7 @@ $carddesc=array(
 		'desc'=>'来自早已消亡的篝火服的神秘玩家',
 		'pack'=>'Way of Life',
 		'effect'=>'随机发动一张身份卡的效果<br>S:20% A:40% B:20% C:20%',
+		'energy'=>100,
 	),
 	82=>array(
 		'name'=>'姨妈挑战者',
@@ -1130,6 +1217,7 @@ $carddesc=array(
 		'desc'=>'在速度不良的服务器中磨练出了钢铁般意志的玩家',
 		'pack'=>'Way of Life',
 		'effect'=>'初始攻防和行动CD都提高<br>推荐网速不佳的时候使用这张卡',
+		'energy'=>0,
 	),
 	83=>array(
 		'name'=>'团战挑战者',
@@ -1137,6 +1225,7 @@ $carddesc=array(
 		'desc'=>'每周都来到团战服打卡上班的玩家',
 		'pack'=>'Way of Life',
 		'effect'=>'开局装备带有属性防御的防具',
+		'energy'=>100,
 	),
 	84=>array(
 		'name'=>'切糕挑战者',
@@ -1144,6 +1233,7 @@ $carddesc=array(
 		'desc'=>'比起入场更喜欢下注切糕的玩家',
 		'pack'=>'Way of Life',
 		'effect'=>'杂兵掉落的切糕数量增加50%',
+		'energy'=>0,
 	),
 	85=>array(
 		'name'=>'海外挑战者',
@@ -1151,6 +1241,7 @@ $carddesc=array(
 		'desc'=>'出没时间异于常人的玩家',
 		'pack'=>'Way of Life',
 		'effect'=>'服务器时间1:00~7:00期间造成的战斗伤害提高12%',
+		'energy'=>0,
 	),
 	86=>array(
 		'name'=>'暴食挑战者',
@@ -1158,6 +1249,7 @@ $carddesc=array(
 		'desc'=>'就算只少了10点体力也要啃培根蛋的玩家',
 		'pack'=>'Event Bonus',
 		'effect'=>'食用补给效果提高',
+		'energy'=>100,
 	),
 	87=>array(
 		'name'=>'未来战士',
@@ -1165,6 +1257,7 @@ $carddesc=array(
 		'desc'=>'中二动画里盛行的枪斗术他掌握的很好',
 		'pack'=>'Event Bonus',
 		'effect'=>'可以用枪托杀人',
+		'energy'=>80,
 	),
 	88=>array(
 		'name'=>'Dr.Clef',
@@ -1172,6 +1265,7 @@ $carddesc=array(
 		'desc'=>'撒旦本人',
 		'pack'=>'Event Bonus',
 		'effect'=>'可以和SCP谈笑风生',
+		'energy'=>180,
 	),
 	89=>array(
 		'name'=>'富一代',
@@ -1179,6 +1273,7 @@ $carddesc=array(
 		'desc'=>'富二代的爸爸',
 		'pack'=>'Event Bonus',
 		'effect'=>'开局金钱为500',
+		'energy'=>150,
 	),
 	90=>array(
 		'name'=>'攻坚',
@@ -1186,6 +1281,7 @@ $carddesc=array(
 		'desc'=>'mode16 card1',
 		'pack'=>'hidden',
 		'effect'=>'',
+		'energy'=>0,
 	),
 	91=>array(
 		'name'=>'副手',
@@ -1193,6 +1289,7 @@ $carddesc=array(
 		'desc'=>'mode16 card2',
 		'pack'=>'hidden',
 		'effect'=>'',
+		'energy'=>0,
 	),
 	92=>array(
 		'name'=>'辅助',
@@ -1200,6 +1297,7 @@ $carddesc=array(
 		'desc'=>'mode16 card3',
 		'pack'=>'hidden',
 		'effect'=>'',
+		'energy'=>0,
 	),
 	93=>array(
 		'name'=>'软件测试工程师',
@@ -1207,6 +1305,7 @@ $carddesc=array(
 		'desc'=>'mode1 card1',
 		'pack'=>'hidden',
 		'effect'=>'',
+		'energy'=>0,
 	),
 	94=>array(
 		'name'=>'大自然的搬运工',
@@ -1214,6 +1313,7 @@ $carddesc=array(
 		'desc'=>'他能找到别人找不到的东西',
 		'pack'=>'Event Bonus',
 		'effect'=>'每60秒可以随机获得一个地图上刷新的物品',
+		'energy'=>250,
 	),
 	95=>array(
 		'name'=>'『冰炎（Rimefire）』',
@@ -1221,6 +1321,7 @@ $carddesc=array(
 		'desc'=>'可能是家庭暴力的受害者',
 		'pack'=>'Crimson Swear',
 		'effect'=>'每次通常合成物品经验+3，全熟+3',
+		'energy'=>90,
 	),
 	96=>array(
 		'name'=>'"Rimefire"',
@@ -1228,6 +1329,7 @@ $carddesc=array(
 		'desc'=>'可能是家庭暴力的受害者',
 		'pack'=>'Event Bonus',
 		'effect'=>'每次通常合成物品经验+3，全熟+3',
+		'energy'=>110,
 	),
 	97=>array(
 		'name'=>'蛋服挑战者',
@@ -1235,6 +1337,7 @@ $carddesc=array(
 		'desc'=>'来自蛋服的反meta玩家',
 		'pack'=>'Way of Life',
 		'effect'=>'获得技能「断肠」（主动杀死你的玩家失去所有称号技能，然后获得技能「断肠」）',
+		'energy'=>150,
 	),
 	98=>array(
 		'name'=>'DK^BurNIng',
@@ -1242,6 +1345,7 @@ $carddesc=array(
 		'desc'=>'有时候输了比赛，总感觉队友不给力',
 		'pack'=>'Event Bonus',
 		'effect'=>'BOOM',
+		'energy'=>140,
 	),
 	99=>array(
 		'name'=>'创世神2009',
@@ -1249,6 +1353,7 @@ $carddesc=array(
 		'desc'=>'09发明了大逃杀',
 		'pack'=>'Best DOTO',
 		'effect'=>'称号固定为富家子弟，可以召唤5个佣兵，佣兵召唤和维持消耗大幅减少',
+		'energy'=>100,
 	),
 	100=>array(
 		'name'=>'吃人',
@@ -1256,6 +1361,7 @@ $carddesc=array(
 		'desc'=>'“胖头鱼开直播啦！”',
 		'pack'=>'Best DOTO',
 		'effect'=>'使用逃跑指令时获得3点熟练和2点经验',
+		'energy'=>100,
 	),
 	101=>array(
 		'name'=>'那位先生',
@@ -1263,6 +1369,7 @@ $carddesc=array(
 		'desc'=>'大逃杀有8个称号，其中有奶妈，很平衡',
 		'pack'=>'Best DOTO',
 		'effect'=>'进场时间越晚，造成的伤害越高',
+		'energy'=>100,
 	),
 	102=>array(
 		'name'=>'longdd',
@@ -1270,6 +1377,7 @@ $carddesc=array(
 		'desc'=>'给我龙神一个坐骑',
 		'pack'=>'Best DOTO',
 		'effect'=>'效果太矮看不见',
+		'energy'=>100,
 	),
 	103=>array(
 		'name'=>'末日使者',
@@ -1277,6 +1385,7 @@ $carddesc=array(
 		'desc'=>'爸爸',
 		'pack'=>'Best DOTO',
 		'effect'=>'获得战斗技「父爱」',
+		'energy'=>90,
 	),
 	104=>array(
 		'name'=>'钱四爷',
@@ -1284,6 +1393,7 @@ $carddesc=array(
 		'desc'=>'发烧=超频',
 		'pack'=>'Best DOTO',
 		'effect'=>'根据自身异常状态数提高造成的物理伤害',
+		'energy'=>70,
 	),
 	105=>array(
 		'name'=>'EternaLEnVy',
@@ -1291,6 +1401,7 @@ $carddesc=array(
 		'desc'=>'洋装虽然穿在身，我心依然是中国心',
 		'pack'=>'Best DOTO',
 		'effect'=>'我的祖先早已把我的一切，烙上中国印',
+		'energy'=>100,
 	),
 	106=>array(
 		'name'=>'军团指挥官',
@@ -1298,6 +1409,7 @@ $carddesc=array(
 		'desc'=>'谁跑谁是狗',
 		'pack'=>'Best DOTO',
 		'effect'=>'每次击杀提升自身10点基础攻击力',
+		'energy'=>80,
 	),
 	107=>array(
 		'name'=>'ROTK',
@@ -1305,6 +1417,7 @@ $carddesc=array(
 		'desc'=>'R!O!T!K!',
 		'pack'=>'Best DOTO',
 		'effect'=>'杀谁，说话！',
+		'energy'=>100,
 	),
 	108=>array(
 		'name'=>'变体精灵',
@@ -1312,6 +1425,7 @@ $carddesc=array(
 		'desc'=>'它最喜欢的装备是BKB、林肯和分身斧',
 		'pack'=>'Best DOTO',
 		'effect'=>'基础攻击力视为0，基础防御力提高70%',
+		'energy'=>60,
 	),
 	109=>array(
 		'name'=>'亚巴顿',
@@ -1319,6 +1433,7 @@ $carddesc=array(
 		'desc'=>'虽然还非常年轻，但他已是魔霭族裔中知识水平最高者',
 		'pack'=>'Best DOTO',
 		'effect'=>'获得可在一段时间内免疫战斗伤害的技能，只能使用一次',
+		'energy'=>120,
 	),
 	110=>array(
 		'name'=>'远古冰魄',
@@ -1326,6 +1441,7 @@ $carddesc=array(
 		'desc'=>'即使身为代表熵本身的无上存在，卡尔德还是逃不开包鸡包眼的命运',
 		'pack'=>'Best DOTO',
 		'effect'=>'战斗伤害超过目标当前生命值90%以上时目标立即死亡',
+		'energy'=>100,
 	),
 	111=>array(
 		'name'=>'食人魔魔法师',
@@ -1333,13 +1449,15 @@ $carddesc=array(
 		'desc'=>'尽管很大程度上受到智商的制约，食人魔魔法师仍能依靠纯熟的技巧在战斗中取胜',
 		'pack'=>'Best DOTO',
 		'effect'=>'称号固定为数学大神',
+		'energy'=>100,
 	),
 	112=>array(
 		'name'=>'冥界亚龙',
 		'rare'=>'B',
 		'desc'=>'创世神2009的化身之一',
 		'pack'=>'Best DOTO',
-		'effect'=>'造成的毒性伤害提高，攻击你的敌人中毒',
+		'effect'=>'攻击你的敌人中毒，你造成的毒性伤害提高',
+		'energy'=>100,
 	),
 	113=>array(
 		'name'=>'莱恩',
@@ -1347,6 +1465,7 @@ $carddesc=array(
 		'desc'=>'天灾远程兵的噩梦',
 		'pack'=>'Best DOTO',
 		'effect'=>'对杂兵造成的伤害提高15%',
+		'energy'=>0,
 	),
 	114=>array(
 		'name'=>'斧王',
@@ -1354,13 +1473,15 @@ $carddesc=array(
 		'desc'=>'砍了就跑！',
 		'pack'=>'Best DOTO',
 		'effect'=>'对红血的敌人造成的伤害和命中率大幅提高',
+		'energy'=>0,
 	),
 	115=>array(
 		'name'=>'祈求者',
 		'rare'=>'C',
 		'desc'=>'他就是传说中的黑球卡',
 		'pack'=>'Best DOTO',
-		'effect'=>'冷却时间-10%',
+		'effect'=>'冷却时间-15%',
+		'energy'=>0,
 	),
 	116=>array(
 		'name'=>'帕克',
@@ -1368,13 +1489,15 @@ $carddesc=array(
 		'desc'=>'这不是撤退，是转进',
 		'pack'=>'Best DOTO',
 		'effect'=>'战斗中被动受到大伤害时将传送到随机地图',
+		'energy'=>0,
 	),
 	117=>array(
 		'name'=>'星莲船挑战者',
-		'rare'=>'B',
+		'rare'=>'A',
 		'desc'=>'AC大逃杀元老人物之一',
 		'pack'=>'Way of Life',
 		'effect'=>'获得技能「挖坑」（误',
+		'energy'=>250,
 	),
 	118=>array(
 		'name'=>'富零代',
@@ -1382,6 +1505,7 @@ $carddesc=array(
 		'desc'=>'富一代的一贫如洗的爸爸',
 		'pack'=>'Event Bonus',
 		'effect'=>'开局金钱为0元',
+		'energy'=>0,
 	),
 	119=>array(
 		'name'=>'常磐之心',
@@ -1389,6 +1513,7 @@ $carddesc=array(
 		'desc'=>'技能尚未实装，请耐心等待^_^',
 		'pack'=>'Event Bonus',
 		'effect'=>'暂时没有效果',
+		'energy'=>100,
 	),
 	120=>array(
 		'name'=>'熊战士',
@@ -1396,6 +1521,7 @@ $carddesc=array(
 		'desc'=>'这张卡的设计者没玩过DOTA所以不知道怎么写介绍',
 		'pack'=>'Best DOTO',
 		'effect'=>'连续攻击同一目标时（包含第一次），造成的最终伤害每次增加13%',
+		'energy'=>100,
 	),
 	121=>array(
 		'name'=>'团购挑战者',
@@ -1403,6 +1529,31 @@ $carddesc=array(
 		'desc'=>'热爱X宝团购与秒杀的挑战者',
 		'pack'=>'Way of Life',
 		'effect'=>'在商店一次购买超过1件物品时，价格降低25%；效果不与富家子弟基本特性叠加',
+		'energy'=>100,
+	),
+	122=>array(
+		'name'=>'陷阱挑战者',
+		'rare'=>'C',
+		'desc'=>'遇到名字一眼看不全的陷阱时及时闭上双眼是保命窍门',
+		'pack'=>'Way of Life',
+		'effect'=>'你不会被名字超过9个字的陷阱杀死',
+		'energy'=>0,
+	),
+	123=>array(
+		'name'=>'CTY',
+		'rare'=>'B',
+		'desc'=>'',
+		'pack'=>'Best DOTO',
+		'effect'=>'游戏开始6分钟内，你免疫战斗和陷阱伤害（对少数NPC无效）',
+		'energy'=>100,
+	),
+	124=>array(
+		'name'=>'6D挑战者',
+		'rare'=>'B',
+		'desc'=>'精通虫族6D一波rush战术的星际1玩家',
+		'pack'=>'Way of Life',
+		'effect'=>'游戏开始6分钟内，你造成的伤害+40%',
+		'energy'=>100,
 	),
 );
 }

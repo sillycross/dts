@@ -21,7 +21,7 @@ function get_item_place($which)
 			{
 				if ($iarea==99) $result.="每禁"; else $result.="{$iarea}禁";
 				if ($imap==99) $result.="全图随机"; else $result.="于{$plsinfo[$imap]}";
-				$result.="刷新{$inum}个&#13;";
+				$result.="刷新{$inum}个<br>";
 			}
 		}
 	}
@@ -33,7 +33,7 @@ function get_item_place($which)
 			list($kind,$num,$price,$area,$item)=explode(',',$lst);
 			if ($item==$which)
 			{
-				$result.="{$area}禁起在商店中出售({$price}元)&#13;";
+				$result.="{$area}禁起在商店中出售({$price}元)<br>";
 			}
 		}
 	}
@@ -42,7 +42,7 @@ function get_item_place($which)
 	foreach($mixinfo as $lst){
 		if ($lst['result'][0]==$which || $lst['result'][0]==$which.' ')
 		{
-			$result.="通过合成获取&#13;";
+			$result.="通过合成获取<br>";
 			break;
 		}
 	}
@@ -55,7 +55,7 @@ function get_item_place($which)
 			list($item,$kind)=explode(',',$lst);
 			if ($item==$which)
 			{
-				$result.="通过同调合成获取&#13;";
+				$result.="通过同调合成获取<br>";
 				break;
 			}
 		}
@@ -68,7 +68,7 @@ function get_item_place($which)
 			list($item,$kind)=explode(',',$lst);
 			if ($item==$which)
 			{
-				$result.="通过超量合成获取&#13;";
+				$result.="通过超量合成获取<br>";
 				break;
 			}
 		}
@@ -81,7 +81,7 @@ function get_item_place($which)
 			list($item,$kind)=explode(',',$lst);
 			if ($item==$which)
 			{
-				$result.="打开礼品盒时有概率获得&#13;";
+				$result.="打开礼品盒时有概率获得<br>";
 				break;
 			}
 		}
@@ -93,12 +93,12 @@ function get_item_place($which)
 			list($item,$kind)=explode(',',$lst);
 			if ($item==$which)
 			{
-				$result.="打开游戏王卡包时有概率获得&#13;";
+				$result.="打开游戏王卡包时有概率获得<br>";
 				break;
 			}
 		}
 	}
-	if ($which=="悲叹之种") $result.="通过使用『灵魂宝石』强化物品失败获得&#13;";
+	if ($which=="悲叹之种") $result.="通过使用『灵魂宝石』强化物品失败获得<br>";
 	return $result;
 }
 ?>
