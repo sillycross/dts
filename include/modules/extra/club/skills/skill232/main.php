@@ -3,8 +3,9 @@
 namespace skill232
 {
 	$shieldgain = Array(110,140,170,200,230,260);
+	$shieldeff = Array(10,15,20,25,30,35);
 	$upgradecost = Array(4,4,5,5,5,-1);
-	$skill232_cd = 300;
+	$skill232_cd = Array(150,120,90,60,30);
 	
 	function init() 
 	{
@@ -88,8 +89,23 @@ namespace skill232
 		if (!\skillbase\skill_query(232, $pa) || !check_unlocked232($pa)) return 0;
 		eval(import_module('sys','player','skill232'));
 		$l=\skillbase\skill_getvalue(232,'lastuse',$pa);
-		if (($now-$l)<=$skill232_cd) return 2;
+		$clv = (int)\skillbase\skill_getvalue(232,'lvl',$pa);
+		if (($now-$l)<=$skill232_cd[$clv]) return 2;
 		return 3;
+	}
+	
+	function apply_total_damage_modifier_down(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (\skillbase\skill_query(232,$pd) && $pd['hp']>$pd['mhp'])
+		{
+			eval(import_module('logger','skill232'));
+			$clv = (int)\skillbase\skill_getvalue(232,'lvl',$pd);
+			$v=$shieldeff[$clv];
+			$log.='力场护盾使你受到的伤害降低了<span class="yellow">'.$v.'</span>点！<br>';
+			$pa['dmg_dealt']=max($pa['dmg_dealt']-$v,1);
+		}
+		return $chprocess($pa, $pd, $active);
 	}
 	
 	function bufficons_list()
@@ -102,6 +118,7 @@ namespace skill232
 			eval(import_module('skill232'));
 			$skill232_lst = (int)\skillbase\skill_getvalue(232,'lastuse'); 
 			$skill232_time = $now-$skill232_lst; 
+			$clv = (int)\skillbase\skill_getvalue(232,'lvl');
 			$z=Array(
 				'disappear' => 0,
 				'clickable' => 1,
@@ -109,10 +126,10 @@ namespace skill232
 				'activate_hint' => '点击发动技能「力场」',
 				'onclick' => "$('mode').value='special';$('command').value='skill232_special';$('subcmd').value='activate';postCmd('gamecmd','command.php');this.disabled=true;",
 			);
-			if ($skill232_time<$skill232_cd)
+			if ($skill232_time<$skill232_cd[$clv])
 			{
 				$z['style']=2;
-				$z['totsec']=$skill232_cd;
+				$z['totsec']=$skill232_cd[$clv];
 				$z['nowsec']=$skill232_time;
 			}
 			else 

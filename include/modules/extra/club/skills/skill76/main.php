@@ -6,7 +6,7 @@ namespace skill76
 	
 	function init() 
 	{
-		define('MOD_SKILL76_INFO','club;upgrade;');
+		define('MOD_SKILL76_INFO','club;upgrade;locked;');
 		eval(import_module('clubbase'));
 		$clubskillname[76] = '充能';
 	}
@@ -15,14 +15,8 @@ namespace skill76
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','skill76'));
-		if ($pa['club']==9)
-		{
-			\skillbase\skill_setvalue(76,'lastuse',-3000,$pa);
-		}
-		else
-		{
-			\skillbase\skill_setvalue(76,'lastuse',$now,$pa);
-		}
+		\skillbase\skill_setvalue(76,'lastuse',0,$pa);
+		\skillbase\skill_setvalue(76,'rmt',2,$pa);
 	}
 	
 	function lost76(&$pa)
@@ -42,7 +36,8 @@ namespace skill76
 		if (!\skillbase\skill_query(76, $pa) || !check_unlocked76($pa)) return 0;
 		eval(import_module('sys','player','skill76'));
 		$l=\skillbase\skill_getvalue(76,'lastuse',$pa);
-		if (($now-$l)<=$skill76_cd) return 2;
+		$r=(int)\skillbase\skill_getvalue(76,'rmt',$pa);
+		if ($r==0 && ($now-$l)<=$skill76_cd) return 2;
 		return 3;
 	}
 	
@@ -70,6 +65,11 @@ namespace skill76
 			return;
 		}
 		\skillbase\skill_setvalue(76,'lastuse',$now);
+		$r=(int)\skillbase\skill_getvalue(76,'rmt',$pa);
+		if ($r>0)
+		{
+			$r--; \skillbase\skill_setvalue(76,'rmt',$r,$pa);
+		}
 		$rage = 100;
 		addnews ( 0, 'bskill76', $name );
 		$log.='<span class="lime">技能「充能」发动成功。</span><br>';
@@ -92,7 +92,9 @@ namespace skill76
 				'activate_hint' => '点击发动技能「充能」',
 				'onclick' => "$('mode').value='special';$('command').value='skill76_special';$('subcmd').value='activate';postCmd('gamecmd','command.php');this.disabled=true;",
 			);
-			if ($skill76_time<$skill76_cd)
+			$r=(int)\skillbase\skill_getvalue(76,'rmt',$pa);
+			if ($r>0) $z['corner-text'] = $r;
+			if ($r==0 && $skill76_time<$skill76_cd)
 			{
 				$z['style']=2;
 				$z['totsec']=$skill76_cd;

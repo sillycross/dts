@@ -25,7 +25,7 @@ namespace skill244
 	function check_unlocked244(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return $pa['lvl']>=11;
+		return $pa['lvl']>=19;
 	}
 	
 	function get_rage_cost244(&$pa = NULL)

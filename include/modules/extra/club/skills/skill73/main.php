@@ -94,8 +94,8 @@ namespace skill73
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (\attrbase\check_itmsk('c',$pa) && $pa['bskill']==73 && $pa['club']==9)
 		{
-			//灵系称号且有重辅额外返还10点怒气
-			$pa['rage']+=10;
+			//灵系称号且有重辅额外返还15点怒气
+			$pa['rage']+=15;
 		}
 		$chprocess($pa,$pd,$active);
 	}

@@ -3,7 +3,7 @@
 namespace skill36
 {
 	//怒气消耗
-	$ragecost = 30; 
+	$ragecost = 25; 
 	
 	function init() 
 	{

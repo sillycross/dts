@@ -24,7 +24,7 @@ namespace skill243
 	function check_unlocked243(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return $pa['lvl']>=9;
+		return $pa['lvl']>=12;
 	}
 	
 	function get_ex_phy_def_proc_rate(&$pa, &$pd, $active)

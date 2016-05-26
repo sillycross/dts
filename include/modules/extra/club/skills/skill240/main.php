@@ -29,7 +29,7 @@ namespace skill240
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (\skillbase\skill_query(240))
-			return $chprocess()*0.8;
+			return $chprocess()*0.85;
 		else  return $chprocess();
 	}
 	
@@ -37,8 +37,8 @@ namespace skill240
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r = 1;
-		if (\skillbase\skill_query(240,$ldata) && check_unlocked240($ldata)) $r*=1.1;
-		if (\skillbase\skill_query(240,$edata) && check_unlocked240($edata)) $r/=1.1;
+		if (\skillbase\skill_query(240,$ldata) && check_unlocked240($ldata)) $r*=1.08;
+		if (\skillbase\skill_query(240,$edata) && check_unlocked240($edata)) $r/=1.08;
 		return $chprocess($ldata,$edata)*$r;
 	}
 }

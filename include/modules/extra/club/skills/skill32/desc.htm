@@ -8,8 +8,8 @@
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
 <!--{eval $clv = (int)\skillbase\skill_getvalue(32,'lvl'); }-->
 <!--{eval $totlv = count($upgradecost)-1; }-->
-<span class="lime">当前级别$clv/$totlv</span>&nbsp;
-<!--{if $upgradecost[$clv] !== -1}-->消耗<span class="lime">$upgradecost[$clv]</span>点技能点升至下一级<!--{/if}--><br>
+<!--<span class="lime">当前级别$clv/$totlv</span>&nbsp;-->
+<!--{if $upgradecost[$clv] !== -1}--><!--消耗<span class="lime">$upgradecost[$clv]</span>点技能点升至下一级--><!--{/if}--><!--<br>-->
 持殴系武器时，武器效果值的<span class="yellow">$defgain[$clv]%</span>计入防御力(最多2000点)<br>
 </span></td>
 <td class=b3 width=46>
@@ -17,7 +17,7 @@
 <!--{if $skillpoint>=$upgradecost[$clv]}-->
 <input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill32_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="升级">
 <!--{else}-->
-<input type="button" style="width:46px" disabled="true" value="升级">
+<!--<input type="button" style="width:46px" disabled="true" value="升级">-->
 <!--{/if}-->
 <!--{/if}-->
 </td>

@@ -75,8 +75,10 @@ namespace skill236
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('logger'));
 		if ($pa['bskill']!=236) return $chprocess($pa,$pd,$active);
-		if ($active) $log .= "<span class=\"red\">你掏出撬棍猛击敌人！</span><br>";
-			else $log .= "<span class=\"red\">敌人掏出撬棍猛击你！</span><br>";
+		if ($active) $log .= "<span class=\"red\">你掏出撬棍猛击敌人！</span><span class=\"clan\">敌人被你打晕了过去！</span><br>";
+			else $log .= "<span class=\"red\">敌人掏出撬棍猛击你！</span><span class=\"clan\">你被打晕了过去！</span><br>";
+		\skill602\set_stun_period(3000,$pd);
+		\skill602\send_stun_battle_news($pa['name'],$pd['name']);
 		return $chprocess($pa, $pd, $active)+60;
 	}
 

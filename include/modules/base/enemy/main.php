@@ -42,7 +42,7 @@ namespace enemy
 	function check_enemy_meet_active(&$ldata,&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$active_r = calculate_active_obbs($ldata,$edata)*calculate_active_obbs_multiplier($ldata,$edata);
+		$active_r = max(calculate_active_obbs($ldata,$edata),1)*calculate_active_obbs_multiplier($ldata,$edata);
 		$active_dice = rand(0,99);
 		return ($active_dice < $active_r);
 	}

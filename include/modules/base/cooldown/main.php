@@ -143,6 +143,13 @@ namespace cooldown
 		$chprocess();
 	}
 	
+	function check_cooltime_on()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('cooldown'));
+		return $coldtimeon;
+	}
+	
 	function prepare_response_content()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -150,17 +157,18 @@ namespace cooldown
 		$chprocess();
 		
 		eval(import_module('sys','logger','player','cooldown'));
-		if($coldtimeon){
+		if(check_cooltime_on())
+		{
 			$cdover = $cdsec*1000 + $cdmsec;
 			$nowmtime = floor(getmicrotime()*1000);
 			$rmcdtime = $nowmtime >= $cdover ? 0 : $cdover - $nowmtime;
-		}
-		if($coldtimeon && $showcoldtimer && $rmcdtime){
-			$gamedata['timer'] = $rmcdtime;
-		}
-		if($hp > 0 && $coldtimeon && $showcoldtimer && $rmcdtime){
-			$x1=$rmcdtime/1000; $x1=(int)$x1; $y1=($rmcdtime%1000)/100; $y1=(int)$y1;
-			$log .= "行动冷却时间：<span id=\"timer\" class=\"yellow\">{$x1}.{$y1}</span>秒<script type=\"text/javascript\">demiSecTimerStarter($rmcdtime);</script><br>";
+			if($showcoldtimer && $rmcdtime){
+				$gamedata['timer'] = $rmcdtime;
+			}
+			if($hp > 0 && $showcoldtimer && $rmcdtime){
+				$x1=$rmcdtime/1000; $x1=(int)$x1; $y1=($rmcdtime%1000)/100; $y1=(int)$y1;
+				$log .= "行动冷却时间：<span id=\"timer\" class=\"yellow\">{$x1}.{$y1}</span>秒<script type=\"text/javascript\">demiSecTimerStarter($rmcdtime);</script><br>";
+			}
 		}
 	}
 	
@@ -171,15 +179,16 @@ namespace cooldown
 		$chprocess();
 		
 		eval(import_module('sys','logger','player','cooldown'));
-		if($coldtimeon){
+		if(check_cooltime_on())
+		{
 			$cdover = $cdsec*1000 + $cdmsec;
 			$nowmtime = floor(getmicrotime()*1000);
 			$rmcdtime = $nowmtime >= $cdover ? 0 : $cdover - $nowmtime;
-		}
-		if($hp > 0 && $coldtimeon && $showcoldtimer && $rmcdtime)
-		{
-			$x1=$rmcdtime/1000; $x1=(int)$x1; $y1=($rmcdtime%1000)/100; $y1=(int)$y1;
-			$log .= "行动冷却时间：<span id=\"timer\" class=\"yellow\">{$x1}.{$y1}</span>秒<script type=\"text/javascript\">demiSecTimerStarter($rmcdtime);</script><br>";
+			if($hp > 0 && $showcoldtimer && $rmcdtime)
+			{
+				$x1=$rmcdtime/1000; $x1=(int)$x1; $y1=($rmcdtime%1000)/100; $y1=(int)$y1;
+				$log .= "行动冷却时间：<span id=\"timer\" class=\"yellow\">{$x1}.{$y1}</span>秒<script type=\"text/javascript\">demiSecTimerStarter($rmcdtime);</script><br>";
+			}
 		}
 	}
 	

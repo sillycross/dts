@@ -57,7 +57,7 @@ namespace skill242
 			if ($nowclub!=$club)
 			{
 				foreach ($arr['skills'] as $skillid)
-					if (\sklearn_util\sklearn_basecheck($skillid) && !in_array($skillid,$sk242_cannot_list))
+					if (\sklearn_util\sklearn_basecheck($skillid) && !in_array($skillid,$sk242_cannot_list) && !\skillbase\skill_query($skillid))
 						array_push($can_list,$skillid);
 			}
 		$sk=$can_list[rand(0,count($can_list)-1)];
