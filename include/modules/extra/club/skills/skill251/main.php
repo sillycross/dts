@@ -72,7 +72,7 @@ namespace skill251
 		$x=$now-$s;
 		if ($x<=$skill251_act_time)
 		{
-			$log .= "<span class=\"yellow\">你的技能「无敌」使你免疫了陷阱伤害！</span><br>";
+			$log .= "<span class=\"yellow\">你的技能「天佑」使你免疫了陷阱伤害！</span><br>";
 			return 0;
 		}	
 		return $chprocess($pa,$pd,$tritm,$damage);
