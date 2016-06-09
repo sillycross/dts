@@ -2,7 +2,7 @@
 
 namespace skill253
 {
-	$ragecost=10;
+	$ragecost=25;
 	
 	function init() 
 	{
@@ -74,7 +74,7 @@ namespace skill253
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($pa['bskill']!=253) return $chprocess($pa,$pd,$active);
-		$r = min(300,round($pa['lvl']*($pa['rage']+get_rage_cost253())/5));
+		$r = min(300,round($pa['lvl']*($pa['rage']+get_rage_cost253())/6));
 		eval(import_module('logger'));
 		if ($active)
 			$log.='<span class="yellow">「天威」使你的熟练度暂时增加了'.$r.'点！</span><br>';
@@ -102,7 +102,7 @@ namespace skill253
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$val=$chprocess($pa, $pd, $active);
-		if ($pa['bskill']==253) $val*=1.3;
+		if ($pa['bskill']==253) $val*=1.1;
 		return $val;
 	}
 		
