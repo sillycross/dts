@@ -3,9 +3,9 @@
 namespace skill32
 {
 	//防御获得比例
-	$defgain = Array(0,6,13,20,30,40,50);
+	$defgain = Array(40);
 	//升级所需技能点数值
-	$upgradecost = Array(2,2,2,3,3,3,-1);
+	$upgradecost = Array(-1);
 	
 	function init() 
 	{

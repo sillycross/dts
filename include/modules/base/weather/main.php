@@ -357,14 +357,10 @@ namespace weather
 		$chprocess($mms);
 	}
 	
-	function init_battle($ismeet = 0)
+	function apply_fog_meetenemy_effect($ismeet)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
 		eval(import_module('sys','player','metman'));
-		
-		$chprocess($ismeet);
-		
 		if ($fog && !$ismeet)
 		{
 			$tdata['sNoinfo'] = '？？？';
@@ -381,6 +377,13 @@ namespace weather
 			$tdata['wepestate'] = '？？？';
 			$tdata['wepk'] = '？？？';
 		}
+	}
+	
+	function init_battle($ismeet = 0)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($ismeet);
+		apply_fog_meetenemy_effect($ismeet);
 	}
 }
 

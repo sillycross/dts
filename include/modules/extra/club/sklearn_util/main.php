@@ -13,6 +13,7 @@ namespace sklearn_util
 			strpos(constant('MOD_SKILL'.$skillid.'_INFO'),'hidden;')===false &&
 			strpos(constant('MOD_SKILL'.$skillid.'_INFO'),'limited;')===false)
 				return 1;
+		return 0;
 	}
 	
 	function get_skilllearn_table($callback_funcname)

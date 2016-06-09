@@ -153,7 +153,12 @@ skill457,extra/card/skills/skill457/,1
 skill249,extra/club/skills/skill249/,1
 skill250,extra/club/skills/skill250/,1
 skill460,extra/card/skills/skill460/,1
-skill236,extra/club/skills/skill236/,1
+skill461,extra/card/skills/skill461/,1
+skill251,extra/club/skills/skill251/,1
+skill255,extra/club/skills/skill255/,1
+wjfix,extra/misc/wjfix/,1
+skill462,extra/card/skills/skill462/,1
+skill602,extra/club/skills/skill602/,1
 skill221,extra/club/skills/skill221/,1
 wep_n,base/weapon/wep_n/,1
 wep_p,base/weapon/wep_p/,1
@@ -171,7 +176,6 @@ ex_phy_def,extra/attr/ex_phy_def/,1
 item_uv,base/items/item_uv/,1
 rage,extra/attr/rage/,1
 skill30,extra/club/skills/skill30/,1
-skill35,extra/club/skills/skill35/,1
 skill41,extra/club/skills/skill41/,1
 skill45,extra/club/skills/skill45/,1
 skill46,extra/club/skills/skill46/,1
@@ -198,11 +202,9 @@ skill402,extra/card/skills/skill402/,1
 skill401,extra/card/skills/skill401/,1
 skill225,extra/club/skills/skill225/,1
 skill226,extra/club/skills/skill226/,1
-skill228,extra/club/skills/skill228/,1
 skill229,extra/club/skills/skill229/,1
 skill408,extra/card/skills/skill408/,1
 skill409,extra/card/skills/skill409/,1
-skill237,extra/club/skills/skill237/,1
 skill415,extra/card/skills/skill415/,1
 skill412,extra/card/skills/skill412/,1
 skill416,extra/card/skills/skill416/,1
@@ -226,6 +228,7 @@ skill453,extra/card/skills/skill453/,1
 skill455,extra/card/skills/skill455/,1
 skill456,extra/card/skills/skill456/,1
 skill459,extra/card/skills/skill459/,1
+skill253,extra/club/skills/skill253/,1
 skill432,extra/card/skills/skill432/,1
 skill242,extra/club/skills/skill242/,1
 skill53,extra/club/skills/skill53/,1
@@ -235,6 +238,10 @@ skill227,extra/club/skills/skill227/,1
 skill59,extra/club/skills/skill59/,1
 skill425,extra/instance/gtype1/skill425/,1
 skill427,extra/instance/gtype1/skill427/,1
+skill228,extra/club/skills/skill228/,1
+skill236,extra/club/skills/skill236/,1
+skill237,extra/club/skills/skill237/,1
+skill35,extra/club/skills/skill35/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 event,base/event/,1
@@ -251,6 +258,7 @@ item_uc,base/items/item_uc/,1
 skill12,extra/club/skills/skill12/,1
 skill223,extra/club/skills/skill223/,1
 skill28,extra/club/skills/skill28/,1
+skill254,extra/club/skills/skill254/,1
 skill37,extra/club/skills/skill37/,1
 skill73,extra/club/skills/skill73/,1
 skill410,extra/card/skills/skill410/,1
@@ -322,6 +330,7 @@ skill42,extra/club/skills/skill42/,1
 addnpc,base/addnpc/,1
 skill50,extra/club/skills/skill50/,1
 skill245,extra/club/skills/skill245/,1
+skill252,extra/club/skills/skill252/,1
 skill244,extra/club/skills/skill244/,1
 skill27,extra/club/skills/skill27/,1
 skill43,extra/club/skills/skill43/,1

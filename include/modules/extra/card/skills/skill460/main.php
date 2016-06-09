@@ -4,7 +4,7 @@ namespace skill460
 {
 	function init() 
 	{
-		define('MOD_SKILL460_INFO','hidden');
+		define('MOD_SKILL460_INFO','hidden;');
 		eval(import_module('clubbase'));
 		$clubskillname[460] = '';
 	}

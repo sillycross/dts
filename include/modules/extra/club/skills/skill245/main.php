@@ -4,7 +4,7 @@ namespace skill245
 {
 	function init() 
 	{
-		define('MOD_SKILL245_INFO','club;');
+		define('MOD_SKILL245_INFO','club;locked;');
 		eval(import_module('clubbase'));
 		$clubskillname[245] = '天选';
 	}

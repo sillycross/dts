@@ -7,7 +7,8 @@
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
 <!--{eval $skill76_lst = (int)\skillbase\skill_getvalue(76,'lastuse'); $skill76_time = ($now-$skill76_lst);$skill76_cd_left=($skill76_cd-$skill76_time);}-->
-发动后立即回复怒气至<span class="yellow">100</span>点，冷却时间<span class="clan">900</span>秒<br>
+发动后立即回复怒气至<span class="yellow">100</span>点。<br>
+前<span class="yellow">2</span>次发动没有冷却时间，之后冷却时间<span class="clan">900</span>秒<br>
 <!--{if $skill76_lst!=0}-->
 <!--{if $skill76_time<$skill76_cd}-->
 <span class="clan">技能冷却中，冷却时间还剩<span>$skill76_cd_left</span>秒。</span><br>

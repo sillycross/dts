@@ -5,7 +5,7 @@ namespace skill601
 
 	function init() 
 	{
-		define('MOD_SKILL601_INFO','club;hidden;');
+		define('MOD_SKILL601_INFO','club;hidden;debuff;');
 	}
 	
 	function acquire601(&$pa)
