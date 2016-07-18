@@ -51,7 +51,7 @@ namespace skill255
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r = $chprocess();
-		if (\skillbase\skill_query(255)) $r*=0.75;
+		if (\skillbase\skill_query(255)) $r*=0.85;
 		return $r;
 	}
 	
@@ -59,7 +59,7 @@ namespace skill255
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r = $chprocess();
-		if (\skillbase\skill_query(255)) $r*=1.2;
+		if (\skillbase\skill_query(255)) $r*=1.1;
 		return $r;
 	}
 }

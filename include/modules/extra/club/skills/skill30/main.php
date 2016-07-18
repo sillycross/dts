@@ -54,12 +54,12 @@ namespace skill30
 				eval(import_module('logger'));
 				if ($active)
 					$log.="<span class=\"lime\">你对{$pd['name']}发动了技能「压制」！</span><br>
-						<span class=\"yellow\">你消耗了<span class=\"red\">{$hpcost}</span>点生命值，对敌人造成了相同的伤害！</span><br>";
+						<span class=\"yellow\">你消耗了<span class=\"red\">{$hpcost}</span>点生命值，发动了鲁莽的一击！</span><br>";
 				else  $log.="<span class=\"lime\">{$pa['name']}对你发动了技能「压制」！</span><br>
-						<span class=\"yellow\">其消耗了<span class=\"red\">{$hpcost}</span>点生命值，对你造成了相同的伤害！</span><br>";
+						<span class=\"yellow\">其消耗了<span class=\"red\">{$hpcost}</span>点生命值，发动了鲁莽的一击！</span><br>";
 				$pa['rage']-=$rcost;
 				$pa['hp']-=$hpcost;
-				$pd['hp']-=$hpcost;
+				//$pd['hp']-=$hpcost;
 				$pa['skill30_hpcost']=$hpcost;
 				addnews ( 0, 'bskill30', $pa['name'], $pd['name'] );
 			}
@@ -80,7 +80,9 @@ namespace skill30
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($pa['bskill']!=30) return $chprocess($pa, $pd, $active);
-		$pa['dmg_dealt']+=$pa['skill30_hpcost'];
+		if ($pa['dmg_dealt']>0){
+			$pa['dmg_dealt']+=$pa['skill30_hpcost'];
+		}
 		$chprocess($pa, $pd, $active);
 	}
 	

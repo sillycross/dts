@@ -2,7 +2,7 @@
 
 namespace skill251
 {
-	$skill251_act_time = 6;
+	$skill251_act_time = 5;
 	$skill251_no_effect_array = Array(1,9,20,21,22,88);
 	
 	function init() 
@@ -82,7 +82,7 @@ namespace skill251
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa, $pd, $active);
-		if (\skillbase\skill_query(251,$pd) && $pa['dmg_dealt']>=$pd['mhp']*0.15)
+		if (\skillbase\skill_query(251,$pd) && $pa['dmg_dealt']>=$pd['mhp']*0.35)
 		{
 			eval(import_module('sys','logger'));
 			if ($active) 

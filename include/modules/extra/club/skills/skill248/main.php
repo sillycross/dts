@@ -34,10 +34,9 @@ namespace skill248
 	function calculate_skill248_hide_gain($lv)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		//1-4 每级2; 5-16 每级1.5; 17-20 每级1
-		$z=min(20,$lv)*1;
-		$z+=min(16,$lv)*0.5;
-		$z+=min(4,$lv)*0.5;
+		//1-10 每级1.5; 11-20 每级0.5
+		$z=min(20,$lv)*0.5;
+		$z+=min(10,$lv)*1;
 		return $z;
 	}
 	
@@ -53,9 +52,8 @@ namespace skill248
 	function calculate_skill248_obbs_gain($lv)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		//1-5 每级2; 6-20 每级1
-		$z=min(20,$lv)*1;
-		$z+=min(5,$lv)*1;
+		//1-20 每级0.5
+		$z=min(20,$lv)*0.5;
 		return $z;
 	}
 	
@@ -82,10 +80,8 @@ namespace skill248
 	function calculate_skill248_dodge_gain($lv)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		//1-4 每级2.5; 5-16 每级2; 17-20 每级1.5
-		$z=min(20,$lv)*1.5;
-		$z+=min(16,$lv)*0.5;
-		$z+=min(4,$lv)*0.5;
+		//1-20 每级0.5
+		$z=min(20,$lv)*0.5;
 		return $z;
 	}
 	
@@ -93,10 +89,9 @@ namespace skill248
 	function calculate_skill248_dodge_r_gain($lv)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		//1-6 每级2; 7-14 每级1.5; 15-20 每级1
+		//1-5 每级2; 6-20 每级1
 		$z=min(20,$lv)*1;
-		$z+=min(14,$lv)*0.5;
-		$z+=min(6,$lv)*0.5;
+		$z+=min(5,$lv)*1;
 		return $z;
 	}
 	
@@ -126,9 +121,8 @@ namespace skill248
 	function calculate_skill248_hitrate_gain($lv)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		//1-5 每级2.5; 6-15 每级2; 16-20 每级1.5
-		$z=min(20,$lv)*1.5;
-		$z+=min(15,$lv)*0.5;
+		//1-5 每级1.5; 6-20 每级1
+		$z=min(20,$lv)*1;
 		$z+=min(5,$lv)*0.5;
 		return $z;
 	}
