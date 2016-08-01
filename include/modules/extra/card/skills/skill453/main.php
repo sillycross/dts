@@ -53,7 +53,7 @@ namespace skill453
 				\skillbase\skill_setvalue(453,'tarpid',$pd['pid'],$pa); 
 			}
 			$skill453_count++;
-			$rat=$skill453_count*13;
+			$rat=$skill453_count*10;
 			if ($active)
 				$log.='<span class="yellow">你对敌人的连续攻击使伤害增加了'.$rat.'%！</span><br>';
 			else  $log.='<span class="yellow">敌人对你的连续攻击使伤害增加了'.$rat.'%！</span><br>';

@@ -54,7 +54,7 @@ namespace wep_f
 	function get_WF_sp_cost(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return round(0.4*$pa['wepe']);
+		return round(0.2*$pa['wepe']);
 	}
 	
 	function get_WF_dmg_multiplier(&$pa, &$pd, $active)
