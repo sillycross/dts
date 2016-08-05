@@ -12,7 +12,7 @@ namespace club18
 			'skills' => Array(
 				10,11,12,
 				70,
-				72,71,
+				72,71,77,
 			)
 		);
 	}

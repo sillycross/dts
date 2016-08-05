@@ -158,6 +158,7 @@ skill251,extra/club/skills/skill251/,1
 skill255,extra/club/skills/skill255/,1
 wjfix,extra/misc/wjfix/,1
 skill462,extra/card/skills/skill462/,1
+skill77,extra/club/skills/skill77/,1
 skill602,extra/club/skills/skill602/,1
 skill221,extra/club/skills/skill221/,1
 wep_n,base/weapon/wep_n/,1
