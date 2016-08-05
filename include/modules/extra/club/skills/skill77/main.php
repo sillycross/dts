@@ -4,6 +4,7 @@ namespace skill77
 {
 	function init() 
 	{
+		define('MOD_SKILL77_INFO','club;locked;');
 		eval(import_module('clubbase'));
 		$clubskillname[77] = '觉醒';
 	}
