@@ -35,6 +35,7 @@ namespace skill458
 		${'itmk'.$which}='PB2';		//转化为剧毒补给
 		${'itmsk'.$which}=$pid;		//下毒者是自己
 		$z=${'itm'.$which};
+		${'itm'.$which}='鸡肉';	
 		$log.="你熟练的把<span class=\"yellow\">{$z}</span>去掉了头，现在它可以吃了！<br>";
 	}
 	
