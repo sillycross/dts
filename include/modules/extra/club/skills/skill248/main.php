@@ -34,9 +34,8 @@ namespace skill248
 	function calculate_skill248_hide_gain($lv)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		//1-10 每级1.5; 11-20 每级0.5
+		//1-20 每级0.5
 		$z=min(20,$lv)*0.5;
-		$z+=min(10,$lv)*1;
 		return $z;
 	}
 	
@@ -121,9 +120,8 @@ namespace skill248
 	function calculate_skill248_hitrate_gain($lv)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		//1-5 每级1.5; 6-20 每级1
+		//1-20 每级1
 		$z=min(20,$lv)*1;
-		$z+=min(5,$lv)*0.5;
 		return $z;
 	}
 	
