@@ -114,7 +114,6 @@ namespace itemmix
 		if(!$itms) { return; }
 		if(preg_match('/^(Y|B|C|X|TN|GB|H|P|V|M)/',$itmk)){$itms--;}
 		else{$itms=0;}
-		if(preg_match('/^(PB2)/',$itmk)){$itms=0;}
 		if($itms <= 0) {
 			$itms = 0;
 			$log .= "<span class=\"red\">$itm</span>用光了。<br>";
