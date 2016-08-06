@@ -1514,7 +1514,7 @@ $carddesc=array(
 	136=>array(
 		'name'=>'董先森',
 		'rare'=>'A',
-		'desc'=>'当特首好不好啊',
+		'desc'=>'连任好不好啊',
 		'pack'=>'Standard Pack',
 		'effect'=>'吼啊',
 	),
