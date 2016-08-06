@@ -22,7 +22,7 @@ namespace skill245
 	function check_unlocked245(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return $pa['lvl']>=8;
+		return 1;
 	}
 
 	function calculate_weather_itemfind_obbs()
