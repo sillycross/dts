@@ -1573,6 +1573,7 @@ $carddesc=array(
 		'desc'=>'熟练的宛如疾风玩家',
 		'pack'=>'Standard Pack',
 		'effect'=>'称号固定为宛如疾风',
+		'energy'=>100,
 	),
 	136=>array(
 		'name'=>'董先森',
@@ -1580,6 +1581,7 @@ $carddesc=array(
 		'desc'=>'连任好不好啊',
 		'pack'=>'Standard Pack',
 		'effect'=>'吼啊',
+		'energy'=>100,
 	),
 );
 }
