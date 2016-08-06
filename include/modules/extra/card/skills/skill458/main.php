@@ -6,7 +6,7 @@ namespace skill458
 	{
 		define('MOD_SKILL458_INFO','club;card;active;');
 		eval(import_module('clubbase'));
-		$clubskillname[458] = '贝爷';
+		$clubskillname[458] = '鸡肉';
 	}
 	
 	function acquire458(&$pa)
