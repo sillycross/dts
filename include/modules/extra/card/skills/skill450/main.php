@@ -34,9 +34,9 @@ namespace skill450
 			eval(import_module('skill450','logger'));
 			if ($pd['hp']<($pd['mhp']*0.2)){
 				if ($active)
-					$log.="<span class=\"yellow\">「淘汰」使你造成的最终伤害提高了50%！</span><br>";
-				else  $log.="<span class=\"yellow\">「淘汰」使敌人造成的最终伤害提高了50%！</span><br>";
-				$r=Array(1.5);
+					$log.="<span class=\"yellow\">「淘汰」使你造成的最终伤害提高了30%！</span><br>";
+				else  $log.="<span class=\"yellow\">「淘汰」使敌人造成的最终伤害提高了30%！</span><br>";
+				$r=Array(1.3);
 			}
 		}
 		return array_merge($r,$chprocess($pa,$pd,$active));
@@ -47,7 +47,7 @@ namespace skill450
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!\skillbase\skill_query(450,$pa) || !check_unlocked450($pa)) return $chprocess($pa, $pd, $active);
 		if ($pd['hp']<($pd['mhp']*0.2)){
-			return $chprocess($pa, $pd, $active)*1.3;
+			return $chprocess($pa, $pd, $active)*1.1;
 		}else return $chprocess($pa, $pd, $active);
 	}
 }

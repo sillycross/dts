@@ -153,7 +153,7 @@ namespace npc
 			'weps' => 200,
 			'itm1' => '雪兔【复制品】',
 			'itmk1' => 'WD',
-			'itme1' => 300,
+			'itme1' => 270,
 			'itms1' => 300,
 			'itmsk1' => 'id',
 			'itm2' => '水濑 名雪的半身像',

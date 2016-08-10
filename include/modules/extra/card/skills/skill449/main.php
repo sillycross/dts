@@ -34,9 +34,9 @@ namespace skill449
 			eval(import_module('skill449','logger'));
 			if ($pd['type']==90){
 				if ($active)
-					$log.="<span class=\"yellow\">你对小兵的仇恨使你造成的最终伤害提高了15%！</span><br>";
-				else  $log.="<span class=\"yellow\">敌人对小兵的仇恨使其造成的最终伤害提高了15%！</span><br>";
-				$r=Array(1.15);
+					$log.="<span class=\"yellow\">你对小兵的仇恨使你造成的最终伤害提高了10%！</span><br>";
+				else  $log.="<span class=\"yellow\">敌人对小兵的仇恨使其造成的最终伤害提高了10%！</span><br>";
+				$r=Array(1.1);
 			}
 		}
 		return array_merge($r,$chprocess($pa,$pd,$active));
