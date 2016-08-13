@@ -2,7 +2,7 @@
 
 namespace skill420
 {
-	$skill420_cd = 300;
+	$skill420_cd = 180;
 	
 	function init() 
 	{
@@ -44,15 +44,15 @@ namespace skill420
 			$log.='你不能使用这个技能！<br>';
 			return;
 		}
+		if ($skillpoint<1){
+			$log.='你需要消耗1个技能点来发动这个技能！<br>';
+			return;
+		}
 		if ($st==2){
 			$log.='技能冷却中！<br>';
 			return;
 		}
-		if ($skillpoint<2){
-			$log.='你的技能点不足！<br>';
-			return;
-		}
-		$skillpoint=$skillpoint-2;
+		$skillpoint--;
 		\skillbase\skill_setvalue(420,'lastuse',$now);
 		addnews ( 0, 'bskill420', $name );
 		$r=rand(0,9);
