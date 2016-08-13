@@ -1476,7 +1476,7 @@ $carddesc=array(
 		'rare'=>'C',
 		'desc'=>'天灾远程兵的噩梦',
 		'pack'=>'Best DOTO',
-		'effect'=>'对杂兵造成的伤害提高15%',
+		'effect'=>'对杂兵造成的伤害提高10%',
 		'energy'=>0,
 	),
 	114=>array(

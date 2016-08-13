@@ -6,7 +6,7 @@ namespace skill245
 	{
 		define('MOD_SKILL245_INFO','club;locked;');
 		eval(import_module('clubbase'));
-		$clubskillname[245] = '天文';
+		$clubskillname[245] = '钦定';
 	}
 	
 	function acquire245(&$pa)

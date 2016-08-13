@@ -6,7 +6,7 @@ namespace skill439
 	{
 		define('MOD_SKILL439_INFO','club;unique;locked;');
 		eval(import_module('clubbase'));
-		$clubskillname[439] = 'ban';
+		$clubskillname[439] = '面子';
 	}
 	
 	function acquire439(&$pa)
