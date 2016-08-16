@@ -83,7 +83,7 @@ namespace skill258
 		return array_merge($r,$chprocess($pa,$pd,$active));
 	}
 	
-	function get_ex_attack_array(&$pa, &$pd, $active)
+	function check_rapid(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa, $pd, $active);

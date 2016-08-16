@@ -3,7 +3,7 @@
 namespace skill258
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase player clubbase weapon attack logger attrbase';
+	$___MODULE_dependency = 'skillbase player clubbase weapon attack logger ex_rapid_attr';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';
