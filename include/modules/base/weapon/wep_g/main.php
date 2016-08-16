@@ -128,7 +128,7 @@ namespace wep_g
 		if ($pa['wep_kind']=='G')
 		{
 			$val = $chprocess($pa,$pd,$active);
-			if ($val > 170) $val = 170 + ($val - 170) / 3;	//射系武器基础攻击折损
+			if ($val > 270) $val = 270 + ($val - 270) / 3;	//射系武器基础攻击折损
 			return $val;
 		}
 		else  return $chprocess($pa,$pd,$active);

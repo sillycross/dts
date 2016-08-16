@@ -34,6 +34,7 @@ skill17,extra/club/skills/skill17/,1
 skill18,extra/club/skills/skill18/,1
 skill24,extra/club/skills/skill24/,1
 skill411,extra/card/skills/skill411/,1
+skill256,extra/club/skills/skill256/,1
 metman,base/metman/,1
 itemmix,base/itemmix/itemmix/,1
 itemshop,base/itemshop/,1
@@ -125,6 +126,7 @@ club6,extra/club/clubs/club6/,1
 club8,extra/club/clubs/club8/,1
 club7,extra/club/clubs/club7/,1
 club11,extra/club/clubs/club11/,1
+club19,extra/club/clubs/club19/,1
 skill58,extra/club/skills/skill58/,1
 club24,extra/club/clubs/club24/,1
 skill67,extra/club/skills/skill67/,1
@@ -159,6 +161,8 @@ skill255,extra/club/skills/skill255/,1
 wjfix,extra/misc/wjfix/,1
 skill462,extra/card/skills/skill462/,1
 skill77,extra/club/skills/skill77/,1
+skill257,extra/club/skills/skill257/,1
+skill261,extra/club/skills/skill261/,1
 skill602,extra/club/skills/skill602/,1
 skill221,extra/club/skills/skill221/,1
 wep_n,base/weapon/wep_n/,1
@@ -230,6 +234,9 @@ skill455,extra/card/skills/skill455/,1
 skill456,extra/card/skills/skill456/,1
 skill459,extra/card/skills/skill459/,1
 skill253,extra/club/skills/skill253/,1
+skill258,extra/club/skills/skill258/,1
+skill259,extra/club/skills/skill259/,1
+skill260,extra/club/skills/skill260/,1
 skill432,extra/card/skills/skill432/,1
 skill242,extra/club/skills/skill242/,1
 skill53,extra/club/skills/skill53/,1

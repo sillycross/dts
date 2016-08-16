@@ -53,7 +53,6 @@ $mixinfo = array
 	array('class' => 'wk', 'stuff' => array('冰封的『Oblivion』','火把'),'result' => array('『Oblivion』','WK',300,10,'i'),),
 	array('class' => 'wk', 'stuff' => array('冰封的『Oblivion』','解冻药水'),'result' => array('『Oblivion』','WK',300,10,'i'),),
 	array('class' => 'wk', 'stuff' => array('『Oathkeeper』','『Oblivion』'),'result' => array('『Two Become One』','WK',450,20,'ui'),),
-	array('class' => 'wk', 'stuff' => array('悲叹之种','《曾伽·宗博尔特自传》','D.D.D','『Two Become One』'),'result' => array('『Last Remote』','WK',10000,1000,'ZNrfk'),),
 	
 	array('class' => 'wp', 'stuff' => array('电击鞭','原型武器P','实验装甲A','某种电子零件'),'result' => array('『T-LINK念动冲拳』','WP',180,50,'e'),),
 	array('class' => 'wp', 'stuff' => array('☆电击器☆','原型武器P','实验装甲A','某种电子零件'),'result' => array('『T-LINK念动冲拳』','WP',240,50,'e'),),
@@ -286,7 +285,7 @@ $mixinfo = array
 	array('class' => 'ocg', 'stuff' => array('友谊天使 ★4','魔法幽灵 ★4'),'result' => array('卖力头破你','WC',233,'∞','uiewp'),),
 	array('class' => 'ocg', 'stuff' => array('英豪冠军 草雉剑王','《曾伽·宗博尔特自传》'),'result' => array('英♂豪冠军 断♂肛♂剑♂王','WK',444,'∞','Znd'),),
 	array('class' => 'ocg', 'stuff' => array('始祖守护者 提拉斯 ☆5 -仮','☆五星认证☆'),'result' => array('始祖守护者 提拉斯 ☆5','WC',222,'∞','fwi'),),
-	array('class' => 'ocg', 'stuff' => array('流星龙 ★10 -仮','☆十星认证☆'),'result' => array('流星龙 ★10','WC10',700,'∞','crj'),),
+	array('class' => 'ocg', 'stuff' => array('流星龙 ★10 -仮','☆十星认证☆'),'result' => array('流星龙 ★10','WC10',580,'∞','crj'),),
 	array('class' => 'ocg', 'stuff' => array('红莲魔龙 ★8 -仮','☆八星认证☆'),'result' => array('红莲魔龙 ★8','WC08',500,'25','cdu'),),
 	array('class' => 'ocg', 'stuff' => array('红莲魔龙 ★8','☆爆裂模式☆'),'result' => array('真红魔龙/爆裂体 ★10','WC10',250,'∞','cdZ'),),
 	array('class' => 'ocg', 'stuff' => array('星尘龙 ★8','☆爆裂模式☆'),'result' => array('星尘龙/爆裂体 ★10','WC10',627,'∞','mr'),),
