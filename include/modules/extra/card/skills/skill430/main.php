@@ -55,6 +55,10 @@ namespace skill430
 		$in = sizeof($itemlist);
 		$i=rand(4,$in-1);//妈了个臀
 		list($iarea,$imap,$inum,$iname,$ikind,$ieff,$ista,$iskind) = explode(',',$itemlist[$i]);
+		while (strpos($iskind,"x")!==false){
+			$i=rand(4,$in-1);
+			list($iarea,$imap,$inum,$iname,$ikind,$ieff,$ista,$iskind) = explode(',',$itemlist[$i]);
+		}
 		$itm0=$iname;$itme0=$ieff;$itms0=$ista;$itmsk0=$iskind;$itmk0=$ikind;
 		addnews ( 0, 'bskill430', $name,$iname );
 		\itemmain\itemget();
@@ -109,7 +113,7 @@ namespace skill430
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill430') 
-			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}发动了技能<span class=\"yellow\">「搬运」</span>，获得了<span class=\"yellow\">{$b}</span>！</span><br>\n";
+			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}发动了技能<span class=\"yellow\">「搬运」</span>，获得了<span class=\"yellow\">{$b}</span></span><br>\n";
 		
 		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
 	}
