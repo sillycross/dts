@@ -62,7 +62,7 @@ namespace ex_rapid_attr
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r = Array();
-		if (in_array('r',\attrbase\get_ex_attack_array($pa, $pd, $active)))
+		if ($pa['is_rapid_strike'] == 1)
 		{
 			eval(import_module('logger'));
 			$log .= "{$pa['actual_rapid_time']}次连续攻击命中<span class=\"yellow\">{$pa['actual_hit_time']}</span>次！";
@@ -85,16 +85,24 @@ namespace ex_rapid_attr
 		return 0.8;
 	}
 	
+	function check_rapid(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$r=\attrbase\get_ex_attack_array($pa, $pd, $active);
+		return $r;
+	}
+	
 	function weapon_strike(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!in_array('r',\attrbase\get_ex_attack_array($pa, $pd, $active)))
+		if (!in_array('r',check_rapid($pa, $pd, $active)))
 		{
 			$chprocess($pa, $pd, $active);
 			return;
 		}
 		//开始连击属性特效
 		eval(import_module('weapon','ex_rapid_attr','logger'));
+		$pa['is_rapid_strike'] = 1;
 		$rapid_times = get_rapid_times($pa, $pd, $active);
 		$pa['actual_rapid_time'] = 0; $pa['actual_hit_time'] = 0; $is_hit = 0;
 		for ($cur_rapid_time=0; $cur_rapid_time<$rapid_times; $cur_rapid_time++)
@@ -125,6 +133,13 @@ namespace ex_rapid_attr
 		{
 			$log .= "但是没有击中！<br>";
 		}
+	}
+	
+	function strike_prepare(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$pa['is_rapid_strike'] = 0;
+		$chprocess($pa, $pd, $active);
 	}
 }
 
