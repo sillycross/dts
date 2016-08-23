@@ -187,6 +187,19 @@ namespace attack
 				\player\load_playerdata($pd);
 			}
 		}
+		if ($pa['hp']<=0){
+			player_kill_enemy($pd, $pa, 1-$active);
+			\player\player_save($pa);
+			\player\player_save($pd);
+			if ($active)
+			{
+				\player\load_playerdata($pa);
+			}
+			else
+			{
+				\player\load_playerdata($pd);
+			}
+		}
 		unset($pa['physical_dmg_dealt']);
 	}
 	

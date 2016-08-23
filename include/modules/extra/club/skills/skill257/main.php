@@ -4,7 +4,7 @@ namespace skill257
 {
 	function init() 
 	{
-		define('MOD_SKILL257_INFO','club;locked;');
+		define('MOD_SKILL257_INFO','club;');
 		eval(import_module('clubbase'));
 		$clubskillname[257] = '仁义';
 	}

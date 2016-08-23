@@ -75,7 +75,7 @@ namespace skill412
 				if ($pa['hp']<=0)
 				{
 					$pa['deathmark']=39;
-					\attack\player_kill_enemy($pd, $pa, 1-$active);
+					//\attack\player_kill_enemy($pd, $pa, 1-$active);
 				}
 			}
 		}

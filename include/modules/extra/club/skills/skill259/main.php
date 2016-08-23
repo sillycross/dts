@@ -11,7 +11,7 @@ namespace skill259
 	
 	function init() 
 	{
-		define('MOD_SKILL259_INFO','club;battle;upgrade;locked;');
+		define('MOD_SKILL259_INFO','club;battle;upgrade;');
 		eval(import_module('clubbase'));
 		$clubskillname[259] = '乱击';
 	}

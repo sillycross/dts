@@ -229,11 +229,18 @@ skill456,extra/card/skills/skill456/,1
 skill459,extra/card/skills/skill459/,1
 skill253,extra/club/skills/skill253/,1
 skill260,extra/club/skills/skill260/,1
+skill464,extra/card/skills/skill464/,1
+skill466,extra/card/skills/skill466/,1
+skill469,extra/card/skills/skill469/,1
+skill470,extra/card/skills/skill470/,1
+skill471,extra/card/skills/skill471/,1
+skill473,extra/card/skills/skill473/,1
 skill242,extra/club/skills/skill242/,1
 skill53,extra/club/skills/skill53/,1
 skill55,extra/club/skills/skill55/,1
 skill72,extra/club/skills/skill72/,1
 skill227,extra/club/skills/skill227/,1
+skill472,extra/card/skills/skill472/,1
 skill59,extra/club/skills/skill59/,1
 skill425,extra/instance/gtype1/skill425/,1
 skill427,extra/instance/gtype1/skill427/,1
@@ -241,6 +248,8 @@ skill228,extra/club/skills/skill228/,1
 skill236,extra/club/skills/skill236/,1
 skill237,extra/club/skills/skill237/,1
 skill35,extra/club/skills/skill35/,1
+skill467,extra/card/skills/skill467/,1
+skill468,extra/card/skills/skill468/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 event,base/event/,1
@@ -320,6 +329,8 @@ skill210,extra/club/skills/skill210/,1
 skill238,extra/club/skills/skill238/,1
 skill434,extra/card/skills/skill434/,1
 skill448,extra/card/skills/skill448/,1
+skill463,extra/card/skills/skill463/,1
+skill465,extra/card/skills/skill465/,1
 ex_phy_nullify,extra/attr/ex_phy_nullify/,1
 gtype1,extra/instance/gtype1/main/,1
 instance5,extra/instance/instance5/,1
