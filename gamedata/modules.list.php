@@ -161,6 +161,7 @@ skill462,extra/card/skills/skill462/,1
 skill77,extra/club/skills/skill77/,1
 skill257,extra/club/skills/skill257/,1
 skill261,extra/club/skills/skill261/,1
+skill474,extra/card/skills/skill474/,1
 skill602,extra/club/skills/skill602/,1
 skill221,extra/club/skills/skill221/,1
 wep_n,base/weapon/wep_n/,1

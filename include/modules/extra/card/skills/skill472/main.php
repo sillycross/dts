@@ -32,6 +32,7 @@ namespace skill472
 		if ($a=='is_learnable') 
 		{
 			$val=constant('MOD_SKILL'.$b.'_INFO');
+			if ((int)$b==257) return 0;
 			if (strpos($val,'battle;')===false) return 1;
 			return 0;
 		}
