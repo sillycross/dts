@@ -40,16 +40,17 @@ namespace skill263
 			if (\skillbase\skill_query(261,$pd))
 			{
 				$t=(int)\skillbase\skill_getvalue(261,'lastuse',$pd);
-				if ($t>0) $chance=100; else $chance=50;
+				if ($t>0) $chance=80; else $chance=50;
 			}
 			else	$chance=50;
 			if (rand(0,99)<$chance)
 			{
 				eval(import_module('logger'));
+				$dmgred=min($pd['wp'],800);
 				if ($active)
-					$log.='<span class="yellow">敌人精湛的格斗技术抵挡了'.$pd['wp'].'点伤害！</span><br>';
-				else	$log.='<span class="yellow">你精湛的格斗技术抵挡了'.$pd['wp'].'点伤害！</span><br>';
-				$pa['dmg_dealt']-=$pd['wp'];
+					$log.='<span class="yellow">敌人精湛的格斗技术抵挡了'.$dmgred.'点伤害！</span><br>';
+				else	$log.='<span class="yellow">你精湛的格斗技术抵挡了'.$dmgred.'点伤害！</span><br>';
+				$pa['dmg_dealt']-=$dmgred;
 				if ($pa['dmg_dealt']<1) $pa['dmg_dealt']=1;
 			}
 		}
