@@ -55,6 +55,7 @@ namespace skill263
 				if ($pa['dmg_dealt']<1) $pa['dmg_dealt']=1;
 			}
 		}
+		return $chprocess($pa,$pd,$active);
 	}
 }
 
