@@ -43,6 +43,7 @@ namespace skill263
 				if ($t>0) $chance=80; else $chance=50;
 			}
 			else	$chance=50;
+			if ($pd['club']!=19) $chance=20;
 			if (rand(0,99)<$chance)
 			{
 				eval(import_module('logger'));
