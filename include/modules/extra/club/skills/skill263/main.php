@@ -22,7 +22,7 @@ namespace skill263
 	function check_unlocked263(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return $pa['lvl']>=14;
+		return $pa['lvl']>=11;
 	}
 	
 	function get_internal_def(&$pa,&$pd,$active)

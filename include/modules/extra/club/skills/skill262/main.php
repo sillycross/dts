@@ -24,7 +24,7 @@ namespace skill262
 	function check_unlocked262(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return $pa['lvl']>=9;
+		return $pa['lvl']>=8;
 	}
 	
 	function findenemy(&$edata)
