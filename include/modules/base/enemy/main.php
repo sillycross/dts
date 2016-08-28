@@ -4,7 +4,7 @@ namespace enemy
 {
 	function init() {}
 	
-	function findenemy($edata)
+	function findenemy(&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		

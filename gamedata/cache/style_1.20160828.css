@@ -166,3 +166,26 @@ div.skill_unacquired_hint_transparent
 	background-color: #ffffff;
 	opacity: 0.3;
 }
+
+#progressbar-border
+{
+	width:100%;
+	height:15px;
+	background-color: #000000;
+	border:1px solid #ffffff;
+	overflow:hidden;
+}
+
+#progressbar-inner3
+{
+	width:0%;
+	height:15px;
+	background: #3333ff; 
+}
+#progressbar-text3
+{
+	position:relative;
+	left: 135px;
+	color: #ffffff;
+	top: -16px; 
+}

@@ -1,0 +1,25 @@
+<!--{eval eval(import_module('skill262','sys'));}-->
+<!--{eval $___TEMP_SKILL_ID=262;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+蓄力
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<!--{if $club==19}-->
+主动发起战斗时，你可以通过蓄力增加物理伤害，最高可达<span class="yellow">2</span>倍<br>
+蓄力<span class="yellow">1</span>秒后伤害开始增加，之后每蓄力<span class="yellow">1</span>秒增加<span class="yellow">17%</span>伤害
+<!--{else}-->
+主动发起战斗时，你可以通过蓄力增加物理伤害，最高可达<span class="yellow">1.5</span>倍<br>
+蓄力<span class="yellow">2</span>秒后伤害开始增加，之后每蓄力<span class="yellow">1</span>秒增加<span class="yellow">5%</span>伤害
+<!--{/if}-->
+</span></td>
+<td class=b3 width=46>
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+9级时解锁
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

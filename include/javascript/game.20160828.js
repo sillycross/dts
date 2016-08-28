@@ -1082,3 +1082,30 @@ function BuffIconSecTimer()
 }
 
 setInterval("BuffIconSecTimer()",1000);
+
+////////////////////////////////////////////////////////////////////////
+////////////////////////////铁拳无敌蓄力技能///////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
+xuli_flag = 0;
+xuli_tick = 0;
+xuli_pret = 1;
+xuli_maxt = 1;
+
+function xuli_setpercentage(p)
+{
+	$('progressbar-inner3').style.width=p+'%';
+	$('progressbar-text3').innerHTML=p+'%';
+}
+
+function xuli_tickfunc()
+{
+	xuli_tick++;
+	if (xuli_tick>xuli_pret) 
+	{
+		x=(xuli_tick-xuli_pret)/xuli_maxt;
+		if (x>1) x=1;
+		x=Math.round(x*100);
+		xuli_setpercentage(x);
+	}
+}
