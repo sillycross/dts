@@ -1695,6 +1695,7 @@ $carddesc=array(
 	143=>array(
 		'name'=>'母山岭巨人',
 		'rare'=>'C',
+		'desc'=>'露娜引导一道聚集的月光能量打击敌人，造成眩晕和伤害',
 		'pack'=>'Best DOTO',
 		'effect'=>'被攻击时有17%几率使敌人进入眩晕状态，持续2.5秒',
 		'energy'=>0,
