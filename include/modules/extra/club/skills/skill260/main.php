@@ -31,7 +31,7 @@ namespace skill260
 		$r260=0;
 		if ((\skillbase\skill_query(260,$pa))&&(check_unlocked260($pa))&&($pa['wepk']=="WN")) {
 			$t260=rand(0,99);
-			if ($t260<30) $r260++;
+			if ($t260<50) $r260++;
 			if ($t260<15) $r260++;
 			if ($t260<10) $r260++;
 			if ($t260<5) $r260++;
