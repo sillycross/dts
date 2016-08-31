@@ -17,13 +17,21 @@ namespace attrbase
 		return $ret;
 	}
 	
-	//获取攻击属性列表（武器和饰品）
+	//获取攻击属性列表（武器防具和饰品）
 	function get_ex_attack_array(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (strpos($pa['wepk'],$pa['wep_kind'])!==false)
 			$ret = \itemmain\get_itmsk_array($pa['wepsk']);
-			
+		
+		if (defined('MOD_ARMOR'))
+		{		
+			eval(import_module('armor'));
+			foreach ($armor_equip_list as $itm)
+				foreach (\itemmain\get_itmsk_array($pa[$itm.'sk']) as $key)
+					array_push($ret,$key);	
+		}
+		
 		if (defined('MOD_ARMOR_ART'))
 		{
 			$ret = array_merge($ret,\itemmain\get_itmsk_array($pa['artsk']));

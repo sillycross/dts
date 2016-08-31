@@ -25,11 +25,8 @@ if($udata['groupid'] <= 0) { gexit($_ERROR['user_ban'], __file__, __line__); }
 
 extract($udata);
 
-if ($udata['cardlist']==""){
-	$udata['cardlist']="0";
-	$db->query("UPDATE {$gtablepre}users SET cardlist='0' WHERE username='$cuser'");
-}
-$oc = explode('_',$udata['cardlist']);
+$userCardData = \cardbase\get_user_cardinfo($cuser);
+$oc = $userCardData['cardlist'];
 
 
 if ($ktype==1 || $choice>0)

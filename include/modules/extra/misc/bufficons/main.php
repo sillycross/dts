@@ -14,6 +14,7 @@ namespace bufficons
 	//hint： 技能的描述文字
 	//activate_hint： 激活技能的提示文字（或不能激活技能时的说明文字），如果本技能不是主动技能，与hint一样即可
 	//onclick： 点击时的js操作（clickable时有效）
+	//corner-text: （可选）在右下角显示的内容
 	function bufficon_show($src, $para)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

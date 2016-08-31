@@ -2,7 +2,7 @@
 
 namespace skill402
 {
-	$paneldesc=array('直死','直死1','直死2','直死3','直死4','抹杀');
+	$paneldesc=array('直死','直死','直死','直死','直死','抹杀');
 	$procrate=array(0,1,3,10,30,100);
 	
 	function init() 
@@ -38,14 +38,13 @@ namespace skill402
 		return $r;
 	}
 
-	function apply_damage(&$pa,&$pd,$active){
+	function apply_total_damage_modifier_up(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!\skillbase\skill_query(402,$pa) || !check_unlocked402($pa)) return $chprocess($pa,$pd,$active);
 		$chprocess($pa,$pd,$active);
 		$var_402=get_skill402_procrate($pa,$pd,$active);
 		if ((rand(0,99)<$var_402)&&(($pd['mhp']<5000000)||($var_402>=10))){
 			$pa['dmg_dealt']=$pd['hp'];
-			$pd['hp']=0;
 			eval(import_module('logger'));
 			if ($active) $log .= "<span class=\"red\">一股来自东方的神秘力量直接杀死了你的敌人！</span><br>";
 			else $log .= "<span class=\"red\">一股来自东方的神秘力量直接杀死了你！</span><br>";

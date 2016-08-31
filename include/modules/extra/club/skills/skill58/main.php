@@ -27,7 +27,7 @@ namespace skill58
 		$chprocess($pa,$pd);
 		
 		eval(import_module('sys','logger'));
-		if (in_array($pd['state'],Array(20,21,22,23,24,25,27,29)))
+		if (in_array($pd['state'],Array(20,21,22,23,24,25,27,29,40,41)))
 			if (\skillbase\skill_query(58,$pd) && ((int)\skillbase\skill_getvalue(58,'r',$pd))==0)
 			{
 				\skillbase\skill_setvalue(58,'r','1',$pd);

@@ -232,21 +232,22 @@ namespace clubbase
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player','clubbase'));
 		$___TEMP_inclist = Array();
-		foreach ($clublist[$club]['skills'] as $key) 
-			if (defined('MOD_SKILL'.$key.'_INFO') && strpos(constant('MOD_SKILL'.$key.'_INFO'),'club;')!==false && strpos(constant('MOD_SKILL'.$key.'_INFO'),'active;')!==false && \skillbase\skill_query($key)) 
-			{ 
-				$flag = 0; 
-				if (strpos(constant('MOD_SKILL'.$key.'_INFO'),'hidden;')!==false) $flag = 1; 
-				if (!$flag) 
+		if ($club!=0)
+			foreach ($clublist[$club]['skills'] as $key) 
+				if (defined('MOD_SKILL'.$key.'_INFO') && strpos(constant('MOD_SKILL'.$key.'_INFO'),'club;')!==false && strpos(constant('MOD_SKILL'.$key.'_INFO'),'active;')!==false && \skillbase\skill_query($key)) 
 				{ 
-					$func = 'skill'.$key.'\\check_unlocked'.$key; 
-					if ($func($sdata)) $flag = 1; 
-				} 
-				if ($flag) 
-					array_push($___TEMP_inclist,template(constant('MOD_SKILL'.$key.'_PROFILECMD')));
-			}
+					$flag = 0; 
+					if (strpos(constant('MOD_SKILL'.$key.'_INFO'),'hidden;')!==false) $flag = 1; 
+					if (!$flag) 
+					{ 
+						$func = 'skill'.$key.'\\check_unlocked'.$key; 
+						if ($func($sdata)) $flag = 1; 
+					} 
+					if ($flag) 
+						array_push($___TEMP_inclist,template(constant('MOD_SKILL'.$key.'_PROFILECMD')));
+				}
 		foreach (\skillbase\get_acquired_skill_array() as $key) 
-			if (!in_array($key,$clublist[$club]['skills']))
+			if ($club==0 || !in_array($key,$clublist[$club]['skills']))
 				if (defined('MOD_SKILL'.$key.'_INFO') && strpos(constant('MOD_SKILL'.$key.'_INFO'),'club;')!==false && strpos(constant('MOD_SKILL'.$key.'_INFO'),'active;')!==false) 
 				{ 
 					$flag = 0; 
@@ -281,24 +282,18 @@ namespace clubbase
 		foreach ($___TEMP_inclist as $___TEMP_template_name) include $___TEMP_template_name;
 	}
 	
-	function get_nskillpage($pn)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('player','clubbase'));
-		$___TEMP_inclist = Array();
-		foreach (\skillbase\get_acquired_skill_array($pn) as $key) 
-				if (defined('MOD_SKILL'.$key.'_INFO') && strpos(constant('MOD_SKILL'.$key.'_INFO'),'club;')!==false && strpos(constant('MOD_SKILL'.$key.'_INFO'),'unique;')!==false) 
-					array_push($___TEMP_inclist,template(constant('MOD_SKILL'.$key.'_NDESC'))); 
-		
-		foreach ($___TEMP_inclist as $___TEMP_template_name) include $___TEMP_template_name;
-	}
-	
 	//载入玩家发动的攻击技能
-	function load_user_combat_command(&$pdata)
+	function load_user_battleskill_command(&$pdata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('input'));
 		$pdata['bskill']=$bskill; $pdata['bskillpara']=$bskillpara;
+	}
+	
+	function load_user_combat_command(&$pdata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		load_user_battleskill_command($pdata);
 		$chprocess($pdata);
 	}
 	
@@ -326,6 +321,18 @@ namespace clubbase
 		$chprocess($pa, $pd, $active);
 	}
 	
+	function get_npcskillpage($pn)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player','clubbase'));
+		$___TEMP_inclist = Array();
+		foreach (\skillbase\get_acquired_skill_array($pn) as $key) 
+				if (defined('MOD_SKILL'.$key.'_INFO') && strpos(constant('MOD_SKILL'.$key.'_INFO'),'club;')!==false && strpos(constant('MOD_SKILL'.$key.'_INFO'),'unique;')!==false) 
+					array_push($___TEMP_inclist,template(constant('MOD_SKILL'.$key.'_DESC'))); 
+		
+		$who = $pn;
+		foreach ($___TEMP_inclist as $___TEMP_template_name) include $___TEMP_template_name;
+	}
 }
 
 ?>

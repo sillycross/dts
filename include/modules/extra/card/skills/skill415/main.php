@@ -27,7 +27,7 @@ namespace skill415
 		return 1;
 	}
 
-	function apply_damage(&$pa,&$pd,$active){
+	function apply_total_damage_modifier_down(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!\skillbase\skill_query(415,$pd) || !check_unlocked415($pd)) return $chprocess($pa,$pd,$active);
 		eval(import_module('logger'));

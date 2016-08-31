@@ -30,6 +30,12 @@ if(!$cuser||!$cpass)
 	die();
 } 
 
+$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$cuser'");
+if(!$db->num_rows($result)) { gexit($_ERROR['login_check'],__file__,__line__); }
+$udata = $db->fetch_array($result);
+if($udata['password'] != $cpass) { gexit($_ERROR['wrong_pw'], __file__, __line__); }
+if($udata['groupid'] <= 0) { gexit($_ERROR['user_ban'], __file__, __line__); }
+
 if (isset($_GET['command'])) $command = $_GET['command'];
 if (isset($_GET['para1'])) $para1 = $_GET['para1'];
 if (isset($_GET['para2'])) $para2 = $_GET['para2'];

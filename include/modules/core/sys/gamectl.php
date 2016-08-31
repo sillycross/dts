@@ -30,9 +30,15 @@ namespace sys
 		$noiseid = 0;
 		$noiseid2 = 0;
 		$noisemode = '';
+		//$gametype = 0;
+		$gamestate = 10;
 		
 		save_combatinfo();
 		save_gameinfo();
+	}
+	
+	function prepare_new_game() {
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
 	}
 	
 	function rs_game($xmode = 0) {

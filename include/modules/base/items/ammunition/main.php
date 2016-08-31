@@ -29,6 +29,12 @@ namespace ammunition
 			$mode = 'command';
 			return;
 		}
+		
+		if (strpos ( $wepsk, 'o' ) !== false) {
+			$log .= "<span class=\"red\">{$wep}不能装填弹药。</span><br>";
+			$mode = 'command';
+			return;
+		}
 		if (strpos ($wepk,'WG')===false){
 			if ($itmk=='GBh'){
 				$bulletnum = 1;	
@@ -38,11 +44,7 @@ namespace ammunition
 				return;
 			}
 		}
-		elseif (strpos ( $wepsk, 'o' ) !== false) {
-			$log .= "<span class=\"red\">{$wep}不能装填弹药。</span><br>";
-			$mode = 'command';
-			return;
-		} elseif (strpos ( $wepsk, 'e' ) !== false || strpos ( $wepsk, 'w' ) !== false) {
+		elseif (strpos ( $wepsk, 'e' ) !== false || strpos ( $wepsk, 'w' ) !== false) {
 			if ($itmk == 'GBe') {
 				$bulletnum = 10;
 			} else {

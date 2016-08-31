@@ -10,14 +10,24 @@
 <center>
 	<form method="post" action="user.php" name="userdata">
 		<input type="hidden" name="mode" value="edit">
+		<input type="hidden" id="newCardChoice" name="card" value="$cardChosen">
+		<div>
+		<div style="display:inline-block;">
 		<span class ="yellow">{lang basicdata}</span>
-		{template userbasicdata}<br />
+		{template userbasicdata}
+		</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<div style="display:inline-block;">
 		<span class ="yellow">{lang advanceddata}</span>
 		{template useradvdata}
-		{template usercarddata}
+		</div>
+		</div>
+		<!--{eval $hideDisableButton=0; $showCardUnavailableHint=0;}-->
+		<span class ="yellow">身份卡选择</span><br>
+		<div style="height:3px">&nbsp;</div>
+		{template selectcard}
 		<div id="postdata">
 			<br />
-			<input type="submit" id="post" onClick="postCmd('userdata','user.php');return false;" value="{lang submit}">
+			<input type="submit" id="post" onClick="$('newCardChoice').value=chosen_card_id; postCmd('userdata','user.php');return false;" value="{lang submit}">
 			<input type="reset" id="reset" name="reset" value="{lang reset}">
 		</div>
 	</form>

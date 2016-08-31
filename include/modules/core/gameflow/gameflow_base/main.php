@@ -11,13 +11,9 @@ namespace gameflow_base
 		eval(import_module('sys'));
 		
 		$gamenum++;
-		$gamestate = 10;
-		$hdamage = 0;
-		$hplayer = '';
-		$noisemode = '';
 		\sys\reset_game();
+		\sys\prepare_new_game();
 		\sys\rs_game(1+2+4+8+16+32);
-	
 	}
 	
 	function gamestate_start_game()

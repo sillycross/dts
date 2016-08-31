@@ -84,10 +84,12 @@ namespace battle
 			$pa['is_counter']=1;
 			if (check_can_counter($pa, $pd,$active)) 
 			{
+				$pa['counter_assaulted']=1;
 				counter_assault($pa,$pd,$active);
 			}
 			else
 			{
+				$pa['counter_assaulted']=0;
 				cannot_counter($pa,$pd,$active);
 			}
 			unset($pa['is_counter']);

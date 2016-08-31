@@ -42,7 +42,9 @@ else  $refdaily_flag = false;
 $iconarray = get_iconlist($icon);
 $select_icon = $icon;
 $winning_rate=$validgames?round($wingames/$validgames*100)."%":'0%';
-require config('card',$gamecfg);
+
+eval(import_module('cardbase'));
+
 $carr=$carddesc[$card];
 $cr=$carr['rare'];
 $cf=true;$sf=true;$af=true;$bf=true;$ff=true;
@@ -52,18 +54,7 @@ if (($now-$udata['cd_s'])<86400){
 	list($min,$hour,$day,$month,$year)=explode(',',date("i,H,j,n,Y",$ntime));
 	$std=$year."年".$month."月".$day."日".$hour."时".$min."分";
 }
-if (($now-$udata['cd_a'])<43200){
-	$af=false;
-	$ntime=$udata['cd_a']+43200;
-	list($min,$hour,$day,$month,$year)=explode(',',date("i,H,j,n,Y",$ntime));
-	$atd=$year."年".$month."月".$day."日".$hour."时".$min."分";
-}
-if (($now-$udata['cd_b'])<10800){
-	$bf=false;
-	$ntime=$udata['cd_b']+10800;
-	list($min,$hour,$day,$month,$year)=explode(',',date("i,H,j,n,Y",$ntime));
-	$btd=$year."年".$month."月".$day."日".$hour."时".$min."分";
-}
+
 if (($now-$udata['cd_a1'])<43200){
 	$ff=false;
 	$ntime=$udata['cd_a1']+43200;
@@ -73,6 +64,7 @@ if (($now-$udata['cd_a1'])<43200){
 		$ftd="今天".$hour."时".$min."分";
 	else  $ftd="明天".$hour."时".$min."分";
 }
+
 if ($cr=="S"){
 	$rarecolor="orange";
 	if (!$sf) $cf=false;

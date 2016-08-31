@@ -2,7 +2,7 @@
 
 namespace skill403
 {
-	$paneldesc=array('追击','追击1','追击2','追击3','追击4','暴风');
+	$paneldesc=array('追击','追击','追击','追击','追击','暴风');
 	$procrate=array(0,8,12,20,50,90);
 	
 	function init() 

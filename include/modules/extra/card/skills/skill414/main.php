@@ -2,8 +2,7 @@
 
 namespace skill414
 {
-	$skill414_cd = 3600;
-	$skill414_act_time = 480;
+	$skill414_cd = 36000;
 	
 	function init() 
 	{
@@ -17,6 +16,7 @@ namespace skill414
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','skill414'));
 		\skillbase\skill_setvalue(414,'lastuse',-3000,$pa);
+		\skillbase\skill_setvalue(414,'dur',0,$pa);
 	}
 	
 	function lost414(&$pa)
@@ -53,6 +53,7 @@ namespace skill414
 			$log.='技能冷却中！<br>';
 			return;
 		}
+		\skillbase\skill_setvalue(414,'dur',600+$wc*4);
 		\skillbase\skill_setvalue(414,'lastuse',$now);
 		addnews ( 0, 'bskill414', $name );
 		$log.='<span class="lime">技能「鹰眼」发动成功。</span><br>';
@@ -64,8 +65,9 @@ namespace skill414
 		if (!\skillbase\skill_query(414, $pa) || !check_unlocked414($pa)) return 0;
 		eval(import_module('sys','player','skill414'));
 		$l=\skillbase\skill_getvalue(414,'lastuse',$pa);
-		if (($now-$l)<=$skill414_act_time) return 1;
-		if (($now-$l)<=$skill414_act_time+$skill414_cd) return 2;
+		$d=\skillbase\skill_getvalue(414,'dur',$pa);
+		if (($now-$l)<=$d) return 1;
+		if (($now-$l)<=$d+$skill414_cd) return 2;
 		return 3;
 	}
 	
@@ -85,6 +87,7 @@ namespace skill414
 		{
 			eval(import_module('skill414'));
 			$skill414_lst = (int)\skillbase\skill_getvalue(414,'lastuse'); 
+			$skill414_dur = (int)\skillbase\skill_getvalue(414,'dur'); 
 			$skill414_time = $now-$skill414_lst; 
 			$z=Array(
 				'disappear' => 0,
@@ -93,17 +96,18 @@ namespace skill414
 				'activate_hint' => '点击发动技能「鹰眼」',
 				'onclick' => "$('mode').value='special';$('command').value='skill414_special';$('subcmd').value='activate';postCmd('gamecmd','command.php');this.disabled=true;",
 			);
-			if ($skill414_time<$skill414_act_time)
+			if ($skill414_time<$skill414_dur)
 			{
 				$z['style']=1;
-				$z['totsec']=$skill414_act_time;
+				$z['totsec']=$skill414_dur;
 				$z['nowsec']=$skill414_time;
 			}
-			else  if ($skill414_time<$skill414_act_time+$skill414_cd)
+			else  if ($skill414_time<$skill414_dur+$skill414_cd)
 			{
 				$z['style']=2;
 				$z['totsec']=$skill414_cd;
-				$z['nowsec']=$skill414_time-$skill414_act_time;
+				$z['nowsec']=$skill414_time-$skill414_dur;
+				\skillbase\skill_lost(414);
 			}
 			else 
 			{

@@ -270,6 +270,7 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2 && $___MOD_CODE_ADV3)
 			{
 				if ($sid=='help.htm') continue;
 				if ($sid=='mixhelp.htm') continue;
+				if ($sid=='itemhelp.htm') continue;
 				if (substr($sid,strlen($sid)-4)=='.htm')
 				{
 					echo '&nbsp;&nbsp;&nbsp;&nbsp;正在处理模板'.$sid.'.. '; ob_end_flush(); flush();

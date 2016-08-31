@@ -43,7 +43,7 @@ namespace skill306
 		}
 		if (($ox<5)&&($x>=5)){
 			\cardbase\get_qiegao(500,$pa);
-			\cardbase\get_card(32,$pa);
+			\cardbase\get_card(98,$pa);
 		}
 		
 		return base64_encode_number($x,5);		

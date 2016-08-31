@@ -58,6 +58,7 @@ namespace skill21
 						\skillbase\skill_lost($key,$pd);
 				//然后获得新的专有技能
 				if (is_array($npcdata['skills'])){
+					$npcdata['skills']['460']='0';
 					foreach ($npcdata['skills'] as $key=>$value){
 						if (defined('MOD_SKILL'.$key)){
 							\skillbase\skill_acquire($key,$pd);

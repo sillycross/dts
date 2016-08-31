@@ -4,6 +4,8 @@ if(!defined('IN_ADMIN')) {
 }
 
 //$db->query("ALTER TABLE {$gtablepre}users ADD totalcredits int(10) unsigned not null default '0' after credits");
+//$db->query("ALTER TABLE {$gtablepre}users ADD energy int(10) unsigned not null default '0' after credits");
+
 $db->query("UPDATE {$gtablepre}users SET totalcredits=totalcredits+floor(credits/2000)");
 $db->query("UPDATE {$gtablepre}users SET credits='0'");
 $db->query("UPDATE {$gtablepre}users SET elo_playedtimes='0'");
