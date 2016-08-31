@@ -57,7 +57,7 @@ if($mode == 'enter') {
 		$cc=93;
 	}
 	
-	if ($gametype==0){
+	if ($gametype==0 || $gametype==2){
 		if ($carddesc[$cc]['rare']!='C')
 		{
 			$rst = $db->query("SELECT pid FROM {$tablepre}players WHERE card = '$cc' AND type = 0");
@@ -73,6 +73,8 @@ if($mode == 'enter') {
 		{
 			$cf=false;
 		}
+		
+		if ($gametype==2 && ($cc==97 || $cc==144)) $cf=false;
 		
 		if ($cf==false){
 			$cc=0;
@@ -124,6 +126,7 @@ if($mode == 'enter') {
 	 * e0: S卡总体CD
 	 * e1: 单卡CD
 	 * e2: 有人于本局使用了同名卡
+	 * e3: 本游戏模式不可用
 	 *
 	 * $card_error errid => msg
 	 */
@@ -160,6 +163,15 @@ if($mode == 'enter') {
 		foreach ($card_ownlist as $key)
 			if ($carddesc[$key]['rare']=='S')
 				$card_disabledlist[$key]='e0';
+	}
+	
+	//最高优先级错误原因：本游戏模式不可用
+	$card_error['e3'] = '这张卡片在本游戏模式下禁止使用！<br>';
+	
+	if ($gametype==2)	//deathmatch模式禁用蛋服和炸弹人
+	{
+		if (in_array(97,$card_ownlist)) $card_disabledlist[97]='e3';
+		if (in_array(144,$card_ownlist)) $card_disabledlist[144]='e3';
 	}
 	
 	$hideDisableButton = 1;

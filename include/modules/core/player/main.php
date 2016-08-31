@@ -176,7 +176,7 @@ namespace player
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
-	function player_save($data)
+	function player_save(&$data)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -184,11 +184,11 @@ namespace player
 		if(isset($data['pid']))
 		{
 			$spid = $data['pid'];
-			unset($data['pid']);
+			//unset($data['pid']);
 			$ndata=Array();
 			foreach ($db_player_structure as $key)
 			{
-				if (isset($data[$key])) $ndata[$key]=$data[$key];
+				if ($key!='pid' && isset($data[$key])) $ndata[$key]=$data[$key];
 			}
 			//建国后不准成精，你们复活别想啦
 			if ($ndata['hp']<=0) 
@@ -341,6 +341,11 @@ namespace player
 	
 	//这个函数是game.php里调用的，上面那个是command.php里调用的。好像有点猎奇的小区别…… 
 	function prepare_initial_response_content()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+	}
+	
+	function post_enterbattlefield_events(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}

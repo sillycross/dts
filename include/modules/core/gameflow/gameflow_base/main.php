@@ -10,7 +10,7 @@ namespace gameflow_base
 		
 		eval(import_module('sys'));
 		
-		$gamenum++;
+		$gamenum++; $gametype=0;
 		\sys\reset_game();
 		\sys\prepare_new_game();
 		\sys\rs_game(1+2+4+8+16+32);

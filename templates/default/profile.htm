@@ -125,8 +125,12 @@
 								<!--{if defined('MOD_GTYPE1') && $gametype==1}-->
 								{template MOD_GTYPE1_SHOWHACKLEVEL}
 								<!--{else}-->
+								<!--{if defined('MOD_GTYPE2') && $gametype==2}-->
+								{template MOD_SKILL475_SHOWWPT}
+								<!--{else}-->
 								<td class="b2" height="32"><span>{lang killnum}</span></td>
 								<td class="b3" height="32"><span>$killnum</span></td>
+								<!--{/if}-->
 								<!--{/if}-->
 							</tr>
 						</table>

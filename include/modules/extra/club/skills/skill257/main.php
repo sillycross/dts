@@ -39,7 +39,7 @@ namespace skill257
 		{
 			eval(import_module('logger'));
 			$log.='你灵活的反应使你受到的陷阱伤害减少了<span class="yellow">60</span>%！<br>';
-			$r*=0.6;
+			$r*=0.4;
 		}
 		if ($r!=1) $r=Array($r); else $r=array();
 		return array_merge($r,$chprocess($pa,$pd,$trap,$damage));

@@ -40,7 +40,7 @@ namespace skill264
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess($pa,$pd,$active);
 		
-		if (\skillbase\skill_query(264,$pa) && check_unlocked264($pa) && $pa['wepk']=='WN' && $pd['type']==0 && $pd['counter_assaulted'])
+		if (\skillbase\skill_query(264,$pa) && check_unlocked264($pa) && $pa['user_commanded']==1 && $pa['wepk']=='WN' && $pd['type']==0 && $pd['counter_assaulted'])
 		{
 			while (rand(0,99)<30)
 			{

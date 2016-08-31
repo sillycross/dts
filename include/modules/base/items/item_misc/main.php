@@ -201,6 +201,12 @@ namespace item_misc
 			} else if (substr($itm,0,strlen('任务指令书'))=='任务指令书') {
 				if ($itm == '任务指令书A') {
 					$log .= '指令书上这样写着：<br>“很高兴大家能来参与幻境系统的除错工作。”<br>“我们对系统进行了一些调整，就算遭遇袭击和陷阱也不会造成致命伤害，所以请尽管放心。”<br>“任务结束后我们会根据工作量发放相应的奖励。”<br>';
+				} else if ($itm == '任务指令书B') {
+					ob_clean();
+					include template('MOD_SKILL475_EXPLANATION');
+					$log .= ob_get_contents();
+					ob_clean();
+					return;
 				} else {
 					$log .= '你展开了指令书，发现上面什么都没写。<br>';
 				}

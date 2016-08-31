@@ -149,6 +149,9 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 			}	
 		}
 	}
+	
+	\player\post_enterbattlefield_events($pp);
+	
 	\player\player_save($pp);
 	///////////////////////////////////////////////////////////////
 	if ($cardrare=="S"){

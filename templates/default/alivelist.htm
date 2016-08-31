@@ -3,7 +3,8 @@
 		<td class="b1"><span>名字&编号</span></td>
 		<td width="140" class="b1"><span>头像</span></td>
 		<td class="b1"><span>等级</span></td>
-		<td class="b1"><span><!--{if $gametype==1}-->除错层数<!--{else}-->杀害者数<!--{/if}--></span></td>
+		<td class="b1" <!--{if $gametype==2}-->title="胜利点数最高的玩家将获得游戏胜利"<!--{/if}-->><span><!--{if $gametype==1}-->除错层数<!--{else}--><!--{if $gametype==2}-->胜利点数<!--{else}-->杀害者数<!--{/if}--><!--{/if}--></span></td>
+		<!--{if $gametype==2}--><td class="b1" title="击杀玩家将获得相当于其15%赏金的胜利点数"><span>赏金</span></td><!--{/if}-->
 		<!--{if $gamestate < 40 }--><td class="b1"><span>队伍名</span></td><!--{/if}-->
 		<td width="300" class="b1"><span>口头禅</span></td>
 	</tr>
@@ -14,7 +15,8 @@
 		<td align="center" class="b3"><a style="cursor:pointer;" href="user_profile.php?playerID=$alive['urlname']"><span>$alive['name']<br>$sexinfo[$alive['gd']] $alive['sNo'] 号</span></a></td>
 		<td align="center" class="b3"><span><IMG src="img/$alive['iconImg']" width="140" height="80" border="0" align="absmiddle"></span></td>
 		<td class="b3"><span>$alive['lvl']</span></td>
-		<td class="b3"><span>$alive['killnum']</span></td>
+		<td class="b3" <!--{if $gametype==2}-->title="胜利点数最高的玩家将获得游戏胜利"<!--{/if}-->><span <!--{if $gametype==2}-->class="orange"<!--{/if}-->>$alive['killnum']</span></td>
+		<!--{if $gametype==2}--><td class="b3" title="击杀玩家将获得相当于其15%赏金的胜利点数"><span>$alive['bounty']</span></td><!--{/if}-->
 		<!--{if $gamestate < 40 }--><td class="b3"><span><!--{if $alive['teamID']}-->$alive['teamID']<!--{else}-->无<!--{/if}--></span></td><!--{/if}-->
 		<td class="b3"><span>$alive['motto']</span></td>
 	</tr>

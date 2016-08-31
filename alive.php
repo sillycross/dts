@@ -7,9 +7,9 @@ require './include/common.inc.php';
 //unset($_GET);
 
 if(!isset($alivemode) || $alivemode == 'last'){
-	$query = $db->query("SELECT name,gd,sNo,icon,lvl,exp,killnum,teamID,nskillpara,pid FROM {$tablepre}players WHERE type=0 AND hp>0 order by killnum desc, lvl desc limit $alivelimit");
+	$query = $db->query("SELECT name,gd,sNo,icon,lvl,exp,killnum,teamID,nskillpara,pid FROM {$tablepre}players WHERE type=0".($gametype!=2?"AND hp>0":'')." order by killnum desc, lvl desc limit $alivelimit");
 }elseif($alivemode == 'all'){
-	$query = $db->query("SELECT name,gd,sNo,icon,lvl,exp,killnum,teamID,nskillpara,pid FROM {$tablepre}players WHERE type=0 AND hp>0 order by killnum desc, lvl desc");
+	$query = $db->query("SELECT name,gd,sNo,icon,lvl,exp,killnum,teamID,nskillpara,pid FROM {$tablepre}players WHERE type=0".($gametype!=2?"AND hp>0":'')." order by killnum desc, lvl desc");
 }else{
 	echo 'error';
 	exit();
@@ -29,6 +29,11 @@ while($playerdata = $db->fetch_array($query)) {
 	if ($gametype==1)
 	{
 		$playerdata['killnum']=(int)\skillbase\skill_getvalue_direct(424,'lvl',$playerdata['nskillpara']);
+	}
+	if ($gametype==2)
+	{
+		$playerdata['killnum']=(int)\skillbase\skill_getvalue_direct(475,'wpt',$playerdata['nskillpara']);
+		$playerdata['bounty']=(int)\skillbase\skill_getvalue_direct(475,'bounty',$playerdata['nskillpara']);
 	}
 	
 	$alivedata[] = $playerdata;

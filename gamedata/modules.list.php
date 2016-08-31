@@ -245,6 +245,7 @@ skill55,extra/club/skills/skill55/,1
 skill72,extra/club/skills/skill72/,1
 skill227,extra/club/skills/skill227/,1
 skill472,extra/card/skills/skill472/,1
+skill475,extra/instance/gtype2/skill475/,1
 skill59,extra/club/skills/skill59/,1
 skill425,extra/instance/gtype1/skill425/,1
 skill427,extra/instance/gtype1/skill427/,1
@@ -344,6 +345,7 @@ addnpc,base/addnpc/,1
 skill50,extra/club/skills/skill50/,1
 skill245,extra/club/skills/skill245/,1
 skill252,extra/club/skills/skill252/,1
+gtype2,extra/instance/gtype2/main/,1
 skill206,extra/club/skills/skill206/,1
 miracletrap,base/items/miracletrap/,1
 skill243,extra/club/skills/skill243/,1
