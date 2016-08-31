@@ -28,7 +28,7 @@ namespace skill263
 	function get_internal_def(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ((\skillbase\skill_query(263,$pd))&&(check_unlocked263($pd))) return $chprocess($pa,$pd,$active)+$pd['wp']*2;
+		if ((\skillbase\skill_query(263,$pd))&&(check_unlocked263($pd))) return $chprocess($pa,$pd,$active)+$pd['wp'];
 		return $chprocess($pa,$pd,$active);
 	}
 	
@@ -40,10 +40,10 @@ namespace skill263
 			if (\skillbase\skill_query(261,$pd))
 			{
 				$t=(int)\skillbase\skill_getvalue(261,'lastuse',$pd);
-				if ($t>0) $chance=80; else $chance=50;
+				if ($t>0) $chance=35; else $chance=20;
 			}
-			else	$chance=50;
-			if ($pd['club']!=19) $chance=20;
+			else	$chance=20;
+			if ($pd['club']!=19) $chance=10;
 			if (rand(0,99)<$chance)
 			{
 				eval(import_module('logger'));
