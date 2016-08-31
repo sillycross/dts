@@ -72,7 +72,7 @@ namespace gameflow_base
 			}
 			else
 			{
-				if($alivenum <= 1) 
+				if($alivenum <= 1 && $gametype!=2) 
 				{
 					\sys\gameover();
 				}

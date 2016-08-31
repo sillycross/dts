@@ -428,7 +428,7 @@ if($hp <= 0) {
 
 if(isset($url)){$gamedata['url'] = $url;}
 $gamedata['innerHTML']['pls'] = $plsinfo[$pls];
-$gamedata['innerHTML']['anum'] = $alivenum;
+if ($gametype!=2) $gamedata['innerHTML']['anum'] = $alivenum; else $gamedata['innerHTML']['anum'] = $validnum;
 
 ob_clean();
 $main ? include template($main) : include template('profile');
