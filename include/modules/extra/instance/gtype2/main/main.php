@@ -20,7 +20,7 @@ namespace gtype2
 		$chprocess();
 	}
 	
-	function check_player_discover($edata)
+	function check_player_discover(&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
