@@ -85,7 +85,7 @@ namespace corpse
 			if($cid){
 				$result = $db->query("SELECT * FROM {$tablepre}players WHERE pid='$cid' AND hp=0");
 				if($db->num_rows($result)>0){
-					$edata = $db->fetch_array($result);
+					$edata = \player\fetch_playerdata_by_pid($cid);
 					extract($edata,EXTR_PREFIX_ALL,'w');
 					findcorpse($edata);
 					\metman\init_battle(1);
@@ -230,7 +230,7 @@ namespace corpse
 			if($cid){
 				$result = $db->query("SELECT * FROM {$tablepre}players WHERE pid='$cid' AND hp=0");
 				if($db->num_rows($result)>0){
-					$edata = $db->fetch_array($result);
+					$edata = \player\fetch_playerdata_by_pid($cid);
 					findcorpse($edata);
 					return;
 				}	

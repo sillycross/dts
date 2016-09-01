@@ -6,7 +6,12 @@
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<!--{eval $lv=(int)\skillbase\skill_getvalue(235,'lvl');}-->
+<!--{if ($lv==0)}-->
 消耗<span class="yellow">1</span>个技能点，进行一次广域探测。<br>
+<!--{else}-->
+你可以没有限制地进行广域探测。<br>
+<!--{/if}-->
 </span></td>
 <td class=b3 width=46>
 </td>

@@ -7,7 +7,8 @@
 <div style="text-align:center; height:40px;"><span class="lime" style="font-size:40px;">击杀玩家</span></div>
 <div style="display:inline-block;width:35px;">&nbsp;</div><div style="display:inline-block;">
 <br>
-<span>你击杀了<span class="yellow">$w_name</span>！你获得了<span class="orange">$w_sk475ptgain</span>点胜利点数。</span><br><br>
+<!--{eval $sk475ptgain=round(((int)\skillbase\skill_getvalue(475,'bounty',$edata))/0.55*0.15);}-->
+<span>你击杀了<span class="yellow">$w_name</span>！你获得了<span class="orange">$sk475ptgain</span>点胜利点数。</span><br><br>
 <span>请选择一项对敌人的惩罚(请在15秒内选择，15秒后敌人复活即无法再选择)：</span><br>
 <table style="width:720px;">
 <tr><td class="b1" colspan=2>金钱</td></tr>

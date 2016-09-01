@@ -96,11 +96,8 @@ namespace gtype2
 		if ($gametype==2) 
 		{
 			\skillbase\skill_acquire(475,$pa);
-			$pa['itm5']='广域生命探测器';
-			$pa['itmk5']='ER';
-			$pa['itme5']='1000';
-			$pa['itms5']='1';
-			$pa['itmsk5']='2';
+			\skillbase\skill_acquire(235,$pa);
+			\skillbase\skill_setvalue(235,'lvl','1',$pa);
 			$pa['itm6']='任务指令书B';
 			$pa['itmk6']='Y';
 			$pa['itme6']='1';
