@@ -41,9 +41,11 @@ namespace item_misc
 				\itemmain\itms_reduce($theitem);
 				return;
 			} elseif ($itm == '凸眼鱼') {
-				eval(import_module('corpse'));
+				eval(import_module('sys','corpse'));
 				$tm = $now - $corpseprotect;//尸体保护
-				$db->query ( "UPDATE {$tablepre}players SET corpse_clear_flag='1',weps='0',arbs='0',arhs='0',aras='0',arfs='0',arts='0',itms0='0',itms1='0',itms2='0',itms3='0',itms4='0',itms5='0',itms6='0',money='0' WHERE hp <= 0 AND endtime <= $tm" );
+				if ($gametype!=2)
+					$db->query ( "UPDATE {$tablepre}players SET corpse_clear_flag='1',weps='0',arbs='0',arhs='0',aras='0',arfs='0',arts='0',itms0='0',itms1='0',itms2='0',itms3='0',itms4='0',itms5='0',itms6='0',money='0' WHERE hp <= 0 AND endtime <= $tm" );
+				else	$db->query ( "UPDATE {$tablepre}players SET corpse_clear_flag='1',weps='0',arbs='0',arhs='0',aras='0',arfs='0',arts='0',itms0='0',itms1='0',itms2='0',itms3='0',itms4='0',itms5='0',itms6='0',money='0' WHERE type > 0 AND hp <= 0 AND endtime <= $tm" );
 				$cnum = $db->affected_rows ();
 				addnews ( $now, 'corpseclear', $name, $cnum );
 				$log .= "使用了<span class=\"yellow\">$itm</span>。<br>突然刮起了一阵怪风，吹走了地上的{$cnum}具尸体！<br>";
