@@ -74,7 +74,7 @@ namespace gtype2
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		eval(import_module('sys'));
-		if ($gametype==2) return !in_array($typ,Array(1,9,20,21,22,88));
+		if ($gametype==2) return !in_array($typ,Array(1,9,14,20,21,22,88));
 		return $chprocess($typ);
 	}
 	
