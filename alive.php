@@ -7,9 +7,9 @@ require './include/common.inc.php';
 //unset($_GET);
 
 if(!isset($alivemode) || $alivemode == 'last'){
-	$query = $db->query("SELECT name,gd,sNo,icon,lvl,exp,killnum,teamID,nskillpara,pid FROM {$tablepre}players WHERE type=0".($gametype!=2?"AND hp>0":'')." order by killnum desc, lvl desc limit $alivelimit");
+	$query = $db->query("SELECT name,gd,sNo,icon,lvl,exp,killnum,teamID,nskillpara,pid FROM {$tablepre}players WHERE type=0 ".($gametype!=2?"AND hp>0":'')." order by killnum desc, lvl desc limit $alivelimit");
 }elseif($alivemode == 'all'){
-	$query = $db->query("SELECT name,gd,sNo,icon,lvl,exp,killnum,teamID,nskillpara,pid FROM {$tablepre}players WHERE type=0".($gametype!=2?"AND hp>0":'')." order by killnum desc, lvl desc");
+	$query = $db->query("SELECT name,gd,sNo,icon,lvl,exp,killnum,teamID,nskillpara,pid FROM {$tablepre}players WHERE type=0 ".($gametype!=2?"AND hp>0":'')." order by killnum desc, lvl desc");
 }else{
 	echo 'error';
 	exit();
