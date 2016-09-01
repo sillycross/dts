@@ -124,6 +124,12 @@ namespace item_misc
 				$url = 'end.php';
 				\sys\gameover ( $now, 'end7', $name );
 			}elseif ($itm == '杏仁豆腐的ID卡') {
+				eval(import_module('sys'));
+				if ($gametype==2)
+				{
+					$log.='本模式下不可用。<br>';
+					return;
+				}
 				$duelstate = \gameflow_duel\duel($now,$itm);
 				if($duelstate == 50){
 					$log .= "<span class=\"yellow\">你使用了{$itm}。</span><br><span class=\"evergreen\">“干得不错呢，看来咱应该专门为你清扫一下战场……”</span><br><span class=\"evergreen\">“所有的NPC都离开战场了。好好享受接下来的杀戮吧，祝你好运。”</span>——林无月<br>";
