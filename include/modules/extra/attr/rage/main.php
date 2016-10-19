@@ -25,6 +25,10 @@ namespace rage
 		{
 			$pd['rage']+=calculate_attack_rage_gain($pa, $pd, $active);
 			$pd['rage']=min($pd['rage'],100);
+			if (\attrbase\check_itmsk('c',$pa)){
+				$pa['rage']++;
+				$pd['rage']=min($pd['rage'],100);
+			}
 		}
 		$chprocess($pa,$pd, $active);
 	}
@@ -71,7 +75,7 @@ namespace rage
 			$lost_rage = $pa['original_rage']-$pa['rage'];
 			if ($lost_rage > 0)
 			{
-				$payback_rage = round($lost_rage/100*rand(15,20));
+				$payback_rage = round($lost_rage/10);
 				$pa['rage']+=$payback_rage;
 				if ($pa['rage']>100) $pa['rage']=100;
 			}

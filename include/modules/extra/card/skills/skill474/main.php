@@ -28,18 +28,18 @@ namespace skill474
 	function get_edible_hpup(&$theitem)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_query(474,$pa)) return round($chprocess($theitem)*0.5);
+		if (\skillbase\skill_query(474,$pa)) return round($chprocess($theitem)*0.7);
 		return $chprocess($theitem);
 	}
 	
 	function get_edible_spup(&$theitem)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_query(474,$pa)) return round($chprocess($theitem)*0.5);
+		if (\skillbase\skill_query(474,$pa)) return round($chprocess($theitem)*0.7);
 		return $chprocess($theitem);
 	}
 	
-	function kill(&$pa, &$pd)
+	/*function kill(&$pa, &$pd)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -51,9 +51,9 @@ namespace skill474
 			\skillbase\skill_lost(474,$pd);
 		}
 		return $chprocess($pa,$pd);	
-	}
+	}*/
 	
-	function strike_finish(&$pa, &$pd, $active)
+	/*function strike_finish(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (\skillbase\skill_query(474,$pa) && $pa['user_commanded']==1 && $active && !$pa['is_counter'] && $pd['type']==0)
@@ -64,7 +64,7 @@ namespace skill474
 			\skillbase\skill_acquire(474,$pd);
 		}
 		return $chprocess($pa,$pd,$active);	
-	}
+	}*/
 		
 }
 

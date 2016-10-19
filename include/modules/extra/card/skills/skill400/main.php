@@ -3,8 +3,8 @@
 namespace skill400
 {
 	$paneldesc=array('重击','重击','重击','重击','重击','烈击','烈击');
-	$attgain=array(0,20,30,50,100,100,50);
-	$procrate=array(0,20,25,30,35,75,95);
+	$attgain=array(0,20,30,50,100,100,75);
+	$procrate=array(0,20,25,30,35,75,90);
 
 	function init() 
 	{
@@ -45,7 +45,7 @@ namespace skill400
 				else
 					$log.="<span class=\"yellow\">你朝{$pd['name']}打出了重击！</span><br>";
 			}else{
-				if ($l400==5)
+				if ($l400>=5)
 					$log.="<span class=\"yellow\">{$pa['name']}朝你打出了猛烈的一击！</span><br>";
 				else
 					$log.="<span class=\"yellow\">{$pa['name']}朝你打出了重击！</span><br>";

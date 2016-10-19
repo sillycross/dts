@@ -45,6 +45,7 @@ namespace skill402
 		$var_402=get_skill402_procrate($pa,$pd,$active);
 		if ((rand(0,99)<$var_402)&&(($pd['mhp']<5000000)||($var_402>=10))){
 			$pa['dmg_dealt']=$pd['hp'];
+			if ($pa['dmg_dealt']<100000000) $pa['dmg_dealt']=100000000;
 			eval(import_module('logger'));
 			if ($active) $log .= "<span class=\"red\">一股来自东方的神秘力量直接杀死了你的敌人！</span><br>";
 			else $log .= "<span class=\"red\">一股来自东方的神秘力量直接杀死了你！</span><br>";

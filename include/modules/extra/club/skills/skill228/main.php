@@ -84,7 +84,7 @@ namespace skill228
 				$log.='<span class="lime">你有如天神下凡，对敌人打出雷霆一击！</span><span class="clan">敌人被你击晕了！</span><br>';
 			else  $log.='<span class="lime">敌人有如天神下凡，对你打出雷霆一击！</span><span class="clan">你被敌人击晕了！</span><br>';
 			$r=Array(1.6);
-			\skill602\set_stun_period(4000,$pd);
+			\skill602\set_stun_period(1500,$pd);
 			\skill602\send_stun_battle_news($pa['name'],$pd['name']);
 		}
 		return array_merge($r,$chprocess($pa,$pd,$active));

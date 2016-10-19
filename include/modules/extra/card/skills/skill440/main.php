@@ -53,7 +53,7 @@ namespace skill440
 		{
 			eval(import_module('sys','skill440'));
 			$l=\skillbase\skill_getvalue(440,'lastuse',$pa);
-			if (($pd['type']!=0)&&($now-$l>=$skill440_cd)){
+			if (($pd['type']==0)&&(($now-$l)>=$skill440_cd)){
 				eval(import_module('logger'));
 				if ($active)
 					$log.="<span class=\"lime\">你对{$pd['name']}发动了技能「父爱」！</span><br>";
@@ -119,6 +119,35 @@ namespace skill440
 				return 0;
 		}
 		return $chprocess($skillid,$pa);
+	}
+	
+	function strike_finish(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if ($pa['bskill']!=440) return $chprocess($pa, $pd, $active);
+		eval(import_module('logger','skill440','skill600','sys'));
+		$var_440=40;
+		if (!\skillbase\skill_query(600,$pd)){
+			\skillbase\skill_acquire(600,$pd);
+			$var_440_2=$now;
+		}else{
+			$var_440_2=\skillbase\skill_getvalue(600,'end',$pd);
+			if ($var_440_2<$now) $var_440_2=$now;
+		}
+		\skillbase\skill_setvalue(600,'start',$var_440_2,$pd);
+		\skillbase\skill_setvalue(600,'end',$var_440_2+$var_440,$pd);
+		if (strpos($pd['inf'],'u')===false)
+		{
+			$pd['inf'].='u';
+		}
+		if (strpos($pd['inf'],'p')===false)
+		{
+			$pd['inf'].='p';
+		}
+		if ($active)
+			$log.='<span class="red">敌人已经大难临头了！</span><br>';
+		else  $log.="<span class=\"red\">你已经大难临头了！</span><br>";
+		$chprocess($pa,$pd,$active);
 	}
 	
 	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)
