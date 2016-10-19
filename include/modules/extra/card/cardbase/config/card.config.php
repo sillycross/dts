@@ -222,7 +222,7 @@ $cards=array(
 	),
 	37=>array(
 		'hp'=>'450','mhp'=>'450','sp'=>'450','msp'=>'450','att'=>'150','def'=>'150',
-		'money'=>'50','wp'=>'20','wk'=>'20','wc'=>'20','wg'=>'20','wd'=>'20','wf'=>'20',
+		'money'=>'50','wp'=>'50','wk'=>'50','wc'=>'50','wg'=>'50','wd'=>'50','wf'=>'50',
 	),
 	38=>array(
 		'skills'=>array('405'=>'0'),
@@ -332,10 +332,10 @@ $cards=array(
 	),
 	68=>array(
 		'itm3'=>'【风神的神德】',
-		'itmk3'=>'EW',
-		'itme3'=>'1',
-		'itms3'=>'1',
-		'itmsk3'=>'6',
+		'itmk3'=>'WF',
+		'itme3'=>'233',
+		'itms3'=>'10',
+		'itmsk3'=>'z',
 	),
 	69=>array(
 		'itm3'=>'驱云弹',
@@ -418,7 +418,8 @@ $cards=array(
 		'skills'=>array('423'=>'0'),
 	),
 	89=>array(
-		'money'=>'500',
+		'money'=>'100',
+		'skills'=>array('67'=>'0'),
 	),
 	90=>array(
 		'club'=>'18',
@@ -625,6 +626,7 @@ $cards=array(
 	),
 	150=>array(
 		'skills'=>array('474'=>'0'),
+		'hp'=>'500','mhp'=>'500','sp'=>'500','msp'=>'500',
 	),
 );
 $carddesc=array(
@@ -805,12 +807,12 @@ $carddesc=array(
 		'energy'=>100,
 	),
 	22=>array(
-		'name'=>'霸道总裁',
-		'rare'=>'B',
+		'name'=>'霸道总裁喵',
+		'rare'=>'A',
 		'desc'=>'熟练的富家子弟玩家',
 		'pack'=>'Standard Pack',
 		'effect'=>'称号固定为富家子弟',
-		'energy'=>100,
+		'energy'=>250,
 	),
 	23=>array(
 		'name'=>'宇宙神触',
@@ -930,7 +932,7 @@ $carddesc=array(
 		'desc'=>'美国著名新闻工作者',
 		'pack'=>'Standard Pack',
 		'effect'=>'初始属性不知道高到哪里去了',
-		'energy'=>100,
+		'energy'=>150,
 	),
 	38=>array(
 		'name'=>'『芙蓉（Fleur）』',
@@ -946,7 +948,7 @@ $carddesc=array(
 		'desc'=>'英姿飒爽的年轻女性。表面上是城内世家的千金，湾城最大的实业『金龙通讯社』的CEO，实际是佣兵组织红杀的现任当家',
 		'pack'=>'Crimson Swear',
 		'effect'=>'战斗中极高概率发动重击',
-		'energy'=>180,
+		'energy'=>220,
 	),
 	40=>array(
 		'name'=>'『蓝凝（Azure）』',
@@ -1178,7 +1180,7 @@ $carddesc=array(
 		'desc'=>'大家都很讨厌他，他自己却没什么自觉',
 		'pack'=>'Way of Life',
 		'effect'=>'开局携带【风神的神德】',
-		'energy'=>200,
+		'energy'=>100,
 	),
 	69=>array(
 		'name'=>'活雷锋',
@@ -1345,8 +1347,8 @@ $carddesc=array(
 		'rare'=>'S',
 		'desc'=>'富二代的爸爸',
 		'pack'=>'Event Bonus',
-		'effect'=>'开局金钱为500',
-		'energy'=>150,
+		'effect'=>'开局金钱为100，且获得技能「理财」',
+		'energy'=>100,
 	),
 	90=>array(
 		'name'=>'攻坚',
@@ -1402,14 +1404,14 @@ $carddesc=array(
 		'desc'=>'可能是家庭暴力的受害者',
 		'pack'=>'Event Bonus',
 		'effect'=>'每次通常合成物品经验+3，全熟+3',
-		'energy'=>110,
+		'energy'=>50,
 	),
 	97=>array(
 		'name'=>'蛋服挑战者',
 		'rare'=>'B',
 		'desc'=>'来自蛋服的反meta玩家',
 		'pack'=>'Way of Life',
-		'effect'=>'获得技能「断肠」（主动杀死你的玩家失去所有称号技能，然后获得技能「断肠」）',
+		'effect'=>'和玩家战斗时双方称号技能均无效',
 		'energy'=>150,
 	),
 	98=>array(
@@ -1650,7 +1652,7 @@ $carddesc=array(
 		'desc'=>'2016年，大逃杀战场被核子的火焰笼罩！草木干枯，大地开裂，拳法家像死绝了一样',
 		'pack'=>'Way of Life',
 		'effect'=>'但是拳法家并没有死绝！',
-		'energy'=>170,
+		'energy'=>130,
 	),
 	138=>array(
 		'name'=>'藤甲兵',
@@ -1690,7 +1692,7 @@ $carddesc=array(
 		'desc'=>'非洲进口质量保证',
 		'pack'=>'Best DOTO',
 		'effect'=>'攻击敌人时有17%几率使其进入眩晕状态，持续2.5秒',
-		'energy'=>100,
+		'energy'=>130,
 	),
 	143=>array(
 		'name'=>'母山岭巨人',
@@ -1714,7 +1716,7 @@ $carddesc=array(
 		'desc'=>'虽然装备着不朽盾，却不会复活',
 		'pack'=>'Best DOTO',
 		'effect'=>'称号固定为根性兄贵，且获得技能「抗性」「天佑」「重击Lv1」',
-		'energy'=>100,
+		'energy'=>180,
 	),
 	146=>array(
 		'name'=>'矮人狙击手',
@@ -1753,7 +1755,7 @@ $carddesc=array(
 		'rare'=>'B',
 		'desc'=>'今天锻炼了一天，头都是晕的',
 		'pack'=>'Way of Life',
-		'effect'=>'食用补给效果减半；当你主动攻击其他玩家或被击杀时，你失去这个技能，其获得之',
+		'effect'=>'初始生命体力+100，食用补给效果减少30%',
 		'energy'=>130,
 	),
 );
