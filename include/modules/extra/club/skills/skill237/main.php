@@ -100,7 +100,7 @@ namespace skill237
 			}
 			\skillbase\skill_setvalue(601,'start',$var_237,$pd);
 			\skillbase\skill_setvalue(601,'end',$var_237+40,$pd);
-			\skill602\set_stun_period(4000,$pd);
+			\skill602\set_stun_period(2000,$pd);
 			\skill602\send_stun_battle_news($pa['name'],$pd['name']);
 		}
 		$chprocess($pa,$pd,$active);

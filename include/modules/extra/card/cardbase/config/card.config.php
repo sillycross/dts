@@ -1620,7 +1620,7 @@ $carddesc=array(
 		'desc'=>'前6分钟无敌的男人',
 		'pack'=>'Best DOTO',
 		'effect'=>'游戏开始6分钟内，你免疫战斗和陷阱伤害（对少数NPC无效）',
-		'energy'=>100,
+		'energy'=>120,
 	),
 	124=>array(
 		'name'=>'6D挑战者',

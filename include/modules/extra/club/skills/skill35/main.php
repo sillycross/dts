@@ -5,7 +5,7 @@ namespace skill35
 	//物理伤害增加
 	$attgain = Array(20,50,80);
 	//晕眩时间
-	$sk35_stuntime = Array(2,3,4);
+	$sk35_stuntime = Array(1,1,2);
 	//升级所需技能点数值
 	$upgradecost = Array(10,11,-1);
 	//触发率
