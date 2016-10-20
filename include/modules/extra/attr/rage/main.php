@@ -27,7 +27,7 @@ namespace rage
 			$pd['rage']=min($pd['rage'],100);
 			if (\attrbase\check_itmsk('c',$pa)){
 				$pa['rage']++;
-				$pd['rage']=min($pd['rage'],100);
+				$pa['rage']=min($pa['rage'],100);
 			}
 		}
 		$chprocess($pa,$pd, $active);
