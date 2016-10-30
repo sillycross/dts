@@ -239,6 +239,7 @@ skill473,extra/card/skills/skill473/,1
 skill262,extra/club/skills/skill262/,1
 skill263,extra/club/skills/skill263/,1
 skill264,extra/club/skills/skill264/,1
+skill476,extra/instance/gtype3/skill476/,1
 skill242,extra/club/skills/skill242/,1
 skill53,extra/club/skills/skill53/,1
 skill55,extra/club/skills/skill55/,1
@@ -346,6 +347,7 @@ skill50,extra/club/skills/skill50/,1
 skill245,extra/club/skills/skill245/,1
 skill252,extra/club/skills/skill252/,1
 gtype2,extra/instance/gtype2/main/,1
+gtype3,extra/instance/gtype3/main/,1
 skill206,extra/club/skills/skill206/,1
 miracletrap,base/items/miracletrap/,1
 skill243,extra/club/skills/skill243/,1

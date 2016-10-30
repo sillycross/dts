@@ -48,7 +48,7 @@ namespace ex_attr_pierce
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		//贯穿触发后跳过伤抹属性判定
-		if ($pa['physical_pierce_success']) return 0;
+		if ($pa['physical_pierce_success']) return array();
 		return $chprocess($pa, $pd, $active);
 	}
 	

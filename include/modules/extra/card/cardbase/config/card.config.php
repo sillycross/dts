@@ -628,6 +628,38 @@ $cards=array(
 		'skills'=>array('474'=>'0'),
 		'hp'=>'500','mhp'=>'500','sp'=>'500','msp'=>'500',
 	),
+	151=>array(
+		'club'=>'20',
+		'skills'=>array(
+			'10'=>'0','11'=>'0','12'=>'0','23'=>'0','420'=>'0',
+			'476'=>'0',
+		),
+		'wep'=>'精工的泰坦之击',
+		'wepk'=>'WG',
+		'wepe'=>'70',
+		'weps'=>'233',
+		'wepsk'=>'',
+		'itm3'=>'精工的诸天之拳',
+		'itmk3'=>'WP',
+		'itme3'=>'90',
+		'itms3'=>'140',
+		'itmsk3'=>'',
+		'itm4'=>'精工的恐惧之刃',
+		'itmk4'=>'WK',
+		'itme4'=>'80',
+		'itms4'=>'150',
+		'itmsk4'=>'',
+		'itm5'=>'精工的雄鹰之爪',
+		'itmk5'=>'WC',
+		'itme5'=>'75',
+		'itms5'=>'∞',
+		'itmsk5'=>'',
+		'itm6'=>'精工的黑檀之寒',
+		'itmk6'=>'WF',
+		'itme6'=>'36',
+		'itms6'=>'∞',
+		'itmsk6'=>'',
+	),
 );
 $carddesc=array(
 	0=>array(
@@ -1757,6 +1789,14 @@ $carddesc=array(
 		'pack'=>'Way of Life',
 		'effect'=>'初始生命体力+100，食用补给效果减少30%',
 		'energy'=>130,
+	),
+	151=>array(
+		'name'=>'虹光塑师',
+		'rare'=>'B',
+		'desc'=>'mode3 card1',
+		'pack'=>'hidden',
+		'effect'=>'',
+		'energy'=>0,
 	),
 );
 }

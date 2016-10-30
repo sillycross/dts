@@ -34,8 +34,8 @@ namespace skill444
 		{
 			eval(import_module('logger'));
 			if ($active)
-				$log.="<span class=\"yellow\">“就杀那个最菜的！”「怒吼」使你造成的最终伤害提高了50%！</span><br>";
-			else  $log.="<span class=\"yellow\">“就杀那个最菜的！”「怒吼」使敌人造成的最终伤害提高了50%！</span><br>";
+				$log.="<span class=\"yellow\">“就杀那个最菜的！”「怒吼」使你造成的最终伤害提高了100%！</span><br>";
+			else  $log.="<span class=\"yellow\">“就杀那个最菜的！”「怒吼」使敌人造成的最终伤害提高了100%！</span><br>";
 			$r=Array(2);	
 		}
 		return array_merge($r,$chprocess($pa,$pd,$active));
