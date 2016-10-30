@@ -7,6 +7,8 @@ namespace gtype2
 	function prepare_new_game()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $chprocess();
+		//先ban了
 		eval(import_module('sys'));
 		if ($room_prefix!='') return $chprocess();
 		list($sec,$min,$hour,$day,$month,$year,$wday) = explode(',',date("s,i,H,j,n,Y,w",$now));
