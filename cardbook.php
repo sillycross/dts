@@ -6,6 +6,8 @@ require './include/common.inc.php';
 
 require './include/user.func.php';
 
+eval(import_module('cardbase'));
+
 $_REQUEST = gstrfilter($_REQUEST);
 
 if ($_REQUEST["playerID"]=="") {
@@ -31,13 +33,18 @@ if ($_REQUEST["playerID"]=="") {
 	$n=$uname;
 }
 
-$packlist = \cardbase\get_card_pack_list();
+$userCardData = \cardbase\get_user_cardinfo($n);
+$user_cards = $userCardData['cardlist'];;
+$card_energy = $userCardData['cardenergy'];
+$cardChosen = $userCardData['cardchosen'];
 
 $pname = $_REQUEST["packName"];
 if ($pname!="") {
 	if (\cardbase\in_card_pack($pname)) {
 		$pack = \cardbase\get_card_pack($pname);
-		$user_cards = \cardbase\get_user_cards($n);
+		
+		$energy_recover_rate = \cardbase\get_energy_recover_rate($user_cards, $gold);
+		
 		$unlock_cards = array();
 		foreach ($user_cards as $card_index) {
 			if (array_key_exists($card_index, $pack))

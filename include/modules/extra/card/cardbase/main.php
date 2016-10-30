@@ -8,12 +8,119 @@ namespace cardbase
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
 		$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$username'");
-		$pu = $db->fetch_array($result);
-		extract($pu,EXTR_PREFIX_ALL,'p');
-		$carr = explode('_',$p_cardlist);
-		return $carr;
+		$udata = $db->fetch_array($result);
+		if ($udata['cardlist']=="")
+		{
+			$udata['cardlist']="0";
+			$db->query("UPDATE {$gtablepre}users SET cardlist='{$udata['cardlist']}' WHERE username = '$username'");
+		}
+		$cardlist = explode('_',$udata['cardlist']);
+		return $cardlist;
 	}	
-
+	
+	function get_energy_recover_rate($cardlist, $qiegao)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','cardbase'));
+		/*
+		 * 返回 Array ('S'=>..,'A'=>..,'B'=>..,'C'=>0)
+		 */
+		$ret = Array();
+		$ret['S']=100.0/7/86400;	//S卡固定基准CD 7天
+		$ret['C']=0;			//C卡不受能量制影响
+		$cnt=Array(); $cnt['A']=0; $cnt['B']=0;
+		foreach ($cardlist as $key)
+		{
+			if ($carddesc[$key]['rare']=='A') $cnt['A']++;
+			if ($carddesc[$key]['rare']=='B') $cnt['B']++;
+		}
+		//估算现有切糕对卡片数量的影响
+		$bcost = Array('A' => 90/0.05, 'B'=>90/0.2);
+		foreach (Array('A','B') as $ty)
+		{
+			$z=$qiegao;
+			$all=count($cardindex[$ty]);
+			while ($cnt[$ty]<$all && $z>$bcost[$ty]*$all/($all-$cnt[$ty]))
+			{
+				$z-=$bcost[$ty]*$all/($all-$cnt[$ty]);
+				$cnt[$ty]++;
+			}
+		}
+		
+		$tbase = Array('A' => 43200.0, 'B' => 10800.0);
+		foreach (Array('A','B') as $ty)
+		{
+			$z=$cnt[$ty]/2;
+			if ($cnt[$ty]<=6) $z=$cnt[$ty]*2/3; 
+			if ($cnt[$ty]<=3) $z=2; 
+			
+			$tbase[$ty]*=$z;
+			$ret[$ty]=100.0/$tbase[$ty];
+		}
+		return $ret;
+	}
+		
+	function get_user_cardinfo($who)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','cardbase'));
+		$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$who'");
+		$udata = $db->fetch_array($result);
+		if ($udata['cardlist']=="")
+		{
+			$udata['cardlist']="0";
+			$db->query("UPDATE {$gtablepre}users SET cardlist='{$udata['cardlist']}' WHERE username = '$who'");
+		}
+		$cardlist = explode('_',$udata['cardlist']);
+		
+		$energy_recover_rate = get_energy_recover_rate($cardlist, $udata['gold']);
+		
+		$cardenergy=Array();
+		if ($udata['cardenergy']=="") $t=Array(); else $t=explode('_',$udata['cardenergy']);
+		$lastupd = $udata['cardenergylastupd'];
+		for ($i=0; $i<count($cardlist); $i++)
+			if ($i<count($t))
+			{
+				$cardenergy[$cardlist[$i]]=((double)$t[$i])+($now-$lastupd)*$energy_recover_rate[$carddesc[$cardlist[$i]]['rare']];
+				if ($carddesc[$cardlist[$i]]['rare'] == 'C' || $cardenergy[$cardlist[$i]] > $carddesc[$cardlist[$i]]['energy']-1e-5)
+					$cardenergy[$cardlist[$i]] = $carddesc[$cardlist[$i]]['energy'];
+			}
+			else
+			{
+				$cardenergy[$cardlist[$i]] = $carddesc[$cardlist[$i]]['energy'];
+			}
+		
+		$nt='';
+		for ($i=0; $i<count($cardlist); $i++)
+		{
+			$x=(double)$cardenergy[$cardlist[$i]];
+			if ($i>0) $nt.='_';
+			$nt.=$x;
+		}
+		$db->query("UPDATE {$gtablepre}users SET cardenergy='$nt', cardenergylastupd='$now' WHERE username = '$who'");
+		
+		$ret=Array(
+			'cardlist' => $cardlist,
+			'cardenergy' => $cardenergy,
+			'cardchosen' => $udata['card']
+		);
+		return $ret;
+	}
+	
+	function save_cardenergy($data, $who)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		$nt='';
+		for ($i=0; $i<count($data['cardlist']); $i++)
+		{
+			$x=(double)$data['cardenergy'][$data['cardlist'][$i]];
+			if ($i>0) $nt.='_';
+			$nt.=$x;
+		}
+		$db->query("UPDATE {$gtablepre}users SET cardenergy='$nt' WHERE username = '$who'");
+	}
+	
 	function get_card($ci,$pa=NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -64,11 +171,40 @@ namespace cardbase
 		eval(import_module('cardbase','sys','logger','map'));
 		$qiegaogain=0;
 		if (!in_array($gametype,$qiegao_ignore_mode)){		
-			if (($pd['type']==90)&&(($areanum/$areaadd)<1)&&(rand(0,99)<10)){//杂兵
-				$qiegaogain=rand(7,15);
+			if ($pd['type']==90)	//杂兵
+			{
+				if ($areanum/$areaadd<1)	//0禁
+				{
+					$dice = rand(0,99);
+					if ($dice<5) 
+						$qiegaogain=rand(7,15);
+					else if ($dice<20)
+						$qiegaogain=rand(3,7);
+					else if ($dice<50)
+						$qiegaogain=rand(1,3);
+				}
+				else if ($areanum/$areaadd<2)	//1禁
+				{
+					$dice = rand(0,99);
+					if ($dice<5) 
+						$qiegaogain=rand(3,5);
+					else if ($dice<15)
+						$qiegaogain=rand(1,3);
+				}
 			}
-			if (($pd['type']==2)&&(($areanum/$areaadd)<1)){//幻象
-				$qiegaogain=rand(9,19);
+			if ($pd['type']==2)	//幻象
+			{
+				if ($areanum/$areaadd<1)
+				{
+					$qiegaogain=rand(9,19);
+				}
+				else if ($areanum/$areaadd<2)
+				{
+					$dice=rand(0,99);
+					if ($dice<30)
+						$qiegaogain=rand(3,7);
+					else  $qiegaogain=rand(1,3);
+				}
 			}
 		}
 		return $qiegaogain;
@@ -119,7 +255,6 @@ namespace cardbase
 		eval(import_module('cardbase'));
 		return $packlist;
 	}
-
 
 	function in_card_pack($packname) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;

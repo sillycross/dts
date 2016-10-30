@@ -27,7 +27,7 @@ namespace wep_f
 		//各种攻击方式的伤害变动范围，越少越稳定。
 		$dmg_fluc['F'] = 10;
 		//每点熟练度增加的伤害
-		$skill_dmg['F'] = 0.1;
+		$skill_dmg['F'] = 0.3;
 		//各种攻击方式的武器损伤概率
 		$wepimprate['F'] = 10000;
 		//以该类武器击杀敌人后的死亡状态标号
@@ -54,7 +54,7 @@ namespace wep_f
 	function get_WF_sp_cost(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return round(0.4*$pa['wepe']);
+		return max(round(0.2*$pa['wepe']),1);
 	}
 	
 	function get_WF_dmg_multiplier(&$pa, &$pd, $active)

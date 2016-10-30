@@ -97,6 +97,8 @@ namespace battle
 			ob_clean();
 			$action = '';
 		}
+		
+		if (defined('MOD_CLUBBASE')) include template(MOD_CLUBBASE_NPCSKILLPAGE);
 	}
 }
 

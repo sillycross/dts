@@ -1,0 +1,26 @@
+<!--{eval $___TEMP_SKILL_ID=242;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+灵感
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<!--{eval $remcnt=$lvl-(int)\skillbase\skill_getvalue(242,'c');}-->
+<!--{eval $sk242id=(int)\skillbase\skill_getvalue(242,'i'); $sk242n=($sk242id==0?'暂无':$clubskillname[$sk242id]);}-->
+随机获得一个其他称号的技能，每次升级可以获得一次改变的机会<br>
+目前还可改变<span class="yellow">$remcnt</span>次，当前你获得的技能是<span class="yellow">$sk242n</span>
+</span></td>
+<td class=b3 width=46>
+<!--{if $remcnt>0}-->
+<input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill242_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="改变">
+<!--{else}-->
+<input type="button" style="width:46px" disabled="true" value="改变">
+<!--{/if}-->
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+7级时解锁
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

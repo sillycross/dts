@@ -1,5 +1,8 @@
 现在想要做什么？<br><br>
 向对手大喊：<br><input size="30" type="text" name="message" maxlength="60"><br><br>
+<!--{if defined('MOD_SKILL262') && \skillbase\skill_query(262) && \skill262\check_unlocked262($sdata)}-->
+{template MOD_SKILL262_SK262UI}
+<!--{/if}-->
 <input type="hidden" name="mode" value="combat">
 <input type="hidden" id="command" name="command" value="back">
 <!--{if (!defined('MOD_CLUBBASE'))}-->
@@ -27,4 +30,5 @@
 </tr>
 </table>
 <!--{/if}-->
+{template MOD_CLUBBASE_NPCSKILLPAGE}
 

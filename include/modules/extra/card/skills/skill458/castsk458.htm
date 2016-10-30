@@ -1,0 +1,29 @@
+<input type="hidden" name="mode" value="special">
+<input type="hidden" id="command" name="command" value="skill458_special">
+<input type="hidden" id="subcmd" name="subcmd" value="castsk458">
+这个技能允许你将任意物品转换为命体恢复补给。已经是补给类型的物品不能转换。<br><br>
+请选择将转换为补给的物品。转换过程不可逆！<br> 
+<select id="skill458_choice" name="skill458_choice" value="back">
+<option value="back">返回<br>
+<!--{if $itms1 && $itmk1[0]!='H' && $itmk1[0]!='P'}-->
+<option value="1"><span class="yellow">{$itm1}</span>/{$itme1}/{$itms1}<br>
+<!--{/if}-->
+<!--{if $itms2 && $itmk2[0]!='H' && $itmk2[0]!='P'}-->
+<option value="2"><span class="yellow">{$itm2}</span>/{$itme2}/{$itms2}<br>
+<!--{/if}-->
+<!--{if $itms3 && $itmk3[0]!='H' && $itmk3[0]!='P'}-->
+<option value="3"><span class="yellow">{$itm3}</span>/{$itme3}/{$itms3}<br>
+<!--{/if}-->
+<!--{if $itms4 && $itmk4[0]!='H' && $itmk4[0]!='P'}-->
+<option value="4"><span class="yellow">{$itm4}</span>/{$itme4}/{$itms4}<br>
+<!--{/if}-->
+<!--{if $itms5 && $itmk5[0]!='H' && $itmk5[0]!='P'}-->
+<option value="5"><span class="yellow">{$itm5}</span>/{$itme5}/{$itms5}<br>
+<!--{/if}-->
+<!--{if $itms6 && $itmk6[0]!='H' && $itmk6[0]!='P'}-->
+<option value="6"><span class="yellow">{$itm6}</span>/{$itme6}/{$itms6}<br>
+<!--{/if}-->
+</select>
+<br><br>
+<input type="button" class="cmdbutton" name="submit" id="z" value="[Z]提交" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="button" class="cmdbutton" name="submit" id="x" value="[X]返回" onclick="$('command').value='menu'; postCmd('gamecmd','command.php');this.disabled=true;">

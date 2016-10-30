@@ -15,10 +15,6 @@ if($udata['groupid'] <= 0) { gexit($_ERROR['user_ban'], __file__, __line__); }
 
 extract($udata);
 $cg=$udata['gold'];
-if ($udata['cardlist']==""){
-	$udata['cardlist']="0";
-	$db->query("UPDATE {$gtablepre}users SET cardlist='0' WHERE username='$cuser'");
-}
 
 $kreq=array(0=>100,1=>1000,2=>250);
 

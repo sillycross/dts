@@ -1,0 +1,26 @@
+<!--{if (($edata['type']>0)&&(!$fog)&&(\skillbase\skill_query(460,$edata)))}-->
+<!--{eval $tdata['showskill']=1;}-->
+<!--{eval \bubblebox\bubblebox_set_style('id:npcskill;height:353;width:518;cancellable:1;');}-->
+{template MOD_BUBBLEBOX_START}
+<p style="margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px;">
+<br>
+<!--于是经过各种边框，最后工作区的大小是height:314px width:509px--> 
+以下是该NPC<span class="yellow">独有</span>的技能列表。请注意描述文字中的“<span class="yellow">你</span>”指代的是这个NPC。<br><br>
+</p>
+<TABLE border="0" cellSpacing=0 cellPadding=0 width=509px>
+<tr>
+<td width="0"></td>
+<TD class=b1 width="40"><span>名称</span></TD>
+<TD class=b1><span></span></TD>
+</tr>
+<!--{eval \clubbase\get_npcskillpage($edata);}-->
+</table>
+<br>
+<p>
+
+<input class="cmdbutton" onclick="bubblebox_hide_all();" value="关闭技能列表" type="button">
+
+&nbsp;&nbsp;&nbsp; 提示:点击技能界面外任意位置也可以关闭技能列表<br>
+</p>
+{template MOD_BUBBLEBOX_END}
+<!--{/if}-->

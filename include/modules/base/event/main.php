@@ -392,7 +392,7 @@ namespace event
 			}
 			//echo $rp;
 		}elseif ($pls==34){//英灵殿
-			if (($art!='Untainted Glory')&&($gamestate != 50)){
+			if (($art!='Untainted Glory')&&($gamestate != 50)&&($gametype!=2)){
 				$rpls=-1;
 				while ($rpls<0 || $arealist[$rpls]==34){
 					if($hack){$rpls = rand(0,sizeof($plsinfo)-1);}

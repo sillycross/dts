@@ -122,6 +122,7 @@ namespace weapon
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$x=get_weapon_fluc_max_range($pa,$pd,$active);
+		if ($x>99) $x=99;
 		return rand(-$x,$x);
 	}
 	

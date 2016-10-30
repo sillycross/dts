@@ -1,0 +1,14 @@
+<!--{eval eval(import_module('sys','skill440'));}-->
+<!--{eval $lastuse=\skillbase\skill_getvalue(440,'lastuse'); $sk440_rem=$skill440_cd-($now-$lastuse); $sk440_dmg=$lvl+30;}-->
+<!--{if $now-$lastuse>=$skill440_cd}-->
+<input type="button" class="cmdbutton" style="width:98" name="" value="父爱" 
+onclick="$('command').value='$w1';$('bskill').value=440;postCmd('gamecmd','command.php');this.disabled=true;"><br />
+<div style="width:90%; text-align:left;">
+本次战斗中敌方玩家所有称号技能无效
+</div>
+<!--{else}-->
+<input type="button" class="cmdbutton" style="width:98" name="" value="父爱" disabled="true"><br />
+<div style="width:90%; text-align:left;">
+冷却时间还剩<span class="clan">$sk440_rem</span>秒
+</div>
+<!--{/if}-->

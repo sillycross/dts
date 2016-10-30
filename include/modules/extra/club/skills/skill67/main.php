@@ -6,7 +6,7 @@ namespace skill67
 	{
 		define('MOD_SKILL67_INFO','club;');
 		eval(import_module('clubbase'));
-		$clubskillname[67] = '利息';
+		$clubskillname[67] = '理财';
 	}
 	
 	function acquire67(&$pa)

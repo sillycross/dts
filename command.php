@@ -378,9 +378,6 @@ player\post_act();
 
 $endtime = $now;
 
-\player\update_sdata();
-\player\player_save($sdata);
-
 if ($___MOD_SRV)
 {
 	$timecost = microtime(true) - $pagestartimez;
@@ -431,7 +428,7 @@ if($hp <= 0) {
 
 if(isset($url)){$gamedata['url'] = $url;}
 $gamedata['innerHTML']['pls'] = $plsinfo[$pls];
-$gamedata['innerHTML']['anum'] = $alivenum;
+if ($gametype!=2) $gamedata['innerHTML']['anum'] = $alivenum; else $gamedata['innerHTML']['anum'] = $validnum;
 
 ob_clean();
 $main ? include template($main) : include template('profile');
@@ -467,5 +464,9 @@ $gamedata['innerHTML']['log'] = $log;
 $jgamedata=base64_encode(gzencode(compatible_json_encode($gamedata)));
 ob_clean();
 echo $jgamedata;
+
+\player\update_sdata();
+\player\player_save($sdata);
+
 
 ?>

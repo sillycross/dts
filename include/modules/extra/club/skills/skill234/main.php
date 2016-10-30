@@ -22,7 +22,7 @@ namespace skill234
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		\skillbase\skill_delvalue(234,'lvl',$pa);
 		\skillbase\skill_delvalue(234,'cur1',$pa);
-		\skillbase\skill_setvalue(234,'cur2',0,$pa);
+		\skillbase\skill_delvalue(234,'cur2',$pa);
 	}
 	
 	function check_unlocked234(&$pa)

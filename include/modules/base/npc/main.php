@@ -16,6 +16,12 @@ namespace npc
 		$lwinfo+=$npc_lwinfo;
 	}
 	
+	function check_initnpcadd($typ)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		return 1;
+	}
+	
 	function rs_game($xmode = 0) {
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		
@@ -33,6 +39,7 @@ namespace npc
 				if(!empty($npcs)) {
 					if (sizeof($npcs['sub'])>$npcs['num'])shuffle($npcs['sub']);
 					for($j = 1; $j <= $npcs['num']; $j++) {
+						if (!check_initnpcadd($i)) continue;
 						$npc = array_merge($npcinit,$npcs);
 						//$npc = $npcinfo[$i];
 						$npc['type'] = $i;
@@ -69,6 +76,7 @@ namespace npc
 						unset($qry);
 						
 						if (is_array($npc['skills'])){
+							$npc['skills']['460']='0';
 							$qry="SELECT * FROM {$tablepre}players WHERE type>'0' ORDER BY pid DESC LIMIT 1";
 							$result=$db->query($qry);
 							$pr=$db->fetch_array($result);

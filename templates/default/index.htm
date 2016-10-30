@@ -24,7 +24,33 @@
 	</tr>
 	<tr>
 		<td><span class="yellow">{lang gameinfo}：</span></td>
-		<td style="text-align:left;"><span class="evergreen"><span class="evergreen2"><!--{if $room_prefix!=''}--><!--{if $room_prefix=='n'}--><span class="yellow">新手区&nbsp;</span>{lang numinfo}<!--{else}--><!--{if $room_prefix[0]=='s'}--><span class="yellow"><!--{eval echo '房间&nbsp;'.substr($room_prefix,1).'&nbsp;';}--></span><!--{/if}--><!--{/if}--><!--{else}-->{lang numinfo}<!--{/if}-->{$gstate[$gamestate]}</span></span></td>
+		<td style="text-align:left;">
+		<span class="evergreen">
+		<span class="evergreen2">
+		<!--{if $room_prefix!=''}-->
+			<!--{if $room_prefix=='n'}-->
+				<span class="yellow">新手区&nbsp;</span>{lang numinfo}
+			<!--{else}-->
+				<!--{if $room_prefix[0]=='s'}-->
+					<span class="yellow"><!--{eval echo '房间&nbsp;'.substr($room_prefix,1).'&nbsp;';}--></span>
+				<!--{/if}-->
+			<!--{/if}-->
+		<!--{else}-->
+			{lang numinfo}
+		<!--{/if}-->
+		<!--{if $gametype==1}-->
+			<span class="clan">除错挑战！</span>
+		<!--{/if}-->
+		<!--{if $gametype==2}-->
+			<span class="orange">周五活动！</span>
+		<!--{/if}-->
+		<!--{if $gametype==3}-->
+			<span class="lime">宝石乱斗！</span>
+		<!--{/if}-->
+		{$gstate[$gamestate]}
+		</span>
+		</span>
+		</td>
 	</tr>
 	<tr>
 		<td colspan="2" style="vertical-align:top;">

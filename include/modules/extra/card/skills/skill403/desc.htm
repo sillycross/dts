@@ -1,6 +1,6 @@
 <!--{eval eval(import_module('skill403'));}-->
 <!--{eval $___TEMP_SKILL_ID=403;}-->
-<!--{eval $clv = (int)\skillbase\skill_getvalue(403,'lvl'); }-->
+<!--{eval $clv = (int)\skillbase\skill_getvalue(403,'lvl',$who); }-->
 <!--{eval $skname = $paneldesc[$clv]; }-->
 {template MOD_CLUBBASE_SKILLDESC_START}
 <span>
@@ -8,7 +8,7 @@ $skname
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
-攻击后有<span class="yellow">$procrate[$clv]%</span>概率追加攻击。<br>
+每次攻击结束后，有<span class="yellow">$procrate[$clv]%</span>概率追加攻击<br>
 </span></td>
 <td class=b3 width=46>
 </td>

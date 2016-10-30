@@ -51,7 +51,7 @@ namespace skill322
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
-		if (($theitem['itm']=="杏仁豆腐的ID卡")&&($theitem['itmk']=="Y")&&($gamestate>=30)&&($gamestate<50)){
+		if (($theitem['itm']=="杏仁豆腐的ID卡")&&($theitem['itmk']=="Z")&&($gamestate>=30)&&($gamestate<50)){
 			if (\skillbase\skill_query(322)){
 				\skillbase\skill_setvalue(322,'cnt',$now-$starttime);
 				\player\player_save($sdata);

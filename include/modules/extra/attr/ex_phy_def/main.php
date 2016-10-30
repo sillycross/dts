@@ -34,6 +34,14 @@ namespace ex_phy_def
 		return 90;
 	}
 	
+	function check_ex_phy_def_proc(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$proc_rate = get_ex_phy_def_proc_rate($pa, $pd, $active);
+		$dice = rand(0,99);
+		return ($dice<$proc_rate);
+	}
+	
 	//注意这个函数返回的必须是一个数组
 	function check_physical_def_attr(&$pa, &$pd, $active)
 	{
@@ -44,9 +52,7 @@ namespace ex_phy_def
 			$ex_def_array = \attrbase\get_ex_def_array($pa, $pd, $active);
 			if (in_array($def_kind[$pa['wep_kind']], $ex_def_array) || in_array('A', $ex_def_array))
 			{
-				$proc_rate = get_ex_phy_def_proc_rate($pa, $pd, $active);
-				$dice = rand(0,99);
-				if ($dice<$proc_rate)
+				if (check_ex_phy_def_proc($pa,$pd,$active))
 				{
 					if ($active)
 						$log .= "<span class=\"yellow\">{$pd['name']}的装备使你的攻击伤害减半了！</span><br>";

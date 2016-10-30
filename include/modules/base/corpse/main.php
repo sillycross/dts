@@ -38,7 +38,7 @@ namespace corpse
 		if ($corpse_dice < $corpse_obbs) return 1; else return 0;
 	}
 	
-	function findcorpse($edata){
+	function findcorpse(&$edata){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','player','itemmain','metman','logger'));
@@ -85,7 +85,7 @@ namespace corpse
 			if($cid){
 				$result = $db->query("SELECT * FROM {$tablepre}players WHERE pid='$cid' AND hp=0");
 				if($db->num_rows($result)>0){
-					$edata = $db->fetch_array($result);
+					$edata = \player\fetch_playerdata_by_pid($cid);
 					extract($edata,EXTR_PREFIX_ALL,'w');
 					findcorpse($edata);
 					\metman\init_battle(1);
@@ -97,41 +97,11 @@ namespace corpse
 		$chprocess();
 	}
 	
-	function getcorpse($item){
+	function getcorpse_action(&$edata, $item)
+	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','player','logger'));
-		
-		$corpseid = strpos($action,'corpse')===0 ? str_replace('corpse','',$action) : str_replace('pacorpse','',$action);
-		if(!$corpseid || strpos($action,'corpse')===false){
-			$log .= '<span class="yellow">你没有遇到尸体，或已经离开现场！</span><br>';
-			$action = '';
-			$mode = 'command';
-			return;
-		}
-
-		$result = $db->query("SELECT * FROM {$tablepre}players WHERE pid='$corpseid'");
-		if(!$db->num_rows($result)){
-			$log .= '对方不存在！<br>';
-			$action = '';
-			$mode = 'command';
-			return;
-		}
-
-		//$edata = $db->fetch_array($result);
-		$edata=\player\fetch_playerdata_by_pid($corpseid);
-		
-		if($edata['hp']>0) {
-			$log .= '对方尚未死亡！<br>';
-			$action = '';
-			$mode = 'command';
-			return;
-		} elseif($edata['pls'] != $pls) {
-			$log .= '对方跟你不在同一个地图！<br>';
-			$action = '';
-			$mode = 'command';
-			return;
-		}
 		
 		if($item == 'wep') {
 			$itm0 = $edata['wep'];
@@ -192,9 +162,6 @@ namespace corpse
 			$action = '';
 			return;
 		}
-
-		\player\player_save($edata);
-
 		if(!$itms0||!$itmk0||$itmk0=='WN'||$itmk0=='DN') {
 			$log .= '该物品不存在！';
 		} else {
@@ -202,6 +169,48 @@ namespace corpse
 		}
 		$action = '';
 		$mode = 'command';
+	}
+	
+	function getcorpse($item){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		eval(import_module('sys','player','logger'));
+		
+		$corpseid = strpos($action,'corpse')===0 ? str_replace('corpse','',$action) : str_replace('pacorpse','',$action);
+		if(!$corpseid || strpos($action,'corpse')===false){
+			$log .= '<span class="yellow">你没有遇到尸体，或已经离开现场！</span><br>';
+			$action = '';
+			$mode = 'command';
+			return;
+		}
+
+		$result = $db->query("SELECT * FROM {$tablepre}players WHERE pid='$corpseid'");
+		if(!$db->num_rows($result)){
+			$log .= '对方不存在！<br>';
+			$action = '';
+			$mode = 'command';
+			return;
+		}
+
+		//$edata = $db->fetch_array($result);
+		$edata=\player\fetch_playerdata_by_pid($corpseid);
+		
+		if($edata['hp']>0) {
+			$log .= '对方尚未死亡！<br>';
+			$action = '';
+			$mode = 'command';
+			return;
+		} elseif($edata['pls'] != $pls) {
+			$log .= '对方跟你不在同一个地图！<br>';
+			$action = '';
+			$mode = 'command';
+			return;
+		}
+		
+		getcorpse_action($edata,$item);
+		
+		\player\player_save($edata);
+
 		return;
 	}
 
@@ -221,7 +230,7 @@ namespace corpse
 			if($cid){
 				$result = $db->query("SELECT * FROM {$tablepre}players WHERE pid='$cid' AND hp=0");
 				if($db->num_rows($result)>0){
-					$edata = $db->fetch_array($result);
+					$edata = \player\fetch_playerdata_by_pid($cid);
 					findcorpse($edata);
 					return;
 				}	
