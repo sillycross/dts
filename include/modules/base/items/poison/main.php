@@ -133,7 +133,7 @@ namespace poison
 		$itm = & ${'itm'.$itmn};
 		$itmk = & ${'itmk'.$itmn};
 		$itmsk = & ${'itmsk'.$itmn};
-		$log.=$itmk.' '.$poison;
+		//$log.=$itmk.' '.$poison;
 		if(($poison != '毒药') || (strpos($itmk, 'H') !==0 && strpos($itmk, 'P') !== 0)) {
 			$log .= '道具选择错误，请重新选择。<br>';
 			$mode = 'command';

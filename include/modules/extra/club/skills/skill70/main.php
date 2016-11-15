@@ -10,7 +10,7 @@ namespace skill70
 	function acquire70(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$pa['skillpoint']+=3;
+		$pa['skillpoint']+=5;
 		eval(import_module('weapon'));
 		foreach (array_unique(array_values($skillinfo)) as $key)
 			$pa[$key]+=5;
@@ -42,9 +42,11 @@ namespace skill70
 		if (!\skillbase\skill_query(70,$pa)) return $chprocess($pa,$pd,$active,$wep_kind);
 		eval(import_module('weapon'));
 		$fsk=$chprocess($pa,$pd,$active,$wep_kind);
+		$r70=0.25;
+		if ($pa['lvl']>=19) $r70=0.55;
 		foreach (array_unique(array_values($skillinfo)) as $key)
 			if ($key!=$wep_kind)
-				$fsk+=0.25*$pa[$key];
+				$fsk+=$r70*$pa[$key];
 		$fsk=round($fsk);
 		return $fsk;
 	}

@@ -41,9 +41,11 @@ namespace item_misc
 				\itemmain\itms_reduce($theitem);
 				return;
 			} elseif ($itm == '凸眼鱼') {
-				eval(import_module('corpse'));
+				eval(import_module('sys','corpse'));
 				$tm = $now - $corpseprotect;//尸体保护
-				$db->query ( "UPDATE {$tablepre}players SET state='16',weps='0',arbs='0',arhs='0',aras='0',arfs='0',arts='0',itms0='0',itms1='0',itms2='0',itms3='0',itms4='0',itms5='0',itms6='0',money='0' WHERE hp <= 0 AND endtime <= $tm" );
+				if ($gametype!=2)
+					$db->query ( "UPDATE {$tablepre}players SET corpse_clear_flag='1',weps='0',arbs='0',arhs='0',aras='0',arfs='0',arts='0',itms0='0',itms1='0',itms2='0',itms3='0',itms4='0',itms5='0',itms6='0',money='0' WHERE hp <= 0 AND endtime <= $tm" );
+				else	$db->query ( "UPDATE {$tablepre}players SET corpse_clear_flag='1',weps='0',arbs='0',arhs='0',aras='0',arfs='0',arts='0',itms0='0',itms1='0',itms2='0',itms3='0',itms4='0',itms5='0',itms6='0',money='0' WHERE type > 0 AND hp <= 0 AND endtime <= $tm" );
 				$cnum = $db->affected_rows ();
 				addnews ( $now, 'corpseclear', $name, $cnum );
 				$log .= "使用了<span class=\"yellow\">$itm</span>。<br>突然刮起了一阵怪风，吹走了地上的{$cnum}具尸体！<br>";
@@ -122,6 +124,12 @@ namespace item_misc
 				$url = 'end.php';
 				\sys\gameover ( $now, 'end7', $name );
 			}elseif ($itm == '杏仁豆腐的ID卡') {
+				eval(import_module('sys'));
+				if ($gametype==2)
+				{
+					$log.='本模式下不可用。<br>';
+					return;
+				}
 				$duelstate = \gameflow_duel\duel($now,$itm);
 				if($duelstate == 50){
 					$log .= "<span class=\"yellow\">你使用了{$itm}。</span><br><span class=\"evergreen\">“干得不错呢，看来咱应该专门为你清扫一下战场……”</span><br><span class=\"evergreen\">“所有的NPC都离开战场了。好好享受接下来的杀戮吧，祝你好运。”</span>——林无月<br>";
@@ -161,11 +169,11 @@ namespace item_misc
 				} elseif ($itm == '提示纸条C') {
 					$log .= '你读着纸条上的内容：<br>“小心！那个叫红暮的家伙很强！”<br>“不过她太依赖自己的枪了，有什么东西能阻挡那伤害的话……”<br>';
 				} elseif ($itm == '提示纸条D') {
-					$log .= '你读着纸条上的内容：<br>“我不知道另外那个孩子的底细。如果我是你的话，不会随便乱惹她。”<br>“但是她貌似手上拿着符文册之类的东西。”<br>“也许可以利用射程优势？！”<br>“你知道的，法师的射程都不咋样……”';
+					$log .= '你读着纸条上的内容：<br>“喂你真的是全部买下来了么……”<br>“这样的提示纸条不止这四种，其他的纸条估计被那两位撒出去了吧。”<br>“总之祝你好运。”<br>';
 				} elseif ($itm == '提示纸条E') {
 					$log .= '你读着纸条上的内容：<br>“生存并不能靠他人来喂给你知识，”<br>“有一套和元素有关的符卡的公式是没有出现在帮助里面的，用逻辑推理好好推理出正确的公式吧。”<br>“金木水火土在这里都能找到哦～”<br>';
 				} elseif ($itm == '提示纸条F') {
-					$log .= '你读着纸条上的内容：<br>“喂你真的是全部买下来了么……”<br>“这样的提示纸条不止这六种，其他的纸条估计被那两位撒出去了吧。”<br>“总之祝你好运。”<br>';
+					$log .= '你读着纸条上的内容：<br>“我不知道另外那个孩子的底细。如果我是你的话，不会随便乱惹她。”<br>“但是她貌似手上拿着符文册之类的东西。”<br>“也许可以利用射程优势？！”<br>“你知道的，法师的射程都不咋样……”<br>';
 				} elseif ($itm == '提示纸条G') {
 					$log .= '你读着纸条上的内容：<br>“上天保佑，”<br>“请不要在让我在模拟战中被击坠了！”<br>“空羽 上。”<br>';
 				} elseif ($itm == '提示纸条H') {
@@ -201,6 +209,12 @@ namespace item_misc
 			} else if (substr($itm,0,strlen('任务指令书'))=='任务指令书') {
 				if ($itm == '任务指令书A') {
 					$log .= '指令书上这样写着：<br>“很高兴大家能来参与幻境系统的除错工作。”<br>“我们对系统进行了一些调整，就算遭遇袭击和陷阱也不会造成致命伤害，所以请尽管放心。”<br>“任务结束后我们会根据工作量发放相应的奖励。”<br>';
+				} else if ($itm == '任务指令书B') {
+					ob_clean();
+					include template('MOD_SKILL475_EXPLANATION');
+					$log .= ob_get_contents();
+					ob_clean();
+					return;
 				} else {
 					$log .= '你展开了指令书，发现上面什么都没写。<br>';
 				}

@@ -32,7 +32,11 @@ namespace skill55
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($a=='caller_id') return 55;
 		if ($a=='show_cost') return 0;
-		if ($a=='is_learnable') return 1;
+		if ($a=='is_learnable') 
+		{
+			if ((int)$b==257) return 0;
+			return 1;
+		}
 		if ($a=='now_learnable') 
 		{
 			if (((int)\skillbase\skill_getvalue(55,'l'))==0) return 1;

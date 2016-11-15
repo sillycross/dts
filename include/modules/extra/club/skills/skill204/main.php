@@ -33,7 +33,10 @@ namespace skill204
 			eval(import_module('logger'));
 			$gold_r = ($pa['club']==3?2.5:1.5);
 			$var_204=round($pa['lvl']*$gold_r);
-			$log.='<span class="yellow">「掠夺」技能使你立即获得了'.$var_204.'元！<br></span>';
+			if ($active)
+				$log.='<span class="yellow">「掠夺」技能使你立即获得了'.$var_204.'元！<br></span>';
+			else  $log.='<span class="yellow">「掠夺」技能使敌人立即获得了'.$var_204.'元！<br></span>';
+			
 			$pa['money']+=$var_204;
 		}
 		$chprocess($pa, $pd, $active);

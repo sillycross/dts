@@ -155,7 +155,7 @@ class dbstuff {
 		return $query;
 	}
 	
-	function array_update($dbname, $data, $where){ //根据$data的键和键值更新数据
+	function array_update($dbname, &$data, $where){ //根据$data的键和键值更新数据
 		$query = "UPDATE {$dbname} SET ";
 		foreach ($data as $key => $value) {
 			$query .= "{$key} = '{$value}',";

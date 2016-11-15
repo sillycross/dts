@@ -30,7 +30,7 @@ namespace skill61
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player'));
 		if ($pa===NULL) $clb=$club; else $clb=$pa['club'];
-		if ($clb==24) return 35; else return 20;
+		if ($clb==24) return 35; else return 15;
 	}
 	
 	function get_hp_procrate61(&$pa = NULL)
@@ -38,7 +38,7 @@ namespace skill61
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player'));
 		if ($pa===NULL) $clb=$club; else $clb=$pa['club'];
-		if ($clb==24) return 35; else return 20;
+		if ($clb==24) return 35; else return 15;
 	}
 
 	function strike_finish(&$pa, &$pd, $active)

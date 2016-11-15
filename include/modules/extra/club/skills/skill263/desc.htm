@@ -1,0 +1,25 @@
+<!--{eval eval(import_module('skill263','sys'));}-->
+<!--{eval $___TEMP_SKILL_ID=263;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+格斗
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<!--{if $club==19}-->
+你的基础防御力增加<span class="yellow">殴熟</span>点<br>
+战斗中，你有<span class="yellow">20%</span>几率抵挡<span class="yellow">殴熟</span>点伤害(最多800点)
+<!--{else}-->
+你的基础防御力增加<span class="yellow">殴熟</span>点<br>
+战斗中，你有<span class="yellow">10%</span>几率抵挡<span class="yellow">殴熟</span>点伤害(最多800点)
+<!--{/if}-->
+</span></td>
+<td class=b3 width=46>
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+11级时解锁
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

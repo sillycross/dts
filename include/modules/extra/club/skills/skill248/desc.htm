@@ -1,0 +1,80 @@
+<!--{eval eval(import_module('skill248'));}-->
+<!--{eval $___TEMP_SKILL_ID=248;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+天助
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:6px; display:block;">
+<!--{eval $clv1 = (int)\skillbase\skill_getvalue(248,'lvl1'); }-->
+<!--{eval $clv2 = (int)\skillbase\skill_getvalue(248,'lvl2'); }-->
+<!--{eval $clv3 = (int)\skillbase\skill_getvalue(248,'lvl3'); }-->
+<!--{eval $v1 = \skill248\calculate_skill248_hide_gain($clv1); }-->
+<!--{eval $v2 = \skill248\calculate_skill248_obbs_gain($clv1); }-->
+<!--{eval $v3 = \skill248\calculate_skill248_dodge_gain($clv2); }-->
+<!--{eval $v4 = \skill248\calculate_skill248_dodge_r_gain($clv2); }-->
+<!--{eval $v5 = \skill248\calculate_skill248_counter_gain($clv2); }-->
+<!--{eval $v6 = \skill248\calculate_skill248_hitrate_gain($clv3); }-->
+<!--{eval $v7 = \skill248\calculate_skill248_hitrate_r_gain($clv3); }-->
+<!--{eval if ($clv1==0) $cl1='grey'; else if ($clv1<=3) $cl1='white'; else if ($clv1<=9) $cl1='yellow'; else if ($clv1<=15) $cl1='orange'; else $cl1='red';}-->
+<!--{eval if ($clv2==0) $cl2='grey'; else if ($clv2<=3) $cl2='white'; else if ($clv2<=9) $cl2='yellow'; else if ($clv2<=15) $cl2='orange'; else $cl2='red';}-->
+<!--{eval if ($clv3==0) $cl3='grey'; else if ($clv3<=3) $cl3='white'; else if ($clv3<=9) $cl3='yellow'; else if ($clv3<=15) $cl3='orange'; else $cl3='red';}-->
+使用技能点强化你的相应属性，各项升级均每次消耗<span class="lime">1</span>技能点
+<span style="height:4px; display:block;">&nbsp;</span>
+<table align="center" text-align="center" width="420px" CellSpacing=0 CellPadding=0>
+<tr>
+<td class="b3" width="115px">隐蔽率/先攻率</td>
+<td class="b3" width="46px"><span class="$cl1"><span>$clv1</span>/20</span></td>
+<td class="b3" width="115px">闪避率/反击率</td>
+<td class="b3" width="46px"><span class="$cl2"><span>$clv2</span>/20</span></td>
+<td class="b3" width="50px">命中率</td>
+<td class="b3" width="46px"><span class="$cl3"><span>$clv3</span>/20</span></td>
+</tr>
+<tr>
+<td class="b3"> 
+<span class="$cl1">+<span>$v1</span>% +<span>$v2</span>%</span>
+</td>
+<td class="b3">
+<!--{if $clv1<20}-->
+<!--{if $skillpoint>0}-->
+<input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill248_special';$('subcmd').value='upgrade';$('skillpara1').value='1';postCmd('gamecmd','command.php');this.disabled=true;" value="升级">
+<!--{else}-->
+<input type="button" style="width:46px" disabled="true" value="升级">
+<!--{/if}-->
+<!--{/if}-->
+</td>
+<td class="b3"> 
+<span class="$cl2">+<span>$v3</span>% <!--+<span>$v4</span>%--> +<span>$v5</span>%</span>
+</td>
+<td class="b3">
+<!--{if $clv2<20}-->
+<!--{if $skillpoint>0}-->
+<input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill248_special';$('subcmd').value='upgrade';$('skillpara1').value='2';postCmd('gamecmd','command.php');this.disabled=true;" value="升级">
+<!--{else}-->
+<input type="button" style="width:46px" disabled="true" value="升级">
+<!--{/if}-->
+<!--{/if}-->
+</td>
+<td class="b3"> 
+<span class="$cl3">+<span>$v6</span>%</span>
+</td>
+<td class="b3">
+<!--{if $clv3<20}-->
+<!--{if $skillpoint>0}-->
+<input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill248_special';$('subcmd').value='upgrade';$('skillpara1').value='3';postCmd('gamecmd','command.php');this.disabled=true;" value="升级">
+<!--{else}-->
+<input type="button" style="width:46px" disabled="true" value="升级">
+<!--{/if}-->
+<!--{/if}-->
+</td>
+</tr>
+</table>
+</td>
+<td class=b3 width=46>
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

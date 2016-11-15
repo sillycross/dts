@@ -10,7 +10,7 @@ namespace gameflow_base
 		
 		eval(import_module('sys'));
 		
-		$gamenum++;
+		$gamenum++; 
 		\sys\reset_game();
 		\sys\prepare_new_game();
 		\sys\rs_game(1+2+4+8+16+32);
@@ -72,7 +72,7 @@ namespace gameflow_base
 			}
 			else
 			{
-				if($alivenum <= 1) 
+				if($alivenum <= 1 && $gametype!=2) 
 				{
 					\sys\gameover();
 				}

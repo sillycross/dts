@@ -29,8 +29,9 @@ namespace skill235
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','skill235'));
 		if(\skillbase\skill_query(235)){
-			if ($skillpoint>0){
-				$skillpoint--;
+			$lv=(int)\skillbase\skill_getvalue(235,'lvl');
+			if ($skillpoint>0 || $lv==1){
+				if ($lv!=1) $skillpoint--;
 				\radar\newradar(2);
 			}else{
 				$log .= '<span class="red">你的技能点不足，不能发动技能！</span><br />';

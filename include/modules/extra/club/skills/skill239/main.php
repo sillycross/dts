@@ -5,7 +5,7 @@ namespace skill239
 	//命中率获得比例
 	$sk239_ratio = Array(10,16,24,32,40);
 	//升级所需技能点数值
-	$upgradecost = Array(4,4,5,5,-1);
+	$upgradecost = Array(5,5,6,6,-1);
 	
 	function init() 
 	{

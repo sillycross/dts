@@ -1,0 +1,19 @@
+<!--{eval eval(import_module('skill461','sys'));}-->
+<!--{eval $___TEMP_SKILL_ID=461;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+驱散
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+敌人无法对你施加任何时效性负面状态。<br>
+<!--{if \skillbase\skill_getvalue(461,'lvl',$who)==1}-->战斗结束后，你自动从所有异常状态中恢复。<br><!--{/if}-->
+</span></td>
+<td class=b3 width=46>
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

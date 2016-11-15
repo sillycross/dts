@@ -99,7 +99,8 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 
 	$inf = $teamID = $teamPass = '';
 	///////////////////////////////////////////////////////////////
-	require config('card',$gamecfg);
+	eval(import_module('cardbase'));
+	
 	if ($card==81){
 		$arr=array('0');
 		$r=rand(1,100);
@@ -148,6 +149,9 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 			}	
 		}
 	}
+	
+	\player\post_enterbattlefield_events($pp);
+	
 	\player\player_save($pp);
 	///////////////////////////////////////////////////////////////
 	if ($cardrare=="S"){

@@ -1,6 +1,6 @@
 <!--{eval eval(import_module('skill402'));}-->
 <!--{eval $___TEMP_SKILL_ID=402;}-->
-<!--{eval $clv = (int)\skillbase\skill_getvalue(402,'lvl'); }-->
+<!--{eval $clv = (int)\skillbase\skill_getvalue(402,'lvl',$who); }-->
 <!--{eval $skname = $paneldesc[$clv]; }-->
 {template MOD_CLUBBASE_SKILLDESC_START}
 <span>
@@ -8,7 +8,7 @@ $skname
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
-战斗中有<span class="yellow">$procrate[$clv]%</span>几率直接杀死对手。<br>
+你在战斗中有<span class="yellow">$procrate[$clv]%</span>几率直接杀死对手<br>
 </span></td>
 <td class=b3 width=46>
 </td>

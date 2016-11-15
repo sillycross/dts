@@ -1,0 +1,19 @@
+<!--{eval eval(import_module('player'));}-->
+你正在默默积蓄力量！<br>
+<span style="height:8px; display:block;">&nbsp;</span>
+<div id="progressbar-border">
+	<div id="progressbar-inner3"></div>
+	<div id="progressbar-text3">0%</div>
+</div>   
+<span style="height:5px; display:block;">&nbsp;</span>
+<img style="display:none;" type="hidden" src="img/blank.png" onload="
+xuli_setpercentage(0);
+xuli_tick = 0;
+xuli_pret = <!--{eval echo round(\skill262\skill262_get_pretime($sdata)/100-5);}-->;
+xuli_maxt = <!--{eval echo round(\skill262\skill262_get_maxdmgperc($sdata)/\skill262\skill262_get_dmgperc($sdata)*10);}-->;
+if (xuli_flag==0)
+{
+	xuli_flag = 1;
+	setInterval('xuli_tickfunc()',100);
+}
+">

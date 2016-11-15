@@ -120,6 +120,8 @@ foreach ($tmp as $key => $value)
 	foreach ($value as $data)
 		array_push($roomlist,$data);
 
+if ($gametype==2) $alivenum = $validnum;
+
 include template('index');
 
 ?>

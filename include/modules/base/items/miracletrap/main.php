@@ -29,7 +29,7 @@ namespace miracletrap
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		//奇迹陷阱必死
 		eval(import_module('player'));
-		if ($itmk0 == 'TOc') return $hp;
+		if ($itmk0 == 'TOc') return 999983;
 		return $chprocess();
 	}
 	

@@ -59,6 +59,11 @@ namespace song
 			if (defined('MOD_NOISE')) \noise\addnoise($pls,$sn,-1,-1);
 			addnews($now,'song',$name,$plsinfo[$pls],$sn);
 			return;
+		}elseif ($sn=="KARMA"){
+			$log.="■<br>";
+			$rp=0;
+			addnews($now,'song',$name,$plsinfo[$pls],$sn);
+			return;
 		}
 		
 		return;

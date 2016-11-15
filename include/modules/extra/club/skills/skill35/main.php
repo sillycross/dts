@@ -4,6 +4,8 @@ namespace skill35
 {
 	//物理伤害增加
 	$attgain = Array(20,50,80);
+	//晕眩时间
+	$sk35_stuntime = Array(1,1,2);
 	//升级所需技能点数值
 	$upgradecost = Array(10,11,-1);
 	//触发率
@@ -75,9 +77,12 @@ namespace skill35
 		if (rand(0,99)<calculate_skill35_proc_rate($pa,$pd,$active))
 		{
 			if ($active)
-				$log.="<span class=\"yellow\">你朝着{$pd['name']}打出了凶猛的一击！</span><br>";
-			else  $log.="<span class=\"yellow\">{$pa['name']}朝你打出了凶猛的一击！</span><br>";
-			$dmggain = (100+$attgain[\skillbase\skill_getvalue(35,'lvl',$pa)])/100;
+				$log.="<span class=\"yellow\">你朝着{$pd['name']}打出了凶猛的一击！<span class=\"clan\">敌人被打晕了过去！</span></span><br>";
+			else  $log.="<span class=\"yellow\">{$pa['name']}朝你打出了凶猛的一击！<span class=\"clan\">你被打晕了过去！</span></span><br>";
+			$clv = (int)\skillbase\skill_getvalue(35,'lvl',$pa);
+			$dmggain = (100+$attgain[$clv])/100;
+			\skill602\set_stun_period($sk35_stuntime[$clv]*1000,$pd);
+			\skill602\send_stun_battle_news($pa['name'],$pd['name']);
 			return Array($dmggain);
 		}
 		return Array();

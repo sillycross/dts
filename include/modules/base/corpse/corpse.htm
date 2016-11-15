@@ -1,3 +1,4 @@
+<!--{if $gametype!=2 || $w_type>0}-->
 想要从尸体上拾取什么？<br><br>
 <input type="hidden" name="mode" value="corpse">
 <input type="radio" name="command" id="destroy" value="destroy" <!--{if !$w_money && $w_type==90}-->checked<!--{/if}-->><a onclick=sl('destroy'); href="javascript:void(0);" >销毁尸体</a><br>
@@ -46,3 +47,6 @@
 <!--{/if}-->
 
 <input type="button" name="submit" id="z" value="[Z]提交" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
+<!--{else}-->
+{template MOD_SKILL475_CORPSEOPTION}
+<!--{/if}-->

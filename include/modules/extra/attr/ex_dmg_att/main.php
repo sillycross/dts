@@ -211,6 +211,23 @@ namespace ex_dmg_att
 		add_ex_att_noise($pa, $pd, $active);
 		$chprocess($pa, $pd, $active);
 	}
+	
+	function post_traphit_events(&$pa, &$pd, $tritm, $damage)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess();
+		eval(import_module('player','logger','ex_dmg_att','wound'));
+		if (strpos($tritm['itm'],'毒性')!==false) 
+		{
+			\wound\get_inf('p');
+			$log.="敌人的陷阱还使你{$infname['p']}了！<br>";
+		}
+		if (strpos($tritm['itm'],'电气')!==false) 
+		{
+			\wound\get_inf('e');
+			$log.="敌人的陷阱还使你{$infname['e']}了！<br>";
+		}
+	}
 }
 
 ?>
