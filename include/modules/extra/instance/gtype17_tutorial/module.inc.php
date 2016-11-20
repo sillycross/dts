@@ -1,9 +1,9 @@
 <?php
 
-namespace gtype200_tutorial
+namespace gtype17
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'sys player logger metman gameflow_combo map weather lvlctl skill424';
+	$___MODULE_dependency = 'sys player logger metman gameflow_combo map weather instance5';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

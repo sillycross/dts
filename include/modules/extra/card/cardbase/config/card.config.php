@@ -660,6 +660,9 @@ $cards=array(
 		'itms6'=>'∞',
 		'itmsk6'=>'',
 	),
+	152=>array(
+		'skills'=>array('475'=>'0'),
+	),
 );
 $carddesc=array(
 	0=>array(
@@ -1794,6 +1797,14 @@ $carddesc=array(
 		'name'=>'虹光塑师',
 		'rare'=>'B',
 		'desc'=>'mode3 card1',
+		'pack'=>'hidden',
+		'effect'=>'',
+		'energy'=>0,
+	),
+	152=>array(
+		'name'=>'补给品',
+		'rare'=>'C',
+		'desc'=>'教程模式用卡',
 		'pack'=>'hidden',
 		'effect'=>'',
 		'energy'=>0,

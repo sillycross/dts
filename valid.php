@@ -62,6 +62,11 @@ if($mode == 'enter') {
 		$cc=151;
 	}
 	
+	if ($gametype==7){
+		unset($r);
+		$cc=152;
+	}
+	
 	if ($gametype==0 || $gametype==2){
 		if ($carddesc[$cc]['rare']!='C')
 		{
