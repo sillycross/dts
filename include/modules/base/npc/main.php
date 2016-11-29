@@ -34,14 +34,13 @@ namespace npc
 			//$typenum = sizeof($typeinfo);
 			$plsnum = sizeof($plsinfo);
 			$npcqry = '';
-			
-			foreach ($npcinfo as $i => $npcs){
+			$ninfo = get_npclist();
+			foreach ($ninfo as $i => $npcs){
 				if(!empty($npcs)) {
 					if (sizeof($npcs['sub'])>$npcs['num'])shuffle($npcs['sub']);
 					for($j = 1; $j <= $npcs['num']; $j++) {
 						if (!check_initnpcadd($i)) continue;
 						$npc = array_merge($npcinit,$npcs);
-						//$npc = $npcinfo[$i];
 						$npc['type'] = $i;
 						$npc['endtime'] = $now;
 						$npc['sNo'] = $j;
@@ -97,6 +96,12 @@ namespace npc
 				}
 			}
 		}
+	}
+	
+	function get_npclist(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','map','npc'));
+		return $npcinfo;
 	}
 	
 	function add_new_killarea($where,$atime)

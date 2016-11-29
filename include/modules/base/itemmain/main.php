@@ -162,8 +162,7 @@ namespace itemmain
 		if ($xmode & 16) {	//地图道具初始化
 			$plsnum = sizeof($plsinfo);
 			$iqry = '';
-			$file = __DIR__.'/config/mapitem.config.php';
-			$itemlist = openfile($file);
+			$itemlist = get_itemfilecont();
 			$in = sizeof($itemlist);
 			$an = $areanum ? ceil($areanum/$areaadd) : 0;
 			for($i = 1; $i < $in; $i++) {
@@ -188,6 +187,14 @@ namespace itemmain
 				$db->query($iqry);
 			}
 		}
+	}
+	
+	function get_itemfilecont(){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		eval(import_module('sys'));
+		$file = __DIR__.'/config/mapitem.config.php';
+		$l = openfile($file);
+		return $l;
 	}
 	
 	function discover_item()

@@ -22,20 +22,52 @@ namespace gtype17
 
 	function rs_game($xmode = 0) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;		
-		$chprocess($xmode);		
-		eval(import_module('sys','map'));
+		eval(import_module('sys','map','gtype17'));
+		$chprocess($xmode);
+		
 		if ($xmode & 2 && $gametype == 17) {
 			//echo " - 禁区初始化 - ";
 			list($sec,$min,$hour,$day,$month,$year,$wday,$yday,$isdst) = localtime($starttime);
 			$areatime = $starttime + 1324512000;//变相不禁区 (ceil(($starttime + $areahour*60)/600))*600;
-//			$plsnum = sizeof($plsinfo);
-//			$arealist = range(1,$plsnum-1);
-//			shuffle($arealist);
-//			array_unshift($arealist,0);
-//			$areanum = 0;
-//			$hack = 0;
-//			movehtm($areatime);
 		}
+	}
+
+	function get_npclist(){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		eval(import_module('sys','map','gtype17'));
+		if ($gametype==17){
+			return $npcinfo_gtype17;
+		}else return $chprocess();
+	}
+	
+	function get_shoplist(){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		eval(import_module('sys'));
+		if ($gametype==17){
+			$file = __DIR__.'/../config/shopitem.config.php';
+			$l = openfile($file);
+			return $l;
+		}else return $chprocess();
+	}
+	
+	function get_itemfilecont(){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		eval(import_module('sys'));
+		if ($gametype==17){
+			$file = __DIR__.'/../config/mapitem.config.php';
+			$l = openfile($file);
+			return $l;
+		}else return $chprocess();
+	}
+	
+	function get_trapfilecont(){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		eval(import_module('sys'));
+		if ($gametype==17){
+			$file = __DIR__.'/../config/trapitem.config.php';
+			$l = openfile($file);
+			return $l;
+		}else return $chprocess();
 	}
 
 	function get_next_areadata_html()
