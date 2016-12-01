@@ -83,6 +83,7 @@ skill307,extra/achievement/skills/skill307/,1
 skill318,extra/achievement/skills/skill318/,1
 skill322,extra/achievement/skills/skill322/,1
 skill323,extra/achievement/skills/skill323/,1
+gtype17,extra/instance/gtype17_tutorial/main/,1
 skill316,extra/achievement/skills/skill316/,1
 skill321,extra/achievement/skills/skill321/,1
 cardbase,extra/card/cardbase/,1
@@ -98,6 +99,7 @@ skill314,extra/achievement/skills/skill314/,1
 skill315,extra/achievement/skills/skill315/,1
 skill443,extra/card/skills/skill443/,1
 skill325,extra/achievement/skills/skill325/,1
+skill1000,extra/instance/gtype17_tutorial/skill1000/,1
 kuji0,extra/card/kuji/kuji0/,1
 kuji1,extra/card/kuji/kuji1/,1
 kuji2,extra/card/kuji/kuji2/,1
@@ -358,7 +360,6 @@ skill26,extra/club/skills/skill26/,1
 skill51,extra/club/skills/skill51/,1
 ex_gender_attr,extra/attr/ex_gender_attr/,1
 ex_attr_pierce,extra/attr/ex_attr_pierce/,1
-gtype17,extra/instance/gtype17_tutorial/main/,1
 skill43,extra/club/skills/skill43/,1
 skill56,extra/club/skills/skill56/,1
 skill435,extra/card/skills/skill435/,1

@@ -3,7 +3,7 @@
 namespace gtype17
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'sys player logger metman gameflow_combo map';
+	$___MODULE_dependency = 'sys player logger gameflow_combo map itemshop itemmain trap npc';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php ../config/npc.data.config.php';

@@ -62,7 +62,7 @@ if($mode == 'enter') {
 		$cc=151;
 	}
 	
-	if ($gametype==7){
+	if ($gametype==7){//教程模式
 		unset($r);
 		$cc=152;
 	}

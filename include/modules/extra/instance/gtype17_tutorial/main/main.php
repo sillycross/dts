@@ -22,7 +22,7 @@ namespace gtype17
 
 	function rs_game($xmode = 0) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;		
-		eval(import_module('sys','map','gtype17'));
+		eval(import_module('sys','map'));
 		$chprocess($xmode);
 		
 		if ($xmode & 2 && $gametype == 17) {
@@ -35,39 +35,35 @@ namespace gtype17
 	function get_npclist(){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		eval(import_module('sys','map','gtype17'));
-		if ($gametype==17){
-			return $npcinfo_gtype17;
-		}else return $chprocess();
+		if ($gametype!=17) return $chprocess();		
+		return $npcinfo_gtype17;
 	}
 	
 	function get_shoplist(){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		eval(import_module('sys'));
-		if ($gametype==17){
-			$file = __DIR__.'/../config/shopitem.config.php';
-			$l = openfile($file);
-			return $l;
-		}else return $chprocess();
+		if ($gametype!=17) return $chprocess();		
+		$file = __DIR__.'/../config/shopitem.config.php';
+		$l = openfile($file);
+		return $l;
 	}
 	
 	function get_itemfilecont(){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		eval(import_module('sys'));
-		if ($gametype==17){
-			$file = __DIR__.'/../config/mapitem.config.php';
-			$l = openfile($file);
-			return $l;
-		}else return $chprocess();
+		if ($gametype!=17) return $chprocess();
+		$file = __DIR__.'/../config/mapitem.config.php';
+		$l = openfile($file);
+		return $l;
 	}
 	
 	function get_trapfilecont(){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		eval(import_module('sys'));
-		if ($gametype==17){
-			$file = __DIR__.'/../config/trapitem.config.php';
-			$l = openfile($file);
-			return $l;
-		}else return $chprocess();
+		if ($gametype!=17) return $chprocess();
+		$file = __DIR__.'/../config/trapitem.config.php';
+		$l = openfile($file);
+		return $l;
 	}
 
 	function get_next_areadata_html()
@@ -124,11 +120,9 @@ namespace gtype17
 
 	function checkcombo(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','gameflow_combo'));
-		if ($gametype==17){
-			return;
-		}
-		$chprocess();
+		eval(import_module('sys','map'));
+		if ($gametype!=17) return $chprocess();
+//		return;
 	}
 
 	function check_addarea_gameover($atime){

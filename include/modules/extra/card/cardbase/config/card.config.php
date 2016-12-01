@@ -661,7 +661,7 @@ $cards=array(
 		'itmsk6'=>'',
 	),
 	152=>array(
-		'skills'=>array('475'=>'0'),
+		'skills'=>array('1000'=>'0'),
 	),
 );
 $carddesc=array(
