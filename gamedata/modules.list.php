@@ -49,7 +49,7 @@ item_uee,base/items/item_uee/,1
 song,base/items/song/,1
 skill23,extra/club/skills/skill23/,1
 skill220,extra/club/skills/skill220/,1
-hints,extra/hints/,1
+tutorial,extra/instance/gtype17_tutorial/tutorial/,1
 corpse,base/corpse/,1
 trap,base/items/trap/,1
 itemmix_sync,base/itemmix/itemmix_sync/,1

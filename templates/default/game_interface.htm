@@ -28,11 +28,11 @@
 									<input type="hidden" id="oprecorder" name="oprecorder" value="">
 									<input type="hidden" id="game_roomid" name="game_roomid" value="$room_prefix">
 								</div>
-								<div id="cmd">
+								<div id="cmd">									
 									<!--{if $hp <= 0}-->
 									{template death}
-									<!--{elseif $gametype == 17 && defined('MOD_HINTS')}-->
-									{template MOD_HINTS_HINTS}
+									<!--{elseif $gametype == 17 && defined('MOD_TUTORIAL')}-->
+									{template MOD_TUTORIAL_TUTORIAL}
 									<!--{elseif $state >=1 && $state <= 3}-->
 									{template rest}
 									<!--{elseif $itms0}-->

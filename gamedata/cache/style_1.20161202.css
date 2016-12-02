@@ -131,6 +131,12 @@ background-image: url("../../img/footer_line.gif");
 	width:80px;height:25px;margin:2;
 }
 
+#gamecmd input.cmdbutton.Pulse{
+	-webkit-animation-name: brightPulse; -webkit-animation-duration: 2s;-webkit-animation-iteration-count: infinite; 
+}
+
+
+
 input.bigbutton{
 	width:120px;height:25px;margin:2;
 }
@@ -188,4 +194,10 @@ div.skill_unacquired_hint_transparent
 	left: 135px;
 	color: #ffffff;
 	top: -16px; 
+}
+
+@-webkit-keyframes brightPulse{
+	from { background-color: #ddd; -webkit-box-shadow: 0 0 12px #666; }
+  50% { background-color: #fed; -webkit-box-shadow: 0 0 24px #f90; }
+  to { background-color: #ddd; -webkit-box-shadow: 0 0 12px #666; }
 }

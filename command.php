@@ -416,7 +416,9 @@ if($hp <= 0) {
 	$gamedata['innerHTML']['cmd'] = ob_get_contents();
 } elseif(!$cmd) {
 	ob_clean();
-	if($mode&&(file_exists($mode.'.htm') || file_exists(GAME_ROOT.TPLDIR.'/'.$mode.'.htm'))) {
+	if(defined('MOD_TUTORIAL') && $gametype == 17){
+		include template(MOD_TUTORIAL_TUTORIAL);
+	}	elseif($mode&&(file_exists($mode.'.htm') || file_exists(GAME_ROOT.TPLDIR.'/'.$mode.'.htm'))) {
 		include template($mode);
 	} else {
 		include template('command');
@@ -427,6 +429,7 @@ if($hp <= 0) {
 }
 
 if(isset($url)){$gamedata['url'] = $url;}
+if(isset($classchg)) {$gamedata['classchg'] = $classchg;}
 $gamedata['innerHTML']['pls'] = $plsinfo[$pls];
 if ($gametype!=2) $gamedata['innerHTML']['anum'] = $alivenum; else $gamedata['innerHTML']['anum'] = $validnum;
 

@@ -297,7 +297,15 @@ function showData(sdata){
 				}
 			}
 		}
-		
+		if (shwData['classchg'])
+		{
+			sDcl = shwData['classchg'];
+			for(var id in sDcl){
+				if($(id)!=null){
+					$(id).className = datalib_decode(sDcl[id]);
+				}
+			}
+		}
 		if (shwData['lastchat'])
 		{
 			sDc = shwData['lastchat'];

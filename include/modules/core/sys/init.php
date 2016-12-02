@@ -2,7 +2,7 @@
 
 namespace sys
 {	
-	global $mode, $command, $db, $url;
+	global $mode, $command, $db, $url, $classchg;
 	
 	function init()
 	{
