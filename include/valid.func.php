@@ -38,6 +38,8 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 	$arhe = $arae = $arfe = $arte = 0;
 	$arhs = $aras = $arfs = $arts = 0;
 	
+	if($gametype == 17) $card = 152;//教程模式
+	
 	for ($i=0; $i<=6; $i++){$itm[$i] = $itmk[$i] = $itmsk[$i] = ''; $itme[$i] = $itms[$i] = 0;}
 	$itm[1] = '面包'; $itmk[1] = 'HH'; $itme[1] = 100; $itms[1] = 30;
 	$itm[2] = '矿泉水'; $itmk[2] = 'HS'; $itme[2] = 100; $itms[2] = 30;

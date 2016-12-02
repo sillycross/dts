@@ -61,11 +61,11 @@ if($mode == 'enter') {
 		unset($r);
 		$cc=151;
 	}
-	
-	if ($gametype==7){//教程模式
-		unset($r);
-		$cc=152;
-	}
+//	
+//	if ($gametype==17){//教程模式
+//		unset($r);
+//		$cc=152;
+//	}
 	
 	if ($gametype==0 || $gametype==2){
 		if ($carddesc[$cc]['rare']!='C')
@@ -189,5 +189,3 @@ if($mode == 'enter') {
 	include template('valid');
 }
 ?>
-
-

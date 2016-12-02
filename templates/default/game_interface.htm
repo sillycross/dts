@@ -31,6 +31,8 @@
 								<div id="cmd">
 									<!--{if $hp <= 0}-->
 									{template death}
+									<!--{elseif $gametype == 17 && defined('MOD_HINTS')}-->
+									{template MOD_HINTS_HINTS}
 									<!--{elseif $state >=1 && $state <= 3}-->
 									{template rest}
 									<!--{elseif $itms0}-->
