@@ -137,6 +137,10 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 	
 	///////////////////////////////////////////////////////////////
 	$pp=\player\fetch_playerdata($name);
+	//教程模式技能
+//	if($gametype == 17){
+//		\skillbase\skill_acquire(1000,$pp);
+//	}
 	//为了灵活性，直接处理所有技能，在固定称号的时候记得要写入skills不然进游戏就没技能了
 	//if (isset($cardfix['club'])){
 	//	\clubbase\club_acquire($cardfix['club'],$pp);

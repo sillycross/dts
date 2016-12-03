@@ -297,15 +297,32 @@ function showData(sdata){
 				}
 			}
 		}
-		if (shwData['classchg'])
+//		if (shwData['classchg'])
+//		{
+//			sDcl = shwData['classchg'];
+//			for(var id in sDcl){
+//				if($(id)!=null){
+//					$(id).className = datalib_decode(sDcl[id]);
+//				}
+//			}
+//		}
+		
+		if (shwData['effect'])
 		{
-			sDcl = shwData['classchg'];
-			for(var id in sDcl){
-				if($(id)!=null){
-					$(id).className = datalib_decode(sDcl[id]);
-				}
+			effect_clear_all();
+			sDe = shwData['effect'];
+			for(var ef in sDe){
+				if(ef == 'pulse'){
+					for (var ei=0; ei<sDe[ef].length; ei++){
+				  	if($(sDe[ef][ei])!=null){
+				  		jQuery("#"+sDe[ef][ei]).addClass("Pulse");
+							//$(sDe[ef][ei]).setAttribute("class", $(sDe[ef][ei]).getAttribute("class")+" Pulse");
+						}
+				  }
+				}			
 			}
 		}
+		
 		if (shwData['lastchat'])
 		{
 			sDc = shwData['lastchat'];
@@ -470,6 +487,11 @@ function AutopowerLogTimer()
 		clearInterval(AutopowerTimerId);
 		delete AutopowerTimerId;
 	}
+}
+
+//特效相关
+function effect_clear_all(){
+	jQuery("*").removeClass('Pulse');
 }
 
 ////////////////////////////////////////////////////////////////////////

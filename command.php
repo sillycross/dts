@@ -429,7 +429,8 @@ if($hp <= 0) {
 }
 
 if(isset($url)){$gamedata['url'] = $url;}
-if(isset($classchg)) {$gamedata['classchg'] = $classchg;}
+//if(isset($classchg)) {$gamedata['classchg'] = $classchg;}
+if(isset($effect)) {$gamedata['effect'] = $effect;}
 $gamedata['innerHTML']['pls'] = $plsinfo[$pls];
 if ($gametype!=2) $gamedata['innerHTML']['anum'] = $alivenum; else $gamedata['innerHTML']['anum'] = $validnum;
 

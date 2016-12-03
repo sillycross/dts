@@ -10,7 +10,7 @@ namespace skill1000
 	function acquire1000(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		\skillbase\skill_setvalue(1000,'step','0',$pa);
+		\skillbase\skill_setvalue(1000,'step','10',$pa);
 	}
 	
 	function lost1000(&$pa)
@@ -22,6 +22,24 @@ namespace skill1000
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return 1;
+	}
+	
+	function set_process1000($s,&$pa){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(check_process1000($pa)){
+			\skillbase\skill_setvalue(1000,'step',$s,$pa);
+		}
+		return;
+	}
+	
+	function check_process1000(&$pa){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','logger','player'));
+		if (!\skillbase\skill_query(1000)) {
+			$log.='不存在教程技能，这可能是一个bug，请检查skill1000模块。';
+			return false;
+		}
+		return true;
 	}
 	
 //	function discover_item(){
