@@ -43,7 +43,7 @@ namespace gtype17
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		eval(import_module('sys'));
 		if ($gametype!=17) return $chprocess();		
-		$file = __DIR__.'/../config/shopitem.config.php';
+		$file = __DIR__.'/config/shopitem.config.php';
 		$l = openfile($file);
 		return $l;
 	}
@@ -52,7 +52,7 @@ namespace gtype17
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		eval(import_module('sys'));
 		if ($gametype!=17) return $chprocess();
-		$file = __DIR__.'/../config/mapitem.config.php';
+		$file = __DIR__.'/config/mapitem.config.php';
 		$l = openfile($file);
 		return $l;
 	}
@@ -61,7 +61,7 @@ namespace gtype17
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		eval(import_module('sys'));
 		if ($gametype!=17) return $chprocess();
-		$file = __DIR__.'/../config/trapitem.config.php';
+		$file = __DIR__.'/config/trapitem.config.php';
 		$l = openfile($file);
 		return $l;
 	}

@@ -85,7 +85,7 @@ skill307,extra/achievement/skills/skill307/,1
 skill318,extra/achievement/skills/skill318/,1
 skill322,extra/achievement/skills/skill322/,1
 skill323,extra/achievement/skills/skill323/,1
-gtype17,extra/instance/gtype17_tutorial/main/,1
+gtype17,extra/instance/gtype17_tutorial/,1
 skill316,extra/achievement/skills/skill316/,1
 skill321,extra/achievement/skills/skill321/,1
 cardbase,extra/card/cardbase/,1
