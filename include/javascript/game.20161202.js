@@ -242,6 +242,10 @@ room_cur_chat_maxcid = 0;
 
 function showData(sdata){
 	if (js_stop_flag) return;
+	if (sdata.indexOf("Fatal error") > 0 || sdata.indexOf("Syntax error") > 0){
+		document.write(sdata);
+		return;
+	}
 	
 	////////////////////////////////////////////////////////////////////////
 	///////////////////////////////气泡框相关/////////////////////////////////
@@ -276,9 +280,6 @@ function showData(sdata){
 				window.location.href = datalib_decode(shwData['url']);
 			}
 		}
-	}else if(!shwData['innerHTML']) {
-		$('error').innerHTML=sdata;
-			//window.location.href = 'index.php';
 	}else{
 		sDv = shwData['value'];
 		for(var id in sDv){

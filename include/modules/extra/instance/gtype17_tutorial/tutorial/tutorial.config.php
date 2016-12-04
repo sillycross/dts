@@ -4,6 +4,10 @@ $tutorialsetting = Array(
 	10 => Array(
 		'tips' => '“能听到我说话吗？我是红杀菁英——<span class="yellow">芙蓉</span>。看起来你是个新手，如果你不想在这个虚拟世界中悲惨地死去，就给我好好听着。”<br>',
 		'object' => 'continue',
+		'obj2' => Array(
+			'addnpc' => 91,
+			'asub' => 0,
+		),
 		'pulse' => 'continue',
 		'next' => 20
 	),
@@ -40,7 +44,7 @@ $tutorialsetting = Array(
 		
 	),
 	70 => Array(
-		'tips' => '“很好。移动需要消耗体力，所以请确保你体力充足。移动之后也可能遇到突发事件甚至敌人，不过这次没事。<br>除了移动之外，你还可以原地探索。请点击<span class="yellow">【探索】</span>按钮。”<br>',
+		'tips' => '“很好。移动需要消耗体力，所以请确保你体力充足。移动之后也可能遇到突发事件甚至敌人，不过这次没事。<br>除了移动之外，你还可以原地搜寻。请点击<span class="yellow">【搜寻】</span>按钮。”<br>',
 		'object' => 'search',
 		'obj2' => Array(
 			'itm' => '电磁充能手套',
@@ -53,7 +57,7 @@ $tutorialsetting = Array(
 		'next' => 80
 	),
 	80 => Array(
-		'tips' => '探索有一定概率发现道具。如果你不小心丢弃了，在原地探索有概率重新捡到。<br>',
+		'tips' => '搜寻有一定概率发现道具。如果你不小心丢弃了，在原地搜寻有概率重新捡到。<br>',
 		'object' => 'itemget',
 		'obj2' => Array(
 			'itm' => '电磁充能手套',
@@ -66,25 +70,10 @@ $tutorialsetting = Array(
 		'next' => 90
 	),
 	90 => Array(
-		'tips' => '“探索是获得有用的装备或道具的重要方式之一。现在请再次点击<span class="yellow">【探索】</span>按钮。”<br>',
+		'tips' => '“搜寻是获得有用的装备或道具的重要方式之一。现在请再次点击<span class="yellow">【搜寻】</span>按钮。”<br>',
 		'object' => 'search',
 		'obj2' => Array(
-			'name' => '神秘的女战士', 'icon' => 9, 'type' => 90, 'active' => 0,
-			'inf' => '', 'rage' => 0, 'pose'=> 0, 'tactic' => 0, 'killnum' => 0, 'gd' => 'f',
-			'hp' => 200, 'mhp' => 200, 'sp' => 100, 'msp' => 100, 'att' => 120, 'def' => 90, 'lvl' => 1, 'exp' => 1,
-			'wp' => 50, 'wk' => 50, 'wc' => 50, 'wg' => 50, 'wd' => 50, 'wf' => 50, 'money' => 150,
-			'wep' => '大纸扇', 'wepk' => 'WP', 'wepe' => 30, 'weps' => 10,'wepsk' => 'c',
-			'arb' => '长袍', 'arbk' => 'DB', 'arbe' => 20, 'arbs' => 30,
-			'arh' => '护目镜', 'arhk' => 'DH', 'arhe' => 15, 'arhs' => 30,
-			'arf' => '凉鞋', 'arfk' => 'DF', 'arfe' => 15, 'arfs' => 30,
-			'ara' => '手套', 'arak' => 'DA', 'arae' => 15, 'aras' => 30,
-			'art' => '', 'artk' => '', 'arte' => 0, 'arts' => 0, 'arts' => 0,
-			'itm1' => '紧急药剂', 'itmk1' => 'Ca', 'itme1' => 0, 'itms1' => 3, 'itmsk1' => '',
-			'itm2' => '', 'itmk2' => '', 'itme2' => 0, 'itms2' => 0, 'itmsk2' => '',
-			'itm3' => '', 'itmk3' => '', 'itme3' => 0, 'itms3' => 0, 'itmsk3' => '',
-			'itm4' => '', 'itmk4' => '', 'itme4' => 0, 'itms4' => 0, 'itmsk4' => '',		
-			'itm5' => '', 'itmk5' => '', 'itme5' => 0, 'itms5' => 0, 'itmsk5' => '',
-			'itm6' => '', 'itmk6' => '', 'itme6' => 0, 'itms6' => 0, 'itmsk6' => '',
+			'meetnpc' => 91, 'meetsub' => 0,'active' => 0
 		),
 		'pulse' => 'zz',
 		'next' => 100
@@ -92,6 +81,9 @@ $tutorialsetting = Array(
 	100 => Array(
 		'tips' => 'NPC袭击',
 		'object' => 'back',
+		'obj2' => Array(
+			'meetnpc' => 91, 'meetsub' => 0,'active' => 0
+		),
 		'pulse' => 'z',
 		'next' => 110
 	),

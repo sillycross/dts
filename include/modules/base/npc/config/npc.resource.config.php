@@ -26,6 +26,7 @@ namespace npc
 		45=>'电波幽灵',
 		88=>'■■',
 		90=>'各路党派',
+		91=>'挑战者',//教程模式用
 	);
 	
 	$npc_killmsginfo=Array(
