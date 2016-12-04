@@ -26,6 +26,10 @@ function gameerrorhandler($code, $msg, $file, $line){
 	elseif($code == 1024){$emessage = '<b>User Notice</b> ';}
 	else{$emessage = '<b style="color:#f00>Fatal error</b> ';}
 	$emessage .= "($code): $msg in $file on line $line";
+//	if ($code == 2){
+//		$d = debug_backtrace();
+//		$emessage .= serialize($d);
+//	} 
 	if ($code == 1024 && $file=='/srv/http/dts-test/command.php' && function_exists('__SOCKET_WARNLOG__')) 
 		__SOCKER__WARNLOG__($emessage);
 	if(isset($GLOBALS['error'])){

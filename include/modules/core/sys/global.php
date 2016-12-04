@@ -32,11 +32,13 @@ namespace sys
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		if(!$hdamage){$hdamage = 0;}
+		if(!$hplayer){$hplayer = '';}
 		if(!$noisetime){$noisetime = 0;}
 		if(!$noisepls){$noisepls = 0;}
 		if(!$noiseid){$noiseid = 0;}
 		if(!$noiseid2){$noiseid2 = 0;}
-		$db->query("UPDATE {$tablepre}game SET hdamage='$hdamage', hplayer='$hplayer', noisetime='$noisetime', noisepls='$noisepls', noiseid='$noiseid', noiseid2='$noiseid2', noisemode='$noisemode';");
+		if(!$noisemode){$noisemode = '';}
+		$db->query("UPDATE {$tablepre}game SET hdamage='$hdamage', hplayer='$hplayer', noisetime='$noisetime', noisepls='$noisepls', noiseid='$noiseid', noiseid2='$noiseid2', noisemode='$noisemode'");
 		return;
 	}
 	

@@ -43,8 +43,8 @@ class dbstuff {
 	function query($sql, $type = '') {
 		//mysqli不存在unbuffered指令，游戏也从来没用到过这个参数
 		//$func = $type == 'UNBUFFERED' && function_exists ( 'mysqli_unbuffered_query' ) ? 'mysqli_unbuffered_query' : 'mysqli_query';
-		$func = 'mysqli_query';
-		if (! ($query = $func ( $this -> con, $sql )) && $type != 'SILENT') {
+		$result = mysqli_query ( $this -> con, $sql );
+		if (! $result && $type != 'SILENT') {
 			$this->halt ( 'MySQL Query Error', $sql );
 		}
 //		$this->querynum ++;
@@ -52,10 +52,10 @@ class dbstuff {
 //		elseif(strpos($sql,'INSERT')===0){$this->insertnum ++;}
 //		elseif(strpos($sql,'UPDATE')===0){$this->updatenum ++;}
 //		elseif(strpos($sql,'DELETE')===0){$this->deletenum ++;}
-		return $query;
+		return $result;
 	}
 	
-	function queries ($queries) {		
+	function queries ($queries, $ignore_result = true) {
 //	  foreach (preg_split ("/[;]+/", trim($queries)) as $query_split) {
 //	  	$query = '';
 //	  	foreach (preg_split ("/[\n]+/", trim($query_split)) as $query_row){
@@ -69,14 +69,24 @@ class dbstuff {
 //				$this->query($query);
 //			}
 //	  }
-	  return mysqli_multi_query($con,$this->parse_create_table($queries));
+	  mysqli_multi_query($this->con,$this->parse_create_table($queries));
+	  while ($ignore_result && $this->more_results()) { 
+	    if ($this->next_result() === false) { 
+	      $this->halt ( 'Some error uccurred in multi_querying.' );
+	      break; 
+	    } 
+		} 
+	  $result = $this->store_result();
+	  return $result;
 	}
 	
-	function parse_create_table($sql) {
+	function parse_create_table($sql) {//修改了替换逻辑，不会有什么区别的
 		global $dbcharset;
-		$type = strtoupper(preg_replace("/\s*CREATE TABLE\s+.+\s+\(.+?\).*(ENGINE|TYPE)\s*=\s*([a-z]+?).*;/isU", "\\2", $sql));
-		$type = in_array($type, array('MYISAM', 'HEAP')) ? $type : 'MYISAM';
-		return preg_replace("/\s*(CREATE TABLE\s+.+\s+\(.+?\)).*;$/isU", "\\1", $sql)." ENGINE=$type DEFAULT CHARSET=$dbcharset";
+		$sql = preg_replace("/ENGINE\s*=\s*([a-z]+)/i", "ENGINE=$1 DEFAULT CHARSET=".$dbcharset, $sql);
+		return $sql;
+//		$type = strtoupper(preg_replace("/\s*CREATE TABLE\s+.+\s+\(.+?\).*(ENGINE|TYPE)\s*=\s*([a-z]+?).*;/isU", "\\2", $sql));
+//		$type = in_array($type, array('MYISAM', 'HEAP')) ? $type : 'MYISAM';
+//		return preg_replace("/\s*(CREATE TABLE\s+.+\s+\(.+?\)).*;$/isU", "\\1", $sql)." ENGINE=$type DEFAULT CHARSET=$dbcharset;";
 	}
 	
 	function array_insert($dbname, $data){ //根据$data的键和键值插入数据
@@ -164,9 +174,23 @@ class dbstuff {
 		return mysqli_num_fields ( $query );
 	}
 	
+	function next_result(){
+		return mysqli_next_result ( $this->con );
+	}
+	
+	function more_results() {
+		return mysqli_more_results ( $this->con );
+	}
+	
+	function store_result() {
+		return mysqli_store_result ( $this->con );
+	}
+	
 	function free_result($query) {
 		return mysqli_free_result ( $query );
 	}
+	
+	
 	
 	function insert_id() {
 		$id = mysqli_insert_id ($this -> con);
@@ -192,7 +216,7 @@ class dbstuff {
 	
 	function halt($message = '', $sql = '') {
 		echo '数据库错误。请联系管理员。<br><br>';
-		$dberror = $this->errno();
+		$dberror = $this->errno().' '.$this->error();
 		echo '错误信息：'.$dberror.'<br><br>';
 		echo '以下是stack dump<br>';
 		var_export(debug_backtrace());
