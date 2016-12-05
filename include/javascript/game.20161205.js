@@ -243,7 +243,7 @@ room_cur_chat_maxcid = 0;
 function showData(sdata){
 	if (js_stop_flag) return;
 	if (sdata.indexOf("Fatal error") > 0 || sdata.indexOf("Syntax error") > 0){
-		document.write(sdata);
+		$("error").innerHTML = sdata;
 		return;
 	}
 	
@@ -316,7 +316,8 @@ function showData(sdata){
 				if(ef == 'pulse'){
 					for (var ei=0; ei<sDe[ef].length; ei++){
 				  	if($(sDe[ef][ei])!=null){
-				  		jQuery("#"+sDe[ef][ei]).addClass("Pulse");
+				  		if(jQuery("#"+sDe[ef][ei]).is('img')) jQuery("#"+sDe[ef][ei]).addClass("TransPulse");
+				  		else jQuery("#"+sDe[ef][ei]).addClass("Pulse");
 							//$(sDe[ef][ei]).setAttribute("class", $(sDe[ef][ei]).getAttribute("class")+" Pulse");
 						}
 				  }

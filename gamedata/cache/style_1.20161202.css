@@ -196,8 +196,18 @@ div.skill_unacquired_hint_transparent
 	-webkit-animation-name: brightPulse; -webkit-animation-duration: 2s;-webkit-animation-iteration-count: infinite; 
 }
 
+.TransPulse{
+	-webkit-animation-name: brightTransPulse; -webkit-animation-duration: 2s;-webkit-animation-iteration-count: infinite; 
+}
+
 @-webkit-keyframes brightPulse{
 	from {  -webkit-box-shadow: 0 0 12px #666; }
-  50% { background-color: #fa5; -webkit-box-shadow: 0 0 24px #fa5; }
+  50% { background-color: #fa5; -webkit-box-shadow: 0 0 24px 2px #fa5; }
+  to {  -webkit-box-shadow: 0 0 12px #666; }
+}
+
+@-webkit-keyframes brightTransPulse{
+	from {  -webkit-box-shadow: 0 0 12px #666; }
+  50% {  -webkit-box-shadow: 0 0 24px 2px #fa5; }
   to {  -webkit-box-shadow: 0 0 12px #666; }
 }

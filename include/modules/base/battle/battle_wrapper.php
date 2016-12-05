@@ -92,13 +92,19 @@ namespace battle
 		}
 		else
 		{
-			include template(MOD_BATTLE_BATTLERESULT);
+			include template(get_battleresult_filename());
 			$cmd = ob_get_contents();
 			ob_clean();
 			$action = '';
 		}
 		
 		if (defined('MOD_CLUBBASE')) include template(MOD_CLUBBASE_NPCSKILLPAGE);
+	}
+	
+	function get_battleresult_filename(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','logger','player','metman'));
+		return MOD_BATTLE_BATTLERESULT;
 	}
 }
 

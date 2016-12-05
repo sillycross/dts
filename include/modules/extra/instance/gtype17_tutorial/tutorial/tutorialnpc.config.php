@@ -72,10 +72,11 @@ namespace tutorial
 				(
 				'name' => '自律人偶',
 				'icon' => 9,
-				'wep' => '木刀',
-				'wepk' => 'WP',
+				'wep' => '带毒匕首',
+				'wepk' => 'WK',
 				'wepe' => 10,
 				'weps' => 20,
+				'wepsk' => 'p',
 				),
 			),
 		),
