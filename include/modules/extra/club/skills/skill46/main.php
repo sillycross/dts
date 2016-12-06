@@ -101,7 +101,7 @@ namespace skill46
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skillbase'));
 		$skillid=(int)$skillid;
-		if ($pa!=NULL && $pa['skill46_flag'])
+		if ($pa!=NULL && isset($pa['skill46_flag']) && $pa['skill46_flag'])
 		{
 			//所有称号技能失效
 			if (defined('MOD_SKILL'.$skillid.'_INFO') && strpos(constant('MOD_SKILL'.$skillid.'_INFO'),'club;')!==false && strpos(constant('MOD_SKILL'.$skillid.'_INFO'),'hidden;')===false)
