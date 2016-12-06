@@ -3,23 +3,8 @@
 namespace gtype17
 {
 	function init() {}
-	
-//	function checkendgame()	//跳过游戏结束判定
-//	{
-//		if (eval(__MAGIC__)) return $___RET_VALUE;
-//		eval(import_module('sys'));
-//		if ($gametype==200) return;	
-//		$chprocess();
-//	}
-//	
-//	function checkcombo()	//不会连斗
-//	{
-//		if (eval(__MAGIC__)) return $___RET_VALUE;
-//		eval(import_module('sys'));
-//		if ($gametype==200) return;	
-//		$chprocess();
-//	}
 
+	//教程房强制让禁区时间变为42年以后，变相不禁区
 	function rs_game($xmode = 0) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;		
 		eval(import_module('sys','map'));
@@ -28,10 +13,11 @@ namespace gtype17
 		if ($xmode & 2 && $gametype == 17) {
 			//echo " - 禁区初始化 - ";
 			list($sec,$min,$hour,$day,$month,$year,$wday,$yday,$isdst) = localtime($starttime);
-			$areatime = $starttime + 1324512000;//变相不禁区 (ceil(($starttime + $areahour*60)/600))*600;
+			$areatime = $starttime + 1324512000;
 		}
 	}
 
+	//教程房特殊的npcinfo
 	function get_npclist(){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		eval(import_module('sys','map','gtype17'));
@@ -39,6 +25,7 @@ namespace gtype17
 		return $npcinfo_gtype17;
 	}
 	
+	//教程房特殊的shopitem.config
 	function get_shoplist(){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		eval(import_module('sys'));
@@ -48,6 +35,7 @@ namespace gtype17
 		return $l;
 	}
 	
+	//教程房特殊的mapitem.config
 	function get_itemfilecont(){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		eval(import_module('sys'));
@@ -57,6 +45,7 @@ namespace gtype17
 		return $l;
 	}
 	
+	//教程房特殊的trapitem.config
 	function get_trapfilecont(){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		eval(import_module('sys'));
@@ -66,6 +55,7 @@ namespace gtype17
 		return $l;
 	}
 
+	//修改禁区显示方式，其实这个可以丢到主模块里
 	function get_next_areadata_html()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -117,14 +107,14 @@ namespace gtype17
 		}		
 		echo $areadata;
 	}
-
+	//待调整
 	function checkcombo(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','map'));
 		if ($gametype!=17) return $chprocess();
 //		return;
 	}
-
+	//待调整
 	function check_addarea_gameover($atime){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','map'));

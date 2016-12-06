@@ -4,68 +4,73 @@ namespace tutorial
 {
 	function init() {}
 	
+	//提示部分的初始化函数，只在template页面中调用
 	function init_current_tutorial(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
 		if($gametype != 17){
 			return Array('在非教程模式下试图处理教程讯息，请检查代码。<br>');
 		}
-		list($s, $tprog) = get_current_tutorial_step();
+		list($tstep, $tprog) = get_current_tutorial_step();
 		$ct = get_tutorial();
 		if(!is_array($ct)) {
 			return Array('教程参数或代码错误，请检查tutorial模块代码<br>');
 		}
-		if(!empty($ct['pulse'])) {//闪烁指令
+		if(!empty($ct['pulse'])) {//闪烁指令，$effect是来自sys的全局函数，界面的具体实现可以在game.js里shwData()函数调整
 			$effect['pulse'][] = $ct['pulse'];
 		}
-		//当前obj是search并且将要调用itemfind battlecmd或者battleresult时应该显示下一个tips（search不存在过程）
-		//此外，如果tprog为真，则显示对应的prog
+		//当前obj是search并且将要调用itemfind battlecmd battleresult时应该显示下一个tips（search不存在过程所以无视后一点）
+		//之外，如果tprog为真，则显示对应的prog提示而非tips提示
 		$l = $command;
 		if($ct['object'] == 'search' && $command == 'search' && (isset($ct['obj2']['meetnpc']) || isset($ct['obj2']['itm']))){
 			$nct = get_tutorial_setting($ct['next']);
 			$r = Array(
-				$nct['tips']."分歧111111111111".$l,
+				$nct['tips']."分歧A；命令：".$l,
 				$ct['object']
 			);
-		}elseif($tprog && $ct['prog']){
+		}else
+		if($tprog && $ct['prog']){
 			$r = Array(
-				$ct['prog']."分歧222222222222".$l,
+				$ct['prog']."分歧B；命令：".$l,
 				$ct['object']
 			);
 		}else{
 			$r = Array(
-				$ct['tips']."分歧33333333333333".$l,
+				$ct['tips']."分歧C；命令：".$l,
 				$ct['object']
 			);
 		}
 		return $r;
 	}
 	
+	//获得当前玩家所处教程阶段的各项参数，目前只是一个外壳，供其他函数调用
 	function get_tutorial(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','skill1000','logger'));
-		list($s, $tprog) = get_current_tutorial_step();
-		//$log .= '目前的step为'.$s;
-		if (!$s) {
+		if($gametype != 17){
+			exit("Fatal error（伪）：在非教程模式下试图调用教程函数！");
+		}
+		list($tstep, $tprog) = get_current_tutorial_step();
+		//$log .= '目前的step为'.$tstep;
+		if (!$tstep) {
 			return false;
 		}
 		else {			
-			return get_tutorial_setting($s);
+			return get_tutorial_setting($tstep);
 		}		
 	}
 	
-	function get_current_tutorial_step(){//成功的step必须是10的倍数，否则认为卡在半途
+	//获取当前教程阶段的函数，从skill1000中读取$step的值并作出判断
+	//$step是10的倍数的场合是第一次进入这个阶段，否则在这个阶段已经提交过至少1次指令
+	function get_current_tutorial_step(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','skill1000','logger'));
-		$s = \skillbase\skill_getvalue(1000,'step');
-		$tprog = false;
-		if($s % 10){//fail
-			$s = $s - ($s % 10);
-			$tprog = true;
-		}
-		return Array($s, $tprog);
+		$tstep = \skillbase\skill_getvalue(1000,'step');
+		$tprog = \skillbase\skill_getvalue(1000,'prog');
+		return Array($tstep, $tprog);
 	}
 	
+	//根据玩家的$step读tutorial.config.php内的$tutorialsetting参数，目前也只是简单封装
 	function get_tutorial_setting($no){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','tutorial','logger'));
@@ -79,7 +84,10 @@ namespace tutorial
 		return $tutorialsetting[$no];
 	}
 	
-	function tutorial_forward_process($tp = 0){//0正常，1推进一半
+	//使玩家教程阶段推进的函数，教程胜利也在此判断
+	//$tp=0为正常推进，直接进到config设定的下一阶段，一般是+10
+	//$tp=1为进行中，进到下一阶段-5的值。某几步玩家可能容易不按教程走，这个时候需要有提示
+	function tutorial_forward_process($tp = 0){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
 		$ct = get_tutorial();
@@ -90,30 +98,36 @@ namespace tutorial
 				\sys\gameover ( $now, 'end9', $name );
 			}else{
 				\skillbase\skill_setvalue(1000,'step',$ct['next']);
+				\skillbase\skill_setvalue(1000,'prog',0);
 				//$log.='教程推进到下一阶段。这句话最终版应该删掉。<br>';
 			}
 		}else{
-			\skillbase\skill_setvalue(1000,'step',$ct['next'] - 5);
+			\skillbase\skill_setvalue(1000,'prog',1);//推进一半
 		}		
 		return;
 	}
 	
-	function tutorial_checknpc($atype,$asub,$ateam){//判断教程NPC的存在，如不存在则增加。如果恰好两个同type不同sub的NPC的名字还一样，这里会判断出错，所以在写config时尽量避免
+	//判断教程NPC是否存在，如不存在则增加。
+	//如果恰好两个NPC同type，不同sub，名字还一样，则这里会判断出错，所以在写config时应尽量避免
+	function tutorial_checknpc($atype,$asub,$ateam){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','addnpc','logger'));
 		$aname = get_addnpclist()[$atype]['sub'][$asub]['name'];
 		$result = $db->query("SELECT pid FROM {$tablepre}players WHERE type='$atype' AND name='$aname' AND teamID='$ateam'");
 		if(!$db->num_rows($result)){//不存在的情况下才addnpc，否则直接跳过，防止有人卡在这一步导致npc迅速增殖
 			$apid = \addnpc\addnpc($atype,$asub,1);
-			//通过队伍名来储存玩家绑定信息
-			$t = $db->query("UPDATE {$tablepre}players SET teamID='$ateam' WHERE pid='$apid'");
+			//在npc的teamID字段储存对应的玩家pid，大房模式下这个NPC只有对应pid的玩家可以摸到
+			$db->query("UPDATE {$tablepre}players SET teamID='$ateam' WHERE pid='$apid'");
 		}else{
 			$apid = $db->fetch_array($result)['pid'];
 		}
 		return $apid;
 	}
 	
-	function tutorial_movenpc($mtype,$msub,$mteam,$moveto = -1,$mpid=0){//移动教程NPC。$moveto小于零则用当前玩家的pls
+	//移动教程NPC
+	//$moveto小于零则用当前玩家的pls
+	//如果给出了$mpid的值，那么跳过判定NPC存在的步骤
+	function tutorial_movenpc($mtype,$msub,$mteam,$moveto = -1,$mpid=0){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
 		if($mpid == 0){
@@ -125,7 +139,10 @@ namespace tutorial
 		return $mpid;
 	}
 	
-	function tutorial_changehp_npc($ctype,$csub,$cteam,$chp,$cpid=0){//把NPC的HP和MHP变成指定数值
+	//把NPC的HP和MHP变成指定数值
+	//$chp最小为1
+	//如果给出了$cpid的值，那么跳过判定NPC存在的步骤
+	function tutorial_changehp_npc($ctype,$csub,$cteam,$chp,$cpid=0){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
 		if($cpid == 0){
@@ -137,9 +154,10 @@ namespace tutorial
 		return $cpid;
 	}
 	
-	function act(){//教程模式下的continue依赖于skill1000，其他模式下如果有别的需求可以在这里扩展
+	//接管act()，判定continue或者任意命令下的玩家教程阶段推进
+	function act(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','logger'));
+		eval(import_module('sys','player','logger','input'));
 		if($gametype == 17) {
 			$ct = get_tutorial();
 			if(isset($ct['obj2']['addnpc'])){//判定是否需要addnpc
@@ -148,43 +166,29 @@ namespace tutorial
 				$ateam = $pid;
 				tutorial_checknpc($atype,$asub,$ateam);
 			}
-			if(in_array($command, Array('team'))) {//部分行动暂时限制掉
+			if(in_array($command, Array('team'))) {//部分行动限制掉
 				$log .= '<span class="red">教程模式不能做出这一指令，请按教程提示操作！<span><br>';
 				return;
-			} elseif($ct['object'] != $command && $ct['object'] !=  'any' && $ct['object'] != 'back' && $ct['object'] != 'itemget'){//一般行动不限制死
+			} elseif($ct['object'] != $command && $ct['object'] !=  'any' && $ct['object'] != 'back' && $ct['object'] != 'itemget'){//一般行动不限死
 				//$log .= '<span class="yellow">请按教程提示操作！</span><br>';
-			} 		
-			if ($command == 'continue' || $ct['object'] ==  'any'){
+			}
+			if (($sp_cmd == 'sp_shop' && $ct['object'] == 'sp_shop') || ($command == 'shop4' && $ct['object'] == 'shop4')){//打开商店的初级和次级页面直接推进
+				tutorial_forward_process();
+			}elseif ($command == 'continue' || $ct['object'] ==  'any'){//continue和any则直接推进，之后返回
 				tutorial_forward_process();
 				return;
-			}else{
-				tutorial_forward_process(1);//推进一半
-			}
-//			elseif (strpos($ct['object'],'inf') === 0 && !$inf){//防呆设计
-//				$log .= "看来你比较熟练呢，我们继续。<br>";
-//				tutorial_forward_process();
-//				return;
-//			}
+			}elseif (($ct['object'] == 'inff' && strpos($inf,'f')===false) || ($ct['object'] == 'itm3' && strpos($inf,'p')===false) || ($ct['object'] == 'move' && $ct['obj2'] == 'shop' && \itemshop\check_in_shop_area($pls))){//防呆设计
+				$log .= "看来你比较熟练呢，我们继续。<br>";
+				tutorial_forward_process();
+				return;
+			}else{//否则判定推进一半
+				tutorial_forward_process(1);
+			}			
 		}		
 		return $chprocess();
 	}
 	
-	function move($moveto = 99) {
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','map','logger','itemshop'));
-		$opls = $pls;
-		$chprocess($moveto);
-		if($gametype == 17) {
-			$ct = get_tutorial();
-			if($ct['object'] == 'move'){
-				if(($ct['obj2'] == 'leave' && $opls != $pls) || ($ct['obj2'] == 'shop' && check_in_shop_area($pls))){
-					tutorial_forward_process();
-				}				
-			}
-		}
-		return;
-	}
-	
+	//接管get_addnpclist()，教程房独有的addnpc数据
 	function get_addnpclist(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','addnpc','tutorial'));
@@ -195,11 +199,30 @@ namespace tutorial
 		return $chprocess();
 	}
 	
+	//接管move()，只判定阶段推进
+	function move($moveto = 99) {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','map','logger','itemshop'));
+		$opls = $pls;
+		$chprocess($moveto);
+		if($gametype == 17) {
+			$ct = get_tutorial();
+			if($ct['object'] == 'move'){
+				if(($ct['obj2'] == 'leave' && $opls != $pls) || ($ct['obj2'] == 'shop' && \itemshop\check_in_shop_area($pls))){
+					tutorial_forward_process();
+				}				
+			}
+		}
+		return;
+	}
+	
+	//接管search()，只判定阶段推进
 	function search(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','map','logger'));
 		$chprocess();
-		if($gametype == 17) {//为了保证执行逻辑，在显示了结果之后才推进进程，造成itemfind battlecmd battleresult三个界面必须另外推进1步
+		if($gametype == 17) {
+			//为了保证执行逻辑，在search本体执行完毕之后才推进，造成itemfind battlecmd battleresult三个界面必须单独设定显示内容（前面init_current_tutorial()）
 			$ct = get_tutorial();
 			if($ct['object'] == 'search'){
 				tutorial_forward_process();
@@ -208,6 +231,7 @@ namespace tutorial
 		return;
 	}
 	
+	//接管discover()，玩家某几步必定发现NPC或者道具
 	function discover($schmode) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
@@ -218,7 +242,7 @@ namespace tutorial
 				$log .= "但是什么都没有发现。<br>";
 				return;
 			}
-			if($schmode == 'search' && ($ct['object'] == 'search' || $ct['object'] == 'itemget'|| $ct['object'] == 'back')){//需要探索时必定发现
+			if($schmode == 'search' && (isset($ct['obj2']['itm']) || isset($ct['obj2']['meetnpc']))){//需要探索时必定发现
 				if(isset($ct['obj2']['itm'])){//判定必定发现道具
 					discover_item();
 					return;
@@ -231,12 +255,14 @@ namespace tutorial
 		$chprocess($schmode);
 	}
 	
-	function discover_item(){//绕过数据库伪造一个道具，存在代码错误的情况下可以无限刷道具的。
+	//绕过数据库伪造一个道具。
+	//如果玩家卡在这一步，可以无限刷道具。不过教程房里怎样都好。
+	function discover_item(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','itemmain'));
 		if($gametype == 17){
 			$ct = get_tutorial();
-			if($ct['object'] == 'search'|| $ct['object'] == 'itemget' && isset($ct['obj2']['itm'])){
+			if(isset($ct['obj2']['itm'])){
 				$itm0 = $itmk0 = $itmsk0 = '';
 				$itme0 = $itms0 = 0;
 				$itm0=$ct['obj2']['itm'];
@@ -256,10 +282,11 @@ namespace tutorial
 		$chprocess();
 	}
 	
+	//接管itemget()，判定推进
 	function itemget() {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
-		$chprocess();
+		$r = $chprocess();
 		if($gametype == 17) {
 			$ct = get_tutorial();
 			if($ct['object'] == 'itemget'){
@@ -269,37 +296,62 @@ namespace tutorial
 		return;
 	}
 	
+	//接管discover_player()，对玩家遭遇敌人做数据准备
+	//NPC绕过数据库的成本比直接addnpc还大，就老实addnpc并且discover了
 	function discover_player(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;		
 		eval(import_module('sys','player','logger','metman'));
 		if($gametype == 17){
 			$ct = get_tutorial();			
-			if($ct['object'] == 'search'|| $ct['object'] == 'back' && isset($ct['obj2']['meetnpc'])){
-				$nid = tutorial_movenpc($ct['obj2']['meetnpc'],$ct['obj2']['meetsub'],$pid);//判定，顺便把NPC移到玩家所在地点
-				if(isset($ct['obj2']['changehp'])){//改动NPC血量
+			if(isset($ct['obj2']['meetnpc'])){
+				$nid = tutorial_movenpc($ct['obj2']['meetnpc'],$ct['obj2']['meetsub'],$pid);//判定NPC是否存在，顺便把NPC移到玩家所在地点
+				if(isset($ct['obj2']['changehp'])){//有设定时，改动NPC血量
 					$n = tutorial_changehp_npc($ct['obj2']['meetnpc'],$ct['obj2']['meetsub'],$pid,1,$nid);
 				}
 				\enemy\meetman($nid);
 				return;
 			}			
 		}
-		$chprocess();
+		return $chprocess();
 	}
 	
+	//这3个是改对应的模板。注意教程模板内嵌套了默认的模板，所以不能改为变量或者直接改原模板，用常数反而最合适
 	function get_battlecmd_filename(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','logger','player','metman','tutorial'));
 		if($gametype == 17) return MOD_TUTORIAL_TUTORIAL_BATTLECMD;
-		$chprocess();
+		return $chprocess();
 	}
 	
 	function get_battleresult_filename(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','logger','player','metman','tutorial'));
 		if($gametype == 17) return MOD_TUTORIAL_TUTORIAL_BATTLERESULT;
-		$chprocess();
+		return $chprocess();
 	}
 	
+	function get_corpse_filename(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','logger','player','metman','tutorial'));
+		if($gametype == 17) return MOD_TUTORIAL_TUTORIAL_CORPSE;
+		return $chprocess();
+	}
+	
+	function get_sp_shop_filename(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','logger','player','tutorial'));
+		if($gametype == 17) return MOD_TUTORIAL_TUTORIAL_SP_SHOP;
+		return $chprocess();
+	}
+	
+	function get_itemshop_filename(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','logger','player','tutorial'));
+		if($gametype == 17) return MOD_TUTORIAL_TUTORIAL_SHOP;
+		return $chprocess();
+	}
+	
+	//接管meetman，主要是判定必定发现敌人和必定先制/被先制
 	function meetman($sid)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -323,7 +375,9 @@ namespace tutorial
 		return $chprocess($sid);
 	}
 	
-	function get_hitrate(&$pa,&$pd,$active){//强制遭遇NPC的教程里，如果必定命中，那么命中率100%
+	//接管get_hitrate()
+	//如果设定遭遇NPC时必定命中，那么命中率100%
+	function get_hitrate(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','logger','player','tutorial'));
 		if($gametype == 17){
@@ -335,20 +389,9 @@ namespace tutorial
 		return $chprocess($pa,$pd,$active);
 	}
 	
-//	function post_weapon_strike_events(&$pa, &$pd, $active, $is_hit){//强制遭遇NPC的教程里强制受伤
-//		if (eval(__MAGIC__)) return $___RET_VALUE;
-//		eval(import_module('sys','player','tutorial'));
-//		if($gametype == 17){
-//			$ct = get_tutorial();
-//			if(isset($ct['obj2']['meetnpc']) && isset($ct['obj2']['inf'])){
-//				check_weapon_inf($pa, $pd, $active);
-//				return;
-//			}
-//		}
-//		return $chprocess($pa, $pd, $active, $is_hit);
-//	}
-	
-	function apply_weapon_inf(&$pa, &$pd, $active){//强制遭遇NPC的教程里强制受伤
+	//接管apply_weapon_inf()
+	//有设定时强制受伤，部位可在config内设置。此处暂时只设定玩家会受伤，而且会无视防具，教程需要。
+	function apply_weapon_inf(&$pa, &$pd, $active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','wound','logger','tutorial'));
 		if($gametype == 17 && $active==0){
@@ -361,7 +404,8 @@ namespace tutorial
 		return $chprocess($pa, $pd, $active);
 	}
 	
-	function check_ex_inf_infliction(&$pa, &$pd, $active, $key){//强制遭遇NPC的教程里强制异常状态
+	//接管check_ex_inf_infliction(），有设定时强制异常状态
+	function check_ex_inf_infliction(&$pa, &$pd, $active, $key){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','ex_dmg_att','wound','logger'));
 		if($gametype == 17 && $active==0){
@@ -376,19 +420,7 @@ namespace tutorial
 		return $chprocess($pa, $pd, $active, $key);
 	}
 	
-//	function check_weapon_inf(&$pa, &$pd, $active){
-//		if (eval(__MAGIC__)) return $___RET_VALUE;
-//		eval(import_module('wound'));
-//		if($gametype == 17){
-//			$ct = get_tutorial();
-//			if(isset($ct['obj2']['meetnpc']) && isset($ct['obj2']['inf'])){
-//				$pa['attack_wounded_'.$ct['obj2']['inf']]+=1000;
-//				return;
-//			}
-//		}
-//		return $chprocess($pa, $pd, $active);
-//	}
-	
+	//接管itemuse()，主要为了推进
 	function itemuse(&$theitem) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','itemmain','logger','tutorial'));		
@@ -404,6 +436,7 @@ namespace tutorial
 		return;
 	}	
 	
+	//接管heal_inf()，主要为了推进
 	function heal_inf($hurtposition, &$pa = NULL){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','tutorial'));
@@ -417,6 +450,50 @@ namespace tutorial
 		return;
 	}
 	
+	//接管player_kill_enemy()，主要为了推进
+	function player_kill_enemy(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','logger','tutorial'));
+		if($gametype == 17) {
+			$ct = get_tutorial();
+			if($ct['object']=='kill' && $active){//玩家杀死敌人以后推进进度
+				tutorial_forward_process();
+			}
+		}
+		$chprocess($pa, $pd, $active);
+		return;
+	}
+	
+	//接管getcorpse_action()，主要为了推进
+	function getcorpse_action(&$edata, $item){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','logger','tutorial'));
+		$chprocess($edata, $item);
+		if($gametype == 17) {
+			$ct = get_tutorial();
+			if($ct['object']=='money' && $item == 'money'){//玩家从尸体拿钱以后推进进度
+				tutorial_forward_process();
+			}
+		}
+		return;
+	}
+	
+	//接管itembuy()，主要为了推进
+	function itembuy($item,$shop,$bnum=1) {
+		if (eval(__MAGIC__)) return $___RET_VALUE;		
+		eval(import_module('sys','map','player','logger','itemmain','tutorial'));
+		if($gametype == 17) {
+			$ct = get_tutorial();
+			$shopiteminfo = \itemshop\get_shopiteminfo($item);
+			if($ct['object']=='itembuy' && $shopiteminfo['item'] == $ct['obj2']){//玩家购买特定名字的商品后推进进度
+				tutorial_forward_process();
+			}
+		}
+		return $chprocess($item,$shop,$bnum);
+	}
+	
+	//阻止addnpc进行状况提示
 	function addnews($t = 0, $n = '',$a='',$b='',$c = '', $d = '', $e = '') {//重载addnpc太特么烦了，干脆改addnews
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));

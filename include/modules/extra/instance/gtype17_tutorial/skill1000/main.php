@@ -10,7 +10,8 @@ namespace skill1000
 	function acquire1000(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		\skillbase\skill_setvalue(1000,'step','80',$pa);
+		\skillbase\skill_setvalue(1000,'step','10',$pa);
+		\skillbase\skill_setvalue(1000,'prog','0',$pa);
 	}
 	
 	function lost1000(&$pa)
@@ -24,13 +25,14 @@ namespace skill1000
 		return 1;
 	}
 	
-	function set_process1000($s,&$pa){
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if(check_process1000($pa)){
-			\skillbase\skill_setvalue(1000,'step',$s,$pa);
-		}
-		return;
-	}
+//	function set_process1000($s,$p=0,&$pa){
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		if(check_process1000($pa)){
+//			\skillbase\skill_setvalue(1000,'step',$s,$pa);
+//			\skillbase\skill_setvalue(1000,'prog',$p,$pa);
+//		}
+//		return;
+//	}
 	
 	function check_process1000(&$pa){
 		if (eval(__MAGIC__)) return $___RET_VALUE;

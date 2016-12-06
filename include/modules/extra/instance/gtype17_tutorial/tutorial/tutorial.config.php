@@ -40,14 +40,13 @@ $tutorialsetting = Array(
 		'object' => 'move',
 		'obj2' => 'leave',
 		'pulse' => 'moveto',
-		'next' => 70
-		
+		'next' => 70		
 	),
 	70 => Array(
 		'tips' => '“很好。移动需要消耗体力，所以请确保你体力充足。移动之后也可能遇到突发事件甚至敌人，不过这次没事。<br>除了移动之外，你还可以原地搜寻。请点击<span class="yellow">【搜寻】</span>按钮。”<br>',
 		'object' => 'search',
 		'obj2' => Array(
-			'itm' => '量产型充电手套',
+			'itm' => '充能手套',
 			'itmk' => 'DA',
 			'itme' => 45,
 			'itms' => 15,
@@ -66,7 +65,7 @@ $tutorialsetting = Array(
 			'itms' => 15,
 			'itmsk' => 'E'
 		),
-		'prog' => '如果你不小心丢弃了，在原地搜寻有概率重新捡到。',
+		'prog' => '“如果你不小心丢弃了，在原地搜寻有概率重新捡到。”<br>',
 		'pulse' => 'z',
 		'next' => 90
 	),
@@ -101,7 +100,7 @@ $tutorialsetting = Array(
 		'tips' => '“然后直接点击人形状态条的<span class="red">【受伤部位】</span>进行包扎。”<br>',
 		'object' => 'inff',
 		'pulse' => 'inff',
-		'prog' => '如果已经包扎完了，请点击<span class="red">【强行继续】</span><br>',
+		'prog' => '“如果已经包扎完了，请点击<span class="red">【强行继续】</span>”<br>',
 		'next' => 130
 	),
 	130 => Array(
@@ -111,11 +110,11 @@ $tutorialsetting = Array(
 			'itmk' => Array('Ca','Cp'),
 		),
 		'pulse' => 'dd',
-		'prog' => '如果已经处理完了，请点击<span class="red">【强行继续】</span><br>',
+		'prog' => '“如果已经处理完了，请点击<span class="red">【强行继续】</span>”<br>',
 		'next' => 140
 	),
 	140 => Array(
-		'tips' => '“很好，现在你从受伤状态完全恢复了。除了使用道具之外，消耗<span class="yellow">【技能点数】</span>或者<span class="yellow">【静养】</span>一定时间也可以解除异常状态。<br>敌人还在当前地点，让我们去还击吧。点击<span class="yellow">【探索】</span>”<br>',
+		'tips' => '“很好，现在你从受伤状态完全恢复了。<br>除了使用道具之外，消耗<span class="lime">【技能点数】</span>或者<span class="lime">【静养】</span>一定时间也可以解除异常状态。<br>敌人还在当前地点，让我们去还击吧。点击<span class="yellow">【探索】</span>”<br>',
 		'object' => 'search',
 		'obj2' => Array(
 			'meetnpc' => 91, 'meetsub' => 0,'active' => 1,'changehp' => 1,'always_hit' => 1
@@ -125,22 +124,52 @@ $tutorialsetting = Array(
 	),
 	150 => Array(
 		'tips' => '“这次你应该能够先手了。找到敌人的话，就点击具体的<span class="yellow">【攻击方式】</span>按钮。”<br>',
-		'object' => 'itm1',
+		'object' => 'kill',
 		'obj2' => Array(
 			'meetnpc' => 91, 'meetsub' => 0,'active' => 1,'changehp' => 1,'always_hit' => 1
 		),
-		'pulse' => 'zz',		
-		'prog' => '错过攻击机会也没有关系，在原地<span class="yellow">搜寻</span>仍有机会发现同一个敌人。<br>',
+		'pulse' => 'z',		
+		'prog' => '“错过攻击机会也没有关系，在原地<span class="yellow">搜寻</span>仍有机会发现同一个敌人。”<br>',
 		'next' => 160
 	),
 	160 => Array(
 		'tips' => '“不错，你干掉了这个陪练对象。击杀敌方后，可以捡取敌方尸体上的装备道具或者金钱。请选择<span class="yellow">【金钱（具体钱数）】</span>然后<span class="yellow">【提交】</span>。”<br>',
-		'object' => 'any',
-		'obj2' => Array(
-			'meetnpc' => 91, 'meetsub' => 0,'active' => 1,'changehp' => 1,'always_hit' => 1
-		),
-		'pulse' => 'any',
-		'next' => -1
+		'object' => 'money',
+		'pulse' => 'amoney',
+		'prog' => '“拿了别的东西？没关系，在原地<span class="yellow">搜寻</span>仍有机会发现那具尸体。<br>不过，游戏进入<span class="red">【连斗】</span>阶段或者其他玩家将尸体销毁后，就没法再发现尸体了。<br>',
+		'next' => 170
+	),
+	170 => Array(
+		'tips' => '“获得金钱后，可以去<span class="yellow">【商店】</span>添置装备道具。请先<span class="yellow">【移动】</span>到<span class="lime">【光阪高校】</span>或者<span class="lime">【花菱商厦】</span>。”<br>',
+		'object' => 'move',
+		'obj2' => 'shop',
+		'pulse' => 'moveto',
+		'next' => 180		
+	),
+	180 => Array(
+		'tips' => '“然后点击<span class="yellow">【商店】</span>按钮。”<br>',
+		'object' => 'sp_shop',
+		'pulse' => 'c',
+		'next' => 190		
+	),
+	190 => Array(
+		'tips' => '“之后选择<span class="yellow">【锐器】</span>类别并提交。商店购买方式稍微麻烦些，这是为了防止误操作。”<br>',
+		'object' => 'shop4',
+		'pulse' => 'ashop4',
+		'next' => 200		
+	),
+	200 => Array(
+		'tips' => '“之后选择<span class="red">【红杀铁剑】</span>类别并购买吧。”<br>',
+		'object' => 'itembuy',
+		'obj2' => '【红杀铁剑】',
+		'pulse' => 'a31',
+		'next' => 210		
+	),
+	210 => Array(
+		'tips' => '“告一段落，点此结束”<br>',
+		'object' => 'continue',
+		'pulse' => 'continue',
+		'next' => -1	
 	),
 );
 ?>

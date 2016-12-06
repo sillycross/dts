@@ -245,6 +245,9 @@ function showData(sdata){
 	if (sdata.indexOf("Fatal error") > 0 || sdata.indexOf("Syntax error") > 0){
 		$("error").innerHTML = sdata;
 		return;
+	}else if(sdata.indexOf("<html>") > 0){
+		document.write(sdata);
+		return;
 	}
 	
 	////////////////////////////////////////////////////////////////////////
