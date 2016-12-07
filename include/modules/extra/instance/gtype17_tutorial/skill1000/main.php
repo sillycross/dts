@@ -4,7 +4,7 @@ namespace skill1000
 {
 	function init() 
 	{
-		define('MOD_SKILL1000_INFO','unique;');
+		define('MOD_SKILL1000_INFO','');
 	}
 	
 	function acquire1000(&$pa)

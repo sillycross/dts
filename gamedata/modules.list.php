@@ -23,7 +23,6 @@ skill306,extra/achievement/skills/skill306/,1
 skill313,extra/achievement/skills/skill313/,1
 skill324,extra/achievement/skills/skill324/,1
 skill326,extra/achievement/skills/skill326/,1
-skill1000,extra/instance/gtype17_tutorial/skill1000/,1
 itemmain,base/itemmain/,1
 skill4,base/skills/skill4/,1
 npc,base/npc/,1
@@ -100,6 +99,7 @@ skill314,extra/achievement/skills/skill314/,1
 skill315,extra/achievement/skills/skill315/,1
 skill443,extra/card/skills/skill443/,1
 skill325,extra/achievement/skills/skill325/,1
+skill1000,extra/instance/gtype17_tutorial/skill1000/,1
 kuji0,extra/card/kuji/kuji0/,1
 kuji1,extra/card/kuji/kuji1/,1
 kuji2,extra/card/kuji/kuji2/,1

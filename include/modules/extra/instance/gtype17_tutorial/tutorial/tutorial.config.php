@@ -257,7 +257,7 @@ $tutorialsetting = Array(
 		'obj2' => Array(
 			'meetnpc' => 8, 'meetsub' => 0,'active' => 0,'always_hit' => 1
 		),
-		'pulse' => Array('search','chat'),
+		'pulse' => Array('chat','zz'),
 		'next' => 230	
 	),
 	230 => Array(
