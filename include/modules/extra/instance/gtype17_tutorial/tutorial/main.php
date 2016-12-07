@@ -29,7 +29,7 @@ namespace tutorial
 				$ct['object']
 			);
 		}else
-		if($tprog && $ct['prog']){
+		if($tprog && isset($ct['prog'])){
 			$r = Array(
 				$ct['prog']."分歧B；命令：".$l,
 				$ct['object']
@@ -155,9 +155,10 @@ namespace tutorial
 	}
 	
 	//接管act()，判定continue或者任意命令下的玩家教程阶段推进
+	//理论上一切推进判定都可以写在act()里，然而由于act()继承次数太多，难以弄清顺序，同时大量具体的参数需要在具体模块里才能得到，所以很多判定放到具体模块里了
 	function act(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','logger','input'));
+		eval(import_module('sys','player','logger','input','map'));
 		if($gametype == 17) {
 			$ct = get_tutorial();
 			if(isset($ct['obj2']['addnpc'])){//判定是否需要addnpc
@@ -165,6 +166,32 @@ namespace tutorial
 				$asub = $ct['obj2']['asub'];
 				$ateam = $pid;
 				tutorial_checknpc($atype,$asub,$ateam);
+			}
+			if(isset($ct['obj2']['addchat'])){//判定是否需要addchat
+				$add_chats = Array();
+				foreach($ct['obj2']['addchat'] as $cval){
+					$ctype = $cval['type'];
+					$cname = $cval['cname'];
+					$crecv = $cval['crecv'];
+					if($crecv == 'pid'){$crecv = $pid;}
+					elseif(strpos($crecv,'pls')!==false){
+						if($crecv == 'pls'){	$crecv = $plsinfo[$pls];}
+						elseif($crecv == 'rpls'){	$crecv = $plsinfo[rand(0,sizeof($plsinfo)-1)];}
+					}
+					$ccont = $cval['ccont'];
+					if(strpos($ccont,'pls')!==false){
+						$ccont = str_replace('pls',$plsinfo[$pls],$ccont);
+					}
+					$add_chats = Array(
+						'type' => $ctype,
+						'time' => $now,
+						'send' => $cname,
+						'recv' => $crecv,
+						'msg' => $ccont
+					);
+					$db->array_insert("{$tablepre}chat", $add_chats);
+				}				
+				//$db->query ( "INSERT INTO {$tablepre}chat (type,`time`,send,recv,msg) VALUES ('3','$now','$cname','$cplsinfo','$ccont')" );
 			}
 			if(in_array($command, Array('team'))) {//部分行动限制掉
 				$log .= '<span class="red">教程模式不能做出这一指令，请按教程提示操作！<span><br>';
@@ -177,7 +204,7 @@ namespace tutorial
 			}elseif ($command == 'continue' || $ct['object'] ==  'any'){//continue和any则直接推进，之后返回
 				tutorial_forward_process();
 				return;
-			}elseif (($ct['object'] == 'inff' && strpos($inf,'f')===false) || ($ct['object'] == 'itm3' && strpos($inf,'p')===false) || ($ct['object'] == 'move' && $ct['obj2'] == 'shop' && \itemshop\check_in_shop_area($pls))){//防呆设计
+			}elseif (($ct['object'] == 'clubsel' && $club) || ($ct['object'] == 'inff' && strpos($inf,'f')===false) || ($ct['object'] == 'itm3' && strpos($inf,'p')===false) || ($ct['object'] == 'move' && in_array('shop',$ct['obj2']) && \itemshop\check_in_shop_area($pls))){//防呆设计
 				$log .= "看来你比较熟练呢，我们继续。<br>";
 				tutorial_forward_process();
 				return;
@@ -208,7 +235,7 @@ namespace tutorial
 		if($gametype == 17) {
 			$ct = get_tutorial();
 			if($ct['object'] == 'move'){
-				if(($ct['obj2'] == 'leave' && $opls != $pls) || ($ct['obj2'] == 'shop' && \itemshop\check_in_shop_area($pls))){
+				if((in_array('leave',$ct['obj2']) && $opls != $pls) || (in_array('shop',$ct['obj2']) && \itemshop\check_in_shop_area($pls))){
 					tutorial_forward_process();
 				}				
 			}
@@ -486,11 +513,25 @@ namespace tutorial
 		if($gametype == 17) {
 			$ct = get_tutorial();
 			$shopiteminfo = \itemshop\get_shopiteminfo($item);
-			if($ct['object']=='itembuy' && $shopiteminfo['item'] == $ct['obj2']){//玩家购买特定名字的商品后推进进度
+			if($ct['object']=='itembuy' && $shopiteminfo['item'] == $ct['obj2']['item']){//玩家购买特定名字的商品后推进进度
 				tutorial_forward_process();
 			}
 		}
 		return $chprocess($item,$shop,$bnum);
+	}
+	
+	//接管player_selectclub()，主要为了推进
+	function player_selectclub($id){
+		if (eval(__MAGIC__)) return $___RET_VALUE;		
+		eval(import_module('sys','player','clubbase','tutorial'));
+		$r = $chprocess($id);
+		if($gametype == 17) {
+			$ct = get_tutorial();
+			if($ct['object']=='clubsel' && !$r){//玩家成功选择称号以后推进进度
+				tutorial_forward_process();
+			}
+		}
+		return $r;
 	}
 	
 	//阻止addnpc进行状况提示

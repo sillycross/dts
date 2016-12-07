@@ -3,7 +3,7 @@
 namespace tutorial
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'sys player map logger itemmain itemshop metman enemy addnpc explore skill1000 battle weapon edible wound corpse ex_dmg_def attack';
+	$___MODULE_dependency = 'sys player map logger clubbase itemmain itemshop metman enemy addnpc explore skill1000 battle weapon edible wound corpse ex_dmg_def attack';
 	$___MODULE_dependency_optional = 'weather';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php tutorial.config.php tutorialnpc.config.php';

@@ -24,6 +24,63 @@ namespace tutorial
 		);
 	$tnpcinfo = array
 		( 
+		8 => array
+			(
+			'mode' => 2,
+			'num' => 1,
+			'pass' => 'bra',
+			'club' => 0,
+			'bid' => 0,
+			'inf' => '',
+			'rage' => 0,
+			'pose'=> 0,
+			'tactic' => 0,
+			'killnum' => 0,
+			'teamID' => '',
+			'teamPass' => '',
+			'gd' => 'm',
+			'pls' => 99,
+			'mhp' => 400,
+			'msp' => 100,
+			'att' => 100,
+			'def' => 200,
+			'lvl' => 15,
+			'skill' => 30,
+			'money' => 1200,
+			'arb' => '红杀战甲',
+			'arbk' => 'DB',
+			'arbe' => 80,
+			'arbs' => 60,
+			'arbsk' => '',
+			'arh' => '红杀战盔',
+			'arhk' => 'DH',
+			'arhe' => 60,
+			'arhs' => 30,			
+			'arf' => '红杀战靴',
+			'arfk' => 'DF',
+			'arfe' => 75,
+			'arfs' => 30,
+			'arfsk' => '',
+			'ara' => '红杀辅助瞄准系统S.A.T.S.',
+			'arak' => 'DA',
+			'arae' => 60,
+			'aras' => 30,
+			'arask' => 'c',
+			
+			'sub' => array
+			(
+			0 => array
+				(
+				'name' => '卢特思',
+				'icon' => 0,
+				'wep' => '【红杀之牙】',
+				'wepk' => 'WK',
+				'wepe' => 70,
+				'weps' => 100,
+				'arask' => 'n',
+				),
+			),
+		),
 		91 => array
 			(
 			'mode' => 1,

@@ -242,10 +242,7 @@ room_cur_chat_maxcid = 0;
 
 function showData(sdata){
 	if (js_stop_flag) return;
-	if (sdata.indexOf("Fatal error") > 0 || sdata.indexOf("Syntax error") > 0){
-		$("error").innerHTML = sdata;
-		return;
-	}else if(sdata.indexOf("<html>") > 0){
+	if(sdata.indexOf('<html>') > 0 && sdata.indexOf('</html>') > 0){
 		document.write(sdata);
 		return;
 	}
@@ -262,8 +259,14 @@ function showData(sdata){
 	////////////////////////////////////////////////////////////////////////
 	
 	//回放模式中不需要解压
-	if (typeof in_replay_mode == 'undefined' || in_replay_mode == 0)
-		sdata= decodeURIComponent( escape( JXG.decompress(sdata) ) );
+	if (typeof in_replay_mode == 'undefined' || in_replay_mode == 0){
+		try {
+			sdata= decodeURIComponent( escape( JXG.decompress(sdata) ) );
+		} catch (e) {
+			$("error").innerHTML = sdata;
+			return;
+		}
+	}
 	
 	if (typeof no_json_decode == 'undefined' || no_json_decode == 0)
 		shwData = JSON.parse(sdata);
