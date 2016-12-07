@@ -123,7 +123,6 @@ namespace clubbase
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','player','logger','input'));
-		
 		if($mode == 'special' && strpos($command,'clubsel') === 0) 
 		{
 			$clubchosen = substr($command,7); $clubchosen = (int)$clubchosen;

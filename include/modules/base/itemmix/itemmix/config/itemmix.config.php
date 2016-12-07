@@ -295,8 +295,6 @@ $mixinfo = array
 	array('class' => 'ocg', 'stuff' => array('救世星龙 -仮','☆十星认证☆','★神卡认证★'),'result' => array('『流天类星龙』 ★12','WC12',4000,'∞','mcrwZ'),),
 	
 	array('class' => 'hidden', 'stuff' => array('红宝石方块','蓝宝石方块','绿宝石方块','非法枪械部件'),'result' => array('『宝石光束炮-试作型』','WG',1800,144,'ndo'),),
-	
-
 	array('class' => 'hidden', 'stuff' => array('歌词卡片【海洋】','歌词卡片【大地】','歌词卡片【星空】'),'result' => array('破灭之诗','Y',1,1,95),),
 	array('class' => 'hidden', 'stuff' => array('矿泉水','面包','女生校服'),'result' => array('Untainted Glory','A',1,1,'Z'),),
 	array('class' => 'hidden', 'stuff' => array('矿泉水','面包','男生校服'),'result' => array('Untainted Glory','A',1,1,'Z'),),
@@ -308,6 +306,7 @@ $mixinfo = array
 	array('class' => 'hidden', 'stuff' => array('黑色碎片','十字发卡'),'result' => array('黑色发卡','X',1,1,),),
 	array('class' => 'hidden', 'stuff' => array('『T.E.R.R.A』','『A.Q.U.A』','『V.E.N.T.U.S』'),'result' => array('『G.A.M.E.O.V.E.R』','Y',1,1,),),
 	array('class' => 'hidden', 'stuff' => array('提示纸条K','提示纸条E'),'result' => array('提示纸条Y','WC',1,1,'zd'),),
+	array('class' => 'hidden', 'stuff' => array('【红杀铁剑】','充能手套'),'result' => array('【红杀铁剑·雷击】','WK',1774,45,'ned'),),
 
 	);
 	

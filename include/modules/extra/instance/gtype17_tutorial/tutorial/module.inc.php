@@ -7,7 +7,7 @@ namespace tutorial
 	$___MODULE_dependency_optional = 'weather';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php tutorial.config.php tutorialnpc.config.php';
-	$___MODULE_templatelist = 'tutorial tutorial_itemfind tutorial_battlecmd tutorial_battleresult tutorial_corpse tutorial_shop tutorial_sp_shop';
+	$___MODULE_templatelist = 'tutorial tutorial_cmd';
 	////////// MODULE HEADER END /////////////////
 	require __INIT_MODULE__(__NAMESPACE__,__DIR__);
 }

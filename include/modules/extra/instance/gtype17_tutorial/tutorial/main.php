@@ -17,26 +17,30 @@ namespace tutorial
 			return Array('教程参数或代码错误，请检查tutorial模块代码<br>');
 		}
 		if(!empty($ct['pulse'])) {//闪烁指令，$effect是来自sys的全局函数，界面的具体实现可以在game.js里shwData()函数调整
-			$effect['pulse'][] = $ct['pulse'];
+			if(is_array($ct['pulse'])){
+				if(!isset($uip['effect']['pulse'])){$uip['effect']['pulse'] = Array();}
+				$uip['effect']['pulse'] = array_merge($uip['effect']['pulse'],$ct['pulse']);
+			}
+			else $uip['effect']['pulse'][] = $ct['pulse'];
 		}
 		//当前obj是search并且将要调用itemfind battlecmd battleresult时应该显示下一个tips（search不存在过程所以无视后一点）
 		//之外，如果tprog为真，则显示对应的prog提示而非tips提示
-		$l = $command;
-		if($ct['object'] == 'search' && $command == 'search' && (isset($ct['obj2']['meetnpc']) || isset($ct['obj2']['itm']))){
-			$nct = get_tutorial_setting($ct['next']);
-			$r = Array(
-				$nct['tips']."分歧A；命令：".$l,
-				$ct['object']
-			);
-		}else
+//		$l = $mode.' '.$command;
+//		if($ct['object'] == 'search' && $command == 'search' && (isset($ct['obj2']['meetnpc']) || isset($ct['obj2']['itm']))){
+//			$nct = get_tutorial_setting($ct['next']);
+//			$r = Array(
+//				$nct['tips']."分歧A；命令：".$l,
+//				$ct['object']
+//			);
+//		}else
 		if($tprog && isset($ct['prog'])){
 			$r = Array(
-				$ct['prog']."分歧B；命令：".$l,
+				$ct['prog'],
 				$ct['object']
 			);
 		}else{
 			$r = Array(
-				$ct['tips']."分歧C；命令：".$l,
+				$ct['tips'],
 				$ct['object']
 			);
 		}
@@ -190,6 +194,7 @@ namespace tutorial
 						'msg' => $ccont
 					);
 					$db->array_insert("{$tablepre}chat", $add_chats);
+					$uip['effect']['chatref'] = true;
 				}				
 				//$db->query ( "INSERT INTO {$tablepre}chat (type,`time`,send,recv,msg) VALUES ('3','$now','$cname','$cplsinfo','$ccont')" );
 			}
@@ -199,7 +204,7 @@ namespace tutorial
 			} elseif($ct['object'] != $command && $ct['object'] !=  'any' && $ct['object'] != 'back' && $ct['object'] != 'itemget'){//一般行动不限死
 				//$log .= '<span class="yellow">请按教程提示操作！</span><br>';
 			}
-			if (($sp_cmd == 'sp_shop' && $ct['object'] == 'sp_shop') || ($command == 'shop4' && $ct['object'] == 'shop4')){//打开商店的初级和次级页面直接推进
+			if (($sp_cmd == 'sp_shop' && $ct['object'] == 'sp_shop') || ($command == 'shop4' && $ct['object'] == 'shop4') || ($command == 'itemmix' && $ct['object'] == 'itemmix')){//打开商店的初级、次级页面和合成页面则直接推进
 				tutorial_forward_process();
 			}elseif ($command == 'continue' || $ct['object'] ==  'any'){//continue和any则直接推进，之后返回
 				tutorial_forward_process();
@@ -211,7 +216,7 @@ namespace tutorial
 			}else{//否则判定推进一半
 				tutorial_forward_process(1);
 			}			
-		}		
+		}
 		return $chprocess();
 	}
 	
@@ -247,7 +252,6 @@ namespace tutorial
 	function search(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','map','logger'));
-		$chprocess();
 		if($gametype == 17) {
 			//为了保证执行逻辑，在search本体执行完毕之后才推进，造成itemfind battlecmd battleresult三个界面必须单独设定显示内容（前面init_current_tutorial()）
 			$ct = get_tutorial();
@@ -255,7 +259,7 @@ namespace tutorial
 				tutorial_forward_process();
 			}
 		}
-		return;
+		return $chprocess();
 	}
 	
 	//接管discover()，玩家某几步必定发现NPC或者道具
@@ -300,7 +304,8 @@ namespace tutorial
 				$tpldata['itmk0_words'] = \itemmain\parse_itmk_words($itmk0);
 				$tpldata['itmsk0_words'] = \itemmain\parse_itmsk_words($itmsk0);
 				ob_clean();
-				include template(MOD_TUTORIAL_TUTORIAL_ITEMFIND);//顺便把模板改了
+				$uip['tutorial_cmd_inner_tpl'] = MOD_ITEMMAIN_ITEMFIND;
+				include template(MOD_TUTORIAL_TUTORIAL_CMD);//顺便把模板改了
 				$cmd = ob_get_contents();
 				ob_clean();
 				return;
@@ -345,36 +350,51 @@ namespace tutorial
 	//这3个是改对应的模板。注意教程模板内嵌套了默认的模板，所以不能改为变量或者直接改原模板，用常数反而最合适
 	function get_battlecmd_filename(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','logger','player','metman','tutorial'));
-		if($gametype == 17) return MOD_TUTORIAL_TUTORIAL_BATTLECMD;
+		eval(import_module('sys'));
+		if($gametype == 17) {
+			$uip['tutorial_cmd_inner_tpl'] = MOD_ENEMY_BATTLECMD;
+			return MOD_TUTORIAL_TUTORIAL_CMD;
+		}
 		return $chprocess();
 	}
 	
 	function get_battleresult_filename(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','logger','player','metman','tutorial'));
-		if($gametype == 17) return MOD_TUTORIAL_TUTORIAL_BATTLERESULT;
+		eval(import_module('sys'));
+		if($gametype == 17) {
+			$uip['tutorial_cmd_inner_tpl'] = MOD_BATTLE_BATTLERESULT;
+			return MOD_TUTORIAL_TUTORIAL_CMD;
+		}
 		return $chprocess();
 	}
 	
 	function get_corpse_filename(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','logger','player','metman','tutorial'));
-		if($gametype == 17) return MOD_TUTORIAL_TUTORIAL_CORPSE;
+		eval(import_module('sys'));
+		if($gametype == 17) {
+			$uip['tutorial_cmd_inner_tpl'] = MOD_CORPSE_CORPSE;
+			return MOD_TUTORIAL_TUTORIAL_CMD;
+		}
 		return $chprocess();
 	}
 	
 	function get_sp_shop_filename(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','logger','player','tutorial'));
-		if($gametype == 17) return MOD_TUTORIAL_TUTORIAL_SP_SHOP;
+		eval(import_module('sys'));
+		if($gametype == 17) {
+			$uip['tutorial_cmd_inner_tpl'] = MOD_ITEMSHOP_SP_SHOP;
+			return MOD_TUTORIAL_TUTORIAL_CMD;
+		}
 		return $chprocess();
 	}
 	
 	function get_itemshop_filename(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','logger','player','tutorial'));
-		if($gametype == 17) return MOD_TUTORIAL_TUTORIAL_SHOP;
+		eval(import_module('sys'));
+		if($gametype == 17) {
+			$uip['tutorial_cmd_inner_tpl'] = MOD_ITEMSHOP_SHOP;
+			return MOD_TUTORIAL_TUTORIAL_CMD;
+		}
 		return $chprocess();
 	}
 	
@@ -523,7 +543,7 @@ namespace tutorial
 	//接管player_selectclub()，主要为了推进
 	function player_selectclub($id){
 		if (eval(__MAGIC__)) return $___RET_VALUE;		
-		eval(import_module('sys','player','clubbase','tutorial'));
+		eval(import_module('sys','player','clubbase','tutorial','logger'));
 		$r = $chprocess($id);
 		if($gametype == 17) {
 			$ct = get_tutorial();

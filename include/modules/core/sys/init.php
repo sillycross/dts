@@ -2,7 +2,7 @@
 
 namespace sys
 {	
-	global $mode, $command, $db, $url, $effect;
+	global $mode, $command, $db, $url, $uip;
 	
 	function init()
 	{

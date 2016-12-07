@@ -416,11 +416,11 @@ if($hp <= 0) {
 	$gamedata['innerHTML']['cmd'] = ob_get_contents();
 } elseif(!$cmd) {
 	ob_clean();
-	if(defined('MOD_TUTORIAL') && $gametype == 17){
-		include template(MOD_TUTORIAL_TUTORIAL);
-	}	elseif($mode&&(file_exists($mode.'.htm') || file_exists(GAME_ROOT.TPLDIR.'/'.$mode.'.htm'))) {
+	if($mode != 'command' && $mode&&(file_exists($mode.'.htm') || file_exists(GAME_ROOT.TPLDIR.'/'.$mode.'.htm'))) {
 		include template($mode);
-	} else {
+	} elseif(defined('MOD_TUTORIAL') && $gametype == 17){
+		include template(MOD_TUTORIAL_TUTORIAL);
+	}	else {
 		include template('command');
 	}
 	$gamedata['innerHTML']['cmd'] = ob_get_contents();
@@ -430,7 +430,7 @@ if($hp <= 0) {
 
 if(isset($url)){$gamedata['url'] = $url;}
 //if(isset($classchg)) {$gamedata['classchg'] = $classchg;}
-if(isset($effect)) {$gamedata['effect'] = $effect;}
+if(isset($uip['effect'])) {$gamedata['effect'] = $uip['effect'];}
 $gamedata['innerHTML']['pls'] = $plsinfo[$pls];
 if ($gametype!=2) $gamedata['innerHTML']['anum'] = $alivenum; else $gamedata['innerHTML']['anum'] = $validnum;
 

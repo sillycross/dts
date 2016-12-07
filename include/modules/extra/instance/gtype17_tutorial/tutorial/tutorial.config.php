@@ -161,7 +161,7 @@ $tutorialsetting = Array(
 	190 => Array(
 		'tips' => '“之后选择<span class="yellow">【锐器】</span>类别并<span class="yellow">【提交】</span>。”<br>',
 		'object' => 'shop4',
-		'pulse' => 'ashop4',
+		'pulse' => Array('ashop4','z'),
 		'next' => 200		
 	),
 	200 => Array(
@@ -170,7 +170,7 @@ $tutorialsetting = Array(
 		'obj2' => Array(
 			'item' => '【红杀铁剑】'
 		),
-		'pulse' => 'a31',
+		'pulse' => Array('a31','z'),
 		'next' => 202		
 	),
 	202 => Array(
@@ -190,7 +190,7 @@ $tutorialsetting = Array(
 		'next' => 204
 	),
 	204 => Array(
-		'tips' => '“<span class="lime">聊天框</span>提示你所在的位置马上就要成为禁区了。如果禁区时间到时，你没有离开禁区所在地点，那么你会被<span class="red">【禁区杀】</span>。<br>马上点击<span class="yellow">【移动】</span>并离开这个区域！”<br>',
+		'tips' => '“<span class="yellow">注意！</span><br><span class="lime">聊天框</span>提示，你所在的位置马上就要成为禁区了。如果禁区时间到时，你没有离开禁区所在地点，那么你会被<span class="red">【禁区杀】</span>。<br>马上点击<span class="yellow">【移动】</span>并离开这个区域！”<br>',
 		'object' => 'move',
 		'obj2' => Array(
 			'leave',
@@ -199,29 +199,29 @@ $tutorialsetting = Array(
 					'type' => 5,
 					'cname' => '',
 					'crecv' => 'pid',
-					'ccont' => '增加禁区：pls'
+					'ccont' => '游戏进入连斗阶段！'
 				),
 				Array(
 					'type' => 5,
 					'cname' => '',
 					'crecv' => 'pid',
-					'ccont' => '游戏进入连斗阶段！'
+					'ccont' => '增加禁区：pls'
 				)
 			),
 		),
 		'prog' => '“不要磨蹭，立刻离开这个区域！”<br>',
-		'pulse' => 'moveto',
+		'pulse' => Array('moveto','chat'),
 		'next' => 206
 	),	
 	206 => Array(
-		'tips' => '“你及时躲过了禁区，干得好。此外，根据聊天框的讯息，游戏进入了<span class="yellow">【连斗阶段】</span>。<br><span class="yellow">【连斗】</span>之后，还存活的玩家必须厮杀到<span class="yellow">只剩1人幸存</span>为止，而那个幸存者将获得这场大逃杀的胜利。而且连斗后，除了击杀玩家或NPC那一刻之外，不能再遭遇尸体。”<br>',
+		'tips' => '“你及时躲过了禁区，干得好。此外，根据聊天框的讯息，游戏进入了<span class="yellow">【连斗阶段】</span>。<br><span class="yellow">【连斗】</span>之后，还存活的玩家必须厮杀到<span class="yellow">只剩1人幸存</span>为止，而那个幸存者将获得这场大逃杀的胜利。”<br>',
 		'object' => 'continue',
 		'obj2' => Array(
 			'addchat' => Array(
 				Array(
 					'type' => 3,
 					'cname' => '各路党派 AC搬运职人',
-					'crecv' => 'rpls',
+					'crecv' => 'pls',
 					'ccont' => '我觉得我还可以抢救一下……'
 				),
 				Array(
@@ -233,7 +233,7 @@ $tutorialsetting = Array(
 				Array(
 					'type' => 3,
 					'cname' => '各路党派 AC翻唱职人',
-					'crecv' => 'pls',
+					'crecv' => 'rpls',
 					'ccont' => '我觉得我还可以抢救一下……'
 				)
 			),
@@ -248,7 +248,7 @@ $tutorialsetting = Array(
 			'addnpc' => 8,
 			'asub' => 0,
 		),
-		'pulse' => 'continue',
+		'pulse' => Array('chat','continue'),
 		'next' => 220	
 	),
 	220 => Array(
@@ -257,12 +257,15 @@ $tutorialsetting = Array(
 		'obj2' => Array(
 			'meetnpc' => 8, 'meetsub' => 0,'active' => 0,'always_hit' => 1
 		),
-		'pulse' => 'chat',
+		'pulse' => Array('search','chat'),
 		'next' => 230	
 	),
 	230 => Array(
 		'tips' => '“他直接找到你了！战场上这很常见，高手玩家多半会使用生命探测器来判断你的位置。而且，看起来你们之间的实力差距相当之大。”<br>',
 		'object' => 'any',
+		'obj2' => Array(
+			'meetnpc' => 8, 'meetsub' => 0,'active' => 0,'always_hit' => 1
+		),
 		'pulse' => 'z',
 		'next' => 240	
 	),
@@ -271,14 +274,26 @@ $tutorialsetting = Array(
 		'object' => 'move',
 		'obj2' => Array('leave'),
 		'pulse' => 'moveto',
+		'prog' => '“使用回复道具之后，迅速离开这个区域。如果对方是熟练的玩家，也许下一秒你已经死了。”<br>',
 		'next' => 250	
 	),
 	250 => Array(
-		'tips' => '“你受了很大伤害，<span class="red">原地不动容易遭到补刀！</span><br>点击<span class="yellow">【移动】</span>离开这个区域，然后伺机回复HP吧。”<br>',
-		'object' => 'move',
-		'obj2' => Array('leave'),
-		'pulse' => 'moveto',
-		'next' => 250	
+		'tips' => '“现在已经是<span class="yellow">【连斗阶段】</span>了，不是你击倒他获得胜利，就是你倒在他的刀下。让我想想有什么办法……”<br>',
+		'object' => 'continue',
+		'pulse' => 'continue',
+		'next' => 260	
+	),
+	260 => Array(
+		'tips' => '“我记得，如果给这把<span class="red">【红杀铁剑】</span>提供能量，可以使它变化为更强大的形态。你可以试着<span class="yellow">【合成】</span>一下。<br>通过<span class="yellow">【合成】</span>，你可以把多个较弱的道具转化为更有用的武器、防具或者别的东西。点击<span class="yellow">【道具合成】</span>按钮吧。”<br>',
+		'object' => 'itemmix',
+		'pulse' => 'itemmix',
+		'next' => 270	
+	),
+	270 => Array(
+		'tips' => '“我记得，如果给这把<span class="red">【红杀铁剑】</span>提供能量，可以使它变化为更强大的形态。你可以试着<span class="yellow">【合成】</span>一下。<br>通过<span class="yellow">【合成】</span>，你可以把多个较弱的道具转化为更有用的武器、防具或者别的东西。点击<span class="yellow">【道具合成】</span>按钮吧。”<br>',
+		'object' => 'itemmix',
+		'pulse' => 'itemmix',
+		'next' => 280	
 	),
 );
 ?>
