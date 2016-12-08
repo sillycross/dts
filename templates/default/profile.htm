@@ -13,7 +13,7 @@
 					<!--{else}-->
 					<td colspan="2" class="b1"></td>
 					<!--{/if}-->
-					<td colspan="1" class="b1"><span>{lang gamedate}<!--{if $gamestate == 40 }--><span class="yellow">{lang combo}</span><!--{/if}--><!--{if $gamestate == 50 }--><span class="red">{lang duel}</span><!--{/if}--></span></td>
+					<td colspan="1" class="b1"><span id="gamedate">{lang gamedate}<!--{if ($gamestate == 40 ||($gametype == 17 && \skillbase\skill_getvalue(1000,'step')>=206))}--><span class="yellow">{lang combo}</span><!--{/if}--><!--{if $gamestate == 50 }--><span class="red">{lang duel}</span><!--{/if}--></span></td>
 				</tr>
 				<tr>
 					<td colspan="2" valign="top" height=192>

@@ -71,7 +71,7 @@ namespace tutorial
 			(
 			0 => array
 				(
-				'name' => '卢特思',
+				'name' => '弗勒尔',
 				'icon' => 0,
 				'wep' => '【红杀之牙】',
 				'wepk' => 'WK',
@@ -104,7 +104,7 @@ namespace tutorial
 			'def' => 80,
 			'lvl' => 1,
 			'skill' => 30,
-			'money' => 150,
+			'money' => 400,
 			'arb' => '便服',
 			'arbk' => 'DB',
 			'arbe' => 10,

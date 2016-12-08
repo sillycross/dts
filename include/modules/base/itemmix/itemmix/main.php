@@ -74,7 +74,7 @@ namespace itemmix
 		if(!$mixflag) {
 			$log .= "<span class=\"yellow\">$itmstr</span>不能合成！<br>";
 			ob_clean();
-			template(MOD_ITEMMIX_ITEMMIX);
+			template(get_itemmix_filename());
 			$cmd = ob_get_contents();
 			ob_clean();
 		} else {
@@ -95,6 +95,12 @@ namespace itemmix
 			itemmix_success();
 		}
 		return;
+	}
+	
+	function get_itemmix_filename(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		return MOD_ITEMMIX_ITEMMIX;
 	}
 	
 	function itemreduce($item){ //只限合成使用！！
@@ -155,7 +161,7 @@ namespace itemmix
 		if ($mode == 'command' && $command == 'itemmain' && $itemcmd=='itemmix')
 		{
 			ob_clean();
-			if ($itemcmd=='itemmix') include template(MOD_ITEMMIX_ITEMMIX);
+			if ($itemcmd=='itemmix') include template(get_itemmix_filename());
 			$cmd = ob_get_contents();
 			ob_clean();
 		}

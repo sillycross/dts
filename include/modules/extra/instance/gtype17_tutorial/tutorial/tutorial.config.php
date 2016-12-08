@@ -8,44 +8,44 @@ $tutorialsetting = Array(
 			'addnpc' => 91,
 			'asub' => 0,
 		),
-		'pulse' => 'continue',
+		'pulse' => '#continue',
 		'next' => 20
 	),
 	20 => Array(
 		'tips' => '“画面上方是你的<span class="yellow">基本数据</span>；其中的<span class="yellow">人形状态条</span>代表你的<span class="yellow">SP和HP</span>。SP过低时你将无法进行一些行动，而HP归零即意味着你的<span class="red">死亡</span>。”<br>',
 		'object' => 'continue',
-		'pulse' => 'profile',
+		'pulse' => '#profile',
 		'next' => 30
 	),
 	30 => Array(
 		'tips' => '“画面下方是你目前的<span class="yellow">装备</span>和包裹里的<span class="yellow">道具</span>。它们对你能否在游戏中存活和获胜有重要的意义。”<br>',
 		'object' => 'continue',
-		'pulse' => 'packs',
+		'pulse' => '#packs',
 		'next' => 40
 	),
 	40 => Array(
 		'tips' => '“画面最下方是<span class="yellow">聊天框</span>。你可以在这里看到一些游戏状况提示，NPC的遗言，以及跟其他玩家互动交流。”<br>',
 		'object' => 'continue',
-		'pulse' => 'chat',
+		'pulse' => '#chat',
 		'next' => 50
 	),
 	50 => Array(
 		'tips' => '“而这里是<span class="yellow">操作框</span>，你会在这里发出大部分指令，并得到指令的反馈。”<br>',
 		'object' => 'continue',
-		'pulse' => 'cmd',
+		'pulse' => '#cmd',
 		'next' => 55
 	),
 	55 => Array(
 		'tips' => '“进入游戏要做的第一件事，就是选择一个<span class="yellow">【内定称号】</span>。<br>大逃杀有24个内定称号，其中有……呃拿错台词了。不同的<span class="yellow">【内定称号】</span>对应着不同的技能、特色和发展方向，作为初学者，你暂时理解成某种<span class="yellow">‘专长’</span>就好。<br>现在点击<span class="yellow">【内定称号】</span>下拉列表，任选1个称号吧。”<br>',
 		'object' => 'clubsel',
-		'pulse' => 'clubsel',
+		'pulse' => '#clubsel',
 		'next' => 60
 	),
 	60 => Array(
 		'tips' => '“熟悉了游戏界面，也选好了称号，现在让我们迈出第一步。请点击<span class="yellow">【移动】</span>下拉列表，然后选择别的区域。”<br>',
 		'object' => 'move',
 		'obj2' => Array('leave'),
-		'pulse' => 'moveto',
+		'pulse' => '#moveto',
 		'next' => 70		
 	),
 	70 => Array(
@@ -58,7 +58,7 @@ $tutorialsetting = Array(
 			'itms' => 15,
 			'itmsk' => 'e'
 		),
-		'pulse' => 'zz',
+		'pulse' => '#zz',
 		'next' => 80
 	),
 	80 => Array(
@@ -72,7 +72,7 @@ $tutorialsetting = Array(
 			'itmsk' => 'E'
 		),
 		'prog' => '“如果你不小心丢弃了物品，在原地<span class="yellow">搜寻</span>有概率重新捡到。”<br>',
-		'pulse' => 'z',
+		'pulse' => '#z',
 		'next' => 90
 	),
 	90 => Array(
@@ -81,41 +81,41 @@ $tutorialsetting = Array(
 		'obj2' => Array(
 			'meetnpc' => 91, 'meetsub' => 0,'active' => 0,'inf' => 'f','ex_inf' => 'p','always_hit' => 1
 		),
-		'pulse' => 'zz',
+		'pulse' => '#zz',
 		'next' => 100
 	),
 	100 => Array(
 		'tips' => '“哎呀，看来这次运气不好，你在探索时遭遇了一次袭击。”<br>',
 		'object' => 'any',
 		'obj2' => Array(
-			'meetnpc' => 91, 'meetsub' => 0,'active' => 0,'inf' => 'f','ex_inf' => 'p'
+			'meetnpc' => 91, 'meetsub' => 0,'active' => 0,'inf' => 'f','ex_inf' => 'p','always_hit' => 1
 		),
-		'pulse' => 'z',
+		'pulse' => '#z',
 		'next' => 110
 	),
 	110 => Array(
 		'tips' => '“嘛，在战场上难免遭遇敌人并受伤。如果不及时回复HP，情况就会很危险。<br>HP伤害需要使用<span class="yellow">【HP回复】</span>道具。首先点击<span class="yellow">【面包】</span>以使用之。”<br>',
-		'object' => 'itm1',
+		'object' => 'itemuse',
 		'obj2' => Array(
 			'itmk' => Array('HH','HB'),
 		),
-		'pulse' => 'aa',
+		'pulse' => ".itmsingle :contains('面包')",
 		'next' => 120
 	),
 	120 => Array(
 		'tips' => '“然后直接点击人形状态条的<span class="red">【受伤部位】</span>进行<span class="yellow">包扎</span>。包扎需要消耗体力，请确保你的体力充足。”<br>',
 		'object' => 'inff',
-		'pulse' => 'inff',
+		'pulse' => '#inff',
 		'prog' => '“如果已经包扎完了，请点击<span class="red">【强行继续】</span>”<br>',
 		'next' => 130
 	),
 	130 => Array(
 		'tips' => '“<span class="purple">【中毒】</span>属于异常状态，需要用对应的药剂进行处理。幸好你随身携带了万用的药剂。点击<span class="yellow">【紧急药剂】</span>以使用之。<br>除了紧急药剂以外，还有对应单个异常状态生效的药剂，实战时注意鉴别和收集，当然也可以在商店中买到。”<br>',
-		'object' => 'itm3',
+		'object' => 'itemuse',
 		'obj2' => Array(
 			'itmk' => Array('Ca','Cp'),
 		),
-		'pulse' => 'dd',
+		'pulse' => ".itmsingle :contains('紧急药剂')",
 		'prog' => '“如果已经处理完了，请点击<span class="red">【强行继续】</span>”<br>',
 		'next' => 140
 	),
@@ -125,7 +125,7 @@ $tutorialsetting = Array(
 		'obj2' => Array(
 			'meetnpc' => 91, 'meetsub' => 0,'active' => 1,'changehp' => 1,'always_hit' => 1
 		),
-		'pulse' => 'zz',
+		'pulse' => '#zz',
 		'next' => 150
 	),
 	150 => Array(
@@ -134,34 +134,34 @@ $tutorialsetting = Array(
 		'obj2' => Array(
 			'meetnpc' => 91, 'meetsub' => 0,'active' => 1,'changehp' => 1,'always_hit' => 1
 		),
-		'pulse' => 'z',		
+		'pulse' => '#z',		
 		'prog' => '“错过攻击机会也没有关系，在原地<span class="yellow">搜寻</span>仍有机会发现同一个敌人。”<br>',
 		'next' => 160
 	),
 	160 => Array(
 		'tips' => '“不错，你干掉了这个陪练对象。<br>击杀敌方后，可以<span class="yellow">捡取</span>敌方尸体上的<span class="yellow">装备、道具或者金钱</span>。1次只能捡取<span class="yellow">1件</span>东西，其他东西则需要再次找到尸体才能捡。<br>请选择<span class="yellow">【金钱（具体钱数）】</span>然后<span class="yellow">【提交】</span>。”<br>',
 		'object' => 'money',
-		'pulse' => 'amoney',
+		'pulse' => '#amoney',
 		'prog' => '“拿了别的东西？没关系，在原地<span class="yellow">搜寻</span>仍有机会发现那具尸体。<br>不过，游戏进入<span class="red">【连斗】</span>阶段或者其他玩家将尸体销毁后，就没法再发现尸体了。<br>',
 		'next' => 170
 	),
 	170 => Array(
-		'tips' => '“获得金钱后，可以去<span class="yellow">【商店】</span>添置装备道具。<br>商店并非哪里都有，它只位于特定的两个地点。请先<span class="yellow">【移动】</span>到<span class="lime">【光阪高校】</span>或者<span class="lime">【花菱商厦】</span>。”<br>',
+		'tips' => '“获得金钱后，可以去<span class="yellow">【商店】</span>添置装备道具。<br>商店并非哪里都有，它只位于特定的两个地点。请先<span class="yellow">【移动】</span>到<span class="lime">【光坂高校】</span>或者<span class="lime">【花菱商厦】</span>。”<br>',
 		'object' => 'move',
 		'obj2' => Array('shop'),
-		'pulse' => 'moveto',
+		'pulse' => '#moveto',
 		'next' => 180		
 	),
 	180 => Array(
 		'tips' => '“然后点击<span class="yellow">【商店】</span>按钮。”<br>',
 		'object' => 'sp_shop',
-		'pulse' => 'c',
+		'pulse' => '#c',
 		'next' => 190		
 	),
 	190 => Array(
 		'tips' => '“之后选择<span class="yellow">【锐器】</span>类别并<span class="yellow">【提交】</span>。”<br>',
 		'object' => 'shop4',
-		'pulse' => Array('ashop4','z'),
+		'pulse' => Array('#ashop4','#z'),
 		'next' => 200		
 	),
 	200 => Array(
@@ -170,7 +170,7 @@ $tutorialsetting = Array(
 		'obj2' => Array(
 			'item' => '【红杀铁剑】'
 		),
-		'pulse' => Array('a31','z'),
+		'pulse' => Array('#a31','#z'),
 		'next' => 202		
 	),
 	202 => Array(
@@ -186,11 +186,11 @@ $tutorialsetting = Array(
 				),
 			),
 		),
-		'pulse' => 'continue',
+		'pulse' => '#continue',
 		'next' => 204
 	),
 	204 => Array(
-		'tips' => '“<span class="yellow">注意！</span><br><span class="lime">聊天框</span>提示，你所在的位置马上就要成为禁区了。如果禁区时间到时，你没有离开禁区所在地点，那么你会被<span class="red">【禁区杀】</span>。<br>马上点击<span class="yellow">【移动】</span>并离开这个区域！”<br>',
+		'tips' => '“<span class="yellow">注意！</span><br><span class="lime">聊天框</span>提示，你所在的位置马上就要成为禁区了。如果禁区时间到时，你没有离开禁区所在地点，那么你会被<span class="red">【禁区杀】</span>。<br>马上点击<span class="yellow">【移动】</span>并<span class="yellow">离开这个区域</span>！”<br>',
 		'object' => 'move',
 		'obj2' => Array(
 			'leave',
@@ -210,7 +210,7 @@ $tutorialsetting = Array(
 			),
 		),
 		'prog' => '“不要磨蹭，立刻离开这个区域！”<br>',
-		'pulse' => Array('moveto','chat'),
+		'pulse' => Array('#moveto','#chat'),
 		'next' => 206
 	),	
 	206 => Array(
@@ -238,7 +238,7 @@ $tutorialsetting = Array(
 				)
 			),
 		),
-		'pulse' => 'continue',
+		'pulse' => Array('#continue','#gamedate'),
 		'next' => 210
 	),
 	210 => Array(
@@ -248,7 +248,7 @@ $tutorialsetting = Array(
 			'addnpc' => 8,
 			'asub' => 0,
 		),
-		'pulse' => Array('chat','continue'),
+		'pulse' => Array('#chat','#continue'),
 		'next' => 220	
 	),
 	220 => Array(
@@ -257,7 +257,7 @@ $tutorialsetting = Array(
 		'obj2' => Array(
 			'meetnpc' => 8, 'meetsub' => 0,'active' => 0,'always_hit' => 1
 		),
-		'pulse' => Array('chat','zz'),
+		'pulse' => Array('#chat','#zz'),
 		'next' => 230	
 	),
 	230 => Array(
@@ -266,34 +266,89 @@ $tutorialsetting = Array(
 		'obj2' => Array(
 			'meetnpc' => 8, 'meetsub' => 0,'active' => 0,'always_hit' => 1
 		),
-		'pulse' => 'z',
+		'pulse' => '#z',
 		'next' => 240	
 	),
 	240 => Array(
-		'tips' => '“你受了很大伤害，<span class="red">原地不动容易遭到补刀！</span><br>点击<span class="yellow">【移动】</span>离开这个区域，然后伺机回复HP吧。”<br>',
+		'tips' => '“你受了很大伤害，<span class="red">原地不动容易遭到补刀！</span><br>点击<span class="yellow">【移动】离开这个区域</span>，然后伺机回复HP吧。”<br>',
 		'object' => 'move',
 		'obj2' => Array('leave'),
-		'pulse' => 'moveto',
+		'pulse' => '#moveto',
 		'prog' => '“使用回复道具之后，迅速离开这个区域。如果对方是熟练的玩家，也许下一秒你已经死了。”<br>',
 		'next' => 250	
 	),
 	250 => Array(
 		'tips' => '“现在已经是<span class="yellow">【连斗阶段】</span>了，不是你击倒他获得胜利，就是你倒在他的刀下。让我想想有什么办法……”<br>',
 		'object' => 'continue',
-		'pulse' => 'continue',
+		'pulse' => '#continue',
 		'next' => 260	
 	),
 	260 => Array(
 		'tips' => '“我记得，如果给这把<span class="red">【红杀铁剑】</span>提供能量，可以使它变化为更强大的形态。你可以试着<span class="yellow">【合成】</span>一下。<br>通过<span class="yellow">【合成】</span>，你可以把多个较弱的道具转化为更有用的武器、防具或者别的东西。点击<span class="yellow">【道具合成】</span>按钮吧。”<br>',
-		'object' => 'itemmix',
-		'pulse' => 'itemmix',
+		'object' => 'itemmain',
+		'obj2' => Array('itemmix'),
+		'pulse' => '#itemmix',
 		'next' => 270	
 	),
 	270 => Array(
-		'tips' => '“我记得，如果给这把<span class="red">【红杀铁剑】</span>提供能量，可以使它变化为更强大的形态。你可以试着<span class="yellow">【合成】</span>一下。<br>通过<span class="yellow">【合成】</span>，你可以把多个较弱的道具转化为更有用的武器、防具或者别的东西。点击<span class="yellow">【道具合成】</span>按钮吧。”<br>',
+		'tips' => '“在合成页面分别选择<span class="yellow">【红杀铁剑】</span>和<span class="yellow">【电磁充能手套】</span>前面的复选框，然后选择<span class="yellow">【提交】</span>。”<br>',
 		'object' => 'itemmix',
-		'pulse' => 'itemmix',
+		'obj2' => Array(
+			'item' => '【红杀铁剑·雷击】'
+		),
+		'pulse' => '#itemmix',
+		'prog' => '“已经装备的道具要先<span class="yellow">【卸下】</span>才能参与合成。”<br>',
 		'next' => 280	
+	),
+	280 => Array(
+		'tips' => '“成功了！现在你在武器上已经有优势了。<br>不过，要发挥武器的最大威力，还需要你提升对应的<span class="yellow">【武器熟练度】</span>。<br>使用武器是提升熟练度的主要途径，也就是熟能生巧；不过，也有一些道具能快速提升熟练度。<br>先回到<span class="yellow">【商店】</span>所在的地图吧。”<br>',
+		'object' => 'move',
+		'obj2' => Array('shop'),
+		'pulse' => Array('#wk','#wkv','#moveto'),
+		'prog' => '“商店位于<span class="lime">【光坂高校】</span>和<span class="lime">【花菱商厦】</span>。”<br>',
+		'next' => 290
+	),
+	290 => Array(
+		'tips' => '“刀剑类武器对应<span class="yellow">【斩熟】</span>，其技能书位于<span class="yellow">【商店页面】→【书籍】→【斩系指南】</span>。”<br>',
+		'object' => 'itembuy',
+		'obj2' => Array(
+			'item' => '《斩系指南》'
+		),
+		'pulse' => Array('#ashop10','#a101','#c'),
+		'next' => 300	
+	),
+	300 => Array(
+		'tips' => '“然后直接使用<span class="yellow">【斩系指南】</span>就可以提升斩系熟练度了。”<br>',
+		'object' => 'itemuse',
+		'obj2' => Array(
+			'itmk' => Array('VK'),
+		),
+		'pulse' => ".itmsingle :contains('《斩系指南》')",
+		'next' => 310
+	),
+	310 => Array(
+		'tips' => '“现在，你有资格跟那个玩家一较高下了。”<br>',
+		'object' => 'search',
+		'obj2' => Array(
+			'meetnpc' => 8, 'meetsub' => 0,'active' => 1,
+		),
+		'pulse' => '#zz',
+		'next' => 320
+	),
+	320 => Array(
+		'tips' => '“如果受伤了，记得按我说的治疗自己。<br>以你目前的实力击倒他应该不难，之后就拥抱胜利吧。<br>对了，别忘了把刚才的武器装备上。”<br>',
+		'object' => 'kill',
+		'obj2' => Array(
+			'meetnpc' => 8, 'meetsub' => 0,'active' => 1,
+		),
+		'pulse' => '#zz',
+		'next' => 330
+	),
+	330 => Array(
+		'tips' => '“祝贺你，你已经懂得如何在战场上生存了。”<br>',
+		'object' => 'any',
+		'pulse' => '#z',
+		'next' => -1
 	),
 );
 ?>

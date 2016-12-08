@@ -173,6 +173,7 @@ namespace tutorial
 			}
 			if(isset($ct['obj2']['addchat'])){//判定是否需要addchat
 				$add_chats = Array();
+				$uip['effect']['chatref'] = 1;
 				foreach($ct['obj2']['addchat'] as $cval){
 					$ctype = $cval['type'];
 					$cname = $cval['cname'];
@@ -194,7 +195,6 @@ namespace tutorial
 						'msg' => $ccont
 					);
 					$db->array_insert("{$tablepre}chat", $add_chats);
-					$uip['effect']['chatref'] = true;
 				}				
 				//$db->query ( "INSERT INTO {$tablepre}chat (type,`time`,send,recv,msg) VALUES ('3','$now','$cname','$cplsinfo','$ccont')" );
 			}
@@ -204,7 +204,7 @@ namespace tutorial
 			} elseif($ct['object'] != $command && $ct['object'] !=  'any' && $ct['object'] != 'back' && $ct['object'] != 'itemget'){//一般行动不限死
 				//$log .= '<span class="yellow">请按教程提示操作！</span><br>';
 			}
-			if (($sp_cmd == 'sp_shop' && $ct['object'] == 'sp_shop') || ($command == 'shop4' && $ct['object'] == 'shop4') || ($command == 'itemmix' && $ct['object'] == 'itemmix')){//打开商店的初级、次级页面和合成页面则直接推进
+			if (($sp_cmd == 'sp_shop' && $ct['object'] == 'sp_shop') || ($command == 'shop4' && $ct['object'] == 'shop4') || ($command == 'itemmain' && isset($itemcmd) && $itemcmd == 'itemmix' && $ct['object'] == 'itemmain' && in_array('itemmix',$ct['obj2']))){//打开商店的初级、次级页面和合成页面则直接推进
 				tutorial_forward_process();
 			}elseif ($command == 'continue' || $ct['object'] ==  'any'){//continue和any则直接推进，之后返回
 				tutorial_forward_process();
@@ -398,6 +398,16 @@ namespace tutorial
 		return $chprocess();
 	}
 	
+	function get_itemmix_filename(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		if($gametype == 17) {
+			$uip['tutorial_cmd_inner_tpl'] = MOD_ITEMMIX_ITEMMIX;
+			return MOD_TUTORIAL_TUTORIAL_CMD;
+		}
+		return $chprocess();
+	}
+	
 	//接管meetman，主要是判定必定发现敌人和必定先制/被先制
 	function meetman($sid)
 	{
@@ -470,13 +480,12 @@ namespace tutorial
 	//接管itemuse()，主要为了推进
 	function itemuse(&$theitem) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','itemmain','logger','tutorial'));		
-		$itm=&$theitem['itm']; $itmk=&$theitem['itmk'];
-		$itme=&$theitem['itme']; $itms=&$theitem['itms']; $itmsk=&$theitem['itmsk'];
+		eval(import_module('sys','player','itemmain','logger','tutorial'));
+		$oitmk = $theitem['itmk'];
 		$chprocess($theitem);
 		if($gametype == 17) {
 			$ct = get_tutorial();
-			if(strpos($ct['object'] ,'itm')===0 && isset($ct['obj2']['itmk']) && in_array($itmk,$ct['obj2']['itmk'])){//按教程使用补给之后推进教程进度
+			if($ct['object'] == 'itemuse' && isset($ct['obj2']['itmk']) && in_array($oitmk,$ct['obj2']['itmk'])){//按教程使用道具之后推进教程进度
 				tutorial_forward_process();
 			}
 		}
@@ -552,6 +561,19 @@ namespace tutorial
 			}
 		}
 		return $r;
+	}
+	
+	//接管itemmix_success()，主要为了推进
+	function itemmix_success(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','logger'));
+		if($gametype == 17) {
+			$ct = get_tutorial();
+			if($ct['object']=='itemmix' && $itm0 == $ct['obj2']['item']){//玩家合成指定物品以后推进进度
+				tutorial_forward_process();
+			}
+		}
+		return $chprocess();
 	}
 	
 	//阻止addnpc进行状况提示

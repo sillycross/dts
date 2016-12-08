@@ -306,7 +306,7 @@ $mixinfo = array
 	array('class' => 'hidden', 'stuff' => array('黑色碎片','十字发卡'),'result' => array('黑色发卡','X',1,1,),),
 	array('class' => 'hidden', 'stuff' => array('『T.E.R.R.A』','『A.Q.U.A』','『V.E.N.T.U.S』'),'result' => array('『G.A.M.E.O.V.E.R』','Y',1,1,),),
 	array('class' => 'hidden', 'stuff' => array('提示纸条K','提示纸条E'),'result' => array('提示纸条Y','WC',1,1,'zd'),),
-	array('class' => 'hidden', 'stuff' => array('【红杀铁剑】','充能手套'),'result' => array('【红杀铁剑·雷击】','WK',1774,45,'ned'),),
+	array('class' => 'hidden', 'stuff' => array('【红杀铁剑】','电磁充能手套'),'result' => array('【红杀铁剑·雷击】','WK',1774,45,'ned'),),
 
 	);
 	

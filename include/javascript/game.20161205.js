@@ -321,13 +321,14 @@ function showData(sdata){
 			for(var ef in sDe){
 				if(ef == 'pulse'){
 					for (var ei=0; ei<sDe[ef].length; ei++){
-				  	if($(sDe[ef][ei])!=null){
-				  		if(jQuery("#"+sDe[ef][ei]).is('img')) jQuery("#"+sDe[ef][ei]).addClass("TransPulse");
-				  		else jQuery("#"+sDe[ef][ei]).addClass("Pulse");
-							//$(sDe[ef][ei]).setAttribute("class", $(sDe[ef][ei]).getAttribute("class")+" Pulse");
+						if(jQuery(sDe[ef][ei]).length > 0){
+							if(jQuery(sDe[ef][ei]).is('img')) jQuery(sDe[ef][ei]).addClass("TransPulse");
+				  		else jQuery(sDe[ef][ei]).addClass("Pulse");
 						}
 				  }
-				}			
+				}	else if (ef == 'chatref'){
+					chat('ref',15000);
+				}
 			}
 		}
 		
