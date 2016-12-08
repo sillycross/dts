@@ -45,7 +45,7 @@ if($newsmode == 'last') {
 
 } elseif($newsmode == 'chat') {
 	$newsdata['innerHTML']['newsinfo'] = '';
-	$chats = getchat(0,'',$chatinnews);
+	$chats = getchat(0,'',0,$chatinnews);
 	$chatmsg = $chats['msg'];
 	foreach($chatmsg as $val){
 		$newsdata['innerHTML']['newsinfo'] .= $val;

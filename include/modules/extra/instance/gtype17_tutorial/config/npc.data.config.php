@@ -4,7 +4,7 @@ namespace gtype17
 {
 	$npcinfo_gtype17 = array
 		( 
-		8 => array
+		9 => array
 			(
 			'mode' => 2,
 			'num' => 1,

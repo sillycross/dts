@@ -236,7 +236,7 @@ namespace player
 		eval(import_module('sys','map','player'));
 		$lwname = $typeinfo [$pd['type']] . ' ' . $pd['name'];
 		$lstwd = \player\get_player_lastword($pd);
-		$db->query ( "INSERT INTO {$tablepre}chat (type,`time`,send,recv,msg) VALUES ('3','$now','$lwname','{$plsinfo[$pd['pls']]}','$lstwd')" );
+		$db->query ( "INSERT INTO {$tablepre}chat (type,`time`,send,recv,msg) VALUES ('3','$now','【{$plsinfo[$pd['pls']]}】 $lwname','','$lstwd')" );
 		if ($pd['sourceless']) $x=''; else $x=$pa['name'];
 		addnews ( $now, 'death' . $pd['state'], $pd['name'], $pd['type'], $x , $pa['attackwith'], $lstwd );
 	}

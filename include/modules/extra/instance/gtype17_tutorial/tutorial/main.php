@@ -179,9 +179,9 @@ namespace tutorial
 					$cname = $cval['cname'];
 					$crecv = $cval['crecv'];
 					if($crecv == 'pid'){$crecv = $pid;}
-					elseif(strpos($crecv,'pls')!==false){
-						if($crecv == 'pls'){	$crecv = $plsinfo[$pls];}
-						elseif($crecv == 'rpls'){	$crecv = $plsinfo[rand(0,sizeof($plsinfo)-1)];}
+					if(strpos($cname,'pls')!==false){
+						if(strpos($cname,'rpls')!==false){	$cname = str_replace('rpls',$plsinfo[rand(0,sizeof($plsinfo)-1)],$cname);}
+						else{	$cname = str_replace('pls',$plsinfo[$pls],$cname);}
 					}
 					$ccont = $cval['ccont'];
 					if(strpos($ccont,'pls')!==false){
@@ -585,6 +585,7 @@ namespace tutorial
 		}
 		return $chprocess($t, $n, $a, $b, $c, $d, $e);
 	}
+	
 }
 
 ?>

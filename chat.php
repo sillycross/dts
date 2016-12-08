@@ -35,7 +35,8 @@ if(($sendmode == 'send')&&$chatmsg) {
 	}
 }
 if(!$chatdata) {
-	$chatdata = getchat($lastcid,$teamID);
+	if($chatpid) $chatdata = getchat($lastcid,$teamID,$chatpid);
+	else $chatdata = getchat($lastcid,$teamID);
 }
 ob_clean();
 //$json = new Services_JSON();

@@ -57,13 +57,13 @@ namespace sys
 		if(strpos($n,'death11') === 0  || strpos($n,'death32') === 0) {
 			$result = $db->query("SELECT lastword FROM {$gtablepre}users WHERE username = '$a'");
 			$e = $lastword = $db->result($result, 0);
-			$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,recv,msg) VALUES ('3','$t','$a','$plsinfo[$c]','$lastword')");
+			$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,recv,msg) VALUES ('3','$t','【{$plsinfo[$c]}】 $a','','$lastword')");
 		}	elseif(strpos($n,'death15') === 0 || strpos($n,'death16') === 0) {
 			$result = $db->query("SELECT lastword FROM {$gtablepre}users WHERE username = '$a'");
 			$e = $lastword = $db->result($result, 0);
 			$result = $db->query("SELECT pls FROM {$tablepre}players WHERE name = '$a' AND type = '0'");
 			$place = $db->result($result, 0);
-			$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,recv,msg) VALUES ('3','$t','$a','$plsinfo[$place]','$lastword')");
+			$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,recv,msg) VALUES ('3','$t','【{$plsinfo[$place]}】 $a','','$lastword')");
 		}
 		$db->query("INSERT INTO {$tablepre}newsinfo (`time`,`news`,`a`,`b`,`c`,`d`,`e`) VALUES ('$t','$n','$a','$b','$c','$d','$e')");
 	}
@@ -72,29 +72,41 @@ namespace sys
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
+		$msg = '【'.$chatinfo[$chat['type']].'】'.$chat['send'].'：'.$chat['msg'].'('.date("H:i:s",$chat['time']).')';
+		$premsg = '';
+		$postmsg = '</span><br>';
+		
 		if($chat['type'] == '0') {
-			$msg = "【{$chatinfo[$chat['type']]}】{$chat['send']}：{$chat['msg']}".date("\(H:i:s\)",$chat['time']).'<br>';
+			$premsg = "<span class='chat0'>";
+			//$msg = "【{$chatinfo[$chat['type']]}】{$chat['send']}：{$chat['msg']}".date("\(H:i:s\)",$chat['time']).'<br>';
 		} elseif($chat['type'] == '1') {
-			$msg = "<span class=\"clan\">【{$chatinfo[$chat['type']]}】{$chat['send']}：{$chat['msg']}".date("\(H:i:s\)",$chat['time']).'</span><br>';
+			$premsg = "<span class='clan chat1'>";
+			//$msg = "<span class=\"clan\">【{$chatinfo[$chat['type']]}】{$chat['send']}：{$chat['msg']}".date("\(H:i:s\)",$chat['time']).'</span><br>';
 		} elseif($chat['type'] == '3') {
-			if ($chat['msg']){
-				$msg = "<span class=\"red\">【{$chat['recv']}】{$chat['send']}：{$chat['msg']} ".date("\(H:i:s\)",$chat['time']).'</span><br>';
+			$premsg = "<span class='red chat3'>";
+			if ($chat['msg']){				
+				//$msg = "<span class=\"red\">【{$chat['recv']}】{$chat['send']}：{$chat['msg']} ".date("\(H:i:s\)",$chat['time']).'</span><br>';
 			} else {
-				$msg = "<span class=\"red\">【{$chat['recv']}】{$chat['send']} 什么都没说就死去了 ".date("\(H:i:s\)",$chat['time']).'</span><br>';
+				$msg = '【'.$chatinfo[$chat['type']].'】'.$chat['send'].'什么都没说就死去了 ('.date("H:i:s",$chat['time']).')';
+				//$msg = "<span class=\"red\">【{$chat['recv']}】{$chat['send']} 什么都没说就死去了 ".date("\(H:i:s\)",$chat['time']).'</span><br>';
 			}
 		} elseif($chat['type'] == '4') {
-			$msg = "<span class=\"yellow\">【{$chatinfo[$chat['type']]}】{$chat['msg']}".date("\(H:i:s\)",$chat['time']).'</span><br>';
+			$premsg = "<span class='yellow chat4'>";
+			$msg = '【'.$chatinfo[$chat['type']].'】'.$chat['send'].$chat['msg'].'('.date("H:i:s",$chat['time']).')';//有冒号的区别
+			//$msg = "<span class=\"yellow\">【{$chatinfo[$chat['type']]}】{$chat['msg']}".date("\(H:i:s\)",$chat['time']).'</span><br>';
 		} elseif($chat['type'] == '5') {
-			$msg = "<span class=\"yellow\">【{$chatinfo[$chat['type']]}】{$chat['msg']}".date("\(H:i:s\)",$chat['time']).'</span><br>';
+			$premsg = "<span class='yellow chat5'>";
+			$msg = '【'.$chatinfo[$chat['type']].'】'.$chat['send'].$chat['msg'].'('.date("H:i:s",$chat['time']).')';
+			//$msg = "<span class=\"yellow\">【{$chatinfo[$chat['type']]}】{$chat['msg']}".date("\(H:i:s\)",$chat['time']).'</span><br>';
 		}
-		return $msg;
+		return $premsg.$msg.$postmsg;
 	}
 	
-	function getchat($last,$team='',$limit=0) {
+	function getchat($last,$team='',$chatpid=0,$limit=0) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		$limit = $limit ? $limit : $chatlimit;
-		$result = $db->query("SELECT * FROM {$tablepre}chat WHERE cid>'$last' AND (type!='1' OR (type='1' AND recv='$team')) ORDER BY cid desc LIMIT $limit");
+		$result = $db->query("SELECT * FROM {$tablepre}chat WHERE cid>'$last' AND (recv='' OR (type='1' AND recv='$team') OR (type!='1' AND recv='$chatpid')) ORDER BY cid desc LIMIT $limit");
 		$chatdata = Array('lastcid' => $last, 'msg' => '');
 		if(!$db->num_rows($result)){$chatdata = array('lastcid' => $last, 'msg' => '');return $chatdata;}
 		

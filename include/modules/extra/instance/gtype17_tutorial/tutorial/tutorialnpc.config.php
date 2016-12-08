@@ -24,7 +24,7 @@ namespace tutorial
 		);
 	$tnpcinfo = array
 		( 
-		8 => array
+		9 => array
 			(
 			'mode' => 2,
 			'num' => 1,

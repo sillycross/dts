@@ -220,20 +220,20 @@ $tutorialsetting = Array(
 			'addchat' => Array(
 				Array(
 					'type' => 3,
-					'cname' => '各路党派 AC搬运职人',
-					'crecv' => 'pls',
+					'cname' => 'pls 各路党派 AC搬运职人',
+					'crecv' => 'pid',
 					'ccont' => '我觉得我还可以抢救一下……'
 				),
 				Array(
 					'type' => 3,
-					'cname' => '各路党派 AC字幕职人',
-					'crecv' => 'rpls',
+					'cname' => 'rpls 各路党派 AC字幕职人',
+					'crecv' => 'pid',
 					'ccont' => '我觉得我还可以抢救一下……'
 				),
 				Array(
 					'type' => 3,
-					'cname' => '各路党派 AC翻唱职人',
-					'crecv' => 'rpls',
+					'cname' => 'rpls 各路党派 AC翻唱职人',
+					'crecv' => 'pid',
 					'ccont' => '我觉得我还可以抢救一下……'
 				)
 			),
@@ -245,7 +245,7 @@ $tutorialsetting = Array(
 		'tips' => '“现在……等等，那是什么声音？”<br>',
 		'object' => 'continue',
 		'obj2' => Array(
-			'addnpc' => 8,
+			'addnpc' => 9,
 			'asub' => 0,
 		),
 		'pulse' => Array('#chat','#continue'),
@@ -255,7 +255,7 @@ $tutorialsetting = Array(
 		'tips' => '“<span class="yellow">【聊天记录】</span>会显示死去玩家和NPC的<span class="red">遗言</span>，看起来有另一个玩家开始屠杀NPC了，请务必小心行事。”<br>',
 		'object' => 'search',
 		'obj2' => Array(
-			'meetnpc' => 8, 'meetsub' => 0,'active' => 0,'always_hit' => 1
+			'meetnpc' => 9, 'meetsub' => 0,'active' => 0,'always_hit' => 1
 		),
 		'pulse' => Array('#chat','#zz'),
 		'next' => 230	
@@ -264,7 +264,7 @@ $tutorialsetting = Array(
 		'tips' => '“他直接找到你了！战场上这很常见，高手玩家多半会使用生命探测器来判断你的位置。而且，看起来你们之间的实力差距相当之大。”<br>',
 		'object' => 'any',
 		'obj2' => Array(
-			'meetnpc' => 8, 'meetsub' => 0,'active' => 0,'always_hit' => 1
+			'meetnpc' => 9, 'meetsub' => 0,'active' => 0,'always_hit' => 1
 		),
 		'pulse' => '#z',
 		'next' => 240	
@@ -296,7 +296,7 @@ $tutorialsetting = Array(
 		'obj2' => Array(
 			'item' => '【红杀铁剑·雷击】'
 		),
-		'pulse' => '#itemmix',
+		'pulse' => Array('#z','#itemmix', ".slitmsingle :contains('电磁充能手套')",  ".slitmsingle :contains('【红杀铁剑】')"),
 		'prog' => '“已经装备的道具要先<span class="yellow">【卸下】</span>才能参与合成。”<br>',
 		'next' => 280	
 	),
@@ -330,16 +330,16 @@ $tutorialsetting = Array(
 		'tips' => '“现在，你有资格跟那个玩家一较高下了。”<br>',
 		'object' => 'search',
 		'obj2' => Array(
-			'meetnpc' => 8, 'meetsub' => 0,'active' => 1,
+			'meetnpc' => 9, 'meetsub' => 0,'active' => 1,
 		),
 		'pulse' => '#zz',
 		'next' => 320
 	),
 	320 => Array(
-		'tips' => '“如果受伤了，记得按我说的治疗自己。<br>以你目前的实力击倒他应该不难，之后就拥抱胜利吧。<br>对了，别忘了把刚才的武器装备上。”<br>',
+		'tips' => '“如果受伤了，记得治疗自己。<br>以你目前的实力击倒他应该不难，之后就拥抱胜利吧。<br>对了，<span class="lime">别忘了把刚才的武器装备上</span>。”<br>',
 		'object' => 'kill',
 		'obj2' => Array(
-			'meetnpc' => 8, 'meetsub' => 0,'active' => 1,
+			'meetnpc' => 9, 'meetsub' => 0,'active' => 1,
 		),
 		'pulse' => '#zz',
 		'next' => 330

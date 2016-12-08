@@ -448,8 +448,8 @@ function addnews($t = 0, $n = '',$a='',$b='',$c = '', $d = '', $e = '') {
 	\sys\addnews($t, $n,$a,$b,$c, $d, $e);
 }
 
-function getchat($last,$team='',$limit=0) {
-	return \sys\getchat($last,$team,$limit);
+function getchat($last,$team='',$chatpid=0,$limit=0) {
+	return \sys\getchat($last,$team,$chatpid,$limit);
 }
 
 function systemputchat($time,$type,$msg = ''){
