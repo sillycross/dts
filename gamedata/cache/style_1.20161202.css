@@ -12,7 +12,7 @@ input {cursor: crosshair;}
 .subtitle {font-family: "微软雅黑"; margin: 6px;color: #cceafa; width: 100%;font-size: 24px;font-weight:400;}
 .headerlink{}
 .small {font-size: 9pt}
-.ver a{font:bold 10pt "Viner Hand ITC","隶书";color:#ff0000;}
+.ver a{font:10pt "Viner Hand ITC","隶书";color:#ff0000;}
 .b1 {background-color:rgba(98,135,163,0.6); *BACKGROUND: rgb(98,135,163); *filter:alpha(opacity=60); BORDER: #000 0px none; TEXT-ALIGN: center; COLOR: #fff; border-right: #111 1px solid; border-bottom: #111 1px solid;font:bold 10pt "微软雅黑";}
 .b2 {background-color:rgba(98,135,163,0.6); *BACKGROUND: rgb(98,135,163); *filter:alpha(opacity=80); BORDER: #000 0px none; TEXT-ALIGN: center; COLOR: #fff; border-right: #111 1px solid;font:10pt "微软雅黑";}
 .b3 {background-color:rgba(17,17,17,0.5); *BACKGROUND:rgb(17,17,17); *filter:alpha(opacity=50); BORDER: #000 0px none; color: #fff; text-align: center; border-right: #111 1px solid;font:10pt "微软雅黑";}

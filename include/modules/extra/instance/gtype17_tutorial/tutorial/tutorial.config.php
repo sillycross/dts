@@ -330,7 +330,7 @@ $tutorialsetting = Array(
 		'tips' => '“现在，你有资格跟那个玩家一较高下了。”<br>',
 		'object' => 'search',
 		'obj2' => Array(
-			'meetnpc' => 9, 'meetsub' => 0,'active' => 1,
+			'meetnpc' => 9, 'meetsub' => 0,
 		),
 		'pulse' => '#zz',
 		'next' => 320
@@ -339,7 +339,7 @@ $tutorialsetting = Array(
 		'tips' => '“如果受伤了，记得治疗自己。<br>以你目前的实力击倒他应该不难，之后就拥抱胜利吧。<br>对了，<span class="lime">别忘了把刚才的武器装备上</span>。”<br>',
 		'object' => 'kill',
 		'obj2' => Array(
-			'meetnpc' => 9, 'meetsub' => 0,'active' => 1,
+			'meetnpc' => 9, 'meetsub' => 0,
 		),
 		'pulse' => '#zz',
 		'next' => 330

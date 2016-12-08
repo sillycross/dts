@@ -12,7 +12,7 @@ namespace sys
 	//是否缓存css文件。0=不缓存，1=缓存
 	$allowcsscache = 1;
 	//游戏版本
-	$gameversion = 'GE600M';
+	$gameversion = 'N.E.W. v1.2';
 	//站长留言
 	//$systemmsg = '';
 	//游戏开始方式 0=后台手动开始，1=每天固定时间开始，2=上局结束后，间隔固定小时后的整点开始，3=上局结束后，间隔固定分钟开始
