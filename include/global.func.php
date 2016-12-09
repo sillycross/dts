@@ -49,7 +49,7 @@ function gexit($message = '',$file = '', $line = 0) {
 			$gamedata['url'] = 'error.php';
 			$gamedata['errormsg'] = $message;
 			ob_clean();
-			echo base64_encode(gzencode(compatible_json_encode($gamedata)));
+			echo base64_encode(gzencode(json_encode($gamedata)));
 		}
 		else
 		{
@@ -64,7 +64,7 @@ function gexit($message = '',$file = '', $line = 0) {
 			$gamedata['url'] = 'error.php';
 			$gamedata['errormsg'] = $message;
 			ob_clean();
-			echo base64_encode(gzencode(compatible_json_encode($gamedata)));
+			echo base64_encode(gzencode(json_encode($gamedata)));
 			exit();
 		}
 		else
@@ -343,18 +343,18 @@ function copy_dir($source, $destination)		//递归复制目录
 	}
 }
 
-function compatible_json_encode(&$data)
-{	
-	//提供了json_encode的php版本直接使用自带的，否则使用JSON.php
-	if (!function_exists('json_encode'))
-	{
-		require_once GAME_ROOT.'./include/JSON.php';
-		$json = new Services_JSON();
-		$jdata = $json->encode($data);
-	}
-	else  $jdata = json_encode($data);
-	return $jdata;	
-}
+//function compatible_json_encode(&$data)
+//{	
+//	//提供了json_encode的php版本直接使用自带的，否则使用JSON.php
+//	if (!function_exists('json_encode'))
+//	{
+//		require_once GAME_ROOT.'./include/JSON.php';
+//		$json = new Services_JSON();
+//		$jdata = $json->encode($data);
+//	}
+//	else  $jdata = json_encode($data);
+//	return $jdata;	
+//}
 
 function getmicrotime(){
 	list($usec, $sec) = explode(" ",microtime());

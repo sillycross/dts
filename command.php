@@ -326,7 +326,7 @@ if(!$db->num_rows($result))
 { 
 	$gamedata['url'] = 'valid.php';
 	ob_clean();
-	$jgamedata = base64_encode(gzencode(compatible_json_encode($gamedata)));
+	$jgamedata = base64_encode(gzencode(json_encode($gamedata)));
 	echo $jgamedata;
 	return;
 }
@@ -349,7 +349,7 @@ if($pdata['pass'] != $cpass) {
 if($gamestate == 0) {
 	$gamedata['url'] = 'end.php';
 	ob_clean();
-	$jgamedata = base64_encode(gzencode(compatible_json_encode($gamedata)));
+	$jgamedata = base64_encode(gzencode(json_encode($gamedata)));
 	echo $jgamedata;
 	return;
 }
@@ -465,7 +465,7 @@ $gamedata['innerHTML']['log'] = $log;
 
 //$jgamedata = str_replace('_____CORE_RUNNING_TIME_____',$timecostlis,$jgamedata);
 
-$jgamedata=base64_encode(gzencode(compatible_json_encode($gamedata)));
+$jgamedata=base64_encode(gzencode(json_encode($gamedata)));
 ob_clean();
 echo $jgamedata;
 

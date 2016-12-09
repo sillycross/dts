@@ -38,7 +38,7 @@ if ($zz['status']==2)
 {
 	ob_clean();
 	$gamedata['url']='game.php';
-	echo base64_encode(gzencode(compatible_json_encode($gamedata)));
+	echo base64_encode(gzencode(json_encode($gamedata)));
 	die();
 }
 
@@ -93,7 +93,7 @@ if ($zz['status']==2)
 {
 	ob_clean();
 	$gamedata['url']='game.php';
-	echo base64_encode(gzencode(compatible_json_encode($gamedata)));
+	echo base64_encode(gzencode(json_encode($gamedata)));
 	die();
 }
 

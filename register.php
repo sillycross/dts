@@ -55,13 +55,13 @@ if(!isset($cmd)){
 		$gamedata['innerHTML']['postreg'] = '<input type="button" name="back" value="返回游戏首页" onclick="window.location.href=\'index.php\'">';
 		if(isset($error)){$gamedata['innerHTML']['error'] = $error;}
 		ob_clean();
-		$jgamedata = base64_encode(gzencode(compatible_json_encode($gamedata)));
+		$jgamedata = base64_encode(gzencode(json_encode($gamedata)));
 		echo $jgamedata;
 		ob_end_flush();
 	}else{
 		ob_clean();
 		if(isset($error)){$gamedata['innerHTML']['error'] = $error;}
-		$jgamedata = base64_encode(gzencode(compatible_json_encode($gamedata)));
+		$jgamedata = base64_encode(gzencode(json_encode($gamedata)));
 		echo $jgamedata;
 		ob_end_flush();
 	}

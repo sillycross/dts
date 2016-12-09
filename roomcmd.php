@@ -26,7 +26,7 @@ if(!$cuser||!$cpass)
 	ob_clean();
 	header('Location: index.php');
 	$gamedata['url']='index.php';
-	echo base64_encode(gzencode(compatible_json_encode($gamedata)));
+	echo base64_encode(gzencode(json_encode($gamedata)));
 	die();
 } 
 
@@ -47,7 +47,7 @@ if(!$db->num_rows($result))
 	ob_clean();
 	header('Location: index.php');
 	$gamedata['url']='index.php';
-	echo base64_encode(gzencode(compatible_json_encode($gamedata)));
+	echo base64_encode(gzencode(json_encode($gamedata)));
 	die();
 } 
 
@@ -57,7 +57,7 @@ if($pdata['password'] != $cpass)
 	ob_clean();
 	header('Location: index.php');
 	$gamedata['url']='index.php';
-	echo base64_encode(gzencode(compatible_json_encode($gamedata)));
+	echo base64_encode(gzencode(json_encode($gamedata)));
 	die();
 } 
 
@@ -67,7 +67,7 @@ if ($command=='newroom')
 	ob_clean();
 	header('Location: index.php');
 	$gamedata['url']='index.php';
-	echo base64_encode(gzencode(compatible_json_encode($gamedata)));
+	echo base64_encode(gzencode(json_encode($gamedata)));
 	die();
 }
 
@@ -78,7 +78,7 @@ if ($command=='enterroom')
 	ob_clean();
 	header('Location: index.php');
 	$gamedata['url']='index.php';
-	echo base64_encode(gzencode(compatible_json_encode($gamedata)));
+	echo base64_encode(gzencode(json_encode($gamedata)));
 	die();
 }
 
@@ -87,7 +87,7 @@ if ($room_prefix=='' || $room_prefix[0]!='s')
 	ob_clean();
 	header('Location: index.php');
 	$gamedata['url']='index.php';
-	echo base64_encode(gzencode(compatible_json_encode($gamedata)));
+	echo base64_encode(gzencode(json_encode($gamedata)));
 	die();
 }
 
@@ -97,7 +97,7 @@ if (!file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$roomid.'.txt'))
 	ob_clean();
 	header('Location: index.php');
 	$gamedata['url']='index.php';
-	echo base64_encode(gzencode(compatible_json_encode($gamedata)));
+	echo base64_encode(gzencode(json_encode($gamedata)));
 	die();
 }
 
@@ -335,7 +335,7 @@ if(!$roomtypelist[$zz['roomtype']]['continuous']){//非永续房间才进行下�
 		else
 		{
 			$gamedata['url']='index.php';
-			echo base64_encode(gzencode(compatible_json_encode($gamedata)));
+			echo base64_encode(gzencode(json_encode($gamedata)));
 		}
 		die();
 	}
