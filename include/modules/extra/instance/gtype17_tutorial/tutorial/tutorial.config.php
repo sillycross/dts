@@ -2,7 +2,7 @@
 if(!defined('IN_GAME')) exit('Access Denied'); 
 $tutorialsetting = Array(
 	10 => Array(
-		'tips' => '“能听到我说话吗？我是红杀菁英——<span class="yellow">芙蓉</span>。看起来你是个新手，如果你不想在这个虚拟世界中悲惨地死去，就给我好好听着。”<br>',
+		'tips' => '“能听到我说话吗？<br>我是……嗯，我是武侠作家<span class="yellow">李天明</span>。<br>我在这个虚拟世界取材已经有好几年了，而你好像是个新手。如果你不想在悲惨地死在这里，就好好记住我要说的话。”<br>',
 		'object' => 'continue',
 		'obj2' => Array(
 			'addnpc' => 91,
@@ -18,7 +18,7 @@ $tutorialsetting = Array(
 		'next' => 30
 	),
 	30 => Array(
-		'tips' => '“画面下方是你目前的<span class="yellow">装备</span>和包裹里的<span class="yellow">道具</span>。它们对你能否在游戏中存活和获胜有重要的意义。”<br>',
+		'tips' => '“画面中下方是你目前的<span class="yellow">装备</span>和包裹里的<span class="yellow">道具</span>。它们对你能否在游戏中存活和获胜有重要的意义。”<br>',
 		'object' => 'continue',
 		'pulse' => '#packs',
 		'next' => 40
@@ -36,7 +36,7 @@ $tutorialsetting = Array(
 		'next' => 55
 	),
 	55 => Array(
-		'tips' => '“进入游戏要做的第一件事，就是选择一个<span class="yellow">【内定称号】</span>。<br>大逃杀有24个内定称号，其中有……呃拿错台词了。不同的<span class="yellow">【内定称号】</span>对应着不同的技能、特色和发展方向，作为初学者，你暂时理解成某种<span class="yellow">‘专长’</span>就好。<br>现在点击<span class="yellow">【内定称号】</span>下拉列表，任选1个称号吧。”<br>',
+		'tips' => '“进入游戏要做的第一件事，就是选择一个<span class="yellow">【内定称号】</span>。<br>大逃杀有24个内定称号，其中有……呃拿错台词了。<br>不同的<span class="yellow">【内定称号】</span>对应着不同的技能、特色和发展方向，作为新手，你暂时理解成某种<span class="yellow">‘专长’</span>就好。<br>现在点击<span class="yellow">【内定称号】</span>下拉列表，任选1个称号吧。”<br>',
 		'object' => 'clubsel',
 		'pulse' => '#clubsel',
 		'next' => 60
@@ -85,7 +85,7 @@ $tutorialsetting = Array(
 		'next' => 100
 	),
 	100 => Array(
-		'tips' => '“哎呀，看来这次运气不好，你在探索时遭遇了一次袭击。”<br>',
+		'tips' => '“哎呀，看来这次运气不好，你在搜寻时遭遇了一次袭击。”<br>',
 		'object' => 'any',
 		'obj2' => Array(
 			'meetnpc' => 91, 'meetsub' => 0,'active' => 0,'inf' => 'f','ex_inf' => 'p','always_hit' => 1
@@ -94,7 +94,7 @@ $tutorialsetting = Array(
 		'next' => 110
 	),
 	110 => Array(
-		'tips' => '“嘛，在战场上难免遭遇敌人并受伤。如果不及时回复HP，情况就会很危险。<br>HP伤害需要使用<span class="yellow">【HP回复】</span>道具。首先点击<span class="yellow">【面包】</span>以使用之。”<br>',
+		'tips' => '“嘛，在战场上难免遭遇敌人并受伤。如果不及时回复生命，情况就会很危险。<br>生命伤害需要使用<span class="yellow">【生命回复】</span>道具。首先点击<span class="yellow">【面包】</span>以使用之。”<br>',
 		'object' => 'itemuse',
 		'obj2' => Array(
 			'itmk' => Array('HH','HB'),
@@ -120,7 +120,7 @@ $tutorialsetting = Array(
 		'next' => 140
 	),
 	140 => Array(
-		'tips' => '“很好，现在你从受伤状态完全恢复了。<br>除了使用道具之外，消耗<span class="lime">【技能点数】</span>或者<span class="lime">【静养】</span>一定时间也可以解除异常状态。<br>敌人还在当前地点，让我们去还击吧。点击<span class="yellow">【探索】</span>”<br>',
+		'tips' => '“很好，现在你从受伤状态完全恢复了。<br>除了使用道具之外，消耗<span class="lime">【技能点数】</span>或者<span class="lime">【静养】</span>一定时间也可以解除异常状态。<br>敌人还在当前地点，让我们去还击吧。点击<span class="yellow">【搜寻】</span>”<br>',
 		'object' => 'search',
 		'obj2' => Array(
 			'meetnpc' => 91, 'meetsub' => 0,'active' => 1,'changehp' => 1,'always_hit' => 1
@@ -174,7 +174,7 @@ $tutorialsetting = Array(
 		'next' => 202		
 	),
 	202 => Array(
-		'tips' => '“这把剑显然比你的初始武器好多了，它不仅攻击力高，还附带有属性伤害的效果。<br><span class="lime">商店购买</span>、<span class="lime">地图探索</span>，或者拾取<span class="lime">战利品</span>，都有可能给你带来更好的武器，如何尽快获得高级武器是一门学问。”<br>',
+		'tips' => '“这把剑显然比你的初始武器好多了，它不仅攻击力高，还附带有属性伤害的效果。<br><span class="lime">商店购买</span>、<span class="lime">地图搜寻</span>，或者拾取<span class="lime">战利品</span>，都有可能给你带来更好的武器，如何尽快获得高级武器是一门学问。”<br>',
 		'object' => 'continue',
 		'obj2' => Array(
 			'addchat' => Array(
@@ -301,7 +301,7 @@ $tutorialsetting = Array(
 		'next' => 280	
 	),
 	280 => Array(
-		'tips' => '“成功了！现在你在武器上已经有优势了。<br>不过，要发挥武器的最大威力，还需要你提升对应的<span class="yellow">【武器熟练度】</span>。<br>使用武器是提升熟练度的主要途径，也就是熟能生巧；不过，也有一些道具能快速提升熟练度。<br>先回到<span class="yellow">【商店】</span>所在的地图吧。”<br>',
+		'tips' => '“成功了！现在你在武器上已经有优势了。<br>不过，要发挥武器的最大威力，还需要你提升对应的<span class="yellow">【武器熟练度】</span>。<br><span class="yellow">使用武器作战</span>是提升对应的熟练度的主要途径，也就是熟能生巧；不过，也有一些道具能快速提升熟练度。<br>先回到<span class="yellow">【商店】</span>所在的地图吧。”<br>',
 		'object' => 'move',
 		'obj2' => Array('shop'),
 		'pulse' => Array('#wk','#wkv','#moveto'),
@@ -336,7 +336,7 @@ $tutorialsetting = Array(
 		'next' => 320
 	),
 	320 => Array(
-		'tips' => '“如果受伤了，记得治疗自己。<br>以你目前的实力击倒他应该不难，之后就拥抱胜利吧。<br>对了，<span class="lime">别忘了把刚才的武器装备上</span>。”<br>',
+		'tips' => '“如果受伤了，记得及时<span class="lime">回复生命</span>。<br>以你目前的实力击倒他应该不难，之后就拥抱胜利吧。<br>对了，<span class="lime">别忘了把刚才的武器装备上</span>。”<br>',
 		'object' => 'kill',
 		'obj2' => Array(
 			'meetnpc' => 9, 'meetsub' => 0,

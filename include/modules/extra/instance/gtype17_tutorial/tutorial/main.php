@@ -90,16 +90,18 @@ namespace tutorial
 	
 	//使玩家教程阶段推进的函数，教程胜利也在此判断
 	//$tp=0为正常推进，直接进到config设定的下一阶段，一般是+10
-	//$tp=1为进行中，进到下一阶段-5的值。某几步玩家可能容易不按教程走，这个时候需要有提示
+	//$tp=1为进行中。某几步玩家可能容易不按教程走，这个时候需要有提示
 	function tutorial_forward_process($tp = 0){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
 		$ct = get_tutorial();
 		if(!$tp){
 			if($ct['next'] < 0){//游戏结束判定
-				$log.='教程结束。这句话最终版应该删掉。<br>';
-				$url = 'end.php';
-				\sys\gameover ( $now, 'end9', $name );
+				//$log.='教程结束。这句话最终版应该删掉。<br>';
+				$state = 4;
+				addnews($now, 'wintutorial', $pd['name']);	
+				$url = 'end.php';				
+				//\sys\gameover ( $now, 'end9', $name );
 			}else{
 				\skillbase\skill_setvalue(1000,'step',$ct['next']);
 				\skillbase\skill_setvalue(1000,'prog',0);

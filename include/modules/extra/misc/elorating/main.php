@@ -460,7 +460,7 @@ namespace elorating
 		}
 		else  
 		{
-			echo $roomtypelist[$p['gtype']-10]['name'].' ';
+			echo $roomtypelist[$p['gtype']-10]['name'].' ';//这地方理论上要改的吧……
 		}
 		if ($p['win']) echo '<span style="color:#008800;">胜利</span>'; else echo '<span style="color:#ff0000;">失败</span>';
 		echo '<br>';

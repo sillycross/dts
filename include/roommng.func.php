@@ -68,6 +68,7 @@ function room_init($roomtype)
 	//0 房间不存在
 	//1 房间存在，游戏未开始
 	//2 房间存在，游戏已开始
+	//3 房间存在且为永续房间，跳过等待过程直接开始
 	
 	//roomstat在数据库status字段为1时才有意义
 	//0 等待玩家
@@ -117,7 +118,7 @@ function room_create($roomtype)
 	$roomtype=(int)$roomtype;
 	if ($roomtype>=count($roomtypelist))
 	{
-		gexit('参数错误',__file__,__line__);
+		gexit('房间参数错误',__file__,__line__);
 		die();
 	}
 	

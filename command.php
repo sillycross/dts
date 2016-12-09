@@ -372,9 +372,9 @@ $pagestartimez=microtime(true);
 $gamedata = array();
 \player\init_playerdata();
 
-player\pre_act();
-if ($hp>0) player\act();
-player\post_act();
+\player\pre_act();
+if ($hp > 0 && $state <= 3) \player\act();
+\player\post_act();
 
 $endtime = $now;
 

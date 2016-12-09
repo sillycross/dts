@@ -239,10 +239,11 @@ $roomtypelist = Array(
 			2 => '92',
 		)
 	),
-	7 => Array(
+	7 => Array(//教程模式为唯一房间
 		'name' => '<span class="red">教程模式</span>',
+		'unique' => true,//唯一房间，只有不存在gtype==17的房间时才会新建房间。
 		'gtype' => 17, //对应的游戏模式编号
-		'pnum' => 1,	//最大参与人数
+		'pnum' => 999,	//最大参与人数
 		'leader-position' => Array(	//各个编号位置的所属队伍队长位置
 			0 => 0,
 		),
