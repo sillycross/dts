@@ -107,13 +107,14 @@ namespace gtype17
 		}		
 		echo $areadata;
 	}
-	//待调整
+	//教程房不真正连斗
 	function checkcombo(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','map'));
+		eval(import_module('sys'));
 		if ($gametype!=17) return $chprocess();
 //		return;
 	}
+	
 	//待调整
 	function check_addarea_gameover($atime){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
