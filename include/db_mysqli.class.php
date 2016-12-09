@@ -52,6 +52,13 @@ class dbstuff {
 //		elseif(strpos($sql,'INSERT')===0){$this->insertnum ++;}
 //		elseif(strpos($sql,'UPDATE')===0){$this->updatenum ++;}
 //		elseif(strpos($sql,'DELETE')===0){$this->deletenum ++;}
+//		if(strpos($sql,'UPDATE')===0){
+//			ob_start();
+//			var_dump(debug_backtrace());
+//			$a = ob_get_contents();
+//			ob_end_clean();
+//			file_put_contents('a.txt',$a."\r\n",FILE_APPEND);
+//		}
 		return $result;
 	}
 	

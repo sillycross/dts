@@ -24,8 +24,8 @@
 <!--{if $room_prefix!='' && $room_prefix[0]=='s'}-->
 <span class="grey">-</span>
 <!--{else}-->
-<!--{if $value['status']==1}-->
-<!--{if $value['nowplayer']<$value['maxplayer']}-->
+<!--{if $value['status']==1 || $roomtypelist[$value['roomtype']]['continuous']}-->
+<!--{if $value['nowplayer']<$value['maxplayer'] || $roomtypelist[$value['roomtype']]['continuous']}-->
 <input type="button" style="width:46px" onclick="room_enter($value['id']);" value="进入">
 <!--{else}-->
 <input type="button" style="width:46px" onclick="room_enter($value['id']);" value="旁观">

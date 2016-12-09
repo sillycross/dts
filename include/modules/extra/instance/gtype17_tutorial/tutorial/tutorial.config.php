@@ -336,12 +336,13 @@ $tutorialsetting = Array(
 		'next' => 320
 	),
 	320 => Array(
-		'tips' => '“如果受伤了，记得及时<span class="lime">回复生命</span>。<br>以你目前的实力击倒他应该不难，之后就拥抱胜利吧。<br>对了，<span class="lime">别忘了把刚才的武器装备上</span>。”<br>',
+		'tips' => '“以你目前的实力击倒他应该不难，之后就拥抱胜利吧。<br>对了，<span class="lime">别忘了把刚才的武器装备上</span>。”<br>',
 		'object' => 'kill',
 		'obj2' => Array(
 			'meetnpc' => 9, 'meetsub' => 0,
 		),
 		'pulse' => '#zz',
+		'prog' => '“如果受伤了，记得及时<span class="lime">回复生命</span>。<br>”<br>',
 		'next' => 330
 	),
 	330 => Array(

@@ -16,7 +16,9 @@ namespace tutorial
 		if(!is_array($ct)) {
 			return Array('教程参数或代码错误，请检查tutorial模块代码<br>');
 		}
-		if(!empty($ct['pulse'])) {//闪烁指令，$effect是来自sys的全局函数，界面的具体实现可以在game.js里shwData()函数调整
+		//届满闪烁指令，$effect是来自sys的全局函数。取值应为jQuery可以识别的选择器字符串，例子见config。
+		//界面的具体实现可以在game.js里shwData()函数调整。
+		if(!empty($ct['pulse'])) {
 			if(is_array($ct['pulse'])){
 				if(!isset($uip['effect']['pulse'])){$uip['effect']['pulse'] = Array();}
 				$uip['effect']['pulse'] = array_merge($uip['effect']['pulse'],$ct['pulse']);
@@ -99,7 +101,7 @@ namespace tutorial
 			if($ct['next'] < 0){//游戏结束判定
 				//$log.='教程结束。这句话最终版应该删掉。<br>';
 				$state = 4;
-				addnews($now, 'wintutorial', $pd['name']);	
+				addnews($now, 'wintutorial', $name);	
 				$url = 'end.php';				
 				//\sys\gameover ( $now, 'end9', $name );
 			}else{
@@ -125,7 +127,9 @@ namespace tutorial
 			//在npc的teamID字段储存对应的玩家pid，大房模式下这个NPC只有对应pid的玩家可以摸到
 			$db->query("UPDATE {$tablepre}players SET teamID='$ateam' WHERE pid='$apid'");
 		}else{
-			$apid = $db->fetch_array($result)['pid'];
+			$npcd = $db->fetch_array($result);
+			$apid = $npcd['pid'];
+			if($npcd['hp'] <= 0){$db->query("UPDATE {$tablepre}players SET hp=1 WHERE pid='$apid'");}//如果空血，变成1血。
 		}
 		return $apid;
 	}
@@ -523,7 +527,7 @@ namespace tutorial
 		return;
 	}
 	
-	//接管getcorpse_action()，主要为了推进
+	//接管getcorpse_action()，主要为了推进。以后如果要添加拿特定道具的功能可以加在这里。
 	function getcorpse_action(&$edata, $item){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','tutorial'));
