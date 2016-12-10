@@ -33,7 +33,7 @@ class dbstuff {
 	}
 	
 	function select_db($dbname) {
-		return mysqli_select_db ( $dbname );
+		return mysqli_select_db ( $this->con, $dbname );
 	}
 	
 	function fetch_array($query, $result_type = MYSQLI_ASSOC) {

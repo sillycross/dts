@@ -1,23 +1,37 @@
 <?php
 
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
-set_magic_quotes_runtime(0);
+//set_magic_quotes_runtime(0);
 //ini_set('date.timezone','Asia/Shanghai');
 
 define('IN_GAME', TRUE);
 define('GAME_ROOT', '');
 
 if(PHP_VERSION < '5.4.0') {
-	exit('PHP version must >= 4.3.0!');
+	exit('PHP version must >= 5.4.0!');
 }
 
 $action = $_POST['action'] ? $_POST['action'] : $_GET['action'];
 $language = $_POST['language'] ? $_POST['language'] : $_GET['language'];
 
 @set_time_limit(1000);
-$server_config =  '/include/modules/core/sys/config/server.config.php';
-if (!file_exists($server_config)){exit('Please create "server.config.php" following the readme.txt first.');}
-$system_config = '/include/modules/core/sys/config/system.config.php';
+$server_config =  './include/modules/core/sys/config/server.config.php';
+$server_config_sample =  './include/modules/core/sys/config/server.config.sample.php';
+if (!file_exists($server_config)){
+	if(!file_exists($server_config_sample))	exit('"server.config.sample.php" doesn\'t exist.');
+	else {
+		if(!copy($server_config_sample,$server_config)) exit('Cannot create "server.config.php".');
+	}
+}
+$modulemng_config =  './include/modulemng.config.php';
+$modulemng_config_sample =  './include/modulemng.config.sample.php';
+if (!file_exists($modulemng_config)){
+	if(!file_exists($modulemng_config_sample))	exit('"modulemng.config.sample.php" doesn\'t exist.');
+	else {
+		if(!copy($modulemng_config_sample,$modulemng_config)) exit('Cannot create "modulemng.config.php".');
+	}
+}
+$system_config = './include/modules/core/sys/config/system.config.php';
 if (!file_exists($system_config)){exit('"system.config.php" doesn\'t exist.');}
 @include $server_config;
 
@@ -249,7 +263,8 @@ if(!$action) {
 			$moveut = 0;
 			$gamefounder = 'admin';
 
-			include_once '$server_config';
+			@include $server_config;
+			$tablepre = $gtablepre;
 			$now = time();
 			list($nowsec,$nowmin,$nowhour,$nowday,$nowmonth,$nowyear,$nowwday,$nowyday,$nowisdst) = localtime($now);
 			$nowmonth++;
@@ -328,7 +343,7 @@ if(!$action) {
 
 		} else {
 
-			include_once '$server_config';
+			@include $server_config;
 			$now = time();
 			list($nowsec,$nowmin,$nowhour,$nowday,$nowmonth,$nowyear,$nowwday,$nowyday,$nowisdst) = localtime($now);
 			$nowmonth++;
@@ -509,7 +524,7 @@ if(!$action) {
 				$configfile = preg_replace("/[$]dbhost\s*\=\s*[\"'].*?[\"'];/is", "\$dbhost = '$dbhost';", $configfile);
 				$configfile = preg_replace("/[$]dbuser\s*\=\s*[\"'].*?[\"'];/is", "\$dbuser = '$dbuser';", $configfile);
 				$configfile = preg_replace("/[$]dbpw\s*\=\s*[\"'].*?[\"'];/is", "\$dbpw = '$dbpw';", $configfile);
-				$configfile = preg_replace("/[$]tablepre\s*\=\s*[\"'].*?[\"'];/is", "\$tablepre = '$tablepre';", $configfile);
+				$configfile = preg_replace("/[$]tablepre\s*\=\s*[\"'].*?[\"'];/is", "\$gtablepre = '$tablepre';", $configfile);
 				$configfile = preg_replace("/[$]authkey\s*\=\s*[\"'].*?[\"'];/is", "\$authkey = '$authkey';", $configfile);
 				$configfile = preg_replace("/[$]bbsurl\s*\=\s*[\"'].*?[\"'];/is", "\$bbsurl = '$bbsurl';", $configfile);
 				$configfile = preg_replace("/[$]gameurl\s*\=\s*[\"'].*?[\"'];/is", "\$gameurl = '$gameurl';", $configfile);
@@ -523,7 +538,7 @@ if(!$action) {
 			include $server_config;
 			include './include/db_'.$database.'.class.php';
 			$db = new dbstuff;
-			$db->connect($dbhost, $dbuser, $dbpw, $dbname, $pconnect);
+			$db->connect($dbhost, $dbuser, $dbpw);
 
 			$query = $db->query("CREATE DATABASE bra_temp", 'SILENT');
 			if($db->error()) {
@@ -653,7 +668,7 @@ if(!$action) {
 	include $server_config;
 	include './include/db_'.$database.'.class.php';
 	$db = new dbstuff;
-	$db->connect($dbhost, $dbuser, $dbpw, $dbname, $pconnect);
+	$db->connect($dbhost, $dbuser, $dbpw);
 
 	$msg = '';
 	$quit = FALSE;
@@ -661,8 +676,8 @@ if(!$action) {
 	$curr_os = PHP_OS;
 
 	$curr_php_version = PHP_VERSION;
-	if($curr_php_version < '4.3.0') {
-		$msg .= "<font color=\"#FF0000\">$lang[php_version_430]</font>\t";
+	if($curr_php_version < '5.4.0') {
+		$msg .= "<font color=\"#FF0000\">$lang[php_version_low]</font>\t";
 		$quit = TRUE;
 	}
 
@@ -677,8 +692,8 @@ if(!$action) {
 
 	$query = $db->query("SELECT VERSION()");
 	$curr_mysql_version = $db->result($query, 0);
-	if($curr_mysql_version < '3.23') {
-		$msg .= "<font color=\"#FF0000\">$lang[mysql_version_323]</font>\t";
+	if($curr_mysql_version < '5.0') {
+		$msg .= "<font color=\"#FF0000\">$lang[mysql_version_low]</font>\t";
 		$quit = TRUE;
 	}
 
@@ -849,14 +864,14 @@ if(!$action) {
               </tr>
               <tr>
                 <td bgcolor="#E3E3EA" align="center"><?php echo $lang['env_php']; ?></td>
-                <td bgcolor="#EEEEF6" align="center">4.3.0+</td>
-                <td bgcolor="#E3E3EA" align="center">5.2.0+</td>
+                <td bgcolor="#EEEEF6" align="center">5.4.0+</td>
+                <td bgcolor="#E3E3EA" align="center">7.0.0+</td>
                 <td bgcolor="#EEEEF6" align="center"><?php echo $curr_php_version; ?></td>
               </tr>
               <tr>
                 <td bgcolor="#E3E3EA" align="center"><?php echo $lang['env_mysql']; ?></td>
-                <td bgcolor="#EEEEF6" align="center">3.23+</td>
-                <td bgcolor="#E3E3EA" align="center">4.0.18</td>
+                <td bgcolor="#EEEEF6" align="center">MySQL 5.5+</td>
+                <td bgcolor="#E3E3EA" align="center">MySQLi 5.0+</td>
                 <td bgcolor="#EEEEF6" align="center"><?php echo $curr_mysql_version; ?></td>
               </tr>
               <tr>
@@ -1223,9 +1238,9 @@ function loginit($logfile) {
 }
 
 function runquery($sql) {
-	global $lang, $dbcharset, $tablepre, $db;
+	global $lang, $dbcharset, $gtablepre, $db;
 
-	$sql = str_replace("\r", "\n", str_replace(' bra_', ' '.$tablepre, $sql));
+	$sql = str_replace("\r", "\n", str_replace('bra_', $gtablepre, $sql));
 	$ret = array();
 	$num = 0;
 	foreach(explode(";\n", trim($sql)) as $query) {
@@ -1292,7 +1307,7 @@ function dir_clear($dir) {
 	$directory = dir($dir);
 	while($entry = $directory->read()) {
 		$filename = $dir.'/'.$entry;
-		if(is_file($filename) && $filename != '.gitignore') {
+		if(is_file($filename) && $entry != '.gitignore') {
 			@unlink($filename);
 		}
 	}
@@ -1314,8 +1329,7 @@ function random($length) {
 function createtable($sql, $dbcharset) {
 	$type = strtoupper(preg_replace("/^\s*CREATE TABLE\s+.+\s+\(.+?\).*(ENGINE|TYPE)\s*=\s*([a-z]+?).*$/isU", "\\2", $sql));
 	$type = in_array($type, array('MYISAM', 'HEAP')) ? $type : 'MYISAM';
-	return preg_replace("/^\s*(CREATE TABLE\s+.+\s+\(.+?\)).*$/isU", "\\1", $sql).
-		(mysql_get_server_info() > '4.1' ? " ENGINE=$type DEFAULT CHARSET=$dbcharset" : " TYPE=$type");
+	return preg_replace("/^\s*(CREATE TABLE\s+.+\s+\(.+?\)).*$/isU", "\\1", $sql)." ENGINE=$type DEFAULT CHARSET=$dbcharset";
 }
 
 function setconfig($string) {

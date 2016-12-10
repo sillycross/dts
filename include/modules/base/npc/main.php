@@ -74,7 +74,7 @@ namespace npc
 						$db->query($qry);
 						unset($qry);
 						
-						if (is_array($npc['skills'])){
+						if (isset($npc['skills']) && is_array($npc['skills'])){
 							$npc['skills']['460']='0';
 							$qry="SELECT * FROM {$tablepre}players WHERE type>'0' ORDER BY pid DESC LIMIT 1";
 							$result=$db->query($qry);
