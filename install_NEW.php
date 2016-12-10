@@ -49,7 +49,7 @@ switch($language) {
 if($language) {
 
 	$languagefile = './install/'.$language.'.lang.php';
-	$sqlfile = './install/bra.sql';
+	$sqlfile = './install/bra.install.sql';
 	if(!is_readable($languagefile) || !is_readable($sqlfile)) {
 		exit('Please upload ./install and all its files completely.');
 	}
