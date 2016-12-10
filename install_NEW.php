@@ -524,7 +524,7 @@ if(!$action) {
 				$configfile = preg_replace("/[$]dbhost\s*\=\s*[\"'].*?[\"'];/is", "\$dbhost = '$dbhost';", $configfile);
 				$configfile = preg_replace("/[$]dbuser\s*\=\s*[\"'].*?[\"'];/is", "\$dbuser = '$dbuser';", $configfile);
 				$configfile = preg_replace("/[$]dbpw\s*\=\s*[\"'].*?[\"'];/is", "\$dbpw = '$dbpw';", $configfile);
-				$configfile = preg_replace("/[$]tablepre\s*\=\s*[\"'].*?[\"'];/is", "\$gtablepre = '$tablepre';", $configfile);
+				$configfile = preg_replace("/[$]gtablepre\s*\=\s*[\"'].*?[\"'];/is", "\$gtablepre = '$tablepre';", $configfile);
 				$configfile = preg_replace("/[$]authkey\s*\=\s*[\"'].*?[\"'];/is", "\$authkey = '$authkey';", $configfile);
 				$configfile = preg_replace("/[$]bbsurl\s*\=\s*[\"'].*?[\"'];/is", "\$bbsurl = '$bbsurl';", $configfile);
 				$configfile = preg_replace("/[$]gameurl\s*\=\s*[\"'].*?[\"'];/is", "\$gameurl = '$gameurl';", $configfile);

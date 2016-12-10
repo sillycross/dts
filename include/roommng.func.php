@@ -230,6 +230,8 @@ function room_enter($id)
 		//gexit('aaaaaaaa',__file__,__line__);
 		$room_prefix = 's'.$id;
 		$tablepre = $gtablepre.$room_prefix;
+		$wtablepre = $gtablepre.($room_prefix[0]);
+		\sys\room_auto_init();
 		\sys\load_gameinfo();
 		if($rd['status'] == 1){	//未开始则启动房间
 			$db->query("UPDATE {$gtablepre}rooms SET status = 2 WHERE roomid = '$id'");

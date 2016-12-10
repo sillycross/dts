@@ -150,6 +150,57 @@ namespace sys
 		$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,msg) VALUES ('5','$time','','$msg')");
 		return;
 	}
+	
+	function room_auto_init(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		global $room_prefix,$tablepre,$wtablepre,$gtablepre,$db;
+		//eval(import_module('sys'));
+		//自动初始化表
+		if ($room_prefix!='')
+		{
+			$result = $db->query("show tables like '{$wtablepre}winners';");
+			if (!$db->num_rows($result))
+			{
+				//某个非主房间是第一次使用，则创建表并初始化
+				$db->query("create table if not exists {$wtablepre}winners like {$gtablepre}winners;");
+			}
+			
+			$result = $db->query("show tables like '{$tablepre}game';");
+			if (!$db->num_rows($result))
+			{
+				//某个非主房间是第一次使用，则创建表并初始化
+				$db->query("create table if not exists {$tablepre}game like {$gtablepre}game;");
+		
+				$result = $db->query("SELECT count(*) as cnt FROM {$tablepre}game");
+				if (!$db->num_rows($result)) 
+					$cnt=0;
+				else 
+				{
+					$zz = $db->fetch_array($result);
+					$cnt=$zz['cnt'];
+				}
+				if ($cnt==0) $db->query("insert into {$tablepre}game (gamenum) values (0);");
+					
+				$result = $db->query("SELECT count(*) as cnt FROM {$wtablepre}winners");
+				if (!$db->num_rows($result)) 
+					$cnt=0;
+				else 
+				{
+					$zz = $db->fetch_array($result);
+					$cnt=$zz['cnt'];
+				}
+				if ($cnt==0) $db->query("insert into {$wtablepre}winners (gid) values (0);");
+				
+				$sql = file_get_contents(GAME_ROOT.'./gamedata/sql/reset.sql');
+				$sql = str_replace("\r", "\n", str_replace(' bra_', ' '.$tablepre, $sql));
+				$db->queries($sql);
+				
+				$sql = file_get_contents(GAME_ROOT.'./gamedata/sql/players.sql');
+				$sql = str_replace("\r", "\n", str_replace(' bra_', ' '.$tablepre, $sql));
+				$db->queries($sql);
+			}
+		}
+	}
 }
 
 ?>

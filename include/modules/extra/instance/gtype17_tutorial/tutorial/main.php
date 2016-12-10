@@ -121,13 +121,13 @@ namespace tutorial
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','addnpc','logger'));
 		$aname = get_addnpclist()[$atype]['sub'][$asub]['name'];
-		$result = $db->query("SELECT pid FROM {$tablepre}players WHERE type='$atype' AND name='$aname' AND teamID='$ateam'");
+		$result = $db->query("SELECT pid,hp FROM {$tablepre}players WHERE type='$atype' AND name='$aname' AND teamID='$ateam'");
+		$npcd = $db->fetch_array($result);
 		if(!$db->num_rows($result)){//不存在的情况下才addnpc，否则直接跳过，防止有人卡在这一步导致npc迅速增殖
 			$apid = \addnpc\addnpc($atype,$asub,1);
 			//在npc的teamID字段储存对应的玩家pid，大房模式下这个NPC只有对应pid的玩家可以摸到
 			$db->query("UPDATE {$tablepre}players SET teamID='$ateam' WHERE pid='$apid'");
 		}else{
-			$npcd = $db->fetch_array($result);
 			$apid = $npcd['pid'];
 			if($npcd['hp'] <= 0){$db->query("UPDATE {$tablepre}players SET hp=1 WHERE pid='$apid'");}//如果空血，变成1血。
 		}
@@ -204,8 +204,9 @@ namespace tutorial
 				}				
 				//$db->query ( "INSERT INTO {$tablepre}chat (type,`time`,send,recv,msg) VALUES ('3','$now','$cname','$cplsinfo','$ccont')" );
 			}
-			if(in_array($command, Array('team'))) {//部分行动限制掉
+			if(in_array($command, Array('team','destroy'))) {//部分行动限制掉
 				$log .= '<span class="red">教程模式不能做出这一指令，请按教程提示操作！<span><br>';
+				tutorial_forward_process(1);
 				return;
 			} elseif($ct['object'] != $command && $ct['object'] !=  'any' && $ct['object'] != 'back' && $ct['object'] != 'itemget'){//一般行动不限死
 				//$log .= '<span class="yellow">请按教程提示操作！</span><br>';
