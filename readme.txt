@@ -1,4 +1,4 @@
-﻿安装指南：
+﻿安装指南 版本1：
 1. 首先把游戏文件属性全部改成777，然后如果之前没有建过mysql结构，进mysql里执行：
 	create database acdts;
 	use acdts;
@@ -14,10 +14,10 @@
 7. 请访问modulemng.php，进入编辑模式=>保存=>应用修改。
 8. 进游戏，看看能不能动，能动就完工了。
 
-安装指南2：
-1. 首先把游戏文件属性全部改成777
-2. 将./include/modules/core/sys/config/server.config.sample.php ****复制一份**** 然后重命名为server.config.php，并填写相应参数。****切记要复制文件，不要直接重命名****，不然push一下github那边就没有sample文件了……
-3. 将./include/modulemng.config.sample.php ****复制一份**** 然后重命名为modulemng.config.php，暂时不要动里面的东西。****切记要复制文件，不要直接重命名****，不然push一下github那边就没有sample文件了……
-4. 然后去gamedata文件夹删掉install.lock文件
-5. 运行install_NEW.php，一路照设定走
-6. 目前没有实现游戏立刻开局，无所谓了
+
+
+安装指南 版本2：（在你有install_NEW.php和install文件夹的情况下）
+1. 首先把游戏文件属性全部改成777，去gamedata文件夹删掉install.lock文件
+2. 运行install_NEW.php，一路照设定走，该输的密码要输。
+3. 装好了。
+备注：装完记得把install_NEW.php删掉。目前懒得实现直接开局，要实现也很简单。要改modulemng.config.php见版本1第5步开始。
