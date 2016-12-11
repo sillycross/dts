@@ -225,7 +225,7 @@ function room_enter($id)
 	$header = 'index.php';
 	$roomdata = json_decode(mgzdecode(base64_decode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$id.'.txt'))),1);
 	//global $cuser;
-	global $roomtypelist,$gametype,$startime,$now,$room_prefix;
+	global $roomtypelist,$gametype,$startime,$now,$room_prefix,$alivenum;
 	if($roomtypelist[$rd['roomtype']]['continuous']){//永续房，绕过其他判断直接进房间
 		//gexit('aaaaaaaa',__file__,__line__);
 		$room_prefix = 's'.$id;
@@ -254,6 +254,7 @@ function room_enter($id)
 			if($now - $pendtime > 60){
 				$db->query("DELETE FROM {$tablepre}players WHERE name = '$pname' AND type = 0");
 				$db->query("DELETE FROM {$tablepre}players WHERE type>0 AND teamID = '$ppid'");
+				$alivenum --;
 				include_once GAME_ROOT.'./include/valid.func.php';
 				enter_battlefield($udata['username'],$udata['password'],$udata['gender'],$udata['icon'],$pcard);
 			}
