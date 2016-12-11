@@ -174,7 +174,7 @@ $tutorialsetting = Array(
 		'next' => 202		
 	),
 	202 => Array(
-		'tips' => '“这把剑显然比你的初始武器好多了，它不仅攻击力高，还附带有属性伤害的效果。<br><span class="lime">商店购买</span>、<span class="lime">地图搜寻</span>，或者拾取<span class="lime">战利品</span>，都有可能给你带来更好的武器，如何尽快获得高级武器是一门学问。”<br>',
+		'tips' => '“这把剑显然比你的初始武器好多了。<br><span class="lime">商店购买</span>、<span class="lime">地图搜寻</span>，或者拾取<span class="lime">战利品</span>，都有可能给你带来更好的武器，如何尽快获得高级武器是一门学问。”<br>',
 		'object' => 'continue',
 		'obj2' => Array(
 			'addchat' => Array(
