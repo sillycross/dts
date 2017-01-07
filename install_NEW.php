@@ -504,6 +504,7 @@ if(!$action) {
 	if(!$exist_error) {
 
 		if(!$write_error) {
+			if($database == 'mysql') $database = PHP_VERSION >= 7.0 ? 'mysqli': $database;
 
 			if($_POST['saveconfig'] && is_writeable($server_config)) {
 				$gamefounder = setconfig($_POST['gamefounder']);
@@ -526,6 +527,7 @@ if(!$action) {
 				$configfile = preg_replace("/[$]dbpw\s*\=\s*[\"'].*?[\"'];/is", "\$dbpw = '$dbpw';", $configfile);
 				$configfile = preg_replace("/[$]gtablepre\s*\=\s*[\"'].*?[\"'];/is", "\$gtablepre = '$tablepre';", $configfile);
 				$configfile = preg_replace("/[$]authkey\s*\=\s*[\"'].*?[\"'];/is", "\$authkey = '$authkey';", $configfile);
+				$configfile = preg_replace("/[$]database\s*\=\s*[\"'].*?[\"'];/is", "\$database = '$database';", $configfile);
 				$configfile = preg_replace("/[$]bbsurl\s*\=\s*[\"'].*?[\"'];/is", "\$bbsurl = '$bbsurl';", $configfile);
 				$configfile = preg_replace("/[$]gameurl\s*\=\s*[\"'].*?[\"'];/is", "\$gameurl = '$gameurl';", $configfile);
 				$configfile = preg_replace("/[$]moveut\s*\=\s*-?[0-9]+;/is", "\$moveut = $moveut;", $configfile);
@@ -536,6 +538,7 @@ if(!$action) {
 			}
 
 			include $server_config;
+			if($database == 'mysql') $database = PHP_VERSION >= 7.0 ? 'mysqli': $database;
 			include './include/db_'.$database.'.class.php';
 			$db = new dbstuff;
 			$db->connect($dbhost, $dbuser, $dbpw);
