@@ -63,6 +63,7 @@ skill317,extra/achievement/skills/skill317/,1
 skill319,extra/achievement/skills/skill319/,1
 skill320,extra/achievement/skills/skill320/,1
 skill431,extra/card/skills/skill431/,1
+smartmix,extra/smartmix/,1
 skill69,extra/club/skills/skill69/,1
 skill300,extra/achievement/skills/skill300/,1
 cooldown,base/cooldown/,1
