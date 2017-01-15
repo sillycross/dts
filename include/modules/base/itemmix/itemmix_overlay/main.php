@@ -8,20 +8,20 @@ namespace itemmix_overlay
 		$itemspkinfo['J'] = '超量素材';
 	}
 	
+	function itemmix_star_culc($mlist){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','logger','itemmix'));
+		
+	}
+	
 	function itemmix($mlist, $itemselect=-1) 
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','itemmix'));
 		
-		$last_star=-1; $num=0;
+		$last_star=-1; $num=0; 
 		foreach($mlist as $val)
 		{
-			$mitm = ${'itm'.$val};
-			foreach(Array('/锋利的/','/电气/','/毒性/','/-改$/') as $value){
-				$mitm = preg_replace($value,'',$mitm);
-			}
-			$mitm = str_replace('钉棍棒','棍棒',$mitm);
-			$mixitem[] = $mitm;
 			$z=${'itmk'.$val};
 			$star=0;
 			for ($i=0; $i<strlen($z); $i++) if ('0'<=$z[$i] && $z[$i]<='9') $star=$star*10+(int)$z[$i];

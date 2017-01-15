@@ -18,34 +18,50 @@ namespace itemmix
 		\itemmain\itemget();
 	}
 	
-	function itemmix($mlist, $itemselect=-1) {
+	function itemmix_place_check($mlist){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','itemmix'));
 		$mlist2 = array_unique($mlist);	
 		if(count($mlist) != count($mlist2)) {
 			$log .= '相同道具不能进行合成！<br>';
 			$mode = 'itemmix';
-			return;
+			return false;
 		}
 		if(count($mlist) < 2){
 			$log .= '至少需要2个道具才能进行合成！';
 			$mode = 'itemmix';
-			return;
+			return false;
 		}
 		
-		$mixitem = array();
 		foreach($mlist as $val){
 			if(!${'itm'.$val}){
 				$log .= '所选择的道具不存在！';
 				$mode = 'itemmix';
-				return;
+				return false;
 			}
-			$mitm = ${'itm'.$val};
-			foreach(Array('/锋利的/','/电气/','/毒性/','/-改$/') as $value){
-				$mitm = preg_replace($value,'',$mitm);
-			}
-			$mitm = str_replace('钉棍棒','棍棒',$mitm);
-			$mixitem[] = $mitm;
+		}
+		return true;
+	}
+	
+	function itemmix_name_proc($n){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','itemmix'));
+		foreach(Array('/锋利的/','/电气/','/毒性/','/-改$/') as $value){
+			$n = preg_replace($value,'',$n);
+		}
+		$n = str_replace('钉棍棒','棍棒',$n);
+		return $n;
+	}
+	
+	function itemmix($mlist, $itemselect=-1) {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','logger','itemmix'));
+		
+		if(!itemmix_place_check($mlist)) return;
+		
+		$mixitem = array();
+		foreach($mlist as $val){
+			$mixitem[] = itemmix_name_proc(${'itm'.$val});
 		}
 		
 		$mixflag = false;

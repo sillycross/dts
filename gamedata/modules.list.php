@@ -63,7 +63,6 @@ skill317,extra/achievement/skills/skill317/,1
 skill319,extra/achievement/skills/skill319/,1
 skill320,extra/achievement/skills/skill320/,1
 skill431,extra/card/skills/skill431/,1
-smartmix,extra/smartmix/,1
 skill69,extra/club/skills/skill69/,1
 skill300,extra/achievement/skills/skill300/,1
 cooldown,base/cooldown/,1
@@ -71,6 +70,7 @@ enemy,base/enemy/,1
 gameflow_duel,core/gameflow/gameflow_duel/,1
 skill19,extra/club/skills/skill19/,1
 skill22,extra/club/skills/skill22/,1
+smartmix,extra/smartmix/,1
 autopower,extra/misc/autopower/,1
 skill601,extra/club/skills/skill601/,1
 team,base/team/,1
