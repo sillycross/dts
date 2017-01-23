@@ -16,7 +16,7 @@ namespace tutorial
 		if(!is_array($ct)) {
 			return Array('教程参数或代码错误，请检查tutorial模块代码<br>');
 		}
-		//届满闪烁指令，$effect是来自sys的全局函数。取值应为jQuery可以识别的选择器字符串，例子见config。
+		//届满闪烁指令，$uip是来自sys的全局函数。取值应为jQuery可以识别的选择器字符串，例子见config。
 		//界面的具体实现可以在game.js里shwData()函数调整。
 		if(!empty($ct['pulse'])) {
 			if(is_array($ct['pulse'])){

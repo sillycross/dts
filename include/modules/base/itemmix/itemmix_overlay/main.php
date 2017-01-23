@@ -11,7 +11,41 @@ namespace itemmix_overlay
 	function itemmix_star_culc($mlist){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','itemmix'));
-		
+		$last_star=-1; $num = 0;
+		foreach($mlist as $val)
+		{
+			$z=${'itmk'.$val};
+			$star=0;
+			for ($i=0; $i<strlen($z); $i++) if ('0'<=$z[$i] && $z[$i]<='9') $star=$star*10+(int)$z[$i];
+			if($star==0 || ($star!=$last_star && $last_star != -1) || strpos(${'itmsk'.$val},'J')===false){
+				break;
+			}else{
+				$last_star=$star;
+				$num ++;
+			}
+		}
+		return array($last_star, $num);
+	}
+	
+	function get_itemmix_overlay_filename(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','logger','player','itemmix'));
+		return __DIR__.'/config/overlay.config.php';
+	}
+	
+	function itemmix_overlay_check($star, $num){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','logger','itemmix'));
+		$file = get_itemmix_overlay_filename();
+		$olist = openfile($file); $n = count($olist);
+		$sync=-1; $syncn=$synck=$synce=$syncs=$syncsk=Array();
+		for ($i=0;$i<$n;$i++){
+			$t = explode(',',$olist[$i]);
+			if ($t[5]!=$star || $t[6]!=$num) continue;
+			$sync++;
+			$syncn[$sync]=$t[0]; $synck[$sync]=$t[1]; $synce[$sync]=$t[2]; $syncs[$sync]=$t[3]; $syncsk[$sync]=$t[4];
+		}
+		return array($sync, $syncn, $synck, $synce, $syncs, $syncsk);
 	}
 	
 	function itemmix($mlist, $itemselect=-1) 
@@ -19,36 +53,11 @@ namespace itemmix_overlay
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','itemmix'));
 		
-		$last_star=-1; $num=0; 
-		foreach($mlist as $val)
-		{
-			$z=${'itmk'.$val};
-			$star=0;
-			for ($i=0; $i<strlen($z); $i++) if ('0'<=$z[$i] && $z[$i]<='9') $star=$star*10+(int)$z[$i];
-			
-			if ($star==0) return $chprocess($mlist, $itemselect);	//所有道具都有星数
-			if ($last_star==-1) 
-			{
-				$last_star=$star; $num=1;
-			}
-			else  if ($star!=$last_star)	//所有星数必须相同
-					return $chprocess($mlist, $itemselect);
-				else  $num++;
-				
-			if (strpos(${'itmsk'.$val},'J')===false) return $chprocess($mlist, $itemselect);	//必须均为超量素材
-		}
+		list($last_star, $num) = itemmix_star_culc($mlist);
 		
 		if ($last_star==-1) return $chprocess($mlist, $itemselect);
 		
-		$file = __DIR__.'/config/overlay.config.php';
-		$olist = openfile($file); $n = count($olist);
-		$sync=-1; $syncn=$synck=$synce=$syncs=$syncsk=Array();
-		for ($i=0;$i<$n;$i++){
-			$t = explode(',',$olist[$i]);
-			if ($t[5]!=$last_star || $t[6]!=$num) continue;
-			$sync++;
-			$syncn[$sync]=$t[0]; $synck[$sync]=$t[1]; $synce[$sync]=$t[2]; $syncs[$sync]=$t[3]; $syncsk[$sync]=$t[4];
-		}
+		list($sync, $syncn, $synck, $synce, $syncs, $syncsk) = itemmix_overlay_check($last_star, $num);
 
 		//无满足条件的超量结果，失败
 		if ($sync==-1) return $chprocess($mlist, $itemselect);	

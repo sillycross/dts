@@ -8,6 +8,7 @@ namespace itemmix
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
+		$itmstr = $uip['itmstr'];
 		$log .= "<span class=\"yellow\">$itmstr</span>合成了<span class=\"yellow\">{$itm0}</span><br>";
 		addnews($now,'itemmix',$name,$itm0);
 	
@@ -18,7 +19,7 @@ namespace itemmix
 		\itemmain\itemget();
 	}
 	
-	function itemmix_place_check($mlist){
+	function itemmix_place_check(array $mlist){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','itemmix'));
 		$mlist2 = array_unique($mlist);	
@@ -43,7 +44,7 @@ namespace itemmix
 		return true;
 	}
 	
-	function itemmix_name_proc($n){
+	function itemmix_name_proc(string $n){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','itemmix'));
 		foreach(Array('/锋利的/','/电气/','/毒性/','/-改$/') as $value){
@@ -53,7 +54,40 @@ namespace itemmix
 		return $n;
 	}
 	
-	function itemmix($mlist, $itemselect=-1) {
+	function itemmix_recipe_check(array $mi, $tp = 0){//$mi是道具名数组；$tp=0严格模式，$tp=1遍历模式（反查用）
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','itemmix','logger'));
+		$mix_res = array();
+		if(count($mi) >= 2){
+			if($tp == 1){//遍历模式，stuff只要包含于$mi就符合要求，结果也不唯一
+				foreach($mixinfo as $minfo){
+					$mi0 = $mi; $aflag = true;
+					foreach($minfo['stuff'] as $ms){
+						if(!in_array($ms,$mi0)){
+							$aflag = false;
+							break;
+						}else{
+							array_splice($mi0, array_search($ms, $mi0),1);
+						}					
+					}
+					if($aflag){
+						$mix_res[] = $minfo;
+					}
+				}
+			}elseif(!$tp){//严格模式，stuff与$mi相等才符合要求，结果唯一
+				foreach($mixinfo as $minfo){
+					$mi0 = $mi; $ms = $minfo['stuff'];
+					if(count($mi0)==count($ms) && empty(array_diff($mi0, $ms)) && empty(array_diff($ms, $mi0))) {
+						$mix_res[] = $minfo;
+						break;
+					}
+				}
+			}
+		}
+		return $mix_res;	
+	}
+	
+	function itemmix(array $mlist, $itemselect=-1) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','itemmix'));
 		
@@ -64,22 +98,24 @@ namespace itemmix
 			$mixitem[] = itemmix_name_proc(${'itm'.$val});
 		}
 		
-		$mixflag = false;
-		foreach($mixinfo as $minfo)
-		{
-			if (count($mixitem)==count($minfo['stuff']))
-			{
-				$t1=$mixitem; $t2=$minfo['stuff'];
-				sort($t1); sort($t2);
-				$flag=1;
-				for ($i=0; $i<count($t1); $i++)
-					if ($t1[$i]!=$t2[$i])
-					{
-						$flag=0; break;
-					}
-				if ($flag) { $mixflag=true; break; }			
-			}
-		}
+		$mix_res = itemmix_recipe_check($mixitem);
+//		
+//		$mixflag = false;
+//		foreach($mixinfo as $minfo)
+//		{
+//			if (count($mixitem)==count($minfo['stuff']))
+//			{
+//				$t1=$mixitem; $t2=$minfo['stuff'];
+//				sort($t1); sort($t2);
+//				$flag=1;
+//				for ($i=0; $i<count($t1); $i++)
+//					if ($t1[$i]!=$t2[$i])
+//					{
+//						$flag=0; break;
+//					}
+//				if ($flag) { $mixflag=true; break; }			
+//			}
+//		}
 		
 		$itmstr = '';
 		foreach($mixitem as $val){
@@ -87,7 +123,7 @@ namespace itemmix
 		}
 		$itmstr = substr($itmstr,0,-1);
 			
-		if(!$mixflag) {
+		if(!$mix_res) {
 			$log .= "<span class=\"yellow\">$itmstr</span>不能合成！<br>";
 			ob_clean();
 			template(get_itemmix_filename());
@@ -97,7 +133,7 @@ namespace itemmix
 			foreach($mlist as $val){
 				itemreduce('itm'.$val);
 			}
-
+			$minfo = $mix_res[0];
 			$itm0 = $minfo['result'][0];
 			$itmk0 = $minfo['result'][1];
 			$itme0 = $minfo['result'][2];
@@ -106,8 +142,8 @@ namespace itemmix
 				$itmsk0 = $minfo['result'][4];
 			else{
 				$itmsk0 = '';
-				$minfo['result'][4]='';
 			}
+			$uip['itmstr'] = $itmstr;
 			itemmix_success();
 		}
 		return;
@@ -119,7 +155,7 @@ namespace itemmix
 		return MOD_ITEMMIX_ITEMMIX;
 	}
 	
-	function itemreduce($item){ //只限合成使用！！
+	function itemreduce(string $item){ //只限合成使用！！
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
 		if(strpos($item,'itm') === 0) {

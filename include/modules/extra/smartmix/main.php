@@ -4,7 +4,8 @@ namespace smartmix
 {
 	function init() {}
 	
-	//以道具名称反查mixinfo数据
+	//以道具编号反查mixinfo数据
+	//需要整体重写，应以编号判断，itemmix模块本身的判断做成可复用的
 	//$elem为字符串时，type&1=以原料反查，type&2=以产物反查
 	//$elem为数组时无视$type，当$elem包含一条mixinfo的原料时才认为查到
 	//返回mixinfo里的单个array
@@ -18,32 +19,22 @@ namespace smartmix
 		}else{
 			$elem = \itemmix\itemmix_name_proc($elem);
 		}
-		$mixres = array();
-		foreach ($mixinfo as $ma){
-			$ma['type'] = 'normal';
-			if(is_array($elem)){
-				$elem0 = $elem; $aflag = true;
-				foreach($ma['stuff'] as $ms){
-					if(!in_array($ms,$elem0)){
-						$aflag = false;
-						break;
-					}else{
-						array_splice($elem0, array_search($ms, $elem0),1);
-					}					
-				}
-				if($aflag){
-					$mixres[] = $ma;
-				}
-//				if(empty(array_diff($ma['stuff'], $elem))){这样做遇到重复素材会悲剧
-//					$mixres[] = $ma;
-//				}
-			}else{
+		if(is_array($elem)){
+			$mix_res = \itemmix\itemmix_recipe_check($elem, 1);
+			foreach ($mix_res as &$ma){
+				$ma['type'] = 'normal';
+			}
+		}else{			
+			foreach ($mixinfo as $ma){
+				$ma['type'] = 'normal';
 				if(($type & 1 && in_array($elem, $ma['stuff'])) || ($type & 2 && $elem == $ma['result'][0])){
-					$mixres[] = $ma;
+					$mix_res[] = $ma;
 				}
 			}
 		}
-		return $mixres;
+		
+		
+		return $mix_res;
 	}
 	
 	//检查玩家包裹，返回可合成的道具列表
@@ -69,7 +60,7 @@ namespace smartmix
 			}else{
 				$log .= '<span class="yellow">合成提示：</span><br>';
 				foreach($mix_available as $mval){
-					if($mval['type'] == 'normal'){
+					if(!isset($mval['type']) || $mval['type'] == 'normal'){
 						$log .= '<span class="yellow">'.implode('+',$mval['stuff']).'</span>可合成<span class="yellow">'.$mval['result'][0].'</span>。<br>';
 					}elseif($mval['type'] == 'overlay'){
 					}elseif($mval['type'] == 'sync'){
