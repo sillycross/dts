@@ -4,43 +4,25 @@ namespace smartmix
 {
 	function init() {}
 	
-	//以道具名或编号反查mixinfo数据
-	//$elem为字符串时，tp & 1 以原料反查，tp & 2 以产物反查
-	//$elem为数组时无视$tp，认为数组中只有编号，当$elem包含一条mixinfo的原料时才认为查到
+	//以道具名反查mixinfo数据
+	//tp & 1 以原料反查，tp & 2 以产物反查
 	//返回mixinfo里的单个array
-	function smartmix_find_mixinfo($elem, $tp=0){
+	function smartmix_find_recipe($itm, $tp=0){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','itemmix'));
-		$mix_res = array();
-		if(is_array($elem)){
-			foreach($elem as &$val){
-				$val = \itemmix\itemmix_name_proc($val);
+		$mix_res = array();		
+		$itm = \itemmix\itemmix_name_proc($itm);
+		foreach ($mixinfo as $ma){
+			$ma['type'] = 'normal';
+			if(($tp & 1 && in_array($itm, $ma['stuff'])) || ($tp & 2 && $itm == $ma['result'][0])){
+				$mix_res[] = $ma;
 			}
-		}else{
-			$elem = \itemmix\itemmix_name_proc($elem);
-		}
-		if(is_array($elem)){
-			$elem_ns = array();
-			foreach($elem as $ev){
-				$elem_ns[] = ${'itm'.$ev};
-			}
-			$mix_res = \itemmix\itemmix_recipe_check($elem_ns, 1);
-			foreach ($mix_res as &$ma){
-				$ma['type'] = 'normal';
-			}
-		}else{			
-			foreach ($mixinfo as $ma){
-				$ma['type'] = 'normal';
-				if(($tp & 1 && in_array($elem, $ma['stuff'])) || ($tp & 2 && $elem == $ma['result'][0])){
-					$mix_res[] = $ma;
-				}
-			}
-		}
+		}		
 		return $mix_res;
 	}
 	
 	//以道具编号反查mixinfo_overlay数据
-	function smartmix_find_mixinfo_overlay($mlist, $tp=0){
+	function smartmix_find_recipe_overlay($mlist, $tp=0){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','itemmix_overlay'));
 		$ovl_res = \itemmix_overlay\itemmix_overlay_check($mlist, 1);
@@ -54,13 +36,30 @@ namespace smartmix
 	function smartmix_check_available(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
-		$pack0 = array();
+		//itms为零的道具不参与判断
+		$packn = array();
 		for($i=1;$i<=6;$i++){
-			if(${'itms'.$i} > 0) $pack0[] = $i;
+			if(${'itms'.$i} > 0){
+				$packn[] = $i;
+				$packname[] = \itemmix\itemmix_name_proc(${'itm'.$i});
+			}
 		}
-		$mix_available = smartmix_find_mixinfo($pack0);
-		$mix_available_overlay = smartmix_find_mixinfo_overlay($pack0);
-		$mix_available = array_merge($mix_available, $mix_available_overlay);
+		//生成道具序号的全组合
+		$fc = full_combination($packn, 2);
+		//基于全组合生成道具名的组合
+		$fcname = full_combination($packname, 2);
+		//所有的组合全部判断一遍是否可以合成，最简单粗暴和兼容
+		$mix_available = array();
+		foreach($fcname as $fval){
+			$mix_res = \itemmix\itemmix_recipe_check($fval);
+			if($mix_res){
+				$mix_res['type'] = 'normal';
+				$mix_available[] = $mix_res;
+			}
+		}
+		//$mix_available = smartmix_find_recipe($pack0);
+		//$mix_available_overlay = smartmix_find_recipe_overlay($pack0);
+		//$mix_available = array_merge($mix_available, $mix_available_overlay);
 		return $mix_available;
 	}
 	
@@ -88,7 +87,7 @@ namespace smartmix
 		eval(import_module('sys','player','logger','input','itemmix'));
 		if ($mode == 'command' && $command == 'itemmain' && $itemcmd=='itemmix'){
 			if(isset($itemindex)){
-				$mix_res = smartmix_find_mixinfo($itemindex, 1 + 2);				
+				$mix_res = smartmix_find_recipe($itemindex, 1 + 2);				
 				if($mix_res){
 					$log .= '<span class="yellow">'.$itemindex.'</span>涉及的合成公式有：<br>';
 					foreach($mix_res as $mval){

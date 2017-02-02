@@ -356,6 +356,10 @@ function copy_dir($source, $destination)		//递归复制目录
 //	return $jdata;	
 //}
 
+//----------------------------------------
+//              调试函数
+//----------------------------------------
+
 function getmicrotime(){
 	list($usec, $sec) = explode(" ",microtime());
 	return ((float)$usec + (float)$sec);
@@ -387,6 +391,48 @@ function check_alnumudline($key)
 	}
 	return true;
 }
+
+function get_var_dump($a){
+	ob_start(); 
+	var_dump($a);
+	return ob_get_flush();
+}
+
+//----------------------------------------
+//              数学类
+//----------------------------------------
+ 
+function full_combination($a, $min) {
+	$r = array();
+	$n = count($a);
+	if($n >= $min){
+		for($i=$min-1;$i<$n;$i++){
+			$r = array_merge($r, combination($a, $i));
+		}
+	}
+	return $r;
+} 
+
+function combination($a, $m) {  
+  $r = array();  
+  $n = count($a);  
+  if ($m <= 0 || $m > $n) {  
+    return $r;  
+  }
+  for ($i=0; $i<$n; $i++) {  
+    $t = array($a[$i]);  
+    if ($m == 1) {  
+      $r[] = $t;  
+    } else {  
+      $b = array_slice($a, $i+1);  
+      $c = combination($b, $m-1);  
+      foreach ($c as $v) {  
+        $r[] = array_merge($t, $v);  
+      }  
+    }  
+  }  
+  return $r;  
+} 
 
 function swap(&$a, &$b)
 {
@@ -550,10 +596,6 @@ function get_gold_up($data,$winner = '',$winmode = 0){
 	return $up;
 }
 
-function get_var_dump($a){
-	ob_start(); 
-	var_dump($a);
-	return ob_get_flush();
-}
+
 
 ?>

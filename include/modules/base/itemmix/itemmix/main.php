@@ -52,39 +52,21 @@ namespace itemmix
 		}
 		$n = str_replace('钉棍棒','棍棒',$n);
 		return $n;
-	}	
+	}
 	
-	function itemmix_recipe_check($mi, $tp = 0){//$mi是道具名数组；$tp=0严格模式，$tp=1遍历模式（提示用）
+	function itemmix_recipe_check($mi){//$mi是道具名数组；
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','itemmix'));
-		$mix_res = array();
 		if(count($mi) >= 2){
-			if($tp == 1){//遍历模式，stuff只要包含于$mi就符合要求，结果也不唯一
-				foreach($mixinfo as $minfo){
-					$mi0 = $mi; $aflag = true;
-					foreach($minfo['stuff'] as $ms){
-						if(!in_array($ms,$mi0)){
-							$aflag = false;
-							break;
-						}else{
-							array_splice($mi0, array_search($ms, $mi0),1);
-						}					
-					}
-					if($aflag){
-						$mix_res[] = $minfo;
-					}
-				}
-			}elseif(!$tp){//严格模式，stuff与$mi相等才符合要求，结果唯一
-				foreach($mixinfo as $minfo){
-					$mi0 = $mi; $ms = $minfo['stuff'];
-					if(count($mi0)==count($ms) && empty(array_diff($mi0, $ms)) && empty(array_diff($ms, $mi0))) {
-						$mix_res[] = $minfo;
-						break;
-					}
+			foreach($mixinfo as $minfo){
+				$mi0 = $mi; $ms = $minfo['stuff'];
+				sort($mi0);sort($ms);
+				if(count($mi0)==count($ms) && $mi0 == $ms) {
+					return $minfo;
 				}
 			}
 		}
-		return $mix_res;	
+		return false;	
 	}
 	
 	function itemmix($mlist, $itemselect=-1) {
@@ -133,7 +115,7 @@ namespace itemmix
 			foreach($mlist as $val){
 				itemreduce('itm'.$val);
 			}
-			$minfo = $mix_res[0];
+			$minfo = $mix_res;
 			$itm0 = $minfo['result'][0];
 			$itmk0 = $minfo['result'][1];
 			$itme0 = $minfo['result'][2];
