@@ -19,7 +19,7 @@ namespace itemmix
 		\itemmain\itemget();
 	}
 	
-	function itemmix_place_check(array $mlist){
+	function itemmix_place_check($mlist){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','itemmix'));
 		$mlist2 = array_unique($mlist);	
@@ -44,7 +44,7 @@ namespace itemmix
 		return true;
 	}
 	
-	function itemmix_name_proc(string $n){
+	function itemmix_name_proc($n){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','itemmix'));
 		foreach(Array('/锋利的/','/电气/','/毒性/','/-改$/') as $value){
@@ -52,11 +52,11 @@ namespace itemmix
 		}
 		$n = str_replace('钉棍棒','棍棒',$n);
 		return $n;
-	}
+	}	
 	
-	function itemmix_recipe_check(array $mi, $tp = 0){//$mi是道具名数组；$tp=0严格模式，$tp=1遍历模式（反查用）
+	function itemmix_recipe_check($mi, $tp = 0){//$mi是道具名数组；$tp=0严格模式，$tp=1遍历模式（提示用）
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','itemmix','logger'));
+		eval(import_module('sys','player','itemmix'));
 		$mix_res = array();
 		if(count($mi) >= 2){
 			if($tp == 1){//遍历模式，stuff只要包含于$mi就符合要求，结果也不唯一
@@ -87,7 +87,7 @@ namespace itemmix
 		return $mix_res;	
 	}
 	
-	function itemmix(array $mlist, $itemselect=-1) {
+	function itemmix($mlist, $itemselect=-1) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','itemmix'));
 		
@@ -155,7 +155,7 @@ namespace itemmix
 		return MOD_ITEMMIX_ITEMMIX;
 	}
 	
-	function itemreduce(string $item){ //只限合成使用！！
+	function itemreduce($item){ //只限合成使用！！
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
 		if(strpos($item,'itm') === 0) {

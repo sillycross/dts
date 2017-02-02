@@ -550,4 +550,10 @@ function get_gold_up($data,$winner = '',$winmode = 0){
 	return $up;
 }
 
+function get_var_dump($a){
+	ob_start(); 
+	var_dump($a);
+	return ob_get_flush();
+}
+
 ?>

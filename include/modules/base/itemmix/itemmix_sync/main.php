@@ -8,6 +8,98 @@ namespace itemmix_sync
 		$itemspkinfo['s'] = '调整';
 	}
 	
+	function get_itemmix_sync_filename(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','itemmix'));
+		return __DIR__.'/config/sync.config.php';
+	}
+	
+	function itemmix_prepare_sync(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','itemmix'));
+		$file = get_itemmix_sync_filename();
+		$slist = openfile($file);
+		$n = count($slist);
+		$prp_res = array();
+		for ($i=0;$i<$n;$i++){
+			$t = explode(',',$slist[$i]);
+			if(isset($prp_res[$t[5]])){
+				$prp_res[$t[5]][] = $t;
+			}else{
+				$prp_res[$t[5]] = array($t);
+			}
+		}
+		return $prp_res;
+	}
+	
+	function itemmix_star_culc_sync($mlist){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','itemmix'));
+		$tuner_res = array();
+		$non_tunner_res = array();
+		foreach($mlist as $val)
+		{
+			if(${'itms'.$val}){
+				$z=${'itmk'.$val};
+				$star=0;
+				for ($i=0; $i<strlen($z); $i++) if ('0'<=$z[$i] && $z[$i]<='9') $star=$star*10+(int)$z[$i];
+				if((strpos(${'itmsk'.$val},'s')!==false)){//调整
+					$res = & $tuner_res;
+				}else{
+					$res = & $non_tuner_res;
+				}
+				if(isset($res[$star])){
+					$res[$star]['num']++;
+					$res[$star]['list'][] = $val;
+				}else{
+					$res[$star] = array('num' => 1, 'list' => array($val));
+				}
+			}
+		}
+		return array($tuner_res, $non_tuner_res);
+	}
+	
+	function itemmix_sync_check($mlist, $tp=0){//$tp=0严格模式，$tp=1遍历模式（提示用）
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','itemmix'));
+		list($tuner_res, $non_tuner_res) = itemmix_star_culc_sync($mlist);
+		$prp_res = itemmix_prepare_sync();
+		$chc_res = array();
+		//算出所有可能出现的非调整星数组合
+		
+		if(count($tuner) > 0){
+			foreach($tuner_res as $tstar => $tval){
+				if($tstar){
+					
+				}
+			}
+		}
+		
+		
+		foreach($star_res as $star => $sval){
+			if($star && $sval['num'] > 1){
+				
+				$snum = $sval['num'];
+				$slist = $sval['list'];
+				if($snum > 1 && isset($prp_res[$star])){
+					if((!$tp && count($star_res) == 1 && !isset($star_res[0])) || $tp){//严格模式，必须有且只有1个tuner；遍历模式可以有2个以上tuner
+						foreach($prp_res[$star] as $pra){
+							$pnum = $pra[6];
+							if((!$tp && $snum == $pra[6]) || ($tp && $snum >= $pra[6])){
+								if(!isset($chc_res[$star.'-'.$pnum])){
+									$chc_res[$star.'-'.$pnum] = array('list' => $slist, 'choices' => array($pra));
+								}else{
+									$chc_res[$star.'-'.$pnum]['choices'][] = $pra;
+								}
+							}
+						}
+					}
+				}				
+			}
+		}
+		return $chc_res;
+	}
+	
 	function itemmix($mlist, $itemselect=-1) 
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
