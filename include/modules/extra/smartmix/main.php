@@ -22,15 +22,15 @@ namespace smartmix
 	}
 	
 	//以道具编号反查mixinfo_overlay数据
-	function smartmix_find_recipe_overlay($mlist, $tp=0){
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','itemmix_overlay'));
-		$ovl_res = \itemmix_overlay\itemmix_overlay_check($mlist, 1);
-		foreach($ovl_res as &$oval){
-			$oval['type'] = 'overlay';
-		}
-		return $ovl_res;
-	}
+//	function smartmix_find_recipe_overlay($mlist, $tp=0){
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		eval(import_module('sys','itemmix_overlay'));
+//		$ovl_res = \itemmix_overlay\itemmix_overlay_check($mlist, 1);
+//		foreach($ovl_res as &$oval){
+//			$oval['type'] = 'overlay';
+//		}
+//		return $ovl_res;
+//	}
 	
 	//检查玩家包裹，返回可合成的道具列表
 	function smartmix_check_available(){
@@ -49,23 +49,43 @@ namespace smartmix
 		//基于全组合生成道具名的组合
 		$fcname = full_combination($packname, 2);
 		//所有的组合全部判断一遍是否可以合成，最简单粗暴和兼容
-		$mix_available = array();
-		foreach($fcname as $fval){
-			$mix_res = \itemmix\itemmix_recipe_check($fval);
+		$mix_available = $mix_overlay_available = $mix_sync_available = array();
+		foreach($fcname as $fnval){
+			$mix_res = \itemmix\itemmix_recipe_check($fnval);
 			if($mix_res){
-				$mix_res['type'] = 'normal';
+				//$mix_res['type'] = 'normal';
 				$mix_available[] = $mix_res;
 			}
 		}
-		//$mix_available = smartmix_find_recipe($pack0);
-		//$mix_available_overlay = smartmix_find_recipe_overlay($pack0);
-		//$mix_available = array_merge($mix_available, $mix_available_overlay);
-		return $mix_available;
+		foreach($fc as $fval){
+			$mix_overlay_res = \itemmix_overlay\itemmix_overlay_check($fval);
+			if($mix_overlay_res){
+				foreach($mix_overlay_res as $mkey => $mval){
+					//$mval['type'] = 'overlay';
+					if(!isset($mix_overlay_available[$mkey])){
+						$mix_overlay_available[$mkey] = array($mval);
+					}else{
+						$mix_overlay_available[$mkey][] = $mval;
+					}
+				}
+			}
+			$mix_sync_res = \itemmix_sync\itemmix_sync_check($fval);
+			if($mix_sync_res){
+				foreach($mix_sync_res as $mkey => $mval){
+					//$mval['type'] = 'sync';
+					if(!isset($mix_sync_available[$mkey])){
+						$mix_sync_available[$mkey] = array($mval);
+					}else{
+						$mix_sync_available[$mkey][] = $mval;
+					}
+				}
+			}
+		}
+		return array($mix_available,$mix_overlay_available,$mix_sync_available);
 	}
 	
-	function parse_smartmix_itemshow($itemindex, $dtext = ''){
+	function parse_smartmix_recipelink($itemindex, $dtext = ''){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player'));
 		return "<a class=\"yellow\" onclick=\"$('mode').value='command';$('command').value='itemmain';$('subcmd').name='itemcmd';$('subcmd').value='itemmix';$('subcmd2').name='itemindex';$('subcmd2').value='$itemindex';postCmd('gamecmd','command.php');\">".($dtext ? $dtext : $itemindex).'</a>';
 	}
 	
@@ -93,46 +113,63 @@ namespace smartmix
 					foreach($mix_res as $mval){
 						if(!isset($mval['type']) || $mval['type'] == 'normal'){
 							foreach($mval['stuff'] as $ms){
-								$log .= parse_smartmix_itemshow($ms).' + ';
+								$log .= parse_smartmix_recipelink($ms).' + ';
 							}
 							$log = substr($log,0,-3);
 						}
 						$mr = $mval['result'][0];
-						$log .= ' → '.parse_smartmix_itemshow($mr).'<br>';
+						$log .= ' → '.parse_smartmix_recipelink($mr, \itemmix\parse_itemmix_resultshow($mval['result'])).'<br>';
 					}
 				}	else{
 					$log .= '所选道具不存在相关的合成公式。<br>';
 				}
 			}else{
-				$mix_available = smartmix_check_available();
-				if(empty($mix_available)){
+				list($mix_available,$mix_overlay_available,$mix_sync_available) = smartmix_check_available();
+				if(empty($mix_available) && empty($mix_overlay_available) && empty($mix_sync_available)){
 					$log .= '可合成的道具不存在。<br>';
 				}else{
 					$log .= '<span class="yellow">合成提示：</span><br>';
 					foreach($mix_available as $mval){
-						if(!isset($mval['type']) || $mval['type'] == 'normal'){
-							foreach($mval['stuff'] as $ms){
-								$log .= parse_smartmix_itemshow($ms).' + ';
-							}
-							$log = substr($log,0,-3).'可合成'.parse_smartmix_itemshow($mval['result'][0]).'。<br>';
-						}elseif($mval['type'] == 'overlay'){
-							
-							$ostuff = '';
-							foreach($mval['list'] as $ml){
-								$ostuff .= ${'itm'.$ml}.' ';
-							}
-							$ostuff = substr($ostuff,0,-1);
-							
-							$oresult = '';
-							foreach($mval['choices'] as $mc){
-								$oresult .= $mc[0].' ';
-							}
-							$oresult = substr($oresult,0,-1);
-							
-							$log .= '<span class="yellow">'.$ostuff.'</span>可超量合成<span class="yellow">'.$oresult.'</span>。<br>';
-						}elseif($mval['type'] == 'sync'){
+						foreach($mval['stuff'] as $ms){
+							$log .= parse_smartmix_recipelink($ms).' + ';
 						}
+						$log = substr($log,0,-3).'可合成'.parse_smartmix_recipelink($mval['result'][0], \itemmix\parse_itemmix_resultshow($mval['result'])).'。<br>';
 					}
+					foreach($mix_overlay_available as $mval){
+						$ostuff = $oresult = '';
+						foreach($mval as $mv){
+							foreach($mv['list'] as $ml){
+								$ostuff .= ${'itm'.$ml}.' + ';
+							}
+							$ostuff = substr($ostuff,0,-3).' / ';
+							if(!$oresult){
+								foreach($mv['choices'] as $mc){
+									$oresult .= '<li>'.\itemmix\parse_itemmix_resultshow($mc).'</li>';
+								}
+								//$oresult = substr($oresult,0,-3);
+							}
+						}
+						$ostuff = substr($ostuff,0,-3);
+						$log .= '<span class="yellow">'.$ostuff.'</span>可超量合成'.$oresult.;
+					}
+					foreach($mix_sync_available as $mval){
+						$sstuff = $sresult = '';
+						foreach($mval as $mv){
+							foreach($mv['list'] as $ml){
+								$sstuff .= ${'itm'.$ml}.' + ';
+							}
+							$sstuff = substr($sstuff,0,-3).' / ';
+							if(!$sresult){
+								foreach($mv['choices'] as $mc){
+									$sresult .= '<li>'.\itemmix\parse_itemmix_resultshow($mc).'</li>';
+								}
+								$sresult = substr($sresult,0,-3);
+							}
+						}
+						$sstuff = substr($sstuff,0,-3);
+						$log .= '<span class="yellow">'.$sstuff.'</span>可同调合成'.$sresult.;
+					}
+					$log .= '<br><br>';
 				}
 			}
 		}

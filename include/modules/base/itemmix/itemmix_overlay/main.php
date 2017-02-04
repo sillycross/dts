@@ -42,94 +42,76 @@ namespace itemmix_overlay
 		$n = count($olist);
 		$prp_res = array();
 		for ($i=0;$i<$n;$i++){
-			$t = explode(',',$olist[$i]);
-			if(isset($prp_res[$t[5]])){
-				$prp_res[$t[5]][] = $t;
-			}else{
-				$prp_res[$t[5]] = array($t);
-			}
+			$prp_res[] = explode(',',$olist[$i]);
 		}
 		return $prp_res;
 	}
 	
-	function itemmix_star_culc_overlay($mlist){
+	function itemmix_star_culc_overlay($itmn){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','itemmix'));
-		$star_res = array();
-		foreach($mlist as $val)
-		{
-			if(${'itms'.$val} && strpos(${'itmsk'.$val},'J')!==false){
-				$z=${'itmk'.$val};
-				$star=0;
-				for ($i=0; $i<strlen($z); $i++) if ('0'<=$z[$i] && $z[$i]<='9') $star=$star*10+(int)$z[$i];
-				if(isset($star_res[$star])){
-					$star_res[$star]['num']++;
-					$star_res[$star]['list'][] = $val;
-				}else{
-					$star_res[$star] = array('num' => 1, 'list' => array($val));
-				}
-			}
+		$star=0;
+		if(${'itms'.$itmn} && strpos(${'itmsk'.$itmn},'J')!==false){
+			$z=${'itmk'.$itmn};
+			for ($i=0; $i<strlen($z); $i++) if ('0'<=$z[$i] && $z[$i]<='9') $star=$star*10+(int)$z[$i];
 		}
-		return $star_res;
+		return $star;
 	}
 	
-	function itemmix_overlay_check($mlist, $tp=0){//$tp=0严格模式，$tp=1遍历模式（提示用）
+//	function itemmix_star_culc_overlay($mlist){
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		eval(import_module('sys','player','itemmix'));
+//		$star_res = array();
+//		foreach($mlist as $val)
+//		{
+//			if(${'itms'.$val} && strpos(${'itmsk'.$val},'J')!==false){
+//				$z=${'itmk'.$val};
+//				$star=0;
+//				for ($i=0; $i<strlen($z); $i++) if ('0'<=$z[$i] && $z[$i]<='9') $star=$star*10+(int)$z[$i];
+//				if(isset($star_res[$star])){
+//					$star_res[$star]['num']++;
+//					$star_res[$star]['list'][] = $val;
+//				}else{
+//					$star_res[$star] = array('num' => 1, 'list' => array($val));
+//				}
+//			}
+//		}
+//		return $star_res;
+//	}
+	
+	function itemmix_overlay_check($mlist){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','itemmix'));
-		$star_res = itemmix_star_culc_overlay($mlist);
-		$prp_res = itemmix_prepare_overlay();
+		//先判断是否是同星素材2张以上
+		$star = 0;
+		$num = 0;
+		foreach($mlist as $mval){
+			$mstar = itemmix_star_culc_overlay($mval);
+			if(($star && $mstar != $star) || $mstar == 0){
+				$star = 0;break;
+			}else{
+				$star = $mstar;
+				$num ++;
+			}
+		}
 		$chc_res = array();
-		foreach($star_res as $star => $sval){
-			if($star && $sval['num'] > 1){
-				
-				$snum = $sval['num'];
-				$slist = $sval['list'];
-				if($snum > 1 && isset($prp_res[$star])){
-					if((!$tp && count($star_res) == 1 && !isset($star_res[0])) || $tp){//严格模式，必须星数和数目都相同而且不能有0星；遍历模式无妨
-						foreach($prp_res[$star] as $pra){
-							$pnum = $pra[6];
-							if((!$tp && $snum == $pra[6]) || ($tp && $snum >= $pra[6])){
-								if(!isset($chc_res[$star.'-'.$pnum])){
-									$chc_res[$star.'-'.$pnum] = array('list' => $slist, 'choices' => array($pra));
-								}else{
-									$chc_res[$star.'-'.$pnum]['choices'][] = $pra;
-								}
-							}
-						}
+		if($star && $num > 1){
+			//然后判断是否存在对应的超量成果
+			$prp_res = itemmix_prepare_overlay();
+			foreach($prp_res as $pra){
+				$pstar = $pra[5];
+				$pnum = $pra[6];
+				if($star == $pstar && $num == $pnum){
+					if(!isset($chc_res[$star.'-'.$num])){//用键名记录星数和素材数方便提示
+						$chc_res[$star.'-'.$num] = array('list' => $mlist, 'choices' => array($pra));
+					}else{
+						$chc_res[$star.'-'.$num]['choices'][] = $pra;
 					}
-				}				
+				}
 			}
 		}
 		return $chc_res;
 	}
-	
-//	function itemmix_overlay_check(int $star, int $num, $tp=0){//$tp=0严格模式，$tp=1遍历模式（提示及反查用）
-//		if (eval(__MAGIC__)) return $___RET_VALUE;
-//		eval(import_module('sys','player','logger','itemmix'));
-//		$file = get_itemmix_overlay_filename();
-//		$olist = openfile($file); $n = count($olist);
-//		//$sync=-1; 
-//		//$syncn=$synck=$synce=$syncs=$syncsk=Array();
-//		$ovl_res = array();
-//		if($tp == 1){//
-//		}elseif(!$tp){//严格模式，必须星数和数目都相同
-//			for ($i=0;$i<$n;$i++){
-//				$t = explode(',',$olist[$i]);
-//				if ($t[5]!=$star || $t[6]!=$num) continue;
-//				//$sync++;
-//				$ovl_res[] = array(
-//					'syncn' => $t[0],
-//					'synck' => $t[1],
-//					'synce' => $t[2],
-//					'syncs' => $t[3],
-//					'syncsk' => $t[4]
-//				);
-//				//$syncn[$sync]=$t[0]; $synck[$sync]=$t[1]; $synce[$sync]=$t[2]; $syncs[$sync]=$t[3]; $syncsk[$sync]=$t[4];
-//			}
-//		}		
-//		//return array($sync, $syncn, $synck, $synce, $syncs, $syncsk);
-//		return $ovl_res;
-//	}
 	
 	function itemmix($mlist, $itemselect=-1) 
 	{
@@ -179,11 +161,6 @@ namespace itemmix_overlay
 				\itemmix\itemreduce('itm'.$val);
 			}
 			list($itm0,$itmk0,$itme0,$itms0,$itmsk0) = $chc['choices'][$i];
-//			$itm0=$chc['choices'][$i]['syncn'];
-//			$itmk0=$chc['choices'][$i]['synck'];
-//			$itme0=$chc['choices'][$i]['synce'];
-//			$itms0=$chc['choices'][$i]['syncs'];
-//			$itmsk0=$chc['choices'][$i]['syncsk'];
 			addnews($now,'overmix',$name,$itm0);
 			\itemmain\itemget();
 			$mode = 'command';

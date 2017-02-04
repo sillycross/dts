@@ -69,6 +69,12 @@ namespace itemmix
 		return false;	
 	}
 	
+	function parse_itemmix_resultshow($rarr){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		return $rarr[0].'/'.\itemmain\parse_itmk_words($rarr[1]).'/'.$rarr[2].'/'.$rarr[3].'/'.\itemmain\parse_itmsk_words($rarr[4]);
+	}
+	
 	function itemmix($mlist, $itemselect=-1) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','itemmix'));
@@ -79,7 +85,6 @@ namespace itemmix
 		foreach($mlist as $val){
 			$mixitem[] = itemmix_name_proc(${'itm'.$val});
 		}
-		
 		$mix_res = itemmix_recipe_check($mixitem);
 //		
 //		$mixflag = false;
