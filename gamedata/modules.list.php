@@ -70,7 +70,6 @@ enemy,base/enemy/,1
 gameflow_duel,core/gameflow/gameflow_duel/,1
 skill19,extra/club/skills/skill19/,1
 skill22,extra/club/skills/skill22/,1
-smartmix,extra/smartmix/,1
 autopower,extra/misc/autopower/,1
 skill601,extra/club/skills/skill601/,1
 team,base/team/,1
@@ -362,10 +361,11 @@ skill51,extra/club/skills/skill51/,1
 ex_gender_attr,extra/attr/ex_gender_attr/,1
 ex_attr_pierce,extra/attr/ex_attr_pierce/,1
 skill43,extra/club/skills/skill43/,1
-tutorial,extra/instance/gtype17_tutorial/tutorial/,1
 skill56,extra/club/skills/skill56/,1
 skill435,extra/card/skills/skill435/,1
+tutorial,extra/instance/gtype17_tutorial/tutorial/,1
 skill244,extra/club/skills/skill244/,1
 skill27,extra/club/skills/skill27/,1
 skill57,extra/club/skills/skill57/,1
 skill436,extra/card/skills/skill436/,1
+smartmix,extra/smartmix/,1
