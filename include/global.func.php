@@ -434,6 +434,16 @@ function combination($a, $m) {
   return $r;  
 } 
 
+function array_gz_encode($arr){
+	//return gzencode(serialize($arr),9);
+	return serialize($arr);
+}
+
+function array_gz_decode($str){
+	return $str ? unserialize($str) : array();
+	//return is_string($str) ? unserialize(gzdecode($str)) : array();
+}
+
 function swap(&$a, &$b)
 {
 	$c=$a; $a=$b; $b=$c;

@@ -116,7 +116,7 @@ CREATE TABLE bra_players (
   skillpoint smallint NOT NULL default '0',
   flare tinyint(1) NOT NULL default '0',
   card int(10) NOT NULL DEFAULT '0',
-  `searchinfo` varchar(1000) NOT NULL default '',
+  `searchmemory` varchar(1000) NOT NULL default '',
   `cardname` varchar(50) NOT NULL default '',
   `player_dead_flag` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `corpse_clear_flag` tinyint(1) unsigned NOT NULL DEFAULT '0',

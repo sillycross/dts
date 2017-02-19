@@ -47,7 +47,7 @@ namespace player
 		return $pdata;
 	}
 	
-	function load_playerdata($pdata)
+	function load_playerdata($pdata)//显示用
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
