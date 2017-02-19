@@ -1,0 +1,5 @@
+<div>
+<!--{loop $searchmemory $smn $sm}-->
+<input type="button" class="cmdbutton" value="获取 <!--{if isset($sm['itm'])}-->$sm['itm']<!--{elseif isset($sm['name'])}-->$sm['name']<!--{/if}-->" onclick="$('mode').value='command';$('command').value='memory{$smn}';postCmd('gamecmd','command.php');this.disabled=true;">
+<!--{/loop}-->
+</div>
