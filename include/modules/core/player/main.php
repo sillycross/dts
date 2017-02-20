@@ -3,7 +3,7 @@
 namespace player
 {
 	global $db_player_structure, $gamedata, $cmd, $main, $sdata;
-	global $fog,$upexp,$lvlupexp,$iconImg,$iconImgB,$ardef;
+	global $fog,$upexp,$lvlupexp,$iconImg,$iconImgB,$ardef;//这些鬼玩意包括可以回头全部丢进$uip
 	global $hpcolor,$spcolor,$newhpimg,$newspimg,$splt,$hplt, $tpldata; 
 	
 	function init()
@@ -19,20 +19,31 @@ namespace player
 		}
 	}
 	
-	//注意这个函数只能找人
+	//注意这个函数只能找玩家
 	function fetch_playerdata($Pname)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		$result = $db->query("SELECT * FROM {$tablepre}players WHERE name = '$Pname' AND type = 0");
-		if(!$db->num_rows($result)) return NULL;
-		$pdata = $db->fetch_array($result);
-		//备份取出数据库时的player state
-		//然后如果player state在写回时没有变，就直接unset掉
-		//真正的防并发复活问题是用player_dead_flag这个单向的变量保证的，
-		//但这个可以保证在并发问题发生时，绝大多数情况下UI不出问题（否则就会出现UI显示玩家死了却不显示死因的奇怪问题）
-		//虽然理论上如果是在玩家触发state变化的那一瞬间（比如进入睡眠状态）被杀UI还是会挂，但是这几率太小了无视
-		$pdata['state_backup']=$pdata['state'];
+		$pdata = false;
+		foreach($pdata_pool as $pd){
+			if(isset($pd['name']) && $pd['name'] == $Pname){
+				$pdata = $pd;
+				writeover('a.txt',1,'a+');
+				break;
+			}
+		}
+		if(!$pdata){
+			$result = $db->query("SELECT * FROM {$tablepre}players WHERE name = '$Pname' AND type = 0");
+			if(!$db->num_rows($result)) return NULL;
+			$pdata = $db->fetch_array($result);
+			//备份取出数据库时的player state
+			//然后如果player state在写回时没有变，就直接unset掉
+			//真正的防并发复活问题是用player_dead_flag这个单向的变量保证的，
+			//但这个可以保证在并发问题发生时，绝大多数情况下UI不出问题（否则就会出现UI显示玩家死了却不显示死因的奇怪问题）
+			//虽然理论上如果是在玩家触发state变化的那一瞬间（比如进入睡眠状态）被杀UI还是会挂，但是这几率太小了无视
+			$pdata['state_backup']=$pdata['state'];
+			$pdata_pool[$pdata['pid']] = $pdata;
+		}
 		return $pdata;
 	}
 	
@@ -40,14 +51,20 @@ namespace player
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		$result = $db->query("SELECT * FROM {$tablepre}players WHERE pid = '$pid'");
-		if(!$db->num_rows($result)) return NULL;
-		$pdata = $db->fetch_array($result);
-		$pdata['state_backup']=$pdata['state'];	//见上个函数注释
+		if(isset($pdata_pool[$pid])){
+			$pdata = $pdata_pool[$pid];
+			writeover('a.txt',1,'a+');
+		}else{
+			$result = $db->query("SELECT * FROM {$tablepre}players WHERE pid = '$pid'");
+			if(!$db->num_rows($result)) return NULL;
+			$pdata = $db->fetch_array($result);
+			$pdata['state_backup']=$pdata['state'];	//见上个函数注释
+			$pdata_pool[$pdata['pid']] = $pdata;
+		}
 		return $pdata;
 	}
 	
-	function load_playerdata($pdata)//显示用
+	function load_playerdata($pdata)//其实最早这个函数是显示用的
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
@@ -185,6 +202,7 @@ namespace player
 		{
 			$spid = $data['pid'];
 			//unset($data['pid']);
+			$pdata_pool[$spid] = $data;
 			$ndata=Array();
 			foreach ($db_player_structure as $key)
 			{
@@ -195,15 +213,20 @@ namespace player
 				$ndata['player_dead_flag'] = 1;
 			
 			//player_dead_flag单向，只能向数据库写入1，不能改回0
-			if (isset($ndata['player_dead_flag']) && !$ndata['player_dead_flag']) 
+			if (isset($ndata['player_dead_flag']) && !$ndata['player_dead_flag']) {
 				unset($ndata['player_dead_flag']);
+			}
 				
 			//如果state没变就不写回state了，防止并发问题发生时UI挂掉（见fetch_playerdata注释）
-			if (isset($ndata['state_backup']) && $ndata['state']==$data['state_backup'])
+			if (isset($ndata['state_backup']) && $ndata['state']==$data['state_backup']){
 				unset($ndata['state']);
+			}
 				
-			if (sizeof($ndata)>0)
+			//改成任意列的数值没变就不写回不是更好吗
+			
+			if (sizeof($ndata)>0){
 				$db->array_update("{$tablepre}players",$ndata,"pid='$spid'");
+			}
 		}
 		return;
 	}

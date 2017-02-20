@@ -3,6 +3,7 @@
 namespace sys
 {	
 	global $mode, $command, $db, $url, $uip;
+	global $pdata_pool; $pdata_pool = array();//玩家数据池，fetch的时候先判断池里存不存在，如果有则优先调用池里的
 	
 	function init()
 	{
