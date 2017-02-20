@@ -48,7 +48,6 @@ item_uee,base/items/item_uee/,1
 song,base/items/song/,1
 skill23,extra/club/skills/skill23/,1
 skill220,extra/club/skills/skill220/,1
-searchmemory,extra/searchmemory/,1
 corpse,base/corpse/,1
 trap,base/items/trap/,1
 itemmix_sync,base/itemmix/itemmix_sync/,1
@@ -76,6 +75,7 @@ skill601,extra/club/skills/skill601/,1
 team,base/team/,1
 battle,base/battle/,1
 item_misc,base/items/item_misc/,1
+searchmemory,extra/searchmemory/,1
 gameflow_combo,core/gameflow/gameflow_combo/,1
 advteam,extra/misc/advteam/,1
 attack,base/attack/,1
