@@ -28,6 +28,7 @@ namespace player
 		foreach($pdata_pool as $pd){
 			if(isset($pd['name']) && $pd['name'] == $Pname){
 				$pdata = $pd;
+				//writeover('a.txt',$Pname."\r",'a+');
 				break;
 			}
 		}
@@ -41,7 +42,7 @@ namespace player
 			//但这个可以保证在并发问题发生时，绝大多数情况下UI不出问题（否则就会出现UI显示玩家死了却不显示死因的奇怪问题）
 			//虽然理论上如果是在玩家触发state变化的那一瞬间（比如进入睡眠状态）被杀UI还是会挂，但是这几率太小了无视
 			$pdata['state_backup']=$pdata['state'];
-			$pdata_pool[$pdata['pid']] = $pdata;
+			$pdata_origin_pool[$pdata['pid']] = $pdata_pool[$pdata['pid']] = $pdata;
 		}
 		return $pdata;
 	}
@@ -52,12 +53,13 @@ namespace player
 		eval(import_module('sys'));
 		if(isset($pdata_pool[$pid])){
 			$pdata = $pdata_pool[$pid];
+			//writeover('a.txt',$pid."\r",'a+');
 		}else{
 			$result = $db->query("SELECT * FROM {$tablepre}players WHERE pid = '$pid'");
 			if(!$db->num_rows($result)) return NULL;
 			$pdata = $db->fetch_array($result);
 			$pdata['state_backup']=$pdata['state'];	//见上个函数注释
-			$pdata_pool[$pdata['pid']] = $pdata;
+			$pdata_origin_pool[$pdata['pid']] = $pdata_pool[$pdata['pid']] = $pdata;
 		}
 		return $pdata;
 	}
@@ -200,30 +202,36 @@ namespace player
 		{
 			$spid = $data['pid'];
 			//unset($data['pid']);
-			$pdata_pool[$spid] = $data;
 			$ndata=Array();
-			foreach ($db_player_structure as $key)
-			{
-				if ($key!='pid' && isset($data[$key])) $ndata[$key]=$data[$key];
+			
+			foreach ($db_player_structure as $key){
+				//任意列的数值没变就不写数据库
+				if ($key!='pid' && isset($data[$key]) && $data[$key] != $pdata_origin_pool[$spid][$key]) $ndata[$key]=$data[$key];
 			}
+			
+			$pdata_origin_pool[$spid] = $pdata_pool[$spid] = $data;
 			//建国后不准成精，你们复活别想啦
-			if ($ndata['hp']<=0) 
+			if ($data['hp']<=0) {
 				$ndata['player_dead_flag'] = 1;
+				$pdata_origin_pool[$spid]['player_dead_flag'] = $pdata_pool[$spid]['player_dead_flag'] = 1;
+			}
 			
 			//player_dead_flag单向，只能向数据库写入1，不能改回0
 			if (isset($ndata['player_dead_flag']) && !$ndata['player_dead_flag']) {
 				unset($ndata['player_dead_flag']);
 			}
-				
+			
 			//如果state没变就不写回state了，防止并发问题发生时UI挂掉（见fetch_playerdata注释）
-			if (isset($ndata['state_backup']) && $ndata['state']==$data['state_backup']){
-				unset($ndata['state']);
-			}
-				
-			//改成任意列的数值没变就不写回不是更好吗
+//			if (isset($ndata['state_backup']) && $ndata['state']==$data['state_backup']){
+//				unset($ndata['state']);
+//			}
 			
 			if (sizeof($ndata)>0){
 				$db->array_update("{$tablepre}players",$ndata,"pid='$spid'");
+				ob_start();
+				var_dump($ndata);
+				writeover('a.txt',ob_get_contents());
+				ob_end_clean();
 			}
 		}
 		return;
