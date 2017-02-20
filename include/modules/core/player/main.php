@@ -28,7 +28,6 @@ namespace player
 		foreach($pdata_pool as $pd){
 			if(isset($pd['name']) && $pd['name'] == $Pname){
 				$pdata = $pd;
-				writeover('a.txt',1,'a+');
 				break;
 			}
 		}
@@ -53,7 +52,6 @@ namespace player
 		eval(import_module('sys'));
 		if(isset($pdata_pool[$pid])){
 			$pdata = $pdata_pool[$pid];
-			writeover('a.txt',1,'a+');
 		}else{
 			$result = $db->query("SELECT * FROM {$tablepre}players WHERE pid = '$pid'");
 			if(!$db->num_rows($result)) return NULL;
