@@ -10,6 +10,7 @@ namespace skill1000
 	function acquire1000(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		\skillbase\skill_setvalue(1000,'tno','1',$pa);
 		\skillbase\skill_setvalue(1000,'step','10',$pa);
 		\skillbase\skill_setvalue(1000,'prog','0',$pa);
 	}

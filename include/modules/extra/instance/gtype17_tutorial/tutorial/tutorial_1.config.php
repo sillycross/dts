@@ -1,9 +1,7 @@
 <?php
 if(!defined('IN_GAME')) exit('Access Denied'); 
-$tutorial_vars = Array(
-	1 => array('story' => 'tutorial_story_1', 'npc' => 'tutorial_npc_1')
-);
-$tutorial_story_1 = Array(
+
+$tutorial_story[1] = Array(
 	10 => Array(
 		'tips' => '“能听到我说话吗？<br>我是……嗯，我是武侠作家<span class="yellow">李天明</span>。<br>我在这个虚拟世界取材已经有好几年了，而你好像是个新手。如果你不想在悲惨地死在这里，就好好记住我要说的话。”<br>',
 		'object' => 'continue',
@@ -354,5 +352,121 @@ $tutorial_story_1 = Array(
 		'pulse' => '#z',
 		'next' => -1
 	),
+);
+
+$tutorial_npc[1] = array(
+		9 => array
+		(
+			'mode' => 2,
+			'num' => 1,
+			'pass' => 'bra',
+			'club' => 0,
+			'bid' => 0,
+			'inf' => '',
+			'rage' => 0,
+			'pose'=> 0,
+			'tactic' => 0,
+			'killnum' => 0,
+			'teamID' => '',
+			'teamPass' => '',
+			'gd' => 'm',
+			'pls' => 99,
+			'mhp' => 400,
+			'msp' => 100,
+			'att' => 200,
+			'def' => 200,
+			'lvl' => 15,
+			'skill' => 75,
+			'money' => 1200,
+			'arb' => '红杀战甲',
+			'arbk' => 'DB',
+			'arbe' => 80,
+			'arbs' => 60,
+			'arbsk' => '',
+			'arh' => '红杀战盔',
+			'arhk' => 'DH',
+			'arhe' => 60,
+			'arhs' => 30,			
+			'arf' => '红杀战靴',
+			'arfk' => 'DF',
+			'arfe' => 75,
+			'arfs' => 30,
+			'arfsk' => '',
+			'ara' => '红杀辅助瞄准系统S.A.T.S.',
+			'arak' => 'DA',
+			'arae' => 120,
+			'aras' => 30,
+			'arask' => 'c',
+			
+			'sub' => array
+			(
+			0 => array
+				(
+				'name' => '弗勒尔',
+				'icon' => 0,
+				'wep' => '【红杀之牙】',
+				'wepk' => 'WK',
+				'wepe' => 100,
+				'weps' => 100,
+				'arask' => 'n',
+				),
+			),
+		),
+		91 => array
+		(
+			'mode' => 1,
+			'num' => 1,
+			'pass' => 'bra',
+			'club' => 9,
+			'bid' => 0,
+			'inf' => '',
+			'state' => 1,
+			'rage' => 15,
+			'pose'=> 0,
+			'tactic' => 0,
+			'killnum' => 0,
+			'teamID' => '',
+			'teampsss' => '',
+			'gd' => 'r',
+			'pls' => 99,
+			'mhp' => 100,
+			'msp' => 100,
+			'att' => 120,
+			'def' => 80,
+			'lvl' => 1,
+			'skill' => 30,
+			'money' => 400,
+			'arb' => '便服',
+			'arbk' => 'DB',
+			'arbe' => 10,
+			'arbs' => 20,
+			'arbsk' => '',
+			'arh' => '鸭舌帽',
+			'arhk' => 'DH',
+			'arhe' => 10,
+			'arhs' => 15,
+			'arf' => '布鞋',
+			'arfk' => 'DF',
+			'arfe' => 10,
+			'arfs' => 10,
+			'ara' => '塑料盾',
+			'arak' => 'DA',
+			'arae' => 10,
+			'aras' => 15,
+			'arask' => '',
+			'sub' => array
+			(
+				0 => array
+				(
+				'name' => '自律人偶',
+				'icon' => 9,
+				'wep' => '带毒匕首',
+				'wepk' => 'WK',
+				'wepe' => 10,
+				'weps' => 20,
+				'wepsk' => 'p',
+				),
+			),
+		)
 );
 ?>

@@ -11,7 +11,7 @@ namespace tutorial
 		if($gametype != 17){
 			return Array('在非教程模式下试图处理教程讯息，请检查代码。<br>');
 		}
-		list($tstep, $tprog) = get_current_tutorial_step();
+		list($tno, $tstep, $tprog) = get_current_tutorial_step();
 		$ct = get_tutorial();
 		if(!is_array($ct)) {
 			return Array('教程参数或代码错误，请检查tutorial模块代码<br>');
@@ -27,6 +27,7 @@ namespace tutorial
 		}
 		//当前obj是search并且将要调用itemfind battlecmd battleresult时应该显示下一个tips（search不存在过程所以无视后一点）
 		//之外，如果tprog为真，则显示对应的prog提示而非tips提示
+		//以上两句注释已经废弃，这是作废的设想
 //		$l = $mode.' '.$command;
 //		if($ct['object'] == 'search' && $command == 'search' && (isset($ct['obj2']['meetnpc']) || isset($ct['obj2']['itm']))){
 //			$nct = get_tutorial_setting($ct['next']);
@@ -56,13 +57,13 @@ namespace tutorial
 		if($gametype != 17){
 			exit("Fatal error（伪）：在非教程模式下试图调用教程函数！");
 		}
-		list($tstep, $tprog) = get_current_tutorial_step();
+		list($tno, $tstep, $tprog) = get_current_tutorial_step();
 		//$log .= '目前的step为'.$tstep;
 		if (!$tstep) {
 			return false;
 		}
 		else {			
-			return get_tutorial_setting($tstep);
+			return get_tutorial_setting($tno, $tstep);
 		}		
 	}
 	
@@ -71,23 +72,30 @@ namespace tutorial
 	function get_current_tutorial_step(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','skill1000','logger'));
+		$tno = \skillbase\skill_getvalue(1000,'tno');
 		$tstep = \skillbase\skill_getvalue(1000,'step');
 		$tprog = \skillbase\skill_getvalue(1000,'prog');
-		return Array($tstep, $tprog);
+		return Array($tno, $tstep, $tprog);
 	}
 	
-	//根据玩家的$step读tutorial.config.php内的$tutorialsetting参数，目前也只是简单封装
-	function get_tutorial_setting($no){
+	//根据玩家的$tno和$step读对应的教程参数，目前也只是简单封装
+	function get_tutorial_setting($tno, $tstep){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','tutorial','logger'));
-		if($no < 0){
-			$log.='教程参数小于0，将重置至10<br>';
-			$no = 10;
-		}elseif(!isset($tutorialsetting[$no])){
-			$log.='教程参数不存在，将重置至70<br>';
-			$no = 10;
+		if(isset($tutorial_story[$tno])){
+			$tstory = $tutorial_story[$tno];
+			if($tstep < 0){
+				$log.='教程步数小于0，将重置至10<br>';
+				$tstep = 10;
+			}elseif(!isset($tstory[$tstep])){
+				$log.='教程步数不存在，将重置至10<br>';
+				$tstep = 10;
+			}
+			return $tstory[$tstep];
+		}else{
+			$log.='教程参数不存在！<br>';
+			return NULL;
 		}
-		return $tutorialsetting[$no];
 	}
 	
 	//使玩家教程阶段推进的函数，教程胜利也在此判断
@@ -231,8 +239,9 @@ namespace tutorial
 	function get_addnpclist(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','addnpc','tutorial'));
-		if($gametype == 17){
-			$anpcinfo = $tnpcinfo;
+		list($tno, $tstep, $tprog) = get_current_tutorial_step();
+		if($gametype == 17 && isset($tutorial_npc[$tno])){
+			$anpcinfo = $tutorial_npc[$tno];
 			return $anpcinfo;
 		}
 		return $chprocess();
