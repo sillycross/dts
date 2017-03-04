@@ -401,7 +401,17 @@ function get_var_dump($a){
 //----------------------------------------
 //              数学类
 //----------------------------------------
- 
+
+function array_clone($a){//数组浅拷贝，该死的传引用
+	$r = array();
+	if(is_array($a)){
+		foreach($a as $key => $val){
+			$r[$key] = $val;
+		}
+	}
+	return $r;
+}
+
 function full_combination($a, $min) {
 	$r = array();
 	$n = count($a);

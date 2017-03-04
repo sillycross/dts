@@ -28,11 +28,10 @@ namespace player
 		foreach($pdata_pool as $pd){
 			if(isset($pd['name']) && $pd['name'] == $Pname){
 				$pdata = $pd;
-				//writeover('a.txt',$Pname."\r",'a+');
 				break;
 			}
 		}
-		if(!$pdata){
+		if(empty($pdata)){
 			$result = $db->query("SELECT * FROM {$tablepre}players WHERE name = '$Pname' AND type = 0");
 			if(!$db->num_rows($result)) return NULL;
 			$pdata = $db->fetch_array($result);
@@ -53,7 +52,6 @@ namespace player
 		eval(import_module('sys'));
 		if(isset($pdata_pool[$pid])){
 			$pdata = $pdata_pool[$pid];
-			//writeover('a.txt',$pid."\r",'a+');
 		}else{
 			$result = $db->query("SELECT * FROM {$tablepre}players WHERE pid = '$pid'");
 			if(!$db->num_rows($result)) return NULL;
@@ -64,6 +62,7 @@ namespace player
 		return $pdata;
 	}
 	
+	//注意！全局变量$sdata虽然是个数组，但是其中的每一个键值都是引用，单纯复制这个数组会导致引用问题！
 	function load_playerdata($pdata)//其实最早这个函数是显示用的
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -193,7 +192,7 @@ namespace player
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
-	function player_save(&$data)
+	function player_save($data)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -204,12 +203,14 @@ namespace player
 			//unset($data['pid']);
 			$ndata=Array();
 			
+			$pdata_pool[$spid] = array_clone($data);
 			foreach ($db_player_structure as $key){
 				//任意列的数值没变就不写数据库
+				if($key == 'action' && $spid == '363') {writeover('a.txt','"'.$pdata_origin_pool[$spid][$key]. '"->"'.$data[$key].'"' . "\r\n", 'a+');}
 				if ($key!='pid' && isset($data[$key]) && $data[$key] != $pdata_origin_pool[$spid][$key]) $ndata[$key]=$data[$key];
 			}
 			
-			$pdata_origin_pool[$spid] = $pdata_pool[$spid] = $data;
+			
 			//建国后不准成精，你们复活别想啦
 			if ($data['hp']<=0) {
 				$ndata['player_dead_flag'] = 1;
@@ -228,10 +229,17 @@ namespace player
 			
 			if (sizeof($ndata)>0){
 				$db->array_update("{$tablepre}players",$ndata,"pid='$spid'");
-				ob_start();
-				var_dump($ndata);
-				writeover('a.txt',ob_get_contents());
-				ob_end_clean();
+				if($spid == 363) writeover('a.txt',"saved\r\n", 'a+');
+				//这里困扰了我一晚上，不知道为什么加了下面这句话就会导致$pdata_origin_pool里的$action自动变化以至于无法写入，最后注释掉了事……
+				//知道了，见前面的load_playerdata()定义，全局变量$sdata里每一个键值都是对外面变量的引用……
+				//简直是醉，这么牛逼的逻辑谁写的，要知道我写3.0的时候硬生生把所有地方都改成写数组，也不敢瞎引用
+				//现在这里需要一个数组拷贝
+				$pdata_origin_pool[$spid] = array_clone($data);
+				
+//				ob_start();
+//				var_dump($ndata);
+//				writeover($spid.'.txt',ob_get_contents());
+//				ob_end_clean();
 			}
 		}
 		return;

@@ -5,7 +5,7 @@ namespace sys
 	global $mode, $command, $db, $url, $uip;
 	//玩家数据池，fetch的时候先判断池里存不存在，如果有则优先调用池里的；
 	//万一以后pdata_pool要变成引用呢？所以多一个origin池
-	global $pdata_pool, $pdata_origin_pool; $pdata_pool = $pdata_origin_pool = array();
+	global $pdata_pool, $pdata_origin_pool; $pdata_origin_pool = $pdata_pool = array();
 	
 	function init()
 	{

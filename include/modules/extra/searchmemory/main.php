@@ -20,7 +20,7 @@ namespace searchmemory
 		return $pdata;
 	}
 	
-	function player_save(&$data){
+	function player_save($data){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(is_array($data['searchmemory'])) $data['searchmemory'] = array_gz_encode($data['searchmemory']);
 		$chprocess($data);
