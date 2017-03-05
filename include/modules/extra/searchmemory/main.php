@@ -35,9 +35,9 @@ namespace searchmemory
 				remove_memory();
 			}
 			array_push($searchmemory, $marr);
-			if($marr['itm']){
+			if(isset($marr['itm'])){
 				$amn = $marr['itm'];
-			}elseif($marr['Pname']){
+			}elseif(isset($marr['Pname'])){
 				$amn = $marr['Pname'];
 			}
 			$log .= '你设法保持对'.$amn.'的持续观察……<br>';

@@ -300,3 +300,5 @@ function room_getteamhtml(&$roomdata, $u)
 	if ($str!='') $str=substr($str,0,-1);
 	return $str;
 }
+
+//-------This is the end of this file.-------

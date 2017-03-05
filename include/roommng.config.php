@@ -250,6 +250,7 @@ $roomtypelist = Array(
 		'name' => '<span class="red">教程模式</span>',
 		'gtype' => 17, //对应的游戏模式编号
 		'continuous' => true,//永续房间，只有不存在时才会新建房间。此外，启用这个设置时不显示等待界面直接进入游戏
+		'req-mod' => 'gtype17_tutorial',//暂时只是摆设
 		'pnum' => 999,	//最大参与人数，负数表示无限
 		'leader-position' => Array(	//各个编号位置的所属队伍队长位置
 			0 => 0,

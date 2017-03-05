@@ -12,7 +12,7 @@ namespace tactic
 	$tactic_hide_obbs = Array(0,0,0,-15,20);
 	
 	//应战策略对与人物遭遇率的影响
-	$pose_meetman_obbs = Array(0,0,0,5,-15);
+	$tactic_meetman_obbs = Array(0,0,0,5,-15);
 	
 	//应战策略对攻击力的加成（只在反击时有效）
 	$tactic_attack_modifier = Array(0,20,-25,25,-50);

@@ -457,6 +457,7 @@ function array_gz_decode($str){
 function swap(&$a, &$b)
 {
 	$c=$a; $a=$b; $b=$c;
+	//PHP7了，可以用太空船运算符了
 }
 
 //把一个非负整数用64进制编码/解码

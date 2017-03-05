@@ -21,7 +21,7 @@ namespace addnpc
 				$npc = array_merge($npc,$npc['sub'][$xsub]);		
 				$npc['type'] = $xtype;
 				$npc['endtime'] = $time;
-				$npc['exp'] = round(($npc['lvl']*2+1)*$baseexp);
+				$npc['exp'] = \lvlctl\calc_upexp($npc['lvl'] - 1);
 				$npc['sNo'] = $i;
 				$npc['hp'] = $npc['mhp'];
 				$npc['sp'] = $npc['msp'];

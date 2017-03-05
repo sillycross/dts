@@ -206,7 +206,6 @@ namespace player
 			$pdata_pool[$spid] = array_clone($data);
 			foreach ($db_player_structure as $key){
 				//任意列的数值没变就不写数据库
-				if($key == 'action' && $spid == '363') {writeover('a.txt','"'.$pdata_origin_pool[$spid][$key]. '"->"'.$data[$key].'"' . "\r\n", 'a+');}
 				if ($key!='pid' && isset($data[$key]) && $data[$key] != $pdata_origin_pool[$spid][$key]) $ndata[$key]=$data[$key];
 			}
 			
@@ -229,7 +228,6 @@ namespace player
 			
 			if (sizeof($ndata)>0){
 				$db->array_update("{$tablepre}players",$ndata,"pid='$spid'");
-				if($spid == 363) writeover('a.txt',"saved\r\n", 'a+');
 				//这里困扰了我一晚上，不知道为什么加了下面这句话就会导致$pdata_origin_pool里的$action自动变化以至于无法写入，最后注释掉了事……
 				//知道了，见前面的load_playerdata()定义，全局变量$sdata里每一个键值都是对外面变量的引用……
 				//简直是醉，这么牛逼的逻辑谁写的，要知道我写3.0的时候硬生生把所有地方都改成写数组，也不敢瞎引用
