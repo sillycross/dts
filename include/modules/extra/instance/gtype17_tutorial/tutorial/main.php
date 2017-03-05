@@ -219,7 +219,7 @@ namespace tutorial
 			} elseif($ct['object'] != $command && $ct['object'] !=  'any' && $ct['object'] != 'back' && $ct['object'] != 'itemget'){//一般行动不限死
 				//$log .= '<span class="yellow">请按教程提示操作！</span><br>';
 			}
-			if (($sp_cmd == 'sp_shop' && $ct['object'] == 'sp_shop') || ($command == 'shop4' && $ct['object'] == 'shop4') || ($command == 'itemmain' && isset($itemcmd) && $itemcmd == 'itemmix' && $ct['object'] == 'itemmain' && in_array('itemmix',$ct['obj2']))){//打开商店的初级、次级页面和合成页面则直接推进
+			if ((isset($sp_cmd) && $sp_cmd == 'sp_shop' && $ct['object'] == 'sp_shop') || ($command == 'shop4' && $ct['object'] == 'shop4') || ($command == 'itemmain' && isset($itemcmd) && $itemcmd == 'itemmix' && $ct['object'] == 'itemmain' && in_array('itemmix',$ct['obj2']))){//打开商店的初级、次级页面和合成页面则直接推进
 				tutorial_forward_process();
 			}elseif ($command == 'continue' || $ct['object'] ==  'any'){//continue和any则直接推进，之后返回
 				tutorial_forward_process();

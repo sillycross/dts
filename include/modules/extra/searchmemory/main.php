@@ -8,7 +8,7 @@ namespace searchmemory
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		$pdata = $chprocess($Pname);
-		$pdata['searchmemory'] = array_gz_decode($pdata['searchmemory']);
+		$pdata['searchmemory'] = array_decode($pdata['searchmemory']);
 		return $pdata;
 	}
 	
@@ -16,13 +16,13 @@ namespace searchmemory
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		$pdata = $chprocess($pid);
-		$pdata['searchmemory'] = array_gz_decode($pdata['searchmemory']);
+		$pdata['searchmemory'] = array_decode($pdata['searchmemory']);
 		return $pdata;
 	}
 	
 	function player_save($data){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if(is_array($data['searchmemory'])) $data['searchmemory'] = array_gz_encode($data['searchmemory']);
+		if(is_array($data['searchmemory'])) $data['searchmemory'] = array_encode($data['searchmemory']);
 		$chprocess($data);
 	}
 	
@@ -59,7 +59,7 @@ namespace searchmemory
 	function remove_memory($mn = 0, $shwlog = 1){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
-		//$searchmemory = array_gz_decode($searchmemory);
+		//$searchmemory = array_decode($searchmemory);
 		if($mn == -99){
 			$searchmemory = array();
 			if($shwlog) $log .= '你先前记下的一切东西都脱离了视线。<br>';
@@ -120,7 +120,7 @@ namespace searchmemory
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
 		$mn = (int)$mn;
-		//$searchmemory = array_gz_decode($searchmemory);
+		//$searchmemory = array_decode($searchmemory);
 		//$mn = (int)substr($schmode,6) - 1;
 		if(isset($searchmemory[$mn])){
 			$mem = $searchmemory[$mn];
