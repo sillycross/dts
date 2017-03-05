@@ -3,7 +3,7 @@
 namespace tactic
 {
 	//应战策略名
-	$tacinfo = Array('通常','已废弃','重视防御','重视反击','重视躲避');
+	$tacinfo = Array('通常','重视攻击（已废弃）','重视防御','重视反击','重视躲避');
 	
 	//玩家能否使用这些策略
 	$tactic_player_usable = Array(1,0,1,1,1);

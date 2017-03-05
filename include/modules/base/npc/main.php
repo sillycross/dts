@@ -50,7 +50,8 @@ namespace npc
 						$npc = array_merge($npc,$npc['sub'][$sub]);
 						$npc['hp'] = $npc['mhp'];
 						$npc['sp'] = $npc['msp'];
-						$npc['exp'] = round(2*$npc['lvl']*$baseexp);
+						$npc['exp'] = \lvlctl\calc_upexp($npc['lvl'] - 1);
+						//$npc['exp'] = round(2*$npc['lvl']*$baseexp);
 						$npc['wp'] = $npc['wk'] = $npc['wg'] = $npc['wc'] = $npc['wd'] = $npc['wf'] = $npc['skill'];
 						if($npc['gd'] == 'r'){$npc['gd'] = rand(0,1) ? 'm':'f';}
 						$rpls=rand(1,$plsnum-1);

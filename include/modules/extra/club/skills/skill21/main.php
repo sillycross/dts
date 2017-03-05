@@ -30,7 +30,8 @@ namespace skill21
 		$npc=$enpcinfo[$xtype][$xname];
 		$npc['hp'] = $npc['mhp'];
 		$npc['sp'] = $npc['msp'];
-		$npc['exp'] = round(($npc['lvl']*2+1)*$baseexp);
+		$npc['exp'] = \lvlctl\calc_upexp($npc['lvl'] - 1);
+		//$npc['exp'] = round(($npc['lvl']*2+1)*$baseexp);
 		if(!isset($npc['state'])){$npc['state'] = 0;}
 		$npc['wp'] = $npc['wk'] = $npc['wg'] = $npc['wc'] = $npc['wd'] = $npc['wf'] = $npc['skill'];
 		unset($npc['skill']);
