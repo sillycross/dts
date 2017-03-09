@@ -98,7 +98,7 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 	}
 	
 	if($gametype == 17) {//教程模式
-		$card = 152;
+		$card = 999;
 		$itm[3] = '紧急药剂'; $itmk[3] = 'Ca'; $itme[3] = 1; $itms[3] = 10;
 	}
 	
