@@ -166,6 +166,14 @@ namespace searchmemory
 		}
 		$chprocess($schmode);
 	}
+	
+	function move_to_area($moveto){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player'));
+		if(!empty($searchmemory)) {
+			remove_memory(-99);
+		}
+		$chprocess($moveto);
+	}
 }
-
 ?>
