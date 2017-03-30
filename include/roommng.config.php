@@ -15,7 +15,6 @@ $roomtypelist = Array(
 	0 => Array(
 		'name' => 'SOLO模式',
 		'gtype' => 10, //对应的游戏模式编号
-		'continuous' => false,//唯一房间，只有不存在时才会新建房间。
 		'pnum' => 2,	//最大参与人数
 		'leader-position' => Array(	//各个编号位置的所属队伍队长位置
 			0 => 0,
@@ -35,7 +34,6 @@ $roomtypelist = Array(
 	1 => Array(
 		'name' => '二队模式',
 		'gtype' => 11, //对应的游戏模式编号
-		'continuous' => false,//唯一房间，只有不存在时才会新建房间。
 		'pnum' => 10,
 		'leader-position' => Array(
 			0 => 0,
@@ -84,7 +82,6 @@ $roomtypelist = Array(
 	2 => Array(
 		'name' => '三队模式',
 		'gtype' => 12, //对应的游戏模式编号
-		'continuous' => false,//唯一房间，只有不存在时才会新建房间。
 		'pnum' => 15,
 		'leader-position' => Array(
 			0 => 0,
@@ -118,7 +115,6 @@ $roomtypelist = Array(
 	3 => Array(
 		'name' => '四队模式',
 		'gtype' => 13, //对应的游戏模式编号
-		'continuous' => false,//唯一房间，只有不存在时才会新建房间。
 		'pnum' => 20,
 		'leader-position' => Array(
 			0 => 0,
@@ -159,7 +155,6 @@ $roomtypelist = Array(
 	4 => Array(
 		'name' => '五队模式',
 		'gtype' => 14, //对应的游戏模式编号
-		'continuous' => false,//唯一房间，只有不存在时才会新建房间。
 		'pnum' => 25,
 		'leader-position' => Array(
 			0 => 0,
@@ -207,7 +202,6 @@ $roomtypelist = Array(
 	5 => Array(
 		'name' => '<span class="yellow">伐木挑战</span>',
 		'gtype' => 15, //对应的游戏模式编号
-		'continuous' => false,//唯一房间，只有不存在时才会新建房间。
 		'pnum' => 1,	//最大参与人数
 		'leader-position' => Array(	//各个编号位置的所属队伍队长位置
 			0 => 0,
@@ -226,7 +220,6 @@ $roomtypelist = Array(
 	6 => Array(
 		'name' => '<span class="green">PVE</span> 解离模式',
 		'gtype' => 16, //对应的游戏模式编号
-		'continuous' => false,//唯一房间，只有不存在时才会新建房间。
 		'pnum' => 3,	//最大参与人数
 		'leader-position' => Array(	//各个编号位置的所属队伍队长位置
 			0 => 0,
@@ -244,26 +237,6 @@ $roomtypelist = Array(
 			0 => '90',
 			1 => '91',
 			2 => '92',
-		)
-	),
-	7 => Array(//教程模式为唯一房间
-		'name' => '<span class="red">教程模式</span>',
-		'gtype' => 17, //对应的游戏模式编号
-		'continuous' => true,//永续房间，只有不存在时才会新建房间。此外，启用这个设置时不显示等待界面直接进入游戏
-		'req-mod' => 'gtype17_tutorial',//暂时只是摆设
-		'pnum' => 999,	//最大参与人数，负数表示无限
-		'leader-position' => Array(	//各个编号位置的所属队伍队长位置
-			0 => 0,
-		),
-		'color' => Array(		//队伍颜色，只需对队长设置即可
-			0 => 'ff0022',
-		),
-		'teamID' => Array(	//队伍名，只需对队长设置即可
-			0 => '试炼者',
-		),
-		'show-team-leader' => 0,	//是否显示“队长”标签（如队伍大于1人设为1）
-		'card' => array(
-			0 => '0',
 		)
 	),
 );

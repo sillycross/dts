@@ -20,7 +20,8 @@ namespace trap
 		if ($xmode & 16) {	//地图陷阱初始化
 			$plsnum = sizeof($plsinfo);
 			$iqry = '';
-			$itemlist = get_trapfilecont();
+			$file = __DIR__.'/config/trapitem.config.php';
+			$itemlist = openfile($file);
 			$in = sizeof($itemlist);
 			$an = $areanum ? ceil($areanum/$areaadd) : 0;
 			for($i = 1; $i < $in; $i++) {
@@ -45,14 +46,6 @@ namespace trap
 				$db->query($iqry);
 			}
 		}
-	}
-	
-	function get_trapfilecont(){
-		if (eval(__MAGIC__)) return $___RET_VALUE; 
-		eval(import_module('sys'));
-		$file = __DIR__.'/config/trapitem.config.php';
-		$l = openfile($file);
-		return $l;
 	}
 	
 	function calculate_real_trap_obbs()

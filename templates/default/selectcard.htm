@@ -3,11 +3,11 @@
 <!--{eval $current_pack = array_search($carddesc[$chosencard]['pack'],$packlist);}-->
 <!--{eval if (!isset($hideDisableButton)) $hideDisableButton = 0;}-->
 <script>
-carderrmsg = <!--{eval if (isset($card_error)) echo json_encode($card_error); else echo 0;}-->;
+carderrmsg = <!--{eval if (isset($card_error)) echo compatible_json_encode($card_error); else echo 0;}-->;
 isShowAll = 0;
 current_pack = $current_pack;
 chosen_card_id = $chosencard;
-cardinfo=<!--{eval echo json_encode($carddesc);}-->;
+cardinfo=<!--{eval echo compatible_json_encode($carddesc);}-->;
 handleShowCardMouseOver = function(id) 
 { 
 	id=parseInt(id);

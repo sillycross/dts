@@ -2,10 +2,7 @@
 
 namespace sys
 {	
-	global $mode, $command, $db, $url, $uip;
-	//玩家数据池，fetch的时候先判断池里存不存在，如果有则优先调用池里的；
-	//万一以后pdata_pool要变成引用呢？所以多一个origin池
-	global $pdata_pool, $pdata_origin_pool; $pdata_origin_pool = $pdata_pool = array();
+	global $mode, $command, $db, $url;
 	
 	function init()
 	{
@@ -85,7 +82,51 @@ namespace sys
 		
 		if ($room_prefix=='') $wtablepre = $gtablepre; else $wtablepre = $gtablepre.($room_prefix[0]);
 		
-		room_auto_init();//自动初始化表
+		//自动初始化表
+		if ($room_prefix!='')
+		{
+			$result = $db->query("show tables like '{$wtablepre}winners';");
+			if (!$db->num_rows($result))
+			{
+				//某个非主房间是第一次使用，则创建表并初始化
+				$db->query("create table if not exists {$wtablepre}winners like {$gtablepre}winners;");
+			}
+			
+			$result = $db->query("show tables like '{$tablepre}game';");
+			if (!$db->num_rows($result))
+			{
+				//某个非主房间是第一次使用，则创建表并初始化
+				$db->query("create table if not exists {$tablepre}game like {$gtablepre}game;");
+		
+				$result = $db->query("SELECT count(*) as cnt FROM {$tablepre}game");
+				if (!$db->num_rows($result)) 
+					$cnt=0;
+				else 
+				{
+					$zz = $db->fetch_array($result);
+					$cnt=$zz['cnt'];
+				}
+				if ($cnt==0) $db->query("insert into {$tablepre}game (gamenum) values (0);");
+					
+				$result = $db->query("SELECT count(*) as cnt FROM {$wtablepre}winners");
+				if (!$db->num_rows($result)) 
+					$cnt=0;
+				else 
+				{
+					$zz = $db->fetch_array($result);
+					$cnt=$zz['cnt'];
+				}
+				if ($cnt==0) $db->query("insert into {$wtablepre}winners (gid) values (0);");
+				
+				$sql = file_get_contents(GAME_ROOT.'./gamedata/sql/reset.sql');
+				$sql = str_replace("\r", "\n", str_replace(' bra_', ' '.$tablepre, $sql));
+				$db->queries($sql);
+				
+				$sql = file_get_contents(GAME_ROOT.'./gamedata/sql/players.sql');
+				$sql = str_replace("\r", "\n", str_replace(' bra_', ' '.$tablepre, $sql));
+				$db->queries($sql);
+			}
+		}
 		
 		//$errorinfo ? error_reporting(E_ALL) : error_reporting(0);
 		date_default_timezone_set('Etc/GMT');

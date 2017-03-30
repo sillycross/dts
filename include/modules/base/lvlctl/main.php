@@ -24,18 +24,6 @@ namespace lvlctl
 			\player\load_playerdata($sdata);
 		}
 	}
-	
-	function calc_upexp($l){
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','lvlctl'));
-		return (int)round(($l * 2 + 1) * $baseexp);
-	}
-	
-	function calc_uplv($exp, $exp0){
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','lvlctl'));
-		return 1 + (int) floor(($exp - $exp0) / $baseexp / 2 );
-	}
 		
 	function lvlup(&$pa)	//这个函数不应该从外部直接调用
 	{
@@ -63,14 +51,13 @@ namespace lvlctl
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','lvlctl'));
-		$up_exp_temp = calc_upexp($pa['lvl']);
-		//$up_exp_temp = round ( (2 * $pa['lvl'] + 1) * $baseexp );
+	
+		$up_exp_temp = round ( (2 * $pa['lvl'] + 1) * $baseexp );
 		$pa['exp']+=$v;
 		if ($pa['exp'] >= $up_exp_temp && $pa['lvl'] < 65535) 
 		{
 			//升级判断
-			$lvup = calc_uplv($pa['exp'],  $up_exp_temp);
-			//$lvup = 1 + floor ( ($pa['exp'] - $up_exp_temp) / $baseexp / 2 );
+			$lvup = 1 + floor ( ($pa['exp'] - $up_exp_temp) / $baseexp / 2 );
 			$lvup = $lvup > 65535 - $pa['lvl'] ? 65535 - $pa['lvl'] : $lvup;
 			
 			$lvuphp = $lvupatt = $lvupdef = $lvupskill = $lvupsp = $lvupspref = $lvupskpt = 0; $sklog = '';
@@ -78,8 +65,7 @@ namespace lvlctl
 			{
 				if ($pa['lvl'] < 65535) lvlup($pa);
 			}
-			$up_exp_temp = calc_upexp($pa['lvl']);
-			//$up_exp_temp = round ( (2 * $pa['lvl'] + 1) * $baseexp );
+			$up_exp_temp = round ( (2 * $pa['lvl'] + 1) * $baseexp );
 			
 			if ($pa['lvl'] >= 65535) {
 				$pa['lvl'] = 65535;
@@ -141,11 +127,11 @@ namespace lvlctl
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player','lvlctl'));
-		$upexp = calc_upexp($lvl);
-		//$upexp = round(($lvl*$baseexp)+(($lvl+1)*$baseexp));
+		$upexp = round(($lvl*$baseexp)+(($lvl+1)*$baseexp));
 		$lvlupexp = $upexp - $exp;
 		$chprocess();
 	}
+		
 }
 
 ?>

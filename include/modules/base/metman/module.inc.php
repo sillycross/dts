@@ -3,7 +3,7 @@
 namespace metman
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'sys player explore itemmain logger lvlctl';
+	$___MODULE_dependency = 'sys player explore itemmain logger';
 	$___MODULE_dependency_optional = '';	
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php config/metman.config.php';

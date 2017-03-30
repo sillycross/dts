@@ -22,7 +22,7 @@ if($newsmode == 'last') {
 	$newsdata['innerHTML']['newsinfo'] = ob_get_contents();
 	if(isset($error)){$newsdata['innerHTML']['error'] = $error;}
 	ob_clean();
-	$jgamedata = base64_encode(gzencode(json_encode($newsdata)));
+	$jgamedata = base64_encode(gzencode(compatible_json_encode($newsdata)));
 //	$json = new Services_JSON();
 //	$jgamedata = $json->encode($newsdata);
 	echo $jgamedata;
@@ -37,7 +37,7 @@ if($newsmode == 'last') {
 	$newsdata['innerHTML']['newsinfo'] = ob_get_contents();
 	if(isset($error)){$newsdata['innerHTML']['error'] = $error;}
 	ob_clean();
-	$jgamedata = base64_encode(gzencode(json_encode($newsdata)));
+	$jgamedata = base64_encode(gzencode(compatible_json_encode($newsdata)));
 	//$json = new Services_JSON();
 	//$jgamedata = $json->encode($newsdata);
 	echo $jgamedata;
@@ -45,14 +45,14 @@ if($newsmode == 'last') {
 
 } elseif($newsmode == 'chat') {
 	$newsdata['innerHTML']['newsinfo'] = '';
-	$chats = getchat(0,'',0,$chatinnews);
+	$chats = getchat(0,'',$chatinnews);
 	$chatmsg = $chats['msg'];
 	foreach($chatmsg as $val){
 		$newsdata['innerHTML']['newsinfo'] .= $val;
 	}	
 	if(isset($error)){$newsdata['innerHTML']['error'] = $error;}
 	ob_clean();
-	$jgamedata = base64_encode(gzencode(json_encode($newsdata)));
+	$jgamedata = base64_encode(gzencode(compatible_json_encode($newsdata)));
 //	$json = new Services_JSON();
 //	$jgamedata = $json->encode($newsdata);
 	echo $jgamedata;

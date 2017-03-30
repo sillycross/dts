@@ -1,7 +1,7 @@
 <table border="0" width="720" height="100%" cellspacing="0" cellpadding="0"  valign="middle">
 	<tr>
 		<td>
-			<table border="0"  id="profile" width="720" cellspacing="0" cellpadding="0"  valign="middle" >
+			<table border="0" width="720" cellspacing="0" cellpadding="0"  valign="middle" >
 				<tr>
 					<td width="73"></td><td width="82"></td><td width="72"></td><td width="123"></td><td width="61"></td><td width="82"></td><td width="221"></td>
 				</tr>
@@ -13,7 +13,7 @@
 					<!--{else}-->
 					<td colspan="2" class="b1"></td>
 					<!--{/if}-->
-					<td colspan="1" class="b1"><span id="gamedate">{lang gamedate}<!--{if ($gamestate == 40 ||($gametype == 17 && \skillbase\skill_getvalue(1000,'step')>=206))}--><span class="yellow">{lang combo}</span><!--{/if}--><!--{if $gamestate == 50 }--><span class="red">{lang duel}</span><!--{/if}--></span></td>
+					<td colspan="1" class="b1"><span>{lang gamedate}<!--{if $gamestate == 40 }--><span class="yellow">{lang combo}</span><!--{/if}--><!--{if $gamestate == 50 }--><span class="red">{lang duel}</span><!--{/if}--></span></td>
 				</tr>
 				<tr>
 					<td colspan="2" valign="top" height=192>
@@ -201,7 +201,7 @@
 	</tr>
 	<tr>
 		<td>
-  		<TABLE id="packs" border="0" cellSpacing=0 cellPadding=0 height=140 width=720>
+  		<TABLE border="0" cellSpacing=0 cellPadding=0 height=140 width=720>
   			<tr>
       		<td>
 		      	<!--{if defined('MOD_ITEMMAIN')}-->

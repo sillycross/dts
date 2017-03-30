@@ -8,131 +8,55 @@ namespace itemmix_overlay
 		$itemspkinfo['J'] = '超量素材';
 	}
 	
-//	function itemmix_star_culc(array $mlist){
-//		if (eval(__MAGIC__)) return $___RET_VALUE;
-//		eval(import_module('sys','player','logger','itemmix'));
-//		$last_star=-1; $num = 0;
-//		foreach($mlist as $val)
-//		{
-//			$z=${'itmk'.$val};
-//			$star=0;
-//			for ($i=0; $i<strlen($z); $i++) if ('0'<=$z[$i] && $z[$i]<='9') $star=$star*10+(int)$z[$i];
-//			if($star==0 || ($star!=$last_star && $last_star != -1) || strpos(${'itmsk'.$val},'J')===false){
-//				break;
-//			}else{
-//				$last_star=$star;
-//				$num ++;
-//			}
-//		}
-//		return array($last_star, $num);
-//	}
-	
-	
-	function get_itemmix_overlay_filename(){
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','itemmix'));
-		return __DIR__.'/config/overlay.config.php';
-	}
-	
-	function itemmix_prepare_overlay(){
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','itemmix'));
-		$file = get_itemmix_overlay_filename();
-		$olist = openfile($file);
-		$n = count($olist);
-		$prp_res = array();
-		for ($i=0;$i<$n;$i++){
-			$prp_res[] = explode(',',$olist[$i]);
-		}
-		return $prp_res;
-	}
-	
-	function itemmix_star_culc_overlay($itmn){
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','itemmix'));
-		$star=0;
-		if(${'itms'.$itmn} && strpos(${'itmsk'.$itmn},'J')!==false){
-			$z=${'itmk'.$itmn};
-			for ($i=0; $i<strlen($z); $i++) if ('0'<=$z[$i] && $z[$i]<='9') $star=$star*10+(int)$z[$i];
-		}
-		return $star;
-	}
-	
-//	function itemmix_star_culc_overlay($mlist){
-//		if (eval(__MAGIC__)) return $___RET_VALUE;
-//		eval(import_module('sys','player','itemmix'));
-//		$star_res = array();
-//		foreach($mlist as $val)
-//		{
-//			if(${'itms'.$val} && strpos(${'itmsk'.$val},'J')!==false){
-//				$z=${'itmk'.$val};
-//				$star=0;
-//				for ($i=0; $i<strlen($z); $i++) if ('0'<=$z[$i] && $z[$i]<='9') $star=$star*10+(int)$z[$i];
-//				if(isset($star_res[$star])){
-//					$star_res[$star]['num']++;
-//					$star_res[$star]['list'][] = $val;
-//				}else{
-//					$star_res[$star] = array('num' => 1, 'list' => array($val));
-//				}
-//			}
-//		}
-//		return $star_res;
-//	}
-	
-	function itemmix_overlay_check($mlist){
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','itemmix'));
-		//先判断是否是同星素材2张以上
-		$star = 0;
-		$num = 0;
-		foreach($mlist as $mval){
-			$mstar = itemmix_star_culc_overlay($mval);
-			if(($star && $mstar != $star) || $mstar == 0){
-				$star = 0;break;
-			}else{
-				$star = $mstar;
-				$num ++;
-			}
-		}
-		$chc_res = array();
-		if($star && $num > 1){
-			//然后判断是否存在对应的超量成果
-			$prp_res = itemmix_prepare_overlay();
-			foreach($prp_res as $pra){
-				$pstar = $pra[5];
-				$pnum = $pra[6];
-				if($star == $pstar && $num == $pnum){
-					if(!isset($chc_res[$star.'-'.$num])){//用键名记录星数和素材数方便提示
-						$chc_res[$star.'-'.$num] = array('list' => $mlist, 'choices' => array($pra));
-					}else{
-						$chc_res[$star.'-'.$num]['choices'][] = $pra;
-					}
-				}
-			}
-		}
-		return $chc_res;
-	}
-	
 	function itemmix($mlist, $itemselect=-1) 
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','itemmix'));
 		
-//		list($last_star, $num) = itemmix_star_culc($mlist);
-//		
-//		if ($last_star==-1) return $chprocess($mlist, $itemselect);
+		$last_star=-1; $num=0;
+		foreach($mlist as $val)
+		{
+			$mitm = ${'itm'.$val};
+			foreach(Array('/锋利的/','/电气/','/毒性/','/-改$/') as $value){
+				$mitm = preg_replace($value,'',$mitm);
+			}
+			$mitm = str_replace('钉棍棒','棍棒',$mitm);
+			$mixitem[] = $mitm;
+			$z=${'itmk'.$val};
+			$star=0;
+			for ($i=0; $i<strlen($z); $i++) if ('0'<=$z[$i] && $z[$i]<='9') $star=$star*10+(int)$z[$i];
+			
+			if ($star==0) return $chprocess($mlist, $itemselect);	//所有道具都有星数
+			if ($last_star==-1) 
+			{
+				$last_star=$star; $num=1;
+			}
+			else  if ($star!=$last_star)	//所有星数必须相同
+					return $chprocess($mlist, $itemselect);
+				else  $num++;
+				
+			if (strpos(${'itmsk'.$val},'J')===false) return $chprocess($mlist, $itemselect);	//必须均为超量素材
+		}
 		
-		//list($sync, $syncn, $synck, $synce, $syncs, $syncsk) = itemmix_overlay_check($last_star, $num);
-		$chc_res = itemmix_overlay_check($mlist);
+		if ($last_star==-1) return $chprocess($mlist, $itemselect);
+		
+		$file = __DIR__.'/config/overlay.config.php';
+		$olist = openfile($file); $n = count($olist);
+		$sync=-1; $syncn=$synck=$synce=$syncs=$syncsk=Array();
+		for ($i=0;$i<$n;$i++){
+			$t = explode(',',$olist[$i]);
+			if ($t[5]!=$last_star || $t[6]!=$num) continue;
+			$sync++;
+			$syncn[$sync]=$t[0]; $synck[$sync]=$t[1]; $synce[$sync]=$t[2]; $syncs[$sync]=$t[3]; $syncsk[$sync]=$t[4];
+		}
 
 		//无满足条件的超量结果，失败
-		//if ($sync==-1) return $chprocess($mlist, $itemselect);	
-		if (!$chc_res) return $chprocess($mlist, $itemselect);	
-		$chc = array_pop($chc_res);
+		if ($sync==-1) return $chprocess($mlist, $itemselect);	
+				
 		if ($itemselect==-1)
 		{
 			$mask=0;
-			foreach($chc['list'] as $k)
+			foreach($mlist as $k)
 				if (1<=$k && $k<=6)
 					$mask|=(1<<((int)$k-1));
 						
@@ -141,9 +65,8 @@ namespace itemmix_overlay
 			$cmd.='<input type="hidden" id="mixmask" name="mixmask" value="'.$mask.'">';
 			$cmd.='<input type="hidden" id="itemselect" name="itemselect" value="999">';
 			$cmd.= "请选择超量结果<br><br>";
-			$sync = count($chc['choices']);
-			for($i=0;$i<$sync;$i++){
-				$tn = $chc['choices'][$i][0];
+			for($i=0;$i<=$sync;$i++){
+				$tn=$syncn[$i];
 				$cmd.="<input type=\"button\" class=\"cmdbutton\"  style=\"width:200\" value=\"".$tn."\" onclick=\"$('itemselect').value='".$i."';postCmd('gamecmd','command.php');this.disabled=true;\">";
 			}
 			$cmd.="<input type=\"button\" class=\"cmdbutton\"  style=\"width:200\" value=\"返回\" onclick=\"postCmd('gamecmd','command.php');this.disabled=true;\">";
@@ -152,15 +75,15 @@ namespace itemmix_overlay
 		else
 		{
 			$i=(int)$itemselect;
-			if ($i<0 || $i > count($chc['choices']) - 1)
+			if ($i<0 || $i>$sync)
 			{
 				$mode='command'; return; 
 			}
-			foreach($chc['list'] as $val)
+			foreach($mlist as $val)
 			{
 				\itemmix\itemreduce('itm'.$val);
 			}
-			list($itm0,$itmk0,$itme0,$itms0,$itmsk0) = $chc['choices'][$i];
+			$itm0=$syncn[$i]; $itmk0=$synck[$i]; $itme0=$synce[$i]; $itms0=$syncs[$i]; $itmsk0=$syncsk[$i];
 			addnews($now,'overmix',$name,$itm0);
 			\itemmain\itemget();
 			$mode = 'command';

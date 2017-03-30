@@ -70,22 +70,10 @@ namespace itemshop
 		
 		$shop=$sn;
 		ob_clean();
-		include template(get_itemshop_filename());
+		include template(MOD_ITEMSHOP_SHOP);
 		$cmd = ob_get_contents();
 		ob_clean();
 		return;
-	}
-	
-	function get_itemshop_filename(){
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','logger','player'));
-		return MOD_ITEMSHOP_SHOP;
-	}
-	
-	function get_sp_shop_filename(){
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','logger','player'));
-		return MOD_ITEMSHOP_SP_SHOP;
 	}
 
 	function get_shopiteminfo($item)
@@ -180,7 +168,7 @@ namespace itemshop
 		if ($mode == 'command' && $command == 'special' && $sp_cmd == 'sp_shop')	//进入初级页面
 		{
 			ob_clean();
-			include template(get_sp_shop_filename());
+			include template(MOD_ITEMSHOP_SP_SHOP);
 			$cmd = ob_get_contents();
 			ob_clean();
 			return;
@@ -202,7 +190,7 @@ namespace itemshop
 				} 
 				else if($command == 'shop') {	//返回初级页面
 					ob_clean();
-					include template(get_sp_shop_filename());
+					include template(MOD_ITEMSHOP_SP_SHOP);
 					$cmd = ob_get_contents();
 					ob_clean();
 					return;

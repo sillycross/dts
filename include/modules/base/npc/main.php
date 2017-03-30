@@ -34,13 +34,14 @@ namespace npc
 			//$typenum = sizeof($typeinfo);
 			$plsnum = sizeof($plsinfo);
 			$npcqry = '';
-			$ninfo = get_npclist();
-			foreach ($ninfo as $i => $npcs){
+			
+			foreach ($npcinfo as $i => $npcs){
 				if(!empty($npcs)) {
 					if (sizeof($npcs['sub'])>$npcs['num'])shuffle($npcs['sub']);
 					for($j = 1; $j <= $npcs['num']; $j++) {
 						if (!check_initnpcadd($i)) continue;
 						$npc = array_merge($npcinit,$npcs);
+						//$npc = $npcinfo[$i];
 						$npc['type'] = $i;
 						$npc['endtime'] = $now;
 						$npc['sNo'] = $j;
@@ -50,8 +51,7 @@ namespace npc
 						$npc = array_merge($npc,$npc['sub'][$sub]);
 						$npc['hp'] = $npc['mhp'];
 						$npc['sp'] = $npc['msp'];
-						$npc['exp'] = \lvlctl\calc_upexp($npc['lvl'] - 1);
-						//$npc['exp'] = round(2*$npc['lvl']*$baseexp);
+						$npc['exp'] = round(2*$npc['lvl']*$baseexp);
 						$npc['wp'] = $npc['wk'] = $npc['wg'] = $npc['wc'] = $npc['wd'] = $npc['wf'] = $npc['skill'];
 						if($npc['gd'] == 'r'){$npc['gd'] = rand(0,1) ? 'm':'f';}
 						$rpls=rand(1,$plsnum-1);
@@ -75,7 +75,7 @@ namespace npc
 						$db->query($qry);
 						unset($qry);
 						
-						if (isset($npc['skills']) && is_array($npc['skills'])){
+						if (is_array($npc['skills'])){
 							$npc['skills']['460']='0';
 							$qry="SELECT * FROM {$tablepre}players WHERE type>'0' ORDER BY pid DESC LIMIT 1";
 							$result=$db->query($qry);
@@ -97,12 +97,6 @@ namespace npc
 				}
 			}
 		}
-	}
-	
-	function get_npclist(){
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','map','npc'));
-		return $npcinfo;
 	}
 	
 	function add_new_killarea($where,$atime)

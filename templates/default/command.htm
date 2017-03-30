@@ -1,34 +1,30 @@
 <input type="hidden" id="mode" name="mode" value="command">
 <input type="hidden" id="command" name="command" value="menu">
 <input type="hidden" id="subcmd" name="subcmd" value="">
-
 现在想要做什么？<br /><br />
 
 <!--{if (defined('MOD_EXPLORE'))}-->
 {template MOD_EXPLORE_EXPLORE}
 <!--{/if}-->
-<!--{if (defined('MOD_SEARCHMEMORY'))}-->
-{template MOD_SEARCHMEMORY_SMEMORYLIST}
-<!--{/if}-->
 
 <br />
 	<!--{if $itms1}-->
-	<div class="itmsingle"><input type="button" id="aa" class="cmdbutton" <!--{if strpos($itmk1,'W')===0 || strpos($itmk1,'D')===0 || strpos($itmk1,'A')===0}-->value="[A]装备"<!--{else}-->value="[A]使用"<!--{/if}--> onclick="$('mode').value='command';$('command').value='itm1';postCmd('gamecmd','command.php');this.disabled=true;"><span class="yellow">{$itm1}</span>/{$itme1}/{$itms1}</div>
+	<input type="button" id="aa" class="cmdbutton" <!--{if strpos($itmk1,'W')===0 || strpos($itmk1,'D')===0 || strpos($itmk1,'A')===0}-->value="[A]装备"<!--{else}-->value="[A]使用"<!--{/if}--> onclick="$('mode').value='command';$('command').value='itm1';postCmd('gamecmd','command.php');this.disabled=true;"><span class="yellow">{$itm1}</span>/{$itme1}/{$itms1}<br>
 	<!--{/if}-->
 	<!--{if $itms2}-->
-	<div class="itmsingle"><input type="button" id="ss" class="cmdbutton" <!--{if strpos($itmk2,'W')===0 || strpos($itmk2,'D')===0 || strpos($itmk2,'A')===0}-->value="[S]装备"<!--{else}-->value="[S]使用"<!--{/if}--> onclick="$('mode').value='command';$('command').value='itm2';postCmd('gamecmd','command.php');this.disabled=true;"><span class="yellow">{$itm2}</span>/{$itme2}/{$itms2}</div>
+	<input type="button" id="ss" class="cmdbutton" <!--{if strpos($itmk2,'W')===0 || strpos($itmk2,'D')===0 || strpos($itmk2,'A')===0}-->value="[S]装备"<!--{else}-->value="[S]使用"<!--{/if}--> onclick="$('mode').value='command';$('command').value='itm2';postCmd('gamecmd','command.php');this.disabled=true;"><span class="yellow">{$itm2}</span>/{$itme2}/{$itms2}<br>
 	<!--{/if}-->
 	<!--{if $itms3}-->
-	<div class="itmsingle"><input type="button" id="dd" class="cmdbutton" <!--{if strpos($itmk3,'W')===0 || strpos($itmk3,'D')===0 || strpos($itmk3,'A')===0}-->value="[D]装备"<!--{else}-->value="[D]使用"<!--{/if}--> onclick="$('mode').value='command';$('command').value='itm3';postCmd('gamecmd','command.php');this.disabled=true;"><span class="yellow">{$itm3}</span>/{$itme3}/{$itms3}</div>
+	<input type="button" id="dd" class="cmdbutton" <!--{if strpos($itmk3,'W')===0 || strpos($itmk3,'D')===0 || strpos($itmk3,'A')===0}-->value="[D]装备"<!--{else}-->value="[D]使用"<!--{/if}--> onclick="$('mode').value='command';$('command').value='itm3';postCmd('gamecmd','command.php');this.disabled=true;"><span class="yellow">{$itm3}</span>/{$itme3}/{$itms3}<br>
 	<!--{/if}-->
 	<!--{if $itms4}-->
-	<div class="itmsingle"><input type="button" id="qq" class="cmdbutton" <!--{if strpos($itmk4,'W')===0 || strpos($itmk4,'D')===0 || strpos($itmk4,'A')===0}-->value="[Q]装备"<!--{else}-->value="[Q]使用"<!--{/if}--> onclick="$('mode').value='command';$('command').value='itm4';postCmd('gamecmd','command.php');this.disabled=true;"><span class="yellow">{$itm4}</span>/{$itme4}/{$itms4}</div>
+	<input type="button" id="qq" class="cmdbutton" <!--{if strpos($itmk4,'W')===0 || strpos($itmk4,'D')===0 || strpos($itmk4,'A')===0}-->value="[Q]装备"<!--{else}-->value="[Q]使用"<!--{/if}--> onclick="$('mode').value='command';$('command').value='itm4';postCmd('gamecmd','command.php');this.disabled=true;"><span class="yellow">{$itm4}</span>/{$itme4}/{$itms4}<br>
 	<!--{/if}-->
 	<!--{if $itms5}-->
-	<div class="itmsingle"><input type="button" id="ww" class="cmdbutton" <!--{if strpos($itmk5,'W')===0 || strpos($itmk5,'D')===0 || strpos($itmk5,'A')===0}-->value="[W]装备"<!--{else}-->value="[W]使用"<!--{/if}--> onclick="$('mode').value='command';$('command').value='itm5';postCmd('gamecmd','command.php');this.disabled=true;"><span class="yellow">{$itm5}</span>/{$itme5}/{$itms5}</div>
+	<input type="button" id="ww" class="cmdbutton" <!--{if strpos($itmk5,'W')===0 || strpos($itmk5,'D')===0 || strpos($itmk5,'A')===0}-->value="[W]装备"<!--{else}-->value="[W]使用"<!--{/if}--> onclick="$('mode').value='command';$('command').value='itm5';postCmd('gamecmd','command.php');this.disabled=true;"><span class="yellow">{$itm5}</span>/{$itme5}/{$itms5}<br>
 	<!--{/if}-->
 	<!--{if $itms6}-->
-	<div class="itmsingle"><input type="button" id="ee" class="cmdbutton" <!--{if strpos($itmk6,'W')===0 || strpos($itmk6,'D')===0 || strpos($itmk6,'A')===0}-->value="[E]装备"<!--{else}-->value="[E]使用"<!--{/if}--> onclick="$('mode').value='command';$('command').value='itm6';postCmd('gamecmd','command.php');this.disabled=true;"><span class="yellow">{$itm6}</span>/{$itme6}/{$itms6}</div>
+	<input type="button" id="ee" class="cmdbutton" <!--{if strpos($itmk6,'W')===0 || strpos($itmk6,'D')===0 || strpos($itmk6,'A')===0}-->value="[E]装备"<!--{else}-->value="[E]使用"<!--{/if}--> onclick="$('mode').value='command';$('command').value='itm6';postCmd('gamecmd','command.php');this.disabled=true;"><span class="yellow">{$itm6}</span>/{$itme6}/{$itms6}<br>
 	<!--{/if}-->
 <br>
 

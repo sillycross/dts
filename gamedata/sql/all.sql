@@ -270,8 +270,7 @@ DROP TABLE IF EXISTS `acbra2_rooms`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `acbra2_rooms` (
   `status` int(10) unsigned NOT NULL DEFAULT '0',
-  `roomid` int(10) unsigned NOT NULL DEFAULT '0',
-  `roomtype` tinyint unsigned NOT NULL DEFAULT '0'
+  `roomid` int(10) unsigned NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

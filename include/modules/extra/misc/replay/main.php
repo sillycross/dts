@@ -97,7 +97,7 @@ namespace replay
 						array_push($opdatalist,$opdata);
 					}
 				
-				$jreplaydata = json_encode($arr);
+				$jreplaydata = compatible_json_encode($arr);
 				$jreplaydata = '___temp_s = new String(\''.base64_encode(gzencode($jreplaydata,9)).'\');
 				replay_header = JSON.parse(JXG.decompress(___temp_s));
 				delete ___temp_s;
@@ -109,7 +109,7 @@ namespace replay
 				writeover(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.'.$data['pid'].'.replay.header.js',$jreplaydata);
 				$totsz += strlen($jreplaydata);
 				
-				$jreplaydata = json_encode($opreclist);
+				$jreplaydata = compatible_json_encode($opreclist);
 				$jreplaydata = '___temp_s = new String(\''.base64_encode(gzencode($jreplaydata,9)).'\');
 				replay_oprecord = JSON.parse(JXG.decompress(___temp_s));
 				delete ___temp_s;
@@ -129,7 +129,7 @@ namespace replay
 					for ($k=$i_start; $k<=$i_end; $k++)
 						array_push($xdata,json_decode(mgzdecode(base64_decode(file_get_contents($opdatalist[$k]))),true));
 						
-					$jreplaydata = json_encode($xdata);
+					$jreplaydata = compatible_json_encode($xdata);
 					$jreplaydata = '___temp_s = new String(\''.base64_encode(gzencode($jreplaydata,9)).'\');
 					replay_part = JSON.parse(JXG.decompress(___temp_s));
 					replay_data = replay_data.concat(replay_part);
@@ -264,7 +264,7 @@ namespace replay
 			$arr=$narr; unset($narr);
 		}
 		
-		return base64_encode(gzencode(json_encode($arr)));
+		return base64_encode(gzencode(compatible_json_encode($arr)));
 	}
 	
 	function get_replay_by_gnum($gnum,$wmode)

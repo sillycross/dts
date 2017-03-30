@@ -108,9 +108,7 @@ namespace itemmain
 	//	$itemdata = "$itm,$itmk,$itme,$itms,$itmsk,\n";
 	//	writeover($mapfile,$itemdata,'ab');
 		$db->query("INSERT INTO {$tablepre}mapitem (itm, itmk, itme, itms, itmsk ,pls) VALUES ('$itm', '$itmk', '$itme', '$itms', '$itmsk', '$pls')");
-		$dropid = $db->insert_id();
-		$dropname = $itm;
-		$log .= "你丢弃了<span class=\"red\">$dropname</span>。<br>";
+		$log .= "你丢弃了<span class=\"red\">$itm</span>。<br>";
 		$mode = 'command';
 		if($item == 'wep'){
 		$itm = '拳头';
@@ -122,7 +120,7 @@ namespace itemmain
 		$itm = $itmk = $itmsk = '';
 		$itme = $itms = 0;
 		}
-		return array($dropid,$dropname);
+		return;
 	}
 
 	function itemoff($item){

@@ -35,13 +35,12 @@ if(($sendmode == 'send')&&$chatmsg) {
 	}
 }
 if(!$chatdata) {
-	if($chatpid) $chatdata = getchat($lastcid,$teamID,$chatpid);
-	else $chatdata = getchat($lastcid,$teamID);
+	$chatdata = getchat($lastcid,$teamID);
 }
 ob_clean();
 //$json = new Services_JSON();
 //$jgamedata = $json->encode($chatdata);
-$jgamedata = json_encode($chatdata);
+$jgamedata = compatible_json_encode($chatdata);
 echo $jgamedata;
 ob_end_flush();
 

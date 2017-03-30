@@ -12,13 +12,13 @@ namespace sys
 	//是否缓存css文件。0=不缓存，1=缓存
 	$allowcsscache = 1;
 	//游戏版本
-	$gameversion = 'N.E.W. v1.2';
+	$gameversion = 'GE600M';
 	//站长留言
 	//$systemmsg = '';
 	//游戏开始方式 0=后台手动开始，1=每天固定时间开始，2=上局结束后，间隔固定小时后的整点开始，3=上局结束后，间隔固定分钟开始
-	$startmode = 0;
+	$startmode = 3;
 	//游戏开始的小时，如果，如果$startmode = 1,表示开始时间0~23，如果$startmode = 2，表示间隔小时，>0，如果$startmode = 3，表示间隔分钟，>0
-	$starthour = 10;
+	$starthour = 3;
 	//游戏开始的分钟数，范围1~59
 	$startmin = 1;
 	//游戏所用配置文件

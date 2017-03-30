@@ -8,7 +8,6 @@ namespace itemmix
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
-		$itmstr = $uip['itmstr'];
 		$log .= "<span class=\"yellow\">$itmstr</span>合成了<span class=\"yellow\">{$itm0}</span><br>";
 		addnews($now,'itemmix',$name,$itm0);
 	
@@ -19,90 +18,52 @@ namespace itemmix
 		\itemmain\itemget();
 	}
 	
-	function itemmix_place_check($mlist){
+	function itemmix($mlist, $itemselect=-1) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','itemmix'));
 		$mlist2 = array_unique($mlist);	
 		if(count($mlist) != count($mlist2)) {
 			$log .= '相同道具不能进行合成！<br>';
 			$mode = 'itemmix';
-			return false;
+			return;
 		}
 		if(count($mlist) < 2){
 			$log .= '至少需要2个道具才能进行合成！';
 			$mode = 'itemmix';
-			return false;
+			return;
 		}
 		
+		$mixitem = array();
 		foreach($mlist as $val){
 			if(!${'itm'.$val}){
 				$log .= '所选择的道具不存在！';
 				$mode = 'itemmix';
-				return false;
+				return;
+			}
+			$mitm = ${'itm'.$val};
+			foreach(Array('/锋利的/','/电气/','/毒性/','/-改$/') as $value){
+				$mitm = preg_replace($value,'',$mitm);
+			}
+			$mitm = str_replace('钉棍棒','棍棒',$mitm);
+			$mixitem[] = $mitm;
+		}
+		
+		$mixflag = false;
+		foreach($mixinfo as $minfo)
+		{
+			if (count($mixitem)==count($minfo['stuff']))
+			{
+				$t1=$mixitem; $t2=$minfo['stuff'];
+				sort($t1); sort($t2);
+				$flag=1;
+				for ($i=0; $i<count($t1); $i++)
+					if ($t1[$i]!=$t2[$i])
+					{
+						$flag=0; break;
+					}
+				if ($flag) { $mixflag=true; break; }			
 			}
 		}
-		return true;
-	}
-	
-	function itemmix_name_proc($n){
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','itemmix'));
-		foreach(Array('/锋利的/','/电气/','/毒性/','/-改$/') as $value){
-			$n = preg_replace($value,'',$n);
-		}
-		$n = str_replace('钉棍棒','棍棒',$n);
-		return $n;
-	}
-	
-	function itemmix_recipe_check($mi){//$mi是道具名数组；
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','itemmix'));
-		if(count($mi) >= 2){
-			foreach($mixinfo as $minfo){
-				$mi0 = $mi; $ms = $minfo['stuff'];
-				sort($mi0);sort($ms);
-				if(count($mi0)==count($ms) && $mi0 == $ms) {
-					return $minfo;
-				}
-			}
-		}
-		return false;	
-	}
-	
-	function parse_itemmix_resultshow($rarr){
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys'));
-		return $rarr[0].'/'.\itemmain\parse_itmk_words($rarr[1]).'/'.$rarr[2].'/'.$rarr[3].'/'.\itemmain\parse_itmsk_words($rarr[4]);
-	}
-	
-	function itemmix($mlist, $itemselect=-1) {
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','logger','itemmix'));
-		
-		if(!itemmix_place_check($mlist)) return;
-		
-		$mixitem = array();
-		foreach($mlist as $val){
-			$mixitem[] = itemmix_name_proc(${'itm'.$val});
-		}
-		$mix_res = itemmix_recipe_check($mixitem);
-//		
-//		$mixflag = false;
-//		foreach($mixinfo as $minfo)
-//		{
-//			if (count($mixitem)==count($minfo['stuff']))
-//			{
-//				$t1=$mixitem; $t2=$minfo['stuff'];
-//				sort($t1); sort($t2);
-//				$flag=1;
-//				for ($i=0; $i<count($t1); $i++)
-//					if ($t1[$i]!=$t2[$i])
-//					{
-//						$flag=0; break;
-//					}
-//				if ($flag) { $mixflag=true; break; }			
-//			}
-//		}
 		
 		$itmstr = '';
 		foreach($mixitem as $val){
@@ -110,17 +71,17 @@ namespace itemmix
 		}
 		$itmstr = substr($itmstr,0,-1);
 			
-		if(!$mix_res) {
+		if(!$mixflag) {
 			$log .= "<span class=\"yellow\">$itmstr</span>不能合成！<br>";
 			ob_clean();
-			template(get_itemmix_filename());
+			template(MOD_ITEMMIX_ITEMMIX);
 			$cmd = ob_get_contents();
 			ob_clean();
 		} else {
 			foreach($mlist as $val){
 				itemreduce('itm'.$val);
 			}
-			$minfo = $mix_res;
+
 			$itm0 = $minfo['result'][0];
 			$itmk0 = $minfo['result'][1];
 			$itme0 = $minfo['result'][2];
@@ -129,17 +90,11 @@ namespace itemmix
 				$itmsk0 = $minfo['result'][4];
 			else{
 				$itmsk0 = '';
+				$minfo['result'][4]='';
 			}
-			$uip['itmstr'] = $itmstr;
 			itemmix_success();
 		}
 		return;
-	}
-	
-	function get_itemmix_filename(){
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys'));
-		return MOD_ITEMMIX_ITEMMIX;
 	}
 	
 	function itemreduce($item){ //只限合成使用！！
@@ -200,7 +155,7 @@ namespace itemmix
 		if ($mode == 'command' && $command == 'itemmain' && $itemcmd=='itemmix')
 		{
 			ob_clean();
-			if ($itemcmd=='itemmix') include template(get_itemmix_filename());
+			if ($itemcmd=='itemmix') include template(MOD_ITEMMIX_ITEMMIX);
 			$cmd = ob_get_contents();
 			ob_clean();
 		}

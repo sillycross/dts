@@ -162,7 +162,8 @@ namespace itemmain
 		if ($xmode & 16) {	//地图道具初始化
 			$plsnum = sizeof($plsinfo);
 			$iqry = '';
-			$itemlist = get_itemfilecont();
+			$file = __DIR__.'/config/mapitem.config.php';
+			$itemlist = openfile($file);
 			$in = sizeof($itemlist);
 			$an = $areanum ? ceil($areanum/$areaadd) : 0;
 			for($i = 1; $i < $in; $i++) {
@@ -189,14 +190,6 @@ namespace itemmain
 		}
 	}
 	
-	function get_itemfilecont(){
-		if (eval(__MAGIC__)) return $___RET_VALUE; 
-		eval(import_module('sys'));
-		$file = __DIR__.'/config/mapitem.config.php';
-		$l = openfile($file);
-		return $l;
-	}
-	
 	function discover_item()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -213,30 +206,20 @@ namespace itemmain
 		$itemno = rand(0,$itemnum-1);
 		$db->data_seek($result,$itemno);
 		$mi=$db->fetch_array($result);
-		$itms0 = focus_item($mi);
-		if($itms0){
+		$itm0=$mi['itm'];
+		$itmk0=$mi['itmk'];
+		$itme0=$mi['itme'];
+		$itms0=$mi['itms'];
+		$itmsk0=$mi['itmsk'];
+		$iid=$mi['iid'];
+		$db->query("DELETE FROM {$tablepre}mapitem WHERE iid='$iid'");
+			if($itms0){
 			itemfind();
 			return;
 		} else {
 			$log .= "但是什么都没有发现。<br>";
 		}
 		$mode = 'command';
-	}
-	
-	function focus_item($iarr){
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player'));
-		if(isset($iarr['iid'])){
-			$iid = $iarr['iid'];
-			$db->query("DELETE FROM {$tablepre}mapitem WHERE iid='$iid'");
-			$itm0=$iarr['itm'];
-			$itmk0=$iarr['itmk'];
-			$itme0=$iarr['itme'];
-			$itms0=$iarr['itms'];
-			$itmsk0=$iarr['itmsk'];
-			return $itms0;
-		}
-		return false;
 	}
 	
 	function calculate_itemfind_obbs()

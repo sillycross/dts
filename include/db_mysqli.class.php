@@ -1,39 +1,41 @@
 <?php
 
-if (! defined ( 'IN_GAME' )) { exit ( 'Access Denied' ); }
+if (! defined ( 'IN_GAME' )) {
+	exit ( 'Access Denied' );
+}
 
 class dbstuff {
-//	var $querynum = 0;
-//	var $selectnum = 0;
-//	var $insertnum = 0;
-//	var $updatenum = 0;
-//	var $deletenum = 0;
-	public $con = NULL;
+	var $querynum = 0;
+	var $selectnum = 0;
+	var $insertnum = 0;
+	var $updatenum = 0;
+	var $deletenum = 0;
+	var $con = NULL;
 	
 	function connect($dbhost, $dbuser, $dbpw, $dbname = '', $pconnect = 0) {
-		if(!function_exists('mysqli_connect')) exit('未安装mysqli扩展！');
-		
-		$this -> con = mysqli_connect ( $dbhost, $dbuser, $dbpw, $dbname );
+		$this -> con =mysqli_connect ( $dbhost, $dbuser, $dbpw, $dbname );
 		if (mysqli_connect_errno())
-		$this->halt ( 'Can not connect to MySQL server' );
-	
-	
-		global $charset, $dbcharset;
+			$this->halt ( 'Can not connect to MySQL server' );
 		
-		if (! $dbcharset && in_array ( strtolower ( $charset ), array ('gbk', 'big5', 'utf-8' ) )) {
-			$dbcharset = str_replace ( '-', '', $charset );
-		}		
-		if ($dbcharset) {
-			mysqli_query ( $this->con, "SET character_set_connection=$dbcharset, character_set_results=$dbcharset, character_set_client=$dbcharset" );
+		if ($this->version () > '4.1') {
+			global $charset, $dbcharset;
+			if (! $dbcharset && in_array ( strtolower ( $charset ), array ('gbk', 'big5', 'utf-8' ) )) {
+				$dbcharset = str_replace ( '-', '', $charset );
+			}
+			
+			if ($dbcharset) {
+				mysqli_query ( $this->con, "SET character_set_connection=$dbcharset, character_set_results=$dbcharset, character_set_client=$dbcharset" );
+			}
+			
+			if ($this->version () > '5.0.1') {
+				mysqli_query ( $this->con, "SET sql_mode=''" );
+			}
 		}
-		
-		mysqli_query ( $this->con, "SET sql_mode=''" );
-		if (mysqli_connect_errno())
-		$this->halt ();
+	
 	}
 	
 	function select_db($dbname) {
-		return mysqli_select_db ( $this->con, $dbname );
+		return mysqli_select_db ( $dbname );
 	}
 	
 	function fetch_array($query, $result_type = MYSQLI_ASSOC) {
@@ -41,60 +43,95 @@ class dbstuff {
 	}
 	
 	function query($sql, $type = '') {
-		//mysqli不存在unbuffered指令，游戏也从来没用到过这个参数
-		//$func = $type == 'UNBUFFERED' && function_exists ( 'mysqli_unbuffered_query' ) ? 'mysqli_unbuffered_query' : 'mysqli_query';
-		$result = mysqli_query ( $this -> con, $sql );
-		if (! $result && $type != 'SILENT') {
+		$func = $type == 'UNBUFFERED' && function_exists ( 'mysqli_unbuffered_query' ) ? 'mysqli_unbuffered_query' : 'mysqli_query';
+		if (! ($query = $func ( $this -> con, $sql )) && $type != 'SILENT') {
 			$this->halt ( 'MySQL Query Error', $sql );
 		}
-//		$this->querynum ++;
-//		if(strpos($sql,'SELECT')===0){$this->selectnum ++;}
-//		elseif(strpos($sql,'INSERT')===0){$this->insertnum ++;}
-//		elseif(strpos($sql,'UPDATE')===0){$this->updatenum ++;}
-//		elseif(strpos($sql,'DELETE')===0){$this->deletenum ++;}
-//		if(strpos($sql,'UPDATE')===0){
-//			ob_start();
-//			var_dump(debug_backtrace());
-//			$a = ob_get_contents();
-//			ob_end_clean();
-//			file_put_contents('a.txt',$a."\r\n",FILE_APPEND);
-//		}
-		return $result;
+		$this->querynum ++;
+		/*
+		if(strpos($sql,'SELECT')===0){$this->selectnum ++;}
+		elseif(strpos($sql,'INSERT')===0){$this->insertnum ++;}
+		elseif(strpos($sql,'UPDATE')===0){$this->updatenum ++;}
+		elseif(strpos($sql,'DELETE')===0){$this->deletenum ++;}
+		*/
+		return $query;
 	}
 	
-	function queries ($queries, $ignore_result = true) {
-//	  foreach (preg_split ("/[;]+/", trim($queries)) as $query_split) {
-//	  	$query = '';
-//	  	foreach (preg_split ("/[\n]+/", trim($query_split)) as $query_row){
-//	  		if (!empty($query_row) && substr($query_row,0,2) != '--' && substr($query_row,0,1) != '#') {
-//	  			$query .= $query_row;
-//				}
-//	  	}
-//	  	if(substr($query, 0, 12) == 'CREATE TABLE') {
-//				$this->query($this->create_table($query));
-//			} elseif (!empty($query)) {
-//				$this->query($query);
-//			}
-//	  }
-	  mysqli_multi_query($this->con,$this->parse_create_table($queries));
-	  while ($ignore_result && $this->more_results()) { 
-	    if ($this->next_result() === false) { 
-	      $this->halt ( 'Some error uccurred in multi_querying.' );
-	      break; 
-	    } 
-		} 
-	  $result = $this->store_result();
-	  return $result;
+	function queries ($queries) {
+	  foreach (preg_split ("/[;]+/", trim($queries)) as $query_split) {
+	  	$query = '';
+	  	foreach (preg_split ("/[\n]+/", trim($query_split)) as $query_row){
+	  		if (!empty($query_row) && substr($query_row,0,2) != '--' && substr($query_row,0,1) != '#') {
+	  			$query .= $query_row;
+				}
+	  	}
+	  	if(substr($query, 0, 12) == 'CREATE TABLE') {
+				$this->query($this->create_table($query));
+			} elseif (!empty($query)) {
+				$this->query($query);
+			}
+	  }
+	  return;
 	}
 	
-	function parse_create_table($sql) {//修改了替换逻辑，不会有什么区别的
+	function create_table($sql) {
 		global $dbcharset;
-		$sql = preg_replace("/ENGINE\s*=\s*([a-z]+)/i", "ENGINE=$1 DEFAULT CHARSET=".$dbcharset, $sql);
-		return $sql;
-//		$type = strtoupper(preg_replace("/\s*CREATE TABLE\s+.+\s+\(.+?\).*(ENGINE|TYPE)\s*=\s*([a-z]+?).*;/isU", "\\2", $sql));
-//		$type = in_array($type, array('MYISAM', 'HEAP')) ? $type : 'MYISAM';
-//		return preg_replace("/\s*(CREATE TABLE\s+.+\s+\(.+?\)).*;$/isU", "\\1", $sql)." ENGINE=$type DEFAULT CHARSET=$dbcharset;";
+		$type = strtoupper(preg_replace("/^\s*CREATE TABLE\s+.+\s+\(.+?\).*(ENGINE|TYPE)\s*=\s*([a-z]+?).*$/isU", "\\2", $sql));
+		$type = in_array($type, array('MYISAM', 'HEAP')) ? $type : 'MYISAM';
+		return preg_replace("/^\s*(CREATE TABLE\s+.+\s+\(.+?\)).*$/isU", "\\1", $sql)." ENGINE=$type DEFAULT CHARSET=$dbcharset";
 	}
+	
+//	function Aselect($dbname, $where = Array(), $fields = Array(), $limit = '') {
+//		if (! empty ( $dbname )) {
+//			$dbname_string = mysql_real_escape_string($dbname);
+//		}else{
+//			return false;
+//		}
+//		
+//		if (! empty ( $fields )) {
+//			$fields_string = '';
+//			foreach($fields as $val){
+//				$val = mysql_real_escape_string($val);
+//				$fields_string .= "{$val},";
+//			}
+//			$fields_string = substr($fields_string,0,-1);
+//		}else{
+//			$fields_string = '*';
+//		}
+//		
+//		if (! empty ( $where )) {
+//			$where_string = '';
+//			foreach($where as $val){
+//				if(is_array($val) && isset($val[0]) && isset($val[1]) && isset($val[2])){
+//					$val[0] = mysql_real_escape_string($val[0]);
+//					$val[1] = mysql_real_escape_string($val[1]);
+//					$val[2] = mysql_real_escape_string($val[2]);
+//					$where_string .= $val[0].$val[1]."'".$val[2]."' AND ";
+//				}				
+//			}
+//			if(!empty($where_string)){
+//				$where_string = 'WHERE '.substr($where_string,0,-5);
+//			}
+//		}else{
+//			$where_string = '';
+//		}
+//		
+//		if (! empty ( $limit )) {
+//			$limit_string = 'LIMIT '.mysql_real_escape_string($limit);
+//		}else{
+//			$limit_string = '';
+//		}
+//		
+//		$query = "SELECT {$fields_string} FROM {$dbname_string} {$where_string} {$limit_string}";
+//		
+//		//return $query;
+//		return $this->query ($query);
+//	}
+	
+//	function delete($dbname, $where){
+//		$query = "DELETE FROM {$dbname} WHERE {$where}";
+//		return $this->query ($query);
+//	}
 	
 	function array_insert($dbname, $data){ //根据$data的键和键值插入数据
 		$query = "INSERT INTO {$dbname} ";
@@ -151,27 +188,40 @@ class dbstuff {
 		return $query;
 	}
 	
+/*	function select_fetch_array($dbname, $fields = '*', $where = '', $limit = '') { //返回二维数组
+		$query = "SELECT {$fields} FROM {$dbname} ";
+		if (! empty ( $where )) {
+			$query .= "WHERE {$where} ";
+		}
+		if (! empty ( $limit )) {
+			$query .= "LIMIT {$limit}";
+		}
+		$result = $this->query ($query);
+		while($data = $this->fetch_array($result)){
+			
+		}
+	}*/
+	
 	function affected_rows() {
-		return mysqli_affected_rows ($this -> con);
+		return mysqli_affected_rows ();
 	}
 	
 	function error() {
-		return mysqli_error ($this -> con);
+		return mysqli_error ();
 	}
 	
 	function errno() {
-		return intval ( mysqli_errno ($this -> con) );
+		return intval ( mysqli_errno () );
 	}
 	
 	function result($query, $row) {
-		mysqli_data_seek($query, $row);
+		mysqli_data_seek($query,$row);
 		return mysqli_fetch_array ( $query, MYSQLI_NUM )[0];
 	}
 	
 	function data_seek($query, $row) {
 		return mysqli_data_seek ( $query, $row );
 	}
-	
 	function num_rows($query) {
 		$query = mysqli_num_rows ( $query );
 		return $query;
@@ -181,26 +231,12 @@ class dbstuff {
 		return mysqli_num_fields ( $query );
 	}
 	
-	function next_result(){
-		return mysqli_next_result ( $this->con );
-	}
-	
-	function more_results() {
-		return mysqli_more_results ( $this->con );
-	}
-	
-	function store_result() {
-		return mysqli_store_result ( $this->con );
-	}
-	
 	function free_result($query) {
 		return mysqli_free_result ( $query );
 	}
 	
-	
-	
 	function insert_id() {
-		$id = mysqli_insert_id ($this -> con);
+		$id = mysqli_insert_id ();
 		return $id;
 	}
 	
@@ -218,17 +254,17 @@ class dbstuff {
 	}
 	
 	function close() {
-		return mysqli_close ($this->con);
+		return mysqli_close ();
 	}
 	
 	function halt($message = '', $sql = '') {
 		echo '数据库错误。请联系管理员。<br><br>';
-		$dberror = $this->errno().' '.$this->error();
+		$dberror = $this->errno();
 		echo '错误信息：'.$dberror.'<br><br>';
 		echo '以下是stack dump<br>';
 		var_export(debug_backtrace());
 		die();
-		require_once GAME_ROOT . './include/db_mysqli_error.inc.php';
+		require_once GAME_ROOT . './include/db_mysql_error.inc.php';
 	}
 }
 

@@ -38,12 +38,10 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 	$arhe = $arae = $arfe = $arte = 0;
 	$arhs = $aras = $arfs = $arts = 0;
 	
-	
-	
 	for ($i=0; $i<=6; $i++){$itm[$i] = $itmk[$i] = $itmsk[$i] = ''; $itme[$i] = $itms[$i] = 0;}
 	$itm[1] = '面包'; $itmk[1] = 'HH'; $itme[1] = 100; $itms[1] = 30;
 	$itm[2] = '矿泉水'; $itmk[2] = 'HS'; $itme[2] = 100; $itms[2] = 30;
-	
+
 	//solo局补给增加，配发探测器
 	if (in_array($gametype,$elorated_mode))
 	{
@@ -96,12 +94,6 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 	}elseif($name == '枪毙的某神' || $name == '精灵们的手指舞') {
 		$art = 'TDG地雷的证明';$artk = 'A'; $arte = 1; $arts = 1; $artsk = 'zZ';
 	}
-	
-	if($gametype == 17) {//教程模式
-		$card = 999;
-		$itm[3] = '紧急药剂'; $itmk[3] = 'Ca'; $itme[3] = 1; $itms[3] = 10;
-	}
-	
 	$state = 0;
 	$bid = 0;
 
@@ -143,10 +135,6 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 	
 	///////////////////////////////////////////////////////////////
 	$pp=\player\fetch_playerdata($name);
-	//教程模式技能
-//	if($gametype == 17){
-//		\skillbase\skill_acquire(1000,$pp);
-//	}
 	//为了灵活性，直接处理所有技能，在固定称号的时候记得要写入skills不然进游戏就没技能了
 	//if (isset($cardfix['club'])){
 	//	\clubbase\club_acquire($cardfix['club'],$pp);

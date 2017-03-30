@@ -6,21 +6,14 @@ require './include/common.inc.php';
 //extract(gkillquotes($_POST));
 //unset($_GET);
 
-$cond = " WHERE type=0";
-if($gametype != 2) $cond .= " AND hp>0 AND state<=3";
-if($gametype == 17){$endtimelimit = $now-300;$cond .= " AND endtime>$endtimelimit";}
-$sort = " ORDER BY killnum DESC, lvl DESC";
-$limit = "";
-if(!isset($alivemode) || $alivemode == 'last') $limit = " LIMIT $alivelimit";
-$query = $db->query("SELECT name,gd,sNo,icon,lvl,exp,killnum,teamID,nskillpara,pid FROM {$tablepre}players".$cond.$sort.$limit);
-//if(!isset($alivemode) || $alivemode == 'last'){
-//	$query = $db->query("SELECT name,gd,sNo,icon,lvl,exp,killnum,teamID,nskillpara,pid FROM {$tablepre}players WHERE type=0 ".($gametype!=2?"AND hp>0":'')" order by killnum desc, lvl desc limit $alivelimit");
-//}elseif($alivemode == 'all'){
-//	$query = $db->query("SELECT name,gd,sNo,icon,lvl,exp,killnum,teamID,nskillpara,pid FROM {$tablepre}players WHERE type=0 ".($gametype!=2?"AND hp>0":'')." order by killnum desc, lvl desc");
-//}else{
-//	echo 'error';
-//	exit();
-//}
+if(!isset($alivemode) || $alivemode == 'last'){
+	$query = $db->query("SELECT name,gd,sNo,icon,lvl,exp,killnum,teamID,nskillpara,pid FROM {$tablepre}players WHERE type=0 ".($gametype!=2?"AND hp>0":'')." order by killnum desc, lvl desc limit $alivelimit");
+}elseif($alivemode == 'all'){
+	$query = $db->query("SELECT name,gd,sNo,icon,lvl,exp,killnum,teamID,nskillpara,pid FROM {$tablepre}players WHERE type=0 ".($gametype!=2?"AND hp>0":'')." order by killnum desc, lvl desc");
+}else{
+	echo 'error';
+	exit();
+}
 //if($alivemode == 'all') {
 //	$query = $db->query("SELECT name,gd,sNo,icon,lvl,exp,killnum,teamID FROM {$tablepre}players WHERE type=0 AND hp>0 order by killnum desc, lvl desc");
 //} else {
@@ -68,7 +61,7 @@ if(!isset($alivemode)){
 	$alivedata['innerHTML']['alivelist'] = ob_get_contents();
 	if(isset($error)){$alivedata['innerHTML']['error'] = $error;}
 	ob_clean();
-	$jgamedata = json_encode($alivedata);
+	$jgamedata = compatible_json_encode($alivedata);
 	echo $jgamedata;
 	ob_end_flush();
 }
