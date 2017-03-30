@@ -81,8 +81,16 @@ while ($data = $db->fetch_array($result))
 			if (update_roomstate($roomdata,1)) room_save_broadcast($data['roomid'],$roomdata);
 			$roomlist[$data['roomid']]['id'] = $data['roomid'];
 			$roomlist[$data['roomid']]['status']=$data['status'];
+			$roomlist[$data['roomid']]['maxplayer'] = $roomtypelist[$roomdata['roomtype']]['pnum'];
 			$roomlist[$data['roomid']]['roomtype'] = $roomdata['roomtype'];
 			$roomlist[$data['roomid']]['roomdata'] = $roomdata;
+			if($roomtypelist[$roomdata['roomtype']]['continuous']){
+				$rid = 's'.$data['roomid'];
+				$rtablepre = $gtablepre.$rid;
+				$endtimelimit = $now-300;
+				$result = $db->query("SELECT pid FROM {$rtablepre}players WHERE type=0 AND state <= 3 AND endtime > '$endtimelimit'");
+				$roomlist[$data['roomid']]['nowplayer'] = $db->num_rows($result);
+			}
 		}
 		else
 		{

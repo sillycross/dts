@@ -1,4 +1,4 @@
-安装指南：
+﻿安装指南 版本1：
 1. 首先把游戏文件属性全部改成777，然后如果之前没有建过mysql结构，进mysql里执行：
 	create database acdts;
 	use acdts;
@@ -13,3 +13,11 @@
 6. 如果在第5步中开了daemon模式，进shell，****切到游戏根目录下****，执行“nohup ./acdts-daemonctl.sh &”，关掉shell，然后访问daemonmng.php，如果脚本状况显示“正在运行”就没问题。（暂不支持windows，谁去写个等效的bat脚本？）
 7. 请访问modulemng.php，进入编辑模式=>保存=>应用修改。
 8. 进游戏，看看能不能动，能动就完工了。
+
+
+
+安装指南 版本2：（在你有install_NEW.php和install文件夹的情况下）
+1. 首先把游戏文件属性全部改成777，去gamedata文件夹删掉install.lock文件
+2. 运行install_NEW.php，一路照设定走，该输的密码要输。
+3. 装好了。
+备注：装完记得把install_NEW.php删掉。目前懒得实现直接开局，要实现也很简单。要改modulemng.config.php见版本1第5步开始。

@@ -10,7 +10,8 @@ namespace addnpc
 		eval(import_module('sys','player','map','logger','addnpc','lvlctl','skillbase'));
 		$time = $time == 0 ? $now : $time;
 		$plsnum = sizeof($plsinfo);
-		$npc=array_merge($npcinit,$anpcinfo[$xtype]);
+		$anpcs = get_addnpclist();
+		$npc=array_merge($npcinit,$anpcs[$xtype]);
 		//$npcwordlist = Array();
 		$summon_pid = -1;
 		if(!$npc){
@@ -20,7 +21,7 @@ namespace addnpc
 				$npc = array_merge($npc,$npc['sub'][$xsub]);		
 				$npc['type'] = $xtype;
 				$npc['endtime'] = $time;
-				$npc['exp'] = round(($npc['lvl']*2+1)*$baseexp);
+				$npc['exp'] = \lvlctl\calc_upexp($npc['lvl'] - 1);
 				$npc['sNo'] = $i;
 				$npc['hp'] = $npc['mhp'];
 				$npc['sp'] = $npc['msp'];
@@ -40,16 +41,17 @@ namespace addnpc
 					//$npc['pls'] = rand(1,$plsnum-1);
 				}			
 				$db->query("INSERT INTO {$tablepre}players (name,pass,type,endtime,gd,sNo,icon,club,hp,mhp,sp,msp,att,def,pls,lvl,`exp`,money,bid,inf,rage,pose,tactic,killnum,state,wp,wk,wg,wc,wd,wf,teamID,teamPass,wep,wepk,wepe,weps,arb,arbk,arbe,arbs,arh,arhk,arhe,arhs,ara,arak,arae,aras,arf,arfk,arfe,arfs,art,artk,arte,arts,itm0,itmk0,itme0,itms0,itm1,itmk1,itme1,itms1,itm2,itmk2,itme2,itms2,itm3,itmk3,itme3,itms3,itm4,itmk4,itme4,itms4,itm5,itmk5,itme5,itms5,itm6,itmk6,itme6,itms6,wepsk,arbsk,arhsk,arask,arfsk,artsk,itmsk0,itmsk1,itmsk2,itmsk3,itmsk4,itmsk5,itmsk6) VALUES ('".$npc['name']."','".$npc['pass']."','".$npc['type']."','".$npc['endtime']."','".$npc['gd']."','".$npc['sNo']."','".$npc['icon']."','".$npc['club']."','".$npc['hp']."','".$npc['mhp']."','".$npc['sp']."','".$npc['msp']."','".$npc['att']."','".$npc['def']."','".$npc['pls']."','".$npc['lvl']."','".$npc['exp']."','".$npc['money']."','".$npc['bid']."','".$npc['inf']."','".$npc['rage']."','".$npc['pose']."','".$npc['tactic']."','".$npc['killnum']."','".$npc['state']."','".$npc['wp']."','".$npc['wk']."','".$npc['wg']."','".$npc['wc']."','".$npc['wd']."','".$npc['wf']."','".$npc['teamID']."','".$npc['teamPass']."','".$npc['wep']."','".$npc['wepk']."','".$npc['wepe']."','".$npc['weps']."','".$npc['arb']."','".$npc['arbk']."','".$npc['arbe']."','".$npc['arbs']."','".$npc['arh']."','".$npc['arhk']."','".$npc['arhe']."','".$npc['arhs']."','".$npc['ara']."','".$npc['arak']."','".$npc['arae']."','".$npc['aras']."','".$npc['arf']."','".$npc['arfk']."','".$npc['arfe']."','".$npc['arfs']."','".$npc['art']."','".$npc['artk']."','".$npc['arte']."','".$npc['arts']."','".$npc['itm0']."','".$npc['itmk0']."','".$npc['itme0']."','".$npc['itms0']."','".$npc['itm1']."','".$npc['itmk1']."','".$npc['itme1']."','".$npc['itms1']."','".$npc['itm2']."','".$npc['itmk2']."','".$npc['itme2']."','".$npc['itms2']."','".$npc['itm3']."','".$npc['itmk3']."','".$npc['itme3']."','".$npc['itms3']."','".$npc['itm4']."','".$npc['itmk4']."','".$npc['itme4']."','".$npc['itms4']."','".$npc['itm5']."','".$npc['itmk5']."','".$npc['itme5']."','".$npc['itms5']."','".$npc['itm6']."','".$npc['itmk6']."','".$npc['itme6']."','".$npc['itms6']."','".$npc['wepsk']."','".$npc['arbsk']."','".$npc['arhsk']."','".$npc['arask']."','".$npc['arfsk']."','".$npc['artsk']."','".$npc['itmsk0']."','".$npc['itmsk1']."','".$npc['itmsk2']."','".$npc['itmsk3']."','".$npc['itmsk4']."','".$npc['itmsk5']."','".$npc['itmsk6']."')");
+				$summon_pid = $db->insert_id();
 				$newsname=$typeinfo[$xtype].' '.$npc['name'];
 				//$npcwordlist[] = $typeinfo[$type].' '.$npc['name'];
 				addnews($now, 'addnpc', $newsname);
-				$result = $db->query("SELECT pid FROM {$tablepre}players where pass='$spid' AND type>0");
-				if ($db->num_rows($result))
-				{
-					$zz = $db->fetch_array($result);
-					$summon_pid = $zz['pid'];
-				}
-				else
+				//$result = $db->query("SELECT pid FROM {$tablepre}players where pass='$spid' AND type>0");
+				if (!$summon_pid)
+//				{
+//					$zz = $db->fetch_array($result);
+//					$summon_pid = $zz['pid'];
+//				}
+//				else
 				{
 					//出BUG了
 					$summon_pid = -1;
@@ -85,6 +87,12 @@ namespace addnpc
 		}
 		*/
 		return $summon_pid;
+	}
+	
+	function get_addnpclist(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','addnpc'));
+		return $anpcinfo;
 	}
 	
 	function itemuse(&$theitem) 

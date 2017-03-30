@@ -7,7 +7,7 @@ namespace poison
 	function parse_itmk_words($k_value, $simple)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($k_value[0]=='P') $k_value[0]='H';
+		if (isset($k_value[0]) && $k_value[0]=='P') $k_value[0]='H';
 		return $chprocess($k_value, $simple);
 	}
 	

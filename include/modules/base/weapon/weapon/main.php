@@ -95,6 +95,7 @@ namespace weapon
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$pdata['wep_kind']=get_attack_method($pdata);
+		$pdata['bskill'] = $pdata['bskillpara'] = '';
 		$chprocess($pdata);
 	}
 	

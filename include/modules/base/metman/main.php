@@ -26,8 +26,8 @@ namespace metman
 		eval(import_module('sys','player','metman'));
 		
 		$tdata=Array();
-		
-		$w_upexp = round(($w_lvl*$baseexp)+(($w_lvl+1)*$baseexp));
+		$w_upexp = \lvlctl\calc_upexp($w_lvl);
+		//$w_upexp = round(($w_lvl*$baseexp)+(($w_lvl+1)*$baseexp));
 		
 		if($w_hp <= 0) {
 			$tdata['hpstate'] = "<span class=\"red\">$hpinfo[3]</span>";

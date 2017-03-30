@@ -326,7 +326,7 @@ if(!$db->num_rows($result))
 { 
 	$gamedata['url'] = 'valid.php';
 	ob_clean();
-	$jgamedata = base64_encode(gzencode(compatible_json_encode($gamedata)));
+	$jgamedata = base64_encode(gzencode(json_encode($gamedata)));
 	echo $jgamedata;
 	return;
 }
@@ -349,7 +349,7 @@ if($pdata['pass'] != $cpass) {
 if($gamestate == 0) {
 	$gamedata['url'] = 'end.php';
 	ob_clean();
-	$jgamedata = base64_encode(gzencode(compatible_json_encode($gamedata)));
+	$jgamedata = base64_encode(gzencode(json_encode($gamedata)));
 	echo $jgamedata;
 	return;
 }
@@ -372,9 +372,9 @@ $pagestartimez=microtime(true);
 $gamedata = array();
 \player\init_playerdata();
 
-player\pre_act();
-if ($hp>0) player\act();
-player\post_act();
+\player\pre_act();
+if ($hp > 0 && $state <= 3) \player\act();
+\player\post_act();
 
 $endtime = $now;
 
@@ -416,9 +416,11 @@ if($hp <= 0) {
 	$gamedata['innerHTML']['cmd'] = ob_get_contents();
 } elseif(!$cmd) {
 	ob_clean();
-	if($mode&&(file_exists($mode.'.htm') || file_exists(GAME_ROOT.TPLDIR.'/'.$mode.'.htm'))) {
+	if($mode != 'command' && $mode&&(file_exists($mode.'.htm') || file_exists(GAME_ROOT.TPLDIR.'/'.$mode.'.htm'))) {
 		include template($mode);
-	} else {
+	} elseif(defined('MOD_TUTORIAL') && $gametype == 17){
+		include template(MOD_TUTORIAL_TUTORIAL);
+	}	else {
 		include template('command');
 	}
 	$gamedata['innerHTML']['cmd'] = ob_get_contents();
@@ -427,6 +429,8 @@ if($hp <= 0) {
 }
 
 if(isset($url)){$gamedata['url'] = $url;}
+//if(isset($classchg)) {$gamedata['classchg'] = $classchg;}
+if(isset($uip['effect'])) {$gamedata['effect'] = $uip['effect'];}
 $gamedata['innerHTML']['pls'] = $plsinfo[$pls];
 if ($gametype!=2) $gamedata['innerHTML']['anum'] = $alivenum; else $gamedata['innerHTML']['anum'] = $validnum;
 
@@ -461,7 +465,7 @@ $gamedata['innerHTML']['log'] = $log;
 
 //$jgamedata = str_replace('_____CORE_RUNNING_TIME_____',$timecostlis,$jgamedata);
 
-$jgamedata=base64_encode(gzencode(compatible_json_encode($gamedata)));
+$jgamedata=base64_encode(gzencode(json_encode($gamedata)));
 ob_clean();
 echo $jgamedata;
 
