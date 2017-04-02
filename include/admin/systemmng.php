@@ -18,7 +18,6 @@ if($command == 'edit') {
 		'newslimit'=>'int',
 		'alivelimit'=>'int',
 		'winlimit'=>'int',
-		'noiselimit'=>'int',
 		'chatlimit'=>'int',
 		'chatrefresh'=>'int',
 		'chatinnews'=>'int',
