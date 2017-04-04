@@ -23,6 +23,7 @@ if (!file_exists($server_config)){
 		if(!copy($server_config_sample,$server_config)) exit('Cannot create "server.config.php".');
 	}
 }
+
 $modulemng_config =  './include/modulemng.config.php';
 $modulemng_config_sample =  './include/modulemng.config.sample.php';
 if (!file_exists($modulemng_config)){
@@ -31,6 +32,13 @@ if (!file_exists($modulemng_config)){
 		if(!copy($modulemng_config_sample,$modulemng_config)) exit('Cannot create "modulemng.config.php".');
 	}
 }
+$mdcontents = file_get_contents($modulemng_config);
+$mdcontents = preg_replace("/[$]___MOD_CODE_ADV1\s*\=\s*-?[0-9]+;/is", "\$___MOD_CODE_ADV1 = 0;", $mdcontents);
+$mdcontents = preg_replace("/[$]___MOD_CODE_ADV2\s*\=\s*-?[0-9]+;/is", "\$___MOD_CODE_ADV2 = 0;", $mdcontents);
+$mdcontents = preg_replace("/[$]___MOD_CODE_ADV3\s*\=\s*-?[0-9]+;/is", "\$___MOD_CODE_ADV3 = 0;", $mdcontents);
+$mdcontents = preg_replace("/[$]___MOD_SRV\s*\=\s*-?[0-9]+;/is", "\$___MOD_SRV = 0;", $mdcontents);
+file_put_contents($modulemng_config,$mdcontents);
+
 $system_config = './include/modules/core/sys/config/system.config.php';
 if (!file_exists($system_config)){exit('"system.config.php" doesn\'t exist.');}
 @include $server_config;
@@ -517,24 +525,20 @@ if(!$action) {
 				$gameurl = setconfig($_POST['gameurl']);
 				$moveut = (int)$_POST['moveut'];
 
-				$fp = fopen($server_config, 'r');
-				$configfile = fread($fp, filesize($server_config));
-				fclose($fp);
+				$svcontents = file_get_contents($server_config);
 
-				$configfile = preg_replace("/[$]gamefounder\s*\=\s*[\"'].*?[\"'];/is", "\$gamefounder = '$gamefounder';", $configfile);
-				$configfile = preg_replace("/[$]dbhost\s*\=\s*[\"'].*?[\"'];/is", "\$dbhost = '$dbhost';", $configfile);
-				$configfile = preg_replace("/[$]dbuser\s*\=\s*[\"'].*?[\"'];/is", "\$dbuser = '$dbuser';", $configfile);
-				$configfile = preg_replace("/[$]dbpw\s*\=\s*[\"'].*?[\"'];/is", "\$dbpw = '$dbpw';", $configfile);
-				$configfile = preg_replace("/[$]gtablepre\s*\=\s*[\"'].*?[\"'];/is", "\$gtablepre = '$tablepre';", $configfile);
-				$configfile = preg_replace("/[$]authkey\s*\=\s*[\"'].*?[\"'];/is", "\$authkey = '$authkey';", $configfile);
-				$configfile = preg_replace("/[$]database\s*\=\s*[\"'].*?[\"'];/is", "\$database = '$database';", $configfile);
-				$configfile = preg_replace("/[$]bbsurl\s*\=\s*[\"'].*?[\"'];/is", "\$bbsurl = '$bbsurl';", $configfile);
-				$configfile = preg_replace("/[$]gameurl\s*\=\s*[\"'].*?[\"'];/is", "\$gameurl = '$gameurl';", $configfile);
-				$configfile = preg_replace("/[$]moveut\s*\=\s*-?[0-9]+;/is", "\$moveut = $moveut;", $configfile);
+				$svcontents = preg_replace("/[$]gamefounder\s*\=\s*[\"'].*?[\"'];/is", "\$gamefounder = '$gamefounder';", $svcontents);
+				$svcontents = preg_replace("/[$]dbhost\s*\=\s*[\"'].*?[\"'];/is", "\$dbhost = '$dbhost';", $svcontents);
+				$svcontents = preg_replace("/[$]dbuser\s*\=\s*[\"'].*?[\"'];/is", "\$dbuser = '$dbuser';", $svcontents);
+				$svcontents = preg_replace("/[$]dbpw\s*\=\s*[\"'].*?[\"'];/is", "\$dbpw = '$dbpw';", $svcontents);
+				$svcontents = preg_replace("/[$]gtablepre\s*\=\s*[\"'].*?[\"'];/is", "\$gtablepre = '$tablepre';", $svcontents);
+				$svcontents = preg_replace("/[$]authkey\s*\=\s*[\"'].*?[\"'];/is", "\$authkey = '$authkey';", $svcontents);
+				$svcontents = preg_replace("/[$]database\s*\=\s*[\"'].*?[\"'];/is", "\$database = '$database';", $svcontents);
+				$svcontents = preg_replace("/[$]bbsurl\s*\=\s*[\"'].*?[\"'];/is", "\$bbsurl = '$bbsurl';", $svcontents);
+				$svcontents = preg_replace("/[$]gameurl\s*\=\s*[\"'].*?[\"'];/is", "\$gameurl = '$gameurl';", $svcontents);
+				$svcontents = preg_replace("/[$]moveut\s*\=\s*-?[0-9]+;/is", "\$moveut = $moveut;", $svcontents);
 
-				$fp = fopen($server_config, 'w');
-				fwrite($fp, trim($configfile));
-				fclose($fp);
+				file_put_contents($server_config,$svcontents);
 			}
 
 			include $server_config;
@@ -948,6 +952,7 @@ if(!$action) {
 		list($nowsec,$nowmin,$nowhour,$nowday,$nowmonth,$nowyear,$nowwday,$nowyday,$nowisdst) = localtime($now);
 		$nowmonth++;
 		$nowyear += 1900;
+		$adminmsg = file_get_contents('./gamedata/adminmsg.htm') ;
 
 ?>
         <form method="post" action="?language=<?php echo $language; ?>" <?php echo $alert; ?>>
@@ -981,12 +986,12 @@ if(!$action) {
               </tr>
               <tr>
                 <td bgcolor="#E3E3EA" width="20%">&nbsp;<?php echo $lang['adminmsg']; ?></td>
-                <td bgcolor="#EEEEF6" width="30%"><textarea cols="30" rows="4" style="overflow:auto" name="adminmsg" value=""></textarea></td>
+                <td bgcolor="#EEEEF6" width="30%"><textarea cols="30" rows="4" style="overflow:auto" name="adminmsg"><?php echo $adminmsg; ?></textarea></td>
 				<td bgcolor="#E3E3EA">&nbsp;<?php echo $lang['adminmsg_comment']; ?></td>
               </tr>
               <tr>
                 <td bgcolor="#E3E3EA" width="20%">&nbsp;<?php echo $lang['startmode']; ?></td>
-                <td bgcolor="#EEEEF6" width="30%"><input type="radio" name="startmode" value="1" checked><?php echo $lang['startmode_1']; ?><input type="radio" name="startmode" value="2"><?php echo $lang['startmode_2']; ?><input type="radio" name="startmode" value="3"><?php echo $lang['startmode_3']; ?><input type="radio" name="startmode" value="0"><?php echo $lang['startmode_0']; ?></td>
+                <td bgcolor="#EEEEF6" width="30%"><input type="radio" name="startmode" value="1" <?php if(1==$startmode) echo 'checked'; ?>><?php echo $lang['startmode_1']; ?><input type="radio" name="startmode" value="2"  <?php if(2==$startmode) echo 'checked'; ?>><?php echo $lang['startmode_2']; ?><input type="radio" name="startmode" value="3"  <?php if(3==$startmode) echo 'checked'; ?>><?php echo $lang['startmode_3']; ?><input type="radio" name="startmode" value="0"  <?php if(0==$startmode) echo 'checked'; ?>><?php echo $lang['startmode_0']; ?></td>
 				<td bgcolor="#E3E3EA">&nbsp;<?php echo $lang['startmode_comment']; ?></td>
               </tr>
               <tr>
@@ -1101,23 +1106,29 @@ if(!$action) {
 	$db->select_db($dbname);
 
 
-echo"        <tr>\n";
-echo"          <td>$lang[select_db] $dbname ".result(1, 0)."</td>\n";
-echo"        </tr>\n";
-echo"        <tr>\n";
-echo"          <td>\n";
-echo"            <hr noshade align=\"center\" width=\"100%\" size=\"1\">\n";
-echo"          </td>\n";
-echo"        </tr>\n";
-echo"        <tr>\n";
-echo"          <td><b><font color=\"#FF0000\">&gt;</font><font color=\"#000000\"> $lang[create_table]</font></b></td>\n";
-echo"        </tr>\n";
-echo"        <tr>\n";
-echo"          <td>\n";
-
-$extrasql = <<<EOT
-INSERT INTO bra_users (username,`password`,groupid) VALUES ('$username','$brpswd','9');
-EOT;
+	echo"        <tr>\n";
+	echo"          <td>$lang[select_db] $dbname ".result(1, 0)."</td>\n";
+	echo"        </tr>\n";
+	echo"        <tr>\n";
+	echo"          <td>\n";
+	echo"            <hr noshade align=\"center\" width=\"100%\" size=\"1\">\n";
+	echo"          </td>\n";
+	echo"        </tr>\n";
+	echo"        <tr>\n";
+	echo"          <td><b><font color=\"#FF0000\">&gt;</font><font color=\"#000000\"> $lang[create_table]</font></b></td>\n";
+	echo"        </tr>\n";
+	echo"        <tr>\n";
+	echo"          <td>\n";
+	
+	$extrasql = "INSERT INTO bra_users (username,`password`,groupid) VALUES ('$username','$brpswd','9');";
+	$starttime = (int)$_POST['starttime'];
+	$startmin = (int)$_POST['startmin'];
+	if(!$starttime) {
+		$nowtime = time()+$moveut*3600;
+		$settime = mktime((int)$_POST['sethour'],(int)$_POST['startmin'],0,(int)$_POST['setmonth'],(int)$_POST['setday'],(int)$_POST['setyear']);
+		$starttime = $nowtime > $settime ? $nowtime : $settime;
+	}
+	$extrasql .= "\nINSERT INTO bra_game (gamenum,starttime) VALUES (0,'$starttime');";
 
 	runquery($sql);
 	runquery($extrasql);
@@ -1155,40 +1166,20 @@ if($startmode == 1) {
 }
 
 
-$fp = fopen($system_config, 'r');
-$systemfile = fread($fp, filesize($system_config));
-fclose($fp);
+$sscontents = file_get_contents($system_config);
 
-$systemfile = preg_replace("/[$]adminmsg\s*\=\s*[\"'].*?[\"'];/is", "\$adminmsg = '$adminmsg';", $systemfile);
-$systemfile = preg_replace("/[$]startmode\s*\=\s*[0-9]+;/is", "\$startmode = $startmode;", $systemfile);
-$systemfile = preg_replace("/[$]starthour\s*\=\s*[0-9]+;/is", "\$starthour = $starthour;", $systemfile);
-$systemfile = preg_replace("/[$]iplimit\s*\=\s*[0-9]+;/is", "\$iplimit = $iplimit;", $systemfile);
+//$sscontents = preg_replace("/[$]adminmsg\s*\=\s*[\"'].*?[\"'];/is", "\$adminmsg = '$adminmsg';", $sscontents);
+$sscontents = preg_replace("/[$]startmode\s*\=\s*[0-9]+;/is", "\$startmode = $startmode;", $sscontents);
+$sscontents = preg_replace("/[$]starthour\s*\=\s*[0-9]+;/is", "\$starthour = $starthour;", $sscontents);
+$sscontents = preg_replace("/[$]iplimit\s*\=\s*[0-9]+;/is", "\$iplimit = $iplimit;", $sscontents);
 
-$fp = fopen($system_config, 'w');
-@fwrite($fp, trim($systemfile));
-@fclose($fp);
+file_put_contents($system_config,$sscontents);
+file_put_contents('./gamedata/adminmsg.htm',$adminmsg);
 
 result();
-echo $lang['new_game'];
-$starttime = (int)$_POST['starttime'];
-$startmin = (int)$_POST['startmin'];
-if(!$starttime) {
-	$nowtime = time()+$moveut*3600;
-	$settime = mktime((int)$_POST['sethour'],(int)$_POST['startmin'],0,(int)$_POST['setmonth'],(int)$_POST['setday'],(int)$_POST['setyear']);
-	$starttime = $nowtime > $settime ? $nowtime : $settime;
-
-}
-$fp = fopen('./install/gameinfo.php', 'r');
-$systemfile = fread($fp, filesize('./install/gameinfo.php'));
-fclose($fp);
-
-$systemfile = preg_replace("/[$]starttime\s*\=\s*[0-9]+;/is", "\$starttime = $starttime;", $systemfile);
-
-$fp = fopen('./gamedata/gameinfo.php', 'w+');
-@fwrite($fp, trim($systemfile));
-@fclose($fp);
-
-result();
+//echo $lang['new_game'];
+//
+//result();
 
 touch(GAME_ROOT.$lockfile);
 ?>
