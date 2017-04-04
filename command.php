@@ -1,9 +1,9 @@
 <?php
 
-define('IN_GAME', TRUE);
-define('IN_COMMAND', TRUE);
-define('CURSCRIPT', 'game');
-define('GAME_ROOT', dirname(__FILE__).'/');
+if(!defined(IN_GAME)) define('IN_GAME', TRUE);
+if(!defined(IN_COMMAND)) define('IN_COMMAND', TRUE);
+if(!defined(CURSCRIPT)) define('CURSCRIPT', 'game');
+if(!defined(GAME_ROOT)) define('GAME_ROOT', dirname(__FILE__).'/');
 
 require GAME_ROOT.'./include/modulemng.config.php';
 
