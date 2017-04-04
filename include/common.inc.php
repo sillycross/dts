@@ -21,7 +21,7 @@ error_reporting(E_ALL);
 set_error_handler('gameerrorhandler');
 $magic_quotes_gpc = get_magic_quotes_gpc();
 
-require GAME_ROOT.'./include/modules.func.php';
+require GAME_ROOT.'./include/modules/modules.func.php';
 
 define('STYLEID', '1');
 define('TEMPLATEID', '1');

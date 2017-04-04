@@ -164,7 +164,7 @@ if ($___MOD_CODE_ADV1)
 		$modpath_suf=str_replace('\\','/',$modpath);//噫
 		
 		$suf=substr(md5($modpath_suf),0,8);
-		$tplfile = GAME_ROOT.'./include/modules.init.template.adv.php';
+		$tplfile = GAME_ROOT.'./include/modules/modules.init.template.adv.php';
 		$objfile = GAME_ROOT.'./gamedata/modinit/1_mod'.$modname.'.'.$suf.'.init.adv.php';
 		
 		$str=file_get_contents($tplfile);

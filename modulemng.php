@@ -11,7 +11,7 @@ check_authority();
 	
 require GAME_ROOT.'./include/modulemng/modulemng.config.php';
 require GAME_ROOT.'./include/modulemng/modulemng.func.php';
-require GAME_ROOT.'./include/modules.func.php';
+require GAME_ROOT.'./include/modules/modules.func.php';
 
 register_shutdown_function('shutDownFunction');
 
