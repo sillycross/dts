@@ -141,7 +141,7 @@ DROP TABLE IF EXISTS `bra_players`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `bra_players` (
-  `pid` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `pid` mediumint(5) unsigned NOT NULL AUTO_INCREMENT,
   `type` tinyint(4) NOT NULL DEFAULT '0',
   `name` char(15) NOT NULL DEFAULT '',
   `pass` char(32) NOT NULL DEFAULT '',
@@ -373,7 +373,7 @@ DROP TABLE IF EXISTS `bra_winners`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `bra_winners` (
-  `gid` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `gid` mediumint(5) unsigned NOT NULL DEFAULT '0',
   `type` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `name` char(15) NOT NULL DEFAULT '',
   `pass` char(32) NOT NULL DEFAULT '',
@@ -502,7 +502,7 @@ DROP TABLE IF EXISTS `bra_newsinfo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `bra_newsinfo` (
-  `nid` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `nid` mediumint(5) unsigned NOT NULL AUTO_INCREMENT,
   `time` int(10) unsigned NOT NULL DEFAULT '0',
   `news` char(15) NOT NULL DEFAULT '',
   `a` varchar(255) NOT NULL DEFAULT '',

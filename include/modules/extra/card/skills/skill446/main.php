@@ -121,7 +121,7 @@ namespace skill446
 		$chprocess();
 	}
 	
-	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)
+	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		

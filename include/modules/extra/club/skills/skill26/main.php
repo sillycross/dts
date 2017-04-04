@@ -244,7 +244,7 @@ namespace skill26
 		$log.='升级成功。<br>';
 	}
 	
-	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)
+	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		

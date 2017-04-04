@@ -49,14 +49,11 @@ namespace attack
 		return;
 	}
 	
-	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)
+	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
-		$dname = $typeinfo[$b].' '.$a;
-		if(!$e)
-			$e0 = "<span class=\"yellow\">【{$dname} 什么都没说就死去了】</span><br>\n";
-		else  $e0 = "<span class=\"yellow\">【{$dname}：“{$e}”】</span><br>\n";
+		if(isset($exarr['dword'])) $e0 = $exarr['dword'];
 
 		if($news == 'death20') {
 			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>被<span class=\"yellow\">$c</span>使用<span class=\"red\">$nowep</span>击飞$e0";

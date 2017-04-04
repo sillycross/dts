@@ -2,7 +2,7 @@
 
 namespace sys
 {
-	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)
+	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
@@ -36,12 +36,7 @@ namespace sys
 		elseif($news == 'wintutorial') 
 			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}完成了教程。</span><br>\n";
 		elseif(strpos($news,'death') === 0) {
-			$dname = $typeinfo[$b].' '.$a;
-			if(!$e){
-				$e0="<span class=\"yellow\">【{$dname} 什么都没说就死去了】</span><br>\n";
-			}else{
-				$e0="<span class=\"yellow\">【{$dname}：“{$e}”】</span><br>\n";
-			}
+			if(isset($exarr['dword'])) $e0 = $exarr['dword'];
 			if($news == 'death15') {
 				return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>被<span class=\"red\">时空特使强行消除</span>{$e0}";
 			} elseif($news == 'death16') {
@@ -90,13 +85,14 @@ namespace sys
 		return "<li>$time,$news,$a,$b,$c,$d<br>\n";
 	}
 	
-	function  nparse_news($start = 0, $range = 0  ){//$type = '') {
+	function  load_news($start = 0, $range = 0  ){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 	
 		//$file = $file ? $file : $newsfile;	
 		//$ninfo = openfile($file);
-		$range = $range == 0 ? $newslimit : $range ;
+		if(0 == $range){$range = $newslimit;}
+		elseif(-1 == $range){$range = 16777215;}
 		$result = $db->query("SELECT * FROM {$tablepre}newsinfo ORDER BY nid DESC LIMIT $start,$range");
 		//$r = sizeof($ninfo) - 1;
 	//	$rnum=$db->num_rows($result);
@@ -117,12 +113,26 @@ namespace sys
 				$newsinfo .= "<span class=\"evergreen\"><B>{$month}月{$day}日(星期$week[$wday])</B></span><br>";
 				$nday = $day;
 			}
-			$newsinfo .= parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+			$exarr = parse_news_prepare($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+			$newsinfo .= parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 		}
 
 		$newsinfo .= '</ul>';
 		return $newsinfo;
 			
+	}
+	
+	function parse_news_prepare($news, $hour, $min, $sec, $a, $b, $c, $d, $e){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		$exarr = array();
+		if(strpos($news,'death') === 0){
+			$dname = $a;
+			if(isset($typeinfo[$b])) $dname = $typeinfo[$b].' '.$dname;
+			if(!$e) $exarr['dword'] = "<span class=\"yellow\">【{$dname} 什么都没说就死去了】</span><br>\n";
+			else $exarr['dword'] = "<span class=\"yellow\">【{$dname}：“{$e}”】</span><br>\n";
+		}
+		return $exarr;
 	}
 }
 

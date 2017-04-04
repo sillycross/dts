@@ -77,7 +77,7 @@ namespace skill5
 		if ($hp>0) $chprocess($moveto);
 	}
 	
-	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)	//毒发死亡新闻
+	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())	//毒发死亡新闻
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
