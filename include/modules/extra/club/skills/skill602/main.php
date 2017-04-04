@@ -91,7 +91,7 @@ namespace skill602
 		if($news == 'bstun1') 
 			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}的攻击致使{$b}<span class=\"clan\">晕眩</span>了</span><br>\n";
 		
-		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 	
 	function bufficons_list()

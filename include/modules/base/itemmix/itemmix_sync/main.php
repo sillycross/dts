@@ -141,7 +141,7 @@ namespace itemmix_sync
 		eval(import_module('sys'));
 		if($news == 'syncmix') 
 			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}同调合成了{$b}</span><br>\n";
-		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 }
 

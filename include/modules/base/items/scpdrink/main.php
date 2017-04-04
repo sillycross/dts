@@ -152,7 +152,7 @@ namespace scpdrink
 		if($news == 'suisidefail') 
 			return "<li><font style=\"background:url(img/backround4.gif) repeat-x\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}注射了H173，却由于RP太高进入了发狂状态！！</font></span><br>\n";
 		
-		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 	
 }
