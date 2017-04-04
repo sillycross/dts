@@ -30,7 +30,7 @@ namespace sys
 		if (!isset($db))
 		{
 			global $dbhost, $dbuser, $dbpw, $dbname, $pconnect, $database;
-			require GAME_ROOT.'./include/db_'.$database.'.class.php';
+			require GAME_ROOT.'./include/db/db_'.$database.'.class.php';
 			$db = new \dbstuff;
 			$db->connect($dbhost, $dbuser, $dbpw, $dbname, $pconnect);
 			//$db->select_db($dbname);

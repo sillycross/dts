@@ -543,7 +543,7 @@ if(!$action) {
 
 			include $server_config;
 			if($database == 'mysql') $database = PHP_VERSION >= 7.0 ? 'mysqli': $database;
-			include './include/db_'.$database.'.class.php';
+			include './include/db/db_'.$database.'.class.php';
 			$db = new dbstuff;
 			$db->connect($dbhost, $dbuser, $dbpw);
 
@@ -673,7 +673,7 @@ if(!$action) {
 	}
 
 	include $server_config;
-	include './include/db_'.$database.'.class.php';
+	include './include/db/db_'.$database.'.class.php';
 	$db = new dbstuff;
 	$db->connect($dbhost, $dbuser, $dbpw);
 
@@ -1100,7 +1100,7 @@ if(!$action) {
 		$dbcharset = $charset;
 	}
 
-	include './include/db_'.$database.'.class.php';
+	include './include/db/db_'.$database.'.class.php';
 	$db = new dbstuff;
 	$db->connect($dbhost, $dbuser, $dbpw, $dbname, $pconnect);
 	$db->select_db($dbname);
