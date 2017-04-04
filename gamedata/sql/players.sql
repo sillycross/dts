@@ -5,7 +5,7 @@
 
 DROP TABLE IF EXISTS bra_players;
 CREATE TABLE bra_players (
-  pid smallint unsigned NOT NULL auto_increment,
+  pid mediumint unsigned NOT NULL auto_increment,
   type tinyint NOT NULL default '0',
   name char(15) NOT NULL default '',
   pass char(32) NOT NULL default '',

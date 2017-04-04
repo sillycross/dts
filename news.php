@@ -11,7 +11,7 @@ $newshtm = GAME_ROOT.'./gamedata/tmp/news/newsinfo_'.$room_prefix.'.htm';
 $lnewshtm = GAME_ROOT.'./gamedata/tmp/news/lastnews_'.$room_prefix.'.htm';
 
 if(filemtime($newsfile) > filemtime($lnewshtm)) {
-	$lnewsinfo = \sys\nparse_news(0,$newslimit);
+	$lnewsinfo = \sys\load_news(0,$newslimit);
 	writeover($lnewshtm,$lnewsinfo);
 }
 if(!isset($newsmode)){$newsmode = '';}
@@ -30,7 +30,7 @@ if($newsmode == 'last') {
 } elseif($newsmode == 'all') {
 	
 	if(filemtime($newsfile) > filemtime($newshtm)) {
-		$newsinfo = \sys\nparse_news(0,65535);
+		$newsinfo = \sys\load_news(0,-1);
 		writeover($newshtm,$newsinfo);
 	}
 	echo file_get_contents($newshtm);

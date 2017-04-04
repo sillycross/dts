@@ -5,7 +5,7 @@
 
 DROP TABLE IF EXISTS bra_newsinfo;
 CREATE TABLE bra_newsinfo (
-  nid smallint unsigned NOT NULL auto_increment,
+  nid mediumint unsigned NOT NULL auto_increment,
  `time` int(10) unsigned NOT NULL default '0',
  `news` char(15) NOT NULL default '',
  `a` varchar(255) NOT NULL default '',

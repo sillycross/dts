@@ -257,7 +257,7 @@ namespace sys
 		//addnews($time, 'gameover',$gamenum);
 		addnews($time, 'gameover' ,$gamenum);
 		systemputchat($time,'gameover');
-		$newsinfo = nparse_news(0,65535);
+		$newsinfo = load_news(0,-1);
 		$room_gprefix = '';
 		if ($room_prefix!='') $room_gprefix = (substr($room_prefix,0,1)).'.';
 		writeover(GAME_ROOT."./gamedata/bak/{$room_gprefix}{$gamenum}_newsinfo.html",$newsinfo,'wb+');
