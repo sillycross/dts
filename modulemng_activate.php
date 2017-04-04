@@ -164,7 +164,7 @@ if ($___MOD_CODE_ADV1)
 		$modpath_suf=str_replace('\\','/',$modpath);//噫
 		
 		$suf=substr(md5($modpath_suf),0,8);
-		$tplfile = GAME_ROOT.'./include/modules.init.template.adv.php';
+		$tplfile = GAME_ROOT.'./include/modules/modules.init.template.adv.php';
 		$objfile = GAME_ROOT.'./gamedata/modinit/1_mod'.$modname.'.'.$suf.'.init.adv.php';
 		
 		$str=file_get_contents($tplfile);
@@ -203,7 +203,7 @@ global $___MOD_CODE_ADV2;
 if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2)
 {
 	echo '<font color="blue">正在进行代码预处理CODE_ADV2..</font><br>';
-	include GAME_ROOT.'./include/modulemng.codeadv2.func.php';
+	include GAME_ROOT.'./include/modulemng/modulemng.codeadv2.func.php';
 	for ($i=1; $i<=$n; $i++)
 	{
 		/*
@@ -244,7 +244,7 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2 && $___MOD_CODE_ADV3)
 {
 	$___TEMP_template_force_refresh = 1;
 	$___TEMP_codeadv3=Array(); $___TEMP_codeadv3_c=0; $___TEMP_codeadv3_v=Array();
-	include GAME_ROOT.'./include/modulemng.codeadv3.func.php';
+	include GAME_ROOT.'./include/modulemng/modulemng.codeadv3.func.php';
 	echo '<font color="blue">正在进行代码预处理CODE_ADV3..</font><br>';
 	for ($i=1; $i<=$n; $i++)
 	{

@@ -5,7 +5,7 @@ defined('IN_COMMAND') || define('IN_COMMAND', TRUE);
 defined('CURSCRIPT') || define('CURSCRIPT', 'game');
 defined('GAME_ROOT') || define('GAME_ROOT', dirname(__FILE__).'/');
 
-require GAME_ROOT.'./include/modulemng.config.php';
+require GAME_ROOT.'./include/modulemng/modulemng.config.php';
 
 if ($___MOD_SRV)
 {

@@ -1,6 +1,6 @@
 <?php
 
-require GAME_ROOT.'./include/modulemng.config.php';
+require GAME_ROOT.'./include/modulemng/modulemng.config.php';
 
 if (!$___MOD_CODE_ADV2 || defined('IN_MODULEMNG')) define('__MOD_DIR__','./include/modules/'); else define('__MOD_DIR__','./gamedata/run/');
 
@@ -123,7 +123,7 @@ function __INIT_MODULE__($modname,$modpath)
 	$modpath='__MOD_DIR__.\''.$modpath.'\'';
 	$modpath_suf=str_replace('\\','/',$modpath);//都是斜杠的锅
 	$suf=substr(md5($modpath_suf),0,8);
-	$tplfile = GAME_ROOT.'./include/modules.init.template.php';
+	$tplfile = GAME_ROOT.'./include/modules/modules.init.template.php';
 	
 	global $___MOD_CODE_ADV1;
 	if ($___MOD_CODE_ADV1 && !defined('IN_MODULEMNG') && $modname!='input')

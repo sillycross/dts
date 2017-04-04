@@ -2,7 +2,7 @@
 ideas.txt
 nohup.out
 include/modules/core/sys/config/server.config.php
-include/modulemng.config.php
+include/modulemng/modulemng.config.php
 gamedata/adminlog.php
 gamedata/adminmsg.htm
 gamedata/systemmsg.htm
@@ -12,7 +12,6 @@ templates/default/itemhelp.htm
 templates/default/mixhelp.htm
 gamedata/combatinfo.php
 gamedata/newsinfo.php
-test.php
 php_errors.log
-a.txt
 gamedata/gameinfo.php
+a.txt

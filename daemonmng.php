@@ -6,7 +6,7 @@ function check_authority()
 	$_COOKIE=gstrfilter($_COOKIE);
 	$cuser=$_COOKIE[$gtablepre.'user'];
 	$cpass=$_COOKIE[$gtablepre.'pass'];
-	require GAME_ROOT.'./include/db_'.$database.'.class.php';
+	require GAME_ROOT.'./include/db/db_'.$database.'.class.php';
 	$db = new dbstuff;
 	$db->connect($dbhost, $dbuser, $dbpw, $dbname, $pconnect);
 	unset($dbhost, $dbuser, $dbpw, $dbname, $pconnect);
@@ -25,7 +25,7 @@ $magic_quotes_gpc = get_magic_quotes_gpc();
 require GAME_ROOT.'./include/global.func.php';
 check_authority();
 
-require GAME_ROOT.'./include/modulemng.config.php';
+require GAME_ROOT.'./include/modulemng/modulemng.config.php';
 require GAME_ROOT.'./include/socket.func.php';
 
 $___TEMP_runmode = 'Admin';

@@ -4,7 +4,7 @@ $env:Path=$env:Path+";D:\phpStudy\php\php-7.0.12-nts"
 #服务器地址
 $sv=php -r "error_reporting(0); include './include/modules/core/sys/config/server.config.php'; echo `$server_address;"
 #获取连接密码
-$pw=php -r "error_reporting(0); include './include/modulemng.config.php'; echo `$___MOD_CONN_PASSWD;"
+$pw=php -r "error_reporting(0); include './include/modulemng/modulemng.config.php'; echo `$___MOD_CONN_PASSWD;"
 
 #$event = Register-EngineEvent -SourceIdentifier job_message -Action {
 #  Write-Output $event.MessageData;
@@ -29,7 +29,7 @@ for(;1;)
 		echo $timestamp | out-file -encoding ascii .\gamedata\tmp\server\scriptalive.txt
 		#echo -n $timestamp > .\gamedata\tmp\server\scriptalive.txt
 	}
-	$md=php -r "error_reporting(0); include './include/modulemng.config.php'; echo `$___MOD_SRV;"
+	$md=php -r "error_reporting(0); include './include/modulemng/modulemng.config.php'; echo `$___MOD_SRV;"
 	if($md -eq 1)
 	{
 		if($md0 -eq 0)

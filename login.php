@@ -39,7 +39,7 @@ if($mode == 'quit') {
 }
 include './include/user.func.php';
 include './gamedata/banlist.list';
-//require GAME_ROOT.'./include/db_'.$database.'.class.php';
+//require GAME_ROOT.'./include/db/db_'.$database.'.class.php';
 //$db = new dbstuff;
 //$db->connect($dbhost, $dbuser, $dbpw, $dbname, $pconnect);
 //$db->select_db($dbname);

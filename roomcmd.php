@@ -18,8 +18,8 @@ define('NO_SYS_UPDATE',TRUE);
 
 require './include/common.inc.php';
 
-require './include/roommng.config.php';
-require './include/roommng.func.php';
+require './include/roommng/roommng.config.php';
+require './include/roommng/roommng.func.php';
 
 if(!$cuser||!$cpass) 
 { 

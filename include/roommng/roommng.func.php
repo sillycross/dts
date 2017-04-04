@@ -271,7 +271,7 @@ function room_enter($id)
 function room_showdata($roomdata, $user)
 {
 	global $roomid;
-	include GAME_ROOT.'./include/roommng.config.php';
+	include GAME_ROOT.'./include/roommng/roommng.config.php';
 	$upos = -1;
 	for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
 		if (!$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']==$user)
