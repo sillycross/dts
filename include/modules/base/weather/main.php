@@ -337,12 +337,12 @@ namespace weather
 		
 		if($news == 'addarea') 
 		{
-			$info = $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+			$info = $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 			$info .= "<span class=\"yellow\">【天气：{$wthinfo[$b]}】</span><br>\n";
 			return $info;
 		}
 		
-		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 	
 	function newradar($mms = 0)

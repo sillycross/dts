@@ -71,7 +71,7 @@ namespace attack
 			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>被<span class=\"yellow\">$c</span>发动<span class=\"red\">$d</span>以灵力杀死$e0";
 		} elseif($news == 'damage') {
 			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"clan\">$a</span><br>\n";
-		} else return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+		} else return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 	
 }
