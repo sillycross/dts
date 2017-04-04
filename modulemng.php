@@ -9,8 +9,8 @@ $magic_quotes_gpc = get_magic_quotes_gpc();
 require GAME_ROOT.'./include/global.func.php';
 check_authority();
 	
-require GAME_ROOT.'./include/modulemng.config.php';
-require GAME_ROOT.'./include/modulemng.func.php';
+require GAME_ROOT.'./include/modulemng/modulemng.config.php';
+require GAME_ROOT.'./include/modulemng/modulemng.func.php';
 require GAME_ROOT.'./include/modules.func.php';
 
 register_shutdown_function('shutDownFunction');

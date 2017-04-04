@@ -25,7 +25,7 @@ $magic_quotes_gpc = get_magic_quotes_gpc();
 require GAME_ROOT.'./include/global.func.php';
 check_authority();
 
-require GAME_ROOT.'./include/modulemng.config.php';
+require GAME_ROOT.'./include/modulemng/modulemng.config.php';
 require GAME_ROOT.'./include/socket.func.php';
 
 $___TEMP_runmode = 'Admin';

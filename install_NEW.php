@@ -24,8 +24,8 @@ if (!file_exists($server_config)){
 	}
 }
 
-$modulemng_config =  './include/modulemng.config.php';
-$modulemng_config_sample =  './include/modulemng.config.sample.php';
+$modulemng_config =  './include/modulemng/modulemng.config.php';
+$modulemng_config_sample =  './include/modulemng/modulemng.config.sample.php';
 if (!file_exists($modulemng_config)){
 	if(!file_exists($modulemng_config_sample))	exit('"modulemng.config.sample.php" doesn\'t exist.');
 	else {

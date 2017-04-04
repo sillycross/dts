@@ -1,6 +1,6 @@
 <?php
 
-require GAME_ROOT.'./include/modulemng.config.php';
+require GAME_ROOT.'./include/modulemng/modulemng.config.php';
 
 if (!$___MOD_CODE_ADV2 || defined('IN_MODULEMNG')) define('__MOD_DIR__','./include/modules/'); else define('__MOD_DIR__','./gamedata/run/');
 
