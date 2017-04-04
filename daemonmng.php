@@ -61,7 +61,7 @@ if (time()-$t<=10)
 else 
 {
 	echo '<font color="red">不在运行</font><br><br>';
-	echo '<font color="blue">请从服务器shell中启动./acdts-daemonctl.sh</font><br>';
+	echo '<font color="blue">请从服务器shell中启动./acdts-daemonctl.sh（Linux）或者./acdts-daemonctl.ps1（WIN）</font><br>';
 	$ff = 0;
 }
 echo '<br>';

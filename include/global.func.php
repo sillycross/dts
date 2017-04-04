@@ -373,11 +373,11 @@ function putmicrotime($t_s,$t_e,$file,$info)
 
 function get_script_runtime($pagestartime)
 {
-	$pageendtime = microtime();
-	$p_starttime = explode(" ",$pagestartime);
-	$p_endtime = explode(" ",$pageendtime);
-	$p_totaltime = $p_endtime[0]-$p_starttime[0]+$p_endtime[1]-$p_starttime[1];
-	$timecost = sprintf("%.2f",$p_totaltime); 
+	$pageendtime = microtime(true);
+	//$p_starttime = explode(" ",$pagestartime);
+	//$p_endtime = explode(" ",$pageendtime);
+	//$p_totaltime = $p_endtime[0]-$p_starttime[0]+$p_endtime[1]-$p_starttime[1];
+	$timecost = sprintf("%.2f",$pageendtime - $pagestartime); 
 	return $timecost;
 }
 

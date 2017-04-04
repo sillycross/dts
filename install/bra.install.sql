@@ -529,4 +529,3 @@ CREATE TABLE `bra_newsinfo` (
 
 --INSERT INTO bra_users (uid) VALUES (0);
 --INSERT INTO bra_winners (gid) VALUES (0);
-INSERT INTO bra_game (gamenum) VALUES (0);
