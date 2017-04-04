@@ -24,6 +24,6 @@
 4. 如果打算开启adv模式则进modulemng.config.php手动设置，之后访问modulemng.php，进入编辑模式=>保存=>应用修改。
 5. 如果开启了daemon模式：
 	5.1 Linux下进shell，****切到游戏根目录下****，执行“nohup ./acdts-daemonctl.sh &”，关掉shell
-	5.2 WIN下右键acdts-daemonctl.ps1，选执行，如果powershell窗口要求提升权限就输Y，之后必须维持powershell窗口的运行
+	5.2 WIN下右键acdts-daemonctl.ps1，选执行，如果powershell窗口要求提升权限就输Y，之后必须维持powershell窗口的运行。需要设置php.exe的环境变量，或者直接修改ps1文件把地址写进去。
 	5.3 然后访问daemonmng.php，如果脚本状况显示“正在运行”、服务器就没问题
 备注：装完记得把install_NEW.php删掉。

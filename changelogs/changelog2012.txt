@@ -1,0 +1,259 @@
+2012-6-21
+现在只有特定的死亡方式才能看到凶手：{death.htm;end.htm;}
+
+2012-6-19
+破灭之诗现在将导致极端恶劣天气的出现；{mixitem_1.php;item.func.php;item2.func.php;resources_1.php;}
+
+2012-6-17
+（电波服限定）添加了死亡时将游戏记录发送到电波微博的功能；{command.php;death.htm;weibolog.func.php;}
+
+2012-6-15
+修正了反击死捡尸体时候选择“返回”无效的BUG{command.php;}
+添加了移动包裹道具位置的功能{command.php; itemmain.func.php; itemmove.htm;command.htm;}
+修复了物品属性只能显示前四个的BUG{game.func.php;}
+
+2012-6-10
+修正了如果禁区刷道具的列表里有奇迹地雷则无法正确放置的问题{system.func.php;}
+
+2012-6-5
+将systemmsg做成了文件{system.php;systemmsg.htm;index.php;systemmng.php;}
+
+2012-6-4
+增加了action字段，现在反击死人可以直接捡尸体了，但动作优先度顺序是主动攻击>被动反击>其他动作{player.sql; command.php; game.func.php;battle.func.php;search.func.php;itemmain.func.php;combat.func.php;game.php;game.htm;}
+增加了ajax显示错误信息的功能{game.js;}
+将探索姿态改名为探物姿态，隐藏姿态改名为偷袭姿态，将攻击和防御姿态合并为作战姿态，更改了部分参数{resources_1.php;attr.func.php;help.htm;}
+
+2012-5-31
+修改了addnews的函数名{global.func.php; valid.php; system.func.php; state.func.php; common.inc.php;item.func.php;item2.func.php;itemmain.func.php;team.func.php;battle.func.php;combat.func.php;event.func.php;pcnmg.php;antiAFKmng.php;gameinfomng.php;}
+增加了错误处理函数errorhandler(){common.inc.php; global.func.php;footer.htm;command.php;alive.php;news.php;rank.php;register.php;user.php;}
+简化了footer.htm{footer.htm;style_1.css;}
+简化了game.js，改造了幸存者和进行状况显示使用的js函数{game.js;alive.php; alive.htm;news.php;news.htm;}
+
+2012-5-28
+调整了连斗人数自动调整的计算机制{gamecfg_1.php;}
+因为页面有问题，调整了自动刷新模板函数的机制{template.func.php}
+调整了F4新手区的事件机制，调整了熟练药的扣血机制{item.func.php; event.func.php;}
+增加了部分奇葩天气{resources_1.php; item2.func.php; news.func.php;search.func.php; attr.func.php;item2.func.php;}
+修正了全部死亡的时候无法记录杀人最多玩家的BUG{system.func.php;}
+
+2012-5-27
+现在根性兄贵磕熟练药会额外扣200点生命上限……此外嗑药会加RP{item.func.php;}
+在gamecfg里可以修改胜率榜上榜所需的参赛次数{gamecfg_1.php; rank.php;}
+现在连斗人数会自动调整了{bra.sql; dbup.php; gamecfg_1.php; global.func.php;system.func.php;common.inc.php;}
+
+2012-5-26
+修改了优胜者列表{winner.php; winnerlist.htm; winnerinfo.htm;}
+
+2012-5-23
+修改了安装文件{bra.sql; traditional_chinese_utf8.lang.php;}
+修改了NPC编号，把杂兵排到后面去了，并且修改了NPC初始化的逻辑{npc_1.php; system.func.php;}
+现在进行聊天不会影响游戏状态，试试能否降低系统需求{chat.php; global.func.php;}
+修改了NPC强化的逻辑，雷达可以探测女王，并且修改了女王的数值{system.func.php; npc_1.php;evonpc_1.php;resources_1.php;item2.func.php;}
+修正了无法递送第六格包裹物品的BUG{battle.func.php;}
+修改了装备武器防具的逻辑{item.func.php}
+修复了某些情况下游戏结束后还能行动的BUG{game.php;command.php;}
+大幅修改了电池、电脑和生命探测器的逻辑，现在电脑和探测器有能量上限，并且电池充电不再以名字作为判断{mapitem_1.php;maxitem_1.php;shopitem_1.php;item.func.php;item2.func.php;itemmain.func.php;}
+聊天记录现在具有提示游戏和禁区状态的功能了。{system.func.php; global.func.php; common.inc.php; gamecfg_1.php;}
+
+2012-3-25
+修正了道具合成界面点击链接只能选中道具无法撤消选中的BUG{itemmix.htm;}
+修正了同伴间递交物品失去提交按钮的BUG{battle.func.php; findteam.htm;}
+
+2012-3-20
+修改了死亡界面{game.php;command.php;end.php;resources_1.php;death.htm;command.htm;game.htm;end.htm;}
+修改了下毒操作的界面{item.func.php;poison.htm;}
+
+
+2012-3-19
+修改了界面{
+/gamedata/
+		system.php;
+/gamedata/cache/
+		style_1.css;
+/include/
+		state.func.php;
+		game.func.php;
+		global.func.php;
+		game.js;
+		common.inc.php;
+		user.func.php;
+/include/game/
+		battle.func.php;
+		combat.func.php;
+		itemmain.func.php;
+		team.func.php;
+/templates/default/
+		alivelist.htm;
+		battle.htm;
+		battlecmd.htm;
+		battleresult.htm;
+		chat.htm;
+		command.htm;
+		corpse.htm;
+		deathnote.htm;
+		game.htm;
+		help.htm;
+		index.htm;
+		itemdrop.htm;
+		itemdrop0.htm;		
+		itemmix.htm;
+		itemmerge.htm;
+		itemmerge0.htm;
+		mixhelp.htm;
+		profile.htm;
+		rankinfo.htm;
+		rest.htm;
+		shop.htm;
+		sp_poison.htm;
+		sp_pswd.htm;
+		sp_shop.htm;
+		sp_word.htm;
+		team.htm;
+		validover.htm;
+		winnerlist.htm;
+		winnerinfo.htm;
+/
+		chat.php;
+		game.php;
+		command.php;
+		login.php;
+		news.php;
+		valid.php;
+		help.php;
+}
+
+2012-3-18
+增加了贯穿和冲击两种属性{resources_1.php; mapitem_1.php; mixitem_1.php; combat.func.php; combatcfg_1.php; help.htm;}
+
+修改了游戏部分操作的界面{command.php; game.htm; game.js;}
+修正了聊天窗口中发送/会返回乱码的问题{chat.php;}
+
+2012-3-17
+从3.0逆移植了注册、帐号资料和进入游戏的界面和模板文件{valid.php; valid.htm; user.php; user.htm; register.php; register.htm; header.htm; templates.lang.php; resources.php; userbasicdata.htm; usergdicon.htm; userwords.htm;}
+从3.0逆移植了底层系统函数和数据库类{reset.sql; system.func.php; db_mysql.class.php;}
+移动了文字资源文件的位置{common.inc.php; resources_1.php;}
+
+2012-3-16
+现在帮助文档的合成公式会自动根据合成表的变化而变化了{help.php; help.htm; mixhelp.htm; mixitem_1.php;}
+现在玩家触发其他玩家设置的陷阱以后，设置者将会收到提示{itemmain.func.php;}
+改动了部分合成公式和地图道具{mixitem_1.php; mapitem_1.php; shopitem_1.php;}
+
+2012-3-15
+修正了玩家帐户管理界面升序和降序指令异常的问题{urlist.php; admin_urlist.htm;}
+现在玩家每次登陆会自动更新用户档案里的IP信息{valid.php}
+增加了玩家排行页面{rank.php; rank.htm; rankinfo.htm; system.php; resources.php; game.js; header.htm; templates.lang.php; bra.sql;}
+每次游戏结束以后结算积分、胜率{db_mysql.class.php; system.func.php;}
+修复了玩家注册界面的显示问题{register.php; user.func.php;}
+
+2012-3-14
+工事中什么的不给力{
+/include/
+		system.func.php;
+		game.func.php;
+/include/admin/
+		pcmng.php;
+		npcmng.php;
+/include/game/
+		battle.func.php;
+		combat.func.php;
+		itemmain.func.php;
+		item.func.php;
+		item2.func.php;
+		special.func.php;
+/templates/default/
+		admin_pcmng.htm;
+		admin_npcmng.htm;
+		profile.htm;
+		itemdrop.htm;
+		itemmix.htm;
+		corpse.htm;
+		itemmerge.htm;
+		sp_poison.htm;
+/
+		valid.php;
+}
+新增了5合1合成{itemmix_1.php;itemmain.php;itemmix.htm;command.php;}
+
+2012-3-9
+修改了L5状态的样式{style_1.css;resources.php;}
+
+2012-3-8
+新增两种属性：灼焰+冰华{combat.func.php;combatcfg_1.php; resources.php; npc_1.php}
+修正了进入游戏页面及DN页面头像选择代码的一点错误{valid.htm; deathnote.htm;}
+修复了chrome下玩家血条错位以及IE下表格背景颜色不对的问题；{profile.htm; style_1.css;}
+消灭了雷达使用之后一大堆的警告信息{item2.func.php;}
+管理后台现在可以用地点信息检索NPC位置了{npcmng.php; admin_npcmng.htm;}
+
+2012-3-4
+修复了winner.php里存在的注入漏洞{winner.php;}
+添加了使NPC能主动切换武器的称号“换装迷宫”，并加入了对应NPC{npc_1.php; resources.php; combat.func.php; system.func.php;}
+
+2012-2-29
+修正了游戏准备的时候的一大堆错误信息，看着那堆错误信息真的很不爽{npc_1.php; system.func.php; global.func.php;addnpc_1.php;}
+修正了在站长留言处输入字符会被转化成html实体而反转化失效的错误{admin.php; }
+现在增加的NPC不会进入禁区了{system.func.php;}
+增加了立刻禁区的管理功能{admin_gameinfomng.htm; gameinfomng.php;}
+将evonpc功能实用化，现在DARK FORCE完全体将在击杀幼体之后立刻出现{system.func.php; combat.func.php; news.func.php; addnpc_1.php; resources.php; item.func.php; evonpc_1.php;}
+
+2012-2-16
+调整了死亡标题在文件里的位置以便复用{end.htm; end.php; resources.php}
+调整了部分物品{mixitem_1.php;mapitem_1.php;}
+分离了后台程序和模板，美化了后台界面，添加部分功能并修正了一些BUG
+{
+/gamedata/
+		resources.php;
+		system.php;
+		adminmsg.htm;
+		admincfg.php;
+/gamedata/cache/
+		gamecfg_1.php;
+		style_1.css; 
+/include/
+		common.inc.php; 
+		system.func.php;
+		news.func.php;
+		global.func.php;
+/include/admin/
+		antiAFKmng.php
+		configmng.php;
+		systemmng.php;
+		banlistmng.php;
+		gmlist.php;
+		urlist.php;
+		pcmng.php;
+		npcmng.php;
+		admin.lang.php; 
+		gameinfomng.php;
+/templates/default/
+		templates.lang.php; 
+		admin.htm; 
+		admin_menu.htm; 
+		admin_pcmng.htm;
+		admin_npcmng.htm;
+		admin_configmng.htm; 
+		admin_systemmng.htm; 
+		admin_banlistmng.htm; 
+		admin_gmlist.htm; 
+		admin_urlist.htm; 
+		admin_gameinfomng.htm;
+		adminmsg.htm;
+		index.htm; 
+		end.htm;
+/
+		register.php;
+		admin.php;
+		index.php;
+		news.php;
+}
+
+2012-2-12
+新增了每隔特定时间自动反挂机的功能，管理员手动反挂机功能还在不过应该用不到了。 {global.func.php; common.inc.php; system.func.php;}
+
+2012-2-11
+改动了药剂的逻辑，药剂的具体效果有了辅助说明文字 {item.func.php;}
+增加了喝药死的死法 {news.func.php; end.php; state.func.php;}
+修正了社团数据修改以后无法写入数据库的小bug {command.php;}
+改版本号，哦耶，也可以改回去 {footer.htm;}
+
+2012-1-24
+修复部分写文件漏洞{login.php; register.php; banlistmng.php ; validlimitmng.php; system.func.php; winner.php; banlistmng.php; validlimitmng.php;
