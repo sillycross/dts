@@ -4,7 +4,6 @@ define('CURSCRIPT', 'news');
 
 require './include/common.inc.php';
 //$t_s=getmicrotime();
-//require_once GAME_ROOT.'./include/JSON.php';
 
 $newsfile = GAME_ROOT.'./gamedata/tmp/news/newsinfo_'.$room_prefix.'.php';
 $newshtm = GAME_ROOT.'./gamedata/tmp/news/newsinfo_'.$room_prefix.'.htm';

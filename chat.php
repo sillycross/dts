@@ -4,7 +4,6 @@ define('CURSCRIPT', 'chat');
 define('LOAD_CORE_ONLY', TRUE);
 
 require './include/common.inc.php';
-//require_once GAME_ROOT.'./include/JSON.php';
 
 if(!$cuser || !defined('IN_GAME')) {
 	exit('Not in game.');

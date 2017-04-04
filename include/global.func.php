@@ -343,19 +343,6 @@ function copy_dir($source, $destination)		//递归复制目录
 	}
 }
 
-//function compatible_json_encode(&$data)
-//{	
-//	//提供了json_encode的php版本直接使用自带的，否则使用JSON.php
-//	if (!function_exists('json_encode'))
-//	{
-//		require_once GAME_ROOT.'./include/JSON.php';
-//		$json = new Services_JSON();
-//		$jdata = $json->encode($data);
-//	}
-//	else  $jdata = json_encode($data);
-//	return $jdata;	
-//}
-
 //----------------------------------------
 //              调试函数
 //----------------------------------------
