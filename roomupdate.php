@@ -7,7 +7,7 @@ define('NO_MOD_LOAD', TRUE);
 define('NO_SYS_UPDATE', TRUE);
 require './include/common.inc.php';
 require GAME_ROOT.'./include/socket.func.php';
-require GAME_ROOT.'./include/roommng.func.php';
+require GAME_ROOT.'./include/roommng/roommng.func.php';
 
 require GAME_ROOT.'./include/modules/core/sys/config/server.config.php';
 $_COOKIE=gstrfilter($_COOKIE);

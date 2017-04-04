@@ -3,7 +3,7 @@
 define('CURSCRIPT', 'index');
 
 require './include/common.inc.php';
-require './include/roommng.func.php';
+require './include/roommng/roommng.func.php';
 
 $timing = 0;
 if($gamestate > 10) {

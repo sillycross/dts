@@ -4,7 +4,7 @@ if(!defined('IN_GAME')) {
 	exit('Access Denied');
 }
 
-require GAME_ROOT.'./include/roommng.config.php';
+require GAME_ROOT.'./include/roommng/roommng.config.php';
 
 //----------------------------------------
 //              底层机制函数
