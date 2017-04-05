@@ -36,9 +36,13 @@ if($gamestate == 0) {
 \player\init_playerdata();
 \player\init_profile();
 
+if($state == 4) {
+	header("Location: end.php");exit();
+}
+
 $log = '';
 //读取聊天信息
-$chatdata = getchat(0,$teamID);
+$chatdata = getchat(0,$teamID,$pid);
 
 $hp_backup_temp=$hp;
 $player_dead_flag_backup_temp=$player_dead_flag;

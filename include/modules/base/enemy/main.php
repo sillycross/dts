@@ -16,13 +16,19 @@ namespace enemy
 		\metman\init_battle();
 		$log .= "你发现了敌人<span class=\"red\">{$tdata['name']}</span>！<br>对方好像完全没有注意到你！<br>";
 		
-		include template(MOD_ENEMY_BATTLECMD);
+		include template(get_battlecmd_filename());
 		$cmd = ob_get_contents();
 		ob_clean();
 
 		$main = MOD_METMAN_MEETMAN;
 		
 		return;
+	}
+	
+	function get_battlecmd_filename(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','logger','player','metman'));
+		return MOD_ENEMY_BATTLECMD;
 	}
 	
 	function calculate_active_obbs(&$ldata,&$edata)

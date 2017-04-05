@@ -88,7 +88,7 @@ namespace ex_attr_trap
 		$chprocess();
 	}
 	
-	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)	
+	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())	
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
@@ -96,7 +96,7 @@ namespace ex_attr_trap
 		if($news == 'trapdef') 
 			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}依靠迎击装备抵御了{$b}设置的陷阱{$c}的伤害</span><br>\n";
 		
-		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 }
 

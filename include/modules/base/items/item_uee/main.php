@@ -105,7 +105,7 @@ namespace item_uee
 		$chprocess($theitem);
 	}
 	
-	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)	
+	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())	
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
@@ -113,15 +113,12 @@ namespace item_uee
 		if($news == 'hack') 
 			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}启动了hack程序，全部禁区解除！</span><br>\n";
 		
-		$dname = $typeinfo[$b].' '.$a;
-		if(!$e)
-			$e0="<span class=\"yellow\">【{$dname} 什么都没说就死去了】</span><br>\n";
-		else  $e0="<span class=\"yellow\">【{$dname}：“{$e}”】</span><br>\n";
+		if(isset($exarr['dword'])) $e0 = $exarr['dword'];
 			
 		if($news == 'death14') 
 			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因<span class=\"red\">入侵禁区系统失败</span>死亡{$e0}";
 	
-		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 }
 

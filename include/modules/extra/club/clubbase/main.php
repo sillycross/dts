@@ -123,7 +123,6 @@ namespace clubbase
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','player','logger','input'));
-		
 		if($mode == 'special' && strpos($command,'clubsel') === 0) 
 		{
 			$clubchosen = substr($command,7); $clubchosen = (int)$clubchosen;
@@ -180,30 +179,31 @@ namespace clubbase
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($which==3) $zflag = 1; else $zflag = 0;
 		eval(import_module('clubbase','player'));
-		foreach ($clublist[$club]['skills'] as $key) 
-			if (defined('MOD_SKILL'.$key.'_INFO'))
-				if (strpos(constant('MOD_SKILL'.$key.'_INFO'),'club;')!==false && strpos(constant('MOD_SKILL'.$key.'_INFO'),'battle;')!==false && \skillbase\skill_query($key))
-				{
-					$flag = 0;
-					if (strpos(constant('MOD_SKILL'.$key.'_INFO'),'hidden;')!==false) $flag = 1;
-					if (!$flag) 
+		if (isset($clublist[$club]))
+			foreach ($clublist[$club]['skills'] as $key) 
+				if (defined('MOD_SKILL'.$key.'_INFO'))
+					if (strpos(constant('MOD_SKILL'.$key.'_INFO'),'club;')!==false && strpos(constant('MOD_SKILL'.$key.'_INFO'),'battle;')!==false && \skillbase\skill_query($key))
 					{
-						$func = 'skill'.$key.'\\check_unlocked'.$key;
-						if ($func($sdata)) $flag = 1;
-					}
-					if ($flag)
-					{
-						$which--;
-						if ($which==0)
+						$flag = 0;
+						if (strpos(constant('MOD_SKILL'.$key.'_INFO'),'hidden;')!==false) $flag = 1;
+						if (!$flag) 
 						{
-							if ($zflag) echo '<span style="display:block;height:6px;">&nbsp;</span>';
-							include template(constant('MOD_SKILL'.$key.'_BATTLECMD'));
-							return;
+							$func = 'skill'.$key.'\\check_unlocked'.$key;
+							if ($func($sdata)) $flag = 1;
+						}
+						if ($flag)
+						{
+							$which--;
+							if ($which==0)
+							{
+								if ($zflag) echo '<span style="display:block;height:6px;">&nbsp;</span>';
+								include template(constant('MOD_SKILL'.$key.'_BATTLECMD'));
+								return;
+							}
 						}
 					}
-				}
 		foreach (\skillbase\get_acquired_skill_array() as $key) 
-			if (!in_array($key,$clublist[$club]['skills']))
+			if (isset($clublist[$club]) && !in_array($key,$clublist[$club]['skills']))
 				if (defined('MOD_SKILL'.$key.'_INFO'))
 					if (strpos(constant('MOD_SKILL'.$key.'_INFO'),'club;')!==false && strpos(constant('MOD_SKILL'.$key.'_INFO'),'battle;')!==false)
 					{

@@ -169,7 +169,7 @@ namespace skill234
 		$chprocess();
 	}
 	
-	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)
+	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -181,7 +181,7 @@ namespace skill234
 			else
 				return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}完成了第{$b}次<span class=\"yellow\">「破解」</span>尝试</span><br>\n";
 		
-		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 	
 }

@@ -70,10 +70,22 @@ namespace itemshop
 		
 		$shop=$sn;
 		ob_clean();
-		include template(MOD_ITEMSHOP_SHOP);
+		include template(get_itemshop_filename());
 		$cmd = ob_get_contents();
 		ob_clean();
 		return;
+	}
+	
+	function get_itemshop_filename(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','logger','player'));
+		return MOD_ITEMSHOP_SHOP;
+	}
+	
+	function get_sp_shop_filename(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','logger','player'));
+		return MOD_ITEMSHOP_SP_SHOP;
 	}
 
 	function get_shopiteminfo($item)
@@ -168,7 +180,7 @@ namespace itemshop
 		if ($mode == 'command' && $command == 'special' && $sp_cmd == 'sp_shop')	//进入初级页面
 		{
 			ob_clean();
-			include template(MOD_ITEMSHOP_SP_SHOP);
+			include template(get_sp_shop_filename());
 			$cmd = ob_get_contents();
 			ob_clean();
 			return;
@@ -190,7 +202,7 @@ namespace itemshop
 				} 
 				else if($command == 'shop') {	//返回初级页面
 					ob_clean();
-					include template(MOD_ITEMSHOP_SP_SHOP);
+					include template(get_sp_shop_filename());
 					$cmd = ob_get_contents();
 					ob_clean();
 					return;
@@ -207,7 +219,7 @@ namespace itemshop
 		$chprocess();
 	}
 	
-	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)
+	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
@@ -215,7 +227,7 @@ namespace itemshop
 			//return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}购买了{$b}</span><br>\n";
 			return '';
 		}
-		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 		
 }

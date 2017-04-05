@@ -84,7 +84,7 @@ namespace skill6
 		else  return $chprocess($pa,$pd,$active);
 	}
 	
-	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)	//烧伤发作死亡新闻
+	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())	//烧伤发作死亡新闻
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
@@ -98,7 +98,7 @@ namespace skill6
 			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因<span class=\"red\">烧伤发作</span>死亡{$e0}";
 		} 
 		
-		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 }
 

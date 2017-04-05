@@ -30,7 +30,8 @@ namespace skill21
 		$npc=$enpcinfo[$xtype][$xname];
 		$npc['hp'] = $npc['mhp'];
 		$npc['sp'] = $npc['msp'];
-		$npc['exp'] = round(($npc['lvl']*2+1)*$baseexp);
+		$npc['exp'] = \lvlctl\calc_upexp($npc['lvl'] - 1);
+		//$npc['exp'] = round(($npc['lvl']*2+1)*$baseexp);
 		if(!isset($npc['state'])){$npc['state'] = 0;}
 		$npc['wp'] = $npc['wk'] = $npc['wg'] = $npc['wc'] = $npc['wd'] = $npc['wf'] = $npc['skill'];
 		unset($npc['skill']);
@@ -80,7 +81,7 @@ namespace skill21
 		$chprocess($pa, $pd, $active);
 	}	
 	
-	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)	
+	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())	
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
@@ -96,7 +97,7 @@ namespace skill21
 			return "<li>{$hour}时{$min}分{$sec}秒，$nword<br>\n";
 		}
 		
-		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 }
 

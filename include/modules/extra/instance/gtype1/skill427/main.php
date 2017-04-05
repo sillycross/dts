@@ -95,7 +95,7 @@ namespace skill427
 		}
 	}
 	
-	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)
+	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
@@ -103,7 +103,7 @@ namespace skill427
 		if($news == 'revival') 
 			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}因为及时按下了BOMB键而原地满血复活了！</span><br>\n";
 		
-		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 	
 }

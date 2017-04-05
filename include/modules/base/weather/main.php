@@ -313,7 +313,7 @@ namespace weather
 		$chprocess($theitem);
 	}
 	
-	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)
+	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','weather'));
@@ -337,12 +337,12 @@ namespace weather
 		
 		if($news == 'addarea') 
 		{
-			$info = $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+			$info = $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 			$info .= "<span class=\"yellow\">【天气：{$wthinfo[$b]}】</span><br>\n";
 			return $info;
 		}
 		
-		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 	
 	function newradar($mms = 0)

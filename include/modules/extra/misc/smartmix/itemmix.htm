@@ -1,0 +1,16 @@
+你想要合成什么？<br>
+
+<input type="hidden" name="mode" id="mode" value="itemmain">
+<input type="hidden" name="command" id="command" value="menu">
+<input type="hidden" id="subcmd" name="subcmd" value="">
+<input type="hidden" id="subcmd2" name="subcmd2" value="">
+<br>
+<!--{if $itms1}--><div class="slitmsingle"><input type="checkbox" id="mitm1" name="mitm1" value="0"><a onclick="$('mitm1').click();" href="javascript:void(0);">$itm1/$itme1/$itms1</a>&nbsp;&nbsp;&nbsp;<!--{eval echo \smartmix\parse_smartmix_recipelink($itm1,'查公式');}--></div><!--{/if}-->
+<!--{if $itms2}--><div class="slitmsingle"><input type="checkbox" id="mitm2" name="mitm2" value="0"><a onclick="$('mitm2').click();" href="javascript:void(0);">$itm2/$itme2/$itms2</a>&nbsp;&nbsp;&nbsp;<!--{eval echo \smartmix\parse_smartmix_recipelink($itm2,'查公式');}--></div><!--{/if}-->
+<!--{if $itms3}--><div class="slitmsingle"><input type="checkbox" id="mitm3" name="mitm3" value="0"><a onclick="$('mitm3').click();" href="javascript:void(0);">$itm3/$itme3/$itms3</a>&nbsp;&nbsp;&nbsp;<!--{eval echo \smartmix\parse_smartmix_recipelink($itm3,'查公式');}--></div><!--{/if}-->
+<!--{if $itms4}--><div class="slitmsingle"><input type="checkbox" id="mitm4" name="mitm4" value="0"><a onclick="$('mitm4').click();" href="javascript:void(0);">$itm4/$itme4/$itms4</a>&nbsp;&nbsp;&nbsp;<!--{eval echo \smartmix\parse_smartmix_recipelink($itm4,'查公式');}--></div><!--{/if}-->
+<!--{if $itms5}--><div class="slitmsingle"><input type="checkbox" id="mitm5" name="mitm5" value="0"><a onclick="$('mitm5').click();" href="javascript:void(0);">$itm5/$itme5/$itms5</a>&nbsp;&nbsp;&nbsp;<!--{eval echo \smartmix\parse_smartmix_recipelink($itm5,'查公式');}--></div><!--{/if}-->
+<!--{if $itms6}--><div class="slitmsingle"><input type="checkbox" id="mitm6" name="mitm6" value="0"><a onclick="$('mitm6').click();" href="javascript:void(0);">$itm6/$itme6/$itms6</a>&nbsp;&nbsp;&nbsp;<!--{eval echo \smartmix\parse_smartmix_recipelink($itm6,'查公式');}--></div><!--{/if}-->
+<br>
+<input type="button" class="cmdbutton" name="submit" id="z" value="[Z]提交" onclick="$('command').value='itemmix';itemmixchooser();postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="button" class="cmdbutton" name="submit" id="x" value="[X]放弃" onclick="postCmd('gamecmd','command.php');this.disabled=true;">

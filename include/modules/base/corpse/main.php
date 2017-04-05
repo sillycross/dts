@@ -52,10 +52,16 @@ namespace corpse
 		$r=\itemmain\parse_item_words($edata,1);
 		extract($r,EXTR_PREFIX_ALL,'w');
 		
-		include template(MOD_CORPSE_CORPSE);
+		include template(get_corpse_filename());
 		$cmd = ob_get_contents();
 		ob_clean();
 		return;
+	}
+	
+	function get_corpse_filename(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','logger','player','metman'));
+		return MOD_CORPSE_CORPSE;
 	}
 	
 	function meetman($sid)

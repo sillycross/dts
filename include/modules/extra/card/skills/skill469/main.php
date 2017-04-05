@@ -57,7 +57,7 @@ namespace skill469
 		return $chprocess($pa,$pd,$active);
 	}
 	
-	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)
+	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -77,7 +77,7 @@ namespace skill469
 			else  $e0="<span class=\"yellow\">【{$dname}：“{$e}”】</span><br>\n";
 			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>被<span class=\"yellow\">$c</span>的自爆炸死了！{$e0}";
 		}
-		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 }
 

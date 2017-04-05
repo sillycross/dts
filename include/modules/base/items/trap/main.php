@@ -20,8 +20,7 @@ namespace trap
 		if ($xmode & 16) {	//地图陷阱初始化
 			$plsnum = sizeof($plsinfo);
 			$iqry = '';
-			$file = __DIR__.'/config/trapitem.config.php';
-			$itemlist = openfile($file);
+			$itemlist = get_trapfilecont();
 			$in = sizeof($itemlist);
 			$an = $areanum ? ceil($areanum/$areaadd) : 0;
 			for($i = 1; $i < $in; $i++) {
@@ -46,6 +45,14 @@ namespace trap
 				$db->query($iqry);
 			}
 		}
+	}
+	
+	function get_trapfilecont(){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		eval(import_module('sys'));
+		$file = __DIR__.'/config/trapitem.config.php';
+		$l = openfile($file);
+		return $l;
 	}
 	
 	function calculate_real_trap_obbs()
@@ -360,7 +367,7 @@ namespace trap
 		$chprocess($schmode);
 	}
 	
-	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)
+	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -383,7 +390,7 @@ namespace trap
 				return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因触发了陷阱<span class=\"red\">$d</span>被杀死{$e0}";
 			}
 		}
-		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 	
 	function trap_use(&$theitem)

@@ -4,7 +4,7 @@ if(!defined('IN_GAME')) {
 	exit('Access Denied');
 }
 
-require GAME_ROOT.'./include/roommng.config.php';
+require GAME_ROOT.'./include/roommng/roommng.config.php';
 
 //----------------------------------------
 //              底层机制函数
@@ -26,6 +26,10 @@ function gameerrorhandler($code, $msg, $file, $line){
 	elseif($code == 1024){$emessage = '<b>User Notice</b> ';}
 	else{$emessage = '<b style="color:#f00>Fatal error</b> ';}
 	$emessage .= "($code): $msg in $file on line $line";
+//	if ($code == 2){
+//		$d = debug_backtrace();
+//		$emessage .= serialize($d);
+//	} 
 	if ($code == 1024 && $file=='/srv/http/dts-test/command.php' && function_exists('__SOCKET_WARNLOG__')) 
 		__SOCKER__WARNLOG__($emessage);
 	if(isset($GLOBALS['error'])){
@@ -45,7 +49,7 @@ function gexit($message = '',$file = '', $line = 0) {
 			$gamedata['url'] = 'error.php';
 			$gamedata['errormsg'] = $message;
 			ob_clean();
-			echo base64_encode(gzencode(compatible_json_encode($gamedata)));
+			echo base64_encode(gzencode(json_encode($gamedata)));
 		}
 		else
 		{
@@ -60,7 +64,7 @@ function gexit($message = '',$file = '', $line = 0) {
 			$gamedata['url'] = 'error.php';
 			$gamedata['errormsg'] = $message;
 			ob_clean();
-			echo base64_encode(gzencode(compatible_json_encode($gamedata)));
+			echo base64_encode(gzencode(json_encode($gamedata)));
 			exit();
 		}
 		else
@@ -187,7 +191,7 @@ function clearcookies() {
 }
 
 function config($file = '', $cfg = 1) {
-	$cfgfile = file_exists(GAME_ROOT."./gamedata/cache/{$file}_{$cfg}.php") ? GAME_ROOT."./gamedata/cache/{$file}_{$cfg}.php" : GAME_ROOT."./gamedata/cache/{$file}_1.php";
+	$cfgfile = file_exists(GAME_ROOT."./gamedata/config/{$file}_{$cfg}.php") ? GAME_ROOT."./gamedata/config/{$file}_{$cfg}.php" : GAME_ROOT."./gamedata/config/{$file}_1.php";
 	return $cfgfile;
 }
 
@@ -339,18 +343,9 @@ function copy_dir($source, $destination)		//递归复制目录
 	}
 }
 
-function compatible_json_encode(&$data)
-{	
-	//提供了json_encode的php版本直接使用自带的，否则使用JSON.php
-	if (!function_exists('json_encode'))
-	{
-		require_once GAME_ROOT.'./include/JSON.php';
-		$json = new Services_JSON();
-		$jdata = $json->encode($data);
-	}
-	else  $jdata = json_encode($data);
-	return $jdata;	
-}
+//----------------------------------------
+//              调试函数
+//----------------------------------------
 
 function getmicrotime(){
 	list($usec, $sec) = explode(" ",microtime());
@@ -365,11 +360,11 @@ function putmicrotime($t_s,$t_e,$file,$info)
 
 function get_script_runtime($pagestartime)
 {
-	$pageendtime = microtime();
-	$p_starttime = explode(" ",$pagestartime);
-	$p_endtime = explode(" ",$pageendtime);
-	$p_totaltime = $p_endtime[0]-$p_starttime[0]+$p_endtime[1]-$p_starttime[1];
-	$timecost = sprintf("%.2f",$p_totaltime); 
+	$pageendtime = microtime(true);
+	//$p_starttime = explode(" ",$pagestartime);
+	//$p_endtime = explode(" ",$pageendtime);
+	//$p_totaltime = $p_endtime[0]-$p_starttime[0]+$p_endtime[1]-$p_starttime[1];
+	$timecost = sprintf("%.2f",$pageendtime - $pagestartime); 
 	return $timecost;
 }
 
@@ -384,9 +379,72 @@ function check_alnumudline($key)
 	return true;
 }
 
+function get_var_dump($a){
+	ob_start(); 
+	var_dump($a);
+	return ob_get_flush();
+}
+
+//----------------------------------------
+//              数学类
+//----------------------------------------
+
+function array_clone($a){//数组浅拷贝，该死的传引用
+	$r = array();
+	if(is_array($a)){
+		foreach($a as $key => $val){
+			$r[$key] = $val;
+		}
+	}
+	return $r;
+}
+
+function full_combination($a, $min) {
+	$r = array();
+	$n = count($a);
+	if($n >= $min){
+		for($i=$min-1;$i<$n;$i++){
+			$r = array_merge($r, combination($a, $i));
+		}
+	}
+	return $r;
+} 
+
+function combination($a, $m) {  
+  $r = array();  
+  $n = count($a);  
+  if ($m <= 0 || $m > $n) {  
+    return $r;  
+  }
+  for ($i=0; $i<$n; $i++) {  
+    $t = array($a[$i]);  
+    if ($m == 1) {  
+      $r[] = $t;  
+    } else {  
+      $b = array_slice($a, $i+1);  
+      $c = combination($b, $m-1);  
+      foreach ($c as $v) {  
+        $r[] = array_merge($t, $v);  
+      }  
+    }  
+  }  
+  return $r;  
+} 
+
+function array_encode($arr){
+	//return gzencode(serialize($arr),9);
+	return serialize($arr);
+}
+
+function array_decode($str){
+	//return $str && is_string($str) ? unserialize(gzdecode($str)) : array();
+	return $str ? unserialize($str) : array();	
+}
+
 function swap(&$a, &$b)
 {
 	$c=$a; $a=$b; $b=$c;
+	//PHP7了，可以用太空船运算符了
 }
 
 //把一个非负整数用64进制编码/解码
@@ -444,8 +502,8 @@ function addnews($t = 0, $n = '',$a='',$b='',$c = '', $d = '', $e = '') {
 	\sys\addnews($t, $n,$a,$b,$c, $d, $e);
 }
 
-function getchat($last,$team='',$limit=0) {
-	return \sys\getchat($last,$team,$limit);
+function getchat($last,$team='',$chatpid=0,$limit=0) {
+	return \sys\getchat($last,$team,$chatpid,$limit);
 }
 
 function systemputchat($time,$type,$msg = ''){
@@ -545,5 +603,7 @@ function get_gold_up($data,$winner = '',$winmode = 0){
 	}else{$up = 10;}
 	return $up;
 }
+
+
 
 ?>

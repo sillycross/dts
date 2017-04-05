@@ -644,10 +644,10 @@ $cards=array(
 		'itme3'=>'90',
 		'itms3'=>'140',
 		'itmsk3'=>'',
-		'itm4'=>'精工的恐惧之刃',
-		'itmk4'=>'WK',
-		'itme4'=>'80',
-		'itms4'=>'150',
+		'itm4'=>'精工的熔火之心',
+		'itmk4'=>'WD',
+		'itme4'=>'45',
+		'itms4'=>'∞',
 		'itmsk4'=>'',
 		'itm5'=>'精工的雄鹰之爪',
 		'itmk5'=>'WC',
@@ -660,6 +660,10 @@ $cards=array(
 		'itms6'=>'∞',
 		'itmsk6'=>'',
 	),
+//教程模式用卡占位
+//	999=>array(
+//		'skills'=>array('1000'=>'0'),
+//	),
 );
 $carddesc=array(
 	0=>array(
@@ -1798,6 +1802,15 @@ $carddesc=array(
 		'effect'=>'',
 		'energy'=>0,
 	),
+//教程模式用卡占位
+//	999=>array(
+//		'name'=>'补给品',
+//		'rare'=>'C',
+//		'desc'=>'教程模式用卡',
+//		'pack'=>'hidden',
+//		'effect'=>'',
+//		'energy'=>0,
+//	),
 );
 }
 ?>

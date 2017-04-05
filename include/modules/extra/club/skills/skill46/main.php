@@ -84,7 +84,7 @@ namespace skill46
 		return array_merge($r,$chprocess($pa, $pd, $active));
 	}
 	
-	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)
+	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -93,7 +93,7 @@ namespace skill46
 		if($news == 'bskill46') 
 			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}对{$b}发动了技能<span class=\"red\">「暴打」</span></span><br>\n";
 		
-		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 	
 	function skill_query($skillid, &$pa = NULL)
@@ -101,7 +101,7 @@ namespace skill46
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skillbase'));
 		$skillid=(int)$skillid;
-		if ($pa!=NULL && $pa['skill46_flag'])
+		if ($pa!=NULL && isset($pa['skill46_flag']) && $pa['skill46_flag'])
 		{
 			//所有称号技能失效
 			if (defined('MOD_SKILL'.$skillid.'_INFO') && strpos(constant('MOD_SKILL'.$skillid.'_INFO'),'club;')!==false && strpos(constant('MOD_SKILL'.$skillid.'_INFO'),'hidden;')===false)

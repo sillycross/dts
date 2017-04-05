@@ -7,13 +7,13 @@ define('NO_MOD_LOAD', TRUE);
 define('NO_SYS_UPDATE', TRUE);
 require './include/common.inc.php';
 require GAME_ROOT.'./include/socket.func.php';
-require GAME_ROOT.'./include/roommng.func.php';
+require GAME_ROOT.'./include/roommng/roommng.func.php';
 
 require GAME_ROOT.'./include/modules/core/sys/config/server.config.php';
 $_COOKIE=gstrfilter($_COOKIE);
 $cuser=$_COOKIE[$gtablepre.'user'];
 $cpass=$_COOKIE[$gtablepre.'pass'];
-require GAME_ROOT.'./include/db_'.$database.'.class.php';
+require GAME_ROOT.'./include/db/db_'.$database.'.class.php';
 $db = new dbstuff;
 $db->connect($dbhost, $dbuser, $dbpw, $dbname, $pconnect);
 unset($dbhost, $dbuser, $dbpw, $dbname, $pconnect);
@@ -38,7 +38,7 @@ if ($zz['status']==2)
 {
 	ob_clean();
 	$gamedata['url']='game.php';
-	echo base64_encode(gzencode(compatible_json_encode($gamedata)));
+	echo base64_encode(gzencode(json_encode($gamedata)));
 	die();
 }
 
@@ -93,7 +93,7 @@ if ($zz['status']==2)
 {
 	ob_clean();
 	$gamedata['url']='game.php';
-	echo base64_encode(gzencode(compatible_json_encode($gamedata)));
+	echo base64_encode(gzencode(json_encode($gamedata)));
 	die();
 }
 

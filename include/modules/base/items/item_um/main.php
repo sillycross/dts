@@ -68,7 +68,8 @@ namespace item_um
 			$mdname = "基础防御力";
 		} elseif (strpos ( $itmk, 'ME' ) === 0) {
 			$lvlup_objective = $itme / 10;
-			$mefct = round ( $baseexp * 2 * $lvlup_objective + rand ( 0, 5 ) );
+			$mefct = \lvlctl\calc_upexp($lvlup_objective) - rand( 4, 8);
+			//$mefct = round ( $baseexp * 2 * $lvlup_objective + rand ( 0, 5 ) );
 			$mdname = "经验值";	//经验值增加最后加，因为log的次序关系
 		} elseif (strpos ( $itmk, 'MS' ) === 0) {
 			$mefct = $itme;

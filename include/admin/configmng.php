@@ -35,7 +35,8 @@ if($command == 'edit') {
 	
 	if($ednum){
 		//$adminlog = '';
-		$configfile = file_get_contents('./config.inc.php');
+		$cf = dirname(dirname(__FILE__)).'./modules/core/sys/config/server.config.php';
+		$configfile = file_get_contents($cf);
 		foreach($edlist as $key => $val){
 			if($edfmt[$key] == 'int' || $edfmt[$key] == 'b'){
 				$configfile = preg_replace("/[$]{$key}\s*\=\s*-?[0-9]+;/is", "\${$key} = ${$key};", $configfile);
@@ -45,7 +46,7 @@ if($command == 'edit') {
 			
 			//$adminlog .= setadminlog('configmng',$key,$val);
 		}
-		file_put_contents('./config.inc.php',$configfile);
+		file_put_contents($cf,$configfile);
 		//putadminlog($adminlog);
 		adminlog('configmng');
 		$cmd_info .= '服务参数已修改';

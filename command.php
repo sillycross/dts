@@ -1,11 +1,11 @@
 <?php
 
-define('IN_GAME', TRUE);
-define('IN_COMMAND', TRUE);
-define('CURSCRIPT', 'game');
-define('GAME_ROOT', dirname(__FILE__).'/');
+defined('IN_GAME') || define('IN_GAME', TRUE);
+defined('IN_COMMAND') || define('IN_COMMAND', TRUE);
+defined('CURSCRIPT') || define('CURSCRIPT', 'game');
+defined('GAME_ROOT') || define('GAME_ROOT', dirname(__FILE__).'/');
 
-require GAME_ROOT.'./include/modulemng.config.php';
+require GAME_ROOT.'./include/modulemng/modulemng.config.php';
 
 if ($___MOD_SRV)
 {
@@ -57,10 +57,10 @@ if ($___MOD_SRV)
 		$___TEMP_last_cmd = 0;
 		
 		__SOCKET_LOG__("新服务器被启动，开始工作。"); 
-		
 		$___TEMP_socket=socket_create(AF_INET,SOCK_STREAM,getprotobyname("tcp"));  
 		if ($___TEMP_socket===false) __SOCKET_ERRORLOG__('socket_create失败。'); 
 		if (socket_set_option($___TEMP_socket,SOL_SOCKET,SO_REUSEADDR,1)===false) __SOCKET_ERRORLOG__('socket_set_option失败。'); 
+		//socket_set_nonblock($___TEMP_socket);
 		while (1)
 		{
 			$___TEMP_CONN_PORT_TRY=rand($___MOD_CONN_PORT_LOW,$___MOD_CONN_PORT_HIGH);
@@ -74,7 +74,7 @@ if ($___MOD_SRV)
 				break;
 			}
 		}
-		if (socket_listen($___TEMP_socket)===false) __SOCKET_ERRORLOG__('socket_listen失败。'); 
+		if (socket_listen($___TEMP_socket,5)===false) __SOCKET_ERRORLOG__('socket_listen失败。'); 
 		
 		mymkdir(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT);
 		
@@ -93,7 +93,7 @@ if ($___MOD_SRV)
 				if ($___TEMP_runned_time+$___MOD_SRV_WAKETIME+5>$___TEMP_max_time)
 				{
 					//没有下一次唤醒了，主动退出
-					__SOCKET_LOG__("已经运行了 ".$___TEMP_runned_time."秒。主动退出。");
+					__SOCKET_LOG__("已经运行了 ".$___TEMP_runned_time."秒，超过了".$___TEMP_max_time."秒的限制。主动退出。");
 					if (!$___TEMP_newsrv_flag)
 						__SOCKET_LOG__("由于过长时间没有收到命令且不是惟一的服务器，没有要求启动替代者。");
 					__SERVER_QUIT__();
@@ -326,7 +326,7 @@ if(!$db->num_rows($result))
 { 
 	$gamedata['url'] = 'valid.php';
 	ob_clean();
-	$jgamedata = base64_encode(gzencode(compatible_json_encode($gamedata)));
+	$jgamedata = base64_encode(gzencode(json_encode($gamedata)));
 	echo $jgamedata;
 	return;
 }
@@ -349,7 +349,7 @@ if($pdata['pass'] != $cpass) {
 if($gamestate == 0) {
 	$gamedata['url'] = 'end.php';
 	ob_clean();
-	$jgamedata = base64_encode(gzencode(compatible_json_encode($gamedata)));
+	$jgamedata = base64_encode(gzencode(json_encode($gamedata)));
 	echo $jgamedata;
 	return;
 }
@@ -372,9 +372,9 @@ $pagestartimez=microtime(true);
 $gamedata = array();
 \player\init_playerdata();
 
-player\pre_act();
-if ($hp>0) player\act();
-player\post_act();
+\player\pre_act();
+if ($hp > 0 && $state <= 3) \player\act();
+\player\post_act();
 
 $endtime = $now;
 
@@ -416,9 +416,11 @@ if($hp <= 0) {
 	$gamedata['innerHTML']['cmd'] = ob_get_contents();
 } elseif(!$cmd) {
 	ob_clean();
-	if($mode&&(file_exists($mode.'.htm') || file_exists(GAME_ROOT.TPLDIR.'/'.$mode.'.htm'))) {
+	if($mode != 'command' && $mode&&(file_exists($mode.'.htm') || file_exists(GAME_ROOT.TPLDIR.'/'.$mode.'.htm'))) {
 		include template($mode);
-	} else {
+	} elseif(defined('MOD_TUTORIAL') && $gametype == 17){
+		include template(MOD_TUTORIAL_TUTORIAL);
+	}	else {
 		include template('command');
 	}
 	$gamedata['innerHTML']['cmd'] = ob_get_contents();
@@ -427,6 +429,8 @@ if($hp <= 0) {
 }
 
 if(isset($url)){$gamedata['url'] = $url;}
+//if(isset($classchg)) {$gamedata['classchg'] = $classchg;}
+if(isset($uip['effect'])) {$gamedata['effect'] = $uip['effect'];}
 $gamedata['innerHTML']['pls'] = $plsinfo[$pls];
 if ($gametype!=2) $gamedata['innerHTML']['anum'] = $alivenum; else $gamedata['innerHTML']['anum'] = $validnum;
 
@@ -461,7 +465,7 @@ $gamedata['innerHTML']['log'] = $log;
 
 //$jgamedata = str_replace('_____CORE_RUNNING_TIME_____',$timecostlis,$jgamedata);
 
-$jgamedata=base64_encode(gzencode(compatible_json_encode($gamedata)));
+$jgamedata=base64_encode(gzencode(json_encode($gamedata)));
 ob_clean();
 echo $jgamedata;
 

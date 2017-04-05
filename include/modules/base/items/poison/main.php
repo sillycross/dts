@@ -7,7 +7,7 @@ namespace poison
 	function parse_itmk_words($k_value, $simple)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($k_value[0]=='P') $k_value[0]='H';
+		if (isset($k_value[0]) && $k_value[0]=='P') $k_value[0]='H';
 		return $chprocess($k_value, $simple);
 	}
 	
@@ -175,7 +175,7 @@ namespace poison
 		$chprocess();
 	}
 	
-	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)
+	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
@@ -196,7 +196,7 @@ namespace poison
 				return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因食用了有毒的<span class=\"red\">$d</span>被毒死{$e0}";
 			}
 		}
-		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 }
 

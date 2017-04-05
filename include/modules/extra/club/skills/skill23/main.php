@@ -232,7 +232,7 @@ namespace skill23
 		$chprocess();
 	}
 	
-	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)
+	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -241,7 +241,7 @@ namespace skill23
 		if($news == 'gemming') 
 			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}使用{$b}为{$c}添加了{$d}属性！</span><br>\n";
 
-		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 	
 }

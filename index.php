@@ -3,7 +3,7 @@
 define('CURSCRIPT', 'index');
 
 require './include/common.inc.php';
-require './include/roommng.func.php';
+require './include/roommng/roommng.func.php';
 
 $timing = 0;
 if($gamestate > 10) {
@@ -19,8 +19,9 @@ $adminmsg = file_get_contents('./gamedata/adminmsg.htm') ;
 $systemmsg = file_get_contents('./gamedata/systemmsg.htm') ;
 
 $roomlist = Array();
-$result = $db->query("SELECT * FROM {$gtablepre}rooms WHERE status > 0");
-while ($data = $db->fetch_array($result))
+
+$roomresult = $db->query("SELECT * FROM {$gtablepre}rooms WHERE status > 0");
+while ($data = $db->fetch_array($roomresult))
 {
 	if ($data['status']==1)
 	{
@@ -73,7 +74,7 @@ while ($data = $db->fetch_array($result))
 			$roomlist[$data['roomid']]['roomdata'] = $roomdata;
 		}
 	}
-	else  if ($data['status']==2)
+	elseif ($data['status']==2)
 	{
 		if (file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['roomid'].'.txt'))
 		{
@@ -81,8 +82,16 @@ while ($data = $db->fetch_array($result))
 			if (update_roomstate($roomdata,1)) room_save_broadcast($data['roomid'],$roomdata);
 			$roomlist[$data['roomid']]['id'] = $data['roomid'];
 			$roomlist[$data['roomid']]['status']=$data['status'];
+			$roomlist[$data['roomid']]['maxplayer'] = $roomtypelist[$roomdata['roomtype']]['pnum'];
 			$roomlist[$data['roomid']]['roomtype'] = $roomdata['roomtype'];
 			$roomlist[$data['roomid']]['roomdata'] = $roomdata;
+			if($roomtypelist[$roomdata['roomtype']]['continuous']){
+				$rid = 's'.$data['roomid'];
+				$rtablepre = $gtablepre.$rid;
+				$endtimelimit = $now-300;
+				$result = $db->query("SELECT pid FROM {$rtablepre}players WHERE type=0 AND state <= 3 AND endtime > '$endtimelimit'");
+				$roomlist[$data['roomid']]['nowplayer'] = $db->num_rows($result);
+			}
 		}
 		else
 		{
