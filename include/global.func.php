@@ -294,6 +294,7 @@ function mymkdir($pa)
 
 function create_dir($pa)	//建立目录（自动创建不存在的父文件夹），别用父目录符号“../”
 {
+	strpos($pa,'..')!==false && debug_print_backtrace() && exit('Forbidden');
 	while (1)
 	{
 		if ($pa[strlen($pa)-1]=='/') $pa=substr($pa,0,-1);
@@ -377,12 +378,6 @@ function check_alnumudline($key)
 			return false;
 	}
 	return true;
-}
-
-function get_var_dump($a){
-	ob_start(); 
-	var_dump($a);
-	return ob_get_flush();
 }
 
 //----------------------------------------
@@ -491,6 +486,37 @@ function base64_decode_number($val)
 		$ret=$ret*64+base64_char_decode($val[$i]);
 	}
 	return $ret;
+}
+
+//----------------------------------------
+//              重要游戏功能
+//----------------------------------------
+
+function init_dbstuff(){
+	include GAME_ROOT.'./include/modules/core/sys/config/server.config.php';
+	$default_database = PHP_VERSION >= 7.0 ? 'mysqli' : 'mysql';
+	$db_class_file = GAME_ROOT.'./include/db/db_'.$database.'.class.php';
+	$db_default_class_file = GAME_ROOT.'./include/db/db_'.$default_database.'.class.php';
+	if(file_exists($db_class_file)) include_once $db_class_file;
+	elseif(file_exists($db_default_class_file)) include_once $db_default_class_file;
+	else die('Cannot find db_class file!');
+	$db = new dbstuff;
+	$db->connect($dbhost, $dbuser, $dbpw, $dbname, $pconnect);
+	return $db;
+}
+
+function check_authority()
+{
+	include GAME_ROOT.'./include/modules/core/sys/config/server.config.php';
+	$_COOKIE=gstrfilter($_COOKIE);
+	$cuser=$_COOKIE[$gtablepre.'user'];
+	$cpass=$_COOKIE[$gtablepre.'pass'];
+	$db = init_dbstuff();
+	$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$cuser'");
+	if(!$db->num_rows($result)) { echo "<span><font color=\"red\">Cookie无效，请登录。</font></span><br>"; die(); }
+	$udata = $db->fetch_array($result);
+	if($udata['password'] != $cpass) { echo "<span><font color=\"red\">Cookie无效，请登录。</font></span><br>"; die(); }
+	elseif(($udata['groupid'] < 9)&&($cuser!==$gamefounder)) { echo "<span><font color=\"red\">要求至少9权限。</font></span><br>"; die(); }
 }
 
 //因为调用次数太多，懒得一个一个改了

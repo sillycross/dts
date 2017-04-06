@@ -9,14 +9,12 @@ require './include/common.inc.php';
 require GAME_ROOT.'./include/socket.func.php';
 require GAME_ROOT.'./include/roommng/roommng.func.php';
 
-require GAME_ROOT.'./include/modules/core/sys/config/server.config.php';
+include GAME_ROOT.'./include/modules/core/sys/config/server.config.php';
 $_COOKIE=gstrfilter($_COOKIE);
 $cuser=$_COOKIE[$gtablepre.'user'];
 $cpass=$_COOKIE[$gtablepre.'pass'];
-require GAME_ROOT.'./include/db/db_'.$database.'.class.php';
-$db = new dbstuff;
-$db->connect($dbhost, $dbuser, $dbpw, $dbname, $pconnect);
-unset($dbhost, $dbuser, $dbpw, $dbname, $pconnect);
+
+$db = init_dbstuff();
 $result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$cuser'");
 if(!$db->num_rows($result)) gexit('Cookie无效。请重新登录。');
 $udata = $db->fetch_array($result);

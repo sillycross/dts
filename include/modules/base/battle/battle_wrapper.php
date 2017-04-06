@@ -10,8 +10,7 @@ namespace battle
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','logger'));
-		
-		\logger\logsave ( $pl['pid'], $now, $pl['battlelog'] ,'b');
+		if(!empty($pl['battlelog'])) \logger\logsave ( $pl['pid'], $now, $pl['battlelog'] ,'b');
 	}
 	
 	function battle_prepare(&$pa, &$pd, $active)

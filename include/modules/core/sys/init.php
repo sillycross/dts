@@ -29,12 +29,12 @@ namespace sys
 		global $db; 
 		if (!isset($db))
 		{
-			global $dbhost, $dbuser, $dbpw, $dbname, $pconnect, $database;
-			require GAME_ROOT.'./include/db/db_'.$database.'.class.php';
-			$db = new \dbstuff;
-			$db->connect($dbhost, $dbuser, $dbpw, $dbname, $pconnect);
-			//$db->select_db($dbname);
-			unset($dbhost, $dbuser, $dbpw, $dbname, $pconnect);
+//			global $database, $dbhost, $dbuser, $dbpw, $dbname, $pconnect;
+			$db = init_dbstuff();
+//			require GAME_ROOT.'./include/db/db_'.$database.'.class.php';
+//			$db = new \dbstuff;
+//			$db->connect($dbhost, $dbuser, $dbpw, $dbname, $pconnect);
+//			unset($GLOBALS['dbhost'], $GLOBALS['dbuser'], $GLOBALS['dbpw'], $GLOBALS['dbname'], $GLOBALS['pconnect']);
 		}
 		
 		global $___LOCAL_INPUT__VARS__INPUT_VAR_LIST;

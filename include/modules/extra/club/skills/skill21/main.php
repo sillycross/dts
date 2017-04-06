@@ -77,7 +77,7 @@ namespace skill21
 	function counter_assault_wrapper(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['npc_evolved']) return;	//进化的NPC本轮不反击
+		if (isset($pa['npc_evolved']) && $pa['npc_evolved']) return;	//进化的NPC本轮不反击
 		$chprocess($pa, $pd, $active);
 	}	
 	
