@@ -100,15 +100,24 @@ namespace battle
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('logger'));
-		$pa['is_counter']=0;
+		foreach(array('pa','pd') as $val){
+			${$val}['is_counter'] = ${$val}['physical_dmg_dealt'] = ${$val}['wepimp'] = ${$val}['actual_rapid_time'] = 0;
+			${$val}['battlelog'] = '';
+		}
+//		$pa['is_counter']=$pd['is_counter']=0;
+//		$pa['physical_dmg_dealt']=$pd['physical_dmg_dealt']=0;
+//		$pa['wepimp'] = $pd['wepimp'] = 0;
+//		$pa['battlelog'] = $pd['battlelog'] = '';
 		attack_wrapper($pa, $pd, $active);
-		unset($pa['is_counter']);
 		counter_assault_wrapper($pd, $pa, 1-$active);
 	}
 	
 	function assault_finish(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		foreach(array('pa','pd') as $val){
+			unset(${$val}['is_counter'],${$val}['physical_dmg_dealt'],${$val}['wepimp'],${$val}['actual_rapid_time'],${$val}['battlelog']);
+		}
 	}
 }
 

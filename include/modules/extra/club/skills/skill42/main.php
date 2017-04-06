@@ -99,7 +99,7 @@ namespace skill42
 	function skill42_restore_skill41(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!$pa['skill42_flag1']) return;
+		if (!isset($pa['skill42_flag1']) || !$pa['skill42_flag1']) return;
 		if ($pa['skill42_flag2']==1)
 		{
 			\skillbase\skill_lost(41,$pa);
