@@ -438,4 +438,5 @@ if(!$roomtypelist[$zz['roomtype']]['continuous']){//非永续房间才进行下�
 	}
 }
 
-?>
+/* End of file roomcmd.php */
+/* Location: /roomcmd.php */

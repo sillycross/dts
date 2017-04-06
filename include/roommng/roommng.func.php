@@ -301,4 +301,5 @@ function room_getteamhtml(&$roomdata, $u)
 	return $str;
 }
 
-//-------This is the end of this file.-------
+/* End of file roommng.func.php */
+/* Location: /include/roommng/roommng.func.php */
