@@ -9,7 +9,7 @@ require './include/common.inc.php';
 require GAME_ROOT.'./include/socket.func.php';
 require GAME_ROOT.'./include/roommng/roommng.func.php';
 
-//require GAME_ROOT.'./include/modules/core/sys/config/server.config.php';
+include GAME_ROOT.'./include/modules/core/sys/config/server.config.php';
 $_COOKIE=gstrfilter($_COOKIE);
 $cuser=$_COOKIE[$gtablepre.'user'];
 $cpass=$_COOKIE[$gtablepre.'pass'];
