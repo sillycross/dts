@@ -5,8 +5,8 @@
 @ini_set('xdebug.max_nesting_level',5000);
 ignore_user_abort(1);
 
-if (!defined('IN_GAME')) define('IN_GAME', TRUE);
-if (!defined('GAME_ROOT')) define('GAME_ROOT', substr(dirname(__FILE__), 0, -7));
+defined('IN_GAME') || define('IN_GAME', TRUE);
+defined('GAME_ROOT') || define('GAME_ROOT', substr(dirname(__FILE__), 0, -7));
 define('GAMENAME', 'bra');
 
 if(PHP_VERSION < '5.4.0') {

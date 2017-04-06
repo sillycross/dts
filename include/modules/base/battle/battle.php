@@ -100,9 +100,9 @@ namespace battle
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('logger'));
-
+		$pa['is_counter']=0;
 		attack_wrapper($pa, $pd, $active);
-		
+		unset($pa['is_counter']);
 		counter_assault_wrapper($pd, $pa, 1-$active);
 	}
 	

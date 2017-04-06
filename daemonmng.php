@@ -1,23 +1,5 @@
 <?php
 
-function check_authority()
-{
-	require GAME_ROOT.'./include/modules/core/sys/config/server.config.php';
-	$_COOKIE=gstrfilter($_COOKIE);
-	$cuser=$_COOKIE[$gtablepre.'user'];
-	$cpass=$_COOKIE[$gtablepre.'pass'];
-	require GAME_ROOT.'./include/db/db_'.$database.'.class.php';
-	$db = new dbstuff;
-	$db->connect($dbhost, $dbuser, $dbpw, $dbname, $pconnect);
-	unset($dbhost, $dbuser, $dbpw, $dbname, $pconnect);
-	$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$cuser'");
-	if(!$db->num_rows($result)) { echo "<span><font color=\"red\">Cookie无效，请登录。</font></span><br>"; die(); }
-	$udata = $db->fetch_array($result);
-	if($udata['password'] != $cpass) { echo "<span><font color=\"red\">Cookie无效，请登录。</font></span><br>"; die(); }
-	elseif(($udata['groupid'] < 9)&&($cuser!==$gamefounder)) { echo "<span><font color=\"red\">要求至少9权限。</font></span><br>"; die(); }
-	unset($db); unset($cuser); unset($cpass); unset($udata); unset($result);
-}
-
 define('IN_GAME', TRUE);
 define('GAME_ROOT', dirname(__FILE__).'/');
 error_reporting(0);
