@@ -6,7 +6,7 @@
 DROP TABLE IF EXISTS bra_players;
 CREATE TABLE bra_players (
   pid mediumint unsigned NOT NULL auto_increment,
-  type tinyint NOT NULL default '0',
+  type tinyint unsigned NOT NULL default '0',
   name char(15) NOT NULL default '',
   pass char(32) NOT NULL default '',
   gd char(1) NOT NULL default 'm',
@@ -120,8 +120,9 @@ CREATE TABLE bra_players (
   `cardname` varchar(50) NOT NULL default '',
   `player_dead_flag` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `corpse_clear_flag` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY  (pid),
-  INDEX TYPE (type, sNo),
-  INDEX NAME (name, type)
+  PRIMARY KEY (pid),
+  INDEX TYPE (type),
+  INDEX NAME (name),
+  INDEX PLS (pls)
 	
 ) ENGINE=MyISAM;

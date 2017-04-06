@@ -71,9 +71,15 @@ switch($language) {
 if($language) {
 
 	$languagefile = './install/'.$language.'.lang.php';
-	$sqlfile = './install/bra.install.sql';
-	if(!is_readable($languagefile) || !is_readable($sqlfile)) {
+	$sql_install_file = './install/bra.install.sql';
+	
+	if(!is_readable($languagefile) || !is_readable($sql_install_file)) {
 		exit('Please upload ./install and all its files completely.');
+	}
+	
+	$sql_files = './gamedata/sql';
+	if(!is_readable($sql_files)) {
+		exit('Please upload ./gamedata/sql and all its files completely.');
 	}
 
 	require_once $languagefile;
@@ -83,9 +89,13 @@ if($language) {
 		exit($lang['lock_exists']);
 	}
 
-	$fp = fopen($sqlfile, 'rb');
-	$sql = fread($fp, 2048000);
-	fclose($fp);
+	//$fp = fopen($sql_install_file, 'rb');
+	//$sql = fread($fp, 2048000);
+	//fclose($fp);
+	$sql = file_get_contents($sql_install_file);
+	$sql .= "\n".file_get_contents($sql_files.'/players.sql');
+	$sql .= "\n".file_get_contents($sql_files.'/shopitem.sql');
+	$sql .= "\n".file_get_contents($sql_files.'/reset.sql');
 }
 
 header('Content-Type: text/html; charset='.$charset);
@@ -1250,7 +1260,7 @@ function runquery($sql) {
 		$query = trim($query);
 		if($query) {
 			if(substr($query, 0, 12) == 'CREATE TABLE') {
-				$name = preg_replace("/CREATE TABLE ([a-z0-9_]+) .*/is", "\\1", $query);
+				$name = preg_replace("/CREATE TABLE `*([a-z0-9_]+)`*\s*\(.*/is", "\\1", $query);
 				echo $lang['create_table'].' '.$name.' ... <font color="#0000EE">'.$lang['succeed'].'</font><br>';
 				$db->query(createtable($query, $dbcharset));
 			} else {
