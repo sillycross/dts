@@ -3,9 +3,9 @@ CREATE TABLE `bra_game` (
   `gamenum` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `gametype` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `gamestate` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `roomid` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `roomtype` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `roomstate` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `groomid` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `groomtype` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `groomstatus` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `starttime` int(10) unsigned NOT NULL DEFAULT '0',
   `afktime` int(10) unsigned NOT NULL DEFAULT '0',
   `validnum` smallint(5) unsigned NOT NULL DEFAULT '0',
@@ -29,7 +29,7 @@ CREATE TABLE `bra_game` (
   `arealist` varchar(255) NOT NULL DEFAULT '',
   `gamevars` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`gamenum`),
-  INDEX ROOMID (`roomid`)
+  INDEX ROOMID (`groomid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
