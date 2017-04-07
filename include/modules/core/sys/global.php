@@ -19,7 +19,7 @@ namespace sys
 		if($alivenum < 0){$alivenum = 0;}
 		if($deathnum < 0){$deathnum = 0;}
 		if(empty($afktime)){$afktime = $now;}
-		if(empty($optime)){$optime = $now;}
+		//if(empty($optime)){$optime = $now;}
 		$ngameinfo=Array();
 		foreach ($gameinfo as $key => $value) $ngameinfo[$key]=$$key;
 		$ngameinfo['arealist'] = implode(',',$ngameinfo['arealist']);
