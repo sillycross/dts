@@ -36,7 +36,7 @@ if ($rarr['groomstatus']==2)
 {
 	ob_clean();
 	$gamedata['url']='game.php';
-	echo base64_encode(gzencode(json_encode($gamedata)));
+	echo gencode($gamedata);
 	die();
 }
 
@@ -91,7 +91,7 @@ if ($rarr['groomstatus']==2)
 {
 	ob_clean();
 	$gamedata['url']='game.php';
-	echo base64_encode(gzencode(json_encode($gamedata)));
+	echo gencode($gamedata);
 	die();
 }
 

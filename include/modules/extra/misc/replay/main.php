@@ -264,7 +264,7 @@ namespace replay
 			$arr=$narr; unset($narr);
 		}
 		
-		return base64_encode(gzencode(json_encode($arr)));
+		return gencode($arr);
 	}
 	
 	function get_replay_by_gnum($gnum,$wmode)

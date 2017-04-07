@@ -287,7 +287,7 @@ function room_showdata($roomdata, $user)
 	$gamedata['value']['timestamp'] = $roomdata['timestamp'];
 	if ($roomdata['roomstat']!=2) $gamedata['lastchat']=$roomdata['chatdata'];
 	ob_clean();
-	echo base64_encode(gzencode(json_encode($gamedata)));
+	echo gencode($gamedata);
 }
 	
 function room_getteamhtml(&$roomdata, $u)
