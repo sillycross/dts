@@ -2,17 +2,17 @@
 
 namespace sys
 {
-	function load_gameinfo() {	
+	function load_gameinfo() {	//sys模块初始化的时候并没有调用这个函数
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		$result = $db->query("SELECT * FROM {$tablepre}game");
+		$result = $db->query("SELECT * FROM {$gtablepre}game WHERE groomid='$room_id'");
 		$gameinfo = $db->fetch_array($result);
 		foreach ($gameinfo as $key => $value) $$key=$value;
 		$arealist = explode(',',$arealist);
 		return;
 	} 
 	
-	function save_gameinfo() {
+	function save_gameinfo($ignore_room = 1) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		if(!isset($gamenum)||!isset($gamestate)){return;}
@@ -22,9 +22,10 @@ namespace sys
 		//if(empty($optime)){$optime = $now;}
 		$ngameinfo=Array();
 		foreach ($gameinfo as $key => $value) $ngameinfo[$key]=$$key;
-		$ngameinfo['arealist'] = implode(',',$ngameinfo['arealist']);
 		$gameinfo=$ngameinfo;
-		$db->array_update("{$tablepre}game",$ngameinfo,1);
+		$ngameinfo['arealist'] = implode(',',$ngameinfo['arealist']);
+		if($ignore_room) unset($ngameinfo['groomid'],$ngameinfo['groomtype'],$ngameinfo['groomstatus']);
+		$db->array_update("{$gtablepre}game",$ngameinfo,"groomid='$room_id'");
 		return;
 	}
 	
@@ -38,7 +39,7 @@ namespace sys
 		if(!$noiseid){$noiseid = 0;}
 		if(!$noiseid2){$noiseid2 = 0;}
 		if(!$noisemode){$noisemode = '';}
-		$db->query("UPDATE {$tablepre}game SET hdamage='$hdamage', hplayer='$hplayer', noisetime='$noisetime', noisepls='$noisepls', noiseid='$noiseid', noiseid2='$noiseid2', noisemode='$noisemode'");
+		$db->query("UPDATE {$gtablepre}game SET hdamage='$hdamage', hplayer='$hplayer', noisetime='$noisetime', noisepls='$noisepls', noiseid='$noiseid', noiseid2='$noiseid2', noisemode='$noisemode' WHERE groomid='$room_id'");
 		return;
 	}
 	
@@ -158,44 +159,55 @@ namespace sys
 		//自动初始化表
 		if ($room_prefix!='')
 		{
+			//创建对应类型的优胜列表
 			$result = $db->query("show tables like '{$wtablepre}winners';");
 			if (!$db->num_rows($result))
 			{
-				//某个非主房间是第一次使用，则创建表并初始化
 				$db->query("create table if not exists {$wtablepre}winners like {$gtablepre}winners;");
+				$db->query("insert into {$wtablepre}winners (gid) values (0);");
 			}
+			//如果该类型优胜列表没有数据，则插入数据（有意义？）
+//			$result = $db->query("SELECT count(*) as cnt FROM {$wtablepre}winners");
+//			if (!$db->num_rows($result)) 
+//				$cnt=0;
+//			else 
+//			{
+//				$zz = $db->fetch_array($result);
+//				$cnt=$zz['cnt'];
+//			}
+//			if ($cnt==0) $db->query("insert into {$wtablepre}winners (gid) values (0);");
 			
-			$result = $db->query("show tables like '{$tablepre}game';");
-			if (!$db->num_rows($result))
+			$room_id = substr($room_prefix,1);
+			//如果该房间对应的gameinfo不存在，则插入
+			$result = $db->query("SELECT gamestate FROM {$gtablepre}game WHERE groomid = 'room_id'");
+			$r1 = $db->num_rows($result);
+			if (!$r1)
 			{
-				//某个非主房间是第一次使用，则创建表并初始化
-				$db->query("create table if not exists {$tablepre}game like {$gtablepre}game;");
-		
-				$result = $db->query("SELECT count(*) as cnt FROM {$tablepre}game");
-				if (!$db->num_rows($result)) 
-					$cnt=0;
-				else 
-				{
-					$zz = $db->fetch_array($result);
-					$cnt=$zz['cnt'];
-				}
-				if ($cnt==0) $db->query("insert into {$tablepre}game (gamenum) values (0);");
-					
-				$result = $db->query("SELECT count(*) as cnt FROM {$wtablepre}winners");
-				if (!$db->num_rows($result)) 
-					$cnt=0;
-				else 
-				{
-					$zz = $db->fetch_array($result);
-					$cnt=$zz['cnt'];
-				}
-				if ($cnt==0) $db->query("insert into {$wtablepre}winners (gid) values (0);");
-				
+				$db->query("INSERT INTO {$gtablepre}game (groomid) VALUES ('$room_id')");
+			}
+			//如果该房间对应的gameinfo存在但是已经开启游戏，对不起，关闭
+			//理论上这情况不应该出现，所以设个出错退出吧
+//			else
+//			{
+//				$rarr = $db->fetch_array($result);
+//				if($rarr['gamestate']>0) $db->query("UPDATE {$gtablepre}game SET gamestate=0, starttime=0 WHERE groomid = 'room_id'");
+//				$rarr['gamestate'] = 0;
+//				gexit('试图新建的房间实际上正在运行，这是一个BUG，请联系管理员。');
+//			}
+			//如果该房间对应的各数据表不存在（以players表为判断依据），则创建
+			$result = $db->query("show tables like '{$tablepre}players';");
+			$r2 = $db->num_rows($result);
+			if (!$r2)
+			{
 				$sql = file_get_contents(GAME_ROOT.'./gamedata/sql/reset.sql');
 				$sql = str_replace("\r", "\n", str_replace(' bra_', ' '.$tablepre, $sql));
 				$db->queries($sql);
 				
 				$sql = file_get_contents(GAME_ROOT.'./gamedata/sql/players.sql');
+				$sql = str_replace("\r", "\n", str_replace(' bra_', ' '.$tablepre, $sql));
+				$db->queries($sql);
+				
+				$sql = file_get_contents(GAME_ROOT.'./gamedata/sql/shopitem.sql');
 				$sql = str_replace("\r", "\n", str_replace(' bra_', ' '.$tablepre, $sql));
 				$db->queries($sql);
 			}

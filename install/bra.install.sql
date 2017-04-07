@@ -28,20 +28,8 @@ CREATE TABLE `bra_game` (
   `areawarn` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `arealist` varchar(255) NOT NULL DEFAULT '',
   `gamevars` varchar(255) NOT NULL DEFAULT '',
-  PRIMARY KEY (`gamenum`),
-  INDEX ROOMID (`groomid`)
+  PRIMARY KEY (`groomid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Table structure for table `bra_rooms`
---
-
-DROP TABLE IF EXISTS `bra_rooms`;
-CREATE TABLE `bra_rooms` (
-  `status` int(10) unsigned NOT NULL DEFAULT '0',
-  `roomid` int(10) unsigned NOT NULL DEFAULT '0',
-  `roomtype` tinyint unsigned NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `bra_roomlisteners`

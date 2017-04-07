@@ -21,18 +21,18 @@ $udata = $db->fetch_array($result);
 if($udata['password'] != $cpass) gexit('Cookie无效。请重新登录。');
 if ($udata['roomid']=='' || $udata['roomid'][0]!='s') gexit('你不在一个房间内。');
 
-$roomid = substr($udata['roomid'],1);
+$room_id_r = substr($udata['roomid'],1);
 
 ignore_user_abort(1);
 
 $_POST=gstrfilter($_POST);
-if (!file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$roomid.'.txt')) gexit('房间不存在。');
+if (!file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt')) gexit('房间不存在。');
 
-$result = $db->query("SELECT * FROM {$gtablepre}rooms WHERE roomid='$roomid'");
+$result = $db->query("SELECT groomstatus FROM {$gtablepre}game WHERE groomid='$room_id_r'");
 if (!$db->num_rows($result)) gexit('房间不存在。');
-$zz=$db->fetch_array($result);
-if ($zz['status']==0) gexit('房间不存在。');
-if ($zz['status']==2) 
+$rarr=$db->fetch_array($result);
+if ($rarr['groomstatus']==0) gexit('房间不存在。');
+if ($rarr['groomstatus']==2) 
 {
 	ob_clean();
 	$gamedata['url']='game.php';
@@ -40,7 +40,7 @@ if ($zz['status']==2)
 	die();
 }
 
-$roomdata = json_decode(mgzdecode(base64_decode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$roomid.'.txt'))),1);
+$roomdata = json_decode(mgzdecode(base64_decode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt'))),1);
 
 //载入气泡框模块和发光按钮模块
 require GAME_ROOT.'./include/modules/extra/misc/bubblebox/module.inc.php';
@@ -71,23 +71,23 @@ if (socket_listen($___TEMP_socket)===false) { ob_clean(); die(); }
 
 $uid = uniqid('',true);
 
-$db->query("INSERT INTO {$gtablepre}roomlisteners (port,timestamp,roomid,uniqid) VALUES ('$___TEMP_CONN_PORT','$timestamp','$roomid','$uid')");
+$db->query("INSERT INTO {$gtablepre}roomlisteners (port,timestamp,roomid,uniqid) VALUES ('$___TEMP_CONN_PORT','$timestamp','$room_id_r','$uid')");
 
 //等待30秒，没有接收到任何信息则直接退出
 if (!__SOCKET_CHECK_WITH_TIMEOUT__($___TEMP_socket, 'a', 30, 0)) 
 {
-	$db->query("DELETE FROM {$gtablepre}roomlisteners WHERE (port,timestamp,roomid,uniqid) IN (('$___TEMP_CONN_PORT','$timestamp','$roomid','$uid'))");
+	$db->query("DELETE FROM {$gtablepre}roomlisteners WHERE (port,timestamp,roomid,uniqid) IN (('$___TEMP_CONN_PORT','$timestamp','$room_id_r','$uid'))");
 	ob_clean();
 	die();
 }
 
-if (!file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$roomid.'.txt')) { ob_clean(); die(); }
+if (!file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt')) { ob_clean(); die(); }
 
-$result = $db->query("SELECT * FROM {$gtablepre}rooms WHERE roomid='$roomid'");
+$result = $db->query("SELECT groomstatus FROM {$gtablepre}game WHERE groomid='$room_id_r'");
 if (!$db->num_rows($result)) { ob_clean(); die(); }
-$zz=$db->fetch_array($result);
-if ($zz['status']==0) { ob_clean(); die(); }
-if ($zz['status']==2) 
+$rarr=$db->fetch_array($result);
+if ($rarr['groomstatus']==0) { ob_clean(); die(); }
+if ($rarr['groomstatus']==2) 
 {
 	ob_clean();
 	$gamedata['url']='game.php';
@@ -95,7 +95,7 @@ if ($zz['status']==2)
 	die();
 }
 
-$roomdata = json_decode(mgzdecode(base64_decode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$roomid.'.txt'))),1);
+$roomdata = json_decode(mgzdecode(base64_decode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt'))),1);
 
 room_showdata($roomdata,$cuser);
 die();

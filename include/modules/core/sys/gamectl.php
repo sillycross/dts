@@ -14,6 +14,13 @@ namespace sys
 		$dir = GAME_ROOT.'./gamedata/';
 		$sqldir = GAME_ROOT.'./gamedata/sql/';
 		
+		//0号房恒为经典房，重置房间参数
+		if(!$groomid) {
+			$groomtype = 0;
+			$gametype = 0;
+			$groomstatus = 2;
+		}
+		
 		//重设玩家互动信息、聊天记录、地图道具、地图陷阱、进行状况
 		$sql = file_get_contents("{$sqldir}reset.sql");
 		$sql = str_replace("\r", "\n", str_replace(' bra_', ' '.$tablepre, $sql));
@@ -34,7 +41,7 @@ namespace sys
 		$gamestate = 10;
 		
 		save_combatinfo();
-		save_gameinfo();
+		save_gameinfo(0);
 	}
 	
 	function prepare_new_game() {
