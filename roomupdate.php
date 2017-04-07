@@ -40,7 +40,7 @@ if ($rarr['groomstatus']==2)
 	die();
 }
 
-$roomdata = json_decode(mgzdecode(base64_decode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt'))),1);
+$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt'),1);
 
 //载入气泡框模块和发光按钮模块
 require GAME_ROOT.'./include/modules/extra/misc/bubblebox/module.inc.php';
@@ -95,7 +95,7 @@ if ($rarr['groomstatus']==2)
 	die();
 }
 
-$roomdata = json_decode(mgzdecode(base64_decode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt'))),1);
+$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt'),1);
 
 room_showdata($roomdata,$cuser);
 die();

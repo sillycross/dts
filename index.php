@@ -28,7 +28,7 @@ while ($data = $db->fetch_array($roomresult))
 		$flag = 0; $cnt=0;
 		if (file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['groomid'].'.txt'))
 		{
-			$roomdata = json_decode(mgzdecode(base64_decode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['groomid'].'.txt'))),1);
+			$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['groomid'].'.txt'),1);
 			
 			$infochanged = 0;
 			if (update_roomstate($roomdata,0)) $infochanged = 1;
@@ -78,7 +78,7 @@ while ($data = $db->fetch_array($roomresult))
 	{
 		if (file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['groomid'].'.txt'))
 		{
-			$roomdata = json_decode(mgzdecode(base64_decode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['groomid'].'.txt'))),1);
+			$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['groomid'].'.txt'),1);
 			if (update_roomstate($roomdata,1)) room_save_broadcast($data['groomid'],$roomdata);
 			$roomlist[$data['groomid']]['id'] = $data['groomid'];
 			$roomlist[$data['groomid']]['status']=$data['groomstatus'];

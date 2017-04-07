@@ -223,7 +223,7 @@ function room_enter($id)
 		die();
 	}
 	$header = 'index.php';
-	$roomdata = json_decode(mgzdecode(base64_decode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$id.'.txt'))),1);
+	$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$id.'.txt'),1);
 	//global $cuser;
 	global $roomtypelist,$gametype,$startime,$now,$room_prefix,$alivenum;
 	if($roomtypelist[$rd['groomtype']]['continuous']){//永续房，绕过其他判断直接进房间

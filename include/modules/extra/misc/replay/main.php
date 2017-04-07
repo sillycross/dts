@@ -127,7 +127,7 @@ namespace replay
 					$i_end=min($cnt-1,$i_start+$partsize-1);
 					$xdata=Array();
 					for ($k=$i_start; $k<=$i_end; $k++)
-						array_push($xdata,json_decode(mgzdecode(base64_decode(file_get_contents($opdatalist[$k]))),true));
+						array_push($xdata,gdecode(file_get_contents($opdatalist[$k]),true));
 						
 					$jreplaydata = json_encode($xdata);
 					$jreplaydata = '___temp_s = new String(\''.base64_encode(gzencode($jreplaydata,9)).'\');

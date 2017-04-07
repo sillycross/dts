@@ -101,7 +101,7 @@ if (!file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt'))
 	die();
 }
 
-$roomdata = json_decode(mgzdecode(base64_decode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt'))),1);
+$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt'),1);
 
 $result = $db->query("SELECT groomstatus FROM {$gtablepre}game WHERE groomid = '$room_id_r'");
 if(!$db->num_rows($result)) 
