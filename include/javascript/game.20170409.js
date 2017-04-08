@@ -321,9 +321,16 @@ function showData(sdata){
 			for(var ef in sDe){
 				if(ef == 'pulse'){
 					for (var ei=0; ei<sDe[ef].length; ei++){
-						if(jQuery(sDe[ef][ei]).length > 0){
-							if(jQuery(sDe[ef][ei]).is('img')) jQuery(sDe[ef][ei]).addClass("TransPulse");
-				  		else jQuery(sDe[ef][ei]).addClass("Pulse");
+						if(sDe[ef][ei].search('__BUTTON__') >= 0){
+							sDe[ef][ei] = sDe[ef][ei].replace('__BUTTON__','');
+							var efel=jQuery(sDe[ef][ei]).parent(".itmsingle").children(".cmdbutton");
+							//alert(efel.length);
+						}else{
+							var efel=jQuery(sDe[ef][ei]);
+						}
+						if(efel.length > 0){
+							if(efel.is('img')) efel.addClass("TransPulse");
+				  		else efel.addClass("Pulse");
 						}
 				  }
 				}	else if (ef == 'chatref'){
