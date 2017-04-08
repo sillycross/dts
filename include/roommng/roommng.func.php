@@ -28,12 +28,12 @@ function room_save_broadcast($roomid, &$roomdata)
 {
 	//保存数据并广播
 	eval(import_module('sys'));
-	$result = $db->query("SELECT status FROM {$gtablepre}rooms WHERE roomid = '$roomid'");
+	$result = $db->query("SELECT groomstatus FROM {$gtablepre}game WHERE groomid = '$roomid'");
 	$runflag = 0;
 	if ($db->num_rows($result)) 
 	{ 
-		$zz=$db->fetch_array($result); 
-		if ($zz['status']==2) $runflag = 1; 
+		$rarr=$db->fetch_array($result); 
+		if ($rarr['groomstatus']==2) $runflag = 1; 
 	}
 	
 	update_roomstate($roomdata,$runflag);
@@ -113,7 +113,7 @@ function room_init($roomtype)
 function get_room_data(){
 	eval(import_module('sys'));
 	$rdata = Array();
-	$result = $db->query("SELECT status,roomid,roomtype FROM {$gtablepre}rooms");
+	$result = $db->query("SELECT groomstatus,groomid,groomtype FROM {$gtablepre}game WHERE groomid > 0");
 	while($rsingle = $db->fetch_array($result)){
 		$rdata[] = $rsingle;
 	}
@@ -140,37 +140,37 @@ function room_create($roomtype)
 		$rid = -1;
 		$rids = range(1,$max_room_num);
 		foreach($rdata as $rd){
-			$rid = $rd['roomid'];
+			$rid = $rd['groomid'];
 			$rids = array_diff($rids, Array($rid));
-			if($rd['roomtype'] == $roomtype && $rd['status'] == 2){//永续房存在的情况下直接进
+			if($rd['groomtype'] == $roomtype && $rd['groomstatus'] == 2){//永续房存在的情况下直接进
 				$rchoice = $rid;
 				break;
-			}elseif($rd['status'] == 0){//房间关闭状态，改成永续房
+			}elseif($rd['groomstatus'] == 0){//房间关闭状态，改成永续房
 				$rchoice = $rid;
-				$db->query("UPDATE {$gtablepre}rooms SET status = 1, roomtype = '$roomtype' WHERE roomid = '$rid'");
+				$db->query("UPDATE {$gtablepre}game SET groomstatus = 1, groomtype = '$roomtype' WHERE groomid = '$rid'");
 				break;
 			}
 		}
 		if(!empty($rids) && $rchoice < 0){//否则新建房间
 			$rchoice = $rids[0];
-			$db->query("INSERT INTO {$gtablepre}rooms (roomid,status,roomtype) VALUES ('$rchoice',1,'$roomtype')");
+			$db->query("INSERT INTO {$gtablepre}game (groomid,groomstatus,groomtype) VALUES ('$rchoice',1,'$roomtype')");
 			//$db->query("UPDATE {$gtablepre}rooms SET status = 1, roomtype = '$roomtype' WHERE roomid = '$rid'");
 		}
 	}else{
 		for ($i=1; $i<=$max_room_num; $i++)
 		{
-			$result = $db->query("SELECT status FROM {$gtablepre}rooms WHERE roomid = '$i'");
+			$result = $db->query("SELECT groomstatus FROM {$gtablepre}game WHERE groomid = '$i'");
 			if(!$db->num_rows($result)) 
 			{
-				$db->query("INSERT INTO {$gtablepre}rooms (roomid,status,roomtype) VALUES ('$i',1,'$roomtype')");
+				$db->query("INSERT INTO {$gtablepre}game (gamestate,groomid,groomstatus,groomtype) VALUES (0,'$i',1,'$roomtype')");
 				$rchoice = $i; break;
 			}
 			else 
 			{
-				$zz=$db->fetch_array($result);
-				if ($zz['status']==0)
+				$rarr=$db->fetch_array($result);
+				if ($rarr['groomstatus']==0)
 				{
-					$db->query("UPDATE {$gtablepre}rooms SET status = 1, roomtype = '$roomtype' WHERE roomid = '$i'");
+					$db->query("UPDATE {$gtablepre}game SET gamestate = 0, groomstatus = 1, groomtype = '$roomtype' WHERE groomid = '$i'");
 					$rchoice = $i; break;
 				}
 			}
@@ -204,14 +204,14 @@ function room_enter($id)
 {
 	eval(import_module('sys'));
 	$id=(int)$id;
-	$result = $db->query("SELECT status,roomtype FROM {$gtablepre}rooms WHERE roomid = '$id'");
+	$result = $db->query("SELECT groomstatus,groomtype FROM {$gtablepre}game WHERE groomid = '$id'");
 	if(!$db->num_rows($result)) 
 	{
 		gexit('房间编号'.$id.'不存在',__file__,__line__);
 		die();
 	}
 	$rd=$db->fetch_array($result);
-	if ($rd['status']==0)
+	if ($rd['groomstatus']==0)
 	{
 		gexit('房间编号'.$id.'不存在',__file__,__line__);
 		die();
@@ -223,21 +223,23 @@ function room_enter($id)
 		die();
 	}
 	$header = 'index.php';
-	$roomdata = json_decode(mgzdecode(base64_decode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$id.'.txt'))),1);
+	$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$id.'.txt'),1);
 	//global $cuser;
 	global $roomtypelist,$gametype,$startime,$now,$room_prefix,$alivenum;
-	if($roomtypelist[$rd['roomtype']]['continuous']){//永续房，绕过其他判断直接进房间
-		//gexit('aaaaaaaa',__file__,__line__);
+	if($roomtypelist[$rd['groomtype']]['continuous']){//永续房，绕过其他判断直接进房间
 		$room_prefix = 's'.$id;
-		$tablepre = $gtablepre.$room_prefix;
+		$room_id = $id;
+		$tablepre = $gtablepre.$room_prefix.'_';
 		$wtablepre = $gtablepre.($room_prefix[0]);
 		\sys\room_auto_init();
 		\sys\load_gameinfo();
-		if($rd['status'] == 1){	//未开始则启动房间
-			$db->query("UPDATE {$gtablepre}rooms SET status = 2 WHERE roomid = '$id'");
-			$gametype = $roomtypelist[$rd['roomtype']]['gtype'];
+		if($rd['groomstatus'] == 1){	//未开始则启动房间
+			//$db->query("UPDATE {$gtablepre}game SET groomstatus = 2 WHERE groomid = '$id'");
+			$groomstatus = 2;
+			$gamestate = 0;
+			$gametype = $roomtypelist[$rd['groomtype']]['gtype'];
 			$starttime = $now;
-			\sys\save_gameinfo();
+			\sys\save_gameinfo(0);
 			\sys\routine();
 		}
 		$pname = (string)$cuser;
@@ -285,7 +287,7 @@ function room_showdata($roomdata, $user)
 	$gamedata['value']['timestamp'] = $roomdata['timestamp'];
 	if ($roomdata['roomstat']!=2) $gamedata['lastchat']=$roomdata['chatdata'];
 	ob_clean();
-	echo base64_encode(gzencode(json_encode($gamedata)));
+	echo gencode($gamedata);
 }
 	
 function room_getteamhtml(&$roomdata, $u)
@@ -301,4 +303,5 @@ function room_getteamhtml(&$roomdata, $u)
 	return $str;
 }
 
-//-------This is the end of this file.-------
+/* End of file roommng.func.php */
+/* Location: /include/roommng/roommng.func.php */

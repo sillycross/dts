@@ -93,7 +93,7 @@ foreach ($arr as $key)
 	$rfullsz += ((double)substr($d['repsz'],0,-2));
 }
 
-$jrepindexdata=base64_encode(gzencode(json_encode($repindexdata)));
+$jrepindexdata=gencode($repindexdata);
 
 $repdatalib=base64_decode($repdatalib);
 

@@ -72,7 +72,7 @@ if(!isset($command) || $start != $ostart){
 		$showdata['value']['checkmode'] = $checkmode;
 		//$showdata['innerHTML']['pageinfo'] = "第<span class=\"yellow\">$startnum</span>条至第<span class=\"yellow\">$endnum</span>条";
 		$showdata['value']['start'] = $start;
-		$jgamedata = base64_encode(gzencode(json_encode($showdata)));
+		$jgamedata = gencode($showdata);
 		echo $jgamedata;
 		ob_end_flush();
 	}else{

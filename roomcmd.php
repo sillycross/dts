@@ -26,7 +26,7 @@ if(!$cuser||!$cpass)
 	ob_clean();
 	header('Location: index.php');
 	$gamedata['url']='index.php';
-	echo base64_encode(gzencode(json_encode($gamedata)));
+	echo gencode($gamedata);
 	die();
 } 
 
@@ -47,7 +47,7 @@ if(!$db->num_rows($result))
 	ob_clean();
 	header('Location: index.php');
 	$gamedata['url']='index.php';
-	echo base64_encode(gzencode(json_encode($gamedata)));
+	echo gencode($gamedata);
 	die();
 } 
 
@@ -57,7 +57,7 @@ if($pdata['password'] != $cpass)
 	ob_clean();
 	header('Location: index.php');
 	$gamedata['url']='index.php';
-	echo base64_encode(gzencode(json_encode($gamedata)));
+	echo gencode($gamedata);
 	die();
 } 
 
@@ -67,7 +67,7 @@ if ($command=='newroom')
 	ob_clean();
 	header('Location: index.php');
 	$gamedata['url']='index.php';
-	echo base64_encode(gzencode(json_encode($gamedata)));
+	echo gencode($gamedata);
 	die();
 }
 
@@ -78,7 +78,7 @@ if ($command=='enterroom')
 	ob_clean();
 	header('Location: index.php');
 	$gamedata['url']='index.php';
-	echo base64_encode(gzencode(json_encode($gamedata)));
+	echo gencode($gamedata);
 	die();
 }
 
@@ -87,23 +87,23 @@ if ($room_prefix=='' || $room_prefix[0]!='s')
 	ob_clean();
 	header('Location: index.php');
 	$gamedata['url']='index.php';
-	echo base64_encode(gzencode(json_encode($gamedata)));
+	echo gencode($gamedata);
 	die();
 }
 
-$roomid = substr($room_prefix,1);
-if (!file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$roomid.'.txt')) 
+$room_id_r = substr($room_prefix,1);
+if (!file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt')) 
 {
 	ob_clean();
 	header('Location: index.php');
 	$gamedata['url']='index.php';
-	echo base64_encode(gzencode(json_encode($gamedata)));
+	echo gencode($gamedata);
 	die();
 }
 
-$roomdata = json_decode(mgzdecode(base64_decode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$roomid.'.txt'))),1);
+$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt'),1);
 
-$result = $db->query("SELECT status FROM {$gtablepre}rooms WHERE roomid = '$roomid'");
+$result = $db->query("SELECT groomstatus FROM {$gtablepre}game WHERE groomid = '$room_id_r'");
 if(!$db->num_rows($result)) 
 {
 	ob_clean();
@@ -111,8 +111,8 @@ if(!$db->num_rows($result))
 }
 
 //房间命令只对处于等待状态的房间有效，除了退出房间命令
-$zz=$db->fetch_array($result);
-if ($zz['status']!=1 && $command!='leave')
+$rarr=$db->fetch_array($result);
+if ($rarr['groomstatus']!=1 && $command!='leave')
 {
 	ob_clean();
 	die();
@@ -125,10 +125,10 @@ if ($roomdata['roomstat']==2)
 	die();
 }
 
-if ($zz['status']==2) $runflag = 1; else $runflag = 0;
+if ($rarr['groomstatus']==2) $runflag = 1; else $runflag = 0;
 update_roomstate($roomdata,$runflag);
 
-if(!$roomtypelist[$zz['roomtype']]['continuous']){//非永续房间才进行下列判定
+if(!$roomtypelist[$rarr['groomtype']]['continuous']){//非永续房间才进行下列判定
 	//更新踢人状态
 	if ($roomdata['roomstat']==1 && time()>=$roomdata['kicktime'])
 	{
@@ -138,13 +138,13 @@ if(!$roomtypelist[$zz['roomtype']]['continuous']){//非永续房间才进行下�
 				room_new_chat($roomdata,"<span class=\"grey\">{$roomdata['player'][$i]['name']}因为长时间未准备，被系统踢出了房间。</span><br>");
 				$roomdata['player'][$i]['name']='';
 			}
-		room_save_broadcast($roomid,$roomdata);
+		room_save_broadcast($room_id_r,$roomdata);
 	}
 	
 	if ($command=='newchat')
 	{
 		room_new_chat($roomdata,"<span class=\"white\"><span class=\"yellow\">{$cuser}:</span>&nbsp;{$para1}</span><br>");
-		room_save_broadcast($roomid,$roomdata);
+		room_save_broadcast($room_id_r,$roomdata);
 		die();
 	}
 	
@@ -184,7 +184,7 @@ if(!$roomtypelist[$zz['roomtype']]['continuous']){//非永续房间才进行下�
 				if ($upos==-1)
 					room_new_chat($roomdata,"<span class=\"grey\">{$cuser}进入了一个空位置</span><br>");
 				else  room_new_chat($roomdata,"<span class=\"grey\">{$cuser}移动了位置</span><br>");
-				room_save_broadcast($roomid,$roomdata);
+				room_save_broadcast($room_id_r,$roomdata);
 			}
 			
 		die();
@@ -206,7 +206,7 @@ if(!$roomtypelist[$zz['roomtype']]['continuous']){//非永续房间才进行下�
 			{
 				$roomdata['player'][$para1]['forbidden']=1;
 				room_new_chat($roomdata,"<span class=\"grey\">{$cuser}禁用了其队伍的一个位置</span><br>");
-				room_save_broadcast($roomid,$roomdata);
+				room_save_broadcast($room_id_r,$roomdata);
 			}
 			
 		die();
@@ -229,7 +229,7 @@ if(!$roomtypelist[$zz['roomtype']]['continuous']){//非永续房间才进行下�
 				$roomdata['player'][$para1]['name']='';
 				$roomdata['player'][$upos]['ready']=0;
 				room_new_chat($roomdata,"<span class=\"grey\">{$cuser}重新启用了其队伍的一个位置</span><br>");
-				room_save_broadcast($roomid,$roomdata);
+				room_save_broadcast($room_id_r,$roomdata);
 			}
 			
 		die();
@@ -264,7 +264,7 @@ if(!$roomtypelist[$zz['roomtype']]['continuous']){//非永续房间才进行下�
 							}
 				}
 				room_new_chat($roomdata,"<span class=\"grey\">{$cuser}将{$tmp}踢出了房间</span><br>");
-				room_save_broadcast($roomid,$roomdata);
+				room_save_broadcast($room_id_r,$roomdata);
 			}
 			
 		die();
@@ -296,7 +296,7 @@ if(!$roomtypelist[$zz['roomtype']]['continuous']){//非永续房间才进行下�
 				$nroomdata['timestamp']=$roomdata['timestamp'];
 				$roomdata=$nroomdata;
 				room_new_chat($roomdata,"<span class=\"grey\">{$cuser}将房间模式修改为了{$roomtypelist[$roomdata['roomtype']]['name']}</span><br>");
-				room_save_broadcast($roomid,$roomdata);
+				room_save_broadcast($room_id_r,$roomdata);
 			}
 		die();
 	}
@@ -326,7 +326,7 @@ if(!$roomtypelist[$zz['roomtype']]['continuous']){//非永续房间才进行下�
 			$roomdata['player'][$upos]['ready']=0;
 		}
 		room_new_chat($roomdata,"<span class=\"grey\">{$cuser}离开了房间</span><br>");
-		room_save_broadcast($roomid,$roomdata);
+		room_save_broadcast($room_id_r,$roomdata);
 		
 		$db->query("UPDATE {$gtablepre}users SET roomid='' WHERE username='$cuser'");
 		
@@ -335,7 +335,7 @@ if(!$roomtypelist[$zz['roomtype']]['continuous']){//非永续房间才进行下�
 		else
 		{
 			$gamedata['url']='index.php';
-			echo base64_encode(gzencode(json_encode($gamedata)));
+			echo gencode($gamedata);
 		}
 		die();
 	}
@@ -361,12 +361,13 @@ if(!$roomtypelist[$zz['roomtype']]['continuous']){//非永续房间才进行下�
 				$roomdata['roomstat']=2;
 				room_new_chat($roomdata,"<span class=\"grey\">所有人均已准备，游戏即将开始..</span><br>");
 			}
-			room_save_broadcast($roomid,$roomdata);
+			room_save_broadcast($room_id_r,$roomdata);
 			if ($flag)
 			{
 				include_once GAME_ROOT.'./include/valid.func.php';
 				//开始游戏，并设置好游戏模式类型（2v2和3v3为队伍胜利模式）
 				//$gametype = 10 + $roomdata['roomtype'];
+				$gamestate = 0;
 				$gametype = $roomtypelist[$roomdata['roomtype']]['gtype'];//hao蠢
 				$starttime = $now;
 				save_gameinfo();
@@ -428,14 +429,15 @@ if(!$roomtypelist[$zz['roomtype']]['continuous']){//非永续房间才进行下�
 				
 				//再次广播信息，这次让所有玩家跳转到游戏中
 				$roomdata['roomstat']=0;
-				$db->query("UPDATE {$gtablepre}rooms SET status=2 WHERE roomid='$roomid'");
+				$db->query("UPDATE {$gtablepre}game SET groomstatus=2 WHERE groomid='$room_id_r'");
 				$roomdata['timestamp']++;
 				$roomdata['chatdata']=room_init($roomdata['roomtype'])['chatdata'];
-				room_save_broadcast($roomid,$roomdata);
+				room_save_broadcast($room_id_r,$roomdata);
 			}
 		}
 	die();
 	}
 }
 
-?>
+/* End of file roomcmd.php */
+/* Location: /roomcmd.php */

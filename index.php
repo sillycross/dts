@@ -20,15 +20,15 @@ $systemmsg = file_get_contents('./gamedata/systemmsg.htm') ;
 
 $roomlist = Array();
 
-$roomresult = $db->query("SELECT * FROM {$gtablepre}rooms WHERE status > 0");
+$roomresult = $db->query("SELECT * FROM {$gtablepre}game WHERE groomstatus > 0");
 while ($data = $db->fetch_array($roomresult))
 {
-	if ($data['status']==1)
+	if ($data['groomstatus']==1)
 	{
 		$flag = 0; $cnt=0;
-		if (file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['roomid'].'.txt'))
+		if (file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['groomid'].'.txt'))
 		{
-			$roomdata = json_decode(mgzdecode(base64_decode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['roomid'].'.txt'))),1);
+			$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['groomid'].'.txt'),1);
 			
 			$infochanged = 0;
 			if (update_roomstate($roomdata,0)) $infochanged = 1;
@@ -44,7 +44,7 @@ while ($data = $db->fetch_array($roomresult))
 						$infochanged = 1;
 					}
 			}
-			if ($infochanged) room_save_broadcast($data['roomid'],$roomdata);
+			if ($infochanged) room_save_broadcast($data['groomid'],$roomdata);
 			
 			for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
 			{
@@ -60,43 +60,43 @@ while ($data = $db->fetch_array($roomresult))
 		}
 		if (!$flag)
 		{
-			$db->query("UPDATE {$gtablepre}rooms SET status = 0 WHERE roomid='{$data['roomid']}'");
-			unlink(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['roomid'].'.txt');
-			$data['status']=0;
+			$db->query("UPDATE {$gtablepre}game SET groomstatus = 0 WHERE groomid='{$data['groomid']}'");
+			unlink(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['groomid'].'.txt');
+			$data['groomstatus']=0;
 		}
 		else 
 		{
-			$roomlist[$data['roomid']]['id'] = $data['roomid'];
-			$roomlist[$data['roomid']]['status'] = $data['status'];
-			$roomlist[$data['roomid']]['nowplayer'] = $cnt;
-			$roomlist[$data['roomid']]['maxplayer'] = $roomtypelist[$roomdata['roomtype']]['pnum'];
-			$roomlist[$data['roomid']]['roomtype'] = $roomdata['roomtype'];
-			$roomlist[$data['roomid']]['roomdata'] = $roomdata;
+			$roomlist[$data['groomid']]['id'] = $data['groomid'];
+			$roomlist[$data['groomid']]['status'] = $data['groomstatus'];
+			$roomlist[$data['groomid']]['nowplayer'] = $cnt;
+			$roomlist[$data['groomid']]['maxplayer'] = $roomtypelist[$roomdata['roomtype']]['pnum'];
+			$roomlist[$data['groomid']]['roomtype'] = $roomdata['roomtype'];
+			$roomlist[$data['groomid']]['roomdata'] = $roomdata;
 		}
 	}
-	elseif ($data['status']==2)
+	elseif ($data['groomstatus']==2)
 	{
-		if (file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['roomid'].'.txt'))
+		if (file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['groomid'].'.txt'))
 		{
-			$roomdata = json_decode(mgzdecode(base64_decode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['roomid'].'.txt'))),1);
-			if (update_roomstate($roomdata,1)) room_save_broadcast($data['roomid'],$roomdata);
-			$roomlist[$data['roomid']]['id'] = $data['roomid'];
-			$roomlist[$data['roomid']]['status']=$data['status'];
-			$roomlist[$data['roomid']]['maxplayer'] = $roomtypelist[$roomdata['roomtype']]['pnum'];
-			$roomlist[$data['roomid']]['roomtype'] = $roomdata['roomtype'];
-			$roomlist[$data['roomid']]['roomdata'] = $roomdata;
+			$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['groomid'].'.txt'),1);
+			if (update_roomstate($roomdata,1)) room_save_broadcast($data['groomid'],$roomdata);
+			$roomlist[$data['groomid']]['id'] = $data['groomid'];
+			$roomlist[$data['groomid']]['status']=$data['groomstatus'];
+			$roomlist[$data['groomid']]['maxplayer'] = $roomtypelist[$roomdata['roomtype']]['pnum'];
+			$roomlist[$data['groomid']]['roomtype'] = $roomdata['roomtype'];
+			$roomlist[$data['groomid']]['roomdata'] = $roomdata;
 			if($roomtypelist[$roomdata['roomtype']]['continuous']){
-				$rid = 's'.$data['roomid'];
+				$rid = 's'.$data['groomid'];
 				$rtablepre = $gtablepre.$rid;
 				$endtimelimit = $now-300;
 				$result = $db->query("SELECT pid FROM {$rtablepre}players WHERE type=0 AND state <= 3 AND endtime > '$endtimelimit'");
-				$roomlist[$data['roomid']]['nowplayer'] = $db->num_rows($result);
+				$roomlist[$data['groomid']]['nowplayer'] = $db->num_rows($result);
 			}
 		}
 		else
 		{
-			$db->query("UPDATE {$gtablepre}rooms SET status = 0 WHERE roomid='{$data['roomid']}'");
-			$data['status']=0;
+			$db->query("UPDATE {$gtablepre}game SET groomstatus = 0 WHERE groomid='{$data['groomid']}'");
+			$data['groomstatus']=0;
 		}
 	}
 }
