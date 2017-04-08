@@ -49,7 +49,7 @@ function gexit($message = '',$file = '', $line = 0) {
 			$gamedata['url'] = 'error.php';
 			$gamedata['errormsg'] = $message;
 			ob_clean();
-			echo base64_encode(gzencode(json_encode($gamedata)));
+			echo gencode($gamedata);
 		}
 		else
 		{
@@ -64,7 +64,7 @@ function gexit($message = '',$file = '', $line = 0) {
 			$gamedata['url'] = 'error.php';
 			$gamedata['errormsg'] = $message;
 			ob_clean();
-			echo base64_encode(gzencode(json_encode($gamedata)));
+			echo gencode($gamedata);
 			exit();
 		}
 		else
@@ -173,6 +173,15 @@ function content($file = '') {
 	ob_end_clean();
 	$GLOBALS['gzipcompress'] ? ob_start('ob_gzhandler') : ob_start();
 	return $content;
+}
+
+function gencode($para){
+	return base64_encode(gzencode(json_encode($para)));
+}
+
+function gdecode($para, $assoc = false){
+	$assoc = $assoc ? true : false;
+	return json_decode(mgzdecode(base64_decode($para)),$assoc);
 }
 
 function gsetcookie($var, $value, $life = 0, $prefix = 1) {

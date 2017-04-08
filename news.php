@@ -21,7 +21,7 @@ if($newsmode == 'last') {
 	$newsdata['innerHTML']['newsinfo'] = ob_get_contents();
 	if(isset($error)){$newsdata['innerHTML']['error'] = $error;}
 	ob_clean();
-	$jgamedata = base64_encode(gzencode(json_encode($newsdata)));
+	$jgamedata = gencode($newsdata);
 //	$json = new Services_JSON();
 //	$jgamedata = $json->encode($newsdata);
 	echo $jgamedata;
@@ -36,7 +36,7 @@ if($newsmode == 'last') {
 	$newsdata['innerHTML']['newsinfo'] = ob_get_contents();
 	if(isset($error)){$newsdata['innerHTML']['error'] = $error;}
 	ob_clean();
-	$jgamedata = base64_encode(gzencode(json_encode($newsdata)));
+	$jgamedata = gencode($newsdata);
 	//$json = new Services_JSON();
 	//$jgamedata = $json->encode($newsdata);
 	echo $jgamedata;
@@ -51,7 +51,7 @@ if($newsmode == 'last') {
 	}	
 	if(isset($error)){$newsdata['innerHTML']['error'] = $error;}
 	ob_clean();
-	$jgamedata = base64_encode(gzencode(json_encode($newsdata)));
+	$jgamedata = gencode($newsdata);
 //	$json = new Services_JSON();
 //	$jgamedata = $json->encode($newsdata);
 	echo $jgamedata;

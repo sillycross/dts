@@ -68,7 +68,7 @@ if($mode == 'edit') {
 	$gamedata['value']['opass'] = $gamedata['value']['npass'] = $gamedata['value']['rnpass'] = '';
 	if(isset($error)){$gamedata['innerHTML']['error'] = $error;}
 	ob_clean();
-	$jgamedata = base64_encode(gzencode(json_encode($gamedata)));
+	$jgamedata = gencode($gamedata);
 	echo $jgamedata;
 	ob_end_flush();
 	
