@@ -35,7 +35,7 @@ if($command == 'edit') {
 	
 	if($ednum){
 		//$adminlog = '';
-		$cf = dirname(dirname(__FILE__)).'./modules/core/sys/config/server.config.php';
+		$cf = dirname(dirname(__FILE__)).'/modules/core/sys/config/server.config.php';
 		$configfile = file_get_contents($cf);
 		foreach($edlist as $key => $val){
 			if($edfmt[$key] == 'int' || $edfmt[$key] == 'b'){

@@ -5,15 +5,18 @@ define('IN_GAME', TRUE);
 define('GAME_ROOT', '');
 $server_config =  './include/modules/core/sys/config/server.config.php';
 include $server_config;
+
 include './include/global.func.php';
 check_authority();
 $db = init_dbstuff();
 //$db->query("ALTER TABLE {$gtablepre}rooms ADD `roomtype` tinyint unsigned NOT NULL DEFAULT 0");
-
+ob_start();
+print str_repeat(" ", 4096);
 //载入bra.install.sql，将前缀改为alter_，并新建表
 $install_db = file_get_contents('./install/bra.install.sql');
 $install_db = str_replace('bra_', 'alter_', $install_db);
 runquery($install_db);
+output_t('Loading bra.install.sql...');
 
 //获取表名内容备用
 $alter_tables = array();
@@ -24,10 +27,11 @@ while($rarr = $db->fetch_array($result)){
 	//winners表有个分身，要特判
 	if($table == 'winners') $alter_tables[] = 'swinners';
 }
-
+output_t('Checking table names...');
 foreach($alter_tables as $at){
 	//获取现有表的记录
 	//$db->select_db('acdts0');
+	output_t('Start fetching db '.$gtablepre.$at);
 	$result = $db->query("SELECT * FROM {$gtablepre}{$at} WHERE 1");
 	$data = array();
 	while($rarr = $db->fetch_array($result)){
@@ -36,12 +40,14 @@ foreach($alter_tables as $at){
 	//$db->select_db('acdts');
 	if(!empty($data)){
 		//储存备用，这个最后最好删除，不然有泄露信息的可能性
+		output_t('Start dumping db '.$gtablepre.$at);
 		$dir = './gamedata/tmp/backup';
 		if(!file_exists($dir)) mymkdir($dir);
 		$file = $dir.'/'.$at.'.bak';
 		writeover($file,gencode($data));
 		//删除原表，按alter表的格式建立新表
 		$data_a = col_filter("alter_{$at}", $data);
+		output_t('Start rebuilding db structure of '.$gtablepre.$at);
 		$db->query("DROP TABLE IF EXISTS {$gtablepre}{$at}");
 		if($at == 'swinners'){//winners表有个分身，要特判
 			$db->query("CREATE TABLE {$gtablepre}{$at} LIKE alter_winners");
@@ -49,19 +55,29 @@ foreach($alter_tables as $at){
 			$db->query("CREATE TABLE {$gtablepre}{$at} LIKE alter_{$at}");
 		}
 		//重头戏，挨个insert，因为怕query语句超长所以不能拼接成一句insert
-		$i = 0;
+		output_t('Start recover data to '.$gtablepre.$at);
+		//$i = 0;
 		foreach($data_a as $v){
 			$db->array_insert("{$gtablepre}{$at}", $v);
 		}
 	}	
+	unset($data);
 }
 
 //结束，做好清理
-foreach($alter_tables as $at){
+output_t('All finished. Now delete altering dbs');
+foreach($alter_tables as $at){	
 	$db->query("DROP TABLE IF EXISTS alter_{$at}");
 }
 //$result = $db->query("DESCRIBE {$gtablepre}players");
-echo 'done';
+echo 'Done.';
+
+
+function output_t($str){
+	echo $str.'<br>';
+	ob_flush();
+	flush();
+}
 
 function col_filter($objtable, $data){
 	global $db;
