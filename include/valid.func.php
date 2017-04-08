@@ -30,6 +30,7 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 	$icon = $xicon ? $xicon : rand(1,$iconlimit);
 	$club = 0;
 
+	$wp=$wk=$wg=$wc=$wd=$wf=0;
 	$arb = $gd == 'm' ? '男生校服' : '女生校服';
 	$arbk = 'DB'; $arbe = 5; $arbs = 15; $arbsk = '';
 	$arh = $ara = $arf = $art = '';
@@ -175,10 +176,12 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 	}else if ($cardrare=='C'){
 		$rarecolor="seagreen";
 	}
+	$result = $db->query("SELECT groupid FROM {$gtablepre}users WHERE username='$cuser'");
+	$udata = $db->fetch_array($result);
 	if($udata['groupid'] >= 6 || $cuser == $gamefounder){
-		addnews($now,'newgm',"<span class=\"".$rarecolor."\">".$cardname.'</span> '.$name,"{$sexinfo[$gd]}{$sNo}号",$ip);
+		addnews($now,'newgm',"<span class=\"".$rarecolor."\">".$cardname.'</span> '.$name,"{$sexinfo[$gd]}{$sNo}号");
 	}else{
-		addnews($now,'newpc',"<span class=\"".$rarecolor."\">".$cardname.'</span> '.$name,"{$sexinfo[$gd]}{$sNo}号",$ip);
+		addnews($now,'newpc',"<span class=\"".$rarecolor."\">".$cardname.'</span> '.$name,"{$sexinfo[$gd]}{$sNo}号");
 	}
 	
 	if($validnum >= $validlimit && $gamestate == 20){
