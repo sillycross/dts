@@ -12,71 +12,65 @@ $db = init_dbstuff();
 //$db->query("ALTER TABLE {$gtablepre}rooms ADD `roomtype` tinyint unsigned NOT NULL DEFAULT 0");
 ob_start();
 print str_repeat(" ", 4096);
-//ÔØÈëbra.install.sql£¬½«Ç°×º¸ÄÎªalter_£¬²¢ĞÂ½¨±í
+//è½½å…¥bra.install.sqlï¼Œå°†å‰ç¼€æ”¹ä¸ºalter_ï¼Œå¹¶æ–°å»ºè¡¨
 $install_db = file_get_contents('./install/bra.install.sql');
 $install_db = str_replace('bra_', 'alter_', $install_db);
 runquery($install_db);
 output_t('Loading bra.install.sql...');
 
-//»ñÈ¡±íÃûÄÚÈİ±¸ÓÃ
+//è·å–è¡¨åå†…å®¹å¤‡ç”¨
 $alter_tables = array();
 $result = $db->query("SHOW TABLES LIKE 'alter_%';");
 while($rarr = $db->fetch_array($result)){
 	$table = str_replace('alter_','',current($rarr));
 	$alter_tables[] = $table;
-	//winners±íÓĞ¸ö·ÖÉí£¬ÒªÌØÅĞ
+	//winnersè¡¨æœ‰ä¸ªåˆ†èº«ï¼Œè¦ç‰¹åˆ¤
 	if($table == 'winners') $alter_tables[] = 'swinners';
 }
 output_t('Checking table names...');
 foreach($alter_tables as $at){
-	//»ñÈ¡ÏÖÓĞ±íµÄ¼ÇÂ¼
+	//è·å–ç°æœ‰è¡¨çš„è®°å½•
 	//$db->select_db('acdts0');
 	output_t('Start fetching db '.$gtablepre.$at);
 	$result = $db->query("SELECT * FROM {$gtablepre}{$at} WHERE 1");
-	$data = array();
+	$dir = './gamedata/tmp/backup';
+	$file = $dir.'/'.$at.'.bak';
+	if(!file_exists($dir)) mymkdir($dir);
+	if(file_exists($fire)) unlink($file);
+	$handle=fopen($file,'ab+');
 	while($rarr = $db->fetch_array($result)){
-		$data[] = $rarr;
+		fwrite($handle,json_encode($rarr)."\n");
 	}
-	//$db->select_db('acdts');
-	$data_a = array();
-	if(!empty($data)){
-		//´¢´æ±¸ÓÃ£¬Õâ¸ö×îºó×îºÃÉ¾³ı£¬²»È»ÓĞĞ¹Â¶ĞÅÏ¢µÄ¿ÉÄÜĞÔ
-//		output_t('Start dumping db '.$gtablepre.$at);
-//		$dir = './gamedata/tmp/backup';
-//		if(!file_exists($dir)) mymkdir($dir);
-//		$file = $dir.'/'.$at.'.bak';
-//		writeover($file,gencode($data));
-		//°´alter±íµÄ¸ñÊ½½¨Á¢ĞÂ±í
-		$data_a = col_filter("alter_{$at}", $data);
-	}	
-	output_t('Start cloning database structure of '.$gtablepre.$at);
-	$db->query("DROP TABLE IF EXISTS {$gtablepre}{$at}_clone");
-	if($at == 'swinners'){//winners±íÓĞ¸ö·ÖÉí£¬ÒªÌØÅĞ
-		$db->query("CREATE TABLE {$gtablepre}{$at}_clone LIKE alter_winners");
-	}else{
-		$db->query("CREATE TABLE {$gtablepre}{$at}_clone LIKE alter_{$at}");
-	}
-	//ÖØÍ·Ï·£¬°¤¸öinsert£¬ÒòÎªÅÂqueryÓï¾ä³¬³¤ËùÒÔ²»ÄÜÆ´½Ó³ÉÒ»¾äinsert
-	output_t('Start inserting data to '.$gtablepre.$at.'_clone');
-	//$i = 0;
-	if(!empty($data_a)){
-		foreach($data_a as $v){
-			$db->array_insert("{$gtablepre}{$at}_clone", $v);
-		}
-	}
-	unset($data);
+	fclose($handle);
 }
 
-//½áÊø£¬É¾³ıÔ­±í£¬×öºÃÇåÀí
-output_t('All finished. Now delete the original databases and change names');
-foreach($alter_tables as $at){	
-	$db->query("DROP TABLE IF EXISTS alter_{$at}");
-	$db->query("DROP TABLE IF EXISTS {$gtablepre}{$at}");
-	$db->query("RENAME TABLE {$gtablepre}{$at}_clone TO {$gtablepre}{$at}");
-}
-//$result = $db->query("DESCRIBE {$gtablepre}players");
 echo 'Done.';
+function init_dbstuff(){
+	include GAME_ROOT.'./include/modules/core/sys/config/server.config.php';
+	$default_database = PHP_VERSION >= 7.0 ? 'mysqli' : 'mysql';
+	$db_class_file = GAME_ROOT.'./include/db_'.$database.'.class.php';
+	$db_default_class_file = GAME_ROOT.'./include/db_'.$default_database.'.class.php';
+	if(file_exists($db_class_file)) include_once $db_class_file;
+	elseif(file_exists($db_default_class_file)) include_once $db_default_class_file;
+	else die('Cannot find db_class file!');
+	$db = new dbstuff;
+	$db->connect($dbhost, $dbuser, $dbpw, $dbname, $pconnect);
+	return $db;
+}
 
+function check_authority()
+{
+	include GAME_ROOT.'./include/modules/core/sys/config/server.config.php';
+	$_COOKIE=gstrfilter($_COOKIE);
+	$cuser=$_COOKIE[$gtablepre.'user'];
+	$cpass=$_COOKIE[$gtablepre.'pass'];
+	$db = init_dbstuff();
+	$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$cuser'");
+	if(!$db->num_rows($result)) { echo "<span><font color=\"red\">Cookieæ— æ•ˆï¼Œè¯·ç™»å½•ã€‚</font></span><br>"; die(); }
+	$udata = $db->fetch_array($result);
+	if($udata['password'] != $cpass) { echo "<span><font color=\"red\">Cookieæ— æ•ˆï¼Œè¯·ç™»å½•ã€‚</font></span><br>"; die(); }
+	elseif(($udata['groupid'] < 9)&&($cuser!==$gamefounder)) { echo "<span><font color=\"red\">è¦æ±‚è‡³å°‘9æƒé™ã€‚</font></span><br>"; die(); }
+}
 
 function output_t($str){
 	echo $str.'<br>';
