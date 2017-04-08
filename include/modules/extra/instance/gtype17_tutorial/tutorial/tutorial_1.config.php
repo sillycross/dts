@@ -100,7 +100,7 @@ $tutorial_story[1] = Array(
 		'obj2' => Array(
 			'itmk' => Array('HH','HB'),
 		),
-		'pulse' => ".itmsingle :contains('面包')",
+		'pulse' => ".itmsingle :contains('面包') __BUTTON__",
 		'next' => 120
 	),
 	120 => Array(
@@ -116,7 +116,7 @@ $tutorial_story[1] = Array(
 		'obj2' => Array(
 			'itmk' => Array('Ca','Cp'),
 		),
-		'pulse' => ".itmsingle :contains('紧急药剂')",
+		'pulse' => ".itmsingle :contains('紧急药剂') __BUTTON__",
 		'prog' => '“如果已经处理完了，请点击<span class="red">【强行继续】</span>”<br>',
 		'next' => 140
 	),
@@ -324,7 +324,7 @@ $tutorial_story[1] = Array(
 		'obj2' => Array(
 			'itmk' => Array('VK'),
 		),
-		'pulse' => ".itmsingle :contains('《斩系指南》')",
+		'pulse' => ".itmsingle :contains('《斩系指南》') __BUTTON__",
 		'next' => 310
 	),
 	310 => Array(

@@ -60,7 +60,7 @@ if($command == 'edit') {
 		}
 		//$adminlog = '';
 		//$gamecfg_file = config('gamecfg',$gamecfg);
-		$sf = dirname(dirname(__FILE__)).'./modules/core/sys/config/system.config.php';
+		$sf = dirname(dirname(__FILE__)).'/modules/core/sys/config/system.config.php';
 		$systemfile = file_get_contents($sf);
 		foreach($edlist as $key => $val){
 			if($key != 'adminmsg' && $key != 'systemmsg'){
