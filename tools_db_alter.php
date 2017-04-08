@@ -6,6 +6,7 @@ define('GAME_ROOT', '');
 $server_config =  './include/modules/core/sys/config/server.config.php';
 include $server_config;
 include './include/global.func.php';
+check_authority();
 $db = init_dbstuff();
 //$db->query("ALTER TABLE {$gtablepre}rooms ADD `roomtype` tinyint unsigned NOT NULL DEFAULT 0");
 
@@ -41,16 +42,16 @@ foreach($alter_tables as $at){
 		writeover($file,gencode($data));
 		//删除原表，按alter表的格式建立新表
 		$data_a = col_filter("alter_{$at}", $data);
-		$db->query("DROP TABLE IF EXISTS copy_{$at}");
+		$db->query("DROP TABLE IF EXISTS {$gtablepre}{$at}");
 		if($at == 'swinners'){//winners表有个分身，要特判
-			$db->query("CREATE TABLE copy_{$at} LIKE alter_winners");
+			$db->query("CREATE TABLE {$gtablepre}{$at} LIKE alter_winners");
 		}else{
-			$db->query("CREATE TABLE copy_{$at} LIKE alter_{$at}");
+			$db->query("CREATE TABLE {$gtablepre}{$at} LIKE alter_{$at}");
 		}
 		//重头戏，挨个insert，因为怕query语句超长所以不能拼接成一句insert
 		$i = 0;
 		foreach($data_a as $v){
-			$db->array_insert("copy_{$at}", $v);
+			$db->array_insert("{$gtablepre}{$at}", $v);
 		}
 	}	
 }
