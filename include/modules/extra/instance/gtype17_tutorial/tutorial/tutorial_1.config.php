@@ -343,7 +343,7 @@ $tutorial_story[1] = Array(
 			'meetnpc' => 9, 'meetsub' => 0,
 		),
 		'pulse' => '#zz',
-		'prog' => '“如果受伤了，记得及时<span class="lime">回复生命</span>。<br>”<br>',
+		'prog' => '“如果受伤了，记得及时<span class="lime">回复生命</span>。”<br>',
 		'next' => 330
 	),
 	330 => Array(
