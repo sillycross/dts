@@ -160,11 +160,11 @@ namespace sys
 		if ($room_prefix!='')
 		{
 			//创建对应类型的优胜列表
-			$result = $db->query("show tables like '{$wtablepre}winners';");
+			$result = $db->query("SHOW TABLES LIKE '{$wtablepre}winners';");
 			if (!$db->num_rows($result))
 			{
-				$db->query("create table if not exists {$wtablepre}winners like {$gtablepre}winners;");
-				$db->query("insert into {$wtablepre}winners (gid) values (0);");
+				$db->query("CREATE TABLE IF NOT EXISTS {$wtablepre}winners LIKE {$gtablepre}winners;");
+				$db->query("INSERT INTO {$wtablepre}winners (gid) VALUES (0);");
 			}
 			//如果该类型优胜列表没有数据，则插入数据（有意义？）
 //			$result = $db->query("SELECT count(*) as cnt FROM {$wtablepre}winners");
