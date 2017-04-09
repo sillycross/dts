@@ -242,7 +242,7 @@ room_cur_chat_maxcid = 0;
 
 function showData(sdata){
 	if (js_stop_flag) return;
-	if(sdata.indexOf('<html>') > 0 && sdata.indexOf('</html>') > 0){
+	if(typeof sdata == 'string' && sdata.indexOf('<html>') > 0 && sdata.indexOf('</html>') > 0){
 		document.write(sdata);
 		return;
 	}
