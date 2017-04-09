@@ -206,9 +206,9 @@ namespace player
 			$pdata_pool[$spid] = array_clone($data);
 			foreach ($db_player_structure as $key){
 				//任意列的数值没变就不写数据库
-				if ($key!='pid' && isset($data[$key]) && $data[$key] != $pdata_origin_pool[$spid][$key]) $ndata[$key]=$data[$key];
+				if ($key!='pid' && isset($data[$key]) && $data[$key] !== $pdata_origin_pool[$spid][$key]) $ndata[$key]=$data[$key];
 			}
-			
+			//writeover('a.txt',var_export($ndata,1));
 			
 			//建国后不准成精，你们复活别想啦
 			if ($data['hp']<=0) {

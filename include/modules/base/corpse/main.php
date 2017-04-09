@@ -170,6 +170,7 @@ namespace corpse
 		}
 		if(!$itms0||!$itmk0||$itmk0=='WN'||$itmk0=='DN') {
 			$log .= '该物品不存在！';
+			$itms = 0;
 		} else {
 			\itemmain\itemget();
 		}
