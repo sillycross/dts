@@ -234,9 +234,9 @@ function room_enter($id)
 		\sys\load_gameinfo();
 		$init_state = \sys\room_auto_init();
 		$need_reset = $rd['groomstatus'] == 1 ? true : false;//未开始则启动房间
-		writeover('a.txt',$init_state);
+		//writeover('a.txt',$init_state);
 		if(!($init_state & 4)){//读取最后有玩家行动的时间，如果超时则需要重置，防止房间各种记录飙得太长
-			writeover('a.txt',50);
+			//writeover('a.txt',50);
 			$result = $db->query("SELECT endtime FROM {$tablepre}players WHERE type=0 ORDER BY endtime DESC LIMIT 1");
 			if($db->num_rows($result)){
 				$lastendtime = $db->fetch_array($result)['endtime'];				

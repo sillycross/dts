@@ -127,13 +127,23 @@ namespace searchmemory
 		$chprocess();
 	}
 //	
-	function findenemy(&$edata){
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player'));
-		$smn = seek_memory_by_id($edata['pid'], 'pid');
+
+	function meetman($sid)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;		
+		eval(import_module('sys','logger','player','metman'));
+		$smn = seek_memory_by_id($sid, 'pid');
 		if($smn >= 0) remove_memory($smn,2);
-		$chprocess($edata);
+		$chprocess($sid);
 	}
+	
+//	function findenemy(&$edata){
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		eval(import_module('sys','player'));
+//		$smn = seek_memory_by_id($edata['pid'], 'pid');
+//		if($smn >= 0) remove_memory($smn,2);
+//		$chprocess($edata);
+//	}
 		
 	function searchmemory_discover($mn){//参数值代表取几号位searchmemory的探索记忆
 		if (eval(__MAGIC__)) return $___RET_VALUE;
