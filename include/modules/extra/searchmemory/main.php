@@ -132,6 +132,7 @@ namespace searchmemory
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;		
 		eval(import_module('sys','logger','player','metman'));
+		//var_dump($sid);
 		$smn = seek_memory_by_id($sid, 'pid');
 		if($smn >= 0) remove_memory($smn,2);
 		$chprocess($sid);

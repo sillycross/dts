@@ -381,11 +381,11 @@ namespace tutorial
 					if(isset($ct['obj2']['changehp'])){//有设定时，改动NPC血量
 						$n = tutorial_changehp_npc($ct['obj2']['meetnpc'],$ct['obj2']['meetsub'],$pid,1,$nid);
 					}
-					\enemy\meetman($nid);
+					meetman($nid);
 					return;
 				}else{//尸体
 					$mnpcd = tutorial_checknpc($ct['obj2']['meetnpc'], $ct['obj2']['meetsub'], $pid, 0, 1);
-					if($mnpcd['pls'] == $sdata['pls']) \corpse\meetman($mnpcd['pid']);
+					if($mnpcd['pls'] == $sdata['pls']) meetman($mnpcd['pid']);
 					return;
 				}				
 			}
