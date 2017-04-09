@@ -12,62 +12,47 @@ $db = init_dbstuff();
 //$db->query("ALTER TABLE {$gtablepre}rooms ADD `roomtype` tinyint unsigned NOT NULL DEFAULT 0");
 ob_start();
 print str_repeat(" ", 4096);
-//ÔØÈëbra.install.sql£¬½«Ç°×º¸ÄÎªalter_£¬²¢ÐÂ½¨±í
+//è½½å…¥bra.install.sqlï¼Œå°†å‰ç¼€æ”¹ä¸ºalter_ï¼Œå¹¶æ–°å»ºè¡¨
 $install_db = file_get_contents('./install/bra.install.sql');
 $install_db = str_replace('bra_', 'alter_', $install_db);
 runquery($install_db);
 output_t('Loading bra.install.sql...');
 
-//»ñÈ¡±íÃûÄÚÈÝ±¸ÓÃ
+//èŽ·å–è¡¨åå†…å®¹å¤‡ç”¨
 $alter_tables = array();
 $result = $db->query("SHOW TABLES LIKE 'alter_%';");
 while($rarr = $db->fetch_array($result)){
 	$table = str_replace('alter_','',current($rarr));
 	$alter_tables[] = $table;
-	//winners±íÓÐ¸ö·ÖÉí£¬ÒªÌØÅÐ
+	//winnersè¡¨æœ‰ä¸ªåˆ†èº«ï¼Œè¦ç‰¹åˆ¤
 	if($table == 'winners') $alter_tables[] = 'swinners';
 }
 output_t('Checking table names...');
 foreach($alter_tables as $at){
-	//»ñÈ¡ÏÖÓÐ±íµÄ¼ÇÂ¼
+	//èŽ·å–çŽ°æœ‰è¡¨çš„è®°å½•
 	//$db->select_db('acdts0');
 	output_t('Start fetching db '.$gtablepre.$at);
 	$result = $db->query("SELECT * FROM {$gtablepre}{$at} WHERE 1");
-	$data = array();
-	while($rarr = $db->fetch_array($result)){
-		$data[] = $rarr;
-	}
-	//$db->select_db('acdts');
-	$data_a = array();
-	if(!empty($data)){
-		//´¢´æ±¸ÓÃ£¬Õâ¸ö×îºó×îºÃÉ¾³ý£¬²»È»ÓÐÐ¹Â¶ÐÅÏ¢µÄ¿ÉÄÜÐÔ
-//		output_t('Start dumping db '.$gtablepre.$at);
-//		$dir = './gamedata/tmp/backup';
-//		if(!file_exists($dir)) mymkdir($dir);
-//		$file = $dir.'/'.$at.'.bak';
-//		writeover($file,gencode($data));
-		//°´alter±íµÄ¸ñÊ½½¨Á¢ÐÂ±í
-		$data_a = col_filter("alter_{$at}", $data);
-	}	
-	output_t('Start cloning database structure of '.$gtablepre.$at);
 	$db->query("DROP TABLE IF EXISTS {$gtablepre}{$at}_clone");
-	if($at == 'swinners'){//winners±íÓÐ¸ö·ÖÉí£¬ÒªÌØÅÐ
+	if($at == 'swinners'){//winnersè¡¨æœ‰ä¸ªåˆ†èº«ï¼Œè¦ç‰¹åˆ¤
 		$db->query("CREATE TABLE {$gtablepre}{$at}_clone LIKE alter_winners");
 	}else{
 		$db->query("CREATE TABLE {$gtablepre}{$at}_clone LIKE alter_{$at}");
 	}
-	//ÖØÍ·Ï·£¬°¤¸öinsert£¬ÒòÎªÅÂqueryÓï¾ä³¬³¤ËùÒÔ²»ÄÜÆ´½Ó³ÉÒ»¾äinsert
-	output_t('Start inserting data to '.$gtablepre.$at.'_clone');
-	//$i = 0;
-	if(!empty($data_a)){
-		foreach($data_a as $v){
-			$db->array_insert("{$gtablepre}{$at}_clone", $v);
+	$rarr_a = array();
+	while($rarr = $db->fetch_array($result)){
+		$rarr_a = col_filter("alter_{$at}", $rarr);
+		if(!empty($rarr_a)){
+		$db->array_insert("{$gtablepre}{$at}_clone", $rarr_a);
 		}
 	}
-	unset($data);
+	//$db->select_db('acdts');
+	//output_t('Start cloning database structure of '.$gtablepre.$at);
+	
+	//é‡å¤´æˆï¼ŒæŒ¨ä¸ªinsertï¼Œå› ä¸ºæ€•queryè¯­å¥è¶…é•¿æ‰€ä»¥ä¸èƒ½æ‹¼æŽ¥æˆä¸€å¥insert
 }
 
-//½áÊø£¬É¾³ýÔ­±í£¬×öºÃÇåÀí
+//ç»“æŸï¼Œåˆ é™¤åŽŸè¡¨ï¼Œåšå¥½æ¸…ç†
 output_t('All finished. Now delete the original databases and change names');
 foreach($alter_tables as $at){	
 	$db->query("DROP TABLE IF EXISTS alter_{$at}");
@@ -85,23 +70,26 @@ function output_t($str){
 }
 
 function col_filter($objtable, $data){
-	global $db;
+	global $db,$del_fields;
 	if(strpos($objtable,'swinners')!==false) $objtable = str_replace('swinners','winners',$objtable);
-	$result = $db->query("DESCRIBE $objtable");
-	$fields = array();
-	while ($rarr = $db->fetch_array($result))
-	{
-		$fields[] = $rarr['Field'];
-	}
-	$del_fields = array();
-	foreach(array_keys($data[0]) as $k0){
-		if(!in_array($k0,$fields)) $del_fields[] = $k0;
-	}
-	foreach($data as &$v){
-		foreach($del_fields as $dv){
-			if(isset($v[$dv])) unset($v[$dv]);
+	if(!isset($del_fields[$objtable])){
+		$del_fields[$objtable] = array();
+		$result = $db->query("DESCRIBE $objtable");
+		$fields = array();
+		while ($rarr = $db->fetch_array($result))
+		{
+			$fields[] = $rarr['Field'];
+		}
+		//$del_fields = array();
+		foreach(array_keys($data) as $k0){
+			if(!in_array($k0,$fields)) $del_fields[$objtable][] = $k0;
 		}
 	}
+	foreach($del_fields[$objtable] as $dv){
+		if(isset($data[$dv])) unset($data[$dv]);
+	}
+	
+
 	return $data;
 }
 

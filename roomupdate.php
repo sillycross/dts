@@ -19,19 +19,31 @@ $result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$cuser'");
 if(!$db->num_rows($result)) gexit('Cookie无效。请重新登录。');
 $udata = $db->fetch_array($result);
 if($udata['password'] != $cpass) gexit('Cookie无效。请重新登录。');
-if ($udata['roomid']=='' || $udata['roomid'][0]!='s') gexit('你不在一个房间内。');
+if ($udata['roomid']=='' || $udata['roomid'][0]!='s') {
+	$db->query("UPDATE {$gtablepre}users SET roomid='' WHERE username='$cuser'");
+	gexit('你不在一个房间内。');
+}
 
 $room_id_r = substr($udata['roomid'],1);
 
 ignore_user_abort(1);
 
 $_POST=gstrfilter($_POST);
-if (!file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt')) gexit('房间不存在。');
+if (!file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt')) {
+	$db->query("UPDATE {$gtablepre}users SET roomid='' WHERE username='$cuser'");
+	gexit('房间不存在。');
+}
 
 $result = $db->query("SELECT groomstatus FROM {$gtablepre}game WHERE groomid='$room_id_r'");
-if (!$db->num_rows($result)) gexit('房间不存在。');
+if (!$db->num_rows($result)) {
+	$db->query("UPDATE {$gtablepre}users SET roomid='' WHERE username='$cuser'");
+	gexit('房间不存在。');
+}
 $rarr=$db->fetch_array($result);
-if ($rarr['groomstatus']==0) gexit('房间不存在。');
+if ($rarr['groomstatus']==0) {
+	$db->query("UPDATE {$gtablepre}users SET roomid='' WHERE username='$cuser'");
+	gexit('房间不存在。');	
+}
 if ($rarr['groomstatus']==2) 
 {
 	ob_clean();
