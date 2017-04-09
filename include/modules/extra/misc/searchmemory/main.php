@@ -34,13 +34,18 @@ namespace searchmemory
 			while(sizeof($searchmemory) >= $max_searchmemory){
 				remove_memory();
 			}
-			array_push($searchmemory, $marr);
+			$amflag = 0;
 			if(isset($marr['itm'])){
 				$amn = $marr['itm'];
+				$amflag = 1;
 			}elseif(isset($marr['Pname'])){
 				$amn = $marr['Pname'];
+				$amflag = 1;
 			}
-			$log .= '你设法保持对'.$amn.'的持续观察……<br>';
+			if($amflag){
+				array_push($searchmemory, $marr);
+				$log .= '你设法保持对'.$amn.'的持续观察……<br>';
+			}
 		}
 		return;
 	}
@@ -81,9 +86,11 @@ namespace searchmemory
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
 		$res = $chprocess($item);
-		if($res) list($dropid,$dropname) = $res;
-		$amarr = array('iid' => $dropid, 'itm' => $dropname, 'pls' => $pls);
-		add_memory($amarr);
+		if(!empty($res)) {
+			list($dropid,$dropname) = $res;
+			$amarr = array('iid' => $dropid, 'itm' => $dropname, 'pls' => $pls);
+			add_memory($amarr);
+		}
 		return $res;
 	}
 	

@@ -116,7 +116,7 @@ namespace battle
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		foreach(array('pa','pd') as $val){
-			unset(${$val}['is_counter'],${$val}['physical_dmg_dealt'],${$val}['wepimp'],${$val}['actual_rapid_time'],${$val}['battlelog']);
+			unset(${$val}['is_counter'],${$val}['physical_dmg_dealt'],${$val}['wepimp'],${$val}['actual_rapid_time']);
 		}
 	}
 }

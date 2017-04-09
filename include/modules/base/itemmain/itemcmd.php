@@ -101,6 +101,7 @@ namespace itemmain
 
 		if(!$itms||!$itmk||$itmk=='WN'||$itmk=='DN'){
 			$log .= '该物品不存在！<br>';
+			$itms = 0;
 			$mode = 'command';
 			return;
 		}
@@ -146,6 +147,7 @@ namespace itemmain
 		}
 		if(!$itms||!$itmk||$itmk=='WN'||$itmk=='DN'){
 			$log .= '该物品不存在！<br>';
+			$itms = 0;
 			$mode = 'command';
 			return;
 		}
