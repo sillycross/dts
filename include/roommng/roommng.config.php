@@ -9,6 +9,9 @@ $max_room_num = 5;
 $room_poll_port_low = 25000;
 $room_poll_port_high = 35000;
 
+//永续房超时时间
+$continuous_room_resettime = 3600;
+
 //房间类型
 $roomtypelist = Array(
 	
@@ -268,4 +271,5 @@ $roomtypelist = Array(
 	),
 );
 	
-?>
+/* End of file roommng.config.php */
+/* Location: /include/roommng/roommng.config.php */

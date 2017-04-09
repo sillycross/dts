@@ -87,7 +87,7 @@ while ($data = $db->fetch_array($roomresult))
 			$roomlist[$data['groomid']]['roomdata'] = $roomdata;
 			if($roomtypelist[$roomdata['roomtype']]['continuous']){
 				$rid = 's'.$data['groomid'];
-				$rtablepre = $gtablepre.$rid;
+				$rtablepre = $gtablepre.$rid.'_';
 				$endtimelimit = $now-300;
 				$result = $db->query("SELECT pid FROM {$rtablepre}players WHERE type=0 AND state <= 3 AND endtime > '$endtimelimit'");
 				$roomlist[$data['groomid']]['nowplayer'] = $db->num_rows($result);

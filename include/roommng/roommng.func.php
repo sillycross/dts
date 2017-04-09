@@ -225,15 +225,25 @@ function room_enter($id)
 	$header = 'index.php';
 	$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$id.'.txt'),1);
 	//global $cuser;
-	global $roomtypelist,$gametype,$startime,$now,$room_prefix,$alivenum;
+	global $roomtypelist, $gametype, $startime, $now, $room_prefix, $alivenum, $continuous_room_resettime;
 	if($roomtypelist[$rd['groomtype']]['continuous']){//永续房，绕过其他判断直接进房间
 		$room_prefix = 's'.$id;
 		$room_id = $id;
 		$tablepre = $gtablepre.$room_prefix.'_';
 		$wtablepre = $gtablepre.($room_prefix[0]);
-		\sys\room_auto_init();
 		\sys\load_gameinfo();
-		if($rd['groomstatus'] == 1){	//未开始则启动房间
+		$init_state = \sys\room_auto_init();
+		$need_reset = $rd['groomstatus'] == 1 ? true : false;//未开始则启动房间
+		//writeover('a.txt',$init_state);
+		if(!($init_state & 4)){//读取最后有玩家行动的时间，如果超时则需要重置，防止房间各种记录飙得太长
+			//writeover('a.txt',50);
+			$result = $db->query("SELECT endtime FROM {$tablepre}players WHERE type=0 ORDER BY endtime DESC LIMIT 1");
+			if($db->num_rows($result)){
+				$lastendtime = $db->fetch_array($result)['endtime'];				
+				if($now - $lastendtime > $continuous_room_resettime) $need_reset = 1;
+			}
+		}
+		if($need_reset){	
 			//$db->query("UPDATE {$gtablepre}game SET groomstatus = 2 WHERE groomid = '$id'");
 			$groomstatus = 2;
 			$gamestate = 0;

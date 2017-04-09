@@ -65,11 +65,11 @@ namespace searchmemory
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
 		//$searchmemory = array_decode($searchmemory);
-		if($mn == -99){
+		if($mn === 'ALL'){
 			$searchmemory = array();
 			if($shwlog) $log .= '你先前记下的一切东西都脱离了视线。<br>';
 			return;
-		}elseif($mn == -1){
+		}elseif($mn == -1){//把刚拿到的忘掉
 			$mn = sizeof($searchmemory) - 1;
 		}
 		if(isset($searchmemory[$mn])){
@@ -77,9 +77,21 @@ namespace searchmemory
 			if(isset($sm['itm'])) $rmn = $sm['itm'];
 			elseif(isset($sm['Pname'])) $rmn = $sm['Pname'];
 			array_splice($searchmemory,$mn,1);
-			if($shwlog) $log .= $rmn.'的位置脱离了你的视线。<br>';
+			if($shwlog==1) $log .= $rmn.'的位置脱离了你的视线。<br>';
+			//elseif($shwlog==2) $log .= $rmn.'的位置更新了。<br>';
 		}
 		return;
+	}
+	
+	//因为iid在拿到手上时就改变了，必须在finditem()之前就判断是不是记忆里的道具
+	function focus_item($iarr){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player'));
+		if(isset($iarr['iid'])){
+			$smn = seek_memory_by_id($iarr['iid'], 'iid');
+			if($smn >= 0) remove_memory($smn,2);
+		}
+		return $chprocess($iarr);
 	}
 	
 	function itemdrop($item){
@@ -115,14 +127,25 @@ namespace searchmemory
 		$chprocess();
 	}
 //	
+
+	function meetman($sid)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;		
+		eval(import_module('sys','logger','player','metman'));
+		//var_dump($sid);
+		$smn = seek_memory_by_id($sid, 'pid');
+		if($smn >= 0) remove_memory($smn,2);
+		$chprocess($sid);
+	}
+	
 //	function findenemy(&$edata){
 //		if (eval(__MAGIC__)) return $___RET_VALUE;
 //		eval(import_module('sys','player'));
-//		$amarr = array('pid' => $edata['pid'], 'Pname' => $edata['name'], 'pls' => $pls, 'smtype' => 'enemy');
-//		add_memory($amarr);
+//		$smn = seek_memory_by_id($edata['pid'], 'pid');
+//		if($smn >= 0) remove_memory($smn,2);
 //		$chprocess($edata);
 //	}
-	
+		
 	function searchmemory_discover($mn){//参数值代表取几号位searchmemory的探索记忆
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
@@ -148,7 +171,7 @@ namespace searchmemory
 				}else{
 					$log .= '<span class="lime">'.$mem['itm'].'还在原来的位置，你轻松拿到了它。</span><br>';
 					$marr=$db->fetch_array($result);
-					\itemmain\focus_item($marr);
+					focus_item($marr);
 					return;
 				}
 			}elseif(isset($mem['Pname'])){
@@ -178,7 +201,7 @@ namespace searchmemory
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
 		if(!empty($searchmemory)) {
-			remove_memory(-99);
+			remove_memory('ALL');
 		}
 		$chprocess($moveto);
 	}

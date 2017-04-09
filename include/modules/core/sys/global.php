@@ -157,6 +157,7 @@ namespace sys
 		global $room_prefix,$tablepre,$wtablepre,$gtablepre,$db;
 		//eval(import_module('sys'));
 		//自动初始化表
+		$init_state = 0;
 		if ($room_prefix!='')
 		{
 			//创建对应类型的优胜列表
@@ -165,6 +166,7 @@ namespace sys
 			{
 				$db->query("CREATE TABLE IF NOT EXISTS {$wtablepre}winners LIKE {$gtablepre}winners;");
 				$db->query("INSERT INTO {$wtablepre}winners (gid) VALUES (0);");
+				$init_state += 1;
 			}
 			//如果该类型优胜列表没有数据，则插入数据（有意义？）
 //			$result = $db->query("SELECT count(*) as cnt FROM {$wtablepre}winners");
@@ -184,6 +186,7 @@ namespace sys
 			if (!$r1)
 			{
 				$db->query("INSERT INTO {$gtablepre}game (groomid) VALUES ('$room_id')");
+				$init_state += 2;
 			}
 			//如果该房间对应的gameinfo存在但是已经开启游戏，对不起，关闭
 			//理论上这情况不应该出现，所以设个出错退出吧
@@ -210,8 +213,10 @@ namespace sys
 				$sql = file_get_contents(GAME_ROOT.'./gamedata/sql/shopitem.sql');
 				$sql = str_replace("\r", "\n", str_replace(' bra_', ' '.$tablepre, $sql));
 				$db->queries($sql);
+				$init_state += 4;
 			}
 		}
+		return $init_state;
 	}
 }
 

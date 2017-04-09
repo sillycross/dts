@@ -143,6 +143,9 @@ $tutorial_story[1] = Array(
 		'tips' => '“不错，你干掉了这个陪练对象。<br>击杀敌方后，可以<span class="yellow">捡取</span>敌方尸体上的<span class="yellow">装备、道具或者金钱</span>。1次只能捡取<span class="yellow">1件</span>东西，其他东西则需要再次找到尸体才能捡。<br>请选择<span class="yellow">【金钱（具体钱数）】</span>然后<span class="yellow">【提交】</span>。”<br>',
 		'object' => 'money',
 		'pulse' => '#amoney',
+		'obj2' => Array(
+			'meetnpc' => 91, 'meetsub' => 0,'corpse' => 1
+		),
 		'prog' => '“拿了别的东西？没关系，在原地<span class="yellow">搜寻</span>仍有机会发现那具尸体。<br>不过，游戏进入<span class="red">【连斗】</span>阶段或者其他玩家将尸体销毁后，就没法再发现尸体了。<br>',
 		'next' => 170
 	),

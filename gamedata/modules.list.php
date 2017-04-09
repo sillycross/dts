@@ -75,7 +75,6 @@ skill601,extra/club/skills/skill601/,1
 team,base/team/,1
 battle,base/battle/,1
 item_misc,base/items/item_misc/,1
-searchmemory,extra/misc/searchmemory/,1
 gameflow_combo,core/gameflow/gameflow_combo/,1
 advteam,extra/misc/advteam/,1
 attack,base/attack/,1
@@ -369,4 +368,5 @@ skill244,extra/club/skills/skill244/,1
 skill27,extra/club/skills/skill27/,1
 skill57,extra/club/skills/skill57/,1
 skill436,extra/card/skills/skill436/,1
+searchmemory,extra/searchmemory/,1
 smartmix,extra/misc/smartmix/,1
