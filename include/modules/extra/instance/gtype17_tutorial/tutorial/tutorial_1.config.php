@@ -180,7 +180,7 @@ $tutorial_story[1] = Array(
 		'obj2' => Array(
 			'item' => '【红杀铁剑】'
 		),
-		'pulse' => Array('#a31','#z'),
+		'pulse' => Array("a:contains('【红杀铁剑】')",'#z'),
 		'next' => 202		
 	),
 	202 => Array(
@@ -333,7 +333,7 @@ $tutorial_story[1] = Array(
 		'obj2' => Array(
 			'item' => '《斩系指南》'
 		),
-		'pulse' => Array('#ashop10','#a101','#c'),
+		'pulse' => Array('#ashop10',"a:contains('《斩系指南》')",'#c'),
 		'next' => 300	
 	),
 	300 => Array(
