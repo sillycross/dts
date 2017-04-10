@@ -62,6 +62,18 @@ namespace player
 		return $pdata;
 	}
 	
+	function fetch_original_playerdata_by_id($pid)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		if(isset($pdata_origin_pool[$pid])){
+			$pdata = $pdata_origin_pool[$pid];
+		}else{
+			$pdata = NULL;
+		}
+		return $pdata;
+	}
+	
 	//注意！全局变量$sdata虽然是个数组，但是其中的每一个键值都是引用，单纯复制这个数组会导致引用问题！
 	function load_playerdata($pdata)//其实最早这个函数是显示用的
 	{

@@ -26,7 +26,7 @@ namespace item_uc
 				$inf0 = $inf;
 				for ($i=0; $i<strlen($inf0); $i++)
 				{
-					if(!strpos($inf_place,$inf0[$i])!==false){//肢体受伤不会被异常药剂治愈
+					if(strpos($inf_place,$inf0[$i])===false){//肢体受伤不会被异常药剂治愈
 						$log .= "{$infname[$inf0[$i]]}状态解除了。<br>";
 						$inf = str_replace($inf0[$i],'',$inf);
 						$flag=true;

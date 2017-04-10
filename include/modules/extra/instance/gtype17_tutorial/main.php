@@ -4,19 +4,6 @@ namespace gtype17
 {
 	function init() {}
 
-	//教程房强制让禁区时间变为42年以后，变相不禁区
-	function rs_game($xmode = 0) {
-		if (eval(__MAGIC__)) return $___RET_VALUE;		
-		eval(import_module('sys','map'));
-		$chprocess($xmode);
-		
-		if ($xmode & 2 && $gametype == 17) {
-			//echo " - 禁区初始化 - ";
-			list($sec,$min,$hour,$day,$month,$year,$wday,$yday,$isdst) = localtime($starttime);
-			$areatime = $starttime + 1324512000;
-		}
-	}
-
 	//教程房特殊的npcinfo
 	function get_npclist(){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
@@ -106,13 +93,6 @@ namespace gtype17
 			}
 		}		
 		echo $areadata;
-	}
-	//教程房不真正连斗
-	function checkcombo(){
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys'));
-		if ($gametype!=17) return $chprocess();
-//		return;
 	}
 	
 	//待调整

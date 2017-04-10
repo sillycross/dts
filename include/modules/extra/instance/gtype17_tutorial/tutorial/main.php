@@ -2,7 +2,12 @@
 
 namespace tutorial
 {
-	function init() {}
+	function init() {
+		eval(import_module('player'));
+		$typeinfo[91]='测试品';
+		$killmsginfo[91]='任务结果为预料之外。';
+		$lwinfo[91]='任务成功完成，进入待机模式。';
+	}
 	
 	//提示部分的初始化函数，只在template页面中调用
 	function init_current_tutorial(){
@@ -16,7 +21,7 @@ namespace tutorial
 		if(!is_array($ct)) {
 			return Array('教程参数或代码错误，请检查tutorial模块代码<br>');
 		}
-		//届满闪烁指令，$uip是来自sys的全局函数。取值应为jQuery可以识别的选择器字符串，例子见config。
+		//界面闪烁指令，$uip是来自sys的全局函数。取值应为jQuery可以识别的选择器字符串，例子见config。
 		//界面的具体实现可以在game.js里shwData()函数调整。
 		if(!empty($ct['pulse'])) {
 			if(is_array($ct['pulse'])){
@@ -110,23 +115,26 @@ namespace tutorial
 	//使玩家教程阶段推进的函数，教程胜利也在此判断
 	//$tp=0为正常推进，直接进到config设定的下一阶段，一般是+10
 	//$tp=1为进行中。某几步玩家可能容易不按教程走，这个时候需要有提示
-	function tutorial_pushforward_process($tp = 0){
+	function tutorial_pushforward_process($tp = 'OK'){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
 		$ct = get_tutorial();
-		if(!$tp){
+		if('OK' === $tp){
+			if(isset($ct['obj2']['addchat']) && $ct['obj2']['addchat']['type'] == 'WHEN_DONE'){//行动后判定是否需要addchat
+				tutorial_addchat($ct['obj2']['addchat']['cont']);
+			}
 			if($ct['next'] < 0){//游戏结束判定
 				//$log.='教程结束。这句话最终版应该删掉。<br>';
 				$state = 4;
 				addnews($now, 'wintutorial', $name);	
-				$url = 'end.php';				
+				$url = 'end.php';
 				//\sys\gameover ( $now, 'end9', $name );
 			}else{
 				\skillbase\skill_setvalue(1000,'step',$ct['next']);
 				\skillbase\skill_setvalue(1000,'prog',0);
 				//$log.='教程推进到下一阶段。这句话最终版应该删掉。<br>';
 			}
-		}else{
+		}elseif('PROG' === $tp || true){
 			\skillbase\skill_setvalue(1000,'prog',1);//推进一半
 		}		
 		return;
@@ -195,60 +203,76 @@ namespace tutorial
 		eval(import_module('sys','player','logger','input','map'));
 		if($gametype == 17) {
 			$ct = get_tutorial();
+			list($tno, $tstep, $tprog) = get_current_tutorial_step();
 			if(isset($ct['obj2']['addnpc'])){//判定是否需要addnpc
 				$atype = $ct['obj2']['addnpc'];
 				$asub = $ct['obj2']['asub'];
 				$ateam = $pid;
 				tutorial_checknpc($atype,$asub,$ateam,1);
 			}
-			if(isset($ct['obj2']['addchat'])){//判定是否需要addchat
-				$add_chats = Array();
-				$uip['effect']['chatref'] = 1;
-				foreach($ct['obj2']['addchat'] as $cval){
-					$ctype = $cval['type'];
-					$cname = $cval['cname'];
-					$crecv = $cval['crecv'];
-					if($crecv == 'pid'){$crecv = $pid;}
-					if(strpos($cname,'pls')!==false){
-						if(strpos($cname,'rpls')!==false){	$cname = str_replace('rpls',$plsinfo[rand(0,sizeof($plsinfo)-1)],$cname);}
-						else{	$cname = str_replace('pls',$plsinfo[$pls],$cname);}
-					}
-					$ccont = $cval['ccont'];
-					if(strpos($ccont,'pls')!==false){
-						$ccont = str_replace('pls',$plsinfo[$pls],$ccont);
-					}
-					$add_chats = Array(
-						'type' => $ctype,
-						'time' => $now,
-						'send' => $cname,
-						'recv' => $crecv,
-						'msg' => $ccont
-					);
-					$db->array_insert("{$tablepre}chat", $add_chats);
-				}				
-				//$db->query ( "INSERT INTO {$tablepre}chat (type,`time`,send,recv,msg) VALUES ('3','$now','$cname','$cplsinfo','$ccont')" );
+			if(isset($ct['obj2']['addchat']) && $ct['obj2']['addchat']['type'] == 'IMMEDIATLY' && !$tprog){//行动前判定是否需要addchat
+				tutorial_addchat($ct['obj2']['addchat']['cont']);
 			}
+			$push_flag = NULL;
 			if(in_array($command, Array('team','destroy'))) {//部分行动限制掉
 				$log .= '<span class="red">教程模式不能做出这一指令，请按教程提示操作！<span><br>';
-				tutorial_pushforward_process(1);
-				return;
+				$push_flag = 'PROG';
+				$command = '';$mode = 'command';
 			} elseif($ct['object'] != $command && $ct['object'] !=  'any' && $ct['object'] != 'back' && $ct['object'] != 'itemget'){//一般行动不限死
 				//$log .= '<span class="yellow">请按教程提示操作！</span><br>';
 			}
 			if ((isset($sp_cmd) && $sp_cmd == 'sp_shop' && $ct['object'] == 'sp_shop') || ($command == 'shop4' && $ct['object'] == 'shop4') || ($command == 'itemmain' && isset($itemcmd) && $itemcmd == 'itemmix' && $ct['object'] == 'itemmain' && in_array('itemmix',$ct['obj2']))){//打开商店的初级、次级页面和合成页面则直接推进
-				tutorial_pushforward_process();
+				$push_flag = 'OK';
 			}elseif ($command == 'continue' || $ct['object'] ==  'any'){//continue和any则直接推进，之后返回
-				tutorial_pushforward_process();
-				return;
+				$push_flag = 'OK';
 			}elseif (($ct['object'] == 'clubsel' && $club) || ($ct['object'] == 'inff' && strpos($inf,'f')===false) || ($ct['object'] == 'itm3' && strpos($inf,'p')===false) || ($ct['object'] == 'move' && in_array('shop',$ct['obj2']) && \itemshop\check_in_shop_area($pls))){//防呆设计
 				$log .= "看来你比较熟练呢，我们继续。<br>";
-				tutorial_pushforward_process();
-				return;
+				$push_flag = 'OK';
 			}else{//否则判定推进一半
-				tutorial_pushforward_process(1);
-			}			
+				$push_flag = 'PROG';
+			}
+			if('OK' === $push_flag) tutorial_pushforward_process();
+			elseif('PROG' === $push_flag) tutorial_pushforward_process('PROG');
 		}
 		return $chprocess();
+	}
+	
+	function tutorial_addchat($addc_arr){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','logger','map'));
+		$r = NULL;
+		$add_chats = Array();
+		$uip['effect']['chatref'] = 1;
+		if(!empty($addc_arr) && is_array($addc_arr)){
+			foreach($addc_arr as $cval){
+				$ctype = $cval['type'];
+				$cname = $cval['cname'];
+				$crecv = $cval['crecv'];
+				if($crecv == 'pid'){$crecv = $pid;}
+				if(strpos($cname,'pls')!==false){
+					if(strpos($cname,'rpls')!==false){	$cname = str_replace('rpls',$plsinfo[rand(0,sizeof($plsinfo)-1)],$cname);}
+					else{	$cname = str_replace('pls',$plsinfo[$pls],$cname);}
+				}
+				$ccont = $cval['ccont'];
+				if(strpos($ccont,'o_pls')!==false){
+					$o_sdata = \player\fetch_original_playerdata_by_id($pid);
+					$o_pls = $o_sdata['pls'];
+					$ccont = str_replace('o_pls',$plsinfo[$o_pls],$ccont);
+				}
+				if(strpos($ccont,'pls')!==false){
+					$ccont = str_replace('pls',$plsinfo[$pls],$ccont);
+				}
+				$add_chats = Array(
+					'type' => $ctype,
+					'time' => $now,
+					'send' => $cname,
+					'recv' => $crecv,
+					'msg' => $ccont
+				);
+				$db->array_insert("{$tablepre}chat", $add_chats);
+			}	
+		}
+		return sizeof($addc_arr);
 	}
 	
 	//接管get_addnpclist()，教程房独有的addnpc数据
@@ -385,7 +409,7 @@ namespace tutorial
 					return;
 				}else{//尸体
 					$mnpcd = tutorial_checknpc($ct['obj2']['meetnpc'], $ct['obj2']['meetsub'], $pid, 0, 1);
-					if($mnpcd['pls'] == $sdata['pls']) meetman($mnpcd['pid']);
+					if($mnpcd['pls'] == $pls) meetman($mnpcd['pid']);
 					return;
 				}				
 			}
@@ -468,6 +492,14 @@ namespace tutorial
 			$ct = get_tutorial();		
 			\player\update_sdata();
 			$edata=\player\fetch_playerdata_by_pid($sid);
+			if(!$edata['type'] && $tutorial_force_teamer){//遭遇玩家时强制判定为队友，避免教程房大杀四方的情况发生
+				$log .= '你看到了似乎处于同样状况的玩家。<br>';
+				\team\findteam($edata);
+				return;
+			}elseif($edata['type'] && $edata['teamID'] && $edata['teamID'] != $pid){//遇到了跟自己不绑定的NPC
+				$log .= '你似乎看到了什么东西，但是耳机里的声音命令你把目光从那里移开，你照做了。<br>';
+				return;
+			}
 			if ($edata['hp']>0){
 				extract($edata,EXTR_PREFIX_ALL,'w');
 				if(isset($ct['obj2']['active']) && $ct['obj2']['active']){//判定玩家主动攻击
@@ -477,16 +509,81 @@ namespace tutorial
 				} elseif(isset($ct['obj2']['active']) && !$ct['obj2']['active']) {//判定玩家遭受攻击
 					\enemy\battle_wrapper($edata,$sdata,0);
 					return;
-				}else{//没设定active则放弃这一段判定，正常判定meetman
-					//但是遭遇玩家时强制判定为队友，避免教程房大杀四方的情况发生
-					if(!$fog && !$edata['type']){
-						\team\findteam($edata);
-						return;
-					} 
 				}
+				//没设定active则放弃这一段判定，正常判定meetman
 			}
 		}
 		return $chprocess($sid);
+	}
+	
+	function senditem(){//递送道具时无视teamID，我知道很丑陋，回头再改
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','map','logger','player','metman','input'));
+		
+		$mateid = str_replace('team','',$action);
+		if(!$mateid || strpos($action,'team')===false) $chprocess();
+		if($gametype == 17){
+			$edata=\player\fetch_playerdata_by_pid($mateid);
+			if(isset($edata) && !$edata['type'] && $edata['pls'] == $pls && $edata['hp'] > 0 && $edata['pid'] != $pid){
+				if($message){
+					$log .= "<span class=\"lime\">你对{$edata['name']}说：“{$message}”</span><br>";
+					$x = "<span class=\"lime\">{$name}对你说：“{$message}”</span>";
+					if(!$edata['type']) \logger\logsave($edata['pid'],$now,$x,'c');
+				}
+				if($command != 'back'){
+					$itmn = substr($command, 4);
+					if (!${'itms'.$itmn}) {
+						$log .= '此道具不存在！';
+						$action = '';
+						$mode = 'command';
+						return;
+					}
+					$itm = & ${'itm'.$itmn};
+					$itmk = & ${'itmk'.$itmn};
+					$itme = & ${'itme'.$itmn};
+					$itms = & ${'itms'.$itmn};
+					$itmsk = & ${'itmsk'.$itmn};
+		
+					for($i = 1;$i <= 6; $i++){
+						if(!$edata['itms'.$i]) {
+							$edata['itm'.$i] = $itm; $edata['itmk'.$i] = $itmk; 
+							$edata['itme'.$i] = $itme; $edata['itms'.$i] = $itms; $edata['itmsk'.$i] = $itmsk;
+							$log .= "你将<span class=\"yellow\">".$edata['itm'.$i]."</span>送给了<span class=\"yellow\">{$edata['name']}</span>。<br>";
+							$x = "<span class=\"yellow\">$name</span>将<span class=\"yellow\">".$edata['itm'.$i]."</span>送给了你。";
+							if(!$edata['type']) \logger\logsave($edata['pid'],$now,$x,'t');
+							addnews($now,'senditem',$name,$edata['name'],$itm);
+							\player\player_save($edata);
+							$itm = $itmk = $itmsk = '';
+							$itme = $itms = 0;
+							$action = '';
+							return;
+						}
+					}
+					$log .= "<span class=\"yellow\">{$edata['name']}</span> 的包裹已经满了，不能赠送物品。<br>";
+				}
+				$action = '';
+				$mode = 'command';
+				return;
+			}
+		}
+		$chprocess();
+	}
+	
+	//如果被攻击导致HP小于一定值则把HP设为这个值	
+	function player_damaged_enemy(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','logger','tutorial'));
+		$o_pa_hp = $pa['hp']; $o_pd_hp = $pd['hp'];
+		$chprocess($pa, $pd, $active);
+		if($gametype == 17){
+			if(isset($tutorial_tough_hp) && 
+			(($active && $pd['type'] && $o_pa_hp > $tutorial_tough_hp && $pa['hp'] < $tutorial_tough_hp)
+			 || (!$active && $pa['type'] && $o_pd_hp > $tutorial_tough_hp && $pd['hp'] < $tutorial_tough_hp))){
+				$pd['hp'] = $tutorial_tough_hp;
+				$log.='<span class="linen">“你也太脆了，真是伤脑筋啊……”</span>不知为何，你忽然觉得受到的伤害没那么严重了。<br>';
+			}
+		}
 	}
 	
 	//接管get_hitrate()
@@ -649,18 +746,32 @@ namespace tutorial
 		return $chprocess($t, $n, $a, $b, $c, $d, $e);
 	}
 	
-	//教程房不起雾
-	function rs_game($xmode = 0) 
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
+	//教程房天气，禁区时间增加
+	function rs_game($xmode = 0) {
+		if (eval(__MAGIC__)) return $___RET_VALUE;		
+		eval(import_module('sys','map','tutorial'));
 		$chprocess($xmode);
 		
-		eval(import_module('sys'));
-		if ($gametype == 17 && $xmode & 2) {
-			$weather = rand(0,2);
+		if ($xmode & 2 && $gametype == 17) {
+			//echo " - 禁区初始化 - ";
+			if(isset($tutorial_areahour_augment)){
+				list($sec,$min,$hour,$day,$month,$year,$wday,$yday,$isdst) = localtime($starttime);
+				$areatime = $starttime + $tutorial_areahour_augment;
+			}
+			if(isset($tutorial_allowed_weather)){
+				list($wmin,$wmax) = $tutorial_allowed_weather;
+				$weather = rand($wmin,$wmax);
+			}
+			
 			save_gameinfo();
 		}
+	}
+	
+	//教程房是否真正连斗
+	function checkcombo(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','tutorial'));
+		if (!$tutorial_disable_combo || $gametype!=17) return $chprocess();
 	}
 }
 
