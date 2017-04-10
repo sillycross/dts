@@ -1,6 +1,12 @@
 <?php
 if(!defined('IN_GAME')) exit('Access Denied'); 
 
+$tutorial_tough_hp = 50;//被攻击时如果HP大于这个值，则变为这个值
+$tutorial_areahour_augment = 22075200;//禁区时间追加值，单位分钟
+$tutorial_disable_combo = true;//阻止连斗
+$tutorial_force_teamer = true;//强制认为所有玩家都是队友
+$tutorial_allowed_weather = array(0,2);//允许出现的天气
+
 $tutorial_story[1] = Array(
 	10 => Array(
 		'tips' => '“能听到我说话吗？<br>我是……嗯，我是武侠作家<span class="yellow">李天明</span>。<br>我在这个虚拟世界取材已经有好几年了，而你好像是个新手。如果你不想在悲惨地死在这里，就好好记住我要说的话。”<br>',
@@ -34,16 +40,16 @@ $tutorial_story[1] = Array(
 		'tips' => '“而这里是<span class="yellow">操作框</span>，你会在这里发出大部分指令，并得到指令的反馈。”<br>',
 		'object' => 'continue',
 		'pulse' => '#cmd',
-		'next' => 55
-	),
-	55 => Array(
-		'tips' => '“进入游戏要做的第一件事，就是选择一个<span class="yellow">【内定称号】</span>。<br>大逃杀有24个内定称号，其中有……呃拿错台词了。<br>不同的<span class="yellow">【内定称号】</span>对应着不同的技能、特色和发展方向，作为新手，你暂时理解成某种<span class="yellow">‘专长’</span>就好。<br>现在点击<span class="yellow">【内定称号】</span>下拉列表，任选1个称号吧。”<br>',
-		'object' => 'clubsel',
-		'pulse' => '#clubsel',
 		'next' => 60
 	),
+//	55 => Array(
+//		'tips' => '“进入游戏要做的第一件事，就是选择一个<span class="yellow">【内定称号】</span>。<br>大逃杀有24个内定称号，其中有……呃拿错台词了。<br>不同的<span class="yellow">【内定称号】</span>对应着不同的技能、特色和发展方向，作为新手，你暂时理解成某种<span class="yellow">‘专长’</span>就好。<br>现在点击<span class="yellow">【内定称号】</span>下拉列表，任选1个称号吧。”<br>',
+//		'object' => 'clubsel',
+//		'pulse' => '#clubsel',
+//		'next' => 60
+//	),
 	60 => Array(
-		'tips' => '“熟悉了游戏界面，也选好了称号，现在让我们迈出第一步。请点击<span class="yellow">【移动】</span>下拉列表，然后选择别的区域。”<br>',
+		'tips' => '“熟悉了游戏界面，现在让我们迈出第一步。请点击<span class="yellow">【移动】</span>下拉列表，然后选择别的区域。”<br>',
 		'object' => 'move',
 		'obj2' => Array('leave'),
 		'pulse' => '#moveto',
@@ -182,12 +188,15 @@ $tutorial_story[1] = Array(
 		'object' => 'continue',
 		'obj2' => Array(
 			'addchat' => Array(
-				Array(
-					'type' => 5,
-					'cname' => '',
-					'crecv' => 'pid',
-					'ccont' => '警告，以下区域即将成为禁区：pls'
-				),
+				'type' => 'IMMEDIATLY',
+				'cont' => array(
+					Array(
+						'type' => 5,
+						'cname' => '',
+						'crecv' => 'pid',
+						'ccont' => '警告，以下区域即将成为禁区：pls'
+					),
+				)
 			),
 		),
 		'pulse' => '#continue',
@@ -199,17 +208,20 @@ $tutorial_story[1] = Array(
 		'obj2' => Array(
 			'leave',
 			'addchat' => Array(
-				Array(
-					'type' => 5,
-					'cname' => '',
-					'crecv' => 'pid',
-					'ccont' => '游戏进入连斗阶段！'
-				),
-				Array(
-					'type' => 5,
-					'cname' => '',
-					'crecv' => 'pid',
-					'ccont' => '增加禁区：pls'
+				'type' => 'WHEN_DONE',
+				'cont' => array(
+					Array(
+						'type' => 5,
+						'cname' => '',
+						'crecv' => 'pid',
+						'ccont' => '游戏进入连斗阶段！'
+					),
+					Array(
+						'type' => 5,
+						'cname' => '',
+						'crecv' => 'pid',
+						'ccont' => '增加禁区：o_pls'
+					)
 				)
 			),
 		),
@@ -222,24 +234,27 @@ $tutorial_story[1] = Array(
 		'object' => 'continue',
 		'obj2' => Array(
 			'addchat' => Array(
-				Array(
-					'type' => 3,
-					'cname' => 'pls 各路党派 AC搬运职人',
-					'crecv' => 'pid',
-					'ccont' => '我觉得我还可以抢救一下……'
-				),
-				Array(
-					'type' => 3,
-					'cname' => 'rpls 各路党派 AC字幕职人',
-					'crecv' => 'pid',
-					'ccont' => '我觉得我还可以抢救一下……'
-				),
-				Array(
-					'type' => 3,
-					'cname' => 'rpls 各路党派 AC翻唱职人',
-					'crecv' => 'pid',
-					'ccont' => '我觉得我还可以抢救一下……'
-				)
+				'type' => 'IMMEDIATLY',
+				'cont' => array(
+					Array(
+						'type' => 3,
+						'cname' => 'pls 各路党派 AC搬运职人',
+						'crecv' => 'pid',
+						'ccont' => '我觉得我还可以抢救一下……'
+					),
+					Array(
+						'type' => 3,
+						'cname' => 'rpls 各路党派 AC字幕职人',
+						'crecv' => 'pid',
+						'ccont' => '我觉得我还可以抢救一下……'
+					),
+					Array(
+						'type' => 3,
+						'cname' => 'rpls 各路党派 AC翻唱职人',
+						'crecv' => 'pid',
+						'ccont' => '我觉得我还可以抢救一下……'
+					)
+				)				
 			),
 		),
 		'pulse' => Array('#continue','#gamedate'),
