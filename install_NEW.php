@@ -522,7 +522,10 @@ if(!$action) {
 	if(!$exist_error) {
 
 		if(!$write_error) {
-			if($database == 'mysql') $database = PHP_VERSION >= 7.0 ? 'mysqli': $database;
+			if(function_exists('mysql_connect')) $default_database = 'mysql';
+			elseif(function_exists('mysqli_connect')) $default_database = 'mysqli';
+			if(!$database) $database = $default_database;
+			if($database == 'mysql' && !function_exists('mysql_connect')) $database = $default_database;
 
 			if($_POST['saveconfig'] && is_writeable($server_config)) {
 				$gamefounder = setconfig($_POST['gamefounder']);
@@ -552,7 +555,7 @@ if(!$action) {
 			}
 
 			include $server_config;
-			if($database == 'mysql') $database = PHP_VERSION >= 7.0 ? 'mysqli': $database;
+			//if($database == 'mysql') $database = PHP_VERSION >= 7.0 ? 'mysqli': $database;
 			include './include/db/db_'.$database.'.class.php';
 			$db = new dbstuff;
 			$db->connect($dbhost, $dbuser, $dbpw);
@@ -709,7 +712,8 @@ if(!$action) {
 
 	$query = $db->query("SELECT VERSION()");
 	$curr_mysql_version = $db->result($query, 0);
-	if($curr_mysql_version < '5.0') {
+	$version_unit = (int)explode('.',$curr_mysql_version)[0];
+	if($version_unit < 5) {
 		$msg .= "<font color=\"#FF0000\">$lang[mysql_version_low]</font>\t";
 		$quit = TRUE;
 	}
@@ -887,9 +891,9 @@ if(!$action) {
               </tr>
               <tr>
                 <td bgcolor="#E3E3EA" align="center"><?php echo $lang['env_mysql']; ?></td>
-                <td bgcolor="#EEEEF6" align="center">MySQL 5.5+</td>
-                <td bgcolor="#E3E3EA" align="center">MySQLi 5.0+</td>
-                <td bgcolor="#EEEEF6" align="center"><?php echo $curr_mysql_version; ?></td>
+                <td bgcolor="#EEEEF6" align="center">MySQL 5.0+</td>
+                <td bgcolor="#E3E3EA" align="center">MySQL 5.7+</td>
+                <td bgcolor="#EEEEF6" align="center"><?php echo ($version_unit >= 10 && $default_database == 'mysql') ? 'mariaDB '.$curr_mysql_version : $database.' '.$curr_mysql_version; ?></td>
               </tr>
               <tr>
                 <td bgcolor="#E3E3EA" align="center"><?php echo $lang['env_diskspace']; ?></td>
