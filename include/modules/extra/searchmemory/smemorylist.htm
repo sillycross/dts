@@ -1,5 +1,5 @@
 <div>
 <!--{loop $searchmemory $smn $sm}-->
-<input type="button" value="<!--{if isset($sm['itm'])}-->获取 $sm['itm']<!--{elseif isset($sm['Pname'])}--><!--{if $sm['smtype'] == 'enemy'}-->追查<!--{elseif $sm['smtype'] == 'corpse'}-->查看<!--{elseif $sm['smtype'] == 'team'}-->招呼<!--{/if}--> $sm['Pname']<!--{/if}-->" onclick="$('mode').value='command';$('command').value='memory{$smn}';postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="button" value="<!--{if isset($sm['itm'])}-->获取 $sm['itm']<!--{elseif isset($sm['Pname'])}--><!--{if $sm['smtype'] == 'enemy'}-->迎战 $sm['Pname']<!--{elseif $sm['smtype'] == 'corpse'}-->检查 $sm['Pname'] 的尸体<!--{elseif $sm['smtype'] == 'team'}-->和 $sm['Pname'] 打招呼<!--{/if}--><!--{/if}-->" onclick="$('mode').value='command';$('command').value='memory{$smn}';postCmd('gamecmd','command.php');this.disabled=true;">
 <!--{/loop}-->
 </div>

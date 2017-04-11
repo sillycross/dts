@@ -30,8 +30,8 @@ namespace searchmemory
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','searchmemory'));
 		if($marr){
-			if($max_searchmemory <= 0) $max_searchmemory = 1;
-			while(sizeof($searchmemory) >= $max_searchmemory){
+			if($searchmemory_max_slotnum <= 0) $searchmemory_max_slotnum = 1;
+			while(sizeof($searchmemory) >= $searchmemory_max_slotnum){
 				remove_memory();
 			}
 			$amflag = 0;
@@ -172,6 +172,7 @@ namespace searchmemory
 					$log .= '<span class="lime">'.$mem['itm'].'还在原来的位置，你轻松拿到了它。</span><br>';
 					$marr=$db->fetch_array($result);
 					focus_item($marr);
+					\itemmain\itemadd();
 					return;
 				}
 			}elseif(isset($mem['Pname'])){
@@ -197,6 +198,7 @@ namespace searchmemory
 		$chprocess($schmode);
 	}
 	
+	//移动后丢失所有探索记忆
 	function move_to_area($moveto){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));

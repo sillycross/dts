@@ -39,7 +39,7 @@ namespace smartmix
 		//itms为零的道具不参与判断
 		$packn = array();
 		for($i=1;$i<=6;$i++){
-			if(${'itms'.$i} > 0){
+			if(!empty(${'itms'.$i})){
 				$packn[] = $i;
 				$packname[] = \itemmix\itemmix_name_proc(${'itm'.$i});
 			}
