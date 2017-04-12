@@ -172,7 +172,7 @@ namespace searchmemory
 					$log .= '<span class="lime">'.$mem['itm'].'还在原来的位置，你轻松拿到了它。</span><br>';
 					$marr=$db->fetch_array($result);
 					focus_item($marr);
-					\itemmain\itemadd();
+					\itemmain\itemget();
 					return;
 				}
 			}elseif(isset($mem['Pname'])){

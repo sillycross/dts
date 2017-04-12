@@ -68,6 +68,22 @@ namespace sys
 		}
 		$db->query("INSERT INTO {$tablepre}newsinfo (`time`,`news`,`a`,`b`,`c`,`d`,`e`) VALUES ('$t','$n','$a','$b','$c','$d','$e')");
 	}
+	
+	function addchat($ctype, $msg,  $csender = '', $creceiver = '', $ctime = 0){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		if(!$ctime) $ctime = $now;
+		$aarr = array(
+			'type' => $ctype,
+			'time' => $ctime,
+			'send' => $csender,
+			'recv' => $creceiver,
+			'msg' => $msg
+		);
+		$result = $db->array_insert("{$tablepre}chat", $aarr);
+		return $result;
+		//$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,recv,msg) VALUES ('$ctype', '$ctime', '$csender', '$creceiver', '$msg')");
+	}
 
 	function parse_chat($chat)
 	{
@@ -93,7 +109,7 @@ namespace sys
 			}
 		} elseif($chat['type'] == '4') {
 			$premsg = "<span class='yellow chat4'>";
-			$msg = '【'.$chatinfo[$chat['type']].'】'.$chat['send'].$chat['msg'].'('.date("H:i:s",$chat['time']).')';//有冒号的区别
+			//$msg = '【'.$chatinfo[$chat['type']].'】'.$chat['send'].'：'.$chat['msg'].'('.date("H:i:s",$chat['time']).')';//有冒号的区别
 			//$msg = "<span class=\"yellow\">【{$chatinfo[$chat['type']]}】{$chat['msg']}".date("\(H:i:s\)",$chat['time']).'</span><br>';
 		} elseif($chat['type'] == '5') {
 			$premsg = "<span class='yellow chat5'>";
