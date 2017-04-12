@@ -17,7 +17,8 @@ if(($sendmode == 'send')&&$chatmsg) {
 			if(strpos($chatmsg,'/post') === 0) {
 				$chatmsg = substr($chatmsg,6);
 				if($chatmsg){
-					$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,msg) VALUES ('4','$now','$cuser','$chatmsg')");
+					\sys\addchat(4, $chatmsg, $cuser);
+					//$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,msg) VALUES ('4','$now','$cuser','$chatmsg')");
 				}
 			} else {
 				$chatdata = array('lastcid' => $lastcid, 'msg' => Array('<span class="red">指令错误。</span><br>'));
@@ -27,9 +28,11 @@ if(($sendmode == 'send')&&$chatmsg) {
 		}
 	} else { 
 		if($chattype == 0) {
-			$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,msg) VALUES ('0','$now','$cuser','$chatmsg')");
+			\sys\addchat(0, $chatmsg, $cuser);
+			//$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,msg) VALUES ('0','$now','$cuser','$chatmsg')");
 		} elseif($chattype == 1) {
-			$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,recv,msg) VALUES ('1','$now','$cuser','$teamID','$chatmsg')");
+			\sys\addchat(1, $chatmsg, $cuser, $teamID);
+			//$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,recv,msg) VALUES ('1','$now','$cuser','$teamID','$chatmsg')");
 		}
 	}
 }
