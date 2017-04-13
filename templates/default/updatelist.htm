@@ -3,7 +3,47 @@
 
 <div style="width:800px; margin:0 auto; text-align:left;font-size:15px; line-height:22px;">
 <h2>更新日志</h2>
-<h3>11月5日</h3>
+<h3>2017年4月14日</h3>
+游戏功能更新：<br>
+<ul>
+	<li>新增了【教程房】这一房间类型。教程房最多只能同时存在1间，玩家在教程房中会全程得到提示，完成一定操作即可教程胜利。
+	<li>新增了【探索记忆】系统，玩家丢弃的道具和逃跑的敌人现在会记录在面板上（合计最多5个），点击按钮可以回访那些探索结果（回访角色时，先制率会下降）。
+	<li>新增了【合成提示】系统，玩家只要打开合成列表就能看到能够合成的配方，同时还可以根据道具名交叉反查任意配方。
+	<li>管理后台前三项系统参数修改功能已经可以使用了。
+	<li>歌魂系统修改，允许同时叠加多种buff
+	<li>官方网站链接已更改为dts设定站
+	<li>新增了dts的历史页面，并把捐助链接移入
+</ul>
+数据调整：
+<ul>
+	<li>现在GM在游戏中修改NPC数据也会生成一条进行状况。
+	<li>追加了【驱寒颂歌】歌词卡片（0禁随机掉落3个，礼品盒也能开出），消耗120点歌魂，给自己和同一地图玩家增加10点HP上限、SP上限和金钱，并减少10点RP。
+	<li>现在全恢复型药剂只能治疗头胸手足受伤之外的异常状态。
+</ul>
+部署相关：
+<ul>
+	<li>现在WIN下也可以使用daemon了，在把php.exe所在文件夹纳入环境变量的前提下，可以运行acdts-daemonctl.ps1来代替相应.sh文件的功能。
+	<li>新增install_NEW.php，简化部署和重装的步骤，具体见readme文件
+	<li>新增tools_db_alter.php，简化alter永续数据表的工作量。需先更新install/bra.install.sql内对应表的结构，然后以有权限的cookie访问。
+</ul>
+开发相关：
+<ul>
+	<li>增加了db.mysqli.php，以支持php7
+	<li>现在db.*.php、roommng.*.php、modulemng.*.php三类文件的位置更改为/include/下对应的文件夹；modules.*.php移动到/include/modules/文件夹目录下
+	<li>/gamedata/cache文件夹重命名为config文件夹，对应调用代码已修改；删去了不适用的card_1.php
+	<li>房间数据库结构大改，现在不存在全局room表和各game分表，所有单局游戏信息和房间信息统一储存在全局game表中；初始化房间时必然会重置游戏，而不是在某些时候继承之前的游戏数据。
+	<li>新增了大量复用性函数，如gencode() gdecode() init_dbstuff() \sys\addchat() \lvlctl\calc_upexp() array_clone()
+	<li>fetch_player系列函数机制修改，现在sys模块会初始化一个数据池，在一次脚本运行周期内，fetch_player系列函数会先去数据池找，找不到才会查询数据库
+	<li>player_save机制修改，在写数据库之前跟数据池进行比对，有更改的列才会update，减少数据库负担
+	<li>新增parse_news_prepare()处理遗言信息，parse_news()追加了一个参数exarr，现在不再试图对任何消息生成遗言。nparse_news()改名load_news()
+	<li>修正了大量因参数未定义或不正确带来的notice和warning级别问题
+	<li>socket_select()写法修改，现在不会在某些系统下导致socket卡死了
+	<li>删去了sql里无用的字段，优化了字段顺序
+	<li>删去了过时的compatible_json_encode()
+	<li>game.*.js里shwData()函数里新增了给页面元素加闪烁效果的部分，虽然很简陋
+</ul>
+<hr>
+<h3>2016年11月5日</h3>
 数据调整：<br>
 <ul>
 <li>调整了周日活动【精工】技能的伤害系数

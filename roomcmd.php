@@ -9,7 +9,7 @@ $not_ready_command_flag = 0;
 
 if ($_POST['command']!='ready' && $_GET['command']!='ready')
 {
-	//define('LOAD_CORE_ONLY',TRUE);
+	define('LOAD_CORE_ONLY',TRUE);
 	//这个只是为了防某些无聊玩家注入，本来不是ready命令，但过滤掉特殊字符后就成了ready……
 	$not_ready_command_flag = 1;
 }

@@ -6,7 +6,7 @@ namespace searchmemory
 	
 	function fetch_playerdata($Pname){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys'));
+		//eval(import_module('sys'));
 		$pdata = $chprocess($Pname);
 		$pdata['searchmemory'] = array_decode($pdata['searchmemory']);
 		return $pdata;
@@ -14,7 +14,7 @@ namespace searchmemory
 	
 	function fetch_playerdata_by_pid($pid){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys'));
+		//eval(import_module('sys'));
 		$pdata = $chprocess($pid);
 		$pdata['searchmemory'] = array_decode($pdata['searchmemory']);
 		return $pdata;
@@ -28,7 +28,7 @@ namespace searchmemory
 	
 	function add_memory($marr){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','logger','searchmemory'));
+		eval(import_module('player','logger','searchmemory'));
 		if($marr){
 			if($searchmemory_max_slotnum <= 0) $searchmemory_max_slotnum = 1;
 			while(sizeof($searchmemory) >= $searchmemory_max_slotnum){
@@ -52,7 +52,7 @@ namespace searchmemory
 	
 	function seek_memory_by_id($id, $ikind = 'pid'){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player'));
+		eval(import_module('player'));
 		foreach($searchmemory as $i => $sm){
 			if(isset($sm[$ikind]) && $sm[$ikind] == $id){
 				return $i;
@@ -63,7 +63,7 @@ namespace searchmemory
 	
 	function remove_memory($mn = 0, $shwlog = 1){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','logger'));
+		eval(import_module('player','logger'));
 		//$searchmemory = array_decode($searchmemory);
 		if($mn === 'ALL'){
 			$searchmemory = array();
@@ -86,7 +86,7 @@ namespace searchmemory
 	//因为iid在拿到手上时就改变了，必须在finditem()之前就判断是不是记忆里的道具
 	function focus_item($iarr){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player'));
+		//eval(import_module('sys','player'));
 		if(isset($iarr['iid'])){
 			$smn = seek_memory_by_id($iarr['iid'], 'iid');
 			if($smn >= 0) remove_memory($smn,2);
@@ -96,7 +96,7 @@ namespace searchmemory
 	
 	function itemdrop($item){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player'));
+		eval(import_module('player'));
 		$res = $chprocess($item);
 		if(!empty($res)) {
 			list($dropid,$dropname) = $res;
@@ -108,7 +108,7 @@ namespace searchmemory
 	
 	function act(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','input'));
+		eval(import_module('player','input'));
 		if ($mode == 'command' && strpos($command,'memory')===0){
 			$smn = substr($command,6);
 			searchmemory_discover($smn);
@@ -131,7 +131,7 @@ namespace searchmemory
 	function meetman($sid)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;		
-		eval(import_module('sys','logger','player','metman'));
+		//eval(import_module('sys','logger','player','metman'));
 		//var_dump($sid);
 		$smn = seek_memory_by_id($sid, 'pid');
 		if($smn >= 0) remove_memory($smn,2);
@@ -148,7 +148,7 @@ namespace searchmemory
 		
 	function searchmemory_discover($mn){//参数值代表取几号位searchmemory的探索记忆
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','logger'));
+		eval(import_module('sys','player','logger','input'));
 		$mn = (int)$mn;
 		//$searchmemory = array_decode($searchmemory);
 		//$mn = (int)substr($schmode,6) - 1;
@@ -186,7 +186,9 @@ namespace searchmemory
 				}else{
 					$log .= '<span class="lime">'.$mem['Pname'].'还在原来的位置。</span><br>';
 					$marr=$db->fetch_array($result);
+					$sdata['sm_active_debuff'] = 1;//临时这么写写
 					\team\meetman($mid);
+					unset($sdata['sm_active_debuff']);
 					return;
 				}
 			}
@@ -198,10 +200,23 @@ namespace searchmemory
 		$chprocess($schmode);
 	}
 	
+	//迎战探索记忆的敌人时，玩家先制率debuff
+	function calculate_active_obbs_multiplier(&$ldata,&$edata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player','logger','searchmemory'));
+		$obbs = 1.0;
+		if(isset($sdata['sm_active_debuff']) && $sdata['sm_active_debuff']) {
+			$obbs *= $searchmemory_battle_active_debuff;
+			$log .= '<span class="red">两次打扰同一玩家使你的先制率降低了。</span><br>';
+		}
+		return $obbs;
+	}
+	
 	//移动后丢失所有探索记忆
 	function move_to_area($moveto){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player'));
+		eval(import_module('player'));
 		if(!empty($searchmemory)) {
 			remove_memory('ALL');
 		}
