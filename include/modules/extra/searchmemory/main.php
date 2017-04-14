@@ -208,7 +208,7 @@ namespace searchmemory
 		$obbs = 1.0;
 		if(isset($sdata['sm_active_debuff']) && $sdata['sm_active_debuff']) {
 			$obbs *= $searchmemory_battle_active_debuff;
-			$log .= '<span class="red">两次打扰同一玩家使你的先制率降低了。</span><br>';
+			//$log .= '<span class="red">两次打扰同一玩家使你的先制率降低了。</span><br>';
 		}
 		return $obbs;
 	}
