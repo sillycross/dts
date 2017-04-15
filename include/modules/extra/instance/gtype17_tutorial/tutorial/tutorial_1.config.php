@@ -113,7 +113,7 @@ $tutorial_story[1] = Array(
 		'tips' => '“然后直接点击人形状态条的<span class="red">【受伤部位】</span>进行<span class="yellow">包扎</span>。包扎需要消耗体力，请确保你的体力充足。”<br>',
 		'object' => 'inff',
 		'pulse' => '#inff',
-		'prog' => '“如果已经包扎完了，请点击<span class="red">【强行继续】</span>”<br>',
+		'prog' => '“如果已经包扎完了，请随便执行一次行动。”<br>',
 		'next' => 130
 	),
 	130 => Array(
@@ -123,7 +123,7 @@ $tutorial_story[1] = Array(
 			'itmk' => Array('Ca','Cp'),
 		),
 		'pulse' => ".itmsingle :contains('紧急药剂') __BUTTON__",
-		'prog' => '“如果已经处理完了，请点击<span class="red">【强行继续】</span>”<br>',
+		'prog' => '“如果已经处理完了，请随便执行一次行动。”<br>',
 		'next' => 140
 	),
 	140 => Array(
