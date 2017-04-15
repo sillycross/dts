@@ -266,7 +266,11 @@ class dbstuff {
 	}
 	
 	function halt($message = '', $sql = '') {
+		header('Content-Type: text/HTML; charset=utf-8');
+		header( 'Content-Encoding: none; ' );
 		echo '数据库错误。请联系管理员。<br><br>';
+		$dberror = $this->errno().' '.$this->error();
+		echo '错误信息：'.$dberror.'<br><br>';
 		echo '以下是stack dump<br>';
 		var_export(debug_backtrace());
 		die();
