@@ -35,8 +35,10 @@ if (!$___MOD_SRV)
 
 echo '管理脚本状况： ';
 
-$t=file_get_contents(GAME_ROOT.'./gamedata/tmp/server/scriptalive.txt');
-$t=(int)$t; $ff=1;
+$t1=(int)file_get_contents(GAME_ROOT.'./gamedata/tmp/server/scriptalive.txt');
+$t2=(int)filemtime(GAME_ROOT.'./gamedata/tmp/server/scriptalive.txt');
+$t=max($t1,$t2);
+$ff=1;
 if (time()-$t<=10)
 {
 	echo '<font color="green">正在运行</font><br>';
@@ -44,7 +46,7 @@ if (time()-$t<=10)
 else 
 {
 	echo '<font color="red">不在运行</font><br><br>';
-	echo '<font color="blue">请从服务器shell中启动./acdts-daemonctl.sh（Linux）或者./acdts-daemonctl.ps1（WIN）</font><br>';
+	echo '<font color="blue">请从服务器shell中启动./acdts-daemonctl.sh（Linux）或者启动./acdts-daemonctl.bat（WIN）</font><br>';
 	$ff = 0;
 }
 echo '<br>';

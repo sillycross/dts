@@ -11,6 +11,7 @@ if ($_POST['command']!='ready' && $_GET['command']!='ready')
 {
 	//define('LOAD_CORE_ONLY',TRUE);
 	//这个只是为了防某些无聊玩家注入，本来不是ready命令，但过滤掉特殊字符后就成了ready……
+	//现在永续房间需要用这个入口，估计不能load_core_only了
 	$not_ready_command_flag = 1;
 }
 

@@ -27,7 +27,7 @@ CREATE TABLE `bra_game` (
   `areatime` int(10) unsigned NOT NULL DEFAULT '0',
   `areawarn` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `arealist` varchar(255) NOT NULL DEFAULT '',
-  `gamevars` varchar(255) NOT NULL DEFAULT '',
+  `gamevars` varchar(1000) NOT NULL DEFAULT '',
   PRIMARY KEY (`groomid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
