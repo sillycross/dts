@@ -53,8 +53,8 @@ if exist .\gamedata\tmp\server\script_quit (
       echo %time% New server request received. Launching a new daemon...
     )  
     if !tp! neq -1 (
-      :: 微软虐我千百遍，我待微软如初恋。有朝一日掌微软，虐遍天下IT院。拼接网址并调用powershell的curl命令，我真是个天才
-      start /min powershell "$postParams = @{conn_passwd=%pw%;command='start';is_root=!tp!};$res=curl -uri '%sv%/command.php' -timeoutsec 10 -method POST -body $postParams;if($res){$res=$res.content;}else{$res=0;};echo $res | out-file -encoding ascii .\gamedata\tmp\daemon_start.temp"
+      :: 微软虐我千百遍，我待微软如初恋。有朝一日掌微软，虐遍天下IT院。拼接网址并调用powershell的invoke-webrequest命令，我真是个天才
+      start /min powershell "$postParams = @{conn_passwd=%pw%;command='start';is_root=!tp!};$res=invoke-webrequest -uri '%sv%/command.php' -timeoutsec 10 -method POST -body $postParams;if($res){$res=$res.content;}else{$res=0;};echo $res | out-file -encoding ascii .\gamedata\tmp\daemon_start.temp"
     )
   ) else (
     if !dmd0! equ 1 (
