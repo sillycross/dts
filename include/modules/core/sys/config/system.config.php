@@ -38,7 +38,7 @@ namespace sys
 	//历史优胜者显示条数
 	$winlimit = 50;
 	//翻页列表直接跳转页码的个数
-	$pagelimit = 11;
+	$pagelimit = 7;
 	
 	//失焦冻结时间，单位分钟
 	//$lostfocusmin = 10;

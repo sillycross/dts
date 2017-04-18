@@ -15,7 +15,7 @@
 	<br>
 	<!--{if isset($markarr)}-->
 		<!--{if $larger_mark}--><input style="width: 80px;" type="button" value="上一页" onclick="document['list']['start'].value = '$larger_mark';document['list'].submit();"><!--{/if}-->
-		<!--{if $start != $largest_mark}--><a onclick="document['list']['start'].value = '$largest_mark';document['list'].submit();">第{$largest_mark}回</a>...<!--{/if}-->
+		<!--{if $start != $largest_mark}--><a onclick="document['list']['start'].value = '$largest_mark';document['list'].submit();">第{$largest_mark}回</a>&nbsp;...<!--{/if}-->
 		<!--{eval rsort($markarr);}-->
 		<!--{loop $markarr $minfo}-->
 			&nbsp;
@@ -26,7 +26,7 @@
 			<!--{/if}-->
 			&nbsp;
 		<!--{/loop}-->
-		<!--{if $start != $smallest_mark}-->...<a onclick="document['list']['start'].value = '$smallest_mark';document['list'].submit();">第{$smallest_mark}回</a><!--{/if}-->
+		<!--{if $start != $smallest_mark}-->&nbsp;...<a onclick="document['list']['start'].value = '$smallest_mark';document['list'].submit();">第{$smallest_mark}回</a><!--{/if}-->
 		<!--{if $smaller_mark}--><input style="width: 80px;" type="button" value="下一页" onclick="document['list']['start'].value = '$smaller_mark';document['list'].submit();"><!--{/if}-->
 		&nbsp;&nbsp;&nbsp;<input id="winnermark" style="width: 60px;" type="text" value="$start">
 		&nbsp;<input style="width: 80px" type="button" value="跳转" onclick="document['list']['start'].value = $('winnermark').value;document['list'].submit();">
