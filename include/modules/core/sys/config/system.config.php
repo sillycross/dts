@@ -12,7 +12,7 @@ namespace sys
 	//是否缓存css文件。0=不缓存，1=缓存
 	$allowcsscache = 1;
 	//游戏版本
-	$gameversion = 'N.E.W. v1.2';
+	$gameversion = 'N.E.W. v1.21';
 	//站长留言
 	//$systemmsg = '';
 	//游戏开始方式 0=后台手动开始，1=每天固定时间开始，2=上局结束后，间隔固定小时后的整点开始，3=上局结束后，间隔固定分钟开始
@@ -37,6 +37,8 @@ namespace sys
 	$ranklimit = 20;
 	//历史优胜者显示条数
 	$winlimit = 50;
+	//翻页列表直接跳转页码的个数
+	$pagelimit = 7;
 	
 	//失焦冻结时间，单位分钟
 	//$lostfocusmin = 10;
