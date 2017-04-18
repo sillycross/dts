@@ -53,14 +53,47 @@ if($command == 'info') {
 	$result = $db->query("SELECT gid FROM {$wtablepre}winners ORDER BY gid DESC LIMIT 1");
 	if ($db->num_rows($result)) { $zz=$db->fetch_array($result); $mgamenum = $zz['gid']; } else $mgamenum = 0;
 	
-	$listnum = floor($mgamenum/$winlimit);
-
-	for($i=0;$i<$listnum;$i++) {
-		$snum = ($listnum-$i)*$winlimit;
-		$enum = $snum-$winlimit+1;
-		$listinfo .= "<input style='width: 120px;' type='button' value='{$snum} ~ {$enum} 回' onClick=\"document['list']['start'].value = '$snum'; document['list'].submit();\">";
-		if(is_int(($i+1)/3)&&$i){$listinfo .= '<br>';}
+	//计算书签
+	//$cmark
+	$max_mark_count= (int)ceil($mgamenum/$winlimit);
+//	if($cmark > $max_mark_count) $cmark = $max_mark_count;
+//	elseif($cmark < 1) $cmark = 1;
+	//页码大于1才显示书签
+	if($max_mark_count > 1){
+		if(!isset($start) || !$start) $start = $mgamenum;
+		if($start > $mgamenum) $start = $mgamenum;
+		elseif($start < $winlimit) $start = $winlimit;
+		$larger_mark = $smaller_mark = 0;
+		$largest_mark = $mgamenum;
+		$smallest_mark = $winlimit;
+		if($start < $largest_mark) {
+			$larger_mark = $start + $winlimit;
+			if($larger_mark > $largest_mark) $lager_mark = $largest_mark;
+		}
+		if($start > $smallest_mark) {
+			$smaller_mark = $start - $winlimit;
+			if($smaller_mark < $smallest_mark) $smaller_mark = $smallest_mark;
+		}
+		if($pagelimit <= 0) $pagelimit = 1;
+		$markarr = array($start);
+		for($i=0;$i<=(int)$pagelimit;$i++){
+			$lmark = $start + $winlimit * $i;
+			$smark = $start - $winlimit * $i;
+			if($lmark < $largest_mark && !in_array($lmark,$markarr)) $markarr[] = $lmark;
+			if($smark > $smallest_mark && !in_array($smark,$markarr)) $markarr[] = $smark;
+			if(sizeof($markarr) >= $pagelimit) break;
+		}
+		//sort($markarr);
 	}
+	
+//	$listnum = floor($mgamenum/$winlimit);
+//
+//	for($i=0;$i<$listnum;$i++) {
+//		$snum = ($listnum-$i)*$winlimit;
+//		$enum = $snum-$winlimit+1;
+//		$listinfo .= "<input style='width: 120px;' type='button' value='{$snum} ~ {$enum} 回' onClick=\"document['list']['start'].value = '$snum'; document['list'].submit();\">";
+//		if(is_int(($i+1)/3)&&$i){$listinfo .= '<br>';}
+//	}
 	
 	if ($command=='replay')
 	{

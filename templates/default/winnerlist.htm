@@ -80,9 +80,23 @@
 <input type="hidden" id="user_prefix" name="user_prefix" value="$user_prefix">
 <input type="hidden" name="command" value="list">
 <input type="hidden" name="start" value="$gamenum">
-<input style="width: 120px;" type="button" value="最近 {$winlimit} 回" onClick="document['list'].submit();">
 <br>
-<!--{if isset($listinfo)}-->$listinfo<!--{/if}-->
+<!--{if isset($markarr)}-->
+	<!--{if $larger_mark}--><input style="width: 120px;" type="button" value="上一页" onclick="document['list']['start'].value = '$larger_mark';document['list'].submit();"><!--{/if}-->
+	<!--{if $start != $largest_mark}--><a onclick="document['list']['start'].value = '$largest_mark';document['list'].submit();">第{$largest_mark}回</a>...<!--{/if}-->
+	<!--{eval rsort($markarr);}-->
+	<!--{loop $markarr $minfo}-->
+		&nbsp;
+		<!--{if $minfo == $start}-->
+			<span class="evergreen">第{$minfo}回</span>
+		<!--{else}-->
+			<a onclick="document['list']['start'].value = '$minfo';document['list'].submit();">第{$minfo}回</a>
+		<!--{/if}-->
+		&nbsp;
+	<!--{/loop}-->
+	<!--{if $start != $smallest_mark}-->...<a onclick="document['list']['start'].value = '$smallest_mark';document['list'].submit();">第{$smallest_mark}回</a><!--{/if}-->
+	<!--{if $smaller_mark}--><input style="width: 120px;" type="button" value="下一页" onclick="document['list']['start'].value = '$smaller_mark';document['list'].submit();"><!--{/if}-->
+<!--{/if}-->
 </form>
 
 <!--{if $command=='replay' && defined('MOD_REPLAY')}-->
