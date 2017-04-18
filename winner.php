@@ -29,6 +29,11 @@ if($command == 'info') {
 		$hnewsinfo = readover($hnewsfile);
 	}
 } else {
+	
+	$result = $db->query("SELECT gid FROM {$wtablepre}winners ORDER BY gid DESC LIMIT 1");
+	if ($db->num_rows($result)) { $zz=$db->fetch_array($result); $mgamenum = $zz['gid']; } else $mgamenum = 0;
+	$max_mark_count= (int)ceil($mgamenum/$winlimit);
+	
 	if(!isset($start) || !$start){
 		$start = 0;
 		if ($showall==1){
@@ -37,6 +42,9 @@ if($command == 'info') {
 			$result = $db->query("SELECT gid,gametype,teamID,winnum,namelist,name,icon,gd,wep,wmode,getime,motto,hdp,hdmg,hkp,hkill FROM {$wtablepre}winners WHERE wmode!='1' ORDER BY gid desc LIMIT $winlimit");
 		}
 	} else {
+		$start = (int)$start;
+		if($start > $mgamenum) $start = $mgamenum;
+		elseif($start < $winlimit) $start = $winlimit;
 		if ($showall==1){
 			$result = $db->query("SELECT gid,gametype,teamID,winnum,namelist,name,icon,gd,wep,wmode,getime,motto,hdp,hdmg,hkp,hkill FROM {$wtablepre}winners WHERE gid<='$start' ORDER BY gid desc LIMIT $winlimit");
 		}else{
@@ -50,19 +58,10 @@ if($command == 'info') {
 		$winfo[$wdata['gid']] = $wdata;
 	}
 	
-	$result = $db->query("SELECT gid FROM {$wtablepre}winners ORDER BY gid DESC LIMIT 1");
-	if ($db->num_rows($result)) { $zz=$db->fetch_array($result); $mgamenum = $zz['gid']; } else $mgamenum = 0;
 	
-	//计算书签
-	//$cmark
-	$max_mark_count= (int)ceil($mgamenum/$winlimit);
-//	if($cmark > $max_mark_count) $cmark = $max_mark_count;
-//	elseif($cmark < 1) $cmark = 1;
-	//页码大于1才显示书签
+
 	if($max_mark_count > 1){
 		if(!isset($start) || !$start) $start = $mgamenum;
-		if($start > $mgamenum) $start = $mgamenum;
-		elseif($start < $winlimit) $start = $winlimit;
 		$larger_mark = $smaller_mark = 0;
 		$largest_mark = $mgamenum;
 		$smallest_mark = $winlimit;
