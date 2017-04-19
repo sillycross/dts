@@ -28,23 +28,30 @@ namespace searchmemory
 	
 	function add_memory($marr){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('player','logger','searchmemory'));
-		if($marr){
-			if($searchmemory_max_slotnum <= 0) $searchmemory_max_slotnum = 1;
-			while(sizeof($searchmemory) >= $searchmemory_max_slotnum){
+		eval(import_module('sys','player','logger','searchmemory'));
+		if($gametype != 1 && $marr){
+			$searchmemory_real_slotnum = $searchmemory_max_slotnum;
+			if($weather == 8) $searchmemory_real_slotnum -= 2;
+			elseif($weather == 9) $searchmemory_real_slotnum -= 4;
+			if($searchmemory_real_slotnum < 1) $searchmemory_real_slotnum = 1;
+			while(sizeof($searchmemory) >= $searchmemory_real_slotnum){
 				remove_memory();
 			}
 			$amflag = 0;
 			if(isset($marr['itm'])){
 				$amn = $marr['itm'];
 				$amflag = 1;
+				if($fog) $log .= '你能隐约看到'.$amn.'在哪里。<br>';
+				else $log .= '你设法保持对'.$amn.'的持续观察。<br>';
 			}elseif(isset($marr['Pname'])){
 				$amn = $marr['Pname'];
 				$amflag = 1;
+				if($marr['smtype'] == 'corpse' )$log .=  '你设法保持对'.$amn.'的尸体的持续观察。<br>';
+				elseif($fog) $log .= '你努力让那个人影保持在视野之内。<br>';
+				else $log .= '你躲远了，不过你依然观察着'.$amn.'。<br>';
 			}
 			if($amflag){
 				array_push($searchmemory, $marr);
-				$log .= '你设法保持对'.$amn.'的持续观察……<br>';
 			}
 		}
 		return;
@@ -52,10 +59,12 @@ namespace searchmemory
 	
 	function seek_memory_by_id($id, $ikind = 'pid'){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('player'));
-		foreach($searchmemory as $i => $sm){
-			if(isset($sm[$ikind]) && $sm[$ikind] == $id){
-				return $i;
+		eval(import_module('sys','player'));
+		if($gametype != 1){
+			foreach($searchmemory as $i => $sm){
+				if(isset($sm[$ikind]) && $sm[$ikind] == $id){
+					return $i;
+				}
 			}
 		}
 		return -1;
@@ -63,22 +72,26 @@ namespace searchmemory
 	
 	function remove_memory($mn = 0, $shwlog = 1){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('player','logger'));
-		//$searchmemory = array_decode($searchmemory);
-		if($mn === 'ALL'){
-			$searchmemory = array();
-			if($shwlog) $log .= '你先前记下的一切东西都脱离了视线。<br>';
-			return;
-		}elseif($mn == -1){//把刚拿到的忘掉
-			$mn = sizeof($searchmemory) - 1;
-		}
-		if(isset($searchmemory[$mn])){
-			$sm = $searchmemory[$mn];
-			if(isset($sm['itm'])) $rmn = $sm['itm'];
-			elseif(isset($sm['Pname'])) $rmn = $sm['Pname'];
-			array_splice($searchmemory,$mn,1);
-			if($shwlog==1) $log .= $rmn.'的位置脱离了你的视线。<br>';
-			//elseif($shwlog==2) $log .= $rmn.'的位置更新了。<br>';
+		eval(import_module('sys','player','logger'));
+		if($gametype != 1){
+			if($mn === 'ALL'){
+				$searchmemory = array();
+				if($shwlog) $log .= '你先前记下的一切东西都脱离了视线。<br>';
+				return;
+			}elseif($mn == -1){//把刚拿到的忘掉
+				$mn = sizeof($searchmemory) - 1;
+			}
+			if(isset($searchmemory[$mn])){
+				$sm = $searchmemory[$mn];
+				if(isset($sm['itm'])) $rmn = $sm['itm'];
+				elseif(isset($sm['Pname'])) $rmn = $sm['Pname'];
+				array_splice($searchmemory,$mn,1);
+				if($shwlog==1){
+					if($fog && isset($sm['Pname']) && $sm['smtype'] != 'corpse') $log .= '先前那个人影脱离了你的视线。<br>';
+					else $log .= $rmn.'的位置脱离了你的视线。<br>';
+				}
+				//elseif($shwlog==2) $log .= $rmn.'的位置更新了。<br>';
+			}
 		}
 		return;
 	}
@@ -108,21 +121,23 @@ namespace searchmemory
 	
 	function act(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('player','input'));
-		if ($mode == 'command' && strpos($command,'memory')===0){
-			$smn = substr($command,6);
-			searchmemory_discover($smn);
-		}elseif(($mode == 'combat' && $command == 'back') || ($mode == 'corpse' && $command == 'menu')){
-			$eid = str_replace('enemy','',str_replace('corpse','',$action));
-			$edata = \player\fetch_playerdata_by_pid($eid);
-			$amarr = array('pid' => $edata['pid'], 'Pname' => $edata['name'], 'pls' => $pls, 'smtype' => 'unknown');
-			if($mode == 'combat') $amarr['smtype'] = 'enemy';
-			elseif($mode == 'corpse') $amarr['smtype'] = 'corpse';
-			add_memory($amarr);
-//			$smn = seek_memory_by_id($enemyid);
-//			if($smn >= 0){
-//				remove_memory($smn, 0);
-//			}
+		eval(import_module('sys','player','input'));
+		if($gametype != -1){
+			if ($mode == 'command' && strpos($command,'memory')===0){
+				$smn = substr($command,6);
+				searchmemory_discover($smn);
+			}elseif(($mode == 'combat' && $command == 'back') || ($mode == 'corpse' && $command == 'menu')){
+				$eid = str_replace('enemy','',str_replace('corpse','',$action));
+				$edata = \player\fetch_playerdata_by_pid($eid);
+				$amarr = array('pid' => $edata['pid'], 'Pname' => $edata['name'], 'pls' => $pls, 'smtype' => 'unknown');
+				if($mode == 'combat') $amarr['smtype'] = 'enemy';
+				elseif($mode == 'corpse') $amarr['smtype'] = 'corpse';
+				add_memory($amarr);
+	//			$smn = seek_memory_by_id($enemyid);
+	//			if($smn >= 0){
+	//				remove_memory($smn, 0);
+	//			}
+			}
 		}
 		$chprocess();
 	}
@@ -184,7 +199,8 @@ namespace searchmemory
 					$mode = 'command';
 					return;
 				}else{
-					$log .= '<span class="lime">'.$mem['Pname'].'还在原来的位置。</span><br>';
+					if($fog && $mem['smtype'] != 'corpse') $log .= '<span class="lime">人影还在原来的位置。</span><br>';
+					else $log .= '<span class="lime">'.$mem['Pname'].'还在原来的位置。</span><br>';
 					$marr=$db->fetch_array($result);
 					$sdata['sm_active_debuff'] = 1;//临时这么写写
 					\team\meetman($mid);

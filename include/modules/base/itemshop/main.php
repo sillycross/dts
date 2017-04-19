@@ -137,7 +137,7 @@ namespace itemshop
 			$log .= '你的钱不够，不能购买此物品！<br><br>';
 			$mode = 'command';
 			return;
-		} elseif(!preg_match('/^(WC|WD|WF|Y|B|C|TN|GB|H|P|V|M|X|p|ygo)/',$shopiteminfo['itmk'])&&$bnum>1) {
+		} elseif( ($shopiteminfo['itms']==='∞' || !preg_match('/^(WC|WD|WF|Y|B|C|TN|GB|H|P|V|M|X|p|ygo)/',$shopiteminfo['itmk']) )&&$bnum>1) {
 			$log .= '此物品一次只能购买一个。<br><br>';
 			$mode = 'command';
 			return;
@@ -158,7 +158,7 @@ namespace itemshop
 		$itm0 = $shopiteminfo['item'];
 		$itmk0 = $shopiteminfo['itmk'];
 		$itme0 = $shopiteminfo['itme'];
-		$itms0 = $shopiteminfo['itms']*$bnum;
+		$itms0 = $shopiteminfo['itms'] === '∞' ? $shopiteminfo['itms'] : $shopiteminfo['itms']*$bnum;
 		$itmsk0 = $shopiteminfo['itmsk'];
 
 		\itemmain\itemget();	
