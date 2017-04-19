@@ -150,7 +150,7 @@ namespace smartmix
 							}
 						}
 						$ostuff = substr($ostuff,0,-3);
-						$log .= '<span class="yellow">'.$ostuff.'</span>可超量合成'.$oresult;
+						$log .= '<span class="yellow">'.$ostuff.'</span>可超量合成'.$oresult.'<br>';
 					}
 					foreach($mix_sync_available as $mval){
 						$sstuff = $sresult = '';
@@ -163,13 +163,13 @@ namespace smartmix
 								foreach($mv['choices'] as $mc){
 									$sresult .= '<li>'.\itemmix\parse_itemmix_resultshow($mc).'</li>';
 								}
-								$sresult = substr($sresult,0,-3);
+								//$sresult = substr($sresult,0,-3);
 							}
 						}
 						$sstuff = substr($sstuff,0,-3);
-						$log .= '<span class="yellow">'.$sstuff.'</span>可同调合成'.$sresult;
+						$log .= '<span class="yellow">'.$sstuff.'</span>可同调合成'.$sresult.'<br>';
 					}
-					$log .= '<br><br>';
+					$log .= '<br>';
 				}
 			}
 		}
