@@ -29,6 +29,11 @@ if($command == 'info') {
 		$hnewsinfo = readover($hnewsfile);
 	}
 } else {
+	
+	$result = $db->query("SELECT gid FROM {$wtablepre}winners ORDER BY gid DESC LIMIT 1");
+	if ($db->num_rows($result)) { $zz=$db->fetch_array($result); $mgamenum = $zz['gid']; } else $mgamenum = 0;
+	$max_mark_count= (int)ceil($mgamenum/$winlimit);
+	
 	if(!isset($start) || !$start){
 		$start = 0;
 		if ($showall==1){
@@ -37,6 +42,9 @@ if($command == 'info') {
 			$result = $db->query("SELECT gid,gametype,teamID,winnum,namelist,name,icon,gd,wep,wmode,getime,motto,hdp,hdmg,hkp,hkill FROM {$wtablepre}winners WHERE wmode!='1' ORDER BY gid desc LIMIT $winlimit");
 		}
 	} else {
+		$start = (int)$start;
+		if($start > $mgamenum) $start = $mgamenum;
+		elseif($start < $winlimit) $start = $winlimit;
 		if ($showall==1){
 			$result = $db->query("SELECT gid,gametype,teamID,winnum,namelist,name,icon,gd,wep,wmode,getime,motto,hdp,hdmg,hkp,hkill FROM {$wtablepre}winners WHERE gid<='$start' ORDER BY gid desc LIMIT $winlimit");
 		}else{
@@ -50,17 +58,41 @@ if($command == 'info') {
 		$winfo[$wdata['gid']] = $wdata;
 	}
 	
-	$result = $db->query("SELECT gid FROM {$wtablepre}winners ORDER BY gid DESC LIMIT 1");
-	if ($db->num_rows($result)) { $zz=$db->fetch_array($result); $mgamenum = $zz['gid']; } else $mgamenum = 0;
 	
-	$listnum = floor($mgamenum/$winlimit);
 
-	for($i=0;$i<$listnum;$i++) {
-		$snum = ($listnum-$i)*$winlimit;
-		$enum = $snum-$winlimit+1;
-		$listinfo .= "<input style='width: 120px;' type='button' value='{$snum} ~ {$enum} 回' onClick=\"document['list']['start'].value = '$snum'; document['list'].submit();\">";
-		if(is_int(($i+1)/3)&&$i){$listinfo .= '<br>';}
+	if($max_mark_count > 1){
+		if(!isset($start) || !$start) $start = $mgamenum;
+		$larger_mark = $smaller_mark = 0;
+		$largest_mark = $mgamenum;
+		$smallest_mark = $winlimit;
+		if($start < $largest_mark) {
+			$larger_mark = $start + $winlimit;
+			if($larger_mark > $largest_mark) $lager_mark = $largest_mark;
+		}
+		if($start > $smallest_mark) {
+			$smaller_mark = $start - $winlimit;
+			if($smaller_mark < $smallest_mark) $smaller_mark = $smallest_mark;
+		}
+		if($pagelimit <= 0) $pagelimit = 1;
+		$markarr = array($start);
+		for($i=0;$i<=(int)$pagelimit;$i++){
+			$lmark = $start + $winlimit * $i;
+			$smark = $start - $winlimit * $i;
+			if($lmark < $largest_mark && !in_array($lmark,$markarr)) $markarr[] = $lmark;
+			if($smark > $smallest_mark && !in_array($smark,$markarr)) $markarr[] = $smark;
+			if(sizeof($markarr) >= $pagelimit) break;
+		}
+		//sort($markarr);
 	}
+	
+//	$listnum = floor($mgamenum/$winlimit);
+//
+//	for($i=0;$i<$listnum;$i++) {
+//		$snum = ($listnum-$i)*$winlimit;
+//		$enum = $snum-$winlimit+1;
+//		$listinfo .= "<input style='width: 120px;' type='button' value='{$snum} ~ {$enum} 回' onClick=\"document['list']['start'].value = '$snum'; document['list'].submit();\">";
+//		if(is_int(($i+1)/3)&&$i){$listinfo .= '<br>';}
+//	}
 	
 	if ($command=='replay')
 	{
