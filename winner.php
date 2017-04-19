@@ -39,7 +39,7 @@ if($command == 'info') {
 		if ($showall==1){
 			$result = $db->query("SELECT gid,gametype,teamID,winnum,namelist,name,icon,gd,wep,wmode,getime,motto,hdp,hdmg,hkp,hkill FROM {$wtablepre}winners ORDER BY gid desc LIMIT $winlimit");
 		}else{
-			$result = $db->query("SELECT gid,gametype,teamID,winnum,namelist,name,icon,gd,wep,wmode,getime,motto,hdp,hdmg,hkp,hkill FROM {$wtablepre}winners WHERE wmode!='1' ORDER BY gid desc LIMIT $winlimit");
+			$result = $db->query("SELECT gid,gametype,teamID,winnum,namelist,name,icon,gd,wep,wmode,getime,motto,hdp,hdmg,hkp,hkill FROM {$wtablepre}winners WHERE wmode!='1' AND wmode!='4' AND wmode!=6 AND wmode!=8 ORDER BY gid desc LIMIT $winlimit");
 		}
 	} else {
 		$start = (int)$start;
@@ -47,8 +47,8 @@ if($command == 'info') {
 		elseif($start < $winlimit) $start = $winlimit;
 		if ($showall==1){
 			$result = $db->query("SELECT gid,gametype,teamID,winnum,namelist,name,icon,gd,wep,wmode,getime,motto,hdp,hdmg,hkp,hkill FROM {$wtablepre}winners WHERE gid<='$start' ORDER BY gid desc LIMIT $winlimit");
-		}else{
-			$result = $db->query("SELECT gid,gametype,teamID,winnum,namelist,name,icon,gd,wep,wmode,getime,motto,hdp,hdmg,hkp,hkill FROM {$wtablepre}winners WHERE gid<='$start' AND wmode!='1' ORDER BY gid desc LIMIT $winlimit");
+		}else{//房间优胜记录不显示全部死亡、无人参加、GM中止、挑战结束
+			$result = $db->query("SELECT gid,gametype,teamID,winnum,namelist,name,icon,gd,wep,wmode,getime,motto,hdp,hdmg,hkp,hkill FROM {$wtablepre}winners WHERE gid<='$start' AND wmode!='1' AND wmode!='4' AND wmode!=6 AND wmode!=8 ORDER BY gid desc LIMIT $winlimit");
 		}
 	}
 	while($wdata = $db->fetch_array($result)) {

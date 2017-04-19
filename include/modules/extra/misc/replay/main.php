@@ -66,14 +66,14 @@ namespace replay
 		if (!$___MOD_SRV || !$___MOD_CODE_ADV3) return;
 		//游戏结束后，保存上局的录像文件并清空目录准备下一局
 		//主游戏：激活数>1或者最高伤害>400的幸存；任何解禁；任何核爆；任何解离
-		//房间：激活数>1的幸存（任何队伍和SOLO模式）；任何解离；周常活动；资金>10000并幸存的伐木模式
+		//房间：激活数>1的幸存（任何队伍和SOLO模式）；任何解离；周常活动；资金>100000并幸存的伐木模式
 		$replay_flag = 0;
 		if( ($winmode == 2 && ($validnum > 1 || $hdamage > 400)) || ($winmode == 3) || ($winmode == 5) || ($winmode == 7) || ($winmode == 8 && $gametype < 10)){
 			$replay_flag = 1;
 		}elseif($winmode == 8 && $gametype == 15){
 			$result = $db->query("SELECT money FROM {$wtablepre}winners WHERE gid={$gamenum}");
 			$wmoney = $db->fetch_array($result)['money'];
-			if($wmoney >= 10000) $replay_flag = 1;
+			if($wmoney >= 100000) $replay_flag = 1;
 		}
 		if($replay_flag){
 			$curdatalib = file_get_contents(GAME_ROOT.'./gamedata/javascript/datalib.current.txt');
