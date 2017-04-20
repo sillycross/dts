@@ -97,6 +97,7 @@ function module_validity_check($file)
 				array_push($b,substr($key,strlen($modname)+1));
 				
 		$init_exist=0;
+		
 		foreach ($b as $key) if ($key!='')
 			if ($key!='init')
 			{
@@ -116,11 +117,21 @@ function module_validity_check($file)
 				global $faillog;
 				$faillog="<span><font color=\"red\">模块{$modname}的函数{$key}的开头没有写上".
 					'<pre>if (eval(__MAGIC__)) return $___RET_VALUE;</pre>这句话。</font></span><br>';
-					
 				$expect=$___TEMP_DRY_RUN_COUNTER+1;
 				global $___TEMP_FUNCNAME_EXPECT; $___TEMP_FUNCNAME_EXPECT = $modname.'\\'.$key;
 				$__RET='';
-				eval('$__RET='.$modname.'\\'.$key.'();');
+				//php 7.1以上版本，函数参数不足时会Error，因此用反射函数获得参数个数，再用call_user_func_array()回调回去
+				$reflect = new ReflectionFunction($modname.'\\'.$key);
+				$default_pars = $reflect->getParameters();
+				$testing_pars = array();
+				$null = NULL;
+				foreach ($default_pars as $pv)
+				{
+					if( $pv->isPassedByReference()) $testing_pars[] = &$null;
+					else  $testing_pars[] = NULL;
+				}
+				eval('$__RET=call_user_func_array(\''.$modname.'\\'.$key.'\',$testing_pars);');
+				unset($reflect);
 				$faillog='';
 				if ($__RET!='23333333' || $___TEMP_DRY_RUN_COUNTER!=$expect)
 				{
@@ -223,7 +234,7 @@ function module_validity_check($file)
 	return 1;
 }
 
-function printmodtable($file, $ff=0)
+function printmodtable($file, $readonly=0)
 {
 	if (!file_exists($file))
 	{
@@ -265,10 +276,10 @@ function printmodtable($file, $ff=0)
 		echo '<tr><td>';
 		if ($inuse==0)
 			echo "<font color=\"grey\">{$modname}</font>";
-		else  if ($inuse==1)
-				echo "<font color=\"green\">{$modname}</font>";
-			else  echo "<font color=\"red\">{$modname}</font>";
-		echo '</td><td>';
+		elseif ($inuse==1)
+			echo "<font color=\"green\">{$modname}</font>";
+		else echo "<font color=\"red\">{$modname}</font>";
+		echo '</td><td style="max-width:600px;word-wrap:break-word">';
 		if ($inuse==2)
 		{
 			echo "<font color=\"red\">损坏</font>";
@@ -288,9 +299,9 @@ function printmodtable($file, $ff=0)
 							$flag=1;
 							if ($modinuse[$j]==0 && $key!='root')
 								echo "<font color=\"red\">{$key}</font>";
-							else  if ($modinuse[$j]==1 || $key=='root')
-									echo "<font color=\"green\">{$key}</font>";
-								else  echo "<font color=\"red\">{$key}</font>";
+							elseif ($modinuse[$j]==1 || $key=='root')
+								echo "<font color=\"green\">{$key}</font>";
+							else echo "<font color=\"red\">{$key}</font>";
 							break;
 						}
 					if (!$flag)
@@ -301,7 +312,7 @@ function printmodtable($file, $ff=0)
 				echo '&nbsp;';
 			}
 		}
-		echo '</td><td>';
+		echo '</td><td style="max-width:600px;word-wrap:break-word">';
 		if ($inuse==2)
 		{
 			echo "<font color=\"red\">损坏</font>";
@@ -321,9 +332,9 @@ function printmodtable($file, $ff=0)
 							$flag=1;
 							if ($modinuse[$j]==0 && $key!='root')
 								echo "<font color=\"grey\">{$key}</font>";
-							else  if ($modinuse[$j]==1 || $key=='root')
-									echo "<font color=\"green\">{$key}</font>";
-								else  echo "<font color=\"grey\">{$key}</font>";
+							elseif ($modinuse[$j]==1 || $key=='root')
+								echo "<font color=\"green\">{$key}</font>";
+							else echo "<font color=\"grey\">{$key}</font>";
 							break;
 						}
 					if (!$flag)
@@ -354,7 +365,7 @@ function printmodtable($file, $ff=0)
 							$flag=1;
 							if ($modinuse2[$j]==0 && $key!='root')
 								echo "<font color=\"grey\">{$key}</font>";
-							else  echo "<font color=\"red\">{$key}</font>";
+							else echo "<font color=\"red\">{$key}</font>";
 							break;
 						}
 					if (!$flag)
@@ -366,27 +377,47 @@ function printmodtable($file, $ff=0)
 			}
 		}
 		echo '</td><td>';
-		if (!$ff)
+		if (!$readonly)
 		{
 			if ($modinuse[$i]==2)
 			{
 				if ($modinuse2[$i]==0)
-					echo '<span><font color="black">[启用]</font></span>';
-				else  echo '<a href="modulemng.php?action=disable&sid='.$i.'" style="text-decoration: none"><span><font color="red">[禁用]</font></span></a>';
+					echo '<span><font color="black">[无效]</font></span>';
+				else echo '<a href="modulemng.php?action=disable&sid='.$i.'" style="text-decoration: none"><span><font color="red">[禁用]</font></span></a>';
 			}
-			else  if ($modinuse2[$i]==0)
-					echo '<a href="modulemng.php?action=enable&sid='.$i.'" style="text-decoration: none"><span><font color="blue">[启用]</font></span></a>';
-				else  echo '<a href="modulemng.php?action=disable&sid='.$i.'" style="text-decoration: none"><span><font color="red">[禁用]</font></span></a>';
-		}
-		else
-		{
-			if ($modinuse2[$i]==0)
-				echo '<a href="modulemng.php?action=remove&sid='.$i.'" style="text-decoration: none"><span><font color="red">[删除模块]</font></span></a>';
+			elseif ($modinuse2[$i]==0)
+				echo '<a href="modulemng.php?action=enable&sid='.$i.'" style="text-decoration: none"><span><font color="blue">[启用]</font></span></a>';
+			else echo '<a href="modulemng.php?action=disable&sid='.$i.'" style="text-decoration: none"><span><font color="red">[禁用]</font></span></a>';
+			echo ' | <a href="modulemng.php?action=remove&sid='.$i.'" style="text-decoration: none"><span><font color="red">[删除模块]</font></span></a>';
 		}
 		echo '</td></tr>';
 	}
 	echo '</table>';
 }
-		
-?>
 
+function show_adv_state(){
+	global $___MOD_CODE_ADV1, $___MOD_CODE_ADV2, $___MOD_CODE_ADV3, $___MOD_SRV;
+	$lang_on = '<font color="green">已开启</font>';
+	$lang_off = '<font color="red">已关闭</font>';
+	$lang_unav = '<font color="red">未生效</font>';
+	$lang_turn_on = '[点此开启]';
+	$lang_turn_off = '[点此关闭]';
+	$adv_state_log = '';
+	$adv_state_log .= '<span>代码预处理(ADV1)'.
+		($___MOD_CODE_ADV1 ? $lang_on : $lang_off).'。'.
+			($___MOD_CODE_ADV1 ? '<a href="modulemng.php?mode=advmng&action=turn_off&type=1">'.$lang_turn_off.'</a>' : '<a href="modulemng.php?mode=advmng&action=turn_on&type=1">'.$lang_turn_on.'</a>').'</span><br>';
+	$adv_state_log .= '<span>eval预处理(ADV2)'.
+		($___MOD_CODE_ADV2 ? ($___MOD_CODE_ADV1 ? $lang_on : $lang_unav) : $lang_off).'。'.
+			($___MOD_CODE_ADV2 ? '<a href="modulemng.php?mode=advmng&action=turn_off&type=2">'.$lang_turn_off.'</a>' : '<a href="modulemng.php?mode=advmng&action=turn_on&type=2">'.$lang_turn_on.'</a>').'</span><br>';
+	$adv_state_log .= '<span>模板html预处理(ADV3)'.
+		($___MOD_CODE_ADV3 ? ($___MOD_CODE_ADV2 ? ($___MOD_CODE_ADV1 ? $lang_on : $lang_unav) : $lang_unav) : $lang_off).'。'.
+			($___MOD_CODE_ADV3 ? '<a href="modulemng.php?mode=advmng&action=turn_off&type=3">'.$lang_turn_off.'</a>' : '<a href="modulemng.php?mode=advmng&action=turn_on&type=3">'.$lang_turn_on.'</a>').'</span><br>';
+	$adv_state_log .= '<span>daemon模式(SRV)'.
+		($___MOD_SRV ? ($___MOD_CODE_ADV2 ? ($___MOD_CODE_ADV1 ? $lang_on : $lang_unav) : $lang_unav) : $lang_off).'。'.
+			($___MOD_SRV ? '<a href="modulemng.php?mode=advmng&action=turn_off&type=4">'.$lang_turn_off.'</a>' : '<a href="modulemng.php?mode=advmng&action=turn_on&type=4">'.$lang_turn_on.'</a>').'</span><br>';
+	return $adv_state_log;
+}
+		
+		
+/* End of file modulemng.func.php */
+/* Location: /include/modulemng/modulemng.func.php */
