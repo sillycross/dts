@@ -12,6 +12,16 @@ $configlist = array(
 	'team' => './include/modules/base/team/config/team.config.php',
 	'cooldown' => './include/modules/base/cooldown/config/cooldown.config.php'
 );
+$configlist_run = array(
+	'game' => './gamedata/run/core/sys/config/game.config.adv.php',
+	'map' => './gamedata/run/core/map/config/map.config.adv.php',
+	'gameflow_combo' => './gamedata/run/core/gameflow/gameflow_combo/config/gameflow_combo.config.adv.php',
+	'gameflow_antiafk' => './gamedata/run/core/gameflow/gameflow_antiafk/config/gameflow_antiafk.config.adv.php',
+	'corpse' => './gamedata/run/base/corpse/config/corpse.config.adv.php',
+	'rest' => './gamedata/run/base/rest/config/rest.config.adv.php',
+	'team' => './gamedata/run/base/team/config/team.config.adv.php',
+	'cooldown' => './gamedata/run/base/cooldown/config/cooldown.config.adv.php'
+);
 foreach($configlist as $cval){
 	include $cval;
 }
@@ -85,23 +95,28 @@ if($command == 'edit') {
 	
 	
 	$cmd_info .= "提交的修改请求数量： $ednum <br>";
-	
+	$run_flag = 0;
 	if($ednum){
 		$adminlog = '';
 		foreach($edlist as $fkey => $fval){
-			
 			$gamecfg_file = $configlist[$fkey];
-			$file = file_get_contents($gamecfg_file);
+			$gcfg_cont = file_get_contents($gamecfg_file);
 			foreach($fval as $key => $val){
 				//$cmd_info .= $key.' '.$val;
 				if($edfmt[$fkey][$key] == 'int' || $edfmt[$fkey][$key] == 'b'){
-					$file = preg_replace("/[$]{$key}\s*\=\s*-?[0-9]+;/is", "\${$key} = $val;", $file);
+					$gcfg_cont = preg_replace("/[$]{$key}\s*\=\s*-?[0-9]+;/is", "\${$key} = $val;", $gcfg_cont);
 				}else{
-					$file = preg_replace("/[$]{$key}\s*\=\s*[\"'].*?[\"'];/is", "\${$key} = '$val';", $file);
+					$gcfg_cont = preg_replace("/[$]{$key}\s*\=\s*[\"'].*?[\"'];/is", "\${$key} = '$val';", $gcfg_cont);
 				}				
 			}
-			file_put_contents($gamecfg_file,$file);
+			file_put_contents($gamecfg_file,$gcfg_cont);
+			$gamecfg_file_run = $configlist_run[$fkey];
+			if($___MOD_CODE_ADV1 && file_exists($gamecfg_file_run)){
+				file_put_contents($gamecfg_file_run,$gcfg_cont);
+				$run_flag = 1;
+			}
 		}
+		if($run_flag) $cmd_info .= '监测到ADV模式已打开，对应运行时文件已修改。<br>';
 		adminlog('gamecfgmng',$gamecfg);
 		$cmd_info .= '游戏数据修改完毕';
 	}
