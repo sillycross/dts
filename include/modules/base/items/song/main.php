@@ -48,7 +48,7 @@ namespace song
 			$log .= $lyric.'<br>';
 			\sys\addchat(0, $lyric, $name);
 		}
-		if (defined('MOD_NOISE') && !empty($nkey)) \noise\addnoise($pls,$nkey,-1,-1);
+		if (defined('MOD_NOISE') && !empty($nkey)) \noise\addnoise($pls,$nkey,$pid);
 		
 		$songqry = '';
 		foreach($songcfg['effect'] as $sekey => $seval){
@@ -92,16 +92,6 @@ namespace song
 			$songqry = substr($songqry,0,-1);
 			$db->query ("UPDATE {$tablepre}players SET ".$songqry." WHERE `pls` ={$pls} AND hp>0 AND type=0");
 		}
-		
-		
-		if ($sn=="Alicemagic"){
-			
-		}elseif ($sn=="Crow Song"){
-
-		}elseif ($sn=="KARMA"){
-			
-		}
-		
 		return;
 	}
 	
