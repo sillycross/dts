@@ -64,5 +64,5 @@ function parse_codeadv3(&$content)
 	return $ret;
 }
 
-
-?>
+/* End of file modulemng.codeadv3.func.php */
+/* Location: /include/modulemng/modulemng.codeadv3.func.php */

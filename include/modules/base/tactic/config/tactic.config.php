@@ -6,7 +6,7 @@ namespace tactic
 	$tacinfo = Array('通常','重视攻击（已废弃）','重视防御','重视反击','重视躲避');
 	
 	//玩家能否使用这些策略
-	$tactic_player_usable = Array(1,0,1,1,1);
+	$tactic_player_usable = Array(0,0,1,1,1);
 	
 	//应战策略对隐蔽率的加成
 	$tactic_hide_obbs = Array(0,0,0,-15,20);

@@ -6,7 +6,7 @@ namespace pose
 	$poseinfo = Array('通常','作战姿态','强袭姿态','探物姿态','偷袭姿态','治疗姿态');
 	
 	//玩家是否可以使用上述姿势
-	$pose_player_usable = Array(1,1,0,1,1,1);
+	$pose_player_usable = Array(0,1,0,1,1,1);
 	
 	//姿势对物品发现率的修正
 	$pose_itemfind_obbs = Array(0,0,0,25,-10,-25);
@@ -24,10 +24,10 @@ namespace pose
 	$pose_dactive_obbs = Array(0,4,-50,0,0,35);
 	
 	//姿态对自己主动或先制攻击敌人的攻击力修正
-	$pose_attack_modifier = Array(0,50,0,-25,25,-50);
+	$pose_attack_modifier = Array(0,60,0,-25,25,-50);
 	
 	//姿态对自己防御力的修正（这是始终生效的）
-	$pose_defend_modifier = Array(0,25,0,-20,-35,-50);
+	$pose_defend_modifier = Array(0,30,0,-20,-35,-50);
 }
 
 ?>

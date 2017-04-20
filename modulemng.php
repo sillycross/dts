@@ -12,7 +12,7 @@ $magic_quotes_gpc = get_magic_quotes_gpc();
 require GAME_ROOT.'./include/global.func.php';
 check_authority();
 	
-require GAME_ROOT.'./include/modulemng/modulemng.config.php';
+include GAME_ROOT.'./include/modulemng/modulemng.config.php';
 require GAME_ROOT.'./include/modulemng/modulemng.func.php';
 require GAME_ROOT.'./include/modules/modules.func.php';
 
@@ -25,6 +25,8 @@ function shutDownFunction() {
 	if ($faillog!='')
 	{
 		echo $faillog;
+		echo '<br>或者因为如下原因：';
+		var_dump($error);
 		echo '<br><a href="modulemng.php?mode=edit" style="text-decoration: none"><span><font color="blue">[返回编辑模式]</font></span></a><br>';   
 		die();
 	}
@@ -39,26 +41,34 @@ if (!file_exists(GAME_ROOT.'./gamedata/modules.list.temp.php'))
 {
 	copy(GAME_ROOT.'./gamedata/modules.list.php',GAME_ROOT.'./gamedata/modules.list.temp.php');
 }
-
+$page = 'index';
+if($_GET['mode']=='advmng')
+{
+	//$edfmt = Array('___MOD_CODE_ADV1'=>'int','___MOD_CODE_ADV2'=>'int','___MOD_CODE_ADV3'=>'int','___MOD_SRV'=>'int');
+	if($_GET['type'] == 1) $edcfg = '___MOD_CODE_ADV1';
+	elseif($_GET['type'] == 2) $edcfg = '___MOD_CODE_ADV2';
+	elseif($_GET['type'] == 3) $edcfg = '___MOD_CODE_ADV3';
+	elseif($_GET['type'] == 4) $edcfg = '___MOD_SRV';
+	if($_GET['action'] == 'turn_on') $edvar = 1;
+	elseif($_GET['action'] == 'turn_off') $edvar = 0;
+	if(isset($edcfg) && isset($edvar)){
+		$mf=GAME_ROOT.'./include/modulemng/modulemng.config.php';
+		$config_cont = file_get_contents($mf);
+		$config_cont = preg_replace("/[$]{$edcfg}\s*\=\s*-?[0-9]+;/is", "\${$edcfg} = {$edvar};", $config_cont);
+		file_put_contents($mf,$config_cont);
+	}
+	include GAME_ROOT.'./include/modulemng/modulemng.config.php';
+}
 if ($_GET['mode']=='edit' || $_GET['action']=='reset')
 {
+	$page = 'edit';
 	if ($_GET['action']=='reset') 
 	{
 		copy(GAME_ROOT.'./gamedata/modules.list.php',GAME_ROOT.'./gamedata/modules.list.temp.php');
-		$flag=1;
+		$res = "<span><font color=\"green\">成功重置到原先状态。</font></span><br><br>";
 	}
-	echo '<br><span><font size=5>模块管理系统<font size=4 color="red"> 编辑模式</font></font></span><br><br>';
-	if ($flag==1) 
-	{
-		echo "<span><font color=\"green\">成功重置到原先状态。</font></span><br><br>";
-	}
-	echo '<a href="modulemng.php?action=reset" style="text-decoration: none"><span><font color="red">[重置]</font></span></a>&nbsp;&nbsp;
-	<a href="modulemng.php?action=save" style="text-decoration: none"><span><font color="green">[保存]</font></span></a>&nbsp;&nbsp;
-	<a href="modulemng.php" style="text-decoration: none"><span><font color="blue">[返回]</font></span></a><br><br>';   
-	printmodtable(GAME_ROOT.'./gamedata/modules.list.temp.php');
-	die();
 }
-else  if ($_GET['action']=='enable')
+elseif ($_GET['action']=='enable')
 {
 	$sid=(int)$_GET['sid'];
 	$file=GAME_ROOT.'./gamedata/modules.list.temp.php';
@@ -71,15 +81,10 @@ else  if ($_GET['action']=='enable')
 		$content[$sid]=implode(',',$a);
 		writeover_array($file,$content);
 	}
-	echo '<br><span><font size=5>模块管理系统<font size=4 color="red"> 编辑模式</font></font></span><br><br>';
-	echo '<a href="modulemng.php?action=reset" style="text-decoration: none"><span><font color="red">[重置]</font></span></a>&nbsp;&nbsp;
-	<a href="modulemng.php?action=save" style="text-decoration: none"><span><font color="green">[保存]</font></span></a>&nbsp;&nbsp;
-	<a href="modulemng.php" style="text-decoration: none"><span><font color="blue">[返回]</font></span></a><br><br>';   
-	printmodtable(GAME_ROOT.'./gamedata/modules.list.temp.php');
-	echo '<br>点击保存后修改才能生效！<br><br>';
-	die();
+	$page = 'edit';
+	$res = '<br>点击保存后修改才能生效！<br><br>';
 }
-else  if ($_GET['action']=='disable')
+elseif ($_GET['action']=='disable')
 {
 	$sid=(int)$_GET['sid'];
 	$file=GAME_ROOT.'./gamedata/modules.list.temp.php';
@@ -92,18 +97,14 @@ else  if ($_GET['action']=='disable')
 		$content[$sid]=implode(',',$a);
 		writeover_array($file,$content);
 	}
-	echo '<br><span><font size=5>模块管理系统<font size=4 color="red"> 编辑模式</font></font></span><br><br>';
-	echo '<a href="modulemng.php?action=reset" style="text-decoration: none"><span><font color="red">[重置]</font></span></a>&nbsp;&nbsp;
-	<a href="modulemng.php?action=save" style="text-decoration: none"><span><font color="green">[保存]</font></span></a>&nbsp;&nbsp;
-	<a href="modulemng.php" style="text-decoration: none"><span><font color="blue">[返回]</font></span></a><br><br>';   
-	printmodtable(GAME_ROOT.'./gamedata/modules.list.temp.php');
-	echo '<br>点击保存后修改才能生效！<br><br>';
-	die();
+	$page = 'edit';
+	$res = '<br>点击保存后修改才能生效！<br><br>';
 }
-else  if ($_GET['action']=='save')
+elseif ($_GET['action']=='save')
 {
 	$res=module_validity_check(GAME_ROOT.'./gamedata/modules.list.temp.php');
 	echo '<br><span><font size=5>模块管理系统</font></span><br><br>';
+	$page = 'checking';
 	if ($res === 1)
 	{
 		echo "<span>没有发现致命错误，请阅读以下日志，如没有问题，请点击“<font color=\"red\">应用更改</font>”按钮令更改生效。</span><br><br>";
@@ -118,14 +119,16 @@ else  if ($_GET['action']=='save')
 		echo $res;
 		echo '<br><a href="modulemng.php?mode=edit" style="text-decoration: none"><span><font color="blue">[返回编辑模式]</font></span></a><br>';   
             die();
-      }
+  }
 }
-else  if ($_GET['moduleaction']=='activate')
+elseif ($_GET['moduleaction']=='activate')
 {
+	$page = 'activating';
 	$res=module_change_apply();
 }
-else  if ($_GET['action']=='remove')
+elseif ($_GET['action']=='remove')
 {
+	$page = 'edit';
 	$sid=(int)$_GET['sid'];
 	$file=GAME_ROOT.'./gamedata/modules.list.php';
 	$content=openfile($file);
@@ -142,10 +145,8 @@ else  if ($_GET['action']=='remove')
 			copy(GAME_ROOT.'./gamedata/modules.list.php',GAME_ROOT.'./gamedata/modules.list.temp.php');
 		}
 	}
-	header('Location: modulemng.php');
-	die();
 }
-else  if ($_POST['action']=='add')
+elseif ($_POST['action']=='add')
 {
 	$file=GAME_ROOT.'./gamedata/modules.list.php';
 	$content=openfile($file);
@@ -154,24 +155,32 @@ else  if ($_POST['action']=='add')
 	$in=sizeof($content); $content[$in]=$s;
 	writeover_array($file,$content);
 	copy(GAME_ROOT.'./gamedata/modules.list.php',GAME_ROOT.'./gamedata/modules.list.temp.php');
-	header('Location: modulemng.php');
+	$page = 'edit';
 }
-else
-{
+if($page == 'index') {
 	echo '<br><span><font size=5>模块管理系统</font></span><br><br>';
-	echo '<a href="modulemng.php?mode=edit" style="text-decoration: none"><span><font color="red">[进入编辑模式]</font></span></a><br><br>';   
-	printmodtable(GAME_ROOT.'./gamedata/modules.list.php',1);
-	echo '<br><br><font color="green">添加模块:</font><br>
+	echo show_adv_state().'<br>';
+	echo '<a href="modulemng.php?mode=edit" style="text-decoration: none"><span><font color="red">[进入编辑模式]</font></span></a><br>';
+	echo '<a href="modulemng.php?action=save" style="text-decoration: none"><span><font color="green">[重设代码缓存]</font></span></a><br><br>';  
+	//printmodtable(GAME_ROOT.'./gamedata/modules.list.php',1);
+	
+}elseif($page == 'edit'){
+	echo '<br><span><font size=5>模块管理系统<font size=4 color="red"> 编辑模式</font></font></span><br><br>';
+	if(isset($res)) echo $res;
+	echo '<a href="modulemng.php?action=reset" style="text-decoration: none"><span><font color="red">[重置]</font></span></a>&nbsp;&nbsp;
+	<a href="modulemng.php?action=save" style="text-decoration: none"><span><font color="green">[保存]</font></span></a>&nbsp;&nbsp;
+	<a href="modulemng.php" style="text-decoration: none"><span><font color="blue">[返回]</font></span></a><br><br>';
+	echo '<font color="green">添加模块:</font><br>
 	<form method="post" name="addmodule" action="modulemng.php">
 	<input name="action" value="add" type="hidden">
 	模块名<input name="modname" size="20" maxlength="100" value="" type="text">
 	路径<input name="modpath" size="20" maxlength="100" value="" type="text">
 	<input name="enter" value="添加" type="submit">
 	</form>模块名务必不要打错，这个系统是不检查的。<br>路径基准位置是./include/modules<br>
-	例: 添加位于./include/modules/core/sys的sys模块，应填写路径“core/sys”和模块名“sys”<br>';
-
-	die();
+	例: 添加位于./include/modules/core/sys的sys模块，应填写路径“core/sys”和模块名“sys”<br><br>';
+	printmodtable(GAME_ROOT.'./gamedata/modules.list.temp.php');
 }
 
 
-?>
+/* End of file modulemng.php */
+/* Location: /modulemng.php */

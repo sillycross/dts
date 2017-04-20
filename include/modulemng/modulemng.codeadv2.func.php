@@ -208,4 +208,5 @@ function preparse($modname, $id, $tplfile)
 	}
 }
 
-?>
+/* End of file modulemng.codeadv2.func.php */
+/* Location: /include/modulemng/modulemng.codeadv2.func.php */

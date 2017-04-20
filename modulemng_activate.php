@@ -27,6 +27,8 @@ function shutDownFunction() {
 	if ($faillog!='')
 	{
 		echo $faillog;
+		echo '<br>或者因为如下原因：';
+		var_dump($error);
 		echo '<br><a href="modulemng.php?mode=edit" style="text-decoration: none"><span><font color="blue">[返回编辑模式]</font></span></a><br>';   
 		die();
 	}
@@ -315,4 +317,5 @@ echo '<font color="green">操作成功完成。修改已经被应用。<br><br><
 echo '<a href="modulemng.php" style="text-decoration: none"><span><font color="blue">[返回首页]</font></span></a><br>';   
 		
 
-?>
+/* End of file modulemng_active.php */
+/* Location: /modulemng_active.php */

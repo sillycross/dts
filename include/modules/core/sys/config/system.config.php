@@ -12,7 +12,7 @@ namespace sys
 	//是否缓存css文件。0=不缓存，1=缓存
 	$allowcsscache = 1;
 	//游戏版本
-	$gameversion = 'N.E.W. v1.21';
+	$gameversion = 'N.E.W. v1.22';
 	//站长留言
 	//$systemmsg = '';
 	//游戏开始方式 0=后台手动开始，1=每天固定时间开始，2=上局结束后，间隔固定小时后的整点开始，3=上局结束后，间隔固定分钟开始
@@ -42,6 +42,7 @@ namespace sys
 	
 	//失焦冻结时间，单位分钟
 	//$lostfocusmin = 10;
+	//这好像是某一段时间蛋服时间经常穿越而弄出来的设想，还没写完服务器就修好了，要不要来个人给它重新定义一下
 
 	//游戏内聊天信息显示条数
 	$chatlimit = 50;
@@ -60,7 +61,7 @@ namespace sys
 	//团队模式游戏类型列表
 	$teamwin_mode = Array(11,12,13,14);
 	//不可完成一般成就的游戏类型列表(这个是不是放到achievement_base里比较好？不过这么写可以省一个import)
-	$ach_ignore_mode = Array(1,2,3,10,11,12,13,14,15,16);
+	$ach_ignore_mode = Array(1,2,3,10,11,12,13,14,15,16,17);
 	//不可获得胜利切糕的游戏类型
 	$qiegao_ignore_mode = Array(10,11,12,13,14,15,16,1);
 	//计算天梯积分的游戏类型
@@ -68,6 +69,7 @@ namespace sys
 	//不允许PVE的游戏类型
 	$pve_ignore_mode=Array(1,3,10,11,12,13,14);
 	//我好像写了一些很蠢的东西
+	//是很蠢，其实这个都可以丢到房间设定里面去
 }
 
 ?>

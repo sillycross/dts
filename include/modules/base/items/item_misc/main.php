@@ -6,6 +6,11 @@ namespace item_misc
 	{
 		eval(import_module('itemmain'));
 		$iteminfo['U']='扫雷设备';
+		if (defined('MOD_NOISE'))
+		{
+			eval(import_module('noise'));
+			$noiseinfo['corpseclear']='一阵强大的吸力';
+		}
 	}
 	
 	function itemuse(&$theitem)
@@ -48,6 +53,7 @@ namespace item_misc
 				else	$db->query ( "UPDATE {$tablepre}players SET corpse_clear_flag='1',weps='0',arbs='0',arhs='0',aras='0',arfs='0',arts='0',itms0='0',itms1='0',itms2='0',itms3='0',itms4='0',itms5='0',itms6='0',money='0' WHERE type > 0 AND hp <= 0 AND endtime <= $tm" );
 				$cnum = $db->affected_rows ();
 				addnews ( $now, 'corpseclear', $name, $cnum );
+				if (defined('MOD_NOISE')) \noise\addnoise($pls,'corpseclear',$pid);
 				$log .= "使用了<span class=\"yellow\">$itm</span>。<br>突然刮起了一阵怪风，吹走了地上的{$cnum}具尸体！<br>";
 				\itemmain\itms_reduce($theitem);
 				return;

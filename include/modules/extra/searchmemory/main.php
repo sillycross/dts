@@ -119,6 +119,18 @@ namespace searchmemory
 		return $res;
 	}
 	
+//	function itemuse(&$theitem)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		eval(import_module('sys','player','logger'));
+//		$itm=&$theitem['itm']; $itmk=&$theitem['itmk'];
+//		$itme=&$theitem['itme']; $itms=&$theitem['itms']; $itmsk=&$theitem['itmsk'];
+//		if ($itm == '凸眼鱼') {
+//			$db->query("UPDATE {$tablepre}players SET searchmemory='' WHERE type=0");
+//		}
+//		$chprocess($theitem);
+//	}
+	
 	function act(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','input'));
