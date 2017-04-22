@@ -74,7 +74,7 @@ $mixinfo = array
 	array('class' => 'wg', 'stuff' => array('『巨兽鲨』','游戏王四星素材','游戏王四星素材'),'result' => array('『No.101 寂静荣誉方舟骑士鲨』','WG',404,101,'rkc'),),
 	array('class' => 'wg', 'stuff' => array('喷雾器罐','打火机','汽油'),'result' => array('★简易火焰放射器★','WG',150,160,'uo'),),
 	array('class' => 'wg', 'stuff' => array('★阔剑地雷★','电磁发射装置','某种电子零件'),'result' => array('【定向阔剑发射器】','WG',810,3,'dNo'),),
-	array('class' => 'wg', 'stuff' => array('★阔剑地雷★','【定向阔剑发射器】'),'result' => array('【定向阔剑发射器】','WG',810,3,'dNno'),),
+	array('class' => 'wg', 'stuff' => array('★阔剑地雷★','【定向阔剑发射器】'),'result' => array('【定向阔剑发射器】','WG',810,3,'dNo'),),
 	array('class' => 'wg', 'stuff' => array('★M-200狙击步枪★','电磁发射装置'),'result' => array('【磁轨狙击步枪】','WJ',240,6,'eno'),),
 	array('class' => 'wg', 'stuff' => array('『高性能双重激光』','『高性能双重激光』','『高性能双重激光』'),'result' => array('☆金色闪光☆','WJ',700,1,'NS'),),
 	array('class' => 'wg', 'stuff' => array('恐龙玩偶','天使玩偶','团子玩偶'),'result' => array('观铃的嘎哦嘎哦恐龙喷火分队','WG',333,10,'ufr'),),

@@ -7,11 +7,13 @@ require './include/common.inc.php';
 
 eval(import_module('itemmain'));
 
-$mixfile = GAME_ROOT.'./include/modules/base/itemmix/itemmix/config/itemmix.config.php';
-require $mixfile;
-$writefile = GAME_ROOT.TPLDIR.'/mixhelp.htm';
+include_once GAME_ROOT . './include/itemplace.func.php';
 
-if(filemtime($mixfile) > filemtime($writefile)){
+$mixfile = GAME_ROOT.'./include/modules/base/itemmix/itemmix/config/itemmix.config.php';
+include $mixfile;
+$writefile = GAME_ROOT.TPLDIR.'/mixhelp.htm';
+//通常合成表自动生成
+if(!file_exists($writefile) || filemtime($mixfile) > filemtime($writefile)){
 	$mixitem = array();
 	foreach($mixinfo as $mix){
 		if($mix['class'] !== 'hidden'){
@@ -40,7 +42,6 @@ if(filemtime($mixfile) > filemtime($writefile)){
 		'item'=> array('其他道具','yellow'),
 		);
 	$mixhelpinfo = '';
-	include_once GAME_ROOT . './include/itemplace.func.php';
 	foreach($mixitem as $class => $list){
 		$classname = $mixclass[$class][0];
 		$classcolor = $mixclass[$class][1];
@@ -86,7 +87,140 @@ if(filemtime($mixfile) > filemtime($writefile)){
 	writeover($writefile,$mixhelpinfo);
 }
 
-
+//同调合成表自动生成
+$syncfile = GAME_ROOT.'./include/modules/base/itemmix/itemmix_sync/config/sync.config.php';
+$writefile = GAME_ROOT.TPLDIR.'/mixhelp_sync.htm';
+if(!file_exists($writefile) || filemtime($syncfile) > filemtime($writefile)){
+	$syncinfo=openfile($syncfile);
+	$syncitem = array();
+	$syncitem_special = array();
+	foreach($syncinfo as $sync){
+		$sync_arr=array_combine(array('itm', 'itmk', 'itme', 'itms', 'itmsk', 'star', 'special'), array_slice(explode(',',$sync), 0, 7));
+		$sync_arr['itmk'] = \itemmain\parse_itmk_words($sync_arr['itmk']);
+		$sync_arr['itmsk'] = \itemmain\parse_itmsk_words($sync_arr['itmsk']);
+		if(!empty($sync_arr['special'])){
+			$sync_arr['special'] = explode('+',$sync_arr['special']);
+			$syncitem_special[] = $sync_arr;
+		}else{
+			$syncitem[] = $sync_arr;
+		}
+	}
+	$synchelpinfo = '<p><span class="yellow">通常同调合成表</span>：</p>';
+	$synchelpinfo .= <<<'SYNC_HELP_INFO_DOC'
+<table>
+	<tr>
+		<td class="b1" height=20px><span>同调产物</span></td>
+		<td class="b1"><span>用途</span></td>
+	</tr>
+SYNC_HELP_INFO_DOC;
+	$synchelpinfo_special = '<p><span class="lime">特殊同调合成表</span>：</p>';
+	$synchelpinfo_special .= <<<'SYNC_HELP_INFO_SPEC_DOC'
+<table>
+	<tr>
+		<td class="b1" height=20px><span>同调素材一</span></td>
+		<td class="b1"><span>同调素材二</span></td>
+		<td class="b1"><span>同调素材三</span></td>
+		<td class="b1"><span>同调素材四</span></td>
+		<td class="b1"><span>同调素材五</span></td>
+		<td class="b1"></td>
+		<td class="b1"><span>同调产物</span></td>
+		<td class="b1"><span>用途</span></td>
+	</tr>
+SYNC_HELP_INFO_SPEC_DOC;
+	
+	foreach ($syncitem as $sval){
+		if(!empty($sval['itmsk'])){$itmskwords = '/'.$sval['itmsk'];}
+		else{$itmskwords = '';}
+		$synchelpinfo .= <<<SYNC_HELP_INFO_DOC_TR
+	<tr>
+		<td class='b3' height='20px'><span>{$sval['itm']}</span></td>
+		<td class='b3'><span>{$sval['itmk']}/{$sval['itme']}/{$sval['itms']}{$itmskwords}</span></td>
+	</tr>
+SYNC_HELP_INFO_DOC_TR;
+	}
+	$synchelpinfo .= '</table>';
+	
+	foreach ($syncitem_special as $sval){
+		if(!empty($sval['itmsk'])){$itmskwords = '/'.$sval['itmsk'];}
+		else{$itmskwords = '';}
+		$synchelpinfo_special .= '<tr>';
+		for($i = 0; $i <= 4; $i ++) {
+			$synchelpinfo_special .= '<td class="b3"';
+			if (isset($sval['special'][$i])) $synchelpinfo_special .= "title='" . get_item_place ( $sval['special'][$i] ) . "'";
+			$synchelpinfo_special .= isset($sval['special'][$i]) ? "><span>{$sval['special'][$i]}</span></td>" : "><span>-</span></td>";
+		}
+		$synchelpinfo_special .=<<<SYNC_HELP_INFO_SPEC_DOC_TR
+		<td class='b3'>→</td>
+		<td class='b3'><span>{$sval['itm']}</span></td>
+		<td class='b3'><span>{$sval['itmk']}/{$sval['itme']}/{$sval['itms']}{$itmskwords}</span></td>
+	</tr>
+SYNC_HELP_INFO_SPEC_DOC_TR;
+	}
+	$synchelpinfo_special .= '</table>';
+	
+	$writecont=<<<SYNC_HELP_WRITE_CONTENT
+<p>以下是可能获得的同调结果的列表。</p>
+{$synchelpinfo}
+<p>另外，上述只是一般情况。 有一些同调结果必须通过<span class="yellow">特定的同调道具</span>才能合成，这些合成将在下表中列出。</p>
+{$synchelpinfo_special}
+<br>
+SYNC_HELP_WRITE_CONTENT;
+	writeover($writefile,$writecont);
+}
+//超量合成表自动生成
+$overlayfile = GAME_ROOT.'./include/modules/base/itemmix/itemmix_overlay/config/overlay.config.php';
+$writefile = GAME_ROOT.TPLDIR.'/mixhelp_overlay.htm';
+if(!file_exists($writefile) || filemtime($overlayfile) > filemtime($writefile)){
+	$overlayinfo=openfile($overlayfile);
+	$overlayitem = array();
+	foreach($overlayinfo as $overlay){
+		$overlay_arr=array_combine(array('itm', 'itmk', 'itme', 'itms', 'itmsk', 'star', 'num'), array_slice(explode(',',$overlay), 0, 7));
+		$overlay_arr['itmk'] = \itemmain\parse_itmk_words($overlay_arr['itmk']);
+		$overlay_arr['itmsk'] = \itemmain\parse_itmsk_words($overlay_arr['itmsk']);
+		$overlayitem[] = $overlay_arr;
+	}
+	$overlayhelpinfo = '<p><span class="yellow">超量合成表</span>：</p>';
+	$overlayhelpinfo .= <<<'OVERLAY_HELP_INFO_DOC'
+<table>
+	<tr>
+		<td class="b1" height=20px><span>超量素材类型</span></td>
+		<td class="b1"><span>数目</span></td>
+		<td class="b1"><span>超量产物</span></td>
+		<td class="b1"><span>用途</span></td>
+	</tr>
+OVERLAY_HELP_INFO_DOC;
+	$overlay_star_words = array(
+		1 => '游戏王一星素材',
+		2 => '游戏王二星素材',
+		3 => '游戏王三星素材',
+		4 => '游戏王四星素材',
+		5 => '游戏王五星素材',
+		6 => '游戏王六星素材',
+		7 => '游戏王七星素材',
+		8 => '游戏王八星素材',
+		9 => '游戏王九星素材',
+		10 => '游戏王十星素材'
+	);
+	foreach ($overlayitem as $oval){
+		if(!empty($oval['itmsk'])){$itmskwords = '/'.$oval['itmsk'];}
+		else{$itmskwords = '';}
+		$overlayhelpinfo .= <<<OVERLAY_HELP_INFO_DOC_TR
+	<tr>
+		<td class='b3' height='20px'><span>{$overlay_star_words[$oval['star']]}</span></td>
+		<td class='b3'><span> × {$oval['num']}</span></td>
+		<td class='b3'><span>{$oval['itm']}</span></td>
+		<td class='b3'><span>{$oval['itmk']}/{$oval['itme']}/{$oval['itms']}{$itmskwords}</span></td>
+	</tr>
+OVERLAY_HELP_INFO_DOC_TR;
+	}
+	$overlayhelpinfo .= '</table>';
+	
+	$writecont=<<<OVERLAY_HELP_WRITE_CONTENT
+<p>以下是可能获得的超量结果的列表。</p>
+{$overlayhelpinfo}
+OVERLAY_HELP_WRITE_CONTENT;
+	writeover($writefile,$writecont);
+}
 $extrahead = <<<EOT
 <STYLE type=text/css>
 BODY {

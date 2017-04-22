@@ -407,7 +407,7 @@ function full_combination($a, $min) {
 	$r = array();
 	$n = count($a);
 	if($n >= $min){
-		for($i=$min-1;$i<$n;$i++){
+		for($i=$min;$i<=$n;$i++){
 			$r = array_merge($r, combination($a, $i));
 		}
 	}

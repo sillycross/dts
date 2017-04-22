@@ -14,7 +14,8 @@ namespace smartmix
 		$itm = \itemmix\itemmix_name_proc($itm);
 		foreach ($mixinfo as $ma){
 			$ma['type'] = 'normal';
-			if(($tp & 1 && in_array($itm, $ma['stuff'])) || ($tp & 2 && $itm == $ma['result'][0])){
+			//隐藏合成是无法查到的
+			if(($tp & 1 && in_array($itm, $ma['stuff']) && $ma['class']!='hidden') || ($tp & 2 && $itm == $ma['result'][0])){
 				$mix_res[] = $ma;
 			}
 		}		
