@@ -122,8 +122,8 @@ CREATE TABLE bra_players (
   `nskillpara` text NOT NULL,
   
   PRIMARY KEY (`pid`),
-  KEY `TYPE` (`type`),
-  KEY `NAME` (`name`),
-  KEY `PLS` (`pls`)
+  INDEX `TYPE` (`type`),
+  INDEX `NAME` (`name`),
+  INDEX `PLS` (`pls`)
 	
 ) ENGINE=MyISAM;

@@ -212,6 +212,6 @@ CREATE TABLE `bra_winners` (
   `gdlist` char(50) NOT NULL DEFAULT '',
   `cardname` text NOT NULL DEFAULT '',
   UNIQUE KEY `gid` (`gid`),
-  KEY `WMODE` (`wmode`),
-  KEY `WINNER` (`name`)
+  INDEX `WMODE` (`wmode`),
+  INDEX `WINNER` (`name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
