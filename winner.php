@@ -65,12 +65,13 @@ if($command == 'info') {
 	if(!empty($query_wmode) || !empty($query_winner)) {
 		$query_where .= $query_wmode;
 		$query_where .= (!empty($query_where) && !empty($query_winner) ? ' AND ' : '') . $query_winner;
-		$query_where = 'WHERE '.$query_where;
+		$query_where = ' AND '.$query_where;
 	}
-	$query_count = "SELECT gid FROM {$wtablepre}winners $query_where ORDER BY gid DESC";
+	$query_count = "SELECT gid FROM {$wtablepre}winners WHERE gid>0 $query_where ORDER BY gid DESC";
 	$result = $db->query($query_count);
 	$max_result_num = $db->num_rows($result);
 	$max_result_gamenum = 0;
+	
 	if ($max_result_num) {
 		$zz=$db->fetch_array($result);
 		$max_result_gamenum = $zz['gid'];
@@ -85,9 +86,9 @@ if($command == 'info') {
 		$query_where .= $query_gid;
 		$query_where .= (!empty($query_where) && !empty($query_wmode) ? ' AND ' : '') . $query_wmode;
 		$query_where .= (!empty($query_where) && !empty($query_winner) ? ' AND ' : '') . $query_winner;
-		$query_where = 'WHERE '.$query_where;
+		$query_where = ' AND '.$query_where;
 	}
-	$query_limit = "SELECT gid,gametype,teamID,winnum,namelist,name,icon,gd,wep,wmode,getime,motto,hdp,hdmg,hkp,hkill FROM {$wtablepre}winners $query_where ORDER BY gid DESC LIMIT $winlimit";
+	$query_limit = "SELECT gid,gametype,teamID,winnum,namelist,name,icon,gd,wep,wmode,getime,motto,hdp,hdmg,hkp,hkill FROM {$wtablepre}winners WHERE gid>0 $query_where ORDER BY gid DESC LIMIT $winlimit";
 	//echo $query;
 	$result = $db->query($query_limit);
 	
@@ -122,14 +123,15 @@ if($command == 'info') {
 		if(!isset($start) || !$start) $start = $max_result_gamenum;
 		$larger_mark = $smaller_mark = 0;
 		$largest_mark = $max_result_gamenum;
-		$smallest_mark = $min_result_gamenum;
+		$smallest_mark = max($min_result_gamenum, $winlimit);
 		if($start < $largest_mark) {
-			$larger_mark = $start + $winlimit;
+			$larger_mark = ceil(($start + $winlimit)/$winlimit)*$winlimit;
 			if($larger_mark > $largest_mark) $lager_mark = $largest_mark;
 		}
 		if($start > $smallest_mark) {
-			$smaller_mark = $start - $winlimit;
+			$smaller_mark = ceil(($start - $winlimit)/$winlimit)*$winlimit;
 			if($smaller_mark < $smallest_mark) $smaller_mark = $smallest_mark;
+			if($smaller_mark > $largest_mark) $smaller_mark = $largest_mark;
 		}
 	}
 	
