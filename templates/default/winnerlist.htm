@@ -1,37 +1,35 @@
 <br>
 
-<form method="post" name="info" onsubmit="winner.php">
+<form method="post" name="list" onsubmit="winner.php">
 <input type="hidden" id="user_prefix" name="user_prefix" value="$user_prefix">
-<input type="hidden" id="show_all" name="show_all" value="$show_all">
-<input type="hidden" id="command" name="command" value="info">
+<input type="hidden" id="command" name="command" value="list">
 <input type="hidden" id="start" name="start" value="$gamenum">
 <input type="hidden" id="gnum" name="gnum" value="">
 <center>
-	<br>
-	<input type="button" value="查看标准区所有记录" onclick="$('user_prefix').value='';$('show_all').value='1';$('command').value='list';$('start').value='0';document.info.submit();">
-	<input type="button" value="查看房间区优胜记录" onclick="$('user_prefix').value='s';$('show_all').value='0';$('command').value='list';$('start').value='0';document.info.submit();">
-	<input type="button" value="查看房间区所有记录" onclick="$('user_prefix').value='s';$('show_all').value='1';$('command').value='list';$('start').value='0';document.info.submit();">
-	<br>
-	<br>
-	<!--{if isset($markarr)}-->
-		<!--{if $larger_mark}--><input style="width: 80px;" type="button" value="上一页" onclick="document['list']['start'].value = '$larger_mark';document['list'].submit();"><!--{/if}-->
-		<!--{if $start != $largest_mark}--><a onclick="document['list']['start'].value = '$largest_mark';document['list'].submit();">第{$largest_mark}回</a>&nbsp;...<!--{/if}-->
-		<!--{eval rsort($markarr);}-->
-		<!--{loop $markarr $minfo}-->
-			&nbsp;
-			<!--{if $minfo == $start}-->
-				<span class="evergreen">第{$minfo}回</span>
-			<!--{else}-->
-				<a onclick="document['list']['start'].value = '$minfo';document['list'].submit();">第{$minfo}回</a>
-			<!--{/if}-->
-			&nbsp;
-		<!--{/loop}-->
-		<!--{if $start != $smallest_mark}-->&nbsp;...<a onclick="document['list']['start'].value = '$smallest_mark';document['list'].submit();">第{$smallest_mark}回</a><!--{/if}-->
-		<!--{if $smaller_mark}--><input style="width: 80px;" type="button" value="下一页" onclick="document['list']['start'].value = '$smaller_mark';document['list'].submit();"><!--{/if}-->
+	<p>
+		<input type="button" value="查看 / 搜索 标准区" onclick="document.list.user_prefix.value='';document.list.command.value='list';document.list.start.value='0';document.list.submit();">
+		<input type="button" value="查看 / 搜索 房间区" onclick="document.list.user_prefix.value='s';document.list.command.value='list';document.list.start.value='0';document.list.submit();">
+	</p>
+	<p>
+		<input type="checkbox" id="winner_show_wmode_2" name="winner_show_wmode_2" <!--{if $winner_show_wmode_2}-->checked<!--{/if}-->><a onclick="$('winner_show_wmode_2').click();">$gwin[2]</a>&nbsp;&nbsp;
+		<input type="checkbox" id="winner_show_wmode_3" name="winner_show_wmode_3" <!--{if $winner_show_wmode_3}-->checked<!--{/if}-->><a onclick="$('winner_show_wmode_3').click();">$gwin[3]</a>&nbsp;&nbsp;
+		<input type="checkbox" id="winner_show_wmode_5" name="winner_show_wmode_5" <!--{if $winner_show_wmode_5}-->checked<!--{/if}-->><a onclick="$('winner_show_wmode_5').click();">$gwin[5]</a>&nbsp;&nbsp;
+		<input type="checkbox" id="winner_show_wmode_7" name="winner_show_wmode_7" <!--{if $winner_show_wmode_7}-->checked<!--{/if}-->><a onclick="$('winner_show_wmode_7').click();">$gwin[7]</a>&nbsp;&nbsp;
+		<input type="checkbox" id="winner_show_wmode_8" name="winner_show_wmode_8" <!--{if $winner_show_wmode_8}-->checked<!--{/if}-->><a onclick="$('winner_show_wmode_8').click();">$gwin[8]</a>&nbsp;&nbsp;
+		搜索玩家：<input id="winner_show_winner" name="winner_show_winner" style="width: 120px;" type="text" value="$winner_show_winner">
+	</p>
+	<p>
+	<!--{if $max_result_num > $winlimit}-->
+		
+		<!--{if $start != $largest_mark}--><a onclick="document.list.start.value = '$largest_mark';document.list.submit();">第{$largest_mark}回</a>&nbsp;&nbsp;...&nbsp;&nbsp;<!--{/if}-->
+		<!--{if $larger_mark && $larger_mark < $largest_mark}--><a onclick="document.list.start.value = '$larger_mark';document.list.submit();">第{$larger_mark}回</a>&nbsp;&nbsp;<!--{/if}-->
+		<span class="evergreen">第{$start}回</span>&nbsp;&nbsp;
+		<!--{if $smaller_mark && $smaller_mark > $smallest_mark}--><a onclick="document.list.start.value = '$smaller_mark';document.list.submit();">第{$smaller_mark}回</a>&nbsp;&nbsp;<!--{/if}-->
+		<!--{if $start != $smallest_mark}-->...&nbsp;&nbsp;<a onclick="document.list.start.value = '$smallest_mark';document.list.submit();">第{$smallest_mark}回</a><!--{/if}-->
 		&nbsp;&nbsp;&nbsp;<input id="winnermark" style="width: 60px;" type="text" value="$start">
-		&nbsp;<input style="width: 80px" type="button" value="跳转" onclick="document['list']['start'].value = $('winnermark').value;document['list'].submit();">
+		&nbsp;<input style="width: 80px" type="button" value="跳转" onclick="document.list.start.value = $('winnermark').value;document.list.submit();">
 	<!--{/if}-->
-	<br>
+	</p>
 	<br>
 	<TABLE border="1" cellspacing="0" cellpadding="0">
 		<TR height="20">
@@ -81,7 +79,7 @@
 			<!--{if defined('MOD_REPLAY')}-->
 			<TD class="b3">
 				<span>
-					<input type="button" style="width:80px;height:40px;-webkit-appearance:default-button;" value="录像回放" <!--{if $info['wmode'] && $info['wmode'] !=4 }-->onclick="$('start').value = '$start'; $('command').value='replay';$('gnum').value='$gid';document.info.submit();"<!--{else}-->disabled<!--{/if}-->>
+					<input type="button" style="width:80px;height:40px;-webkit-appearance:default-button;" value="录像回放" <!--{if $info['wmode'] && $info['wmode'] !=4 }-->onclick="document.list.start.value = '$start'; document.list.command.value='replay';document.list.gnum.value='$gid';document.list.submit();"<!--{else}-->disabled<!--{/if}-->>
 				</span>
 			</TD>
 			<!--{else}-->
@@ -89,8 +87,8 @@
 			<!--{/if}-->
 			<TD class="b3" width=60px>
 				<span>
-					<input type="button" style="width:80px;height:20px;" value="角色信息" <!--{if $info['wmode'] && $info['wmode'] != 1 && $info['wmode'] !=4 && $info['wmode'] != 6 && $info['winnum']<=1}-->onclick="$('command').value='info';$('gnum').value='$gid';document.info.submit();"<!--{else}-->disabled<!--{/if}-->>
-					<input type="button" style="width:80px;height:20px;" value="该局状况" <!--{if $info['wmode'] && $info['wmode'] !=4}-->onclick="$('command').value='news';$('gnum').value='$gid';document.info.submit();"<!--{else}-->disabled<!--{/if}-->>
+					<input type="button" style="width:80px;height:20px;" value="角色信息" <!--{if $info['wmode'] && $info['wmode'] != 1 && $info['wmode'] !=4 && $info['wmode'] != 6 && $info['winnum']<=1}-->onclick="document.list.command.value='info';document.list.gnum.value='$gid';document.list.submit();"<!--{else}-->disabled<!--{/if}-->>
+					<input type="button" style="width:80px;height:20px;" value="该局状况" <!--{if $info['wmode'] && $info['wmode'] !=4}-->onclick="document.list.command.value='news';document.list.gnum.value='$gid';document.list.submit();"<!--{else}-->disabled<!--{/if}-->>
 				</span>
 			</TD>
 		</TR>
@@ -98,11 +96,6 @@
 	</TABLE>
 </center>
 </form>
-
-<form method="post" name="list" action="winner.php">
-<input type="hidden" id="user_prefix" name="user_prefix" value="$user_prefix">
-<input type="hidden" name="command" value="list">
-<input type="hidden" name="start" value="$gamenum">
 <br>
 </form>
 
