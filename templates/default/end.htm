@@ -502,7 +502,15 @@
 	<!--{elseif $winmode == 8}-->
 		<div class="subtitle">挑战结束</div>
 		<p>
-		本次挑战结束，请返回游戏首页！
+			<!--{if $gametype == 15}-->
+				你本局的有效最大金钱为：
+				<!--{if $areanum<$areaadd}-->
+					<!--{eval echo max($money, \skillbase\skill_getvalue(313,'max_money'));}-->
+				<!--{else}-->
+					<!--{eval echo \skillbase\skill_getvalue(313,'max_money');}-->
+				<!--{/if}-->
+			<!--{/if}-->
+		<br>本次挑战结束，请返回游戏首页！
 		</p>
 	<!--{else}-->
 	未知胜利方式，可能是开发者尚未编写结局说明，请返回游戏首页！<br>
