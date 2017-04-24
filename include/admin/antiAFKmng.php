@@ -9,7 +9,7 @@ if($command == 'kill'){
 }
 
 function kill_all_AFKer($timelimit=1){
-	global $now,$db,$tablepre,$antiAFKertime,$alivenum,$deathnum,$antiAFKintv,$cmd_info;
+	global $now,$db,$tablepre,$antiAFKertime_normal,$alivenum,$deathnum,$antiAFKintv,$cmd_info;
 	$cmd_info = '';
 	if (!is_numeric($timelimit)){
 		$cmd_info .= '时间间隔错误！<br>';

@@ -2,8 +2,10 @@
 
 namespace gameflow_antiafk
 {
-	//反挂机系统间隔时间，单位分钟
-	$antiAFKertime = 10;
+	//标准房反挂机系统间隔时间，单位分钟
+	$antiAFKertime_normal = 10;
+	//房间内反挂机系统间隔时间，单位分钟
+	$antiAFKertime_room = 20;
 }
 
 ?>

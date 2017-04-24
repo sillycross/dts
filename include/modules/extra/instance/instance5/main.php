@@ -113,7 +113,7 @@ namespace instance5
 			}
 			return $res;
 		}
-		$chprocess();
+		return $chprocess();
 	}
 }
 
