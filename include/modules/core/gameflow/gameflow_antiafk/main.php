@@ -22,12 +22,15 @@ namespace gameflow_antiafk
 		
 		$chprocess();
 		
-		eval(import_module('sys','gameflow_antiafk'));
-		if (($gamestate >= 40)&&($now > $afktime + $antiAFKertime * 60)) {//判定自动反挂机
-			antiAFK();
+		eval(import_module('sys','map','gameflow_antiafk'));
+		//标准房是连斗后反挂机，房间内是1禁后反挂机
+		if ( ($gametype < 10 && $gamestate >= 40 && $now > $afktime + $antiAFKertime_normal * 60)) {
+			antiAFK($antiAFKertime_normal);
+			$afktime = $now;
+		}elseif (($gametype >= 10 && $areanum>=$areaadd && $now > $afktime + $antiAFKertime_room * 60)) {
+			antiAFK($antiAFKertime_room);
 			$afktime = $now;
 		}
-		
 	}
 	
 	function antiAFK($timelimit = 0)
@@ -36,7 +39,7 @@ namespace gameflow_antiafk
 		
 		eval(import_module('sys','gameflow_antiafk'));
 		if(empty($timelimit)){
-			$timelimit = $antiAFKertime;
+			$timelimit = $antiAFKertime_normal;
 		}
 		$timelimit *= 60;
 		$deadline=$now-$timelimit;
