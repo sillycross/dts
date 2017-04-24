@@ -42,7 +42,7 @@ foreach($alter_tables as $at){
 	$rarr_a = array();
 	while($rarr = $db->fetch_array($result)){
 		$rarr_a = col_filter("alter_{$at}", $rarr);
-		if(!empty($rarr_a)){
+		if(!empty($rarr_a) && (!isset($rarr_a['uid']) || $rarr_a['uid']>0)){
 		$db->array_insert("{$gtablepre}{$at}_clone", $rarr_a);
 		}
 	}

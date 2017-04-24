@@ -3,8 +3,8 @@
 namespace instance5
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'sys player logger gameflow_combo map itemshop weather';
-	$___MODULE_dependency_optional = '';
+	$___MODULE_dependency = 'sys player logger gameflow_combo map itemmain itemshop weather';
+	$___MODULE_dependency_optional = 'skill313 clubbase';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';
 	$___MODULE_templatelist = '';
