@@ -116,7 +116,8 @@ namespace sys
 		if ($room_prefix=='') $wtablepre = $gtablepre;
 		else $wtablepre = $gtablepre.($room_prefix[0]);
 		
-		room_auto_init();//自动初始化房间表
+		//room_auto_init();//新建房间时，自动初始化房间表
+		//实际上不应该放在这里，应该只在新建房间时调用
 		
 		//当前用户名和密码变量初始化
 		global $cuser, $cpass;

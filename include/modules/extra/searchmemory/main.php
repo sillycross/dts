@@ -8,7 +8,7 @@ namespace searchmemory
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		//eval(import_module('sys'));
 		$pdata = $chprocess($Pname);
-		$pdata['searchmemory'] = array_decode($pdata['searchmemory']);
+		$pdata['searchmemory'] = gdecode($pdata['searchmemory'],1);
 		return $pdata;
 	}
 	
@@ -16,13 +16,13 @@ namespace searchmemory
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		//eval(import_module('sys'));
 		$pdata = $chprocess($pid);
-		$pdata['searchmemory'] = array_decode($pdata['searchmemory']);
+		$pdata['searchmemory'] = gdecode($pdata['searchmemory'],1);
 		return $pdata;
 	}
 	
 	function player_save($data){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if(is_array($data['searchmemory'])) $data['searchmemory'] = array_encode($data['searchmemory']);
+		if(is_array($data['searchmemory'])) $data['searchmemory'] = gencode($data['searchmemory']);
 		$chprocess($data);
 	}
 	

@@ -181,7 +181,8 @@ function gencode($para){
 
 function gdecode($para, $assoc = false){
 	$assoc = $assoc ? true : false;
-	return json_decode(mgzdecode(base64_decode($para)),$assoc);
+	if (!$para) return array();
+	else return json_decode(mgzdecode(base64_decode($para)),$assoc);
 }
 
 function gsetcookie($var, $value, $life = 0, $prefix = 1) {

@@ -102,4 +102,5 @@ if($dberrno == 1114) {
 
 }
 
-?>
+/* End of file db_mysql_error.inc.php */
+/* Location: /include/db/db_mysql_error.inc.php */
