@@ -97,10 +97,11 @@ namespace metman
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','metman'));
+		eval(import_module('sys','player','metman','logger'));
 		$find_obbs = calculate_meetman_obbs($edata);
 		$hide_obbs = calculate_hide_obbs($edata);
 		$enemy_dice = rand(0,99);
+		//$log .= '最终发现率：'.$find_obbs.' 对方最终隐蔽率：'.$hide_obbs.' 发现骰：'.$enemy_dice.' ';
 		if($enemy_dice < $find_obbs - $hide_obbs) 
 			return 1; 
 		else 
@@ -214,6 +215,9 @@ namespace metman
 					return;
 				}
 			}
+			else {
+				$log .= '你发现了'.$edata['name'].'，但对方匆匆离去，你追之不及。<br>';
+			}
 		}
 		if($hideflag == true){
 			$log .= '似乎有人隐藏着……<br>';
@@ -228,6 +232,8 @@ namespace metman
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$dice = rand(0,99);
+		eval(import_module('logger'));
+		//$log .= '发现玩家判定：骰'.$dice.' 阈：'.calculate_meetman_rate($schmode).' ';
 		if($dice < calculate_meetman_rate($schmode)) {
 			discover_player();
 			return;
