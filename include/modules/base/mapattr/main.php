@@ -9,6 +9,7 @@ namespace mapattr
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','mapattr'));
 		if (!isset($pls_itemfind_obbs[$pls])) $r=0; else $r=$pls_itemfind_obbs[$pls];
+		echo '发现率修正：'.$r.' ';
 		return $chprocess()+$r;
 	}
 	
@@ -17,6 +18,7 @@ namespace mapattr
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','mapattr'));
 		if (!isset($pls_meetman_obbs[$pls])) $r=0; else $r=$pls_meetman_obbs[$pls];
+		echo '遇敌率修正：'.$r.' ';
 		return $chprocess($edata)+$r;
 	}
 	
@@ -24,6 +26,7 @@ namespace mapattr
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','mapattr'));
+		echo '攻击率修正：'.$pls_attack_modifier[$pa['pls']].' ';
 		if (isset($pls_attack_modifier[$pa['pls']]))		
 			return $chprocess($pa,$pd,$active)*(1+$pls_attack_modifier[$pa['pls']]/100);
 		else  return $chprocess($pa,$pd,$active);
@@ -33,6 +36,7 @@ namespace mapattr
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','mapattr'));
+		echo '防御率修正：'.$pls_defend_modifier[$pa['pls']].' ';
 		if (isset($pls_defend_modifier[$pa['pls']]))		
 			return $chprocess($pa,$pd,$active)*(1+$pls_defend_modifier[$pa['pls']]/100);
 		else  return $chprocess($pa,$pd,$active);
