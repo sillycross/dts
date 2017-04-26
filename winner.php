@@ -88,7 +88,7 @@ if($command == 'info') {
 		$query_where .= (!empty($query_where) && !empty($query_winner) ? ' AND ' : '') . $query_winner;
 		$query_where = ' AND '.$query_where;
 	}
-	$query_limit = "SELECT gid,gametype,teamID,winnum,namelist,name,icon,gd,wep,wmode,getime,motto,hdp,hdmg,hkp,hkill FROM {$wtablepre}winners WHERE gid>0 $query_where ORDER BY gid DESC LIMIT $winlimit";
+	$query_limit = "SELECT gid,gametype,teamID,winnum,namelist,name,icon,gd,wep,wmode,getime,motto,hdp,hdmg,hkp,hkill,vnum FROM {$wtablepre}winners WHERE gid>0 $query_where ORDER BY gid DESC LIMIT $winlimit";
 	//echo $query;
 	$result = $db->query($query_limit);
 	
