@@ -21,11 +21,11 @@
 	<p>
 	<!--{if $max_result_num > $winlimit}-->
 		
-		<!--{if $start != $largest_mark}--><a onclick="document.list.start.value = '$largest_mark';document.list.submit();">第{$largest_mark}回</a>&nbsp;&nbsp;...&nbsp;&nbsp;<!--{/if}-->
-		<!--{if $larger_mark && $larger_mark < $largest_mark}--><a onclick="document.list.start.value = '$larger_mark';document.list.submit();">第{$larger_mark}回</a>&nbsp;&nbsp;<!--{/if}-->
+		<!--{if $start != $largest_mark}--><a onclick="document.list.start.value = '$largest_mark';document.list.command.value='list';document.list.submit();">第{$largest_mark}回</a>&nbsp;&nbsp;...&nbsp;&nbsp;<!--{/if}-->
+		<!--{if $larger_mark && $larger_mark < $largest_mark}--><a onclick="document.list.start.value = '$larger_mark';document.list.command.value='list';document.list.submit();">第{$larger_mark}回</a>&nbsp;&nbsp;<!--{/if}-->
 		<span class="evergreen">第{$start}回</span>&nbsp;&nbsp;
-		<!--{if $smaller_mark && $smaller_mark > $smallest_mark}--><a onclick="document.list.start.value = '$smaller_mark';document.list.submit();">第{$smaller_mark}回</a>&nbsp;&nbsp;<!--{/if}-->
-		<!--{if $start != $smallest_mark}-->...&nbsp;&nbsp;<a onclick="document.list.start.value = '$smallest_mark';document.list.submit();">第{$smallest_mark}回</a><!--{/if}-->
+		<!--{if $smaller_mark && $smaller_mark > $smallest_mark}--><a onclick="document.list.start.value = '$smaller_mark';document.list.command.value='list';document.list.submit();">第{$smaller_mark}回</a>&nbsp;&nbsp;<!--{/if}-->
+		<!--{if $start != $smallest_mark}-->...&nbsp;&nbsp;<a onclick="document.list.start.value = '$smallest_mark';document.list.command.value='list';document.list.submit();">第{$smallest_mark}回</a><!--{/if}-->
 		&nbsp;&nbsp;&nbsp;<input id="winnermark" style="width: 60px;" type="text" value="$start">
 		&nbsp;<input style="width: 80px" type="button" value="跳转" onclick="document.list.start.value = $('winnermark').value;document.list.command.value='list';document.list.submit();">
 	<!--{/if}-->
