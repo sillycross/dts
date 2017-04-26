@@ -8,7 +8,8 @@ class dbstuff {
 //	var $insertnum = 0;
 //	var $updatenum = 0;
 //	var $deletenum = 0;
-	public $con = NULL;
+	private $con = NULL;
+	public $query_log = array();
 	
 	function connect($dbhost, $dbuser, $dbpw, $dbname = '', $pconnect = 0) {
 		if(!function_exists('mysqli_connect')) exit('未安装mysqli扩展！');
@@ -43,6 +44,8 @@ class dbstuff {
 	function query($sql, $type = '') {
 		//mysqli不存在unbuffered指令，游戏也从来没用到过这个参数
 		//$func = $type == 'UNBUFFERED' && function_exists ( 'mysqli_unbuffered_query' ) ? 'mysqli_unbuffered_query' : 'mysqli_query';
+		if(!empty(debug_backtrace()[0]['file'])) $this->query_log[] = $sql . ' from ' .debug_backtrace()[0]['file'].' : '.debug_backtrace()[0]['line'];
+		else $this->query_log[] = $sql;
 		$result = mysqli_query ( $this -> con, $sql );
 		if (! $result && $type != 'SILENT') {
 			$this->halt ( 'MySQL Query Error', $sql );
@@ -232,6 +235,12 @@ class dbstuff {
 		die();
 		require_once GAME_ROOT . './include/db/db_mysqli_error.inc.php';
 	}
+	
+	function __destruct() {
+		$this->close();
+		//file_put_contents(GAME_ROOT.'/query_log.txt', implode("\r\n",$this->query_log)."\r\n\r\n", FILE_APPEND);
+	}
 }
 
-?>
+/* End of file db_mysqli.class.php */
+/* Location: /include/db/db_mysqli.class.php */

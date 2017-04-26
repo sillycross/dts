@@ -117,7 +117,7 @@ CREATE TABLE bra_players (
   `itme6` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `itms6` char(5) NOT NULL DEFAULT '0',
   `itmsk6` varchar(40) NOT NULL DEFAULT '',
-  `searchmemory` varchar(1000) NOT NULL DEFAULT '',
+  `searchmemory` text NOT NULL DEFAULT '',
   `nskill` text NOT NULL,
   `nskillpara` text NOT NULL,
   

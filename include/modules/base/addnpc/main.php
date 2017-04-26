@@ -56,7 +56,7 @@ namespace addnpc
 					//出BUG了
 					$summon_pid = -1;
 				}
-				if (is_array($npc['skills'])){
+				if (isset($npc['skills']) && is_array($npc['skills'])){
 					$qry="SELECT * FROM {$tablepre}players WHERE type>'0' ORDER BY pid DESC LIMIT 1";
 					$result=$db->query($qry);
 					$pr=$db->fetch_array($result);

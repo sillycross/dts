@@ -278,4 +278,5 @@ class dbstuff {
 	}
 }
 
-?>
+/* End of file db_mysql.class.php */
+/* Location: /include/db/db_mysql.class.php */

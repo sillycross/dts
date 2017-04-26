@@ -4,12 +4,19 @@ if(!defined('IN_GAME')) {
 	exit('Access Denied');
 }
 
-function name_check($username){ global $nmlimit; if(!isset($username) || 
-strlen($username)===0){ return 'name_not_set'; } 
-elseif(mb_strlen($username,'utf-8')>15) { return 'name_too_long'; } 
-elseif(preg_match('/[,|<|>|&|;|#|"|\s|\p{C}]+/u',$username)) { return 
-'name_invalid'; } elseif(preg_match($nmlimit,$username)) { return 'name_banned'; 
-} return 'name_ok'; }
+function name_check($username){
+	global $nmlimit;
+	if(!isset($username) || strlen($username)===0){
+		 return 'name_not_set';
+	}elseif(mb_strlen($username,'utf-8')>15) { 
+		return 'name_too_long';
+	} elseif(preg_match('/[,|<|>|&|;|#|"|\s|\p{C}]+/u',$username)) {
+		return 'name_invalid';
+	}elseif(preg_match($nmlimit,$username)) { 
+		return 'name_banned';
+	}
+	return 'name_ok';
+}
 
 function pass_check($pass,$rpass){//未经md5处理的
 	if(!isset($pass) || strlen($pass)===0 || !isset($rpass) || strlen($rpass)===0){

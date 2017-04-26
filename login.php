@@ -131,7 +131,7 @@ if(!$db->num_rows($result)) {
 }
 $db->query("UPDATE {$gtablepre}users SET ip='$onlineip' WHERE username = '$username'");
 
-gsetcookie('user',$username);
+gsetcookie('user',$userdata['username']);
 gsetcookie('pass',$password);
 //}
 

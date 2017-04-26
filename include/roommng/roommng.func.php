@@ -181,7 +181,10 @@ function room_create($roomtype)
 		gexit('房间数目已经达到上限，请加入一个已存在的房间',__file__,__line__);
 		die();
 	}
+	//房间等待变量初始化（对应文件）
 	$roomdata = room_init($roomtype);
+	//房间数据库初始化（对应数据库）
+	room_init_db_process($rchoice);
 	global $cuser;
 	$roomdata['player'][0]['name']=$cuser;
 	writeover(GAME_ROOT.'./gamedata/tmp/rooms/'.$rchoice.'.txt', base64_encode(gzencode(json_encode($roomdata))));
@@ -232,7 +235,7 @@ function room_enter($id)
 		$tablepre = $gtablepre.$room_prefix.'_';
 		$wtablepre = $gtablepre.($room_prefix[0]);
 		\sys\load_gameinfo();
-		$init_state = \sys\room_auto_init();
+		$init_state = room_init_db_process($room_id); //\sys\room_auto_init();
 		$need_reset = $rd['groomstatus'] == 1 ? true : false;//未开始则启动房间
 		//writeover('a.txt',$init_state);
 		if(!($init_state & 4)){//读取最后有玩家行动的时间，如果超时则需要重置，防止房间各种记录飙得太长
@@ -311,6 +314,54 @@ function room_getteamhtml(&$roomdata, $u)
 		}
 	if ($str!='') $str=substr($str,0,-1);
 	return $str;
+}
+
+function room_init_db_process($room_id){
+	if (eval(__MAGIC__)) return $___RET_VALUE;
+	global $gtablepre,$db;
+	$room_prefix = 's'.$room_id;
+	$init_state = 0;
+	
+	$wtablepre = $gtablepre.'s';
+	$tablepre = $gtablepre.$room_prefix.'_';
+	//创建对应类型的优胜列表
+	$result = $db->query("SHOW TABLES LIKE '{$wtablepre}winners';");
+	if (!$db->num_rows($result))
+	{
+		$db->query("CREATE TABLE IF NOT EXISTS {$wtablepre}winners LIKE {$gtablepre}winners;");
+		$db->query("INSERT INTO {$wtablepre}winners (gid) VALUES (0);");
+		$init_state += 1;
+	}
+	
+	//如果该房间对应的gameinfo不存在，则插入
+	//实际上不需要，因为在调用这个之前就已经插入了
+//	$result = $db->query("SELECT gamestate FROM {$gtablepre}game WHERE groomid = '$room_id'");
+//	$r1 = $db->num_rows($result);
+//	if (!$r1)
+//	{
+//		$db->query("INSERT INTO {$gtablepre}game (groomid) VALUES ('$room_id')");
+//		$init_state += 2;
+//	}
+
+	//如果该房间对应的各数据表不存在（以players表为判断依据），则创建
+	$result = $db->query("SHOW TABLES LIKE '{$tablepre}players';");
+	$r2 = $db->num_rows($result);
+	if (!$r2)
+	{
+		$sql = file_get_contents(GAME_ROOT.'./gamedata/sql/reset.sql');
+		$sql = str_replace("\r", "\n", str_replace(' bra_', ' '.$tablepre, $sql));
+		$db->queries($sql);
+		
+		$sql = file_get_contents(GAME_ROOT.'./gamedata/sql/players.sql');
+		$sql = str_replace("\r", "\n", str_replace(' bra_', ' '.$tablepre, $sql));
+		$db->queries($sql);
+		
+		$sql = file_get_contents(GAME_ROOT.'./gamedata/sql/shopitem.sql');
+		$sql = str_replace("\r", "\n", str_replace(' bra_', ' '.$tablepre, $sql));
+		$db->queries($sql);
+		$init_state += 4;
+	}
+	return $init_state;
 }
 
 /* End of file roommng.func.php */

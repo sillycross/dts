@@ -16,3 +16,4 @@ php_errors.log
 gamedata/gameinfo.php
 *.bak
 gamedata/tmp/*.*
+query_log.txt
