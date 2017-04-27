@@ -54,6 +54,7 @@ namespace replay
 		else  return get_html_color(255,0,255-($hash-300)/60*255);
 	}
 	
+	//游戏结束后，保存上局的录像文件并清空目录准备下一局
 	function post_gameover_events()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -61,24 +62,28 @@ namespace replay
 		$chprocess();
 		
 		eval(import_module('replay','sys'));
-		
+		//daemon没开则返回
 		global $___MOD_SRV, $___MOD_CODE_ADV3;
 		if (!$___MOD_SRV || !$___MOD_CODE_ADV3) return;
-		//游戏结束后，保存上局的录像文件并清空目录准备下一局
+		
 		//主游戏：激活数>1或者最高伤害>400的幸存；任何解禁；任何核爆；任何解离
 		//房间：最高伤害>400的全部死亡；激活数>1的幸存（任何队伍和SOLO模式）；任何解离；周常活动；最高伤害>400的挑战结束
 		$replay_flag = 0;
 		if(($winmode == 1 && ($gametype >= 10  || $hdamage > 400)) || ($winmode == 2 && ($validnum > 1 || $hdamage > 400)) || ($winmode == 3) || ($winmode == 5) || ($winmode == 7) || ($winmode == 8 && ($gametype < 10  || $hdamage > 400))){
 			$replay_flag = 1;
 		}
+		//以下开始处理
 		if($replay_flag){
 			$curdatalib = file_get_contents(GAME_ROOT.'./gamedata/javascript/datalib.current.txt');
+			//获取游戏时长和胜利者名字，其实可以简化掉数据库读取的
 			$result = $db->query("SELECT name,gstime,getime FROM {$wtablepre}winners WHERE gid={$gamenum}");
 			$data = $db->fetch_array($result);
 			$gametimelen = (int)$data['getime']-(int)$data['gstime'];
 			$winname = $data['name'];
+			//对每个存在的玩家挨个进行处理
 			$result = $db->query("SELECT name,pid FROM {$tablepre}players WHERE type = 0");
 			$plis = Array();
+			//房间前缀，一般是's'
 			$room_gprefix = '';
 			if ($room_prefix!='') $room_gprefix = ((string)$room_prefix[0]).'.';
 			while($data = $db->fetch_array($result))
@@ -86,24 +91,32 @@ namespace replay
 				if (is_dir(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$data['pid']) && file_exists(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$data['pid'].'/replay.txt'))
 				{
 					$totsz = 0;
+					//$arr=录像头文件，记录基本信息和每次操作的时刻
 					$arr=Array(); $opdatalist=Array(); $opreclist=Array();
 					$arr['replay_gamenum'] = $room_gprefix.((string)$gamenum);
 					$arr['replay_player'] = $data['name'];
 					$arr['replay_timelen'] = $gametimelen;
 					$arr['replay_optime'] = Array();
+					//读对应的replay.txt，内容什么时刻对应哪个response文件
 					$oplist = openfile(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$data['pid'].'/replay.txt');
 					$cnt = sizeof($oplist);
+					//计算分几段
+					//卧槽你这里直接ceil()不就好了嘛……算了不改了
 					$arr['replay_datapart'] = ((int)floor($cnt/$partsize));
 					if ($cnt%$partsize!=0) $arr['replay_datapart']++;
+					//处理replay.txt的每一行
 					for($i = 0; $i < $cnt; $i++) 
 						if(!empty($oplist[$i]) && strpos($oplist[$i],',')!==false)
 						{
+							//不明参数，操作时间，对应的response文件
 							list($oprec,$optime,$opdata) = explode(',',$oplist[$i]);
 							array_push($opreclist,json_decode(mgzdecode(base64_decode($oprec))));
 							array_push($arr['replay_optime'],round($optime*10000)/10000);
 							array_push($opdatalist,$opdata);
 						}
 					
+					//将$arr保存为录像头文件
+					//我勒个去sc你把进度条写在这里面……好吧仔细想想这也算是某种意义上的闭包，没毛病
 					$jreplaydata = json_encode($arr);
 					$jreplaydata = '___temp_s = new String(\''.base64_encode(gzencode($jreplaydata,9)).'\');
 					replay_header = JSON.parse(JXG.decompress(___temp_s));
@@ -112,7 +125,6 @@ namespace replay
 					replayload_progressbar('.round(100/($arr['replay_datapart']+2)).');
 					jQuery.cachedScript("gamedata/replays/'.$room_gprefix.$gamenum.'.'.$data['pid'].'.replay.oprecord.js");
 					';
-					
 					writeover(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.'.$data['pid'].'.replay.header.js',$jreplaydata);
 					$totsz += strlen($jreplaydata);
 					

@@ -4,6 +4,7 @@ namespace gameflow_base
 {
 	function init() {}
 	
+	//routine()外侧已经加过文件锁，理论上本文件的任何函数都不用额外加锁
 	function gamestate_prepare_game()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
