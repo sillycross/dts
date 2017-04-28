@@ -19,18 +19,18 @@ namespace gameflow_antiafk
 	function gamestateupdate()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
-		$chprocess();
-		
 		eval(import_module('sys','map','gameflow_antiafk'));
-		//标准房是连斗后反挂机，房间内是1禁后反挂机
-		if ( ($gametype < 10 && $gamestate >= 40 && $now > $afktime + $antiAFKertime_normal * 60)) {
-			antiAFK($antiAFKertime_normal);
-			$afktime = $now;
-		}elseif (($gametype >= 10 && $areanum>=$areaadd && $now > $afktime + $antiAFKertime_room * 60)) {
-			antiAFK($antiAFKertime_room);
+		//长时间没人刷新游戏后，优先反挂机再禁区
+		if($gamestate > 10) {
+			//标准房是连斗后反挂机，房间内是1禁后反挂机
+			if ( $gametype < 10 && $gamestate >= 40 && $now > $afktime + $antiAFKertime_normal * 60) {
+				antiAFK($antiAFKertime_normal);
+			}elseif ($gametype >= 10 && $areanum>=$areaadd && $now > $afktime + $antiAFKertime_room * 60) {
+				antiAFK($antiAFKertime_room);
+			}
 			$afktime = $now;
 		}
+		$chprocess();
 	}
 	
 	function antiAFK($timelimit = 0)

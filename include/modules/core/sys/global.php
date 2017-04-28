@@ -8,8 +8,9 @@ namespace sys
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		$res = NULL;
+		startmicrotime();
 		if(empty($plock)) {
-			$plock=fopen(GAME_ROOT.'./gamedata/tmp/processlock/process_'.$groomid.'.lock','ab');
+			$plock=fopen(GAME_ROOT.'./gamedata/tmp/processlock/process_'.$groomid.'.lock','w+');
 			$res = flock($plock,$locktype);
 		}
 		return $res;
@@ -20,10 +21,11 @@ namespace sys
 	function process_unlock() {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		if(empty($plock)) {
+		logmicrotime('锁时间'.debug_backtrace()[1]['function']);
+		if(!empty($plock)) {
 			fclose($plock);
-			$plock = NULL;
 		}
+		$plock = NULL;
 	}
 	
 	function load_gameinfo() {	//sys模块初始化的时候并没有调用这个函数

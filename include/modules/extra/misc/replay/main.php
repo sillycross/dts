@@ -74,6 +74,7 @@ namespace replay
 		}
 		//以下开始处理
 		if($replay_flag){
+			startmicrotime();
 			$curdatalib = file_get_contents(GAME_ROOT.'./gamedata/javascript/datalib.current.txt');
 			//获取游戏时长和胜利者名字，其实可以简化掉数据库读取的
 			$result = $db->query("SELECT name,gstime,getime FROM {$wtablepre}winners WHERE gid={$gamenum}");
@@ -86,6 +87,7 @@ namespace replay
 			//房间前缀，一般是's'
 			$room_gprefix = '';
 			if ($room_prefix!='') $room_gprefix = ((string)$room_prefix[0]).'.';
+			logmicrotime('前序处理');
 			while($data = $db->fetch_array($result))
 			{
 				if (is_dir(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$data['pid']) && file_exists(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$data['pid'].'/replay.txt'))
@@ -108,13 +110,13 @@ namespace replay
 					for($i = 0; $i < $cnt; $i++) 
 						if(!empty($oplist[$i]) && strpos($oplist[$i],',')!==false)
 						{
-							//不明参数，操作时间，对应的response文件
+							//点击状况，操作时间，对应的response文件
 							list($oprec,$optime,$opdata) = explode(',',$oplist[$i]);
-							array_push($opreclist,json_decode(mgzdecode(base64_decode($oprec))));
+							array_push($opreclist,gdecode($oprec));
 							array_push($arr['replay_optime'],round($optime*10000)/10000);
 							array_push($opdatalist,$opdata);
 						}
-					
+					logmicrotime('读取response');
 					//将$arr保存为录像头文件
 					//我勒个去sc你把进度条写在这里面……好吧仔细想想这也算是某种意义上的闭包，没毛病
 					$jreplaydata = json_encode($arr);
@@ -127,7 +129,8 @@ namespace replay
 					';
 					writeover(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.'.$data['pid'].'.replay.header.js',$jreplaydata);
 					$totsz += strlen($jreplaydata);
-					
+					logmicrotime('写头文件');
+					//点击状况记录
 					$jreplaydata = json_encode($opreclist);
 					$jreplaydata = '___temp_s = new String(\''.base64_encode(gzencode($jreplaydata,9)).'\');
 					replay_oprecord = JSON.parse(JXG.decompress(___temp_s));
@@ -139,14 +142,14 @@ namespace replay
 					
 					writeover(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.'.$data['pid'].'.replay.oprecord.js',$jreplaydata);
 					$totsz += strlen($jreplaydata);
-					
+					logmicrotime('写点击记录');
+					//分段读取并处理response					
 					for($i = 0; $i < $arr['replay_datapart']; $i++) 
 					{
 						$i_start=$i*$partsize;
 						$i_end=min($cnt-1,$i_start+$partsize-1);
 						$xdata=Array();
 						for ($k=$i_start; $k<=$i_end; $k++)
-							//array_push($xdata,json_decode(mgzdecode(base64_decode(file_get_contents($opdatalist[$k]))),true));
 							array_push($xdata,gdecode(file_get_contents($opdatalist[$k]),true));
 							
 						$jreplaydata = json_encode($xdata);
@@ -165,10 +168,11 @@ namespace replay
 						
 						$totsz += strlen($jreplaydata);
 					}
-					
+					logmicrotime('写界面数据');
 					$totsz = (round($totsz / 1024 * 10)/10).'KB';
+					//保存当前的html缓存
 					writeover(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.'.$data['pid'].'.rep',base64_encode($curdatalib).','.$gamenum.','.base64_encode($data['name']).','.$totsz.','.$cnt.',');
-					
+					logmicrotime('写html缓存');
 					//生成缩略图
 					$pic_len = 1000;
 					$pix_time = $gametimelen / $pic_len;
@@ -215,7 +219,7 @@ namespace replay
 					}
 					
 					file_put_contents(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.'.$data['pid'].'.rep.bmp',\bmp_util\gen_bmp($content,$pic_len,1));
-				
+				logmicrotime('生成略缩图');
 					$data['opnum']=-$cnt;
 					if ($data['name']==$winname) $data['opnum']=-2000000000;
 					array_push($plis,$data);

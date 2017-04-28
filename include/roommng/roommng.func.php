@@ -38,7 +38,7 @@ function room_save_broadcast($roomid, &$roomdata)
 	
 	update_roomstate($roomdata,$runflag);
 	
-	writeover(GAME_ROOT.'./gamedata/tmp/rooms/'.$roomid.'.txt', base64_encode(gzencode(json_encode($roomdata))));
+	writeover(GAME_ROOT.'./gamedata/tmp/rooms/'.$roomid.'.txt', gencode($roomdata));
 	$result = $db->query("SELECT * FROM {$gtablepre}roomlisteners WHERE roomid = '$roomid' AND timestamp < '{$roomdata['timestamp']}'");
 	if ($db->num_rows($result))
 	{
@@ -187,7 +187,7 @@ function room_create($roomtype)
 	room_init_db_process($rchoice);
 	global $cuser;
 	$roomdata['player'][0]['name']=$cuser;
-	writeover(GAME_ROOT.'./gamedata/tmp/rooms/'.$rchoice.'.txt', base64_encode(gzencode(json_encode($roomdata))));
+	writeover(GAME_ROOT.'./gamedata/tmp/rooms/'.$rchoice.'.txt', gencode($roomdata));
 	$db->query("DELETE from {$gtablepre}roomlisteners WHERE roomid = '$rchoice'"); 
 //	if($rsetting['continuous']){
 //		room_enter($rchoice);
