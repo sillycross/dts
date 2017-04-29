@@ -18,6 +18,9 @@ if($gamestate > 10) {
 $adminmsg = file_get_contents('./gamedata/adminmsg.htm') ;
 $systemmsg = file_get_contents('./gamedata/systemmsg.htm') ;
 
+if($disable_newgame) $systemmsg = '<span class="evergreen2" style="color:red">暂停开放新游戏</span>'.$systemmsg;
+elseif($disable_newroom) $systemmsg = '<span class="evergreen2" style="color:red">暂停开放新房间</span>'.$systemmsg;
+
 $roomlist = Array();
 
 $roomresult = $db->query("SELECT * FROM {$gtablepre}game WHERE groomstatus > 0");
