@@ -2,6 +2,32 @@
 
 namespace sys
 {
+	//文件进程锁，对game表如果有操作，建议在操作前加锁
+	//如果本进程已经加过锁则不会进行任何操作
+	function process_lock($locktype = LOCK_EX) {//可使用LOCK_SH LOCK_EX LOCK_UN
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		$res = NULL;
+		//startmicrotime();
+		if(empty($plock)) {
+			$plock=fopen(GAME_ROOT.'./gamedata/tmp/processlock/process_'.$groomid.'.lock','w+');
+			$res = flock($plock,$locktype);
+		}
+		return $res;
+	}
+	
+	//文件进程解锁，对game表操作完请解锁，否则会在脚本结束才解锁，如果是daemon模式目测会卡死
+	//如果本进程已经加过锁则不会进行任何操作
+	function process_unlock() {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		//logmicrotime('锁时间'.debug_backtrace()[1]['function']);
+		if(!empty($plock)) {
+			fclose($plock);
+		}
+		$plock = NULL;
+	}
+	
 	function load_gameinfo() {	//sys模块初始化的时候并没有调用这个函数
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));

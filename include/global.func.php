@@ -9,11 +9,6 @@ require GAME_ROOT.'./include/roommng/roommng.config.php';
 //----------------------------------------
 //              底层机制函数
 //----------------------------------------
-
-function mgzdecode($data)
-{
-	return gzinflate(substr($data,10,-8));
-}
     
 function gameerrorhandler($code, $msg, $file, $line){
 	global $errorinfo;
@@ -175,10 +170,17 @@ function content($file = '') {
 	return $content;
 }
 
+function mgzdecode($data)
+{
+	return gzinflate(substr($data,10,-8));
+}
+
+//数组压缩转化为纯字母数字
 function gencode($para){
 	return base64_encode(gzencode(json_encode($para)));
 }
 
+//还原上一个函数
 function gdecode($para, $assoc = false){
 	$assoc = $assoc ? true : false;
 	if (!$para) return array();
@@ -363,10 +365,22 @@ function getmicrotime(){
 	return ((float)$usec + (float)$sec);
 }
 
-function putmicrotime($t_s,$t_e,$file,$info)
+function putmicrotime($t_s, $t_e, $file, $info)
 {
 	$mtime = ($t_e - $t_s)*1000;
-	writeover( $file.'.txt',"$info ；执行时间：$mtime 毫秒 \n",'ab');
+	writeover( $file.'.txt',"$info ；执行时间：$mtime 毫秒 \r\n",'ab');
+}
+
+function startmicrotime(){
+	global $startmicrotime;
+	$startmicrotime = getmicrotime();
+}
+
+function logmicrotime($info){
+	global $startmicrotime;
+	$nowmicrotime = getmicrotime();
+	putmicrotime($startmicrotime, $nowmicrotime, 'microtimelog.txt', $info);
+	$startmicrotime = $nowmicrotime;
 }
 
 function get_script_runtime($pagestartime)
@@ -391,7 +405,7 @@ function check_alnumudline($key)
 }
 
 //----------------------------------------
-//              数学类
+//              数学运算
 //----------------------------------------
 
 function array_clone($a){//数组浅拷贝，该死的传引用

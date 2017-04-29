@@ -162,7 +162,7 @@ if ($___MOD_SRV)
 					socket_close($___TEMP_connection);  
 					__SOCKET_DEBUGLOG__("关闭连接。");
 					
-					if (defined('MOD_REPLAY') && $___MOD_SRV && $___MOD_CODE_ADV3) 
+					if (defined('MOD_REPLAY') && $___MOD_SRV && $___MOD_CODE_ADV3 && !in_array($gametype, $replay_ignore_mode)) 
 					{
 						if (!isset($jgamedata['url']))
 						{

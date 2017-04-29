@@ -23,7 +23,7 @@ namespace gtype1
  				$gametype=0;
  			}
  		}
- 		if ($disableevent) $gametype=0; 
+ 		if ($disable_event) $gametype=0; 
 		$chprocess();
 	}
 	

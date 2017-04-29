@@ -14,6 +14,7 @@ if($command == 'edit') {
 		'startmode'=>'int',
 		'starthour'=>'int',
 		'startmin'=>'int',
+		'readymin'=>'int',
 		'iplimit'=>'int',
 		'newslimit'=>'int',
 		'alivelimit'=>'int',
@@ -21,7 +22,9 @@ if($command == 'edit') {
 		'chatlimit'=>'int',
 		'chatrefresh'=>'int',
 		'chatinnews'=>'int',
-		'disableevent'=>'int'
+		'disable_event'=>'int',
+		'disable_newgame'=>'int',
+		'disable_newroom'=>'int'
 	);
 	$edlist = Array();
 	$cmd_info = '';

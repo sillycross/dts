@@ -12,15 +12,17 @@ namespace sys
 	//是否缓存css文件。0=不缓存，1=缓存
 	$allowcsscache = 1;
 	//游戏版本
-	$gameversion = 'N.E.W. v1.22';
+	$gameversion = 'N.E.W. v1.233';
 	//站长留言
 	//$systemmsg = '';
 	//游戏开始方式 0=后台手动开始，1=每天固定时间开始，2=上局结束后，间隔固定小时后的整点开始，3=上局结束后，间隔固定分钟开始
-	$startmode = 0;
-	//游戏开始的小时，如果，如果$startmode = 1,表示开始时间0~23，如果$startmode = 2，表示间隔小时，>0，如果$startmode = 3，表示间隔分钟，>0
+	$startmode = 3;
+	//游戏开始的小时，如果，如果$startmode=1,表示开始时间0~23，如果$startmode=2，表示间隔小时，>0，如果$startmode=3则无视
 	$starthour = 0;
-	//游戏开始的分钟数，范围1~59
-	$startmin = 1;
+	//游戏开始的分钟数，范围1~59，$startmode=3时表示间隔分钟
+	$startmin = 3;
+	//游戏提前准备的分钟数，建议小于$startmin，小于1时游戏会自动认为是1
+	$readymin = 1;
 	//游戏所用配置文件
 	$gamecfg = 1;
 
@@ -38,7 +40,7 @@ namespace sys
 	//历史优胜者显示条数
 	$winlimit = 50;
 	//翻页列表直接跳转页码的个数
-	$pagelimit = 7;
+	//$pagelimit = 7;
 	
 	//失焦冻结时间，单位分钟
 	//$lostfocusmin = 10;
@@ -51,10 +53,14 @@ namespace sys
 	//游戏进行中是否显示聊天。0为不显示，数字为显示条数
 	$chatinnews = 50;
 	
-	//是否开启曜日活动
-	$disableevent = 0;
-	//是否开启沙盒模式
-	$disable_sandbox_mode = 0;
+	//是否禁止曜日活动
+	$disable_event = 0;
+	//是否禁止沙盒模式
+	//$disable_sandbox_mode = 0;
+	//是否禁止新游戏（主游戏下一局时间会变为未定，无法新建房间）用于更新
+	$disable_newgame = 0;
+	//是否禁止创建房间
+	$disable_newroom = 0;
 	
 	//房间游戏模式列表
 	$room_mode = Array(10,11,12,13,14,15,16);
@@ -70,6 +76,10 @@ namespace sys
 	$pve_ignore_mode=Array(1,3,10,11,12,13,14);
 	//我好像写了一些很蠢的东西
 	//是很蠢，其实这个都可以丢到房间设定里面去
+	
+	//不记录录像的游戏类型
+	//这个要在command里调用，倒是可以直接写在这个文件了
+	$replay_ignore_mode=Array(17);
 }
 
 ?>

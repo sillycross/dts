@@ -286,7 +286,7 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2 && $___MOD_CODE_ADV3)
 	}
 	echo '<font color="blue">代码预处理CODE_ADV3完成。</font><br><br>';
 	
-	$str='___temp_s = new String(\''.base64_encode(gzencode(json_encode($___TEMP_codeadv3_v))).'\');
+	$str='___temp_s = new String(\''.gencode($___TEMP_codeadv3_v).'\');
 	___datalib = JSON.parse(JXG.decompress(___temp_s));
 	delete ___temp_s;
 	';

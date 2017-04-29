@@ -4,6 +4,7 @@ namespace gameflow_base
 {
 	function init() {}
 	
+	//routine()外侧已经加过文件锁，理论上本文件的任何函数都不用额外加锁
 	function gamestate_prepare_game()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -33,7 +34,8 @@ namespace gameflow_base
 		
 		eval(import_module('sys'));
 		if(!$gamestate) { //判定游戏准备
-			if(($starttime)&&($now > $starttime - $startmin*60)) {
+			$readymin = $readymin > 0 ? $readymin : 1;
+			if(($starttime)&&($now > $starttime - $readymin*60)) {
 				gamestate_prepare_game();
 			}
 		}
