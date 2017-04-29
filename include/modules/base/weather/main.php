@@ -262,12 +262,15 @@ namespace weather
 		return;
 	}
 	
+	
+	
 	function add_once_area($atime)	//增加禁区天气变化
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys'));
-		$weather = rand(0,9);
+		$o_weather = $weather;
+		do { $weather = rand(0,9); } while($weather == $o_weather);		//天气不会跟原本天气一样
 		$chprocess($atime);
 	}
 	
@@ -280,7 +283,8 @@ namespace weather
 		eval(import_module('sys'));
 		if ($xmode & 2) 
 		{
-			$weather = rand(0,9);
+			shuffle($opening_weather_list);
+			$weather = $opening_weather_list[0];
 		}
 	}
 	
