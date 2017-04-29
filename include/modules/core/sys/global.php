@@ -8,7 +8,7 @@ namespace sys
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		$res = NULL;
-		startmicrotime();
+		//startmicrotime();
 		if(empty($plock)) {
 			$plock=fopen(GAME_ROOT.'./gamedata/tmp/processlock/process_'.$groomid.'.lock','w+');
 			$res = flock($plock,$locktype);
@@ -21,7 +21,7 @@ namespace sys
 	function process_unlock() {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		logmicrotime('锁时间'.debug_backtrace()[1]['function']);
+		//logmicrotime('锁时间'.debug_backtrace()[1]['function']);
 		if(!empty($plock)) {
 			fclose($plock);
 		}

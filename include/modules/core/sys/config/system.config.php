@@ -76,6 +76,10 @@ namespace sys
 	$pve_ignore_mode=Array(1,3,10,11,12,13,14);
 	//我好像写了一些很蠢的东西
 	//是很蠢，其实这个都可以丢到房间设定里面去
+	
+	//不记录录像的游戏类型
+	//这个要在command里调用，倒是可以直接写在这个文件了
+	$replay_ignore_mode=Array(15);
 }
 
 ?>

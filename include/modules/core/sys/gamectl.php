@@ -41,6 +41,12 @@ namespace sys
 		$gamestate = 10;
 		
 		save_combatinfo();
+		
+		//清空临时文件夹
+		clear_dir(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/',1);
+		global $___MOD_TMP_FILE_DIRECTORY;
+		clear_dir($___MOD_TMP_FILE_DIRECTORY.$room_prefix.'_/',1);
+		
 		save_gameinfo(0);
 	}
 	
