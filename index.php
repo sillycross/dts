@@ -85,7 +85,8 @@ while ($data = $db->fetch_array($roomresult))
 			$roomlist[$data['groomid']]['maxplayer'] = $roomtypelist[$roomdata['roomtype']]['pnum'];
 			$roomlist[$data['groomid']]['roomtype'] = $roomdata['roomtype'];
 			$roomlist[$data['groomid']]['roomdata'] = $roomdata;
-			if($roomtypelist[$roomdata['roomtype']]['continuous']){
+			$roomlist[$data['groomid']]['continuous'] = $roomtypelist[$roomdata['roomtype']]['continuous'];
+			if($roomlist[$data['groomid']]['continuous']){
 				$rid = 's'.$data['groomid'];
 				$rtablepre = $gtablepre.$rid.'_';
 				$endtimelimit = $now-300;
@@ -104,13 +105,17 @@ while ($data = $db->fetch_array($roomresult))
 //var_dump($roomlist);
 //die();
 
-//排序方式：等待中优于游戏中，人越接近满越优先，人已满放最后，依然相同按ID
+//排序方式：永续房放最前，等待中优于游戏中，人越接近满越优先，人已满放最后，依然相同按ID
 $troomlist = $roomlist;
 ksort($roomlist);
 $tmp=Array();
 foreach ($roomlist as $key => $value)
 {
-	if ($value['status']==2)
+	if ($value['continuous'])
+	{
+		$wg = 0;
+	}
+	elseif ($value['status']==2)
 	{
 		$wg = 10000;
 	}

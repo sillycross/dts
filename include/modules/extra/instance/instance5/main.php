@@ -95,6 +95,7 @@ namespace instance5
 			if ($itm == '伐木解除钥匙') 
 			{
 				$url = 'end.php';
+				addnews ( $now, 'itemuse', $name, $itm );
 				\sys\gameover ( $now, 'end8', $name );
 			}
 		}

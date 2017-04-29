@@ -79,7 +79,7 @@ namespace sys
 	
 	//不记录录像的游戏类型
 	//这个要在command里调用，倒是可以直接写在这个文件了
-	$replay_ignore_mode=Array(15);
+	$replay_ignore_mode=Array(17);
 }
 
 ?>

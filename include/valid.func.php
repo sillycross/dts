@@ -72,7 +72,8 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 		$itm[3] = '手枪子弹'; $itmk[3] = 'GB'; $itme[3] = 1; $itms[3] = 12; $itmsk[3] = '';
 	}
 
-	if ($name == 'Amarillo_NMC') {
+	global $gamefounder;
+	if ($name == $gamefounder) {
 		$msp += 500;$mhp += 500;$hp += 500;$sp += 500;
 		$att += 200;$def += 200;
 		$exp += 3000;$money = 20000;$rage = 255;$pose = 1;$tactic = 3;
