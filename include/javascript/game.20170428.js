@@ -307,6 +307,12 @@ function showData(sdata){
 				}
 			}
 		}
+		var sDs = shwData['src'];
+		for(var id in sDs){
+			if($(id)!=null){
+				$(id).src = sDs[id];
+			}
+		}
 		//这个回头应该做到专门的js里去
 		if (shwData['effect'])
 		{

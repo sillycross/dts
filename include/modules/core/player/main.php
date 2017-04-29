@@ -118,7 +118,7 @@ namespace player
 		eval(import_module('sys','player'));
 		$iconImg = $gd.'_'.$icon.'.gif';
 		$iconImgB = $gd.'_'.$icon.'a.gif';
-		$ardef = $arbe + $arhe + $arae + $arfe;
+		//$ardef = $arbe + $arhe + $arae + $arfe;
 
 		if(!$weps) {
 			$wep = $nowep;$wepk = 'WN';$wepsk = '';
@@ -129,41 +129,57 @@ namespace player
 			$arbe = 0; $arbs = $nosta;
 		}
 	}
+	
+	//玩家界面非profile的信息渲染，目前而言只有command需要调用
+	function parse_interface_gameinfo() {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','logger'));
 		
-	function init_profile(){
+		$uip['innerHTML']['log'] = $log;
+		if ($gametype!=2) $uip['innerHTML']['anum'] = $alivenum;
+		else $uip['innerHTML']['anum'] = $validnum;
+//		$uip['innerHTML']['weather'] = $wthinfo[$weather];
+//		$uip['innerHTML']['gamedate'] = "{$month}月{$day}日 星期{$week[$wday]} {$hour}:{$min}";
+//		if ($gamestate == 40 ||($gametype == 17 && \skillbase\skill_getvalue(1000,'step')>=206)) {
+//			$uip['innerHTML']['gamestateinfo'] = '<span class="yellow">连斗</span>';
+//		} elseif ($gamestate == 50) {
+//			$uip['innerHTML']['gamestateinfo'] = '<span class="red">死斗</span>';
+//		}
+	}
+	
+	//玩家界面profile数据渲染
+	function parse_interface_profile(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player'));
+		eval(import_module('sys','player','map'));
 		
 		$ardef = $arbe + $arhe + $arae + $arfe;
-		$karma = ($rp * $killnum - $def )+ $att;
-
+		
+		//$karma = ($rp * $killnum - $def )+ $att;
+		
 		$hpcolor = 'clan';
-		if($hp <= 0 ){
-			$hpcolor = 'red';
-		} elseif($hp <= $mhp*0.2){
-			$hpcolor = 'red';
-		} elseif($hp <= $mhp*0.5){
-			$hpcolor = 'yellow';
-		} elseif($inf == ''){
-		}
-		
-		if($sp <= $msp*0.2){
-			$spcolor = 'grey';
-		} elseif($sp <= $msp*0.5){
-			$spcolor = 'yellow';
-		} else {
-			$spcolor = 'clan';
-		}
-		
+		if($hp <= $mhp*0.2) $hpcolor = 'red';
+		elseif($hp <= $mhp*0.5) $hpcolor = 'yellow';
 		$newhppre = 6+floor(155*(1-$hp/$mhp));
 		$newhpimg = '<img src="img/hpman.gif" style="position:absolute; clip:rect('.$newhppre.'px,55px,160px,0px);">';
+		$hpltp = 3+floor(155*(1-$hp/$mhp));
+		$hplt = '<img src="img/hplt.gif" style="position:absolute; clip:rect('.$hpltp.'px,55px,160px,0px);">';
+		
+		$spcolor = 'clan';
+		if($sp <= $msp*0.2) $spcolor = 'grey';
+		elseif($sp <= $msp*0.5) $spcolor = 'yellow';
 		$newsppre = 6+floor(155*(1-$sp/$msp));
 		$newspimg = '<img src="img/spman.gif" style="position:absolute; clip:rect('.$newsppre.'px,55px,160px,0px);">';
 		$spltp = 3+floor(155*(1-$sp/$msp));
 		$splt = '<img src="img/splt.gif" style="position:absolute; clip:rect('.$spltp.'px,55px,160px,0px);">';
-		$hpltp = 3+floor(155*(1-$hp/$mhp));
-		$hplt = '<img src="img/hplt.gif" style="position:absolute; clip:rect('.$hpltp.'px,55px,160px,0px);">';
+		
+		$uip['innerHTML']['pls'] = $plsinfo[$pls];
+		$uip['value']['teamID'] = $teamID;
+		if($teamID){
+			$uip['innerHTML']['chattype'] = "<select name=\"chattype\" value=\"2\"><option value=\"0\" selected>$chatinfo[0]<option value=\"1\" >$chatinfo[1]</select>";
+		}else{
+			$uip['innerHTML']['chattype'] = "<select name=\"chattype\" value=\"2\"><option value=\"0\" selected>$chatinfo[0]</select>";
+		}
 		return;
 	}
 
@@ -204,6 +220,27 @@ namespace player
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
+	//和玩家池里的数据进行对比，返回改变的值组成的数组
+	function player_diff_from_poll($data){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player'));
+		if(isset($data['pid']))
+		{
+			$dpid = $data['pid'];
+			if(isset($pdata_origin_pool[$dpid])){//数据池里存在这个pid的数据，则逐项对比
+				$ndata=Array();
+				foreach ($db_player_structure as $key){
+					if (isset($data[$key]) && $data[$key] !== $pdata_origin_pool[$dpid][$key]) {
+						$ndata[$key]=$data[$key];
+					}
+				}
+				return $ndata;
+			}else{//数据池没有，直接返回
+				return $data;
+			}
+		}
+	}
+	
 	function player_save($data)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -213,13 +250,12 @@ namespace player
 		{
 			$spid = $data['pid'];
 			//unset($data['pid']);
-			$ndata=Array();
+			//$ndata=Array();
 			
 			$pdata_pool[$spid] = array_clone($data);
-			foreach ($db_player_structure as $key){
-				//任意列的数值没变就不写数据库
-				if ($key!='pid' && isset($data[$key]) && $data[$key] !== $pdata_origin_pool[$spid][$key]) $ndata[$key]=$data[$key];
-			}
+			//任意列的数值没变就不写数据库
+			$ndata = player_diff_from_poll($data);
+			unset($ndata['pid']);
 			//writeover('a.txt',var_export($ndata,1));
 			
 			//建国后不准成精，你们复活别想啦
@@ -243,13 +279,8 @@ namespace player
 				//这里困扰了我一晚上，不知道为什么加了下面这句话就会导致$pdata_origin_pool里的$action自动变化以至于无法写入，最后注释掉了事……
 				//知道了，见前面的load_playerdata()定义，全局变量$sdata里每一个键值都是对外面变量的引用……
 				//简直是醉，这么牛逼的逻辑谁写的，要知道我写3.0的时候硬生生把所有地方都改成写数组，也不敢瞎引用
-				//现在这里需要一个数组拷贝
+				//现在这里是一个数组浅拷贝
 				$pdata_origin_pool[$spid] = array_clone($data);
-				
-//				ob_start();
-//				var_dump($ndata);
-//				writeover($spid.'.txt',ob_get_contents());
-//				ob_end_clean();
 			}
 		}
 		return;

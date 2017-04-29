@@ -143,7 +143,7 @@ namespace itemmain
 		
 	}
 	
-	function init_profile()
+	function parse_interface_profile()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player'));

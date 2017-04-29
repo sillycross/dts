@@ -100,7 +100,7 @@ $repdatalib=base64_decode($repdatalib);
 //$repbg = 'gamedata/replays/'.$repid.'.rep.bmp';
 
 \player\init_playerdata();
-\player\init_profile();
+\player\parse_interface_profile();
 
 $log = '';
 
