@@ -123,13 +123,18 @@ function get_room_data(){
 function room_create($roomtype)
 {
 	eval(import_module('sys'));
+	if ($disable_newgame || $disable_newroom) {
+		gexit('管理员禁止了新建房间',__file__,__line__);
+		die();
+	}
+	
 	global $roomtypelist;
 	$roomtype=(int)$roomtype;
-	if ($roomtype>=count($roomtypelist))
-	{
+	if ($roomtype>=count($roomtypelist)){
 		gexit('房间参数错误',__file__,__line__);
 		die();
 	}
+	
 	
 	global $max_room_num;
 	$rchoice = -1;
@@ -206,6 +211,10 @@ function room_new_chat(&$roomdata,$str)
 function room_enter($id)
 {
 	eval(import_module('sys'));
+	if ($disable_newgame || $disable_newroom) {
+		gexit('管理员禁止了加入房间',__file__,__line__);
+		die();
+	}
 	$id=(int)$id;
 	$result = $db->query("SELECT groomstatus,groomtype FROM {$gtablepre}game WHERE groomid = '$id'");
 	if(!$db->num_rows($result)) 

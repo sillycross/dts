@@ -67,19 +67,21 @@ namespace sys
 		}
 		else
 		{
-			if($startmode == 1) {
+			if($disable_newgame || !$startmode) {//更新模式或者手动设定开始时间
+				$starttime = 0;
+			} elseif ($startmode == 1) {//每日定时
 				if($hour >= $starthour){ $nextday = $day+1;}
 				else{$nextday = $day;}
 				$nexthour = $starthour;
 				$starttime = mktime($nexthour,$startmin,0,$month,$nextday,$year);
-			} elseif($startmode == 2) {
+			} elseif($startmode == 2) {//整点开始
 				$starthour = $starthour> 0 ? $starthour : 1;
 				$startmin = $startmin> 0 ? $startmin : 1;
 				$nexthour = $hour + $starthour;
 				$starttime = mktime($nexthour,$startmin,0,$month,$day,$year);
-			} elseif($startmode == 3) {
-				$starthour = $starthour> 0 ? $starthour : 1;
-				$nextmin = $min + $starthour;
+			} elseif($startmode == 3) {//间隔开始
+				$startmin = $startmin> 0 ? $startmin : 1;
+				$nextmin = $min + $startmin;
 				$nexthour = $hour;
 		//		if($nextmin % 60 >= 40){//回避速1禁
 		//			$nextmin+=20;

@@ -34,7 +34,8 @@ namespace gameflow_base
 		
 		eval(import_module('sys'));
 		if(!$gamestate) { //判定游戏准备
-			if(($starttime)&&($now > $starttime - $startmin*60)) {
+			$readymin = $readymin > 0 ? $readymin : 1;
+			if(($starttime)&&($now > $starttime - $readymin*60)) {
 				gamestate_prepare_game();
 			}
 		}

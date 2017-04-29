@@ -61,7 +61,8 @@ if($command == 'wthedit'){
 		addnews($now,'sysgschg',$igamestate);	
 	}elseif($igamestate == 10){
 		$cmd_info = '游戏立即进入准备状态！请访问任意游戏页面以刷新游戏状态。';
-		$starttime = $now + $startmin * 60;
+		$readymin = $readymin > 0 ? $readymin : 1;
+		$starttime = $now + $readymin * 60;
 		save_gameinfo();
 		adminlog('gsedit',$igamestate);
 	}else{
