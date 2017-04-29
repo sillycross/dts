@@ -270,10 +270,17 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2 && $___MOD_CODE_ADV3)
 			if ($sid=='.' || $sid=='..') continue;
 			if (!is_dir(GAME_ROOT.'./templates/default/'.(string)$sid))
 			{
-				if ($sid=='help.htm') continue;
-				if ($sid=='mixhelp.htm') continue;
-				if ($sid=='itemhelp.htm') continue;
-				if (substr($sid,strlen($sid)-4)=='.htm')
+				if (strpos($sid,'admin')===0) continue;
+				elseif (strpos($sid,'mixhelp')===0) continue;
+				elseif (strpos($sid,'alive')===0) continue;
+				elseif (strpos($sid,'winner')===0) continue;
+				elseif (strpos($sid,'valid')===0) continue;
+				elseif (strpos($sid,'user')===0) continue;
+				elseif (strpos($sid,'rank')===0) continue;
+				elseif (strpos($sid,'kuji')===0) continue;
+				elseif (substr($sid,strlen($sid)-8)=='help.htm') continue;
+				elseif (in_array($sid, array('header.htm', 'footer.htm', 'donate.htm', 'map.htm', 'replay.htm', 'register.htm', 'end.htm', 'updatelist.htm', 'areainfo.htm'))) continue;
+				elseif (substr($sid,strlen($sid)-4)=='.htm')
 				{
 					echo '&nbsp;&nbsp;&nbsp;&nbsp;正在处理模板'.$sid.'.. '; ob_end_flush(); flush();
 					$objfile = template(substr($sid,0,-4));

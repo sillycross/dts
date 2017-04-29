@@ -75,6 +75,7 @@ while ($data = $db->fetch_array($roomresult))
 			$roomlist[$data['groomid']]['maxplayer'] = $roomtypelist[$roomdata['roomtype']]['pnum'];
 			$roomlist[$data['groomid']]['roomtype'] = $roomdata['roomtype'];
 			$roomlist[$data['groomid']]['roomdata'] = $roomdata;
+			$roomlist[$data['groomid']]['continuous'] = $roomtypelist[$roomdata['roomtype']]['continuous'];
 		}
 	}
 	elseif ($data['groomstatus']==2)

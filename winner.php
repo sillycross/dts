@@ -23,7 +23,7 @@ if($command == 'info') {
 	$pdata['gedate'] = date("m/d/Y H:i:s",$pdata['getime']);
 	\player\load_playerdata($pdata);
 	\player\init_playerdata();
-	\player\init_profile();
+	\player\parse_interface_profile();
 	extract($pdata);
 } elseif($command == 'news') {
 	$hnewsfile = GAME_ROOT."./gamedata/bak/{$room_gprefix}{$gnum}_newsinfo.html";

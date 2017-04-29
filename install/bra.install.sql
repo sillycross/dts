@@ -89,6 +89,33 @@ CREATE TABLE `bra_users` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
+-- Table structure for table `bra_history`
+--
+
+#DROP TABLE IF EXISTS `bra_history`;
+#CREATE TABLE `bra_history` (
+#	`wmode` tinyint(3) unsigned NOT NULL DEFAULT '0',
+#	`winner` char(15) NOT NULL DEFAULT '',
+#	`gametype` tinyint(3) NOT NULL DEFAULT '0',
+#  `vnum` smallint(5) unsigned NOT NULL DEFAULT '0',
+#  `gtime` int(10) unsigned NOT NULL DEFAULT '0',
+#  `gstime` int(10) unsigned NOT NULL DEFAULT '0',
+#  `getime` int(10) unsigned NOT NULL DEFAULT '0',
+#  
+#  
+#  `winnum` int(11) NOT NULL DEFAULT '0',
+#  `namelist` varchar(255) NOT NULL DEFAULT '',
+#  `weplist` varchar(255) NOT NULL DEFAULT '',
+#  `iconlist` varchar(80) NOT NULL DEFAULT '',
+#  `gdlist` varchar(50) NOT NULL DEFAULT '',
+#  `cardname` text NOT NULL DEFAULT '',
+#  UNIQUE KEY `gid` (`gid`),
+#  INDEX `WMODE` (`wmode`),
+#  INDEX `WINNER` (`winner`)
+#) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+--
 -- Table structure for table `bra_winners`
 --
 

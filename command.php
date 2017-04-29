@@ -369,7 +369,11 @@ $pagestartimez=microtime(true);
 
 \player\load_playerdata(\player\fetch_playerdata($cuser));
 
-$gamedata = array();
+$gamedata = array(
+	'innerHTML' => array(),
+	'value' => array(),
+	'src' => array()
+);
 \player\init_playerdata();
 
 \player\pre_act();
@@ -389,9 +393,10 @@ if ($___MOD_SRV)
 //$timecostlis .= '/'.$timecost;
 
 //显示指令执行结果
-player\prepare_response_content();
+\player\prepare_response_content();
 
-\player\init_profile();
+\player\parse_interface_gameinfo();
+\player\parse_interface_profile();
 
 if($hp <= 0) {
 	$dtime = date("Y年m月d日H时i分s秒",$endtime);
@@ -429,21 +434,18 @@ if($hp <= 0) {
 }
 
 if(isset($url)){$gamedata['url'] = $url;}
-//if(isset($classchg)) {$gamedata['classchg'] = $classchg;}
-if(isset($uip['effect'])) {$gamedata['effect'] = $uip['effect'];}
-$gamedata['innerHTML']['pls'] = $plsinfo[$pls];
-if ($gametype!=2) $gamedata['innerHTML']['anum'] = $alivenum; else $gamedata['innerHTML']['anum'] = $validnum;
 
+if(!empty($uip['effect'])) {$gamedata['effect'] = $uip['effect'];}
+if(!empty($uip['innerHTML'])) {$gamedata['innerHTML'] = array_merge($gamedata['innerHTML'], $uip['innerHTML']);}
+if(!empty($uip['src'])) {$gamedata['src'] = array_merge($gamedata['src'], $uip['src']);}
+
+//$gamedata['innerHTML']['pls'] = $plsinfo[$pls];
+//if ($gametype!=2) $gamedata['innerHTML']['anum'] = $alivenum; else $gamedata['innerHTML']['anum'] = $validnum;
 ob_clean();
 $main ? include template($main) : include template('profile');
 $gamedata['innerHTML']['main'] = ob_get_contents();
 if(isset($error)){$gamedata['innerHTML']['error'] = $error;}
-$gamedata['value']['teamID'] = $teamID;
-if($teamID){
-	$gamedata['innerHTML']['chattype'] = "<select name=\"chattype\" value=\"2\"><option value=\"0\" selected>$chatinfo[0]<option value=\"1\" >$chatinfo[1]</select>";
-}else{
-	$gamedata['innerHTML']['chattype'] = "<select name=\"chattype\" value=\"2\"><option value=\"0\" selected>$chatinfo[0]</select>";
-}
+
 
 //测试
 //函数调用计数
@@ -458,7 +460,6 @@ if ($___MOD_SRV)
 }
 else  $log.="<span class=\"grey\">页面运行时间: $timecost 秒$ts</span>"; 
 */
-$gamedata['innerHTML']['log'] = $log;
 
 //$timecost = get_script_runtime($pagestartime);
 //$timecostlis .= '/'.$timecost;
