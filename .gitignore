@@ -19,3 +19,4 @@ gamedata/tmp/*.*
 query_log.txt
 *.lock
 microtimelog.txt.txt
+microtimelog.txt
