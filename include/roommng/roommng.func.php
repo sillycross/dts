@@ -124,7 +124,7 @@ function room_create($roomtype)
 {
 	eval(import_module('sys'));
 	if ($disable_newgame || $disable_newroom) {
-		gexit('管理员禁止了新建房间',__file__,__line__);
+		gexit('系统维护中，暂时不开放新房间',__file__,__line__);
 		die();
 	}
 	
@@ -211,10 +211,10 @@ function room_new_chat(&$roomdata,$str)
 function room_enter($id)
 {
 	eval(import_module('sys'));
-	if ($disable_newgame || $disable_newroom) {
-		gexit('管理员禁止了加入房间',__file__,__line__);
-		die();
-	}
+//	if ($disable_newgame || $disable_newroom) {
+//		gexit('管理员禁止了加入房间',__file__,__line__);
+//		die();
+//	}
 	$id=(int)$id;
 	$result = $db->query("SELECT groomstatus,groomtype FROM {$gtablepre}game WHERE groomid = '$id'");
 	if(!$db->num_rows($result)) 
@@ -239,6 +239,11 @@ function room_enter($id)
 	//global $cuser;
 	global $roomtypelist, $gametype, $startime, $now, $room_prefix, $alivenum, $continuous_room_resettime;
 	if($roomtypelist[$rd['groomtype']]['continuous']){//永续房，绕过其他判断直接进房间
+		//以后得改改
+		if ($disable_newgame || $disable_newroom) {
+			gexit('系统维护中，暂时不能加入房间',__file__,__line__);
+			die();
+		}
 		$room_prefix = 's'.$id;
 		$room_id = $id;
 		$tablepre = $gtablepre.$room_prefix.'_';

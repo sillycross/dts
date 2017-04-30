@@ -50,6 +50,10 @@ if ($rarr['groomstatus']==2)
 	$gamedata['url']='game.php';
 	echo gencode($gamedata);
 	die();
+}elseif($rarr['groomstatus']==1 && ($disable_newgame || $disable_newroom))
+{//不知道这句有没有用
+	$db->query("UPDATE {$gtablepre}users SET roomid='' WHERE username='$cuser'");
+	gexit('系统维护中，暂时不能加入房间。');
 }
 
 $roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt'),1);
