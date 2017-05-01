@@ -93,6 +93,7 @@ namespace sys
 		//$ninfo = openfile($file);
 		if(0 == $range){$range = $newslimit;}
 		elseif(-1 == $range){$range = 16777215;}
+		//if(16777215 == $range){startmicrotime();}
 		$result = $db->query("SELECT * FROM {$tablepre}newsinfo ORDER BY nid DESC LIMIT $start,$range");
 		//$r = sizeof($ninfo) - 1;
 	//	$rnum=$db->num_rows($result);
@@ -116,7 +117,7 @@ namespace sys
 			$exarr = parse_news_prepare($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
 			$newsinfo .= parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 		}
-
+		//if(16777215 == $range){logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-拉取全部消息'.debug_backtrace()[1]['function']);}
 		$newsinfo .= '</ul>';
 		return $newsinfo;
 			

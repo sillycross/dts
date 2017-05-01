@@ -379,7 +379,7 @@ function startmicrotime(){
 function logmicrotime($info){
 	global $startmicrotime;
 	$nowmicrotime = getmicrotime();
-	putmicrotime($startmicrotime, $nowmicrotime, 'microtimelog.txt', $info);
+	putmicrotime($startmicrotime, $nowmicrotime, 'microtimelog', $info);
 	$startmicrotime = $nowmicrotime;
 }
 

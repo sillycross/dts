@@ -343,6 +343,11 @@ if(!$roomtypelist[$rarr['groomtype']]['continuous']){//非永续房间才进行�
 	
 	if ($command=='ready' && !$not_ready_command_flag)
 	{
+		if($disable_newgame || $disable_newroom)
+		{
+			$db->query("UPDATE {$gtablepre}users SET roomid='' WHERE username='$cuser'");
+			gexit('系统维护中，暂时不能加入房间。');
+		}
 		$upos = -1;
 		for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
 			if (!$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']==$cuser)

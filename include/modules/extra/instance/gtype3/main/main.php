@@ -8,6 +8,9 @@ namespace gtype3
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
+		//宝石乱斗 offline
+		return $chprocess();
+		
 		if ($room_prefix!='') return $chprocess();
 		list($sec,$min,$hour,$day,$month,$year,$wday) = explode(',',date("s,i,H,j,n,Y,w",$now));
 		$tg=$gamenum-4;

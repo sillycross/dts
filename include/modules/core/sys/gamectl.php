@@ -115,11 +115,14 @@ namespace sys
 	function gameover($time = 0, $gmode = '', $winname = '') {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
+//		startmicrotime();
+		//先加锁以阻塞对game表的读取，免得这个进程还在执行时，别的请求穿透到数据库造成各种各样的脏数据问题
+		process_lock();
+		load_gameinfo();
 		//游戏未准备的情况下直接返回
 		if($gamestate < 10) return;
-		//其他情况下，先加锁以阻塞对game表的读取，免得这个进程还在执行时，别的请求穿透到数据库造成各种各样的脏数据问题
-		process_lock();
-		if((!$gmode)||(($gmode=='end2')&&(!$winname))) {//在没提供游戏结束模式的情况下，自行判断模式
+		//在没提供游戏结束模式的情况下，自行判断模式
+		if((!$gmode)||(($gmode=='end2')&&(!$winname))) {
 			if($validnum <= 0) {//无激活者情况下，无人参加
 				$alivenum = 0;
 				$winnum = 0;
@@ -212,6 +215,9 @@ namespace sys
 			$winnum = 1;
 			$winner = $winname;
 		}
+		$gamestate = 0;
+		save_gameinfo();
+//		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-模式判断');
 		//以下开始真正处理gameover的各种数据修改
 		$time = $time ? $time : $now;
 		//计算当前是哪一局，以优胜列表为准
@@ -263,26 +269,28 @@ namespace sys
 				$db->query("INSERT INTO {$wtablepre}winners (gid,gametype,wmode,vnum,gtime,gstime,getime,hdmg,hdp,hkill,hkp,winnum,namelist,teamID) VALUES ('$gamenum','$gametype','$winmode','$validnum','$gtime','$gstime','$getime','$hdamage','$hplayer','$hkill','$hkp','$winnum','$namelist','$firstteamID')");
 			}
 		}
+//		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-优胜记录修改');
 		//发放切糕工资
 		set_credits();
-		//进行天梯积分计算、录像处理之类的后期工作
-		post_gameover_events();
+//		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-切糕发放');
 		//重置游戏开始时间和当前游戏状态
 		rs_sttime();
-		$gamestate = 0;
-		save_gameinfo();
-		//至此解锁，后面是消息记录、历史记录之类的事
+		//至此解锁，后面是消息记录、历史记录、录像处理之类的事
 		process_unlock();
 		
+		//进行天梯积分计算、录像处理之类的后期工作
+		post_gameover_events();
+//		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-录像等后续处理');
 		//echo '**游戏结束**';
 		addnews($time, "end$winmode",$winner);
 		addnews($time, 'gameover' ,$gamenum);
 		systemputchat($time,'gameover');
 		$newsinfo = load_news(0,-1);
+//		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-读取和渲染消息');
 		$room_gprefix = '';
 		if ($room_prefix!='') $room_gprefix = (substr($room_prefix,0,1)).'.';
 		writeover(GAME_ROOT."./gamedata/bak/{$room_gprefix}{$gamenum}_newsinfo.html",$newsinfo,'wb+');
-		
+//		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-写入消息并结束');
 		return;
 	}
 
