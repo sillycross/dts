@@ -1,9 +1,22 @@
 {template header}
 <br>
-
 <div style="width:800px; margin:0 auto; text-align:left;font-size:15px; line-height:22px;">
 <h2>更新日志</h2>
-<h3>2017年4月28日</h3>
+<h3>2017年5月4日</h3>
+游戏功能更新：<br>
+<ul>
+	<li>关闭新游戏和新房间功能修改：如果GM关闭了新游戏，玩家在房间界面是无法进入准备状态的。
+	<li>修正了adv1以上模式，当数据库里没有房间数据表时，开新房间会造成数据库错误的问题。
+</ul>
+部署相关：
+<ul>
+	<li>由于某些文件用了5.5才支持的语句，游戏php版本最低限制从5.4改为5.5
+</ul>
+开发相关：<br>
+<ul>
+	<li>modulemng.func.php里的大段字符串改用nowdoc。现在ADV2模式刷新缓存时不再会处理单行注释。
+</ul>
+<h3>4月28日</h3>
 游戏功能更新：<br>
 <ul>
 	<li>现在反挂机系统执行的优先级稍微高了一点。
