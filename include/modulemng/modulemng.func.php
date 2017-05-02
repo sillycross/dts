@@ -398,8 +398,8 @@ function printmodtable($file, $readonly=0)
 function show_adv_state(){
 	global $___MOD_CODE_ADV1, $___MOD_CODE_ADV2, $___MOD_CODE_ADV3, $___MOD_SRV;
 	$lang_on = '<font color="green">已开启</font>';
-	$lang_off = '<font color="red">已关闭</font>';
-	$lang_unav = '<font color="red">未生效</font>';
+	$lang_off = '<font>已关闭</font>';
+	$lang_unav = '<font color="red">无法正常运行</font>';
 	$lang_turn_on = '[点此开启]';
 	$lang_turn_off = '[点此关闭]';
 	$adv_state_log = '';

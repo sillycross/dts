@@ -1,5 +1,5 @@
 <?php
-
+//移动指针$i2跳过字符串中的空部分，如果$i2移到了末尾（$content整个为空）则返回0，否则返回1
 function skip_whitespace(&$content,&$i2)
 {
 	$i=$i2;
@@ -8,6 +8,7 @@ function skip_whitespace(&$content,&$i2)
 	$i2=$i; return 1;
 }
 
+//判断$content里是否存在$word。如果存在，$i2前移$word长度。会自动跳过空字符，除非$no_skip_prefix_whitespace开启
 function check_word(&$content, &$i2, $word, $no_skip_prefix_whitespace = 0)
 {
 	$i=&$i2;
@@ -15,6 +16,24 @@ function check_word(&$content, &$i2, $word, $no_skip_prefix_whitespace = 0)
 	if (substr($content,$i,strlen($word))!=$word) return 0;
 	$i+=strlen($word);
 	$i2=$i; return 1;
+}
+
+//跳过行首注释
+function skip_beginning_comment(&$content, &$i2, &$ret)
+{
+	$i=$i2;
+	//从上一行尾开始判断，如果非空字符之后直接有单行注释符号，则让$i2前移一整行，并返回这行内容。
+	if ((check_word($content,$i,"\r",1) || check_word($content,$i,"\n",1)) && (check_word($content,$i,'//') || check_word($content,$i,'#'))) {
+		$content2 = substr($content,$i);
+		$i3 = strpos($content2, "\r");
+		if($i3 === false) $i3 = strpos($content2, "\n");
+		if($i3) {
+			$ret = substr($content, $i2, $i-$i2+$i3);
+			$i2 = $i+$i3;
+			return 1;
+		}		
+	}
+	return 0;
 }
 
 function check_import_module($tplfile, &$content, &$i2, &$ret)
@@ -176,11 +195,15 @@ function parse($modname, $tplfile, $objfile)
 	while ($i<strlen($content))	//千万别分多次parse………… 分多次parse后面的文件会特别长，超慢
 	{
 		$s=='';
-		if (check_eval_magic($tplfile, $content, $i, $s))
+		if (skip_beginning_comment($content, $i, $s))
+		{
+			$result.=$s;
+		}
+		elseif (check_eval_magic($tplfile, $content, $i, $s))
 		{
 			$result.=$s; 
 		}
-		else  if (check_import_module($tplfile, $content, $i, $s))
+		elseif (check_import_module($tplfile, $content, $i, $s))
 		{
 			$result.=$s; 
 		}

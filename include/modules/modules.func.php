@@ -19,83 +19,82 @@ $___TEMP_DRY_RUN_COUNTER=0;
 //v1.2 增加了递归深度记录功能，供调试
 //v1.1 通过reflection function支持了函数引用参数问题，现在可以使用类似function a(&$b)了
 if (!$___MOD_CODE_ADV2 || (defined('IN_MODULEMNG') && !defined('IN_MODULE_ACTIVATE')))
-define('__MAGIC__',
-'
-global $___MOD_CODE_ADV2;
-$___TEMP_backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 3-$___MOD_CODE_ADV2); 
-if (!$___MOD_CODE_ADV2 || (defined(\'IN_MODULEMNG\') && !defined(\'IN_MODULE_ACTIVATE\'))) array_shift($___TEMP_backtrace);	
-$___TEMP_FUNCNAME=strtolower($___TEMP_backtrace[0][\'function\']); 
-global $___TEMP_DRY_RUN, $___TEMP_DRY_RUN_COUNTER; 
-if ($___TEMP_DRY_RUN) { 
-	global $___TEMP_FUNCNAME_EXPECT;
-	if ($___TEMP_FUNCNAME==$___TEMP_FUNCNAME_EXPECT) {
-		$___TEMP_DRY_RUN_COUNTER++; $___RET_VALUE=\'23333333\'; return 1; 
-	} else  return 1;
-} 
-$___TEMP_NSNAME=strtoupper(substr($___TEMP_FUNCNAME,0,strpos($___TEMP_FUNCNAME,\'\\\\\',0)));
-$___TEMP_FUNCBASENAME=substr($___TEMP_FUNCNAME,strpos($___TEMP_FUNCNAME,\'\\\\\',0)+1);
-$___TEMP_ARGS_REFL = new \ReflectionFunction($___TEMP_FUNCNAME);
-$___TEMP_ARGLIST=\'\';
-foreach ($___TEMP_ARGS_REFL->getParameters() as $___TEMP_para_key) $___TEMP_ARGLIST.=\'$\'.$___TEMP_para_key->name.\',\';   
-$___TEMP_ARGLIST=substr($___TEMP_ARGLIST,0,strlen($___TEMP_ARGLIST)-1);
-unset($___TEMP_ARGS_REFL); unset($___TEMP_para_key); 
-array_shift($___TEMP_backtrace);
-if (count($___TEMP_backtrace)==0) $___TEMP_PARENT_NAME=\'\'; else $___TEMP_PARENT_NAME=strtolower($___TEMP_backtrace[0][\'function\']);
-global $module_hook_list, ${\'___PRIVATE_\'.$___TEMP_NSNAME.\'__VARS_____PRIVATE_PFUNC\'},${\'___PRIVATE_\'.$___TEMP_NSNAME.\'__VARS_____PRIVATE_CFUNC\'};
-if (isset(${\'___PRIVATE_\'.$___TEMP_NSNAME.\'__VARS_____PRIVATE_PFUNC\'}[$___TEMP_FUNCNAME]) && 
-($___TEMP_PARENT_NAME!=${\'___PRIVATE_\'.$___TEMP_NSNAME.\'__VARS_____PRIVATE_PFUNC\'}[$___TEMP_FUNCNAME])) 
-{ 
-	eval(\'$___RET_VALUE=\\\\\'.end($module_hook_list[$___TEMP_FUNCBASENAME]).\'\\\\\'.$___TEMP_FUNCBASENAME.\'(\'.$___TEMP_ARGLIST.\');\'); 
-	if ($___MOD_CODE_ADV2) return $___RET_VALUE; else return 1;
-}
-if (isset(${\'___PRIVATE_\'.$___TEMP_NSNAME.\'__VARS_____PRIVATE_CFUNC\'}[$___TEMP_FUNCNAME])) 
-	$chprocess=${\'___PRIVATE_\'.$___TEMP_NSNAME.\'__VARS_____PRIVATE_CFUNC\'}[$___TEMP_FUNCNAME];
-else  $chprocess=\'__MODULE_NULLFUNCTION__\';
-unset($___TEMP_PARENT_NAME); unset($___TEMP_backtrace); unset($___TEMP_NSNAME); unset($___TEMP_FUNCBASENAME); unset($___TEMP_FUNCNAME); unset($___TEMP_ARGS); unset($___TEMP_ARGLIST);
-');
+define('__MAGIC__',<<<'MAGIC_1_DOC'
+	global $___MOD_CODE_ADV2;
+	$___TEMP_backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 3-$___MOD_CODE_ADV2); 
+	if (!$___MOD_CODE_ADV2 || (defined('IN_MODULEMNG') && !defined('IN_MODULE_ACTIVATE'))) array_shift($___TEMP_backtrace);	
+	$___TEMP_FUNCNAME=strtolower($___TEMP_backtrace[0]['function']); 
+	global $___TEMP_DRY_RUN, $___TEMP_DRY_RUN_COUNTER; 
+	if ($___TEMP_DRY_RUN) { 
+		global $___TEMP_FUNCNAME_EXPECT;
+		if ($___TEMP_FUNCNAME==$___TEMP_FUNCNAME_EXPECT) {
+			$___TEMP_DRY_RUN_COUNTER++; $___RET_VALUE='23333333'; return 1; 
+		} else  return 1;
+	} 
+	$___TEMP_NSNAME=strtoupper(substr($___TEMP_FUNCNAME,0,strpos($___TEMP_FUNCNAME,'\\',0)));
+	$___TEMP_FUNCBASENAME=substr($___TEMP_FUNCNAME,strpos($___TEMP_FUNCNAME,'\\',0)+1);
+	$___TEMP_ARGS_REFL = new \ReflectionFunction($___TEMP_FUNCNAME);
+	$___TEMP_ARGLIST='';
+	foreach ($___TEMP_ARGS_REFL->getParameters() as $___TEMP_para_key) $___TEMP_ARGLIST.='$'.$___TEMP_para_key->name.',';   
+	$___TEMP_ARGLIST=substr($___TEMP_ARGLIST,0,strlen($___TEMP_ARGLIST)-1);
+	unset($___TEMP_ARGS_REFL); unset($___TEMP_para_key); 
+	array_shift($___TEMP_backtrace);
+	if (count($___TEMP_backtrace)==0) $___TEMP_PARENT_NAME=''; else $___TEMP_PARENT_NAME=strtolower($___TEMP_backtrace[0]['function']);
+	global $module_hook_list, ${'___PRIVATE_'.$___TEMP_NSNAME.'__VARS_____PRIVATE_PFUNC'},${'___PRIVATE_'.$___TEMP_NSNAME.'__VARS_____PRIVATE_CFUNC'};
+	if (isset(${'___PRIVATE_'.$___TEMP_NSNAME.'__VARS_____PRIVATE_PFUNC'}[$___TEMP_FUNCNAME]) && 
+	($___TEMP_PARENT_NAME!=${'___PRIVATE_'.$___TEMP_NSNAME.'__VARS_____PRIVATE_PFUNC'}[$___TEMP_FUNCNAME])) 
+	{ 
+		eval('$___RET_VALUE=\\'.end($module_hook_list[$___TEMP_FUNCBASENAME]).'\\'.$___TEMP_FUNCBASENAME.'('.$___TEMP_ARGLIST.');'); 
+		if ($___MOD_CODE_ADV2) return $___RET_VALUE; else return 1;
+	}
+	if (isset(${'___PRIVATE_'.$___TEMP_NSNAME.'__VARS_____PRIVATE_CFUNC'}[$___TEMP_FUNCNAME])) 
+		$chprocess=${'___PRIVATE_'.$___TEMP_NSNAME.'__VARS_____PRIVATE_CFUNC'}[$___TEMP_FUNCNAME];
+	else  $chprocess='__MODULE_NULLFUNCTION__';
+	unset($___TEMP_PARENT_NAME); unset($___TEMP_backtrace); unset($___TEMP_NSNAME); unset($___TEMP_FUNCBASENAME); unset($___TEMP_FUNCNAME); unset($___TEMP_ARGS); unset($___TEMP_ARGLIST);
+MAGIC_1_DOC
+);
 else
 {
-define('__MAGIC__',
-'
-$___TEMP_backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 3); 
-array_shift($___TEMP_backtrace);
-global $___TEMP_DESIRE_PARENTNAME,$___TEMP_EVACODE,$___TEMP_CHPROCESS;
-$___TEMP_FUNCNAME=strtolower($___TEMP_backtrace[0][\'function\']); 
-$___TEMP_NSNAME=strtoupper(substr($___TEMP_FUNCNAME,0,strpos($___TEMP_FUNCNAME,\'\\\\\',0)));
-$___TEMP_FUNCBASENAME=substr($___TEMP_FUNCNAME,strpos($___TEMP_FUNCNAME,\'\\\\\',0)+1);
-$___TEMP_ARGS_REFL = new \ReflectionFunction($___TEMP_FUNCNAME);
-$___TEMP_ARGLIST=\'\';
-foreach ($___TEMP_ARGS_REFL->getParameters() as $___TEMP_para_key) $___TEMP_ARGLIST.=\'$\'.$___TEMP_para_key->name.\',\';   
-$___TEMP_ARGLIST=substr($___TEMP_ARGLIST,0,strlen($___TEMP_ARGLIST)-1);
-unset($___TEMP_ARGS_REFL); unset($___TEMP_para_key); 
-array_shift($___TEMP_backtrace);
-global $module_hook_list, ${\'___PRIVATE_\'.$___TEMP_NSNAME.\'__VARS_____PRIVATE_PFUNC\'},${\'___PRIVATE_\'.$___TEMP_NSNAME.\'__VARS_____PRIVATE_CFUNC\'};
-$___TEMP_DESIRE_PARENTNAME = \'\';
-if (isset(${\'___PRIVATE_\'.$___TEMP_NSNAME.\'__VARS_____PRIVATE_PFUNC\'}[$___TEMP_FUNCNAME]))
-	$___TEMP_DESIRE_PARENTNAME = ${\'___PRIVATE_\'.$___TEMP_NSNAME.\'__VARS_____PRIVATE_PFUNC\'}[$___TEMP_FUNCNAME];
-
-$___TEMP_EVACODE = \'return \\\\\'.end($module_hook_list[$___TEMP_FUNCBASENAME]).\'\\\\\'.$___TEMP_FUNCBASENAME.\'(\'.$___TEMP_ARGLIST.\');\'; 
-if (isset(${\'___PRIVATE_\'.$___TEMP_NSNAME.\'__VARS_____PRIVATE_CFUNC\'}[$___TEMP_FUNCNAME])) 
-	$___TEMP_CHPROCESS=${\'___PRIVATE_\'.$___TEMP_NSNAME.\'__VARS_____PRIVATE_CFUNC\'}[$___TEMP_FUNCNAME];
-else  $___TEMP_CHPROCESS=\'__MODULE_NULLFUNCTION__\';
-
-return 1;
-');
-define('__MAGIC_CODEADV2__',
-'
-if (_____TEMPLATE_MAGIC_CODEADV2_INIT_DESIRE_PARENTNAME_____!=\'\')
-{
-	$___TEMP_backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2); 
+define('__MAGIC__',<<<'MAGIC_2_DOC'
+	$___TEMP_backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 3); 
 	array_shift($___TEMP_backtrace);
-	if (count($___TEMP_backtrace)==0) $___TEMP_PARENT_NAME=\'\'; else $___TEMP_PARENT_NAME=strtolower($___TEMP_backtrace[0][\'function\']);
-	if ($___TEMP_PARENT_NAME!=_____TEMPLATE_MAGIC_CODEADV2_INIT_DESIRE_PARENTNAME_____) 
+	global $___TEMP_DESIRE_PARENTNAME,$___TEMP_EVACODE,$___TEMP_CHPROCESS;
+	$___TEMP_FUNCNAME=strtolower($___TEMP_backtrace[0]['function']); 
+	$___TEMP_NSNAME=strtoupper(substr($___TEMP_FUNCNAME,0,strpos($___TEMP_FUNCNAME,'\\',0)));
+	$___TEMP_FUNCBASENAME=substr($___TEMP_FUNCNAME,strpos($___TEMP_FUNCNAME,'\\',0)+1);
+	$___TEMP_ARGS_REFL = new \ReflectionFunction($___TEMP_FUNCNAME);
+	$___TEMP_ARGLIST='';
+	foreach ($___TEMP_ARGS_REFL->getParameters() as $___TEMP_para_key) $___TEMP_ARGLIST.='$'.$___TEMP_para_key->name.',';   
+	$___TEMP_ARGLIST=substr($___TEMP_ARGLIST,0,strlen($___TEMP_ARGLIST)-1);
+	unset($___TEMP_ARGS_REFL); unset($___TEMP_para_key); 
+	array_shift($___TEMP_backtrace);
+	global $module_hook_list, ${'___PRIVATE_'.$___TEMP_NSNAME.'__VARS_____PRIVATE_PFUNC'},${'___PRIVATE_'.$___TEMP_NSNAME.'__VARS_____PRIVATE_CFUNC'};
+	$___TEMP_DESIRE_PARENTNAME = '';
+	if (isset(${'___PRIVATE_'.$___TEMP_NSNAME.'__VARS_____PRIVATE_PFUNC'}[$___TEMP_FUNCNAME]))
+		$___TEMP_DESIRE_PARENTNAME = ${'___PRIVATE_'.$___TEMP_NSNAME.'__VARS_____PRIVATE_PFUNC'}[$___TEMP_FUNCNAME];
+	
+	$___TEMP_EVACODE = 'return \\'.end($module_hook_list[$___TEMP_FUNCBASENAME]).'\\'.$___TEMP_FUNCBASENAME.'('.$___TEMP_ARGLIST.');'; 
+	if (isset(${'___PRIVATE_'.$___TEMP_NSNAME.'__VARS_____PRIVATE_CFUNC'}[$___TEMP_FUNCNAME])) 
+		$___TEMP_CHPROCESS=${'___PRIVATE_'.$___TEMP_NSNAME.'__VARS_____PRIVATE_CFUNC'}[$___TEMP_FUNCNAME];
+	else  $___TEMP_CHPROCESS='__MODULE_NULLFUNCTION__';
+	return 1;
+MAGIC_2_DOC
+);
+define('__MAGIC_CODEADV2__',<<<'MAGIC_CODEADV2_DOC'
+	if (_____TEMPLATE_MAGIC_CODEADV2_INIT_DESIRE_PARENTNAME_____!='')
 	{
-		_____TEMPLATE_MAGIC_CODEADV2_INIT_EVACODE_____
+		$___TEMP_backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2); 
+		array_shift($___TEMP_backtrace);
+		if (count($___TEMP_backtrace)==0) $___TEMP_PARENT_NAME=''; else $___TEMP_PARENT_NAME=strtolower($___TEMP_backtrace[0]['function']);
+		if ($___TEMP_PARENT_NAME!=_____TEMPLATE_MAGIC_CODEADV2_INIT_DESIRE_PARENTNAME_____) 
+		{
+			_____TEMPLATE_MAGIC_CODEADV2_INIT_EVACODE_____
+		}
+		unset($___TEMP_PARENT_NAME); unset($___TEMP_backtrace); 
 	}
-	unset($___TEMP_PARENT_NAME); unset($___TEMP_backtrace); 
-}
-$chprocess=_____TEMPLATE_MAGIC_CODEADV2_INIT_CHPROCESS_____;
-');
+	$chprocess=_____TEMPLATE_MAGIC_CODEADV2_INIT_CHPROCESS_____;
+MAGIC_CODEADV2_DOC
+);
 }
 
 function hook_register($module,$func)
