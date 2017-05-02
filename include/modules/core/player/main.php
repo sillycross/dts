@@ -11,7 +11,7 @@ namespace player
 		eval(import_module('sys'));
 		
 		global $db_player_structure, $tpldata; $db_player_structure=Array(); $tpldata=Array();
-		$result = $db->query("DESCRIBE {$tablepre}players");
+		$result = $db->query("DESCRIBE {$gtablepre}players");
 		while ($pdata = $db->fetch_array($result))
 		{
 			global ${$pdata['Field']}; 

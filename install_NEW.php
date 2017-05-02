@@ -7,8 +7,8 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 define('IN_GAME', TRUE);
 define('GAME_ROOT', '');
 
-if(PHP_VERSION < '5.4.0') {
-	exit('PHP version must >= 5.4.0!');
+if(PHP_VERSION < '5.5.0') {
+	exit('PHP version must >= 5.5.0!');
 }
 
 $action = $_POST['action'] ? $_POST['action'] : $_GET['action'];
@@ -696,7 +696,7 @@ if(!$action) {
 	$curr_os = PHP_OS;
 
 	$curr_php_version = PHP_VERSION;
-	if($curr_php_version < '5.4.0') {
+	if($curr_php_version < '5.5.0') {
 		$msg .= "<font color=\"#FF0000\">$lang[php_version_low]</font>\t";
 		$quit = TRUE;
 	}
@@ -885,7 +885,7 @@ if(!$action) {
               </tr>
               <tr>
                 <td bgcolor="#E3E3EA" align="center"><?php echo $lang['env_php']; ?></td>
-                <td bgcolor="#EEEEF6" align="center">5.4.0+</td>
+                <td bgcolor="#EEEEF6" align="center">5.5.0+</td>
                 <td bgcolor="#E3E3EA" align="center">7.0.0+</td>
                 <td bgcolor="#EEEEF6" align="center"><?php echo $curr_php_version; ?></td>
               </tr>
