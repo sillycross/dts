@@ -42,18 +42,30 @@ namespace pose
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
-		$r = 1;
+		//$r = 1;
+		$a = 0;
 		if ($schmode == 'search') 
 		{
-			if($pose==3) $r = 0.85;	//探索姿态不容易遇见敌人
-			if($pose==4) $r = 1.1;	//隐藏姿态容易遇见敌人
+			if($pose==3) {//探索姿态不容易遇见敌人
+				$a = -15;
+				//$r = 0.85;	
+			}
+			elseif($pose==4) {//隐藏姿态容易遇见敌人
+				$a = 10;
+				//$r = 1.1;	
+			}
 		}
 		if ($schmode == 'move') 
 		{
-			if($pose==3) $r = 0.85;
-			if($pose==4) $r = 1.1;
+			if($pose==3) {
+				$a = -15;
+				//$r = 0.85;
+			}elseif($pose==4) {
+				$a = 10;
+				//$r = 1.1;
+			}
 		}
-		return $chprocess($schmode)*$r;
+		return $chprocess($schmode) + $a;
 	}
 	
 	function check_can_counter(&$pa, &$pd, $active)
@@ -77,7 +89,7 @@ namespace pose
 		return $chprocess($edata)+$pose_hide_obbs[$edata['pose']];
 	}
 	
-	function calculate_meetman_obbs(&$edata)
+	function calculate_findman_obbs(&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','pose'));

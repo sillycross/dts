@@ -80,7 +80,7 @@ namespace metman
 		return;
 	}
 	
-	function calculate_meetman_obbs(&$edata)
+	function calculate_findman_obbs(&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('metman'));
@@ -98,7 +98,7 @@ namespace metman
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','player','metman','logger'));
-		$find_obbs = calculate_meetman_obbs($edata);
+		$find_obbs = calculate_findman_obbs($edata);
 		$hide_obbs = calculate_hide_obbs($edata);
 		$enemy_dice = rand(0,99);
 		//$log .= '最终发现率：'.$find_obbs.' 对方最终隐蔽率：'.$hide_obbs.' 发现骰：'.$enemy_dice.' ';
@@ -160,14 +160,14 @@ namespace metman
 		$result = $db->query("SELECT pid FROM {$tablepre}players WHERE pls='$pls' AND pid!='$pid' AND (hp>'0' OR corpse_clear_flag!='1')");
 		$pcount=$db->num_rows($result);
 		if(!$pcount){//没有人
-			if ($schmode == 'search') return 40;
-			if ($schmode == 'move') return 40;
-			if ($schmode == 'search2') return 40;
+			if ($schmode == 'search') return 50;
+			if ($schmode == 'move') return 50;
+			if ($schmode == 'search2') return 50;
 		}
 		$erate=$pcount*3;
-		if ($erate>33) $erate=33;
-		if ($schmode == 'search') return 7+$erate;
-		if ($schmode == 'move') return 37+$erate;
+		if ($erate>30) $erate=30;
+		if ($schmode == 'search') return 20+$erate;
+		if ($schmode == 'move') return 40+$erate;
 		if ($schmode == 'search2') return 100;
 		return 0;
 	}
@@ -233,8 +233,10 @@ namespace metman
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$dice = rand(0,99);
 		eval(import_module('logger'));
-		//$log .= '发现玩家判定：骰'.$dice.' 阈：'.calculate_meetman_rate($schmode).' ';
-		if($dice < calculate_meetman_rate($schmode)) {
+		$meetman_rate = calculate_meetman_rate($schmode);
+		if($meetman_rate < 20) $meetman_rate = 20;//任何时候遇敌率不低于20%；
+		$log .= '发现玩家判定：骰'.$dice.' 阈：'.$meetman_rate.' ';
+		if($dice < $meetman_rate) {
 			discover_player();
 			return;
 		} 
