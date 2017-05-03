@@ -49,10 +49,10 @@ namespace gameflow_duel
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		if($gamestate >= 50) 
+		if($gamestate >= 50) //死斗以后遇敌率上升
 		{
-			if ($schmode == 'search') return $chprocess($schmode)*1.1;
-			if ($schmode == 'move') return $chprocess($schmode)*1.05;
+			if ($schmode == 'search') return $chprocess($schmode) + 10;//*1.1;
+			if ($schmode == 'move') return $chprocess($schmode) + 5;//*1.05;
 		}
 		return $chprocess($schmode);
 	}

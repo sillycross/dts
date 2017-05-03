@@ -6,9 +6,11 @@ if not defined sha1 set sha1=head
 if not defined sha2 set sha2=head
 git diff %sha1% %sha2% --name-only > auto_diff.tmp
 for /f "delims=" %%i IN (auto_diff.tmp) DO (
-	call :parse_filename ..\auto_diff\.\%%i
-  if exist %%~fsi (
-    xcopy /s /y /i %%~fsi !return!
+  if %%~xi neq .gitignore (
+  	call :parse_filename ..\auto_diff\.\%%i
+    if exist %%~fsi (
+      xcopy /s /y /i %%~fsi !return!
+	  )
   )
 )
 del /q auto_diff.tmp

@@ -1604,11 +1604,11 @@ $carddesc=array(
 	),
 	117=>array(
 		'name'=>'星莲船挑战者',
-		'rare'=>'A',
+		'rare'=>'S',
 		'desc'=>'AC大逃杀元老人物之一',
 		'pack'=>'Way of Life',
 		'effect'=>'获得技能「挖坑」（误',
-		'energy'=>250,
+		'energy'=>300,
 	),
 	118=>array(
 		'name'=>'富零代',

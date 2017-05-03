@@ -28,7 +28,7 @@ namespace weather
 		return $weather_meetman_obbs[$weather];
 	}
 	
-	function calculate_meetman_obbs(&$edata)
+	function calculate_findman_obbs(&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return $chprocess($edata)+calculate_weather_meetman_obbs($edata);

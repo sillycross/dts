@@ -12,7 +12,6 @@ templates/default/itemhelp.htm
 templates/default/mixhelp.htm
 gamedata/combatinfo.php
 gamedata/newsinfo.php
-php_errors.log
 gamedata/gameinfo.php
 *.bak
 gamedata/tmp/*.*

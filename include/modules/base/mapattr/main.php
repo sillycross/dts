@@ -13,13 +13,23 @@ namespace mapattr
 		return $chprocess()+$r;
 	}
 	
-	function calculate_meetman_obbs(&$edata)
+	function calculate_findman_obbs(&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','mapattr','logger'));
-		//$log.= '遇敌率修正：'.$pls_meetman_obbs[$pls].' ';
-		if (!isset($pls_meetman_obbs[$pls])) $r=0; else $r=$pls_meetman_obbs[$pls];
+		//$log.= '遇敌率修正：'.$pls_findman_obbs[$pls].' ';
+		if (!isset($pls_findman_obbs[$pls])) $r=0; else $r=$pls_findman_obbs[$pls];
 		return $chprocess($edata)+$r;
+	}
+	
+	function calculate_meetman_rate($schmode)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','mapattr','logger'));
+		
+		if (!isset($pls_meetman_obbs[$pls])) $r=0; else $r=$pls_meetman_obbs[$pls];
+		//$log.= '遇敌率修正：'.$r.' ';
+		return $chprocess($schmode)+$r;
 	}
 	
 	function get_att_multiplier(&$pa,&$pd,$active)
