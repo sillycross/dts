@@ -114,7 +114,7 @@ $mixinfo = array
 
 	array('class' => 'd', 'stuff' => array('数据……碎片','电子马克笔','天然属性也是很可怕的！'),'result' => array('黑色夺魂曲','DB',57,77,'ZBb'),),
 	array('class' => 'd', 'stuff' => array('『午夜钟声』','『午夜钟声』','『午夜钟声』'),'result' => array('电子马克笔','DA',53,75,'Z'),),
-	array('class' => 'd', 'stuff' => array('探测器电池','实验装甲A',''),'result' => array('电磁充能手套','DA',45,15,'E'),),
+	array('class' => 'd', 'stuff' => array('探测器电池','实验装甲A'),'result' => array('电磁充能手套','DA',45,15,'E'),),
 	
 	array('class' => 'item', 'stuff' => array('生命探测器','增幅设备'),'result' => array('广域生命探测器','ER',1,1,2),),
 	//array('class' => 'item', 'stuff' => array('☆自爆电池☆','☆★☆大打击☆★☆'),'result' => array('★捆绑式炸药★','Y',1,1,),),
