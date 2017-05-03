@@ -28,7 +28,7 @@ namespace mapattr
 		eval(import_module('sys','player','mapattr','logger'));
 		
 		if (!isset($pls_meetman_obbs[$pls])) $r=0; else $r=$pls_meetman_obbs[$pls];
-		$log.= '遇敌率修正：'.$r.' ';
+		//$log.= '遇敌率修正：'.$r.' ';
 		return $chprocess($schmode)+$r;
 	}
 	

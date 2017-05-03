@@ -235,7 +235,7 @@ namespace metman
 		eval(import_module('logger'));
 		$meetman_rate = calculate_meetman_rate($schmode);
 		if($meetman_rate < 20) $meetman_rate = 20;//任何时候遇敌率不低于20%；
-		$log .= '发现玩家判定：骰'.$dice.' 阈：'.$meetman_rate.' ';
+		//$log .= '发现玩家判定：骰'.$dice.' 阈：'.$meetman_rate.' ';
 		if($dice < $meetman_rate) {
 			discover_player();
 			return;
