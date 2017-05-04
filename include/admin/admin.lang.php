@@ -158,18 +158,19 @@ $lang = array
 	
 	'emenu' => '系统环境',
 	'gmenu' => '当前游戏',
+	'standard' => '标准局',
+	'room' => '房间',
 	
 	'options' => '选项',
 	'comments' => '说明',
 	'groups' => '权限',
-	'configmng' => '服务参数设置',
-	'configmng_comment' => '配置服务器时差等游戏底层参数<br>对应server.config.php',
-	'systemmng' => '系统环境设置',
-	'systemmng_comment' => '配置跟全局环境相关的系统参数<br>对应system.config.php',
-	'gamecfgmng' => '游戏数据配置',
+	'configmng' => '底层参数设置',
+	'configmng_comment' => '配置服务器时差、错误信息显示等游戏底层参数<br>对应server.config.php',
+	'systemmng' => '全局参数设置',
+	'systemmng_comment' => '配置游戏开始模式等全局环境相关的系统参数<br>对应system.config.php',
+	'gamecfgmng' => '游戏参数配置',
 	'gamecfgmng_comment' => '设置跟单局游戏相关的游戏参数<br>对应modules文件夹下的某些*.config.php',
-	'gamemng' => '当前游戏管理',
-	'gamemng_comment' => '管理当前局的玩家、NPC、天气等数据<br>对应数据库及gameinfo.php',
+	
 	'banlistmng' => '屏蔽列表管理',
 	'banlistmng_comment' => '管理用户名和IP的屏蔽信息<br>对应banlist.list',
 	'gmlist' => 'GM权限管理',
@@ -179,9 +180,14 @@ $lang = array
 	'gamecheck' => '当前游戏自检',
 	'gamecheck_comment' => '修正游戏人数异常和移动下拉框消失的功能',
 	'rankclear' => '排行榜重置',
-	'rankclear_comment' => '重置积分榜，使用前确认你在做什么',
+	'rankclear_comment' => '重置积分榜，使用前确认你在做什么<br>本功能较少用到，暂时关闭。',
 	'roomclose' => '关闭闲置房间',
 	'roomclose_comment' => '关闭长期闲置的房间',
+	'dbmng' => '数据库操作',
+	'dbmng_comment' => '进行数据库备份、还原和直接操作数据库的功能。<br>使用前请弄明白你在做什么。',
+	
+	'gamemng' => '当前游戏管理',
+	'gamemng_comment' => '管理当前局的玩家、NPC、天气等数据<br>对应数据库及gameinfo.php',//已废弃
 	
 	'pcmng' => '玩家数据管理',
 	'pcmng_comment' => '修改当前局玩家的各数值，不影响帐号',

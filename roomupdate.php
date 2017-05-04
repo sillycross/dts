@@ -8,17 +8,21 @@ define('NO_SYS_UPDATE', TRUE);
 require './include/common.inc.php';
 require GAME_ROOT.'./include/socket.func.php';
 require GAME_ROOT.'./include/roommng/roommng.func.php';
+require GAME_ROOT.'./include/user.func.php';
 
 include GAME_ROOT.'./include/modules/core/sys/config/server.config.php';
+
+
 $_COOKIE=gstrfilter($_COOKIE);
 $cuser=$_COOKIE[$gtablepre.'user'];
 $cpass=$_COOKIE[$gtablepre.'pass'];
 
 $db = init_dbstuff();
-$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$cuser'");
-if(!$db->num_rows($result)) gexit('Cookie无效。请重新登录。');
-$udata = $db->fetch_array($result);
-if($udata['password'] != $cpass) gexit('Cookie无效。请重新登录。');
+$udata = udata_check();
+//$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$cuser'");
+//if(!$db->num_rows($result)) gexit('Cookie无效。请重新登录。');
+//$udata = $db->fetch_array($result);
+//if($udata['password'] != $cpass) gexit('Cookie无效。请重新登录。');
 if ($udata['roomid']=='' || $udata['roomid'][0]!='s') {
 	$db->query("UPDATE {$gtablepre}users SET roomid='' WHERE username='$cuser'");
 	gexit('你不在一个房间内。');
@@ -31,18 +35,18 @@ ignore_user_abort(1);
 $_POST=gstrfilter($_POST);
 if (!file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt')) {
 	$db->query("UPDATE {$gtablepre}users SET roomid='' WHERE username='$cuser'");
-	gexit('房间不存在。');
+	gexit('房间文件缓存不存在。');
 }
 
 $result = $db->query("SELECT groomstatus FROM {$gtablepre}game WHERE groomid='$room_id_r'");
 if (!$db->num_rows($result)) {
 	$db->query("UPDATE {$gtablepre}users SET roomid='' WHERE username='$cuser'");
-	gexit('房间不存在。');
+	gexit('房间数据记录不存在。');
 }
 $rarr=$db->fetch_array($result);
 if ($rarr['groomstatus']==0) {
 	$db->query("UPDATE {$gtablepre}users SET roomid='' WHERE username='$cuser'");
-	gexit('房间不存在。');	
+	gexit('房间已关闭。');	
 }
 if ($rarr['groomstatus']==2) 
 {

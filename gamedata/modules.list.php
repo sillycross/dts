@@ -99,6 +99,7 @@ skill314,extra/achievement/skills/skill314/,1
 skill315,extra/achievement/skills/skill315/,1
 skill443,extra/card/skills/skill443/,1
 skill325,extra/achievement/skills/skill325/,1
+skill477,extra/card/skills/skill477/,1
 skill1000,extra/instance/gtype17_tutorial/skill1000/,1
 kuji0,extra/card/kuji/kuji0/,1
 kuji1,extra/card/kuji/kuji1/,1
@@ -339,6 +340,7 @@ skill434,extra/card/skills/skill434/,1
 skill448,extra/card/skills/skill448/,1
 skill463,extra/card/skills/skill463/,1
 skill465,extra/card/skills/skill465/,1
+skill478,extra/card/skills/skill478/,1
 ex_phy_nullify,extra/attr/ex_phy_nullify/,1
 gtype1,extra/instance/gtype1/main/,1
 instance5,extra/instance/instance5/,1

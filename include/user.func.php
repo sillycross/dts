@@ -4,6 +4,20 @@ if(!defined('IN_GAME')) {
 	exit('Access Denied');
 }
 
+function udata_check(){
+	global $db, $gtablepre, $cuser, $cpass, $_ERROR;
+	$file = debug_backtrace()[0]['file'];
+	$line = debug_backtrace()[0]['line'];
+	if(!$cuser||!$cpass) { gexit($_ERROR['no_login'],$file,$line); } 
+	
+	$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$cuser'");
+	if(!$db->num_rows($result)) { gexit($_ERROR['login_check'],$file,$line); }
+	$udata = $db->fetch_array($result);
+	if($udata['password'] != $cpass) { gexit($_ERROR['wrong_pw'], $file, $line); }
+	if($udata['groupid'] <= 0) { gexit($_ERROR['user_ban'], $file, $line); }
+	return $udata;
+}
+
 function name_check($username){
 	global $nmlimit;
 	if(!isset($username) || strlen($username)===0){

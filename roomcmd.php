@@ -21,85 +21,59 @@ require './include/common.inc.php';
 
 require './include/roommng/roommng.config.php';
 require './include/roommng/roommng.func.php';
+require './include/user.func.php';
 
-if(!$cuser||!$cpass) 
-{ 
-	ob_clean();
-	header('Location: index.php');
-	$gamedata['url']='index.php';
-	echo gencode($gamedata);
-	die();
-} 
-
-$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$cuser'");
-if(!$db->num_rows($result)) { gexit($_ERROR['login_check'],__file__,__line__); }
-$udata = $db->fetch_array($result);
-if($udata['password'] != $cpass) { gexit($_ERROR['wrong_pw'], __file__, __line__); }
-if($udata['groupid'] <= 0) { gexit($_ERROR['user_ban'], __file__, __line__); }
+$udata = udata_check();
 
 if (isset($_GET['command'])) $command = $_GET['command'];
 if (isset($_GET['para1'])) $para1 = $_GET['para1'];
 if (isset($_GET['para2'])) $para2 = $_GET['para2'];
 if (isset($_GET['para3'])) $para3 = $_GET['para3'];
 
-$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username = '$cuser'");
-if(!$db->num_rows($result)) 
-{ 
-	ob_clean();
-	header('Location: index.php');
-	$gamedata['url']='index.php';
-	echo gencode($gamedata);
-	die();
-} 
+//$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username = '$cuser'");
+//if(!$db->num_rows($result)) 
+//{ 
+//	ob_clean();
+//	header('Location: index.php');
+//	$gamedata['url']='index.php';
+//	echo gencode($gamedata);
+//	die();
+//} 
+//
+//$udata = $db->fetch_array($result);
+//if($udata['password'] != $cpass) 
+//{ 
+//	ob_clean();
+//	header('Location: index.php');
+//	$gamedata['url']='index.php';
+//	echo gencode($gamedata);
+//	die();
+//} 
 
-$pdata = $db->fetch_array($result);
-if($pdata['password'] != $cpass) 
-{ 
-	ob_clean();
-	header('Location: index.php');
-	$gamedata['url']='index.php';
-	echo gencode($gamedata);
-	die();
-} 
-
-if ($command=='newroom')
+//新建和进入房间，只有不在房间内的情况下才能进行
+if ($command=='newroom' || $command=='enterroom')
 {
-	if ($room_prefix=='' || $room_prefix[0]!='s') room_enter(room_create($para1));
-	ob_clean();
-	header('Location: index.php');
-	$gamedata['url']='index.php';
-	echo gencode($gamedata);
-	die();
+	if($room_prefix=='' || $room_prefix[0]!='s') {
+		if($command=='newroom') room_enter(room_create($para1));
+		elseif($command=='enterroom') room_enter($para1);
+		ob_clean();
+		header('Location: index.php');
+		$gamedata['url']='index.php';
+		echo gencode($gamedata);
+		die();
+	} else gexit('你已在房间内，请先退出房间', __file__, __line__);
 }
 
-if ($command=='enterroom')
-{
-	$para1=(int)$para1;
-	if ($room_prefix=='' || $room_prefix[0]!='s') room_enter($para1);
-	ob_clean();
-	header('Location: index.php');
-	$gamedata['url']='index.php';
-	echo gencode($gamedata);
-	die();
-}
-
+//其他命令的情况下，如果不在房间内则出错退出
 if ($room_prefix=='' || $room_prefix[0]!='s') 
 {
-	ob_clean();
-	header('Location: index.php');
-	$gamedata['url']='index.php';
-	echo gencode($gamedata);
-	die();
+	gexit('你不在房间内，请先进入房间', __file__, __line__);
 }
 
 $room_id_r = substr($room_prefix,1);
 if (!file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt')) 
 {
-	ob_clean();
-	header('Location: index.php');
-	$gamedata['url']='index.php';
-	echo gencode($gamedata);
-	die();
+	gexit('房间文件缓存不存在。', __file__, __line__);
 }
 
 $roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt'),1);
@@ -107,23 +81,20 @@ $roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id
 $result = $db->query("SELECT groomstatus FROM {$gtablepre}game WHERE groomid = '$room_id_r'");
 if(!$db->num_rows($result)) 
 {
-	ob_clean();
-	die();
+	gexit('房间数据记录不存在。', __file__, __line__);
 }
 
 //房间命令只对处于等待状态的房间有效，除了退出房间命令
 $rarr=$db->fetch_array($result);
 if ($rarr['groomstatus']!=1 && $command!='leave')
 {
-	ob_clean();
-	die();
+	gexit('房间不在等待状态，命令无效。', __file__, __line__);
 }
 
 //进入即将开始状态后，任何房间命令均无效，包括退出房间命令
 if ($roomdata['roomstat']==2)
 {
-	ob_clean();
-	die();
+	gexit('房间已开始，命令无效。', __file__, __line__);
 }
 
 if ($rarr['groomstatus']==2) $runflag = 1; else $runflag = 0;
@@ -415,12 +386,12 @@ if(!$roomtypelist[$rarr['groomtype']]['continuous']){//非永续房间才进行�
 						$pname = (string)$pname;
 						$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username = '$pname'");
 						if($db->num_rows($result)!=1) continue;
-						$pdata = $db->fetch_array($result);
-						$pcard = $pdata['card'];
+						$udata = $db->fetch_array($result);
+						$pcard = $udata['card'];
 						if (isset($roomtypelist[$roomdata['roomtype']]['card'])){
 							$pcard=$roomtypelist[$roomdata['roomtype']]['card'][$i];
 						}
-						enter_battlefield($pdata['username'],$pdata['password'],$pdata['gender'],$pdata['icon'],$pcard);
+						enter_battlefield($udata['username'],$udata['password'],$udata['gender'],$udata['icon'],$pcard);
 						$db->query("UPDATE {$tablepre}players SET teamID='{$roomtypelist[$roomdata['roomtype']]['teamID'][$roomtypelist[$roomdata['roomtype']]['leader-position'][$i]]}' WHERE name='$pname'");
 					}
 				//进入连斗
