@@ -660,8 +660,20 @@ $cards=array(
 		'itms6'=>'∞',
 		'itmsk6'=>'',
 	),
+	152=>array(
+		'ss'=>600,
+		'skills'=>array('477'=>'0'),
+	),
+	153=>array(
+		'itm3'=>'《ACFUN大逃杀原案》',
+		'itmk3'=>'VV',
+		'itme3'=>'75',
+		'itms3'=>'1',
+		'itmsk3'=>'',
+		'skills'=>array('478'=>'0'),
+	),
 //教程模式用卡占位
-//	999=>array(
+//	1000=>array(
 //		'skills'=>array('1000'=>'0'),
 //	),
 );
@@ -1802,8 +1814,24 @@ $carddesc=array(
 		'effect'=>'',
 		'energy'=>0,
 	),
+	152=>array(
+		'name'=>'唱戲挑戰者',
+		'rare'=>'S',
+		'desc'=>'你沒戲唱了，快去死吧！',
+		'pack'=>'Way of Life',
+		'effect'=>'开局赠送600点歌魂。对歌魂为0的玩家造成的伤害+30%。',
+		'energy'=>120,
+	),
+	153=>array(
+		'name'=>'悲运挑战者',
+		'rare'=>'S',
+		'desc'=>'她说：“要有大逃杀。”然后她就平地摔了。',
+		'pack'=>'Way of Life',
+		'effect'=>'开局携带《ACFUN大逃杀原案》。获得技能「悲运」。',
+		'energy'=>150,
+	),
 //教程模式用卡占位
-//	999=>array(
+//	1000=>array(
 //		'name'=>'补给品',
 //		'rare'=>'C',
 //		'desc'=>'教程模式用卡',
