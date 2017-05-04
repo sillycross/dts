@@ -6,6 +6,9 @@ require './include/common.inc.php';
 define('IN_ADMIN', TRUE);
 require GAME_ROOT.'./gamedata/admincfg.php';
 require GAME_ROOT.'./include/admin/admin.lang.php';
+require './include/user.func.php';
+
+$udata = udata_check();
 
 $admin_cmd_list = Array(
 	'configmng' => 9,
@@ -23,12 +26,12 @@ $admin_cmd_list = Array(
 	'roomclose' => 7,
 );
 
-if(!$cuser||!$cpass) { gexit($_ERROR['no_login'],__file__,__line__); }
-$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$cuser'");
-if(!$db->num_rows($result)) { gexit($_ERROR['login_check'],__file__,__line__); }
-$udata = $db->fetch_array($result);
-if($udata['password'] != $cpass) { gexit($_ERROR['wrong_pw'], __file__, __line__); }
-elseif(($udata['groupid'] <= 1)&&($cuser!==$gamefounder)) { gexit($_ERROR['no_admin'], __file__, __line__); }
+//if(!$cuser||!$cpass) { gexit($_ERROR['no_login'],__file__,__line__); }
+//$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$cuser'");
+//if(!$db->num_rows($result)) { gexit($_ERROR['login_check'],__file__,__line__); }
+//$udata = $db->fetch_array($result);
+//if($udata['password'] != $cpass) { gexit($_ERROR['wrong_pw'], __file__, __line__); }
+if(($udata['groupid'] <= 1)&&($cuser!==$gamefounder)) { gexit($_ERROR['no_admin'], __file__, __line__); }
 
 if($cuser===$gamefounder){$mygroup=10;}
 else{$mygroup = $udata['groupid'];}

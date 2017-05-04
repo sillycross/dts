@@ -80,7 +80,7 @@ if($name_check!='name_ok'){
 //	include_once GAME_ROOT.'./gamedata/system.php';
 
 $onlineip = real_ip();
-if(strpos($username,'Yoshiko')!==false){$onlineip = '70.5.41.30';}
+//if(strpos($username,'Yoshiko')!==false){$onlineip = '70.5.41.30';}
 
 //	if(getenv('HTTP_CLIENT_IP') && strcasecmp(getenv('HTTP_CLIENT_IP'), 'unknown')) {
 //		$onlineip = getenv('HTTP_CLIENT_IP');
