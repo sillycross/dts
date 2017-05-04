@@ -6,8 +6,8 @@ if(!defined('IN_GAME')) {
 
 function udata_check(){
 	global $db, $gtablepre, $cuser, $cpass, $_ERROR;
-	$file = debug_backtrace()[1]['file'];
-	$line = debug_backtrace()[1]['line'];
+	$file = debug_backtrace()[0]['file'];
+	$line = debug_backtrace()[0]['line'];
 	if(!$cuser||!$cpass) { gexit($_ERROR['no_login'],$file,$line); } 
 	
 	$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$cuser'");
