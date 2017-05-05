@@ -47,7 +47,7 @@ namespace pose
 		if ($schmode == 'search') 
 		{
 			if($pose==3) {//探索姿态不容易遇见敌人
-				$a = -15;
+				$a = -25;
 				//$r = 0.85;	
 			}
 			elseif($pose==4) {//隐藏姿态容易遇见敌人
@@ -58,7 +58,7 @@ namespace pose
 		if ($schmode == 'move') 
 		{
 			if($pose==3) {
-				$a = -15;
+				$a = -25;
 				//$r = 0.85;
 			}elseif($pose==4) {
 				$a = 10;
