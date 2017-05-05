@@ -56,11 +56,13 @@ if ($command=='newroom' || $command=='enterroom')
 	if($room_prefix=='' || $room_prefix[0]!='s') {
 		if($command=='newroom') room_enter(room_create($para1));
 		elseif($command=='enterroom') room_enter($para1);
-		ob_clean();
-		header('Location: index.php');
-		$gamedata['url']='index.php';
-		echo gencode($gamedata);
-		die();
+		//room_enter()函数最后已经die()了
+		
+//		ob_clean();
+//		header('Location: index.php');
+//		$gamedata['url']='index.php';
+//		echo gencode($gamedata);
+//		die();
 	} else gexit('你已在房间内，请先退出房间', __file__, __line__);
 }
 
@@ -120,135 +122,208 @@ if(!$roomtypelist[$rarr['groomtype']]['continuous']){//非永续房间才进行�
 		die();
 	}
 	
-	if ($command=='enterpos')
+	elseif (strpos($command,'pos')===0)
 	{
 		$para1=(int)$para1;
-		$upos = -1;
-		for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
-			if (!$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']==$cuser)
-				$upos = $i;
+		$upos = room_upos_check($roomdata);
+		if($para1 == $upos) 
+			room_new_chat($roomdata,"<span class=\"red\">{$cuser}试图操作他自己的位置</span><br>");
+		elseif($para1 < 0 || $para1 >= $roomtypelist[$roomdata['roomtype']]['pnum']) 
+			room_new_chat($roomdata,"<span class=\"red\">{$cuser}试图操作一个不存在的位置</span><br>");
 		
-		if (	$upos!=$para1 
-			&& 0<=$para1 && $para1<$roomtypelist[$roomdata['roomtype']]['pnum'] 
-			&& !$roomdata['player'][$para1]['forbidden'] 
-			&& $roomdata['player'][$para1]['name']=='')
-			{
-				if ($upos!=-1) 
+		//进入位置，任何人都能操作
+		elseif($command=='pos_enter'){
+			if($roomdata['player'][$para1]['forbidden']) 
+				room_new_chat($roomdata,"<span class=\"red\">{$cuser}试图进入一个被禁用的位置</span><br>");
+			elseif($roomdata['player'][$para1]['name']) 
+				room_new_chat($roomdata,"<span class=\"red\">{$cuser}试图进入一个有人的位置</span><br>");
+			else{
+				if ($upos >= 0)//已在房间内，换位置
 				{
 					$roomdata['player'][$upos]['name']='';
 					$roomdata['player'][$upos]['ready']=0;
 					//移动位置时，如为队长，该队所有位置重新回到启用状态
-					if ($roomtypelist[$roomdata['roomtype']]['leader-position'][$upos]==$upos)
-					{
-						for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
-							if (	$roomtypelist[$roomdata['roomtype']]['leader-position'][$i]==$upos
-								&& $roomdata['player'][$i]['forbidden'])
-								{
-									$roomdata['player'][$i]['forbidden']=0;
-									$roomdata['player'][$i]['name']='';
-									$roomdata['player'][$i]['ready']=0;
-								}
-					}
-				}
-								
+					if ($upos == room_team_leader_check($roomdata,$upos))
+						room_refresh_team_pos($roomdata,$upos);
+				}								
 				$roomdata['player'][$para1]['name']=$cuser;
 				$roomdata['player'][$para1]['ready']=0;
-				if ($upos==-1)
+				if ($upos < 0)
 					room_new_chat($roomdata,"<span class=\"grey\">{$cuser}进入了一个空位置</span><br>");
 				else  room_new_chat($roomdata,"<span class=\"grey\">{$cuser}移动了位置</span><br>");
-				room_save_broadcast($room_id_r,$roomdata);
 			}
-			
-		die();
-	}
-	
-	if ($command=='disablepos')
-	{
-		$para1=(int)$para1;
-		$upos = -1;
-		for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
-			if (!$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']==$cuser)
-				$upos = $i;
-		
-		if (	$upos>=0 && $upos!=$para1 
-			&& 0<=$para1 && $para1<$roomtypelist[$roomdata['roomtype']]['pnum'] 
-			&& !$roomdata['player'][$para1]['forbidden'] 
-			&& $roomdata['player'][$para1]['name']==''
-			&& $roomtypelist[$roomdata['roomtype']]['leader-position'][$para1]==$upos)
-			{
-				$roomdata['player'][$para1]['forbidden']=1;
-				room_new_chat($roomdata,"<span class=\"grey\">{$cuser}禁用了其队伍的一个位置</span><br>");
-				room_save_broadcast($room_id_r,$roomdata);
-			}
-			
-		die();
-	}
-	
-	if ($command=='enablepos')
-	{
-		$para1=(int)$para1;
-		$upos = -1;
-		for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
-			if (!$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']==$cuser)
-				$upos = $i;
-		
-		if (	$upos>=0 && $upos!=$para1 
-			&& 0<=$para1 && $para1<$roomtypelist[$roomdata['roomtype']]['pnum'] 
-			&& $roomdata['player'][$para1]['forbidden'] 
-			&& $roomtypelist[$roomdata['roomtype']]['leader-position'][$para1]==$upos)
-			{
-				$roomdata['player'][$para1]['forbidden']=0;
-				$roomdata['player'][$para1]['name']='';
-				$roomdata['player'][$upos]['ready']=0;
-				room_new_chat($roomdata,"<span class=\"grey\">{$cuser}重新启用了其队伍的一个位置</span><br>");
-				room_save_broadcast($room_id_r,$roomdata);
-			}
-			
-		die();
-	}
-	
-	if ($command=='kickpos')
-	{
-		$para1=(int)$para1;
-		$upos = -1;
-		for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
-			if (!$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']==$cuser)
-				$upos = $i;
-		
-		if (	$upos==0 && $upos!=$para1 
-			&& 0<=$para1 && $para1<$roomtypelist[$roomdata['roomtype']]['pnum'] 
-			&& !$roomdata['player'][$para1]['forbidden'] 
-			&& $roomdata['player'][$para1]['name']!='')
-			{
-				$tmp=$roomdata['player'][$para1]['name'];
-				$roomdata['player'][$para1]['name']='';
-				$roomdata['player'][$para1]['ready']=0;
-				//如为队长，该队所有位置重新回到启用状态
-				if ($roomtypelist[$roomdata['roomtype']]['leader-position'][$para1]==$para1)
-				{
-					for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
-						if (	$roomtypelist[$roomdata['roomtype']]['leader-position'][$i]==$para1
-							&& $roomdata['player'][$i]['forbidden'])
-							{
-								$roomdata['player'][$i]['forbidden']=0;
-								$roomdata['player'][$i]['name']='';
-								$roomdata['player'][$i]['ready']=0;
-							}
+		}else{//进入位置之外的操作必须先在房间内
+			if($upos < 0)
+				room_new_chat($roomdata,"<span class=\"red\">不在房间内的{$cuser}试图操作一个位置</span><br>");
+			//启用和禁用位置，只有队长可以操作
+			elseif($command=='pos_disable' || $command=='pos_enable'){
+				if($upos != room_team_leader_check($roomdata,$para1))
+					room_new_chat($roomdata,"<span class=\"red\">并非队长的{$cuser}试图操作一个位置</span><br>");
+				elseif($roomdata['player'][$para1]['name']) 
+					room_new_chat($roomdata,"<span class=\"red\">{$cuser}试图操作一个有人的位置</span><br>");
+				else{
+					$roomdata['player'][$para1]['name']='';
+					$roomdata['player'][$upos]['ready']=0;
+					if($command=='pos_disable'){
+						$roomdata['player'][$para1]['forbidden']=1;
+						room_new_chat($roomdata,"<span class=\"grey\">{$cuser}禁用了其队伍的一个位置</span><br>");
+					}elseif($command=='pos_enable'){
+						$roomdata['player'][$para1]['forbidden']=0;
+						room_new_chat($roomdata,"<span class=\"grey\">{$cuser}重新启用了其队伍的一个位置</span><br>");
+					}
 				}
-				room_new_chat($roomdata,"<span class=\"grey\">{$cuser}将{$tmp}踢出了房间</span><br>");
-				room_save_broadcast($room_id_r,$roomdata);
+			//踢人，房主可以踢任何人，队长可以踢同队队员
+			}elseif($command=='pos_kick'){
+				if(!$roomdata['player'][$para1]['name']) 
+					room_new_chat($roomdata,"<span class=\"red\">{$cuser}试图踢掉一个不存在的玩家</span><br>");
+				elseif($upos!=0 && $upos != room_team_leader_check($roomdata,$para1))
+					room_new_chat($roomdata,"<span class=\"red\">并非房主或队长的{$cuser}试图踢人</span><br>");
+				elseif($upos!=0 && $para1 == room_team_leader_check($roomdata,$para1))
+					room_new_chat($roomdata,"<span class=\"red\">并非房主的{$cuser}试图踢队长</span><br>");
+				else{
+					//如踢掉队长，该队所有位置重新回到启用状态
+					if ($para1 == room_team_leader_check($roomdata,$para1))
+						room_refresh_team_pos($roomdata,$para1);
+					$tmp=$roomdata['player'][$para1]['name'];
+					$roomdata['player'][$para1]['name']='';
+					$roomdata['player'][$para1]['ready']=0;
+					room_new_chat($roomdata,"<span class=\"grey\">{$cuser}将{$tmp}踢出了房间</span><br>");
+				}
 			}
-			
-		die();
+		}		
+		room_save_broadcast($room_id_r,$roomdata);
 	}
 	
-	if ($command=='rmsetmode')
+//	elseif ($command=='pos_enter')
+//	{
+//		$para1=(int)$para1;
+//		$upos = -1;
+//		for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
+//			if (!$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']==$cuser)
+//				$upos = $i;
+//		
+//		if (	$upos!=$para1 
+//			&& 0<=$para1 && $para1<$roomtypelist[$roomdata['roomtype']]['pnum'] 
+//			&& !$roomdata['player'][$para1]['forbidden'] 
+//			&& $roomdata['player'][$para1]['name']=='')
+//			{
+//				if ($upos!=-1) 
+//				{
+//					$roomdata['player'][$upos]['name']='';
+//					$roomdata['player'][$upos]['ready']=0;
+//					//移动位置时，如为队长，该队所有位置重新回到启用状态
+//					if ($roomtypelist[$roomdata['roomtype']]['leader-position'][$upos]==$upos)
+//					{
+//						for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
+//							if (	$roomtypelist[$roomdata['roomtype']]['leader-position'][$i]==$upos
+//								&& $roomdata['player'][$i]['forbidden'])
+//								{
+//									$roomdata['player'][$i]['forbidden']=0;
+//									$roomdata['player'][$i]['name']='';
+//									$roomdata['player'][$i]['ready']=0;
+//								}
+//					}
+//				}
+//								
+//				$roomdata['player'][$para1]['name']=$cuser;
+//				$roomdata['player'][$para1]['ready']=0;
+//				if ($upos==-1)
+//					room_new_chat($roomdata,"<span class=\"grey\">{$cuser}进入了一个空位置</span><br>");
+//				else  room_new_chat($roomdata,"<span class=\"grey\">{$cuser}移动了位置</span><br>");
+//				room_save_broadcast($room_id_r,$roomdata);
+//			}
+//			
+//		die();
+//	}
+	
+//	elseif ($command=='pos_disable')
+//	{
+//		$para1=(int)$para1;
+//		$upos = -1;
+//		for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
+//			if (!$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']==$cuser)
+//				$upos = $i;
+//		
+//		if (	$upos>=0 && $upos!=$para1 
+//			&& 0<=$para1 && $para1<$roomtypelist[$roomdata['roomtype']]['pnum'] 
+//			&& !$roomdata['player'][$para1]['forbidden'] 
+//			&& $roomdata['player'][$para1]['name']==''
+//			&& $roomtypelist[$roomdata['roomtype']]['leader-position'][$para1]==$upos)
+//			{
+//				$roomdata['player'][$para1]['forbidden']=1;
+//				room_new_chat($roomdata,"<span class=\"grey\">{$cuser}禁用了其队伍的一个位置</span><br>");
+//				room_save_broadcast($room_id_r,$roomdata);
+//			}
+//			
+//		die();
+//	}
+//	
+//	elseif ($command=='pos_enable')
+//	{
+//		$para1=(int)$para1;
+//		$upos = -1;
+//		for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
+//			if (!$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']==$cuser)
+//				$upos = $i;
+//		
+//		if (	$upos>=0 && $upos!=$para1 
+//			&& 0<=$para1 && $para1<$roomtypelist[$roomdata['roomtype']]['pnum'] 
+//			&& $roomdata['player'][$para1]['forbidden'] 
+//			&& $roomtypelist[$roomdata['roomtype']]['leader-position'][$para1]==$upos)
+//			{
+//				$roomdata['player'][$para1]['forbidden']=0;
+//				$roomdata['player'][$para1]['name']='';
+//				$roomdata['player'][$upos]['ready']=0;
+//				room_new_chat($roomdata,"<span class=\"grey\">{$cuser}重新启用了其队伍的一个位置</span><br>");
+//				room_save_broadcast($room_id_r,$roomdata);
+//			}
+//			
+//		die();
+//	}
+	
+//	elseif ($command=='pos_kick')
+//	{
+//		$para1=(int)$para1;
+//		$upos = -1;
+//		for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
+//			if (!$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']==$cuser)
+//				$upos = $i;
+//		
+//		if (	$upos==0 && $upos!=$para1 
+//			&& 0<=$para1 && $para1<$roomtypelist[$roomdata['roomtype']]['pnum'] 
+//			&& !$roomdata['player'][$para1]['forbidden'] 
+//			&& $roomdata['player'][$para1]['name']!='')
+//			{
+//				$tmp=$roomdata['player'][$para1]['name'];
+//				$roomdata['player'][$para1]['name']='';
+//				$roomdata['player'][$para1]['ready']=0;
+//				//如为队长，该队所有位置重新回到启用状态
+//				if ($roomtypelist[$roomdata['roomtype']]['leader-position'][$para1]==$para1)
+//				{
+//					for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
+//						if (	$roomtypelist[$roomdata['roomtype']]['leader-position'][$i]==$para1
+//							&& $roomdata['player'][$i]['forbidden'])
+//							{
+//								$roomdata['player'][$i]['forbidden']=0;
+//								$roomdata['player'][$i]['name']='';
+//								$roomdata['player'][$i]['ready']=0;
+//							}
+//				}
+//				room_new_chat($roomdata,"<span class=\"grey\">{$cuser}将{$tmp}踢出了房间</span><br>");
+//				room_save_broadcast($room_id_r,$roomdata);
+//			}
+//			
+//		die();
+//	}
+	
+	elseif ($command=='rmsetmode')
 	{
 		$para1=(int)$para1;
-		$upos = -1;
-		for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
-			if (!$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']==$cuser)
-				$upos = $i;
+		$upos = room_upos_check($roomdata);
+//		$upos = -1;
+//		for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
+//			if (!$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']==$cuser)
+//				$upos = $i;
 		
 		if (	$upos==0 
 			&& 0<=$para1 && $para1<count($roomtypelist) && $para1!=$roomdata['roomtype'])
@@ -273,27 +348,30 @@ if(!$roomtypelist[$rarr['groomtype']]['continuous']){//非永续房间才进行�
 		die();
 	}
 	
-	if ($command=='leave')
+	elseif ($command=='leave')
 	{
-		$upos = -1;
-		for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
-			if (!$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']==$cuser)
-				$upos = $i;
+		$upos = room_upos_check($roomdata);
+//		$upos = -1;
+//		for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
+//			if (!$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']==$cuser)
+//				$upos = $i;
 		
 		//如为队长，该队所有位置重新回到启用状态
 		if ($upos>=0)
 		{
-			if ($roomtypelist[$roomdata['roomtype']]['leader-position'][$upos]==$upos)
-			{
-				for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
-					if (	$roomtypelist[$roomdata['roomtype']]['leader-position'][$i]==$upos
-						&& $roomdata['player'][$i]['forbidden'])
-						{
-							$roomdata['player'][$i]['forbidden']=0;
-							$roomdata['player'][$i]['name']='';
-							$roomdata['player'][$i]['ready']=0;
-						}
-			}
+			if ($upos == room_team_leader_check($roomdata,$upos))
+				room_refresh_team_pos($roomdata,$upos);
+//			if ($roomtypelist[$roomdata['roomtype']]['leader-position'][$upos]==$upos)
+//			{
+//				for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
+//					if (	$roomtypelist[$roomdata['roomtype']]['leader-position'][$i]==$upos
+//						&& $roomdata['player'][$i]['forbidden'])
+//						{
+//							$roomdata['player'][$i]['forbidden']=0;
+//							$roomdata['player'][$i]['name']='';
+//							$roomdata['player'][$i]['ready']=0;
+//						}
+//			}
 			$roomdata['player'][$upos]['name']='';
 			$roomdata['player'][$upos]['ready']=0;
 		}
@@ -312,7 +390,7 @@ if(!$roomtypelist[$rarr['groomtype']]['continuous']){//非永续房间才进行�
 		die();
 	}
 	
-	if ($command=='ready' && !$not_ready_command_flag)
+	elseif ($command=='ready' && !$not_ready_command_flag)
 	{
 		if($disable_newgame || $disable_newroom)
 		{

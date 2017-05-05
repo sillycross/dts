@@ -120,6 +120,36 @@ function get_room_data(){
 	return $rdata;
 }
 
+//获得$cuser所在房间的位置，如果不在房间内则返回-1
+function room_upos_check($roomdata){
+	eval(import_module('sys'));
+	global $roomtypelist;
+	$upos = -1;
+	for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
+		if (!$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']==$cuser)
+			$upos = $i;
+	return $upos;
+}
+
+//提供队长位置，把该队伍所有的位置设为开启
+function room_refresh_team_pos($roomdata,$pos){
+	global $roomtypelist;
+	for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
+		if ($pos == room_team_leader_check($roomdata,$i)
+			&& $roomdata['player'][$i]['forbidden'])
+			{
+				$roomdata['player'][$i]['forbidden']=0;
+				$roomdata['player'][$i]['name']='';
+				$roomdata['player'][$i]['ready']=0;
+			}
+}
+
+//得到一个位置所属队伍的队长位置
+function room_team_leader_check($roomdata,$pos) {
+	global $roomtypelist;
+	return $roomtypelist[$roomdata['roomtype']]['leader-position'][$pos];
+}
+
 function room_create($roomtype)
 {
 	eval(import_module('sys'));
