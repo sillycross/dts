@@ -46,7 +46,6 @@ $select_icon = $icon;
 $winning_rate=$validgames?round($wingames/$validgames*100)."%":'0%';
 
 eval(import_module('cardbase'));
-
 $carr=$carddesc[$card];
 $cr=$carr['rare'];
 $cf=true;$sf=true;$af=true;$bf=true;$ff=true;

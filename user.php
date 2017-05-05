@@ -84,7 +84,8 @@ if($mode == 'edit') {
 	$card_ownlist = $userCardData['cardlist'];;
 	$card_energy = $userCardData['cardenergy'];
 	$cardChosen = $userCardData['cardchosen'];
-	
+	$card_disabledlist=Array();
+	$card_error=Array();
 	include template('user');
 	
 }
