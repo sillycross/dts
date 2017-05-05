@@ -3,7 +3,9 @@
 <div>
 <!--{loop $searchmemory $smn $sm}-->
 <input type="button" 
-	<!--{if isset($sm['itm'])}-->value="获取 $sm['itm']"
+	<!--{if isset($sm['itm'])}-->
+	<!--{eval if(function_exists('mb_substr') && mb_strlen($sm['itm'])>10) $sm['itm']=mb_substr($sm['itm'],0,9).'...'.mb_substr($sm['itm'],-1,1); }-->
+		value="获取 $sm['itm']"
 	<!--{elseif isset($sm['Pname'])}-->
 		<!--{if $sm['smtype'] == 'enemy'}-->
 			<!--{if $fog}-->value="再探 ？？？"

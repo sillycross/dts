@@ -42,8 +42,8 @@ namespace event
 					$inf = ($inf . 'h');	
 					$rp = $rp + 25;
 					$log = ($log . "不过知道少女不是故意找茬后，<BR>你原谅了她，并且和她分享了雕鱼烧，你感觉全身舒畅。");
-					$hp = $mhp;
-					$sp = $msp;
+					if($hp < $mhp) $hp = $mhp;
+					if($sp < $msp) $sp = $msp;
 				}
 			}else{
 				$log = ($log . "突然，一位少女向你撞来！<BR>");
@@ -309,7 +309,7 @@ namespace event
 					$log = ($log . "少女向你扔来一个保温瓶。<BR>里面是奇怪的深色液体；<BR>你喝了一口，感觉体内有一种力量涌出来。<BR>");
 					$mhpup = rand(25,50);
 					$mhp = $mhp + $mhpup;
-					$hp = $mhp;
+					if($hp < $mhp) $hp = $mhp;
 					$rp += $mhpup*4;
 				}elseif ($rp < 1000 && $killnum == 0){
 					$log = ($log . "你小心翼翼地在少女旁边坐下，（竟然没被她赶走！）<BR>看着她身下的『绘卷』<BR>");
