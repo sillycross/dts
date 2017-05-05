@@ -159,7 +159,7 @@ $tutorial_story[1] = Array(
 		'tips' => '“获得金钱后，可以去<span class="yellow">【商店】</span>添置装备道具。<br>商店并非哪里都有，它只位于特定的两个地点。请先<span class="yellow">【移动】</span>到<span class="lime">【光坂高校】</span>或者<span class="lime">【花菱商厦】</span>。”<br>',
 		'object' => 'move',
 		'obj2' => Array('shop'),
-		'pulse' => '#moveto',
+		'pulse' => Array('#moveto',"option:contains('光坂高校')","option:contains('花菱商厦')"),
 		'next' => 180		
 	),
 	180 => Array(

@@ -329,7 +329,7 @@ function showData(sdata){
 							var efel=jQuery(sDe[ef][ei]);
 						}
 						if(efel.length > 0){
-							if(efel.is('img')) efel.addClass("TransPulse");
+							if(efel.is('img') || efel.is('select')) efel.addClass("TransPulse");
 				  		else efel.addClass("Pulse");
 						}
 				  }
@@ -564,6 +564,7 @@ function AutopowerLogTimer()
 //特效相关
 function effect_clear_all(){
 	jQuery("*").removeClass('Pulse');
+	jQuery("*").removeClass('TransPulse');
 }
 
 ////////////////////////////////////////////////////////////////////////
