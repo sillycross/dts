@@ -18,7 +18,7 @@ namespace smartmix
 			if(($tp & 1 && in_array($itm, $ma['stuff']) && $ma['class']!='hidden') || ($tp & 2 && $itm == $ma['result'][0])){
 				$mix_res[] = $ma;
 			}
-		}		
+		}
 		return $mix_res;
 	}
 	
@@ -85,9 +85,9 @@ namespace smartmix
 		return array($mix_available,$mix_overlay_available,$mix_sync_available);
 	}
 	
-	function parse_smartmix_recipelink($itemindex, $dtext = ''){
+	function parse_smartmix_recipelink($itemindex, $stext = '', $sstyle = ''){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return "<a class=\"yellow\" onclick=\"$('mode').value='command';$('command').value='itemmain';$('subcmd').name='itemcmd';$('subcmd').value='itemmix';$('subcmd2').name='itemindex';$('subcmd2').value='$itemindex';postCmd('gamecmd','command.php');\">".($dtext ? $dtext : $itemindex).'</a>';
+		return "<a ".($sstyle ? "class=\"{$sstyle}\" " : '')."onclick=\"$('mode').value='command';$('command').value='itemmain';$('subcmd').name='itemcmd';$('subcmd').value='itemmix';$('subcmd2').name='itemindex';$('subcmd2').value='$itemindex';postCmd('gamecmd','command.php');\">".($stext ? $stext : $itemindex).'</a>';
 	}
 	
 	function get_itemmix_filename(){//彻底覆盖原来的
@@ -129,18 +129,21 @@ namespace smartmix
 				if(empty($mix_available) && empty($mix_overlay_available) && empty($mix_sync_available)){
 					$log .= '可合成的道具不存在。<br>';
 				}else{
-					$log .= '<span class="yellow">合成提示：</span><br>';
+					$log .= '<span>合成提示：</span><br>';
 					foreach($mix_available as $mval){
+						$mstuff = '';
 						foreach($mval['stuff'] as $ms){
-							$log .= parse_smartmix_recipelink($ms).' + ';
+							$mstuff .= parse_smartmix_recipelink($ms).' + ';
 						}
-						$log = substr($log,0,-3).'可合成'.parse_smartmix_recipelink($mval['result'][0], \itemmix\parse_itemmix_resultshow($mval['result'])).'。<br>';
+						$mstuff = substr($mstuff,0,-3);
+						$mresult = parse_smartmix_recipelink($mval['result'][0], \itemmix\parse_itemmix_resultshow($mval['result']), 'yellow');
+						$log .= '<span>'.$mstuff.'</span>可合成'.$mresult.'<br>';
 					}
 					foreach($mix_overlay_available as $mval){
 						$ostuff = $oresult = '';
 						foreach($mval as $mv){
 							foreach($mv['list'] as $ml){
-								$ostuff .= ${'itm'.$ml}.' + ';
+								$ostuff .= parse_smartmix_recipelink(${'itm'.$ml}).' + ';
 							}
 							$ostuff = substr($ostuff,0,-3).' / ';
 							if(!$oresult){
@@ -151,13 +154,13 @@ namespace smartmix
 							}
 						}
 						$ostuff = substr($ostuff,0,-3);
-						$log .= '<span class="yellow">'.$ostuff.'</span>可超量合成'.$oresult.'<br>';
+						$log .= '<span>'.$ostuff.'</span>可超量合成'.$oresult.'<br>';
 					}
 					foreach($mix_sync_available as $mval){
 						$sstuff = $sresult = '';
 						foreach($mval as $mv){
 							foreach($mv['list'] as $ml){
-								$sstuff .= ${'itm'.$ml}.' + ';
+								$sstuff .= parse_smartmix_recipelink(${'itm'.$ml}).' + ';
 							}
 							$sstuff = substr($sstuff,0,-3).' / ';
 							if(!$sresult){
@@ -168,11 +171,11 @@ namespace smartmix
 							}
 						}
 						$sstuff = substr($sstuff,0,-3);
-						$log .= '<span class="yellow">'.$sstuff.'</span>可同调合成'.$sresult.'<br>';
+						$log .= '<span>'.$sstuff.'</span>可同调合成'.$sresult.'<br>';
 					}
-					$log .= '<br>';
 				}
 			}
+			$log .= '<br>';
 		}
 		$chprocess();
 	}
