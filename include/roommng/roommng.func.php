@@ -6,7 +6,7 @@ function update_roomstate(&$roomdata, $runflag)
 	
 	global $roomtypelist;
 	$flag=1;
-	for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)//人没满就不能开
+	for ($i=0; $i < room_get_vars($roomdata, 'pnum'); $i++)//人没满就不能开
 		if (!$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']=='')
 			$flag = 0;
 	
@@ -81,7 +81,8 @@ function room_init($roomtype)
 	
 	//各位置信息
 	global $roomtypelist;
-	for ($i=0; $i<$roomtypelist[$roomtype]['pnum']; $i++)
+	$rdpnum = $roomtypelist[$roomtype]['pnum'];
+	for ($i=0; $i<$rdpnum; $i++)
 	{
 		//在该位置的玩家名
 		$s['name']='';
@@ -110,7 +111,7 @@ function room_init($roomtype)
 	return $a;
 }
 
-function get_room_data(){
+function fetch_roomdata(){
 	eval(import_module('sys'));
 	$rdata = Array();
 	$result = $db->query("SELECT groomstatus,groomid,groomtype FROM {$gtablepre}game WHERE groomid > 0");
@@ -120,34 +121,52 @@ function get_room_data(){
 	return $rdata;
 }
 
-//获得$cuser所在房间的位置，如果不在房间内则返回-1
-function room_upos_check($roomdata){
-	eval(import_module('sys'));
+//获得房间参数，如果房间数组没有就去$roomtypelist里找
+function &room_get_vars(&$roomdata, $varname){
 	global $roomtypelist;
+	$r = NULL;
+	if(isset($roomdata[$varname])) $r = &$roomdata[$varname];
+	elseif(isset($roomtypelist[$roomdata['roomtype']][$varname])) $r = &$roomtypelist[$roomdata['roomtype']][$varname];
+	return $r;
+}
+
+//获得$user所在房间的位置，如果不在房间内则返回-1，没赋值$user的话默认用$cuser
+function room_upos_check($roomdata, $user=NULL){
+	global $roomtypelist;
+	if(!$user) {
+		eval(import_module('sys'));
+		$user = $cuser;
+	}
 	$upos = -1;
-	for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
-		if (!$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']==$cuser)
+	$rdplist = room_get_vars($roomdata, 'player');
+	$rdpnum = room_get_vars($roomdata, 'pnum');
+	for ($i=0; $i < $rdpnum; $i++) {
+		if (!$rdplist[$i]['forbidden'] && $rdplist[$i]['name']==$user){
 			$upos = $i;
+			break;
+		}
+	}
 	return $upos;
 }
 
 //提供队长位置，把该队伍所有的位置设为开启
-function room_refresh_team_pos($roomdata,$pos){
+function room_refresh_team_pos(&$roomdata,$pos){
 	global $roomtypelist;
-	for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
-		if ($pos == room_team_leader_check($roomdata,$i)
-			&& $roomdata['player'][$i]['forbidden'])
+	$rdplist = & room_get_vars($roomdata, 'player');
+	$rdpnum = room_get_vars($roomdata, 'pnum');
+	for ($i=0; $i < $rdpnum; $i++)
+		if ($pos == room_team_leader_check($roomdata,$i) && $rdplist[$i]['forbidden'])
 			{
-				$roomdata['player'][$i]['forbidden']=0;
-				$roomdata['player'][$i]['name']='';
-				$roomdata['player'][$i]['ready']=0;
+				$rdplist[$i]['forbidden']=0;
+				$rdplist[$i]['name']='';
+				$rdplist[$i]['ready']=0;
 			}
 }
 
 //得到一个位置所属队伍的队长位置
 function room_team_leader_check($roomdata,$pos) {
 	global $roomtypelist;
-	return $roomtypelist[$roomdata['roomtype']]['leader-position'][$pos];
+	return room_get_vars($roomdata, 'leader-position')[$pos];
 }
 
 function room_create($roomtype)
@@ -169,8 +188,7 @@ function room_create($roomtype)
 	global $max_room_num;
 	$rchoice = -1;
 	$rsetting = $roomtypelist[$roomtype];
-	//$gtype = $rsetting['gtype'];
-	$rdata = get_room_data();
+	$rdata = fetch_roomdata();
 	if($rsetting['continuous']){//永续房特判
 		$rid = -1;
 		$rids = range(1,$max_room_num);
@@ -331,10 +349,11 @@ function room_showdata($roomdata, $user)
 {
 	global $roomid;
 	include GAME_ROOT.'./include/roommng/roommng.config.php';
-	$upos = -1;
-	for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
-		if (!$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']==$user)
-			$upos = $i;
+	$upos = room_upos_check($roomdata, $user);
+//	$upos = -1;
+//	for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
+//		if (!$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']==$user)
+//			$upos = $i;
 			
 	ob_clean();
 	ob_start();
@@ -351,10 +370,12 @@ function room_getteamhtml(&$roomdata, $u)
 {
 	global $roomtypelist;
 	$str='';
-	for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
-		if (!$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']!='' && $roomtypelist[$roomdata['roomtype']]['leader-position'][$i]==$u)
+	$rdplist = room_get_vars($roomdata, 'player');
+	$rdpnum = room_get_vars($roomdata, 'pnum');
+	for ($i=0; $i < $rdpnum; $i++)
+		if (!$rdplist[$i]['forbidden'] && $rdplist[$i]['name']!='' && room_get_vars($roomdata, 'leader-position')[$i]==$u)
 		{
-			$str.=$roomdata['player'][$i]['name'].',';
+			$str.=$rdplist[$i]['name'].',';
 		}
 	if ($str!='') $str=substr($str,0,-1);
 	return $str;

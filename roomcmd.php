@@ -106,11 +106,13 @@ if(!$roomtypelist[$rarr['groomtype']]['continuous']){//非永续房间才进行�
 	//更新踢人状态
 	if ($roomdata['roomstat']==1 && time()>=$roomdata['kicktime'])
 	{
-		for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
-			if (!$roomdata['player'][$i]['forbidden'] && !$roomdata['player'][$i]['ready'] && $roomdata['player'][$i]['name']!='')
+		$rdplist = & room_get_vars($roomdata, 'player');
+		$rdpnum = room_get_vars($roomdata, 'pnum');
+		for ($i=0; $i < $rdpnum; $i++) 
+			if (!$rdplist[$i]['forbidden'] && !$rdplist[$i]['ready'] && $rdplist[$i]['name']!='')
 			{
-				room_new_chat($roomdata,"<span class=\"grey\">{$roomdata['player'][$i]['name']}因为长时间未准备，被系统踢出了房间。</span><br>");
-				$roomdata['player'][$i]['name']='';
+				room_new_chat($roomdata,"<span class=\"grey\">{$rdplist[$i]['name']}因为长时间未准备，被系统踢出了位置。</span><br>");
+				$rdplist[$i]['name']='';
 			}
 		room_save_broadcast($room_id_r,$roomdata);
 	}
@@ -328,21 +330,34 @@ if(!$roomtypelist[$rarr['groomtype']]['continuous']){//非永续房间才进行�
 		if (	$upos==0 
 			&& 0<=$para1 && $para1<count($roomtypelist) && $para1!=$roomdata['roomtype'])
 			{
-				$tot=0;
+				//$tot=0;
 				$nroomdata=room_init($para1);
-				$nroomdata['chatdata']=$roomdata['chatdata'];
-				for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
-					if (!$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']!='')
+				$nroomdata['chatdata']=$roomdata['chatdata'];//复制聊天记录
+				
+				$rdplist = & room_get_vars($roomdata, 'player');
+				$nrdplist = & room_get_vars($nroomdata, 'player');
+				$rdpnum = room_get_vars($roomdata, 'pnum');
+				$nrdpnum = room_get_vars($nroomdata, 'pnum');
+				$inum = min($rdpnum,$nrdpnum);
+				for ($i=0; $i < $inum; $i++)
+				{
+					if ($rdplist[$i]['forbidden'] && !$rdplist[$i]['name'])//复制禁用位置
 					{
-						if ($tot<$roomtypelist[$nroomdata['roomtype']]['pnum'])
-						{
-							$nroomdata['player'][$tot]['name']=$roomdata['player'][$i]['name'];
-							$tot++;
-						}
+						$nrdplist[$i]['forbidden'] = 1;
+					}elseif ($rdplist[$i]['name'])//复制玩家位置
+					{
+						$nrdplist[$i]['name']=$rdplist[$i]['name'];
+//						if ($tot < $nrdpnum)
+//						{
+//							
+//							$tot++;
+//						}
 					}
+				}
 				$nroomdata['timestamp']=$roomdata['timestamp'];
 				$roomdata=$nroomdata;
-				room_new_chat($roomdata,"<span class=\"grey\">{$cuser}将房间模式修改为了{$roomtypelist[$roomdata['roomtype']]['name']}</span><br>");
+				$rname = room_get_vars($roomdata, 'name');
+				room_new_chat($roomdata,"<span class=\"grey\">{$cuser}将房间模式修改为了{$rname}</span><br>");
 				room_save_broadcast($room_id_r,$roomdata);
 			}
 		die();
@@ -359,6 +374,7 @@ if(!$roomtypelist[$rarr['groomtype']]['continuous']){//非永续房间才进行�
 		//如为队长，该队所有位置重新回到启用状态
 		if ($upos>=0)
 		{
+			$rdplist = & room_get_vars($roomdata, 'player');
 			if ($upos == room_team_leader_check($roomdata,$upos))
 				room_refresh_team_pos($roomdata,$upos);
 //			if ($roomtypelist[$roomdata['roomtype']]['leader-position'][$upos]==$upos)
@@ -372,8 +388,8 @@ if(!$roomtypelist[$rarr['groomtype']]['continuous']){//非永续房间才进行�
 //							$roomdata['player'][$i]['ready']=0;
 //						}
 //			}
-			$roomdata['player'][$upos]['name']='';
-			$roomdata['player'][$upos]['ready']=0;
+			$rdplist[$upos]['name']='';
+			$rdplist[$upos]['ready']=0;
 		}
 		room_new_chat($roomdata,"<span class=\"grey\">{$cuser}离开了房间</span><br>");
 		room_save_broadcast($room_id_r,$roomdata);
@@ -395,18 +411,20 @@ if(!$roomtypelist[$rarr['groomtype']]['continuous']){//非永续房间才进行�
 		if($disable_newgame || $disable_newroom)
 		{
 			$db->query("UPDATE {$gtablepre}users SET roomid='' WHERE username='$cuser'");
-			gexit('系统维护中，暂时不能加入房间。');
+			gexit('系统维护中，暂时不能进行准备。');
 		}
-		$upos = -1;
-		for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
-			if (!$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']==$cuser)
-				$upos = $i;
+		$upos = room_upos_check($roomdata);
+		$rdplist = & room_get_vars($roomdata, 'player');
+		$rdpnum = room_get_vars($roomdata, 'pnum');
+//		for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
+//			if (!$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']==$cuser)
+//				$upos = $i;
 		
 		if ($upos>=0 && $roomdata['roomstat']==1 && !$roomdata['player'][$upos]['ready'])
 		{
 			$roomdata['player'][$upos]['ready']=1;
 			$flag=1;
-			for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
+			for ($i=0; $i < $rdpnum; $i++)
 				if (!$roomdata['player'][$i]['forbidden'] && !$roomdata['player'][$i]['ready'])
 					$flag = 0;
 			
@@ -457,7 +475,7 @@ if(!$roomtypelist[$rarr['groomtype']]['continuous']){//非永续房间才进行�
 					addnews($now,'roominfo',$roomtypelist[$roomdata['roomtype']]['name'],'挑战者:&nbsp;'.room_getteamhtml($roomdata,0).'！');
 				}
 				//所有玩家进入游戏
-				for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
+				for ($i=0; $i < $rdpnum; $i++)
 					if (!$roomdata['player'][$i]['forbidden'])
 					{
 						$pname = $roomdata['player'][$i]['name'];
