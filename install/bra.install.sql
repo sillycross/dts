@@ -81,8 +81,6 @@ CREATE TABLE `bra_users` (
   `cardlist` text NOT NULL DEFAULT '',
   `elo_history` text NOT NULL DEFAULT '',
   `n_achievements` text NOT NULL DEFAULT '',
-  `nick` text NOT NULL DEFAULT '',
-  `nicks` text NOT NULL DEFAULT '',
   
   PRIMARY KEY (`uid`),
   UNIQUE KEY `username` (`username`)

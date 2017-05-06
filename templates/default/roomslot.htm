@@ -6,7 +6,7 @@
 <!--{eval glowbutton\glowbutton_set_style('id:pos'.$i.';color:ffffff;glow-on-hover:0;clickable:0;max-text-width:80;line-height:30;margin-x:30;margin-y:0;');}-->
 <!--{else}-->
 <!--{eval glowbutton\glowbutton_set_style('id:pos'.$i.';color:88ff88;clickable:1;max-text-width:80;line-height:30;margin-x:30;margin-y:0;');}-->
-<!--{eval glowbutton\glowbutton_set_mousedown_event("$('command').value='enterpos';$('para1').value=$i;postCmd('roomcmd','roomcmd.php');");}-->
+<!--{eval glowbutton\glowbutton_set_mousedown_event("$('command').value='pos_enter';$('para1').value=$i;postCmd('roomcmd','roomcmd.php');");}-->
 <!--{/if}-->
 <!--{/if}-->
 <!--{else}-->
@@ -15,7 +15,7 @@
 <!--{else}-->
 <!--{if $roomdata['player'][$i]['name']==''}-->
 <!--{eval glowbutton\glowbutton_set_style('id:pos'.$i.';color:555555;clickable:1;max-text-width:80;line-height:30;margin-x:30;margin-y:0;');}-->
-<!--{eval glowbutton\glowbutton_set_mousedown_event("$('command').value='enterpos';$('para1').value=$i;postCmd('roomcmd','roomcmd.php');");}-->
+<!--{eval glowbutton\glowbutton_set_mousedown_event("$('command').value='pos_enter';$('para1').value=$i;postCmd('roomcmd','roomcmd.php');");}-->
 <!--{else}-->
 <!--{if $roomdata['roomstat']==1 && $roomdata['player'][$i]['name']!='' && $roomdata['player'][$i]['ready']}-->
 <!--{eval glowbutton\glowbutton_set_style('id:pos'.$i.';color:88ff88;glow-on-hover:0;clickable:0;max-text-width:80;line-height:30;margin-x:30;margin-y:0;');}-->
@@ -71,10 +71,10 @@ $roomdata['player'][$i]['name']
 </div>
 <!--{else}-->
 
-<!--{if $upos == 0 && !$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']!=''}-->
+<!--{if ($upos == 0 || $upos == room_team_leader_check($roomdata,$i)) && !$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']!=''}-->
 <div style="position:absolute;left:111px;top:19px;">
 <!--{eval glowbutton\glowbutton_set_style('id:action'.$i.';color:ff0000;clickable:1;max-text-width:33;line-height:15;margin-x:0;margin-y:0;');}-->
-<!--{eval glowbutton\glowbutton_set_mousedown_event("$('command').value='kickpos';$('para1').value=$i;postCmd('roomcmd','roomcmd.php');");}-->
+<!--{eval glowbutton\glowbutton_set_mousedown_event("$('command').value='pos_kick';$('para1').value=$i;postCmd('roomcmd','roomcmd.php');");}-->
 {template MOD_GLOWBUTTON_START}
 踢出
 {template MOD_GLOWBUTTON_END}
@@ -85,7 +85,7 @@ $roomdata['player'][$i]['name']
 <!--{if $upos>=0 && $roomdata['player'][$i]['forbidden'] && $roomtypelist[$roomdata['roomtype']]['leader-position'][$i]==$upos}-->
 <div style="position:absolute;left:111px;top:19px;">
 <!--{eval glowbutton\glowbutton_set_style('id:action'.$i.';color:88ff88;clickable:1;max-text-width:33;line-height:15;margin-x:0;margin-y:0;');}-->
-<!--{eval glowbutton\glowbutton_set_mousedown_event("$('command').value='enablepos';$('para1').value=$i;postCmd('roomcmd','roomcmd.php');");}-->
+<!--{eval glowbutton\glowbutton_set_mousedown_event("$('command').value='pos_enable';$('para1').value=$i;postCmd('roomcmd','roomcmd.php');");}-->
 {template MOD_GLOWBUTTON_START}
 启用
 {template MOD_GLOWBUTTON_END}
@@ -96,7 +96,7 @@ $roomdata['player'][$i]['name']
 <!--{if $upos>=0 && !$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']=='' && $roomtypelist[$roomdata['roomtype']]['leader-position'][$i]==$upos}-->
 <div style="position:absolute;left:111px;top:19px;">
 <!--{eval glowbutton\glowbutton_set_style('id:action'.$i.';color:ff0000;clickable:1;max-text-width:33;line-height:15;margin-x:0;margin-y:0;');}-->
-<!--{eval glowbutton\glowbutton_set_mousedown_event("$('command').value='disablepos';$('para1').value=$i;postCmd('roomcmd','roomcmd.php');");}-->
+<!--{eval glowbutton\glowbutton_set_mousedown_event("$('command').value='pos_disable';$('para1').value=$i;postCmd('roomcmd','roomcmd.php');");}-->
 {template MOD_GLOWBUTTON_START}
 禁用
 {template MOD_GLOWBUTTON_END}

@@ -68,14 +68,14 @@ namespace sys
 			}
 		}
 
-		$room_status = 0;
+		//$room_status = 0;
 		$room_id = 0;
 		if(strpos($room_prefix,'s')===0) $room_id = substr($room_prefix,1);
 		
 		//判断所在房间是否存在/是否已经关闭，如果不存在或关闭则将玩家所在房间调整为0（主游戏）
 		global $gameinfo; 
 		$gameinfo = NULL;
-		$room_status = 0;
+		//$room_status = 0;
 		$result = $db->query("SELECT * FROM {$gtablepre}game where groomid='".$room_id."'");
 		if ($db->num_rows($result))
 		{

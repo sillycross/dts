@@ -6,7 +6,7 @@ function update_roomstate(&$roomdata, $runflag)
 	
 	global $roomtypelist;
 	$flag=1;
-	for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)//人没满就不能开
+	for ($i=0; $i < room_get_vars($roomdata, 'pnum'); $i++)//人没满就不能开
 		if (!$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']=='')
 			$flag = 0;
 	
@@ -64,10 +64,17 @@ function room_save_broadcast($roomid, &$roomdata)
 function room_init($roomtype)
 {
 	$a['roomtype']=$roomtype;
-	//数据库中的status字段意义：
-	//0 房间不存在
-	//1 房间存在，游戏未开始
-	//2 房间存在，游戏已开始
+	//数据库中的groomstatus字段意义：
+	//0 房间关闭（上局游戏已结束）
+	//1 房间开启（游戏未开始）
+	//2 房间开启（游戏已开始）
+	
+	//应和roomstat合并，改为：
+	//0 房间关闭（上局游戏已结束）
+	//10 房间开启，人数未满（游戏未开始）
+	//20 房间开启，人数已满，倒计时（游戏未开始）
+	//30 房间开启，游戏初始化（游戏未开始）
+	//40 房间开启，游戏初始化完毕（游戏已开始）
 	
 	//roomstat在数据库status字段为1时才有意义
 	//0 等待玩家
@@ -81,7 +88,8 @@ function room_init($roomtype)
 	
 	//各位置信息
 	global $roomtypelist;
-	for ($i=0; $i<$roomtypelist[$roomtype]['pnum']; $i++)
+	$rdpnum = $roomtypelist[$roomtype]['pnum'];
+	for ($i=0; $i<$rdpnum; $i++)
 	{
 		//在该位置的玩家名
 		$s['name']='';
@@ -110,7 +118,7 @@ function room_init($roomtype)
 	return $a;
 }
 
-function get_room_data(){
+function fetch_roomdata(){
 	eval(import_module('sys'));
 	$rdata = Array();
 	$result = $db->query("SELECT groomstatus,groomid,groomtype FROM {$gtablepre}game WHERE groomid > 0");
@@ -118,6 +126,90 @@ function get_room_data(){
 		$rdata[] = $rsingle;
 	}
 	return $rdata;
+}
+
+//获得房间参数，如果房间数组没有就去$roomtypelist里找
+function &room_get_vars(&$roomdata, $varname){
+	global $roomtypelist;
+	$r = NULL;
+	if(isset($roomdata[$varname])) $r = &$roomdata[$varname];
+	elseif(isset($roomtypelist[$roomdata['roomtype']][$varname])) $r = &$roomtypelist[$roomdata['roomtype']][$varname];
+	return $r;
+}
+
+function room_participant_get($roomdata){
+	$rdplist = room_get_vars($roomdata, 'player');
+	$rdpnum = $m = room_get_vars($roomdata, 'pnum');
+	$p = 0;
+	for ($i=0; $i < $rdpnum; $i++)
+	{
+		if ($rdplist[$i]['name']!='')
+		{
+			$p++;
+		}
+		else  if ($rdplist[$i]['forbidden'])
+		{
+			$m--;
+		}
+	}
+	return array($p, $m);
+}
+
+//获得$user所在房间的位置，如果不在房间内则返回-1，没赋值$user的话默认用$cuser
+function room_upos_check($roomdata, $user=NULL){
+	//global $roomtypelist;
+	if(!$user) {
+		eval(import_module('sys'));
+		$user = $cuser;
+	}
+	$upos = -1;
+	$rdplist = room_get_vars($roomdata, 'player');
+	$rdpnum = room_get_vars($roomdata, 'pnum');
+	for ($i=0; $i < $rdpnum; $i++) {
+		if (!$rdplist[$i]['forbidden'] && $rdplist[$i]['name']==$user){
+			$upos = $i;
+			break;
+		}
+	}
+	return $upos;
+}
+
+//人数已满又长时间不准备的话自动踢人
+function room_auto_kick_check(&$roomdata){
+	$changed = 0;
+	if (room_get_vars($roomdata, 'roomstat')==1 && time()>=room_get_vars($roomdata, 'kicktime'))
+	{
+		$rdplist = & room_get_vars($roomdata, 'player');
+		$rdpnum = room_get_vars($roomdata, 'pnum');
+		for ($i=0; $i < $rdpnum; $i++) 
+			if (!$rdplist[$i]['forbidden'] && !$rdplist[$i]['ready'] && $rdplist[$i]['name']!='')
+			{
+				room_new_chat($roomdata,"<span class=\"grey\">{$rdplist[$i]['name']}因为长时间未准备，被系统踢出了位置。</span><br>");
+				$rdplist[$i]['name']='';
+			}
+		$changed = 1;
+	}
+	return $changed;
+}
+
+//提供队长位置，把该队伍所有的位置设为开启
+function room_refresh_team_pos(&$roomdata,$pos){
+	//global $roomtypelist;
+	$rdplist = & room_get_vars($roomdata, 'player');
+	$rdpnum = room_get_vars($roomdata, 'pnum');
+	for ($i=0; $i < $rdpnum; $i++)
+		if ($pos == room_team_leader_check($roomdata,$i) && $rdplist[$i]['forbidden'])
+			{
+				$rdplist[$i]['forbidden']=0;
+				$rdplist[$i]['name']='';
+				$rdplist[$i]['ready']=0;
+			}
+}
+
+//得到一个位置所属队伍的队长位置
+function room_team_leader_check($roomdata,$pos) {
+	//global $roomtypelist;
+	return room_get_vars($roomdata, 'leader-position')[$pos];
 }
 
 function room_create($roomtype)
@@ -139,8 +231,7 @@ function room_create($roomtype)
 	global $max_room_num;
 	$rchoice = -1;
 	$rsetting = $roomtypelist[$roomtype];
-	//$gtype = $rsetting['gtype'];
-	$rdata = get_room_data();
+	$rdata = fetch_roomdata();
 	if($rsetting['continuous']){//永续房特判
 		$rid = -1;
 		$rids = range(1,$max_room_num);
@@ -301,10 +392,11 @@ function room_showdata($roomdata, $user)
 {
 	global $roomid;
 	include GAME_ROOT.'./include/roommng/roommng.config.php';
-	$upos = -1;
-	for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
-		if (!$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']==$user)
-			$upos = $i;
+	$upos = room_upos_check($roomdata, $user);
+//	$upos = -1;
+//	for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
+//		if (!$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']==$user)
+//			$upos = $i;
 			
 	ob_clean();
 	ob_start();
@@ -321,10 +413,12 @@ function room_getteamhtml(&$roomdata, $u)
 {
 	global $roomtypelist;
 	$str='';
-	for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
-		if (!$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']!='' && $roomtypelist[$roomdata['roomtype']]['leader-position'][$i]==$u)
+	$rdplist = room_get_vars($roomdata, 'player');
+	$rdpnum = room_get_vars($roomdata, 'pnum');
+	for ($i=0; $i < $rdpnum; $i++)
+		if (!$rdplist[$i]['forbidden'] && $rdplist[$i]['name']!='' && room_get_vars($roomdata, 'leader-position')[$i]==$u)
 		{
-			$str.=$roomdata['player'][$i]['name'].',';
+			$str.=$rdplist[$i]['name'].',';
 		}
 	if ($str!='') $str=substr($str,0,-1);
 	return $str;
