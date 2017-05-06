@@ -4,11 +4,11 @@ namespace poison
 {
 	function init() {}
 	
-	function parse_itmk_words($k_value, $simple)
+	function parse_itmk_words($k_value)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (isset($k_value[0]) && $k_value[0]=='P') $k_value[0]='H';
-		return $chprocess($k_value, $simple);
+		return $chprocess($k_value);
 	}
 	
 	function send_poison_enemylog($itm,$itmsk)
