@@ -170,23 +170,6 @@ function content($file = '') {
 	return $content;
 }
 
-function mgzdecode($data)
-{
-	return gzinflate(substr($data,10,-8));
-}
-
-//数组压缩转化为纯字母数字
-function gencode($para){
-	return base64_encode(gzencode(json_encode($para)));
-}
-
-//还原上一个函数
-function gdecode($para, $assoc = false){
-	$assoc = $assoc ? true : false;
-	if (!$para) return array();
-	else return json_decode(mgzdecode(base64_decode($para)),$assoc);
-}
-
 function gsetcookie($var, $value, $life = 0, $prefix = 1) {
 	global $tablepre, $gtablepre, $cookiedomain, $cookiepath, $now, $_SERVER;
 	setcookie(($prefix ? $gtablepre : '').$var, $value,
@@ -405,18 +388,18 @@ function check_alnumudline($key)
 }
 
 //----------------------------------------
-//              数学运算
+//              变量处理
 //----------------------------------------
 
-function array_clone($a){//数组浅拷贝，该死的传引用
-	$r = array();
-	if(is_array($a)){
-		foreach($a as $key => $val){
-			$r[$key] = $val;
-		}
-	}
-	return $r;
+function swap(&$a, &$b)
+{
+	$c=$a; $a=$b; $b=$c;
+	//PHP7了，可以用太空船运算符了
 }
+
+//----------------------------------------
+//              数学运算
+//----------------------------------------
 
 function full_combination($a, $min) {
 	$r = array();
@@ -450,24 +433,25 @@ function combination($a, $m) {
   return $r;  
 } 
 
-function array_encode($arr){
-	//return gzencode(serialize($arr),9);
-	return serialize($arr);
+//----------------------------------------
+//              数组运算
+//----------------------------------------
+
+function array_clone($a){//数组浅拷贝，该死的传引用
+	$r = array();
+	if(is_array($a)){
+		foreach($a as $key => $val){
+			$r[$key] = $val;
+		}
+	}
+	return $r;
 }
 
-function array_decode($str){
-	//return $str && is_string($str) ? unserialize(gzdecode($str)) : array();
-	return $str ? unserialize($str) : array();	
-}
-
-function swap(&$a, &$b)
-{
-	$c=$a; $a=$b; $b=$c;
-	//PHP7了，可以用太空船运算符了
-}
+//----------------------------------------
+//              字符串处理
+//----------------------------------------
 
 //把一个非负整数用64进制编码/解码
-
 function base64_char_decode($c)
 {
 	if ('a'<=$c && $c<='z') return ord($c)-ord('a');
@@ -510,6 +494,90 @@ function base64_decode_number($val)
 		$ret=$ret*64+base64_char_decode($val[$i]);
 	}
 	return $ret;
+}
+
+function mgzdecode($data)
+{
+	return gzinflate(substr($data,10,-8));
+}
+
+//数组压缩转化为纯字母数字
+function gencode($para){
+	return base64_encode(gzencode(json_encode($para)));
+}
+
+//gencode函数的逆运算
+function gdecode($para, $assoc = false){
+	$assoc = $assoc ? true : false;
+	if (!$para) return array();
+	else return json_decode(mgzdecode(base64_decode($para)),$assoc);
+}
+
+//字符串中段省略，取头部+尾部1字符
+function middle_abbr($str,$len1,$len2=1,$elli='...') {
+	$str = (string)$str;
+	$len1 = (int)$len1; $len2 = (int)$len2;
+	return mb_substr($str,0,$len1).$elli.mb_substr($str,-$len2,$len2);
+}
+
+//mb_strlen()兼容替代函数，直接照抄的网络
+if ( !function_exists('mb_strlen') ) {
+	function mb_strlen ($text, $encode='UTF-8') {
+		if ($encode=='UTF-8') {
+			return preg_match_all('%(?:
+			[\x09\x0A\x0D\x20-\x7E]           # ASCII
+			| [\xC2-\xDF][\x80-\xBF]            # non-overlong 2-byte
+			|  \xE0[\xA0-\xBF][\x80-\xBF]       # excluding overlongs
+			| [\xE1-\xEC\xEE\xEF][\x80-\xBF]{2} # straight 3-byte
+			|  \xED[\x80-\x9F][\x80-\xBF]       # excluding surrogates
+			|  \xF0[\x90-\xBF][\x80-\xBF]{2}    # planes 1-3
+			| [\xF1-\xF3][\x80-\xBF]{3}         # planes 4-15
+			|  \xF4[\x80-\x8F][\x80-\xBF]{2}    # plane 16
+			)%xs',$text,$out);
+		}else{
+			return strlen($text);
+		}
+	}
+}
+
+//mb_substr()兼容替代函数，直接照抄的网络
+if (!function_exists('mb_substr')) {
+	function mb_substr($str, $start, $len = '', $encoding='UTF-8'){
+		$limit = strlen($str);
+
+		for ($s = 0; $start > 0;--$start) {// found the real start
+			if ($s >= $limit)
+			break;
+
+			if ($str[$s] <= "\x7F")
+			++$s;
+			else {
+				++$s; // skip length
+
+				while ($str[$s] >= "\x80" && $str[$s] <= "\xBF")
+				++$s;
+			}
+		}
+
+		if ($len == '')
+		return substr($str, $s);
+		else
+		for ($e = $s; $len > 0; --$len) {//found the real end
+			if ($e >= $limit)
+			break;
+
+			if ($str[$e] <= "\x7F")
+			++$e;
+			else {
+				++$e;//skip length
+
+				while ($str[$e] >= "\x80" && $str[$e] <= "\xBF" && $e < $limit)
+				++$e;
+			}
+		}
+
+		return substr($str, $s, $e - $s);
+	}
 }
 
 //----------------------------------------

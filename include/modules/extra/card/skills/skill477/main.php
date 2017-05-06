@@ -28,7 +28,7 @@ namespace skill477
 	function strike_finish(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_query(477,$pa) && !$pd['type'] && !$pd['ss'])
+		if (\skillbase\skill_query(477,$pa) && $pd['ss']<30)
 		{
 			eval(import_module('logger'));
 			$d = round($pa['dmg_dealt']*0.3);

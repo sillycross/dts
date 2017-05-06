@@ -12,18 +12,18 @@ namespace wep_c
 		$attinfo['C'] = '投掷';
 		//武器类型名
 		$iteminfo['WC'] = '投掷兵器';
-		$iteminfo['WC01'] = '投掷兵器';
-		$iteminfo['WC02'] = '投掷兵器';
-		$iteminfo['WC03'] = '投掷兵器';
-		$iteminfo['WC04'] = '投掷兵器';
-		$iteminfo['WC05'] = '投掷兵器';
-		$iteminfo['WC06'] = '投掷兵器';
-		$iteminfo['WC07'] = '投掷兵器';
-		$iteminfo['WC08'] = '投掷兵器';
-		$iteminfo['WC09'] = '投掷兵器';
-		$iteminfo['WC10'] = '投掷兵器';
-		$iteminfo['WC11'] = '投掷兵器';
-		$iteminfo['WC12'] = '投掷兵器';
+//		$iteminfo['WC01'] = '投掷兵器';
+//		$iteminfo['WC02'] = '投掷兵器';
+//		$iteminfo['WC03'] = '投掷兵器';
+//		$iteminfo['WC04'] = '投掷兵器';
+//		$iteminfo['WC05'] = '投掷兵器';
+//		$iteminfo['WC06'] = '投掷兵器';
+//		$iteminfo['WC07'] = '投掷兵器';
+//		$iteminfo['WC08'] = '投掷兵器';
+//		$iteminfo['WC09'] = '投掷兵器';
+//		$iteminfo['WC10'] = '投掷兵器';
+//		$iteminfo['WC11'] = '投掷兵器';
+//		$iteminfo['WC12'] = '投掷兵器';
 		
 		//基础反击率
 		$counter_obbs['C'] = 35;

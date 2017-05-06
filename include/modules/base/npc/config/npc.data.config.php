@@ -5,8 +5,8 @@ namespace npc
 	$npcinit = array
 		(
 			'name' => '',	'pass' => 'bra', 'gd' => 'm',	'icon' => 0,	'club' => 0,	
-			'mhp' => 0,	'msp' => 0,	'att' => 0,	'def' => 0,	'pls' => 0,	'lvl' => 0,
-			'money' => 0,	'inf' => '',	'rage' => 0,	'pose' => 0,	'tactic' => 0,	
+			'mhp' => 0,	'msp' => 0,	 'mss' => 0, 'att' => 0,	'def' => 0,	'pls' => 0,	'lvl' => 0,
+			'money' => 0,	'inf' => '',	'rage' => 0,	'pose' => 0,	'tactic' => 0, 'skill' => 0,
 			'killnum' => 0,	'state' => 1,	'teamID' => '',	'teamPass' => '','bid' => 0,
 			'wep' => '',	'wepk' => '',	'wepe' => 0,	'weps' => 0,	'wepsk' => '',
 			'arb' => '',	'arbk' => '',	'arbe' => 0,	'arbs' => 0,	'arbsk' => '',
@@ -147,6 +147,7 @@ namespace npc
 			'name' => '水濑 名雪-改',
 			'icon' => 11,
 			'gd' => 'f',
+			'mss' => 50,
 			'wep' => '大型闹钟',
 			'wepk' => 'WP',
 			'wepe' => 75,
@@ -168,6 +169,7 @@ namespace npc
 			'name' => '立华 奏-改',
 			'icon' => 12,
 			'gd' => 'f',
+			'mss' => 50,
 			'wep' => 'GS【伪Hand_Sonic】',
 			'wepk' => 'WK',
 			'wepe' => 75,
@@ -436,6 +438,7 @@ namespace npc
 				'icon' => 3,
 				'gd' => 'f',
 				'club' => 9,
+				'mss' => 30,
 				'wep' => '简称为UCW的杏仁豆腐',
 				'wepk' => 'WK',
 				'wepe' => 133,
@@ -532,6 +535,7 @@ namespace npc
 				(
 				'name' => 'Acg_Xilin',
 				'icon' => 2,
+				'mss' => 100,
 				'wep' => '【全屏幕弹幕发射】',
 				'wepk' => 'WG',
 				'wepe' => 360,
@@ -701,6 +705,7 @@ namespace npc
 				0 => array
 				(
 				'name' => '蓝凝',
+				'mss' => 40,
 				'skills' => array('432'=>'0','459'=>'0','461'=>'1'),
 				'icon' => 52,
 				'wep' => '『AZURE RONDO』',
@@ -780,6 +785,7 @@ namespace npc
 				(
 				'name' => 'Hank',
 				'icon' => 91,
+				'mss' => 100,
 				'wep' => '『性感玉米』',
 				'wepk' => 'WD',
 				'wepe' => 88,
@@ -796,6 +802,7 @@ namespace npc
 				(
 				'name' => '爱情上甘岭',
 				'icon' => 92,
+				'mss' => 100,
 				'wep' => '『阿里嘎头哦～』',
 				'wepk' => 'WK',
 				'wepe' => 88,
@@ -812,6 +819,7 @@ namespace npc
 				(
 				'name' => '221',
 				'icon' => 94,
+				'mss' => 100,
 				'wep' => '『和谐你全家』',
 				'wepk' => 'WP',
 				'wepe' => 88,
@@ -853,6 +861,7 @@ namespace npc
 				'name' => 'Erul Tron',
 				'icon' => 93,
 				'club' => 0,
+				'mss' => 70,
 				'wep' => '『罗德不列颠号』',
 				'wepk' => 'WC',
 				'wepe' => 88,
@@ -894,6 +903,7 @@ namespace npc
 				'name' => '亚玛丽欧·维拉蒂安',
 				'icon' => 95,
 				'club' => 0,
+				'mss' => 50,
 				'wep' => '负人气的光环',
 				'wepk' => 'WP',
 				'wepe' => 88,
@@ -984,6 +994,7 @@ namespace npc
 				'mode'=>'3',
 				'gd' => 'f',
 				'icon' => 113,
+				'mss' => 30,
 				'club' => 17,
 				'lvl' => 1,
 				'mhp' => 6666666,
@@ -1129,6 +1140,7 @@ namespace npc
 			(
 			'name' => '讲解员 梦美',
 			'icon' => 61,
+			'mss' => 50,
 			'wep' => '垃圾花束',
 			'wepk' => 'WP',
 			'wepe' => 175,
@@ -1162,6 +1174,7 @@ namespace npc
 			(
 			'name' => '喧哗少女 叶留佳',
 			'icon' => 63,
+			'mss' => 50,
 			'wep' => '七色玻璃珠',
 			'wepk' => 'WK',
 			'wepe' => 160,
@@ -1195,6 +1208,7 @@ namespace npc
 			(
 			'name' => '风纪委员 静流',
 			'icon' => 65,
+			'mss' => 50,
 			'wep' => '银白口哨',
 			'wepk' => 'WF',
 			'wepe' => 175,
@@ -2215,6 +2229,7 @@ namespace npc
 			'club' => 98,
 			'pose'=> 4,
 			'tactic' => 3,
+			'mss' => 50,
 			'skills' => array('461'=>'1'),
 			'wep' => '键 希望弹',
 			'wepk' => 'WC',
@@ -2305,6 +2320,7 @@ namespace npc
 		'lvl' => 25,
 		'skill' => 120,
 		'money' => 4500,
+		'mss' => 50,
 		'arb' => '电波的意志',
 		'arbk' => 'DB',
 		'arbe' => 420,
@@ -2619,6 +2635,7 @@ namespace npc
 				(
 				'name' => 'AC翻唱职人',
 				'icon' => 24,
+				'mss' => 30,
 				'wep' => '销魂之歌',
 				'wepk' => 'WK',
 				'wepe' => 50,
