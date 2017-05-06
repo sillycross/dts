@@ -57,17 +57,11 @@ if ($command=='newroom' || $command=='enterroom')
 		if($command=='newroom') room_enter(room_create($para1));
 		elseif($command=='enterroom') room_enter($para1);
 		//room_enter()函数最后已经die()了
-		
-//		ob_clean();
-//		header('Location: index.php');
-//		$gamedata['url']='index.php';
-//		echo gencode($gamedata);
-//		die();
+
 	} else gexit('你已在房间内，请先退出房间', __file__, __line__);
 }
-
 //其他命令的情况下，如果不在房间内则出错退出
-if ($room_prefix=='' || $room_prefix[0]!='s') 
+elseif ($room_prefix=='' || $room_prefix[0]!='s') 
 {
 	gexit('你不在房间内，请先进入房间', __file__, __line__);
 }
@@ -341,7 +335,7 @@ if(!$roomtypelist[$rarr['groomtype']]['continuous']){//非永续房间才进行�
 				$inum = min($rdpnum,$nrdpnum);
 				for ($i=0; $i < $inum; $i++)
 				{
-					if ($rdplist[$i]['forbidden'] && !$rdplist[$i]['name'])//复制禁用位置
+					if (in_array($para1, array(1,2,3,4)) && $rdplist[$i]['forbidden'] && !$rdplist[$i]['name'])//组队模式切换时复制禁用位置
 					{
 						$nrdplist[$i]['forbidden'] = 1;
 					}elseif ($rdplist[$i]['name'])//复制玩家位置
@@ -411,7 +405,7 @@ if(!$roomtypelist[$rarr['groomtype']]['continuous']){//非永续房间才进行�
 		if($disable_newgame || $disable_newroom)
 		{
 			$db->query("UPDATE {$gtablepre}users SET roomid='' WHERE username='$cuser'");
-			gexit('系统维护中，暂时不能进行准备。');
+			gexit('系统维护中，暂时不能进入房间。');
 		}
 		$upos = room_upos_check($roomdata);
 		$rdplist = & room_get_vars($roomdata, 'player');
@@ -420,12 +414,12 @@ if(!$roomtypelist[$rarr['groomtype']]['continuous']){//非永续房间才进行�
 //			if (!$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']==$cuser)
 //				$upos = $i;
 		
-		if ($upos>=0 && $roomdata['roomstat']==1 && !$roomdata['player'][$upos]['ready'])
+		if ($upos>=0 && $roomdata['roomstat']==1 && !$rdplist[$upos]['ready'])
 		{
-			$roomdata['player'][$upos]['ready']=1;
+			$rdplist[$upos]['ready']=1;
 			$flag=1;
 			for ($i=0; $i < $rdpnum; $i++)
-				if (!$roomdata['player'][$i]['forbidden'] && !$roomdata['player'][$i]['ready'])
+				if (!$rdplist[$i]['forbidden'] && !$rdplist[$i]['ready'])
 					$flag = 0;
 			
 			room_new_chat($roomdata,"<span class=\"grey\">{$cuser}点击了准备</span><br>");
@@ -476,9 +470,9 @@ if(!$roomtypelist[$rarr['groomtype']]['continuous']){//非永续房间才进行�
 				}
 				//所有玩家进入游戏
 				for ($i=0; $i < $rdpnum; $i++)
-					if (!$roomdata['player'][$i]['forbidden'])
+					if (!$rdplist[$i]['forbidden'])
 					{
-						$pname = $roomdata['player'][$i]['name'];
+						$pname = $rdplist[$i]['name'];
 						$pname = (string)$pname;
 						$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username = '$pname'");
 						if($db->num_rows($result)!=1) continue;
