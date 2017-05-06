@@ -98,18 +98,19 @@ update_roomstate($roomdata,$runflag);
 
 if(!$roomtypelist[$rarr['groomtype']]['continuous']){//非永续房间才进行下列判定
 	//更新踢人状态
-	if ($roomdata['roomstat']==1 && time()>=$roomdata['kicktime'])
-	{
-		$rdplist = & room_get_vars($roomdata, 'player');
-		$rdpnum = room_get_vars($roomdata, 'pnum');
-		for ($i=0; $i < $rdpnum; $i++) 
-			if (!$rdplist[$i]['forbidden'] && !$rdplist[$i]['ready'] && $rdplist[$i]['name']!='')
-			{
-				room_new_chat($roomdata,"<span class=\"grey\">{$rdplist[$i]['name']}因为长时间未准备，被系统踢出了位置。</span><br>");
-				$rdplist[$i]['name']='';
-			}
-		room_save_broadcast($room_id_r,$roomdata);
-	}
+	if(room_auto_kick_check($roomdata)) room_save_broadcast($room_id_r,$roomdata);
+//	if ($roomdata['roomstat']==1 && time()>=$roomdata['kicktime'])
+//	{
+//		$rdplist = & room_get_vars($roomdata, 'player');
+//		$rdpnum = room_get_vars($roomdata, 'pnum');
+//		for ($i=0; $i < $rdpnum; $i++) 
+//			if (!$rdplist[$i]['forbidden'] && !$rdplist[$i]['ready'] && $rdplist[$i]['name']!='')
+//			{
+//				room_new_chat($roomdata,"<span class=\"grey\">{$rdplist[$i]['name']}因为长时间未准备，被系统踢出了位置。</span><br>");
+//				$rdplist[$i]['name']='';
+//			}
+//		room_save_broadcast($room_id_r,$roomdata);
+//	}
 	
 	if ($command=='newchat')
 	{

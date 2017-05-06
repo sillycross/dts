@@ -24,11 +24,12 @@ elseif($disable_newroom) $systemmsg = '<span class="evergreen2" style="color:red
 $roomlist = Array();
 
 $roomresult = $db->query("SELECT * FROM {$gtablepre}game WHERE groomstatus > 0");
+//从数据库拉取开启的房间数，然后从文件判断房间是不是开启……有点迷
 while ($data = $db->fetch_array($roomresult))
 {
-	if ($data['groomstatus']==1)
+	if ($data['groomstatus']==1)//数据库中房间在等待状态
 	{
-		$flag = 0; $cnt=0;
+		$cnt=$rdpmax=0;
 		if (file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['groomid'].'.txt'))
 		{
 			$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['groomid'].'.txt'),1);
@@ -37,31 +38,39 @@ while ($data = $db->fetch_array($roomresult))
 			if (update_roomstate($roomdata,0)) $infochanged = 1;
 			
 			//自动踢人
-			if ($roomdata['roomstat']==1 && time()>=$roomdata['kicktime'])
-			{
-				for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
-					if (!$roomdata['player'][$i]['forbidden'] && !$roomdata['player'][$i]['ready'] && $roomdata['player'][$i]['name']!='')
-					{
-						room_new_chat($roomdata,"<span class=\"grey\">{$roomdata['player'][$i]['name']}因为长时间未准备，被系统踢出了房间。</span><br>");
-						$roomdata['player'][$i]['name']='';
-						$infochanged = 1;
-					}
-			}
+			if (room_auto_kick_check($roomdata)) $infochanged = 1;
+//			if ($roomdata['roomstat']==1 && time()>=$roomdata['kicktime'])
+//			{
+//				$rdplist = & room_get_vars($roomdata, 'player');
+//				$rdpnum = room_get_vars($roomdata, 'pnum');
+//				for ($i=0; $i < $rdpnum; $i++)
+//					if (!$rdplist[$i]['forbidden'] && !$rdplist[$i]['ready'] && $rdplist[$i]['name']!='')
+//					{
+//						room_new_chat($roomdata,"<span class=\"grey\">{$rdplist[$i]['name']}因为长时间未准备，被系统踢出了位置。</span><br>");
+//						$rdplist[$i]['name']='';
+//						$infochanged = 1;
+//					}
+//			}
 			if ($infochanged) room_save_broadcast($data['groomid'],$roomdata);
 			
-			for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
-			{
-				if ($roomdata['player'][$i]['name']!='')
-				{
-					$flag=1; $cnt++;
-				}
-				else  if ($roomdata['player'][$i]['forbidden'])
-				{
-					$cnt++;
-				}
-			}
+			//人数检测
+			list($cnt, $rdpmax) = room_participant_get($roomdata);
+//			$rdplist = & room_get_vars($roomdata, 'player');
+//			$rdpnum = $rdpmax = room_get_vars($roomdata, 'pnum');
+//			for ($i=0; $i < $rdpnum; $i++)
+//			{
+//				if ($rdplist[$i]['name']!='')
+//				{
+//					$flag=1; $cnt++;
+//				}
+//				else  if ($rdplist[$i]['forbidden'])
+//				{
+//					$rdpmax--;
+//				}
+//			}
 		}
-		if (!$flag)
+		//文件不存在或者房间没人，则数据库中该房间状态改为关闭
+		if (!$cnt)
 		{
 			$db->query("UPDATE {$gtablepre}game SET groomstatus = 0 WHERE groomid='{$data['groomid']}'");
 			unlink(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['groomid'].'.txt');
@@ -72,13 +81,13 @@ while ($data = $db->fetch_array($roomresult))
 			$roomlist[$data['groomid']]['id'] = $data['groomid'];
 			$roomlist[$data['groomid']]['status'] = $data['groomstatus'];
 			$roomlist[$data['groomid']]['nowplayer'] = $cnt;
-			$roomlist[$data['groomid']]['maxplayer'] = $roomtypelist[$roomdata['roomtype']]['pnum'];
+			$roomlist[$data['groomid']]['maxplayer'] = $rdpmax;
 			$roomlist[$data['groomid']]['roomtype'] = $roomdata['roomtype'];
 			$roomlist[$data['groomid']]['roomdata'] = $roomdata;
-			$roomlist[$data['groomid']]['continuous'] = $roomtypelist[$roomdata['roomtype']]['continuous'];
+			$roomlist[$data['groomid']]['continuous'] = room_get_vars($roomdata, 'continuous');
 		}
 	}
-	elseif ($data['groomstatus']==2)
+	elseif ($data['groomstatus']==2)//数据库中房间已经进入游戏
 	{
 		if (file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['groomid'].'.txt'))
 		{
@@ -110,8 +119,8 @@ while ($data = $db->fetch_array($roomresult))
 //die();
 
 //排序方式：永续房放最前，等待中优于游戏中，人越接近满越优先，人已满放最后，依然相同按ID
-$troomlist = $roomlist;
-ksort($roomlist);
+//$troomlist = $roomlist;
+//ksort($roomlist);
 $tmp=Array();
 foreach ($roomlist as $key => $value)
 {
@@ -133,10 +142,10 @@ foreach ($roomlist as $key => $value)
 	array_push($tmp[$wg],$value);
 }
 ksort($tmp);
-$roomlist=Array();
+$shroomlist=Array();
 foreach ($tmp as $key => $value)
-	foreach ($value as $data)
-		array_push($roomlist,$data);
+	foreach ($value as $vval)
+		array_push($shroomlist,$vval);
 
 if ($gametype==2) $alivenum = $validnum;
 

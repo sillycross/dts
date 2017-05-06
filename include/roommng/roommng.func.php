@@ -137,9 +137,27 @@ function &room_get_vars(&$roomdata, $varname){
 	return $r;
 }
 
+function room_participant_get($roomdata){
+	$rdplist = room_get_vars($roomdata, 'player');
+	$rdpnum = $m = room_get_vars($roomdata, 'pnum');
+	$p = 0;
+	for ($i=0; $i < $rdpnum; $i++)
+	{
+		if ($rdplist[$i]['name']!='')
+		{
+			$p++;
+		}
+		else  if ($rdplist[$i]['forbidden'])
+		{
+			$m--;
+		}
+	}
+	return array($p, $m);
+}
+
 //获得$user所在房间的位置，如果不在房间内则返回-1，没赋值$user的话默认用$cuser
 function room_upos_check($roomdata, $user=NULL){
-	global $roomtypelist;
+	//global $roomtypelist;
 	if(!$user) {
 		eval(import_module('sys'));
 		$user = $cuser;
@@ -156,9 +174,27 @@ function room_upos_check($roomdata, $user=NULL){
 	return $upos;
 }
 
+//人数已满又长时间不准备的话自动踢人
+function room_auto_kick_check(&$roomdata){
+	$changed = 0;
+	if (room_get_vars($roomdata, 'roomstat')==1 && time()>=room_get_vars($roomdata, 'kicktime'))
+	{
+		$rdplist = & room_get_vars($roomdata, 'player');
+		$rdpnum = room_get_vars($roomdata, 'pnum');
+		for ($i=0; $i < $rdpnum; $i++) 
+			if (!$rdplist[$i]['forbidden'] && !$rdplist[$i]['ready'] && $rdplist[$i]['name']!='')
+			{
+				room_new_chat($roomdata,"<span class=\"grey\">{$rdplist[$i]['name']}因为长时间未准备，被系统踢出了位置。</span><br>");
+				$rdplist[$i]['name']='';
+			}
+		$changed = 1;
+	}
+	return $changed;
+}
+
 //提供队长位置，把该队伍所有的位置设为开启
 function room_refresh_team_pos(&$roomdata,$pos){
-	global $roomtypelist;
+	//global $roomtypelist;
 	$rdplist = & room_get_vars($roomdata, 'player');
 	$rdpnum = room_get_vars($roomdata, 'pnum');
 	for ($i=0; $i < $rdpnum; $i++)
@@ -172,7 +208,7 @@ function room_refresh_team_pos(&$roomdata,$pos){
 
 //得到一个位置所属队伍的队长位置
 function room_team_leader_check($roomdata,$pos) {
-	global $roomtypelist;
+	//global $roomtypelist;
 	return room_get_vars($roomdata, 'leader-position')[$pos];
 }
 
