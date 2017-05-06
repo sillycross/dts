@@ -4,6 +4,14 @@ namespace searchmemory
 {
 	function init() {}
 	
+	function load_playerdata($pdata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player'));
+		$chprocess($pdata);
+		if(is_string($searchmemory)) $searchmemory = gdecode($searchmemory,1);//听丑陋的
+	}
+	
 	function fetch_playerdata($Pname){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		//eval(import_module('sys'));

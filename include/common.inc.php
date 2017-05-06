@@ -85,7 +85,7 @@ else
 
 if (defined('NO_SYS_UPDATE')) return;
 
-if (CURSCRIPT != 'chat') sys\routine();
+if (CURSCRIPT != 'chat' && CURSCRIPT != 'help') sys\routine();
 
 
 ?>
