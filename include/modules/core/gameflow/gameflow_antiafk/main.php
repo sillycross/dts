@@ -28,7 +28,6 @@ namespace gameflow_antiafk
 			}elseif ($gametype >= 10 && $areanum>=$areaadd && $now > $afktime + $antiAFKertime_room * 60) {
 				antiAFK($antiAFKertime_room);
 			}
-			$afktime = $now;
 		}
 		$chprocess();
 	}
@@ -43,6 +42,7 @@ namespace gameflow_antiafk
 		}
 		$timelimit *= 60;
 		$deadline=$now-$timelimit;
+		
 		$result = $db->query("SELECT * FROM {$tablepre}players WHERE type=0 AND endtime < '$deadline' AND hp>'0' AND state<'10'");
 		while($al = $db->fetch_array($result)) {
 			$afkerlist[$al['pid']]=Array('name' => $al['name'] ,'pls' => $al['pls']);
@@ -57,6 +57,7 @@ namespace gameflow_antiafk
 				$deathnum++;			
 			}
 		}
+		$afktime = $now;
 		save_gameinfo();
 		return;
 	}
