@@ -96,7 +96,7 @@ if ($roomdata['roomstat']==2)
 if ($rarr['groomstatus']==2) $runflag = 1; else $runflag = 0;
 update_roomstate($roomdata,$runflag);
 
-if(!$roomtypelist[$rarr['groomtype']]['continuous']){//非永续房间才进行下列判定
+if(!$roomtypelist[$rarr['groomtype']]['soleroom']){//非永续房间才进行下列判定
 	//更新踢人状态
 	if(room_auto_kick_check($roomdata)) room_save_broadcast($room_id_r,$roomdata);
 //	if ($roomdata['roomstat']==1 && time()>=$roomdata['kicktime'])
@@ -323,7 +323,7 @@ if(!$roomtypelist[$rarr['groomtype']]['continuous']){//非永续房间才进行�
 //				$upos = $i;
 		
 		if (	$upos==0 
-			&& 0<=$para1 && $para1<count($roomtypelist) && $para1!=$roomdata['roomtype'])
+			&& 0<=$para1 && $para1<count($roomtypelist) && $para1!=$roomdata['roomtype'] && !$roomtypelist[$para1]['soleroom'])
 			{
 				//$tot=0;
 				$nroomdata=room_init($para1);
