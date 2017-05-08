@@ -215,7 +215,7 @@ namespace ex_dmg_att
 	function post_traphit_events(&$pa, &$pd, $tritm, $damage)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess();
+		$chprocess($pa, $pd, $tritm, $damage);
 		eval(import_module('player','logger','ex_dmg_att','wound'));
 		if (strpos($tritm['itm'],'毒性')!==false) 
 		{

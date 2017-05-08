@@ -54,7 +54,7 @@ namespace ex_attr_trap
 					\logger\logsave ( $itmsk0, $now, $w_log ,'b');
 				}	
 			}	
-			$log .= "糟糕，你触发了{$trperfix}陷阱<span class=\"yellow\">$itm0</span>！<br>不过，身上装备着的自动迎击系统启动了！<span class=\"yellow\">在迎击功能的保护下你毫发无伤。</span><br>";
+			$log .= "糟糕，你触发了{$trprefix}陷阱<span class=\"yellow\">$itm0</span>！<br>不过，身上装备着的自动迎击系统启动了！<span class=\"yellow\">在迎击功能的保护下你毫发无伤。</span><br>";
 			return 1;
 		}
 		return 0;

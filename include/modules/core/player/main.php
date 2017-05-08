@@ -2,7 +2,7 @@
 
 namespace player
 {
-	global $db_player_structure, $gamedata, $cmd, $main, $sdata;
+	global $db_player_structure, $db_player_structure_types, $gamedata, $cmd, $main, $sdata;
 	global $fog,$upexp,$lvlupexp,$iconImg,$iconImgB,$ardef;//这些鬼玩意包括可以回头全部丢进$uip
 	global $hpcolor,$spcolor,$newhpimg,$newspimg,$splt,$hplt, $tpldata; 
 	
@@ -10,12 +10,15 @@ namespace player
 	{
 		eval(import_module('sys'));
 		
-		global $db_player_structure, $tpldata; $db_player_structure=Array(); $tpldata=Array();
+		global $db_player_structure, $db_player_structure_types, $tpldata; 
+		$db_player_structure = $db_player_structure_types = $tpldata=Array();
 		$result = $db->query("DESCRIBE {$gtablepre}players");
-		while ($pdata = $db->fetch_array($result))
+		while ($sttdata = $db->fetch_array($result))
 		{
-			global ${$pdata['Field']}; 
-			array_push($db_player_structure,$pdata['Field']);
+			global ${$sttdata['Field']}; 
+			$db_player_structure[] = $sttdata['Field'];
+			$db_player_structure_types[$sttdata['Field']] = $sttdata['Type'];
+			//array_push($db_player_structure,$pdata['Field']);
 		}
 	}
 	
@@ -110,6 +113,21 @@ namespace player
 			return $lstwd;
 		}
 		return '';
+	}
+	
+	//查skill_query()如果给的$pa是NULL则会自动调用当前玩家，这是个大坑，判定陷阱方面尤其如此……只能给个假玩家数据蒙混一下了
+	function create_dummy_playerdata()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player'));
+		$dummy = array();
+		foreach($db_player_structure_types as $f => $t)
+		{
+			if(strpos($t,'int')!==false) $v=0;
+			else $v='';
+			$dummy[$f] = $v;
+		}
+		return $dummy;
 	}
 	
 	function init_playerdata(){

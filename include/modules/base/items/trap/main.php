@@ -2,7 +2,7 @@
 
 namespace trap
 {
-	global $playerflag, $selflag, $trname, $trtype, $trperfix;	//注意这个脑残的变量名拼写typo，是perfix不是prefix
+	global $playerflag, $selflag, $trname, $trtype, $trprefix;
 		
 	function init() 
 	{
@@ -151,10 +151,14 @@ namespace trap
 		eval(import_module('sys','player','trap','logger'));
 		
 		$bid = $itmsk0;
-		$pa=\player\fetch_playerdata_by_pid($bid);
+		if($bid) {
+			$pa=\player\fetch_playerdata_by_pid($bid);
+		}else {
+			$pa=\player\create_dummy_playerdata();
+		}
 		$damage = get_trap_damage();
 		
-		$log .= "糟糕，你触发了{$trperfix}陷阱<span class=\"yellow\">$itm0</span>！";
+		$log .= "糟糕，你触发了{$trprefix}陷阱<span class=\"yellow\">$itm0</span>！";
 	
 		$tritm=Array();
 		$tritm['itm']=$itm0; $tritm['itmk']=$itmk0; 
@@ -202,7 +206,7 @@ namespace trap
 		trap_deal_damage();
 		
 		if($hp <= 0) {
-			$log .= "<span class=\"red\">你被{$trperfix}陷阱杀死了！</span>";
+			$log .= "<span class=\"red\">你被{$trprefix}陷阱杀死了！</span>";
 			$state = 27;
 			\player\update_sdata();
 			if (!$selflag && $playerflag) 	//有来源且不是自己
@@ -248,7 +252,7 @@ namespace trap
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','trap'));
-		$log .= "你发现了{$trperfix}陷阱<span class=\"yellow\">$itm0</span>，不过你并没有触发它。陷阱看上去还可以重复使用。<br>";			
+		$log .= "你发现了{$trprefix}陷阱<span class=\"yellow\">$itm0</span>，不过你并没有触发它。陷阱看上去还可以重复使用。<br>";			
 		$itmsk0 = '';$itmk0 = str_replace('TO','TN',$itmk0);
 		$mode = 'itemfind';
 	}
@@ -257,7 +261,7 @@ namespace trap
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','trap'));
-		$log .= "你发现了{$trperfix}陷阱<span class=\"yellow\">$itm0</span>，不过你成功地回避了它。<br>";
+		$log .= "你发现了{$trprefix}陷阱<span class=\"yellow\">$itm0</span>，不过你成功地回避了它。<br>";
 		$itm0 = $itmk0 = $itmsk0 = '';
 		$itme0 = $itms0 = 0;
 		$mode = 'command';
@@ -318,11 +322,11 @@ namespace trap
 		
 		if($playerflag && !$selflag){
 			$wdata = \player\fetch_playerdata_by_pid($itmsk0);
-			$trname = $wdata['name'];$trtype = $wdata['type'];$trperfix = '<span class="yellow">'.$trname.'</span>设置的';
+			$trname = $wdata['name'];$trtype = $wdata['type'];$trprefix = '<span class="yellow">'.$trname.'</span>设置的';
 		}elseif($selflag){
-			$trname = $name;$trtype = 0;$trperfix = '你自己设置的';
+			$trname = $name;$trtype = 0;$trprefix = '你自己设置的';
 		}else{
-			$trname = $trtype = $trperfix = '';
+			$trname = $trtype = $trprefix = '';
 		}
 		
 		trap();

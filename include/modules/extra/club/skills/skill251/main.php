@@ -96,9 +96,10 @@ namespace skill251
 	function post_traphit_events($pa, $sdata, $tritm, $damage)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_query(251,$sdata) && $damage>=$sdata['mhp']*0.15)
+		if (\skillbase\skill_query(251,$sdata) && $damage>=$sdata['mhp']*0.35)
 		{
 			eval(import_module('sys','logger'));
+			$log .= $damage.' '.$sdata['mhp'].'<br>';
 			$log .= '<span class="yellow">你的技能「天佑」被触发，暂时进入了无敌状态！</span><br>';
 			\skillbase\skill_setvalue(251,'start',$now);
 		}
