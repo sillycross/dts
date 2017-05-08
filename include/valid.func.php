@@ -77,7 +77,7 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 	if ($name == $gamefounder) {
 		$msp += 100;$mhp += 100;$hp += 100;$sp += 100;
 		$att += 100;$def += 100;
-		$exp += 3000;$money = 20000;$rage = 255;$pose = 1;$tactic = 3;
+		$exp += 10;$money = 20000;$rage = 255;$pose = 1;$tactic = 3;
 		$itm[1] = '死者苏生'; $itmk[1] = 'HB'; $itme[1] = 1500; $itms[1] = 400; $itmsk[1] = 'z';
 		$itm[2] = '移动PC'; $itmk[2] = 'EE'; $itme[2] = 50; $itms[2] = 1;
 		$itm[3] = '超光速快子雷达'; $itmk[3] = 'ER'; $itme[3] = 32; $itms[3] = 1;$itmsk[3] = 2;
