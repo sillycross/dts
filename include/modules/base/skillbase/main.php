@@ -72,6 +72,7 @@ namespace skillbase
 		}
 		
 		$pa['acquired_list']=$ac_list;
+		//if(!isset($pa['nskillpara'])) echo debug_backtrace()[0]['function'],' ',debug_backtrace()[1]['function'];
 		$pa['parameter_list']=parse_skill_parameter_data($pa['nskillpara']);
 		
 		if ($pa['pid']==$pid)

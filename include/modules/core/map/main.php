@@ -151,8 +151,9 @@ namespace map
 	function updategame()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
 		eval(import_module('sys','map'));
+		$chprocess();//先判定开始游戏和反挂机
+		
 		if (($gamestate > 10)&&($now > $areatime)) {//判定增加禁区
 			while($now>$areatime){
 				$o_areatime = $areatime;
@@ -172,8 +173,6 @@ namespace map
 				$gamestate = 30;
 			}
 		}
-		
-		$chprocess();
 	}
 	
 	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())

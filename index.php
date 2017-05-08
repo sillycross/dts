@@ -84,7 +84,7 @@ while ($data = $db->fetch_array($roomresult))
 			$roomlist[$data['groomid']]['maxplayer'] = $rdpmax;
 			$roomlist[$data['groomid']]['roomtype'] = $roomdata['roomtype'];
 			$roomlist[$data['groomid']]['roomdata'] = $roomdata;
-			$roomlist[$data['groomid']]['continuous'] = room_get_vars($roomdata, 'continuous');
+			$roomlist[$data['groomid']]['soleroom'] = room_get_vars($roomdata, 'soleroom');
 		}
 	}
 	elseif ($data['groomstatus']==2)//数据库中房间已经进入游戏
@@ -98,8 +98,8 @@ while ($data = $db->fetch_array($roomresult))
 			$roomlist[$data['groomid']]['maxplayer'] = $roomtypelist[$roomdata['roomtype']]['pnum'];
 			$roomlist[$data['groomid']]['roomtype'] = $roomdata['roomtype'];
 			$roomlist[$data['groomid']]['roomdata'] = $roomdata;
-			$roomlist[$data['groomid']]['continuous'] = $roomtypelist[$roomdata['roomtype']]['continuous'];
-			if($roomlist[$data['groomid']]['continuous']){
+			$roomlist[$data['groomid']]['soleroom'] = $roomtypelist[$roomdata['roomtype']]['soleroom'];
+			if($roomlist[$data['groomid']]['soleroom']){
 				$rid = 's'.$data['groomid'];
 				$rtablepre = $gtablepre.$rid.'_';
 				$endtimelimit = $now-300;
@@ -124,7 +124,7 @@ while ($data = $db->fetch_array($roomresult))
 $tmp=Array();
 foreach ($roomlist as $key => $value)
 {
-	if ($value['continuous'])
+	if ($value['soleroom'])
 	{
 		$wg = 0;
 	}

@@ -75,14 +75,14 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 
 	global $gamefounder;
 	if ($name == $gamefounder) {
-		$msp += 500;$mhp += 500;$hp += 500;$sp += 500;
-		$att += 200;$def += 200;
+		$msp += 100;$mhp += 100;$hp += 100;$sp += 100;
+		$att += 100;$def += 100;
 		$exp += 3000;$money = 20000;$rage = 255;$pose = 1;$tactic = 3;
-		$itm[1] = '死者苏生'; $itmk[1] = 'HB'; $itme[1] = 2000; $itms[1] = 400; $itmsk[1] = '';
+		$itm[1] = '死者苏生'; $itmk[1] = 'HB'; $itme[1] = 1500; $itms[1] = 400; $itmsk[1] = 'z';
 		$itm[2] = '移动PC'; $itmk[2] = 'EE'; $itme[2] = 50; $itms[2] = 1;
 		$itm[3] = '超光速快子雷达'; $itmk[3] = 'ER'; $itme[3] = 32; $itms[3] = 1;$itmsk[3] = 2;
 		$itm[4] = '凸眼鱼'; $itmk[4] = 'Y'; $itme[4] = 1; $itms[4] = 30;$itmsk[4] = '';
-		$itm[5] = '楠叶特制营养剂'; $itmk[5] = 'ME'; $itme[5] = 50; $itms[5] = 12;
+		$itm[5] = '楠叶特制营养剂'; $itmk[5] = 'ME'; $itme[5] = 100; $itms[5] = 25;
 		$itm[6] = '紧急药剂'; $itmk[6] = 'Ca'; $itme[6] = 1; $itms[6] = 50;
 		$wep = '神圣手榴弹';$wepk = 'WC';$wepe = 8765;$weps = 876;$wepsk = 'd';
 		$arb = '守桥人的长袍';$arbk = 'DB'; $arbe = 3200; $arbs = 100; $arbsk = 'A';

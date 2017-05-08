@@ -22,16 +22,16 @@
 <td class="b3" height="30px" width="30px">$value['id']</td>
 <td class="b3" width="80px">$roomtypelist[$value['roomtype']]['name']</td>
 <td class="b3" width="60px"><!--{if $value['status']==1}--><!--{if $value['nowplayer']==$value['maxplayer']}--><span class="white">等待中</span><!--{else}--><span class="lime">等待中</span><!--{/if}--><!--{else}--><span class="grey">游戏中</span><!--{/if}--></td>
-<td class="b3" width="50px"><!--{if $value['status']==1 || $roomtypelist[$value['roomtype']]['continuous']}--><!--{if $value['nowplayer']==$value['maxplayer']}--><span class="grey"><!--{else}--><!--{if $value['nowplayer']+1==$value['maxplayer']}--><span class="red" style="color:#ff0022;"><!--{else}--><!--{if $value['nowplayer']+2==$value['maxplayer']}--><span class="yellow"><!--{else}--><span class="white"><!--{/if}--><!--{/if}--><!--{/if}-->$value['nowplayer']/$value['maxplayer']</span><!--{else}--><span class="grey">-</span><!--{/if}--></td>
-<td class="b3" width="130px"><!--{if $value['roomdata']['player'][0]['name']=='' || $roomtypelist[$value['roomtype']]['continuous']}-->-<!--{else}-->$value['roomdata']['player'][0]['name']<!--{/if}--></td>
+<td class="b3" width="50px"><!--{if $value['status']==1 || $roomtypelist[$value['roomtype']]['soleroom']}--><!--{if $value['nowplayer']==$value['maxplayer']}--><span class="grey"><!--{else}--><!--{if $value['nowplayer']+1==$value['maxplayer']}--><span class="red" style="color:#ff0022;"><!--{else}--><!--{if $value['nowplayer']+2==$value['maxplayer']}--><span class="yellow"><!--{else}--><span class="white"><!--{/if}--><!--{/if}--><!--{/if}-->$value['nowplayer']/$value['maxplayer']</span><!--{else}--><span class="grey">-</span><!--{/if}--></td>
+<td class="b3" width="130px"><!--{if $value['roomdata']['player'][0]['name']=='' || $roomtypelist[$value['roomtype']]['soleroom']}-->-<!--{else}-->$value['roomdata']['player'][0]['name']<!--{/if}--></td>
 <td class="b3" width="50px">
 <!--{if !$cuser || !$cpass}-->
 	<span class="grey">-</span>
 <!--{elseif $room_prefix!='' && $room_prefix[0]=='s'}-->
 	<span class="grey">-</span>
 <!--{else}-->
-	<!--{if $value['status']==1 || $roomtypelist[$value['roomtype']]['continuous']}-->
-		<!--{if $value['nowplayer']<$value['maxplayer'] || $roomtypelist[$value['roomtype']]['continuous']}-->
+	<!--{if $value['status']==1 || $roomtypelist[$value['roomtype']]['soleroom']}-->
+		<!--{if $value['nowplayer']<$value['maxplayer'] || $roomtypelist[$value['roomtype']]['soleroom']}-->
 			<input type="button" style="width:46px" onclick="room_enter($value['id']);" value="进入">
 		<!--{else}-->
 			<input type="button" style="width:46px" onclick="room_enter($value['id']);" value="旁观">

@@ -137,6 +137,19 @@ function &room_get_vars(&$roomdata, $varname){
 	return $r;
 }
 
+function room_gettype_from_gtype($gtype){
+	global $roomtypelist;
+	$r = NULL;
+	foreach($roomtypelist as $rtk => $rtv){
+		if($rtv['gtype'] == $gtype) {
+			$r = $rtk;
+			break;
+		}
+	}
+	return $r;
+}
+
+//获得房间内玩家数和所需玩家数
 function room_participant_get($roomdata){
 	$rdplist = room_get_vars($roomdata, 'player');
 	$rdpnum = $m = room_get_vars($roomdata, 'pnum');
@@ -232,7 +245,7 @@ function room_create($roomtype)
 	$rchoice = -1;
 	$rsetting = $roomtypelist[$roomtype];
 	$rdata = fetch_roomdata();
-	if($rsetting['continuous']){//永续房特判
+	if($rsetting['soleroom']){//永续房特判
 		$rid = -1;
 		$rids = range(1,$max_room_num);
 		foreach($rdata as $rd){
@@ -285,7 +298,7 @@ function room_create($roomtype)
 	$roomdata['player'][0]['name']=$cuser;
 	writeover(GAME_ROOT.'./gamedata/tmp/rooms/'.$rchoice.'.txt', gencode($roomdata));
 	$db->query("DELETE from {$gtablepre}roomlisteners WHERE roomid = '$rchoice'"); 
-//	if($rsetting['continuous']){
+//	if($rsetting['soleroom']){
 //		room_enter($rchoice);
 //	}
 	return $rchoice;
@@ -328,8 +341,8 @@ function room_enter($id)
 	$header = 'index.php';
 	$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$id.'.txt'),1);
 	//global $cuser;
-	global $roomtypelist, $gametype, $startime, $now, $room_prefix, $alivenum, $continuous_room_resettime;
-	if($roomtypelist[$rd['groomtype']]['continuous']){//永续房，绕过其他判断直接进房间
+	global $roomtypelist, $gametype, $startime, $now, $room_prefix, $alivenum, $soleroom_resettime;
+	if($roomtypelist[$rd['groomtype']]['soleroom']){//永续房，绕过其他判断直接进房间
 		//以后得改改
 		if ($disable_newgame || $disable_newroom) {
 			gexit('系统维护中，暂时不能加入房间',__file__,__line__);
@@ -348,7 +361,7 @@ function room_enter($id)
 			$result = $db->query("SELECT endtime FROM {$tablepre}players WHERE type=0 ORDER BY endtime DESC LIMIT 1");
 			if($db->num_rows($result)){
 				$lastendtime = $db->fetch_array($result)['endtime'];				
-				if($now - $lastendtime > $continuous_room_resettime) $need_reset = 1;
+				if($now - $lastendtime > $soleroom_resettime) $need_reset = 1;
 			}
 		}
 		if($need_reset){	
