@@ -77,7 +77,7 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 	if ($name == $gamefounder) {
 		$msp += 100;$mhp += 100;$hp += 100;$sp += 100;
 		$att += 100;$def += 100;
-		$exp += 3000;$money = 20000;$rage = 255;$pose = 1;$tactic = 3;
+		$exp += 10;$money = 20000;$rage = 255;$pose = 1;$tactic = 3;
 		$itm[1] = '死者苏生'; $itmk[1] = 'HB'; $itme[1] = 1500; $itms[1] = 400; $itmsk[1] = 'z';
 		$itm[2] = '移动PC'; $itmk[2] = 'EE'; $itme[2] = 50; $itms[2] = 1;
 		$itm[3] = '超光速快子雷达'; $itmk[3] = 'ER'; $itme[3] = 32; $itms[3] = 1;$itmsk[3] = 2;
@@ -127,11 +127,11 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 		$c=count($arr)-1;
 		$card=$arr[rand(0,$c)];
 	}
-	$cardfix=$cards[$card];
-	$cardname=$carddesc[$card]['name'];
-	$cardrare=$carddesc[$card]['rare'];
+	$card_valid_info=$cards[$card]['valid'];
+	$cardname=$cards[$card]['name'];
+	$cardrare=$cards[$card]['rare'];
 	///////////////////////////////////////////////////////////////
-	foreach ($cardfix as $key => $value){
+	foreach ($card_valid_info as $key => $value){
 		if (substr($key,0,3)=="itm"){
 			$tt=substr($key,-1);
 			$ts=substr($key,0,strlen($key)-1);
@@ -146,16 +146,13 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 	
 	///////////////////////////////////////////////////////////////
 	$pp=\player\fetch_playerdata($name);
-	//教程模式技能
-//	if($gametype == 17){
-//		\skillbase\skill_acquire(1000,$pp);
-//	}
+
 	//为了灵活性，直接处理所有技能，在固定称号的时候记得要写入skills不然进游戏就没技能了
-	//if (isset($cardfix['club'])){
-	//	\clubbase\club_acquire($cardfix['club'],$pp);
+	//if (isset($card_valid_info['club'])){
+	//	\clubbase\club_acquire($card_valid_info['club'],$pp);
 	//}
-	if (is_array($cardfix['skills'])){
-		foreach ($cardfix['skills'] as $key=>$value){
+	if (is_array($card_valid_info['skills'])){
+		foreach ($card_valid_info['skills'] as $key=>$value){
 			if (defined('MOD_SKILL'.$key)){
 				\skillbase\skill_acquire($key,$pp);
 				if ($value>0){
@@ -169,15 +166,16 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 	
 	\player\player_save($pp);
 	///////////////////////////////////////////////////////////////
-	if ($cardrare=="S"){
-		$rarecolor="orange";
-	}else if ($cardrare=='A'){
-		$rarecolor="linen";
-	}else if ($cardrare=='B'){
-		$rarecolor="brickred";
-	}else if ($cardrare=='C'){
-		$rarecolor="seagreen";
-	}
+	$rarecolor = $card_rarecolor[$cardrare];
+//	if ($cardrare=="S"){
+//		$rarecolor="orange";
+//	}else if ($cardrare=='A'){
+//		$rarecolor="linen";
+//	}else if ($cardrare=='B'){
+//		$rarecolor="brickred";
+//	}else if ($cardrare=='C'){
+//		$rarecolor="seagreen";
+//	}
 	$result = $db->query("SELECT groupid FROM {$gtablepre}users WHERE username='$cuser'");
 	$udata = $db->fetch_array($result);
 	if($udata['groupid'] >= 6 || $cuser == $gamefounder){

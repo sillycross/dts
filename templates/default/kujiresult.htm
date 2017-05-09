@@ -30,19 +30,19 @@
 		<table CellSpacing=0 CellPadding=0 style="height:290px; width:240px">
 			<tr height="40">
 				<td class=b2 width="38" height="40">卡名</td>
-				<td class=b3 width="202" height="40">$isnew[$k] $carddesc[$r]['name']</td>
+				<td class=b3 width="202" height="40">$isnew[$k] $cards[$r]['name']</td>
 			</tr>
 			<tr height="40">
 				<td class=b2 width="38" height="40">罕贵</td>
-				<td class=b3 width="202" height="40">$carddesc[$r]['rare']</td>
+				<td class=b3 width="202" height="40"><span class="{$card_rarecolor[$cards[$r]['rare']]}">$cards[$r]['rare']</span></td>
 			</tr>
 			<tr height="140">
 				<td class=b2 width="38" height="140">介绍</td>
-				<td class=b3 width="202" height="140">$carddesc[$r]['desc']</td>
+				<td class=b3 width="202" height="140">$cards[$r]['desc']</td>
 			</tr>
 			<tr height="70">
 				<td class=b2 width="38" height="70">效果</td>
-				<td class=b3 width="202" height="70">$carddesc[$r]['effect']</td>
+				<td class=b3 width="202" height="70">$cards[$r]['effect']</td>
 			</tr>
 		</table>
 		<!--{if isset($ishighlight[$k]) && !$ishighlight[$k]}-->

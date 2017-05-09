@@ -28,11 +28,12 @@ namespace cardbase
 		$ret = Array();
 		$ret['S']=100.0/7/86400;	//S卡固定基准CD 7天
 		$ret['C']=0;			//C卡不受能量制影响
+		$ret['M']=0;			//M卡更不受能量制影响
 		$cnt=Array(); $cnt['A']=0; $cnt['B']=0;
 		foreach ($cardlist as $key)
 		{
-			if ($carddesc[$key]['rare']=='A') $cnt['A']++;
-			if ($carddesc[$key]['rare']=='B') $cnt['B']++;
+			if ($cards[$key]['rare']=='A') $cnt['A']++;
+			if ($cards[$key]['rare']=='B') $cnt['B']++;
 		}
 		//估算现有切糕对卡片数量的影响
 		$bcost = Array('A' => 90/0.05, 'B'=>90/0.2);
@@ -81,13 +82,13 @@ namespace cardbase
 		for ($i=0; $i<count($cardlist); $i++)
 			if ($i<count($t))
 			{
-				$cardenergy[$cardlist[$i]]=((double)$t[$i])+($now-$lastupd)*$energy_recover_rate[$carddesc[$cardlist[$i]]['rare']];
-				if ($carddesc[$cardlist[$i]]['rare'] == 'C' || $cardenergy[$cardlist[$i]] > $carddesc[$cardlist[$i]]['energy']-1e-5)
-					$cardenergy[$cardlist[$i]] = $carddesc[$cardlist[$i]]['energy'];
+				$cardenergy[$cardlist[$i]]=((double)$t[$i])+($now-$lastupd)*$energy_recover_rate[$cards[$cardlist[$i]]['rare']];
+				if (in_array($cards[$cardlist[$i]]['rare'], array('C','M')) || $cardenergy[$cardlist[$i]] > $cards[$cardlist[$i]]['energy']-1e-5)
+					$cardenergy[$cardlist[$i]] = $cards[$cardlist[$i]]['energy'];
 			}
 			else
 			{
-				$cardenergy[$cardlist[$i]] = $carddesc[$cardlist[$i]]['energy'];
+				$cardenergy[$cardlist[$i]] = $cards[$cardlist[$i]]['energy'];
 			}
 		
 		$nt='';
@@ -131,7 +132,7 @@ namespace cardbase
 			if (isset($pa['username'])) $n=$pa['username'];
 			else $n=$pa['name'];
 		}
-		$cn=$carddesc[$ci]['name'];
+		$cn=$cards[$ci]['name'];
 		$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$n'");
 		$pu = $db->fetch_array($result);
 		extract($pu,EXTR_PREFIX_ALL,'p');
@@ -242,7 +243,7 @@ namespace cardbase
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('cardbase'));
 		$card_pack = Array();
-		foreach ($carddesc as $ci => $card) {
+		foreach ($cards as $ci => $card) {
 			if ($card["pack"] == $card_pack_name)
 				$card_pack[$ci] = $card;
 		}

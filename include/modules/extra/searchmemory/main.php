@@ -56,7 +56,7 @@ namespace searchmemory
 				$amflag = 1;
 				if($marr['smtype'] == 'corpse' )$log .=  '你设法保持对'.$amn.'的尸体的持续观察。<br>';
 				elseif($fog) $log .= '你努力让那个人影保持在视野之内。<br>';
-				else $log .= '你躲远了，不过你依然观察着'.$amn.'。<br>';
+				else $log .= '你一边躲开，一边设法继续观察着'.$amn.'。<br>';
 			}
 			if($amflag){
 				array_push($searchmemory, $marr);
@@ -183,10 +183,17 @@ namespace searchmemory
 		
 	function searchmemory_discover($mn){//参数值代表取几号位searchmemory的探索记忆
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','logger','input'));
+		eval(import_module('sys','player','logger','input','cooldown'));
 		$mn = (int)$mn;
 		//$searchmemory = array_decode($searchmemory);
 		//$mn = (int)substr($schmode,6) - 1;
+		if ($coldtimeon && $rmcdtime > 0)
+		{
+			$log .= '<span class="yellow">冷却时间尚未结束！</span><br>';
+			$mode = 'command';
+			return;
+		}
+	
 		if(isset($searchmemory[$mn])){
 			$mem = $searchmemory[$mn];
 			remove_memory($mn,0);
@@ -205,6 +212,7 @@ namespace searchmemory
 					return;
 				}else{
 					$log .= '<span class="lime">'.$mem['itm'].'还在原来的位置，你轻松拿到了它。</span><br>';
+					if($coldtimeon) $cmdcdtime=\cooldown\get_search_coldtime();
 					$marr=$db->fetch_array($result);
 					focus_item($marr);
 					\itemmain\itemget();
