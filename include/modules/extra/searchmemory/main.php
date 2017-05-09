@@ -56,7 +56,7 @@ namespace searchmemory
 				$amflag = 1;
 				if($marr['smtype'] == 'corpse' )$log .=  '你设法保持对'.$amn.'的尸体的持续观察。<br>';
 				elseif($fog) $log .= '你努力让那个人影保持在视野之内。<br>';
-				else $log .= '你躲远了，不过你依然观察着'.$amn.'。<br>';
+				else $log .= '你一边躲开，一边设法继续观察着'.$amn.'。<br>';
 			}
 			if($amflag){
 				array_push($searchmemory, $marr);

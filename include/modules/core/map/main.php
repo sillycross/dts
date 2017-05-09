@@ -168,7 +168,7 @@ namespace map
 		if($gamestate == 20) {
 			$arealimit = $arealimit > 0 ? $arealimit : 1; 
 			if(($validnum <= 0)&&($areanum >= $arealimit*$areaadd)) {//判定无人参加并结束游戏
-				\sys\gameover($areatime-3599,'end4');
+				\sys\gameover($areatime-$areahour*60+1,'end4');
 			} elseif(($areanum >= $arealimit*$areaadd) || ($validnum >= $validlimit)) {//判定游戏停止激活
 				$gamestate = 30;
 			}

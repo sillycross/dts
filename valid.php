@@ -49,7 +49,7 @@ if($mode == 'enter') {
 	}
 	
 	$cc=$card;
-	$cardinfo=$carddesc[$cc];
+	$cardinfo=$cards[$cc];
 	$r=$cardinfo['rare'];
 	$cf=true;
 	
@@ -69,13 +69,13 @@ if($mode == 'enter') {
 //	}
 	
 	if ($gametype==0 || $gametype==2){
-		if ($carddesc[$cc]['rare']!='C')
+		if (!in_array($cards[$cc]['rare'], array('C', 'M')))
 		{
 			$rst = $db->query("SELECT pid FROM {$tablepre}players WHERE card = '$cc' AND type = 0");
 			if($db->num_rows($rst)) $cf=false;
 		}
 		
-		if ($card_energy[$cc]<$carddesc[$cc]['energy'])
+		if ($card_energy[$cc]<$cards[$cc]['energy'])
 		{
 			$cf=false;
 		}
@@ -89,7 +89,7 @@ if($mode == 'enter') {
 		
 		if ($cf==false){
 			$cc=0;
-			$cardinfo=$carddesc[0];
+			$cardinfo=$cards[0];
 		}
 		else
 		{
@@ -152,7 +152,7 @@ if($mode == 'enter') {
 	while ($cdata = $db->fetch_array($result)) $t[$cdata['card']]=1;
 	
 	foreach ($card_ownlist as $key)
-		if ($carddesc[$key]['rare']!='C' && isset($t[$key])) 
+		if (!in_array($cards[$key]['rare'], array('C', 'M')) && isset($t[$key])) 
 		{
 			$card_disabledlist[$key]='e2';
 			$card_error['e2'] = '这张卡片暂时不能使用，因为本局已经有其他人使用了这张卡片<br>请下局早点入场吧！';
@@ -160,11 +160,11 @@ if($mode == 'enter') {
 	
 	//次高优先级错误原因：单卡CD
 	foreach ($card_ownlist as $key)
-		if ($card_energy[$key]<$carddesc[$key]['energy'])
+		if ($card_energy[$key]<$cards[$key]['energy'])
 		{
-			$t=($carddesc[$key]['energy']-$card_energy[$key])/$energy_recover_rate[$carddesc[$key]['rare']];
+			$t=($cards[$key]['energy']-$card_energy[$key])/$energy_recover_rate[$cards[$key]['rare']];
 			$card_disabledlist[$key]='e1'.$key;
-			$card_error['e1'.$key] = '这张卡片暂时不能使用，因为它目前正处于蓄能状态<br>这张卡片需要蓄积'.$carddesc[$key]['energy'].'点能量方可使用，预计在'.convert_tm($t).'后蓄能完成';
+			$card_error['e1'.$key] = '这张卡片暂时不能使用，因为它目前正处于蓄能状态<br>这张卡片需要蓄积'.$cards[$key]['energy'].'点能量方可使用，预计在'.convert_tm($t).'后蓄能完成';
 		}
 	
 	//最高优先级错误原因：s卡的24小时限制
@@ -172,7 +172,7 @@ if($mode == 'enter') {
 	
 	if (($now-$udata['cd_s'])<86400){
 		foreach ($card_ownlist as $key)
-			if ($carddesc[$key]['rare']=='S')
+			if ($cards[$key]['rare']=='S')
 				$card_disabledlist[$key]='e0';
 	}
 	
