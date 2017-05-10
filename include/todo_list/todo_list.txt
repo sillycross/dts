@@ -5,3 +5,4 @@
 --房间制重做，加入剧情房的设定
 --气泡模块取消掉
 --把数据迁移功能加入install
+--在strike_finish()里加伤害的技能都得改到apply_total_damage_modifier_down()或者apply_total_damage_modifier_up()里面去

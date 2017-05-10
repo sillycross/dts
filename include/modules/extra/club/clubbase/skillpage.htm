@@ -18,13 +18,12 @@
 <!--{if !defined('IN_HELP')}-->
 <!--于是经过各种边框，最后工作区的大小是height:514px width:509px--> 
 <!--{if $club==0}-->
-你还没有选择内定称号，请在主界面中选择一个内定称号后再查看技能。<br>
-<span class="yellow">点击技能界面外任意位置可以返回主界面。</span><br><br>
-<!--{else}-->
+<span class="yellow">你还没有选择内定称号，请在主界面中选择一个内定称号以获得称号技能。</span><br>
+<!--{/if}-->
 <!--{eval \player\update_sdata();}-->
 你目前有<span class="lime">$skillpoint</span>点技能点供自由分配，升级时可以获取新的技能点。<br>
-以下是你的内定称号的技能列表。<br><br>
-<!--{/if}-->
+以下是你的技能列表。<br><br>
+
 <!--{else}-->
 <!--{eval eval(import_module('clubbase'));}-->
 以下是$clubinfo[$nowclub]称号的技能列表。<br>
