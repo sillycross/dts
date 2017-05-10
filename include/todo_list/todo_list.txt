@@ -6,3 +6,4 @@
 --气泡模块取消掉
 --把数据迁移功能加入install
 --在strike_finish()里加伤害的技能都得改到apply_total_damage_modifier_down()或者apply_total_damage_modifier_up()里面去
+--模块文件里把函数注释掉好像会导致parse的时候判定出问题，待判断
