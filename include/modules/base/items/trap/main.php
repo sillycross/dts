@@ -139,6 +139,13 @@ namespace trap
 		return $damage;
 	}
 	
+	//非升高也非降低类的修正
+	function get_trap_final_damage_change(&$pa, &$pd, $tritm, $damage)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $damage;
+	}
+	
 	//陷阱命中后事件
 	function post_traphit_events(&$pa, &$pd, $tritm, $damage)
 	{
@@ -186,6 +193,8 @@ namespace trap
 		$damage = get_trap_final_damage_modifier_up($pa, $sdata, $tritm, $damage);
 		
 		$damage = get_trap_final_damage_modifier_down($pa, $sdata, $tritm, $damage);
+		
+		$damage = get_trap_final_damage_change($pa, $sdata, $tritm, $damage);
 
 		$hp -= $damage;
 		
