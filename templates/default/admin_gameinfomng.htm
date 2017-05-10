@@ -19,7 +19,8 @@
 			<td>$gstate[$gamestate]</td>
 			<td>
 				<!--{if $gamestate == 0}-->
-				<input type="submit" value="准备开始" onclick="$('command').value='gsedit_10'">
+				<input type="submit" value="准备开始" onclick="$('command').value='gsedit_10'"><br>
+				<input type="submit" value="开始游戏" onclick="$('command').value='gsedit_20'"><br>
 				<!--{elseif $gamestate == 10}-->
 				<input type="submit" value="开始游戏" onclick="$('command').value='gsedit_20'"><br>
 				<input type="submit" value="结束游戏" onclick="$('command').value='gsedit_0'">
