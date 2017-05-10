@@ -100,7 +100,7 @@ handleShowCardErrorMouseOut = function()
 				<!--{loop Array(0,1) $disableValue}-->
 				<!--{if $disableValue<=$showDisableVal}-->
 					<!--{loop $cards $cardid $t}-->
-					<!--{if $t['pack']==$cardpack && $t['rare']==$cardrank && in_array($cardid,$card_ownlist)}-->
+					<!--{if $t['pack']==$cardpack && ($t['rare']==$cardrank || ($t['rare'] == 'M' && $cardrank == 'C')) && in_array($cardid,$card_ownlist)}-->
 						<!--{eval $carddisabled = in_array($cardid, array_keys($card_disabledlist));}-->
 						<!--{if $carddisabled==$disableValue}-->
 							<!--{if $row==0}-->
@@ -119,7 +119,7 @@ handleShowCardErrorMouseOut = function()
 								<img id="cardbg$cardid-$showDisableVal" src=<!--{if $chosencard==$cardid && !$carddisabled}-->"img/cardbg-selected.png"<!--{else}-->"img/cardbg.png"<!--{/if}-->>
 								</div>
 								<div style="position:absolute; top:4px; left:5px;" >
-								<span class="$cl">$cardrank $cardname</span>
+								<span class="$cl">{$t['rare']} $cardname</span>
 								</div>
 								<!--{if !$carddisabled}--> 
 								<div style="position:absolute; top:0px; left:0px; height:25px; width:170px;"

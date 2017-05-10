@@ -11,7 +11,7 @@ li {font:bold 10pt "微软雅黑";line-height:16px}
 input {cursor: crosshair;}
 .b {font-weight:bold;}
 .title {font-family: "微软雅黑"; margin: 6px;color: #cceafa; width: 100%;filter:blur(add=1,direction=90,strength=12):glow(strength=5,color=gold); font-weight:900; text-decoration:underline;font-size: 30px;}
-.subtitle {font-family: "微软雅黑"; margin: 6px;color: #cceafa; width: 100%;font-size: 24px;font-weight:400;}
+.subtitle {font-family: "微软雅黑"; margin: 6px;color: #cceafa; width: 100%;font-size: 24px;font-weight:400;line-height:32px}
 .headerlink{}
 .small {font-size: 9pt}
 .ver a{font:10pt "Viner Hand ITC","隶书";color:#ff0000;}
@@ -87,7 +87,7 @@ table.admin td.tdtitle {
 .evergreen2{color:#98fb98;font:18pt "微软雅黑";}
 .dmg {color:#ff0000;font: bold 10pt "微软雅黑";}
 .grey{color:#999; font: bold 10pt "微软雅黑";}
-.linen{color:rgb(200,192,184); font: bold 10pt "微软雅黑";}s
+.linen{color:rgb(200,192,184); font: bold 10pt "微软雅黑";}
 .L5{color: #ff0000;font: bold 10pt "微软雅黑";background:url("../../img/backround4.gif") repeat-x;}
 
 #main {
