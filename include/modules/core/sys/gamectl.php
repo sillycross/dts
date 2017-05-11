@@ -216,8 +216,9 @@ namespace sys
 			$winner = $winname;
 		}
 		$gamestate = 0;
-		$starttime = 0; //偶尔会发生穿透事故，先这么一修看看情况
+		$o_starttime = $starttime; $starttime = 0; //偶尔会发生穿透事故，先这么一修看看情况
 		save_gameinfo();
+		$starttime = $o_starttime;
 //		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-模式判断');
 		//以下开始真正处理gameover的各种数据修改
 		$time = $time ? $time : $now;
