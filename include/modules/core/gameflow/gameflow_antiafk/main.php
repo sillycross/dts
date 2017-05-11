@@ -13,7 +13,7 @@ namespace gameflow_antiafk
 		eval(import_module('sys','gameflow_antiafk'));
 		//修改反挂机间隔
 		$afktime = $starttime;
-		save_gameinfo();
+		//save_gameinfo();//已改到外侧
 	}
 	
 	function gamestateupdate()

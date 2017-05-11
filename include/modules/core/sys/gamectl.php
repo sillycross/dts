@@ -21,6 +21,9 @@ namespace sys
 			$groomstatus = 2;
 		}
 		
+		$gamestate = 5;//正在重设游戏
+		save_gameinfo(0);
+		
 		//重设玩家互动信息、聊天记录、地图道具、地图陷阱、进行状况
 		$sql = file_get_contents("{$sqldir}reset.sql");
 		$sql = str_replace("\r", "\n", str_replace(' bra_', ' '.$tablepre, $sql));
@@ -37,8 +40,6 @@ namespace sys
 		$noiseid = 0;
 		$noiseid2 = 0;
 		$noisemode = '';
-		//$gametype = 0;
-		$gamestate = 10;
 		
 		save_combatinfo();
 		
@@ -46,8 +47,6 @@ namespace sys
 		clear_dir(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/',1);
 		global $___MOD_TMP_FILE_DIRECTORY;
 		clear_dir($___MOD_TMP_FILE_DIRECTORY.$room_prefix.'_/',1);
-		
-		save_gameinfo(0);
 	}
 	
 	function prepare_new_game() {

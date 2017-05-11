@@ -41,7 +41,7 @@ if($command == 'wthedit'){
 		$cmd_info = '游戏状态数据错误，请重新输入！';
 	}elseif($gamestate == $igamestate){
 		$cmd_info = '游戏当前已经处于此状态，请重新输入！';
-	}elseif($gamestate == 0 && $igamestate > 20){
+	}elseif($gamestate < 10 && $igamestate > 20){
 		$cmd_info = '游戏未准备，不可进入后期状态！';
 	}elseif($gamestate == 10 && $igamestate > 20){
 		$cmd_info = '游戏未开始，不可进入后期状态！';

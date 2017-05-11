@@ -55,7 +55,7 @@ namespace gtype1
 		{
 			$weather = 1;
 			$hack=1;
-			save_gameinfo();
+			//save_gameinfo();
 		}
 		
 	}

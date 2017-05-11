@@ -13,8 +13,12 @@ namespace gameflow_base
 		
 		$gamenum++; 
 		\sys\reset_game();
+		\sys\save_gameinfo();
+		
 		\sys\prepare_new_game();
 		\sys\rs_game(1+2+4+8+16+32);
+		$gamestate = 10;//重设游戏完毕
+		\sys\save_gameinfo();
 	}
 	
 	function gamestate_start_game()
@@ -33,7 +37,7 @@ namespace gameflow_base
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys'));
-		if(!$gamestate) { //判定游戏准备
+		if(!$gamestate) { //判定游戏准备。注意$gamestate==5是游戏正在准备过程中
 			$readymin = $readymin > 0 ? $readymin : 1;
 			if(($starttime)&&($now > $starttime - $readymin*60)) {
 				gamestate_prepare_game();

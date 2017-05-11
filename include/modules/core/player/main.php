@@ -322,7 +322,7 @@ namespace player
 			$validnum = $alivenum = $deathnum = 0;
 		}
 		
-		save_gameinfo();
+		//save_gameinfo();
 	}
 
 	function deathnews(&$pa, &$pd)
