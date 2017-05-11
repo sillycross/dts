@@ -100,7 +100,7 @@ handleShowCardErrorMouseOut = function()
 				<!--{loop Array(0,1) $disableValue}-->
 				<!--{if $disableValue<=$showDisableVal}-->
 					<!--{loop $cards $cardid $t}-->
-					<!--{if $t['pack']==$cardpack && ($t['rare']==$cardrank || ($t['rare'] == 'M' && $cardrank == 'C')) && in_array($cardid,$card_ownlist)}-->
+					<!--{if $t['pack']==$cardpack && ($t['rare']==$cardrank) && in_array($cardid,$card_ownlist)}-->
 						<!--{eval $carddisabled = in_array($cardid, array_keys($card_disabledlist));}-->
 						<!--{if $carddisabled==$disableValue}-->
 							<!--{if $row==0}-->
