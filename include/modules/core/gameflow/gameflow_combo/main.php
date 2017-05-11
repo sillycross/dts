@@ -13,7 +13,7 @@ namespace gameflow_combo
 		eval(import_module('sys','gameflow_combo'));
 		//重设连斗判断死亡数
 		$combonum = $deathlimit;
-		save_gameinfo();
+		//save_gameinfo();//已改到外侧
 	}
 	
 	function checkcombo(){

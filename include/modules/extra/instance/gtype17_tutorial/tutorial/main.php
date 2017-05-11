@@ -763,7 +763,7 @@ namespace tutorial
 				$weather = rand($wmin,$wmax);
 			}
 			
-			save_gameinfo();
+			//save_gameinfo();
 		}
 	}
 	

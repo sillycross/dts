@@ -56,7 +56,7 @@ namespace gtype2
 		if (($gametype==2)&&($xmode & 2)) 
 		{
 			$weather = 1;
-			save_gameinfo();
+			//save_gameinfo();
 		}
 	}
 	

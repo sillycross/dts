@@ -91,7 +91,7 @@ namespace map
 			array_unshift($arealist,0);
 			$areanum = 0;
 			$hack = 0;
-			movehtm($areatime);
+			//movehtm($areatime);
 		}
 	}
 	
