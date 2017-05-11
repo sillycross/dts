@@ -149,17 +149,22 @@ namespace item_misc
 				return;
 			} elseif ($itm == '奇怪的按钮') {
 				$button_dice = rand ( 1, 10 );
-				if ($button_dice < 5) {
-					$log .= "你按下了<span class=\"yellow\">$itm</span>，不过好像什么都没有发生！";
-					$itm = $itmk = $itmsk = '';
-					$itme = $itms = 0;
+				$log .= "你按下了<span class=\"yellow\">$itm</span>。<br>";
+				if ($button_dice < 10) {
+					$log .= '按钮不翼而飞，你的手中多了一瓶褐色的饮料，上面还有个标签……<br><span class="gold b">“感谢特朗普总统选用我司的可乐递送服务。”</span><br>蛤？<br>';
+					$itm = '特朗普特供版「核口可乐」';
+					$itmk = 'HB';
+					$itmsk = '';
+					$itme = 200;
+					$itms = 1;
 				} elseif ($button_dice < 8) {
 					$state = 6;
 					$url = 'end.php';
 					\sys\gameover ( $now, 'end5', $name );
 				} else {
-					$log .= '好像什么也没发生嘛？<br>咦，按钮上的标签写着什么？“危险，勿触”……？<br>';
-					$log .= '呜哇，按钮爆炸了！<br>';
+					$log .= '好像什么也没发生嘛？咦，按钮上的标签写着什么？<br><span class="red">“危险，勿触！”</span>……？<br>呜哇，按钮爆炸了！<br>';
+					$itm = $itmk = $itmsk = '';
+					$itme = $itms = 0;
 					$state = 30;
 					\player\update_sdata(); $sdata['sourceless'] = 1; $sdata['attackwith'] = '';
 					\player\kill($sdata,$sdata);
