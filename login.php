@@ -98,7 +98,7 @@ if(preg_match($iplimit,$onlineip)){
 
 //	foreach($iplimit as $value){
 //		$ippart=explode('.',$value);
-//		if(count($ippart)>1 && count($ippart)<4){//��֤IP����2-4��
+//		if(count($ippart)>1 && count($ippart)<4){//保证IP段有2-4个
 //			$value=str_replace('*','',implode('.',$ippart));
 //			if(strpos($onlineip,$value)===0){
 //				gexit($_ERROR['banned_ip'],__file__,__line__);
@@ -129,7 +129,8 @@ if(!$db->num_rows($result)) {
 		gexit($_ERROR['wrong_pw'],__file__,__line__);
 	}
 }
-$db->query("UPDATE {$gtablepre}users SET ip='$onlineip' WHERE username = '$username'");
+//重新登陆之后房间设为0
+$db->query("UPDATE {$gtablepre}users SET ip='$onlineip',roomid=0 WHERE username = '$username'");
 
 gsetcookie('user',$userdata['username']);
 gsetcookie('pass',$password);
@@ -139,4 +140,3 @@ Header("Location: index.php");
 exit();
 
 ?>
-

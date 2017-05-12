@@ -150,7 +150,7 @@ namespace item_misc
 			} elseif ($itm == '奇怪的按钮') {
 				$button_dice = rand ( 1, 10 );
 				$log .= "你按下了<span class=\"yellow\">$itm</span>。<br>";
-				if ($button_dice < 10) {
+				if ($button_dice < 5) {
 					$log .= '按钮不翼而飞，你的手中多了一瓶褐色的饮料，上面还有个标签……<br><span class="gold b">“感谢特朗普总统选用我司的可乐递送服务。”</span><br>蛤？<br>';
 					$itm = '特朗普特供版「核口可乐」';
 					$itmk = 'HB';

@@ -130,14 +130,14 @@ foreach ($roomlist as $key => $value)
 	}
 	elseif ($value['status']==2)
 	{
-		$wg = 10000;
+		$wg = 20000;
 	}
 	else 
 	{
-		if ($value['maxplayer']==$value['nowplayer'])
-			$wg = 5000;
-		else  $wg = $value['maxplayer']-$value['nowplayer'];
+		$wg = 10000 - ($value['maxplayer']-$value['nowplayer']) * 100;
 	}
+	$wg += $value['id'];
+	if ($wg < 0) $wg = 0;
 	if (!isset($tmp[$wg])) $tmp[$wg]=Array();
 	array_push($tmp[$wg],$value);
 }
