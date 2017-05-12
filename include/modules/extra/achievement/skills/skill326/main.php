@@ -27,6 +27,16 @@ namespace skill326
 		$chprocess($pa);
 	}
 	
+	//½âÂëÒÑÓÃ¿¨Æ¬
+	function cardlist_decode326($data){
+		$r = array();
+		for ($i=0; $i<strlen($data); $i+=3)
+		{
+			$r[]=base64_decode_number(substr($data,$i,3));
+		}
+		return $r;
+	}
+	
 	function finalize326(&$pa, $data)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -61,6 +71,13 @@ namespace skill326
 	function show_achievement326($data)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('cardbase'));
+		$ca326=\skill326\cardlist_decode326($data);
+		$cn326='';
+		foreach($ca326 as $val){
+			$cn326 .= $cards[$val]['name'].' ';
+		}
+		$cn326 = substr($cn326,0,-1);
 		$p326=ceil(strlen($data)/3);
 		$c326=0;
 		if ($p326>=100)

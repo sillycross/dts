@@ -1,10 +1,9 @@
 @echo off
 setlocal EnableDelayedExpansion
-set /p sha1=请输入第一个历史版本的commit_id，忽略为使用head
-set /p sha2=请输入第二个历史版本的commit_id，忽略为使用head
-if not defined sha1 set sha1=head
-if not defined sha2 set sha2=head
-git diff %sha1% %sha2% --name-only > auto_diff.tmp
+set /p sha1=请输入较新的历史版本的commit_id，忽略为使用HEAD  
+set /p sha2=请输入较旧的历史版本的commit_id  
+if not defined sha1 set sha1=HEAD
+git diff %sha2% %sha1% --name-only > auto_diff.tmp
 for /f "delims=" %%i IN (auto_diff.tmp) DO (
   if %%~xi neq .gitignore (
   	call :parse_filename ..\auto_diff\.\%%i
