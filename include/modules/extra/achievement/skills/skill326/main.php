@@ -29,6 +29,7 @@ namespace skill326
 	
 	//Ω‚¬Î“—”√ø®∆¨
 	function cardlist_decode326($data){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r = array();
 		for ($i=0; $i<strlen($data); $i+=3)
 		{
