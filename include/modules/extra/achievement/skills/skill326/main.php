@@ -51,11 +51,13 @@ namespace skill326
 			return $data;
 		
 		$c=(int)$pa['card'];
-		for ($i=0; $i<strlen($data); $i+=3)
-		{
-			$x=base64_decode_number(substr($data,$i,3));
-			if ($x==$c) return $data;
-		}
+		$clist = cardlist_decode326($data);
+		if(in_array($c, $clist)) return $data;
+//		for ($i=0; $i<strlen($data); $i+=3)
+//		{
+//			$x=base64_decode_number(substr($data,$i,3));
+//			if ($x==$c) return $data;
+//		}
 		
 		$data.=base64_encode_number($c,3);
 		$o=ceil(strlen($data)/3);
