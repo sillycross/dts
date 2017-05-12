@@ -1,8 +1,8 @@
 
 <!-- 悬浮提示功能 -->
-<div id="hoverHintMsg" style="position:fixed; left:0px; top:0px; display:none; text-align:left;  filter:alpha(opacity=95); opacity:0.95; background-color:#000000">
-<div id="hoverHintMsgInner" class="noselect" style="margin-left:3px; margin-right:3px; margin-top:3px; margin-bottom:3px;">
-</div>
+<div id="hoverHintMsg" style="max-width:400px;position:fixed; left:0px; top:0px; display:none; text-align:left;  filter:alpha(opacity=85); opacity:0.85; background-color:#000000">
+	<div id="hoverHintMsgInner" class="noselect" style="margin-left:3px; margin-right:3px; margin-top:3px; margin-bottom:3px;">
+	</div>
 </div>
 <script>
 jQuery('[title]').each(function() {
@@ -33,53 +33,36 @@ jQuery('[title]').each(function() {
 </script>
 
 <div width="100%">
-	<table width="100%" border="0" cellspacing="0" cellpadding="0">
-		<tr>
-			<td colspan="2"><hr></td>
-		</tr>
-		<tr>
-			<td>
-				<div>
-					<a href="http://en.wikipedia.org/wiki/Wikipedia:CC-BY-SA"><img src="img/cc-by-sa.png" style="width:96px;height:32px;"></a>
-				</div>
-				<div>
-					ACFUN大逃杀、电波大逃杀或常磐大逃杀之源代码遵循 <a class="evergreen" href="http://en.wikipedia.org/wiki/Wikipedia:CC-BY-SA">知识共享 署名-相同方式共享 3.0协议</a>；<br>游戏背景、剧情及原创角色设定遵循 <b class="evergreen">知识共享 署名-非商业性使用-相同方式共享 3.0协议</b>。
-				</div>
-				<div>
-					<a class="evergreen" href="donate.php">ACFUN大逃杀的历史及捐助页面</a>
-				</div>
-			</td>
-			<td>
-				<div class="ver" style="text-align:right">
-					<a href="http://www.amarilloviridian.com">DTS $gameversion by sillycross, Lein, Yoshiko_G 感谢所有为这个游戏做出贡献的人</a><br>
-					<a href="http://www.amarilloviridian.com">Reconsituted from 常磐大逃杀 GE600 by 冴月 麟, Yoshiko_G, sillycross, Lein 感谢所有为这个游戏做出贡献的人</a><br>
-					<a href="http://www.loongyou.com">生存游戏 - BRA简体版V3.0.2 translated by azazil@loongyou.com</a><br>
-					<a href="http://www.b-r-u.net/">BRU (Battle Royale Ultimate) V0.22</a>
-				</div>
-			</td>
-		</tr>
-		<tr><td style="height:15px"></td></tr>
-		<tr valign="top">
-			<td>
-				<p style="text-align: left" id="error">
-					$error
-				</p>
-			</td>
-			<td style="text-align: right">
-				<div style="float: right;width:80px">
-					<!-- Histats.com  START  (standard)-->
-					<script type="text/javascript">document.write(unescape("%3Cscript src=%27http://s10.histats.com/js15_gif.js%27 type=%27text/javascript%27%3E%3C/script%3E"));</script>
-					<a href="http://www.histats.com" target="_blank" title="site hit counter" ><script  type="text/javascript" >
-					try {Histats.startgif(1,1323746,4,10043,"");
-					Histats.track_hits();} catch(err){};
-					</script></a>
-					<noscript><a href="http://www.histats.com" alt="site hit counter" target="_blank" ><div id="histatsC"><img border="0" src="http://s4is.histats.com/stats/i/1323746.gif?1323746&103"></div></a>
-					</noscript>
-					<!-- Histats.com  END  -->
-				</div>
-			</td>
-		</tr>
-	</table>
+	<div><hr></div>
+	<div style="float:left;text-align:left">
+		<a href="http://en.wikipedia.org/wiki/Wikipedia:CC-BY-SA"><img src="img/cc-by-sa.png" style="width:96px;height:32px;"></a><br>
+		ACFUN大逃杀、电波大逃杀或常磐大逃杀之源代码遵循 <a class="evergreen" href="http://en.wikipedia.org/wiki/Wikipedia:CC-BY-SA">知识共享 署名-相同方式共享 3.0协议</a>；<br>游戏背景、剧情及原创角色设定遵循 <b class="evergreen">知识共享 署名-非商业性使用-相同方式共享 3.0协议</b>。<br>
+		<a class="evergreen" href="donate.php">ACFUN大逃杀的历史及捐助页面</a>
+	</div>
+	<div class="ver" style="float:right;text-align:right">
+		<a href="http://www.amarilloviridian.com">DTS $gameversion by sillycross, Lein, Yoshiko_G 感谢所有为这个游戏做出贡献的人</a><br>
+		<a href="http://www.amarilloviridian.com">Reconsituted from 常磐大逃杀 GE600 by 冴月 麟, Yoshiko_G, sillycross, Lein 感谢所有为这个游戏做出贡献的人</a><br>
+		<a>生存游戏 - BRA简体版V3.0.2 translated by azazil@loongyou.com</a><br>
+		<a href="http://www.b-r-u.net/">BRU (Battle Royale Ultimate) V0.22</a>
+	</div>
+
+	<div id="error" style="float:left;text-align:left;clear:left;">
+		$error
+	</div>
+	<div style="float: right;width:80px;clear:right;">
+		<!-- Histats.com  START  (standard)-->
+		<script type="text/javascript">document.write(unescape("%3Cscript src=%27http://s10.histats.com/js15_gif.js%27 type=%27text/javascript%27%3E%3C/script%3E"));</script>
+		<a href="http://www.histats.com" target="_blank" title="site hit counter" >
+			<script  type="text/javascript" >
+			try {Histats.startgif(1,1323746,4,10043,"");
+			Histats.track_hits();} catch(err){};
+			</script>
+		</a>
+		<noscript>
+			<a href="http://www.histats.com" alt="site hit counter" target="_blank" ><div id="histatsC"><img border="0" src="http://s4is.histats.com/stats/i/1323746.gif?1323746&103"></div></a>
+		</noscript>
+		<!-- Histats.com  END  -->
+	</div>
 </div>
 </body>
 </html>

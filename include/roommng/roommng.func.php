@@ -82,6 +82,7 @@ function room_init($roomtype)
 	//2 即将开始（正在进行游戏初始化工作）
 	
 	$a['roomstat']=0;
+	$a['roomfounder']='';
 	
 	//踢人时间，由使roomstat进入1的操作者负责设置
 	$a['kicktime']=0;
@@ -232,16 +233,13 @@ function room_create($roomtype)
 		gexit('系统维护中，暂时不开放新房间',__file__,__line__);
 		die();
 	}
+	global $roomtypelist,$max_room_num;
 	
-	global $roomtypelist;
 	$roomtype=(int)$roomtype;
 	if ($roomtype>=count($roomtypelist)){
 		gexit('房间参数错误',__file__,__line__);
 		die();
 	}
-	
-	
-	global $max_room_num;
 	$rchoice = -1;
 	$rsetting = $roomtypelist[$roomtype];
 	$rdata = fetch_roomdata();
@@ -266,24 +264,43 @@ function room_create($roomtype)
 			//$db->query("UPDATE {$gtablepre}rooms SET status = 1, roomtype = '$roomtype' WHERE roomid = '$rid'");
 		}
 	}else{
-		for ($i=1; $i<=$max_room_num; $i++)
+		$result = $db->query("SELECT groomid, groomtype, groomstatus FROM {$gtablepre}game ORDER BY groomid");
+		$soleroomnum = 0;
+		$max_room_num_temp = $max_room_num;
+		$roomarr = array();
+		while($rrs = $db->fetch_array($result)){
+			$rrsid = $rrs['groomid'];
+			$roomarr[$rrsid] = $rrs;
+			if($roomtypelist[$rrs['groomtype']]['soleroom']) {
+				$max_room_num_temp++;
+			}else{//很丑陋，对吧？我也这么想。分明全部丢进数据库就可以的东西，为什么一定要写文件？
+				$file = GAME_ROOT.'./gamedata/tmp/rooms/'.$rrsid.'.txt';
+				writeover('a.txt',$file,'ab+');
+				if(file_exists($file)){
+					$rfdata = gdecode(file_get_contents($file),1);
+				}
+				if(isset($rfdata['roomfounder']) && $rfdata['roomfounder']==$cuser){
+					gexit("你已经创建了房间{$rrsid}，请在该房间游戏结束后再尝试创建房间",__file__,__line__);
+					die();
+				}
+			}
+		}
+		for ($i=1; $i<=$max_room_num_temp; $i++)
 		{
-			$result = $db->query("SELECT groomstatus FROM {$gtablepre}game WHERE groomid = '$i'");
-			if(!$db->num_rows($result)) 
+			if(!isset($roomarr[$i])) 
 			{
 				$db->query("INSERT INTO {$gtablepre}game (gamestate,groomid,groomstatus,groomtype) VALUES (0,'$i',1,'$roomtype')");
 				$rchoice = $i; break;
 			}
 			else 
 			{
-				$rarr=$db->fetch_array($result);
-				if ($rarr['groomstatus']==0)
+				if ($roomarr[$i]['groomstatus']==0)
 				{
 					$db->query("UPDATE {$gtablepre}game SET gamestate = 0, groomstatus = 1, groomtype = '$roomtype' WHERE groomid = '$i'");
 					$rchoice = $i; break;
 				}
 			}
-		}		
+		}
 	}	
 	if ($rchoice == -1)
 	{
@@ -294,8 +311,8 @@ function room_create($roomtype)
 	$roomdata = room_init($roomtype);
 	//房间数据库初始化（对应数据库）
 	room_init_db_process($rchoice);
-	global $cuser;
 	$roomdata['player'][0]['name']=$cuser;
+	$roomdata['roomfounder']=$cuser;
 	writeover(GAME_ROOT.'./gamedata/tmp/rooms/'.$rchoice.'.txt', gencode($roomdata));
 	$db->query("DELETE from {$gtablepre}roomlisteners WHERE roomid = '$rchoice'"); 
 //	if($rsetting['soleroom']){

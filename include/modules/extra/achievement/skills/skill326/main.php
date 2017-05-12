@@ -27,6 +27,17 @@ namespace skill326
 		$chprocess($pa);
 	}
 	
+	//Ω‚¬Î“—”√ø®∆¨
+	function cardlist_decode326($data){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$r = array();
+		for ($i=0; $i<strlen($data); $i+=3)
+		{
+			$r[]=base64_decode_number(substr($data,$i,3));
+		}
+		return $r;
+	}
+	
 	function finalize326(&$pa, $data)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -40,11 +51,13 @@ namespace skill326
 			return $data;
 		
 		$c=(int)$pa['card'];
-		for ($i=0; $i<strlen($data); $i+=3)
-		{
-			$x=base64_decode_number(substr($data,$i,3));
-			if ($x==$c) return $data;
-		}
+		$clist = cardlist_decode326($data);
+		if(in_array($c, $clist)) return $data;
+//		for ($i=0; $i<strlen($data); $i+=3)
+//		{
+//			$x=base64_decode_number(substr($data,$i,3));
+//			if ($x==$c) return $data;
+//		}
 		
 		$data.=base64_encode_number($c,3);
 		$o=ceil(strlen($data)/3);
@@ -61,6 +74,13 @@ namespace skill326
 	function show_achievement326($data)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('cardbase'));
+		$ca326=\skill326\cardlist_decode326($data);
+		$cn326='';
+		foreach($ca326 as $val){
+			$cn326 .= $cards[$val]['name'].' ';
+		}
+		$cn326 = str_replace('"','&quot;',substr($cn326,0,-1));
 		$p326=ceil(strlen($data)/3);
 		$c326=0;
 		if ($p326>=100)
