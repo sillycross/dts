@@ -80,7 +80,7 @@ namespace skill326
 		foreach($ca326 as $val){
 			$cn326 .= $cards[$val]['name'].' ';
 		}
-		$cn326 = substr($cn326,0,-1);
+		$cn326 = str_replace('"','&quot;',substr($cn326,0,-1));
 		$p326=ceil(strlen($data)/3);
 		$c326=0;
 		if ($p326>=100)
