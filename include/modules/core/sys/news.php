@@ -85,7 +85,7 @@ namespace sys
 		return "<li>$time,$news,$a,$b,$c,$d<br>\n";
 	}
 	
-	function load_news($start = 0, $range = 0, $mode = 'DOM'){
+	function load_news($start = 0, $range = 0, $noday = 0){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 	
@@ -115,16 +115,17 @@ namespace sys
 			//$news0=$db->fetch_array($result);
 			$nid=$news0['nid'];$time=$news0['time'];$news=$news0['news'];$a=$news0['a'];$b=$news0['b'];$c=$news0['c'];$d=$news0['d'];$e=$news0['e'];
 			list($sec,$min,$hour,$day,$month,$year,$wday) = explode(',',date("s,i,H,j,n,Y,w",$time));
-			if($day != $nday) {
-				$newsinfo .= "<span class=\"evergreen\"><B>{$month}月{$day}日(星期$week[$wday])</B></span><br>";
+			if(!$noday && $day != $nday) {//跨日消息
+				$newslist['nday'.$nday] = "<div class=\"evergreen\"><B>{$month}月{$day}日(星期$week[$wday])</B></div>";
 				$nday = $day;
 			}
 			$exarr = parse_news_prepare($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e);
-			$newslist[] = parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
+			//一般消息
+			$newslist['nid'.$nid] = parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 		}
 		//if(16777215 == $range){logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-拉取全部消息'.debug_backtrace()[1]['function']);}
-		if('ARR' == $mode) return $newslist;
-		else return '<ul>'.implode('',$newslist).'</ul>';
+		//rsort($newslist);
+		return $newslist;
 	}
 	
 	function parse_news_prepare($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e){
@@ -138,6 +139,24 @@ namespace sys
 			else $exarr['dword'] = "<span class=\"yellow\">【{$dname}：“{$e}”】</span><br>\n";
 		}
 		return $exarr;
+	}
+	
+	function getnews($start=0, $range=0){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$newslist = load_news($start, $range, 1);
+		$lastnid=$start;
+		if(!empty($newslist)){
+			$nkey = array_keys($newslist);
+			do {
+				$lastnid = array_splice($nkey,0,1);
+			}while(strpos($lastnid[0],'nid')===false);
+			$lastnid = str_replace('nid','',$lastnid[0]);
+		}
+		$ret = array(
+			'news' => $newslist,
+			'lastnid' => $lastnid
+		);
+		return $ret;
 	}
 }
 

@@ -343,7 +343,7 @@ namespace weather
 		if($news == 'addarea') 
 		{
 			$info = $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
-			$info .= "<span class=\"yellow\">【天气：{$wthinfo[$b]}】</span><br>\n";
+			$info = str_replace("</li>", "<span class=\"yellow\">【天气：{$wthinfo[$b]}】</span></li>", $info);
 			return $info;
 		}
 		

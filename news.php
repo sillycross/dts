@@ -11,14 +11,17 @@ $lnewshtm = GAME_ROOT.'./gamedata/tmp/news/lastnews_'.$room_prefix.'.htm';
 
 if(filemtime($newsfile) > filemtime($lnewshtm)) {
 	$lnewsinfo = \sys\load_news(0, $newslimit);
+	$lnewsinfo = '<ul>'.implode('',$lnewsinfo).'</ul>';
 	writeover($lnewshtm,$lnewsinfo);
 }
-if(!isset($newsmode)){$newsmode = '';}
-if ($newsmode == 'game' && isset($lastnid)) {//À´×ÔÓÎÏ·Ò³Ãæ²é¿´¼´Ê±½øÐÐ×´¿öµÄµ÷ÓÃ
+if(!isset($newsmode)) $newsmode = '';
+if (isset($sendmode) && $sendmode == 'news' && isset($lastnid)) {//À´×ÔÓÎÏ·Ò³Ãæ²é¿´¼´Ê±½øÐÐ×´¿öµÄµ÷ÓÃ
 	$lastnid = (int)$lastnid;
-	if($lastnid) {
-		$gnewsinfo = \sys\load_news($lastnid);
-	}
+	$newsinfo = \sys\getnews($lastnid);
+	ob_clean();
+	$jgamedata = json_encode($newsinfo);
+	echo $jgamedata;
+	ob_end_flush();
 } elseif($newsmode == 'last') {//À´×Ônews.php²é¿´½øÐÐ×´¿öµÄµ÷ÓÃ£¬ÓÉÓÚ¿ÉÄÜ³¤Ê±¼äÃ»ÓÐÐÐ¶¯£¬Í³Ò»²é¿´Ò³Ãæ»º´æ	
 	//echo file_get_contents($lnewshtm);
 	$newsdata['innerHTML']['newsinfo'] = file_get_contents($lnewshtm);
@@ -30,6 +33,7 @@ if ($newsmode == 'game' && isset($lastnid)) {//À´×ÔÓÎÏ·Ò³Ãæ²é¿´¼´Ê±½øÐÐ×´¿öµÄµ÷Ó
 } elseif($newsmode == 'all') {
 	if(filemtime($newsfile) > filemtime($newshtm)) {
 		$newsinfo = \sys\load_news();
+		$newsinfo = '<ul>'.implode('',$newsinfo).'</ul>';
 		writeover($newshtm,$newsinfo);
 	}
 	//echo file_get_contents($newshtm);

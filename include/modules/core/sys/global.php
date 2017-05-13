@@ -158,7 +158,7 @@ namespace sys
 			if($chatdata['lastcid'] < $chat['cid']){$chatdata['lastcid'] = $chat['cid'];}
 			$chat['msg'] = htmlspecialchars($chat['msg']);
 			$msg = parse_chat($chat);
-			$chatdata['msg'][$chat['cid']] = $msg;
+			$chatdata['msg']['cid'.$chat['cid']] = $msg;
 		}
 		return $chatdata;
 	}

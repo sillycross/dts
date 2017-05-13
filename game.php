@@ -42,7 +42,7 @@ if($state == 4) {
 
 $log = '';
 //读取聊天信息
-$chatdata = getchat(0,$teamID,$pid);
+$chatdata = array_merge(getchat(0,$teamID,$pid),\sys\getnews(0));
 
 $hp_backup_temp=$hp;
 $player_dead_flag_backup_temp=$player_dead_flag;
