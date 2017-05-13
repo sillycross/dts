@@ -244,7 +244,7 @@ namespace wound
 		{
 			eval(import_module('wound'));
 			if (strpos('bhaf',$c)===false)	//普通受伤不显示
-				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}的攻击致使{$b}</span>{$infname[$c]}<span class=\"red\">了</span></li>\n";
+				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}的攻击致使{$b}</span>{$infname[$c]}<span class=\"red\">了</span></li>";
 			else  return '';
 		}
 		

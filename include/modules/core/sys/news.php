@@ -8,51 +8,51 @@ namespace sys
 		eval(import_module('sys'));
 		
 		if($news == 'newgame') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">第{$a}回ACFUN大逃杀开始了</span></li>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">第{$a}回ACFUN大逃杀开始了</span></li>";
 		elseif($news == 'gameover') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">第{$a}回ACFUN大逃杀结束了</span></li>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">第{$a}回ACFUN大逃杀结束了</span></li>";
 		elseif($news == 'newpc') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}({$b})进入了大逃杀战场</span></li>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}({$b})进入了大逃杀战场</span></li>";
 		elseif($news == 'newgm') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">管理员-{$a}({$b})华丽地乱入了战场</span></li>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">管理员-{$a}({$b})华丽地乱入了战场</span></li>";
 		elseif($news == 'end0') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">游戏出现故障，意外结束</span></li>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">游戏出现故障，意外结束</span></li>";
 		elseif($news == 'end1') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">参与者全部死亡！</span></li>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">参与者全部死亡！</span></li>";
 		elseif($news == 'end2') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">优胜者——{$a}！</span></li>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">优胜者——{$a}！</span></li>";
 		elseif($news == 'end3') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}解除了精神锁定，游戏紧急中止</span></li>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}解除了精神锁定，游戏紧急中止</span></li>";
 		elseif($news == 'end4') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">无人参加，游戏自动结束</span></li>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">无人参加，游戏自动结束</span></li>";
 		elseif($news == 'end5') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}引爆了核弹，毁坏了虚拟战场</span></li>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}引爆了核弹，毁坏了虚拟战场</span></li>";
 		elseif($news == 'end6') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">本局游戏被GM中止</span></li>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">本局游戏被GM中止</span></li>";
 		elseif($news == 'end7') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"evergreen\">{$a}完成了他的使命。</span></li>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"evergreen\">{$a}完成了他的使命。</span></li>";
 		elseif($news == 'end8') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">限制时间到，本局游戏结束。</span></li>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">限制时间到，本局游戏结束。</span></li>";
 		elseif($news == 'wintutorial') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}完成了教程。</span></li>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}完成了教程。</span></li>";
 		elseif(strpos($news,'death') === 0) {
 			if(isset($exarr['dword'])) $e0 = $exarr['dword'];
 			if($news == 'death15') {
-				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>被<span class=\"red\">时空特使强行消除</span>{$e0}";
+				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>被<span class=\"red\">时空特使强行消除</span>{$e0}</li>";
 			} elseif($news == 'death16') {
-				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>被<span class=\"red\">由理直接拉入SSS团</span>{$e0}";
+				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>被<span class=\"red\">由理直接拉入SSS团</span>{$e0}</li>";
 			} else {
-				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因<span class=\"red\">不明原因</span>死亡{$e0}";
+				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因<span class=\"red\">不明原因</span>死亡{$e0}</li>";
 			}
 		}
 		elseif($news == 'corpseclear') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}使用了凸眼鱼，{$b}具尸体被吸走了！</span></li>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}使用了凸眼鱼，{$b}具尸体被吸走了！</span></li>";
 		elseif($news == 'sysaddarea') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">奇迹和魔法都是存在的！禁区提前增加了！</span></li>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">奇迹和魔法都是存在的！禁区提前增加了！</span></li>";
 		elseif($news == 'syshackchg') {
 			if($a){$hackword = '全部禁区都被解除了';$class = 'lime';}
 			else{$hackword = '禁区恢复了未解除状态';$class = 'yellow';}
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"{$class}\">奇迹和魔法都是存在的！{$hackword}！</span></li>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"{$class}\">奇迹和魔法都是存在的！{$hackword}！</span></li>";
 		} 
 		elseif($news == 'sysgschg') {
 			if($a == 20){
@@ -71,21 +71,21 @@ namespace sys
 				$chgword = '异常语句，请联系管理员！';
 				$class = 'red';
 			}
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"{$class}\">奇迹和魔法都是存在的！{$chgword}</span></li>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"{$class}\">奇迹和魔法都是存在的！{$chgword}</span></li>";
 		} 
 		elseif($news == 'alive') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>被<span class=\"yellow\">神北 小毬许愿复活</span></li>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>被<span class=\"yellow\">神北 小毬许愿复活</span></li>";
 		elseif($news == 'delcp') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}的尸体被时空特使别动队销毁了</span></li>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}的尸体被时空特使别动队销毁了</span></li>";
 		elseif($news == 'editpc') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}遭到了黑幕的生化改造！</span></li>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}遭到了黑幕的生化改造！</span></li>";
 		elseif($news == 'roominfo')
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，本局游戏为<span class=\"yellow\">{$a}</span>，{$b}<br>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，本局游戏为<span class=\"yellow\">{$a}</span>，{$b}</li>";
 		
 		return "<li>$time,$news,$a,$b,$c,$d<br>\n";
 	}
 	
-	function load_news($start = 0, $range = 0){
+	function load_news($start = 0, $range = 0, $mode = 'DOM'){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 	
@@ -107,10 +107,10 @@ namespace sys
 	//	} else{
 	//		$nnum = $rnum;
 	//	}
-		$newsinfo = '<ul>';
 		$nday = 0;
 		//for($i = $start;$i <= $r;$i++) {
 		//for($i = 0;$i < $nnum;$i++) {
+		$newslist = array();
 		while($news0=$db->fetch_array($result)) {
 			//$news0=$db->fetch_array($result);
 			$nid=$news0['nid'];$time=$news0['time'];$news=$news0['news'];$a=$news0['a'];$b=$news0['b'];$c=$news0['c'];$d=$news0['d'];$e=$news0['e'];
@@ -120,12 +120,11 @@ namespace sys
 				$nday = $day;
 			}
 			$exarr = parse_news_prepare($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e);
-			$newsinfo .= parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
+			$newslist[] = parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 		}
 		//if(16777215 == $range){logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-拉取全部消息'.debug_backtrace()[1]['function']);}
-		$newsinfo .= '</ul>';
-		return $newsinfo;
-			
+		if('ARR' == $mode) return $newslist;
+		else return '<ul>'.implode('',$newslist).'</ul>';
 	}
 	
 	function parse_news_prepare($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e){

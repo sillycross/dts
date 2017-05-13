@@ -177,9 +177,9 @@ namespace skill234
 		
 		if($news == 'skill234') 
 			if ($b==51)
-				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"evergreen\">{$a}完成了对幻境系统的破解</span></li>\n";
+				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"evergreen\">{$a}完成了对幻境系统的破解</span></li>";
 			else
-				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}完成了第{$b}次<span class=\"yellow\">「破解」</span>尝试</span></li>\n";
+				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}完成了第{$b}次<span class=\"yellow\">「破解」</span>尝试</span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

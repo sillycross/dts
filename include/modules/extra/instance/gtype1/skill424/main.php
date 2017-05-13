@@ -117,7 +117,7 @@ namespace skill424
 		eval(import_module('sys','player'));
 		
 		if($news == 'skill424') 
-				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}完成了第{$b}次<span class=\"yellow\">「除错」</span>尝试</span></li>\n";
+				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}完成了第{$b}次<span class=\"yellow\">「除错」</span>尝试</span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

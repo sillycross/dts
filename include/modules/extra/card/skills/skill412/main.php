@@ -111,7 +111,7 @@ namespace skill412
 			if(!$e)
 				$e0="<span class=\"yellow\">【{$dname} 什么都没说就死去了】</span><br>\n";
 			else  $e0="<span class=\"yellow\">【{$dname}：“{$e}”】</span><br>\n";
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>被<span class=\"red\">$c</span>的反演力场反弹伤害而亡{$e0}";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>被<span class=\"red\">$c</span>的反演力场反弹伤害而亡{$e0}</li>";
 		}
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

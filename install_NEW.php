@@ -946,7 +946,7 @@ if(!$action) {
 <?php
 
 	foreach(explode("\t", $msg) as $message) {
-		echo "              <li>$message</li>\n";
+		echo "              <li>$message</li>";
 	}
 	echo"            </ol>\n";
 

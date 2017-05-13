@@ -95,7 +95,7 @@ namespace skill6
 			if(!$e)
 				$e0="<span class=\"yellow\">【{$dname} 什么都没说就死去了】</span><br>\n";
 			else  $e0="<span class=\"yellow\">【{$dname}：“{$e}”】</span><br>\n";
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因<span class=\"red\">烧伤发作</span>死亡{$e0}";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因<span class=\"red\">烧伤发作</span>死亡{$e0}</li>";
 		} 
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);

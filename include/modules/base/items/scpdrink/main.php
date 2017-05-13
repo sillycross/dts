@@ -134,7 +134,7 @@ namespace scpdrink
 			if(!$e)
 				$e0="<span class=\"yellow\">【{$dname} 什么都没说就死去了】</span><br>\n";
 			else  $e0="<span class=\"yellow\">【{$dname}：“{$e}”】</span><br>\n";
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因L5发作自己挠破喉咙身亡！{$e0}";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因L5发作自己挠破喉咙身亡！{$e0}</li>";
 		} 
 		
 		if($news == 'death34') 
@@ -143,11 +143,11 @@ namespace scpdrink
 			if(!$e)
 				$e0="<span class=\"yellow\">【{$dname} 什么都没说就死去了】</span><br>\n";
 			else  $e0="<span class=\"yellow\">【{$dname}：“{$e}”】</span><br>\n";
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因摄入过量突变药剂，身体组织崩解而死！{$e0}";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因摄入过量突变药剂，身体组织崩解而死！{$e0}</li>";
 		} 
 		
 		if($news == 'notworthit') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}做出了一个他自己可能会后悔很长一段时间的决定。</span></li>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}做出了一个他自己可能会后悔很长一段时间的决定。</span></li>";
 		
 		if($news == 'suisidefail') 
 			return "<li><font style=\"background:url(img/backround4.gif) repeat-x\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}注射了H173，却由于RP太高进入了发狂状态！！</font></span><br>\n";

@@ -200,7 +200,7 @@ namespace gtype2
 		eval(import_module('sys','player'));
 		
 		if($news == 'g2announce') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">本次游戏第<span class=\"yellow\">{$a}</span>名是获得了<span class=\"yellow\">{$c}</span>点胜利点数的<span class=\"yellow\">{$b}</span>。</span></li>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">本次游戏第<span class=\"yellow\">{$a}</span>名是获得了<span class=\"yellow\">{$c}</span>点胜利点数的<span class=\"yellow\">{$b}</span>。</span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

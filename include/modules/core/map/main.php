@@ -181,12 +181,13 @@ namespace map
 		
 		eval(import_module('sys','map'));
 		if($news == 'death11') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因滞留在<span class=\"red\">禁区【{$plsinfo[$c]}】</span>死亡";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因滞留在<span class=\"red\">禁区【{$plsinfo[$c]}】</span>死亡</li>";
 		
 		if($news == 'addarea') {
 			$info = "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，增加禁区：";
 			$alist = explode('_',$a);
 			foreach($alist as $ar) $info.="$plsinfo[$ar] ";
+			$info .= "</li>";
 			return $info;
 		}
 		

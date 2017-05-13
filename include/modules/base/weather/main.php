@@ -323,11 +323,11 @@ namespace weather
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','weather'));
 		if($news == 'wthchange') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}使用了{$c}，天气变成了{$wthinfo[$b]}！</span></li>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}使用了{$c}，天气变成了{$wthinfo[$b]}！</span></li>";
 		if($news == 'wthfail') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}使用了{$c}，但是恶劣的天气并未发生改变！</span></li>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}使用了{$c}，但是恶劣的天气并未发生改变！</span></li>";
 		if($news == 'syswthchg') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">奇迹和魔法都是存在的！当前天气变成了{$wthinfo[$a]}！</span></li>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">奇迹和魔法都是存在的！当前天气变成了{$wthinfo[$a]}！</span></li>";
 		
 		if($news == 'death17') 
 		{
@@ -337,7 +337,7 @@ namespace weather
 			}else{
 				$e="<span class=\"yellow\">【{$dname}：“{$e}”】</span><br>\n";
 			}
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>被<span class=\"red\">冰雹砸死</span>{$e}";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>被<span class=\"red\">冰雹砸死</span>{$e}</li>";
 		}
 		
 		if($news == 'addarea') 

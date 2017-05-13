@@ -94,7 +94,7 @@ namespace ex_attr_trap
 		eval(import_module('sys','player'));
 		
 		if($news == 'trapdef') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}依靠迎击装备抵御了{$b}设置的陷阱{$c}的伤害</span></li>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}依靠迎击装备抵御了{$b}设置的陷阱{$c}的伤害</span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
