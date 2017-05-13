@@ -97,6 +97,7 @@ namespace skill412
 				//\attack\player_kill_enemy($pd, $pa, 1-$active);
 			}
 		}
+		return $chprocess($pa,$pd,$active);
 	}
 	
 	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
