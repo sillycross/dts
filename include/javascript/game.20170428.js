@@ -414,8 +414,8 @@ function showChatdata(jsonchat) {
 		newchat = '';
 		for(var cid in chatdata['msg']) {
 			if(cid == 'toJSONString') {continue;}
-			if($('chatmsgid_'+cid) && $('chatmsgid_'+cid).parentNode.id=='chatlist') {//遇到相同id的聊天记录就先清掉，防止多刷
-				$('chatlist').removeChild($('chatmsgid_'+cid));
+			if($('cid'+cid) && $('cid'+cid).parentNode.id=='chatlist') {//遇到相同id的聊天记录就先清掉，防止多刷
+				$('chatlist').removeChild($('cid'+cid));
 			}
 			newchat += chatdata['msg'][cid];
 		}

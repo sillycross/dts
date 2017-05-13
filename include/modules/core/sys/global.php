@@ -116,7 +116,7 @@ namespace sys
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		$msg = '【'.$chatinfo[$chat['type']].'】'.$chat['send'].'：'.$chat['msg'].'('.date("H:i:s",$chat['time']).')';
-		$premsg = '<span id="chatmsgid_'.$chat['cid'].'"';
+		$premsg = '<span id="cid'.$chat['cid'].'"';
 		$postmsg = '<br></span>';
 		
 		if($chat['type'] == '0') {
