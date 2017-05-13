@@ -21,10 +21,10 @@ if(($sendmode == 'send')&&$chatmsg) {
 					//$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,msg) VALUES ('4','$now','$cuser','$chatmsg')");
 				}
 			} else {
-				$chatdata = array('lastcid' => $lastcid, 'msg' => Array('<span class="red">指令错误。</span><br>'));
+				$chatdata = array('lastcid' => $lastcid, 'msg' => Array('<span class="red">指令错误。<br></span>'));
 			}
 		} else {
-			$chatdata = array('lastcid' => $lastcid, 'msg' => Array('<span class="red">聊天信息不能用 / 开头。</span><br>'));
+			$chatdata = array('lastcid' => $lastcid, 'msg' => Array('<span class="red">聊天信息不能用 / 开头。<br></span>'));
 		}
 	} else { 
 		if($chattype == 0) {

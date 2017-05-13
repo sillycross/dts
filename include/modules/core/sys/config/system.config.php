@@ -49,7 +49,7 @@ namespace sys
 	//游戏内聊天信息显示条数
 	$chatlimit = 50;
 	//聊天信息更新时间(单位:毫秒)
-	$chatrefresh = 15000;
+	$chatrefresh = 3000;
 	//游戏进行中是否显示聊天。0为不显示，数字为显示条数
 	$chatinnews = 50;
 	

@@ -116,17 +116,17 @@ namespace sys
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		$msg = '【'.$chatinfo[$chat['type']].'】'.$chat['send'].'：'.$chat['msg'].'('.date("H:i:s",$chat['time']).')';
-		$premsg = '';
-		$postmsg = '</span><br>';
+		$premsg = '<span id="chatmsgid_'.$chat['cid'].'"';
+		$postmsg = '<br></span>';
 		
 		if($chat['type'] == '0') {
-			$premsg = "<span class='chat0'>";
+			$premsg .= ' class="chat0">';
 			//$msg = "【{$chatinfo[$chat['type']]}】{$chat['send']}：{$chat['msg']}".date("\(H:i:s\)",$chat['time']).'<br>';
 		} elseif($chat['type'] == '1') {
-			$premsg = "<span class='clan chat1'>";
+			$premsg .= ' class="clan chat1">';
 			//$msg = "<span class=\"clan\">【{$chatinfo[$chat['type']]}】{$chat['send']}：{$chat['msg']}".date("\(H:i:s\)",$chat['time']).'</span><br>';
 		} elseif($chat['type'] == '3') {
-			$premsg = "<span class='red chat3'>";
+			$premsg .= ' class="red chat3">';
 			if ($chat['msg']){				
 				//$msg = "<span class=\"red\">【{$chat['recv']}】{$chat['send']}：{$chat['msg']} ".date("\(H:i:s\)",$chat['time']).'</span><br>';
 			} else {
@@ -134,11 +134,11 @@ namespace sys
 				//$msg = "<span class=\"red\">【{$chat['recv']}】{$chat['send']} 什么都没说就死去了 ".date("\(H:i:s\)",$chat['time']).'</span><br>';
 			}
 		} elseif($chat['type'] == '4') {
-			$premsg = "<span class='yellow chat4'>";
+			$premsg .= ' class="yellow chat4">';
 			//$msg = '【'.$chatinfo[$chat['type']].'】'.$chat['send'].'：'.$chat['msg'].'('.date("H:i:s",$chat['time']).')';//有冒号的区别
 			//$msg = "<span class=\"yellow\">【{$chatinfo[$chat['type']]}】{$chat['msg']}".date("\(H:i:s\)",$chat['time']).'</span><br>';
 		} elseif($chat['type'] == '5') {
-			$premsg = "<span class='yellow chat5'>";
+			$premsg .= ' class="yellow chat5">';
 			$msg = '【'.$chatinfo[$chat['type']].'】'.$chat['send'].$chat['msg'].'('.date("H:i:s",$chat['time']).')';
 			//$msg = "<span class=\"yellow\">【{$chatinfo[$chat['type']]}】{$chat['msg']}".date("\(H:i:s\)",$chat['time']).'</span><br>';
 		}
