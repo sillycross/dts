@@ -47,6 +47,7 @@
 						$('sendmode').value='send';
 						$('chatlist').style.display='block';
 						$('newslist').style.display='none';
+						$('chattitle').innerHTML='聊天讯息';
 						chat('send',$chatrefresh);
 						return false;" value="{lang send}">
 					<input type="button" id="ref" onClick="if($('sendmode').value=='send'){$('sendmode').value='ref'};chat($('sendmode').value,$chatrefresh);return false;" value="{lang refresh}">

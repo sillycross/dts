@@ -39,13 +39,13 @@ namespace npc
 				if(!empty($npcs)) {
 					if (!check_initnpcadd($i)) continue;
 					$subnum = sizeof($npcs['sub']);
-					$jarr = array_keys($npcs['sub']);
+					$jarr = $jarr0 = array_keys($npcs['sub']);
 					shuffle($jarr);
 					if (!$subnum || !$npcs['num']) $jarr=array();
 					elseif ($subnum > $npcs['num']) $jarr=array_slice($jarr,0,$npcs['num']);
 					elseif ($subnum < $npcs['num']) {
 						while(sizeof($jarr) < $npcs['num']) {
-							$jarr = array_merge($jarr,$jarr);
+							$jarr = array_merge($jarr,$jarr0);
 						}
 					}
 					sort($jarr);
