@@ -35,7 +35,7 @@
 						</select>
 					</span>
 					<input type="text" id="chatmsg" name="chatmsg" maxlength="60" >
-					<input type="button" id="send" onClick="document['sendchat']['sendmode'].value='send';chat('send',$chatrefresh);return false;" value="{lang send}">
+					<input type="submit" id="send" onClick="document['sendchat']['sendmode'].value='send';chat('send',$chatrefresh);return false;" value="{lang send}">
 					<input type="button" id="ref" onClick="document['sendchat']['sendmode'].value='ref';chat('ref',$chatrefresh);return false;" value="{lang refresh}">
 				</form>
 			<!--{if !defined('IN_REPLAY')}-->

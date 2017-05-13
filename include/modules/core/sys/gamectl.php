@@ -286,7 +286,7 @@ namespace sys
 		addnews($time, "end$winmode",$winner);
 		addnews($time, 'gameover' ,$gamenum);
 		systemputchat($time,'gameover');
-		$newsinfo = load_news(0,-1);
+		$newsinfo = load_news();
 //		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-读取和渲染消息');
 		$room_gprefix = '';
 		if ($room_prefix!='') $room_gprefix = (substr($room_prefix,0,1)).'.';
