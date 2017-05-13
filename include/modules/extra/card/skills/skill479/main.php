@@ -43,7 +43,7 @@ namespace skill479
 		if (\skillbase\skill_query(479, $pd)) {
 			$pa['dmg_dealt'] = dmg_round479($pa['dmg_dealt'], $active);
 		}
-		$chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);//伤害制御最后计算
 	}
 	
 	function get_trap_final_damage_change(&$pa, &$pd, $tritm, $damage)

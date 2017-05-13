@@ -67,7 +67,7 @@ namespace attack
 		//先应用降低类，后应用提高类
 		apply_total_damage_modifier_down($pa,$pd,$active);
 		apply_total_damage_modifier_up($pa,$pd,$active);
-		//最后执行变化类修正
+		//最后执行变化类修正（伤害制御、反演、数体教等）
 		apply_total_damage_change($pa,$pd,$active);
 		
 		//扣血并更新最高伤害

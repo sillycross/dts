@@ -63,8 +63,8 @@ namespace ex_hp_def
 	function apply_total_damage_change(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		check_dmg_def_attr($pa, $pd, $active);
 		$chprocess($pa, $pd, $active);
+		check_dmg_def_attr($pa, $pd, $active);
 	}
 				
 	function player_damaged_enemy(&$pa, &$pd, $active)

@@ -37,17 +37,24 @@ namespace npc
 			$ninfo = get_npclist();
 			foreach ($ninfo as $i => $npcs){
 				if(!empty($npcs)) {
-					if (sizeof($npcs['sub'])>$npcs['num'])shuffle($npcs['sub']);
-					for($j = 1; $j <= $npcs['num']; $j++) {
-						if (!check_initnpcadd($i)) continue;
+					if (!check_initnpcadd($i)) continue;
+					$subnum = sizeof($npcs['sub']);
+					$jarr = array_keys($npcs['sub']);
+					shuffle($jarr);
+					if (!$subnum || !$npcs['num']) $jarr=array();
+					elseif ($subnum > $npcs['num']) $jarr=array_slice($jarr,0,$npcs['num']);
+					elseif ($subnum < $npcs['num']) {
+						while(sizeof($jarr) < $npcs['num']) {
+							$jarr = array_merge($jarr,$jarr);
+						}
+					}
+					sort($jarr);
+					foreach($jarr as $j){
 						$npc = array_merge($npcinit,$npcs);
 						$npc['type'] = $i;
 						$npc['endtime'] = $now;
 						$npc['sNo'] = $j;
-						
-						$subnum = sizeof($npc['sub']);
-						$sub = $j % $subnum;
-						$npc = array_merge($npc,$npc['sub'][$sub]);
+						$npc = array_merge($npc,$npc['sub'][$j]);
 						$npc['hp'] = $npc['mhp'];
 						$npc['sp'] = $npc['msp'];
 						$npc['ss'] = $npc['mss'];

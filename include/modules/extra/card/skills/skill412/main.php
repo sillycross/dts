@@ -26,6 +26,12 @@ namespace skill412
 		return 1;
 	}
 	
+	//住手啊，这根本就不是莫比乌斯！
+	//如果伤害里包含平方数，或者伤害本身大于一千亿，返回0
+	//否则如果伤害的（1和本身以外的）因数数目为偶数，返回1；如果为奇数则返回-1
+	//比如，24=2*2*2*3，包含平方数4，所以返回0
+	//再比如，14=2*7，因数个数为偶数，返回1
+	//再比如，17是个质数，返回-1；66=2*3*11，因数个数为奇数，返回-1
 	function calculate_mobius_function($val)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -45,7 +51,7 @@ namespace skill412
 		if ($c%2==0) return 1; else return -1;
 	}
 	
-	function apply_total_damage_modifier_down(&$pa,&$pd,$active)
+	function apply_total_damage_change(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (\skillbase\skill_query(412,$pd) && check_unlocked412($pd) && $pa['dmg_dealt']>0)
@@ -65,21 +71,32 @@ namespace skill412
 			}
 			else  
 			{
-				//反弹233
-				$log.='<span class="lime">只见敌人周围突然出现了奇怪的呈U形的力场，你造成的伤害竟然被反弹了回来！</span><br>';
-				$log.="<span class=\"red\">你受到了{$pa['dmg_dealt']}点伤害！</span><br>";
-				\attack\post_damage_news($pd, $pa, 1-$active, $pa['dmg_dealt']);
-				$pa['hp']-=$pa['dmg_dealt'];
-				if ($pa['hp']<0) $pa['hp']=0;
-				$pa['dmg_dealt']=0;
-				if ($pa['hp']<=0)
-				{
-					$pa['deathmark']=39;
-					//\attack\player_kill_enemy($pd, $pa, 1-$active);
-				}
+				//反弹233				
+				$pa['mobiusflag'] = 1;//临时性的标记就不搞skill了				
 			}
 		}
 		$chprocess($pa, $pd, $active);
+	}
+	
+	//反演的反弹效果移到伤害效果的发生阶段，这样就在伤害制御之后了
+	function apply_damage(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('logger'));
+		if(isset($pa['mobiusflag']) && $pa['mobiusflag']) {
+			unset($pa['mobiusflag']);
+			$log.='<span class="lime">只见敌人周围突然出现了奇怪的呈U形的力场，你造成的伤害竟然被反弹了回来！</span><br>';
+			$log.="<span class=\"red\">你受到了{$pa['dmg_dealt']}点伤害！</span><br>";
+			\attack\post_damage_news($pd, $pa, 1-$active, $pa['dmg_dealt']);
+			$pa['hp']-=$pa['dmg_dealt'];
+			if ($pa['hp']<0) $pa['hp']=0;
+			$pa['dmg_dealt']=0;
+			if ($pa['hp']<=0)
+			{
+				$pa['deathmark']=39;
+				//\attack\player_kill_enemy($pd, $pa, 1-$active);
+			}
+		}
 	}
 	
 	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
