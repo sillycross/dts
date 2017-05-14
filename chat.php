@@ -9,7 +9,7 @@ if(!$cuser || !defined('IN_GAME')) {
 	exit('Not in game.');
 }
 
-if(($sendmode == 'send')&&$chatmsg) {
+if(($sendmode == 'send')&&$chatmsg) {//发送聊天
 	if(strpos($chatmsg,'/') === 0) {
 		$result = $db->query("SELECT groupid FROM {$gtablepre}users WHERE username='$cuser'");
 		$groupid = $db->result($result,0);
@@ -21,10 +21,10 @@ if(($sendmode == 'send')&&$chatmsg) {
 					//$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,msg) VALUES ('4','$now','$cuser','$chatmsg')");
 				}
 			} else {
-				$chatdata = array('lastcid' => $lastcid, 'msg' => Array('<span class="red">指令错误。</span><br>'));
+				$chatdata = array('lastcid' => $lastcid, 'msg' => Array('<span class="red">指令错误。<br></span>'));
 			}
 		} else {
-			$chatdata = array('lastcid' => $lastcid, 'msg' => Array('<span class="red">聊天信息不能用 / 开头。</span><br>'));
+			$chatdata = array('lastcid' => $lastcid, 'msg' => Array('<span class="red">聊天信息不能用 / 开头。<br></span>'));
 		}
 	} else { 
 		if($chattype == 0) {
@@ -35,17 +35,27 @@ if(($sendmode == 'send')&&$chatmsg) {
 			//$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,recv,msg) VALUES ('1','$now','$cuser','$teamID','$chatmsg')");
 		}
 	}
+}elseif($sendmode == 'newspage'){//来自news.php的调用
+	$newsdata['innerHTML']['newsinfo'] = '';
+	$chats = getchat(0,'',0,$chatinnews);
+	$chatmsg = $chats['msg'];
+	foreach($chatmsg as $val){
+		$newsdata['innerHTML']['newsinfo'] .= $val;
+	}	
+	if(isset($error)){$newsdata['innerHTML']['error'] = $error;}
+	ob_clean();
+	$jgamedata = gencode($newsdata);
+	echo $jgamedata;
+	ob_end_flush();
+	die();
 }
+//$sendmode=='ref'时没有特殊判断，直接作下列处理
 if(!$chatdata) {
 	if($chatpid) $chatdata = getchat($lastcid,$teamID,$chatpid);
 	else $chatdata = getchat($lastcid,$teamID);
 }
 ob_clean();
-//$json = new Services_JSON();
-//$jgamedata = $json->encode($chatdata);
 $jgamedata = json_encode($chatdata);
 echo $jgamedata;
 ob_end_flush();
-
-
 ?>

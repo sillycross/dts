@@ -380,7 +380,7 @@ namespace trap
 		$chprocess($schmode);
 	}
 	
-	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
+	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -388,22 +388,22 @@ namespace trap
 		
 		if($news == 'trap') 
 			if ($d>0)
-				return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}中了{$b}设置的陷阱{$c}，受到了{$d}点伤害！</span><br>\n";
-			else  return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}中了{$b}设置的陷阱{$c}</span><br>\n";
+				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}中了{$b}设置的陷阱{$c}，受到了{$d}点伤害！</span></li>";
+			else  return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}中了{$b}设置的陷阱{$c}</span></li>";
 		if($news == 'trapmiss') 
-			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}回避了{$b}设置的陷阱{$c}</span><br>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}回避了{$b}设置的陷阱{$c}</span></li>";
 		if($news == 'death27') {
 			$dname = $typeinfo[$b].' '.$a;
 			if(!$e)
 				$e0="<span class=\"yellow\">【{$dname} 什么都没说就死去了】</span><br>\n";
 			else  $e0="<span class=\"yellow\">【{$dname}：“{$e}”】</span><br>\n";
 			if($c){
-				return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因触发了<span class=\"yellow\">$c</span>设置的陷阱<span class=\"red\">$d</span>被杀死{$e0}";
+				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因触发了<span class=\"yellow\">$c</span>设置的陷阱<span class=\"red\">$d</span>被杀死{$e0}</li>";
 			} else {
-				return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因触发了陷阱<span class=\"red\">$d</span>被杀死{$e0}";
+				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因触发了陷阱<span class=\"red\">$d</span>被杀死{$e0}</li>";
 			}
 		}
-		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
+		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 	
 	function trap_use(&$theitem)

@@ -275,7 +275,7 @@ function room_create($roomtype)
 				$max_room_num_temp++;
 			}else{//很丑陋，对吧？我也这么想。分明全部丢进数据库就可以的东西，为什么一定要写文件？
 				$file = GAME_ROOT.'./gamedata/tmp/rooms/'.$rrsid.'.txt';
-				writeover('a.txt',$file,'ab+');
+				//writeover('a.txt',$file,'ab+');
 				if(file_exists($file)){
 					$rfdata = gdecode(file_get_contents($file),1);
 				}

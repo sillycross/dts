@@ -78,18 +78,18 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 		$msp += 100;$mhp += 100;$hp += 100;$sp += 100;
 		$att += 100;$def += 100;
 		$exp += 10;$money = 20000;$rage = 255;$pose = 1;$tactic = 3;
-		$itm[1] = '死者苏生'; $itmk[1] = 'HB'; $itme[1] = 1500; $itms[1] = 400; $itmsk[1] = 'z';
+		$itm[1] = '胜利型核口可乐'; $itmk[1] = 'HB'; $itme[1] = 1500; $itms[1] = 400; $itmsk[1] = 'z';
 		$itm[2] = '移动PC'; $itmk[2] = 'EE'; $itme[2] = 50; $itms[2] = 1;
 		$itm[3] = '超光速快子雷达'; $itmk[3] = 'ER'; $itme[3] = 32; $itms[3] = 1;$itmsk[3] = 2;
 		$itm[4] = '凸眼鱼'; $itmk[4] = 'Y'; $itme[4] = 1; $itms[4] = 30;$itmsk[4] = '';
 		$itm[5] = '楠叶特制营养剂'; $itmk[5] = 'ME'; $itme[5] = 100; $itms[5] = 25;
 		$itm[6] = '紧急药剂'; $itmk[6] = 'Ca'; $itme[6] = 1; $itms[6] = 50;
-		$wep = '神圣手榴弹';$wepk = 'WC';$wepe = 8765;$weps = 876;$wepsk = 'd';
-		$arb = '守桥人的长袍';$arbk = 'DB'; $arbe = 3200; $arbs = 100; $arbsk = 'A';
-		$arh = '千年积木';$arhk = 'DH'; $arhe = 1600; $arhs = 120; $arhsk = 'c';
-		$ara = '皇家钻戒';$arak = 'DA'; $arae = 1600; $aras = 120; $arask = 'a';
-		$arf = '火弩箭';$arfk = 'DF'; $arfe = 1600; $arfs = 120; $arfsk = 'M';
-		$art = '贤者之石';$artk = 'A'; $arte = 9999; $arts = 999; $artsk = 'H';
+		$wep = '普罗米修斯发射器';$wepk = 'WJ';$wepe = 43210;$weps = 876;$wepsk = 'rnd';
+		$arb = '歪曲力场';$arbk = 'DB'; $arbe = 4600; $arbs = 100; $arbsk = 'Bz';
+		$arh = '加布里埃尔的旋钮';$arhk = 'DH'; $arhe = 2400; $arhs = 120; $arhsk = 'cb';
+		$ara = '次世代决斗盘';$arak = 'DA'; $arae = 2400; $aras = 120; $arask = 'Aa';
+		$arf = '悬浮滑板';$arfk = 'DF'; $arfe = 2400; $arfs = 120; $arfsk = 'Mm';
+		$art = 'Untainted Glory';$artk = 'A'; $arte = 9999; $arts = 999; $artsk = 'Hh';
 		$wp=$wk=$wg=$wc=$wd=$wf=600;
 	
 	}elseif($name == '霜火协奏曲') {

@@ -390,7 +390,8 @@ function chat(mode,reftime) {
 	clearTimeout(refchat);
 	var oXmlHttp = zXmlHttp.createRequest();
 	var sBody = getRequestBody(document.forms['sendchat']);
-	oXmlHttp.open("post", "chat.php", true);
+	if(mode == 'news') oXmlHttp.open("post", "news.php", true);
+	else oXmlHttp.open("post", "chat.php", true);
 	oXmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	oXmlHttp.onreadystatechange = function () {
 		if (oXmlHttp.readyState == 4) {
@@ -404,21 +405,36 @@ function chat(mode,reftime) {
 	oXmlHttp.send(sBody);
 	if(mode == 'send'){$('chatmsg').value = '';$('sendmode').value = 'ref';}
 	rtime = reftime;
-	refchat = setTimeout("chat('ref',rtime)",rtime);
+	if(mode == 'news') refchat = setTimeout("chat('news',rtime)",rtime);
+	else refchat = setTimeout("chat('ref',rtime)",rtime);
 }
-
 
 function showChatdata(jsonchat) {
 	chatdata = JSON.parse(jsonchat);
+	var lastvarid='';
+	var pdomid='';
+	var cdata='';
 	if(chatdata['msg']) {
-		$('lastcid').value=chatdata['lastcid'];
+		lastvarid='lastcid';
+		pdomid='chatlist';
+		cdata=chatdata['msg'];
+	}else if(chatdata['news']){
+		lastvarid='lastnid';
+		pdomid='newslist';
+		cdata=chatdata['news'];
+	}
+	if(lastvarid) {
+		$(lastvarid).value=chatdata[lastvarid];
 		newchat = '';
-		for(var cid in chatdata['msg']) {
+		for(var cid in cdata) {
 			if(cid == 'toJSONString') {continue;}
-			newchat += chatdata['msg'][cid];
+			if($(cid) && $(cid).parentNode.id==pdomid) {//遇到相同id的聊天记录就先清掉，防止多刷
+				$(pdomid).removeChild($(cid));
+			}
+			newchat += cdata[cid];
 		}
-		$('chatlist').innerHTML = newchat + $('chatlist').innerHTML;
-	}			
+		if(newchat) $(pdomid).innerHTML=newchat+$(pdomid).innerHTML;
+	}
 }
 
 function openShutManager(oSourceObj,oTargetObj,shutAble,oOpenTip,oShutTip){

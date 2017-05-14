@@ -4,7 +4,7 @@ namespace skill479
 {
 	////////// MODULE HEADER START ///////////////
 	$___MODULE_dependency = 'skillbase sys player logger attack trap';
-	$___MODULE_dependency_optional = 'skill38 skill466 skill473 skill263';
+	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';
 	$___MODULE_templatelist = 'desc';

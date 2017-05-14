@@ -77,7 +77,7 @@ namespace skill5
 		if ($hp>0) $chprocess($moveto);
 	}
 	
-	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())	//毒发死亡新闻
+	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())	//毒发死亡新闻
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
@@ -88,10 +88,10 @@ namespace skill5
 			if(!$e)
 				$e0="<span class=\"yellow\">【{$dname} 什么都没说就死去了】</span><br>\n";
 			else  $e0="<span class=\"yellow\">【{$dname}：“{$e}”】</span><br>\n";
-			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因<span class=\"red\">毒发</span>死亡{$e0}";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因<span class=\"red\">毒发</span>死亡{$e0}</li>";
 		} 
 		
-		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
+		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 }
 
