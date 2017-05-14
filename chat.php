@@ -5,7 +5,7 @@ define('LOAD_CORE_ONLY', TRUE);
 
 require './include/common.inc.php';
 
-if(!$cuser || !defined('IN_GAME')) {
+if($sendmode != 'newspage' && (!$cuser || !defined('IN_GAME'))) {
 	exit('Not in game.');
 }
 
