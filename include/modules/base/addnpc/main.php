@@ -27,7 +27,7 @@ namespace addnpc
 				$npc['sp'] = $npc['msp'];
 				$spid = uniqid('',true);
 				$npc['pass']=$spid;
-				if(!isset($npc['state'])){$npc['state'] = 0;}
+				if(!isset($npc['state'])){$npc['state'] = 1;}
 				$npc['wp'] = $npc['wk'] = $npc['wg'] = $npc['wc'] = $npc['wd'] = $npc['wf'] = $npc['skill'];
 				if($npc['gd'] == 'r'){$npc['gd'] = rand(0,1) ? 'm':'f';}
 				if($npc['pls'] == 99){

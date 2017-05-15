@@ -8,3 +8,4 @@
 --在strike_finish()里加伤害的技能都得改到apply_total_damage_modifier_down()或者apply_total_damage_modifier_up()里面去
 --模块文件里把函数注释掉好像会导致parse的时候判定出问题，待判断
 --每一个战斗技能都占了一条news类别，就不会复用吗
+--npc也会自动载入成就
