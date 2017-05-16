@@ -206,7 +206,7 @@ namespace weather
 		{
 			$dice = rand(0,9);
 			if($dice == 0){
-				$mhpdown = rand(4,8);
+				$mhpdown = rand(1,4);
 				if($mhp > $mhpdown){
 					$log .= "空气中弥漫着的<span class=\"green\">放射性尘埃</span>导致你的生命上限减少了<span class=\"red\">{$mhpdown}</span>点！<br>";
 					$mhp -= $mhpdown;
@@ -220,10 +220,10 @@ namespace weather
 		{
 			$dice = rand(0,9);
 			if($dice == 0){
-				$defdown = rand(3,6);
+				$defdown = rand(2,5);
 				if($def > $defdown){
 					$log .= "高强度的<span class=\"purple\">紫外线照射</span>导致你的防御力减少了<span class=\"red\">{$defdown}</span>点！<br>";
-					$def -= $defdown;
+					$def -= $defdown;if($def < 0) $def = 0;
 				}
 			}elseif($dice ==1 && strpos($inf,'u')===false){
 				$log .= "高强度的<span class=\"purple\">紫外线照射</span>导致你<span class=\"red\">烧伤</span>了！<br>";
@@ -241,7 +241,7 @@ namespace weather
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','map','player','logger','weather'));
-		if($weather >= 14 && $weather <= 16){
+		if($weather >= 14 && $weather <= 16 && $itmsk != 95){
 			addnews ( $now, 'wthfail', $name, $weather, $itm );
 			$log .= "你使用了{$itm}。<br /><span class=\"red\">但是恶劣的天气并未发生任何变化！</span><br />";
 		}else{
@@ -249,6 +249,7 @@ namespace weather
 			elseif($itmsk==98){$weather = rand ( 10, 13 );}//随机恶劣天气
 			elseif($itmsk==97){$weather = rand ( 0, 9 );}//随机一般天气
 			elseif($itmsk==96){$weather = rand ( 8, 9 );}//随机起雾天气
+			elseif($itmsk==95){$weather = rand ( 14, 16 );}//随机末日天气
 			elseif(!empty($itmsk) && is_numeric($itmsk)){
 				if($itmsk >=0 && $itmsk < count($wthinfo)){
 					$weather = $itmsk;
@@ -269,8 +270,11 @@ namespace weather
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys'));
-		$o_weather = $weather;
-		do { $weather = rand(0,9); } while($weather == $o_weather);		//天气不会跟原本天气一样
+		//末日天气不会因为禁区而消失
+		if($weather <= 13) {
+			$o_weather = $weather;
+			do { $weather = rand(0,9); } while($weather == $o_weather);		//天气不会跟原本天气一样
+		}
 		$chprocess($atime);
 	}
 	

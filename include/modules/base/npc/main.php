@@ -23,9 +23,11 @@ namespace npc
 	}
 	
 	//把rs_game里一些能复用的功能放进来
-	function init_npcdata($npc){
+	function init_npcdata($npc, $plslist=array()){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		eval(import_module('sys','map','player','npc','lvlctl'));
+		//获得当前NPC能随机到的地图
+		if(!$plslist) $plslist = get_npc_pls_available();
 		//基本的一些数值
 		$npc['endtime'] = $now;
 		$npc['hp'] = $npc['mhp'];
@@ -38,14 +40,22 @@ namespace npc
 		else { $npc['wp'] = $npc['wk'] = $npc['wg'] = $npc['wc'] = $npc['wd'] = $npc['wf'] = $npc['skill'];}						
 		//性别，r为随机
 		if($npc['gd'] == 'r'){$npc['gd'] = rand(0,1) ? 'm':'f';}
-		//生成随机地点，英灵殿不算在内
+		//如果地点数据为随机，则根据输入的数组随机选地点
+//		if($npc['pls'] == 99){
+//			$plsnum = sizeof($plsinfo);
+//			do{$rpls=rand(1,$plsnum-1);}while ($rpls==34);
+//			$npc['pls'] = $rpls;
+//		}
 		if($npc['pls'] == 99){
-			$plsnum = sizeof($plsinfo);
-			do{$rpls=rand(1,$plsnum-1);}while ($rpls==34);
-			$npc['pls'] = $rpls;
-		}
+			if(!empty($plslist)){
+				shuffle($plslist);
+				$npc['pls'] = $plslist[0];
+			}else{
+				$npc['pls'] = 0;
+			}
+		}	
 		//npc初始状态默认为睡眠
-		$npc['state'] = 1;
+		if(!isset($npc['state'])){$npc['state'] = 1;}
 		//技能的获取
 		if (isset($npc['skills']) && is_array($npc['skills'])){
 			$npc['pid'] = -2;//0和-1都会出问题
@@ -68,6 +78,14 @@ namespace npc
 		return $npc;
 	}
 	
+	//NPC可移动到的位置列表，即非禁区、非英灵殿
+	function get_npc_pls_available(){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		eval(import_module('sys','map'));
+		if($areanum+1 > sizeof($arealist)) return array();
+		else return array_diff(array_slice($arealist,$areanum+1), array(34));
+	}
+	
 	function rs_game($xmode = 0) {
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		
@@ -80,6 +98,8 @@ namespace npc
 			//$plsnum = sizeof($plsinfo);
 			$npcqry = '';
 			$ninfo = get_npclist();
+			//生成非禁区列表（不含英灵殿）
+			$pls_available = get_npc_pls_available();
 			//外循环：type，编号可以不连续
 			foreach ($ninfo as $i => $npcs){
 				if(!empty($npcs)) {
@@ -111,7 +131,7 @@ namespace npc
 						$npc['type'] = $i;
 						$npc['sNo'] = $j;
 						//初始化函数
-						$npc = init_npcdata($npc);
+						$npc = init_npcdata($npc, $pls_available);
 						//writeover('a.txt',json_encode($npc['nskillpara']));
 //						$npc['endtime'] = $now;
 //						$npc['hp'] = $npc['mhp'];

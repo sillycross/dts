@@ -150,7 +150,7 @@ namespace tutorial
 		
 		if(!$db->num_rows($result)){//不存在的情况下才addnpc，否则直接跳过，防止有人卡在这一步导致npc迅速增殖
 			if($addnpc_if_needed){
-				$apid = \addnpc\addnpc($atype,$asub,1);
+				$apid = \addnpc\addnpc($atype,$asub,1)[0];
 				//在npc的teamID字段储存对应的玩家pid，大房模式下这个NPC只有对应pid的玩家可以摸到
 				$db->query("UPDATE {$tablepre}players SET teamID='$ateam' WHERE pid='$apid'");
 				if($return_full_data) $apid = \player\fetch_playerdata_by_pid($apid);
