@@ -74,6 +74,7 @@ autopower,extra/misc/autopower/,1
 skill601,extra/club/skills/skill601/,1
 team,base/team/,1
 battle,base/battle/,1
+skill1010,extra/card/skills/skill1010/,1
 item_misc,base/items/item_misc/,1
 gameflow_combo,core/gameflow/gameflow_combo/,1
 advteam,extra/misc/advteam/,1
@@ -100,6 +101,7 @@ skill315,extra/achievement/skills/skill315/,1
 skill443,extra/card/skills/skill443/,1
 skill325,extra/achievement/skills/skill325/,1
 skill477,extra/card/skills/skill477/,1
+skill479,extra/card/skills/skill479/,1
 skill1000,extra/instance/gtype17_tutorial/skill1000/,1
 kuji0,extra/card/kuji/kuji0/,1
 kuji1,extra/card/kuji/kuji1/,1
@@ -287,7 +289,6 @@ skill445,extra/card/skills/skill445/,1
 pose,base/pose/,1
 skill1,base/skills/skill1/,1
 skill600,extra/club/skills/skill600/,1
-skill479,extra/card/skills/skill479/,1
 ex_phy_def,extra/attr/ex_phy_def/,1
 rage,extra/attr/rage/,1
 skill30,extra/club/skills/skill30/,1
@@ -297,12 +298,12 @@ ex_rapid_attr,extra/attr/ex_rapid_attr/,1
 ex_attr_silencer,extra/attr/ex_attr_silencer/,1
 ex_dmg_att,extra/attr/ex_dmg_att/,1
 ex_attr_charge,extra/attr/ex_attr_charge/,1
+ex_hp_def,extra/attr/ex_hp_def/,1
 wepchange,extra/attr/wepchange/,1
 blessstone,extra/attr/blessstone/,1
 skill33,extra/club/skills/skill33/,1
 weather,base/weather/,1
 npcinfo,extra/misc/npcinfo/,1
-ex_hp_def,extra/attr/ex_hp_def/,1
 skill28,extra/club/skills/skill28/,1
 skill254,extra/club/skills/skill254/,1
 skill37,extra/club/skills/skill37/,1
@@ -342,6 +343,7 @@ skill463,extra/card/skills/skill463/,1
 skill465,extra/card/skills/skill465/,1
 skill478,extra/card/skills/skill478/,1
 ex_phy_nullify,extra/attr/ex_phy_nullify/,1
+skill432,extra/card/skills/skill432/,1
 gtype1,extra/instance/gtype1/main/,1
 instance5,extra/instance/instance5/,1
 instance6,extra/instance/instance6/,1
@@ -352,7 +354,6 @@ skill245,extra/club/skills/skill245/,1
 skill252,extra/club/skills/skill252/,1
 gtype2,extra/instance/gtype2/main/,1
 gtype3,extra/instance/gtype3/main/,1
-skill432,extra/card/skills/skill432/,1
 skill206,extra/club/skills/skill206/,1
 miracletrap,base/items/miracletrap/,1
 skill243,extra/club/skills/skill243/,1

@@ -86,6 +86,7 @@ else
 if (defined('NO_SYS_UPDATE')) return;
 
 if (CURSCRIPT == 'index') {//首页，所有房间刷新
+	sys\routine();
 //	sys\routine();
 //	$o_room_prefix=$room_prefix;
 //	
