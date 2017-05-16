@@ -4,7 +4,7 @@ namespace skill431
 {
 	function init() 
 	{
-		define('MOD_SKILL431_INFO','club;hidden;');
+		define('MOD_SKILL431_INFO','card;hidden;');
 	}
 	
 	function acquire431(&$pa)

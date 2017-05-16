@@ -4,7 +4,7 @@ namespace skill473
 {
 	function init() 
 	{
-		define('MOD_SKILL473_INFO','club;unique;');
+		define('MOD_SKILL473_INFO','card;unique;');
 		eval(import_module('clubbase'));
 		$clubskillname[473] = '神蚀';
 	}

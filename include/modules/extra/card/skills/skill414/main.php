@@ -6,7 +6,7 @@ namespace skill414
 	
 	function init() 
 	{
-		define('MOD_SKILL414_INFO','club;upgrade;');
+		define('MOD_SKILL414_INFO','card;upgrade;');
 		eval(import_module('clubbase'));
 		$clubskillname[414] = '鹰眼';
 	}

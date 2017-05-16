@@ -89,12 +89,13 @@ namespace skill56
 		eval(import_module('skill56','map','sys','player','logger','input'));
 		$log.='你召唤出了佣兵<span class="yellow">'.$skill56_npc['sub'][$nkind]['name'].'</span>来保护你！<br>';
 		$x=(int)\skillbase\skill_getvalue(56,'t');
-		$spid = \addnpc\addnpc(25,$nkind,1);
-		if ($spid==-1)
+		$spids = \addnpc\addnpc(25,$nkind,1);
+		if ($spids==-1)
 		{
 			$log.='出现了一个BUG，请联系管理员。抱歉。<br>';
 			return;
 		}
+		$spid = $spids[0];
 		//设置位置
 		$db->query("UPDATE {$tablepre}players SET pls='$pls' WHERE pid='$spid'");
 		\skillbase\skill_setvalue(56,'p'.$x,$spid);

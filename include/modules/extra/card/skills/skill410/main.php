@@ -5,7 +5,7 @@ namespace skill410
 	
 	function init() 
 	{
-		define('MOD_SKILL410_INFO','club;unique;locked;');
+		define('MOD_SKILL410_INFO','card;unique;locked;');
 		eval(import_module('clubbase'));
 		$clubskillname[410] = '猛风';
 	}

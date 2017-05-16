@@ -4,7 +4,7 @@ namespace skill468
 {
 	function init() 
 	{
-		define('MOD_SKILL468_INFO','club;unique;');
+		define('MOD_SKILL468_INFO','card;unique;');
 		eval(import_module('clubbase'));
 		$clubskillname[468] = '月光';
 	}

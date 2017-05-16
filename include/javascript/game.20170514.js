@@ -390,8 +390,7 @@ function chat(mode,reftime) {
 	clearTimeout(refchat);
 	var oXmlHttp = zXmlHttp.createRequest();
 	var sBody = getRequestBody(document.forms['sendchat']);
-	if(mode == 'news') oXmlHttp.open("post", "news.php", true);
-	else oXmlHttp.open("post", "chat.php", true);
+	oXmlHttp.open("post", "chat.php", true);
 	oXmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	oXmlHttp.onreadystatechange = function () {
 		if (oXmlHttp.readyState == 4) {
@@ -409,8 +408,14 @@ function chat(mode,reftime) {
 	else refchat = setTimeout("chat('ref',rtime)",rtime);
 }
 
-function showChatdata(jsonchat) {
-	chatdata = JSON.parse(jsonchat);
+function showChatdata(chatdata) {
+	try {
+		chatdata= decodeURIComponent( escape( JXG.decompress(chatdata) ) );
+	} catch (e) {
+		$("error").innerHTML = chatdata;
+		return;
+	}
+	chatdata = JSON.parse(chatdata);
 	var lastvarid='';
 	var pdomid='';
 	var cdata='';

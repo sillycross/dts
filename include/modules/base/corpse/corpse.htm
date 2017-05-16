@@ -3,10 +3,10 @@
 <input type="hidden" name="mode" value="corpse">
 <input type="radio" name="command" id="destroy" value="destroy" <!--{if !$w_money && $w_type==90}-->checked<!--{/if}-->><a onclick=sl('destroy'); href="javascript:void(0);" >销毁尸体</a><br>
 <input type="radio" name="command" id="menu" value="menu" <!--{if !$w_money && $w_type!=90}-->checked<!--{/if}-->><a onclick=sl('menu'); href="javascript:void(0);" >返回</a><br><br>
-<!--{if $w_weps && $w_wepe}-->
+<!--{if $w_weps && $w_wepk!='WN'}-->
 <input type="radio" name="command" id="wep" value="wep"><a onclick=sl('wep'); href="javascript:void(0);" >$w_wep/$w_wepk_words/$w_wepe/$w_weps<!--{if $w_wepsk_words}-->/$w_wepsk_words<!--{/if}--></a><br>
 <!--{/if}-->
-<!--{if $w_arbs && $w_arbe}-->
+<!--{if $w_arbs && $w_arbk!='DN'}-->
 <input type="radio" name="command" id="arb" value="arb"><a onclick=sl('arb'); href="javascript:void(0);" >$w_arb/$w_arbk_words/$w_arbe/$w_arbs<!--{if $w_arbsk_words}-->/$w_arbsk_words<!--{/if}--></a><br>
 <!--{/if}-->
 <!--{if $w_arhs}-->

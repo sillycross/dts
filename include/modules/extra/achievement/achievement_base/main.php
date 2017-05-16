@@ -39,13 +39,13 @@ namespace achievement_base
 			$maxid=count($achdata)-2;
 			foreach (\skillbase\get_acquired_skill_array($edata) as $key) 
 				if (defined('MOD_SKILL'.$key.'_INFO') && defined('MOD_SKILL'.$key.'_ACHIEVEMENT_ID'))
-					if (strpos(constant('MOD_SKILL'.$key.'_INFO'),'achievement;')!==false)
+					if (\skillbase\check_skill_info($key, 'achievement'))
 					{
 						$id=((int)(constant('MOD_SKILL'.$key.'_ACHIEVEMENT_ID')));
 						if ($id>$maxid) $maxid=$id;
 						if (isset($achdata[$id])) $s=((string)$achdata[$id]); else $s='';
 						$f=false;
-						if (strpos(constant('MOD_SKILL'.$key.'_INFO'),'daily;')==false) $f=true;
+						if (!\skillbase\check_skill_info($key, 'daily')) $f=true;
 						if (($s!='')&&($s!='VWXYZ')) $f=true;
 						if ($f){
 							$func='\\skill'.$key.'\\finalize'.$key;
@@ -75,12 +75,12 @@ namespace achievement_base
 		$c=0;
 		foreach ($achlist[$at] as $key)
 			if (defined('MOD_SKILL'.$key.'_INFO') && defined('MOD_SKILL'.$key.'_ACHIEVEMENT_ID'))
-				if ((strpos(constant('MOD_SKILL'.$key.'_INFO'),'achievement;')!==false)&&(strpos(constant('MOD_SKILL'.$key.'_INFO'),'hidden;')==false))
+				if ((\skillbase\check_skill_info($key, 'achievement'))&&(!\skillbase\check_skill_info($key, 'hidden')))
 				{
 					$id=((int)(constant('MOD_SKILL'.$key.'_ACHIEVEMENT_ID')));
 					if (isset($achdata[$id])) $s=((string)$achdata[$id]); else $s='';
 					$f=false;
-					if (strpos(constant('MOD_SKILL'.$key.'_INFO'),'daily;')==false) $f=true;
+					if (!\skillbase\check_skill_info($key, 'daily')) $f=true;
 					if (($s!='')&&($s!='VWXYZ')) $f=true;
 					if ($f){
 						$func='\\skill'.$key.'\\show_achievement'.$key;

@@ -5,7 +5,7 @@ define('LOAD_CORE_ONLY', TRUE);
 
 require './include/common.inc.php';
 
-if(!$cuser || !defined('IN_GAME')) {
+if($sendmode != 'newspage' && (!$cuser || !defined('IN_GAME'))) {
 	exit('Not in game.');
 }
 
@@ -29,33 +29,29 @@ if(($sendmode == 'send')&&$chatmsg) {//发送聊天
 	} else { 
 		if($chattype == 0) {
 			\sys\addchat(0, $chatmsg, $cuser);
-			//$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,msg) VALUES ('0','$now','$cuser','$chatmsg')");
 		} elseif($chattype == 1) {
 			\sys\addchat(1, $chatmsg, $cuser, $teamID);
-			//$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,recv,msg) VALUES ('1','$now','$cuser','$teamID','$chatmsg')");
 		}
 	}
+}elseif ($sendmode == 'news' && isset($lastnid)) {//来自游戏页面查看即时进行状况的调用
+	$lastnid = (int)$lastnid;
+	$showdata = \sys\getnews($lastnid);
 }elseif($sendmode == 'newspage'){//来自news.php的调用
-	$newsdata['innerHTML']['newsinfo'] = '';
+	$showdata['innerHTML']['newsinfo'] = '';
 	$chats = getchat(0,'',0,$chatinnews);
 	$chatmsg = $chats['msg'];
 	foreach($chatmsg as $val){
-		$newsdata['innerHTML']['newsinfo'] .= $val;
+		$showdata['innerHTML']['newsinfo'] .= $val;
 	}	
-	if(isset($error)){$newsdata['innerHTML']['error'] = $error;}
-	ob_clean();
-	$jgamedata = gencode($newsdata);
-	echo $jgamedata;
-	ob_end_flush();
-	die();
 }
 //$sendmode=='ref'时没有特殊判断，直接作下列处理
-if(!$chatdata) {
-	if($chatpid) $chatdata = getchat($lastcid,$teamID,$chatpid);
-	else $chatdata = getchat($lastcid,$teamID);
+if(!$showdata) {
+	if($chatpid) $showdata = getchat($lastcid,$teamID,$chatpid);
+	else $showdata = getchat($lastcid,$teamID);
 }
+if(isset($error)){$showdata['innerHTML']['error'] = $error;}
 ob_clean();
-$jgamedata = json_encode($chatdata);
+$jgamedata = gencode($showdata);
 echo $jgamedata;
 ob_end_flush();
 ?>

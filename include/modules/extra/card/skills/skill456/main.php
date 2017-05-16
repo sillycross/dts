@@ -6,7 +6,7 @@ namespace skill456
 	
 	function init() 
 	{
-		define('MOD_SKILL456_INFO','club;upgrade;locked;unique;');
+		define('MOD_SKILL456_INFO','card;upgrade;locked;unique;');
 		eval(import_module('clubbase'));
 		$clubskillname[456] = '突击';
 	}

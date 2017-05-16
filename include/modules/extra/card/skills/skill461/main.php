@@ -4,7 +4,7 @@ namespace skill461
 {
 	function init() 
 	{
-		define('MOD_SKILL461_INFO','club;unique;');
+		define('MOD_SKILL461_INFO','card;unique;');
 		eval(import_module('clubbase'));
 		$clubskillname[461] = '驱散';
 	}

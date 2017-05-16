@@ -5,7 +5,7 @@ namespace skill406
 	
 	function init() 
 	{
-		define('MOD_SKILL406_INFO','club;unique;locked;');
+		define('MOD_SKILL406_INFO','card;unique;locked;');
 		eval(import_module('clubbase'));
 		$clubskillname[406] = '心火';
 	}

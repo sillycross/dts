@@ -24,6 +24,7 @@ namespace item_uv
 			if (strpos ( substr($itmk,1), 'S' ) !== false)	//技能书
 			{
 				eval(import_module('clubbase'));
+				$useflag = 0;
 				$sk_kind = (int)$itmsk;
 				if ($sk_kind<1) $sk_kind = 1;
 				if (defined('MOD_SKILL'.$sk_kind) && $clubskillname[$sk_kind]!='')
@@ -36,6 +37,7 @@ namespace item_uv
 					{
 						$log.="你感觉受益匪浅。你获得了技能「<span class=\"yellow\">".$clubskillname[$sk_kind]."</span>」，请前往技能界面查看。<br>";
 						\skillbase\skill_acquire($sk_kind);
+						$useflag = 1;
 						//\itemmain\itms_reduce($theitem);
 					}
 				}
@@ -44,7 +46,6 @@ namespace item_uv
 					$log.="技能书参数错误，这应该是一个BUG，请联系管理员。<br>";
 					return;
 				}
-				
 			}
 			
 			//下面是普通的技能书处理（效果是加某个系的熟练）
@@ -77,6 +78,7 @@ namespace item_uv
 					$$key+=$vefct;
 				}
 				$wsname = "全系熟练度";
+				$useflag = 1;
 			} elseif (strpos ( substr($itmk,1), 'P' ) !== false) {
 				if ($wp < $skill_minimum) {
 					$vefct = $itme;
@@ -92,6 +94,7 @@ namespace item_uv
 				}
 				$wp += $vefct; //$itme;
 				$wsname = "斗殴熟练度";
+				$useflag = 1;
 			} elseif (strpos ( substr($itmk,1), 'K' ) !== false) {
 				if ($wk < $skill_minimum) {
 					$vefct = $itme;
@@ -107,6 +110,7 @@ namespace item_uv
 				}
 				$wk += $vefct;
 				$wsname = "斩刺熟练度";
+				$useflag = 1;
 			} elseif (strpos ( substr($itmk,1), 'G' ) !== false) {
 				if ($wg < $skill_minimum) {
 					$vefct = $itme;
@@ -122,6 +126,7 @@ namespace item_uv
 				}
 				$wg += $vefct;
 				$wsname = "射击熟练度";
+				$useflag = 1;
 			} elseif (strpos ( substr($itmk,1), 'C' ) !== false) {
 				if ($wc < $skill_minimum) {
 					$vefct = $itme;
@@ -137,6 +142,7 @@ namespace item_uv
 				}
 				$wc += $vefct;
 				$wsname = "投掷熟练度";
+				$useflag = 1;
 			} elseif (strpos ( substr($itmk,1), 'D' ) !== false) {
 				if ($wd < $skill_minimum) {
 					$vefct = $itme;
@@ -152,6 +158,7 @@ namespace item_uv
 				}
 				$wd += $vefct;
 				$wsname = "引爆熟练度";
+				$useflag = 1;
 			} elseif (strpos ( substr($itmk,1), 'F' ) !== false) {
 				if ($wf < $skill_minimum) {
 					$vefct = $itme;
@@ -167,6 +174,7 @@ namespace item_uv
 				}
 				$wf += $vefct;
 				$wsname = "灵击熟练度";
+				$useflag = 1;
 			}
 			if(NULL!==$vefct) {
 				if ($vefct > 0) {
@@ -178,7 +186,7 @@ namespace item_uv
 					$log .= "对你来说书里的内容过于简单了。<br>而且由于盲目相信书上的知识，你反而被编写者的纰漏所误导了！<br>你的{$wsname}下降了<span class=\"red\">$vefct</span>点！<br>";
 				}
 			}
-			\itemmain\itms_reduce($theitem);
+			if($useflag) \itemmain\itms_reduce($theitem);
 			return;
 		}
 		$chprocess($theitem);

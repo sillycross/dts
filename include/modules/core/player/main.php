@@ -238,6 +238,20 @@ namespace player
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
+	
+	//返回一个只有数据库合法字段键名的pdata数组
+	function player_format_with_db_structure($data){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player'));
+		$ndata=Array();
+		foreach ($db_player_structure as $key){
+			if (isset($data[$key])) {
+				$ndata[$key]=$data[$key];
+			}
+		}
+		return $ndata;
+	}
+	
 	//和玩家池里的数据进行对比，返回改变的值组成的数组
 	function player_diff_from_poll($data){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -247,8 +261,10 @@ namespace player
 			$dpid = $data['pid'];
 			if(isset($pdata_origin_pool[$dpid])){//数据池里存在这个pid的数据，则逐项对比
 				$ndata=Array();
-				foreach ($db_player_structure as $key){
-					if (isset($data[$key]) && $data[$key] !== $pdata_origin_pool[$dpid][$key]) {
+				$dklist = array_keys($data);
+				
+				foreach($dklist as $key){
+					if(!isset($pdata_origin_pool[$dpid][$key]) || $data[$key] !== $pdata_origin_pool[$dpid][$key]){
 						$ndata[$key]=$data[$key];
 					}
 				}
@@ -269,12 +285,14 @@ namespace player
 			$spid = $data['pid'];
 			//unset($data['pid']);
 			//$ndata=Array();
+			//if(!$spid) writeover('a.txt','seems problem.'.debug_backtrace()[0]['function']);
 			
 			$pdata_pool[$spid] = array_clone($data);
+			//键名合法化
+			$ndata = player_format_with_db_structure($data);
 			//任意列的数值没变就不写数据库
-			$ndata = player_diff_from_poll($data);
+			$ndata = player_diff_from_poll($ndata);
 			unset($ndata['pid']);
-			//writeover('a.txt',var_export($ndata,1));
 			
 			//建国后不准成精，你们复活别想啦
 			if ($data['hp']<=0) {

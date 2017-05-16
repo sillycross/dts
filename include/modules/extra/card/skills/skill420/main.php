@@ -6,7 +6,7 @@ namespace skill420
 	
 	function init() 
 	{
-		define('MOD_SKILL420_INFO','club;upgrade;');
+		define('MOD_SKILL420_INFO','card;upgrade;');
 		eval(import_module('clubbase'));
 		$clubskillname[420] = '结晶';
 	}

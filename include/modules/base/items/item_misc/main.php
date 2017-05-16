@@ -147,6 +147,38 @@ namespace item_misc
 					$log .= "你使用了<span class=\"yellow\">{$itm}</span>，不过什么反应也没有。<br><span class=\"evergreen\">“表演的时机还没到呢，请再忍耐一下吧。”</span>——林无月<br>";
 				}
 				return;
+			} elseif ($itm == '权限狗的ID卡') {
+				$result = $db->query("SELECT groupid,password FROM {$gtablepre}users WHERE username='$cuser'");
+				$result = $db->fetch_array($result);
+				$ugroupid = $result['groupid'];
+				$upassword = $result['password'];
+				if($cpass == $upassword && ($ugroupid >= 5 || $cuser == $gamefounder)){
+					$log.='大逃杀幻境已确认你的权限狗身份，正在为你输送权限套装……<br>';
+					$wp=$wk=$wg=$wc=$wd=$wf=666;
+					$ss=$mss=600;
+					$att+=200;$def+=200;
+					$money+=19980;
+					$itm1='美味补给';$itmk1 = 'HB';$itmsk1 = '';$itme1 = 777;$itms1 = 177;
+					$itm2='全恢复药剂';$itmk2 = 'Ca';$itmsk2 = '';$itme2 = 1;$itms2 = 44;
+					$itm3='移动PC';$itmk3 = 'EE';$itmsk3 = '';$itme3 = 20;$itms3 = 1;
+					$itm4='量子雷达';$itmk4 = 'ER';$itmsk4 = '2';$itme4 = 20;$itms4 = 1;
+					if (defined('MOD_CLUBBASE')) eval(import_module('clubbase'));
+					foreach(array(1010,1011) as $skv){
+						if(defined('MOD_SKILL'.$skv)) {
+							if (!\skillbase\skill_query($skv)) {
+								$log.="你获得了技能「<span class=\"yellow\">$clubskillname[$skv]</span>」！<br>";
+								\skillbase\skill_acquire($skv);
+							}
+						}
+					}
+					addnews ( $now, 'adminitem', $name, $itm );
+				}else{
+					$log.='你没有足够的权限。可能因为是你的缓存密码有误，也可能你压根就不是一条权限狗。<br>';
+				}
+				$itm = $itmk = $itmsk = '';
+				$itme = $itms = 0;
+				$mode='command';$command='';
+				return;
 			} elseif ($itm == '奇怪的按钮') {
 				$button_dice = rand ( 1, 10 );
 				$log .= "你按下了<span class=\"yellow\">$itm</span>。<br>";
@@ -466,7 +498,9 @@ namespace item_misc
 		eval(import_module('sys','player'));
 		
 		if(isset($exarr['dword'])) $e0 = $exarr['dword'];
-			
+		
+		if($news == 'adminitem') 
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}使用了{$b}，变成了一条权限狗！</span></li>";	
 		if($news == 'death28') 
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因<span class=\"yellow\">$d</span>意外身亡{$e0}</li>";
 		if($news == 'death30') 

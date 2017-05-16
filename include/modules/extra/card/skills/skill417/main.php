@@ -5,7 +5,7 @@ namespace skill417
 
 	function init() 
 	{
-		define('MOD_SKILL417_INFO','club;hidden;');
+		define('MOD_SKILL417_INFO','card;hidden;');
 	}
 	
 	function acquire417(&$pa)

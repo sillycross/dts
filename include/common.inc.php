@@ -85,7 +85,18 @@ else
 
 if (defined('NO_SYS_UPDATE')) return;
 
-if (CURSCRIPT != 'chat' && CURSCRIPT != 'help') sys\routine();
+if (CURSCRIPT == 'index') {//首页，所有房间刷新
+	sys\routine();
+//	sys\routine();
+//	$o_room_prefix=$room_prefix;
+//	
+//	$result = $db->query("SELECT groomid FROM {$tablepre}game WHERE groomstatus=2");
+//	while($rid = $db->fetch_array($result)['groomid']){
+//		
+//	}
+//	unset($result,$rid,$o_room_prefix);
+}
+elseif (CURSCRIPT != 'chat' && CURSCRIPT != 'help') sys\routine();//其余调用，
 
 
 ?>

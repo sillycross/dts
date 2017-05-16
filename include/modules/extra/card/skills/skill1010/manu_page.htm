@@ -1,0 +1,17 @@
+<input type="hidden" name="mode" value="special">
+<input type="hidden" id="command" name="command" value="skill1010_special">
+请选择当前地图的以下角色进行遭遇：<br>
+<!--{loop $pcs $pcid $pcd}-->
+	<input type="radio" name="subcmd" id="manu$pcid" value="manu$pcid">
+	<a onclick=sl('manu$pcid'); href="javascript:void(0);" >
+		$typeinfo[$pcd['type']] 
+		<!--{if $pcd['hp'] <= 0}--><span class="red">$pcd['name']</span>
+		<!--{else}-->$pcd['name']<!--{/if}--> 
+		Lv.{$pcd['lvl']} 
+		<!--{if $pcd['hp'] <= 0}--><span class="red">生命 $pcd['hp'] / $pcd['mhp']</span>
+		<!--{else}-->生命 $pcd['hp'] / $pcd['mhp']<!--{/if}--> 
+	</a><br>
+<!--{/loop}-->
+<br>
+<input type="button" class="cmdbutton" name="submit" id="z" value="[Z]提交" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="button" class="cmdbutton" name="submit" id="x" value="[X]返回" onclick="$('command').value='menu'; postCmd('gamecmd','command.php');this.disabled=true;">
