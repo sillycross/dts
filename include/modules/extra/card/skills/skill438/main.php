@@ -5,7 +5,7 @@ namespace skill438
 	
 	function init() 
 	{
-		define('MOD_SKILL438_INFO','club;unique;locked;');
+		define('MOD_SKILL438_INFO','card;unique;locked;');
 		eval(import_module('clubbase'));
 		$clubskillname[438] = '挽鸽';
 	}

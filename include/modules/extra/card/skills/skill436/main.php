@@ -4,7 +4,7 @@ namespace skill436
 {
 	function init() 
 	{
-		define('MOD_SKILL436_INFO','club;hidden;');
+		define('MOD_SKILL436_INFO','card;hidden;');
 	}
 	
 	function acquire436(&$pa)

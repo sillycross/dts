@@ -5,7 +5,7 @@ namespace skill445
 	
 	function init() 
 	{
-		define('MOD_SKILL445_INFO','club;unique;locked;');
+		define('MOD_SKILL445_INFO','card;unique;locked;');
 		eval(import_module('clubbase'));
 		$clubskillname[445] = '转化';
 	}

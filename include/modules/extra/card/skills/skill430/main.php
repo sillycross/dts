@@ -6,7 +6,7 @@ namespace skill430
 	
 	function init() 
 	{
-		define('MOD_SKILL430_INFO','club;upgrade;');
+		define('MOD_SKILL430_INFO','card;upgrade;');
 		eval(import_module('clubbase'));
 		$clubskillname[430] = '搬运';
 	}

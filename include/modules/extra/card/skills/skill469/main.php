@@ -4,7 +4,7 @@ namespace skill469
 {
 	function init() 
 	{
-		define('MOD_SKILL469_INFO','club;unique;');
+		define('MOD_SKILL469_INFO','card;unique;');
 		eval(import_module('clubbase'));
 		$clubskillname[469] = '自爆';
 	}

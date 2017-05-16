@@ -13,7 +13,7 @@ namespace skill435
 	
 	function init() 
 	{
-		define('MOD_SKILL435_INFO','club;upgrade;active;limited;');
+		define('MOD_SKILL435_INFO','card;upgrade;active;limited;');
 		global $skill435_npc;
 		eval(import_module('player','addnpc','npc'));
 		$typeinfo[26]='保安';

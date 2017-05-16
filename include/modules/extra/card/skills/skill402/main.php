@@ -7,7 +7,7 @@ namespace skill402
 	
 	function init() 
 	{
-		define('MOD_SKILL402_INFO','club;unique;locked;');
+		define('MOD_SKILL402_INFO','card;unique;locked;');
 		eval(import_module('clubbase'));
 		$clubskillname[402] = '直死';
 	}
