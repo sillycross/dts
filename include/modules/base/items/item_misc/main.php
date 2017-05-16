@@ -175,8 +175,8 @@ namespace item_misc
 				}else{
 					$log.='你没有足够的权限。可能因为是你的缓存密码有误，也可能你压根就不是一条权限狗。<br>';
 				}
-//				$itm = $itmk = $itmsk = '';
-//				$itme = $itms = 0;
+				$itm = $itmk = $itmsk = '';
+				$itme = $itms = 0;
 				$mode='command';$command='';
 				return;
 			} elseif ($itm == '奇怪的按钮') {
