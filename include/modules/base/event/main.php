@@ -229,168 +229,181 @@ namespace event
 		} elseif($pls == 31) { //太鼓实验室
 		} elseif($pls == 32) { //SCP实验室
 		} elseif($pls == 33) { //雏菊之丘
-			$dice=rand(0,10);
-			if ($dice < 3){
-				if ($rp < 40){
-					$log = ($log . "少女抬头看了你一眼，随后低下头去继续她的研究。<BR>");
-					$rp = $rp + rand(10,25);
-				}elseif ($rp < 500){
-					$log = ($log . "少女抬头看了你一眼，貌似对你的举动很感兴趣的样子。<BR>");
-					$rp = $rp + rand(50,100);
-				}elseif ($rp < 1000 && $killnum == 0){
-					$log = ($log . "少女向你扔来一个保温瓶。<BR>里面是类似于咖啡的液体；<BR>你喝了一口，感觉味道不怎么样。<BR>");
-					//$rp = $rp + rand(100,200);
-					$spup = rand(50,100);
-					//$hp = $mhp;
-					$msp += $spup;
-					$sp = $msp;		
-					$rp += $spup*2;	
-				}elseif ($rp < 1000){
-					$log = ($log . "不知道为什么，你觉得双腿一软……<BR>");
-					$spdown = round($rp/4);
-					$sp -= $spdown;
-					if($sp <= 0){$sp = 1;}
-					//$sp = 17;
-				}elseif ($rp < 5000 && $killnum == 0){
-					$log = ($log . "看见少女离开了，你好奇地向少女身下的那幅不明『绘卷』上看去……<BR>");
-					$mhp = $mhp - rand(5,10);
-					if($mhp <= 37){$mhp = 37;}
-					$hp = 1;
-					$msp = $msp - rand(10,20);
-					if($msp <= 37){$msp = 37;}
-					$sp = 1;
-					//$sp = 1;
-					$inf = str_replace('h','',$inf);
-					$inf = str_replace('b','',$inf);
-					$inf = str_replace('a','',$inf);
-					$inf = str_replace('f','',$inf);
-					$inf = ($inf . 'hbaf');
-					$log = ($log . "不能承受绘卷上所述的知识量，你浑身冒血连滚带爬地逃走了。<BR>");
-				}elseif ($rp < 5000){
-					death_kagari(rand(1,2));
-				}else{
-					death_kagari(3);
-					//$log = ($log . "少女抬头看了你一眼，随后低下头去继续她的研究。<BR>");
-				}
-			}elseif ($dice < 6){
-				if ($rp < 40){
-					$log = ($log . "少女抬头看了你一眼，貌似对你的举动很感兴趣的样子。<BR>");
-					$rp = $rp + rand(50,100);
-				}elseif ($rp < 500){
-					$log = ($log . "不知道为什么，你觉得双腿一软……<BR>");
-					$hpdown = round($rp/4);
-					$hp -= $hpdown;
-					if($hp <= 0 ){$hp = 1;}
-					//$sp = $sp - 200;			
-				}elseif ($rp < 1000 && $killnum == 0){
-					$log = ($log . "少女的丝带飞到你的面前，<BR>在你的脸上重重地刮了一下。<BR>");
-					$inf = str_replace('h','',$inf);
-					$inf = ($inf . 'h');
-				}elseif ($rp < 1000){
-					$log = ($log . "少女的丝带飞到你的面前，<BR>在你的脸上重重地刮了一下。<BR>");
-					$inf = str_replace('e','',$inf);
-					$inf = ($inf . 'e');
-				}elseif ($rp < 5000 && $killnum == 0){
-					$log = ($log . "少女的丝带飞到你的面前，<BR>在你的头上重重地敲了一下。<BR>");
-					$inf = str_replace('h','',$inf);
-					$inf = str_replace('w','',$inf);
-					$inf = ($inf . 'hw');
-				}elseif ($rp < 5000){
-					death_kagari(rand(1,2));
-				}else{
-					death_kagari(3);
-					//$log = ($log . "少女抬头看了你一眼，随后低下头去继续她的研究。<BR>");
-				}		
-			}elseif ($dice < 9){
-				if ($rp < 40){
-					$log = ($log . "少女抬头开始注意你的一举一动。<BR>");
-					$rp = $rp + rand(200,400);
-				}elseif ($rp < 500){
-					$log = ($log . "少女向你扔来一个保温瓶。<BR>里面是奇怪的深色液体；<BR>你喝了一口，感觉体内有一种力量涌出来。<BR>");
-					$mhpup = rand(25,50);
-					$mhp = $mhp + $mhpup;
-					if($hp < $mhp) $hp = $mhp;
-					$rp += $mhpup*4;
-				}elseif ($rp < 1000 && $killnum == 0){
-					$log = ($log . "你小心翼翼地在少女旁边坐下，（竟然没被她赶走！）<BR>看着她身下的『绘卷』<BR>");
-					$hp = round($mhp/10);
-					if($hp <= 0){$hp = 1;}
-					$sp = round($msp/10);
-					if($sp <= 0){$sp = 1;}
-	//				$mhp = 400;
-	//				$msp = 400;
-	//				$hp = 200;
-	//				$sp = 200;
-					$log = ($log . "当你觉得你看懂了点什么的时候<BR>只见少女用惊讶的眼光盯着你。<BR>这时你才发现你已经七窍流血。<BR>");
-					$skillupsum = 0;
-					foreach(array('wp','wk','wg','wc','wd','wf') as $val){
-						$up = rand(23,34);
-						${$val} += $up;
-						$skillupsum += $up;
-					}
-					$rp += $skillupsum*2;
-	//				$wp = $wp + rand(75,150);
-	//				$wk = $wk + rand(75,150);
-	//				$wg = $wg + rand(75,150);
-	//				$wc = $wc + rand(75,150);
-	//				$wd = $wd + rand(75,150);
-	//				$wf = $wf + rand(75,150);
-				}elseif ($rp < 1000){
-					$log = ($log . "你小心翼翼地在少女旁边坐下，想看看她身下的『绘卷』<BR>结果被红色的丝带正中腿部。<BR>");
-	//				$hp = 200;
-	//				$sp = 200;
-					$hp = round($mhp/8);
-					if($hp <= 0){$hp = 1;}
-	//				$sp = round($msp/10);
-	//				if($sp <= 0){$sp = 1;}
-					$inf = str_replace('f','',$inf);
-					$inf = ($inf . 'f');
-					$log = ($log . "你龇牙咧嘴地逃走了。<BR>");			
-				}elseif ($rp < 5000){
-					death_kagari(1);
-				}elseif ($rp > 5000){
-					death_kagari(2);
-				}else{
-					$log = ($log . "少女抬头看了你一眼，随后低下头去继续她的研究。<BR>");
-				}		
-			}else{
-				if ($rp < 40){
-					$log = ($log . "少女飘了起来，并且跟在了你的后面，<BR>太可怕了，还是赶快离开为妙！<BR>");
-					$rp = $rp + rand(500,1000);
-				}elseif ($rp < 500){
-					$log = ($log . "少女瞪了你一眼，你感觉你的生命力被抽干了，<BR>太可怕了，还是赶快离开为妙！<BR>");
-					$oldhp = $hp;$oldsp = $sp;
-					$hp = 1;
-					$sp = 1;
-					$rp = $rp - round(($oldhp+$oldsp)/10);
-				}elseif ($rp < 1000 && $killnum == 0){
-					$log = ($log . "少女瞪了你一眼，你感觉头晕目眩，<BR>太可怕了，还是赶快离开为妙！<BR>");
-					$skilldownsum = 0;
-					foreach(array('wp','wk','wg','wc','wd','wf') as $val){
-						$down = rand(1,round(${$val}/2));
-						${$val} -= $down;
-						$skilldownsum += $down;
-					}
-					$rp -= round($skilldownsum/6);
-				}elseif ($rp < 1000){
-					$log = ($log . "少女瞪了你一眼，你被一种无形的压力直接压在了地上，<BR>太可怕了，还是赶快离开为妙！<BR>");
-					$mhp = round($mhp/2);
-					if($mhp <= 37){$mhp = 37;}
-					if($hp > $mhp){$hp = $mhp;}
-					$msp = round($msp/2);
-					if($msp <= 37){$msp = 37;}
-					if($sp > $msp){$sp = $msp;}
-					//$mhp = $msp = 100;
-					$rp = $rp - 37;
-				}elseif ($rp < 5000){
-					death_kagari(1);
-				}elseif ($rp > 5000){
-					death_kagari(2);
-				}else{
-					$log = ($log . "少女抬头看了你一眼，随后低下头去继续她的研究。<BR>");
-				}		
+			$result = $db->query("SELECT pid,hp FROM {$tablepre}players WHERE type=4");
+			if(!$db->num_rows($result)) $flag = 0;//篝未加入战场，正常处理事件；
+			else{
+				$result = $db->fetch_array($result);
+				if($result['hp'] >0) $flag = 1;//篝加入战场
+				else $flag = 2;//篝加入战场而且跪了
 			}
-			//echo $rp;
+			if(!$flag){
+				$dice=rand(0,10);
+				if ($dice < 3){
+					if ($rp < 40){
+						$log = ($log . "少女抬头看了你一眼，随后低下头去继续她的研究。<BR>");
+						$rp = $rp + rand(10,25);
+					}elseif ($rp < 500){
+						$log = ($log . "少女抬头看了你一眼，貌似对你的举动很感兴趣的样子。<BR>");
+						$rp = $rp + rand(50,100);
+					}elseif ($rp < 1000 && $killnum == 0){
+						$log = ($log . "少女向你扔来一个保温瓶。<BR>里面是类似于咖啡的液体；<BR>你喝了一口，感觉味道不怎么样。<BR>");
+						//$rp = $rp + rand(100,200);
+						$spup = rand(50,100);
+						//$hp = $mhp;
+						$msp += $spup;
+						$sp = $msp;		
+						$rp += $spup*2;	
+					}elseif ($rp < 1000){
+						$log = ($log . "不知道为什么，你觉得双腿一软……<BR>");
+						$spdown = round($rp/4);
+						$sp -= $spdown;
+						if($sp <= 0){$sp = 1;}
+						//$sp = 17;
+					}elseif ($rp < 5000 && $killnum == 0){
+						$log = ($log . "看见少女离开了，你好奇地向少女身下的那幅不明『绘卷』上看去……<BR>");
+						$mhp = $mhp - rand(5,10);
+						if($mhp <= 37){$mhp = 37;}
+						$hp = 1;
+						$msp = $msp - rand(10,20);
+						if($msp <= 37){$msp = 37;}
+						$sp = 1;
+						//$sp = 1;
+						$inf = str_replace('h','',$inf);
+						$inf = str_replace('b','',$inf);
+						$inf = str_replace('a','',$inf);
+						$inf = str_replace('f','',$inf);
+						$inf = ($inf . 'hbaf');
+						$log = ($log . "不能承受绘卷上所述的知识量，你浑身冒血连滚带爬地逃走了。<BR>");
+					}elseif ($rp < 5000){
+						death_kagari(rand(1,2));
+					}else{
+						death_kagari(3);
+						//$log = ($log . "少女抬头看了你一眼，随后低下头去继续她的研究。<BR>");
+					}
+				}elseif ($dice < 6){
+					if ($rp < 40){
+						$log = ($log . "少女抬头看了你一眼，貌似对你的举动很感兴趣的样子。<BR>");
+						$rp = $rp + rand(50,100);
+					}elseif ($rp < 500){
+						$log = ($log . "不知道为什么，你觉得双腿一软……<BR>");
+						$hpdown = round($rp/4);
+						$hp -= $hpdown;
+						if($hp <= 0 ){$hp = 1;}
+						//$sp = $sp - 200;			
+					}elseif ($rp < 1000 && $killnum == 0){
+						$log = ($log . "少女的丝带飞到你的面前，<BR>在你的脸上重重地刮了一下。<BR>");
+						$inf = str_replace('h','',$inf);
+						$inf = ($inf . 'h');
+					}elseif ($rp < 1000){
+						$log = ($log . "少女的丝带飞到你的面前，<BR>在你的脸上重重地刮了一下。<BR>");
+						$inf = str_replace('e','',$inf);
+						$inf = ($inf . 'e');
+					}elseif ($rp < 5000 && $killnum == 0){
+						$log = ($log . "少女的丝带飞到你的面前，<BR>在你的头上重重地敲了一下。<BR>");
+						$inf = str_replace('h','',$inf);
+						$inf = str_replace('w','',$inf);
+						$inf = ($inf . 'hw');
+					}elseif ($rp < 5000){
+						death_kagari(rand(1,2));
+					}else{
+						death_kagari(3);
+						//$log = ($log . "少女抬头看了你一眼，随后低下头去继续她的研究。<BR>");
+					}		
+				}elseif ($dice < 9){
+					if ($rp < 40){
+						$log = ($log . "少女抬头开始注意你的一举一动。<BR>");
+						$rp = $rp + rand(200,400);
+					}elseif ($rp < 500){
+						$log = ($log . "少女向你扔来一个保温瓶。<BR>里面是奇怪的深色液体；<BR>你喝了一口，感觉体内有一种力量涌出来。<BR>");
+						$mhpup = rand(25,50);
+						$mhp = $mhp + $mhpup;
+						if($hp < $mhp) $hp = $mhp;
+						$rp += $mhpup*4;
+					}elseif ($rp < 1000 && $killnum == 0){
+						$log = ($log . "你小心翼翼地在少女旁边坐下，（竟然没被她赶走！）<BR>看着她身下的『绘卷』<BR>");
+						$hp = round($mhp/10);
+						if($hp <= 0){$hp = 1;}
+						$sp = round($msp/10);
+						if($sp <= 0){$sp = 1;}
+		//				$mhp = 400;
+		//				$msp = 400;
+		//				$hp = 200;
+		//				$sp = 200;
+						$log = ($log . "当你觉得你看懂了点什么的时候<BR>只见少女用惊讶的眼光盯着你。<BR>这时你才发现你已经七窍流血。<BR>");
+						$skillupsum = 0;
+						foreach(array('wp','wk','wg','wc','wd','wf') as $val){
+							$up = rand(23,34);
+							${$val} += $up;
+							$skillupsum += $up;
+						}
+						$rp += $skillupsum*2;
+		//				$wp = $wp + rand(75,150);
+		//				$wk = $wk + rand(75,150);
+		//				$wg = $wg + rand(75,150);
+		//				$wc = $wc + rand(75,150);
+		//				$wd = $wd + rand(75,150);
+		//				$wf = $wf + rand(75,150);
+					}elseif ($rp < 1000){
+						$log = ($log . "你小心翼翼地在少女旁边坐下，想看看她身下的『绘卷』<BR>结果被红色的丝带正中腿部。<BR>");
+		//				$hp = 200;
+		//				$sp = 200;
+						$hp = round($mhp/8);
+						if($hp <= 0){$hp = 1;}
+		//				$sp = round($msp/10);
+		//				if($sp <= 0){$sp = 1;}
+						$inf = str_replace('f','',$inf);
+						$inf = ($inf . 'f');
+						$log = ($log . "你龇牙咧嘴地逃走了。<BR>");			
+					}elseif ($rp < 5000){
+						death_kagari(1);
+					}elseif ($rp > 5000){
+						death_kagari(2);
+					}else{
+						$log = ($log . "少女抬头看了你一眼，随后低下头去继续她的研究。<BR>");
+					}		
+				}else{
+					if ($rp < 40){
+						$log = ($log . "少女飘了起来，并且跟在了你的后面，<BR>太可怕了，还是赶快离开为妙！<BR>");
+						$rp = $rp + rand(500,1000);
+					}elseif ($rp < 500){
+						$log = ($log . "少女瞪了你一眼，你感觉你的生命力被抽干了，<BR>太可怕了，还是赶快离开为妙！<BR>");
+						$oldhp = $hp;$oldsp = $sp;
+						$hp = 1;
+						$sp = 1;
+						$rp = $rp - round(($oldhp+$oldsp)/10);
+					}elseif ($rp < 1000 && $killnum == 0){
+						$log = ($log . "少女瞪了你一眼，你感觉头晕目眩，<BR>太可怕了，还是赶快离开为妙！<BR>");
+						$skilldownsum = 0;
+						foreach(array('wp','wk','wg','wc','wd','wf') as $val){
+							$down = rand(1,round(${$val}/2));
+							${$val} -= $down;
+							$skilldownsum += $down;
+						}
+						$rp -= round($skilldownsum/6);
+					}elseif ($rp < 1000){
+						$log = ($log . "少女瞪了你一眼，你被一种无形的压力直接压在了地上，<BR>太可怕了，还是赶快离开为妙！<BR>");
+						$mhp = round($mhp/2);
+						if($mhp <= 37){$mhp = 37;}
+						if($hp > $mhp){$hp = $mhp;}
+						$msp = round($msp/2);
+						if($msp <= 37){$msp = 37;}
+						if($sp > $msp){$sp = $msp;}
+						//$mhp = $msp = 100;
+						$rp = $rp - 37;
+					}elseif ($rp < 5000){
+						death_kagari(1);
+					}elseif ($rp > 5000){
+						death_kagari(2);
+					}else{
+						$log = ($log . "少女抬头看了你一眼，随后低下头去继续她的研究。<BR>");
+					}		
+				}
+				//echo $rp;
+			}elseif($flag == 1){
+				$log .= '明白了少女已经是敌人的你，刻意躲避着少女的追踪。不过至少你不用担心被绘卷搞得七窍流血了。<BR>';
+			}else{
+				$log .= '少女的尸体静静地躺在雏菊盛开的山丘上，这里不再有任何危险了。<BR>但是不知为何，你丝毫没有轻松的感觉。<br>';
+			}
 		}elseif ($pls==34){//英灵殿
 			if (($art!='Untainted Glory')&&($gamestate != 50)&&($gametype!=2)){
 				$rpls=-1;
