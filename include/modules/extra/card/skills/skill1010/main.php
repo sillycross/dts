@@ -5,6 +5,8 @@ namespace skill1010
 	function init() 
 	{
 		define('MOD_SKILL1010_INFO','card;active;unique;');
+		eval(import_module('clubbase'));
+		$clubskillname[1010] = '操弄';
 	}
 	
 	function acquire1010(&$pa)
@@ -73,7 +75,10 @@ namespace skill1010
 				$mode = 'command';$command = '';
 				return;
 			}
-			if($subcmd == 'manu_page') {
+			if(!isset($subcmd)){
+				$mode = 'command';$command = '';
+				return;
+			}elseif($subcmd == 'manu_page') {
 				skill1010_manu_page();
 				return;
 			}elseif(strpos($subcmd,'manu')===0){
@@ -101,7 +106,7 @@ namespace skill1010
 		eval(import_module('sys','player'));
 		
 		if($news == 'admin_manu') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}发动了技能「操弄」，把{$b}直接传送到了面前！</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}发动了技能「操弄」，把「{$b}」直接传送到了面前！</span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

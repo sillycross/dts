@@ -163,7 +163,7 @@ namespace item_misc
 					$itm3='移动PC';$itmk3 = 'EE';$itmsk3 = '';$itme3 = 20;$itms3 = 1;
 					$itm4='量子雷达';$itmk4 = 'ER';$itmsk4 = '2';$itme4 = 20;$itms4 = 1;
 					if (defined('MOD_CLUBBASE')) eval(import_module('clubbase'));
-					foreach(array(1010) as $skv){
+					foreach(array(1010,1011) as $skv){
 						if(defined('MOD_SKILL'.$skv)) {
 							if (!\skillbase\skill_query($skv)) {
 								$log.="你获得了技能「<span class=\"yellow\">$clubskillname[$skv]</span>」！<br>";

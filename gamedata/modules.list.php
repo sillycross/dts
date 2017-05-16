@@ -74,7 +74,6 @@ autopower,extra/misc/autopower/,1
 skill601,extra/club/skills/skill601/,1
 team,base/team/,1
 battle,base/battle/,1
-skill1010,extra/card/skills/skill1010/,1
 item_misc,base/items/item_misc/,1
 gameflow_combo,core/gameflow/gameflow_combo/,1
 advteam,extra/misc/advteam/,1
@@ -107,6 +106,8 @@ kuji0,extra/card/kuji/kuji0/,1
 kuji1,extra/card/kuji/kuji1/,1
 kuji2,extra/card/kuji/kuji2/,1
 skill418,extra/card/skills/skill418/,1
+skill1011,extra/card/skills/skill1011/,1
+skill1010,extra/card/skills/skill1010/,1
 skill39,extra/club/skills/skill39/,1
 skill29,extra/club/skills/skill29/,1
 skill31,extra/club/skills/skill31/,1
