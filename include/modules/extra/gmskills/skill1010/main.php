@@ -56,7 +56,7 @@ namespace skill1010
 		eval(import_module('sys','player','input','logger'));
 		global $pcs;
 		$pcs = skill1010_mani_load_pcs($pls);
-		include template(MOD_SKILL1010_mani_PAGE);
+		include template(MOD_SKILL1010_MANI_PAGE);
 		$cmd=ob_get_contents();
 		ob_clean();
 	}

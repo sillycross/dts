@@ -19,15 +19,6 @@ namespace skill315
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
-	function skill_onload_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys'));
-		if ((!in_array($gametype,$ach_ignore_mode))&&(!\skillbase\skill_query(315,$pa))) //也可以做一些只有房间模式有效的成就
-			\skillbase\skill_acquire(315,$pa);
-		$chprocess($pa);
-	}
-	
 	function finalize315(&$pa, $data)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

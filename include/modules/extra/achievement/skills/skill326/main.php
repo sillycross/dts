@@ -18,15 +18,6 @@ namespace skill326
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
-	function skill_onload_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys'));
-		if ((!in_array($gametype,$ach_ignore_mode))&&(!\skillbase\skill_query(326,$pa))) 
-			\skillbase\skill_acquire(326,$pa);
-		$chprocess($pa);
-	}
-	
 	//Ω‚¬Î“—”√ø®∆¨
 	function cardlist_decode326($data){
 		if (eval(__MAGIC__)) return $___RET_VALUE;

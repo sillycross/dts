@@ -11,11 +11,11 @@ logger,base/logger/,1
 skillbase,base/skillbase/,1
 replay,extra/misc/replay/,1
 elorating,extra/misc/elorating/,1
-achievement_base,extra/achievement/achievement_base/,1
 bufficons,extra/misc/bufficons/,1
 explore,base/explore/,1
 noise,base/noise/,1
 lvlctl,base/lvlctl/,1
+achievement_base,extra/achievement/achievement_base/,1
 skill11,extra/club/skills/skill11/,1
 skill10,extra/club/skills/skill10/,1
 skill305,extra/achievement/skills/skill305/,1
