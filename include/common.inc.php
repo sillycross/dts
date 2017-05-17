@@ -85,16 +85,26 @@ else
 
 if (defined('NO_SYS_UPDATE')) return;
 
-if (CURSCRIPT == 'index') {//首页，所有房间刷新，暂时没实现
+if (CURSCRIPT == 'index') {//首页，所有房间刷新
+	$o_room_prefix = $room_prefix;
+	$result = $db->query("SELECT groomid,groomstatus FROM {$gtablepre}game WHERE groomstatus=2");
+	while($rarr = $db->fetch_array($result)){
+		$room_prefix = 's'.$rarr['groomid'];
+		if($room_prefix != $o_room_prefix) {
+			$room_id = $rarr['groomid'];
+			$tablepre = \sys\get_tablepre();
+			sys\routine();
+			if(!$gamestate) {
+				$db->query("UPDATE {$gtablepre}game SET groomstatus=0 WHERE groomid='{$rarr['groomid']}'");
+				if(file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$rarr['groomid'].'.txt')) unlink(GAME_ROOT.'./gamedata/tmp/rooms/'.$rarr['groomid'].'.txt');
+			}
+		}
+	}
+	$room_id = substr($o_room_prefix,1);
+	$room_prefix = $o_room_prefix;
+	$tablepre = \sys\get_tablepre();
 	sys\routine();
-//	sys\routine();
-//	$o_room_prefix=$room_prefix;
-//	
-//	$result = $db->query("SELECT groomid FROM {$tablepre}game WHERE groomstatus=2");
-//	while($rid = $db->fetch_array($result)['groomid']){
-//		
-//	}
-//	unset($result,$rid,$o_room_prefix);
+	unset($o_room_prefix,$result,$rarr);
 }
 elseif (CURSCRIPT != 'chat' && !(CURSCRIPT == 'news' && isset($sendmode) && $sendmode=='news') && CURSCRIPT != 'help') sys\routine();//聊天、游戏内进行状况、帮助页面不刷新游戏状态
 

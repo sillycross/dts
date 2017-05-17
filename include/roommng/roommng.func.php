@@ -367,7 +367,8 @@ function room_enter($id)
 		}
 		$room_prefix = 's'.$id;
 		$room_id = $id;
-		$tablepre = $gtablepre.$room_prefix.'_';
+		//$tablepre = $gtablepre.$room_prefix.'_';
+		$tablepre = \sys\get_tablepre();
 		$wtablepre = $gtablepre.($room_prefix[0]);
 		\sys\load_gameinfo();
 		$init_state = room_init_db_process($room_id); //\sys\room_auto_init();
@@ -460,8 +461,9 @@ function room_init_db_process($room_id){
 	$room_prefix = 's'.$room_id;
 	$init_state = 0;
 	
+	$tablepre = \sys\get_tablepre();
 	$wtablepre = $gtablepre.'s';
-	$tablepre = $gtablepre.$room_prefix.'_';
+	//$tablepre = $gtablepre.$room_prefix.'_';
 	//创建对应类型的优胜列表
 	$result = $db->query("SHOW TABLES LIKE '{$wtablepre}winners';");
 	if (!$db->num_rows($result))

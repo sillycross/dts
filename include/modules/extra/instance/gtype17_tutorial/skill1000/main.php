@@ -4,17 +4,8 @@ namespace skill1000
 {
 	function init() 
 	{
-		define('MOD_SKILL1000_INFO','');
+		define('MOD_SKILL1000_INFO','hidden;');
 		eval(import_module('cardbase'));
-		$cards[1000] = array(
-			'name'=>'补给品',
-			'rare'=>'C',
-			'desc'=>'教程模式用卡',
-			'pack'=>'hidden',
-			'effect'=>'',
-			'energy'=>0,
-			'valid' => array('skills'=>array('1000'=>'0'))
-		);
 	}
 	
 	function acquire1000(&$pa)

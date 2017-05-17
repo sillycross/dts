@@ -192,7 +192,7 @@ namespace skill48
 			else  $log.='技能「附魔」使敌人的<span class="yellow">'.$itemspkinfo[$pa['skill48_flag']].'</span>伤害永久提高了<span class="yellow">3%</span>。<br>';
 			$ori_val=(int)\skillbase\skill_getvalue(48,$pa['skill48_flag'],$pa);
 			$ori_val+=3;
-			if ($ori_val>120) $ori_val=120;
+			if ($ori_val>150) $ori_val=150;
 			\skillbase\skill_setvalue(48,$pa['skill48_flag'],$ori_val,$pa);
 		}
 		return $r;

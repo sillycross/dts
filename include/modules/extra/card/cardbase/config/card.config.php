@@ -2318,6 +2318,19 @@ $cards = array(
 			),
 		)
 	),
+	1000 => array(
+		'name'=>'补给品',
+		'rare'=>'C',
+		'desc'=>'教程模式用卡',
+		'pack'=>'hidden',
+		'effect'=>'教程模式技能载体',
+		'energy'=>0,
+		'valid' => array(
+			'skills'=>array(
+				'1000'=>'0'
+			)
+		)
+	),
 	//1000为教程模式专用
 );
 }

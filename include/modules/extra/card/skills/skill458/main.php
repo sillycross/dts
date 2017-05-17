@@ -4,7 +4,7 @@ namespace skill458
 {
 	function init() 
 	{
-		define('MOD_SKILL458_INFO','card;card;active;');
+		define('MOD_SKILL458_INFO','card;active;');
 		eval(import_module('clubbase'));
 		$clubskillname[458] = '鸡肉';
 	}

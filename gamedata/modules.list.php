@@ -106,8 +106,8 @@ kuji0,extra/card/kuji/kuji0/,1
 kuji1,extra/card/kuji/kuji1/,1
 kuji2,extra/card/kuji/kuji2/,1
 skill418,extra/card/skills/skill418/,1
-skill1011,extra/card/skills/skill1011/,1
-skill1010,extra/card/skills/skill1010/,1
+skill1011,extra/gmskills/skill1011/,1
+skill1010,extra/gmskills/skill1010/,1
 skill39,extra/club/skills/skill39/,1
 skill29,extra/club/skills/skill29/,1
 skill31,extra/club/skills/skill31/,1
