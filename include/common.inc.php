@@ -85,7 +85,7 @@ else
 
 if (defined('NO_SYS_UPDATE')) return;
 
-if (CURSCRIPT == 'index') {//首页，所有房间刷新
+if (CURSCRIPT == 'index') {//首页，所有房间刷新，暂时没实现
 	sys\routine();
 //	sys\routine();
 //	$o_room_prefix=$room_prefix;
@@ -96,7 +96,6 @@ if (CURSCRIPT == 'index') {//首页，所有房间刷新
 //	}
 //	unset($result,$rid,$o_room_prefix);
 }
-elseif (CURSCRIPT != 'chat' && CURSCRIPT != 'help') sys\routine();//其余调用，
-
+elseif (CURSCRIPT != 'chat' && !(CURSCRIPT == 'news' && isset($sendmode) && $sendmode=='news') && CURSCRIPT != 'help') sys\routine();//聊天、游戏内进行状况、帮助页面不刷新游戏状态
 
 ?>

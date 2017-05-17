@@ -249,7 +249,7 @@ namespace weather
 			elseif($itmsk==98){$weather = rand ( 10, 13 );}//随机恶劣天气
 			elseif($itmsk==97){$weather = rand ( 0, 9 );}//随机一般天气
 			elseif($itmsk==96){$weather = rand ( 8, 9 );}//随机起雾天气
-			elseif($itmsk==95){$weather = rand ( 14, 16 );}//随机末日天气
+			//elseif($itmsk==95){$weather = rand ( 14, 16 );}//随机末日天气
 			elseif(!empty($itmsk) && is_numeric($itmsk)){
 				if($itmsk >=0 && $itmsk < count($wthinfo)){
 					$weather = $itmsk;

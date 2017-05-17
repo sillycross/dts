@@ -15,7 +15,14 @@ if(filemtime($newsfile) > filemtime($lnewshtm)) {
 	writeover($lnewshtm,$lnewsinfo);
 }
 if(!isset($newsmode)) $newsmode = '';
-if($newsmode == 'last') {//来自news.php查看进行状况的调用，由于可能长时间没有行动，统一查看页面缓存	
+if (isset($sendmode) && $sendmode == 'news' && isset($lastnid)) {//游戏页面查看进行状况的调用，因为必须load大量Mod所以不能放chat.php
+	$lastnid = (int)$lastnid;
+	$newsinfo = \sys\getnews($lastnid);
+	ob_clean();
+	$jgamedata = gencode($newsinfo);
+	echo $jgamedata;
+	ob_end_flush();
+} elseif($newsmode == 'last') {//来自news.php查看进行状况的调用，由于可能长时间没有行动，统一查看页面缓存	
 	//echo file_get_contents($lnewshtm);
 	$newsdata['innerHTML']['newsinfo'] = file_get_contents($lnewshtm);
 	if(isset($error)){$newsdata['innerHTML']['error'] = $error;}

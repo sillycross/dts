@@ -33,9 +33,6 @@ if(($sendmode == 'send')&&$chatmsg) {//发送聊天
 			\sys\addchat(1, $chatmsg, $cuser, $teamID);
 		}
 	}
-}elseif ($sendmode == 'news' && isset($lastnid)) {//来自游戏页面查看即时进行状况的调用
-	$lastnid = (int)$lastnid;
-	$showdata = \sys\getnews($lastnid);
 }elseif($sendmode == 'newspage'){//来自news.php的调用
 	$showdata['innerHTML']['newsinfo'] = '';
 	$chats = getchat(0,'',0,$chatinnews);

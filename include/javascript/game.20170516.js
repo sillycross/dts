@@ -390,7 +390,8 @@ function chat(mode,reftime) {
 	clearTimeout(refchat);
 	var oXmlHttp = zXmlHttp.createRequest();
 	var sBody = getRequestBody(document.forms['sendchat']);
-	oXmlHttp.open("post", "chat.php", true);
+	if(mode == 'news') oXmlHttp.open("post", "news.php", true);
+	else oXmlHttp.open("post", "chat.php", true);
 	oXmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	oXmlHttp.onreadystatechange = function () {
 		if (oXmlHttp.readyState == 4) {
