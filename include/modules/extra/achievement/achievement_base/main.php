@@ -39,7 +39,7 @@ namespace achievement_base
 			//只有玩家可以获得成就技能
 			if (!$pa['type']
 			//确认允许完成成就的模式，未定义则用0键（只有正常游戏可以完成）
-				&& ( ( !isset($ach_allow_mode[$av]) && in_array($gametype, $ach_allow_mode[0]) ) || in_array($gametype,$ach_allow_mode[$av]))
+				&& ( ( !isset($ach_allow_mode[$av]) && in_array($gametype, $ach_allow_mode[0]) ) || ( isset($ach_allow_mode[$av]) && in_array($gametype,$ach_allow_mode[$av]) ) )
 				&& !\skillbase\skill_query($av,$pa))
 			\skillbase\skill_acquire($av,$pa);
 		}
