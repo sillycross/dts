@@ -14,7 +14,7 @@ namespace skillbase
 	function check_skill_info($skillno, $str){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$str = str_replace(';','',$str).';';
-		if(strpos(constant('MOD_SKILL'.$skillno.'_INFO'), $str)!==false) return true;
+		if(defined('MOD_SKILL'.$skillno.'_INFO') && strpos(constant('MOD_SKILL'.$skillno.'_INFO'), $str)!==false) return true;
 		else return false;
 	}
 	

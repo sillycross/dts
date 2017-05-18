@@ -39,8 +39,8 @@ namespace searchmemory
 		eval(import_module('sys','player','logger','searchmemory'));
 		if($gametype != 1 && $marr){
 			$searchmemory_real_slotnum = $searchmemory_max_slotnum;
-			if($weather == 8) $searchmemory_real_slotnum -= 2;
-			elseif($weather == 9) $searchmemory_real_slotnum -= 4;
+			if($weather == 8) $searchmemory_real_slotnum -= 2;//起雾视野-2（剩下3）
+			elseif($weather == 9 || $weather == 12) $searchmemory_real_slotnum -= 4;//浓雾暴风雪视野-4（剩下1）
 			if($searchmemory_real_slotnum < 1) $searchmemory_real_slotnum = 1;
 			while(sizeof($searchmemory) >= $searchmemory_real_slotnum){
 				remove_memory();

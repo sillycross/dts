@@ -128,12 +128,12 @@ namespace weather
 		{
 			apply_tornado_weather_effect();
 		} 
-		else  if($weather == 13) 	//冰雹
+		elseif($weather == 13) 	//冰雹
 		{
 			deal_hailstorm_weather_damage();
 			if ($hp<=0) return;
 		} 
-		else  if($weather == 14)	//离子暴
+		elseif($weather == 14)	//离子暴
 		{
 			$dice = rand(0,9);
 			if($dice ==0 && strpos($inf,'e')===false){
@@ -146,63 +146,7 @@ namespace weather
 				$log .= "空气中充斥着狂暴的电磁波……<br>";
 			}
 		} 
-		else  if($weather == 15)	//辐射尘
-		{
-			$dice = rand(0,9);
-			if($dice == 0){
-				$mhpdown = rand(4,8);
-				if($mhp > $mhpdown){
-					$log .= "空气中弥漫着的<span class=\"green\">放射性尘埃</span>导致你的生命上限减少了<span class=\"red\">{$mhpdown}</span>点！<br>";
-					$mhp -= $mhpdown;
-					if($hp > $mhp){$hp = $mhp;}
-				}
-			}else{
-				$log .= "空气中弥漫着放射性尘埃……<br>";
-			}
-		} 
-		else  if($weather == 16)	//臭氧洞
-		{
-			$dice = rand(0,9);
-			if($dice == 0){
-				$defdown = rand(3,6);
-				if($def > $defdown){
-					$log .= "高强度的<span class=\"purple\">紫外线照射</span>导致你的防御力减少了<span class=\"red\">{$defdown}</span>点！<br>";
-					$def -= $defdown;
-				}
-			}elseif($dice ==1 && strpos($inf,'u')===false){
-				$log .= "高强度的<span class=\"purple\">紫外线照射</span>导致你<span class=\"red\">烧伤</span>了！<br>";
-				\wound\get_inf('u');
-			}else{
-				$log .= "高强度的紫外线灼烧着大地……<br>";
-			}
-		} 
-		$chprocess($moveto);
-	}
-	
-	function search_area()	//天气对探索的特效
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
-		eval(import_module('sys','map','player','logger'));
-		if($weather == 13) 
-		{
-			deal_hailstorm_weather_damage();
-			if ($hp<=0) return;
-		} 
-		else  if($weather == 14)	//离子暴
-		{
-			$dice = rand(0,9);
-			if($dice ==0 && strpos($inf,'e')===false){
-				$log .= "空气中充斥着的<span class=\"linen\">狂暴电磁波</span>导致你<span class=\"yellow\">身体麻痹</span>了！<br>";
-				\wound\get_inf('e');
-			}elseif($dice ==1 && strpos($inf,'w')===false){
-				$log .= "空气中充斥着的<span class=\"linen\">狂暴电磁波</span>导致你<span class=\"grey\">混乱</span>了！<br>";
-				\wound\get_inf('w');
-			}else{
-				$log .= "空气中充斥着狂暴的电磁波……<br>";
-			}
-		} 
-		else  if($weather == 15)	//辐射尘
+		elseif($weather == 15)	//辐射尘
 		{
 			$dice = rand(0,9);
 			if($dice == 0){
@@ -216,7 +160,67 @@ namespace weather
 				$log .= "空气中弥漫着放射性尘埃……<br>";
 			}
 		} 
-		else  if($weather == 16)	//臭氧洞
+		elseif($weather == 16)	//臭氧洞
+		{
+			$dice = rand(0,9);
+			if($dice == 0){
+				$defdown = rand(2,5);
+				if($def > $defdown){
+					$log .= "高强度的<span class=\"purple\">紫外线照射</span>导致你的防御力减少了<span class=\"red\">{$defdown}</span>点！<br>";
+					$def -= $defdown;
+				}
+			}elseif($dice ==1 && strpos($inf,'u')===false){
+				$log .= "高强度的<span class=\"purple\">紫外线照射</span>导致你<span class=\"red\">烧伤</span>了！<br>";
+				\wound\get_inf('u');
+			}else{
+				$log .= "高强度的紫外线灼烧着大地……<br>";
+			}
+		}
+		elseif($weather == 17)	//极光
+		{
+			//也许就不需要有效果
+		}
+		$chprocess($moveto);
+	}
+	
+	function search_area()	//天气对探索的特效
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		eval(import_module('sys','map','player','logger'));
+		if($weather == 13) 
+		{
+			deal_hailstorm_weather_damage();
+			if ($hp<=0) return;
+		} 
+		elseif($weather == 14)	//离子暴
+		{
+			$dice = rand(0,9);
+			if($dice ==0 && strpos($inf,'e')===false){
+				$log .= "空气中充斥着的<span class=\"linen\">狂暴电磁波</span>导致你<span class=\"yellow\">身体麻痹</span>了！<br>";
+				\wound\get_inf('e');
+			}elseif($dice ==1 && strpos($inf,'w')===false){
+				$log .= "空气中充斥着的<span class=\"linen\">狂暴电磁波</span>导致你<span class=\"grey\">混乱</span>了！<br>";
+				\wound\get_inf('w');
+			}else{
+				$log .= "空气中充斥着狂暴的电磁波……<br>";
+			}
+		} 
+		elseif($weather == 15)	//辐射尘
+		{
+			$dice = rand(0,9);
+			if($dice == 0){
+				$mhpdown = rand(1,4);
+				if($mhp > $mhpdown){
+					$log .= "空气中弥漫着的<span class=\"green\">放射性尘埃</span>导致你的生命上限减少了<span class=\"red\">{$mhpdown}</span>点！<br>";
+					$mhp -= $mhpdown;
+					if($hp > $mhp){$hp = $mhp;}
+				}
+			}else{
+				$log .= "空气中弥漫着放射性尘埃……<br>";
+			}
+		} 
+		elseif($weather == 16)	//臭氧洞
 		{
 			$dice = rand(0,9);
 			if($dice == 0){
@@ -232,6 +236,10 @@ namespace weather
 				$log .= "高强度的紫外线灼烧着大地……<br>";
 			}
 		} 
+		elseif($weather == 17)	//极光
+		{
+			//也许就不需要有效果
+		}
 		$chprocess();
 	}
 	
@@ -241,15 +249,16 @@ namespace weather
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','map','player','logger','weather'));
-		if($weather >= 14 && $weather <= 16 && $itmsk != 95){
+		if($weather >= 14 && $itmsk != 95){
 			addnews ( $now, 'wthfail', $name, $weather, $itm );
-			$log .= "你使用了{$itm}。<br /><span class=\"red\">但是恶劣的天气并未发生任何变化！</span><br />";
+			$log .= "你使用了{$itm}。<br /><span class=\"red\">但是天气并未发生任何变化！</span><br />";
 		}else{
 			if($itmsk==99){$weather = rand ( 0, 13 );}//随机全天气
 			elseif($itmsk==98){$weather = rand ( 10, 13 );}//随机恶劣天气
 			elseif($itmsk==97){$weather = rand ( 0, 9 );}//随机一般天气
 			elseif($itmsk==96){$weather = rand ( 8, 9 );}//随机起雾天气
 			//elseif($itmsk==95){$weather = rand ( 14, 16 );}//随机末日天气
+			elseif($itmsk==95){$weather = 17;}//末日天气改为极光，数值和大晴是一样的
 			elseif(!empty($itmsk) && is_numeric($itmsk)){
 				if($itmsk >=0 && $itmsk < count($wthinfo)){
 					$weather = $itmsk;
@@ -329,7 +338,7 @@ namespace weather
 		if($news == 'wthchange') 
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}使用了{$c}，天气变成了{$wthinfo[$b]}！</span></li>";
 		if($news == 'wthfail') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}使用了{$c}，但是恶劣的天气并未发生改变！</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}使用了{$c}，但是天气并未发生改变！</span></li>";
 		if($news == 'syswthchg') 
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">奇迹和魔法都是存在的！当前天气变成了{$wthinfo[$a]}！</span></li>";
 		

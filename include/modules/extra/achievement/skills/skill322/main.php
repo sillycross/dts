@@ -19,15 +19,6 @@ namespace skill322
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
-	function skill_onload_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys'));
-		if ((!in_array($gametype,$ach_ignore_mode))&&(!\skillbase\skill_query(322,$pa))) 
-			\skillbase\skill_acquire(322,$pa);
-		$chprocess($pa);
-	}
-	
 	function finalize322(&$pa, $data)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;	

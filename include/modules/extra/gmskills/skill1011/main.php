@@ -4,7 +4,7 @@ namespace skill1011
 {
 	function init() 
 	{
-		define('MOD_SKILL1011_INFO','card;active;unique;');
+		define('MOD_SKILL1011_INFO','active;unique;');
 		eval(import_module('clubbase'));
 		$clubskillname[1011] = '具现';
 	}
@@ -160,7 +160,7 @@ namespace skill1011
 		eval(import_module('sys','player'));
 		
 		if($news == 'admin_cons') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}发动了技能「具现」，无中生有地创造了「{$b}」！</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}发动了技能「具现」，无中生有地创造了「{$b}」！（管理员{$a}宣告自己正在进行道具测试。）</span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

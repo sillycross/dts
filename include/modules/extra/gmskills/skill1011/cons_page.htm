@@ -1,9 +1,8 @@
 <input type="hidden" name="mode" value="special">
 <input type="hidden" id="command" name="command" value="skill1011_special">
-<input type="hidden" id="subcmd" name="subcmd" value="cons_page2">
 <!--{if 1==$cons_page}-->
 	请选择需要「具现」哪个地图的道具。<br>
-	
+	<input type="hidden" id="subcmd" name="subcmd" value="cons_page2">
 	<input type="radio" name="cons_pls" id="cons_pls99" value="99">
 		<a onclick=sl('cons_pls99'); href="javascript:void(0);" >全图随机</a><br>
 	<!--{loop $plsinfo $plsno $plsname}-->
@@ -17,12 +16,13 @@
 	当前地图：<!--{if 99==$cons_pls}-->随机<!--{else}-->$plsinfo[$cons_pls]<!--{/if}--><br>
 	请选择需要「具现」的道具名。<br>
 	<input type="hidden" id="cons_pls" name="cons_pls" value="$cons_pls">
+	<br><input type="radio" id="back" name="subcmd" value="cons_page">返回<br>
+	<br>
 	<!--{loop $itemlist $iid $item}-->
-		<input type="radio" id="cons{$iid}">
-			<a onclick="sl('cons{$iid}');$('subcmd').value='cons{$iid}';" href="javascript:void(0);" >
+		<input type="radio" name="subcmd" id="cons{$iid}" value="cons{$iid}">
+			<a onclick="sl('cons{$iid}');$('subcmd').name='dummy'" href="javascript:void(0);" >
 				$item['itm'] / $item['itmk'] / $item['itme'] /  $item['itms'] / $item['itmsk']
 			</a><br>
 	<!--{/loop}-->
 	<input type="button" class="cmdbutton" name="submit" id="z" value="[Z]提交" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
-	<input type="button" class="cmdbutton" name="submit" id="x" value="[X]返回" onclick="$('subcmd').value='cons_page';postCmd('gamecmd','command.php');this.disabled=true;">
 <!--{/if}--> 

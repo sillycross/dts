@@ -205,7 +205,7 @@ namespace clubbase
 		foreach (\skillbase\get_acquired_skill_array() as $key) 
 			if (isset($clublist[$club]) && !in_array($key,$clublist[$club]['skills']))
 				if (defined('MOD_SKILL'.$key.'_INFO'))
-					if ((\skillbase\check_skill_info($key, 'club') || \skillbase\check_skill_info($key, 'card')) && \skillbase\check_skill_info($key, 'battle'))
+					if (!\skillbase\check_skill_info($key, 'achievement') && \skillbase\check_skill_info($key, 'battle'))
 					{
 						$flag = 0;
 						if (\skillbase\check_skill_info($key, 'hidden')) $flag = 1;
@@ -248,7 +248,7 @@ namespace clubbase
 				}
 		foreach (\skillbase\get_acquired_skill_array() as $key) 
 			if ($club==0 || !in_array($key,$clublist[$club]['skills']))
-				if (defined('MOD_SKILL'.$key.'_INFO') && (\skillbase\check_skill_info($key, 'club') || \skillbase\check_skill_info($key, 'card')) && \skillbase\check_skill_info($key, 'active')) 
+				if (defined('MOD_SKILL'.$key.'_INFO') && !\skillbase\check_skill_info($key, 'achievement') && \skillbase\check_skill_info($key, 'active')) 
 				{ 
 					$flag = 0; 
 					if (\skillbase\check_skill_info($key, 'hidden')) $flag = 1; 
@@ -279,7 +279,7 @@ namespace clubbase
 		}
 		foreach (\skillbase\get_acquired_skill_array() as $key) 
 			if (!in_array($key,$clubskill_list))
-				if (defined('MOD_SKILL'.$key.'_INFO') && (\skillbase\check_skill_info($key, 'club') || \skillbase\check_skill_info($key, 'card')) && !\skillbase\check_skill_info($key, 'hidden')) 
+				if (defined('MOD_SKILL'.$key.'_INFO') && !\skillbase\check_skill_info($key, 'achievement') && !\skillbase\check_skill_info($key, 'hidden')) 
 					array_push($___TEMP_inclist,template(constant('MOD_SKILL'.$key.'_DESC'))); 
 		foreach ($___TEMP_inclist as $___TEMP_template_name) include $___TEMP_template_name;
 	}
@@ -329,7 +329,7 @@ namespace clubbase
 		eval(import_module('player','clubbase'));
 		$___TEMP_inclist = Array();
 		foreach (\skillbase\get_acquired_skill_array($pn) as $key) 
-			if (defined('MOD_SKILL'.$key.'_INFO') && (\skillbase\check_skill_info($key, 'club') || \skillbase\check_skill_info($key, 'card')) && \skillbase\check_skill_info($key, 'unique')) 
+			if (defined('MOD_SKILL'.$key.'_INFO') && !\skillbase\check_skill_info($key, 'achievement') && \skillbase\check_skill_info($key, 'unique')) 
 				array_push($___TEMP_inclist,template(constant('MOD_SKILL'.$key.'_DESC'))); 
 		
 		$who = $pn;

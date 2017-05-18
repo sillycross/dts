@@ -1,4 +1,4 @@
-称号技能说明
+﻿称号技能说明
 
 请先阅读skillbase的readme.txt（在base/skillbase下）和技能模板的readme.txt（在base/skills下）！！！
 请先阅读skillbase的readme.txt（在base/skillbase下）和技能模板的readme.txt（在base/skills下）！！！
@@ -14,7 +14,13 @@
 
 属性标签	属性名称	说明
 
-club 		无		表明这个技能是一个称号技能。所有称号技能都必须带上这个标签
+club 		称号		表明这个技能是一个称号技能。所有称号技能都必须带上这个标签，否则可能导致不参与很多判断
+
+card		卡片		表明这个技能是卡片技能。目前只是个标签，没有特殊的用处
+
+unique		独有		表明这个技能是独有技能，与卡片技能高度重合，主要用在NPC技能的显示和失去技能的判断上。
+
+achievement	成就		表明这个技能是成就。成就不参与任何技能的判定。
 
 battle 	战斗技		战斗页面中可以发动的技能。带上这个属性的技能必须提供模板battlecmd.htm，包含这个技能在战斗页面的发动按钮和说明
 

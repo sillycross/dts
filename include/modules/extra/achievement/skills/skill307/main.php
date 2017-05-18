@@ -6,6 +6,8 @@ namespace skill307
 	{
 		define('MOD_SKILL307_INFO','achievement;');
 		define('MOD_SKILL307_ACHIEVEMENT_ID','7');
+		eval(import_module('achievement_base'));
+		$ach_allow_mode[307] = array(0, 16);
 	}
 	
 	function acquire307(&$pa)
@@ -17,15 +19,6 @@ namespace skill307
 	function lost307(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-	}
-	
-	function skill_onload_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys'));
-		if (((!in_array($gametype,$ach_ignore_mode))||($gametype==16))&&(!\skillbase\skill_query(307,$pa))) 
-			\skillbase\skill_acquire(307,$pa);
-		$chprocess($pa);
 	}
 
 	function finalize307(&$pa, $data)

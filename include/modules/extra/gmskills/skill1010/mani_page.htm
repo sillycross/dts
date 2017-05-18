@@ -2,8 +2,8 @@
 <input type="hidden" id="command" name="command" value="skill1010_special">
 请选择当前地图的以下角色进行遭遇：<br>
 <!--{loop $pcs $pcid $pcd}-->
-	<input type="radio" name="subcmd" id="manu$pcid" value="manu$pcid">
-	<a onclick=sl('manu$pcid'); href="javascript:void(0);" >
+	<input type="radio" name="subcmd" id="mani$pcid" value="mani$pcid">
+	<a onclick=sl('mani$pcid'); href="javascript:void(0);" >
 		$typeinfo[$pcd['type']] 
 		<!--{if $pcd['hp'] <= 0}--><span class="red">$pcd['name']</span>
 		<!--{else}-->$pcd['name']<!--{/if}--> 

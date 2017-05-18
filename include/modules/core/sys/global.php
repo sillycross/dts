@@ -8,9 +8,13 @@ namespace sys
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		$res = NULL;
+		$dir = GAME_ROOT.'./gamedata/tmp/processlock/';
+		$file = 'process_'.$groomid.'.lock';
+		if(!file_exists($dir)) mymkdir($dir);
+		if(!file_exists($dir.$file)) touch($dir.$file);
 		//startmicrotime();
 		if(empty($plock)) {
-			$plock=fopen(GAME_ROOT.'./gamedata/tmp/processlock/process_'.$groomid.'.lock','w+');
+			$plock=fopen($file,'w+');
 			$res = flock($plock,$locktype);
 		}
 		return $res;

@@ -4,7 +4,7 @@ namespace skill1010
 {
 	function init() 
 	{
-		define('MOD_SKILL1010_INFO','card;active;unique;');
+		define('MOD_SKILL1010_INFO','active;unique;');
 		eval(import_module('clubbase'));
 		$clubskillname[1010] = '操弄';
 	}
@@ -37,7 +37,7 @@ namespace skill1010
 		$chprocess($pa);
 	}
 	
-	function skill1010_manu_load_pcs($p)
+	function skill1010_mani_load_pcs($p)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
@@ -50,13 +50,13 @@ namespace skill1010
 		return $r;
 	}
 	
-	function skill1010_manu_page()
+	function skill1010_mani_page()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','input','logger'));
 		global $pcs;
-		$pcs = skill1010_manu_load_pcs($pls);
-		include template(MOD_SKILL1010_MANU_PAGE);
+		$pcs = skill1010_mani_load_pcs($pls);
+		include template(MOD_SKILL1010_MANI_PAGE);
 		$cmd=ob_get_contents();
 		ob_clean();
 	}
@@ -78,18 +78,18 @@ namespace skill1010
 			if(!isset($subcmd)){
 				$mode = 'command';$command = '';
 				return;
-			}elseif($subcmd == 'manu_page') {
-				skill1010_manu_page();
+			}elseif($subcmd == 'mani_page') {
+				skill1010_mani_page();
 				return;
-			}elseif(strpos($subcmd,'manu')===0){
-				$mpid = (int)str_replace('manu','',$subcmd);
-				$pcs = skill1010_manu_load_pcs($pls);
+			}elseif(strpos($subcmd,'mani')===0){
+				$mpid = (int)str_replace('mani','',$subcmd);
+				$pcs = skill1010_mani_load_pcs($pls);
 				if(!isset($pcs[$mpid])) {
 					$log .= '该角色不在当前地图。';
 					$mode = 'command';$command = '';
 					return;
 				}
-				addnews (0, 'admin_manu', $name, $pcs[$mpid]['name'] );
+				addnews (0, 'admin_mani', $name, $pcs[$mpid]['name'] );
 				\enemy\meetman($mpid);
 			}else{
 				$log .= '命令参数错误。';
@@ -105,8 +105,8 @@ namespace skill1010
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
 		
-		if($news == 'admin_manu') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}发动了技能「操弄」，把「{$b}」直接传送到了面前！</span></li>";
+		if($news == 'admin_mani') 
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}发动了技能「操弄」，把「{$b}」直接传送到了自己面前！（管理员{$a}宣告自己正在进行战斗测试。）</span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

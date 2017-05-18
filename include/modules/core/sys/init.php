@@ -116,8 +116,9 @@ namespace sys
 		$arealist = explode(',',$arealist);
 		
 		//为$tablepre赋值，之后除game表之外的数据库操作都被引入对应前缀的数据表
-		if($room_prefix) $tablepre = $gtablepre.$room_prefix.'_';
-		else $tablepre = $gtablepre;
+		$tablepre = get_tablepre();
+//		if($room_prefix) $tablepre = $gtablepre.$room_prefix.'_';
+//		else $tablepre = $gtablepre;
 		
 		if ($room_prefix=='') $wtablepre = $gtablepre;
 		else $wtablepre = $gtablepre.($room_prefix[0]);
@@ -149,6 +150,13 @@ namespace sys
 			$mode=$___LOCAL_INPUT__VARS__mode;
 			$command=$___LOCAL_INPUT__VARS__command;
 		}
+	}
+	
+	function get_tablepre(){//根据房间id生成$tablepre，单纯是统一用
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		global $room_prefix,$gtablepre;
+		if($room_prefix) return $gtablepre.$room_prefix.'_';
+		else return $gtablepre;
 	}
 }
 

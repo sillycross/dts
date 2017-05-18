@@ -11,11 +11,11 @@ logger,base/logger/,1
 skillbase,base/skillbase/,1
 replay,extra/misc/replay/,1
 elorating,extra/misc/elorating/,1
-achievement_base,extra/achievement/achievement_base/,1
 bufficons,extra/misc/bufficons/,1
 explore,base/explore/,1
 noise,base/noise/,1
 lvlctl,base/lvlctl/,1
+achievement_base,extra/achievement/achievement_base/,1
 skill11,extra/club/skills/skill11/,1
 skill10,extra/club/skills/skill10/,1
 skill305,extra/achievement/skills/skill305/,1
@@ -106,8 +106,8 @@ kuji0,extra/card/kuji/kuji0/,1
 kuji1,extra/card/kuji/kuji1/,1
 kuji2,extra/card/kuji/kuji2/,1
 skill418,extra/card/skills/skill418/,1
-skill1011,extra/card/skills/skill1011/,1
-skill1010,extra/card/skills/skill1010/,1
+skill1011,extra/gmskills/skill1011/,1
+skill1010,extra/gmskills/skill1010/,1
 skill39,extra/club/skills/skill39/,1
 skill29,extra/club/skills/skill29/,1
 skill31,extra/club/skills/skill31/,1
