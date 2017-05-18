@@ -34,7 +34,7 @@ namespace instance6
 				\sys\gameover($atime,'end1');
 				return;
 			}
-			if ($areanum>=($areaadd*2)){//限时2禁
+			if ($areanum>=($areaadd*4)){//限时4禁
 				$result = $db->query("SELECT * FROM {$tablepre}players WHERE hp>0 AND type=0 ORDER BY card LIMIT 1");
 				$wdata = $db->fetch_array($result);
 				$winner = $wdata['name'];

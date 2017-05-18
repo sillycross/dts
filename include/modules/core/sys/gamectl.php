@@ -302,14 +302,12 @@ namespace sys
 		eval(import_module('sys'));
 		if(CURSCRIPT !== 'chat') 
 		{
-//			$plock=fopen(GAME_ROOT.'./gamedata/process.lock','ab');
-//			flock($plock,LOCK_EX);
+			i//f($___MOD_SRV && )
 			process_lock();
 			load_gameinfo();
 			updategame();
 			save_gameinfo();
 			process_unlock();
-//			fclose($plock); 
 		}
 	}
 }

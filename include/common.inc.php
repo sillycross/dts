@@ -85,8 +85,8 @@ else
 
 if (defined('NO_SYS_UPDATE')) return;
 
-if (CURSCRIPT == 'index') {//首页，所有房间刷新
-	sys\routine();
+//if (CURSCRIPT == 'index') {//首页，所有房间刷新
+//	sys\routine();
 //	$o_room_prefix = $room_prefix;
 //	$result = $db->query("SELECT groomid,groomstatus FROM {$gtablepre}game WHERE groomstatus=2");
 //	while($rarr = $db->fetch_array($result)){
@@ -106,7 +106,7 @@ if (CURSCRIPT == 'index') {//首页，所有房间刷新
 //	$tablepre = \sys\get_tablepre();
 //	sys\routine();
 //	unset($o_room_prefix,$result,$rarr);
-}
-elseif (CURSCRIPT != 'chat' && !(CURSCRIPT == 'news' && isset($sendmode) && $sendmode=='news') && CURSCRIPT != 'help') sys\routine();//聊天、游戏内进行状况、帮助页面不刷新游戏状态
+//}
+if (CURSCRIPT != 'chat' && !(CURSCRIPT == 'news' && isset($sendmode) && $sendmode=='news') && CURSCRIPT != 'help') sys\routine();//聊天、游戏内进行状况、帮助页面不刷新游戏状态
 
 ?>
