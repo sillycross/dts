@@ -14,7 +14,7 @@ namespace sys
 		if(!file_exists($dir.$file)) touch($dir.$file);
 		//startmicrotime();
 		if(empty($plock)) {
-			$plock=fopen($file,'w+');
+			$plock=fopen($dir.$file,'w+');
 			$res = flock($plock,$locktype);
 		}
 		return $res;

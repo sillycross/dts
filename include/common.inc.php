@@ -85,28 +85,34 @@ else
 
 if (defined('NO_SYS_UPDATE')) return;
 
-//if (CURSCRIPT == 'index') {//首页，所有房间刷新
-//	sys\routine();
-//	$o_room_prefix = $room_prefix;
-//	$result = $db->query("SELECT groomid,groomstatus FROM {$gtablepre}game WHERE groomstatus=2");
-//	while($rarr = $db->fetch_array($result)){
-//		$room_prefix = 's'.$rarr['groomid'];
-//		if($room_prefix != $o_room_prefix) {
-//			$room_id = $rarr['groomid'];
-//			$tablepre = \sys\get_tablepre();
-//			sys\routine();
-//			if(!$gamestate) {
-//				$db->query("UPDATE {$gtablepre}game SET groomstatus=0 WHERE groomid='{$rarr['groomid']}'");
-//				if(file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$rarr['groomid'].'.txt')) unlink(GAME_ROOT.'./gamedata/tmp/rooms/'.$rarr['groomid'].'.txt');
-//			}
-//		}
-//	}
-//	$room_id = substr($o_room_prefix,1);
-//	$room_prefix = $o_room_prefix;
-//	$tablepre = \sys\get_tablepre();
-//	sys\routine();
-//	unset($o_room_prefix,$result,$rarr);
-//}
+if (CURSCRIPT == 'index') {//首页，所有房间刷新
+	if($___MOD_SRV) {//如果daemon开启，则试图调用daemon
+		$routine_url = 'http://'.$_SERVER['HTTP_HOST'].substr($_SERVER['PHP_SELF'],0,-9).'command.php';
+		$routine_context = array('command'=>'routine');
+		send_post($routine_url,$routine_context);
+		unset($routine_url,$routine_context);
+	}else{
+		$o_room_prefix = $room_prefix;
+		$result = $db->query("SELECT groomid,groomstatus FROM {$gtablepre}game WHERE groomstatus=2");
+		while($rarr = $db->fetch_array($result)){
+			$room_prefix = 's'.$rarr['groomid'];
+			if($room_prefix != $o_room_prefix) {
+				$room_id = $rarr['groomid'];
+				$tablepre = \sys\get_tablepre();
+				sys\routine();
+				if(!$gamestate) {
+					$db->query("UPDATE {$gtablepre}game SET groomstatus=0 WHERE groomid='{$rarr['groomid']}'");
+					if(file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$rarr['groomid'].'.txt')) unlink(GAME_ROOT.'./gamedata/tmp/rooms/'.$rarr['groomid'].'.txt');
+				}
+			}
+		}
+		$room_id = substr($o_room_prefix,1);
+		$room_prefix = $o_room_prefix;
+		$tablepre = \sys\get_tablepre();
+		sys\routine();
+		unset($o_room_prefix,$result,$rarr);
+	}
+}
 if (CURSCRIPT != 'chat' && !(CURSCRIPT == 'news' && isset($sendmode) && $sendmode=='news') && CURSCRIPT != 'help') sys\routine();//聊天、游戏内进行状况、帮助页面不刷新游戏状态
 
 ?>

@@ -152,11 +152,13 @@ namespace sys
 		}
 	}
 	
-	function get_tablepre(){//根据房间id生成$tablepre，单纯是统一用
+	function get_tablepre($room_id=0){//根据房间id生成$tablepre，单纯是统一用
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		global $room_prefix,$gtablepre;
-		if($room_prefix) return $gtablepre.$room_prefix.'_';
-		else return $gtablepre;
+		global $gtablepre;
+		if(!$room_id) global $room_id;
+		$room_id = (int)$room_id;
+		if(!$room_id) return $gtablepre;
+		else return $gtablepre.'s'.$room_id.'_';
 	}
 }
 

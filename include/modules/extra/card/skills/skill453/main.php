@@ -111,7 +111,7 @@ namespace skill453
 			}
 			else
 			{
-				$z['activate_hint'] = "你连续主动攻击同一目标时<br>造成的伤害每次增加20%";
+				$z['activate_hint'] = "你连续主动攻击同一目标时<br>造成的伤害每次增加10%";
 			}
 			
 			\bufficons\bufficon_show('img/skill453.gif',$z);

@@ -311,6 +311,44 @@ else	//未开启server-client模式，正常执行准备流程
 }
 
 ////////////////////////////////////////////////////////////////////////////
+//////////////////////////调用daemon进行的全局操作//////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+
+
+if(isset($command)){
+	if($command=='get_news_in_game' && isset($lastnid) && isset($news_room_id)){//获取进行状况
+		$lastnid=(int)$lastnid;
+		$newsinfo = \sys\getnews($lastnid,0,$news_room_id);
+		ob_clean();
+		$jgamedata = gencode($newsinfo);
+		echo $jgamedata;
+		ob_end_flush();
+		return;
+	
+	}elseif($command=='routine'){//刷新游戏状态
+		$o_room_prefix = $room_prefix;
+		$result = $db->query("SELECT groomid,groomstatus FROM {$gtablepre}game WHERE groomstatus=2");
+		while($rarr = $db->fetch_array($result)){
+			$room_prefix = 's'.$rarr['groomid'];
+			if($room_prefix != $o_room_prefix) {
+				$room_id = $rarr['groomid'];
+				$tablepre = \sys\get_tablepre();
+				sys\routine();
+				if(!$gamestate) {
+					$db->query("UPDATE {$gtablepre}game SET groomstatus=0 WHERE groomid='{$rarr['groomid']}'");
+					if(file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$rarr['groomid'].'.txt')) unlink(GAME_ROOT.'./gamedata/tmp/rooms/'.$rarr['groomid'].'.txt');
+				}
+			}
+		}
+//		$room_id = substr($o_room_prefix,1);
+//		$room_prefix = $o_room_prefix;
+//		$tablepre = \sys\get_tablepre();
+		return;
+	}
+}
+
+
+////////////////////////////////////////////////////////////////////////////
 //////////////////////////游戏前玩家信息检查///////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
 

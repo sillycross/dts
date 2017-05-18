@@ -2201,7 +2201,7 @@ $cards = array(
 	),
 	150 => array(
 		'name' => '减肥挑战者',
-		'rare' => 'B',
+		'rare' => 'M',
 		'pack' => 'Way of Life',
 		'desc' => '今天锻炼了一天，头都是晕的',
 		'effect' => '初始生命体力+100，食用补给效果减少30%',

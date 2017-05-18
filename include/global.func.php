@@ -339,6 +339,24 @@ function copy_dir($source, $destination)		//递归复制目录
 	}
 }
 
+//以post形式向网页发出信息
+function send_post($url, $post_data=array(), $timeout=5) {
+ 
+  $qrydata = http_build_query($post_data);
+  $options = array(
+    'http' => array(
+      'method' => 'POST',
+      'header' => 'Content-type:application/x-www-form-urlencoded',
+      'content' => $qrydata,
+      'timeout' => $timeout
+    )
+  );
+  $context = stream_context_create($options);
+  $result = file_get_contents($url, false, $context);
+ 
+  return $result;
+}
+
 //----------------------------------------
 //              调试函数
 //----------------------------------------
