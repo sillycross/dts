@@ -302,7 +302,7 @@ namespace sys
 		eval(import_module('sys'));
 		if(CURSCRIPT !== 'chat') 
 		{
-			i//f($___MOD_SRV && )
+			//if($___MOD_SRV && )
 			process_lock();
 			load_gameinfo();
 			updategame();
