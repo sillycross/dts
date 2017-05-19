@@ -1,5 +1,31 @@
 <?php
 
+function room_all_routine(){
+	eval(import_module('sys'));
+	//startmicrotime();
+	$o_room_id = $room_id;
+	$result = $db->query("SELECT groomid,groomstatus FROM {$gtablepre}game WHERE groomid>0 AND groomstatus=2");
+	$wtablepre = $gtablepre.'s';
+	while($rarr = $db->fetch_array($result)){
+		$room_id = $rarr['groomid'];
+		$room_prefix = 's'.$room_id;
+		if($room_prefix != $o_room_prefix) {
+			$tablepre = \sys\get_tablepre();
+			sys\routine();
+			if(!$gamestate) {
+				$db->query("UPDATE {$gtablepre}game SET groomstatus=0 WHERE groomid='{$rarr['groomid']}'");
+				if(file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$rarr['groomid'].'.txt')) unlink(GAME_ROOT.'./gamedata/tmp/rooms/'.$rarr['groomid'].'.txt');
+			}
+		}
+	}
+	$room_id = $o_room_id;
+	$room_prefix = !$room_id ? '' : 's'.$room_id;
+	$wtablepre = !$room_id ? $gtablepre : $gtablepre.'s';
+	$tablepre = \sys\get_tablepre();
+	//logmicrotime($GLOBALS['___MOD_SRV'] ? 'daemon模式' : '通常模式');
+	return;
+}
+
 function update_roomstate(&$roomdata, $runflag)
 {
 	eval(import_module('sys'));
