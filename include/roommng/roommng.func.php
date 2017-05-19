@@ -9,7 +9,7 @@ function room_all_routine(){
 	while($rarr = $db->fetch_array($result)){
 		$room_id = $rarr['groomid'];
 		$room_prefix = 's'.$room_id;
-		if($room_prefix != $o_room_prefix) {
+		if($room_id != $o_room_id) {
 			$tablepre = \sys\get_tablepre();
 			sys\routine();
 			if(!$gamestate) {

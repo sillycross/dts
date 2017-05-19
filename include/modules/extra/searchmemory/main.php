@@ -249,12 +249,11 @@ namespace searchmemory
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player','logger','searchmemory'));
-		$obbs = 1.0;
 		if(isset($sdata['sm_active_debuff']) && $sdata['sm_active_debuff']) {
-			$obbs *= $searchmemory_battle_active_debuff;
 			//$log .= '<span class="red">两次打扰同一玩家使你的先制率降低了。</span><br>';
+			return $chprocess($ldata,$edata) * $searchmemory_battle_active_debuff;
 		}
-		return $obbs;
+		else return $chprocess($ldata,$edata);
 	}
 	
 	//移动后丢失所有探索记忆

@@ -61,7 +61,7 @@ namespace skill42
 	}
 	
 	//先攻率+12%
-	function calculate_active_obbs(&$ldata,&$edata)
+	function calculate_active_obbs_multiplier(&$ldata,&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r = 1;
