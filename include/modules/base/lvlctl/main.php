@@ -68,67 +68,70 @@ namespace lvlctl
 		//$up_exp_temp = round ( (2 * $pa['lvl'] + 1) * $baseexp );
 		if(strpos($db_player_structure_types['lvl'],'tinyint')===0) $lvllimit = 250;
 		else $lvllimit = 65000;
-		$upflag = 0;
-		if ($pa['exp'] >= $up_exp_temp && $pa['lvl'] < $lvllimit) 
+		$upflag = 1;
+		if ($pa['lvl'] < $lvllimit) 
 		{
 			//等级没达到满级才会增加经验值
 			$pa['exp']+=$v;
 			$upflag = 1;
-			//升级判断
-			$lvup = calc_uplv($pa['exp'],  $up_exp_temp);
-			//$lvup = 1 + floor ( ($pa['exp'] - $up_exp_temp) / $baseexp / 2 );
-			$lvup = $lvup > $lvllimit - $pa['lvl'] ? $lvllimit - $pa['lvl'] : $lvup;
-			
-			$lvuphp = $lvupatt = $lvupdef = $lvupskill = $lvupsp = $lvupspref = $lvupskpt = 0; $sklog = '';
-			for($i = 0; $i < $lvup; $i += 1) 
-			{
-				if ($pa['lvl'] < $lvllimit) lvlup($pa);
-			}
-			$up_exp_temp = calc_upexp($pa['lvl']);
-			//$up_exp_temp = round ( (2 * $pa['lvl'] + 1) * $baseexp );
-			
-			if ($pa['lvl'] >= $lvllimit) {
-				$pa['lvl'] = $lvllimit;
-				$pa['exp'] = $up_exp_temp;
-			}
-			$pa['upexp'] = $up_exp_temp;
-			$pa['hp'] += $lvuphp;
-			$pa['mhp'] += $lvuphp;
-			$pa['sp'] += $lvupsp;
-			$pa['msp'] += $lvupsp;
-			$pa['att'] += $lvupatt;
-			$pa['def'] += $lvupdef;
-			/*
-			if ($skname == 'all') {
-				${$perfix . 'wp'} += $lvupskill;
-				${$perfix . 'wk'} += $lvupskill;
-				${$perfix . 'wg'} += $lvupskill;
-				${$perfix . 'wc'} += $lvupskill;
-				${$perfix . 'wd'} += $lvupskill;
-				${$perfix . 'wf'} += $lvupskill;
-			} elseif ($skname) {
-				${$perfix . $skname} += $lvupskill;
-			}
-			*/
-			
-			if ($pa['sp']+$lvupspref >= $pa['msp']) 
-			{
-				$lvupspref = $pa['msp'] - $pa['sp'];
-			}
-			$pa['sp'] += $lvupspref;
-			$pa['skillpoint']+= $lvupskpt;
-			/*
-			if ($skname) {
-				$sklog = "，{$sklanginfo[$skname]}+{$lvupskill}";
-			}
-			*/
-			if ($pa['pid'] === $pid) {
-				$log .= "<span class=\"yellow\">你升了{$lvup}级！生命上限+{$lvuphp}，体力上限+{$lvupsp}，攻击+{$lvupatt}，防御+{$lvupdef}，体力恢复了{$lvupspref}{$sklog}，获得了{$lvupskpt}点技能点！</span><br>";
-			} elseif (!$pa['type']) {
-				$w_log = "<span class=\"yellow\">你升了{$lvup}级！生命上限+{$lvuphp}，体力上限+{$lvupsp}，攻击+{$lvupatt}，防御+{$lvupdef}，体力恢复了{$lvupspref}{$sklog}，获得了{$lvupskpt}点技能点！</span><br>";
-				\logger\logsave ( $pa['pid'], $now, $w_log,'s');
+			if($pa['exp'] >= $up_exp_temp){
+				//升级判断
+				$lvup = calc_uplv($pa['exp'],  $up_exp_temp);
+				//$lvup = 1 + floor ( ($pa['exp'] - $up_exp_temp) / $baseexp / 2 );
+				$lvup = $lvup > $lvllimit - $pa['lvl'] ? $lvllimit - $pa['lvl'] : $lvup;
+				
+				$lvuphp = $lvupatt = $lvupdef = $lvupskill = $lvupsp = $lvupspref = $lvupskpt = 0; $sklog = '';
+				for($i = 0; $i < $lvup; $i += 1) 
+				{
+					if ($pa['lvl'] < $lvllimit) lvlup($pa);
+				}
+				$up_exp_temp = calc_upexp($pa['lvl']);
+				//$up_exp_temp = round ( (2 * $pa['lvl'] + 1) * $baseexp );
+				
+				if ($pa['lvl'] >= $lvllimit) {
+					$pa['lvl'] = $lvllimit;
+					$pa['exp'] = $up_exp_temp;
+				}
+				$pa['upexp'] = $up_exp_temp;
+				$pa['hp'] += $lvuphp;
+				$pa['mhp'] += $lvuphp;
+				$pa['sp'] += $lvupsp;
+				$pa['msp'] += $lvupsp;
+				$pa['att'] += $lvupatt;
+				$pa['def'] += $lvupdef;
+				/*
+				if ($skname == 'all') {
+					${$perfix . 'wp'} += $lvupskill;
+					${$perfix . 'wk'} += $lvupskill;
+					${$perfix . 'wg'} += $lvupskill;
+					${$perfix . 'wc'} += $lvupskill;
+					${$perfix . 'wd'} += $lvupskill;
+					${$perfix . 'wf'} += $lvupskill;
+				} elseif ($skname) {
+					${$perfix . $skname} += $lvupskill;
+				}
+				*/
+				
+				if ($pa['sp']+$lvupspref >= $pa['msp']) 
+				{
+					$lvupspref = $pa['msp'] - $pa['sp'];
+				}
+				$pa['sp'] += $lvupspref;
+				$pa['skillpoint']+= $lvupskpt;
+				/*
+				if ($skname) {
+					$sklog = "，{$sklanginfo[$skname]}+{$lvupskill}";
+				}
+				*/
+				if ($pa['pid'] === $pid) {
+					$log .= "<span class=\"yellow\">你升了{$lvup}级！生命上限+{$lvuphp}，体力上限+{$lvupsp}，攻击+{$lvupatt}，防御+{$lvupdef}，体力恢复了{$lvupspref}{$sklog}，获得了{$lvupskpt}点技能点！</span><br>";
+				} elseif (!$pa['type']) {
+					$w_log = "<span class=\"yellow\">你升了{$lvup}级！生命上限+{$lvuphp}，体力上限+{$lvupsp}，攻击+{$lvupatt}，防御+{$lvupdef}，体力恢复了{$lvupspref}{$sklog}，获得了{$lvupskpt}点技能点！</span><br>";
+					\logger\logsave ( $pa['pid'], $now, $w_log,'s');
+				}
 			}
 		} elseif ($pa['lvl'] >= $lvllimit) {
+			$upflag = 0;
 			$pa['lvl'] = $lvllimit;
 			$pa['exp'] = $up_exp_temp;
 		}
