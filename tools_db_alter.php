@@ -20,7 +20,7 @@ output_t('Loading bra.install.sql...');
 
 //获取表名内容备用
 $alter_tables = array();
-$result = $db->query("SHOW TABLES LIKE 'alter_%';");
+$result = $db->query("SHOW TABLES LIKE 'alter_%game';");
 while($rarr = $db->fetch_array($result)){
 	$table = str_replace('alter_','',current($rarr));
 	$alter_tables[] = $table;
@@ -54,10 +54,14 @@ foreach($alter_tables as $at){
 
 //结束，删除原表，做好清理
 output_t('All finished. Now delete the original databases and change names');
-foreach($alter_tables as $at){	
-	$db->query("DROP TABLE IF EXISTS alter_{$at}");
+foreach($alter_tables as $at){
 	$db->query("DROP TABLE IF EXISTS {$gtablepre}{$at}");
 	$db->query("RENAME TABLE {$gtablepre}{$at}_clone TO {$gtablepre}{$at}");
+}
+$result = $db->query("SHOW TABLES LIKE 'alter_%';");
+while($rarr = $db->fetch_array($result)){
+	$table = current($rarr);
+	$db->query("DROP TABLE IF EXISTS $table");
 }
 //$result = $db->query("DESCRIBE {$gtablepre}players");
 echo 'Done.';

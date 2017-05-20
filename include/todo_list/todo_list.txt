@@ -8,3 +8,4 @@
 --在strike_finish()里加伤害的技能都得改到apply_total_damage_modifier_down()或者apply_total_damage_modifier_up()里面去
 --模块文件里把函数注释掉好像会导致parse的时候判定出问题，待判断
 --每一个战斗技能都占了一条news类别，就不会复用吗
+--感觉sys模块的init()里面不应该放房间和gameinfo的判定，会不得不在每次调用common.inc.php时读两遍game表，有性能损耗

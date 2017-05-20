@@ -16,18 +16,15 @@ CREATE TABLE `bra_game` (
   `hack` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `hdamage` int(10) unsigned NOT NULL DEFAULT '0',
   `hplayer` char(15) NOT NULL DEFAULT '',
-  `noisetime` int(10) unsigned NOT NULL DEFAULT '0',
-  `noisepls` int(10) unsigned NOT NULL DEFAULT '0',
-  `noiseid` int(10) unsigned NOT NULL DEFAULT '0',
-  `noiseid2` int(10) unsigned NOT NULL DEFAULT '0',
-  `noisemode` char(30) NOT NULL DEFAULT '',
   `winmode` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `winner` char(15) NOT NULL DEFAULT '',  
   `areanum` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `areatime` int(10) unsigned NOT NULL DEFAULT '0',
   `areawarn` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `arealist` varchar(255) NOT NULL DEFAULT '',
-  `gamevars` varchar(1000) NOT NULL DEFAULT '',
+  `noisevars` varchar(1000) NOT NULL DEFAULT '',
+  `roomvars` text NOT NULL DEFAULT '',
+  `gamevars` text NOT NULL DEFAULT '',
   PRIMARY KEY (`groomid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

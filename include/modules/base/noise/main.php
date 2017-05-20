@@ -2,7 +2,14 @@
 
 namespace noise
 {
-	function init() {}
+	function init() {
+		global $noisetime, $noisepls, $noiseid, $noiseid2, $noisemode;
+		$noisetime = $noisevars['noisetime'];
+		$noisepls = $noisevars['noisepls'];
+		$noiseid = $noisevars['noiseid'];
+		$noiseid2 = $noisevars['noiseid2'];
+		$noisemode = $noisevars['noisemode'];
+	}
 	
 	function pre_act(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -27,13 +34,49 @@ namespace noise
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys'));
+		eval(import_module('sys','noise'));
 		$noisetime = $now;
 		$noisepls = $where;
 		$noisemode = $typ;
 		$noiseid = $pid1;
 		$noiseid2 = $pid2;
 		\sys\save_combatinfo();
+	}
+	
+	function load_gameinfo_post_work(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','noise'));
+		$chprocess();
+		foreach($noisevars as $key => $val){
+			${$key} = $val;
+		}
+		return;
+	}
+	
+	function gameinfo_audit(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','noise'));
+		$chprocess();
+		if(!$noisetime){$noisetime = 0;}
+		if(!$noisepls){$noisepls = 0;}
+		if(!$noiseid){$noiseid = 0;}
+		if(!$noiseid2){$noiseid2 = 0;}
+		if(!$noisemode){$noisemode = '';}
+		return;
+	}
+	
+	function save_gameinfo_prepare_work($ginfo, $ignore_room = 1){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','noise'));
+		//因为sys模块里的这个函数最后是要gencode的，数组处理必须先进行，而不能先$chprocess()。
+		if(!is_array($ginfo['noisevars'])){
+			var_dump($ginfo['noisevars']);
+			$ginfo['noisevars'] = array();
+		}
+		foreach(array('noisetime', 'noisepls', 'noiseid', 'noiseid2', 'noisemode') as $nv){
+			$ginfo['noisevars'][$nv] = ${$nv};
+		}
+		return $chprocess($ginfo, $ignore_room);
 	}
 }
 

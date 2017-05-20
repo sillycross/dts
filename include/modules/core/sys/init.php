@@ -107,13 +107,14 @@ namespace sys
 			$result = $db->query("SELECT * FROM {$gtablepre}game where groomid='0'");
 			$gameinfo = $db->fetch_array($result);
 		}
-		//$gameinfo初始化，初次global这些变量，其余与load_gameinfo功能相同
+		//$gameinfo初始化，初次global这些变量
+		//注意这里并没有对$arealist等变量进行处理，真正的处理是在common.inc.php调用routine()调用load_gameinfo()时
 		foreach ($gameinfo as $key => $value)
 		{
 			global ${$key};
 			${$key}=$value;
 		}
-		$arealist = explode(',',$arealist);
+		//$arealist = explode(',',$arealist);
 		
 		//为$tablepre赋值，之后除game表之外的数据库操作都被引入对应前缀的数据表
 		$tablepre = get_tablepre();

@@ -44,10 +44,19 @@ namespace song
 			return;
 		}
 		addnews($now,'song',$name,$plsinfo[$pls],$songcfg['songname']);
-		foreach($songcfg['lyrics'] as $lyric){
-			$log .= $lyric.'<br>';
-			\sys\addchat(0, $lyric, $name);
+		$lyricnum = sizeof($songcfg['lyrics']);
+		$songchatlimit = 2;
+		$songchat = '';
+		for($i=0;$i<$lyricnum;$i++){
+			$log .= $songcfg['lyrics'][$i].'<br>';
+			if($i<$songchatlimit) $songchat .= $songcfg['lyrics'][$i].'　';
+			if($i == $songchatlimit-1) $songchat .= '……';
 		}
+		\sys\addchat(0, $songchat, $name);
+//		foreach($songcfg['lyrics'] as $lyric){
+//			$log .= $lyric.'<br>';
+//			\sys\addchat(0, $lyric, $name);
+//		}
 		if (defined('MOD_NOISE') && !empty($nkey)) \noise\addnoise($pls,$nkey,$pid);
 		
 		$songqry = '';
