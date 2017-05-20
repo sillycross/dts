@@ -10,19 +10,20 @@ namespace lvlctl
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player'));
-		$flag=0;
+		$flag=$r=0;
 		if ($pa === NULL) 
 		{
 			\player\update_sdata();
 			$flag=1;
 			$pa = &$sdata;
 		}
-		checklvlup($v, $pa);
+		$r=checklvlup($v, $pa);
 		if ($flag) 
 		{
 			\player\player_save($sdata);
 			\player\load_playerdata($sdata);
 		}
+		return $r;
 	}
 	
 	function calc_upexp($l){
@@ -65,24 +66,29 @@ namespace lvlctl
 		eval(import_module('sys','player','logger','lvlctl'));
 		$up_exp_temp = calc_upexp($pa['lvl']);
 		//$up_exp_temp = round ( (2 * $pa['lvl'] + 1) * $baseexp );
-		$pa['exp']+=$v;
-		if ($pa['exp'] >= $up_exp_temp && $pa['lvl'] < 65535) 
+		if(strpos($db_player_structure_types['lvl'],'tinyint')===0) $lvllimit = 250;
+		else $lvllimit = 65000;
+		$upflag = 0;
+		if ($pa['exp'] >= $up_exp_temp && $pa['lvl'] < $lvllimit) 
 		{
+			//等级没达到满级才会增加经验值
+			$pa['exp']+=$v;
+			$upflag = 1;
 			//升级判断
 			$lvup = calc_uplv($pa['exp'],  $up_exp_temp);
 			//$lvup = 1 + floor ( ($pa['exp'] - $up_exp_temp) / $baseexp / 2 );
-			$lvup = $lvup > 65535 - $pa['lvl'] ? 65535 - $pa['lvl'] : $lvup;
+			$lvup = $lvup > $lvllimit - $pa['lvl'] ? $lvllimit - $pa['lvl'] : $lvup;
 			
 			$lvuphp = $lvupatt = $lvupdef = $lvupskill = $lvupsp = $lvupspref = $lvupskpt = 0; $sklog = '';
 			for($i = 0; $i < $lvup; $i += 1) 
 			{
-				if ($pa['lvl'] < 65535) lvlup($pa);
+				if ($pa['lvl'] < $lvllimit) lvlup($pa);
 			}
 			$up_exp_temp = calc_upexp($pa['lvl']);
 			//$up_exp_temp = round ( (2 * $pa['lvl'] + 1) * $baseexp );
 			
-			if ($pa['lvl'] >= 65535) {
-				$pa['lvl'] = 65535;
+			if ($pa['lvl'] >= $lvllimit) {
+				$pa['lvl'] = $lvllimit;
 				$pa['exp'] = $up_exp_temp;
 			}
 			$pa['upexp'] = $up_exp_temp;
@@ -122,11 +128,12 @@ namespace lvlctl
 				$w_log = "<span class=\"yellow\">你升了{$lvup}级！生命上限+{$lvuphp}，体力上限+{$lvupsp}，攻击+{$lvupatt}，防御+{$lvupdef}，体力恢复了{$lvupspref}{$sklog}，获得了{$lvupskpt}点技能点！</span><br>";
 				\logger\logsave ( $pa['pid'], $now, $w_log,'s');
 			}
-		} elseif ($pa['lvl'] >= 65535) {
-			$pa['lvl'] = 65535;
+		} elseif ($pa['lvl'] >= $lvllimit) {
+			$pa['lvl'] = $lvllimit;
 			$pa['exp'] = $up_exp_temp;
 		}
-		return;
+		//echo $upflag;
+		return $upflag;
 	}
 	
 	function load_playerdata($pdata)
