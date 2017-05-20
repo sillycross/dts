@@ -665,13 +665,17 @@ function set_credits(){
 		if(isset($val['players']) && isset($val['users'])){
 			$credits = get_credit_up($val['players'],$winner,$winmode) + $val['users']['credits'];
 			$gold = get_gold_up($val['players'],$winner,$winmode) + $val['users']['gold'];
-			$validgames = $val['users']['validgames'] + 1;
-			$wingames = $key == $winner ? $val['users']['wingames'] + 1 : $val['users']['wingames'];
+			//伐木不算参与次数
+			$validgames = $gametype != 15 ? $val['users']['validgames'] + 1 : $val['users']['validgames'];
+			//非伐木房的幸存、解禁、解离、核爆才算获胜次数
+			$wingames = ($gametype != 15 && in_array($winmode, array(2, 3, 5, 7)) && $key == $winner) ? $val['users']['wingames'] + 1 : $val['users']['wingames'];
+			$lastwin = ($gametype != 15 && in_array($winmode, array(2, 3, 5, 7)) && $key == $winner) ? $now : $val['users']['lastwin'];
 			//$obtain = get_honour_obtain($val['players'],$val['users']);
 			//$honour = $val['users']['honour'] . $obtain;
-			$lastwin=$val['users']['lastwin'];
+			
 			//首胜已放入每日任务
-			/*if (($winner==$val['players']['name'])&&(($now-$lastwin)>72000)&&(!in_array($gametype,$qiegao_ignore_mode))){
+			/*
+			if (($winner==$val['players']['name'])&&(($now-$lastwin)>72000)&&(!in_array($gametype,$qiegao_ignore_mode))){
 				if ($lastwin==0) $gold+=800;//帐号首次获胜
 				$lastwin=$now;
 				$gold+=200;
