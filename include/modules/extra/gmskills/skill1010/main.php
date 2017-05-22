@@ -90,7 +90,7 @@ namespace skill1010
 					return;
 				}
 				addnews (0, 'admin_mani', $name, $pcs[$mpid]['name'] );
-				\enemy\meetman($mpid);
+				\metman\meetman($mpid);
 			}else{
 				$log .= '命令参数错误。';
 				$mode = 'command';$command = '';

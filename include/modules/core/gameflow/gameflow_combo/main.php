@@ -79,7 +79,7 @@ namespace gameflow_combo
 		return $chprocess($schmode);
 	}
 	
-	function senditem()
+	function senditem_check($edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
@@ -87,12 +87,10 @@ namespace gameflow_combo
 		{
 			if($gamestate>=40 && !in_array($gametype,$teamwin_mode)){
 				$log .= '<span class="yellow">连斗阶段无法赠送物品！</span><br>';
-				$action = '';
-				$mode = 'command';
-				return;
+				return false;
 			}
-			else  $chprocess();
 		}
+		return $chprocess($edata);
 	}
 	
 	function findteam(&$edata)

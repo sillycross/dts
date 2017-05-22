@@ -76,15 +76,10 @@ namespace enemy
 		return ($active_dice < $active_r);
 	}
 	
-	function meetman($sid)
+	function meetman_alternative($edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
-		eval(import_module('sys','logger','player','metman','enemy'));
-		
-		\player\update_sdata();
-		$edata=\player\fetch_playerdata_by_pid($sid);
-			
+		eval(import_module('sys','player','metman','logger'));
 		if ($edata['hp']>0)
 		{
 			extract($edata,EXTR_PREFIX_ALL,'w');
@@ -97,7 +92,7 @@ namespace enemy
 				return;
 			}
 		}
-		else  $chprocess($sid);
+		else $chprocess($edata);
 	}
 	
 	function battle_wrapper(&$pa, &$pd, $active)

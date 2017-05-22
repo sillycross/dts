@@ -22,8 +22,8 @@ namespace player
 		}
 	}
 	
-	//注意这个函数只能找玩家
-	function fetch_playerdata($Pname)
+	//注意这个函数默认情况下只能找玩家
+	function fetch_playerdata($Pname, $Ptype = 0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
@@ -35,7 +35,8 @@ namespace player
 			}
 		}
 		if(empty($pdata)){
-			$result = $db->query("SELECT * FROM {$tablepre}players WHERE name = '$Pname' AND type = 0");
+			$query = "SELECT * FROM {$tablepre}players WHERE name = '$Pname' AND type = '$Ptype'";
+			$result = $db->query($query);
 			if(!$db->num_rows($result)) return NULL;
 			$pdata = $db->fetch_array($result);
 			//备份取出数据库时的player state

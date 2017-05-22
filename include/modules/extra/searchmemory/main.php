@@ -12,10 +12,10 @@ namespace searchmemory
 		if(is_string($searchmemory)) $searchmemory = gdecode($searchmemory,1);//听丑陋的
 	}
 	
-	function fetch_playerdata($Pname){
+	function fetch_playerdata($Pname, $Ptype = 0){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		//eval(import_module('sys'));
-		$pdata = $chprocess($Pname);
+		$pdata = $chprocess($Pname, $Ptype);
 		$pdata['searchmemory'] = gdecode($pdata['searchmemory'],1);
 		return $pdata;
 	}
@@ -231,7 +231,7 @@ namespace searchmemory
 					else $log .= '<span class="lime">'.$mem['Pname'].'还在原来的位置。</span><br>';
 					$marr=$db->fetch_array($result);
 					$sdata['sm_active_debuff'] = 1;//临时这么写写
-					\team\meetman($mid);
+					\metman\meetman($mid);
 					unset($sdata['sm_active_debuff']);
 					return;
 				}

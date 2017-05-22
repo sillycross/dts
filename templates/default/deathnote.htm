@@ -1,14 +1,39 @@
 <input type="hidden" name="mode" value="deathnote">
 <input type="hidden" name="item" value="$theitem['itmn']">
+<!--{if $gametype==1}-->
+<input type="hidden" id="npc" value="1">
+你发现■DeathNote■跟往常似乎有点不一样。每一页上都印满了<span class="red">红暮</span>的大头像，没有可以落笔的地方了。<br>
+页脚上……似乎有一行留言？<br>
+<span class="red">“红杀是雇你们来扫BUG的，不是雇你们来杀人玩的。这本DN我就收走了。”</span>——红暮<br><br>
+<!--{/if}-->
 
 请写下对方的名字(留空为不使用)<br><input size="15" type="text" name="dnname" maxlength="15"><br>
 请写下对方的死因(255字以内，不填为“心脏麻痹”)<br><input size="30" type="text" name="dndeath" maxlength="255"><br>
 请选择对方的相貌<br>
-<div id="dniconImg" class="iconimg" ><img src="img/m_0.gif" alt="0"></div>
+<div id="dniconImg" class="iconimg" >
+	<!--{if $gametype==1}-->
+	<img src="img/n_7a.gif" alt="0">
+	<!--{else}-->
+	<img src="img/m_0.gif" alt="0">
+	<!--{/if}-->
+</div>
 性别 : <input type="radio" id="male" name="dngender" onchange="dniconMover()" value="m" checked >男生<input type="radio" id="female" name="dngender" onchange="dniconMover()" value="f" >女生<br />
 头像 : <select id="dnicon" name="dnicon" onchange="dniconMover()">
-<option value=0 selected>0</option><option value=1>1</option><option value=2 >2</option><option value=3 >3</option><option value=4 >4</option><option value=5 >5</option><option value=6 >6</option><option value=7 >7</option><option value=8 >8</option><option value=9 >9</option><option value=10 >10</option><option value=11 >11</option><option value=12 >12</option><option value=13 >13</option><option value=14 >14</option><option value=15 >15</option><option value=16 >16</option><option value=17 >17</option><option value=18 >18</option><option value=19 >19</option><option value=20 >20</option><option value=21 >21</option><option value=22 >22</option><option value=23 >23</option><option value=24 >24</option><option value=25 >25</option><option value=26 >26</option><option value=27 >27</option><option value=28 >28</option><option value=29 >29</option><option value=30 >30</option><option value=31 >31</option><option value=32 >32</option><option value=33 >33</option><option value=34 >34</option><option value=35 >35</option><option value=36 >36</option><option value=37 >37</option><option value=38 >38</option><option value=39 >39</option><option value=40 >40</option><option value=41 >41</option><option value=42 >42</option></select>（0为随机）<br>
+	<option value=0 selected>0</option>
+	<!--{loop range(1,$iconlimit) $i}-->
+		<!--{if $gametype==1}-->
+		<option value=7>$i</option>
+		<!--{else}-->
+		<option value={$i}>$i</option>
+		<!--{/if}-->
+	<!--{/loop}-->
+</select>（0为随机）<br>
 （注意，deathnote只能对玩家使用。）
 <br />
 <br />
+<!--{if $gametype==1}-->
+没地方落笔了，你要把名字写在红暮脸上吗？<br>
+<input type="button" name="submit" value="写！" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
+<!--{else}-->
 <input type="button" name="submit" value="提交" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
+<!--{/if}-->

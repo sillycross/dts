@@ -405,17 +405,17 @@ namespace tutorial
 					if(isset($ct['obj2']['changehp'])){//有设定时，改动NPC血量
 						$n = tutorial_changehp_npc($ct['obj2']['meetnpc'],$ct['obj2']['meetsub'],$pid,1,$nid);
 					}
-					meetman($nid);
+					\metman\meetman($nid);
 					return;
 				}else{//尸体
 					$mnpcd = tutorial_checknpc($ct['obj2']['meetnpc'], $ct['obj2']['meetsub'], $pid, 0, 1);
-					if($mnpcd['pls'] == $pls) meetman($mnpcd['pid']);
+					if($mnpcd['pls'] == $pls) \metman\meetman($mnpcd['pid']);
 					return;
 				}				
 			}
 //			}elseif($ct_prev['object']=='kill' && isset($ct_prev['obj2']['meetnpc']) && $ct['object']=='money' && $tprog){//上一次打死人但是没捡到东西
 //				$mnpcd = tutorial_checknpc($ct_prev['obj2']['meetnpc'], $ct_prev['obj2']['meetsub'], $pid, 0, 1);
-//				if($mnpcd['pls'] == $sdata['pls']) \corpse\meetman($mnpcd['pid']);
+//				if($mnpcd['pls'] == $sdata['pls']) \metman\meetman($mnpcd['pid']);
 //				return;
 //			}
 		}
@@ -484,14 +484,11 @@ namespace tutorial
 	}
 	
 	//接管meetman，主要是判定敌我必定先制/被先制
-	function meetman($sid)
+	function meetman_alternative($edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','logger','player','metman','enemy','tutorial'));
+		eval(import_module('sys','logger','player','tutorial'));
 		if($gametype == 17){
-			$ct = get_tutorial();		
-			\player\update_sdata();
-			$edata=\player\fetch_playerdata_by_pid($sid);
 			if(!$edata['type'] && $tutorial_force_teamer){//遭遇玩家时强制判定为队友，避免教程房大杀四方的情况发生
 				$log .= '你看到了似乎处于同样状况的玩家。<br>';
 				\team\findteam($edata);
@@ -513,61 +510,75 @@ namespace tutorial
 				//没设定active则放弃这一段判定，正常判定meetman
 			}
 		}
-		return $chprocess($sid);
+		return $chprocess($edata);
 	}
 	
-	function senditem(){//递送道具时无视teamID，我知道很丑陋，回头再改
+	//递送道具时无视teamID
+	function senditem_check($edata)
+	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','map','logger','player','metman','input'));
-		
-		$mateid = str_replace('team','',$action);
-		if(!$mateid || strpos($action,'team')===false) $chprocess();
-		if($gametype == 17){
-			$edata=\player\fetch_playerdata_by_pid($mateid);
+		eval(import_module('sys','player','logger'));
+		if ($gametype == 17)
+		{
 			if(isset($edata) && !$edata['type'] && $edata['pls'] == $pls && $edata['hp'] > 0 && $edata['pid'] != $pid){
-				if($message){
-					$log .= "<span class=\"lime\">你对{$edata['name']}说：“{$message}”</span><br>";
-					$x = "<span class=\"lime\">{$name}对你说：“{$message}”</span>";
-					if(!$edata['type']) \logger\logsave($edata['pid'],$now,$x,'c');
-				}
-				if($command != 'back'){
-					$itmn = substr($command, 4);
-					if (!${'itms'.$itmn}) {
-						$log .= '此道具不存在！';
-						$action = '';
-						$mode = 'command';
-						return;
-					}
-					$itm = & ${'itm'.$itmn};
-					$itmk = & ${'itmk'.$itmn};
-					$itme = & ${'itme'.$itmn};
-					$itms = & ${'itms'.$itmn};
-					$itmsk = & ${'itmsk'.$itmn};
-		
-					for($i = 1;$i <= 6; $i++){
-						if(!$edata['itms'.$i]) {
-							$edata['itm'.$i] = $itm; $edata['itmk'.$i] = $itmk; 
-							$edata['itme'.$i] = $itme; $edata['itms'.$i] = $itms; $edata['itmsk'.$i] = $itmsk;
-							$log .= "你将<span class=\"yellow\">".$edata['itm'.$i]."</span>送给了<span class=\"yellow\">{$edata['name']}</span>。<br>";
-							$x = "<span class=\"yellow\">$name</span>将<span class=\"yellow\">".$edata['itm'.$i]."</span>送给了你。";
-							if(!$edata['type']) \logger\logsave($edata['pid'],$now,$x,'t');
-							addnews($now,'senditem',$name,$edata['name'],$itm);
-							\player\player_save($edata);
-							$itm = $itmk = $itmsk = '';
-							$itme = $itms = 0;
-							$action = '';
-							return;
-						}
-					}
-					$log .= "<span class=\"yellow\">{$edata['name']}</span> 的包裹已经满了，不能赠送物品。<br>";
-				}
-				$action = '';
-				$mode = 'command';
-				return;
+				return true;
 			}
 		}
-		$chprocess();
+		return $chprocess($edata);
 	}
+	
+	//function senditem(){//递送道具时无视teamID，我知道很丑陋，回头再改
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		eval(import_module('sys','map','logger','player','metman','input'));
+//		
+//		$mateid = str_replace('team','',$action);
+//		if(!$mateid || strpos($action,'team')===false) $chprocess();
+//		if($gametype == 17){
+//			$edata=\player\fetch_playerdata_by_pid($mateid);
+//			if(isset($edata) && !$edata['type'] && $edata['pls'] == $pls && $edata['hp'] > 0 && $edata['pid'] != $pid){
+//				if($message){
+//					$log .= "<span class=\"lime\">你对{$edata['name']}说：“{$message}”</span><br>";
+//					$x = "<span class=\"lime\">{$name}对你说：“{$message}”</span>";
+//					if(!$edata['type']) \logger\logsave($edata['pid'],$now,$x,'c');
+//				}
+//				if($command != 'back'){
+//					$itmn = substr($command, 4);
+//					if (!${'itms'.$itmn}) {
+//						$log .= '此道具不存在！';
+//						$action = '';
+//						$mode = 'command';
+//						return;
+//					}
+//					$itm = & ${'itm'.$itmn};
+//					$itmk = & ${'itmk'.$itmn};
+//					$itme = & ${'itme'.$itmn};
+//					$itms = & ${'itms'.$itmn};
+//					$itmsk = & ${'itmsk'.$itmn};
+//		
+//					for($i = 1;$i <= 6; $i++){
+//						if(!$edata['itms'.$i]) {
+//							$edata['itm'.$i] = $itm; $edata['itmk'.$i] = $itmk; 
+//							$edata['itme'.$i] = $itme; $edata['itms'.$i] = $itms; $edata['itmsk'.$i] = $itmsk;
+//							$log .= "你将<span class=\"yellow\">".$edata['itm'.$i]."</span>送给了<span class=\"yellow\">{$edata['name']}</span>。<br>";
+//							$x = "<span class=\"yellow\">$name</span>将<span class=\"yellow\">".$edata['itm'.$i]."</span>送给了你。";
+//							if(!$edata['type']) \logger\logsave($edata['pid'],$now,$x,'t');
+//							addnews($now,'senditem',$name,$edata['name'],$itm);
+//							\player\player_save($edata);
+//							$itm = $itmk = $itmsk = '';
+//							$itme = $itms = 0;
+//							$action = '';
+//							return;
+//						}
+//					}
+//					$log .= "<span class=\"yellow\">{$edata['name']}</span> 的包裹已经满了，不能赠送物品。<br>";
+//				}
+//				$action = '';
+//				$mode = 'command';
+//				return;
+//			}
+//		}
+//		$chprocess();
+//	}
 	
 	//如果被攻击导致HP小于一定值则把HP设为这个值	
 	function player_damaged_enemy(&$pa, &$pd, $active)

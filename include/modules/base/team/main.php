@@ -16,19 +16,17 @@ namespace team
 		return $chprocess($edata);
 	}
 	
-	function meetman($sid)
+	function meetman_alternative($edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','metman','logger'));
-		
-		$edata=\player\fetch_playerdata_by_pid($sid);
+		eval(import_module('sys','player','logger'));
 		if($edata['hp']>0 && $teamID && (!$fog) && $gamestate<40 && $teamID == $edata['teamID'] && !in_array($gametype,$teamwin_mode))
 		{
 			findteam($edata);
 			return;
 		} 
-		$chprocess($sid);
+		$chprocess($edata);
 	}
 
 	function findteam(&$edata)
@@ -50,6 +48,25 @@ namespace team
 		$main = MOD_METMAN_MEETMAN;
 		return;
 	}
+	
+	function senditem_check($edata){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','map','logger','player'));
+		if(!isset($edata)){
+			$log .= "对方不存在！<br>";
+			return false;
+		} elseif($edata['pls'] != $pls) {
+			$log .= '<span class="yellow">'.$edata['name'].'</span>已经离开了<span class="yellow">'.$plsinfo[$pls].'</span>。<br>';
+			return false;
+		} elseif($edata['hp'] <= 0) {
+			$log .= '<span class="yellow">'.$edata['name'].'</span>已经死亡，不能接受物品。<br>';
+			return false;
+		} elseif(!$teamID || $edata['teamID']!=$teamID || $pid==$edata['pid']){
+			$log .= '<span class="yellow">'.$edata['name'].'</span>并非你的队友，不能接受物品。<br>';
+			return false;
+		}
+		return true;
+	}
 
 	function senditem(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -65,30 +82,35 @@ namespace team
 		}
 		
 		$edata=\player\fetch_playerdata_by_pid($mateid);
-		
-		if(!isset($edata)){
-			$log .= "对方不存在！<br>";
+		$check = senditem_check($edata);
+		if(!senditem_check($edata)){
 			$action = '';
 			$mode = 'command';
 			return;
 		}
-
-		if($edata['pls'] != $pls) {
-			$log .= '<span class="yellow">'.$edata['name'].'</span>已经离开了<span class="yellow">'.$plsinfo[$pls].'</span>。<br>';
-			$mode = 'command';
-			$action = '';
-			return;
-		} elseif($edata['hp'] <= 0) {
-			$log .= '<span class="yellow">'.$edata['name'].'</span>已经死亡，不能接受物品。<br>';
-			$mode = 'command';
-			$action = '';
-			return;
-		} elseif(!$teamID || $edata['teamID']!=$teamID || $pid==$edata['pid']){
-			$log .= '<span class="yellow">'.$edata['name'].'</span>并非你的队友，不能接受物品。<br>';
-			$mode = 'command';
-			$action = '';
-			return;
-		}
+//		if(!isset($edata)){
+//			$log .= "对方不存在！<br>";
+//			$action = '';
+//			$mode = 'command';
+//			return;
+//		}
+//
+//		if($edata['pls'] != $pls) {
+//			$log .= '<span class="yellow">'.$edata['name'].'</span>已经离开了<span class="yellow">'.$plsinfo[$pls].'</span>。<br>';
+//			$mode = 'command';
+//			$action = '';
+//			return;
+//		} elseif($edata['hp'] <= 0) {
+//			$log .= '<span class="yellow">'.$edata['name'].'</span>已经死亡，不能接受物品。<br>';
+//			$mode = 'command';
+//			$action = '';
+//			return;
+//		} elseif(!$teamID || $edata['teamID']!=$teamID || $pid==$edata['pid']){
+//			$log .= '<span class="yellow">'.$edata['name'].'</span>并非你的队友，不能接受物品。<br>';
+//			$mode = 'command';
+//			$action = '';
+//			return;
+//		}
 
 		if($message){
 			$log .= "<span class=\"lime\">你对{$edata['name']}说：“{$message}”</span><br>";
