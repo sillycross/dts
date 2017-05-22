@@ -150,7 +150,6 @@ namespace metman
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','metman','logger'));
-		var_dump($edata);
 		$battle_title = '发现人物';
 		extract($edata,EXTR_PREFIX_ALL,'w');
 		init_battle(1);

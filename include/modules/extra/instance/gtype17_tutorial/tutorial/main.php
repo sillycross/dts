@@ -487,8 +487,9 @@ namespace tutorial
 	function meetman_alternative($edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','logger','player','tutorial'));
+		eval(import_module('sys','logger','player','metman','tutorial'));
 		if($gametype == 17){
+			$ct = get_tutorial();	
 			if(!$edata['type'] && $tutorial_force_teamer){//遭遇玩家时强制判定为队友，避免教程房大杀四方的情况发生
 				$log .= '你看到了似乎处于同样状况的玩家。<br>';
 				\team\findteam($edata);
