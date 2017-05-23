@@ -43,7 +43,7 @@ namespace gtype1
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','logger','player'));
 		if($gametype == 1){
-			if(!$edata['type'] && $tutorial_force_teamer){
+			if(!$edata['type']){
 				$log .= '你看到了同为测试工程师的玩家，你们似乎有点尴尬地笑了笑。<br>';
 				\team\findteam($edata);
 				return;
