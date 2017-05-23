@@ -11,7 +11,7 @@ if (isset($_POST['show_all'])) $showall=$show_all; else $showall=1;
 for($i=1;$i<=8;$i++) if(!isset(${'winner_show_wmode_'.$i})) ${'winner_show_wmode_'.$i}=0;
 if (!isset($_POST['winner_show_winner'])) $winner_show_winner='';
 $room_gprefix = '';
-if ($room_prefix!='') $room_gprefix = ((string)$room_prefix).'.';
+if (room_check_subroom($room_prefix)) $room_gprefix = ((string)$room_prefix).'.';
 if ($room_gprefix!='') $wtablepre = $gtablepre . $room_gprefix[0]; else $wtablepre = $gtablepre;
 
 if(!isset($command)){$command = 'ref';}

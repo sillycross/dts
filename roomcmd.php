@@ -53,7 +53,7 @@ if (isset($_GET['para3'])) $para3 = $_GET['para3'];
 //新建和进入房间，只有不在房间内的情况下才能进行
 if ($command=='newroom' || $command=='enterroom')
 {
-	if($room_prefix=='' || $room_prefix[0]!='s') {
+	if(!room_check_subroom($room_prefix)) {
 		if($command=='newroom') room_enter(room_create($para1));
 		elseif($command=='enterroom') room_enter($para1);
 		//room_enter()函数最后已经die()了
@@ -61,12 +61,12 @@ if ($command=='newroom' || $command=='enterroom')
 	} else gexit('你已在房间内，请先退出房间', __file__, __line__);
 }
 //其他命令的情况下，如果不在房间内则出错退出
-elseif ($room_prefix=='' || $room_prefix[0]!='s') 
+elseif (!room_check_subroom($room_prefix)) 
 {
 	gexit('你不在房间内，请先进入房间', __file__, __line__);
 }
 
-$room_id_r = substr($room_prefix,1);
+$room_id_r = room_prefix2id($room_prefix);
 if (!file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt')) 
 {
 	gexit('房间文件缓存不存在。', __file__, __line__);

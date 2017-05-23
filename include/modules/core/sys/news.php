@@ -89,7 +89,7 @@ namespace sys
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		if(!$rid) $rid=$room_id;
-		$ntablepre = \sys\get_tablepre($rid);
+		$ntablepre = room_get_tablepre($rid);
 		//$file = $file ? $file : $newsfile;	
 		//$ninfo = openfile($file);
 		//if(0 == $range){$range = $newslimit;}

@@ -1,6 +1,6 @@
 {template header}
 <script type="text/javascript" src="include/javascript/replay.20170428.js"></script>
-<span class="subtitle">历史优胜者<!--{if $room_prefix!=''}--><!--{if $room_prefix=='n'}-->&nbsp;-&nbsp;新手区<!--{else}--><!--{if $room_prefix[0]=='s'}-->&nbsp;-&nbsp;房间区<!--{/if}--><!--{/if}--><!--{else}-->&nbsp;-&nbsp;标准区<!--{/if}--></span>
+<span class="subtitle">历史优胜者<!--{if room_check_subroom($room_prefix)}--><!--{if $room_prefix=='n'}-->&nbsp;-&nbsp;新手区<!--{else}--><!--{if $room_prefix[0]=='s'}-->&nbsp;-&nbsp;房间区<!--{/if}--><!--{/if}--><!--{else}-->&nbsp;-&nbsp;标准区<!--{/if}--></span>
 
 <!--{if $command == 'info'}-->
 {template winnerinfo}

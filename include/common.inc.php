@@ -22,6 +22,7 @@ set_error_handler('gameerrorhandler');
 $magic_quotes_gpc = get_magic_quotes_gpc();
 
 require GAME_ROOT.'./include/modules/modules.func.php';
+require GAME_ROOT.'./include/roommng/room.func.php';
 
 define('STYLEID', '1');
 define('TEMPLATEID', '1');
@@ -94,26 +95,6 @@ if (CURSCRIPT == 'index') {//首页，所有房间刷新
 	}else{
 		include_once './include/roommng/roommng.func.php';
 		room_all_routine();
-//		$o_room_prefix = $room_prefix;
-//		$result = $db->query("SELECT groomid,groomstatus FROM {$gtablepre}game WHERE groomid>0 AND groomstatus=2");
-//		$wtablepre = $gtablepre.'s';
-//		while($rarr = $db->fetch_array($result)){
-//			$room_prefix = 's'.$rarr['groomid'];
-//			if($room_prefix != $o_room_prefix) {
-//				$room_id = $rarr['groomid'];
-//				$tablepre = \sys\get_tablepre();
-//				sys\routine();
-//				if(!$gamestate) {
-//					$db->query("UPDATE {$gtablepre}game SET groomstatus=0 WHERE groomid='{$rarr['groomid']}'");
-//					if(file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$rarr['groomid'].'.txt')) unlink(GAME_ROOT.'./gamedata/tmp/rooms/'.$rarr['groomid'].'.txt');
-//				}
-//			}
-//		}
-//		$room_prefix = $o_room_prefix;
-//		$room_id = !$room_prefix ? 0 : substr($room_prefix,1);
-//		$wtablepre = !$room_prefix ? $gtablepre : $gtablepre.substr($room_prefix,0,1);
-//		$tablepre = \sys\get_tablepre();
-//		unset($o_room_prefix,$result,$rarr);
 	}
 }
 if (CURSCRIPT != 'chat' && !(CURSCRIPT == 'news' && isset($sendmode) && $sendmode=='news') && CURSCRIPT != 'help') sys\routine();//聊天、游戏内进行状况、帮助页面不刷新游戏状态

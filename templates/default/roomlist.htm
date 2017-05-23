@@ -29,7 +29,7 @@
 <td class="b3" width="50px">
 <!--{if !$cuser || !$cpass}-->
 	<span class="grey">-</span>
-<!--{elseif $room_prefix!='' && $room_prefix[0]=='s'}-->
+<!--{elseif room_check_subroom($room_prefix)}-->
 	<span class="grey">-</span>
 <!--{else}-->
 	<!--{if $value['status']==1 || $roomtypelist[$value['roomtype']]['soleroom']}-->
@@ -51,7 +51,7 @@
 <img style="display:none;" type="hidden" src="img/blank.png" onload="jQuery(function() { jQuery('.scroll-pane-roomlist').jScrollPane(); });">
 <!--{if !$cuser || !$cpass}-->
 	你尚未登陆，请先登陆。
-<!--{elseif $room_prefix!='' && $room_prefix[0]=='s'}-->
+<!--{elseif room_check_subroom($room_prefix)}-->
 	你现在在房间<!--{eval echo substr($room_prefix,1);}--> 中。
 	<!--{if isset($roomlist[substr($room_prefix,1)]) && $roomlist[substr($room_prefix,1)]['status']==2}-->
 		这个房间正在游戏中，请进入游戏。<br>

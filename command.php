@@ -328,25 +328,6 @@ if(isset($command)){
 	}elseif($command=='room_routine'){//刷新房间内游戏状态
 		include_once './include/roommng/roommng.func.php';
 		room_all_routine();
-//		$o_room_prefix = $room_prefix;
-//		$result = $db->query("SELECT groomid,groomstatus FROM {$gtablepre}game WHERE groomid>0 AND groomstatus=2");
-//		$wtablepre = $gtablepre.'s';
-//		while($rarr = $db->fetch_array($result)){
-//			$room_prefix = 's'.$rarr['groomid'];
-//			if($room_prefix != $o_room_prefix) {
-//				$room_id = $rarr['groomid'];
-//				$tablepre = \sys\get_tablepre();
-//				sys\routine();
-//				if(!$gamestate) {
-//					$db->query("UPDATE {$gtablepre}game SET groomstatus=0 WHERE groomid='{$rarr['groomid']}'");
-//					if(file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$rarr['groomid'].'.txt')) unlink(GAME_ROOT.'./gamedata/tmp/rooms/'.$rarr['groomid'].'.txt');
-//				}
-//			}
-//		}
-//		$room_prefix = $o_room_prefix;
-//		$room_id = !$room_prefix ? 0 : substr($room_prefix,1);
-//		$wtablepre = !$room_prefix ? $gtablepre : $gtablepre.substr($room_prefix,0,1);
-//		$tablepre = \sys\get_tablepre();
 		return;
 	}
 }

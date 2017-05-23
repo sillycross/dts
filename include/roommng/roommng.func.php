@@ -10,7 +10,7 @@ function room_all_routine(){
 		$room_id = $rarr['groomid'];
 		$room_prefix = 's'.$room_id;
 		if($room_id != $o_room_id) {
-			$tablepre = \sys\get_tablepre();
+			$tablepre = room_get_tablepre();
 			sys\routine();
 			if(!$gamestate) {
 				$db->query("UPDATE {$gtablepre}game SET groomstatus=0 WHERE groomid='{$rarr['groomid']}'");
@@ -21,7 +21,7 @@ function room_all_routine(){
 	$room_id = $o_room_id;
 	$room_prefix = !$room_id ? '' : 's'.$room_id;
 	$wtablepre = !$room_id ? $gtablepre : $gtablepre.'s';
-	$tablepre = \sys\get_tablepre();
+	$tablepre = room_get_tablepre();
 	//logmicrotime($GLOBALS['___MOD_SRV'] ? 'daemon模式' : '通常模式');
 	return;
 }
@@ -394,7 +394,7 @@ function room_enter($id)
 		$room_prefix = 's'.$id;
 		$room_id = $id;
 		//$tablepre = $gtablepre.$room_prefix.'_';
-		$tablepre = \sys\get_tablepre();
+		$tablepre = room_get_tablepre();
 		$wtablepre = $gtablepre.($room_prefix[0]);
 		\sys\load_gameinfo();
 		$init_state = room_init_db_process($room_id); //\sys\room_auto_init();
@@ -487,7 +487,7 @@ function room_init_db_process($room_id){
 	$room_prefix = 's'.$room_id;
 	$init_state = 0;
 	
-	$tablepre = \sys\get_tablepre();
+	$tablepre = room_get_tablepre();
 	$wtablepre = $gtablepre.'s';
 	//$tablepre = $gtablepre.$room_prefix.'_';
 	//创建对应类型的优胜列表

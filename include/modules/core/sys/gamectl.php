@@ -66,7 +66,7 @@ namespace sys
 		$month++;
 		$year += 1900;
 		
-		if ($room_prefix!='' && $room_prefix[0]=='s')	//小房间不会自动开启下一局
+		if (room_check_subroom($room_prefix))	//小房间不会自动开启下一局
 		{
 			$starttime = 0;
 		}
@@ -290,7 +290,7 @@ namespace sys
 		$newsinfo = '<ul>'.implode('',$newsinfo).'</ul>';
 //		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-读取和渲染消息');
 		$room_gprefix = '';
-		if ($room_prefix!='') $room_gprefix = (substr($room_prefix,0,1)).'.';
+		if (room_check_subroom($room_prefix)) $room_gprefix = (substr($room_prefix,0,1)).'.';
 		writeover(GAME_ROOT."./gamedata/bak/{$room_gprefix}{$gamenum}_newsinfo.html",$newsinfo,'wb+');
 //		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-写入消息并结束');
 		return;
