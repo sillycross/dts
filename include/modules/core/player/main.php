@@ -292,7 +292,8 @@ namespace player
 			//键名合法化
 			$ndata = player_format_with_db_structure($data);
 			//任意列的数值没变就不写数据库
-			$ndata = player_diff_from_poll($ndata);
+			//会导致严重的脏数据问题，在player表加行锁前就先不搞这个了
+			//$ndata = player_diff_from_poll($ndata);
 			unset($ndata['pid']);
 			
 			//建国后不准成精，你们复活别想啦

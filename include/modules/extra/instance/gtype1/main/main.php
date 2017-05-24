@@ -27,15 +27,15 @@ namespace gtype1
 		$chprocess();
 	}
 	
-	function check_player_discover(&$edata)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys'));
-		if ($edata['type']==0 && $gametype == 1) {
-			return 0;	
-		}
-		return $chprocess($edata);
-	}
+//	function check_player_discover(&$edata)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		eval(import_module('sys'));
+//		if ($edata['type']==0 && $gametype == 1) {
+//			return 0;	
+//		}
+//		return $chprocess($edata);
+//	}
 	
 	//接管meetman_alternative，主要是判定遭遇玩家时必定为队友
 	function meetman_alternative($edata)
