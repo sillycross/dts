@@ -16,12 +16,21 @@ if(filemtime($newsfile) > filemtime($lnewshtm)) {
 }
 if(!isset($newsmode)) $newsmode = '';
 if (isset($sendmode) && $sendmode == 'news' && isset($lastnid)) {//游戏页面查看进行状况的调用，因为必须load大量Mod所以不能放chat.php
-	$lastnid = (int)$lastnid;
-	$newsinfo = \sys\getnews($lastnid);
-	ob_clean();
-	$jgamedata = gencode($newsinfo);
-	echo $jgamedata;
-	ob_end_flush();
+	if($___MOD_SRV) {//如果daemon开启，则试图调用daemon
+		$url = 'http://'.$_SERVER['HTTP_HOST'].substr($_SERVER['PHP_SELF'],0,-8).'command.php';
+		$context = array('command'=>'get_news_in_game', 'lastnid'=>$lastnid, 'news_room_prefix' => $room_prefix);
+		$newsinfo = send_post($url, $context);
+		ob_clean();
+		echo $newsinfo;
+		ob_end_flush();
+	}else{//否则直接执行
+		$lastnid = (int)$lastnid;
+		$newsinfo = \sys\getnews($lastnid);
+		ob_clean();
+		$jgamedata = gencode($newsinfo);
+		echo $jgamedata;
+		ob_end_flush();
+	}
 } elseif($newsmode == 'last') {//来自news.php查看进行状况的调用，由于可能长时间没有行动，统一查看页面缓存	
 	//echo file_get_contents($lnewshtm);
 	$newsdata['innerHTML']['newsinfo'] = file_get_contents($lnewshtm);

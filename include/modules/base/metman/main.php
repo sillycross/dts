@@ -140,17 +140,25 @@ namespace metman
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
+		eval(import_module('sys'));
+		\player\update_sdata();
+		$edata = \player\fetch_playerdata_by_pid($sid);
+		meetman_alternative($edata);
+	}
+	
+	function meetman_alternative($edata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','metman','logger'));
 		$battle_title = '发现人物';
-		extract(\player\fetch_playerdata_by_pid($sid),EXTR_PREFIX_ALL,'w');
+		extract($edata,EXTR_PREFIX_ALL,'w');
 		init_battle(1);
-	
-		$log .= "你发现了人物<span class=\"yellow\">$w_name</span>。<br>你友善的打了个招呼。<br>";
-		
+		$log .= "你发现了人物<span class=\"yellow\">$w_name</span>。<br>你友善地打了个招呼。<br>";
 		include template(MOD_METMAN_MEETMAN_CMD);
 		$cmd = ob_get_contents();
 		ob_clean();
 		$main = MOD_METMAN_MEETMAN;
+		return;
 	}
 	
 	function calculate_meetman_rate_by_mode($schmode)

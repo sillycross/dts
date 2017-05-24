@@ -21,7 +21,7 @@ namespace pose
 	$pose_active_obbs = Array(0,-4,0,0,25,-35);
 	
 	//姿势对敌人先攻自己几率的修正（被敌人探索发现，注意这里修正的是敌人的几率，即负数对自己有利）
-	$pose_dactive_obbs = Array(0,4,-50,0,0,35);
+	$pose_dactive_obbs = Array(0,4,-40,0,0,35);
 	
 	//姿态对自己主动或先制攻击敌人的攻击力修正
 	$pose_attack_modifier = Array(0,60,0,-25,25,-50);

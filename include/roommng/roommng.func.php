@@ -1,5 +1,31 @@
 <?php
 
+function room_all_routine(){
+	eval(import_module('sys'));
+	//startmicrotime();
+	$o_room_id = $room_id;
+	$result = $db->query("SELECT groomid,groomstatus FROM {$gtablepre}game WHERE groomid>0 AND groomstatus=2");
+	$wtablepre = $gtablepre.'s';
+	while($rarr = $db->fetch_array($result)){
+		$room_id = $rarr['groomid'];
+		$room_prefix = room_id2prefix($room_id);
+		if($room_id != $o_room_id) {
+			$tablepre = room_get_tablepre();
+			sys\routine();
+			if(!$gamestate) {
+				$db->query("UPDATE {$gtablepre}game SET groomstatus=0 WHERE groomid='{$rarr['groomid']}'");
+				if(file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$rarr['groomid'].'.txt')) unlink(GAME_ROOT.'./gamedata/tmp/rooms/'.$rarr['groomid'].'.txt');
+			}
+		}
+	}
+	$room_id = $o_room_id;
+	$room_prefix = room_id2prefix($room_id);
+	$wtablepre = !$room_id ? $gtablepre : $gtablepre.'s';
+	$tablepre = room_get_tablepre();
+	//logmicrotime($GLOBALS['___MOD_SRV'] ? 'daemon模式' : '通常模式');
+	return;
+}
+
 function update_roomstate(&$roomdata, $runflag)
 {
 	eval(import_module('sys'));
@@ -365,11 +391,11 @@ function room_enter($id)
 			gexit('系统维护中，暂时不能加入房间',__file__,__line__);
 			die();
 		}
-		$room_prefix = 's'.$id;
+		$room_prefix = room_id2prefix($id);
 		$room_id = $id;
 		//$tablepre = $gtablepre.$room_prefix.'_';
-		$tablepre = \sys\get_tablepre();
-		$wtablepre = $gtablepre.($room_prefix[0]);
+		$tablepre = room_get_tablepre();
+		$wtablepre = $gtablepre.room_prefix_kind($room_prefix);
 		\sys\load_gameinfo();
 		$init_state = room_init_db_process($room_id); //\sys\room_auto_init();
 		$need_reset = $rd['groomstatus'] == 1 ? true : false;//未开始则启动房间
@@ -458,10 +484,10 @@ function room_getteamhtml(&$roomdata, $u)
 function room_init_db_process($room_id){
 	if (eval(__MAGIC__)) return $___RET_VALUE;
 	global $gtablepre,$db;
-	$room_prefix = 's'.$room_id;
+	$room_prefix = room_id2prefix($room_id);
 	$init_state = 0;
 	
-	$tablepre = \sys\get_tablepre();
+	$tablepre = room_get_tablepre();
 	$wtablepre = $gtablepre.'s';
 	//$tablepre = $gtablepre.$room_prefix.'_';
 	//创建对应类型的优胜列表

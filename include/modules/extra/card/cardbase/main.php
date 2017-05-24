@@ -125,7 +125,7 @@ namespace cardbase
 	function get_card($ci,$pa=NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player'));
+		eval(import_module('sys','player','cardbase'));
 		if ($pa==NULL){
 			$n=$name;
 		}else{

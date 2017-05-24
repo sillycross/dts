@@ -69,8 +69,7 @@ namespace sys
 		}
 
 		//$room_status = 0;
-		$room_id = 0;
-		if(strpos($room_prefix,'s')===0) $room_id = substr($room_prefix,1);
+		$room_id = room_prefix2id($room_prefix);
 		
 		//判断所在房间是否存在/是否已经关闭，如果不存在或关闭则将玩家所在房间调整为0（主游戏）
 		global $gameinfo; 
@@ -82,12 +81,12 @@ namespace sys
 			$gameinfo = $db->fetch_array($result);
 			//如果房间关闭则退出到主房间
 			if ($gameinfo['groomstatus']==0) {
-				$room_prefix = '';
 				$room_id = 0;
+				$room_prefix = room_id2prefix(0);
 				$gameinfo = NULL;
 			}
 			//如果房间是开启状态，但游戏在结束状态，则把房间状态设为打开
-			elseif ($gameinfo['groomstatus'] && $gameinfo['gamestate']==0 && $room_prefix!='' && $room_prefix[0]=='s')
+			elseif ($gameinfo['groomstatus'] && $gameinfo['gamestate']==0 && room_check_subroom($room_prefix))
 			{
 				$db->query("UPDATE {$gtablepre}game SET groomstatus=1 WHERE groomid='$room_id'");
 				$gameinfo['groomstatus'] = 1;
@@ -107,21 +106,20 @@ namespace sys
 			$result = $db->query("SELECT * FROM {$gtablepre}game where groomid='0'");
 			$gameinfo = $db->fetch_array($result);
 		}
-		//$gameinfo初始化，初次global这些变量，其余与load_gameinfo功能相同
+		//$gameinfo初始化，初次global这些变量
+		//注意这里并没有对$arealist等变量进行处理，真正的处理是在common.inc.php调用routine()调用load_gameinfo()时
 		foreach ($gameinfo as $key => $value)
 		{
 			global ${$key};
 			${$key}=$value;
 		}
-		$arealist = explode(',',$arealist);
+		//$arealist = explode(',',$arealist);
 		
 		//为$tablepre赋值，之后除game表之外的数据库操作都被引入对应前缀的数据表
-		$tablepre = get_tablepre();
-//		if($room_prefix) $tablepre = $gtablepre.$room_prefix.'_';
-//		else $tablepre = $gtablepre;
+		$tablepre = room_get_tablepre();
 		
 		if ($room_prefix=='') $wtablepre = $gtablepre;
-		else $wtablepre = $gtablepre.($room_prefix[0]);
+		else $wtablepre = $gtablepre.room_prefix_kind($room_prefix);
 		
 		//room_auto_init();//新建房间时，自动初始化房间表
 		//实际上不应该放在这里，应该只在新建房间时调用
@@ -152,12 +150,6 @@ namespace sys
 		}
 	}
 	
-	function get_tablepre(){//根据房间id生成$tablepre，单纯是统一用
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		global $room_prefix,$gtablepre;
-		if($room_prefix) return $gtablepre.$room_prefix.'_';
-		else return $gtablepre;
-	}
 }
 
 ?>

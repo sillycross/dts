@@ -3,7 +3,7 @@
 define('CURSCRIPT', 'index');
 
 require './include/common.inc.php';
-require './include/roommng/roommng.func.php';
+require_once './include/roommng/roommng.func.php';//有可能common.inc.php里已经调用来刷新房间，必须once
 
 $timing = 0;
 if($gamestate > 10) {

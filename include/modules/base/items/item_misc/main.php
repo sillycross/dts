@@ -417,7 +417,7 @@ namespace item_misc
 
 	}
 
-	function deathnote($itmd=0,$dnname='',$dndeath='',$dngender='m',$dnicon=1,$sfn) {
+	function deathnote($itmd=0,$dnname='',$dndeath='',$dngender='m',$dnicon=1) {
 		
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','logger','player'));
@@ -441,21 +441,34 @@ namespace item_misc
 		}
 
 		if(!$dnname){return;}
-		if($dnname == $sfn){
+		if($dnname == $cuser){
 			$log .= "你不能自杀。<br>";
 			return;
 		}
+		$dn_ignore_words = deathnote_process($dnname,$dndeath,$dngender,$dnicon);
+		$dns--;
+		if($dns<=0){
+			if(!$dn_ignore_words) $log .= '■DeathNote■突然燃烧起来，转瞬间化成了灰烬。<br>';
+			$dn = $dnk = $dnsk = '';
+			$dne = $dns = 0;
+		}
+		return;
+	}
+	
+	function deathnote_process($dnname='',$dndeath='',$dngender='m',$dnicon=1){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','logger','player'));
 		if(!$dndeath){$dndeath = '心脏麻痹';}
-		//echo "name=$dnname,gender = $dngender,icon=$dnicon,";
+		$log .= "你将<span class=\"yellow b\">$dnname</span>的名字写在了■DeathNote■上。";
 		$result = $db->query("SELECT * FROM {$tablepre}players WHERE name='$dnname' AND type = 0 AND hp > 0");
 		if(!$db->num_rows($result)) { 
-			$log .= "你使用了■DeathNote■，但是什么都没有发生。<br>哪里出错了？<br>"; 
+			$log .= "但是什么都没有发生。<br>哪里出错了？<br>"; 
 		} else {
 			$edata = \player\fetch_playerdata($dnname);
 			if(($dngender != $edata['gd'])||($dnicon != $edata['icon'])) {
-				$log .= "你使用了■DeathNote■，但是什么都没有发生。<br>哪里出错了？<br>"; 
+				$log .= "但是什么都没有发生。<br>哪里出错了？<br>"; 
 			} else {
-				$log .= "你将<span class=\"yellow b\">$dnname</span>的名字写在了■DeathNote■上。<br><span class=\"yellow b\">$dnname</span>被你杀死了。";
+				$log .= "<br><span class=\"yellow b\">$dnname</span>被你杀死了。";
 				$edata['state'] = 28; $sdata['attackwith']=$dndeath;
 				\player\update_sdata(); 
 				\player\kill($sdata,$edata);
@@ -465,12 +478,6 @@ namespace item_misc
 				//$killnum++;
 			}
 		}
-		$dns--;
-		if($dns<=0){
-			$log .= '■DeathNote■突然燃烧起来，转瞬间化成了灰烬。<br>';
-			$dn = $dnk = $dnsk = '';
-			$dne = $dns = 0;
-		}
 		return;
 	}
 	
@@ -478,11 +485,11 @@ namespace item_misc
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','input'));
+		eval(import_module('sys','player','input','logger'));
 		
 		if($mode == 'deathnote') {
 			if($dnname){
-				deathnote($item,$dnname,$dndeath,$dngender,$dnicon,$name);
+				deathnote($item,$dnname,$dndeath,$dngender,$dnicon);
 			} else {
 				$log .= '嗯，暂时还不想杀人。<br>你合上了■DeathNote■。<br>';
 				$mode = 'command';

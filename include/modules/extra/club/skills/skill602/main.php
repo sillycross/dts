@@ -132,12 +132,12 @@ namespace skill602
 		return $chprocess();
 	}
 	
-	function calculate_active_obbs_multiplier(&$ldata,&$edata)	//不会先手敌人
+	function calculate_active_obbs_change(&$ldata,&$edata,$active_r)	//不会先手敌人
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (check_skill602_state($ldata)) return 0;
-		if (check_skill602_state($edata)) return 10000;
-		return $chprocess($ldata,$edata);
+		if (check_skill602_state($edata)) return 100;
+		return $chprocess($ldata,$edata,$active_r);
 	}
 	
 	function check_can_counter(&$pa, &$pd, $active)			//不会反击敌人

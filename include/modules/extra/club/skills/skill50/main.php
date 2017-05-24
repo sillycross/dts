@@ -52,7 +52,7 @@ namespace skill50
 		return $chprocess($pa, $pd, $active)*0.92;
 	}
 	
-	function calculate_active_obbs(&$ldata,&$edata)
+	function calculate_active_obbs_multiplier(&$ldata,&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r = 1;

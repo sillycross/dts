@@ -22,14 +22,8 @@
 		<td style="text-align:left;">
 			<span class="evergreen">
 				<span class="evergreen2">
-				<!--{if $room_prefix!=''}-->
-					<!--{if $room_prefix=='n'}-->
-						<span class="yellow">新手区&nbsp;</span>{lang numinfo}
-					<!--{else}-->
-						<!--{if $room_prefix[0]=='s'}-->
-							<span class="yellow"><!--{eval echo '房间&nbsp;'.substr($room_prefix,1).'&nbsp;';}--></span>
-						<!--{/if}-->
-					<!--{/if}-->
+				<!--{if room_check_subroom($room_prefix)}-->
+					<span class="yellow"><!--{eval echo '房间&nbsp;'.room_prefix2id($room_prefix).'&nbsp;';}--></span>
 				<!--{else}-->
 					{lang numinfo}
 				<!--{/if}-->
@@ -74,7 +68,7 @@
 				<!--{/if}-->
 			</div>
 			<div>
-				<!--{if $room_prefix=='' || $room_prefix[0]!='s'}-->
+				<!--{if !room_check_subroom($room_prefix)}-->
 				上局结果：<span id="lastwin">$gwin[$winmode]</span>
 				<!--{if $winner}-->
 				，优胜者：<span id="lastwinner">$winner</span>
@@ -115,7 +109,7 @@
 		</td>
 	</tr>
 </table>
-<!--{if $room_prefix!='' && $room_prefix[0]=='s'}-->
+<!--{if room_check_subroom($room_prefix)}-->
 
 <!--{/if}-->
 {template footer}

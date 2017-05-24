@@ -111,6 +111,7 @@ namespace item_um
 				
 			$mdname = "全系熟练度";
 		}
+		if (strpos ( $itmk, 'ME' ) === 0) $mefct = \lvlctl\getexp($mefct) ? $mefct : 0;
 		if ($mefct > 0) {
 			$log .= "身体里有种力量涌出来！<br>你的{$mdname}提高了<span class=\"yellow\">$mefct</span>点！<br>";
 		} elseif ($mefct == 0) {
@@ -119,7 +120,7 @@ namespace item_um
 			$mefct = - $mefct;
 			$log .= "已经很强了，却还想靠药物继续强化自己，是不是太贪心了？<br>你贪婪的行为引发了药物的副作用！<br>你的{$mdname}下降了<span class=\"red\">$mefct</span>点！<br>";
 		}
-		if (strpos ( $itmk, 'ME' ) === 0) \lvlctl\getexp($mefct);
+		
 		\itemmain\itms_reduce($theitem);
 	}
 	

@@ -14,7 +14,7 @@ namespace sys
 		if(!file_exists($dir.$file)) touch($dir.$file);
 		//startmicrotime();
 		if(empty($plock)) {
-			$plock=fopen($file,'w+');
+			$plock=fopen($dir.$file,'w+');
 			$res = flock($plock,$locktype);
 		}
 		return $res;
@@ -37,39 +37,83 @@ namespace sys
 		eval(import_module('sys'));
 		$result = $db->query("SELECT * FROM {$gtablepre}game WHERE groomid='$room_id'");
 		$gameinfo = $db->fetch_array($result);
-		foreach ($gameinfo as $key => $value) $$key=$value;
-		$arealist = explode(',',$arealist);
+		foreach ($gameinfo as $key => $value) ${$key}=$value;
+		load_gameinfo_post_work();
 		return;
 	} 
 	
+	function load_gameinfo_post_work(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		//对$arealist进行格式化
+		$arealist = explode(',',$arealist);
+		//对部分字段进行解码，转换成数组
+		foreach(array('noisevars','roomvars','gamevars') as $val){
+			${$val}=gdecode(${$val},1);
+		}
+		return;
+	}
+	
+	//把游戏全局变量存回数据库
+	//$ignore_room=1 忽略与房间有关的变量，默认开启，防止高并发操作带来的脏数据导致房间状态意外改变
 	function save_gameinfo($ignore_room = 1) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		if(!isset($gamenum)||!isset($gamestate)){return;}
-		if($alivenum < 0){$alivenum = 0;}
-		if($deathnum < 0){$deathnum = 0;}
-		if(empty($afktime)){$afktime = $now;}
-		//if(empty($optime)){$optime = $now;}
-		$ngameinfo=Array();
-		foreach ($gameinfo as $key => $value) $ngameinfo[$key]=$$key;
-		$gameinfo=$ngameinfo;
-		$ngameinfo['arealist'] = implode(',',$ngameinfo['arealist']);
-		if($ignore_room) unset($ngameinfo['groomid'],$ngameinfo['groomtype'],$ngameinfo['groomstatus']);
+		gameinfo_audit();
+		$ngameinfo = save_gameinfo_prepare_work($gameinfo, $ignore_room);
 		$db->array_update("{$gtablepre}game",$ngameinfo,"groomid='$room_id'");
 		return;
+	}
+	
+	//修正$gameinfo的非正常数据（比如激活数为负等）
+	function gameinfo_audit(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		//用全局变量的同名函数替换$gameinfo的同名键值，其实就是一个同步的工作
+		foreach ($gameinfo as $key => $value)
+			$gameinfo[$key]=$$key;
+		if($alivenum < 0){$alivenum = 0;}
+		if($deathnum < 0){$deathnum = 0;}
+		if(!$afktime){$afktime = $now;}
+		if(!$hdamage){$hdamage = 0;}
+		if(!$hplayer){$hplayer = '';}
+		//if(empty($optime)){$optime = $now;}
+		return;
+	}
+	
+	//对数据进行准备（按数据库格式进行格式化）
+	//输入$gameinfo的副本数组，返回修正过的数组	
+	function save_gameinfo_prepare_work($ginfo, $ignore_room = 1){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		foreach(array('noisevars','roomvars','gamevars') as $val){
+			$ginfo[$val]=gencode($ginfo[$val]);
+		}
+		$ginfo['arealist'] = implode(',',$ginfo['arealist']);
+		if($ignore_room)
+			unset($ginfo['groomid'],$ginfo['groomtype'],$ginfo['groomstatus'],$ginfo['roomvars']);
+		return $ginfo;
 	}
 	
 	function save_combatinfo(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		if(!$hdamage){$hdamage = 0;}
-		if(!$hplayer){$hplayer = '';}
-		if(!$noisetime){$noisetime = 0;}
-		if(!$noisepls){$noisepls = 0;}
-		if(!$noiseid){$noiseid = 0;}
-		if(!$noiseid2){$noiseid2 = 0;}
-		if(!$noisemode){$noisemode = '';}
-		$db->query("UPDATE {$gtablepre}game SET hdamage='$hdamage', hplayer='$hplayer', noisetime='$noisetime', noisepls='$noisepls', noiseid='$noiseid', noiseid2='$noiseid2', noisemode='$noisemode' WHERE groomid='$room_id'");
+		gameinfo_audit();
+		$ngameinfo = save_gameinfo_prepare_work($gameinfo);
+		$nginfo = array();
+		foreach(array('hdamage','hplayer','noisevars') as $nval){
+			$nginfo[$nval] = $ngameinfo[$nval];
+		}
+		$db->array_update("{$gtablepre}game",$nginfo,"groomid='$room_id'");
+//		if(!$hdamage){$hdamage = 0;}
+//		if(!$hplayer){$hplayer = '';}
+//		if(!$noisetime){$noisetime = 0;}
+//		if(!$noisepls){$noisepls = 0;}
+//		if(!$noiseid){$noiseid = 0;}
+//		if(!$noiseid2){$noiseid2 = 0;}
+//		if(!$noisemode){$noisemode = '';}
+//		$db->query("UPDATE {$gtablepre}game SET hdamage='$hdamage', hplayer='$hplayer', noisetime='$noisetime', noisepls='$noisepls', noiseid='$noiseid', noiseid2='$noiseid2', noisemode='$noisemode' WHERE groomid='$room_id'");
 		return;
 	}
 	

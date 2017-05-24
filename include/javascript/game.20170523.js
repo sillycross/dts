@@ -151,9 +151,10 @@ function userIconMover(){
 	$('userIconImg').innerHTML = '<img src="img/' + ugd + '_' + uinum + '.gif" alt="' + uinum + '">';
 }
 function dniconMover(){
-	var dngd = $('male').checked ? 'm' : 'f';
-	var dninum = $('dnicon').selectedIndex;
-	$('dniconImg').innerHTML = '<img src="img/' + dngd + '_' + dninum + '.gif" alt="' + dninum + '">';
+	var npc = $('npc') ? true : false;
+	var dngd = npc ? 'n' : ($('male').checked ? 'm' : 'f');
+	var dninum = $('dnicon').options[$('dnicon').selectedIndex].value;
+	$('dniconImg').innerHTML = '<img src="img/' + dngd + '_' + dninum + (npc ? 'a' : '') + '.gif" alt="' + dninum + '">';
 }
 
 function showNotice(sNotice) {
