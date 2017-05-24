@@ -8,7 +8,7 @@ function room_all_routine(){
 	$wtablepre = $gtablepre.'s';
 	while($rarr = $db->fetch_array($result)){
 		$room_id = $rarr['groomid'];
-		$room_prefix = 's'.$room_id;
+		$room_prefix = room_id2prefix($room_id);
 		if($room_id != $o_room_id) {
 			$tablepre = room_get_tablepre();
 			sys\routine();
@@ -19,7 +19,7 @@ function room_all_routine(){
 		}
 	}
 	$room_id = $o_room_id;
-	$room_prefix = !$room_id ? '' : 's'.$room_id;
+	$room_prefix = room_id2prefix($room_id);
 	$wtablepre = !$room_id ? $gtablepre : $gtablepre.'s';
 	$tablepre = room_get_tablepre();
 	//logmicrotime($GLOBALS['___MOD_SRV'] ? 'daemon模式' : '通常模式');
@@ -391,11 +391,11 @@ function room_enter($id)
 			gexit('系统维护中，暂时不能加入房间',__file__,__line__);
 			die();
 		}
-		$room_prefix = 's'.$id;
+		$room_prefix = room_id2prefix($id);
 		$room_id = $id;
 		//$tablepre = $gtablepre.$room_prefix.'_';
 		$tablepre = room_get_tablepre();
-		$wtablepre = $gtablepre.($room_prefix[0]);
+		$wtablepre = $gtablepre.room_prefix_kind($room_prefix);
 		\sys\load_gameinfo();
 		$init_state = room_init_db_process($room_id); //\sys\room_auto_init();
 		$need_reset = $rd['groomstatus'] == 1 ? true : false;//未开始则启动房间
@@ -484,7 +484,7 @@ function room_getteamhtml(&$roomdata, $u)
 function room_init_db_process($room_id){
 	if (eval(__MAGIC__)) return $___RET_VALUE;
 	global $gtablepre,$db;
-	$room_prefix = 's'.$room_id;
+	$room_prefix = room_id2prefix($room_id);
 	$init_state = 0;
 	
 	$tablepre = room_get_tablepre();

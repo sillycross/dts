@@ -52,7 +52,7 @@
 <!--{if !$cuser || !$cpass}-->
 	你尚未登陆，请先登陆。
 <!--{elseif room_check_subroom($room_prefix)}-->
-	你现在在房间<!--{eval echo substr($room_prefix,1);}--> 中。
+	你现在在房间<!--{eval echo room_prefix2id($room_prefix);}--> 中。
 	<!--{if isset($roomlist[substr($room_prefix,1)]) && $roomlist[substr($room_prefix,1)]['status']==2}-->
 		这个房间正在游戏中，请进入游戏。<br>
 		如果你在游戏中已阵亡，你也可以<input type="button" style="width:80px" onclick="room_quit();" value="退出房间">然后加入其他房间。<br>

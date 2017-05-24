@@ -117,11 +117,9 @@ namespace sys
 		
 		//为$tablepre赋值，之后除game表之外的数据库操作都被引入对应前缀的数据表
 		$tablepre = room_get_tablepre();
-//		if($room_prefix) $tablepre = $gtablepre.$room_prefix.'_';
-//		else $tablepre = $gtablepre;
 		
 		if ($room_prefix=='') $wtablepre = $gtablepre;
-		else $wtablepre = $gtablepre.($room_prefix[0]);
+		else $wtablepre = $gtablepre.room_prefix_kind($room_prefix);
 		
 		//room_auto_init();//新建房间时，自动初始化房间表
 		//实际上不应该放在这里，应该只在新建房间时调用

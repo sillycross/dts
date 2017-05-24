@@ -340,7 +340,7 @@ namespace elorating
 				//1字符：游戏类型
 				//1字符：结果
 				//3字符：rating（-131072后为真实值，虽然理论上rating不会有负数……）
-				if ($room_prefix=='') $xr=' '; else $xr=$room_prefix[0];
+				if ($room_prefix=='') $xr=' '; else $xr=room_prefix_kind($room_prefix);
 				$eh=$data['elo_history'].$xr.base64_encode_number($gamenum,4).base64_encode_number($gametype,1).base64_encode_number($data['winner']?1:0,1).base64_encode_number($data['rating']+131072,3);
 				//考虑了一下还是不拼成一个大query了，毕竟有个text…… 爆了mysql最大query长度限制就囧了
 				$db->query("UPDATE {$gtablepre}users SET elo_rating='{$data['rating']}', elo_volatility='{$data['vol']}', elo_playedtimes='{$data['timesPlayed']}', elo_history='{$eh}' WHERE username = '{$data['name']}'");

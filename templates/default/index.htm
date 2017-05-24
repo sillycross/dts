@@ -23,7 +23,7 @@
 			<span class="evergreen">
 				<span class="evergreen2">
 				<!--{if room_check_subroom($room_prefix)}-->
-					<span class="yellow"><!--{eval echo '房间&nbsp;'.substr($room_prefix,1).'&nbsp;';}--></span>
+					<span class="yellow"><!--{eval echo '房间&nbsp;'.room_prefix2id($room_prefix).'&nbsp;';}--></span>
 				<!--{else}-->
 					{lang numinfo}
 				<!--{/if}-->

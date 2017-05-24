@@ -21,9 +21,15 @@ function room_prefix2id($room_prefix=''){
 	else return 0;
 }
 
+function room_prefix_kind($room_prefix=''){
+	//if(!$room_prefix) global $room_prefix;
+	if (room_check_subroom($room_prefix)) return (string)substr($room_prefix,0,1);
+	else return '';
+}
+
 function room_id2prefix($id){
 	if(!$id) return '';
-	elseif(strpos($room_prefix,'s')===0) return 's'.$id;
+	else return 's'.$id;
 }
 
 /* End of file room.func.php */

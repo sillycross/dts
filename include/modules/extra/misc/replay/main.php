@@ -104,7 +104,7 @@ namespace replay
 			$plis = Array();
 			//房间前缀，一般是's'
 			$room_gprefix = '';
-			if (room_check_subroom($room_prefix)) $room_gprefix = ((string)$room_prefix[0]).'.';
+			if (room_check_subroom($room_prefix)) $room_gprefix = room_prefix_kind($room_prefix).'.';
 //			logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-前序处理');
 			while($data = $db->fetch_array($result))
 			{
@@ -316,7 +316,7 @@ namespace replay
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		$room_gprefix = '';
-		if (room_check_subroom($room_prefix)) $room_gprefix = ((string)$room_prefix[0]).'.';
+		if (room_check_subroom($room_prefix)) $room_gprefix = room_prefix_kind($room_prefix).'.';
 		if (!file_exists(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gnum.'.rep.index'))
 		{
 			include template('MOD_REPLAY_GNUM_NO_REPLAY');
