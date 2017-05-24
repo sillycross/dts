@@ -70,7 +70,7 @@ namespace noise
 		eval(import_module('sys','noise'));
 		//因为sys模块里的这个函数最后是要gencode的，数组处理必须先进行，而不能先$chprocess()。
 		if(!is_array($ginfo['noisevars'])){
-			var_dump($ginfo['noisevars']);
+			//var_dump($ginfo['noisevars']);
 			$ginfo['noisevars'] = array();
 		}
 		foreach(array('noisetime', 'noisepls', 'noiseid', 'noiseid2', 'noisemode') as $nv){

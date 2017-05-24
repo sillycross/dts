@@ -85,11 +85,11 @@ namespace sys
 		return "<li>$time,$news,$a,$b,$c,$d<br>\n";
 	}
 	
-	function load_news($start = 0, $range = 0, $noday = 0, $rid=0){
+	function load_news($start = 0, $range = 0, $noday = 0, $rprefix=''){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		if(!$rid) $rid=$room_id;
-		$ntablepre = room_get_tablepre($rid);
+		if(!$rprefix) $rprefix=$room_prefix;
+		$ntablepre = room_get_tablepre($rprefix);
 		//$file = $file ? $file : $newsfile;	
 		//$ninfo = openfile($file);
 		//if(0 == $range){$range = $newslimit;}
@@ -142,9 +142,9 @@ namespace sys
 		return $exarr;
 	}
 	
-	function getnews($start=0, $range=0, $rid=0){
+	function getnews($start=0, $range=0, $room_prefix=''){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$newslist = load_news($start, $range, 1, $rid);
+		$newslist = load_news($start, $range, 1, $room_prefix);
 		$lastnid=$start;
 		if(!empty($newslist)){
 			$nkey = array_keys($newslist);
