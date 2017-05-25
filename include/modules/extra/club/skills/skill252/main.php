@@ -64,8 +64,9 @@ namespace skill252
 	function init_battle($ismeet)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player'));
 		$chprocess($ismeet);
-		if (\skillbase\skill_query(252)) apply_sk252_effect();
+		if (\skillbase\skill_query(252) && check_unlocked252($sdata)) apply_sk252_effect();
 	}
 }
 
