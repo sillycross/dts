@@ -439,7 +439,7 @@ function room_enter($id)
 		$header = 'game.php';
 	}
 	room_new_chat($roomdata,"<span class=\"grey\">{$cuser}进入了房间</span><br>");
-	$db->query("UPDATE {$gtablepre}users SET roomid = 's{$id}' WHERE username = '$cuser'");
+	$db->query("UPDATE {$gtablepre}users SET roomid = '{$id}' WHERE username = '$cuser'");
 	room_save_broadcast($id,$roomdata);
 	header('Location: '.$header);
 	die();

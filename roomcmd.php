@@ -389,7 +389,7 @@ if(!$roomtypelist[$rarr['groomtype']]['soleroom']){//非永续房间才进行下
 		room_new_chat($roomdata,"<span class=\"grey\">{$cuser}离开了房间</span><br>");
 		room_save_broadcast($room_id_r,$roomdata);
 		
-		$db->query("UPDATE {$gtablepre}users SET roomid='' WHERE username='$cuser'");
+		$db->query("UPDATE {$gtablepre}users SET roomid='0' WHERE username='$cuser'");
 		
 		if (isset($_GET['command']))
 			header('Location: index.php');
@@ -405,7 +405,7 @@ if(!$roomtypelist[$rarr['groomtype']]['soleroom']){//非永续房间才进行下
 	{
 		if($disable_newgame || $disable_newroom)
 		{
-			$db->query("UPDATE {$gtablepre}users SET roomid='' WHERE username='$cuser'");
+			$db->query("UPDATE {$gtablepre}users SET roomid='0' WHERE username='$cuser'");
 			gexit('系统维护中，暂时不能进入房间。');
 		}
 		$upos = room_upos_check($roomdata);

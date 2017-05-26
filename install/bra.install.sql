@@ -51,7 +51,7 @@ CREATE TABLE `bra_users` (
   `password` char(32) NOT NULL DEFAULT '',
   `ip` char(15) NOT NULL DEFAULT '',
   `groupid` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `roomid` char(5) NOT NULL DEFAULT '',
+  `roomid` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `gender` char(1) NOT NULL DEFAULT '0',
   `icon` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `motto` char(30) NOT NULL DEFAULT '',

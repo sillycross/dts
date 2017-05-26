@@ -130,7 +130,7 @@ if(!$db->num_rows($result)) {
 	}
 }
 //重新登陆之后房间设为0
-$db->query("UPDATE {$gtablepre}users SET ip='$onlineip',roomid='' WHERE username = '$username'");
+$db->query("UPDATE {$gtablepre}users SET ip='$onlineip',roomid='0' WHERE username = '$username'");
 
 gsetcookie('user',$userdata['username']);
 gsetcookie('pass',$password);
