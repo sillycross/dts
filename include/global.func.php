@@ -251,6 +251,7 @@ function openfile($filename){
 function clear_dir($dirName, $keep_root = 0)	//递归清空目录
 {
 	if ($dirName[strlen($dirName)-1]=='/') $dirName=substr($dirName,0,-1);
+	if(!file_exists($dirName) || !is_dir($dirName)) return;
 	if ($handle=opendir($dirName)) 
 	{
 		while (($item=readdir($handle))!==false) 

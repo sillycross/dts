@@ -61,13 +61,15 @@ function room_save_broadcast($roomid, &$roomdata)
 {
 	//保存数据并广播
 	eval(import_module('sys'));
-	$result = $db->query("SELECT groomid,groomstatus,groomtype,roomvars FROM {$gtablepre}game WHERE groomid = '$roomid'");
+	//$result = $db->query("SELECT groomid,groomstatus,groomtype,roomvars FROM {$gtablepre}game WHERE groomid = '$roomid'");
+	$rarr = fetch_roomdata($roomid);
 	$runflag = 0;
-	if ($db->num_rows($result)) 
-	{ 
-		$rarr=$db->fetch_array($result); 
-		if ($rarr['groomstatus']==2) $runflag = 1; 
-	}
+	if(!empty($rarr) && 2==$rarr['groomstatus']) $runflag = 1; 
+//	if ($db->num_rows($result)) 
+//	{ 
+//		$rarr=$db->fetch_array($result); 
+//		if ($rarr['groomstatus']==2) $runflag = 1; 
+//	}
 	
 	update_roomstate($roomdata,$runflag);
 	roomdata_save($roomid, $roomdata);
@@ -153,19 +155,30 @@ function room_init($roomtype)
 	return $a;
 }
 
-function fetch_roomdata($roomid){
+//获取数据库中的房间数据；$roomid取值可以是'ALL'
+//如果无符合条件，返回NULL；如果只有1个房间则直接返回这个房间的数组；如果有多个房间则返回多元素的数组
+function fetch_roomdata($roomid, $roomstate=NULL){
 	eval(import_module('sys'));
 	$rdata = Array();
+	$query = "SELECT groomid,groomstatus,groomtype,roomvars FROM {$gtablepre}game ";
 	if('ALL' == $roomid) {
-		$result = $db->query("SELECT groomid,groomstatus,groomtype,roomvars FROM {$gtablepre}game WHERE groomid > 0");
+		$query .= "WHERE groomid > 0 ";
 	}else {
 		$roomid = (int)$roomid;
-		$result = $db->query("SELECT groomid,groomstatus,groomtype,roomvars FROM {$gtablepre}game WHERE groomid = '$roomid'");
+		$query .= "WHERE groomid = '$roomid' ";
 	}
+	if(NULL!==$roomstate){
+		$roomstate = (int)$roomstate;
+		$query .= "AND groomstate = '$roomstate' ";
+	}
+	$query .= "ORDER BY groomid";
+	$result = $db->query($query);
 	while($rsingle = $db->fetch_array($result)){
 		$rdata[] = $rsingle;
 	}
-	return $rdata;
+	if(!$rdata) return NULL;
+	elseif(1==sizeof($rdata)) return $rdata[0];
+	else return $rdata;
 }
 
 //获得房间参数，如果房间数组没有就去$roomtypelist里找
@@ -378,13 +391,15 @@ function room_enter($id)
 //		die();
 //	}
 	$id=(int)$id;
-	$result = $db->query("SELECT groomid,groomstatus,groomtype,roomvars FROM {$gtablepre}game WHERE groomid = '$id'");
-	if(!$db->num_rows($result)) 
+	$rd = fetch_roomdata($id);
+	//$result = $db->query("SELECT groomid,groomstatus,groomtype,roomvars FROM {$gtablepre}game WHERE groomid = '$id'");
+	//if(!$db->num_rows($result)) 
+	if(empty($rd)) 
 	{
 		gexit('房间'.$id.'数据记录不存在',__file__,__line__);
 		die();
 	}
-	$rd=$db->fetch_array($result);
+	//$rd=$db->fetch_array($result);
 	if ($rd['groomstatus']==0)
 	{
 		gexit('房间'.$id.'已关闭',__file__,__line__);

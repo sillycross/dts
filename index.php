@@ -96,10 +96,10 @@ while ($data = $db->fetch_array($roomresult))
 			if (update_roomstate($roomdata,1)) room_save_broadcast($data['groomid'],$roomdata);
 			$roomlist[$data['groomid']]['id'] = $data['groomid'];
 			$roomlist[$data['groomid']]['status']=$data['groomstatus'];
-			$roomlist[$data['groomid']]['maxplayer'] = $roomtypelist[$roomdata['roomtype']]['pnum'];
+			$roomlist[$data['groomid']]['maxplayer'] = room_get_vars($roomdata,'pnum');
 			$roomlist[$data['groomid']]['roomtype'] = $roomdata['roomtype'];
 			$roomlist[$data['groomid']]['roomdata'] = $roomdata;
-			$roomlist[$data['groomid']]['soleroom'] = $roomtypelist[$roomdata['roomtype']]['soleroom'];
+			$roomlist[$data['groomid']]['soleroom'] = room_get_vars($roomdata,'soleroom');
 			if($roomlist[$data['groomid']]['soleroom']){
 				$rid = 's'.$data['groomid'];
 				$rtablepre = $gtablepre.$rid.'_';

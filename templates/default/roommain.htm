@@ -2,7 +2,7 @@
 <table CellSpacing=0 CellPadding=0 width=100%>
 <tr>
 	<td class="b3" height=40px colspan=2>
-	<span style="font-size:30px; line-height:40px;">房间$roomid&nbsp;-&nbsp;$roomtypelist[$roomdata['roomtype']]['name']</span>
+	<span style="font-size:30px; line-height:40px;">房间$roomid&nbsp;-&nbsp; <!--{eval echo room_get_vars($roomdata, 'name');}--></span>
 	<!--{if $upos==0}-->
 	<div style="position:absolute; top:14px; left: 500px;">
 	<!--{eval glowbutton\glowbutton_set_style('id:rmedit;color:ffffff;clickable:1;max-text-width:70;line-height:20;margin-x:0;margin-y:0;');}-->
