@@ -21,8 +21,9 @@ namespace attrbase
 	function get_ex_attack_array(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (strpos($pa['wepk'],$pa['wep_kind'])!==false)
+		if (attr_dmg_check_not_WPG($pa, $pd, $active))
 			$ret = \itemmain\get_itmsk_array($pa['wepsk']);
+		else $ret = array();
 		
 		if (defined('MOD_ARMOR'))
 		{		
@@ -40,6 +41,13 @@ namespace attrbase
 			if ($pa['artk']=='Ag') array_push($ret,'g');
 		}
 		return $ret;
+	}
+			
+	function attr_dmg_check_not_WPG(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//必须作为本系武器使用才有属性伤害（枪械当钝器没有）
+		return (strpos($pa['wepk'],$pa['wep_kind'])!==false);
 	}
 	
 	//检查$pa是否具有$nm属性，如$pa为NULL则检查当前玩家

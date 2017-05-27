@@ -51,7 +51,7 @@ CREATE TABLE `bra_users` (
   `password` char(32) NOT NULL DEFAULT '',
   `ip` char(15) NOT NULL DEFAULT '',
   `groupid` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `roomid` char(5) NOT NULL DEFAULT '',
+  `roomid` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `gender` char(1) NOT NULL DEFAULT '0',
   `icon` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `motto` char(30) NOT NULL DEFAULT '',
@@ -87,27 +87,31 @@ CREATE TABLE `bra_users` (
 -- Table structure for table `bra_history`
 --
 
-#DROP TABLE IF EXISTS `bra_history`;
-#CREATE TABLE `bra_history` (
-#	`wmode` tinyint(3) unsigned NOT NULL DEFAULT '0',
-#	`winner` char(15) NOT NULL DEFAULT '',
-#	`gametype` tinyint(3) NOT NULL DEFAULT '0',
-#  `vnum` smallint(5) unsigned NOT NULL DEFAULT '0',
-#  `gtime` int(10) unsigned NOT NULL DEFAULT '0',
-#  `gstime` int(10) unsigned NOT NULL DEFAULT '0',
-#  `getime` int(10) unsigned NOT NULL DEFAULT '0',
-#  
-#  
-#  `winnum` int(11) NOT NULL DEFAULT '0',
-#  `namelist` varchar(255) NOT NULL DEFAULT '',
-#  `weplist` varchar(255) NOT NULL DEFAULT '',
-#  `iconlist` varchar(80) NOT NULL DEFAULT '',
-#  `gdlist` varchar(50) NOT NULL DEFAULT '',
-#  `cardname` text NOT NULL DEFAULT '',
-#  UNIQUE KEY `gid` (`gid`),
-#  INDEX `WMODE` (`wmode`),
-#  INDEX `WINNER` (`winner`)
-#) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `bra_history`;
+CREATE TABLE `bra_history` (
+	`gid` mediumint(8) unsigned NOT NULL DEFAULT '0',
+	`wmode` tinyint(3) unsigned NOT NULL DEFAULT '0',
+	`winner` char(15) NOT NULL DEFAULT '',
+	`motto` char(30) NOT NULL DEFAULT '',
+	`gametype` tinyint(3) NOT NULL DEFAULT '0',
+  `vnum` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `gtime` int(10) unsigned NOT NULL DEFAULT '0',
+  `gstime` int(10) unsigned NOT NULL DEFAULT '0',
+  `getime` int(10) unsigned NOT NULL DEFAULT '0',
+  `winnum` tinyint(3) NOT NULL DEFAULT '0',
+  `hdmg` int(10) unsigned NOT NULL DEFAULT '0',
+  `hdp` char(15) NOT NULL DEFAULT '',
+  `hkill` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `hkp` char(15) NOT NULL DEFAULT '',
+  `winnerpdata` text NOT NULL DEFAULT '',
+  `validlist` text NOT NULL DEFAULT '',
+  `hnews` mediumtext NOT NULL DEFAULT '',
+  `replay` mediumtext NOT NULL DEFAULT '',
+  
+  UNIQUE KEY `gid` (`gid`),
+  INDEX `WMODE` (`wmode`),
+  INDEX `WINNER` (`winner`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
 --

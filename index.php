@@ -23,7 +23,7 @@ elseif($disable_newroom) $systemmsg = '<span class="evergreen2" style="color:red
 
 $roomlist = Array();
 
-$roomresult = $db->query("SELECT * FROM {$gtablepre}game WHERE groomstatus > 0");
+$roomresult = $db->query("SELECT * FROM {$gtablepre}game WHERE groomid>0 AND groomstatus > 0");
 //从数据库拉取开启的房间数，然后从文件判断房间是不是开启……有点迷
 while ($data = $db->fetch_array($roomresult))
 {
@@ -32,8 +32,8 @@ while ($data = $db->fetch_array($roomresult))
 		$cnt=$rdpmax=0;
 		if (file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['groomid'].'.txt'))
 		{
-			$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['groomid'].'.txt'),1);
-			
+			//$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['groomid'].'.txt'),1);
+			$roomdata = gdecode($data['roomvars'] ,1);
 			$infochanged = 0;
 			if (update_roomstate($roomdata,0)) $infochanged = 1;
 			
@@ -91,14 +91,15 @@ while ($data = $db->fetch_array($roomresult))
 	{
 		if (file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['groomid'].'.txt'))
 		{
-			$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['groomid'].'.txt'),1);
+			//$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['groomid'].'.txt'),1);
+			$roomdata = gdecode($data['roomvars'] ,1);
 			if (update_roomstate($roomdata,1)) room_save_broadcast($data['groomid'],$roomdata);
 			$roomlist[$data['groomid']]['id'] = $data['groomid'];
 			$roomlist[$data['groomid']]['status']=$data['groomstatus'];
-			$roomlist[$data['groomid']]['maxplayer'] = $roomtypelist[$roomdata['roomtype']]['pnum'];
+			$roomlist[$data['groomid']]['maxplayer'] = room_get_vars($roomdata,'pnum');
 			$roomlist[$data['groomid']]['roomtype'] = $roomdata['roomtype'];
 			$roomlist[$data['groomid']]['roomdata'] = $roomdata;
-			$roomlist[$data['groomid']]['soleroom'] = $roomtypelist[$roomdata['roomtype']]['soleroom'];
+			$roomlist[$data['groomid']]['soleroom'] = room_get_vars($roomdata,'soleroom');
 			if($roomlist[$data['groomid']]['soleroom']){
 				$rid = 's'.$data['groomid'];
 				$rtablepre = $gtablepre.$rid.'_';

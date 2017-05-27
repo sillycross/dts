@@ -23,45 +23,60 @@ $udata = udata_check();
 //if(!$db->num_rows($result)) gexit('Cookie无效。请重新登录。');
 //$udata = $db->fetch_array($result);
 //if($udata['password'] != $cpass) gexit('Cookie无效。请重新登录。');
-if ($udata['roomid']=='' || $udata['roomid'][0]!='s') {
-	$db->query("UPDATE {$gtablepre}users SET roomid='' WHERE username='$cuser'");
-	gexit('你不在一个房间内。');
+$room_prefix = room_id2prefix($udata['roomid']);
+$room_flag = 1;
+if (!room_check_subroom($room_prefix)) {
+//	$db->query("UPDATE {$gtablepre}users SET roomid='0' WHERE username='$cuser'");
+//	gexit('你不在一个房间内。');
+	$room_flag = 0;
+}else{
+	$room_id_r = $udata['roomid'];//substr($udata['roomid'],1);
+
+	ignore_user_abort(1);
+	
+	$_POST=gstrfilter($_POST);
+	if (!file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt')) {
+		$room_flag = 0;
+//		$db->query("UPDATE {$gtablepre}users SET roomid='0' WHERE username='$cuser'");
+//		gexit('房间文件缓存不存在。');
+	}else{
+		$result = $db->query("SELECT groomid,groomstatus,groomtype,roomvars FROM {$gtablepre}game WHERE groomid='$room_id_r'");
+		if (!$db->num_rows($result)) {
+			$room_flag = 0;
+//			$db->query("UPDATE {$gtablepre}users SET roomid='0' WHERE username='$cuser'");
+//			gexit('房间数据记录不存在。');
+		}
+		$rarr=$db->fetch_array($result);
+		if ($rarr['groomstatus']==0) {
+			$room_flag = 0;
+//			$db->query("UPDATE {$gtablepre}users SET roomid='0' WHERE username='$cuser'");
+//			gexit('房间已关闭。');	
+		}
+	}
+}
+if(!$room_flag){
+	$db->query("UPDATE {$gtablepre}users SET roomid='0' WHERE username='$cuser'");
+	ob_clean();
+	$gamedata['url']='index.php';
+	echo gencode($gamedata);
+	die();
 }
 
-$room_id_r = substr($udata['roomid'],1);
-
-ignore_user_abort(1);
-
-$_POST=gstrfilter($_POST);
-if (!file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt')) {
-	$db->query("UPDATE {$gtablepre}users SET roomid='' WHERE username='$cuser'");
-	gexit('房间文件缓存不存在。');
-}
-
-$result = $db->query("SELECT groomstatus FROM {$gtablepre}game WHERE groomid='$room_id_r'");
-if (!$db->num_rows($result)) {
-	$db->query("UPDATE {$gtablepre}users SET roomid='' WHERE username='$cuser'");
-	gexit('房间数据记录不存在。');
-}
-$rarr=$db->fetch_array($result);
-if ($rarr['groomstatus']==0) {
-	$db->query("UPDATE {$gtablepre}users SET roomid='' WHERE username='$cuser'");
-	gexit('房间已关闭。');	
-}
 if ($rarr['groomstatus']==2) 
 {
 	ob_clean();
 	$gamedata['url']='game.php';
 	echo gencode($gamedata);
 	die();
-}elseif($rarr['groomstatus']==1 && ($disable_newgame || $disable_newroom))
-{//不知道这句有没有用
-	$db->query("UPDATE {$gtablepre}users SET roomid='' WHERE username='$cuser'");
-	gexit('系统维护中，暂时不能加入房间。');
 }
+//elseif($rarr['groomstatus']==1 && ($disable_newgame || $disable_newroom))
+//{//不知道这句有没有用
+//	$db->query("UPDATE {$gtablepre}users SET roomid='0' WHERE username='$cuser'");
+//	gexit('系统维护中，暂时不能加入房间。');
+//}
 
-$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt'),1);
-
+//$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt'),1);
+$roomdata = gdecode($rarr['roomvars'] ,1);
 //载入气泡框模块和发光按钮模块
 require GAME_ROOT.'./include/modules/extra/misc/bubblebox/module.inc.php';
 require GAME_ROOT.'./include/modules/extra/misc/glowbutton/module.inc.php';
@@ -103,7 +118,7 @@ if (!__SOCKET_CHECK_WITH_TIMEOUT__($___TEMP_socket, 'a', 30, 0))
 
 if (!file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt')) { ob_clean(); die(); }
 
-$result = $db->query("SELECT groomstatus FROM {$gtablepre}game WHERE groomid='$room_id_r'");
+$result = $db->query("SELECT groomid,groomstatus,groomtype,roomvars FROM {$gtablepre}game WHERE groomid='$room_id_r'");
 if (!$db->num_rows($result)) { ob_clean(); die(); }
 $rarr=$db->fetch_array($result);
 if ($rarr['groomstatus']==0) { ob_clean(); die(); }
@@ -115,8 +130,8 @@ if ($rarr['groomstatus']==2)
 	die();
 }
 
-$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt'),1);
-
+//$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt'),1);
+$roomdata = gdecode($rarr['roomvars'] ,1);
 room_showdata($roomdata,$cuser);
 die();
 

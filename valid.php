@@ -150,13 +150,13 @@ if($mode == 'enter') {
 	$result = $db->query("SELECT card FROM {$tablepre}players WHERE type = 0");
 	$t=Array();
 	while ($cdata = $db->fetch_array($result)) $t[$cdata['card']]=1;
-	
-	foreach ($card_ownlist as $key)
-		if (!in_array($cards[$key]['rare'], array('C', 'M')) && isset($t[$key])) 
-		{
-			$card_disabledlist[$key]='e2';
-			$card_error['e2'] = '这张卡片暂时不能使用，因为本局已经有其他人使用了这张卡片<br>请下局早点入场吧！';
-		}
+	if($gametype < 10) //只有正规模式才限制卡片，房间模式不限
+		foreach ($card_ownlist as $key)
+			if (!in_array($cards[$key]['rare'], array('C', 'M')) && isset($t[$key])) 
+			{
+				$card_disabledlist[$key]='e2';
+				$card_error['e2'] = '这张卡片暂时不能使用，因为本局已经有其他人使用了这张卡片<br>请下局早点入场吧！';
+			}
 	
 	//次高优先级错误原因：单卡CD
 	foreach ($card_ownlist as $key)

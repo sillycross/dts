@@ -19,6 +19,7 @@ namespace sys
 			$groomtype = 0;
 			$gametype = 0;
 			$groomstatus = 2;
+			$roomvars = array();
 		}
 		
 		$gamestate = 5;//正在重设游戏

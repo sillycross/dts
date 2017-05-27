@@ -69,34 +69,47 @@ elseif (!room_check_subroom($room_prefix))
 $room_id_r = room_prefix2id($room_prefix);
 if (!file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt')) 
 {
-	gexit('房间文件缓存不存在。', __file__, __line__);
+	gexit('房间开关文件不存在。', __file__, __line__);
 }
 
-$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt'),1);
+//$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt'),1);
 
-$result = $db->query("SELECT groomstatus FROM {$gtablepre}game WHERE groomid = '$room_id_r'");
-if(!$db->num_rows($result)) 
+//$result = $db->query("SELECT groomid,groomstatus,groomtype,roomvars FROM {$gtablepre}game WHERE groomid = '$room_id_r'");
+$rarr = fetch_roomdata($room_id_r);
+//if(!$db->num_rows($result)) 
+if(empty($rarr)) 
 {
 	gexit('房间数据记录不存在。', __file__, __line__);
 }
 
 //房间命令只对处于等待状态的房间有效，除了退出房间命令
-$rarr=$db->fetch_array($result);
+//$rarr=$db->fetch_array($result);
 if ($rarr['groomstatus']!=1 && $command!='leave')
 {
 	gexit('房间不在等待状态，命令无效。', __file__, __line__);
 }
-
+$roomdata = gdecode($rarr['roomvars'] ,1);
 //进入即将开始状态后，任何房间命令均无效，包括退出房间命令
 if ($roomdata['roomstat']==2)
 {
 	gexit('房间已开始，命令无效。', __file__, __line__);
 }
-
 if ($rarr['groomstatus']==2) $runflag = 1; else $runflag = 0;
 update_roomstate($roomdata,$runflag);
-
-if(!$roomtypelist[$rarr['groomtype']]['soleroom']){//非永续房间才进行下列判定
+if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
+	if ($command=='leave')
+	{
+		$db->query("UPDATE {$gtablepre}users SET roomid='0' WHERE username='$cuser'");
+		if (isset($_GET['command']))
+			header('Location: index.php');
+		else
+		{
+			$gamedata['url']='index.php';
+			echo gencode($gamedata);
+		}
+		die();
+	}
+}else{//非永续房间才进行下列判定
 	//更新踢人状态
 	if(room_auto_kick_check($roomdata)) room_save_broadcast($room_id_r,$roomdata);
 //	if ($roomdata['roomstat']==1 && time()>=$roomdata['kicktime'])
@@ -112,20 +125,19 @@ if(!$roomtypelist[$rarr['groomtype']]['soleroom']){//非永续房间才进行下
 //		room_save_broadcast($room_id_r,$roomdata);
 //	}
 	
-	if ($command=='newchat')
+	if ('newchat'==$command)
 	{
 		room_new_chat($roomdata,"<span class=\"white\"><span class=\"yellow\">{$cuser}:</span>&nbsp;{$para1}</span><br>");
 		room_save_broadcast($room_id_r,$roomdata);
 		die();
-	}
-	
+	}	
 	elseif (strpos($command,'pos')===0)
 	{
 		$para1=(int)$para1;
 		$upos = room_upos_check($roomdata);
 		if($para1 == $upos) 
 			room_new_chat($roomdata,"<span class=\"red\">{$cuser}试图操作他自己的位置</span><br>");
-		elseif($para1 < 0 || $para1 >= $roomtypelist[$roomdata['roomtype']]['pnum']) 
+		elseif($para1 < 0 || $para1 >= room_get_vars($roomdata,'pnum')) 
 			room_new_chat($roomdata,"<span class=\"red\">{$cuser}试图操作一个不存在的位置</span><br>");
 		
 		//进入位置，任何人都能操作
@@ -313,7 +325,7 @@ if(!$roomtypelist[$rarr['groomtype']]['soleroom']){//非永续房间才进行下
 //		die();
 //	}
 	
-	elseif ($command=='rmsetmode')
+	elseif ('rmsetmode'==$command)
 	{
 		$para1=(int)$para1;
 		$upos = room_upos_check($roomdata);
@@ -357,8 +369,29 @@ if(!$roomtypelist[$rarr['groomtype']]['soleroom']){//非永续房间才进行下
 			}
 		die();
 	}
-	
-	elseif ($command=='leave')
+	elseif('game-option'==$command)
+	{
+		$upos = room_upos_check($roomdata);
+		if($upos!=0)
+			room_new_chat($roomdata,"<span class=\"red\">并非房主的{$cuser}试图改变游戏设置</span><br>");
+		elseif(!room_check_game_option($roomdata['roomtype'], $para1, $para2))
+			room_new_chat($roomdata,"<span class=\"red\">{$cuser}试图设置一个错误的游戏参数</span><br>");
+		else {
+			$go = room_get_vars($roomdata,'game-option');
+			$gokey_words = $go[$para1]['title'];
+			$o_oval = room_get_vars($roomdata,'current_game_option')[$para1];
+			foreach($go[$para1]['options'] as $ov){
+				if($ov['value'] == $o_oval) $o_oval_words = $ov['name'];
+				if($ov['value'] == $para2) $n_oval_words = $ov['name'];
+				if(isset($o_oval_words) && isset($n_oval_words)) break;
+			}
+			room_set_game_option($roomdata, $para1, $para2);
+			room_new_chat($roomdata,"<span class=\"grey\">{$cuser}将 {$gokey_words} 从 {$o_oval_words} 变为 {$n_oval_words} </span><br>");
+		}
+		room_save_broadcast($room_id_r,$roomdata);
+		die();
+	}
+	elseif ('leave'==$command)
 	{
 		$upos = room_upos_check($roomdata);
 //		$upos = -1;
@@ -388,9 +421,7 @@ if(!$roomtypelist[$rarr['groomtype']]['soleroom']){//非永续房间才进行下
 		}
 		room_new_chat($roomdata,"<span class=\"grey\">{$cuser}离开了房间</span><br>");
 		room_save_broadcast($room_id_r,$roomdata);
-		
-		$db->query("UPDATE {$gtablepre}users SET roomid='' WHERE username='$cuser'");
-		
+		$db->query("UPDATE {$gtablepre}users SET roomid='0' WHERE username='$cuser'");
 		if (isset($_GET['command']))
 			header('Location: index.php');
 		else
@@ -405,7 +436,7 @@ if(!$roomtypelist[$rarr['groomtype']]['soleroom']){//非永续房间才进行下
 	{
 		if($disable_newgame || $disable_newroom)
 		{
-			$db->query("UPDATE {$gtablepre}users SET roomid='' WHERE username='$cuser'");
+			$db->query("UPDATE {$gtablepre}users SET roomid='0' WHERE username='$cuser'");
 			gexit('系统维护中，暂时不能进入房间。');
 		}
 		$upos = room_upos_check($roomdata);
@@ -443,31 +474,31 @@ if(!$roomtypelist[$rarr['groomtype']]['soleroom']){//非永续房间才进行下
 				//发送游戏模式新闻
 				if ($roomdata['roomtype']==0)	//1v1
 				{	
-					addnews($now,'roominfo',$roomtypelist[$roomdata['roomtype']]['name'],'对决者:&nbsp;'.room_getteamhtml($roomdata,0).'&nbsp;<span class="yellow">VS</span>&nbsp;'.room_getteamhtml($roomdata,1).'！');
+					addnews($now,'roominfo',room_get_vars($roomdata, 'name'),'对决者:&nbsp;'.room_getteamhtml($roomdata,0).'&nbsp;<span class="yellow">VS</span>&nbsp;'.room_getteamhtml($roomdata,1).'！');
 				}
 				else  if ($roomdata['roomtype']==1)	//2
 				{
-					addnews($now,'roominfo',$roomtypelist[$roomdata['roomtype']]['name'],'对决者:&nbsp;<span style="color:#ff0022">红队&nbsp;'.room_getteamhtml($roomdata,0).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#5900ff">蓝队 '.room_getteamhtml($roomdata,5).'</span>！');
+					addnews($now,'roominfo',room_get_vars($roomdata, 'name'),'对决者:&nbsp;<span style="color:#ff0022">红队&nbsp;'.room_getteamhtml($roomdata,0).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#5900ff">蓝队 '.room_getteamhtml($roomdata,5).'</span>！');
 				}
 				else  if ($roomdata['roomtype']==2)	//3
 				{
-					addnews($now,'roominfo',$roomtypelist[$roomdata['roomtype']]['name'],'对决者:&nbsp;<span style="color:#ff0022">红队&nbsp;'.room_getteamhtml($roomdata,0).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#5900ff">蓝队 '.room_getteamhtml($roomdata,5).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#8cff00">绿队 '.room_getteamhtml($roomdata,10).'</span>！');
+					addnews($now,'roominfo',room_get_vars($roomdata, 'name'),'对决者:&nbsp;<span style="color:#ff0022">红队&nbsp;'.room_getteamhtml($roomdata,0).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#5900ff">蓝队 '.room_getteamhtml($roomdata,5).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#8cff00">绿队 '.room_getteamhtml($roomdata,10).'</span>！');
 				}
 				else  if ($roomdata['roomtype']==3)	//4
 				{
-					addnews($now,'roominfo',$roomtypelist[$roomdata['roomtype']]['name'],'对决者:&nbsp;<span style="color:#ff0022">红队&nbsp;'.room_getteamhtml($roomdata,0).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#5900ff">蓝队 '.room_getteamhtml($roomdata,5).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#8cff00">绿队 '.room_getteamhtml($roomdata,10).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#ffc700">黄队 '.room_getteamhtml($roomdata,15).'</span>！');
+					addnews($now,'roominfo',room_get_vars($roomdata, 'name'),'对决者:&nbsp;<span style="color:#ff0022">红队&nbsp;'.room_getteamhtml($roomdata,0).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#5900ff">蓝队 '.room_getteamhtml($roomdata,5).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#8cff00">绿队 '.room_getteamhtml($roomdata,10).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#ffc700">黄队 '.room_getteamhtml($roomdata,15).'</span>！');
 				}
 				else  if ($roomdata['roomtype']==4)	//5
 				{
-					addnews($now,'roominfo',$roomtypelist[$roomdata['roomtype']]['name'],'对决者:&nbsp;<span style="color:#ff0022">红队&nbsp;'.room_getteamhtml($roomdata,0).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#5900ff">蓝队 '.room_getteamhtml($roomdata,5).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#8cff00">绿队 '.room_getteamhtml($roomdata,10).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#ffc700">黄队 '.room_getteamhtml($roomdata,15).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#fefefe">白队 '.room_getteamhtml($roomdata,20).'</span>！');
+					addnews($now,'roominfo',room_get_vars($roomdata, 'name'),'对决者:&nbsp;<span style="color:#ff0022">红队&nbsp;'.room_getteamhtml($roomdata,0).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#5900ff">蓝队 '.room_getteamhtml($roomdata,5).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#8cff00">绿队 '.room_getteamhtml($roomdata,10).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#ffc700">黄队 '.room_getteamhtml($roomdata,15).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#fefefe">白队 '.room_getteamhtml($roomdata,20).'</span>！');
 				}
 				else if ($roomdata['roomtype']==5)	//单人挑战
 				{	
-					addnews($now,'roominfo',$roomtypelist[$roomdata['roomtype']]['name'],'挑战者:&nbsp;'.room_getteamhtml($roomdata,0).'！');
+					addnews($now,'roominfo',room_get_vars($roomdata, 'name'),'挑战者:&nbsp;'.room_getteamhtml($roomdata,0).'！');
 				}
 				else if ($roomdata['roomtype']==6)	//PVE
 				{	
-					addnews($now,'roominfo',$roomtypelist[$roomdata['roomtype']]['name'],'挑战者:&nbsp;'.room_getteamhtml($roomdata,0).'！');
+					addnews($now,'roominfo',room_get_vars($roomdata, 'name'),'挑战者:&nbsp;'.room_getteamhtml($roomdata,0).'！');
 				}
 				//所有玩家进入游戏
 				for ($i=0; $i < $rdpnum; $i++)

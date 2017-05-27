@@ -54,7 +54,7 @@ namespace enemy
 	function get_final_active_obbs(&$ldata,&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
+		eval(import_module('enemy'));
 		//calculate_active_obbs()是加算，返回1-98的数值
 		$active_r = min(max(calculate_active_obbs($ldata,$edata),1), 98);
 		
@@ -64,6 +64,9 @@ namespace enemy
 		//calculate_active_obbs_change()是最后改变，返回0-100的数值，这里只放特判，一般增减请用前两个函数
 		$active_r = calculate_active_obbs_change($ldata,$edata,$active_r);
 		
+		//先攻率最大最小值判定
+		$active_r = max($active_obbs_range[0], min($active_obbs_range[1], $active_r));
+		//echo $active_r;
 		return $active_r;
 	}
 	

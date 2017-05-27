@@ -20,7 +20,7 @@ output_t('Loading bra.install.sql...');
 
 //获取表名内容备用
 $alter_tables = array();
-$result = $db->query("SHOW TABLES LIKE 'alter_%game';");
+$result = $db->query("SHOW TABLES LIKE 'alter_%users';");
 while($rarr = $db->fetch_array($result)){
 	$table = str_replace('alter_','',current($rarr));
 	$alter_tables[] = $table;
@@ -91,6 +91,7 @@ function col_filter($objtable, $data){
 	}
 	foreach($del_fields[$objtable] as $dv){
 		if(isset($data[$dv])) unset($data[$dv]);
+		if($dv == 'roomid') $data[$dv] = 0;
 	}
 	
 

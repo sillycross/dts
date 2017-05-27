@@ -24,7 +24,7 @@ CREATE TABLE bra_chat (
   cid smallint unsigned NOT NULL auto_increment,
   type enum('0','1','2','3','4','5') NOT NULL default '0',
  `time` int(10) unsigned NOT NULL default '0',
-  send char(24) NOT NULL default '',
+  send char(30) NOT NULL default '',
   recv char(15) NOT NULL default '',
   msg char(60) NOT NULL default '',
 

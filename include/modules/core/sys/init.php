@@ -51,9 +51,10 @@ namespace sys
 			
 		//进入当前用户房间判断
 		$room_prefix = '';
+		$room_id = 0;
 		if (isset($___LOCAL_INPUT__VARS__INPUT_VAR_LIST['___GAME_ROOMID']))
 		{
-			$room_prefix = ((string)$___LOCAL_INPUT__VARS__INPUT_VAR_LIST['___GAME_ROOMID']);
+			$room_id = ((string)$___LOCAL_INPUT__VARS__INPUT_VAR_LIST['___GAME_ROOMID']);
 		}
 		else  
 		{
@@ -63,13 +64,15 @@ namespace sys
 				if ($db->num_rows($result))
 				{
 					$rarr = $db->fetch_array($result);
-					$room_prefix = $rarr['roomid'];
+					$room_id = $rarr['roomid'];
 				}
 			}
 		}
+		
+		$room_prefix = room_id2prefix($room_id);
 
 		//$room_status = 0;
-		$room_id = room_prefix2id($room_prefix);
+		//$room_id = room_prefix2id($room_prefix);
 		
 		//判断所在房间是否存在/是否已经关闭，如果不存在或关闭则将玩家所在房间调整为0（主游戏）
 		global $gameinfo; 

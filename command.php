@@ -318,7 +318,7 @@ else	//未开启server-client模式，正常执行准备流程
 if(isset($command)){
 	if($command=='get_news_in_game' && isset($lastnid) && isset($news_room_prefix)){//获取进行状况
 		$lastnid=(int)$lastnid;
-		$newsinfo = \sys\getnews($lastnid,0,$news_room_prefix);
+		$newsinfo = \sys\getnews($lastnid,$newslimit,$news_room_prefix);
 		ob_clean();
 		$jgamedata = gencode($newsinfo);
 		echo $jgamedata;

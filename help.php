@@ -11,7 +11,7 @@ include_once GAME_ROOT . './include/itemplace.func.php';
 
 $mixfile = GAME_ROOT.'./include/modules/base/itemmix/itemmix/config/itemmix.config.php';
 include $mixfile;
-$writefile = GAME_ROOT.TPLDIR.'/mixhelp.htm';
+$writefile = GAME_ROOT.TPLDIR.'/tmp_mixhelp.htm';
 //通常合成表自动生成
 if(!file_exists($writefile) || filemtime($mixfile) > filemtime($writefile)){
 	$mixitem = array();
@@ -89,7 +89,7 @@ if(!file_exists($writefile) || filemtime($mixfile) > filemtime($writefile)){
 
 //同调合成表自动生成
 $syncfile = GAME_ROOT.'./include/modules/base/itemmix/itemmix_sync/config/sync.config.php';
-$writefile = GAME_ROOT.TPLDIR.'/mixhelp_sync.htm';
+$writefile = GAME_ROOT.TPLDIR.'/tmp_mixhelp_sync.htm';
 if(!file_exists($writefile) || filemtime($syncfile) > filemtime($writefile)){
 	$syncinfo=openfile($syncfile);
 	$syncitem = array();
@@ -169,7 +169,7 @@ SYNC_HELP_WRITE_CONTENT;
 }
 //超量合成表自动生成
 $overlayfile = GAME_ROOT.'./include/modules/base/itemmix/itemmix_overlay/config/overlay.config.php';
-$writefile = GAME_ROOT.TPLDIR.'/mixhelp_overlay.htm';
+$writefile = GAME_ROOT.TPLDIR.'/tmp_mixhelp_overlay.htm';
 if(!file_exists($writefile) || filemtime($overlayfile) > filemtime($writefile)){
 	$overlayinfo=openfile($overlayfile);
 	$overlayitem = array();
@@ -221,6 +221,19 @@ OVERLAY_HELP_INFO_DOC_TR;
 OVERLAY_HELP_WRITE_CONTENT;
 	writeover($writefile,$writecont);
 }
+
+$npcfile = GAME_ROOT.'./include/modules/base/npc/config/npc.data.config.php';
+include $mixfile;
+$writefile = GAME_ROOT.TPLDIR.'/tmp_npchelp.htm';
+//NPC列表自动生成
+if(!file_exists($writefile) || filemtime($mixfile) > filemtime($writefile)){
+	ob_start();
+	include template('npchelp');
+	$writecont = ob_get_contents();
+	ob_end_clean();
+	writeover($writefile,$writecont);
+}
+
 $extrahead = <<<EOT
 <STYLE type=text/css>
 BODY {
