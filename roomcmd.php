@@ -125,13 +125,12 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 //		room_save_broadcast($room_id_r,$roomdata);
 //	}
 	
-	if ($command=='newchat')
+	if ('newchat'==$command)
 	{
 		room_new_chat($roomdata,"<span class=\"white\"><span class=\"yellow\">{$cuser}:</span>&nbsp;{$para1}</span><br>");
 		room_save_broadcast($room_id_r,$roomdata);
 		die();
-	}
-	
+	}	
 	elseif (strpos($command,'pos')===0)
 	{
 		$para1=(int)$para1;
@@ -326,7 +325,7 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 //		die();
 //	}
 	
-	elseif ($command=='rmsetmode')
+	elseif ('rmsetmode'==$command)
 	{
 		$para1=(int)$para1;
 		$upos = room_upos_check($roomdata);
@@ -370,8 +369,29 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 			}
 		die();
 	}
-	
-	elseif ($command=='leave')
+	elseif('game-option'==$command)
+	{
+		$upos = room_upos_check($roomdata);
+		if($upos!=0)
+			room_new_chat($roomdata,"<span class=\"red\">并非房主的{$cuser}试图改变游戏设置</span><br>");
+		elseif(!room_check_game_option($roomdata['roomtype'], $para1, $para2))
+			room_new_chat($roomdata,"<span class=\"red\">{$cuser}试图设置一个错误的游戏参数</span><br>");
+		else {
+			$go = room_get_vars($roomdata,'game-option');
+			$gokey_words = $go[$para1]['title'];
+			$o_oval = room_get_vars($roomdata,'current_game_option')[$para1];
+			foreach($go[$para1]['options'] as $ov){
+				if($ov['value'] == $o_oval) $o_oval_words = $ov['name'];
+				if($ov['value'] == $para2) $n_oval_words = $ov['name'];
+				if(isset($o_oval_words) && isset($n_oval_words)) break;
+			}
+			room_set_game_option($roomdata, $para1, $para2);
+			room_new_chat($roomdata,"<span class=\"grey\">{$cuser}将 {$gokey_words} 从 {$o_oval_words} 变为 {$n_oval_words} </span><br>");
+		}
+		room_save_broadcast($room_id_r,$roomdata);
+		die();
+	}
+	elseif ('leave'==$command)
 	{
 		$upos = room_upos_check($roomdata);
 //		$upos = -1;

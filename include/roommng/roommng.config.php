@@ -33,6 +33,25 @@ $roomtypelist = Array(
 			1 => '蓝队',
 		),
 		'show-team-leader' => 0,	//是否显示“队长”标签（如队伍大于1人设为1）
+		'game-option' => array(
+			'special-rule' => array(//变量名
+				'title' => '特殊规则',//界面显示的提示
+				'type' => 'radio',//input类型
+				'options' => array(
+					array(
+						'value' => 'common',
+						'name' => '通常模式',
+						'title' => '与正常游戏一样，可选卡入内',
+						'default' => true,
+					),
+					array(
+						'value' => '4000lp',
+						'name' => '倔豆模式',
+						'title' => '强制双方选择卡片【倔豆挑战者】，以4000LP进场',
+					)
+				)
+			)
+		)
 	),
 	
 	1 => Array(

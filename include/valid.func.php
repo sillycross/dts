@@ -3,6 +3,7 @@
 function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 {
 	eval(import_module('sys'));
+	\sys\load_gameinfo();
 	if ($xgender!='m' && $xgender!='f') $xgender='m';
 	$validnum++;
 	$alivenum++;
@@ -40,18 +41,9 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 	$arhe = $arae = $arfe = $arte = 0;
 	$arhs = $aras = $arfs = $arts = 0;
 	
-	
-	
 	for ($i=0; $i<=6; $i++){$itm[$i] = $itmk[$i] = $itmsk[$i] = ''; $itme[$i] = $itms[$i] = 0;}
 	$itm[1] = '面包'; $itmk[1] = 'HH'; $itme[1] = 100; $itms[1] = 30;
 	$itm[2] = '矿泉水'; $itmk[2] = 'HS'; $itme[2] = 100; $itms[2] = 30;
-	
-	//solo局补给增加，配发探测器
-	if (in_array($gametype,$elorated_mode))
-	{
-		$itms[1] = 50; $itms[2] = 50;
-		$itm[5] = '生命探测器'; $itmk[5] = 'ER'; $itme[5] = 5; $itms[5] = 1;
-	}
 	
 	$weplist = openfile(config('stwep',$gamecfg));
 	do { 
@@ -102,15 +94,35 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 		$art = 'TDG地雷的证明';$artk = 'A'; $arte = 1; $arts = 1; $artsk = 'zZ';
 	}
 	
-	if($gametype == 17) {//教程模式
-		$card = 1000;
-		$itm[3] = '紧急药剂'; $itmk[3] = 'Ca'; $itme[3] = 1; $itms[3] = 10;
-	}
-	
 	$state = 0;
 	$bid = 0;
 
 	$inf = $teamID = $teamPass = '';
+	
+	//特殊开局规则
+	
+	//solo局补给增加，配发探测器
+	if (in_array($gametype,$elorated_mode))
+	{
+		$itms[1] = 50; $itms[2] = 50;
+		$itm[5] = '生命探测器'; $itmk[5] = 'ER'; $itme[5] = 5; $itms[5] = 1;
+	}
+	
+	//教程模式使用专用卡（教程技能），配发紧急药剂
+	if($gametype == 17) {
+		$card = 1000;
+		$itm[3] = '紧急药剂'; $itmk[3] = 'Ca'; $itme[3] = 1; $itms[3] = 10;
+	}
+	
+	//特殊规则
+	if(isset($roomvars['current_game_option'])){
+		if(isset($roomvars['current_game_option']['special-rule'])){
+			$spr = $roomvars['current_game_option']['special-rule'];
+			if('4000lp' == $spr)//倔豆模式
+				$card = 154;
+		}
+	}
+	
 	///////////////////////////////////////////////////////////////
 	eval(import_module('cardbase'));
 	

@@ -152,7 +152,50 @@ function room_init($roomtype)
 		$a['chatdata'][$i]=$s;
 		unset($s);
 	}
+	
+	//游戏选项
+	$a['current_game_option']=room_init_game_option($roomtype);
 	return $a;
+}
+
+//初始化游戏特殊参数
+function room_init_game_option($roomtype){
+	eval(import_module('sys'));
+	global $roomtypelist;
+	$r = array();
+	if (isset($roomtypelist[$roomtype]['game-option'])){
+		foreach ($roomtypelist[$roomtype]['game-option'] as $gokey => $goval){
+			foreach($goval['options'] as $oval){
+				if(isset($oval['default']) && $oval['default']){
+					$r[$gokey] = $oval['value'];
+					break;
+				}
+			}
+			if(!isset($r[$gokey])) $r[$gokey]=NULL;
+		}
+	}
+	return $r;
+}
+
+//检查游戏特殊参数是否合法
+function room_check_game_option($roomtype, $gokey, $oval){
+	eval(import_module('sys'));
+	global $roomtypelist;
+	if(!isset($roomtypelist[$roomtype]['game-option'])) {return false;}
+	$go = $roomtypelist[$roomtype]['game-option'];
+	if(!isset($go[$gokey])) {return false;}
+	$ovlist = array();
+	foreach($go[$gokey]['options'] as $ov){
+		$ovlist[] = $ov['value'];
+	}
+	if(!in_array($oval, $ovlist)) {return false;}
+	else {return true;}
+}
+
+//加载游戏特殊参数
+function room_set_game_option(&$roomdata, $gokey, $oval){
+	if(!room_check_game_option($roomdata['roomtype'], $gokey, $oval)) return false;
+	$roomdata['current_game_option'][$gokey] = $oval;
 }
 
 //获取数据库中的房间数据；$roomid取值可以是'ALL'
