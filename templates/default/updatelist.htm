@@ -2,7 +2,12 @@
 <br>
 <div style="width:800px; margin:0 auto; text-align:left;font-size:15px; line-height:22px;">
 <h2>更新日志</h2>
-<h3>2017年5月25日</h3>
+<h3>2017年5月27日</h3>
+开发相关：<br>
+<ul>
+	<li>房间数据完全改为数据库储存，现在gamedata/tmp/rooms/文件夹下的文件只起房间开关的作用
+</ul>
+<h3>5月25日</h3>
 游戏功能更新：<br>
 <ul>
 	<li>修正了player表选择性update带来的脏数据问题。看来在数据库改成行锁之前是不能投机取巧的。
@@ -15,7 +20,7 @@
 </ul>
 开发相关：<br>
 <ul>
-	<li>现在users表里只储存tinyint的$room_id，$room_prefix是游戏载入时自动加上前缀而生成的。
+	<li>现在users表里只储存tinyint的room_id，room_prefix是游戏载入时自动加上前缀而生成的。
 </ul>
 <h3>5月23日</h3>
 游戏功能更新：<br>

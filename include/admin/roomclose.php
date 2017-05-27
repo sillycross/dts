@@ -11,7 +11,7 @@ if($command == 'kill'){
 function closeroom($rid=1){
 	global $now,$db,$gtablepre,$cmd_info;
 	$cmd_info = '';
-	$result = $db->query("SELECT gamestate,groomstatus FROM {$gtablepre}game WHERE groomid = '$rid'");
+	$result = $db->query("SELECT groomid,groomstatus FROM {$gtablepre}game WHERE groomid = '$rid'");
 	if(!$db->num_rows($result)) 
 	{
 		$cmd_info .= '房间不存在！<br>';

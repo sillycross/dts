@@ -40,7 +40,7 @@ if (!room_check_subroom($room_prefix)) {
 //		$db->query("UPDATE {$gtablepre}users SET roomid='0' WHERE username='$cuser'");
 //		gexit('房间文件缓存不存在。');
 	}else{
-		$result = $db->query("SELECT groomstatus FROM {$gtablepre}game WHERE groomid='$room_id_r'");
+		$result = $db->query("SELECT groomid,groomstatus,groomtype,roomvars FROM {$gtablepre}game WHERE groomid='$room_id_r'");
 		if (!$db->num_rows($result)) {
 			$room_flag = 0;
 //			$db->query("UPDATE {$gtablepre}users SET roomid='0' WHERE username='$cuser'");
@@ -75,8 +75,8 @@ if ($rarr['groomstatus']==2)
 //	gexit('系统维护中，暂时不能加入房间。');
 //}
 
-$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt'),1);
-
+//$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt'),1);
+$roomdata = gdecode($rarr['roomvars'] ,1);
 //载入气泡框模块和发光按钮模块
 require GAME_ROOT.'./include/modules/extra/misc/bubblebox/module.inc.php';
 require GAME_ROOT.'./include/modules/extra/misc/glowbutton/module.inc.php';
@@ -118,7 +118,7 @@ if (!__SOCKET_CHECK_WITH_TIMEOUT__($___TEMP_socket, 'a', 30, 0))
 
 if (!file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt')) { ob_clean(); die(); }
 
-$result = $db->query("SELECT groomstatus FROM {$gtablepre}game WHERE groomid='$room_id_r'");
+$result = $db->query("SELECT groomid,groomstatus,groomtype,roomvars FROM {$gtablepre}game WHERE groomid='$room_id_r'");
 if (!$db->num_rows($result)) { ob_clean(); die(); }
 $rarr=$db->fetch_array($result);
 if ($rarr['groomstatus']==0) { ob_clean(); die(); }
@@ -130,8 +130,8 @@ if ($rarr['groomstatus']==2)
 	die();
 }
 
-$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt'),1);
-
+//$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt'),1);
+$roomdata = gdecode($rarr['roomvars'] ,1);
 room_showdata($roomdata,$cuser);
 die();
 

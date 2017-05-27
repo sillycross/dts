@@ -1,4 +1,5 @@
 <?php
+//gamedata/tmp/rooms下的文件现在只起一个开关作用。
 
 function room_all_routine(){
 	eval(import_module('sys'));
@@ -50,11 +51,17 @@ function update_roomstate(&$roomdata, $runflag)
 	return $changeflag;
 }
 
+function roomdata_save($roomid, &$roomdata){
+	eval(import_module('sys'));
+	$roomvars = gencode($roomdata);
+	$db->query("UPDATE {$gtablepre}game SET roomvars='$roomvars' WHERE groomid='$roomid'");
+}
+
 function room_save_broadcast($roomid, &$roomdata)
 {
 	//保存数据并广播
 	eval(import_module('sys'));
-	$result = $db->query("SELECT groomstatus FROM {$gtablepre}game WHERE groomid = '$roomid'");
+	$result = $db->query("SELECT groomid,groomstatus,groomtype,roomvars FROM {$gtablepre}game WHERE groomid = '$roomid'");
 	$runflag = 0;
 	if ($db->num_rows($result)) 
 	{ 
@@ -63,8 +70,9 @@ function room_save_broadcast($roomid, &$roomdata)
 	}
 	
 	update_roomstate($roomdata,$runflag);
-	
-	writeover(GAME_ROOT.'./gamedata/tmp/rooms/'.$roomid.'.txt', gencode($roomdata));
+	roomdata_save($roomid, $roomdata);
+	//writeover(GAME_ROOT.'./gamedata/tmp/rooms/'.$roomid.'.txt', gencode($roomdata));
+	touch(GAME_ROOT.'./gamedata/tmp/rooms/'.$roomid.'.txt');
 	$result = $db->query("SELECT * FROM {$gtablepre}roomlisteners WHERE roomid = '$roomid' AND timestamp < '{$roomdata['timestamp']}'");
 	if ($db->num_rows($result))
 	{
@@ -145,10 +153,15 @@ function room_init($roomtype)
 	return $a;
 }
 
-function fetch_roomdata(){
+function fetch_roomdata($roomid){
 	eval(import_module('sys'));
 	$rdata = Array();
-	$result = $db->query("SELECT groomstatus,groomid,groomtype FROM {$gtablepre}game WHERE groomid > 0");
+	if('ALL' == $roomid) {
+		$result = $db->query("SELECT groomid,groomstatus,groomtype,roomvars FROM {$gtablepre}game WHERE groomid > 0");
+	}else {
+		$roomid = (int)$roomid;
+		$result = $db->query("SELECT groomid,groomstatus,groomtype,roomvars FROM {$gtablepre}game WHERE groomid = '$roomid'");
+	}
 	while($rsingle = $db->fetch_array($result)){
 		$rdata[] = $rsingle;
 	}
@@ -268,7 +281,7 @@ function room_create($roomtype)
 	}
 	$rchoice = -1;
 	$rsetting = $roomtypelist[$roomtype];
-	$rdata = fetch_roomdata();
+	$rdata = fetch_roomdata('ALL');
 	if($rsetting['soleroom']){//永续房特判
 		$rid = -1;
 		$rids = range(1,$max_room_num);
@@ -280,7 +293,7 @@ function room_create($roomtype)
 				break;
 			}elseif($rd['groomstatus'] == 0){//房间关闭状态，改成永续房
 				$rchoice = $rid;
-				$db->query("UPDATE {$gtablepre}game SET groomstatus = 1, groomtype = '$roomtype' WHERE groomid = '$rid'");
+				$db->query("UPDATE {$gtablepre}game SET gamestate = 0, groomstatus = 1, groomtype = '$roomtype',  roomvars='' WHERE groomid = '$rid'");
 				break;
 			}
 		}
@@ -322,7 +335,7 @@ function room_create($roomtype)
 			{
 				if ($roomarr[$i]['groomstatus']==0)
 				{
-					$db->query("UPDATE {$gtablepre}game SET gamestate = 0, groomstatus = 1, groomtype = '$roomtype' WHERE groomid = '$i'");
+					$db->query("UPDATE {$gtablepre}game SET gamestate = 0, groomstatus = 1, groomtype = '$roomtype', roomvars='' WHERE groomid = '$i'");
 					$rchoice = $i; break;
 				}
 			}
@@ -339,7 +352,9 @@ function room_create($roomtype)
 	room_init_db_process($rchoice);
 	$roomdata['player'][0]['name']=$cuser;
 	$roomdata['roomfounder']=$cuser;
-	writeover(GAME_ROOT.'./gamedata/tmp/rooms/'.$rchoice.'.txt', gencode($roomdata));
+	touch(GAME_ROOT.'./gamedata/tmp/rooms/'.$rchoice.'.txt');
+	roomdata_save($rchoice, $roomdata);
+	//writeover(GAME_ROOT.'./gamedata/tmp/rooms/'.$rchoice.'.txt', gencode($roomdata));
 	$db->query("DELETE from {$gtablepre}roomlisteners WHERE roomid = '$rchoice'"); 
 //	if($rsetting['soleroom']){
 //		room_enter($rchoice);
@@ -363,26 +378,27 @@ function room_enter($id)
 //		die();
 //	}
 	$id=(int)$id;
-	$result = $db->query("SELECT groomstatus,groomtype FROM {$gtablepre}game WHERE groomid = '$id'");
+	$result = $db->query("SELECT groomid,groomstatus,groomtype,roomvars FROM {$gtablepre}game WHERE groomid = '$id'");
 	if(!$db->num_rows($result)) 
 	{
-		gexit('房间编号'.$id.'不存在',__file__,__line__);
+		gexit('房间'.$id.'数据记录不存在',__file__,__line__);
 		die();
 	}
 	$rd=$db->fetch_array($result);
 	if ($rd['groomstatus']==0)
 	{
-		gexit('房间编号'.$id.'不存在',__file__,__line__);
+		gexit('房间'.$id.'已关闭',__file__,__line__);
 		die();
 	}
 	
 	if (!file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$id.'.txt')) 
 	{
-		gexit('房间编号'.$id.'不存在',__file__,__line__);
+		gexit('房间'.$id.'缓存文件不存在',__file__,__line__);
 		die();
 	}
 	$header = 'index.php';
-	$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$id.'.txt'),1);
+	//$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$id.'.txt'),1);
+	$roomdata = gdecode($rd['roomvars'], 1);
 	//global $cuser;
 	global $roomtypelist, $gametype, $startime, $now, $room_prefix, $alivenum, $soleroom_resettime;
 	if($roomtypelist[$rd['groomtype']]['soleroom']){//永续房，绕过其他判断直接进房间

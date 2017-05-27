@@ -69,12 +69,12 @@ elseif (!room_check_subroom($room_prefix))
 $room_id_r = room_prefix2id($room_prefix);
 if (!file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt')) 
 {
-	gexit('房间文件缓存不存在。', __file__, __line__);
+	gexit('房间开关文件不存在。', __file__, __line__);
 }
 
-$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt'),1);
+//$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$room_id_r.'.txt'),1);
 
-$result = $db->query("SELECT groomstatus FROM {$gtablepre}game WHERE groomid = '$room_id_r'");
+$result = $db->query("SELECT groomid,groomstatus,groomtype,roomvars FROM {$gtablepre}game WHERE groomid = '$room_id_r'");
 if(!$db->num_rows($result)) 
 {
 	gexit('房间数据记录不存在。', __file__, __line__);
@@ -86,7 +86,7 @@ if ($rarr['groomstatus']!=1 && $command!='leave')
 {
 	gexit('房间不在等待状态，命令无效。', __file__, __line__);
 }
-
+$roomdata = gdecode($rarr['roomvars'] ,1);
 //进入即将开始状态后，任何房间命令均无效，包括退出房间命令
 if ($roomdata['roomstat']==2)
 {
