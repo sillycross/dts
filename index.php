@@ -23,7 +23,7 @@ elseif($disable_newroom) $systemmsg = '<span class="evergreen2" style="color:red
 
 $roomlist = Array();
 
-$roomresult = $db->query("SELECT * FROM {$gtablepre}game WHERE groomstatus > 0");
+$roomresult = $db->query("SELECT * FROM {$gtablepre}game WHERE groomid>0 AND groomstatus > 0");
 //从数据库拉取开启的房间数，然后从文件判断房间是不是开启……有点迷
 while ($data = $db->fetch_array($roomresult))
 {
