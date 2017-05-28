@@ -2326,6 +2326,11 @@ $cards = array(
 		'effect'=>'教程模式技能载体',
 		'energy'=>0,
 		'valid' => array(
+			'itm3' => '紧急药剂',
+			'itmk3' => 'Ca',
+			'itme3' => '1',
+			'itms3' => '10',
+			'itmsk3' => '',
 			'skills'=>array(
 				'1000'=>'0'
 			)

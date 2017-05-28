@@ -108,10 +108,19 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 		$itm[5] = '生命探测器'; $itmk[5] = 'ER'; $itme[5] = 5; $itms[5] = 1;
 	}
 	
-	//教程模式使用专用卡（教程技能），配发紧急药剂
-	if($gametype == 17) {
+	//除错模式专用卡（软件测试工程师）
+	if ($gametype==1){
+		$card=93;
+	}
+	//宝石乱斗模式专用卡（虹光塑师）
+	elseif ($gametype==3){
+		$card=151;
+	}
+	
+	//教程模式专用卡（教程技能+开局紧急药剂）
+	elseif($gametype == 17) {
 		$card = 1000;
-		$itm[3] = '紧急药剂'; $itmk[3] = 'Ca'; $itme[3] = 1; $itms[3] = 10;
+		//$itm[3] = '紧急药剂'; $itmk[3] = 'Ca'; $itme[3] = 1; $itms[3] = 10;
 	}
 	
 	//特殊规则

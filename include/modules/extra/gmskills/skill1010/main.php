@@ -53,13 +53,17 @@ namespace skill1010
 	function skill1010_exma($mpid)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player'));
+		eval(import_module('sys','player','skillbase'));
 		$mpid = (int)$mpid;
 		$mpdata = \player\fetch_playerdata_by_pid($mpid);
+		if(\skillbase\skill_query(1010)) $flag1010 = 1;
+		if(\skillbase\skill_query(1011)) $flag1011 = 1;
+		if(empty($sdata['parameter_list'])) $sdata['parameter_list'] = array();
+		if(empty($mpdata['parameter_list'])) $mpdata['parameter_list'] = array();
 		$switch_list = array
 		(
-			'club',	'hp', 'mhp', 'sp', 'msp', 'ss', 'mss', 'att',	'def', 'lvl',
-			'money',	'rage',	'wp', 'wk', 'wg', 'wc', 'wd', 'wf',
+			'club',	'hp', 'mhp', 'sp', 'msp', 'ss', 'mss', 'att',	'def', 'lvl', 'exp',
+			'money',	'rage',	'wp', 'wk', 'wg', 'wc', 'wd', 'wf', 'acquired_list', 'parameter_list',
 			'wep',	'wepk',	'wepe',	'weps',	'wepsk',
 			'arb',	'arbk',	'arbe',	'arbs',	'arbsk',
 			'arh',	'arhk',	'arhe',	'arhs',	'arhsk',
@@ -77,6 +81,10 @@ namespace skill1010
 		foreach ($switch_list as $sval){
 			swap($sdata[$sval], $mpdata[$sval]);
 		}
+		$acquired_list = $sdata['acquired_list'];
+		$parameter_list = $sdata['parameter_list'];
+		if($flag1010) {\skillbase\skill_acquire(1010);\skillbase\skill_lost(1010,$mpdata);}
+		if($flag1011) {\skillbase\skill_acquire(1011);\skillbase\skill_lost(1011,$mpdata);}
 		\player\player_save($mpdata);
 	}
 	
