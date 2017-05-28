@@ -194,9 +194,9 @@ namespace npc
 			'itms3' => 1,
 			'itm4' => 'GS【HandSonic Ver.2】',
 			'itmk4' => 'WK',
-			'itme4' => 340,
+			'itme4' => 200,
 			'itms4' => 300,
-			'itmsk4' => 'Zkj',
+			'itmsk4' => 'kj',
 			'description' => '全息幻象 立华 奏-改，掉落优秀的殴系武器、斩系武器（可以变为原DN刀）和歌魂增加道具。',
 			),
 		2 => array
