@@ -41,3 +41,4 @@ QBZ95,QBZ95 Burst Fire,WG,140,30,uj,
 游戏王五星素材,「电子龙」 ★5,X,1,1,j
 阿尔法大日 ★9,游戏王九星素材,WK09,1,1,J,
 流星龙 ★10,游戏王十星素材,WK10,1,1,J,
+GS【HandSonic Ver.2】,■DarthNote■,WK,340,300,Z,

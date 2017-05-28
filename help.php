@@ -226,7 +226,7 @@ $npcfile = GAME_ROOT.'./include/modules/base/npc/config/npc.data.config.php';
 include $mixfile;
 $writefile = GAME_ROOT.TPLDIR.'/tmp_npchelp.htm';
 //NPC列表自动生成
-if(!file_exists($writefile) || filemtime($mixfile) > filemtime($writefile)){
+if(!file_exists($writefile) || filemtime($npcfile) > filemtime($writefile)){
 	ob_start();
 	include template('npchelp');
 	$writecont = ob_get_contents();
