@@ -9,7 +9,7 @@ gamedata/systemmsg.htm
 gamedata/modules.list.temp.php
 gamedata/modules.list.pass.php
 templates/default/itemhelp.htm
-templates/default/mixhelp.htm
+templates/default/tmp_*.htm
 gamedata/combatinfo.php
 gamedata/newsinfo.php
 gamedata/gameinfo.php
@@ -17,5 +17,3 @@ gamedata/gameinfo.php
 gamedata/tmp/*.*
 query_log.txt
 *.lock
-microtimelog.txt.txt
-microtimelog.txt
