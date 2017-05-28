@@ -521,7 +521,7 @@ function room_enter($id)
 	
 function room_showdata($roomdata, $user)
 {
-	global $roomid;
+	global $room_id;
 	include GAME_ROOT.'./include/roommng/roommng.config.php';
 	$upos = room_upos_check($roomdata, $user);
 //	$upos = -1;
