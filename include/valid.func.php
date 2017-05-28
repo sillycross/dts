@@ -110,13 +110,11 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 	
 	//除错模式专用卡（软件测试工程师）
 	if ($gametype==1){
-		unset($r);
-		$cc=93;
+		$card=93;
 	}
 	//宝石乱斗模式专用卡（虹光塑师）
 	elseif ($gametype==3){
-		unset($r);
-		$cc=151;
+		$card=151;
 	}
 	
 	//教程模式专用卡（教程技能+开局紧急药剂）
