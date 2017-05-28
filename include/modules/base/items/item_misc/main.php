@@ -162,6 +162,7 @@ namespace item_misc
 					$itm2='全恢复药剂';$itmk2 = 'Ca';$itmsk2 = '';$itme2 = 1;$itms2 = 44;
 					$itm3='移动PC';$itmk3 = 'EE';$itmsk3 = '';$itme3 = 20;$itms3 = 1;
 					$itm4='量子雷达';$itmk4 = 'ER';$itmsk4 = '2';$itme4 = 20;$itms4 = 1;
+					$art='Untainted Glory';$artk = 'A';$artsk = 'Hh';$arte = 1;$arts = 1;
 					if (defined('MOD_CLUBBASE')) eval(import_module('clubbase'));
 					foreach(array(1010,1011) as $skv){
 						if(defined('MOD_SKILL'.$skv)) {

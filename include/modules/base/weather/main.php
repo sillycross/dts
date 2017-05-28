@@ -44,6 +44,7 @@ namespace weather
 	function calculate_active_obbs(&$ldata,&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//echo "天气修正：+".calculate_weather_active_obbs($ldata,$edata).'% <br>';
 		return $chprocess($ldata,$edata)+calculate_weather_active_obbs($ldata,$edata);
 	}
 	

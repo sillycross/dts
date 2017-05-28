@@ -53,21 +53,7 @@ if($mode == 'enter') {
 	$r=$cardinfo['rare'];
 	$cf=true;
 	
-	if ($gametype==1){
-		unset($r);
-		$cc=93;
-	}
-	
-	if ($gametype==3){
-		unset($r);
-		$cc=151;
-	}
-//	
-//	if ($gametype==17){//教程模式
-//		unset($r);
-//		$cc=152;
-//	}
-	
+	//通常和无限复活模式，C卡以上的卡只能进入1张
 	if ($gametype==0 || $gametype==2){
 		if (!in_array($cards[$cc]['rare'], array('C', 'M')))
 		{
@@ -88,8 +74,10 @@ if($mode == 'enter') {
 		if ($gametype==2 && ($cc==97 || $cc==144)) $cf=false;
 		
 		if ($cf==false){
-			$cc=0;
-			$cardinfo=$cards[0];
+			//如果卡被顶掉则回到进入页面 
+			header("Location: game.php");exit();
+//			$cc=0;
+//			$cardinfo=$cards[0];
 		}
 		else
 		{
@@ -104,14 +92,11 @@ if($mode == 'enter') {
 	include_once GAME_ROOT.'./include/valid.func.php';
 	enter_battlefield($cuser,$cpass,$gender,$icon,$cc);
 	
-	
-	include template('validover');
+	//现在入场跳过validover页面直接进开局提示页面
+	include template('notice');
+	//include template('validover');
 } elseif($mode == 'notice') {
 	include template('notice');
-} elseif($mode == 'tutorial') {
-	if(!isset($tmode)){$tmode = 0;}
-	$nexttmode = $tmode +1;
-	include template('tutorial');
 } else {
 	extract($udata);
 	
