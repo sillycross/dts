@@ -83,7 +83,7 @@ namespace npc
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		eval(import_module('sys','map'));
 		if($areanum+1 > sizeof($arealist)) return array();
-		else return array_diff(array_slice($arealist,$areanum+1), array(34));
+		else return array_diff(array_slice($arealist,$areanum+1), array(32,34));
 	}
 	
 	function rs_game($xmode = 0) {
