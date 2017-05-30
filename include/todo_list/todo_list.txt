@@ -1,11 +1,9 @@
 --roommng实现永续房间有点仓促，应该整理一下流程
---用继承的形式实现流程模块非常不合适，应该追加一类流程式的实现/或者搞一个流程可视化的东西
+--应该搞一个流程可视化的东西
 --界面效果单独拎出来做一个js
---tutorial和skill1000合并，gtype17改为剧情房
 --房间制重做，加入剧情房的设定
---气泡模块取消掉
+--气泡和发光按钮模块取消掉，用css改写
 --把数据迁移功能加入install
 --在strike_finish()里加伤害的技能都得改到apply_total_damage_modifier_down()或者apply_total_damage_modifier_up()里面去
---模块文件里把函数注释掉好像会导致parse的时候判定出问题，待判断
 --每一个战斗技能都占了一条news类别，就不会复用吗
 --感觉sys模块的init()里面不应该放房间和gameinfo的判定，会不得不在每次调用common.inc.php时读两遍game表，有性能损耗

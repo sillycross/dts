@@ -7,18 +7,18 @@
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
 <!--由于这个技能未解锁提示比描述本身还长，只好在没解锁时候多放两个空行撑开距离了……-->
-<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}--><span style="height:8px; display:block;">&nbsp;</span><!--{/if}-->
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}--><span style="height:8px; display:block;">&nbsp;</span><!--{/if}-->
 持投系武器时物理伤害<span class="yellow">+2x%</span>，其中<span class="yellow">x</span>是你发动“<span class="yellow">附魔</span>”的次数<br>
-<!--{if $___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if isset($___TEMP_THIS_SKILL_ACQUIRED) && $___TEMP_THIS_SKILL_ACQUIRED}-->
 <!--{eval $sk51cadd=\skill51\get_skill51_multiplier($sdata);}-->
 当前情况：持投系武器时，你造成的物理伤害将<span class="yellow">+$sk51cadd%</span>
 <!--{/if}-->
-<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}--><span style="height:8px; display:block;">&nbsp;</span><!--{/if}-->
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}--><span style="height:8px; display:block;">&nbsp;</span><!--{/if}-->
 </span></td>
 <td class=b3 width=46>
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
 <span class="yellow">
 <!--{eval $sk51progress=\skill51\get_skill48_maxbuff($sdata);}-->
 “附魔”中最高的属性伤害加成达到120%时解锁<br>

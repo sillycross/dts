@@ -11,7 +11,7 @@
 <input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill1011_special';$('subcmd').value='cons_page';postCmd('gamecmd','command.php');this.disabled=true;" value="发动">
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
 <span class="yellow">
 </span>
 <!--{/if}-->
