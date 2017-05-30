@@ -72,11 +72,13 @@ namespace item_misc
 				$log.="一阵强光刺得你睁不开眼。<br>强光逐渐凝成了光球，你揉揉眼睛，发现包裹里的东西全都不翼而飞了。<br>";
 				for ($i=1;$i<=6;$i++){
 					//global ${'itm'.$i},${'itmk'.$i},${'itme'.$i},${'itms'.$i},${'itmsk'.$i};
-					if (${'itm'.$i}=='黑色发卡') {$flag=true;}
-					else{
-						${'itm'.$i} = ${'itmk'.$i} = ${'itmsk'.$i} = '';
-						${'itme'.$i} = ${'itms'.$i} = 0;
+					if (${'itm'.$i}=='黑色发卡') {
+						$flag=true;
+						$tmp_itm = ${'itm'.$i}; $tmp_itmk = ${'itmk'.$i}; $tmp_itmsk = ${'itmsk'.$i};
+						$tmp_itme = ${'itme'.$i}; $tmp_itms = ${'itms'.$i};
 					}
+					${'itm'.$i} = ${'itmk'.$i} = ${'itmsk'.$i} = '';
+					${'itme'.$i} = ${'itms'.$i} = 0;
 				}
 				$karma=$rp*$killnum-$def+$att;
 				$f1=$f2=$f3=false;
@@ -87,7 +89,6 @@ namespace item_misc
 					$itme0=1;
 					$itms0=1;
 					$itmsk0='z';
-					//include_once GAME_ROOT . './include/game/itemmain.func.php';
 					\itemmain\itemget();
 					$f1=true;
 				}
@@ -97,7 +98,6 @@ namespace item_misc
 					$itme0=1;
 					$itms0=1;
 					$itmsk0='x';
-					//include_once GAME_ROOT . './include/game/itemmain.func.php';
 					\itemmain\itemget();
 					$f2=true;
 				}
@@ -107,7 +107,6 @@ namespace item_misc
 					$itme0=1;
 					$itms0=1;
 					$itmsk0='Z';
-					//include_once GAME_ROOT . './include/game/itemmain.func.php';
 					\itemmain\itemget();
 					$f3=true;
 				}
@@ -117,8 +116,14 @@ namespace item_misc
 					$itme0=1;
 					$itms0=1;
 					$itmsk0='';
-					//include_once GAME_ROOT . './include/game/itemmain.func.php';
 					\itemmain\itemget();
+					for ($i=1;$i<=6;$i++){
+						if(!${'itms'.$i}) {
+							${'itm'.$i} = $tmp_itm; ${'itmk'.$i} = $tmp_itmk; ${'itmsk'.$i} = $tmp_itmsk;
+							${'itme'.$i} = $tmp_itme; ${'itms'.$i} = $tmp_itms;
+							break;
+						}
+					}
 				}
 				return;
 			}elseif ($itm == '『S.C.R.A.P』') {
