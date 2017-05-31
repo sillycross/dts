@@ -213,7 +213,7 @@ function readover($filename,$method="rb"){
 		}
 		//$filedata.=fread($handle,filesize($filename));
 		fclose($handle);
-	} else {exit ('Read file error.');}
+	} else {exit ('An error occurred when reading file '.$filename.'.');}
 	return $filedata;
 }
 
@@ -227,7 +227,7 @@ function writeover($filename,$data,$method="rb+",$iflock=1,$check=1,$chmod=1){
 			fwrite($handle,$data);
 			if($method=="rb+") ftruncate($handle,strlen($data));
 			fclose($handle); 
-		} else {exit ('Write file error.');}
+		} else {exit ('An error occurred when writing file '.$filename.'.');}
 	} else {
 		fwrite($handle,$data);
 		if($method=="rb+") ftruncate($handle,strlen($data));
