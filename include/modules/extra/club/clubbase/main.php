@@ -32,7 +32,7 @@ namespace clubbase
 		eval(import_module('clubbase','logger'));
 		
 		foreach (\skillbase\get_acquired_skill_array($pa) as $skillid) 
-			if (defined('MOD_SKILL'.$skillid.'_INFO') && strpos(constant('MOD_SKILL'.$skillid.'_INFO'),'club;')!==false)
+			if (\skillbase\check_skill_info($skillid,'club'))
 				\skillbase\skill_lost($skillid,$pa);
 
 		if ($pa == NULL)
@@ -147,7 +147,8 @@ namespace clubbase
 		if ($mode == 'special' && substr($command,0,5) == 'skill' && substr($command,-8)=='_special' && ($subcmd=='upgrade' || $subcmd=='activate')) 
 		{
 			$id=substr($command,5,-8); $id=(int)$id;
-			if (defined('MOD_SKILL'.$id.'_INFO') && strpos(constant('MOD_SKILL'.$id.'_INFO'),'upgrade;')!==false && \skillbase\skill_query($id))
+			
+			if (\skillbase\check_skill_info($id,'upgrade') && \skillbase\skill_query($id))
 			{
 				$func='skill'.$id.'\\'.$subcmd.$id;
 				$func();

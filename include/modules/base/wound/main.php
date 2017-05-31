@@ -29,6 +29,7 @@ namespace wound
 	function heal_inf($hurtposition, &$pa = NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('wound'));
  		if ($pa == NULL) 
  		{
 			eval(import_module('player'));
