@@ -370,12 +370,12 @@ function room_create($roomtype)
 			if($roomtypelist[$rrs['groomtype']]['soleroom']) {
 				$max_room_num_temp++;
 			}else{
-				//$file = GAME_ROOT.'./gamedata/tmp/rooms/'.$rrsid.'.txt';
+				$file = GAME_ROOT.'./gamedata/tmp/rooms/'.$rrsid.'.txt';
 				//writeover('a.txt',$file,'ab+');
 //				if(file_exists($file)){
 //					$rfdata = gdecode(file_get_contents($file),1);
 //				}
-				if(isset($rrs['roomvars']['roomfounder']) && $rrs['roomvars']['roomfounder']==$cuser){
+				if(file_exists($file) && $rrs['groomstatus'] && isset($rrs['roomvars']['roomfounder']) && $rrs['roomvars']['roomfounder']==$cuser){
 					gexit("你已经创建了房间{$rrsid}，请在该房间游戏结束后再尝试创建房间",__file__,__line__);
 					die();
 				}
