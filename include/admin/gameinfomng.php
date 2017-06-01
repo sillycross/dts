@@ -31,7 +31,7 @@ if($command == 'wthedit'){
 		save_gameinfo();
 		adminlog('hackedit',$ihack);
 		addnews($now,'syshackchg',$ihack);		
-		\map\movehtm();
+		//\map\movehtm();
 	}
 }elseif(strpos($command, 'gsedit')===0){
 	$igamestate = explode('_',$command);

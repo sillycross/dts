@@ -17,7 +17,7 @@ namespace addnpc
 		if(!$npc){
 			return;
 		} else {
-			$pls_available = \npc\get_npc_pls_available();
+			$pls_available = \map\get_safe_plslist();
 			$summon_ids = array();
 			for($i=0;$i< $num;$i++){
 				$npc = array_merge($npc,$npc['sub'][$xsub]);
@@ -129,7 +129,7 @@ namespace addnpc
 				addnews ($now , 'thiphase', $name);
 				$hack = 1;
 				$log .= '因为破灭之歌的作用，全部锁定被打破了！<br>';
-				\map\movehtm();
+				//\map\movehtm();
 				addnews($now,'hack2',$name);
 				save_gameinfo();
 				$itm = $itmk = $itmsk = '';

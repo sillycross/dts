@@ -359,22 +359,23 @@ function room_create($roomtype)
 			//$db->query("UPDATE {$gtablepre}rooms SET status = 1, roomtype = '$roomtype' WHERE roomid = '$rid'");
 		}
 	}else{
-		$result = $db->query("SELECT groomid, groomtype, groomstatus FROM {$gtablepre}game ORDER BY groomid");
+		$result = $db->query("SELECT groomid, groomtype, groomstatus, roomvars FROM {$gtablepre}game ORDER BY groomid");
 		$soleroomnum = 0;
 		$max_room_num_temp = $max_room_num;
 		$roomarr = array();
 		while($rrs = $db->fetch_array($result)){
+			$rrs['roomvars'] = gdecode($rrs['roomvars'],1);
 			$rrsid = $rrs['groomid'];
 			$roomarr[$rrsid] = $rrs;
 			if($roomtypelist[$rrs['groomtype']]['soleroom']) {
 				$max_room_num_temp++;
-			}else{//很丑陋，对吧？我也这么想。分明全部丢进数据库就可以的东西，为什么一定要写文件？
-				$file = GAME_ROOT.'./gamedata/tmp/rooms/'.$rrsid.'.txt';
+			}else{
+				//$file = GAME_ROOT.'./gamedata/tmp/rooms/'.$rrsid.'.txt';
 				//writeover('a.txt',$file,'ab+');
-				if(file_exists($file)){
-					$rfdata = gdecode(file_get_contents($file),1);
-				}
-				if(isset($rfdata['roomfounder']) && $rfdata['roomfounder']==$cuser){
+//				if(file_exists($file)){
+//					$rfdata = gdecode(file_get_contents($file),1);
+//				}
+				if(isset($rrs['roomvars']['roomfounder']) && $rrs['roomvars']['roomfounder']==$cuser){
 					gexit("你已经创建了房间{$rrsid}，请在该房间游戏结束后再尝试创建房间",__file__,__line__);
 					die();
 				}

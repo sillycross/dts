@@ -117,6 +117,24 @@ namespace tactic
 		}
 		$chprocess();
 	}
+	
+	function check_pc_avoid_killarea($sub, $atime){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		if($gamestate < 40 && 4 == $sub['tactic']) return true;
+		else $chprocess($sub, $atime);
+	}
+	
+	function post_pc_avoid_killarea($sub, $atime){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','map'));
+		if(!$sub['type']){
+			$subplsinfo = $plsinfo[$sub['pls']];
+			$w_log = "<span class=\"yellow\">为了躲避禁区，你及时移动到了{$subplsinfo}</span><br>";
+			\logger\logsave ( $sub['pid'],$now, $w_log ,'s');
+		}
+		$chprocess($sub, $atime);
+	}
 }
 
 ?>

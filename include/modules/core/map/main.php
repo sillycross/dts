@@ -4,7 +4,25 @@ namespace map
 {
 	function init() {}
 	
-	function add_new_killarea($where,$atime)
+	//非禁区域列表。如果$no_dangerous_zone开启，则再排除掉SCP、英灵殿等危险地区
+	function get_safe_plslist($no_dangerous_zone = true){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		eval(import_module('sys','map'));
+		if($areanum+1 > sizeof($arealist)) return array();
+		else {
+			$r = array_slice($arealist,$areanum+1);
+			if($no_dangerous_zone) $r = array_diff($r, array(32,34));
+			return $r;
+		}
+	}
+	
+//	function add_new_killarea($where,$atime)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//	}
+	
+	//增加禁区时的角色处理
+	function addarea_pc_process($atime)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
@@ -38,11 +56,11 @@ namespace map
 			
 			$areanum += $areaadd;
 			
-			for ($x=0; $x<=$areanum; $x++)
-			{
-				if ($x>$plsnum) continue;
-				add_new_killarea($arealist[$x],$atime);
-			}
+//			for ($x=0; $x<=$areanum; $x++)
+//			{
+//				if ($x>$plsnum) continue;
+//				add_new_killarea($arealist[$x],$atime);
+//			}
 			
 			if($areanum >= $plsnum) 
 			{
@@ -53,8 +71,10 @@ namespace map
 			{
 				if($hack > 0){$hack--;}
 				$areaaddlist = array_slice($arealist,$areanum - $areaadd +1,$areaadd);
-				movehtm();
+				//movehtm();
 			}
+			
+			addarea_pc_process($atime);
 			
 			addnews($atime, 'addarea',$areaaddlist,$weather);
 			systemputchat($atime,'areaadd',$areaaddlist);

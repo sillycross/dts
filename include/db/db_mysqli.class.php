@@ -113,13 +113,16 @@ class dbstuff {
 		return $query;
 	}
 	
-	function array_update($dbname, &$data, $where){ //根据$data的键和键值更新数据
-		$query = "UPDATE {$dbname} SET ";
+	function array_update($dbname, $data, $where, $o_data=NULL){ //根据$data的键和键值更新数据
+		$query = '';
 		foreach ($data as $key => $value) {
-			$query .= "{$key} = '{$value}',";
+			if(!is_array($o_data) || !isset($o_data[$key]) || $value !== $o_data[$key])
+				$query .= "{$key} = '{$value}',";
 		}
-		$query = substr($query, 0, -1) . " WHERE {$where}";
-		$this->query ($query);
+		if(!empty($query)){
+			$query = "UPDATE {$dbname} SET ".substr($query, 0, -1) . " WHERE {$where}";
+			$this->query ($query);
+		}
 		return $query;
 	}
 	
