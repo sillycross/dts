@@ -235,7 +235,7 @@ $roomtypelist = Array(
 		'name' => '<span class="yellow">伐木挑战</span>',
 		'gtype' => 15, //对应的游戏模式编号
 		'soleroom' => false,//唯一房间，只有不存在时才会新建房间。
-		'without-ready' => true,//是否不需要点击“准备”就直接进入房间。
+		'without-ready' => false,//是否不需要点击“准备”就直接进入房间。
 		'pnum' => 1,	//最大参与人数
 		'leader-position' => Array(	//各个编号位置的所属队伍队长位置
 			0 => 0,
@@ -249,6 +249,25 @@ $roomtypelist = Array(
 		'show-team-leader' => 0,	//是否显示“队长”标签（如队伍大于1人设为1）
 		'card' => array(
 			0 => '0',
+		),
+		'game-option' => array(
+			'area-mode' => array(//变量名
+				'title' => '1禁时间设置',//界面显示的提示
+				'type' => 'radio',//input类型
+				'options' => array(
+					array(
+						'value' => 'normal',
+						'name' => '经典模式',
+						'title' => '限制时间为3禁，1禁时间与开始时间有关，可能为30-40分钟不等。可练习游戏基本操作，也可以挑战伐木成就。',
+						'default' => true,
+					),
+					array(
+						'value' => 'extreme',
+						'name' => '极限模式',
+						'title' => '限制时间为1禁，1禁时间严格为40分钟。为熟练玩家提供最充裕的时间来挑战伐木成就。',
+					)
+				)
+			)
 		)
 	),
 	6 => Array(
