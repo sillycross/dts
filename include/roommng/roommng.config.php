@@ -19,6 +19,7 @@ $roomtypelist = Array(
 		'name' => 'SOLO模式',
 		'gtype' => 10, //对应的游戏模式编号
 		'soleroom' => false,//唯一房间，只有不存在时才会新建房间。
+		'without-ready' => false,//是否不需要点击“准备”就直接进入房间。
 		'pnum' => 2,	//最大参与人数
 		'leader-position' => Array(	//各个编号位置的所属队伍队长位置
 			0 => 0,
@@ -58,6 +59,7 @@ $roomtypelist = Array(
 		'name' => '二队模式',
 		'gtype' => 11, //对应的游戏模式编号
 		'soleroom' => false,//唯一房间，只有不存在时才会新建房间。
+		'without-ready' => false,//是否不需要点击“准备”就直接进入房间。
 		'pnum' => 10,
 		'leader-position' => Array(
 			0 => 0,
@@ -107,6 +109,7 @@ $roomtypelist = Array(
 		'name' => '三队模式',
 		'gtype' => 12, //对应的游戏模式编号
 		'soleroom' => false,//唯一房间，只有不存在时才会新建房间。
+		'without-ready' => false,//是否不需要点击“准备”就直接进入房间。
 		'pnum' => 15,
 		'leader-position' => Array(
 			0 => 0,
@@ -141,6 +144,7 @@ $roomtypelist = Array(
 		'name' => '四队模式',
 		'gtype' => 13, //对应的游戏模式编号
 		'soleroom' => false,//唯一房间，只有不存在时才会新建房间。
+		'without-ready' => false,//是否不需要点击“准备”就直接进入房间。
 		'pnum' => 20,
 		'leader-position' => Array(
 			0 => 0,
@@ -182,6 +186,7 @@ $roomtypelist = Array(
 		'name' => '五队模式',
 		'gtype' => 14, //对应的游戏模式编号
 		'soleroom' => false,//唯一房间，只有不存在时才会新建房间。
+		'without-ready' => false,//是否不需要点击“准备”就直接进入房间。
 		'pnum' => 25,
 		'leader-position' => Array(
 			0 => 0,
@@ -230,6 +235,7 @@ $roomtypelist = Array(
 		'name' => '<span class="yellow">伐木挑战</span>',
 		'gtype' => 15, //对应的游戏模式编号
 		'soleroom' => false,//唯一房间，只有不存在时才会新建房间。
+		'without-ready' => false,//是否不需要点击“准备”就直接进入房间。
 		'pnum' => 1,	//最大参与人数
 		'leader-position' => Array(	//各个编号位置的所属队伍队长位置
 			0 => 0,
@@ -243,12 +249,32 @@ $roomtypelist = Array(
 		'show-team-leader' => 0,	//是否显示“队长”标签（如队伍大于1人设为1）
 		'card' => array(
 			0 => '0',
+		),
+		'game-option' => array(
+			'area-mode' => array(//变量名
+				'title' => '1禁时间设置',//界面显示的提示
+				'type' => 'radio',//input类型
+				'options' => array(
+					array(
+						'value' => 'normal',
+						'name' => '经典模式',
+						'title' => '限制时间为3禁，1禁时间与开始时间有关，可能为30-40分钟不等。可练习游戏基本操作，也可以挑战伐木成就。',
+						'default' => true,
+					),
+					array(
+						'value' => 'extreme',
+						'name' => '极限模式',
+						'title' => '限制时间为1禁，1禁时间严格为40分钟。为熟练玩家提供最充裕的时间来挑战伐木成就。',
+					)
+				)
+			)
 		)
 	),
 	6 => Array(
 		'name' => '<span class="green">PVE</span> 解离模式',
 		'gtype' => 16, //对应的游戏模式编号
 		'soleroom' => false,//唯一房间，只有不存在时才会新建房间。
+		'without-ready' => false,//是否不需要点击“准备”就直接进入房间。
 		'pnum' => 3,	//最大参与人数
 		'leader-position' => Array(	//各个编号位置的所属队伍队长位置
 			0 => 0,
@@ -271,7 +297,8 @@ $roomtypelist = Array(
 	7 => Array(//教程模式为唯一房间
 		'name' => '<span class="red">教程模式</span>',
 		'gtype' => 17, //对应的游戏模式编号
-		'soleroom' => true,//永续房间，只有不存在时才会新建房间。此外，启用这个设置时不显示等待界面直接进入游戏
+		'soleroom' => true,//唯一房间，只有不存在时才会新建房间。
+		'without-ready' => true,//是否不需要点击“准备”就直接进入房间。
 		'req-mod' => 'gtype17_tutorial',//暂时只是摆设
 		'pnum' => 999,	//最大参与人数，负数表示无限
 		'leader-position' => Array(	//各个编号位置的所属队伍队长位置

@@ -14,7 +14,7 @@ if($gamestate >= 20){
 	$result = $db->query("SELECT pid FROM {$tablepre}players WHERE hp<=0 OR state>=10");
 	$deathnum = $db->num_rows($result);
 	
-	\map\movehtm();
+	//\map\movehtm();
 	
 	save_gameinfo();
 	

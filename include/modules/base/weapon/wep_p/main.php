@@ -41,6 +41,13 @@ namespace wep_p
 		if ($pa['wep_kind']=='P' && $pa['weps']==$nosta) $r=2.5;	//无限耐久殴系武器损坏特判
 		return $chprocess($pa, $pd, $active)*$r;
 	}
+		
+	function get_attack_method(&$pdata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (strpos($pdata['wepk'],'W')!==0) return 'P';//如果手里不是武器，当做钝器判断
+		else return $chprocess($pdata);
+	}
 	
 	function apply_weapon_imp(&$pa, &$pd, $active)
 	{

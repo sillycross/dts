@@ -1592,7 +1592,7 @@ $cards = array(
 		'rare' => 'B',
 		'pack' => 'Way of Life',
 		'desc' => '来自蛋服的反meta玩家',
-		'effect' => '和玩家战斗时双方称号技能均无效',
+		'effect' => '和玩家战斗时双方所有技能均无效',
 		'energy' => 150,
 		'valid' => array(
 			'skills' => array(
@@ -2315,6 +2315,19 @@ $cards = array(
 		'valid' => array(
 			'skills' => array(
 				'479' => '0', 
+			),
+		)
+	),
+	156 => array(
+		'name' => '资本主义者',
+		'rare' => 'S',
+		'pack' => 'Event Bonus',
+		'desc' => '如果有300%的利润，它就敢犯任何罪行，甚至冒着被武神一枪抬走的危险。',
+		'effect' => '获得技能「泡沫」，一次性让当前金钱翻倍，但之后每次探索或移动，金钱数减少50。',
+		'energy' => 120,
+		'valid' => array(
+			'skills' => array(
+				'480' => '0', 
 			),
 		)
 	),

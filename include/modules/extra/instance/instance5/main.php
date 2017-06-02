@@ -17,13 +17,15 @@ namespace instance5
 	function checkcombo(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','map','gameflow_combo'));
-		if (($gametype==15)&&($areanum<$areaadd*3)&&($alivenum>0)){
-			return;
+		if(15 == $gametype){
+			if($areanum < $areaadd * 4 && $alivenum>0){//4禁前只有玩家跪了才会连斗
+				return;
+			}
 		}
 		$chprocess();
 	}
 	
-	function rs_game($xmode = 0) 	//开局天气初始化
+	function rs_game($xmode = 0) 	//开局禁区时间、天气初始化
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -32,7 +34,14 @@ namespace instance5
 		eval(import_module('sys'));
 		if (($gametype==15)&&($xmode & 2)) 
 		{
-			$weather = 1;
+			if(!$areanum && isset($roomvars['current_game_option'])){
+				//writeover('a.txt',var_export($roomvars['current_game_option'],1));
+				$option = $roomvars['current_game_option'];
+				if(isset($option['area-mode']) && 'extreme'==$option['area-mode']){
+					$areatime = $starttime + 60*40;//极限挑战模式，1禁恒为40分钟。
+				}
+			}
+			$weather = 1;//天气必然大晴
 		}
 	}
 	
@@ -69,7 +78,14 @@ namespace instance5
 				\sys\gameover($atime,'end1');
 				return;
 			}
-			if (ceil($areanum/$areaadd) >=3){//限时3禁 
+			$alimit = 3;
+			if(isset($roomvars['current_game_option'])){
+				$option = $roomvars['current_game_option'];
+				if(isset($option['area-mode']) && 'extreme'==$option['area-mode']){
+					$alimit = 1;//极限挑战模式，1禁就结束；否则3禁结束。
+				}
+			}
+			if (ceil($areanum/$areaadd) >= $alimit){
 				$result = $db->query("SELECT * FROM {$tablepre}players WHERE hp>0 AND type=0");
 				$wdata = $db->fetch_array($result);
 				$winner = $wdata['name'];

@@ -27,7 +27,7 @@ namespace npc
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		eval(import_module('sys','map','player','npc','lvlctl'));
 		//获得当前NPC能随机到的地图
-		if(!$plslist) $plslist = get_npc_pls_available();
+		if(!$plslist) $plslist = \map\get_safe_plslist();
 		//基本的一些数值
 		$npc['endtime'] = $now;
 		$npc['hp'] = $npc['mhp'];
@@ -78,14 +78,6 @@ namespace npc
 		return $npc;
 	}
 	
-	//NPC可移动到的位置列表，即非禁区、非英灵殿
-	function get_npc_pls_available(){
-		if (eval(__MAGIC__)) return $___RET_VALUE; 
-		eval(import_module('sys','map'));
-		if($areanum+1 > sizeof($arealist)) return array();
-		else return array_diff(array_slice($arealist,$areanum+1), array(34));
-	}
-	
 	function rs_game($xmode = 0) {
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		
@@ -99,7 +91,7 @@ namespace npc
 			$npcqry = '';
 			$ninfo = get_npclist();
 			//生成非禁区列表（不含英灵殿）
-			$pls_available = get_npc_pls_available();
+			$pls_available = \map\get_safe_plslist();
 			//外循环：type，编号可以不连续
 			foreach ($ninfo as $i => $npcs){
 				if(!empty($npcs)) {
@@ -197,29 +189,46 @@ namespace npc
 		return $npcinfo;
 	}
 	
-	function add_new_killarea($where,$atime)
-	{
+	//NPC回避禁区的处理
+	function addarea_pc_process_single($sub, $atime){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
+		$chprocess($sub, $atime);
 		eval(import_module('sys','map','npc'));
-		$plsnum = sizeof($plsinfo) - 1;
-		if ($areanum >= sizeof($plsinfo) - 1) return $chprocess($where);
-		$query = $db->query("SELECT * FROM {$tablepre}players WHERE pls={$where} AND type>0 AND hp>0");
-		while($sub = $db->fetch_array($query)) 
-		{
-			$pid = $sub['pid'];
-			if (!in_array($sub['type'],$killzone_resistant_typelist))
-			{
-				$pls = $arealist[rand($areanum+1,$plsnum)];
-				if ($areanum+1 < $plsnum)
-				{
-					while ($pls==34) {$pls = $arealist[rand($areanum+1,$plsnum)];}
-				}
-				$db->query("UPDATE {$tablepre}players SET pls='$pls' WHERE pid=$pid");
-			}
+		$pid = $sub['pid'];
+		$o_sub = $sub;
+		$pls_available = \map\get_safe_plslist();//不能移动去的区域，如果不存在，NPC不移动
+		if($sub['type'] && !in_array($sub['type'],$killzone_resistant_typelist) && $pls_available){
+			shuffle($pls_available);
+			$sub['pls'] = $pls_available[0];
+			$db->array_update("{$tablepre}players",$sub,"pid='$pid'",$o_sub);
+			\player\post_pc_avoid_killarea($sub, $atime);
+			//echo $sub['pid'].' ';
 		}
-		$chprocess($where,$atime);
 	}
+	
+//	function add_new_killarea($where,$atime)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		
+//		eval(import_module('sys','map','npc'));
+//		$plsnum = sizeof($plsinfo) - 1;
+//		if ($areanum >= sizeof($plsinfo) - 1) return $chprocess($where);
+//		$query = $db->query("SELECT * FROM {$tablepre}players WHERE pls={$where} AND type>0 AND hp>0");
+//		while($sub = $db->fetch_array($query)) 
+//		{
+//			$pid = $sub['pid'];
+//			if (!in_array($sub['type'],$killzone_resistant_typelist))
+//			{
+//				$pls = $arealist[rand($areanum+1,$plsnum)];
+//				if ($areanum+1 < $plsnum)
+//				{
+//					while ($pls==34) {$pls = $arealist[rand($areanum+1,$plsnum)];}
+//				}
+//				$db->query("UPDATE {$tablepre}players SET pls='$pls' WHERE pid=$pid");
+//			}
+//		}
+//		$chprocess($where,$atime);
+//	}
 	
 	function get_player_killmsg(&$pdata)
 	{

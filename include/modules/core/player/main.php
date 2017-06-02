@@ -202,37 +202,94 @@ namespace player
 		return;
 	}
 
-	function add_new_killarea($where,$atime)
+	//玩家禁区死亡或者回避禁区的处理
+	function addarea_pc_process($atime)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
 		eval(import_module('sys','map'));
-		$plsnum = sizeof($plsinfo) - 1;
-		if ($areanum >= sizeof($plsinfo) - 1) return $chprocess($where);
-		$query = $db->query("SELECT * FROM {$tablepre}players WHERE pls={$where} AND type=0 AND hp>0");
-		while($sub = $db->fetch_array($query)) 
+		if($areanum >= sizeof($plsinfo) - 1) return;//如果禁区数已达上限，跳过所有处理（gameover()函数会判定游戏结束）
+		$now_areaarr = array_slice($arealist,0,$areanum+1);
+		$where = "('".implode("','",$now_areaarr)."')";//构建查询列表——当前所有禁区
+		$result = $db->query("SELECT * FROM {$tablepre}players WHERE pls IN $where AND hp>0");
+		while($sub = $db->fetch_array($result)) 
 		{
-			$pid = $sub['pid'];
-			if (($gamestate >= 40 && (!$areaesc && ($sub['tactic']!=4))) || $areanum >= $plsnum)
-			{
-				$hp = 0;
-				$state = 11;
-				$deathpls = $sub['pls'];
-				$bid = 0;
-				$endtime = $atime;
-				$db->query("UPDATE {$tablepre}players SET hp='$hp', bid='$bid', state='$state', endtime='$endtime' WHERE pid=$pid");
-				addnews($endtime,"death$state",$sub['name'],$sub['type'],$deathpls);
-				$deathnum++;
-			}
-			else
-			{	
-				$pls = $arealist[rand($areanum+1,$plsnum)];
-				$db->query("UPDATE {$tablepre}players SET pls='$pls' WHERE pid=$pid");
-			}
-		} 
+			addarea_pc_process_single($sub, $atime);
+		}
 		$alivenum = $db->result($db->query("SELECT COUNT(*) FROM {$tablepre}players WHERE hp>0 AND type=0"), 0);
-		$chprocess($where,$atime);
+		$chprocess($atime);
+		return;
 	}
+	
+	//对每个在禁区里的角色进行单独处理
+	function addarea_pc_process_single($sub, $atime){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','map'));
+		$pid = $sub['pid'];
+		$o_sub = $sub;
+		if(!$sub['type']){
+			//echo $sub['pid'].'=player ';
+			if (!check_pc_avoid_killarea($sub, $atime)){
+				$sub['hp'] = 0;
+				$sub['state'] = 11;
+				$sub['bid'] = 0;
+				$sub['endtime'] = $atime;
+				$sub['player_dead_flag'] = 1;
+				$db->array_update("{$tablepre}players",$sub,"pid='$pid'",$o_sub);
+				addnews($atime,'death11',$sub['name'],$sub['type'],$sub['pls']);
+				$deathnum++;
+			}else{
+				$pls_available = \map\get_safe_plslist();//不能移动去的区域
+				if(!$pls_available) $pls_available = \map\get_safe_plslist(0);//如果只能移动到危险区域，就移动到危险区域
+				shuffle($pls_available);
+				$sub['pls'] = $pls_available[0];
+				$db->array_update("{$tablepre}players",$sub,"pid='$pid'",$o_sub);
+				post_pc_avoid_killarea($sub, $atime);
+			}
+		}
+	}
+	
+	function check_pc_avoid_killarea($sub, $atime){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','map'));
+		if($gamestate < 40 && $areaesc) return true;
+		else return false;
+	}
+	
+	function post_pc_avoid_killarea($sub, $atime){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+	}
+
+//	function add_new_killarea($where,$atime)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		
+//		eval(import_module('sys','map'));
+//		$plsnum = sizeof($plsinfo) - 1;
+//		if ($areanum >= sizeof($plsinfo) - 1) return $chprocess($where);
+//		$query = $db->query("SELECT * FROM {$tablepre}players WHERE pls={$where} AND type=0 AND hp>0");
+//		while($sub = $db->fetch_array($query)) 
+//		{
+//			$pid = $sub['pid'];
+//			if (($gamestate >= 40 && (!$areaesc && ($sub['tactic']!=4))) || $areanum >= $plsnum)
+//			{
+//				$hp = 0;
+//				$state = 11;
+//				$deathpls = $sub['pls'];
+//				$bid = 0;
+//				$endtime = $atime;
+//				$db->query("UPDATE {$tablepre}players SET hp='$hp', bid='$bid', state='$state', endtime='$endtime' WHERE pid=$pid");
+//				addnews($endtime,"death$state",$sub['name'],$sub['type'],$deathpls);
+//				$deathnum++;
+//			}
+//			else
+//			{	
+//				$pls = $arealist[rand($areanum+1,$plsnum)];
+//				$db->query("UPDATE {$tablepre}players SET pls='$pls' WHERE pid=$pid");
+//			}
+//		} 
+//		$alivenum = $db->result($db->query("SELECT COUNT(*) FROM {$tablepre}players WHERE hp>0 AND type=0"), 0);
+//		$chprocess($where,$atime);
+//	}
 	
 	function update_sdata()
 	{

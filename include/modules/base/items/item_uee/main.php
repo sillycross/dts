@@ -74,7 +74,7 @@ namespace item_uee
 		{
 			$hack = 1;
 			$log .= '入侵禁区控制系统成功了！全部禁区都被解除了！<br>';
-			\map\movehtm();
+			//\map\movehtm();
 			addnews($now,'hack',$name);
 			save_gameinfo();
 		} else {

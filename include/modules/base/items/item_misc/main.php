@@ -71,21 +71,17 @@ namespace item_misc
 				$flag=false;
 				$log.="一阵强光刺得你睁不开眼。<br>强光逐渐凝成了光球，你揉揉眼睛，发现包裹里的东西全都不翼而飞了。<br>";
 				for ($i=1;$i<=6;$i++){
-					global ${'itm'.$i},${'itmk'.$i},${'itme'.$i},${'itms'.$i},${'itmsk'.$i};
-					$itm = & ${'itm'.$i};
-					$itmk = & ${'itmk'.$i};
-					$itme = & ${'itme'.$i};
-					$itms = & ${'itms'.$i};
-					$itmsk = & ${'itmsk'.$i};
-					if ($itm=='黑色发卡') {$flag=true;}
-					$itm = '';
-					$itmk = '';
-					$itme = 0;
-					$itms = 0;
-					$itmsk = '';
+					//global ${'itm'.$i},${'itmk'.$i},${'itme'.$i},${'itms'.$i},${'itmsk'.$i};
+					if (${'itm'.$i}=='黑色发卡') {
+						$flag=true;
+						$tmp_itm = ${'itm'.$i}; $tmp_itmk = ${'itmk'.$i}; $tmp_itmsk = ${'itmsk'.$i};
+						$tmp_itme = ${'itme'.$i}; $tmp_itms = ${'itms'.$i};
+					}
+					${'itm'.$i} = ${'itmk'.$i} = ${'itmsk'.$i} = '';
+					${'itme'.$i} = ${'itms'.$i} = 0;
 				}
 				$karma=$rp*$killnum-$def+$att;
-				$f1=false;
+				$f1=$f2=$f3=false;
 				//『G.A.M.E.O.V.E.R』itmk:Y itme:1 itms:1 itmsk:zxZ
 				if (($ss>=600)&&($killnum<=15)){
 					$itm0='『T.E.R.R.A』';
@@ -93,7 +89,6 @@ namespace item_misc
 					$itme0=1;
 					$itms0=1;
 					$itmsk0='z';
-					include_once GAME_ROOT . './include/game/itemmain.func.php';
 					\itemmain\itemget();
 					$f1=true;
 				}
@@ -103,9 +98,8 @@ namespace item_misc
 					$itme0=1;
 					$itms0=1;
 					$itmsk0='x';
-					include_once GAME_ROOT . './include/game/itemmain.func.php';
 					\itemmain\itemget();
-					$f1=true;
+					$f2=true;
 				}
 				if ($flag==true){
 					$itm0='『V.E.N.T.U.S』';
@@ -113,18 +107,40 @@ namespace item_misc
 					$itme0=1;
 					$itms0=1;
 					$itmsk0='Z';
-					include_once GAME_ROOT . './include/game/itemmain.func.php';
 					\itemmain\itemget();
-					$f1=true;
+					$f3=true;
 				}
-				if ($f1==false){
+				if (!$f1 || !$f2 || !$f3){
 					$itm0='『S.C.R.A.P』';
-					$itmk0='Y';
+					$itmk0='Z';
 					$itme0=1;
 					$itms0=1;
-					include_once GAME_ROOT . './include/game/itemmain.func.php';
+					$itmsk0='';
 					\itemmain\itemget();
+					for ($i=1;$i<=6;$i++){
+						if(!${'itms'.$i}) {
+							${'itm'.$i} = $tmp_itm; ${'itmk'.$i} = $tmp_itmk; ${'itmsk'.$i} = $tmp_itmsk;
+							${'itme'.$i} = $tmp_itme; ${'itms'.$i} = $tmp_itms;
+							break;
+						}
+					}
 				}
+				return;
+			}elseif ($itm == '『S.C.R.A.P』') {
+				$log.="你眼前一黑。当你再次能看见东西，你发现包裹里的东西再次不翼而飞了。<br>";
+				for ($i=1;$i<=6;$i++){
+					if (${'itm'.$i}!='黑色发卡'){
+						${'itm'.$i} = ${'itmk'.$i} = ${'itmsk'.$i} = '';
+						${'itme'.$i} = ${'itms'.$i} = 0;
+					}					
+				}
+				$itm0='『C.H.A.O.S』';
+				$itmk0='Z';
+				$itme0=1;
+				$itms0=1;
+				$itmsk0='';
+				\itemmain\itemget();
+				return;
 			}elseif ($itm == '『G.A.M.E.O.V.E.R』') {
 				$state = 6;
 				$url = 'end.php';

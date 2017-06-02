@@ -52,7 +52,10 @@ namespace skill313
 			\cardbase\get_qiegao(3600,$pa);
 			\cardbase\get_card(118,$pa);
 		}
-		
+		if (($last_a_money<1000000)&&($x>=1000000)){
+			\cardbase\get_qiegao(5000,$pa);
+			\cardbase\get_card(156,$pa);
+		}
 		if($x < $last_a_money) $x=$last_a_money;
 		
 		return base64_encode_number($x,5);		
@@ -75,6 +78,9 @@ namespace skill313
 			$c313=3;
 		}
 		if ($p313>=360000){
+			$c313=4;
+		}
+		if ($p313>=1000000){
 			$c313=999;
 		}
 		include template('MOD_SKILL313_DESC');

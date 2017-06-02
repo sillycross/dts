@@ -41,59 +41,6 @@ namespace gtype17
 		$l = openfile($file);
 		return $l;
 	}
-
-	//修改禁区显示方式，其实这个可以丢到主模块里
-	function get_next_areadata_html()
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','map'));
-		$areadata='';
-		if(!$atime){
-			$atime = $areatime;
-		}
-		$timediff = $atime - $now;
-		if($timediff > 43200){//如果禁区时间在12个小时以后则显示其他信息
-			$areadata .= '距离下一次禁区还有12个小时以上';
-		}else{
-			if($areanum < count($plsinfo)) {
-				$at= getdate($atime);
-				$nexthour = $at['hours'];$nextmin = $at['minutes'];
-				while($nextmin >= 60){
-					$nexthour +=1;$nextmin -= 60;
-				}
-				if($nexthour >= 24){$nexthour-=24;}
-				$areadata .= "<b>{$nexthour}时{$nextmin}分：</b> ";
-				for($i=1;$i<=$areaadd;$i++) {
-					$areadata .= '&nbsp;'.$plsinfo[$arealist[$areanum+$i]].'&nbsp;';
-				}
-			}
-			if($areanum+$areaadd < count($plsinfo)) {
-				$at2= getdate($atime + $areahour*60);
-				$nexthour2 = $at2['hours'];$nextmin2 = $at2['minutes'];
-				while($nextmin2 >= 60){
-					$nexthour2 +=1;$nextmin2 -= 60;
-				}
-				if($nexthour2 >= 24){$nexthour2-=24;}
-				$areadata .= "；<b>{$nexthour2}时{$nextmin2}分：</b> ";
-				for($i=1;$i<=$areaadd;$i++) {
-					$areadata .= '&nbsp;'.$plsinfo[$arealist[$areanum+$areaadd+$i]].'&nbsp;';
-				}
-			}
-			if($areanum+$areaadd*2 < count($plsinfo)) {
-				$at3= getdate($atime + $areahour*120);
-				$nexthour3 = $at3['hours'];$nextmin3 = $at3['minutes'];
-				while($nextmin3 >= 60){
-					$nexthour3 +=1;$nextmin3 -= 60;
-				}
-				if($nexthour3 >= 24){$nexthour3-=24;}
-				$areadata .= "；<b>{$nexthour3}时{$nextmin3}分：</b> ";
-				for($i=1;$i<=$areaadd;$i++) {
-					$areadata .= '&nbsp;'.$plsinfo[$arealist[$areanum+$areaadd*2+$i]].'&nbsp;';
-				}
-			}
-		}		
-		echo $areadata;
-	}
 	
 	//待调整
 //	function check_addarea_gameover($atime){

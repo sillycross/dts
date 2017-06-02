@@ -4,7 +4,25 @@ namespace map
 {
 	function init() {}
 	
-	function add_new_killarea($where,$atime)
+	//非禁区域列表。如果$no_dangerous_zone开启，则再排除掉SCP、英灵殿等危险地区
+	function get_safe_plslist($no_dangerous_zone = true){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		eval(import_module('sys','map'));
+		if($areanum+1 > sizeof($arealist)) return array();
+		else {
+			$r = array_slice($arealist,$areanum+1);
+			if($no_dangerous_zone) $r = array_diff($r, array(32,34));
+			return $r;
+		}
+	}
+	
+//	function add_new_killarea($where,$atime)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//	}
+	
+	//增加禁区时的角色处理
+	function addarea_pc_process($atime)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
@@ -38,11 +56,11 @@ namespace map
 			
 			$areanum += $areaadd;
 			
-			for ($x=0; $x<=$areanum; $x++)
-			{
-				if ($x>$plsnum) continue;
-				add_new_killarea($arealist[$x],$atime);
-			}
+//			for ($x=0; $x<=$areanum; $x++)
+//			{
+//				if ($x>$plsnum) continue;
+//				add_new_killarea($arealist[$x],$atime);
+//			}
 			
 			if($areanum >= $plsnum) 
 			{
@@ -53,8 +71,10 @@ namespace map
 			{
 				if($hack > 0){$hack--;}
 				$areaaddlist = array_slice($arealist,$areanum - $areaadd +1,$areaadd);
-				movehtm();
+				//movehtm();
 			}
+			
+			addarea_pc_process($atime);
 			
 			addnews($atime, 'addarea',$areaaddlist,$weather);
 			systemputchat($atime,'areaadd',$areaaddlist);
@@ -109,40 +129,45 @@ namespace map
 		if(!$atime){
 			$atime = $areatime;
 		}
-		if($areanum < count($plsinfo)) {
-			$at= getdate($atime);
-			$nexthour = $at['hours'];$nextmin = $at['minutes'];
-			while($nextmin >= 60){
-				$nexthour +=1;$nextmin -= 60;
+		$timediff = $atime - $now;
+		if($timediff > 43200){//如果禁区时间在12个小时以后则显示其他信息
+			$areadata .= '距离下一次禁区还有12个小时以上';
+		}else{
+			if($areanum < count($plsinfo)) {
+				$at= getdate($atime);
+				$nexthour = $at['hours'];$nextmin = $at['minutes'];
+				while($nextmin >= 60){
+					$nexthour +=1;$nextmin -= 60;
+				}
+				if($nexthour >= 24){$nexthour-=24;}
+				$areadata .= "<b>{$nexthour}时{$nextmin}分：</b> ";
+				for($i=1;$i<=$areaadd;$i++) {
+					$areadata .= '&nbsp;'.$plsinfo[$arealist[$areanum+$i]].'&nbsp;';
+				}
 			}
-			if($nexthour >= 24){$nexthour-=24;}
-			$areadata .= "<b>{$nexthour}时{$nextmin}分：</b> ";
-			for($i=1;$i<=$areaadd;$i++) {
-				$areadata .= '&nbsp;'.$plsinfo[$arealist[$areanum+$i]].'&nbsp;';
+			if($areanum+$areaadd < count($plsinfo)) {
+				$at2= getdate($atime + $areahour*60);
+				$nexthour2 = $at2['hours'];$nextmin2 = $at2['minutes'];
+				while($nextmin2 >= 60){
+					$nexthour2 +=1;$nextmin2 -= 60;
+				}
+				if($nexthour2 >= 24){$nexthour2-=24;}
+				$areadata .= "；<b>{$nexthour2}时{$nextmin2}分：</b> ";
+				for($i=1;$i<=$areaadd;$i++) {
+					$areadata .= '&nbsp;'.$plsinfo[$arealist[$areanum+$areaadd+$i]].'&nbsp;';
+				}
 			}
-		}
-		if($areanum+$areaadd < count($plsinfo)) {
-			$at2= getdate($atime + $areahour*60);
-			$nexthour2 = $at2['hours'];$nextmin2 = $at2['minutes'];
-			while($nextmin2 >= 60){
-				$nexthour2 +=1;$nextmin2 -= 60;
-			}
-			if($nexthour2 >= 24){$nexthour2-=24;}
-			$areadata .= "；<b>{$nexthour2}时{$nextmin2}分：</b> ";
-			for($i=1;$i<=$areaadd;$i++) {
-				$areadata .= '&nbsp;'.$plsinfo[$arealist[$areanum+$areaadd+$i]].'&nbsp;';
-			}
-		}
-		if($areanum+$areaadd*2 < count($plsinfo)) {
-			$at3= getdate($atime + $areahour*120);
-			$nexthour3 = $at3['hours'];$nextmin3 = $at3['minutes'];
-			while($nextmin3 >= 60){
-				$nexthour3 +=1;$nextmin3 -= 60;
-			}
-			if($nexthour3 >= 24){$nexthour3-=24;}
-			$areadata .= "；<b>{$nexthour3}时{$nextmin3}分：</b> ";
-			for($i=1;$i<=$areaadd;$i++) {
-				$areadata .= '&nbsp;'.$plsinfo[$arealist[$areanum+$areaadd*2+$i]].'&nbsp;';
+			if($areanum+$areaadd*2 < count($plsinfo)) {
+				$at3= getdate($atime + $areahour*120);
+				$nexthour3 = $at3['hours'];$nextmin3 = $at3['minutes'];
+				while($nextmin3 >= 60){
+					$nexthour3 +=1;$nextmin3 -= 60;
+				}
+				if($nexthour3 >= 24){$nexthour3-=24;}
+				$areadata .= "；<b>{$nexthour3}时{$nextmin3}分：</b> ";
+				for($i=1;$i<=$areaadd;$i++) {
+					$areadata .= '&nbsp;'.$plsinfo[$arealist[$areanum+$areaadd*2+$i]].'&nbsp;';
+				}
 			}
 		}
 		echo $areadata;

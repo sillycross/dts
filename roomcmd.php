@@ -514,7 +514,7 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 							$pcard=$roomtypelist[$roomdata['roomtype']]['card'][$i];
 						}
 						enter_battlefield($udata['username'],$udata['password'],$udata['gender'],$udata['icon'],$pcard);
-						$db->query("UPDATE {$tablepre}players SET teamID='{$roomtypelist[$roomdata['roomtype']]['teamID'][$roomtypelist[$roomdata['roomtype']]['leader-position'][$i]]}' WHERE name='$pname'");
+						$db->query("UPDATE {$tablepre}players SET teamID='{$roomtypelist[$roomdata['roomtype']]['teamID'][$roomtypelist[$roomdata['roomtype']]['leader-position'][$i]]}' WHERE name='$pname' AND type=0");
 					}
 				//进入连斗
 				if (in_array($roomdata['roomtype'],array(0,1,2,3,4))){

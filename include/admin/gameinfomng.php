@@ -31,7 +31,7 @@ if($command == 'wthedit'){
 		save_gameinfo();
 		adminlog('hackedit',$ihack);
 		addnews($now,'syshackchg',$ihack);		
-		\map\movehtm();
+		//\map\movehtm();
 	}
 }elseif(strpos($command, 'gsedit')===0){
 	$igamestate = explode('_',$command);
@@ -87,8 +87,8 @@ if($command == 'wthedit'){
 }elseif($command == 'areaadd'){
 	if($gamestate <= 10){
 		$cmd_info = "本局游戏尚未开始，不能增加禁区。";
-	}elseif((!$areanum && $starttime + 30 > $now) || ($areanum && $areatime - $areahour*60 + 30 > $now)){
-		$cmd_info = "禁区到来后30秒内不能增加禁区。";
+	}elseif((!$areanum && $starttime + 10 > $now) || ($areanum && $areatime - $areahour*60 + 30 > $now)){
+		$cmd_info = "禁区到来后10秒内不能增加禁区。";
 	}else{
 		$areatime = $now;
 		save_gameinfo();

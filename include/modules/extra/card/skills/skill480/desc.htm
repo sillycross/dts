@@ -1,0 +1,24 @@
+<!--{eval $___TEMP_SKILL_ID=480;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+泡沫
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+	<!--{if !\skillbase\skill_getvalue(480,'activated')}-->
+		<span class="gold">一次性技能。发动后，你的金钱数翻倍，但之后的每次探索或移动，金钱数-50。</span>
+	<!--{else}-->
+		<span class="red">你已经发动了此技能，现在你每次探索或移动后，金钱数都会-50！</span>
+	<!--{/if}-->
+</span></td>
+<td class=b3 width=46>
+	<!--{if !\skillbase\skill_getvalue(480,'activated')}-->
+		<input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill480_activate';postCmd('gamecmd','command.php');this.disabled=true;" value="发动">
+	<!--{/if}-->
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}
