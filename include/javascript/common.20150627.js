@@ -1,21 +1,18 @@
-
 //getElementById
 function $(id) {
 	return document.getElementById(id);
 }
 
-
 //时间检查
 function checkTime(i)
 {
-if (i<10) 
-  {i="0" + i;}
+	if (i<10 && i>=0) {i="0" + i;}
   return i;
 }
 
 //ajax
 var zXml={useActiveX:(typeof ActiveXObject!="undefined"),useXmlHttp:(typeof XMLHttpRequest!="undefined")};
-zXml.ARR_XMLHTTP_VERS=["MSXML2.XmlHttp.5.0","MSXML2.XmlHttp.4.0","MSXML2.XmlHttp.3.0","MSXML2.XmlHttp","Microsoft.XmlHttp"];
+zXml.ARR_XMLHTTP_VERS=["MSXML2.XmlHttp.6.0","MSXML2.XmlHttp.3.0","MSXML2.XmlHttp","Microsoft.XmlHttp"];
 function zXmlHttp(){}
 zXmlHttp.createRequest=function(){
 	if(zXml.useXmlHttp){return new XMLHttpRequest();}
@@ -23,7 +20,7 @@ zXmlHttp.createRequest=function(){
 		if(!zXml.XMLHTTP_VER){
 			for(var i=0;i<zXml.ARR_XMLHTTP_VERS.length;i++){
 				try{new ActiveXObject(zXml.ARR_XMLHTTP_VERS[i]);
-				zXml.XMLHTTP_VER=zXml.ARR_XMLHTTP_VERS[i];break;}catch(oError){;}
+					zXml.XMLHTTP_VER=zXml.ARR_XMLHTTP_VERS[i];break;}catch(oError){;}
 				}
 			}
 		if(zXml.XMLHTTP_VER){return new ActiveXObject(zXml.XMLHTTP_VER);}
@@ -36,13 +33,13 @@ zXmlHttp.isSupported=function(){return zXml.useXmlHttp||zXml.useActiveX;};
 function getRequestBody(oForm) {
 	var aParams = new Array();
 	var n = oForm.elements.length;
-    for (var i=0 ; i < n ; i++) {
+  for (var i=0 ; i < n ; i++) {
 		if((oForm.elements[i].type == 'radio')&&(!oForm.elements[i].checked)){continue;}
 		var sParam = encodeURIComponent(oForm.elements[i].name);
 		sParam += "=" + encodeURIComponent(oForm.elements[i].value);
 		aParams.push(sParam);
-    } 
-    return aParams.join("&"); 
+  } 
+  return aParams.join("&"); 
 }
 
 //cookie类
@@ -70,4 +67,3 @@ Cookie.getCookie=function(name){
 Cookie.deleteCookie=function(name){
 	this.setCookie(name,'',{expireHours:-1});
 }
-
