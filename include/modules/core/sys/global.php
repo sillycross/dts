@@ -167,28 +167,25 @@ namespace sys
 		$premsg = '<span id="cid'.$chat['cid'].'"';
 		$postmsg = '<br></span>';
 		
-		if($chat['type'] == '0') {
+		//0=公聊； 1=队聊； 2=私聊； 3=遗言； 4=系统； 5=公告； 6=剧情
+		if(0 == $chat['type']) {
 			$premsg .= ' class="chat0">';
-			//$msg = "【{$chatinfo[$chat['type']]}】{$chat['send']}：{$chat['msg']}".date("\(H:i:s\)",$chat['time']).'<br>';
-		} elseif($chat['type'] == '1') {
+		} elseif(1 == $chat['type']) {
 			$premsg .= ' class="clan chat1">';
-			//$msg = "<span class=\"clan\">【{$chatinfo[$chat['type']]}】{$chat['send']}：{$chat['msg']}".date("\(H:i:s\)",$chat['time']).'</span><br>';
-		} elseif($chat['type'] == '3') {
+		} elseif(3 == $chat['type']) {
 			$premsg .= ' class="red chat3">';
-			if ($chat['msg']){				
-				//$msg = "<span class=\"red\">【{$chat['recv']}】{$chat['send']}：{$chat['msg']} ".date("\(H:i:s\)",$chat['time']).'</span><br>';
+			if ($chat['msg']){
 			} else {
 				$msg = '【'.$chatinfo[$chat['type']].'】'.$chat['send'].'什么都没说就死去了 ('.date("H:i:s",$chat['time']).')';
-				//$msg = "<span class=\"red\">【{$chat['recv']}】{$chat['send']} 什么都没说就死去了 ".date("\(H:i:s\)",$chat['time']).'</span><br>';
 			}
-		} elseif($chat['type'] == '4') {
+		} elseif(4 == $chat['type']) {
 			$premsg .= ' class="yellow chat4">';
-			//$msg = '【'.$chatinfo[$chat['type']].'】'.$chat['send'].'：'.$chat['msg'].'('.date("H:i:s",$chat['time']).')';//有冒号的区别
-			//$msg = "<span class=\"yellow\">【{$chatinfo[$chat['type']]}】{$chat['msg']}".date("\(H:i:s\)",$chat['time']).'</span><br>';
-		} elseif($chat['type'] == '5') {
+		} elseif(5 == $chat['type']) {
 			$premsg .= ' class="yellow chat5">';
-			$msg = '【'.$chatinfo[$chat['type']].'】'.$chat['send'].$chat['msg'].'('.date("H:i:s",$chat['time']).')';
-			//$msg = "<span class=\"yellow\">【{$chatinfo[$chat['type']]}】{$chat['msg']}".date("\(H:i:s\)",$chat['time']).'</span><br>';
+			$msg = '【'.$chatinfo[$chat['type']].'】'.$chat['msg'].'('.date("H:i:s",$chat['time']).')';
+		} elseif(6 == $chat['type']) {
+			$premsg .= ' class="lime chat6">';
+			$msg = '【'.$chatinfo[$chat['type']].'】'.$chat['msg'].'('.date("H:i:s",$chat['time']).')';
 		}
 		return $premsg.$msg.$postmsg;
 	}
