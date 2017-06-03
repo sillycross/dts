@@ -127,7 +127,7 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 	if(isset($roomvars['current_game_option'])){
 		if(isset($roomvars['current_game_option']['special-rule'])){
 			$spr = $roomvars['current_game_option']['special-rule'];
-			if('4000lp' == $spr)//倔豆模式
+			if('4000lp' == $spr)//掘豆模式
 				$card = 154;
 		}
 	}
