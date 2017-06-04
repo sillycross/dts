@@ -46,9 +46,9 @@ function updateTime(domid,t,tm,intv,fmt)
 		timinglist[domid]['mode'] = tm;
 		timinglist[domid]['interval'] = intv;
 		timinglist[domid]['format'] = fmt;
-		setTimeout("updateTime('" + domid + "')", timinglist[domid]['interval']);
 	}else{
 		var t = timinglist[domid]['timing'];
+		var t0 = t;
 		var tm = timinglist[domid]['mode'];
 		var intv = timinglist[domid]['interval'];
 		var fmt = timinglist[domid]['format'];
@@ -59,14 +59,19 @@ function updateTime(domid,t,tm,intv,fmt)
 			if(t < 0) t = 0;
 		}
 		timinglist[domid]['timing'] = t;
-		if(0==t && 'timing'==domid){
-			window.location.reload(); 
-		}else{
-			setTimeout("updateTime('" + domid + "')", timinglist[domid]['interval']);
+		if(0==t){
+			if(0 < t0 && 'timing'==domid) window.location.reload(); //首页
+			else if('area_timing' == domid) {//游戏界面内禁区自动刷新
+				var o_command = $('command').value;
+				$('command').value = 'area_timing_refresh';
+				postCmd('gamecmd','command.php');
+				$('command').value = o_command;
+			}
 		}
 	}
 	var tstr = updateTime_render(timinglist[domid]['timing'], timinglist[domid]['mode'], timinglist[domid]['format']);
-	$(domid).innerHTML = tstr;
+	if($(domid)) $(domid).innerHTML = tstr;
+	setTimeout("updateTime('" + domid + "')", timinglist[domid]['interval']);
 }
 
 function updateTime_render(t, tm, fmt)

@@ -314,9 +314,8 @@ else	//未开启server-client模式，正常执行准备流程
 //////////////////////////调用daemon进行的全局操作//////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
 
-
 if(isset($command)){
-	if($command=='get_news_in_game' && isset($lastnid) && isset($news_room_prefix)){//获取进行状况
+	if('get_news_in_game' == $command && isset($lastnid) && isset($news_room_prefix)){//获取进行状况
 		$lastnid=(int)$lastnid;
 		$newsinfo = \sys\getnews($lastnid,$newslimit,$news_room_prefix);
 		ob_clean();
@@ -324,14 +323,21 @@ if(isset($command)){
 		echo $jgamedata;
 		ob_end_flush();
 		return;
-	
-	}elseif($command=='room_routine'){//刷新房间内游戏状态
+	}elseif('area_timing_refresh' == $command){//刷新禁区时间
+		\sys\routine();
+		\map\init_areatiming();
+		$gamedata = array('timing' => $uip['timing']);
+		ob_clean();
+		$jgamedata = gencode($gamedata);
+		echo $jgamedata;
+		ob_end_flush();
+		return;
+	}elseif('room_routine' == $command){//刷新房间内游戏状态
 		include_once './include/roommng/roommng.func.php';
 		room_all_routine();
 		return;
 	}
 }
-
 
 ////////////////////////////////////////////////////////////////////////////
 //////////////////////////游戏前玩家信息检查///////////////////////////////////
