@@ -4,7 +4,7 @@ namespace map
 {
 	function init() 
 	{
-		init_areatiming();
+		
 	}
 	
 	function init_areatiming(){
@@ -118,7 +118,7 @@ namespace map
 			//echo " - 禁区初始化 - ";
 			list($sec,$min,$hour,$day,$month,$year,$wday,$yday,$isdst) = localtime($starttime);
 			$areatime = (ceil(($starttime + $areahour*60)/600))*600;//$areahour已改为按分钟计算，ceil是为了让禁区分钟为10的倍数
-			init_areatiming();
+			//init_areatiming();
 			$plsnum = sizeof($plsinfo);
 			$arealist = range(1,$plsnum-1);
 			shuffle($arealist);
@@ -198,7 +198,7 @@ namespace map
 				$o_areatime = $areatime;
 				$areatime += $areahour*60;
 				add_once_area($o_areatime);
-				init_areatiming();
+				//init_areatiming();
 				$areawarn = 0;
 			}
 		}elseif(($gamestate > 10)&&($now > $areatime - $areawarntime)&&(!$areawarn)){//判定警告增加禁区
