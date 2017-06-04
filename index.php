@@ -7,10 +7,10 @@ require_once './include/roommng/roommng.func.php';//有可能common.inc.php里�
 
 $timing = 0;
 if($gamestate > 10) {
-	$timing = $now - $starttime;
+	$timing = ($now - $starttime)*1000;
 } else {
 	if($starttime > $now) {
-		$timing = $starttime - $now;
+		$timing = ($starttime - $now)*1000;
 	} else {
 		$timing = 0;
 	}

@@ -2,7 +2,20 @@
 
 namespace map
 {
-	function init() {}
+	function init() 
+	{
+		init_areatiming();
+	}
+	
+	function init_areatiming(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		if(!isset($uip['timing'])) $uip['timing'] = array();
+		$uip['timing']['area_timing'] = array(
+			'mode' => 0,
+			'timing' => ($areatime-$now)*1000
+		);
+	}
 	
 	//非禁区域列表。如果$no_dangerous_zone开启，则再排除掉SCP、英灵殿等危险地区
 	function get_safe_plslist($no_dangerous_zone = true){
@@ -105,6 +118,7 @@ namespace map
 			//echo " - 禁区初始化 - ";
 			list($sec,$min,$hour,$day,$month,$year,$wday,$yday,$isdst) = localtime($starttime);
 			$areatime = (ceil(($starttime + $areahour*60)/600))*600;//$areahour已改为按分钟计算，ceil是为了让禁区分钟为10的倍数
+			init_areatiming();
 			$plsnum = sizeof($plsinfo);
 			$arealist = range(1,$plsnum-1);
 			shuffle($arealist);
@@ -184,6 +198,7 @@ namespace map
 				$o_areatime = $areatime;
 				$areatime += $areahour*60;
 				add_once_area($o_areatime);
+				init_areatiming();
 				$areawarn = 0;
 			}
 		}elseif(($gamestate > 10)&&($now > $areatime - $areawarntime)&&(!$areawarn)){//判定警告增加禁区

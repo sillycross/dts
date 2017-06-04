@@ -92,28 +92,6 @@ function hotkey(evt)
 	}	
 }
 
-//update time
-function updateTime(timing,mode)
-{
-	if(timing){
-		t = timing;
-		tm = mode;
-		h = Math.floor(t/3600);
-		m = Math.floor((t%3600)/60);
-		s = t%60;
-		// add a zero in front of numbers<10
-		h=checkTime(h);
-		m=checkTime(m);
-		s=checkTime(s);
-		$('timing').innerHTML = h + ':' + m + ':' +s;
-		tm ? t++ : t--;
-		setTimeout("updateTime(t,tm)",1000);
-	}
-	else{
-		window.location.reload(); 
-	}
-}
-
 
 function demiSecTimer(){
 	if($('timer') && ms>=itv)	{
@@ -312,6 +290,20 @@ function showData(sdata){
 		for(var id in sDs){
 			if($(id)!=null){
 				$(id).src = sDs[id];
+			}
+		}
+		if (shwData['timing'])
+		{
+			var sDt = shwData['timing'];
+			for(var tid in sDt){
+				var t = sDt[tid]['timing'];
+				var tm = sDt[tid]['mode'];
+				if('undefined'==typeof(timinglist) || 'undefined'==typeof(timinglist[tid])) {
+					updateTime(tid,t,tm);
+				}else{
+					timinglist[tid]['timing'] = t;
+					timinglist[tid]['mode'] = tm;
+				}
 			}
 		}
 		//这个回头应该做到专门的js里去
