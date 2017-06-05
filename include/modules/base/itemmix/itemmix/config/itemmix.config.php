@@ -67,7 +67,7 @@ $mixinfo = array
 //	array('class' => 'hidden', 'stuff' => array('悲叹之种','萨卡兰姆神圣钉棍棒'),'result' => array('妖邪必败','WP',1540,200,'Nfc'),),
 	array('class' => 'wp', 'stuff' => array('『延展御柱』','驱云弹','弹幕符札'),'result' => array('御柱「Meteoric Onbashira」','WP',200,50,'Nir'),),
 	array('class' => 'wp', 'stuff' => array('手机','手枪子弹'),'result' => array('『诺基亚』','WP',50,9999,'N'),),
-	array('class' => 'wp', 'stuff' => array('『诺基亚』','曾经的荣光-巨盾','防弹背心','防弹背心','防弹背心','防弹背心'),'result' => array('『曾经的荣光-诺基亚』','WP',300,9999,'NAaZ'),),
+	array('class' => 'wp', 'stuff' => array('『诺基亚』','曾经的荣光-巨盾','防弹背心','防弹背心','防弹背心','防弹背心'),'result' => array('『曾经的荣光-诺基亚』','WP',255,9999,'NAZ'),),
 	
 	array('class' => 'wg', 'stuff' => array('『环形激光』','红宝石方块','原型武器G'),'result' => array('『红石光束炮』','WG',240,360,'ud'),),
 	array('class' => 'wg', 'stuff' => array('老式火枪','原型武器G','某种电子零件'),'result' => array('★发条式突击步枪★','WG',150,100,'r'),),
