@@ -342,7 +342,8 @@ namespace weather
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}使用了{$c}，但是天气并未发生改变！</span></li>";
 		if($news == 'syswthchg') 
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">奇迹和魔法都是存在的！当前天气变成了{$wthinfo[$a]}！</span></li>";
-		
+		if($news == 'aurora_revival') 
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}在奥罗拉的作用下原地满血复活了！</span></li>";
 		if($news == 'death17') 
 		{
 			$dname = $typeinfo[$b].' '.$a;
@@ -403,6 +404,99 @@ namespace weather
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess($ismeet);
 		apply_fog_meetenemy_effect($ismeet);
+	}
+	
+	//极光天气每次战斗结束都有概率无视生死状态而回血。
+	//注意，如果死亡，会在kill判定里处理回血，否则在这个函数最后处理
+	function attack_finish(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		if(17 == $weather){
+			weather_aurora_check($pa, $pd, $active);
+		}
+		$chprocess($pa, $pd, $active);
+		weather_aurora_revive_process($pa, $pd);
+	}
+	
+	function kill(&$pa, &$pd)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		$chprocess($pa,$pd);
+		
+		eval(import_module('sys','logger'));
+		weather_aurora_revive_process($pa, $pd);
+	}
+	
+	function player_kill_enemy(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		$chprocess($pa,$pd,$active);
+		
+		eval(import_module('sys','logger'));
+
+		if (!empty($pd['aurora_revive_flag']))
+		{
+			addnews ( $now, 'aurora_revival', $pd['name'] );
+			if ($active)
+			{
+				$log.='但是，空气中弥漫着的<span class="clan">奥罗拉</span><span class="lime">让敌人重新站了起来！</span><br>';
+				$log .= '并且，敌人的生命回复了<span class="clan">'.$pd['aurora_revive_flag'].'</span>点！<br>';
+				$pd['battlelog'].='<span class="lime">但是，空气中弥漫着的奥罗拉让你重新站了起来！</span>';
+			}
+			else
+			{
+				$log.='但是，空气中弥漫着的<span class="clan">奥罗拉</span><span class="lime">让你重新站了起来！</span><br>';
+				$log .= '并且，你的生命回复了<span class="clan">'.$pd['aurora_revive_flag'].'</span>点！<br>';
+				$pd['battlelog'].='<span class="lime">但是，空气中弥漫着的奥罗拉让敌人重新站了起来！</span>';
+			}
+			unset($pd['aurora_revive_flag']);
+		}
+	}
+	
+	function weather_aurora_check(&$pa,&$pd,$active){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','logger'));
+		if(17 != $weather) return;
+		foreach(array('pa','pd') as $pn){
+			if(!${$pn}['type']) $aurora_rate = 10;//玩家回血概率10%，NPC回血概率1%
+			else $aurora_rate = 1;
+			if(rand(0,99) < $aurora_rate){
+				${$pn}['aurora_revive'] = rand(1,9);
+			}
+		}
+	}
+	
+	function weather_aurora_revive_process(&$pa,&$pd){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','logger'));
+		if(17 != $weather) return;
+		foreach(array('pa','pd') as $pn){
+			if(!empty(${$pn}['aurora_revive'])){
+				if(${$pn}['hp'] < 0) ${$pn}['hp'] = 0;
+				$o_pl_hp = ${$pn}['hp'];
+				$aurora_revive = ${$pn}['aurora_revive'];
+				if($aurora_revive > ${$pn}['mhp'] - ${$pn}['hp']) $aurora_revive = ${$pn}['mhp'] - ${$pn}['hp'];
+				${$pn}['hp'] += $aurora_revive;
+				if(!$o_pl_hp) {
+					${$pn}['state'] = 0;
+					$deathnum--;
+					if (!${$pn}['type']) $alivenum++;
+					save_gameinfo();
+				}
+				if(${$pn}['name'] == $sdata['name']) $logname = '你';
+				else $logname = ${$pn}['name'];
+
+				//复活时在player_kill_enemy()里记录$log
+				if($aurora_revive) {
+					if($o_pl_hp) $log .= "空气中弥漫着的<span class='clan'>奥罗拉</span>让{$logname}的生命回复了<span class='clan'>$aurora_revive</span>点！<br>";
+					${$pn}['aurora_revive_flag'] = ${$pn}['aurora_revive'];
+				}
+				unset(${$pn}['aurora_revive']);
+			}
+		}
 	}
 }
 

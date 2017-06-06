@@ -141,9 +141,17 @@ function get_magic_content($funcname)
 {
 	global $___TEMP_modfuncs;
 	$str = __MAGIC_CODEADV2__;
-	$str = str_replace('_____TEMPLATE_MAGIC_CODEADV2_INIT_DESIRE_PARENTNAME_____','\''.$___TEMP_modfuncs[$funcname]['parent'].'\'',$str);
-	$str = str_replace('_____TEMPLATE_MAGIC_CODEADV2_INIT_EVACODE_____',$___TEMP_modfuncs[$funcname]['evacode'],$str);
-	$str = str_replace('_____TEMPLATE_MAGIC_CODEADV2_INIT_CHPROCESS_____','\''.$___TEMP_modfuncs[$funcname]['chprocess'].'\'',$str);
+	preg_match_all("/if[\s]*\(.+\)[\s]*\{([\s\S]*)\}[\s]*(.+)/i",$str,$matches);
+	$str1 = $matches[1][0]; $str2 = $matches[2][0];
+	//去掉永远不可能达成的if
+	if($___TEMP_modfuncs[$funcname]['parent']) {
+		$str = $str1.$str2;
+		$str = str_replace('_____TEMPLATE_MAGIC_CODEADV2_INIT_DESIRE_PARENTNAME_____','\''.$___TEMP_modfuncs[$funcname]['parent'].'\'',$str);
+		$str = str_replace('_____TEMPLATE_MAGIC_CODEADV2_INIT_EVACODE_____',$___TEMP_modfuncs[$funcname]['evacode'],$str);
+		$str = str_replace('_____TEMPLATE_MAGIC_CODEADV2_INIT_CHPROCESS_____','\''.$___TEMP_modfuncs[$funcname]['chprocess'].'\'',$str);
+	}else{
+		$str = str_replace('_____TEMPLATE_MAGIC_CODEADV2_INIT_CHPROCESS_____','\''.$___TEMP_modfuncs[$funcname]['chprocess'].'\'',$str2);
+	}
 	return $str;
 }
 
