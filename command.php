@@ -333,6 +333,7 @@ if(isset($command)){
 		ob_end_flush();
 		return;
 	}elseif('room_routine' == $command){//刷新房间内游戏状态
+		ignore_user_abort(1);
 		include_once './include/roommng/roommng.func.php';
 		room_all_routine();
 		return;

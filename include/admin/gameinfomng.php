@@ -96,6 +96,15 @@ if($command == 'wthedit'){
 		$cmd_info = '下一次禁区时间提前到来。请访问任意游戏页面以刷新游戏状态。';
 		addnews($now,'sysaddarea');	
 	}
+}elseif($command == 'areawarn'){
+	if($gamestate <= 10){
+		$cmd_info = "本局游戏尚未开始，不能增加禁区。";
+	}else{
+		$areatime = $now+60;
+		save_gameinfo();
+		$cmd_info = '下一次禁区时间已设为60秒后。请访问任意游戏页面以刷新游戏状态。';
+		addnews($now,'sysaddarea');	
+	}
 }
 
 if($starttime){
