@@ -26,21 +26,27 @@ namespace skill10
 	function upgrade10()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('player','logger'));
+		eval(import_module('player','logger','input'));
 		if (!\skillbase\skill_query(10))
 		{
 			$log.='你没有这个技能！<br>';
 			return;
 		}
-		if ($skillpoint<1) 
+		$skillpara1 = (int)$skillpara1;
+		if ($skillpara1 <= 0)
+		{
+			$log.='技能点指令错误！<br>';
+			return;
+		}
+		if ($skillpoint<1 || $skillpoint < $skillpara1) 
 		{
 			$log.='技能点不足。<br>';
 			return;
 		}
-		$dice = 2;
+		$dice = $skillpara1 * 2;
 		$mhp += $dice; $hp += $dice;
-		$log.='消耗了<span class="lime">1</span>点技能点，你的生命上限提升了<span class="yellow">'.$dice.'</span>点。<br>';
-		$skillpoint--;
+		$log.='消耗了<span class="lime">'.$skillpara1.'</span>点技能点，你的生命上限提升了<span class="yellow">'.$dice.'</span>点。<br>';
+		$skillpoint-=$skillpara1;
 	}
 	
 }

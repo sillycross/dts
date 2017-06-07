@@ -12,7 +12,7 @@
 <!--{if $upgradecost[$clv] !== -1}-->消耗<span class="lime">$upgradecost[$clv]</span>点技能点升至下一级<!--{/if}--><br>
 持殴系武器战斗时<span class="yellow">$proc_rate%</span>几率触发，触发则物理伤害增加<span class="yellow">$attgain[$clv]%</span>，<br>且晕眩敌人<span class="clan">$sk35_stuntime[$clv]</span>秒。晕眩状态下敌人无法进行任何行动或战斗。<br>
 </span></td>
-<td class=b3 width=46>
+<td class=b3 width=96>
 <!--{if $upgradecost[$clv] !== -1}-->
 <!--{if $skillpoint>=$upgradecost[$clv]}-->
 <input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill35_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="升级">

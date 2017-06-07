@@ -14,7 +14,7 @@
 武器伤害浮动范围<span class="yellow">+$flucgain[$clv]%</span>，有<span class="yellow">$rangerate[$clv]%</span>概率允许超射程反击(爆系除外)<br>
 <!--{if $upgradecost[$clv] == -1}--><span class="clan"><!--{else}--><span>当技能到达满级时，<!--{/if}-->你的反击率将提高30%</span><br>
 </span></td>
-<td class=b3 width=46>
+<td class=b3 width=96>
 <!--{if $upgradecost[$clv] !== -1}-->
 <!--{if $skillpoint>=$upgradecost[$clv]}-->
 <input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill207_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="升级">

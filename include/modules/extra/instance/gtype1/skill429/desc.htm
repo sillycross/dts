@@ -12,7 +12,7 @@
 <!--{if $upgradecost[$clv] !== -1}-->消耗<span class="lime">$upgradecost[$clv]</span>点技能点升至下一级<!--{/if}--><br>
 你对NPC的单次战斗伤害不能超过其最大生命的<span class="yellow">$dmglimit[$clv]%</span><br>你不会和玩家进入战斗<br>
 </span></td>
-<td class=b3 width=46>
+<td class=b3 width=96>
 <!--{if $upgradecost[$clv] !== -1}-->
 <!--{if $skillpoint>=$upgradecost[$clv]}-->
 <input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill429_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="升级">
