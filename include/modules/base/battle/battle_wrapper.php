@@ -10,12 +10,28 @@ namespace battle
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','logger'));
-		if(!empty($pl['battlelog'])) \logger\logsave ( $pl['pid'], $now, $pl['battlelog'] ,'b');
+		if(!$pl['type']){
+			if(isset($pl['battle_msg'])) {
+				$pl['battlelog'] = $pl['battle_msg'].$pl['battlelog'];
+			}
+			if(!empty($pl['battlelog'])) \logger\logsave ( $pl['pid'], $now, $pl['battlelog'] ,'b');
+		}
+	}
+	
+	function send_battle_msg(&$pa, &$pd, $active){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','logger','input'));
+		if(!empty($message)){
+			$log .= "<span class=\"lime\">你向{$pd['name']}喊道：“{$message}”</span><br>";
+			$pd['battle_msg'] = "<span class=\"lime\">{$pa['name']}向你喊道：“{$message}”</span><br><br>";
+			\sys\addchat(6, "{$pa['name']}高喊着“{$message}”杀向了{$pd['name']}");
+		}
 	}
 	
 	function battle_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		send_battle_msg($pa, $pd, $active);
 	}
 	
 	function battle_finish(&$pa, &$pd, $active)

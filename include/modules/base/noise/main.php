@@ -65,6 +65,17 @@ namespace noise
 		return;
 	}
 	
+	function reset_game()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		$chprocess();
+		
+		eval(import_module('sys'));
+		//重设声音信息
+		$noisevars = array();
+	}
+	
 	function save_gameinfo_prepare_work($ginfo, $ignore_room = 1){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','noise'));

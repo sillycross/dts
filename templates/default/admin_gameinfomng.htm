@@ -99,7 +99,10 @@
 				<input type="text" name="areahour" size="2" disabled value="{$arhour}">{$lang['hour']}
 				<input type="text" name="areamin" size="2" disabled value="{$armin}">{$lang['min']}
 			</td>
-			<td><input type="submit" value="立刻禁区" onclick="$('command').value='areaadd'"></td>
+			<td>
+				<input type="submit" value="立刻禁区" onclick="$('command').value='areaadd'"><br>
+				<input type="submit" value="60秒后禁" onclick="$('command').value='areawarn'">
+			</td>
 		</tr>
 		<tr>
 			<td>禁区解除</td>

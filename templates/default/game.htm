@@ -1,10 +1,11 @@
 {template header}
 {template game_interface}
 {template footer}
-<!--{if CURSCRIPT=='game' && !defined('IN_REPLAY') && $gametype != 17 && ($hp>0 || $log!='')}-->
+<!--{if CURSCRIPT=='game' && !defined('IN_REPLAY') && $gametype != 17 && $hp>0 && $state < 10}-->
+<!--{eval $rf_command = (1==$state||2==$state||3==$state) ? 'rest' : 'enter'}-->
 <script type="text/javascript">
 jQuery(document).ready(function(){
-  $('mode').value='command';$('command').value='enter';postCmd('gamecmd','command.php');
+  $('mode').value='$mode';$('command').value='$rf_command';postCmd('gamecmd','command.php');
 });
 </script>
 <!--{/if}-->

@@ -16,7 +16,7 @@
 当前选择：降低你受到的<span class="yellow"><!--{if $choice==0}-->固定伤害<!--{else}-->爆炸伤害<!--{/if}--></span> 
 <input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill44_special';$('subcmd').value='upgrade';$('skillpara1').value=2;postCmd('gamecmd','command.php');this.disabled=true;" value="切换">
 </span></td>
-<td class=b3 width=46>
+<td class=b3 width=96>
 <!--{if $upgradecost[$clv] !== -1}-->
 <!--{if $skillpoint>=$upgradecost[$clv]}-->
 <input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill44_special';$('subcmd').value='upgrade';$('skillpara1').value=1;postCmd('gamecmd','command.php');this.disabled=true;" value="升级">

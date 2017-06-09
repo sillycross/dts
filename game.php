@@ -60,7 +60,6 @@ if ($hp<=0 || $player_dead_flag)
 	player\post_act();
 }
 
-//var_dump($itm3);
 if($hp <= 0){
 	$dtime = date("Y年m月d日H时i分s秒",$endtime);
 	$kname='';

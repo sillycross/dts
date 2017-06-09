@@ -199,6 +199,7 @@ namespace player
 		}else{
 			$uip['innerHTML']['chattype'] = "<select name=\"chattype\" value=\"2\"><option value=\"0\" selected>$chatinfo[0]</select>";
 		}
+		\map\init_areatiming();
 		return;
 	}
 

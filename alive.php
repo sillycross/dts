@@ -68,7 +68,7 @@ if(!isset($alivemode)){
 	$alivedata['innerHTML']['alivelist'] = ob_get_contents();
 	if(isset($error)){$alivedata['innerHTML']['error'] = $error;}
 	ob_clean();
-	$jgamedata = json_encode($alivedata);
+	$jgamedata = gencode($alivedata);
 	echo $jgamedata;
 	ob_end_flush();
 }

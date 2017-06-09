@@ -2290,15 +2290,15 @@ $cards = array(
 		)
 	),
 	154 => array(
-		'name' => '倔豆挑战者',
+		'name' => '掘豆挑战者',
 		'rare' => 'A',
 		'pack' => 'Way of Life',
-		'desc' => '用倔豆带来笑容',
-		'effect' => '以4000点LP开局。面包替换为倔豆盘。',
+		'desc' => '用掘豆带来笑容',
+		'effect' => '以4000点LP开局。面包替换为掘豆盘。',
 		'energy' => 100,
 		'valid' => array(
 			'hp' => 4000,
-			'itm1' => '倔豆盘',
+			'itm1' => '掘豆盘',
 			'itmk1' => 'DA',
 			'itme1' => '25',
 			'itms1' => '10',
