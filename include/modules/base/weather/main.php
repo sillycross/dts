@@ -343,7 +343,7 @@ namespace weather
 		if($news == 'syswthchg') 
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">奇迹和魔法都是存在的！当前天气变成了{$wthinfo[$a]}！</span></li>";
 		if($news == 'aurora_revival') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}在奥罗拉的作用下原地满血复活了！</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}在奥罗拉的作用下原地复活了！</span></li>";
 		if($news == 'death17') 
 		{
 			$dname = $typeinfo[$b].' '.$a;

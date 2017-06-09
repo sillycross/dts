@@ -36,11 +36,6 @@ namespace sys
 		//清空战斗信息
 		$hdamage = 0;
 		$hplayer = '';
-		$noisetime = 0;
-		$noisepls = 0;
-		$noiseid = 0;
-		$noiseid2 = 0;
-		$noisemode = '';
 		
 		save_combatinfo();
 		
