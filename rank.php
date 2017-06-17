@@ -72,7 +72,7 @@ if(!isset($command) || $start != $ostart){
 		$showdata['value']['checkmode'] = $checkmode;
 		//$showdata['innerHTML']['pageinfo'] = "第<span class=\"yellow\">$startnum</span>条至第<span class=\"yellow\">$endnum</span>条";
 		$showdata['value']['start'] = $start;
-		$jgamedata = base64_encode(gzencode(compatible_json_encode($showdata)));
+		$jgamedata = gencode($showdata);
 		echo $jgamedata;
 		ob_end_flush();
 	}else{
@@ -82,7 +82,7 @@ if(!isset($command) || $start != $ostart){
 //else{
 //	$showdata['innerHTML']['notice'] = '不需要！';
 //	ob_clean();
-//	$jgamedata = compatible_json_encode($showdata);
+//	$jgamedata = json_encode($showdata);
 //	echo $jgamedata;
 //	ob_end_flush();
 //}

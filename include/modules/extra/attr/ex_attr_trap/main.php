@@ -54,7 +54,7 @@ namespace ex_attr_trap
 					\logger\logsave ( $itmsk0, $now, $w_log ,'b');
 				}	
 			}	
-			$log .= "糟糕，你触发了{$trperfix}陷阱<span class=\"yellow\">$itm0</span>！<br>不过，身上装备着的自动迎击系统启动了！<span class=\"yellow\">在迎击功能的保护下你毫发无伤。</span><br>";
+			$log .= "糟糕，你触发了{$trprefix}陷阱<span class=\"yellow\">$itm0</span>！<br>不过，身上装备着的自动迎击系统启动了！<span class=\"yellow\">在迎击功能的保护下你毫发无伤。</span><br>";
 			return 1;
 		}
 		return 0;
@@ -88,15 +88,15 @@ namespace ex_attr_trap
 		$chprocess();
 	}
 	
-	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)	
+	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())	
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
 		
 		if($news == 'trapdef') 
-			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}依靠迎击装备抵御了{$b}设置的陷阱{$c}的伤害</span><br>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}依靠迎击装备抵御了{$b}设置的陷阱{$c}的伤害</span></li>";
 		
-		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 }
 

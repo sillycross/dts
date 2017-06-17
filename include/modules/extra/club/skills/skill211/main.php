@@ -62,7 +62,7 @@ namespace skill211
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill211','player','logger'));
 		if (!\skillbase\skill_query(211, $pa) || !check_unlocked211($pa)) return 0;
-		if ($pa['wep_kind']!='D') return 0;
+		//if ($pa['wep_kind']!='D') return 0;
 		$hidegainrate = $hidegain[\skillbase\skill_getvalue(211,'lvl',$pa)];
 		return $hidegainrate;
 	}
@@ -72,7 +72,8 @@ namespace skill211
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill211','player','logger'));
 		if (!\skillbase\skill_query(211, $pa) || !check_unlocked211($pa)) return 1;
-		if ($pa['wep_kind']!='D') return 1;
+		//$pa['wep_kind'] = \weapon\get_attack_method($pa);
+		//if ($pa['wep_kind']!='D') return 1;
 		$actgainrate = $actgain[\skillbase\skill_getvalue(211,'lvl',$pa)];
 		return 1+($actgainrate)/100;
 	}

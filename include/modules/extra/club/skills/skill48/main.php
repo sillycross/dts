@@ -192,7 +192,7 @@ namespace skill48
 			else  $log.='技能「附魔」使敌人的<span class="yellow">'.$itemspkinfo[$pa['skill48_flag']].'</span>伤害永久提高了<span class="yellow">3%</span>。<br>';
 			$ori_val=(int)\skillbase\skill_getvalue(48,$pa['skill48_flag'],$pa);
 			$ori_val+=3;
-			if ($ori_val>120) $ori_val=120;
+			if ($ori_val>150) $ori_val=150;
 			\skillbase\skill_setvalue(48,$pa['skill48_flag'],$ori_val,$pa);
 		}
 		return $r;
@@ -210,16 +210,16 @@ namespace skill48
 		return $chprocess($pa, $pd, $active, $key)*(1+$ori_val/100);
 	}
 	
-	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)
+	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill48') 
-			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}对{$b}发动了技能<span class=\"yellow\">「附魔」</span></span><br>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}对{$b}发动了技能<span class=\"yellow\">「附魔」</span></span></li>";
 		
-		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 	
 }

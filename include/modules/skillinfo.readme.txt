@@ -1,0 +1,86 @@
+﻿称号技能说明
+
+请先阅读skillbase的readme.txt（在base/skillbase下）和技能模板的readme.txt（在base/skills下）！！！
+请先阅读skillbase的readme.txt（在base/skillbase下）和技能模板的readme.txt（在base/skills下）！！！
+请先阅读skillbase的readme.txt（在base/skillbase下）和技能模板的readme.txt（在base/skills下）！！！
+
+请务必把以下内容全部认真看完！我知道很长！
+
+除了以上的要求：
+
+相比普通技能，称号技能应当在init函数中定义常量MOD_SKILL编号_INFO，代表技能属性标签，分号分隔
+
+技能属性标签有这几种（可以任意组合）
+
+属性标签	属性名称	说明
+
+club 		称号		表明这个技能是一个称号技能。所有称号技能都必须带上这个标签，否则可能导致不参与很多判断
+
+card		卡片		表明这个技能是卡片技能。目前只是个标签，没有特殊的用处
+
+unique		独有		表明这个技能是独有技能，与卡片技能高度重合，主要用在NPC技能的显示和失去技能的判断上。
+
+achievement	成就		表明这个技能是成就。成就不参与任何技能的判定。
+
+battle 	战斗技		战斗页面中可以发动的技能。带上这个属性的技能必须提供模板battlecmd.htm，包含这个技能在战斗页面的发动按钮和说明
+
+active 	主动技		操作界面中可以发动的技能。带上这个属性的技能必须提供模板profilecmd.htm，包含这个技能将在操作界面显示的发动按钮
+				然后请接管\player\act()执行你的任务
+				变量赋值请设置为mode='special'; command='skill编号_special'; subcmd='你的命令'（不能为upgrade）;
+
+upgrade	升级技		可以升级的技能。带上这个属性的技能应当提供函数upgrade()，当玩家点了升级这个技能的按钮时会被自动调用。
+				desc.htm中，升级按钮的变量设置应当为mode='special'; command='skill编号_special' subcmd='upgrade'，
+				模块中不需接管\player\act()，系统会自动调用upgrade编号()
+				如果你的技能升级有特殊需求可以不遵守这条规定，自己接管\player\act()进行处理（就像主动技一样）
+				其实升级不一定是字面意义上的升级，可以是任何一个需要的技能操作，
+				相当于系统给你提供了一个不需要接管\player\act()就能直接用的接口，纯属方便开发的目的
+				
+locked	锁定技		这个技能不可被其他称号学习。
+
+hidden	基本特性	这个技能不会在技能页面中显示，一般用于称号的基本特性。
+				例如“开局获得25殴系熟练，升级增加殴熟”这种技能就应该加这个标签。
+				有这个标签的技能自动视为locked。
+				
+name		名字		如果既没有locked标签也没有hidden标签则这个标签必须存在，代表技能的名字。格式是name=名字;
+
+假如你的称号技能在技能页面中有“升级”以外的可用操作（或者你的操作有特殊需要），
+请一律将变量设置为mode='special' command='skill编号_special' subcmd='你的操作'，
+然后接管\player\act()进行处理（记住subcmd和用户提交的其他变量需要import_module('input')才能使用）。
+
+提供了5个html变量标签，分别为skillpara1,skillpara2,skillpara3,skillpara4,skillpara5;
+有需要的可以自己在按钮处用$('skillpara1').value=XXX;赋值作为参数，然后处理函数里import_module('input')就能用了。
+请不要再自己开新的html变量标签了。
+
+示例：
+	技能X，编号10，殴系称号自带特性（开局25熟，升级加熟）
+	技能属性标签定义应当为define('MOD_SKILL10_INFO','club;hidden;');
+	
+	技能“瞄准”，编号11，战斗中发动，可升级，可以被其他称号学习
+	技能属性标签定义应当为define('MOD_SKILL11_INFO','club;battle;upgrade;name=瞄准;');
+
+战斗技的个数强烈建议不要超过两个。由于排版问题，硬限制是3个，多余的战斗技不会显示。
+如果一定要3个战斗技，请把第三个战斗技在战斗页面的说明写的尽可能尽可能简短一些，否则排版会很丑。
+
+所有非hidden称号技能都应该提供一个模板desc.htm，是这个技能在技能页面中的描述模板
+请在示例模块提供的desc.htm基础上修改。不要乱改！！！尤其不要改width！！请只修改中文字让你替换的那些东西和span标签（如果真的需要修改的话）！
+
+同时，所有非hidden称号技能都应当提供一个函数check_unlocked编号(&$pa)，返回该技能是否已经被解锁（即是否可以使用了）
+hidden技能应该全部默认开局解锁。
+
+注意，获得和解锁是不同的，一个称号所有可以解锁的技能都已经在选择这个称号时获得了。
+（因此在技能模块中判定一个技能是否能发动应该先判定自身是否已经被获得并被解锁，再判定是否符合发动条件。）
+
+关于战斗技的battlecmd.htm: 请注意你的这个htm会被塞在一个宽度为100（高度不限，但也别太过分了）的格子里。
+如果技能解锁了（或你的技能是hidden），你的模板就会被引用。因此请在自己的battlecmd里判断发动条件，
+如果解锁了但不满足发动条件请把按钮设为disabled然后写上不能发动的理由！！不要返回一个空的东西！！
+
+关于战斗技的命令传递：
+请赋值$('bskill').value=你的技能编号即可。然后战斗中玩家的'bskill'域会被自动赋值为你的技能编号，依此为据判断即可。
+请不要把bskill赋值为乱七八糟的东西。
+如果有必要要求一个玩家提供一个战斗参数，battlecmd页面有一个定义好的变量标签bskillpara，
+你可以$('bskillpara').value=你的参数; 这个参数也是会被自动加载到玩家的'bskillpara'域里的。不要开其他变量标签了。
+
+请接管strike_prepare()判断你的技能能否发动并扣怒气，如果不能发动应该输出一条log，然后把bskill域改成0即可。
+
+关于主动技的profilecmd.htm: 同上，但只需要一个按钮，而且即使不满足发动条件也不要disable按钮，
+但是如果玩家按了按钮你应该提示不能发动技能的理由。

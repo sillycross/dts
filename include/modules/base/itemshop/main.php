@@ -70,10 +70,22 @@ namespace itemshop
 		
 		$shop=$sn;
 		ob_clean();
-		include template(MOD_ITEMSHOP_SHOP);
+		include template(get_itemshop_filename());
 		$cmd = ob_get_contents();
 		ob_clean();
 		return;
+	}
+	
+	function get_itemshop_filename(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','logger','player'));
+		return MOD_ITEMSHOP_SHOP;
+	}
+	
+	function get_sp_shop_filename(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','logger','player'));
+		return MOD_ITEMSHOP_SP_SHOP;
 	}
 
 	function get_shopiteminfo($item)
@@ -125,7 +137,7 @@ namespace itemshop
 			$log .= '你的钱不够，不能购买此物品！<br><br>';
 			$mode = 'command';
 			return;
-		} elseif(!preg_match('/^(WC|WD|WF|Y|B|C|TN|GB|H|P|V|M|X|p|ygo)/',$shopiteminfo['itmk'])&&$bnum>1) {
+		} elseif( ($shopiteminfo['itms']==='∞' || !preg_match('/^(WC|WD|WF|Y|B|C|TN|GB|H|P|V|M|X|p|ygo)/',$shopiteminfo['itmk']) )&&$bnum>1) {
 			$log .= '此物品一次只能购买一个。<br><br>';
 			$mode = 'command';
 			return;
@@ -146,7 +158,7 @@ namespace itemshop
 		$itm0 = $shopiteminfo['item'];
 		$itmk0 = $shopiteminfo['itmk'];
 		$itme0 = $shopiteminfo['itme'];
-		$itms0 = $shopiteminfo['itms']*$bnum;
+		$itms0 = $shopiteminfo['itms'] === '∞' ? $shopiteminfo['itms'] : $shopiteminfo['itms']*$bnum;
 		$itmsk0 = $shopiteminfo['itmsk'];
 
 		\itemmain\itemget();	
@@ -168,7 +180,7 @@ namespace itemshop
 		if ($mode == 'command' && $command == 'special' && $sp_cmd == 'sp_shop')	//进入初级页面
 		{
 			ob_clean();
-			include template(MOD_ITEMSHOP_SP_SHOP);
+			include template(get_sp_shop_filename());
 			$cmd = ob_get_contents();
 			ob_clean();
 			return;
@@ -190,7 +202,7 @@ namespace itemshop
 				} 
 				else if($command == 'shop') {	//返回初级页面
 					ob_clean();
-					include template(MOD_ITEMSHOP_SP_SHOP);
+					include template(get_sp_shop_filename());
 					$cmd = ob_get_contents();
 					ob_clean();
 					return;
@@ -207,15 +219,15 @@ namespace itemshop
 		$chprocess();
 	}
 	
-	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)
+	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
 		if($news == 'itembuy') {
-			//return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}购买了{$b}</span><br>\n";
+			//return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}购买了{$b}</span></li>";
 			return '';
 		}
-		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 		
 }

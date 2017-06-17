@@ -82,16 +82,16 @@ namespace skill602
 		addnews ( 0, 'bstun1', $aname, $bname );
 	}
 	
-	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)
+	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','player'));
 		
 		if($news == 'bstun1') 
-			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}的攻击致使{$b}<span class=\"clan\">晕眩</span>了</span><br>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}的攻击致使{$b}<span class=\"clan\">晕眩</span>了</span></li>";
 		
-		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 	
 	function bufficons_list()
@@ -132,12 +132,12 @@ namespace skill602
 		return $chprocess();
 	}
 	
-	function calculate_active_obbs_multiplier(&$ldata,&$edata)	//不会先手敌人
+	function calculate_active_obbs_change(&$ldata,&$edata,$active_r)	//不会先手敌人
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (check_skill602_state($ldata)) return 0;
-		if (check_skill602_state($edata)) return 10000;
-		return $chprocess($ldata,$edata);
+		if (check_skill602_state($edata)) return 100;
+		return $chprocess($ldata,$edata,$active_r);
 	}
 	
 	function check_can_counter(&$pa, &$pd, $active)			//不会反击敌人

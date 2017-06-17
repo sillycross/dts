@@ -61,6 +61,14 @@ namespace itemmain
 		$log .= "你使用了道具 <span class=\"yellow\">{$theitem['itm']}</span> 。<br>但是什么也没有发生。<br>";
 	}
 
+	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		if($news == 'itemuse') 
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}使用了{$b}</span></li>";
+		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
+	}
 }
 	
 ?>

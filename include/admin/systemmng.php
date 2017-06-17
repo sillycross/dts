@@ -14,15 +14,17 @@ if($command == 'edit') {
 		'startmode'=>'int',
 		'starthour'=>'int',
 		'startmin'=>'int',
+		'readymin'=>'int',
 		'iplimit'=>'int',
 		'newslimit'=>'int',
 		'alivelimit'=>'int',
 		'winlimit'=>'int',
-		'noiselimit'=>'int',
 		'chatlimit'=>'int',
 		'chatrefresh'=>'int',
 		'chatinnews'=>'int',
-		'disableevent'=>'int'
+		'disable_event'=>'int',
+		'disable_newgame'=>'int',
+		'disable_newroom'=>'int'
 	);
 	$edlist = Array();
 	$cmd_info = '';
@@ -59,20 +61,25 @@ if($command == 'edit') {
 		if(in_array('systemmsg',array_keys($edlist))){
 			file_put_contents('./gamedata/systemmsg.htm',$systemmsg);
 		}
-		//$adminlog = '';
-		//$gamecfg_file = config('gamecfg',$gamecfg);
-		$systemfile = file_get_contents(dirname(dirname(__FILE__)).'./modules/core/sys/config/system.config.php');
+		$sf = GAME_ROOT.'./include/modules/core/sys/config/system.config.php';
+		//$sf = dirname(dirname(__FILE__)).'/modules/core/sys/config/system.config.php';
+		$system_cont = file_get_contents($sf);
 		foreach($edlist as $key => $val){
 			if($key != 'adminmsg' && $key != 'systemmsg'){
 				if($edfmt[$key] == 'int' || $edfmt[$key] == 'b'){
-					$systemfile = preg_replace("/[$]{$key}\s*\=\s*-?[0-9]+;/is", "\${$key} = ${$key};", $systemfile);
+					$system_cont = preg_replace("/[$]{$key}\s*\=\s*-?[0-9]+;/is", "\${$key} = ${$key};", $system_cont);
 				}else{
-					$systemfile = preg_replace("/[$]{$key}\s*\=\s*[\"'].*?[\"'];/is", "\${$key} = '${$key}';", $systemfile);
+					$system_cont = preg_replace("/[$]{$key}\s*\=\s*[\"'].*?[\"'];/is", "\${$key} = '${$key}';", $system_cont);
 				}
 			}
-			//$adminlog .= setadminlog('systemcfgmng',$key,$val);
 		}
-		file_put_contents(dirname(dirname(__FILE__)).'./modules/core/sys/config/system.config.php',$systemfile);
+		file_put_contents($sf,$system_cont);
+		//打开ADV1以上时需要同时修改run文件夹下的内容
+		$sf_run = GAME_ROOT.'./gamedata/run/core/sys/config/system.config.adv.php';
+		if($___MOD_CODE_ADV1 && file_exists($sf_run)){
+			file_put_contents($sf_run,$system_cont);
+			$cmd_info .= '监测到ADV模式已打开，对应运行时文件已修改。<br>';
+		}
 		//putadminlog($adminlog);
 		adminlog('systemmng');
 		$cmd_info .= '系统环境修改完毕';

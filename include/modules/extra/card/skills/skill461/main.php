@@ -4,7 +4,7 @@ namespace skill461
 {
 	function init() 
 	{
-		define('MOD_SKILL461_INFO','club;unique;');
+		define('MOD_SKILL461_INFO','card;unique;');
 		eval(import_module('clubbase'));
 		$clubskillname[461] = '驱散';
 	}
@@ -28,9 +28,7 @@ namespace skill461
 	function skill_acquire($skillid, &$pa = NULL)	//阻止角色获得带有debuff标签的技能
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (defined('MOD_SKILL'.$skillid.'_INFO') 
-			&& strpos(constant('MOD_SKILL'.$skillid.'_INFO'),'debuff;')!==false 
-			&& \skillbase\skill_query(461,$pa)) 
+		if (\skillbase\check_skill_info($skillid,'debuff') && \skillbase\skill_query(461,$pa)) 
 				return;
 		return $chprocess($skillid,$pa);
 	}

@@ -4,7 +4,7 @@ namespace skill437
 {
 	function init() 
 	{
-		define('MOD_SKILL437_INFO','club;locked;');
+		define('MOD_SKILL437_INFO','card;locked;');
 		eval(import_module('clubbase'));
 		$clubskillname[437] = 'EM';
 	}

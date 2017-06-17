@@ -11,6 +11,13 @@ namespace skillbase
 		global $ppid; $ppid = -1;
 	}
 	
+	function check_skill_info($skillno, $str){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$str = str_replace(';','',$str).';';
+		if(defined('MOD_SKILL'.$skillno.'_INFO') && strpos(constant('MOD_SKILL'.$skillno.'_INFO'), $str)!==false) return true;
+		else return false;
+	}
+	
 	function skillbase_set_ppid()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -72,6 +79,7 @@ namespace skillbase
 		}
 		
 		$pa['acquired_list']=$ac_list;
+		//if(!isset($pa['nskillpara'])) echo debug_backtrace()[0]['function'],' ',debug_backtrace()[1]['function'];
 		$pa['parameter_list']=parse_skill_parameter_data($pa['nskillpara']);
 		
 		if ($pa['pid']==$pid)
@@ -146,10 +154,10 @@ namespace skillbase
 		skillbase_load($pdata);
 	}
 	
-	function fetch_playerdata($Pname)
+	function fetch_playerdata($Pname, $Ptype = 0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$pa=$chprocess($Pname);
+		$pa=$chprocess($Pname, $Ptype);
 		skillbase_load($pa);
 		return $pa;
 	}

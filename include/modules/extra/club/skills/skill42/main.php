@@ -61,7 +61,7 @@ namespace skill42
 	}
 	
 	//先攻率+12%
-	function calculate_active_obbs(&$ldata,&$edata)
+	function calculate_active_obbs_multiplier(&$ldata,&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r = 1;
@@ -99,7 +99,7 @@ namespace skill42
 	function skill42_restore_skill41(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!$pa['skill42_flag1']) return;
+		if (!isset($pa['skill42_flag1']) || !$pa['skill42_flag1']) return;
 		if ($pa['skill42_flag2']==1)
 		{
 			\skillbase\skill_lost(41,$pa);

@@ -8,10 +8,10 @@
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
 空手主动向玩家发起攻击时，若对手反击了你，<br>你有<span class="yellow">30%</span>概率立即再进行一回合战斗
 </span></td>
-<td class=b3 width=46>
+<td class=b3 width=96>
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
 <span class="yellow">
 15级时解锁
 </span>

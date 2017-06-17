@@ -2,7 +2,7 @@
 
 namespace trap
 {
-	global $playerflag, $selflag, $trname, $trtype, $trperfix;	//注意这个脑残的变量名拼写typo，是perfix不是prefix
+	global $playerflag, $selflag, $trname, $trtype, $trprefix;
 		
 	function init() 
 	{
@@ -20,8 +20,7 @@ namespace trap
 		if ($xmode & 16) {	//地图陷阱初始化
 			$plsnum = sizeof($plsinfo);
 			$iqry = '';
-			$file = __DIR__.'/config/trapitem.config.php';
-			$itemlist = openfile($file);
+			$itemlist = get_trapfilecont();
 			$in = sizeof($itemlist);
 			$an = $areanum ? ceil($areanum/$areaadd) : 0;
 			for($i = 1; $i < $in; $i++) {
@@ -46,6 +45,14 @@ namespace trap
 				$db->query($iqry);
 			}
 		}
+	}
+	
+	function get_trapfilecont(){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		eval(import_module('sys'));
+		$file = __DIR__.'/config/trapitem.config.php';
+		$l = openfile($file);
+		return $l;
 	}
 	
 	function calculate_real_trap_obbs()
@@ -132,6 +139,13 @@ namespace trap
 		return $damage;
 	}
 	
+	//非升高也非降低类的修正
+	function get_trap_final_damage_change(&$pa, &$pd, $tritm, $damage)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $damage;
+	}
+	
 	//陷阱命中后事件
 	function post_traphit_events(&$pa, &$pd, $tritm, $damage)
 	{
@@ -144,10 +158,14 @@ namespace trap
 		eval(import_module('sys','player','trap','logger'));
 		
 		$bid = $itmsk0;
-		$pa=\player\fetch_playerdata_by_pid($bid);
+		if($bid) {
+			$pa=\player\fetch_playerdata_by_pid($bid);
+		}else {
+			$pa=\player\create_dummy_playerdata();
+		}
 		$damage = get_trap_damage();
 		
-		$log .= "糟糕，你触发了{$trperfix}陷阱<span class=\"yellow\">$itm0</span>！";
+		$log .= "糟糕，你触发了{$trprefix}陷阱<span class=\"yellow\">$itm0</span>！";
 	
 		$tritm=Array();
 		$tritm['itm']=$itm0; $tritm['itmk']=$itmk0; 
@@ -175,6 +193,8 @@ namespace trap
 		$damage = get_trap_final_damage_modifier_up($pa, $sdata, $tritm, $damage);
 		
 		$damage = get_trap_final_damage_modifier_down($pa, $sdata, $tritm, $damage);
+		
+		$damage = get_trap_final_damage_change($pa, $sdata, $tritm, $damage);
 
 		$hp -= $damage;
 		
@@ -195,7 +215,7 @@ namespace trap
 		trap_deal_damage();
 		
 		if($hp <= 0) {
-			$log .= "<span class=\"red\">你被{$trperfix}陷阱杀死了！</span>";
+			$log .= "<span class=\"red\">你被{$trprefix}陷阱杀死了！</span>";
 			$state = 27;
 			\player\update_sdata();
 			if (!$selflag && $playerflag) 	//有来源且不是自己
@@ -241,7 +261,7 @@ namespace trap
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','trap'));
-		$log .= "你发现了{$trperfix}陷阱<span class=\"yellow\">$itm0</span>，不过你并没有触发它。陷阱看上去还可以重复使用。<br>";			
+		$log .= "你发现了{$trprefix}陷阱<span class=\"yellow\">$itm0</span>，不过你并没有触发它。陷阱看上去还可以重复使用。<br>";			
 		$itmsk0 = '';$itmk0 = str_replace('TO','TN',$itmk0);
 		$mode = 'itemfind';
 	}
@@ -250,7 +270,7 @@ namespace trap
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','trap'));
-		$log .= "你发现了{$trperfix}陷阱<span class=\"yellow\">$itm0</span>，不过你成功地回避了它。<br>";
+		$log .= "你发现了{$trprefix}陷阱<span class=\"yellow\">$itm0</span>，不过你成功地回避了它。<br>";
 		$itm0 = $itmk0 = $itmsk0 = '';
 		$itme0 = $itms0 = 0;
 		$mode = 'command';
@@ -311,11 +331,11 @@ namespace trap
 		
 		if($playerflag && !$selflag){
 			$wdata = \player\fetch_playerdata_by_pid($itmsk0);
-			$trname = $wdata['name'];$trtype = $wdata['type'];$trperfix = '<span class="yellow">'.$trname.'</span>设置的';
+			$trname = $wdata['name'];$trtype = $wdata['type'];$trprefix = '<span class="yellow">'.$trname.'</span>设置的';
 		}elseif($selflag){
-			$trname = $name;$trtype = 0;$trperfix = '你自己设置的';
+			$trname = $name;$trtype = 0;$trprefix = '你自己设置的';
 		}else{
-			$trname = $trtype = $trperfix = '';
+			$trname = $trtype = $trprefix = '';
 		}
 		
 		trap();
@@ -360,7 +380,7 @@ namespace trap
 		$chprocess($schmode);
 	}
 	
-	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)
+	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -368,22 +388,22 @@ namespace trap
 		
 		if($news == 'trap') 
 			if ($d>0)
-				return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}中了{$b}设置的陷阱{$c}，受到了{$d}点伤害！</span><br>\n";
-			else  return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}中了{$b}设置的陷阱{$c}</span><br>\n";
+				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}中了{$b}设置的陷阱{$c}，受到了{$d}点伤害！</span></li>";
+			else  return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}中了{$b}设置的陷阱{$c}</span></li>";
 		if($news == 'trapmiss') 
-			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}回避了{$b}设置的陷阱{$c}</span><br>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}回避了{$b}设置的陷阱{$c}</span></li>";
 		if($news == 'death27') {
 			$dname = $typeinfo[$b].' '.$a;
 			if(!$e)
 				$e0="<span class=\"yellow\">【{$dname} 什么都没说就死去了】</span><br>\n";
 			else  $e0="<span class=\"yellow\">【{$dname}：“{$e}”】</span><br>\n";
 			if($c){
-				return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因触发了<span class=\"yellow\">$c</span>设置的陷阱<span class=\"red\">$d</span>被杀死{$e0}";
+				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因触发了<span class=\"yellow\">$c</span>设置的陷阱<span class=\"red\">$d</span>被杀死{$e0}</li>";
 			} else {
-				return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因触发了陷阱<span class=\"red\">$d</span>被杀死{$e0}";
+				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因触发了陷阱<span class=\"red\">$d</span>被杀死{$e0}</li>";
 			}
 		}
-		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 	
 	function trap_use(&$theitem)

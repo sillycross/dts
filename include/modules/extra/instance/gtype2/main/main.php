@@ -10,7 +10,7 @@ namespace gtype2
 		return $chprocess();
 		//先ban了
 		eval(import_module('sys'));
-		if ($room_prefix!='') return $chprocess();
+		if (room_check_subroom($room_prefix)) return $chprocess();
 		list($sec,$min,$hour,$day,$month,$year,$wday) = explode(',',date("s,i,H,j,n,Y,w",$now));
 		$tg=$gamenum-3;
 		$res=$db->query("SELECT gametype FROM {$gtablepre}winners WHERE gid='$tg'");
@@ -25,7 +25,7 @@ namespace gtype2
 				$gametype=0;
 			}
 		}
- 		if ($disableevent) $gametype=0; 
+ 		if ($disable_event) $gametype=0; 
 		$chprocess();
 	}
 	
@@ -56,7 +56,7 @@ namespace gtype2
 		if (($gametype==2)&&($xmode & 2)) 
 		{
 			$weather = 1;
-			save_gameinfo();
+			//save_gameinfo();
 		}
 	}
 	
@@ -193,16 +193,16 @@ namespace gtype2
 		$chprocess($atime);	
 	}
 
-	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)
+	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','player'));
 		
 		if($news == 'g2announce') 
-			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"lime\">本次游戏第<span class=\"yellow\">{$a}</span>名是获得了<span class=\"yellow\">{$c}</span>点胜利点数的<span class=\"yellow\">{$b}</span>。</span><br>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">本次游戏第<span class=\"yellow\">{$a}</span>名是获得了<span class=\"yellow\">{$c}</span>点胜利点数的<span class=\"yellow\">{$b}</span>。</span></li>";
 		
-		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 }
 

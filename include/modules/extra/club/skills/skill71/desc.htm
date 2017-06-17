@@ -10,10 +10,10 @@
 <!--{eval $sk71_coef=($club==18?0.15:0.3);}-->
 <span class="yellow">战斗技</span>&nbsp;&nbsp;本次攻击物理伤害<span class="yellow">+20%</span>；如果成功击杀敌人，<br>你额外获得<span class="lime">(敌人等级-<span>$sk71_coef</span>×你的等级)</span>点经验；消耗<span class="yellow">$ragecost</span>点怒气
 </span></td>
-<td class=b3 width=46>
+<td class=b3 width=96>
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
 <span class="yellow">
 3级时解锁
 </span>

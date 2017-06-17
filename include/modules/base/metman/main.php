@@ -26,8 +26,8 @@ namespace metman
 		eval(import_module('sys','player','metman'));
 		
 		$tdata=Array();
-		
-		$w_upexp = round(($w_lvl*$baseexp)+(($w_lvl+1)*$baseexp));
+		$w_upexp = \lvlctl\calc_upexp($w_lvl);
+		//$w_upexp = round(($w_lvl*$baseexp)+(($w_lvl+1)*$baseexp));
 		
 		if($w_hp <= 0) {
 			$tdata['hpstate'] = "<span class=\"red\">$hpinfo[3]</span>";
@@ -80,7 +80,7 @@ namespace metman
 		return;
 	}
 	
-	function calculate_meetman_obbs(&$edata)
+	function calculate_findman_obbs(&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('metman'));
@@ -97,10 +97,11 @@ namespace metman
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','metman'));
-		$find_obbs = calculate_meetman_obbs($edata);
+		eval(import_module('sys','player','metman','logger'));
+		$find_obbs = calculate_findman_obbs($edata);
 		$hide_obbs = calculate_hide_obbs($edata);
 		$enemy_dice = rand(0,99);
+		//$log .= '最终发现率：'.$find_obbs.' 对方最终隐蔽率：'.$hide_obbs.' 发现骰：'.$enemy_dice.' ';
 		if($enemy_dice < $find_obbs - $hide_obbs) 
 			return 1; 
 		else 
@@ -139,17 +140,25 @@ namespace metman
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
+		eval(import_module('sys'));
+		\player\update_sdata();
+		$edata = \player\fetch_playerdata_by_pid($sid);
+		meetman_alternative($edata);
+	}
+	
+	function meetman_alternative($edata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','metman','logger'));
 		$battle_title = '发现人物';
-		extract(\player\fetch_playerdata_by_pid($sid),EXTR_PREFIX_ALL,'w');
+		extract($edata,EXTR_PREFIX_ALL,'w');
 		init_battle(1);
-	
-		$log .= "你发现了人物<span class=\"yellow\">$w_name</span>。<br>你友善的打了个招呼。<br>";
-		
+		$log .= "你发现了人物<span class=\"yellow\">$w_name</span>。<br>你友善地打了个招呼。<br>";
 		include template(MOD_METMAN_MEETMAN_CMD);
 		$cmd = ob_get_contents();
 		ob_clean();
 		$main = MOD_METMAN_MEETMAN;
+		return;
 	}
 	
 	function calculate_meetman_rate_by_mode($schmode)
@@ -159,14 +168,14 @@ namespace metman
 		$result = $db->query("SELECT pid FROM {$tablepre}players WHERE pls='$pls' AND pid!='$pid' AND (hp>'0' OR corpse_clear_flag!='1')");
 		$pcount=$db->num_rows($result);
 		if(!$pcount){//没有人
-			if ($schmode == 'search') return 40;
-			if ($schmode == 'move') return 40;
-			if ($schmode == 'search2') return 40;
+			if ($schmode == 'search') return 50;
+			if ($schmode == 'move') return 50;
+			if ($schmode == 'search2') return 50;
 		}
 		$erate=$pcount*3;
-		if ($erate>33) $erate=33;
-		if ($schmode == 'search') return 7+$erate;
-		if ($schmode == 'move') return 37+$erate;
+		if ($erate>30) $erate=30;
+		if ($schmode == 'search') return 20+$erate;
+		if ($schmode == 'move') return 40+$erate;
 		if ($schmode == 'search2') return 100;
 		return 0;
 	}
@@ -214,6 +223,9 @@ namespace metman
 					return;
 				}
 			}
+			else {
+				$log .= '你发现了'.$edata['name'].'，但对方匆匆离去，你追之不及。<br>';
+			}
 		}
 		if($hideflag == true){
 			$log .= '似乎有人隐藏着……<br>';
@@ -228,7 +240,11 @@ namespace metman
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$dice = rand(0,99);
-		if($dice < calculate_meetman_rate($schmode)) {
+		eval(import_module('logger'));
+		$meetman_rate = calculate_meetman_rate($schmode);
+		if($meetman_rate < 20) $meetman_rate = 20;//任何时候遇敌率不低于20%；
+		//$log .= '发现玩家判定：骰'.$dice.' 阈：'.$meetman_rate.' ';
+		if($dice < $meetman_rate) {
 			discover_player();
 			return;
 		} 

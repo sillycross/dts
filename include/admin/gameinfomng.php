@@ -31,7 +31,7 @@ if($command == 'wthedit'){
 		save_gameinfo();
 		adminlog('hackedit',$ihack);
 		addnews($now,'syshackchg',$ihack);		
-		\map\movehtm();
+		//\map\movehtm();
 	}
 }elseif(strpos($command, 'gsedit')===0){
 	$igamestate = explode('_',$command);
@@ -41,7 +41,7 @@ if($command == 'wthedit'){
 		$cmd_info = '游戏状态数据错误，请重新输入！';
 	}elseif($gamestate == $igamestate){
 		$cmd_info = '游戏当前已经处于此状态，请重新输入！';
-	}elseif($gamestate == 0 && $igamestate != 10){
+	}elseif($gamestate < 10 && $igamestate > 20){
 		$cmd_info = '游戏未准备，不可进入后期状态！';
 	}elseif($gamestate == 10 && $igamestate > 20){
 		$cmd_info = '游戏未开始，不可进入后期状态！';
@@ -61,7 +61,8 @@ if($command == 'wthedit'){
 		addnews($now,'sysgschg',$igamestate);	
 	}elseif($igamestate == 10){
 		$cmd_info = '游戏立即进入准备状态！请访问任意游戏页面以刷新游戏状态。';
-		$starttime = $now + $startmin * 60;
+		$readymin = $readymin > 0 ? $readymin : 1;
+		$starttime = $now + $readymin * 60;
 		save_gameinfo();
 		adminlog('gsedit',$igamestate);
 	}else{
@@ -86,13 +87,22 @@ if($command == 'wthedit'){
 }elseif($command == 'areaadd'){
 	if($gamestate <= 10){
 		$cmd_info = "本局游戏尚未开始，不能增加禁区。";
-	}elseif((!$areanum && $starttime + 30 > $now) || ($areanum && $areatime - $areahour*60 + 30 > $now)){
-		$cmd_info = "禁区到来后30秒内不能增加禁区。";
+	}elseif((!$areanum && $starttime + 10 > $now) || ($areanum && $areatime - $areahour*60 + 30 > $now)){
+		$cmd_info = "禁区到来后10秒内不能增加禁区。";
 	}else{
 		$areatime = $now;
 		save_gameinfo();
 		$areatime += $areahour * 60;
 		$cmd_info = '下一次禁区时间提前到来。请访问任意游戏页面以刷新游戏状态。';
+		addnews($now,'sysaddarea');	
+	}
+}elseif($command == 'areawarn'){
+	if($gamestate <= 10){
+		$cmd_info = "本局游戏尚未开始，不能增加禁区。";
+	}else{
+		$areatime = $now+60;
+		save_gameinfo();
+		$cmd_info = '下一次禁区时间已设为60秒后。请访问任意游戏页面以刷新游戏状态。';
 		addnews($now,'sysaddarea');	
 	}
 }

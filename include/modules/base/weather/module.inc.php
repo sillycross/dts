@@ -4,7 +4,7 @@ namespace weather
 {
 	////////// MODULE HEADER START ///////////////
 	$___MODULE_dependency = 'sys map itemmain player logger';
-	$___MODULE_dependency_optional = 'metman enemy explore weapon radar pose tactic';
+	$___MODULE_dependency_optional = 'metman enemy explore weapon radar pose tactic attack';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php config/weather.config.php';
 	$___MODULE_templatelist = 'profile_weather';

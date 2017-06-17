@@ -32,7 +32,7 @@ namespace clubbase
 		eval(import_module('clubbase','logger'));
 		
 		foreach (\skillbase\get_acquired_skill_array($pa) as $skillid) 
-			if (defined('MOD_SKILL'.$skillid.'_INFO') && strpos(constant('MOD_SKILL'.$skillid.'_INFO'),'club;')!==false)
+			if (\skillbase\check_skill_info($skillid,'club'))
 				\skillbase\skill_lost($skillid,$pa);
 
 		if ($pa == NULL)
@@ -123,7 +123,6 @@ namespace clubbase
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','player','logger','input'));
-		
 		if($mode == 'special' && strpos($command,'clubsel') === 0) 
 		{
 			$clubchosen = substr($command,7); $clubchosen = (int)$clubchosen;
@@ -148,7 +147,8 @@ namespace clubbase
 		if ($mode == 'special' && substr($command,0,5) == 'skill' && substr($command,-8)=='_special' && ($subcmd=='upgrade' || $subcmd=='activate')) 
 		{
 			$id=substr($command,5,-8); $id=(int)$id;
-			if (defined('MOD_SKILL'.$id.'_INFO') && strpos(constant('MOD_SKILL'.$id.'_INFO'),'upgrade;')!==false && \skillbase\skill_query($id))
+			
+			if (\skillbase\check_skill_info($id,'upgrade') && \skillbase\skill_query($id))
 			{
 				$func='skill'.$id.'\\'.$subcmd.$id;
 				$func();
@@ -180,35 +180,36 @@ namespace clubbase
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($which==3) $zflag = 1; else $zflag = 0;
 		eval(import_module('clubbase','player'));
-		foreach ($clublist[$club]['skills'] as $key) 
-			if (defined('MOD_SKILL'.$key.'_INFO'))
-				if (strpos(constant('MOD_SKILL'.$key.'_INFO'),'club;')!==false && strpos(constant('MOD_SKILL'.$key.'_INFO'),'battle;')!==false && \skillbase\skill_query($key))
-				{
-					$flag = 0;
-					if (strpos(constant('MOD_SKILL'.$key.'_INFO'),'hidden;')!==false) $flag = 1;
-					if (!$flag) 
-					{
-						$func = 'skill'.$key.'\\check_unlocked'.$key;
-						if ($func($sdata)) $flag = 1;
-					}
-					if ($flag)
-					{
-						$which--;
-						if ($which==0)
-						{
-							if ($zflag) echo '<span style="display:block;height:6px;">&nbsp;</span>';
-							include template(constant('MOD_SKILL'.$key.'_BATTLECMD'));
-							return;
-						}
-					}
-				}
-		foreach (\skillbase\get_acquired_skill_array() as $key) 
-			if (!in_array($key,$clublist[$club]['skills']))
+		if (isset($clublist[$club]))
+			foreach ($clublist[$club]['skills'] as $key) 
 				if (defined('MOD_SKILL'.$key.'_INFO'))
-					if (strpos(constant('MOD_SKILL'.$key.'_INFO'),'club;')!==false && strpos(constant('MOD_SKILL'.$key.'_INFO'),'battle;')!==false)
+					if (\skillbase\check_skill_info($key, 'club') && \skillbase\check_skill_info($key, 'battle') && \skillbase\skill_query($key))
 					{
 						$flag = 0;
-						if (strpos(constant('MOD_SKILL'.$key.'_INFO'),'hidden;')!==false) $flag = 1;
+						if (\skillbase\check_skill_info($key, 'hidden')) $flag = 1;
+						if (!$flag) 
+						{
+							$func = 'skill'.$key.'\\check_unlocked'.$key;
+							if ($func($sdata)) $flag = 1;
+						}
+						if ($flag)
+						{
+							$which--;
+							if ($which==0)
+							{
+								if ($zflag) echo '<span style="display:block;height:6px;">&nbsp;</span>';
+								include template(constant('MOD_SKILL'.$key.'_BATTLECMD'));
+								return;
+							}
+						}
+					}
+		foreach (\skillbase\get_acquired_skill_array() as $key) 
+			if (isset($clublist[$club]) && !in_array($key,$clublist[$club]['skills']))
+				if (defined('MOD_SKILL'.$key.'_INFO'))
+					if (!\skillbase\check_skill_info($key, 'achievement') && \skillbase\check_skill_info($key, 'battle'))
+					{
+						$flag = 0;
+						if (\skillbase\check_skill_info($key, 'hidden')) $flag = 1;
 						if (!$flag) 
 						{
 							$func = 'skill'.$key.'\\check_unlocked'.$key;
@@ -234,10 +235,10 @@ namespace clubbase
 		$___TEMP_inclist = Array();
 		if ($club!=0)
 			foreach ($clublist[$club]['skills'] as $key) 
-				if (defined('MOD_SKILL'.$key.'_INFO') && strpos(constant('MOD_SKILL'.$key.'_INFO'),'club;')!==false && strpos(constant('MOD_SKILL'.$key.'_INFO'),'active;')!==false && \skillbase\skill_query($key)) 
+				if (defined('MOD_SKILL'.$key.'_INFO') && \skillbase\check_skill_info($key, 'club') && \skillbase\check_skill_info($key, 'active') && \skillbase\skill_query($key)) 
 				{ 
 					$flag = 0; 
-					if (strpos(constant('MOD_SKILL'.$key.'_INFO'),'hidden;')!==false) $flag = 1; 
+					if (\skillbase\check_skill_info($key, 'hidden')) $flag = 1; 
 					if (!$flag) 
 					{ 
 						$func = 'skill'.$key.'\\check_unlocked'.$key; 
@@ -248,10 +249,10 @@ namespace clubbase
 				}
 		foreach (\skillbase\get_acquired_skill_array() as $key) 
 			if ($club==0 || !in_array($key,$clublist[$club]['skills']))
-				if (defined('MOD_SKILL'.$key.'_INFO') && strpos(constant('MOD_SKILL'.$key.'_INFO'),'club;')!==false && strpos(constant('MOD_SKILL'.$key.'_INFO'),'active;')!==false) 
+				if (defined('MOD_SKILL'.$key.'_INFO') && !\skillbase\check_skill_info($key, 'achievement') && \skillbase\check_skill_info($key, 'active')) 
 				{ 
 					$flag = 0; 
-					if (strpos(constant('MOD_SKILL'.$key.'_INFO'),'hidden;')!==false) $flag = 1; 
+					if (\skillbase\check_skill_info($key, 'hidden')) $flag = 1; 
 					if (!$flag) 
 					{ 
 						$func = 'skill'.$key.'\\check_unlocked'.$key; 
@@ -270,15 +271,17 @@ namespace clubbase
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player','clubbase'));
 		$___TEMP_inclist = Array();
-		foreach ($clublist[$club]['skills'] as $key) 
-			if (defined('MOD_SKILL'.$key.'_INFO') && strpos(constant('MOD_SKILL'.$key.'_INFO'),'club;')!==false && strpos(constant('MOD_SKILL'.$key.'_INFO'),'hidden;')===false && \skillbase\skill_query($key)) 
-				array_push($___TEMP_inclist,template(constant('MOD_SKILL'.$key.'_DESC')));
-
+		$clubskill_list = array();
+		if($club) {
+			$clubskill_list = $clublist[$club]['skills'];
+			foreach ($clubskill_list as $key) 
+				if (defined('MOD_SKILL'.$key.'_INFO') && \skillbase\check_skill_info($key, 'club') && !\skillbase\check_skill_info($key, 'hidden') && \skillbase\skill_query($key)) 
+					array_push($___TEMP_inclist,template(constant('MOD_SKILL'.$key.'_DESC')));
+		}
 		foreach (\skillbase\get_acquired_skill_array() as $key) 
-			if (!in_array($key,$clublist[$club]['skills']))
-				if (defined('MOD_SKILL'.$key.'_INFO') && strpos(constant('MOD_SKILL'.$key.'_INFO'),'club;')!==false && strpos(constant('MOD_SKILL'.$key.'_INFO'),'hidden;')===false) 
+			if (!in_array($key,$clubskill_list))
+				if (defined('MOD_SKILL'.$key.'_INFO') && !\skillbase\check_skill_info($key, 'achievement') && !\skillbase\check_skill_info($key, 'hidden')) 
 					array_push($___TEMP_inclist,template(constant('MOD_SKILL'.$key.'_DESC'))); 
-		
 		foreach ($___TEMP_inclist as $___TEMP_template_name) include $___TEMP_template_name;
 	}
 	
@@ -327,8 +330,8 @@ namespace clubbase
 		eval(import_module('player','clubbase'));
 		$___TEMP_inclist = Array();
 		foreach (\skillbase\get_acquired_skill_array($pn) as $key) 
-				if (defined('MOD_SKILL'.$key.'_INFO') && strpos(constant('MOD_SKILL'.$key.'_INFO'),'club;')!==false && strpos(constant('MOD_SKILL'.$key.'_INFO'),'unique;')!==false) 
-					array_push($___TEMP_inclist,template(constant('MOD_SKILL'.$key.'_DESC'))); 
+			if (defined('MOD_SKILL'.$key.'_INFO') && !\skillbase\check_skill_info($key, 'achievement') && \skillbase\check_skill_info($key, 'unique')) 
+				array_push($___TEMP_inclist,template(constant('MOD_SKILL'.$key.'_DESC'))); 
 		
 		$who = $pn;
 		foreach ($___TEMP_inclist as $___TEMP_template_name) include $___TEMP_template_name;

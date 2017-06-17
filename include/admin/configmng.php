@@ -35,18 +35,23 @@ if($command == 'edit') {
 	
 	if($ednum){
 		//$adminlog = '';
-		$configfile = file_get_contents('./config.inc.php');
+		$cf = GAME_ROOT.'./include/modules/core/sys/config/server.config.php';
+		$config_cont = file_get_contents($cf);
 		foreach($edlist as $key => $val){
 			if($edfmt[$key] == 'int' || $edfmt[$key] == 'b'){
-				$configfile = preg_replace("/[$]{$key}\s*\=\s*-?[0-9]+;/is", "\${$key} = ${$key};", $configfile);
+				$config_cont = preg_replace("/[$]{$key}\s*\=\s*-?[0-9]+;/is", "\${$key} = ${$key};", $config_cont);
 			}else{
-				$configfile = preg_replace("/[$]{$key}\s*\=\s*[\"'].*?[\"'];/is", "\${$key} = '${$key}';", $configfile);
+				$config_cont = preg_replace("/[$]{$key}\s*\=\s*[\"'].*?[\"'];/is", "\${$key} = '${$key}';", $config_cont);
 			}
 			
 			//$adminlog .= setadminlog('configmng',$key,$val);
 		}
-		file_put_contents('./config.inc.php',$configfile);
-		//putadminlog($adminlog);
+		file_put_contents($cf,$config_cont);
+		$cf_run = GAME_ROOT.'./gamedata/run/core/sys/config/server.config.adv.php';
+		if($___MOD_CODE_ADV1 && file_exists($cf_run)){
+			file_put_contents($cf_run,$config_cont);
+			$cmd_info .= '监测到ADV模式已打开，对应运行时文件已修改。<br>';
+		}
 		adminlog('configmng');
 		$cmd_info .= '服务参数已修改';
 	}

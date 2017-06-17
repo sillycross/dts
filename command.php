@@ -1,11 +1,11 @@
 <?php
 
-define('IN_GAME', TRUE);
-define('IN_COMMAND', TRUE);
-define('CURSCRIPT', 'game');
-define('GAME_ROOT', dirname(__FILE__).'/');
+defined('IN_GAME') || define('IN_GAME', TRUE);
+defined('IN_COMMAND') || define('IN_COMMAND', TRUE);
+defined('CURSCRIPT') || define('CURSCRIPT', 'game');
+defined('GAME_ROOT') || define('GAME_ROOT', dirname(__FILE__).'/');
 
-require GAME_ROOT.'./include/modulemng.config.php';
+require GAME_ROOT.'./include/modulemng/modulemng.config.php';
 
 if ($___MOD_SRV)
 {
@@ -57,10 +57,10 @@ if ($___MOD_SRV)
 		$___TEMP_last_cmd = 0;
 		
 		__SOCKET_LOG__("新服务器被启动，开始工作。"); 
-		
 		$___TEMP_socket=socket_create(AF_INET,SOCK_STREAM,getprotobyname("tcp"));  
 		if ($___TEMP_socket===false) __SOCKET_ERRORLOG__('socket_create失败。'); 
 		if (socket_set_option($___TEMP_socket,SOL_SOCKET,SO_REUSEADDR,1)===false) __SOCKET_ERRORLOG__('socket_set_option失败。'); 
+		//socket_set_nonblock($___TEMP_socket);
 		while (1)
 		{
 			$___TEMP_CONN_PORT_TRY=rand($___MOD_CONN_PORT_LOW,$___MOD_CONN_PORT_HIGH);
@@ -74,7 +74,7 @@ if ($___MOD_SRV)
 				break;
 			}
 		}
-		if (socket_listen($___TEMP_socket)===false) __SOCKET_ERRORLOG__('socket_listen失败。'); 
+		if (socket_listen($___TEMP_socket,5)===false) __SOCKET_ERRORLOG__('socket_listen失败。'); 
 		
 		mymkdir(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT);
 		
@@ -93,7 +93,7 @@ if ($___MOD_SRV)
 				if ($___TEMP_runned_time+$___MOD_SRV_WAKETIME+5>$___TEMP_max_time)
 				{
 					//没有下一次唤醒了，主动退出
-					__SOCKET_LOG__("已经运行了 ".$___TEMP_runned_time."秒。主动退出。");
+					__SOCKET_LOG__("已经运行了 ".$___TEMP_runned_time."秒，超过了".$___TEMP_max_time."秒的限制。主动退出。");
 					if (!$___TEMP_newsrv_flag)
 						__SOCKET_LOG__("由于过长时间没有收到命令且不是惟一的服务器，没有要求启动替代者。");
 					__SERVER_QUIT__();
@@ -162,7 +162,7 @@ if ($___MOD_SRV)
 					socket_close($___TEMP_connection);  
 					__SOCKET_DEBUGLOG__("关闭连接。");
 					
-					if (defined('MOD_REPLAY') && $___MOD_SRV && $___MOD_CODE_ADV3) 
+					if (defined('MOD_REPLAY') && $___MOD_SRV && $___MOD_CODE_ADV3 && !in_array($gametype, $replay_ignore_mode)) 
 					{
 						if (!isset($jgamedata['url']))
 						{
@@ -311,6 +311,36 @@ else	//未开启server-client模式，正常执行准备流程
 }
 
 ////////////////////////////////////////////////////////////////////////////
+//////////////////////////调用daemon进行的全局操作//////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+
+if(isset($command)){
+	if('get_news_in_game' == $command && isset($lastnid) && isset($news_room_prefix)){//获取进行状况
+		$lastnid=(int)$lastnid;
+		$newsinfo = \sys\getnews($lastnid,$newslimit,$news_room_prefix);
+		ob_clean();
+		$jgamedata = gencode($newsinfo);
+		echo $jgamedata;
+		ob_end_flush();
+		return;
+	}elseif('area_timing_refresh' == $command){//刷新禁区时间
+		\sys\routine();
+		\map\init_areatiming();
+		$gamedata = array('timing' => $uip['timing']);
+		ob_clean();
+		$jgamedata = gencode($gamedata);
+		echo $jgamedata;
+		ob_end_flush();
+		return;
+	}elseif('room_routine' == $command){//刷新房间内游戏状态
+		ignore_user_abort(1);
+		include_once './include/roommng/roommng.func.php';
+		room_all_routine();
+		return;
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////
 //////////////////////////游戏前玩家信息检查///////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
 
@@ -326,7 +356,7 @@ if(!$db->num_rows($result))
 { 
 	$gamedata['url'] = 'valid.php';
 	ob_clean();
-	$jgamedata = base64_encode(gzencode(compatible_json_encode($gamedata)));
+	$jgamedata = gencode($gamedata);
 	echo $jgamedata;
 	return;
 }
@@ -349,7 +379,7 @@ if($pdata['pass'] != $cpass) {
 if($gamestate == 0) {
 	$gamedata['url'] = 'end.php';
 	ob_clean();
-	$jgamedata = base64_encode(gzencode(compatible_json_encode($gamedata)));
+	$jgamedata = gencode($gamedata);
 	echo $jgamedata;
 	return;
 }
@@ -369,12 +399,16 @@ $pagestartimez=microtime(true);
 
 \player\load_playerdata(\player\fetch_playerdata($cuser));
 
-$gamedata = array();
+$gamedata = array(
+	'innerHTML' => array(),
+	'value' => array(),
+	'src' => array()
+);
 \player\init_playerdata();
 
-player\pre_act();
-if ($hp>0) player\act();
-player\post_act();
+\player\pre_act();
+if ($hp > 0 && $state <= 3) \player\act();
+\player\post_act();
 
 $endtime = $now;
 
@@ -389,9 +423,10 @@ if ($___MOD_SRV)
 //$timecostlis .= '/'.$timecost;
 
 //显示指令执行结果
-player\prepare_response_content();
+\player\prepare_response_content();
 
-\player\init_profile();
+\player\parse_interface_gameinfo();
+\player\parse_interface_profile();
 
 if($hp <= 0) {
 	$dtime = date("Y年m月d日H时i分s秒",$endtime);
@@ -416,9 +451,11 @@ if($hp <= 0) {
 	$gamedata['innerHTML']['cmd'] = ob_get_contents();
 } elseif(!$cmd) {
 	ob_clean();
-	if($mode&&(file_exists($mode.'.htm') || file_exists(GAME_ROOT.TPLDIR.'/'.$mode.'.htm'))) {
+	if($mode != 'command' && $mode&&(file_exists($mode.'.htm') || file_exists(GAME_ROOT.TPLDIR.'/'.$mode.'.htm'))) {
 		include template($mode);
-	} else {
+	} elseif(defined('MOD_TUTORIAL') && $gametype == 17){
+		include template(MOD_TUTORIAL_TUTORIAL);
+	}	else {
 		include template('command');
 	}
 	$gamedata['innerHTML']['cmd'] = ob_get_contents();
@@ -427,19 +464,18 @@ if($hp <= 0) {
 }
 
 if(isset($url)){$gamedata['url'] = $url;}
-$gamedata['innerHTML']['pls'] = $plsinfo[$pls];
-if ($gametype!=2) $gamedata['innerHTML']['anum'] = $alivenum; else $gamedata['innerHTML']['anum'] = $validnum;
+if(!empty($uip['timing'])) {$gamedata['timing'] = $uip['timing'];}
+if(!empty($uip['effect'])) {$gamedata['effect'] = $uip['effect'];}
+if(!empty($uip['innerHTML'])) {$gamedata['innerHTML'] = array_merge($gamedata['innerHTML'], $uip['innerHTML']);}
+if(!empty($uip['src'])) {$gamedata['src'] = array_merge($gamedata['src'], $uip['src']);}
 
+//$gamedata['innerHTML']['pls'] = $plsinfo[$pls];
+//if ($gametype!=2) $gamedata['innerHTML']['anum'] = $alivenum; else $gamedata['innerHTML']['anum'] = $validnum;
 ob_clean();
 $main ? include template($main) : include template('profile');
 $gamedata['innerHTML']['main'] = ob_get_contents();
 if(isset($error)){$gamedata['innerHTML']['error'] = $error;}
-$gamedata['value']['teamID'] = $teamID;
-if($teamID){
-	$gamedata['innerHTML']['chattype'] = "<select name=\"chattype\" value=\"2\"><option value=\"0\" selected>$chatinfo[0]<option value=\"1\" >$chatinfo[1]</select>";
-}else{
-	$gamedata['innerHTML']['chattype'] = "<select name=\"chattype\" value=\"2\"><option value=\"0\" selected>$chatinfo[0]</select>";
-}
+
 
 //测试
 //函数调用计数
@@ -454,14 +490,13 @@ if ($___MOD_SRV)
 }
 else  $log.="<span class=\"grey\">页面运行时间: $timecost 秒$ts</span>"; 
 */
-$gamedata['innerHTML']['log'] = $log;
 
 //$timecost = get_script_runtime($pagestartime);
 //$timecostlis .= '/'.$timecost;
 
 //$jgamedata = str_replace('_____CORE_RUNNING_TIME_____',$timecostlis,$jgamedata);
 
-$jgamedata=base64_encode(gzencode(compatible_json_encode($gamedata)));
+$jgamedata=gencode($gamedata);
 ob_clean();
 echo $jgamedata;
 

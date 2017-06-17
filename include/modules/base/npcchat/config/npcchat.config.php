@@ -226,25 +226,9 @@ namespace npcchat
 			13 => '“灵性-2！”',
 			'color' => 'linen'
 		),
-		'虚子' => Array(
-			0 => '“没人理我了吗？我被无视了吗？”',//meet
-			1 => '“原谅我杀人！但是不杀的话,我就不是人了! ”',//attackfine
-			2 => '“你们根本就搞不清楚状况！打法根本就是错的！”',
-			3 => '“既想说自己是沙包，又在做不是沙包该做的事！这样的事实，又一次说明这些神触们的无药可救！”',
-			4 => '“你还能有正常人的意识吗？明知前面是悬崖也要跳！无知！无聊！”',
-			5 => '“哈哈！玩家！你牛！但我更牛!  ”',//defendfine
-			6 => '“你不懂的话，就不是中国人！”',
-			7 => '“这样的伤害还有存在的意义！”',//defendhurt
-			8 => '“你们啊！能清醒点儿吗？”',
-			9 => '“你做完后，你的心理得到什么样的满足感，你自己清楚！”',//retreat
-			10 => '“哎！现在就算听《蜀绣》，我的心情也好不起来！”',//can't counterattack
-			11 => '“留下可怜的我独自哀伤，有人同情却无人理解！哎！”',//out of range
-			12 => '“水月这个id，老是拿什么必杀技说事，其实是什么都搞不清楚，还一直说！”',//critical
-			13 => '“已经被打死了！大快人心啊！”',
-			'color' => 'linen'
-		),
+		
 		'水月' => Array(
-		    0 => '“Love your neighbor as yourself.”',//meet
+		  0 => '“Love your neighbor as yourself.”',//meet
 			1 => '“作恶的，必被剪除!”',//attackfine
 			2 => '“愚昧人若静默不言，也可算为智慧。闭口不说，也可算为聪明。”',
 			3 => '“……”',
@@ -261,7 +245,7 @@ namespace npcchat
 			'color' => 'clan'
 		),
 		'北京推倒你' => Array(
-		    0 => '“虽然我自称是<span class="blue">历史的眼泪</span>。但很可惜，历史这东西是不相信眼泪的。”',//meet
+		  0 => '“虽然我自称是<span class="blue">历史的眼泪</span>。但很可惜，历史这东西是不相信眼泪的。”',//meet
 			1 => '“所谓<span class="red">铁拳无敌</span>，那么就一定是用拳头来证明一切的。”',//attackfine
 			2 => '“力道不错，那么该我的反击了！”',
 			3 => '“不错啊，也许我也应该重新审视审视你了。”',
@@ -278,7 +262,7 @@ namespace npcchat
 			'color' => 'clan'
 		),
 		'BorisX' => Array(
-		    0 => '“It is I, Boris!”',//meet
+		  0 => '“It is I, Boris!”',//meet
 			1 => '“There is nothing I cannot do!”',//attackfine
 			2 => '“This will be easy.”',
 			3 => '“Damn traitorous dogs!”',//attackhurt
@@ -295,7 +279,7 @@ namespace npcchat
 			'color' => 'red'
 		),
 		'Renamon' => Array(
-		    0 => '“咦？我为什么在这里呢？”',//meet
+		  0 => '“咦？我为什么在这里呢？”',//meet
 			1 => '“虽然不知道为什么可是我会努力打败你的！”',//attackfine
 			2 => '“不知道！不知道！我真的不知道为什么可是身体不由自主地动起来了！”',
 			3 => '“我的画笔可是有毒的画笔！”',
@@ -346,7 +330,7 @@ namespace npcchat
 			'color' => 'yellow'
 		),
 		'捂脸姬' => Array(
-		    0 => '“大家好，我是ACFUN大逃殺第一批的玩家，真要說有什麼職位的話，那就是「試玩」。”',//meet
+		  0 => '“大家好，我是ACFUN大逃殺第一批的玩家，真要說有什麼職位的話，那就是「試玩」。”',//meet
 			1 => '“放心，身為最弱武神組的我，有足夠防禦是絕對可以擋下的。”',//attackfine
 			2 => '“我竟然先攻了第二次？有一就有二，無三不成禮嗎？”',
 			3 => '“被打成這樣肯定是要送武神之魂的節奏吧？”',
@@ -363,39 +347,23 @@ namespace npcchat
 			'color' => 'yellow'
 		),		
 		'Yoshiko-G' => Array(
-            0 => '“賭玉？輸了會有什麼後果嗎？”',//meet
-            1 => '“闖英靈殿的你，明知有危險也要來嗎？不作死就不會死，為什麼你就是不明白？”',//attackfine
-            2 => '“可別說強襲姿態是流氓，既然認為流氓還要闖英靈殿，這是何等的矛盾！”',
-            3 => '“四面寫的切糕系統什麼的最惡毒了，最終導致切糕通貨膨脹以及刷切糕各種情況發生。”',//attackhurt
-            4 => '“四面那個偷懶不幹活，成天只會打飛機的程序員，必被減除。”',
-            5 => '“傷害制御是很好的，只要武神還留在場上，你的風險就會居高不下！”',//defendfine
-            6 => '“攻擊就是最好的防禦，你以為這樣子就能讓我躺下？你也太天真了！”',
-            7 => '“你現在認輸還來得及，回頭是岸啊！不然我很肯定你一定會死於各種奇蹟原因。”',//defendhurt
-            8 => '“只要我還有HP，我就是要讓看著你玩脫才過癮。”',
-            9 => '“什麼？你敢殺我，小心吃我權限啦！”',//retreat
-            10 => '“哼！你以為不能反擊是你運氣好？”',//can't counterattack
-            11 => '“只敢用爆系的你，與其說是小心，不如說是膽小。”',//out of range
-            12 => '「守序善良」？那個會想辦法討好玩家的四面已經死了，讓你看看什麼才是「混亂邪惡」！”',//critical
-            13 => '“賭玉的後果，就是被人卸了一條腿，但是我可是有幾萬條腿呢，哈哈哈！”',//kill
-            'color' => 'yellow'
+      0 => '“賭玉？輸了會有什麼後果嗎？”',//meet
+      1 => '“闖英靈殿的你，明知有危險也要來嗎？不作死就不會死，為什麼你就是不明白？”',//attackfine
+      2 => '“可別說強襲姿態是流氓，既然認為流氓還要闖英靈殿，這是何等的矛盾！”',
+      3 => '“四面寫的切糕系統什麼的最惡毒了，最終導致切糕通貨膨脹以及刷切糕各種情況發生。”',//attackhurt
+      4 => '“四面那個偷懶不幹活，成天只會打飛機的程序員，必被減除。”',
+      5 => '“傷害制御是很好的，只要武神還留在場上，你的風險就會居高不下！”',//defendfine
+      6 => '“攻擊就是最好的防禦，你以為這樣子就能讓我躺下？你也太天真了！”',
+      7 => '“你現在認輸還來得及，回頭是岸啊！不然我很肯定你一定會死於各種奇蹟原因。”',//defendhurt
+      8 => '“只要我還有HP，我就是要讓看著你玩脫才過癮。”',
+      9 => '“什麼？你敢殺我，小心吃我權限啦！”',//retreat
+      10 => '“哼！你以為不能反擊是你運氣好？”',//can't counterattack
+      11 => '“只敢用爆系的你，與其說是小心，不如說是膽小。”',//out of range
+      12 => '「守序善良」？那個會想辦法討好玩家的四面已經死了，讓你看看什麼才是「混亂邪惡」！”',//critical
+      13 => '“賭玉的後果，就是被人卸了一條腿，但是我可是有幾萬條腿呢，哈哈哈！”',//kill
+      'color' => 'yellow'
 		),
-		'lemon' => Array(
-		    0 => '“ACDTS Bot beta #1. Moving out.”',//meet
-			1 => '“Enemy spotted.”',//attackfine
-			2 => '“Engaging.”',
-			3 => '“Engaging. Taking casualties.”',
-			4 => '“Engaging. Need support.”',
-			5 => '“Enemy encountered. Counterattack.”',//defendfine
-			6 => '“In cover behind sandbags. Counterattacking.”',
-			7 => '“Taking fire. Need assistance.”',//defendhurt
-			8 => '“Need backup.”',
-			9 => '“Mission failed.”',//retreat
-			10 => '“Enemy is in cover. Supressing fire, need assistance.”',//can't counterattack
-			11 => '“Enemy out of range.”',//out of range
-			12 => '“For the further!”',//critical
-			13 => '“Enemy down.”',
-			'color' => 'clan'
-		),
+		
 		'埃尔兰卡' => Array(
 			0 => '“在此之前的一切，大概都在你的流程之内。但接下来的战斗，却在规则之外。”',//meet
 			1 => '“命运会阻挠你，欺辱你，将你高高抛起再狠狠落下，命运可以轻视你，但你却无法不直面它。”',//attackfine
@@ -448,7 +416,41 @@ namespace npcchat
 			12 => '“那、那个……就这么说吧！冴冴我喜欢你呀！”（按）',
 			13 => '“失手了！不知道坑了多少人的切糕？”',
 			'color' => 'yellow'
-		)
+		),
+		'虚子' => Array(
+			0 => '“没人理我了吗？我被无视了吗？”',//meet
+			1 => '“原谅我杀人！但是不杀的话,我就不是人了! ”',//attackfine
+			2 => '“你们根本就搞不清楚状况！打法根本就是错的！”',
+			3 => '“既想说自己是沙包，又在做不是沙包该做的事！这样的事实，又一次说明这些神触们的无药可救！”',
+			4 => '“你还能有正常人的意识吗？明知前面是悬崖也要跳！无知！无聊！”',
+			5 => '“哈哈！玩家！你牛！但我更牛!  ”',//defendfine
+			6 => '“你不懂的话，就不是中国人！”',
+			7 => '“这样的伤害还有存在的意义！”',//defendhurt
+			8 => '“你们啊！能清醒点儿吗？”',
+			9 => '“你做完后，你的心理得到什么样的满足感，你自己清楚！”',//retreat
+			10 => '“哎！现在就算听《蜀绣》，我的心情也好不起来！”',//can't counterattack
+			11 => '“留下可怜的我独自哀伤，有人同情却无人理解！哎！”',//out of range
+			12 => '“水月这个id，老是拿什么必杀技说事，其实是什么都搞不清楚，还一直说！”',//critical
+			13 => '“已经被打死了！大快人心啊！”',
+			'color' => 'linen'
+		),
+		'lemon' => Array(
+		    0 => '“ACDTS Bot beta #1. Moving out.”',//meet
+			1 => '“Enemy spotted.”',//attackfine
+			2 => '“Engaging.”',
+			3 => '“Engaging. Taking casualties.”',
+			4 => '“Engaging. Need support.”',
+			5 => '“Enemy encountered. Counterattack.”',//defendfine
+			6 => '“In cover behind sandbags. Counterattacking.”',
+			7 => '“Taking fire. Need assistance.”',//defendhurt
+			8 => '“Need backup.”',
+			9 => '“Mission failed.”',//retreat
+			10 => '“Enemy is in cover. Supressing fire, need assistance.”',//can't counterattack
+			11 => '“Enemy out of range.”',//out of range
+			12 => '“For the further!”',//critical
+			13 => '“Enemy down.”',
+			'color' => 'clan'
+		),
 	),
 	24 => Array(
 		'测试用鱼装自走兵器' => Array(

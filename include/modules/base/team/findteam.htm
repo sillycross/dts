@@ -2,7 +2,7 @@
 <input type="hidden" name="mode" value="senditem">
 <input type="hidden" id="command" name="command" value="back">
 留言：<br><input size="30" type="text" name="message" maxlength="60"><br><br>
-<input type="button" class="cmdbutton" name="back" value="返回" onclick="postCmd('gamecmd','command.php');"><br><br>
+<input type="button" class="cmdbutton" id="x" value="[X]返回" onclick="postCmd('gamecmd','command.php');"><br><br>
 <!--{if $itms1}-->
 转让：<input type="button" name="item1" value="{$itm1}/{$itme1}/{$itms1}" onclick="$('command').value='item1';postCmd('gamecmd','command.php');"><br>
 <!--{/if}-->

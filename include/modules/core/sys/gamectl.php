@@ -14,6 +14,17 @@ namespace sys
 		$dir = GAME_ROOT.'./gamedata/';
 		$sqldir = GAME_ROOT.'./gamedata/sql/';
 		
+		//0号房恒为经典房，重置房间参数
+		if(!$groomid) {
+			$groomtype = 0;
+			$gametype = 0;
+			$groomstatus = 2;
+			$roomvars = array();
+		}
+		
+		$gamestate = 5;//正在重设游戏
+		save_gameinfo(0);
+		
 		//重设玩家互动信息、聊天记录、地图道具、地图陷阱、进行状况
 		$sql = file_get_contents("{$sqldir}reset.sql");
 		$sql = str_replace("\r", "\n", str_replace(' bra_', ' '.$tablepre, $sql));
@@ -25,16 +36,13 @@ namespace sys
 		//清空战斗信息
 		$hdamage = 0;
 		$hplayer = '';
-		$noisetime = 0;
-		$noisepls = 0;
-		$noiseid = 0;
-		$noiseid2 = 0;
-		$noisemode = '';
-		//$gametype = 0;
-		$gamestate = 10;
 		
 		save_combatinfo();
-		save_gameinfo();
+		
+		//清空临时文件夹
+		clear_dir(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/',1);
+		global $___MOD_TMP_FILE_DIRECTORY;
+		clear_dir($___MOD_TMP_FILE_DIRECTORY.$room_prefix.'_/',1);
 	}
 	
 	function prepare_new_game() {
@@ -54,25 +62,27 @@ namespace sys
 		$month++;
 		$year += 1900;
 		
-		if ($room_prefix!='' && $room_prefix[0]=='s')	//小房间不会自动开启下一局
+		if (room_check_subroom($room_prefix))	//小房间不会自动开启下一局
 		{
 			$starttime = 0;
 		}
 		else
 		{
-			if($startmode == 1) {
+			if($disable_newgame || !$startmode) {//更新模式或者手动设定开始时间
+				$starttime = 0;
+			} elseif ($startmode == 1) {//每日定时
 				if($hour >= $starthour){ $nextday = $day+1;}
 				else{$nextday = $day;}
 				$nexthour = $starthour;
 				$starttime = mktime($nexthour,$startmin,0,$month,$nextday,$year);
-			} elseif($startmode == 2) {
+			} elseif($startmode == 2) {//整点开始
 				$starthour = $starthour> 0 ? $starthour : 1;
 				$startmin = $startmin> 0 ? $startmin : 1;
 				$nexthour = $hour + $starthour;
 				$starttime = mktime($nexthour,$startmin,0,$month,$day,$year);
-			} elseif($startmode == 3) {
-				$starthour = $starthour> 0 ? $starthour : 1;
-				$nextmin = $min + $starthour;
+			} elseif($startmode == 3) {//间隔开始
+				$startmin = $startmin> 0 ? $startmin : 1;
+				$nextmin = $min + $startmin;
 				$nexthour = $hour;
 		//		if($nextmin % 60 >= 40){//回避速1禁
 		//			$nextmin+=20;
@@ -96,18 +106,23 @@ namespace sys
 	}
 	
 	//------游戏结束------
-	//模式：0保留：程序故障；1：全部死亡；2：最后幸存；3：禁区解除；4：无人参加；5：核爆全灭；6：GM中止
+	//模式：0保留：程序故障；1：全部死亡；2：最后幸存；3：禁区解除；4：无人参加；5：核爆全灭；6：GM中止；7：幻境解离；8：挑战结束；9：教程结束；
 	function gameover($time = 0, $gmode = '', $winname = '') {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
+//		startmicrotime();
+		//先加锁以阻塞对game表的读取，免得这个进程还在执行时，别的请求穿透到数据库造成各种各样的脏数据问题
+		process_lock();
+		load_gameinfo();
+		//游戏未准备的情况下直接返回
 		if($gamestate < 10) return;
-		if((!$gmode)||(($gmode=='end2')&&(!$winname))) {//在没提供游戏结束模式的情况下，自行判断模式
-			if($validnum <= 0) {//无激活者情况下，全部死亡
+		//在没提供游戏结束模式的情况下，自行判断模式
+		if((!$gmode)||(($gmode=='end2')&&(!$winname))) {
+			if($validnum <= 0) {//无激活者情况下，无人参加
 				$alivenum = 0;
 				$winnum = 0;
 				$winmode = 4;
 				$winner = '';
-				
 			} else {//判断谁是最后幸存者
 				$result = $db->query("SELECT * FROM {$tablepre}players WHERE hp>0 AND type=0");
 				$alivenum = $db->num_rows($result);
@@ -115,12 +130,10 @@ namespace sys
 					$winmode = 1;
 					$winnum = 0;
 					$winner = '';
-				}
-				else
-				{
-					if (!in_array($gametype,$teamwin_mode))
+				} else {
+					if (!in_array($gametype,$teamwin_mode))//非团队模式
 					{
-						//非团队模式，判断最后幸存
+						//判断是否最后幸存
 						if($alivenum == 1) {
 							$winmode = 2;
 							$winnum = 1;
@@ -134,7 +147,7 @@ namespace sys
 							return;
 						}
 					}
-					else
+					else//团队模式
 					{
 						$result = $db->query("SELECT teamID FROM {$tablepre}players WHERE type = 0 AND hp > 0");
 						$flag=1; $first=1; 
@@ -197,8 +210,15 @@ namespace sys
 			$winnum = 1;
 			$winner = $winname;
 		}
+		$gamestate = 0;
+		$o_starttime = $starttime; $starttime = 0; //偶尔会发生穿透事故，先这么一修看看情况
+		save_gameinfo();
+		$starttime = $o_starttime;
+//		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-模式判断');
+		//以下开始真正处理gameover的各种数据修改
 		$time = $time ? $time : $now;
-		$result = $db->query("SELECT gid FROM {$wtablepre}winners ORDER BY gid DESC LIMIT 1");//判断当前游戏局数是否正确，以优胜列表为准
+		//计算当前是哪一局，以优胜列表为准
+		$result = $db->query("SELECT gid FROM {$wtablepre}winners ORDER BY gid DESC LIMIT 1");
 		if($db->num_rows($result)&&($gamenum <= $db->result($result, 0))) {
 			$gamenum = $db->result($result, 0) + 1;
 		}
@@ -246,22 +266,29 @@ namespace sys
 				$db->query("INSERT INTO {$wtablepre}winners (gid,gametype,wmode,vnum,gtime,gstime,getime,hdmg,hdp,hkill,hkp,winnum,namelist,teamID) VALUES ('$gamenum','$gametype','$winmode','$validnum','$gtime','$gstime','$getime','$hdamage','$hplayer','$hkill','$hkp','$winnum','$namelist','$firstteamID')");
 			}
 		}
+//		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-优胜记录修改');
+		//发放切糕工资
+		set_credits();
+//		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-切糕发放');
+		//重置游戏开始时间和当前游戏状态
+		rs_sttime();
+		//至此解锁，后面是消息记录、历史记录、录像处理之类的事
+		process_unlock();
+		
+		//进行天梯积分计算、录像处理之类的后期工作
 		post_gameover_events();
-		rs_sttime();//重置游戏开始时间和当前游戏状态
-		$gamestate = 0;
-		save_gameinfo();
+//		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-录像等后续处理');
 		//echo '**游戏结束**';
-		//$gamestate = 0;
-		//addnews($time, "end$winmode" , $winner);
 		addnews($time, "end$winmode",$winner);
-		//addnews($time, 'gameover',$gamenum);
 		addnews($time, 'gameover' ,$gamenum);
 		systemputchat($time,'gameover');
-		$newsinfo = nparse_news(0,65535);
+		$newsinfo = load_news();
+		$newsinfo = '<ul>'.implode('',$newsinfo).'</ul>';
+//		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-读取和渲染消息');
 		$room_gprefix = '';
-		if ($room_prefix!='') $room_gprefix = (substr($room_prefix,0,1)).'.';
+		if (room_check_subroom($room_prefix)) $room_gprefix = (substr($room_prefix,0,1)).'.';
 		writeover(GAME_ROOT."./gamedata/bak/{$room_gprefix}{$gamenum}_newsinfo.html",$newsinfo,'wb+');
-		set_credits();
+//		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-写入消息并结束');
 		return;
 	}
 
@@ -271,14 +298,12 @@ namespace sys
 		eval(import_module('sys'));
 		if(CURSCRIPT !== 'chat') 
 		{
-			$plock=fopen(GAME_ROOT.'./gamedata/process.lock','ab');
-			flock($plock,LOCK_EX);
+			//if($___MOD_SRV && )
+			process_lock();
 			load_gameinfo();
-			
 			updategame();
-			
 			save_gameinfo();
-			fclose($plock); 
+			process_unlock();
 		}
 	}
 }

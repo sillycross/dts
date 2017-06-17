@@ -14,7 +14,7 @@ function parse_template($tplfile, $objfile, $templateid, $tpldir) {
 
 	if(!$fp = fopen($tplfile, 'r')) {
 		var_dump(debug_backtrace());
-		gexit("Current template file './$tpldir/$file.htm' not found or have no access!");
+		gexit("Current template file '$tplfile' not found or have no access!");
 	} elseif(!include_once language('templates', $templateid, $tpldir)) {
 		gexit("<br>Current template pack do not have a necessary language file 'templates.lang.php' or have syntax error!");
 	}

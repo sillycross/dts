@@ -24,17 +24,17 @@ namespace gameflow_duel
 		}	
 	}
 
-	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)
+	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		
 		if($news == 'duel') 
-			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"red\">游戏进入死斗阶段！</span><br>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">游戏进入死斗阶段！</span></li>";
 		if($news == 'duelkey') 
-			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}使用了{$b}，启动了死斗程序！</span><br>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}使用了{$b}，启动了死斗程序！</span></li>";
 		
-		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 	
 	function check_player_discover(&$edata)
@@ -49,10 +49,10 @@ namespace gameflow_duel
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		if($gamestate >= 50) 
+		if($gamestate >= 50) //死斗以后遇敌率上升
 		{
-			if ($schmode == 'search') return $chprocess($schmode)*1.1;
-			if ($schmode == 'move') return $chprocess($schmode)*1.05;
+			if ($schmode == 'search') return $chprocess($schmode) + 10;//*1.1;
+			if ($schmode == 'move') return $chprocess($schmode) + 5;//*1.05;
 		}
 		return $chprocess($schmode);
 	}

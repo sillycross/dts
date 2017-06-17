@@ -11,7 +11,7 @@
 你受到的所有属性伤害<span class="yellow">-$dmgreduction[$clv]%</span><br>
 <!--{if $upgradecost[$clv] !== -1}-->可花费<span class="lime">$upgradecost[$clv]</span>点技能升级，升级后减伤提高至<span class="yellow">-$dmgreduction[1]%</span><!--{/if}--><br>
 </td>
-<td class=b3 width=46>
+<td class=b3 width=96>
 <!--{if $upgradecost[$clv] !== -1}-->
 <!--{if $skillpoint>=$upgradecost[$clv]}-->
 <input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill54_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="升级">
@@ -21,7 +21,7 @@
 <!--{/if}-->
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
 <span class="yellow">
 3级时解锁
 </span>

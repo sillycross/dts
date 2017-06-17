@@ -6,6 +6,8 @@ namespace skill323
 	{
 		define('MOD_SKILL323_INFO','achievement;');
 		define('MOD_SKILL323_ACHIEVEMENT_ID','23');
+		eval(import_module('achievement_base'));
+		$ach_allow_mode[323] = array(0, 16);
 	}
 	
 	function acquire323(&$pa)
@@ -17,15 +19,6 @@ namespace skill323
 	function lost323(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-	}
-	
-	function skill_onload_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys'));
-		if (((!in_array($gametype,$ach_ignore_mode))||($gametype==16))&&(!\skillbase\skill_query(323,$pa))) 
-			\skillbase\skill_acquire(323,$pa);
-		$chprocess($pa);
 	}
 	
 	function finalize323(&$pa, $data)

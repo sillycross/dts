@@ -6,7 +6,8 @@ function __SOCKET_ERRORLOG__($data)	//注意ERRORLOG将直接导致脚本退出
 	if ($___MOD_LOG_LEVEL>=1)
 	{
 		$x=socket_last_error();
-		if ($x) $data.=' 错误信息：'.socket_strerror($x).'（错误'.$x.'）';
+		//if ($x) $data.=' 错误信息：'.mb_convert_encoding(socket_strerror($x),'UTF-8').'（错误'.$x.'）';//根据系统不同，strerror可能出现乱码
+		if ($x) $data.='（错误'.$x.'）';
 		__SOCKET_WARNLOG__($data);
 		global $___TEMP_runmode, $___TEMP_CONN_PORT;
 		$data = $___TEMP_runmode.' on port '.$___TEMP_CONN_PORT.' : '.$data;
@@ -65,10 +66,10 @@ function __SOCKET_DEBUGLOG__($data)
 	file_put_contents(GAME_ROOT.'./gamedata/tmp/log/socket.debug.log', $data, FILE_APPEND);
 }
 
-function __SOCKET_CHECK_WITH_TIMEOUT__(&$socket, $optype, $tsec, $tusec = 0)
+function __SOCKET_CHECK_WITH_TIMEOUT__($socket, $optype, $tsec, $tusec = 0)
 {
 	//带timeout的检查socket是否有连接（'a'）可读（'r'）或可写（'w'）
-	$temp_null=NULL; $arr=Array(&$socket);
+	$temp_null=NULL; $arr=Array($socket);
 	if ($optype=='r' || $optype=='a')
 	{
 		$num_changed_sockets = socket_select($arr, $temp_null, $temp_null, $tsec, $tusec);
@@ -77,8 +78,8 @@ function __SOCKET_CHECK_WITH_TIMEOUT__(&$socket, $optype, $tsec, $tusec = 0)
 	{
 		$num_changed_sockets = socket_select($temp_null, $arr, $temp_null, $tsec, $tusec);
 	}
-      if ($num_changed_sockets === false || $num_changed_sockets === 0)
-		return false;
+  if ($num_changed_sockets === false || $num_changed_sockets === 0)
+		return $num_changed_sockets;//false;
 	else  return true;
 }
 
@@ -330,13 +331,19 @@ function __SEND_TOUCH_CMD__($port)
 	if (!$___TEMP_connected) return "socket_connect失败。";
 	
 	//允许3秒等待
-	if (!__SOCKET_CHECK_WITH_TIMEOUT__($___TEMP_socket, 'w', 3, 0)) return "socket_write等待时间过长。"; 
-						
+	$___TEMP_socket_TOUCH_STATE = __SOCKET_CHECK_WITH_TIMEOUT__($___TEMP_socket, 'w', 3, 0);
+	if(0===$___TEMP_socket_TOUCH_STATE) return "写阻塞。(".socket_last_error().")"; 
+	elseif(false===$___TEMP_socket_TOUCH_STATE) return "写失败。(".socket_last_error().")"; 
+	//if (!__SOCKET_CHECK_WITH_TIMEOUT__($___TEMP_socket, 'w', 3, 0)) return "socket_write等待时间过长。"; 
+	
 	//发送消息给server
 	global $___MOD_CONN_PASSWD;
 	if (!socket_write($___TEMP_socket,$___MOD_CONN_PASSWD.'touch'."\n")) return "socket_write失败"; 
 	
-	if (!__SOCKET_CHECK_WITH_TIMEOUT__($___TEMP_socket, 'r', 3, 0)) return "socket_read等待时间过长。"; 
+	$___TEMP_socket_TOUCH_STATE = __SOCKET_CHECK_WITH_TIMEOUT__($___TEMP_socket, 'r', 3, 0);
+	if(0===$___TEMP_socket_TOUCH_STATE) return "读阻塞。(".socket_last_error().")"; 
+	elseif(false===$___TEMP_socket_TOUCH_STATE) return "读失败。(".socket_last_error().")"; 
+	//if (!__SOCKET_CHECK_WITH_TIMEOUT__($___TEMP_socket, 'r', 3, 0)) return "socket_read等待时间过长。"; 
 	
 	$___TEMP_ret = socket_read($___TEMP_socket, 1024, PHP_NORMAL_READ);
 	

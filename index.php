@@ -3,14 +3,14 @@
 define('CURSCRIPT', 'index');
 
 require './include/common.inc.php';
-require './include/roommng.func.php';
+require_once './include/roommng/roommng.func.php';//有可能common.inc.php里已经调用来刷新房间，必须once
 
 $timing = 0;
 if($gamestate > 10) {
-	$timing = $now - $starttime;
+	$timing = ($now - $starttime)*1000;
 } else {
 	if($starttime > $now) {
-		$timing = $starttime - $now;
+		$timing = ($starttime - $now)*1000;
 	} else {
 		$timing = 0;
 	}
@@ -18,76 +18,100 @@ if($gamestate > 10) {
 $adminmsg = file_get_contents('./gamedata/adminmsg.htm') ;
 $systemmsg = file_get_contents('./gamedata/systemmsg.htm') ;
 
+if($disable_newgame) $systemmsg = '<span class="evergreen2" style="color:red">暂停开放新游戏</span>'.$systemmsg;
+elseif($disable_newroom) $systemmsg = '<span class="evergreen2" style="color:red">暂停开放新房间</span>'.$systemmsg;
+
 $roomlist = Array();
-$result = $db->query("SELECT * FROM {$gtablepre}rooms WHERE status > 0");
-while ($data = $db->fetch_array($result))
+
+$roomresult = $db->query("SELECT * FROM {$gtablepre}game WHERE groomid>0 AND groomstatus > 0");
+//从数据库拉取开启的房间数，然后从文件判断房间是不是开启……有点迷
+while ($data = $db->fetch_array($roomresult))
 {
-	if ($data['status']==1)
+	if ($data['groomstatus']==1)//数据库中房间在等待状态
 	{
-		$flag = 0; $cnt=0;
-		if (file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['roomid'].'.txt'))
+		$cnt=$rdpmax=0;
+		if (file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['groomid'].'.txt'))
 		{
-			$roomdata = json_decode(mgzdecode(base64_decode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['roomid'].'.txt'))),1);
-			
+			//$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['groomid'].'.txt'),1);
+			$roomdata = gdecode($data['roomvars'] ,1);
 			$infochanged = 0;
 			if (update_roomstate($roomdata,0)) $infochanged = 1;
 			
 			//自动踢人
-			if ($roomdata['roomstat']==1 && time()>=$roomdata['kicktime'])
-			{
-				for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
-					if (!$roomdata['player'][$i]['forbidden'] && !$roomdata['player'][$i]['ready'] && $roomdata['player'][$i]['name']!='')
-					{
-						room_new_chat($roomdata,"<span class=\"grey\">{$roomdata['player'][$i]['name']}因为长时间未准备，被系统踢出了房间。</span><br>");
-						$roomdata['player'][$i]['name']='';
-						$infochanged = 1;
-					}
-			}
-			if ($infochanged) room_save_broadcast($data['roomid'],$roomdata);
+			if (room_auto_kick_check($roomdata)) $infochanged = 1;
+//			if ($roomdata['roomstat']==1 && time()>=$roomdata['kicktime'])
+//			{
+//				$rdplist = & room_get_vars($roomdata, 'player');
+//				$rdpnum = room_get_vars($roomdata, 'pnum');
+//				for ($i=0; $i < $rdpnum; $i++)
+//					if (!$rdplist[$i]['forbidden'] && !$rdplist[$i]['ready'] && $rdplist[$i]['name']!='')
+//					{
+//						room_new_chat($roomdata,"<span class=\"grey\">{$rdplist[$i]['name']}因为长时间未准备，被系统踢出了位置。</span><br>");
+//						$rdplist[$i]['name']='';
+//						$infochanged = 1;
+//					}
+//			}
+			if ($infochanged) room_save_broadcast($data['groomid'],$roomdata);
 			
-			for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
-			{
-				if ($roomdata['player'][$i]['name']!='')
-				{
-					$flag=1; $cnt++;
-				}
-				else  if ($roomdata['player'][$i]['forbidden'])
-				{
-					$cnt++;
-				}
-			}
+			//人数检测
+			list($cnt, $rdpmax) = room_participant_get($roomdata);
+//			$rdplist = & room_get_vars($roomdata, 'player');
+//			$rdpnum = $rdpmax = room_get_vars($roomdata, 'pnum');
+//			for ($i=0; $i < $rdpnum; $i++)
+//			{
+//				if ($rdplist[$i]['name']!='')
+//				{
+//					$flag=1; $cnt++;
+//				}
+//				else  if ($rdplist[$i]['forbidden'])
+//				{
+//					$rdpmax--;
+//				}
+//			}
 		}
-		if (!$flag)
+		//文件不存在或者房间没人，则数据库中该房间状态改为关闭
+		if (!$cnt)
 		{
-			$db->query("UPDATE {$gtablepre}rooms SET status = 0 WHERE roomid='{$data['roomid']}'");
-			unlink(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['roomid'].'.txt');
-			$data['status']=0;
+			$db->query("UPDATE {$gtablepre}game SET groomstatus = 0 WHERE groomid='{$data['groomid']}'");
+			unlink(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['groomid'].'.txt');
+			$data['groomstatus']=0;
 		}
 		else 
 		{
-			$roomlist[$data['roomid']]['id'] = $data['roomid'];
-			$roomlist[$data['roomid']]['status'] = $data['status'];
-			$roomlist[$data['roomid']]['nowplayer'] = $cnt;
-			$roomlist[$data['roomid']]['maxplayer'] = $roomtypelist[$roomdata['roomtype']]['pnum'];
-			$roomlist[$data['roomid']]['roomtype'] = $roomdata['roomtype'];
-			$roomlist[$data['roomid']]['roomdata'] = $roomdata;
+			$roomlist[$data['groomid']]['id'] = $data['groomid'];
+			$roomlist[$data['groomid']]['status'] = $data['groomstatus'];
+			$roomlist[$data['groomid']]['nowplayer'] = $cnt;
+			$roomlist[$data['groomid']]['maxplayer'] = $rdpmax;
+			$roomlist[$data['groomid']]['roomtype'] = $roomdata['roomtype'];
+			$roomlist[$data['groomid']]['roomdata'] = $roomdata;
+			$roomlist[$data['groomid']]['soleroom'] = room_get_vars($roomdata, 'soleroom');
 		}
 	}
-	else  if ($data['status']==2)
+	elseif ($data['groomstatus']==2)//数据库中房间已经进入游戏
 	{
-		if (file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['roomid'].'.txt'))
+		if (file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['groomid'].'.txt'))
 		{
-			$roomdata = json_decode(mgzdecode(base64_decode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['roomid'].'.txt'))),1);
-			if (update_roomstate($roomdata,1)) room_save_broadcast($data['roomid'],$roomdata);
-			$roomlist[$data['roomid']]['id'] = $data['roomid'];
-			$roomlist[$data['roomid']]['status']=$data['status'];
-			$roomlist[$data['roomid']]['roomtype'] = $roomdata['roomtype'];
-			$roomlist[$data['roomid']]['roomdata'] = $roomdata;
+			//$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['groomid'].'.txt'),1);
+			$roomdata = gdecode($data['roomvars'] ,1);
+			if (update_roomstate($roomdata,1)) room_save_broadcast($data['groomid'],$roomdata);
+			$roomlist[$data['groomid']]['id'] = $data['groomid'];
+			$roomlist[$data['groomid']]['status']=$data['groomstatus'];
+			$roomlist[$data['groomid']]['maxplayer'] = room_get_vars($roomdata,'pnum');
+			$roomlist[$data['groomid']]['roomtype'] = $roomdata['roomtype'];
+			$roomlist[$data['groomid']]['roomdata'] = $roomdata;
+			$roomlist[$data['groomid']]['soleroom'] = room_get_vars($roomdata,'soleroom');
+			if($roomlist[$data['groomid']]['soleroom']){
+				$rid = 's'.$data['groomid'];
+				$rtablepre = $gtablepre.$rid.'_';
+				$endtimelimit = $now-300;
+				$result = $db->query("SELECT pid FROM {$rtablepre}players WHERE type=0 AND state <= 3 AND endtime > '$endtimelimit'");
+				$roomlist[$data['groomid']]['nowplayer'] = $db->num_rows($result);
+			}
 		}
 		else
 		{
-			$db->query("UPDATE {$gtablepre}rooms SET status = 0 WHERE roomid='{$data['roomid']}'");
-			$data['status']=0;
+			$db->query("UPDATE {$gtablepre}game SET groomstatus = 0 WHERE groomid='{$data['groomid']}'");
+			$data['groomstatus']=0;
 		}
 	}
 }
@@ -95,30 +119,34 @@ while ($data = $db->fetch_array($result))
 //var_dump($roomlist);
 //die();
 
-//排序方式：等待中优于游戏中，人越接近满越优先，人已满放最后，依然相同按ID
-$troomlist = $roomlist;
-ksort($roomlist);
+//排序方式：永续房放最前，等待中优于游戏中，人越接近满越优先，人已满放最后，依然相同按ID
+//$troomlist = $roomlist;
+//ksort($roomlist);
 $tmp=Array();
 foreach ($roomlist as $key => $value)
 {
-	if ($value['status']==2)
+	if ($value['soleroom'])
 	{
-		$wg = 10000;
+		$wg = 0;
+	}
+	elseif ($value['status']==2)
+	{
+		$wg = 20000;
 	}
 	else 
 	{
-		if ($value['maxplayer']==$value['nowplayer'])
-			$wg = 5000;
-		else  $wg = $value['maxplayer']-$value['nowplayer'];
+		$wg = 10000 - ($value['maxplayer']-$value['nowplayer']) * 100;
 	}
+	$wg += $value['id'];
+	if ($wg < 0) $wg = 0;
 	if (!isset($tmp[$wg])) $tmp[$wg]=Array();
 	array_push($tmp[$wg],$value);
 }
 ksort($tmp);
-$roomlist=Array();
+$shroomlist=Array();
 foreach ($tmp as $key => $value)
-	foreach ($value as $data)
-		array_push($roomlist,$data);
+	foreach ($value as $vval)
+		array_push($shroomlist,$vval);
 
 if ($gametype==2) $alivenum = $validnum;
 

@@ -9,10 +9,10 @@
 <!--{eval $sk67_money=($club==11?200:150);}-->
 每升一级获得<span class="yellow">$sk67_money</span>元。
 </span></td>
-<td class=b3 width=46>
+<td class=b3 width=96>
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
 <span class="yellow">
 11级时解锁
 </span>

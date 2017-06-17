@@ -9,13 +9,15 @@ require './include/user.func.php';
 $_REQUEST = gstrfilter($_REQUEST);
 if ($_REQUEST["playerID"]=="")
 {
-	if(!$cuser||!$cpass) { gexit($_ERROR['no_login'],__file__,__line__); }
-
-	$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$cuser'");
-	if(!$db->num_rows($result)) { gexit($_ERROR['login_check'],__file__,__line__); }
-	$udata = $db->fetch_array($result);
-	if($udata['password'] != $cpass) { gexit($_ERROR['wrong_pw'], __file__, __line__); }
-	if($udata['groupid'] <= 0) { gexit($_ERROR['user_ban'], __file__, __line__); }
+	$udata = udata_check();
+	
+//	if(!$cuser||!$cpass) { gexit($_ERROR['no_login'],__file__,__line__); }
+//
+//	$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$cuser'");
+//	if(!$db->num_rows($result)) { gexit($_ERROR['login_check'],__file__,__line__); }
+//	$udata = $db->fetch_array($result);
+//	if($udata['password'] != $cpass) { gexit($_ERROR['wrong_pw'], __file__, __line__); }
+//	if($udata['groupid'] <= 0) { gexit($_ERROR['user_ban'], __file__, __line__); }
 
 	extract($udata);
 	$curuser=true;
@@ -44,8 +46,7 @@ $select_icon = $icon;
 $winning_rate=$validgames?round($wingames/$validgames*100)."%":'0%';
 
 eval(import_module('cardbase'));
-
-$carr=$carddesc[$card];
+$carr=$cards[$card];
 $cr=$carr['rare'];
 $cf=true;$sf=true;$af=true;$bf=true;$ff=true;
 if (($now-$udata['cd_s'])<86400){
@@ -65,17 +66,18 @@ if (($now-$udata['cd_a1'])<43200){
 	else  $ftd="明天".$hour."时".$min."分";
 }
 
-if ($cr=="S"){
-	$rarecolor="orange";
-	if (!$sf) $cf=false;
-}else if ($cr=='A'){
-	$rarecolor="linen";
-	if (!$af) $cf=false;
-}else if ($cr=='B'){
-	$rarecolor="brickred";
-	if (!$bf) $cf=false;
-}else if ($cr=='C'){
-	$rarecolor="seagreen";
-}
+$rarecolor = $card_rarecolor[$cr];
+//if ($cr=="S"){
+//	$rarecolor="orange";
+//	if (!$sf) $cf=false;
+//}else if ($cr=='A'){
+//	$rarecolor="linen";
+//	if (!$af) $cf=false;
+//}else if ($cr=='B'){
+//	$rarecolor="brickred";
+//	if (!$bf) $cf=false;
+//}else if ($cr=='C'){
+//	$rarecolor="seagreen";
+//}
 include template('user_profile');
 

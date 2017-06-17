@@ -7,13 +7,15 @@ require './include/user.func.php';
 
 eval(import_module('cardbase'));
 
-if(!$cuser||!$cpass) { gexit($_ERROR['no_login'],__file__,__line__); }
+$udata = udata_check();
 
-$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$cuser'");
-if(!$db->num_rows($result)) { gexit($_ERROR['login_check'],__file__,__line__); }
-$udata = $db->fetch_array($result);
-if($udata['password'] != $cpass) { gexit($_ERROR['wrong_pw'], __file__, __line__); }
-if($udata['groupid'] <= 0) { gexit($_ERROR['user_ban'], __file__, __line__); }
+//if(!$cuser||!$cpass) { gexit($_ERROR['no_login'],__file__,__line__); }
+//
+//$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$cuser'");
+//if(!$db->num_rows($result)) { gexit($_ERROR['login_check'],__file__,__line__); }
+//$udata = $db->fetch_array($result);
+//if($udata['password'] != $cpass) { gexit($_ERROR['wrong_pw'], __file__, __line__); }
+//if($udata['groupid'] <= 0) { gexit($_ERROR['user_ban'], __file__, __line__); }
 
 if(!isset($mode)){
 	$mode = 'show';
@@ -68,7 +70,7 @@ if($mode == 'edit') {
 	$gamedata['value']['opass'] = $gamedata['value']['npass'] = $gamedata['value']['rnpass'] = '';
 	if(isset($error)){$gamedata['innerHTML']['error'] = $error;}
 	ob_clean();
-	$jgamedata = base64_encode(gzencode(compatible_json_encode($gamedata)));
+	$jgamedata = gencode($gamedata);
 	echo $jgamedata;
 	ob_end_flush();
 	
@@ -82,7 +84,8 @@ if($mode == 'edit') {
 	$card_ownlist = $userCardData['cardlist'];;
 	$card_energy = $userCardData['cardenergy'];
 	$cardChosen = $userCardData['cardchosen'];
-	
+	$card_disabledlist=Array();
+	$card_error=Array();
 	include template('user');
 	
 }

@@ -34,11 +34,22 @@ if($gamestate == 0) {
 \player\load_playerdata(\player\fetch_playerdata($cuser));
 
 \player\init_playerdata();
-\player\init_profile();
+\player\parse_interface_profile();
+
+if($state == 4) {
+	header("Location: end.php");exit();
+}
 
 $log = '';
 //读取聊天信息
-$chatdata = getchat(0,$teamID);
+//$chatdata = array_merge(getchat(0,$teamID,$pid),\sys\getnews(0));
+$chatdata = getchat(0,$teamID,$pid);
+//生成进行状况id但是不马上拉取（非常耗时，用ajax完成）
+$result = $db->query("SELECT nid FROM {$tablepre}newsinfo ORDER BY nid LIMIT $newslimit");
+$lastnid = $db->fetch_array($result)['nid'];
+$chatdata['lastnid'] = $lastnid-1;
+$nidtmp = 'nid'.($lastnid);
+$chatdata['news'] = array('<li id="'.$nidtmp.'" class="red">正在拉取进行状况…</li>');
 
 $hp_backup_temp=$hp;
 $player_dead_flag_backup_temp=$player_dead_flag;
@@ -49,7 +60,6 @@ if ($hp<=0 || $player_dead_flag)
 	player\post_act();
 }
 
-//var_dump($itm3);
 if($hp <= 0){
 	$dtime = date("Y年m月d日H时i分s秒",$endtime);
 	$kname='';

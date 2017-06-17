@@ -1,0 +1,19 @@
+<input type="hidden" name="mode" value="special">
+<input type="hidden" id="command" name="command" value="skill1010_special">
+<input type="hidden" id="subcmd" name="subcmd" value="meet">
+请选择当前地图的以下角色进行遭遇：<br>
+<!--{loop $pcs $pcid $pcd}-->
+	<input type="radio" name="mpid" id="mani$pcid" value="$pcid">
+	<a onclick=sl('mani$pcid'); href="javascript:void(0);" >
+		$typeinfo[$pcd['type']] 
+		<!--{if $pcd['hp'] <= 0}--><span class="red">$pcd['name']</span>
+		<!--{else}-->$pcd['name']<!--{/if}--> 
+		Lv.{$pcd['lvl']} 
+		<!--{if $pcd['hp'] <= 0}--><span class="red">生命 $pcd['hp'] / $pcd['mhp']</span>
+		<!--{else}-->生命 $pcd['hp'] / $pcd['mhp']<!--{/if}--> 
+	</a><br>
+<!--{/loop}-->
+<br>
+<input type="button" class="cmdbutton" name="submit" value="遭遇所选" onclick="$('subcmd').value='meet';postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="button" class="cmdbutton" name="submit" value="交换数据" onclick="$('subcmd').value='exma';postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="button" class="cmdbutton" name="submit" value="返回" onclick="$('command').value='menu'; postCmd('gamecmd','command.php');this.disabled=true;">

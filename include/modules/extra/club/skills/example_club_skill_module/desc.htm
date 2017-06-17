@@ -7,7 +7,7 @@
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
 在这里写上你的技能描述，注意排版
 </span></td>
-<td class=b3 width=46>
+<td class=b3 width=96>
 在这里写上你的技能的操作（如果有）
 例如
 <!--{if $skillpoint >= 1}-->
@@ -17,7 +17,7 @@
 <!--{/if}-->
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
 <span class="yellow">
 在这里写上还没有获得这个技能时的提示（例如需要等级XX级之类）
 建议如果有多条要求，做成动态提示（满足一条去掉一条），如果是有获得进度的技能亦可显示进度

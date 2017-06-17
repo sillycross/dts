@@ -1,0 +1,23 @@
+<!--{if !empty($searchmemory)}-->
+<hr>
+<div>
+<!--{loop $searchmemory $smn $sm}-->
+<input type="button" 
+	<!--{if isset($sm['itm'])}-->
+	<!--{eval $sm['itm']=\itemmain\parse_itmname_words($sm['itm'],1); }-->
+		value="获取 $sm['itm']"
+	<!--{elseif isset($sm['Pname'])}-->
+		<!--{if $sm['smtype'] == 'enemy'}-->
+			<!--{if $fog}-->value="再探 ？？？"
+			<!--{else}-->value="迎战 $sm['Pname']"
+			<!--{/if}-->
+		<!--{elseif $sm['smtype'] == 'corpse'}-->value="检查 $sm['Pname'] 的尸体"
+		<!--{elseif $sm['smtype'] == 'team'}-->
+			<!--{if $fog}-->value="再探 ？？？"
+			<!--{else}-->value="和 $sm['Pname'] 打招呼"
+			<!--{/if}-->
+		<!--{/if}-->
+	<!--{/if}--> onclick="$('mode').value='command';$('command').value='memory{$smn}';postCmd('gamecmd','command.php');this.disabled=true;">
+<!--{/loop}-->
+</div>
+<!--{/if}-->

@@ -9,10 +9,10 @@
 你可以将任何物品转化为<span class="yellow">命体恢复</span>类型的补给<br>
 有毒的补给对你视为无毒
 </span></td>
-<td class=b3 width=46>
+<td class=b3 width=96>
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
 <span class="yellow">
 </span>
 <!--{/if}-->

@@ -101,6 +101,7 @@ namespace itemmain
 
 		if(!$itms||!$itmk||$itmk=='WN'||$itmk=='DN'){
 			$log .= '该物品不存在！<br>';
+			$itms = 0;
 			$mode = 'command';
 			return;
 		}
@@ -108,7 +109,9 @@ namespace itemmain
 	//	$itemdata = "$itm,$itmk,$itme,$itms,$itmsk,\n";
 	//	writeover($mapfile,$itemdata,'ab');
 		$db->query("INSERT INTO {$tablepre}mapitem (itm, itmk, itme, itms, itmsk ,pls) VALUES ('$itm', '$itmk', '$itme', '$itms', '$itmsk', '$pls')");
-		$log .= "你丢弃了<span class=\"red\">$itm</span>。<br>";
+		$dropid = $db->insert_id();
+		$dropname = $itm;
+		$log .= "你丢弃了<span class=\"red\">$dropname</span>。<br>";
 		$mode = 'command';
 		if($item == 'wep'){
 		$itm = '拳头';
@@ -120,7 +123,7 @@ namespace itemmain
 		$itm = $itmk = $itmsk = '';
 		$itme = $itms = 0;
 		}
-		return;
+		return array($dropid,$dropname);
 	}
 
 	function itemoff($item){
@@ -144,6 +147,7 @@ namespace itemmain
 		}
 		if(!$itms||!$itmk||$itmk=='WN'||$itmk=='DN'){
 			$log .= '该物品不存在！<br>';
+			$itms = 0;
 			$mode = 'command';
 			return;
 		}
