@@ -31,7 +31,7 @@
 你已经学习了技能“<span class="yellow">$sk53_learnt</span>”
 <!--{/if}-->
 </span></td>
-<td class=b3 width=46>
+<td class=b3 width=96>
 <!--{if \skillbase\skill_getvalue(53,'l')=='0'}-->
 <input type="button" style="width:46px" onclick="bubblebox_show('learntable');" value="学习">
 <!--{else}-->
@@ -39,7 +39,7 @@
 <!--{/if}-->
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
 <span class="yellow">
 11级时解锁
 </span>

@@ -28,7 +28,7 @@ namespace weather
 		return $weather_meetman_obbs[$weather];
 	}
 	
-	function calculate_meetman_obbs(&$edata)
+	function calculate_findman_obbs(&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return $chprocess($edata)+calculate_weather_meetman_obbs($edata);
@@ -44,6 +44,7 @@ namespace weather
 	function calculate_active_obbs(&$ldata,&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//echo "天气修正：+".calculate_weather_active_obbs($ldata,$edata).'% <br>';
 		return $chprocess($ldata,$edata)+calculate_weather_active_obbs($ldata,$edata);
 	}
 	
@@ -128,12 +129,12 @@ namespace weather
 		{
 			apply_tornado_weather_effect();
 		} 
-		else  if($weather == 13) 	//冰雹
+		elseif($weather == 13) 	//冰雹
 		{
 			deal_hailstorm_weather_damage();
 			if ($hp<=0) return;
 		} 
-		else  if($weather == 14)	//离子暴
+		elseif($weather == 14)	//离子暴
 		{
 			$dice = rand(0,9);
 			if($dice ==0 && strpos($inf,'e')===false){
@@ -146,11 +147,11 @@ namespace weather
 				$log .= "空气中充斥着狂暴的电磁波……<br>";
 			}
 		} 
-		else  if($weather == 15)	//辐射尘
+		elseif($weather == 15)	//辐射尘
 		{
 			$dice = rand(0,9);
 			if($dice == 0){
-				$mhpdown = rand(4,8);
+				$mhpdown = rand(1,4);
 				if($mhp > $mhpdown){
 					$log .= "空气中弥漫着的<span class=\"green\">放射性尘埃</span>导致你的生命上限减少了<span class=\"red\">{$mhpdown}</span>点！<br>";
 					$mhp -= $mhpdown;
@@ -160,11 +161,11 @@ namespace weather
 				$log .= "空气中弥漫着放射性尘埃……<br>";
 			}
 		} 
-		else  if($weather == 16)	//臭氧洞
+		elseif($weather == 16)	//臭氧洞
 		{
 			$dice = rand(0,9);
 			if($dice == 0){
-				$defdown = rand(3,6);
+				$defdown = rand(2,5);
 				if($def > $defdown){
 					$log .= "高强度的<span class=\"purple\">紫外线照射</span>导致你的防御力减少了<span class=\"red\">{$defdown}</span>点！<br>";
 					$def -= $defdown;
@@ -175,7 +176,11 @@ namespace weather
 			}else{
 				$log .= "高强度的紫外线灼烧着大地……<br>";
 			}
-		} 
+		}
+		elseif($weather == 17)	//极光
+		{
+			//也许就不需要有效果
+		}
 		$chprocess($moveto);
 	}
 	
@@ -189,7 +194,7 @@ namespace weather
 			deal_hailstorm_weather_damage();
 			if ($hp<=0) return;
 		} 
-		else  if($weather == 14)	//离子暴
+		elseif($weather == 14)	//离子暴
 		{
 			$dice = rand(0,9);
 			if($dice ==0 && strpos($inf,'e')===false){
@@ -202,11 +207,11 @@ namespace weather
 				$log .= "空气中充斥着狂暴的电磁波……<br>";
 			}
 		} 
-		else  if($weather == 15)	//辐射尘
+		elseif($weather == 15)	//辐射尘
 		{
 			$dice = rand(0,9);
 			if($dice == 0){
-				$mhpdown = rand(4,8);
+				$mhpdown = rand(1,4);
 				if($mhp > $mhpdown){
 					$log .= "空气中弥漫着的<span class=\"green\">放射性尘埃</span>导致你的生命上限减少了<span class=\"red\">{$mhpdown}</span>点！<br>";
 					$mhp -= $mhpdown;
@@ -216,14 +221,14 @@ namespace weather
 				$log .= "空气中弥漫着放射性尘埃……<br>";
 			}
 		} 
-		else  if($weather == 16)	//臭氧洞
+		elseif($weather == 16)	//臭氧洞
 		{
 			$dice = rand(0,9);
 			if($dice == 0){
-				$defdown = rand(3,6);
+				$defdown = rand(2,5);
 				if($def > $defdown){
 					$log .= "高强度的<span class=\"purple\">紫外线照射</span>导致你的防御力减少了<span class=\"red\">{$defdown}</span>点！<br>";
-					$def -= $defdown;
+					$def -= $defdown;if($def < 0) $def = 0;
 				}
 			}elseif($dice ==1 && strpos($inf,'u')===false){
 				$log .= "高强度的<span class=\"purple\">紫外线照射</span>导致你<span class=\"red\">烧伤</span>了！<br>";
@@ -232,6 +237,10 @@ namespace weather
 				$log .= "高强度的紫外线灼烧着大地……<br>";
 			}
 		} 
+		elseif($weather == 17)	//极光
+		{
+			//也许就不需要有效果
+		}
 		$chprocess();
 	}
 	
@@ -241,14 +250,16 @@ namespace weather
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','map','player','logger','weather'));
-		if($weather >= 14 && $weather <= 16){
+		if($weather >= 14 && $itmsk != 95){
 			addnews ( $now, 'wthfail', $name, $weather, $itm );
-			$log .= "你使用了{$itm}。<br /><span class=\"red\">但是恶劣的天气并未发生任何变化！</span><br />";
+			$log .= "你使用了{$itm}。<br /><span class=\"red\">但是天气并未发生任何变化！</span><br />";
 		}else{
 			if($itmsk==99){$weather = rand ( 0, 13 );}//随机全天气
 			elseif($itmsk==98){$weather = rand ( 10, 13 );}//随机恶劣天气
 			elseif($itmsk==97){$weather = rand ( 0, 9 );}//随机一般天气
 			elseif($itmsk==96){$weather = rand ( 8, 9 );}//随机起雾天气
+			//elseif($itmsk==95){$weather = rand ( 14, 16 );}//随机末日天气
+			elseif($itmsk==95){$weather = 17;}//末日天气改为极光，数值和大晴是一样的
 			elseif(!empty($itmsk) && is_numeric($itmsk)){
 				if($itmsk >=0 && $itmsk < count($wthinfo)){
 					$weather = $itmsk;
@@ -262,12 +273,18 @@ namespace weather
 		return;
 	}
 	
+	
+	
 	function add_once_area($atime)	//增加禁区天气变化
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys'));
-		$weather = rand(0,9);
+		//末日天气不会因为禁区而消失
+		if($weather <= 13) {
+			$o_weather = $weather;
+			do { $weather = rand(0,9); } while($weather == $o_weather);		//天气不会跟原本天气一样
+		}
 		$chprocess($atime);
 	}
 	
@@ -280,7 +297,9 @@ namespace weather
 		eval(import_module('sys'));
 		if ($xmode & 2) 
 		{
-			$weather = rand(0,9);
+			$opening_weather_list = array(0, 2, 3, 4, 7);//开局只会是晴天 多云 小雨 暴雨 下雪
+			shuffle($opening_weather_list);
+			$weather = $opening_weather_list[0];
 		}
 	}
 	
@@ -313,17 +332,18 @@ namespace weather
 		$chprocess($theitem);
 	}
 	
-	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)
+	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','weather'));
 		if($news == 'wthchange') 
-			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}使用了{$c}，天气变成了{$wthinfo[$b]}！</span><br>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}使用了{$c}，天气变成了{$wthinfo[$b]}！</span></li>";
 		if($news == 'wthfail') 
-			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}使用了{$c}，但是恶劣的天气并未发生改变！</span><br>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}使用了{$c}，但是天气并未发生改变！</span></li>";
 		if($news == 'syswthchg') 
-			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"lime\">奇迹和魔法都是存在的！当前天气变成了{$wthinfo[$a]}！</span><br>\n";
-		
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">奇迹和魔法都是存在的！当前天气变成了{$wthinfo[$a]}！</span></li>";
+		if($news == 'aurora_revival') 
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}在奥罗拉的作用下原地复活了！</span></li>";
 		if($news == 'death17') 
 		{
 			$dname = $typeinfo[$b].' '.$a;
@@ -332,17 +352,17 @@ namespace weather
 			}else{
 				$e="<span class=\"yellow\">【{$dname}：“{$e}”】</span><br>\n";
 			}
-			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>被<span class=\"red\">冰雹砸死</span>{$e}";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>被<span class=\"red\">冰雹砸死</span>{$e}</li>";
 		}
 		
 		if($news == 'addarea') 
 		{
-			$info = $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
-			$info .= "<span class=\"yellow\">【天气：{$wthinfo[$b]}】</span><br>\n";
+			$info = $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
+			$info = str_replace("</li>", "<span class=\"yellow\">【天气：{$wthinfo[$b]}】</span></li>", $info);
 			return $info;
 		}
 		
-		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 	
 	function newradar($mms = 0)
@@ -384,6 +404,99 @@ namespace weather
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess($ismeet);
 		apply_fog_meetenemy_effect($ismeet);
+	}
+	
+	//极光天气每次战斗结束都有概率无视生死状态而回血。
+	//注意，如果死亡，会在kill判定里处理回血，否则在这个函数最后处理
+	function attack_finish(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		if(17 == $weather){
+			weather_aurora_check($pa, $pd, $active);
+		}
+		$chprocess($pa, $pd, $active);
+		weather_aurora_revive_process($pa, $pd);
+	}
+	
+	function kill(&$pa, &$pd)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		$chprocess($pa,$pd);
+		
+		eval(import_module('sys','logger'));
+		weather_aurora_revive_process($pa, $pd);
+	}
+	
+	function player_kill_enemy(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		$chprocess($pa,$pd,$active);
+		
+		eval(import_module('sys','logger'));
+
+		if (!empty($pd['aurora_revive_flag']))
+		{
+			addnews ( $now, 'aurora_revival', $pd['name'] );
+			if ($active)
+			{
+				$log.='但是，空气中弥漫着的<span class="clan">奥罗拉</span><span class="lime">让敌人重新站了起来！</span><br>';
+				$log .= '并且，敌人的生命回复了<span class="clan">'.$pd['aurora_revive_flag'].'</span>点！<br>';
+				$pd['battlelog'].='<span class="lime">但是，空气中弥漫着的奥罗拉让你重新站了起来！</span>';
+			}
+			else
+			{
+				$log.='但是，空气中弥漫着的<span class="clan">奥罗拉</span><span class="lime">让你重新站了起来！</span><br>';
+				$log .= '并且，你的生命回复了<span class="clan">'.$pd['aurora_revive_flag'].'</span>点！<br>';
+				$pd['battlelog'].='<span class="lime">但是，空气中弥漫着的奥罗拉让敌人重新站了起来！</span>';
+			}
+			unset($pd['aurora_revive_flag']);
+		}
+	}
+	
+	function weather_aurora_check(&$pa,&$pd,$active){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','logger'));
+		if(17 != $weather) return;
+		foreach(array('pa','pd') as $pn){
+			if(!${$pn}['type']) $aurora_rate = 10;//玩家回血概率10%，NPC回血概率1%
+			else $aurora_rate = 1;
+			if(rand(0,99) < $aurora_rate){
+				${$pn}['aurora_revive'] = rand(1,9);
+			}
+		}
+	}
+	
+	function weather_aurora_revive_process(&$pa,&$pd){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','logger'));
+		if(17 != $weather) return;
+		foreach(array('pa','pd') as $pn){
+			if(!empty(${$pn}['aurora_revive'])){
+				if(${$pn}['hp'] < 0) ${$pn}['hp'] = 0;
+				$o_pl_hp = ${$pn}['hp'];
+				$aurora_revive = ${$pn}['aurora_revive'];
+				if($aurora_revive > ${$pn}['mhp'] - ${$pn}['hp']) $aurora_revive = ${$pn}['mhp'] - ${$pn}['hp'];
+				${$pn}['hp'] += $aurora_revive;
+				if(!$o_pl_hp) {
+					${$pn}['state'] = 0;
+					$deathnum--;
+					if (!${$pn}['type']) $alivenum++;
+					save_gameinfo();
+				}
+				if(${$pn}['name'] == $sdata['name']) $logname = '你';
+				else $logname = ${$pn}['name'];
+
+				//复活时在player_kill_enemy()里记录$log
+				if($aurora_revive) {
+					if($o_pl_hp) $log .= "空气中弥漫着的<span class='clan'>奥罗拉</span>让{$logname}的生命回复了<span class='clan'>$aurora_revive</span>点！<br>";
+					${$pn}['aurora_revive_flag'] = ${$pn}['aurora_revive'];
+				}
+				unset(${$pn}['aurora_revive']);
+			}
+		}
 	}
 }
 

@@ -24,12 +24,17 @@
 		</tr>
 		<tr>
 			<td>{$lang['areaesc']}</td>
-			<td><input type="text" name="areaesc" value="{$areaesc}" size="30"></td>
+			<td><input type="radio" name="areaesc" value="1" <!--{if $areaesc}-->checked="true"<!--{/if}-->>$lang['on']&nbsp;&nbsp;&nbsp;<input type="radio" name="areaesc" value="0" <!--{if !$areaesc}-->checked="true"<!--{/if}-->>$lang['off']</td>
 			<td>{$lang['areaesc_comment']}</td>
 		</tr>
 		<tr>
+			<td>{$lang['hack_obbs']}</td>
+			<td><input type="text" name="hack_obbs" value="{$hack_obbs}" size="30"></td>
+			<td>{$lang['hack_obbs_comment']}</td>
+		</tr>
+		<tr>
 			<td>{$lang['antiAFKertime']}</td>
-			<td><input type="text" name="antiAFKertime" value="{$antiAFKertime}" size="30"></td>
+			<td><input type="text" name="antiAFKertime" value="{$antiAFKertime_normal}" size="30"></td>
 			<td>{$lang['antiAFKertime_comment']}</td>
 		</tr>
 		<tr>
@@ -41,6 +46,21 @@
 			<td>{$lang['coldtimeon']}</td>
 			<td><input type="radio" name="coldtimeon" value="1" <!--{if $coldtimeon}-->checked="true"<!--{/if}-->>$lang['on']&nbsp;&nbsp;&nbsp;<input type="radio" name="coldtimeon" value="0" <!--{if !$coldtimeon}-->checked="true"<!--{/if}-->>$lang['off']</td>
 			<td>{$lang['coldtimeon_comment']}</td>
+		</tr>
+		<tr>
+			<td>{$lang['movecoldtime']}</td>
+			<td><input type="text" name="movecoldtime" value="{$movecoldtime}" size="30"></td>
+			<td>{$lang['movecoldtime_comment']}</td>
+		</tr>
+		<tr>
+			<td>{$lang['searchcoldtime']}</td>
+			<td><input type="text" name="searchcoldtime" value="{$searchcoldtime}" size="30"></td>
+			<td>{$lang['searchcoldtime_comment']}</td>
+		</tr>
+		<tr>
+			<td>{$lang['itemusecoldtime']}</td>
+			<td><input type="text" name="itemusecoldtime" value="{$itemusecoldtime}" size="30"></td>
+			<td>{$lang['itemusecoldtime_comment']}</td>
 		</tr>
 		<tr>
 			<td>{$lang['showcoldtimer']}</td>
@@ -73,14 +93,14 @@
 			<td>{$lang['hplimit_comment']}</td>
 		</tr>
 		<tr>
-			<td>{$lang['sleep_time']}</td>
-			<td><input type="text" name="sleep_time" value="{$sleep_time}" size="30"></td>
-			<td>{$lang['sleep_time_comment']}</td>
+			<td>{$lang['rest_sleep_time']}</td>
+			<td><input type="text" name="rest_sleep_time" value="{$rest_sleep_time}" size="30"></td>
+			<td>{$lang['rest_sleep_time_comment']}</td>
 		</tr>
 		<tr>
-			<td>{$lang['heal_time']}</td>
-			<td><input type="text" name="heal_time" value="{$heal_time}" size="30"></td>
-			<td>{$lang['heal_time_comment']}</td>
+			<td>{$lang['rest_heal_time']}</td>
+			<td><input type="text" name="rest_heal_time" value="{$rest_heal_time}" size="30"></td>
+			<td>{$lang['rest_heal_time_comment']}</td>
 		</tr>
 		<tr>
 			<td>{$lang['teamlimit']}</td>

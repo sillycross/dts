@@ -46,8 +46,8 @@ namespace ex_hp_def
 				if ($dice<$proc_rate)
 				{
 					if ($active)
-						$log .= "在{$pd['name']}的装备的作用下，攻击伤害被限制了！<br>";
-					else  $log .= "在你的装备的作用下，攻击伤害被限制了！<br>";
+						$log .= "在{$pd['name']}的装备的作用下，攻击伤害被限制到了<span class=\"yellow\">$dmg_dice</span>点！<br>";
+					else  $log .= "在你的装备的作用下，攻击伤害被限制到了<span class=\"yellow\">$dmg_dice</span>点！<br>";
 					$pa['dmg_dealt'] = $dmg_dice;
 				}
 				else
@@ -59,6 +59,13 @@ namespace ex_hp_def
 			}
 		}
 	}
+	
+	function apply_total_damage_change(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($pa, $pd, $active);
+		check_dmg_def_attr($pa, $pd, $active);
+	}
 				
 	function player_damaged_enemy(&$pa, &$pd, $active)
 	{
@@ -66,7 +73,8 @@ namespace ex_hp_def
 		
 		eval(import_module('logger'));
 		//判定伤害制御
-		check_dmg_def_attr($pa, $pd, $active);
+		//改到apply_total_damage_change()内进行判定
+		//check_dmg_def_attr($pa, $pd, $active);
 		
 		$chprocess($pa, $pd, $active);
 		

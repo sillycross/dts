@@ -23,12 +23,16 @@ namespace item_uc
 			if($ck == 'a'){
 				$flag=false;
 				$log .= "服用了<span class=\"red\">$itm</span>。<br>";
-				for ($i=0; $i<strlen($inf); $i++)
+				$inf0 = $inf;
+				for ($i=0; $i<strlen($inf0); $i++)
 				{
-					$log .= "{$infname[$inf[$i]]}状态解除了。<br>";
-					$flag=true;
+					if(strpos($inf_place,$inf0[$i])===false){//肢体受伤不会被异常药剂治愈
+						$log .= "{$infname[$inf0[$i]]}状态解除了。<br>";
+						$inf = str_replace($inf0[$i],'',$inf);
+						$flag=true;
+					}
 				}
-				$inf = '';
+				//$inf = '';
 				if(!$flag){
 					$log .= '但是什么也没发生。<br>';
 				}

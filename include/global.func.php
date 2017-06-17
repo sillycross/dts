@@ -4,16 +4,11 @@ if(!defined('IN_GAME')) {
 	exit('Access Denied');
 }
 
-require GAME_ROOT.'./include/roommng.config.php';
+require GAME_ROOT.'./include/roommng/roommng.config.php';
 
 //----------------------------------------
 //              底层机制函数
 //----------------------------------------
-
-function mgzdecode($data)
-{
-	return gzinflate(substr($data,10,-8));
-}
     
 function gameerrorhandler($code, $msg, $file, $line){
 	global $errorinfo;
@@ -26,6 +21,10 @@ function gameerrorhandler($code, $msg, $file, $line){
 	elseif($code == 1024){$emessage = '<b>User Notice</b> ';}
 	else{$emessage = '<b style="color:#f00>Fatal error</b> ';}
 	$emessage .= "($code): $msg in $file on line $line";
+//	if ($code == 2){
+//		$d = debug_backtrace();
+//		$emessage .= serialize($d);
+//	} 
 	if ($code == 1024 && $file=='/srv/http/dts-test/command.php' && function_exists('__SOCKET_WARNLOG__')) 
 		__SOCKER__WARNLOG__($emessage);
 	if(isset($GLOBALS['error'])){
@@ -45,7 +44,7 @@ function gexit($message = '',$file = '', $line = 0) {
 			$gamedata['url'] = 'error.php';
 			$gamedata['errormsg'] = $message;
 			ob_clean();
-			echo base64_encode(gzencode(compatible_json_encode($gamedata)));
+			echo gencode($gamedata);
 		}
 		else
 		{
@@ -60,7 +59,7 @@ function gexit($message = '',$file = '', $line = 0) {
 			$gamedata['url'] = 'error.php';
 			$gamedata['errormsg'] = $message;
 			ob_clean();
-			echo base64_encode(gzencode(compatible_json_encode($gamedata)));
+			echo gencode($gamedata);
 			exit();
 		}
 		else
@@ -187,7 +186,7 @@ function clearcookies() {
 }
 
 function config($file = '', $cfg = 1) {
-	$cfgfile = file_exists(GAME_ROOT."./gamedata/cache/{$file}_{$cfg}.php") ? GAME_ROOT."./gamedata/cache/{$file}_{$cfg}.php" : GAME_ROOT."./gamedata/cache/{$file}_1.php";
+	$cfgfile = file_exists(GAME_ROOT."./gamedata/config/{$file}_{$cfg}.php") ? GAME_ROOT."./gamedata/config/{$file}_{$cfg}.php" : GAME_ROOT."./gamedata/config/{$file}_1.php";
 	return $cfgfile;
 }
 
@@ -214,7 +213,7 @@ function readover($filename,$method="rb"){
 		}
 		//$filedata.=fread($handle,filesize($filename));
 		fclose($handle);
-	} else {exit ('Read file error.');}
+	} else {exit ('An error occurred when reading file '.$filename.'.');}
 	return $filedata;
 }
 
@@ -228,7 +227,7 @@ function writeover($filename,$data,$method="rb+",$iflock=1,$check=1,$chmod=1){
 			fwrite($handle,$data);
 			if($method=="rb+") ftruncate($handle,strlen($data));
 			fclose($handle); 
-		} else {exit ('Write file error.');}
+		} else {exit ('An error occurred when writing file '.$filename.'.');}
 	} else {
 		fwrite($handle,$data);
 		if($method=="rb+") ftruncate($handle,strlen($data));
@@ -252,6 +251,7 @@ function openfile($filename){
 function clear_dir($dirName, $keep_root = 0)	//递归清空目录
 {
 	if ($dirName[strlen($dirName)-1]=='/') $dirName=substr($dirName,0,-1);
+	if(!file_exists($dirName) || !is_dir($dirName)) return;
 	if ($handle=opendir($dirName)) 
 	{
 		while (($item=readdir($handle))!==false) 
@@ -290,6 +290,7 @@ function mymkdir($pa)
 
 function create_dir($pa)	//建立目录（自动创建不存在的父文件夹），别用父目录符号“../”
 {
+	strpos($pa,'..')!==false && debug_print_backtrace() && exit('Forbidden');
 	while (1)
 	{
 		if ($pa[strlen($pa)-1]=='/') $pa=substr($pa,0,-1);
@@ -339,37 +340,58 @@ function copy_dir($source, $destination)		//递归复制目录
 	}
 }
 
-function compatible_json_encode(&$data)
-{	
-	//提供了json_encode的php版本直接使用自带的，否则使用JSON.php
-	if (!function_exists('json_encode'))
-	{
-		require_once GAME_ROOT.'./include/JSON.php';
-		$json = new Services_JSON();
-		$jdata = $json->encode($data);
-	}
-	else  $jdata = json_encode($data);
-	return $jdata;	
+//以post形式向网页发出信息
+function send_post($url, $post_data=array(), $timeout=5) {
+ 
+  $qrydata = http_build_query($post_data);
+  $options = array(
+    'http' => array(
+      'method' => 'POST',
+      'header' => 'Content-type:application/x-www-form-urlencoded',
+      'content' => $qrydata,
+      'timeout' => $timeout
+    )
+  );
+  $context = stream_context_create($options);
+  $result = file_get_contents($url, false, $context);
+ 
+  return $result;
 }
+
+//----------------------------------------
+//              调试函数
+//----------------------------------------
 
 function getmicrotime(){
 	list($usec, $sec) = explode(" ",microtime());
 	return ((float)$usec + (float)$sec);
 }
 
-function putmicrotime($t_s,$t_e,$file,$info)
+function putmicrotime($t_s, $t_e, $file, $info)
 {
 	$mtime = ($t_e - $t_s)*1000;
-	writeover( $file.'.txt',"$info ；执行时间：$mtime 毫秒 \n",'ab');
+	writeover( $file.'.txt',"$info ；执行时间：$mtime 毫秒 \r\n",'ab');
+}
+
+function startmicrotime(){
+	global $startmicrotime;
+	$startmicrotime = getmicrotime();
+}
+
+function logmicrotime($info){
+	global $startmicrotime;
+	$nowmicrotime = getmicrotime();
+	putmicrotime($startmicrotime, $nowmicrotime, 'microtimelog', $info);
+	$startmicrotime = $nowmicrotime;
 }
 
 function get_script_runtime($pagestartime)
 {
-	$pageendtime = microtime();
-	$p_starttime = explode(" ",$pagestartime);
-	$p_endtime = explode(" ",$pageendtime);
-	$p_totaltime = $p_endtime[0]-$p_starttime[0]+$p_endtime[1]-$p_starttime[1];
-	$timecost = sprintf("%.2f",$p_totaltime); 
+	$pageendtime = microtime(true);
+	//$p_starttime = explode(" ",$pagestartime);
+	//$p_endtime = explode(" ",$pageendtime);
+	//$p_totaltime = $p_endtime[0]-$p_starttime[0]+$p_endtime[1]-$p_starttime[1];
+	$timecost = sprintf("%.2f",$pageendtime - $pagestartime); 
 	return $timecost;
 }
 
@@ -384,13 +406,71 @@ function check_alnumudline($key)
 	return true;
 }
 
+//----------------------------------------
+//              变量处理
+//----------------------------------------
+
 function swap(&$a, &$b)
 {
 	$c=$a; $a=$b; $b=$c;
+	//PHP7了，可以用太空船运算符了
 }
 
-//把一个非负整数用64进制编码/解码
+//----------------------------------------
+//              数学运算
+//----------------------------------------
 
+function full_combination($a, $min) {
+	$r = array();
+	$n = count($a);
+	if($n >= $min){
+		for($i=$min;$i<=$n;$i++){
+			$r = array_merge($r, combination($a, $i));
+		}
+	}
+	return $r;
+} 
+
+function combination($a, $m) {  
+  $r = array();  
+  $n = count($a);  
+  if ($m <= 0 || $m > $n) {  
+    return $r;  
+  }
+  for ($i=0; $i<$n; $i++) {  
+    $t = array($a[$i]);  
+    if ($m == 1) {  
+      $r[] = $t;  
+    } else {  
+      $b = array_slice($a, $i+1);  
+      $c = combination($b, $m-1);  
+      foreach ($c as $v) {  
+        $r[] = array_merge($t, $v);  
+      }  
+    }  
+  }  
+  return $r;  
+} 
+
+//----------------------------------------
+//              数组运算
+//----------------------------------------
+
+function array_clone($a){//数组浅拷贝，该死的传引用
+	$r = array();
+	if(is_array($a)){
+		foreach($a as $key => $val){
+			$r[$key] = $val;
+		}
+	}
+	return $r;
+}
+
+//----------------------------------------
+//              字符串处理
+//----------------------------------------
+
+//把一个非负整数用64进制编码/解码
 function base64_char_decode($c)
 {
 	if ('a'<=$c && $c<='z') return ord($c)-ord('a');
@@ -435,6 +515,121 @@ function base64_decode_number($val)
 	return $ret;
 }
 
+function mgzdecode($data)
+{
+	return gzinflate(substr($data,10,-8));
+}
+
+//数组压缩转化为纯字母数字
+function gencode($para){
+	return base64_encode(gzencode(json_encode($para)));
+}
+
+//gencode函数的逆运算
+function gdecode($para, $assoc = false){
+	$assoc = $assoc ? true : false;
+	if (!$para) return array();
+	else return json_decode(mgzdecode(base64_decode($para)),$assoc);
+}
+
+//字符串中段省略，取头部+尾部1字符
+function middle_abbr($str,$len1,$len2=1,$elli='...') {
+	$str = (string)$str;
+	$len1 = (int)$len1; $len2 = (int)$len2;
+	return mb_substr($str,0,$len1).$elli.mb_substr($str,-$len2,$len2);
+}
+
+//mb_strlen()兼容替代函数，直接照抄的网络
+if ( !function_exists('mb_strlen') ) {
+	function mb_strlen ($text, $encode='UTF-8') {
+		if ($encode=='UTF-8') {
+			return preg_match_all('%(?:
+			[\x09\x0A\x0D\x20-\x7E]           # ASCII
+			| [\xC2-\xDF][\x80-\xBF]            # non-overlong 2-byte
+			|  \xE0[\xA0-\xBF][\x80-\xBF]       # excluding overlongs
+			| [\xE1-\xEC\xEE\xEF][\x80-\xBF]{2} # straight 3-byte
+			|  \xED[\x80-\x9F][\x80-\xBF]       # excluding surrogates
+			|  \xF0[\x90-\xBF][\x80-\xBF]{2}    # planes 1-3
+			| [\xF1-\xF3][\x80-\xBF]{3}         # planes 4-15
+			|  \xF4[\x80-\x8F][\x80-\xBF]{2}    # plane 16
+			)%xs',$text,$out);
+		}else{
+			return strlen($text);
+		}
+	}
+}
+
+//mb_substr()兼容替代函数，直接照抄的网络
+if (!function_exists('mb_substr')) {
+	function mb_substr($str, $start, $len = '', $encoding='UTF-8'){
+		$limit = strlen($str);
+
+		for ($s = 0; $start > 0;--$start) {// found the real start
+			if ($s >= $limit)
+			break;
+
+			if ($str[$s] <= "\x7F")
+			++$s;
+			else {
+				++$s; // skip length
+
+				while ($str[$s] >= "\x80" && $str[$s] <= "\xBF")
+				++$s;
+			}
+		}
+
+		if ($len == '')
+		return substr($str, $s);
+		else
+		for ($e = $s; $len > 0; --$len) {//found the real end
+			if ($e >= $limit)
+			break;
+
+			if ($str[$e] <= "\x7F")
+			++$e;
+			else {
+				++$e;//skip length
+
+				while ($str[$e] >= "\x80" && $str[$e] <= "\xBF" && $e < $limit)
+				++$e;
+			}
+		}
+
+		return substr($str, $s, $e - $s);
+	}
+}
+
+//----------------------------------------
+//              重要游戏功能
+//----------------------------------------
+
+function init_dbstuff(){
+	include GAME_ROOT.'./include/modules/core/sys/config/server.config.php';
+	$default_database = PHP_VERSION >= 7.0 ? 'mysqli' : 'mysql';
+	$db_class_file = GAME_ROOT.'./include/db/db_'.$database.'.class.php';
+	$db_default_class_file = GAME_ROOT.'./include/db/db_'.$default_database.'.class.php';
+	if(file_exists($db_class_file)) include_once $db_class_file;
+	elseif(file_exists($db_default_class_file)) include_once $db_default_class_file;
+	else die('Cannot find db_class file!');
+	$db = new dbstuff;
+	$db->connect($dbhost, $dbuser, $dbpw, $dbname, $pconnect);
+	return $db;
+}
+
+function check_authority()
+{
+	include GAME_ROOT.'./include/modules/core/sys/config/server.config.php';
+	$_COOKIE=gstrfilter($_COOKIE);
+	$cuser=$_COOKIE[$gtablepre.'user'];
+	$cpass=$_COOKIE[$gtablepre.'pass'];
+	$db = init_dbstuff();
+	$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$cuser'");
+	if(!$db->num_rows($result)) { echo "<span><font color=\"red\">Cookie无效，请登录。</font></span><br>"; die(); }
+	$udata = $db->fetch_array($result);
+	if($udata['password'] != $cpass) { echo "<span><font color=\"red\">Cookie无效，请登录。</font></span><br>"; die(); }
+	elseif(($udata['groupid'] < 9)&&($cuser!==$gamefounder)) { echo "<span><font color=\"red\">要求至少9权限。</font></span><br>"; die(); }
+}
+
 //因为调用次数太多，懒得一个一个改了
 function save_gameinfo() {	
 	\sys\save_gameinfo();
@@ -444,8 +639,8 @@ function addnews($t = 0, $n = '',$a='',$b='',$c = '', $d = '', $e = '') {
 	\sys\addnews($t, $n,$a,$b,$c, $d, $e);
 }
 
-function getchat($last,$team='',$limit=0) {
-	return \sys\getchat($last,$team,$limit);
+function getchat($last,$team='',$chatpid=0,$limit=0) {
+	return \sys\getchat($last,$team,$chatpid,$limit);
 }
 
 function systemputchat($time,$type,$msg = ''){
@@ -471,13 +666,17 @@ function set_credits(){
 		if(isset($val['players']) && isset($val['users'])){
 			$credits = get_credit_up($val['players'],$winner,$winmode) + $val['users']['credits'];
 			$gold = get_gold_up($val['players'],$winner,$winmode) + $val['users']['gold'];
-			$validgames = $val['users']['validgames'] + 1;
-			$wingames = $key == $winner ? $val['users']['wingames'] + 1 : $val['users']['wingames'];
+			//伐木不算参与次数
+			$validgames = $gametype != 15 ? $val['users']['validgames'] + 1 : $val['users']['validgames'];
+			//非伐木房的幸存、解禁、解离、核爆才算获胜次数
+			$wingames = ($gametype != 15 && in_array($winmode, array(2, 3, 5, 7)) && $key == $winner) ? $val['users']['wingames'] + 1 : $val['users']['wingames'];
+			$lastwin = ($gametype != 15 && in_array($winmode, array(2, 3, 5, 7)) && $key == $winner) ? $now : $val['users']['lastwin'];
 			//$obtain = get_honour_obtain($val['players'],$val['users']);
 			//$honour = $val['users']['honour'] . $obtain;
-			$lastwin=$val['users']['lastwin'];
+			
 			//首胜已放入每日任务
-			/*if (($winner==$val['players']['name'])&&(($now-$lastwin)>72000)&&(!in_array($gametype,$qiegao_ignore_mode))){
+			/*
+			if (($winner==$val['players']['name'])&&(($now-$lastwin)>72000)&&(!in_array($gametype,$qiegao_ignore_mode))){
 				if ($lastwin==0) $gold+=800;//帐号首次获胜
 				$lastwin=$now;
 				$gold+=200;
@@ -545,5 +744,7 @@ function get_gold_up($data,$winner = '',$winmode = 0){
 	}else{$up = 10;}
 	return $up;
 }
+
+
 
 ?>

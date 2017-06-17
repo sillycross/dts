@@ -89,12 +89,13 @@ namespace skill56
 		eval(import_module('skill56','map','sys','player','logger','input'));
 		$log.='你召唤出了佣兵<span class="yellow">'.$skill56_npc['sub'][$nkind]['name'].'</span>来保护你！<br>';
 		$x=(int)\skillbase\skill_getvalue(56,'t');
-		$spid = \addnpc\addnpc(25,$nkind,1);
-		if ($spid==-1)
+		$spids = \addnpc\addnpc(25,$nkind,1);
+		if ($spids==-1)
 		{
 			$log.='出现了一个BUG，请联系管理员。抱歉。<br>';
 			return;
 		}
+		$spid = $spids[0];
 		//设置位置
 		$db->query("UPDATE {$tablepre}players SET pls='$pls' WHERE pid='$spid'");
 		\skillbase\skill_setvalue(56,'p'.$x,$spid);
@@ -356,16 +357,16 @@ namespace skill56
 		return $chprocess($edata);
 	}
 	
-	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)
+	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill56') 
-			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}发动了技能<span class=\"yellow\">「招募佣兵」</span></span><br>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}发动了技能<span class=\"yellow\">「招募佣兵」</span></span></li>";
 		
-		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 }
 

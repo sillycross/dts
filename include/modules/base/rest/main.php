@@ -70,7 +70,7 @@ namespace rest
 					\wound\heal_inf($inf[0]);
 				}
 			}
-			else  if ($inf)
+			elseif ($inf)
 			{
 				$log .= "也许是时间不够吧……你没有治好任何异常状态。<br>";
 			}

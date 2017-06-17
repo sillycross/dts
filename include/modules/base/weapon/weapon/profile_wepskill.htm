@@ -2,15 +2,14 @@
 <!--{loop $skilltypeinfo $key $value}-->
 <!--{if (in_array($key,$skillinfo))}-->
 <tr>
-	<td class="b2" height="20"><span>
+	<td class="b2" height="20">
 	<!--{if ($$key >= 100)}-->
-	{$value}{lang skill}
+	<span id="$key">{$value}{lang skill}</span>
 	<!--{else}-->
-	<span class="grey">
-	{$value}{lang skill}</span>
+	<span id="$key" class="grey">{$value}{lang skill}</span>
 	<!--{/if}-->
-	</span></td>
-	<td class="b3" height="20"><span><!--{eval eval('echo $'.$key.';');}--></span></td>
+	</td>
+	<td class="b3" height="20"><span id="{$key}v"><!--{eval eval('echo $'.$key.';');}--></span></td>
 </tr>
 <!--{/if}-->
 <!--{/loop}-->

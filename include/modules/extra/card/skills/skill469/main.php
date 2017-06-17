@@ -4,7 +4,7 @@ namespace skill469
 {
 	function init() 
 	{
-		define('MOD_SKILL469_INFO','club;unique;');
+		define('MOD_SKILL469_INFO','card;unique;');
 		eval(import_module('clubbase'));
 		$clubskillname[469] = '自爆';
 	}
@@ -57,7 +57,7 @@ namespace skill469
 		return $chprocess($pa,$pd,$active);
 	}
 	
-	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)
+	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -68,16 +68,16 @@ namespace skill469
 			if(!$e)
 				$e0="<span class=\"yellow\">【{$dname} 什么都没说就死去了】</span><br>\n";
 			else  $e0="<span class=\"yellow\">【{$dname}：“{$e}”】</span><br>\n";
-			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>受到<span class=\"yellow\">$c</span>的袭击，自爆身亡了！{$e0}";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>受到<span class=\"yellow\">$c</span>的袭击，自爆身亡了！{$e0}</li>";
 		}
 		if($news == 'death41') {
 			$dname = $typeinfo[$b].' '.$a;
 			if(!$e)
 				$e0="<span class=\"yellow\">【{$dname} 什么都没说就死去了】</span><br>\n";
 			else  $e0="<span class=\"yellow\">【{$dname}：“{$e}”】</span><br>\n";
-			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>被<span class=\"yellow\">$c</span>的自爆炸死了！{$e0}";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>被<span class=\"yellow\">$c</span>的自爆炸死了！{$e0}</li>";
 		}
-		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 }
 

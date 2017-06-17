@@ -11,23 +11,12 @@ namespace skill325
 	function acquire325(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		\skillbase\skill_setvalue(325,'cnt','0',$pa);
 	}
 	
 	function lost325(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-	}
-	
-	function skill_onload_event(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys'));
-		if ((!in_array($gametype,$ach_ignore_mode))&&(!\skillbase\skill_query(325,$pa)))
-		{
-			\skillbase\skill_acquire(325,$pa);
-			\skillbase\skill_setvalue(325,'cnt','0',$pa);
-		}
-		$chprocess($pa);
 	}
 	
 	function finalize325(&$pa, $data)

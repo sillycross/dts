@@ -13,7 +13,7 @@
 <!--{eval $sk202d=$exthit2[$clv]+1;}-->
 持射系武器时，你的攻击致伤率<span class="yellow">+$infrgain[$clv]%</span>，造成的防具损坏效果<span class="yellow">×$sk202d</span><br>战斗中每造成敌人一处受伤，最终伤害增加<span class="yellow">$extrdmg[$clv]%</span><br>
 </span></td>
-<td class=b3 width=46>
+<td class=b3 width=96>
 <!--{if $upgradecost[$clv] !== -1}-->
 <!--{if $skillpoint>=$upgradecost[$clv]}-->
 <input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill202_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="升级">
@@ -23,7 +23,7 @@
 <!--{/if}-->
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
 <span class="yellow">
 </span>
 <!--{/if}-->

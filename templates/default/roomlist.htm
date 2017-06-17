@@ -1,8 +1,12 @@
 <span class="evergreen">房间列表：</span><br>
 <div style="height:5px;">&nbsp;</div>
-<div class="scroll-pane-roomlist" style="width:425px;height:250px;max-height:300px;"> 
-<!--{if count($roomlist)==0}-->
-当前没有任何房间。<input type="button" onClick="bubblebox_show('persistent-newroombox');" value="新建一个房间"><br>
+<div class="scroll-pane-roomlist" style="width:520px;max-height:300px;"> 
+<!--{if count($shroomlist)==0}-->
+	当前没有任何房间。
+	<!--{if $cuser && $cpass}-->
+		<input type="button" onClick="bubblebox_show('persistent-newroombox');" value="新建一个房间">
+	<!--{/if}-->
+	<br>
 <!--{else}-->
 <table CellSpacing=0 CellPadding=0>
 <tr>
@@ -10,29 +14,33 @@
 <td class="b1" width="80px">游戏模式</td>
 <td class="b1" width="60px">状态</td>
 <td class="b1" width="50px">人数</td>
-<td class="b1" width="130px">房主</td>
+<td class="b1" width="120px">创建者</td>
+<td class="b1" width="120px">房主</td>
 <td class="b1" width="50px">操作</td>
 </tr>
-<!--{loop $roomlist $value}-->
+<!--{loop $shroomlist $value}-->
 <tr>
 <td class="b3" height="30px" width="30px">$value['id']</td>
 <td class="b3" width="80px">$roomtypelist[$value['roomtype']]['name']</td>
 <td class="b3" width="60px"><!--{if $value['status']==1}--><!--{if $value['nowplayer']==$value['maxplayer']}--><span class="white">等待中</span><!--{else}--><span class="lime">等待中</span><!--{/if}--><!--{else}--><span class="grey">游戏中</span><!--{/if}--></td>
-<td class="b3" width="50px"><!--{if $value['status']==1}--><!--{if $value['nowplayer']==$value['maxplayer']}--><span class="grey"><!--{else}--><!--{if $value['nowplayer']+1==$value['maxplayer']}--><span class="red" style="color:#ff0022;"><!--{else}--><!--{if $value['nowplayer']+2==$value['maxplayer']}--><span class="yellow"><!--{else}--><span class="white"><!--{/if}--><!--{/if}--><!--{/if}-->$value['nowplayer']/$value['maxplayer']</span><!--{else}--><span class="grey">-</span><!--{/if}--></td>
-<td class="b3" width="130px"><!--{if $value['roomdata']['player'][0]['name']==''}-->-<!--{else}-->$value['roomdata']['player'][0]['name']<!--{/if}--></td>
+<td class="b3" width="50px"><!--{if $value['status']==1 || $roomtypelist[$value['roomtype']]['soleroom']}--><!--{if $value['nowplayer']==$value['maxplayer']}--><span class="grey"><!--{else}--><!--{if $value['nowplayer']+1==$value['maxplayer']}--><span class="red" style="color:#ff0022;"><!--{else}--><!--{if $value['nowplayer']+2==$value['maxplayer']}--><span class="yellow"><!--{else}--><span class="white"><!--{/if}--><!--{/if}--><!--{/if}-->$value['nowplayer']/$value['maxplayer']</span><!--{else}--><span class="grey">-</span><!--{/if}--></td>
+<td class="b3" width="120px"><!--{if !$value['roomdata']['roomfounder'] || $roomtypelist[$value['roomtype']]['soleroom']}-->-<!--{else}-->$value['roomdata']['roomfounder']<!--{/if}--></td>
+<td class="b3" width="120px"><!--{if $value['roomdata']['player'][0]['name']=='' || $roomtypelist[$value['roomtype']]['soleroom']}-->-<!--{else}-->$value['roomdata']['player'][0]['name']<!--{/if}--></td>
 <td class="b3" width="50px">
-<!--{if $room_prefix!='' && $room_prefix[0]=='s'}-->
-<span class="grey">-</span>
+<!--{if !$cuser || !$cpass}-->
+	<span class="grey">-</span>
+<!--{elseif room_check_subroom($room_prefix)}-->
+	<span class="grey">-</span>
 <!--{else}-->
-<!--{if $value['status']==1}-->
-<!--{if $value['nowplayer']<$value['maxplayer']}-->
-<input type="button" style="width:46px" onclick="room_enter($value['id']);" value="进入">
-<!--{else}-->
-<input type="button" style="width:46px" onclick="room_enter($value['id']);" value="旁观">
-<!--{/if}-->
-<!--{else}-->
-<input type="button" style="width:46px" onclick="room_enter($value['id']);" value="旁观">
-<!--{/if}-->
+	<!--{if $value['status']==1 || $roomtypelist[$value['roomtype']]['soleroom']}-->
+		<!--{if $value['nowplayer']<$value['maxplayer'] || $roomtypelist[$value['roomtype']]['soleroom']}-->
+			<input type="button" style="width:46px" onclick="room_enter($value['id']);" value="进入">
+		<!--{else}-->
+			<input type="button" style="width:46px" onclick="room_enter($value['id']);" value="旁观">
+		<!--{/if}-->
+	<!--{else}-->
+		<input type="button" style="width:46px" onclick="room_enter($value['id']);" value="旁观">
+	<!--{/if}-->
 <!--{/if}-->
 </td>
 <!--{/loop}-->
@@ -41,18 +49,20 @@
 </div>
 <div style="height:5px;">&nbsp;</div>
 <img style="display:none;" type="hidden" src="img/blank.png" onload="jQuery(function() { jQuery('.scroll-pane-roomlist').jScrollPane(); });">
-<!--{if $room_prefix!='' && $room_prefix[0]=='s'}-->
-你现在在房间<!--{eval echo substr($room_prefix,1);}--> 中。
-<!--{if isset($troomlist[substr($room_prefix,1)]) && $troomlist[substr($room_prefix,1)]['status']==2}-->
-这个房间正在游戏中，请进入游戏。<br>
-如果你在游戏中已阵亡，你也可以<input type="button" style="width:80px" onclick="room_quit();" value="退出房间">然后加入其他房间。<br>
+<!--{if !$cuser || !$cpass}-->
+	你尚未登陆，请先登陆。
+<!--{elseif room_check_subroom($room_prefix)}-->
+	你现在在房间<!--{eval echo room_prefix2id($room_prefix);}--> 中。
+	<!--{if isset($roomlist[substr($room_prefix,1)]) && $roomlist[substr($room_prefix,1)]['status']==2}-->
+		这个房间正在游戏中，请进入游戏。<br>
+		如果你在游戏中已阵亡，你也可以<input type="button" style="width:80px" onclick="room_quit();" value="退出房间">然后加入其他房间。<br>
+	<!--{else}-->
+		<br><br>
+		{template room}
+	<!--{/if}-->
 <!--{else}-->
-<br><br>
-{template room}
-<!--{/if}-->
-<!--{else}-->
-你不在任何一个房间中。<br>
-请选择一个房间进入，或<input type="button" onClick="bubblebox_show('persistent-newroombox');" value="新建一个房间">
+	你不在任何一个房间中。<br>
+	请选择一个房间进入，或<input type="button" onClick="bubblebox_show('persistent-newroombox');" value="新建一个房间">
 <!--{/if}-->
 {template room_newroom}
 <div style="height:5px;">&nbsp;</div>

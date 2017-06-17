@@ -9,7 +9,24 @@ namespace itemmain
 		$equip_list=array_merge($equip_list,$item_equip_list);
 	}
 	
-	function parse_itmk_words($k_value, $simple = 0)
+	function parse_itmname_words($name_value, $elli = 0){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!$elli) return $name_value;
+		
+		$width=20; //显示宽度20英文字符，假设汉字的显示宽度大约是英文字母的1.8倍
+		$ilen=mb_strlen($name_value);
+		$slen=0;
+		for($i=0;$i<$ilen;$i++){
+			$c=mb_substr($name_value,$i,1);
+			if(strlen($c) > mb_strlen($c)) $slen+=1.8;//是汉字或别的UTF-8字符，显示宽度+1.8
+			else $slen+=1;//是英文字母或其他ascii字符，显示宽度+1
+			if($slen >= $width) break;
+		}
+		if($i==$ilen) return $name_value;
+		else return middle_abbr($name_value,$i-1);
+	}
+	
+	function parse_itmk_words($k_value)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -118,32 +135,32 @@ namespace itemmain
 		}
 		return $ret;
 	}
-		
-	function parse_item_words($edata, $simple = 0)	//$simple=1时没有有属性间加号，无属性直接返回空
+	
+	//把身上装备道具的显示信息全部处理一遍
+	//$elli=1时自动省略超过10个字的道具名的中间部分
+	//$simple=1时没有有属性间加号，无属性直接返回空
+	function parse_item_words($edata, $simple = 0, $elli = 1)	
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('player','itemmain'));
 		$r=Array();
-		foreach ($equip_list as $k_value) {
-			$z=strlen($k_value)-1;
-			while ('0'<=$k_value[$z] && $k_value[$z]<='9') $z--;
-			$k_value=substr($k_value,0,$z+1).'k'.substr($k_value,$z+1);
-			$r[$k_value.'_words'] = parse_itmk_words($edata[$k_value],$simple);
-		}
-
-		foreach ($equip_list as $sk_value) {
-			$z=strlen($sk_value)-1;
-			while ('0'<=$sk_value[$z] && $sk_value[$z]<='9') $z--;
-			$sk_value=substr($sk_value,0,$z+1).'sk'.substr($sk_value,$z+1);
-			$r[$sk_value.'_words'] = parse_itmsk_words($edata[$sk_value],$simple);
+		
+		foreach ($equip_list as $v) {
+			$z=strlen($v)-1;
+			while ('0'<=$v[$z] && $v[$z]<='9') $z--;//注意这同样也会把wep等包括进去！
+			$r[$v.'_words'] = parse_itmname_words($edata[$v], $elli);
+			$kv=substr($v,0,$z+1).'k'.substr($v,$z+1);
+			$r[$kv.'_words'] = parse_itmk_words($edata[$kv]);
+			$skv=substr($v,0,$z+1).'sk'.substr($v,$z+1);
+			$r[$skv.'_words'] = parse_itmsk_words($edata[$skv],$simple);
 		}
 		
 		return $r;
 		
 	}
 	
-	function init_profile()
+	function parse_interface_profile()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player'));
@@ -162,8 +179,7 @@ namespace itemmain
 		if ($xmode & 16) {	//地图道具初始化
 			$plsnum = sizeof($plsinfo);
 			$iqry = '';
-			$file = __DIR__.'/config/mapitem.config.php';
-			$itemlist = openfile($file);
+			$itemlist = get_itemfilecont();
 			$in = sizeof($itemlist);
 			$an = $areanum ? ceil($areanum/$areaadd) : 0;
 			for($i = 1; $i < $in; $i++) {
@@ -190,6 +206,14 @@ namespace itemmain
 		}
 	}
 	
+	function get_itemfilecont(){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		eval(import_module('sys'));
+		$file = __DIR__.'/config/mapitem.config.php';
+		$l = openfile($file);
+		return $l;
+	}
+	
 	function discover_item()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -206,20 +230,30 @@ namespace itemmain
 		$itemno = rand(0,$itemnum-1);
 		$db->data_seek($result,$itemno);
 		$mi=$db->fetch_array($result);
-		$itm0=$mi['itm'];
-		$itmk0=$mi['itmk'];
-		$itme0=$mi['itme'];
-		$itms0=$mi['itms'];
-		$itmsk0=$mi['itmsk'];
-		$iid=$mi['iid'];
-		$db->query("DELETE FROM {$tablepre}mapitem WHERE iid='$iid'");
-			if($itms0){
+		$itms0 = focus_item($mi);
+		if($itms0){
 			itemfind();
 			return;
 		} else {
 			$log .= "但是什么都没有发现。<br>";
 		}
 		$mode = 'command';
+	}
+	
+	function focus_item($iarr){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player'));
+		if(isset($iarr['iid'])){
+			$iid = $iarr['iid'];
+			$db->query("DELETE FROM {$tablepre}mapitem WHERE iid='$iid'");
+			$itm0=$iarr['itm'];
+			$itmk0=$iarr['itmk'];
+			$itme0=$iarr['itme'];
+			$itms0=$iarr['itms'];
+			$itmsk0=$iarr['itmsk'];
+			return $itms0;
+		}
+		return false;
 	}
 	
 	function calculate_itemfind_obbs()

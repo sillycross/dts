@@ -16,10 +16,10 @@
 敌人<span class="clan">$skill63_nm</span>在战斗中对你造成的伤害将永久减少<span class="yellow">20%</span><br>
 <!--{/if}-->
 </span></td>
-<td class=b3 width=46>
+<td class=b3 width=96>
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
 <span class="yellow">
 21级时解锁
 </span>

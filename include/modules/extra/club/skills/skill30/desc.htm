@@ -9,10 +9,10 @@
 <span class="yellow">战斗技</span>：消耗相当于<span class="yellow">15%</span>生命上限的生命值，附加相同的伤害。<br>
 发动消耗<span class="yellow">$ragecost</span>点怒气。<br>
 </span></td>
-<td class=b3 width=46>
+<td class=b3 width=96>
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
 <span class="yellow">
 7级时解锁
 </span>

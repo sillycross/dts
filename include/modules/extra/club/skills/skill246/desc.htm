@@ -16,7 +16,7 @@
 <!--{/if}-->
 <!--{/if}-->
 </span></td>
-<td class=b3 width=46>
+<td class=b3 width=96>
 <!--{if $skill246_time>$skill246_cd+$skill246_act_time}-->
 <input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill246_special';$('subcmd').value='activate';postCmd('gamecmd','command.php');this.disabled=true;" value="发动">
 <!--{else}-->
@@ -24,7 +24,7 @@
 <!--{/if}-->
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
 <span class="yellow">
 </span>
 <!--{/if}-->

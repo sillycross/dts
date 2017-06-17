@@ -11,6 +11,7 @@ namespace achievement_base
 		2=>'光辉事迹',
 		//0=>'其他成就',
 	);
+	//生效中的所有成就
 	$achlist=array(//为了方便调整各成就的显示顺序放在这里了
 		1=>array(300,302,303,304),
 		2=>array(308,309,322,323),
@@ -19,8 +20,31 @@ namespace achievement_base
 		10=>array(305,301,306,307),
 		20=>array(314,315,316,317,318,319,320,321,324),
 	);
+	//成就编号=>允许完成的模式，未定义则用0键（只有正常游戏可以完成）
+	$ach_allow_mode=array(
+		0=>array(0),
+	);
 	
 	function init() {}
+	
+	function skill_onload_event(&$pa)//技能模块载入时直接加载所有成就
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','achievement_base'));
+		$alist = array();
+		foreach($achlist as $av){
+			$alist = array_merge($alist, $av);
+		}
+		foreach($alist as $av){
+			//只有玩家可以获得成就技能
+			if (!$pa['type']
+			//确认允许完成成就的模式，未定义则用0键（只有正常游戏可以完成）
+				&& ( ( !isset($ach_allow_mode[$av]) && in_array($gametype, $ach_allow_mode[0]) ) || ( isset($ach_allow_mode[$av]) && in_array($gametype,$ach_allow_mode[$av]) ) )
+				&& !\skillbase\skill_query($av,$pa))
+			\skillbase\skill_acquire($av,$pa);
+		}
+		$chprocess($pa);
+	}
 	
 	function post_gameover_events()
 	{
@@ -37,15 +61,15 @@ namespace achievement_base
 			$zz=$db->fetch_array($res); $ach=$zz['n_achievements'];
 			$achdata=explode(';',$ach);
 			$maxid=count($achdata)-2;
-			foreach (\skillbase\get_acquired_skill_array($edata) as $key) 
+			foreach (\skillbase\get_acquired_skill_array($edata) as $key) //也就是说，允许先进游戏后换每日任务，甚至可以先清场，结束前换每日任务
 				if (defined('MOD_SKILL'.$key.'_INFO') && defined('MOD_SKILL'.$key.'_ACHIEVEMENT_ID'))
-					if (strpos(constant('MOD_SKILL'.$key.'_INFO'),'achievement;')!==false)
+					if (\skillbase\check_skill_info($key, 'achievement'))
 					{
 						$id=((int)(constant('MOD_SKILL'.$key.'_ACHIEVEMENT_ID')));
 						if ($id>$maxid) $maxid=$id;
 						if (isset($achdata[$id])) $s=((string)$achdata[$id]); else $s='';
 						$f=false;
-						if (strpos(constant('MOD_SKILL'.$key.'_INFO'),'daily;')==false) $f=true;
+						if (!\skillbase\check_skill_info($key, 'daily')) $f=true;
 						if (($s!='')&&($s!='VWXYZ')) $f=true;
 						if ($f){
 							$func='\\skill'.$key.'\\finalize'.$key;
@@ -75,12 +99,12 @@ namespace achievement_base
 		$c=0;
 		foreach ($achlist[$at] as $key)
 			if (defined('MOD_SKILL'.$key.'_INFO') && defined('MOD_SKILL'.$key.'_ACHIEVEMENT_ID'))
-				if ((strpos(constant('MOD_SKILL'.$key.'_INFO'),'achievement;')!==false)&&(strpos(constant('MOD_SKILL'.$key.'_INFO'),'hidden;')==false))
+				if ((\skillbase\check_skill_info($key, 'achievement'))&&(!\skillbase\check_skill_info($key, 'hidden')))
 				{
 					$id=((int)(constant('MOD_SKILL'.$key.'_ACHIEVEMENT_ID')));
 					if (isset($achdata[$id])) $s=((string)$achdata[$id]); else $s='';
 					$f=false;
-					if (strpos(constant('MOD_SKILL'.$key.'_INFO'),'daily;')==false) $f=true;
+					if (!\skillbase\check_skill_info($key, 'daily')) $f=true;
 					if (($s!='')&&($s!='VWXYZ')) $f=true;
 					if ($f){
 						$func='\\skill'.$key.'\\show_achievement'.$key;

@@ -6,6 +6,11 @@ namespace item_misc
 	{
 		eval(import_module('itemmain'));
 		$iteminfo['U']='扫雷设备';
+		if (defined('MOD_NOISE'))
+		{
+			eval(import_module('noise'));
+			$noiseinfo['corpseclear']='一阵强大的吸力';
+		}
 	}
 	
 	function itemuse(&$theitem)
@@ -48,6 +53,7 @@ namespace item_misc
 				else	$db->query ( "UPDATE {$tablepre}players SET corpse_clear_flag='1',weps='0',arbs='0',arhs='0',aras='0',arfs='0',arts='0',itms0='0',itms1='0',itms2='0',itms3='0',itms4='0',itms5='0',itms6='0',money='0' WHERE type > 0 AND hp <= 0 AND endtime <= $tm" );
 				$cnum = $db->affected_rows ();
 				addnews ( $now, 'corpseclear', $name, $cnum );
+				if (defined('MOD_NOISE')) \noise\addnoise($pls,'corpseclear',$pid);
 				$log .= "使用了<span class=\"yellow\">$itm</span>。<br>突然刮起了一阵怪风，吹走了地上的{$cnum}具尸体！<br>";
 				\itemmain\itms_reduce($theitem);
 				return;
@@ -65,21 +71,17 @@ namespace item_misc
 				$flag=false;
 				$log.="一阵强光刺得你睁不开眼。<br>强光逐渐凝成了光球，你揉揉眼睛，发现包裹里的东西全都不翼而飞了。<br>";
 				for ($i=1;$i<=6;$i++){
-					global ${'itm'.$i},${'itmk'.$i},${'itme'.$i},${'itms'.$i},${'itmsk'.$i};
-					$itm = & ${'itm'.$i};
-					$itmk = & ${'itmk'.$i};
-					$itme = & ${'itme'.$i};
-					$itms = & ${'itms'.$i};
-					$itmsk = & ${'itmsk'.$i};
-					if ($itm=='黑色发卡') {$flag=true;}
-					$itm = '';
-					$itmk = '';
-					$itme = 0;
-					$itms = 0;
-					$itmsk = '';
+					//global ${'itm'.$i},${'itmk'.$i},${'itme'.$i},${'itms'.$i},${'itmsk'.$i};
+					if (${'itm'.$i}=='黑色发卡') {
+						$flag=true;
+						$tmp_itm = ${'itm'.$i}; $tmp_itmk = ${'itmk'.$i}; $tmp_itmsk = ${'itmsk'.$i};
+						$tmp_itme = ${'itme'.$i}; $tmp_itms = ${'itms'.$i};
+					}
+					${'itm'.$i} = ${'itmk'.$i} = ${'itmsk'.$i} = '';
+					${'itme'.$i} = ${'itms'.$i} = 0;
 				}
 				$karma=$rp*$killnum-$def+$att;
-				$f1=false;
+				$f1=$f2=$f3=false;
 				//『G.A.M.E.O.V.E.R』itmk:Y itme:1 itms:1 itmsk:zxZ
 				if (($ss>=600)&&($killnum<=15)){
 					$itm0='『T.E.R.R.A』';
@@ -87,7 +89,6 @@ namespace item_misc
 					$itme0=1;
 					$itms0=1;
 					$itmsk0='z';
-					include_once GAME_ROOT . './include/game/itemmain.func.php';
 					\itemmain\itemget();
 					$f1=true;
 				}
@@ -97,9 +98,8 @@ namespace item_misc
 					$itme0=1;
 					$itms0=1;
 					$itmsk0='x';
-					include_once GAME_ROOT . './include/game/itemmain.func.php';
 					\itemmain\itemget();
-					$f1=true;
+					$f2=true;
 				}
 				if ($flag==true){
 					$itm0='『V.E.N.T.U.S』';
@@ -107,18 +107,40 @@ namespace item_misc
 					$itme0=1;
 					$itms0=1;
 					$itmsk0='Z';
-					include_once GAME_ROOT . './include/game/itemmain.func.php';
 					\itemmain\itemget();
-					$f1=true;
+					$f3=true;
 				}
-				if ($f1==false){
+				if (!$f1 || !$f2 || !$f3){
 					$itm0='『S.C.R.A.P』';
-					$itmk0='Y';
+					$itmk0='Z';
 					$itme0=1;
 					$itms0=1;
-					include_once GAME_ROOT . './include/game/itemmain.func.php';
+					$itmsk0='';
 					\itemmain\itemget();
+					for ($i=1;$i<=6;$i++){
+						if(!${'itms'.$i}) {
+							${'itm'.$i} = $tmp_itm; ${'itmk'.$i} = $tmp_itmk; ${'itmsk'.$i} = $tmp_itmsk;
+							${'itme'.$i} = $tmp_itme; ${'itms'.$i} = $tmp_itms;
+							break;
+						}
+					}
 				}
+				return;
+			}elseif ($itm == '『S.C.R.A.P』') {
+				$log.="你眼前一黑。当你再次能看见东西，你发现包裹里的东西再次不翼而飞了。<br>";
+				for ($i=1;$i<=6;$i++){
+					if (${'itm'.$i}!='黑色发卡'){
+						${'itm'.$i} = ${'itmk'.$i} = ${'itmsk'.$i} = '';
+						${'itme'.$i} = ${'itms'.$i} = 0;
+					}					
+				}
+				$itm0='『C.H.A.O.S』';
+				$itmk0='Z';
+				$itme0=1;
+				$itms0=1;
+				$itmsk0='';
+				\itemmain\itemget();
+				return;
 			}elseif ($itm == '『G.A.M.E.O.V.E.R』') {
 				$state = 6;
 				$url = 'end.php';
@@ -141,19 +163,57 @@ namespace item_misc
 					$log .= "你使用了<span class=\"yellow\">{$itm}</span>，不过什么反应也没有。<br><span class=\"evergreen\">“表演的时机还没到呢，请再忍耐一下吧。”</span>——林无月<br>";
 				}
 				return;
+			} elseif ($itm == '权限狗的ID卡') {
+				$result = $db->query("SELECT groupid,password FROM {$gtablepre}users WHERE username='$cuser'");
+				$result = $db->fetch_array($result);
+				$ugroupid = $result['groupid'];
+				$upassword = $result['password'];
+				if($cpass == $upassword && ($ugroupid >= 5 || $cuser == $gamefounder)){
+					$log.='大逃杀幻境已确认你的权限狗身份，正在为你输送权限套装……<br>';
+					$wp=$wk=$wg=$wc=$wd=$wf=666;
+					$ss=$mss=600;
+					$att+=200;$def+=200;
+					$money+=19980;
+					$itm1='美味补给';$itmk1 = 'HB';$itmsk1 = '';$itme1 = 777;$itms1 = 177;
+					$itm2='全恢复药剂';$itmk2 = 'Ca';$itmsk2 = '';$itme2 = 1;$itms2 = 44;
+					$itm3='移动PC';$itmk3 = 'EE';$itmsk3 = '';$itme3 = 20;$itms3 = 1;
+					$itm4='量子雷达';$itmk4 = 'ER';$itmsk4 = '2';$itme4 = 20;$itms4 = 1;
+					$art='Untainted Glory';$artk = 'A';$artsk = 'Hh';$arte = 1;$arts = 1;
+					if (defined('MOD_CLUBBASE')) eval(import_module('clubbase'));
+					foreach(array(1010,1011) as $skv){
+						if(defined('MOD_SKILL'.$skv)) {
+							if (!\skillbase\skill_query($skv)) {
+								$log.="你获得了技能「<span class=\"yellow\">$clubskillname[$skv]</span>」！<br>";
+								\skillbase\skill_acquire($skv);
+							}
+						}
+					}
+					addnews ( $now, 'adminitem', $name, $itm );
+				}else{
+					$log.='你没有足够的权限。可能因为是你的缓存密码有误，也可能你压根就不是一条权限狗。<br>';
+				}
+				$itm = $itmk = $itmsk = '';
+				$itme = $itms = 0;
+				$mode='command';$command='';
+				return;
 			} elseif ($itm == '奇怪的按钮') {
 				$button_dice = rand ( 1, 10 );
+				$log .= "你按下了<span class=\"yellow\">$itm</span>。<br>";
 				if ($button_dice < 5) {
-					$log .= "你按下了<span class=\"yellow\">$itm</span>，不过好像什么都没有发生！";
-					$itm = $itmk = $itmsk = '';
-					$itme = $itms = 0;
+					$log .= '按钮不翼而飞，你的手中多了一瓶褐色的饮料，上面还有个标签……<br><span class="gold b">“感谢特朗普总统选用我司的可乐递送服务。”</span><br>蛤？<br>';
+					$itm = '特朗普特供版「核口可乐」';
+					$itmk = 'HB';
+					$itmsk = '';
+					$itme = 200;
+					$itms = 1;
 				} elseif ($button_dice < 8) {
 					$state = 6;
 					$url = 'end.php';
 					\sys\gameover ( $now, 'end5', $name );
 				} else {
-					$log .= '好像什么也没发生嘛？<br>咦，按钮上的标签写着什么？“危险，勿触”……？<br>';
-					$log .= '呜哇，按钮爆炸了！<br>';
+					$log .= '好像什么也没发生嘛？咦，按钮上的标签写着什么？<br><span class="red">“危险，勿触！”</span>……？<br>呜哇，按钮爆炸了！<br>';
+					$itm = $itmk = $itmsk = '';
+					$itme = $itms = 0;
 					$state = 30;
 					\player\update_sdata(); $sdata['sourceless'] = 1; $sdata['attackwith'] = '';
 					\player\kill($sdata,$sdata);
@@ -374,7 +434,7 @@ namespace item_misc
 
 	}
 
-	function deathnote($itmd=0,$dnname='',$dndeath='',$dngender='m',$dnicon=1,$sfn) {
+	function deathnote($itmd=0,$dnname='',$dndeath='',$dngender='m',$dnicon=1) {
 		
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','logger','player'));
@@ -398,35 +458,42 @@ namespace item_misc
 		}
 
 		if(!$dnname){return;}
-		if($dnname == $sfn){
+		if($dnname == $cuser){
 			$log .= "你不能自杀。<br>";
 			return;
 		}
+		$dn_ignore_words = deathnote_process($dnname,$dndeath,$dngender,$dnicon);
+		$dns--;
+		if($dns<=0){
+			if(!$dn_ignore_words) $log .= '■DeathNote■突然燃烧起来，转瞬间化成了灰烬。<br>';
+			$dn = $dnk = $dnsk = '';
+			$dne = $dns = 0;
+		}
+		return;
+	}
+	
+	function deathnote_process($dnname='',$dndeath='',$dngender='m',$dnicon=1){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','logger','player'));
 		if(!$dndeath){$dndeath = '心脏麻痹';}
-		//echo "name=$dnname,gender = $dngender,icon=$dnicon,";
-		$result = $db->query("SELECT * FROM {$tablepre}players WHERE name='$dnname' AND type = 0");
+		$log .= "你将<span class=\"yellow b\">$dnname</span>的名字写在了■DeathNote■上。";
+		$result = $db->query("SELECT * FROM {$tablepre}players WHERE name='$dnname' AND type = 0 AND hp > 0");
 		if(!$db->num_rows($result)) { 
-			$log .= "你使用了■DeathNote■，但是什么都没有发生。<br>哪里出错了？<br>"; 
+			$log .= "但是什么都没有发生。<br>哪里出错了？<br>"; 
 		} else {
 			$edata = \player\fetch_playerdata($dnname);
 			if(($dngender != $edata['gd'])||($dnicon != $edata['icon'])) {
-				$log .= "你使用了■DeathNote■，但是什么都没有发生。<br>哪里出错了？<br>"; 
+				$log .= "但是什么都没有发生。<br>哪里出错了？<br>"; 
 			} else {
-				$log .= "你将<span class=\"yellow b\">$dnname</span>的名字写在了■DeathNote■上。<br><span class=\"yellow b\">$dnname</span>被你杀死了。";
+				$log .= "<br><span class=\"yellow b\">$dnname</span>被你杀死了。";
 				$edata['state'] = 28; $sdata['attackwith']=$dndeath;
 				\player\update_sdata(); 
 				\player\kill($sdata,$edata);
 				\player\player_save($edata);
 				\player\player_save($sdata);
 				\player\load_playerdata($sdata);
-				$killnum++;
+				//$killnum++;
 			}
-		}
-		$dns--;
-		if($dns<=0){
-			$log .= '■DeathNote■突然燃烧起来，转瞬间化成了灰烬。<br>';
-			$dn = $dnk = $dnsk = '';
-			$dne = $dns = 0;
 		}
 		return;
 	}
@@ -435,11 +502,11 @@ namespace item_misc
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','input'));
+		eval(import_module('sys','player','input','logger'));
 		
 		if($mode == 'deathnote') {
 			if($dnname){
-				deathnote($item,$dnname,$dndeath,$dngender,$dnicon,$name);
+				deathnote($item,$dnname,$dndeath,$dngender,$dnicon);
 			} else {
 				$log .= '嗯，暂时还不想杀人。<br>你合上了■DeathNote■。<br>';
 				$mode = 'command';
@@ -449,24 +516,23 @@ namespace item_misc
 		$chprocess();
 	}
 	
-	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)	
+	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())	
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
 		
-		$dname = $typeinfo[$b].' '.$a;
-		if(!$e)
-			$e0="<span class=\"yellow\">【{$dname} 什么都没说就死去了】</span><br>\n";
-		else  $e0="<span class=\"yellow\">【{$dname}：“{$e}”】</span><br>\n";
-			
+		if(isset($exarr['dword'])) $e0 = $exarr['dword'];
+		
+		if($news == 'adminitem') 
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}使用了{$b}，变成了一条权限狗！（管理员{$a}宣告其正在进行测试。）</span></li>";	
 		if($news == 'death28') 
-			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因<span class=\"yellow\">$d</span>意外身亡{$e0}";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因<span class=\"yellow\">$d</span>意外身亡{$e0}</li>";
 		if($news == 'death30') 
-			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因误触伪装成核弹按钮的蛋疼机关被炸死{$e0}";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因误触伪装成核弹按钮的蛋疼机关被炸死{$e0}</li>";
 		if($news == 'death38')
-			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因为敌意过剩，被虚拟意识救♀济！{$e0}";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因为敌意过剩，被虚拟意识救♀济！{$e0}</li>";
 			
-		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 }
 

@@ -5,7 +5,7 @@ namespace skill444
 	
 	function init() 
 	{
-		define('MOD_SKILL444_INFO','club;unique;locked;');
+		define('MOD_SKILL444_INFO','card;unique;locked;');
 		eval(import_module('clubbase'));
 		$clubskillname[444] = '怒吼';
 	}

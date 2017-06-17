@@ -9,9 +9,9 @@
 <span class="yellow">战斗技</span>：本次攻击必中且物理伤害<span class="yellow">+20%</span><br>
 持投系武器方可发动，消耗<span class="yellow">$ragecost</span>点怒气
 </span></td>
-<td class=b3 width=46>
+<td class=b3 width=96>
 <!--这个只是一个假的按钮，实际点击的是下面那个-->
-<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
 <!--{if $skillpoint>=$unlockcost}-->
 <input id="skill49_unlock_button" type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill49_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="解锁">
 <!--{else}-->
@@ -20,7 +20,7 @@
 <!--{/if}-->
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
 <span class="yellow">
 <span style="float:left;width:46px;min-width:46px;max-width:46px;">&nbsp;</span>
 消耗<span>$unlockcost</span>点技能点解锁

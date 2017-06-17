@@ -4,7 +4,7 @@ namespace skill450
 {
 	function init() 
 	{
-		define('MOD_SKILL450_INFO','club;unique;locked;');
+		define('MOD_SKILL450_INFO','card;unique;locked;');
 		eval(import_module('clubbase'));
 		$clubskillname[450] = '淘汰';
 	}

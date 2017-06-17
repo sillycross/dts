@@ -50,7 +50,7 @@ namespace wep_k
 		eval(import_module('weapon','logger'));
 		if ($pa['wep_kind']=='K' && $pa['weps']==$nosta)	//无限耐久斩系武器损坏特判
 		{
-			if (isset($pa['wepimp']))
+			if (isset($pa['wepimp']) && $pa['wepimp'])
 			{
 				$pa['wepe']-=$pa['wepimp'];
 				if ($active)

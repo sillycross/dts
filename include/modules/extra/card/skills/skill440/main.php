@@ -6,7 +6,7 @@ namespace skill440
 	
 	function init() 
 	{
-		define('MOD_SKILL440_INFO','club;battle;unique;locked;');
+		define('MOD_SKILL440_INFO','card;battle;unique;locked;');
 		eval(import_module('clubbase'));
 		$clubskillname[440] = '父爱';
 	}
@@ -112,10 +112,10 @@ namespace skill440
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skillbase'));
 		$skillid=(int)$skillid;
-		if ($pa!=NULL && $pa['skill440_flag'])
+		if ($pa!=NULL && isset($pa['skill440_flag']) && $pa['skill440_flag'])
 		{
-			//所有称号技能失效
-			if (defined('MOD_SKILL'.$skillid.'_INFO') && strpos(constant('MOD_SKILL'.$skillid.'_INFO'),'club;')!==false && strpos(constant('MOD_SKILL'.$skillid.'_INFO'),'hidden;')===false)
+			//所有技能失效
+			if (!\skillbase\check_skill_info($skillid,'achievement') && !\skillbase\check_skill_info($skillid,'hidden'))
 				return 0;
 		}
 		return $chprocess($skillid,$pa);
@@ -150,16 +150,16 @@ namespace skill440
 		$chprocess($pa,$pd,$active);
 	}
 	
-	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)
+	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill440') 
-			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}对{$b}发动了技能<span class=\"yellow\">「父爱」</span></span><br>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}对{$b}发动了技能<span class=\"yellow\">「父爱」</span></span></li>";
 		
-		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 }
 

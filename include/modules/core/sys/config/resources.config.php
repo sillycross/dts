@@ -23,9 +23,9 @@ namespace sys
 
 
 	//游戏状态描述
-	$gstate = Array(0 => '<font color="grey">已结束</font>',10 => '即将开始',20 => '开放激活',30 => '人数已满',40=> '<font color="yellow">连斗中</font>',50=>'<font color="red">死斗中</font>');
+	$gstate = Array(0 => '<font color="grey">已结束</font>',5 => '正在准备',10 => '即将开始',20 => '开放激活',30 => '人数已满',40=> '<font color="yellow">连斗中</font>',50=>'<font color="red">死斗中</font>');
 	$gwin = Array(0 => '程序故障', 1 => '全部死亡',2 => '最后幸存',3 => '锁定解除',4 => '无人参加',5 => '核爆全灭',6 => 'GM中止',7=>'幻境解离',8=>'挑战结束');
-	$gtinfo=array(0=>'常规局',1=>'<span class="clan">除错挑战</span>',2=>'<span class="orange">周五活动</span>',3=>'<span class="lime">宝石乱斗</span>',10=>'SOLO模式',11=>'二队模式',12=>'三队模式',13=>'四队模式',14=>'五队模式',15=>'<span class="yellow">伐木挑战</span>',16=>'<span class="green">解离模式</span>');
+	$gtinfo=array(0=>'常规局',1=>'<span class="clan">除错挑战</span>',2=>'<span class="orange">周五活动</span>',3=>'<span class="lime">宝石乱斗</span>',10=>'SOLO模式',11=>'二队模式',12=>'三队模式',13=>'四队模式',14=>'五队模式',15=>'<span class="yellow">伐木挑战</span>',16=>'<span class="green">解离模式</span>',17=>'教程模式');
 	$week = Array('日','一','二','三','四','五','六');
 	
 	//状态描述和死亡语登记处，全部写在这里，不要写在模块里，不然数字编号冲突就不好了
@@ -34,6 +34,7 @@ namespace sys
 		1=>'睡眠状态',
 		2=>'治疗状态',
 		3=>'静养状态',
+		4=>'胜利脱离',
 		5=>'最后幸存',
 		6=>'解除禁区',
 		10 => '莫名身亡',
@@ -105,7 +106,7 @@ namespace sys
 	
 	$sexinfo = Array(0=> '未定', 'm' => '男生', 'f' => '女生');
 	
-	$chatinfo = Array(0 => '全员', 1 => '队伍', 2 => '密语', 3 => '遗言', 4 => '公告', 5 => '系统');
+	$chatinfo = Array(0 => '全员', 1 => '队伍', 2 => '密语', 3 => '遗言', 4 => '公告', 5 => '系统', 6 => '剧情');
 
 	/*Infomations*/
 	$_INFO = Array(
@@ -133,7 +134,7 @@ namespace sys
 		'user_not_exists' => '用户不存在，请检查用户名输入',
 		
 		'no_login' => '用户未登陆，请从首页登录后再进入游戏',
-		'login_check' => '用户信息验证失败，请清空缓存后进入游戏',
+		'login_check' => '用户信息验证失败，请退出账号并重新登录，或清空缓存后尝试',
 		'login_time' => '登录间隔时间过长，请重新登录后进入游戏',
 		'login_info' => '用户信息不正确，请清空缓存和Cookie后进入游戏',
 		'player_limit' => '本局游戏参加人数已达上限，无法进入，请下局再来',

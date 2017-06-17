@@ -165,13 +165,6 @@ namespace ex_dmg_att
 			}
 		return $tot;
 	}
-			
-	function attr_dmg_check_not_WPG(&$pa, &$pd, $active)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		//必须作为本系武器使用才有属性伤害（枪械当钝器没有）
-		return (strpos($pa['wepk'],$pa['wep_kind'])!==false);
-	}
 	
 	function strike(&$pa, &$pd, $active)
 	{
@@ -179,7 +172,7 @@ namespace ex_dmg_att
 		
 		$chprocess($pa, $pd, $active);
 		
-		if ($pa['is_hit'] && attr_dmg_check_not_WPG($pa, $pd, $active))	//命中才开始判定属性伤害，枪械作为钝器使用无属性伤害
+		if ($pa['is_hit'] && \attrbase\attr_dmg_check_not_WPG($pa, $pd, $active))	//命中才开始判定属性伤害，枪械作为钝器使用无属性伤害
 		{
 			$dmg = calculate_ex_attack_dmg($pa, $pd, $active);
 			$pa['dmg_dealt'] += $dmg;
@@ -215,7 +208,7 @@ namespace ex_dmg_att
 	function post_traphit_events(&$pa, &$pd, $tritm, $damage)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess();
+		$chprocess($pa, $pd, $tritm, $damage);
 		eval(import_module('player','logger','ex_dmg_att','wound'));
 		if (strpos($tritm['itm'],'毒性')!==false) 
 		{

@@ -13,59 +13,94 @@ namespace song
 			eval(import_module('noise'));
 			$noiseinfo['Crow Song']='Crow Song';
 			$noiseinfo['Alicemagic']='Alicemagic';
+			$noiseinfo['KARMA']='■';
+			$noiseinfo['HWEIHOA']='驱寒颂歌';
 		}
 	}
 	
 	function ss_sing($sn)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','map','logger'));
-		
-		$r=$arte;
+		eval(import_module('sys','player','map','logger','noise','song'));
+		$songcfg = NULL;
+		foreach($songlist as $sval){
+			if($sval['songname'] == $sn) {
+				$songcfg = $sval;
+				break;
+			}
+		}
+		if(!$songcfg) {
+			$log .= '好像不存在这样一首歌呢……<br>';
+			return;
+		}
+		$r=$songcfg['cost'];
+		$nkey = $songcfg['noisekey'];
 
 		if ($ss>=$r){
 			$ss-=$r;
-			$log.="消耗<span class=\"yellow\">{$r}</span>点歌魂，歌唱了<span class=\"yellow\">{$noiseinfo[$sn]}</span>。<br>";
+			$log.="消耗<span class=\"yellow\">{$r}</span>点歌魂，歌唱了<span class=\"yellow\">{$noiseinfo[$nkey]}</span>。<br>";
 		}else{
 			$log.="需要<span class=\"yellow\">{$r}</span>歌魂才能唱这首歌！<br>";
 			return;
 		}
-		
-		if ($sn=="Alicemagic"){
-			$log.="♪你說過在哭泣之後應該可以破涕而笑♪<br>
-						♪我們的旅行　我不會忘♪<br>
-						♪施展魔法　為了不再失去　我不會說再見♪<br>
-						♪再次踏出腳步之時　將在某一天到來♪<br>";
-						
-			$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,recv,msg) VALUES ('0','$now','$name','$plsinfo','♪你說過在哭泣之後應該可以破涕而笑♪')");
-			
-			$db->query ( "UPDATE {$tablepre}players SET def=def+30 WHERE `pls` ={$pls} AND hp>0 AND type=0 ");
-			$def+=30;
-			if (defined('MOD_NOISE')) \noise\addnoise($pls,$sn,-1,-1);
-			addnews($now,'song',$name,$plsinfo[$pls],$sn);
-			return;
-			
-		}elseif ($sn=="Crow Song"){
-				$log.="♪从这里找一条路♪<br>
-						♪找到逃离的生路♪<br>
-						♪奏响激烈的摇滚♪<br>
-						♪盯紧遥远的彼方♪<br>
-						♪在这个连呼吸都难以为继的都市中♪<br>";
-						
-			$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,recv,msg) VALUES ('0','$now','$name','$plsinfo','♪从这里找一条路♪')");
-			
-			$db->query ( "UPDATE {$tablepre}players SET att=att+30 WHERE `pls` ={$pls} AND hp>0 AND type=0 ");
-			$att+=30;
-			if (defined('MOD_NOISE')) \noise\addnoise($pls,$sn,-1,-1);
-			addnews($now,'song',$name,$plsinfo[$pls],$sn);
-			return;
-		}elseif ($sn=="KARMA"){
-			$log.="■<br>";
-			$rp=0;
-			addnews($now,'song',$name,$plsinfo[$pls],$sn);
-			return;
+		addnews($now,'song',$name,$plsinfo[$pls],$songcfg['songname']);
+		$lyricnum = sizeof($songcfg['lyrics']);
+		$songchatlimit = 2;
+		$songchat = '';
+		for($i=0;$i<$lyricnum;$i++){
+			$log .= $songcfg['lyrics'][$i].'<br>';
+			if($i<$songchatlimit) $songchat .= $songcfg['lyrics'][$i].'　';
+			if($i == $songchatlimit-1) $songchat .= '……';
 		}
+		\sys\addchat(0, $songchat, $name);
+//		foreach($songcfg['lyrics'] as $lyric){
+//			$log .= $lyric.'<br>';
+//			\sys\addchat(0, $lyric, $name);
+//		}
+		if (defined('MOD_NOISE') && !empty($nkey)) \noise\addnoise($pls,$nkey,$pid);
 		
+		$songqry = '';
+		foreach($songcfg['effect'] as $sekey => $seval){
+			if(isset($sdata[$sekey])){//如果不存在这个数值就无视掉
+				$qry_sign=NULL;
+				if(strpos($seval,'=')===0){
+					$seval = (int)substr($seval,1);
+					${$sekey} = $seval;
+					$ef_sign = '<span class="yellow">变成</span>';
+					$qry_sign = '=';
+				}elseif((int)$seval > 0){
+					$seval = (int)$seval;
+					${$sekey} += $seval;
+					$ef_sign = '<span class="lime">增加</span>';
+					$qry_sign = '+';
+				}elseif((int)$seval < 0){
+					$seval = (int)$seval;
+					${$sekey} += $seval;
+					$ef_sign = '<span class="red">减少</span>';
+					$qry_sign = '-';
+				}
+				//这里最好和lang.php合并一下
+				if($sekey == 'att') $ef_word = '攻击力';
+				elseif($sekey == 'def') $ef_word = '防御力';
+				elseif($sekey == 'hp') $ef_word = '生命';
+				elseif($sekey == 'mhp') $ef_word = '最大生命';
+				elseif($sekey == 'sp') $ef_word = '体力';
+				elseif($sekey == 'msp') $ef_word = '最大体力';
+				elseif($sekey == 'ss') $ef_word = '歌魂';
+				elseif($sekey == 'mss') $ef_word = '最大歌魂';
+				elseif($sekey == 'rp') $ef_word = 'RP';
+				elseif($sekey == 'money') $ef_word = '金钱';
+				else $ef_word = $sekey;
+				if($qry_sign){
+					$log .= "歌声让你以及附近的玩家的{$ef_word}{$ef_sign}了".abs($seval)."。<br>";
+					$songqry .= $qry_sign == '=' ? $sekey.'='.$seval.',' : $sekey.'='.$sekey.$qry_sign.$seval.',';
+				}
+			}
+		}
+		if(!empty($songqry)){
+			$songqry = substr($songqry,0,-1);
+			$db->query ("UPDATE {$tablepre}players SET ".$songqry." WHERE `pls` ={$pls} AND hp>0 AND type=0");
+		}
 		return;
 	}
 	
@@ -79,7 +114,9 @@ namespace song
 		eval(import_module('sys','player','logger'));
 		if (strpos ( $itmk, 'HM' ) === 0) {
 			$mss+=$itme;
-			$ss+=$itme;
+			if($ss+$itme <= $mss) $ss+=$itme;//现有歌魂加完以后不会超限时，也增加物品的效果值
+			elseif($ss <= $mss) $ss = $mss;//现有歌魂加完以后会超限，加到最大歌魂
+			//现有歌魂已经比最大歌魂大时，不加
 			$log .= "你使用了<span class=\"red\">$itm</span>，增加了<span class=\"yellow\">$itme</span>点歌魂。<br>";
 			\itemmain\itms_reduce($theitem);
 			return;
@@ -95,6 +132,7 @@ namespace song
 			} else {
 				$log .= '你的歌魂不需要恢复。<br>';
 			}
+			return;
 		} 
 		
 		if (strpos ( $itmk, 'ss' ) === 0)
@@ -138,15 +176,15 @@ namespace song
 		$chprocess();
 	}
 	
-	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)	
+	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())	
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
 		
 		if($news == 'song') 
-			return "<li>{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}</span>在<span class=\"yellow\">{$b}</span>歌唱了<span class=\"red\">{$c}</span>。<br>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}</span>在<span class=\"yellow\">{$b}</span>歌唱了<span class=\"red\">{$c}</span>。</li>";
 		
-		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 }
 

@@ -30,13 +30,20 @@ namespace skill476
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r=Array();
-		if ((\skillbase\skill_query(476,$pa))&&(check_unlocked476($pa))&&(strpos($pa['wep'],"精工")===false))
+		if ((\skillbase\skill_query(476,$pa))&&(check_unlocked476($pa)))
 		{
 			eval(import_module('logger'));
-			if ($active)
-				$log.="<span class=\"yellow\">「尊严」使你造成的最终伤害降低了40%！</span><br>";
-			else  $log.="<span class=\"yellow\">「尊严」使敌人造成的最终伤害降低了40%！</span><br>";
-			$r=Array(0.6);	
+			if (strpos($pa['wep'],"精工")===false){
+				if ($active)
+					$log.="<span class=\"yellow\">「尊严」使你造成的最终伤害降低了60%！</span><br>";
+				else  $log.="<span class=\"yellow\">「尊严」使敌人造成的最终伤害降低了60%！</span><br>";
+				$r=Array(0.4);
+			}else{
+				if ($active)
+					$log.="<span class=\"yellow\">「尊严」使你造成的最终伤害提高了10%！</span><br>";
+				else  $log.="<span class=\"yellow\">「尊严」使敌人造成的最终伤害提高了10%！</span><br>";
+				$r=Array(1.1);
+			}
 		}
 		return array_merge($r,$chprocess($pa,$pd,$active));
 	}

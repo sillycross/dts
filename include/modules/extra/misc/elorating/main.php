@@ -306,7 +306,7 @@ namespace elorating
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		if ($room_prefix[0]=='s' && in_array($gametype,$elorated_mode))
+		if (room_check_subroom($room_prefix) && in_array($gametype,$elorated_mode))
 		{
 			$tlist=Array();
 			$result = $db->query("SELECT name,hp,state,teamID,killnum FROM {$tablepre}players WHERE type = 0");
@@ -340,7 +340,7 @@ namespace elorating
 				//1字符：游戏类型
 				//1字符：结果
 				//3字符：rating（-131072后为真实值，虽然理论上rating不会有负数……）
-				if ($room_prefix=='') $xr=' '; else $xr=$room_prefix[0];
+				if ($room_prefix=='') $xr=' '; else $xr=room_prefix_kind($room_prefix);
 				$eh=$data['elo_history'].$xr.base64_encode_number($gamenum,4).base64_encode_number($gametype,1).base64_encode_number($data['winner']?1:0,1).base64_encode_number($data['rating']+131072,3);
 				//考虑了一下还是不拼成一个大query了，毕竟有个text…… 爆了mysql最大query长度限制就囧了
 				$db->query("UPDATE {$gtablepre}users SET elo_rating='{$data['rating']}', elo_volatility='{$data['vol']}', elo_playedtimes='{$data['timesPlayed']}', elo_history='{$eh}' WHERE username = '{$data['name']}'");
@@ -460,7 +460,8 @@ namespace elorating
 		}
 		else  
 		{
-			echo $roomtypelist[$p['gtype']-10]['name'].' ';
+			if(!function_exists('room_gettype_from_gtype')) include_once GAME_ROOT.'./include/roommng/roommng.func.php';
+			echo $roomtypelist[room_gettype_from_gtype($p['gtype'])]['name'].' ';
 		}
 		if ($p['win']) echo '<span style="color:#008800;">胜利</span>'; else echo '<span style="color:#ff0000;">失败</span>';
 		echo '<br>';

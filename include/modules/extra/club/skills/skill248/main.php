@@ -56,7 +56,7 @@ namespace skill248
 		return $z;
 	}
 	
-	function calculate_active_obbs(&$ldata,&$edata)
+	function calculate_active_obbs_multiplier(&$ldata,&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r = 1;

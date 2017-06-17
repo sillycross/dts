@@ -1,0 +1,18 @@
+<!--{eval $___TEMP_SKILL_ID=1011;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+具现
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+权限狗技能。选择当前地图或随机刷新的一个道具，你立刻获得它。
+</span></td>
+<td class=b3 width=96>
+<input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill1011_special';$('subcmd').value='cons_page';postCmd('gamecmd','command.php');this.disabled=true;" value="发动">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

@@ -33,6 +33,11 @@
 			<td>{$lang['startmin_comment']}</td>
 		</tr>
 		<tr>
+			<td>{$lang['readymin']}</td>
+			<td><input type="text" name="readymin" value="{$readymin}" size="30"></td>
+			<td>{$lang['readymin_comment']}</td>
+		</tr>
+		<tr>
 			<td>{$lang['iplimit']}</td>
 			<td><input type="text" name="iplimit" value="{$iplimit}" size="30"></td>
 			<td>{$lang['iplimit_comment']}</td>
@@ -53,11 +58,6 @@
 			<td>{$lang['winlimit_comment']}</td>
 		</tr>
 		<tr>
-			<td>{$lang['noiselimit']}</td>
-			<td><input type="text" name="noiselimit" value="{$noiselimit}" size="30"></td>
-			<td>{$lang['noiselimit_comment']}</td>
-		</tr>
-		<tr>
 			<td>{$lang['chatlimit']}</td>
 			<td><input type="text" name="chatlimit" value="{$chatlimit}" size="30"></td>
 			<td>{$lang['chatlimit_comment']}</td>
@@ -73,9 +73,31 @@
 			<td>{$lang['chatinnews_comment']}</td>
 		</tr>
 		<tr>
-			<td>{$lang['disableevent']}</td>
-			<td><input type="text" name="disableevent" value="{$disableevent}" size="30"></td>
-			<td>{$lang['disableevent_comment']}</td>
+			<td>{$lang['disable_event']}</td>
+			<td>
+				<input type="radio" name="disable_event" value="1" <!--{if $disable_event}-->checked<!--{/if}-->>是
+				&nbsp;&nbsp;&nbsp;
+				<input type="radio" name="disable_event" value="0" <!--{if !$disable_event}-->checked<!--{/if}-->>否
+			</td>
+			<td>{$lang['disable_event_comment']}</td>
+		</tr>
+		<tr>
+			<td>{$lang['disable_newroom']}</td>
+			<td>
+				<input type="radio" name="disable_newroom" value="1" <!--{if $disable_newroom}-->checked<!--{/if}-->>是
+				&nbsp;&nbsp;&nbsp;
+				<input type="radio" name="disable_newroom" value="0" <!--{if !$disable_newroom}-->checked<!--{/if}-->>否
+			</td>
+			<td>{$lang['disable_newroom_comment']}</td>
+		</tr>
+		<tr>
+			<td>{$lang['disable_newgame']}</td>
+			<td>
+				<input type="radio" name="disable_newgame" value="1" <!--{if $disable_newgame}-->checked<!--{/if}-->>是
+				&nbsp;&nbsp;&nbsp;
+				<input type="radio" name="disable_newgame" value="0" <!--{if !$disable_newgame}-->checked<!--{/if}-->>否
+			</td>
+			<td>{$lang['disable_newgame_comment']}</td>
 		</tr>
 	</table>
 	<input type="submit" value="修改" onclick="$('command').value='edit';">

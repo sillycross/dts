@@ -4,7 +4,7 @@ namespace skill449
 {
 	function init() 
 	{
-		define('MOD_SKILL449_INFO','club;unique;locked;');
+		define('MOD_SKILL449_INFO','card;unique;locked;');
 		eval(import_module('clubbase'));
 		$clubskillname[449] = '一指';
 	}

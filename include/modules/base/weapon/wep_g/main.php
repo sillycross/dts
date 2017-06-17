@@ -78,7 +78,7 @@ namespace wep_g
 		eval(import_module('weapon','logger'));
 		if ($pa['wep_kind']=='G')	//射系武器log提示改变
 		{
-			if (isset($pa['wepimp']))
+			if (isset($pa['wepimp']) && $pa['wepimp'])
 			{
 				$pa['weps']-=$pa['wepimp'];
 				if ($active)

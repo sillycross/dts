@@ -6,7 +6,7 @@ namespace sys
 	/*Game Config*/
 
 	//胜率榜最小参赛次数
-	$winratemingames = 10;
+	$winratemingames = 30;
 
 	//本局游戏人数限制
 	$validlimit = 300;

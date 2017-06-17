@@ -27,6 +27,8 @@ function shutDownFunction() {
 	if ($faillog!='')
 	{
 		echo $faillog;
+		echo '<br>或者因为如下原因：';
+		var_dump($error);
 		echo '<br><a href="modulemng.php?mode=edit" style="text-decoration: none"><span><font color="blue">[返回编辑模式]</font></span></a><br>';   
 		die();
 	}
@@ -164,7 +166,7 @@ if ($___MOD_CODE_ADV1)
 		$modpath_suf=str_replace('\\','/',$modpath);//噫
 		
 		$suf=substr(md5($modpath_suf),0,8);
-		$tplfile = GAME_ROOT.'./include/modules.init.template.adv.php';
+		$tplfile = GAME_ROOT.'./include/modules/modules.init.template.adv.php';
 		$objfile = GAME_ROOT.'./gamedata/modinit/1_mod'.$modname.'.'.$suf.'.init.adv.php';
 		
 		$str=file_get_contents($tplfile);
@@ -203,7 +205,7 @@ global $___MOD_CODE_ADV2;
 if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2)
 {
 	echo '<font color="blue">正在进行代码预处理CODE_ADV2..</font><br>';
-	include GAME_ROOT.'./include/modulemng.codeadv2.func.php';
+	include GAME_ROOT.'./include/modulemng/modulemng.codeadv2.func.php';
 	for ($i=1; $i<=$n; $i++)
 	{
 		/*
@@ -244,7 +246,7 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2 && $___MOD_CODE_ADV3)
 {
 	$___TEMP_template_force_refresh = 1;
 	$___TEMP_codeadv3=Array(); $___TEMP_codeadv3_c=0; $___TEMP_codeadv3_v=Array();
-	include GAME_ROOT.'./include/modulemng.codeadv3.func.php';
+	include GAME_ROOT.'./include/modulemng/modulemng.codeadv3.func.php';
 	echo '<font color="blue">正在进行代码预处理CODE_ADV3..</font><br>';
 	for ($i=1; $i<=$n; $i++)
 	{
@@ -268,10 +270,17 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2 && $___MOD_CODE_ADV3)
 			if ($sid=='.' || $sid=='..') continue;
 			if (!is_dir(GAME_ROOT.'./templates/default/'.(string)$sid))
 			{
-				if ($sid=='help.htm') continue;
-				if ($sid=='mixhelp.htm') continue;
-				if ($sid=='itemhelp.htm') continue;
-				if (substr($sid,strlen($sid)-4)=='.htm')
+				if (strpos($sid,'admin')===0) continue;
+				elseif (strpos($sid,'mixhelp')===0) continue;
+				elseif (strpos($sid,'alive')===0) continue;
+				elseif (strpos($sid,'winner')===0) continue;
+				elseif (strpos($sid,'valid')===0) continue;
+				elseif (strpos($sid,'user')===0) continue;
+				elseif (strpos($sid,'rank')===0) continue;
+				elseif (strpos($sid,'kuji')===0) continue;
+				elseif (substr($sid,strlen($sid)-8)=='help.htm') continue;
+				elseif (in_array($sid, array('header.htm', 'footer.htm', 'donate.htm', 'map.htm', 'replay.htm', 'register.htm', 'end.htm', 'updatelist.htm', 'areainfo.htm'))) continue;
+				elseif (substr($sid,strlen($sid)-4)=='.htm')
 				{
 					echo '&nbsp;&nbsp;&nbsp;&nbsp;正在处理模板'.$sid.'.. '; ob_end_flush(); flush();
 					$objfile = template(substr($sid,0,-4));
@@ -284,7 +293,7 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2 && $___MOD_CODE_ADV3)
 	}
 	echo '<font color="blue">代码预处理CODE_ADV3完成。</font><br><br>';
 	
-	$str='___temp_s = new String(\''.base64_encode(gzencode(compatible_json_encode($___TEMP_codeadv3_v))).'\');
+	$str='___temp_s = new String(\''.gencode($___TEMP_codeadv3_v).'\');
 	___datalib = JSON.parse(JXG.decompress(___temp_s));
 	delete ___temp_s;
 	';
@@ -315,4 +324,5 @@ echo '<font color="green">操作成功完成。修改已经被应用。<br><br><
 echo '<a href="modulemng.php" style="text-decoration: none"><span><font color="blue">[返回首页]</font></span></a><br>';   
 		
 
-?>
+/* End of file modulemng_active.php */
+/* Location: /modulemng_active.php */

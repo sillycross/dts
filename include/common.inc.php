@@ -5,12 +5,12 @@
 @ini_set('xdebug.max_nesting_level',5000);
 ignore_user_abort(1);
 
-if (!defined('IN_GAME')) define('IN_GAME', TRUE);
-if (!defined('GAME_ROOT')) define('GAME_ROOT', substr(dirname(__FILE__), 0, -7));
+defined('IN_GAME') || define('IN_GAME', TRUE);
+defined('GAME_ROOT') || define('GAME_ROOT', substr(dirname(__FILE__), 0, -7));
 define('GAMENAME', 'bra');
 
-if(PHP_VERSION < '5.4.0') {
-	exit('PHP version must >= 5.4.0!');
+if(PHP_VERSION < '5.5.0') {
+	exit('PHP version must >= 5.5.0!');
 }
 
 require GAME_ROOT.'./include/global.func.php';
@@ -21,7 +21,8 @@ error_reporting(E_ALL);
 set_error_handler('gameerrorhandler');
 $magic_quotes_gpc = get_magic_quotes_gpc();
 
-require GAME_ROOT.'./include/modules.func.php';
+require GAME_ROOT.'./include/modules/modules.func.php';
+require GAME_ROOT.'./include/roommng/room.func.php';
 
 define('STYLEID', '1');
 define('TEMPLATEID', '1');
@@ -85,7 +86,17 @@ else
 
 if (defined('NO_SYS_UPDATE')) return;
 
-if (CURSCRIPT != 'chat') sys\routine();
-
+if (CURSCRIPT == 'index') {//首页，所有房间刷新
+	if($___MOD_SRV) {//如果daemon开启，则试图调用daemon
+		$routine_url = 'http://'.$_SERVER['HTTP_HOST'].substr($_SERVER['PHP_SELF'],0,-9).'command.php';
+		$routine_context = array('command'=>'room_routine');
+		send_post($routine_url,$routine_context);
+		unset($routine_url,$routine_context);
+	}else{
+		include_once './include/roommng/roommng.func.php';
+		room_all_routine();
+	}
+}
+if (CURSCRIPT != 'chat' && !(CURSCRIPT == 'news' && isset($sendmode) && $sendmode=='news') && CURSCRIPT != 'help') sys\routine();//聊天、游戏内进行状况、帮助页面不刷新游戏状态
 
 ?>

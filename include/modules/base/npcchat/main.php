@@ -35,11 +35,13 @@ namespace npcchat
 			$npcwords = '<span>';
 		}
 		
-		if ($situation == 'meet')	//战斗开始
+		if ($situation == 'meet')	//初次登场，会将NPC从睡眠状态变为正常状态
 		{
 			$sid = 0;
+			if($pa['type'] && $pa['state']==1) $pa['state']=0;
+			elseif($pd['type'] && $pd['state']==1) $pd['state']=0;
 		}
-		else  if ($situation == 'battle')
+		elseif ($situation == 'battle')
 		{
 			if ($flag)	//攻击玩家
 			{
@@ -79,8 +81,8 @@ namespace npcchat
 	function battle_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['type'] || $pd['type']) npcchat($pa, $pd, $active, 'meet');
 		$chprocess($pa, $pd, $active);
+		if (($pa['type'] && $pa['state']==1) || ($pd['type'] && $pd['state']==1)) npcchat($pa, $pd, $active, 'meet');
 	}
 	
 	function attack_prepare(&$pa, &$pd, $active)

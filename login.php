@@ -39,7 +39,7 @@ if($mode == 'quit') {
 }
 include './include/user.func.php';
 include './gamedata/banlist.list';
-//require GAME_ROOT.'./include/db_'.$database.'.class.php';
+//require GAME_ROOT.'./include/db/db_'.$database.'.class.php';
 //$db = new dbstuff;
 //$db->connect($dbhost, $dbuser, $dbpw, $dbname, $pconnect);
 //$db->select_db($dbname);
@@ -80,7 +80,7 @@ if($name_check!='name_ok'){
 //	include_once GAME_ROOT.'./gamedata/system.php';
 
 $onlineip = real_ip();
-if(strpos($username,'Yoshiko')!==false){$onlineip = '70.5.41.30';}
+//if(strpos($username,'Yoshiko')!==false){$onlineip = '70.5.41.30';}
 
 //	if(getenv('HTTP_CLIENT_IP') && strcasecmp(getenv('HTTP_CLIENT_IP'), 'unknown')) {
 //		$onlineip = getenv('HTTP_CLIENT_IP');
@@ -98,7 +98,7 @@ if(preg_match($iplimit,$onlineip)){
 
 //	foreach($iplimit as $value){
 //		$ippart=explode('.',$value);
-//		if(count($ippart)>1 && count($ippart)<4){//��֤IP����2-4��
+//		if(count($ippart)>1 && count($ippart)<4){//保证IP段有2-4个
 //			$value=str_replace('*','',implode('.',$ippart));
 //			if(strpos($onlineip,$value)===0){
 //				gexit($_ERROR['banned_ip'],__file__,__line__);
@@ -129,9 +129,10 @@ if(!$db->num_rows($result)) {
 		gexit($_ERROR['wrong_pw'],__file__,__line__);
 	}
 }
-$db->query("UPDATE {$gtablepre}users SET ip='$onlineip' WHERE username = '$username'");
+//重新登陆之后房间设为0
+$db->query("UPDATE {$gtablepre}users SET ip='$onlineip',roomid='0' WHERE username = '$username'");
 
-gsetcookie('user',$username);
+gsetcookie('user',$userdata['username']);
 gsetcookie('pass',$password);
 //}
 
@@ -139,4 +140,3 @@ Header("Location: index.php");
 exit();
 
 ?>
-

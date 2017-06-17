@@ -8,10 +8,10 @@
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
 战斗中，你的熟练度总是视为你熟练最高之系别的熟练度。
 </span></td>
-<td class=b3 width=46>
+<td class=b3 width=96>
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
 <span class="yellow">
 19级时解锁
 </span>

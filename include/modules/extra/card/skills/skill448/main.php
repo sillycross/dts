@@ -4,7 +4,7 @@ namespace skill448
 {
 	function init() 
 	{
-		define('MOD_SKILL448_INFO','club;unique;locked;');
+		define('MOD_SKILL448_INFO','card;unique;locked;');
 		eval(import_module('clubbase'));
 		$clubskillname[448] = '创世';
 	}

@@ -8,10 +8,10 @@
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
 战斗中造成的伤害超过<span class="yellow">90%</span>目标当前生命值时自动将其秒杀。
 </span></td>
-<td class=b3 width=46>
+<td class=b3 width=96>
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
 <span class="yellow">
 </span>
 <!--{/if}-->

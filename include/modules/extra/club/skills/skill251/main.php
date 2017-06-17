@@ -15,7 +15,7 @@ namespace skill251
 	function acquire251(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		\skillbase\skill_setvalue(251,'start',$pa);
+		\skillbase\skill_setvalue(251,'start',0,$pa);
 	}
 	
 	function lost251(&$pa)
@@ -82,7 +82,7 @@ namespace skill251
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa, $pd, $active);
-		if (\skillbase\skill_query(251,$pd) && $pa['dmg_dealt']>=$pd['mhp']*0.35)
+		if (\skillbase\skill_query(251,$pd) && $pa['dmg_dealt']>=$pd['mhp']*0.35 && $pd['hp']>0)
 		{
 			eval(import_module('sys','logger'));
 			if ($active) 
@@ -96,9 +96,10 @@ namespace skill251
 	function post_traphit_events($pa, $sdata, $tritm, $damage)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_query(251,$sdata) && $damage>=$sdata['mhp']*0.15)
+		if (\skillbase\skill_query(251,$sdata) && $damage>=$sdata['mhp']*0.35 && $sdata['hp']>0)
 		{
 			eval(import_module('sys','logger'));
+			//$log .= $damage.' '.$sdata['mhp'].'<br>';
 			$log .= '<span class="yellow">你的技能「天佑」被触发，暂时进入了无敌状态！</span><br>';
 			\skillbase\skill_setvalue(251,'start',$now);
 		}

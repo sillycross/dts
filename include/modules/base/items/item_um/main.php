@@ -68,7 +68,8 @@ namespace item_um
 			$mdname = "基础防御力";
 		} elseif (strpos ( $itmk, 'ME' ) === 0) {
 			$lvlup_objective = $itme / 10;
-			$mefct = round ( $baseexp * 2 * $lvlup_objective + rand ( 0, 5 ) );
+			$mefct = \lvlctl\calc_upexp($lvlup_objective) - rand( 4, 8);
+			//$mefct = round ( $baseexp * 2 * $lvlup_objective + rand ( 0, 5 ) );
 			$mdname = "经验值";	//经验值增加最后加，因为log的次序关系
 		} elseif (strpos ( $itmk, 'MS' ) === 0) {
 			$mefct = $itme;
@@ -110,6 +111,7 @@ namespace item_um
 				
 			$mdname = "全系熟练度";
 		}
+		if (strpos ( $itmk, 'ME' ) === 0) $mefct = \lvlctl\getexp($mefct) ? $mefct : 0;
 		if ($mefct > 0) {
 			$log .= "身体里有种力量涌出来！<br>你的{$mdname}提高了<span class=\"yellow\">$mefct</span>点！<br>";
 		} elseif ($mefct == 0) {
@@ -118,7 +120,7 @@ namespace item_um
 			$mefct = - $mefct;
 			$log .= "已经很强了，却还想靠药物继续强化自己，是不是太贪心了？<br>你贪婪的行为引发了药物的副作用！<br>你的{$mdname}下降了<span class=\"red\">$mefct</span>点！<br>";
 		}
-		if (strpos ( $itmk, 'ME' ) === 0) \lvlctl\getexp($mefct);
+		
 		\itemmain\itms_reduce($theitem);
 	}
 	

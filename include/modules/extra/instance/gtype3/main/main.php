@@ -8,7 +8,10 @@ namespace gtype3
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		if ($room_prefix!='') return $chprocess();
+		//宝石乱斗 offline
+		return $chprocess();
+		
+		if (room_check_subroom($room_prefix)) return $chprocess();
 		list($sec,$min,$hour,$day,$month,$year,$wday) = explode(',',date("s,i,H,j,n,Y,w",$now));
 		$tg=$gamenum-4;
 		$res=$db->query("SELECT gametype FROM {$gtablepre}winners WHERE gid='$tg'");
@@ -23,7 +26,7 @@ namespace gtype3
  				$gametype=0;
  			}
  		}
- 		if ($disableevent) $gametype=0; 
+ 		if ($disable_event) $gametype=0; 
 		$chprocess();
 	}
 	

@@ -141,7 +141,7 @@ DROP TABLE IF EXISTS `acbra2_players`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `acbra2_players` (
-  `pid` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `pid` mediumint(5) unsigned NOT NULL AUTO_INCREMENT,
   `type` tinyint(4) NOT NULL DEFAULT '0',
   `name` char(15) NOT NULL DEFAULT '',
   `pass` char(32) NOT NULL DEFAULT '',
@@ -270,7 +270,8 @@ DROP TABLE IF EXISTS `acbra2_rooms`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `acbra2_rooms` (
   `status` int(10) unsigned NOT NULL DEFAULT '0',
-  `roomid` int(10) unsigned NOT NULL DEFAULT '0'
+  `roomid` int(10) unsigned NOT NULL DEFAULT '0',
+  `roomtype` tinyint unsigned NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -372,7 +373,7 @@ DROP TABLE IF EXISTS `acbra2_winners`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `acbra2_winners` (
-  `gid` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `gid` mediumint(5) unsigned NOT NULL DEFAULT '0',
   `type` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `name` char(15) NOT NULL DEFAULT '',
   `pass` char(32) NOT NULL DEFAULT '',
@@ -501,7 +502,7 @@ DROP TABLE IF EXISTS `acbra2_newsinfo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `acbra2_newsinfo` (
-  `nid` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `nid` mediumint(5) unsigned NOT NULL AUTO_INCREMENT,
   `time` int(10) unsigned NOT NULL DEFAULT '0',
   `news` char(15) NOT NULL DEFAULT '',
   `a` varchar(255) NOT NULL DEFAULT '',

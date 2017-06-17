@@ -4,13 +4,12 @@ define('CURSCRIPT', 'chat');
 define('LOAD_CORE_ONLY', TRUE);
 
 require './include/common.inc.php';
-//require_once GAME_ROOT.'./include/JSON.php';
 
-if(!$cuser || !defined('IN_GAME')) {
+if($sendmode != 'newspage' && (!$cuser || !defined('IN_GAME'))) {
 	exit('Not in game.');
 }
 
-if(($sendmode == 'send')&&$chatmsg) {
+if(($sendmode == 'send')&&$chatmsg) {//发送聊天
 	if(strpos($chatmsg,'/') === 0) {
 		$result = $db->query("SELECT groupid FROM {$gtablepre}users WHERE username='$cuser'");
 		$groupid = $db->result($result,0);
@@ -18,31 +17,38 @@ if(($sendmode == 'send')&&$chatmsg) {
 			if(strpos($chatmsg,'/post') === 0) {
 				$chatmsg = substr($chatmsg,6);
 				if($chatmsg){
-					$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,msg) VALUES ('4','$now','$cuser','$chatmsg')");
+					\sys\addchat(4, $chatmsg, $cuser);
+					//$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,msg) VALUES ('4','$now','$cuser','$chatmsg')");
 				}
 			} else {
-				$chatdata = array('lastcid' => $lastcid, 'msg' => Array('<span class="red">指令错误。</span><br>'));
+				$chatdata = array('lastcid' => $lastcid, 'msg' => Array('<span class="red">指令错误。<br></span>'));
 			}
 		} else {
-			$chatdata = array('lastcid' => $lastcid, 'msg' => Array('<span class="red">聊天信息不能用 / 开头。</span><br>'));
+			$chatdata = array('lastcid' => $lastcid, 'msg' => Array('<span class="red">聊天信息不能用 / 开头。<br></span>'));
 		}
 	} else { 
 		if($chattype == 0) {
-			$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,msg) VALUES ('0','$now','$cuser','$chatmsg')");
+			\sys\addchat(0, $chatmsg, $cuser);
 		} elseif($chattype == 1) {
-			$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,recv,msg) VALUES ('1','$now','$cuser','$teamID','$chatmsg')");
+			\sys\addchat(1, $chatmsg, $cuser, $teamID);
 		}
 	}
+}elseif($sendmode == 'newspage'){//来自news.php的调用
+	$showdata['innerHTML']['newsinfo'] = '';
+	$chats = getchat(0,'',0,$chatinnews);
+	$chatmsg = $chats['msg'];
+	foreach($chatmsg as $val){
+		$showdata['innerHTML']['newsinfo'] .= $val;
+	}	
 }
-if(!$chatdata) {
-	$chatdata = getchat($lastcid,$teamID);
+//$sendmode=='ref'时没有特殊判断，直接作下列处理
+if(!$showdata) {
+	if($chatpid) $showdata = getchat($lastcid,$teamID,$chatpid);
+	else $showdata = getchat($lastcid,$teamID);
 }
+if(isset($error)){$showdata['innerHTML']['error'] = $error;}
 ob_clean();
-//$json = new Services_JSON();
-//$jgamedata = $json->encode($chatdata);
-$jgamedata = compatible_json_encode($chatdata);
+$jgamedata = gencode($showdata);
 echo $jgamedata;
 ob_end_flush();
-
-
 ?>

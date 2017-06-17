@@ -18,9 +18,9 @@
 <br><br>
 <form method="post" name="news" onSubmit="return false;">
 	<input type="hidden" id="newsmode" name="newsmode" value="last">
-	<button onClick="$('newsmode').value='last';postCmd('news','news.php');">显示最新的{$newslimit}条消息</button>
-	<button onClick="$('newsmode').value='all';postCmd('news','news.php');">显示全部消息</button>
-	<button onClick="$('newsmode').value='chat';postCmd('news','news.php');">显示最新聊天纪录</button>
+	<button onClick="$('newsmode').name='newsmode';$('newsmode').value='last';postCmd('news','news.php');">显示最新的{$newslimit}条消息</button>
+	<button onClick="$('newsmode').name='newsmode';$('newsmode').value='all';postCmd('news','news.php');">显示全部消息</button>
+	<button onClick="$('newsmode').name='sendmode';$('newsmode').value='newspage';postCmd('news','chat.php');">显示最新的{$chatinnews}条聊天纪录</button>
 </form>
 
 

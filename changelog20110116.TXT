@@ -1,8 +1,0 @@
-2011/1/16
-更新如下：
-残留的思念头像修改；header里加入banner  文件：n_51.gif;header.htm;banner468.jpg
-首页加入清除cookie功能  文件：index.htm;common.inc.php;templates.lang.php
-修正了可以把性别改为npc或者别的字母的BUG  文件：valid.php
-去除了一些没用的商品，加入防御属性的饰品  文件：shopitem_1.php
-NPC四面增加掉落射系终极武器，同时武器强化；NPC残留的思念武器极度强化，数值下调  文件：npc_1.php
-游戏界面字体修改  文件：style_1.css;help.htm

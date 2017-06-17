@@ -10,12 +10,17 @@ namespace attack
 		return Array();
 	}
 	
+	function apply_total_damage_modifier_up(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+	}
+	
 	function apply_total_damage_modifier_down(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
-	function apply_total_damage_modifier_up(&$pa,&$pd,$active)
+	function apply_total_damage_change(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
@@ -58,10 +63,12 @@ namespace attack
 				$pa['dmg_dealt']=$fin_dmg;
 			}
 		
-		//应用对总伤害的修正
+		//应用对总伤害的加算修正
 		//先应用降低类，后应用提高类
 		apply_total_damage_modifier_down($pa,$pd,$active);
 		apply_total_damage_modifier_up($pa,$pd,$active);
+		//最后执行变化类修正（伤害制御、反演、数体教等）
+		apply_total_damage_change($pa,$pd,$active);
 		
 		//扣血并更新最高伤害
 		apply_damage($pa,$pd,$active);

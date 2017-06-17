@@ -2,11 +2,20 @@
 
 namespace sys
 {	
-	global $mode, $command, $db, $url;
+	//$mode决定给玩家显示哪个界面
+	//$command是玩家提交的命令也是act()判断的依据
+	//$db是数据库类
+	//$plock文件锁的文件
+	//$url如果存在，ajax将会直接跳转
+	//$uip其他要传给界面的变量请写在这里
+	global $mode, $command, $db, $plock, $url, $uip;
+	//玩家数据池，fetch的时候先判断池里存不存在，如果有则优先调用池里的；
+	//万一以后pdata_pool要变成引用呢？所以多一个origin池
+	global $pdata_pool, $pdata_origin_pool; $pdata_origin_pool = $pdata_pool = array();
 	
 	function init()
 	{
-		global $gtablepre, $tablepre, $wtablepre, $room_prefix, $moveut, $moveutmin;
+		global $gtablepre, $tablepre, $wtablepre, $room_prefix, $room_id, $moveut, $moveutmin;
 		global ${$gtablepre.'user'}, ${$gtablepre.'pass'}, $___MOD_SRV;
 		if (isset($_COOKIE))
 		{
@@ -23,25 +32,29 @@ namespace sys
 		ob_clean();
 		ob_start();
 		
+		//数据库初始化，且只初始化1次
 		global $db; 
-		if (!isset($db))
-		{
-			global $dbhost, $dbuser, $dbpw, $dbname, $pconnect, $database;
-			require GAME_ROOT.'./include/db_'.$database.'.class.php';
-			$db = new \dbstuff;
-			$db->connect($dbhost, $dbuser, $dbpw, $dbname, $pconnect);
-			//$db->select_db($dbname);
-			unset($dbhost, $dbuser, $dbpw, $dbname, $pconnect);
-		}
+		if (!isset($db)) $db = init_dbstuff();
 		
+		//游戏时间变量初始化
+		date_default_timezone_set('Etc/GMT');
+		global $now; $now = time() + $moveut*3600 + $moveutmin*60;   
+		global $sec,$min,$hour,$day,$month,$year,$wday;
+		list($sec,$min,$hour,$day,$month,$year,$wday) = explode(',',date("s,i,H,j,n,Y,w",$now));
+		
+		//从玩家提交的信息（一般是$_POST）里获取用户名和密码
 		global $___LOCAL_INPUT__VARS__INPUT_VAR_LIST;
 		if (isset($___LOCAL_INPUT__VARS__INPUT_VAR_LIST[$gtablepre.'user']))
 			${$gtablepre.'user'}=$___LOCAL_INPUT__VARS__INPUT_VAR_LIST[$gtablepre.'user'];
 		if (isset($___LOCAL_INPUT__VARS__INPUT_VAR_LIST[$gtablepre.'pass']))
 			${$gtablepre.'pass'}=$___LOCAL_INPUT__VARS__INPUT_VAR_LIST[$gtablepre.'pass'];
+			
+		//进入当前用户房间判断
+		$room_prefix = '';
+		$room_id = 0;
 		if (isset($___LOCAL_INPUT__VARS__INPUT_VAR_LIST['___GAME_ROOMID']))
 		{
-			$room_prefix = ((string)$___LOCAL_INPUT__VARS__INPUT_VAR_LIST['___GAME_ROOMID']);
+			$room_id = ((string)$___LOCAL_INPUT__VARS__INPUT_VAR_LIST['___GAME_ROOMID']);
 		}
 		else  
 		{
@@ -50,118 +63,71 @@ namespace sys
 				$result = $db->query("SELECT roomid FROM {$gtablepre}users where username='".${$gtablepre.'user'}."'");
 				if ($db->num_rows($result))
 				{
-					$zz = $db->fetch_array($result);
-					$room_prefix = $zz['roomid'];
+					$rarr = $db->fetch_array($result);
+					$room_id = $rarr['roomid'];
 				}
-				else  $room_prefix = '';
 			}
-			else  $room_prefix = '';
 		}
 		
-		$room_status = 0;
+		$room_prefix = room_id2prefix($room_id);
+
+		//$room_status = 0;
+		//$room_id = room_prefix2id($room_prefix);
 		
-		if ($room_prefix!='' && $room_prefix!='n' && $room_prefix[0]!='s')
+		//判断所在房间是否存在/是否已经关闭，如果不存在或关闭则将玩家所在房间调整为0（主游戏）
+		global $gameinfo; 
+		$gameinfo = NULL;
+		//$room_status = 0;
+		$result = $db->query("SELECT * FROM {$gtablepre}game where groomid='".$room_id."'");
+		if ($db->num_rows($result))
 		{
-			$room_prefix = '';
+			$gameinfo = $db->fetch_array($result);
+			//如果房间关闭则退出到主房间
+			if ($gameinfo['groomstatus']==0) {
+				$room_id = 0;
+				$room_prefix = room_id2prefix(0);
+				$gameinfo = NULL;
+			}
+			//如果房间是开启状态，但游戏在结束状态，则把房间状态设为打开
+			elseif ($gameinfo['groomstatus'] && $gameinfo['gamestate']==0 && room_check_subroom($room_prefix))
+			{
+				$db->query("UPDATE {$gtablepre}game SET groomstatus=1 WHERE groomid='$room_id'");
+				$gameinfo['groomstatus'] = 1;
+//				$room_prefix = '';
+//				$room_id = 0;
+//				$gameinfo = NULL;
+			}
 		}
 		else
 		{
-			if ($room_prefix!='' && $room_prefix[0]=='s')
-			{
-				$result = $db->query("SELECT status FROM {$gtablepre}rooms where roomid='".substr($room_prefix,1)."'");
-				if ($db->num_rows($result))
-				{
-					$zz = $db->fetch_array($result);
-					$room_status = $zz['status'];
-					if ($zz['status']==0) $room_prefix = '';
-				}
-				else  $room_prefix = '';
-			}
+			$room_prefix = '';
+			$room_id = 0;
+			$gameinfo = NULL;
 		}
-		$tablepre = $gtablepre.$room_prefix;
-		
-		if ($room_prefix=='') $wtablepre = $gtablepre; else $wtablepre = $gtablepre.($room_prefix[0]);
-		
-		//自动初始化表
-		if ($room_prefix!='')
-		{
-			$result = $db->query("show tables like '{$wtablepre}winners';");
-			if (!$db->num_rows($result))
-			{
-				//某个非主房间是第一次使用，则创建表并初始化
-				$db->query("create table if not exists {$wtablepre}winners like {$gtablepre}winners;");
-			}
-			
-			$result = $db->query("show tables like '{$tablepre}game';");
-			if (!$db->num_rows($result))
-			{
-				//某个非主房间是第一次使用，则创建表并初始化
-				$db->query("create table if not exists {$tablepre}game like {$gtablepre}game;");
-		
-				$result = $db->query("SELECT count(*) as cnt FROM {$tablepre}game");
-				if (!$db->num_rows($result)) 
-					$cnt=0;
-				else 
-				{
-					$zz = $db->fetch_array($result);
-					$cnt=$zz['cnt'];
-				}
-				if ($cnt==0) $db->query("insert into {$tablepre}game (gamenum) values (0);");
-					
-				$result = $db->query("SELECT count(*) as cnt FROM {$wtablepre}winners");
-				if (!$db->num_rows($result)) 
-					$cnt=0;
-				else 
-				{
-					$zz = $db->fetch_array($result);
-					$cnt=$zz['cnt'];
-				}
-				if ($cnt==0) $db->query("insert into {$wtablepre}winners (gid) values (0);");
-				
-				$sql = file_get_contents(GAME_ROOT.'./gamedata/sql/reset.sql');
-				$sql = str_replace("\r", "\n", str_replace(' bra_', ' '.$tablepre, $sql));
-				$db->queries($sql);
-				
-				$sql = file_get_contents(GAME_ROOT.'./gamedata/sql/players.sql');
-				$sql = str_replace("\r", "\n", str_replace(' bra_', ' '.$tablepre, $sql));
-				$db->queries($sql);
-			}
+		//如果之前没读到房间的gameinfo，则读主游戏的gameinfo
+		if(!$room_id || empty($gameinfo)){
+			$result = $db->query("SELECT * FROM {$gtablepre}game where groomid='0'");
+			$gameinfo = $db->fetch_array($result);
 		}
-		
-		//$errorinfo ? error_reporting(E_ALL) : error_reporting(0);
-		date_default_timezone_set('Etc/GMT');
-		//$now = time() + $moveutmin*60;
-		global $now; $now = time() + $moveut*3600 + $moveutmin*60;   
-		global $sec,$min,$hour,$day,$month,$year,$wday;
-		list($sec,$min,$hour,$day,$month,$year,$wday) = explode(',',date("s,i,H,j,n,Y,w",$now));
-
-
-		//if($attackevasive) {
-		//	include_once GAME_ROOT.'./include/security.inc.php';
-		//}
-		
-		//COMBAT INFO INIT
-		//已经一起做进数据库里了
-		//global $hdamage,$hplayer,$noisetime,$noisepls,$noiseid,$noiseid2,$noisemode;
-		//include GAME_ROOT.'./gamedata/combatinfo.php';
-		
-		//GAME INFO INIT
-		global $now,$db,$tablepre;
-		$result = $db->query("SELECT * FROM {$tablepre}game");
-		global $gameinfo; $gameinfo = $db->fetch_array($result);
+		//$gameinfo初始化，初次global这些变量
+		//注意这里并没有对$arealist等变量进行处理，真正的处理是在common.inc.php调用routine()调用load_gameinfo()时
 		foreach ($gameinfo as $key => $value)
 		{
-			global $$key;
-			$$key=$value;
+			global ${$key};
+			${$key}=$value;
 		}
+		//$arealist = explode(',',$arealist);
 		
-		if ($room_status==2 && $gamestate==0 && $room_prefix!='' && $room_prefix[0]=='s')
-		{
-			$db->query("UPDATE {$gtablepre}rooms SET status=1 WHERE roomid='".substr($room_prefix,1)."'");
-		}
+		//为$tablepre赋值，之后除game表之外的数据库操作都被引入对应前缀的数据表
+		$tablepre = room_get_tablepre();
 		
-		$arealist = explode(',',$arealist);
+		if ($room_prefix=='') $wtablepre = $gtablepre;
+		else $wtablepre = $gtablepre.room_prefix_kind($room_prefix);
 		
+		//room_auto_init();//新建房间时，自动初始化房间表
+		//实际上不应该放在这里，应该只在新建房间时调用
+		
+		//当前用户名和密码变量初始化
 		global $cuser, $cpass;
 		$cuser = ${$gtablepre.'user'};
 		$cpass = ${$gtablepre.'pass'};
@@ -186,6 +152,7 @@ namespace sys
 			$command=$___LOCAL_INPUT__VARS__command;
 		}
 	}
+	
 }
 
 ?>

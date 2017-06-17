@@ -1,23 +1,6 @@
 <?php
-
-function check_authority()
-{
-	require GAME_ROOT.'./include/modules/core/sys/config/server.config.php';
-	$_COOKIE=gstrfilter($_COOKIE);
-	$cuser=$_COOKIE[$gtablepre.'user'];
-	$cpass=$_COOKIE[$gtablepre.'pass'];
-	require GAME_ROOT.'./include/db_'.$database.'.class.php';
-	$db = new dbstuff;
-	$db->connect($dbhost, $dbuser, $dbpw, $dbname, $pconnect);
-	unset($dbhost, $dbuser, $dbpw, $dbname, $pconnect);
-	$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$cuser'");
-	if(!$db->num_rows($result)) { echo "<span><font color=\"red\">Cookie无效，请登录。</font></span><br>"; die(); }
-	$udata = $db->fetch_array($result);
-	if($udata['password'] != $cpass) { echo "<span><font color=\"red\">Cookie无效，请登录。</font></span><br>"; die(); }
-	elseif(($udata['groupid'] < 9)&&($cuser!==$gamefounder)) { echo "<span><font color=\"red\">要求至少9权限。</font></span><br>"; die(); }
-	unset($db); unset($cuser); unset($cpass); unset($udata); unset($result);
-}
-
+header('Content-Type: text/HTML; charset=utf-8');
+header( 'Content-Encoding: none; ' );
 define('IN_GAME', TRUE);
 define('GAME_ROOT', dirname(__FILE__).'/');
 error_reporting(0);
@@ -25,7 +8,7 @@ $magic_quotes_gpc = get_magic_quotes_gpc();
 require GAME_ROOT.'./include/global.func.php';
 check_authority();
 
-require GAME_ROOT.'./include/modulemng.config.php';
+require GAME_ROOT.'./include/modulemng/modulemng.config.php';
 require GAME_ROOT.'./include/socket.func.php';
 
 $___TEMP_runmode = 'Admin';
@@ -52,8 +35,10 @@ if (!$___MOD_SRV)
 
 echo '管理脚本状况： ';
 
-$t=file_get_contents(GAME_ROOT.'./gamedata/tmp/server/scriptalive.txt');
-$t=(int)$t; $ff=1;
+$t1=(int)file_get_contents(GAME_ROOT.'./gamedata/tmp/server/scriptalive.txt');
+$t2=(int)filemtime(GAME_ROOT.'./gamedata/tmp/server/scriptalive.txt');
+$t=max($t1,$t2);
+$ff=1;
 if (time()-$t<=10)
 {
 	echo '<font color="green">正在运行</font><br>';
@@ -61,7 +46,7 @@ if (time()-$t<=10)
 else 
 {
 	echo '<font color="red">不在运行</font><br><br>';
-	echo '<font color="blue">请从服务器shell中启动./acdts-daemonctl.sh</font><br>';
+	echo '<font color="blue">请从服务器shell中启动./acdts-daemonctl.sh（Linux）或者启动./acdts-daemonctl.bat（WIN）</font><br>';
 	$ff = 0;
 }
 echo '<br>';

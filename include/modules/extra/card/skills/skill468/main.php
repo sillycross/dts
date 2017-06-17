@@ -4,9 +4,9 @@ namespace skill468
 {
 	function init() 
 	{
-		define('MOD_SKILL468_INFO','club;unique;');
+		define('MOD_SKILL468_INFO','card;unique;');
 		eval(import_module('clubbase'));
-		$clubskillname[468] = '崎岖';
+		$clubskillname[468] = '月光';
 	}
 	
 	function acquire468(&$pa)
@@ -32,10 +32,10 @@ namespace skill468
 		{
 			eval(import_module('player','logger'));
 			if ($active)
-				$log.="<span class=\"clan\">山岭巨人的力量使你晕了过去！</span></span><br>";
-			else  $log.="<span class=\"clan\">山岭巨人的力量使敌人晕了过去！</span></span><br>";
+				$log.="<span class=\"clan\">母山岭巨人的力量使你晕了过去！</span></span><br>";
+			else  $log.="<span class=\"clan\">母山岭巨人的力量使敌人晕了过去！</span></span><br>";
 			\skill602\set_stun_period(2500,$pa);
-			\skill602\send_stun_battle_news($pa['name'],$pd['name']);
+			\skill602\send_stun_battle_news($pd['name'],$pa['name']);
 		}
 		return Array();
 	}

@@ -30,7 +30,8 @@ namespace skill21
 		$npc=$enpcinfo[$xtype][$xname];
 		$npc['hp'] = $npc['mhp'];
 		$npc['sp'] = $npc['msp'];
-		$npc['exp'] = round(($npc['lvl']*2+1)*$baseexp);
+		$npc['exp'] = \lvlctl\calc_upexp($npc['lvl'] - 1);
+		//$npc['exp'] = round(($npc['lvl']*2+1)*$baseexp);
 		if(!isset($npc['state'])){$npc['state'] = 0;}
 		$npc['wp'] = $npc['wk'] = $npc['wg'] = $npc['wc'] = $npc['wd'] = $npc['wf'] = $npc['skill'];
 		unset($npc['skill']);
@@ -54,7 +55,7 @@ namespace skill21
 				\skillbase\skill_lost(21,$pd);
 				//进化时失去所有专有技能
 				foreach (\skillbase\get_acquired_skill_array($pd) as $key) 
-					if (defined('MOD_SKILL'.$key.'_INFO') && strpos(constant('MOD_SKILL'.$key.'_INFO'),'club;')!==false && strpos(constant('MOD_SKILL'.$key.'_INFO'),'unique;')!==false) 
+					if (defined('MOD_SKILL'.$key.'_INFO') && !\skillbase\check_skill_info($key, 'achievement') && \skillbase\check_skill_info($key, 'unique')) 
 						\skillbase\skill_lost($key,$pd);
 				//然后获得新的专有技能
 				if (is_array($npcdata['skills'])){
@@ -76,11 +77,11 @@ namespace skill21
 	function counter_assault_wrapper(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['npc_evolved']) return;	//进化的NPC本轮不反击
+		if (isset($pa['npc_evolved']) && $pa['npc_evolved']) return;	//进化的NPC本轮不反击
 		$chprocess($pa, $pd, $active);
 	}	
 	
-	function parse_news($news, $hour, $min, $sec, $a, $b, $c, $d, $e)	
+	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())	
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
@@ -93,10 +94,10 @@ namespace skill21
 			}else{
 				$nword = "<span class=\"lime\">{$c}击杀了{$a}，却发现对方展现出了第二形态：{$b}！</span>";
 			}
-			return "<li>{$hour}时{$min}分{$sec}秒，$nword<br>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，$nword</li>";
 		}
 		
-		return $chprocess($news, $hour, $min, $sec, $a, $b, $c, $d, $e);
+		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 }
 
