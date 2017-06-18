@@ -263,6 +263,7 @@ skill237,extra/club/skills/skill237/,1
 skill35,extra/club/skills/skill35/,1
 skill467,extra/card/skills/skill467/,1
 skill468,extra/card/skills/skill468/,1
+skill481,extra/card/skills/skill481/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 event,base/event/,1
