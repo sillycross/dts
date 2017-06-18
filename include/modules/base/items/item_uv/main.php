@@ -48,6 +48,26 @@ namespace item_uv
 				}
 			}
 			
+			//特殊的技能书类型VO，效果是获得编号为itmsk的卡片
+			//可以有特判
+			if (strpos ( substr($itmk,1), 'O' ) !== false)	//技能书
+			{
+				if ($itm == '博丽神社的参拜券')
+				{
+					eval(import_module('sys'));
+					if ($now - $starttime >= 1200)
+					{
+						$log.='<span class="yellow">博丽神社今天已经关门啦，下次请早点来吧。（这个道具必须在开局20分钟内使用）<br></span>';
+						return;
+					}
+				}
+				eval(import_module('cardbase'));
+				$sk_kind = (int)$itmsk;
+				\cardbase\get_card($sk_kind);
+				$log.='<span class="yellow">你获得了卡片「'.$cards[$sk_kind]['name'].'」！请前往“帐号资料”→“查看我的卡册”查看。</span><br>';
+				$useflag = 1;
+			}
+			
 			//下面是普通的技能书处理（效果是加某个系的熟练）
 			$skill_minimum = 100;
 			$skill_limit = 300;
