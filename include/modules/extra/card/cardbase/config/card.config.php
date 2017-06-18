@@ -22,6 +22,13 @@ $card_rarecolor=array(
 	'C'=>'white ',
 	'M'=>'grey '
 );
+$card_rarity_html = array(
+	'S'=>'<span class="'.$card_rarecolor['S'].'">S</span>',
+	'A'=>'<span class="'.$card_rarecolor['A'].'">A</span>',
+	'B'=>'<span class="'.$card_rarecolor['B'].'">B</span>',
+	'C'=>'<span class="'.$card_rarecolor['C'].'">C</span>',
+	'M'=>'<span class="'.$card_rarecolor['M'].'">M</span>'
+);	
 $cards = array(
 	0 => array(
 		'name' => '挑战者',
@@ -2349,7 +2356,7 @@ $cards = array(
 		'rare' => 'S',
 		'pack' => 'Event Bonus',
 		'desc' => '神社代代相传的【十万元cos】',
-		'effect' => '称号固定为超能力者，且使用灵系武器时，有20%几率造成2倍物理伤害',
+		'effect' => '称号固定为超能力者，且使用灵系武器时，有30%几率造成2倍物理伤害',
 		'energy' => 150,
 		'valid' => array(
 			'club' => '9',
@@ -2363,6 +2370,19 @@ $cards = array(
 				'76' => '0', 
 				'74' => '0', 
 				'482' => '0', 
+			),
+		)
+	),
+	159 => array(
+		'name' => '氪金战士',
+		'rare' => 'S',
+		'pack' => 'Event Bonus',
+		'desc' => '只要你充够了钱，你就能变得更强',
+		'effect' => '可以花费1500元使自己在与玩家的战斗中无敌，持续120秒，只能发动一次',
+		'energy' => 150,
+		'valid' => array(
+			'skills' => array(
+				'483' => '0', 
 			),
 		)
 	),

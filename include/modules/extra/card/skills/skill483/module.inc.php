@@ -1,13 +1,13 @@
 <?php
 
-namespace cardbase
+namespace skill483
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'sys player attack itemmix bubblebox';
+	$___MODULE_dependency = 'skillbase player weapon sys logger attack bufficons';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
-	$___MODULE_codelist = 'main.php config/card.config.php';
-	$___MODULE_templatelist = 'cardflip_back cardflip_result';
+	$___MODULE_codelist = 'main.php';
+	$___MODULE_templatelist = 'desc';
 	////////// MODULE HEADER END /////////////////
 	require __INIT_MODULE__(__NAMESPACE__,__DIR__);
 }

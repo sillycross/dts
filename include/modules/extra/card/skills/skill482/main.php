@@ -31,7 +31,7 @@ namespace skill482
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r=Array();
 		$ret=$chprocess($pa,$pd,$active);
-		if (\skillbase\skill_query(482,$pa) && rand(1,100)<=20 && $pa['wepk']=='WF')
+		if (\skillbase\skill_query(482,$pa) && rand(1,100)<=30 && $pa['wepk']=='WF')
 		{
 			eval(import_module('logger'));
 			if ($active)

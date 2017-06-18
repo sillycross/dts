@@ -1,0 +1,35 @@
+<!--{eval \bubblebox\bubblebox_set_style('id:cardresult;height:370;width:246;cancellable:1');}-->
+{template MOD_BUBBLEBOX_START}
+<p>
+你翻开了卡片。<br>
+</p>
+		<div style="
+		cursor:pointer;
+		position:relative; -moz-border-radius:8px; 
+		-webkit-border-radius:8px;
+		border-radius:8px; height:290px; width:240px; overflow:hidden; 
+		"
+		title="点击返回"
+		onclick="bubblebox_hide_all();"
+		>
+		<table CellSpacing=0 CellPadding=0 style="height:290px; width:240px">
+			<tr height="40">
+				<td class=b2 width="38" height="40">卡名</td>
+				<td class=b3 width="202" height="40">$is_new $cards[$get_card_id]['name']</td>
+			</tr>
+			<tr height="40">
+				<td class=b2 width="38" height="40">罕贵</td>
+				<td class=b3 width="202" height="40"><span class="{$card_rarecolor[$cards[$get_card_id]['rare']]}">$cards[$get_card_id]['rare']</span></td>
+			</tr>
+			<tr height="140">
+				<td class=b2 width="38" height="140">介绍</td>
+				<td class=b3 width="202" height="140">$cards[$get_card_id]['desc']</td>
+			</tr>
+			<tr height="70">
+				<td class=b2 width="38" height="70">效果</td>
+				<td class=b3 width="202" height="70">$cards[$get_card_id]['effect']</td>
+			</tr>
+		</table>
+		</div>
+{template MOD_BUBBLEBOX_END}
+<img style="display:none;" type="hidden" src="img/blank.png" onload="bubblebox_show('cardresult');">
