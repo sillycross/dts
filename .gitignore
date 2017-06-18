@@ -17,3 +17,5 @@ gamedata/gameinfo.php
 gamedata/tmp/*.*
 query_log.txt
 *.lock
+gamedata/cache/
+templates/default/mixhelp.htm

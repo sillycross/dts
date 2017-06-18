@@ -259,11 +259,16 @@ namespace replay
 			
 			file_put_contents(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.rep.index',$sstr);
 			//logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-储存录像索引');
-			clear_dir(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/',1);
-			global $___MOD_TMP_FILE_DIRECTORY;
-			clear_dir($___MOD_TMP_FILE_DIRECTORY.$room_prefix.'_/',1);
-			//logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-清空目录');
 		}
+		// 注意虽然tmp文件夹下所有其他目录都是以room_prefix作为索引
+		// tmp/response是以room_id作为索引的
+		// 为什么不统一一下呢？因为我不想在socket.func里include room.func……
+		// 虽然感觉是地雷但想了一下好像以后想踩到也挺难的
+		//
+		clear_dir(GAME_ROOT.'./gamedata/tmp/replay/'.$room_id.'_/',1);
+		global $___MOD_TMP_FILE_DIRECTORY;
+		clear_dir($___MOD_TMP_FILE_DIRECTORY.$room_id.'_/',1);
+		//logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-清空目录');
 	}
 	
 	function replay_validify_record($str)
