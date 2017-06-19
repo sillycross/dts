@@ -2,7 +2,7 @@
 
 namespace skill483
 {
-	$skill483_cd = 36000;
+	$skill483_cd = 0;
 	
 	function init() 
 	{
@@ -17,6 +17,7 @@ namespace skill483
 		eval(import_module('sys','skill483'));
 		\skillbase\skill_setvalue(483,'lastuse',-3000,$pa);
 		\skillbase\skill_setvalue(483,'dur',0,$pa);
+		\skillbase\skill_setvalue(483,'cost',500,$pa);
 	}
 	
 	function lost483(&$pa)
@@ -53,14 +54,16 @@ namespace skill483
 			$log.='技能冷却中！<br>';
 			return;
 		}
-		if ($money<1500)
+		$c=(int)\skillbase\skill_getvalue(483,'cost',$pa);
+		if ($money<$c)
 		{
-			$log.='<span class=yellow">金钱不足！用你的脑子想一想，不充钱你会变得更强吗？</span><br>';
+			$log.='<span class="yellow">金钱不足！用你的脑子想一想，不充钱你会变得更强吗？</span><br>';
 			return;
 		}
-		$money-=1500;
+		$money-=$c;
 		\skillbase\skill_setvalue(483,'dur',120);
 		\skillbase\skill_setvalue(483,'lastuse',$now);
+		\skillbase\skill_setvalue(483,'cost',$c*2);
 		addnews ( 0, 'bskill483', $name );
 		$log.='<span class="lime">技能「氪金」发动成功。</span><br>';
 	}
@@ -77,14 +80,46 @@ namespace skill483
 		return 3;
 	}
 	
-	function apply_total_damage_modifier_down(&$pa,&$pd,$active){
+	function kill(&$pa, &$pd)	
+	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (check_skill483_state($pd)!=1 || $pa['type']!=0) return $chprocess($pa,$pd,$active);
-		eval(import_module('logger'));
-		$pa['dmg_dealt']=0;
-		if ($active) $log .= "<span class=\"yellow\">敌人的技能「氪金」使你的攻击没有造成任何伤害！</span><br>";
-		else $log .= "<span class=\"yellow\">你的技能「氪金」使敌人的攻击没有造成任何伤害！</span><br>";
+		
+		$chprocess($pa,$pd);
+		
+		eval(import_module('sys','logger'));
+		if (check_skill483_state($pd)==1 && in_array($pd['state'],Array(20,21,22,23,24,25,29)) && $pa['type']==0)
+		{
+			$pd['state']=0; $pd['hp']=$pd['mhp'];
+			$pd['skill483_flag']=1;
+			$deathnum--;
+			if ($pd['type']==0) $alivenum++;
+			save_gameinfo();
+				
+			addnews ( $now, 'revival483', $pa['name'], $pd['name'] );
+		}
+	
+	}
+	
+	function player_kill_enemy(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
 		$chprocess($pa,$pd,$active);
+		
+		eval(import_module('sys','logger'));
+		if (isset($pd['skill483_flag']) && $pd['skill483_flag'])
+		{
+			if ($active)
+			{
+				$log.='<span class="lime">但是氪金战士不可能死！敌人又站了起来！</span><br>';
+				$pd['battlelog'].='<span class="lime">但是氪金战士不可能死！</span>你又站了起来，';
+			}
+			else
+			{
+				$log.='<span class="lime">但是氪金战士不可能死！你又站了起来！</span><br>';
+				$pa['battlelog'].='<span class="lime">但是氪金战士不可能死！</span>敌人又站了起来，';
+			}
+		}
 	}
 	
 	function bufficons_list()
@@ -97,12 +132,13 @@ namespace skill483
 			eval(import_module('skill483'));
 			$skill483_lst = (int)\skillbase\skill_getvalue(483,'lastuse'); 
 			$skill483_dur = (int)\skillbase\skill_getvalue(483,'dur'); 
+			$skill483_cost = \skillbase\skill_getvalue(483,'cost'); 
 			$skill483_time = $now-$skill483_lst; 
 			$z=Array(
 				'disappear' => 0,
 				'clickable' => 1,
 				'hint' => '技能「氪金」',
-				'activate_hint' => '点击发动技能「氪金」，消耗1500元',
+				'activate_hint' => '点击发动技能「氪金」，消耗'.$skill483_cost.'元',
 				'onclick' => "$('mode').value='special';$('command').value='skill483_special';$('subcmd').value='activate';postCmd('gamecmd','command.php');this.disabled=true;",
 			);
 			if ($skill483_time<$skill483_dur)
@@ -116,7 +152,6 @@ namespace skill483
 				$z['style']=2;
 				$z['totsec']=$skill483_cd;
 				$z['nowsec']=$skill483_time-$skill483_dur;
-				\skillbase\skill_lost(483);
 			}
 			else 
 			{
@@ -135,6 +170,10 @@ namespace skill483
 		
 		if($news == 'bskill483') 
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}发动了技能<span class=\"yellow\">「氪金」</span></span></li>";
+		
+		if($news == 'revival483') 
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}击杀了{$b}，却不料{$b}是传说中的氪金战士！{$b}又站了起来！</span></li>";
+		
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

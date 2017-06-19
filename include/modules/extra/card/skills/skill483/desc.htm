@@ -7,9 +7,10 @@
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
 <!--{eval $skill483_act_time=(int)\skillbase\skill_getvalue(483,'dur');}-->
+<!--{eval $skill483_cost=(int)\skillbase\skill_getvalue(483,'cost');}-->
 <!--{eval $skill483_lst = (int)\skillbase\skill_getvalue(483,'lastuse'); $skill483_time = ($now-$skill483_lst);$skill483_cd_left=($skill483_cd+$skill483_act_time-$skill483_time);$skill483_rem=($skill483_act_time-$skill483_time);}-->
-消耗<span class="yellow">1500</span>元，发动后你在与玩家的战斗中无敌。<br>
-效果持续时间<span class="yellow">120</span>秒，仅限一次。<br>
+消耗<span class="yellow">$skill483_cost</span>元，发动后若你在与玩家的战斗中死亡，你会立即复活。<br>
+效果持续时间<span class="yellow">120</span>秒，可以重复发动，但每次发动消耗金钱翻倍。<br>
 <!--{if $skill483_time>$skill483_act_time && $skill483_time<$skill483_cd+$skill483_act_time}-->
 <!--{else}-->
 <!--{if $skill483_time<=$skill483_act_time}-->
