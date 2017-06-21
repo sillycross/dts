@@ -22,6 +22,13 @@ $card_rarecolor=array(
 	'C'=>'white ',
 	'M'=>'grey '
 );
+$card_rarity_html = array(
+	'S'=>'<span class="'.$card_rarecolor['S'].'">S</span>',
+	'A'=>'<span class="'.$card_rarecolor['A'].'">A</span>',
+	'B'=>'<span class="'.$card_rarecolor['B'].'">B</span>',
+	'C'=>'<span class="'.$card_rarecolor['C'].'">C</span>',
+	'M'=>'<span class="'.$card_rarecolor['M'].'">M</span>'
+);	
 $cards = array(
 	0 => array(
 		'name' => '挑战者',
@@ -2341,6 +2348,41 @@ $cards = array(
 		'valid' => array(
 			'skills' => array(
 				'481' => '0', 
+			),
+		)
+	),
+	158 => array(
+		'name' => '博丽灵梦',
+		'rare' => 'S',
+		'pack' => 'Event Bonus',
+		'desc' => '神社代代相传的【十万元cos】',
+		'effect' => '称号固定为超能力者，且使用灵系武器时，有30%几率造成2倍物理伤害',
+		'energy' => 150,
+		'valid' => array(
+			'club' => '9',
+			'skills' => array(
+				'10' => '0', 
+				'11' => '0', 
+				'12' => '0', 
+				'18' => '0', 
+				'65' => '0', 
+				'73' => '0', 
+				'76' => '0', 
+				'74' => '0', 
+				'482' => '0', 
+			),
+		)
+	),
+	159 => array(
+		'name' => '氪金战士',
+		'rare' => 'S',
+		'pack' => 'Event Bonus',
+		'desc' => '只要你充够了钱，你就能变得更强',
+		'effect' => '可以花费500元使自己在接下来120秒内被玩家击杀后立即复活（次数不限）。可重复发动，但每次发动消耗翻倍。',
+		'energy' => 150,
+		'valid' => array(
+			'skills' => array(
+				'483' => '0', 
 			),
 		)
 	),
