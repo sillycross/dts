@@ -22,6 +22,7 @@ if($gamestate >= 30 && $udata['groupid'] < 6 && $cuser != $gamefounder) {
 
 eval(import_module('cardbase'));
 
+//入场
 if($mode == 'enter') {
 	if($iplimit) {
 		$result = $db->query("SELECT * FROM {$gtablepre}users AS u, {$tablepre}players AS p WHERE u.ip='{$udata['ip']}' AND ( u.username=p.name AND p.type=0)");
@@ -36,6 +37,9 @@ if($mode == 'enter') {
 	
 	if (!in_array($card,$card_ownlist)) $card=0;
 	
+	if ($gender !== 'm' && $gender !== 'f'){
+		$gender = 'f';
+	}
 	$db->query("UPDATE {$gtablepre}users SET gender='$gender', icon='$icon', motto='$motto', killmsg='$killmsg', card='$card', lastword='$lastword' WHERE username='".$udata['username']."'" );
 	if($validnum >= $validlimit) {
 		gexit($_ERROR['player_limit'],__file__, __line__);
@@ -44,16 +48,14 @@ if($mode == 'enter') {
 	if($db->num_rows($result)) {
 		gexit($_ERROR['player_exist'], __file__, __line__);
 	}
-	if ($gender !== 'm' && $gender !== 'f'){
-		$gender = 'm';
-	}
+	
 	
 	$cc=$card;
 	$cardinfo=$cards[$cc];
 	$r=$cardinfo['rare'];
 	$cf=true;
 	
-	//通常和无限复活模式，C卡以上的卡只能进入1张
+	//通常和无限复活模式，C卡以上的卡只能进入1张，且会刷新冷却时间
 	if ($gametype==0 || $gametype==2){
 		if (!in_array($cards[$cc]['rare'], array('C', 'M')))
 		{
