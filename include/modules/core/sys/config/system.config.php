@@ -9,10 +9,12 @@ namespace sys
 	$checkstr = "<? if(!defined('IN_GAME')) exit('Access Denied'); ?>\n";
 	//是否允许游客进入插件。0=不允许，1=允许
 	$isLogin = 1;
+	//是否开启密码兼容模式（登录时兼容1.25之前密码储存模式）
+	$oldpswdcmp = 1;
 	//是否缓存css文件。0=不缓存，1=缓存
 	$allowcsscache = 1;
 	//游戏版本
-	$gameversion = 'N.E.W. v1.25';
+	$gameversion = 'N.E.W. v1.26';
 	//站长留言
 	//$systemmsg = '';
 	//游戏开始方式 0=后台手动开始，1=每天固定时间开始，2=上局结束后，间隔固定小时后的整点开始，3=上局结束后，间隔固定分钟开始

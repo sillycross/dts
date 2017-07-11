@@ -30,15 +30,16 @@ if($mode == 'edit') {
 			$gamedata['innerHTML']['info'] .= $_ERROR[$pass_check].'<br />';
 			$pass_right = false;
 		}
-		$opass = md5($opass);
-		$npass = md5($npass);
-		if($opass != $udata['password']){
+		$opass = create_cookiepass($opass);
+		$npass = create_cookiepass($npass);
+		if(!pass_compare($udata['username'], $opass, $udata['password'])){
 			$gamedata['innerHTML']['info'] .= $_ERROR['wrong_pw'].'<br />';
 			$pass_right = false;
 		}
 		if($pass_right){
 			gsetcookie('pass',$npass);
-			$passqry = "`password` ='$npass',";
+			$nspass = create_storedpass($udata['username'], $npass);
+			$passqry = "`password` ='$nspass',";
 			$gamedata['innerHTML']['info'] .= $_INFO['pass_success'].'<br />';
 		}else{
 			$passqry = '';
