@@ -104,6 +104,7 @@ if($urcmd == 'ban' || $urcmd == 'unban' || $urcmd == 'del') {
 	}elseif($urdata[$no]['groupid'] >= $mygroup){
 		$cmd_info = "权限不够，不能修改此帐户信息！";
 	}else{
+		include_once './include/user.func.php';
 		$urdata[$no]['motto'] = $urmotto = astrfilter(${'motto_'.$no});
 		$urdata[$no]['killmsg'] = $urkillmsg = astrfilter(${'killmsg_'.$no});
 		$urdata[$no]['lastword'] = $urlastword = astrfilter(${'lastword_'.$no});
@@ -115,7 +116,7 @@ if($urcmd == 'ban' || $urcmd == 'unban' || $urcmd == 'del') {
 			$urdata[$no]['gender'] = $urgender = ${'gender_'.$no};
 		}
 		if(!empty(${'pass_'.$no})){
-			$urpass = md5(${'pass_'.$no});
+			$urpass = create_storedpass($urdata[$no]['username'], create_cookiepass(${'pass_'.$no}));
 			$db->query("UPDATE {$gtablepre}users SET motto='$urmotto',killmsg='$urkillmsg',lastword='$urlastword',icon='$uricon',gender='$urgender',password='$urpass',gold='$urgold' WHERE uid='$uid'");
 			$cmd_info = "帐户 ".$urdata[$no]['username']." 的密码及其他信息已修改！";
 		}else{

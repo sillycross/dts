@@ -111,7 +111,9 @@ if(preg_match($iplimit,$onlineip)){
 //			gexit($_ERROR['banned_ip'],__file__,__line__);
 //		}
 //	}
-$password = md5($password);
+
+//$password = md5($password);
+$password = create_cookiepass($password);
 $groupid = 1;
 $credits = 0;
 $gender = 0;
@@ -125,7 +127,7 @@ if(!$db->num_rows($result)) {
 	$userdata = $db->fetch_array($result);
 	if($userdata['groupid'] <= 0){
 		gexit($_ERROR['user_ban'],__file__,__line__);
-	} elseif($userdata['password'] != $password) {
+	} elseif(!pass_compare($userdata['username'], $password, $userdata['password'])) {
 		gexit($_ERROR['wrong_pw'],__file__,__line__);
 	}
 }

@@ -13,7 +13,7 @@ function udata_check(){
 	$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$cuser'");
 	if(!$db->num_rows($result)) { gexit($_ERROR['login_check'],$file,$line); }
 	$udata = $db->fetch_array($result);
-	if($udata['password'] != $cpass) { gexit($_ERROR['wrong_pw'], $file, $line); }
+	if(!pass_compare($udata['username'], $cpass, $udata['password'])) { gexit($_ERROR['wrong_pw'], $file, $line); }
 	if($udata['groupid'] <= 0) { gexit($_ERROR['user_ban'], $file, $line); }
 	return $udata;
 }
@@ -43,6 +43,21 @@ function pass_check($pass,$rpass){//未经md5处理的
 		return 'pass_too_long';
 	}
 	return 'pass_ok';
+}
+
+function create_cookiepass($pass){//获得cookie密码，单纯对输入密码进行1次md5加密
+	return md5($pass);
+}
+
+function create_storedpass($cuser, $cpass){//获得储存密码（加盐）
+	return md5($cuser.$cpass);
+}
+
+function pass_compare($cuser, $cpass, $spass){//比较cookie密码及数据库密码
+	global $oldpswdcmp, $db, $tablepre;
+	if (create_storedpass($cuser, $cpass) == $spass) return true;
+	elseif((!isset($oldpswdcmp) || $oldpswdcmp) && $cpass == $spass) return true;
+	return false;
 }
 
 /**  
