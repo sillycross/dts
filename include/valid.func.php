@@ -2,13 +2,14 @@
 
 function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 {
+	include_once GAME_ROOT.'./include/user.func.php';
 	eval(import_module('sys'));
 	\sys\load_gameinfo();
 	if ($xgender!='m' && $xgender!='f') $xgender='m';
 	$validnum++;
 	$alivenum++;
 	$name = $xuser;
-	$pass = $xpass;
+	$pass = create_storedpass($xuser,$xpass);
 	global $gd; $gd = $xgender;
 	$type = 0;
 	$endtime = $now;
