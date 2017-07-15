@@ -110,18 +110,21 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 	}
 	
 	//除错模式专用卡（软件测试工程师）
-	if ($gametype==1){
+	if (1==$gametype){
 		$card=93;
 	}
 	//宝石乱斗模式专用卡（虹光塑师）
-	elseif ($gametype==3){
+	elseif (3==$gametype){
 		$card=151;
-	}
-	
+	}	
 	//教程模式专用卡（教程技能+开局紧急药剂）
-	elseif($gametype == 17) {
+	elseif(17==$gametype) {
 		$card = 1000;
 		//$itm[3] = '紧急药剂'; $itmk[3] = 'Ca'; $itme[3] = 1; $itms[3] = 10;
+	}	
+	//标准模式禁用任何卡片
+	elseif(0==$gametype){
+		$card = 0;
 	}
 	
 	//特殊规则
@@ -215,4 +218,71 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 	save_gameinfo();
 }
 
+
+function card_validate($udata){
+	eval(import_module('sys','cardbase'));
+	
+	$card = $udata['card'];
+	
+	$userCardData = \cardbase\get_user_cardinfo($udata['username']);
+	$card_ownlist = $userCardData['cardlist'];
+	$card_energy = $userCardData['cardenergy'];
+	$cardChosen = $userCardData['cardchosen'];
+	
+	/*
+	 * $card_disabledlist id => errid
+	 * id: 卡片ID errid: 不能使用这张卡的原因
+	 * e0: S卡总体CD
+	 * e1: 单卡CD
+	 * e2: 有人于本局使用了同名卡
+	 * e3: 本游戏模式不可用
+	 *
+	 * $card_error errid => msg
+	 */
+	$card_disabledlist=Array();
+	$card_error=Array();
+	
+	$energy_recover_rate = \cardbase\get_energy_recover_rate($card_ownlist, $udata['gold']);
+	
+	//最低优先级错误原因：同名非C卡
+	$result = $db->query("SELECT card FROM {$tablepre}players WHERE type = 0");
+	$t=Array();
+	while ($cdata = $db->fetch_array($result)) $t[$cdata['card']]=1;
+	if(in_array($gametype, array(2,4))) //只有标准模式和无限复活模式才限制卡片
+		foreach ($card_ownlist as $key)
+			if (!in_array($cards[$key]['rare'], array('C', 'M')) && isset($t[$key])) 
+			{
+				$card_disabledlist[$key]='e2';
+				$card_error['e2'] = '这张卡片暂时不能使用，因为本局已经有其他人使用了这张卡片<br>请下局早点入场吧！';
+			}
+	
+	//次高优先级错误原因：单卡CD
+	foreach ($card_ownlist as $key)
+		if ($card_energy[$key]<$cards[$key]['energy'])
+		{
+			$t=($cards[$key]['energy']-$card_energy[$key])/$energy_recover_rate[$cards[$key]['rare']];
+			$card_disabledlist[$key]='e1'.$key;
+			$card_error['e1'.$key] = '这张卡片暂时不能使用，因为它目前正处于蓄能状态<br>这张卡片需要蓄积'.$cards[$key]['energy'].'点能量方可使用，预计在'.convert_tm($t).'后蓄能完成';
+		}
+	
+	//最高优先级错误原因：s卡的24小时限制
+	$card_error['e0'] = '这张卡片暂时不能使用，因为最近24小时内你已经使用过S卡了<br>在'.convert_tm(86400-($now-$udata['cd_s'])).'后你才能再次使用S卡';
+	
+	if (($now-$udata['cd_s'])<86400){
+		foreach ($card_ownlist as $key)
+			if ($cards[$key]['rare']=='S')
+				$card_disabledlist[$key]='e0';
+	}
+	
+	//最高优先级错误原因：本游戏模式不可用
+	$card_error['e3'] = '这张卡片在本游戏模式下禁止使用！<br>';
+	
+	if ($gametype==2)	//deathmatch模式禁用蛋服和炸弹人
+	{
+		if (in_array(97,$card_ownlist)) $card_disabledlist[97]='e3';
+		if (in_array(144,$card_ownlist)) $card_disabledlist[144]='e3';
+	}
+	
+	return array($card_disabledlist,$card_error);
+}
 ?>

@@ -17,9 +17,16 @@ namespace sys
 		//0号房恒为经典房，重置房间参数
 		if(!$groomid) {
 			$groomtype = 0;
-			$gametype = 0;
 			$groomstatus = 2;
 			$roomvars = array();
+			
+			//如果指定了下一局模式
+			if(isset($gamevars['next_gametype'])) $gametype = (int)($gamevars['next_gametype']);
+			//经典房交替开启经典和卡片模式。
+			elseif(0==$gametype) $gametype = 4;
+			else $gametype = 0;
+			
+			$gamevars = array();
 		}
 		
 		$gamestate = 5;//正在重设游戏

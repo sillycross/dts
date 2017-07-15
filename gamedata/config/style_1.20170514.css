@@ -1,6 +1,7 @@
 ﻿body {text-align: center; background-position: 50% 50%; background-image: url("../../img/PB.gif"); background-attachment: fixed; background-repeat: no-repeat; font: 12px Tahoma, Verdana;cursor: crosshair; margin: 0; background-color: #111; color:#ddd;}
 a {font:normal normal bold 10pt "微软雅黑";text-decoration: none;color: #ddd; cursor: crosshair;line-height:16px}
 a:hover {color: #98fb98;text-decoration:underline}
+h3 {font-family: "微软雅黑";}
 table {align:center;border: 0px;}
 tr {font-size: 10pt; margin: 0px;}
 td {font-size: 10pt; margin: 0px;}
