@@ -29,16 +29,16 @@
 				<!--{/if}-->
 				<!--{if $gametype==1}-->
 					<span class="clan">除错挑战！</span>
-				<!--{/if}-->
-				<!--{if $gametype==2}-->
+				<!--{elseif $gametype==2}-->
 					<span class="orange">周五活动！</span>
-				<!--{/if}-->
-				<!--{if $gametype==3}-->
+				<!--{elseif $gametype==3}-->
 					<span class="lime">宝石乱斗！</span>
-				<!--{/if}-->
-				<!--{if $gametype==17}-->
+				<!--{elseif $gametype==4}-->
+					卡片模式
+				<!--{elseif $gametype==17}-->
 				<font color="red">教程模式</font>
-				<!--{else}-->
+				<!--{/if}-->
+				<!--{if $gametype!=17}-->
 				{$gstate[$gamestate]}
 				<!--{/if}-->
 				</span>

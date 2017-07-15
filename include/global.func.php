@@ -309,7 +309,7 @@ function create_dir($pa)	//建立目录（自动创建不存在的父文件夹�
 	}
 }
 
-function copy_dir($source, $destination)		//递归复制目录
+function copy_dir($source, $destination, $filetype='')		//递归复制目录
 {   
 	if(!is_dir($destination)) mymkdir($destination);
 	if ($source[strlen($source)-1]=='/') $source=substr($source,0,-1);
@@ -318,7 +318,7 @@ function copy_dir($source, $destination)		//递归复制目录
 	{
 		while (($entry=readdir($handle))!==false)
 		{   
-			if(($entry!=".")&&($entry!=".."))
+			if( $entry!="." && $entry!=".." && (is_dir($source."/".$entry) || !$filetype || $filetype==pathinfo($entry,PATHINFO_EXTENSION) ) )
 			{   
 				if(is_dir($source."/".$entry))
 				{ 
@@ -619,6 +619,7 @@ function init_dbstuff(){
 function check_authority()
 {
 	include GAME_ROOT.'./include/modules/core/sys/config/server.config.php';
+	include_once GAME_ROOT.'./include/user.func.php';
 	$_COOKIE=gstrfilter($_COOKIE);
 	$cuser=$_COOKIE[$gtablepre.'user'];
 	$cpass=$_COOKIE[$gtablepre.'pass'];
@@ -626,7 +627,7 @@ function check_authority()
 	$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$cuser'");
 	if(!$db->num_rows($result)) { echo "<span><font color=\"red\">Cookie无效，请登录。</font></span><br>"; die(); }
 	$udata = $db->fetch_array($result);
-	if($udata['password'] != $cpass) { echo "<span><font color=\"red\">Cookie无效，请登录。</font></span><br>"; die(); }
+	if(!pass_compare($udata['username'],$cpass,$udata['password'])) { echo "<span><font color=\"red\">密码错误，请重新登录并重试。</font></span><br>"; die(); }
 	elseif(($udata['groupid'] < 9)&&($cuser!==$gamefounder)) { echo "<span><font color=\"red\">要求至少9权限。</font></span><br>"; die(); }
 }
 

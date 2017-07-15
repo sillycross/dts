@@ -27,8 +27,9 @@ function shutDownFunction() {
 	if ($faillog!='')
 	{
 		echo $faillog;
-		echo '<br>或者因为如下原因：';
-		var_dump($error);
+		echo '<br>或者因为如下原因：<br>';
+		//var_dump($error);
+		echo '['.$error['type'].'] '.$error['message'].' at line '.$error['line'].' in file '.$error['file'].'<br>';
 		echo '<br><a href="modulemng.php?mode=edit" style="text-decoration: none"><span><font color="blue">[返回编辑模式]</font></span></a><br>';   
 		die();
 	}
@@ -37,6 +38,7 @@ function shutDownFunction() {
 $faillog = '<font color="red">看起来遇到了一个错误。请检查模块是否工作正常，然后返回编辑模式再试一次。<br>修改没有保存。<br></font>';
 
 $codelist=Array(); 
+$quickmode = isset($_GET['mode']) && 'quick'==$_GET['mode'] ? 1 : 0;
 
 global $___MOD_CODE_ADV1;
 
@@ -65,7 +67,7 @@ if ($___MOD_CODE_ADV1)
 		if ($inuse==1)
 		{
 			$___TEMP_MOD_LIST_n++; 
-			$___TEMP_MOD_LOAD_CMD[$___TEMP_MOD_LIST_n]=GAME_ROOT.'./include/modules/'.$modpath.'module.inc.php';;
+			$___TEMP_MOD_LOAD_CMD[$___TEMP_MOD_LIST_n]=GAME_ROOT.'./include/modules/'.$modpath.'module.inc.php';
 			$___TEMP_MOD_LOAD_NAME[$___TEMP_MOD_LIST_n]=$modname;
 			$___TEMP_MOD_LOAD_PATH[$___TEMP_MOD_LIST_n]=$modpath;
 		}
@@ -158,30 +160,37 @@ if ($___MOD_CODE_ADV1)
 		unset($___TEMPC_a); unset($___TEMPC_b);
 		unset($___TEMPV_a); unset($___TEMPV_b);
 		unset($key); unset($value); unset($str);
-		
-		$modname=$___TEMP_MOD_LOAD_NAME[$___TEMP_MOD_LOAD_i];
-		$modpath=$___TEMP_MOD_LOAD_PATH[$___TEMP_MOD_LOAD_i];
-		$modpath='__MOD_DIR__.\''.$modpath.'\'';
-		
-		$modpath_suf=str_replace('\\','/',$modpath);//噫
-		
-		$suf=substr(md5($modpath_suf),0,8);
-		$tplfile = GAME_ROOT.'./include/modules/modules.init.template.adv.php';
-		$objfile = GAME_ROOT.'./gamedata/modinit/1_mod'.$modname.'.'.$suf.'.init.adv.php';
-		
-		$str=file_get_contents($tplfile);
-		$str=str_replace('_____TEMPLATE_MODULE_NAME_____',$modname,$str);
-		$str=str_replace('_____TEMPLATE_MODULE_PATH_____',$modpath,$str);
-		if ($___MOD_SRV)
-		{
-			$str=str_replace('_____TEMPLATE_PRESET_CODE_____',$sr,$str);
+			
+		//如果快速模式，跳过之后的文件写入过程
+		$skipflag = 0;
+		if($quickmode && filemtime($___TEMP_MOD_LOAD_CMD[$___TEMP_MOD_LOAD_i]) < filemtime(GAME_ROOT.'./gamedata/modules.list.php')) {
+			echo '未修改，跳过。<br>';ob_end_flush(); flush();
+			$skipflag = 1;
+		}else{//否则继续处理
+			$modname=$___TEMP_MOD_LOAD_NAME[$___TEMP_MOD_LOAD_i];
+			$modpath=$___TEMP_MOD_LOAD_PATH[$___TEMP_MOD_LOAD_i];
+			$modpath='__MOD_DIR__.\''.$modpath.'\'';
+			
+			$modpath_suf=str_replace('\\','/',$modpath);//噫
+			
+			$suf=substr(md5($modpath_suf),0,8);
+			$tplfile = GAME_ROOT.'./include/modules/modules.init.template.adv.php';
+			$objfile = GAME_ROOT.'./gamedata/modinit/1_mod'.$modname.'.'.$suf.'.init.adv.php';
+			
+			$str=file_get_contents($tplfile);
+			$str=str_replace('_____TEMPLATE_MODULE_NAME_____',$modname,$str);
+			$str=str_replace('_____TEMPLATE_MODULE_PATH_____',$modpath,$str);
+			if ($___MOD_SRV)
+			{
+				$str=str_replace('_____TEMPLATE_PRESET_CODE_____',$sr,$str);
+			}
+			else
+			{
+				$str=str_replace('_____TEMPLATE_PRESET_CODE_____','',$str);
+			}
+			$str=str_replace('_____TEMPLATE_ADV_CODE_____',$sc,$str);
+			writeover($objfile,$str);
 		}
-		else
-		{
-			$str=str_replace('_____TEMPLATE_PRESET_CODE_____','',$str);
-		}
-		$str=str_replace('_____TEMPLATE_ADV_CODE_____',$sc,$str);
-		writeover($objfile,$str);
 		
 		$codelist[$___TEMP_MOD_LOAD_i]=Array();
 		foreach(explode(' ',$___MODULE_codelist) as $key) if ($key!='') array_push($codelist[$___TEMP_MOD_LOAD_i],$key);
@@ -189,8 +198,9 @@ if ($___MOD_CODE_ADV1)
 		unset($key); unset($sc); unset($sr); unset($ss); unset($key); unset($value);
 		unset($tplfile); unset($objfile); unset($modname); unset($modpath); unset($suf); unset($str);
 		
-		echo '完成。<br>'; ob_end_flush(); flush();
+		if(!$skipflag) echo '完成。<br>'; ob_end_flush(); flush();
 	}
+	unset($skipflag);
 	
 	$n=$___TEMP_all;
 	for ($i=1; $i<=$n; $i++)
@@ -218,17 +228,30 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2)
 		echo '开始处理模块'.$modn[$i].'...<br>'; ob_end_flush(); flush();
 		$srcdir = GAME_ROOT.'./include/modules/'.$modp[$i];
 		$tpldir = GAME_ROOT.'./gamedata/run/'.$modp[$i];
-		create_dir($tpldir);
-		clear_dir($tpldir);
-		copy_dir($srcdir,$tpldir);
+		//快速模式不复制文件夹
+		if(!$quickmode) {
+			create_dir($tpldir);
+			clear_dir($tpldir);
+			copy_dir($srcdir,$tpldir,'php');
+		}
 		foreach ($codelist[$i] as $key)
 		{
-			echo '&nbsp;&nbsp;&nbsp;&nbsp;正在处理代码'.$key.'.. '; ob_end_flush(); flush();
 			$src=GAME_ROOT.'./include/modules/'.$modp[$i].$key;
+			//if(pathinfo($src,PATHINFO_EXTENSION)!='php') continue;//ADV2不处理非php文件//不行，会死
+			echo '&nbsp;&nbsp;&nbsp;&nbsp;正在处理代码'.$key.'.. '; ob_end_flush(); flush();
 			$objfile=GAME_ROOT.'./gamedata/run/'.$modp[$i].$key;
+			//快速模式，只在这里复制对应文件
+			if($quickmode && filemtime($src) >= filemtime(GAME_ROOT.'./gamedata/modules.list.php')) {
+				copy($src,$objfile);
+			}
 			$objfile=substr($objfile,0,-4).'.adv'.substr($objfile,strlen($objfile)-4);
 			$delfile=GAME_ROOT.'./gamedata/run/'.$modp[$i].$key;
 			preparse($modn[$i],$i,$src);
+			//快速模式且未修改文件，直接跳过
+			if($quickmode && filemtime($src) < filemtime(GAME_ROOT.'./gamedata/modules.list.php')) {
+				echo '未修改，跳过。<br>'; ob_end_flush(); flush();
+				continue;
+			}
 			parse($modn[$i],$src,$objfile);
 			unlink($delfile);
 			echo '完成。<br>'; ob_end_flush(); flush();
@@ -308,6 +331,7 @@ $faillog='';
 copy(GAME_ROOT.'./gamedata/modules.list.pass.php',GAME_ROOT.'./gamedata/modules.list.php');
 unlink(GAME_ROOT.'./gamedata/modules.list.pass.php');
 unlink(GAME_ROOT.'./gamedata/modules.list.temp.php');
+touch(GAME_ROOT.'./gamedata/modules.list.php');//更新文件时间以保证quick模式正常运转
 
 if ($___MOD_SRV)
 {

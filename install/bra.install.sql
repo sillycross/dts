@@ -49,6 +49,7 @@ CREATE TABLE `bra_users` (
   `uid` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `username` char(15) NOT NULL DEFAULT '',
   `password` char(32) NOT NULL DEFAULT '',
+  `alt_pswd` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `ip` char(15) NOT NULL DEFAULT '',
   `groupid` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `roomid` tinyint(3) unsigned NOT NULL DEFAULT '0',
