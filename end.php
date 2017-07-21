@@ -20,6 +20,10 @@ if($pdata['pass'] != $cpass) {
 	}
 }
 
+//玩家游戏胜利后可选择下一局状况
+$next_gamevars_display = \sys\user_display_setting_next_gamevars();
+//还没完成
+
 eval(import_module('player'));
 \player\load_playerdata($pdata);
 \player\init_playerdata();
