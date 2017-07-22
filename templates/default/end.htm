@@ -40,7 +40,7 @@
 		<div class="subtitle">挑战结束</div>
 	<!--{/if}-->
 	</p>
-	<!--{if ($winmode == 2 || $winmode ==3 || $winmode == 5 || $winmode == 7) && ($state == 5 || $state == 6)}-->
+	<!--{if in_array($winmode, array(2,3,5,7)) && ($state == 5 || $state == 6)}-->
 		<p align="center"><a href="end.php#nextgamevars">>>设定下一局游戏模式<<</a></p>
 	<!--{/if}-->
 	<!--{if $winmode == 1}-->
@@ -535,21 +535,23 @@
 		state={$state} winmode={$winmode}
 	<!--{/if}-->
 	<br><br>
-	<p>
-		<a name="nextgamevars"></a><h2 class="subtitle2">下一局游戏数据设定</h2>
-		<form method="post" id="nextgamevarsform" name="nextgamevarsform">
-			<input type="hidden" name="ecommand" value="nextgamevars">
-			<div id="nextgamevars">
-				<!--{loop $next_gamevars_display $ngds}-->
-					{$ngds}<br>
-				<!--{/loop}-->				
-			</div>
-			<p>
-				<input type="button" class="cmdbutton" name="submit" value="提交"
-					onclick="postCmd('nextgamevarsform','end.php');this.disabled=true;">
-			</p>
-		</form>
-	</p>
+	<!--{if in_array($winmode, array(2,3,5,7)) && ($state == 5 || $state == 6)}-->
+		<p>
+			<a name="nextgamevars"></a><h2 class="subtitle2">下一局游戏数据设定</h2>
+			<form method="post" id="nextgamevarsform" name="nextgamevarsform">
+				<input type="hidden" name="ecommand" value="nextgamevars">
+				<div id="nextgamevars">
+					<!--{loop $next_gamevars_display $ngds}-->
+						{$ngds}<br>
+					<!--{/loop}-->				
+				</div>
+				<p>
+					<input type="button" class="cmdbutton" name="submit" value="提交"
+						onclick="postCmd('nextgamevarsform','end.php');this.disabled=true;">
+				</p>
+			</form>
+		</p>
+	<!--{/if}-->
 <!--{else}-->
 游戏尚在运行，可能是新一局已经开始，请返回游戏首页！
 <!--{/if}-->

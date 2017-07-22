@@ -239,34 +239,42 @@ namespace sys
 		return;
 	}
 	
-	function user_set_gamevars_list_init($rgamevars = array()){
+	function user_set_gamevars_list_init($registered_gamevars = array()){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
-		return $rgamevars;
+		return $registered_gamevars;
 	}
 	
 	//由玩家设定下一局游戏的值
-	function user_set_gamevars($ngamevars){
+	function user_set_gamevars($input_gamevars){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		eval(import_module('sys'));
 		$ret = array(
 			'notice' => array()
 		);
-		$vgamevars = array();
-		$rgamevars = user_set_gamevars_list_init();
-		foreach ($rgamevars as $rgkey){
-			if(isset($ngamevars[$rgkey])){
+		$valid_gamevars = array();
+		$registered_gamevars = user_set_gamevars_list_init();
+		foreach ($registered_gamevars as $rgkey){
+			if(isset($input_gamevars[$rgkey])){
 				if (isset($gamevars[$rgkey])){
 					$ret['notice'][$rgkey] = '你已经设定过下一局的'.$gamevarsinfo[$rgkey].'了。';
 				}else{
-					$ret['notice'][$rgkey] = '已设定下一局游戏的'.$gamevarsinfo[$rgkey].'！';
-					$vgamevars[$rgkey] = $ngamevars[$rgkey];
+					$ret['notice'][$rgkey] = user_set_gamevars_process($rgkey, $input_gamevars[$rgkey], $valid_gamevars);
+//					$ret['notice'][$rgkey] = '已设定下一局游戏的'.$gamevarsinfo[$rgkey].'！';
+//					$valid_gamevars[$rgkey] = $input_gamevars[$rgkey];
 				}
 			}
 		}
-		
-		if(!empty($vgamevars)) $gamevars = $vgamevars;
+		if(!empty($valid_gamevars)) $gamevars = $valid_gamevars;
 		save_gameinfo();
 		return $ret;
+	}
+	
+	function user_set_gamevars_process($gamevar_key,$gamevar_val,&$valid_gamevars){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		$valid_gamevars[$gamevar_key] = $gamevar_val;
+		$retlog = '已设定下一局游戏的'.$gamevarsinfo[$gamevar_key].'！';
+		return $retlog;
 	}
 	
 	function user_display_gamevars_setting($show = array()){
