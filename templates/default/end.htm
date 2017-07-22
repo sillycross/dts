@@ -40,7 +40,7 @@
 		<div class="subtitle">挑战结束</div>
 	<!--{/if}-->
 	</p>
-	<!--{if in_array($winmode, array(2,3,5,7)) && ($state == 5 || $state == 6)}-->
+	<!--{if !$groomid && in_array($winmode, array(2,3,5,7)) && ($state == 5 || $state == 6)}-->
 		<p align="center"><a href="end.php#nextgamevars">>>设定下一局游戏模式<<</a></p>
 	<!--{/if}-->
 	<!--{if $winmode == 1}-->
@@ -535,7 +535,7 @@
 		state={$state} winmode={$winmode}
 	<!--{/if}-->
 	<br><br>
-	<!--{if in_array($winmode, array(2,3,5,7)) && ($state == 5 || $state == 6)}-->
+	<!--{if !$groomid && in_array($winmode, array(2,3,5,7)) && ($state == 5 || $state == 6)}-->
 		<p>
 			<a name="nextgamevars"></a><h2 class="subtitle2">下一局游戏数据设定</h2>
 			<form method="post" id="nextgamevarsform" name="nextgamevarsform">

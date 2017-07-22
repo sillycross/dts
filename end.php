@@ -38,7 +38,9 @@ if($hp<=0 || $state>=10) {
 $noticelog = '';
 
 if(isset($ecommand) && 'nextgamevars' == $ecommand){
-	if(!in_array($winmode, array(2,3,5,7)) || $cuser != $winner || ($state != 5 && $state != 6)){
+	if($groomid){
+		$noticelog = '只有标准房才能修改下一局模式！<br>';
+	}elseif(!in_array($winmode, array(2,3,5,7)) || $cuser != $winner || ($state != 5 && $state != 6)){
 		$noticelog = '你不是获胜者，不能修改下一局模式！<br>';
 	}else{
 		$ngamevars = array('next_gametype' => (int)$ngametype);
