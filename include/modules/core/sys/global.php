@@ -238,6 +238,41 @@ namespace sys
 		$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,msg) VALUES ('5','$time','','$msg')");
 		return;
 	}
+	
+	function user_set_gamevars_list_init($rgamevars = array()){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		return $rgamevars;
+	}
+	
+	//由玩家设定下一局游戏的值
+	function user_set_gamevars($ngamevars){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		eval(import_module('sys'));
+		$ret = array(
+			'notice' => array()
+		);
+		$vgamevars = array();
+		$rgamevars = user_set_gamevars_list_init();
+		foreach ($rgamevars as $rgkey){
+			if(isset($ngamevars[$rgkey])){
+				if (isset($gamevars[$rgkey])){
+					$ret['notice'][$rgkey] = '你已经设定过下一局的'.$gamevarsinfo[$rgkey].'了。';
+				}else{
+					$ret['notice'][$rgkey] = '已设定下一局游戏的'.$gamevarsinfo[$rgkey].'！';
+					$vgamevars[$rgkey] = $ngamevars[$rgkey];
+				}
+			}
+		}
+		
+		if(!empty($vgamevars)) $gamevars = $vgamevars;
+		save_gameinfo();
+		return $ret;
+	}
+	
+	function user_display_gamevars_setting($show = array()){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $show;
+	}
 }
 
 ?>

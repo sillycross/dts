@@ -436,30 +436,22 @@ if($hp <= 0) {
 		$result = $db->query("SELECT name FROM {$tablepre}players WHERE pid='$bid'");
 		if($db->num_rows($result)) { $kname = $db->result($result,0); }
 	}
-	ob_clean();
-	include template('death');
-	$gamedata['innerHTML']['cmd'] = ob_get_contents();
+	$gamedata['innerHTML']['cmd'] = dump_template('death');
 	$mode = 'death';
-} elseif($cmd){	
+} elseif($cmd){
 	$gamedata['innerHTML']['cmd'] = $cmd;
 } elseif($itms0){
-	ob_clean();
-	include template(MOD_ITEMMAIN_ITEMFIND);
-	$gamedata['innerHTML']['cmd'] = ob_get_contents();
+	$gamedata['innerHTML']['cmd'] = dump_template(MOD_ITEMMAIN_ITEMFIND);
 } elseif($state == 1 || $state == 2 || $state ==3) {
-	ob_clean();
-	include template('rest');
-	$gamedata['innerHTML']['cmd'] = ob_get_contents();
+	$gamedata['innerHTML']['cmd'] = dump_template('rest');
 } elseif(!$cmd) {
-	ob_clean();
 	if($mode != 'command' && $mode&&(file_exists($mode.'.htm') || file_exists(GAME_ROOT.TPLDIR.'/'.$mode.'.htm'))) {
-		include template($mode);
+		$gamedata['innerHTML']['cmd'] = dump_template($mode);
 	} elseif(defined('MOD_TUTORIAL') && $gametype == 17){
-		include template(MOD_TUTORIAL_TUTORIAL);
+		$gamedata['innerHTML']['cmd'] = dump_template(MOD_TUTORIAL_TUTORIAL);
 	}	else {
-		include template('command');
+		$gamedata['innerHTML']['cmd'] = dump_template('command');
 	}
-	$gamedata['innerHTML']['cmd'] = ob_get_contents();
 } else {
 	$log .= '游戏流程故障，请联系管理员<br>';
 }
@@ -472,9 +464,8 @@ if(!empty($uip['src'])) {$gamedata['src'] = array_merge($gamedata['src'], $uip['
 
 //$gamedata['innerHTML']['pls'] = $plsinfo[$pls];
 //if ($gametype!=2) $gamedata['innerHTML']['anum'] = $alivenum; else $gamedata['innerHTML']['anum'] = $validnum;
-ob_clean();
-$main ? include template($main) : include template('profile');
-$gamedata['innerHTML']['main'] = ob_get_contents();
+$gamedata['innerHTML']['main'] = dump_template($main ? $main : 'profile');
+
 if(isset($error)){$gamedata['innerHTML']['error'] = $error;}
 
 

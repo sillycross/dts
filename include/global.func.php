@@ -114,6 +114,15 @@ function language($file, $templateid = 0, $tpldir = '') {
 	}
 }
 
+function dump_template($file, $templateid = 0, $tpldir = ''){
+	extract($GLOBALS);
+	ob_start();
+	include template($file, $templateid, $tpldir);
+	$ret = ob_get_contents();
+	ob_end_clean();
+	return $ret;
+}
+
 function template($file, $templateid = 0, $tpldir = '') {
 	global $tplrefresh;
 

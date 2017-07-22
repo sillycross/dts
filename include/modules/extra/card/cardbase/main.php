@@ -3,47 +3,6 @@
 namespace cardbase
 {
 	function init() {}
-	
-	function reset_gametype()//覆盖sys同名函数
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE; 
-		eval(import_module('sys'));
-		if(!$groomid){//只对经典房生效
-			if(isset($gamevars['next_gametype'])) {//如果指定了下一局模式
-				$gametype = (int)($gamevars['next_gametype']);
-				unset($gamevars['next_gametype']);
-			} elseif(0==$gametype) {//经典房交替开启经典和卡片模式。
-				$gametype = 4;
-			} else {
-				$gametype = 0;
-			}
-		}
-	}
-	
-	function user_set_next_gametype($ngametype){
-		if (eval(__MAGIC__)) return $___RET_VALUE; 
-		eval(import_module('sys'));
-		$ret = \sys\user_set_next_gamevars(array('gametype' => $ngametype));
-		return $ret;
-	}
-	
-	function user_display_setting_next_gamevars($show = array()){
-		if (eval(__MAGIC__)) return $___RET_VALUE; 
-		eval(import_module('sys'));
-		$show[] = array(
-			'desc' => $gamevarsinfo['gametype'],
-			'cont' => array(
-				'type' => 'select',
-				'varname' => 'gametype',
-				'options' => array(
-					$gtinfo[0] => 0,
-					$gtinfo[4] => 4,
-				)
-			)
-		);
-		$ret = $chprocess($show);
-		return $ret;
-	}
 
 	function get_user_cards($username){
 		if (eval(__MAGIC__)) return $___RET_VALUE;

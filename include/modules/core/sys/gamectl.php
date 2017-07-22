@@ -50,33 +50,6 @@ namespace sys
 		if(!$groomid) $gametype = 0;//经典房gametype恒为0
 	}
 	
-	//由玩家设定下一局游戏的值
-	function user_set_next_gamevars($ngamevars){
-		if (eval(__MAGIC__)) return $___RET_VALUE; 
-		eval(import_module('sys'));
-		$ret = array(
-			'notice' => array()
-		);
-		$vgamevars = array();
-		foreach($ngamevars as $ngkey => $ngval){
-			if (isset($gamevars[$ngkey])){
-				$ret['notice'][$ngkey] = '你已经设定过下一局的'.$gamevarsinfo[$ngkey].'了。';
-			}else{
-				$ret['notice'][$ngkey] = '已设定下一局游戏的'.$gamevarsinfo[$ngkey].'！';
-				$vgamevars[$ngkey] = $ngval;
-			}
-		}
-		if(!empty($vgamevars)) $gamevars = array_merge($gamevars, $vgamevars);
-		save_gameinfo();
-		return $ret;
-	}
-	
-	function user_display_setting_next_gamevars($show = array()){
-		eval(import_module('sys'));
-		$ret = array();
-		return $ret;
-	}
-	
 	function prepare_new_game() {
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 	}

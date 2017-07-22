@@ -106,6 +106,7 @@ kuji0,extra/card/kuji/kuji0/,1
 kuji1,extra/card/kuji/kuji1/,1
 kuji2,extra/card/kuji/kuji2/,1
 skill418,extra/card/skills/skill418/,1
+set_gametype,extra/misc/set_gametype/,1
 skill480,extra/card/skills/skill480/,1
 skill1011,extra/gmskills/skill1011/,1
 skill1010,extra/gmskills/skill1010/,1

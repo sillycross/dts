@@ -20,10 +20,6 @@ if($pdata['pass'] != $cpass) {
 	}
 }
 
-//玩家游戏胜利后可选择下一局状况
-$next_gamevars_display = \sys\user_display_setting_next_gamevars();
-//还没完成
-
 eval(import_module('player'));
 \player\load_playerdata($pdata);
 \player\init_playerdata();
@@ -39,7 +35,21 @@ if($hp<=0 || $state>=10) {
 	}
 }
 
-include template('end');
+$noticelog = '';
 
-
+if(isset($ecommand) && 'nextgamevars' == $ecommand){
+	$ngamevars = array('next_gametype' => (int)$ngametype);
+	$notice = \sys\user_set_gamevars($ngamevars)['notice'];
+	foreach($notice as $ns){
+		$noticelog .= $ns.'<br>';
+	}
+	$next_gamevars_display = \sys\user_display_gamevars_setting();
+	$gamedata = array('innerHTML' => array('nextgamevars' => $next_gamevars_display));
+	$jgamedata=gencode($gamedata);
+	ob_clean();
+	echo $jgamedata;
+}else{
+	$next_gamevars_display = \sys\user_display_gamevars_setting();
+	include template('end');
+}
 ?>
