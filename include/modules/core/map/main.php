@@ -11,15 +11,22 @@ namespace map
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		if(!isset($uip['timing'])) $uip['timing'] = array();
-		$timing = ($areatime-$now);
-		$timing_r = sprintf("%02d", floor($timing/60)).':'.sprintf("%02d", $timing%60);
-		if($timing < 10) $timing_r = '<span class="red">'.$timing_r.'</span>';
-		elseif($timing < 60) $timing_r = '<span class="yellow">'.$timing_r.'</span>';
-		$uip['timing']['area_timing'] = array(
-			'mode' => 0,
-			'timing' => $timing*1000,
-			'timing_r' => $timing_r
-		);
+		if(17==$gametype) {
+			$uip['timing']['area_timing'] = array(
+				'on' => false,
+			);
+		}else{
+			$timing = ($areatime-$now);
+			$timing_r = sprintf("%02d", floor($timing/60)).':'.sprintf("%02d", $timing%60);
+			if($timing < 10) $timing_r = '<span class="red">'.$timing_r.'</span>';
+			elseif($timing < 60) $timing_r = '<span class="yellow">'.$timing_r.'</span>';
+			$uip['timing']['area_timing'] = array(
+				'on' => true,
+				'mode' => 0,
+				'timing' => $timing*1000,
+				'timing_r' => $timing_r
+			);
+		}		
 	}
 	
 	//非禁区域列表。如果$no_dangerous_zone开启，则再排除掉SCP、英灵殿等危险地区

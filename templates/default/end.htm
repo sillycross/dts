@@ -1,6 +1,6 @@
 {template header}
 <!--{if $state == 4 && $gametype == 17}-->
-	<div class="subtitle">教程胜利</div>
+	<div class="subtitle">教程完成</div>
 	<p style="line-height:36px">
 	<span class="linen">“你，赢了吗？”</span>耳机中传来<span class="yellow">李天明</span>平静的声音。<br>
 	<span class="linen">“不，你并没有。刚才这一切不过是一次小小的‘试炼’罢了。”</span><br>
@@ -11,7 +11,7 @@
 	<span class="linen">“其他<ruby>愿意热心教导你的人<rt style="font-size:10px;">群号：556725586</rt></ruby>，也是存在的。但是，在这个虚拟战场里，厮杀才是真正的常态。”<br>
 	“接下来，你能走多远，就靠你自己了。”</span>
 	</p><br>
-<!--{elseif $hp <= 0}-->
+<!--{elseif $hp <= 0 || $state >= 10}-->
 	<div class="subtitle">$stateinfo[$state]</div>
 	<div><IMG src="img/$iconImg" width="140" height="80" border="0"align="middle" style="filter: Xray()"></div>
 	<div class="yellow b">$motto</div>
@@ -21,9 +21,33 @@
 	<!--{if $state == 33}--><div><img src="img/gradius.jpg" align="middle" /></div><!--{/if}-->
 	<div class="evergreen2">祝下次游戏好运！</div>
 <!--{elseif $gamestate == 0}-->
-	<!--{if $winmode == 2 && $state == 5}-->
+	<p>
+	<!--{if $winmode == 1}-->
 		<div class="subtitle">游戏结束</div>
-		<BR>
+	<!--{elseif $winmode == 2 && $state == 5}-->
+		<div class="subtitle">最后幸存</div>
+	<!--{elseif $winmode == 2}-->
+		<div class="subtitle">游戏结束</div>
+	<!--{elseif $winmode == 3}-->
+		<div class="subtitle">锁定解除</div>
+	<!--{elseif $winmode == 5}-->
+		<div class="subtitle">核弹引爆</div>
+	<!--{elseif $winmode == 6}-->
+		<div class="subtitle">游戏被GM中止</div>
+	<!--{elseif $winmode == 7}-->
+		<div class="subtitle">幻境解离</div>
+	<!--{elseif $winmode == 8}-->
+		<div class="subtitle">挑战结束</div>
+	<!--{/if}-->
+	</p>
+	<!--{if !$groomid && in_array($winmode, array(2,3,5,7)) && ($state == 5 || $state == 6)}-->
+		<p align="center"><a href="end.php#nextgamevars">>>设定下一局游戏模式<<</a></p>
+	<!--{/if}-->
+	<!--{if $winmode == 1}-->
+		<!--游戏结束-->
+		全灭结局，理论上不应该出现这行字，请联系管理员。<br>
+	<!--{elseif $winmode == 2 && $state == 5}-->
+		<!--最后幸存-->
 		<p>噗通。<BR>
 		眼前，浑身是血的网友直勾勾地盯着我，然后跪倒在地。<BR>
 		血从他身上那可怖的伤口里，像喷泉一样涌出来。<BR>
@@ -144,12 +168,11 @@
 		<span class="clan">“哎呀呀，终于能自由说话了真好，总是指令啥的闷死了……”</span>另外一个轻快的声音。<BR>
 		“不知道么蓝凝，那个也是萌属性的一种……总之现在不是插科打诨的时候，改日继续联系。”<BR>
 		男子挂上了手机，嘴边抹出一个微笑：“做的很不错啊，你们……”</p>
-	<!--{elseif $winmode == 2 || $winmode == 1}-->
-		<div class="subtitle">游戏结束</div>
-		这里需要有人来写写全灭的结局……
+	<!--{elseif $winmode == 2}-->
+		<!--最后幸存（非获胜玩家）-->
+		你被杀了，理论上不应该出现这行字，请联系管理员。<br>
 	<!--{elseif $winmode == 3 && $state == 6}-->
-		<div class="subtitle">游戏紧急中止</div>
-		<BR>
+		<!--锁定解除-->
 		<p>“哈……哈……”我疲惫地呼吸着。<br>
 		三名幻影执行官，之前在开幕仪式上口出狂言的家伙们，如今都面朝下静静地躺在血泊之中。<br>
 		如以前的生存者们传说的那样，他们很强。但是，仍然不敌我的攻击而倒下了。<br>
@@ -254,8 +277,7 @@
 		
 		
 	<!--{elseif $winmode == 3}-->
-		<div class="subtitle">游戏紧急中止</div>
-		<BR>
+		<!--锁定解除（非获胜玩家）-->
 		<p>脑海中突然传出的声音，让正忙于厮杀的众人不约而同地停了下来。<BR>
 		本以为会是首席执行官播报禁区的话语，但却是另一个似曾相识的声音。<BR>
 		“GAME OVER！这个游戏已经完了！已经不用再相互残杀了！”</p>
@@ -291,8 +313,7 @@
 		No.3 alter，林无月</span>阁下。”</p>
 		
 	<!--{elseif $winmode == 5 && $state == 6}-->
-		<div class="subtitle">核弹引爆</div>
-		<BR>
+		<!--核弹引爆-->
 		<p>手中的按钮装置发出刺耳的“哔哔”声。<BR>
 		真烦，不赶快把这东西丢掉的话，肯定会暴露位置，招来别人的攻击。</p>
 		<p>“啪。” 看着砸在坚硬的岩石上粉身碎骨的按钮，我感到如释重负般的开心。<BR>
@@ -322,8 +343,7 @@
 		
 		
 	<!--{elseif $winmode == 5}-->
-		<div class="subtitle">核弹引爆</div>
-		<BR>
+		<!--核弹引爆（非获胜玩家）-->
 		<p>突然间划破天空的飞行物体，让正在厮杀的众人不约而同地停了下来。<BR>
 		那震耳欲聋的尖锐呼啸声，让人不寒而栗。<BR>
 		“啪”是网友的武器掉落在地上的声音。<BR>
@@ -345,12 +365,10 @@
 		“实在抱歉，董事长。这次的事情由我们负全责。”<BR>
 		<span class="evergreen">“咱不在的时候竟然有人敢做这种事……”女声沉吟许久，“果然是他……？”</span></p>
 	<!--{elseif $winmode == 6}-->
-		<div class="subtitle">游戏被GM中止</div>
-		<BR>
+		<!--游戏被GM中止-->
 		<p>本局游戏被GM中止，请返回游戏首页。</p>
 	<!--{elseif $winmode == 7 && $state == 6 }-->
-		<div class="subtitle">幻境解离</div>
-		<BR>
+		<!--幻境解离-->
 		<p>一切都结束了。<br>
 		你拿着三个光球样的物体，来到了那个位置。<br>
 		在你组装起这三个光球前，你甚至不知道这个位置在这个虚拟现实中的存在。<br>
@@ -493,14 +511,14 @@
 		<span class="red">NEXT EPISODE：Project:■</span>
 		</p>
 	<!--{elseif $winmode == 7}-->
-		<div class="subtitle">幻境解离</div>
+		<!--幻境解离（非获胜玩家）-->
 		<p>
 		你的面前白光一闪，<br>
 		你的意识消逝在了白光之中。<br>
 		END?
 		</p>
 	<!--{elseif $winmode == 8}-->
-		<div class="subtitle">挑战结束</div>
+		<!--挑战结束-->
 		<p>
 			<!--{if $gametype == 15}-->
 				你本局的有效最大金钱为：
@@ -513,8 +531,26 @@
 		<br>本次挑战结束，请返回游戏首页！
 		</p>
 	<!--{else}-->
-	未知胜利方式，可能是开发者尚未编写结局说明，请返回游戏首页！<br>
-	state={$state} winmode={$winmode}
+		未知胜利方式，可能是开发者尚未编写结局说明，请返回游戏首页！<br>
+		state={$state} winmode={$winmode}
+	<!--{/if}-->
+	<br><br>
+	<!--{if !$groomid && in_array($winmode, array(2,3,5,7)) && ($state == 5 || $state == 6)}-->
+		<p>
+			<a name="nextgamevars"></a><h2 class="subtitle2">下一局游戏数据设定</h2>
+			<form method="post" id="nextgamevarsform" name="nextgamevarsform">
+				<input type="hidden" name="ecommand" value="nextgamevars">
+				<div id="nextgamevars">
+					<!--{loop $next_gamevars_display $ngds}-->
+						{$ngds}<br>
+					<!--{/loop}-->				
+				</div>
+				<p>
+					<input type="button" class="cmdbutton" name="submit" value="提交"
+						onclick="postCmd('nextgamevarsform','end.php');this.disabled=true;">
+				</p>
+			</form>
+		</p>
 	<!--{/if}-->
 <!--{else}-->
 游戏尚在运行，可能是新一局已经开始，请返回游戏首页！
@@ -526,4 +562,3 @@
 
 
 {template footer}
-

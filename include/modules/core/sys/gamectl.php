@@ -19,16 +19,8 @@ namespace sys
 			$groomtype = 0;
 			$groomstatus = 2;
 			$roomvars = array();
-			
-			//如果指定了下一局模式
-			if(isset($gamevars['next_gametype'])) $gametype = (int)($gamevars['next_gametype']);
-			//经典房交替开启经典和卡片模式。
-			elseif(0==$gametype) $gametype = 4;
-			else $gametype = 0;
-			
-			$gamevars = array();
 		}
-		
+		reset_gametype();
 		$gamestate = 5;//正在重设游戏
 		save_gameinfo(0);
 		
@@ -50,6 +42,12 @@ namespace sys
 		clear_dir(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/',1);
 		global $___MOD_TMP_FILE_DIRECTORY;
 		clear_dir($___MOD_TMP_FILE_DIRECTORY.$room_prefix.'_/',1);
+	}
+	
+	function reset_gametype(){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		eval(import_module('sys'));
+		if(!$groomid) $gametype = 0;//经典房gametype恒为0
 	}
 	
 	function prepare_new_game() {

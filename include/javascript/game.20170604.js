@@ -296,13 +296,15 @@ function showData(sdata){
 		{
 			var sDt = shwData['timing'];
 			for(var tid in sDt){
-				var t = sDt[tid]['timing'];
-				var tm = sDt[tid]['mode'];
-				if('undefined'==typeof(timinglist) || 'undefined'==typeof(timinglist[tid])) {
-					updateTime(tid,t,tm);
-				}else{
-					timinglist[tid]['timing'] = t;
-					timinglist[tid]['mode'] = tm;
+				if(sDt[tid]['on']==true){
+					var t = sDt[tid]['timing'];
+					var tm = sDt[tid]['mode'];
+					if('undefined'==typeof(timinglist) || 'undefined'==typeof(timinglist[tid])) {
+						updateTime(tid,t,tm);
+					}else{
+						timinglist[tid]['timing'] = t;
+						timinglist[tid]['mode'] = tm;
+					}
 				}
 			}
 		}
