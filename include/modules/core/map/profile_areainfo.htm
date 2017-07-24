@@ -1,3 +1,8 @@
-距离禁区：
-<span id="area_timing">{$uip['timing']['area_timing']['timing_r']}</span>
+<!--{if $uip['timing']['area_timing']['on']}-->
+距离禁区：<span id="area_timing">{$uip['timing']['area_timing']['timing_r']}</span>
+<!--{else}-->
+距离禁区：<span id="area_timing">????</span>????
+<!--{/if}--> 
+<!--{if $uip['timing']['area_timing']['on']}-->
 <script type="text/javascript">updateTime('area_timing', {$uip['timing']['area_timing']['timing']}, 0, 1000, 'mm:ss');</script>
+<!--{/if}--> 
