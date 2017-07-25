@@ -19,22 +19,23 @@ function check_word(&$content, &$i2, $word, $no_skip_prefix_whitespace = 0)
 }
 
 //跳过行首注释
-function skip_beginning_comment(&$content, &$i2, &$ret)
-{
-	$i=$i2;
-	//从上一行尾开始判断，如果非空字符之后直接有单行注释符号，则让$i2前移一整行，并返回这行内容。
-	if ((check_word($content,$i,"\r",1) || check_word($content,$i,"\n",1)) && (check_word($content,$i,'//') || check_word($content,$i,'#'))) {
-		$content2 = substr($content,$i);
-		$i3 = strpos($content2, "\r");
-		if($i3 === false) $i3 = strpos($content2, "\n");
-		if($i3) {
-			$ret = substr($content, $i2, $i-$i2+$i3);
-			$i2 = $i+$i3;
-			return 1;
-		}		
-	}
-	return 0;
-}
+//不再需要了
+//function skip_beginning_comment(&$content, &$i2, &$ret)
+//{
+//	$i=$i2;
+//	//从上一行尾开始判断，如果非空字符之后直接有单行注释符号，则让$i2前移一整行，并返回这行内容。
+//	if ((check_word($content,$i,"\r",1) || check_word($content,$i,"\n",1)) && (check_word($content,$i,'//') || check_word($content,$i,'#'))) {
+//		$content2 = substr($content,$i);
+//		$i3 = strpos($content2, "\r");
+//		if($i3 === false) $i3 = strpos($content2, "\n");
+//		if($i3) {
+//			$ret = substr($content, $i2, $i-$i2+$i3);
+//			$i2 = $i+$i3;
+//			return 1;
+//		}		
+//	}
+//	return 0;
+//}
 
 function check_import_module($tplfile, &$content, &$i2, &$ret)
 {
@@ -137,25 +138,25 @@ function parse_get_funcname(&$content, $i2)
 	throw new Exception('cannot parse out function name');
 }
 
-function get_magic_content($funcname)
+function get_magic_content($funcname, $modid)
 {
 	global $___TEMP_modfuncs;
 	$str = __MAGIC_CODEADV2__;
 	preg_match_all("/if[\s]*\(.+\)[\s]*\{([\s\S]*)\}[\s]*(.+)/i",$str,$matches);
 	$str1 = $matches[1][0]; $str2 = $matches[2][0];
 	//去掉永远不可能达成的if
-	if($___TEMP_modfuncs[$funcname]['parent']) {
+	if($___TEMP_modfuncs[$modid][$funcname]['parent']) {
 		$str = $str1.$str2;
-		$str = str_replace('_____TEMPLATE_MAGIC_CODEADV2_INIT_DESIRE_PARENTNAME_____','\''.$___TEMP_modfuncs[$funcname]['parent'].'\'',$str);
-		$str = str_replace('_____TEMPLATE_MAGIC_CODEADV2_INIT_EVACODE_____',$___TEMP_modfuncs[$funcname]['evacode'],$str);
-		$str = str_replace('_____TEMPLATE_MAGIC_CODEADV2_INIT_CHPROCESS_____','\''.$___TEMP_modfuncs[$funcname]['chprocess'].'\'',$str);
+		$str = str_replace('_____TEMPLATE_MAGIC_CODEADV2_INIT_DESIRE_PARENTNAME_____','\''.$___TEMP_modfuncs[$modid][$funcname]['parent'].'\'',$str);
+		$str = str_replace('_____TEMPLATE_MAGIC_CODEADV2_INIT_EVACODE_____',$___TEMP_modfuncs[$modid][$funcname]['evacode'],$str);
+		$str = str_replace('_____TEMPLATE_MAGIC_CODEADV2_INIT_CHPROCESS_____','\''.$___TEMP_modfuncs[$modid][$funcname]['chprocess'].'\'',$str);
 	}else{
-		$str = str_replace('_____TEMPLATE_MAGIC_CODEADV2_INIT_CHPROCESS_____','\''.$___TEMP_modfuncs[$funcname]['chprocess'].'\'',$str2);
+		$str = str_replace('_____TEMPLATE_MAGIC_CODEADV2_INIT_CHPROCESS_____','\''.$___TEMP_modfuncs[$modid][$funcname]['chprocess'].'\'',$str2);
 	}
 	return $str;
 }
 
-function check_eval_magic($tplfile, &$content, &$i2, &$ret)
+function check_eval_magic($modid, $tplfile, &$content, &$i2, &$ret)
 {
 	$i=$i2;
 	if (!check_word($content,$i,'if',1)) return 0;
@@ -170,7 +171,7 @@ function check_eval_magic($tplfile, &$content, &$i2, &$ret)
 	if (!check_word($content,$i,';')) return 0;
 	$funcname = parse_get_funcname($content,$i2);
 	$i2=$i;
-	$ret = get_magic_content(strtolower($funcname));
+	$ret = get_magic_content(strtolower($funcname), $modid);
 	//测试
 	//统计函数调用个数
 	//$ret='global $___TEMP_CALLS_COUNT; $___TEMP_CALLS_COUNT[\''.$funcname.'\']=1; '.$ret;
@@ -194,7 +195,7 @@ function check_init_func($modname, $tplfile, &$content, &$i2, &$ret)
 }
 */
 
-function parse($modname, $tplfile, $objfile)
+function parse($modid, $tplfile, $objfile)
 {
 	global $___MOD_SRV;
 	$content=file_get_contents($tplfile);
@@ -203,11 +204,12 @@ function parse($modname, $tplfile, $objfile)
 	while ($i<strlen($content))	//千万别分多次parse………… 分多次parse后面的文件会特别长，超慢
 	{
 		$s=='';
-		if (skip_beginning_comment($content, $i, $s))
-		{
-			$result.=$s;
-		}
-		elseif (check_eval_magic($tplfile, $content, $i, $s))
+//		if (skip_beginning_comment($content, $i, $s))
+//		{
+//			$result.=$s;
+//		}
+//		else
+		if (check_eval_magic($modid, $tplfile, $content, $i, $s))
 		{
 			$result.=$s; 
 		}
@@ -223,15 +225,30 @@ function parse($modname, $tplfile, $objfile)
 	writeover($objfile, $result);
 }
 
-function preparse($modname, $id, $tplfile)
+function preparse($modid, $tplfile)
 {
 	global $___TEMP_defined_funclist;
-	global $___TEMP_modfuncs; $___TEMP_modfuncs=Array();
-	foreach ($___TEMP_defined_funclist[$id] as $key)
+	global $___TEMP_modfuncs; //$___TEMP_modfuncs=Array();
+	foreach ($___TEMP_defined_funclist[$modid] as $key)
 	{
 		$key();
 		global $___TEMP_DESIRE_PARENTNAME,$___TEMP_EVACODE,$___TEMP_CHPROCESS;
-		$___TEMP_modfuncs[strtolower(substr($key,strpos($key,'\\',0)+1))]=Array(
+		$___TEMP_modfuncs[$modid][strtolower(substr($key,strpos($key,'\\',0)+1))]=Array(
+			'parent' => $___TEMP_DESIRE_PARENTNAME,
+			'evacode' => $___TEMP_EVACODE,
+			'chprocess' => $___TEMP_CHPROCESS,
+		);
+	}
+}
+
+function precombine($modid, $tplfile)
+{
+	global $___TEMP_defined_funclist;
+	global $___TEMP_;
+	foreach ($___TEMP_defined_funclist[$modid] as $key)
+	{
+		global $___TEMP_DESIRE_PARENTNAME,$___TEMP_EVACODE,$___TEMP_CHPROCESS;
+		$___TEMP_modfuncs[$modid][strtolower(substr($key,strpos($key,'\\',0)+1))]=Array(
 			'parent' => $___TEMP_DESIRE_PARENTNAME,
 			'evacode' => $___TEMP_EVACODE,
 			'chprocess' => $___TEMP_CHPROCESS,

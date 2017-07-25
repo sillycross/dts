@@ -779,6 +779,19 @@ namespace tutorial
 		}
 	}
 	
+	//教程房是否显示禁区时间
+	function init_areatiming(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','tutorial'));
+		if (!$tutorial_disable_area_timing || $gametype!=17){
+			$chprocess();
+		} else {
+			$uip['timing']['area_timing'] = array(
+				'on' => false,
+			);
+		}
+	}
+	
 	//教程房是否真正连斗
 	function checkcombo(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;

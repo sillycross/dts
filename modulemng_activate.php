@@ -216,6 +216,8 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2)
 {
 	echo '<font color="blue">正在进行代码预处理CODE_ADV2..</font><br>';
 	include GAME_ROOT.'./include/modulemng/modulemng.codeadv2.func.php';
+	$___TEMP_modfuncs=Array();
+	//第一遍：复制文件，记录各函数依赖关系
 	for ($i=1; $i<=$n; $i++)
 	{
 		/*
@@ -225,40 +227,67 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2)
 			continue;
 		}
 		*/
-		echo '开始处理模块'.$modn[$i].'...<br>'; ob_end_flush(); flush();
+		echo '开始分析模块'.$modn[$i].'...<br>'; ob_end_flush(); flush();
 		$srcdir = GAME_ROOT.'./include/modules/'.$modp[$i];
 		$tpldir = GAME_ROOT.'./gamedata/run/'.$modp[$i];
+		
+		create_dir($tpldir);
+		clear_dir($tpldir);
+		copy_dir($srcdir,$tpldir,'<DOC>');//这里其实只起到建立文件夹结构的作用，后边把php和htm全部拷贝了
 		//快速模式不复制文件夹
-		if(!$quickmode) {
-			create_dir($tpldir);
-			clear_dir($tpldir);
-			copy_dir($srcdir,$tpldir,'php');
-		}
+//		if(!$quickmode) {
+//			create_dir($tpldir);
+//			clear_dir($tpldir);
+//			copy_dir($srcdir,$tpldir,'php');
+//		}
 		foreach ($codelist[$i] as $key)
 		{
 			$src=GAME_ROOT.'./include/modules/'.$modp[$i].$key;
-			//if(pathinfo($src,PATHINFO_EXTENSION)!='php') continue;//ADV2不处理非php文件//不行，会死
-			echo '&nbsp;&nbsp;&nbsp;&nbsp;正在处理代码'.$key.'.. '; ob_end_flush(); flush();
+			//if(pathinfo($src,PATHINFO_EXTENSION)!='php') continue;//ADV2不处理非php文件 //不行，这样会死
+			echo '&nbsp;&nbsp;&nbsp;&nbsp;正在分析代码'.$key.'.. '; ob_end_flush(); flush();
 			$objfile=GAME_ROOT.'./gamedata/run/'.$modp[$i].$key;
-			//快速模式，只在这里复制对应文件
-			if($quickmode && filemtime($src) >= filemtime(GAME_ROOT.'./gamedata/modules.list.php')) {
+			//去除注释
+			if(pathinfo($src,PATHINFO_EXTENSION)!='php'){
 				copy($src,$objfile);
+			}else{
+				writeover($objfile, php_strip_whitespace($src));
 			}
-			$objfile=substr($objfile,0,-4).'.adv'.substr($objfile,strlen($objfile)-4);
-			$delfile=GAME_ROOT.'./gamedata/run/'.$modp[$i].$key;
-			preparse($modn[$i],$i,$src);
-			//快速模式且未修改文件，直接跳过
-			if($quickmode && filemtime($src) < filemtime(GAME_ROOT.'./gamedata/modules.list.php')) {
-				echo '未修改，跳过。<br>'; ob_end_flush(); flush();
-				continue;
-			}
-			parse($modn[$i],$src,$objfile);
-			unlink($delfile);
+			//快速模式，只在这里复制对应文件
+//			if($quickmode && filemtime($src) >= filemtime(GAME_ROOT.'./gamedata/modules.list.php')) {
+//				copy($src,$objfile);
+//			}
+			preparse($i,$objfile);
+			//precombine($i,$src);
 			echo '完成。<br>'; ob_end_flush(); flush();
+			//快速模式且未修改文件，直接跳过
 		}
-		echo '完成。<br>'; ob_end_flush(); flush();
 	}
-	
+	//第二遍：整理并合并同名函数，展开各文件的import和eval
+	for ($i=1; $i<=$n; $i++)
+	{
+		echo '开始写入模块'.$modn[$i].'...<br>'; ob_end_flush(); flush();
+		foreach ($codelist[$i] as $key)
+		{
+			//$src=GAME_ROOT.'./include/modules/'.$modp[$i].$key;
+			echo '&nbsp;&nbsp;&nbsp;&nbsp;正在写入代码'.$key.'.. '; ob_end_flush(); flush();
+			$basefile=GAME_ROOT.'./gamedata/run/'.$modp[$i].$key;
+			$delfile=$basefile;
+			$advfile=substr($basefile,0,-4).'.adv'.substr($basefile,strlen($basefile)-4);
+//			if($quickmode && filemtime($src) < filemtime(GAME_ROOT.'./gamedata/modules.list.php')) {
+//				echo '未修改，跳过。<br>'; ob_end_flush(); flush();
+//				continue;
+//			}
+			//combine($i,$basefile);
+			if(pathinfo($basefile,PATHINFO_EXTENSION)!='php'){
+				copy($basefile,$advfile);
+			}else{
+				parse($i,$basefile,$advfile);
+			}
+			unlink($delfile);
+			echo '写入完成。<br>'; ob_end_flush(); flush();
+		}
+	}
+	echo '完成。<br>'; ob_end_flush(); flush();
 	echo '<font color="blue">代码预处理CODE_ADV2完成。</font><br><br>';
 }
 
