@@ -415,6 +415,16 @@ function check_alnumudline($key)
 	return true;
 }
 
+function token_get_all_dic($code){
+	$r = token_get_all($code);
+	for($i=0;$i<sizeof($r);$i++){
+		if(is_array($r[$i])){
+			$r[$i][0] = token_name($r[$i][0]);
+		}
+	}
+	return $r;
+}
+
 //----------------------------------------
 //              变量处理
 //----------------------------------------

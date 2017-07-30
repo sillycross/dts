@@ -250,22 +250,35 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2)
 			if(pathinfo($src,PATHINFO_EXTENSION)!='php'){
 				copy($src,$objfile);
 			}else{
-				writeover($objfile, php_strip_whitespace($src));
+				$content = strip_comments(file_get_contents($src));
+				writeover($objfile, $content);
+				unset($content);
 			}
 			//快速模式，只在这里复制对应文件
 //			if($quickmode && filemtime($src) >= filemtime(GAME_ROOT.'./gamedata/modules.list.php')) {
 //				copy($src,$objfile);
 //			}
 			preparse($i,$objfile);
-			//precombine($i,$src);
 			echo '完成。<br>'; ob_end_flush(); flush();
 			//快速模式且未修改文件，直接跳过
 		}
 	}
+	
+	$___TEMP_flipped_modn = array_flip($modn);
 	//第二遍：整理并合并同名函数，展开各文件的import和eval
 	for ($i=1; $i<=$n; $i++)
 	{
 		echo '开始写入模块'.$modn[$i].'...<br>'; ob_end_flush(); flush();
+		merge_contents_calc($i);
+		
+		$aaa= array();
+		foreach($___TEMP_final_func_contents as $keylll => $valll)
+		{
+			$aaa[$modn[$keylll]] = $valll;
+		}
+		
+		writeover('f.txt',var_export($aaa,1));
+		
 		foreach ($codelist[$i] as $key)
 		{
 			//$src=GAME_ROOT.'./include/modules/'.$modp[$i].$key;
@@ -281,6 +294,7 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2)
 			if(pathinfo($basefile,PATHINFO_EXTENSION)!='php'){
 				copy($basefile,$advfile);
 			}else{
+				//merge($i,$basefile,substr($basefile,0,-4).'.tst'.substr($basefile,strlen($basefile)-4));
 				parse($i,$basefile,$advfile);
 			}
 			unlink($delfile);
