@@ -246,10 +246,11 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2)
 			//if(pathinfo($src,PATHINFO_EXTENSION)!='php') continue;//ADV2不处理非php文件 //不行，这样会死
 			echo '&nbsp;&nbsp;&nbsp;&nbsp;正在分析代码'.$key.'.. '; ob_end_flush(); flush();
 			$objfile=GAME_ROOT.'./gamedata/run/'.$modp[$i].$key;
-			//去除注释
+			
 			if(pathinfo($src,PATHINFO_EXTENSION)!='php'){
 				copy($src,$objfile);
 			}else{
+				//去除注释
 				$content = strip_comments(file_get_contents($src));
 				writeover($objfile, $content);
 				unset($content);
@@ -262,23 +263,14 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2)
 			echo '完成。<br>'; ob_end_flush(); flush();
 			//快速模式且未修改文件，直接跳过
 		}
+		merge_contents_calc($i);
 	}
-	
+	writeover('f.txt', var_export($___TEMP_final_func_contents,1));
 	$___TEMP_flipped_modn = array_flip($modn);
 	//第二遍：整理并合并同名函数，展开各文件的import和eval
 	for ($i=1; $i<=$n; $i++)
 	{
 		echo '开始写入模块'.$modn[$i].'...<br>'; ob_end_flush(); flush();
-		merge_contents_calc($i);
-		
-		$aaa= array();
-		foreach($___TEMP_final_func_contents as $keylll => $valll)
-		{
-			$aaa[$modn[$keylll]] = $valll;
-		}
-		
-		writeover('f.txt',var_export($aaa,1));
-		
 		foreach ($codelist[$i] as $key)
 		{
 			//$src=GAME_ROOT.'./include/modules/'.$modp[$i].$key;
@@ -290,11 +282,12 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2)
 //				echo '未修改，跳过。<br>'; ob_end_flush(); flush();
 //				continue;
 //			}
-			//combine($i,$basefile);
+
 			if(pathinfo($basefile,PATHINFO_EXTENSION)!='php'){
 				copy($basefile,$advfile);
 			}else{
 				//merge($i,$basefile,substr($basefile,0,-4).'.tst'.substr($basefile,strlen($basefile)-4));
+				
 				parse($i,$basefile,$advfile);
 			}
 			unlink($delfile);
