@@ -217,6 +217,7 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2)
 	echo '<font color="blue">正在进行代码预处理CODE_ADV2..</font><br>';
 	include GAME_ROOT.'./include/modulemng/modulemng.codeadv2.func.php';
 	$___TEMP_modfuncs=Array();
+	$___TEMP_flipped_modn = array_flip($modn);
 	//第一遍：复制文件，记录各函数依赖关系
 	for ($i=1; $i<=$n; $i++)
 	{
@@ -263,11 +264,19 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2)
 			echo '完成。<br>'; ob_end_flush(); flush();
 			//快速模式且未修改文件，直接跳过
 		}
-		merge_contents_calc($i);
 	}
-	writeover('f.txt', var_export($___TEMP_final_func_contents,1));
-	$___TEMP_flipped_modn = array_flip($modn);
-	//第二遍：整理并合并同名函数，展开各文件的import和eval
+	//writeover('e.txt', var_export($___TEMP_func_contents,1));
+	//第二遍：整理并合并同名函数
+	for ($i=1; $i<=$n; $i++)
+	{
+		echo '开始整理模块'.$modn[$i].'...'; ob_end_flush(); flush();
+		merge_contents_calc($i);
+		echo '完成。<br>'; ob_end_flush(); flush();
+	}
+	//writeover('f.txt', var_export($___TEMP_final_func_contents,1));
+	global $___MOD_CODE_COMBINE;
+	$___MOD_CODE_COMBINE = 1;
+	//第三遍：展开各文件的import和eval
 	for ($i=1; $i<=$n; $i++)
 	{
 		echo '开始写入模块'.$modn[$i].'...<br>'; ob_end_flush(); flush();
@@ -277,6 +286,7 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2)
 			echo '&nbsp;&nbsp;&nbsp;&nbsp;正在写入代码'.$key.'.. '; ob_end_flush(); flush();
 			$basefile=GAME_ROOT.'./gamedata/run/'.$modp[$i].$key;
 			$delfile=$basefile;
+			$tstfile= substr($basefile,0,-4).'.tst'.substr($basefile,strlen($basefile)-4);
 			$advfile=substr($basefile,0,-4).'.adv'.substr($basefile,strlen($basefile)-4);
 //			if($quickmode && filemtime($src) < filemtime(GAME_ROOT.'./gamedata/modules.list.php')) {
 //				echo '未修改，跳过。<br>'; ob_end_flush(); flush();
@@ -286,9 +296,12 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2)
 			if(pathinfo($basefile,PATHINFO_EXTENSION)!='php'){
 				copy($basefile,$advfile);
 			}else{
-				//merge($i,$basefile,substr($basefile,0,-4).'.tst'.substr($basefile,strlen($basefile)-4));
-				
-				parse($i,$basefile,$advfile);
+				if($___MOD_CODE_COMBINE){
+					merge_contents_write($i,$basefile,$advfile);
+					parse($i,$advfile,$advfile);
+				}else{
+					parse($i,$basefile,$advfile);
+				}
 			}
 			unlink($delfile);
 			echo '写入完成。<br>'; ob_end_flush(); flush();
@@ -365,8 +378,8 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2 && $___MOD_CODE_ADV3)
 $faillog='';
 
 copy(GAME_ROOT.'./gamedata/modules.list.pass.php',GAME_ROOT.'./gamedata/modules.list.php');
-unlink(GAME_ROOT.'./gamedata/modules.list.pass.php');
-unlink(GAME_ROOT.'./gamedata/modules.list.temp.php');
+//unlink(GAME_ROOT.'./gamedata/modules.list.pass.php');
+//unlink(GAME_ROOT.'./gamedata/modules.list.temp.php');
 touch(GAME_ROOT.'./gamedata/modules.list.php');//更新文件时间以保证quick模式正常运转
 
 if ($___MOD_SRV)
