@@ -335,7 +335,7 @@ function token_match($reg_patt, $tok_patt, $code){
 			$match_flag = false;
 			foreach($tok_type as $tt){//每一个解析器代号
 				//解析器代号为'*'的时候忽略这个代号
-				if('*' === $tt || (is_string($o_token) && NULL===$tt) || (is_array($o_token) && $o_token[0] === $tt)){
+				if('*' == $tt || (is_string($o_token) && NULL===$tt) || (is_array($o_token) && $o_token[0] === $tt)){
 					$match_flag = true;
 					break;
 				}
@@ -490,10 +490,11 @@ function merge_add_braces($reg_pat, $tok_pat, $subject){
 
 //识别并替换第一个特定字符串+正确的前后括号的内容
 //返回array('A', '所找元素', 'C', '(括号内容)', 'E')形式的数组
-function merge_split_paren($find_str, $find_type, $subject){
+function merge_split_paren($find_str, $find_type, $subject, &$brace_nest=0, &$block_min_brace_nest=0){
 	$tokens = token_get_all('<?php '.$subject);
 	$paren_nest = 0;
 	$tmp_paren_nest = 0;
+	$block_min_brace_nest = 999;
 	$pos_state = 0;
 	$ret = array(0=>'', 1=>'', 2=>'', 3=>'', 4=>'');
 	foreach($tokens as $token){
@@ -523,7 +524,18 @@ function merge_split_paren($find_str, $find_type, $subject){
 				$pos_state = 4;
 			}
 		}
-		$ret[$pos_state] .= $token_str;
+		if(left_brace_check($token_str, $token_type)){ //php这个判定也是醉
+  		$brace_nest ++;
+  	}elseif('}' == $token_str && NULL === $token_type){
+  		$brace_nest --;
+  	}
+  	if($brace_nest < $block_min_brace_nest) $block_min_brace_nest = $brace_nest;
+  	if(4 == $pos_state){
+  		$ret[$pos_state] .= substr($subject, strlen($ret[0].$ret[1].$ret[2].$ret[3].$ret[4]));
+  		break;
+  	}else{
+  		$ret[$pos_state] .= $token_str;
+  	}
 	}
 	if(!empty($ret[4])) {
 		$ret[3] .= substr($ret[4], 0, 1);
@@ -554,11 +566,10 @@ function merge_replace_chprocess($ret_varname, $replacement, $subject){
 //把所有的return换成${$ret_varname}=xxx;break;的形式
 function merge_replace_return($ret_varname, $subject){
 	if(strpos($subject, '$ret = \'\'')!==false) $flag = 1;
-	
 	do{
 		list($ret_behind, $ret_middle, $ret_ahead) = merge_add_braces('/(return)/s', array(T_RETURN), $subject);
-		$ret_middle = preg_replace('/return\s*?;/s', $ret_varname." = NULL; break; ", $ret_middle);
-		$ret_middle = preg_replace('/return\s*?(.*?);/s', $ret_varname." = $1; break; ", $ret_middle);
+		$ret_middle = preg_replace('/return\s*?;/s', $ret_varname." = NULL;\r\nbreak; ", $ret_middle);
+		$ret_middle = preg_replace('/return\s*?(.*?);/s', $ret_varname." = $1;\r\nbreak; ", $ret_middle);
 		$subject = $ret_behind . $ret_middle . $ret_ahead;
 	}while(token_match('/(return)/s', array(T_RETURN), '<?php '.$subject));
 
@@ -624,7 +635,7 @@ function merge_contents_calc($modid)
 	global $___TEMP_func_contents;
 	global $___TEMP_final_func_contents;//二维数组 modid=>函数名=>字符串
 	global $___TEMP_last_ret_varname;//键名是函数名
-	global $___TEMP_stored_func_contents;//键名是函数名，键值是执行到任意时刻那个函数所存下来的内容
+	global $___TEMP_stored_func_contents;//键名是函数名，键值是执行到任意时刻那个函数所暂存的内容
 	global $___TEMP_node_func_modname;//键名是函数名，键值是modname
 	global $___TEMP_defined_funclist;
 	global $___TEMP_modfuncs;
@@ -632,7 +643,15 @@ function merge_contents_calc($modid)
 	
 	$___TEMP_final_func_contents[$modid] = array();
 	
-	foreach ($___TEMP_defined_funclist[$modid] as $key)//注意执行顺序和继承顺序完全不是一个概念
+	//先提取该mod全部函数名
+//	$tmp_mod_funcname_list = array_keys($___TEMP_func_contents[$modid]);
+	$tmp_mod_funcname_list = array();
+	foreach($___TEMP_defined_funclist[$modid] as $key){
+		$tmp_mod_funcname_list[] = strtolower(substr($key,strpos($key,'\\',0)+1));
+	}
+	//对该mod的每个函数顺序执行整个判定，不涉及文件（内容之前就读到内存里了）
+	//注意执行顺序和继承顺序完全不是一个概念
+	foreach ($___TEMP_defined_funclist[$modid] as $key)
 	{
 		$key = strtolower(substr($key,strpos($key,'\\',0)+1));
 		//无父函数且无子函数的函数直接跳过
@@ -641,87 +660,41 @@ function merge_contents_calc($modid)
 		$contents = $___TEMP_func_contents[$modid][$key]['contents'];
 		//干掉eval字符串，因为不需要了
 		$contents = str_replace('if (eval(__MAGIC__)) return $___RET_VALUE;', '', $contents);
-//		preg_match('/\s*?if\s*?\(eval\(__MAGIC__\)\)\s*?return\s*?\$___RET_VALUE;\s*?$/s', $contents, $contents_evacode_temp);
-//		$contents_evacode_temp = $contents_evacode_temp[0];
-//		$contents = str_replace($contents_evacode_temp, '', $contents);
 		
-		//整体装进一个do...while(0)结构，方便用break模拟return
-		$contents = 'do{'.$contents.'}while(0);';
+		//函数内容里直接引用本模块的函数名需要加上namespace
+		$contents = '<?php '.$contents;
+		foreach($tmp_mod_funcname_list as $cmfn){
+			$contents = token_replace('/([^\\\\A-Za-z0-9_])('.$cmfn.')\s*?\(/si', array('*',T_STRING), '$1\\\\'.$modn[$modid].'\\\\$2 (', $contents);
+			//if($cmfn == 'attr_dmg_check_not_WPG') writeover('a.txt', $contents."\r\n\r\n", 'ab+');
+		}
+		$contents = str_replace('<?php ', '', $contents);
 		
-		//取得preparse()记录的函数信息
+		//取得preparse()记录下的函数信息
 		$func_info = $___TEMP_modfuncs[$modid][$key];
 		if(empty($___TEMP_last_ret_varname[$key])) $___TEMP_last_ret_varname[$key] = 'NULL';
 		if(empty($___TEMP_node_func_modname[$key])) $___TEMP_node_func_modname[$key] = '__MODULE_NULLMOD__';
 		
 		//节点判断步骤
-		$node_this = true;//若无父函数或者父函数里有2个以上的$chprocess，则把暂存的内容全部写在本函数，之后清空暂存内容
+		//判断目的：若无父函数或者父函数里有2个以上的$chprocess，则把暂存的内容全部写在本函数，之后清空暂存内容
+		//若父函数里只有1个$chprocess，则本函数可以直接合并进父函数，因而本函数暂存内容，只留跳转
+		$node_this = true;
 		if($func_info['parent']){
 			$parent = explode('\\',$func_info['parent']);
 			$parent_modname = $parent[0] ? $parent[0] : $parent[1];
-			//获得父函数的内容，以进行下一步判定
 			$parent_func_contents = $___TEMP_func_contents[intval($___TEMP_flipped_modn[$parent_modname])][$key];
 			$cc = substr_count($parent_func_contents['contents'], '$chprocess(');
-			if($cc <= 1) $node_this = false; //若父函数里只有1个$chprocess，则本函数可以直接合并进父函数，因而本函数暂存内容，只留跳转
+			if($cc <= 1) $node_this = false; 
 		}
 		
 		//进入处理步骤
-		if($node_this)//该函数为根函数或者父函数有2个以上的chprocess，则把这个mod的函数作为节点
+		if($node_this)//该函数为根函数或者父函数有2个以上的chprocess，则把这个函数作为节点
 		{
-			//清空暂存内容
 			if(strpos($___TEMP_stored_func_contents[$key], "\$ret='未知'")!==false) $ffflag = 1;
 			$tmp_stored_contents = $___TEMP_stored_func_contents[$key];
 			$___TEMP_stored_func_contents[$key] = '';
 			if(!empty($tmp_stored_contents)){
-				//这里整个逻辑不对，父函数的im位置可能在最后，应该根据合并的代码进行判定
-				//import_module()处理
-				//把父函数第一层定义的模块名全部从暂存内容处理掉
-				//如果父函数有定义则用父函数的import_modules模块名，否则（根函数）用本函数的
-				$im_diff_str = !empty($parent_func_contents['imported_modules']) ? $parent_func_contents['imported_modules'] : $___TEMP_func_contents[$modid][$key]['imported_modules'];
-				$im_diff_arr = array();
-				foreach(explode(',', $im_diff_str) as $val){
-					$im_diff_arr[] = trim($val);
-				}
-				if(!empty($im_diff_arr)){
-					$tmp_im_subject = $tmp_stored_contents;
-					$tmp_im_ret = '';
-					$im_count = 0;
-					do{
-						list($ret_a, $ret_b, $ret_c, $ret_d, $ret_e) = merge_split_paren('import_module', T_STRING, $tmp_im_subject);
-						if(!empty($ret_d)){
-							$im_count ++;
-							if($im_count <= 1){//第1个import_module不处理
-								$tmp_im_ret .= $ret_a . $ret_b . $ret_c . $ret_d;
-								$tmp_im_subject = $ret_e;
-							}else{
-								$tmp_im_parencont = explode(',',substr($ret_d, 1, -1));
-								$im = sizeof($tmp_im_parencont);
-								for($i=0;$i<$im;$i++){
-									$tmp_im_parencont[$i] = trim($tmp_im_parencont[$i]);
-								}
-								$tmp_im_parencont = array_diff($tmp_im_parencont, $im_diff_arr);
-								if(!empty($tmp_im_parencont)){
-									$tmp_im_ret .= $ret_a . $ret_b . $ret_c . '('.implode(',', $tmp_im_parencont).')';
-									$tmp_im_subject = $ret_e;	
-								}else{
-									$tmp_im_ret .= $ret_a;
-									$tmp_im_subject = $ret_e;
-								}		
-							}							
-						}else{
-							$tmp_im_ret .= $tmp_im_subject;
-							$tmp_im_subject = '';
-						}
-					} while (!empty($tmp_im_subject));
-					$tmp_stored_contents = str_replace('eval();', '', $tmp_im_ret);
-				}
-//				foreach($im_diff_arr as $pim_val){
-//					$tmp_stored_contents = preg_replace('/import_module\s*?\((.*?),*?'."'".$pim_val."'".'(.*?)\)/s', 'import_module($1$2)', $tmp_stored_contents);
-//				}
-//				$tmp_stored_contents = preg_replace('/import_module\s*?\(\s*?,(.*?)\)/s', 'import_module($1)', $tmp_stored_contents);
-//				$tmp_stored_contents = preg_replace('/eval\s*?\(\s*?import_module\s*?\(\s*?\)\s*?\);/s', '', $tmp_stored_contents);
-			
 				//如果有暂存内容，则先用暂存内容替换节点内容里的$chprocess
-				//节点函数有两个以上$chprocess的情况下，不存在暂存内容
+				//节点函数有两个以上$chprocess的情况下，不存在暂存内容，所以不用考虑
 				$contents = merge_replace_chprocess($___TEMP_last_ret_varname[$key], $tmp_stored_contents, $contents);
 				unset($tmp_stored_contents);
 			}
@@ -733,38 +706,108 @@ function merge_contents_calc($modid)
 			}
 			$contents = str_replace('$chprocess', $replacement, $contents);
 			
-			//消灭嵌套return造成的首尾相连赋值
-			//不能消灭，虽然看着愚蠢，但是这就是尾递归展开导致
-//			$i=0;
-//			while($i<1000 && preg_match('/\$(\S+)\s*?=\s*?\$(\S+)\s*?;\s*?\$(\S+)\s*?=\s*?\$(\S+)\s*?;/s', $contents, $matches)){
-//				if($matches[1] == $matches[4]) {
-//					$contents = preg_replace('/\$'.$matches[1].'\s*?=\s*?\$'.$matches[2].'\s*?;\s*?\$'.$matches[3].'\s*?=\s*?\$'.$matches[4].'\s*?;/s', '$'.$matches[3].' = $'.$matches[2].';', $contents);
-//				}
-//				$i++;
-//			}
+			//import_module()处理
+			//每一个大括号分支内去除重复的import_module()
+			$tmp_im_subject = $contents;
+			$tmp_im_ret = '';
+			$im_brace_nest = 0;
+			$im_last_brace_nest = 999;
+			$im_diff_arr = array();
+			do{
+				list($ret_a, $ret_b, $ret_c, $ret_d, $ret_e) = merge_split_paren('import_module', T_STRING, $tmp_im_subject, $im_brace_nest, $im_block_min_brace_nest);
+				if(!empty($ret_d)){
+					if($im_block_min_brace_nest < $im_last_brace_nest){//外层import_module，记录为$im_diff_arr
+						foreach(explode(',', substr($ret_d,1,-1)) as $val){
+							$im_diff_arr[] = trim($val);
+						}
+						$tmp_im_ret .= $ret_a . $ret_b . $ret_c . $ret_d;
+						$tmp_im_subject = $ret_e;
+					}else{
+						$tmp_im_parencont = explode(',',substr($ret_d, 1, -1));
+						$im = sizeof($tmp_im_parencont);
+						for($i=0;$i<$im;$i++){
+							$tmp_im_parencont[$i] = trim($tmp_im_parencont[$i]);
+						}
+						$tmp_im_parencont = array_diff($tmp_im_parencont, $im_diff_arr);
+						if(!empty($tmp_im_parencont)){
+							$tmp_im_ret .= $ret_a . $ret_b . $ret_c . '('.implode(',', $tmp_im_parencont).')';
+							$tmp_im_subject = $ret_e;	
+						}else{
+							$tmp_im_ret .= $ret_a;
+							$tmp_im_subject = $ret_e;
+						}		
+					}
+					$im_last_brace_nest = $im_brace_nest;			
+				}else{
+					$tmp_im_ret .= $tmp_im_subject;
+					$tmp_im_subject = '';
+				}
+				//$tmp_im_ret .= "/* $im_brace_nest $im_block_min_brace_nest $im_last_brace_nest*/";
+			} while (!empty($tmp_im_subject));
+			$contents = str_replace('eval();', '', $tmp_im_ret);		
+			
+			//上一个节点内容前面加入跳转
+			$last_modid = intval($___TEMP_flipped_modn[$___TEMP_node_func_modname[$key]]);
+			$jump_str = __MAGIC_CODEADV2__;
+			preg_match_all("/if\s*?\(.+\)\s*?\{\s*?([\s\S]*)\s*?\}/i",$jump_str,$matches);
+			$jump_str = $matches[1][0];
+			$jump_str = str_replace('_____TEMPLATE_MAGIC_CODEADV2_INIT_DESIRE_PARENTNAME_____','\''.$modn[$modid].'\\'.$key.'\'',$jump_str);
+			$jump_str = str_replace('_____TEMPLATE_MAGIC_CODEADV2_INIT_EVACODE_____',$func_info['evacode'],$jump_str);
+			$___TEMP_final_func_contents[$last_modid][$key] 
+				= $jump_str	."\r\n\t\t". $___TEMP_final_func_contents[$last_modid][$key];
+			
 			//将本mod记录为节点
 			$___TEMP_node_func_modname[$key] = $modn[$modid];
-			
-			
 			
 			//最后把开头的eval字符串加回来
 			//$contents = str_replace('<<<<<<EVAL>>>>>>', 'if (eval(__MAGIC__)) return $___RET_VALUE;', $contents);
 		}
 		else//该函数的父函数只有1个chprocess，对该函数的内容处理以后作暂存，清空该函数内容
-		{
-			//变量处理
-			preg_match('/\$chprocess\((.*?)\)/s', $parent_func_contents, $parent_chpvars);
+		{			
+			//参数处理
+			list($ret_a, $ret_b, $ret_c, $ret_d, $ret_e) = merge_split_paren('$chprocess', T_VARIABLE, $parent_func_contents['contents']);
+			$parent_chpvars = substr($ret_d, 1, -1);
 			$parent_varname_change = '';
-			if($parent_chpvars[1]){
+			if($parent_chpvars){
 				$vars_arr = explode(',',$___TEMP_func_contents[$modid][$key]['vars']);
-				$parent_chpvars_arr = explode(',',$parent_chpvars[1]);
-				for($i=0; $i<count($parent_chpvars_arr); $i++){
-					$vars_arr_s = trim(explode('=',$vars_arr[$i])[0]);
-					$parent_chpvars_arr_s = trim($parent_chpvars_arr[$i]);
-					if($vars_arr_s !== $parent_chpvars_arr_s){
-						$parent_varname_change .= $vars_arr_s . ' = ' . $parent_chpvars_arr_s . '; ';
+				$parent_chpvars_arr = explode(',',$parent_chpvars);
+				$count_vars_arr = count($vars_arr);
+				//用子函数的参数作循环判断
+				for($i=0; $i < $count_vars_arr; $i++){
+					$vars_arr_single = trim($vars_arr[$i]);
+					if(strpos($vars_arr_single, '=')!==false){//默认值
+						list($vars_arr_varname, $var_arr_default) = explode('=',$vars_arr_single);
+						$vars_arr_varname = trim($vars_arr_varname);
+						$var_arr_default = trim($var_arr_default);
+					}else{
+						$vars_arr_varname = trim($vars_arr_single);
+						$var_arr_default = NULL;
+					}
+					if(strpos($vars_arr_varname, '&')===0){//引用
+						$ref_flag = 1;
+						$vars_arr_varname = trim(substr($vars_arr_varname, 1));
+					}else{
+						$ref_flag = 0;
+					}
+					$parent_chpvars_arr_single = isset($parent_chpvars_arr[$i]) ? trim($parent_chpvars_arr[$i]) : NULL;
+					//情况1，父函数调用时子函数的变量名与子函数定义的不同
+					if(NULL !== $parent_chpvars_arr_single && $parent_chpvars_arr_single != $vars_arr_varname){
+						if($ref_flag){
+							$parent_varname_change .= $vars_arr_varname . ' = &' . $parent_chpvars_arr_single . '; ';
+						}else{
+							$parent_varname_change .= $vars_arr_varname . ' = ' . $parent_chpvars_arr_single . '; ';
+						}
+					//情况2，父函数调用时没有给出这一变量
+					}elseif(NULL === $parent_chpvars_arr_single){
+						if(NULL !== $var_arr_default){
+							$parent_varname_change .= $vars_arr_varname . ' = ' . $var_arr_default . '; ';
+						}else{
+							//故意产生错误提示
+							$parent_varname_change .= $vars_arr_varname . ' = __MISSING_VARIABLE_' . substr($var_arr_default,1) . '; ';
+						}
 					}
 				}
+				//writeover('3.txt', var_export($parent_varname_change,1).' '.$modn[$modid]."\r\n",'ab+');
 			}
 			if($parent_varname_change) $parent_varname_change .= "\r\n";
 			$contents = $parent_varname_change . $contents;
@@ -772,10 +815,15 @@ function merge_contents_calc($modid)
 			//unset所有变量
 			//这个可以回头再说
 			
-			//return处理
-			//挺重要的，return是一种break，不能简单抹掉
+			//return处理			
+			//整体装进一个do...while(0)结构，方便用break模拟return
+			$contents = "\r\n\t\t//========Contents from mod {$modn[$modid]}========\r\n\t\tdo{\r\n\t\t\t".$contents."\t}while(0);";
+			//开头初始化$$ret_varname以避免未初始化的notice
 			$ret_varname = '$'.$modn[$modid].'_'.$key.'_ret';
-			$contents = merge_replace_return($ret_varname, $contents);
+			$contents = $ret_varname." = NULL;\r\n".$contents;
+			//之后把return换为$$ret_varname并且加break;
+			$contents = merge_replace_return($ret_varname, $contents);			
+			
 			//彻底去除eval字符串
 			//$contents = str_replace('<<<<<<EVAL>>>>>>', '', $contents);
 			
@@ -783,12 +831,13 @@ function merge_contents_calc($modid)
 			//也即本函数有2个以上的$chprocess
 			if(empty($___TEMP_stored_func_contents[$key])) {
 				$___TEMP_stored_func_contents[$key] = $contents;
+				
 			//$contents里只有1个$chprocess，先用$sfc替换本函数$chprocess，再将本函数全部暂存
 			} else {
 				$___TEMP_stored_func_contents[$key] = merge_replace_chprocess($___TEMP_last_ret_varname[$key], $___TEMP_stored_func_contents[$key], $contents);
 			}
 			//本函数内容清空，只留跳转
-			$contents = $func_info['evacode'];
+			$contents = "\r\n\t\t".$func_info['evacode'];
 			
 			//记录这一个函数的返回值名称
 			$___TEMP_last_ret_varname[$key] = $ret_varname;
@@ -802,7 +851,6 @@ function merge_contents_calc($modid)
 
 function parse($modid, $tplfile, $objfile)
 {
-	global $___MOD_CODE_COMBINE;
 	$content=file_get_contents($tplfile);
 	$result='';
 	$i=0;
@@ -836,6 +884,7 @@ function preparse($modid, $tplfile)
 	global $___TEMP_defined_funclist;
 	global $___TEMP_modfuncs; //$___TEMP_modfuncs=Array();
 	global $___TEMP_func_contents;
+	global $___MOD_CODE_COMBINE;
 	foreach ($___TEMP_defined_funclist[$modid] as $key)
 	{
 		$key();
@@ -846,8 +895,10 @@ function preparse($modid, $tplfile)
 			'chprocess' => $___TEMP_CHPROCESS,
 		);
 	}
-	if(isset($___TEMP_func_contents[$modid])) $___TEMP_func_contents[$modid] = array_merge($___TEMP_func_contents[$modid], analyze_function_info(file_get_contents($tplfile), $tplfile));
-	else $___TEMP_func_contents[$modid] = analyze_function_info(file_get_contents($tplfile), $tplfile);
+	if($___MOD_CODE_COMBINE){
+		if(isset($___TEMP_func_contents[$modid])) $___TEMP_func_contents[$modid] = array_merge($___TEMP_func_contents[$modid], analyze_function_info(file_get_contents($tplfile), $tplfile));
+		else $___TEMP_func_contents[$modid] = analyze_function_info(file_get_contents($tplfile), $tplfile);
+	}
 }
 
 /* End of file modulemng.codeadv2.func.php */

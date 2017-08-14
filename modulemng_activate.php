@@ -265,17 +265,17 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2)
 			//快速模式且未修改文件，直接跳过
 		}
 	}
-	//writeover('e.txt', var_export($___TEMP_func_contents,1));
 	//第二遍：整理并合并同名函数
-	for ($i=1; $i<=$n; $i++)
-	{
-		echo '开始整理模块'.$modn[$i].'...'; ob_end_flush(); flush();
-		merge_contents_calc($i);
-		echo '完成。<br>'; ob_end_flush(); flush();
-	}
-	//writeover('f.txt', var_export($___TEMP_final_func_contents,1));
 	global $___MOD_CODE_COMBINE;
-	$___MOD_CODE_COMBINE = 1;
+	if($___MOD_CODE_COMBINE){
+		for ($i=1; $i<=$n; $i++)
+		{
+			echo '开始整理模块'.$modn[$i].'...'; ob_end_flush(); flush();
+			merge_contents_calc($i);
+			echo '完成。<br>'; ob_end_flush(); flush();
+		}
+	}	
+	
 	//第三遍：展开各文件的import和eval
 	for ($i=1; $i<=$n; $i++)
 	{
@@ -286,7 +286,6 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2)
 			echo '&nbsp;&nbsp;&nbsp;&nbsp;正在写入代码'.$key.'.. '; ob_end_flush(); flush();
 			$basefile=GAME_ROOT.'./gamedata/run/'.$modp[$i].$key;
 			$delfile=$basefile;
-			$tstfile= substr($basefile,0,-4).'.tst'.substr($basefile,strlen($basefile)-4);
 			$advfile=substr($basefile,0,-4).'.adv'.substr($basefile,strlen($basefile)-4);
 //			if($quickmode && filemtime($src) < filemtime(GAME_ROOT.'./gamedata/modules.list.php')) {
 //				echo '未修改，跳过。<br>'; ob_end_flush(); flush();
