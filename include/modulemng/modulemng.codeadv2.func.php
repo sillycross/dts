@@ -250,76 +250,92 @@ function left_brace_check($token_str, $token_type)
 	return $ret;
 }
 
+//返回以offset为键名，包含brace、paren信息的增强型$tokens
+//paren：本级圆括号前导符的类型、类型2和键名
+//loop：本级for foreach while等循环的类型、键名和是否有大括号
+function token_get_all_adv($code){
+	$ret = array();
+	$offset = 0;
+	$brace_list = $paren_list = array();
+	$last_nw_token = $last_nw_token_2 = $last_cp_token = NULL;
+	$tokens = token_get_all($code);
+	foreach($tokens as $token){
+		$token_str = is_array( $token ) ? $token[1] : $token;
+		$token_type = is_array( $token ) ? $token[0] : NULL;
+		if(')' == $token_str && NULL === $token_type){
+  		array_pop($paren_list);
+  	}elseif('}' == $token_str && NULL === $token_type){
+  		array_pop($brace_list);
+  	}
+		$ret[$offset] = array(
+  		'type' => $token_type,
+  		'str' => $token_str,
+  		'paren' => sizeof($paren_list),
+  		'brace' => sizeof($brace_list),
+  		'last_nw_token' => $last_nw_token,
+  		'last_nw_token_2' => $last_nw_token_2,
+  		'last_cp_token' => $last_cp_token
+  	);
+  	if('(' == $token_str && NULL === $token_type){
+  		$paren_list[] = $last_nw_token;
+  	}elseif(left_brace_check($token_str, $token_type)){
+  		$brace_list[] = $last_cp_token;
+  	}
+  	if(T_WHITESPACE !== $token_type){
+			$last_nw_token_2 = $last_nw_token;
+			$last_nw_token = $offset;
+		}
+		if(in_array($token_type, array(T_IF, T_ELSE, T_ELSEIF, T_FOR, T_FOREACH, T_WHILE, T_DO))){
+			$last_cp_token = $offset;
+		}
+		$offset += strlen($token_str);
+	}
+	return $ret;
+}
+
 //获取一个文件里所有函数信息
 //返回数组，键名为函数名，键值为数组，包含vars=>变量字符串，及contents=>函数内容字符串，及import_module=>载入模块字符串
-function analyze_function_info($code, $filename){
+function analyze_function_info($subject, $filename){
 	$ret = array();
-	$tokens = token_get_all($code);
-	$func_name = '';
-	$func_state = 0;//函数定义状态，0为定义范围外，1为监测到function语句，2为括号内部，3为花括号内部
-	$import_module_state = 0;//import_module状态，0为定义范围外，1为检测到import_module但没进括号，2为括号内
-	$brace_nest = 0;
-	$temp_brace_nest = 0;
-	$offset = 0;
-  foreach($tokens as $token) {
-  	$token_str = is_array($token) ? $token[1] : $token;
-		$token_type = is_array($token) ? $token[0] : NULL;
-		if(!empty($func_name) && !isset($ret[$func_name])) 
-			$ret[$func_name] = array('vars' => '', 'contents' => '', 'imported_modules' => '', 'filename' => $filename);
-  	if(2 == $func_state){
-  		$ret[$func_name]['vars'] .= $token_str; 
-  	}
-  	elseif(3 == $func_state){
-  		$ret[$func_name]['contents'] .= $token_str; 
-  		if(2 == $import_module_state) {
-  			$ret[$func_name]['imported_modules'] .= $token_str;
-  		}
-  	}
-  	if(T_FUNCTION == $token_type && 0===$func_state){//闭包请退群
-  		$func_state = 1;
-  		$temp_brace_nest = $brace_nest;
-  	}elseif(T_STRING == $token_type){
-  		if(1 == $func_state){//前面有function语句的情况下，提取函数名
-  			$func_name = strtolower($token_str);
-  		}elseif($temp_brace_nest+1===$brace_nest && 0 == $import_module_state && 'import_module' === $token_str){//第一层遇到import_module的情况下，准备提取括号内模块名
-				$import_module_state = 1;
+	$tokens = token_get_all_adv($subject);
+	$tmp_func_list = array();
+	$imported_module_paren = NULL;
+	foreach($tokens as $token){
+		if(!empty($tmp_func_list) && is_array($tmp_func_list[sizeof($tmp_func_list)-1])){
+			$func_brace = $tmp_func_list[sizeof($tmp_func_list)-1][0];
+			$func_paren = $tmp_func_list[sizeof($tmp_func_list)-1][1];
+			$func_name = $tmp_func_list[sizeof($tmp_func_list)-1][2];
+			
+			if(!isset($ret[$func_name])) {//初始化$ret内容。每个函数所处的filename是在这里定义的
+				$ret[$func_name] = array('vars' => '', 'contents' => '', 'filename' => $filename);
 			}
-  	}elseif('(' == $token_str && NULL === $token_type){
-  		if(1 == $func_state)
-  			$func_state = 2;
-  		if(1 == $import_module_state) 
-  			$import_module_state = 2;
-  	}elseif(')' == $token_str && NULL === $token_type){
-  		if(2 == $func_state){
-  			$func_state = 1;
-  			$ret[$func_name]['vars'] = substr($ret[$func_name]['vars'], 0, -1);
-  		}
-  		if(2 == $import_module_state) {
-  			$import_module_state = 0;
-  			$ret[$func_name]['imported_modules'] = substr($ret[$func_name]['imported_modules'], 0, -1);
-  		}
-  	}elseif(left_brace_check($token_str, $token_type)){ //php这个判定也是醉
-  		$brace_nest ++;
-  		if(1 == $func_state){
-  			$func_state = 3;
-  		}
-  	}elseif('}' == $token_str && NULL === $token_type){
-  		$brace_nest --;
-  		if($brace_nest == $temp_brace_nest && 3 == $func_state){
-  			$func_state = 0;
-  			$ret[$func_name]['contents'] = substr($ret[$func_name]['contents'], 0, -1);
-  		}
-  	}
-  	$offset += strlen($token_str);
-  }
+			if($func_brace < $token['brace']) {//大括号层数比函数定义时要大，则认为在函数内部，记录函数内容
+				$ret[$func_name]['contents'] .= $token['str'];
+	  	} elseif($func_brace >= $token['brace']) {
+	  		if('}' == $token['str'] && NULL == $token['type']) {//回到函数定义时的大括号层数时，认为跳出了函数
+	  			array_pop($tmp_func_list);
+	  		}elseif($func_paren < $token['paren']) {//圆括号层数大于函数定义时，认为在函数参数括号内
+	  			$ret[$func_name]['vars'] .= $token['str'];
+	  		}
+	  	}
+		}
+		if(T_STRING == $token['type'] && $token['last_nw_token']){
+			$last_nw_token = $tokens[$token['last_nw_token']];
+			if(T_FUNCTION == $last_nw_token['type']
+			&& empty($tmp_func_list)) {//闭包请褪裙
+				$tmp_func_list[] = array($token['brace'], $token['paren'], $token['str']);
+			}
+		}
+	}
   return $ret;
 }
 
 //通过preg_match初判，然后通过token验证
 //$reg_patt为正则表达式，$tok_patt为$reg_patt每个子模式所对应的解析器代号，可以用数组来表示or关系
+//$code须传入开头带有<?php标识符的代码，$subject无所谓，下同
 function token_match($reg_patt, $tok_patt, $code){
 	$ret = array();
-	$tokens = token_get_all($code);
+	$tokens = token_get_all_adv($code);
 	if(sizeof($tokens) <= 1) return false;
 	$reg_count = preg_match_all($reg_patt, $code, $reg_matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
 	if(!$reg_count) return false;
@@ -328,14 +344,14 @@ function token_match($reg_patt, $tok_patt, $code){
 		foreach($rmval as $rno => $rarr){//每一个子模式
 			if(!$rno) continue;
 			list($rstr, $roff) = $rarr;
-			$o_token = token_get_single($roff, $tokens);
+			$o_token = token_get_single_adv($roff, $tokens);
 			$tok_type = $tok_patt[$rno-1];
 			//$tok_patt支持数组，此时认为是or关系
 			if(!is_array($tok_type)) $tok_type = array($tok_type);
 			$match_flag = false;
 			foreach($tok_type as $tt){//每一个解析器代号
 				//解析器代号为'*'的时候忽略这个代号
-				if('*' == $tt || (is_string($o_token) && NULL===$tt) || (is_array($o_token) && $o_token[0] === $tt)){
+				if('*' == $tt || (is_array($o_token) && $o_token['type'] === $tt)){
 					$match_flag = true;
 					break;
 				}
@@ -379,6 +395,16 @@ function token_get_single($offset, $tokens){
 		if($offset <= $len - 1) return $tval;
 	}
 	return $tval;
+}
+
+//返回从$offset所在的$token
+function token_get_single_adv($offset, $tokens){
+	$tokens_key = array_keys($tokens);
+	foreach($tokens_key as $kkey => $kval){
+		if($kval > $offset){
+			return $tokens[$tokens_key[$kkey-1]];
+		}
+	}
 }
 
 //单行代码加花括号
@@ -491,7 +517,10 @@ function merge_add_braces($reg_pat, $tok_pat, $subject){
 //识别并替换第一个特定字符串+正确的前后括号的内容
 //返回array('A', '所找元素', 'C', '(括号内容)', 'E')形式的数组
 function merge_split_paren($find_str, $find_type, $subject, &$brace_nest=0, &$block_min_brace_nest=0){
-	$tokens = token_get_all('<?php '.$subject);
+	if(strpos($subject, '<?php')===false)
+		$tokens = token_get_all('<?php '.$subject);
+	else
+		$tokens = token_get_all($subject);
 	$paren_nest = 0;
 	$tmp_paren_nest = 0;
 	$block_min_brace_nest = 999;
@@ -559,10 +588,10 @@ function merge_replace_chprocess($ret_varname, $replacement, $subject){
 		list($ret_a, $ret_b, $ret_c, $ret_d, $ret_e) = merge_split_paren('$chprocess', T_VARIABLE, $ret_middle);
 		$ret_middle = $replacement . $ret_a . $ret_varname . $ret_e;
 		return $ret_behind . $ret_middle . $ret_ahead;
-	}
-	
+	}	
 }
 
+//TODO：需要获得break跳出的层数否则毫无意义
 //把所有的return换成${$ret_varname}=xxx;break;的形式
 function merge_replace_return($ret_varname, $subject){
 	if(strpos($subject, '$ret = \'\'')!==false) $flag = 1;
@@ -572,7 +601,6 @@ function merge_replace_return($ret_varname, $subject){
 		$ret_middle = preg_replace('/return\s*?(.*?);/s', $ret_varname." = $1;\r\nbreak; ", $ret_middle);
 		$subject = $ret_behind . $ret_middle . $ret_ahead;
 	}while(token_match('/(return)/s', array(T_RETURN), '<?php '.$subject));
-
 	return $subject;
 }
 
@@ -644,7 +672,6 @@ function merge_contents_calc($modid)
 	$___TEMP_final_func_contents[$modid] = array();
 	
 	//先提取该mod全部函数名
-//	$tmp_mod_funcname_list = array_keys($___TEMP_func_contents[$modid]);
 	$tmp_mod_funcname_list = array();
 	foreach($___TEMP_defined_funclist[$modid] as $key){
 		$tmp_mod_funcname_list[] = strtolower(substr($key,strpos($key,'\\',0)+1));
@@ -661,12 +688,15 @@ function merge_contents_calc($modid)
 		//干掉eval字符串，因为不需要了
 		$contents = str_replace('if (eval(__MAGIC__)) return $___RET_VALUE;', '', $contents);
 		
-		//函数内容里直接引用本模块的函数名需要加上namespace
+		
 		$contents = '<?php '.$contents;
+		//函数内容里直接引用本模块的函数名需要加上namespace
 		foreach($tmp_mod_funcname_list as $cmfn){
 			$contents = token_replace('/([^\\\\A-Za-z0-9_])('.$cmfn.')\s*?\(/si', array('*',T_STRING), '$1\\\\'.$modn[$modid].'\\\\$2 (', $contents);
 			//if($cmfn == 'attr_dmg_check_not_WPG') writeover('a.txt', $contents."\r\n\r\n", 'ab+');
 		}
+		//函数里的__DIR__要改为绝对路径
+		$contents = token_replace('/(__DIR__)/s', array(T_DIR), '\''.pathinfo($___TEMP_func_contents[$modid][$key]['filename'], PATHINFO_DIRNAME).'\'', $contents);		
 		$contents = str_replace('<?php ', '', $contents);
 		
 		//取得preparse()记录下的函数信息
@@ -766,9 +796,10 @@ function merge_contents_calc($modid)
 		{			
 			//参数处理
 			list($ret_a, $ret_b, $ret_c, $ret_d, $ret_e) = merge_split_paren('$chprocess', T_VARIABLE, $parent_func_contents['contents']);
+			//if($key == 'check_corpse_discover') writeover('a.txt', $ret_d.'<br>', 'ab+');
 			$parent_chpvars = substr($ret_d, 1, -1);
 			$parent_varname_change = '';
-			if($parent_chpvars){
+			if(!empty($parent_chpvars)){
 				$vars_arr = explode(',',$___TEMP_func_contents[$modid][$key]['vars']);
 				$parent_chpvars_arr = explode(',',$parent_chpvars);
 				$count_vars_arr = count($vars_arr);
