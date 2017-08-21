@@ -1,0 +1,21 @@
+$attrbase_attr_dmg_check_not_wpg_ret = NULL;
+
+		//========Contents from mod attrbase========
+		do{
+				}while(0);$attrbase_attr_dmg_check_not_wpg_ret = NULL;
+
+		//========Contents from mod attrbase========
+		do{
+				}while(0);$attrbase_attr_dmg_check_not_wpg_ret = NULL;
+
+		//========Contents from mod attrbase========
+		do{
+				}while(0);$attrbase_attr_dmg_check_not_wpg_ret = NULL;
+
+		//========Contents from mod attrbase========
+		do{
+			
+		
+		
+		return (strpos($pa['wepk'],$pa['wep_kind'])!==false);
+		}while(0);

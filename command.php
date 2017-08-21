@@ -4,7 +4,8 @@ defined('IN_GAME') || define('IN_GAME', TRUE);
 defined('IN_COMMAND') || define('IN_COMMAND', TRUE);
 defined('CURSCRIPT') || define('CURSCRIPT', 'game');
 defined('GAME_ROOT') || define('GAME_ROOT', dirname(__FILE__).'/');
-
+list($usec, $sec) = explode(" ",microtime());
+$aaa = $usec+$sec;
 require GAME_ROOT.'./include/modulemng/modulemng.config.php';
 
 if ($___MOD_SRV)
@@ -495,5 +496,8 @@ echo $jgamedata;
 \player\update_sdata();
 \player\player_save($sdata);
 
-
+list($usec, $sec) = explode(" ",microtime());
+$bbb = $usec+$sec;
+$ccc = $bbb-$aaa;
+writeover('mt.txt', $ccc."\r\n", 'ab+');
 ?>

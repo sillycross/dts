@@ -251,17 +251,24 @@ function left_brace_check($token_str, $token_type)
 }
 
 //返回以offset为键名，包含brace、paren信息的增强型$tokens
-//paren：本级圆括号前导符的类型、类型2和键名
-//loop：本级for foreach while等循环的类型、键名和是否有大括号
+//paren：所在圆括号层数
+//brace：所在大括号层数
+//line_start：所在行的开头（注意是代码意义上的行，也即上一个;{}的结尾）
+//last_nw_token：前一个非T_WHTIESPACE的元素的偏移量
+//last_nw_token_2：往前数第2个非T_WHTIESPACE的元素的偏移量
+//last_cp_token：所在流程控制符的偏移量
 function token_get_all_adv($code){
 	$ret = array();
 	$offset = 0;
-	$brace_list = $paren_list = array();
+	//括号和控制类型层数是用数组元素数来计算
+	$brace_list = $paren_list = $cp_list = array();
 	$last_nw_token = $last_nw_token_2 = $last_cp_token = NULL;
+	$line_start = 0;
 	$tokens = token_get_all($code);
 	foreach($tokens as $token){
 		$token_str = is_array( $token ) ? $token[1] : $token;
 		$token_type = is_array( $token ) ? $token[0] : NULL;
+		//后括号的位置都视为上一级，与前括号一致，所以需要在储存前就减掉括号层数
 		if(')' == $token_str && NULL === $token_type){
   		array_pop($paren_list);
   	}elseif('}' == $token_str && NULL === $token_type){
@@ -270,23 +277,53 @@ function token_get_all_adv($code){
 		$ret[$offset] = array(
   		'type' => $token_type,
   		'str' => $token_str,
+  		'line_start' => $line_start,
   		'paren' => sizeof($paren_list),
   		'brace' => sizeof($brace_list),
   		'last_nw_token' => $last_nw_token,
   		'last_nw_token_2' => $last_nw_token_2,
-  		'last_cp_token' => $last_cp_token
+  		'last_cp_token' => isset($cp_list[sizeof($cp_list)-1]) ? $cp_list[sizeof($cp_list)-1][1] : NULL
   	);
+  	//前括号的位置视为上一级，那么在储存之后才增加括号层数
   	if('(' == $token_str && NULL === $token_type){
   		$paren_list[] = $last_nw_token;
   	}elseif(left_brace_check($token_str, $token_type)){
+  		//前大括号，对应的控制层数的括号开关修改
+  		if(!empty($cp_list) && sizeof($brace_list) == $cp_list[sizeof($cp_list)-1][2]){
+  			$cp_list[sizeof($cp_list)-1][0] = true;
+  		}
   		$brace_list[] = $last_cp_token;
-  	}
+  		$line_start = $offset + strlen($token_str);
+  	}elseif('}' == $token_str && NULL === $token_type){
+  		//与括号层数不同，前后括号的控制层数与控制符一致，所以必须在储存之后再增减
+  		if(!empty($cp_list) && $cp_list[sizeof($cp_list)-1][0] && sizeof($brace_list) == $cp_list[sizeof($cp_list)-1][2]){
+  			array_pop($cp_list);
+  			while(!empty($cp_list)){
+					$last_cp = array_pop($cp_list);
+					if($last_cp[0]){
+						$cp_list[] = $last_cp;
+						break;
+					}
+				}
+				$line_start = $offset + strlen($token_str);
+  		}
+  	}elseif(in_array($token_type, array(T_IF, T_ELSE, T_ELSEIF, T_FOR, T_FOREACH, T_WHILE, T_DO))){
+			$cp_list[] = array(false, $offset, sizeof($brace_list), sizeof($paren_list));//第一个变量为是不是有大括号，第二个变量是偏移量，第三个偏移量为所在大括号层数
+		}elseif(';' == $token_str && NULL === $token_type){
+			if(empty($cp_list) || (!empty($cp_list) && sizeof($paren_list) == $cp_list[sizeof($cp_list)-1][3])){
+				while(!empty($cp_list)){
+					$last_cp = array_pop($cp_list);
+					if($last_cp[0]){
+						$cp_list[] = $last_cp;
+						break;
+					}
+				}
+				$line_start = $offset + strlen($token_str);
+			}
+		}
   	if(T_WHITESPACE !== $token_type){
 			$last_nw_token_2 = $last_nw_token;
 			$last_nw_token = $offset;
-		}
-		if(in_array($token_type, array(T_IF, T_ELSE, T_ELSEIF, T_FOR, T_FOREACH, T_WHILE, T_DO))){
-			$last_cp_token = $offset;
 		}
 		$offset += strlen($token_str);
 	}
@@ -323,7 +360,7 @@ function analyze_function_info($subject, $filename){
 			$last_nw_token = $tokens[$token['last_nw_token']];
 			if(T_FUNCTION == $last_nw_token['type']
 			&& empty($tmp_func_list)) {//闭包请褪裙
-				$tmp_func_list[] = array($token['brace'], $token['paren'], $token['str']);
+				$tmp_func_list[] = array($token['brace'], $token['paren'], strtolower($token['str']));
 			}
 		}
 	}
@@ -398,15 +435,16 @@ function token_get_single($offset, $tokens){
 }
 
 //返回从$offset所在的$token
-function token_get_single_adv($offset, $tokens){
+//输入的$tokens必须是token_get_all_adv()得到的
+function token_get_single_adv($offset, $tokens, &$realoffset=0){
 	$tokens_key = array_keys($tokens);
 	foreach($tokens_key as $kkey => $kval){
 		if($kval > $offset){
+			$realoffset = $tokens_key[$kkey-1];
 			return $tokens[$tokens_key[$kkey-1]];
 		}
 	}
 }
-
 //单行代码加花括号
 //输入$reg_pat, $tok_pat，规则同token_match相同
 //如果加花括号，则返回花括号及之前、原单行代码、花括号及之后三部分代码
@@ -418,71 +456,58 @@ function merge_add_braces($reg_pat, $tok_pat, $subject){
 	$reg_ret = token_match($reg_pat, $tok_pat, $subject);
 	//无结果直接返回
 	if(!$reg_ret) return array(str_replace('<?php ', '', $subject), '', '');
-	//按结果出现的位置分成两段
-	$subject_behind = substr($subject, 0, $reg_ret[0][0][1]);
-	$subject_ahead = substr($subject, $reg_ret[0][0][1]);
 	
-	//从前段末尾开始向前逐个$token判定
-	$offset = strlen($subject_behind);
-	$tokens = token_get_all($subject_behind);
-	$paren_nest = 0;
-	$min_paren_nest = 0;
-	$colon_flag = 0;
-	$brace_insert_offset = NULL;
-	$code_insert_offset = 0;
-	//判定前段插入位置
-	while($offset >= 0) {
-		$token = token_get_single($offset-1, $tokens);
-		$token_str = is_array( $token ) ? $token[1] : $token;
-		$token_type = is_array( $token ) ? $token[0] : NULL;
-		//有冒号但是前面不是括号、空白或者操作符时，认为冒号不是控制流程替代语法
-		if($paren_nest == $min_paren_nest && $colon_flag && !in_array($token_type, array(NULL, T_WHITESPACE, T_IF, T_ELSE, T_ELSEIF, T_FOR, T_FOREACH, T_WHILE, T_DO))){
-			$colon_flag = 0;
+	//按结果出现的位置分成两段
+	$reg_offset = $reg_ret[0][0][1];
+	$subject_behind = substr($subject, 0, $reg_offset );
+	$subject_ahead = substr($subject, $reg_offset );
+	
+	//前段判定
+	$tokens = token_get_all_adv($subject);
+	$tmp_token = token_get_single_adv($reg_offset , $tokens);
+	do{
+		$cp_token = token_get_single_adv($tmp_token['last_cp_token'], $tokens, $cp_offset);
+		//本行开头在控制符之后，则直接加在本行开头，不需要加大括号
+		if(NULL === $tmp_token['last_cp_token'] || $tmp_token['last_cp_token'] < $tmp_token['line_start']) {
+			$brace_insert_offset = NULL;
+			$code_insert_offset = $tmp_token['line_start'];
+			break;
 		}
-		//插入位置判定
-		elseif($paren_nest == $min_paren_nest && in_array($token_type, array(T_IF, T_ELSE, T_ELSEIF, T_FOR, T_FOREACH, T_WHILE, T_DO))){
-			if($colon_flag) {//控制流程替代语法，则不需要加大括号
-				$brace_insert_offset = NULL;
-				$code_insert_offset = $offset;
-			}else{//否则需要加前大括号，判定是否需要标记并跳出
-				//if elseif for foreach while这几个，大括号插入位置已被括号记录，只需跳出
-				//while不用考虑do...while...因为已经被分号排除
-				if(in_array($token_type, array(T_IF, T_ELSEIF, T_FOR, T_FOREACH, T_WHILE))){
+		//否则加在控制符之后
+		else{
+			//有括号的控制符，判定三种情况：在括号内，在括号后但是替代写法，在括号后且不是替代写法
+			if(in_array($cp_token['type'], array(T_IF, T_ELSEIF, T_FOR, T_FOREACH, T_WHILE))){
+				$tmp_paren_state = 0;
+				foreach($tokens as $kkey => $token){
+					if($kkey < $cp_offset) continue;
+					//替换对象在括号内，将$cp_token迭代之后重新判定
+					if(1==$tmp_paren_state && $kkey >= $reg_offset){
+						$tmp_token = $cp_token;
+						continue 2;
+					}
+					if(2==$tmp_paren_state) {
+						if(':' == $token['str'] && NULL == $token['type']){//控制流程替代写法，不加大括号
+							$brace_insert_offset = NULL;
+							$code_insert_offset = $kkey + strlen($token['str']);
+							break 2;
+						}elseif(T_WHITESPACE !== $token['type']){//后圆括号以后遇到非空白字符/冒号则停止判定
+							break 2;
+						}
+					}
+					if($cp_token['paren'] == $token['paren'] && '(' == $token['str'] && NULL == $token['type']){
+						$tmp_paren_state = 1;
+					}elseif($cp_token['paren'] == $token['paren'] && ')' == $token['str'] && NULL == $token['type']){
+						$tmp_paren_state = 2;
+						$brace_insert_offset = $kkey + strlen($token['str']);
+					}
 				}
-				//else do这两个，就地插入大括号
-				elseif(in_array($token_type, array(T_ELSE, T_DO))){
-					$brace_insert_offset = $offset;
-				}
+			}else{//没括号
+				$brace_insert_offset = $cp_offset + strlen($cp_token['str']);
+				break;
 			}
-			break;
 		}
-		//遇到前括号，减少层数，并记录最小层数
-		elseif('(' == $token_str && NULL === $token_type){
-			$paren_nest --;
-			if($paren_nest < $min_paren_nest) $min_paren_nest = $paren_nest;
-		}
-		//遇到后括号，如果层数达到最小，则记录大括号插入位置
-		elseif(')' == $token_str && NULL === $token_type){
-			if($min_paren_nest == $paren_nest) $brace_insert_offset = $offset;
-			$paren_nest ++;
-		}
-		//遇到冒号，标记$colon_flag，待后续处理
-		elseif($paren_nest == $min_paren_nest && ':' == $token_str && NULL === $token_type){
-			$colon_flag = 1;
-		}
-		//遇到分号或大括号，不需要插入大括号，代码就地插入
-		elseif($paren_nest == $min_paren_nest && in_array($token_str, array(';','{','}')) && NULL === $token_type){
-			$brace_insert_offset = NULL;
-			$code_insert_offset = $offset;
-			break;
-		}
-		elseif(T_OPEN_TAG == $token_type){
-			$brace_insert_offset = NULL;
-			$code_insert_offset = $offset;
-			break;
-		}
-		$offset -= strlen ($token_str);
-	}
+	}while(NULL !== $tmp_token['last_cp_token']);
+	
 	//判定后段分号位置
 	$offset = 0;
 	$subject_ahead = '<?php '.$subject_ahead;
@@ -514,7 +539,26 @@ function merge_add_braces($reg_pat, $tok_pat, $subject){
 	return array($ret_behind, $ret_middle, $ret_ahead);
 }
 
-//识别并替换第一个特定字符串+正确的前后括号的内容
+//判断$offset2是不是与$offset1在同一个控制流程内（也即执行$offset2是不是一定要执行$offset1）
+//输入的$tokens必须是token_get_all_adv()得到的
+function merge_check_same_cp_tree($offset1, $offset2, $tokens){
+	if($offset1 > $offset2){
+		$tmp = $offset2; $offset2 = $offset1; $offset1 = $tmp; unset($tmp);
+	}
+	$t1 = token_get_single_adv($offset1, $tokens);
+	$t1_cp_offset = $t1['last_cp_token'];
+	if(NULL===$t1_cp_offset) return true; //如果$t1不在控制流程内，那么一定满足
+	//如果$t2能追溯到$t1_cp_offset那么两个在同一控制流程，否则不满足
+	$t2 = token_get_single_adv($offset2, $tokens);
+	$t2_cp_offset = $t2['last_cp_token'];
+	do{
+		if($t2_cp_offset == $t1_cp_offset) return true;
+		$t2_cp_offset = $tokens[$t2_cp_offset]['last_cp_token'];
+	} while(NULL !== $t2_cp_offset);
+	return false;
+}
+
+//识别并拆分第一个特定字符串+正确的前后括号的内容
 //返回array('A', '所找元素', 'C', '(括号内容)', 'E')形式的数组
 function merge_split_paren($find_str, $find_type, $subject, &$brace_nest=0, &$block_min_brace_nest=0){
 	if(strpos($subject, '<?php')===false)
@@ -657,6 +701,7 @@ function merge_contents_write($modid, $tplfile, $objfile){
 	writeover($objfile, $writing_contents);
 }
 
+//不折腾了，调回去吧
 //ADV2合并代码主函数
 function merge_contents_calc($modid)
 {
@@ -721,11 +766,13 @@ function merge_contents_calc($modid)
 		{
 			if(strpos($___TEMP_stored_func_contents[$key], "\$ret='未知'")!==false) $ffflag = 1;
 			$tmp_stored_contents = $___TEMP_stored_func_contents[$key];
+			//if($key === 'attr_dmg_check_not_wpg') writeover('b.txt', $tmp_stored_contents,'ab+');
 			$___TEMP_stored_func_contents[$key] = '';
 			if(!empty($tmp_stored_contents)){
 				//如果有暂存内容，则先用暂存内容替换节点内容里的$chprocess
 				//节点函数有两个以上$chprocess的情况下，不存在暂存内容，所以不用考虑
 				$contents = merge_replace_chprocess($___TEMP_last_ret_varname[$key], $tmp_stored_contents, $contents);
+				//if($key === 'attr_dmg_check_not_wpg') writeover('c.txt', $contents);
 				unset($tmp_stored_contents);
 			}
 			//将本函数内容里的$chprocess替换为上一个节点
@@ -853,8 +900,9 @@ function merge_contents_calc($modid)
 			$ret_varname = '$'.$modn[$modid].'_'.$key.'_ret';
 			$contents = $ret_varname." = NULL;\r\n".$contents;
 			//之后把return换为$$ret_varname并且加break;
+			if(strtolower($key) === 'attr_dmg_check_not_wpg') writeover('e.txt', $contents,'ab+');
 			$contents = merge_replace_return($ret_varname, $contents);			
-			
+			if(strtolower($key) === 'attr_dmg_check_not_wpg') writeover('f.txt', $contents,'ab+');
 			//彻底去除eval字符串
 			//$contents = str_replace('<<<<<<EVAL>>>>>>', '', $contents);
 			
@@ -862,11 +910,11 @@ function merge_contents_calc($modid)
 			//也即本函数有2个以上的$chprocess
 			if(empty($___TEMP_stored_func_contents[$key])) {
 				$___TEMP_stored_func_contents[$key] = $contents;
-				
 			//$contents里只有1个$chprocess，先用$sfc替换本函数$chprocess，再将本函数全部暂存
 			} else {
 				$___TEMP_stored_func_contents[$key] = merge_replace_chprocess($___TEMP_last_ret_varname[$key], $___TEMP_stored_func_contents[$key], $contents);
 			}
+			
 			//本函数内容清空，只留跳转
 			$contents = "\r\n\t\t".$func_info['evacode'];
 			
