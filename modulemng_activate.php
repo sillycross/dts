@@ -275,17 +275,6 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2)
 			echo '完成。<br>'; ob_end_flush(); flush();
 		}
 	}	
-//	foreach( $___TEMP_func_contents as $fmod){
-//		foreach($fmod as $fkey => $fval){
-//			writeover('b.txt', $fmod.'\\'.$fkey.' ====> '.var_export($fval,1)."\r\n\r\n",'ab+');
-//		}
-//	}
-	foreach($___TEMP_final_func_contents as $fmodkey => $fmod){
-		foreach($fmod as $fkey => $fval){
-			if($fkey == 'weapon_wj_addnoise')
-				writeover('c.txt', $fmodkey.'\\'.$fkey.' ====> '.var_export($fval,1)."\r\n\r\n",'ab+');
-		}
-	}
 	
 	//第三遍：展开各文件的import和eval
 	for ($i=1; $i<=$n; $i++)

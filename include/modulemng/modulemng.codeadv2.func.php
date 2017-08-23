@@ -438,10 +438,14 @@ function token_get_single($offset, $tokens){
 //输入的$tokens必须是token_get_all_adv()得到的
 function token_get_single_adv($offset, $tokens, &$realoffset=0){
 	$tokens_key = array_keys($tokens);
+	if(isset($tokens[$offset])) {
+		$realoffset = $offset;
+		return $tokens[$offset];
+	}
 	foreach($tokens_key as $kkey => $kval){
 		if($kval > $offset){
 			$realoffset = $tokens_key[$kkey-1];
-			return $tokens[$tokens_key[$kkey-1]];
+			return $tokens[$realoffset];
 		}
 	}
 }
@@ -553,9 +557,87 @@ function merge_check_same_cp_tree($offset1, $offset2, $tokens){
 	$t2_cp_offset = $t2['last_cp_token'];
 	do{
 		if($t2_cp_offset == $t1_cp_offset) return true;
-		$t2_cp_offset = $tokens[$t2_cp_offset]['last_cp_token'];
+		if(NULL !== $t2_cp_offset) $t2_cp_offset = $tokens[$t2_cp_offset]['last_cp_token'];
 	} while(NULL !== $t2_cp_offset);
 	return false;
+}
+
+//判断$offset2是不是与$offset1在同一个圆括号层级
+//输入的$tokens必须是token_get_all_adv()得到的
+//function merge_check_same_paren($offset1, $offset2, $tokens){
+//	$t1 = token_get_single_adv($offset1, $tokens);
+//	$t2 = token_get_single_adv($offset2, $tokens);
+//	return $t1['paren'] === $t2['paren'];
+//}
+
+//判断$offset2是不是与$offset1在同一个大括号层级
+//输入的$tokens必须是token_get_all_adv()得到的
+//function merge_check_same_brace($offset1, $offset2, $tokens){
+//	$t1 = token_get_single_adv($offset1, $tokens);
+//	$t2 = token_get_single_adv($offset2, $tokens);
+//	return $t1['brace'] === $t2['brace'];
+//}
+
+//识别第一个特定元素+[可选空白字符]+正确的前后括号的内容，同时还可以返回所找到的那个$token
+//返回一个数组，前3个元素分别是所找元素、括号内容起始、括号内容结束的偏移量
+function merge_dist_paren_offset($find_str, $find_type, $tokens, &$find_token=NULL){
+	$state = 0;
+	$paren_nest = NULL;
+	$brace_nest = NULL;
+	$offsets = array();
+	foreach($tokens as $tkey => $token){
+		if(0 === $state && $token['str'] === $find_str && $token['type'] === $find_type){
+			$state = 1;
+			$offsets[0] = $tkey;
+			$find_token = $token;
+		}elseif(1 === $state){
+			if('(' === $token['str'] && NULL === $token['type']){
+				$state = 2;
+				$paren_nest = $token['paren'];
+				$brace_nest = $token['brace'];
+				$offsets[1] = $tkey + strlen($token['str']);
+			}elseif(T_WHITESPACE !== $token['type']){
+				$state = 0;
+			}
+		}elseif(2 === $state && ')' === $token['str'] && NULL === $token['type'] && $paren_nest == $token['paren'] && $brace_nest == $token['brace']){
+			$state = 0;
+			$offsets[2] = $tkey;
+			break;
+		}
+	}
+	return $offsets;
+}
+
+//识别并拆分第一个特定字符串+正确的前后括号的内容，同时还可以返回所找到的那个$token的偏移量
+//返回array('A', '所找元素', 'C(', '括号内容', ')E')形式的数组
+function merge_split_paren_adv($find_str, $find_type, $subject, &$find_offset=NULL){
+	$add_open_tag = 0;
+	if(strpos($subject, '<?php')===false){
+		$subject = '<?php '.$subject;
+		$add_open_tag = 1;
+	}
+	$tokens = token_get_all_adv($subject);
+	$offsets = merge_dist_paren_offset($find_str, $find_type, $tokens, $find_token);
+	if(!empty($offsets)){
+		$find_offset = $offsets[0];
+		$find_str_end_offset = $offsets[0] + strlen($find_token['str']);
+		$offset_array = array($offsets[0], $find_str_end_offset, $offsets[1], $offsets[2]);
+		$ret = array();
+		$tmp_offset = 0;
+		foreach($offset_array as $oval){
+			$ret[] = substr($subject, $tmp_offset, $oval-$tmp_offset);
+			$tmp_offset = $oval;
+		}
+		$ret[] = substr($subject, $tmp_offset);
+	}else{
+		$ret = array($subject, '', '', '', '');
+	}
+	
+	if($add_open_tag) {
+		$ret[0] = substr($ret[0], 6);
+		$find_offset -= 6;
+	}
+	return $ret;
 }
 
 //识别并拆分第一个特定字符串+正确的前后括号的内容
@@ -629,8 +711,8 @@ function merge_replace_chprocess($ret_varname, $replacement, $subject){
 	//不存在$chprocess直接返回
 	if(empty($ret_middle)) return $ret_behind;
 	else{
-		list($ret_a, $ret_b, $ret_c, $ret_d, $ret_e) = merge_split_paren('$chprocess', T_VARIABLE, $ret_middle);
-		$ret_middle = $replacement . $ret_a . $ret_varname . $ret_e;
+		list($ret_a, $ret_b, $ret_c, $ret_d, $ret_e) = merge_split_paren_adv('$chprocess', T_VARIABLE, $ret_middle);
+		$ret_middle = $replacement . $ret_a . $ret_varname . substr($ret_e,1);
 		return $ret_behind . $ret_middle . $ret_ahead;
 	}	
 }
@@ -701,7 +783,6 @@ function merge_contents_write($modid, $tplfile, $objfile){
 	writeover($objfile, $writing_contents);
 }
 
-//不折腾了，调回去吧
 //ADV2合并代码主函数
 function merge_contents_calc($modid)
 {
@@ -785,43 +866,48 @@ function merge_contents_calc($modid)
 			
 			//import_module()处理
 			//每一个大括号分支内去除重复的import_module()
-			$tmp_im_subject = $contents;
+			$tmp_im_subject = '<?php '.$contents;
 			$tmp_im_ret = '';
-			$im_brace_nest = 0;
-			$im_last_brace_nest = 999;
+			$im_root_token_offset = NULL;
+			$im_global_token_offset = 0;
+			$im_tokens = token_get_all_adv($tmp_im_subject);
 			$im_diff_arr = array();
 			do{
-				list($ret_a, $ret_b, $ret_c, $ret_d, $ret_e) = merge_split_paren('import_module', T_STRING, $tmp_im_subject, $im_brace_nest, $im_block_min_brace_nest);
+				list($ret_a, $ret_b, $ret_c, $ret_d, $ret_e) = merge_split_paren_adv('import_module', T_STRING, $tmp_im_subject, $im_token_offset);
 				if(!empty($ret_d)){
-					if($im_block_min_brace_nest < $im_last_brace_nest){//外层import_module，记录为$im_diff_arr
-						foreach(explode(',', substr($ret_d,1,-1)) as $val){
+					$im_token_offset += $im_global_token_offset;
+					//判定是否为最外层import_module
+					if(NULL===$im_root_token_offset || !merge_check_same_cp_tree($im_root_token_offset, $im_token_offset, $im_tokens)){
+						$im_root_token_offset = $im_token_offset;
+						//如果是，则重新记录$im_diff_arr
+						foreach(explode(',', $ret_d) as $val){
 							$im_diff_arr[] = trim($val);
 						}
+						//不进行任何替换并继续（$ret_t留不留后圆括号对结果没有区别）
 						$tmp_im_ret .= $ret_a . $ret_b . $ret_c . $ret_d;
 						$tmp_im_subject = $ret_e;
-					}else{
-						$tmp_im_parencont = explode(',',substr($ret_d, 1, -1));
-						$im = sizeof($tmp_im_parencont);
+					}else{//不是外层import_module，替换内容
+						$tmp_im_thiscont = explode(',',$ret_d);
+						$im = sizeof($tmp_im_thiscont);
 						for($i=0;$i<$im;$i++){
-							$tmp_im_parencont[$i] = trim($tmp_im_parencont[$i]);
+							$tmp_im_thiscont[$i] = trim($tmp_im_thiscont[$i]);
 						}
-						$tmp_im_parencont = array_diff($tmp_im_parencont, $im_diff_arr);
-						if(!empty($tmp_im_parencont)){
-							$tmp_im_ret .= $ret_a . $ret_b . $ret_c . '('.implode(',', $tmp_im_parencont).')';
+						$tmp_im_thiscont = array_diff($tmp_im_thiscont, $im_diff_arr);
+						if(!empty($tmp_im_thiscont)){
+							$tmp_im_ret .= $ret_a . $ret_b . $ret_c . implode(',', $tmp_im_thiscont);
 							$tmp_im_subject = $ret_e;	
 						}else{
 							$tmp_im_ret .= $ret_a;
 							$tmp_im_subject = $ret_e;
-						}		
+						}	
 					}
-					$im_last_brace_nest = $im_brace_nest;			
+					$im_global_token_offset += strlen($ret_a . $ret_b . $ret_c . $ret_d);
 				}else{
 					$tmp_im_ret .= $tmp_im_subject;
 					$tmp_im_subject = '';
 				}
-				//$tmp_im_ret .= "/* $im_brace_nest $im_block_min_brace_nest $im_last_brace_nest*/";
-			} while (!empty($tmp_im_subject));
-			$contents = str_replace('eval();', '', $tmp_im_ret);		
+			}while (!empty($tmp_im_subject));
+			$contents = substr(str_replace('eval());', '', $tmp_im_ret), 6);	
 			
 			//上一个节点内容前面加入跳转
 			$last_modid = intval($___TEMP_flipped_modn[$___TEMP_node_func_modname[$key]]);
@@ -842,9 +928,8 @@ function merge_contents_calc($modid)
 		else//该函数的父函数只有1个chprocess，对该函数的内容处理以后作暂存，清空该函数内容
 		{			
 			//参数处理
-			list($ret_a, $ret_b, $ret_c, $ret_d, $ret_e) = merge_split_paren('$chprocess', T_VARIABLE, $parent_func_contents['contents']);
+			list($null, $null, $null, $parent_chpvars, $null) = merge_split_paren_adv('$chprocess', T_VARIABLE, $parent_func_contents['contents']);
 			//if($key == 'check_corpse_discover') writeover('a.txt', $ret_d.'<br>', 'ab+');
-			$parent_chpvars = substr($ret_d, 1, -1);
 			$parent_varname_change = '';
 			if(!empty($parent_chpvars)){
 				$vars_arr = explode(',',$___TEMP_func_contents[$modid][$key]['vars']);
