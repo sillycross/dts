@@ -425,50 +425,30 @@ function token_replace($reg_patt, $tok_patt, $replacement, $code, $limit = -1){
 }
 
 //返回从$offset所在的$token
-function token_get_single($offset, $tokens){
-	$len = 0;
-	foreach($tokens as $tval){
-		$len += strlen(is_array($tval) ? $tval[1] : $tval);
-		if($offset <= $len - 1) return $tval;
-	}
-	return $tval;
-}
-
-//返回从$offset所在的$token
 //输入的$tokens必须是token_get_all_adv()得到的
 function token_get_single_adv($offset, $tokens, &$realoffset=0){
 	$tokens_key = array_keys($tokens);
-	if(isset($tokens[$offset])) {
-		$realoffset = $offset;
-		return $tokens[$offset];
-	}
-	foreach($tokens_key as $kkey => $kval){
-		if($kval > $offset){
-			$realoffset = $tokens_key[$kkey-1];
-			return $tokens[$realoffset];
+	if(NULL===$offset) return NULL;
+	do{
+		if(isset($tokens[$offset])) {
+			$realoffset = $offset;
+			return $tokens[$offset];
 		}
-	}
+		$offset--;
+	}while($offset >= 0);
 }
-//单行代码加花括号
-//输入$reg_pat, $tok_pat，规则同token_match相同
+
+//给某个特定位置的元素自动加花括号
 //如果加花括号，则返回花括号及之前、原单行代码、花括号及之后三部分代码
 //如果不加花括号，则返回分号及之前、原单行代码、分号之后三部分代码
-function merge_add_braces($reg_pat, $tok_pat, $subject){
-	if(strpos($subject, '<?php')===false){
-		$subject = '<?php '.$subject;
-	}
-	$reg_ret = token_match($reg_pat, $tok_pat, $subject);
-	//无结果直接返回
-	if(!$reg_ret) return array(str_replace('<?php ', '', $subject), '', '');
-	
+function merge_add_braces_core($focus_offset, $code){
 	//按结果出现的位置分成两段
-	$reg_offset = $reg_ret[0][0][1];
-	$subject_behind = substr($subject, 0, $reg_offset );
-	$subject_ahead = substr($subject, $reg_offset );
+	$code_behind = substr($code, 0, $focus_offset);
+	$code_ahead = substr($code, $focus_offset);
 	
 	//前段判定
-	$tokens = token_get_all_adv($subject);
-	$tmp_token = token_get_single_adv($reg_offset , $tokens);
+	$tokens = token_get_all_adv($code);
+	$tmp_token = token_get_single_adv($focus_offset , $tokens);
 	do{
 		$cp_token = token_get_single_adv($tmp_token['last_cp_token'], $tokens, $cp_offset);
 		//本行开头在控制符之后，则直接加在本行开头，不需要加大括号
@@ -485,7 +465,7 @@ function merge_add_braces($reg_pat, $tok_pat, $subject){
 				foreach($tokens as $kkey => $token){
 					if($kkey < $cp_offset) continue;
 					//替换对象在括号内，将$cp_token迭代之后重新判定
-					if(1==$tmp_paren_state && $kkey >= $reg_offset){
+					if(1==$tmp_paren_state && $kkey >= $focus_offset){
 						$tmp_token = $cp_token;
 						continue 2;
 					}
@@ -514,9 +494,9 @@ function merge_add_braces($reg_pat, $tok_pat, $subject){
 	
 	//判定后段分号位置
 	$offset = 0;
-	$subject_ahead = '<?php '.$subject_ahead;
-	$semi_offset = strlen($subject_ahead);
-	$tokens = token_get_all($subject_ahead);
+	$code_ahead = '<?php '.$code_ahead;
+	$semi_offset = strlen($code_ahead);
+	$tokens = token_get_all($code_ahead);
 	foreach($tokens as $token){
 		$token_str = is_array( $token ) ? $token[1] : $token;
 		$token_type = is_array( $token ) ? $token[0] : NULL;
@@ -529,18 +509,47 @@ function merge_add_braces($reg_pat, $tok_pat, $subject){
 	
 	//生成返回三段
 	if($brace_insert_offset){
-		$ret_behind = substr($subject_behind, 0, $brace_insert_offset) . '{';
-		$ret_middle = substr($subject_behind, $brace_insert_offset). substr($subject_ahead, 0, $semi_offset + 1);
-		$ret_ahead = '}' . substr($subject_ahead, $semi_offset + 1);
+		$ret_behind = substr($code_behind, 0, $brace_insert_offset) . '{';
+		$ret_middle = substr($code_behind, $brace_insert_offset). substr($code_ahead, 0, $semi_offset + 1);
+		$ret_ahead = '}' . substr($code_ahead, $semi_offset + 1);
 	}else{
-		$ret_behind = substr($subject_behind, 0, $code_insert_offset);
-		$ret_middle = substr($subject_behind, $code_insert_offset). substr($subject_ahead, 0, $semi_offset + 1);
-		$ret_ahead = substr($subject_ahead, $semi_offset + 1);
+		$ret_behind = substr($code_behind, 0, $code_insert_offset);
+		$ret_middle = substr($code_behind, $code_insert_offset). substr($code_ahead, 0, $semi_offset + 1);
+		$ret_ahead = substr($code_ahead, $semi_offset + 1);
 	}
-	$ret_behind = str_replace('<?php ', '', $ret_behind);
 	$ret_middle = str_replace('<?php ', '', $ret_middle);
 	$ret_ahead = str_replace('<?php ', '', $ret_ahead);
 	return array($ret_behind, $ret_middle, $ret_ahead);
+}
+
+//单行代码加花括号
+//输入$reg_pat, $tok_pat，规则同token_match相同
+//如果加花括号，则返回花括号及之前、原单行代码、花括号及之后三部分代码
+//如果不加花括号，则返回分号及之前、原单行代码、分号之后三部分代码
+//目前变成了一个壳
+function merge_add_braces($reg_pat, $tok_pat, $subject, &$reg_offset=NULL){
+	$add_open_tag = 0;
+	if(strpos($subject, '<?php')===false){
+		$subject = '<?php '.$subject;
+		$add_open_tag = 1;
+	}
+	$reg_ret = token_match($reg_pat, $tok_pat, $subject);
+	//无结果直接返回
+	if(!$reg_ret) {
+		if($add_open_tag) {
+			$subject = substr($subject, 6);
+		}
+		return array($subject, '', '');
+	}
+	
+	$reg_offset = $reg_ret[0][0][1];
+	
+	$ret = merge_add_braces_core($reg_offset, $subject);
+	if($add_open_tag) {
+		$ret[0] = str_replace('<?php ', '', $ret[0]);
+		$reg_offset -= 6;
+	}
+	return $ret;
 }
 
 //判断$offset2是不是与$offset1在同一个控制流程内（也即执行$offset2是不是一定要执行$offset1）
@@ -717,16 +726,43 @@ function merge_replace_chprocess($ret_varname, $replacement, $subject){
 	}	
 }
 
-//TODO：需要获得break跳出的层数否则毫无意义
 //把所有的return换成${$ret_varname}=xxx;break;的形式
 function merge_replace_return($ret_varname, $subject){
-	if(strpos($subject, '$ret = \'\'')!==false) $flag = 1;
-	do{
-		list($ret_behind, $ret_middle, $ret_ahead) = merge_add_braces('/(return)/s', array(T_RETURN), $subject);
-		$ret_middle = preg_replace('/return\s*?;/s', $ret_varname." = NULL;\r\nbreak; ", $ret_middle);
-		$ret_middle = preg_replace('/return\s*?(.*?);/s', $ret_varname." = $1;\r\nbreak; ", $ret_middle);
-		$subject = $ret_behind . $ret_middle . $ret_ahead;
-	}while(token_match('/(return)/s', array(T_RETURN), '<?php '.$subject));
+	$flag = 1;
+	$add_open_tag = 0;
+	if(strpos($subject, '<?php')===false){
+		$subject = '<?php '.$subject;
+		$add_open_tag = 1;
+	}
+	$tokens = token_get_all_adv($subject);
+	$list = array();
+	//记录所有的return位置和层数
+	$reg_ret = token_match('/(return)/s', array(T_RETURN), $subject);
+	foreach($reg_ret as $rval){
+		$break_num = 1;
+		$rval_offset = $rval[0][1];
+		$tmp_cp_offset = token_get_single_adv($rval_offset, $tokens)['last_cp_token'];
+		do{
+			$tmp_cp_token = token_get_single_adv($tmp_cp_offset, $tokens);
+			if(in_array($tmp_cp_token['type'], array(T_FOR, T_FOREACH, T_WHILE, T_DO))){
+				$break_num++;
+			}
+			$tmp_cp_offset = $tmp_cp_token['last_cp_token'];
+		}while(NULL !== $tmp_cp_offset);
+		$list[] = array($rval_offset, $break_num);
+	}
+	//对每个记录的位置，自动添加大括号并替换return
+	$global_offset = 0;
+	foreach($list as $lval){
+		list($ret_behind, $ret_middle, $ret_ahead) = merge_add_braces_core($lval[0]+$global_offset, $subject);
+		$break_str = $break_str = $lval[1] > 1 ? 'break ' . $lval[1] : 'break';
+		$ret_middle = preg_replace('/return\s*?;/s', $ret_varname." = NULL;\r\n{$break_str}; ", $ret_middle, 1);
+		$ret_middle = preg_replace('/return\s*?(.*?);/s', $ret_varname." = $1;\r\n{$break_str}; ", $ret_middle, 1);
+		$tmp_subject = $ret_behind . $ret_middle . $ret_ahead;		
+		$global_offset += strlen($tmp_subject) - strlen($subject);
+		$subject = $tmp_subject;
+	}
+	if($add_open_tag) $subject = substr($subject, 6);
 	return $subject;
 }
 
@@ -979,15 +1015,13 @@ function merge_contents_calc($modid)
 			//这个可以回头再说
 			
 			//return处理			
-			//整体装进一个do...while(0)结构，方便用break模拟return
-			$contents = "\r\n\t\t//========Contents from mod {$modn[$modid]}========\r\n\t\tdo{\r\n\t\t\t".$contents."\t}while(0);";
 			//开头初始化$$ret_varname以避免未初始化的notice
 			$ret_varname = '$'.$modn[$modid].'_'.$key.'_ret';
 			$contents = $ret_varname." = NULL;\r\n".$contents;
 			//之后把return换为$$ret_varname并且加break;
-			if(strtolower($key) === 'attr_dmg_check_not_wpg') writeover('e.txt', $contents,'ab+');
-			$contents = merge_replace_return($ret_varname, $contents);			
-			if(strtolower($key) === 'attr_dmg_check_not_wpg') writeover('f.txt', $contents,'ab+');
+			$contents = merge_replace_return($ret_varname, $contents);
+			//整体装进一个do...while(0)结构，方便用break模拟return
+			$contents = "\r\n\t\t//========Contents from mod {$modn[$modid]}========\r\n\t\tdo{\r\n\t\t\t".$contents."\t}while(0);";
 			//彻底去除eval字符串
 			//$contents = str_replace('<<<<<<EVAL>>>>>>', '', $contents);
 			
