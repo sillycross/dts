@@ -678,21 +678,8 @@ function merge_replace_chprocess($ret_varname, $replacement, $subject){
 	}	
 }
 
-//给$code里所有非全局、非返回值、非参数变量加前缀
-function merge_variable_alias_prefix($code, $varname_str){
-	$local_variables = merge_get_local_variables($code);
-	$code = '<?php '.$code;
-	foreach($local_variables as $lval){
-		if(strpos($lval, '__LOCAL_ALIAS_')===false && strpos($lval, $ret_varname)===false){
-			$code = token_replace('/(\\$'.substr($lval,1).')/s', array(T_VARIABLE), '$__LOCAL_ALIAS_$1', $code);
-		}
-	}
-	$code = substr(str_replace('$__LOCAL_ALIAS_$', '$__LOCAL_ALIAS_', $code), 6);
-	return $code;
-}
-
 //得到$subject里的所有本地变量名的数组
-function merge_get_local_variables($subject){
+function merge_get_local_variables($subject, $varname_list){
 	
 	$read_im_subject = $subject;
 	$tmp_im_list = array();
@@ -718,6 +705,20 @@ function merge_get_local_variables($subject){
 		$tmp_global_var_str = constant("MODULE_".strtoupper($ival)."_GLOBALS_VARNAMES");
 		$tmp_global_var_list = array_merge($tmp_global_var_list, explode(',', $tmp_global_var_str));
 	}
+	//全局变量名前面加$
+	foreach($tmp_global_var_list as &$gval){
+		if(strpos($gval, '$')!==0) $gval = '$'.$gval;
+	}
+	//获得$subject里用global定义的全局变量
+	$match = token_match('/(global)\s*(.*?);/si', array(T_GLOBAL, '*'), '<?php '.$subject);
+	foreach($match as $mval){
+		$marr = explode(',', $mval[2][0]);
+		foreach($marr as $maval){
+			$tmp_global_var_list[] = trim($maval);
+		}		
+	}
+	array_unique($tmp_global_var_list);
+	//if(strpos($subject, '$replay_flag')!==false)  writeover('g.txt', var_export($tmp_global_var_list,1)."\r\n",'ab+');
 	//获得$subject里定义过的变量，与全局变量差分，得到需要暂存的变量名数组
 	//应该改成获得在$chprocess之前定义过的变量
 	$tmp_local_var_list = array();
@@ -725,12 +726,13 @@ function merge_get_local_variables($subject){
 	if(!empty($tmp_local_var_match)){
 		foreach($tmp_local_var_match as $tval){
 			$tval = $tval[0][0];
-			if(!in_array($tval, array('$___RET_VALUE', '$chprocess')) && !in_array(substr($tval,1), $tmp_global_var_list))//两个变量之间有1个$的差异，只能出此下策
+			//刨掉特殊变量、参数变量、全局变量
+			if(!in_array($tval, array('$___RET_VALUE', '$chprocess')) && !in_array($tval, $varname_list) && !in_array($tval, $tmp_global_var_list))
 				$tmp_local_var_list[] = $tval;
 		}
 		$tmp_local_var_list = array_unique($tmp_local_var_list);
 	}
-	
+	//if(in_array('$replay_flag', $tmp_local_var_list)) writeover('c.txt', var_export($tmp_local_var_list,1)."\r\n",'ab+');
 	return $tmp_local_var_list;
 //	global $iiii;
 //	if(NULL===$iiii) $iiii=1;
@@ -898,7 +900,6 @@ function merge_contents_calc($modid)
 			if(!empty($tmp_stored_contents)){
 				//如果有暂存内容，则先用暂存内容替换节点内容里的$chprocess
 				//节点函数有两个以上$chprocess的情况下，不存在暂存内容，所以不用考虑
-				//$tmp_stored_contents = merge_variable_alias_prefix($tmp_stored_contents, );
 				$contents = merge_replace_chprocess($___TEMP_last_ret_varname[$key], $tmp_stored_contents, $contents);
 				unset($tmp_stored_contents);
 			}
@@ -976,6 +977,7 @@ function merge_contents_calc($modid)
 			//参数处理
 			list($null, $null, $null, $parent_chpvars, $null) = merge_split_paren_adv('$chprocess', T_VARIABLE, $parent_func_contents['contents']);
 			$parent_varname_change = '';
+			$vars_varname_list = array();
 			if(!empty($parent_chpvars)){
 				$vars_arr = explode(',',$___TEMP_func_contents[$modid][$key]['vars']);
 				$parent_chpvars_arr = explode(',',$parent_chpvars);
@@ -997,6 +999,7 @@ function merge_contents_calc($modid)
 					}else{
 						$ref_flag = 0;
 					}
+					$vars_varname_list[] = $vars_arr_varname;
 					$parent_chpvars_arr_single = isset($parent_chpvars_arr[$i]) ? trim($parent_chpvars_arr[$i]) : NULL;
 					//情况1，父函数调用时子函数的变量名与子函数定义的不同
 					if(NULL !== $parent_chpvars_arr_single && $parent_chpvars_arr_single != $vars_arr_varname){
@@ -1018,6 +1021,20 @@ function merge_contents_calc($modid)
 			}
 			if($parent_varname_change) $parent_varname_change .= "\r\n";
 			$contents = $parent_varname_change . $contents;			
+			
+			//变量改名以避免撞车
+			$local_variables = merge_get_local_variables($contents, $vars_varname_list);
+			$tmp_contents = '<?php '.$contents;
+			//if(in_array('$jreplaydata', $local_variables)) writeover('aaa.txt', implode(', ', $local_variables)."\r\n", 'ab+');
+			usort($local_variables, function($a, $b) {return(strlen($a) > strlen($b));});  			
+			foreach($local_variables as $lval){
+				if(strpos($lval, '$__LOCAL_ALIAS_')===false){
+					$tmp_contents = token_replace('/\\$('.substr($lval,1).')([^A-Za-z0-9_])/s', array(T_VARIABLE, '*'), '$__LOCAL_ALIAS_$1$2', $tmp_contents);
+				}
+			}
+			//$contents = substr(str_replace('$__LOCAL_ALIAS_$', '$__LOCAL_ALIAS_', $tmp_contents), 6);
+			$contents = substr($tmp_contents, 6);
+			unset($tmp_contents);
 			
 			//return处理			
 			//开头初始化$$ret_varname以避免未初始化的notice
