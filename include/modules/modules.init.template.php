@@ -43,10 +43,12 @@ namespace _____TEMPLATE_MODULE_NAME_____
 	}
 	$___TEMP_d="'; "; $___TEMP_e="'; "; $___TEMP_f=''; $___TEMP_cc=0;
 	//生成import用的global代码，实际原理是用LOCAL前缀的变量进行传递
+	$___TEMP_im_varnames = array();
 	foreach(array_diff($___TEMP_b, $___TEMP_a) as $___TEMP_key)
 	{
 		if (strpos($___TEMP_key,'___PRIVATE_')!==0)
 		{
+			$___TEMP_im_varnames[] = $___TEMP_key;
 			${"___LOCAL_{$___TEMP_namespace_name}__VARS__{$___TEMP_key}"}=$$___TEMP_key;
 			$___TEMP_c.='$___LOCAL_'.$___TEMP_namespace_name.'__VARS__'.$___TEMP_key.',';
 			if ($___TEMP_namespace_name=='INPUT')
@@ -67,6 +69,7 @@ namespace _____TEMPLATE_MODULE_NAME_____
 			unset($$___TEMP_key);
 		}
 	}
+	define("MODULE_{$___TEMP_namespace_name}_GLOBALS_VARNAMES",implode(',', $___TEMP_im_varnames));
 	if ($___TEMP_cc>0 && $___TEMP_cc%10==0) 
 	{
 		$___TEMP_c=substr($___TEMP_c,0,-1); 

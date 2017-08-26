@@ -649,64 +649,6 @@ function merge_split_paren_adv($find_str, $find_type, $subject, &$find_offset=NU
 	return $ret;
 }
 
-//识别并拆分第一个特定字符串+正确的前后括号的内容
-//返回array('A', '所找元素', 'C', '(括号内容)', 'E')形式的数组
-function merge_split_paren($find_str, $find_type, $subject, &$brace_nest=0, &$block_min_brace_nest=0){
-	if(strpos($subject, '<?php')===false)
-		$tokens = token_get_all('<?php '.$subject);
-	else
-		$tokens = token_get_all($subject);
-	$paren_nest = 0;
-	$tmp_paren_nest = 0;
-	$block_min_brace_nest = 999;
-	$pos_state = 0;
-	$ret = array(0=>'', 1=>'', 2=>'', 3=>'', 4=>'');
-	foreach($tokens as $token){
-		$token_str = is_array( $token ) ? $token[1] : $token;
-		$token_type = is_array( $token ) ? $token[0] : NULL;
-		if(T_OPEN_TAG == $token_type) continue;
-		//元素本身
-		if(0 == $pos_state && $token_str == $find_str && $token_type == $find_type) {
-			$pos_state = 1;
-		}
-		//元素之后到前圆括号
-		if(1 == $pos_state && ($token_str != $find_str || $token_type != $find_type)){
-			$pos_state = 2;
-		}
-		//前圆括号
-		if('(' == $token_str && NULL === $token_type){
-			$paren_nest++;
-			if(2 == $pos_state){				
-				$pos_state = 3;
-				$tmp_paren_nest = $paren_nest - 1;
-			}
-		}
-		//后圆括号
-		if(')' == $token_str && NULL === $token_type){
-			$paren_nest--;
-			if(3 == $pos_state && $tmp_paren_nest == $paren_nest){				
-				$pos_state = 4;
-			}
-		}
-		if(left_brace_check($token_str, $token_type)){ //php这个判定也是醉
-  		$brace_nest ++;
-  	}elseif('}' == $token_str && NULL === $token_type){
-  		$brace_nest --;
-  	}
-  	if($brace_nest < $block_min_brace_nest) $block_min_brace_nest = $brace_nest;
-  	if(4 == $pos_state){
-  		$ret[$pos_state] .= substr($subject, strlen($ret[0].$ret[1].$ret[2].$ret[3].$ret[4]));
-  		break;
-  	}else{
-  		$ret[$pos_state] .= $token_str;
-  	}
-	}
-	if(!empty($ret[4])) {
-		$ret[3] .= substr($ret[4], 0, 1);
-		$ret[4] = substr($ret[4], 1);
-	}
-	return $ret;
-}
 
 //用$replacement（代码块字符串）替换$subject里的第一个$chprocess()
 //并非简单替换，要在$chprocess()所在行的前一行先给$ret赋值，然后用$ret_varname替换$chprocess()
@@ -714,6 +656,16 @@ function merge_split_paren($find_str, $find_type, $subject, &$brace_nest=0, &$bl
 function merge_replace_chprocess($ret_varname, $replacement, $subject){
 	//获得三段
 	list($ret_behind, $ret_middle, $ret_ahead) = merge_add_braces('/(\$chprocess)/s', array(T_VARIABLE), $subject);
+	
+	
+	//需要在$chprocess()之前暂存变量，执行完后把变量写回来
+//	$vdc_behind = $vdc_ahead = '';
+//	foreach($local_variables as $lval){
+//		$vdc_behind .= '$__VAR_DUMP_CONTENTS_'.substr($lval, 1).' = '. $lval ."; ";
+//		$vdc_ahead .= $lval . ' = $__VAR_DUMP_CONTENTS_'.substr($lval, 1) . "; ";
+//	}
+//	if(!empty($vdc_behind)) $vdc_behind = "\r\n".$vdc_behind;
+//	if(!empty($vdc_ahead)) $vdc_ahead = "\r\n".$vdc_ahead;
 	//真正插入步骤
 	//$ret_middle = $replacement . preg_replace('/\$chprocess(.*?)/s', $ret_varname.';', $ret_middle, 1);
 	//不能直接preg_replace，需要判定括号层数！
@@ -724,6 +676,66 @@ function merge_replace_chprocess($ret_varname, $replacement, $subject){
 		$ret_middle = $replacement . $ret_a . $ret_varname . substr($ret_e,1);
 		return $ret_behind . $ret_middle . $ret_ahead;
 	}	
+}
+
+//给$code里所有非全局、非返回值、非参数变量加前缀
+function merge_variable_alias_prefix($code, $varname_str){
+	$local_variables = merge_get_local_variables($code);
+	$code = '<?php '.$code;
+	foreach($local_variables as $lval){
+		if(strpos($lval, '__LOCAL_ALIAS_')===false && strpos($lval, $ret_varname)===false){
+			$code = token_replace('/(\\$'.substr($lval,1).')/s', array(T_VARIABLE), '$__LOCAL_ALIAS_$1', $code);
+		}
+	}
+	$code = substr(str_replace('$__LOCAL_ALIAS_$', '$__LOCAL_ALIAS_', $code), 6);
+	return $code;
+}
+
+//得到$subject里的所有本地变量名的数组
+function merge_get_local_variables($subject){
+	
+	$read_im_subject = $subject;
+	$tmp_im_list = array();
+	//获得所有import_module的模块名
+	do{
+		list($ret_a, $ret_b, $ret_c, $ret_d, $ret_e) = merge_split_paren_adv('import_module', T_STRING, $read_im_subject);
+		if(!empty($ret_d)){
+			$tmp_im_single = explode(',', $ret_d);
+			foreach($tmp_im_single as $ival){
+				$ival_str = trim($ival);
+				if(!in_array($ival_str, $tmp_im_list))
+					$tmp_im_list[] = $ival_str;
+			}
+			$read_im_subject = $ret_e;
+		}else{
+			$read_im_subject = '';
+		}
+	}while (!empty($read_im_subject));
+	//获得对应模块名的全局变量
+	$tmp_global_var_list = array();
+	foreach($tmp_im_list as $ival){
+		$ival = trim(str_replace("'", '', $ival));
+		$tmp_global_var_str = constant("MODULE_".strtoupper($ival)."_GLOBALS_VARNAMES");
+		$tmp_global_var_list = array_merge($tmp_global_var_list, explode(',', $tmp_global_var_str));
+	}
+	//获得$subject里定义过的变量，与全局变量差分，得到需要暂存的变量名数组
+	//应该改成获得在$chprocess之前定义过的变量
+	$tmp_local_var_list = array();
+	$tmp_local_var_match = token_match('/(\$[A-Za-z0-9_]+)/s', array(T_VARIABLE), '<?php '.$subject);
+	if(!empty($tmp_local_var_match)){
+		foreach($tmp_local_var_match as $tval){
+			$tval = $tval[0][0];
+			if(!in_array($tval, array('$___RET_VALUE', '$chprocess')) && !in_array(substr($tval,1), $tmp_global_var_list))//两个变量之间有1个$的差异，只能出此下策
+				$tmp_local_var_list[] = $tval;
+		}
+		$tmp_local_var_list = array_unique($tmp_local_var_list);
+	}
+	
+	return $tmp_local_var_list;
+//	global $iiii;
+//	if(NULL===$iiii) $iiii=1;
+//	else $iiii++;
+//	if($iiii<50) writeover('b.txt', $modn[$modid].'\\'.$key.'='.var_export($tmp_local_var_list,1)."\r\n",'ab+');
 }
 
 //把所有的return换成${$ret_varname}=xxx;break;的形式
@@ -756,8 +768,8 @@ function merge_replace_return($ret_varname, $subject){
 	foreach($list as $lval){
 		list($ret_behind, $ret_middle, $ret_ahead) = merge_add_braces_core($lval[0]+$global_offset, $subject);
 		$break_str = $break_str = $lval[1] > 1 ? 'break ' . $lval[1] : 'break';
-		$ret_middle = preg_replace('/return\s*?;/s', $ret_varname." = NULL;\r\n{$break_str}; ", $ret_middle, 1);
-		$ret_middle = preg_replace('/return\s*?(.*?);/s', $ret_varname." = $1;\r\n{$break_str}; ", $ret_middle, 1);
+		$ret_middle = preg_replace('/return\s*?;/s', $ret_varname." = NULL;\r\n\t\t\t{$break_str}; ", $ret_middle, 1);
+		$ret_middle = preg_replace('/return\s*?(.*?);/s', $ret_varname." = $1;\r\n\t\t\t{$break_str}; ", $ret_middle, 1);
 		$tmp_subject = $ret_behind . $ret_middle . $ret_ahead;		
 		$global_offset += strlen($tmp_subject) - strlen($subject);
 		$subject = $tmp_subject;
@@ -855,7 +867,6 @@ function merge_contents_calc($modid)
 		//函数内容里直接引用本模块的函数名需要加上namespace
 		foreach($tmp_mod_funcname_list as $cmfn){
 			$contents = token_replace('/([^\\\\A-Za-z0-9_])('.$cmfn.')\s*?\(/si', array('*',T_STRING), '$1\\\\'.$modn[$modid].'\\\\$2 (', $contents);
-			//if($cmfn == 'attr_dmg_check_not_WPG') writeover('a.txt', $contents."\r\n\r\n", 'ab+');
 		}
 		//函数里的__DIR__要改为绝对路径
 		$contents = token_replace('/(__DIR__)/s', array(T_DIR), '\''.pathinfo($___TEMP_func_contents[$modid][$key]['filename'], PATHINFO_DIRNAME).'\'', $contents);		
@@ -883,13 +894,12 @@ function merge_contents_calc($modid)
 		{
 			if(strpos($___TEMP_stored_func_contents[$key], "\$ret='未知'")!==false) $ffflag = 1;
 			$tmp_stored_contents = $___TEMP_stored_func_contents[$key];
-			//if($key === 'attr_dmg_check_not_wpg') writeover('b.txt', $tmp_stored_contents,'ab+');
 			$___TEMP_stored_func_contents[$key] = '';
 			if(!empty($tmp_stored_contents)){
 				//如果有暂存内容，则先用暂存内容替换节点内容里的$chprocess
 				//节点函数有两个以上$chprocess的情况下，不存在暂存内容，所以不用考虑
+				//$tmp_stored_contents = merge_variable_alias_prefix($tmp_stored_contents, );
 				$contents = merge_replace_chprocess($___TEMP_last_ret_varname[$key], $tmp_stored_contents, $contents);
-				//if($key === 'attr_dmg_check_not_wpg') writeover('c.txt', $contents);
 				unset($tmp_stored_contents);
 			}
 			//将本函数内容里的$chprocess替换为上一个节点
@@ -965,7 +975,6 @@ function merge_contents_calc($modid)
 		{			
 			//参数处理
 			list($null, $null, $null, $parent_chpvars, $null) = merge_split_paren_adv('$chprocess', T_VARIABLE, $parent_func_contents['contents']);
-			//if($key == 'check_corpse_discover') writeover('a.txt', $ret_d.'<br>', 'ab+');
 			$parent_varname_change = '';
 			if(!empty($parent_chpvars)){
 				$vars_arr = explode(',',$___TEMP_func_contents[$modid][$key]['vars']);
@@ -1006,13 +1015,9 @@ function merge_contents_calc($modid)
 						}
 					}
 				}
-				//writeover('3.txt', var_export($parent_varname_change,1).' '.$modn[$modid]."\r\n",'ab+');
 			}
 			if($parent_varname_change) $parent_varname_change .= "\r\n";
-			$contents = $parent_varname_change . $contents;
-			
-			//unset所有变量
-			//这个可以回头再说
+			$contents = $parent_varname_change . $contents;			
 			
 			//return处理			
 			//开头初始化$$ret_varname以避免未初始化的notice
@@ -1021,7 +1026,7 @@ function merge_contents_calc($modid)
 			//之后把return换为$$ret_varname并且加break;
 			$contents = merge_replace_return($ret_varname, $contents);
 			//整体装进一个do...while(0)结构，方便用break模拟return
-			$contents = "\r\n\t\t//========Contents from mod {$modn[$modid]}========\r\n\t\tdo{\r\n\t\t\t".$contents."\t}while(0);";
+			$contents = "\r\n\t\t//======== Start of contents from mod {$modn[$modid]} ========\r\n\t\tdo{\r\n\t\t\t".$contents."\t}while(0);\r\n\t\t//======== End of contents from mod {$modn[$modid]} ========\r\n";
 			//彻底去除eval字符串
 			//$contents = str_replace('<<<<<<EVAL>>>>>>', '', $contents);
 			
