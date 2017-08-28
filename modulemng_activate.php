@@ -28,7 +28,6 @@ function shutDownFunction() {
 	{
 		echo $faillog;
 		echo '<br>或者因为如下原因：<br>';
-		//var_dump($error);
 		echo '['.$error['type'].'] '.$error['message'].' at line '.$error['line'].' in file '.$error['file'].'<br>';
 		echo '<br><a href="modulemng.php?mode=edit" style="text-decoration: none"><span><font color="blue">[返回编辑模式]</font></span></a><br>';   
 		die();

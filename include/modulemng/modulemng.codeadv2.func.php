@@ -680,7 +680,6 @@ function merge_replace_chprocess($ret_varname, $replacement, $subject){
 
 //得到$subject里的所有本地变量名的数组
 function merge_get_local_variables($subject, $varname_list){
-	
 	$read_im_subject = $subject;
 	$tmp_im_list = array();
 	//获得所有import_module的模块名
@@ -718,26 +717,20 @@ function merge_get_local_variables($subject, $varname_list){
 		}		
 	}
 	array_unique($tmp_global_var_list);
-	//if(strpos($subject, '$replay_flag')!==false)  writeover('g.txt', var_export($tmp_global_var_list,1)."\r\n",'ab+');
 	//获得$subject里定义过的变量，与全局变量差分，得到需要暂存的变量名数组
-	//应该改成获得在$chprocess之前定义过的变量
+	//如果只用$xxx判定，没法识别input进来的变量，只能用$xxx = xxx来识别了
 	$tmp_local_var_list = array();
-	$tmp_local_var_match = token_match('/(\$[A-Za-z0-9_]+)/s', array(T_VARIABLE), '<?php '.$subject);
+	$tmp_local_var_match = token_match('|(\$[A-Za-z0-9_]+)\s*?[\+\-\*/\.]*=|s', array(T_VARIABLE), '<?php '.$subject);
 	if(!empty($tmp_local_var_match)){
 		foreach($tmp_local_var_match as $tval){
-			$tval = $tval[0][0];
+			$tval = $tval[1][0];
 			//刨掉特殊变量、参数变量、全局变量
 			if(!in_array($tval, array('$___RET_VALUE', '$chprocess')) && !in_array($tval, $varname_list) && !in_array($tval, $tmp_global_var_list))
 				$tmp_local_var_list[] = $tval;
 		}
 		$tmp_local_var_list = array_unique($tmp_local_var_list);
 	}
-	//if(in_array('$replay_flag', $tmp_local_var_list)) writeover('c.txt', var_export($tmp_local_var_list,1)."\r\n",'ab+');
 	return $tmp_local_var_list;
-//	global $iiii;
-//	if(NULL===$iiii) $iiii=1;
-//	else $iiii++;
-//	if($iiii<50) writeover('b.txt', $modn[$modid].'\\'.$key.'='.var_export($tmp_local_var_list,1)."\r\n",'ab+');
 }
 
 //把所有的return换成${$ret_varname}=xxx;break;的形式
@@ -978,6 +971,7 @@ function merge_contents_calc($modid)
 			list($null, $null, $null, $parent_chpvars, $null) = merge_split_paren_adv('$chprocess', T_VARIABLE, $parent_func_contents['contents']);
 			$parent_varname_change = '';
 			$vars_varname_list = array();
+			$parent_vars_inherit_list = array();//记录继承的父函数变量名，后面变量改名需要豁免
 			if(!empty($parent_chpvars)){
 				$vars_arr = explode(',',$___TEMP_func_contents[$modid][$key]['vars']);
 				$parent_chpvars_arr = explode(',',$parent_chpvars);
@@ -1003,6 +997,7 @@ function merge_contents_calc($modid)
 					$parent_chpvars_arr_single = isset($parent_chpvars_arr[$i]) ? trim($parent_chpvars_arr[$i]) : NULL;
 					//情况1，父函数调用时子函数的变量名与子函数定义的不同
 					if(NULL !== $parent_chpvars_arr_single && $parent_chpvars_arr_single != $vars_arr_varname){
+						$parent_vars_inherit_list[] = $parent_chpvars_arr_single;
 						if($ref_flag){
 							$parent_varname_change .= $vars_arr_varname . ' = &' . $parent_chpvars_arr_single . '; ';
 						}else{
@@ -1023,9 +1018,8 @@ function merge_contents_calc($modid)
 			$contents = $parent_varname_change . $contents;			
 			
 			//变量改名以避免撞车
-			$local_variables = merge_get_local_variables($contents, $vars_varname_list);
+			$local_variables = merge_get_local_variables($contents, array_merge($vars_varname_list, $parent_vars_inherit_list));
 			$tmp_contents = '<?php '.$contents;
-			//if(in_array('$jreplaydata', $local_variables)) writeover('aaa.txt', implode(', ', $local_variables)."\r\n", 'ab+');
 			usort($local_variables, function($a, $b) {return(strlen($a) > strlen($b));});  			
 			foreach($local_variables as $lval){
 				if(strpos($lval, '$__LOCAL_ALIAS_')===false){
