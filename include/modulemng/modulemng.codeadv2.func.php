@@ -720,7 +720,7 @@ function merge_get_local_variables($subject, $varname_list){
 	//获得$subject里定义过的变量，与全局变量差分，得到需要暂存的变量名数组
 	//如果只用$xxx判定，没法识别input进来的变量，只能用$xxx = xxx来识别了
 	$tmp_local_var_list = array();
-	$tmp_local_var_match = token_match('|(\$[A-Za-z0-9_]+)\s*?[\+\-\*/\.]*=|s', array(T_VARIABLE), '<?php '.$subject);
+	$tmp_local_var_match = token_match('|(\$[A-Za-z0-9_]+)\s*?[\+\-\*/\.]*=[^=>]|s', array(T_VARIABLE), '<?php '.$subject);
 	if(!empty($tmp_local_var_match)){
 		foreach($tmp_local_var_match as $tval){
 			$tval = $tval[1][0];

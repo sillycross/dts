@@ -376,8 +376,8 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2 && $___MOD_CODE_ADV3)
 $faillog='';
 
 copy(GAME_ROOT.'./gamedata/modules.list.pass.php',GAME_ROOT.'./gamedata/modules.list.php');
-//unlink(GAME_ROOT.'./gamedata/modules.list.pass.php');
-//unlink(GAME_ROOT.'./gamedata/modules.list.temp.php');
+unlink(GAME_ROOT.'./gamedata/modules.list.pass.php');
+unlink(GAME_ROOT.'./gamedata/modules.list.temp.php');
 touch(GAME_ROOT.'./gamedata/modules.list.php');//更新文件时间以保证quick模式正常运转
 
 if ($___MOD_SRV)
