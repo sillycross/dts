@@ -217,6 +217,7 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2)
 	include GAME_ROOT.'./include/modulemng/modulemng.codeadv2.func.php';
 	$___TEMP_modfuncs=Array();
 	$___TEMP_flipped_modn = array_flip($modn);
+	$changed_filelist = array();
 	//第一遍：复制文件，记录各函数依赖关系
 	for ($i=1; $i<=$n; $i++)
 	{
@@ -231,35 +232,35 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2)
 		$srcdir = GAME_ROOT.'./include/modules/'.$modp[$i];
 		$tpldir = GAME_ROOT.'./gamedata/run/'.$modp[$i];
 		
-		create_dir($tpldir);
-		clear_dir($tpldir);
-		copy_dir($srcdir,$tpldir,'<DOC>');//这里其实只起到建立文件夹结构的作用，后边把php和htm全部拷贝了
-		//快速模式不复制文件夹
-//		if(!$quickmode) {
-//			create_dir($tpldir);
-//			clear_dir($tpldir);
-//			copy_dir($srcdir,$tpldir,'php');
-//		}
+//		create_dir($tpldir);
+//		clear_dir($tpldir);
+//		copy_dir($srcdir,$tpldir,'<DOC>');//这里其实只起到建立文件夹结构的作用，后边把php和htm全部拷贝了
+		//快速模式不清空、复制文件夹
+		if(!$quickmode) {
+			create_dir($tpldir);
+			clear_dir($tpldir);
+			copy_dir($srcdir,$tpldir,'<DOC>');
+		}
 		foreach ($codelist[$i] as $key)
 		{
 			$src=GAME_ROOT.'./include/modules/'.$modp[$i].$key;
-			//if(pathinfo($src,PATHINFO_EXTENSION)!='php') continue;//ADV2不处理非php文件 //不行，这样会死
 			echo '&nbsp;&nbsp;&nbsp;&nbsp;正在分析代码'.$key.'.. '; ob_end_flush(); flush();
 			$objfile=GAME_ROOT.'./gamedata/run/'.$modp[$i].$key;
 			
-			if(pathinfo($src,PATHINFO_EXTENSION)!='php'){
-				copy($src,$objfile);
-			}else{
-				//去除注释
-				$content = strip_comments(file_get_contents($src));
-				writeover($objfile, $content);
-				unset($content);
+			//非快速模式或者快速模式且文件修改过
+			if(!$quickmode || ($quickmode && filemtime($src) >= filemtime(GAME_ROOT.'./gamedata/modules.list.php'))) {
+				if(pathinfo($src,PATHINFO_EXTENSION)!='php'){
+					copy($src,$objfile);
+				}else{
+					//去除注释
+					$content = strip_comments(file_get_contents($src));
+					writeover($objfile, $content);
+					unset($content);
+				}
+				$changed_filelist[] = $modp[$i].$key;
 			}
-			//快速模式，只在这里复制对应文件
-//			if($quickmode && filemtime($src) >= filemtime(GAME_ROOT.'./gamedata/modules.list.php')) {
-//				copy($src,$objfile);
-//			}
-			preparse($i,$objfile);
+			//无论是不是快速模式都得预读全部函数内容
+			preparse($i,$src);
 			echo '完成。<br>'; ob_end_flush(); flush();
 			//快速模式且未修改文件，直接跳过
 		}
@@ -267,6 +268,30 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2)
 	//第二遍：整理并合并同名函数
 	global $___MOD_CODE_COMBINE;
 	if($___MOD_CODE_COMBINE){
+		if($quickmode){
+			//快速模式需要预判哪些函数名需要重载
+			$quickmode_funclist = array();
+			foreach($___TEMP_func_contents as $modid => $mval){
+				foreach($mval as $fn => $fc){
+					$fc_filename = substr($fc['filename'], strpos($fc['filename'], 'include/modules/') + 16);
+					if(in_array($fc_filename, $changed_filelist) && !in_array($fn, $quickmode_funclist)){
+						$quickmode_funclist[] = $fn;
+					}
+				}
+			}
+			//根据需要重载的函数名更新一遍需要修改的文件列表，这些文件需要以adv文件为基础进行combine
+			foreach($___TEMP_func_contents as $modid => $mval){
+				foreach($mval as $fn => $fc){
+					$fc_filename = substr($fc['filename'], strpos($fc['filename'], 'include/modules/') + 16);
+					if(in_array($fn, $quickmode_funclist) && !in_array($fc_filename, $changed_filelist)){
+						$changed_filelist[] = $fc_filename;
+						$objfile = GAME_ROOT.'./gamedata/run/'.$fc_filename;
+						$tplfile = substr($objfile,0,-4).'.adv'.substr($objfile,strlen($objfile)-4);
+						copy($tplfile, $objfile);
+					}
+				}
+			}
+		}
 		for ($i=1; $i<=$n; $i++)
 		{
 			echo '开始整理模块'.$modn[$i].'...'; ob_end_flush(); flush();
@@ -274,7 +299,6 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2)
 			echo '完成。<br>'; ob_end_flush(); flush();
 		}
 	}	
-	
 	//第三遍：展开各文件的import和eval
 	for ($i=1; $i<=$n; $i++)
 	{
@@ -286,10 +310,10 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2)
 			$basefile=GAME_ROOT.'./gamedata/run/'.$modp[$i].$key;
 			$delfile=$basefile;
 			$advfile=substr($basefile,0,-4).'.adv'.substr($basefile,strlen($basefile)-4);
-//			if($quickmode && filemtime($src) < filemtime(GAME_ROOT.'./gamedata/modules.list.php')) {
-//				echo '未修改，跳过。<br>'; ob_end_flush(); flush();
-//				continue;
-//			}
+			if($quickmode && !in_array($modp[$i].$key, $changed_filelist)) {
+				echo '未修改，跳过。<br>'; ob_end_flush(); flush();
+				continue;
+			}
 
 			if(pathinfo($basefile,PATHINFO_EXTENSION)!='php'){
 				copy($basefile,$advfile);

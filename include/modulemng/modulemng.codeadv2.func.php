@@ -836,7 +836,7 @@ function merge_contents_calc($modid)
 	global $___TEMP_node_func_modname;//键名是函数名，键值是modname
 	global $___TEMP_defined_funclist;
 	global $___TEMP_modfuncs;
-	global $modn, $___TEMP_flipped_modn;
+	global $modn, $___TEMP_flipped_modn, $quickmode, $quickmode_funclist;
 	
 	$___TEMP_final_func_contents[$modid] = array();
 	
@@ -852,6 +852,8 @@ function merge_contents_calc($modid)
 		$key = strtolower(substr($key,strpos($key,'\\',0)+1));
 		//无父函数且无子函数的函数直接跳过
 		if(empty($___TEMP_modfuncs[$modid][$key]['parent']) && !isset($___TEMP_stored_func_contents[$key])) continue;
+		//快速模式下，不涉及的函数跳过
+		if($quickmode && !in_array($key, $quickmode_funclist)) continue;
 		
 		$contents = $___TEMP_func_contents[$modid][$key]['contents'];
 		//干掉eval字符串，因为不需要了
@@ -1023,7 +1025,7 @@ function merge_contents_calc($modid)
 			usort($local_variables, function($a, $b) {return(strlen($a) > strlen($b));});  			
 			foreach($local_variables as $lval){
 				if(strpos($lval, '$__LOCAL_ALIAS_')===false){
-					$tmp_contents = token_replace('/\\$('.substr($lval,1).')([^A-Za-z0-9_])/s', array(T_VARIABLE, '*'), '$__LOCAL_ALIAS_$1$2', $tmp_contents);
+					$tmp_contents = token_replace('/\\$('.substr($lval,1).')([^A-Za-z0-9_])/s', array(T_VARIABLE, '*'), '$__LOCAL_ALIAS_'.$modn[$modid].'_$1$2', $tmp_contents);
 				}
 			}
 			//$contents = substr(str_replace('$__LOCAL_ALIAS_$', '$__LOCAL_ALIAS_', $tmp_contents), 6);
@@ -1096,7 +1098,7 @@ function parse($modid, $tplfile, $objfile)
 function preparse($modid, $tplfile)
 {
 	global $___TEMP_defined_funclist;
-	global $___TEMP_modfuncs; //$___TEMP_modfuncs=Array();
+	global $___TEMP_modfuncs;
 	global $___TEMP_func_contents;
 	global $___MOD_CODE_COMBINE;
 	foreach ($___TEMP_defined_funclist[$modid] as $key)
