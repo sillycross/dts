@@ -3,6 +3,7 @@ if(!defined('IN_GAME')) exit('Access Denied');
 
 $tutorial_tough_hp = 50;//被攻击时如果HP大于这个值，则变为这个值
 $tutorial_areahour_augment = 22075200;//禁区时间追加值，单位分钟
+$tutorial_disable_area_timing = true;//不显示禁区倒计时
 $tutorial_disable_combo = true;//阻止连斗
 $tutorial_force_teamer = true;//强制认为所有玩家都是队友
 $tutorial_allowed_weather = array(0,2);//允许出现的天气
