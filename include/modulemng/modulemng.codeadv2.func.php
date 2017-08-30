@@ -57,26 +57,6 @@ function strip_tokens($code) {
   return $return;
 }
 
-
-//跳过行首注释
-//不再需要了
-//function skip_beginning_comment(&$content, &$i2, &$ret)
-//{
-//	$i=$i2;
-//	//从上一行尾开始判断，如果非空字符之后直接有单行注释符号，则让$i2前移一整行，并返回这行内容。
-//	if ((check_word($content,$i,"\r",1) || check_word($content,$i,"\n",1)) && (check_word($content,$i,'//') || check_word($content,$i,'#'))) {
-//		$content2 = substr($content,$i);
-//		$i3 = strpos($content2, "\r");
-//		if($i3 === false) $i3 = strpos($content2, "\n");
-//		if($i3) {
-//			$ret = substr($content, $i2, $i-$i2+$i3);
-//			$i2 = $i+$i3;
-//			return 1;
-//		}		
-//	}
-//	return 0;
-//}
-
 function check_import_module($tplfile, &$content, &$i2, &$ret)
 {
 	$i=$i2;
@@ -241,6 +221,7 @@ function check_init_func($modname, $tplfile, &$content, &$i2, &$ret)
 }
 */
 
+//识别3种类型的前花括号token
 //妈的php简直神经病
 function left_brace_check($token_str, $token_type)
 {
@@ -307,7 +288,7 @@ function token_get_all_adv($code){
 				}
 				$line_start = $offset + strlen($token_str);
   		}
-  	}elseif(in_array($token_type, array(T_IF, T_ELSE, T_ELSEIF, T_FOR, T_FOREACH, T_WHILE, T_DO))){
+  	}elseif(in_array($token_type, array(T_IF, T_ELSE, T_ELSEIF, T_FOR, T_FOREACH, T_WHILE, T_DO, T_CASE, T_DEFAULT))){
 			$cp_list[] = array(false, $offset, sizeof($brace_list), sizeof($paren_list));//第一个变量为是不是有大括号，第二个变量是偏移量，第三个偏移量为所在大括号层数
 		}elseif(';' == $token_str && NULL === $token_type){
 			if(empty($cp_list) || (!empty($cp_list) && sizeof($paren_list) == $cp_list[sizeof($cp_list)-1][3])){
@@ -331,7 +312,7 @@ function token_get_all_adv($code){
 }
 
 //获取一个文件里所有函数信息
-//返回数组，键名为函数名，键值为数组，包含vars=>变量字符串，及contents=>函数内容字符串，及import_module=>载入模块字符串
+//返回数组，键名为函数名，键值为数组，包含vars=>变量字符串，及contents=>函数内容字符串，及import_module=>载入模块字符串，以及文件名
 function analyze_function_info($subject, $filename){
 	$ret = array();
 	$tokens = token_get_all_adv($subject);
@@ -368,8 +349,8 @@ function analyze_function_info($subject, $filename){
 }
 
 //通过preg_match初判，然后通过token验证
-//$reg_patt为正则表达式，$tok_patt为$reg_patt每个子模式所对应的解析器代号，可以用数组来表示or关系
-//$code须传入开头带有<?php标识符的代码，$subject无所谓，下同
+//$reg_patt为正则表达式，$tok_patt为$reg_patt每个子模式所对应的token代号，可以用数组来表示or关系
+//$code不会自动增加<?php标识符，$subject无所谓，下同
 function token_match($reg_patt, $tok_patt, $code){
 	$ret = array();
 	$tokens = token_get_all_adv($code);
@@ -386,14 +367,14 @@ function token_match($reg_patt, $tok_patt, $code){
 			//$tok_patt支持数组，此时认为是or关系
 			if(!is_array($tok_type)) $tok_type = array($tok_type);
 			$match_flag = false;
-			foreach($tok_type as $tt){//每一个解析器代号
-				//解析器代号为'*'的时候忽略这个代号
+			foreach($tok_type as $tt){//每一个token代号
+				//token代号为'*'的时候忽略这个代号
 				if('*' == $tt || (is_array($o_token) && $o_token['type'] === $tt)){
 					$match_flag = true;
 					break;
 				}
 			}
-			//有任何不匹配时直接continue上一层
+			//有任何不匹配时直接放弃这个匹配结果，进入下一个匹配结果的判断
 			if(!$match_flag) continue 2;
 		}
 		//都匹配则记录这一匹配结果
@@ -457,9 +438,26 @@ function merge_add_braces_core($focus_offset, $code){
 			$code_insert_offset = $tmp_token['line_start'];
 			break;
 		}
+		//case x:和default:直接加在冒号之后，不需要加大括号
+		elseif(in_array($cp_token['type'], array(T_CASE, T_DEFAULT))){
+			$colon_num = 0;//为了防止case后面带三目运算符，得这么处理
+			foreach($tokens as $kkey => $token){
+				if($kkey < $cp_offset) continue;
+				if('?' == $token['str'] && NULL == $token['type']) {
+					$colon_num -= 1;
+				}elseif(':' == $token['str'] && NULL == $token['type']){
+					$colon_num += 1;
+				}
+				if($colon_num >= 1){
+					$brace_insert_offset = NULL;
+					$code_insert_offset = $kkey + 1;
+					break 2;
+				}
+			}
+		}
 		//否则加在控制符之后
 		else{
-			//有括号的控制符，判定三种情况：在括号内，在括号后但是替代写法，在括号后且不是替代写法
+			//有括号的控制符，判定三种情况：替换对象在括号内、替换对象在括号之后但是替代写法、替换对象在括号之后且不是替代写法
 			if(in_array($cp_token['type'], array(T_IF, T_ELSEIF, T_FOR, T_FOREACH, T_WHILE))){
 				$tmp_paren_state = 0;
 				foreach($tokens as $kkey => $token){
@@ -773,6 +771,8 @@ function merge_replace_return($ret_varname, $subject){
 	return $subject;
 }
 
+//用特定的函数内容替换模板文件里的同名函数内容，并写为目标文件
+//理论上应该改成同样用token_get_all_adv()比较漂亮，但是今天真的累了
 function merge_contents_write($modid, $tplfile, $objfile){
 	global $___TEMP_final_func_contents;
 	$contents=file_get_contents($tplfile);
@@ -822,7 +822,6 @@ function merge_contents_write($modid, $tplfile, $objfile){
   		}
   	}
   }
-	
 	writeover($objfile, $writing_contents);
 }
 
