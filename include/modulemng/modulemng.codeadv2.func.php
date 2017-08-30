@@ -1103,7 +1103,9 @@ function preparse($modid, $tplfile)
 	global $___MOD_CODE_COMBINE;
 	foreach ($___TEMP_defined_funclist[$modid] as $key)
 	{
-		$key();
+		//$key();
+		//php 7.1以上版本，函数参数不足时会Error，因此不能直接空参数执行
+		eval(reflection_run_code($key));
 		global $___TEMP_DESIRE_PARENTNAME,$___TEMP_EVACODE,$___TEMP_CHPROCESS;
 		$___TEMP_modfuncs[$modid][strtolower(substr($key,strpos($key,'\\',0)+1))]=Array(
 			'parent' => $___TEMP_DESIRE_PARENTNAME,

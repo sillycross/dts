@@ -11,6 +11,7 @@ set_time_limit(0);
 define('IN_MODULEMNG', TRUE);
 define('IN_MODULE_ACTIVATE', TRUE);
 require './include/common.inc.php';
+require GAME_ROOT.'./include/modulemng/modulemng.func.php';
 
 if (!file_exists(GAME_ROOT.'./gamedata/modules.list.pass.php'))
 {

@@ -8,6 +8,25 @@ function writeover_array($file,$arr)
 	writeover($file,$s);
 }
 
+//用NULL作为默认参数来执行任意函数
+//php 7.1以上版本，函数参数不足时会Error，因此用反射函数获得参数个数，再用call_user_func_array()回调回去
+function reflection_run_code($funcname){
+	$code = <<<'REFLECTION_CODE'
+	$reflect = new ReflectionFunction(__FUNCNAME__);
+	$default_pars = $reflect->getParameters();
+	$testing_pars = array();
+	$null = NULL;
+	foreach ($default_pars as $pv)
+	{
+		if( $pv->isPassedByReference()) $testing_pars[] = &$null;
+		else  $testing_pars[] = NULL;
+	}
+	$__RET=call_user_func_array(__FUNCNAME__,$testing_pars);
+	unset($reflect);
+REFLECTION_CODE;
+	return str_replace('__FUNCNAME__', "'".$funcname."'", $code);
+}
+
 function module_validity_check($file)
 {
 	$log='';
@@ -120,18 +139,8 @@ function module_validity_check($file)
 				$expect=$___TEMP_DRY_RUN_COUNTER+1;
 				global $___TEMP_FUNCNAME_EXPECT; $___TEMP_FUNCNAME_EXPECT = $modname.'\\'.$key;
 				$__RET='';
-				//php 7.1以上版本，函数参数不足时会Error，因此用反射函数获得参数个数，再用call_user_func_array()回调回去
-				$reflect = new ReflectionFunction($modname.'\\'.$key);
-				$default_pars = $reflect->getParameters();
-				$testing_pars = array();
-				$null = NULL;
-				foreach ($default_pars as $pv)
-				{
-					if( $pv->isPassedByReference()) $testing_pars[] = &$null;
-					else  $testing_pars[] = NULL;
-				}
-				eval('$__RET=call_user_func_array(\''.$modname.'\\'.$key.'\',$testing_pars);');
-				unset($reflect);
+				//php 7.1以上版本，函数参数不足时会Error，因此不能直接空参数执行
+				eval(reflection_run_code($modname.'\\'.$key));
 				$faillog='';
 				if ($__RET!='23333333' || $___TEMP_DRY_RUN_COUNTER!=$expect)
 				{
