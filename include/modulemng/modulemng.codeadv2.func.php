@@ -104,7 +104,6 @@ function check_import_module($tplfile, &$content, &$i2, &$ret)
 	if (!check_word($content,$i,';')) return 0;
 	
 	$i2=$i;
-	
 	$ret='';
 	foreach($vlist as $key) $ret.='eval(import_module('.$key.'));';	//变量名的保留
 	foreach($slist as $key) 
@@ -130,6 +129,8 @@ function check_import_module($tplfile, &$content, &$i2, &$ret)
 	//$ret.='global $pstime; $pstime-=microtime(true);'.$ret.'$pstime+=microtime(true);';
 	if (substr($tplfile,strlen($tplfile)-3)=='php') $ret='do { '.$ret.' } while (0);';	//template.func有bug，只好htm不加保护了
 	$ret=str_replace("\n",' ',$ret);
+	//不global没有用到的变量
+	//似乎不行，有些地方变量名不是静态
 	return 1;
 }
 
@@ -695,40 +696,37 @@ function merge_replace_chprocess($ret_varname, $replacement, $subject, $modname,
 	$exceptions = array_merge($this_im_variables, $this_gl_variables, $func_vars_arr);
 	list($local_variables, $local_variables_ref) = merge_get_local_variables($ret_behind, $exceptions, true);
 	list($replacement_variables, $replacement_variables_ref) = merge_get_local_variables($replacement, array(), true);
-	if($funcname == 'itemuse') writeover('ii.txt', $modname.'\\'.$funcname.' '.var_export($replacement_variables,1)."\r\n", 'ab+');
 	foreach($replacement_variables_ref as &$rfval){//$replacement里只判定变量名，无视是否是引用
 		if(!in_array($rfval[0], $replacement_variables)) $replacement_variables[] = $rfval[0];
 	}
-	
 	$vdc_behind = $vdc_ahead = '';
 	$dumped_list = array();
 	//引用变量优先级更高
-	//目前有个隐患是，这么写无法自动识别最终引用的是哪个变量，尤其是在条件判断里引用不同变量的时候。不过我觉得一般不会有人那么写吧……
 	foreach($local_variables_ref as $lval){
-		$ori_name = $lval[1];
+		//$ori_name = $lval[1];
 		$lval = $lval[0];
 		if(!in_array($lval, $replacement_variables) || in_array($lval, $dumped_list)) continue;
-		$dump_name = '$__VAR_DUMP_CONTENTS_'.$modname.'_'.substr($lval, 1);
-		$vdc_behind .= 'if(isset('.$lval.')) {'.$dump_name.' = &'.$ori_name.'; unset('.$lval.'); } else {'.$dump_name.' = NULL;}';
+		$dump_name = '$__VAR_DUMP_VARS_'.$modname.'_'.substr($lval, 1);
+		$vdc_behind .= 'if(isset('.$lval.')) {'.$dump_name.' = &'.$lval.'; unset('.$lval.'); } else {'.$dump_name.' = NULL;}';
 		$vdc_ahead .= ''.$lval.' = &'.$dump_name.'; ';
 		$dumped_list[] = $lval;
 	}
 	//通常变量
 	foreach($local_variables as $lval){
 		if(!in_array($lval, $replacement_variables) || in_array($lval, $dumped_list)) continue;
-		$dump_name = '$__VAR_DUMP_CONTENTS_'.$modname.'_'.substr($lval, 1);
+		$dump_name = '$__VAR_DUMP_VARS_'.$modname.'_'.substr($lval, 1);
 		$vdc_behind .= 'if(isset('.$lval.')) {'.$dump_name.' = '.$lval.'; unset('.$lval.'); } else {'.$dump_name.' = NULL;} ';
 		$vdc_ahead .= ''.$lval.' = '.$dump_name.'; ';
 		$dumped_list[] = $lval;
 	}
 	if(!empty($vdc_behind)) $vdc_behind = "\r\n".$vdc_behind;
 	if(!empty($vdc_ahead)) $vdc_ahead = "\r\n".$vdc_ahead;
-	//if(!empty($vdc_behind) || !empty($vdc_ahead)) writeover('cc.txt', $modname.'\\'.$funcname.' '.var_export($func_vars_arr,1).":".$vdc_behind.'XXX'.$vdc_ahead."\r\n\r\n", 'ab+');
+	$replacement = $vdc_behind . $replacement . $vdc_ahead;
 	
 	//真正插入步骤
 	//不能直接preg_replace，需要判定括号层数！
 	//不存在$chprocess直接返回
-	$ret_middle = $vdc_behind . $replacement . $vdc_ahead . $ret_a . $ret_varname . substr($ret_e,1);
+	$ret_middle = $replacement . $ret_a . $ret_varname . substr($ret_e,1);
 	return $ret_behind . $ret_middle . $ret_ahead;
 }
 
