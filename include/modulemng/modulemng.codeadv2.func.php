@@ -104,7 +104,6 @@ function check_import_module($tplfile, &$content, &$i2, &$ret)
 	if (!check_word($content,$i,';')) return 0;
 	
 	$i2=$i;
-	
 	$ret='';
 	foreach($vlist as $key) $ret.='eval(import_module('.$key.'));';	//变量名的保留
 	foreach($slist as $key) 
@@ -130,6 +129,8 @@ function check_import_module($tplfile, &$content, &$i2, &$ret)
 	//$ret.='global $pstime; $pstime-=microtime(true);'.$ret.'$pstime+=microtime(true);';
 	if (substr($tplfile,strlen($tplfile)-3)=='php') $ret='do { '.$ret.' } while (0);';	//template.func有bug，只好htm不加保护了
 	$ret=str_replace("\n",' ',$ret);
+	//不global没有用到的变量
+	//似乎不行，有些地方变量名不是静态
 	return 1;
 }
 
@@ -311,6 +312,29 @@ function token_get_all_adv($code){
 	return $ret;
 }
 
+//将函数参数格式化为数组方便判定
+function var_str2arr($varstr){
+	if(!$varstr || false === strpos($varstr, '$')) return array();
+	$ret = array();
+	$vararr0 = explode(',', $varstr);
+	foreach($vararr0 as $vval){
+		$vret = array();
+		if(strpos($vval, '=') !== false){
+			$vval = explode('=', $vval);
+			$vret['name'] = trim($vval[0]);
+			$vret['default'] = trim($vval[1]);
+		}else{
+			$vret['name'] = trim($vval);
+		}
+		if(strpos($vret['name'], '&') !== false){
+			$vret['name'] = trim(str_replace('&', '', $vret['name']));
+			$vret['ref'] = true;
+		}
+		$ret[] = $vret;
+	}
+	return $ret;
+}
+
 //获取一个文件里所有函数信息
 //返回数组，键名为函数名，键值为数组，包含vars=>变量字符串，及contents=>函数内容字符串，及import_module=>载入模块字符串，以及文件名
 function analyze_function_info($subject, $filename){
@@ -344,6 +368,10 @@ function analyze_function_info($subject, $filename){
 				$tmp_func_list[] = array($token['brace'], $token['paren'], strtolower($token['str']));
 			}
 		}
+	}
+	//格式化参数
+	foreach($ret as &$rval){
+		$rval['vars'] = var_str2arr($rval['vars']);
 	}
   return $ret;
 }
@@ -647,37 +675,63 @@ function merge_split_paren_adv($find_str, $find_type, $subject, &$find_offset=NU
 	return $ret;
 }
 
-
 //用$replacement（代码块字符串）替换$subject里的第一个$chprocess()
 //并非简单替换，要在$chprocess()所在行的前一行先给$ret赋值，然后用$ret_varname替换$chprocess()
 //为了正常运行，需要先给单行代码块加花括号
-function merge_replace_chprocess($ret_varname, $replacement, $subject){
+function merge_replace_chprocess($ret_varname, $replacement, $subject, $modname, $funcname=NULL){
 	//获得三段
 	list($ret_behind, $ret_middle, $ret_ahead) = merge_add_braces('/(\$chprocess)/s', array(T_VARIABLE), $subject);
+	if(empty($ret_middle)) return $ret_behind;
 	
-	
+	//把作为下一个函数参数的变量提取并排除
+	list($ret_a, $ret_b, $ret_c, $ret_d, $ret_e) = merge_split_paren_adv('$chprocess', T_VARIABLE, $ret_middle);
+	$func_vars_arr = explode(',', $ret_d);
+	foreach($func_vars_arr as &$fval){
+		$fval = trim($fval);
+	}
 	//需要在$chprocess()之前暂存变量，执行完后把变量写回来
-//	$vdc_behind = $vdc_ahead = '';
-//	foreach($local_variables as $lval){
-//		$vdc_behind .= '$__VAR_DUMP_CONTENTS_'.substr($lval, 1).' = '. $lval ."; ";
-//		$vdc_ahead .= $lval . ' = $__VAR_DUMP_CONTENTS_'.substr($lval, 1) . "; ";
-//	}
-//	if(!empty($vdc_behind)) $vdc_behind = "\r\n".$vdc_behind;
-//	if(!empty($vdc_ahead)) $vdc_ahead = "\r\n".$vdc_ahead;
+	//思路：识别出$ret_behind里面的本地变量，之后将$replacement里有同名变量的那些变量暂存，其他变量不管
+	$this_im_variables = merge_get_imported_variables($ret_behind);
+	$this_gl_variables = merge_get_global_variables($ret_behind);
+	$exceptions = array_merge($this_im_variables, $this_gl_variables, $func_vars_arr);
+	list($local_variables, $local_variables_ref) = merge_get_local_variables($ret_behind, $exceptions, true);
+	list($replacement_variables, $replacement_variables_ref) = merge_get_local_variables($replacement, array(), true);
+	foreach($replacement_variables_ref as &$rfval){//$replacement里只判定变量名，无视是否是引用
+		if(!in_array($rfval[0], $replacement_variables)) $replacement_variables[] = $rfval[0];
+	}
+	$vdc_behind = $vdc_ahead = '';
+	$dumped_list = array();
+	//引用变量优先级更高
+	foreach($local_variables_ref as $lval){
+		//$ori_name = $lval[1];
+		$lval = $lval[0];
+		if(!in_array($lval, $replacement_variables) || in_array($lval, $dumped_list)) continue;
+		$dump_name = '$__VAR_DUMP_VARS_'.$modname.'_'.substr($lval, 1);
+		$vdc_behind .= 'if(isset('.$lval.')) {'.$dump_name.' = &'.$lval.'; unset('.$lval.'); } else {'.$dump_name.' = NULL;}';
+		$vdc_ahead .= ''.$lval.' = &'.$dump_name.'; ';
+		$dumped_list[] = $lval;
+	}
+	//通常变量
+	foreach($local_variables as $lval){
+		if(!in_array($lval, $replacement_variables) || in_array($lval, $dumped_list)) continue;
+		$dump_name = '$__VAR_DUMP_VARS_'.$modname.'_'.substr($lval, 1);
+		$vdc_behind .= 'if(isset('.$lval.')) {'.$dump_name.' = '.$lval.'; unset('.$lval.'); } else {'.$dump_name.' = NULL;} ';
+		$vdc_ahead .= ''.$lval.' = '.$dump_name.'; ';
+		$dumped_list[] = $lval;
+	}
+	if(!empty($vdc_behind)) $vdc_behind = "\r\n".$vdc_behind;
+	if(!empty($vdc_ahead)) $vdc_ahead = "\r\n".$vdc_ahead;
+	$replacement = $vdc_behind . $replacement . $vdc_ahead;
+	
 	//真正插入步骤
-	//$ret_middle = $replacement . preg_replace('/\$chprocess(.*?)/s', $ret_varname.';', $ret_middle, 1);
 	//不能直接preg_replace，需要判定括号层数！
 	//不存在$chprocess直接返回
-	if(empty($ret_middle)) return $ret_behind;
-	else{
-		list($ret_a, $ret_b, $ret_c, $ret_d, $ret_e) = merge_split_paren_adv('$chprocess', T_VARIABLE, $ret_middle);
-		$ret_middle = $replacement . $ret_a . $ret_varname . substr($ret_e,1);
-		return $ret_behind . $ret_middle . $ret_ahead;
-	}	
+	$ret_middle = $replacement . $ret_a . $ret_varname . substr($ret_e,1);
+	return $ret_behind . $ret_middle . $ret_ahead;
 }
 
-//得到$subject里的所有本地变量名的数组
-function merge_get_local_variables($subject, $varname_list){
+//获得$subject里用import_module()导入的变量名
+function merge_get_imported_variables($subject){
 	$read_im_subject = $subject;
 	$tmp_im_list = array();
 	//获得所有import_module的模块名
@@ -706,7 +760,13 @@ function merge_get_local_variables($subject, $varname_list){
 	foreach($tmp_global_var_list as &$gval){
 		if(strpos($gval, '$')!==0) $gval = '$'.$gval;
 	}
-	//获得$subject里用global定义的全局变量
+	array_unique($tmp_global_var_list);
+	return $tmp_global_var_list;
+}
+
+//获得$subject里用global定义的全局变量
+function merge_get_global_variables($subject){
+	$tmp_global_var_list = array();
 	$match = token_match('/(global)\s*(.*?);/si', array(T_GLOBAL, '*'), '<?php '.$subject);
 	foreach($match as $mval){
 		$marr = explode(',', $mval[2][0]);
@@ -715,20 +775,38 @@ function merge_get_local_variables($subject, $varname_list){
 		}		
 	}
 	array_unique($tmp_global_var_list);
-	//获得$subject里定义过的变量，与全局变量差分，得到需要暂存的变量名数组
-	//如果只用$xxx判定，没法识别input进来的变量，只能用$xxx = xxx来识别了
+	return $tmp_global_var_list;
+}
+
+//得到$subject里的所有本地变量名的数组
+//$only_changed=true时只匹配进行过值操作的变量（暂时还不能识别一些会改变值的函数）。否则所有变量都会进行匹配，注意程序是无法区分input模块带进来的全局变量的。
+//返回两个数组，第二个数组是$only_changed=true情况下才能识别的引用变量
+function merge_get_local_variables($subject, $exception_list=array(), $only_changed=false){
+	//获得$subject里定义过的变量，与例外变量差分，得到需要暂存的变量名数组
 	$tmp_local_var_list = array();
-	$tmp_local_var_match = token_match('|(\$[A-Za-z0-9_]+)\s*?[\+\-\*/\.]*=[^=>]|s', array(T_VARIABLE), '<?php '.$subject);
+	$tmp_local_var_list_ref = array();
+	if($only_changed){
+		$tmp_local_var_match = token_match('|(\$[A-Za-z0-9_]+)\s*?[\+\-\*/\.]*=([^=>].*?;)|s', array(T_VARIABLE, '*'), '<?php '.$subject);
+	}else{
+		$tmp_local_var_match = token_match('|(\$[A-Za-z0-9_]+)|s', array(T_VARIABLE), '<?php '.$subject);
+	}	
 	if(!empty($tmp_local_var_match)){
 		foreach($tmp_local_var_match as $tval){
-			$tval = $tval[1][0];
-			//刨掉特殊变量、参数变量、全局变量
-			if(!in_array($tval, array('$___RET_VALUE', '$chprocess')) && !in_array($tval, $varname_list) && !in_array($tval, $tmp_global_var_list))
-				$tmp_local_var_list[] = $tval;
+			$tval1 = $tval[1][0];
+			$tval2 = isset($tval[2]) ? $tval[2][0] : '';
+			//刨掉例外变量
+			if(!in_array($tval1, array('$___RET_VALUE', '$chprocess')) && !in_array($tval1, $exception_list)){
+				if(0 === strpos(trim($tval2), '&')){//引用
+					$refname = trim(substr(trim($tval2), 1, -1));
+					$tmp_local_var_list_ref[] = array($tval1, $refname);
+				}else{
+					$tmp_local_var_list[] = $tval1;
+				}
+			}
 		}
 		$tmp_local_var_list = array_unique($tmp_local_var_list);
 	}
-	return $tmp_local_var_list;
+	return array($tmp_local_var_list, $tmp_local_var_list_ref);
 }
 
 //把所有的return换成${$ret_varname}=xxx;break;的形式
@@ -894,7 +972,7 @@ function merge_contents_calc($modid)
 			if(!empty($tmp_stored_contents)){
 				//如果有暂存内容，则先用暂存内容替换节点内容里的$chprocess
 				//节点函数有两个以上$chprocess的情况下，不存在暂存内容，所以不用考虑
-				$contents = merge_replace_chprocess($___TEMP_last_ret_varname[$key], $tmp_stored_contents, $contents);
+				$contents = merge_replace_chprocess($___TEMP_last_ret_varname[$key], $tmp_stored_contents, $contents, $modn[$modid], $key);
 				unset($tmp_stored_contents);
 			}
 			//将本函数内容里的$chprocess替换为上一个节点
@@ -974,62 +1052,55 @@ function merge_contents_calc($modid)
 			$vars_varname_list = array();
 			$parent_vars_inherit_list = array();//记录继承的父函数变量名，后面变量改名需要豁免
 			if(!empty($parent_chpvars)){
-				$vars_arr = explode(',',$___TEMP_func_contents[$modid][$key]['vars']);
-				$parent_chpvars_arr = explode(',',$parent_chpvars);
+				$vars_arr = $___TEMP_func_contents[$modid][$key]['vars'];
+				$parent_chpvars = explode(',',$parent_chpvars);
+				foreach($parent_chpvars as &$pvval){
+					$pvval = trim($pvval);
+				}
 				$count_vars_arr = count($vars_arr);
 				//用子函数的参数作循环判断
 				for($i=0; $i < $count_vars_arr; $i++){
-					$vars_arr_single = trim($vars_arr[$i]);
-					if(strpos($vars_arr_single, '=')!==false){//默认值
-						list($vars_arr_varname, $var_arr_default) = explode('=',$vars_arr_single);
-						$vars_arr_varname = trim($vars_arr_varname);
-						$var_arr_default = trim($var_arr_default);
-					}else{
-						$vars_arr_varname = trim($vars_arr_single);
-						$var_arr_default = NULL;
-					}
-					if(strpos($vars_arr_varname, '&')===0){//引用
-						$ref_flag = 1;
-						$vars_arr_varname = trim(substr($vars_arr_varname, 1));
-					}else{
-						$ref_flag = 0;
-					}
-					$vars_varname_list[] = $vars_arr_varname;
-					$parent_chpvars_arr_single = isset($parent_chpvars_arr[$i]) ? trim($parent_chpvars_arr[$i]) : NULL;
+					$vc = $vars_arr[$i];
+					$pvc = isset($parent_chpvars[$i]) ? $parent_chpvars[$i] : NULL;
+					$vars_varname_list[] = $vc['name'];
 					//情况1，父函数调用时子函数的变量名与子函数定义的不同
-					if(NULL !== $parent_chpvars_arr_single && $parent_chpvars_arr_single != $vars_arr_varname){
-						$parent_vars_inherit_list[] = $parent_chpvars_arr_single;
-						if($ref_flag){
-							$parent_varname_change .= $vars_arr_varname . ' = &' . $parent_chpvars_arr_single . '; ';
+					if(NULL !== $pvc && $pvc != $vc['name']){
+						$parent_vars_inherit_list[] = $pvc;
+						if(isset($vc['ref']) && $vc['ref']){
+							$parent_varname_change .= $vc['name'] . ' = &' . $pvc . '; ';
 						}else{
-							$parent_varname_change .= $vars_arr_varname . ' = ' . $parent_chpvars_arr_single . '; ';
+							$parent_varname_change .= $vc['name'] . ' = ' . $pvc . '; ';
 						}
 					//情况2，父函数调用时没有给出这一变量
-					}elseif(NULL === $parent_chpvars_arr_single){
-						if(NULL !== $var_arr_default){
-							$parent_varname_change .= $vars_arr_varname . ' = ' . $var_arr_default . '; ';
+					}elseif(NULL === $pvc){
+						if(isset($vc['default'])){
+							$parent_varname_change .= $vc['name'] . ' = ' . $vc['default'] . '; ';
 						}else{
 							//故意产生错误提示
-							$parent_varname_change .= $vars_arr_varname . ' = __MISSING_VARIABLE_' . substr($var_arr_default,1) . '; ';
+							$parent_varname_change .= $vc['name'] . ' = __MISSING_VARIABLE_' . substr($vc['name'],1) . '; ';
 						}
 					}
 				}
 			}
-			if($parent_varname_change) $parent_varname_change .= "\r\n";
+			if($parent_varname_change) {
+				$parent_varname_change .= "\r\n";
+			}
 			$contents = $parent_varname_change . $contents;			
 			
 			//变量改名以避免撞车
-			$local_variables = merge_get_local_variables($contents, array_merge($vars_varname_list, $parent_vars_inherit_list));
-			$tmp_contents = '<?php '.$contents;
-			usort($local_variables, function($a, $b) {return(strlen($a) > strlen($b));});  			
-			foreach($local_variables as $lval){
-				if(strpos($lval, '$__LOCAL_ALIAS_')===false){
-					$tmp_contents = token_replace('/\\$('.substr($lval,1).')([^A-Za-z0-9_])/s', array(T_VARIABLE, '*'), '$__LOCAL_ALIAS_'.$modn[$modid].'_$1$2', $tmp_contents);
-				}
-			}
-			//$contents = substr(str_replace('$__LOCAL_ALIAS_$', '$__LOCAL_ALIAS_', $tmp_contents), 6);
-			$contents = substr($tmp_contents, 6);
-			unset($tmp_contents);
+			//还需要考虑载入htm的情况，目测还得改回$chprocess前后换变量的办法，直接改名过于蛋疼
+			//只需要考虑改后头出现过的重复变量名
+//			$local_variables = merge_get_local_variables($contents, array_merge($vars_varname_list, $parent_vars_inherit_list), true);
+//			$tmp_contents = '<?php '.$contents;
+//			usort($local_variables, function($a, $b) {return(strlen($a) > strlen($b));});  			
+//			foreach($local_variables as $lval){
+//				if(strpos($lval, '$__LOCAL_ALIAS_')===false){
+//					$tmp_contents = token_replace('/\\$('.substr($lval,1).')([^A-Za-z0-9_])/s', array(T_VARIABLE, '*'), '$__LOCAL_ALIAS_'.$modn[$modid].'_$1$2', $tmp_contents);
+//				}
+//			}
+//			//$contents = substr(str_replace('$__LOCAL_ALIAS_$', '$__LOCAL_ALIAS_', $tmp_contents), 6);
+//			$contents = substr($tmp_contents, 6);
+//			unset($tmp_contents);
 			
 			//return处理			
 			//开头初始化$$ret_varname以避免未初始化的notice
@@ -1048,7 +1119,7 @@ function merge_contents_calc($modid)
 				$___TEMP_stored_func_contents[$key] = $contents;
 			//$contents里只有1个$chprocess，先用$sfc替换本函数$chprocess，再将本函数全部暂存
 			} else {
-				$___TEMP_stored_func_contents[$key] = merge_replace_chprocess($___TEMP_last_ret_varname[$key], $___TEMP_stored_func_contents[$key], $contents);
+				$___TEMP_stored_func_contents[$key] = merge_replace_chprocess($___TEMP_last_ret_varname[$key], $___TEMP_stored_func_contents[$key], $contents, $modn[$modid], $key);
 			}
 			
 			//本函数内容清空，只留跳转

@@ -82,7 +82,7 @@
 	$tplrefresh = 1;			// auto check validation of templates, 0=off, 1=on
 						// 模板自动刷新开关 0=关闭, 1=打开, 在不修改页面的情况下可以关闭
 
-	$bbsurl = 'http://76573.org/';    //the bbs url for the game plus
+	$bbsurl = 'http://000.76573.org/';    //the bbs url for the game plus
 									//安装游戏插件的论坛地址
 
 	$gameurl = 'http://lg.dianbo.me/';    // the url of game program files,for the full-window mode
