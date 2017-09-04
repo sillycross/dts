@@ -110,7 +110,7 @@ namespace skill1011
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','input'));
+		eval(import_module('sys','player','input','logger'));
 	
 		if ($mode == 'special' && $command == 'skill1011_special') 
 		{
