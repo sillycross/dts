@@ -182,7 +182,8 @@ namespace skill23
 			$lb=round($lb/2); $ub=round($ub/2);
 			gemming_itme_buff($itm,$itmk,$itme,$itms,$itmsk,$lb,$ub);
 			$log.="但是你的装备并没有获得额外属性。看起来技术还不过关的样子。<span class=\"yellow\">你决定痛定思痛，总结经验。</span><br>";
-			$rage += rand(5,15); $rage = min($rage,100);
+			eval(import_module('rage'));
+			$rage += rand(5,15); $rage = min($rage,$max_rage);
 			$expgain = rand(7,11);
 		}
 		
