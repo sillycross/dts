@@ -199,7 +199,7 @@ function room_set_game_option(&$roomdata, $gokey, $oval){
 }
 
 //获取数据库中的房间数据；$roomid取值可以是'ALL'
-//如果无符合条件，返回NULL；如果只有1个房间则直接返回这个房间的数组；如果有多个房间则返回多元素的数组
+//如果无符合条件，返回NULL；如果$roomid为ALL则返回多元素的数组，否则返回第一个找到的房间
 function fetch_roomdata($roomid, $roomstate=NULL){
 	eval(import_module('sys'));
 	$rdata = Array();
@@ -220,7 +220,7 @@ function fetch_roomdata($roomid, $roomstate=NULL){
 		$rdata[] = $rsingle;
 	}
 	if(!$rdata) return NULL;
-	elseif(1==sizeof($rdata)) return $rdata[0];
+	elseif('ALL' !== $roomid) return $rdata[0];
 	else return $rdata;
 }
 
