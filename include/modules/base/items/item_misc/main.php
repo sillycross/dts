@@ -117,13 +117,15 @@ namespace item_misc
 					$itms0=1;
 					$itmsk0='';
 					\itemmain\itemget();
-					for ($i=1;$i<=6;$i++){
-						if(!${'itms'.$i}) {
-							${'itm'.$i} = $tmp_itm; ${'itmk'.$i} = $tmp_itmk; ${'itmsk'.$i} = $tmp_itmsk;
-							${'itme'.$i} = $tmp_itme; ${'itms'.$i} = $tmp_itms;
-							break;
+					if(isset($tmp_itm)){
+						for ($i=1;$i<=6;$i++){
+							if(!${'itms'.$i}) {
+								${'itm'.$i} = $tmp_itm; ${'itmk'.$i} = $tmp_itmk; ${'itmsk'.$i} = $tmp_itmsk;
+								${'itme'.$i} = $tmp_itme; ${'itms'.$i} = $tmp_itms;
+								break;
+							}
 						}
-					}
+					}					
 				}
 				return;
 			}elseif ($itm == '『S.C.R.A.P』') {
