@@ -7,7 +7,7 @@ namespace skill323
 		define('MOD_SKILL323_INFO','achievement;');
 		define('MOD_SKILL323_ACHIEVEMENT_ID','23');
 		eval(import_module('achievement_base'));
-		$ach_allow_mode[323] = array(0, 16);
+		$ach_allow_mode[323] = array(0, 4, 16);
 	}
 	
 	function acquire323(&$pa)
