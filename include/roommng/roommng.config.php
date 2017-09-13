@@ -308,7 +308,7 @@ $roomtypelist = Array(
 		'without-ready' => true,//是否不需要点击“准备”就直接进入房间。
 		'without-valid' => true,//是否跳过加入游戏画面就直接进入房间。
 		'req-mod' => 'gtype17_tutorial',//暂时只是摆设
-		'pnum' => 999,	//最大参与人数，负数表示无限
+		'pnum' => 999,	//最大参与人数
 		'leader-position' => Array(	//各个编号位置的所属队伍队长位置
 			0 => 0,
 		),
@@ -322,6 +322,25 @@ $roomtypelist = Array(
 		'card' => array(
 			0 => '0',
 		)
+	),
+	8 => Array(
+		'name' => '<span class="yellow">高级模式</span>',
+		'gtype' => 18, //对应的游戏模式编号
+		'soleroom' => false,//唯一房间，只有不存在时才会新建房间。
+		'without-ready' => true,//是否不需要点击“准备”就直接进入房间。
+		'without-valid' => false,//是否跳过加入游戏画面就直接进入房间。
+		'req-mod' => 'gtype18_proud',//暂时只是摆设
+		'pnum' => 999,	//最大参与人数
+		'leader-position' => Array(	//各个编号位置的所属队伍队长位置
+			0 => 0,
+		),
+		'color' => Array(		//队伍颜色，只需对队长设置即可
+			0 => 'ff0022',
+		),
+		'teamID' => Array(	//队伍名，只需对队长设置即可
+			0 => '试炼者',
+		),
+		'show-team-leader' => 0,	//是否显示“队长”标签（如队伍大于1人设为1）
 	),
 );
 	

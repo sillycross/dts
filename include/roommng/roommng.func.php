@@ -471,26 +471,24 @@ function room_enter($id)
 		$wtablepre = $gtablepre.room_prefix_kind($room_prefix);
 		\sys\load_gameinfo();
 		$init_state = room_init_db_process($room_id); //\sys\room_auto_init();
-		if($roomtypelist[$rd['groomtype']]['soleroom']){//永续房特殊判定（目前是教程房特化）
-			$need_reset = $rd['groomstatus'] == 1 ? true : false;//未开始则启动房间
-			//以下教程房特殊设定，理论上应该单独切割出来
-			if(!($init_state & 4)){//读取最后有玩家行动的时间，如果超时则需要重置，防止房间各种记录飙得太长
-				//writeover('a.txt',50);
-				$result = $db->query("SELECT endtime FROM {$tablepre}players WHERE type=0 ORDER BY endtime DESC LIMIT 1");
-				if($db->num_rows($result)){
-					$lastendtime = $db->fetch_array($result)['endtime'];				
-					if($now - $lastendtime > $soleroom_resettime) $need_reset = 1;
-				}
+		$need_reset = $rd['groomstatus'] == 1 ? true : false;//未开始则启动房间
+		if($roomtypelist[$rd['groomtype']]['soleroom'] && !($init_state & 4)){//教程房特殊设定，读取最后有玩家行动的时间，如果超时则需要重置，防止房间各种记录飙得太长
+			$result = $db->query("SELECT endtime FROM {$tablepre}players WHERE type=0 ORDER BY endtime DESC LIMIT 1");
+			if($db->num_rows($result)){
+				$lastendtime = $db->fetch_array($result)['endtime'];				
+				if($now - $lastendtime > $soleroom_resettime) $need_reset = 1;
 			}
-			if($need_reset){	
-				//$db->query("UPDATE {$gtablepre}game SET groomstatus = 2 WHERE groomid = '$id'");
-				$groomstatus = 2;
-				$gamestate = 0;
-				$gametype = $roomtypelist[$rd['groomtype']]['gtype'];
-				$starttime = $now;
-				\sys\save_gameinfo(0);
-				\sys\routine();
-			}
+		}
+		if($need_reset){	
+			//$db->query("UPDATE {$gtablepre}game SET groomstatus = 2 WHERE groomid = '$id'");
+			$groomstatus = 2;
+			$gamestate = 0;
+			$gametype = $roomtypelist[$rd['groomtype']]['gtype'];
+			$starttime = $now;
+			\sys\save_gameinfo(0);
+			\sys\routine();
+		}
+		if($roomtypelist[$rd['groomtype']]['soleroom']){//继续永续房特殊判定（目前是教程房特化）
 			$pname = (string)$cuser;
 			$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username = '$pname' LIMIT 1");
 			$udata = $db->fetch_array($result);
