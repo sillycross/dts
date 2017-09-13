@@ -455,13 +455,11 @@ function room_enter($id)
 		gexit('房间'.$id.'缓存文件不存在',__file__,__line__);
 		die();
 	}
-	$header = 'index.php';
 	//$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$id.'.txt'),1);
 	$roomdata = gdecode($rd['roomvars'], 1);
 	//global $cuser;
 	global $roomtypelist, $gametype, $startime, $now, $room_prefix, $alivenum, $soleroom_resettime;
-	if($roomtypelist[$rd['groomtype']]['soleroom']){//永续房，绕过其他判断直接进房间
-		//以后得改改
+	if($roomtypelist[$rd['groomtype']]['without-ready']){//不需要点击准备的房间，要么直接加入，要么跳转加入画面
 		if ($disable_newgame || $disable_newroom) {
 			gexit('系统维护中，暂时不能加入房间',__file__,__line__);
 			die();
@@ -473,49 +471,54 @@ function room_enter($id)
 		$wtablepre = $gtablepre.room_prefix_kind($room_prefix);
 		\sys\load_gameinfo();
 		$init_state = room_init_db_process($room_id); //\sys\room_auto_init();
-		$need_reset = $rd['groomstatus'] == 1 ? true : false;//未开始则启动房间
-		//writeover('a.txt',$init_state);
-		if(!($init_state & 4)){//读取最后有玩家行动的时间，如果超时则需要重置，防止房间各种记录飙得太长
-			//writeover('a.txt',50);
-			$result = $db->query("SELECT endtime FROM {$tablepre}players WHERE type=0 ORDER BY endtime DESC LIMIT 1");
-			if($db->num_rows($result)){
-				$lastendtime = $db->fetch_array($result)['endtime'];				
-				if($now - $lastendtime > $soleroom_resettime) $need_reset = 1;
+		if($roomtypelist[$rd['groomtype']]['soleroom']){//永续房特殊判定（目前是教程房特化）
+			$need_reset = $rd['groomstatus'] == 1 ? true : false;//未开始则启动房间
+			//以下教程房特殊设定，理论上应该单独切割出来
+			if(!($init_state & 4)){//读取最后有玩家行动的时间，如果超时则需要重置，防止房间各种记录飙得太长
+				//writeover('a.txt',50);
+				$result = $db->query("SELECT endtime FROM {$tablepre}players WHERE type=0 ORDER BY endtime DESC LIMIT 1");
+				if($db->num_rows($result)){
+					$lastendtime = $db->fetch_array($result)['endtime'];				
+					if($now - $lastendtime > $soleroom_resettime) $need_reset = 1;
+				}
 			}
-		}
-		if($need_reset){	
-			//$db->query("UPDATE {$gtablepre}game SET groomstatus = 2 WHERE groomid = '$id'");
-			$groomstatus = 2;
-			$gamestate = 0;
-			$gametype = $roomtypelist[$rd['groomtype']]['gtype'];
-			$starttime = $now;
-			\sys\save_gameinfo(0);
-			\sys\routine();
-		}
-		$pname = (string)$cuser;
-		$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username = '$pname' LIMIT 1");
-		$udata = $db->fetch_array($result);
-		$result = $db->query("SELECT * FROM {$tablepre}players WHERE name = '$pname' AND type = 0");
-		if(!$db->num_rows($result)){//从未进入过则直接进入战场
-			include_once GAME_ROOT.'./include/valid.func.php';
-			enter_battlefield($udata['username'],$udata['password'],$udata['gender'],$udata['icon'],$pcard);
-		}else{//进过的话，离开超过1分钟则清空数据从头开始
-			$pdata = $db->fetch_array($result);
-			$ppid = $pdata['pid'];
-			$pendtime = $pdata['endtime'];
-			if($now - $pendtime > 60){
-				$db->query("DELETE FROM {$tablepre}players WHERE name = '$pname' AND type = 0");
-				$db->query("DELETE FROM {$tablepre}players WHERE type>0 AND teamID = '$ppid'");
-				$alivenum --;
+			if($need_reset){	
+				//$db->query("UPDATE {$gtablepre}game SET groomstatus = 2 WHERE groomid = '$id'");
+				$groomstatus = 2;
+				$gamestate = 0;
+				$gametype = $roomtypelist[$rd['groomtype']]['gtype'];
+				$starttime = $now;
+				\sys\save_gameinfo(0);
+				\sys\routine();
+			}
+			$pname = (string)$cuser;
+			$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username = '$pname' LIMIT 1");
+			$udata = $db->fetch_array($result);
+			$result = $db->query("SELECT * FROM {$tablepre}players WHERE name = '$pname' AND type = 0");
+			if(!$db->num_rows($result)){//从未进入过则直接进入战场
 				include_once GAME_ROOT.'./include/valid.func.php';
 				enter_battlefield($udata['username'],$udata['password'],$udata['gender'],$udata['icon'],$pcard);
+			}else{//进过的话，离开超过1分钟则清空数据从头开始
+				$pdata = $db->fetch_array($result);
+				$ppid = $pdata['pid'];
+				$pendtime = $pdata['endtime'];
+				if($now - $pendtime > 60){
+					$db->query("DELETE FROM {$tablepre}players WHERE name = '$pname' AND type = 0");
+					$db->query("DELETE FROM {$tablepre}players WHERE type>0 AND teamID = '$ppid'");
+					$alivenum --;
+					include_once GAME_ROOT.'./include/valid.func.php';
+					enter_battlefield($udata['username'],$udata['password'],$udata['gender'],$udata['icon'],$pcard);
+				}
 			}
 		}
 		$header = 'game.php';
+	}else{
+		//需要准备的房间，只是加入房间准备页面
+		room_new_chat($roomdata,"<span class=\"grey\">{$cuser}进入了房间</span><br>");
+		room_save_broadcast($id,$roomdata);
+		$header = 'index.php';
 	}
-	room_new_chat($roomdata,"<span class=\"grey\">{$cuser}进入了房间</span><br>");
 	$db->query("UPDATE {$gtablepre}users SET roomid = '{$id}' WHERE username = '$cuser'");
-	room_save_broadcast($id,$roomdata);
 	header('Location: '.$header);
 	die();
 }
