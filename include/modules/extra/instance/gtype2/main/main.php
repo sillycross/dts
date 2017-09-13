@@ -18,14 +18,11 @@ namespace gtype2
 		if ($db->num_rows($res)){
 			$zz=$db->fetch_array($res); $gt=$zz['gametype'];
 		}
-		if ($wday==5){
+		if ($wday==5 && !$disable_event){
 			if (($hour>=19)&&($hour<21)&&($gt!=2)){ 
 				$gametype=2;
-			}else{
-				$gametype=0;
 			}
 		}
- 		if ($disable_event) $gametype=0; 
 		$chprocess();
 	}
 	

@@ -19,14 +19,11 @@ namespace gtype3
 		if ($db->num_rows($res)){
 			$zz=$db->fetch_array($res); $gt=$zz['gametype'];
 		}
-		if ($wday==0){
+		if ($wday==0 && !$disable_event){
  			if (($hour>=20)&&($hour<23)&&($gt!=3)){ 
  				$gametype=3;
- 			}else{
- 				$gametype=0;
  			}
  		}
- 		if ($disable_event) $gametype=0; 
 		$chprocess();
 	}
 	
