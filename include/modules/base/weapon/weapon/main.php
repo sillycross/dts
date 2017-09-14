@@ -135,6 +135,7 @@ namespace weapon
 		$pa['fin_att']=get_att($pa,$pd,$active)*get_att_multiplier($pa,$pd,$active);
 		$pd['fin_def']=get_def($pa,$pd,$active)*get_def_multiplier($pa,$pd,$active);
 		$att_pow=$pa['fin_att']; $def_pow=$pd['fin_def']; $ws=$pa['fin_skill']; $wp_kind=$pa['wep_kind'];
+		if($def_pow <= 0) $def_pow = 1;
 		$damage = ($att_pow/$def_pow)*$ws*$skill_dmg[$wp_kind];
 		$fluc = get_weapon_fluc_percentage($pa, $pd, $active);
 		$dmg_factor = (100+$fluc)/100;
