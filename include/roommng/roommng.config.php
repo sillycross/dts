@@ -18,6 +18,7 @@ $roomtypelist = Array(
 	0 => Array(
 		'name' => 'SOLO模式',
 		'gtype' => 10, //对应的游戏模式编号
+		'available' => true,
 		'soleroom' => false,//唯一房间，只有不存在时才会新建房间。
 		'without-ready' => false,//是否不需要点击“准备”就直接进入房间。
 		'without-valid' => false,//是否跳过加入游戏画面就直接进入房间。
@@ -59,6 +60,7 @@ $roomtypelist = Array(
 	1 => Array(
 		'name' => '二队模式',
 		'gtype' => 11, //对应的游戏模式编号
+		'available' => true,
 		'soleroom' => false,//唯一房间，只有不存在时才会新建房间。
 		'without-ready' => false,//是否不需要点击“准备”就直接进入房间。
 		'without-valid' => false,//是否跳过加入游戏画面就直接进入房间。
@@ -110,6 +112,7 @@ $roomtypelist = Array(
 	2 => Array(
 		'name' => '三队模式',
 		'gtype' => 12, //对应的游戏模式编号
+		'available' => true,
 		'soleroom' => false,//唯一房间，只有不存在时才会新建房间。
 		'without-ready' => false,//是否不需要点击“准备”就直接进入房间。
 		'without-valid' => false,//是否跳过加入游戏画面就直接进入房间。
@@ -146,6 +149,7 @@ $roomtypelist = Array(
 	3 => Array(
 		'name' => '四队模式',
 		'gtype' => 13, //对应的游戏模式编号
+		'available' => true,
 		'soleroom' => false,//唯一房间，只有不存在时才会新建房间。
 		'without-ready' => false,//是否不需要点击“准备”就直接进入房间。
 		'without-valid' => false,//是否跳过加入游戏画面就直接进入房间。
@@ -189,6 +193,7 @@ $roomtypelist = Array(
 	4 => Array(
 		'name' => '五队模式',
 		'gtype' => 14, //对应的游戏模式编号
+		'available' => true,
 		'soleroom' => false,//唯一房间，只有不存在时才会新建房间。
 		'without-ready' => false,//是否不需要点击“准备”就直接进入房间。
 		'without-valid' => false,//是否跳过加入游戏画面就直接进入房间。
@@ -239,6 +244,7 @@ $roomtypelist = Array(
 	5 => Array(
 		'name' => '<span class="yellow">伐木挑战</span>',
 		'gtype' => 15, //对应的游戏模式编号
+		'available' => true,
 		'soleroom' => false,//唯一房间，只有不存在时才会新建房间。
 		'without-ready' => false,//是否不需要点击“准备”就直接进入房间。
 		'without-valid' => false,//是否跳过加入游戏画面就直接进入房间。
@@ -277,8 +283,9 @@ $roomtypelist = Array(
 		)
 	),
 	6 => Array(
-		'name' => '<span class="green">PVE</span> 解离模式',
+		'name' => '<span class="green">PVE 解离模式</span>',
 		'gtype' => 16, //对应的游戏模式编号
+		'available' => true,
 		'soleroom' => false,//唯一房间，只有不存在时才会新建房间。
 		'without-ready' => false,//是否不需要点击“准备”就直接进入房间。
 		'without-valid' => false,//是否跳过加入游戏画面就直接进入房间。
@@ -304,6 +311,7 @@ $roomtypelist = Array(
 	7 => Array(//教程模式为唯一房间
 		'name' => '<span class="red">教程模式</span>',
 		'gtype' => 17, //对应的游戏模式编号
+		'available' => true,
 		'soleroom' => true,//唯一房间，只有不存在时才会新建房间。
 		'without-ready' => true,//是否不需要点击“准备”就直接进入房间。
 		'without-valid' => true,//是否跳过加入游戏画面就直接进入房间。
@@ -326,6 +334,7 @@ $roomtypelist = Array(
 	8 => Array(
 		'name' => '<span class="yellow">高级模式</span>',
 		'gtype' => 18, //对应的游戏模式编号
+		'available' => false,
 		'soleroom' => false,//唯一房间，只有不存在时才会新建房间。
 		'without-ready' => true,//是否不需要点击“准备”就直接进入房间。
 		'without-valid' => false,//是否跳过加入游戏画面就直接进入房间。

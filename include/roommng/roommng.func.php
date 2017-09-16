@@ -333,7 +333,9 @@ function room_create($roomtype)
 	$roomtype=(int)$roomtype;
 	if ($roomtype>=count($roomtypelist)){
 		gexit('房间参数错误',__file__,__line__);
-		die();
+	}
+	elseif(!$roomtypelist[$roomtype]['available']){
+		gexit('该房间类型暂不能使用',__file__,__line__);
 	}
 	$rchoice = -1;
 	$rsetting = $roomtypelist[$roomtype];
