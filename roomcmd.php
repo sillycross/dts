@@ -432,7 +432,7 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 		die();
 	}
 	
-	elseif ($command=='ready' && !$not_ready_command_flag)
+	elseif ('ready' == $command && !$not_ready_command_flag)
 	{
 		if($disable_newgame || $disable_newroom)
 		{
@@ -446,7 +446,7 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 //			if (!$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']==$cuser)
 //				$upos = $i;
 		
-		if ($upos>=0 && $roomdata['roomstat']==1 && !$rdplist[$upos]['ready'])
+		if ($upos>=0 && $roomdata['roomstat']==1 && !$rdplist[$upos]['ready'] && !room_get_vars($roomdata,'without-ready'))
 		{
 			$rdplist[$upos]['ready']=1;
 			$flag=1;
@@ -467,7 +467,7 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 				//开始游戏，并设置好游戏模式类型（2v2和3v3为队伍胜利模式）
 				//$gametype = 10 + $roomdata['roomtype'];
 				$gamestate = 0;
-				$gametype = $roomtypelist[$roomdata['roomtype']]['gtype'];//hao蠢
+				$gametype = room_get_vars($roomdata,'gtype');//$roomtypelist[$roomdata['roomtype']]['gtype'];//hao蠢
 				$starttime = $now;
 				save_gameinfo();
 				\sys\routine();
@@ -535,6 +535,33 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 			}
 		}
 	die();
+	}
+	
+	elseif('start' == $command){
+		if($disable_newgame || $disable_newroom)
+		{
+			$db->query("UPDATE {$gtablepre}users SET roomid='0' WHERE username='$cuser'");
+			gexit('系统维护中，暂时不能进入房间。');
+		}
+		$upos = room_upos_check($roomdata);
+		$rdplist = & room_get_vars($roomdata, 'player');
+		$rdpnum = room_get_vars($roomdata, 'pnum');
+		//只有房主可以启动不需要准备的模式的房间的游戏
+		if ($upos==0 && room_get_vars($roomdata,'without-ready'))
+		{
+			$gamestate = 0;
+			$gametype = room_get_vars($roomdata,'gtype');
+			$starttime = $now;
+			save_gameinfo();
+			\sys\routine();
+			$roomdata['roomstat']=2;
+			room_save_broadcast($room_id_r,$roomdata);
+			$db->query("UPDATE {$gtablepre}game SET groomstatus=2 WHERE groomid='$room_id_r'");
+			$roomdata['roomstat']=0;
+			$roomdata['timestamp']++;
+			$roomdata['chatdata']=room_init($roomdata['roomtype'])['chatdata'];
+			room_save_broadcast($room_id_r,$roomdata);
+		}
 	}
 }
 

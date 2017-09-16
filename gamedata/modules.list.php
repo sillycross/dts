@@ -70,6 +70,7 @@ enemy,base/enemy/,1
 gameflow_duel,core/gameflow/gameflow_duel/,1
 skill19,extra/club/skills/skill19/,1
 skill22,extra/club/skills/skill22/,1
+instance8,extra/instance/instance8_proud/,1
 autopower,extra/misc/autopower/,1
 skill601,extra/club/skills/skill601/,1
 team,base/team/,1

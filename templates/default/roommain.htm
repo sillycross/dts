@@ -23,19 +23,31 @@
 	{template roomteam}
 	</td>
 	<td class="b3" width=85px>
-	<!--{if $roomdata['roomstat']==1 && $upos>=0 && !$roomdata['player'][$upos]['ready']}-->
-	<!--{eval glowbutton\glowbutton_set_style('id:room-ready;color:ffff00;clickable:1;max-text-width:30;line-height:50;margin-y:0;');}-->
-	<!--{eval glowbutton\glowbutton_set_mousedown_event("$('command').value='ready';postCmd('roomcmd','roomcmd.php');");}-->
+	<!--{if room_get_vars($roomdata,'without-ready')}-->
+		<!--{if $upos==0}-->
+			<!--{eval glowbutton\glowbutton_set_style('id:room-ready;color:ffff00;clickable:1;max-text-width:30;line-height:50;margin-y:0;');}-->
+			<!--{eval glowbutton\glowbutton_set_mousedown_event("$('command').value='start';postCmd('roomcmd','roomcmd.php');");}-->
+		<!--{else}-->
+			<!--{eval glowbutton\glowbutton_set_style('id:room-ready;color:888888;clickable:0;glow-on-hover:0;max-text-width:30;line-height:50;margin-y:0;');}-->
+		<!--{/if}-->
+		{template MOD_GLOWBUTTON_START}
+			开始
+		{template MOD_GLOWBUTTON_END}
 	<!--{else}-->
-	<!--{if $roomdata['roomstat']==1 && $upos>=0 && $roomdata['player'][$upos]['ready']}-->
-	<!--{eval glowbutton\glowbutton_set_style('id:room-ready;color:00ff00;clickable:0;glow-on-hover:0;max-text-width:30;line-height:50;margin-y:0;');}-->
-	<!--{else}-->
-	<!--{eval glowbutton\glowbutton_set_style('id:room-ready;color:888888;clickable:0;glow-on-hover:0;max-text-width:30;line-height:50;margin-y:0;');}-->
+		<!--{if $roomdata['roomstat']==1 && $upos>=0 && !$roomdata['player'][$upos]['ready']}-->
+			<!--{eval glowbutton\glowbutton_set_style('id:room-ready;color:ffff00;clickable:1;max-text-width:30;line-height:50;margin-y:0;');}-->
+			<!--{eval glowbutton\glowbutton_set_mousedown_event("$('command').value='ready';postCmd('roomcmd','roomcmd.php');");}-->
+		<!--{else}-->
+			<!--{if $roomdata['roomstat']==1 && $upos>=0 && $roomdata['player'][$upos]['ready']}-->
+				<!--{eval glowbutton\glowbutton_set_style('id:room-ready;color:00ff00;clickable:0;glow-on-hover:0;max-text-width:30;line-height:50;margin-y:0;');}-->
+			<!--{else}-->
+				<!--{eval glowbutton\glowbutton_set_style('id:room-ready;color:888888;clickable:0;glow-on-hover:0;max-text-width:30;line-height:50;margin-y:0;');}-->
+			<!--{/if}-->
+		<!--{/if}-->
+		{template MOD_GLOWBUTTON_START}
+			准备
+		{template MOD_GLOWBUTTON_END}
 	<!--{/if}-->
-	<!--{/if}-->
-	{template MOD_GLOWBUTTON_START}
-	准备
-	{template MOD_GLOWBUTTON_END}
 	</td>
 </tr>
 <tr>

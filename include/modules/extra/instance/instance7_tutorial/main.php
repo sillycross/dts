@@ -8,38 +8,42 @@ namespace instance7
 	function get_npclist(){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		eval(import_module('sys','map','instance7'));
-		if ($gametype!=17) return $chprocess();		
-		return $npcinfo_instance7;
+		if (17 == $gametype){
+			return $npcinfo_instance7;
+		}else return $chprocess();
 	}
 	
 	//教程房特殊的shopitem.config
 	function get_shoplist(){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		eval(import_module('sys'));
-		if ($gametype!=17) return $chprocess();		
-		$file = __DIR__.'/config/shopitem.config.php';
-		$l = openfile($file);
-		return $l;
+		if (17 == $gametype){
+			$file = __DIR__.'/config/shopitem.config.php';
+			$l = openfile($file);
+			return $l;
+		}else return $chprocess();
 	}
 	
 	//教程房特殊的mapitem.config
 	function get_itemfilecont(){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		eval(import_module('sys'));
-		if ($gametype!=17) return $chprocess();
-		$file = __DIR__.'/config/mapitem.config.php';
-		$l = openfile($file);
-		return $l;
+		if (17 == $gametype){
+			$file = __DIR__.'/config/mapitem.config.php';
+			$l = openfile($file);
+			return $l;
+		}else return $chprocess();
 	}
 	
 	//教程房特殊的trapitem.config
 	function get_trapfilecont(){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		eval(import_module('sys'));
-		if ($gametype!=17) return $chprocess();
-		$file = __DIR__.'/config/trapitem.config.php';
-		$l = openfile($file);
-		return $l;
+		if (17 == $gametype){
+			$file = __DIR__.'/config/trapitem.config.php';
+			$l = openfile($file);
+			return $l;
+		}else return $chprocess();
 	}
 	
 	//待调整
