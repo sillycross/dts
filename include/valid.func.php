@@ -189,6 +189,10 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 		}
 	}
 	
+	if(18==$gametype && defined('MOD_SKILL1001')){//高级模式在这里追加入场技能。感觉应该改改架构的。
+		\skillbase\skill_acquire(1001,$pp);
+	}
+	
 	\player\post_enterbattlefield_events($pp);
 	
 	\player\player_save($pp);
