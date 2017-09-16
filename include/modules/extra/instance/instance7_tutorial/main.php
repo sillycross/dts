@@ -1,15 +1,15 @@
 <?php
 
-namespace gtype17
+namespace instance7
 {
 	function init() {}
 
 	//教程房特殊的npcinfo
 	function get_npclist(){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
-		eval(import_module('sys','map','gtype17'));
+		eval(import_module('sys','map','instance7'));
 		if ($gametype!=17) return $chprocess();		
-		return $npcinfo_gtype17;
+		return $npcinfo_instance7;
 	}
 	
 	//教程房特殊的shopitem.config

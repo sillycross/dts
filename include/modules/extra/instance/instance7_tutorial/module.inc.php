@@ -1,6 +1,6 @@
 <?php
 
-namespace gtype17
+namespace instance7
 {
 	////////// MODULE HEADER START ///////////////
 	$___MODULE_dependency = 'sys player logger gameflow_combo map itemshop itemmain trap npc';

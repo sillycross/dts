@@ -3,7 +3,7 @@
 namespace skill1000
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'sys player skillbase gtype17 cardbase';
+	$___MODULE_dependency = 'sys player skillbase instance7 cardbase';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

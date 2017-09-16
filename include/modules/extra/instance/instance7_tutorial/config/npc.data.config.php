@@ -1,8 +1,8 @@
 <?php
 
-namespace gtype17
+namespace instance7
 {
-	$npcinfo_gtype17 = array
+	$npcinfo_instance7 = array
 		( 
 		9 => array
 			(

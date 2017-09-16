@@ -488,7 +488,7 @@ function room_enter($id)
 			\sys\save_gameinfo(0);
 			\sys\routine();
 		}
-		if($roomtypelist[$rd['groomtype']]['soleroom']){//继续永续房特殊判定（目前是教程房特化）
+		if($roomtypelist[$rd['groomtype']]['without-valid']){//如果直接进入房间，在这里处理
 			$pname = (string)$cuser;
 			$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username = '$pname' LIMIT 1");
 			$udata = $db->fetch_array($result);
@@ -496,7 +496,7 @@ function room_enter($id)
 			if(!$db->num_rows($result)){//从未进入过则直接进入战场
 				include_once GAME_ROOT.'./include/valid.func.php';
 				enter_battlefield($udata['username'],$udata['password'],$udata['gender'],$udata['icon'],$pcard);
-			}else{//进过的话，离开超过1分钟则清空数据从头开始
+			}elseif($roomtypelist[$rd['groomtype']]['soleroom']){//教程房特判，离开超过1分钟则清空数据从头开始
 				$pdata = $db->fetch_array($result);
 				$ppid = $pdata['pid'];
 				$pendtime = $pdata['endtime'];
