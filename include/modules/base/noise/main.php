@@ -3,12 +3,12 @@
 namespace noise
 {
 	function init() {
-		global $noisetime, $noisepls, $noiseid, $noiseid2, $noisemode, $noisevars;
-		$noisetime = $noisevars['noisetime'];
-		$noisepls = $noisevars['noisepls'];
-		$noiseid = $noisevars['noiseid'];
-		$noiseid2 = $noisevars['noiseid2'];
-		$noisemode = $noisevars['noisemode'];
+		global $noisetime, $noisepls, $noiseid, $noiseid2, $noisemode;
+//		$noisetime = $noisevars['noisetime'];
+//		$noisepls = $noisevars['noisepls'];
+//		$noiseid = $noisevars['noiseid'];
+//		$noiseid2 = $noisevars['noiseid2'];
+//		$noisemode = $noisevars['noisemode'];
 	}
 	
 	function pre_act(){
