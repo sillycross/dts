@@ -1011,7 +1011,9 @@ function merge_contents_calc($modid)
 						for($i=0;$i<$im;$i++){
 							$tmp_im_thiscont[$i] = trim($tmp_im_thiscont[$i]);
 						}
+						$tmp_input_flag = in_array("'input'", $tmp_im_thiscont) ? 1 : 0; //input模块必须保留
 						$tmp_im_thiscont = array_diff($tmp_im_thiscont, $im_diff_arr);
+						if($tmp_input_flag) $tmp_im_thiscont[] = "'input'";
 						if(!empty($tmp_im_thiscont)){
 							$tmp_im_ret .= $ret_a . $ret_b . $ret_c . implode(',', $tmp_im_thiscont);
 							$tmp_im_subject = $ret_e;	

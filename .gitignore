@@ -17,6 +17,6 @@ gamedata/gameinfo.php
 gamedata/tmp/*.*
 query_log.txt
 *.lock
+tool*.php
 gamedata/cache/
 templates/default/mixhelp.htm
-include/modulemng/modulemng.codeadv2.func - 副本.php

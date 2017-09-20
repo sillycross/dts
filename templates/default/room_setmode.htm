@@ -13,7 +13,9 @@
 	<span style="display:block; height:5px;">&nbsp;</span>
 	<input type="button" class="cmdbutton" name="submit" value="提交" onclick="$('command').value='rmsetmode';
 	<!--{loop $roomtypelist $i $value}-->
-	if ($('type$i').checked) $('para1').value=$i; 
+		<!--{if $value['available']}-->
+		if ($('type$i').checked) $('para1').value=$i; 
+		<!--{/if}-->
 	<!--{/loop}-->
 	postCmd('roomcmd','roomcmd.php'); 
 	this.disabled=true; sleep(1000); this.disabled=false; bubblebox_show('persistent-roommain');">

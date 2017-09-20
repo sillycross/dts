@@ -3,7 +3,7 @@
 namespace noise
 {
 	function init() {
-		global $noisetime, $noisepls, $noiseid, $noiseid2, $noisemode;
+		global $noisetime, $noisepls, $noiseid, $noiseid2, $noisemode, $noisevars;
 		$noisetime = $noisevars['noisetime'];
 		$noisepls = $noisevars['noisepls'];
 		$noiseid = $noisevars['noiseid'];

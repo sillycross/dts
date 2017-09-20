@@ -13,7 +13,9 @@
 	<span style="display:block; height:5px;">&nbsp;</span>
 	<input type="button" class="cmdbutton" name="submit" value="提交" onclick="
 	<!--{loop $roomtypelist $i $value}-->
-	if ($('type$i').checked) rtype=$i; 
+		<!--{if $value['available']}-->
+		if ($('type$i').checked) rtype=$i; 
+		<!--{/if}-->
 	<!--{/loop}-->
 	window.location.href='roomcmd.php?command=newroom&para1='+rtype;
 	this.disabled=true;">

@@ -28,6 +28,7 @@ elseif('load' == $_GET['cmd']){
 		$v = json_decode(trim($v),1);
 		$id = $v['uid'];
 		unset($v['uid']);
+		if(isset($v['alt_pswd'])) $v['alt_pswd'] = 0;
 		$rr = $db->array_update("{$gtablepre}users", $v, "uid='$id'");
 		if($rr) $i ++;
 	}
