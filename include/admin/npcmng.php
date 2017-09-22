@@ -116,15 +116,34 @@ if($command == 'kill' || $command == 'live' || $command == 'del') {
 	}else{
 		$result = $db->query("SELECT * FROM {$tablepre}players WHERE pid='$pid' AND type>'0'");
 		$npc = $db->fetch_array($result);
-
 		if(!$npc) {
 			$cmd_info = "找不到角色 ".$npcdata[$no]['name']." 。";
 		}else{
 			$command = 'check';
 		}
+		\skillbase\skillbase_load($npc);
+		$npc['acquired_list'] = array_keys($npc['acquired_list']);
+		$npc['skillv'] = json_encode($npc['acquired_list']);
+		$npc['skillparav'] = json_encode($npc['parameter_list']);
 	}
 } elseif($command == 'submitedit') {
-	$db->query("UPDATE {$tablepre}players SET gd='$gd',icon='$icon',club='$club',sNo='$sNo',hp='$hp',mhp='$mhp',sp='$sp',msp='$msp',att='$att',def='$def',pls='$pls',lvl='$lvl',exp='$exp',money='$money',bid='$bid',inf='$inf',rage='$rage',pose='$pose',tactic='$tactic',killnum='$killnum',wp='$wp',wk='$wk',wg='$wg',wc='$wc',wd='$wd',wf='$wf',teamID='$teamID',teamPass='$teamPass',wep='$wep',wepk='$wepk',wepe='$wepe',weps='$weps',wepsk='$wepsk',arb='$arb',arbk='$arbk',arbe='$arbe',arbs='$arbs',arbsk='$arbsk',arh='$arh',arhk='$arhk',arhe='$arhe',arhs='$arhs',arhsk='$arhsk',ara='$ara',arak='$arak',arae='$arae',aras='$aras',arask='$arask',arf='$arf',arfk='$arfk',arfe='$arfe',arfs='$arfs',arfsk='$arfsk',art='$art',artk='$artk',arte='$arte',arts='$arts',artsk='$artsk',itm0='$itm0',itmk0='$itmk0',itme0='$itme0',itms0='$itms0',itmsk0='$itmsk0',itm1='$itm1',itmk1='$itmk1',itme1='$itme1',itms1='$itms1',itmsk1='$itmsk1',itm2='$itm2',itmk2='$itmk2',itme2='$itme2',itms2='$itms2',itmsk2='$itmsk2',itm3='$itm3',itmk3='$itmk3',itme3='$itme3',itms3='$itms3',itmsk3='$itmsk3',itm4='$itm4',itmk4='$itmk4',itme4='$itme4',itms4='$itms4',itmsk4='$itmsk4',itm5='$itm5',itmk5='$itmk5',itme5='$itme5',itms5='$itms5',itmsk5='$itmsk5',itm6='$itm6',itmk6='$itmk6',itme6='$itme6',itms6='$itms6',itmsk6='$itmsk6' where pid='$pid'");
+	$pfields = array('gd','icon','club','sNo','hp','mhp','sp','msp','att','def','pls','lvl','exp','money','bid','inf','rage','pose','tactic','killnum','wp','wk','wg','wc','wd','wf','teamID','teamPass','wep','wepk','wepe','weps','wepsk','arb','arbk','arbe','arbs','arbsk','arh','arhk','arhe','arhs','arhsk','ara','arak','arae','aras','arask','arf','arfk','arfe','arfs','arfsk','art','artk','arte','arts','artsk','itm0','itmk0','itme0','itms0','itmsk0','itm1','itmk1','itme1','itms1','itmsk1','itm2','itmk2','itme2','itms2','itmsk2','itm3','itmk3','itme3','itms3','itmsk3','itm4','itmk4','itme4','itms4','itmsk4','itm5','itmk5','itme5','itms5','itmsk5','itm6','itmk6','itme6','itms6','itmsk6');
+	$npc = array();
+	foreach($pfields as $pfv){
+		$npc[$pfv] = $$pfv;
+	}
+	$skillv = json_decode(htmlspecialchars_decode($skillv),1);
+	if(!$skillv) $skillv = array();
+	$skillv2 = array();
+	foreach($skillv as $skkey){
+		$skillv2[$skkey] = 1;
+	}
+	$skillparav = json_decode(htmlspecialchars_decode($skillparav),1);
+	if(!$skillparav) $skillparav = array();
+	list($npc['nskill'], $npc['nskillpara']) = \skillbase\skillbase_save_process($skillv2, $skillparav);
+	unset($npc['acquired_list'], $npc['parameter_list']);
+	$db->array_update("{$tablepre}players", $npc, "pid='$pid'");
+	//$db->query("UPDATE {$tablepre}players SET gd='$gd',icon='$icon',club='$club',sNo='$sNo',hp='$hp',mhp='$mhp',sp='$sp',msp='$msp',att='$att',def='$def',pls='$pls',lvl='$lvl',exp='$exp',money='$money',bid='$bid',inf='$inf',rage='$rage',pose='$pose',tactic='$tactic',killnum='$killnum',wp='$wp',wk='$wk',wg='$wg',wc='$wc',wd='$wd',wf='$wf',teamID='$teamID',teamPass='$teamPass',wep='$wep',wepk='$wepk',wepe='$wepe',weps='$weps',wepsk='$wepsk',arb='$arb',arbk='$arbk',arbe='$arbe',arbs='$arbs',arbsk='$arbsk',arh='$arh',arhk='$arhk',arhe='$arhe',arhs='$arhs',arhsk='$arhsk',ara='$ara',arak='$arak',arae='$arae',aras='$aras',arask='$arask',arf='$arf',arfk='$arfk',arfe='$arfe',arfs='$arfs',arfsk='$arfsk',art='$art',artk='$artk',arte='$arte',arts='$arts',artsk='$artsk',itm0='$itm0',itmk0='$itmk0',itme0='$itme0',itms0='$itms0',itmsk0='$itmsk0',itm1='$itm1',itmk1='$itmk1',itme1='$itme1',itms1='$itms1',itmsk1='$itmsk1',itm2='$itm2',itmk2='$itmk2',itme2='$itme2',itms2='$itms2',itmsk2='$itmsk2',itm3='$itm3',itmk3='$itmk3',itme3='$itme3',itms3='$itms3',itmsk3='$itmsk3',itm4='$itm4',itmk4='$itmk4',itme4='$itme4',itms4='$itms4',itmsk4='$itmsk4',itm5='$itm5',itmk5='$itmk5',itme5='$itme5',itms5='$itms5',itmsk5='$itmsk5',itm6='$itm6',itmk6='$itmk6',itme6='$itme6',itms6='$itms6',itmsk6='$itmsk6' where pid='$pid'");
 	if(!$db->affected_rows()){
 		$cmd_info = "无法修改角色 $name";
 	} else {

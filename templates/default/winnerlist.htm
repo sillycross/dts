@@ -49,7 +49,15 @@
 		<!--{loop $winfo $gid $info}-->
 		<TR height="40">
 			<TD class="b2"><span>$gid</span></TD>
-			<TD class="b3"><span>$gtinfo[$info['gametype']]</span></TD>
+			<TD class="b3">
+				<span>
+					<!--{if strpos($gameurl,'dianbo')!==false && $gid <= 41956 && $gid >= 26398 && !$info['gametype']}-->
+						$gtinfo[4]
+					<!--{else}-->
+						$gtinfo[$info['gametype']]
+					<!--{/if}-->
+				</span>
+			</TD>
 			<TD class="b3"><span><!--{if $info['winnum']>1}-->团队幸存<!--{else}-->$gwin[$info['wmode']]<!--{/if}--></span></TD>
 			<TD class="b3"><span>$info['date']</span><br><span>$info['time']</span></TD>
 			<TD class="b3"><span>$info['vnum']</span></TD>

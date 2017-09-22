@@ -262,6 +262,18 @@
 			<td>子类型</td>
 			<td><input size="20" type="text" name="itmsk6" value="{$npc['itmsk6']}" maxlength="20"></td>
 		</tr>
+		<tr>
+			<td>技能</td>
+			<td>
+				<textarea cols="20" rows="4" style="overflow:auto" name="skillv">{$npc['skillv']}</textarea>
+			</td>
+			<td>技能参数</td>
+			<td>
+				<textarea cols="20" rows="4" style="overflow:auto" name="skillparav">{$npc['skillparav']}</textarea>
+			</td>
+			<td></td>
+			<td></td>
+		</tr>
 	</table>
 	<input type="submit" value="修改NPC数值" onclick="$('command').value = 'submitedit'">
 </form> 

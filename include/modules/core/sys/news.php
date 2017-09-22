@@ -122,7 +122,8 @@ namespace sys
 			}
 			$exarr = parse_news_prepare($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e);
 			//一般消息
-			$newslist['nid'.$nid] = parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
+			$tmp_np = parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
+			if($tmp_np) $newslist['nid'.$nid] = $tmp_np;
 		}
 		//if(16777215 == $range){logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-拉取全部消息'.debug_backtrace()[1]['function']);}
 		//rsort($newslist);

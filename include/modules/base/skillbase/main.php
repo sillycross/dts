@@ -70,17 +70,7 @@ namespace skillbase
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player'));
 		
-		$ac_list=Array();
-		if (strlen($pa['nskill'])%2!=0) throw new Exception('bad nskill value '.$pa['nskill']);
-		for ($i=0; $i<strlen($pa['nskill'])/2; $i++)
-		{
-			$c=b64_conv_to_value($pa['nskill'][$i*2])*64+b64_conv_to_value($pa['nskill'][$i*2+1]);
-			$ac_list[$c]=1;
-		}
-		
-		$pa['acquired_list']=$ac_list;
-		//if(!isset($pa['nskillpara'])) echo debug_backtrace()[0]['function'],' ',debug_backtrace()[1]['function'];
-		$pa['parameter_list']=parse_skill_parameter_data($pa['nskillpara']);
+		list($pa['acquired_list'], $pa['parameter_list']) = skillbase_load_process($pa['nskill'], $pa['nskillpara']);
 		
 		if ($pa['pid']==$pid)
 		{
@@ -90,6 +80,18 @@ namespace skillbase
 		}
 		
 		skill_onload_event($pa);
+	}
+	
+	function skillbase_load_process($ss, $sps){
+		$ac_list=Array();
+		if (strlen($ss)%2!=0) throw new Exception('bad nskill value '.$ss);
+		for ($i=0; $i<strlen($ss)/2; $i++)
+		{
+			$c=b64_conv_to_value($ss[$i*2])*64+b64_conv_to_value($ss[$i*2+1]);
+			$ac_list[$c]=1;
+		}
+		$para_list = parse_skill_parameter_data($sps);
+		return array($ac_list, $para_list);
 	}
 	
 	function skill_onload_event(&$pa)
@@ -115,8 +117,21 @@ namespace skillbase
 			$para_list=$pa['parameter_list'];
 		}
 		
+		list($ns, $pl) = skillbase_save_process($ac_list, $para_list);
+		
+		if ($pa['pid']==$pid)
+		{
+			$nskill=$ns;
+			$nskillpara=$pl;
+		}
+
+		$pa['nskill']=$ns;
+		$pa['nskillpara']=$pl;
+	}
+	
+	function skillbase_save_process($sa, $spa){
 		$ns='';
-		foreach ($ac_list as $skillkey => $skillvalue)
+		foreach ($sa as $skillkey => $skillvalue)
 		{
 			if ($skillvalue == 1)
 			{
@@ -127,19 +142,11 @@ namespace skillbase
 		}
 		
 		$pl='';
-		foreach ($para_list as $skillkey => $skillvalue)
+		foreach ($spa as $skillkey => $skillvalue)
 		{
 			$pl.=base64_encode($skillkey).','.base64_encode($skillvalue).',';
 		}
-		
-		if ($pa['pid']==$pid)
-		{
-			$nskill=$ns;
-			$nskillpara=$pl;
-		}
-
-		$pa['nskill']=$ns;
-		$pa['nskillpara']=$pl;
+		return array($ns, $pl);
 	}
 	
 	function skill_onsave_event(&$pa)
