@@ -41,7 +41,7 @@ namespace sys
 		//清空临时文件夹
 		clear_dir(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/',1);
 		global $___MOD_TMP_FILE_DIRECTORY;
-		clear_dir($___MOD_TMP_FILE_DIRECTORY.$room_prefix.'_/',1);
+		clear_dir($___MOD_TMP_FILE_DIRECTORY.$room_id.'_/',1);
 	}
 	
 	function reset_gametype(){

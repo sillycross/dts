@@ -6,17 +6,25 @@ namespace cardbase
 
 	function get_user_cards($username){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player'));
+		eval(import_module('sys'));
 		$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$username'");
 		$udata = $db->fetch_array($result);
-		if ($udata['cardlist']=="")
-		{
-			$udata['cardlist']="0";
-			$db->query("UPDATE {$gtablepre}users SET cardlist='{$udata['cardlist']}' WHERE username = '$username'");
-		}
-		$cardlist = explode('_',$udata['cardlist']);
+		$cardlist = get_user_cards_process($udata);
 		return $cardlist;
 	}	
+	
+	function get_user_cards_process($udata){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		$cardlist = explode('_',$udata['cardlist']);
+		if (!in_array(0, $cardlist))
+		{
+			$cardlist[] = 0;
+			$clstr = implode('_',$cardlist);
+			$db->query("UPDATE {$gtablepre}users SET cardlist='{$clstr}' WHERE username = '$username'");
+		}
+		return $cardlist;
+	}
 	
 	function get_energy_recover_rate($cardlist, $qiegao)
 	{
@@ -67,13 +75,8 @@ namespace cardbase
 		eval(import_module('sys','cardbase'));
 		$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$who'");
 		$udata = $db->fetch_array($result);
-		if ($udata['cardlist']=="")
-		{
-			$udata['cardlist']="0";
-			$db->query("UPDATE {$gtablepre}users SET cardlist='{$udata['cardlist']}' WHERE username = '$who'");
-		}
-		$cardlist = explode('_',$udata['cardlist']);
 		
+		$cardlist = get_user_cards_process($udata);		
 		$energy_recover_rate = get_energy_recover_rate($cardlist, $udata['gold']);
 		
 		$cardenergy=Array();

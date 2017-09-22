@@ -83,6 +83,7 @@ namespace skillbase
 	}
 	
 	function skillbase_load_process($ss, $sps){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ac_list=Array();
 		if (strlen($ss)%2!=0) throw new Exception('bad nskill value '.$ss);
 		for ($i=0; $i<strlen($ss)/2; $i++)
@@ -130,6 +131,7 @@ namespace skillbase
 	}
 	
 	function skillbase_save_process($sa, $spa){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ns='';
 		foreach ($sa as $skillkey => $skillvalue)
 		{
