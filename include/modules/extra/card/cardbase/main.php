@@ -63,7 +63,7 @@ namespace cardbase
 			}
 		}
 		
-		$tbase = Array('S' => 43200.0, 'A' => 10800.0, 'B' => 3600.0);
+		$tbase = Array('S' => 86400.0, 'A' => 28800.0, 'B' => 3600.0);
 		foreach (Array('S','A','B') as $ty)
 		{
 			//卡片数目开根号
