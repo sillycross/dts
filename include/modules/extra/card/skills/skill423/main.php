@@ -33,10 +33,21 @@ namespace skill423
 		eval(import_module('logger'));
 		if ($pa['type']==88){
 			$pa['dmg_dealt']=0;
-			if ($active) $log .= "<span class=\"yellow\">你的攻击被敌人完全吸收了！</span><br>";
-			else $log .= "<span class=\"yellow\">敌人的攻击被你完全吸收了！</span><br>";
+			if ($active) $log .= "<span class=\"yellow\">你的攻击被敌人完全化解了！</span><br>";
+			else $log .= "<span class=\"yellow\">不知为什么，敌人穷凶极恶的攻击只是轻轻地落在了你的身后。</span><br>";
 		}
 		$chprocess($pa,$pd,$active);
+	}
+	
+	//面对scp时，玩家攻击获得经验恒为1。
+	function apply_attack_exp_gain(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (!\skillbase\skill_query(423,$pa) || !check_unlocked423($pa)) return $chprocess($pa,$pd,$active);
+		
+		if ($pd['type']==88){
+			\lvlctl\getexp(1, $pa);
+		}
 	}
 }
 

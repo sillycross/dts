@@ -52,6 +52,11 @@ namespace clubbase
 		return $hashval;
 	}
 	
+	function club_choice_probability_process($clublist){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $clublist;
+	}
+	
 	function get_club_choice_array()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -68,6 +73,7 @@ namespace clubbase
 		$sttime = $starttime;
 		$vatime = 233;
 		
+		$clublist = club_choice_probability_process($clublist);
 		$ret = Array(0);
 		for ($clubtype = 0; $clubtype <= 1; $clubtype++)
 		{
