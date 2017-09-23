@@ -8,6 +8,17 @@ function writeover_array($file,$arr)
 	writeover($file,$s);
 }
 
+function copy_without_comments($src, $objfile){
+	if(pathinfo($src,PATHINFO_EXTENSION)!='php'){
+		copy($src,$objfile);
+	}else{
+		//去除注释
+		$content = strip_comments(file_get_contents($src));
+		writeover($objfile, $content);
+		unset($content);
+	}
+}
+
 //用NULL作为默认参数来执行任意函数
 //php 7.1以上版本，函数参数不足时会Error，因此用反射函数获得参数个数，再用call_user_func_array()回调回去
 function reflection_run_code($funcname){

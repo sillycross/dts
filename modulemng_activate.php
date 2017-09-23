@@ -250,14 +250,7 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2)
 			
 			//非快速模式或者快速模式且文件修改过
 			if(!$quickmode || ($quickmode && filemtime($src) >= filemtime(GAME_ROOT.'./gamedata/modules.list.php'))) {
-				if(pathinfo($src,PATHINFO_EXTENSION)!='php'){
-					copy($src,$objfile);
-				}else{
-					//去除注释
-					$content = strip_comments(file_get_contents($src));
-					writeover($objfile, $content);
-					unset($content);
-				}
+				copy_without_comments($src, $objfile);
 				$changed_filelist[] = $modp[$i].$key;
 			}
 			//无论是不是快速模式都得预读全部函数内容
@@ -288,7 +281,7 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2)
 						$changed_filelist[] = $fc_filename;
 						$objfile = GAME_ROOT.'./gamedata/run/'.$fc_filename;
 						$tplfile = substr($objfile,0,-4).'.adv'.substr($objfile,strlen($objfile)-4);
-						copy($tplfile, $objfile);
+						copy_without_comments($src, $objfile);
 					}
 				}
 			}
@@ -401,8 +394,8 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2 && $___MOD_CODE_ADV3)
 $faillog='';
 
 copy(GAME_ROOT.'./gamedata/modules.list.pass.php',GAME_ROOT.'./gamedata/modules.list.php');
-unlink(GAME_ROOT.'./gamedata/modules.list.pass.php');
-unlink(GAME_ROOT.'./gamedata/modules.list.temp.php');
+//unlink(GAME_ROOT.'./gamedata/modules.list.pass.php');
+//unlink(GAME_ROOT.'./gamedata/modules.list.temp.php');
 touch(GAME_ROOT.'./gamedata/modules.list.php');//更新文件时间以保证quick模式正常运转
 
 if ($___MOD_SRV)

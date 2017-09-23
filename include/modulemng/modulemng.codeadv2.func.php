@@ -351,7 +351,10 @@ function analyze_function_info($subject, $filename){
 			if(!isset($ret[$func_name])) {//初始化$ret内容。每个函数所处的filename是在这里定义的
 				$ret[$func_name] = array('vars' => '', 'contents' => '', 'filename' => $filename);
 			}
-			if($func_brace < $token['brace']) {//大括号层数比函数定义时要大，则认为在函数内部，记录函数内容
+			
+			//大括号层数比函数定义时要大，则认为在函数内部，记录函数内容
+			//不记录注释。因为这里读的是include文件夹下的源文件，注释没有删掉，所以还得再清一遍注释
+			if($func_brace < $token['brace'] && T_COMMENT !== $token['type'] && T_DOC_COMMENT !== $token['type']) {
 				$ret[$func_name]['contents'] .= $token['str'];
 	  	} elseif($func_brace >= $token['brace']) {
 	  		if('}' == $token['str'] && NULL == $token['type']) {//回到函数定义时的大括号层数时，认为跳出了函数
@@ -640,6 +643,9 @@ function merge_dist_paren_offset($find_str, $find_type, $tokens, &$find_token=NU
 			break;
 		}
 	}
+	if(isset($offsets[0]) && !isset($offsets[2])){//如果没有闭合，则认为没有找到
+		$offsets = array();
+	}
 	return $offsets;
 }
 
@@ -722,6 +728,47 @@ function merge_replace_chprocess($ret_varname, $replacement, $subject, $modname,
 	if(!empty($vdc_behind)) $vdc_behind = "\r\n".$vdc_behind;
 	if(!empty($vdc_ahead)) $vdc_ahead = "\r\n".$vdc_ahead;
 	$replacement = $vdc_behind . $replacement . $vdc_ahead;
+	
+	//把$chprocess那一行前面可能存在的函数都提取出来
+	$tmp_prc_a = $ret_a;
+	$tmp_ret_a = '';
+	$tmp_callcont = '';
+	if(preg_match('/([A-Za-z0-9_\\\\]+?)\s*\(/s', $tmp_prc_a, $tmp_p_funcname)) $tmp_p_funcname = $tmp_p_funcname[1];
+	else $tmp_p_funcname=NULL;
+	$ii = 0;
+	while(!empty($tmp_p_funcname)){
+		$tmp_p_funcname0 = $tmp_p_funcname;
+		if(strpos($tmp_p_funcname,'\\')!==false){//临时替换反斜杠
+			$tmp_p_funcname = str_replace('\\','_',$tmp_p_funcname);
+			$tmp_prc_a = str_replace($tmp_p_funcname0,$tmp_p_funcname,$tmp_prc_a);
+		}
+		list($ret2_a, $ret2_b, $ret2_c, $ret2_d, $ret2_e) = merge_split_paren_adv($tmp_p_funcname, T_STRING, $tmp_prc_a);
+		if(!empty($ret2_d) && 'eval' != $tmp_p_funcname){//闭合才算，且排除掉eval
+			$tmp_p_funcname_v = '$tmp_'.$tmp_p_funcname;
+			if($tmp_p_funcname0 != $tmp_p_funcname){//反斜杠换回来
+				$ret2_b = str_replace($tmp_p_funcname,$tmp_p_funcname0,$ret2_b);
+			}
+			$tmp_callcont .= $tmp_p_funcname_v . ' = ' . $ret2_b . $ret2_c . $ret2_d . ");\r\n";
+			$tmp_ret_a .= $ret2_a . $tmp_p_funcname_v;
+			$tmp_prc_a = substr($ret2_e, 1);
+		}else{
+			$tmp_funcname_offset = strpos($tmp_prc_a, $tmp_p_funcname);
+			if($tmp_p_funcname0 != $tmp_p_funcname){//反斜杠换回来
+				$tmp_prc_a = str_replace($tmp_p_funcname,$tmp_p_funcname0,$tmp_prc_a);
+			}
+			$tmp_ret_a .= substr($tmp_prc_a, 0, $tmp_funcname_offset + strlen($tmp_p_funcname));
+			$tmp_prc_a = substr($tmp_prc_a, $tmp_funcname_offset + strlen($tmp_p_funcname));
+		}
+		if(preg_match('/([A-Za-z0-9_\\\\]+?)\s*\(/s', $tmp_prc_a, $tmp_p_funcname)) $tmp_p_funcname = $tmp_p_funcname[1];
+		else $tmp_p_funcname=NULL;
+		$ii++;
+		if($ii > 10) {
+			
+			die($tmp_prc_a.'<br><br><br>'.$tmp_ret_a.'<br><br><br>'.$tmp_p_funcname);
+		}
+	}
+	$replacement = $tmp_callcont . $replacement;
+	$ret_a = $tmp_ret_a . $tmp_prc_a;
 	
 	//真正插入步骤
 	//不能直接preg_replace，需要判定括号层数！
