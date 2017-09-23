@@ -1,5 +1,12 @@
 <?php
 namespace cardbase{
+$cardtypecd=array(//卡片类别CD，单位秒
+	'S' => 43200,
+	'A' => 14400,
+	'B' => 3600,
+	'C' => 0,
+	'M' => 0
+);
 $packlist=array(
 	"Standard Pack",
 	"Crimson Swear",

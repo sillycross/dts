@@ -57,7 +57,7 @@ if($mode == 'enter') {
 	$cf=true;
 	
 	list($card_disabledlist,$card_error) = card_validate($udata);
-	if(isset($card_disabledlist[$cc])) //当前卡片无法使用
+	if(!empty($card_disabledlist[$cc])) //当前卡片无法使用
 	{
 		$enterable = false;
 	}
@@ -65,8 +65,10 @@ if($mode == 'enter') {
 	{
 		$userCardData['cardenergy'][$cc]=0;
 		\cardbase\save_cardenergy($userCardData,$cuser);
-		if ($r=="S") 
-			$db->query("UPDATE {$gtablepre}users SET cd_s='$now' WHERE username='".$udata['username']."'" );
+		if(!empty($cardtypecd[$r])){
+			$setquery = 'cd_'.strtolower($r)."='$now'";
+			$db->query("UPDATE {$gtablepre}users SET $setquery WHERE username='".$udata['username']."'" );
+		}
 	}
 	
 	if(false==$enterable) {

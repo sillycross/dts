@@ -33,18 +33,25 @@ namespace cardbase
 		/*
 		 * 返回 Array ('S'=>..,'A'=>..,'B'=>..,'C'=>0)
 		 */
+		/*
+		 * 新规：S卡CD时间大约在1-3天
+		 * A卡CD时间大约在半天-1天
+		 * B卡CD时间大约为几小时
+		 */
 		$ret = Array();
-		$ret['S']=100.0/7/86400;	//S卡固定基准CD 7天
+		//$ret['S']=100.0/7/86400;	//S卡固定基准CD 7天
 		$ret['C']=0;			//C卡不受能量制影响
 		$ret['M']=0;			//M卡更不受能量制影响
-		$cnt=Array(); $cnt['A']=0; $cnt['B']=0;
+		$cnt=Array(); $cnt['S']=0; $cnt['A']=0; $cnt['B']=0;
+		//计算S卡、A卡、B卡的数目
 		foreach ($cardlist as $key)
 		{
+			if ($cards[$key]['rare']=='S') $cnt['S']++;
 			if ($cards[$key]['rare']=='A') $cnt['A']++;
 			if ($cards[$key]['rare']=='B') $cnt['B']++;
 		}
-		//估算现有切糕对卡片数量的影响
-		$bcost = Array('A' => 90/0.05, 'B'=>90/0.2);
+		//估算现有切糕对卡片数量的影响，也即还可抽出多少张新卡
+		$bcost = Array('S'=> 90/0.01, 'A' => 90/0.05, 'B'=>90/0.2);
 		foreach (Array('A','B') as $ty)
 		{
 			$z=$qiegao;
@@ -56,12 +63,15 @@ namespace cardbase
 			}
 		}
 		
-		$tbase = Array('A' => 43200.0, 'B' => 10800.0);
-		foreach (Array('A','B') as $ty)
+		$tbase = Array('S' => 43200.0, 'A' => 10800.0, 'B' => 3600.0);
+		foreach (Array('S','A','B') as $ty)
 		{
-			$z=$cnt[$ty]/2;
-			if ($cnt[$ty]<=6) $z=$cnt[$ty]*2/3; 
-			if ($cnt[$ty]<=3) $z=2; 
+			//卡片数目开根号
+			$z = round(sqrt($cnt[$ty]));
+			if($z<1) $z = 1;
+//			$z=$cnt[$ty]/2;
+//			if ($cnt[$ty]<=6) $z=$cnt[$ty]*2/3; 
+//			if ($cnt[$ty]<=3) $z=2; 
 			
 			$tbase[$ty]*=$z;
 			$ret[$ty]=100.0/$tbase[$ty];

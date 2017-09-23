@@ -471,6 +471,19 @@ function combination($a, $m) {
   return $r;  
 } 
 
+function seconds2hms($seconds){
+	list($d, $h, $m, $s) = explode(' ', gmstrftime('%j %H %M %S', $seconds));
+	$d=(int)$d - 1;
+	$h = (int)$h; $m = (int)$m; $s = (int)$s;
+	$ret = '';
+	if($d) $ret .= $d.'天';
+	if($h) $ret .= $h.'小时';
+	if($m) $ret .= $m.'分钟';
+	if($s) $ret .= $s.'秒';
+	
+	return $ret;
+}
+
 //----------------------------------------
 //              数组运算
 //----------------------------------------

@@ -236,6 +236,7 @@ function card_validate($udata){
 	/*
 	 * $card_disabledlist id => errid
 	 * id: 卡片ID errid: 不能使用这张卡的原因
+	 * 原因可以叠加
 	 * e0: S卡总体CD
 	 * e1: 单卡CD
 	 * e2: 有人于本局使用了同名卡
@@ -256,7 +257,7 @@ function card_validate($udata){
 		foreach ($card_ownlist as $key)
 			if (!in_array($cards[$key]['rare'], array('C', 'M')) && isset($t[$key])) 
 			{
-				$card_disabledlist[$key]='e2';
+				$card_disabledlist[$key][] = 'e2';
 				$card_error['e2'] = '这张卡片暂时不能使用，因为本局已经有其他人使用了这张卡片<br>请下局早点入场吧！';
 			}
 	
@@ -265,17 +266,22 @@ function card_validate($udata){
 		if ($card_energy[$key]<$cards[$key]['energy'])
 		{
 			$t=($cards[$key]['energy']-$card_energy[$key])/$energy_recover_rate[$cards[$key]['rare']];
-			$card_disabledlist[$key]='e1'.$key;
+			$card_disabledlist[$key][] = 'e1'.$key;
 			$card_error['e1'.$key] = '这张卡片暂时不能使用，因为它目前正处于蓄能状态<br>这张卡片需要蓄积'.$cards[$key]['energy'].'点能量方可使用，预计在'.convert_tm($t).'后蓄能完成';
 		}
 	
-	//最高优先级错误原因：s卡的24小时限制
-	$card_error['e0'] = '这张卡片暂时不能使用，因为最近24小时内你已经使用过S卡了<br>在'.convert_tm(86400-($now-$udata['cd_s'])).'后你才能再次使用S卡';
+	//最高优先级错误原因：卡片类别时间限制
+	foreach($cardtypecd as $ct => $ctcd){
+		if(!empty($ctcd)){
+			$ctcdstr = seconds2hms($ctcd);
+			$card_error['e0'.$ct] = '这张卡片暂时不能使用，因为最近'.$ctcdstr.'内你已经使用过'.$ct.'卡了<br>在'.convert_tm($ctcd-($now-$udata['cd_s'])).'后你才能再次使用'.$ct.'卡';
 	
-	if (($now-$udata['cd_s'])<86400){
-		foreach ($card_ownlist as $key)
-			if ($cards[$key]['rare']=='S')
-				$card_disabledlist[$key]='e0';
+			if (($now-$udata['cd_'.strtolower($ct)]) < $ctcd){
+				foreach ($card_ownlist as $key)
+					if ($cards[$key]['rare']==$ct)
+						$card_disabledlist[$key][] = 'e0'.$ct;
+			}
+		}
 	}
 	
 	//最高优先级错误原因：本游戏模式不可用
@@ -283,8 +289,8 @@ function card_validate($udata){
 	
 	if ($gametype==2)	//deathmatch模式禁用蛋服和炸弹人
 	{
-		if (in_array(97,$card_ownlist)) $card_disabledlist[97]='e3';
-		if (in_array(144,$card_ownlist)) $card_disabledlist[144]='e3';
+		if (in_array(97,$card_ownlist)) $card_disabledlist[97][]='e3';
+		if (in_array(144,$card_ownlist)) $card_disabledlist[144][]='e3';
 	}
 	
 	return array($card_disabledlist,$card_error);

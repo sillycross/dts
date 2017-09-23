@@ -45,7 +45,7 @@ $iconarray = get_iconlist($icon);
 $select_icon = $icon;
 $winning_rate=$validgames?round($wingames/$validgames*100)."%":'0%';
 
-eval(import_module('cardbase'));
+eval(import_module('cardbase'));//总觉得这里是废弃代码啊
 $carr=$cards[$card];
 $cr=$carr['rare'];
 $cf=true;$sf=true;$af=true;$bf=true;$ff=true;
