@@ -51,17 +51,17 @@ namespace cardbase
 			if ($cards[$key]['rare']=='B') $cnt['B']++;
 		}
 		//估算现有切糕对卡片数量的影响，也即还可抽出多少张新卡
-		$bcost = Array('S'=> 90/0.01, 'A' => 90/0.05, 'B'=>90/0.2);
-		foreach (Array('A','B') as $ty)
-		{
-			$z=$qiegao;
-			$all=count($cardindex[$ty]);
-			while ($cnt[$ty]<$all && $z>$bcost[$ty]*$all/($all-$cnt[$ty]))
-			{
-				$z-=$bcost[$ty]*$all/($all-$cnt[$ty]);
-				$cnt[$ty]++;
-			}
-		}
+//		$bcost = Array('S'=> 90/0.01, 'A' => 90/0.05, 'B'=>90/0.2);
+//		foreach (Array('S','A','B') as $ty)
+//		{
+//			$z=$qiegao;
+//			$all=count($cardindex[$ty]);
+//			while ($cnt[$ty]<$all && $z>$bcost[$ty]*$all/($all-$cnt[$ty]))
+//			{
+//				$z-=$bcost[$ty]*$all/($all-$cnt[$ty]);
+//				$cnt[$ty]++;
+//			}
+//		}
 		
 		$tbase = Array('S' => 86400.0, 'A' => 28800.0, 'B' => 3600.0);
 		foreach (Array('S','A','B') as $ty)
