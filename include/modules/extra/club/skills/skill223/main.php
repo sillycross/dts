@@ -83,7 +83,11 @@ namespace skill223
 		if ($pa['bskill']==223) 
 		{
 			eval(import_module('logger'));
-			$var_223=50;
+			if ($pa['card']==5){
+				$var_223=100;
+			}else{
+				$var_223=50;
+			}
 			if (isset($pd['original_inf'])){
 				$var_223+=(50*strlen($pd['original_inf']));
 			}

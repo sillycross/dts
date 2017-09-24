@@ -128,7 +128,7 @@ namespace skill247
 	//不能获得肌肉兄贵称号
 	function club_choice_probability_process($clublist){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(247)) return $chprocess();
+		if (!\skillbase\skill_query(247)) return $chprocess($clublist);
 		if(isset($clublist[14])) $clublist[14]['probability'] = 0;
 		return $clublist;
 	}

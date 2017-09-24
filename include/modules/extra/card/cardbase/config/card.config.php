@@ -1138,7 +1138,7 @@ $cards = array(
 	),
 	69 => array(
 		'name' => '活雷锋',
-		'rare' => 'A',
+		'rare' => 'B',
 		'pack' => 'Way of Life',
 		'desc' => '一个有益于人民的人',
 		'effect' => '开局携带驱云弹',
@@ -2194,7 +2194,7 @@ $cards = array(
 		'pack' => 'Way of Life',
 		'desc' => '今天锻炼了一天，头都是晕的',
 		'effect' => '初始生命体力+100，食用补给效果减少30%',
-		'energy' => 130,
+		'energy' => 0,
 		'valid' => array(
 			'skills' => array(
 				'474' => '0', 
@@ -2386,7 +2386,6 @@ $cards = array(
 			)
 		)
 	),
-	//1000为教程模式专用
 );
 }
 ?>
