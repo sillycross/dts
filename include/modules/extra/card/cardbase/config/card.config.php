@@ -2394,6 +2394,32 @@ $cards = array(
 			),
 		)
 	),
+	202 => array(
+		'name' => '通灵冒险家 星海',
+		'rare' => 'A',
+		'pack' => 'hidden',
+		'desc' => '“你住酒店时有没有第一时间确认逃生通道的习惯？没有吧？我有。”',
+		'effect' => '获得技能「后路」：你因为战斗、遭遇陷阱或者异常事件而受到最大HP的50%以上伤害但仍然存活时，会自动服用最后一次使用的无毒生命回复/命体回复道具直到HP回满或者道具耗尽。这一技能不会产生道具CD。',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'487' => '1', 
+			),
+		)
+	),
+	203 => array(
+		'name' => '银白愿天使 Annabelle',
+		'rare' => 'A',
+		'pack' => 'hidden',
+		'desc' => '“只要你相信神的存在，什么邪恶都没法左右你！”',
+		'effect' => '获得技能「神眷」：战斗中受到的异常状态反弹给敌方。行动时不会因为异常状态受到HP伤害。',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'489' => '0', 
+			),
+		)
+	),
 	1000 => array(
 		'name'=>'补给品',
 		'rare'=>'C',
@@ -2409,6 +2435,29 @@ $cards = array(
 			'itmsk3' => '',
 			'skills'=>array(
 				'1000'=>'0'
+			)
+		)
+	),
+	1001 => array(
+		'name'=>'小白鼠',
+		'rare'=>'C',
+		'desc'=>'高级模式用卡',
+		'pack'=>'hidden',
+		'effect'=>'高级模式技能载体',
+		'energy'=>0,
+		'valid' => array(
+			'itm4' => '紧急药剂',
+			'itmk4' => 'Ca',
+			'itme4' => '1',
+			'itms4' => '3',
+			'itmsk4' => '',
+			'itm5' => '生命探测器',
+			'itmk5' => 'ER',
+			'itme5' => '3',
+			'itms5' => '1',
+			'itmsk5' => '',
+			'skills'=>array(
+				'1001'=>'0'
 			)
 		)
 	),

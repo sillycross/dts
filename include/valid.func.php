@@ -70,7 +70,7 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 	$result = $db->query("SELECT groupid FROM {$gtablepre}users WHERE username='$xuser'");
 	$groupid = $db->fetch_array($result)['groupid'];
 	if ($name == $gamefounder||$groupid >= 5) {
-		$itm[5] = '权限狗的ID卡'; $itmk[5] = 'Z'; $itme[5] = 1; $itms[5] = 1;$itmsk[5] = '';
+		$itm[6] = '权限狗的ID卡'; $itmk[6] = 'Z'; $itme[6] = 1; $itms[6] = 1;$itmsk[6] = '';
 //		$msp += 100;$mhp += 100;$hp += 100;$sp += 100;
 //		$att += 100;$def += 100;
 //		$exp += 10;$money = 20000;$rage = 255;$pose = 1;$tactic = 3;
@@ -118,9 +118,12 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 		$card=151;
 	}	
 	//教程模式专用卡（教程技能+开局紧急药剂）
-	elseif(17==$gametype) {
+	elseif(17==$gametype && defined('MOD_SKILL1000')) {
 		$card = 1000;
-		//$itm[3] = '紧急药剂'; $itmk[3] = 'Ca'; $itme[3] = 1; $itms[3] = 10;
+	}	
+	//高级模式专用卡（空降技能+开局紧急药剂）
+	elseif(18==$gametype && defined('MOD_SKILL1001')) {
+		$card = 1001;
 	}	
 	//标准模式禁用任何卡片
 	elseif(0==$gametype){
@@ -187,10 +190,6 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 				}
 			}	
 		}
-	}
-	
-	if(18==$gametype && defined('MOD_SKILL1001')){//高级模式在这里追加入场技能。感觉应该改改架构的。
-		\skillbase\skill_acquire(1001,$pp);
 	}
 	
 	\player\post_enterbattlefield_events($pp);

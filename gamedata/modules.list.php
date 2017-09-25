@@ -381,6 +381,7 @@ skill435,extra/card/skills/skill435/,1
 tutorial,extra/instance/instance7_tutorial/tutorial/,1
 skill244,extra/club/skills/skill244/,1
 skill27,extra/club/skills/skill27/,1
+skill489,extra/card/skills/skill489/,1
 skill57,extra/club/skills/skill57/,1
 skill436,extra/card/skills/skill436/,1
 searchmemory,extra/searchmemory/,1
