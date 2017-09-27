@@ -111,6 +111,7 @@ kuji1,extra/card/kuji/kuji1/,1
 kuji2,extra/card/kuji/kuji2/,1
 skill418,extra/card/skills/skill418/,1
 set_gametype,extra/misc/set_gametype/,1
+skill490,extra/card/skills/skill490/,1
 skill480,extra/card/skills/skill480/,1
 skill1011,extra/gmskills/skill1011/,1
 skill1010,extra/gmskills/skill1010/,1
@@ -174,6 +175,7 @@ skill257,extra/club/skills/skill257/,1
 skill261,extra/club/skills/skill261/,1
 skill474,extra/card/skills/skill474/,1
 skill484,extra/card/skills/skill484/,1
+skill491,extra/card/skills/skill491/,1
 skill433,extra/card/skills/skill433/,1
 skill602,extra/club/skills/skill602/,1
 skill221,extra/club/skills/skill221/,1
