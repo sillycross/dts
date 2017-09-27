@@ -47,7 +47,7 @@ namespace skill423
 		
 		if ($pd['type']==88){
 			\lvlctl\getexp(1, $pa);
-		}
+		}else return $chprocess($pa,$pd,$active);
 	}
 }
 

@@ -104,6 +104,7 @@ skill477,extra/card/skills/skill477/,1
 skill479,extra/card/skills/skill479/,1
 skill485,extra/card/skills/skill485/,1
 skill486,extra/card/skills/skill486/,1
+skill488,extra/card/skills/skill488/,1
 skill1000,extra/instance/instance7_tutorial/skill1000/,1
 kuji0,extra/card/kuji/kuji0/,1
 kuji1,extra/card/kuji/kuji1/,1
@@ -290,6 +291,7 @@ skill36,extra/club/skills/skill36/,1
 skill38,extra/club/skills/skill38/,1
 dualwep,base/weapon/dualwep/,1
 ammunition,base/items/ammunition/,1
+skill487,extra/card/skills/skill487/,1
 skill458,extra/card/skills/skill458/,1
 attrbase,extra/attr/attrbase/,1
 skill407,extra/card/skills/skill407/,1
