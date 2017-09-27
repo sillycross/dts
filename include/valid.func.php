@@ -273,7 +273,7 @@ function card_validate($udata){
 	foreach($cardtypecd as $ct => $ctcd){
 		if(!empty($ctcd)){
 			$ctcdstr = seconds2hms($ctcd);
-			$card_error['e0'.$ct] = '这张卡片暂时不能使用，因为最近'.$ctcdstr.'内你已经使用过'.$ct.'卡了<br>在'.convert_tm($ctcd-($now-$udata['cd_s'])).'后你才能再次使用'.$ct.'卡';
+			$card_error['e0'.$ct] = '这张卡片暂时不能使用，因为最近'.$ctcdstr.'内你已经使用过'.$ct.'卡了<br>在'.convert_tm($ctcd-($now-$udata['cd_'.strtolower($ct)])).'后你才能再次使用'.$ct.'卡';
 	
 			if (($now-$udata['cd_'.strtolower($ct)]) < $ctcd){
 				foreach ($card_ownlist as $key)
