@@ -70,9 +70,15 @@ namespace metman
 		
 		$tdata['cardinfo'] = $w_cardname;
 		$tdata['sNoinfo'] = "$typeinfo[$w_type]({$sexinfo[$w_gd]}{$w_sNo}号)";
-		$w_i = $w_type > 0 ? 'n' : $w_gd;
-		$tdata['iconImg'] = $w_i.'_'.$w_icon.'.gif';
-		if ($w_type==0) $tdata['iconImg'] = $w_i.'_'.$w_icon.'a.gif';
+		list($wiconImg, $wiconImgB) = \player\icon_parser($w_type, $w_gd, $w_icon);
+		$tdata['iconImg'] = $wiconImg;
+		$tdata['iconImgB'] = $wiconImgB;
+//		echo 'img/'.$wiconImgB;
+//		if(file_exists('img/'.$wiconImgB)) $tdata['iconImg'] = $wiconImgB;
+//		else $tdata['iconImg'] = $wiconImg;
+//		$w_i = $w_type > 0 ? 'n' : $w_gd;
+//		$tdata['iconImg'] = $w_i.'_'.$w_icon.'.gif';
+//		if ($w_type==0) $tdata['iconImg'] = $w_i.'_'.$w_icon.'a.gif';
 		$tdata['name']=$w_name;
 		$tdata['wep']=$w_wep;
 		$tdata['lvl']=$w_lvl;

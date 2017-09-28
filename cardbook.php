@@ -52,7 +52,7 @@ if ($pname!="") {
 		}
 		
 		$lock_cards = array_diff_key($pack, $unlock_cards);
-		//”¶∏√∞¥∫±πÛ≈≈–Ú
+		$unlock_cards = \cardbase\card_sort($unlock_cards); $lock_cards = \cardbase\card_sort($lock_cards);
 		$pack_num = count($pack);
 		$unlock_num = count($unlock_cards);
 	}

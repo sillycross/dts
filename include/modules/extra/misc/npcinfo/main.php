@@ -25,9 +25,10 @@ namespace npcinfo
 		eval(import_module('sys','player','clubbase','npc','tactic','pose','map'));
 		$nownpc = array_merge($npcinit,$npcinfo[$npckind]);
 		$nownpc = array_merge($nownpc,$npcinfo[$npckind]['sub'][$npcsubkind]);
-		if ($nownpc['mode']==3){//有大头像
-			$nownpc['icon'].='a';
-		}
+		//操，玩家头像带a是大头像，NPC带a是小头像，谁想的数据结构，脚趾头长大脑里了吗
+//		if ($nownpc['mode']==3){//有大头像
+//			$nownpc['icon'].='a';
+//		}
 		if ($npcdata)
 			$nownpc = array_merge($nownpc,$npcdata);
 		else  $nownpc['___count']=ceil($npcinfo[$npckind]['num']/sizeof($npcinfo[$npckind]['sub']));

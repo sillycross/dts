@@ -27,7 +27,9 @@ $query = $db->query("SELECT name,gd,sNo,icon,lvl,exp,killnum,teamID,nskillpara,p
 //	$query = $db->query("SELECT name,gd,sNo,icon,lvl,exp,killnum,teamID FROM {$tablepre}players WHERE type=0 AND hp>0 order by killnum desc, lvl desc limit $alivelimit");
 //}
 while($playerdata = $db->fetch_array($query)) {
-	$playerdata['iconImg'] = "{$playerdata['gd']}_{$playerdata['icon']}.gif";
+	list($iconImg, $iconImgB) = \player\icon_parser(0, $playerdata['gd'], $playerdata['icon']);
+	$playerdata['iconImg'] = $iconImg;
+	//$playerdata['iconImg'] = "{$playerdata['gd']}_{$playerdata['icon']}.gif";
 	$result = $db->query("SELECT motto FROM {$gtablepre}users WHERE username = '".$playerdata['name']."'");
 	$playerdata['motto'] = $db->result($result, 0);
 	/**

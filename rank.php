@@ -52,7 +52,9 @@ if(!isset($command) || $start != $ostart){
 	$rankdata = Array();
 	$n = $start+1;
 	while($data = $db->fetch_array($result)){
-		$data['img'] = $data['gender'] == 'm' ? 'm_'.$data['icon'].'.gif' : 'f_'.$data['icon'].'.gif';
+		list($riconImg, $riconImgB) = \player\icon_parser(0, $data['gender'], $data['icon']);
+		$data['img'] = $riconImg;
+		//$data['img'] = $data['gender'] == 'm' ? 'm_'.$data['icon'].'.gif' : 'f_'.$data['icon'].'.gif';
 		//$data['motto'] = $data['motto'] ? rep_label($data['motto']) : '';
 		//$data['slhonour'] = $data['honour'] ? init_honourwords($data['honour'],99) : '';
 		//$data['honour'] = $data['honour'] ? init_honourwords($data['honour']) : '';

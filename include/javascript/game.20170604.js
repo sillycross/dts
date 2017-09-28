@@ -132,7 +132,7 @@ function dniconMover(){
 	var npc = $('npc') ? true : false;
 	var dngd = npc ? 'n' : ($('male').checked ? 'm' : 'f');
 	var dninum = $('dnicon').options[$('dnicon').selectedIndex].value;
-	$('dniconImg').innerHTML = '<img src="img/' + dngd + '_' + dninum + (npc ? 'a' : '') + '.gif" alt="' + dninum + '">';
+	$('dniconImg').innerHTML = '<img src="img/' + dngd + '_' + dninum + '.gif" alt="' + dninum + '">';
 }
 
 function showNotice(sNotice) {

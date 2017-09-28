@@ -113,7 +113,8 @@ if($command == 'info') {
 	while($wdata = $db->fetch_array($result)) {
 		$wdata['date'] = date("Y-m-d",$wdata['getime']);
 		$wdata['time'] = date("H:i:s",$wdata['getime']);
-		$wdata['iconImg'] = $wdata['gd'] == 'f' ? 'f_'.$wdata['icon'].'.gif' : 'm_'.$wdata['icon'].'.gif';
+		list($wiconImg, $wiconImgB) = \player\icon_parser(0, $wdata['gd'], $wdata['icon']);
+		$wdata['iconImg'] = $wiconImg;
 		$winfo[$wdata['gid']] = $wdata;
 	}
 	$winfo_keys=array_keys($winfo);rsort($winfo_keys);

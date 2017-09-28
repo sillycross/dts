@@ -296,6 +296,18 @@ namespace cardbase
 		}
 		return -1;
 	}
+	
+	function card_sort($cards){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = array();
+		$typeweight = array('S'=> 1000000, 'A' => 100000, 'B' => 10000, 'C'=> 1000);
+		foreach($cards as $ci => $cv){
+			$weight = $typeweight[$cv['rare']] - $ci;
+			$ret[$weight] = $cv;
+		}
+		krsort($ret);
+		return $ret;
+	}
 }
 
 ?>

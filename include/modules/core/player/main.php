@@ -131,14 +131,32 @@ namespace player
 		return $dummy;
 	}
 	
+	function icon_parser($type, $gd, $icon){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(is_numeric($icon)){
+			if(!$type){
+				$iconImg = $gd.'_'.$icon.'.gif';
+				$iconImgB = $gd.'_'.$icon.'a.gif';
+			}else{
+				$iconImg = 'n_'.$icon.'.gif';
+				$iconImgB = 'n_'.$icon.'a.gif';
+			}
+		}else{
+			$iconImg = $icon;
+			$ext = pathinfo($icon,PATHINFO_EXTENSION);
+			$iconImgB = substr($icon,0,strlen($icon)-strlen($ext)-1).'_a.'.$ext;
+		}
+		return array($iconImg, $iconImgB);
+	}
+	
 	function init_playerdata(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','player'));
-		$iconImg = $gd.'_'.$icon.'.gif';
-		$iconImgB = $gd.'_'.$icon.'a.gif';
+		
 		//$ardef = $arbe + $arhe + $arae + $arfe;
-
+		list($iconImg, $iconImgB) = icon_parser($type, $gd, $icon);
+		
 		if(!$weps) {
 			$wep = $nowep;$wepk = 'WN';$wepsk = '';
 			$wepe = 0; $weps = $nosta;
