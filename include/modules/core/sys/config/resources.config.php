@@ -25,7 +25,7 @@ namespace sys
 	//游戏状态描述
 	$gstate = Array(0 => '<font color="grey">已结束</font>',5 => '正在准备',10 => '即将开始',20 => '开放激活',30 => '人数已满',40=> '<font color="yellow">连斗中</font>',50=>'<font color="red">死斗中</font>');
 	$gwin = Array(0 => '程序故障', 1 => '全部死亡',2 => '最后幸存',3 => '锁定解除',4 => '无人参加',5 => '核爆全灭',6 => 'GM中止',7=>'幻境解离',8=>'挑战结束');
-	$gtinfo=array(0=>'标准模式',1=>'<span class="clan">除错挑战</span>',2=>'<span class="orange">周五活动</span>',3=>'<span class="lime">宝石乱斗</span>',4=>'卡片模式',10=>'SOLO模式',11=>'二队模式',12=>'三队模式',13=>'四队模式',14=>'五队模式',15=>'<span class="yellow">伐木挑战</span>',16=>'<span class="green">解离模式</span>',17=>'教程模式',18=>'<span class="yellow">高级模式</span>');
+	$gtinfo=array(0=>'标准模式',1=>'<span class="clan">除错挑战</span>',2=>'<span class="orange">周五活动</span>',3=>'<span class="lime">宝石乱斗</span>',4=>'卡片模式',10=>'SOLO模式',11=>'二队模式',12=>'三队模式',13=>'四队模式',14=>'五队模式',15=>'<span class="yellow">伐木挑战</span>',16=>'<span class="green">解离模式</span>',17=>'教程模式',18=>'<span class="clan">荣耀模式</span>');
 	$week = Array('日','一','二','三','四','五','六');
 	$gamevarsinfo = array(
 		'next_gametype' => '游戏模式'

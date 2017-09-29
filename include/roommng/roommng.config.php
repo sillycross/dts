@@ -332,7 +332,7 @@ $roomtypelist = Array(
 		)
 	),
 	8 => Array(
-		'name' => '<span class="clan">高级模式</span>',
+		'name' => '<span class="clan">荣耀模式</span>',
 		'gtype' => 18, //对应的游戏模式编号
 		'available' => true,
 		'soleroom' => false,//唯一房间，只有不存在时才会新建房间。

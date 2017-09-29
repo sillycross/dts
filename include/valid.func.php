@@ -125,7 +125,7 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 	elseif(17==$gametype && defined('MOD_SKILL1000')) {
 		$card = 1000;
 	}	
-	//高级模式专用卡（空降技能+开局紧急药剂）
+	//荣耀模式专用卡（空降技能+开局紧急药剂）
 	//我傻了，这样会覆盖掉玩家选的卡片
 //	elseif(18==$gametype && defined('MOD_SKILL1001')) {
 //		$card = 1001;
@@ -175,7 +175,7 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 			${$key}=$value;
 		}
 	}
-	if(18==$gametype && defined('MOD_SKILL1001')){//高级模式在这里追加入场技能。
+	if(18==$gametype && defined('MOD_SKILL1001')){//荣耀模式在这里追加入场技能。
  		\skillbase\skill_acquire(1001,$pp);
  	}
 	///////////////////////////////////////////////////////////////
