@@ -78,7 +78,9 @@
 	<div style="width:600px;text-align:center;"><span class="clan">点击天梯积分和身份卡可以查看详细信息</span></div>
 	<!--{if defined('MOD_ACHIEVEMENT_BASE')}-->
 		<table>
+		<!--{eval \achievement_base\ach_init();}-->
 		<!--{eval eval(import_module('achievement_base'));}-->
+		
 		<!--{loop $achtype $k $v}-->
 			<tr><td>
 			<span class="subtitle" align="left">$v</span>

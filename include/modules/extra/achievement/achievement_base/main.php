@@ -22,6 +22,9 @@ namespace achievement_base
 		20=>array(314,315,316,317,318,319,320,321,324),
 		31=>array(327)
 	);
+	$ach_available_period=array(//如果设置，则非零的数据认为是起止时间
+		31=>array(1506787200, 0)
+	);
 	//成就编号=>允许完成的模式，未定义则用0键的数据（只有标准模式、卡片模式、荣耀模式可以完成）
 	$ach_allow_mode=array(
 		0=>array(0, 4, 18),
@@ -31,7 +34,20 @@ namespace achievement_base
 		//323 => array(0, 4, 16);//最速解离成就，实际位于skill323
 	);
 	
-	function init() {}
+	function init() {
+	}
+	
+	function ach_init(){
+		eval(import_module('achievement_base'));
+		foreach($achtype as $ak => $av){
+			if(!check_achtype_available($ak)){//未开始直接不显示
+				unset($achtype[$ak]);
+			}elseif(2 == check_achtype_available($ak)){//过期的放后面
+				unset($achtype[$ak]);
+				$achtype[$ak] = $av;
+			}
+		}
+	}
 	
 	function skill_onload_event(&$pa)//技能模块载入时直接加载所有成就
 	{
@@ -46,7 +62,7 @@ namespace achievement_base
 			if (!$pa['type']
 			//确认允许完成成就的模式，未定义则用0键（只有正常游戏可以完成）
 				&& ( ( !isset($ach_allow_mode[$av]) && in_array($gametype, $ach_allow_mode[0]) ) || ( isset($ach_allow_mode[$av]) && in_array($gametype,$ach_allow_mode[$av]) ) )
-				&& !\skillbase\skill_query($av,$pa))
+				&& !\skillbase\skill_query($av,$pa) && 1 == check_achtype_available($av))
 			\skillbase\skill_acquire($av,$pa);
 		}
 		$chprocess($pa);
@@ -68,7 +84,7 @@ namespace achievement_base
 			$achdata=explode(';',$ach);
 			$maxid=count($achdata)-2;
 			foreach (\skillbase\get_acquired_skill_array($edata) as $key) //也就是说，允许先进游戏后换每日任务，甚至可以先清场，结束前换每日任务
-				if (defined('MOD_SKILL'.$key.'_INFO') && defined('MOD_SKILL'.$key.'_ACHIEVEMENT_ID'))
+				if (defined('MOD_SKILL'.$key.'_INFO') && defined('MOD_SKILL'.$key.'_ACHIEVEMENT_ID') && 1 == check_achtype_available($key))
 					if (\skillbase\check_skill_info($key, 'achievement'))
 					{
 						$id=((int)(constant('MOD_SKILL'.$key.'_ACHIEVEMENT_ID')));
@@ -158,6 +174,17 @@ namespace achievement_base
 		for ($i=0; $i<=$maxid; $i++)
 			$nachdata.=$achdata[$i].';';
 		$db->query("UPDATE {$gtablepre}users SET n_achievements = '$nachdata' WHERE username='$un'");
+	}
+	
+	function check_achtype_available($achid){//0 未开始； 1 进行中； 2 过期
+		eval(import_module('sys','achievement_base'));
+		$ret = 1;
+		if(isset($ach_available_period[$achid])){
+			list($achstart, $achend) = $ach_available_period[$achid];
+			if(!empty($achstart) && $now < $achstart) $ret = 0;
+			if(!empty($achend) && $now > $achend) $ret = 2;
+		}
+		return $ret;
 	}
 }
 

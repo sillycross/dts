@@ -334,7 +334,7 @@ function room_create($roomtype)
 	if ($roomtype>=count($roomtypelist)){
 		gexit('房间参数错误',__file__,__line__);
 	}
-	elseif(!$roomtypelist[$roomtype]['available']){
+	elseif(!check_room_available($roomtypelist[$roomtype])){
 		gexit('该房间类型暂不能使用',__file__,__line__);
 	}
 	$rchoice = -1;
@@ -607,6 +607,16 @@ function room_init_db_process($room_id){
 		$init_state += 4;
 	}
 	return $init_state;
+}
+
+//判定房间类别是否满足代码上的开放条件
+function check_room_available($roomtypedata){
+	eval(import_module('sys'));
+	$ret = true;	
+	if(!$roomtypedata['available']) $ret = false;
+	if(!empty($roomtypedata['available-start']) && $now < $roomtypedata['available-start']) $ret = false;
+	if(!empty($roomtypedata['available-end']) && $now > $roomtypedata['available-end']) $ret = false;
+	return $ret;
 }
 
 /* End of file roommng.func.php */
