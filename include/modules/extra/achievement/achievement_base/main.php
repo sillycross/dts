@@ -38,6 +38,7 @@ namespace achievement_base
 	}
 	
 	function ach_init(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('achievement_base'));
 		foreach($achtype as $ak => $av){
 			if(!check_achtype_available($ak)){//未开始直接不显示
@@ -177,6 +178,7 @@ namespace achievement_base
 	}
 	
 	function check_achtype_available($achid){//0 未开始； 1 进行中； 2 过期
+		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','achievement_base'));
 		$ret = 1;
 		if(isset($ach_available_period[$achid])){
