@@ -32,15 +32,17 @@
 <!--{elseif room_check_subroom($room_prefix)}-->
 	<span class="grey">-</span>
 <!--{else}-->
-	<!--{if $value['status']==1 || $roomtypelist[$value['roomtype']]['soleroom']}-->
-		<!--{if $value['nowplayer']<$value['maxplayer'] || $roomtypelist[$value['roomtype']]['soleroom']}-->
-			<input type="button" style="width:46px" onclick="room_enter($value['id']);" value="进入">
-		<!--{else}-->
-			<input type="button" style="width:46px" onclick="room_enter($value['id']);" value="旁观">
-		<!--{/if}-->
+	<input type="button" style="width:46px" onclick="room_enter($value['id']);" value="
+	<!--{if $roomtypelist[$value['roomtype']]['without-ready']}-->
+		进入
 	<!--{else}-->
-		<input type="button" style="width:46px" onclick="room_enter($value['id']);" value="旁观">
+		<!--{if $value['status']==1 && $value['nowplayer']<$value['maxplayer']}-->
+			进入
+		<!--{else}-->
+			旁观
+		<!--{/if}-->
 	<!--{/if}-->
+	">
 <!--{/if}-->
 </td>
 <!--{/loop}-->

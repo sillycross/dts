@@ -2,7 +2,7 @@
 
 namespace skill486
 {	
-	$skill486prob = array(0, 10, 100);
+	$skill486prob = array(0, 30, 100);
 	
 	function init() 
 	{
@@ -69,7 +69,7 @@ namespace skill486
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
-		if($news == 'skill486_revival') 
+		if($news == 'skill486_revv') 
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}奇迹般地逃过一劫，活了下来！</span></li>";
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

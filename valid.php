@@ -61,7 +61,7 @@ if($mode == 'enter') {
 	{
 		$enterable = false;
 	}
-	elseif(in_array($gametype, array(2,4))) //游戏模式为标准或者无限复活时，刷新卡片CD时间
+	elseif(in_array($gametype, array(2,4,18))) //游戏模式为卡片模式、无限复活模式、高级模式时，更新卡片CD时间
 	{
 		$userCardData['cardenergy'][$cc]=0;
 		\cardbase\save_cardenergy($userCardData,$cuser);

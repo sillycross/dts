@@ -108,6 +108,10 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 		$itms[1] = 50; $itms[2] = 50;
 		$itm[5] = '生命探测器'; $itmk[5] = 'ER'; $itme[5] = 5; $itms[5] = 1;
 	}
+	elseif(18==$gametype){
+		$itm[4] = '生命探测器'; $itmk[4] = 'ER'; $itme[4] = 3; $itms[4] = 1;
+		$itm[5] = '全恢复药剂'; $itmk[5] = 'Ca'; $itme[5] = 1; $itms[5] = 3;
+	}
 	
 	//除错模式专用卡（软件测试工程师）
 	if (1==$gametype){
@@ -122,9 +126,10 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 		$card = 1000;
 	}	
 	//高级模式专用卡（空降技能+开局紧急药剂）
-	elseif(18==$gametype && defined('MOD_SKILL1001')) {
-		$card = 1001;
-	}	
+	//我傻了，这样会覆盖掉玩家选的卡片
+//	elseif(18==$gametype && defined('MOD_SKILL1001')) {
+//		$card = 1001;
+//	}	
 	//标准模式禁用任何卡片
 	elseif(0==$gametype){
 		$card = 0;
@@ -170,6 +175,9 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 			${$key}=$value;
 		}
 	}
+	if(18==$gametype && defined('MOD_SKILL1001')){//高级模式在这里追加入场技能。
+ 		\skillbase\skill_acquire(1001,$pp);
+ 	}
 	///////////////////////////////////////////////////////////////
 	$db->query("INSERT INTO {$tablepre}players (name,pass,type,endtime,gd,sNo,icon,club,hp,mhp,sp,msp,ss,mss,att,def,pls,lvl,`exp`,money,bid,inf,rage,pose,tactic,killnum,state,wp,wk,wg,wc,wd,wf,teamID,teamPass,wep,wepk,wepe,weps,arb,arbk,arbe,arbs,arh,arhk,arhe,arhs,ara,arak,arae,aras,arf,arfk,arfe,arfs,art,artk,arte,arts,itm0,itmk0,itme0,itms0,itm1,itmk1,itme1,itms1,itm2,itmk2,itme2,itms2,itm3,itmk3,itme3,itms3,itm4,itmk4,itme4,itms4,itm5,itmk5,itme5,itms5,itm6,itmk6,itme6,itms6,wepsk,arbsk,arhsk,arask,arfsk,artsk,itmsk0,itmsk1,itmsk2,itmsk3,itmsk4,itmsk5,itmsk6,card,cardname,skillpoint) VALUES ('$name','$pass','$type','$endtime','$gd','$sNo','$icon','$club','$hp','$mhp','$sp','$msp','$ss','$mss','$att','$def','$pls','$lvl','$exp','$money','$bid','$inf','$rage','$pose','$tactic','$state','$killnum','$wp','$wk','$wg','$wc','$wd','$wf','$teamID','$teamPass','$wep','$wepk','$wepe','$weps','$arb','$arbk','$arbe','$arbs','$arh','$arhk','$arhe','$arhs','$ara','$arak','$arae','$aras','$arf','$arfk','$arfe','$arfs','$art','$artk','$arte','$arts','$itm[0]','$itmk[0]','$itme[0]','$itms[0]','$itm[1]','$itmk[1]','$itme[1]','$itms[1]','$itm[2]','$itmk[2]','$itme[2]','$itms[2]','$itm[3]','$itmk[3]','$itme[3]','$itms[3]','$itm[4]','$itmk[4]','$itme[4]','$itms[4]','$itm[5]','$itmk[5]','$itme[5]','$itms[5]','$itm[6]','$itmk[6]','$itme[6]','$itms[6]','$wepsk','$arbsk','$arhsk','$arask','$arfsk','$artsk','$itmsk[0]','$itmsk[1]','$itmsk[2]','$itmsk[3]','$itmsk[4]','$itmsk[5]','$itmsk[6]','$card','$cardname','$skillpoint')");
 	$db->query("UPDATE {$gtablepre}users SET lastgame='$gamenum' WHERE username='$name'");

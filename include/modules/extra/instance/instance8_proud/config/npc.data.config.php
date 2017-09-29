@@ -127,7 +127,7 @@ namespace instance8
 			0 => array
 			  (
 			'name' => '熵魔法传人 Howling',
-			'icon' => 'avatar_kh/howling.png',
+			'icon' => 'avatar_kh/howling.jpg',
 			'gd' => 'f',
 			'mss' => 50,
 			'skills' => array('486'=>'2'),
@@ -160,7 +160,7 @@ namespace instance8
 		1 => array
 			(
 			'name' => '幻影斗将神 S.A.S',
-			'icon' => 12,
+			'icon' => 'avatar_kh/SAS.jpg',
 			'gd' => 'f',
 			'mss' => 50,
 			'skills' => array('485'=>'0'),
@@ -191,7 +191,7 @@ namespace instance8
 		2 => array
 			(
 			'name' => '银白愿天使 Annabelle',
-			'icon' => 13,
+			'icon' => 'avatar_kh/annabelle.jpg',
 			'gd' => 'f',
 			'mss' => 50,
 			'skills' => array('489'=>'0'),
@@ -204,10 +204,10 @@ namespace instance8
 			'arh' => '梅塔伊恩之冠',
 			'ara' => '朱庇特之巾',
 			'arf' => '神启之羽翼',
-			'arfk3' => 'DF',
-			'arfe3' => 100,
-			'arfs3' => 100,
-			'arfsk3' => 'MH',
+			'arfk' => 'DF',
+			'arfe' => 100,
+			'arfs' => 100,
+			'arfsk' => 'MH',
 			'itm1' => '卡牌包',
 			'itmk1' => 'ygo',
 			'itme1' => 1,
@@ -221,13 +221,13 @@ namespace instance8
 		3 => array
 			(
 			'name' => '通灵冒险家 星海',
-			'icon' => 14,
+			'icon' => 'avatar_kh/xinghai.jpg',
 			'gd' => 'f',
 			'mss' => 50,
 			'skills' => array('488'=>'0'),
 			'wep' => '5.45mm 无声手枪',
 			'wepk' => 'WG',
-			'wepe' => 75,
+			'wepe' => 80,
 			'weps' => 200,
 			'wepsk' => 'S',
 			'arb' => '内插钢板的西装',
@@ -254,7 +254,7 @@ namespace instance8
 		4 => array
 			(
 			'name' => '麻烦妖精 Sophia',
-			'icon' => 14,
+			'icon' => 'avatar_kh/sophia.jpg',
 			'gd' => 'f',
 			'mss' => 50,
 			'pose'=> 4,

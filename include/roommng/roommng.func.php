@@ -511,7 +511,8 @@ function room_enter($id)
 				}
 			}
 		}
-		$header = 'game.php';
+		if($gamestate < 30) $header = 'game.php';
+		else $header = 'index.php';
 	}else{
 		//需要准备的房间，只是加入房间准备页面
 		room_new_chat($roomdata,"<span class=\"grey\">{$cuser}进入了房间</span><br>");

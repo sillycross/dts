@@ -2,7 +2,6 @@
 
 namespace sys
 {
-
 	/*Game system settings*/
 
 	//文件验证字符串
@@ -13,8 +12,6 @@ namespace sys
 	$oldpswdcmp = 1;
 	//是否缓存css文件。0=不缓存，1=缓存
 	$allowcsscache = 1;
-	//游戏版本
-	$gameversion = 'N.E.W. v1.32';
 	//站长留言
 	//$systemmsg = '';
 	//游戏开始方式 0=后台手动开始，1=每天固定时间开始，2=上局结束后，间隔固定小时后的整点开始，3=上局结束后，间隔固定分钟开始
@@ -72,7 +69,7 @@ namespace sys
 	//已废弃，现在用的是achievement_base及各个成就文件里的$ach_allow_mode
 	//$ach_ignore_mode = Array(1,2,3,10,11,12,13,14,15,16,17);
 	//不可获得胜利切糕的游戏类型
-	$qiegao_ignore_mode = Array(10,11,12,13,14,15,16,1);
+	$qiegao_ignore_mode = Array(10,11,12,13,14,15,16,17,1);
 	//计算天梯积分的游戏类型
 	$elorated_mode=Array(10,11,12,13,14);
 	//不允许PVE的游戏类型

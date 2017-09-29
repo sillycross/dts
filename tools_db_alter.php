@@ -20,7 +20,7 @@ output_t('Loading bra.install.sql...');
 
 //获取表名内容备用
 $alter_tables = array();
-$result = $db->query("SHOW TABLES LIKE 'alter_%users';");
+$result = $db->query("SHOW TABLES LIKE 'alter_%winners';");
 while($rarr = $db->fetch_array($result)){
 	$table = str_replace('alter_','',current($rarr));
 	$alter_tables[] = $table;
