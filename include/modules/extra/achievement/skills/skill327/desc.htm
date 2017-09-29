@@ -1,0 +1,18 @@
+<table><tr>
+<td>
+<!--{if ($c327=='0') }--><img src="img/ach/N.gif"><!--{/if}-->
+<!--{if ($c327!='0') }--><img src="img/ach/D.gif"><!--{/if}-->
+</td>
+<td valign="top" align="left">
+<b>
+<!--{if ($c327==0) }-->新的战场 LV1<!--{/if}-->
+<!--{if ($c327==1) }-->新的战场 LV2<!--{/if}-->
+<!--{if ($c327==2) }-->新的战场 LV3<!--{/if}-->
+</b>
+<!--{if ($c327=='999') }--><span class="lime">[完成]</span><!--{else}--><!--{if ($c327==0) }--><span class="red">[未完成]</span><!--{else}--><span class="clan">[进行中]</span><!--{/if}--><!--{/if}--><br>
+<font color="yellow"><span title="$cn327">击杀总数：{$p327}名</span><br></font>
+<!--{if ($c327==0) }--><font color="olive">奖励： 切糕999 <br></font> 在<span class="clan">高级模式</span>房间内击杀全息幻象级NPC共10次。<br><!--{/if}-->
+<!--{if ($c327==1) }--><font color="olive">奖励： 切糕300</font> <span class="clan">卡集「Balefire Rekindle」随机卡片1张</span><br> 在<span class="clan">高级模式</span>房间内击杀全息幻象级NPC共20次。<br><!--{/if}-->
+<!--{if ($c327==2) }--><font color="olive">奖励： 切糕1000</font> <span class="clan">卡集「Balefire Rekindle」随机卡片1张</span><br> 在<span class="clan">高级模式</span>房间内击杀全息幻象级NPC共50次。<br><!--{/if}-->
+</td>
+</tr></table>

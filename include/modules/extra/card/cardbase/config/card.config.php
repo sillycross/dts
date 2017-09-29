@@ -8,11 +8,20 @@ $cardtypecd=array(//卡片类别CD，单位秒
 	'M' => 0
 );
 $packlist=array(
-	"Standard Pack",
-	"Crimson Swear",
-	"Way of Life",
-	"Best DOTO",
-	"Event Bonus"
+	'Standard Pack',
+	'Crimson Swear',
+	'Way of Life',
+	'Best DOTO',
+	'Balefire Rekindle',
+	'Event Bonus'
+);
+$packdesc = array(
+	'Standard Pack' => '最早登场的卡集，大杂烩。卡片内容多是游戏开发者、玩家和当时的一些梗。',
+	'Crimson Swear' => '以游戏阵营「红杀」组织以及其马甲「金龙通讯社」为主题的卡集。',
+	'Way of Life' => '以游戏开发者、重要玩家、有代表性的游戏方式以及同类游戏为捏他对象的卡集。',
+	'Best DOTO' => '以电竞元素和电竞圈为吐槽对象的卡集。',
+	'Balefire Rekindle' => '以游戏版本「复燃」的新增NPC角色和游戏设定为主题的卡集。',
+	'Event Bonus' => '其他一些零散成就和活动奖励卡。'
 );
 $cardindex=array(
 	'S'=>array(1,5,16,38,39,40,41,64,65,67,71,95,99,100,101,102,117,145,152,153),
@@ -2371,7 +2380,7 @@ $cards = array(
 	200 => array(
 		'name' => '幻影斗将神 S.A.S',
 		'rare' => 'A',
-		'pack' => 'hidden',
+		'pack' => 'Balefire Rekindle',
 		'desc' => '“只要能为我的族人复仇，哪怕我堕入永劫地狱也在所不惜！”',
 		'effect' => '获得技能「嫉恶」：敌人每有1杀人数，其受到的最终伤害+13%。对玩家才有效。',
 		'energy' => 100,
@@ -2384,7 +2393,7 @@ $cards = array(
 	201 => array(
 		'name' => '熵魔法传人 Howling',
 		'rare' => 'A',
-		'pack' => 'hidden',
+		'pack' => 'Balefire Rekindle',
 		'desc' => '“银月哨兵是不死之身！”',
 		'effect' => '获得技能「无垠」：双方攻击结束时，如果你的HP<1，则有30%概率变为1。此技能每发动1次，这一概率减半。',
 		'energy' => 120,
@@ -2397,7 +2406,7 @@ $cards = array(
 	202 => array(
 		'name' => '通灵冒险家 星海',
 		'rare' => 'A',
-		'pack' => 'hidden',
+		'pack' => 'Balefire Rekindle',
 		'desc' => '“你住酒店时有没有第一时间确认逃生通道的习惯？没有吧？我有。”',
 		'effect' => '获得技能「后路」：你主动操作时因战斗或陷阱导致不足半血时，自动服用上一次吃的无毒回复道具直到HP回满或道具耗尽。这一技能不会产生道具CD。<br>',
 		'energy' => 100,
@@ -2410,7 +2419,7 @@ $cards = array(
 	203 => array(
 		'name' => '银白愿天使 Annabelle',
 		'rare' => 'A',
-		'pack' => 'hidden',
+		'pack' => 'Balefire Rekindle',
 		'desc' => '“只要你相信神的存在，什么邪恶都没法左右你。”',
 		'effect' => '获得技能「神眷」：战斗中受到的异常状态反弹给敌方。行动时不会因为异常状态受到HP伤害。',
 		'energy' => 100,
@@ -2423,7 +2432,7 @@ $cards = array(
 	204 => array(
 		'name' => '麻烦妖精 Sophia',
 		'rare' => 'A',
-		'pack' => 'hidden',
+		'pack' => 'Balefire Rekindle',
 		'desc' => '“今天的Sophia也是元气满满的哟！”',
 		'effect' => '获得技能「空想」：每120秒可以获得1个类别、效果、耐久和属性皆随机的「空想道具」，其效和耐合计值不超过发动时支付的体力。',
 		'energy' => 110,
@@ -2451,29 +2460,29 @@ $cards = array(
 			)
 		)
 	),
-	1001 => array(
-		'name'=>'小白鼠',
-		'rare'=>'C',
-		'desc'=>'高级模式用卡',
-		'pack'=>'hidden',
-		'effect'=>'高级模式技能载体',
-		'energy'=>0,
-		'valid' => array(
-			'itm4' => '紧急药剂',
-			'itmk4' => 'Ca',
-			'itme4' => '1',
-			'itms4' => '3',
-			'itmsk4' => '',
-			'itm5' => '生命探测器',
-			'itmk5' => 'ER',
-			'itme5' => '3',
-			'itms5' => '1',
-			'itmsk5' => '',
-			'skills'=>array(
-				'1001'=>'0'
-			)
-		)
-	),
+//	1001 => array(
+//		'name'=>'小白鼠',
+//		'rare'=>'C',
+//		'desc'=>'高级模式用卡',
+//		'pack'=>'hidden',
+//		'effect'=>'高级模式技能载体',
+//		'energy'=>0,
+//		'valid' => array(
+//			'itm4' => '紧急药剂',
+//			'itmk4' => 'Ca',
+//			'itme4' => '1',
+//			'itms4' => '3',
+//			'itmsk4' => '',
+//			'itm5' => '生命探测器',
+//			'itmk5' => 'ER',
+//			'itme5' => '3',
+//			'itms5' => '1',
+//			'itmsk5' => '',
+//			'skills'=>array(
+//				'1001'=>'0'
+//			)
+//		)
+//	),
 );
 }
 ?>

@@ -346,7 +346,7 @@ $roomtypelist = Array(
 		'color' => Array(		//队伍颜色，只需对队长设置即可
 			0 => 'ff0022',
 		),
-		'teamID' => Array(	//队伍名，只需对队长设置即可
+		'teamID' => Array(	//队伍名，只需对队长设置即可。
 			0 => '试炼者',
 		),
 		'show-team-leader' => 0,	//是否显示“队长”标签（如队伍大于1人设为1）

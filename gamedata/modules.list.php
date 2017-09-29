@@ -105,6 +105,7 @@ skill479,extra/card/skills/skill479/,1
 skill485,extra/card/skills/skill485/,1
 skill486,extra/card/skills/skill486/,1
 skill488,extra/card/skills/skill488/,1
+skill327,extra/achievement/skills/skill327/,1
 skill1000,extra/instance/instance7_tutorial/skill1000/,1
 kuji0,extra/card/kuji/kuji0/,1
 kuji1,extra/card/kuji/kuji1/,1

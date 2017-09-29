@@ -2,19 +2,21 @@
 
 <div class="subtitle" align="center">卡册</div>
 <center>
-	<!--{if $curuser}-->
-		<!--{loop $packlist $packname}-->
-		&nbsp;&nbsp;<a href="cardbook.php?packName={$packname}">{$packname}</a>&nbsp;&nbsp;
-		<!--{/loop}-->
-	<!--{else}-->
-		<!--{loop $packlist $packname}-->
-		<a href="cardbook.php?packName={$packname}&playerID={$n}">{$packname}</a>
-		<!--{/loop}-->
-	<!--{/if}-->
+	<!--{loop $packlist $packname}-->
+		<!--{if $pname == $packname}-->
+			&nbsp;&nbsp;<h2 class="evergreen" style="display:inline">$packname</h2>&nbsp;&nbsp;
+		<!--{else}-->
+			<!--{if $curuser}-->
+				&nbsp;&nbsp;<a href="cardbook.php?packName={$packname}">{$packname}</a>&nbsp;&nbsp;
+			<!--{else}-->
+				<a href="cardbook.php?packName={$packname}&playerID={$n}">{$packname}</a>
+			<!--{/if}-->
+		<!--{/if}-->
+	<!--{/loop}-->
 </center>
 <!--{if $pname}-->
 <center>
-<p>包介绍：暂无</p>
+<p id="packdesc">$packdesc[$pname]</p>
 <p>$unlock_num/$pack_num</p>
 <!--{if $unlock_cards}-->
 <p>下面是你拥有的卡片和未解锁的卡片</p>

@@ -3,6 +3,7 @@
 namespace achievement_base
 {
 	$achtype=array(
+		31=>'十一活动成就',
 		20=>'日常任务',
 		10=>'结局成就',
 		3=>'战斗成就',
@@ -19,6 +20,7 @@ namespace achievement_base
 		4=>array(325,313,326),
 		10=>array(305,301,306,307),
 		20=>array(314,315,316,317,318,319,320,321,324),
+		31=>array(327)
 	);
 	//成就编号=>允许完成的模式，未定义则用0键的数据（只有标准模式、卡片模式、高级模式可以完成）
 	$ach_allow_mode=array(
