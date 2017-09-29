@@ -23,7 +23,7 @@ namespace skill327
 	
 	function player_kill_enemy(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa, $pd, $active);//确保复活不会触发
+		$chprocess($pa, $pd, $active);//最后执行，确保复活不会触发
 		eval(import_module('sys'));
 		if (18 == $gametype && \skillbase\skill_query(327,$pa) && 2 == $pd['type'] && $pd['hp'] <= 0)
 		{
@@ -45,9 +45,10 @@ namespace skill327
 		
 		$cardprize = array(200, 201, 202, 203, 204);
 		eval(import_module('sys'));
-		$res = $db->query("SELECT cardlist FROM {$gtablepre}users WHERE username='{$pa['username']}'");
-		$cardlist = $db->fetch_array($res)['cardlist'];
-		$nowcards = explode('_', $pa['cardlist']);
+		$result = $db->query("SELECT cardlist FROM {$gtablepre}users WHERE username='{$pa['name']}'");
+		$cardlist = $db->fetch_array($result);
+		$cardlist = $cardlist['cardlist'];
+		$nowcards = explode('_', $cardlist);
 		$cardprize = array_diff($cardprize, $nowcards);
 		if(empty($cardprize)) $cardprize[] = 200;
 		if (($ox<10)&&($x>=10)){

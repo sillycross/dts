@@ -14,7 +14,7 @@ namespace skill1001
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		//获得技能（入场）时记录入场时间
 		eval(import_module('sys'));
-		$skillup = floor(($now - $starttime) / 6);
+		$skillup = floor(($now - $starttime) / 12);
 		if($skillup > 300) $skillup = 300;
 		elseif($skillup < 0) $skillup = 0;
 		\skillbase\skill_setvalue(1001,'skillup',$skillup,$pa);
