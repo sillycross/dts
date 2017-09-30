@@ -100,7 +100,8 @@ while ($data = $db->fetch_array($roomresult))
 			$roomlist[$data['groomid']]['roomtype'] = $roomdata['roomtype'];
 			$roomlist[$data['groomid']]['roomdata'] = $roomdata;
 			$roomlist[$data['groomid']]['soleroom'] = room_get_vars($roomdata,'soleroom');
-			if($roomlist[$data['groomid']]['soleroom']){
+			$roomlist[$data['groomid']]['without-ready'] = room_get_vars($roomdata,'without-ready');
+			if($roomlist[$data['groomid']]['without-ready']){
 				$rid = 's'.$data['groomid'];
 				$rtablepre = $gtablepre.$rid.'_';
 				$endtimelimit = $now-300;

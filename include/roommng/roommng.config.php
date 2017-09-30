@@ -316,7 +316,7 @@ $roomtypelist = Array(
 		'without-ready' => true,//是否不需要点击“准备”就直接进入房间。
 		'without-valid' => true,//是否跳过加入游戏画面就直接进入房间。
 		'req-mod' => 'instance7',//暂时只是摆设
-		'pnum' => 999,	//最大参与人数
+		'pnum' => 1,	//最大参与人数
 		'leader-position' => Array(	//各个编号位置的所属队伍队长位置
 			0 => 0,
 		),

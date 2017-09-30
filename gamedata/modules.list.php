@@ -106,6 +106,7 @@ skill485,extra/card/skills/skill485/,1
 skill486,extra/card/skills/skill486/,1
 skill488,extra/card/skills/skill488/,1
 skill327,extra/achievement/skills/skill327/,1
+skill328,extra/achievement/skills/skill328/,1
 skill1000,extra/instance/instance7_tutorial/skill1000/,1
 kuji0,extra/card/kuji/kuji0/,1
 kuji1,extra/card/kuji/kuji1/,1
@@ -384,6 +385,7 @@ skill43,extra/club/skills/skill43/,1
 skill56,extra/club/skills/skill56/,1
 skill435,extra/card/skills/skill435/,1
 tutorial,extra/instance/instance7_tutorial/tutorial/,1
+skill329,extra/achievement/skills/skill329/,1
 skill244,extra/club/skills/skill244/,1
 skill27,extra/club/skills/skill27/,1
 skill489,extra/card/skills/skill489/,1
