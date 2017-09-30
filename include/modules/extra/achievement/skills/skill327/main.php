@@ -2,11 +2,24 @@
 
 namespace skill327
 {
+	$ach327_threshold = array(
+		1 => 10,
+		2 => 30,
+		3 => 100,
+		999 => NULL
+	);
+	$ach327_qiegao_prize = array(
+		1 => 999,
+		2 => 300,
+		3 => 2000,
+		999 => NULL
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL327_INFO','achievement;spec-activity;');
 		define('MOD_SKILL327_ACHIEVEMENT_ID','27');
-		$ach_allow_mode[327] = array(18);
+//		$ach_allow_mode[327] = array(18);
 	}
 	
 	function acquire327(&$pa)
@@ -44,43 +57,46 @@ namespace skill327
 		$x=min($x,(1<<30)-1);
 		
 		$cardprize = array(200, 201, 202, 203, 204);
-		eval(import_module('sys'));
+		eval(import_module('sys', 'skill327'));
 		$result = $db->query("SELECT cardlist FROM {$gtablepre}users WHERE username='{$pa['name']}'");
 		$cardlist = $db->fetch_array($result);
 		$cardlist = $cardlist['cardlist'];
 		$nowcards = explode('_', $cardlist);
 		$cardprize = array_diff($cardprize, $nowcards);
 		if(empty($cardprize)) $cardprize[] = 200;
-		if (($ox<10)&&($x>=10)){
-			\cardbase\get_qiegao(999,$pa);
+		
+		if ( $ox < $ach327_threshold[1] && $x >= $ach327_threshold[1] ){
+			\cardbase\get_qiegao($ach327_qiegao_prize[1], $pa);
 		}
-		if (($ox<20)&&($x>=20)){
-			\cardbase\get_qiegao(300,$pa);
-		}
-		if (($ox<50)&&($x>=50)){
-			\cardbase\get_qiegao(1000,$pa);
-		}
-		if (($ox<20&&$x>=20) || ($ox<50&&$x>=50)){
+		if ( $ox < $ach327_threshold[2] && $x >= $ach327_threshold[2] ){
+			\cardbase\get_qiegao($ach327_qiegao_prize[2],$pa);
 			shuffle($cardprize);
 			$pcard = $cardprize[0];
 			\cardbase\get_card($pcard,$pa);
 		}
-		
+		if ( $ox < $ach327_threshold[3] && $x >= $ach327_threshold[3]){
+			\cardbase\get_qiegao($ach327_qiegao_prize[3],$pa);
+			shuffle($cardprize);
+			$pcard = $cardprize[0];
+			\cardbase\get_card($pcard,$pa);
+		}
+
 		return base64_encode_number($x,5);		
 	}
 	
 	function show_achievement327($data)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('skill327'));
 		if ($data=='')
 			$p327=0;
 		else	$p327=base64_decode_number($data);	
 		$c327=0;
-		if ($p327>=50)
+		if ($p327 >= $ach327_threshold[3])
 			$c327=999;
-		elseif ($p327>=20)
+		elseif ($p327 >= $ach327_threshold[2])
 			$c327=2;
-		elseif ($p327>=10)
+		elseif ($p327 >= $ach327_threshold[1])
 			$c327=1;
 		include template('MOD_SKILL327_DESC');
 	}
