@@ -23,7 +23,7 @@ namespace achievement_base
 		31=>array(327)
 	);
 	$ach_available_period=array(//如果设置，则非零的数据认为是起止时间
-		31=>array(1506787200, 0)
+		31=>array(1506816000, 0)
 	);
 	//成就编号=>允许完成的模式，未定义则用0键的数据（只有标准模式、卡片模式、荣耀模式可以完成）
 	$ach_allow_mode=array(
