@@ -38,7 +38,7 @@ namespace skill328
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess($pa, $pd, $active);//最后执行，确保复活不会触发
 		eval(import_module('sys'));
-		if (18 == $gametype && \skillbase\skill_query(328,$pa) && !$pd['type'] && $pd['lvl']>=6 && $pd['hp'] <= 0)
+		if (18 == $gametype && \skillbase\skill_query(328,$pa) && !$pd['type'] && $pd['money']>=2000 && $pd['lvl']>=10 && $pd['hp'] <= 0)
 		{
 			$x=(int)\skillbase\skill_getvalue(328,'cnt',$pa);
 			$x+=1;
