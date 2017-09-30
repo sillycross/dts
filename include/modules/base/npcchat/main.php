@@ -4,7 +4,7 @@ namespace npcchat
 {
 	function init() {}
 	
-	function npcchat(&$pa, &$pd, $active, $situation)
+	function npcchat(&$pa, &$pd, $active, $situation, $print = 1)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('npcchat'));
@@ -28,13 +28,8 @@ namespace npcchat
 			$flag = 0;
 		}
 		
-		$chatcolor = $nchat['color'];
-		if(!empty($chatcolor)){
-			$npcwords = "<span class = \"{$chatcolor}\">";
-		}else{
-			$npcwords = '<span>';
-		}
 		
+		$sid = -1;
 		if ($situation == 'meet')	//初次登场，会将NPC从睡眠状态变为正常状态
 		{
 			$sid = 0;
@@ -60,29 +55,47 @@ namespace npcchat
 				else  $sid = rand(7,8);
 			}
 		}
-		else  if ($situation == 'cannot_counter' && $flag)	//NPC无法反击玩家
+		elseif ($situation == 'cannot_counter' && $flag)	//NPC反击检定失败
 		{
-			$sid = rand(10,11);
+			$sid = 10;
 		}
-		else  if ($situation == 'kill')
+		elseif ($situation == 'out_of_range' && $flag)	//NPC射程不足无法反击
+		{
+			$sid = 11;
+		}
+		elseif ($situation == 'kill')
 		{
 			if ($flag)	
-				$sid = 13;	//击杀玩家
+				$sid = 13;	//击杀玩家 原为13，但不需要在这里设置
 			else  $sid = 9;	//被击杀
+		}
+		elseif ($situation == 'critical') //必杀技
+		{
+			$sid = 12;
 		}
 		
 		if (!isset($nchat[$sid])) return;
-		$npcwords.=$nchat[$sid].'</span><br>';
 		
-		eval(import_module('logger'));
-		$log .= $npcwords;
+		if($print){
+			$chatcolor = $nchat['color'];
+			if(!empty($chatcolor)){
+				$npcwords = "<span class = \"{$chatcolor}\">";
+			}else{
+				$npcwords = '<span>';
+			}
+			$npcwords.=$nchat[$sid].'</span><br>';
+		
+			eval(import_module('logger'));
+			$log .= $npcwords;
+		}
+		return $npcwords;
 	}
 	
 	function battle_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa, $pd, $active);
 		if (($pa['type'] && $pa['state']==1) || ($pd['type'] && $pd['state']==1)) npcchat($pa, $pd, $active, 'meet');
+		$chprocess($pa, $pd, $active);
 	}
 	
 	function attack_prepare(&$pa, &$pd, $active)
@@ -96,14 +109,17 @@ namespace npcchat
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess($pa, $pd, $active);
-		if ($pd['type'] && $pd['hp']>0) npcchat($pa, $pd, $active, 'battle');
+		//if ($pd['type'] && $pd['hp']>0) npcchat($pa, $pd, $active, 'battle');
 	}
 	
 	function cannot_counter(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if ($pa['type']) {
+			if(isset($pa['out_of_range'])) npcchat($pa, $pd, $active, 'out_of_range');
+			else npcchat($pa, $pd, $active, 'cannot_counter');
+		}
 		$chprocess($pa, $pd, $active);
-		if ($pa['type'] || $pd['type']) npcchat($pa, $pd, $active, 'cannot_counter');
 	}
 	
 	function player_kill_enemy(&$pa,&$pd,$active)
@@ -111,6 +127,17 @@ namespace npcchat
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($pa['type'] || $pd['type']) npcchat($pa, $pd, $active, 'kill');
 		$chprocess($pa, $pd, $active);
+	}
+	
+	function get_player_killmsg(&$pdata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($pdata);
+		eval(import_module('player'));
+		if ($pdata['type']>0 && isset($npcchat[$pdata['type']][$pdata['name']])){
+			$ret = '';//不需要返回杀人台词
+		}
+		return $ret;
 	}
 }
 

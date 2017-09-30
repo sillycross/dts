@@ -42,6 +42,93 @@ namespace npcchat
 			'color' => 'evergreen'
 		)
 	),
+	2 => array(
+		'幻影斗将神 S.A.S' => Array(
+			0 => '“是敌人么，那么斩了！”',
+			1 => '“吃我这招辉光五轮冰火全破斩！”',
+			2 => '“别小看我们辉光圣战士族人啊！”',
+			3 => '“切，被小看了么……”',
+			4 => '“别高兴得太早了！”',
+			5 => '“那种攻击没用！”',
+			6 => '“你的挣扎毫无意义！”',
+			7 => '“切……”',//defendhurt
+			8 => '“看起来这世道还真是变了啊！”',
+			9 => '“没关系，我钱多，我去买复活药……”',
+			10 => '“地形有点不利，让我重整下态势。”',
+			11 => '“…………懦夫。”',
+			12 => '随着一声大喝，你看见一把巨大的镰刀向你飞来！“吃我奥义！辉光·神圣地裂天鸣怒焰斩·二十六式！”',//critical
+			13 => '“这就是，你的报应。”',
+			'color' => 'seagreen'
+		),
+		'熵魔法传人 Howling' => Array(
+			0 => '“是新朋友！来玩来玩！”',//meet
+			1 => '“All good comes from above.”',//attackfine
+			2 => '“Grow forever, never yield.”',
+			3 => '“Truth sets us free.”',
+			4 => '“Bold and righteous.”',
+			5 => '“Ever the same, ever the different.”',//defendfine
+			6 => '“Faith grants us strength.”',
+			7 => '“From the stars we came, to the stars we rise.”',//defendhurt
+			8 => '“Strong deeds, gentle words.”',
+			9 => '“啊～啊，还没玩够呢，撤退撤退～”',//retreat
+			10 => '“Beyond the clouds we shine.”',//can't counterattack
+			11 => '“Through the shadows we persevered.”',//out of range
+			12 => '少女突然低下身形双手撑地，开始吟唱着什么：“Assuming flowers, Gift of love in front of joy, Winds howling on top”你感觉到一种无法言语的灵压扑面而来！',//critical
+			13 => '“下次要再来玩哦！”',
+			'color' => 'seagreen'
+		),
+		'通灵冒险家 星海' => Array(
+			0 => '“全部准备妥当——现在行使我自己的正当防卫权利。”',//meet
+			1 => '“放心，我的子弹都是非致命的。”',//attackfine
+			2 => '“你看，如果我把你弄死了，我的朋友们就会很忙，你也会很惨，这样对你我都不太好。”',
+			3 => '“我明天会向贵宅寄去医院账单的。”',
+			4 => '“我有个朋友是医生，只要人没死都能治得好，但是治疗金是七位数。”',
+			5 => '“这个小道具能挡下你的攻击，我也不知道怎么回事，但就是很厉害。”',//defendfine
+			6 => '“我有个朋友，爱好就是搞鼓各种道具，然后让我做实验品，改天向他要精神和肉体损失费。”',
+			7 => '“这个喷雾剂可是高级货，哼，就不给你。”',//defendhurt
+			8 => '“至于这个喷雾剂，似乎喷了会刀枪不入，去试试。”',
+			9 => '“咕，幸亏我做好了医疗保险！”',//retreat //“会开车的高中生很奇怪，但是我这辆折叠自行车，跑的比谁都快！”
+			10 => '“Note to Self：向博士讨要更全能的装备。”',//can't counterattack
+			11 => '“Note to Self：下次带把狙击枪。”',//out of range
+			12 => '“小心·你的·背后。”',//critical
+			13 => '“好像一不留神打死人了！我那万能强心针哪去了？”',
+			'color' => 'seagreen'
+		),
+		'银白愿天使 Annabelle' => Array(
+			0 => '“叮——铛——咚——铛！”',//meet
+			1 => '“这可不是一般的盾牌！”',//attackfine
+			2 => '“保护虔诚的信徒，痛击罪恶的敌人！”',
+			3 => '“哇！”',
+			4 => '“神盾术！”',
+			5 => '“满怀罪恶的人是无法突破这神盾的！”',//defendfine
+			6 => '“满怀执念的人是无法突破这障壁的！”',
+			7 => '“…………”',//defendhurt
+			8 => '“再争取一点时间也好……”',
+			9 => '“飞不起来了啊！这时候就要……隐身术！”',//retreat //“你是追不上我的！我会飞！”
+			10 => '“你是追不上我的！我会飞！”',//can't counterattack
+			11 => '“你是无法突破我的防御的！”',//out of range
+			12 => '“幸福的大合奏要开始了哦！”',//critical
+			13 => '“没关系的，神一定会赦免你的一切罪孽。”',
+			'color' => 'seagreen'
+		),
+		'麻烦妖精 Sophia' => Array(
+			0 => '“负责地球的妖精 Sophia驾到！我很强的所以你们都不用怕啦！”',//meet
+			1 => '“用这个锤子砸死你！”',//attackfine
+			2 => '“用这个钻头将你钉在墙上！”',
+			3 => '“是时候拿出更大的东西了！”',
+			4 => '“我的武器库还有一半没用过呢～”',
+			5 => '“看！这是个保险柜！”',//defendfine
+			6 => '“看！这是个泡泡！诶你说为啥泡泡砸不烂？这是商业机密。”',
+			7 => '“只是手慢了一步而已。”',//defendhurt
+			8 => '“法杖只有一把，话说有双持法杖的魔法少女么？”',
+			9 => '“在这里就干掉的话还叫什么主角！主角都要从舞台左边离开的！”',//retreat //“无视压力，全力想象！”
+			10 => '“唔，让我想想下一个武器是什么……”',//can't counterattack
+			11 => '“思考可不是我的长项……”',//out of range
+			12 => '突然，从你的头顶上出现了一大堆各色各样的工业垃圾！',//critical
+			13 => '“想象力就是我的胜出诀窍。”',
+			'color' => 'seagreen'
+		),
+	),
 	5 => Array(
 		'冴月 麟' => Array(
 			0 => '“【MEET】”',//meet
@@ -58,7 +145,7 @@ namespace npcchat
 			11 => '“【OUT_OF_RANGE_COUNTER】”',//out of range
 			12 => '“【CRITICAL_COUNTER】”',//critical
 			13 => '“【DEAD】”',	
-			'color' => 'yellow'
+			'color' => 'gold'
 		),
 		'某四面' => Array(
 			0 => '“ ♪ My Little Pony, My Little Pony...Ahh, ahh, ahh, ahhh... ♪ ”',//meet
@@ -75,7 +162,7 @@ namespace npcchat
 			11 => '“ ♪ And magic makes it all complete ♪ ”',//out of range
 			12 => '“ ♪ You have my little ponies ♪ ”',//critical
 			13 => '“ ♪ Do you know you\'re all my very best friends? ♪ ”',	
-			'color' => 'yellow'
+			'color' => 'gold'
 		)
 	),
 	6 => Array(
@@ -94,7 +181,7 @@ namespace npcchat
 			11 => '“竟打不到……竟打不到……”',
 			12 => 'Acg_Xilin露出了古怪的笑容：“尝尝我的奥义吧，这可是我精心收藏的魔法哟！”',
 			13 => '“忘记历史就意味着背叛，背叛就意味着……死亡。”',
-			'color' => 'yellow'
+			'color' => 'purple'
 		)
 	),
 	7 => Array(
@@ -130,7 +217,7 @@ namespace npcchat
 			11 => '“距离太远了，暂时撤退吧。”',
 			12 => '坂持 金发举枪瞄准：“虽然老师干预游戏是违反规则的……”',
 			13 => '“记住这个吧，人生是游戏。”',
-			'color' => 'yellow'
+			'color' => 'gold'
 		),
 		'花之领主 风见 幽香' => Array(
 			0 => '“于是，还真有胆敢闯进禁区的人啊，我就奉陪到底吧。”',
@@ -293,7 +380,7 @@ namespace npcchat
 			11 => '“这个一点都不好！”',//out of range
 			12 => '“不！要！强！调！为！什！么！是（ping）（ru）啦！！和（pin）（ru）完全没有关系！”',//critical
 			13 => '“看来存在感能＋1了呢……”',
-			'color' => 'yellow'
+			'color' => 'lime'
 		),
 		'beijuzhu' => Array(
 			0 => '“我也是ACFUN大逃殺第一批的玩家，和捂臉姬一樣都是搬運９課的成員之一，人稱「北極豬」。”',
@@ -310,7 +397,7 @@ namespace npcchat
 			11 => '“目標太遠了，打不到人啊。”',
 			12 => '“你在地圖上看見的「變磚PSP」，效果只是杏仁豆腐版本，有本事就試試看這個PSP吧！”',
 			13 => '“武神當中我最沒存在感了，那這回又如何呢？”',
-			'color' => 'yellow'
+			'color' => 'linen'
 		),
 		'黑色奪魂曲' => Array(
 			0 => '“你好，我是黑曲，是台灣人，與冴冴共同創作大逃殺劇情，像是「紅暮」「藍凝」。”',
@@ -327,7 +414,7 @@ namespace npcchat
 			11 => '“武器射程太近了，但是靈系即使是已經被削的現在，依然不會弱。”',
 			12 => '“奧義，超！９！武！神！霸！斬！！！”',
 			13 => '“對不起，出手太重了。喂！你快醒醒啊！不會就這樣...死了吧？”',
-			'color' => 'yellow'
+			'color' => 'clan'
 		),
 		'捂脸姬' => Array(
 		  0 => '“大家好，我是ACFUN大逃殺第一批的玩家，真要說有什麼職位的話，那就是「試玩」。”',//meet
@@ -344,7 +431,7 @@ namespace npcchat
 			11 => '“就因為是爆系又不是強襲姿態才會被一個叫「計劃通行」的ID給偷到武神之魂了啊！！”',//out of range
 			12 => '“既然你讓我先攻了，那就試試看爆系這70%的最高命中率吧！”',//critical
 			13 => '“最弱武神組的我，竟然能殺死人了？你弱爆了。”',
-			'color' => 'yellow'
+			'color' => 'linen'
 		),		
 		'Yoshiko-G' => Array(
       0 => '“賭玉？輸了會有什麼後果嗎？”',//meet
@@ -361,7 +448,7 @@ namespace npcchat
       11 => '“只敢用爆系的你，與其說是小心，不如說是膽小。”',//out of range
       12 => '「守序善良」？那個會想辦法討好玩家的四面已經死了，讓你看看什麼才是「混亂邪惡」！”',//critical
       13 => '“賭玉的後果，就是被人卸了一條腿，但是我可是有幾萬條腿呢，哈哈哈！”',//kill
-      'color' => 'yellow'
+      'color' => 'linen'
 		),
 		
 		'埃尔兰卡' => Array(
@@ -398,7 +485,7 @@ namespace npcchat
 			11 => '“射程不足，因为你正使用射程大于等于投系的武器。”',
 			12 => '三色的光芒从冴月麟的全身喷涌而出：“魂！常磐之力！Unlimited Code Works！”',
 			13 => '“那么，咱为又一次坑了你道歉。”',
-			'color' => 'yellow'
+			'color' => 'gold'
 		),
 		'星莲船四面BOSS' => Array(
 			0 => '“那么，真名解放！下面就是见证奇迹的时刻！”',
@@ -415,7 +502,7 @@ namespace npcchat
 			11 => '“无法反击是伏击武器的宿命啊！（摔”',
 			12 => '“那、那个……就这么说吧！冴冴我喜欢你呀！”（按）',
 			13 => '“失手了！不知道坑了多少人的切糕？”',
-			'color' => 'yellow'
+			'color' => 'gold'
 		),
 		'虚子' => Array(
 			0 => '“没人理我了吗？我被无视了吗？”',//meet

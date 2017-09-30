@@ -432,7 +432,11 @@ namespace weapon
 			if (!$chprocess($pa,$pd,$active)) return 0;
 			return check_counter_dice($pa, $pd, $active);
 		}
-		else  return 0;
+		else
+		{
+			$pa['out_of_range'] = 1;//标记一下是射程不足所致
+			return 0;
+		}
 	}
 	
 	function itemuse(&$theitem)
