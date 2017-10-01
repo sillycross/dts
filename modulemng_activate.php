@@ -1,12 +1,13 @@
 <?php
-
-@ini_set('zlib.output_compression',0);
-@ini_set('implicit_flush',1);
 @ob_end_clean();
-header('Content-Type: text/HTML; charset=utf-8');
+header('Content-Type: text/HTML; charset=utf-8'); // 以事件流的形式告知浏览器进行显示
 header( 'Content-Encoding: none; ' );
-    
+header('Cache-Control: no-cache');         // 告知浏览器不进行缓存
+header('X-Accel-Buffering: no');           // 关闭加速缓冲
+@ini_set('implicit_flush',1);
+ob_implicit_flush(1);
 set_time_limit(0);
+@ini_set('zlib.output_compression',0);
 
 define('IN_MODULEMNG', TRUE);
 define('IN_MODULE_ACTIVATE', TRUE);

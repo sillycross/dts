@@ -2,7 +2,7 @@
 namespace cardbase{
 $cardtypecd=array(//卡片类别CD，单位秒
 	'S' => 43200,
-	'A' => 14400,
+	'A' => 7200,
 	'B' => 3600,
 	'C' => 0,
 	'M' => 0
