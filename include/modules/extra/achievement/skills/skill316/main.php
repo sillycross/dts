@@ -38,7 +38,7 @@ namespace skill316
 	
 	function player_kill_enemy(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ((\skillbase\skill_query(316,$pa))&&($pd['type']==90))
+		if ( \skillbase\skill_query(316,$pa) && $pd['type']==90 && $pd['hp'] <= 0)
 		{
 			$x=(int)\skillbase\skill_getvalue(316,'cnt',$pa);
 			$x+=1;

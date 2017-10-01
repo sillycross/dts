@@ -144,7 +144,7 @@ namespace npcchat
 			10 => '“【NO_COUNTER】”',//can't counterattack
 			11 => '“【OUT_OF_RANGE_COUNTER】”',//out of range
 			12 => '“【CRITICAL_COUNTER】”',//critical
-			13 => '“【DEAD】”',	
+			13 => '“【KILLMSG】”',	
 			'color' => 'gold'
 		),
 		'某四面' => Array(

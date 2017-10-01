@@ -385,6 +385,7 @@ namespace weather
 		{
 			$tdata['sNoinfo'] = '？？？';
 			$tdata['iconImg'] = 'question.gif';
+			$tdata['iconImgB'] = 'question.gif';
 			$tdata['name'] = '？？？';
 			$tdata['wep'] = '？？？';
 			$tdata['infdata'] = '？？？';
