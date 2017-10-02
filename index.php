@@ -27,7 +27,7 @@ $roomresult = $db->query("SELECT * FROM {$gtablepre}game WHERE groomid>0 AND gro
 //从数据库拉取开启的房间数，然后从文件判断房间是不是开启……有点迷
 while ($data = $db->fetch_array($roomresult))
 {
-	if ($data['groomstatus']==1)//数据库中房间在等待状态
+	if ($data['groomstatus'] >= 10 && $data['groomstatus'] < 40)//数据库中房间在等待状态
 	{
 		$cnt=$rdpmax=0;
 		if (file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['groomid'].'.txt'))
@@ -39,35 +39,10 @@ while ($data = $db->fetch_array($roomresult))
 			
 			//自动踢人
 			if (room_auto_kick_check($roomdata)) $infochanged = 1;
-//			if ($roomdata['roomstat']==1 && time()>=$roomdata['kicktime'])
-//			{
-//				$rdplist = & room_get_vars($roomdata, 'player');
-//				$rdpnum = room_get_vars($roomdata, 'pnum');
-//				for ($i=0; $i < $rdpnum; $i++)
-//					if (!$rdplist[$i]['forbidden'] && !$rdplist[$i]['ready'] && $rdplist[$i]['name']!='')
-//					{
-//						room_new_chat($roomdata,"<span class=\"grey\">{$rdplist[$i]['name']}因为长时间未准备，被系统踢出了位置。</span><br>");
-//						$rdplist[$i]['name']='';
-//						$infochanged = 1;
-//					}
-//			}
 			if ($infochanged) room_save_broadcast($data['groomid'],$roomdata);
 			
 			//人数检测
 			list($cnt, $rdpmax) = room_participant_get($roomdata);
-//			$rdplist = & room_get_vars($roomdata, 'player');
-//			$rdpnum = $rdpmax = room_get_vars($roomdata, 'pnum');
-//			for ($i=0; $i < $rdpnum; $i++)
-//			{
-//				if ($rdplist[$i]['name']!='')
-//				{
-//					$flag=1; $cnt++;
-//				}
-//				else  if ($rdplist[$i]['forbidden'])
-//				{
-//					$rdpmax--;
-//				}
-//			}
 		}
 		//文件不存在或者房间没人，则数据库中该房间状态改为关闭
 		if (!$cnt)
@@ -87,7 +62,7 @@ while ($data = $db->fetch_array($roomresult))
 			$roomlist[$data['groomid']]['soleroom'] = room_get_vars($roomdata, 'soleroom');
 		}
 	}
-	elseif ($data['groomstatus']==2)//数据库中房间已经进入游戏
+	elseif ($data['groomstatus']>=40)//数据库中房间已经进入游戏
 	{
 		if (file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['groomid'].'.txt'))
 		{
@@ -130,7 +105,7 @@ foreach ($roomlist as $key => $value)
 	{
 		$wg = 0;
 	}
-	elseif ($value['status']==2)
+	elseif ($value['status']>=40)
 	{
 		$wg = 20000;
 	}

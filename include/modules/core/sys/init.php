@@ -89,10 +89,10 @@ namespace sys
 				$gameinfo = NULL;
 			}
 			//如果房间是开启状态，但游戏在结束状态，则把房间状态设为打开
-			elseif ($gameinfo['groomstatus'] && $gameinfo['gamestate']==0 && room_check_subroom($room_prefix))
+			elseif ($gameinfo['groomstatus'] > 0 && $gameinfo['gamestate']==0 && room_check_subroom($room_prefix))
 			{
-				$db->query("UPDATE {$gtablepre}game SET groomstatus=1 WHERE groomid='$room_id'");
-				$gameinfo['groomstatus'] = 1;
+				$db->query("UPDATE {$gtablepre}game SET groomstatus=10 WHERE groomid='$room_id'");
+				$gameinfo['groomstatus'] = 10;
 //				$room_prefix = '';
 //				$room_id = 0;
 //				$gameinfo = NULL;

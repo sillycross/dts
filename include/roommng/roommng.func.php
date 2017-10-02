@@ -5,7 +5,7 @@ function room_all_routine(){
 	eval(import_module('sys'));
 	//startmicrotime();
 	$o_room_id = $room_id;
-	$result = $db->query("SELECT groomid,groomstatus FROM {$gtablepre}game WHERE groomid>0 AND groomstatus=2");
+	$result = $db->query("SELECT groomid,groomstatus FROM {$gtablepre}game WHERE groomid>0 AND groomstatus>=40");
 	$wtablepre = $gtablepre.'s';
 	while($rarr = $db->fetch_array($result)){
 		$room_id = $rarr['groomid'];
@@ -51,28 +51,33 @@ function update_roomstate(&$roomdata, $runflag)
 	return $changeflag;
 }
 
-function roomdata_save($roomid, &$roomdata){
+function roomdata_save($roomid, &$roomdata, $roomstatus=NULL){
 	eval(import_module('sys'));
 	$roomvars = gencode($roomdata);
-	$db->query("UPDATE {$gtablepre}game SET roomvars='$roomvars' WHERE groomid='$roomid'");
+	if(NULL===$roomstatus){
+		return $db->query("UPDATE {$gtablepre}game SET roomvars='$roomvars' WHERE groomid='$roomid'");
+	}else{
+		$roomstatus = (int)$roomstatus;
+		return $db->query("UPDATE {$gtablepre}game SET groomstatus='$roomstatus',roomvars='$roomvars' WHERE groomid='$roomid'");
+	}
 }
 
-function room_save_broadcast($roomid, &$roomdata)
+function room_save_broadcast($roomid, &$roomdata, $roomstatus=NULL)
 {
 	//保存数据并广播
 	eval(import_module('sys'));
 	//$result = $db->query("SELECT groomid,groomstatus,groomtype,roomvars FROM {$gtablepre}game WHERE groomid = '$roomid'");
 	$rarr = fetch_roomdata($roomid);
 	$runflag = 0;
-	if(!empty($rarr) && 2==$rarr['groomstatus']) $runflag = 1; 
+	if(!empty($rarr) && $rarr['groomstatus']>=40) $runflag = 1; 
 //	if ($db->num_rows($result)) 
 //	{ 
 //		$rarr=$db->fetch_array($result); 
-//		if ($rarr['groomstatus']==2) $runflag = 1; 
+//		if ($rarr['groomstatus']>=40) $runflag = 1; 
 //	}
 	
 	update_roomstate($roomdata,$runflag);
-	roomdata_save($roomid, $roomdata);
+	roomdata_save($roomid, $roomdata, $roomstatus);
 	//writeover(GAME_ROOT.'./gamedata/tmp/rooms/'.$roomid.'.txt', gencode($roomdata));
 	touch(GAME_ROOT.'./gamedata/tmp/rooms/'.$roomid.'.txt');
 	$result = $db->query("SELECT * FROM {$gtablepre}roomlisteners WHERE roomid = '$roomid' AND timestamp < '{$roomdata['timestamp']}'");
@@ -105,17 +110,24 @@ function room_init($roomtype)
 	//1 房间开启（游戏未开始）
 	//2 房间开启（游戏已开始）
 	
-	//应和roomstat合并，改为：
+	//roomstat在数据库status字段为1时才有意义
+	//0 等待玩家
+	//1 人数已满（等待所有玩家点击准备，并进入踢人倒计时）
+	//2 即将开始（正在进行游戏初始化工作）
+	
+	//感觉好像也没什么太大必要改嘛233
+	//groomstatus应和roomstat合并，改为：
 	//0 房间关闭（上局游戏已结束）
 	//10 房间开启，人数未满（游戏未开始）
 	//20 房间开启，人数已满，倒计时（游戏未开始）
 	//30 房间开启，游戏初始化（游戏未开始）
 	//40 房间开启，游戏初始化完毕（游戏已开始）
-	
-	//roomstat在数据库status字段为1时才有意义
-	//0 等待玩家
-	//1 人数已满（等待所有玩家点击准备，并进入踢人倒计时）
-	//2 即将开始（正在进行游戏初始化工作）
+	//换算关系：groomstatus>0  -->  groomstatus>0
+	//groomstatus==1 --> groomstatus>=10 && groomstatus<40
+	//groomstatus==2 --> groomstatus>=40
+	//roomstat==0  -->  groomstatus == 10
+	//roomstat==1  -->  groomstatus == 20
+	//roomstat==2  -->  groomstatus == 30
 	
 	$a['roomstat']=0;
 	$a['roomfounder']='';
@@ -346,18 +358,18 @@ function room_create($roomtype)
 		foreach($rdata as $rd){
 			$rid = $rd['groomid'];
 			$rids = array_diff($rids, Array($rid));
-			if($rd['groomtype'] == $roomtype && $rd['groomstatus'] == 2){//永续房存在的情况下直接进
+			if($rd['groomtype'] == $roomtype && $rd['groomstatus'] >= 40){//永续房存在的情况下直接进
 				$rchoice = $rid;
 				break;
 			}elseif($rd['groomstatus'] == 0){//房间关闭状态，改成永续房
 				$rchoice = $rid;
-				$db->query("UPDATE {$gtablepre}game SET gamestate = 0, groomstatus = 1, groomtype = '$roomtype',  roomvars='' WHERE groomid = '$rid'");
+				$db->query("UPDATE {$gtablepre}game SET gamestate = 0, groomstatus = 10, groomtype = '$roomtype',  roomvars='' WHERE groomid = '$rid'");
 				break;
 			}
 		}
 		if(!empty($rids) && $rchoice < 0){//否则新建房间
 			$rchoice = $rids[0];
-			$db->query("INSERT INTO {$gtablepre}game (groomid,groomstatus,groomtype) VALUES ('$rchoice',1,'$roomtype')");
+			$db->query("INSERT INTO {$gtablepre}game (groomid,groomstatus,groomtype) VALUES ('$rchoice',10,'$roomtype')");
 			//$db->query("UPDATE {$gtablepre}rooms SET status = 1, roomtype = '$roomtype' WHERE roomid = '$rid'");
 		}
 	}else{
@@ -377,7 +389,7 @@ function room_create($roomtype)
 //				if(file_exists($file)){
 //					$rfdata = gdecode(file_get_contents($file),1);
 //				}
-				if(file_exists($file) && $rrs['groomstatus'] && isset($rrs['roomvars']['roomfounder']) && $rrs['roomvars']['roomfounder']==$cuser){
+				if(file_exists($file) && $rrs['groomstatus'] > 0 && !$roomtypelist[$rrs['groomtype']]['without-ready'] && isset($rrs['roomvars']['roomfounder']) && $rrs['roomvars']['roomfounder']==$cuser){
 					gexit("你已经创建了房间{$rrsid}，请在该房间游戏结束后再尝试创建房间",__file__,__line__);
 					die();
 				}
@@ -387,14 +399,14 @@ function room_create($roomtype)
 		{
 			if(!isset($roomarr[$i])) 
 			{
-				$db->query("INSERT INTO {$gtablepre}game (gamestate,groomid,groomstatus,groomtype) VALUES (0,'$i',1,'$roomtype')");
+				$db->query("INSERT INTO {$gtablepre}game (gamestate,groomid,groomstatus,groomtype) VALUES (0,'$i',10,'$roomtype')");
 				$rchoice = $i; break;
 			}
 			else 
 			{
 				if ($roomarr[$i]['groomstatus']==0)
 				{
-					$db->query("UPDATE {$gtablepre}game SET gamestate = 0, groomstatus = 1, groomtype = '$roomtype', roomvars='' WHERE groomid = '$i'");
+					$db->query("UPDATE {$gtablepre}game SET gamestate = 0, groomstatus = 10, groomtype = '$roomtype', roomvars='' WHERE groomid = '$i'");
 					$rchoice = $i; break;
 				}
 			}
@@ -473,7 +485,7 @@ function room_enter($id)
 		$wtablepre = $gtablepre.room_prefix_kind($room_prefix);
 		\sys\load_gameinfo();
 		$init_state = room_init_db_process($room_id); //\sys\room_auto_init();
-		$need_reset = $rd['groomstatus'] == 1 ? true : false;//未开始则启动房间
+		$need_reset = $rd['groomstatus'] == 10 ? true : false;//未开始则启动房间
 		if($roomtypelist[$rd['groomtype']]['soleroom'] && !($init_state & 4)){//教程房特殊设定，读取最后有玩家行动的时间，如果超时则需要重置，防止房间各种记录飙得太长
 			$result = $db->query("SELECT endtime FROM {$tablepre}players WHERE type=0 ORDER BY endtime DESC LIMIT 1");
 			if($db->num_rows($result)){
@@ -483,7 +495,7 @@ function room_enter($id)
 		}
 		if($need_reset){	
 			//$db->query("UPDATE {$gtablepre}game SET groomstatus = 2 WHERE groomid = '$id'");
-			$groomstatus = 2;
+			$groomstatus = 40;
 			$gamestate = 0;
 			$gametype = $roomtypelist[$rd['groomtype']]['gtype'];
 			$starttime = $now;

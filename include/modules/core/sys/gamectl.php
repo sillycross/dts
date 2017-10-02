@@ -11,20 +11,29 @@ namespace sys
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		eval(import_module('sys'));
+		
+		//重设游戏局数（顺便+1）
+		$gamenum ++;
+		$result = $db->query("SELECT gid FROM {$wtablepre}winners ORDER BY gid DESC LIMIT 1");
+		$wgamenum = $db->result($result, 0);
+		if( $db->num_rows($result) && $gamenum <= $wgamenum ) {
+			$gamenum = $wgamenum + 1;
+		}
+		
 		$dir = GAME_ROOT.'./gamedata/';
 		$sqldir = GAME_ROOT.'./gamedata/sql/';
 		
 		//0号房恒为经典房，重置房间参数
 		if(!$groomid) {
 			$groomtype = 0;
-			$groomstatus = 2;
+			$groomstatus = 40;
 			$roomvars = array();
 		}
 		reset_gametype();
 		$gamestate = 5;//正在重设游戏
 		save_gameinfo(0);
 		
-		//重设玩家互动信息、聊天记录、地图道具、地图陷阱、进行状况
+		//重设玩家互动信息、聊天记录、地图道具、地图陷阱、进行状况的数据库
 		$sql = file_get_contents("{$sqldir}reset.sql");
 		$sql = str_replace("\r", "\n", str_replace(' bra_', ' '.$tablepre, $sql));
 		$db->queries($sql);

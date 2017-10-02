@@ -62,14 +62,14 @@ if(!$room_flag){
 	die();
 }
 
-if ($rarr['groomstatus']==2) 
+if ($rarr['groomstatus'] >= 40) 
 {
 	ob_clean();
 	$gamedata['url']='game.php';
 	echo gencode($gamedata);
 	die();
 }
-//elseif($rarr['groomstatus']==1 && ($disable_newgame || $disable_newroom))
+//elseif($rarr['groomstatus']>=10 && $rarr['groomstatus']<40 && ($disable_newgame || $disable_newroom))
 //{//不知道这句有没有用
 //	$db->query("UPDATE {$gtablepre}users SET roomid='0' WHERE username='$cuser'");
 //	gexit('系统维护中，暂时不能加入房间。');
@@ -123,7 +123,7 @@ $result = $db->query("SELECT groomid,groomstatus,groomtype,roomvars FROM {$gtabl
 if (!$db->num_rows($result)) { ob_clean(); die(); }
 $rarr=$db->fetch_array($result);
 if ($rarr['groomstatus']==0) { ob_clean(); die(); }
-if ($rarr['groomstatus']==2) 
+if ($rarr['groomstatus']>=40) 
 {
 	ob_clean();
 	$gamedata['url']='game.php';

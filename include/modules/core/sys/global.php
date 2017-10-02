@@ -192,10 +192,13 @@ namespace sys
 	
 	function getchat($last,$team='',$chatpid=0,$limit=0) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys'));
+		$chatdata = Array('lastcid' => $last, 'msg' => array());
+		eval(import_module('sys', 'input'));
+		//如果拉取的房间号同账号不对应（另一窗口换了房间）或者游戏局数不对应（该房间重开了游戏）则返回
+		if((isset($cgamenum) && $gamenum != $cgamenum) || (isset($croomid) && $groomid != $croomid)) return $chatdata;
 		$limit = $limit ? $limit : $chatlimit;
 		$result = $db->query("SELECT * FROM {$tablepre}chat WHERE cid>'$last' AND (recv='' OR (type='1' AND recv='$team') OR (type!='1' AND recv='$chatpid')) ORDER BY cid desc LIMIT $limit");
-		$chatdata = Array('lastcid' => $last, 'msg' => array());
+		
 		if(!$db->num_rows($result)){$chatdata = array('lastcid' => $last, 'msg' => array());return $chatdata;}
 		
 		while($chat = $db->fetch_array($result)) {
