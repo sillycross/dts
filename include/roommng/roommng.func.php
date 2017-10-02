@@ -107,27 +107,14 @@ function room_init($roomtype)
 	$a['roomtype']=$roomtype;
 	//数据库中的groomstatus字段意义：
 	//0 房间关闭（上局游戏已结束）
-	//1 房间开启（游戏未开始）
-	//2 房间开启（游戏已开始）
+	//10 房间开启（游戏未开始）
+	//40 房间开启（游戏已开始）
+	//20和30本来是留给readystat的，后来想想分开也好
 	
-	//roomstat在数据库status字段为1时才有意义
+	//readystat在数据库groomstatus字段为1时才有意义
 	//0 等待玩家
 	//1 人数已满（等待所有玩家点击准备，并进入踢人倒计时）
 	//2 即将开始（正在进行游戏初始化工作）
-	
-	//感觉好像也没什么太大必要改嘛233
-	//groomstatus应和roomstat合并，改为：
-	//0 房间关闭（上局游戏已结束）
-	//10 房间开启，人数未满（游戏未开始）
-	//20 房间开启，人数已满，倒计时（游戏未开始）
-	//30 房间开启，游戏初始化（游戏未开始）
-	//40 房间开启，游戏初始化完毕（游戏已开始）
-	//换算关系：groomstatus>0  -->  groomstatus>0
-	//groomstatus==1 --> groomstatus>=10 && groomstatus<40
-	//groomstatus==2 --> groomstatus>=40
-	//roomstat==0  -->  groomstatus == 10
-	//roomstat==1  -->  groomstatus == 20
-	//roomstat==2  -->  groomstatus == 30
 	
 	$a['roomstat']=0;
 	$a['roomfounder']='';

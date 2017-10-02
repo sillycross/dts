@@ -90,7 +90,7 @@ if (!($rarr['groomstatus'] >= 10 && $rarr['groomstatus'] < 40) && $command!='lea
 }
 $roomdata = gdecode($rarr['roomvars'] ,1);
 //进入即将开始状态后，任何房间命令均无效，包括退出房间命令
-if ($roomdata['roomstat']==2)
+if ($roomdata['readystat']==2)
 {
 	gexit('房间已开始，命令无效。', __file__, __line__);
 }
@@ -434,7 +434,7 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 //			if (!$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']==$cuser)
 //				$upos = $i;
 		
-		if ($upos>=0 && $roomdata['roomstat']==1 && !$rdplist[$upos]['ready'] && !room_get_vars($roomdata,'without-ready'))
+		if ($upos>=0 && $roomdata['readystat']==1 && !$rdplist[$upos]['ready'] && !room_get_vars($roomdata,'without-ready'))
 		{
 			$rdplist[$upos]['ready']=1;
 			$flag=1;
@@ -445,7 +445,7 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 			room_new_chat($roomdata,"<span class=\"grey\">{$cuser}点击了准备</span><br>");
 			if ($flag) 
 			{
-				$roomdata['roomstat']=2;
+				$roomdata['readystat']=2;
 				room_new_chat($roomdata,"<span class=\"grey\">所有人均已准备，游戏即将开始..</span><br>");
 			}
 			room_save_broadcast($room_id_r,$roomdata);
@@ -515,7 +515,7 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 				save_gameinfo();
 				
 				//再次广播信息，这次让所有玩家跳转到游戏中
-				$roomdata['roomstat']=0;
+				$roomdata['readystat']=0;
 				$db->query("UPDATE {$gtablepre}game SET groomstatus=40 WHERE groomid='$room_id_r'");
 				$roomdata['timestamp']++;
 				$roomdata['chatdata']=room_init($roomdata['roomtype'])['chatdata'];
@@ -542,10 +542,10 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 			$starttime = $now;
 			save_gameinfo();
 			\sys\routine();
-			$roomdata['roomstat']=2;
+			$roomdata['readystat']=2;
 			room_save_broadcast($room_id_r,$roomdata);
 			$db->query("UPDATE {$gtablepre}game SET groomstatus=40 WHERE groomid='$room_id_r'");
-			$roomdata['roomstat']=0;
+			$roomdata['readystat']=0;
 			$roomdata['timestamp']++;
 			$roomdata['chatdata']=room_init($roomdata['roomtype'])['chatdata'];
 			room_save_broadcast($room_id_r,$roomdata);
