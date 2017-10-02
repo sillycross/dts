@@ -523,7 +523,7 @@ function room_enter($id)
 				}
 			}
 		}
-		if($gamestate < 30) $header = 'game.php';
+		if($gamestate < 30 && $need_reset) $header = 'game.php';
 		else $header = 'index.php';
 	}else{
 		//需要准备的房间，只是加入房间准备页面

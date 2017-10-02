@@ -2,7 +2,7 @@
 
 namespace skill490
 {	
-	$skill490_cd = 12;
+	$skill490_cd = 60;
 	$skill490_minsp = 1;
 	
 	function init() 

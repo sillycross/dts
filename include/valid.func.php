@@ -46,13 +46,13 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 	$itm[1] = '面包'; $itmk[1] = 'HH'; $itme[1] = 100; $itms[1] = 30;
 	$itm[2] = '矿泉水'; $itmk[2] = 'HS'; $itme[2] = 100; $itms[2] = 30;
 	
-	$weplist = openfile(config('stwep',$gamecfg));
+	$weplist = \itemmain\get_startingwepfilecont();
 	do { 
 		$index = rand(1,count($weplist)-1); 
 		list($wep,$wepk,$wepe,$weps,$wepsk) = explode(",",$weplist[$index]);
 	} while(!$wepk);
 
-	$stitemlist = openfile(config('stitem',$gamecfg));
+	$stitemlist = \itemmain\get_startingitemfilecont();
 	do { 
 		$index = rand(1,count($stitemlist)-1); 
 		list($itm[3],$itmk[3],$itme[3],$itms[3],$itmsk[3]) = explode(",",$stitemlist[$index]);

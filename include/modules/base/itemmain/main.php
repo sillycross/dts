@@ -208,8 +208,21 @@ namespace itemmain
 	
 	function get_itemfilecont(){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
-		eval(import_module('sys'));
 		$file = __DIR__.'/config/mapitem.config.php';
+		$l = openfile($file);
+		return $l;
+	}
+	
+	function get_startingitemfilecont(){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		$file = __DIR__.'/config/stitem.config.php';
+		$l = openfile($file);
+		return $l;
+	}
+	
+	function get_startingwepfilecont(){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		$file = __DIR__.'/config/stwep.config.php';
 		$l = openfile($file);
 		return $l;
 	}
