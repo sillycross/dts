@@ -56,8 +56,8 @@ namespace skill490
 		$spdown = $sp - $skill490_minsp;
 		$sp = $skill490_minsp;
 		\skillbase\skill_setvalue(490,'nextuse',$now + $skill490_cd);
-		addnews ( 0, 'bskill490', $name );
 		get_random_item490($spdown);
+		addnews ( 0, 'bskill490', $name , $itmk0, $itm0);
 		if($itms0) {
 			$log.='<span class="lime">获得了「空想道具」！</span><br>';
 			\itemmain\itemget();
@@ -97,16 +97,23 @@ namespace skill490
 				}
 			}	
 		}
-		$exception = array('','TNc','TOc','VS');
+		$exception = array('TNc','TOc','VS');
 		if($ritms > 1) $exception[] = 'VO';//卡片礼物
 		if($ritms > 3) $exception = array_merge($exception, array('TN', 'TO'));//陷阱
 		if($ritms > 10) $exception = array_merge($exception, array('p', 'ygo', 'fy', 'kj3'));//各类礼品
-		if($ritms > 76) $exception = array_merge($exception, array('WN', 'WP', 'WK', 'WC', 'WG','WJ','WD','WF','WC01','WC02','WC03','WC04','WC05','WC06','WC07','WC08','WC09','WC10'));//各类武器
+		if($ritms > 70) $exception = array_merge($exception, array('WN', 'WP', 'WK', 'WC', 'WG','WJ','WD','WF'));//各类武器
 		if($ritme > 180) $exception = array_merge($exception, array('DB', 'DA', 'DH', 'DF'));//各类防具
 		if($ritme * $ritms > 40) $exception = array_merge($exception, array('VV','VP','VK','VG','VC','VD','VF','MS'));//各类技能书
 		if($ritme * $ritms > 50) $exception = array_merge($exception, array('MV','MH','ME'));//攻防以外的强化药
 		if($ritme * $ritms > 100) $exception = array_merge($exception, array('MA','MD'));//攻防强化药
+		if($ritme * $ritms > 200) $exception = array_merge($exception, array('HM','HT'));//歌魂增加和回复
 		$itemklist = array_diff($itemklist, $exception);
+		foreach($itemklist as $ik => &$iv){//防止一些奇葩武器类型的出现
+			foreach($exception as $ev){
+				if(strpos($iv, $ev)===0) $iv=NULL;
+			}
+		}
+		$itemklist = array_filter($itemklist);
 		shuffle($itemklist); $ritmk = $itemklist[0];
 		shuffle($itemsklist); $ritmsk = $itemsklist[0];
 		$itm0 = $ritm; $itmk0 = $ritmk; $itmsk0 = $ritmsk;
@@ -162,10 +169,10 @@ namespace skill490
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player'));
+		eval(import_module('sys','player','itemmain'));
 		
 		if($news == 'bskill490') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}发动了技能<span class=\"yellow\">「空想」</span></span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}发动了技能<span class=\"yellow\">「空想」</span>，获得了{$iteminfo[$b]}{$c}！</span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

@@ -67,10 +67,11 @@ namespace addnpc
 			'arae' => 800,
 			'aras' => 15,
 			'arask' => 'b',
-			'art' => '十字发卡',
-			'artk' => 'Y',
+			'art' => '红黑色的耳塞',
+			'artk' => 'A',
 			'arte' => 1,
 			'arts' => 1,
+			'artsk' => 'W',
 			'sub' => array
 			(
 				0 => array
@@ -82,6 +83,10 @@ namespace addnpc
 				'wepe' => 800,
 				'weps' => 20,
 				'wepsk' => 'u',
+				'itm1' => '十字发卡',
+				'itmk1' => 'Y',
+				'itme1' => 1,
+				'itms1' => 1,
 				),
 			),
 		),

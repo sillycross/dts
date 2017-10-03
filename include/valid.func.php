@@ -62,9 +62,9 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 		list($itm[4],$itmk[4],$itme[4],$itms[4],$itmsk[4]) = explode(",",$stitemlist[$index]);
 	} while(!$itmk[4] || ($itmk[3] == $itmk[4]));
 
-	if(strpos($wepk,'WG') === 0){
-		$itm[3] = '手枪子弹'; $itmk[3] = 'GB'; $itme[3] = 1; $itms[3] = 12; $itmsk[3] = '';
-	}
+//	if(strpos($wepk,'WG') === 0){
+//		$itm[3] = '手枪子弹'; $itmk[3] = 'GB'; $itme[3] = 1; $itms[3] = 12; $itmsk[3] = '';
+//	}
 
 	global $gamefounder;
 	$result = $db->query("SELECT groupid FROM {$gtablepre}users WHERE username='$xuser'");
@@ -106,11 +106,11 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 	if (in_array($gametype,$elorated_mode))
 	{
 		$itms[1] = 50; $itms[2] = 50;
-		$itm[5] = '生命探测器'; $itmk[5] = 'ER'; $itme[5] = 5; $itms[5] = 1;
+		$itm[5] = '生命探测器'; $itmk[5] = 'ER'; $itme[5] = 5; $itms[5] = 1;$itmsk[5] = '';
 	}
 	elseif(18==$gametype){
-		$itm[4] = '生命探测器'; $itmk[4] = 'ER'; $itme[4] = 3; $itms[4] = 1;
-		$itm[5] = '全恢复药剂'; $itmk[5] = 'Ca'; $itme[5] = 1; $itms[5] = 3;
+		$itm[4] = '生命探测器'; $itmk[4] = 'ER'; $itme[4] = 3; $itms[4] = 1;$itmsk[4] = '';
+		$itm[5] = '全恢复药剂'; $itmk[5] = 'Ca'; $itme[5] = 1; $itms[5] = 3;$itmsk[5] = '';
 	}
 	
 	//除错模式专用卡（软件测试工程师）
