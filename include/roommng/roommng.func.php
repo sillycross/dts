@@ -38,16 +38,16 @@ function update_roomstate(&$roomdata, $runflag)
 			$flag = 0;
 	
 	$changeflag = 0;
-	if (!$runflag && $flag && $roomdata['roomstat']==0)
+	if (!$runflag && $flag && $roomdata['readystat']==0)
 	{
-		$roomdata['roomstat']=1;
+		$roomdata['readystat']=1;
 		$roomdata['kicktime']=time()+30;
 		$roomdata['timestamp']++;
 		for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++) $roomdata['player'][$i]['ready']=0;
 		$changeflag = 1;
 	}
 	
-	if (!$flag) { $roomdata['roomstat']=0; $changeflag = 1; }
+	if (!$flag) { $roomdata['readystat']=0; $changeflag = 1; }
 	return $changeflag;
 }
 
@@ -116,7 +116,7 @@ function room_init($roomtype)
 	//1 人数已满（等待所有玩家点击准备，并进入踢人倒计时）
 	//2 即将开始（正在进行游戏初始化工作）
 	
-	$a['roomstat']=0;
+	$a['readystat']=0;
 	$a['roomfounder']='';
 	
 	//踢人时间，由使roomstat进入1的操作者负责设置
@@ -285,7 +285,7 @@ function room_upos_check($roomdata, $user=NULL){
 //人数已满又长时间不准备的话自动踢人
 function room_auto_kick_check(&$roomdata){
 	$changed = 0;
-	if (room_get_vars($roomdata, 'roomstat')==1 && time()>=room_get_vars($roomdata, 'kicktime'))
+	if (room_get_vars($roomdata, 'readystat')==1 && time()>=room_get_vars($roomdata, 'kicktime'))
 	{
 		$rdplist = & room_get_vars($roomdata, 'player');
 		$rdpnum = room_get_vars($roomdata, 'pnum');
@@ -345,7 +345,7 @@ function room_create($roomtype)
 		foreach($rdata as $rd){
 			$rid = $rd['groomid'];
 			$rids = array_diff($rids, Array($rid));
-			if($rd['groomtype'] == $roomtype && $rd['groomstatus'] >= 40){//永续房存在的情况下直接进
+			if($rd['groomtype'] == $roomtype && $rd['groomstatus'] > 0){//永续房存在的情况下直接进
 				$rchoice = $rid;
 				break;
 			}elseif($rd['groomstatus'] == 0){//房间关闭状态，改成永续房
@@ -510,7 +510,7 @@ function room_enter($id)
 				}
 			}
 		}
-		if($gamestate < 30 && $need_reset) $header = 'game.php';
+		if($gamestate < 30 && ($need_reset || $roomtypelist[$rd['groomtype']]['soleroom'])) $header = 'game.php';
 		else $header = 'index.php';
 	}else{
 		//需要准备的房间，只是加入房间准备页面
@@ -537,9 +537,9 @@ function room_showdata($roomdata, $user)
 	ob_start();
 	include template('roommain');
 	$gamedata['innerHTML']['roommain'] = ob_get_contents();
-	if ($roomdata['roomstat']==2) $gamedata['innerHTML']['roomchatarea'] = '<div></div>';
+	if ($roomdata['readystat']==2) $gamedata['innerHTML']['roomchatarea'] = '<div></div>';
 	$gamedata['value']['timestamp'] = $roomdata['timestamp'];
-	if ($roomdata['roomstat']!=2) $gamedata['lastchat']=$roomdata['chatdata'];
+	if ($roomdata['readystat']!=2) $gamedata['lastchat']=$roomdata['chatdata'];
 	ob_clean();
 	echo gencode($gamedata);
 }
