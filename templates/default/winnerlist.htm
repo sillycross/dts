@@ -58,19 +58,19 @@
 					<!--{/if}-->
 				</span>
 			</TD>
-			<TD class="b3"><span><!--{if $info['winnum']>1}-->团队幸存<!--{else}-->$gwin[$info['wmode']]<!--{/if}--></span></TD>
+			<TD class="b3"><span><!--{if $info['winnernum']>1}-->团队幸存<!--{else}-->$gwin[$info['wmode']]<!--{/if}--></span></TD>
 			<TD class="b3"><span>$info['date']</span><br><span>$info['time']</span></TD>
 			<TD class="b3"><span>$info['vnum']</span></TD>
-			<!--{if $info['winnum']>1}-->
+			<!--{if $info['winnernum']>1}-->
 			<TD class="b3" colspan><span class="yellow">$info['teamID']</span></TD>
 			<TD class="b3"><span><img src="img/n_0.gif" style="width:70;height:40;"></span></TD>
 			<!--{else}-->
-			<!--{eval $info['urlname']=htmlentities(urlencode($info['name']));}-->
-			<TD class="b3" style="white-space: nowrap;"><!--{if $info['name']}--><a style="cursor:pointer;" href="user_profile.php?playerID=$info['urlname']"><span class="evergreen">$info['name']</span></a><!--{else}--><span class="grey">无</span><!--{/if}--></TD>
+			<!--{eval $info['urlname']=htmlentities(urlencode($info['winner']));}-->
+			<TD class="b3" style="white-space: nowrap;"><!--{if $info['winner']}--><a style="cursor:pointer;" href="user_profile.php?playerID=$info['urlname']"><span class="evergreen">$info['winner']</span></a><!--{else}--><span class="grey">无</span><!--{/if}--></TD>
 			<TD class="b3"><span><img src="img/$info['iconImg']" style="width:70;height:40;"></span></TD>
 			<!--{/if}-->
 			
-			<!--{if $info['winnum']>1}-->
+			<!--{if $info['winnernum']>1}-->
 			<!--{eval $t=explode(',',$info['namelist']);}-->
 			<!--{eval $x='';}-->
 			<!--{loop $t $key}-->
@@ -98,7 +98,7 @@
 			<!--{/if}-->
 			<TD class="b3" width=60px>
 				<span>
-					<input type="button" style="width:80px;height:20px;" value="角色信息" <!--{if $info['wmode'] && $info['wmode'] != 1 && $info['wmode'] !=4 && $info['wmode'] != 6 && $info['winnum']<=1}-->onclick="document.list.command.value='info';document.list.gnum.value='$gid';document.list.submit();"<!--{else}-->disabled<!--{/if}-->>
+					<input type="button" style="width:80px;height:20px;" value="角色信息" <!--{if $info['wmode'] && $info['wmode'] != 1 && $info['wmode'] !=4 && $info['wmode'] != 6 && $info['winnernum']<=1}-->onclick="document.list.command.value='info';document.list.gnum.value='$gid';document.list.submit();"<!--{else}-->disabled<!--{/if}-->>
 					<input type="button" style="width:80px;height:20px;" value="该局状况" <!--{if $info['wmode'] && $info['wmode'] !=4}-->onclick="document.list.command.value='news';document.list.gnum.value='$gid';document.list.submit();"<!--{else}-->disabled<!--{/if}-->>
 				</span>
 			</TD>

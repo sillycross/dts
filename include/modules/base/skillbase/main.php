@@ -160,7 +160,7 @@ namespace skillbase
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess($pdata);
-		skillbase_load($pdata);
+		if(isset($pdata['nskill'])) skillbase_load($pdata);
 	}
 	
 	function fetch_playerdata($Pname, $Ptype = 0)

@@ -14,7 +14,7 @@ namespace sys
 		
 		//重设游戏局数（顺便+1）
 		$gamenum ++;
-		$result = $db->query("SELECT gid FROM {$wtablepre}winners ORDER BY gid DESC LIMIT 1");
+		$result = $db->query("SELECT gid FROM {$wtablepre}history ORDER BY gid DESC LIMIT 1");
 		$wgamenum = $db->result($result, 0);
 		if( $db->num_rows($result) && $gamenum <= $wgamenum ) {
 			$gamenum = $wgamenum + 1;
@@ -232,54 +232,52 @@ namespace sys
 		//以下开始真正处理gameover的各种数据修改
 		$time = $time ? $time : $now;
 		//计算当前是哪一局，以优胜列表为准
-		$result = $db->query("SELECT gid FROM {$wtablepre}winners ORDER BY gid DESC LIMIT 1");
+		$result = $db->query("SELECT gid FROM {$wtablepre}history ORDER BY gid DESC LIMIT 1");
 		if($db->num_rows($result)&&($gamenum <= $db->result($result, 0))) {
 			$gamenum = $db->result($result, 0) + 1;
 		}
-		if($winmode == 4 || $winmode == 0){//无人参加；不需要记录任何资料
-			$getime = $time;
-			$db->query("INSERT INTO {$wtablepre}winners (gid,gametype,wmode,vnum,getime) VALUES ('$gamenum','$gametype','$winmode','$validnum','$getime')");
-		}	elseif(($winmode == 0)||($winmode == 1)||($winmode == 6)){//程序故障、全部死亡、GM中止，不需要记录优胜者资料
-			$gstime = $starttime;
-			$getime = $time;
-			$gtime = $time - $starttime;
+		$winnerdata = array(//基本资料
+			'gid' => $gamenum,
+			'gametype' => $gametype,
+			'wmode' => $winmode,
+			'vnum' => $validnum,
+			'gstime' => $starttime,
+			'getime' => $time,
+			'gtime' => $time - $starttime,
+		);
+		if($winmode != 4 && $winmode != 0){//非无人参加/程序故障，需要记录杀人最多和最高伤害，并记录参与玩家
+			$winnerdata['hdmg'] = $hdamage;
+			$winnerdata['hdp'] = $hplayer;
 			$result = $db->query("SELECT name,killnum FROM {$tablepre}players WHERE type=0 order by killnum desc, lvl desc limit 1");
 			$hk = $db->fetch_array($result);
-			$hkill = $hk['killnum'];
-			$hkp = $hk['name'];
-			$db->query("INSERT INTO {$wtablepre}winners (gid,gametype,wmode,vnum,gtime,gstime,getime,hdmg,hdp,hkill,hkp) VALUES ('$gamenum','$gametype','$winmode','$validnum','$gtime','$gstime','$getime','$hdamage','$hplayer','$hkill','$hkp')");
-		} else {//最后幸存、锁定解除、核爆全灭，需要记录优胜者资料
-			if ($winnum == 1)
-			{
+			$winnerdata['hkill'] = $hk['killnum'];
+			$winnerdata['hkp'] = $hk['name'];
+			$validlist = array();
+			$result2 = $db->query("SELECT name FROM {$tablepre}players WHERE type=0");
+			while($data = $db->fetch_array($result2)) {
+				$validlist[] = $data['name'];
+			}
+			$winnerdata['validlist'] = gencode($validlist);
+		}
+		if($winmode != 1 && $winmode != 6){//非全部死亡/GM中止，需要记录优胜者
+			$winnerdata['winner'] = $winner;
+			$winnerdata['winnernum'] = $winnum;
+			if ($winnum == 1){
 				$result = $db->query("SELECT * FROM {$tablepre}players WHERE name='$winner' AND type=0");
 				$pdata = $db->fetch_array($result);
+				$winnerdata['winnerpdata'] = gencode($pdata);
 				$result2 = $db->query("SELECT motto FROM {$gtablepre}users WHERE username='$winner'");
-				$pdata['motto'] = $db->result($result2, 0);
-				$result3 = $db->query("SELECT name,killnum FROM {$tablepre}players WHERE type=0 order by killnum desc, lvl desc limit 1");
-				$hk = $db->fetch_array($result3);
-				$pdata['hkill'] = $hk['killnum'];
-				$pdata['hkp'] = $hk['name'];
-				$pdata['wmode'] = $winmode;
-				$pdata['vnum'] = $validnum;
-				$pdata['gtime'] = $time - $starttime;
-				$pdata['gstime'] = $starttime;
-				$pdata['getime'] = $time;
-				$pdata['hdmg'] = $hdamage;
-				$pdata['hdp'] = $hplayer;
-				$db->query("INSERT INTO {$wtablepre}winners (gid,gametype,name,pass,type,endtime,gd,sNo,icon,club,hp,mhp,sp,msp,att,def,pls,lvl,`exp`,money,bid,inf,rage,pose,tactic,killnum,state,wp,wk,wg,wc,wd,wf,teamID,teamPass,wep,wepk,wepe,weps,arb,arbk,arbe,arbs,arh,arhk,arhe,arhs,ara,arak,arae,aras,arf,arfk,arfe,arfs,art,artk,arte,arts,itm0,itmk0,itme0,itms0,itm1,itmk1,itme1,itms1,itm2,itmk2,itme2,itms2,itm3,itmk3,itme3,itms3,itm4,itmk4,itme4,itms4,itm5,itmk5,itme5,itms5,itm6,itmk6,itme6,itms6,motto,wmode,vnum,gtime,gstime,getime,hdmg,hdp,hkill,hkp,wepsk,arbsk,arhsk,arask,arfsk,artsk,itmsk0,itmsk1,itmsk2,itmsk3,itmsk4,itmsk5,itmsk6,cardname) VALUES ('".$gamenum."','".$gametype."','".$pdata['name']."','".$pdata['pass']."','".$pdata['type']."','".$pdata['endtime']."','".$pdata['gd']."','".$pdata['sNo']."','".$pdata['icon']."','".$pdata['club']."','".$pdata['hp']."','".$pdata['mhp']."','".$pdata['sp']."','".$pdata['msp']."','".$pdata['att']."','".$pdata['def']."','".$pdata['pls']."','".$pdata['lvl']."','".$pdata['exp']."','".$pdata['money']."','".$pdata['bid']."','".$pdata['inf']."','".$pdata['rage']."','".$pdata['pose']."','".$pdata['tactic']."','".$pdata['killnum']."','".$pdata['state']."','".$pdata['wp']."','".$pdata['wk']."','".$pdata['wg']."','".$pdata['wc']."','".$pdata['wd']."','".$pdata['wf']."','".$pdata['teamID']."','".$pdata['teamPass']."','".$pdata['wep']."','".$pdata['wepk']."','".$pdata['wepe']."','".$pdata['weps']."','".$pdata['arb']."','".$pdata['arbk']."','".$pdata['arbe']."','".$pdata['arbs']."','".$pdata['arh']."','".$pdata['arhk']."','".$pdata['arhe']."','".$pdata['arhs']."','".$pdata['ara']."','".$pdata['arak']."','".$pdata['arae']."','".$pdata['aras']."','".$pdata['arf']."','".$pdata['arfk']."','".$pdata['arfe']."','".$pdata['arfs']."','".$pdata['art']."','".$pdata['artk']."','".$pdata['arte']."','".$pdata['arts']."','".$pdata['itm0']."','".$pdata['itmk0']."','".$pdata['itme0']."','".$pdata['itms0']."','".$pdata['itm1']."','".$pdata['itmk1']."','".$pdata['itme1']."','".$pdata['itms1']."','".$pdata['itm2']."','".$pdata['itmk2']."','".$pdata['itme2']."','".$pdata['itms2']."','".$pdata['itm3']."','".$pdata['itmk3']."','".$pdata['itme3']."','".$pdata['itms3']."','".$pdata['itm4']."','".$pdata['itmk4']."','".$pdata['itme4']."','".$pdata['itms4']."','".$pdata['itm5']."','".$pdata['itmk5']."','".$pdata['itme5']."','".$pdata['itms5']."','".$pdata['itm6']."','".$pdata['itmk6']."','".$pdata['itme6']."','".$pdata['itms6']."','".$pdata['motto']."','".$pdata['wmode']."','".$pdata['vnum']."','".$pdata['gtime']."','".$pdata['gstime']."','".$pdata['getime']."','".$pdata['hdmg']."','".$pdata['hdp']."','".$pdata['hkill']."','".$pdata['hkp']."','".$pdata['wepsk']."','".$pdata['arbsk']."','".$pdata['arhsk']."','".$pdata['arask']."','".$pdata['arfsk']."','".$pdata['artsk']."','".$pdata['itmsk0']."','".$pdata['itmsk1']."','".$pdata['itmsk2']."','".$pdata['itmsk3']."','".$pdata['itmsk4']."','".$pdata['itmsk5']."','".$pdata['itmsk6']."','".$pdata['cardname']."')");
-			}
-			else
-			{
-				$gstime = $starttime;
-				$getime = $time;
-				$gtime = $time - $starttime;
-				$result = $db->query("SELECT name,killnum FROM {$tablepre}players WHERE type=0 order by killnum desc, lvl desc limit 1");
-				$hk = $db->fetch_array($result);
-				$hkill = $hk['killnum'];
-				$hkp = $hk['name'];
-				$db->query("INSERT INTO {$wtablepre}winners (gid,gametype,wmode,vnum,gtime,gstime,getime,hdmg,hdp,hkill,hkp,winnum,namelist,teamID) VALUES ('$gamenum','$gametype','$winmode','$validnum','$gtime','$gstime','$getime','$hdamage','$hplayer','$hkill','$hkp','$winnum','$namelist','$firstteamID')");
+				$winnerdata['motto'] = $db->result($result2, 0);
+			}else{
+				//其实这里也可以把组队玩家资料全部丢进$winnerdata['winnerpdata']，再说吧
+				$winnerdata['winnerteamID'] = $firstteamID;
+				$winnerdata['winnerlist'] = $namelist;
 			}
 		}
+		//这里真正记录
+		$db->array_insert("{$wtablepre}history", $winnerdata);
+		//$insert_id = $db->insert_id();
+		$insert_gid = $gamenum;
 //		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-优胜记录修改');
 		//发放切糕工资
 		set_credits();
@@ -299,9 +297,22 @@ namespace sys
 		$newsinfo = load_news();
 		$newsinfo = '<ul>'.implode('',$newsinfo).'</ul>';
 //		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-读取和渲染消息');
-		$room_gprefix = '';
-		if (room_check_subroom($room_prefix)) $room_gprefix = (substr($room_prefix,0,1)).'.';
-		writeover(GAME_ROOT."./gamedata/bak/{$room_gprefix}{$gamenum}_newsinfo.html",$newsinfo,'wb+');
+		$newsinfo = gencode($newsinfo);
+		$offset = 1024*1024-200;//单句长度，一般应该略小于1M（max_allowed_packet默认值）
+		do{
+			if($offset < strlen($newsinfo)){
+				$tmp_newsinfo = substr($newsinfo, 0, $offset);
+				$newsinfo = substr($newsinfo, $offset);
+			}else{
+				$tmp_newsinfo = $newsinfo;
+				$newsinfo = '';
+			}
+			$db->query("UPDATE {$wtablepre}history SET hnews=CONCAT(hnews, '$tmp_newsinfo') WHERE gid='$insert_gid'");
+		} while (!empty($newsinfo));
+		
+//		$room_gprefix = '';
+//		if (room_check_subroom($room_prefix)) $room_gprefix = (substr($room_prefix,0,1)).'.';
+//		writeover(GAME_ROOT."./gamedata/bak/{$room_gprefix}{$gamenum}_newsinfo.html",$newsinfo,'wb+');
 //		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-写入消息并结束');
 		return;
 	}

@@ -175,8 +175,8 @@ if($page == 'index') {
 	echo '<br><span><font size=5>模块管理系统</font></span><br><br>';
 	echo show_adv_state().'<br>';
 	echo '<a href="modulemng.php?mode=edit" style="text-decoration: none"><span><font color="red">[进入编辑模式]</font></span></a> 添加或修改模块可用性。<br>';
-	echo '<a href="modulemng.php?action=save" style="text-decoration: none"><span><font color="green">[重设代码缓存]</font></span></a> 整体重设模块结构和adv模式代码缓存。<br>';
-	echo '<a href="modulemng.php?action=save&mode=quick" style="text-decoration: none"><span><font color="green">[重设代码缓存（快速）]</font></span></a> 忽略模块结构修改，只重设有改动的缓存。<br><br>';  
+	echo '<a href="modulemng.php?action=save" style="text-decoration: none"><span><font color="green">[重设代码缓存]</font></span></a> 整体重设模块结构和adv模式代码。<br>';
+	echo '<a href="modulemng.php?action=save&mode=quick" style="text-decoration: none"><span><font color="green">[重设代码缓存（快速）]</font></span></a> 只重设有改动的代码函数。新增模块或函数时切勿使用。<br><br>';  
 	//printmodtable(GAME_ROOT.'./gamedata/modules.list.php',1);
 	
 }elseif($page == 'edit'){

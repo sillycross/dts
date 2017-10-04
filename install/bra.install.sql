@@ -99,21 +99,21 @@ CREATE TABLE `bra_history` (
   `gtime` int(10) unsigned NOT NULL DEFAULT '0',
   `gstime` int(10) unsigned NOT NULL DEFAULT '0',
   `getime` int(10) unsigned NOT NULL DEFAULT '0',
-  `winnum` tinyint(3) NOT NULL DEFAULT '0',
   `hdmg` int(10) unsigned NOT NULL DEFAULT '0',
   `hdp` char(15) NOT NULL DEFAULT '',
   `hkill` smallint(5) unsigned NOT NULL DEFAULT '0',
   `hkp` char(15) NOT NULL DEFAULT '',
-  `winnerpdata` text NOT NULL DEFAULT '',
+  `winnernum` tinyint(3) NOT NULL DEFAULT '0',
+  `winnerteamID` char(20) NOT NULL DEFAULT '',
+  `winnerlist` varchar(1000) NOT NULL DEFAULT '',
+  `winnerpdata` mediumtext NOT NULL DEFAULT '',
   `validlist` text NOT NULL DEFAULT '',
   `hnews` mediumtext NOT NULL DEFAULT '',
-  `replay` mediumtext NOT NULL DEFAULT '',
   
   UNIQUE KEY `gid` (`gid`),
   INDEX `WMODE` (`wmode`),
   INDEX `WINNER` (`winner`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED;
 
 --
 -- Table structure for table `bra_winners`

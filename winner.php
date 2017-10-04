@@ -14,26 +14,72 @@ $room_gprefix = '';
 if (room_check_subroom($room_prefix)) $room_gprefix = ((string)$room_prefix).'.';
 if ($room_gprefix!='') $wtablepre = $gtablepre . $room_gprefix[0]; else $wtablepre = $gtablepre;
 
+//兼容代码，判定是不是存在旧版winner表
+//$winner_table_exists = 0;
+//$result = $db->query("SHOW TABLES LIKE '{$wtablepre}winners';");
+//if ($db->num_rows($result)) $winner_table_exists = 1;
+
 if(!isset($command)){$command = 'ref';}
-if($command == 'info') {
-	$result = $db->query("SELECT * FROM {$wtablepre}winners WHERE gid='$gnum' LIMIT 1");
-	$pdata = $db->fetch_array($result);
-	$pdata['gdate'] = floor($pdata['gtime']/3600).':'.floor($pdata['gtime']%3600/60).':'.($pdata['gtime']%60);
-	$pdata['gsdate'] = date("m/d/Y H:i:s",$pdata['gstime']);
-	$pdata['gedate'] = date("m/d/Y H:i:s",$pdata['getime']);
+//查看特定获胜者的资料
+if($command == 'info') 
+{
+	$result = $db->query("SELECT * FROM {$wtablepre}history WHERE gid='$gnum' LIMIT 1");
+	if($db->num_rows($result)) {
+		$wdata = $db->fetch_array($result);
+		$wdata = winner_parse($wdata);
+		$wdata['gdate'] = floor($wdata['gtime']/3600).':'.floor($wdata['gtime']%3600/60).':'.($wdata['gtime']%60);
+		$wdata['gsdate'] = date("m/d/Y H:i:s",$wdata['gstime']);
+		$wdata['gedate'] = date("m/d/Y H:i:s",$wdata['getime']);
+	}
+//	elseif($winner_table_exists){
+//		$result = $db->query("SELECT * FROM {$wtablepre}winners WHERE gid='$gnum' LIMIT 1");
+//		if($db->num_rows($result)){
+//			$pdata = $db->fetch_array($result);
+//			$pdata['gdate'] = floor($pdata['gtime']/3600).':'.floor($pdata['gtime']%3600/60).':'.($pdata['gtime']%60);
+//			$pdata['gsdate'] = date("m/d/Y H:i:s",$pdata['gstime']);
+//			$pdata['gedate'] = date("m/d/Y H:i:s",$pdata['getime']);
+//		}
+//	}
+	$pdata = $wdata;
 	\player\load_playerdata($pdata);
 	\player\init_playerdata();
 	\player\parse_interface_profile();
 	extract($pdata);
-} elseif($command == 'news') {
-	$hnewsfile = GAME_ROOT."./gamedata/bak/{$room_gprefix}{$gnum}_newsinfo.html";
-	if(file_exists($hnewsfile)){
-		$hnewsinfo = readover($hnewsfile);
+}
+//查看特定局历史记录
+elseif($command == 'news') 
+{
+	$hnewsinfo = '';
+	$result = $db->query("SELECT hnews FROM {$wtablepre}history WHERE gid='$gnum' LIMIT 1");
+	if($db->num_rows($result)) {
+		$whd = $db->fetch_array($result);
+		$hnewsinfo = gdecode($whd['hnews'],1);
 	}
-} else {
-	
-	$result = $db->query("SELECT gid FROM {$wtablepre}winners ORDER BY gid DESC LIMIT 1");
-	if ($db->num_rows($result)) { $zz=$db->fetch_array($result); $max_gamenum = $zz['gid']; } else $max_gamenum = 0;
+	if(empty($hnewsinfo)){//兼容代码
+		$hnewsfile = GAME_ROOT."./gamedata/bak/{$room_gprefix}{$gnum}_newsinfo.html";
+		if(file_exists($hnewsfile)){
+			$hnewsinfo = readover($hnewsfile);
+		}
+	}	
+}
+//其他情况都认为是看列表
+else 
+{
+//	$max_gid1 = $max_gid2 = 0;
+	$max_gamenum = 0;
+	$result = $db->query("SELECT gid FROM {$wtablepre}history ORDER BY gid DESC LIMIT 1");
+	if ($db->num_rows($result)) {
+		 $tmp_rst=$db->fetch_array($result); 
+		 $max_gamenum = $tmp_rst['gid']; 
+	}
+//	if ($winner_table_exists) {
+//		$result = $db->query("SELECT gid FROM {$wtablepre}winners ORDER BY gid DESC LIMIT 1");
+//		if ($db->num_rows($result)) {
+//			 $tmp_rst=$db->fetch_array($result); 
+//			 $max_gid2 = $tmp_rst['gid']; 
+//		}
+//	}
+//	$max_gamenum = max($max_gid1, $max_gid2);
 	
 	//$start预处理
 	if(!isset($start) || !$start){
@@ -58,7 +104,7 @@ if($command == 'info') {
 	//winner条件（获胜者）
 	$query_winner = '';
 	if(!empty($winner_show_winner)) {
-		$query_winner = "name='$winner_show_winner'";
+		$query_winner = "winner='$winner_show_winner'";
 	}
 	//先不拼接gid条件，为了获得所有符合查找条件的结果数
 	$query_where = '';
@@ -67,7 +113,7 @@ if($command == 'info') {
 		$query_where .= (!empty($query_where) && !empty($query_winner) ? ' AND ' : '') . $query_winner;
 		$query_where = ' AND '.$query_where;
 	}
-	$query_count = "SELECT gid FROM {$wtablepre}winners WHERE gid>0 $query_where ORDER BY gid DESC";
+	$query_count = "SELECT gid FROM {$wtablepre}history WHERE gid>0 $query_where ORDER BY gid DESC";
 	$result = $db->query($query_count);
 	$max_result_num = $db->num_rows($result);
 	$max_result_gamenum = 0;
@@ -88,31 +134,14 @@ if($command == 'info') {
 		$query_where .= (!empty($query_where) && !empty($query_winner) ? ' AND ' : '') . $query_winner;
 		$query_where = ' AND '.$query_where;
 	}
-	$query_limit = "SELECT gid,gametype,teamID,winnum,namelist,name,icon,gd,wep,wmode,getime,motto,hdp,hdmg,hkp,hkill,vnum FROM {$wtablepre}winners WHERE gid>0 $query_where ORDER BY gid DESC LIMIT $winlimit";
+	$query_limit = "SELECT gid,wmode,winner,motto,gametype,vnum,gtime,gstime,getime,hdmg,hdp,hkill,hkp,winnernum,winnerteamID,winnerlist,winnerpdata,validlist FROM {$wtablepre}history WHERE gid>0 $query_where ORDER BY gid DESC LIMIT $winlimit";
 	//echo $query;
 	$result = $db->query($query_limit);
-	
-//	if(!isset($start) || !$start){
-//		$start = 0;
-//		if ($showall==1){
-//			$result = $db->query("SELECT gid,gametype,teamID,winnum,namelist,name,icon,gd,wep,wmode,getime,motto,hdp,hdmg,hkp,hkill FROM {$wtablepre}winners ORDER BY gid desc LIMIT $winlimit");
-//		}else{
-//			$result = $db->query("SELECT gid,gametype,teamID,winnum,namelist,name,icon,gd,wep,wmode,getime,motto,hdp,hdmg,hkp,hkill FROM {$wtablepre}winners WHERE wmode!='1' AND wmode!='4' AND wmode!=6 AND wmode!=8 ORDER BY gid desc LIMIT $winlimit");
-//		}
-//	} else {
-//		$start = (int)$start;
-//		if($start > $max_gamenum) $start = $max_gamenum;
-//		elseif($start < $winlimit) $start = $winlimit;
-//		if ($showall==1){
-//			$result = $db->query("SELECT gid,gametype,teamID,winnum,namelist,name,icon,gd,wep,wmode,getime,motto,hdp,hdmg,hkp,hkill FROM {$wtablepre}winners WHERE gid<='$start' ORDER BY gid desc LIMIT $winlimit");
-//		}else{//房间优胜记录不显示全部死亡、无人参加、GM中止、挑战结束
-//			$result = $db->query("SELECT gid,gametype,teamID,winnum,namelist,name,icon,gd,wep,wmode,getime,motto,hdp,hdmg,hkp,hkill FROM {$wtablepre}winners WHERE gid<='$start' AND wmode!='1' AND wmode!='4' AND wmode!=6 AND wmode!=8 ORDER BY gid desc LIMIT $winlimit");
-//		}
-//	}
 	
 	while($wdata = $db->fetch_array($result)) {
 		$wdata['date'] = date("Y-m-d",$wdata['getime']);
 		$wdata['time'] = date("H:i:s",$wdata['getime']);
+		$wdata = winner_parse($wdata);
 		list($wiconImg, $wiconImgB) = \player\icon_parser(0, $wdata['gd'], $wdata['icon']);
 		$wdata['iconImg'] = $wiconImg;
 		$winfo[$wdata['gid']] = $wdata;
@@ -136,18 +165,9 @@ if($command == 'info') {
 		}
 	}
 	
-//	$listnum = floor($max_gamenum/$winlimit);
-//
-//	for($i=0;$i<$listnum;$i++) {
-//		$snum = ($listnum-$i)*$winlimit;
-//		$enum = $snum-$winlimit+1;
-//		$listinfo .= "<input style='width: 120px;' type='button' value='{$snum} ~ {$enum} 回' onClick=\"document['list']['start'].value = '$snum'; document['list'].submit();\">";
-//		if(is_int(($i+1)/3)&&$i){$listinfo .= '<br>';}
-//	}
-	
 	if ($command=='replay')
 	{
-		$result = $db->query("SELECT wmode FROM {$wtablepre}winners where gid='$gnum'");
+		$result = $db->query("SELECT wmode FROM {$wtablepre}history where gid='$gnum'");
 		if ($db->num_rows($result))
 		{
 			$zz = $db->fetch_array($result);
@@ -158,5 +178,18 @@ if($command == 'info') {
 }
 
 include template('winner');
+
+function winner_parse($wdata){
+	$wdata['winnerpdata'] = gdecode($wdata['winnerpdata'],1);
+	$wdata['validlist'] = gdecode($wdata['validlist'],1);
+	foreach($wdata['winnerpdata'] as $wdk => $wdv){
+		$wdata[$wdk] = $wdv;
+	}
+	unset($wdata['winnerpdata']);
+	if(empty($wdata['gd'])) $wdata['gd']='m';
+	if(empty($wdata['icon'])) $wdata['icon']=0;
+	if(empty($wdata['wep'])) $wdata['wep']='';
+	return $wdata;
+}
 
 ?>

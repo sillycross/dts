@@ -569,11 +569,11 @@ function room_init_db_process($room_id){
 	$wtablepre = $gtablepre.'s';
 	//$tablepre = $gtablepre.$room_prefix.'_';
 	//创建对应类型的优胜列表
-	$result = $db->query("SHOW TABLES LIKE '{$wtablepre}winners';");
+	$result = $db->query("SHOW TABLES LIKE '{$wtablepre}history';");
 	if (!$db->num_rows($result))
 	{
-		$db->query("CREATE TABLE IF NOT EXISTS {$wtablepre}winners LIKE {$gtablepre}winners;");
-		$db->query("INSERT INTO {$wtablepre}winners (gid) VALUES (0);");
+		$db->query("CREATE TABLE IF NOT EXISTS {$wtablepre}history LIKE {$gtablepre}history;");
+		$db->query("INSERT INTO {$wtablepre}history (gid) VALUES (0);");
 		$init_state += 1;
 	}
 	

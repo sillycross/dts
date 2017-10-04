@@ -95,10 +95,10 @@ namespace replay
 			//startmicrotime();
 			$curdatalib = file_get_contents(GAME_ROOT.'./gamedata/javascript/datalib.current.txt');
 			//获取游戏时长和胜利者名字，其实可以简化掉数据库读取的
-			$result = $db->query("SELECT name,gstime,getime FROM {$wtablepre}winners WHERE gid={$gamenum}");
+			$result = $db->query("SELECT winner,gstime,getime FROM {$wtablepre}history WHERE gid={$gamenum}");
 			$data = $db->fetch_array($result);
 			$gametimelen = (int)$data['getime']-(int)$data['gstime'];
-			$winname = $data['name'];
+			$winname = $data['winner'];
 			//对每个存在的玩家挨个进行处理
 			$result = $db->query("SELECT name,pid FROM {$tablepre}players WHERE type = 0");
 			$plis = Array();
