@@ -376,9 +376,17 @@ function room_create($roomtype)
 //				if(file_exists($file)){
 //					$rfdata = gdecode(file_get_contents($file),1);
 //				}
-				if(file_exists($file) && $rrs['groomstatus'] > 0 && !$roomtypelist[$rrs['groomtype']]['without-ready'] && isset($rrs['roomvars']['roomfounder']) && $rrs['roomvars']['roomfounder']==$cuser){
-					gexit("你已经创建了房间{$rrsid}，请在该房间游戏结束后再尝试创建房间",__file__,__line__);
-					die();
+				if(file_exists($file) && $rrs['groomstatus'] > 0 && isset($rrs['roomvars']['roomfounder']) && $rrs['roomvars']['roomfounder']==$cuser){
+					if(!$roomtypelist[$rrs['groomtype']]['without-ready']) {
+						gexit("你已经创建了房间{$rrsid}，请在该房间游戏结束后再尝试创建房间",__file__,__line__);
+						die();
+					}elseif(!$roomtypelist[$rrs['groomtype']]['soleroom']){
+						$worroomnum = isset($worroomnum) ? $worroomnum+1 : 1;
+						if($worroomnum > 1){
+							gexit("你已经创建了2个以上的房间，请在那些房间游戏结束后再尝试创建房间",__file__,__line__);
+							die();
+						}
+					}
 				}
 			}
 		}

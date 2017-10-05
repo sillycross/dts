@@ -102,6 +102,7 @@ namespace replay
 			//对每个存在的玩家挨个进行处理
 			$result = $db->query("SELECT name,pid FROM {$tablepre}players WHERE type = 0");
 			$plis = Array();
+			$filelist = array();
 			//房间前缀，一般是's'
 			$room_gprefix = '';
 			if (room_check_subroom($room_prefix)) $room_gprefix = room_prefix_kind($room_prefix).'.';
@@ -146,6 +147,7 @@ namespace replay
 					jQuery.cachedScript("gamedata/replays/'.$room_gprefix.$gamenum.'.'.$data['pid'].'.replay.oprecord.js");
 					';
 					writeover(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.'.$data['pid'].'.replay.header.js',$jreplaydata);
+					$filelist[] = GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.'.$data['pid'].'.replay.header.js';
 					$totsz += strlen($jreplaydata);
 					//logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-玩家'.$data['pid'].'-写头文件');
 					//点击状况记录
@@ -159,6 +161,7 @@ namespace replay
 					';
 					
 					writeover(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.'.$data['pid'].'.replay.oprecord.js',$jreplaydata);
+					$filelist[] = GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.'.$data['pid'].'.replay.oprecord.js';
 					$totsz += strlen($jreplaydata);
 					//logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-玩家'.$data['pid'].'-写点击记录');
 					//分段读取并处理response					
@@ -183,13 +186,14 @@ namespace replay
 						else  $jreplaydata .='replay_init();';
 							
 						writeover(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.'.$data['pid'].'.replay.data.'.$i.'.js',$jreplaydata);
-						
+						$filelist[] = GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.'.$data['pid'].'.replay.data.'.$i.'.js';
 						$totsz += strlen($jreplaydata);
 					}
 					//logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-玩家'.$data['pid'].'-写界面数据');
 					$totsz = (round($totsz / 1024 * 10)/10).'KB';
 					//保存当前的html缓存
 					writeover(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.'.$data['pid'].'.rep',base64_encode($curdatalib).','.$gamenum.','.base64_encode($data['name']).','.$totsz.','.$cnt.',');
+					$filelist[] = GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.'.$data['pid'].'.rep';
 					//logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-玩家'.$data['pid'].'-写html缓存');
 					//生成缩略图
 					$pic_len = 1000;
@@ -237,6 +241,7 @@ namespace replay
 					}
 					
 					file_put_contents(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.'.$data['pid'].'.rep.bmp',\bmp_util\gen_bmp($content,$pic_len,1));
+					$filelist[] = GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.'.$data['pid'].'.rep.bmp';
 					//logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-玩家'.$data['pid'].'-生成略缩图');
 					$data['opnum']=-$cnt;
 					if ($data['name']==$winname) $data['opnum']=-2000000000;
@@ -258,6 +263,10 @@ namespace replay
 					$sstr.=$wz['pid'].',';
 			
 			file_put_contents(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.rep.index',$sstr);
+			$filelist[] = GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.rep.index';
+			//打包成文件
+			fold(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.dat', $filelist);
+			foreach($filelist as $fv) unlink($fv);//删除源文件
 			//logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-储存录像索引');
 		}
 		// 注意虽然tmp文件夹下所有其他目录都是以room_prefix作为索引
@@ -322,21 +331,27 @@ namespace replay
 		eval(import_module('sys'));
 		$room_gprefix = '';
 		if (room_check_subroom($room_prefix)) $room_gprefix = room_prefix_kind($room_prefix).'.';
-		if (!file_exists(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gnum.'.rep.index'))
+		$replay_path = GAME_ROOT.'./gamedata/replays/';
+		if (!file_exists($replay_path.$room_gprefix.$gnum.'.rep.index'))
 		{
-			include template('MOD_REPLAY_GNUM_NO_REPLAY');
-			return;
+			if(file_exists($replay_path.$room_gprefix.$gnum.'.dat'))//先检查是否存在打包文件，如果是，则临时展开
+			{
+				unfold($replay_path.$room_gprefix.$gnum.'.dat');
+			}else{
+				include template('MOD_REPLAY_GNUM_NO_REPLAY');
+				return;
+			}
 		}
-		$arr=explode(',',file_get_contents(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gnum.'.rep.index'));
+		$arr=explode(',',file_get_contents($replay_path.$room_gprefix.$gnum.'.rep.index'));
 		$lis=Array(); 
 		if ($wmode!=4 && $wmode!=1 && $wmode!=6) $ff=1;
 		foreach ($arr as $key)
 		{
 			if ($key=='') continue;
 			$x=(int)$key;
-			if (file_exists(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gnum.'.'.$x.'.rep'))
+			if (file_exists($replay_path.$room_gprefix.$gnum.'.'.$x.'.rep'))
 			{
-				list($repdatalib,$repgnum,$repname,$repsz,$repopcnt) = explode(',',file_get_contents(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gnum.'.'.$x.'.rep'));
+				list($repdatalib,$repgnum,$repname,$repsz,$repopcnt) = explode(',',file_get_contents($replay_path.$room_gprefix.$gnum.'.'.$x.'.rep'));
 				$repdatalib=base64_decode($repdatalib);
 				$repname=base64_decode($repname);
 				$d=Array(); $d['repname']=$repname; $d['repsz']=$repsz; $d['repopcnt']=$repopcnt; $d['link']=$gnum.'.'.$x;

@@ -399,6 +399,18 @@ unlink(GAME_ROOT.'./gamedata/modules.list.pass.php');
 unlink(GAME_ROOT.'./gamedata/modules.list.temp.php');
 touch(GAME_ROOT.'./gamedata/modules.list.php');//更新文件时间以保证quick模式正常运转
 
+//$dirpath = GAME_ROOT.'./gamedata/replays';//顺便清空replays 文件夹下的所有非dat文件
+//if ($handle=opendir($dirpath)) 
+//{
+//	while (($entry=readdir($handle))!==false)
+//	{   
+//		if($entry != '.' && $entry != '..'){
+//			$exname = pathinfo($entry, PATHINFO_EXTENSION);
+//			if($exname != 'dat') unlink($entry);
+//		}
+//	}
+//}
+
 if ($___MOD_SRV)
 {
 	//重启daemon

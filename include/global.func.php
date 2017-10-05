@@ -349,6 +349,41 @@ function copy_dir($source, $destination, $filetype='')		//递归复制目录
 	}
 }
 
+//创建打包文件，先用gencode凑合
+function fold($objfile, $filelist){
+	if(!empty($filelist)){
+		$filedata = array();
+		foreach($filelist as $fv){
+			$filename = pathinfo($fv, PATHINFO_BASENAME);
+			$exname = pathinfo($fv, PATHINFO_EXTENSION);
+			$filedata[$filename] = file_get_contents($fv);
+			if(in_array($exname, array('bmp','png','jpg','gif')))
+				$filedata[$filename] = base64_encode($filedata[$filename]);
+		}
+		$filedata = gencode($filedata);
+		return file_put_contents($objfile, $filedata);
+	}else{
+		return false;
+	}
+}
+
+//在该文件目录展开打包文件，先用gdecode凑合
+function unfold($srcfile){
+	$srcpath = pathinfo($srcfile, PATHINFO_DIRNAME);
+	$filedata = file_get_contents($srcfile);
+	$filedata = gdecode($filedata, 1);
+	if($filedata){
+		foreach($filedata as $fk => $fv){
+			$filename = $srcpath.'/'.$fk;
+			$exname = pathinfo($fk, PATHINFO_EXTENSION);
+			if(in_array($exname, array('bmp','png','jpg','gif')))
+				$fv = base64_decode($fv);
+			file_put_contents($filename, $fv);
+		}
+		return 1;
+	}else	return 0;
+}
+
 //以post形式向网页发出信息
 function send_post($url, $post_data=array(), $timeout=5) {
  
