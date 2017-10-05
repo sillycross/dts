@@ -37,7 +37,7 @@ if ($handle=opendir($dirpath))
 		if($entry != '.' && $entry != '..'){
 			$exname = pathinfo($entry, PATHINFO_EXTENSION);
 			if($exname != 'dat') {
-				output_t($entry.' read.');
+				//output_t($entry.' read.');
 				list($name1, $name2) = explode('.', $entry);
 				if('s' == $name1) $gid = 's.'.$name2;
 				elseif(is_numeric($name1)) $gid = $name1;
@@ -50,6 +50,7 @@ if ($handle=opendir($dirpath))
 	}
 }
 output_t('Step 1 over. now folding. ');
+ksort($filelist);
 //第二步，每一局各自打包文件
 foreach($filelist as $gid => $flist){
 	output_t('Folding '.$gid.'...');
