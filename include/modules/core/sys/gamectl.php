@@ -298,21 +298,27 @@ namespace sys
 		$newsinfo = '<ul>'.implode('',$newsinfo).'</ul>';
 //		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-读取和渲染消息');
 		$newsinfo = gencode($newsinfo);
-		$offset = 1024*1024-200;//单句长度，一般应该略小于1M（max_allowed_packet默认值）
-		do{
-			if($offset < strlen($newsinfo)){
-				$tmp_newsinfo = substr($newsinfo, 0, $offset);
-				$newsinfo = substr($newsinfo, $offset);
-			}else{
-				$tmp_newsinfo = $newsinfo;
-				$newsinfo = '';
-			}
-			$db->query("UPDATE {$wtablepre}history SET hnews=CONCAT(hnews, '$tmp_newsinfo') WHERE gid='$insert_gid'");
-		} while (!empty($newsinfo));
+		if($hnewsstorage) 
+		{//如果设置数据库储存
+			$offset = 1024*1024-200;//单句长度，一般应该略小于1M（max_allowed_packet默认值）
+			do{
+				if($offset < strlen($newsinfo)){
+					$tmp_newsinfo = substr($newsinfo, 0, $offset);
+					$newsinfo = substr($newsinfo, $offset);
+				}else{
+					$tmp_newsinfo = $newsinfo;
+					$newsinfo = '';
+				}
+				$db->query("UPDATE {$wtablepre}history SET hnews=CONCAT(hnews, '$tmp_newsinfo') WHERE gid='$insert_gid'");
+			} while (!empty($newsinfo));
+		}
+		else
+		{//否则文件储存
+			$room_gprefix = '';
+			if (room_check_subroom($room_prefix)) $room_gprefix = (substr($room_prefix,0,1)).'.';
+			writeover(GAME_ROOT."./gamedata/bak/{$room_gprefix}{$gamenum}_newsinfo.dat",$newsinfo,'wb+');
+		}
 		
-//		$room_gprefix = '';
-//		if (room_check_subroom($room_prefix)) $room_gprefix = (substr($room_prefix,0,1)).'.';
-//		writeover(GAME_ROOT."./gamedata/bak/{$room_gprefix}{$gamenum}_newsinfo.html",$newsinfo,'wb+');
 //		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-写入消息并结束');
 		return;
 	}

@@ -112,18 +112,25 @@ foreach (array('winners', 'swinners') as $htablename){
 		$db->array_insert($wtablename,$nhdata);
 		writeover('process.txt',$htablename.$process);
 		output_t('Game '.$process.' in '.$htablename.' processed.');
-		$offset = 1024*1024-200;//单句长度，一般应该略小于1M（max_allowed_packet默认值）
-		do{
-			if($offset < strlen($hcont)){
-				$tmp_newsinfo = substr($hcont, 0, $offset);
-				$hcont = substr($hcont, $offset);
-			}else{
-				$tmp_newsinfo = $hcont;
-				$hcont = '';
-			}
-			$insert_gid = $nhdata['gid'];
-			$db->query("UPDATE {$wtablename} SET hnews=CONCAT(hnews, '$tmp_newsinfo') WHERE gid='$insert_gid'");
-		} while (!empty($hcont));
+		if($hnewsstorage){
+			$offset = 1024*1024-200;//单句长度，一般应该略小于1M（max_allowed_packet默认值）
+			do{
+				if($offset < strlen($hcont)){
+					$tmp_newsinfo = substr($hcont, 0, $offset);
+					$hcont = substr($hcont, $offset);
+				}else{
+					$tmp_newsinfo = $hcont;
+					$hcont = '';
+				}
+				$insert_gid = $nhdata['gid'];
+				$db->query("UPDATE {$wtablename} SET hnews=CONCAT(hnews, '$tmp_newsinfo') WHERE gid='$insert_gid'");
+			} while (!empty($hcont));
+		}else{
+			$objfile = './gamedata/bak/'.$hbakprefix.$process.'_newsinfo.dat';
+			writeover($objfile, $hcont);
+		}
+		if($_GET['wo-bak']) unlink($file);
+		
 	}
 }
 

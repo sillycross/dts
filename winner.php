@@ -53,12 +53,17 @@ elseif($command == 'news')
 	$result = $db->query("SELECT hnews FROM {$wtablepre}history WHERE gid='$gnum' LIMIT 1");
 	if($db->num_rows($result)) {
 		$whd = $db->fetch_array($result);
-		$hnewsinfo = gdecode($whd['hnews'],1);
+		if($whd['hnews'])
+			$hnewsinfo = gdecode($whd['hnews'],1);
 	}
 	if(empty($hnewsinfo)){//兼容代码
-		$hnewsfile = GAME_ROOT."./gamedata/bak/{$room_gprefix}{$gnum}_newsinfo.html";
-		if(file_exists($hnewsfile)){
-			$hnewsinfo = readover($hnewsfile);
+		$hnewsfile1 = GAME_ROOT."./gamedata/bak/{$room_gprefix}{$gnum}_newsinfo.dat";
+		$hnewsfile2 = GAME_ROOT."./gamedata/bak/{$room_gprefix}{$gnum}_newsinfo.html";
+		if(file_exists($hnewsfile1)){
+			$hnewsinfo = readover($hnewsfile1);
+			$hnewsinfo = gdecode($hnewsinfo,1);
+		}elseif(file_exists($hnewsfile2)){
+			$hnewsinfo = readover($hnewsfile2);
 		}
 	}	
 }
