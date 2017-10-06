@@ -50,6 +50,7 @@ if ($handle=opendir($dirpath))
 	}
 }
 output_t('Step 1 over. now folding. ');
+ksort($filelist);
 //第二步，每一局各自打包文件
 foreach($filelist as $gid => $flist){
 	output_t('Folding '.$gid.'...');

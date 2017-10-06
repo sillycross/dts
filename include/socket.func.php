@@ -385,15 +385,7 @@ function __STOP_ALL_SERVER__()
 		{
 			if ($sid=='.' || $sid=='..') continue;
 			$sid=(int)$sid; 
-			if (is_dir(GAME_ROOT.'./gamedata/tmp/server/'.(string)$sid))
-			{
-				__SOCKET_LOG__("开始向端口号为 {$sid} 的服务器发送停止指令。");
-				if (!__SEND_STOP_CMD__($sid))
-				{
-					__SOCKET_WARNLOG__("消息发送失败，强行删除文件夹 {$sid} 。");
-					clear_dir(GAME_ROOT.'./gamedata/tmp/server/'.(string)$sid);
-				}
-			}
+			__STOP_SINGLE_SERVER__($sid);
 		}
 			
 		if (file_exists(GAME_ROOT.'./gamedata/tmp/server/request_new_server'))
@@ -403,6 +395,19 @@ function __STOP_ALL_SERVER__()
 			unlink(GAME_ROOT.'./gamedata/tmp/server/request_new_root_server');
 	}
 	else  __SOCKET_ERRORLOG__('无法打开gamedata/tmp/server目录。');
+}
+
+function __STOP_SINGLE_SERVER__($sid)
+{
+	if (is_dir(GAME_ROOT.'./gamedata/tmp/server/'.(string)$sid))
+	{
+		__SOCKET_LOG__("开始向端口号为 {$sid} 的服务器发送停止指令。");
+		if (!__SEND_STOP_CMD__($sid))
+		{
+			__SOCKET_WARNLOG__("消息发送失败，强行删除文件夹 {$sid} 。");
+			clear_dir(GAME_ROOT.'./gamedata/tmp/server/'.(string)$sid);
+		}
+	}
 }
 
 function MODSRV_shutDownFunction()

@@ -5,7 +5,7 @@ namespace skill329
 	$ach329_threshold = array(
 		1 => 3,
 		2 => 15,
-		3 => 60,
+		3 => 50,
 		999 => NULL
 	);
 	$ach329_qiegao_prize = array(

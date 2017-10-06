@@ -261,7 +261,7 @@ if ($___MOD_SRV)
 	
 		if ($handle=opendir(GAME_ROOT.'./gamedata/tmp/server')) 
 		{
-			$flag=0; $srvlist=Array(); $chosen=-1;
+			$flag=0; $srvlist=Array(); $chosen=-1; $touch_error_list=array();
 			while (($sid=readdir($handle))!==false) 
 			{
 				if ($sid=='.' || $sid=='..') continue;
@@ -272,6 +272,11 @@ if ($___MOD_SRV)
 					array_push($srvlist,$sid);
 					$flag=1;
 					if (file_exists(GAME_ROOT.'./gamedata/tmp/server/'.$sid.'/busy')) continue;
+					$touchflag = __SEND_TOUCH_CMD__($sid);
+					if ('ok' != $touchflag && 'ok_root' != $touchflag) {
+						$touch_error_list[]=$sid;
+						continue;
+					}
 					$chosen = $sid; break;
 				}
 			}
@@ -284,6 +289,24 @@ if ($___MOD_SRV)
 			}
 			__SOCKET_DEBUGLOG__("选择了端口号为 ".$chosen.'的服务器 。');
 			$___TEMP_CONN_PORT=$chosen;
+			
+			$auto_server_file = GAME_ROOT.'./gamedata/tmp/server/auto_requested_new_server';
+			if (!empty($touch_error_list)) //请求daemonmng.php关闭检测到的异常进程
+			{
+				if(!file_exists($auto_server_file)){
+					touch($auto_server_file);
+					$daemonmng_url = 'http://'.$_SERVER['HTTP_HOST'].substr($_SERVER['PHP_SELF'],0,-11).'daemonmng.php';
+					foreach($touch_error_list as $tev){
+						$get_var = 'action=stop'.$tev.'&in_game_pass='.substr(base64_encode($___MOD_CONN_PASSWD),0,6);
+						file_get_contents($daemonmng_url.'?'.$get_var);
+					}
+				}else{
+					__SOCKET_ERRORLOG__("服务器连接错误，且尝试自动重启socket失败。");
+				}				
+			}else{
+				if(file_exists($auto_server_file)) unlink($auto_server_file);
+			}
+			unset($touch_error_list, $auto_server_file, $touchflag, $daemonmng_url, $get_var);
 		}
 		else  __SOCKET_ERRORLOG__('无法打开gamedata/tmp/server目录。');
 		
