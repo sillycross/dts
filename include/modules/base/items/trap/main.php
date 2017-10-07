@@ -428,7 +428,7 @@ namespace trap
 		$log .= "小心，自己也很难发现。<br>";
 		
 		$trapk = str_replace('TN','TO',$itmk);
-		$db->query("INSERT INTO {$tablepre}maptrap (itm, itmk, itme, itms, itmsk, pls) VALUES ('$trape', '$trapk', '$itme', '1', '$pid', '$pls')");
+		$db->query("INSERT INTO {$tablepre}maptrap (itm, itmk, itme, itms, itmsk, pls) VALUES ('$itm', '$trapk', '$trape', '1', '$pid', '$pls')");
 		
 		\lvlctl\getexp(1);
 		$wd++;
