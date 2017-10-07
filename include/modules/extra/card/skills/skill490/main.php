@@ -97,7 +97,7 @@ namespace skill490
 				}
 			}	
 		}
-		$exception = array('TNc','TOc','VS');
+		$exception = array('TNc','TOc','VS','X','Y','Z');
 		if($ritms > 1) $exception[] = 'VO';//卡片礼物
 		if($ritms > 3) $exception = array_merge($exception, array('TN', 'TO'));//陷阱
 		if($ritms > 10) $exception = array_merge($exception, array('p', 'ygo', 'fy', 'kj3'));//各类礼品
@@ -108,6 +108,7 @@ namespace skill490
 		if($ritme * $ritms > 100) $exception = array_merge($exception, array('MA','MD'));//攻防强化药
 		if($ritme * $ritms > 200) $exception = array_merge($exception, array('HM','HT'));//歌魂增加和回复
 		$itemklist = array_diff($itemklist, $exception);
+		
 		foreach($itemklist as $ik => &$iv){//防止一些奇葩武器类型的出现
 			foreach($exception as $ev){
 				if(strpos($iv, $ev)===0) $iv=NULL;
