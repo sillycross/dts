@@ -33,7 +33,7 @@ namespace skill488
 		$chprocess($pa, $pd, $active);	
 		if (\skillbase\skill_query(488,$pd))
 		{
-			if($pd['hp'] > 0 && $pd['hp'] <= $pd['mhp'] / 2){
+			if($pd['hp'] > 0 && $pd['hp'] <= $pd['mhp'] / 2 && $pa['dmg_dealt']>0){
 				if($pd['hp'] + round($tmp_pa_dmg_dealt*0.5) > $pd['mhp']) $hpup = $pd['mhp']-$pd['hp'];
 				else $hpup = round($tmp_pa_dmg_dealt*0.5);
 				$pd['hp'] += $hpup;

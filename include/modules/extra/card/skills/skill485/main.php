@@ -2,6 +2,8 @@
 
 namespace skill485
 {	
+	$skill485fac = 42;
+	
 	function init() 
 	{
 		define('MOD_SKILL485_INFO','card;unique;');
@@ -30,8 +32,8 @@ namespace skill485
 		$ret = $chprocess($pa,$pd,$active);
 		if (!\skillbase\skill_query(485,$pa) || !check_unlocked485($pa)) return $ret;
 		if(!$pd['type'] && $pd['killnum'] > 0 && $pa['dmg_dealt'] > 0){
-			eval(import_module('logger'));
-			$dmgup = round($pd['killnum'] * 13 / 100 * $pa['dmg_dealt']);
+			eval(import_module('logger', 'skill485'));
+			$dmgup = round($pd['killnum'] * $skill485fac / 100 * $pa['dmg_dealt']);
 			if($active){
 				$log .= '对方的举止表明，他无疑犯下了累累血债，这让你怒不可遏！你的伤害增加了<span class="red">'.$dmgup.'</span>点！<br>';
 			}else{
