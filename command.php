@@ -344,7 +344,7 @@ if(isset($command)){
 		$jgamedata = gencode($newsinfo);
 		echo $jgamedata;
 		ob_end_flush();
-		die();
+		return;
 	}elseif('area_timing_refresh' == $command){//刷新禁区时间
 		\sys\routine();
 		\map\init_areatiming();
@@ -353,12 +353,12 @@ if(isset($command)){
 		$jgamedata = gencode($gamedata);
 		echo $jgamedata;
 		ob_end_flush();
-		die();
+		return;
 	}elseif('room_routine' == $command){//刷新房间内游戏状态
 		ignore_user_abort(1);
 		include_once './include/roommng/roommng.func.php';
 		room_all_routine();
-		die();
+		return;
 	}
 }
 
