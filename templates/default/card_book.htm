@@ -28,9 +28,9 @@
 	<ul style="width:1000px;list-style-type:none;">
 		<!--{loop $unlock_cards $key $card}-->
 		<li style="float:left;margin:5px;"
-			<!--{if $card_energy[$key]<$card['energy']}-->
-			<!--{eval $t=($card['energy']-$card_energy[$key])/$energy_recover_rate[$card['rare']];}-->
-			<!--{eval echo 'title="这张卡片目前处于蓄能状态<br>需要蓄积'.$card['energy'].'点能量方可使用，目前已蓄积了'.floor($card_energy[$key]).'点能量<br>预计在'.convert_tm($t).'后蓄能完成"';}-->
+			<!--{if $card_energy[$card['id']]<$card['energy']}-->
+			<!--{eval $t=($card['energy']-$card_energy[$card['id']])/$energy_recover_rate[$card['rare']];}-->
+			<!--{eval echo 'title="这张卡片目前处于蓄能状态<br>需要蓄积'.$card['energy'].'点能量方可使用，目前已蓄积了'.floor($card_energy[$card['id']]).'点能量<br>预计在'.convert_tm($t).'后蓄能完成"';}-->
 			<!--{else}-->
 			<!--{eval echo 'title="这张卡片需要蓄积'.$card['energy'].'点能量方可使用<br>目前已蓄能完成，可以使用"';}-->
 			<!--{/if}-->

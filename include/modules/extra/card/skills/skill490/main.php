@@ -97,7 +97,7 @@ namespace skill490
 				}
 			}	
 		}
-		$exception = array('TNc','TOc','VS','X','Y','Z');
+		$exception = array('TNc','TOc','VS','Y','Z');
 		if($ritms > 1) $exception[] = 'VO';//卡片礼物
 		if($ritms > 3) $exception = array_merge($exception, array('TN', 'TO'));//陷阱
 		if($ritms > 10) $exception = array_merge($exception, array('p', 'ygo', 'fy', 'kj3'));//各类礼品
@@ -172,9 +172,10 @@ namespace skill490
 		
 		eval(import_module('sys','player','itemmain'));
 		
-		if($news == 'bskill490') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}发动了技能<span class=\"yellow\">「空想」</span>，获得了{$iteminfo[$b]}{$c}！</span></li>";
-		
+		if($news == 'bskill490') {
+			$kwords = \itemmain\parse_itmk_words($b);
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}发动了技能<span class=\"yellow\">「空想」</span>，获得了{$kwords}{$c}！</span></li>";
+		}
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 }

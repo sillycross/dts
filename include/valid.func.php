@@ -170,6 +170,10 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 		if (substr($key,0,3)=="itm"){
 			$tt=substr($key,-1);
 			$ts=substr($key,0,strlen($key)-1);
+			if(is_array($value)){
+				shuffle($value);
+				$value = $value[0];
+			}
 			${$ts}[$tt]=$value;
 		}else{
 			${$key}=$value;
