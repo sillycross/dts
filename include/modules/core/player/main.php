@@ -482,7 +482,6 @@ namespace player
 
 			if($command == 'menu') {
 				$mode = 'command';
-				$action = '';
 			} elseif($mode == 'command') {
 				if($command == 'special') {
 				/*

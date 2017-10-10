@@ -110,7 +110,6 @@ namespace battle
 			include template(get_battleresult_filename());
 			$cmd = ob_get_contents();
 			ob_clean();
-			$action = '';
 		}
 		
 		if (defined('MOD_CLUBBASE')) include template(MOD_CLUBBASE_NPCSKILLPAGE);
