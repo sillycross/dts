@@ -147,7 +147,8 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 	///////////////////////////////////////////////////////////////
 	eval(import_module('cardbase'));
 	
-	if ($card==81){
+	if ($card==81){//篝火挑战者
+		$o_card = $card;
 		$arr=array('0');
 		$r=rand(1,100);
 		if ($r<=20){
@@ -163,8 +164,13 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 		$card=$arr[rand(0,$c)];
 	}
 	$card_valid_info=$cards[$card]['valid'];
-	$cardname=$cards[$card]['name'];
-	$cardrare=$cards[$card]['rare'];
+	
+	$cardname = $newscardname = $cards[$card]['name'];
+	$cardrare = $newscardrare = $cards[$card]['rare'];
+	if(isset($o_card)) {
+		$newscardname=$cards[$o_card]['name'];
+		$newscardrare=$cards[$o_card]['rare'];
+	}
 	///////////////////////////////////////////////////////////////
 	foreach ($card_valid_info as $key => $value){
 		if (substr($key,0,3)=="itm"){
@@ -207,7 +213,7 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 	
 	\player\player_save($pp);
 	///////////////////////////////////////////////////////////////
-	$rarecolor = $card_rarecolor[$cardrare];
+	$rarecolor = $card_rarecolor[$newscardrare];
 //	if ($cardrare=="S"){
 //		$rarecolor="orange";
 //	}else if ($cardrare=='A'){
@@ -220,9 +226,9 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 	$result = $db->query("SELECT groupid FROM {$gtablepre}users WHERE username='$cuser'");
 	$udata = $db->fetch_array($result);
 	if($udata['groupid'] >= 6 || $cuser == $gamefounder){
-		addnews($now,'newgm',"<span class=\"".$rarecolor."\">".$cardname.'</span> '.$name,"{$sexinfo[$gd]}{$sNo}号");
+		addnews($now,'newgm',"<span class=\"".$rarecolor."\">".$newscardname.'</span> '.$name,"{$sexinfo[$gd]}{$sNo}号");
 	}else{
-		addnews($now,'newpc',"<span class=\"".$rarecolor."\">".$cardname.'</span> '.$name,"{$sexinfo[$gd]}{$sNo}号");
+		addnews($now,'newpc',"<span class=\"".$rarecolor."\">".$newscardname.'</span> '.$name,"{$sexinfo[$gd]}{$sNo}号");
 	}
 	
 	if($validnum >= $validlimit && $gamestate == 20){

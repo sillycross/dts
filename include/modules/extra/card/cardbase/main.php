@@ -309,6 +309,23 @@ namespace cardbase
 		krsort($ret);
 		return $ret;
 	}
+	
+	function check_pack_availble($pn){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','cardbase'));
+		$ret = true;
+		if(isset($packstart[$pn]) && $packstart[$pn] > $now) $ret = false;
+		return $ret;
+	}
+	
+	function pack_filter($packlist){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$n_packlist = array();
+		foreach($packlist as $pv){
+			if(check_pack_availble($pv)) $n_packlist[]=$pv;
+		}
+		return $n_packlist;
+	}
 }
 
 ?>

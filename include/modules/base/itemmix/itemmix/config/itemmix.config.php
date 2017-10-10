@@ -13,6 +13,8 @@ $mixinfo = array
 	array('class' => 'h', 'stuff' => array('治疗针','体力回复药','蒸馏水'),'result' => array('特级恢复药','HB',120,2,),),	
 	array('class' => 'h', 'stuff' => array('甜生姜','地雷酥糖'),'result' => array('曾经的荣光-橙黄','HB',50,1,),),
 	array('class' => 'h', 'stuff' => array('曾经的荣光-橙黄','面包'),'result' => array('更改菜谱后的不甜酱包','HB',300,4,'Z'),), 
+	array('class' => 'h', 'stuff' => array('早苗面包','仙贝面包','海星面包','彩虹光芒的面包'),'result' => array('禁忌「Four of a Bread」','HB',444,4,'z'),),
+	array('class' => 'h', 'stuff' => array('寂寞','脸','杯子'),'result' => array('淡定红茶','HB',200,20,),),
 	
 	array('class' => 'wc', 'stuff' => array('汽油','空瓶'),'result' => array('☆火焰瓶☆','WC',80,50,'ud'),),	
 	array('class' => 'wc', 'stuff' => array('幻之使魔','永恒之桶'),'result' => array('灵魂的结晶','WC',180,240,'rn'),),
@@ -45,8 +47,9 @@ $mixinfo = array
 	array('class' => 'wk', 'stuff' => array('骨刃','嘴炮','搬运之力','神字幕','销魂之歌'),'result' => array('轰剑【虎眼】','WK',360,200,'',),),
 	array('class' => 'wk', 'stuff' => array('轰剑【虎眼】','磨刀石','磨刀石','磨刀石'),'result' => array('吼剑【地咬】','WK',840,120,'',),),
 	array('class' => 'wk', 'stuff' => array('吼剑【地咬】','大型闹钟','GS【伪Hand_Sonic】','【逆转的女神】','触手的力量'),'result' => array('冲剑【虎啸】','WK',3170,250,'',),),
-	array('class' => 'wk', 'stuff' => array('冲剑【虎啸】','世灭之愿','强袭之愿'),'result' => array('绝冲剑【虎王】','WK',4320,2350,'Nrd'),),
-	array('class' => 'wk', 'stuff' => array('绝冲剑【虎王】','最终战术『蝎尾』'),'result' => array('绝冲大剑【神威】','WK',7290,'∞','ZNnrd'),),
+	array('class' => 'wk', 'stuff' => array('吼剑【地咬】','幻爪拳 Tonalpo','破魔镰·断月','『雷米尔之冲击』','5.45mm 无声手枪','空想爆弹 ~ 出乎意料'),'result' => array('冲剑【虎啸】','WK',4320,250,'',),),
+	array('class' => 'wk', 'stuff' => array('冲剑【虎啸】','世灭之愿','强袭之愿','CAVE社特典CD『胎慟』'),'result' => array('绝冲剑【虎王】','WK',7290,2350,'Nrd'),),
+	array('class' => 'wk', 'stuff' => array('绝冲剑【虎王】','最终战术『蝎尾』'),'result' => array('绝冲大剑【神威】','WK',80000,'∞','ZNnrdf'),),
 	array('class' => 'wk', 'stuff' => array('冰封的『Oathkeeper』','火把'),'result' => array('『Oathkeeper』','WK',300,10,'u'),),
 	array('class' => 'wk', 'stuff' => array('冰封的『Oathkeeper』','解冻药水'),'result' => array('『Oathkeeper』','WK',300,10,'u'),),
 	array('class' => 'wk', 'stuff' => array('冰封的『Oblivion』','火把'),'result' => array('『Oblivion』','WK',300,10,'i'),),
@@ -120,7 +123,6 @@ $mixinfo = array
 	
 	array('class' => 'item', 'stuff' => array('生命探测器','增幅设备'),'result' => array('广域生命探测器','ER',1,1,2),),
 	//array('class' => 'item', 'stuff' => array('☆自爆电池☆','☆★☆大打击☆★☆'),'result' => array('★捆绑式炸药★','Y',1,1,),),
-	//array('class' => 'item', 'stuff' => array('早苗面包','仙贝面包','咖喱面包','红豆面包'),'result' => array('天然呆四面的奖赏','Z',1,1,'z'),),
 	array('class' => 'item', 'stuff' => array('安雅人体冰雕','火把'),'result' => array('武器师安雅的奖赏','Y',1,1,),),
 	array('class' => 'item', 'stuff' => array('安雅人体冰雕','解冻药水'),'result' => array('武器师安雅的奖赏','Y',1,1,),),
 	array('class' => 'item', 'stuff' => array('手机','笔记本电脑'),'result' => array('移动PC','EE',1,1,),),

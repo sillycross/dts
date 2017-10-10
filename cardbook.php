@@ -34,9 +34,10 @@ if ($_REQUEST["playerID"]=="") {
 }
 
 $userCardData = \cardbase\get_user_cardinfo($n);
-$user_cards = $userCardData['cardlist'];;
+$user_cards = $userCardData['cardlist'];
 $card_energy = $userCardData['cardenergy'];
 $cardChosen = $userCardData['cardchosen'];
+$packlist = \cardbase\pack_filter($packlist);
 
 $pname = $_REQUEST["packName"];
 if ($pname!="") {

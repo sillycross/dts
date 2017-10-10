@@ -55,7 +55,6 @@ if($mode == 'enter') {
 	$cardinfo=$cards[$cc];
 	$r=$cardinfo['rare'];
 	$cf=true;
-	
 	list($card_disabledlist,$card_error) = card_validate($udata);
 	if(!empty($card_disabledlist[$cc])) //当前卡片无法使用
 	{
@@ -103,7 +102,7 @@ if($mode == 'enter') {
 	$card_ownlist = $userCardData['cardlist'];
 	$card_energy = $userCardData['cardenergy'];
 	$cardChosen = $userCardData['cardchosen'];
-	
+	$packlist = \cardbase\pack_filter($packlist);
 	list($card_disabledlist,$card_error) = card_validate($udata);
 	
 	$hideDisableButton = 1;

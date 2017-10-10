@@ -97,8 +97,8 @@ if($mode == 'edit') {
 	$cardChosen = $userCardData['cardchosen'];
 	$card_disabledlist=Array();
 	$card_error=Array();
+	$packlist = \cardbase\pack_filter($packlist);
 	include template('user');
-	
 }
 
 ?> 
