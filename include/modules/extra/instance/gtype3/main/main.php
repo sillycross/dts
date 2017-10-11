@@ -14,7 +14,7 @@ namespace gtype3
 		if (room_check_subroom($room_prefix)) return $chprocess();
 		list($sec,$min,$hour,$day,$month,$year,$wday) = explode(',',date("s,i,H,j,n,Y,w",$now));
 		$tg=$gamenum-4;
-		$res=$db->query("SELECT gametype FROM {$gtablepre}winners WHERE gid='$tg'");
+		$res=$db->query("SELECT gametype FROM {$gtablepre}history WHERE gid='$tg'");
 		$gt=3;
 		if ($db->num_rows($res)){
 			$zz=$db->fetch_array($res); $gt=$zz['gametype'];

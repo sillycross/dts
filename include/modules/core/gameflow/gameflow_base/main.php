@@ -13,7 +13,6 @@ namespace gameflow_base
 		
 		\sys\reset_game();
 		\sys\save_gameinfo();
-		
 		\sys\prepare_new_game();
 		\sys\rs_game(1+2+4+8+16+32);
 		$gamestate = 10;//重设游戏完毕
