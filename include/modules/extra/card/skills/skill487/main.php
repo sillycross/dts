@@ -13,7 +13,7 @@ namespace skill487
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		\skillbase\skill_setvalue(487,'h_flag','0',$pa);
-		\skillbase\skill_setvalue(487,'hlist','1',$pa);
+		\skillbase\skill_setvalue(487,'hlist','',$pa);
 	}
 	
 	function lost487(&$pa)
@@ -70,36 +70,58 @@ namespace skill487
 		$theitem['itmsk'] = &$pa['itmsk'.$item]; 
 		eval(import_module('logger'));
 		$tmp_hp = $pa['hp'];
+		$delflag = 0;
 		$tmp_log = $log;//拦截log
 		$i = 0;
+		$ignore_log = 0;
 		while($pa['hp'] > 0 && $pa['hp'] < $pa['mhp'] && $theitem['itms']){
-			\edible\itemuse_edible($theitem);
+			if($i > 9) break;//保险
+			//如果因为某种原因，选到了不能吃的道具，则直接跳出循环。感谢sc指出这个重大漏洞。
+			//另外，既然写了，就不删了……
+			if(strpos($theitem['itmk'],'H') === 0) {
+				\edible\itemuse_edible($theitem);
+				$ignore_tmp_log = 1;
+			}elseif(strpos($theitem['itmk'],'P') === 0){
+				$log .= "你紧急复用了{$theitem['itm']}。";
+				\poison\itemuse($theitem);
+				$delflag = 1;
+				break;
+			}else{
+				$delflag = 1;
+				break;
+			}
 			$i ++;
-			if($tmp_hp > $pa['hp']) break;//吃到毒立刻中止
-			else $tmp_hp = $pa['hp'];
 		}
-		$log = $tmp_log;
+		if($delflag) del_hlist487($item, $pa);
+		if(isset($ignore_tmp_log)) {
+			$log = $tmp_log;
+		}
+		if($pa['hp'] > $tmp_hp) {
+			$hpup = $pa['hp'] - $tmp_hp;
+			$log .= "幸好你留有后手，紧急复用了{$i}个{$theitem['itm']}，<span class='lime'>回复了{$hpup}点生命！</span>";
+		}
 		return $i;
 	}
 	
-	function auto_recover487(&$pa, &$pd, $active){//$pa是瞪眼方，$pd是回血方，$active来自battle，指是不是玩家视角
+	function auto_recover487(&$pa, $active){//$pa是回血方，$active来自battle
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if(!\skillbase\skill_query(487,$pd)) return false;
-		eval(import_module('logger'));
-		$hlist = get_hlist487($pd);
+		if(!\skillbase\skill_query(487,$pa)) return false;
+		$hlist = get_hlist487($pa);
 		if(!$hlist) return false;
 		$item = array_pop($hlist);
-		if(!$item || !$pd['itms'.$item]) return false;
-		$tmp_hp = $pd['hp'];
-		$tmp_itm = $pd['itm'.$item];
-		$r = eat_until_full487($item, $pd);
-		if($r) {
-			if($pd['hp'] > $tmp_hp){//回复
-				$hpup = $pd['hp'] - $tmp_hp;
-				$log .= \battle\battlelog_parser($pa, $pd, 1-$active, "幸好<:pd_name:>留有后手，紧急使用了{$tmp_itm}，<span class='lime'>回复了{$hpup}点生命！</span>");
-				//$pa['battlelog'] .= \battle\battlelog_parser($pa, $pd, $active, "幸好<:pd_name:>留有后手，紧急使用了{$tmp_itm}，<span class='lime'>回复了{$hpup}点生命！</span>");
-			}
-		}
+		if(!$item || !$pa['itms'.$item]) return false;
+//		$tmp_hp = $pa['hp'];
+//		$tmp_itm = $pa['itm'.$item];
+		addnews ( 0, 'skill487_act', $pa['name'], $pa['itm'.$item]);
+		$r = eat_until_full487($item, $pa);
+//		if($r) {
+//			if($pa['hp'] > $tmp_hp){//回复
+//				$hpup = $pa['hp'] - $tmp_hp;
+//				$log .= "幸好你留有后手，紧急复用了{$r}个{$tmp_itm}，<span class='lime'>回复了{$hpup}点生命！</span>";
+//				//$log .= \battle\battlelog_parser($pa, $pa, $active, "幸好<:pd_name:>留有后手，紧急复用了{$r}个{$tmp_itm}，<span class='lime'>回复了{$hpup}点生命！</span>");
+//				//$pa['battlelog'] .= \battle\battlelog_parser($pa, $pa, $active, "幸好<:pd_name:>留有后手，紧急使用了{$tmp_itm}，<span class='lime'>回复了{$hpup}点生命！</span>");
+//			}
+//		}
 	}
 	
 	function battle_finish(&$pa, &$pd, $active)
@@ -109,10 +131,10 @@ namespace skill487
 		//暂时还不能做到被玩家主动攻击时回血
 		if ($active && \skillbase\skill_query(487,$pa) && check_unlocked487($pa) && $pa['hp']<$pa['mhp']/2 && $pa['hp']>0)
 		{
-			auto_recover487($pd, $pa, $active);
-		}elseif ($active && \skillbase\skill_query(487,$pd) && check_unlocked487($pd) && $pd['hp']<$pd['mhp']/2 && $pd['hp']>0)
+			auto_recover487($pa, $active);
+		}elseif (!$active && \skillbase\skill_query(487,$pd) && check_unlocked487($pd) && $pd['hp']<$pd['mhp']/2 && $pd['hp']>0)
 		{
-			auto_recover487($pa, $pd, $active);
+			auto_recover487($pd, $active);
 		}
 	}
 	
@@ -129,13 +151,12 @@ namespace skill487
 	//记录道具
 	function record_hlist487($item, &$pa){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if($item < 0 || $item > 6) return false;
+		if(''===$item || $item < 0 || $item > 6) return false;
 		if(!\skillbase\skill_query(487,$pa)) return false;
 		eval(import_module('player', 'skill487'));
 		$hlist = get_hlist487($pa);
-		del_hlist487($item, $pa);
-		$hlist = array_filter($hlist);
 		$hlist[] = $item;
+		$hlist = array_reverse(array_unique(array_reverse(array_filter($hlist))));
 		set_hlist487($hlist,$pa);
 		return true;
 	}
@@ -150,14 +171,14 @@ namespace skill487
 		return true;
 	}
 	
-	//检查列表里各项是否还在，如果不在，自动修正列表
+	//检查列表里各项是否合法，如果不合法，自动修正列表
 	function check_hlist487(&$pa){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(!\skillbase\skill_query(487,$pa)) return false;
 		$hlist = get_hlist487($pa);
 		$dellist = array();
 		foreach($hlist as $iv){
-			if(!$iv || !$pa['itms'.$iv]) $dellist[] = $iv;
+			if(!$iv || !$pa['itms'.$iv] || (strpos($pa['itmk'.$iv],'H') !== 0 && strpos($pa['itmk'.$iv],'P') !== 0)) $dellist[] = $iv;
 		}
 		foreach($dellist as $dv){
 			del_hlist487($dv, $pa);
@@ -195,24 +216,32 @@ namespace skill487
 	}
 	
 	//如果道具耗尽，则检查列表。
-	function itms_reduce(&$theitem)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($theitem);
-		eval(import_module('player'));
-		if(!\skillbase\skill_query(487,$sdata)) return;
-		if(!$theitem['itms']){
-			check_hlist487($sdata);
-		}
-	}
+//	function itms_reduce(&$theitem)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		$chprocess($theitem);
+//		eval(import_module('player'));
+//		if(!\skillbase\skill_query(487,$sdata)) return;
+//		if(!$theitem['itms']){
+//			check_hlist487($sdata);
+//		}
+//	}
 	
 	//道具丢弃，则检查列表
-	function itemdrop($item) {
+//	function itemdrop($item) {
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		$ret = $chprocess($item);
+//		eval(import_module('player'));
+//		if(\skillbase\skill_query(487,$sdata)) check_hlist487($sdata);
+//		return $ret;
+//	}
+	
+	//每次行动结束时检查列表
+	function act(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$ret = $chprocess($item);
-		eval(import_module('player'));
+		eval(import_module('sys','player'));
+		$chprocess();
 		if(\skillbase\skill_query(487,$sdata)) check_hlist487($sdata);
-		return $ret;
 	}
 	
 	//道具合并，则两个选项都应该从列表里清掉（可能带毒）
@@ -249,6 +278,16 @@ namespace skill487
 			set_hlist487($hlist, $pa);
 		}
 		return $ret;
+	}
+	
+	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player'));
+		
+		if($news == 'skill487_act') 
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}发动了「后手」，服用了{$b}</span></li>";
+		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 }
 

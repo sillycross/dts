@@ -288,7 +288,7 @@ namespace instance8
 			'pose'=> 4,
 			'mhp' => 3200,
 			'money' => 2400,
-			'wep' => '触手的灵压',
+			'wep' => '触手的力量',
 			'wepk' => 'WF',
 			'wepe' => 75,
 			'weps' => 200,
