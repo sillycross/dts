@@ -502,6 +502,7 @@ namespace tutorial
 				extract($edata,EXTR_PREFIX_ALL,'w');
 				if(isset($ct['obj2']['active']) && $ct['obj2']['active']){//判定玩家主动攻击
 					$action = 'enemy'.$edata['pid'];
+					$sdata['keep_enemy'] = 1;
 					\enemy\findenemy($edata);
 					return;
 				} elseif(isset($ct['obj2']['active']) && !$ct['obj2']['active']) {//判定玩家遭受攻击
@@ -527,59 +528,6 @@ namespace tutorial
 		}
 		return $chprocess($edata);
 	}
-	
-	//function senditem(){//递送道具时无视teamID，我知道很丑陋，回头再改
-//		if (eval(__MAGIC__)) return $___RET_VALUE;
-//		eval(import_module('sys','map','logger','player','metman','input'));
-//		
-//		$mateid = str_replace('team','',$action);
-//		if(!$mateid || strpos($action,'team')===false) $chprocess();
-//		if($gametype == 17){
-//			$edata=\player\fetch_playerdata_by_pid($mateid);
-//			if(isset($edata) && !$edata['type'] && $edata['pls'] == $pls && $edata['hp'] > 0 && $edata['pid'] != $pid){
-//				if($message){
-//					$log .= "<span class=\"lime\">你对{$edata['name']}说：“{$message}”</span><br>";
-//					$x = "<span class=\"lime\">{$name}对你说：“{$message}”</span>";
-//					if(!$edata['type']) \logger\logsave($edata['pid'],$now,$x,'c');
-//				}
-//				if($command != 'back'){
-//					$itmn = substr($command, 4);
-//					if (!${'itms'.$itmn}) {
-//						$log .= '此道具不存在！';
-//						$action = '';
-//						$mode = 'command';
-//						return;
-//					}
-//					$itm = & ${'itm'.$itmn};
-//					$itmk = & ${'itmk'.$itmn};
-//					$itme = & ${'itme'.$itmn};
-//					$itms = & ${'itms'.$itmn};
-//					$itmsk = & ${'itmsk'.$itmn};
-//		
-//					for($i = 1;$i <= 6; $i++){
-//						if(!$edata['itms'.$i]) {
-//							$edata['itm'.$i] = $itm; $edata['itmk'.$i] = $itmk; 
-//							$edata['itme'.$i] = $itme; $edata['itms'.$i] = $itms; $edata['itmsk'.$i] = $itmsk;
-//							$log .= "你将<span class=\"yellow\">".$edata['itm'.$i]."</span>送给了<span class=\"yellow\">{$edata['name']}</span>。<br>";
-//							$x = "<span class=\"yellow\">$name</span>将<span class=\"yellow\">".$edata['itm'.$i]."</span>送给了你。";
-//							if(!$edata['type']) \logger\logsave($edata['pid'],$now,$x,'t');
-//							addnews($now,'senditem',$name,$edata['name'],$itm);
-//							\player\player_save($edata);
-//							$itm = $itmk = $itmsk = '';
-//							$itme = $itms = 0;
-//							$action = '';
-//							return;
-//						}
-//					}
-//					$log .= "<span class=\"yellow\">{$edata['name']}</span> 的包裹已经满了，不能赠送物品。<br>";
-//				}
-//				$action = '';
-//				$mode = 'command';
-//				return;
-//			}
-//		}
-//		$chprocess();
-//	}
 	
 	//如果被攻击导致HP小于一定值则把HP设为这个值	
 	function player_damaged_enemy(&$pa, &$pd, $active)
