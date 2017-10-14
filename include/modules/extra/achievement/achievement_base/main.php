@@ -58,15 +58,16 @@ namespace achievement_base
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','achievement_base'));
 		$alist = array();
-		foreach($achlist as $av){
-			$alist = array_merge($alist, $av);
+		foreach($achlist as $atk => $atv){
+			if( 1 == check_achtype_available($atk))
+				$alist = array_merge($alist, $atv);
 		}
 		foreach($alist as $av){
 			//只有玩家可以获得成就技能
 			if (!$pa['type']
 			//确认允许完成成就的模式，未定义则用0键（只有正常游戏可以完成）
 				&& ( ( !isset($ach_allow_mode[$av]) && in_array($gametype, $ach_allow_mode[0]) ) || ( isset($ach_allow_mode[$av]) && in_array($gametype,$ach_allow_mode[$av]) ) )
-				&& !\skillbase\skill_query($av,$pa) && 1 == check_achtype_available($av))
+				&& !\skillbase\skill_query($av,$pa))
 			\skillbase\skill_acquire($av,$pa);
 		}
 		$chprocess($pa);

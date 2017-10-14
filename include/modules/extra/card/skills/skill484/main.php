@@ -31,7 +31,8 @@ namespace skill484
 		eval(import_module('sys','player','clubbase'));
 		$ret = $chprocess();
 		if(\skillbase\skill_query(484)){
-			$ret[1] = 2; $ret[2] = 8;
+			if(8 != $ret[3]) $ret[2] = 8;
+			if(2 != $ret[1]) $ret[1] = 2; 
 		}
 		return $ret;
 	}
