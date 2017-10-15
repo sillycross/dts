@@ -2,7 +2,7 @@
 
 namespace skill485
 {	
-	$skill485fac = 42;
+	$skill485factors = array(0, 21, 42);
 	
 	function init() 
 	{
@@ -14,11 +14,13 @@ namespace skill485
 	function acquire485(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		\skillbase\skill_setvalue(485,'lvl','0',$pa);
 	}
 	
 	function lost485(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		\skillbase\skill_delvalue(485,'lvl',$pa);
 	}
 	
 	function check_unlocked485(&$pa)
@@ -33,6 +35,8 @@ namespace skill485
 		if (!\skillbase\skill_query(485,$pa) || !check_unlocked485($pa)) return $ret;
 		if(!$pd['type'] && $pd['killnum'] > 0 && $pa['dmg_dealt'] > 0){
 			eval(import_module('logger', 'skill485'));
+			$lvl485 = \skillbase\skill_getvalue(485,'lvl',$pa);
+			$skill485fac = $skill485factors[$lvl485];
 			$dmgup = round($pd['killnum'] * $skill485fac / 100 * $pa['dmg_dealt']);
 			if($active){
 				$log .= '对方的举止表明，他无疑犯下了累累血债，这让你怒不可遏！你的伤害增加了<span class="red">'.$dmgup.'</span>点！<br>';

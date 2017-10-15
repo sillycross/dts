@@ -9,6 +9,14 @@ namespace itemmain
 		$equip_list=array_merge($equip_list,$item_equip_list);
 	}
 	
+	//1:一般可合并道具  2:食物  0:不可合并
+	function check_mergable($ik){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(preg_match('/^(WC|WD|WF|Y|B|C|TN|GB|M|V|ygo|fy|p)/',$ik)) return 1;
+		elseif(preg_match('/^(H|P)/',$ik)) return 2;
+		else return 0;
+	}
+	
 	function parse_itmname_words($name_value, $elli = 0){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(!$elli) return $name_value;
@@ -321,7 +329,14 @@ namespace itemmain
 				itemadd();
 			} elseif($command == 'itemmerge') {
 				if($merge2 == 'n'){itemadd();}
-				else{itemmerge($merge1,$merge2);}
+				else{
+					$merge_ret = itemmerge($merge1,$merge2);
+					if(!$merge_ret && ${'itm'.$merge1} != ${'itm'.$merge2}) {
+						eval(import_module('logger'));
+						$log .= '<br>系统将你的命令自动识别为道具移动。';
+						itemmove($merge1,$merge2);
+					}
+				}
 			} elseif($command == 'itemmove') {
 				itemmove($from,$to);
 			} elseif(strpos($command,'drop') === 0) {

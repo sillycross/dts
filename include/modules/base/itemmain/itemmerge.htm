@@ -1,8 +1,8 @@
 你想要做什么？<br>
 
 <input type="hidden" name="mode" value="itemmain">
-<input type="radio" name="command" id="menu" value="menu" checked><a onclick=sl('menu'); href="javascript:void(0);" >返回</a><br>
-<input type="radio" name="command" id="itemmerge" value="itemmerge"><a onclick=sl('itemmerge'); href="javascript:void(0);">合并两个道具</a><br>
+<input type="hidden" id="cmdspare" name="cmdspare" value="">
+<input type="radio" name="command" id="itemmerge" value="itemmerge" checked><a onclick=sl('itemmerge'); href="javascript:void(0);">合并两个道具</a><br>
 <input type="radio" name="command" id="itemmove" value="itemmove"><a onclick=sl('itemmove'); href="javascript:void(0);">移动或交换道具的位置</a><br>
 <br>
 请选择参与合并/移动/交换位置的两个道具：<br><br>
@@ -29,3 +29,4 @@
 </select>
 <br><br>
 <input type="button" class="cmdbutton" name="submit" id="z" value="[Z]提交" onclick="$('from').value=$('merge1').value;$('to').value=$('merge2').value;postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="button" class="cmdbutton" name="back" id="x" value="[X]返回" onclick="$('cmdspare').name='command';$('cmdspare').value='menu';$('itemmerge').checked=false;$('itemmove').checked=false;postCmd('gamecmd','command.php');this.disabled=true;">
