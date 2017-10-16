@@ -292,7 +292,7 @@ namespace instance8
 			'itmk1' => 'PR2',
 			'itme1' => 50,
 			'itms1' => 5,
-			'itm2' => '爱莲娜的圣钉',
+			'itm2' => '艾莲娜的圣钉',
 			'itmk2' => 'Y',
 			'itme2' => 40,
 			'itms2' => 10,

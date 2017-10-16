@@ -11,7 +11,7 @@
 <!--{eval $skill426_lst = (int)\skillbase\skill_getvalue(426,'lastuse'); $skill426_time = ($now-$skill426_lst);$skill426_cd_left=($skill426_cd[$clv]-$skill426_time);}-->
 <span class="lime">当前级别$clv/$totlv</span>&nbsp;
 <!--{if $upgradecost[$clv] !== -1}-->消耗<span class="lime">$upgradecost[$clv]</span>点技能点升至下一级<!--{/if}--><br>
-恢复满生命值和体力值，冷却时间<span class="clan">$skill426_cd[$clv]</span>秒<br>
+恢复满HP、SP，并治好所有伤口和异常状态，冷却时间<span class="clan">$skill426_cd[$clv]</span>秒<br>
 <!--{if $skill426_time<$skill426_cd[$clv]}-->
 <span class="clan">技能冷却中，冷却时间还剩<span>$skill426_cd_left</span>秒。</span><br>
 <!--{/if}-->
