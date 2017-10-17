@@ -2,8 +2,11 @@
 
 //房间设置
 
-//最大房间数目
+//全局最大房间数目
 $max_room_num = 10;
+
+//单人最大房间数目
+$max_private_room_num = 3;
 
 //长轮询端口号范围
 $room_poll_port_low = 25000;
@@ -22,7 +25,9 @@ $roomtypelist = Array(
 		'soleroom' => false,//唯一房间，只有不存在时才会新建房间。
 		'without-ready' => false,//是否不需要点击“准备”就直接进入房间。
 		'without-valid' => false,//是否跳过加入游戏画面就直接进入房间。
-		'pnum' => 2,	//最大参与人数
+		'pnum' => 2,	//最大参与人数，只有开启准备才有效
+		'globalnum' => 0,	//全场最大开启数目，不设或者0认为无限制
+		'privatenum' => 1,	//单人最大开启数目，不设或者0认为无限制
 		'leader-position' => Array(	//各个编号位置的所属队伍队长位置
 			0 => 0,
 			1 => 1,
@@ -64,7 +69,9 @@ $roomtypelist = Array(
 		'soleroom' => false,//唯一房间，只有不存在时才会新建房间。
 		'without-ready' => false,//是否不需要点击“准备”就直接进入房间。
 		'without-valid' => false,//是否跳过加入游戏画面就直接进入房间。
-		'pnum' => 10,
+		'pnum' => 10,//最大参与人数，只有开启准备才有效
+		'globalnum' => 0,	//全场最大开启数目，不设或者0认为无限制
+		'privatenum' => 1,	//单人最大开启数目，不设或者0认为无限制
 		'leader-position' => Array(
 			0 => 0,
 			1 => 0,
@@ -116,7 +123,9 @@ $roomtypelist = Array(
 		'soleroom' => false,//唯一房间，只有不存在时才会新建房间。
 		'without-ready' => false,//是否不需要点击“准备”就直接进入房间。
 		'without-valid' => false,//是否跳过加入游戏画面就直接进入房间。
-		'pnum' => 15,
+		'pnum' => 15,//最大参与人数，只有开启准备才有效
+		'globalnum' => 0,	//全场最大开启数目，不设或者0认为无限制
+		'privatenum' => 1,	//单人最大开启数目，不设或者0认为无限制
 		'leader-position' => Array(
 			0 => 0,
 			1 => 0,
@@ -153,7 +162,9 @@ $roomtypelist = Array(
 		'soleroom' => false,//唯一房间，只有不存在时才会新建房间。
 		'without-ready' => false,//是否不需要点击“准备”就直接进入房间。
 		'without-valid' => false,//是否跳过加入游戏画面就直接进入房间。
-		'pnum' => 20,
+		'pnum' => 20,//最大参与人数，只有开启准备才有效
+		'globalnum' => 0,	//全场最大开启数目，不设或者0认为无限制
+		'privatenum' => 1,	//单人最大开启数目，不设或者0认为无限制
 		'leader-position' => Array(
 			0 => 0,
 			1 => 0,
@@ -197,7 +208,9 @@ $roomtypelist = Array(
 		'soleroom' => false,//唯一房间，只有不存在时才会新建房间。
 		'without-ready' => false,//是否不需要点击“准备”就直接进入房间。
 		'without-valid' => false,//是否跳过加入游戏画面就直接进入房间。
-		'pnum' => 25,
+		'pnum' => 25,//最大参与人数，只有开启准备才有效
+		'globalnum' => 0,	//全场最大开启数目，不设或者0认为无限制
+		'privatenum' => 1,	//单人最大开启数目，不设或者0认为无限制
 		'leader-position' => Array(
 			0 => 0,
 			1 => 0,
@@ -242,13 +255,15 @@ $roomtypelist = Array(
 		'show-team-leader' => 1,
 	),
 	5 => Array(
-		'name' => '<span class="yellow">伐木挑战</span>',
+		'name' => '<font class="yellow">伐木挑战</font>',
 		'gtype' => 15, //对应的游戏模式编号
 		'available' => true,
 		'soleroom' => false,//唯一房间，只有不存在时才会新建房间。
 		'without-ready' => false,//是否不需要点击“准备”就直接进入房间。
 		'without-valid' => false,//是否跳过加入游戏画面就直接进入房间。
-		'pnum' => 1,	//最大参与人数
+		'pnum' => 1,	//最大参与人数，只有开启准备才有效
+		'globalnum' => 0,	//全场最大开启数目，不设或者0认为无限制
+		'privatenum' => 1,	//单人最大开启数目，不设或者0认为无限制
 		'leader-position' => Array(	//各个编号位置的所属队伍队长位置
 			0 => 0,
 		),
@@ -283,13 +298,15 @@ $roomtypelist = Array(
 		)
 	),
 	6 => Array(
-		'name' => '<span class="green">PVE 解离模式</span>',
+		'name' => '<font class="green">PVE解离模式</font>',
 		'gtype' => 16, //对应的游戏模式编号
 		'available' => true,
 		'soleroom' => false,//唯一房间，只有不存在时才会新建房间。
 		'without-ready' => false,//是否不需要点击“准备”就直接进入房间。
 		'without-valid' => false,//是否跳过加入游戏画面就直接进入房间。
-		'pnum' => 3,	//最大参与人数
+		'pnum' => 3,	//最大参与人数，只有开启准备才有效
+		'globalnum' => 0,	//全场最大开启数目，不设或者0认为无限制
+		'privatenum' => 1,	//单人最大开启数目，不设或者0认为无限制
 		'leader-position' => Array(	//各个编号位置的所属队伍队长位置
 			0 => 0,
 			1 => 0,
@@ -309,14 +326,16 @@ $roomtypelist = Array(
 		)
 	),
 	7 => Array(//教程模式为唯一房间
-		'name' => '<span class="red">教程模式</span>',
+		'name' => '<font class="red">教程模式</font>',
 		'gtype' => 17, //对应的游戏模式编号
 		'available' => true,
 		'soleroom' => true,//唯一房间，只有不存在时才会新建房间。
 		'without-ready' => true,//是否不需要点击“准备”就直接进入房间。
 		'without-valid' => true,//是否跳过加入游戏画面就直接进入房间。
 		'req-mod' => 'instance7',//暂时只是摆设
-		'pnum' => 1,	//最大参与人数
+		'pnum' => 1,	//最大参与人数，只有开启准备才有效
+		'globalnum' => 0,	//全场最大开启数目，不设或者0认为无限制
+		'privatenum' => 1,	//单人最大开启数目，不设或者0认为无限制
 		'leader-position' => Array(	//各个编号位置的所属队伍队长位置
 			0 => 0,
 		),
@@ -332,7 +351,7 @@ $roomtypelist = Array(
 		)
 	),
 	8 => Array(
-		'name' => '<span class="clan">荣耀模式</span>',
+		'name' => '<font class="clan">荣耀模式</font>',
 		'gtype' => 18, //对应的游戏模式编号
 		'available' => true,
 		'available-start' => 1506816000, //如果设置并大于零，表明时间戳迟于此时才显示和开放
@@ -341,7 +360,9 @@ $roomtypelist = Array(
 		'without-ready' => true,//是否不需要点击“准备”就直接进入房间。
 		'without-valid' => false,//是否跳过加入游戏画面就直接进入房间。
 		'req-mod' => 'gtype18_proud',//暂时只是摆设
-		'pnum' => 1,	//最大参与人数
+		'pnum' => 1,	//最大参与人数，只有开启准备才有效
+		'globalnum' => 3,	//全场最大开启数目，不设或者0认为无限制
+		'privatenum' => 2,	//单人最大开启数目，不设或者0认为无限制
 		'leader-position' => Array(	//各个编号位置的所属队伍队长位置
 			0 => 0,
 		),

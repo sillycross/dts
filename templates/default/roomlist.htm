@@ -14,8 +14,8 @@
 <td class="b1" width="80px">游戏模式</td>
 <td class="b1" width="60px">状态</td>
 <td class="b1" width="50px">人数</td>
-<td class="b1" width="120px">创建者</td>
-<td class="b1" width="120px">房主</td>
+<td class="b1" width="120px">创建者/房主</td>
+<td class="b1" width="120px">运行时间</td>
 <td class="b1" width="50px">操作</td>
 </tr>
 <!--{loop $shroomlist $value}-->
@@ -50,8 +50,13 @@
 		<span class="grey">-</span>
 	<!--{/if}-->
 </td>
-<td class="b3" width="120px"><!--{if !$value['roomdata']['roomfounder'] || $roomtypelist[$value['roomtype']]['soleroom']}-->-<!--{else}-->$value['roomdata']['roomfounder']<!--{/if}--></td>
-<td class="b3" width="120px"><!--{if $value['roomdata']['player'][0]['name']=='' || $roomtypelist[$value['roomtype']]['soleroom']}-->-<!--{else}-->$value['roomdata']['player'][0]['name']<!--{/if}--></td>
+<td class="b3" width="120px">
+	<!--{if !$value['roomdata']['roomfounder'] || $roomtypelist[$value['roomtype']]['soleroom']}-->-<!--{else}-->$value['roomdata']['roomfounder']<!--{/if}-->
+	<!--{if !empty($value['roomdata']['player'][0]['name']) && !$roomtypelist[$value['roomtype']]['soleroom'] && $value['roomdata']['player'][0]['name'] != $value['roomdata']['roomfounder']}--> / $value['roomdata']['player'][0]['name']<!--{/if}-->
+</td>
+<td class="b3" width="120px">
+	<!--{eval echo round($value['runningtime']/60).'min'}-->
+</td>
 <td class="b3" width="50px">
 <!--{if !$cuser || !$cpass}-->
 	<span class="grey">-</span>

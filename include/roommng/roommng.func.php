@@ -51,18 +51,16 @@ function update_roomstate(&$roomdata, $runflag)
 	return $changeflag;
 }
 
-function roomdata_save($roomid, &$roomdata, $roomstatus=NULL){
+function roomdata_save($roomid, &$roomdata, $rgametype=NULL, $rgroomstatus=NULL){
 	eval(import_module('sys'));
 	$roomvars = gencode($roomdata);
-	if(NULL===$roomstatus){
-		return $db->query("UPDATE {$gtablepre}game SET roomvars='$roomvars' WHERE groomid='$roomid'");
-	}else{
-		$roomstatus = (int)$roomstatus;
-		return $db->query("UPDATE {$gtablepre}game SET groomstatus='$roomstatus',roomvars='$roomvars' WHERE groomid='$roomid'");
-	}
+	$extraquery = '';
+	if(NULL!==$rgametype) $extraquery .= "gametype='$rgametype', ";
+	if(NULL!==$rgroomstatus) $extraquery .= "groomstatus='$rgroomstatus', ";
+	return $db->query("UPDATE {$gtablepre}game SET $extraquery roomvars='$roomvars' WHERE groomid='$roomid'");
 }
 
-function room_save_broadcast($roomid, &$roomdata, $roomstatus=NULL)
+function room_save_broadcast($roomid, &$roomdata)
 {
 	//保存数据并广播
 	eval(import_module('sys'));
@@ -77,7 +75,7 @@ function room_save_broadcast($roomid, &$roomdata, $roomstatus=NULL)
 //	}
 	
 	update_roomstate($roomdata,$runflag);
-	roomdata_save($roomid, $roomdata, $roomstatus);
+	roomdata_save($roomid, $roomdata);
 	//writeover(GAME_ROOT.'./gamedata/tmp/rooms/'.$roomid.'.txt', gencode($roomdata));
 	touch(GAME_ROOT.'./gamedata/tmp/rooms/'.$roomid.'.txt');
 	$result = $db->query("SELECT * FROM {$gtablepre}roomlisteners WHERE roomid = '$roomid' AND timestamp < '{$roomdata['timestamp']}'");
@@ -327,7 +325,7 @@ function room_create($roomtype)
 		gexit('系统维护中，暂时不开放新房间',__file__,__line__);
 		die();
 	}
-	global $roomtypelist,$max_room_num;
+	global $roomtypelist,$max_room_num, $max_private_room_num;
 	
 	$roomtype=(int)$roomtype;
 	if ($roomtype>=count($roomtypelist)){
@@ -364,29 +362,43 @@ function room_create($roomtype)
 		$soleroomnum = 0;
 		$max_room_num_temp = $max_room_num;
 		$roomarr = array();
+		$exist_roomnum_bytype = array();
+		$founded_roomnum = 0;
+		$founded_roomnum_bytype = array();
 		while($rrs = $db->fetch_array($result)){
 			$rrs['roomvars'] = gdecode($rrs['roomvars'],1);
 			$rrsid = $rrs['groomid'];
 			$roomarr[$rrsid] = $rrs;
+			//永续房跳过，同时增加计数房间上限
 			if($roomtypelist[$rrs['groomtype']]['soleroom']) {
 				$max_room_num_temp++;
-			}else{
-				$file = GAME_ROOT.'./gamedata/tmp/rooms/'.$rrsid.'.txt';
-				//writeover('a.txt',$file,'ab+');
-//				if(file_exists($file)){
-//					$rfdata = gdecode(file_get_contents($file),1);
-//				}
-				if(file_exists($file) && $rrs['groomstatus'] > 0 && isset($rrs['roomvars']['roomfounder']) && $rrs['roomvars']['roomfounder']==$cuser){
-					if(!$roomtypelist[$rrs['groomtype']]['without-ready']) {
-						gexit("你已经创建了房间{$rrsid}，请在该房间游戏结束后再尝试创建房间",__file__,__line__);
-						die();
-					}elseif(!$roomtypelist[$rrs['groomtype']]['soleroom']){
-						$worroomnum = isset($worroomnum) ? $worroomnum+1 : 1;
-						if($worroomnum > 1){
-							gexit("你已经创建了2个以上的房间，请在那些房间游戏结束后再尝试创建房间",__file__,__line__);
-							die();
-						}
-					}
+				continue;
+			}
+			//文件不存在则跳过
+			$file = GAME_ROOT.'./gamedata/tmp/rooms/'.$rrsid.'.txt';
+			if(!file_exists($file)) {
+				continue;
+			}
+			//writeover('a.txt',$file,'ab+');
+			if(isset($exist_roomnum_bytype[$rrs['groomtype']])) $exist_roomnum_bytype[$rrs['groomtype']]++;
+			else $exist_roomnum_bytype[$rrs['groomtype']] = 1;
+			
+			if(!empty($roomtypelist[$rrs['groomtype']]['globalnum']) && $exist_roomnum_bytype[$rrs['groomtype']] >= $roomtypelist[$rrs['groomtype']]['globalnum']) {
+				gexit("{$roomtypelist[$rrs['groomtype']]['name']}房间数目已达上限，请在其中任一房间游戏结束后再尝试创建房间！",__file__,__line__);
+				die();
+			}
+			
+			if($rrs['groomstatus'] > 0 && isset($rrs['roomvars']['roomfounder']) && $rrs['roomvars']['roomfounder']==$cuser && !$roomtypelist[$rrs['groomtype']]['soleroom']){
+				$founded_roomnum++;					
+				if(isset($founded_roomnum_bytype[$rrs['groomtype']])) $founded_roomnum_bytype[$rrs['groomtype']]++;
+				else $founded_roomnum_bytype[$rrs['groomtype']] = 1;
+				
+				if(!empty($roomtypelist[$rrs['groomtype']]['privatenum']) && $founded_roomnum_bytype[$rrs['groomtype']] >= $roomtypelist[$rrs['groomtype']]['privatenum']) {
+					gexit("你已经创建了{$roomtypelist[$rrs['groomtype']]['privatenum']}个{$roomtypelist[$rrs['groomtype']]['name']}房间，请在其中任一房间游戏结束后再尝试创建房间！",__file__,__line__);
+					die();
+				}elseif($founded_roomnum >= $max_private_room_num){
+					gexit("你已经创建了{$max_private_room_num}个以上的房间，请在其中任一房间游戏结束后再尝试创建房间",__file__,__line__);
+					die();
 				}
 			}
 		}
@@ -412,14 +424,14 @@ function room_create($roomtype)
 		gexit('房间数目已经达到上限，请加入一个已存在的房间',__file__,__line__);
 		die();
 	}
-	//房间等待变量初始化（对应文件）
+	//房间等待变量初始化
 	$roomdata = room_init($roomtype);
-	//房间数据库初始化（对应数据库）
+	//房间数据库初始化
 	room_init_db_process($rchoice);
 	$roomdata['player'][0]['name']=$cuser;
 	$roomdata['roomfounder']=$cuser;
 	touch(GAME_ROOT.'./gamedata/tmp/rooms/'.$rchoice.'.txt');
-	roomdata_save($rchoice, $roomdata);
+	roomdata_save($rchoice, $roomdata, $roomtypelist[$roomtype]['gtype']);
 	//writeover(GAME_ROOT.'./gamedata/tmp/rooms/'.$rchoice.'.txt', gencode($roomdata));
 	$db->query("DELETE from {$gtablepre}roomlisteners WHERE roomid = '$rchoice'"); 
 //	if($rsetting['soleroom']){

@@ -27,17 +27,9 @@
 				<!--{else}-->
 					{lang numinfo}
 				<!--{/if}-->
-				<!--{if $gametype==1}-->
-					<span class="clan">除错挑战！</span>
-				<!--{elseif $gametype==2}-->
-					<span class="orange">周五活动！</span>
-				<!--{elseif $gametype==3}-->
-					<span class="lime">宝石乱斗！</span>
-				<!--{elseif $gametype==4}-->
-					卡片模式
-				<!--{elseif $gametype==17}-->
-				<font color="red">教程模式</font>
-				<!--{/if}-->
+				<!--{if $gametype}-->
+					$gtinfo[$gametype]
+				<!--{/if}--> 
 				<!--{if $gametype!=17}-->
 				{$gstate[$gamestate]}
 				<!--{/if}-->

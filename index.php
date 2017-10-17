@@ -60,6 +60,7 @@ while ($data = $db->fetch_array($roomresult))
 			$roomlist[$data['groomid']]['roomtype'] = $roomdata['roomtype'];
 			$roomlist[$data['groomid']]['roomdata'] = $roomdata;
 			$roomlist[$data['groomid']]['soleroom'] = room_get_vars($roomdata, 'soleroom');
+			$roomlist[$data['groomid']]['runningtime'] = $data['starttime'] > 0 ? $now - $data['starttime'] : 0;
 		}
 	}
 	elseif ($data['groomstatus']>=40)//数据库中房间已经进入游戏
@@ -76,6 +77,7 @@ while ($data = $db->fetch_array($roomresult))
 			$roomlist[$data['groomid']]['roomdata'] = $roomdata;
 			$roomlist[$data['groomid']]['soleroom'] = room_get_vars($roomdata,'soleroom');
 			$roomlist[$data['groomid']]['without-ready'] = room_get_vars($roomdata,'without-ready');
+			$roomlist[$data['groomid']]['runningtime'] = $data['starttime'] > 0 ? $now - $data['starttime'] : 0;
 			if($roomlist[$data['groomid']]['without-ready']){
 				$rid = 's'.$data['groomid'];
 				$rtablepre = $gtablepre.$rid.'_';
