@@ -54,6 +54,7 @@ while ($data = $db->fetch_array($roomresult))
 		else 
 		{
 			$roomlist[$data['groomid']]['id'] = $data['groomid'];
+			$roomlist[$data['groomid']]['gamestate'] = $data['gamestate'];
 			$roomlist[$data['groomid']]['status'] = $data['groomstatus'];
 			$roomlist[$data['groomid']]['nowplayer'] = $cnt;
 			$roomlist[$data['groomid']]['maxplayer'] = $rdpmax;
@@ -71,6 +72,7 @@ while ($data = $db->fetch_array($roomresult))
 			$roomdata = gdecode($data['roomvars'] ,1);
 			if (update_roomstate($roomdata,1)) room_save_broadcast($data['groomid'],$roomdata);
 			$roomlist[$data['groomid']]['id'] = $data['groomid'];
+			$roomlist[$data['groomid']]['gamestate'] = $data['gamestate'];
 			$roomlist[$data['groomid']]['status']=$data['groomstatus'];
 			$roomlist[$data['groomid']]['maxplayer'] = room_get_vars($roomdata,'pnum');
 			$roomlist[$data['groomid']]['roomtype'] = $roomdata['roomtype'];

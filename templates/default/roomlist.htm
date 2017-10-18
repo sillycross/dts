@@ -22,7 +22,17 @@
 <tr>
 <td class="b3" height="30px" width="30px">$value['id']</td>
 <td class="b3" width="80px">$roomtypelist[$value['roomtype']]['name']</td>
-<td class="b3" width="60px"><!--{if $value['status']>=10 && $value['status']<40}--><!--{if $value['nowplayer']==$value['maxplayer']}--><span class="white">等待中</span><!--{else}--><span class="lime">等待中</span><!--{/if}--><!--{else}--><span class="grey">游戏中</span><!--{/if}--></td>
+<td class="b3" width="60px">
+	<!--{if $value['status']>=10 && $value['status']<40}-->
+		<!--{if $value['nowplayer']==$value['maxplayer']}-->
+			<span class="white">等待中</span>
+		<!--{else}-->
+			<span class="lime">等待中</span>
+		<!--{/if}-->
+	<!--{else}-->
+		<span class="grey">$gstate[$value['gamestate']]</span>
+	<!--{/if}-->
+</td>
 <td class="b3" width="50px">
 	<!--{if $roomtypelist[$value['roomtype']]['without-ready']}-->
 		<!--{if !$value['nowplayer']}-->
