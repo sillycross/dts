@@ -337,6 +337,47 @@ function room_create($roomtype)
 	$rchoice = -1;
 	$rsetting = $roomtypelist[$roomtype];
 	$rdata = fetch_roomdata('ALL');
+	
+	
+//	$rid = -1;
+//	$counted_room_ids = array();
+//	$exist_roomnum_bytype = $founded_roomnum_bytype = array();
+//	$founded_roomnum = 0;
+//	$change_flag = 0;
+//	
+//	//遍历数据库只为了为房间做记录
+//	foreach($rdata as $rd){
+//		$rid = $rd['groomid'];
+//		$file = GAME_ROOT.'./gamedata/tmp/rooms/'.$rid.'.txt';
+//		if(file_exists($file)){//文件存在才认为房间是开启的
+//			$counted_room_ids[] = $rid;
+//			if($rsetting['soleroom']){//永续房特判
+//				if($rd['groomtype'] == $roomtype && $rd['groomstatus'] > 0){//永续房存在的情况下直接进
+//					$rchoice = $rid;
+//					break;
+//				}elseif($rd['groomstatus'] == 0){//房间关闭状态，改成永续房
+//					$rchoice = $rid;
+//					$db->query("UPDATE {$gtablepre}game SET gamestate = 0, groomstatus = 10, groomtype = '$roomtype',  roomvars='' WHERE groomid = '$rid'");
+//					break;
+//				}
+//			}
+//		}
+//	}
+//	if($rchoice < 0){//没有选到任何房间的情况下
+//		if(sizeof($counted_room_ids) < $max_room_num){//总房间数小于最大房间数，那么新建房间
+//			rsort($counted_room_ids);
+//			$rchoice = $counted_room_ids+1;
+//			$db->query("INSERT INTO {$gtablepre}game (groomid,groomstatus,groomtype) VALUES ('$rchoice',10,'$roomtype')");
+//		}else{
+//			gexit('房间数目已经达到上限，请加入一个已存在的房间',__file__,__line__);
+//		}
+//	}
+	
+	
+	
+	
+	
+	
 	if($rsetting['soleroom']){//永续房特判
 		$rid = -1;
 		$rids = range(1,$max_room_num);
@@ -383,7 +424,7 @@ function room_create($roomtype)
 			if(isset($exist_roomnum_bytype[$rrs['groomtype']])) $exist_roomnum_bytype[$rrs['groomtype']]++;
 			else $exist_roomnum_bytype[$rrs['groomtype']] = 1;
 			
-			if(!empty($roomtypelist[$rrs['groomtype']]['globalnum']) && $exist_roomnum_bytype[$rrs['groomtype']] >= $roomtypelist[$rrs['groomtype']]['globalnum']) {
+			if(!empty($roomtypelist[$rrs['groomtype']]['globalnum']) && $exist_roomnum_bytype[$rrs['groomtype']] >= $roomtypelist[$rrs['groomtype']]['globalnum']	&& $rrs['groomtype'] == $roomtype) {
 				gexit("{$roomtypelist[$rrs['groomtype']]['name']}房间数目已达上限，请在其中任一房间游戏结束后再尝试创建房间！",__file__,__line__);
 				die();
 			}
