@@ -4,7 +4,7 @@ define('CURSCRIPT', 'help');
 define('IN_HELP', TRUE);
 
 require './include/common.inc.php';
-
+eval(import_module('pose','tactic'));
 eval(import_module('itemmain'));
 
 include_once GAME_ROOT . './include/itemplace.func.php';
