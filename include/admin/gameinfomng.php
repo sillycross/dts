@@ -87,7 +87,7 @@ if($command == 'wthedit'){
 }elseif($command == 'areaadd'){
 	if($gamestate <= 10){
 		$cmd_info = "本局游戏尚未开始，不能增加禁区。";
-	}elseif((!$areanum && $starttime + 10 > $now) || ($areanum && $areatime - $areahour*60 + 30 > $now)){
+	}elseif((!$areanum && $starttime + 10 > $now) || ($areanum && $areatime - $areahour*60 + 10 > $now)){
 		$cmd_info = "禁区到来后10秒内不能增加禁区。";
 	}else{
 		$areatime = $now;
