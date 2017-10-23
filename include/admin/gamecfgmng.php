@@ -35,7 +35,6 @@ if($command == 'edit') {
 			'hack_obbs'=>'int'
 		),
 		'map' => array(
-			'areahour'=>'int',
 			'areaadd'=>'int',
 			'areawarntime'=>'int',
 			'arealimit'=>'int',

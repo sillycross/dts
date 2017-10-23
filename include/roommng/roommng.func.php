@@ -669,13 +669,14 @@ function room_init_db_process($room_id){
 	return $init_state;
 }
 
-//判定房间类别是否满足代码上的开放条件
+//判定房间类别是否满足代码上的开放条件（开关开启、时间开启、前置mod开启）
 function check_room_available($roomtypedata){
 	eval(import_module('sys'));
 	$ret = true;	
 	if(!$roomtypedata['available']) $ret = false;
 	if(!empty($roomtypedata['available-start']) && $now < $roomtypedata['available-start']) $ret = false;
 	if(!empty($roomtypedata['available-end']) && $now > $roomtypedata['available-end']) $ret = false;
+	if(!empty($roomtypedata['req-mod']) && !defined('MOD_'.strtoupper($roomtypedata['req-mod']))) $ret = false;
 	return $ret;
 }
 

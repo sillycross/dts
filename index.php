@@ -130,6 +130,8 @@ foreach ($tmp as $key => $value)
 
 if ($gametype==2) $alivenum = $validnum;
 
+$areaintv=\map\get_area_interval();
+
 include template('index');
 
 ?>
