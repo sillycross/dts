@@ -206,7 +206,8 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 			}	
 		}
 	}
-	if(18==$gametype && defined('MOD_SKILL1001')){//荣耀模式在这里追加入场技能。
+	//荣耀模式、快速模式在这里追加入场技能。
+	if((18==$gametype || 19==$gametype) && defined('MOD_SKILL1001')){
  		\skillbase\skill_acquire(1001,$pp);
  	}
 	\player\post_enterbattlefield_events($pp);

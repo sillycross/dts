@@ -43,10 +43,6 @@ if($command == 'edit') {
 		'gameflow_antiafk' => array(
 			'antiAFKertime'=>'int'
 		),
-		'gameflow_combo' => array(
-			'combolimit'=>'int',
-			'deathlimit'=>'int'
-		),
 		'corpse' => array(
 			'corpseprotect'=>'int'
 		),
