@@ -3,9 +3,10 @@
 namespace instance9
 {
 	function init() {
-		eval(import_module('map','gameflow_combo'));
+		eval(import_module('map','gameflow_combo','skillbase'));
 		$areainterval[19] = 5;
 		$deathlimit_by_gtype[19] = 100;
+		$valid_skills[19] = array(1001,1002);
 	}
 	
 	function get_npclist(){
@@ -110,7 +111,33 @@ namespace instance9
 		return $chprocess();
 	}
 	
+	//急速模式地图防具的效果值翻倍
+	function mapitem_data_process($data){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		$ret = $chprocess($data);
+		eval(import_module('sys'));
+		if(19==$gametype && strpos($ret[4],'D')===0)
+			$ret[5] *= 2;
+		return $ret;
+	}
 	
+	//急速模式商店防具的效果值翻倍
+	function shopitem_data_process($data){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		$ret = $chprocess($data);
+		eval(import_module('sys'));
+		if(19==$gametype && strpos($ret[5],'D')===0)
+			$ret[6] *= 2;
+		return $ret;
+	}
+	
+	//急速模式英灵殿、雏菊无事件
+	function event_available(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys', 'player'));
+		if(19==$gametype && ($pls == 33 || $pls == 34)) return false;
+		return $chprocess();
+	}
 }
 
 ?>

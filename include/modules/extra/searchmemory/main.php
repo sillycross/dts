@@ -227,9 +227,14 @@ namespace searchmemory
 					$mode = 'command';
 					return;
 				}else{
+					$marr=$db->fetch_array($result);
+					if($marr['hp']<=0 && $mem['smtype'] != 'corpse') {
+						$log .= '<span class="red">角色已经不在原来的位置了，地上只有一摊血迹……</span><br>';
+						$mode = 'command';
+						return;
+					}
 					if($fog && $mem['smtype'] != 'corpse') $log .= '<span class="lime">人影还在原来的位置。</span><br>';
 					else $log .= '<span class="lime">'.$mem['Pname'].'还在原来的位置。</span><br>';
-					$marr=$db->fetch_array($result);
 					$sdata['sm_active_debuff'] = 1;//临时这么写写
 					\metman\meetman($mid);
 					unset($sdata['sm_active_debuff']);

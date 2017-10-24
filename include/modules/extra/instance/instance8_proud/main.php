@@ -3,6 +3,8 @@
 namespace instance8
 {
 	function init() {
+		eval(import_module('skillbase'));
+		$valid_skills[18] = array(1001);
 	}
 	
 	function get_npclist(){
