@@ -24,13 +24,21 @@
 <td class="b3" width="80px">$roomtypelist[$value['roomtype']]['name']</td>
 <td class="b3" width="60px">
 	<!--{if $value['status']>=10 && $value['status']<40}-->
+		<span class=
 		<!--{if $value['nowplayer']==$value['maxplayer']}-->
-			<span class="white">等待中</span>
+			"grey"
 		<!--{else}-->
-			<span class="lime">等待中</span>
+			"lime"
 		<!--{/if}-->
+		>等待中</span>
 	<!--{else}-->
-		<span class="grey">$gstate[$value['gamestate']]</span>
+		<span class=
+		<!--{if $value['gamestate']==20}-->
+			"lime"
+		<!--{else}-->
+			"grey"
+		<!--{/if}-->
+		>$gstate[$value['gamestate']]</span>
 	<!--{/if}-->
 </td>
 <td class="b3" width="50px">

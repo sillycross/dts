@@ -324,132 +324,67 @@
 
 <p><a name="基础姿态"><span class="subtitle2">8.基础姿态</span></a></p>
 
-<br>
-<table cellSpacing=0 cellPadding=0>
+<p>玩家的<span class="yellow">“基础姿态”</span>可以影响攻击、防御、遇敌率等一系列重要数值，因此请务必根据战场局势，选择合适的姿态。<br>
+基础姿态对攻击力的加成只在主动攻击时有效。</p>
+<table cellSpacing=0 cellPadding=0 width="1200px">
 	<TBODY>
 		<TR>
-			<TD class="b1" height=20px>
-				<span>基础姿态</span>
+			<TD class="b1" height=25px>
+				<span> 基础姿态 </span>
 			</TD>
 			<TD class="b1">
-				<span>说明</span>
+				<span> 说明 </span>
 			</TD>
 			<TD class="b1">
-				<span>攻击力</span>
+				<span> 攻击力 </span>
 			</TD>
 			<TD class="b1">
-				<span>防御力</span>
+				<span> 防御力 </span>
 			</TD>
 			<TD class="b1">
-				<span>发见率</span>
+				<span> 角色发现率 </span>
 			</TD>
 			<TD class="b1">
-				<span>隐蔽率</span>
+				<span> 道具发现率 </span>
 			</TD>
 			<TD class="b1">
-				<span>先制攻击率</span>
+				<span> 隐蔽率 </span>
+			</TD>
+			<TD class="b1">
+				<span> 先制攻击率 </span>
+			</TD>
+			<TD class="b1">
+				<span> 备注 </span>
 			</TD>
 		</TR>
-		<TR>
-			<TD class="b2" height=20px>
-				<span>通常</span>
-			</TD>
-			<TD class="b3">
-				<span>不注重任何一方面的姿态</span>
-			</TD>
-			<TD class="b3"></TD>
-			<TD class="b3"></TD>
-			<TD class="b3"></TD>
-			<TD class="b3"></TD>
-			<TD class="b3"></TD>
-		</TR>
-
-		<TR>
-			<TD class="b2" height=20px>
-				<span>作战姿态</span>
-			</TD>
-			<TD class="b3">
-				<span>注重攻击和防御的姿态</span>
-			</TD>
-			<TD class="b3">
-				<span class="clan">↑↑↑↑</span>
-			</TD>
-			<TD class="b3">
-				<span class="clan">↑↑</span>
-			</TD>
-			<TD class="b3"></TD>
-			<TD class="b3">
-				<span class="yellow">↓↓</span>
-			</TD>
-			<TD class="b3"><span class="yellow">↓</span></TD>
-		</TR>
-		<TR>
-			<TD class="b2" height=20px>
-				<span>探物姿态</span>
-			</TD>
-			<TD class="b3">
-				<span>注重探索物品效率的姿态</span>
-			</TD>
-			<TD class="b3">
-				<span class="yellow">↓↓</span>
-			</TD>
-			<TD class="b3">
-				<span class="yellow">↓↓</span>
-			</TD>
-			<TD class="b3">
-				<span class="clan">↑↑↑</span>
-			</TD>
-			<TD class="b3">
-				<span class="yellow">↓</span>
-			</TD>
-			<TD class="b3"></TD>
-		</TR>
-		<TR>
-			<TD class="b2" height=20px>
-				<span>偷袭姿态</span>
-			</TD>
-			<TD class="b3">
-				<span>注重隐蔽袭击的姿态</span>
-			</TD>
-			<TD class="b3">
-				<span class="clan">↑↑</span>
-			</TD>
-			<TD class="b3">
-				<span class="yellow">↓↓</span>
-			</TD>
-			<TD class="b3">
-			<span class="yellow">↓</span>
-			</TD>
-			<TD class="b3">
-				<span class="clan">↑</span>
-			</TD>
-			<TD class="b3">
-				<span class="clan">↑↑↑</span>
-			</TD>
-		</TR>
-		<TR>
-			<TD class="b2" height=20px>
-				<span>治疗姿态</span>
-			</TD>
-			<TD class="b3">
-				<span>注重睡眠、治疗和静养效率的姿态</span>
-			</TD>
-			<TD class="b3">
-				<span class="yellow">↓↓↓</span>
-			</TD>
-			<TD class="b3">
-				<span class="yellow">↓↓↓</span>
-			</TD>
-			<TD class="b3">
-				<span class="yellow">↓↓↓</span>
-			</TD>
-			<TD class="b3">
-				<span class="yellow">↓↓↓</span>
-			</TD>
-			<TD class="b3">
-				<span class="yellow">↓↓↓</span>
-			</TD>
-		</TR>
+		<!--{loop $poseinfo $pi $pn}-->
+			<!--{if $pose_player_usable[$pi]}-->
+				<TR>
+					<TD class="b2" height=25px>
+						<span>$pn</span>
+					</TD>
+					<TD class="b3">
+						<span>$posedesc[$pi]</span>
+					</TD>
+					<!--{eval $tmp_pose_loop = array($pose_attack_modifier[$pi], $pose_defend_modifier[$pi], $pose_findman_obbs[$pi], $pose_itemfind_obbs[$pi], $pose_hide_obbs[$pi], $pose_active_obbs[$pi]);}-->
+					<!--{loop $tmp_pose_loop $tmp_pose_var}-->
+						<TD class="b3">
+							<span class=
+							<!--{if $tmp_pose_var > 0}-->
+								"clan"
+							<!--{elseif $tmp_pose_var < 0}-->
+								"red"
+							<!--{else}-->
+								"white"
+							<!--{/if}-->
+							><!--{if $tmp_pose_var > 0}-->+{$tmp_pose_var}%<!--{else}-->{$tmp_pose_var}%<!--{/if}--></span>
+						</TD>
+					<!--{/loop}-->
+					<TD class="b3">
+						<span>$poseremark[$pi]</span>
+					</TD>
+			<!--{/if}-->
+		<!--{/loop}-->
 	</TBODY>
 </TABLE>
 <BR>

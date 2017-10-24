@@ -780,7 +780,7 @@ function get_credit_up($data,$winner = '',$winmode = 0){
 		else{$up = 50;}//其他胜利方式+50（暂时没有这种胜利方式）
 	}
 	elseif($data['hp']>0){$up = 25;}//存活但不是获胜者+25
-	else{$up = 10;}//死亡+5
+	else{$up = 10;}//死亡+10
 	if($data['killnum']){
 		$up += $data['killnum'] * 2;//杀一玩家/NPC加2
 	}

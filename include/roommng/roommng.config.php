@@ -332,7 +332,6 @@ $roomtypelist = Array(
 		'soleroom' => true,//唯一房间，只有不存在时才会新建房间。
 		'without-ready' => true,//是否不需要点击“准备”就直接进入房间。
 		'without-valid' => true,//是否跳过加入游戏画面就直接进入房间。
-		'req-mod' => 'instance7',//暂时只是摆设
 		'pnum' => 1,	//最大参与人数，只有开启准备才有效
 		'globalnum' => 0,	//全场最大开启数目，不设或者0认为无限制
 		'privatenum' => 1,	//单人最大开启数目，不设或者0认为无限制
@@ -359,7 +358,31 @@ $roomtypelist = Array(
 		'soleroom' => false,//唯一房间，只有不存在时才会新建房间。
 		'without-ready' => true,//是否不需要点击“准备”就直接进入房间。
 		'without-valid' => false,//是否跳过加入游戏画面就直接进入房间。
-		'req-mod' => 'gtype18_proud',//暂时只是摆设
+		'req-mod' => 'instance8',//前置mod
+		'pnum' => 1,	//最大参与人数，只有开启准备才有效
+		'globalnum' => 3,	//全场最大开启数目，不设或者0认为无限制
+		'privatenum' => 2,	//单人最大开启数目，不设或者0认为无限制
+		'leader-position' => Array(	//各个编号位置的所属队伍队长位置
+			0 => 0,
+		),
+		'color' => Array(		//队伍颜色，只需对队长设置即可
+			0 => 'ff0022',
+		),
+		'teamID' => Array(	//队伍名，只需对队长设置即可。
+			0 => '试炼者',
+		),
+		'show-team-leader' => 0,	//是否显示“队长”标签（如队伍大于1人设为1）
+	),
+	9 => Array(
+		'name' => '<font class="red">急速模式</font>',
+		'gtype' => 19, //对应的游戏模式编号
+		'available' => true,
+		'available-start' => 1509408000, //如果设置并大于零，表明时间戳迟于此时才显示和开放
+		'available-end' => 0,//如果设置并大于零，表明时间戳早于此时才显示和开放
+		'soleroom' => false,//唯一房间，只有不存在时才会新建房间。
+		'without-ready' => true,//是否不需要点击“准备”就直接进入房间。
+		'without-valid' => false,//是否跳过加入游戏画面就直接进入房间。
+		'req-mod' => 'instance9',//前置mod
 		'pnum' => 1,	//最大参与人数，只有开启准备才有效
 		'globalnum' => 3,	//全场最大开启数目，不设或者0认为无限制
 		'privatenum' => 2,	//单人最大开启数目，不设或者0认为无限制

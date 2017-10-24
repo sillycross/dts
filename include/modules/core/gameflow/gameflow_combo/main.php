@@ -12,7 +12,7 @@ namespace gameflow_combo
 		
 		eval(import_module('sys','gameflow_combo'));
 		//重设连斗判断死亡数
-		$combonum = $deathlimit;
+		$combonum = calculate_combonum(1);
 		//save_gameinfo();//已改到外侧
 	}
 	
@@ -24,7 +24,7 @@ namespace gameflow_combo
 			addnews($now,'combo');
 			systemputchat($now,'combo');
 		}elseif($gamestate < 40 && $gamestate >= 20 && $combonum && $deathnum >= $combonum){//判定进入连斗条件2：死亡人数超过特定公式计算出的值
-			$real_combonum = $deathlimit + ceil($validnum/$deathdeno) * $deathnume;
+			$real_combonum = calculate_combonum();
 			if($deathnum >= $real_combonum){
 				$gamestate = 40;
 				addnews($now,'combo');
@@ -35,6 +35,15 @@ namespace gameflow_combo
 				systemputchat($now,'comboupdate',$combonum);
 			}		
 		}
+	}
+	
+	function calculate_combonum($reset = false){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','gameflow_combo'));
+		$dlimit = $deathlimit_by_gtype[0];
+		if(!empty($deathlimit_by_gtype[$gametype])) $dlimit = $deathlimit_by_gtype[$gametype];
+		if(!$reset)	return $dlimit + ceil($validnum/$deathdeno) * $deathnume;
+		else return $dlimit;
 	}
 	
 	function gamestateupdate()

@@ -5,6 +5,7 @@ namespace skillbase
 	global $acquired_list;
 	global $parameter_list;
 	global $ppid;	//当前玩家pid
+	$valid_skills = array();
 	
 	function init() 
 	{

@@ -510,12 +510,17 @@ namespace event
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','map','logger','event'));
 		$event_dice = rand(0,99);
-		if(($event_dice < $event_obbs)||(($art!="Untainted Glory")&&($pls==34)&&($gamestate != 50))){
+		if(event_available() && ($event_dice < $event_obbs || ( $art!="Untainted Glory" && $pls==34 && $gamestate != 50 ))){
 			event();
 			$mode = 'command';
 			return;
 		}
 		$chprocess($schmode);
+	}
+	
+	function event_available(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return true;
 	}
 }
 

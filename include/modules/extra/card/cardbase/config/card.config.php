@@ -13,7 +13,7 @@ $packlist=array(
 	'Way of Life',
 	'Best DOTO',
 	'Balefire Rekindle',
-	'Way of Life II',
+	'Way of Life Game',
 	'Event Bonus'
 );
 $packdesc = array(
@@ -22,11 +22,11 @@ $packdesc = array(
 	'Way of Life' => '以游戏开发者、重要玩家、有代表性的游戏方式以及同类游戏为捏他对象的卡集。',
 	'Best DOTO' => '以电竞元素和电竞圈为吐槽对象的卡集。',
 	'Balefire Rekindle' => '以游戏版本「复燃」的新增NPC角色和游戏设定为主题的卡集。',
-	'Way of Life II' => '第二弹以游戏元素为主要吐槽点的卡集，也夹杂有少量其他要素。',
+	'Way of Life Game' => '第二弹以游戏元素为主要吐槽点的卡集，也夹杂有少量其他要素。',
 	'Event Bonus' => '其他一些零散成就和活动奖励卡。'
 );
 $packstart = array(
-	'Way of Life II' => 1510369871
+	'Way of Life Game' => 1510369871
 );
 $cardindex=array(
 	'S'=>array(1,5,16,38,39,40,41,64,65,67,71,95,99,100,101,102,117,145,152,153),
@@ -641,7 +641,7 @@ $cards = array(
 	),
 	33 => array(
 		'name' => '拳法家',
-		'rare' => 'C',
+		'rare' => 'M',
 		'pack' => 'Standard Pack',
 		'desc' => '孤高的拳法家，对各种小伎俩不屑一顾',
 		'effect' => '拳法家不需要多余的技能',
@@ -2385,7 +2385,7 @@ $cards = array(
 	160 => array(
 		'name' => '梦魇瑞尔提',
 		'rare' => 'S',
-		'pack' => 'Way of Life II',
+		'pack' => 'Way of Life Game',
 		'desc' => '宝石噩梦才刚刚开始，亲爱的',
 		'effect' => '称号固定为宝石骑士，且每隔一段时间能生成一个方块。开局包裹里道具全部变为随机方块。',
 		'energy' => 150,

@@ -24,6 +24,14 @@ namespace map
 		);
 	}
 	
+	function get_area_interval(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','map'));
+		$ret = $areainterval[0];
+		if(isset($areainterval[$gametype])) $ret = $areainterval[$gametype];
+		return $ret;
+	}
+	
 	//非禁区域列表。如果$no_dangerous_zone开启，则再排除掉SCP、英灵殿等危险地区
 	function get_safe_plslist($no_dangerous_zone = true){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
@@ -124,7 +132,7 @@ namespace map
 		if ($xmode & 2) {
 			//echo " - 禁区初始化 - ";
 			list($sec,$min,$hour,$day,$month,$year,$wday,$yday,$isdst) = localtime($starttime);
-			$areatime = (ceil(($starttime + $areahour*60)/600))*600;//$areahour已改为按分钟计算，ceil是为了让禁区分钟为10的倍数
+			$areatime = rs_areatime();
 			//init_areatiming();
 			$plsnum = sizeof($plsinfo);
 			$arealist = range(1,$plsnum-1);
@@ -132,8 +140,15 @@ namespace map
 			array_unshift($arealist,0);
 			$areanum = 0;
 			$hack = 0;
+			$areawarn = 0;
 			//movehtm($areatime);
 		}
+	}
+	
+	function rs_areatime(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		return ceil(($starttime + get_area_interval() * 60)/600) * 600; //禁区时刻为10分钟的倍数
 	}
 	
 	function movehtm($atime = 0) {
@@ -167,7 +182,7 @@ namespace map
 				}
 			}
 			if($areanum+$areaadd < count($plsinfo)) {
-				$at2= getdate($atime + $areahour*60);
+				$at2= getdate($atime + get_area_interval()*60);
 				$nexthour2 = $at2['hours'];$nextmin2 = $at2['minutes'];
 				while($nextmin2 >= 60){
 					$nexthour2 +=1;$nextmin2 -= 60;
@@ -179,7 +194,7 @@ namespace map
 				}
 			}
 			if($areanum+$areaadd*2 < count($plsinfo)) {
-				$at3= getdate($atime + $areahour*120);
+				$at3= getdate($atime + get_area_interval()*120);
 				$nexthour3 = $at3['hours'];$nextmin3 = $at3['minutes'];
 				while($nextmin3 >= 60){
 					$nexthour3 +=1;$nextmin3 -= 60;
@@ -203,7 +218,7 @@ namespace map
 		if (($gamestate > 10)&&($now > $areatime)) {//判定增加禁区
 			while($now>$areatime){
 				$o_areatime = $areatime;
-				$areatime += $areahour*60;
+				$areatime += get_area_interval() * 60;
 				add_once_area($o_areatime);
 				//init_areatiming();
 				$areawarn = 0;
@@ -215,7 +230,7 @@ namespace map
 		if($gamestate == 20) {
 			$arealimit = $arealimit > 0 ? $arealimit : 1; 
 			if(($validnum <= 0)&&($areanum >= $arealimit*$areaadd)) {//判定无人参加并结束游戏
-				\sys\gameover($areatime-$areahour*60+1,'end4');
+				\sys\gameover($areatime-get_area_interval()*60+1,'end4');
 			} elseif(($areanum >= $arealimit*$areaadd) || ($validnum >= $validlimit)) {//判定游戏停止激活
 				$gamestate = 30;
 			}

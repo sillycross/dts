@@ -4,7 +4,7 @@ define('CURSCRIPT', 'winner');
 
 require './include/common.inc.php';
 
-eval(import_module('player'));
+eval(import_module('player','cardbase'));
 
 if (isset($_POST['user_prefix'])) $room_prefix=$user_prefix; else $user_prefix = room_prefix_kind($room_prefix);
 if (isset($_POST['show_all'])) $showall=$show_all; else $showall=1;

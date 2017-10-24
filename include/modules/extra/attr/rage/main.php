@@ -43,6 +43,7 @@ namespace rage
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$rageup = round ( ($pa['lvl'] - $pd['lvl']) / 3 );
 		$rageup = $rageup > 0 ? $rageup : 1;
+		$rageup = $rageup > 15 ? 15 : $rageup;//一次不能获得超过15点怒气
 		return $rageup;
 	}
 	

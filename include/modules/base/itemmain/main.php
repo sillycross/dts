@@ -192,7 +192,7 @@ namespace itemmain
 			$an = $areanum ? ceil($areanum/$areaadd) : 0;
 			for($i = 1; $i < $in; $i++) {
 				if(!empty($itemlist[$i]) && strpos($itemlist[$i],',')!==false){
-					list($iarea,$imap,$inum,$iname,$ikind,$ieff,$ista,$iskind) = explode(',',$itemlist[$i]);
+					list($iarea,$imap,$inum,$iname,$ikind,$ieff,$ista,$iskind) = mapitem_data_process(explode(',',$itemlist[$i]));
 					if(($iarea == $an)||($iarea == 99)) {
 						for($j = $inum; $j>0; $j--) {
 							if ($imap == 99)
@@ -212,6 +212,12 @@ namespace itemmain
 				$db->query($iqry);
 			}
 		}
+	}
+	
+	//某些模式特殊处理数据
+	function mapitem_data_process($data){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		return $data;
 	}
 	
 	function get_itemfilecont(){

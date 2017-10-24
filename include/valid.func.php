@@ -108,8 +108,17 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 		$itms[1] = 50; $itms[2] = 50;
 		$itm[5] = '生命探测器'; $itmk[5] = 'ER'; $itme[5] = 5; $itms[5] = 1;$itmsk[5] = '';
 	}
+	//荣耀模式配发探测器和药剂
 	elseif(18==$gametype){
 		$itm[4] = '生命探测器'; $itmk[4] = 'ER'; $itme[4] = 3; $itms[4] = 1;$itmsk[4] = '';
+		$itm[5] = '全恢复药剂'; $itmk[5] = 'Ca'; $itme[5] = 1; $itms[5] = 3;$itmsk[5] = '';
+	}
+	//急速模式开局发全身装备
+	elseif(19==$gametype){
+		$arb = '挑战者战斗服';$arbk = 'DB'; $arbe = 60; $arbs = 10; $arbsk = '';
+		$arh = '挑战者头盔';$arhk = 'DH'; $arhe = 37; $arhs = 5; $arhsk = '';
+		$ara = '挑战者护手';$arak = 'DA'; $arae = 37; $aras = 5; $arask = '';
+		$arf = '挑战者靴子';$arfk = 'DF'; $arfe = 37; $arfs = 5; $arfsk = '';
 		$itm[5] = '全恢复药剂'; $itmk[5] = 'Ca'; $itme[5] = 1; $itms[5] = 3;$itmsk[5] = '';
 	}
 	
@@ -206,9 +215,14 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 			}	
 		}
 	}
-	if(18==$gametype && defined('MOD_SKILL1001')){//荣耀模式在这里追加入场技能。
- 		\skillbase\skill_acquire(1001,$pp);
- 	}
+	//追加模式入场技能。
+	eval(import_module('skillbase'));
+	if(isset($valid_skills[$gametype])){
+		foreach($valid_skills[$gametype] as $vsv){
+			if(defined('MOD_SKILL'.$vsv))
+				\skillbase\skill_acquire($vsv,$pp);
+		}
+	}
 	\player\post_enterbattlefield_events($pp);
 	
 	\player\player_save($pp);

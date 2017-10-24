@@ -87,12 +87,12 @@ if($command == 'wthedit'){
 }elseif($command == 'areaadd'){
 	if($gamestate <= 10){
 		$cmd_info = "本局游戏尚未开始，不能增加禁区。";
-	}elseif((!$areanum && $starttime + 10 > $now) || ($areanum && $areatime - $areahour*60 + 30 > $now)){
+	}elseif((!$areanum && $starttime + 10 > $now) || ($areanum && $areatime - \map\get_area_interval() * 60 + 10 > $now)){
 		$cmd_info = "禁区到来后10秒内不能增加禁区。";
 	}else{
 		$areatime = $now;
 		save_gameinfo();
-		$areatime += $areahour * 60;
+		$areatime += \map\get_area_interval() * 60;
 		$cmd_info = '下一次禁区时间提前到来。请访问任意游戏页面以刷新游戏状态。';
 		addnews($now,'sysaddarea');	
 	}

@@ -7,7 +7,7 @@ namespace instance7
 	//教程房特殊的npcinfo
 	function get_npclist(){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
-		eval(import_module('sys','map','instance7'));
+		eval(import_module('sys','instance7'));
 		if (17 == $gametype){
 			return $npcinfo_instance7;
 		}else return $chprocess();

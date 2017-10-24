@@ -2,11 +2,14 @@
 
 namespace instance8
 {
-	function init() {}
+	function init() {
+		eval(import_module('skillbase'));
+		$valid_skills[18] = array(1001);
+	}
 	
 	function get_npclist(){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
-		eval(import_module('sys','map','instance8'));
+		eval(import_module('sys','instance8'));
 		if (18 == $gametype){
 			return $npcinfo_instance8;
 		}else return $chprocess();

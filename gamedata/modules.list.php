@@ -258,7 +258,8 @@ skill263,extra/club/skills/skill263/,1
 skill264,extra/club/skills/skill264/,1
 skill476,extra/instance/gtype3/skill476/,1
 skill483,extra/card/skills/skill483/,1
-skill1001,extra/instance/instance8_proud/skill1001/,1
+skill1001,extra/instance/skill1001/,1
+skill1002,extra/instance/skill1002/,1
 skill242,extra/club/skills/skill242/,1
 skill53,extra/club/skills/skill53/,1
 skill55,extra/club/skills/skill55/,1
@@ -323,6 +324,7 @@ weather,base/weather/,1
 npcinfo,extra/misc/npcinfo/,1
 skill28,extra/club/skills/skill28/,1
 skill254,extra/club/skills/skill254/,1
+instance9,extra/instance/instance9_rush/,1
 skill37,extra/club/skills/skill37/,1
 skill73,extra/club/skills/skill73/,1
 skill410,extra/card/skills/skill410/,1

@@ -64,14 +64,14 @@ namespace sys
 	$disable_newroom = 0;
 	
 	//房间游戏模式列表
-	$room_mode = Array(10,11,12,13,14,15,16);
+	$room_mode = Array(10,11,12,13,14,15,16,17,18,19);
 	//团队模式游戏类型列表
 	$teamwin_mode = Array(11,12,13,14);
 	//不可完成一般成就的游戏类型列表(这个是不是放到achievement_base里比较好？不过这么写可以省一个import)
 	//已废弃，现在用的是achievement_base及各个成就文件里的$ach_allow_mode
 	//$ach_ignore_mode = Array(1,2,3,10,11,12,13,14,15,16,17);
 	//不可获得胜利切糕的游戏类型
-	$qiegao_ignore_mode = Array(10,11,12,13,14,15,16,17,1);
+	$qiegao_ignore_mode = Array(1,10,11,12,13,14,15,16,17);
 	//计算天梯积分的游戏类型
 	$elorated_mode=Array(10,11,12,13,14);
 	//不允许PVE的游戏类型
