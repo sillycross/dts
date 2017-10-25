@@ -4,16 +4,27 @@ namespace team
 {
 	function init() {}
 	
-	function check_alive_discover(&$edata)
+//	function check_alive_discover(&$edata)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		//团队模式下非雾天不会在探索中遇到队友
+//		eval(import_module('sys','player','metman','logger'));
+//		if($teamID && (!$fog) && $teamID == $edata['teamID'] && in_array($gametype,$teamwin_mode))
+//		{
+//			return 0;
+//		}
+//		return $chprocess($edata);
+//	}
+	
+	//团队模式下非雾天不会在探索中遇到队友
+	function discover_player_filter_alive(&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		//团队模式下非雾天不会在探索中遇到队友
-		eval(import_module('sys','player','metman','logger'));
-		if($teamID && (!$fog) && $teamID == $edata['teamID'] && in_array($gametype,$teamwin_mode))
-		{
-			return 0;
-		}
-		return $chprocess($edata);
+		$ret = $chprocess($edata);
+		eval(import_module('sys','player'));
+		if($teamID && !$fog && $teamID == $edata['teamID'] && in_array($gametype,$teamwin_mode))
+			$ret = false;	
+		return $ret;
 	}
 	
 	function meetman_alternative($edata)

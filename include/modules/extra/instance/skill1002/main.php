@@ -40,6 +40,16 @@ namespace skill1002
 		else return true;
 	}
 	
+	//无垢状态下不能遭遇尸体
+	function check_corpse_discover(&$edata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player'));
+		if (check_available1002($sdata))
+			return 0;
+		else return $chprocess($edata);
+	}
+	
 	function apply_total_damage_modifier_down(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!\skillbase\skill_query(1002,$pd)) return $chprocess($pa,$pd,$active);

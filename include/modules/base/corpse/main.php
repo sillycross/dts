@@ -8,26 +8,37 @@ namespace corpse
 	//Q：为什么要写这么一个脑残的函数？
 	//A：尊重原版本设定，如果遇到了不是合法目标的尸体是要直接重新执行一次discover全判定流程的
 	//   虽然这设定非常奇葩，但改了可能产生大量的平衡性问题，因此保留
+//	function check_corpse_discover(&$edata)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		
+//		eval(import_module('sys','player','corpse'));
+//		if ($edata['state']==16) return 0;
+//		$flag=0;
+//		foreach($equip_list as $k_value)
+//		{
+//			$z=strlen($k_value)-1;
+//			while ('0'<=$k_value[$z] && $k_value[$z]<='9') $z--;
+//			$w1=substr($k_value,0,$z+1).'s'.substr($k_value,$z+1);
+//			$w2=substr($k_value,0,$z+1).'e'.substr($k_value,$z+1);
+//			if ($edata[$w1] && $edata[$w2]) { $flag=1; break;}
+//		}
+//		if ($edata['money']) $flag=1;
+//		
+//		if($flag && $edata['endtime'] < $now - $corpseprotect)
+//			return 1;
+//		else  return 0;
+//	}
+	
+	//摸不到尸体保护时间内的尸体
 	function check_corpse_discover(&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
-		eval(import_module('sys','player','corpse'));
-		if ($edata['state']==16) return 0;
-		$flag=0;
-		foreach($equip_list as $k_value)
-		{
-			$z=strlen($k_value)-1;
-			while ('0'<=$k_value[$z] && $k_value[$z]<='9') $z--;
-			$w1=substr($k_value,0,$z+1).'s'.substr($k_value,$z+1);
-			$w2=substr($k_value,0,$z+1).'e'.substr($k_value,$z+1);
-			if ($edata[$w1] && $edata[$w2]) { $flag=1; break;}
-		}
-		if ($edata['money']) $flag=1;
-		
-		if($flag && $edata['endtime'] < $now - $corpseprotect)
-			return 1;
-		else  return 0;
+		$ret = $chprocess($edata);
+		eval(import_module('sys','corpse'));
+		if($edata['endtime'] > $now - $corpseprotect)
+			$ret = false;
+		return $ret;
 	}
 	
 	function check_corpse_discover_dice(&$edata)
