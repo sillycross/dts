@@ -16,7 +16,7 @@ namespace skill1002
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','skill1002'));
-		\skillbase\skill_setvalue(1002,'expire',$now + $skill1002_act_time,$pa);//其实是获得以后的60秒无敌
+		\skillbase\skill_setvalue(1002,'expire',$now + $skill1002_act_time,$pa);
 	}
 	
 	function lost1002(&$pa)
@@ -44,7 +44,7 @@ namespace skill1002
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!\skillbase\skill_query(1002,$pd)) return $chprocess($pa,$pd,$active);
 		eval(import_module('sys','logger','skill1002'));
-		if (check_available1002($pd) && !in_array($pa['type'],$skill1002_no_effect_array)){	//scp和蓝凝无效
+		if ($pa['dmg_dealt'] >= 100 && check_available1002($pd) && !in_array($pa['type'],$skill1002_no_effect_array)){	//scp和蓝凝无效
 			$pa['dmg_dealt']=0;
 			$log .= \battle\battlelog_parser($pa, $pd, $active, "<span class='yellow'><:pd_name:>的技能「无垢」使<:pa_name:>的攻击没有造成任何伤害！</span><br>");
 		}
@@ -74,7 +74,7 @@ namespace skill1002
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!\skillbase\skill_query(1002,$pd)) return $chprocess($pa,$pd,$tritm,$damage);
 		eval(import_module('sys','logger','skill1002'));
-		if (check_available1002($pd))
+		if ($damage >= 100 && check_available1002($pd))
 		{
 			$log .= "<span class=\"yellow\">你的技能「无垢」使你免疫了陷阱伤害！</span><br>";
 			return 0;

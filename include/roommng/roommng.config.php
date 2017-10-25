@@ -374,7 +374,7 @@ $roomtypelist = Array(
 		'show-team-leader' => 0,	//是否显示“队长”标签（如队伍大于1人设为1）
 	),
 	9 => Array(
-		'name' => '<font class="red">急速模式</font>',
+		'name' => '<font class="red">极速模式</font>',
 		'gtype' => 19, //对应的游戏模式编号
 		'available' => true,
 		'available-start' => 1509408000, //如果设置并大于零，表明时间戳迟于此时才显示和开放

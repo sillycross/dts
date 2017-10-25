@@ -24,7 +24,10 @@ namespace skill1001
 			elseif($i < 1800) $skillup += 3/60;
 			elseif($i < 3600) $skillup += 1/60;
 		}
+		
 		$skillup = round($skillup);
+		
+		if(19 == $gametype) $skillup *= 2;//高速模式2倍熟练
 //		$skillup = floor(($now - $starttime) / 12);
 //		if($skillup > 300) $skillup = 300;
 //		elseif($skillup < 0) $skillup = 0;

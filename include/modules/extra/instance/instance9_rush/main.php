@@ -4,7 +4,7 @@ namespace instance9
 {
 	function init() {
 		eval(import_module('map','gameflow_combo','skillbase'));
-		$areainterval[19] = 5;
+		$areainterval[19] = 10;
 		$deathlimit_by_gtype[19] = 100;
 		$valid_skills[19] = array(1001,1002);
 	}
