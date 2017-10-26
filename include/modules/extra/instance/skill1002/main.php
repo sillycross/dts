@@ -120,7 +120,7 @@ namespace skill1002
 				$z['activate_hint'] = "技能「无垢」生效时间已经结束";
 				\skillbase\skill_lost(1002);	//仅限一次，进入CD即自动失去技能
 			}
-			\bufficons\bufficon_show('img/skill455.gif',$z);
+			\bufficons\bufficon_show('img/skill1002.gif',$z);
 		}
 		$chprocess();
 	}

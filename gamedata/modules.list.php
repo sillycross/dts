@@ -24,9 +24,7 @@ skill313,extra/achievement/skills/skill313/,1
 skill324,extra/achievement/skills/skill324/,1
 skill326,extra/achievement/skills/skill326/,1
 skill328,extra/achievement/skills/skill328/,1
-itemmain,base/itemmain/,1
 skill4,base/skills/skill4/,1
-npc,base/npc/,1
 skill13,extra/club/skills/skill13/,1
 skill14,extra/club/skills/skill14/,1
 skill15,extra/club/skills/skill15/,1
@@ -36,6 +34,8 @@ skill18,extra/club/skills/skill18/,1
 skill24,extra/club/skills/skill24/,1
 skill411,extra/card/skills/skill411/,1
 skill256,extra/club/skills/skill256/,1
+npc,base/npc/,1
+itemmain,base/itemmain/,1
 metman,base/metman/,1
 itemmix,base/itemmix/itemmix/,1
 itemshop,base/itemshop/,1

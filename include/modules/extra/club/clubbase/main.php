@@ -334,11 +334,13 @@ namespace clubbase
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player','clubbase'));
+		define('IN_NPCSKILLPAGE',1);
 		$___TEMP_inclist = Array();
 		foreach (\skillbase\get_acquired_skill_array($pn) as $key) 
-			if (defined('MOD_SKILL'.$key.'_INFO') && !\skillbase\check_skill_info($key, 'achievement') && \skillbase\check_skill_info($key, 'unique')) 
+			if (defined('MOD_SKILL'.$key.'_INFO') && !\skillbase\check_skill_info($key, 'achievement') 
+			&& !\skillbase\check_skill_info($key, 'hidden') && (!$pn['club'] || !in_array($key, $clublist[$pn['club']]['skills']))) {
 				array_push($___TEMP_inclist,template(constant('MOD_SKILL'.$key.'_DESC'))); 
-		
+			}
 		$who = $pn;
 		foreach ($___TEMP_inclist as $___TEMP_template_name) include $___TEMP_template_name;
 	}
