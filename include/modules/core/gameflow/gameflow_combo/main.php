@@ -68,13 +68,24 @@ namespace gameflow_combo
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 	
-	function check_corpse_discover(&$edata)
+	//连斗以后摸不到尸体
+	function discover_player_filter_corpse(&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($edata);
 		eval(import_module('sys'));
-		if ($gamestate>=40) return 0;	//连斗后无尸体
-		return $chprocess($edata);
+		if ($gamestate >= 40) 
+			$ret = false;	
+		return $ret;
 	}
+	
+//	function check_corpse_discover(&$edata)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		eval(import_module('sys'));
+//		if ($gamestate>=40) return 0;	//连斗后无尸体
+//		return $chprocess($edata);
+//	}
 
 	function calculate_meetman_rate($schmode)
 	{

@@ -26,6 +26,7 @@ namespace gtype2
 		$chprocess();
 	}
 	
+	//这已经失效了，但是反正这个模式废了，懒得改
 	function check_player_discover(&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

@@ -71,7 +71,9 @@ function updateTime(domid,t,tm,intv,fmt)
 	}
 	var tstr = updateTime_render(timinglist[domid]['timing'], timinglist[domid]['mode'], timinglist[domid]['format']);
 	if($(domid)) $(domid).innerHTML = tstr;
-	setTimeout("updateTime('" + domid + "')", timinglist[domid]['interval']);
+	if(timinglist[domid]['timing'] > 0){
+		setTimeout("updateTime('" + domid + "')", timinglist[domid]['interval']);
+	}
 }
 
 function updateTime_render(t, tm, fmt)

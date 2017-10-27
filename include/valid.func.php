@@ -113,7 +113,7 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 		$itm[4] = '生命探测器'; $itmk[4] = 'ER'; $itme[4] = 3; $itms[4] = 1;$itmsk[4] = '';
 		$itm[5] = '全恢复药剂'; $itmk[5] = 'Ca'; $itme[5] = 1; $itms[5] = 3;$itmsk[5] = '';
 	}
-	//急速模式开局发全身装备
+	//极速模式开局发全身装备
 	elseif(19==$gametype){
 		$arb = '挑战者战斗服';$arbk = 'DB'; $arbe = 60; $arbs = 10; $arbsk = '';
 		$arh = '挑战者头盔';$arhk = 'DH'; $arhe = 37; $arhs = 5; $arhsk = '';
@@ -321,6 +321,11 @@ function card_validate($udata){
 	{
 		if (in_array(97,$card_ownlist)) $card_disabledlist[97][]='e3';
 		if (in_array(144,$card_ownlist)) $card_disabledlist[144][]='e3';
+	}
+	elseif ($gametype == 19)//极速模式禁用6D和CTY
+	{
+		if (in_array(123,$card_ownlist)) $card_disabledlist[123][]='e3';
+		if (in_array(124,$card_ownlist)) $card_disabledlist[124][]='e3';
 	}
 	
 	return array($card_disabledlist,$card_error);

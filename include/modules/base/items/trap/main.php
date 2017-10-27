@@ -26,8 +26,17 @@ namespace trap
 			for($i = 1; $i < $in; $i++) {
 				if(!empty($itemlist[$i]) && strpos($itemlist[$i],',')!==false){
 					list($iarea,$imap,$inum,$iname,$ikind,$ieff,$ista,$iskind) = explode(',',$itemlist[$i]);
+					if(strpos($iskind,'=')===0){
+						$tmp_pa_name = substr($iskind,1);
+						$iskind = '';
+						$result = $db->query("SELECT pid FROM {$tablepre}players WHERE name='$tmp_pa_name' AND type>0");
+						if($db->num_rows($result)){
+							$ipid = $db->fetch_array($result);
+							$iskind = $ipid['pid'];
+						}
+					}
 					if(($iarea == $an)||($iarea == 99)) {
-						for($j = $inum; $j>0; $j--) {
+						for($j = $inum; $j>0; $j--) {							
 							if ($imap == 99)
 							{
 								do {

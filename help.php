@@ -4,8 +4,7 @@ define('CURSCRIPT', 'help');
 define('IN_HELP', TRUE);
 
 require './include/common.inc.php';
-eval(import_module('pose','tactic'));
-eval(import_module('itemmain'));
+eval(import_module('pose','tactic','itemmain','npc'));
 
 include_once GAME_ROOT . './include/itemplace.func.php';
 
@@ -224,14 +223,21 @@ OVERLAY_HELP_WRITE_CONTENT;
 }
 
 $npcfile = GAME_ROOT.'./include/modules/base/npc/config/npc.data.config.php';
-include $mixfile;
+$npcfile_i8 = GAME_ROOT.'./include/modules/extra/instance/instance8_proud/config/npc.data.config.php';
+$npcfile_ev = GAME_ROOT.'./include/modules/extra/club/skills/skill21/config/evonpc.config.php';
+include $npcfile_i8;
+include $npcfile_ev;
+$enpcinfo_show = array();
+foreach ($enpcinfo as $enkey => $enval){
+	$enpcinfo_show[$enkey] = array('sub' => array());
+	foreach($enval as $enval2){
+		$enpcinfo_show[$enkey]['sub'][] = $enval2;
+	}
+}
 $writefile = GAME_ROOT.TPLDIR.'/tmp_npchelp.htm';
 //NPC列表自动生成
-if(!file_exists($writefile) || filemtime($npcfile) > filemtime($writefile)){
-	ob_start();
-	include template('npchelp');
-	$writecont = ob_get_contents();
-	ob_end_clean();
+if(!file_exists($writefile) || filemtime($npcfile) > filemtime($writefile) || filemtime($npcfile_i8) > filemtime($writefile) || filemtime($npcfile_ev) > filemtime($writefile)){
+	$writecont = dump_template('npchelp');
 	writeover($writefile,$writecont);
 }
 

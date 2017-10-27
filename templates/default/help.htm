@@ -325,7 +325,8 @@
 <p><a name="基础姿态"><span class="subtitle2">8.基础姿态</span></a></p>
 
 <p>玩家的<span class="yellow">“基础姿态”</span>可以影响攻击、防御、遇敌率等一系列重要数值，因此请务必根据战场局势，选择合适的姿态。<br>
-基础姿态对攻击力的加成只在主动攻击时有效。</p>
+基础姿态对攻击力的加成只在主动攻击时有效。<br>
+注意：角色发现率、道具发现率同时影响玩家“去找角色还是去找道具”以及“是否能找到这个角色/道具”的双重概率。</p>
 <table cellSpacing=0 cellPadding=0 width="1200px">
 	<TBODY>
 		<TR>
@@ -393,9 +394,11 @@
 
 <p><a name="应战策略"><span class="subtitle2">9.应战策略</span></a></p>
 
-<br>
+<p>玩家的<span class="yellow">“迎战策略”</span>可以被敌人先制攻击时的各项参数，同时还有一系列额外的效果。<br>
+应战策略对攻击力的加成只在反击时有效。<br>
+注意：角色发现率同时影响玩家“去找角色还是去找道具”以及“是否能找到这个角色/道具”的双重概率。</p>
 
-<table cellSpacing=0 cellPadding=0>
+<table cellSpacing=0 cellPadding=0 width="1000px">
 	<TBODY>
 		<TR>
 			<TD class="b1" height=20px>
@@ -411,84 +414,47 @@
 				<span>防御力</span>
 			</TD>
 			<TD class="b1">
+				<span>角色发现率</span>
+			</TD>
+			<TD class="b1">
 				<span>隐蔽率</span>
 			</TD>
 			<TD class="b1">
-				<span>反击率</span>
+				<span> 备注 </span>
 			</TD>
 		</TR>
-		<TR>
-			<TD class="b2" height=20px>
-				<span>通常</span>
-			</TD>
-			<TD class="b3">
-				<span>不注重任何一方面的策略</span>
-			</TD>
-			<TD class="b3"></TD>
-			<TD class="b3"></TD>
-			<TD class="b3"></TD>
-			<TD class="b3"></TD>
-		</TR>
-
-		<TR>
-			<TD class="b2" height=20px>
-				<span>重视反击</span>
-			</TD>
-			<TD class="b3">
-				<span>增加反击机会的策略，对攻击力有提升</span>
-			</TD>
-			<TD class="b3">
-				<span class="clan">↑↑</span>
-			</TD>
-			<TD class="b3">
-				<span class="yellow">↓↓</span>
-			</TD>
-			<TD class="b3">
-				<span class="yellow">↓</span>
-			</TD>
-			<TD class="b3">
-				<span class="clan">↑↑↑</span>
-			</TD>
-		</TR>
-		<TR>
-			<TD class="b2" height=20px>
-				<span>重视防御</span>
-			</TD>
-			<TD class="b3">
-				<span>增加战斗和应对陷阱的防御力的策略</span>
-			</TD>
-			<TD class="b3">
-			<span class="yellow">↓↓</span>
-			</TD>
-			<TD class="b3">
-			<span class="clan">↑↑↑</span>
-			</TD>
-			<TD class="b3"></TD>
-			<TD class="b3"></TD>
-		</TR>
-		<TR>
-			<TD class="b2" height=20px>
-				<span>重视躲避</span>
-			</TD>
-			<TD class="b3">
-				<span>试图回避敌人和陷阱的策略，在连斗前还能躲避禁区</span>
-			</TD>
-			<TD class="b3">
-				<span class="yellow">↓↓↓</span>
-			</TD>
-			<TD class="b3"></TD>
-			<TD class="b3">
-				<span class="clan">↑↑</span>
-			</TD>
-			<TD class="b3">
-				<span class="yellow">↓↓↓</span>
-			</TD>
-		</TR>
-
+		<!--{loop $tacinfo $ti $tn}-->
+			<!--{if $tactic_player_usable[$ti]}-->
+				<TR>
+				<TD class="b2" height=25px>
+					<span>$tn</span>
+				</TD>
+				<TD class="b3">
+					<span>$tacticdesc[$ti]</span>
+				</TD>
+				<!--{eval $tmp_tactic_loop = array($tactic_attack_modifier[$ti], $tactic_defend_modifier[$ti], $tactic_meetman_obbs[$ti], $tactic_hide_obbs[$ti]);}-->
+				<!--{loop $tmp_tactic_loop $tmp_tactic_var}-->
+					<TD class="b3">
+						<span class=
+						<!--{if $tmp_tactic_var > 0}-->
+							"clan"
+						<!--{elseif $tmp_tactic_var < 0}-->
+							"red"
+						<!--{else}-->
+							"white"
+						<!--{/if}-->
+						><!--{if $tmp_tactic_var > 0}-->+{$tmp_tactic_var}%<!--{else}-->{$tmp_tactic_var}%<!--{/if}--></span>
+					</TD>
+				<!--{/loop}-->
+				<TD class="b3">
+					<span>$tacticremark[$ti]</span>
+				</TD>
+			<!--{/if}-->
+		<!--{/loop}-->
 	</TBODY>
 </TABLE>
 
-<p>※被发现率表示被其它玩家发现的机率</p>
+<p></p>
 <BR>
 <BR>
 <br>

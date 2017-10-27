@@ -1,5 +1,5 @@
 <!--{eval global $___TEMP_IN_SKLEARN_FLAG;}-->
 <!--{if !$___TEMP_IN_SKLEARN_FLAG}-->
-<!--{eval $___TEMP_THIS_SKILL_ACQUIRED = \clubbase\skill_query_unlocked($___TEMP_SKILL_ID);}-->
+<!--{eval $___TEMP_THIS_SKILL_ACQUIRED = defined('IN_NPCSKILLPAGE') ? 1 : \clubbase\skill_query_unlocked($___TEMP_SKILL_ID);}-->
 <tr><td width="0"><br></td><td class=b1 width=40>
 <!--{/if}-->

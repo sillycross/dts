@@ -23,13 +23,8 @@ namespace tactic
 	function calculate_meetman_rate($schmode)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player'));
-		//$r = 1;
-		$a = 0;
-		if ($tactic == 4) {
-			$a = -10;
-			//$r = 0.9;		//重视躲避不容易遇见敌人
-		}
+		eval(import_module('sys','player','tactic'));
+		$a = $tactic_meetman_obbs[$tactic];
 		return $chprocess($schmode) + $a;
 	}
 	
