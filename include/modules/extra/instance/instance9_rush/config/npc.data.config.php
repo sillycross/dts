@@ -1249,7 +1249,7 @@ namespace instance9
 			'rage' => 25,
 			'pose'=> 2,
 			'tactic' => 3,
-			'skills'=>array('41'=>array('u' => '1'),'403'=>'1','459'=>'0','461'=>'1'),
+			'skills'=>array('41'=>array('u' => '1'),'403'=>'2','459'=>'0','461'=>'1'),
 			'killnum' => 0,
 			'teamID' => '',
 			'teamPass' => '',
@@ -1265,7 +1265,7 @@ namespace instance9
 			'mss' => 50,
 			'arb' => '蜡翼天马装备 - CORE',
 			'arbk' => 'DB',
-			'arbe' => 5000,
+			'arbe' => 3000,
 			'arbs' => 1000,
 			'arbsk' => 'Aa',
 			'arh' => '蜡翼天马装备 - TOP',
@@ -1294,11 +1294,11 @@ namespace instance9
 				(
 				'name' => '狂飙',
 				'icon' => 'avatar_rek/rocket.png',
-				'wep' => '蜡翼天马装备 - ATTACK',
+				'wep' => 'REND BOSS PLASMA GUN',
 				'wepk' => 'WG',
-				'wepe' => 1000,
-				'weps' => 9999,
-				'wepsk' => 'rN',
+				'wepe' => 800,
+				'weps' => 8000,
+				'wepsk' => 'rocke',
 				'itm1' => '游戏解除钥匙',
 				'itmk1' => 'Y',
 				'itme1' => 1,
@@ -2502,7 +2502,7 @@ namespace instance9
 			),
 		1 => array
 			(
-			'name' => '展翅',
+			'name' => '腾翼',
 			'gd' => 'm',
 			'icon' => 0,
 			'wep' => '蜡翼天马装备 - 风',
@@ -2514,7 +2514,7 @@ namespace instance9
 			),
 		2 => array
 			(
-			'name' => '讶异',
+			'name' => '惊梦',
 			'gd' => 'f',
 			'icon' => 0,
 			'wep' => '蜡翼天马装备 - 地',
@@ -2526,7 +2526,7 @@ namespace instance9
 			),
 		3 => array
 			(
-			'name' => '雷鸣',
+			'name' => '雷暴',
 			'gd' => 'm',
 			'icon' => 0,
 			'wep' => '蜡翼天马装备 - 水',

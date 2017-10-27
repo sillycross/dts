@@ -105,7 +105,7 @@ namespace itemmain
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('itemmain'));
-		if($sk_value && is_numeric($sk_value) === false){
+		if($sk_value && is_numeric($sk_value) === false && strpos($sk_value,'=')!==0){
 			$ret = '';
 			$i = 0;
 			while ($i < strlen($sk_value))
