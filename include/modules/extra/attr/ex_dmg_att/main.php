@@ -13,11 +13,13 @@ namespace ex_dmg_att
 		$itemspkinfo['d'] = '爆炸';
 		$itemspkinfo['f'] = '灼焰';
 		$itemspkinfo['k'] = '冰华';
+		$itemspkinfo['t'] = '音爆';
 		//声音信息
 		if (defined('MOD_NOISE')) 
 		{
 			eval(import_module('noise'));
 			$noiseinfo['d'] = '爆炸声';
+			$noiseinfo['t'] = '轰鸣声';
 		}
 	}
 	
@@ -48,7 +50,7 @@ namespace ex_dmg_att
 		$ex_dmg_restriction=get_ex_dmg_restriction($pa,$pd,$active,$key);
 		if ($ex_dmg_restriction>0) $damage = $ex_max_dmg[$key] * $damage / ( $damage + $ex_max_dmg[$key] / 2 );
 		//得意武器类型翻倍
-		if ($pa['wep_kind']==$ex_good_wep[$key]) $damage *= 2;
+		if (isset($ex_good_wep[$key]) && $pa['wep_kind']==$ex_good_wep[$key]) $damage *= 2;
 		//浮动
 		$damage = $damage * rand(100 - $ex_dmg_fluc[$key], 100 + $ex_dmg_fluc[$key]) / 100;
 		return $damage;
@@ -195,6 +197,10 @@ namespace ex_dmg_att
 		if (defined('MOD_NOISE') && in_array('d',\attrbase\get_ex_attack_array($pa, $pd, $active)))
 		{
 			\noise\addnoise($pa['pls'],'d',$pa['pid'],$pd['pid']);
+		}
+		if (defined('MOD_NOISE') && in_array('t',\attrbase\get_ex_attack_array($pa, $pd, $active)))
+		{
+			\noise\addnoise($pa['pls'],'t',$pa['pid'],$pd['pid']);
 		}
 	}
 	
