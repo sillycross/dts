@@ -6,7 +6,7 @@ table {align:center;border: 0px;}
 tr {font:10pt "微软雅黑"; margin: 0px;}
 td {font:10pt "微软雅黑"; margin: 0px;}
 th {font:10pt "微软雅黑"; margin: 0px;}
-span {font:bold 10pt/16px "微软雅黑";}
+span {font:10pt/16px "微软雅黑";}
 p {font:10pt/16pt "微软雅黑";}
 li {font:bold 10pt/16px "微软雅黑";}
 input {cursor: crosshair;}
@@ -33,7 +33,7 @@ input {cursor: crosshair;}
 .mapspanlime{color:#0f0;position:relative;font-size: 9pt;line-height:16px}
 .mapspanyellow{color:#ff0;position:relative;font-size: 9pt;line-height:16px}
 
-.b1 span{position:relative;}
+.b1 span{position:relative;font-weight:bold;}
 .b2 span{position:relative;}
 .b3 span{position:relative;}
 .b1 div{position:relative;}

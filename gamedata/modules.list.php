@@ -23,7 +23,7 @@ skill306,extra/achievement/skills/skill306/,1
 skill313,extra/achievement/skills/skill313/,1
 skill324,extra/achievement/skills/skill324/,1
 skill326,extra/achievement/skills/skill326/,1
-skill328,extra/achievement/skills/skill328/,1
+skill328,extra/activities/nationalday2017/skill328/,1
 skill4,base/skills/skill4/,1
 skill13,extra/club/skills/skill13/,1
 skill14,extra/club/skills/skill14/,1
@@ -106,7 +106,7 @@ skill479,extra/card/skills/skill479/,1
 skill485,extra/card/skills/skill485/,1
 skill486,extra/card/skills/skill486/,1
 skill488,extra/card/skills/skill488/,1
-skill327,extra/achievement/skills/skill327/,1
+skill327,extra/activities/nationalday2017/skill327/,1
 skill1000,extra/instance/instance7_tutorial/skill1000/,1
 kuji0,extra/card/kuji/kuji0/,1
 kuji1,extra/card/kuji/kuji1/,1
@@ -322,6 +322,7 @@ blessstone,extra/attr/blessstone/,1
 skill33,extra/club/skills/skill33/,1
 weather,base/weather/,1
 npcinfo,extra/misc/npcinfo/,1
+halloween2017,extra/activities/halloween2017/main/,1
 skill28,extra/club/skills/skill28/,1
 skill254,extra/club/skills/skill254/,1
 instance9,extra/instance/instance9_rush/,1
@@ -387,7 +388,7 @@ skill43,extra/club/skills/skill43/,1
 skill56,extra/club/skills/skill56/,1
 skill435,extra/card/skills/skill435/,1
 tutorial,extra/instance/instance7_tutorial/tutorial/,1
-skill329,extra/achievement/skills/skill329/,1
+skill329,extra/activities/nationalday2017/skill329/,1
 skill244,extra/club/skills/skill244/,1
 skill27,extra/club/skills/skill27/,1
 skill489,extra/card/skills/skill489/,1
