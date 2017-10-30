@@ -41,9 +41,11 @@ namespace instance5
 	function rs_areatime(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		$option = $roomvars['current_game_option'];
-		if(15==$gametype && isset($option['area-mode']) && 'extreme'==$option['area-mode'])	{
-			return $starttime + 60*40;//极限挑战模式，1禁恒为40分钟。
+		if(15==$gametype){
+			$option = $roomvars['current_game_option'];
+			if(isset($option['area-mode']) && 'extreme'==$option['area-mode'])	{
+				return $starttime + 60*40;//极限挑战模式，1禁恒为40分钟。
+			}
 		}
 		return $chprocess();
 	}

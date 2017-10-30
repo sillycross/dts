@@ -23,15 +23,17 @@ namespace player
 	}
 	
 	//注意这个函数默认情况下只能找玩家
-	function fetch_playerdata($Pname, $Ptype = 0)
+	function fetch_playerdata($Pname, $Ptype = 0, $ignore_pool = 0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		$pdata = false;
-		foreach($pdata_pool as $pd){
-			if(isset($pd['name']) && $pd['name'] == $Pname){
-				$pdata = $pd;
-				break;
+		if(!$ignore_pool){
+			foreach($pdata_pool as $pd){
+				if(isset($pd['name']) && $pd['name'] == $Pname){
+					$pdata = $pd;
+					break;
+				}
 			}
 		}
 		if(empty($pdata)){

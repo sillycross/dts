@@ -4,7 +4,7 @@ namespace halloween2017
 {	
 	$treat_options = array(
 		array('万圣节彩色糖果', 'HB', 13, 1, ''),
-		array('万圣节紫色糖果', 'WC', 100, 1, 'p'),
+		array('万圣节紫色糖果', 'WC', 100, 1, 'f'),
 		array('万圣节红色糖果', 'MA', 4, 1, ''),
 		array('万圣节橙色糖果', 'MD', 4, 1, ''),
 		array('万圣节青色糖果', 'MS', 4, 1, ''),
@@ -33,8 +33,8 @@ namespace halloween2017
 	function check_available_h2017(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		if($now >= 0 && $now <= 1510012799) return true;
-		//if($now >= 1509465600 && $now <= 1510012799) return true;
+		//if($now >= 0 && $now <= 1510012799) return true;
+		if($now >= 1509465600 && $now <= 1510012799) return true;
 		else return false;
 	}
 	
@@ -66,9 +66,10 @@ namespace halloween2017
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pdata);
-		if($ret == 'D');
-		$pdata['h2017_wd_flag'] = 1;
-		$pdata['h2017_wd_e'] = $pdata['wepe'];
+		if($ret === 'D'){
+			$pdata['h2017_wd_flag'] = 1;
+			$pdata['h2017_wd_e'] = $pdata['wepe'];
+		}
 		return $ret;
 	}
 	
