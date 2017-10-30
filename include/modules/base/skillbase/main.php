@@ -164,10 +164,10 @@ namespace skillbase
 		if(isset($pdata['nskill'])) skillbase_load($pdata);
 	}
 	
-	function fetch_playerdata($Pname, $Ptype = 0)
+	function fetch_playerdata($Pname, $Ptype = 0, $ignore_pool = 0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$pa=$chprocess($Pname, $Ptype);
+		$pa=$chprocess($Pname, $Ptype, $ignore_pool);
 		skillbase_load($pa);
 		return $pa;
 	}

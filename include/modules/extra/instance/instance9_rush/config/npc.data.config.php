@@ -1298,7 +1298,7 @@ namespace instance9
 				'wepk' => 'WG',
 				'wepe' => 800,
 				'weps' => 8000,
-				'wepsk' => 'rocke',
+				'wepsk' => 'rocket',
 				'itm1' => '游戏解除钥匙',
 				'itmk1' => 'Y',
 				'itme1' => 1,

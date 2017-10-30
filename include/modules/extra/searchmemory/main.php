@@ -12,10 +12,10 @@ namespace searchmemory
 		if(is_string($searchmemory)) $searchmemory = gdecode($searchmemory,1);//听丑陋的
 	}
 	
-	function fetch_playerdata($Pname, $Ptype = 0){
+	function fetch_playerdata($Pname, $Ptype = 0, $ignore_pool = 0){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		//eval(import_module('sys'));
-		$pdata = $chprocess($Pname, $Ptype);
+		$pdata = $chprocess($Pname, $Ptype, $ignore_pool);
 		$pdata['searchmemory'] = gdecode($pdata['searchmemory'],1);
 		return $pdata;
 	}
