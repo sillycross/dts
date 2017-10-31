@@ -60,7 +60,7 @@ if($mode == 'enter') {
 	{
 		$enterable = false;
 	}
-	elseif(in_array($gametype, array(2,4,18))) //游戏模式为卡片模式、无限复活模式、荣耀模式时，更新卡片CD时间
+	elseif(in_array($gametype, array(2,4,18,19))) //游戏模式为卡片模式、无限复活模式、荣耀模式、极速模式时，更新卡片CD时间
 	{
 		if(18 == $gametype || 19 == $gametype) $userCardData['cardenergy'][$cc] = round($cards[$cc]['energy'] / 2);//荣誉模式CD减半
 		else $userCardData['cardenergy'][$cc] = 0;
