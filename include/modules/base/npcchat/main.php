@@ -135,6 +135,7 @@ namespace npcchat
 	function attack_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$pd['tmp_npcchat_pdn'] = $pd['name'];
 		$chprocess($pa, $pd, $active);
 		if ($pa['type']) npcchat($pa, $pd, $active, 'battle');
 	}
@@ -143,7 +144,12 @@ namespace npcchat
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess($pa, $pd, $active);
-		//if ($pd['type'] && $pd['hp']>0) npcchat($pa, $pd, $active, 'battle');
+		$npcchat_pdflag = 1;
+		//进化了别说话
+		if(isset($pd['tmp_npcchat_pdn'] ) && $pd['tmp_npcchat_pdn'] != $pd['name']) $npcchat_pdflag = 0;
+		//没打中别说话，否则太话痨了
+		if($pa['dmg_dealt'] <= 0) $npcchat_pdflag = 0;
+		if ($pd['type'] && $pd['hp']>0 && $npcchat_pdflag) npcchat($pa, $pd, $active, 'battle');
 	}
 	
 	function cannot_counter(&$pa, &$pd, $active)

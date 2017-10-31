@@ -63,7 +63,12 @@ namespace skill21
 					foreach ($npcdata['skills'] as $key=>$value){
 						if (defined('MOD_SKILL'.$key)){
 							\skillbase\skill_acquire($key,$pd);
-							if ($value>0){
+							if (is_array($value)){
+								foreach($value as $vk => $vv){
+									\skillbase\skill_setvalue($key,$vk,$vv,$pd);
+								}
+							}
+							elseif ($value>0){
 								\skillbase\skill_setvalue($key,'lvl',$value,$pd);
 							}
 						}	
