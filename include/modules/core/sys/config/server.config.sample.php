@@ -4,9 +4,9 @@
 // [EN]	Set below parameters according to your account information provided by your hosting
 // [CH] 以下变量请根据空间商提供的账号参数修改 如有疑问,请联系服务器提供者
 
-	$server_address = 'http://localhost/dts'; 			//本地服务器域名，用于daemon，不要加最后的斜杠！
+	$server_address = 'http://127.0.0.1/dts'; 			//本地服务器域名，用于daemon，不要加最后的斜杠！
 	
-	$dbhost = 'localhost';			// database server
+	$dbhost = '127.0.0.1';			// database server
 						// 数据库服务器
 
 	$dbuser = 'root';			// database username
@@ -79,7 +79,7 @@
 	$bbsurl = 'http://000.76573.org/';    //the bbs url for the game plus
 									//安装游戏插件的论坛地址
 
-	$gameurl = 'http://lg.dianbo.me/';    // the url of game program files,for the full-window mode
+	$gameurl = 'http://127.0.0.1/dts';    // the url of game program files,for the full-window mode
 									//游戏域名地址，用于界面链接
 
 	$homepage = 'http://soul573.com/';      // game homepage
