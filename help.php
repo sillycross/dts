@@ -224,8 +224,10 @@ OVERLAY_HELP_WRITE_CONTENT;
 
 $npcfile = GAME_ROOT.'./include/modules/base/npc/config/npc.data.config.php';
 $npcfile_i8 = GAME_ROOT.'./include/modules/extra/instance/instance8_proud/config/npc.data.config.php';
+$npcfile_i9 = GAME_ROOT.'./include/modules/extra/instance/instance9_rush/config/npc.data.config.php';
 $npcfile_ev = GAME_ROOT.'./include/modules/extra/club/skills/skill21/config/evonpc.config.php';
 include $npcfile_i8;
+include $npcfile_i9;
 include $npcfile_ev;
 $enpcinfo_show = array();
 foreach ($enpcinfo as $enkey => $enval){
@@ -234,9 +236,20 @@ foreach ($enpcinfo as $enkey => $enval){
 		$enpcinfo_show[$enkey]['sub'][] = $enval2;
 	}
 }
+$srcfile = GAME_ROOT.TPLDIR.'/npchelp.htm';
 $writefile = GAME_ROOT.TPLDIR.'/tmp_npchelp.htm';
+
 //NPC列表自动生成
-if(!file_exists($writefile) || filemtime($npcfile) > filemtime($writefile) || filemtime($npcfile_i8) > filemtime($writefile) || filemtime($npcfile_ev) > filemtime($writefile)){
+$need_refresh = 0;
+if(!file_exists($writefile)){
+	$need_refresh = 1;
+}else{
+	foreach(array($npcfile, $npcfile_i8, $npcfile_i9, $npcfile_ev, $srcfile ) as $fv){
+		if(filemtime($fv) > filemtime($writefile)) $need_refresh = 1;
+	}
+}
+
+if($need_refresh){
 	$writecont = dump_template('npchelp');
 	writeover($writefile,$writecont);
 }
