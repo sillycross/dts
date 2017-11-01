@@ -164,21 +164,29 @@ namespace skillbase
 		if(isset($pdata['nskill'])) skillbase_load($pdata);
 	}
 	
-	function fetch_playerdata($Pname, $Ptype = 0, $ignore_pool = 0)
-	{
+	//对从数据库里读出来的raw数据的处理
+	function playerdata_construct_process($data){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$pa=$chprocess($Pname, $Ptype, $ignore_pool);
-		skillbase_load($pa);
-		return $pa;
+		$data = $chprocess($data);
+		skillbase_load($data);
+		return $data;
 	}
 	
-	function fetch_playerdata_by_pid($pid)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$pa=$chprocess($pid);
-		skillbase_load($pa);
-		return $pa;
-	}
+//	function fetch_playerdata($Pname, $Ptype = 0, $ignore_pool = 0)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		$pa=$chprocess($Pname, $Ptype, $ignore_pool);
+//		skillbase_load($pa);
+//		return $pa;
+//	}
+//	
+//	function fetch_playerdata_by_pid($pid)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		$pa=$chprocess($pid);
+//		skillbase_load($pa);
+//		return $pa;
+//	}
 	
 	function player_save($data)
 	{

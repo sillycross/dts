@@ -41,14 +41,9 @@ namespace player
 			$result = $db->query($query);
 			if(!$db->num_rows($result)) return NULL;
 			$pdata = $db->fetch_array($result);
-			//备份取出数据库时的player state
-			//然后如果player state在写回时没有变，就直接unset掉
-			//真正的防并发复活问题是用player_dead_flag这个单向的变量保证的，
-			//但这个可以保证在并发问题发生时，绝大多数情况下UI不出问题（否则就会出现UI显示玩家死了却不显示死因的奇怪问题）
-			//虽然理论上如果是在玩家触发state变化的那一瞬间（比如进入睡眠状态）被杀UI还是会挂，但是这几率太小了无视
-			$pdata['state_backup']=$pdata['state'];
 			$pdata_origin_pool[$pdata['pid']] = $pdata_pool[$pdata['pid']] = $pdata;
 		}
+		$pdata = playerdata_construct_process($pdata);
 		return $pdata;
 	}
 	
@@ -62,9 +57,9 @@ namespace player
 			$result = $db->query("SELECT * FROM {$tablepre}players WHERE pid = '$pid'");
 			if(!$db->num_rows($result)) return NULL;
 			$pdata = $db->fetch_array($result);
-			$pdata['state_backup']=$pdata['state'];	//见上个函数注释
 			$pdata_origin_pool[$pdata['pid']] = $pdata_pool[$pdata['pid']] = $pdata;
 		}
+		$pdata = playerdata_construct_process($pdata);
 		return $pdata;
 	}
 	
@@ -78,6 +73,18 @@ namespace player
 			$pdata = NULL;
 		}
 		return $pdata;
+	}
+	
+	//对从数据库里读出来的raw数据的处理都继承这个函数
+	function playerdata_construct_process($data){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//备份取出数据库时的player state
+		//然后如果player state在写回时没有变，就直接unset掉
+		//真正的防并发复活问题是用player_dead_flag这个单向的变量保证的，
+		//但这个可以保证在并发问题发生时，绝大多数情况下UI不出问题（否则就会出现UI显示玩家死了却不显示死因的奇怪问题）
+		//虽然理论上如果是在玩家触发state变化的那一瞬间（比如进入睡眠状态）被杀UI还是会挂，但是这几率太小了无视
+		$data['state_backup']=$data['state'];
+		return $data;
 	}
 	
 	//注意！全局变量$sdata虽然是个数组，但是其中的每一个键值都是引用，单纯复制这个数组会导致引用问题！
