@@ -50,6 +50,14 @@ $card_rarity_html = array(
 	'C'=>'<span class="'.$card_rarecolor['C'].'">C</span>',
 	'M'=>'<span class="'.$card_rarecolor['M'].'">M</span>'
 );	
+//卡片返回切糕的价格
+$card_price = array(
+	'S'=>499,
+	'A'=>99,
+	'B'=>49,
+	'C'=>30,
+	'M'=>99
+);
 $cards = array(
 	0 => array(
 		'name' => '挑战者',

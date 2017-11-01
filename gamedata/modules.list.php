@@ -110,11 +110,9 @@ skill486,extra/card/skills/skill486/,1
 skill488,extra/card/skills/skill488/,1
 skill327,extra/activities/nationalday2017/skill327/,1
 skill1000,extra/instance/instance7_tutorial/skill1000/,1
-kuji0,extra/card/kuji/kuji0/,1
-kuji1,extra/card/kuji/kuji1/,1
-kuji2,extra/card/kuji/kuji2/,1
 skill418,extra/card/skills/skill418/,1
 set_gametype,extra/misc/set_gametype/,1
+kujibase,extra/card/kujibase/,1
 skill490,extra/card/skills/skill490/,1
 skill480,extra/card/skills/skill480/,1
 skill1011,extra/gmskills/skill1011/,1
