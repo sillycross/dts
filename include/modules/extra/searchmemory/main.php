@@ -12,21 +12,29 @@ namespace searchmemory
 		if(is_string($searchmemory)) $searchmemory = gdecode($searchmemory,1);//听丑陋的
 	}
 	
-	function fetch_playerdata($Pname, $Ptype = 0, $ignore_pool = 0){
+	//对从数据库里读出来的raw数据的处理
+	function playerdata_construct_process($data){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		//eval(import_module('sys'));
-		$pdata = $chprocess($Pname, $Ptype, $ignore_pool);
-		$pdata['searchmemory'] = gdecode($pdata['searchmemory'],1);
-		return $pdata;
+		$data = $chprocess($data);
+		$data['searchmemory'] = gdecode($data['searchmemory'],1);
+		return $data;
 	}
 	
-	function fetch_playerdata_by_pid($pid){
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		//eval(import_module('sys'));
-		$pdata = $chprocess($pid);
-		$pdata['searchmemory'] = gdecode($pdata['searchmemory'],1);
-		return $pdata;
-	}
+//	function fetch_playerdata($Pname, $Ptype = 0, $ignore_pool = 0){
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		//eval(import_module('sys'));
+//		$pdata = $chprocess($Pname, $Ptype, $ignore_pool);
+//		$pdata['searchmemory'] = gdecode($pdata['searchmemory'],1);
+//		return $pdata;
+//	}
+//	
+//	function fetch_playerdata_by_pid($pid){
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		//eval(import_module('sys'));
+//		$pdata = $chprocess($pid);
+//		$pdata['searchmemory'] = gdecode($pdata['searchmemory'],1);
+//		return $pdata;
+//	}
 	
 	function player_save($data){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
