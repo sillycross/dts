@@ -5,6 +5,7 @@ namespace skillbase
 	global $acquired_list;
 	global $parameter_list;
 	global $ppid;	//当前玩家pid
+	$valid_skills = array();
 	
 	function init() 
 	{
@@ -70,17 +71,7 @@ namespace skillbase
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player'));
 		
-		$ac_list=Array();
-		if (strlen($pa['nskill'])%2!=0) throw new Exception('bad nskill value '.$pa['nskill']);
-		for ($i=0; $i<strlen($pa['nskill'])/2; $i++)
-		{
-			$c=b64_conv_to_value($pa['nskill'][$i*2])*64+b64_conv_to_value($pa['nskill'][$i*2+1]);
-			$ac_list[$c]=1;
-		}
-		
-		$pa['acquired_list']=$ac_list;
-		//if(!isset($pa['nskillpara'])) echo debug_backtrace()[0]['function'],' ',debug_backtrace()[1]['function'];
-		$pa['parameter_list']=parse_skill_parameter_data($pa['nskillpara']);
+		list($pa['acquired_list'], $pa['parameter_list']) = skillbase_load_process($pa['nskill'], $pa['nskillpara']);
 		
 		if ($pa['pid']==$pid)
 		{
@@ -90,6 +81,19 @@ namespace skillbase
 		}
 		
 		skill_onload_event($pa);
+	}
+	
+	function skillbase_load_process($ss, $sps){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ac_list=Array();
+		if (strlen($ss)%2!=0) throw new Exception('bad nskill value '.$ss);
+		for ($i=0; $i<strlen($ss)/2; $i++)
+		{
+			$c=b64_conv_to_value($ss[$i*2])*64+b64_conv_to_value($ss[$i*2+1]);
+			$ac_list[$c]=1;
+		}
+		$para_list = parse_skill_parameter_data($sps);
+		return array($ac_list, $para_list);
 	}
 	
 	function skill_onload_event(&$pa)
@@ -115,22 +119,7 @@ namespace skillbase
 			$para_list=$pa['parameter_list'];
 		}
 		
-		$ns='';
-		foreach ($ac_list as $skillkey => $skillvalue)
-		{
-			if ($skillvalue == 1)
-			{
-				$skillkey=(int)$skillkey;
-				$x=$skillkey/64; $y=$skillkey%64; $x=(int)$x;
-				$ns.=value_conv_to_b64($x).value_conv_to_b64($y);
-			}
-		}
-		
-		$pl='';
-		foreach ($para_list as $skillkey => $skillvalue)
-		{
-			$pl.=base64_encode($skillkey).','.base64_encode($skillvalue).',';
-		}
+		list($ns, $pl) = skillbase_save_process($ac_list, $para_list);
 		
 		if ($pa['pid']==$pid)
 		{
@@ -142,6 +131,27 @@ namespace skillbase
 		$pa['nskillpara']=$pl;
 	}
 	
+	function skillbase_save_process($sa, $spa){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ns='';
+		foreach ($sa as $skillkey => $skillvalue)
+		{
+			if ($skillvalue == 1)
+			{
+				$skillkey=(int)$skillkey;
+				$x=$skillkey/64; $y=$skillkey%64; $x=(int)$x;
+				$ns.=value_conv_to_b64($x).value_conv_to_b64($y);
+			}
+		}
+		
+		$pl='';
+		foreach ($spa as $skillkey => $skillvalue)
+		{
+			$pl.=base64_encode($skillkey).','.base64_encode($skillvalue).',';
+		}
+		return array($ns, $pl);
+	}
+	
 	function skill_onsave_event(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -151,24 +161,32 @@ namespace skillbase
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess($pdata);
-		skillbase_load($pdata);
+		if(isset($pdata['nskill'])) skillbase_load($pdata);
 	}
 	
-	function fetch_playerdata($Pname, $Ptype = 0)
-	{
+	//对从数据库里读出来的raw数据的处理
+	function playerdata_construct_process($data){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$pa=$chprocess($Pname, $Ptype);
-		skillbase_load($pa);
-		return $pa;
+		$data = $chprocess($data);
+		skillbase_load($data);
+		return $data;
 	}
 	
-	function fetch_playerdata_by_pid($pid)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$pa=$chprocess($pid);
-		skillbase_load($pa);
-		return $pa;
-	}
+//	function fetch_playerdata($Pname, $Ptype = 0, $ignore_pool = 0)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		$pa=$chprocess($Pname, $Ptype, $ignore_pool);
+//		skillbase_load($pa);
+//		return $pa;
+//	}
+//	
+//	function fetch_playerdata_by_pid($pid)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		$pa=$chprocess($pid);
+//		skillbase_load($pa);
+//		return $pa;
+//	}
 	
 	function player_save($data)
 	{

@@ -6,11 +6,13 @@ define('GAME_ROOT', dirname(__FILE__).'/');
 error_reporting(0);
 $magic_quotes_gpc = get_magic_quotes_gpc();
 require GAME_ROOT.'./include/global.func.php';
-check_authority();
-
 require GAME_ROOT.'./include/modulemng/modulemng.config.php';
 require GAME_ROOT.'./include/socket.func.php';
 
+//游戏内也有调用需求
+if(empty($_GET['in_game_pass']) || $_GET['in_game_pass'] != substr(base64_encode($___MOD_CONN_PASSWD),0,6)){
+	check_authority();
+}
 $___TEMP_runmode = 'Admin';
 $___TEMP_CONN_PORT = -1;
 
@@ -25,6 +27,15 @@ if (isset($_GET['action']) && $_GET['action']=='restart')
 if (isset($_GET['action']) && $_GET['action']=='stopall')
 {
 	__STOP_ALL_SERVER__();
+	header('Location: daemonmng.php');
+}
+
+if (isset($_GET['action']) && strpos($_GET['action'],'stop')===0)
+{
+	$sid = substr($_GET['action'],4);
+	if(is_numeric($sid)){
+		__STOP_SINGLE_SERVER__($sid);
+	}
 	header('Location: daemonmng.php');
 }
 
@@ -90,13 +101,15 @@ if ($handle=opendir(GAME_ROOT.'./gamedata/tmp/server'))
 			if ($r=='ok')
 				echo "&nbsp;&nbsp;　&nbsp;&nbsp;进程 {$i}: 端口 <font color=\"blue\">{$key}</font> 状态 ";
 			else  echo "&nbsp;[根]&nbsp;进程 {$i}: 端口 <font color=\"blue\">{$key}</font> 状态 ";
-			echo '<font color="green">正常</font><br>';
+			echo '<font color="green">正常</font>';
 		}
 		else
 		{
 			echo "&nbsp;&nbsp;　&nbsp;&nbsp;进程 {$i}: 端口 <font color=\"blue\">{$key}</font> 状态 ";
-			echo '<font color="red">异常</font> 错误信息：'.$r.'<br>';
+			echo '<font color="red">异常</font> 错误信息：'.$r;
 		}
+		echo '&nbsp;&nbsp;<a href="daemonmng.php?action=stop'.$key.'"><font color="red">[关闭]</font></a>';
+		echo '<br>';
 	}
 	
 	if ($ff)

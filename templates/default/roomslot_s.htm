@@ -17,7 +17,7 @@
 <!--{eval glowbutton\glowbutton_set_style('id:pos'.$i.';color:555555;clickable:1;max-text-width:55;line-height:30;margin-x:30;margin-y:0;');}-->
 <!--{eval glowbutton\glowbutton_set_mousedown_event("$('command').value='pos_enter';$('para1').value=$i;postCmd('roomcmd','roomcmd.php');");}-->
 <!--{else}-->
-<!--{if $roomdata['roomstat']==1 && $roomdata['player'][$i]['name']!='' && $roomdata['player'][$i]['ready']}-->
+<!--{if $roomdata['readystat']==1 && $roomdata['player'][$i]['name']!='' && $roomdata['player'][$i]['ready']}-->
 <!--{eval glowbutton\glowbutton_set_style('id:pos'.$i.';color:88ff88;glow-on-hover:0;clickable:0;max-text-width:55;line-height:30;margin-x:30;margin-y:0;');}-->
 <!--{else}-->
 <!--{eval glowbutton\glowbutton_set_style('id:pos'.$i.';color:ffffff;glow-on-hover:0;clickable:0;max-text-width:55;line-height:30;margin-x:30;margin-y:0;');}-->

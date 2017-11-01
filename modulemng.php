@@ -122,7 +122,9 @@ elseif ($_GET['action']=='save')
 		echo "<span>没有发现致命错误，请阅读以下日志，如没有问题，请点击“<font color=\"red\">应用更改</font>”按钮令更改生效。</span><br><br>";
 		echo "<span><font color=\"green\">没有发现问题。</font></span><br><br>";
 		echo "<span>应用更改可能会花费几秒钟，请耐心等待。</span><br><br>";
-		echo '<a href="modulemng_activate.php" style="text-decoration: none"><span><font color="red">[应用更改]</font></span></a>&nbsp;&nbsp;<a href="modulemng.php?mode=edit" style="text-decoration: none"><span><font color="blue">[返回编辑模式]</font></span></a><br>';   
+		if(isset($_GET['mode']) && 'quick'==$_GET['mode']) $href = 'modulemng_activate.php?mode=quick';
+		else $href = 'modulemng_activate.php';
+		echo '<a href="'.$href.'" style="text-decoration: none"><span><font color="red">[应用更改]</font></span></a>&nbsp;&nbsp;<a href="modulemng.php?mode=edit" style="text-decoration: none"><span><font color="blue">[返回编辑模式]</font></span></a><br>';   
 		copy(GAME_ROOT.'./gamedata/modules.list.php',GAME_ROOT.'./gamedata/modules.list.temp.php');
 		die();
 	}
@@ -172,8 +174,9 @@ elseif ($_POST['action']=='add')
 if($page == 'index') {
 	echo '<br><span><font size=5>模块管理系统</font></span><br><br>';
 	echo show_adv_state().'<br>';
-	echo '<a href="modulemng.php?mode=edit" style="text-decoration: none"><span><font color="red">[进入编辑模式]</font></span></a><br>';
-	echo '<a href="modulemng.php?action=save" style="text-decoration: none"><span><font color="green">[重设代码缓存]</font></span></a><br><br>';  
+	echo '<a href="modulemng.php?mode=edit" style="text-decoration: none"><span><font color="red">[进入编辑模式]</font></span></a> 添加或修改模块可用性。<br>';
+	echo '<a href="modulemng.php?action=save" style="text-decoration: none"><span><font color="green">[重设代码缓存]</font></span></a> 整体重设模块结构和adv模式代码。<br>';
+	echo '<a href="modulemng.php?action=save&mode=quick" style="text-decoration: none"><span><font color="green">[重设代码缓存（快速）]</font></span></a> 只重设有改动的代码函数。新增模块或函数时切勿使用。<br><br>';  
 	//printmodtable(GAME_ROOT.'./gamedata/modules.list.php',1);
 	
 }elseif($page == 'edit'){

@@ -84,17 +84,17 @@ if(empty($rarr))
 
 //房间命令只对处于等待状态的房间有效，除了退出房间命令
 //$rarr=$db->fetch_array($result);
-if ($rarr['groomstatus']!=1 && $command!='leave')
+if (!($rarr['groomstatus'] >= 10 && $rarr['groomstatus'] < 40) && $command!='leave')
 {
 	gexit('房间不在等待状态，命令无效。', __file__, __line__);
 }
 $roomdata = gdecode($rarr['roomvars'] ,1);
 //进入即将开始状态后，任何房间命令均无效，包括退出房间命令
-if ($roomdata['roomstat']==2)
+if ($roomdata['readystat']==2)
 {
 	gexit('房间已开始，命令无效。', __file__, __line__);
 }
-if ($rarr['groomstatus']==2) $runflag = 1; else $runflag = 0;
+if ($rarr['groomstatus'] >= 40) $runflag = 1; else $runflag = 0;
 update_roomstate($roomdata,$runflag);
 if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 	if ($command=='leave')
@@ -112,18 +112,6 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 }else{//非永续房间才进行下列判定
 	//更新踢人状态
 	if(room_auto_kick_check($roomdata)) room_save_broadcast($room_id_r,$roomdata);
-//	if ($roomdata['roomstat']==1 && time()>=$roomdata['kicktime'])
-//	{
-//		$rdplist = & room_get_vars($roomdata, 'player');
-//		$rdpnum = room_get_vars($roomdata, 'pnum');
-//		for ($i=0; $i < $rdpnum; $i++) 
-//			if (!$rdplist[$i]['forbidden'] && !$rdplist[$i]['ready'] && $rdplist[$i]['name']!='')
-//			{
-//				room_new_chat($roomdata,"<span class=\"grey\">{$rdplist[$i]['name']}因为长时间未准备，被系统踢出了位置。</span><br>");
-//				$rdplist[$i]['name']='';
-//			}
-//		room_save_broadcast($room_id_r,$roomdata);
-//	}
 	
 	if ('newchat'==$command)
 	{
@@ -432,7 +420,7 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 		die();
 	}
 	
-	elseif ($command=='ready' && !$not_ready_command_flag)
+	elseif ('ready' == $command && !$not_ready_command_flag)
 	{
 		if($disable_newgame || $disable_newroom)
 		{
@@ -446,7 +434,7 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 //			if (!$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']==$cuser)
 //				$upos = $i;
 		
-		if ($upos>=0 && $roomdata['roomstat']==1 && !$rdplist[$upos]['ready'])
+		if ($upos>=0 && $roomdata['readystat']==1 && !$rdplist[$upos]['ready'] && !room_get_vars($roomdata,'without-ready'))
 		{
 			$rdplist[$upos]['ready']=1;
 			$flag=1;
@@ -457,7 +445,7 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 			room_new_chat($roomdata,"<span class=\"grey\">{$cuser}点击了准备</span><br>");
 			if ($flag) 
 			{
-				$roomdata['roomstat']=2;
+				$roomdata['readystat']=2;
 				room_new_chat($roomdata,"<span class=\"grey\">所有人均已准备，游戏即将开始..</span><br>");
 			}
 			room_save_broadcast($room_id_r,$roomdata);
@@ -467,7 +455,7 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 				//开始游戏，并设置好游戏模式类型（2v2和3v3为队伍胜利模式）
 				//$gametype = 10 + $roomdata['roomtype'];
 				$gamestate = 0;
-				$gametype = $roomtypelist[$roomdata['roomtype']]['gtype'];//hao蠢
+				$gametype = room_get_vars($roomdata,'gtype');//$roomtypelist[$roomdata['roomtype']]['gtype'];//hao蠢
 				$starttime = $now;
 				save_gameinfo();
 				\sys\routine();
@@ -527,14 +515,41 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 				save_gameinfo();
 				
 				//再次广播信息，这次让所有玩家跳转到游戏中
-				$roomdata['roomstat']=0;
-				$db->query("UPDATE {$gtablepre}game SET groomstatus=2 WHERE groomid='$room_id_r'");
+				$roomdata['readystat']=0;
+				$db->query("UPDATE {$gtablepre}game SET groomstatus=40 WHERE groomid='$room_id_r'");
 				$roomdata['timestamp']++;
 				$roomdata['chatdata']=room_init($roomdata['roomtype'])['chatdata'];
 				room_save_broadcast($room_id_r,$roomdata);
 			}
 		}
 	die();
+	}
+	
+	elseif('start' == $command){
+		if($disable_newgame || $disable_newroom)
+		{
+			$db->query("UPDATE {$gtablepre}users SET roomid='0' WHERE username='$cuser'");
+			gexit('系统维护中，暂时不能进入房间。');
+		}
+		$upos = room_upos_check($roomdata);
+		$rdplist = & room_get_vars($roomdata, 'player');
+		$rdpnum = room_get_vars($roomdata, 'pnum');
+		//只有房主可以启动不需要准备的模式的房间的游戏
+		if ($upos==0 && room_get_vars($roomdata,'without-ready'))
+		{
+			$gamestate = 0;
+			$gametype = room_get_vars($roomdata,'gtype');
+			$starttime = $now;
+			save_gameinfo();
+			\sys\routine();
+			$roomdata['readystat']=2;
+			room_save_broadcast($room_id_r,$roomdata);
+			$db->query("UPDATE {$gtablepre}game SET groomstatus=40 WHERE groomid='$room_id_r'");
+			$roomdata['readystat']=0;
+			$roomdata['timestamp']++;
+			$roomdata['chatdata']=room_init($roomdata['roomtype'])['chatdata'];
+			room_save_broadcast($room_id_r,$roomdata);
+		}
 	}
 }
 

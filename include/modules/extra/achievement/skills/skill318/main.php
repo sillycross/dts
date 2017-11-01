@@ -6,8 +6,8 @@ namespace skill318
 	{
 		define('MOD_SKILL318_INFO','achievement;daily;');
 		define('MOD_SKILL318_ACHIEVEMENT_ID','18');
-		eval(import_module('achievement_base'));
-		$ach_allow_mode[318] = array(0, 16);
+//		eval(import_module('achievement_base'));
+//		$ach_allow_mode[318] = array(0, 4, 16);
 	}
 	
 	function acquire318(&$pa)

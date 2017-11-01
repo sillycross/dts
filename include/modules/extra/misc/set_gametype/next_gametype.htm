@@ -1,0 +1,33 @@
+<!--{if !empty($noticelog)}-->
+	<p class="yellow">$noticelog</p>
+<!--{elseif isset($gamevars['next_gametype'])}-->
+	<p class="yellow">下一局标准房的游戏模式已设置为{$gtinfo[$gamevars['next_gametype']]}</p>
+<!--{else}-->
+	<p class="yellow">请选择下一局标准房的游戏模式：</p>
+<!--{/if}-->
+<input type="radio" id="ngametype0" name="ngametype" value="0" 
+	<!--{if isset($gamevars['next_gametype'])}-->
+		disabled
+		<!--{if 0 == $gamevars['next_gametype']}-->
+			checked
+		<!--{/if}-->
+	<!--{/if}-->>
+<!--{if isset($gamevars['next_gametype'])}-->
+	<span <!--{if 0 == $gamevars['next_gametype']}-->class="yellow"<!--{/if}-->>标准模式</span>
+<!--{else}-->
+	<a onclick="sl('ngametype0');">标准模式</a>
+<!--{/if}--><br>
+
+	
+<input type="radio" id="ngametype4" name="ngametype" value="4" 
+	<!--{if isset($gamevars['next_gametype'])}-->
+		disabled
+		<!--{if 4 == $gamevars['next_gametype']}-->
+			checked
+		<!--{/if}-->
+	<!--{/if}-->>
+<!--{if isset($gamevars['next_gametype'])}-->
+	<span <!--{if 4 == $gamevars['next_gametype']}-->class="yellow"<!--{/if}-->>卡片模式</span>
+<!--{else}-->
+	<a onclick="sl('ngametype4');">卡片模式</a>
+<!--{/if}-->

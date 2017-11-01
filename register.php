@@ -38,8 +38,9 @@ if(!isset($cmd)){
 		}else{//现在开始注册
 			$groupid = 1;
 			$credits = 0;
-			$password = md5($npass);
-			$result = $db->query("INSERT INTO {$gtablepre}users (username,password,groupid,ip,credits,gender,icon,motto,killmsg,lastword,gold,cardlist) VALUES ('$username', '$password', '$groupid', '$onlineip', '$credits', '$gender', '$icon', '$motto', '$killmsg', '$lastword','80','0')");
+			$password = create_cookiepass($npass);
+			$stored_password = create_storedpass($username, $password);
+			$result = $db->query("INSERT INTO {$gtablepre}users (username,password,alt_pswd,groupid,ip,credits,gender,icon,motto,killmsg,lastword,gold,cardlist) VALUES ('$username', '$stored_password', 1, '$groupid', '$onlineip', '$credits', '$gender', '$icon', '$motto', '$killmsg', '$lastword','80','0')");
 			if($result){
 				$gamedata['innerHTML']['info'] = $_INFO['reg_success'];
 				$ustate = 'check';

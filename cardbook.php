@@ -34,9 +34,10 @@ if ($_REQUEST["playerID"]=="") {
 }
 
 $userCardData = \cardbase\get_user_cardinfo($n);
-$user_cards = $userCardData['cardlist'];;
+$user_cards = $userCardData['cardlist'];
 $card_energy = $userCardData['cardenergy'];
 $cardChosen = $userCardData['cardchosen'];
+$packlist = \cardbase\pack_filter($packlist);
 
 $pname = $_REQUEST["packName"];
 if ($pname!="") {
@@ -50,10 +51,11 @@ if ($pname!="") {
 			if (array_key_exists($card_index, $pack))
 				$unlock_cards[$card_index]=$pack[$card_index];
 		}
+		
 		$lock_cards = array_diff_key($pack, $unlock_cards);
+		$unlock_cards = \cardbase\card_sort($unlock_cards); $lock_cards = \cardbase\card_sort($lock_cards);
 		$pack_num = count($pack);
 		$unlock_num = count($unlock_cards);
 	}
 }
 include template('card_book');
-

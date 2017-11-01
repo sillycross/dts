@@ -4,8 +4,7 @@ define('CURSCRIPT', 'help');
 define('IN_HELP', TRUE);
 
 require './include/common.inc.php';
-
-eval(import_module('itemmain'));
+eval(import_module('pose','tactic','itemmain','npc'));
 
 include_once GAME_ROOT . './include/itemplace.func.php';
 
@@ -46,29 +45,30 @@ if(!file_exists($writefile) || filemtime($mixfile) > filemtime($writefile)){
 		$classname = $mixclass[$class][0];
 		$classcolor = $mixclass[$class][1];
 		$mixhelpinfo .= "<p><span class=\"$classcolor\">{$classname}合成表</span>：</p>\n";
-		$mixhelpinfo .= 
-		"<table>
-			<tr>
-				<td class=\"b1\" height=20px><span>合成材料一</span></td>
-				<td class=\"b1\"><span>合成材料二</span></td>
-				<td class=\"b1\"><span>合成材料三</span></td>
-				<td class=\"b1\"><span>合成材料四</span></td>
-				<td class=\"b1\"><span>合成材料五</span></td>
-				<td class=\"b1\"></td>
-				<td class=\"b1\"><span>合成结果</span></td>
-				<td class=\"b1\"><span>用途</span></td>
-			</tr>
-			";
+		$mixhelpinfo .= <<<'MIXITEM_HELP_TABLE_TITLE'
+<table>
+	<tr>
+		<td class="b1" height=20px><span>素材1</span></td>
+		<td class="b1"><span>素材2</span></td>
+		<td class="b1"><span>素材3</span></td>
+		<td class="b1"><span>素材4</span></td>
+		<td class="b1"><span>素材5</span></td>
+		<td class="b1"><span>素材6</span></td>
+		<td class="b1"></td>
+		<td class="b1"><span>合成结果</span></td>
+		<td class="b1"><span>用途</span></td>
+	</tr>
+MIXITEM_HELP_TABLE_TITLE;
 		foreach($list as $val){
 			if(!empty($val['result'][4])){$itmskword = '/'.$val['result'][4];}
 			else{$itmskword = '';}
-			if(!isset($val['stuff'][2])){$val['stuff'][2] = '-';}
-			if(!isset($val['stuff'][3])){$val['stuff'][3] = '-';}
-			if(!isset($val['stuff'][4])){$val['stuff'][4] = '-';}
+			for($i = 2;$i < 6; $i++) {
+				if(!isset($val['stuff'][$i])){$val['stuff'][$i] = '-';}
+			}
 			$mixhelpinfo .= 
 			"<tr>
 				<td class=\"b3\" height='19px' title='" . get_item_place ( $val ['stuff'] [0] ) . "'><span>{$val['stuff'][0]}</span></td>";
-			for($i = 1; $i < 5; $i ++) {
+			for($i = 1; $i < 6; $i ++) {
 				$mixhelpinfo .= "<td class=\"b3\"";
 				if ($val ['stuff'] [$i] != '-') {
 					$mixhelpinfo .= "title='" . get_item_place ( $val ['stuff'] [$i] ) . "'";
@@ -223,14 +223,34 @@ OVERLAY_HELP_WRITE_CONTENT;
 }
 
 $npcfile = GAME_ROOT.'./include/modules/base/npc/config/npc.data.config.php';
-include $mixfile;
+$npcfile_i8 = GAME_ROOT.'./include/modules/extra/instance/instance8_proud/config/npc.data.config.php';
+$npcfile_i9 = GAME_ROOT.'./include/modules/extra/instance/instance9_rush/config/npc.data.config.php';
+$npcfile_ev = GAME_ROOT.'./include/modules/extra/club/skills/skill21/config/evonpc.config.php';
+include $npcfile_i8;
+include $npcfile_i9;
+include $npcfile_ev;
+$enpcinfo_show = array();
+foreach ($enpcinfo as $enkey => $enval){
+	$enpcinfo_show[$enkey] = array('sub' => array());
+	foreach($enval as $enval2){
+		$enpcinfo_show[$enkey]['sub'][] = $enval2;
+	}
+}
+$srcfile = GAME_ROOT.TPLDIR.'/npchelp.htm';
 $writefile = GAME_ROOT.TPLDIR.'/tmp_npchelp.htm';
+
 //NPC列表自动生成
-if(!file_exists($writefile) || filemtime($npcfile) > filemtime($writefile)){
-	ob_start();
-	include template('npchelp');
-	$writecont = ob_get_contents();
-	ob_end_clean();
+$need_refresh = 0;
+if(!file_exists($writefile)){
+	$need_refresh = 1;
+}else{
+	foreach(array($npcfile, $npcfile_i8, $npcfile_i9, $npcfile_ev, $srcfile ) as $fv){
+		if(filemtime($fv) > filemtime($writefile)) $need_refresh = 1;
+	}
+}
+
+if($need_refresh){
+	$writecont = dump_template('npchelp');
 	writeover($writefile,$writecont);
 }
 

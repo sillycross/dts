@@ -1,0 +1,18 @@
+<!--{eval $___TEMP_SKILL_ID=486;}-->
+<!--{eval $skill486prob=\skill486\get_skill486prob($who);}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+无垠
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+双方攻击结束时，如果你的HP<1，则有{$skill486prob}%概率变为1。此技能每发动1次，这一概率减半。
+</span></td>
+<td class=b3 width=96>
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

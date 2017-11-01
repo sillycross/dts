@@ -21,9 +21,11 @@ namespace skill214
 		\skillbase\skill_delvalue(214,'choice',$pa);
 	}
 	
-	function check_unlocked214(&$pa)
+	function check_unlocked214(&$pa=NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player'));
+		if(!$pa) $pa = $sdata;
 		return $pa['lvl']>=3;
 	}
 	

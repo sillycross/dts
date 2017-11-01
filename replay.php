@@ -41,12 +41,16 @@ if ($cn>1) { header("Location: winner.php"); exit(); }
 if (strlen($repid)>20) { header("Location: winner.php"); exit(); } 
 
 $repid = $prefix.$repid;
-
 if ($cn==1)
 {
 	if (!file_exists(GAME_ROOT.'./gamedata/replays/'.$repid.'.rep')) 
 	{ 
-		include template('no_replay'); exit(); 
+		if(!file_exists(GAME_ROOT.'./gamedata/replays/'.$repid.'.dat')){
+			include template('no_replay');
+			exit(); 
+		}else{
+			unfold(GAME_ROOT.'./gamedata/replays/'.$repid.'.dat');
+		}
 	} 
 	$rgnum=substr($repid,0,strpos($repid,'.'));
 	$arr=Array(substr($repid,strpos($repid,'.')+1));
@@ -55,7 +59,12 @@ else
 {
 	if (!file_exists(GAME_ROOT.'./gamedata/replays/'.$repid.'.rep.index')) 
 	{ 
-		include template('no_replay'); exit(); 
+		if(!file_exists(GAME_ROOT.'./gamedata/replays/'.$repid.'.dat')){
+			include template('no_replay');
+			exit(); 
+		}else{
+			unfold(GAME_ROOT.'./gamedata/replays/'.$repid.'.dat');
+		}
 	} 
 	$rgnum=$repid;
 	$arr=explode(',',file_get_contents(GAME_ROOT.'./gamedata/replays/'.$repid.'.rep.index'));

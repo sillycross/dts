@@ -18,7 +18,7 @@ Table Design:
 <TABLE border="0" width=720px height=420px align="center" cellspacing="0" cellpadding="0" class="battle">
 	<tr>
 		<td class="b8" valign="top" width=140px rowspan=2>
-			<IMG src="img/$tdata['iconImg']" width=140px border="0" align="middle" <!--{if $w_hp==0}-->style="filter:Xray()"<!--{/if}--> />
+			<IMG src="<!--{eval echo file_exists('img/'.$tdata['iconImgB']) ? 'img/'.$tdata['iconImgB'] : 'img/'.$tdata['iconImg']}-->" width=140px border="0" align="middle" <!--{if $w_hp==0}-->style="filter:Xray()"<!--{/if}--> />
 		</td>
 		<td colspan=2 width=580px>
 		{template MOD_METMAN_ENEMY_PROFILE}
@@ -29,7 +29,7 @@ Table Design:
 			<span><B><FONT color="#ff0000" size="5" face="黑体">$battle_title</FONT></B></span>
 		</TD>
 		<td class="b8" width=140px rowspan="2" valign="bottom">
-			<div style="height:10px">&nbsp;</div><div style="max-height:330px; overflow:hidden;"><IMG src="img/$iconImgB" width=140px border="0" align="middle" <!--{if $hp==0}-->style="filter:Xray()"<!--{/if}--> /></div>
+			<div style="height:10px">&nbsp;</div><div style="max-height:330px; overflow:hidden;"><IMG src="<!--{eval echo file_exists('img/'.$iconImgB) ? 'img/'.$iconImgB : 'img/'.$iconImg}-->" width=140px border="0" align="middle" <!--{if $hp==0}-->style="filter:Xray()"<!--{/if}--> /></div>
 		</td>
 	</TR>
 	<tr>

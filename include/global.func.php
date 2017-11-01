@@ -114,6 +114,15 @@ function language($file, $templateid = 0, $tpldir = '') {
 	}
 }
 
+function dump_template($file, $templateid = 0, $tpldir = ''){
+	extract($GLOBALS);
+	ob_start();
+	include template($file, $templateid, $tpldir);
+	$ret = ob_get_contents();
+	ob_end_clean();
+	return $ret;
+}
+
 function template($file, $templateid = 0, $tpldir = '') {
 	global $tplrefresh;
 
@@ -309,7 +318,7 @@ function create_dir($pa)	//建立目录（自动创建不存在的父文件夹�
 	}
 }
 
-function copy_dir($source, $destination)		//递归复制目录
+function copy_dir($source, $destination, $filetype='')		//递归复制目录
 {   
 	if(!is_dir($destination)) mymkdir($destination);
 	if ($source[strlen($source)-1]=='/') $source=substr($source,0,-1);
@@ -318,7 +327,7 @@ function copy_dir($source, $destination)		//递归复制目录
 	{
 		while (($entry=readdir($handle))!==false)
 		{   
-			if(($entry!=".")&&($entry!=".."))
+			if( $entry!="." && $entry!=".." && (is_dir($source."/".$entry) || !$filetype || $filetype==pathinfo($entry,PATHINFO_EXTENSION) ) )
 			{   
 				if(is_dir($source."/".$entry))
 				{ 
@@ -338,6 +347,41 @@ function copy_dir($source, $destination)		//递归复制目录
 	{
 		echo '&nbsp;&nbsp;&nbsp;&nbsp;<font color=\"red\">copy_dir错误</font>: 进入目录'.$source.'失败。<br>';
 	}
+}
+
+//创建打包文件，先用gencode凑合
+function fold($objfile, $filelist){
+	if(!empty($filelist)){
+		$filedata = array();
+		foreach($filelist as $fv){
+			$filename = pathinfo($fv, PATHINFO_BASENAME);
+			$exname = pathinfo($fv, PATHINFO_EXTENSION);
+			$filedata[$filename] = file_get_contents($fv);
+			if(in_array($exname, array('bmp','png','jpg','gif')))
+				$filedata[$filename] = base64_encode($filedata[$filename]);
+		}
+		$filedata = gencode($filedata);
+		return file_put_contents($objfile, $filedata);
+	}else{
+		return false;
+	}
+}
+
+//在该文件目录展开打包文件，先用gdecode凑合
+function unfold($srcfile){
+	$srcpath = pathinfo($srcfile, PATHINFO_DIRNAME);
+	$filedata = file_get_contents($srcfile);
+	$filedata = gdecode($filedata, 1);
+	if($filedata){
+		foreach($filedata as $fk => $fv){
+			$filename = $srcpath.'/'.$fk;
+			$exname = pathinfo($fk, PATHINFO_EXTENSION);
+			if(in_array($exname, array('bmp','png','jpg','gif')))
+				$fv = base64_decode($fv);
+			file_put_contents($filename, $fv);
+		}
+		return 1;
+	}else	return 0;
 }
 
 //以post形式向网页发出信息
@@ -406,6 +450,16 @@ function check_alnumudline($key)
 	return true;
 }
 
+function token_get_all_dic($code){
+	$r = token_get_all($code);
+	for($i=0;$i<sizeof($r);$i++){
+		if(is_array($r[$i])){
+			$r[$i][0] = token_name($r[$i][0]);
+		}
+	}
+	return $r;
+}
+
 //----------------------------------------
 //              变量处理
 //----------------------------------------
@@ -451,6 +505,19 @@ function combination($a, $m) {
   }  
   return $r;  
 } 
+
+function seconds2hms($seconds){
+	list($d, $h, $m, $s) = explode(' ', gmstrftime('%j %H %M %S', $seconds));
+	$d=(int)$d - 1;
+	$h = (int)$h; $m = (int)$m; $s = (int)$s;
+	$ret = '';
+	if($d) $ret .= $d.'天';
+	if($h) $ret .= $h.'小时';
+	if($m) $ret .= $m.'分钟';
+	if($s) $ret .= $s.'秒';
+	
+	return $ret;
+}
 
 //----------------------------------------
 //              数组运算
@@ -619,6 +686,7 @@ function init_dbstuff(){
 function check_authority()
 {
 	include GAME_ROOT.'./include/modules/core/sys/config/server.config.php';
+	include_once GAME_ROOT.'./include/user.func.php';
 	$_COOKIE=gstrfilter($_COOKIE);
 	$cuser=$_COOKIE[$gtablepre.'user'];
 	$cpass=$_COOKIE[$gtablepre.'pass'];
@@ -626,7 +694,7 @@ function check_authority()
 	$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$cuser'");
 	if(!$db->num_rows($result)) { echo "<span><font color=\"red\">Cookie无效，请登录。</font></span><br>"; die(); }
 	$udata = $db->fetch_array($result);
-	if($udata['password'] != $cpass) { echo "<span><font color=\"red\">Cookie无效，请登录。</font></span><br>"; die(); }
+	if(!pass_compare($udata['username'],$cpass,$udata['password'])) { echo "<span><font color=\"red\">密码错误，请重新登录并重试。</font></span><br>"; die(); }
 	elseif(($udata['groupid'] < 9)&&($cuser!==$gamefounder)) { echo "<span><font color=\"red\">要求至少9权限。</font></span><br>"; die(); }
 }
 
@@ -712,7 +780,7 @@ function get_credit_up($data,$winner = '',$winmode = 0){
 		else{$up = 50;}//其他胜利方式+50（暂时没有这种胜利方式）
 	}
 	elseif($data['hp']>0){$up = 25;}//存活但不是获胜者+25
-	else{$up = 10;}//死亡+5
+	else{$up = 10;}//死亡+10
 	if($data['killnum']){
 		$up += $data['killnum'] * 2;//杀一玩家/NPC加2
 	}

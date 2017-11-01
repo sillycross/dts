@@ -3,6 +3,8 @@
 namespace achievement_base
 {
 	$achtype=array(
+		31=>'2017十一活动成就',
+		32=>'2017万圣节活动成就',
 		20=>'日常任务',
 		10=>'结局成就',
 		3=>'战斗成就',
@@ -19,21 +21,51 @@ namespace achievement_base
 		4=>array(325,313,326),
 		10=>array(305,301,306,307),
 		20=>array(314,315,316,317,318,319,320,321,324),
+		31=>array(327,328,329),
+		32=>array(330,331)
 	);
-	//成就编号=>允许完成的模式，未定义则用0键（只有正常游戏可以完成）
+	$ach_available_period=array(//如果设置，则非零的数据认为是起止时间
+		31=>array(1506816000, 1508111999),
+		32=>array(1509465600, 1510012799),
+	);
+	//成就编号=>允许完成的模式，未定义则用0键的数据（只有标准模式、卡片模式可以完成）
 	$ach_allow_mode=array(
-		0=>array(0),
+		0=>array(0, 4),
+		307 => array(0, 4, 16),//解离成就，实际位于skill307
+		313 => array(15),//伐木模式成就，实际位于skill313
+		318 => array(0, 4, 16),//日常解离成就，实际位于skill318
+		323 => array(0, 4, 16),//最速解离成就，实际位于skill323
+		327 => array(18),//2017年十一活动，荣耀房NPC成就
+		328 => array(18),//2017年十一活动，荣耀房杀玩家成就
+		329 => array(18),//2017年十一活动，荣耀房破灭之诗成就
+		330 => array(0, 4, 19),//2017万圣节活动成就1，允许极速房完成
+		331 => array(0, 4, 19),//2017万圣节活动成就2，允许极速房完成
 	);
 	
-	function init() {}
+	function init() {
+	}
+	
+	function ach_init(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('achievement_base'));
+		foreach($achtype as $ak => $av){
+			if(!check_achtype_available($ak)){//未开始直接不显示
+				unset($achtype[$ak]);
+			}elseif(2 == check_achtype_available($ak)){//过期的放后面
+				unset($achtype[$ak]);
+				$achtype[$ak] = $av;
+			}
+		}
+	}
 	
 	function skill_onload_event(&$pa)//技能模块载入时直接加载所有成就
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','achievement_base'));
 		$alist = array();
-		foreach($achlist as $av){
-			$alist = array_merge($alist, $av);
+		foreach($achlist as $atk => $atv){
+			if( 1 == check_achtype_available($atk))
+				$alist = array_merge($alist, $atv);
 		}
 		foreach($alist as $av){
 			//只有玩家可以获得成就技能
@@ -62,7 +94,7 @@ namespace achievement_base
 			$achdata=explode(';',$ach);
 			$maxid=count($achdata)-2;
 			foreach (\skillbase\get_acquired_skill_array($edata) as $key) //也就是说，允许先进游戏后换每日任务，甚至可以先清场，结束前换每日任务
-				if (defined('MOD_SKILL'.$key.'_INFO') && defined('MOD_SKILL'.$key.'_ACHIEVEMENT_ID'))
+				if (defined('MOD_SKILL'.$key.'_INFO') && defined('MOD_SKILL'.$key.'_ACHIEVEMENT_ID') && 1 == check_achtype_available($key))
 					if (\skillbase\check_skill_info($key, 'achievement'))
 					{
 						$id=((int)(constant('MOD_SKILL'.$key.'_ACHIEVEMENT_ID')));
@@ -152,6 +184,18 @@ namespace achievement_base
 		for ($i=0; $i<=$maxid; $i++)
 			$nachdata.=$achdata[$i].';';
 		$db->query("UPDATE {$gtablepre}users SET n_achievements = '$nachdata' WHERE username='$un'");
+	}
+	
+	function check_achtype_available($achid){//0 未开始； 1 进行中； 2 过期
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','achievement_base'));
+		$ret = 1;
+		if(isset($ach_available_period[$achid])){
+			list($achstart, $achend) = $ach_available_period[$achid];
+			if(!empty($achstart) && $now < $achstart) $ret = 0;
+			if(!empty($achend) && $now > $achend) $ret = 2;
+		}
+		return $ret;
 	}
 }
 

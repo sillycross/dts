@@ -35,7 +35,6 @@ if($command == 'edit') {
 			'hack_obbs'=>'int'
 		),
 		'map' => array(
-			'areahour'=>'int',
 			'areaadd'=>'int',
 			'areawarntime'=>'int',
 			'arealimit'=>'int',
@@ -43,10 +42,6 @@ if($command == 'edit') {
 		),
 		'gameflow_antiafk' => array(
 			'antiAFKertime'=>'int'
-		),
-		'gameflow_combo' => array(
-			'combolimit'=>'int',
-			'deathlimit'=>'int'
 		),
 		'corpse' => array(
 			'corpseprotect'=>'int'

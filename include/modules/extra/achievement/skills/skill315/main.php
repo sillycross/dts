@@ -38,13 +38,14 @@ namespace skill315
 	
 	function player_kill_enemy(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ((\skillbase\skill_query(315,$pa))&&($pd['type']==0))
+		$chprocess($pa, $pd, $active);
+		if ( \skillbase\skill_query(315,$pa) && $pd['type']==0 && $pd['hp'] <= 0)
 		{
 			$x=(int)\skillbase\skill_getvalue(315,'cnt',$pa);
 			$x+=1;
 			\skillbase\skill_setvalue(315,'cnt',$x,$pa);
 		}
-		$chprocess($pa, $pd, $active);
+		
 	}	
 	
 	function show_achievement315($data)

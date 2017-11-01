@@ -74,14 +74,14 @@ namespace skill426
 			$log.='技能冷却中！<br>';
 			return;
 		}
-		if (($hp>=$mhp)&&($sp>=$msp)){
-			$log.='你的生命和体力都不需要恢复。<br>';
+		if ( $hp>=$mhp && $sp>=$msp && empty($inf)){
+			$log.='你十分健康，不需要使用这个技能。<br>';
 			return;
 		}
 		\skillbase\skill_setvalue(426,'lastuse',$now);
-		$hp=max($hp,$mhp);$sp=max($sp,$msp);
+		$hp=max($hp,$mhp);$sp=max($sp,$msp);$inf = '';
 		$log.='<span class="lime">技能「整备」发动成功。</span><br>';
-		$log.='<span class="lime">生命和体力已恢复到最大。</span><br>';
+		$log.='<span class="lime">你的身体已经焕然一新了！</span><br>';
 	}
 	
 	function check_skill426_state(&$pa){

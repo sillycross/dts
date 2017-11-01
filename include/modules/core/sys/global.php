@@ -192,11 +192,14 @@ namespace sys
 	
 	function getchat($last,$team='',$chatpid=0,$limit=0) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys'));
+		$chatdata = Array('lastcid' => $last, 'msg' => array());
+		eval(import_module('sys', 'input'));
+		//如果拉取的房间号同账号不对应（另一窗口换了房间）或者游戏局数不对应（该房间重开了游戏）则返回
+		if((isset($cgamenum) && $gamenum != $cgamenum) || (isset($croomid) && $groomid != $croomid)) return $chatdata;
 		$limit = $limit ? $limit : $chatlimit;
 		$result = $db->query("SELECT * FROM {$tablepre}chat WHERE cid>'$last' AND (recv='' OR (type='1' AND recv='$team') OR (type!='1' AND recv='$chatpid')) ORDER BY cid desc LIMIT $limit");
-		$chatdata = Array('lastcid' => $last, 'msg' => '');
-		if(!$db->num_rows($result)){$chatdata = array('lastcid' => $last, 'msg' => '');return $chatdata;}
+		
+		if(!$db->num_rows($result)){$chatdata = array('lastcid' => $last, 'msg' => array());return $chatdata;}
 		
 		while($chat = $db->fetch_array($result)) {
 			//if(!$chatdata['lastcid']){$chatdata['lastcid'] = $chat['cid'];}
@@ -237,6 +240,49 @@ namespace sys
 		}
 		$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,msg) VALUES ('5','$time','','$msg')");
 		return;
+	}
+	
+	function user_set_gamevars_list_init($registered_gamevars = array()){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		return $registered_gamevars;
+	}
+	
+	//由玩家设定下一局游戏的值
+	function user_set_gamevars($input_gamevars){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		eval(import_module('sys'));
+		$ret = array(
+			'notice' => array()
+		);
+		$valid_gamevars = array();
+		$registered_gamevars = user_set_gamevars_list_init();
+		foreach ($registered_gamevars as $rgkey){
+			if(isset($input_gamevars[$rgkey])){
+				if (isset($gamevars[$rgkey])){
+					$ret['notice'][$rgkey] = '你已经设定过下一局的'.$gamevarsinfo[$rgkey].'了。';
+				}else{
+					$ret['notice'][$rgkey] = user_set_gamevars_process($rgkey, $input_gamevars[$rgkey], $valid_gamevars);
+//					$ret['notice'][$rgkey] = '已设定下一局游戏的'.$gamevarsinfo[$rgkey].'！';
+//					$valid_gamevars[$rgkey] = $input_gamevars[$rgkey];
+				}
+			}
+		}
+		if(!empty($valid_gamevars)) $gamevars = $valid_gamevars;
+		save_gameinfo();
+		return $ret;
+	}
+	
+	function user_set_gamevars_process($gamevar_key,$gamevar_val,&$valid_gamevars){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		$valid_gamevars[$gamevar_key] = $gamevar_val;
+		$retlog = '已设定下一局游戏的'.$gamevarsinfo[$gamevar_key].'！';
+		return $retlog;
+	}
+	
+	function user_display_gamevars_setting($show = array()){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $show;
 	}
 }
 

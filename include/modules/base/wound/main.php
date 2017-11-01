@@ -161,7 +161,7 @@ namespace wound
 				if ($str!='') $str.='、';
 				$str.=$value;
 			}
-		if ($str!='') $str='敌人的攻击导致你'.$str.'了！<br>';
+		if ($str!='') $str='这场战斗导致你'.$str.'了！<br>';
 		
 		if ($active)
 			$pd['battlelog'] .= $str;

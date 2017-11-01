@@ -117,13 +117,15 @@ namespace item_misc
 					$itms0=1;
 					$itmsk0='';
 					\itemmain\itemget();
-					for ($i=1;$i<=6;$i++){
-						if(!${'itms'.$i}) {
-							${'itm'.$i} = $tmp_itm; ${'itmk'.$i} = $tmp_itmk; ${'itmsk'.$i} = $tmp_itmsk;
-							${'itme'.$i} = $tmp_itme; ${'itms'.$i} = $tmp_itms;
-							break;
+					if(isset($tmp_itm)){
+						for ($i=1;$i<=6;$i++){
+							if(!${'itms'.$i}) {
+								${'itm'.$i} = $tmp_itm; ${'itmk'.$i} = $tmp_itmk; ${'itmsk'.$i} = $tmp_itmsk;
+								${'itme'.$i} = $tmp_itme; ${'itms'.$i} = $tmp_itms;
+								break;
+							}
 						}
-					}
+					}					
 				}
 				return;
 			}elseif ($itm == '『S.C.R.A.P』') {
@@ -168,7 +170,8 @@ namespace item_misc
 				$result = $db->fetch_array($result);
 				$ugroupid = $result['groupid'];
 				$upassword = $result['password'];
-				if($cpass == $upassword && ($ugroupid >= 5 || $cuser == $gamefounder)){
+				include_once GAME_ROOT.'./include/user.func.php';
+				if(pass_compare($cuser, $cpass, $upassword) && ($ugroupid >= 5 || $cuser == $gamefounder)){
 					$log.='大逃杀幻境已确认你的权限狗身份，正在为你输送权限套装……<br>';
 					$wp=$wk=$wg=$wc=$wd=$wf=666;
 					$ss=$mss=600;

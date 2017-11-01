@@ -39,7 +39,7 @@ namespace skill39
 			$log.='技能点指令错误！<br>';
 			return;
 		}
-		if ($skillpoint<1) 
+		if ($skillpoint<1 || $skillpoint < $skillpara1) 
 		{
 			$log.='技能点不足。<br>';
 			return;

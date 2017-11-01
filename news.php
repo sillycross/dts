@@ -1,9 +1,7 @@
 <?php
 
 define('CURSCRIPT', 'news');
-
 require './include/common.inc.php';
-//$t_s=getmicrotime();
 
 $newsfile = GAME_ROOT.'./gamedata/tmp/news/newsinfo_'.$room_prefix.'.php';
 $newshtm = GAME_ROOT.'./gamedata/tmp/news/newsinfo_'.$room_prefix.'.htm';
@@ -56,7 +54,4 @@ if (isset($sendmode) && $sendmode == 'news' && isset($lastnid)) {//ÓÎÏ·Ò³Ãæ²é¿´½
 } else {
 	include template('news');
 }
-//$t_e=getmicrotime();
-//putmicrotime($t_s,$t_e,'news_time');
-
 ?>

@@ -21,6 +21,17 @@ namespace battle
 		return 1;
 	}
 	
+	//输入：类似"<:pa_name:>攻击了<:pd_name:>"这样的字符串，并自动替换"你"或者对方的玩家名
+	function battlelog_parser(&$pa, &$pd, $active, $battlelogstr){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if($active){
+			$pa_name = '你'; $pd_name = $pd['name'];
+		}else{
+			$pa_name = $pa['name']; $pd_name = '你';
+		}
+		return str_replace('<:pa_name:>', $pa_name, str_replace('<:pd_name:>', $pd_name, $battlelogstr));
+	}
+	
 	function attack_wrapper(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -50,16 +61,23 @@ namespace battle
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('logger'));
-		if ($active)
-		{
-			$log .= "<span class=\"red\">你处于无法反击的状态，逃跑了！</span><br>";
-			$pd['battlelog'] .= "其无法反击，逃跑了。<br>";
+		if(isset($pa['out_of_range'])){
+			$log .= battlelog_parser($pa, $pd, $active, '<span class="red"><:pa_name:>射程不足，无法反击，逃跑了！</span><br>');
+			$pd['battlelog'] .= battlelog_parser($pa, $pd, 1-$active,'<:pa_name:>射程不足，无法反击，逃跑了。<br>');
+		}else{
+			$log .= battlelog_parser($pa, $pd, $active, '<span class="red"><:pa_name:>没能及时反击，逃跑了！</span><br>');
+			$pd['battlelog'] .= battlelog_parser($pa, $pd, 1-$active,'<:pa_name:>没能及时反击，逃跑了。<br>');
 		}
-		else
-		{
-			$log .= "<span class=\"red\">敌人处于无法反击的状态，逃跑了！</span><br>";
-			$pa['battlelog'] .= "你无法反击，逃跑了。<br>";
-		}
+//		if ($active)
+//		{
+//			$log .= "<span class=\"red\">你处于无法反击的状态，逃跑了！</span><br>";
+//			$pd['battlelog'] .= "其无法反击，逃跑了。<br>";
+//		}
+//		else
+//		{
+//			$log .= "<span class=\"red\">敌人处于无法反击的状态，逃跑了！</span><br>";
+//			$pa['battlelog'] .= "你无法反击，逃跑了。<br>";
+//		}
 	}
 	
 	function cannot_counter(&$pa, &$pd, $active)
@@ -92,7 +110,7 @@ namespace battle
 				$pa['counter_assaulted']=0;
 				cannot_counter($pa,$pd,$active);
 			}
-			unset($pa['is_counter']);
+			unset($pa['is_counter'], $pa['out_of_range']);
 		}
 	}
 	

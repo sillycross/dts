@@ -80,17 +80,18 @@ namespace empowers
 		
 		eval(import_module('sys','player','itemmain','logger'));
 		
-		if (! $weps || ! $wepe) {
+		if (! $weps || ! $wepe || strpos($wepk,'W')!==0) {
 			$log .= '请先装备武器。<br>';
 			return 0;
 		}
-		
+
 		$dice = rand ( 0, 99 );
 		$dice2 = rand ( 0, 99 );
 		$skill = array ('WP' => $wp, 'WK' => $wk, 'WG' => $wg, 'WC' => $wc, 'WD' => $wd, 'WF' => $wf );
 		arsort ( $skill );
 		$skill_keys = array_keys ( $skill );
 		$nowsk = substr ( $wepk, 0, 2 );
+		if('WJ' == $nowsk) $nowsk = 'WG';
 		$maxsk = $skill_keys [0];
 		if (($skill [$nowsk] != $skill [$maxsk]) && ($dice < 30)) {
 			$wepk = $maxsk;

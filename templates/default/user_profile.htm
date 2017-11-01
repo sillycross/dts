@@ -1,7 +1,6 @@
 {template header}
 <div class="subtitle" align="center">{lang user}</div>
 <center>
-	<div style="width:600px;text-align:left;"><span style="line-height:30px;font-size:15px;">账户基本资料</span></div>
 	<table style="text-align: center;" CellSpacing=0 CellPadding=0>
 	<tr>
 		<td>
@@ -77,21 +76,7 @@
 	</table>
 	<div style="width:600px;text-align:center;"><span class="clan">点击天梯积分和身份卡可以查看详细信息</span></div>
 	<!--{if defined('MOD_ACHIEVEMENT_BASE')}-->
-		<table>
-		<!--{eval eval(import_module('achievement_base'));}-->
-		<!--{loop $achtype $k $v}-->
-			<tr><td>
-			<span class="subtitle" align="left">$v</span>
-			<!--{if $v=='日常任务'}-->
-			<!--{if $curuser}--><!--{if !$ff}--><span class="yellow">下次可获取每日任务时间：{$ftd}</span><!--{else}--><button type="button" onclick="window.location.href='user_profile.php?action=refdaily';this.disabled=true">点击获得新的每日任务</button><!--{/if}--><!--{/if}-->
-			<br>
-			<!--{/if}-->
-			<table border="1">
-				<!--{eval \achievement_base\show_achievements($username,$k);}-->
-			</table>
-			</td></tr>
-		<!--{/loop}-->
-		</table>
+		{template achievements}
 	<!--{/if}-->
 	<br><br>
 </center>
@@ -136,19 +121,6 @@
 <input class="cmdbutton" onclick="bubblebox_hide_all();" value="关闭窗口" type="button">
 </p>
 {template MOD_BUBBLEBOX_END}
-
-<!--{if $refdaily_flag}-->
-<!--{eval \bubblebox\bubblebox_set_style('id:newdailyquest;height:200;width:930;cancellable:1;');}-->
-{template MOD_BUBBLEBOX_START}
-<div class="subtitle">获得的每日任务：</div>
-<table border="1">
-<!--{eval \achievement_base\show_achievements($username,20);}-->
-</table>
-<br>
-<button type="button" onclick="bubblebox_hide_all();">关闭</button> 点击气泡框外任意位置也可关闭窗口
-{template MOD_BUBBLEBOX_END}
-<script>bubblebox_show('newdailyquest');</script>
-<!--{/if}-->
 
 {template footer}
 

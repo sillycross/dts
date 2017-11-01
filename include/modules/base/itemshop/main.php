@@ -32,7 +32,7 @@ namespace itemshop
 			$qry = '';
 			foreach($shoplist as $lst){
 				if(!empty($lst) && strpos($lst,',')!==false){
-					list($kind,$num,$price,$area,$item,$itmk,$itme,$itms,$itmsk)=explode(',',$lst);
+					list($kind,$num,$price,$area,$item,$itmk,$itme,$itms,$itmsk)=shopitem_data_process(explode(',',$lst));
 					if($kind != 0){
 						$qry .= "('$kind','$num','$price','$area','$item','$itmk','$itme','$itms','$itmsk'),";
 					}
@@ -43,6 +43,12 @@ namespace itemshop
 			}
 			$db->query($qry);
 		}
+	}
+	
+	//某些模式特殊处理数据
+	function shopitem_data_process($data){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		return $data;
 	}
 	
 	function prepare_shopitem($sn)

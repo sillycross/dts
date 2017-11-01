@@ -23,7 +23,7 @@ function closeroom($rid=1){
 		$cmd_info .= '房间已经关闭！<br>';
 		return;
 	}
-	if ($rarr['groomstatus']==2 || $rarr['gamestate'] > 0)
+	if ($rarr['groomstatus']==40 || $rarr['gamestate'] > 0)
 	{
 		$cmd_info .= '不能关闭游戏中的房间！<br>';
 		return;

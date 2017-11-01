@@ -40,7 +40,7 @@ namespace skill602
 		$e = 0;
 		if (\skillbase\skill_query(602,$pa))
 		{
-			$e = (int)\skillbase\skill_getvalue(602,'end',$pa); 
+			$e = floor(\skillbase\skill_getvalue(602,'end',$pa)); 
 			if ($ct>=$e) $flag=0;
 		}
 		else  $flag=0;
@@ -102,8 +102,8 @@ namespace skill602
 		if (\skillbase\skill_query(602,$sdata))
 		{
 			eval(import_module('skill602','skillbase'));
-			$skill602_start = (int)\skillbase\skill_getvalue(602,'start'); 
-			$skill602_end = (int)\skillbase\skill_getvalue(602,'end'); 
+			$skill602_start = floor(\skillbase\skill_getvalue(602,'start')); 
+			$skill602_end = floor(\skillbase\skill_getvalue(602,'end')); 
 			$z=Array(
 				'disappear' => 1,
 				'clickable' => 0,
@@ -177,7 +177,7 @@ namespace skill602
 		if (\skillbase\skill_query(602,$sdata))
 		{
 			$ct = floor(getmicrotime()*1000);
-			$e = (int)\skillbase\skill_getvalue(602,'end'); 
+			$e = floor(\skillbase\skill_getvalue(602,'end')); 
 			$rmt = $e - $ct;
 			if ($ct<$e)
 			{

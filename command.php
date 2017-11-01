@@ -4,7 +4,6 @@ defined('IN_GAME') || define('IN_GAME', TRUE);
 defined('IN_COMMAND') || define('IN_COMMAND', TRUE);
 defined('CURSCRIPT') || define('CURSCRIPT', 'game');
 defined('GAME_ROOT') || define('GAME_ROOT', dirname(__FILE__).'/');
-
 require GAME_ROOT.'./include/modulemng/modulemng.config.php';
 
 if ($___MOD_SRV)
@@ -262,7 +261,7 @@ if ($___MOD_SRV)
 	
 		if ($handle=opendir(GAME_ROOT.'./gamedata/tmp/server')) 
 		{
-			$flag=0; $srvlist=Array(); $chosen=-1;
+			$flag=0; $srvlist=Array(); $chosen=-1; $touch_error_list=array();
 			while (($sid=readdir($handle))!==false) 
 			{
 				if ($sid=='.' || $sid=='..') continue;
@@ -273,6 +272,11 @@ if ($___MOD_SRV)
 					array_push($srvlist,$sid);
 					$flag=1;
 					if (file_exists(GAME_ROOT.'./gamedata/tmp/server/'.$sid.'/busy')) continue;
+					$touchflag = __SEND_TOUCH_CMD__($sid);
+					if ('ok' != $touchflag && 'ok_root' != $touchflag) {
+						$touch_error_list[]=$sid;
+						continue;
+					}
 					$chosen = $sid; break;
 				}
 			}
@@ -285,6 +289,24 @@ if ($___MOD_SRV)
 			}
 			__SOCKET_DEBUGLOG__("选择了端口号为 ".$chosen.'的服务器 。');
 			$___TEMP_CONN_PORT=$chosen;
+			
+			$auto_server_file = GAME_ROOT.'./gamedata/tmp/server/auto_requested_new_server';
+			if (!empty($touch_error_list)) //请求daemonmng.php关闭检测到的异常进程
+			{
+				if(!file_exists($auto_server_file)){
+					touch($auto_server_file);
+					$daemonmng_url = 'http://'.$_SERVER['HTTP_HOST'].substr($_SERVER['PHP_SELF'],0,-11).'daemonmng.php';
+					foreach($touch_error_list as $tev){
+						$get_var = 'action=stop'.$tev.'&in_game_pass='.substr(base64_encode($___MOD_CONN_PASSWD),0,6);
+						file_get_contents($daemonmng_url.'?'.$get_var);
+					}
+				}else{
+					__SOCKET_ERRORLOG__("服务器连接错误，且尝试自动重启socket失败。");
+				}				
+			}else{
+				if(file_exists($auto_server_file)) unlink($auto_server_file);
+			}
+			unset($touch_error_list, $auto_server_file, $touchflag, $daemonmng_url, $get_var);
 		}
 		else  __SOCKET_ERRORLOG__('无法打开gamedata/tmp/server目录。');
 		
@@ -368,7 +390,8 @@ if($pdata['pass'] != $cpass) {
 	$tr = $db->query("SELECT `password` FROM {$gtablepre}users WHERE username='$cuser'");
 	$tp = $db->fetch_array($tr);
 	$password = $tp['password'];
-	if($password == $cpass) {
+	include_once './include/user.func.php';
+	if(pass_compare($cuser, $cpass, $password)) {
 		$db->query("UPDATE {$tablepre}players SET pass='$password' WHERE name='$cuser'");
 	} else {
 		gexit($_ERROR['wrong_pw'],__file__,__line__);
@@ -435,30 +458,22 @@ if($hp <= 0) {
 		$result = $db->query("SELECT name FROM {$tablepre}players WHERE pid='$bid'");
 		if($db->num_rows($result)) { $kname = $db->result($result,0); }
 	}
-	ob_clean();
-	include template('death');
-	$gamedata['innerHTML']['cmd'] = ob_get_contents();
+	$gamedata['innerHTML']['cmd'] = dump_template('death');
 	$mode = 'death';
-} elseif($cmd){	
+} elseif($cmd){
 	$gamedata['innerHTML']['cmd'] = $cmd;
 } elseif($itms0){
-	ob_clean();
-	include template(MOD_ITEMMAIN_ITEMFIND);
-	$gamedata['innerHTML']['cmd'] = ob_get_contents();
+	$gamedata['innerHTML']['cmd'] = dump_template(MOD_ITEMMAIN_ITEMFIND);
 } elseif($state == 1 || $state == 2 || $state ==3) {
-	ob_clean();
-	include template('rest');
-	$gamedata['innerHTML']['cmd'] = ob_get_contents();
+	$gamedata['innerHTML']['cmd'] = dump_template('rest');
 } elseif(!$cmd) {
-	ob_clean();
 	if($mode != 'command' && $mode&&(file_exists($mode.'.htm') || file_exists(GAME_ROOT.TPLDIR.'/'.$mode.'.htm'))) {
-		include template($mode);
+		$gamedata['innerHTML']['cmd'] = dump_template($mode);
 	} elseif(defined('MOD_TUTORIAL') && $gametype == 17){
-		include template(MOD_TUTORIAL_TUTORIAL);
+		$gamedata['innerHTML']['cmd'] = dump_template(MOD_TUTORIAL_TUTORIAL);
 	}	else {
-		include template('command');
+		$gamedata['innerHTML']['cmd'] = dump_template('command');
 	}
-	$gamedata['innerHTML']['cmd'] = ob_get_contents();
 } else {
 	$log .= '游戏流程故障，请联系管理员<br>';
 }
@@ -471,9 +486,8 @@ if(!empty($uip['src'])) {$gamedata['src'] = array_merge($gamedata['src'], $uip['
 
 //$gamedata['innerHTML']['pls'] = $plsinfo[$pls];
 //if ($gametype!=2) $gamedata['innerHTML']['anum'] = $alivenum; else $gamedata['innerHTML']['anum'] = $validnum;
-ob_clean();
-$main ? include template($main) : include template('profile');
-$gamedata['innerHTML']['main'] = ob_get_contents();
+$gamedata['innerHTML']['main'] = dump_template($main ? $main : 'profile');
+
 if(isset($error)){$gamedata['innerHTML']['error'] = $error;}
 
 
@@ -502,6 +516,5 @@ echo $jgamedata;
 
 \player\update_sdata();
 \player\player_save($sdata);
-
 
 ?>

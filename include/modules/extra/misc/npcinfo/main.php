@@ -19,29 +19,44 @@ namespace npcinfo
 		}
 	}
 	
-	function npcinfo_get_npc_description($npckind, $npcsubkind, &$npcdata = NULL)
+	function npcinfo_get_npc_description($npckind, $npcsubkind, $npcdata = NULL, $ninfo_custom = NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		eval(import_module('sys','player','clubbase','npc','tactic','pose','map'));
+		if($ninfo_custom) {
+			$o_npcinfo = $npcinfo;
+			$npcinfo =$ninfo_custom;
+		}
 		$nownpc = array_merge($npcinit,$npcinfo[$npckind]);
 		$nownpc = array_merge($nownpc,$npcinfo[$npckind]['sub'][$npcsubkind]);
-		if ($nownpc['mode']==3){//有大头像
-			$nownpc['icon'].='a';
-		}
+		//操，玩家头像带a是大头像，NPC带a是小头像，谁想的数据结构，脚趾头长大脑里了吗
+//		if ($nownpc['mode']==3){//有大头像
+//			$nownpc['icon'].='a';
+//		}
 		if ($npcdata)
 			$nownpc = array_merge($nownpc,$npcdata);
 		else  $nownpc['___count']=ceil($npcinfo[$npckind]['num']/sizeof($npcinfo[$npckind]['sub']));
 		include template('MOD_NPCINFO_NPCINFO');
+		if($ninfo_custom) {
+			$npcinfo = $o_npcinfo;
+		}
 	}
 	
-	function npcinfo_get_npc_description_all($npckind)
+	function npcinfo_get_npc_description_all($npckind, $ninfo_custom = NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		eval(import_module('npc'));
+		if($ninfo_custom) {
+			$o_npcinfo = $npcinfo;
+			$npcinfo =$ninfo_custom;
+		}
 		foreach ($npcinfo[$npckind]['sub'] as $key => $value)
 		{
-			npcinfo_get_npc_description($npckind, $key);
+			npcinfo_get_npc_description($npckind, $key, NULL, $ninfo_custom);
 			echo '<br>';
+		}
+		if($ninfo_custom) {
+			$npcinfo = $o_npcinfo;
 		}
 	}
 }

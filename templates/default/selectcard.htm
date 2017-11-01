@@ -1,6 +1,6 @@
 <!--{eval if (!isset($cardChosen)) $cardChosen=0; }-->
 <!--{eval $chosencard=$cardChosen; }-->
-<!--{eval $current_pack = array_search($cards[$chosencard]['pack'],$packlist);}-->
+<!--{eval $current_pack = !in_array($cards[$chosencard]['pack'],$packlist) ? 0 : array_search($cards[$chosencard]['pack'],$packlist);}-->
 <!--{eval if (!isset($hideDisableButton)) $hideDisableButton = 0;}-->
 <script>
 carderrmsg = <!--{eval if (isset($card_error)) echo json_encode($card_error); else echo 0;}-->;
@@ -127,9 +127,12 @@ handleShowCardErrorMouseOut = function()
 									onmouseout="handleShowCardMouseOut($cardid);" 
 									onmousedown="handleShowCardMouseClick($cardid);"></div>
 								<!--{else}-->
-								<!--{eval $nowcarderror = $card_error[$card_disabledlist[$cardid]];}-->
 								<div id="carderr$cardid" style="position:absolute; top:0px; left:0px; height:25px; width:170px;"
-									title="$nowcarderror"></div>
+									title="
+									<!--{loop $card_disabledlist[$cardid] $cdlv}-->
+									$card_error[$cdlv]<br>
+									<!--{/loop}-->
+									"></div>
 								<!--{/if}-->
 							</div>
 							<!--{eval $row=$row+1; $last=$cardid;}-->

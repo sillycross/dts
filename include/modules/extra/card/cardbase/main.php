@@ -6,17 +6,25 @@ namespace cardbase
 
 	function get_user_cards($username){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player'));
+		eval(import_module('sys'));
 		$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$username'");
 		$udata = $db->fetch_array($result);
-		if ($udata['cardlist']=="")
-		{
-			$udata['cardlist']="0";
-			$db->query("UPDATE {$gtablepre}users SET cardlist='{$udata['cardlist']}' WHERE username = '$username'");
-		}
-		$cardlist = explode('_',$udata['cardlist']);
+		$cardlist = get_user_cards_process($udata);
 		return $cardlist;
 	}	
+	
+	function get_user_cards_process($udata){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		$cardlist = explode('_',$udata['cardlist']);
+		if (!in_array(0, $cardlist))
+		{
+			$cardlist[] = 0;
+			$clstr = implode('_',$cardlist);
+			$db->query("UPDATE {$gtablepre}users SET cardlist='{$clstr}' WHERE username = '$username'");
+		}
+		return $cardlist;
+	}
 	
 	function get_energy_recover_rate($cardlist, $qiegao)
 	{
@@ -25,35 +33,45 @@ namespace cardbase
 		/*
 		 * 返回 Array ('S'=>..,'A'=>..,'B'=>..,'C'=>0)
 		 */
+		/*
+		 * 新规：S卡CD时间大约在1-3天
+		 * A卡CD时间大约在半天-1天
+		 * B卡CD时间大约为几小时
+		 */
 		$ret = Array();
-		$ret['S']=100.0/7/86400;	//S卡固定基准CD 7天
+		//$ret['S']=100.0/7/86400;	//S卡固定基准CD 7天
 		$ret['C']=0;			//C卡不受能量制影响
 		$ret['M']=0;			//M卡更不受能量制影响
-		$cnt=Array(); $cnt['A']=0; $cnt['B']=0;
+		$cnt=Array(); $cnt['S']=0; $cnt['A']=0; $cnt['B']=0;
+		//计算S卡、A卡、B卡的数目
 		foreach ($cardlist as $key)
 		{
+			if ($cards[$key]['rare']=='S') $cnt['S']++;
 			if ($cards[$key]['rare']=='A') $cnt['A']++;
 			if ($cards[$key]['rare']=='B') $cnt['B']++;
 		}
-		//估算现有切糕对卡片数量的影响
-		$bcost = Array('A' => 90/0.05, 'B'=>90/0.2);
-		foreach (Array('A','B') as $ty)
-		{
-			$z=$qiegao;
-			$all=count($cardindex[$ty]);
-			while ($cnt[$ty]<$all && $z>$bcost[$ty]*$all/($all-$cnt[$ty]))
-			{
-				$z-=$bcost[$ty]*$all/($all-$cnt[$ty]);
-				$cnt[$ty]++;
-			}
-		}
+		//估算现有切糕对卡片数量的影响，也即还可抽出多少张新卡
+//		$bcost = Array('S'=> 90/0.01, 'A' => 90/0.05, 'B'=>90/0.2);
+//		foreach (Array('S','A','B') as $ty)
+//		{
+//			$z=$qiegao;
+//			$all=count($cardindex[$ty]);
+//			while ($cnt[$ty]<$all && $z>$bcost[$ty]*$all/($all-$cnt[$ty]))
+//			{
+//				$z-=$bcost[$ty]*$all/($all-$cnt[$ty]);
+//				$cnt[$ty]++;
+//			}
+//		}
 		
-		$tbase = Array('A' => 43200.0, 'B' => 10800.0);
-		foreach (Array('A','B') as $ty)
+		$tbase = Array('S' => 86400.0, 'A' => 28800.0, 'B' => 3600.0);
+		foreach (Array('S','A','B') as $ty)
 		{
-			$z=$cnt[$ty]/2;
-			if ($cnt[$ty]<=6) $z=$cnt[$ty]*2/3; 
-			if ($cnt[$ty]<=3) $z=2; 
+			//卡片数目开根号
+			$z = round(sqrt($cnt[$ty]));
+			if($z<1) $z = 1;
+//			$z=$cnt[$ty]/2;
+//			if ($cnt[$ty]<=6) $z=$cnt[$ty]*2/3; 
+//			if ($cnt[$ty]<=3) $z=2; 
 			
 			$tbase[$ty]*=$z;
 			$ret[$ty]=100.0/$tbase[$ty];
@@ -67,13 +85,8 @@ namespace cardbase
 		eval(import_module('sys','cardbase'));
 		$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$who'");
 		$udata = $db->fetch_array($result);
-		if ($udata['cardlist']=="")
-		{
-			$udata['cardlist']="0";
-			$db->query("UPDATE {$gtablepre}users SET cardlist='{$udata['cardlist']}' WHERE username = '$who'");
-		}
-		$cardlist = explode('_',$udata['cardlist']);
 		
+		$cardlist = get_user_cards_process($udata);		
 		$energy_recover_rate = get_energy_recover_rate($cardlist, $udata['gold']);
 		
 		$cardenergy=Array();
@@ -122,7 +135,8 @@ namespace cardbase
 		$db->query("UPDATE {$gtablepre}users SET cardenergy='$nt' WHERE username = '$who'");
 	}
 	
-	function get_card($ci,$pa=NULL)
+	//获得卡的外壳，主要是数据库读写
+	function get_card($ci,&$pa=NULL,$ignore_qiegao=0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','cardbase'));
@@ -132,25 +146,34 @@ namespace cardbase
 			if (isset($pa['username'])) $n=$pa['username'];
 			else $n=$pa['name'];
 		}
-		$cn=$cards[$ci]['name'];
 		$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$n'");
 		$pu = $db->fetch_array($result);
-		extract($pu,EXTR_PREFIX_ALL,'p');
-		$carr = explode('_',$p_cardlist);
-		$clist = Array();
-		foreach($carr as $key => $val){
-			$clist[$key] = $val;
-		}
-		if (in_array($ci,$clist)){
-			return 0;
-		}else{
-			$p_cardlist.="_".$ci;
-			$db->query("UPDATE {$gtablepre}users SET cardlist='$p_cardlist' WHERE username='$n'");
-			return 1;
-		}
+		$ret = get_card_process($ci,$pu,$ignore_qiegao);
+		
+		$p_cardlist = $pu['cardlist'];
+		$p_gold = $pu['gold'];
+		
+		$db->query("UPDATE {$gtablepre}users SET cardlist='$p_cardlist',gold='$p_gold' WHERE username='$n'");
+		return $ret;
 	}
 	
-	function get_qiegao($num,$pa=NULL)
+	//获得卡片和切糕的核心判定，如果卡重复，则换算成切糕
+	function get_card_process($ci,&$pa,$ignore_qiegao=0){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','cardbase'));
+		$clist = explode('_',$pa['cardlist']);
+		if (in_array($ci,$clist)){
+			if(!$ignore_qiegao) $pa['gold'] += $card_price[$cards[$ci]['rare']];
+			$ret = 0;
+		}else{
+			$clist[] = $ci;
+			$pa['cardlist'] = implode('_',$clist);
+			$ret = 1;
+		}
+		return $ret;
+	}
+	
+	function get_qiegao($num,&$pa=NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
@@ -164,6 +187,7 @@ namespace cardbase
 		$cg = $db->result($result,0);
 		$cg=$cg+$num;
 		if ($cg<0) $cg=0;
+		if($pa) $pa['gold'] = $cg;
 		$db->query("UPDATE {$gtablepre}users SET gold='$cg' WHERE username='$n'");
 	}
 	
@@ -267,9 +291,8 @@ namespace cardbase
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('cardbase'));
 		$ktype=(int)$type;
-		$func='kuji'.$ktype.'\\kujidraw'.$ktype;
-		if (defined('MOD_KUJI'.$ktype)) {
-			$kr=$func($pa, $is_dryrun);
+		if (defined('MOD_KUJIBASE')) {
+			$kr=\kujibase\kujidraw($ktype, $pa, $is_dryrun);
 			if (!is_array($kr)){
 				if ($kr==-1){
 					return -1;
@@ -282,6 +305,36 @@ namespace cardbase
 			return $dr;
 		}
 		return -1;
+	}
+	
+	function card_sort($cards){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = array();
+		$typeweight = array('S'=> 1000000, 'A' => 100000, 'B' => 10000, 'C'=> 1000, 'M'=>0);
+		foreach($cards as $ci => $cv){
+			$cv['id'] = $ci;
+			$weight = $typeweight[$cv['rare']] - $ci;
+			$ret[$weight] = $cv;
+		}
+		krsort($ret);
+		return $ret;
+	}
+	
+	function check_pack_availble($pn){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','cardbase'));
+		$ret = true;
+		if(isset($packstart[$pn]) && $packstart[$pn] > $now) $ret = false;
+		return $ret;
+	}
+	
+	function pack_filter($packlist){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$n_packlist = array();
+		foreach($packlist as $pv){
+			if(check_pack_availble($pv)) $n_packlist[]=$pv;
+		}
+		return $n_packlist;
 	}
 }
 

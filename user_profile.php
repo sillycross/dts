@@ -7,7 +7,7 @@ require './include/common.inc.php';
 require './include/user.func.php';
 
 $_REQUEST = gstrfilter($_REQUEST);
-if ($_REQUEST["playerID"]=="")
+if (empty($_REQUEST["playerID"]))
 {
 	$udata = udata_check();
 	
@@ -33,7 +33,7 @@ else
 	if ($uname==$cuser) $curuser=true;
 }
 
-if ($curuser && $_REQUEST["action"]=="refdaily" && ($now-$udata['cd_a1'])>=43200){
+if ($curuser && isset($_REQUEST["action"]) && $_REQUEST["action"]=="refdaily" && ($now-$udata['cd_a1'])>=43200){
 	$db->query("UPDATE {$gtablepre}users SET cd_a1='$now' WHERE username='".$udata['username']."'" );
 	\achievement_base\get_daily_quest($username);
 	$udata['cd_a1']=$now;
@@ -45,7 +45,7 @@ $iconarray = get_iconlist($icon);
 $select_icon = $icon;
 $winning_rate=$validgames?round($wingames/$validgames*100)."%":'0%';
 
-eval(import_module('cardbase'));
+eval(import_module('cardbase'));//总觉得这里是废弃代码啊
 $carr=$cards[$card];
 $cr=$carr['rare'];
 $cf=true;$sf=true;$af=true;$bf=true;$ff=true;

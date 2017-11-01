@@ -52,6 +52,11 @@ namespace clubbase
 		return $hashval;
 	}
 	
+	function club_choice_probability_process($clublist){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $clublist;
+	}
+	
 	function get_club_choice_array()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -68,6 +73,7 @@ namespace clubbase
 		$sttime = $starttime;
 		$vatime = 233;
 		
+		$clublist = club_choice_probability_process($clublist);
 		$ret = Array(0);
 		for ($clubtype = 0; $clubtype <= 1; $clubtype++)
 		{
@@ -166,13 +172,15 @@ namespace clubbase
 		$chprocess();
 	}
 	
-	function skill_query_unlocked($id)
+	function skill_query_unlocked($id,$who=NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$id=(int)$id;
+		
 		$func = 'skill'.$id.'\\check_unlocked'.$id;
 		eval(import_module('player'));
-		return $func($sdata);
+		if(!$who) $who = $sdata;
+		return $func($who);
 	}
 	
 	function get_battle_skill_entry(&$edata,$which)
@@ -329,11 +337,12 @@ namespace clubbase
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player','clubbase'));
 		$___TEMP_inclist = Array();
-		foreach (\skillbase\get_acquired_skill_array($pn) as $key) 
-			if (defined('MOD_SKILL'.$key.'_INFO') && !\skillbase\check_skill_info($key, 'achievement') && \skillbase\check_skill_info($key, 'unique')) 
-				array_push($___TEMP_inclist,template(constant('MOD_SKILL'.$key.'_DESC'))); 
-		
 		$who = $pn;
+		foreach (\skillbase\get_acquired_skill_array($pn) as $key) 
+			if (defined('MOD_SKILL'.$key.'_INFO') && !\skillbase\check_skill_info($key, 'achievement') 
+			&& !\skillbase\check_skill_info($key, 'hidden') && (!$pn['club'] || !in_array($key, $clublist[$pn['club']]['skills']))) {
+				array_push($___TEMP_inclist,template(constant('MOD_SKILL'.$key.'_DESC'))); 
+			}
 		foreach ($___TEMP_inclist as $___TEMP_template_name) include $___TEMP_template_name;
 	}
 }

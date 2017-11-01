@@ -9,6 +9,14 @@ namespace itemmain
 		$equip_list=array_merge($equip_list,$item_equip_list);
 	}
 	
+	//1:一般可合并道具  2:食物  0:不可合并
+	function check_mergable($ik){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(preg_match('/^(WC|WD|WF|Y|B|C|TN|GB|M|V|ygo|fy|p)/',$ik)) return 1;
+		elseif(preg_match('/^(H|P)/',$ik)) return 2;
+		else return 0;
+	}
+	
 	function parse_itmname_words($name_value, $elli = 0){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(!$elli) return $name_value;
@@ -97,7 +105,7 @@ namespace itemmain
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('itemmain'));
-		if($sk_value && is_numeric($sk_value) === false){
+		if($sk_value && is_numeric($sk_value) === false && strpos($sk_value,'=')!==0){
 			$ret = '';
 			$i = 0;
 			while ($i < strlen($sk_value))
@@ -184,7 +192,16 @@ namespace itemmain
 			$an = $areanum ? ceil($areanum/$areaadd) : 0;
 			for($i = 1; $i < $in; $i++) {
 				if(!empty($itemlist[$i]) && strpos($itemlist[$i],',')!==false){
-					list($iarea,$imap,$inum,$iname,$ikind,$ieff,$ista,$iskind) = explode(',',$itemlist[$i]);
+					list($iarea,$imap,$inum,$iname,$ikind,$ieff,$ista,$iskind) = mapitem_data_process(explode(',',$itemlist[$i]));
+					if(strpos($iskind,'=')===0){
+						$tmp_pa_name = substr($iskind,1);
+						$iskind = '';
+						$result = $db->query("SELECT pid FROM {$tablepre}players WHERE name='$tmp_pa_name' AND type>0");
+						if($db->num_rows($result)){
+							$ipid = $db->fetch_array($result);
+							$iskind = $ipid['pid'];
+						}
+					}
 					if(($iarea == $an)||($iarea == 99)) {
 						for($j = $inum; $j>0; $j--) {
 							if ($imap == 99)
@@ -206,10 +223,29 @@ namespace itemmain
 		}
 	}
 	
+	//某些模式特殊处理数据
+	function mapitem_data_process($data){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		return $data;
+	}
+	
 	function get_itemfilecont(){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
-		eval(import_module('sys'));
 		$file = __DIR__.'/config/mapitem.config.php';
+		$l = openfile($file);
+		return $l;
+	}
+	
+	function get_startingitemfilecont(){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		$file = __DIR__.'/config/stitem.config.php';
+		$l = openfile($file);
+		return $l;
+	}
+	
+	function get_startingwepfilecont(){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		$file = __DIR__.'/config/stwep.config.php';
 		$l = openfile($file);
 		return $l;
 	}
@@ -308,7 +344,14 @@ namespace itemmain
 				itemadd();
 			} elseif($command == 'itemmerge') {
 				if($merge2 == 'n'){itemadd();}
-				else{itemmerge($merge1,$merge2);}
+				else{
+					$merge_ret = itemmerge($merge1,$merge2);
+					if(!$merge_ret && ${'itm'.$merge1} != ${'itm'.$merge2}) {
+						eval(import_module('logger'));
+						$log .= '<br>系统将你的命令自动识别为道具移动。';
+						itemmove($merge1,$merge2);
+					}
+				}
 			} elseif($command == 'itemmove') {
 				itemmove($from,$to);
 			} elseif(strpos($command,'drop') === 0) {

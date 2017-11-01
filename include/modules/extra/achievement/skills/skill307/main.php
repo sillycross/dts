@@ -6,8 +6,8 @@ namespace skill307
 	{
 		define('MOD_SKILL307_INFO','achievement;');
 		define('MOD_SKILL307_ACHIEVEMENT_ID','7');
-		eval(import_module('achievement_base'));
-		$ach_allow_mode[307] = array(0, 16);
+//		eval(import_module('achievement_base'));
+//		$ach_allow_mode[307] = array(0, 4, 16);
 	}
 	
 	function acquire307(&$pa)

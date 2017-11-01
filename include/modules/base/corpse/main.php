@@ -8,26 +8,37 @@ namespace corpse
 	//Q：为什么要写这么一个脑残的函数？
 	//A：尊重原版本设定，如果遇到了不是合法目标的尸体是要直接重新执行一次discover全判定流程的
 	//   虽然这设定非常奇葩，但改了可能产生大量的平衡性问题，因此保留
+//	function check_corpse_discover(&$edata)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		
+//		eval(import_module('sys','player','corpse'));
+//		if ($edata['state']==16) return 0;
+//		$flag=0;
+//		foreach($equip_list as $k_value)
+//		{
+//			$z=strlen($k_value)-1;
+//			while ('0'<=$k_value[$z] && $k_value[$z]<='9') $z--;
+//			$w1=substr($k_value,0,$z+1).'s'.substr($k_value,$z+1);
+//			$w2=substr($k_value,0,$z+1).'e'.substr($k_value,$z+1);
+//			if ($edata[$w1] && $edata[$w2]) { $flag=1; break;}
+//		}
+//		if ($edata['money']) $flag=1;
+//		
+//		if($flag && $edata['endtime'] < $now - $corpseprotect)
+//			return 1;
+//		else  return 0;
+//	}
+	
+	//摸不到尸体保护时间内的尸体
 	function check_corpse_discover(&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
-		eval(import_module('sys','player','corpse'));
-		if ($edata['state']==16) return 0;
-		$flag=0;
-		foreach($equip_list as $k_value)
-		{
-			$z=strlen($k_value)-1;
-			while ('0'<=$k_value[$z] && $k_value[$z]<='9') $z--;
-			$w1=substr($k_value,0,$z+1).'s'.substr($k_value,$z+1);
-			$w2=substr($k_value,0,$z+1).'e'.substr($k_value,$z+1);
-			if ($edata[$w1] && $edata[$w2]) { $flag=1; break;}
-		}
-		if ($edata['money']) $flag=1;
-		
-		if($flag && $edata['endtime'] < $now - $corpseprotect)
-			return 1;
-		else  return 0;
+		$ret = $chprocess($edata);
+		eval(import_module('sys','corpse'));
+		if($edata['endtime'] > $now - $corpseprotect)
+			$ret = false;
+		return $ret;
 	}
 	
 	function check_corpse_discover_dice(&$edata)
@@ -42,6 +53,7 @@ namespace corpse
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','player','itemmain','metman','logger'));
+		$sdata['keep_corpse'] = 1;
 		$battle_title = '发现尸体';
 		extract($edata,EXTR_PREFIX_ALL,'w');
 		\metman\init_battle(1);
@@ -139,7 +151,7 @@ namespace corpse
 			$log .= '获得了金钱 <span class="yellow">'.$edata['money'].'</span>。<br>';
 			$edata['money'] = 0;
 			\player\player_save($edata);
-			$action = '';
+			
 			$mode = 'command';
 			return;
 		} elseif($item == 'destroy') {
@@ -160,12 +172,12 @@ namespace corpse
 			$edata['state'] = 16;
 			\player\player_save($edata);
 			$log .= '尸体成功销毁！';
-			$action = '';
+			
 			$mode = 'command';
 			return;
 		} else {
 			$mode = 'command';
-			$action = '';
+			
 			return;
 		}
 		if(!$itms0||!$itmk0||$itmk0=='WN'||$itmk0=='DN') {
@@ -174,7 +186,7 @@ namespace corpse
 		} else {
 			\itemmain\itemget();
 		}
-		$action = '';
+		
 		$mode = 'command';
 	}
 	
@@ -186,7 +198,7 @@ namespace corpse
 		$corpseid = strpos($action,'corpse')===0 ? str_replace('corpse','',$action) : str_replace('pacorpse','',$action);
 		if(!$corpseid || strpos($action,'corpse')===false){
 			$log .= '<span class="yellow">你没有遇到尸体，或已经离开现场！</span><br>';
-			$action = '';
+			
 			$mode = 'command';
 			return;
 		}
@@ -194,7 +206,7 @@ namespace corpse
 		$result = $db->query("SELECT * FROM {$tablepre}players WHERE pid='$corpseid'");
 		if(!$db->num_rows($result)){
 			$log .= '对方不存在！<br>';
-			$action = '';
+			
 			$mode = 'command';
 			return;
 		}
@@ -204,12 +216,12 @@ namespace corpse
 		
 		if($edata['hp']>0) {
 			$log .= '对方尚未死亡！<br>';
-			$action = '';
+			
 			$mode = 'command';
 			return;
 		} elseif($edata['pls'] != $pls) {
 			$log .= '对方跟你不在同一个地图！<br>';
-			$action = '';
+			
 			$mode = 'command';
 			return;
 		}
@@ -220,12 +232,25 @@ namespace corpse
 
 		return;
 	}
+	
+	function post_act()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess();
+		eval(import_module('player'));
+		if(empty($sdata['keep_corpse']) && (strpos($action, 'corpse')===0 || strpos($action, 'pacorpse')===0)){
+			$action = '';
+			unset($sdata['keep_corpse']);
+		}
+	}
 
 	function act()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','player'));
+		if($command == 'enter')
+			$sdata['keep_corpse'] = 1;
 		if($mode == 'corpse') {
 			getcorpse($command);
 			return;

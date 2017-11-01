@@ -99,11 +99,14 @@ namespace skill71
 	function player_kill_enemy(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if ($pa['bskill']==71)
+		{
+			$expgain=calculate_skill71_expgain($pa,$pd,$active);
+		}
 		$chprocess($pa,$pd,$active);
 		if ($pa['bskill']==71)
 		{
-			eval(import_module('logger'));
-			$expgain=calculate_skill71_expgain($pa,$pd,$active);
+			eval(import_module('logger'));			
 			if ($active)
 				$log.='<span class="yellow">「解构」使你获得了额外'.$expgain.'点经验！</span><br>';
 			else  $log.='<span class="yellow">「解构」使敌人获得了额外'.$expgain.'点经验！</span><br>';

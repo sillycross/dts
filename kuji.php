@@ -33,7 +33,9 @@ $oc = $userCardData['cardlist'];
 
 if ($ktype==1 || $choice>0)
 {
-	$kreq=array(0=>100,1=>1000,2=>250);
+	eval(import_module('kujibase'));
+	
+	$kreq=$kujicost;
 
 	$kres=\cardbase\kuji($ktype,$udata);
 

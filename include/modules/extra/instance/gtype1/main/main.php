@@ -11,19 +11,16 @@ namespace gtype1
 		if (room_check_subroom($room_prefix)) return $chprocess();
 		list($sec,$min,$hour,$day,$month,$year,$wday) = explode(',',date("s,i,H,j,n,Y,w",$now));
 		$tg=$gamenum-3;
-		$res=$db->query("SELECT gametype FROM {$gtablepre}winners WHERE gid='$tg'");
+		$res=$db->query("SELECT gametype FROM {$gtablepre}history WHERE gid='$tg'");
 		$gt=1;
 		if ($db->num_rows($res)){
 			$zz=$db->fetch_array($res); $gt=$zz['gametype'];
 		}
-		if ($wday==3){
+		if ($wday==3 && !$disable_event){
  			if (($hour>=19)&&($hour<21)&&($gt!=1)){ 
  				$gametype=1;
- 			}else{
- 				$gametype=0;
  			}
  		}
- 		if ($disable_event) $gametype=0; 
 		$chprocess();
 	}
 	

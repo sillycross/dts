@@ -4,9 +4,9 @@
 // [EN]	Set below parameters according to your account information provided by your hosting
 // [CH] 以下变量请根据空间商提供的账号参数修改 如有疑问,请联系服务器提供者
 
-	$server_address = 'http://localhost/dts'; 			//服务器域名，不要加最后的斜杠！
+	$server_address = 'http://127.0.0.1/dts'; 			//本地服务器域名，用于daemon，不要加最后的斜杠！
 	
-	$dbhost = 'localhost';			// database server
+	$dbhost = '127.0.0.1';			// database server
 						// 数据库服务器
 
 	$dbuser = 'root';			// database username
@@ -25,7 +25,7 @@
 // [CH] 如您?cookie 作用范围有特殊要求或游戏登录不正常,请修改下面变量否则请保持默认
 
 	$cookiedomain = ''; 			// cookie domain
-						// cookie 作用?
+						// cookie 作用域
 
 	$cookiepath = '/';			// cookie path
 						// cookie 作用路径
@@ -44,10 +44,7 @@
 						// 数据库持久连接 false=关闭, true=打开 mysql之外的模式可能不适用
 
 	$gamefounder = 'admin';			// super administrator's UID
-						// 游戏创始人UID, 可以支持多个创始人，之间使用 ??分隔?
-						// 如果不设置游戏创始人，则管理员之间可以相互编辑，具体权力差别请见游戏使用文档
-
-	$postinterval = 1;   //用户提交命令的间隔时间，单位?
+						// 游戏创始人UID，相当于权限10
 
 	$moveut = 8; //set the difference of server time and client time
 			//如果本地时间跟服务器时间有时差，在此处更改
@@ -76,23 +73,20 @@
 	$dbcharset = 'utf8';			// default database character set, 'gbk', 'big5', 'utf8', 'latin1' and blank are available
 						// MySQL 字符集 可选'gbk', 'big5', 'utf8', 'latin1', 留空为按照游戏字符集设定
 
-	$attackevasive = 0;			// protect against attacks via common request, 0=off, 1=cookie refresh limitation, 2=deny proxy request, 3=both
-						// 防护大量正常请求造成的拒绝服务攻击 0=关闭, 1=cookie 刷新限制, 2=限制代理访问, 3=cookie+代理限制 实际上不存在这个功能，已经废弃
-
 	$tplrefresh = 1;			// auto check validation of templates, 0=off, 1=on
 						// 模板自动刷新开关 0=关闭, 1=打开, 在不修改页面的情况下可以关闭
 
-	$bbsurl = 'http://76573.org/';    //the bbs url for the game plus
+	$bbsurl = 'http://000.76573.org/';    //the bbs url for the game plus
 									//安装游戏插件的论坛地址
 
-	$gameurl = 'http://lg.dianbo.me/';    // the url of game program files,for the full-window mode
-									//游戏程序地址，用于全屏模式
+	$gameurl = 'http://127.0.0.1/dts';    // the url of game program files,for the full-window mode
+									//游戏域名地址，用于界面链接
 
 	$homepage = 'http://soul573.com/';      // game homepage
 									//官方网站地址
 
 	$title = '电 波 大 逃 杀';     //game title
-							//游戏标题
+							//游戏标题 不起作用，已废弃，请去template.lang.php里修改
 
 	$errorinfo = 1;				//是否开启错误信息提示，1为开启，0为关闭。开启会泄漏游戏安装路径
 

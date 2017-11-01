@@ -91,6 +91,7 @@ namespace enemy
 			extract($edata,EXTR_PREFIX_ALL,'w');
 			if (check_enemy_meet_active($sdata,$edata)) {
 				$action = 'enemy'.$edata['pid'];
+				$sdata['keep_enemy'] = 1;
 				findenemy($edata);
 				return;
 			} else {
@@ -106,17 +107,29 @@ namespace enemy
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
+	function post_act()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess();
+		eval(import_module('player'));
+		if(empty($sdata['keep_enemy']) && strpos($action, 'enemy')===0){
+			$action = '';
+			unset($sdata['keep_enemy']);
+		}
+	}
+	
 	function act()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','map','player','logger','metman','input'));
+		if($command == 'enter')
+			$sdata['keep_enemy'] = 1;
 		if($mode == 'combat') 
 		{
 			if ($command == 'back') 
 			{
 				$log .= "你逃跑了。";
-				$action = '';
 				$mode = 'command';
 				return;
 			}
@@ -125,7 +138,6 @@ namespace enemy
 			
 			if(!$enemyid || strpos($action,'enemy')===false){
 				$log .= "<span class=\"yellow\">你没有遇到敌人，或已经离开战场！</span><br>";
-				$action = '';
 				$mode = 'command';
 				return;
 			}
@@ -133,7 +145,7 @@ namespace enemy
 			$result = $db->query ( "SELECT * FROM {$tablepre}players WHERE pid='$enemyid'" );
 			if (! $db->num_rows ( $result )) {
 				$log .= "对方不存在！<br>";
-				$action = '';
+				
 				$mode = 'command';
 				return;
 			}
@@ -143,7 +155,7 @@ namespace enemy
 			
 			if ($edata ['pls'] != $pls) {
 				$log .= "<span class=\"yellow\">" . $edata ['name'] . "</span>已经离开了<span class=\"yellow\">$plsinfo[$pls]</span>。<br>";
-				$action = '';
+				
 				$mode = 'command';
 				return;
 			} elseif ($edata ['hp'] <= 0) {
@@ -151,6 +163,7 @@ namespace enemy
 				if(\corpse\check_corpse_discover($edata))
 				{
 					$action = 'corpse'.$edata['pid'];
+					$sdata['keep_enemy'] = 1;
 					\corpse\findcorpse ( $edata );
 				}
 				return;

@@ -34,15 +34,20 @@ namespace instance5
 		eval(import_module('sys'));
 		if (($gametype==15)&&($xmode & 2)) 
 		{
-			if(!$areanum && isset($roomvars['current_game_option'])){
-				//writeover('a.txt',var_export($roomvars['current_game_option'],1));
-				$option = $roomvars['current_game_option'];
-				if(isset($option['area-mode']) && 'extreme'==$option['area-mode']){
-					$areatime = $starttime + 60*40;//极限挑战模式，1禁恒为40分钟。
-				}
-			}
 			$weather = 1;//天气必然大晴
 		}
+	}
+	
+	function rs_areatime(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		if(15==$gametype){
+			$option = $roomvars['current_game_option'];
+			if(isset($option['area-mode']) && 'extreme'==$option['area-mode'])	{
+				return $starttime + 60*40;//极限挑战模式，1禁恒为40分钟。
+			}
+		}
+		return $chprocess();
 	}
 	
 	function act(){//一禁之前每次行动后判断并记录最大金钱数

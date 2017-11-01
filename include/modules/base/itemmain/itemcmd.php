@@ -20,13 +20,12 @@ namespace itemmain
 		return;
 	}
 
-
 	function itemget() {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','player','logger'));
 		$log .= "获得了物品<span class=\"yellow\">$itm0</span>。<br>";
-		if(preg_match('/^(WC|WD|WF|Y|B|C|TN|GB|M|V)/',$itmk0) && $itms0 !== $nosta){
+		if(1 == check_mergable($itmk0) && $itms0 !== $nosta){
 			if($wep == $itm0 && $wepk == $itmk0 && $wepe == $itme0 && $wepsk == $itmsk0){
 				$weps += $itms0;
 				$log .= "与装备着的武器<span class=\"yellow\">$wep</span>合并了。";
@@ -46,10 +45,10 @@ namespace itemmain
 					}
 				}
 			}
-		} elseif(preg_match('/^H|^P/',$itmk0) && $itms0 !== $nosta){
+		} elseif(2 == check_mergable($itmk0) && $itms0 !== $nosta){
 			$sameitem = array();
 			for($i = 1;$i <= 6;$i++){
-				if(${'itms'.$i}&&($itm0 == ${'itm'.$i})&&($itme0 == ${'itme'.$i})&&(preg_match('/^(H|P)/',${'itmk'.$i}))){
+				if(${'itms'.$i} && $itm0 == ${'itm'.$i} && $itme0 == ${'itme'.$i} && 2 == check_mergable(${'itmk'.$i})){
 					$sameitem[] = $i;
 				}
 			}
@@ -216,7 +215,7 @@ namespace itemmain
 		if($itn1 == $itn2) {
 			$log .= '需要选择两个物品才能进行合并！';
 			$mode = 'itemmerge';
-			return;
+			return false;
 		}
 		
 		$it1 = & ${'itm'.$itn1};
@@ -232,60 +231,64 @@ namespace itemmain
 		
 		if(!$its1 || !$its2) {
 			$log .= '请选择正确的物品进行合并！';
-			$mode = 'itemmerge';
-			return;
+			$mode = 'command';
+			return false;
 		}
 		
 		if($its1==$nosta || $its2==$nosta) {
 			$log .= '耐久是无限的物品不能合并！';
-			$mode = 'itemmerge';
-			return;
+			$mode = 'command';
+			return false;
 		}
-
-		if(($it1 == $it2)&&($ite1 == $ite2)) {
-			if(($itk1==$itk2)&&($itsk1==$itsk2)&&preg_match('/^(WC|WD|WF|Y|B|C|TN|GB|V|M)/',$itk1)) {
-				$its2 += $its1;
-				$it1 = $itk1 = $itsk1 = '';
-				$ite1 = $its1 = 0;
-				$log .= "你合并了<span class=\"yellow\">$it2</span>。";
-				$mode = 'command';
-				return;
-			} elseif(preg_match('/^(H|P)/',$itk1)&&preg_match('/^(H|P)/',$itk2)) {
-				if((strpos($itk1,'P') === 0)||(strpos($itk1,'P') === 0)){
-					$p1 = substr($itk1,2);
-					$p2 = substr($itk2,2);
-					$k = substr($itk1,1,1);
-					if($p2 < $p1){ $p2 = $p1;};
-					$itk2 = "P$k$p2";
-					if($itsk1 !== ''){
-						$itsk2=$itsk1;
-						}
-				}
-				$its2 += $its1;
-				$it1 = $itk1 = $itsk1 = '';
-				$ite1 = $its1 = 0;
-				
-				$log .= "你合并了 <span class=\"yellow\">$it2</span>。";
-				$mode = 'command';
-				return;
-			} elseif($itk1!=$itk2||$itsk1!=$itsk2) {
-				$log .= "<span class=\"yellow\">$it1</span>与<span class=\"yellow\">$it2</span>不是同类型同属性物品，不能合并！";
-				$mode = 'itemmerge';
-			} else{
-				$log .= "<span class=\"yellow\">$it1</span>与<span class=\"yellow\">$it2</span>完全是两个东西，想合并也不可能啊……";
-				$mode = 'itemmerge';
-			}
-		} else {
+		
+		if($it1 != $it2 || $ite1 != $ite2){
 			$log .= "<span class=\"yellow\">$it1</span>与<span class=\"yellow\">$it2</span>不是同名同效果物品，不能合并！";
-			$mode = 'itemmerge';
+			$mode = 'command';
+			return false;
 		}
 
-		if(!$itn1 || !$itn2) {
-			itemadd();
+		//之所以这样，是因为合并补给需要特判
+		if( $itk1==$itk2 && $itsk1==$itsk2 && 1 == check_mergable($itk1)) {
+			$its2 += $its1;
+			$it1 = $itk1 = $itsk1 = '';
+			$ite1 = $its1 = 0;
+			$log .= "你合并了<span class=\"yellow\">$it2</span>。";
+			$mode = 'command';
+			return true;
+		} elseif(2 == check_mergable($itk1) && 2 == check_mergable($itk2)) {
+			if((strpos($itk1,'P') === 0)||(strpos($itk2,'P') === 0)){
+				//毒性判定，取大的
+				$p1 = (int)substr($itk1,2);
+				$p2 = (int)substr($itk2,2);
+				$k = substr($itk1,1,1);
+				if($p2 < $p1) $p2 = $p1;
+				$itk2 = "P$k$p2";
+				//属性判定（下毒玩家）
+				if(!empty($itsk1)){
+					$itsk2=$itsk1;
+				}
+			}
+			$its2 += $its1;
+			$it1 = $itk1 = $itsk1 = '';
+			$ite1 = $its1 = 0;
+			
+			$log .= "你合并了 <span class=\"yellow\">$it2</span>。";
+			$mode = 'command';
+			return true;
+		} elseif($itk1!=$itk2||$itsk1!=$itsk2) {
+			$log .= "<span class=\"yellow\">$it1</span>与<span class=\"yellow\">$it2</span>不是同类型同属性物品，不能合并！";
+			return false;
+		} else{
+			$log .= "<span class=\"yellow\">$it1</span>与<span class=\"yellow\">$it2</span>不是可以堆叠的物品，不能合并！";
+			return false;
 		}
+
+//		if(!$itn1 || !$itn2) {//这句是不是永远运行不到？
+//			itemadd();
+//		}
 
 		//$mode = 'command';
-		return;
+		return false;
 	}
 		
 	function itemmove($from,$to){
@@ -295,10 +298,10 @@ namespace itemmain
 		
 		if(!$from || !is_numeric($from) || !$to || !is_numeric($to) || $from < 1 || $to < 1 || $from > 6 || $to > 6){
 			$log .= '错误的包裹位置参数。<br>';
-			return;
+			return false;
 		}	elseif($from == $to){
 			$log .= '同一物品无法互换。<br>';
-			return;
+			return false;
 		}
 		$f = & ${'itm'.$from};
 		$fk = & ${'itmk'.$from};
@@ -312,7 +315,7 @@ namespace itemmain
 		$tsk = & ${'itmsk'.$to};
 		if(!$fs){
 			$log .= '错误的道具参数。<br>';
-			return;
+			return false;
 		}
 		if(!$ts){
 			$log .= "将<span class=\"yellow\">{$f}</span>移动到了<span class=\"yellow\">包裹{$to}</span>。<br>";
@@ -343,7 +346,7 @@ namespace itemmain
 			$fsk = $tempsk;
 			
 		}
-		return;
+		return true;
 	}
 }
 

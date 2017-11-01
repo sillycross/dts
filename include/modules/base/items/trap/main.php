@@ -26,8 +26,17 @@ namespace trap
 			for($i = 1; $i < $in; $i++) {
 				if(!empty($itemlist[$i]) && strpos($itemlist[$i],',')!==false){
 					list($iarea,$imap,$inum,$iname,$ikind,$ieff,$ista,$iskind) = explode(',',$itemlist[$i]);
+					if(strpos($iskind,'=')===0){
+						$tmp_pa_name = substr($iskind,1);
+						$iskind = '';
+						$result = $db->query("SELECT pid FROM {$tablepre}players WHERE name='$tmp_pa_name' AND type>0");
+						if($db->num_rows($result)){
+							$ipid = $db->fetch_array($result);
+							$iskind = $ipid['pid'];
+						}
+					}
 					if(($iarea == $an)||($iarea == 99)) {
-						for($j = $inum; $j>0; $j--) {
+						for($j = $inum; $j>0; $j--) {							
 							if ($imap == 99)
 							{
 								do {
@@ -414,9 +423,21 @@ namespace trap
 		$itm=&$theitem['itm']; $itmk=&$theitem['itmk'];
 		$itme=&$theitem['itme']; $itms=&$theitem['itms']; $itmsk=&$theitem['itmsk'];
 		
+		$log .= "设置了陷阱<span class=\"red\">$itm</span>。<br>";
+		$trape1 = $lvl * 100;//阈值1，等级*100
+		$trape2 = $wd * 8;//阈值2，爆熟*8
+		$trape = max(50, max($trape1, $trape2));
+		
+		if($trape >= $itme) {
+			$trape = $itme;
+		}else{
+			$log .= "<span class=\"yellow\">你笨拙的技术让陷阱的最大伤害限制在了<span class=\"red\">$trape</span>点。</span><br>";
+		}
+		
+		$log .= "小心，自己也很难发现。<br>";
+		
 		$trapk = str_replace('TN','TO',$itmk);
-		$db->query("INSERT INTO {$tablepre}maptrap (itm, itmk, itme, itms, itmsk, pls) VALUES ('$itm', '$trapk', '$itme', '1', '$pid', '$pls')");
-		$log .= "设置了陷阱<span class=\"red\">$itm</span>。<br>小心，自己也很难发现。<br>";
+		$db->query("INSERT INTO {$tablepre}maptrap (itm, itmk, itme, itms, itmsk, pls) VALUES ('$itm', '$trapk', '$trape', '1', '$pid', '$pls')");
 		
 		\lvlctl\getexp(1);
 		$wd++;

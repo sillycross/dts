@@ -1,0 +1,42 @@
+<!--{eval $ika=array_keys($iinfo_all);}-->
+<!--{loop $ika $ii $ikav}-->
+	<a <!--{if $ii==0}-->class="lime"<!--{else}-->class="grey"<!--{/if}--> id="ibtn$ii" 
+		onclick="
+		<!--{loop $ika $ii2 $ikav2}-->
+			<!--{if $ii==$ii2}-->
+				$('ibtn$ii2').className='lime';$('iinfo$ii2').style.display='block';
+			<!--{else}-->
+				$('ibtn$ii2').className='grey';$('iinfo$ii2').style.display='none';
+			<!--{/if}-->
+		<!--{/loop}-->
+	">
+	$ikav
+	</a>&nbsp;&nbsp;&nbsp;
+<!--{/loop}-->
+<br><br>
+<!--{eval $ii=0;}-->
+<!--{loop $iinfo_all $iik $iiv}-->
+	<div align="middle" id="iinfo$ii" <!--{if $ii>0}-->style="display:none"<!--{/if}-->>
+		<table>
+			<tr>
+				<td class="b1" height=20px><span>所在地点</span></td>
+				<td class="b1"><span>物品名称</span></td>
+				<td class="b1"><span>物品类型</span></td>
+				<td class="b1"><span>效/耐</span></td>
+				<td class="b1"><span>物品属性</span></td>
+				<td class="b1"><span>刷新时间与数量</span></td>
+			</tr>
+			<!--{loop $iiv $iivc}-->
+			<tr>
+				<td class="b3" height=20px><span>$iivc[1]</span></td>
+				<td class="b3"><span>$iivc[3]</span></td>
+				<td class="b3"><span>$iivc[4]</span></td>
+				<td class="b3"><span>{$iivc[5]}/{$iivc[6]}</span></td>
+				<td class="b3"><span>$iivc[7]</span></td>
+				<td class="b3"><span>$iivc[0]</span></td>
+			</tr>
+			<!--{/loop}-->
+		</table>
+	</div>
+	<!--{eval $ii++;}-->
+<!--{/loop}-->

@@ -1,0 +1,33 @@
+<!--{eval eval(import_module('skill483','sys'));}-->
+<!--{eval $___TEMP_SKILL_ID=483;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+氪金
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<!--{eval $skill483_act_time=(int)\skillbase\skill_getvalue(483,'dur');}-->
+<!--{eval $skill483_cost=(int)\skillbase\skill_getvalue(483,'cost');}-->
+<!--{eval $skill483_lst = (int)\skillbase\skill_getvalue(483,'lastuse'); $skill483_time = ($now-$skill483_lst);$skill483_cd_left=($skill483_cd+$skill483_act_time-$skill483_time);$skill483_rem=($skill483_act_time-$skill483_time);}-->
+消耗<span class="yellow">$skill483_cost</span>元，发动后若你在与玩家的战斗中死亡，你会立即复活。<br>
+效果持续时间<span class="yellow">120</span>秒，可以重复发动，但每次发动消耗金钱翻倍。<br>
+<!--{if $skill483_time>$skill483_act_time && $skill483_time<$skill483_cd+$skill483_act_time}-->
+<!--{else}-->
+<!--{if $skill483_time<=$skill483_act_time}-->
+<span class="yellow">技能发动中！持续时间还剩<span>$skill483_rem</span>秒。</span><br>
+<!--{/if}-->
+<!--{/if}-->
+</span></td>
+<td class=b3 width=96>
+<!--{if $skill483_time>$skill483_cd+$skill483_act_time}-->
+<input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill483_special';$('subcmd').value='activate';postCmd('gamecmd','command.php');this.disabled=true;" value="发动">
+<!--{else}-->
+<input type="button" style="width:46px" disabled="true" value="发动">
+<!--{/if}-->
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

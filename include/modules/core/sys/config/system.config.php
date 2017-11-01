@@ -2,17 +2,18 @@
 
 namespace sys
 {
-
 	/*Game system settings*/
 
 	//文件验证字符串
 	$checkstr = "<? if(!defined('IN_GAME')) exit('Access Denied'); ?>\n";
 	//是否允许游客进入插件。0=不允许，1=允许
 	$isLogin = 1;
+	//是否开启密码兼容模式（登录时兼容1.25之前密码储存模式）
+	$oldpswdcmp = 0;
 	//是否缓存css文件。0=不缓存，1=缓存
 	$allowcsscache = 1;
-	//游戏版本
-	$gameversion = 'N.E.W. v1.25';
+	//是否用数据库储存历史进行状况。0=/gamedata/bak/文件储存，1=数据库history表hnews字段储存。建议根据服务器配置灵活设置
+	$hnewsstorage = 0;
 	//站长留言
 	//$systemmsg = '';
 	//游戏开始方式 0=后台手动开始，1=每天固定时间开始，2=上局结束后，间隔固定小时后的整点开始，3=上局结束后，间隔固定分钟开始
@@ -63,14 +64,14 @@ namespace sys
 	$disable_newroom = 0;
 	
 	//房间游戏模式列表
-	$room_mode = Array(10,11,12,13,14,15,16);
+	$room_mode = Array(10,11,12,13,14,15,16,17,18,19);
 	//团队模式游戏类型列表
 	$teamwin_mode = Array(11,12,13,14);
 	//不可完成一般成就的游戏类型列表(这个是不是放到achievement_base里比较好？不过这么写可以省一个import)
 	//已废弃，现在用的是achievement_base及各个成就文件里的$ach_allow_mode
 	//$ach_ignore_mode = Array(1,2,3,10,11,12,13,14,15,16,17);
 	//不可获得胜利切糕的游戏类型
-	$qiegao_ignore_mode = Array(10,11,12,13,14,15,16,1);
+	$qiegao_ignore_mode = Array(1,10,11,12,13,14,15,16,17);
 	//计算天梯积分的游戏类型
 	$elorated_mode=Array(10,11,12,13,14);
 	//不允许PVE的游戏类型

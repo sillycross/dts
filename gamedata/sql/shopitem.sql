@@ -7,7 +7,7 @@ CREATE TABLE bra_shopitem (
   sid smallint unsigned NOT NULL auto_increment,
   kind tinyint unsigned NOT NULL default '0',
   num smallint unsigned NOT NULL default '0',
-  price smallint unsigned NOT NULL default '0',
+  price mediumint(8) unsigned NOT NULL default '0',
   area tinyint unsigned NOT NULL default '0',
   item varchar(30) NOT NULL default '',
   itmk char(5) NOT NULL default '',

@@ -3,7 +3,7 @@
 namespace npcchat
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'battle attack logger';
+	$___MODULE_dependency = 'sys player battle attack logger npc';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php config/npcchat.config.php';

@@ -1,16 +1,18 @@
 <?php
-
-@ini_set('zlib.output_compression',0);
-@ini_set('implicit_flush',1);
 @ob_end_clean();
-header('Content-Type: text/HTML; charset=utf-8');
+header('Content-Type: text/HTML; charset=utf-8'); // 以事件流的形式告知浏览器进行显示
 header( 'Content-Encoding: none; ' );
-    
+header('Cache-Control: no-cache');         // 告知浏览器不进行缓存
+header('X-Accel-Buffering: no');           // 关闭加速缓冲
+@ini_set('implicit_flush',1);
+ob_implicit_flush(1);
 set_time_limit(0);
+@ini_set('zlib.output_compression',0);
 
 define('IN_MODULEMNG', TRUE);
 define('IN_MODULE_ACTIVATE', TRUE);
 require './include/common.inc.php';
+require GAME_ROOT.'./include/modulemng/modulemng.func.php';
 
 if (!file_exists(GAME_ROOT.'./gamedata/modules.list.pass.php'))
 {
@@ -27,8 +29,8 @@ function shutDownFunction() {
 	if ($faillog!='')
 	{
 		echo $faillog;
-		echo '<br>或者因为如下原因：';
-		var_dump($error);
+		echo '<br>或者因为如下原因：<br>';
+		echo '['.$error['type'].'] '.$error['message'].' at line '.$error['line'].' in file '.$error['file'].'<br>';
 		echo '<br><a href="modulemng.php?mode=edit" style="text-decoration: none"><span><font color="blue">[返回编辑模式]</font></span></a><br>';   
 		die();
 	}
@@ -37,6 +39,7 @@ function shutDownFunction() {
 $faillog = '<font color="red">看起来遇到了一个错误。请检查模块是否工作正常，然后返回编辑模式再试一次。<br>修改没有保存。<br></font>';
 
 $codelist=Array(); 
+$quickmode = isset($_GET['mode']) && 'quick'==$_GET['mode'] ? 1 : 0;
 
 global $___MOD_CODE_ADV1;
 
@@ -65,7 +68,7 @@ if ($___MOD_CODE_ADV1)
 		if ($inuse==1)
 		{
 			$___TEMP_MOD_LIST_n++; 
-			$___TEMP_MOD_LOAD_CMD[$___TEMP_MOD_LIST_n]=GAME_ROOT.'./include/modules/'.$modpath.'module.inc.php';;
+			$___TEMP_MOD_LOAD_CMD[$___TEMP_MOD_LIST_n]=GAME_ROOT.'./include/modules/'.$modpath.'module.inc.php';
 			$___TEMP_MOD_LOAD_NAME[$___TEMP_MOD_LIST_n]=$modname;
 			$___TEMP_MOD_LOAD_PATH[$___TEMP_MOD_LIST_n]=$modpath;
 		}
@@ -158,30 +161,37 @@ if ($___MOD_CODE_ADV1)
 		unset($___TEMPC_a); unset($___TEMPC_b);
 		unset($___TEMPV_a); unset($___TEMPV_b);
 		unset($key); unset($value); unset($str);
-		
-		$modname=$___TEMP_MOD_LOAD_NAME[$___TEMP_MOD_LOAD_i];
-		$modpath=$___TEMP_MOD_LOAD_PATH[$___TEMP_MOD_LOAD_i];
-		$modpath='__MOD_DIR__.\''.$modpath.'\'';
-		
-		$modpath_suf=str_replace('\\','/',$modpath);//噫
-		
-		$suf=substr(md5($modpath_suf),0,8);
-		$tplfile = GAME_ROOT.'./include/modules/modules.init.template.adv.php';
-		$objfile = GAME_ROOT.'./gamedata/modinit/1_mod'.$modname.'.'.$suf.'.init.adv.php';
-		
-		$str=file_get_contents($tplfile);
-		$str=str_replace('_____TEMPLATE_MODULE_NAME_____',$modname,$str);
-		$str=str_replace('_____TEMPLATE_MODULE_PATH_____',$modpath,$str);
-		if ($___MOD_SRV)
-		{
-			$str=str_replace('_____TEMPLATE_PRESET_CODE_____',$sr,$str);
+			
+		//如果快速模式，跳过之后的文件写入过程
+		$skipflag = 0;
+		if($quickmode && filemtime($___TEMP_MOD_LOAD_CMD[$___TEMP_MOD_LOAD_i]) < filemtime(GAME_ROOT.'./gamedata/modules.list.php')) {
+			echo '未修改，跳过。<br>';ob_end_flush(); flush();
+			$skipflag = 1;
+		}else{//否则继续处理
+			$modname=$___TEMP_MOD_LOAD_NAME[$___TEMP_MOD_LOAD_i];
+			$modpath=$___TEMP_MOD_LOAD_PATH[$___TEMP_MOD_LOAD_i];
+			$modpath='__MOD_DIR__.\''.$modpath.'\'';
+			
+			$modpath_suf=str_replace('\\','/',$modpath);//噫
+			
+			$suf=substr(md5($modpath_suf),0,8);
+			$tplfile = GAME_ROOT.'./include/modules/modules.init.template.adv.php';
+			$objfile = GAME_ROOT.'./gamedata/modinit/1_mod'.$modname.'.'.$suf.'.init.adv.php';
+			
+			$str=file_get_contents($tplfile);
+			$str=str_replace('_____TEMPLATE_MODULE_NAME_____',$modname,$str);
+			$str=str_replace('_____TEMPLATE_MODULE_PATH_____',$modpath,$str);
+			if ($___MOD_SRV)
+			{
+				$str=str_replace('_____TEMPLATE_PRESET_CODE_____',$sr,$str);
+			}
+			else
+			{
+				$str=str_replace('_____TEMPLATE_PRESET_CODE_____','',$str);
+			}
+			$str=str_replace('_____TEMPLATE_ADV_CODE_____',$sc,$str);
+			writeover($objfile,$str);
 		}
-		else
-		{
-			$str=str_replace('_____TEMPLATE_PRESET_CODE_____','',$str);
-		}
-		$str=str_replace('_____TEMPLATE_ADV_CODE_____',$sc,$str);
-		writeover($objfile,$str);
 		
 		$codelist[$___TEMP_MOD_LOAD_i]=Array();
 		foreach(explode(' ',$___MODULE_codelist) as $key) if ($key!='') array_push($codelist[$___TEMP_MOD_LOAD_i],$key);
@@ -189,8 +199,9 @@ if ($___MOD_CODE_ADV1)
 		unset($key); unset($sc); unset($sr); unset($ss); unset($key); unset($value);
 		unset($tplfile); unset($objfile); unset($modname); unset($modpath); unset($suf); unset($str);
 		
-		echo '完成。<br>'; ob_end_flush(); flush();
+		if(!$skipflag) echo '完成。<br>'; ob_end_flush(); flush();
 	}
+	unset($skipflag);
 	
 	$n=$___TEMP_all;
 	for ($i=1; $i<=$n; $i++)
@@ -206,6 +217,10 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2)
 {
 	echo '<font color="blue">正在进行代码预处理CODE_ADV2..</font><br>';
 	include GAME_ROOT.'./include/modulemng/modulemng.codeadv2.func.php';
+	$___TEMP_modfuncs=Array();
+	$___TEMP_flipped_modn = array_flip($modn);
+	$changed_filelist = array();
+	//第一遍：复制文件，记录各函数依赖关系
 	for ($i=1; $i<=$n; $i++)
 	{
 		/*
@@ -215,27 +230,101 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2)
 			continue;
 		}
 		*/
-		echo '开始处理模块'.$modn[$i].'...<br>'; ob_end_flush(); flush();
+		echo '开始分析模块'.$modn[$i].'...<br>'; ob_end_flush(); flush();
 		$srcdir = GAME_ROOT.'./include/modules/'.$modp[$i];
 		$tpldir = GAME_ROOT.'./gamedata/run/'.$modp[$i];
-		create_dir($tpldir);
-		clear_dir($tpldir);
-		copy_dir($srcdir,$tpldir);
+		
+//		create_dir($tpldir);
+//		clear_dir($tpldir);
+//		copy_dir($srcdir,$tpldir,'<DOC>');//这里其实只起到建立文件夹结构的作用，后边把php和htm全部拷贝了
+		//快速模式不清空、复制文件夹
+		if(!$quickmode) {
+			create_dir($tpldir);
+			clear_dir($tpldir);
+			copy_dir($srcdir,$tpldir,'<DOC>');
+		}
 		foreach ($codelist[$i] as $key)
 		{
-			echo '&nbsp;&nbsp;&nbsp;&nbsp;正在处理代码'.$key.'.. '; ob_end_flush(); flush();
 			$src=GAME_ROOT.'./include/modules/'.$modp[$i].$key;
+			echo '&nbsp;&nbsp;&nbsp;&nbsp;正在分析代码'.$key.'.. '; ob_end_flush(); flush();
 			$objfile=GAME_ROOT.'./gamedata/run/'.$modp[$i].$key;
-			$objfile=substr($objfile,0,-4).'.adv'.substr($objfile,strlen($objfile)-4);
-			$delfile=GAME_ROOT.'./gamedata/run/'.$modp[$i].$key;
-			preparse($modn[$i],$i,$src);
-			parse($modn[$i],$src,$objfile);
-			unlink($delfile);
+			
+			//非快速模式或者快速模式且文件修改过
+			if(!$quickmode || ($quickmode && filemtime($src) >= filemtime(GAME_ROOT.'./gamedata/modules.list.php'))) {
+				copy_without_comments($src, $objfile);
+				$changed_filelist[] = $modp[$i].$key;
+			}
+			//无论是不是快速模式都得预读全部函数内容
+			preparse($i,$src);
+			echo '完成。<br>'; ob_end_flush(); flush();
+			//快速模式且未修改文件，直接跳过
+		}
+	}
+	//第二遍：整理并合并同名函数
+	global $___MOD_CODE_COMBINE;
+	if($___MOD_CODE_COMBINE){
+		if($quickmode){
+			//快速模式需要预判哪些函数名需要重载
+			$quickmode_funclist = array();
+			foreach($___TEMP_func_contents as $modid => $mval){
+				foreach($mval as $fn => $fc){
+					$fc_filename = substr($fc['filename'], strpos($fc['filename'], 'include/modules/') + 16);
+					if(in_array($fc_filename, $changed_filelist) && !in_array($fn, $quickmode_funclist)){
+						$quickmode_funclist[] = $fn;
+					}
+				}
+			}
+			//根据需要重载的函数名更新一遍需要修改的文件列表，这些文件需要以adv文件为基础进行combine
+			foreach($___TEMP_func_contents as $modid => $mval){
+				foreach($mval as $fn => $fc){
+					$fc_filename = substr($fc['filename'], strpos($fc['filename'], 'include/modules/') + 16);
+					if(in_array($fn, $quickmode_funclist) && !in_array($fc_filename, $changed_filelist)){
+						$changed_filelist[] = $fc_filename;
+						$objfile = GAME_ROOT.'./gamedata/run/'.$fc_filename;
+						$tplfile = substr($objfile,0,-4).'.adv'.substr($objfile,strlen($objfile)-4);
+						copy_without_comments($tplfile, $objfile);
+					}
+				}
+			}
+		}
+		for ($i=1; $i<=$n; $i++)
+		{
+			echo '开始整理模块'.$modn[$i].'...'; ob_end_flush(); flush();
+			merge_contents_calc($i);
 			echo '完成。<br>'; ob_end_flush(); flush();
 		}
-		echo '完成。<br>'; ob_end_flush(); flush();
+	}	
+	//第三遍：展开各文件的import和eval
+	for ($i=1; $i<=$n; $i++)
+	{
+		echo '开始写入模块'.$modn[$i].'...<br>'; ob_end_flush(); flush();
+		foreach ($codelist[$i] as $key)
+		{
+			//$src=GAME_ROOT.'./include/modules/'.$modp[$i].$key;
+			echo '&nbsp;&nbsp;&nbsp;&nbsp;正在写入代码'.$key.'.. '; ob_end_flush(); flush();
+			$basefile=GAME_ROOT.'./gamedata/run/'.$modp[$i].$key;
+			$delfile=$basefile;
+			$advfile=substr($basefile,0,-4).'.adv'.substr($basefile,strlen($basefile)-4);
+			if($quickmode && !in_array($modp[$i].$key, $changed_filelist)) {
+				echo '未修改，跳过。<br>'; ob_end_flush(); flush();
+				continue;
+			}
+
+			if(pathinfo($basefile,PATHINFO_EXTENSION)!='php'){
+				copy($basefile,$advfile);
+			}else{
+				if($___MOD_CODE_COMBINE){
+					merge_contents_write($i,$basefile,$advfile);
+					parse($i,$advfile,$advfile);
+				}else{
+					parse($i,$basefile,$advfile);
+				}
+			}
+			unlink($delfile);
+			echo '写入完成。<br>'; ob_end_flush(); flush();
+		}
 	}
-	
+	echo '完成。<br>'; ob_end_flush(); flush();
 	echo '<font color="blue">代码预处理CODE_ADV2完成。</font><br><br>';
 }
 
@@ -308,6 +397,19 @@ $faillog='';
 copy(GAME_ROOT.'./gamedata/modules.list.pass.php',GAME_ROOT.'./gamedata/modules.list.php');
 unlink(GAME_ROOT.'./gamedata/modules.list.pass.php');
 unlink(GAME_ROOT.'./gamedata/modules.list.temp.php');
+touch(GAME_ROOT.'./gamedata/modules.list.php');//更新文件时间以保证quick模式正常运转
+
+$dirpath = GAME_ROOT.'./gamedata/replays';//顺便清空replays 文件夹下的所有非dat文件
+if ($handle=opendir($dirpath)) 
+{
+	while (($entry=readdir($handle))!==false)
+	{   
+		if($entry != '.' && $entry != '..'){
+			$exname = pathinfo($entry, PATHINFO_EXTENSION);
+			if($exname != 'dat' && $exname != 'gitignore') unlink($dirpath.'/'.$entry);
+		}
+	}
+}
 
 if ($___MOD_SRV)
 {

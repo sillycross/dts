@@ -37,6 +37,10 @@ namespace skill12
 			$log.='技能点不足。<br>';
 			return;
 		}
+		if (!$inf && $hp >= $mhp && $sp >= $msp) {
+			$log.='你不需要使用这个技能。<br>';
+			return;
+		}
 		eval(import_module('wound'));
 		$flag=false;
 		$log.="消耗了<span class='lime'>1</span>点技能点，<br>";
@@ -46,10 +50,25 @@ namespace skill12
 			$flag=true;
 		}
 		$inf = '';
+		if($hp < $mhp) {
+			$hpup = 500;
+			if($hp + $hpup > $mhp) $hpup = $mhp - $hp;
+			$hp += $hpup;
+			$log .= "生命回复了<span class='lime'>$hpup</span>点。<br>";
+			$flag = true;
+		}
+		if($sp < $msp) {
+			$spup = 500;
+			if($sp + $spup > $msp) $spup = $msp - $sp;
+			$sp += $spup;
+			$log .= "体力回复了<span class='lime'>$spup</span>点。<br>";
+			$flag = true;
+		}
+		
 		if(!$flag){
 			$log .= '但是什么也没发生。<br>';
 		}
-		$skillpoint--; $inf='';
+		$skillpoint--;
 	}
 	
 }

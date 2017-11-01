@@ -10,6 +10,7 @@ $___TEMP_DRY_RUN=0;
 $___TEMP_DRY_RUN_COUNTER=0;
 
 //新MAGIC串
+//v1.8 现在开启了code_combine以后会大量合并函数，加快执行效率25%-50%
 //v1.7 现在在codeadv2中会进一步展开magic串，现在magic串几乎不会消耗任何时间
 //v1.6 修正了debug_backtrace参数不对导致的严重效率问题
 //v1.5 修复了大写字母函数名带来的bug

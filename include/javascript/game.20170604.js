@@ -132,7 +132,7 @@ function dniconMover(){
 	var npc = $('npc') ? true : false;
 	var dngd = npc ? 'n' : ($('male').checked ? 'm' : 'f');
 	var dninum = $('dnicon').options[$('dnicon').selectedIndex].value;
-	$('dniconImg').innerHTML = '<img src="img/' + dngd + '_' + dninum + (npc ? 'a' : '') + '.gif" alt="' + dninum + '">';
+	$('dniconImg').innerHTML = '<img src="img/' + dngd + '_' + dninum + '.gif" alt="' + dninum + '">';
 }
 
 function showNotice(sNotice) {
@@ -296,13 +296,15 @@ function showData(sdata){
 		{
 			var sDt = shwData['timing'];
 			for(var tid in sDt){
-				var t = sDt[tid]['timing'];
-				var tm = sDt[tid]['mode'];
-				if('undefined'==typeof(timinglist) || 'undefined'==typeof(timinglist[tid])) {
-					updateTime(tid,t,tm);
-				}else{
-					timinglist[tid]['timing'] = t;
-					timinglist[tid]['mode'] = tm;
+				if(sDt[tid]['on']==true){
+					var t = sDt[tid]['timing'];
+					var tm = sDt[tid]['mode'];
+					if('undefined'==typeof(timinglist) || 'undefined'==typeof(timinglist[tid])) {
+						updateTime(tid,t,tm);
+					}else{
+						timinglist[tid]['timing'] = t;
+						timinglist[tid]['mode'] = tm;
+					}
 				}
 			}
 		}

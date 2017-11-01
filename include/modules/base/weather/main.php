@@ -385,6 +385,7 @@ namespace weather
 		{
 			$tdata['sNoinfo'] = '？？？';
 			$tdata['iconImg'] = 'question.gif';
+			$tdata['iconImgB'] = 'question.gif';
 			$tdata['name'] = '？？？';
 			$tdata['wep'] = '？？？';
 			$tdata['infdata'] = '？？？';
@@ -474,7 +475,7 @@ namespace weather
 		eval(import_module('sys','player','logger'));
 		if(17 != $weather) return;
 		foreach(array('pa','pd') as $pn){
-			if(!empty(${$pn}['aurora_revive'])){
+			if(!empty(${$pn}['aurora_revive']) && ${$pn}['hp'] < ${$pn}['mhp']){
 				if(${$pn}['hp'] < 0) ${$pn}['hp'] = 0;
 				$o_pl_hp = ${$pn}['hp'];
 				$aurora_revive = ${$pn}['aurora_revive'];

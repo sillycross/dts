@@ -11,19 +11,26 @@
 
 	<form method="post"  action="valid.php" name="valid">
 		<input type="hidden" name="mode" value="enter">
-		<input type="hidden" id="cardChosen" name="card" value="$cardChosen"> {lang name} : $username <br />
-		<center>
-		{template useradvdata}
-		<span class ="yellow">选择一张身份卡</span><br>
-		<div style="height:3px">&nbsp;</div>
-		{template selectcard}
-		</center>
-		<!--{if $stime>$now}--><span class="orange">{$std}开始才可再使用S级身份卡</span><br><!--{/if}-->
-		<!--{if $atime>$now}--><span class="linen">{$atd}开始才可再使用A级身份卡</span><br><!--{/if}-->
-		<!--{if $btime>$now}--><span class="brickred">{$btd}开始才可再使用B级身份卡</span><br><!--{/if}-->
-		<br />
-		<input type="submit" name="enter" onClick="$('cardChosen').value=chosen_card_id; this.submit(); return false;" value="{lang submit}">
-		<input type="reset" name="reset" value="{lang reset}">
+		{lang name} : $username <br />
+			<center>
+			{template useradvdata}
+		<!--{if $gametype}-->
+			<input type="hidden" id="cardChosen" name="card" value="$cardChosen"> 
+			<span class ="yellow">选择一张身份卡</span><br>
+			<div style="height:3px">&nbsp;</div>
+			{template selectcard}
+			</center>
+			<!--{if $stime>$now}--><span class="orange">{$std}开始才可再使用S级身份卡</span><br><!--{/if}-->
+			<!--{if $atime>$now}--><span class="linen">{$atd}开始才可再使用A级身份卡</span><br><!--{/if}-->
+			<!--{if $btime>$now}--><span class="brickred">{$btd}开始才可再使用B级身份卡</span><br><!--{/if}-->
+			<br />
+			<input type="submit" name="enter" onClick="$('cardChosen').value=chosen_card_id;" value="{lang submit}">
+			<input type="reset" name="reset" value="{lang reset}">
+		<!--{else}-->
+			</center>
+			<input type="hidden" id="cardChosen" name="card" value="0">
+			<input type="submit" name="enter" value="{lang submit}">
+		<!--{/if}-->
 	</form>
 	<br />
 {template footer}

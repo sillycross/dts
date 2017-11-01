@@ -1058,7 +1058,7 @@ if(!$action) {
 		$msg = $lang['admin_password_invalid'];
 	}
 	else {
-	$brpswd=md5($brpswd);
+	$brpswd=md5($username.md5($brpswd));
 	}
   
 	if($msg) {

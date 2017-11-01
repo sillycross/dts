@@ -1,0 +1,20 @@
+<!--{eval $___TEMP_SKILL_ID=485;}-->
+<!--{eval eval(import_module('skill485'));}-->
+<!--{eval $lvl485=\skillbase\skill_getvalue(485,'lvl',$who);}-->
+<!--{eval $skill485fac = $skill485factors[$lvl485];}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+嫉恶
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+战斗中，你的敌人每有1杀人数，其受到的伤害增加{$skill485fac}%。只对玩家有效。
+</span></td>
+<td class=b3 width=96>
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

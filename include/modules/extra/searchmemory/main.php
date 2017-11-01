@@ -12,21 +12,29 @@ namespace searchmemory
 		if(is_string($searchmemory)) $searchmemory = gdecode($searchmemory,1);//听丑陋的
 	}
 	
-	function fetch_playerdata($Pname, $Ptype = 0){
+	//对从数据库里读出来的raw数据的处理
+	function playerdata_construct_process($data){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		//eval(import_module('sys'));
-		$pdata = $chprocess($Pname, $Ptype);
-		$pdata['searchmemory'] = gdecode($pdata['searchmemory'],1);
-		return $pdata;
+		$data = $chprocess($data);
+		$data['searchmemory'] = gdecode($data['searchmemory'],1);
+		return $data;
 	}
 	
-	function fetch_playerdata_by_pid($pid){
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		//eval(import_module('sys'));
-		$pdata = $chprocess($pid);
-		$pdata['searchmemory'] = gdecode($pdata['searchmemory'],1);
-		return $pdata;
-	}
+//	function fetch_playerdata($Pname, $Ptype = 0, $ignore_pool = 0){
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		//eval(import_module('sys'));
+//		$pdata = $chprocess($Pname, $Ptype, $ignore_pool);
+//		$pdata['searchmemory'] = gdecode($pdata['searchmemory'],1);
+//		return $pdata;
+//	}
+//	
+//	function fetch_playerdata_by_pid($pid){
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		//eval(import_module('sys'));
+//		$pdata = $chprocess($pid);
+//		$pdata['searchmemory'] = gdecode($pdata['searchmemory'],1);
+//		return $pdata;
+//	}
 	
 	function player_save($data){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -227,9 +235,14 @@ namespace searchmemory
 					$mode = 'command';
 					return;
 				}else{
+					$marr=$db->fetch_array($result);
+					if($marr['hp']<=0 && $mem['smtype'] != 'corpse') {
+						$log .= '<span class="red">角色已经不在原来的位置了，地上只有一摊血迹……</span><br>';
+						$mode = 'command';
+						return;
+					}
 					if($fog && $mem['smtype'] != 'corpse') $log .= '<span class="lime">人影还在原来的位置。</span><br>';
 					else $log .= '<span class="lime">'.$mem['Pname'].'还在原来的位置。</span><br>';
-					$marr=$db->fetch_array($result);
 					$sdata['sm_active_debuff'] = 1;//临时这么写写
 					\metman\meetman($mid);
 					unset($sdata['sm_active_debuff']);

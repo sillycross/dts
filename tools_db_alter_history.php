@@ -1,6 +1,24 @@
 <?php
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
+@ob_end_clean();
+header('Content-Type: text/HTML; charset=utf-8'); // 以事件流的形式告知浏览器进行显示
+header( 'Content-Encoding: none; ' );
+header('Cache-Control: no-cache');         // 告知浏览器不进行缓存
+header('X-Accel-Buffering: no');           // 关闭加速缓冲
+@ini_set('implicit_flush',1);
+ob_implicit_flush(1);
+set_time_limit(0);
+@ini_set('zlib.output_compression',0);
+
+if(!isset($_GET['iknow'])) {
+	$thisfile = pathinfo($_SERVER['PHP_SELF'], PATHINFO_BASENAME);
+	echo '警告：如果你不是刻意运行此代码，很可能导致游戏历史数据丢失！<br>';
+	echo '<a href="'.$thisfile.'?iknow=1">我知道自己在干什么</a>';
+	die();
+}
+//die('okey dokey lokey');
+
 define('IN_GAME', TRUE);
 define('GAME_ROOT', '');
 $server_config =  './include/modules/core/sys/config/server.config.php';
@@ -46,24 +64,28 @@ foreach (array('winners', 'swinners') as $htablename){
 			'gtime' => $hdata['gtime'],
 			'gstime' => $hdata['gstime'],
 			'getime' => $hdata['getime'],
-			'winnum' => $hdata['winnum'],
+			'winnernum' => $hdata['winnum'],
 			'hdmg' => $hdata['hdmg'],
 			'hdp' => $hdata['hdp'],
 			'hkill' => $hdata['hkill'],
-			'hkp' => $hdata['hkp']
+			'hkp' => $hdata['hkp'],
+			'winnerlist' => $hdata['namelist']
 		);
-		$winnerpdata = array();
-		if(!empty($hdata['namelist'])) {
-			$namelist = explode(',',$hdata['namelist']);
-			foreach($namelist as $nv){
-				$winnerpdata[] = array('name' => $nv);
-			}
-		}elseif($hdata['name']){
+//		if(!empty($hdata['namelist'])) {
+//			$namelist = explode(',',$hdata['namelist']);
+//			foreach($namelist as $nv){
+//				$winnerpdata[] = array('name' => $nv);
+//			}
+//		}
+		
+		$winnerpdata = array();		
+		
+		if($hdata['name']){
 			$unsetlist = array_keys($nhdata);
 			$unsetlist = array_merge($unsetlist, array('namelist', 'weplist', 'iconlist', 'gdlist', 'pass'));
 			unset($unsetlist['winner']);
 			foreach($unsetlist as $uv) unset($hdata[$uv]);
-			$winnerpdata[] = $hdata;
+			$winnerpdata = $hdata;
 		}
 		if($winnerpdata) $nhdata['winnerpdata'] = gencode($winnerpdata);
 		
@@ -84,10 +106,36 @@ foreach (array('winners', 'swinners') as $htablename){
 				}
 			}
 		}
-		if(!empty($validlist)) $nhdata['validlist'] = implode('&',$validlist);
-		$db->array_insert($gtablepre.str_replace('winners','history',$htablename),$nhdata);
+		
+		if(!empty($validlist)) $nhdata['validlist'] = gencode($validlist);
+		if(!empty($hcont) && strpos($hcont,'<ul>')!==false){
+			$hcont = gencode($hcont);
+			$hflag = 1;
+		}
+
+		$wtablename = $gtablepre.str_replace('winners','history',$htablename);
+		$db->array_insert($wtablename,$nhdata);
 		writeover('process.txt',$htablename.$process);
 		output_t('Game '.$process.' in '.$htablename.' processed.');
+		if($hnewsstorage && $hflag){
+			$offset = 1024*1024-200;//单句长度，一般应该略小于1M（max_allowed_packet默认值）
+			do{
+				if($offset < strlen($hcont)){
+					$tmp_newsinfo = substr($hcont, 0, $offset);
+					$hcont = substr($hcont, $offset);
+				}else{
+					$tmp_newsinfo = $hcont;
+					$hcont = '';
+				}
+				$insert_gid = $nhdata['gid'];
+				$db->query("UPDATE {$wtablename} SET hnews=CONCAT(hnews, '$tmp_newsinfo') WHERE gid='$insert_gid'");
+			} while (!empty($hcont));
+		}elseif($hflag){
+			$objfile = './gamedata/bak/'.$hbakprefix.$process.'_newsinfo.dat';
+			writeover($objfile, $hcont);
+		}
+		if($_GET['wo-bak']) unlink($file);
+		
 	}
 }
 

@@ -39,6 +39,7 @@
 			<TD class="b1"><span>游戏结束时间</span></TD>
 			<TD class="b1"><span>参与者数</span></TD>
 			<TD class="b1"><span>优胜者名</span></TD>
+			<TD class="b1"><span>卡片</span></TD>
 			<TD class="b1"><span>头像</span></TD>
 			<TD class="b1"><span>胜利者留言</span></TD>
 			<TD class="b1"><span>使用武器</span></TD>
@@ -49,21 +50,31 @@
 		<!--{loop $winfo $gid $info}-->
 		<TR height="40">
 			<TD class="b2"><span>$gid</span></TD>
-			<TD class="b3"><span>$gtinfo[$info['gametype']]</span></TD>
-			<TD class="b3"><span><!--{if $info['winnum']>1}-->团队幸存<!--{else}-->$gwin[$info['wmode']]<!--{/if}--></span></TD>
+			<TD class="b3">
+				<span>
+					<!--{if strpos($gameurl,'dianbo')!==false && $gid <= 41956 && $gid >= 26398 && !$info['gametype']}-->
+						$gtinfo[4]
+					<!--{else}-->
+						$gtinfo[$info['gametype']]
+					<!--{/if}-->
+				</span>
+			</TD>
+			<TD class="b3"><span><!--{if $info['winnernum']>1}-->团队幸存<!--{else}-->$gwin[$info['wmode']]<!--{/if}--></span></TD>
 			<TD class="b3"><span>$info['date']</span><br><span>$info['time']</span></TD>
 			<TD class="b3"><span>$info['vnum']</span></TD>
-			<!--{if $info['winnum']>1}-->
+			<!--{if $info['winnernum']>1}-->
 			<TD class="b3" colspan><span class="yellow">$info['teamID']</span></TD>
 			<TD class="b3"><span><img src="img/n_0.gif" style="width:70;height:40;"></span></TD>
 			<!--{else}-->
-			<!--{eval $info['urlname']=htmlentities(urlencode($info['name']));}-->
-			<TD class="b3" style="white-space: nowrap;"><!--{if $info['name']}--><a style="cursor:pointer;" href="user_profile.php?playerID=$info['urlname']"><span class="evergreen">$info['name']</span></a><!--{else}--><span class="grey">无</span><!--{/if}--></TD>
+			<!--{eval $info['urlname']=htmlentities(urlencode($info['winner']));}-->
+			<TD class="b3" style="white-space: nowrap;"><!--{if $info['winner']}--><a style="cursor:pointer;" href="user_profile.php?playerID=$info['urlname']"><span class="evergreen">$info['winner']</span></a><!--{else}--><span class="grey">无</span><!--{/if}--></TD>
+			<TD class="b3"><!--{if $info['winner']}--><span <!--{if isset($info['card'])}-->class="{$card_rarecolor[$cards[$info['card']]['rare']]}"<!--{/if}-->>$info['cardname']</span><!--{else}--><span class="grey">-</span><!--{/if}--></TD>
 			<TD class="b3"><span><img src="img/$info['iconImg']" style="width:70;height:40;"></span></TD>
 			<!--{/if}-->
 			
-			<!--{if $info['winnum']>1}-->
-			<!--{eval $t=explode(',',$info['namelist']);}-->
+			<!--{if $info['winnernum']>1}-->
+			
+			<!--{eval $t=explode(',',$info['winnerlist']);}-->
 			<!--{eval $x='';}-->
 			<!--{loop $t $key}-->
 			<!--{if $key!=''}-->
@@ -90,7 +101,7 @@
 			<!--{/if}-->
 			<TD class="b3" width=60px>
 				<span>
-					<input type="button" style="width:80px;height:20px;" value="角色信息" <!--{if $info['wmode'] && $info['wmode'] != 1 && $info['wmode'] !=4 && $info['wmode'] != 6 && $info['winnum']<=1}-->onclick="document.list.command.value='info';document.list.gnum.value='$gid';document.list.submit();"<!--{else}-->disabled<!--{/if}-->>
+					<input type="button" style="width:80px;height:20px;" value="角色信息" <!--{if $info['wmode'] && $info['wmode'] != 1 && $info['wmode'] !=4 && $info['wmode'] != 6 && $info['winnernum']<=1}-->onclick="document.list.command.value='info';document.list.gnum.value='$gid';document.list.submit();"<!--{else}-->disabled<!--{/if}-->>
 					<input type="button" style="width:80px;height:20px;" value="该局状况" <!--{if $info['wmode'] && $info['wmode'] !=4}-->onclick="document.list.command.value='news';document.list.gnum.value='$gid';document.list.submit();"<!--{else}-->disabled<!--{/if}-->>
 				</span>
 			</TD>
