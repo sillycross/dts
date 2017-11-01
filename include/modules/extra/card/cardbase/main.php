@@ -135,7 +135,8 @@ namespace cardbase
 		$db->query("UPDATE {$gtablepre}users SET cardenergy='$nt' WHERE username = '$who'");
 	}
 	
-	function get_card($ci,$pa=NULL)
+	//获得卡的外壳，主要是数据库读写
+	function get_card($ci,&$pa=NULL,$ignore_qiegao=0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','cardbase'));
@@ -145,25 +146,34 @@ namespace cardbase
 			if (isset($pa['username'])) $n=$pa['username'];
 			else $n=$pa['name'];
 		}
-		$cn=$cards[$ci]['name'];
 		$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$n'");
 		$pu = $db->fetch_array($result);
-		extract($pu,EXTR_PREFIX_ALL,'p');
-		$carr = explode('_',$p_cardlist);
-		$clist = Array();
-		foreach($carr as $key => $val){
-			$clist[$key] = $val;
-		}
-		if (in_array($ci,$clist)){
-			return 0;
-		}else{
-			$p_cardlist.="_".$ci;
-			$db->query("UPDATE {$gtablepre}users SET cardlist='$p_cardlist' WHERE username='$n'");
-			return 1;
-		}
+		$ret = get_card_process($ci,$pu,$ignore_qiegao);
+		
+		$p_cardlist = $pu['cardlist'];
+		$p_gold = $pu['gold'];
+		
+		$db->query("UPDATE {$gtablepre}users SET cardlist='$p_cardlist',gold='$p_gold' WHERE username='$n'");
+		return $ret;
 	}
 	
-	function get_qiegao($num,$pa=NULL)
+	//获得卡片和切糕的核心判定，如果卡重复，则换算成切糕
+	function get_card_process($ci,&$pa,$ignore_qiegao=0){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','cardbase'));
+		$clist = explode('_',$pa['cardlist']);
+		if (in_array($ci,$clist)){
+			if(!$ignore_qiegao) $pa['gold'] += $card_price[$cards[$ci]['rare']];
+			$ret = 0;
+		}else{
+			$clist[] = $ci;
+			$pa['cardlist'] = implode('_',$clist);
+			$ret = 1;
+		}
+		return $ret;
+	}
+	
+	function get_qiegao($num,&$pa=NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
@@ -177,6 +187,7 @@ namespace cardbase
 		$cg = $db->result($result,0);
 		$cg=$cg+$num;
 		if ($cg<0) $cg=0;
+		if($pa) $pa['gold'] = $cg;
 		$db->query("UPDATE {$gtablepre}users SET gold='$cg' WHERE username='$n'");
 	}
 	
@@ -280,9 +291,8 @@ namespace cardbase
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('cardbase'));
 		$ktype=(int)$type;
-		$func='kuji'.$ktype.'\\kujidraw'.$ktype;
-		if (defined('MOD_KUJI'.$ktype)) {
-			$kr=$func($pa, $is_dryrun);
+		if (defined('MOD_KUJIBASE')) {
+			$kr=\kujibase\kujidraw($ktype, $pa, $is_dryrun);
 			if (!is_array($kr)){
 				if ($kr==-1){
 					return -1;
