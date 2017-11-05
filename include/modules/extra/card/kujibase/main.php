@@ -15,7 +15,11 @@ namespace kujibase
 		\cardbase\get_qiegao(-$cost,$pa);//只扣1次
 		$rr =array();
 		for($i=0;$i<$num;$i++){
-			$r=rand(1,99);
+			if(0 == $i && $num > 1){//非单抽第一张保底
+				$r = rand(1,$bw);
+			}else{
+				$r = rand(1,99);
+			}
 			if ($r<=$sw){
 				$arr=$cardindex['S'];
 			}else if($r<=$aw){

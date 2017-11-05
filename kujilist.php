@@ -17,7 +17,9 @@ if($udata['groupid'] <= 0) { gexit($_ERROR['user_ban'], __file__, __line__); }
 extract($udata);
 $cg=$udata['gold'];
 
-$kreq=array(0=>100,1=>1000,2=>250);
+eval(import_module('kujibase'));
+	
+$kreq=$kujicost;
 
 include template('kujilist');
 
