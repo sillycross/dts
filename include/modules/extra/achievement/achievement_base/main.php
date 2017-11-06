@@ -48,14 +48,19 @@ namespace achievement_base
 	function ach_init(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('achievement_base'));
+		$n_achtype = $bk_list = array();
 		foreach($achtype as $ak => $av){
-			if(!check_achtype_available($ak)){//未开始直接不显示
-				unset($achtype[$ak]);
+			//未开始直接不显示
+			if(1 == check_achtype_available($ak)){
+				$n_achtype[$ak] = $av;
 			}elseif(2 == check_achtype_available($ak)){//过期的放后面
-				unset($achtype[$ak]);
-				$achtype[$ak] = $av;
+				$bk_list[$ak] = $av;
 			}
 		}
+		foreach($bk_list as $bk => $bv){
+			$n_achtype[$bk] = $bv;
+		}
+		$achtype = $n_achtype;
 	}
 	
 	function skill_onload_event(&$pa)//技能模块载入时直接加载所有成就
