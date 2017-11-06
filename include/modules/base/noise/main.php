@@ -71,9 +71,14 @@ namespace noise
 		
 		$chprocess();
 		
-		eval(import_module('sys'));
+		eval(import_module('sys','noise'));
 		//重设声音信息
-		$noisevars = array();
+		//$noisevars = array();
+		$noisetime = 0;
+		$noisepls = 0;
+		$noiseid = 0;
+		$noiseid2 = 0;
+		$noisemode = '';
 	}
 	
 	function save_gameinfo_prepare_work($ginfo, $ignore_room = 1){

@@ -67,7 +67,7 @@ namespace instance9
 		}else return $chprocess();
 	}
 	
-	//¼±ËÙÄ£Ê½Å­Æø»ñµÃĞ§ÂÊ¼Ó±¶
+	//æ€¥é€Ÿæ¨¡å¼æ€’æ°”è·å¾—æ•ˆç‡åŠ å€
 	function calculate_attack_rage_gain(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -79,7 +79,7 @@ namespace instance9
 		return $rageup;
 	}
 	
-	//¼±ËÙÄ£Ê½£¬Íæ¼ÒÊìÁ·¶È»ñµÃĞ§ÂÊ¼Ó±¶
+	//æ€¥é€Ÿæ¨¡å¼ï¼Œç©å®¶ç†Ÿç»ƒåº¦è·å¾—æ•ˆç‡åŠ å€
 	function calculate_attack_weapon_skill_gain(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -91,7 +91,7 @@ namespace instance9
 		return $skillup;
 	}
 	
-	//¼±ËÙÄ£Ê½£¬Íæ¼Ò¾­Ñé»ñµÃĞ§ÂÊ¼Ó±¶
+	//æ€¥é€Ÿæ¨¡å¼ï¼Œç©å®¶ç»éªŒè·å¾—æ•ˆç‡åŠ å€
 	function calculate_attack_exp_gain(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -103,7 +103,7 @@ namespace instance9
 		return $expup;
 	}
 	
-	//¼±ËÙÄ£Ê½¿ª¾Ö½ûÇøÊ±¼ä²»»áÈ¡Õû
+	//æ€¥é€Ÿæ¨¡å¼å¼€å±€ç¦åŒºæ—¶é—´ä¸ä¼šå–æ•´
 	function rs_areatime(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
@@ -111,27 +111,37 @@ namespace instance9
 		return $chprocess();
 	}
 	
-	//¼±ËÙÄ£Ê½µØÍ¼·À¾ßµÄĞ§¹ûÖµ·­±¶
+	//æ€¥é€Ÿæ¨¡å¼åœ°å›¾é˜²å…·çš„æ•ˆæœå€¼ç¿»å€ï¼Œé’‰å’Œç£¨åˆ€çŸ³æ•ˆæœå€¼x5
 	function mapitem_data_process($data){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		$ret = $chprocess($data);
 		eval(import_module('sys'));
-		if(19==$gametype && strpos($ret[4],'D')===0)
-			$ret[5] *= 2;
+		if(19==$gametype){
+			if(strpos($ret[4],'D')===0){
+				$ret[5] *= 2;
+			}elseif((strpos($ret[3], 'é’‰') !==false || strpos($ret[3], 'ç£¨åˆ€çŸ³') !==false) && strpos($ret[4],'Y')===0){
+				$ret[5] *= 5;
+			}
+		}
 		return $ret;
 	}
 	
-	//¼±ËÙÄ£Ê½ÉÌµê·À¾ßµÄĞ§¹ûÖµ·­±¶
+	//æ€¥é€Ÿæ¨¡å¼å•†åº—é˜²å…·çš„æ•ˆæœå€¼ç¿»å€ï¼Œé’‰å’Œç£¨åˆ€çŸ³æ•ˆæœå€¼ã€ä»·æ ¼x5
 	function shopitem_data_process($data){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		$ret = $chprocess($data);
 		eval(import_module('sys'));
-		if(19==$gametype && strpos($ret[5],'D')===0)
-			$ret[6] *= 2;
+		if(19==$gametype){
+			if(strpos($ret[5],'D')===0){
+				$ret[6] *= 2;
+			}elseif((strpos($ret[4], 'é’‰') !==false || strpos($ret[4], 'ç£¨åˆ€çŸ³') !==false) && strpos($ret[5],'Y')===0){
+				$ret[6] *= 5;$ret[2] *= 5;
+			}
+		}
 		return $ret;
 	}
 	
-	//¼±ËÙÄ£Ê½Ó¢Áéµî¡¢³û¾ÕÎŞÊÂ¼ş
+	//æ€¥é€Ÿæ¨¡å¼è‹±çµæ®¿ã€é›èŠæ— äº‹ä»¶
 	function event_available(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys', 'player'));
