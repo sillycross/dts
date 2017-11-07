@@ -7,6 +7,8 @@ require './include/common.inc.php';
 eval(import_module('pose','tactic','itemmain','npc'));
 
 include_once GAME_ROOT . './include/itemplace.func.php';
+//初始化itemplace数据
+init_item_place();
 
 $mixfile = GAME_ROOT.'./include/modules/base/itemmix/itemmix/config/itemmix.config.php';
 include $mixfile;
@@ -67,11 +69,11 @@ MIXITEM_HELP_TABLE_TITLE;
 			}
 			$mixhelpinfo .= 
 			"<tr>
-				<td class=\"b3\" height='19px' title='" . get_item_place ( $val ['stuff'] [0] ) . "'><span>{$val['stuff'][0]}</span></td>";
+				<td class=\"b3\" height='19px' title='" . get_item_place_single ( $val ['stuff'] [0] ) . "'><span>{$val['stuff'][0]}</span></td>";
 			for($i = 1; $i < 6; $i ++) {
 				$mixhelpinfo .= "<td class=\"b3\"";
 				if ($val ['stuff'] [$i] != '-') {
-					$mixhelpinfo .= "title='" . get_item_place ( $val ['stuff'] [$i] ) . "'";
+					$mixhelpinfo .= "title='" . get_item_place_single ( $val ['stuff'] [$i] ) . "'";
 				}
 				$mixhelpinfo .= "><span>{$val['stuff'][$i]}</span></td>";
 			}
@@ -146,7 +148,7 @@ SYNC_HELP_INFO_DOC_TR;
 		$synchelpinfo_special .= '<tr>';
 		for($i = 0; $i <= 4; $i ++) {
 			$synchelpinfo_special .= '<td class="b3"';
-			if (isset($sval['special'][$i])) $synchelpinfo_special .= "title='" . get_item_place ( $sval['special'][$i] ) . "'";
+			if (isset($sval['special'][$i])) $synchelpinfo_special .= "title='" . get_item_place_single ( $sval['special'][$i] ) . "'";
 			$synchelpinfo_special .= isset($sval['special'][$i]) ? "><span>{$sval['special'][$i]}</span></td>" : "><span>-</span></td>";
 		}
 		$synchelpinfo_special .=<<<SYNC_HELP_INFO_SPEC_DOC_TR
