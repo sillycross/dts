@@ -45,12 +45,11 @@ function init_item_place()
 		}
 	}
 	//地图数据预处理，忽略效、耐的不同
-	foreach(array('mapitem','mapitem_i8','mapitem_i9') as $val){
-		$nowdata = &$iplacefiledata[$val];
-		foreach($nowdata as &$ndv){
+	foreach(array('mapitem', 'mapitem_i8', 'mapitem_i9') as $val){
+		foreach($iplacefiledata[$val] as $ndk => $ndv){
 			$ndv_a = explode(',',$ndv);
 			$ndv_a[5] = 0; $ndv_a[6] = 1;
-			$ndv = implode(',', $ndv_a);
+			$iplacefiledata[$val][$ndk] = implode(',', $ndv_a);
 		}
 	}
 	//地图掉落、商店出售的各模式数据进行差分
@@ -62,6 +61,7 @@ function init_item_place()
 				//由于是字符串，刚好可以用array_diff。返回特殊模式独有的道具数据
 				$res = array_diff($iplacefiledata[$val.'_'.$mval], $basedata);
 				$iplacefiledata[$val.'_'.$mval] = $res;
+				//writeover($val.'_'.$mval.'.txt', var_export($res,1));
 			}
 		}
 		unset($basedata);

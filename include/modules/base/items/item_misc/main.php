@@ -369,6 +369,24 @@ namespace item_misc
 				$rp = 0;
 				$log .= "你使用了<span class=\"yellow\">$itm</span>。你的RP归零了。<br>";
 				return;
+			} elseif('『我是说在座的各位都是垃圾』' === $itm){
+				$mhpdown = 100;
+				if($mhp <= $mhpdown){
+					$log .= '一个声音传来：<span class="yellow">“wslnm，没血你装什么逼？！”</span><br>';
+				}elseif($now - $starttime > 300){//开局5分钟之内吃才有用
+					$log .= '你一边拉屎，一边看着外边满地乱滚的无名沙包，忽然决定给自己增加一点挑战。不过你胯下的翔似乎已经凉了。<br>';
+				}else{
+					$mhp -= $mhpdown;
+					if($hp > $mhp) $hp = $mhp;
+					$log .= '你一边拉屎，一边看着外边满地乱滚的无名沙包，忽然决定给自己增加一点挑战。于是你抓起自己胯下的翔，大口地吃了下去。<br><span class="red">你自扣了100点生命上限！</span><br>';
+					if(!$club) {
+						$log .= '你突然想起一件很重要的事情：<span class="red">老子还没选称号呢？</span>不过似乎你不用担心了，因为<span class="yellow">你刚才吃下的翔化为了你的力量！</span><br>';
+						\clubbase\club_acquire(97);
+					}
+					\sys\addnews ( 0, 'debuffself', $name);
+					\sys\addchat(6, "{$name}一边大口吃翔一边说道：“满场沙包，不足为惧。且看爷吃了这百斤翔，再来包你们爽！”");
+				}
+				return;
 			}
 		}
 		$chprocess($theitem);
@@ -528,12 +546,14 @@ namespace item_misc
 		
 		if($news == 'adminitem') 
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}使用了{$b}，变成了一条权限狗！（管理员{$a}宣告其正在进行测试。）</span></li>";	
-		if($news == 'death28') 
+		elseif($news == 'death28') 
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因<span class=\"yellow\">$d</span>意外身亡{$e0}</li>";
-		if($news == 'death30') 
+		elseif($news == 'death30') 
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因误触伪装成核弹按钮的蛋疼机关被炸死{$e0}</li>";
-		if($news == 'death38')
+		elseif($news == 'death38')
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因为敌意过剩，被虚拟意识救♀济！{$e0}</li>";
+		elseif($news == 'debuffself')
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}认为在座的各位都是垃圾，并大口吃下一百斤翔以表达他的不屑！（{$a}自扣了100点生命上限）</span></li>";
 			
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

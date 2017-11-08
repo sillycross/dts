@@ -142,9 +142,9 @@ namespace skill487
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess($pa, $sdata, $tritm, $damage);
-		if (\skillbase\skill_query(487,$sdata) && check_unlocked487($pd) && $sdata['hp']<$sdata['mhp']/2 && $sdata['hp']>0)
+		if (\skillbase\skill_query(487,$sdata) && check_unlocked487($sdata) && $sdata['hp']<$sdata['mhp']/2 && $sdata['hp']>0)
 		{
-			auto_recover487($pa, $sdata, 1);
+			auto_recover487($sdata, 1);
 		}
 	}
 	
