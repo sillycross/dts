@@ -251,7 +251,8 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2)
 			
 			//非快速模式或者快速模式且文件修改过
 			if(!$quickmode || ($quickmode && filemtime($src) >= filemtime(GAME_ROOT.'./gamedata/modules.list.php'))) {
-				copy_without_comments($src, $objfile);
+				copy($src, $objfile);
+				//copy_without_comments($src, $objfile);
 				$changed_filelist[] = $modp[$i].$key;
 			}
 			//无论是不是快速模式都得预读全部函数内容
@@ -282,7 +283,8 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2)
 						$changed_filelist[] = $fc_filename;
 						$objfile = GAME_ROOT.'./gamedata/run/'.$fc_filename;
 						$tplfile = substr($objfile,0,-4).'.adv'.substr($objfile,strlen($objfile)-4);
-						copy_without_comments($tplfile, $objfile);
+						copy($tplfile, $objfile);
+						//copy_without_comments($tplfile, $objfile);
 					}
 				}
 			}

@@ -159,7 +159,7 @@ namespace itemshop
 
 		$money -= $cost;
 	
-		addnews($now,'itembuy',$name,$iteminfo['item']);
+		addnews($now,'itembuy',$name,$shopiteminfo['item']);
 		$log .= "购买成功。";
 		$itm0 = $shopiteminfo['item'];
 		$itmk0 = $shopiteminfo['itmk'];

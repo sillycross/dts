@@ -178,6 +178,7 @@ skill261,extra/club/skills/skill261/,1
 skill474,extra/card/skills/skill474/,1
 skill484,extra/card/skills/skill484/,1
 skill491,extra/card/skills/skill491/,1
+club97,extra/club/clubs/club97/,1
 skill433,extra/card/skills/skill433/,1
 skill602,extra/club/skills/skill602/,1
 skill221,extra/club/skills/skill221/,1
