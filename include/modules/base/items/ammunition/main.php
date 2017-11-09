@@ -22,6 +22,8 @@ namespace ammunition
 		$iteminfo['GBe'] = '能源弹药';
 		
 		$itemspkinfo['o'] = '一发';
+		$itemspkdesc['o']='本枪械不能装填弹药';
+		$itemspkremark['o']='……';
 		
 	}
 	

@@ -6,6 +6,8 @@ namespace ex_attr_charge
 	{
 		eval(import_module('itemmain'));
 		$itemspkinfo['N'] = '冲击';
+		$itemspkdesc['N']='计算物理伤害时，对方装备防御力-50%';
+		$itemspkremark['N']='40%概率生效';
 	}
 	
 	//冲击触发率

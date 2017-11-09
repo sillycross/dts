@@ -6,6 +6,8 @@ namespace itemmix_sync
 	{
 		eval(import_module('itemmain'));
 		$itemspkinfo['s'] = '调整';
+		$itemspkdesc['s']='参与同调合成的必要属性';
+		$itemspkremark['s']='……';
 	}
 	
 	function get_itemmix_sync_filename(){

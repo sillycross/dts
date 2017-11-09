@@ -5,8 +5,13 @@ namespace ex_hp_def
 	function init()
 	{
 		eval(import_module('itemmain'));
-		$itemspkinfo['H'] = 'HP制御';
-		$itemspkinfo['h'] = '伤害制御';
+		$itemspkinfo['H'] = '控噬';
+		$itemspkdesc['H']='自己受到的反噬伤害-90%';
+		$itemspkremark['H']='反噬伤害指对敌方伤害破1000时自己受到的伤害';
+		
+		$itemspkinfo['h'] = '控血';
+		$itemspkdesc['h']='受到总伤害超过1997时变为1997';
+		$itemspkremark['h']='10%概率失效';
 	}
 	
 	function calculate_hp_rev_dmg(&$pa, &$pd, $active)

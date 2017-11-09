@@ -6,6 +6,8 @@ namespace wepchange
 	{
 		eval(import_module('itemmain'));
 		$itemspkinfo['j'] = '多重';
+		$itemspkdesc['j']='能切换武器模式';
+		$itemspkremark['j']='部分转换不可逆；不能使用任何方式强化或改造这个装备';
 	}
 	
 	function weaponswap()

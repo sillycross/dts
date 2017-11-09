@@ -7,14 +7,14 @@ require './include/common.inc.php';
 eval(import_module('pose','tactic','itemmain','npc'));
 
 include_once GAME_ROOT . './include/itemplace.func.php';
-//初始化itemplace数据
-init_item_place();
+
 
 $mixfile = GAME_ROOT.'./include/modules/base/itemmix/itemmix/config/itemmix.config.php';
 include $mixfile;
 $writefile = GAME_ROOT.TPLDIR.'/tmp_mixhelp.htm';
 //通常合成表自动生成
 if(!file_exists($writefile) || filemtime($mixfile) > filemtime($writefile)){
+	if(empty($iplacedata)) init_item_place();//初始化itemplace数据
 	$mixitem = array();
 	foreach($mixinfo as $mix){
 		if($mix['class'] !== 'hidden'){
@@ -93,6 +93,7 @@ MIXITEM_HELP_TABLE_TITLE;
 $syncfile = GAME_ROOT.'./include/modules/base/itemmix/itemmix_sync/config/sync.config.php';
 $writefile = GAME_ROOT.TPLDIR.'/tmp_mixhelp_sync.htm';
 if(!file_exists($writefile) || filemtime($syncfile) > filemtime($writefile)){
+	if(empty($iplacedata)) init_item_place();//初始化itemplace数据
 	$syncinfo=openfile($syncfile);
 	$syncitem = array();
 	$syncitem_special = array();
@@ -173,6 +174,7 @@ SYNC_HELP_WRITE_CONTENT;
 $overlayfile = GAME_ROOT.'./include/modules/base/itemmix/itemmix_overlay/config/overlay.config.php';
 $writefile = GAME_ROOT.TPLDIR.'/tmp_mixhelp_overlay.htm';
 if(!file_exists($writefile) || filemtime($overlayfile) > filemtime($writefile)){
+	if(empty($iplacedata)) init_item_place();//初始化itemplace数据
 	$overlayinfo=openfile($overlayfile);
 	$overlayitem = array();
 	foreach($overlayinfo as $overlay){

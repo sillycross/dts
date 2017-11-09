@@ -61,7 +61,7 @@ namespace skill262
 		$r=Array();
 		if (\skillbase\skill_query(262,$pa) && check_unlocked262($pa) && $pa['user_commanded']==1 && $active && !$pa['is_counter'] && (!isset($pa['sk262flag']) || !$pa['sk262flag'])) 
 		{
-			//eval(import_module('logger'));
+			eval(import_module('logger'));
 			$ct = floor(getmicrotime()*1000);
 			$st = floor(\skillbase\skill_getvalue(262,'ct',$pa)); 
 			$t = $ct - $st;

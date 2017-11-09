@@ -82,6 +82,7 @@ namespace itemmain
 		//r ex_rapid_attr 连击		
 		//S ex_attr_silencer 消音
 		//s itemmix_sync 同调调整
+		//t ex_dmg_att 音爆
 		//U ex_dmg_def 防火
 		//u ex_dmg_att 火焰
 		//W ex_dmg_def 隔音
@@ -89,8 +90,17 @@ namespace itemmain
 		'x' => '奇迹',
 		//Z blessstone 菁英
 		'z' => '天然',
-		);
-		
+	);
+	
+	$itemspkdesc = array(
+		'x' => '人类，可以超越神么？……',
+		'z' => '使用后会变成冴冴一样的天然呆',
+	);
+	
+	$itemspkremark = array(
+		'x' => '……',
+		'z' => '……',
+	);
 }
 
 ?>

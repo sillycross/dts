@@ -5,7 +5,9 @@ namespace ex_phy_nullify
 	function init() 
 	{
 		eval(import_module('itemmain'));
-		$itemspkinfo['B'] = '伤害抹消';
+		$itemspkinfo['B'] = '物抹';
+		$itemspkdesc['B']='抹消受到的所有攻击方式的物理伤害至1';
+		$itemspkremark['B']='4%概率失效；注意本属性会被贯穿属性击穿。';
 	}
 	
 	function get_ex_phy_nullify_proc_rate(&$pa, &$pd, $active)
@@ -35,7 +37,7 @@ namespace ex_phy_nullify
 			{
 				if ($active)
 					$log .= "纳尼？{$pd['name']}的装备使攻击无效化的属性竟然失效了！<br>";
-				else  $log .= "纳尼？你的装备使攻击无效化的属性竟然失效了！<br>";
+				else  $log .= "纳尼？你的装备免疫物理伤害的效果竟然失效了！<br>";
 			}
 		}
 		return Array();
