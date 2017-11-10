@@ -201,7 +201,7 @@ namespace gtype1
 		eval(import_module('sys','logger','player','metman'));
 		if($gametype==1 && $dnname){
 			$edata = \player\fetch_playerdata('黑熊',21);
-			if(isset($edata['pid'])){//黑熊NPC存在，可以伪造战斗界面，因而剧情不同
+			if(isset($edata['pid']) && $edata['hp'] > 0){//黑熊NPC存在且存活，可以伪造战斗界面，因而剧情不同
 				$o_fog = $fog; $fog = 0;
 				extract($edata,EXTR_PREFIX_ALL,'w');
 				$battle_title = '发现敌人';
