@@ -1,4 +1,5 @@
 var ms;
+
 function hotkey(evt) 
 { 
 	if(document.activeElement.tagName != 'INPUT'){
@@ -377,6 +378,9 @@ function showData(sdata){
 	{
 		RoomKickTimerId=setInterval("room_kick_timer()",1000);
 	}
+	
+	//重载悬浮提示
+	floating_hint();
 }
 
 var refchat = null;

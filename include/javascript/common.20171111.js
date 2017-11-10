@@ -143,3 +143,34 @@ Cookie.getCookie=function(name){
 Cookie.deleteCookie=function(name){
 	this.setCookie(name,'',{expireHours:-1});
 }
+
+
+//悬浮提示本体，需要与ajax配合才能生效的
+function floating_hint()
+{
+	jQuery('[title]').each(function() {
+		var msg = jQuery(this).attr('title');
+		jQuery(this).on({
+			mouseover: function(e) { 
+				jQuery('#hoverHintMsgInner').html(msg);
+				jQuery('#hoverHintMsg').css({
+					display: "block",
+					left: Number(Math.floor(e.clientX)+10).toString()+'px',
+					top: Number(Math.floor(e.clientY)+10).toString()+'px'
+				});
+			},
+			mousemove: function(e) {
+				jQuery('#hoverHintMsg').css({
+					left: Number(Math.floor(e.clientX)+10).toString()+'px',
+					top: Number(Math.floor(e.clientY)+10).toString()+'px'
+				});
+			},
+			mouseout: function() { 
+				jQuery('#hoverHintMsg').css({
+					display:"none"
+				});
+			}
+		});
+		jQuery(this).attr('title','');
+	});
+}
