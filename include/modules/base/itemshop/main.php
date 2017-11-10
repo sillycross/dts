@@ -62,7 +62,7 @@ namespace itemshop
 		for($i=0;$i< $shopnum;$i++){
 			$itemdata[$i]=$db->fetch_array($result);
 			$itemdata[$i]['itmk_words']=\itemmain\parse_itmk_words($itemdata[$i]['itmk'],1);
-			$itemdata[$i]['itmsk_words']=\itemmain\parse_itmsk_words($itemdata[$i]['itmsk'],1);
+			$itemdata[$i]['itmsk_words']=\itemmain\parse_itmsk_words($itemdata[$i]['itmsk']);
 		}
 		return $itemdata;
 	}
