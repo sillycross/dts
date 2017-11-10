@@ -61,7 +61,7 @@ namespace corpse
 		$main = MOD_METMAN_MEETMAN;
 		$log .= '你发现了<span class="red">'.$w_name.'</span>的尸体！<br>';
 		
-		$r=\itemmain\parse_item_words($edata);
+		$r=\itemmain\parse_item_words($edata,1);
 		extract($r,EXTR_PREFIX_ALL,'w');
 		
 		include template(get_corpse_filename());

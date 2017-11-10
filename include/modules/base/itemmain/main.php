@@ -112,9 +112,7 @@ namespace itemmain
 			$sk_arr = get_itmsk_array($sk_value);
 			if(!empty($sk_arr)){
 				foreach($sk_arr as $sv){
-					if ($simple)
-						$ret .= $itemspkinfo[$sv];
-					else $ret .= $itemspkinfo[$sv].'+';
+					$ret .= $itemspkinfo[$sv].'+';
 				}
 				$ret = substr($ret,0,-1);
 			}
@@ -145,7 +143,7 @@ namespace itemmain
 	
 	//把身上装备道具的显示信息全部处理一遍
 	//$elli=1时自动省略超过10个字的道具名的中间部分
-	//$simple=1时没有有属性间加号，无属性直接返回空
+	//$simple=1时无属性直接返回空
 	function parse_item_words($edata, $simple = 0, $elli = 1)	
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
