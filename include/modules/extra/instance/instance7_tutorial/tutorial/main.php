@@ -741,10 +741,10 @@ namespace tutorial
 	}
 	
 	//教程房是否真正连斗
-	function checkcombo(){
+	function checkcombo($time){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','tutorial'));
-		if (!$tutorial_disable_combo || $gametype!=17) return $chprocess();
+		if (!$tutorial_disable_combo || $gametype!=17) return $chprocess($time);
 	}
 }
 

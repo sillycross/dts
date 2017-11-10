@@ -64,13 +64,13 @@ namespace gtype1
 		return $chprocess($edata);
 	}
 	
-	function checkcombo(){
+	function checkcombo($time){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','map','gameflow_combo'));
-		if (($gametype==1)&&($areanum<$areaadd*2)&&($alivenum>0)){
+		if ( $gametype==1 && $areanum<$areaadd*2 && $alivenum>0 ){
 			return;
 		}
-		$chprocess();
+		$chprocess($time);
 	}
 	
 	function rs_game($xmode = 0) 

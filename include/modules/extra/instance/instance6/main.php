@@ -4,13 +4,13 @@ namespace instance6
 {
 	function init() {}
 	
-	function checkcombo(){
+	function checkcombo($time){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','map','gameflow_combo'));
-		if (($gametype==16)&&($areanum<$areaadd*2)&&($alivenum>0)){
+		if ( $gametype==16 && $areanum < $areaadd*2 && $alivenum>0 ){
 			return;
 		}
-		$chprocess();
+		$chprocess($time);
 	}
 	
 	function rs_game($xmode = 0) 	//开局天气初始化

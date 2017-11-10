@@ -6,7 +6,7 @@ if (! defined ( 'IN_GAME' )) {
 
 function init_item_place()
 {
-	global $plsinfo,$gamecfg,$iplacedata;
+	global $npc_typeinfo,$plsinfo,$gamecfg,$iplacedata;
 	//各需要openfile的文件
 	$iplacefilelist = array(
 		'mapitem' => GAME_ROOT.'/include/modules/base/itemmain/config/mapitem.config.php',
@@ -76,7 +76,7 @@ function init_item_place()
 	//生成以道具名为键名的数组
 	$iplacedata = array();
 	foreach($iplacefiledata as $ipdkey => $ipdval){
-		foreach($ipdval as $ipdval2){
+		foreach($ipdval as $ipdkey2 => $ipdval2){
 			$idata = '';
 			//地图掉落
 			if(strpos($ipdkey, 'mapitem')===0) {
@@ -133,22 +133,26 @@ function init_item_place()
 			}
 			//NPC
 			elseif(strpos($ipdkey, 'npc')!==false){
+				
 				$nownpclist = array($ipdval2);
 				if(isset($ipdval2['sub'])){
+					$ipdval2['type'] = $ipdkey2;
 					$nownpclist = array();
 					foreach ($ipdval2['sub'] as $subval){
 						$nownpclist[] = array_merge($ipdval2, $subval);
 					}
 				}elseif($ipdkey == 'evonpc') {
 					$nownpclist = $ipdval2;
+					foreach($nownpclist as &$nval){
+						$nval['type'] = $ipdkey2;
+					}
 				}
 				
-				foreach ($nownpclist as $nval){
-					$nownpc = array_merge($ipdval2, $nval);
+				foreach ($nownpclist as $nownpc){
 					foreach(array('wep','arb','arh','ara','arf','art','itm1','itm2','itm3','itm4','itm5','itm6') as $nipval){
 						if(!empty($nownpc[$nipval])) {
 							$iname = $nownpc[$nipval];
-							$idata = '击倒'.$nownpc['name'].'可拾取';
+							$idata = '击倒'.$npc_typeinfo[$nownpc['type']].' '.$nownpc['name'].'可拾取';
 							//如果标准模式定义了，那么其他模式不重复计算
 							if(isset($iplacedata[$iname]) && in_array($idata, $iplacedata[$iname])){
 								$idata='';
@@ -192,7 +196,10 @@ function get_item_place_single($which){
 	if(!empty($iplacedata[$which])){
 		$result = implode('<br>',$iplacedata[$which] );
 	}
-	if ($which=="悲叹之种") $result.="通过使用『灵魂宝石』强化物品失败获得<br>";
+	if ($which=="悲叹之种") {
+		if(!empty($result)) $result .= '<br>';
+		$result.="通过使用『灵魂宝石』强化物品失败获得<br>";
+	}
 	return $result;
 }
 
