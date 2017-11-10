@@ -53,9 +53,10 @@ if (($now-$udata['cd_s'])<86400){
 	$std=$year."年".$month."月".$day."日".$hour."时".$min."分";
 }
 
-if (($now-$udata['cd_a1'])<43200){
+eval(import_module('achievement_base'));
+if (($now-$udata['cd_a1']) < $daily_intv){
 	$ff=false;
-	$ntime=$udata['cd_a1']+43200;
+	$ntime=$udata['cd_a1'] + $daily_intv;
 	list($min,$hour,$day,$month,$year)=explode(',',date("i,H,j,n,Y",$ntime));
 	list($cmin,$chour,$cday,$cmonth,$cyear)=explode(',',date("i,H,j,n,Y",$now));
 	if ($cday==$day && $cmonth==$month && $cyear==$year)
