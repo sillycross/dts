@@ -33,11 +33,8 @@ else
 	if ($uname==$cuser) $curuser=true;
 }
 
-if ($curuser && isset($_REQUEST["action"]) && $_REQUEST["action"]=="refdaily" && ($now-$udata['cd_a1'])>=43200){
-	$db->query("UPDATE {$gtablepre}users SET cd_a1='$now' WHERE username='".$udata['username']."'" );
-	\achievement_base\get_daily_quest($username);
-	$udata['cd_a1']=$now;
-	$refdaily_flag = true;
+if ($curuser && isset($_REQUEST["action"]) && $_REQUEST["action"]=="refdaily"){
+	$refdaily_flag = \achievement_base\refresh_daily_quest($udata);
 }
 else  $refdaily_flag = false;
 

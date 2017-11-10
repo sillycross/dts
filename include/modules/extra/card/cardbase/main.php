@@ -307,6 +307,7 @@ namespace cardbase
 		return -1;
 	}
 	
+	//卡片按罕贵从罕到平排序
 	function card_sort($cards){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = array();
@@ -320,6 +321,7 @@ namespace cardbase
 		return $ret;
 	}
 	
+	//卡包过滤器核心代码，过滤没开放的卡包
 	function check_pack_availble($pn){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','cardbase'));
@@ -328,6 +330,7 @@ namespace cardbase
 		return $ret;
 	}
 	
+	//卡包过滤器，过滤没开放的卡包。
 	function pack_filter($packlist){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$n_packlist = array();

@@ -36,7 +36,9 @@ if($mode == 'enter') {
 	$card_ownlist = $userCardData['cardlist'];;
 	$card_energy = $userCardData['cardenergy'];
 	
-	if (!in_array($card,$card_ownlist)) $card=0;
+	if (!in_array($card,$card_ownlist)) {
+		$card=0;
+	}
 	
 	if ($gender !== 'm' && $gender !== 'f'){
 		$gender = 'f';

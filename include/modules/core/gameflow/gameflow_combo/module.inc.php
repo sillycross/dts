@@ -3,7 +3,7 @@
 namespace gameflow_combo
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'sys player gameflow_base';
+	$___MODULE_dependency = 'sys player gameflow_base map';
 	$___MODULE_dependency_optional = 'corpse metman team trap';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php config/gameflow_combo.config.php';
