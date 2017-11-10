@@ -105,41 +105,40 @@ namespace itemmain
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('itemmain'));
+		//纯数字或者以等号开头的，也认为是空的（特殊用法）
 		if($sk_value && is_numeric($sk_value) === false && strpos($sk_value,'=')!==0){
 			$ret = '';
 			$i = 0;
-			while ($i < strlen($sk_value))
-			{
-				$sub = substr($sk_value,$i,1); $i++;
-				if(!empty($sub)){
-					if ($sub=='^')
-					{
-						while ($i<strlen($sk_value) && '0'<=$sk_value[$i] && $sk_value[$i]<='9') 
-						{
-							$sub.=$sk_value[$i];
-							$i++;
-						}
-						if ($i<strlen($sk_value) && $sk_value[$i]=='^')
-						{
-							$sub.='^'; $i++;
-						}
-						else  continue;
-					}
-					
-					if(!empty($ret)){
-						if ($simple)
-							$ret .= $itemspkinfo[$sub];
-						else  $ret .= '+'.$itemspkinfo[$sub];
-					}else{
-						$ret = $itemspkinfo[$sub];
-					}					
+			$sk_arr = get_itmsk_array($sk_value);
+			if(!empty($sk_arr)){
+				foreach($sk_arr as $sv){
+					if ($simple)
+						$ret .= $itemspkinfo[$sv];
+					else $ret .= $itemspkinfo[$sv].'+';
 				}
-				
+				$ret = substr($ret,0,-1);
 			}
 		} else {
 			if ($simple)
 				$ret='';
-			else  $ret =$nospk;
+			else  $ret = $nospk;
+		}
+		return $ret;
+	}
+	
+	function parse_itmsk_desc($sk_value){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('itemmain'));
+		$ret = '';
+		if($sk_value && is_numeric($sk_value) === false && strpos($sk_value,'=')!==0){
+			$i = 0;
+			$sk_arr = get_itmsk_array($sk_value);
+			if(!empty($sk_arr)){
+				foreach($sk_arr as $sv){
+					$ret .= $itemspkinfo[$sv].'：'.$itemspkdesc[$sv].'<br>';
+				}
+				$ret = substr($ret,0,-4);
+			}
 		}
 		return $ret;
 	}
@@ -162,6 +161,7 @@ namespace itemmain
 			$r[$kv.'_words'] = parse_itmk_words($edata[$kv]);
 			$skv=substr($v,0,$z+1).'sk'.substr($v,$z+1);
 			$r[$skv.'_words'] = parse_itmsk_words($edata[$skv],$simple);
+			$r[$skv.'_desc'] = parse_itmsk_desc($edata[$skv]);
 		}
 		
 		return $r;

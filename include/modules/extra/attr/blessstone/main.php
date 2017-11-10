@@ -6,6 +6,8 @@ namespace blessstone
 	{
 		eval(import_module('itemmain'));
 		$itemspkinfo['Z'] = '菁英';
+		$itemspkdesc['Z']='带有此属性的物品可以用『祝福宝石』或『灵魂宝石』强化效果值';
+		$itemspkremark['Z']='第4次强化需要用2个以上的『祝福宝石』，第5次及以上只能用『灵魂宝石』。<br>第5次及以上强化有可能失败，次数越高概率越大。<br>不能使用磨刀石或者补丁来强化这一装备。';
 	}
 	
 	function itemuse(&$theitem) 

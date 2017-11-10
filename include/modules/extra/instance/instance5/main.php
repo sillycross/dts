@@ -14,7 +14,7 @@ namespace instance5
 		}else return $chprocess();
 	}
 	
-	function checkcombo(){
+	function checkcombo($time){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','map','gameflow_combo'));
 		if(15 == $gametype){
@@ -22,7 +22,7 @@ namespace instance5
 				return;
 			}
 		}
-		$chprocess();
+		$chprocess($time);
 	}
 	
 	function rs_game($xmode = 0) 	//开局禁区时间、天气初始化

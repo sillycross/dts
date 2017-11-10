@@ -6,6 +6,8 @@ namespace itemmix_overlay
 	{
 		eval(import_module('itemmain'));
 		$itemspkinfo['J'] = '超量素材';
+		$itemspkdesc['J']='可以参与超量合成';
+		$itemspkremark['J']='……';
 	}
 	
 //	function itemmix_star_culc(array $mlist){

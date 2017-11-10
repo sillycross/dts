@@ -5,15 +5,43 @@ namespace ex_dmg_att
 	function init() 
 	{
 		eval(import_module('itemmain'));
+		
 		$itemspkinfo['p'] = '带毒';
+		$itemspkdesc['p']='攻击附带毒性伤害';
+		$itemspkremark['p']='至少5%概率导致对方中毒；敌人已中毒时本属性伤害+100%';
+		
 		$itemspkinfo['u'] = '火焰';
+		$itemspkdesc['u']='攻击附带火焰伤害';
+		$itemspkremark['u']='至少10%概率导致对方烧伤';
+		
 		$itemspkinfo['i'] = '冻气';
+		$itemspkdesc['i']='攻击附带冻气伤害';
+		$itemspkremark['i']='至少5%概率导致对方冻结；注意：敌人已冻结时本属性伤害-25%！';
+		
 		$itemspkinfo['e'] = '电击';
+		$itemspkdesc['e']='攻击附带电气伤害';
+		$itemspkremark['e']='至少5%概率导致对方身体麻痹';
+		
 		$itemspkinfo['w'] = '音波';
+		$itemspkdesc['w']='攻击附带音波伤害';
+		$itemspkremark['w']='至少5%概率导致对方混乱；敌人已混乱时本属性伤害+50%';
+		
 		$itemspkinfo['d'] = '爆炸';
+		$itemspkdesc['d']='属性伤害基础值为武器效果的一半';
+		$itemspkremark['d']='攻击时会产生爆炸声';
+		
 		$itemspkinfo['f'] = '灼焰';
+		$itemspkdesc['f']='攻击附带火焰伤害，基础值为武器效果的25%';
+		$itemspkremark['f']='至少25%概率导致对方烧伤；敌人已烧伤时本属性伤害+50%';
+		
 		$itemspkinfo['k'] = '冰华';
+		$itemspkdesc['k']='攻击附带冻气伤害，基础值为武器效果的20%';
+		$itemspkremark['k']='至少40%概率导致对方冻结；敌人已冻结时本属性伤害+50%';
+		
 		$itemspkinfo['t'] = '音爆';
+		$itemspkdesc['t']='攻击附带音波伤害，基础值为武器效果的20%';
+		$itemspkremark['t']='至少20%概率导致对方混乱；敌人已混乱时本属性伤害+100%<br>攻击时会产生轰鸣声';
+		
 		//声音信息
 		if (defined('MOD_NOISE')) 
 		{

@@ -5,7 +5,9 @@ namespace ex_dmg_nullify
 	function init() 
 	{
 		eval(import_module('itemmain'));
-		$itemspkinfo['b'] = '属性抹消';
+		$itemspkinfo['b'] = '属抹';
+		$itemspkdesc['b']='抹消受到的属性伤害至1，并且免疫异常状态';
+		$itemspkremark['b']='4%概率失效';
 	}
 	
 	function get_ex_dmg_nullify_proc_rate(&$pa, &$pd, $active)
@@ -36,7 +38,7 @@ namespace ex_dmg_nullify
 			}
 			else
 			{
-				$log .= "纳尼？防具使属性攻击无效化的属性竟然失效了！<br>";
+				$log .= "纳尼？防具免疫属性攻击的效果竟然失效了！<br>";
 				return 0;
 			}
 		}

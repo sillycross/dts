@@ -6,7 +6,9 @@ namespace rage
 	{
 		eval(import_module('itemmain'));
 		$iteminfo['HR']='怒气增加';
-		$itemspkinfo['c']='重击辅助';
+		$itemspkinfo['c']='集气';
+		$itemspkdesc['c']='攻击时额外获得1点怒气；发动战斗技时会返还10%消耗的怒气';
+		$itemspkremark['c']='……';
 	}
 	
 	//静养获得怒气

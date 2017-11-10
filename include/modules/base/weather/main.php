@@ -338,13 +338,13 @@ namespace weather
 		eval(import_module('sys','player','weather'));
 		if($news == 'wthchange') 
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}使用了{$c}，天气变成了{$wthinfo[$b]}！</span></li>";
-		if($news == 'wthfail') 
+		elseif($news == 'wthfail') 
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}使用了{$c}，但是天气并未发生改变！</span></li>";
-		if($news == 'syswthchg') 
+		elseif($news == 'syswthchg') 
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">奇迹和魔法都是存在的！当前天气变成了{$wthinfo[$a]}！</span></li>";
-		if($news == 'aurora_revival') 
+		elseif($news == 'aurora_revival') 
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}在奥罗拉的作用下原地复活了！</span></li>";
-		if($news == 'death17') 
+		elseif($news == 'death17') 
 		{
 			$dname = $typeinfo[$b].' '.$a;
 			if(!$e){
@@ -354,8 +354,7 @@ namespace weather
 			}
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>被<span class=\"red\">冰雹砸死</span>{$e}</li>";
 		}
-		
-		if($news == 'addarea') 
+		elseif($news == 'addarea') 
 		{
 			$info = $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 			$info = str_replace("</li>", "<span class=\"yellow\">【天气：{$wthinfo[$b]}】</span></li>", $info);

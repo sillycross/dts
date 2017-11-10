@@ -6,6 +6,8 @@ namespace ex_rapid_attr
 	{
 		eval(import_module('itemmain'));
 		$itemspkinfo['r'] = '连击';
+		$itemspkdesc['r']='根据熟练度，进行2-6次连续攻击';
+		$itemspkremark['r']='武器对应系每有200熟练度则连击次数+1；<br>第2次以后的连击伤害有折减（6次全中相当于单次攻击的4.6倍）';
 	}
 	
 	function get_rapid_times($pa, $pd, $active)

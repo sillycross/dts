@@ -2,45 +2,6 @@
 
 namespace achievement_base
 {
-	$achtype=array(
-		31=>'2017十一活动成就',
-		32=>'2017万圣节活动成就',
-		20=>'日常任务',
-		10=>'结局成就',
-		3=>'战斗成就',
-		1=>'道具成就',
-		4=>'挑战成就',
-		2=>'光辉事迹',
-		//0=>'其他成就',
-	);
-	//生效中的所有成就
-	$achlist=array(//为了方便调整各成就的显示顺序放在这里了
-		1=>array(300,302,303,304),
-		2=>array(308,309,322,323),
-		3=>array(310,311,312),
-		4=>array(325,313,326),
-		10=>array(305,301,306,307),
-		20=>array(314,315,316,317,318,319,320,321,324),
-		31=>array(327,328,329),
-		32=>array(330,331)
-	);
-	$ach_available_period=array(//如果设置，则非零的数据认为是起止时间
-		31=>array(1506816000, 1508111999),
-		32=>array(1509465600, 1510012799),
-	);
-	//成就编号=>允许完成的模式，未定义则用0键的数据（只有标准模式、卡片模式可以完成）
-	$ach_allow_mode=array(
-		0=>array(0, 4),
-		307 => array(0, 4, 16),//解离成就，实际位于skill307
-		313 => array(15),//伐木模式成就，实际位于skill313
-		318 => array(0, 4, 16),//日常解离成就，实际位于skill318
-		323 => array(0, 4, 16),//最速解离成就，实际位于skill323
-		327 => array(18),//2017年十一活动，荣耀房NPC成就
-		328 => array(18),//2017年十一活动，荣耀房杀玩家成就
-		329 => array(18),//2017年十一活动，荣耀房破灭之诗成就
-		330 => array(0, 4, 19),//2017万圣节活动成就1，允许极速房完成
-		331 => array(0, 4, 19),//2017万圣节活动成就2，允许极速房完成
-	);
 	
 	function init() {
 	}
@@ -160,7 +121,19 @@ namespace achievement_base
 			if ($c%3==0) echo "</tr>";
 		}
 		if ($c%3!=0) echo "</tr>";
-	}		
+	}
+	
+	function refresh_daily_quest(&$udata){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$refdaily_flag = false;
+		eval(import_module('sys','achievement_base'));
+		if(($now-$udata['cd_a1']) >= $daily_intv){
+			\achievement_base\get_daily_quest($udata['username']);
+			$refdaily_flag = true;
+			$udata['cd_a1']=$now;
+		}
+		return $refdaily_flag;
+	}
 
 	function get_daily_quest($un){
 	
@@ -188,7 +161,7 @@ namespace achievement_base
 		$nachdata='';
 		for ($i=0; $i<=$maxid; $i++)
 			$nachdata.=$achdata[$i].';';
-		$db->query("UPDATE {$gtablepre}users SET n_achievements = '$nachdata' WHERE username='$un'");
+		$db->query("UPDATE {$gtablepre}users SET n_achievements = '$nachdata',cd_a1 = '$now' WHERE username='$un'");
 	}
 	
 	function check_achtype_available($achid){//0 未开始； 1 进行中； 2 过期

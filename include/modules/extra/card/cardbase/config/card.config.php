@@ -1542,8 +1542,8 @@ $cards = array(
 		'name' => '软件测试工程师',
 		'rare' => 'S',
 		'pack' => 'hidden',
-		'desc' => 'mode1 card1',
-		'effect' => '',
+		'desc' => '“据称阁下乃软件测试界的精英，谨邀请阁下参加幻境除错任务，望阁下予以支持。”<br><span class="red" style="text-align:right">——红暮</span>',
+		'effect' => '你其实对代码一窍不通，不过你搞野路子的经验很丰富。',
 		'energy' => 0,
 		'valid' => array(
 			'club' => '7',

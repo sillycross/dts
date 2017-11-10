@@ -758,202 +758,28 @@
 <table cellSpacing=0 cellPadding=0>
 	<tr>
 		<td class="b1" height=20px>
-		<span>属性名称</span>
+			<span>属性名称</span>
 		</td>
 		<td class="b1">
-		<span>属性效果</span>
-		</td>
-
-		<td class="b1">
-		<span>导致异常状态</span>
+			<span>属性效果</span>
 		</td>
 		<td class="b1">
-		<span>备注</span>
+			<span>备注</span>
 		</td>
-
 	</tr>
+	<!--{loop array('r','d','p','u','i','e','w','f','k','t','n','N','S') $tmp_attr}-->
 	<tr>
 		<td class="b2" height=20px>
-		<span>连击</span>
+			<span>$itemspkinfo[$tmp_attr]</span>
 		</td>
-		<td class="b3">
-		<span>进行2-6次连续攻击</span>
+		<td class="b3" style="padding:6 0">
+			<span>$itemspkdesc[$tmp_attr]</span>
 		</td>
-		<td class="b3">
-		<span>无</span>
-		</td>
-		<td class="b3">
-		<span>连续攻击次数与熟练度有关。连击导致的伤害要乘以一定的系数。</span>
+		<td class="b3" style="padding:6 0">
+			<span>$itemspkremark[$tmp_attr]</span>
 		</td>
 	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>冲击</span>
-		</td>
-		<td class="b3">
-		<span>计算伤害时对方装备防御力减半</span>
-		</td>
-		<td class="b3">
-		<span>无</span>
-		</td>
-		<td class="b3">
-		<span>概率生效，对属性攻击无影响</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>贯穿</span>
-		</td>
-		<td class="b3">
-		<span>计算伤害时无视对方装备的防御属性</span>
-		</td>
-		<td class="b3">
-		<span>无</span>
-		</td>
-		<td class="b3">
-		<span>概率生效，对属性攻击无影响</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>消音</span>
-		</td>
-		<td class="b3">
-		<span>远程武器特有的属性，攻击时不会发出枪声。</span>
-		</td>
-		<td class="b3">
-		<span>无</span>
-		</td>
-		<td class="b3">
-		<span>无</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>一发</span>
-		</td>
-		<td class="b3">
-		<span>远程武器特有的属性，该武器无法装填弹药，弹药用完就只能当钝器使用。</span>
-		</td>
-		<td class="b3">
-		<span>无</span>
-		</td>
-		<td class="b3">
-		<span>无</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>爆炸</span>
-		</td>
-		<td class="b3">
-		<span>产生额外的伤害</span>
-		</td>
-		<td class="b3">
-		<span class="yellow">无</span>
-		</td>
-		<td class="b3">
-		<span>无</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>火焰</span>
-		</td>
-		<td class="b3">
-		<span>攻击附带火焰伤害</span>
-		</td>
-		<td class="b3">
-		<span class="red">烧伤</span>
-		</td>
-		<td class="b3">
-		<span>概率导致异常状态</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>冻气</span>
-		</td>
-		<td class="b3">
-		<span>攻击附带冻气伤害</span>
-		</td>
-		<td class="b3">
-		<span class="clan">冻结</span>
-		</td>
-		<td class="b3">
-		<span>概率导致异常状态</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>带毒</span>
-		</td>
-		<td class="b3">
-		<span>攻击附带毒性伤害</span>
-		</td>
-		<td class="b3">
-		<span class="purple">中毒</span>
-		</td>
-		<td class="b3">
-		<span>概率导致异常状态</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>电击</span>
-		</td>
-		<td class="b3">
-		<span>攻击附带电气伤害</span>
-		</td>
-		<td class="b3">
-		<span class="yellow">身体麻痹</span>
-		</td>
-		<td class="b3">
-		<span>概率导致异常状态</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>音波</span>
-		</td>
-		<td class="b3">
-		<span>攻击附带音波伤害</span>
-		</td>
-		<td class="b3">
-		<span class="grey">混乱</span>
-		</td>
-		<td class="b3">
-		<span>概率导致异常状态</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>灼焰</span>
-		</td>
-		<td class="b3">
-		<span>攻击附带额外火焰伤害，无法被防御</span>
-		</td>
-		<td class="b3">
-		<span class="red">烧伤</span>
-		</td>
-		<td class="b3">
-		<span>高概率导致异常状态</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>冰华</span>
-		</td>
-		<td class="b3">
-		<span>攻击附带额外冻气伤害，无法被防御</span>
-		</td>
-		<td class="b3">
-		<span class="clan">冻结</span>
-		</td>
-		<td class="b3">
-		<span>高概率导致异常状态</span>
-		</td>
-	</tr>
+	<!--{/loop}-->
 </table>
 <br>
 <br>
@@ -962,293 +788,61 @@
 <table cellSpacing=0 cellPadding=0>
 	<tr>
 		<td class="b1" height=20px>
-		<span>属性名称</span>
+			<span>属性名称</span>
 		</td>
 		<td class="b1">
-		<span>属性效果</span>
+			<span>属性效果</span>
 		</td>
-
 		<td class="b1">
-		<span>备注</span>
+			<span>备注</span>
 		</td>
 
 	</tr>
+	<!--{loop array('A','a','B','b','P','K','G','C','D','F','q','U','I','E','W','c','H','h','M','m','l','g') $tmp_attr}-->
 	<tr>
 		<td class="b2" height=20px>
-		<span>全系防御</span>
+			<span>$itemspkinfo[$tmp_attr]</span>
 		</td>
-		<td class="b3">
-		<span>所有六种武器类型的伤害减半</span>
+		<td class="b3" style="padding:6 0">
+			<span>$itemspkdesc[$tmp_attr]</span>
 		</td>
-		<td class="b3">
-		<span>有时无法发挥防御作用</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>伤害抹消</span>
-		</td>
-		<td class="b3">
-		<span>将受到的普通攻击的伤害减至最少，接近神一般的存在</span>
-		</td>
-		<td class="b3">
-		<span>……</span>
+		<td class="b3" style="padding:6 0">
+			<span>$itemspkremark[$tmp_attr]</span>
 		</td>
 	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>防拳</span>
-		</td>
-		<td class="b3">
-		<span>空手的伤害减半</span>
-		</td>
-		<td class="b3">
-		<span>有时无法发挥防御作用</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>防殴</span>
-		</td>
-		<td class="b3">
-		<span>钝器的伤害减半</span>
-		</td>
-		<td class="b3">
-		<span>有时无法发挥防御作用</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>防斩</span>
-		</td>
-		<td class="b3">
-		<span>锐器的伤害减半</span>
-		</td>
-		<td class="b3">
-		<span>有时无法发挥防御作用</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>防弹</span>
-		</td>
-		<td class="b3">
-		<span>远程武器的伤害减半</span>
-		</td>
-		<td class="b3">
-		<span>有时无法发挥防御作用</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>防投</span>
-		</td>
-		<td class="b3">
-		<span>投掷武器的伤害减半</span>
-		</td>
-		<td class="b3">
-		<span>有时无法发挥防御作用</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>防爆</span>
-		</td>
-		<td class="b3">
-		<span>爆炸物和爆炸属性的伤害减半</span>
-		</td>
-		<td class="b3">
-		<span>有时无法发挥防御作用</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>防灵</span>
-		</td>
-		<td class="b3">
-		<span>灵力武器的伤害减半</span>
-		</td>
-		<td class="b3">
-		<span>有时无法发挥防御作用</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>属性防御</span>
-		</td>
-		<td class="b3">
-		<span>所有属性攻击的伤害减半，且不会中异常状态</span>
-		</td>
-		<td class="b3">
-		<span>有时无法发挥防御作用</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>属性抹消</span>
-		</td>
-		<td class="b3">
-		<span>将受到的属性攻击的伤害减至最少，并且防御异常状态，接近神一般的存在</span>
-		</td>
-		<td class="b3">
-		<span>……</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>防火</span>
-		</td>
-		<td class="b3">
-		<span>火焰属性的伤害减半，且不会烧伤</span>
-		</td>
-		<td class="b3">
-		<span>有时无法发挥防御作用</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>防冻</span>
-		</td>
-		<td class="b3">
-		<span>冻气属性的伤害减半，且不会冻结</span>
-		</td>
-		<td class="b3">
-		<span>有时无法发挥防御作用</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>防毒</span>
-		</td>
-		<td class="b3">
-		<span>带毒属性的伤害减半，且不会中毒</span>
-		</td>
-		<td class="b3">
-		<span>有时无法发挥防御作用</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>绝缘</span>
-		</td>
-		<td class="b3">
-		<span>电气属性的伤害减半，且不会身体麻痹</span>
-		</td>
-		<td class="b3">
-		<span>有时无法发挥防御作用</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>隔音</span>
-		</td>
-		<td class="b3">
-		<span>音波属性的伤害减半，且不会混乱</span>
-		</td>
-		<td class="b3">
-		<span>有时无法发挥防御作用</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>同志</span>
-		</td>
-		<td class="b3">
-		<span>如果玩家性别与敌人性别相同则会无法全力攻击；反之则可能造成暴击。</span>
-		</td>
-		<td class="b3">
-		<span>效果的发生有一定概率</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>热恋</span>
-		</td>
-		<td class="b3">
-		<span>如果玩家性别与敌人性别不同则会无法全力攻击；反之则可能造成暴击。</span>
-		</td>
-		<td class="b3">
-		<span>效果的发生有一定概率</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>重击辅助</span>
-		</td>
-		<td class="b3">
-		<span>攻击时获得1点怒气；战斗中发动消耗怒气的技能时，会返还10%消耗的怒气</span>
-		</td>
-		<td class="b3">
-		<span>无</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>HP制御</span>
-		</td>
-		<td class="b3">
-		<span>减少反噬伤害损失的HP</span>
-		</td>
-		<td class="b3">
-		<span>无</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>陷阱探测</span>
-		</td>
-		<td class="b3">
-		<span>增加遭遇陷阱时的回避率</span>
-		</td>
-		<td class="b3">
-		<span>无</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>陷阱迎击</span>
-		</td>
-		<td class="b3">
-		<span>遭遇陷阱时可以免疫伤害</span>
-		</td>
-		<td class="b3">
-		<span>效果的发生有一定概率</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>天然</span>
-		</td>
-		<td class="b3">
-		<span>使用后会变成冴冴一样的天然呆</span>
-		</td>
-		<td class="b3">
-		<span>现在AC大逃杀玩家中天然呆数量急剧上升中……</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>菁英</span>
-		</td>
-		<td class="b3">
-		<span>带有此属性的物品可以用“宝石”系道具强化效果值</span>
-		</td>
-		<td class="b3">
-		<span>物品强化次数越高越容易失败</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>奇迹</span>
-		</td>
-		<td class="b3">
-		<span>人类，可以超越神么？……</span>
-		</td>
-		<td class="b3">
-		<span>……</span>
-		</td>
-	</tr>
+	<!--{/loop}-->
 </table>
+<br>
+<br>
+
+<p><span class="yellow">杂项属性</span>：</p>
+<table cellSpacing=0 cellPadding=0>
+	<tr>
+		<td class="b1" height=20px>
+			<span>属性名称</span>
+		</td>
+		<td class="b1">
+			<span>属性效果</span>
+		</td>
+		<td class="b1">
+			<span>备注</span>
+		</td>
+	</tr>
+	<!--{loop array('s','J','o','Z','x','z') $tmp_attr}-->
+	<tr>
+		<td class="b2" height=20px>
+			<span>$itemspkinfo[$tmp_attr]</span>
+		</td>
+		<td class="b3" style="padding:6 0">
+			<span>$itemspkdesc[$tmp_attr]</span>
+		</td>
+		<td class="b3" style="padding:6 0">
+			<span>$itemspkremark[$tmp_attr]</span>
+		</td>
+	</tr>
+	<!--{/loop}-->
+</table>
+<br>
 <br>
 
 <p><a name="受伤与状态"><span class="subtitle2">13.受伤与异常状态</span></a></p>
