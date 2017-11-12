@@ -7,7 +7,7 @@ require './include/common.inc.php';
 //unset($_GET);
 
 $cond = " WHERE type=0";
-if($gametype != 2) $cond .= " AND hp>0 AND state<=3";
+if($gametype != 2) $cond .= " AND hp>0 AND state<10";
 if($gametype == 17){$endtimelimit = $now-300;$cond .= " AND endtime>$endtimelimit";}
 $sort = " ORDER BY killnum DESC, lvl DESC";
 $limit = "";

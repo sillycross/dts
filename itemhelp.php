@@ -30,7 +30,9 @@ if(!file_exists($writefile) || filemtime($mapitemfile) > filemtime($writefile) |
 					if ($ikind[strlen($ikind)-1]=="2") $ikind_w.="（猛毒）"; else $ikind_w.="（有毒）";
 				}
 				$iskind_w = \itemmain\parse_itmsk_words($iskind,0);
-				if ($iarea==99) $iarea_w = "每禁"; else $iarea_w = "{$iarea}禁";
+				if ($iarea==99) $iarea_w = "每禁"; 
+				elseif ($iarea==98) $iarea_w = "1禁后每禁"; 
+				else $iarea_w = "{$iarea}禁";
 				$iarea_w .= "刷新{$inum}个";
 				$iinfo_list[] = array($iarea_w,$imap_w,$inum,$iname,$ikind_w,$ieff,$ista,$iskind_w);
 			}

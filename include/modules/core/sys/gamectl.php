@@ -144,6 +144,21 @@ namespace sys
 			} else {//判断谁是最后幸存者
 				$result = $db->query("SELECT * FROM {$tablepre}players WHERE hp>0 AND type=0");
 				$alivenum = $db->num_rows($result);
+				//先缓存全部存活玩家
+				$alive_pool = array();
+				while($pd = $db->fetch_array($result)){
+					//如果是自己，则用自己
+					if(!empty($sdata) && $pd['pid'] == $sdata['pid']){
+						$alive_pool[] = &$sdata;
+					}else{
+						//如果玩家池里没这个pid，就储存；如果有，就用玩家池里的（热优先于冷）
+						if(!isset($pdata_pool[$pd['pid']])) {
+							$pdata_pool[$pd['pid']] = $pd;
+						}
+						$pd = \player\playerdata_construct_process($pd);
+						$alive_pool[] = &$pdata_pool[$pd['pid']];
+					}
+				}
 				if(!$alivenum) {//全部死亡
 					$winmode = 1;
 					$winnum = 0;
@@ -155,9 +170,11 @@ namespace sys
 						if($alivenum == 1) {
 							$winmode = 2;
 							$winnum = 1;
-							$wdata = $db->fetch_array($result);
+							$wdata = &$alive_pool[0];
 							$winner = $wdata['name'];
-							$db->query("UPDATE {$tablepre}players SET state='5' where pid='{$wdata['pid']}'");
+							$wdata['state'] = 5;
+							\player\player_save($wdata);
+							//$db->query("UPDATE {$tablepre}players SET state='5' where pid='{$wdata['pid']}'");
 						} 
 						else
 						{	//不满足游戏结束条件，返回
@@ -167,16 +184,12 @@ namespace sys
 					}
 					else//团队模式
 					{
-						$result = $db->query("SELECT teamID FROM {$tablepre}players WHERE type = 0 AND hp > 0");
-						$flag=1; $first=1; 
-						while($data = $db->fetch_array($result)) 
-						{
-							if ($first) 
-							{ 
-								$first=0; $firstteamID=$data['teamID'];
-							}
-							else  if ($firstteamID!=$data['teamID'] || !$data['teamID'])
-							{
+						$flag=1; $first=1; $firstteamID = '';
+						foreach($alive_pool as $ai => $data){
+							if($first) {
+								$first=0;
+								$firstteamID=$data['teamID'];
+							}elseif($firstteamID!=$data['teamID'] || !$data['teamID']){
 								//如果有超过一种teamID，或有超过一个人没有teamID，则游戏还未就结束
 								$flag=0; break;
 							}
@@ -185,24 +198,36 @@ namespace sys
 						{
 							if (!$firstteamID)	//单人胜利
 							{	
-								$db->query("UPDATE {$tablepre}players SET state='5' WHERE type = 0 AND hp > 0");
-								$result = $db->query("SELECT name,gd,icon,wep FROM {$tablepre}players WHERE type = 0 AND hp > 0");
-								$zz = $db->fetch_array($result);
-								$winner = $zz['name'];
+								$wdata = &$alive_pool[0];
+								$wdata['state'] = 5;
+								\player\player_save($wdata);
 								$winnum = 1;
+								$winner = $wdata['name'];
 							}
-							else				//团队胜利
+							else				//团队胜利，要记录已经死掉的玩家的名字，所以重新读1次数据库
 							{
+								foreach($alive_pool as &$wdata){
+									if($wdata['teamID'] == $firstteamID){
+										$wdata['state'] = 5; //实际上只是处理热数据，并没有在这里存数据库
+									}
+								}
 								$db->query("UPDATE {$tablepre}players SET state='5' WHERE type = 0 AND teamID = '$firstteamID'");
 								$result = $db->query("SELECT name FROM {$tablepre}players WHERE type = 0 AND teamID = '$firstteamID'");
 								$winnum=$db->num_rows($result);
 								if ($winnum == 1)
 								{
-									$result = $db->query("SELECT name,gd,icon,wep FROM {$tablepre}players WHERE type = 0 AND teamID = '$firstteamID'");
-									$zz = $db->fetch_array($result);
-									$winner = $zz['name'];
+									$data = $db->fetch_array($result);
+									$winner = $data['name'];
+								}elseif($winnum > 1){
+									$namelist=''; $gdlist=''; $iconlist=''; $weplist='';//回头应该
+									while($data = $db->fetch_array($result)) 
+									{
+										$namelist.=$data['name'].',';
+									}
+									$winner = $namelist = substr($namelist,0,-1);
 								}
 							}
+							
 						}
 						else
 						{	//不满足游戏结束条件，返回
@@ -212,12 +237,7 @@ namespace sys
 						
 						if ($winnum > 1)
 						{	
-							$namelist=''; $gdlist=''; $iconlist=''; $weplist='';
-							while($data = $db->fetch_array($result)) 
-							{
-								$namelist.=$data['name'].',';
-							}
-							$winner = substr($namelist,0,-1);
+							
 						}
 						$winmode = 2;
 					}
@@ -271,8 +291,18 @@ namespace sys
 			$winnerdata['winner'] = $winner;
 			$winnerdata['winnernum'] = $winnum;
 			if ($winnum == 1){
-				$result = $db->query("SELECT * FROM {$tablepre}players WHERE name='$winner' AND type=0");
-				$pdata = $db->fetch_array($result);
+				if(isset($alive_pool)){
+					$pdata = NULL;
+					foreach($alive_pool as &$av){
+						if($av['name'] == $winner) {
+							$pdata = &$av;
+							break;
+						}
+					}
+				}else{
+					$result = $db->query("SELECT * FROM {$tablepre}players WHERE name='$winner' AND type=0");
+					$pdata = $db->fetch_array($result);
+				}
 				$winnerdata['winnerpdata'] = gencode($pdata);
 				$result2 = $db->query("SELECT motto FROM {$gtablepre}users WHERE username='$winner'");
 				$winnerdata['motto'] = $db->result($result2, 0);

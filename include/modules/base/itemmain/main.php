@@ -200,7 +200,7 @@ namespace itemmain
 							$iskind = $ipid['pid'];
 						}
 					}
-					if(($iarea == $an)||($iarea == 99)) {
+					if( $iarea == $an || $iarea == 99 || ($iarea == 98 && $an > 0)) {
 						for($j = $inum; $j>0; $j--) {
 							if ($imap == 99)
 							{
