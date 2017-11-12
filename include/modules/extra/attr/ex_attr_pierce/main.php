@@ -7,7 +7,7 @@ namespace ex_attr_pierce
 		eval(import_module('itemmain'));
 		$itemspkinfo['n'] = '贯穿';
 		$itemspkdesc['n']='计算物理伤害时，无视对方装备的物理防御属性';
-		$itemspkremark['n']='无视列表：防殴、防斩、防弹、防投、防爆、防灵、物防和物免；30%概率生效';
+		$itemspkremark['n']='无视列表：防殴、防斩、防弹、防投、防爆、防灵、物防和物抹；<br>30%概率生效';
 	}
 	
 	//贯穿触发率

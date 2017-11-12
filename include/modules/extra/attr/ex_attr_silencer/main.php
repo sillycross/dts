@@ -6,8 +6,8 @@ namespace ex_attr_silencer
 	{
 		eval(import_module('itemmain'));
 		$itemspkinfo['S'] = '消音';
-		$itemspkdesc['S']='远程武器和重型枪械具有这个属性时，攻击时不会发出枪声';
-		$itemspkremark['S']='不影响爆炸声及其他会发出声响的属性';
+		$itemspkdesc['S']='攻击时不会发出枪声';
+		$itemspkremark['S']='武器类型为远程武器/重型枪械方有效。不影响爆炸声及其他会发出声响的属性';
 	}
 	
 	function weapon_WG_addnoise(&$pa, &$pd, $active)

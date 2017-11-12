@@ -6,12 +6,12 @@ namespace ex_gender_attr
 	{
 		eval(import_module('itemmain'));
 		$itemspkinfo['l'] = '热恋';
-		$itemspkdesc['l']='攻击时，如果与对方性别不同，有可能只造成1点物理伤害，反之有可能物理伤害+100%';
-		$itemspkremark['l']='20%概率生效';
+		$itemspkdesc['l']='攻击与自己不同性别的敌人有可能被迷惑，反之有可能被激怒';
+		$itemspkremark['l']='20%概率生效。激怒时物理伤害2倍；迷惑时物理伤害变成1。';
 		
 		$itemspkinfo['g'] = '同志';
-		$itemspkdesc['g']='攻击时，如果与对方性别不同，有可能物理伤害+100%，反之有可能只造成1点物理伤害';
-		$itemspkremark['g']='20%概率生效';
+		$itemspkdesc['g']='攻击与自己不同性别的敌人有可能被激怒，反之有可能被迷惑';
+		$itemspkremark['g']='20%概率生效。激怒时物理伤害2倍；迷惑时物理伤害变成1。';
 	}
 	
 	function get_gender_bewitch_proc_rate(&$pa, &$pd, $active)
