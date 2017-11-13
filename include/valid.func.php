@@ -315,24 +315,27 @@ function card_validate($udata){
 	}
 	
 	//最高优先级错误原因：本游戏模式不可用
-	$card_error['e3'] = '这张卡片在本游戏模式下禁止使用！<br>';
+	$card_error['e3'] = '这张卡片在本游戏模式下禁止使用！';
 	
 	if(0==$gametype) //标准模式禁用挑战者以外的一切卡
 	{
 		foreach($card_ownlist as $cv){
 			if($cv) $card_disabledlist[$cv][]='e3';
 		}
-		global $cardChosen; $cardChosen = 0;//自动选择挑战者
+		global $cardChosen,$hideDisableButton;
+		$cardChosen = 0;//自动选择挑战者
+		$hideDisableButton = 0;
 	}
 	elseif (1==$gametype)	//除错模式自动选择工程师
 	{
 		foreach($card_ownlist as $cv){
 			if(93 != $cv) $card_disabledlist[$cv][]='e3';
 		}
-		global $cc,$cardChosen,$card_ownlist,$packlist,$cards;
+		global $cc,$cardChosen,$card_ownlist,$packlist,$cards,$hideDisableButton;
 		$cc = $cardChosen = 93;//自动选择软件测试工程师
 		$card_ownlist[] = 93;
 		$packlist[] = $cards[93]['pack'] = 'Testing Fan Club';
+		$hideDisableButton = 0;
 	}
 	elseif (2==$gametype)	//deathmatch模式禁用蛋服和炸弹人
 	{

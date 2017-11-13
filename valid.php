@@ -105,9 +105,10 @@ if($mode == 'enter') {
 	$card_energy = $userCardData['cardenergy'];
 	$cardChosen = $userCardData['cardchosen'];
 	$packlist = \cardbase\pack_filter($packlist);
+	$hideDisableButton = 1;
 	list($card_disabledlist,$card_error) = card_validate($udata);
 	
-	$hideDisableButton = 1;
+	
 	$showCardUnavailableHint = 1;
 	include template('valid');
 }

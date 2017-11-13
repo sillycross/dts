@@ -26,7 +26,7 @@ $packdesc = array(
 	'Event Bonus' => '其他一些零散成就和活动奖励卡。'
 );
 $packstart = array(
-	'Way of Life Game' => 1510369871
+	'Way of Life Game' => 1541905871
 );
 $cardindex=array(
 	'S'=>array(1,5,16,38,39,40,41,64,65,67,71,95,99,100,101,102,117,145,152,153),

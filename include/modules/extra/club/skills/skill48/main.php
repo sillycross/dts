@@ -9,6 +9,7 @@ namespace skill48
 	$skill48_ex_map = Array(
 		'f' => 'u',
 		'k' => 'i',
+		't' => 'w',
 	);
 	
 	function init() 

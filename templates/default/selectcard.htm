@@ -90,64 +90,64 @@ handleShowCardErrorMouseOut = function()
 		<!--{loop $packlist $cardpack}-->
 			<!--{eval $packid++;}-->
 			<!--{loop Array(0,1) $showDisableVal}-->
-			<!--{if $showDisableVal<=$hideDisableButton}-->
-			<div id="cardpanel$packid-$showDisableVal" class="b3" style="position:absolute; left:0px; top:0px; height:320px; width:710px; text-align:left; display: <!--{if $packid==$current_pack && $showDisableVal==0}-->block<!--{else}-->none<!--{/if}-->">
-				<div style="height:10px;"></div>
-				<!--坑爹的html中的空格问题，每个div的close tag只好在生成下一个div时输出了-->
-				<div style="display:inline-block; width:10px;">
-				<!--{eval $row=0; $flag=1; $last=-1;}-->
-				<!--{loop $cardindex $cardrank $t}-->
-				<!--{loop Array(0,1) $disableValue}-->
-				<!--{if $disableValue<=$showDisableVal}-->
-					<!--{loop $cards $cardid $t}-->
-					<!--{if $t['pack']==$cardpack && ($t['rare']==$cardrank) && in_array($cardid,$card_ownlist)}-->
-						<!--{eval $carddisabled = in_array($cardid, array_keys($card_disabledlist));}-->
-						<!--{if $carddisabled==$disableValue}-->
-							<!--{if $row==0}-->
-							</div><div style="display:inline-block; width:175px; vertical-align:top;">
+				<!--{if $showDisableVal<=$hideDisableButton}-->
+				<div id="cardpanel$packid-$showDisableVal" class="b3" style="position:absolute; left:0px; top:0px; height:320px; width:710px; text-align:left; display: <!--{if $packid==$current_pack && $showDisableVal==0}-->block<!--{else}-->none<!--{/if}-->">
+					<div style="height:10px;"></div>
+					<!--坑爹的html中的空格问题，每个div的close tag只好在生成下一个div时输出了-->
+					<div style="display:inline-block; width:10px;">
+					<!--{eval $row=0; $flag=1; $last=-1;}-->
+					<!--{loop $cardindex $cardrank $t}-->
+						<!--{loop Array(0,1) $disableValue}-->
+							<!--{if $disableValue<=$showDisableVal}-->
+								<!--{loop $cards $cardid $t}-->
+									<!--{if $t['pack']==$cardpack && ($t['rare']==$cardrank) && in_array($cardid,$card_ownlist)}-->
+										<!--{eval $carddisabled = in_array($cardid, array_keys($card_disabledlist));}-->
+										<!--{if !$hideDisableButton || $carddisabled==$disableValue}-->
+											<!--{if $row==0}-->
+											</div><div style="display:inline-block; width:175px; vertical-align:top;">
+											<!--{/if}-->
+											<!--{eval if (!$carddisabled) $flag=2;}-->
+											<!--{eval if ($carddisabled && ($last==-1 || $t['rare']!=$cards[$last]['rare'])) $flag=1;}-->
+											<!--{eval $cardname=$t['name'];}-->
+											<!--{eval $cl=$card_rarecolor[$cardrank];}-->
+											<!--{eval if ($carddisabled) $cl.='Disabled';}-->
+											<div style="height:25px; width:170px; <!--{if !$carddisabled}-->cursor:pointer;<!--{/if}-->">
+												<div style="position:absolute; top:0px; left:0px;">
+												<img src=<!--{if !$carddisabled}-->"img/cardborder-$cardrank.png"<!--{else}-->"img/cardborder-$cardrank-disabled-1.png"<!--{/if}-->>
+												</div>
+												<div style="position:absolute; top:0px; left:0px;">
+												<img id="cardbg$cardid-$showDisableVal" src=<!--{if $chosencard==$cardid && !$carddisabled}-->"img/cardbg-selected.png"<!--{else}-->"img/cardbg.png"<!--{/if}-->>
+												</div>
+												<div style="position:absolute; top:4px; left:5px;" >
+												<span class="$cl">{$t['rare']} $cardname</span>
+												</div>
+												<!--{if !$carddisabled}--> 
+												<div style="position:absolute; top:0px; left:0px; height:25px; width:170px;"
+													onmouseover="handleShowCardMouseOver($cardid);" 
+													onmouseout="handleShowCardMouseOut($cardid);" 
+													onmousedown="handleShowCardMouseClick($cardid);"></div>
+												<!--{else}-->
+												<div id="carderr$cardid" style="position:absolute; top:0px; left:0px; height:25px; width:170px;"
+													title="
+													<!--{loop $card_disabledlist[$cardid] $cdlv}-->
+													$card_error[$cdlv]<br>
+													<!--{/loop}-->
+													"></div>
+												<!--{/if}-->
+											</div>
+											<!--{eval $row=$row+1; $last=$cardid;}-->
+											<!--{if $row==12}-->
+											<!--{eval $row=0; $flag=1; }-->
+											<!--{/if}-->
+										<!--{/if}-->
+									<!--{/if}-->
+								<!--{/loop}-->
 							<!--{/if}-->
-							<!--{eval if (!$carddisabled) $flag=2;}-->
-							<!--{eval if ($carddisabled && ($last==-1 || $t['rare']!=$cards[$last]['rare'])) $flag=1;}-->
-							<!--{eval $cardname=$t['name'];}-->
-							<!--{eval $cl=$card_rarecolor[$cardrank];}-->
-							<!--{eval if ($carddisabled) $cl.='Disabled';}-->
-							<div style="height:25px; width:170px; <!--{if !$carddisabled}-->cursor:pointer;<!--{/if}-->">
-								<div style="position:absolute; top:0px; left:0px;">
-								<img src=<!--{if !$carddisabled}-->"img/cardborder-$cardrank.png"<!--{else}-->"img/cardborder-$cardrank-disabled-1.png"<!--{/if}-->>
-								</div>
-								<div style="position:absolute; top:0px; left:0px;">
-								<img id="cardbg$cardid-$showDisableVal" src=<!--{if $chosencard==$cardid && !$carddisabled}-->"img/cardbg-selected.png"<!--{else}-->"img/cardbg.png"<!--{/if}-->>
-								</div>
-								<div style="position:absolute; top:4px; left:5px;" >
-								<span class="$cl">{$t['rare']} $cardname</span>
-								</div>
-								<!--{if !$carddisabled}--> 
-								<div style="position:absolute; top:0px; left:0px; height:25px; width:170px;"
-									onmouseover="handleShowCardMouseOver($cardid);" 
-									onmouseout="handleShowCardMouseOut($cardid);" 
-									onmousedown="handleShowCardMouseClick($cardid);"></div>
-								<!--{else}-->
-								<div id="carderr$cardid" style="position:absolute; top:0px; left:0px; height:25px; width:170px;"
-									title="
-									<!--{loop $card_disabledlist[$cardid] $cdlv}-->
-									$card_error[$cdlv]<br>
-									<!--{/loop}-->
-									"></div>
-								<!--{/if}-->
-							</div>
-							<!--{eval $row=$row+1; $last=$cardid;}-->
-							<!--{if $row==12}-->
-							<!--{eval $row=0; $flag=1; }-->
-							<!--{/if}-->
-						<!--{/if}-->
-					<!--{/if}-->
+						<!--{/loop}-->
 					<!--{/loop}-->
-				<!--{/if}-->
-				<!--{/loop}-->
-				<!--{/loop}-->
+					</div>
 				</div>
-			</div>
-			<!--{/if}-->
+				<!--{/if}-->
 			<!--{/loop}-->
 		<!--{/loop}-->
 		<!--{if $hideDisableButton}-->

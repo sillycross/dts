@@ -48,6 +48,17 @@ namespace gtype1
 		}
 		return $chprocess($edata);
 	}
+	//接管calculate_hide_obbs，玩家隐蔽率上升40%（不然太容易互相遭遇）
+	function calculate_hide_obbs(&$edata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($edata);
+		eval(import_module('sys'));
+		if($gametype == 1 && !$edata['type']){
+			$ret += 40;
+		}
+		return $ret;
+	}
 	
 	//递送道具时无视teamID
 	function senditem_check($edata)

@@ -14,7 +14,7 @@
 - 能将模块化源代码自动合并为高效执行代码的模块化引擎，兼顾代码组织、多人协作和运行效率优化
 - 基于socket的驻留daemon，支持Linux和WIN
 
-## 安装指南：
+## 安装指南
 1. 首先把游戏文件属性全部改成777，然后如果之前没有建过mysql结构，进mysql里执行：
 	create database acdts;
 	use acdts;

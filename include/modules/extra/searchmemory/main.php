@@ -240,6 +240,10 @@ namespace searchmemory
 						$log .= '<span class="red">角色已经不在原来的位置了，地上只有一摊血迹……</span><br>';
 						$mode = 'command';
 						return;
+					}elseif($marr['hp']<=0 && !\metman\discover_player_filter_corpse($marr)){
+						$log .= '<span class="red">尸体好像已经被毁尸灭迹了。</span><br>';
+						$mode = 'command';
+						return;
 					}
 					if($fog && $mem['smtype'] != 'corpse') $log .= '<span class="lime">人影还在原来的位置。</span><br>';
 					else $log .= '<span class="lime">'.$mem['Pname'].'还在原来的位置。</span><br>';
