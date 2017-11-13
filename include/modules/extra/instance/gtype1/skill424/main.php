@@ -84,11 +84,16 @@ namespace skill424
 			$req1 = wdebug_getreq('mapitem', 2, 30);
 			$req2 = wdebug_getreq(array('mapitem', 'shopitem'), 2, 30, $req1);
 			$req3 = wdebug_getreq(array('mixitem','syncitem','overlayitem','npc'), 15, 60, array($req1, $req2));
-		}else{//40层以上产生个数在0-10的地图道具、商店道具（有可能两个都是地图道具）、个数在5-30的合成物、NPC道具以及所有个数在10以下的玩意儿
+		}elseif($clv <= 50){//40-50层产生个数在0-10的地图道具、商店道具（有可能两个都是地图道具）、个数在5-20的合成物、NPC道具以及所有个数在10以下的玩意儿
 			$req1 = wdebug_getreq('mapitem', 0, 10);
 			$req2 = wdebug_getreq(array('mapitem', 'shopitem'), 0, 10, $req1);
-			$req3 = wdebug_getreq(array('mixitem','syncitem','overlayitem','npc'), 5, 30, array($req1, $req2));
+			$req3 = wdebug_getreq(array('mixitem','syncitem','overlayitem','npc'), 5, 20, array($req1, $req2));
 			$req4 = wdebug_getreq(array('mapitem','shopitem','mixitem','syncitem','overlayitem','npc','presentitem','ygoitem'), 0, 10, array($req1, $req2, $req3));
+		}else{//60层以上全部浮云物，哈哈哈哈！
+			$req1 = wdebug_getreq(array('mapitem','shopitem','mixitem','syncitem','overlayitem','npc','presentitem','ygoitem'), 0, 5);
+			$req2 = wdebug_getreq(array('mapitem','shopitem','mixitem','syncitem','overlayitem','npc','presentitem','ygoitem'), 0, 5, $req1);
+			$req3 = wdebug_getreq(array('mapitem','shopitem','mixitem','syncitem','overlayitem','npc','presentitem','ygoitem'), 0, 5, array($req1, $req2));
+			$req4 = wdebug_getreq(array('mapitem','shopitem','mixitem','syncitem','overlayitem','npc','presentitem','ygoitem'), 0, 5, array($req1, $req2, $req3));
 		}
 		\skillbase\skill_setvalue(424,'cur1',$req1,$pa);
 		\skillbase\skill_setvalue(424,'cur2',$req2,$pa);

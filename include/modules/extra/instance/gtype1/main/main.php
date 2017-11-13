@@ -17,7 +17,7 @@ namespace gtype1
 			$zz=$db->fetch_array($res); $gt=$zz['gametype'];
 		}
 		if ($wday==3 && !$disable_event){
- 			if (($hour>=19)&&($hour<21)&&($gt!=1)){ 
+ 			if ( $hour>=19 && $hour<21 && $gt!=1 ){ 
  				$gametype=1;
  				prepare_new_game_gtype1();
  			}
@@ -90,7 +90,7 @@ namespace gtype1
 					if(!empty($ipdval2) && strpos($ipdval2,',')!==false)
 					{
 						list($kind,$num,$price,$area,$iname)=explode(',',$ipdval2);
-						if(!empty($price)){
+						if($price > 0){
 							if(isset($slist[$iname])){
 								$globalnum = $slist[$iname][1];
 							}
@@ -100,8 +100,9 @@ namespace gtype1
 							}
 							$thisnum *= 10000 / $price;//估算一般玩家一局能买到几个
 							if($thisnum > $num * 2) $thisnum = $num * 2;//2禁之内物理限制
+						}else{
+							$iname = '';
 						}
-						
 					}
 				}
 				//通常合成
