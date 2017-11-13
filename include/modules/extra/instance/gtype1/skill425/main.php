@@ -63,16 +63,8 @@ namespace skill425
 		}
 		$log.='<span class="lime">技能「重载」发动成功。</span><br>';
 		\skillbase\skill_setvalue(425,'lastuse',$now);
-		$t=635;
-		$nx=rand(0,$t);
-		$ed=$goal424[$nx];
-		$log .="下次除错需要物品<span class=\"yellow\">{$ed}</span>或";
-		\skillbase\skill_setvalue(424,'cur1',$nx);	
-		$nx1=rand(0,$t);
-		while ($nx1==$nx) $nx1=rand(0,$t);
-		$ed=$goal424[$nx1];
-		$log .="<span class=\"yellow\">{$ed}</span>。<br />";
-		\skillbase\skill_setvalue(424,'cur2',$nx1);	
+		\skill424\wdebug_reset();
+		$log .='下次除错需要物品'.\skill424\wdebug_showreq();
 	}
 	
 	function bufficons_list()

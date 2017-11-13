@@ -19,9 +19,219 @@ namespace gtype1
 		if ($wday==3 && !$disable_event){
  			if (($hour>=19)&&($hour<21)&&($gt!=1)){ 
  				$gametype=1;
+ 				prepare_new_game_gtype1();
  			}
  		}
 		$chprocess();
+	}
+	
+	//除错模式每局之前生成一次道具表
+	function prepare_new_game_gtype1()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		$file = GAME_ROOT.'/gamedata/config/gtype1item.config.php';
+		$contents = "<?php\r\n if(!defined('IN_GAME')) exit('Access Denied');\r\n";
+		//各文件位置
+		$iplacefilelist = array(
+			'mapitem' => GAME_ROOT.'/include/modules/base/itemmain/config/mapitem.config.php',
+			'shopitem' => GAME_ROOT.'./include/modules/base/itemshop/config/shopitem.config.php',
+			'mixitem' => GAME_ROOT.'./include/modules/base/itemmix/itemmix/config/itemmix.config.php',
+			'syncitem' => GAME_ROOT.'./include/modules/base/itemmix/itemmix_sync/config/sync.config.php',
+			'overlayitem' => GAME_ROOT.'./include/modules/base/itemmix/itemmix_overlay/config/overlay.config.php',
+			'presentitem' => GAME_ROOT.'./include/modules/base/items/boxes/config/present.config.php',
+			'ygoitem' => GAME_ROOT.'./include/modules/base/items/boxes/config/ygobox.config.php',
+			'fyboxitem' => GAME_ROOT.'./include/modules/base/items/boxes/config/fybox.config.php',
+			'npc' => GAME_ROOT.'./include/modules/base/npc/config/npc.data.config.php',
+			'addnpc' => GAME_ROOT.'./include/modules/base/addnpc/config/addnpc.config.php',
+			'evonpc' => GAME_ROOT.'./include/modules/extra/club/skills/skill21/config/evonpc.config.php',
+		);
+		//从各文件提取道具信息
+		$iplacefiledata = array();
+		foreach($iplacefilelist as $ipfkey => $ipfval){
+			if($ipfkey == 'mixitem') {
+				include $ipfval;
+				$iplacefiledata[$ipfkey] = $mixinfo;
+			}elseif(strpos($ipfkey, 'npc') !==false){
+				include $ipfval;
+				if($ipfkey == 'npc') $varname = 'npcinfo';
+				elseif($ipfkey == 'addnpc') $varname = 'anpcinfo';
+				elseif($ipfkey == 'evonpc') $varname = 'enpcinfo';
+				if(!empty($varname)) $iplacefiledata[$ipfkey] = $$varname;
+			}else {
+				$iplacefiledata[$ipfkey] = openfile($ipfval);
+			}
+		}
+		//生成个数数组
+		$slist = array();
+		foreach($iplacefiledata as $ipdkey => $ipdval){
+			foreach($ipdval as $ipdkey2 => $ipdval2){
+				$globalnum = 0;
+				//地图掉落
+				if(strpos($ipdkey, 'mapitem')===0) {
+					if(!empty($ipdval2) && strpos($ipdval2,',')!==false)
+					{
+						list($iarea,$imap,$inum,$iname,$ikind,$ieff,$ista,$iskind) = explode(',',$ipdval2);
+						if(isset($slist[$iname])){
+							$globalnum = $slist[$iname][1];
+						}
+						$thisnum = $inum;
+						if($imap == 99) {//全图随机物
+							$thisnum /= 33;
+						}
+						if($iarea != 0 && $iarea != 99){//非0禁物
+							$thisnum /= 2;
+						}
+						
+					}					
+				}
+				//商店出售
+				elseif(strpos($ipdkey, 'shopitem')===0) {
+					if(!empty($ipdval2) && strpos($ipdval2,',')!==false)
+					{
+						list($kind,$num,$price,$area,$iname)=explode(',',$ipdval2);
+						if(!empty($price)){
+							if(isset($slist[$iname])){
+								$globalnum = $slist[$iname][1];
+							}
+							$thisnum = $num;
+							if($area != 0) {//非0禁物
+								$thisnum /= 2;
+							}
+							$thisnum *= 10000 / $price;//估算一般玩家一局能买到几个
+							if($thisnum > $num * 2) $thisnum = $num * 2;//2禁之内物理限制
+						}
+						
+					}
+				}
+				//通常合成
+				elseif(strpos($ipdkey, 'mixitem')===0){
+					$iname = trim($ipdval2['result'][0]);
+					$ie = $ipdval2['result'][2];
+					if(isset($slist[$iname])){
+						$globalnum = $slist[$iname][1];
+					}
+					$thisnum = (7-sizeof($ipdval2['stuff'])) * 10;//需要的素材数越多，能合成的数目就视为越低
+					if($ie > 100){
+						$thisnum /= sqrt($ie/100);//效果值越大，能合成的数目就视为越低
+					}
+				}
+				//同调
+				elseif(strpos($ipdkey, 'sync')===0){
+					if(!empty($ipdval2) && strpos($ipdval2,',')!==false)
+					{
+						list($iname,$ik,$ie,$is,$isk,$star,$special)=explode(',',$ipdval2);
+						if(isset($slist[$iname])){
+							$globalnum = $slist[$iname][1];
+						}
+						$thisnum = (13-$star)*6;//星数越高，能合成的数目就视为越低
+						if($special) $thisnum /= 2;
+					}
+				}
+				//超量
+				elseif(strpos($ipdkey, 'overlay')===0){
+					if(!empty($ipdval2) && strpos($ipdval2,',')!==false)
+					{
+						list($iname,$ik,$ie,$is,$isk,$star,$num)=explode(',',$ipdval2);
+						if(isset($slist[$iname])){
+							$globalnum = $slist[$iname][1];
+						}
+						$thisnum = (13-$star)*3;//星数越高，能合成的数目就视为越低
+						$thisnum /= $num / 2;
+					}
+				}
+				//各类礼品盒
+				elseif(strpos($ipdkey, 'present')===0 || strpos($ipdkey, 'ygo')===0 || strpos($ipdkey, 'fybox')===0){
+					if(!empty($ipdval2) && strpos($ipdval2,',')!==false)
+					{
+						list($iname,$kind)=explode(',',$ipdval2);
+						if(isset($slist[$iname])){
+							$globalnum = $slist[$iname][1];
+						}
+						$thisnum = 0.1;//礼品盒恒视为0.1
+						if(strpos($ipdkey, 'fybox')===0) $thisnum = 0.01;//浮云更浮云
+					}
+				}
+				//NPC
+				elseif(strpos($ipdkey, 'npc')!==false && (!isset($ipdval2['num']) || $ipdval2['num'] > 0) && !in_array($ipdkey2, array(1, 4, 7, 9, 12, 13, 14, 15, 20, 21, 22, 40))){
+					$nownpclist = array($ipdval2);
+					
+					if(isset($ipdval2['sub'])){
+						$ipdval2['type'] = $ipdkey2;
+						$nownpclist = array();
+						foreach ($ipdval2['sub'] as $subval){
+							$nownpclist[] = array_merge($ipdval2, $subval);
+						}
+					}elseif($ipdkey == 'evonpc') {
+						$nownpclist = $ipdval2;
+						foreach($nownpclist as &$nval){
+							$nval['type'] = $ipdkey2;
+						}
+					}
+					
+					foreach ($nownpclist as $nownpc){
+						foreach(array('wep','arb','arh','ara','arf','art','itm1','itm2','itm3','itm4','itm5','itm6') as $nipval){
+							if(!empty($nownpc[$nipval])) {
+								$globalnum = 0;
+								$iname = $nownpc[$nipval];
+								if(isset($slist[$iname])){
+									$globalnum = $slist[$iname][1];
+								}
+								$thisnum = isset($nownpc['num']) ? $nownpc['num']/sizeof($nownpclist) : 1;
+								if($nownpc['type'] != 90){
+									//$thisnum /= 2;//非杂兵数目除以2
+									if($nownpc['mhp'] > 3000){
+										$thisnum /= ($nownpc['mhp'] / 3000);//血越多则数目视为越少
+									}
+								}
+								$ikind = array();
+								if(isset($slist[$iname])) {
+									$ikind = $slist[$iname][0];
+								}
+								if(!in_array($ipdkey, $ikind)) $ikind[] = $ipdkey;
+								$thisnum = $globalnum + $thisnum;
+								if($thisnum > 500) $thisnum = 500;
+								$slist[$iname] = array($ikind, $thisnum);
+							}
+						}
+					}
+					
+				}
+				if(isset($iname) && strpos($ipdkey, 'npc')===false){//npc另外判定
+					$ikind = array();
+					if(isset($slist[$iname])) {
+						$ikind = $slist[$iname][0];
+					}
+					if(!in_array($ipdkey, $ikind)) $ikind[] = $ipdkey;
+					$thisnum = $globalnum + $thisnum;
+					if($thisnum > 500) $thisnum = 500;
+					$slist[$iname] = array($ikind, $thisnum);
+				}
+				
+			}
+		}
+		
+		
+		foreach(array_keys($iplacefilelist) as $ival){
+			${'cont_'.$ival} = array();
+		}
+		
+		foreach($slist as $sk => $sv){
+			foreach($sv[0] as $skv){
+				${'cont_'.$skv}[$sk] = $sv[1];
+			}
+		}
+		
+		foreach(array_keys($iplacefilelist) as $ival){
+			$contents .= '$cont_'.$ival."=array(\r\n";
+			foreach(${'cont_'.$ival} as $sk => $sv){
+				$contents .= "'$sk' => $sv,\r\n";
+			}
+			$contents .= ");\r\n";
+		}
+		
+		writeover($file, $contents);
+		
 	}
 	
 //	function check_player_discover(&$edata)

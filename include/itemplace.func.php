@@ -171,7 +171,6 @@ function init_item_place()
 				}
 				
 			}
-			if($iname == '搬运之力') echo 11111111;
 			if(empty($iplacedata[$iname])) $iplacedata[$iname] = array();
 			if(!empty($iname) && !empty($idata)) {
 				//礼品盒的话，只显示1次概率

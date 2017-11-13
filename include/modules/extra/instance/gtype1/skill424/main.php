@@ -13,8 +13,10 @@ namespace skill424
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		\skillbase\skill_setvalue(424,'lvl',0,$pa);
-		\skillbase\skill_setvalue(424,'cur1',0,$pa);
-		\skillbase\skill_setvalue(424,'cur2',1,$pa);
+		\skillbase\skill_setvalue(424,'cur1','电池',$pa);
+		\skillbase\skill_setvalue(424,'cur2','探测器电池',$pa);
+		\skillbase\skill_setvalue(424,'cur3','',$pa);
+		\skillbase\skill_setvalue(424,'cur4','',$pa);
 	}
 	
 	function lost424(&$pa)
@@ -23,6 +25,8 @@ namespace skill424
 		\skillbase\skill_delvalue(424,'lvl',$pa);
 		\skillbase\skill_delvalue(424,'cur1',$pa);
 		\skillbase\skill_delvalue(424,'cur2',$pa);
+		\skillbase\skill_delvalue(424,'cur3',$pa);
+		\skillbase\skill_delvalue(424,'cur4',$pa);
 	}
 	
 	function check_unlocked424(&$pa)
@@ -30,22 +34,111 @@ namespace skill424
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return 1;
 	}
+	
+	function wdebug_check(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player'));
+		if(!\skillbase\skill_query(424)) return false;
+		$req1=\skillbase\skill_getvalue(424,'cur1');
+		$req2=\skillbase\skill_getvalue(424,'cur2');
+		$req3=\skillbase\skill_getvalue(424,'cur3');
+		$req4=\skillbase\skill_getvalue(424,'cur4');
+		$clv=\skillbase\skill_getvalue(424,'lvl');
+		$position = 0;
+		$reqarr = array();
+		for($i=1;$i<=4;$i++){
+			if(${'req'.$i}) $reqarr[] = ${'req'.$i};
+		}
+		for($i=1;$i<=6;$i++){
+			global ${'itm'.$i};
+			if( in_array(${'itm'.$i}, $reqarr) ){
+				$position = $i;
+				break;
+			}
+		}
+
+		return $position;
+	}
+	
+	function wdebug_reset(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player'));
+		if(!\skillbase\skill_query(424)) return false;
+		$clv=\skillbase\skill_getvalue(424,'lvl');
+		$req1 = $req2 = $req3 = $req4 = '';
+		
+		
+		if(0==$clv) {
+			$req1='电池';$req2='探测器电池';
+		}elseif($clv <= 10){//前10层只产生个数在30以上的地图道具或个数在40以上的商店道具，且各1枚
+			$req1 = wdebug_getreq('mapitem', 30);
+			$req2 = wdebug_getreq('shopitem', 40, -1, $req1);
+		}elseif($clv <= 20){//10-20层产生个数在15-100的地图道具、商店道具，有可能两个都是地图道具
+			$req1 = wdebug_getreq('mapitem', 15, 100);
+			$req2 = wdebug_getreq(array('mapitem', 'shopitem'), 15, 100, $req1);
+		}elseif($clv <= 30){//20-30层产生个数在5-60的地图道具、商店道具（有可能两个都是地图道具）和个数在25以上的合成物、NPC道具
+			$req1 = wdebug_getreq('mapitem', 5, 60);
+			$req2 = wdebug_getreq(array('mapitem', 'shopitem'), 5, 60, $req1);
+			$req3 = wdebug_getreq(array('mixitem','syncitem','overlayitem','npc'), 25, -1, array($req1, $req2));
+		}elseif($clv <= 40){//30-40层产生个数在2-40的地图道具、商店道具（有可能两个都是地图道具）和个数在15-60的合成物、NPC道具
+			$req1 = wdebug_getreq('mapitem', 2, 30);
+			$req2 = wdebug_getreq(array('mapitem', 'shopitem'), 2, 30, $req1);
+			$req3 = wdebug_getreq(array('mixitem','syncitem','overlayitem','npc'), 15, 60, array($req1, $req2));
+		}else{//40层以上产生个数在0-10的地图道具、商店道具（有可能两个都是地图道具）、个数在5-30的合成物、NPC道具以及所有个数在10以下的玩意儿
+			$req1 = wdebug_getreq('mapitem', 0, 10);
+			$req2 = wdebug_getreq(array('mapitem', 'shopitem'), 0, 10, $req1);
+			$req3 = wdebug_getreq(array('mixitem','syncitem','overlayitem','npc'), 5, 30, array($req1, $req2));
+			$req4 = wdebug_getreq(array('mapitem','shopitem','mixitem','syncitem','overlayitem','npc','presentitem','ygoitem'), 0, 10, array($req1, $req2, $req3));
+		}
+		\skillbase\skill_setvalue(424,'cur1',$req1,$pa);
+		\skillbase\skill_setvalue(424,'cur2',$req2,$pa);
+		\skillbase\skill_setvalue(424,'cur3',$req3,$pa);
+		\skillbase\skill_setvalue(424,'cur4',$req4,$pa);
+	}
+	
+	//在类别为$kind、数量在$min, $max之间的道具里随机选择1个并返回名字
+	function wdebug_getreq($kind, $min, $max=-1, $aready=''){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		global $cont_mapitem,$cont_shopitem,$cont_mixitem,$cont_syncitem,$cont_overlayitem,$cont_presentitem,$cont_ygoitem,$cont_fyboxitem,$cont_npc;
+		include_once GAME_ROOT.'/gamedata/config/gtype1item.config.php';
+		if(!is_array($kind)) $kind = array($kind);
+		if(!is_array($aready)) $aready = array($aready);
+		$nowkindarr = array();
+		foreach($kind as $kv){
+			if(!isset(${'cont_'.$kv})) return NULL;
+			$nowkindarr = array_merge($nowkindarr, ${'cont_'.$kv});
+		}
+		$i = 0;
+		do{
+			$iname = array_rand($nowkindarr);
+			$i ++;
+		}while ($i > 999 || in_array($iname,$aready) || $nowkindarr[$iname] < $min || ($max > 0 && $nowkindarr[$iname] > $max));
+		return $iname;
+	}
+	
+	function wdebug_showreq(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player'));
+		$req1=\skillbase\skill_getvalue(424,'cur1');
+		$req2=\skillbase\skill_getvalue(424,'cur2');
+		$req3=\skillbase\skill_getvalue(424,'cur3');
+		$req4=\skillbase\skill_getvalue(424,'cur4');
+		$reqarr = array();
+		for($i=1;$i<=4;$i++){
+			if(${'req'.$i}) $reqarr[] = ${'req'.$i};
+		}
+		foreach($reqarr as &$req){
+			$req = "<span class=\"yellow\">{$req}</span>";
+		}
+		return implode('或', $reqarr);
+	}
 		
 	function wdebug(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','itemmain','logger','skill424','skillbase','map'));
 		if(\skillbase\skill_query(424)){
-			$req1=$goal424[\skillbase\skill_getvalue(424,'cur1')];
-			$req2=$goal424[\skillbase\skill_getvalue(424,'cur2')];
 			$clv=\skillbase\skill_getvalue(424,'lvl');
-			$position = 0;
-			foreach(Array(1,2,3,4,5,6) as $imn){
-				global ${'itm'.$imn},${'itmk'.$imn},${'itme'.$imn},${'itms'.$imn},${'itmsk'.$imn};
-				if((${'itm'.$imn}==$req1)||(${'itm'.$imn}==$req2)){
-					$position = $imn;
-					break;
-				}
-			}
+			$position = wdebug_check();
 			if($position){
 				$itm = ${'itm'.$position};
 				$log .= "<span class=\"yellow\">除错成功。</span><br />";
@@ -70,21 +163,14 @@ namespace skill424
 					$log .="<span class=\"yellow\">获得了10点命体上限。</span><br />";
 				}
 				$clv++;
-				$t=635;
-				$nx=rand(0,$t);
-				$ed=$goal424[$nx];
-				$log .="下次除错需要物品<span class=\"yellow\">{$ed}</span>或";
-				\skillbase\skill_setvalue(424,'cur1',$nx);	
-				$nx1=rand(0,$t);
-				while ($nx1==$nx) $nx1=rand(0,$t);
-				$ed=$goal424[$nx1];
-				$log .="<span class=\"yellow\">{$ed}</span>。<br />";
-				\skillbase\skill_setvalue(424,'cur2',$nx1);				
 				\skillbase\skill_setvalue(424,'lvl',$clv);
+				wdebug_reset();
+				$log .='下次除错需要物品'.wdebug_showreq();
+				
 				$mode = 'command';
 				return;
 			}else{
-				$log .= "本次除错需要物品<span class=\"yellow\">$req1</span>或<span class=\"yellow\">$req2</span>。你没有进行除错所需的物品。<br />";
+				$log .= '本次除错需要物品'.wdebug_showreq().'。你没有进行除错所需的物品。<br />';
 				$mode = 'command';
 				return;
 			}
