@@ -3,7 +3,7 @@
 namespace npc
 {
 	//不需要躲避禁区的NPC
-	$killzone_resistant_typelist = Array(1,7,9,13,15,20,21,22,40,88);
+	$killzone_resistant_typelist = Array(1,7,9,13,15,16,20,21,22,40,88);
 	
 	$npc_typeinfo=Array(
 		1=>'红杀将军',
