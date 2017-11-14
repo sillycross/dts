@@ -2,10 +2,10 @@
 
 namespace skill428
 {
-	$dmggain = Array(0,20,40,65);
-	$extralvllost = Array(0,1,2,2);
-	$skptbonus = Array(2,2,3,4);
-	$upgradecost = Array(6,7,8,-1);
+	$dmggain = Array(0,15,30,60);
+	$extralvllost = Array(0,0,1,2);
+	$skptbonus = Array(0,1,2,3);
+	$upgradecost = Array(6,9,12,-1);
 	
 	function init() 
 	{
@@ -60,25 +60,26 @@ namespace skill428
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill428','player'));
-		if (!\skillbase\skill_query(428,$pa)) return 1;
+		if (!\skillbase\skill_query(428,$pa)) return 0;
 		$rate = $dmggain[\skillbase\skill_getvalue(428,'lvl',$pa)];
-		return (1+$rate/100);
+		return $rate;
 	}
 	
-	function get_trap_damage()
+	function get_trap_damage_multiplier(&$pa, &$pd, $trap, $damage)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','skill428'));
-		if (is_numeric($itmsk0)){
-			$wdata=\player\fetch_playerdata_by_pid($itmsk0);
-			if ((\skillbase\skill_query(428,$wdata))){
-				$var_428=get_skill428_dmg_gain($wdata);
-				return round($var_428*$chprocess());
-			}
+		$r=Array();
+		if (\skillbase\skill_query(428,$pa)) 
+		{
+			eval(import_module('logger'));
+			$a=get_skill428_dmg_gain($pa);
+			if($pa['pid'] == $pd['pid']) $log .= '你自己的「阴谋」让陷阱伤害增加了'.$a.'%！';
+			else $log .= '对方的技能「阴谋」让陷阱伤害增加了'.$a.'%！';
+			$r=Array((100+$a)/100);
 		}
-		
-		return $chprocess();
+		return array_merge($r,$chprocess($pa,$pd,$trap,$damage));
 	}
+	
 	
 	function kill(&$pa, &$pd)
 	{

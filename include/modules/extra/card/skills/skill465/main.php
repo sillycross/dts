@@ -28,15 +28,16 @@ namespace skill465
 	function calculate_ex_single_dmg_multiple(&$pa, &$pd, $active, $key)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(465,$pa) || ($key!='f' && $key!='u')) 
-		{
-			return $chprocess($pa, $pd, $active, $key);
-		} else {
-			eval(import_module('logger'));
-			$pn = $active ? '你' : $pa['name'];
-			$log .= '这不是火焰，这是「圣火」！'.$pn.'造成的伤害增加了50%！<br>';
-			return $chprocess($pa, $pd, $active, $key)*1.5;
+		$ret = $chprocess($pa, $pd, $active, $key);
+		if(\skillbase\skill_query(465,$pa) && ($key=='f' || $key=='u')){
+			$ret *=1.5;
+			if(!isset($pa['battlelogflag_skill465'])){
+				eval(import_module('logger'));
+				$log .= \battle\battlelog_parser($pa, $pd, $active,'「圣火」让<:pa_name:>造成的伤害增加了50%！<br>');
+				$pa['battlelogflag_skill465'] = 1;
+			}
 		}
+		return $ret;
 	}	
 }
 

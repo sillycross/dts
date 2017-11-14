@@ -37,10 +37,10 @@
 		<!--{if $urdata}-->
 		<!--{loop $urdata $n $ur}-->
 		<tr>
-			<!--{if $ur['groupid']>=$mygroup}-->
+			<!--{if $ur['groupid']>=$mygroup && $ur['username'] != $cuser}-->
 			<td><input type="checkbox" id="user_$n" name="user_$n" value="{$ur['uid']}" disabled="true"></td>
 			<td>{$ur['username']}</td>
-			<td><input type="text" name="pass_$n" size="20" maxlength="20" value="无法修改" disabled="true"></td>
+			<td><input type="text" name="pass_$n" size="12" maxlength="20" value="无法修改" disabled="true"></td>
 			<td>{$urgroup[$ur['groupid']]}</td>
 			<td>第{$ur['lastgame']}局</td>
 			<td>{$ur['ip']}</td>
@@ -54,16 +54,16 @@
 			</td>
 			<td><input type="text" name="icon_$n" size="2" maxlength="2" value="$ur['icon']" disabled="true"></td>
 			<td><input type="text" name="gold_$n" size="5" maxlength="20" value="$ur['gold']" disabled="true"></td>
-			<td><input type="text" name="motto_$n" size="20" maxlength="20" value="$ur['motto']" disabled="true"></td>
-			<td><input type="text" name="killmsg_$n" size="20" maxlength="20" value="$ur['killmsg']" disabled="true"></td>
-			<td><input type="text" name="lastword_$n" size="20" maxlength="20" value="$ur['lastword']" disabled="true"></td>
+			<td><input type="text" name="motto_$n" size="12" maxlength="20" value="$ur['motto']" disabled="true"></td>
+			<td><input type="text" name="killmsg_$n" size="12" maxlength="20" value="$ur['killmsg']" disabled="true"></td>
+			<td><input type="text" name="lastword_$n" size="12" maxlength="20" value="$ur['lastword']" disabled="true"></td>
 			<td>
 				<input type="submit" value="修改" disabled="true">
 			</td>
 			<!--{else}-->
 			<td><input type="checkbox" id="user_$n"  name="user_$n" value="{$ur['uid']}"></td>
 			<td>{$ur['username']}</td>
-			<td><input type="text" name="pass_$n" size="20" maxlength="20" value=""></td>
+			<td><input type="text" name="pass_$n" size="12" maxlength="20" value=""></td>
 			<td>{$urgroup[$ur['groupid']]}</td>
 			<td>第{$ur['lastgame']}局</td>
 			<td>{$ur['ip']}</td>
@@ -77,9 +77,9 @@
 			</td>
 			<td><input type="text" name="icon_$n" size="2" maxlength="2" value="$ur['icon']"></td>
 			<td><input type="text" name="gold_$n" size="5" maxlength="20" value="$ur['gold']"></td>
-			<td><input type="text" name="motto_$n" size="20" maxlength="60" value="$ur['motto']"></td>
-			<td><input type="text" name="killmsg_$n" size="20" maxlength="60" value="$ur['killmsg']"></td>
-			<td><input type="text" name="lastword_$n" size="20" maxlength="60" value="$ur['lastword']"></td>
+			<td><input type="text" name="motto_$n" size="12" maxlength="60" value="$ur['motto']"></td>
+			<td><input type="text" name="killmsg_$n" size="12" maxlength="60" value="$ur['killmsg']"></td>
+			<td><input type="text" name="lastword_$n" size="12" maxlength="60" value="$ur['lastword']"></td>
 			<td>
 				<input type="submit" value="修改" onclick="$('urcmd').value='edit_{$n}_{$ur['uid']}'">
 			</td>

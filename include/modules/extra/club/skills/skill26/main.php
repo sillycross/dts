@@ -127,7 +127,7 @@ namespace skill26
 		
 		if ($flag)
 		{
-			$log .= "<span class=\"red\">属性攻击的力量完全被防具吸收了！</span>只造成了<span class=\"red\">".round($zdmg)."</span>点伤害！<br>";
+			$log .= "<span class=\"red\">属性攻击的力量完全被防具吸收了！</span>只造成了<span class=\"red\">".$pa['ex_dmg_dealt']."</span>点伤害！<br>";
 			$pa['physical_dmg_dealt'] += $pa['ex_dmg_dealt'];
 			$pa['dmg_dealt'] += $pa['ex_dmg_dealt'];
 			$pa['ex_dmg_dealt'] = 0;
@@ -154,9 +154,7 @@ namespace skill26
 		}
 		else
 		{
-			$tdmg = round($dmg * $zdmg);
 			$log.="武器攻击造成了{$dmg}{$mult_words}＝<span class=\"red\">{$fin_dmg}</span>点".$itemspkinfo[$attack_type]."伤害！<br>";
-			$dmg = $tdmg;
 		}
 		$pa['physical_dmg_dealt'] += $fin_dmg;
 		$pa['dmg_dealt'] += $fin_dmg;

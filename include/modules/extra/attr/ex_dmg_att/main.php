@@ -106,9 +106,10 @@ namespace ex_dmg_att
 				if ($punish != 1)
 				{
 					if ($punish > 1) $punish_word = "倍增"; else $punish_word = "减少";
-					if ($active)
-						$log .= "由于{$pd['name']}已经{$infname[$infkey]}，{$exdmgname[$key]}伤害{$punish_word}！";
-					else  $log .= "由于你已经{$infname[$infkey]}，{$exdmgname[$key]}伤害{$punish_word}！";
+					if(!isset($pa['battlelogflag_punish_'.$key])){
+						$log .= \battle\battlelog_parser($pa, $pd, $active,"由于<:pd_name:>已经{$infname[$infkey]}，{$exdmgname[$key]}伤害{$punish_word}！");
+						$pa['battlelogflag_punish_'.$key] = 1;
+					}
 				}
 				$r *= $punish;
 			}

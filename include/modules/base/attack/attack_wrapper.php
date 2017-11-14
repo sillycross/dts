@@ -208,6 +208,11 @@ namespace attack
 			}
 		}
 		unset($pa['physical_dmg_dealt']);
+		foreach(array_keys($pa) as $pak){
+			if(strpos($pak, 'battlelogflag') === 0) {
+				unset($pa[$pak]);
+			}
+		}
 	}
 	
 	function attack_wrapper(&$pa, &$pd, $active)

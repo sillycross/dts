@@ -230,7 +230,9 @@ namespace metman
 		$ret = false;//先默认所有尸体都是空的
 		if(1 != $edata['corpse_clear_flag']){ //如果尸体已被标记为清除，强制认为是空的，不用继续判定
 			//未标记为清除的尸体，则逐个判定各部位的耐久，如果任一有非0值，则认为是非空尸体，否则仍为空
-			foreach( array('money','weps','arbs','arhs','aras','arfs','arts','itms1','itms2','itms3','itms4','itms5','itms6') as $chkval){
+			if($edata['weps'] && ($edata['wepk']!='WN' || $edata['wepe'] > 0)) $ret = true;//武器和防具特判
+			if($edata['arbs'] && ($edata['arbk']!='DN' || $edata['arbe'] > 0)) $ret = true;
+			foreach( array('money','arhs','aras','arfs','arts','itms1','itms2','itms3','itms4','itms5','itms6') as $chkval){
 				if($edata[$chkval]) {
 					$ret = true;
 					break;

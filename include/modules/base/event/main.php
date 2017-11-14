@@ -147,7 +147,7 @@ namespace event
 				$log = ($log . "隶属于时空部门G的特殊部队『天使』正在实弹演习！<BR>你被卷入了弹幕中！<BR>");
 				if($dice1 <= 1 ){
 					$log = ($log . "在弹幕的狂风中，你有惊无险地回避着弹幕，总算擦弹成功了。<BR>");
-					if($dice2 == 40 && $rp > 40){
+					if($dice2 == 40 && $rp > 40 && $killnum > 0){
 						$log = ($log . "咦，头顶上……好像有一名少女被弹幕击中了……？<BR>“对不起、对不起！”伴随着焦急的道歉声，少女以及她乘坐的机体向你笔直坠落下来。<br>你还来不及反应，重达数十吨的机体便直接落在了你的头上。<br>");
 						$state = 33;
 						\player\update_sdata(); $sdata['sourceless'] = 1; $sdata['attackwith'] = '';

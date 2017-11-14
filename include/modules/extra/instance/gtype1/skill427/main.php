@@ -43,8 +43,8 @@ namespace skill427
 				\skillbase\skill_setvalue(427,'r','1',$pd);
 				if ($pd['state']==27 && !$pd['sourceless'])	//陷阱
 				{
-					$log.= "<span class=\"lime\">但是，由于你及时按下了BOMB键，你原地满血复活了！</span><br>";
-					$w_log = "<span class=\"lime\">但是，由于{$pd['name']}及时按下了BOMB键，其原地满血复活了！</span><br>";
+					$log.= '一个声音响起：<span class="red">“不准死，你还没有找完BUG呢。”</span><span class="lime">你原地满血复活了！</span><br>';
+					$w_log = '<span class="lime">'.$pd['name'].'原地满血复活了！</span><br>';
 					\logger\logsave ( $pa['pid'], $now, $w_log ,'b');
 				}
 				else
@@ -59,7 +59,7 @@ namespace skill427
 				
 				if (\skillbase\skill_query(424,$pd)){
 					$clv=\skillbase\skill_getvalue(424,'lvl',$pd); 
-					$clv=$clv-2;
+					$clv=$clv-2;//死亡层数-2不变
 					if ($clv<0) $clv=0;
 					\skillbase\skill_setvalue(424,'lvl',$clv,$pd); 
 				}
@@ -84,13 +84,13 @@ namespace skill427
 		{
 			if ($active)
 			{
-				$log.='<span class="lime">但是，由于敌人及时按下了BOMB键，其原地满血复活了！</span><br>';
-				$pd['battlelog'].='<span class="lime">但是，由于你及时按下了BOMB键，你原地满血复活了，</span>';
+				$log.='<span class="lime">敌人原地满血复活了！</span>';
+				$pd['battlelog'].='一个声音响起：<span class="red">“不准死，你还没有找完BUG呢。”</span><span class="lime">你原地满血复活了！</span>';
 			}
 			else
 			{
-				$log.='<span class="lime">但是，由于你及时按下了BOMB键，你原地满血复活了！</span><br>';
-				$pd['battlelog'].='<span class="lime">但是，由于敌人及时按下了BOMB键，其原地满血复活了，</span>';
+				$log.='一个声音响起：<span class="red">“不准死，你还没有找完BUG呢。”</span><span class="lime">你原地满血复活了！</span>';
+				$pd['battlelog'].='<span class="lime">敌人原地满血复活了！</span>';
 			}
 		}
 	}
@@ -101,7 +101,7 @@ namespace skill427
 		eval(import_module('sys','player'));
 		
 		if($news == 'revival') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}因为及时按下了BOMB键而原地满血复活了！</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}还没有完成需求，不得不原地满血复活！</span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

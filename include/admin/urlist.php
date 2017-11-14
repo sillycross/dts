@@ -27,7 +27,7 @@ if($urcmd){
 	} else {
 		while($ur = $db->fetch_array($result)) {
 			if(!$ur['gender']){$ur['gender']='0';}
-			$urdata[] = $ur;			
+			$urdata[] = $ur;
 		}
 		$startno = $start + 1;
 		$endno = $start + count($urdata);
@@ -101,7 +101,7 @@ if($urcmd == 'ban' || $urcmd == 'unban' || $urcmd == 'del') {
 		$cmd_info = "帐户UID错误。";
 	}elseif(!isset($urdata[$no]) || $urdata[$no]['uid'] != $uid){
 		$cmd_info = "该帐户不存在或超出查询范围。";
-	}elseif($urdata[$no]['groupid'] >= $mygroup){
+	}elseif($urdata[$no]['groupid'] >= $mygroup && $urdata[$no]['username'] != $cuser){
 		$cmd_info = "权限不够，不能修改此帐户信息！";
 	}else{
 		include_once './include/user.func.php';

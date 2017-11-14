@@ -172,9 +172,10 @@ namespace trap
 		}else {
 			$pa=\player\create_dummy_playerdata();
 		}
+		$log .= "糟糕，你触发了{$trprefix}陷阱<span class=\"yellow\">$itm0</span>！";
 		$damage = get_trap_damage();
 		
-		$log .= "糟糕，你触发了{$trprefix}陷阱<span class=\"yellow\">$itm0</span>！";
+		
 	
 		$tritm=Array();
 		$tritm['itm']=$itm0; $tritm['itmk']=$itmk0; 

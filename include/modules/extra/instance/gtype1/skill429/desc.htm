@@ -10,7 +10,8 @@
 <!--{eval $totlv = count($upgradecost)-1; }-->
 <span class="lime">当前级别$clv/$totlv</span>&nbsp;
 <!--{if $upgradecost[$clv] !== -1}-->消耗<span class="lime">$upgradecost[$clv]</span>点技能点升至下一级<!--{/if}--><br>
-你对NPC的单次战斗伤害不能超过其最大生命的<span class="yellow">$dmglimit[$clv]%</span><br>你不会和玩家进入战斗<br>
+你对NPC的单次战斗伤害不能超过其最大生命的<span class="yellow">$dmglimit[$clv]%</span><br>
+此外，你受到的陷阱伤害减少<span class="yellow">$trapdmgdown[$clv]%</span>
 </span></td>
 <td class=b3 width=96>
 <!--{if $upgradecost[$clv] !== -1}-->
