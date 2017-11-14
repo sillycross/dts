@@ -16,8 +16,8 @@ namespace gtype1
 		if ($db->num_rows($res)){
 			$zz=$db->fetch_array($res); $gt=$zz['gametype'];
 		}
-		if (1){
- 			if ( 1 ){ 
+		if ($wday==3 && !$disable_event){
+ 			if ( $hour>=19 && $hour<21 && $gt!=1 ){ 
  				$gametype=1;
  				prepare_new_game_gtype1();
  			}
@@ -244,6 +244,14 @@ namespace gtype1
 //		}
 //		return $chprocess($edata);
 //	}
+
+	function get_npclist(){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		eval(import_module('sys','gtype1'));
+		if (1 == $gametype){
+			return $npcinfo_gtype1;
+		}else return $chprocess();
+	}
 	
 	//接管meetman_alternative，主要是判定遭遇玩家时必定为队友
 	function meetman_alternative($edata)
@@ -404,6 +412,13 @@ namespace gtype1
 		if ($gametype==1) $lvupskpt=0;
 	}
 	
+	//除错模式雏菊无事件
+	function event_available(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys', 'player'));
+		if(19==$gametype && $pls == 33) return false;
+		return $chprocess();
+	}
 	
 	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{

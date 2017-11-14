@@ -3,7 +3,7 @@
 namespace skill429
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase player logger attack clubbase';
+	$___MODULE_dependency = 'skillbase player logger attack clubbase trap';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

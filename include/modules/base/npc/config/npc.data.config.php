@@ -2105,7 +2105,7 @@ namespace npc
 			'club' => 18,
 			'skill' => 900,
 			'skills' => array('461'=>'1'),
-			'wep' => '光翼型近接支援残酷戦闘機',
+			'wep' => '光翼型近接支援残酷戦闘機銃',
 			'wepk' => 'WG',
 			'wepe' => 2000,
 			'weps' => 999,

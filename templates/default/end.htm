@@ -631,7 +631,7 @@
 		<br>
 		<br>
 		<br>
-		<span class="evergreen">■ GAME CLEAR - END #7 ■</span>
+		<span class="evergreen">■ GAME CLEAR - END #7 ■</span><br>
 		<span class="evergreen" style="font-weight:700;font-size:18pt;line-height:18pt;">「幻境解离」胜利！恭喜恭喜！</span>
 	<!--{elseif $winmode == 7}-->
 		<!--幻境解离（非获胜玩家）-->
@@ -646,17 +646,46 @@
 		</p>
 	<!--{elseif $winmode == 8}-->
 		<!--挑战结束-->
-		<p>
-			<!--{if $gametype == 15}-->
-				你本局的有效最大金钱为：
-				<!--{if $areanum<$areaadd}-->
-					<!--{eval echo max($money, \skillbase\skill_getvalue(313,'max_money'));}-->
-				<!--{else}-->
-					<!--{eval echo \skillbase\skill_getvalue(313,'max_money');}-->
-				<!--{/if}-->
+			<!--{if $gametype == 1}-->
+				<p>
+					<span class="evergreen">“各位辛苦了，这次就到此为止吧。”</span><br>
+					是技术总监——薇娜·安妮茜——的声音。<br>
+					正在努力追查病毒的我们，听到这句广播，都不约而同地停下了。<br>
+					“我们已经把病毒本体的位置定位到了很小的范围。<br>
+					然而很遗憾，凭我们目前的手段，还无法把病毒逼出它的主场。<br>
+					这不是你们的错，或者说，多亏了你们，才有如此进展。<br>
+					你们都先登出吧。我会按约定，给<span class="evergreen">进度名列前茅者</span>发放报酬的。”
+				</p>
+				<p>
+					“骗子！合同欺诈！金龙社果然都不是好人！”碰巧又跟你凑在一起的那个测试员忿忿地骂道。<br>
+					而你正沾沾自喜。看来野路子很有效呢，下次还得找这帮冤大头。
+				</p>
+				<p>
+					然而，在你们相继登出时，你似乎隐约听到了几句不祥的话。<br>
+					<span class="evergreen">“把虚拟幻境交给这帮人，根本不靠谱吧？”</span><br>
+					<span class="clan">“这你就不懂了吧。你们红大小姐这一招，是欲擒故纵、一石二鸟。<br>
+						就算一时没成果，也是可以接受的。”</span><br>
+					<span class="evergreen">“我是搞技术的人，不懂你们统御术那一套。”</span><br>
+					<span class="clan">“这样才能合作愉快嘛，安妮。”</span>
+				</p>
+				
+				<br>
+				<span class="evergreen">■ GAME CLEAR - END? ■</span><br>
+				<span class="evergreen" style="font-weight:700;font-size:18pt;line-height:18pt;">「破解模式」结束？</span>
+				<p>本局游戏结束，请返回游戏首页！</p>
+			<!--{elseif $gametype == 15}-->
+				<p>
+					你本局的有效最大金钱为：
+					<!--{if $areanum<$areaadd}-->
+						<!--{eval echo max($money, \skillbase\skill_getvalue(313,'max_money'));}-->
+					<!--{else}-->
+						<!--{eval echo \skillbase\skill_getvalue(313,'max_money');}-->
+					<!--{/if}-->
+					<br>本次挑战结束，请返回游戏首页！
+				</p>
+			<!--{else}-->	
+				<p>本次挑战结束，请返回游戏首页！</p>
 			<!--{/if}-->
-		<br>本次挑战结束，请返回游戏首页！
-		</p>
 	<!--{else}-->
 		未知胜利方式，可能是开发者尚未编写结局说明，请返回游戏首页！<br>
 		state={$state} winmode={$winmode}

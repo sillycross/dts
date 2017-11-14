@@ -36,14 +36,14 @@ namespace skill427
 		if (in_array($pd['state'],Array(20,21,22,23,24,25,27,29)))
 			if (\skillbase\skill_query(427,$pd))
 			{
-				if (($pa['type']==88)||($pa['type']==1)){
-					$log.= "<span class=\"linen\">都告诉你了，对某些NPC无效……快去死吧。</span><br>";
+				if ( $pa['type']==88 || $pa['type']==1 || $pa['type']==16 || $pa['type']==21){
+					$log.= "后台监工的声音响起：<span class=\"linen\">“人作死，就会死……快去死吧。”</span><br>";
 					return;
 				}
 				\skillbase\skill_setvalue(427,'r','1',$pd);
 				if ($pd['state']==27 && !$pd['sourceless'])	//陷阱
 				{
-					$log.= '一个声音响起：<span class="red">“不准死，你还没有找完BUG呢。”</span><span class="lime">你原地满血复活了！</span><br>';
+					$log.= '后台监工的声音响起：<span class="evergreen">“不准死，你还没有找完BUG呢。”</span><span class="lime">你原地满血复活了！</span><br>';
 					$w_log = '<span class="lime">'.$pd['name'].'原地满血复活了！</span><br>';
 					\logger\logsave ( $pa['pid'], $now, $w_log ,'b');
 				}
@@ -84,13 +84,13 @@ namespace skill427
 		{
 			if ($active)
 			{
-				$log.='<span class="lime">敌人原地满血复活了！</span>';
-				$pd['battlelog'].='一个声音响起：<span class="red">“不准死，你还没有找完BUG呢。”</span><span class="lime">你原地满血复活了！</span>';
+				$log.='<span class="lime">敌人原地满血复活了！</span><br>';
+				$pd['battlelog'].='后台监工的声音响起：<span class="evergreen">“不准死，你还没有找完BUG呢。”</span><span class="lime">你原地满血复活了！</span><br>';
 			}
 			else
 			{
-				$log.='一个声音响起：<span class="red">“不准死，你还没有找完BUG呢。”</span><span class="lime">你原地满血复活了！</span>';
-				$pd['battlelog'].='<span class="lime">敌人原地满血复活了！</span>';
+				$log.='后台监工的声音响起：<span class="evergreen">“不准死，你还没有找完BUG呢。”</span><span class="lime">你原地满血复活了！</span><br>';
+				$pd['battlelog'].='<span class="lime">敌人原地满血复活了！</span><br>';
 			}
 		}
 	}

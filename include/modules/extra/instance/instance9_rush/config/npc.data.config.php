@@ -701,7 +701,7 @@ namespace instance9
 			(
 				0 => array
 				(
-				'name' => '看起来像蓝凝的家伙',
+				'name' => '蓝凝 DUMMY',
 				'mss' => 40,
 				'skills' => array('406'=>'0','432'=>'0','459'=>'0','461'=>'1'),
 				'icon' => 52,
@@ -2155,7 +2155,7 @@ namespace instance9
 			'club' => 18,
 			'skill' => 900,
 			'skills' => array('461'=>'1'),
-			'wep' => '光翼型近接支援残酷戦闘機',
+			'wep' => '光翼型近接支援残酷戦闘機銃',
 			'wepk' => 'WG',
 			'wepe' => 2000,
 			'weps' => 999,
