@@ -133,7 +133,7 @@ namespace sys
 		process_lock();
 		load_gameinfo();
 		//游戏未准备的情况下直接返回
-		if($gamestate < 10) return;
+		if($gamestate < 5) return;
 		//在没提供游戏结束模式的情况下，自行判断模式
 		if((!$gmode)||(($gmode=='end2')&&(!$winname))) {
 			if($validnum <= 0) {//无激活者情况下，无人参加

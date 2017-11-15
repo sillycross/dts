@@ -69,7 +69,7 @@ namespace skill427
 					$pa['skillpoint']+=3;
 				}
 				
-				addnews ( $now, 'revival', $pd['name'] );
+				addnews ( $now, 'revival427', $pd['name'] );
 			}
 	}
 	
@@ -100,7 +100,7 @@ namespace skill427
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
 		
-		if($news == 'revival') 
+		if($news == 'revival427') 
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}还没有完成需求，不得不原地满血复活！</span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);

@@ -17,7 +17,7 @@ namespace gtype1
 			$zz=$db->fetch_array($res); $gt=$zz['gametype'];
 		}
 		if ($wday==3 && !$disable_event){
- 			if ( $hour>=19 && $hour<21 && $gt!=1 ){ 
+ 			if ( $hour>=19 && $hour<22 && $gt!=1 ){ 
  				$gametype=1;
  				prepare_new_game_gtype1();
  			}

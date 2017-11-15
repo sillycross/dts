@@ -105,7 +105,7 @@ namespace skill424
 	function wdebug_getreq($kind, $min, $max=-1, $aready=''){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		global $cont_mapitem,$cont_shopitem,$cont_mixitem,$cont_syncitem,$cont_overlayitem,$cont_presentitem,$cont_ygoitem,$cont_fyboxitem,$cont_npc;
-		include_once GAME_ROOT.'/gamedata/config/gtype1item.config.php';
+		include GAME_ROOT.'/gamedata/config/gtype1item.config.php';
 		if(!is_array($kind)) $kind = array($kind);
 		if(!is_array($aready)) $aready = array($aready);
 		$nowkindarr = array();
