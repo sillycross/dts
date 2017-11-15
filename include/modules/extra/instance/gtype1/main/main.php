@@ -30,7 +30,9 @@ namespace gtype1
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		$file = GAME_ROOT.'/gamedata/config/gtype1item.config.php';
+		$dir = GAME_ROOT.'/gamedata/cache';
+		if(!file_exists($dir)) mymkdir($dir);
+		$file = $dir.'/gtype1item.config.php';
 		$contents = "<?php\r\n if(!defined('IN_GAME')) exit('Access Denied');\r\n";
 		//各文件位置
 		$iplacefilelist = array(
@@ -46,6 +48,19 @@ namespace gtype1
 			'addnpc' => GAME_ROOT.'./include/modules/base/addnpc/config/addnpc.config.php',
 			'evonpc' => GAME_ROOT.'./include/modules/extra/club/skills/skill21/config/evonpc.config.php',
 		);
+		//如果更新过文件则生成道具表
+		$need_update = 0;
+		if(!file_exists($file)) $need_update = 1;
+		else{
+			foreach($iplacefilelist as $ipfval){
+				if(filemtime($ipfval) > filemtime($file)){
+					$need_update = 1; 
+					break;
+				}
+			}
+		}
+		if(!$need_update) return;
+		
 		//从各文件提取道具信息
 		$iplacefiledata = array();
 		foreach($iplacefilelist as $ipfkey => $ipfval){

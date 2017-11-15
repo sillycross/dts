@@ -324,7 +324,6 @@ blessstone,extra/attr/blessstone/,1
 skill33,extra/club/skills/skill33/,1
 weather,base/weather/,1
 npcinfo,extra/misc/npcinfo/,1
-halloween2017,extra/activities/halloween2017/main/,1
 skill28,extra/club/skills/skill28/,1
 skill254,extra/club/skills/skill254/,1
 instance9,extra/instance/instance9_rush/,1
@@ -398,3 +397,4 @@ skill57,extra/club/skills/skill57/,1
 skill436,extra/card/skills/skill436/,1
 smartmix,extra/misc/smartmix/,1
 searchmemory,extra/searchmemory/,1
+halloween2017,extra/activities/halloween2017/main/,0

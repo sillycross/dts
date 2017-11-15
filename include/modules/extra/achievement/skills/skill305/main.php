@@ -42,7 +42,7 @@ namespace skill305
 	function gameover($time = 0, $gmode = '', $winname = '') {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		if($gamestate < 10) return;
+		if($gamestate < 5) return;
 		if(((!$gmode)||(($gmode=='end2')&&(!$winname)))&&(!in_array($gametype,$teamwin_mode))){
 			$result = $db->query("SELECT * FROM {$tablepre}players WHERE hp>0 AND type=0");
 			$alivenum = $db->num_rows($result);

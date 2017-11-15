@@ -89,7 +89,7 @@ namespace skill424
 			$req2 = wdebug_getreq(array('mapitem', 'shopitem'), 0, 10, $req1);
 			$req3 = wdebug_getreq(array('mixitem','syncitem','overlayitem','npc'), 5, 20, array($req1, $req2));
 			$req4 = wdebug_getreq(array('mapitem','shopitem','mixitem','syncitem','overlayitem','npc','presentitem','ygoitem'), 0, 10, array($req1, $req2, $req3));
-		}else{//60层以上全部浮云物，哈哈哈哈！
+		}else{//50层以上全部浮云物，哈哈哈哈！
 			$req1 = wdebug_getreq(array('mapitem','shopitem','mixitem','syncitem','overlayitem','npc','presentitem','ygoitem'), 0, 5);
 			$req2 = wdebug_getreq(array('mapitem','shopitem','mixitem','syncitem','overlayitem','npc','presentitem','ygoitem'), 0, 5, $req1);
 			$req3 = wdebug_getreq(array('mapitem','shopitem','mixitem','syncitem','overlayitem','npc','presentitem','ygoitem'), 0, 5, array($req1, $req2));
@@ -105,7 +105,7 @@ namespace skill424
 	function wdebug_getreq($kind, $min, $max=-1, $aready=''){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		global $cont_mapitem,$cont_shopitem,$cont_mixitem,$cont_syncitem,$cont_overlayitem,$cont_presentitem,$cont_ygoitem,$cont_fyboxitem,$cont_npc;
-		include GAME_ROOT.'/gamedata/config/gtype1item.config.php';
+		include GAME_ROOT.'/gamedata/cache/gtype1item.config.php';
 		if(!is_array($kind)) $kind = array($kind);
 		if(!is_array($aready)) $aready = array($aready);
 		$nowkindarr = array();
@@ -148,7 +148,7 @@ namespace skill424
 				$itm = ${'itm'.$position};
 				$log .= "<span class=\"yellow\">除错成功。</span><br />";
 				$log .= "<span class=\"red\">$itm</span>用光了。<br />";
-				addnews ( 0, 'skill424', $name, $clv+1);
+				addnews ( 0, 'skill424', $name, $clv+1, $itm);
 				${'itm'.$position} = ${'itmk'.$position} = ${'itmsk'.$position} = '';
 				${'itme'.$position} =${'itms'.$position} =0;
 				$gdice=rand(1,3);
@@ -208,7 +208,7 @@ namespace skill424
 		eval(import_module('sys','player'));
 		
 		if($news == 'skill424') 
-				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}完成了第{$b}次<span class=\"yellow\">「除错」</span>尝试</span></li>";
+				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}</span>提交了<span class=\"yellow\">{$c}</span>，完成了<span class=\"clan\">第{$b}次「除错」尝试</span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

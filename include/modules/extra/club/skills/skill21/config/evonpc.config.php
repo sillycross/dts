@@ -381,6 +381,7 @@ namespace skill21
 				'club' => 21,
 				'inf' => '',
 				'rage' => 0,
+				'state' => 0,
 				'pose'=> 1,
 				'tactic' => 4,
 				'skills'=>array('21'=>'1','489'=>'1'),

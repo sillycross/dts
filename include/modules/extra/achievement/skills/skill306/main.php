@@ -43,7 +43,7 @@ namespace skill306
 	function gameover($time = 0, $gmode = '', $winname = '') {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		if($gamestate < 10) return;
+		if($gamestate < 5) return;
 		if($gmode=='end5'){
 			$pw=\player\fetch_playerdata($winname);
 			if (\skillbase\skill_query(306,$pw)){
