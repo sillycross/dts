@@ -35,11 +35,19 @@ namespace itemmix_sync
 		$star=0;
 		$tunner=false;
 		if(${'itms'.$itmn}){
-			$z=${'itmk'.$itmn};
-			for ($i=0; $i<strlen($z); $i++) if ('0'<=$z[$i] && $z[$i]<='9') $star=$star*10+(int)$z[$i];
+			$star = itemmix_get_star(${'itmk'.$itmn});
 			if((strpos(${'itmsk'.$itmn},'s')!==false)) $tunner = true;
 		}
 		return array($star, $tunner);
+	}
+	
+	function itemmix_get_star($z){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$star = 0;
+		for ($i=0; $i<strlen($z); $i++)
+			if ('0'<=$z[$i] && $z[$i]<='9')
+				$star=$star*10+(int)$z[$i];
+		return $star;
 	}
 	
 	function itemmix_sync_check($mlist){

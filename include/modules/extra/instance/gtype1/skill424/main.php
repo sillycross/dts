@@ -64,36 +64,38 @@ namespace skill424
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player'));
 		if(!\skillbase\skill_query(424)) return false;
+		$aready=array(\skillbase\skill_getvalue(424,'cur1'), \skillbase\skill_getvalue(424,'cur2'), \skillbase\skill_getvalue(424,'cur3'), \skillbase\skill_getvalue(424,'cur4'));
+		$aready = array_filter($aready);
 		$clv=\skillbase\skill_getvalue(424,'lvl');
 		$req1 = $req2 = $req3 = $req4 = '';
 		
 		
 		if(0==$clv) {
 			$req1='电池';$req2='探测器电池';
-		}elseif($clv <= 10){//前10层只产生个数在30以上的地图道具或个数在40以上的商店道具，且各1枚
-			$req1 = wdebug_getreq('mapitem', 30);
-			$req2 = wdebug_getreq('shopitem', 40, -1, $req1);
-		}elseif($clv <= 20){//10-20层产生个数在15-100的地图道具、商店道具，有可能两个都是地图道具
-			$req1 = wdebug_getreq('mapitem', 15, 100);
-			$req2 = wdebug_getreq(array('mapitem', 'shopitem'), 15, 100, $req1);
-		}elseif($clv <= 30){//20-30层产生个数在5-60的地图道具、商店道具（有可能两个都是地图道具）和个数在25以上的合成物、NPC道具
-			$req1 = wdebug_getreq('mapitem', 5, 60);
-			$req2 = wdebug_getreq(array('mapitem', 'shopitem'), 5, 60, $req1);
-			$req3 = wdebug_getreq(array('mixitem','syncitem','overlayitem','npc'), 25, -1, array($req1, $req2));
-		}elseif($clv <= 40){//30-40层产生个数在2-40的地图道具、商店道具（有可能两个都是地图道具）和个数在15-60的合成物、NPC道具
-			$req1 = wdebug_getreq('mapitem', 2, 30);
-			$req2 = wdebug_getreq(array('mapitem', 'shopitem'), 2, 30, $req1);
-			$req3 = wdebug_getreq(array('mixitem','syncitem','overlayitem','npc'), 15, 60, array($req1, $req2));
-		}elseif($clv <= 50){//40-50层产生个数在0-10的地图道具、商店道具（有可能两个都是地图道具）、个数在5-20的合成物、NPC道具以及所有个数在10以下的玩意儿
-			$req1 = wdebug_getreq('mapitem', 0, 10);
-			$req2 = wdebug_getreq(array('mapitem', 'shopitem'), 0, 10, $req1);
-			$req3 = wdebug_getreq(array('mixitem','syncitem','overlayitem','npc'), 5, 20, array($req1, $req2));
-			$req4 = wdebug_getreq(array('mapitem','shopitem','mixitem','syncitem','overlayitem','npc','presentitem','ygoitem'), 0, 10, array($req1, $req2, $req3));
+		}elseif($clv <= 10){//前10层只产生个数在40以上的地图道具或30以上的商店道具，且各1枚
+			$req1 = wdebug_getreq('mapitem', 40, 499, $aready);
+			$req2 = wdebug_getreq('shopitem', 30, 499, $aready);
+		}elseif($clv <= 20){//10-20层产生个数在15-60的地图道具或10-40的地图/商店道具，有可能两个都是地图道具
+			$req1 = wdebug_getreq('mapitem', 15, 60, $aready);
+			$req2 = wdebug_getreq(array('mapitem', 'shopitem'), 10, 40, $aready);
+		}elseif($clv <= 30){//20-30层产生个数在5-30的地图道具或3-20的地图商店道具（有可能两个都是地图道具）和个数在20-200的合成物、NPC道具
+			$req1 = wdebug_getreq('mapitem', 5, 20, $aready);
+			$req2 = wdebug_getreq(array('mapitem', 'shopitem'), 3, 15, $aready);
+			$req3 = wdebug_getreq(array('mixitem','syncitem','overlayitem','npc'), 20, 200, $aready);
+		}elseif($clv <= 40){//30-40层产生个数在2-10的地图道具或1-8的地图商店道具（有可能两个都是地图道具）和个数在3-20的合成物、NPC道具
+			$req1 = wdebug_getreq('mapitem', 2, 10, $aready);
+			$req2 = wdebug_getreq(array('mapitem', 'shopitem'), 1, 8, $aready);
+			$req3 = wdebug_getreq(array('mixitem','syncitem','overlayitem','npc'), 3, 20, $aready);
+		}elseif($clv <= 50){//40-50层产生个数在1-6的地图道具或0.5-5的地图商店道具（有可能两个都是地图道具）、个数在1-10的合成物、NPC道具以及所有个数在8以下的玩意儿
+			$req1 = wdebug_getreq('mapitem', 1, 6, $aready);
+			$req2 = wdebug_getreq(array('mapitem', 'shopitem'), 0.5, 5, $aready);
+			$req3 = wdebug_getreq(array('mixitem','syncitem','overlayitem','npc'), 1, 10, $aready);
+			$req4 = wdebug_getreq(array('mapitem','shopitem','mixitem','syncitem','overlayitem','npc','presentitem','ygoitem'), 0, 8, $aready);
 		}else{//50层以上全部浮云物，哈哈哈哈！
-			$req1 = wdebug_getreq(array('mapitem','shopitem','mixitem','syncitem','overlayitem','npc','presentitem','ygoitem'), 0, 5);
-			$req2 = wdebug_getreq(array('mapitem','shopitem','mixitem','syncitem','overlayitem','npc','presentitem','ygoitem'), 0, 5, $req1);
-			$req3 = wdebug_getreq(array('mapitem','shopitem','mixitem','syncitem','overlayitem','npc','presentitem','ygoitem'), 0, 5, array($req1, $req2));
-			$req4 = wdebug_getreq(array('mapitem','shopitem','mixitem','syncitem','overlayitem','npc','presentitem','ygoitem'), 0, 5, array($req1, $req2, $req3));
+			$req1 = wdebug_getreq(array('mapitem','shopitem','mixitem','syncitem','overlayitem','npc','presentitem','ygoitem'), 0, 5, $aready);
+			$req2 = wdebug_getreq(array('mapitem','shopitem','mixitem','syncitem','overlayitem','npc','presentitem','ygoitem'), 0, 5, $aready);
+			$req3 = wdebug_getreq(array('mapitem','shopitem','mixitem','syncitem','overlayitem','npc','presentitem','ygoitem'), 0, 5, $aready);
+			$req4 = wdebug_getreq(array('mapitem','shopitem','mixitem','syncitem','overlayitem','npc','presentitem','ygoitem'), 0, 5, $aready);
 		}
 		\skillbase\skill_setvalue(424,'cur1',$req1,$pa);
 		\skillbase\skill_setvalue(424,'cur2',$req2,$pa);
@@ -101,11 +103,15 @@ namespace skill424
 		\skillbase\skill_setvalue(424,'cur4',$req4,$pa);
 	}
 	
-	//在类别为$kind、数量在$min, $max之间的道具里随机选择1个并返回名字
-	function wdebug_getreq($kind, $min, $max=-1, $aready=''){
+	//在类别为$kind、数量在$min, $max之间的道具里随机选择1个并返回名字，且禁区符合要求
+	function wdebug_getreq($kind, $minnum, $maxnum=-1, &$aready=''){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','map'));
+		$nowarea = floor($areanum/$areaadd);
+		//daemon模式下，include_once会出问题
+		//为保证同1次执行时不反复调用文件，只能这么办了
 		global $cont_mapitem,$cont_shopitem,$cont_mixitem,$cont_syncitem,$cont_overlayitem,$cont_presentitem,$cont_ygoitem,$cont_fyboxitem,$cont_npc;
-		include GAME_ROOT.'/gamedata/cache/gtype1item.config.php';
+		if(empty($cont_mapitem)) include GAME_ROOT.'/gamedata/cache/gtype1item.config.php';
 		if(!is_array($kind)) $kind = array($kind);
 		if(!is_array($aready)) $aready = array($aready);
 		$nowkindarr = array();
@@ -113,11 +119,19 @@ namespace skill424
 			if(!isset(${'cont_'.$kv})) return NULL;
 			$nowkindarr = array_merge($nowkindarr, ${'cont_'.$kv});
 		}
-		$i = 0;
-		do{
+		for($i=0;$i<99;$i++){
+			if(empty($nowkindarr)) break;
 			$iname = array_rand($nowkindarr);
-			$i ++;
-		}while ($i > 999 || in_array($iname,$aready) || $nowkindarr[$iname] < $min || ($max > 0 && $nowkindarr[$iname] > $max));
+			
+			if(in_array($iname,$aready) || $nowkindarr[$iname][0] < $minnum
+				 || ($maxnum > 0 && $nowkindarr[$iname][0] > $maxnum) || $nowkindarr[$iname][1] > $nowarea)
+			{
+				unset($nowkindarr[$iname]);
+			}else{
+				break;
+			}
+		}
+		$aready[] = $iname;
 		return $iname;
 	}
 	
@@ -168,6 +182,7 @@ namespace skill424
 					$log .="<span class=\"yellow\">获得了10点命体上限。</span><br />";
 				}
 				$clv++;
+				
 				\skillbase\skill_setvalue(424,'lvl',$clv);
 				wdebug_reset();
 				$log .='下次除错需要物品'.wdebug_showreq();

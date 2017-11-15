@@ -16,8 +16,10 @@ namespace gtype1
 		if ($db->num_rows($res)){
 			$zz=$db->fetch_array($res); $gt=$zz['gametype'];
 		}
-		if ($wday==3 && !$disable_event){
- 			if ( $hour>=19 && $hour<22 && $gt!=1 ){ 
+		if(1){
+			if(1){
+//		if ($wday==3 && !$disable_event){
+// 			if ( $hour>=19 && $hour<22 && $gt!=1 ){ 
  				$gametype=1;
  				prepare_new_game_gtype1();
  			}
@@ -79,25 +81,35 @@ namespace gtype1
 		}
 		//生成个数数组
 		$slist = array();
+		//暂存游戏王星数数据
+		$starnum = array();
 		foreach($iplacefiledata as $ipdkey => $ipdval){
 			foreach($ipdval as $ipdkey2 => $ipdval2){
-				$globalnum = 0;
+				$globalnum = $thisnum = $thisarea = 0;
 				//地图掉落
 				if(strpos($ipdkey, 'mapitem')===0) {
 					if(!empty($ipdval2) && strpos($ipdval2,',')!==false)
 					{
 						list($iarea,$imap,$inum,$iname,$ikind,$ieff,$ista,$iskind) = explode(',',$ipdval2);
-						if(isset($slist[$iname])){
-							$globalnum = $slist[$iname][1];
-						}
+
 						$thisnum = $inum;
-						if($imap == 99) {//全图随机物
-							$thisnum /= 33;
+						$thisarea = $iarea;
+						if($iarea == 99){
+							$thisarea = 0;
+							$thisnum *= 1.5;
+						}elseif($iarea == 98){
+							$thisarea = 1;
 						}
-						if($iarea != 0 && $iarea != 99){//非0禁物
-							$thisnum /= 2;
+						if($thisarea > 1) {
+							$iname = '';//过滤2禁以后刷新的玩意
+						}else{
+							if($imap == 99) {//全图随机物折减数目
+								$thisnum /= 33;
+							}
+							$star = \itemmix_sync\itemmix_get_star($ikind);//记录游戏王道具星数
+							if(!isset($starnum[$star])) $starnum[$star] = 0;
+							$starnum[$star] += $thisnum;
 						}
-						
 					}					
 				}
 				//商店出售
@@ -106,30 +118,19 @@ namespace gtype1
 					{
 						list($kind,$num,$price,$area,$iname)=explode(',',$ipdval2);
 						if($price > 0){
-							if(isset($slist[$iname])){
-								$globalnum = $slist[$iname][1];
+
+							//$thisnum = $num;
+							$thisarea = $area;
+							if($thisarea > 2) {
+								$iname = '';//过滤2禁以后刷新的玩意
+							}else{
+								//估算玩家购买意愿，10块钱相当于数目50（常刷的固定道具），10000块钱相当于数目1（浮云物）
+								$thisnum = 490.5/$price + 0.95;
+								if($thisnum > $num) $thisnum = $num;//个数限制
 							}
-							$thisnum = $num;
-							if($area != 0) {//非0禁物
-								$thisnum /= 2;
-							}
-							$thisnum *= 10000 / $price;//估算一般玩家一局能买到几个
-							if($thisnum > $num * 2) $thisnum = $num * 2;//2禁之内物理限制
 						}else{
 							$iname = '';
 						}
-					}
-				}
-				//通常合成
-				elseif(strpos($ipdkey, 'mixitem')===0){
-					$iname = trim($ipdval2['result'][0]);
-					$ie = $ipdval2['result'][2];
-					if(isset($slist[$iname])){
-						$globalnum = $slist[$iname][1];
-					}
-					$thisnum = (7-sizeof($ipdval2['stuff'])) * 10;//需要的素材数越多，能合成的数目就视为越低
-					if($ie > 100){
-						$thisnum /= sqrt($ie/100);//效果值越大，能合成的数目就视为越低
 					}
 				}
 				//同调
@@ -137,10 +138,31 @@ namespace gtype1
 					if(!empty($ipdval2) && strpos($ipdval2,',')!==false)
 					{
 						list($iname,$ik,$ie,$is,$isk,$star,$special)=explode(',',$ipdval2);
-						if(isset($slist[$iname])){
-							$globalnum = $slist[$iname][1];
+						
+						$recipe = array();
+						for($i=1;$i<$star;$i++){
+							for($j=1;$j<=$star-$i;$j++){
+								if(isset($starnum[$i]) && isset($starnum[$j])){
+									$recipe0 = array($i, $j);
+									if($i + $j < $star) $recipe0[] = $star - $i - $j;//只算2-3个合成的情况
+									sort($recipe0);
+									$recipe0 = implode('_', $recipe0);
+									$recipe[] = $recipe0;
+								}
+							}
 						}
-						$thisnum = (13-$star)*6;//星数越高，能合成的数目就视为越低
+						$recipe = array_unique($recipe);
+						$avg = array();
+						foreach($recipe as &$rr){
+							$rr = explode('_', $rr);
+							$tmpnum = 0;
+							foreach($rr as $rrv){
+								$tmpnum += $starnum[$rrv];
+							}
+							$avg[] = $tmpnum / count($rr) / count($rr); //平均数再除以个数
+						}
+						if(!empty($avg)) $thisnum = array_sum($avg) / count($avg);
+						else $thisnum = 0;
 						if($special) $thisnum /= 2;
 					}
 				}
@@ -149,21 +171,36 @@ namespace gtype1
 					if(!empty($ipdval2) && strpos($ipdval2,',')!==false)
 					{
 						list($iname,$ik,$ie,$is,$isk,$star,$num)=explode(',',$ipdval2);
-						if(isset($slist[$iname])){
-							$globalnum = $slist[$iname][1];
-						}
-						$thisnum = (13-$star)*3;//星数越高，能合成的数目就视为越低
-						$thisnum /= $num / 2;
+						$thisnum = $starnum[$star] / $num / 2;//大部分超量要打钱才能合，难度视为2倍
 					}
 				}
+				//通常合成
+				elseif(strpos($ipdkey, 'mixitem')===0){
+					$iname = trim($ipdval2['result'][0]);
+					//忽略隐藏合成以及一些浮云玩意
+					if($ipdval2['class'] == 'hidden' || in_array($iname, array('游戏解除钥匙', '『G.A.M.E.O.V.E.R』'))){
+						$iname = '';
+					}else{
+						$thisnum = 500;
+						$thisarea = 0;
+						foreach($ipdval2['stuff'] as $stv){//挨个判定合成素材
+							if(!isset($slist[$stv])){
+								$iname = ''; break;//已处理数据里不存在这个素材，那么这一合成不予处理（可能会有少数不按顺序来的合成被过滤）
+							}else{
+								$thisnum = min($slist[$stv][1], $thisnum); 
+								$thisarea = max($slist[$stv][2], $thisarea);
+							}
+						}
+						$thisnum /= count($ipdval2['stuff']); 
+					}
+				}
+				
 				//各类礼品盒
 				elseif(strpos($ipdkey, 'present')===0 || strpos($ipdkey, 'ygo')===0 || strpos($ipdkey, 'fybox')===0){
 					if(!empty($ipdval2) && strpos($ipdval2,',')!==false)
 					{
 						list($iname,$kind)=explode(',',$ipdval2);
-						if(isset($slist[$iname])){
-							$globalnum = $slist[$iname][1];
-						}
+
 						$thisnum = 0.1;//礼品盒恒视为0.1
 						if(strpos($ipdkey, 'fybox')===0) $thisnum = 0.01;//浮云更浮云
 					}
@@ -190,9 +227,7 @@ namespace gtype1
 							if(!empty($nownpc[$nipval])) {
 								$globalnum = 0;
 								$iname = $nownpc[$nipval];
-								if(isset($slist[$iname])){
-									$globalnum = $slist[$iname][1];
-								}
+
 								$thisnum = isset($nownpc['num']) ? $nownpc['num']/sizeof($nownpclist) : 1;
 								if($nownpc['type'] != 90){
 									//$thisnum /= 2;//非杂兵数目除以2
@@ -200,28 +235,15 @@ namespace gtype1
 										$thisnum /= ($nownpc['mhp'] / 3000);//血越多则数目视为越少
 									}
 								}
-								$ikind = array();
-								if(isset($slist[$iname])) {
-									$ikind = $slist[$iname][0];
-								}
-								if(!in_array($ipdkey, $ikind)) $ikind[] = $ipdkey;
-								$thisnum = $globalnum + $thisnum;
-								if($thisnum > 500) $thisnum = 500;
-								$slist[$iname] = array($ikind, $thisnum);
+								prepare_update_slist($slist, $ipdkey, $iname, $thisnum, $thisarea);
 							}
 						}
 					}
 					
 				}
-				if(isset($iname) && strpos($ipdkey, 'npc')===false){//npc另外判定
-					$ikind = array();
-					if(isset($slist[$iname])) {
-						$ikind = $slist[$iname][0];
-					}
-					if(!in_array($ipdkey, $ikind)) $ikind[] = $ipdkey;
-					$thisnum = $globalnum + $thisnum;
-					if($thisnum > 500) $thisnum = 500;
-					$slist[$iname] = array($ikind, $thisnum);
+				
+				if(!empty($iname) && strpos($ipdkey, 'npc')===false){//npc另外判定
+					prepare_update_slist($slist, $ipdkey, $iname, $thisnum, $thisarea);
 				}
 				
 			}
@@ -234,20 +256,20 @@ namespace gtype1
 		
 		foreach($slist as $sk => $sv){
 			foreach($sv[0] as $skv){
-				${'cont_'.$skv}[$sk] = $sv[1];
+				${'cont_'.$skv}[$sk] = array($sv[1], $sv[2]);
 			}
 		}
 		
 		foreach(array_keys($iplacefilelist) as $ival){
 			$contents .= '$cont_'.$ival."=array(\r\n";
 			foreach(${'cont_'.$ival} as $sk => $sv){
-				$contents .= "'$sk' => $sv,\r\n";
+				$contents .= "'$sk' => array({$sv[0]}, {$sv[1]}),\r\n";
 			}
 			$contents .= ");\r\n";
 		}
 		
-		writeover($file, $contents);
-		
+		file_put_contents($file, $contents);
+		//writeover($file, $contents, 'rb+', 0);
 	}
 	
 //	function check_player_discover(&$edata)
@@ -259,6 +281,28 @@ namespace gtype1
 //		}
 //		return $chprocess($edata);
 //	}
+
+	function prepare_update_slist(&$slist, $ikey, $iname, $thisnum, $thisarea){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		$first = 0;
+		if(isset($slist[$iname])) {
+			list($ikind, $globalnum, $globalarea) = $slist[$iname];
+		}else{
+			$ikind = array();
+			$globalnum = $globalarea = 0;
+			$first = 1;
+		}
+
+		if(!in_array($ikey, $ikind)) $ikind[] = $ikey;
+		if(empty($thisarea)) $thisarea = 0;
+		if(!$first && $thisarea > $globalarea) {//0禁和1禁都刷时，认为是0禁物，但是1禁那部分数目减半
+			$thisarea = $globalarea;
+			$thisnum /= 2;
+		}
+		$thisnum = $globalnum + $thisnum;
+		if($thisnum > 500) $thisnum = 500;
+		$slist[$iname] = array($ikind, $thisnum, $thisarea);
+	}
 
 	function get_npclist(){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
