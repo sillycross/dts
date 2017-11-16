@@ -54,7 +54,6 @@ skill220,extra/club/skills/skill220/,1
 corpse,base/corpse/,1
 trap,base/items/trap/,1
 itemmix_sync,base/itemmix/itemmix_sync/,1
-itemmix_overlay,base/itemmix/itemmix_overlay/,1
 skill20,extra/club/skills/skill20/,1
 skill413,extra/card/skills/skill413/,1
 skill302,extra/achievement/skills/skill302/,1
@@ -74,6 +73,7 @@ gameflow_duel,core/gameflow/gameflow_duel/,1
 skill19,extra/club/skills/skill19/,1
 skill22,extra/club/skills/skill22/,1
 instance8,extra/instance/instance8_proud/,1
+itemmix_overlay,base/itemmix/itemmix_overlay/,1
 autopower,extra/misc/autopower/,1
 skill601,extra/club/skills/skill601/,1
 team,base/team/,1
@@ -319,6 +319,7 @@ ex_attr_silencer,extra/attr/ex_attr_silencer/,1
 ex_dmg_att,extra/attr/ex_dmg_att/,1
 ex_attr_charge,extra/attr/ex_attr_charge/,1
 ex_hp_def,extra/attr/ex_hp_def/,1
+skill265,extra/club/skills/skill265/,1
 wepchange,extra/attr/wepchange/,1
 blessstone,extra/attr/blessstone/,1
 skill33,extra/club/skills/skill33/,1
@@ -383,6 +384,7 @@ skill208,extra/club/skills/skill208/,1
 skill215,extra/club/skills/skill215/,1
 skill26,extra/club/skills/skill26/,1
 skill51,extra/club/skills/skill51/,1
+skill266,extra/club/skills/skill266/,1
 ex_gender_attr,extra/attr/ex_gender_attr/,1
 ex_attr_pierce,extra/attr/ex_attr_pierce/,1
 skill43,extra/club/skills/skill43/,1

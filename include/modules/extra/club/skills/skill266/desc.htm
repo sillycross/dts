@@ -1,0 +1,21 @@
+<!--{eval eval(import_module('skill266'));}-->
+<!--{eval $___TEMP_SKILL_ID=266;}-->
+<!--{eval $nchoice = \skillbase\skill_getvalue(266,'choice'); }-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+枪魂
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+选择技能<span class="yellow">「狙击」</span>或<span class="yellow">「咆哮」</span>其中之一。<br>
+<input type="button" onclick="$('mode').value='special';$('command').value='skill266_special';$('subcmd').value='upgrade';$('skillpara1').value=1;postCmd('gamecmd','command.php');this.disabled=true;" value="选择「狙击」">
+<input type="button" onclick="$('mode').value='special';$('command').value='skill266_special';$('subcmd').value='upgrade';$('skillpara1').value=2;postCmd('gamecmd','command.php');this.disabled=true;" value="选择「咆哮」">
+</span></td>
+<td class=b3 width=96>
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

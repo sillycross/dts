@@ -13,7 +13,13 @@
 {template MOD_CLUBBASE_SKILLDESC_MID2}
 <!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
 <span class="yellow">
-15级时解锁
+	<!--{if !\skillbase\skill_getvalue(205,'u',$who)}-->
+		<!--{if \skillbase\skill_query(266,$who)}-->
+		通过「枪魂」技能来选择本技能或「狙击」技能
+		<!--{/if}-->
+	<!--{else}-->
+	15级时解锁
+	<!--{/if}-->
 </span>
 <!--{/if}-->
 {template MOD_CLUBBASE_SKILLDESC_END}

@@ -16,10 +16,9 @@ namespace gtype1
 		if ($db->num_rows($res)){
 			$zz=$db->fetch_array($res); $gt=$zz['gametype'];
 		}
-		if(1){
-			if(1){
-//		if ($wday==3 && !$disable_event){
-// 			if ( $hour>=19 && $hour<22 && $gt!=1 ){ 
+
+		if ($wday==3 && !$disable_event){
+ 			if ( $hour>=19 && $hour<22 && $gt!=1 ){ 
  				$gametype=1;
  				prepare_new_game_gtype1();
  			}
@@ -46,7 +45,7 @@ namespace gtype1
 			'presentitem' => GAME_ROOT.'./include/modules/base/items/boxes/config/present.config.php',
 			'ygoitem' => GAME_ROOT.'./include/modules/base/items/boxes/config/ygobox.config.php',
 			'fyboxitem' => GAME_ROOT.'./include/modules/base/items/boxes/config/fybox.config.php',
-			'npc' => GAME_ROOT.'./include/modules/base/npc/config/npc.data.config.php',
+			'npc' => GAME_ROOT.'./include/modules/extra/instance/gtype1/main/config/npc.data.config.php',
 			'addnpc' => GAME_ROOT.'./include/modules/base/addnpc/config/addnpc.config.php',
 			'evonpc' => GAME_ROOT.'./include/modules/extra/club/skills/skill21/config/evonpc.config.php',
 		);
@@ -71,7 +70,7 @@ namespace gtype1
 				$iplacefiledata[$ipfkey] = $mixinfo;
 			}elseif(strpos($ipfkey, 'npc') !==false){
 				include $ipfval;
-				if($ipfkey == 'npc') $varname = 'npcinfo';
+				if($ipfkey == 'npc') $varname = 'npcinfo_gtype1';
 				elseif($ipfkey == 'addnpc') $varname = 'anpcinfo';
 				elseif($ipfkey == 'evonpc') $varname = 'enpcinfo';
 				if(!empty($varname)) $iplacefiledata[$ipfkey] = $$varname;

@@ -11,6 +11,7 @@ namespace ammunition
 		'r' => array('GBr', 20),
 		'WG' => array('GB', 6),
 	);
+	//注意目前连击的气体和能源弹药的弹夹数会额外+2
 	
 	function init()
 	{
@@ -34,6 +35,7 @@ namespace ammunition
 		foreach($ammukind as $ak => $av){
 			if((strpos($ak, 'W')===0 && strpos($cwepk, $ak) === 0) || (strpos($ak, 'W')!==0 && strpos($cwepsk, $ak) !== false)){
 				$retk = $av[0]; $retn = $av[1];
+				if($retn <= 10 && strpos($cwepsk, 'r') !== false) $retn = 12;//带连击的气体和能源枪的弹夹数变成12
 				break;
 			}
 		}

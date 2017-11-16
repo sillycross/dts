@@ -21,3 +21,5 @@ query_log.txt
 *.lock
 gamedata/cache/
 templates/default/mixhelp.htm
+include/modules/extra/club/skills/skill206/desc - 副本.htm
+include/modules/extra/club/skills/skill206/main - 副本.php
