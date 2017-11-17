@@ -319,7 +319,6 @@ ex_attr_silencer,extra/attr/ex_attr_silencer/,1
 ex_dmg_att,extra/attr/ex_dmg_att/,1
 ex_attr_charge,extra/attr/ex_attr_charge/,1
 ex_hp_def,extra/attr/ex_hp_def/,1
-skill265,extra/club/skills/skill265/,1
 wepchange,extra/attr/wepchange/,1
 blessstone,extra/attr/blessstone/,1
 skill33,extra/club/skills/skill33/,1
@@ -385,7 +384,6 @@ skill208,extra/club/skills/skill208/,1
 skill215,extra/club/skills/skill215/,1
 skill26,extra/club/skills/skill26/,1
 skill51,extra/club/skills/skill51/,1
-skill266,extra/club/skills/skill266/,1
 ex_gender_attr,extra/attr/ex_gender_attr/,1
 ex_attr_pierce,extra/attr/ex_attr_pierce/,1
 skill43,extra/club/skills/skill43/,1
@@ -396,8 +394,10 @@ skill329,extra/activities/nationalday2017/skill329/,1
 skill244,extra/club/skills/skill244/,1
 skill27,extra/club/skills/skill27/,1
 skill489,extra/card/skills/skill489/,1
+skill265,extra/club/skills/skill265/,1
 skill57,extra/club/skills/skill57/,1
 skill436,extra/card/skills/skill436/,1
 smartmix,extra/misc/smartmix/,1
 searchmemory,extra/searchmemory/,1
+skill266,extra/club/skills/skill266/,1
 halloween2017,extra/activities/halloween2017/main/,0

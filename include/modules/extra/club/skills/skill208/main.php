@@ -70,6 +70,15 @@ namespace skill208
 		$chprocess($pa, $pd, $active);
 	}	
 	
+	function check_ex_rapid_def_exists(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret =  $chprocess($pa, $pd, $active);
+		//强袭跳过防连判定
+		if ($pa['bskill']==208) $ret = 0;
+		return $ret;
+	}
+	
 	function check_physical_def_attr(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
