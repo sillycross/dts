@@ -2,8 +2,10 @@
 
 namespace skill265
 {
-
-	$ragecost=80;
+	$skill265phyup = 80;//物伤加成
+	$skill265htrup = 20;//命中率加成
+	$skill265prate = 90;//贯穿触发概率
+	$ragecost=95;
 	
 	function init() 
 	{
@@ -83,9 +85,9 @@ namespace skill265
 		$r=Array();
 		if ($pa['bskill']==265) 
 		{
-			eval(import_module('logger'));
-			$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow">「狙击」使<:pa_name:>造成的物理伤害提高了50%！</span><br>');
-			$r=Array(1.5);
+			eval(import_module('logger','skill265'));
+			$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow">「狙击」使<:pa_name:>造成的物理伤害提高了'.$skill265phyup.'%！</span><br>');
+			$r=Array(1+$skill265phyup/100);
 		}
 		return array_merge($r,$chprocess($pa,$pd,$active));
 	}
@@ -96,9 +98,10 @@ namespace skill265
 		$r = 1;
 		if ($pa['bskill']==265) 
 		{
+			eval(import_module('skill265'));
 //			eval(import_module('logger'));
 //			$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow">「狙击」使<:pa_name:>的命中率提升了20%！</span><br>');
-			$r = 1.2;
+			$r = 1+$skill265htrup/100;
 		}
 		return $chprocess($pa, $pd, $active)*$r;
 	}
@@ -124,6 +127,18 @@ namespace skill265
 		{
 			$ret = array_diff($ret, array('r', 'n'));
 			array_push($ret,'n');
+		}
+		return $ret;
+	}
+	
+	//贯穿触发率升到90%
+	function get_ex_pierce_proc_rate(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($pa, $pd, $active);
+		if ($pa['bskill']==265) {
+			eval(import_module('skill265'));
+			$ret = $skill265prate;
 		}
 		return $ret;
 	}
