@@ -82,6 +82,31 @@ namespace skill243
 		}
 		return $z;
 	}
+	
+	function get_ex_rapid_def_proc_rate(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$r = $chprocess($pa, $pd, $active);
+		$s=\skillbase\skill_getvalue(243,'l',$pa);
+		if (strpos($s,'R')!==false) $r = 0;
+		return $r;
+	}
+	
+	//防连失效
+	function check_ex_rapid_def_proc(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$z=$chprocess($pa, $pd, $active);
+		if (!$z && \skillbase\skill_query(243,$pa) && check_unlocked243($pa)){
+			$s=\skillbase\skill_getvalue(243,'l',$pa);
+			if (strpos($s,'R')===false)
+			{
+				$s.='R';
+				\skillbase\skill_setvalue(243,'l',$s,$pa);
+			}
+		}
+		return $z;
+	}
 }
 
 ?>

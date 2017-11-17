@@ -48,6 +48,7 @@ namespace skill34
 		$arr = array_values($def_kind);
 		eval(import_module('ex_dmg_def'));
 		$arr = array_merge($arr,array_values($def_kind));
+		$arr[] = 'R';
 		$arr = array_unique($arr);
 		return $arr;
 	}
