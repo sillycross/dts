@@ -3,7 +3,7 @@
 namespace skill205
 {
 
-	$ragecost=85;
+	$ragecost=75;
 	
 	function init() 
 	{
@@ -11,10 +11,17 @@ namespace skill205
 		eval(import_module('clubbase'));
 		$clubskillname[205] = '咆哮';
 	}
-	
+
 	function acquire205(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		\skillbase\skill_setvalue(205,'u','0',$pa);	//是否已经被解锁
+	}
+	
+	function unlock205(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		\skillbase\skill_setvalue(205,'u','1',$pa);
 	}
 	
 	function lost205(&$pa)
@@ -25,7 +32,7 @@ namespace skill205
 	function check_unlocked205(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return $pa['lvl']>=15;
+		return $pa['lvl']>=15 && \skillbase\skill_getvalue(205,'u',$pa)=='1';
 	}
 	
 	function get_rage_cost205(&$pa = NULL)

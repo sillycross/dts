@@ -13,6 +13,14 @@ namespace instance6
 		$chprocess($time);
 	}
 	
+	function get_npclist(){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		eval(import_module('sys','instance6'));
+		if (16 == $gametype){
+			return $npcinfo_instance6;
+		}else return $chprocess();
+	}
+	
 	function rs_game($xmode = 0) 	//开局天气初始化
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

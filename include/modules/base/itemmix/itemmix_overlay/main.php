@@ -54,8 +54,7 @@ namespace itemmix_overlay
 		eval(import_module('sys','player','itemmix'));
 		$star=0;
 		if(${'itms'.$itmn} && strpos(${'itmsk'.$itmn},'J')!==false){
-			$z=${'itmk'.$itmn};
-			for ($i=0; $i<strlen($z); $i++) if ('0'<=$z[$i] && $z[$i]<='9') $star=$star*10+(int)$z[$i];
+			$star = \itemmix_sync\itemmix_get_star(${'itmk'.$itmn});
 		}
 		return $star;
 	}

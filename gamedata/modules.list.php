@@ -54,7 +54,6 @@ skill220,extra/club/skills/skill220/,1
 corpse,base/corpse/,1
 trap,base/items/trap/,1
 itemmix_sync,base/itemmix/itemmix_sync/,1
-itemmix_overlay,base/itemmix/itemmix_overlay/,1
 skill20,extra/club/skills/skill20/,1
 skill413,extra/card/skills/skill413/,1
 skill302,extra/achievement/skills/skill302/,1
@@ -74,6 +73,7 @@ gameflow_duel,core/gameflow/gameflow_duel/,1
 skill19,extra/club/skills/skill19/,1
 skill22,extra/club/skills/skill22/,1
 instance8,extra/instance/instance8_proud/,1
+itemmix_overlay,base/itemmix/itemmix_overlay/,1
 autopower,extra/misc/autopower/,1
 skill601,extra/club/skills/skill601/,1
 team,base/team/,1
@@ -319,12 +319,12 @@ ex_attr_silencer,extra/attr/ex_attr_silencer/,1
 ex_dmg_att,extra/attr/ex_dmg_att/,1
 ex_attr_charge,extra/attr/ex_attr_charge/,1
 ex_hp_def,extra/attr/ex_hp_def/,1
+skill265,extra/club/skills/skill265/,1
 wepchange,extra/attr/wepchange/,1
 blessstone,extra/attr/blessstone/,1
 skill33,extra/club/skills/skill33/,1
 weather,base/weather/,1
 npcinfo,extra/misc/npcinfo/,1
-halloween2017,extra/activities/halloween2017/main/,1
 skill28,extra/club/skills/skill28/,1
 skill254,extra/club/skills/skill254/,1
 instance9,extra/instance/instance9_rush/,1
@@ -338,6 +338,7 @@ skill65,extra/club/skills/skill65/,1
 skill49,extra/club/skills/skill49/,1
 skill201,extra/club/skills/skill201/,1
 skill248,extra/club/skills/skill248/,1
+ex_rapid_def,extra/attr/ex_rapid_def/,1
 ex_attr_trap,extra/attr/ex_attr_trap/,1
 skill422,extra/card/skills/skill422/,1
 skill231,extra/club/skills/skill231/,1
@@ -384,6 +385,7 @@ skill208,extra/club/skills/skill208/,1
 skill215,extra/club/skills/skill215/,1
 skill26,extra/club/skills/skill26/,1
 skill51,extra/club/skills/skill51/,1
+skill266,extra/club/skills/skill266/,1
 ex_gender_attr,extra/attr/ex_gender_attr/,1
 ex_attr_pierce,extra/attr/ex_attr_pierce/,1
 skill43,extra/club/skills/skill43/,1
@@ -398,3 +400,4 @@ skill57,extra/club/skills/skill57/,1
 skill436,extra/card/skills/skill436/,1
 smartmix,extra/misc/smartmix/,1
 searchmemory,extra/searchmemory/,1
+halloween2017,extra/activities/halloween2017/main/,0

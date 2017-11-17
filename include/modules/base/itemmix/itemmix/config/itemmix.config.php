@@ -251,7 +251,7 @@ $mixinfo = array
 	
 	array('class' => 'ocg', 'stuff' => array('「被封印的艾克佐迪亚」','「被封印者的左腕」','「被封印者的右腕」','「被封印者的左足」','「被封印者的右足」'),'result' => array('「被封印的黑暗大法师」','WC',8192,1,),),
 	array('class' => 'ocg', 'stuff' => array('「被封印的黑暗大法师」','★神卡认证★'),'result' => array('『黑暗大法师』','WC12',8192,'∞','AaZ'),),
-  array('class' => 'ocg', 'stuff' => array('「隼骑士」-仮','☆四星认证☆'),'result' => array('「隼骑士」','WC03',100,'∞','rj'),),
+  array('class' => 'ocg', 'stuff' => array('「隼骑士」-仮','☆四星认证☆'),'result' => array('「隼骑士」 ★3','WC03',100,'∞','rj'),),
 	array('class' => 'ocg', 'stuff' => array('「V-喷气虎」-仮','☆四星认证☆'),'result' => array('「V-喷气虎」','WC04',160,'180','p'),),
 	array('class' => 'ocg', 'stuff' => array('「W-弹射飞翼」-仮','☆四星认证☆'),'result' => array('「W-弹射飞翼」','WC04',130,'150','u'),),
 	array('class' => 'ocg', 'stuff' => array('「X-首领加农」-仮','☆四星认证☆'),'result' => array('「X-首领加农」','WC04',180,'150','i'),),

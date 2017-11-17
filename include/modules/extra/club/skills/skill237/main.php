@@ -3,7 +3,7 @@
 namespace skill237
 {
 	//怒气消耗
-	$ragecost = 30; 
+	$ragecost = 50; 
 	
 	function init() 
 	{
@@ -70,20 +70,34 @@ namespace skill237
 		$chprocess($pa, $pd, $active);
 	}	
 	
-	function get_physical_dmg_multiplier(&$pa, &$pd, $active)
+	//跳过整个物理伤害判定
+	function calculate_physical_dmg(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$r=Array();
+		eval(import_module('logger'));
+		
 		if ($pa['bskill']==237) 
 		{
 			eval(import_module('logger'));
-			$r=Array(1.3);
-			if ($active)
-				$log.='<span class="yellow">你向敌人扔出了一颗电磁干扰弹！</span><br>';
-			else  $log.='<span class="yellow">敌人向你扔出了一颗电磁干扰弹！</span><br>';
+			$log .=  \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow"><:pa_name:>将武器的伤害转化成了电磁干扰攻击！</span><br>');
 		}
-		return array_merge($r,$chprocess($pa, $pd, $active));
+		else return $chprocess($pa, $pd, $active);
 	}
+	
+//	function get_physical_dmg_multiplier(&$pa, &$pd, $active)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		$r=Array();
+//		if ($pa['bskill']==237) 
+//		{
+//			eval(import_module('logger'));
+//			$r=Array(1.3);
+//			if ($active)
+//				$log.='<span class="yellow">你借用武器施展出了电磁干扰攻击！</span><br>';
+//			else  $log.='<span class="yellow">敌人借用武器施展出了电磁干扰攻击！</span><br>';
+//		}
+//		return array_merge($r,$chprocess($pa, $pd, $active));
+//	}
 	
 	function strike_finish(&$pa, &$pd, $active)
 	{

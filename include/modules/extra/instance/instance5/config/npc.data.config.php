@@ -1,13 +1,13 @@
 <?php
 
-namespace instance9
+namespace instance5
 {
-	$npcinfo_instance9 = array
+	$npcinfo_instance5 = array
 		( 
 		1 => array
 			(
 			'mode' => 3,
-			'num' => 0,
+			'num' => 1,
 			'pass' => 'bra',
 			'club' => 0,
 			'bid' => 0,
@@ -701,7 +701,7 @@ namespace instance9
 			(
 				0 => array
 				(
-				'name' => '蓝凝 DUMMY',
+				'name' => '蓝凝',
 				'mss' => 40,
 				'skills' => array('406'=>'0','432'=>'0','459'=>'0','461'=>'1'),
 				'icon' => 52,
@@ -1238,80 +1238,10 @@ namespace instance9
 		),
 	), 
 	
-	15 => array
-			(
-			'mode' => 3,
-			'num' => 1,
-			'pass' => 'bra',
-			'club' => 99,
-			'bid' => 0,
-			'inf' => '',
-			'rage' => 25,
-			'pose'=> 2,
-			'tactic' => 3,
-			'skills'=>array('403'=>'1','459'=>'0','461'=>'1'),
-			'killnum' => 0,
-			'teamID' => '',
-			'teamPass' => '',
-			'gd' => 'f',
-			'pls' => 0,
-			'mhp' => 5400,
-			'msp' => 28800,
-			'att' => 600,
-			'def' => 400,
-			'lvl' => 45,
-			'skill' => 700,
-			'money' => 9999,
-			'mss' => 50,
-			'arb' => '蜡翼天马装备 - CORE',
-			'arbk' => 'DB',
-			'arbe' => 2400,
-			'arbs' => 1000,
-			'arbsk' => 'N',
-			'arh' => '蜡翼天马装备 - TOP',
-			'arhk' => 'DH',
-			'arhe' => 800,
-			'arhs' => 1000,
-			'arhsk' => 'c',
-			'arf' => '蜡翼天马装备 - CARRIER',
-			'arfk' => 'DF',
-			'arfe' => 800,
-			'arfs' => 1000,
-			'arfsk' => 'H',
-			'ara' => '蜡翼天马装备 - GUARD',
-			'arak' => 'DA',
-			'arae' => 800,
-			'aras' => 1000,
-			'arask' => 'Aa',
-			'art' => 'Pendant of Absentia',
-			'artk' => 'A',
-			'arte' => 1,
-			'arts' => 1,
-			'artsk' => 'h',
-			'sub' => array
-			(
-				0 => array
-				(
-				'name' => '狂飙',
-				'icon' => 'avatar_rek/rocket0.png',
-				'wep' => 'REND BOSS PLASMA GUN',
-				'wepk' => 'WG',
-				'wepe' => 1800,
-				'weps' => 8000,
-				'wepsk' => 'roc',
-				'itm1' => '游戏解除钥匙',
-				'itmk1' => 'Y',
-				'itme1' => 1,
-				'itms1' => 1,
-				'description' => '极速模式的始作俑者，达成锁定解除结局所必须击杀的BOSS。实力很强，没有做好充足的准备不要去挑战她！</span>',
-				),
-			),
-		),
-	
 		20 => array
 		(
 		'mode' => 2,
-		'num' => 0,
+		'num' => 10,
 		'pass' => 'gbauibg2',
 		'club' => 0,
 		'bid' => 0,
@@ -1775,7 +1705,7 @@ namespace instance9
 	21 => array
 		(
 		'mode' => 2,
-		'num' => 0,
+		'num' => 7,
 		'pass' => 'wei42bg',
 		'club' => 0,
 		'bid' => 0,
@@ -2243,7 +2173,7 @@ namespace instance9
 		22 => array
 		(
 		'mode' => 1,
-		'num' => 0,
+		'num' => 4,
 		'club' => 0,
 		'bid' => 0,
 		'inf' => '',
@@ -2441,104 +2371,6 @@ namespace instance9
 		),
 	),
 	
-	40=> array
-		(
-		'mode' => 2,
-		'num' => 4,
-		'pass' => 'bra',
-		'club' => 6,
-		'bid' => 0,
-		'inf' => '',
-		'rage' => 25,
-		'skills' => array('461'=>'1','462'=>'0'),
-		'pose'=> 2,
-		'tactic' => 3,
-		'killnum' => 0,
-		'teamID' => '',
-		'teamPass' => '',
-		'pls' => 0,
-		'mhp' => 4800,
-		'msp' => 400,
-		'att' => 300,
-		'def' => 500,
-		'lvl' => 30,
-		'skill' => 240,
-		'money' => 1,
-		'arb' => '模因卫队战甲',
-		'arbk' => 'DB',
-		'arbe' => 800,
-		'arbs' => 100,
-		'arbsk' => 'Aa',
-		'arh' => '模因卫队头盔',
-		'arhk' => 'DH',
-		'arhe' => 500,
-		'arhs' => 100,
-		'ara' => '模因卫队盾牌',
-		'arak' => 'DA',
-		'arae' => 500,
-		'aras' => 100,
-		'arf' => '模因卫队靴子',
-		'arfk' => 'DF',
-		'arfe' => 500,
-		'arfs' => 100,
-		'art' => '模因卫队狗牌',
-		'artk' => 'A',
-		'arte' => 1,
-		'arts' => 1,
-		'artsk' => 'H',
-		'sub' => array
-		(
-		0 => array
-			(
-			'name' => '喷火',
-			'gd' => 'f',
-			'icon' => 0,
-			'wep' => '蜡翼天马装备 - 炎',
-			'wepk' => 'WG',
-			'wepe' => 400,
-			'weps' => 400,
-			'wepsk' => 'u',
-			'description' => '守护无月之影的模因卫队成员之一，使用射系武器。',
-			),
-		1 => array
-			(
-			'name' => '腾翼',
-			'gd' => 'm',
-			'icon' => 0,
-			'wep' => '蜡翼天马装备 - 风',
-			'wepk' => 'WK',
-			'wepe' => 400,
-			'weps' => 400,
-			'wepsk' => 'w',
-			'description' => '守护无月之影的模因卫队成员之一，使用斩系武器。',
-			),
-		2 => array
-			(
-			'name' => '惊梦',
-			'gd' => 'f',
-			'icon' => 0,
-			'wep' => '蜡翼天马装备 - 地',
-			'wepk' => 'WD',
-			'wepe' => 400,
-			'weps' => 400,
-			'wepsk' => 'd',
-			'description' => '守护无月之影的模因卫队成员之一，使用爆系武器。',
-			),
-		3 => array
-			(
-			'name' => '雷暴',
-			'gd' => 'm',
-			'icon' => 0,
-			'wep' => '蜡翼天马装备 - 水',
-			'wepk' => 'WF',
-			'wepe' => 400,
-			'weps' => 400,
-			'wepsk' => 'i',
-			'description' => '守护无月之影的模因卫队成员之一，使用灵系武器。',
-			),
-		),
-	),
-	
 	45=> array
 		(
 		'mode' => 2,
@@ -2696,7 +2528,7 @@ namespace instance9
 		88 => array
 			(
 			'mode' => 1,
-			'num' => 0,
+			'num' => 4,
 			'pass' => 'bra',
 			'club' => 17,
 			'bid' => 0,
@@ -2841,30 +2673,15 @@ namespace instance9
 	//		'itme5' => 1,
 	//		'itms5' => 15,
 
-			'itm1' => '压缩饼干',
-			'itmk1' => 'HB',
-			'itme1' => 35,
-			'itms1' => 10,
-			'itm2' => '解毒剂',
-			'itmk2' => 'Cp',
-			'itme2' => 1,
-			'itms2' => 3,
-			'itm3' => '烧伤药剂',
-			'itmk3' => 'Cu',
+			'itm4' => '压缩饼干',
+			'itmk4' => 'HB',
+			'itme4' => 35,
+			'itms4' => 10,
+			
+			'itm3' => '紧急药剂',
+			'itmk3' => 'Ca',
 			'itme3' => 1,
 			'itms3' => 3,
-			'itm4' => '解冻药水',
-			'itmk4' => 'Ci',
-			'itme4' => 1,
-			'itms4' => 3,
-			'itm5' => '麻痹药剂',
-			'itmk5' => 'Ce',
-			'itme5' => 1,
-			'itms5' => 3,
-			'itm6' => '清醒药剂',
-			'itmk6' => 'Cw',
-			'itme6' => 1,
-			'itms6' => 3,
 			
 			'sub' => array
 			(
@@ -2913,4 +2730,5 @@ namespace instance9
 		),
 	);
 }
+
 ?>

@@ -14,6 +14,14 @@ namespace instance5
 		}else return $chprocess();
 	}
 	
+	function get_npclist(){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		eval(import_module('sys','instance5'));
+		if (15 == $gametype){
+			return $npcinfo_instance5;
+		}else return $chprocess();
+	}
+	
 	function checkcombo($time){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','map','gameflow_combo'));

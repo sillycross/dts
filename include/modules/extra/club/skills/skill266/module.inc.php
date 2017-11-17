@@ -1,9 +1,9 @@
 <?php
 
-namespace skill243
+namespace skill266
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase clubbase itemmain ex_dmg_def ex_phy_def ex_rapid_def';
+	$___MODULE_dependency = 'skillbase player logger skill205 skill265 clubbase input';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';
