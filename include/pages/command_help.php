@@ -1,30 +1,8 @@
 <?php
-
-define('CURSCRIPT', 'help');
-define('IN_GAME', true);
-defined('GAME_ROOT') || define('GAME_ROOT', dirname(__FILE__).'/');
-require GAME_ROOT.'./include/global.func.php';
-$url = url_dir().'command.php';
-$context = array('page'=>'command_help');
-foreach($_POST as $pkey => $pval){
-	$context[$pkey] = $pval;
+if(empty($GLOBALS['___IN_HELP'])) {
+	exit('Access Denied');
 }
-$cookies = array();
-foreach($_COOKIE as $ckey => $cval){
-	if(strpos($ckey,'user')!==false || strpos($ckey,'pass')!==false) $cookies[$ckey] = $cval;
-}
-$helpinfo = send_post($url, $context, $cookies);
-echo $helpinfo;
 
-/* End of file help.php */
-/* Location: /help.php */
-
-/* 
-define('CURSCRIPT', 'help');
-define('IN_HELP', TRUE);
-$___IN_HELP = 1;
-
-require './include/common.inc.php';
 eval(import_module('pose','tactic','itemmain','npc'));
 
 include_once GAME_ROOT . './include/itemplace.func.php';
@@ -33,9 +11,9 @@ include_once GAME_ROOT . './include/itemplace.func.php';
 $mixfile = GAME_ROOT.'./include/modules/base/itemmix/itemmix/config/itemmix.config.php';
 include $mixfile;
 $writefile = GAME_ROOT.TPLDIR.'/tmp_mixhelp.htm';
-//Í¨³£ºÏ³É±í×Ô¶¯Éú³É
+//é€šå¸¸åˆæˆè¡¨è‡ªåŠ¨ç”Ÿæˆ
 if(!file_exists($writefile) || filemtime($mixfile) > filemtime($writefile)){
-	if(empty($iplacedata)) init_item_place();//³õÊ¼»¯itemplaceÊı¾İ
+	if(empty($iplacedata)) init_item_place();//åˆå§‹åŒ–itemplaceæ•°æ®
 	$mixitem = array();
 	foreach($mixinfo as $mix){
 		if($mix['class'] !== 'hidden'){
@@ -48,38 +26,38 @@ if(!file_exists($writefile) || filemtime($mixfile) > filemtime($writefile)){
 	}
 	
 	$mixclass = array(
-		'wp'=> array('Å¹ÏµÎäÆ÷','yellow'),
-		'wk'=> array('Õ¶ÏµÎäÆ÷','yellow'),
-		'wg'=> array('ÉäÏµÎäÆ÷','yellow'),
-		'wc'=> array('Í¶ÏµÎäÆ÷','yellow'),
-		'wd'=> array('±¬ÏµÎäÆ÷','yellow'),
-		'wf'=> array('ÁéÏµÎäÆ÷','yellow'),
-		'w' => array('ÆäËûÎäÆ÷','yellow'),
-		'd' => array('·À¾ß','yellow'),
-		'h' => array('²¹¸øÆ·','lime'),
-		'pokemon'=> array('Ğ¡»ÆÏµµÀ¾ß','yellow'),
-		'ocg'=> array('ÓÎÏ·ÍõÏµµÀ¾ß','clan'),
-		'key'=> array('KEYÏµµÀ¾ß','lime'),
-		'cube'=> array('·½¿éÏµµÀ¾ß','yellow'),
-		'item'=> array('ÆäËûµÀ¾ß','yellow'),
+		'wp'=> array('æ®´ç³»æ­¦å™¨','yellow'),
+		'wk'=> array('æ–©ç³»æ­¦å™¨','yellow'),
+		'wg'=> array('å°„ç³»æ­¦å™¨','yellow'),
+		'wc'=> array('æŠ•ç³»æ­¦å™¨','yellow'),
+		'wd'=> array('çˆ†ç³»æ­¦å™¨','yellow'),
+		'wf'=> array('çµç³»æ­¦å™¨','yellow'),
+		'w' => array('å…¶ä»–æ­¦å™¨','yellow'),
+		'd' => array('é˜²å…·','yellow'),
+		'h' => array('è¡¥ç»™å“','lime'),
+		'pokemon'=> array('å°é»„ç³»é“å…·','yellow'),
+		'ocg'=> array('æ¸¸æˆç‹ç³»é“å…·','clan'),
+		'key'=> array('KEYç³»é“å…·','lime'),
+		'cube'=> array('æ–¹å—ç³»é“å…·','yellow'),
+		'item'=> array('å…¶ä»–é“å…·','yellow'),
 		);
 	$mixhelpinfo = '';
 	foreach($mixitem as $class => $list){
 		$classname = $mixclass[$class][0];
 		$classcolor = $mixclass[$class][1];
-		$mixhelpinfo .= "<p><span class=\"$classcolor\">{$classname}ºÏ³É±í</span>£º</p>\n";
+		$mixhelpinfo .= "<p><span class=\"$classcolor\">{$classname}åˆæˆè¡¨</span>ï¼š</p>\n";
 		$mixhelpinfo .= <<<'MIXITEM_HELP_TABLE_TITLE'
 <table>
 	<tr>
-		<td class="b1" height=20px><span>ËØ²Ä1</span></td>
-		<td class="b1"><span>ËØ²Ä2</span></td>
-		<td class="b1"><span>ËØ²Ä3</span></td>
-		<td class="b1"><span>ËØ²Ä4</span></td>
-		<td class="b1"><span>ËØ²Ä5</span></td>
-		<td class="b1"><span>ËØ²Ä6</span></td>
+		<td class="b1" height=20px><span>ç´ æ1</span></td>
+		<td class="b1"><span>ç´ æ2</span></td>
+		<td class="b1"><span>ç´ æ3</span></td>
+		<td class="b1"><span>ç´ æ4</span></td>
+		<td class="b1"><span>ç´ æ5</span></td>
+		<td class="b1"><span>ç´ æ6</span></td>
 		<td class="b1"></td>
-		<td class="b1"><span>ºÏ³É½á¹û</span></td>
-		<td class="b1"><span>ÓÃÍ¾</span></td>
+		<td class="b1"><span>åˆæˆç»“æœ</span></td>
+		<td class="b1"><span>ç”¨é€”</span></td>
 	</tr>
 MIXITEM_HELP_TABLE_TITLE;
 		foreach($list as $val){
@@ -98,7 +76,7 @@ MIXITEM_HELP_TABLE_TITLE;
 				}
 				$mixhelpinfo .= "><span>{$val['stuff'][$i]}</span></td>";
 			}
-			$mixhelpinfo .= "<td class=\"b3\">¡ú</td>
+			$mixhelpinfo .= "<td class=\"b3\">â†’</td>
 				<td class=\"b3\"><span>{$val['result'][0]}</span></td>
 				<td class=\"b3\"><span>{$val['result'][1]}/{$val['result'][2]}/{$val['result'][3]}{$itmskword}</span></td>
 			</tr>
@@ -110,11 +88,11 @@ MIXITEM_HELP_TABLE_TITLE;
 	writeover($writefile,$mixhelpinfo);
 }
 
-//Í¬µ÷ºÏ³É±í×Ô¶¯Éú³É
+//åŒè°ƒåˆæˆè¡¨è‡ªåŠ¨ç”Ÿæˆ
 $syncfile = GAME_ROOT.'./include/modules/base/itemmix/itemmix_sync/config/sync.config.php';
 $writefile = GAME_ROOT.TPLDIR.'/tmp_mixhelp_sync.htm';
 if(!file_exists($writefile) || filemtime($syncfile) > filemtime($writefile)){
-	if(empty($iplacedata)) init_item_place();//³õÊ¼»¯itemplaceÊı¾İ
+	if(empty($iplacedata)) init_item_place();//åˆå§‹åŒ–itemplaceæ•°æ®
 	$syncinfo=openfile($syncfile);
 	$syncitem = array();
 	$syncitem_special = array();
@@ -129,26 +107,26 @@ if(!file_exists($writefile) || filemtime($syncfile) > filemtime($writefile)){
 			$syncitem[] = $sync_arr;
 		}
 	}
-	$synchelpinfo = '<p><span class="yellow">Í¨³£Í¬µ÷ºÏ³É±í</span>£º</p>';
+	$synchelpinfo = '<p><span class="yellow">é€šå¸¸åŒè°ƒåˆæˆè¡¨</span>ï¼š</p>';
 	$synchelpinfo .= <<<'SYNC_HELP_INFO_DOC'
 <table>
 	<tr>
-		<td class="b1" height=20px><span>Í¬µ÷²úÎï</span></td>
-		<td class="b1"><span>ÓÃÍ¾</span></td>
+		<td class="b1" height=20px><span>åŒè°ƒäº§ç‰©</span></td>
+		<td class="b1"><span>ç”¨é€”</span></td>
 	</tr>
 SYNC_HELP_INFO_DOC;
-	$synchelpinfo_special = '<p><span class="lime">ÌØÊâÍ¬µ÷ºÏ³É±í</span>£º</p>';
+	$synchelpinfo_special = '<p><span class="lime">ç‰¹æ®ŠåŒè°ƒåˆæˆè¡¨</span>ï¼š</p>';
 	$synchelpinfo_special .= <<<'SYNC_HELP_INFO_SPEC_DOC'
 <table>
 	<tr>
-		<td class="b1" height=20px><span>Í¬µ÷ËØ²ÄÒ»</span></td>
-		<td class="b1"><span>Í¬µ÷ËØ²Ä¶ş</span></td>
-		<td class="b1"><span>Í¬µ÷ËØ²ÄÈı</span></td>
-		<td class="b1"><span>Í¬µ÷ËØ²ÄËÄ</span></td>
-		<td class="b1"><span>Í¬µ÷ËØ²ÄÎå</span></td>
+		<td class="b1" height=20px><span>åŒè°ƒç´ æä¸€</span></td>
+		<td class="b1"><span>åŒè°ƒç´ æäºŒ</span></td>
+		<td class="b1"><span>åŒè°ƒç´ æä¸‰</span></td>
+		<td class="b1"><span>åŒè°ƒç´ æå››</span></td>
+		<td class="b1"><span>åŒè°ƒç´ æäº”</span></td>
 		<td class="b1"></td>
-		<td class="b1"><span>Í¬µ÷²úÎï</span></td>
-		<td class="b1"><span>ÓÃÍ¾</span></td>
+		<td class="b1"><span>åŒè°ƒäº§ç‰©</span></td>
+		<td class="b1"><span>ç”¨é€”</span></td>
 	</tr>
 SYNC_HELP_INFO_SPEC_DOC;
 	
@@ -174,7 +152,7 @@ SYNC_HELP_INFO_DOC_TR;
 			$synchelpinfo_special .= isset($sval['special'][$i]) ? "><span>{$sval['special'][$i]}</span></td>" : "><span>-</span></td>";
 		}
 		$synchelpinfo_special .=<<<SYNC_HELP_INFO_SPEC_DOC_TR
-		<td class='b3'>¡ú</td>
+		<td class='b3'>â†’</td>
 		<td class='b3'><span>{$sval['itm']}</span></td>
 		<td class='b3'><span>{$sval['itmk']}/{$sval['itme']}/{$sval['itms']}{$itmskwords}</span></td>
 	</tr>
@@ -183,19 +161,19 @@ SYNC_HELP_INFO_SPEC_DOC_TR;
 	$synchelpinfo_special .= '</table>';
 	
 	$writecont=<<<SYNC_HELP_WRITE_CONTENT
-<p>ÒÔÏÂÊÇ¿ÉÄÜ»ñµÃµÄÍ¬µ÷½á¹ûµÄÁĞ±í¡£</p>
+<p>ä»¥ä¸‹æ˜¯å¯èƒ½è·å¾—çš„åŒè°ƒç»“æœçš„åˆ—è¡¨ã€‚</p>
 {$synchelpinfo}
-<p>ÁíÍâ£¬ÉÏÊöÖ»ÊÇÒ»°ãÇé¿ö¡£ ÓĞÒ»Ğ©Í¬µ÷½á¹û±ØĞëÍ¨¹ı<span class="yellow">ÌØ¶¨µÄÍ¬µ÷µÀ¾ß</span>²ÅÄÜºÏ³É£¬ÕâĞ©ºÏ³É½«ÔÚÏÂ±íÖĞÁĞ³ö¡£</p>
+<p>å¦å¤–ï¼Œä¸Šè¿°åªæ˜¯ä¸€èˆ¬æƒ…å†µã€‚ æœ‰ä¸€äº›åŒè°ƒç»“æœå¿…é¡»é€šè¿‡<span class="yellow">ç‰¹å®šçš„åŒè°ƒé“å…·</span>æ‰èƒ½åˆæˆï¼Œè¿™äº›åˆæˆå°†åœ¨ä¸‹è¡¨ä¸­åˆ—å‡ºã€‚</p>
 {$synchelpinfo_special}
 <br>
 SYNC_HELP_WRITE_CONTENT;
 	writeover($writefile,$writecont);
 }
-//³¬Á¿ºÏ³É±í×Ô¶¯Éú³É
+//è¶…é‡åˆæˆè¡¨è‡ªåŠ¨ç”Ÿæˆ
 $overlayfile = GAME_ROOT.'./include/modules/base/itemmix/itemmix_overlay/config/overlay.config.php';
 $writefile = GAME_ROOT.TPLDIR.'/tmp_mixhelp_overlay.htm';
 if(!file_exists($writefile) || filemtime($overlayfile) > filemtime($writefile)){
-	if(empty($iplacedata)) init_item_place();//³õÊ¼»¯itemplaceÊı¾İ
+	if(empty($iplacedata)) init_item_place();//åˆå§‹åŒ–itemplaceæ•°æ®
 	$overlayinfo=openfile($overlayfile);
 	$overlayitem = array();
 	foreach($overlayinfo as $overlay){
@@ -204,27 +182,27 @@ if(!file_exists($writefile) || filemtime($overlayfile) > filemtime($writefile)){
 		$overlay_arr['itmsk'] = \itemmain\parse_itmsk_words($overlay_arr['itmsk']);
 		$overlayitem[] = $overlay_arr;
 	}
-	$overlayhelpinfo = '<p><span class="yellow">³¬Á¿ºÏ³É±í</span>£º</p>';
+	$overlayhelpinfo = '<p><span class="yellow">è¶…é‡åˆæˆè¡¨</span>ï¼š</p>';
 	$overlayhelpinfo .= <<<'OVERLAY_HELP_INFO_DOC'
 <table>
 	<tr>
-		<td class="b1" height=20px><span>³¬Á¿ËØ²ÄÀàĞÍ</span></td>
-		<td class="b1"><span>ÊıÄ¿</span></td>
-		<td class="b1"><span>³¬Á¿²úÎï</span></td>
-		<td class="b1"><span>ÓÃÍ¾</span></td>
+		<td class="b1" height=20px><span>è¶…é‡ç´ æç±»å‹</span></td>
+		<td class="b1"><span>æ•°ç›®</span></td>
+		<td class="b1"><span>è¶…é‡äº§ç‰©</span></td>
+		<td class="b1"><span>ç”¨é€”</span></td>
 	</tr>
 OVERLAY_HELP_INFO_DOC;
 	$overlay_star_words = array(
-		1 => 'ÓÎÏ·ÍõÒ»ĞÇËØ²Ä',
-		2 => 'ÓÎÏ·Íõ¶şĞÇËØ²Ä',
-		3 => 'ÓÎÏ·ÍõÈıĞÇËØ²Ä',
-		4 => 'ÓÎÏ·ÍõËÄĞÇËØ²Ä',
-		5 => 'ÓÎÏ·ÍõÎåĞÇËØ²Ä',
-		6 => 'ÓÎÏ·ÍõÁùĞÇËØ²Ä',
-		7 => 'ÓÎÏ·ÍõÆßĞÇËØ²Ä',
-		8 => 'ÓÎÏ·Íõ°ËĞÇËØ²Ä',
-		9 => 'ÓÎÏ·Íõ¾ÅĞÇËØ²Ä',
-		10 => 'ÓÎÏ·ÍõÊ®ĞÇËØ²Ä'
+		1 => 'æ¸¸æˆç‹ä¸€æ˜Ÿç´ æ',
+		2 => 'æ¸¸æˆç‹äºŒæ˜Ÿç´ æ',
+		3 => 'æ¸¸æˆç‹ä¸‰æ˜Ÿç´ æ',
+		4 => 'æ¸¸æˆç‹å››æ˜Ÿç´ æ',
+		5 => 'æ¸¸æˆç‹äº”æ˜Ÿç´ æ',
+		6 => 'æ¸¸æˆç‹å…­æ˜Ÿç´ æ',
+		7 => 'æ¸¸æˆç‹ä¸ƒæ˜Ÿç´ æ',
+		8 => 'æ¸¸æˆç‹å…«æ˜Ÿç´ æ',
+		9 => 'æ¸¸æˆç‹ä¹æ˜Ÿç´ æ',
+		10 => 'æ¸¸æˆç‹åæ˜Ÿç´ æ'
 	);
 	foreach ($overlayitem as $oval){
 		if(!empty($oval['itmsk'])){$itmskwords = '/'.$oval['itmsk'];}
@@ -232,7 +210,7 @@ OVERLAY_HELP_INFO_DOC;
 		$overlayhelpinfo .= <<<OVERLAY_HELP_INFO_DOC_TR
 	<tr>
 		<td class='b3' height='20px'><span>{$overlay_star_words[$oval['star']]}</span></td>
-		<td class='b3'><span> ¡Á {$oval['num']}</span></td>
+		<td class='b3'><span> Ã— {$oval['num']}</span></td>
 		<td class='b3'><span>{$oval['itm']}</span></td>
 		<td class='b3'><span>{$oval['itmk']}/{$oval['itme']}/{$oval['itms']}{$itmskwords}</span></td>
 	</tr>
@@ -241,7 +219,7 @@ OVERLAY_HELP_INFO_DOC_TR;
 	$overlayhelpinfo .= '</table>';
 	
 	$writecont=<<<OVERLAY_HELP_WRITE_CONTENT
-<p>ÒÔÏÂÊÇ¿ÉÄÜ»ñµÃµÄ³¬Á¿½á¹ûµÄÁĞ±í¡£</p>
+<p>ä»¥ä¸‹æ˜¯å¯èƒ½è·å¾—çš„è¶…é‡ç»“æœçš„åˆ—è¡¨ã€‚</p>
 {$overlayhelpinfo}
 OVERLAY_HELP_WRITE_CONTENT;
 	writeover($writefile,$writecont);
@@ -264,7 +242,7 @@ foreach ($enpcinfo as $enkey => $enval){
 $srcfile = GAME_ROOT.TPLDIR.'/npchelp.htm';
 $writefile = GAME_ROOT.TPLDIR.'/tmp_npchelp.htm';
 
-//NPCÁĞ±í×Ô¶¯Éú³É
+//NPCåˆ—è¡¨è‡ªåŠ¨ç”Ÿæˆ
 $need_refresh = 0;
 if(!file_exists($writefile)){
 	$need_refresh = 1;
@@ -297,7 +275,7 @@ P{ line-height:16px
 }
 
 .subtitle2 {
-	font-family: "Î¢ÈíÑÅºÚ"; color: #98fb98; width: 100%;font-size: 16px;font-weight:900;
+	font-family: "å¾®è½¯é›…é»‘"; color: #98fb98; width: 100%;font-size: 16px;font-weight:900;
 }
 
 DIV.FAQ {
@@ -315,4 +293,5 @@ EOT;
 
 include template ( 'help' );
 
-?> */
+/* End of file command_help.php */
+/* Location: /include/pages/command_help.php */

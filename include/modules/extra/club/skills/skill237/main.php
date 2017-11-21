@@ -5,6 +5,12 @@ namespace skill237
 	//怒气消耗
 	$ragecost = 50; 
 	
+	//眩晕时间（单位毫秒）
+	$stuntime237 = 2000;
+	
+	//CD延长时间（单位秒）
+	$cdtime237 = 40;
+	
 	function init() 
 	{
 		define('MOD_SKILL237_INFO','club;battle;');
@@ -104,7 +110,7 @@ namespace skill237
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($pa['bskill']==237 && $pa['is_hit'])
 		{
-			eval(import_module('logger','skill601','sys'));
+			eval(import_module('logger','skill237','skill601','sys'));
 			if (!\skillbase\skill_query(601,$pd)){
 				\skillbase\skill_acquire(601,$pd);
 				$var_237=$now;
@@ -113,8 +119,8 @@ namespace skill237
 				if ($var_237<$now) $var_237=$now;
 			}
 			\skillbase\skill_setvalue(601,'start',$var_237,$pd);
-			\skillbase\skill_setvalue(601,'end',$var_237+40,$pd);
-			\skill602\set_stun_period(2000,$pd);
+			\skillbase\skill_setvalue(601,'end',$var_237 + $cdtime237,$pd);
+			\skill602\set_stun_period($stuntime237,$pd);
 			\skill602\send_stun_battle_news($pa['name'],$pd['name']);
 		}
 		$chprocess($pa,$pd,$active);

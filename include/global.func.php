@@ -79,6 +79,10 @@ function output($content = '') {
 	ob_end_flush();
 }
 
+function url_dir(){
+	return 'http://'.$_SERVER['HTTP_HOST'].substr($_SERVER['PHP_SELF'],0,strrpos($_SERVER['PHP_SELF'],'/')+1);
+}
+
 //----------------------------------------
 //              输入输出函数
 //----------------------------------------
@@ -385,21 +389,33 @@ function unfold($srcfile){
 }
 
 //以post形式向网页发出信息
-function send_post($url, $post_data=array(), $timeout=5) {
- 
-  $qrydata = http_build_query($post_data);
+function send_post($url, $post_data=array(), $post_cookie=array(), $timeout=5) {
   $options = array(
     'http' => array(
       'method' => 'POST',
       'header' => 'Content-type:application/x-www-form-urlencoded',
-      'content' => $qrydata,
+      'content' => http_build_query($post_data),
       'timeout' => $timeout
     )
   );
+  if(!empty($post_cookie)){
+  	$options['http']['header'] .= "\r\nCookie: ".http_build_cookiedata($post_cookie);
+  }
   $context = stream_context_create($options);
   $result = file_get_contents($url, false, $context);
  
   return $result;
+}
+
+function http_build_cookiedata($cookie_arr){
+	$cookiedata= '';
+	foreach($cookie_arr as $k=> $v){
+		$cookiedata.= $k.'='.$v.'; ';//浏览器传cookie时;后有空格
+	}
+	if(strlen($cookiedata)>0){
+		$cookiedata= substr($cookiedata, 0, -2);
+	}
+	return $cookiedata;
 }
 
 //----------------------------------------

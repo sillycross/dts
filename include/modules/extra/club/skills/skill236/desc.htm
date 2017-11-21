@@ -1,4 +1,5 @@
 <!--{eval eval(import_module('skill236'));}-->
+<!--{eval $stunsec236 = $stuntime236 / 1000;}-->
 <!--{eval $___TEMP_SKILL_ID=236;}-->
 {template MOD_CLUBBASE_SKILLDESC_START}
 <span>
@@ -6,7 +7,7 @@
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
-<span class="yellow">战斗技</span>&nbsp;&nbsp;消耗<span class="yellow">$ragecost</span>点怒气，本次攻击物理伤害<span class="yellow">+60</span>，且晕眩敌人<span class="clan">3</span>秒
+<span class="yellow">战斗技</span>&nbsp;&nbsp;消耗<span class="yellow">$ragecost</span>点怒气，本次攻击物理伤害<span class="yellow">+60</span>，且晕眩敌人<span class="clan">$stunsec236</span>秒
 </span></td>
 <td class=b3 width=96>
 </td>

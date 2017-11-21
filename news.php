@@ -13,15 +13,15 @@ if(filemtime($newsfile) > filemtime($lnewshtm)) {
 	writeover($lnewshtm,$lnewsinfo);
 }
 if(!isset($newsmode)) $newsmode = '';
-if (isset($sendmode) && $sendmode == 'news' && isset($lastnid)) {//ÓÎÏ·Ò³Ãæ²é¿´½øĞĞ×´¿öµÄµ÷ÓÃ£¬ÒòÎª±ØĞëload´óÁ¿ModËùÒÔ²»ÄÜ·Åchat.php
-	if($___MOD_SRV) {//Èç¹ûdaemon¿ªÆô£¬ÔòÊÔÍ¼µ÷ÓÃdaemon
-		$url = 'http://'.$_SERVER['HTTP_HOST'].substr($_SERVER['PHP_SELF'],0,-8).'command.php';
+if (isset($sendmode) && $sendmode == 'news' && isset($lastnid)) {//æ¸¸æˆé¡µé¢æŸ¥çœ‹è¿›è¡ŒçŠ¶å†µçš„è°ƒç”¨ï¼Œå› ä¸ºå¿…é¡»loadå¤§é‡Modæ‰€ä»¥ä¸èƒ½æ”¾chat.php
+	if($___MOD_SRV) {//å¦‚æœdaemonå¼€å¯ï¼Œåˆ™è¯•å›¾è°ƒç”¨daemon
+		$url = url_dir().'command.php';
 		$context = array('command'=>'get_news_in_game', 'lastnid'=>$lastnid, 'news_room_prefix' => $room_prefix);
 		$newsinfo = send_post($url, $context);
 		ob_clean();
 		echo $newsinfo;
 		ob_end_flush();
-	}else{//·ñÔòÖ±½ÓÖ´ĞĞ
+	}else{//å¦åˆ™ç›´æ¥æ‰§è¡Œ
 		$lastnid = (int)$lastnid;
 		$newsinfo = \sys\getnews($lastnid);
 		ob_clean();
@@ -29,7 +29,7 @@ if (isset($sendmode) && $sendmode == 'news' && isset($lastnid)) {//ÓÎÏ·Ò³Ãæ²é¿´½
 		echo $jgamedata;
 		ob_end_flush();
 	}
-} elseif($newsmode == 'last') {//À´×Ônews.php²é¿´½øĞĞ×´¿öµÄµ÷ÓÃ£¬ÓÉÓÚ¿ÉÄÜ³¤Ê±¼äÃ»ÓĞĞĞ¶¯£¬Í³Ò»²é¿´Ò³Ãæ»º´æ	
+} elseif($newsmode == 'last') {//æ¥è‡ªnews.phpæŸ¥çœ‹è¿›è¡ŒçŠ¶å†µçš„è°ƒç”¨ï¼Œç”±äºå¯èƒ½é•¿æ—¶é—´æ²¡æœ‰è¡ŒåŠ¨ï¼Œç»Ÿä¸€æŸ¥çœ‹é¡µé¢ç¼“å­˜	
 	//echo file_get_contents($lnewshtm);
 	$newsdata['innerHTML']['newsinfo'] = file_get_contents($lnewshtm);
 	if(isset($error)){$newsdata['innerHTML']['error'] = $error;}
