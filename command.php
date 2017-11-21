@@ -368,7 +368,10 @@ if(isset($command)){
 
 if(!isset($page) || 'command' == $page) include GAME_ROOT.'./include/pages/command_act.php';
 elseif(in_array($page, array('command_winner','command_rank','command_alive','command_help'))) {
-	if('command_help' == $page) $___IN_HELP = 1;//代替常量IN_HELP
+	$___tmp_disable_codeadv3 = 1;//暂时还做不到游戏外页面解压文字
+	if('command_help' == $page) {
+		$___IN_HELP = 1;//代替常量IN_HELP
+	}
 	include GAME_ROOT.'./include/pages/'.$page.'.php';
 }
 

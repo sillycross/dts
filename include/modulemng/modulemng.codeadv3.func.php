@@ -41,7 +41,7 @@ function parse_codeadv3(&$content)
 				$___TEMP_codeadv3_v[to_base64($___TEMP_codeadv3_c)]=$_con;
 			}
 			$val=to_base64($___TEMP_codeadv3[$conmd5]);
-			$ret.='<?php if (!defined(\'GEXIT_RETURN_JSON\')) { ?>';
+			$ret.='<?php if (!defined(\'GEXIT_RETURN_JSON\') || !empty($GLOBALS[\'___tmp_disable_codeadv3\'])) { ?>';
 			$ret.=$con;
 			$ret.='<?php } else { echo \'___'.$val.'\'; } ?>';
 		}
