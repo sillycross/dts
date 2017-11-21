@@ -283,7 +283,7 @@ function card_validate($udata){
 	$result = $db->query("SELECT card FROM {$tablepre}players WHERE type = 0");
 	$t=Array();
 	while ($cdata = $db->fetch_array($result)) $t[$cdata['card']]=1;
-	if(in_array($gametype, array(2,4,18))) //只有卡片模式、无限复活模式、荣耀房才限制卡片
+	if(in_array($gametype, array(2,4,18,19))) //只有卡片模式、无限复活模式、荣耀房、极速房才限制卡片
 		foreach ($card_ownlist as $key)
 			if (!in_array($cards[$key]['rare'], array('C', 'M')) && isset($t[$key])) 
 			{

@@ -5,6 +5,8 @@ namespace skill236
 
 	$ragecost=15;
 	
+	$stuntime236 = 1000;
+	
 	function init() 
 	{
 		define('MOD_SKILL236_INFO','club;battle;');
@@ -77,7 +79,8 @@ namespace skill236
 		if ($pa['bskill']!=236) return $chprocess($pa,$pd,$active);
 		if ($active) $log .= "<span class=\"red\">你掏出撬棍猛击敌人！</span><span class=\"clan\">敌人被你打晕了过去！</span><br>";
 			else $log .= "<span class=\"red\">敌人掏出撬棍猛击你！</span><span class=\"clan\">你被打晕了过去！</span><br>";
-		\skill602\set_stun_period(1000,$pd);
+		eval(import_module('skill236'));
+		\skill602\set_stun_period($stuntime236,$pd);
 		\skill602\send_stun_battle_news($pa['name'],$pd['name']);
 		return $chprocess($pa, $pd, $active)+60;
 	}

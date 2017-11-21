@@ -2,6 +2,7 @@
 
 namespace skill481
 {
+	$stuntime481 = 100;	
 
 	function init() 
 	{
@@ -31,11 +32,11 @@ namespace skill481
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (\skillbase\skill_query(481,$pa))
 		{
-			eval(import_module('logger'));
+			eval(import_module('logger','skill481'));
 			if ($active)
-				$log.='<span class="yellow">一股神秘的力量使敌人晕眩了1秒，你仿佛感觉获得了新的能量。</span><br>';
-			else  $log.='<span class="yellow">一股神秘的力量使你晕眩了1秒，但你仿佛感觉刚刚完成了一件很有意义的事情。</span><br>';
-			\skill602\set_stun_period(100,$pd);
+				$log.='<span class="yellow">一股神秘的力量使敌人晕眩了'.($stuntime481/1000).'秒，你仿佛感觉获得了新的能量。</span><br>';
+			else  $log.='<span class="yellow">一股神秘的力量使你晕眩了'.($stuntime481/1000).'秒，但你仿佛感觉刚刚完成了一件很有意义的事情。</span><br>';
+			\skill602\set_stun_period($stuntime481,$pd);
 		}
 		return $chprocess($pa,$pd,$active);
 	}

@@ -97,7 +97,7 @@ if ($___MOD_SRV)
 						__SOCKET_LOG__("由于过长时间没有收到命令且不是惟一的服务器，没有要求启动替代者。");
 					__SERVER_QUIT__();
 				}
-				else  if ($___TEMP_runned_time+$___MOD_SRV_WAKETIME*2+5>$___TEMP_max_time && !$___TEMP_newsrv_flag)
+				elseif ($___TEMP_runned_time+$___MOD_SRV_WAKETIME*2+5>$___TEMP_max_time && !$___TEMP_newsrv_flag)
 				{
 					//老server即将在下一次唤醒时主动退出，发信息给脚本启动一台新server。
 					if ($___TEMP_runned_time-$___TEMP_last_cmd<=$___MOD_VANISH_TIME || $___TEMP_is_root)
@@ -153,7 +153,7 @@ if ($___MOD_SRV)
 							//允许最多0.2秒等待，这应该已经非常非常宽松了……
 							__SOCKET_WARNLOG__("警告：socket_write等待时间过长。结束流程。"); 
 						}
-						else  if (!socket_write($___TEMP_connection,$___MOD_CONN_PASSWD.'_ok'."\n")) 
+						elseif (!socket_write($___TEMP_connection,$___MOD_CONN_PASSWD.'_ok'."\n")) 
 						{ 
 							__SOCKET_WARNLOG__("警告：socket_write失败。结束流程。"); 
 						}  
@@ -170,7 +170,7 @@ if ($___MOD_SRV)
 							{
 								create_dir(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$pid);
 							}
-							else  if (!is_dir(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$pid))
+							elseif (!is_dir(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$pid))
 							{
 								unlink(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$pid);
 								create_dir(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$pid);
@@ -225,7 +225,7 @@ if ($___MOD_SRV)
 				__SOCKET_LOG__("已经运行了 ".$___TEMP_runned_time."秒。主动退出。");
 				__SERVER_QUIT__();
 			}
-			else  if ($___TEMP_runned_time+$___MOD_SRV_WAKETIME*2+5>$___TEMP_max_time && !$___TEMP_newsrv_flag)
+			elseif ($___TEMP_runned_time+$___MOD_SRV_WAKETIME*2+5>$___TEMP_max_time && !$___TEMP_newsrv_flag)
 			{
 				//老server即将在下一次唤醒时主动退出，发信息给脚本启动一台新server。
 				if ($___TEMP_runned_time-$___TEMP_last_cmd<=$___MOD_VANISH_TIME || $___TEMP_is_root)
@@ -242,7 +242,7 @@ if ($___MOD_SRV)
 				unlink(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT.'/busy');
 		}
 	}
-	else  if ($___TEMP_WORKFLAG==0)
+	elseif ($___TEMP_WORKFLAG==0)
 	{
 		ignore_user_abort(1);
 		
@@ -367,7 +367,10 @@ if(isset($command)){
 ////////////////////////////////////////////////////////////////////////////
 
 if(!isset($page) || 'command' == $page) include GAME_ROOT.'./include/pages/command_act.php';
-elseif(in_array($page, array('command_winner'))) include GAME_ROOT.'./include/pages/'.$page.'.php';
+elseif(in_array($page, array('command_winner','command_rank','command_alive','command_help'))) {
+	if('command_help' == $page) $___IN_HELP = 1;//代替常量IN_HELP
+	include GAME_ROOT.'./include/pages/'.$page.'.php';
+}
 
 /* End of file command.php */
 /* Location: /command.php */
