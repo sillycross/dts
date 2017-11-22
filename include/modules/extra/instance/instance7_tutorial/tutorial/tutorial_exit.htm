@@ -1,0 +1,7 @@
+<input type="hidden" id="command" name="command" value="menu">
+<br>
+<span class="linen">
+“你真的要退出教程吗？”<br>
+<input type="button" class="cmdbutton" id="exittutorial_2" value="退出" onclick="$('command').value='exittutorial_2';postCmd('gamecmd','command.php');this.disabled=true;">&nbsp;&nbsp;&nbsp;
+<input type="button" class="cmdbutton" id="back" value="取消" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
+</span>

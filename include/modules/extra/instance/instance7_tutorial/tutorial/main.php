@@ -9,6 +9,17 @@ namespace tutorial
 		$lwinfo[91]='任务成功完成，进入待机模式。';
 	}
 	
+	//退出教程命令
+	function exit_tutorial(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player'));
+		$alivenum--;
+		$sdata['endtime'] = -1;//负数会在command_act.php最后被变为0，下次进房会触发教程重置角色功能
+		$db->query("UPDATE {$gtablepre}users SET roomid='0' WHERE username='$cuser'");
+		$gamedata['url']='index.php';
+		return;
+	}
+	
 	//提示部分的初始化函数，只在template页面中调用
 	function init_current_tutorial(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -202,6 +213,17 @@ namespace tutorial
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','input','map'));
 		if($gametype == 17) {
+			if(strpos($command,'exittutorial')===0){
+				if('exittutorial_2'==$command) {//确认命令，退出教程
+					exit_tutorial();
+				}else{
+					ob_start();
+					include template(MOD_TUTORIAL_TUTORIAL_EXIT);
+					$cmd = ob_get_contents();
+					ob_end_clean();
+				}
+				return;
+			}
 			$ct = get_tutorial();
 			list($tno, $tstep, $tprog) = get_current_tutorial_step();
 			if(isset($ct['obj2']['addnpc'])){//判定是否需要addnpc

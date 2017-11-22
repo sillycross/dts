@@ -15,6 +15,9 @@ $room_poll_port_high = 35000;
 //永续房超时时间
 $soleroom_resettime = 3600;
 
+//永续房个人超时时间
+$soleroom_private_resettime = 1800;
+
 //房间类型
 $roomtypelist = Array(
 	

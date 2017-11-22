@@ -520,7 +520,7 @@ function room_enter($id)
 	//$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$id.'.txt'),1);
 	$roomdata = gdecode($rd['roomvars'], 1);
 	//global $cuser;
-	global $roomtypelist, $gametype, $startime, $now, $room_prefix, $alivenum, $soleroom_resettime;
+	global $roomtypelist, $gametype, $startime, $now, $room_prefix, $alivenum, $soleroom_resettime, $soleroom_private_resettime;
 	if($roomtypelist[$rd['groomtype']]['without-ready']){//不需要点击准备的房间，要么直接加入，要么跳转加入画面
 		if ($disable_newgame || $disable_newroom) {
 			gexit('系统维护中，暂时不能加入房间',__file__,__line__);
@@ -558,11 +558,11 @@ function room_enter($id)
 			if(!$db->num_rows($result)){//从未进入过则直接进入战场
 				include_once GAME_ROOT.'./include/valid.func.php';
 				enter_battlefield($udata['username'],$udata['password'],$udata['gender'],$udata['icon'],$pcard);
-			}elseif($roomtypelist[$rd['groomtype']]['soleroom']){//教程房特判，离开超过1分钟则清空数据从头开始
+			}elseif($roomtypelist[$rd['groomtype']]['soleroom']){//教程房特判，离开超过一定时间则清空数据从头开始
 				$pdata = $db->fetch_array($result);
 				$ppid = $pdata['pid'];
 				$pendtime = $pdata['endtime'];
-				if($now - $pendtime > 60){
+				if($now - $pendtime > $soleroom_private_resettime){
 					$db->query("DELETE FROM {$tablepre}players WHERE name = '$pname' AND type = 0");
 					$db->query("DELETE FROM {$tablepre}players WHERE type>0 AND teamID = '$ppid'");
 					$alivenum --;
