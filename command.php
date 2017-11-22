@@ -337,15 +337,7 @@ else	//未开启server-client模式，正常执行准备流程
 ////////////////////////////////////////////////////////////////////////////
 
 if(isset($command)){
-	if('get_news_in_game' == $command && isset($lastnid) && isset($news_room_prefix)){//获取进行状况
-		$lastnid=(int)$lastnid;
-		$newsinfo = \sys\getnews($lastnid,$newslimit,$news_room_prefix);
-		ob_clean();
-		$jgamedata = gencode($newsinfo);
-		echo $jgamedata;
-		ob_end_flush();
-		return;
-	}elseif('area_timing_refresh' == $command){//刷新禁区时间
+	if('area_timing_refresh' == $command){//刷新禁区时间
 		\sys\routine();
 		\map\init_areatiming();
 		$gamedata = array('timing' => $uip['timing']);
@@ -367,7 +359,7 @@ if(isset($command)){
 ////////////////////////////////////////////////////////////////////////////
 
 if(!isset($page) || 'command' == $page) include GAME_ROOT.'./include/pages/command_act.php';
-elseif(in_array($page, array('command_winner','command_rank','command_alive','command_help'))) {
+elseif(in_array($page, array('command_winner','command_rank','command_alive','command_help','command_news'))) {
 	$___tmp_disable_codeadv3 = 1;//暂时还做不到游戏外页面解压文字
 	if('command_help' == $page) {
 		$___IN_HELP = 1;//代替常量IN_HELP

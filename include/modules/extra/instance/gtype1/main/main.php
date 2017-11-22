@@ -312,6 +312,15 @@ namespace gtype1
 		}else return $chprocess();
 	}
 	
+	function get_enpcinfo()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','gtype1'));
+		if (1 == $gametype){
+			return $enpcinfo_gtype1;
+		}else return $chprocess();
+	}
+	
 	//接管meetman_alternative，主要是判定遭遇玩家时必定为队友
 	function meetman_alternative($edata)
 	{

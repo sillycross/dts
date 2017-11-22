@@ -52,7 +52,7 @@ namespace sys
 		//进入当前用户房间判断
 		$room_prefix = '';
 		$room_id = 0;
-		if (isset($___LOCAL_INPUT__VARS__INPUT_VAR_LIST['___GAME_ROOMID']))
+		if (!empty($___LOCAL_INPUT__VARS__INPUT_VAR_LIST['___GAME_ROOMID']))
 		{
 			$room_id = ((string)$___LOCAL_INPUT__VARS__INPUT_VAR_LIST['___GAME_ROOMID']);
 		}

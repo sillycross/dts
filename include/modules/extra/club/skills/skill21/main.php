@@ -17,11 +17,19 @@ namespace skill21
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
+	function get_enpcinfo()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('skill21'));
+		return $enpcinfo;
+	}
+	
 	function evonpc($xtype,$xname)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','map','skill21','lvlctl','logger'));
+		eval(import_module('sys','player','map','lvlctl','logger'));
 		if(!$xtype || !$xname){return false;}
+		$enpcinfo = get_enpcinfo();
 		if(!isset($enpcinfo[$xtype])){return false;}
 		$result = $db->query("SELECT * FROM {$tablepre}players WHERE type = '$xtype' AND name = '$xname'");
 		$num = $db->num_rows($result);
