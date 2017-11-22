@@ -2521,6 +2521,7 @@ $cards = array(
 		'effect'=>'教程模式技能载体',
 		'energy'=>0,
 		'valid' => array(
+			'club' => '17',
 			'itm3' => '紧急药剂',
 			'itmk3' => 'Ca',
 			'itme3' => '1',

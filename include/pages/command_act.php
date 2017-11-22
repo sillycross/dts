@@ -75,7 +75,8 @@ $gamedata = array(
 if ($hp > 0 && $state <= 3) \player\act();
 \player\post_act();
 
-$endtime = $now;
+if($endtime < 0) $endtime = 0;//$endtime若为负数则变为0，某些特殊功能会用到
+else $endtime = $now;
 
 if ($___MOD_SRV)
 {

@@ -17,8 +17,8 @@ namespace gtype1
 			$zz=$db->fetch_array($res); $gt=$zz['gametype'];
 		}
 
-		if ($wday==3 && !$disable_event){
- 			if ( $hour>=19 && $hour<22 && $gt!=1 ){ 
+		if (!$disable_event && $gt!=1){//开启活动&&最多连续3局
+ 			if ( ($wday==3 && $hour>=19 && $hour<21) || ($wday==6 && $hour>=15 && $hour<17) ){ //周三19点-21点；周六15点-17点
  				$gametype=1;
  				prepare_new_game_gtype1();
  			}
@@ -123,8 +123,8 @@ namespace gtype1
 							if($thisarea > 2) {
 								$iname = '';//过滤2禁以后刷新的玩意
 							}else{
-								//估算玩家购买意愿，10块钱相当于数目50（常刷的固定道具），10000块钱相当于数目1（浮云物）
-								$thisnum = 490.5/$price + 0.95;
+								//估算玩家购买意愿，10块钱相当于数目500（常刷的固定道具），60000块钱相当于数目1（浮云物）
+								$thisnum = 	4989.918/$price + 1.0082;
 								if($thisnum > $num) $thisnum = $num;//个数限制
 							}
 						}else{
@@ -201,11 +201,12 @@ namespace gtype1
 						list($iname,$kind)=explode(',',$ipdval2);
 
 						$thisnum = 0.1;//礼品盒恒视为0.1
+						$thisarea = 1;//礼品盒恒视为1禁
 						if(strpos($ipdkey, 'fybox')===0) $thisnum = 0.01;//浮云更浮云
 					}
 				}
 				//NPC
-				elseif(strpos($ipdkey, 'npc')!==false && (!isset($ipdval2['num']) || $ipdval2['num'] > 0) && !in_array($ipdkey2, array(1, 4, 7, 9, 12, 13, 14, 15, 20, 21, 22, 40))){
+				elseif(strpos($ipdkey, 'npc')!==false && (!isset($ipdval2['num']) || $ipdval2['num'] > 0) && !in_array($ipdkey2, array(1, 4, 7, 9, 12, 13, 14, 15, 16, 20, 21, 22, 40))){
 					$nownpclist = array($ipdval2);
 					
 					if(isset($ipdval2['sub'])){

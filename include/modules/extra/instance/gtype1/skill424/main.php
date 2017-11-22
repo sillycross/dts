@@ -91,11 +91,11 @@ namespace skill424
 			$req2 = wdebug_getreq(array('mapitem', 'shopitem'), 0.5, 5, $aready);
 			$req3 = wdebug_getreq(array('mixitem','syncitem','overlayitem','npc'), 1, 10, $aready);
 			$req4 = wdebug_getreq(array('mapitem','shopitem','mixitem','syncitem','overlayitem','npc','presentitem','ygoitem'), 0, 8, $aready);
-		}else{//50层以上全部浮云物，哈哈哈哈！
-			$req1 = wdebug_getreq(array('mapitem','shopitem','mixitem','syncitem','overlayitem','npc','presentitem','ygoitem'), 0, 5, $aready);
-			$req2 = wdebug_getreq(array('mapitem','shopitem','mixitem','syncitem','overlayitem','npc','presentitem','ygoitem'), 0, 5, $aready);
-			$req3 = wdebug_getreq(array('mapitem','shopitem','mixitem','syncitem','overlayitem','npc','presentitem','ygoitem'), 0, 5, $aready);
-			$req4 = wdebug_getreq(array('mapitem','shopitem','mixitem','syncitem','overlayitem','npc','presentitem','ygoitem'), 0, 5, $aready);
+		}else{//50层以上全部浮云物，哈哈哈哈！而且不再能买了
+			$req1 = wdebug_getreq(array('mapitem','mixitem','syncitem','overlayitem','npc','presentitem','ygoitem'), 0, 5, $aready);
+			$req2 = wdebug_getreq(array('mapitem','mixitem','syncitem','overlayitem','npc','presentitem','ygoitem'), 0, 5, $aready);
+			$req3 = wdebug_getreq(array('mapitem','mixitem','syncitem','overlayitem','npc','presentitem','ygoitem'), 0, 5, $aready);
+			$req4 = wdebug_getreq(array('mapitem','mixitem','syncitem','overlayitem','npc','presentitem','ygoitem'), 0, 5, $aready);
 		}
 		\skillbase\skill_setvalue(424,'cur1',$req1,$pa);
 		\skillbase\skill_setvalue(424,'cur2',$req2,$pa);
