@@ -4,7 +4,7 @@ namespace skill267
 {
 	$skill267deno = 200;//每有多少点伤害，HP就增加
 	$skill267nume = Array(1,2,3);//HP每次增加多少 
-	$upgradecost = Array(6,12,-1);//升级所需技能点
+	$upgradecost = Array(20,24,-1);//升级所需技能点
 	
 	function init() 
 	{
