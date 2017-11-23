@@ -124,6 +124,11 @@ namespace itemmain
 		return $ret;
 	}
 	
+	function parse_itmuse_desc($n, $k, $e, $s, $sk){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return '';
+	}
+	
 	function parse_itmsk_desc($sk_value){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('itemmain'));
@@ -154,12 +159,17 @@ namespace itemmain
 		foreach ($equip_list as $v) {
 			$z=strlen($v)-1;
 			while ('0'<=$v[$z] && $v[$z]<='9') $z--;//注意这同样也会把wep等包括进去！
+			$p1 = substr($v,0,$z+1); $p2 = substr($v,$z+1);
+			$kv=$p1.'k'.$p2;
+			$ev=$p1.'e'.$p2;
+			$sv=$p1.'s'.$p2;
+			$skv=$p1.'sk'.$p2;
 			$r[$v.'_words'] = parse_itmname_words($edata[$v], $elli);
-			$kv=substr($v,0,$z+1).'k'.substr($v,$z+1);
 			$r[$kv.'_words'] = parse_itmk_words($edata[$kv]);
-			$skv=substr($v,0,$z+1).'sk'.substr($v,$z+1);
 			$r[$skv.'_words'] = parse_itmsk_words($edata[$skv],$simple);
 			$r[$skv.'_desc'] = parse_itmsk_desc($edata[$skv]);
+			$itmuse_words = parse_itmuse_desc($edata[$v], $edata[$kv], $edata[$ev], $edata[$sv], $edata[$skv]);
+			if(!empty($itmuse_words)) $r[$v.'_itmuse_desc'] = $itmuse_words;
 		}
 		
 		return $r;

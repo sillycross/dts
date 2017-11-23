@@ -1,0 +1,31 @@
+<!--{eval $___TEMP_SKILL_ID=267;}-->
+<!--{eval eval(import_module('skill267'));}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+代偿
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<!--{eval $skill267var = \skill267\get_skill267nume($who);}-->
+你在战斗中每失去{$skill267deno}点生命，战斗后生命上限就<span class="clan">+{$skill267var}</span>。存活方有效。<br>
+<!--{eval $clv = (int)\skillbase\skill_getvalue(267,'lvl'); }-->
+<!--{eval $totlv = count($upgradecost)-1; }-->
+<span class="lime">当前级别$clv/$totlv</span>&nbsp;
+<!--{if $upgradecost[$clv] !== -1}-->消耗<span class="lime">$upgradecost[$clv]</span>点技能点升至下一级<!--{/if}--><br>
+</span></td>
+<td class=b3 width=96>
+<!--{if $upgradecost[$clv] !== -1}-->
+<!--{if $skillpoint>=$upgradecost[$clv]}-->
+<input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill267_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="升级">
+<!--{else}-->
+<input type="button" style="width:46px" disabled="true" value="升级">
+<!--{/if}-->
+<!--{/if}-->
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+9级时解锁
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

@@ -110,12 +110,13 @@ namespace skill424
 		$nowarea = floor($areanum/$areaadd);
 		//daemon模式下，include_once会出问题
 		//为保证同1次执行时不反复调用文件，只能这么办了
-		global $cont_mapitem,$cont_shopitem,$cont_mixitem,$cont_syncitem,$cont_overlayitem,$cont_presentitem,$cont_ygoitem,$cont_fyboxitem,$cont_npc;
+		global $cont_mapitem,$cont_shopitem,$cont_mixitem,$cont_syncitem,$cont_overlayitem,$cont_presentitem,$cont_ygoitem,$cont_fyboxitem,$cont_npcinfo_gtype1;
 		if(empty($cont_mapitem)) include GAME_ROOT.'/gamedata/cache/gtype1item.config.php';
 		if(!is_array($kind)) $kind = array($kind);
 		if(!is_array($aready)) $aready = array($aready);
 		$nowkindarr = array();
 		foreach($kind as $kv){
+			if('npc' == $kv) $kv = 'npcinfo_gtype1';
 			if(!isset(${'cont_'.$kv})) return NULL;
 			$nowkindarr = array_merge($nowkindarr, ${'cont_'.$kv});
 		}

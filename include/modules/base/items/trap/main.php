@@ -416,6 +416,38 @@ namespace trap
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 	
+	function parse_itmuse_desc($n, $k, $e, $s, $sk){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($n, $k, $e, $s, $sk);
+		if(strpos($k,'TNc')===0 || strpos($k,'TOc')===0) {
+			$ret .= '埋设后拥有必杀效果';
+		}elseif(strpos($k,'T')===0){
+			$theitem = Array('itm' => $n, 'itmk' => $k, 'itme' => $e, 'itms' => $s, 'itmsk' => $sk);
+			$trape = get_trap_itme_limit($theitem);
+			$ret .= '埋设后效果值为'.$trape;
+		}
+		return $ret;
+	}
+	
+	function get_trap_itme_limit(&$theitem, &$pa=NULL){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','logger'));
+		if(!$pa) $pa = &$sdata;
+		
+		$itm=&$theitem['itm']; $itmk=&$theitem['itmk'];
+		$itme=&$theitem['itme']; $itms=&$theitem['itms']; $itmsk=&$theitem['itmsk'];
+		
+		if(strpos($itmk, 'TNc')===0) return $itme;//奇迹雷不判定这个
+		
+		$trape0 = round($itme / 2); //基础伤害是陷阱效果值/2
+		$trape1 = $pa['lvl'] * 50;//阈值1，等级*50
+		$trape2 = $pa['wd'] * 5;//阈值2，爆熟*5
+		$trape_add = max($trape1, $trape2);//取上述较大那个
+		
+		$trape = $trape0 + $trape_add < $itme ? $trape0 + $trape_add : $itme;
+		return $trape;
+	}
+	
 	function trap_use(&$theitem)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -425,10 +457,8 @@ namespace trap
 		$itme=&$theitem['itme']; $itms=&$theitem['itms']; $itmsk=&$theitem['itmsk'];
 		
 		$log .= "设置了陷阱<span class=\"red\">$itm</span>。<br>";
-		$trape1 = $lvl * 100;//阈值1，等级*100
-		$trape2 = $wd * 8;//阈值2，爆熟*8
-		$trape = max(50, max($trape1, $trape2));
 		
+		$trape = get_trap_itme_limit($theitem);
 		if($trape >= $itme) {
 			$trape = $itme;
 		}else{

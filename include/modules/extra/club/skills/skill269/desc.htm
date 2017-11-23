@@ -1,0 +1,22 @@
+<!--{eval eval(import_module('skill269'));}-->
+<!--{eval $___TEMP_SKILL_ID=269;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+浴血
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<span class="yellow">战斗技</span>：消耗生命值，附加相同的物理伤害。消耗生命值为<br><span class="yellow">(你的当前生命-敌方当前生命)</span>与<span class="yellow">你的25%生命上限</span>中较大者。<br>
+发动消耗<span class="yellow">$ragecost</span>点怒气。「毅重」生效中才能发动。<br>
+<!--{eval $rmt = \skill269\get_rmt269($who);}-->
+本局游戏还可以发动<span class=<!--{if $rmt}-->"clan"<!--{else}-->"red"<!--{/if}-->>{$rmt}/2</span>次。
+</span></td>
+<td class=b3 width=96>
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+21级时解锁
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

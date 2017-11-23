@@ -4,7 +4,7 @@ namespace skill235
 {
 	function init() 
 	{
-		define('MOD_SKILL235_INFO','club;active;locked;');
+		define('MOD_SKILL235_INFO','club;active;');
 		eval(import_module('clubbase'));
 		$clubskillname[235] = '探测';
 	}
