@@ -50,7 +50,6 @@ item_ub,base/items/item_ub/,1
 item_uee,base/items/item_uee/,1
 song,base/items/song/,1
 skill23,extra/club/skills/skill23/,1
-skill220,extra/club/skills/skill220/,1
 corpse,base/corpse/,1
 trap,base/items/trap/,1
 itemmix_sync,base/itemmix/itemmix_sync/,1
@@ -179,6 +178,8 @@ skill474,extra/card/skills/skill474/,1
 skill484,extra/card/skills/skill484/,1
 skill491,extra/card/skills/skill491/,1
 club97,extra/club/clubs/club97/,1
+skill267,extra/club/skills/skill267/,1
+skill268,extra/club/skills/skill268/,1
 skill433,extra/card/skills/skill433/,1
 skill602,extra/club/skills/skill602/,1
 skill221,extra/club/skills/skill221/,1
@@ -261,6 +262,7 @@ skill476,extra/instance/gtype3/skill476/,1
 skill483,extra/card/skills/skill483/,1
 skill1001,extra/instance/skill1001/,1
 skill1002,extra/instance/skill1002/,1
+skill269,extra/club/skills/skill269/,1
 skill242,extra/club/skills/skill242/,1
 skill53,extra/club/skills/skill53/,1
 skill55,extra/club/skills/skill55/,1
@@ -299,6 +301,7 @@ skill38,extra/club/skills/skill38/,1
 dualwep,base/weapon/dualwep/,1
 ammunition,base/items/ammunition/,1
 skill487,extra/card/skills/skill487/,1
+skill220,extra/club/skills/skill220/,1
 skill458,extra/card/skills/skill458/,1
 attrbase,extra/attr/attrbase/,1
 skill407,extra/card/skills/skill407/,1
@@ -366,7 +369,6 @@ skill465,extra/card/skills/skill465/,1
 skill478,extra/card/skills/skill478/,1
 ex_phy_nullify,extra/attr/ex_phy_nullify/,1
 skill432,extra/card/skills/skill432/,1
-gtype1,extra/instance/gtype1/main/,1
 instance5,extra/instance/instance5/,1
 instance6,extra/instance/instance6/,1
 skill42,extra/club/skills/skill42/,1
@@ -387,6 +389,7 @@ skill51,extra/club/skills/skill51/,1
 ex_gender_attr,extra/attr/ex_gender_attr/,1
 ex_attr_pierce,extra/attr/ex_attr_pierce/,1
 skill43,extra/club/skills/skill43/,1
+itemnumlist,extra/misc/itemnumlist/,1
 skill56,extra/club/skills/skill56/,1
 skill435,extra/card/skills/skill435/,1
 tutorial,extra/instance/instance7_tutorial/tutorial/,1
@@ -395,9 +398,10 @@ skill244,extra/club/skills/skill244/,1
 skill27,extra/club/skills/skill27/,1
 skill489,extra/card/skills/skill489/,1
 skill265,extra/club/skills/skill265/,1
+gtype1,extra/instance/gtype1/main/,1
 skill57,extra/club/skills/skill57/,1
 skill436,extra/card/skills/skill436/,1
 smartmix,extra/misc/smartmix/,1
-searchmemory,extra/searchmemory/,1
 skill266,extra/club/skills/skill266/,1
+searchmemory,extra/searchmemory/,1
 halloween2017,extra/activities/halloween2017/main/,0

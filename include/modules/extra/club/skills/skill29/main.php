@@ -54,7 +54,7 @@ namespace skill29
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('lvlctl'));
-		if (\skillbase\skill_query(29,$pa)) $lvuphp += rand ( 6, 9 );
+		if (\skillbase\skill_query(29,$pa)) $lvuphp += rand ( 5, 7 );
 		$chprocess($pa);
 	}
 	

@@ -141,7 +141,8 @@ namespace poison
 		}
 		$itmk = substr_replace($itmk,'P',0,1);
 		//if($club == 8){ $itmk = substr_replace($itmk,'2',2,1); }
-		if($art == '毒物说明书') $itmk = substr_replace($itmk,'1',2,1); 
+		$p_factor = check_poison_factor();
+		if(!empty($p_factor)) $itmk = substr_replace($itmk,$p_factor,2,1);
 		if($art == '妖精的羽翼') {$itmk = substr_replace($itmk,'H',0,1);$log .= "一种神秘的力量净化了毒药，你的毒药变成了解毒剂！";}
 		$itmsk = $pid;
 		if($art == '妖精的羽翼') {$log .= "使用了 <span class=\"red\">$poison</span> ，<span class=\"yellow\">${'itm'.$itmn}</span> 被净化了！<br>";}
@@ -154,6 +155,17 @@ namespace poison
 
 		$mode = 'command';
 		return;
+	}
+	
+	function check_poison_factor(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player','logger'));
+		$ret = '';
+		if($art == '毒物说明书') {
+			$log .= '毒物说明书让你调制的毒物更加危险。';
+			$ret = '1';
+		}
+		return $ret;
 	}
 
 	function act()

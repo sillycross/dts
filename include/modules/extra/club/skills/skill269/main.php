@@ -1,0 +1,149 @@
+<?php
+
+namespace skill269
+{
+	//怒气消耗
+	$ragecost = 100; 
+	
+	function init() 
+	{
+		define('MOD_SKILL269_INFO','club;battle;limited;');
+		eval(import_module('clubbase'));
+		$clubskillname[269] = '浴血';
+	}
+	
+	function acquire269(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//剩余次数
+		\skillbase\skill_setvalue(269,'rmt',2,$pa);
+	}
+	
+	function lost269(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		\skillbase\skill_delvalue(269,'rmt',$pa);
+	}
+	
+	function check_unlocked269(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $pa['lvl']>=21;
+	}
+	
+	function check_available269(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return \skill28\check_available28($pa);
+	}
+	
+	function get_rmt269(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = \skillbase\skill_getvalue(269,'rmt',$pa);
+		if(!$ret) $ret = 0;
+		return $ret;
+	}
+	
+	function get_rage_cost269(&$pa = NULL)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('skill269'));
+		return $ragecost;
+	}
+	
+	function get_hp_cost269(&$pa, &$pd, $fuzzy = 0)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player'));
+		$hpcost = max( round($pa['mhp']*0.25), $pa['hp'] - $pd['hp']);
+		if($hpcost > $pa['hp'] - 1) $hpcost = $pa['hp'] - 1;
+		if($fuzzy) {
+			$c = floor($hpcost/100);
+			$cmin = max(0,($c-1)*100); $cmax = max(0,($c+1)*100);
+			$hpcost = '大约'.$cmin.'-'.$cmax;
+		}
+		return $hpcost;
+	} 
+	
+	function strike_prepare(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if ($pa['bskill']!=269) return $chprocess($pa, $pd, $active);
+		$hpcost = get_hp_cost269($pa, $pd);
+		$rmt = get_rmt269($pa);
+		eval(import_module('logger'));
+		if (!\skillbase\skill_query(269,$pa) || !check_unlocked269($pa))
+		{
+			$log .= '你尚未解锁这个技能！';
+			$pa['bskill']=0;
+		}
+		elseif($rmt <= 0)
+		{
+			$log .= '你这局游戏已经无法再使用这个技能了！';
+			$pa['bskill']=0;
+		}
+		elseif($hpcost >= $pa['hp'])
+		{
+			$log .= '你的身体状态不允许你发动这个技能！';
+			$pa['bskill']=0;
+		}
+		elseif(!check_available269($pa))
+		{
+			$log .= '「毅重」生效中才能发动此技能！';
+			$pa['bskill']=0;
+		}
+		else
+		{
+			$rcost = get_rage_cost269($pa);
+			if ($pa['rage']>=$rcost)
+			{
+				$log .= \battle\battlelog_parser($pa, $pd, $active, 
+					"<span class=\"lime\"><:pa_name:>对<:pd_name:>发动了技能「浴血」！</span><br>
+					<span class=\"yellow\"><:pa_name:>燃烧了<span class=\"red\">{$hpcost}</span>点生命值，打出了置生死于度外的一击！</span><br>");
+
+				$pa['rage']-=$rcost;
+				$pa['hp']-=$hpcost;
+				$pa['skill269_hpcost']=$hpcost;
+				\skillbase\skill_setvalue(269,'rmt',$rmt-1,$pa);
+				addnews ( 0, 'bskill269', $pa['name'], $pd['name'] );
+			}
+			else
+			{
+				if ($active)
+				{
+					$log.='怒气不足。<br>';
+				}
+				$pa['bskill']=0;
+			}
+		}
+		$chprocess($pa, $pd, $active);
+	}	
+	
+	//物理固伤
+	function get_fixed_dmg(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$r=0;
+		if(!empty($pa['skill269_hpcost'])) {
+			$r=$pa['skill269_hpcost'];
+			unset($pa['skill269_hpcost']);
+		}
+		return $chprocess($pa, $pd, $active)+$r;
+	}
+	
+	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		eval(import_module('sys','player'));
+		
+		if($news == 'bskill269') 
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}对{$b}发动了技能<span class=\"yellow\">「浴血」</span></span></li>";
+		
+		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
+	}
+	
+}
+
+?>

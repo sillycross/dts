@@ -152,6 +152,7 @@ js_stop_flag = 0;
 
 function postCmd(formName,sendto){
 	if (in_replay_mode == 1) return;
+	jQuery('#hoverHintMsg').css({display:"none"});//清除悬停提示
 	replay_listener();	//IE Hack，处理IE不支持catch的问题
 	var oXmlHttp = zXmlHttp.createRequest();
 	var sBody = getRequestBody(document.forms[formName]);

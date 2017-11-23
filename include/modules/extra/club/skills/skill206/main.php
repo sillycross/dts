@@ -4,7 +4,7 @@ namespace skill206
 {
 	function init() 
 	{
-		define('MOD_SKILL206_INFO','club;');
+		define('MOD_SKILL206_INFO','club;locked;');
 		eval(import_module('clubbase'));
 		$clubskillname[206] = '爆头';
 	}

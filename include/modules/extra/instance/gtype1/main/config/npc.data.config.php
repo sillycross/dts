@@ -1831,6 +1831,7 @@ namespace gtype1
 			'mhp' => 8932,
 			'att' => 5120,
 			'skill' => 1919,
+			'money' => 20,
 			'skills' => array('400'=>'5','401'=>'5','402'=>'1','403'=>'5','461'=>'1'),
 			'wep' => 'Solidarity',
 			'wepk' => 'WG',
