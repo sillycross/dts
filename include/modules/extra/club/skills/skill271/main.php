@@ -100,7 +100,7 @@ namespace skill271
 			}
 			
 		}
-		return $chprocess($pa, $pd, $active);
+		return $ret;
 	}
 	
 //	function get_ex_def_array(&$pa, &$pd, $active)
