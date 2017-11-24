@@ -22,7 +22,7 @@ namespace skill229
 	function check_unlocked229(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return $pa['lvl']>=18;
+		return $pa['lvl']>=19;
 	}
 	
 	function calculate_attack_weapon_skill_gain(&$pa, &$pd, $active)

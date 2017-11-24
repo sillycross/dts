@@ -154,7 +154,9 @@ namespace searchmemory
 			if ($mode == 'command' && strpos($command,'memory')===0){
 				$smn = substr($command,6);
 				searchmemory_discover($smn);
-			}elseif(($mode == 'combat' && $command == 'back') || ($mode == 'corpse' && $command == 'menu')){
+			}elseif(($mode == 'combat' && $command == 'back')
+				//|| ($mode == 'corpse' && $command != 'destroy')){//修改：尸体只要不销毁，视野都留着
+				 || ($mode == 'corpse' && $command == 'menu')){
 				$eid = str_replace('enemy','',str_replace('corpse','',$action));
 				$edata = \player\fetch_playerdata_by_pid($eid);
 				$amarr = array('pid' => $edata['pid'], 'Pname' => $edata['name'], 'pls' => $pls, 'smtype' => 'unknown');
