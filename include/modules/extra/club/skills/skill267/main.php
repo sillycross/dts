@@ -2,9 +2,9 @@
 
 namespace skill267
 {
-	$skill267deno = 200;//每有多少点伤害，HP就增加
-	$skill267nume = Array(1,2,3);//HP每次增加多少 
-	$upgradecost = Array(20,24,-1);//升级所需技能点
+	$skill267deno = Array(200,100,100);;//每有多少点伤害，HP就增加
+	$skill267nume = Array(1,1,2);//HP每次增加多少 
+	$upgradecost = Array(14,20,-1);//升级所需技能点
 	
 	function init() 
 	{
@@ -56,6 +56,14 @@ namespace skill267
 		$log.='升级成功。<br>';
 	}
 	
+	function get_skill267deno(&$pa){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$clv = \skillbase\skill_getvalue(267,'lvl');
+		if(!$clv) $clv = 0;
+		eval(import_module('skill267'));
+		return $skill267deno[$clv];
+	}
+	
 	function get_skill267nume(&$pa){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$clv = \skillbase\skill_getvalue(267,'lvl');
@@ -71,7 +79,8 @@ namespace skill267
 		$hpdown = $pa['skill267ohp'] - $pa['hp'];
 		if($hpdown <= 0) return;//HP没下降的不处理
 		eval(import_module('skill267'));
-		$mhpup = floor($hpdown/$skill267deno) * get_skill267nume($pa);
+		$mhpup = floor($hpdown / get_skill267deno($pa)) * get_skill267nume($pa);
+		if($mhpup > $pa['lvl']) $mhpup = $pa['lvl'];//代偿得到的最大生命不会高于当前等级数
 		if($mhpup > 0){
 			$pa['hp'] += $mhpup;
 			$pa['mhp'] += $mhpup;

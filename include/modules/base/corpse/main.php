@@ -36,7 +36,7 @@ namespace corpse
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($edata);
 		eval(import_module('sys','corpse'));
-		if($edata['endtime'] > $now - $corpseprotect)
+		if($edata['endtime'] > $now - $corpseprotect2)//改为一个较短的数值
 			$ret = false;
 		return $ret;
 	}
@@ -119,7 +119,7 @@ namespace corpse
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','logger'));
+		eval(import_module('sys','player','logger','corpse'));
 		
 		if($item == 'wep') {
 			$itm0 = $edata['wep'];
@@ -172,7 +172,7 @@ namespace corpse
 			$edata['state'] = 16;
 			\player\player_save($edata);
 			$log .= '尸体成功销毁！';
-			
+			if(!in_array($edata['type'], $no_destroy_news_type)) addnews ( 0, 'cdestroy', $sdata['name'], $edata['name'] );
 			$mode = 'command';
 			return;
 		} else {
@@ -272,6 +272,17 @@ namespace corpse
 		$chprocess();
 	}
 
+	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		eval(import_module('sys','player'));
+		
+		if($news == 'cdestroy') 
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}把{$b}的尸体销毁了</span></li>";
+		
+		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
+	}
 }
 
 ?>

@@ -6,10 +6,8 @@
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
-<span class="yellow">战斗技</span>：消耗生命值，附加相同的物理伤害。消耗生命值为<br><span class="yellow">(你的当前生命-敌方当前生命)</span>与<span class="yellow">你的25%生命上限</span>中较大者。<br>
-发动消耗<span class="yellow">$ragecost</span>点怒气。「毅重」生效中才能发动。<br>
-<!--{eval $rmt = \skill269\get_rmt269($who);}-->
-本局游戏还可以发动<span class=<!--{if $rmt}-->"clan"<!--{else}-->"red"<!--{/if}-->>{$rmt}/2</span>次。
+<span class="yellow">战斗技</span>：附加等于<br><span class="yellow">(你当前生命-敌方当前生命)</span>与<span class="yellow">你25%生命上限</span>中较大者的物理伤害。<br>
+发动消耗<span class="yellow">$ragecost</span>点怒气 <span class="clan">或者</span> <span class="yellow">$ragecost0</span>点怒气+<span class="red">附加伤害数值的</span>当前生命
 </span></td>
 <td class=b3 width=96>
 </td>

@@ -263,6 +263,7 @@ skill483,extra/card/skills/skill483/,1
 skill1001,extra/instance/skill1001/,1
 skill1002,extra/instance/skill1002/,1
 skill269,extra/club/skills/skill269/,1
+skill78,extra/club/skills/skill78/,1
 skill242,extra/club/skills/skill242/,1
 skill53,extra/club/skills/skill53/,1
 skill55,extra/club/skills/skill55/,1
@@ -378,6 +379,7 @@ skill245,extra/club/skills/skill245/,1
 skill252,extra/club/skills/skill252/,1
 gtype2,extra/instance/gtype2/main/,1
 gtype3,extra/instance/gtype3/main/,1
+skill270,extra/club/skills/skill270/,1
 skill206,extra/club/skills/skill206/,1
 miracletrap,base/items/miracletrap/,1
 skill243,extra/club/skills/skill243/,1
@@ -395,6 +397,7 @@ skill435,extra/card/skills/skill435/,1
 tutorial,extra/instance/instance7_tutorial/tutorial/,1
 skill329,extra/activities/nationalday2017/skill329/,1
 skill244,extra/club/skills/skill244/,1
+skill271,extra/club/skills/skill271/,1
 skill27,extra/club/skills/skill27/,1
 skill489,extra/card/skills/skill489/,1
 skill265,extra/club/skills/skill265/,1

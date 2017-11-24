@@ -4,6 +4,8 @@ namespace skill269
 {
 	//怒气消耗
 	$ragecost = 100; 
+	//下位怒气消耗
+	$ragecost0 = 40; 
 	
 	function init() 
 	{
@@ -16,13 +18,13 @@ namespace skill269
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		//剩余次数
-		\skillbase\skill_setvalue(269,'rmt',2,$pa);
+//		\skillbase\skill_setvalue(269,'rmt',2,$pa);
 	}
 	
 	function lost269(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		\skillbase\skill_delvalue(269,'rmt',$pa);
+//		\skillbase\skill_delvalue(269,'rmt',$pa);
 	}
 	
 	function check_unlocked269(&$pa)
@@ -34,7 +36,8 @@ namespace skill269
 	function check_available269(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return \skill28\check_available28($pa);
+		return 1;//不再需要毅重生效
+//		return \skill28\check_available28($pa);
 	}
 	
 	function get_rmt269(&$pa)
@@ -45,11 +48,11 @@ namespace skill269
 		return $ret;
 	}
 	
-	function get_rage_cost269(&$pa = NULL)
+	function get_rage_cost269()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill269'));
-		return $ragecost;
+		return array($ragecost, $ragecost0);
 	}
 	
 	function get_hp_cost269(&$pa, &$pd, $fuzzy = 0)
@@ -71,16 +74,17 @@ namespace skill269
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($pa['bskill']!=269) return $chprocess($pa, $pd, $active);
 		$hpcost = get_hp_cost269($pa, $pd);
-		$rmt = get_rmt269($pa);
+		list($rcost,$rcost0) = get_rage_cost269();
+//		$rmt = get_rmt269($pa);
 		eval(import_module('logger'));
 		if (!\skillbase\skill_query(269,$pa) || !check_unlocked269($pa))
 		{
 			$log .= '你尚未解锁这个技能！';
 			$pa['bskill']=0;
 		}
-		elseif($rmt <= 0)
+		elseif($pa['rage'] < $rcost0)
 		{
-			$log .= '你这局游戏已经无法再使用这个技能了！';
+			$log .= '你怒气不足，不能发动此技能！';
 			$pa['bskill']=0;
 		}
 		elseif($hpcost >= $pa['hp'])
@@ -88,34 +92,32 @@ namespace skill269
 			$log .= '你的身体状态不允许你发动这个技能！';
 			$pa['bskill']=0;
 		}
-		elseif(!check_available269($pa))
-		{
-			$log .= '「毅重」生效中才能发动此技能！';
-			$pa['bskill']=0;
-		}
+//		elseif(!check_available269($pa))
+//		{
+//			$log .= '「毅重」生效中才能发动此技能！';
+//			$pa['bskill']=0;
+//		}
 		else
 		{
-			$rcost = get_rage_cost269($pa);
+			$log .= \battle\battlelog_parser($pa, $pd, $active, "<span class=\"lime\"><:pa_name:>对<:pd_name:>发动了技能「浴血」！</span><br>");
+			
 			if ($pa['rage']>=$rcost)
 			{
-				$log .= \battle\battlelog_parser($pa, $pd, $active, 
-					"<span class=\"lime\"><:pa_name:>对<:pd_name:>发动了技能「浴血」！</span><br>
-					<span class=\"yellow\"><:pa_name:>燃烧了<span class=\"red\">{$hpcost}</span>点生命值，打出了置生死于度外的一击！</span><br>");
-
+				//怒气充足则消耗怒气
 				$pa['rage']-=$rcost;
-				$pa['hp']-=$hpcost;
-				$pa['skill269_hpcost']=$hpcost;
-				\skillbase\skill_setvalue(269,'rmt',$rmt-1,$pa);
-				addnews ( 0, 'bskill269', $pa['name'], $pd['name'] );
+				$log .= \battle\battlelog_parser($pa, $pd, $active, "<span class=\"yellow\"><:pa_name:>打出了排山倒海的一击，物理伤害增加了<span class=\"yellow\">{$hpcost}</span>点！</span><br>");
 			}
 			else
 			{
-				if ($active)
-				{
-					$log.='怒气不足。<br>';
-				}
-				$pa['bskill']=0;
+				//否则消耗较低怒气值+生命
+				$pa['rage']-=$rcost0;
+				$pa['hp']-=$hpcost;
+				$log .= \battle\battlelog_parser($pa, $pd, $active, "<span class=\"yellow\"><:pa_name:>燃烧了<span class=\"red\">{$hpcost}</span>点生命值，打出了视死如归的一击！</span><br>");
 			}
+			
+			$pa['skill269_hpcost']=$hpcost;
+//			\skillbase\skill_setvalue(269,'rmt',$rmt-1,$pa);
+			addnews ( 0, 'bskill269', $pa['name'], $pd['name'] );
 		}
 		$chprocess($pa, $pd, $active);
 	}	

@@ -2,7 +2,7 @@
 
 namespace skill228
 {
-	$stuntime228 = 1500;
+	$stuntime228 = 1000;
 	
 	function init() 
 	{
@@ -24,7 +24,7 @@ namespace skill228
 	function check_unlocked228(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return $pa['lvl']>=15;
+		return $pa['lvl']>=21;
 	}
 	
 	function get_rage_cost228(&$pa = NULL)
