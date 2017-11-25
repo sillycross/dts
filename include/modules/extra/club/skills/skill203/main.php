@@ -70,11 +70,12 @@ namespace skill203
 		$chprocess($pa, $pd, $active);
 	}	
 	
-	function get_hitrate(&$pa,&$pd,$active)
+	function get_hitrate_multiplier(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill']!=203) return $chprocess($pa, $pd, $active);
-		return $chprocess($pa, $pd, $active)*1.15;
+		$ret=$chprocess($pa, $pd, $active);
+		if ($pa['bskill']!=203) return $ret;
+		return $ret*1.15;
 	}
 	
 	function get_physical_dmg_multiplier(&$pa, &$pd, $active)

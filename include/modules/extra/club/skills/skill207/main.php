@@ -88,11 +88,12 @@ namespace skill207
 		return $chprocess($pa, $pd, $active)*get_skill207_extra_rb_gain($pa, $pd, $active);
 	}
 	
-	function get_hitrate(&$pa,&$pd,$active)
+	function get_hitrate_multiplier(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(207,$pa) || !check_unlocked207($pa)) return $chprocess($pa, $pd, $active);
-		return $chprocess($pa, $pd, $active)*get_skill207_extra_acc_gain($pa, $pd, $active);
+		$ret=$chprocess($pa, $pd, $active);
+		if (!\skillbase\skill_query(207,$pa) || !check_unlocked207($pa)) return $ret;
+		return $ret*get_skill207_extra_acc_gain($pa, $pd, $active);
 	}
 	
 	function get_skill207_fluc_bonus(&$pa, &$pd, $active)

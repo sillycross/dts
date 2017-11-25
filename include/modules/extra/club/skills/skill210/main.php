@@ -69,7 +69,7 @@ namespace skill210
 		return 3;
 	}
 	
-	/*function get_hitrate(&$pa,&$pd,$active)
+	/*function get_hitrate_multiplier(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!\skillbase\skill_query(210,$pd) || !(check_skill210_state($pd)==1) || $pd['club']!=2 || $pd['wepk']!='WK') return $chprocess($pa, $pd, $active);

@@ -26,6 +26,7 @@ function init_item_place()
 		'npc_i9' => GAME_ROOT.'./include/modules/extra/instance/instance9_rush/config/npc.data.config.php',
 		'addnpc' => GAME_ROOT.'./include/modules/base/addnpc/config/addnpc.config.php',
 		'evonpc' => GAME_ROOT.'./include/modules/extra/club/skills/skill21/config/evonpc.config.php',
+		'wepchange' => GAME_ROOT.'./include/modules/extra/attr/wepchange/config/wepchange.config.php',
 	);
 	$iplacefiledata = array();
 	foreach($iplacefilelist as $ipfkey => $ipfval){
@@ -44,12 +45,28 @@ function init_item_place()
 			$iplacefiledata[$ipfkey] = openfile($ipfval);
 		}
 	}
-	//地图数据预处理，忽略效、耐的不同
+	//地图数据预处理，忽略类别、效、耐、属性的不同，之后同名物品合并
 	foreach(array('mapitem', 'mapitem_i8', 'mapitem_i9',) as $val){
-		foreach($iplacefiledata[$val] as $ndk => $ndv){
+		$combined = array();
+		//第一遍 合并同名物品
+		foreach($iplacefiledata[$val] as $ndv){
 			$ndv_a = explode(',',trim($ndv));
-			$ndv_a[5] = 0; $ndv_a[6] = 1;
-			$iplacefiledata[$val][$ndk] = implode(',', $ndv_a);
+			$ndv_num = $ndv_a[2];//记录数量
+			//忽略数量、类别、效、耐、属性的差异（只保留名字、地点、禁数）
+			$ndv_a[2] = 0; $ndv_a[4] = ''; $ndv_a[5] = 0; $ndv_a[6] = 1; $ndv_a[7] = '';
+			$ndv = implode(',', $ndv_a);
+			if(!isset($combined[$ndv])){
+				$combined[$ndv] = $ndv_num;
+			}else{
+				$combined[$ndv] += $ndv_num;
+			}
+		}
+		//第二遍，重生成道具表
+		$iplacefiledata[$val] = array();
+		foreach($combined as $ck => $cv){
+			$ck_a = explode(',',$ck);
+			$ck_a[2] = $cv;
+			$iplacefiledata[$val][] = implode(',', $ck_a);
 		}
 	}
 	//商店数据预处理，trim
@@ -83,7 +100,9 @@ function init_item_place()
 				if(!empty($ipdval2) && strpos($ipdval2,',')!==false)
 				{
 					list($iarea,$imap,$inum,$iname,$ikind,$ieff,$ista,$iskind) = explode(',',$ipdval2);
-					if ($iarea==99) $idata.="每禁"; else $idata.="{$iarea}禁";
+					if ($iarea==99) $idata.="每禁"; 
+					elseif ($iarea==98) $idata.="1禁后每禁"; 
+					else $idata.="{$iarea}禁";
 					if ($imap==99) $idata.="全图随机"; else $idata.="于{$plsinfo[$imap]}";
 					$idata.="刷新{$inum}个";
 					if(strpos($ipdkey,'_')!==false){//如果特殊模式，加标记
@@ -170,6 +189,14 @@ function init_item_place()
 					}
 				}
 				
+			}
+			//武器切换
+			elseif(strpos($ipdkey, 'wepchange')===0){
+				if(!empty($ipdval2) && strpos($ipdval2,',')!==false)
+				{
+					list($iname0,$iname)=explode(',',$ipdval2);
+					$idata = '从'.$iname0.'切换「武器模式」获得';
+				}
 			}
 			if(empty($iplacedata[$iname])) $iplacedata[$iname] = array();
 			if(!empty($iname) && !empty($idata)) {

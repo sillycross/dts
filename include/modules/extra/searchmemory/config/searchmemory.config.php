@@ -2,8 +2,8 @@
 
 namespace searchmemory
 {
-	$searchmemory_max_slotnum = 5;//×î´ó¼ÇÒäÊý
-	$searchmemory_battle_active_debuff = 0.6;//Ó­Õ½¼ÇÒäÖÐµÄµÐÈËÊ±£¬Íæ¼ÒÏÈÖÆÂÊ³ËÒÔµÄ°Ù·Ö±È
+	$searchmemory_max_slotnum = 5;//æœ€å¤§è®°å¿†æ•°
+	$searchmemory_battle_active_debuff = -40;//è¿Žæˆ˜è®°å¿†ä¸­çš„æ•Œäººæ—¶ï¼ŒçŽ©å®¶å…ˆåˆ¶çŽ‡çš„å‡æˆå€¼
 }
 
 ?>

@@ -58,7 +58,7 @@ namespace enemy
 		eval(import_module('enemy'));
 		//calculate_active_obbs()是加算，返回1-150的数值
 		$active_r = min(max(calculate_active_obbs($ldata,$edata),1), 150);
-		
+		//echo "先攻率基础：$active_r <br>";
 		//calculate_active_obbs_multiplier()是乘算，返回0-1的小数
 		//echo "各技能加成最终值：".calculate_active_obbs_multiplier($ldata,$edata).' <br>';
 		$active_r *= calculate_active_obbs_multiplier($ldata,$edata);

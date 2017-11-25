@@ -135,7 +135,7 @@ namespace skill248
 		return $z;
 	}
 	
-	function get_hitrate(&$pa, &$pd, $active)
+	function get_hitrate_multiplier(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$val=$chprocess($pa, $pd, $active);

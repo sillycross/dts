@@ -62,13 +62,14 @@ namespace skill65
 		$log.='升级成功。<br>';
 	}
 	
-	function get_hitrate(&$pa,&$pd,$active)
+	function get_hitrate_multiplier(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(65,$pa) || !check_unlocked65($pa)) return $chprocess($pa, $pd, $active);
+		$ret=$chprocess($pa, $pd, $active);
+		if (!\skillbase\skill_query(65,$pa) || !check_unlocked65($pa)) return $ret;
 		eval(import_module('skill65'));
 		$clv = (int)\skillbase\skill_getvalue(65,'lvl',$pa);
-		return $chprocess($pa, $pd, $active)*(1-$dodgerate[$clv]/100);
+		return $ret*(1-$dodgerate[$clv]/100);
 	}
 	
 	function get_rapid_accuracy_loss(&$pa, &$pd, $active)

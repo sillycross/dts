@@ -570,7 +570,7 @@ namespace tutorial
 	
 	//接管get_hitrate()
 	//如果设定遭遇NPC时必定命中，那么命中率100%
-	function get_hitrate(&$pa,&$pd,$active){
+	function get_hitrate_change(&$pa,&$pd,$active,$hitrate){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','logger','player','tutorial'));
 		if($gametype == 17){
@@ -579,7 +579,7 @@ namespace tutorial
 				return 100;
 			}
 		}
-		return $chprocess($pa,$pd,$active);
+		return $chprocess($pa,$pd,$active,$hitrate);
 	}
 	
 	//接管apply_weapon_inf()

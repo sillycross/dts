@@ -92,7 +92,7 @@ namespace skill265
 		return array_merge($r,$chprocess($pa,$pd,$active));
 	}
 
-	function get_hitrate(&$pa,&$pd,$active)
+	function get_hitrate_multiplier(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r = 1;

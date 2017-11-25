@@ -98,11 +98,12 @@ namespace skill246
 	}	
 	
 	//命中率增加
-	function get_hitrate(&$pa,&$pd,$active)
+	function get_hitrate_multiplier(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill']!=246) return $chprocess($pa, $pd, $active);
-		return $chprocess($pa, $pd, $active)*1.3;
+		$ret=$chprocess($pa, $pd, $active);
+		if ($pa['bskill']!=246) return $ret;
+		return $ret*1.3;
 	}
 	
 	//不会被发现

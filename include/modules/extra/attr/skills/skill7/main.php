@@ -53,13 +53,22 @@ namespace skill7
 		else  return $chprocess();
 	}
 	
-	function get_hitrate(&$pa,&$pd,$active)		//冻结命中率降低
+	function get_hitrate_multiplier(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_query(7,$pa))			
-			return $chprocess($pa,$pd,$active)*0.8;
-		else  return $chprocess($pa,$pd,$active);
+		$ret = $chprocess($pa,$pd,$active);
+		if (\skillbase\skill_query(7,$pa))		//冻结命中率降低
+			$ret *= 0.8;
+		return $ret;
 	}
+	
+//	function get_hitrate(&$pa,&$pd,$active)		//冻结命中率降低
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		if (\skillbase\skill_query(7,$pa))			
+//			return $chprocess($pa,$pd,$active)*0.8;
+//		else  return $chprocess($pa,$pd,$active);
+//	}
 	
 	function get_def_multiplier(&$pa,&$pd,$active)	//冻结防御力降低
 	{

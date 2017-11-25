@@ -69,10 +69,10 @@ namespace skill223
 		$chprocess($pa, $pd, $active);
 	}	
 	
-	function get_hitrate(&$pa,&$pd,$active)
+	function get_hitrate_change(&$pa,&$pd,$active,$hitrate)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill']!=223) return $chprocess($pa, $pd, $active);
+		if ($pa['bskill']!=223) return $chprocess($pa, $pd, $active,$hitrate);
 		return 10000;
 	}
 	
