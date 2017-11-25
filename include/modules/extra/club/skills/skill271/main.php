@@ -62,10 +62,12 @@ namespace skill271
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$all_arr = get_all_attr271();
 		$a_arr = \attrbase\get_ex_attack_array($pa, $pd, $active);
+		$a_arr[] = $pa['wep_kind'];
 		$ad_arr = array();
 		foreach($a_arr as $ak){
 			if(isset($all_arr[$ak]))	$ad_arr[] = $all_arr[$ak];
 		}
+		
 		$arr = \attrbase\get_ex_def_array($pa, $pd, $active);		
 		if(in_array('A', $arr)) {
 			eval(import_module('ex_phy_def'));
@@ -75,6 +77,7 @@ namespace skill271
 			eval(import_module('ex_dmg_def'));
 			$arr = array_diff(array_merge($arr, array_values($def_kind)), array('a'));
 		}
+		
 		$arr = array_unique(array_intersect($arr, $ad_arr));
 		return $arr;
 	}
@@ -88,15 +91,17 @@ namespace skill271
 			$t = get_skill271_times($pa, $pd, $active);
 			if($t > 0){
 				$pd_def_arr = get_avaliable_attr271($pa, $pd, $active);
-				shuffle($pd_def_arr);
-				$pa['skill271_list'] = array_slice($pd_def_arr, 0, $t);
-				eval(import_module('logger','itemmain'));
-				$words = array();
-				foreach($pa['skill271_list'] as $val){
-					$words[] = $itemspkinfo[$val];
+				if($pd_def_arr){
+					shuffle($pd_def_arr);
+					$pa['skill271_list'] = array_slice($pd_def_arr, 0, $t);
+					eval(import_module('logger','itemmain'));
+					$words = array();
+					foreach($pa['skill271_list'] as $val){
+						$words[] = $itemspkinfo[$val];
+					}
+					$words = implode('、',$words);
+					$log .= \battle\battlelog_parser($pa, $pd, $active, '<:pa_name:>的「神裁」技能使<:pa_name:>无视了<:pd_name:>的'.$words.'属性！<br>');
 				}
-				$words = implode('、',$words);
-				$log .= \battle\battlelog_parser($pa, $pd, $active, '<:pa_name:>的「神裁」技能使<:pa_name:>无视了<:pd_name:>的'.$words.'属性！<br>');
 			}
 			
 		}

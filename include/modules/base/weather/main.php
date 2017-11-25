@@ -44,7 +44,9 @@ namespace weather
 	function calculate_active_obbs(&$ldata,&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		//echo "天气修正：+".calculate_weather_active_obbs($ldata,$edata).'% <br>';
+//		eval(import_module('sys','weather'));
+//		echo "当前天气：".$wthinfo[$weather].' ';
+//		echo "天气修正：+".calculate_weather_active_obbs($ldata,$edata).'% <br>';
 		return $chprocess($ldata,$edata)+calculate_weather_active_obbs($ldata,$edata);
 	}
 	
@@ -74,13 +76,15 @@ namespace weather
 		return $chprocess($pa,$pd,$active)*calculate_weather_defend_modifier($pa,$pd,$active);
 	}
 	
-	function get_hitrate(&$pa,&$pd,$active)
+	function get_hitrate_base(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','weather'));
+		$ret = $chprocess($pa,$pd,$active);
+		$a = 0;
 		if($weather == 12)
-			return $chprocess($pa,$pd,$active)+20;
-		else  return $chprocess($pa,$pd,$active);
+			$a=20;
+		return $ret+$a;
 	}
 	
 	function calculate_hailstorm_weather_damage()

@@ -26,7 +26,7 @@ namespace skill478
 	}
 	//悲运：命中率、回避率、反击率都下降10%，受伤和异常率上升10%
 	
-	function get_hitrate(&$pa,&$pd,$active)
+	function get_hitrate_multiplier(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r=1;

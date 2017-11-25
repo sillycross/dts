@@ -264,15 +264,16 @@ namespace searchmemory
 	}
 	
 	//迎战探索记忆的敌人时，玩家先制率debuff
-	function calculate_active_obbs_multiplier(&$ldata,&$edata)
+	function calculate_active_obbs(&$ldata,&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player','logger','searchmemory'));
+		$ret = $chprocess($ldata,$edata);
 		if(isset($sdata['sm_active_debuff']) && $sdata['sm_active_debuff']) {
 			//$log .= '<span class="red">两次打扰同一玩家使你的先制率降低了。</span><br>';
-			return $chprocess($ldata,$edata) * $searchmemory_battle_active_debuff;
+			$ret += $searchmemory_battle_active_debuff;
 		}
-		else return $chprocess($ldata,$edata);
+		return $ret;
 	}
 	
 	//移动后丢失所有探索记忆

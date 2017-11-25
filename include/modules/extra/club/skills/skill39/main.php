@@ -5,6 +5,9 @@ namespace skill39
 	function init() 
 	{
 		define('MOD_SKILL39_INFO','club;upgrade;locked;');
+		eval(import_module('clubbase'));
+		$clubdesc_h[14] = $clubdesc_a[14] = '初始基础攻击力、防御力各+200<br>每次升级额外获得2点攻击力和2-3点防御力<br>技能点换取攻防数值大幅提高';
+		//肌肉的特性显示实际上在skill79里
 	}
 	
 	function acquire39(&$pa)

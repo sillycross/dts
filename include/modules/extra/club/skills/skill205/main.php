@@ -7,7 +7,7 @@ namespace skill205
 	
 	function init() 
 	{
-		define('MOD_SKILL205_INFO','club;battle;');
+		define('MOD_SKILL205_INFO','club;battle;locked;');
 		eval(import_module('clubbase'));
 		$clubskillname[205] = '咆哮';
 	}

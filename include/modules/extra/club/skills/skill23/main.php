@@ -4,7 +4,10 @@ namespace skill23
 {
 	function init() 
 	{
-		define('MOD_SKILL23_INFO','club;active;hidden;');
+		define('MOD_SKILL23_INFO','club;active;locked;');
+		eval(import_module('clubbase'));
+		$clubskillname[23] = '宝石';
+		$clubdesc_h[20] = $clubdesc_a[20] = '可用「方块」道具为武器或防具增加效耐值或添加属性';
 	}
 	
 	function acquire23(&$pa)
@@ -15,6 +18,12 @@ namespace skill23
 	function lost23(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+	}
+	
+	function check_unlocked23(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 1;
 	}
 		
 	function gemming_itme_buff(&$itm,&$itmk,&$itme,&$itms,&$itmsk,$lb,$ub)
@@ -40,7 +49,7 @@ namespace skill23
 	function gemming($t1, $t2)	//宝石骑士宝石buff技能
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','itemmain','logger'));
+		eval(import_module('sys','player','itemmain','logger','skill23'));
 
 		if ($t1!='wep' && $t1!='arb' && $t1!='arh' && $t1!='ara' && $t1!='arf')
 		{
@@ -93,68 +102,28 @@ namespace skill23
 			return;
 		}
 		
-		$buff=Array();
-		
-		if ($gem=='红色方块')	//火焰
-			if ($t1=='wep')
-				$buff=Array(Array(35,'u'));
-			else  $buff=Array(Array(65,'P'),Array(35,'U'));
-		else  if ($gem=='黄色方块')	//重辅
-			if ($t1=='wep')
-				$buff=Array(Array(100,'c'));
-			else  $buff=Array(Array(65,'D'),Array(35,'c'));
-		else  if ($gem=='蓝色方块')	//冻气
-			if ($t1=='wep')
-				$buff=Array(Array(35,'i'));
-			else  $buff=Array(Array(65,'G'),Array(35,'I'));
-		else  if ($gem=='绿色方块')	//带毒
-			if ($t1=='wep')
-				$buff=Array(Array(35,'p'));
-			else  $buff=Array(Array(65,'K'),Array(35,'q'));
-		else  if ($gem=='金色方块')	//电击
-			if ($t1=='wep')
-				$buff=Array(Array(35,'e'));
-			else  $buff=Array(Array(65,'C'),Array(35,'E'));
-		else  if ($gem=='银色方块')	//音波
-			if ($t1=='wep')
-				$buff=Array(Array(35,'w'));
-			else  $buff=Array(Array(65,'F'),Array(35,'W'));
-		else  if ($gem=='红宝石方块')	//火焰/灼焰
-			if ($t1=='wep')
-				$buff=Array(Array(65,'u'),Array(35,'f'));
-			else  $buff=Array(Array(100,'U'));
-		else  if ($gem=='蓝宝石方块')	//冻气/冰华
-			if ($t1=='wep')
-				$buff=Array(Array(65,'i'),Array(35,'k'));
-			else  $buff=Array(Array(100,'I'));
-		else  if ($gem=='黄鸡方块')	//天然/菁英
-			$buff=Array(Array(1,'Z'),Array(99,'z'));
-		else  if ($gem=='绿宝石方块')	//武器：随机攻击属性 装备：随机防御属性
-		{	
-			if ($t1=='wep')
-				$buff=Array(Array(15,'u'),Array(15,'i'),Array(15,'p'),Array(15,'e'),Array(15,'w'),Array(6,'f'),Array(6,'k'),Array(6,'n'),Array(6,'N'),Array(1,'d'));
-			else  $buff=Array(Array(15,'C'),Array(15,'D'),Array(15,'F'),Array(15,'G'),Array(15,'K'),Array(15,'P'),Array(3,'A'),Array(3,'a'),Array(4,'H'));
-		}
-		else  if ($gem=='水晶方块')	//连击/HP制御
-			if ($t1=='wep')
-				$buff=Array(Array(1,'r'));
-			else  $buff=Array(Array(5,'H'));
-		else  if ($gem=='黑色方块')	//贯穿
-			if ($t1=='wep')
-				$buff=Array(Array(5,'n'));
-			else  $buff=Array(Array(5,'m'));
-		else  if ($gem=='白色方块')	//冲击
-			if ($t1=='wep')
-				$buff=Array(Array(5,'N'));
-			else  $buff=Array(Array(5,'M'));
-		else 
-		{
-			$log.="你的物品不是合法的宝石或方块。<br>请参阅帮助获得所有合法的宝石或方块及它们的对应改造属性的列表。<br>";
+		if(isset($bufflist23[$gem])){
+			$tmp_gemk = substr($itmk,0,1);
+			if(isset($bufflist23[$gem][$tmp_gemk])){
+				$buff = $bufflist23[$gem][$tmp_gemk];
+			}else{
+				$log.="你的物品不是宝石改造的有效目标";
+				$mode = 'command';
+				return;
+			}
+		}else{
+			$log.="你的物品不是有效的宝石或方块。<br>请参阅帮助获得所有有效的宝石或方块及它们的对应改造属性的列表。<br>";
 			$mode = 'command';
 			return;
 		}
-			
-		$dice=rand(1,100); $flag=0;
+		
+		$dicesum = 0;
+		foreach ($buff as $value)
+		{
+			$dicesum += $value[0];
+		}
+		if($dicesum < 100) $dicesum = 100;
+		$dice=rand(1,$dicesum); $flag=0;
 		$log.="你将<span class=\"yellow\">{$gem}</span>镶嵌到了<span class=\"yellow\">{$itm}</span>上。<br>";
 		
 		$lb=10; $ub=20;
@@ -167,7 +136,6 @@ namespace skill23
 				$flag=1;
 				gemming_itme_buff($itm,$itmk,$itme,$itms,$itmsk,$lb,$ub);
 				$log.="同时，你的装备<span class=\"yellow\">{$itm}</span>还获得了“<span class=\"yellow\">{$itemspkinfo[$value[1]]}</span>”属性！<br>";
-				include_once GAME_ROOT.'./include/news.func.php';
 				addnews ( 0, 'gemming', $name, $gem, $itm, $itemspkinfo[$value[1]]);
 				if (strpos($itmsk,$value[1]) === false) $itmsk.=$value[1];
 				break;

@@ -100,10 +100,10 @@ namespace skill49
 	}	
 	
 	//必中
-	function get_hitrate(&$pa,&$pd,$active)
+	function get_hitrate_change(&$pa,&$pd,$active,$hitrate)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill']!=49) return $chprocess($pa, $pd, $active);
+		if ($pa['bskill']!=49) return $chprocess($pa, $pd, $active,$hitrate);
 		return 10000;
 	}
 	

@@ -42,13 +42,14 @@ namespace skill450
 		return array_merge($r,$chprocess($pa,$pd,$active));
 	}
 	
-	function get_hitrate(&$pa,&$pd,$active)
+	function get_hitrate_multiplier(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(450,$pa) || !check_unlocked450($pa)) return $chprocess($pa, $pd, $active);
+		$ret=$chprocess($pa, $pd, $active);
+		if (!\skillbase\skill_query(450,$pa) || !check_unlocked450($pa)) return $ret;
 		if ($pd['hp']<($pd['mhp']*0.2)){
-			return $chprocess($pa, $pd, $active)*1.1;
-		}else return $chprocess($pa, $pd, $active);
+			return $ret*1.1;
+		}else return $ret;
 	}
 }
 

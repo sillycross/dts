@@ -9,7 +9,7 @@ namespace skill265
 	
 	function init() 
 	{
-		define('MOD_SKILL265_INFO','club;battle;');
+		define('MOD_SKILL265_INFO','club;battle;locked;');
 		eval(import_module('clubbase'));
 		$clubskillname[265] = '狙击';
 	}
@@ -92,7 +92,7 @@ namespace skill265
 		return array_merge($r,$chprocess($pa,$pd,$active));
 	}
 
-	function get_hitrate(&$pa,&$pd,$active)
+	function get_hitrate_multiplier(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r = 1;

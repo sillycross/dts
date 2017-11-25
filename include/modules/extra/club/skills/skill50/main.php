@@ -36,12 +36,13 @@ namespace skill50
 		else  return 0;
 	}
 	
-	function get_hitrate(&$pa, &$pd, $active)
+	function get_hitrate_multiplier(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(50,$pd) || !check_unlocked50($pd)) return $chprocess($pa, $pd, $active);
-		if (!check_skill50_proc($pd, $pa, 1-$active)) return $chprocess($pa, $pd, $active);
-		return $chprocess($pa, $pd, $active)*0.88;
+		$ret=$chprocess($pa, $pd, $active);
+		if (!\skillbase\skill_query(50,$pd) || !check_unlocked50($pd)) return $ret;
+		if (!check_skill50_proc($pd, $pa, 1-$active)) return $ret;
+		return $ret*0.88;
 	}
 	
 	function get_rapid_accuracy_loss(&$pa, &$pd, $active)

@@ -58,7 +58,7 @@ namespace skill270
 		else  return 0;
 	}
 	
-	function get_hitrate(&$pa, &$pd, $active)
+	function get_hitrate_multiplier(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa, $pd, $active);
@@ -70,17 +70,28 @@ namespace skill270
 		return $ret;
 	}
 	
-	function calculate_active_obbs(&$ldata,&$edata)
+	function calculate_active_obbs_multiplier(&$ldata,&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$a = 0;
+		$r = 1;
 		if (\skillbase\skill_query(270,$ldata) && check_unlocked270($ldata) && check_skill270_proc($ldata, $edata, 1)) {
 			eval(import_module('skill270'));
-			$a += $skill270active;
+			$r += $skill270active/100;
 		}
-		//echo 'activeadd'.$a;
-		return $chprocess($ldata,$edata)+$a;
+		return $chprocess($ldata,$edata)*$r;
 	}
+	
+//	function calculate_active_obbs(&$ldata,&$edata)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		$a = 0;
+//		if (\skillbase\skill_query(270,$ldata) && check_unlocked270($ldata) && check_skill270_proc($ldata, $edata, 1)) {
+//			eval(import_module('skill270'));
+//			$a += $skill270active;
+//		}
+//		//echo 'activeadd'.$a;
+//		return $chprocess($ldata,$edata)+$a;
+//	}
 	
 }
 

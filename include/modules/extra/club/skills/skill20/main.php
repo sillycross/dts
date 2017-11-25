@@ -5,6 +5,9 @@ namespace skill20
 	function init() 
 	{
 		define('MOD_SKILL20_INFO','club;hidden;');
+		eval(import_module('clubbase'));
+		$clubdesc_a[5] .= '<br>合成爆炸物时耐久数+50%';
+		$clubdesc_h[5] .= '<br>合成爆炸物时耐久数+50%';
 	}
 	
 	function acquire20(&$pa)

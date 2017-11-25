@@ -4,7 +4,10 @@ namespace skill69
 {
 	function init() 
 	{
-		define('MOD_SKILL69_INFO','club;hidden;');
+		define('MOD_SKILL69_INFO','club;locked;');
+		eval(import_module('clubbase'));
+		$clubskillname[69] = '富家';
+		$clubdesc_h[11] = $clubdesc_a[11] = '初始金钱为500元；购买物品时价格打七五折';
 	}
 	
 	function acquire69(&$pa)

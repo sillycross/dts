@@ -4,7 +4,7 @@ namespace skill260
 {
 	////////// MODULE HEADER START ///////////////
 	$___MODULE_dependency = 'skillbase weapon logger clubbase';
-	$___MODULE_dependency_optional = '';
+	$___MODULE_dependency_optional = 'skill256';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';
 	$___MODULE_templatelist = 'desc';

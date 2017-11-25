@@ -41,11 +41,12 @@ namespace skill444
 		return array_merge($r,$chprocess($pa,$pd,$active));
 	}
 	
-	function get_hitrate(&$pa, &$pd, $active)
+	function get_hitrate_multiplier(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(444,$pa) || !check_unlocked444($pa)) return $chprocess($pa, $pd, $active);
-		return $chprocess($pa, $pd, $active)*0.45;
+		$ret=$chprocess($pa, $pd, $active);
+		if (!\skillbase\skill_query(444,$pa) || !check_unlocked444($pa)) return $ret;
+		return $ret*0.45;
 	}
 	
 	function get_rapid_accuracy_loss(&$pa, &$pd, $active)

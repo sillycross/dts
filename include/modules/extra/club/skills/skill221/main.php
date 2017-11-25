@@ -22,7 +22,7 @@ namespace skill221
 	function check_unlocked221(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return 1;
+		return $pa['lvl']>=7;
 	}
 	
 	function get_skill221_lasttime(&$pa,&$pd,&$active){

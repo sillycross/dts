@@ -4,9 +4,10 @@ namespace skill233
 {
 	function init() 
 	{
-		define('MOD_SKILL233_INFO','club;hidden;');
+		define('MOD_SKILL233_INFO','club;');
 		eval(import_module('clubbase'));
 		$clubskillname[233] = '网瘾';
+		$clubdesc_h[7] .= '<br>使用移动PC解除禁区成功率为95%，且完全无风险';
 	}
 	
 	function acquire233(&$pa)
@@ -17,6 +18,12 @@ namespace skill233
 	function lost233(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+	}
+	
+	function check_unlocked233(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 1;
 	}
 	
 	function calculate_hack_proc_rate()

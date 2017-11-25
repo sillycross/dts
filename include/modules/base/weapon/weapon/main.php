@@ -99,14 +99,43 @@ namespace weapon
 		$chprocess($pdata);
 	}
 	
-	function get_hitrate(&$pa,&$pd,$active)
+	//命中率基础值，这个函数应该是加算
+	function get_hitrate_base(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
 		eval(import_module('weapon'));
 		$hitrate = $hitrate_obbs[$pa['wep_kind']];
 		$hitrate += round($pa['fin_skill'] * $hitrate_r[$pa['wep_kind']]); 
 		$hitrate = min($hitrate, $hitrate_max_obbs[$pa['wep_kind']]);
+		return $hitrate;
+	}
+	
+	//命中率加成值，这个函数应该是乘算
+	function get_hitrate_multiplier(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 1;
+	}
+	
+	//命中率修正值
+	function get_hitrate_change(&$pa,&$pd,$active,$hitrate)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $hitrate;
+	}
+	
+	function get_hitrate(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$hitrate = get_hitrate_base($pa,$pd,$active);
+		//echo '命中率基础值'.$hitrate;
+		$hitrate_r = get_hitrate_multiplier($pa,$pd,$active);
+		$hitrate *= $hitrate_r;
+		//echo '命中率加成值'.$hitrate;
+		$hitrate_c = get_hitrate_change($pa,$pd,$active,$hitrate);
+		$hitrate = $hitrate_c;
+		//echo '命中率修正值'.$hitrate;
+		
 		return $hitrate;
 	}
 	

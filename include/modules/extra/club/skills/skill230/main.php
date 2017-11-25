@@ -4,7 +4,10 @@ namespace skill230
 {
 	function init() 
 	{
-		define('MOD_SKILL230_INFO','club;active;hidden;');
+		define('MOD_SKILL230_INFO','club;active;locked;');
+		eval(import_module('clubbase'));
+		$clubskillname[230] = '感电';
+		$clubdesc_h[7] = $clubdesc_a[7] = '能够用电池、探测器电池为武器增加电击属性';
 	}
 	
 	function acquire230(&$pa)
@@ -15,6 +18,12 @@ namespace skill230
 	function lost230(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+	}
+	
+	function check_unlocked230(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 1;
 	}
 	
 	function wele(){
