@@ -4,7 +4,10 @@ namespace skill23
 {
 	function init() 
 	{
-		define('MOD_SKILL23_INFO','club;active;hidden;');
+		define('MOD_SKILL23_INFO','club;active;locked;');
+		eval(import_module('clubbase'));
+		$clubskillname[23] = '宝石';
+		$clubdesc_a[20] = '可用「方块」道具为武器或防具增加效耐值或添加属性';
 	}
 	
 	function acquire23(&$pa)
@@ -15,6 +18,12 @@ namespace skill23
 	function lost23(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+	}
+	
+	function check_unlocked23(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 1;
 	}
 		
 	function gemming_itme_buff(&$itm,&$itmk,&$itme,&$itms,&$itmsk,$lb,$ub)

@@ -4,7 +4,10 @@ namespace skill220
 {
 	function init() 
 	{
-		define('MOD_SKILL220_INFO','club;active;hidden;');
+		define('MOD_SKILL220_INFO','club;active;locked;');
+		eval(import_module('clubbase'));
+		$clubskillname[220] = '毒师';
+		$clubdesc_a[8] .= '<br>用毒药给补给下毒造成的伤害x2；可以检查补给是否有毒';
 	}
 	
 	function acquire220(&$pa)
@@ -15,6 +18,12 @@ namespace skill220
 	function lost220(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+	}
+	
+	function check_unlocked220(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 1;
 	}
 
 	function pcheck($itmn){

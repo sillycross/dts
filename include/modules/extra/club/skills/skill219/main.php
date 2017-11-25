@@ -4,7 +4,10 @@ namespace skill219
 {
 	function init() 
 	{
-		define('MOD_SKILL219_INFO','club;active;hidden;');
+		define('MOD_SKILL219_INFO','club;active;locked;');
+		eval(import_module('clubbase'));
+		$clubskillname[219] = '淬毒';
+		$clubdesc_a[8] = '能够用毒药为武器淬毒（增加带毒属性）';
 	}
 	
 	function acquire219(&$pa)
@@ -15,6 +18,12 @@ namespace skill219
 	function lost219(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+	}
+	
+	function check_unlocked219(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 1;
 	}
 	
 	function wpoison(){

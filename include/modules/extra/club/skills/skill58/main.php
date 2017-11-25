@@ -4,7 +4,10 @@ namespace skill58
 {
 	function init() 
 	{
-		define('MOD_SKILL58_INFO','club;hidden;');
+		define('MOD_SKILL58_INFO','club;locked;');
+		eval(import_module('clubbase'));
+		$clubskillname[58] = '复活';
+		$clubdesc_a[24] = '你被战斗/陷阱杀死时会立即复活。1局游戏只能复活1次。';
 	}
 	
 	function acquire58(&$pa)
@@ -18,6 +21,12 @@ namespace skill58
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		\skillbase\skill_delvalue(58,'r',$pa);
+	}
+	
+	function check_unlocked58(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 1;
 	}
 	
 	function kill(&$pa, &$pd)

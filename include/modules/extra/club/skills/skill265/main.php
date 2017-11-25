@@ -9,7 +9,7 @@ namespace skill265
 	
 	function init() 
 	{
-		define('MOD_SKILL265_INFO','club;battle;');
+		define('MOD_SKILL265_INFO','club;battle;locked;');
 		eval(import_module('clubbase'));
 		$clubskillname[265] = '狙击';
 	}

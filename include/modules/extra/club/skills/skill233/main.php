@@ -7,6 +7,7 @@ namespace skill233
 		define('MOD_SKILL233_INFO','club;hidden;');
 		eval(import_module('clubbase'));
 		$clubskillname[233] = '网瘾';
+		$clubdesc_a[7] .= '<br>使用移动PC解除禁区成功率为95%，且完全无风险';
 	}
 	
 	function acquire233(&$pa)
