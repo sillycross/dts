@@ -306,6 +306,8 @@ $mixinfo = array
 	array('class' => 'ocg', 'stuff' => array('救世魔龙 -仮','☆十星认证☆'),'result' => array('「救世魔龙」 ★10','WC10',950,'∞','uf'),),
 	array('class' => 'ocg', 'stuff' => array('救世星龙 -仮','☆十星认证☆','★神卡认证★'),'result' => array('『流天类星龙』 ★12','WC12',4000,'∞','mcrtZ'),),
 	array('class' => 'ocg', 'stuff' => array('No39.希望皇 霍普 ☆4','CNo.39 希望皇 霍普雷 ☆4'),'result' => array('闪光No.39 希望皇 霍普·电光皇','WC',600,'∞','be'),),
+	array('class' => 'ocg', 'stuff' => array('☆五星认证☆','☆七星认证☆','游戏王三星素材'),'result' => array('「调整中」','WC',573,573,'z'),),
+	array('class' => 'ocg', 'stuff' => array('「调整中」','☆十星认证☆'),'result' => array('「禁卡表」','WC',573,'∞','konami'),),
 	 
 	array('class' => 'hidden', 'stuff' => array('红宝石方块','蓝宝石方块','绿宝石方块','非法枪械部件'),'result' => array('『宝石光束炮-试作型』','WG',1800,144,'ndo'),),
 	array('class' => 'hidden', 'stuff' => array('歌词卡片【海洋】','歌词卡片【大地】','歌词卡片【星空】'),'result' => array('破灭之诗','Y',1,1,95),),

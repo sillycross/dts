@@ -7,9 +7,9 @@ $clubskillname[$___TEMP_SKILL_ID]
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
 <span class="clan">称号特性</span> $clubdesc_a[24]
-<!--{eval $r58=\skillbase\skill_setvalue(58,'r',$who);}-->
+<!--{eval $r58=\skillbase\skill_getvalue(58,'r',$who);}-->
 <!--{if $r58}-->
-<span class="red">你本局游戏已经复活过1次了！</span>
+<br><span class="red b">你本局游戏已经复活过1次了！</span>
 <!--{/if}-->
 </span></td>
 <td class=b3 width=96>
