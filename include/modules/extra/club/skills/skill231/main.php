@@ -7,6 +7,7 @@ namespace skill231
 		define('MOD_SKILL231_INFO','club;hidden;');
 		eval(import_module('clubbase'));
 		$clubdesc_a[7] .= '<br>电击属性致伤率+20%';
+		$clubdesc_h[7] .= '<br>电击属性致伤率+20%';
 	}
 	
 	function acquire231(&$pa)

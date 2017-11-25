@@ -8,6 +8,8 @@ namespace skill24
 		eval(import_module('clubbase'));
 		$clubdesc_a[20] .= '<br>每次升级额外获得1-2点生命';
 		$clubdesc_a[24] .= '<br>每次升级额外获得1-2点生命';
+		$clubdesc_h[20] .= '<br>每次升级额外获得1-2点生命';
+		$clubdesc_h[24] .= '<br>每次升级额外获得1-2点生命';
 	}
 	
 	function acquire24(&$pa)

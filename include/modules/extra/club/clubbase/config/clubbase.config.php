@@ -51,6 +51,9 @@ namespace clubbase
 	//会影响帮助以及技能列表里这个称号的特性
 	//请在各个称号里进行赋值，这里只写注释代表哪个数字已经被某个模块占用了
 	$clubdesc_a = Array();
+	
+	//同上，不过这是在帮助页面显示的。部分称号有区别
+	$clubdesc_h = Array();
 
 	//各称号技能名称
 	$clubskillname = Array();

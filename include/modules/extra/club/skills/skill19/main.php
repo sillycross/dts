@@ -7,6 +7,7 @@ namespace skill19
 		define('MOD_SKILL19_INFO','club;hidden;');
 		eval(import_module('clubbase'));
 		$clubdesc_a[5] .= '<br>埋设陷阱时额外获得1-2点爆熟和经验值';
+		$clubdesc_h[5] .= '<br>埋设陷阱时额外获得1-2点爆熟和经验值';
 	}
 	
 	function acquire19(&$pa)

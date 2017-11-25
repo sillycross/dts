@@ -7,7 +7,7 @@ namespace skill256
 		define('MOD_SKILL256_INFO','club;locked;');
 		eval(import_module('clubbase'));
 		$clubskillname[256] = '拳法';
-		$clubdesc_a[19] = '开局获得50点殴系熟练度';
+		$clubdesc_h[19] = $clubdesc_a[19] = '开局获得50点殴系熟练度';
 	}
 	
 	function acquire256(&$pa)

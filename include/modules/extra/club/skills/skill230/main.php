@@ -7,7 +7,7 @@ namespace skill230
 		define('MOD_SKILL230_INFO','club;active;locked;');
 		eval(import_module('clubbase'));
 		$clubskillname[230] = '感电';
-		$clubdesc_a[7] = '能够用电池、探测器电池为武器增加电击属性';
+		$clubdesc_h[7] = $clubdesc_a[7] = '能够用电池、探测器电池为武器增加电击属性';
 	}
 	
 	function acquire230(&$pa)

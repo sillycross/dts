@@ -7,6 +7,7 @@ namespace skill224
 		define('MOD_SKILL224_INFO','club;hidden;');
 		eval(import_module('clubbase'));
 		$clubdesc_a[8] .= '<br>带毒属性致伤率+12%';
+		$clubdesc_h[8] .= '<br>带毒属性致伤率+12%';
 	}
 	
 	function acquire224(&$pa)

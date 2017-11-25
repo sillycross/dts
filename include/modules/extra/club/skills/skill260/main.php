@@ -8,6 +8,7 @@ namespace skill260
 		eval(import_module('clubbase'));
 		$clubskillname[260] = '熟练';
 		$clubdesc_a[19] .= '<br>空手作战时有35%/5%/5%/5%的几率额外获得1/2/3/4点熟练';
+		$clubdesc_h[19] .= '<br>空手作战时有35%/5%/5%/5%的几率额外获得1/2/3/4点熟练';
 	}
 	
 	function acquire260(&$pa)

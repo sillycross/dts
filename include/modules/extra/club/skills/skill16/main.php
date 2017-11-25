@@ -7,7 +7,7 @@ namespace skill16
 		define('MOD_SKILL16_INFO','club;locked;');
 		eval(import_module('clubbase'));
 		$clubskillname[16] = '投手';
-		$clubdesc_a[4] = '开局获得25点投系熟练度，每次升级时获得4-6点投系熟练度';
+		$clubdesc_h[4] = $clubdesc_a[4] = '开局获得25点投系熟练度，每次升级时获得4-6点投系熟练度';
 	}
 	
 	function acquire16(&$pa)

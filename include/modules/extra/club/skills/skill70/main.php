@@ -7,7 +7,7 @@ namespace skill70
 		define('MOD_SKILL70_INFO','club;locked;');
 		eval(import_module('clubbase'));
 		$clubskillname[70] = '天赋';
-		$clubdesc_a[18] = '开局获得5点全系熟练和5点技能点<br>升到偶数级时额外获得1点技能点<br>计算武器熟练度时会额外加上其他各系熟练度的25%';
+		$clubdesc_h[18] = $clubdesc_a[18] = '开局获得5点全系熟练和5点技能点<br>升到偶数级时额外获得1点技能点<br>计算武器熟练度时会额外加上其他各系熟练度的25%';
 	}
 	
 	function acquire70(&$pa)

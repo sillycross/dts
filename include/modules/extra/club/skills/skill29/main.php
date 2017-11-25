@@ -6,7 +6,7 @@ namespace skill29
 	{
 		define('MOD_SKILL29_INFO','club;upgrade;locked;');
 		eval(import_module('clubbase'));
-		$clubdesc_a[13] = '初始生命上限+200，每次升级额外获得5-7点生命上限<br>技能点换取生命上限数值大幅提高';//根性的特性显示是在skill31里
+		$clubdesc_h[13] = $clubdesc_a[13] = '初始生命上限+200，每次升级额外获得5-7点生命上限<br>技能点换取生命上限数值大幅提高';//根性的特性显示是在skill31里
 	}
 	
 	function acquire29(&$pa)

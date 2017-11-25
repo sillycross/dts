@@ -29,7 +29,7 @@ namespace skill232
 	function check_unlocked232(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return 1;
+		return $pa['lvl']>=5;
 	}
 	
 	function upgrade232()

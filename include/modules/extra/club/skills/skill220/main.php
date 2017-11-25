@@ -7,7 +7,7 @@ namespace skill220
 		define('MOD_SKILL220_INFO','club;active;locked;');
 		eval(import_module('clubbase'));
 		$clubskillname[220] = '毒师';
-		$clubdesc_a[8] .= '<br>用毒药给补给下毒造成的伤害x2；可以检查补给是否有毒';
+		$clubdesc_h[8] .= '<br>用毒药给补给下毒造成的伤害x2；可以检查补给是否有毒';
 	}
 	
 	function acquire220(&$pa)
