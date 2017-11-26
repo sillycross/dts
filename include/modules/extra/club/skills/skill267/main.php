@@ -108,7 +108,7 @@ namespace skill267
 			unset($pa['skill267ohp']);
 			if($mhpup > 0 && $active) {
 				eval(import_module('logger'));
-				$log .= '「代偿」让你的生命上限增加了<span class="lime">'.$mhpup.'<span>点！<br>';
+				$log .= '「代偿」让你的生命上限增加了<span class="lime">'.$mhpup.'</span>点！<br>';
 			}
 		}
 		if(\skillbase\skill_query(267,$pd) && check_unlocked267($pd)) {
@@ -116,7 +116,7 @@ namespace skill267
 			unset($pd['skill267ohp']);
 			if($mhpup > 0 && !$active) {
 				eval(import_module('logger'));
-				$log .= '「代偿」让你的生命上限增加了<span class="lime">'.$mhpup.'<span>点！<br>';
+				$log .= '「代偿」让你的生命上限增加了<span class="lime">'.$mhpup.'</span>点！<br>';
 			}
 		}
 		

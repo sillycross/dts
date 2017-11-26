@@ -20,6 +20,7 @@ namespace tactic
 		return $chprocess($pa, $pd, $active);
 	}
 	
+	//若要接管此函数，请阅读base\battle\battle.php里的注释，并加以判断
 	function calculate_meetman_rate($schmode)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -42,7 +43,7 @@ namespace tactic
 		return $chprocess($edata)+$tactic_hide_obbs[$edata['tactic']];
 	}
 	
-	function calculate_counter_rate(&$pa, &$pd, $active)
+	function calculate_counter_rate_base(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r = 0;

@@ -2,6 +2,68 @@
 <br>
 <div style="width:800px; margin:0 auto; text-align:left;font-size:15px; line-height:22px;">
 <h2>更新日志</h2>
+<h3>11月26日 (v1.7.5)</h3>
+<p>数据调整：</p>
+<ul>
+	<li>反击率规范化：反击率计算分为不可反击判定、反击率基础、反击率加成、反击率修正共4个阶段。
+		<ul>
+			<li>不可反击判定：最优先判定。如果这里判断不可反击，就不会经过后面3个阶段。换句话说就是：<span class="yellow">“不可反击”会覆盖“必定反击”的效果</span>。治疗姿态、重视躲避、武器射程不足、偷袭技能、眩晕状态会触发此判定。
+			<li>反击率基础值：根据武器系别不同得出基础值（空手60，殴斩65，射50，投30，重枪20）；如果被攻击者是重视反击策略，那么这个值+30。这一阶段是<span class="yellow">加减关系</span>。
+			<li>反击率加成值：异常状态、技能对反击率的影响。这一阶段是<span class="yellow">乘除关系</span>。也即，如果一个技能效果是反击率+30%，其实际效果是反击率基础值x1.3</li>
+			<li>反击率修正值：少数功能（例如必定反击）影响这里。如技能【神速】无视已有反击率，直接设为100%反击。</li>
+		</ul>	
+	</li>
+	<li>商店投掷武器栏新增了4000元的☆手坑认证☆，可以和目的刷新的「效果遮蒙者」-仮、「幽鬼兔」-仮、「浮幽樱」-仮、「灰流呜啦啦」分别合成比较有用的真卡。</li>
+	<li>此外，新增了「调整中」和「禁卡表」合成。
+	<table width="800px">
+		<tbody><tr>
+		<td class="b1" height="20px"><span>素材1</span></td>
+		<td class="b1"><span>素材2</span></td>
+		<td class="b1"><span>素材3</span></td>
+
+		<td class="b1"></td>
+		<td class="b1"><span>合成结果</span></td>
+		<td class="b1"><span>用途</span></td>
+		</tr>
+		<tr>
+		<td class="b3" height='19px' title='0禁起在商店中出售(1500元)'><span>☆五星认证☆</span></td><td class="b3"title='0禁起在商店中出售(2000元)'><span>☆七星认证☆</span></td><td class="b3"title='0禁于墓地刷新1个<br>从水灵使-艾莉娅 ★3切换「武器模式」获得<br>从火灵使-希塔 ★3切换「武器模式」获得<br>从风灵使-薇茵 ★3切换「武器模式」获得<br>从暗灵使-达克 ★3切换「武器模式」获得<br>从地灵使-奥丝 ★3切换「武器模式」获得<br>从光灵使-莱娜 ★3切换「武器模式」获得<br>从「隼骑士」 ★3切换「武器模式」获得'><span>游戏王三星素材</span></td><td class="b3">→</td>
+		<td class="b3"><span>「调整中」</span></td>
+		<td class="b3"><span>投掷兵器/573/573/天然</span></td>
+		</tr>
+		<tr>
+		<td class="b3" height='19px' title='通过合成获取：☆五星认证☆+☆七星认证☆+游戏王三星素材'><span>「调整中」</span></td><td class="b3"title='0禁起在商店中出售(5000元)'><span>☆十星认证☆</span></td><td class="b3"><span>-</span></td><td class="b3">→</td>
+		<td class="b3"><span>「禁卡表」</span></td>
+		<td class="b3"><span>投掷兵器/573/∞/冰华+一发+贯穿+属防+防雷+冻气</span></td>
+		</tr>
+		<tr>
+		<td class="b3" height='19px' title='0禁于墓地刷新4个<br>荣耀模式：每禁于墓地刷新4个<br>极速模式：每禁于墓地刷新4个'><span>「效果遮蒙者」-仮</span></td><td class="b3"title='0禁起在商店中出售(4000元)'><span>☆手坑认证☆</span></td><td class="b3"><span>-</span></td><td class="b3">→</td>
+		<td class="b3"><span>「效果遮蒙者」 ★1</span></td>
+		<td class="b3"><span>投掷兵器/0/∞/物抹+调整</span></td>
+		</tr>
+		<tr>
+		<td class="b3" height='19px' title='0禁于墓地刷新3个'><span>「幽鬼兔」-仮</span></td><td class="b3"title='0禁起在商店中出售(4000元)'><span>☆手坑认证☆</span></td><td class="b3"><span>-</span></td><td class="b3">→</td>
+		<td class="b3"><span>「幽鬼兔」 ★3</span></td>
+		<td class="b3"><span>投掷兵器/50/∞/爆炸+属抹+调整</span></td>
+		</tr>
+		<tr>
+		<td class="b3" height='19px' title='0禁于墓地刷新3个'><span>「浮幽樱」-仮</span></td><td class="b3"title='0禁起在商店中出售(4000元)'><span>☆手坑认证☆</span></td><td class="b3"><span>-</span></td><td class="b3">→</td>
+		<td class="b3"><span>「浮幽樱」 ★3</span></td>
+		<td class="b3"><span>投掷兵器/50/∞/带毒+贯穿+调整</span></td>
+		</tr>
+		<tr>
+		<td class="b3" height='19px' title='0禁于墓地刷新3个'><span>「灰流呜啦啦」</span></td><td class="b3"title='0禁起在商店中出售(4000元)'><span>☆手坑认证☆</span></td><td class="b3"><span>-</span></td><td class="b3">→</td>
+		<td class="b3"><span>「灰流丽」 ★3</span></td>
+		<td class="b3"><span>投掷兵器/50/∞/灼焰+冰华+音爆+调整</span></td>
+		</tr>
+
+		</tbody>
+	</table>
+	</li>
+</ul>
+<p>管理相关：</p>
+<ul>
+	<li>现在管理员可以修改用户的成就数据了。
+</ul>
 <h3>11月25日 (v1.7.4)</h3>
 <p>游戏功能更新：</p>
 <ul>
@@ -18,7 +80,7 @@
 	<li>铁拳无敌的【熟练】技能与称号特性合并，开局即解锁
 	<li>黑衣组织的【衰弱】技能从开局解锁修改为7级解锁
 	<li>锡安成员的【力场】技能从开局解锁修改为5级解锁
-	<li>现在【狙击】【咆哮】不再能被学习（就算学了也不能生效）
+	<li>现在狙击鹰眼的【狙击】【咆哮】不再能被学习（就算学了也不能生效）；锡安成员的【探测】【网瘾】可以被学习
 	<li>「真紅眼黑龍」「左轮手枪龙」「破龙剑士」「黑魔术师」合成所需的☆八星认证☆改为☆七星认证☆
 	<li>商店☆七星认证☆的价格从1500上升为2000
 	<li>先攻率规范化：先攻率计算分为先攻率基础、先攻率加成、先攻率修正三个阶段。

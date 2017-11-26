@@ -56,9 +56,10 @@ namespace skill9
 	function calculate_counter_rate_multiplier(&$pa, &$pd, $active)	//混乱反击率降低
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($pa,$pd,$active);
 		if (\skillbase\skill_query(9,$pa)) 
-			return $chprocess($pa,$pd,$active)*0.8;
-		else  return $chprocess($pa,$pd,$active);
+			return $ret*0.8;
+		else  return $ret;
 	}
 }
 
