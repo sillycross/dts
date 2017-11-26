@@ -77,5 +77,5 @@ $rarecolor = $card_rarecolor[$cr];
 //}else if ($cr=='C'){
 //	$rarecolor="seagreen";
 //}
-include template('user_profile');
 
+include template('user_profile');

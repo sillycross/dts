@@ -44,6 +44,80 @@ namespace achievement_base
 		$chprocess($pa);
 	}
 	
+	//成就编码
+	function encode_achievements_o($aarr){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('achievement_base'));
+		$achdata=$aarr;
+		$maxid=count($achdata)-2;
+		$ret = '';
+		foreach($achlist as $atvar){
+			foreach ($atvar as $key){
+				if (defined('MOD_SKILL'.$key.'_INFO') && defined('MOD_SKILL'.$key.'_ACHIEVEMENT_ID')){
+					if ((\skillbase\check_skill_info($key, 'achievement'))&&(!\skillbase\check_skill_info($key, 'hidden')))
+					{
+						$id=(int)(constant('MOD_SKILL'.$key.'_ACHIEVEMENT_ID'));
+						if ($id>$maxid) $maxid=$id;
+						if (isset($achdata[$key])) $s=$achdata[$key];
+						else $s='';
+						//需要解码的意思
+						$f=false;
+						if (!\skillbase\check_skill_info($key, 'daily')) $f=true;
+						if ($s!='VWXYZ') $f=true;
+						if ($f){
+							if($key==326){
+								$v='';
+								foreach($s as $sv){
+									$v .= base64_encode_number($sv,3);
+								}
+							}else{
+								$v=min((int)$s,(1<<30)-1);
+								$v=base64_encode_number($v,5);
+							}
+						}
+						$achdata[$key] = $achdata[$key]==='VWXYZ' ? 'VWXYZ' : $v;
+					}
+				}
+			}
+		}
+		for ($i=0; $i<=$maxid; $i++)
+			$ret.=$achdata[$i+300].';';
+
+		return $ret;
+	}
+	
+	//成就解码
+	function decode_achievements_o($astr){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('achievement_base'));
+		$achdata=explode(';',$astr); 
+		$ret = array();
+		foreach($achlist as $atvar){
+			foreach ($atvar as $key){
+				if (defined('MOD_SKILL'.$key.'_INFO') && defined('MOD_SKILL'.$key.'_ACHIEVEMENT_ID')){
+					if ((\skillbase\check_skill_info($key, 'achievement'))&&(!\skillbase\check_skill_info($key, 'hidden')))
+					{
+						$id=(int)(constant('MOD_SKILL'.$key.'_ACHIEVEMENT_ID'));
+						if (isset($achdata[$id])) $s=(string)$achdata[$id];
+						else $s='';
+						//需要解码的意思
+						$f=false;
+						if (!\skillbase\check_skill_info($key, 'daily')) $f=true;
+						if ($s!=''&&$s!='VWXYZ') $f=true;
+						if ($f){
+							if($key==326) $v=\skill326\cardlist_decode326($s);
+							else $v=base64_decode_number($s);	
+							$ret[$key] = $v;
+						}else{
+							$ret[$key] = $s;
+						}
+					}
+				}
+			}
+		}
+		return $ret;
+	}
+	
 	function post_gameover_events()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -84,6 +158,8 @@ namespace achievement_base
 		
 		$chprocess();
 	}
+	
+	
 	
 	function show_achievements($un,$at)
 	{

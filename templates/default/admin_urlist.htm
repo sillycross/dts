@@ -32,6 +32,7 @@
 			<th>口头禅</th>
 			<th>杀人留言</th>
 			<th>遗言</th>
+			<th>成就</th>
 			<th>操作</th>
 		</tr>
 		<!--{if $urdata}-->
@@ -80,6 +81,7 @@
 			<td><input type="text" name="motto_$n" size="12" maxlength="60" value="$ur['motto']"></td>
 			<td><input type="text" name="killmsg_$n" size="12" maxlength="60" value="$ur['killmsg']"></td>
 			<td><input type="text" name="lastword_$n" size="12" maxlength="60" value="$ur['lastword']"></td>
+			<td><textarea cols="20" rows="4" style="overflow:auto" name="n_achievements_$n">$ur['n_achievements']</textarea></td>
 			<td>
 				<input type="submit" value="修改" onclick="$('urcmd').value='edit_{$n}_{$ur['uid']}'">
 			</td>
