@@ -97,9 +97,10 @@ namespace skill7
 	function calculate_counter_rate_multiplier(&$pa, &$pd, $active)	//冻结反击率降低
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($pa,$pd,$active);
 		if (\skillbase\skill_query(7,$pa)) 
-			return $chprocess($pa,$pd,$active)*0.9;
-		else  return $chprocess($pa,$pd,$active);
+			return $ret*0.9;
+		else return $ret;
 	}
 }
 

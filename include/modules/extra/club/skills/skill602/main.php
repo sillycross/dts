@@ -140,6 +140,7 @@ namespace skill602
 		return $chprocess($ldata,$edata,$active_r);
 	}
 	
+	//若要接管此函数，请阅读base\battle\battle.php里的注释，并加以判断
 	function check_can_counter(&$pa, &$pd, $active)			//不会反击敌人
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

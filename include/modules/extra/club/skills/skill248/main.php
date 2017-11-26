@@ -108,10 +108,11 @@ namespace skill248
 	function calculate_counter_rate_multiplier(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(248,$pa)) return $chprocess($pa, $pd, $active);
+		$ret = $chprocess($pa, $pd, $active);
+		if (!\skillbase\skill_query(248,$pa)) return $ret;
 		$lv = (int)\skillbase\skill_getvalue(248,'lvl2',$pa);
 		$r=1+calculate_skill248_counter_gain($lv)/100;
-		return $chprocess($pa, $pd, $active)*$r;
+		return $ret*$r;
 	}
 	
 	//第三项升级 命中

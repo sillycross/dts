@@ -61,12 +61,13 @@ namespace skill52
 	function calculate_counter_rate_multiplier(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(52,$pa) || !check_unlocked52($pa)) return $chprocess($pa, $pd, $active);
-		if (substr($pa['wepk'],0,2)!='WC') return $chprocess($pa, $pd, $active);
+		$ret = $chprocess($pa, $pd, $active);
+		if (!\skillbase\skill_query(52,$pa) || !check_unlocked52($pa)) return $ret;
+		if (substr($pa['wepk'],0,2)!='WC') return $ret;
 		eval(import_module('skill52'));
 		$clv = (int)\skillbase\skill_getvalue(52,'lvl');
 		$r=(100+$counterperc[$clv])/100;
-		return $chprocess($pa, $pd, $active)*$r;
+		return $ret*$r;
 	}
 }
 

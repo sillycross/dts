@@ -413,20 +413,42 @@ namespace weapon
 	function calculate_counter_rate(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = calculate_counter_rate_base ($pa, $pd, $active);
+		//echo '基础反击率：'.$ret;
+		$ret *= calculate_counter_rate_multiplier ($pa, $pd, $active);
+		//echo '加成后反击率：'.$ret;
+		$ret = calculate_counter_rate_change ($pa, $pd, $active, $ret);
+		//echo '修正后反击率：'.$ret;
+		return $ret;
+	}
+	
+	//反击率基础值，加算
+	function calculate_counter_rate_base(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('weapon'));
 		return $counter_obbs[$pa['wep_kind']];
 	}
 	
+	//反击率加成值，乘算
 	function calculate_counter_rate_multiplier(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return 1.0;
 	}
 	
+	//反击率修正值，直接变化
+	//若要接管此函数，请阅读base\battle\battle.php里的注释，并加以判断
+	function calculate_counter_rate_change(&$pa, &$pd, $active, $counter_rate)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $counter_rate;
+	}
+	
 	function check_counter_dice(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$counter_rate = calculate_counter_rate ($pa, $pd, $active) * calculate_counter_rate_multiplier ($pa, $pd, $active);
+		$counter_rate = calculate_counter_rate ($pa, $pd, $active);
 		$counter_dice = rand ( 0, 99 );
 		if ($counter_dice < $counter_rate) 
 			return 1;
@@ -453,6 +475,7 @@ namespace weapon
 		else  return 0;
 	}
 	
+	//若要接管此函数，请阅读base\battle\battle.php里的注释，并加以判断
 	function check_can_counter(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
