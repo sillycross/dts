@@ -4,7 +4,7 @@ namespace skill272
 {
 	$skill272_cd = 120;
 	$skill272_act_time = 60;
-	$skill272_factor = 20;//每种吸收的属性+20%属性伤害
+	$skill272_factor = 15;//每种吸收的属性+15%属性伤害
 	$skill272_pos_list = Array('wep','arh','arb','ara','arf','art','itm1','itm2','itm3','itm4','itm5','itm6');//可以吸收的部位
 	
 	function init() 

@@ -22,7 +22,7 @@ namespace skill25
 	function check_unlocked25(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return $pa['lvl']>=5;
+		return $pa['lvl']>=11;
 	}
 	
 	function get_ex_inf_dmg_punish(&$pa, &$pd, $active, $key)
