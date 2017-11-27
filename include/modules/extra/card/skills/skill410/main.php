@@ -20,7 +20,7 @@ namespace skill410
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
-	function check_unlocked410(&$pa)
+	function check_unlocked410(&$pa=NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return 1;

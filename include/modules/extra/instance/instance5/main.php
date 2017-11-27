@@ -6,7 +6,7 @@ namespace instance5
 	
 	function get_shoplist(){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
-		eval(import_module('sys','instance5'));
+		eval(import_module('sys'));
 		if ($gametype==15){
 			$file = __DIR__.'/config/shopitem.config.php';
 			$sl5 = openfile($file);

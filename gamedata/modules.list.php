@@ -175,6 +175,9 @@ skill491,extra/card/skills/skill491/,1
 club97,extra/club/clubs/club97/,1
 skill267,extra/club/skills/skill267/,1
 skill268,extra/club/skills/skill268/,1
+club94,extra/club/clubs/club94/,1
+club95,extra/club/clubs/club95/,1
+club96,extra/club/clubs/club96/,1
 skill433,extra/card/skills/skill433/,1
 skill602,extra/club/skills/skill602/,1
 skill221,extra/club/skills/skill221/,1
@@ -365,6 +368,7 @@ skill448,extra/card/skills/skill448/,1
 skill463,extra/card/skills/skill463/,1
 skill465,extra/card/skills/skill465/,1
 skill478,extra/card/skills/skill478/,1
+skill272,extra/club/skills/skill272/,1
 ex_phy_nullify,extra/attr/ex_phy_nullify/,1
 skill432,extra/card/skills/skill432/,1
 instance5,extra/instance/instance5/,1

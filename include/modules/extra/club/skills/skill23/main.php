@@ -2,9 +2,12 @@
 
 namespace skill23
 {
+	$skill23max = Array(6,7,8,9,10,11,12);//最大格子数
+	$upgradecost = Array(2,3,4,5,6,7,-1);//升级所需技能点
+	
 	function init() 
 	{
-		define('MOD_SKILL23_INFO','club;active;locked;');
+		define('MOD_SKILL23_INFO','club;active;upgrade;locked;');
 		eval(import_module('clubbase'));
 		$clubskillname[23] = '宝石';
 		$clubdesc_h[20] = $clubdesc_a[20] = '可用「方块」道具为武器或防具增加效耐值或添加属性';
@@ -13,32 +16,36 @@ namespace skill23
 	function acquire23(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		\skillbase\skill_setvalue(23,'lvl','0',$pa);
 	}
 	
 	function lost23(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		\skillbase\skill_delvalue(23,'lvl',$pa);
 	}
 	
-	function check_unlocked23(&$pa)
+	function check_unlocked23(&$pa=NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return 1;
 	}
 		
-	function gemming_itme_buff(&$itm,&$itmk,&$itme,&$itms,&$itmsk,$lb,$ub)
+	function gemming_itme_buff(&$itm,&$itmk,&$itme,&$itms,&$itmsk,$lb,$ub,$exists=0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','itemmain','logger'));
+		if($exists) $r = 1.3;//已经存在的属性则效果值增加20%
+		else $r = 1;
 		if ($itms==$nosta) 
 		{
-			$up_e=rand(round($lb*0.85),round($ub*0.85)); 
+			$up_e=round(rand(round($lb*0.85),round($ub*0.85))*$r); 
 			$log.="你的装备<span class=\"yellow\">{$itm}</span>的效果值增加了<span class=\"yellow\">{$up_e}</span>点！";
 			$itme+=$up_e;
 		}
 		else
 		{
-			$up_all=rand($lb,$ub); 
+			$up_all=round(rand($lb,$ub)*$r); 
 			$up_e=ceil(1.0*$up_all*$itme/($itme+$itms));
 			$up_s=floor(1.0*$up_all*$itms/($itme+$itms));
 			$log.="你的装备<span class=\"yellow\">{$itm}</span>的效果值增加了<span class=\"yellow\">{$up_e}</span>点，耐久值增加了<span class=\"yellow\">{$up_s}</span>点！";	
@@ -79,8 +86,12 @@ namespace skill23
 			}
 		}
 		
-		if(\itemmain\count_itmsk_num($itmsk)>=6){
-			$log .= '你选择的物品属性数目已达到6个属性的上限，无法改造！<br>';
+		$clv = \skillbase\skill_getvalue(23,'lvl');
+		$maxsknum = $skill23max[$clv];
+		
+		if(\itemmain\count_itmsk_num($itmsk)>=$maxsknum){
+			if($upgradecost[$clv]==-1) $log .= '<span class="red">你选择的物品属性数目已达到'.$maxsknum.'个属性的上限，无法改造！</span><br>';
+			else $log .= '<span class="yellow">你最多只能把物品属性加到'.$maxsknum.'个，请升级技能！</span><br>';
 			$mode = 'command';
 			return;
 		}
@@ -134,8 +145,10 @@ namespace skill23
 			if ($dice<=$value[0])
 			{
 				$flag=1;
-				gemming_itme_buff($itm,$itmk,$itme,$itms,$itmsk,$lb,$ub);
-				$log.="同时，你的装备<span class=\"yellow\">{$itm}</span>还获得了“<span class=\"yellow\">{$itemspkinfo[$value[1]]}</span>”属性！<br>";
+				$exists = strpos($itmsk,$value[1])!==false;
+				gemming_itme_buff($itm,$itmk,$itme,$itms,$itmsk,$lb,$ub,$exists);
+				if(!$exists)	$log.="同时，你的装备<span class=\"yellow\">{$itm}</span>还获得了“<span class=\"yellow\">{$itemspkinfo[$value[1]]}</span>”属性！<br>";
+				else $log.="你的装备<span class=\"yellow\">{$itm}</span>获得了“<span class=\"yellow\">{$itemspkinfo[$value[1]]}</span>”属性，不过好像它本来已经有了。<br>";
 				addnews ( 0, 'gemming', $name, $gem, $itm, $itemspkinfo[$value[1]]);
 				if (strpos($itmsk,$value[1]) === false) $itmsk.=$value[1];
 				break;
@@ -184,6 +197,31 @@ namespace skill23
 		include template(MOD_SKILL23_GEMMING);
 		$cmd=ob_get_contents();
 		ob_clean();
+	}
+	
+	function upgrade23()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('skill23','player','logger'));
+		if (!\skillbase\skill_query(23))
+		{
+			$log.='你没有这个技能！<br>';
+			return;
+		}
+		$clv = \skillbase\skill_getvalue(23,'lvl');
+		$ucost = $upgradecost[$clv];
+		if ($clv == -1)
+		{
+			$log.='你已经升级完成了，不能继续升级！<br>';
+			return;
+		}
+		if ($skillpoint<$ucost) 
+		{
+			$log.='技能点不足。<br>';
+			return;
+		}
+		$skillpoint-=$ucost; \skillbase\skill_setvalue(23,'lvl',$clv+1);
+		$log.='升级成功。<br>';
 	}
 	
 	function act()

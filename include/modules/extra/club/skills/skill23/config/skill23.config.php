@@ -50,7 +50,7 @@ namespace skill23
 		),
 		'银色方块' => Array(
 			'W' => Array(
-				Array(60,'w'),
+				Array(35,'w'),
 				Array(5,'t')
 			),
 			'D' => Array(
@@ -69,7 +69,7 @@ namespace skill23
 		),
 		'黑色方块' => Array(
 			'W' => Array(
-				Array(35,'g'),
+				Array(1,'B'),
 				Array(5,'n')
 			),
 			'D' => Array(
@@ -79,7 +79,7 @@ namespace skill23
 		),
 		'白色方块' => Array(
 			'W' => Array(
-				Array(35,'l'),
+				Array(1,'b'),
 				Array(5,'N')
 			),
 			'D' => Array(
@@ -93,7 +93,9 @@ namespace skill23
 				Array(35,'f')
 			),
 			'D' => Array(
-				Array(100,'U')
+				Array(2,'B'),
+				Array(18,'A'),
+				Array(80,'U')
 			),
 		),
 		'蓝宝石方块' => Array(
@@ -102,35 +104,40 @@ namespace skill23
 				Array(35,'k')
 			),
 			'D' => Array(
-				Array(100,'I')
+				Array(2,'b'),
+				Array(18,'a'),
+				Array(80,'I')
 			),
 		),
 		'绿宝石方块' => Array(
 			'W' => Array(
-				Array(1,'r'),
-				Array(2,'d'),
+				Array(2,'r'),
+				Array(3,'d'),
 				Array(5,'t'),
 				Array(5,'f'),
 				Array(5,'k'),
 				Array(6,'n'),
 				Array(6,'N'),
-				Array(14,'u'),
-				Array(14,'i'),
-				Array(14,'p'),
-				Array(14,'e'),
-				Array(14,'w'),
+				Array(8,'c'),
+				Array(12,'u'),
+				Array(12,'i'),
+				Array(12,'p'),
+				Array(12,'e'),
+				Array(12,'w'),
 			),
 			'D' => Array(
-				Array(2,'A'),
-				Array(2,'a'),
-				Array(3,'R'),
-				Array(9,'H'),
-				Array(14,'C'),
-				Array(14,'D'),
-				Array(14,'F'),
-				Array(14,'G'),
-				Array(14,'K'),
-				Array(14,'P'),
+				Array(1,'B'),
+				Array(1,'b'),
+				Array(6,'A'),
+				Array(6,'a'),
+				Array(6,'R'),
+				Array(8,'H'),
+				Array(12,'C'),
+				Array(12,'D'),
+				Array(12,'F'),
+				Array(12,'G'),
+				Array(12,'K'),
+				Array(12,'P'),
 			),
 		),
 		'黄鸡方块' => Array(

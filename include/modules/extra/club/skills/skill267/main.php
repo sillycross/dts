@@ -4,6 +4,7 @@ namespace skill267
 {
 	$skill267deno = Array(200,100,100);;//每有多少点伤害，HP就增加
 	$skill267nume = Array(1,1,2);//HP每次增加多少 
+	$skill267max = Array(500,750,1000);//每个等级能增长的HP上限
 	$upgradecost = Array(14,20,-1);//升级所需技能点
 	
 	function init() 
@@ -17,12 +18,18 @@ namespace skill267
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		\skillbase\skill_setvalue(267,'lvl','0',$pa);
+		\skillbase\skill_setvalue(267,'gotmhp','0',$pa);
 	}
 	
 	function lost267(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		\skillbase\skill_delvalue(267,'lvl',$pa);
+		$gotmhp = \skillbase\skill_getvalue(267,'gotmhp',$pa);
+		$pa['mhp'] -= $gotmhp;//失去代偿时也会失去得到的HP上限
+		if($pa['mhp'] <= 0) $pa['mhp'] = 1;
+		if($pa['hp'] > $pa['mhp']) $pa['hp'] = $pa['mhp'];
+		\skillbase\skill_delvalue(267,'gotmhp',$pa);
 	}
 	
 	function check_unlocked267(&$pa)
@@ -72,6 +79,14 @@ namespace skill267
 		return $skill267nume[$clv];
 	}
 	
+	function get_skill267max(&$pa){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$clv = \skillbase\skill_getvalue(267,'lvl');
+		if(!$clv) $clv = 0;
+		eval(import_module('skill267'));
+		return $skill267max[$clv];
+	}
+	
 	function check_effect267(&$pa, $active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if($pa['hp'] <= 0) return;//死尸不处理
@@ -80,10 +95,14 @@ namespace skill267
 		if($hpdown <= 0) return;//HP没下降的不处理
 		eval(import_module('skill267'));
 		$mhpup = floor($hpdown / get_skill267deno($pa)) * get_skill267nume($pa);
-		if($mhpup > $pa['lvl']) $mhpup = $pa['lvl'];//代偿得到的最大生命不会高于当前等级数
+		$gotmhp = \skillbase\skill_getvalue(267,'gotmhp',$pa);
+		$maxvar = get_skill267max($pa);
+		if($gotmhp + $mhpup > $maxvar) $mhpup = $maxvar - $gotmhp;//一局得到的代偿值总和不能超过设定值
+		//if($mhpup > $pa['lvl']) $mhpup = $pa['lvl'];//代偿得到的最大生命不会高于当前等级数
 		if($mhpup > 0){
 			$pa['hp'] += $mhpup;
 			$pa['mhp'] += $mhpup;
+			\skillbase\skill_setvalue(267,'gotmhp',$gotmhp+$mhpup,$pa);
 		}
 		return $mhpup;
 	}

@@ -19,7 +19,7 @@ namespace skill437
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
-	function check_unlocked437(&$pa)
+	function check_unlocked437(&$pa=NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return 1;
