@@ -4,6 +4,16 @@ namespace instance6
 {
 	function init() {}
 	
+	function get_shoplist(){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		eval(import_module('sys'));
+		if ($gametype==16){
+			$file = __DIR__.'/config/shopitem.config.php';
+			$sl6 = openfile($file);
+			return $sl6;
+		}else return $chprocess();
+	}
+	
 	function checkcombo($time){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','map','gameflow_combo'));
