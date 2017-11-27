@@ -368,6 +368,7 @@ skill448,extra/card/skills/skill448/,1
 skill463,extra/card/skills/skill463/,1
 skill465,extra/card/skills/skill465/,1
 skill478,extra/card/skills/skill478/,1
+skill272,extra/club/skills/skill272/,1
 ex_phy_nullify,extra/attr/ex_phy_nullify/,1
 skill432,extra/card/skills/skill432/,1
 instance5,extra/instance/instance5/,1

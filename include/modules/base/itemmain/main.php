@@ -17,11 +17,13 @@ namespace itemmain
 		else return 0;
 	}
 	
-	function parse_itmname_words($name_value, $elli = 0){
+	//省略显示
+	//显示宽度20英文字符，假设汉字的显示宽度大约是英文字母的1.8倍
+	function parse_itmname_words($name_value, $elli = 0, $width=20, $end=1){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(!$elli) return $name_value;
 		
-		$width=20; //显示宽度20英文字符，假设汉字的显示宽度大约是英文字母的1.8倍
+		if($width<=6) $width = 6;
 		$ilen=mb_strlen($name_value);
 		$slen=0;
 		for($i=0;$i<$ilen;$i++){
@@ -31,7 +33,7 @@ namespace itemmain
 			if($slen >= $width) break;
 		}
 		if($i==$ilen) return $name_value;
-		else return middle_abbr($name_value,$i-1);
+		else return middle_abbr($name_value,$i-1,$end);
 	}
 	
 	function parse_itmk_words($k_value)
@@ -100,7 +102,7 @@ namespace itemmain
 		return $ret;		
 	}
 	
-	function parse_itmsk_words($sk_value, $simple = 0)
+	function parse_itmsk_words($sk_value, $simple = 0, $elli = 0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -108,13 +110,24 @@ namespace itemmain
 		//纯数字或者以等号开头的，也认为是空的（特殊用法）
 		if($sk_value && is_numeric($sk_value) === false && strpos($sk_value,'=')!==0){
 			$ret = '';
-			$i = 0;
 			$sk_arr = get_itmsk_array($sk_value);
+			$i = $elli_aready = 0;
+			$imax = count($sk_arr);
 			if(!empty($sk_arr)){
 				foreach($sk_arr as $sv){
-					$ret .= $itemspkinfo[$sv].'+';
+					if(!$i){
+						$ret .= $itemspkinfo[$sv];
+					}elseif($i < 3){
+						$ret .= '+'.$itemspkinfo[$sv];
+					}elseif($i == $imax-1){
+						$ret .= '+'.$itemspkinfo[$sv];
+					}elseif($elli && !$elli_aready){
+						$ret .= '+…';
+						$elli_aready = 1;
+					}
+					$i ++ ;
 				}
-				$ret = substr($ret,0,-1);
+				//$ret = substr($ret,0,-1);
 			}
 		} else {
 			if ($simple)
@@ -166,7 +179,7 @@ namespace itemmain
 			$skv=$p1.'sk'.$p2;
 			$r[$v.'_words'] = parse_itmname_words($edata[$v], $elli);
 			$r[$kv.'_words'] = parse_itmk_words($edata[$kv]);
-			$r[$skv.'_words'] = parse_itmsk_words($edata[$skv],$simple);
+			$r[$skv.'_words'] = parse_itmsk_words($edata[$skv],$simple,1);
 			$r[$skv.'_desc'] = parse_itmsk_desc($edata[$skv]);
 			$itmuse_words = parse_itmuse_desc($edata[$v], $edata[$kv], $edata[$ev], $edata[$sv], $edata[$skv]);
 			if(!empty($itmuse_words)) $r[$v.'_itmuse_desc'] = $itmuse_words;

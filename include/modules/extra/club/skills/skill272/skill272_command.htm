@@ -1,0 +1,22 @@
+<input type="hidden" name="mode" value="special">
+<input type="hidden" id="command" name="command" value="skill272_special">
+<input type="hidden" id="subcmd" name="subcmd" value="activate">
+<!--{eval eval(import_module('skill272','player'));\itemmain\parse_interface_profile();$effect_list = \skill272\create_effect_list272();}-->
+选择1个装备/道具，必须带有<span class="yellow">镶嵌方块能够产生的属性</span>。<br>
+你将吸收掉道具上的这些属性，之后战斗属性伤害增加<span class="yellow">（吸收数目 x {$skill272_factor}%）</span>。发动后<span class="clan">{$skill272_act_time}</span>秒有效。<br>
+具体的属性列表请参见帮助。<br><br>
+请选择你将吸收属性的装备/道具：<br>
+<select id="skill272_ipos" name="skill272_ipos" value="back">
+<!--{loop $skill272_pos_list $val}-->
+	<!--{if (strpos($val, 'ar')===0 || 'wep'== $val) && \skill272\check_valid_single272($val,1,$effect_list)}-->
+		<option value="$val">$sdata[$val] / {$tpldata[$val.'sk_words']}<br>
+	<!--{elseif strpos($val, 'itm')===0 && \skill272\check_valid_single272($val,1,$effect_list)}-->
+		<!--{eval $tmp_itmskn = 'itmsk'.substr($val,3,1).'_words';}-->
+		<option value="$val">$sdata[$val] / {$tpldata[$tmp_itmskn]}<br>
+	<!--{/if}-->
+<!--{/loop}-->
+</select>
+<br>
+<br>
+<input type="button" class="cmdbutton" name="submit" id="z" value="[Z]提交" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="button" class="cmdbutton" name="submit" id="x" value="[X]返回" onclick="$('command').value='menu'; postCmd('gamecmd','command.php');this.disabled=true;">

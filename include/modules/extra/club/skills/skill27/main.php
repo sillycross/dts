@@ -22,7 +22,8 @@ namespace skill27
 	function check_unlocked27(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return $pa['lvl']>=7;
+		return 1;
+		//return $pa['lvl']>=11;
 	}
 	
 	function armor_break(&$pa, &$pd, $active, $whicharmor)

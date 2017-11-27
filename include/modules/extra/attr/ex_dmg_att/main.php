@@ -27,7 +27,7 @@ namespace ex_dmg_att
 		$itemspkremark['w']='至少5%概率导致对方混乱；敌人已混乱时本属性伤害+50%';
 		
 		$itemspkinfo['d'] = '爆炸';
-		$itemspkdesc['d']='属性伤害基础值为武器效果的一半';
+		$itemspkdesc['d']='攻击附带爆炸伤害，基础值为武器效果的一半';
 		$itemspkremark['d']='攻击时会产生爆炸声';
 		
 		$itemspkinfo['f'] = '灼焰';
