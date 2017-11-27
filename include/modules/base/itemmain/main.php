@@ -162,7 +162,7 @@ namespace itemmain
 	//把身上装备道具的显示信息全部处理一遍
 	//$elli=1时自动省略超过10个字的道具名的中间部分
 	//$simple=1时无属性直接返回空
-	function parse_item_words($edata, $simple = 0, $elli = 1)	
+	function parse_item_words($edata, $simple = 0, $elli = 0)	
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -179,7 +179,7 @@ namespace itemmain
 			$skv=$p1.'sk'.$p2;
 			$r[$v.'_words'] = parse_itmname_words($edata[$v], $elli);
 			$r[$kv.'_words'] = parse_itmk_words($edata[$kv]);
-			$r[$skv.'_words'] = parse_itmsk_words($edata[$skv],$simple,1);
+			$r[$skv.'_words'] = parse_itmsk_words($edata[$skv], $simple, $elli);
 			$r[$skv.'_desc'] = parse_itmsk_desc($edata[$skv]);
 			$itmuse_words = parse_itmuse_desc($edata[$v], $edata[$kv], $edata[$ev], $edata[$sv], $edata[$skv]);
 			if(!empty($itmuse_words)) $r[$v.'_itmuse_desc'] = $itmuse_words;
@@ -194,7 +194,7 @@ namespace itemmain
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player'));
 		\player\update_sdata();
-		$tpldata+=parse_item_words($sdata);
+		$tpldata+=parse_item_words($sdata,0,1);
 		$chprocess();
 	}
 	
