@@ -59,11 +59,11 @@ namespace skill269
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player'));
-		$hpcost = max( round($pa['mhp']*0.25), $pa['hp'] - $pd['hp']);
+		$hpcost = max( round($pa['mhp']*0.25), round(($pa['hp'] - $pd['hp'])/2));//还是减半吧
 		if($hpcost > $pa['hp'] - 1) $hpcost = $pa['hp'] - 1;
 		if($fuzzy) {
-			$c = floor($hpcost/100);
-			$cmin = max(0,($c-1)*100); $cmax = max(0,($c+1)*100);
+			$c = floor($hpcost/50);
+			$cmin = max(0,($c-1)*50); $cmax = max(0,($c+1)*50);
 			$hpcost = '大约'.$cmin.'-'.$cmax;
 		}
 		return $hpcost;
