@@ -305,7 +305,6 @@ skill38,extra/club/skills/skill38/,1
 dualwep,base/weapon/dualwep/,1
 ammunition,base/items/ammunition/,1
 skill487,extra/card/skills/skill487/,1
-skill458,extra/card/skills/skill458/,1
 attrbase,extra/attr/attrbase/,1
 skill407,extra/card/skills/skill407/,1
 empowers,base/items/empowers/,1
@@ -332,6 +331,7 @@ weather,base/weather/,1
 npcinfo,extra/misc/npcinfo/,1
 skill28,extra/club/skills/skill28/,1
 skill254,extra/club/skills/skill254/,1
+skill458,extra/card/skills/skill458/,1
 instance9,extra/instance/instance9_rush/,1
 skill37,extra/club/skills/skill37/,1
 skill73,extra/club/skills/skill73/,1

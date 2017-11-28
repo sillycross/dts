@@ -1,4 +1,4 @@
-<!--{eval eval(import_module('sys','skill272'));}-->
+<!--{eval eval(import_module('sys','skill272','itemmain'));}-->
 <!--{eval $___TEMP_SKILL_ID=272;}-->
 {template MOD_CLUBBASE_SKILLDESC_START}
 <span>
@@ -7,7 +7,16 @@
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
 <!--{eval $skill272_lst = (int)\skillbase\skill_getvalue(272,'lastuse'); $skill272_time = ($now-$skill272_lst);$skill272_cd_left=($skill272_cd+$skill272_act_time-$skill272_time);$skill272_rem=($skill272_act_time-$skill272_time);}-->
-选择1个装备/道具，必须带有<span class="yellow">镶嵌方块能够产生的属性</span>。<br>
+选择1个装备/道具，<span class="yellow">必须具有以下属性1个以上：</span><br>
+<span class="grey">
+<!--{eval $i=1;}-->
+<!--{loop \skill272\create_effect_list272() $skval}-->
+$itemspkinfo[$skval] 
+<!--{eval $i++;}-->
+<!--{if $i%10==0}--><br><!--{/if}-->
+<!--{/loop}-->
+</span>
+<br>
 你将吸收掉这些属性，并且战斗属性伤害增加<span class="yellow">吸收属性数目 x {$skill272_factor}%</span>。<br>
 发动后<span class="clan">{$skill272_act_time}</span>秒有效，冷却时间<span class="clan">$skill272_cd</span>秒。<br>
 <!--{if $skill272_time>$skill272_act_time && $skill272_time<$skill272_cd+$skill272_act_time}-->

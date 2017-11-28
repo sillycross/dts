@@ -116,15 +116,29 @@ namespace skill272
 	//即时生成可以吸光的属性
 	function create_effect_list272(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('skill272','skill23'));
-		$effect_list = Array();
-		foreach($bufflist23 as $bval){
-			foreach($bval as $eval){
-				foreach($eval as $val){
-					if(!in_array($val, array('z'))) $effect_list[] = $val[1];
-				}
-			}
+		//eval(import_module('skill272','skill23'));
+//		$effect_list = Array();
+//		foreach($bufflist23 as $bval){
+//			foreach($bval as $eval){
+//				foreach($eval as $val){
+//					if(!in_array($val, array('z'))) $effect_list[] = $val[1];
+//				}
+//			}
+//		}
+//		$effect_list = array_unique($effect_list);
+		
+		//现在改成只吸下位5属性的攻击、防御属性，6系的防御属性，以及集气属性
+		$effect_list = Array('c');
+		eval(import_module('ex_phy_def'));
+		foreach($def_kind as $dv){
+			$effect_list[] = $dv;
 		}
+		eval(import_module('ex_dmg_def'));
+		foreach($def_kind as $dk => $dv){
+			$effect_list[] = $dk;
+			$effect_list[] = $dv;
+		}
+		$effect_list = array_diff($effect_list,array('d'));
 		$effect_list = array_unique($effect_list);
 		return $effect_list;
 	}
