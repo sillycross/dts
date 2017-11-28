@@ -8,13 +8,13 @@ function udata_check(){
 	global $db, $gtablepre, $cuser, $cpass, $_ERROR;
 	$file = debug_backtrace()[0]['file'];
 	$line = debug_backtrace()[0]['line'];
-	if(!$cuser||!$cpass) { gexit($_ERROR['no_login'],$file,$line); } 
+	if(!$cuser||!$cpass) { gexit($_ERROR['no_login'],$file,$line);return; } 
 	
 	$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$cuser'");
-	if(!$db->num_rows($result)) { gexit($_ERROR['login_check'],$file,$line); }
+	if(!$db->num_rows($result)) { gexit($_ERROR['login_check'],$file,$line);return; }
 	$udata = $db->fetch_array($result);
-	if(!pass_compare($udata['username'], $cpass, $udata['password'])) { gexit($_ERROR['wrong_pw'], $file, $line); }
-	if($udata['groupid'] <= 0) { gexit($_ERROR['user_ban'], $file, $line); }
+	if(!pass_compare($udata['username'], $cpass, $udata['password'])) { gexit($_ERROR['wrong_pw'], $file, $line);return; }
+	if($udata['groupid'] <= 0) { gexit($_ERROR['user_ban'], $file, $line);return; }
 	return $udata;
 }
 

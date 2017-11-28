@@ -37,6 +37,9 @@ function gameerrorhandler($code, $msg, $file, $line){
 
 function gexit($message = '',$file = '', $line = 0) {
 	global $charset,$title,$extrahead,$allowcsscache,$errorinfo;
+	defined('STYLEID') || define('STYLEID', '1');
+	defined('TEMPLATEID') || define('TEMPLATEID', '1');
+	defined('TPLDIR') || define('TPLDIR', './templates/default');
 	if (defined('IN_DAEMON'))
 	{
 		if (defined('GEXIT_RETURN_JSON'))

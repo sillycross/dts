@@ -4,9 +4,15 @@ if(!defined('IN_GAME')) {
 }
 
 eval(import_module('sys','player','map','input'));
-if(!$cuser||!$cpass) { gexit($_ERROR['no_login'],__file__,__line__); } 
+if(!$cuser||!$cpass) { 
+	gexit($_ERROR['no_login'],__file__,__line__);
+	return;
+} 
 $result = $db->query("SELECT * FROM {$tablepre}players WHERE name = '$cuser' AND type = 0");
-if(!$db->num_rows($result)) { header("Location: index.php");exit(); }
+if(!$db->num_rows($result)) { 
+	echo 'redirect:index.php';
+	return;
+}
 
 $pdata = $db->fetch_array($result);
 if($pdata['pass'] != $cpass) {
@@ -18,6 +24,7 @@ if($pdata['pass'] != $cpass) {
 		$db->query("UPDATE {$tablepre}players SET pass='$password' WHERE name='$cuser'");
 	} else {
 		gexit($_ERROR['wrong_pw'],__file__,__line__);
+		return;
 	}
 }
 
