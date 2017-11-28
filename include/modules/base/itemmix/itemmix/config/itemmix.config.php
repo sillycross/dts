@@ -244,8 +244,8 @@ $mixinfo = array
 	array('class' => 'wf', 'stuff' => array('金符「Metal Fatigue」','火符「Agni Shine」','《魔女的魔导书》'),'result' => array('火&金符『St. Elmo Pillar』','WF',330,'∞','ndfc'),),
 	array('class' => 'wf', 'stuff' => array('水符『Jerry Fish Princess』','月符「Silent Serena」','消音器','天然水'),'result' => array('水&月符『Silent Deluge』','WF',233,'∞','kZz'),),
 	array('class' => 'wf', 'stuff' => array('火符「Agni Shine」','水符「Princess Undine」','木符『Sylphy Horn』','金符「Metal Fatigue」','土符「Lazy Trilithon」'),'result' => array('火水木金土符『贤者之石』','WF',5000,'∞','uipwe'),),
-	array('class' => 'wf', 'stuff' => array('月符「Silent Serena」','月符「Silent Serena」','火水木金土符『贤者之石』','金符「Metal Fatigue」'),'result' => array('月月火水木金金符『年中无休』（笑）','WF',65500,'∞','rd'),),
-	array('class' => 'wf', 'stuff' => array('日&月符『Royal Diamond Ring』','梦幻『幻月』','神枪『Spear The Gungnir』','紫奥义『弹幕结界』'),'result' => array('模式『EX』','WF',72000,'∞','crdZ'),),
+	array('class' => 'wf', 'stuff' => array('月符「Silent Serena」','月符「Silent Serena」','火水木金土符『贤者之石』','金符「Metal Fatigue」'),'result' => array('月月火水木金金符『年中无休』（笑）','WF',65500,'∞','rdnc'),),
+	array('class' => 'wf', 'stuff' => array('日&月符『Royal Diamond Ring』','梦幻『幻月』','神枪『Spear The Gungnir』','紫奥义『弹幕结界』'),'result' => array('模式『EX』','WF',72000,'∞','crdZB'),),
 	//余辉尚未实现
 	//array('class' => 'ocg', 'stuff' => array('八咫镜','★全图不唯一的野生巨大香蕉★'),'result' => array('【余晖】','WF',1,1,'x'),),
 	

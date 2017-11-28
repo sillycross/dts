@@ -4,7 +4,7 @@ namespace clubbase
 {
 	//最大可选择的称号数目（第一个数值为普通称号，第二个数值为特殊称号）
 	//玩家可以从这些称号中任选一个作为自己的称号
-	$max_club_choice_num = Array(2,1);
+	$max_club_choice_num = Array(2,2);
 	
 	//称号编号列表
 	//格式为 称号编号 => 称号描述，称号描述包含3个域，type，probability, 和skills
