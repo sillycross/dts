@@ -8,13 +8,20 @@ eval(import_module('sys','player','map','input'));
 include_once './include/user.func.php';
 include_once './include/valid.func.php';
 
-if(!$cuser||!$cpass) { gexit($_ERROR['no_login'],__file__,__line__); }
-if($gamestate < 20) { gexit($_ERROR['no_start'],__file__,__line__); }
-
+if(!$cuser||!$cpass) {
+	gexit($_ERROR['no_login'],__file__,__line__);
+	return;
+}
+if($gamestate < 20) {
+	gexit($_ERROR['no_start'],__file__,__line__);
+	return;
+}
 $udata = udata_check();
+if(!$udata) return;
 
 if($gamestate >= 30 && $udata['groupid'] < 6 && $cuser != $gamefounder) {
 	gexit($_ERROR['valid_stop'],__file__,__line__);
+	return;
 }
 
 eval(import_module('cardbase'));
@@ -23,7 +30,10 @@ eval(import_module('cardbase'));
 if($mode == 'enter') {
 	if($iplimit) {
 		$result = $db->query("SELECT * FROM {$gtablepre}users AS u, {$tablepre}players AS p WHERE u.ip='{$udata['ip']}' AND ( u.username=p.name AND p.type=0)");
-		if($db->num_rows($result) > $iplimit) { gexit($_ERROR['ip_limit'],__file__,__line__); }
+		if($db->num_rows($result) > $iplimit) {
+			gexit($_ERROR['ip_limit'],__file__,__line__);
+			return;
+		}
 	}	
 
 	$ip = real_ip();
@@ -41,10 +51,12 @@ if($mode == 'enter') {
 	$db->query("UPDATE {$gtablepre}users SET gender='$gender', icon='$icon', motto='$motto', killmsg='$killmsg', card='$card', lastword='$lastword' WHERE username='".$udata['username']."'" );
 	if($validnum >= $validlimit) {
 		gexit($_ERROR['player_limit'],__file__, __line__);
+		return;
 	}
 	$result = $db->query("SELECT * FROM {$tablepre}players WHERE name = '$cuser' AND type = 0");
 	if($db->num_rows($result)) {
 		gexit($_ERROR['player_exist'], __file__, __line__);
+		return;
 	}
 	
 	$enterable = true;
@@ -93,6 +105,7 @@ if($mode == 'enter') {
 
 	if($validnum >= $validlimit) {
 		gexit($_ERROR['player_limit'],__file__,__line__);
+		return;
 	}
 	$iconarray = get_iconlist($icon);
 	$select_icon = $icon;

@@ -7,6 +7,7 @@ eval(import_module('sys','player','map'));
 
 if(!$cuser||!$cpass) { 
 	gexit($_ERROR['no_login'],__file__,__line__);
+	return;
 } 
 
 $result = $db->query("SELECT * FROM {$tablepre}players WHERE name = '$cuser' AND type = 0");
@@ -29,6 +30,7 @@ if($pdata['pass'] != $cpass) {
 		$db->query("UPDATE {$tablepre}players SET pass='$password' WHERE name='$cuser'");
 	} else {
 		gexit($_ERROR['wrong_pw'],__file__,__line__);
+		return;
 	}
 }
 
