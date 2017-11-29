@@ -7,7 +7,7 @@ namespace skill225
 		define('MOD_SKILL225_INFO','club;locked;');
 		eval(import_module('clubbase'));
 		$clubskillname[225] = '高速';
-		$clubdesc_h[10] = $clubdesc_a[10] = '每次攻击额外获得1点熟练度';
+		$clubdesc_h[10] = $clubdesc_a[10] = '每次攻击有2/3概率额外获得1点熟练度';
 	}
 	
 	function acquire225(&$pa)
@@ -29,8 +29,13 @@ namespace skill225
 	function calculate_attack_weapon_skill_gain(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_query(225,$pa)) return (1+$chprocess($pa,$pd,$active));
-		return $chprocess($pa,$pd,$active);
+		$ret = $chprocess($pa,$pd,$active);
+		if (\skillbase\skill_query(225,$pa)) {
+			$a = 0;
+			if(rand(0,2) < 2) $a = 1;
+			$ret += $a;
+		}
+		return $ret;
 	}
 }
 

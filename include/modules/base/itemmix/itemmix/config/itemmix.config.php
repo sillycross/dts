@@ -301,7 +301,7 @@ $mixinfo = array
 	array('class' => 'ocg', 'stuff' => array('红莲魔龙 ★8 -仮','☆八星认证☆'),'result' => array('红莲魔龙 ★8','WC08',500,'25','du'),),
 	array('class' => 'ocg', 'stuff' => array('红莲魔龙 ★8','☆爆裂模式☆'),'result' => array('真红魔龙/爆裂体 ★10','WC10',250,'∞','dZ'),),
 	array('class' => 'ocg', 'stuff' => array('星尘龙 ★8','☆爆裂模式☆'),'result' => array('星尘龙/爆裂体 ★10','WC10',627,'∞','mr'),), 
-	array('class' => 'ocg', 'stuff' => array('机巧将军 无零 ★7 -仮','☆七星认证☆'),'result' => array('机巧将军 无零 ★7','WC07',360,'∞','Z'),),
+	array('class' => 'ocg', 'stuff' => array('机巧将军 无零 ★7 -仮','☆七星认证☆'),'result' => array('机巧将军 无零 ★7','WC07',400,'∞','ZA'),),
 	array('class' => 'ocg', 'stuff' => array('正义盟军 光明守望者 ★8 -仮','☆八星认证☆'),'result' => array('正义盟军 光明守望者 ★8','WC08',260,'∞','rZ'),),
 	array('class' => 'ocg', 'stuff' => array('救世魔龙 -仮','☆十星认证☆'),'result' => array('「救世魔龙」 ★10','WC10',950,'∞','uf'),),
 	array('class' => 'ocg', 'stuff' => array('救世星龙 -仮','☆十星认证☆','★神卡认证★'),'result' => array('『流天类星龙』 ★12','WC12',4000,'∞','mcrtZ'),),

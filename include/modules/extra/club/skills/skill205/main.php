@@ -5,9 +5,12 @@ namespace skill205
 
 	$ragecost=75;
 	
+	$alternate_skillno205 = 265;//互斥技能编号
+	$u_lvl205 = 15;//解锁等级
+	
 	function init() 
 	{
-		define('MOD_SKILL205_INFO','club;battle;locked;');
+		define('MOD_SKILL205_INFO','club;battle;upgrade;');
 		eval(import_module('clubbase'));
 		$clubskillname[205] = '咆哮';
 	}
@@ -15,13 +18,13 @@ namespace skill205
 	function acquire205(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		\skillbase\skill_setvalue(205,'u','0',$pa);	//是否已经被解锁
+		\skillbase\skill_setvalue(205,'unlocked','0',$pa);	//是否已经被解锁
 	}
 	
 	function unlock205(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		\skillbase\skill_setvalue(205,'u','1',$pa);
+		\skillbase\skill_setvalue(205,'unlocked','1',$pa);
 	}
 	
 	function lost205(&$pa)
@@ -32,7 +35,22 @@ namespace skill205
 	function check_unlocked205(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return $pa['lvl']>=15 && \skillbase\skill_getvalue(205,'u',$pa)=='1';
+		if(check_unlocked_state205($pa) > 0) return 0;
+		else return 1;
+	}
+	
+	//0 解锁 1 等级不够 2 存在互斥技能且尚未选择 4 互斥技能解锁
+	function check_unlocked_state205(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('skill205'));
+		$ret = 0;
+		if($pa['lvl'] < $u_lvl205) $ret += 1;
+		if(\skillbase\skill_query($alternate_skillno205, $pa)){
+			if(\skillbase\skill_getvalue(205,'unlocked',$pa)==0 ) $ret += 2;
+			if(\skillbase\skill_getvalue($alternate_skillno205,'unlocked',$pa)>0) $ret += 4;
+		}
+		return $ret;
 	}
 	
 	function get_rage_cost205(&$pa = NULL)
@@ -76,6 +94,26 @@ namespace skill205
 		}
 		$chprocess($pa, $pd, $active);
 	}	
+	
+	function upgrade205()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('skill205','player','logger','clubbase'));
+		if (!\skillbase\skill_query(205))
+		{
+			$log .= '你没有这个技能。<br>';
+			return;
+		}
+		if (check_unlocked205($sdata))
+		{
+			$log .= '你已经选择了这个技能<br>';
+			return;
+		}
+
+		\skillbase\skill_setvalue(205,'unlocked',1);
+		
+		$log.='技能「'.$clubskillname[205].'」选择成功。<br>';
+	}
 	
 	function get_physical_dmg_multiplier(&$pa, &$pd, $active)
 	{

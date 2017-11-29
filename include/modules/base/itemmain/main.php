@@ -117,13 +117,13 @@ namespace itemmain
 				foreach($sk_arr as $sv){
 					if(!$i){
 						$ret .= $itemspkinfo[$sv];
-					}elseif($i < 3){
+					}elseif($elli && $i >= 3 && $i < $imax-1){
+						if(!$elli_aready){
+							$ret .= '+…';
+							$elli_aready = 1;
+						}
+					}else{
 						$ret .= '+'.$itemspkinfo[$sv];
-					}elseif($i == $imax-1){
-						$ret .= '+'.$itemspkinfo[$sv];
-					}elseif($elli && !$elli_aready){
-						$ret .= '+…';
-						$elli_aready = 1;
 					}
 					$i ++ ;
 				}
