@@ -1,4 +1,4 @@
-<!--{eval $___TEMP_SKILL_ID=226;}-->
+<!--{eval $___TEMP_SKILL_ID=226;eval(import_module('skill226','clubbase'));$ustate = \skill226\check_unlocked_state226($who);}-->
 {template MOD_CLUBBASE_SKILLDESC_START}
 <span>
 神智
@@ -8,11 +8,28 @@
 你在战斗中获得的经验值<span class="yellow">+1</span>。
 </span></td>
 <td class=b3 width=96>
+	<!--这个只是一个假的按钮，实际点击的是下面那个-->
+	<!--{if $ustate & 2 && !($ustate & 4)}-->
+	<input type="button" style="width:46px" value="选择">
+	<!--{/if}-->
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
 <!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
-<span class="yellow">
-7级时解锁
+
+<!--{if $ustate & 4}-->
+<span class="red b">
+已获得技能「{$clubskillname[$alternate_skillno226]}」，无法解锁！
 </span>
+<!--{else}-->
+	<span class="yellow">
+	<!--{if $ustate & 2}-->
+		请在右侧选择本技能。与技能「{$clubskillname[$alternate_skillno226]}」互斥。
+		<input type="button" style="width:47px;margin-right:25px;float:right;" onclick="$('mode').value='special';$('command').value='skill226_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="选择">
+	<!--{else}-->
+		已选择。{$u_lvl226}级时解锁
+	<!--{/if}-->
+	</span>
+<!--{/if}-->
+
 <!--{/if}-->
 {template MOD_CLUBBASE_SKILLDESC_END}

@@ -2,7 +2,7 @@
 
 namespace skill271
 {
-	$skill271deno = 200;
+	$skill271deno = 300;
 	
 	function init() 
 	{
@@ -30,7 +30,7 @@ namespace skill271
 	function get_skill271_times(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('logger'));
+		eval(import_module('logger','skill271'));
 		
 		$o_log = $log;//某些技能（比如天威）会在获取熟练度时写log，要屏蔽掉这种消息
 		$s1 = \weapon\get_skill($pa, $pd, $active);
@@ -41,7 +41,7 @@ namespace skill271
 		
 		$t = 0;
 		if ($s1 > $s2) {
-			$t = floor(($s1-$s2)/200);
+			$t = floor(($s1-$s2)/$skill271deno);
 		}
 		return $t;
 	}

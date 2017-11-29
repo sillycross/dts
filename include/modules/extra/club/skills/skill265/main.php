@@ -7,9 +7,12 @@ namespace skill265
 	$skill265prate = 90;//贯穿触发概率
 	$ragecost=95;
 	
+	$alternate_skillno265 = 205;//互斥技能编号
+	$u_lvl265 = 17;//解锁等级
+	
 	function init() 
 	{
-		define('MOD_SKILL265_INFO','club;battle;locked;');
+		define('MOD_SKILL265_INFO','club;battle;upgrade;');
 		eval(import_module('clubbase'));
 		$clubskillname[265] = '狙击';
 	}
@@ -17,13 +20,13 @@ namespace skill265
 	function acquire265(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		\skillbase\skill_setvalue(265,'u','0',$pa);	//是否已经被解锁
+		\skillbase\skill_setvalue(265,'unlocked','0',$pa);	//是否已经被解锁
 	}
 	
 	function unlock265(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		\skillbase\skill_setvalue(265,'u','1',$pa);
+		\skillbase\skill_setvalue(265,'unlocked','1',$pa);
 	}
 	
 	function lost265(&$pa)
@@ -34,7 +37,22 @@ namespace skill265
 	function check_unlocked265(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return $pa['lvl']>=17 && \skillbase\skill_getvalue(265,'u',$pa)=='1';
+		if(check_unlocked_state265($pa) > 0) return 0;
+		else return 1;
+	}
+	
+	//0 解锁 1 等级不够 2 存在互斥技能且尚未选择 4 互斥技能解锁
+	function check_unlocked_state265(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('skill265'));
+		$ret = 0;
+		if($pa['lvl'] < $u_lvl265) $ret += 1;
+		if(\skillbase\skill_query($alternate_skillno265, $pa)){
+			if(\skillbase\skill_getvalue(265,'unlocked',$pa)==0 ) $ret += 2;
+			if(\skillbase\skill_getvalue($alternate_skillno265,'unlocked',$pa)>0) $ret += 4;
+		}
+		return $ret;
 	}
 	
 	function get_rage_cost265(&$pa = NULL)
@@ -78,6 +96,26 @@ namespace skill265
 		}
 		$chprocess($pa, $pd, $active);
 	}	
+	
+	function upgrade265()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('skill265','player','logger','clubbase'));
+		if (!\skillbase\skill_query(265))
+		{
+			$log .= '你没有这个技能。<br>';
+			return;
+		}
+		if (check_unlocked265($sdata))
+		{
+			$log .= '你已经选择了这个技能<br>';
+			return;
+		}
+
+		\skillbase\skill_setvalue(265,'unlocked',1);
+		
+		$log.='技能「'.$clubskillname[265].'」选择成功。<br>';
+	}
 	
 	function get_physical_dmg_multiplier(&$pa, &$pd, $active)
 	{

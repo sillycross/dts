@@ -1,5 +1,4 @@
-<!--{eval eval(import_module('skill205'));}-->
-<!--{eval $___TEMP_SKILL_ID=205;}-->
+<!--{eval $___TEMP_SKILL_ID=205;eval(import_module('skill205','clubbase'));$ustate = \skill205\check_unlocked_state205($who);}-->
 {template MOD_CLUBBASE_SKILLDESC_START}
 <span>
 咆哮
@@ -9,17 +8,26 @@
 <span class="yellow">战斗技</span>&nbsp;&nbsp;本次攻击物理伤害<span class="yellow">+20%</span>，属性伤害<span class="yellow">+80%</span>，<br>防具损坏效果<span class="yellow">×2</span>。使用远程兵器方可发动，消耗<span class="yellow">$ragecost</span>点怒气
 </span></td>
 <td class=b3 width=96>
+	<!--这个只是一个假的按钮，实际点击的是下面那个-->
+	<!--{if $ustate & 2 && !($ustate & 4)}-->
+	<input type="button" style="width:46px" value="选择">
+	<!--{/if}-->
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
 <!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
-<span class="yellow">
-	<!--{if !\skillbase\skill_getvalue(205,'u',$who)}-->
-		<!--{if \skillbase\skill_query(266,$who)}-->
-		通过「枪魂」技能来选择本技能或「狙击」技能
-		<!--{/if}-->
-	<!--{else}-->
-	15级时解锁
-	<!--{/if}-->
+<!--{if $ustate & 4}-->
+<span class="red b">
+已获得技能「{$clubskillname[$alternate_skillno205]}」，无法解锁！
 </span>
+<!--{else}-->
+	<span class="yellow">
+	<!--{if $ustate & 2}-->
+		请在右侧选择本技能。与技能「{$clubskillname[$alternate_skillno205]}」互斥。
+		<input type="button" style="width:47px;margin-right:25px;float:right;" onclick="$('mode').value='special';$('command').value='skill205_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="选择">
+	<!--{else}-->
+		已选择。{$u_lvl205}级时解锁
+	<!--{/if}-->
+	</span>
+<!--{/if}-->
 <!--{/if}-->
 {template MOD_CLUBBASE_SKILLDESC_END}
