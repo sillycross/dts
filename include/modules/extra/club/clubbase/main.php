@@ -183,6 +183,12 @@ namespace clubbase
 		return $func($who);
 	}
 	
+	function check_battle_skill_available(&$edata,$skillno)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return true;
+	}
+	
 	function get_battle_skill_entry(&$edata,$which)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -191,7 +197,7 @@ namespace clubbase
 		if (isset($clublist[$club]))
 			foreach ($clublist[$club]['skills'] as $key) 
 				if (defined('MOD_SKILL'.$key.'_INFO'))
-					if (\skillbase\check_skill_info($key, 'club') && \skillbase\check_skill_info($key, 'battle') && \skillbase\skill_query($key))
+					if (\skillbase\check_skill_info($key, 'club') && \skillbase\check_skill_info($key, 'battle') && \skillbase\skill_query($key) && check_battle_skill_available($edata,$key))
 					{
 						$flag = 0;
 						if (\skillbase\check_skill_info($key, 'hidden')) $flag = 1;
@@ -214,7 +220,7 @@ namespace clubbase
 		foreach (\skillbase\get_acquired_skill_array() as $key) 
 			if (isset($clublist[$club]) && !in_array($key,$clublist[$club]['skills']))
 				if (defined('MOD_SKILL'.$key.'_INFO'))
-					if (!\skillbase\check_skill_info($key, 'achievement') && \skillbase\check_skill_info($key, 'battle'))
+					if (!\skillbase\check_skill_info($key, 'achievement') && \skillbase\check_skill_info($key, 'battle') && check_battle_skill_available($edata,$key))
 					{
 						$flag = 0;
 						if (\skillbase\check_skill_info($key, 'hidden')) $flag = 1;
@@ -344,6 +350,25 @@ namespace clubbase
 				array_push($___TEMP_inclist,template(constant('MOD_SKILL'.$key.'_DESC'))); 
 			}
 		foreach ($___TEMP_inclist as $___TEMP_template_name) include $___TEMP_template_name;
+	}
+	
+	//-1 技能不存在 0 解锁 1 等级不够 2 存在互斥技能且尚未选择 4 互斥技能解锁
+	function skill_check_unlocked_state($skillid, &$pa = NULL)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!defined('MOD_SKILL'.$skillid.'_INFO')) return -1;
+		if(!$pa) {
+			eval(import_module('player'));
+			$pa = $sdata;
+		}
+		eval(import_module('skill'.$skillid));
+		$ret = 0;
+		if(isset(${'unlock_lvl'.$skillid}) && $pa['lvl'] < ${'unlock_lvl'.$skillid}) $ret += 1;
+		if(isset(${'alternate_skillno'.$skillid}) && \skillbase\skill_query(${'alternate_skillno'.$skillid}, $pa)){
+			if(\skillbase\skill_getvalue($skillid,'unlocked',$pa)==0 ) $ret += 2;
+			if(\skillbase\skill_getvalue(${'alternate_skillno'.$skillid},'unlocked',$pa)>0) $ret += 4;
+		}
+		return $ret;
 	}
 }
 

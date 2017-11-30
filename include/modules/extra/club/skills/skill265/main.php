@@ -8,13 +8,14 @@ namespace skill265
 	$ragecost=95;
 	
 	$alternate_skillno265 = 205;//互斥技能编号
-	$u_lvl265 = 17;//解锁等级
+	$unlock_lvl265 = 17;//解锁等级
 	
 	function init() 
 	{
 		define('MOD_SKILL265_INFO','club;battle;upgrade;');
-		eval(import_module('clubbase'));
-		$clubskillname[265] = '狙击';
+		eval(import_module('clubbase','wep_j'));
+		$clubskillname[265] = '穿杨';
+		$wj_allowed_bskill[] = 265;
 	}
 	
 	function acquire265(&$pa)
@@ -37,22 +38,8 @@ namespace skill265
 	function check_unlocked265(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if(check_unlocked_state265($pa) > 0) return 0;
+		if(\clubbase\skill_check_unlocked_state(265, $pa) > 0) return 0;
 		else return 1;
-	}
-	
-	//0 解锁 1 等级不够 2 存在互斥技能且尚未选择 4 互斥技能解锁
-	function check_unlocked_state265(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('skill265'));
-		$ret = 0;
-		if($pa['lvl'] < $u_lvl265) $ret += 1;
-		if(\skillbase\skill_query($alternate_skillno265, $pa)){
-			if(\skillbase\skill_getvalue(265,'unlocked',$pa)==0 ) $ret += 2;
-			if(\skillbase\skill_getvalue($alternate_skillno265,'unlocked',$pa)>0) $ret += 4;
-		}
-		return $ret;
 	}
 	
 	function get_rage_cost265(&$pa = NULL)
@@ -75,12 +62,12 @@ namespace skill265
 		else
 		{
 			$rcost = get_rage_cost265($pa);
-			if (($pa['rage']>=$rcost)&&($pa['wep_kind']=="G"))
+			if ( $pa['rage']>=$rcost &&($pa['wep_kind']=="G" || $pa['wep_kind']=="J"))
 			{
 				eval(import_module('logger'));
 				if ($active)
-					$log.="<span class=\"lime\">你对{$pd['name']}发动了技能「狙击」！</span><br>";
-				else  $log.="<span class=\"lime\">{$pa['name']}对你发动了技能「狙击」！</span><br>";
+					$log.="<span class=\"lime\">你对{$pd['name']}发动了技能「穿杨」！</span><br>";
+				else  $log.="<span class=\"lime\">{$pa['name']}对你发动了技能「穿杨」！</span><br>";
 				$pa['rage']-=$rcost;
 				addnews ( 0, 'bskill265', $pa['name'], $pd['name'] );
 			}
@@ -106,7 +93,7 @@ namespace skill265
 			$log .= '你没有这个技能。<br>';
 			return;
 		}
-		if (check_unlocked265($sdata))
+		if (\skillbase\skill_getvalue(265,'unlocked') > 0)
 		{
 			$log .= '你已经选择了这个技能<br>';
 			return;
@@ -124,7 +111,7 @@ namespace skill265
 		if ($pa['bskill']==265) 
 		{
 			eval(import_module('logger','skill265'));
-			$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow">「狙击」使<:pa_name:>造成的物理伤害提高了'.$skill265phyup.'%！</span><br>');
+			$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow">「穿杨」使<:pa_name:>造成的物理伤害提高了'.$skill265phyup.'%！</span><br>');
 			$r=Array(1+$skill265phyup/100);
 		}
 		return array_merge($r,$chprocess($pa,$pd,$active));
@@ -138,7 +125,7 @@ namespace skill265
 		{
 			eval(import_module('skill265'));
 //			eval(import_module('logger'));
-//			$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow">「狙击」使<:pa_name:>的命中率提升了20%！</span><br>');
+//			$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow">「穿杨」使<:pa_name:>的命中率提升了20%！</span><br>');
 			$r = 1+$skill265htrup/100;
 		}
 		return $chprocess($pa, $pd, $active)*$r;
@@ -188,7 +175,7 @@ namespace skill265
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill265') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}对{$b}发动了技能<span class=\"yellow\">「狙击」</span></span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}对{$b}发动了技能<span class=\"yellow\">「穿杨」</span></span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

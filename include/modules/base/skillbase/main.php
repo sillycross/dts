@@ -316,6 +316,7 @@ namespace skillbase
 			unset($pa['parameter_list'][$skillkey]);
 		}
 	}
+	
 }
 
 ?>

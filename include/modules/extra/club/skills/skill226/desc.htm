@@ -1,4 +1,4 @@
-<!--{eval $___TEMP_SKILL_ID=226;eval(import_module('skill226','clubbase'));$ustate = \skill226\check_unlocked_state226($who);}-->
+<!--{eval $___TEMP_SKILL_ID=226;eval(import_module('skill226','clubbase'));$ustate = \clubbase\skill_check_unlocked_state(226,$who);}-->
 {template MOD_CLUBBASE_SKILLDESC_START}
 <span>
 神智
@@ -26,7 +26,7 @@
 		请在右侧选择本技能。与技能「{$clubskillname[$alternate_skillno226]}」互斥。
 		<input type="button" style="width:47px;margin-right:25px;float:right;" onclick="$('mode').value='special';$('command').value='skill226_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="选择">
 	<!--{else}-->
-		已选择。{$u_lvl226}级时解锁
+		已选择。{$unlock_lvl226}级时解锁
 	<!--{/if}-->
 	</span>
 <!--{/if}-->

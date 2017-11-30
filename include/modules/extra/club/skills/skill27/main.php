@@ -54,9 +54,9 @@ namespace skill27
 			if ($pa['bskill']==26)	//聚能发动时损伤所有防具
 			{
 				$target = $armor_equip_list;
-				if (\skillbase\skill_getvalue(26,'lvl',$pa))
-					$damage = 2;
-				else  $damage = 3; 
+				if (2==\skillbase\skill_getvalue(26,'lvl',$pa))
+					$damage = 3;
+				else  $damage = 2; 
 			}
 			else  
 			{

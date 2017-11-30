@@ -6,13 +6,14 @@ namespace skill205
 	$ragecost=75;
 	
 	$alternate_skillno205 = 265;//互斥技能编号
-	$u_lvl205 = 15;//解锁等级
+	$unlock_lvl205 = 15;//解锁等级
 	
 	function init() 
 	{
 		define('MOD_SKILL205_INFO','club;battle;upgrade;');
-		eval(import_module('clubbase'));
+		eval(import_module('clubbase','wep_j'));
 		$clubskillname[205] = '咆哮';
+		$wj_allowed_bskill[] = 205;
 	}
 
 	function acquire205(&$pa)
@@ -35,22 +36,8 @@ namespace skill205
 	function check_unlocked205(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if(check_unlocked_state205($pa) > 0) return 0;
+		if(\clubbase\skill_check_unlocked_state(205, $pa) > 0) return 0;
 		else return 1;
-	}
-	
-	//0 解锁 1 等级不够 2 存在互斥技能且尚未选择 4 互斥技能解锁
-	function check_unlocked_state205(&$pa)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('skill205'));
-		$ret = 0;
-		if($pa['lvl'] < $u_lvl205) $ret += 1;
-		if(\skillbase\skill_query($alternate_skillno205, $pa)){
-			if(\skillbase\skill_getvalue(205,'unlocked',$pa)==0 ) $ret += 2;
-			if(\skillbase\skill_getvalue($alternate_skillno205,'unlocked',$pa)>0) $ret += 4;
-		}
-		return $ret;
 	}
 	
 	function get_rage_cost205(&$pa = NULL)
@@ -73,7 +60,7 @@ namespace skill205
 		else
 		{
 			$rcost = get_rage_cost205($pa);
-			if (($pa['rage']>=$rcost)&&($pa['wep_kind']=="G"))
+			if ( $pa['rage']>=$rcost && ($pa['wep_kind']=="G" || $pa['wep_kind']=="J"))
 			{
 				eval(import_module('logger'));
 				if ($active)
@@ -104,7 +91,7 @@ namespace skill205
 			$log .= '你没有这个技能。<br>';
 			return;
 		}
-		if (check_unlocked205($sdata))
+		if (\skillbase\skill_getvalue(205,'unlocked') > 0)
 		{
 			$log .= '你已经选择了这个技能<br>';
 			return;
