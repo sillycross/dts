@@ -7,6 +7,14 @@ namespace item_uv
 		eval(import_module('itemmain'));
 		$iteminfo['VO'] = '卡片礼物';
 		$iteminfo['V'] = '技能书籍';
+		$iteminfo['VS'] = '技能书籍';
+		$iteminfo['VV'] = '全系书籍';
+		$iteminfo['VP'] = '殴系书籍';
+		$iteminfo['VK'] = '斩系书籍';
+		$iteminfo['VG'] = '射系书籍';
+		$iteminfo['VC'] = '投系书籍';
+		$iteminfo['VD'] = '爆系书籍';
+		$iteminfo['VF'] = '灵系书籍';
 	}
 	
 	function itemuse(&$theitem) 

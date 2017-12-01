@@ -36,7 +36,7 @@ namespace itemmain
 		else return middle_abbr($name_value,$i-1,$end);
 	}
 	
-	function parse_itmk_words($k_value)
+	function parse_itmk_words($k_value, $reveal=0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		

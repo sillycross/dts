@@ -17,7 +17,7 @@ if(!file_exists($writefile) || filemtime($mixfile) > filemtime($writefile)){
 	$mixitem = array();
 	foreach($mixinfo as $mix){
 		if($mix['class'] !== 'hidden'){
-			$mixitmk = \itemmain\parse_itmk_words($mix['result'][1]);
+			$mixitmk = \itemmain\parse_itmk_words($mix['result'][1],1);
 			$mixitmsk = \itemmain\parse_itmsk_words($mix['result'][4]);
 			if ($mixitmsk == '--') $mixitmsk = '';
 			$mixitem[$mix['class']][] = array('stuff' => $mix['stuff'], 'result' => array($mix['result'][0],$mixitmk,$mix['result'][2],$mix['result'][3],$mixitmsk));
@@ -76,7 +76,7 @@ MIXITEM_HELP_TABLE_TITLE;
 				}
 				$mixhelpinfo .= "><span>{$val['stuff'][$i]}</span></td>";
 			}
-			$mixhelpinfo .= "<td class=\"b3\">→</td>
+			$mixhelpinfo .= "<td class=\"b3\"><span>→</span></td>
 				<td class=\"b3\"><span>{$val['result'][0]}</span></td>
 				<td class=\"b3\"><span>{$val['result'][1]}/{$val['result'][2]}/{$val['result'][3]}{$itmskword}</span></td>
 			</tr>
@@ -98,7 +98,7 @@ if(!file_exists($writefile) || filemtime($syncfile) > filemtime($writefile)){
 	$syncitem_special = array();
 	foreach($syncinfo as $sync){
 		$sync_arr=array_combine(array('itm', 'itmk', 'itme', 'itms', 'itmsk', 'star', 'special'), array_slice(explode(',',$sync), 0, 7));
-		$sync_arr['itmk'] = \itemmain\parse_itmk_words($sync_arr['itmk']);
+		$sync_arr['itmk'] = \itemmain\parse_itmk_words($sync_arr['itmk'],1);
 		$sync_arr['itmsk'] = \itemmain\parse_itmsk_words($sync_arr['itmsk']);
 		if(!empty($sync_arr['special'])){
 			$sync_arr['special'] = explode('+',$sync_arr['special']);
@@ -178,7 +178,7 @@ if(!file_exists($writefile) || filemtime($overlayfile) > filemtime($writefile)){
 	$overlayitem = array();
 	foreach($overlayinfo as $overlay){
 		$overlay_arr=array_combine(array('itm', 'itmk', 'itme', 'itms', 'itmsk', 'star', 'num'), array_slice(explode(',',$overlay), 0, 7));
-		$overlay_arr['itmk'] = \itemmain\parse_itmk_words($overlay_arr['itmk']);
+		$overlay_arr['itmk'] = \itemmain\parse_itmk_words($overlay_arr['itmk'],1);
 		$overlay_arr['itmsk'] = \itemmain\parse_itmsk_words($overlay_arr['itmsk']);
 		$overlayitem[] = $overlay_arr;
 	}

@@ -10,7 +10,7 @@ namespace npcinfo
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		echo $itm;
-		if ($itmk!='') echo '/'.\itemmain\parse_itmk_words($itmk);
+		if ($itmk!='') echo '/'.\itemmain\parse_itmk_words($itmk,1);
 		if ($itme!='') echo '/'.$itme;
 		if ($itms!='') echo '/'.$itms;
 		if (\itemmain\count_itmsk_num($itmsk)>0)
@@ -22,7 +22,7 @@ namespace npcinfo
 	function npcinfo_get_npc_description($npckind, $npcsubkind, $npcdata = NULL, $ninfo_custom = NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
-		eval(import_module('sys','player','clubbase','npc','tactic','pose','map'));
+		eval(import_module('sys','player','clubbase','npc','tactic','pose','map','weapon'));
 		if($ninfo_custom) {
 			$o_npcinfo = $npcinfo;
 			$npcinfo =$ninfo_custom;

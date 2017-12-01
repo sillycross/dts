@@ -2,12 +2,20 @@
 
 namespace poison
 {
-	function init() {}
+	function init() {
+		eval(import_module('itemmain'));
+		$iteminfo['PH'] = '生命恢复（有毒）';
+		$iteminfo['PS'] = '体力恢复（有毒）';
+		$iteminfo['PB'] = '命体恢复（有毒）';
+		$iteminfo['PM'] = '歌魂增加（有毒）';
+		$iteminfo['PT'] = '歌魂增加（有毒）';
+		$iteminfo['PR'] = '怒气增加（有毒）';
+	}
 	
-	function parse_itmk_words($k_value)
+	function parse_itmk_words($k_value, $reveal=0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (isset($k_value[0]) && $k_value[0]=='P') $k_value[0]='H';
+		if (isset($k_value[0]) && $k_value[0]=='P' && !$reveal) $k_value[0]='H';
 		return $chprocess($k_value);
 	}
 	
@@ -36,13 +44,10 @@ namespace poison
 		$itme=&$theitem['itme']; $itms=&$theitem['itms']; $itmsk=&$theitem['itmsk'];
 		
 		if (strpos ( $itmk, 'P' ) === 0) {
-			if (strpos ( $itmk, '2' ) === 2) {
-				$damage = round ( $itme * 2 );
-			} elseif (strpos ( $itmk, '1' ) === 2) {
-				$damage = round ( $itme * 1.5 );
-			} else {
-				$damage = round ( $itme );
-			}
+			$m=(int)substr($itmk, 2,1);//支持1.5-9倍毒
+			if($m < 1) $m = 1;
+			elseif($m == 1) $m = 1.5;
+			$damage = round($itme * $m);
 			
 			if (defined('MOD_WOUND')) \wound\get_inf('p');
 			
@@ -142,11 +147,21 @@ namespace poison
 		$itmk = substr_replace($itmk,'P',0,1);
 		//if($club == 8){ $itmk = substr_replace($itmk,'2',2,1); }
 		$p_factor = check_poison_factor();
-		if(!empty($p_factor)) $itmk = substr_replace($itmk,$p_factor,2,1);
-		if($art == '妖精的羽翼') {$itmk = substr_replace($itmk,'H',0,1);$log .= "一种神秘的力量净化了毒药，你的毒药变成了解毒剂！";}
-		$itmsk = $pid;
-		if($art == '妖精的羽翼') {$log .= "使用了 <span class=\"red\">$poison</span> ，<span class=\"yellow\">${'itm'.$itmn}</span> 被净化了！<br>";}
-		else {$log .= "使用了 <span class=\"red\">$poison</span> ，<span class=\"yellow\">${'itm'.$itmn}</span> 被下毒了！<br>";}
+		if(!empty($p_factor) && (int)substr($itmk,2,1) < (int)$p_factor) $itmk = substr_replace($itmk,$p_factor,2,1);
+		if($art == '妖精的羽翼') {
+			$itmk = substr_replace($itmk,'H',0,1);
+			if((int)substr($itmk,2,1) > 0) $itmk = substr_replace($itmk,'0',2,1);
+			$log .= "一种神秘的力量净化了毒药，你的毒药变成了解毒剂！";
+			if(is_numeric($itmsk)) $itmsk = 'z';
+		}else{
+			$itmsk = $pid;
+		}
+		if($art == '妖精的羽翼') {
+			$log .= "使用了 <span class=\"red\">$poison</span> ，<span class=\"yellow\">${'itm'.$itmn}</span> 被净化了！<br>";
+		}
+		else {
+			$log .= "使用了 <span class=\"red\">$poison</span> ，<span class=\"yellow\">${'itm'.$itmn}</span> 被下毒了！<br>";
+		}
 		$poisons--;
 		if($poisons <= 0){
 			$log .= "<span class=\"red\">$poison</span> 用光了。<br>";

@@ -3,7 +3,7 @@
 namespace skill226
 {
 	$alternate_skillno226 = 229;//互斥技能编号
-	$u_lvl226 = 7;//解锁等级
+	$unlock_lvl226 = 7;//解锁等级
 	
 	function init() 
 	{
@@ -27,7 +27,7 @@ namespace skill226
 	function check_unlocked226(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if(check_unlocked_state226($pa) > 0) return 0;
+		if(\clubbase\skill_check_unlocked_state(226,$pa) > 0) return 0;
 		else return 1;
 	}
 	
@@ -37,7 +37,7 @@ namespace skill226
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill226'));
 		$ret = 0;
-		if($pa['lvl'] < $u_lvl226) $ret += 1;
+		if($pa['lvl'] < $unlock_lvl226) $ret += 1;
 		if(\skillbase\skill_query($alternate_skillno226, $pa)){
 			if(\skillbase\skill_getvalue(226,'unlocked',$pa)==0 ) $ret += 2;
 			if(\skillbase\skill_getvalue($alternate_skillno226,'unlocked',$pa)>0) $ret += 4;

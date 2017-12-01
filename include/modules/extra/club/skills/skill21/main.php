@@ -41,7 +41,8 @@ namespace skill21
 		$npc['exp'] = \lvlctl\calc_upexp($npc['lvl'] - 1);
 		//$npc['exp'] = round(($npc['lvl']*2+1)*$baseexp);
 		if(!isset($npc['state'])){$npc['state'] = 0;}
-		$npc['wp'] = $npc['wk'] = $npc['wg'] = $npc['wc'] = $npc['wd'] = $npc['wf'] = $npc['skill'];
+		if(is_array($npc['skill'])) {$npc = array_merge($npc,$npc['skill']);}
+		else { $npc['wp'] = $npc['wk'] = $npc['wg'] = $npc['wc'] = $npc['wd'] = $npc['wf'] = $npc['skill'];}
 		unset($npc['skill']);
 		return $npc;
 	}

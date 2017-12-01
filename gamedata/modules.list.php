@@ -164,7 +164,6 @@ skill460,extra/card/skills/skill460/,1
 skill461,extra/card/skills/skill461/,1
 skill251,extra/club/skills/skill251/,1
 skill255,extra/club/skills/skill255/,1
-wjfix,extra/misc/wjfix/,1
 skill462,extra/card/skills/skill462/,1
 skill77,extra/club/skills/skill77/,1
 skill257,extra/club/skills/skill257/,1
@@ -203,7 +202,6 @@ skill61,extra/club/skills/skill61/,1
 skill62,extra/club/skills/skill62/,1
 skill63,extra/club/skills/skill63/,1
 skill64,extra/club/skills/skill64/,1
-skill203,extra/club/skills/skill203/,1
 skill209,extra/club/skills/skill209/,1
 skill66,extra/club/skills/skill66/,1
 skill70,extra/club/skills/skill70/,1
@@ -302,6 +300,7 @@ skill492,extra/card/skills/skill492/,1
 skill20,extra/club/skills/skill20/,1
 skill36,extra/club/skills/skill36/,1
 skill38,extra/club/skills/skill38/,1
+skill203,extra/club/skills/skill203/,1
 dualwep,base/weapon/dualwep/,1
 ammunition,base/items/ammunition/,1
 skill487,extra/card/skills/skill487/,1
@@ -411,5 +410,6 @@ skill57,extra/club/skills/skill57/,1
 skill436,extra/card/skills/skill436/,1
 smartmix,extra/misc/smartmix/,1
 skill266,extra/club/skills/skill266/,1
+skill81,extra/club/skills/skill81/,1
 searchmemory,extra/searchmemory/,1
 halloween2017,extra/activities/halloween2017/main/,0

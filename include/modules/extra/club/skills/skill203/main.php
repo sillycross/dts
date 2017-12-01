@@ -8,8 +8,9 @@ namespace skill203
 	function init() 
 	{
 		define('MOD_SKILL203_INFO','club;battle;');
-		eval(import_module('clubbase'));
+		eval(import_module('clubbase','wep_j'));
 		$clubskillname[203] = '瞄准';
+		$wj_allowed_bskill[] = 203;
 	}
 	
 	function acquire203(&$pa)
@@ -48,7 +49,7 @@ namespace skill203
 		else
 		{
 			$rcost = get_rage_cost203($pa);
-			if (($pa['rage']>=$rcost)&&($pa['wep_kind']=="G"))
+			if ( $pa['rage']>=$rcost &&($pa['wep_kind']=="G" || $pa['wep_kind']=="J"))
 			{
 				eval(import_module('logger'));
 				if ($active)

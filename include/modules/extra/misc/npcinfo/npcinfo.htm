@@ -111,7 +111,13 @@
 									熟练度
 								</td>
 								<td width=100px align="center" class="b3">
-									<!--{if isset($nownpc['___count'])}-->$nownpc['skill']<!--{else}-->$nownpc['wp']<!--{/if}-->
+									<!--{if isset($nownpc['___count'])}-->
+										<!--{if is_array($nownpc['skill'])}-->
+											<span title="<!--{loop $nownpc['skill'] $nskk $nskv}-->{$skilltypeinfo[$nskk]}熟:{$nskv}<br><!--{/loop}-->">不定值</span>
+										<!--{else}-->
+											<span>$nownpc['skill']</span>
+										<!--{/if}-->
+									<!--{else}-->$nownpc['wp']<!--{/if}-->
 								</td>
 								<td width=80px align="center" class="b1">
 									怒气值
