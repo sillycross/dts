@@ -5,16 +5,19 @@ namespace itemmix
 
 $mixinfo = array
 	( 
-	array('class' => 'h', 'stuff' => array('杂炊','松茸'),'result' => array('松茸御饭','HS',120,2,),),
+	array('class' => 'h', 'stuff' => array('杂炊','松茸'),'result' => array('松茸御饭','HS',120,10,),),
 	array('class' => 'h', 'stuff' => array('咖喱','面包'),'result' => array('咖喱面包','HH',140,2,),),
-	array('class' => 'h', 'stuff' => array('牛奶','立顿茶包','糯米丸子'),'result' => array('珍珠奶茶','HB',200,4,),),
-	array('class' => 'h', 'stuff' => array('早苗面包','像围棋子一样的饼干','浓厚粘稠果汁','桔黄色的果酱'),'result' => array('KEY系儿童套餐','HB',333,9,),),
+	array('class' => 'h', 'stuff' => array('牛奶','立顿茶包','糯米丸子'),'result' => array('珍珠奶茶','HB',270,9,),),
+	array('class' => 'h', 'stuff' => array('早苗面包','像围棋子一样的饼干','浓厚粘稠果汁','桔黄色的果酱'),'result' => array('KEY系儿童套餐','HB',333,33,),),
 	array('class' => 'h', 'stuff' => array('针筒','疗伤药',),'result' => array('治疗针','HH',200,5,),),
-	array('class' => 'h', 'stuff' => array('治疗针','体力回复药','蒸馏水'),'result' => array('特级恢复药','HB',120,2,),),	
+	array('class' => 'h', 'stuff' => array('治疗针','体力回复药','蒸馏水'),'result' => array('特级恢复药','HB',240,3,),),	
 	array('class' => 'h', 'stuff' => array('甜生姜','地雷酥糖'),'result' => array('曾经的荣光-橙黄','HB',50,1,),),
 	array('class' => 'h', 'stuff' => array('曾经的荣光-橙黄','面包'),'result' => array('更改菜谱后的不甜酱包','HB',300,4,'Z'),), 
 	array('class' => 'h', 'stuff' => array('早苗面包','仙贝面包','海星面包','彩虹光芒的面包'),'result' => array('禁忌「Four of a Bread」','HB',444,4,'z'),),
 	array('class' => 'h', 'stuff' => array('寂寞','脸','杯子'),'result' => array('淡定红茶','HB',200,20,),),
+	array('class' => 'h', 'stuff' => array('凸眼鱼','面包','锅'),'result' => array('仰望星空派','HR',30,3,),),
+	array('class' => 'h', 'stuff' => array('河豚鱼','氯化氢','大夭使的气息'),'result' => array('鲱鱼罐头','PR9',90,10,),),
+	
 	
 	array('class' => 'wc', 'stuff' => array('汽油','空瓶'),'result' => array('☆火焰瓶☆','WC',80,50,'ud'),),	
 	array('class' => 'wc', 'stuff' => array('幻之使魔','永恒之桶'),'result' => array('灵魂的结晶','WC',180,240,'rn'),),

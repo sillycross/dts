@@ -72,7 +72,10 @@ namespace itemmix
 	function parse_itemmix_resultshow($rarr){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		return $rarr[0].'/'.\itemmain\parse_itmk_words($rarr[1]).'/'.$rarr[2].'/'.$rarr[3].'/'.\itemmain\parse_itmsk_words($rarr[4]);
+		$ret = $rarr[0].'/'.\itemmain\parse_itmk_words($rarr[1],1).'/'.$rarr[2].'/'.$rarr[3];
+		$itmskw = \itemmain\parse_itmsk_words($rarr[4],1);
+		if($itmskw) $ret .= '/'.$itmskw;
+		return $ret;
 	}
 	
 	function itemmix($mlist, $itemselect=-1) {

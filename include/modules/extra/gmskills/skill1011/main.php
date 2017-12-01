@@ -75,9 +75,7 @@ namespace skill1011
 		eval(import_module('sys','player','itemmain'));
 		$r = array();
 		foreach($ilist as $iv){
-			if(strpos($iv['itmk'],'P')===0) $pflag = 1; else $pflag = 0;
-			$iv['itmk'] = \itemmain\parse_itmk_words($iv['itmk']);
-			if($pflag) $iv['itmk'].='（毒）';
+			$iv['itmk'] = \itemmain\parse_itmk_words($iv['itmk'],1);
 			$iv['itmsk'] = \itemmain\parse_itmsk_words($iv['itmsk']);
 			$r[] = $iv;
 		}

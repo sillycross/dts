@@ -77,10 +77,11 @@ namespace skill220
 	function check_poison_factor(){//下毒2倍伤害
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('logger'));
-		if (\skillbase\skill_query(220)) {
+		$ret = $chprocess();
+		if (\skillbase\skill_query(220) && (int)$ret < 2) {
 			$log .= '你的专业知识让毒剂更加危险了。';
 			$ret = '2';
-		}else	$ret = $chprocess();
+		}
 		
 		return $ret;
 	}

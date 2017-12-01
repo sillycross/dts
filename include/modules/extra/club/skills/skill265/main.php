@@ -108,7 +108,7 @@ namespace skill265
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r=Array();
-		if ($pa['bskill']==265) 
+		if (isset($pa['bskill']) && $pa['bskill']==265) 
 		{
 			eval(import_module('logger','skill265'));
 			$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow">「穿杨」使<:pa_name:>造成的物理伤害提高了'.$skill265phyup.'%！</span><br>');
@@ -121,7 +121,7 @@ namespace skill265
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r = 1;
-		if ($pa['bskill']==265) 
+		if (isset($pa['bskill']) && $pa['bskill']==265) 
 		{
 			eval(import_module('skill265'));
 //			eval(import_module('logger'));
@@ -136,7 +136,7 @@ namespace skill265
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa, $active);
-		if ($pa['bskill']==265) 
+		if (isset($pa['bskill']) && $pa['bskill']==265) 
 		{
 			$ret += 1;
 		}
@@ -148,7 +148,7 @@ namespace skill265
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa, $pd, $active);
-		if ($pa['bskill']==265) 
+		if (isset($pa['bskill']) && $pa['bskill']==265) 
 		{
 			$ret = array_diff($ret, array('r', 'n'));
 			array_push($ret,'n');
@@ -161,7 +161,7 @@ namespace skill265
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa, $pd, $active);
-		if ($pa['bskill']==265) {
+		if (isset($pa['bskill']) && $pa['bskill']==265) {
 			eval(import_module('skill265'));
 			$ret = $skill265prate;
 		}

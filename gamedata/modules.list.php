@@ -410,5 +410,6 @@ skill57,extra/club/skills/skill57/,1
 skill436,extra/card/skills/skill436/,1
 smartmix,extra/misc/smartmix/,1
 skill266,extra/club/skills/skill266/,1
+skill81,extra/club/skills/skill81/,1
 searchmemory,extra/searchmemory/,1
 halloween2017,extra/activities/halloween2017/main/,0

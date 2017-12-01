@@ -27,7 +27,7 @@ if(!file_exists($writefile) || filemtime($mapitemfile) > filemtime($writefile) |
 					$ikind_w.="（可拾取）";
 				else  if ($ikind[0]=="P") 
 				{
-					if ($ikind[strlen($ikind)-1]=="2") $ikind_w.="（猛毒）"; else $ikind_w.="（有毒）";
+					if ($ikind[strlen($ikind)-1]>="2") $ikind_w.="（猛毒）"; else $ikind_w.="（有毒）";
 				}
 				$iskind_w = \itemmain\parse_itmsk_words($iskind,0);
 				if ($iarea==99) $iarea_w = "每禁"; 
