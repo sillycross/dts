@@ -26,7 +26,7 @@ namespace skill225
 		return 1;
 	}
 	
-	function calculate_attack_weapon_skill_gain(&$pa, &$pd, $active)
+	function calculate_attack_weapon_skill_gain_base(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa,$pd,$active);

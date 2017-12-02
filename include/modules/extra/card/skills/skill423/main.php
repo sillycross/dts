@@ -40,14 +40,14 @@ namespace skill423
 	}
 	
 	//面对scp时，玩家攻击获得经验恒为1。
-	function apply_attack_exp_gain(&$pa, &$pd, $active)
+	function calculate_attack_exp_gain_change(&$pa, &$pd, $active, $expup)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(423,$pa) || !check_unlocked423($pa)) return $chprocess($pa,$pd,$active);
-		
-		if ($pd['type']==88){
-			\lvlctl\getexp(1, $pa);
-		}else return $chprocess($pa,$pd,$active);
+		$ret = $chprocess($pa,$pd,$active,$expup);
+		if (\skillbase\skill_query(423,$pa) && check_unlocked423($pa) && $pd['type']==88 && $ret > 0){
+			$ret = 1;
+		}
+		return $ret;
 	}
 }
 

@@ -68,39 +68,39 @@ namespace instance9
 	}
 	
 	//急速模式怒气获得效率加倍
-	function calculate_attack_rage_gain(&$pa, &$pd, $active)
+	function calculate_attack_rage_gain_multiplier(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$rageup = $chprocess($pa, $pd, $active);
+		$ret = $chprocess($pa, $pd, $active);
 		eval(import_module('sys'));
 		if (19 == $gametype){
-			$rageup *= 2;
+			$ret *= 2;
 		}
-		return $rageup;
+		return $ret;
 	}
 	
 	//急速模式，玩家熟练度获得效率加倍
-	function calculate_attack_weapon_skill_gain(&$pa, &$pd, $active)
+	function calculate_attack_weapon_skill_gain_multiplier(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$skillup = $chprocess($pa,$pd,$active);
+		$ret = $chprocess($pa,$pd,$active);
 		eval(import_module('sys'));
 		if (19 == $gametype && !$pa['type']){
-			$skillup *= 2;
+			$ret *= 2;
 		}
-		return $skillup;
+		return $ret;
 	}
 	
 	//急速模式，玩家经验获得效率加倍
-	function calculate_attack_exp_gain(&$pa, &$pd, $active)
+	function calculate_attack_exp_gain_multiplier(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$expup = $chprocess($pa,$pd,$active);
+		$ret = $chprocess($pa,$pd,$active);
 		eval(import_module('sys'));
 		if (19 == $gametype && !$pa['type']){
-			$expup *= 2;
+			$ret *= 2;
 		}
-		return $expup;
+		return $ret;
 	}
 	
 	//急速模式开局禁区时间不会取整

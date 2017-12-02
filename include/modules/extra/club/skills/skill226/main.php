@@ -65,16 +65,26 @@ namespace skill226
 		$log.='技能「'.$clubskillname[226].'」选择成功。<br>';
 	}
 	
-	function apply_attack_exp_gain(&$pa, &$pd, $active)
+	function calculate_attack_exp_gain_base(&$pa, &$pd, $active, $fixed_val=0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
-		$chprocess($pa,$pd,$active);
-		//不命中没有经验
-		eval(import_module('lvlctl'));
-		if ( $pa['physical_dmg_dealt']>0 && \skillbase\skill_query(226,$pa) && check_unlocked226($pa) ) 
-			\lvlctl\getexp(1,$pa);
+		$ret = $chprocess($pa,$pd,$active,$fixed_val);
+		if ( \skillbase\skill_query(226,$pa) && check_unlocked226($pa) ) 
+			$ret += 1;
+
+		return $ret;
 	}
+	
+//	function apply_attack_exp_gain(&$pa, &$pd, $active)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		
+//		$chprocess($pa,$pd,$active);
+//		//不命中没有经验
+//		eval(import_module('lvlctl'));
+//		if ( $pa['physical_dmg_dealt']>0 && \skillbase\skill_query(226,$pa) && check_unlocked226($pa) ) 
+//			\lvlctl\getexp(1,$pa);
+//	}
 }
 
 ?>

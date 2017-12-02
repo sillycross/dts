@@ -33,7 +33,8 @@ namespace skill213
 		
 		eval(import_module('lvlctl'));
 		if (($pa['physical_dmg_dealt'] <= 0)&&(\skillbase\skill_query(213,$pa))&&(check_unlocked213($pa))&&($pa['wep_kind']=='D')) //如果没有伤害，则获得1点经验
-			\lvlctl\getexp(1,$pa);
+			\lvlctl\getexp(\weapon\calculate_attack_exp_gain($pa, $pd, $active, 1), $pa);//这样可以享受经验加成
+//			\lvlctl\getexp(1,$pa);
 	}
 }
 

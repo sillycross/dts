@@ -25,12 +25,22 @@ namespace skill459
 		return 1;
 	}
 	
-	function calculate_attack_exp_gain(&$pa, &$pd, $active)
+	//加成值
+	function calculate_attack_exp_gain_multiplier(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_query(459,$pd)) return 0;
-		if (\skillbase\skill_query(459,$pa)) return $chprocess($pa,$pd,$active)*3;
-		return $chprocess($pa,$pd,$active);
+		$ret = $chprocess($pa,$pd,$active);
+		if (\skillbase\skill_query(459,$pa)) $ret *= 3;
+		return $ret;
+	}
+	
+	//修正值
+	function calculate_attack_exp_gain_change(&$pa, &$pd, $active, $upexp)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($pa,$pd,$active,$upexp);
+		if (\skillbase\skill_query(459,$pd)) $ret = 0;
+		return $ret;
 	}
 }
 
