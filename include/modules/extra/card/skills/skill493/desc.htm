@@ -10,9 +10,9 @@ $clubskillname[$___TEMP_SKILL_ID]
 当前选择：战斗中获得的熟练度、经验值和怒气全部转化为<span class="lime">$skill493stateinfo[$skill493var]</span>。<br>
 <!--{loop range(1,3) $i}-->
 	<!--{if $skill493var==$i}-->
-		<input type="button" style="width:60px;margin:4px" disabled value="$skill493stateinfo[$i]">
+		<input type="button" style="width:70px;margin:4px" disabled value="[已选择]">
 	<!--{else}-->
-		<input type="button" style="width:60px;margin:4px" onclick="$('mode').value='special';$('command').value='skill493_special';$('subcmd').value='upgrade';$('skillpara1').value='$i';postCmd('gamecmd','command.php');this.disabled=true;" value="$skill493stateinfo[$i]">
+		<input type="button" style="width:70px;margin:4px" onclick="$('mode').value='special';$('command').value='skill493_special';$('subcmd').value='upgrade';$('skillpara1').value='$i';postCmd('gamecmd','command.php');this.disabled=true;" value="$skill493stateinfo[$i]">
 	<!--{/if}-->
 	&nbsp;&nbsp;&nbsp;
 <!--{/loop}-->

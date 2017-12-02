@@ -87,6 +87,30 @@ namespace skill23
 				Array(5,'M')
 			),
 		),
+		'X方块' => Array(
+			'W' => Array(
+				Array(90,'l'),
+				Array(9,'d'),
+				Array(1,'A')
+			),
+			'D' => Array(
+				Array(80,'l'),
+				Array(15,'D'),
+				Array(5,'A')
+			),
+		),
+		'Y方块' => Array(
+			'W' => Array(
+				Array(90,'g'),
+				Array(9,'r'),
+				Array(1,'a')
+			),
+			'D' => Array(
+				Array(80,'g'),
+				Array(15,'R'),
+				Array(5,'a')
+			),
+		),
 		'红宝石方块' => Array(
 			'W' => Array(
 				Array(65,'u'),
@@ -138,6 +162,25 @@ namespace skill23
 				Array(12,'G'),
 				Array(12,'K'),
 				Array(12,'P'),
+			),
+		),
+		'MEGA宝石方块' => Array(
+			'W' => Array(
+				Array(2,'Z'),
+				Array(3,'r'),
+				Array(3,'d'),
+				Array(6,'n'),
+				Array(6,'N'),
+				Array(40,'l'),
+				Array(40,'g')
+			),
+			'D' => Array(
+				Array(2,'Z'),
+				Array(4,'R'),
+				Array(7,'A'),
+				Array(7,'a'),
+				Array(40,'l'),
+				Array(40,'g')
 			),
 		),
 		'黄鸡方块' => Array(
