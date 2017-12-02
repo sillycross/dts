@@ -1922,11 +1922,14 @@ $cards = array(
 		'name' => '常磐之心',
 		'rare' => 'A',
 		'pack' => 'Event Bonus',
-		'desc' => '技能尚未实装，请耐心等待^_^',
-		'effect' => '暂时没有效果',
+		'desc' => '<span class="yellow">我也是常磐森林出生的训练师！</span>',
+		'effect' => '开局位于常磐森林。获得技能「通感」',
 		'energy' => 100,
 		'valid' => array(
-			'pls' => 0,
+			'pls' => 16,
+			'skills' => array(
+				'493' => '0', 
+			)
 		)
 	),
 	120 => array(

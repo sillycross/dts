@@ -2,6 +2,7 @@
 
 namespace rage
 {
+	
 	function init() 
 	{
 		eval(import_module('itemmain'));
@@ -11,16 +12,22 @@ namespace rage
 		$itemspkremark['c']='……';
 	}
 	
+	function get_max_rage(&$pa=NULL){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('rage'));
+		return $max_rage;
+	}
+	
 	//静养获得怒气
-	function calculate_rest_uprage($rtime)
+	function calculate_rest_rageup($rtime)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','rest','rage'));
-		$uprage = round ( $max_rage * $rtime / $rest_heal_time / 200 );
+		$rageup = round ( get_max_rage() * $rtime / $rest_rage_time / 100 );
 		if (strpos ( $inf, 'h' ) !== false) {//脑袋受伤不容易愤怒（
-			$uprage = round ( $uprage / 2 );
+			$rageup = round ( $rageup / 2 );
 		}
-		return $uprage;
+		return $rageup;
 	}
 	
 	function rest($restcommand) {
@@ -29,23 +36,62 @@ namespace rage
 		$resttime = $now - $endtime;
 		//$endtime = $now; //不能在这里就把$endtime覆盖掉
 		
-		$uprage = calculate_rest_uprage($resttime);
-		$rage0 = $rage;
-		$rage += $uprage; 
-		$rage = min($rage, $max_rage);
-		$uprage = $rage - $rage0;
-		$log .= "你的怒气增加了<span class=\"yellow\">$uprage</span>点。";
+		$rageup = calculate_rest_rageup($resttime);
+		$rageup = get_rage($rageup);
+		$log .= "你的怒气增加了<span class=\"yellow\">$rageup</span>点。";
 		
 		$chprocess($restcommand);
 	}
 	
 	//计算攻击怒气获得
-	function calculate_attack_rage_gain(&$pa, &$pd, $active)
+	function calculate_attack_rage_gain(&$pa, &$pd, $active, $fixed_val=0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$rageup = round ( ($pa['lvl'] - $pd['lvl']) / 3 );
-		$rageup = $rageup > 0 ? $rageup : 1;
+		$rageup = calculate_attack_rage_gain_base($pa, $pd, $active, $fixed_val);
+		//echo $rageup.' ';
+		$rageup *= calculate_attack_rage_gain_multiplier($pa, $pd, $active);
+		//echo $rageup.' ';
+		$rageup = calculate_attack_rage_gain_change($pa, $pd, $active, $rageup);
+		//echo $rageup.' ';
+		return $rageup;
+	}
+	
+	//战斗怒气基础值
+	function calculate_attack_rage_gain_base(&$pa, &$pd, $active, $fixed_val=0)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if($fixed_val) $rageup = 1;
+		else{
+			$rageup = round ( (\weapon\calculate_attack_lvl($pa) - \weapon\calculate_attack_lvl($pd)) / 3 );
+			$rageup = $rageup > 0 ? $rageup : 1;
+		}
+		return $rageup;
+	}
+	
+	//战斗怒气加成值
+	function calculate_attack_rage_gain_multiplier(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 1;
+	}
+	
+	//战斗怒气修正值，继承此函数请把$chprocess写在最后
+	function calculate_attack_rage_gain_change(&$pa, &$pd, $active, $rageup)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$rageup = $rageup > 15 ? 15 : $rageup;//一次不能获得超过15点怒气
+		return $rageup;
+	}
+	
+	function get_rage($rageup, &$pa=NULL)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player'));
+		if(!$pa) $pa = &$sdata;
+		$max_rage = get_max_rage();
+		if($rageup <= 0 || $pa['rage'] > $max_rage) return 0;
+		if($rageup + $pa['rage'] > $max_rage) $rageup = $max_rage - $pa['rage'];
+		$pa['rage'] += $rageup;
 		return $rageup;
 	}
 	
@@ -55,16 +101,16 @@ namespace rage
 		eval(import_module('rage'));
 		if ($pa['is_hit'])	//被命中的玩家获得怒气
 		{
-			$pd['rage']+=calculate_attack_rage_gain($pa, $pd, $active);
-			$pd['rage']=min($pd['rage'],$max_rage);
-			if (\attrbase\check_itmsk('c',$pa)){
-				$pa['rage']++;
-				$pa['rage']=min($pa['rage'],$max_rage);
+			$rageupd = calculate_attack_rage_gain($pa, $pd, $active);
+			get_rage($rageupd, $pd);
+			if (\attrbase\check_itmsk('c',$pa)){//如果攻击玩家有集气属性，则按基础值1获得
+				$rageupa = calculate_attack_rage_gain($pa, $pd, $active, 1);
+				get_rage($rageupa, $pa);
 			}
 		}else //miss的玩家获得怒气 攻击者等级越高则越生气（“我怎么连菜鸟都打不过”）
 		{
-			$pa['rage']+=calculate_attack_rage_gain($pa, $pd, $active);
-			$pa['rage']=min($pa['rage'],$max_rage);
+			$rageupa = calculate_attack_rage_gain($pa, $pd, $active);
+			get_rage($rageupa, $pa);
 		}
 		$chprocess($pa,$pd, $active);
 	}
@@ -81,13 +127,12 @@ namespace rage
 		
 		if (strpos ( $itmk, 'HR' ) === 0) 
 		{
-			$rageup = min($max_rage-$rage,$itme);
+			$rageup = get_rage($itme);
 			if ($rageup<=0)
 			{
 				$log.='你已经出离愤怒了，动怒伤肝，还是歇歇吧！<br>';
 				return;
 			}
-			$rage += $rageup;
 			$log.="你吃了一口{$itm}，顿时感觉心中充满了愤怒。你的怒气值增加了<span class=\"yellow\">{$rageup}</span>点！<br>";
 			\itemmain\itms_reduce($theitem);
 			return;
@@ -103,6 +148,7 @@ namespace rage
 		$chprocess($pa, $pd, $active);
 	}
 	
+	//集气属性战斗后返还怒气
 	function attack_finish(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -113,8 +159,7 @@ namespace rage
 			if ($lost_rage > 0)
 			{
 				$payback_rage = round($lost_rage/10);
-				$pa['rage']+=$payback_rage;
-				if ($pa['rage']>$max_rage) $pa['rage']=$max_rage;
+				get_rage($payback_rage, $pa);
 			}
 		}
 		$chprocess($pa, $pd, $active);

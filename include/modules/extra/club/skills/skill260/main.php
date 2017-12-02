@@ -28,7 +28,7 @@ namespace skill260
 		//return $pa['lvl']>=2;
 	}
 	
-	function calculate_attack_weapon_skill_gain(&$pa, &$pd, $active)
+	function calculate_attack_weapon_skill_gain_base(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r260=0;

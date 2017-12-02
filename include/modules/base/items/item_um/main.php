@@ -8,7 +8,7 @@ namespace item_um
 		$iteminfo['M'] = '强化药物';
 		$iteminfo['MA'] = '攻击药物';
 		$iteminfo['MD'] = '防御药物';
-		$iteminfo['MD'] = '经验药物';
+		$iteminfo['ME'] = '经验药物';
 		$iteminfo['MS'] = '体力强化';
 		$iteminfo['MH'] = '生命强化';
 		$iteminfo['MV'] = '熟练强化';

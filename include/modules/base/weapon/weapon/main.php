@@ -358,24 +358,81 @@ namespace weapon
 	function calculate_attack_weapon_skill_gain(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$skillup = calculate_attack_weapon_skill_gain_base($pa, $pd, $active);
+		$skillup *= calculate_attack_weapon_skill_gain_multiplier($pa, $pd, $active);
+		$skillup = calculate_attack_weapon_skill_gain_change($pa, $pd, $active, $skillup);
+		return $skillup;
+	}
+	
+	//计算武器熟练获得基础值为1点
+	function calculate_attack_weapon_skill_gain_base(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return 1;
 	}
 	
+	//加成值
+	function calculate_attack_weapon_skill_gain_multiplier(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 1;
+	}
+	
+	//修正值
+	function calculate_attack_weapon_skill_gain_change(&$pa, &$pd, $active, $skillup)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $skillup;
+	}
+	
 	//增加熟练
-	function apply_weapon_skill_gain(&$pa, &$pd, $active)
+	function apply_weapon_skill_gain(&$pa, &$pd, $active, $skillup)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('weapon'));
-		$pa[$skillinfo[$pa['wep_kind']]]+=calculate_attack_weapon_skill_gain($pa, $pd, $active);
+		$pa[$skillinfo[$pa['wep_kind']]]+=$skillup;
+	}
+	
+	//攻击经验基础值
+	function calculate_attack_exp_gain_base(&$pa, &$pd, $active, $fixed_val=0)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if($fixed_val) $expup = $fixed_val;//如果设了固定值，则基础值视为这个固定值
+		else {
+			$expup = round ( (calculate_attack_lvl($pd) - calculate_attack_lvl($pa)) / 3 );
+			$expup = $expup > 0 ? $expup : 1;
+		}
+		return $expup;
+	}
+	
+	function calculate_attack_lvl(&$pdata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $pdata['lvl'];
+	}
+	
+	//加成值
+	function calculate_attack_exp_gain_multiplier(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 1;
+	}
+	
+	//修正值
+	function calculate_attack_exp_gain_change(&$pa, &$pd, $active, $expup)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $expup;
 	}
 	
 	//计算攻击经验获得
-	function calculate_attack_exp_gain(&$pa, &$pd, $active)
+	function calculate_attack_exp_gain(&$pa, &$pd, $active, $fixed_val=0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$expup = round ( ($pd['lvl'] - $pa['lvl']) / 3 );
-		$expup = $expup > 0 ? $expup : 1;
+		$expup = calculate_attack_exp_gain_base($pa, $pd, $active, $fixed_val);
+		$expup *= calculate_attack_exp_gain_multiplier($pa, $pd, $active);
+		$expup = calculate_attack_exp_gain_change($pa, $pd, $active, $expup);
 		return $expup;
 	}
 	
@@ -396,7 +453,7 @@ namespace weapon
 		apply_weapon_imp($pa, $pd, $active);
 		unset($pa['wepimp']);
 		
-		apply_weapon_skill_gain($pa, $pd, $active);
+		apply_weapon_skill_gain($pa, $pd, $active, calculate_attack_weapon_skill_gain($pa, $pd, $active));
 		
 		$chprocess($pa, $pd, $active);
 	}

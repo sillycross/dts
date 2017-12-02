@@ -66,7 +66,7 @@ namespace skill229
 		$log.='技能「'.$clubskillname[229].'」选择成功。<br>';
 	}
 	
-	function calculate_attack_weapon_skill_gain(&$pa, &$pd, $active)
+	function calculate_attack_weapon_skill_gain_base(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa,$pd,$active);
