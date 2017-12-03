@@ -33,7 +33,7 @@ namespace skill221
 	function strike_finish(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_query(221,$pa))
+		if ($pa['is_hit'] && \skillbase\skill_query(221,$pa))
 		{
 			eval(import_module('logger','skill221','skill600','sys'));
 			$var_221=get_skill221_lasttime($pa,$pd,$active);//持续时间

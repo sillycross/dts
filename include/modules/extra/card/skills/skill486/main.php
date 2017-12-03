@@ -25,7 +25,7 @@ namespace skill486
 		\skillbase\skill_delvalue(486,'rtime',$pa);
 	}
 	
-	function check_unlocked486(&$pa)
+	function check_unlocked486(&$pa=NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return 1;
@@ -40,6 +40,42 @@ namespace skill486
 		return round($skill486prob[$lvl] * pow(0.5, $rtime));
 	}
 	
+	//复活判定注册
+	function set_revive_sequence(&$pa, &$pd)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($pa, $pd);
+		if(\skillbase\skill_query(486, $pd) && check_unlocked486($pd)){
+			$pd['revive_sequence'][150] = 'skill486';
+		}
+		return;
+	}	
+	
+	//复活判定
+	function revive_check(&$pa, &$pd, $rkey)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($pa, $pd, $rkey);
+		if('skill486' == $rkey){
+			if(in_array($pd['state'],Array(20,21,22,23,24,25,29)) && rand(0,99) < get_skill486prob($pd)) $ret = true;
+		}
+		return $ret;
+	}
+	
+	//记录复活次数，发复活状况
+	function post_revive_events(&$pa, &$pd, $rkey)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($pa, $pd, $rkey);
+		if('skill486' == $rkey){
+			\skillbase\skill_setvalue(486,'rtime', \skillbase\skill_getvalue(486,'rtime',$pd) + 1,$pd);
+			$pd['skill486rivv'] = 1;
+			addnews ( 0, 'skill486_revv', $pd['name'] );
+		}
+		return;
+	}
+	
+	//发$log通告
 	function player_kill_enemy(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -47,21 +83,11 @@ namespace skill486
 		$chprocess($pa,$pd,$active);
 		
 		eval(import_module('sys','logger'));
-		
-		if($pd['hp'] <= 0 && \skillbase\skill_query(486, $pd)){
-			$skill486prob = get_skill486prob($pd);
-			$dice = rand(0,99);
-			if($dice < $skill486prob){
-				$log .= \battle\battlelog_parser($pa, $pd, $active, "<span class='lime'>然而，<:pd_name:>奇迹般从致命一击中活了下来，还剩下一口气。</span><br>");
-				$pd['battlelog'] .= \battle\battlelog_parser($pa, $pd, 1-$active, "<span class='lime'>然而，<:pd_name:>奇迹般从致命一击中活了下来，还剩下一口气。</span><br>");
-				\skillbase\skill_setvalue(486,'rtime', \skillbase\skill_getvalue(486,'rtime',$pd) + 1,$pd);
-				$pd['state']=0; $pd['hp']=1;
-				$deathnum--;
-				if ($pd['type']==0) $alivenum++;
-				save_gameinfo();
-					
-				addnews ( $now, 'skill486_revv', $pd['name'] );
-			}			
+		//现在这里只需要发$log通告
+		if(!empty($pd['skill486rivv'])){
+			$tmp_log = "<span class='lime'>然而，<:pd_name:>奇迹般从致命一击中活了下来，还剩下一口气。</span><br>";
+			$log .= \battle\battlelog_parser($pa, $pd, $active, $tmp_log);
+			$pd['battlelog'] .= \battle\battlelog_parser($pa, $pd, 1-$active, $tmp_log);
 		}
 	}
 	

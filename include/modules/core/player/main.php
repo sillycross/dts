@@ -2,7 +2,7 @@
 
 namespace player
 {
-	global $db_player_structure, $db_player_structure_types, $gamedata, $cmd, $main, $sdata;
+	global $db_player_structure, $db_player_structure_types, $gamedata, $cmd, $main, $sdata;//注意，$sdata所有键值都是引用！
 	global $fog,$upexp,$lvlupexp,$iconImg,$iconImgB,$ardef;//这些鬼玩意包括可以回头全部丢进$uip
 	global $hpcolor,$spcolor,$newhpimg,$newspimg,$splt,$hplt, $tpldata; 
 	
@@ -443,6 +443,69 @@ namespace player
 		\sys\addnews ( $now, 'death' . $pd['state'], $pd['name'], $pd['type'], $x , $pa['attackwith'], $lstwd );
 	}
 	
+	//维护一个名为'revive_sequence'的列表
+	//键名为顺序，顺序越小越优先执行；键值在revive_process()里处理
+	function set_revive_sequence(&$pa, &$pd)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$pd['revive_sequence'] = array();
+		return;
+	}
+	
+	//复活的统一设置
+	function revive_process(&$pa, &$pd)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(empty($pd['revive_sequence'])) return;
+		//var_dump($pd['revive_sequence']);
+		ksort($pd['revive_sequence']);
+		//writeover('a.txt',var_export($pd['revive_sequence'],1));
+		foreach($pd['revive_sequence'] as $rkey){
+			//调用判定是否复活的函数，注意不可在这里直接执行复活
+			//echo $rkey;
+			if(revive_check($pa, $pd, $rkey)) {
+				//执行复活函数，由于复活基本操作需要统一和复用，尽量不要直接继承revive_events()，尽量继承前后两个函数
+				pre_revive_events($pa, $pd, $rkey);
+				revive_events($pa, $pd, $rkey);
+				post_revive_events($pa, $pd, $rkey);
+				break;
+			}
+		}
+	}
+	
+	//复活判定，建议采用或的逻辑关系
+	function revive_check(&$pa, &$pd, $rkey)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return false;
+	}
+	
+	//复活前和复活后要执行的函数
+	function pre_revive_events(&$pa, &$pd, $rkey)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$pd['o_state'] = $pd['state'];
+		return;
+	}
+	
+	function post_revive_events(&$pa, &$pd, $rkey)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return;
+	}
+	
+	function revive_events(&$pa, &$pd, $rkey)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		$pd['state']=0;//死亡方式设为0
+		$pd['hp']=1;//hp设为1，如果需要满血请在post_revive_events里设置
+		$deathnum--;
+		if ($pd['type']==0) $alivenum++;
+		save_gameinfo();
+		return;
+	}
+	
 	//请自己设置好$pd['state']再调用，$pa为伤害来源，$pd为死者，$pa['attackwith']为死亡途径描述，返回$killmsg
 	//如没有伤害来源，请把$pa设为&$pd，然后把$pd['sourceless']设为true
 	//注意，“没有伤害来源”和“伤害来源是自己”是不同的！
@@ -471,6 +534,11 @@ namespace player
 
 		$pd['endtime'] = $now;
 		save_gameinfo ();
+		
+		//复活判定注册
+		set_revive_sequence($pa, $pd);
+		//复活实际执行
+		revive_process($pa, $pd);
 		
 		return $kilmsg;
 	}

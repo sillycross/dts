@@ -48,6 +48,7 @@ namespace skill81
 		if(!$s_arr) return;
 		$r1 = \weapon\get_weapon_range($pa, $active);
 		$r2 = \weapon\get_weapon_range($pd, 1-$active);
+		if(!$r2) return;//爆系无法反击，不换武器
 		$flag = 0;//是否必须更换的标记
 		if($r1 < $r2) $flag = 1;
 		//规则1：更换的武器必须能够反击
@@ -61,6 +62,7 @@ namespace skill81
 		}
 		
 		$s_arr = array_diff($s_arr, $del_arr);
+		//echo 'sarr ';var_dump($s_arr);echo '<br>';
 		if(empty($s_arr)) return;//没有可以更换的，直接返回
 		eval(import_module('weapon'));
 		//给要更换的武器加权
@@ -96,6 +98,7 @@ namespace skill81
 			$r_arr[$si] = $svar;
 			$r_sum += $svar;
 		}
+		//echo 'rarr ';var_dump($r_arr);echo '<br>';
 		
 		if($flag || rand(0,99) < calc_skill81rate($pa, $pd, $active)){//如果并非必须反击，则50%概率换武器
 			$dice = rand(0, $r_sum);

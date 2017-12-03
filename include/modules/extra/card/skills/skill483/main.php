@@ -80,24 +80,40 @@ namespace skill483
 		return 3;
 	}
 	
-	function kill(&$pa, &$pd)	
+	
+	//复活判定注册
+	function set_revive_sequence(&$pa, &$pd)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
-		$chprocess($pa,$pd);
-		
-		eval(import_module('sys','logger'));
-		if (check_skill483_state($pd)==1 && in_array($pd['state'],Array(20,21,22,23,24,25,29)) && $pa['type']==0)
-		{
-			$pd['state']=0; $pd['hp']=$pd['mhp'];
-			$pd['skill483_flag']=1;
-			$deathnum--;
-			if ($pd['type']==0) $alivenum++;
-			save_gameinfo();
-				
-			addnews ( $now, 'revival483', $pa['name'], $pd['name'] );
+		$chprocess($pa, $pd);
+		if(check_skill483_state($pd)==1){
+			$pd['revive_sequence'][100] = 'skill483';
 		}
+		return;
+	}	
 	
+	//复活判定
+	function revive_check(&$pa, &$pd, $rkey)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($pa, $pd, $rkey);
+		if('skill483' == $rkey && in_array($pd['state'],Array(20,21,22,23,24,25,29)) && $pa['type']==0){
+			$ret = true;
+		}
+		return $ret;
+	}
+	
+	//回满血，发复活状况
+	function post_revive_events(&$pa, &$pd, $rkey)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($pa, $pd, $rkey);
+		if('skill483' == $rkey){
+			$pd['hp']=$pd['mhp'];
+			$pd['skill483_flag']=1;
+			addnews ( 0, 'revival483', $pa['name'], $pd['name'] );
+		}
+		return;
 	}
 	
 	function player_kill_enemy(&$pa,&$pd,$active)

@@ -335,7 +335,6 @@ instance9,extra/instance/instance9_rush/,1
 skill37,extra/club/skills/skill37/,1
 skill73,extra/club/skills/skill73/,1
 skill410,extra/card/skills/skill410/,1
-skill493,extra/card/skills/skill493/,1
 skill258,extra/club/skills/skill258/,1
 skill444,extra/card/skills/skill444/,1
 skill207,extra/club/skills/skill207/,1
@@ -393,6 +392,7 @@ skill215,extra/club/skills/skill215/,1
 skill271,extra/club/skills/skill271/,1
 skill26,extra/club/skills/skill26/,1
 skill51,extra/club/skills/skill51/,1
+skill493,extra/card/skills/skill493/,1
 ex_gender_attr,extra/attr/ex_gender_attr/,1
 ex_attr_pierce,extra/attr/ex_attr_pierce/,1
 skill43,extra/club/skills/skill43/,1

@@ -62,12 +62,14 @@ namespace skill271
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$all_arr = get_all_attr271();
 		$a_arr = \attrbase\get_ex_attack_array($pa, $pd, $active);
+		$a_arr = array_diff($a_arr,array('P','K','G','C','D','F'));
 		$a_arr[] = $pa['wep_kind'];
 		$ad_arr = array();
 		foreach($a_arr as $ak){
 			if(isset($all_arr[$ak]))	$ad_arr[] = $all_arr[$ak];
 		}
-		
+		//var_dump($ad_arr);
+		if(!$ad_arr) return array();
 		$arr = \attrbase\get_ex_def_array($pa, $pd, $active);		
 		if(in_array('A', $arr)) {
 			eval(import_module('ex_phy_def'));
@@ -91,6 +93,7 @@ namespace skill271
 			$t = get_skill271_times($pa, $pd, $active);
 			if($t > 0){
 				$pd_def_arr = get_avaliable_attr271($pa, $pd, $active);
+				//var_dump($pd_def_arr);
 				if($pd_def_arr){
 					shuffle($pd_def_arr);
 					$pa['skill271_list'] = array_slice($pd_def_arr, 0, $t);
