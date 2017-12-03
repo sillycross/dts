@@ -152,7 +152,7 @@ namespace poison
 			$itmk = substr_replace($itmk,'H',0,1);
 			if((int)substr($itmk,2,1) > 0) $itmk = substr_replace($itmk,'0',2,1);
 			$log .= "一种神秘的力量净化了毒药，你的毒药变成了解毒剂！";
-			if(is_numeric($itmsk)) $itmsk = 'z';
+			if(!$itmsk || is_numeric($itmsk)) $itmsk = 'z';
 		}else{
 			$itmsk = $pid;
 		}
