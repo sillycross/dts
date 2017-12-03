@@ -38,7 +38,7 @@ namespace skill448
 	function strike_finish(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_query(448,$pd)&&(check_unlocked448($pd)))
+		if ($pa['is_hit'] && \skillbase\skill_query(448,$pd)&&(check_unlocked448($pd)))
 		{
 			eval(import_module('logger'));
 			if (strpos($pa['inf'],'p')===false)

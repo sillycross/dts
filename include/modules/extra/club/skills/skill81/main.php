@@ -48,6 +48,7 @@ namespace skill81
 		if(!$s_arr) return;
 		$r1 = \weapon\get_weapon_range($pa, $active);
 		$r2 = \weapon\get_weapon_range($pd, 1-$active);
+		if(!$r2) return;//爆系无法反击，不换武器
 		$flag = 0;//是否必须更换的标记
 		if($r1 < $r2) $flag = 1;
 		//规则1：更换的武器必须能够反击

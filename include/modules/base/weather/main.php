@@ -411,7 +411,7 @@ namespace weather
 	}
 	
 	//极光天气每次战斗结束都有概率无视生死状态而回血。
-	//注意，如果死亡，会在kill判定里处理回血，否则在这个函数最后处理
+	//注意，如果死亡，会在kill判定里处理回血（复活），否则在这个函数最后处理
 	function attack_finish(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -419,8 +419,9 @@ namespace weather
 		if(17 == $weather){
 			weather_aurora_check($pa, $pd, $active);
 		}
-		$chprocess($pa, $pd, $active);
-		weather_aurora_revive_process($pa, $pd);
+		$chprocess($pa, $pd, $active);//如果死亡，在这里处理
+		weather_aurora_revive_process($pa, $pd);//没死则在这里处理
+		unset($pa['aurora_revive_flag'],$pd['aurora_revive_flag']);
 	}
 	
 	function kill(&$pa, &$pd)
@@ -430,7 +431,43 @@ namespace weather
 		$chprocess($pa,$pd);
 		
 		eval(import_module('sys','logger'));
-		weather_aurora_revive_process($pa, $pd);
+		//weather_aurora_revive_process($pa, $pd);
+	}
+	
+	//复活判定注册
+	function set_revive_sequence(&$pa, &$pd)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($pa, $pd);
+		eval(import_module('sys'));
+		if(17 == $weather){
+			$pd['revive_sequence'][50] = 'aurora';
+		}
+		return;
+	}	
+	
+	//复活判定
+	function revive_check(&$pa, &$pd, $rkey)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($pa, $pd, $rkey);
+		if('aurora' == $rkey && !empty($pd['aurora_revive'])){
+			$ret = true;
+		}
+		return $ret;
+	}
+	
+	//随机改变HP，发复活状况
+	function post_revive_events(&$pa, &$pd, $rkey)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($pa, $pd, $rkey);
+		if('aurora' == $rkey){
+			$pd['hp'] = weather_aurora_revive_num($pd);
+			$pd['aurora_revive'] = 0;
+			addnews ( 0, 'aurora_revival', $pd['name'] );
+		}
+		return;
 	}
 	
 	function player_kill_enemy(&$pa,&$pd,$active)
@@ -443,7 +480,6 @@ namespace weather
 
 		if (!empty($pd['aurora_revive_flag']))
 		{
-			addnews ( $now, 'aurora_revival', $pd['name'] );
 			if ($active)
 			{
 				$log.='但是，空气中弥漫着的<span class="clan">奥罗拉</span><span class="lime">让敌人重新站了起来！</span><br>';
@@ -456,7 +492,7 @@ namespace weather
 				$log .= '并且，你的生命回复了<span class="clan">'.$pd['aurora_revive_flag'].'</span>点！<br>';
 				$pd['battlelog'].='<span class="lime">但是，空气中弥漫着的奥罗拉让敌人重新站了起来！</span>';
 			}
-			unset($pd['aurora_revive_flag']);
+			//unset($pd['aurora_revive_flag']);
 		}
 	}
 	
@@ -473,34 +509,47 @@ namespace weather
 		}
 	}
 	
+	function weather_aurora_revive_num(&$pd){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		if(17 != $weather || !$pd['aurora_revive']) return 0;
+		if($pd['hp'] < 0) $pd['hp'] = 0;
+		$aurora_revive = $pd['aurora_revive'];
+		if($aurora_revive > $pd['mhp'] - $pd['hp']) $aurora_revive = $pd['mhp'] - $pd['hp'];
+		$pd['aurora_revive_flag'] = $pd['aurora_revive'];
+		return $aurora_revive;
+	}
+	
+	//这个函数只在没死时处理
 	function weather_aurora_revive_process(&$pa,&$pd){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
 		if(17 != $weather) return;
 		foreach(array('pa','pd') as $pn){
 			if(!empty(${$pn}['aurora_revive']) && ${$pn}['hp'] < ${$pn}['mhp']){
-				if(${$pn}['hp'] < 0) ${$pn}['hp'] = 0;
-				$o_pl_hp = ${$pn}['hp'];
-				$aurora_revive = ${$pn}['aurora_revive'];
-				if($aurora_revive > ${$pn}['mhp'] - ${$pn}['hp']) $aurora_revive = ${$pn}['mhp'] - ${$pn}['hp'];
-				${$pn}['hp'] += $aurora_revive;
-				if(!$o_pl_hp) {
-					${$pn}['state'] = 0;
-					$deathnum--;
-					if (!${$pn}['type']) $alivenum++;
-					save_gameinfo();
-				}
-				if(${$pn}['name'] == $sdata['name']) $logname = '你';
-				else $logname = ${$pn}['name'];
-
-				//复活时在player_kill_enemy()里记录$log
+				$aurora_revive = weather_aurora_revive_num(${$pn});
 				if($aurora_revive) {
-					if($o_pl_hp) $log .= "空气中弥漫着的<span class='clan'>奥罗拉</span>让{$logname}的生命回复了<span class='clan'>$aurora_revive</span>点！<br>";
-					${$pn}['aurora_revive_flag'] = ${$pn}['aurora_revive'];
+					${$pn}['hp'] += $aurora_revive;
+
+					if(${$pn}['name'] == $sdata['name']) $logname = '你';
+					else $logname = ${$pn}['name'];
+
+					//复活时在player_kill_enemy()里记录$log
+					$log .= "空气中弥漫着的<span class='clan'>奥罗拉</span>让{$logname}的生命回复了<span class='clan'>$aurora_revive</span>点！<br>";
 				}
 				unset(${$pn}['aurora_revive']);
 			}
 		}
+	}
+	
+	//复活后不会反击
+	//若要接管此函数，请阅读base\battle\battle.php里的注释，并加以判断
+	function check_can_counter(&$pa, &$pd, $active)			//不会反击敌人
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//注意判定的是$pa能否反击$pd
+		if (!empty($pa['aurora_revive_flag'])) return 0; 
+		return $chprocess($pa, $pd, $active);
 	}
 }
 
