@@ -62,6 +62,7 @@ namespace skill271
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$all_arr = get_all_attr271();
 		$a_arr = \attrbase\get_ex_attack_array($pa, $pd, $active);
+		$a_arr = array_diff($a_arr,array('P','K','G','C','D','F'));
 		$a_arr[] = $pa['wep_kind'];
 		$ad_arr = array();
 		foreach($a_arr as $ak){
