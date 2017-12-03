@@ -85,12 +85,14 @@ namespace skill493
 		//$pd受攻击，是$pd获得怒气
 		if ($pa['is_hit'] && \skillbase\skill_query(493,$pd) && check_unlocked493($pd)) {
 			//echo '1攻击者'.$pa['name'].'本来是'.$pd['name'].'获得怒气<br>';
+			if(!isset($pd['skill493_o_rageup'])) $pd['skill493_o_rageup'] = 0;
 			$pd['skill493_o_rageup'] += $ret;
 			$ret = 0;
 		}
 		//$pa没命中，是$pa获得怒气
 		elseif (!$pa['is_hit'] && \skillbase\skill_query(493,$pa) && check_unlocked493($pa)) {
 			//echo '2攻击者'.$pa['name'].'本来是'.$pa['name'].'获得怒气<br>';
+			if(!isset($pa['skill493_o_rageup'])) $pa['skill493_o_rageup'] = 0;
 			$pa['skill493_o_rageup'] += $ret;
 			$ret = 0;
 		}
@@ -106,16 +108,17 @@ namespace skill493
 		if(\skillbase\skill_query(493,$pdata) && check_unlocked493($pdata)){
 			$null=\player\create_dummy_playerdata();
 			$wep_skill = \weapon\get_skill($pdata, $null, 1);
+			//echo '武器熟练'.$wep_skill;
 			$e_exp = max($pdata['exp'], max($pdata['rage'], $wep_skill));
 			//echo '等效经验'.$e_exp;
-			$e_lvl = \lvlctl\calc_uplv($e_exp, 0)-1;
+			$e_lvl = \lvlctl\calc_uplv($e_exp, 0);
 			//echo ' 等效等级'.$e_lvl;
 			if($e_lvl > $ret) $ret = $e_lvl;
 		}
 		return $ret;
 	}
 	
-	function strike_prepare(&$pa, &$pd, $active)
+	function attack_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		foreach(array(&$pa, &$pd) as &$pl){
@@ -126,8 +129,8 @@ namespace skill493
 		return $chprocess($pa, $pd, $active);
 	}
 	
-	//打击结束时根据所选项来转化
-	function strike_finish(&$pa,&$pd,$active)
+	//攻击结束时根据所选项来转化
+	function attack_finish(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('rage'));
