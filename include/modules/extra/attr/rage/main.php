@@ -44,15 +44,18 @@ namespace rage
 	}
 	
 	//计算攻击怒气获得
-	function calculate_attack_rage_gain(&$pa, &$pd, $active, $fixed_val=0)
+	function calculate_attack_rage_gain(&$pa, &$pd, $active, $receiver ,$fixed_val=0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if('pa' == $receiver) $pa['receive_rage'] = 1;//记录怒气获得者
+		else $pd['receive_rage'] = 1;
 		$rageup = calculate_attack_rage_gain_base($pa, $pd, $active, $fixed_val);
 		//echo $rageup.' ';
 		$rageup *= calculate_attack_rage_gain_multiplier($pa, $pd, $active);
 		//echo $rageup.' ';
 		$rageup = calculate_attack_rage_gain_change($pa, $pd, $active, $rageup);
 		//echo $rageup.' ';
+		unset($pa['receive_rage'], $pd['receive_rage']);
 		return $rageup;
 	}
 	
@@ -101,15 +104,16 @@ namespace rage
 		eval(import_module('rage'));
 		if ($pa['is_hit'])	//被命中的玩家获得怒气
 		{
-			$rageupd = calculate_attack_rage_gain($pa, $pd, $active);
+			$rageupd = calculate_attack_rage_gain($pa, $pd, $active, 'pd');
 			get_rage($rageupd, $pd);
 			if (\attrbase\check_itmsk('c',$pa)){//如果攻击玩家有集气属性，则按基础值1获得
-				$rageupa = calculate_attack_rage_gain($pa, $pd, $active, 1);
+				$rageupa = calculate_attack_rage_gain($pa, $pd, $active, 'pa', 1);
 				get_rage($rageupa, $pa);
+				//echo '集气获得：'.$rageupa;
 			}
 		}else //miss的玩家获得怒气 攻击者等级越高则越生气（“我怎么连菜鸟都打不过”）
 		{
-			$rageupa = calculate_attack_rage_gain($pa, $pd, $active);
+			$rageupa = calculate_attack_rage_gain($pa, $pd, $active, 'pa');
 			get_rage($rageupa, $pa);
 		}
 		$chprocess($pa,$pd, $active);

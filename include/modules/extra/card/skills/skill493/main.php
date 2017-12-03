@@ -82,18 +82,16 @@ namespace skill493
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa, $pd, $active, $rageup);
-		//$pd受攻击，是$pd获得怒气
-		if ($pa['is_hit'] && \skillbase\skill_query(493,$pd) && check_unlocked493($pd)) {
-			//echo '1攻击者'.$pa['name'].'本来是'.$pd['name'].'获得怒气<br>';
-			if(!isset($pd['skill493_o_rageup'])) $pd['skill493_o_rageup'] = 0;
-			$pd['skill493_o_rageup'] += $ret;
+		if (!empty($pa['receive_rage']) && \skillbase\skill_query(493,$pa) && check_unlocked493($pa)) {
+			//echo '攻击者'.$pa['name'].'本来是'.$pa['name'].'获得怒气<br>';
+			//if(!isset($pa['skill493_o_rageup'])) $pa['skill493_o_rageup'] = 0;
+			$pa['skill493_o_rageup'] += $ret;
 			$ret = 0;
 		}
-		//$pa没命中，是$pa获得怒气
-		elseif (!$pa['is_hit'] && \skillbase\skill_query(493,$pa) && check_unlocked493($pa)) {
-			//echo '2攻击者'.$pa['name'].'本来是'.$pa['name'].'获得怒气<br>';
-			if(!isset($pa['skill493_o_rageup'])) $pa['skill493_o_rageup'] = 0;
-			$pa['skill493_o_rageup'] += $ret;
+		if (!empty($pd['receive_rage']) && \skillbase\skill_query(493,$pd) && check_unlocked493($pd)) {
+			//echo '攻击者'.$pa['name'].'本来是'.$pd['name'].'获得怒气<br>';
+			//if(!isset($pd['skill493_o_rageup'])) $pd['skill493_o_rageup'] = 0;
+			$pd['skill493_o_rageup'] += $ret;
 			$ret = 0;
 		}
 		

@@ -67,7 +67,8 @@ namespace skill271
 		foreach($a_arr as $ak){
 			if(isset($all_arr[$ak]))	$ad_arr[] = $all_arr[$ak];
 		}
-		
+		//var_dump($ad_arr);
+		if(!$ad_arr) return array();
 		$arr = \attrbase\get_ex_def_array($pa, $pd, $active);		
 		if(in_array('A', $arr)) {
 			eval(import_module('ex_phy_def'));
@@ -91,6 +92,7 @@ namespace skill271
 			$t = get_skill271_times($pa, $pd, $active);
 			if($t > 0){
 				$pd_def_arr = get_avaliable_attr271($pa, $pd, $active);
+				//var_dump($pd_def_arr);
 				if($pd_def_arr){
 					shuffle($pd_def_arr);
 					$pa['skill271_list'] = array_slice($pd_def_arr, 0, $t);
