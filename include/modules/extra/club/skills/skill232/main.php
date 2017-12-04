@@ -94,19 +94,35 @@ namespace skill232
 		return 3;
 	}
 	
-	function apply_total_damage_modifier_down(&$pa,&$pd,$active)
+	function get_final_dmg_base(&$pa, &$pd, &$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_query(232,$pd) && $pd['hp']>$pd['mhp'])
+		$ret = $chprocess($pa,$pd,$active);
+		if (\skillbase\skill_query(232,$pd) && check_unlocked232($pd) && $pd['hp']>$pd['mhp']) 
 		{
 			eval(import_module('logger','skill232'));
 			$clv = (int)\skillbase\skill_getvalue(232,'lvl',$pd);
 			$v=$shieldeff[$clv];
-			$log.='力场护盾使你受到的伤害降低了<span class="yellow">'.$v.'</span>点！<br>';
-			$pa['dmg_dealt']=max($pa['dmg_dealt']-$v,1);
+			$log.=\battle\battlelog_parser($pa,$pd,$active,'力场护盾抵消了<:pd_name:>受到的<span class="yellow">'.$v.'</span>点伤害！<br>');
+			$ret -= $v;
 		}
-		return $chprocess($pa, $pd, $active);
+		return $ret;
 	}
+
+	
+//	function apply_total_damage_modifier_invincible(&$pa,&$pd,$active)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		if (\skillbase\skill_query(232,$pd) && $pd['hp']>$pd['mhp'])
+//		{
+//			eval(import_module('logger','skill232'));
+//			$clv = (int)\skillbase\skill_getvalue(232,'lvl',$pd);
+//			$v=$shieldeff[$clv];
+//			$log.='力场护盾使你受到的伤害降低了<span class="yellow">'.$v.'</span>点！<br>';
+//			$pa['dmg_dealt']=max($pa['dmg_dealt']-$v,1);
+//		}
+//		return $chprocess($pa, $pd, $active);
+//	}
 	
 	function bufficons_list()
 	{

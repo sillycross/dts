@@ -69,7 +69,7 @@ namespace skill446
 		return 3;
 	}
 	
-	function apply_total_damage_modifier_down(&$pa,&$pd,$active){
+	function apply_total_damage_modifier_invincible(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!\skillbase\skill_query(446,$pd) || !check_unlocked446($pd)) return $chprocess($pa,$pd,$active);
 		eval(import_module('logger','skill446'));

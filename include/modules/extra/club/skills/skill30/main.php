@@ -76,15 +76,26 @@ namespace skill30
 		$chprocess($pa, $pd, $active);
 	}	
 	
-	function strike_finish(&$pa, &$pd, $active)
+	function get_final_dmg_base(&$pa, &$pd, &$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill']!=30) return $chprocess($pa, $pd, $active);
-		if ($pa['dmg_dealt']>0){
-			$pa['dmg_dealt']+=$pa['skill30_hpcost'];
+		$ret = $chprocess($pa,$pd,$active);
+		if ($pa['bskill']==30 && $pa['is_hit'] && !empty($pa['skill30_hpcost'])) 
+		{
+			$ret+=$pa['skill30_hpcost'];
 		}
-		$chprocess($pa, $pd, $active);
+		return $ret;
 	}
+	
+//	function strike_finish(&$pa, &$pd, $active)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		if ($pa['bskill']!=30) return $chprocess($pa, $pd, $active);
+//		if ($pa['dmg_dealt']>0){
+//			$pa['dmg_dealt']+=$pa['skill30_hpcost'];
+//		}
+//		$chprocess($pa, $pd, $active);
+//	}
 	
 	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{

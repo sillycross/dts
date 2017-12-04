@@ -65,7 +65,7 @@ namespace ex_hp_def
 		}
 	}
 	
-	function apply_total_damage_change(&$pa,&$pd,$active)
+	function apply_total_damage_modifier_limit(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess($pa, $pd, $active);
@@ -77,9 +77,6 @@ namespace ex_hp_def
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('logger'));
-		//判定伤害制御
-		//改到apply_total_damage_change()内进行判定
-		//check_dmg_def_attr($pa, $pd, $active);
 		
 		$chprocess($pa, $pd, $active);
 		

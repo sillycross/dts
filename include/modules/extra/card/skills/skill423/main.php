@@ -27,7 +27,7 @@ namespace skill423
 		return 1;
 	}
 
-	function apply_total_damage_modifier_down(&$pa,&$pd,$active){
+	function apply_total_damage_modifier_invincible(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!\skillbase\skill_query(423,$pd) || !check_unlocked423($pd)) return $chprocess($pa,$pd,$active);
 		eval(import_module('logger'));
@@ -39,12 +39,13 @@ namespace skill423
 		$chprocess($pa,$pd,$active);
 	}
 	
-	//面对scp时，玩家攻击获得经验恒为1。
+	//面对scp时，如果场上玩家数大于等于2，玩家攻击获得经验恒为1。
 	function calculate_attack_exp_gain_change(&$pa, &$pd, $active, $expup)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa,$pd,$active,$expup);
-		if (\skillbase\skill_query(423,$pa) && check_unlocked423($pa) && $pd['type']==88 && $ret > 0){
+		eval(import_module('sys'));
+		if ($alivenum > 1 && \skillbase\skill_query(423,$pa) && check_unlocked423($pa) && $pd['type']==88 && $ret > 0){
 			$ret = 1;
 		}
 		return $ret;

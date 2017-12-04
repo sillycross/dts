@@ -31,6 +31,9 @@ namespace wepchange
 			if ($wep==$on){
 				$wep=$nn;$wepk=$nk;$wepe=$ne;$weps=$ns;$wepsk=$nsk;
 				$log.="<span class=\"yellow\">{$oldw}</span>变换成了<span class=\"yellow\">{$wep}</span>。<br>";
+				if(strpos($wepk,'W')!==0) {//变出非武器时自动卸下
+					\itemmain\itemoff('wep');
+				}
 				return;
 			}
 		}
