@@ -238,7 +238,6 @@ skill447,extra/card/skills/skill447/,1
 skill449,extra/card/skills/skill449/,1
 skill450,extra/card/skills/skill450/,1
 skill452,extra/card/skills/skill452/,1
-skill246,extra/club/skills/skill246/,1
 skill453,extra/card/skills/skill453/,1
 skill455,extra/card/skills/skill455/,1
 skill456,extra/card/skills/skill456/,1
@@ -300,6 +299,7 @@ skill492,extra/card/skills/skill492/,1
 skill20,extra/club/skills/skill20/,1
 skill36,extra/club/skills/skill36/,1
 skill38,extra/club/skills/skill38/,1
+skill246,extra/club/skills/skill246/,1
 skill203,extra/club/skills/skill203/,1
 dualwep,base/weapon/dualwep/,1
 ammunition,base/items/ammunition/,1

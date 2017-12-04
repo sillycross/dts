@@ -2,6 +2,13 @@
 
 namespace attack
 {
+	//最终伤害基础值，返回的是一个数值
+	function get_final_dmg_base(&$pa, &$pd, &$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 0;
+	}
+	
 	//最终伤害修正接口
 	//类似物理伤害修正，返回的是一个数组
 	function get_final_dmg_multiplier(&$pa, &$pd, &$active)
@@ -10,17 +17,64 @@ namespace attack
 		return Array();
 	}
 	
-	function apply_total_damage_modifier_up(&$pa,&$pd,$active)
+	
+	//无敌判定，最优先
+	function apply_total_damage_modifier_invincible(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
-	function apply_total_damage_modifier_down(&$pa,&$pd,$active)
+	//特殊变化类，次优先
+	function apply_total_damage_modifier_special(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$sequence = apply_total_damage_modifier_special_set_sequence($pa, $pd, $active);
+		if(empty($pd['atdms_sequence'])) return;
+		ksort($pd['atdms_sequence']);
+		foreach($pd['atdms_sequence'] as $akey){
+			if(apply_total_damage_modifier_special_check($pa, $pd, $active, $akey)){
+				apply_total_damage_modifier_special_core($pa, $pd, $active, $akey);
+				if($pa['dmg_dealt'] <= 0) break;
+			}
+		}
+	}
+	
+	//特殊变化次序注册
+	function apply_total_damage_modifier_special_set_sequence(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$pd['atdms_sequence'] = array();
+		return;
+	}
+	
+	//特殊变化生效判定，建议采用或的逻辑关系
+	function apply_total_damage_modifier_special_check(&$pa, &$pd, $active, $akey)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return false;
+	}
+	
+	//特殊变化执行
+	function apply_total_damage_modifier_special_core(&$pa, &$pd, $active, $akey)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return;
+	}
+	
+	//限制伤害类，第三优先
+	function apply_total_damage_modifier_limit(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
-	function apply_total_damage_change(&$pa,&$pd,$active)
+	//保命类，第四优先
+	function apply_total_damage_modifier_insurance(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+	}
+	
+	//秒杀，最后判定
+	function apply_total_damage_modifier_seckill(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
@@ -39,6 +93,16 @@ namespace attack
 		
 		eval(import_module('logger'));
 		
+		//先加减，后乘除，最终伤害加算阶段
+		if($dmg > 0) {
+			$dmg_base = get_final_dmg_base($pa, $pd, $active);
+			if($dmg_base != 0) {
+				$dmg += $dmg_base;
+				if($dmg < 0)	$dmg = 0;
+			}
+		}
+		
+		//最终伤害乘算阶段
 		//获取最终伤害修正系数，类似物理伤害修正系数，这里返回的是一个数组
 		if ($dmg>0){
 			$multiplier = get_final_dmg_multiplier($pa, $pd, $active);
@@ -48,27 +112,37 @@ namespace attack
 		
 		if ((isset($pa['physical_dmg_dealt']) && $dmg>0 && $dmg!=$pa['physical_dmg_dealt']) 
 			|| ($dmg>0 && count($multiplier)>0))	//好吧这个写法有点糟糕……
+		{
+			$fin_dmg=$dmg; $mult_words='';
+			foreach ($multiplier as $key)
 			{
-				$fin_dmg=$dmg; $mult_words='';
-				foreach ($multiplier as $key)
-				{
-					$fin_dmg=$fin_dmg*$key;
-					$mult_words.="×{$key}";
-				}
-				$fin_dmg=round($fin_dmg);
-				if ($fin_dmg < 1) $fin_dmg = 1;
-				if ($mult_words=='')
-					$log .= "<span class=\"yellow\">造成的总伤害：<span class=\"red\">{$dmg}</span>。</span><br>";
-				else  $log .= "<span class=\"yellow\">造成的总伤害：</span>{$dmg}{$mult_words}＝<span class=\"red\">{$fin_dmg}</span><span class=\"yellow\">。</span><br>";
-				$pa['dmg_dealt']=$fin_dmg;
+				$fin_dmg=$fin_dmg*$key;
+				$mult_words.="×{$key}";
 			}
+			$fin_dmg=round($fin_dmg);
+			if ($fin_dmg < 1) $fin_dmg = 1;
+			if ($mult_words=='')
+				$log .= "<span class=\"yellow\">造成的总伤害：<span class=\"red\">{$dmg}</span>。</span><br>";
+			else  $log .= "<span class=\"yellow\">造成的总伤害：</span>{$dmg}{$mult_words}＝<span class=\"red\">{$fin_dmg}</span><span class=\"yellow\">。</span><br>";
+			$pa['dmg_dealt']=$fin_dmg;
+		}elseif($dmg!=$pa['physical_dmg_dealt']){
+			$log .= "<span class=\"yellow\">造成的总伤害：<span class=\"red\">{$dmg}</span>。</span><br>";
+			$pa['dmg_dealt'] = $dmg;
+		}
 		
-		//应用对总伤害的加算修正
-		//先应用降低类，后应用提高类
-		apply_total_damage_modifier_down($pa,$pd,$active);
-		apply_total_damage_modifier_up($pa,$pd,$active);
-		//最后执行变化类修正（伤害制御、反演、数体教等）
-		apply_total_damage_change($pa,$pd,$active);
+		//最终伤害修正阶段，应用对总伤害的特殊修正
+		//最优先：无敌
+		if($pa['dmg_dealt']) apply_total_damage_modifier_invincible($pa,$pd,$active);
+		//第二优先：特殊变化
+		if($pa['dmg_dealt']) apply_total_damage_modifier_special($pa,$pd,$active);
+		//第三优先：伤害限制类
+		if($pa['dmg_dealt']) apply_total_damage_modifier_limit($pa,$pd,$active);
+		//第四优先：保命类
+		if($pa['dmg_dealt']) apply_total_damage_modifier_insurance($pa,$pd,$active);
+		//秒杀技，最后判定
+		apply_total_damage_modifier_seckill($pa,$pd,$active);
+		
+		if($dmg != $pa['dmg_dealt'] && empty($pa['seckill'])) $log .= "<span class=\"yellow\">最终伤害：<span class=\"red\">{$pa['dmg_dealt']}</span>。</span><br>";
 		
 		//扣血并更新最高伤害
 		apply_damage($pa,$pd,$active);

@@ -28,23 +28,22 @@ namespace skill268
 		return $pa['lvl']>=15;
 	}
 	
-	function apply_damage(&$pa,&$pd,$active)
+	function apply_total_damage_modifier_insurance(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$ret = $chprocess($pa,$pd,$active);
+		$chprocess($pa,$pd,$active);
 		if (\skillbase\skill_query(268,$pd) && check_unlocked268($pd))
 		{
 			eval(import_module('logger'));
 			$rmt = \skillbase\skill_getvalue(268,'rmt',$pd);
-			if($rmt > 0 && $pd['hp'] <= 0 && $pa['dmg_dealt'] <= $pd['mhp'] / 2){
-				$pd['hp'] = 1;
+			if($rmt > 0 && $pa['dmg_dealt'] >= $pd['hp'] && $pa['dmg_dealt'] <= $pd['mhp'] / 2){
+				$pa['dmg_dealt'] = $pd['hp'] - 1;
 				$log .= \battle\battlelog_parser($pa,$pd,$active,'<span class="yellow">然而，<:pd_name:>靠着惊人的毅力扛住了致命的伤害！</span><br>');
 				$pa['battlelog'] .= \battle\battlelog_parser($pa,$pd,1-$active,'<span class="yellow">然而，<:pd_name:>靠着惊人的毅力扛住了致命的伤害！</span><br>');
 				\skillbase\skill_setvalue(268,'rmt',$rmt-1,$pd);
 				$pd['skill268_flag'] = 1;
 			}
 		}
-		return $ret;
 	}
 	
 	//抵御伤害的消息在伤害通告函数里实现，否则顺序有点不爽

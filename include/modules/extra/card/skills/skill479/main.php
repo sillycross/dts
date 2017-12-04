@@ -35,15 +35,34 @@ namespace skill479
 //		}
 //		$chprocess($pa, $pd, $active);
 //	}
-	
-	//战斗伤害、陷阱伤害进行四舍五入，事件因为太乱了先不考虑
-	function apply_total_damage_change(&$pa,&$pd,$active)
+
+	//特殊变化次序注册
+	function apply_total_damage_modifier_special_set_sequence(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_query(479, $pd)) {
+		$chprocess($pa, $pd, $active);
+		if (\skillbase\skill_query(479, $pd) && check_unlocked479($pd)) 
+			$pd['atdms_sequence'][200] = 'skill479';
+		return;
+	}
+	
+	//特殊变化生效判定，建议采用或的逻辑关系
+	function apply_total_damage_modifier_special_check(&$pa, &$pd, $active, $akey)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($pa, $pd, $active, $akey);
+		if('skill479' == $akey && $pa['dmg_dealt'] > 0) $ret = 1;
+		return $ret;
+	}
+	
+	//特殊变化执行
+	function apply_total_damage_modifier_special_core(&$pa, &$pd, $active, $akey)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($pa,$pd, $active, $akey);
+		if('skill479' == $akey){
 			$pa['dmg_dealt'] = dmg_round479($pa, $pd, $active, $pa['dmg_dealt']);
 		}
-		$chprocess($pa, $pd, $active);//伤害制御最后计算
 	}
 	
 	function get_trap_final_damage_change(&$pa, &$pd, $tritm, $damage)

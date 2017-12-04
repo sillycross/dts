@@ -25,22 +25,39 @@ namespace skill473
 		return 1;
 	}
 	
-	function strike_finish(&$pa, &$pd, $active)
+	function get_final_dmg_base(&$pa, &$pd, &$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_query(473,$pa) && $pa['dmg_dealt']>0)
+		$ret = $chprocess($pa,$pd,$active);
+		if (\skillbase\skill_query(473,$pa) && $pa['is_hit']) 
 		{
 			$spcost=floor($pa['sp']*0.09);
 			$pa['sp']-=$spcost;
-			$pa['dmg_dealt']+=$spcost;
 			eval(import_module('logger'));
 			if ($active)
 				$log.='<class span="yellow">你的技能「神蚀」消耗了'.$spcost.'点体力，并对敌人造成了相同的伤害！</span><br>';
 			else  $log.='<class span="yellow">敌人的技能「神蚀」消耗了'.$spcost.'点体力，并对你造成了相同的伤害！</span><br>';
-			$pa['dmg_dealt']+=$dmg;
+			$ret+=$spcost;
 		}
-		$chprocess($pa, $pd, $active);
+		return $ret;
 	}
+	
+//	function strike_finish(&$pa, &$pd, $active)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		if (\skillbase\skill_query(473,$pa) && $pa['dmg_dealt']>0)
+//		{
+//			$spcost=floor($pa['sp']*0.09);
+//			$pa['sp']-=$spcost;
+//			$pa['dmg_dealt']+=$spcost;
+//			eval(import_module('logger'));
+//			if ($active)
+//				$log.='<class span="yellow">你的技能「神蚀」消耗了'.$spcost.'点体力，并对敌人造成了相同的伤害！</span><br>';
+//			else  $log.='<class span="yellow">敌人的技能「神蚀」消耗了'.$spcost.'点体力，并对你造成了相同的伤害！</span><br>';
+//			$pa['dmg_dealt']+=$dmg;
+//		}
+//		$chprocess($pa, $pd, $active);
+//	}
 }
 
 ?>

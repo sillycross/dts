@@ -51,11 +51,31 @@ namespace skill412
 		if ($c%2==0) return 1; else return -1;
 	}
 	
-	function apply_total_damage_change(&$pa,&$pd,$active)
+	//特殊变化次序注册
+	function apply_total_damage_modifier_special_set_sequence(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_query(412,$pd) && check_unlocked412($pd) && $pa['dmg_dealt']>0)
-		{
+		$chprocess($pa, $pd, $active);
+		if (\skillbase\skill_query(412,$pd) && check_unlocked412($pd)) 
+			$pd['atdms_sequence'][150] = 'skill412';
+		return;
+	}
+	
+	//特殊变化生效判定，建议采用或的逻辑关系
+	function apply_total_damage_modifier_special_check(&$pa, &$pd, $active, $akey)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($pa, $pd, $active, $akey);
+		if('skill412' == $akey && $pa['dmg_dealt'] > 0) $ret = 1;
+		return $ret;
+	}
+	
+	//特殊变化执行
+	function apply_total_damage_modifier_special_core(&$pa, &$pd, $active, $akey)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($pa,$pd, $active, $akey);
+		if('skill412' == $akey){
 			eval(import_module('logger'));
 			$t=calculate_mobius_function($pa['dmg_dealt']);
 			if ($t==0)
@@ -75,7 +95,6 @@ namespace skill412
 				$pa['mobiusflag'] = 1;//临时性的标记就不搞skill了				
 			}
 		}
-		$chprocess($pa, $pd, $active);
 	}
 	
 	//反演的反弹效果移到伤害效果的发生阶段，这样就在伤害制御之后了

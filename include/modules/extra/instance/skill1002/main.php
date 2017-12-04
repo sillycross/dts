@@ -50,7 +50,7 @@ namespace skill1002
 		else return $chprocess($edata);
 	}
 	
-	function apply_total_damage_modifier_down(&$pa,&$pd,$active){
+	function apply_total_damage_modifier_invincible(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!\skillbase\skill_query(1002,$pd)) return $chprocess($pa,$pd,$active);
 		eval(import_module('sys','logger','skill1002'));

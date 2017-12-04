@@ -64,7 +64,7 @@ namespace skill270
 		$ret = $chprocess($pa, $pd, $active);
 		if (\skillbase\skill_query(270,$pa) && check_unlocked270($pa) && check_skill270_proc($pa, $pd, $active)){
 			eval(import_module('skill270'));
-			$ret += $skill270hitrate;
+			$ret *= 1+$skill270hitrate/100;
 		}
 		//echo 'hitrate'.$ret;
 		return $ret;

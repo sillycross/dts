@@ -82,18 +82,32 @@ namespace skill75
 		$chprocess($pa, $pd, $active);
 	}	
 	
-	function strike_finish(&$pa, &$pd, $active)
+	function get_final_dmg_base(&$pa, &$pd, &$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill']==75 && $pa['is_hit'])
+		$ret = $chprocess($pa,$pd,$active);
+		if ($pa['bskill']==75 && $pa['is_hit']) 
 		{
 			eval(import_module('logger'));
 			$d=$pa['lvl']+30;
 			$log.='<span class="yellow">「剑心」附加了'.$d.'点伤害！</span><br>';
-			$pa['dmg_dealt']+=$d;
+			$ret += $d;
 		}
-		$chprocess($pa, $pd, $active);
+		return $ret;
 	}
+	
+//	function strike_finish(&$pa, &$pd, $active)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		if ($pa['bskill']==75 && $pa['is_hit'])
+//		{
+//			eval(import_module('logger'));
+//			$d=$pa['lvl']+30;
+//			$log.='<span class="yellow">「剑心」附加了'.$d.'点伤害！</span><br>';
+//			$pa['dmg_dealt']+=$d;
+//		}
+//		$chprocess($pa, $pd, $active);
+//	}
 	
 	function bufficons_list()
 	{

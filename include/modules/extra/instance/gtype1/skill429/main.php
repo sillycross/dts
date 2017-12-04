@@ -90,11 +90,12 @@ namespace skill429
 		return array_merge($r,$chprocess($pa,$pd,$trap,$damage));
 	}
 
-	function apply_total_damage_modifier_down(&$pa,&$pd,$active){
+	function apply_total_damage_modifier_limit(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(429,$pa) || !check_unlocked429($pa)) return $chprocess($pa,$pd,$active);
+		$chprocess($pa,$pd,$active);
+		if (!\skillbase\skill_query(429,$pa) || !check_unlocked429($pa)) return;
 		$var_429=get_skill429_dmg($pa);
-		if (($var_429>0)&&($var_429<100)){
+		if ( $var_429>0 && $var_429<100 ){
 			$d429=round($pd['mhp']*$var_429/100);
 			if ($pa['dmg_dealt']>$d429){
 				$pa['dmg_dealt']=$d429;
@@ -103,7 +104,6 @@ namespace skill429
 				else $log .= "<span class=\"yellow\">敌人造成的伤害被限制为<span class=\"red\">{$d429}</span>点。</span><br>";
 			}
 		}
-		$chprocess($pa,$pd,$active);
 	}
 }
 
