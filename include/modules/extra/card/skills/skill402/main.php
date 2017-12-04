@@ -43,7 +43,7 @@ namespace skill402
 		if (!\skillbase\skill_query(402,$pa) || !check_unlocked402($pa)) return $chprocess($pa,$pd,$active);
 		$chprocess($pa,$pd,$active);
 		$var_402=get_skill402_procrate($pa,$pd,$active);
-		if ( rand(0,99) < $var_402 && ( $pd['mhp'] < 5000000 || $var_402 >= 10 )){
+		if ( rand(0,99) < $var_402 && $pa['is_hit'] && ( $pd['mhp'] < 5000000 || $var_402 >= 10 )){
 			$pa['dmg_dealt']=$pd['hp'];
 			//if ($pa['dmg_dealt']<100000000) $pa['dmg_dealt']=100000000;
 			eval(import_module('logger'));
