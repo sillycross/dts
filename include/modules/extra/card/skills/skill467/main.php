@@ -28,23 +28,30 @@ namespace skill467
 	function check_skill467_proc(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (rand(0,99)<17 && \skillbase\skill_query(467,$pa))
+		if (rand(0,99)<17 && \skillbase\skill_query(467,$pa) && $pa['is_hit'])
 		{
 			eval(import_module('player','logger'));
 			if ($active)
-				$log.="<span class=\"clan\">敌人被你一拳打晕了过去！</span></span><br>";
-			else  $log.="<span class=\"clan\">你被敌人一拳打晕了过去！</span></span><br>";
+				$log.="<span class=\"clan\">你的攻击让敌人晕了过去！</span></span><br>";
+			else  $log.="<span class=\"clan\">敌人的攻击使你晕了过去！</span></span><br>";
 			\skill602\set_stun_period(2500,$pd);
 			\skill602\send_stun_battle_news($pa['name'],$pd['name']);
 		}
 		return Array();
 	}
 	
-	function get_physical_dmg_multiplier(&$pa, &$pd, $active)
+//	function get_physical_dmg_multiplier(&$pa, &$pd, $active)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		check_skill467_proc($pa,$pd,$active);
+//		return $chprocess($pa,$pd,$active);
+//	}
+	
+	function strike_finish(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		check_skill467_proc($pa,$pd,$active);
-		return $chprocess($pa,$pd,$active);
+		$chprocess($pa,$pd,$active);
 	}
 }
 

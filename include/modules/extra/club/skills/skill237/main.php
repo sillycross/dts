@@ -76,19 +76,33 @@ namespace skill237
 		$chprocess($pa, $pd, $active);
 	}	
 	
-	//跳过整个物理伤害判定
-	function calculate_physical_dmg(&$pa, &$pd, $active)
+	//变化阶段，如果有需要最后变化物理伤害的技能请继承这里
+	function get_physical_dmg_change(&$pa, &$pd, $active, $dmg)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('logger'));
-		
+		$ret = $chprocess($pa, $pd, $active, $dmg);
 		if ($pa['bskill']==237) 
 		{
 			eval(import_module('logger'));
 			$log .=  \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow"><:pa_name:>将武器的伤害转化成了电磁干扰攻击！</span><br>');
+			$ret = 0;
 		}
-		else return $chprocess($pa, $pd, $active);
+		return $ret;
 	}
+	
+	//跳过整个物理伤害判定
+//	function calculate_physical_dmg(&$pa, &$pd, $active)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		eval(import_module('logger'));
+//		
+//		if ($pa['bskill']==237) 
+//		{
+//			eval(import_module('logger'));
+//			$log .=  \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow"><:pa_name:>将武器的伤害转化成了电磁干扰攻击！</span><br>');
+//		}
+//		else return $chprocess($pa, $pd, $active);
+//	}
 	
 //	function get_physical_dmg_multiplier(&$pa, &$pd, $active)
 //	{

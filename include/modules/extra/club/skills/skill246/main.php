@@ -69,12 +69,24 @@ namespace skill246
 		return 3;
 	}
 	
+	//隐身状态下攻击不会显示战斗技
+	function check_battle_skill_available(&$edata,$skillno)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player'));
+		if (\skillbase\skill_query(246,$sdata) && check_skill246_state($sdata)==1) return false;
+		else return $chprocess($edata,$skillno);
+	}
+	
 	//隐身状态下攻击不允许使用其他战斗技能，但自动触发破隐效果
+	//隐身刚结束那一下无法使用任何技能
 	function load_user_battleskill_command(&$pdata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (\skillbase\skill_query(246,$pdata) && check_skill246_state($pdata)==1)
 			$pdata['bskill']=246; 
+		elseif (\skillbase\skill_query(246,$pdata) && check_skill246_state($pdata)==2)
+			$pdata['bskill']=0; 
 		else  $chprocess($pdata);
 	}
 	

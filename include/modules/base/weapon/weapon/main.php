@@ -214,6 +214,13 @@ namespace weapon
 		return Array();
 	}
 	
+	//变化阶段，如果有需要最后变化物理伤害的技能请继承这里
+	function get_physical_dmg_change(&$pa, &$pd, $active, $dmg)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $dmg;
+	}
+	
 	function calculate_physical_dmg(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -233,6 +240,13 @@ namespace weapon
 		if ($mult_words=='')
 			$log .= "造成<span class=\"red\">{$dmg}</span>点伤害！<br>";
 		else  $log .= "造成{$dmg}{$mult_words}＝<span class=\"red\">{$fin_dmg}</span>点伤害！<br>";
+		
+		$fin_dmg_change = get_physical_dmg_change($pa, $pd, $active, $fin_dmg);
+		if($fin_dmg_change != $fin_dmg) {
+			$fin_dmg = $fin_dmg_change;
+			$log .= "总物理伤害：<span class=\"red\">{$fin_dmg}</span>。<br>";
+		}
+		
 		$pa['physical_dmg_dealt']+=$fin_dmg;
 		$pa['dmg_dealt']+=$fin_dmg;
 	}
