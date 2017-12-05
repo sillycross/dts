@@ -38,9 +38,10 @@ namespace wep_n
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('weapon'));
+		$ret = $chprocess($pa, $pd, $active);
 		if ($pa['wep_kind']=='N')
-			return round($pa[$skillinfo['N']]*2/3);
-		else  return $chprocess($pa, $pd, $active);
+			$ret += round($pa[$skillinfo['N']]*2/3);
+		return $ret;
 	}
 }
 

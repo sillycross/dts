@@ -183,6 +183,8 @@ namespace clubbase
 		return $func($who);
 	}
 	
+	//判定某个战斗技是否能够显示在战斗界面上
+	//这个函数应该是“与”的关系
 	function check_battle_skill_available(&$edata,$skillno)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

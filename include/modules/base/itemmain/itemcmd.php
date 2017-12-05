@@ -48,7 +48,7 @@ namespace itemmain
 		} elseif(2 == check_mergable($itmk0) && $itms0 !== $nosta){
 			$sameitem = array();
 			for($i = 1;$i <= 6;$i++){
-				if(${'itms'.$i} && $itm0 == ${'itm'.$i} && $itme0 == ${'itme'.$i} && substr($itmk0,1) == substr(${'itmk'.$i}, 1) && 2 == check_mergable(${'itmk'.$i})){
+				if(${'itms'.$i} && $itm0 == ${'itm'.$i} && $itme0 == ${'itme'.$i} && substr($itmk0,1,1) == substr(${'itmk'.$i}, 1, 1) && 2 == check_mergable(${'itmk'.$i})){
 					$sameitem[] = $i;
 				}
 			}
@@ -255,7 +255,7 @@ namespace itemmain
 			$log .= "你合并了<span class=\"yellow\">$it2</span>。";
 			$mode = 'command';
 			return true;
-		} elseif(2 == check_mergable($itk1) && 2 == check_mergable($itk2) && substr($itk1,1) == substr($itk2, 1) ) {
+		} elseif(2 == check_mergable($itk1) && 2 == check_mergable($itk2) && substr($itk1,1,1) == substr($itk2, 1,1) ) {
 			if((strpos($itk1,'P') === 0)||(strpos($itk2,'P') === 0)){
 				//毒性判定，取大的
 				$p1 = (int)substr($itk1,2);

@@ -168,6 +168,7 @@ namespace wep_j
 	}
 	
 	//重枪忽略战斗技能
+	//这个函数应该是“与”的关系
 	function check_battle_skill_available(&$edata,$skillno)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
