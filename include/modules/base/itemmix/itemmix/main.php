@@ -47,7 +47,7 @@ namespace itemmix
 	function itemmix_name_proc($n){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','itemmix'));
-		foreach(Array('/锋利的/','/电气/','/毒性/','/-改$/') as $value){
+		foreach(Array($itmname_ignore) as $value){
 			$n = preg_replace($value,'',$n);
 		}
 		$n = str_replace('钉棍棒','棍棒',$n);

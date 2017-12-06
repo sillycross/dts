@@ -52,7 +52,7 @@ function updateTime(domid,t,tm,intv,fmt)
 		var tm = timinglist[domid]['mode'];
 		var intv = timinglist[domid]['interval'];
 		var fmt = timinglist[domid]['format'];
-		if(tm){
+		if(1==tm){
 			t += intv;
 		}else{
 			t -= intv;
@@ -70,9 +70,11 @@ function updateTime(domid,t,tm,intv,fmt)
 		}
 	}
 	var tstr = updateTime_render(timinglist[domid]['timing'], timinglist[domid]['mode'], timinglist[domid]['format']);
-	if($(domid)) $(domid).innerHTML = tstr;
-	if(timinglist[domid]['timing'] > 0){
-		setTimeout("updateTime('" + domid + "')", timinglist[domid]['interval']);
+	if($(domid)) {
+		$(domid).innerHTML = tstr;
+	}
+	if(timinglist[domid]['timing'] > 0 || 1==tm){
+		setTimeout("updateTime('" + domid + "'," + t + "," + tm + "," + intv + ",'" + fmt + "')", timinglist[domid]['interval']);
 	}
 }
 

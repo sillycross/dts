@@ -84,6 +84,19 @@ namespace rest
 		return;
 	}
 	
+	function init_rest_timing(){
+		eval(import_module('sys'));
+		
+		//静养计时
+		if(!isset($uip['timing'])) $uip['timing'] = array();
+		$uip['timing']['rest_timing'] = array(
+			'on' => true,
+			'mode' => 1,
+			'timing' => 0,
+			'timing_r' => 0
+		);
+	}
+	
 	function act()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
