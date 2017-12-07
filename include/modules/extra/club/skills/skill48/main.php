@@ -178,7 +178,7 @@ namespace skill48
 	}	
 	
 	//主动发动附魔，叠属性伤害加成
-	function calculate_ex_attack_dmg(&$pa, &$pd, $active)
+	function ex_attack_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($pa['bskill']!=48) return $chprocess($pa, $pd, $active);

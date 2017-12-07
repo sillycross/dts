@@ -70,7 +70,7 @@ namespace skill215
 		$chprocess($pa, $pd, $active);
 	}	
 	
-	function calculate_ex_attack_dmg(&$pa, &$pd, $active)
+	function ex_attack_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($pa['bskill']==215) 

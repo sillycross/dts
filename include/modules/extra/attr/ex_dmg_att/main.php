@@ -105,9 +105,9 @@ namespace ex_dmg_att
 				$punish = get_ex_inf_dmg_punish($pa, $pd, $active, $key);
 				if ($punish != 1)
 				{
-					if ($punish > 1) $punish_word = "倍增"; else $punish_word = "减少";
+					if ($punish > 1) $punish_word = "加重"; else $punish_word = "减轻";
 					if(!isset($pa['battlelogflag_punish_'.$key])){
-						$log .= \battle\battlelog_parser($pa, $pd, $active,"由于<:pd_name:>已经{$infname[$infkey]}，{$exdmgname[$key]}伤害{$punish_word}！");
+						$log .= \battle\battlelog_parser($pa, $pd, $active,"{$infname[$infkey]}{$punish_word}了<:pd_name:>受到的{$exdmgname[$key]}伤害！");
 						$pa['battlelogflag_punish_'.$key] = 1;
 					}
 				}
@@ -121,6 +121,12 @@ namespace ex_dmg_att
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return calculate_ex_inf_multiple($pa, $pd, $active, $key);
+	}
+	
+	function calculate_ex_single_dmg_change(&$pa, &$pd, $active, $key, $edmg)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $edmg;
 	}
 	
 	//计算属性伤害造成异常状态的概率
@@ -151,8 +157,8 @@ namespace ex_dmg_att
 		{
 			$infkey = array_search($ex_inf[$key], $infskillinfo);
 			if ($active)
-				$log .= "并造成{$pd['name']}{$infname[$infkey]}了！";
-			else  $log .= "并造成你{$infname[$infkey]}了！";
+				$log .= "并致使{$pd['name']}{$infname[$infkey]}了！";
+			else  $log .= "并致使你{$infname[$infkey]}了！";
 			\wound\get_inf($infkey,$pd);
 			addnews($now,'inf',$pa['name'],$pd['name'],$infkey);
 		}
@@ -163,17 +169,19 @@ namespace ex_dmg_att
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','ex_dmg_att','wound','logger'));
-		//计算加减成
-		$damage_multiple = calculate_ex_single_dmg_multiple($pa, $pd, $active, $key);
 		//计算基础伤害
 		$damage = calculate_ex_single_original_dmg($pa, $pd, $active, $key);
+		//计算加减成
+		$damage_multiple = calculate_ex_single_dmg_multiple($pa, $pd, $active, $key);
+		$damage = round( $damage * $damage_multiple );
+		//计算修正值
+		$damage = calculate_ex_single_dmg_change($pa, $pd, $active, $key, $damage);
 		//最终伤害
-		$damage *= $damage_multiple;
-		$damage = round($damage); if ($damage < 1) $damage = 1;
+		if ($damage < 1) $damage = 1;
 		$pa['ex_dmg_'.$key.'_dealt'] = $damage;
 		if ($pd['ex_dmg_'.$key.'_defend_success'] == 1)	//恶心一下吧…… 奇怪的log美观修正……
-			$log .= "造成了<span class=\"red\">{$damage}</span>点额外伤害！";
-		else  $log .= "{$exdmgname[$key]}造成了<span class=\"red\">{$damage}</span>点额外伤害！";
+			$log .= "造成了<span class=\"red\">{$damage}</span>点属性伤害！";
+		else  $log .= "{$exdmgname[$key]}造成了<span class=\"red\">{$damage}</span>点属性伤害！";
 		//判断造成异常状态
 		check_ex_inf_infliction($pa, $pd, $active, $key);
 		$log.='<br>';
@@ -182,6 +190,37 @@ namespace ex_dmg_att
 	
 	//计算属性伤害
 	function calculate_ex_attack_dmg(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//命中才开始判定属性伤害，枪械作为钝器使用无属性伤害
+		if (check_ex_attack_available($pa, $pd, $active))	
+		{
+			ex_attack_prepare($pa, $pd, $active);
+			//基础值
+			$dmg = calculate_ex_attack_dmg_base($pa, $pd, $active);
+			//加成值
+			$dmg = round($dmg * calculate_ex_attack_dmg_multiplier($pa, $pd, $active));
+			//修正值
+			$dmg = calculate_ex_attack_dmg_change($pa, $pd, $active, $dmg);
+			$pa['dmg_dealt'] += $dmg;
+		}
+	}
+	
+	//是否执行属性伤害
+	function check_ex_attack_available(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $pa['is_hit'] && \attrbase\attr_dmg_check_not_WPG($pa, $pd, $active);
+	}
+	
+	//总属性伤害准备（各种技能提示放这里）
+	function ex_attack_prepare(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+	}
+	
+	//总属性伤害基础值
+	function calculate_ex_attack_dmg_base(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('ex_dmg_att'));
@@ -197,18 +236,28 @@ namespace ex_dmg_att
 		return $tot;
 	}
 	
+	//总属性伤害加成值
+	function calculate_ex_attack_dmg_multiplier(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 1;
+	}
+	
+	//总属性伤害修正值
+	function calculate_ex_attack_dmg_change(&$pa, &$pd, $active, $tdmg)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $tdmg;
+	}
+	
 	function strike(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		$chprocess($pa, $pd, $active);
-		
-		if ($pa['is_hit'] && \attrbase\attr_dmg_check_not_WPG($pa, $pd, $active))	//命中才开始判定属性伤害，枪械作为钝器使用无属性伤害
-		{
-			$dmg = calculate_ex_attack_dmg($pa, $pd, $active);
-			$pa['dmg_dealt'] += $dmg;
-		}
+		calculate_ex_attack_dmg($pa, $pd, $active);
 	}
+	
 	
 	//战斗前清空各类计数器
 	function strike_prepare(&$pa, &$pd, $active)
@@ -248,12 +297,12 @@ namespace ex_dmg_att
 		if (strpos($tritm['itm'],'毒性')!==false) 
 		{
 			\wound\get_inf('p');
-			$log.="敌人的陷阱还使你{$infname['p']}了！<br>";
+			$log.="陷阱还使你{$infname['p']}了！<br>";
 		}
 		if (strpos($tritm['itm'],'电气')!==false) 
 		{
 			\wound\get_inf('e');
-			$log.="敌人的陷阱还使你{$infname['e']}了！<br>";
+			$log.="陷阱还使你{$infname['e']}了！<br>";
 		}
 	}
 }
