@@ -209,6 +209,7 @@ namespace ex_dmg_att
 			ex_attack_prepare($pa, $pd, $active);
 			//基础值
 			$dmg = calculate_ex_attack_dmg_base($pa, $pd, $active);
+			if(!$dmg) return;
 			//加成值
 			$multiplier = calculate_ex_attack_dmg_multiplier($pa, $pd, $active);
 			
