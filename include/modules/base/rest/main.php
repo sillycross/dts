@@ -85,6 +85,7 @@ namespace rest
 	}
 	
 	function init_rest_timing(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		
 		//静养计时

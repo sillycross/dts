@@ -17,6 +17,7 @@ namespace itemmain
 	}
 	
 	function show_itemfind(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
 		ob_start();
 		include template(MOD_ITEMMAIN_ITEMFIND);

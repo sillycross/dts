@@ -235,22 +235,39 @@ namespace skill272
 		return $chprocess($pa, $pd, $active)*0.75;
 	}*/
 	
-	function calculate_ex_single_dmg_multiple(&$pa, &$pd, $active, $key)
+	function calculate_ex_attack_dmg_multiplier(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$ret = $chprocess($pa, $pd, $active, $key);
-		if (\skillbase\skill_query(272,$pa) && check_unlocked272($pa) && 1==check_skill272_state($pa)){
+		$r=Array();
+		if (\skillbase\skill_query(272,$pa) && check_unlocked272($pa) && 1==check_skill272_state($pa))
+		{
 			eval(import_module('logger','skill272'));
 			$effect = $skill272_factor * \skillbase\skill_getvalue(272,'num',$pa);
 			if(empty($pa['skill272_log'])){
 				$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow">「吸光」使<:pa_name:>的属性伤害增强了'.$effect.'%！</span><br>');
 				$pa['skill272_log'] = 1;
 			}
-			return $ret * (1 + $effect / 100);
+			$r[] = 1 + $effect / 100;
 		}
-			
-		else return $ret;
+		return array_merge($r,$chprocess($pa,$pd,$active));
 	}
+	
+//	function calculate_ex_single_dmg_multiple(&$pa, &$pd, $active, $key)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		$ret = $chprocess($pa, $pd, $active, $key);
+//		if (\skillbase\skill_query(272,$pa) && check_unlocked272($pa) && 1==check_skill272_state($pa)){
+//			eval(import_module('logger','skill272'));
+//			$effect = $skill272_factor * \skillbase\skill_getvalue(272,'num',$pa);
+//			if(empty($pa['skill272_log'])){
+//				$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow">「吸光」使<:pa_name:>的属性伤害增强了'.$effect.'%！</span><br>');
+//				$pa['skill272_log'] = 1;
+//			}
+//			return $ret * (1 + $effect / 100);
+//		}
+//			
+//		else return $ret;
+//	}
 	
 	function bufficons_list()
 	{
@@ -312,7 +329,7 @@ namespace skill272
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill272') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}发动了技能<span class=\"red\">「吸光」</span></span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}发动了技能<span class=\"yellow\">「吸光」</span></span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

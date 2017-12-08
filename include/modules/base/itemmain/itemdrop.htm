@@ -4,43 +4,45 @@
 	<input type="hidden" id="command" name="command" value="">
 	<input type="button" class="cmdbutton" id="x" value="[X]返回" onclick="$('command').value='menu';postCmd('gamecmd','command.php');this.disabled=true;"><br>
 	<br>
+	<ul style="padding-left:24px;">
 	<!--{if $weps && $wepe}-->
-		<input type="button" class="cmdbutton" value="丢弃" onclick="$('command').value='dropwep';postCmd('gamecmd','command.php');this.disabled=true;">$wep/$wepe/$weps<br>
+		<li><input type="button" class="cmdbutton" value="丢弃" onclick="$('command').value='dropwep';postCmd('gamecmd','command.php');this.disabled=true;">$wep/$wepe/$weps<br></li>
 	<!--{/if}-->
 	<!--{if $arbs && $arbe}-->
-		<input type="button" class="cmdbutton" value="丢弃" onclick="$('command').value='droparb';postCmd('gamecmd','command.php');this.disabled=true;">$arb/$arbe/$arbs<br>
+		<li><input type="button" class="cmdbutton" value="丢弃" onclick="$('command').value='droparb';postCmd('gamecmd','command.php');this.disabled=true;">$arb/$arbe/$arbs<br></li>
 	<!--{/if}-->
 	<!--{if $arhs}-->
-		<input type="button" class="cmdbutton" value="丢弃" onclick="$('command').value='droparh';postCmd('gamecmd','command.php');this.disabled=true;">$arh/$arhe/$arhs<br>
+		<li><input type="button" class="cmdbutton" value="丢弃" onclick="$('command').value='droparh';postCmd('gamecmd','command.php');this.disabled=true;">$arh/$arhe/$arhs<br></li>
 	<!--{/if}-->
 	<!--{if $aras}-->
-		<input type="button" class="cmdbutton" value="丢弃" onclick="$('command').value='dropara';postCmd('gamecmd','command.php');this.disabled=true;">$ara/$arae/$aras<br>
+		<li><input type="button" class="cmdbutton" value="丢弃" onclick="$('command').value='dropara';postCmd('gamecmd','command.php');this.disabled=true;">$ara/$arae/$aras<br></li>
 	<!--{/if}-->
 	<!--{if $arfs}-->
-		<input type="button" class="cmdbutton" value="丢弃" onclick="$('command').value='droparf';postCmd('gamecmd','command.php');this.disabled=true;">$arf/$arfe/$arfs<br>
+		<li><input type="button" class="cmdbutton" value="丢弃" onclick="$('command').value='droparf';postCmd('gamecmd','command.php');this.disabled=true;">$arf/$arfe/$arfs<br></li>
 	<!--{/if}-->
 	<!--{if $arts}-->
-		<input type="button" class="cmdbutton" value="丢弃" onclick="$('command').value='dropart';postCmd('gamecmd','command.php');this.disabled=true;">$art/$arte/$arts<br>
+		<li><input type="button" class="cmdbutton" value="丢弃" onclick="$('command').value='dropart';postCmd('gamecmd','command.php');this.disabled=true;">$art/$arte/$arts<br></li>
 	<!--{/if}-->
 	<br>
 	<!--{if $itms1}-->
-		<input type="button" class="cmdbutton" id="a" value="[A]丢弃" onclick="$('command').value='dropitm1';postCmd('gamecmd','command.php');this.disabled=true;">$itm1/$itme1/$itms1<br>
+		<li><input type="button" class="cmdbutton" id="a" value="[A]丢弃" onclick="$('command').value='dropitm1';postCmd('gamecmd','command.php');this.disabled=true;">$itm1/$itme1/$itms1<br></li>
 	<!--{/if}-->
 	<!--{if $itms2}-->
-		<input type="button" class="cmdbutton" id="s" value="[S]丢弃" onclick="$('command').value='dropitm2';postCmd('gamecmd','command.php');this.disabled=true;">$itm2/$itme2/$itms2<br>
+		<li><input type="button" class="cmdbutton" id="s" value="[S]丢弃" onclick="$('command').value='dropitm2';postCmd('gamecmd','command.php');this.disabled=true;">$itm2/$itme2/$itms2<br></li>
 	<!--{/if}-->
 	<!--{if $itms3}-->
-		<input type="button" class="cmdbutton" id="d" value="[D]丢弃" onclick="$('command').value='dropitm3';postCmd('gamecmd','command.php');this.disabled=true;">$itm3/$itme3/$itms3<br>
+		<li><input type="button" class="cmdbutton" id="d" value="[D]丢弃" onclick="$('command').value='dropitm3';postCmd('gamecmd','command.php');this.disabled=true;">$itm3/$itme3/$itms3<br></li>
 	<!--{/if}-->
 	<!--{if $itms4}-->
-		<input type="button" class="cmdbutton" id="q" value="[Q]丢弃" onclick="$('command').value='dropitm4';postCmd('gamecmd','command.php');this.disabled=true;">$itm4/$itme4/$itms4<br>
+		<li><input type="button" class="cmdbutton" id="q" value="[Q]丢弃" onclick="$('command').value='dropitm4';postCmd('gamecmd','command.php');this.disabled=true;">$itm4/$itme4/$itms4<br></li>
 	<!--{/if}-->
 	<!--{if $itms5}-->
-		<input type="button" class="cmdbutton" id="w" value="[W]丢弃" onclick="$('command').value='dropitm5';postCmd('gamecmd','command.php');this.disabled=true;">$itm5/$itme5/$itms5<br>
+		<li><input type="button" class="cmdbutton" id="w" value="[W]丢弃" onclick="$('command').value='dropitm5';postCmd('gamecmd','command.php');this.disabled=true;">$itm5/$itme5/$itms5<br></li>
 	<!--{/if}-->
 	<!--{if $itms6}-->
-		<input type="button" class="cmdbutton" id="e" value="[E]丢弃" onclick="$('command').value='dropitm6';postCmd('gamecmd','command.php');this.disabled=true;">$itm6/$itme6/$itms6<br>
+		<li><input type="button" class="cmdbutton" id="e" value="[E]丢弃" onclick="$('command').value='dropitm6';postCmd('gamecmd','command.php');this.disabled=true;">$itm6/$itme6/$itms6<br></li>
 	<!--{/if}-->
+	</ul>
 <!--{else}-->
 	<input type="radio" name="command" id="menu" value="menu" checked><a onclick=sl('menu'); href="javascript:void(0);" >返回</a><br><br>
 	<!--{if $weps && $wepe}-->

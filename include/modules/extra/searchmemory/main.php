@@ -6,6 +6,7 @@ namespace searchmemory
 	
 	function searchmemory_available()
 	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','searchmemory'));
 		return !in_array($gametype, $searchmemory_disabled_gtype);
 	}

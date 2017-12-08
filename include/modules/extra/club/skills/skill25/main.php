@@ -33,13 +33,24 @@ namespace skill25
 		else	return $chprocess($pa, $pd, $active, $key);
 	}
 	
-	function calculate_ex_single_dmg_multiple(&$pa, &$pd, $active, $key)
+	function calculate_ex_attack_dmg_multiplier(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$r=Array();
 		if (\skillbase\skill_query(25,$pa) && check_unlocked25($pa))
-			return $chprocess($pa, $pd, $active, $key)*1.15;
-		else	return $chprocess($pa, $pd, $active, $key);
+		{
+			$r=Array(1.15);
+		}
+		return array_merge($r,$chprocess($pa,$pd,$active));
 	}
+	
+//	function calculate_ex_single_dmg_multiple(&$pa, &$pd, $active, $key)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		if (\skillbase\skill_query(25,$pa) && check_unlocked25($pa))
+//			return $chprocess($pa, $pd, $active, $key)*1.15;
+//		else	return $chprocess($pa, $pd, $active, $key);
+//	}
 }
 
 ?>

@@ -33,7 +33,7 @@ namespace skill465
 			$ret *=1.5;
 			if(!isset($pa['battlelogflag_skill465'])){
 				eval(import_module('logger'));
-				$log .= \battle\battlelog_parser($pa, $pd, $active,'「圣火」让<:pa_name:>造成的伤害增加了50%！<br>');
+				$log .= \battle\battlelog_parser($pa, $pd, $active,'「圣火」让<:pa_name:>造成的伤害增加了50%！');
 				$pa['battlelogflag_skill465'] = 1;
 			}
 		}

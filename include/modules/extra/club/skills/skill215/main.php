@@ -87,15 +87,42 @@ namespace skill215
 		return $chprocess($pa, $pd, $active);
 	}
 	
-	function calculate_ex_single_dmg_multiple(&$pa, &$pd, $active, $key)
+	//计算完爆炸属性伤害基本值后，记录这个基本值
+	function calculate_ex_single_original_dmg(&$pa, &$pd, $active, $key)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (($key=='d')&&($pa['bskill']==215)) 
+		$ret = $chprocess($pa, $pd, $active, $key);
+		if ( $key=='d' && $pa['bskill']==215 ) 
 		{
-			return 1;
+			$pa['skill215_o_dmg'] = $ret;
 		}
-		return $chprocess($pa, $pd, $active, $key);
+		return $ret;
 	}
+	
+	//爆炸属性伤害变化阶段，把伤害变为基本值
+	function calculate_ex_single_dmg_change(&$pa, &$pd, $active, $key, $edmg)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($pa, $pd, $active, $key, $edmg);
+		if ( $key=='d' && $pa['bskill']==215 && !empty($pa['skill215_o_dmg']) && $ret != $pa['skill215_o_dmg']) 
+		{
+			eval(import_module('logger'));
+			$ret = round($pa['skill215_o_dmg']);
+			$log.='但是，爆炸伤害不受影响！';
+			unset($pa['skill215_o_dmg']);
+		}
+		return $ret;
+	}
+	
+//	function calculate_ex_single_dmg_multiple(&$pa, &$pd, $active, $key)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		if (($key=='d')&&($pa['bskill']==215)) 
+//		{
+//			return 1;
+//		}
+//		return $chprocess($pa, $pd, $active, $key);
+//	}
 
 	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{

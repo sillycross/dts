@@ -133,14 +133,25 @@ namespace skill205
 		return $chprocess($pa, $pd, $active);
 	}
 	
-	function calculate_ex_single_dmg_multiple(&$pa, &$pd, $active, $key)
+//	function calculate_ex_single_dmg_multiple(&$pa, &$pd, $active, $key)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		if ($pa['bskill']==205) 
+//		{
+//			return $chprocess($pa, $pd, $active, $key)*1.8;
+//		}
+//		return $chprocess($pa, $pd, $active, $key);
+//	}
+//	
+	function calculate_ex_attack_dmg_multiplier(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$r = Array();
 		if ($pa['bskill']==205) 
 		{
-			return $chprocess($pa, $pd, $active, $key)*1.8;
+			$r[] = 1.8;
 		}
-		return $chprocess($pa, $pd, $active, $key);
+		return array_merge($r,$chprocess($pa,$pd,$active));
 	}
 	
 	function calculate_weapon_wound_multiplier(&$pa, &$pd, $active, $hurtposition) 

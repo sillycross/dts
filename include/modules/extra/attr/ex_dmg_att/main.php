@@ -164,24 +164,34 @@ namespace ex_dmg_att
 		}
 	}
 	
+	function showlog_ex_single_dmg(&$pa, &$pd, $active, $key)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('logger','ex_dmg_att'));
+		if ($pd['ex_dmg_'.$key.'_defend_success'] == 1)	//恶心一下吧…… 奇怪的log美观修正……
+			$log .= '造成了<span class="yellow">'.$pa['ex_dmg_'.$key.'_dealt'].'</span>点属性伤害！';
+		else  $log .= $exdmgname[$key].'造成了<span class="yellow">'.$pa['ex_dmg_'.$key.'_dealt'].'</span>点属性伤害！';
+	}
+	
 	//执行单个属性攻击
-	function calculate_ex_single_dmg(&$pa, &$pd, $active, $key)
+	function calculate_ex_single_dmg(&$pa, &$pd, $active, $key, $fixed_dmg=0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','ex_dmg_att','wound','logger'));
-		//计算基础伤害
-		$damage = calculate_ex_single_original_dmg($pa, $pd, $active, $key);
+		//计算基础伤害。如果提供了固定值则基础伤害按固定值计算
+		if(!$fixed_dmg)	$damage = calculate_ex_single_original_dmg($pa, $pd, $active, $key);
+		else $damage = $fixed_dmg;
 		//计算加减成
-		$damage_multiple = calculate_ex_single_dmg_multiple($pa, $pd, $active, $key);
+		$c_key = ex_attack_key_change($pa, $pd, $active, $key);
+		$damage_multiple = calculate_ex_single_dmg_multiple($pa, $pd, $active, $c_key);
 		$damage = round( $damage * $damage_multiple );
-		//计算修正值
-		$damage = calculate_ex_single_dmg_change($pa, $pd, $active, $key, $damage);
-		//最终伤害
+		
 		if ($damage < 1) $damage = 1;
-		$pa['ex_dmg_'.$key.'_dealt'] = $damage;
-		if ($pd['ex_dmg_'.$key.'_defend_success'] == 1)	//恶心一下吧…… 奇怪的log美观修正……
-			$log .= "造成了<span class=\"red\">{$damage}</span>点属性伤害！";
-		else  $log .= "{$exdmgname[$key]}造成了<span class=\"red\">{$damage}</span>点属性伤害！";
+		//计算修正值
+		$pa['ex_dmg_'.$key.'_dealt'] = calculate_ex_single_dmg_change($pa, $pd, $active, $c_key, $damage);
+		
+		showlog_ex_single_dmg($pa, $pd, $active, $key);
+		
 		//判断造成异常状态
 		check_ex_inf_infliction($pa, $pd, $active, $key);
 		$log.='<br>';
@@ -195,13 +205,33 @@ namespace ex_dmg_att
 		//命中才开始判定属性伤害，枪械作为钝器使用无属性伤害
 		if (check_ex_attack_available($pa, $pd, $active))	
 		{
+			eval(import_module('logger'));
 			ex_attack_prepare($pa, $pd, $active);
 			//基础值
 			$dmg = calculate_ex_attack_dmg_base($pa, $pd, $active);
 			//加成值
-			$dmg = round($dmg * calculate_ex_attack_dmg_multiplier($pa, $pd, $active));
+			$multiplier = calculate_ex_attack_dmg_multiplier($pa, $pd, $active);
+			
+			$fin_dmg=$dmg; $mult_words='';
+			foreach ($multiplier as $key)
+			{
+				$fin_dmg=$fin_dmg*$key;
+				$mult_words.="×{$key}";
+			}
+			$fin_dmg=round($fin_dmg);
+			if ($fin_dmg < 1) $fin_dmg = 1;
+			if ($mult_words=='')
+				$log .= "总计造成<span class=\"red\">{$dmg}</span>点属性伤害！<br>";
+			else  $log .= "总计造成{$dmg}{$mult_words}＝<span class=\"red\">{$fin_dmg}</span>点属性伤害！<br>";
+			$dmg = $fin_dmg;
+			
 			//修正值
-			$dmg = calculate_ex_attack_dmg_change($pa, $pd, $active, $dmg);
+			$dmg_change = calculate_ex_attack_dmg_change($pa, $pd, $active, $dmg);
+			if($dmg_change != $dmg) {
+				$dmg = $dmg_change;
+				$log .= "总属性伤害：<span class=\"red\">{$dmg}</span>。<br>";
+			}
+			
 			$pa['dmg_dealt'] += $dmg;
 		}
 	}
@@ -237,10 +267,19 @@ namespace ex_dmg_att
 	}
 	
 	//总属性伤害加成值
+	//同物理伤害部分，这里返回一个数组，代表各次修正，最后结果是所有元素的乘积
+	//请注意array_merge的次序，应该把你的结果放在array的最前面，这样各次修正数值出现次序才是和判定log的出现次序一致的
+	//即，应该写return array_merge(Array(数值),$chprocess($pa,$pd,$active));而不是反过来
 	function calculate_ex_attack_dmg_multiplier(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return 1;
+		return Array();
+	}
+	
+	//是否在执行伤害加成值和修正值时转化属性？聚能之类伤害使用
+	function ex_attack_key_change(&$pa, &$pd, $active, $key){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $key;
 	}
 	
 	//总属性伤害修正值
