@@ -221,9 +221,9 @@ namespace ex_dmg_att
 			}
 			$fin_dmg=round($fin_dmg);
 			if ($fin_dmg < 1) $fin_dmg = 1;
-			if ($mult_words=='')
-				$log .= "总计造成<span class=\"red\">{$dmg}</span>点属性伤害！<br>";
-			else  $log .= "总计造成{$dmg}{$mult_words}＝<span class=\"red\">{$fin_dmg}</span>点属性伤害！<br>";
+			if (!empty($mult_words)) $log .= "总计造成{$dmg}{$mult_words}＝<span class=\"red\">{$fin_dmg}</span>点属性伤害！<br>";
+			elseif ($pa['ex_attack_num'] > 1) $log .= "总计造成<span class=\"red\">{$dmg}</span>点属性伤害！<br>";
+			 
 			$dmg = $fin_dmg;
 			
 			//修正值
@@ -256,10 +256,12 @@ namespace ex_dmg_att
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('ex_dmg_att'));
 		$tot = 0;
+		$pa['ex_attack_num'] = 0;
 		$ex_attack_array = \attrbase\get_ex_attack_array($pa, $pd, $active);
 		foreach ( $ex_attack_list as $key )
 			if (in_array($key, $ex_attack_array))
 			{
+				$pa['ex_attack_num'] ++ ;
 				$damage = calculate_ex_single_dmg($pa, $pd, $active, $key);
 				$pa['ex_dmg_dealt'] +=$damage;
 				$tot += $damage;
