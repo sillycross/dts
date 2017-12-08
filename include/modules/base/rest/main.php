@@ -94,7 +94,8 @@ namespace rest
 			'on' => true,
 			'mode' => 1,
 			'timing' => 0,
-			'timing_r' => 0
+			'timing_r' => 0,
+			'format' => 's'
 		);
 	}
 	

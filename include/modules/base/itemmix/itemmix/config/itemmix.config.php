@@ -3,7 +3,7 @@
 namespace itemmix
 {
 //合成时无视的词缀，是正则表达式
-$itmname_ignore = Array('/锋利的/si','/电气/si','/毒性/si','/-改/si','/\[\+[0-9]+?\]/si');
+$itmname_ignore = Array('/锋利的/si','/电气/si','/毒性/si','/-改/si');
 
 $mixinfo = array
 	( 
