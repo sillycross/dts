@@ -13,11 +13,16 @@ namespace itemmain
 		}
 		$tpldata['itmk0_words']=parse_itmk_words($itmk0);
 		$tpldata['itmsk0_words']=parse_itmsk_words($itmsk0);
-		ob_clean();
+		show_itemfind();
+	}
+	
+	function show_itemfind(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player'));
+		ob_start();
 		include template(MOD_ITEMMAIN_ITEMFIND);
 		$cmd = ob_get_contents();
-		ob_clean();
-		return;
+		ob_end_clean();
 	}
 
 	function itemget() {

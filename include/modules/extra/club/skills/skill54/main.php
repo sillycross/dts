@@ -58,7 +58,7 @@ namespace skill54
 		$log.='升级成功。<br>';
 	}
 	
-	function calculate_ex_attack_dmg(&$pa, &$pd, $active)
+	function ex_attack_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!\skillbase\skill_query(54,$pd) || !check_unlocked54($pd)) return $chprocess($pa, $pd, $active);
@@ -72,15 +72,29 @@ namespace skill54
 		return $chprocess($pa, $pd, $active);
 	}
 	
-	function calculate_ex_single_dmg_multiple(&$pa, &$pd, $active, $key)
+	function calculate_ex_attack_dmg_multiplier(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(54,$pd) || !check_unlocked54($pd)) return $chprocess($pa, $pd, $active, $key);
-		eval(import_module('skill54'));
-		$clv = \skillbase\skill_getvalue(54,'lvl',$pd);
-		$clv = (int)$clv;
-		return $chprocess($pa, $pd, $active, $key)*(1-$dmgreduction[$clv]/100);
-	}	
+		$r=Array();
+		if (\skillbase\skill_query(54,$pd) && check_unlocked54($pd)) 
+		{
+			eval(import_module('skill54'));
+			$clv = \skillbase\skill_getvalue(54,'lvl',$pd);
+			$clv = (int)$clv;
+			$r=Array(1-$dmgreduction[$clv]/100);
+		}
+		return array_merge($r,$chprocess($pa,$pd,$active));
+	}
+	
+//	function calculate_ex_single_dmg_multiple(&$pa, &$pd, $active, $key)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		if (!\skillbase\skill_query(54,$pd) || !check_unlocked54($pd)) return $chprocess($pa, $pd, $active, $key);
+//		eval(import_module('skill54'));
+//		$clv = \skillbase\skill_getvalue(54,'lvl',$pd);
+//		$clv = (int)$clv;
+//		return $chprocess($pa, $pd, $active, $key)*(1-$dmgreduction[$clv]/100);
+//	}	
 }
 
 ?>

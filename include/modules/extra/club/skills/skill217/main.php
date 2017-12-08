@@ -73,13 +73,24 @@ namespace skill217
 		return 1+($d/100);
 	}
 	
-	function calculate_ex_single_dmg_multiple(&$pa, &$pd, $active, $key)
+	function calculate_ex_attack_dmg_multiplier(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$r = Array();
 		if (\skillbase\skill_query(217,$pa) && check_unlocked217($pa))
-			return $chprocess($pa, $pd, $active, $key)*get_skill217_extra_dmg_gain($pa, $pd, $active);
-		else	return $chprocess($pa, $pd, $active, $key);
+		{
+			$r[] = get_skill217_extra_dmg_gain($pa, $pd, $active);
+		}
+		return array_merge($r,$chprocess($pa,$pd,$active));
 	}
+	
+//	function calculate_ex_single_dmg_multiple(&$pa, &$pd, $active, $key)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		if (\skillbase\skill_query(217,$pa) && check_unlocked217($pa))
+//			return $chprocess($pa, $pd, $active, $key)*get_skill217_extra_dmg_gain($pa, $pd, $active);
+//		else	return $chprocess($pa, $pd, $active, $key);
+//	}
 }
 
 ?>

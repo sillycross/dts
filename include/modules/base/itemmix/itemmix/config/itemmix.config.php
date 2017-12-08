@@ -2,6 +2,8 @@
 
 namespace itemmix
 {
+//合成时无视的词缀，是正则表达式
+$itmname_ignore = Array('/锋利的/si','/电气/si','/毒性/si','/-改/si');
 
 $mixinfo = array
 	( 
@@ -150,9 +152,11 @@ $mixinfo = array
 	array('class' => 'pokemon', 'stuff' => array('《小黄的精灵球》','《小黄的收服特训》','凤凰之羽'),'result' => array('《小黄的超级球》','WC',233,'∞','Zruce'),),
 	array('class' => 'pokemon', 'stuff' => array('《小黄的精灵球》','《小黄的收服特训》','露琪亚之羽','凤凰之羽'),'result' => array('《小黄的超级球》','WC',233,'∞','Zriuce'),),
 	array('class' => 'pokemon', 'stuff' => array('《小黄的超级球》','《小黄的常磐之力》','《小黄的收服特训》'),'result' => array('《小黄的大师球》','WC',386,'∞','ZcrdNe'),),
-	//array('class' => 'pokemon', 'stuff' => array('凤凰之羽','《小黄的超级球》','《小黄的常磐之力》'),'result' => array('《小黄的大师球》','WC',386,'∞','ucrd'),),
-	//array('class' => 'pokemon', 'stuff' => array('露琪亚之羽','《小黄的超级球》','《小黄的常磐之力》'),'result' => array('《小黄的大师球》','WC',386,'∞','icrd'),),
-	array('class' => 'pokemon', 'stuff' => array('《小黄的超级球》','《小黄的常磐之力》','露琪亚之羽','凤凰之羽'),'result' => array('《小黄的大师球》','WC',493,'∞','ZcrdNe'),),
+	array('class' => 'pokemon', 'stuff' => array('《小黄的超级球》','《小黄的常磐之力》','露琪亚之羽','凤凰之羽'),'result' => array('《小黄的大师球》','WC',493,'∞','ZcrdNeiu'),),
+	array('class' => 'pokemon', 'stuff' => array('《小黄的精灵球》','治愈之叶'),'result' => array('小黄的『十万伏特』','WC',386,'∞','cewH'),),
+	array('class' => 'pokemon', 'stuff' => array('小黄的『十万伏特』','红色方块','绿色方块','蓝色方块'),'result' => array('小黄的『百万伏特』','WC',493,'∞','cewrnj'),),
+	array('class' => 'pokemon', 'stuff' => array('小黄的『百万伏特』','金色方块','银色方块','水晶方块'),'result' => array('小黄的『伏特攻击』','WC',649,'∞','cedrnZ'),),
+	array('class' => 'pokemon', 'stuff' => array('小黄的『伏特攻击』','《小黄的常磐之力》','《小黄的收服特训》','黄色方块'),'result' => array('小黄的『皮卡必杀击』','WC',721,'∞','cetdHrnZ'),),
 	
 	array('class' => 'key', 'stuff' => array('月宫 亚由的半身像','神尾 观铃的半身像','古河 渚的半身像'),'result' => array('四季流转的咏叹调','WP',750,1,'N'),),
 	array('class' => 'key', 'stuff' => array('天泽 郁末的半身像','长森 瑞佳的半身像','枣 铃的半身像'),'result' => array('旁观轮回的覆唱诗','WK',750,1,'n'),),

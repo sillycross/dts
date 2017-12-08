@@ -39,20 +39,30 @@ namespace skill26
 		return $ragecost[\skillbase\skill_getvalue(26,'lvl',$pa)];
 	}
 	
+	function get_skill26_type(&$pa, &$pd, $active){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$attack_type = 'u';
+		if (\skillbase\skill_getvalue(26,'lvl',$pa)==2) $attack_type = 'f';
+		return $attack_type;
+	}
+	
 	//聚能执行机理：
 	//物理伤害部分：
 	//接管get_ex_attack_array让其只返回火焰（保证属抹可以判定）
-	//接管calculate_physical_dmg
-	//调用属抹判断check_ex_dmg_nullify
-	//停止接管get_ex_attack_array（用标记实现）
-	//如果属抹成功，直接输出结束
+	//调用属抹判断check_ex_dmg_nullify，如果属抹成功，直接结束判定
+	//接管calculate_physical_dmg（物理伤害函数）
 	//因为这时武器输出的是火焰伤害，任何物理伤害加减成均失效，但属性伤害加减成均有效
-	//先调用calculate_ex_single_dmg_multiple计算属性加成
-	//然后调用get_physical_dmg计算物理伤害
-	//最后相乘拼出总物理伤害
+	//先调用get_physical_dmg计算物理伤害的武器基础值
+	//如果是灵系或者连击武器，判定这两项的加成系数。其他加成不判定
+	//然后调用calculate_ex_single_dmg，把武器伤害基础值当做属性基础值传入，正常判定火焰/灼焰的伤害加成和修正
+	//然后乘上灵系和连击的加成系数，拼出总物理伤害
+	//停止接管get_ex_attack_array好让各属性攻击分别判定而不是只判定1次火焰（用标记实现）
+	
 	//属性伤害部分：
-	//接管get_ex_attack_array，令其不返回属抹，然后如有防火属性，改为属性防御属性
-	//接管check_ex_dmg_nullify，令其跳过判断（只是保险，防止以后有人又搞出个强制属抹的属性然后忘了加可选依赖确定次序）
+	//接管check_ex_dmg_nullify，令其跳过判断，直接使用物理伤害时确定的值（只是保险，防止以后有人又搞出个强制属抹的属性然后忘了加可选依赖确定次序）
+	//由于get_ex_attack_array正常返回武器的各个攻击属性，冻气之类非火焰伤害的基础值是正常计算的
+	//但是接管了ex_attack_key_change函数，令这些属性在加成和修正的时候按火焰/灼焰进行修正
+	//这个阶段不会进行任何致伤判定，致伤在攻击结束时统一判定
 	//这样当calculate_ex_attack_dmg被正常调用的时候生成的就是正确的判定了
 	
 	function check_ex_inf_infliction(&$pa, &$pd, $active, $key)
@@ -67,8 +77,7 @@ namespace skill26
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($pa['bskill']!=26) return $chprocess($pa, $pd, $active, $key);
-		$attack_type = 'u';
-		if (\skillbase\skill_getvalue(26,'lvl',$pa)==2) $attack_type = 'f';
+		$attack_type =  get_skill26_type($pa, $pd, $active);
 		if ($pa['skill26_flag3']==1) return $chprocess($pa, $pd, $active, $attack_type);
 		return $chprocess($pa, $pd, $active, $key);
 	}
@@ -77,8 +86,7 @@ namespace skill26
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($pa['bskill']!=26) return $chprocess($pa, $pd, $active, $key);
-		$attack_type = 'u';
-		if (\skillbase\skill_getvalue(26,'lvl',$pa)==2) $attack_type = 'f';
+		$attack_type =  get_skill26_type($pa, $pd, $active);
 		if ($pa['skill26_flag3']==1) return $chprocess($pa, $pd, $active, $attack_type);
 		return $chprocess($pa, $pd, $active, $key);
 	}
@@ -86,13 +94,15 @@ namespace skill26
 	function get_ex_attack_array(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill']!=26) return $chprocess($pa, $pd, $active);
-		if ($pa['skill26_flag2']==1) 
+		$ret = $chprocess($pa, $pd, $active);
+		if ($pa['bskill']!=26) return $ret;
+		if (!empty($pa['skill26_flag2']) && $pa['skill26_flag2']==1) 
 		{
-			$ret = $chprocess($pa, $pd, $active); array_push($ret,'u');
+			$attack_type =  get_skill26_type($pa, $pd, $active);
+			array_push($ret,$attack_type);
 			return $ret;
 		}
-		return $chprocess($pa, $pd, $active);
+		return $ret;
 	}
 	
 	function check_ex_dmg_nullify(&$pa, &$pd, $active)
@@ -103,14 +113,32 @@ namespace skill26
 		return $chprocess($pa, $pd, $active);
 	}
 	
+	//聚能物理伤害时无视掉ex_single_dmg的提示
+	function showlog_ex_single_dmg(&$pa, &$pd, $active, $key)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('logger','ex_dmg_att'));
+		if ($pa['bskill']==26 && $pa['skill26_flag2'] == 1)  return;
+		$chprocess($pa, $pd, $active, $key);
+	}
+	
+	//是否在执行伤害加成值和修正值时转化属性？聚能之类伤害使用
+	function ex_attack_key_change(&$pa, &$pd, $active, $key){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($pa, $pd, $active, $key);
+		if ($pa['bskill']==26 && $pa['skill26_flag3']==1) {
+			$ret = get_skill26_type($pa, $pd, $active);
+		}
+		return $ret;
+	}
+	
 	function calculate_physical_dmg(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($pa['bskill']!=26) return $chprocess($pa, $pd, $active);
 		
 		eval(import_module('logger','itemmain'));
-		$attack_type = 'u';
-		if (\skillbase\skill_getvalue(26,'lvl',$pa)==2) $attack_type = 'f';	//2级时是灼焰
+		$attack_type =  get_skill26_type($pa, $pd, $active);//2级时是灼焰
 		$log .= '在技能的作用下，伤害全部转化为了<span class="red">'.$itemspkinfo[$attack_type].'</span>伤害！<br>';
 		
 		//连击和灵系体力是唯一需要考虑的特殊“物理伤害加成”
@@ -118,26 +146,25 @@ namespace skill26
 		
 		$r = \wep_f\get_WF_dmg_multiplier($pa, $pd, $active);
 		$r = array_merge($r,\ex_rapid_attr\get_rapid_dmg_multiplier($pa, $pd, $active));
-		
+		$pa['skill26_phy_multiplier'] = $r;
 		//判断属抹
 		$flag=check_ex_dmg_nullify($pa, $pd, $active);
 		
 		$pa['skill26_flag1'] = 2;	//跳过之后的属抹判断
-		$pa['skill26_flag2'] = 2;	//攻击属性判断开始正常返回
 		
 		if ($flag)
 		{
-			$log .= "<span class=\"red\">属性攻击的力量完全被防具吸收了！</span>只造成了<span class=\"red\">".$pa['ex_dmg_dealt']."</span>点伤害！<br>";
+			//$log .= "<span class=\"red\">属性攻击的力量完全被防具吸收了！</span>只造成了<span class=\"red\">".$pa['ex_dmg_dealt']."</span>点伤害！<br>";
 			$pa['physical_dmg_dealt'] += $pa['ex_dmg_dealt'];
 			$pa['dmg_dealt'] += $pa['ex_dmg_dealt'];
 			$pa['ex_dmg_dealt'] = 0;
 			return;
 		}
 		
-		$multiple = \ex_dmg_att\calculate_ex_single_dmg_multiple($pa, $pd, $active, $attack_type);
+		//只计算武器基础伤害
 		$dmg = \weapon\get_physical_dmg($pa, $pd, $active);
-		$dmg *= $multiple; $dmg = round($dmg); if ($dmg<1) $dmg = 1;
-		eval(import_module('ex_dmg_att'));
+		//把基础伤害当做固定伤害载入属性伤害计算
+		$dmg = \ex_dmg_att\calculate_ex_single_dmg($pa, $pd, $active, $attack_type, $dmg);
 		
 		$fin_dmg = $dmg; $mult_words='';
 		foreach ($r as $key)
@@ -158,6 +185,8 @@ namespace skill26
 		}
 		$pa['physical_dmg_dealt'] += $fin_dmg;
 		$pa['dmg_dealt'] += $fin_dmg;
+		
+		$pa['skill26_flag2'] = 2;	//攻击属性判断开始正常返回（按次序计算）
 	}
 	
 	function strike_prepare(&$pa, &$pd, $active)
@@ -180,10 +209,10 @@ namespace skill26
 					$log.="<span class=\"lime\">你对{$pd['name']}发动了技能「聚能」！</span><br>";
 				else  $log.="<span class=\"lime\">{$pa['name']}对你发动了技能「聚能」！</span><br>";
 				$pa['rage']-=$rcost;
-				$pa['skill26_flag1']=1;
-				$pa['skill26_flag2']=1;
-				$pa['skill26_flag3']=1;
-				$pa['skill26_flag4']=1;
+				$pa['skill26_flag1']=1;//是否正常进行属抹判定，1为是，2为否（沿用已经进行过的判定）
+				$pa['skill26_flag2']=1;//物理阶段是否完成（攻击属性判定是否只返回火焰），1为是，2为否
+				$pa['skill26_flag3']=1;//属性阶段是否完成（是否跳过属性致伤判定），1为跳过，2为不跳过
+				$pa['skill26_flag4']=1;//好像没用到？
 				addnews ( 0, 'bskill26', $pa['name'], $pd['name'] );
 			}
 			else
@@ -207,8 +236,7 @@ namespace skill26
 		{
 			//进行一次火焰受伤判定
 			$pa['skill26_flag3']=2;
-			$attack_type = 'u';
-			if (\skillbase\skill_getvalue(26,'lvl',$pa)==2) $attack_type = 'f';	
+			$attack_type =  get_skill26_type($pa, $pd, $active);
 			\ex_dmg_att\check_ex_inf_infliction($pa, $pd, $active, $attack_type);
 		}
 		unset($pa['skill26_flag1']);

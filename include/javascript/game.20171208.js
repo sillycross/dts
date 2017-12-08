@@ -301,8 +301,11 @@ function showData(sdata){
 				if(sDt[tid]['on']==true){
 					var t = sDt[tid]['timing'];
 					var tm = sDt[tid]['mode'];
+					intv = fmt = null;
+					if('undefined'!=typeof(sDt[tid]['interval'])) var intv = sDt[tid]['interval'];
+					if('undefined'!=typeof(sDt[tid]['format'])) var fmt = sDt[tid]['format'];
 					if('undefined'==typeof(timinglist) || 'undefined'==typeof(timinglist[tid])) {
-						updateTime(tid,t,tm);
+						updateTime(tid,t,tm,intv,fmt);
 					}else{
 						timinglist[tid]['timing'] = t;
 						timinglist[tid]['mode'] = tm;

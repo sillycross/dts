@@ -31,27 +31,39 @@ namespace ex_dmg_nullify
 			$dice = rand(0,99);
 			if ($dice<$proc_rate)
 			{
-				$log .= "<span class=\"red\">属性攻击的力量完全被防具吸收了！</span>只造成了<span class=\"red\">{$exnum}</span>点伤害！<br>";
+				$log .= "<span class=\"yellow\">属性攻击的力量完全被防具吸收了！</span>只造成了<span class=\"red\">{$exnum}</span>点伤害！<br>";
 				$pa['ex_dmg_dealt'] = $exnum;
 				$pd['exdmg_nullify_success'] = 1;
 				return 1;
 			}
 			else
 			{
-				$log .= "纳尼？防具免疫属性攻击的效果竟然失效了！<br>";
+				$log .= '<span class="red">纳尼？防具免疫属性攻击的效果竟然失效了！</span><br>';
 				return 0;
 			}
 		}
 		return 0;
 	}
 	
-	function calculate_ex_attack_dmg(&$pa, &$pd, $active)
+	//是否执行属性伤害
+	function check_ex_attack_available(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (check_ex_dmg_nullify($pa, $pd, $active))
-			return $pa['ex_dmg_dealt'];
-		else  return $chprocess($pa, $pd, $active);
+		$ret = $chprocess($pa, $pd, $active);
+		if ($pa['is_hit'] && check_ex_dmg_nullify($pa, $pd, $active)) {
+			$ret = false;
+			$pa['dmg_dealt'] += $pa['ex_dmg_dealt'];
+		}
+		return $ret;
 	}
+	
+//	function calculate_ex_attack_dmg(&$pa, &$pd, $active)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		if (check_ex_dmg_nullify($pa, $pd, $active))
+//			return $pa['ex_dmg_dealt'];
+//		else  return $chprocess($pa, $pd, $active);
+//	}
 	
 	function strike_prepare(&$pa, &$pd, $active)
 	{
