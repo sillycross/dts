@@ -200,7 +200,7 @@ namespace achievement_base
 		//然后一次性读用户记录，尽量减少在循环里读写数据库
 		if(!empty($namelist)){
 			$wherecause = "('".implode("','",$namelist)."')";
-			$result = $db->query("SELECT * FROM {$tablepre}users WHERE username IN $wherecause");
+			$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username IN $wherecause");
 			while ($udata=$db->fetch_array($result))
 			{
 				$pdata = \player\fetch_playerdata($udata['username']);//这句理论上可以被玩家池加速

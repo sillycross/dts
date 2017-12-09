@@ -36,8 +36,8 @@ namespace ex_phy_nullify
 			else
 			{
 				if ($active)
-					$log .= "纳尼？{$pd['name']}的装备使攻击无效化的属性竟然失效了！<br>";
-				else  $log .= "纳尼？你的装备免疫物理伤害的效果竟然失效了！<br>";
+					$log .= "<span class=\"red\">{$pd['name']}的装备使攻击无效化的属性竟然失效了！</span><br>";
+				else  $log .= "<span class=\"red\">你的装备免疫物理伤害的效果竟然失效了！</span><br>";
 			}
 		}
 		return Array();

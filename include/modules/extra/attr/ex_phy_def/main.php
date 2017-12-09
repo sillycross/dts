@@ -86,8 +86,8 @@ namespace ex_phy_def
 				else
 				{
 					if ($active)
-						$log .= "<span class=\"yellow\">{$pd['name']}的装备没能发挥攻击伤害减半的效果！</span><br>";
-					else  $log .= "<span class=\"yellow\">你的装备没能发挥攻击伤害减半的效果！</span><br>";
+						$log .= "<span class=\"red\">{$pd['name']}的装备没能发挥攻击伤害减半的效果！</span><br>";
+					else  $log .= "<span class=\"red\">你的装备没能发挥攻击伤害减半的效果！</span><br>";
 					return Array();
 				}
 			}

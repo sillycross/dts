@@ -38,7 +38,7 @@ namespace ex_dmg_nullify
 			}
 			else
 			{
-				$log .= '<span class="red">纳尼？防具免疫属性攻击的效果竟然失效了！</span><br>';
+				$log .= '<span class="red">防具免疫属性攻击的效果竟然失效了！</span><br>';
 				return 0;
 			}
 		}

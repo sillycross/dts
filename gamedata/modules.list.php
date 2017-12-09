@@ -100,7 +100,6 @@ skill1000,extra/instance/instance7_tutorial/skill1000/,1
 skill418,extra/card/skills/skill418/,1
 set_gametype,extra/misc/set_gametype/,1
 kujibase,extra/card/kujibase/,1
-skill256,extra/club/skills/skill256/,1
 skill69,extra/club/skills/skill69/,1
 skill23,extra/club/skills/skill23/,1
 skill18,extra/club/skills/skill18/,1
@@ -177,6 +176,7 @@ skill268,extra/club/skills/skill268/,1
 club94,extra/club/clubs/club94/,1
 club95,extra/club/clubs/club95/,1
 club96,extra/club/clubs/club96/,1
+skill256,extra/club/skills/skill256/,1
 skill433,extra/card/skills/skill433/,1
 skill602,extra/club/skills/skill602/,1
 skill221,extra/club/skills/skill221/,1
@@ -258,7 +258,6 @@ skill1001,extra/instance/skill1001/,1
 skill1002,extra/instance/skill1002/,1
 skill269,extra/club/skills/skill269/,1
 skill78,extra/club/skills/skill78/,1
-skill260,extra/club/skills/skill260/,1
 skill19,extra/club/skills/skill19/,1
 skill79,extra/club/skills/skill79/,1
 skill31,extra/club/skills/skill31/,1
@@ -273,6 +272,7 @@ skill475,extra/instance/gtype2/skill475/,1
 skill59,extra/club/skills/skill59/,1
 skill425,extra/instance/gtype1/skill425/,1
 skill427,extra/instance/gtype1/skill427/,1
+skill260,extra/club/skills/skill260/,1
 skill228,extra/club/skills/skill228/,1
 skill236,extra/club/skills/skill236/,1
 skill237,extra/club/skills/skill237/,1

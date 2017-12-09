@@ -73,7 +73,8 @@ namespace ex_rapid_attr
 		return $r;
 	}
 	
-	function get_physical_dmg_multiplier(&$pa, &$pd, $active)
+	//连击改到物伤加成阶段
+	function get_primary_dmg_multiplier(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r = get_rapid_dmg_multiplier($pa, $pd, $active);

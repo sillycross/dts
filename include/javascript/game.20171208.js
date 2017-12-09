@@ -793,6 +793,11 @@ xuli_tick = 0;
 xuli_pret = 1;
 xuli_maxt = 1;
 
+function xuli_available()
+{
+	return $('progressbar-inner3') && $('progressbar-text3')
+}
+
 function xuli_setpercentage(p)
 {
 	$('progressbar-inner3').style.width=p+'%';
@@ -802,7 +807,7 @@ function xuli_setpercentage(p)
 function xuli_tickfunc()
 {
 	xuli_tick++;
-	if (xuli_tick>xuli_pret) 
+	if (xuli_available() && xuli_tick>xuli_pret) 
 	{
 		x=(xuli_tick-xuli_pret)/xuli_maxt;
 		if (x>1) x=1;

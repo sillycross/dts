@@ -214,24 +214,11 @@ namespace ex_dmg_att
 			//加成值
 			$multiplier = calculate_ex_attack_dmg_multiplier($pa, $pd, $active);
 			
-			$fin_dmg=$dmg; $mult_words='';
-			foreach ($multiplier as $key)
-			{
-				$fin_dmg=$fin_dmg*$key;
-				$mult_words.="×{$key}";
-			}
-			$fin_dmg=round($fin_dmg);
-			if ($fin_dmg < 1) $fin_dmg = 1;
-			$r_font_color = 'red';
-			if (!empty($mult_words)) {
-				$r_font_color = 'yellow';
-				$log .= "总计造成{$dmg}{$mult_words}＝<span class=\"red\">{$fin_dmg}</span>点属性伤害！<br>";
-			}elseif ($pa['ex_attack_num'] > 1) {
-				$r_font_color = 'yellow';
-				$log .= "总计造成<span class=\"red\">{$dmg}</span>点属性伤害！<br>";
-			}
-			$log = str_replace("<span class=\"need-replace\">", "<span class=\"{$r_font_color}\">", $log);
-			
+			list($fin_dmg, $mult_words) = \weapon\apply_multiplier($dmg, $multiplier, '<:fin_dmg:>');
+			$ex_dmg_log = '总计造成了'.$mult_words.'点属性伤害！<br>';
+			$replace_color = 'red';
+			if($fin_dmg != $dmg || $pa['ex_attack_num'] > 1) $log .= $ex_dmg_log;
+
 			$dmg = $fin_dmg;
 			
 			//修正值
@@ -239,7 +226,10 @@ namespace ex_dmg_att
 			if($dmg_change != $dmg) {
 				$dmg = $dmg_change;
 				$log .= "总属性伤害：<span class=\"red\">{$dmg}</span>。<br>";
+				$replace_color = 'yellow';
 			}
+			
+			$log = str_replace('<:fin_dmg:>', $replace_color, $log);//如果有伤害变化，那么前面的台词显示黄色，否则显示红色（最终值）
 			
 			$pa['dmg_dealt'] += $dmg;
 		}
