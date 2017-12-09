@@ -23,7 +23,7 @@ namespace skill324
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')					
 			$x=0;						
-		else	$x=base64_decode_number($data);		
+		else $x=$data;
 		$ox=$x;
 		$x=$pa['lvl'];
 		$x=max($x,$ox);
@@ -32,7 +32,7 @@ namespace skill324
 			\cardbase\get_qiegao(140,$pa);
 		}
 		
-		return base64_encode_number($x,5);		
+		return $x;
 	}
 	
 	function show_achievement324($data)
@@ -40,7 +40,7 @@ namespace skill324
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')
 			$p324=0;
-		else	$p324=base64_decode_number($data);	
+		else	$p324=$data;	
 		$c324=0;
 		if ($p324>=21){
 			$c324=999;

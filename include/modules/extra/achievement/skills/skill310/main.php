@@ -24,7 +24,7 @@ namespace skill310
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')					
 			$x=0;						
-		else	$x=base64_decode_number($data);		
+		else $x=$data;
 		$ox=$x;
 		$x+=\skillbase\skill_getvalue(310,'cnt',$pa);		
 		$x=min($x,(1<<30)-1);
@@ -46,7 +46,7 @@ namespace skill310
 			\cardbase\get_card($cr,$pa);
 		}
 		
-		return base64_encode_number($x,5);		
+		return $x;
 	}
 	
 	function player_kill_enemy(&$pa,&$pd,$active){
@@ -66,7 +66,7 @@ namespace skill310
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')
 			$p310=0;
-		else	$p310=base64_decode_number($data);	
+		else	$p310=$data;	
 		$c310=0;
 		if ($p310>=10000){
 			$c310=999;

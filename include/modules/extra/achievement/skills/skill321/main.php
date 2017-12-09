@@ -24,7 +24,7 @@ namespace skill321
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')					
 			$x=0;						
-		else	$x=base64_decode_number($data);		
+		else $x=$data;
 		$ox=$x;
 		$x+=\skillbase\skill_getvalue(321,'cnt',$pa);		
 		$x=min($x,(1<<30)-1);
@@ -33,7 +33,7 @@ namespace skill321
 			\cardbase\get_qiegao(110,$pa);
 		}
 		
-		return base64_encode_number($x,5);		
+		return $x;
 	}
 	
 	function player_kill_enemy(&$pa,&$pd,$active){
@@ -52,7 +52,7 @@ namespace skill321
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')
 			$p321=0;
-		else	$p321=base64_decode_number($data);	
+		else	$p321=$data;	
 		$c321=0;
 		if ($p321>=2){
 			$c321=999;

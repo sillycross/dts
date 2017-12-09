@@ -159,26 +159,25 @@ namespace achievement_base
 			{
 				$val = 0;
 				//无视没有获得的日常成就
-				if (isset($udata['u_achievements'][$key])) $val = $udata['u_achievements'][$key];
+				if (!empty($udata['u_achievements'][$key])) $val = $udata['u_achievements'][$key];
 				$vflag=false;
 				if (!\skillbase\check_skill_info($key, 'daily')) $vflag=true;
 				if ( $val!=='VWXYZ' ) $vflag=true;
 				if ($vflag){
 					//临时措施
-					if($key!=326){
-						$val=min((int)$val,(1<<30)-1);
-						$val=base64_encode_number($val,5);
-					}
+//					if($key!=326){
+//						$val=min((int)$val,(1<<30)-1);
+//						$val=base64_encode_number($val,5);
+//					}
 					//上面这个措施需要回头弄掉，太蠢
 					
 					$func='\\skill'.$key.'\\finalize'.$key;
 					$ret=$func($pdata,$val);
 					//临时措施
-					if($key!=326){
-						$ret=base64_decode_number($ret);
-					}
+//					if($key!=326){
+//						$ret=base64_decode_number($ret);
+//					}
 					//上面这个措施需要回头弄掉，太蠢
-					
 					$udata['u_achievements'][$key]=$ret;
 				}
 			}
@@ -263,12 +262,13 @@ namespace achievement_base
 //		$chprocess();
 //	}
 	
-	//返回合法的成就数组
-	function get_valid_achievements($udata)
+	//返回合法的成就数组（显示用）
+	function get_valid_achievements($u_achievements)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		//先载入玩家数据库成就数据
-		$u_achievements = decode_achievements($udata);
+		//$u_achievements = decode_achievements($udata);
+		
 		//然后按成就设定数据的顺序生成一个$v_achievements并返回
 		eval(import_module('achievement_base'));
 		$v_achievements = array();
@@ -278,7 +278,7 @@ namespace achievement_base
 				if (defined('MOD_SKILL'.$key.'_INFO') && defined('MOD_SKILL'.$key.'_ACHIEVEMENT_ID') 
 				&& \skillbase\check_skill_info($key, 'achievement') && !\skillbase\check_skill_info($key, 'hidden')){
 					if(isset($u_achievements[$key]))
-						$v_achievements[] = $u_achievements;
+						$v_achievements[$key] = $u_achievements[$key];
 				}
 			}
 		}
@@ -302,10 +302,10 @@ namespace achievement_base
 				elseif ( $val!=='VWXYZ' ) $showflag=true;
 				if($showflag) {
 					//临时措施
-					if($key!=326){
-						$val=min((int)$val,(1<<30)-1);
-						$val=base64_encode_number($val,5);
-					}
+//					if($key!=326){
+//						$val=min((int)$val,(1<<30)-1);
+//						$val=base64_encode_number($val,5);
+//					}
 					//上面这个措施需要回头弄掉，太蠢
 					
 					//利用缓冲区挨个输出各成就窗格

@@ -24,7 +24,7 @@ namespace skill314
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')					
 			$x=0;						
-		else	$x=base64_decode_number($data);		
+		else $x=$data;
 		$ox=$x;
 		$x+=\skillbase\skill_getvalue(314,'cnt',$pa);		
 		$x=min($x,(1<<30)-1);
@@ -33,7 +33,7 @@ namespace skill314
 			\cardbase\get_qiegao(100,$pa);
 		}
 		
-		return base64_encode_number($x,5);		
+		return $x;
 	}
 	
 	function player_kill_enemy(&$pa,&$pd,$active){
@@ -53,7 +53,7 @@ namespace skill314
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')
 			$p314=0;
-		else	$p314=base64_decode_number($data);	
+		else	$p314=$data;	
 		$c314=0;
 		if ($p314>=10){
 			$c314=999;

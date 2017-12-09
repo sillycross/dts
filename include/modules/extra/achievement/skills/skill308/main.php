@@ -24,7 +24,7 @@ namespace skill308
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')					
 			$x=0;						
-		else	$x=base64_decode_number($data);		
+		else $x=$data;
 		$ox=$x;
 		$x=\skillbase\skill_getvalue(308,'cnt',$pa);		
 		if ($x==0) $x=$ox;
@@ -34,7 +34,7 @@ namespace skill308
 			\cardbase\get_qiegao(666,$pa);
 		}
 		
-		return base64_encode_number($x,5);		
+		return $x;
 	}
 	
 	function itemmix_success()
@@ -53,7 +53,7 @@ namespace skill308
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')
 			$p308=0;
-		else	$p308=base64_decode_number($data);	
+		else	$p308=$data;	
 		$c308=0;
 		if (($p308<=300)&&($p308!=0)){
 			$c308=999;

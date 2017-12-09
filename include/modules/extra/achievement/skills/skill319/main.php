@@ -24,7 +24,7 @@ namespace skill319
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')					
 			$x=0;						
-		else	$x=base64_decode_number($data);		
+		else $x=$data;
 		$ox=$x;
 		$x+=\skillbase\skill_getvalue(319,'cnt',$pa);		
 		$x=min($x,(1<<30)-1);
@@ -34,7 +34,7 @@ namespace skill319
 			\cardbase\get_card(12,$pa);
 		}
 		
-		return base64_encode_number($x,5);		
+		return $x;
 	}
 
 	function itemmix_success()
@@ -54,7 +54,7 @@ namespace skill319
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')
 			$p319=0;
-		else	$p319=base64_decode_number($data);	
+		else	$p319=$data;	
 		$c319=0;
 		if ($p319>=15){
 			$c319=999;

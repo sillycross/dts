@@ -33,7 +33,7 @@ else
 	if ($uname==$cuser) $curuser=true;
 }
 
-$u_acharr = \achievement_base\decode_achievements($udata);
+$u_acharr = \achievement_base\get_valid_achievements(\achievement_base\decode_achievements($udata));
 
 if ($curuser && isset($_REQUEST["action"]) && $_REQUEST["action"]=="refdaily"){
 	$refdaily_flag = \achievement_base\refresh_daily_quest($udata);

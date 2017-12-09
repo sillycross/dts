@@ -24,7 +24,7 @@ namespace skill325
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')					
 			$x=0;						
-		else	$x=base64_decode_number($data);	
+		else $x=$data;	
 		
 		$z=(int)\skillbase\skill_getvalue(325,'cnt',$pa);
 		$ox=$x;
@@ -39,7 +39,7 @@ namespace skill325
 			\cardbase\get_card(119,$pa);
 		}
 		
-		return base64_encode_number($x,5);		
+		return $x;
 	}
 	
 	function player_kill_enemy(&$pa,&$pd,$active)
@@ -60,7 +60,7 @@ namespace skill325
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')
 			$p325=0;
-		else	$p325=base64_decode_number($data);	
+		else	$p325=$data;	
 		$c325=0;
 		if ($p325>=100)
 			$c325=999;

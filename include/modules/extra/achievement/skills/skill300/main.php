@@ -24,7 +24,7 @@ namespace skill300
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')					
 			$x=0;						
-		else	$x=base64_decode_number($data);		
+		else $x=$data;
 		$ox=$x;
 		$x+=\skillbase\skill_getvalue(300,'cnt',$pa);		
 		$x=min($x,(1<<30)-1);
@@ -40,7 +40,7 @@ namespace skill300
 			\cardbase\get_card(86,$pa);
 		}
 		
-		return base64_encode_number($x,5);		
+		return $x;
 	}
 	
 	/*function edible_recover($itm, $hpup, $spup)
@@ -84,7 +84,7 @@ namespace skill300
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')
 			$p300=0;
-		else	$p300=base64_decode_number($data);	
+		else	$p300=$data;	
 		$c300=0;
 		if ($p300>=999983){
 			$c300=999;

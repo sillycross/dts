@@ -27,7 +27,7 @@ namespace skill313
 		eval(import_module('sys','map'));
 		if ($data=='')					
 			$last_a_money=0;						
-		else $last_a_money=base64_decode_number($data);
+		else $last_a_money=$data;
 		
 		if($areanum >= $areaadd) {//一禁以后，身上金额不计入判定，只判定一禁时的数据
 			$x=\skillbase\skill_getvalue(313,'max_money',$pa);
@@ -58,7 +58,7 @@ namespace skill313
 		}
 		if($x < $last_a_money) $x=$last_a_money;
 		
-		return base64_encode_number($x,5);		
+		return $x;
 	}
 	
 	function show_achievement313($data)
@@ -66,7 +66,7 @@ namespace skill313
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')
 			$p313=0;
-		else	$p313=base64_decode_number($data);	
+		else	$p313=$data;	
 		$c313=0;
 		if ($p313>=30000){
 			$c313=1;

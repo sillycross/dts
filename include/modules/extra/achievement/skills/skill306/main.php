@@ -24,7 +24,7 @@ namespace skill306
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')					
 			$x=0;						
-		else	$x=base64_decode_number($data);		
+		else $x=$data;
 		$ox=$x;
 		$x+=\skillbase\skill_getvalue(306,'cnt',$pa);
 		$x=min($x,(1<<30)-1);
@@ -37,7 +37,7 @@ namespace skill306
 			\cardbase\get_card(98,$pa);
 		}
 		
-		return base64_encode_number($x,5);		
+		return $x;
 	}
 	
 	function gameover($time = 0, $gmode = '', $winname = '') {
@@ -59,7 +59,7 @@ namespace skill306
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')
 			$p306=0;
-		else	$p306=base64_decode_number($data);	
+		else	$p306=$data;	
 		$c306=0;
 		if ($p306>=5){
 			$c306=999;

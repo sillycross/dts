@@ -26,7 +26,7 @@ namespace skill318
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')					
 			$x=0;						
-		else	$x=base64_decode_number($data);		
+		else $x=$data;
 		$ox=$x;
 		$x+=\skillbase\skill_getvalue(318,'cnt',$pa);
 		$x=min($x,(1<<30)-1);
@@ -35,7 +35,7 @@ namespace skill318
 			\cardbase\get_qiegao(573,$pa);
 		}
 		
-		return base64_encode_number($x,5);		
+		return $x;
 	}
 	
 	function itemuse(&$theitem)
@@ -56,7 +56,7 @@ namespace skill318
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')
 			$p318=0;
-		else	$p318=base64_decode_number($data);	
+		else	$p318=$data;	
 		$c318=0;
 		if ($p318>=1){
 			$c318=999;
