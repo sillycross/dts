@@ -537,16 +537,17 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 		//只有房主可以启动不需要准备的模式的房间的游戏
 		if ($upos==0 && room_get_vars($roomdata,'without-ready'))
 		{
+			$rdplist[$upos]['ready'] = 1;//这样才能触发“即将进入游戏”界面
 			$gamestate = 0;
 			$gametype = room_get_vars($roomdata,'gtype');
 			$starttime = $now;
 			save_gameinfo();
 			\sys\routine();
 			$roomdata['readystat']=2;
+			$roomdata['timestamp']++;
 			room_save_broadcast($room_id_r,$roomdata);
 			$db->query("UPDATE {$gtablepre}game SET groomstatus=40 WHERE groomid='$room_id_r'");
 			$roomdata['readystat']=0;
-			$roomdata['timestamp']++;
 			$roomdata['chatdata']=room_init($roomdata['roomtype'])['chatdata'];
 			room_save_broadcast($room_id_r,$roomdata);
 		}

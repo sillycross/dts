@@ -169,8 +169,9 @@ namespace ex_dmg_att
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('logger','ex_dmg_att'));
 		if ($pd['ex_dmg_'.$key.'_defend_success'] == 1)	//恶心一下吧…… 奇怪的log美观修正……
-			$log .= '造成了<span class="yellow">'.$pa['ex_dmg_'.$key.'_dealt'].'</span>点属性伤害！';
-		else  $log .= $exdmgname[$key].'造成了<span class="yellow">'.$pa['ex_dmg_'.$key.'_dealt'].'</span>点属性伤害！';
+			//这里具体是red还是yellow有待后头决定
+			$log .= '造成了<span class="need-replace">'.$pa['ex_dmg_'.$key.'_dealt'].'</span>点属性伤害！';
+		else  $log .= $exdmgname[$key].'造成了<span class="need-replace">'.$pa['ex_dmg_'.$key.'_dealt'].'</span>点属性伤害！';
 	}
 	
 	//执行单个属性攻击
@@ -221,9 +222,16 @@ namespace ex_dmg_att
 			}
 			$fin_dmg=round($fin_dmg);
 			if ($fin_dmg < 1) $fin_dmg = 1;
-			if (!empty($mult_words)) $log .= "总计造成{$dmg}{$mult_words}＝<span class=\"red\">{$fin_dmg}</span>点属性伤害！<br>";
-			elseif ($pa['ex_attack_num'] > 1) $log .= "总计造成<span class=\"red\">{$dmg}</span>点属性伤害！<br>";
-			 
+			$r_font_color = 'red';
+			if (!empty($mult_words)) {
+				$r_font_color = 'yellow';
+				$log .= "总计造成{$dmg}{$mult_words}＝<span class=\"red\">{$fin_dmg}</span>点属性伤害！<br>";
+			}elseif ($pa['ex_attack_num'] > 1) {
+				$r_font_color = 'yellow';
+				$log .= "总计造成<span class=\"red\">{$dmg}</span>点属性伤害！<br>";
+			}
+			$log = str_replace("<span class=\"need-replace\">", "<span class=\"{$r_font_color}\">", $log);
+			
 			$dmg = $fin_dmg;
 			
 			//修正值
