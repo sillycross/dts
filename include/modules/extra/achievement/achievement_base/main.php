@@ -44,8 +44,33 @@ namespace achievement_base
 		$chprocess($pa);
 	}
 	
-	//成就编码
-	function encode_achievements_o($aarr){
+	//传入成就数组，进行成就编码
+	//如果$old_version=1则用旧版n_achievements方式，否则用新版方式
+	function encode_achievements($aarr, $old_version=0)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!$old_version){
+			return gencode($aarr);
+		}else{
+			return encode_achievements_o($aarr);
+		}
+	}
+
+	//传入users表的数组，进行成就解码
+	//自动识别新旧成就，如果只有旧的则识别旧的，否则只识别新的 
+	function decode_achievements($udata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!empty($udata['u_achievements'])) {
+			return gdecode($udata['u_achievements'], 1);
+		}else{
+			return decode_achievements_o($udata['n_achievements']);
+		}
+	}
+	
+	//成就编码（旧）
+	function encode_achievements_o($aarr)
+	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('achievement_base'));
 		$achdata=$aarr;
@@ -86,7 +111,7 @@ namespace achievement_base
 		return $ret;
 	}
 	
-	//成就解码
+	//成就解码（旧）
 	function decode_achievements_o($astr){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('achievement_base'));
@@ -159,7 +184,70 @@ namespace achievement_base
 		$chprocess();
 	}
 	
+	//返回合法的成就数组
+	function get_valid_achievements($udata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//先载入玩家数据库成就数据
+		$u_achievements = decode_achievements($udata);
+		//然后按成就设定数据的顺序生成一个$v_achievements并返回
+		eval(import_module('achievement_base'));
+		$v_achievements = array();
+		foreach ($achlist as $tval){
+			foreach ($tval as $key){
+				//成就有定义且合法
+				if (defined('MOD_SKILL'.$key.'_INFO') && defined('MOD_SKILL'.$key.'_ACHIEVEMENT_ID') 
+				&& \skillbase\check_skill_info($key, 'achievement') && !\skillbase\check_skill_info($key, 'hidden')){
+					if(isset($u_achievements[$key]))
+						$v_achievements[] = $u_achievements;
+				}
+			}
+		}
+		
+		return $v_achievements;
+	}
 	
+	//返回类别为$at的全部成就窗格（只能用这个词形容了）显示数据形成的数组。排版放html里搞
+	function show_achievements_single_type($aarr, $at)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!$aarr) return;
+		eval(import_module('achievement_base'));
+		$showarr = array();
+		foreach ($achlist[$at] as $key){
+			if(isset($aarr[$key])){
+				$val = $aarr[$key];
+				//不显示没有获得的日常成就
+				$showflag=false;
+				if (!\skillbase\check_skill_info($key, 'daily')) $showflag=true;
+				elseif ( $val!=='VWXYZ' ) $showflag=true;
+				if($showflag) {
+					//临时措施
+					if($key==326){
+						$dval='';
+						foreach($val as $sv){
+							$dval .= base64_encode_number($sv,3);
+						}
+					}else{
+						$dval=min((int)$val,(1<<30)-1);
+						$dval=base64_encode_number($val,5);
+					}
+					//上面这个措施需要回头弄掉，太蠢
+					
+					//利用缓冲区挨个输出各成就窗格
+					$func='\\skill'.$key.'\\show_achievement'.$key;
+					ob_start();
+					$func($dval);
+					$showarr[] = ob_get_contents();
+					ob_end_clean();
+				}
+			}
+		}
+		while (sizeof($showarr) % $ach_show_num_per_row != 0){//不足3个的分类补位
+			$showarr[] = '';
+		}
+		return $showarr;
+	}
 	
 	function show_achievements($un,$at)
 	{

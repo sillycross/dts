@@ -27,7 +27,7 @@ if($urcmd){
 	} else {
 		while($ur = $db->fetch_array($result)) {
 			if(!$ur['gender']){$ur['gender']='0';}
-			$ur['n_achievements'] = json_encode(\achievement_base\decode_achievements_o($ur['n_achievements']));
+			$ur['a_achievements'] = json_encode(\achievement_base\decode_achievements($ur));
 			$urdata[] = $ur;
 		}
 		$startno = $start + 1;
@@ -111,10 +111,10 @@ if($urcmd == 'ban' || $urcmd == 'unban' || $urcmd == 'del') {
 		$urdata[$no]['lastword'] = $urlastword = astrfilter(${'lastword_'.$no});
 		$urdata[$no]['gold'] = $urgold = astrfilter(${'gold_'.$no});
 		$urdata[$no]['icon'] = $uricon = (int)(${'icon_'.$no});
-		$urdata[$no]['n_achievements'] = ${'n_achievements_'.$no};
-		$tmp_urna = json_decode(htmlspecialchars_decode(${'n_achievements_'.$no}),1);
+		$urdata[$no]['a_achievements'] = ${'a_achievements_'.$no};
+		$tmp_urna = json_decode(htmlspecialchars_decode(${'a_achievements_'.$no}),1);
 		
-		if($tmp_urna) $urn_achievements = \achievement_base\encode_achievements_o($tmp_urna);
+		if($tmp_urna) $ur_achievements = \achievement_base\encode_achievements($tmp_urna);
 		
 		if(!in_array(${'gender_'.$no},array('0','m','f'))){
 			$urdata[$no]['gender'] = $urgender = '0';
@@ -131,7 +131,7 @@ if($urcmd == 'ban' || $urcmd == 'unban' || $urcmd == 'del') {
 		if(empty($tmp_urna)) {
 			$cmd_info.="提交的成就参数无效，已被忽略！<br>";
 		}else{
-			$extrasql.=",n_achievements='$urn_achievements'";
+			$extrasql.=",u_achievements='$ur_achievements'";
 		}
 		
 		$db->query("UPDATE {$gtablepre}users SET motto='$urmotto',killmsg='$urkillmsg',lastword='$urlastword',icon='$uricon',gender='$urgender',gold='$urgold'{$extrasql} WHERE uid='$uid'");
@@ -146,4 +146,3 @@ function urlist($htm,$cmd='',$start=0) {
 }
 
 ?>
-

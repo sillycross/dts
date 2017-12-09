@@ -1,7 +1,6 @@
+<!--{eval eval(import_module('sys','achievement_base'));}-->
+<!--{eval \achievement_base\ach_init();}-->
 <table>
-	<!--{eval \achievement_base\ach_init();}-->
-	<!--{eval eval(import_module('sys','achievement_base'));}-->
-	
 	<!--{loop $achtype $k $v}-->
 		<tr><td>
 		<span class="subtitle" align="left">$v</span>
@@ -20,7 +19,18 @@
 		<br>
 		<!--{/if}-->
 		<table border="1">
-			<!--{eval \achievement_base\show_achievements($username,$k);}-->
+			<!--{eval $showarr = \achievement_base\show_achievements_single_type($u_acharr,$k);}-->
+			<!--{loop $showarr $si $sv}-->
+				<!--{if $si % $ach_show_num_per_row == 0}-->
+				<tr>
+				<!--{/if}-->
+					<td width="300" align="left" valign="top">
+						$sv
+					</td>
+				<!--{if $si % $ach_show_num_per_row == $ach_show_num_per_row - 1}-->
+				</tr>
+				<!--{/if}-->
+			<!--{/loop}-->
 		</table>
 		</td></tr>
 	<!--{/loop}-->
