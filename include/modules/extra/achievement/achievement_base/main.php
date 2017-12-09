@@ -143,46 +143,125 @@ namespace achievement_base
 		return $ret;
 	}
 	
+	//更新单个玩家的成就记录
+	function update_achievements_by_udata(&$udata, &$pdata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!$udata || !$pdata) return;
+		//如果技能和成就没初始化，则初始化一次
+		if(empty($pdata['acquired_list'])) \skillbase\skillbase_load($pdata);
+		if(!is_array($udata['u_achievements'])) $udata['u_achievements'] = decode_achievements($udata);
+		//每日任务是根据游戏结束时的用户数据判定的，也就是允许游戏结束前换每日任务
+		foreach (\skillbase\get_acquired_skill_array($pdata) as $key)
+		{
+			if (defined('MOD_SKILL'.$key.'_INFO') && defined('MOD_SKILL'.$key.'_ACHIEVEMENT_ID')
+			&& \skillbase\check_skill_info($key, 'achievement') && 1 == check_achtype_available($key))//技能存在而且有效
+			{
+				$val = 0;
+				//无视没有获得的日常成就
+				if (isset($udata['u_achievements'][$key])) $val = $udata['u_achievements'][$key];
+				$vflag=false;
+				if (!\skillbase\check_skill_info($key, 'daily')) $vflag=true;
+				if ( $val!=='VWXYZ' ) $vflag=true;
+				if ($vflag){
+					//临时措施
+					if($key!=326){
+						$val=min((int)$val,(1<<30)-1);
+						$val=base64_encode_number($val,5);
+					}
+					//上面这个措施需要回头弄掉，太蠢
+					
+					$func='\\skill'.$key.'\\finalize'.$key;
+					$ret=$func($pdata,$val);
+					//临时措施
+					if($key!=326){
+						$ret=base64_decode_number($ret);
+					}
+					//上面这个措施需要回头弄掉，太蠢
+					
+					$udata['u_achievements'][$key]=$ret;
+				}
+			}
+		}
+	}
+	
+	//更新所有玩家的成就记录
+	function update_achievements(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		//先获得当前局所有玩家的名称
+		$namelist = array();
+		$result = $db->query("SELECT name FROM {$tablepre}players WHERE type=0");
+		while ($pd=$db->fetch_array($result))
+		{
+			$namelist[] = $pd['name'];
+		}
+		$updatelist = array();
+		//然后一次性读用户记录，尽量减少在循环里读写数据库
+		if(!empty($namelist)){
+			$wherecause = "('".implode("','",$namelist)."')";
+			$result = $db->query("SELECT * FROM {$tablepre}users WHERE username IN $wherecause");
+			while ($udata=$db->fetch_array($result))
+			{
+				$pdata = \player\fetch_playerdata($udata['username']);//这句理论上可以被玩家池加速
+				update_achievements_by_udata($udata, $pdata);
+				$updatelist[] = Array(
+					'username' => $udata['username'],
+					'u_achievements' => encode_achievements($udata['u_achievements'])
+				);
+			}
+		}
+		//一次性更新
+		$db->multi_update("{$gtablepre}users", $updatelist, 'username');
+	}
+	
 	function post_gameover_events()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
-		eval(import_module('sys'));
-		$result = $db->query("SELECT name,pid FROM {$tablepre}players WHERE type=0");
-		while ($udata=$db->fetch_array($result))
-		{
-			$edata=\player\fetch_playerdata_by_pid($udata['pid']);
-			if ($edata===NULL) continue;
-			$res = $db->query("SELECT n_achievements FROM {$gtablepre}users WHERE username='{$udata['name']}'");
-			if (!$db->num_rows($res)) continue;
-			$zz=$db->fetch_array($res); $ach=$zz['n_achievements'];
-			$achdata=explode(';',$ach);
-			$maxid=count($achdata)-2;
-			foreach (\skillbase\get_acquired_skill_array($edata) as $key) //也就是说，允许先进游戏后换每日任务，甚至可以先清场，结束前换每日任务
-				if (defined('MOD_SKILL'.$key.'_INFO') && defined('MOD_SKILL'.$key.'_ACHIEVEMENT_ID') && 1 == check_achtype_available($key))
-					if (\skillbase\check_skill_info($key, 'achievement'))
-					{
-						$id=((int)(constant('MOD_SKILL'.$key.'_ACHIEVEMENT_ID')));
-						if ($id>$maxid) $maxid=$id;
-						if (isset($achdata[$id])) $s=((string)$achdata[$id]); else $s='';
-						$f=false;
-						if (!\skillbase\check_skill_info($key, 'daily')) $f=true;
-						if (($s!='')&&($s!='VWXYZ')) $f=true;
-						if ($f){
-							$func='\\skill'.$key.'\\finalize'.$key;
-							$achdata[$id]=$func($edata,$s);
-						}
-					}
-			
-			$nachdata='';
-			for ($i=0; $i<=$maxid; $i++)
-				$nachdata.=$achdata[$i].';';
-			
-			$db->query("UPDATE {$gtablepre}users SET n_achievements = '$nachdata' WHERE username='{$udata['name']}'");	
-		}
-		
+		update_achievements();
 		$chprocess();
 	}
+	
+//	function post_gameover_events()
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		
+//		eval(import_module('sys'));
+//		$result = $db->query("SELECT name,pid FROM {$tablepre}players WHERE type=0");
+//		while ($udata=$db->fetch_array($result))
+//		{
+//			$edata=\player\fetch_playerdata_by_pid($udata['pid']);
+//			if ($edata===NULL) continue;
+//			$res = $db->query("SELECT n_achievements FROM {$gtablepre}users WHERE username='{$udata['name']}'");
+//			if (!$db->num_rows($res)) continue;
+//			$zz=$db->fetch_array($res); $ach=$zz['n_achievements'];
+//			$achdata=explode(';',$ach);
+//			$maxid=count($achdata)-2;
+//			foreach (\skillbase\get_acquired_skill_array($edata) as $key) //也就是说，允许先进游戏后换每日任务，甚至可以先清场，结束前换每日任务
+//				if (defined('MOD_SKILL'.$key.'_INFO') && defined('MOD_SKILL'.$key.'_ACHIEVEMENT_ID') && 1 == check_achtype_available($key))
+//					if (\skillbase\check_skill_info($key, 'achievement'))
+//					{
+//						$id=((int)(constant('MOD_SKILL'.$key.'_ACHIEVEMENT_ID')));
+//						if ($id>$maxid) $maxid=$id;
+//						if (isset($achdata[$id])) $s=((string)$achdata[$id]); else $s='';
+//						$f=false;
+//						if (!\skillbase\check_skill_info($key, 'daily')) $f=true;
+//						if (($s!='')&&($s!='VWXYZ')) $f=true;
+//						if ($f){
+//							$func='\\skill'.$key.'\\finalize'.$key;
+//							$achdata[$id]=$func($edata,$s);
+//						}
+//					}
+//			
+//			$nachdata='';
+//			for ($i=0; $i<=$maxid; $i++)
+//				$nachdata.=$achdata[$i].';';
+//			
+//			$db->query("UPDATE {$gtablepre}users SET n_achievements = '$nachdata' WHERE username='{$udata['name']}'");	
+//		}
+//		
+//		$chprocess();
+//	}
 	
 	//返回合法的成就数组
 	function get_valid_achievements($udata)
@@ -223,21 +302,16 @@ namespace achievement_base
 				elseif ( $val!=='VWXYZ' ) $showflag=true;
 				if($showflag) {
 					//临时措施
-					if($key==326){
-						$dval='';
-						foreach($val as $sv){
-							$dval .= base64_encode_number($sv,3);
-						}
-					}else{
-						$dval=min((int)$val,(1<<30)-1);
-						$dval=base64_encode_number($val,5);
+					if($key!=326){
+						$val=min((int)$val,(1<<30)-1);
+						$val=base64_encode_number($val,5);
 					}
 					//上面这个措施需要回头弄掉，太蠢
 					
 					//利用缓冲区挨个输出各成就窗格
 					$func='\\skill'.$key.'\\show_achievement'.$key;
 					ob_start();
-					$func($dval);
+					$func($val);
 					$showarr[] = ob_get_contents();
 					ob_end_clean();
 				}

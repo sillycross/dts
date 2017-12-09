@@ -42,16 +42,11 @@ namespace skill326
 			return $data;
 		
 		$c=(int)$pa['card'];
-		$clist = cardlist_decode326($data);
-		if(in_array($c, $clist)) return $data;
-//		for ($i=0; $i<strlen($data); $i+=3)
-//		{
-//			$x=base64_decode_number(substr($data,$i,3));
-//			if ($x==$c) return $data;
-//		}
+		if(!is_array($data)) return $data;
+		if(in_array($c, $data)) return $data;
+		$data[] = $c;
 		
-		$data.=base64_encode_number($c,3);
-		$o=ceil(strlen($data)/3);
+		$o=sizeof($data);
 		
 		if ($o==10) \cardbase\get_qiegao(888,$pa);
 		if ($o==25) { \cardbase\get_card(81,$pa); \cardbase\get_qiegao(1200,$pa); }
@@ -66,13 +61,13 @@ namespace skill326
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('cardbase'));
-		$ca326=\skill326\cardlist_decode326($data);
+		$ca326=$data;
 		$cn326='';
 		foreach($ca326 as $val){
 			$cn326 .= $cards[$val]['name'].' ';
 		}
 		$cn326 = str_replace('"','&quot;',substr($cn326,0,-1));
-		$p326=ceil(strlen($data)/3);
+		$p326=sizeof($data);
 		$c326=0;
 		if ($p326>=100)
 			$c326=999;
