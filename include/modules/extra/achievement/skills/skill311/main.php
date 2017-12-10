@@ -6,7 +6,7 @@ namespace skill311
 	$ach311_name = array(
 		0=>'Run With Wolves',
 		1=>'Day Game',
-		2=>'Thousand Enemies',
+		2=>'<font style="font-size:11pt">Thousand Enemies</font>',
 	);
 	
 	function init() 

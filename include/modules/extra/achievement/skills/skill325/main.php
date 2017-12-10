@@ -2,6 +2,12 @@
 
 namespace skill325
 {
+	//旧成就精力所限，未全部修改，请以skill327以后的成就为模板！
+	$ach325_name = array(
+		0=>'常磐的训练师',
+		1=>'常磐之心',
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL325_INFO','achievement;');

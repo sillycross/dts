@@ -2,6 +2,15 @@
 
 namespace skill326
 {
+	//旧成就精力所限，未全部修改，请以skill327以后的成就为模板！
+	$ach326_name = array(
+		0=>'全能骑士 LV10',
+		1=>'全能骑士 LV25',
+		2=>'全能骑士 LV50',
+		3=>'全能骑士 LV75',
+		4=>'全能骑士 LV100',
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL326_INFO','achievement;');
@@ -18,7 +27,7 @@ namespace skill326
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
-	//�������ÿ�Ƭ
+	//解码已用卡片
 	function cardlist_decode326($data){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r = array();
