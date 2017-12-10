@@ -5,7 +5,7 @@ namespace skill13
 	
 	function init() 
 	{
-		define('MOD_SKILL13_INFO','club;locked;');
+		define('MOD_SKILL13_INFO','club;feature;');
 		eval(import_module('clubbase'));
 		$clubskillname[13] = '斗士';
 		$clubdesc_h[1] = $clubdesc_a[1] = '开局获得25点殴系熟练度，每次升级时获得4-6点殴系熟练度';

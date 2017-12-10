@@ -1,14 +1,16 @@
+<!--{eval $stitle300 = \achievement_base\show_ach_title(300, $c300);}-->
+<!--{eval $atitle300 = \achievement_base\show_ach_achieved(300, $c300);}-->
 <table><tr>
 <td>
-<!--{if ($c300) }--><img src="img/ach/D.gif"><!--{else}--><img src="img/ach/N.gif"><!--{/if}-->
+	<!--{if ($c300=='0') }--><img src="img/ach/a300_n.png">
+	<!--{elseif ($c300=='1') }--><img src="img/ach/a300_1.png">
+	<!--{elseif ($c300=='2') }--><img src="img/ach/a300_2.png">
+	<!--{else}--><img src="img/ach/a300_3.png"><!--{/if}-->
 </td>
-<td valign="top" align="left">
-<b>
-<!--{if ($c300=='0') }-->及时补给<!--{/if}-->
-<!--{if ($c300=='1') }-->衣食无忧<!--{/if}-->
-<!--{if ($c300=='2') }-->奥义很爽<!--{/if}-->
-<!--{if ($c300=='999') }-->奥义很爽<!--{/if}-->
-</b>
+<td class="ach_cont">
+<span class="ach_title" <!--{if $atitle300 }-->title="$atitle300"<!--{/if}-->>
+	$stitle300
+</span>
 <!--{if ($c300=='999') }--><span class="lime">[完成]</span><!--{else}--><!--{if ($c300==0) }--><span class="red">[未完成]</span><!--{else}--><span class="clan">[进行中]</span><!--{/if}--><!--{/if}--><br>
 <font color="yellow">目前进度： {$p300}点<br></font>
 <!--{if ($c300=='0') }--><font color="olive">奖励： 切糕200<br></font> 使用无毒补给的总效果达到32767点<br><!--{/if}-->

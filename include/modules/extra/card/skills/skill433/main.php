@@ -55,8 +55,8 @@ namespace skill433
 		$skillid=(int)$skillid;
 		if ($pa!=NULL && isset($pa['skill433_flag']) && $pa['skill433_flag'])
 		{
-			//所有技能失效
-			if (!\skillbase\check_skill_info($skillid,'achievement') && !\skillbase\check_skill_info($skillid,'hidden')) return 0;
+			//所有非称号特性技能失效
+			if (!\skillbase\check_skill_info($skillid,'achievement') && !\skillbase\check_skill_info($skillid,'feature') && !\skillbase\check_skill_info($skillid,'hidden')) return 0;
 //			if (defined('MOD_SKILL'.$skillid.'_INFO') && strpos(constant('MOD_SKILL'.$skillid.'_INFO'),'card;')!==false && strpos(constant('MOD_SKILL'.$skillid.'_INFO'),'hidden;')===false)
 //				return 0;
 		}

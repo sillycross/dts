@@ -1,14 +1,16 @@
+<!--{eval $stitle302 = \achievement_base\show_ach_title(302, $c302);}-->
+<!--{eval $atitle302 = \achievement_base\show_ach_achieved(302, $c302);}-->
 <table><tr>
 <td>
-<!--{if ($c302) }--><img src="img/ach/D.gif"><!--{else}--><img src="img/ach/N.gif"><!--{/if}-->
+	<!--{if ($c302=='0') }--><img src="img/ach/a302_n.png">
+	<!--{elseif ($c302=='1') }--><img src="img/ach/a302_1.png">
+	<!--{elseif ($c302=='2') }--><img src="img/ach/a302_2.png">
+	<!--{else}--><img src="img/ach/a302_3.png"><!--{/if}-->
 </td>
-<td valign="top" align="left">
-<b>
-<!--{if ($c302=='0') }-->永恒世界的住人<!--{/if}-->
-<!--{if ($c302=='1') }-->幻想世界的往人<!--{/if}-->
-<!--{if ($c302=='2') }-->永恒的覆唱<!--{/if}-->
-<!--{if ($c302=='999') }-->永恒的覆唱<!--{/if}-->
-</b>
+<td class="ach_cont">
+<span class="ach_title" <!--{if $atitle302 }-->title="$atitle302"<!--{/if}-->>
+	$stitle302
+</span>
 <!--{if ($c302=='999') }--><span class="lime">[完成]</span><!--{else}--><!--{if ($c302==0) }--><span class="red">[未完成]</span><!--{else}--><span class="clan">[进行中]</span><!--{/if}--><!--{/if}--><br>
 <font color="yellow">合成次数： {$p302}次<br></font>
 <!--{if ($c302=='0') }--><font color="olive">奖励： 切糕50<br></font> 合成物品【KEY系催泪弹】1次<br><!--{/if}-->

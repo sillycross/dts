@@ -2,6 +2,12 @@
 
 namespace skill301
 {
+	//旧成就精力所限，未全部修改，请以skill327以后的成就为模板！
+	$ach301_name = array(
+		0=>'锁定解除',
+		1=>'最后的荣光',
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL301_INFO','achievement;');

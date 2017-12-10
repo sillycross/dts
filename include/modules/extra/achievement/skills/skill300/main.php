@@ -2,6 +2,13 @@
 
 namespace skill300
 {
+	//旧成就精力所限，未全部修改，请以skill327以后的成就为模板！
+	$ach300_name = array(
+		0=>'及时补给',
+		1=>'衣食无忧',
+		2=>'奥义很爽',
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL300_INFO','achievement;');

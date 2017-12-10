@@ -4,7 +4,7 @@ namespace skill18
 {
 	function init() 
 	{
-		define('MOD_SKILL18_INFO','club;locked;');
+		define('MOD_SKILL18_INFO','club;feature;');
 		eval(import_module('clubbase'));
 		$clubskillname[18] = '超能';
 		$clubdesc_h[9] = $clubdesc_a[9] = '开局获得20点灵系熟练度，每次升级时获得3-5点灵系熟练度';

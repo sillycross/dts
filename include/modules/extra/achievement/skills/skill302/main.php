@@ -2,6 +2,13 @@
 
 namespace skill302
 {
+	//旧成就精力所限，未全部修改，请以skill327以后的成就为模板！
+	$ach302_name = array(
+		0=>'永恒世界的住人',
+		1=>'幻想世界的往人',
+		2=>'永恒的覆唱',
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL302_INFO','achievement;');

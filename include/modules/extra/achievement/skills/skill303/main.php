@@ -2,6 +2,13 @@
 
 namespace skill303
 {
+	//旧成就精力所限，未全部修改，请以skill327以后的成就为模板！
+	$ach303_name = array(
+		0=>'篝火的引导',
+		1=>'世界的树形图',
+		2=>'地=月',
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL303_INFO','achievement;');

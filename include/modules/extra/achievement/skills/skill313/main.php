@@ -2,6 +2,14 @@
 
 namespace skill313
 {
+	$ach313_name = array(
+		0=>'伐木达人',
+		1=>'幻境清道夫',
+		2=>'片甲不留',
+		3=>'模拟死斗',
+		4=>'幻境的百万富翁',
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL313_INFO','achievement;');

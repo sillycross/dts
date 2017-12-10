@@ -1,15 +1,13 @@
 <table><tr>
 <td>
-<!--{if ($c301=='999') }--><img src="img/ach/301.gif"><!--{/if}-->
-<!--{if ($c301=='0') }--><img src="img/ach/N.gif"><!--{/if}-->
-<!--{if (($c301!='999')&&($c301!='0')) }--><img src="img/ach/D.gif"><!--{/if}-->
+	<!--{if ($c301=='0') }--><img src="img/ach/a301_n.png">
+	<!--{elseif ($c301=='1') }--><img src="img/ach/a301_1.png">
+	<!--{else}--><img src="img/ach/a301_2.png"><!--{/if}-->
 </td>
-<td valign="top" align="left">
-<b>
-<!--{if ($c301=='0') }-->锁定解除<!--{/if}-->
-<!--{if ($c301=='1') }-->最后的荣光<!--{/if}-->
-<!--{if ($c301=='999') }-->最后的荣光<!--{/if}-->
-</b>
+<td class="ach_cont">
+<span class="ach_title" title="已完成：<!--{eval echo \achievement_base\show_ach_title(301, $c301-1, 1);}-->">
+	<!--{eval echo \achievement_base\show_ach_title(301, $c301);}-->
+</span>
 <!--{if ($c301=='999') }--><span class="lime">[完成]</span><!--{else}--><!--{if ($c301==0) }--><span class="red">[未完成]</span><!--{else}--><span class="clan">[进行中]</span><!--{/if}--><!--{/if}--><br>
 <font color="yellow">目前进度： {$p301}次<br></font>
 <!--{if ($c301=='0') }--><font color="olive">奖励： 切糕300 <br></font> 完成结局：锁定解除 1次<br><!--{/if}-->

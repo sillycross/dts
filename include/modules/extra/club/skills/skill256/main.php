@@ -4,7 +4,7 @@ namespace skill256
 {
 	function init() 
 	{
-		define('MOD_SKILL256_INFO','club;locked;');
+		define('MOD_SKILL256_INFO','club;feature;');
 		eval(import_module('clubbase'));
 		$clubskillname[256] = '拳法';
 		$clubdesc_h[19] = $clubdesc_a[19] = '开局获得50点殴系熟练度<br>空手作战时相当于持有殴系熟练度数值的武器';

@@ -4,7 +4,7 @@ namespace skill58
 {
 	function init() 
 	{
-		define('MOD_SKILL58_INFO','club;locked;');
+		define('MOD_SKILL58_INFO','club;feature;');
 		eval(import_module('clubbase'));
 		$clubskillname[58] = '复活';
 		$clubdesc_h[24] = $clubdesc_a[24] = '你被战斗/陷阱杀死时会立即复活。1局游戏只能复活1次。';

@@ -164,20 +164,10 @@ namespace achievement_base
 				if (!\skillbase\check_skill_info($key, 'daily')) $vflag=true;
 				if ( $val!=='VWXYZ' ) $vflag=true;
 				if ($vflag){
-					//临时措施
-//					if($key!=326){
-//						$val=min((int)$val,(1<<30)-1);
-//						$val=base64_encode_number($val,5);
-//					}
-					//上面这个措施需要回头弄掉，太蠢
-					
+
 					$func='\\skill'.$key.'\\finalize'.$key;
 					$ret=$func($pdata,$val);
-					//临时措施
-//					if($key!=326){
-//						$ret=base64_decode_number($ret);
-//					}
-					//上面这个措施需要回头弄掉，太蠢
+
 					$udata['u_achievements'][$key]=$ret;
 				}
 			}
@@ -301,13 +291,6 @@ namespace achievement_base
 				if (!\skillbase\check_skill_info($key, 'daily')) $showflag=true;
 				elseif ( $val!=='VWXYZ' ) $showflag=true;
 				if($showflag) {
-					//临时措施
-//					if($key!=326){
-//						$val=min((int)$val,(1<<30)-1);
-//						$val=base64_encode_number($val,5);
-//					}
-					//上面这个措施需要回头弄掉，太蠢
-					
 					//利用缓冲区挨个输出各成就窗格
 					$func='\\skill'.$key.'\\show_achievement'.$key;
 					ob_start();
@@ -412,6 +395,31 @@ namespace achievement_base
 			if(!empty($achend) && $now > $achend) $ret = 2;
 		}
 		return $ret;
+	}
+	
+	function show_ach_title($achid, $achlv, $tp=0)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('skill'.$achid));
+		$ret = '';
+		if(!empty(${'ach'.$achid.'_name'})) {
+			foreach(${'ach'.$achid.'_name'} as $lv => $n){
+				if($lv <= $achlv) {
+					if($tp) $ret .= $n.' ';
+					else $ret = $n;
+				}
+			}
+		}
+		if(!$ret) $ret = 'MISSING';
+		return $ret;		
+	}
+	
+	function show_ach_achieved($achid, $achlv)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = show_ach_title($achid, $achlv-1, 1);
+		if('MISSING' == $ret) return '';
+		else return '已完成：'.$ret;
 	}
 }
 

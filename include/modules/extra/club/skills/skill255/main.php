@@ -4,7 +4,7 @@ namespace skill255
 {
 	function init() 
 	{
-		define('MOD_SKILL255_INFO','club;locked;');
+		define('MOD_SKILL255_INFO','club;feature;');
 		eval(import_module('clubbase'));
 		$clubskillname[255] = '疾风';
 		$clubdesc_h[6] = $clubdesc_a[6] = '随着等级上升，移动和探索消耗的体力大幅减少（最少为1）<br>陷阱遭遇率-15%，陷阱回避率+10%';

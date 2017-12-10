@@ -4,7 +4,7 @@ namespace skill17
 {
 	function init() 
 	{
-		define('MOD_SKILL17_INFO','club;locked;');
+		define('MOD_SKILL17_INFO','club;feature;');
 		eval(import_module('clubbase'));
 		$clubskillname[17] = '拆弹';
 		$clubdesc_h[5] = $clubdesc_a[5] = '开局获得25点爆系熟练度，每次升级时获得5-7点爆系熟练度';

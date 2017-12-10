@@ -2,6 +2,13 @@
 
 namespace skill304
 {
+	//旧成就精力所限，未全部修改，请以skill327以后的成就为模板！
+	$ach304_name = array(
+		0=>'不屈的生命',
+		1=>'那种话最讨厌了',
+		2=>'明亮的未来',
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL304_INFO','achievement;');

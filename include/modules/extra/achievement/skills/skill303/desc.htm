@@ -1,14 +1,16 @@
+<!--{eval $stitle303 = \achievement_base\show_ach_title(303, $c303);}-->
+<!--{eval $atitle303 = \achievement_base\show_ach_achieved(303, $c303);}-->
 <table><tr>
 <td>
-<!--{if ($c303) }--><img src="img/ach/D.gif"><!--{else}--><img src="img/ach/N.gif"><!--{/if}-->
+	<!--{if ($c303=='0') }--><img src="img/ach/a303_n.png">
+	<!--{elseif ($c303=='1') }--><img src="img/ach/a303_1.png">
+	<!--{elseif ($c303=='2') }--><img src="img/ach/a303_2.png">
+	<!--{else}--><img src="img/ach/a303_3.png"><!--{/if}-->
 </td>
-<td valign="top" align="left">
-<b>
-<!--{if ($c303=='0') }-->篝火的引导<!--{/if}-->
-<!--{if ($c303=='1') }-->世界的树形图<!--{/if}-->
-<!--{if ($c303=='2') }-->地=月<!--{/if}-->
-<!--{if ($c303=='999') }-->地=月<!--{/if}-->
-</b>
+<td class="ach_cont">
+<span class="ach_title" <!--{if $atitle303 }-->title="$atitle303"<!--{/if}-->>
+	$stitle303
+</span>
 <!--{if ($c303=='999') }--><span class="lime">[完成]</span><!--{else}--><!--{if ($c303==0) }--><span class="red">[未完成]</span><!--{else}--><span class="clan">[进行中]</span><!--{/if}--><!--{/if}--><br>
 <font color="yellow">合成次数： {$p303}次<br></font>
 <!--{if ($c303=='0') }--><font color="olive">奖励： 切糕150<br></font> 合成物品【KEY系燃烧弹】1次<br><!--{/if}-->
