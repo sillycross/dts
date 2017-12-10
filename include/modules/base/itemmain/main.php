@@ -384,7 +384,9 @@ namespace itemmain
 			} elseif(strpos($command,'swap') === 0) {
 				$swap_item = substr($command,4);
 				itemdrop($swap_item);
-				itemadd();
+				if(strpos($swap_item,'itm')===0) itemadd();
+				//如果要允许直接换上拾取的装备，请取消此行注释
+				//else itemuse_wrapper(0);
 			} 
 		}
 		$chprocess();

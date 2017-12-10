@@ -148,6 +148,9 @@ background-image: url("../../img/footer_line.gif");
 	width:80px;height:25px;margin:2;
 }
 
+input.dropbutton{
+	width:75px;height:23px;margin:1;
+}
 
 input.bigbutton{
 	width:120px;height:25px;margin:2;
