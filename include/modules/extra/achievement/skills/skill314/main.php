@@ -2,10 +2,16 @@
 
 namespace skill314
 {
+	//旧成就精力所限，未全部修改，请以skill300成就为模板！
+	$ach314_name = array(
+		0=>'养家糊口',
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL314_INFO','achievement;daily;');
 		define('MOD_SKILL314_ACHIEVEMENT_ID','14');
+		define('DAILY_TYPE314',2);
 	}
 	
 	function acquire314(&$pa)

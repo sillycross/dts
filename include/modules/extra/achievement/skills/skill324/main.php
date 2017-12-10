@@ -2,10 +2,16 @@
 
 namespace skill324
 {
+	//旧成就精力所限，未全部修改，请以skill300成就为模板！
+	$ach324_name = array(
+		0=>'我还可以变身两次',
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL324_INFO','achievement;daily;');
 		define('MOD_SKILL324_ACHIEVEMENT_ID','24');
+		define('DAILY_TYPE324',1);
 	}
 	
 	function acquire324(&$pa)

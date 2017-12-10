@@ -2,10 +2,16 @@
 
 namespace skill315
 {
+	//旧成就精力所限，未全部修改，请以skill300成就为模板！
+	$ach315_name = array(
+		0=>'第一滴血',
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL315_INFO','achievement;daily;');
 		define('MOD_SKILL315_ACHIEVEMENT_ID','15');
+		define('DAILY_TYPE315',3);
 	}
 	
 	function acquire315(&$pa)

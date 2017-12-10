@@ -1,11 +1,15 @@
+<!--{eval $stitle315 = \achievement_base\show_ach_title(315, $c315);}-->
+<!--{eval $atitle315 = \achievement_base\show_ach_title_2(315, $c315);}-->
+<!--{eval $dailytype315 = \achievement_base\get_daily_type(315);}-->
 <table><tr>
 <td>
-<!--{if ($c315) }--><img src="img/ach/D.gif"><!--{else}--><img src="img/ach/N.gif"><!--{/if}-->
+	<!--{if ($c315=='0') }--><img src="img/ach/daily{$dailytype315}_n.png">
+	<!--{else}--><img src="img/ach/daily{$dailytype315}_1.png"><!--{/if}-->
 </td>
-<td valign="top" align="left">
-<b>
-第一滴血
-</b>
+<td class="ach_cont">
+<span class="ach_title" <!--{if $atitle315 }-->title="$atitle315"<!--{/if}-->>
+	$stitle315
+</span>
 <!--{if ($c315=='999') }--><span class="lime">[完成]</span><!--{else}--><!--{if ($c315==0) }--><span class="red">[未完成]</span><!--{else}--><span class="clan">[进行中]</span><!--{/if}--><!--{/if}--><br>
 <font color="yellow">击杀总数： {$p315}名<br></font>
 <font color="olive">奖励： 切糕100 <br></font> 击杀1名玩家<br>

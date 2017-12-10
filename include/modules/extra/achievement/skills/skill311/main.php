@@ -2,7 +2,7 @@
 
 namespace skill311
 {
-	//旧成就精力所限，未全部修改，请以skill327以后的成就为模板！
+	//旧成就精力所限，未全部修改，请以skill300成就为模板！
 	$ach311_name = array(
 		0=>'Run With Wolves',
 		1=>'Day Game',

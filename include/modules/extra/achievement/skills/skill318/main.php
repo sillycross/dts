@@ -2,12 +2,16 @@
 
 namespace skill318
 {
+	//旧成就精力所限，未全部修改，请以skill300成就为模板！
+	$ach318_name = array(
+		0=>'风祭之旅',
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL318_INFO','achievement;daily;');
 		define('MOD_SKILL318_ACHIEVEMENT_ID','18');
-//		eval(import_module('achievement_base'));
-//		$ach_allow_mode[318] = array(0, 4, 16);
+		define('DAILY_TYPE318',3);
 	}
 	
 	function acquire318(&$pa)

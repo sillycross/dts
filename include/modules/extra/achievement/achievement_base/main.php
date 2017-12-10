@@ -166,7 +166,8 @@ namespace achievement_base
 				if ($vflag){
 
 					$func='\\skill'.$key.'\\finalize'.$key;
-					$ret=$func($pdata,$val);
+					if(function_exists($func)) $ret=$func($pdata,$val);//兼容性代码，如果存在旧式的结算函数，就按旧式结算函数算
+					else $ret = ach_finalize($pdata, $val, $key);
 
 					$udata['u_achievements'][$key]=$ret;
 				}
@@ -294,7 +295,8 @@ namespace achievement_base
 					//利用缓冲区挨个输出各成就窗格
 					$func='\\skill'.$key.'\\show_achievement'.$key;
 					ob_start();
-					$func($val);
+					if(function_exists($func)) $func($val);//兼容性代码，如果存在旧式的显示函数，就按旧式函数显示
+					else show_achievement_single($val, $key);
 					$showarr[] = ob_get_contents();
 					ob_end_clean();
 				}
@@ -448,9 +450,159 @@ namespace achievement_base
 		$ret1 = '只能在'.str_replace('"',"'",substr($ret1,0,-1)).'中完成';
 		$ret2 = show_ach_title($achid, $achlv-1, 1);
 		if('MISSING' == $ret2) $ret2 = '';
-		else $ret2 = '<br>已完成：'.$ret2;
+		else $ret2 = '<br>已完成：<span class=\'evergreen\'>'.$ret2.'</span>';
 		return $ret1.$ret2;
 	}
+	
+	function get_daily_type($achid)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = NULL;
+		if(\skillbase\check_skill_info($achid, 'achievement') && !\skillbase\check_skill_info($achid, 'hidden') && \skillbase\check_skill_info($achid, 'daily')){
+			$ret = (int)(constant('DAILY_TYPE'.$achid));
+		}
+		return $ret;
+	}
+	
+	//成就通用结算函数，需要成就模块里至少定义$ach332_threshold
+	function ach_finalize(&$pa, $data, $achid)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if ($data=='')					
+			$x=0;						
+		else $x=$data;	
+		$achid = (int)$achid;
+		
+		$z=(int)\skillbase\skill_getvalue($achid,'cnt',$pa);
+		$ox=$x;
+		$x=$ox+$z;
+		
+		eval(import_module('sys', 'skill'.$achid));
+		
+		//if(empty(${'ach'.$achid.'_threshold'})) return;//没有定义阈值则直接返回
+		$threshold = ${'ach'.$achid.'_threshold'};
+		
+		$qiegao_flag = $card_flag = 0;
+		if(!empty(${'ach'.$achid.'_qiegao_prize'})){
+			$qiegao_flag = 1;
+			$qiegao_prize = ${'ach'.$achid.'_qiegao_prize'};
+		}
+		//writeover('a.txt',var_export($qiegao_prize,1)."\r\n",'ab+');
+		if(!empty(${'ach'.$achid.'_card_prize'})){
+			$card_flag = 1;
+			$card_prize = ${'ach'.$achid.'_card_prize'};
+		}
+		$qiegao_up = 0;
+		foreach($threshold as $tk => $tv){
+			if(!empty($tv) && $x >= $tv){
+				if($ox >= $tv) continue; 
+				else{
+					if($qiegao_flag && !empty($qiegao_prize[$tk])) $qiegao_up += $qiegao_prize[$tk];		
+					if($card_flag && !empty($card_prize[$tk])) {
+						$card_got = $card_prize[$tk];
+						if(is_array($card_got)) {
+							shuffle($card_got);
+							$card_got = $card_got[0];
+						}
+						\cardbase\get_card($card_got,$pa);
+					}
+				}
+			}
+		}
+		//writeover('a.txt',$qiegao_up."\r\n",'ab+');
+		if(!empty($qiegao_up)) \cardbase\get_qiegao($qiegao_up, $pa);
+
+		return $x;
+	}
+	
+	//成就通用显示函数，需要成就模块里至少定义$ach332_threshold
+	function show_achievement_single($data, $achid)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('skill'.$achid));
+		
+		$unit = ${'ach'.$achid.'_unit'};
+		$proc_words = ${'ach'.$achid.'_proc_words'};
+		$p = $c = 0; $top_flag = 0;
+		if ($data) $p=$data;
+		$ach_threshold = ${'ach'.$achid.'_threshold'};
+		foreach($ach_threshold as $tk => $tv){
+			if(!empty($tv) && $p >= $tv) {
+				$c = $tk;
+			}elseif(empty($tv)){
+				$top_flag = 1;
+				break;
+			}else break;
+		}
+		$cu = $c;
+		if(!empty($ach_threshold[$c+1])) $cu = $c + 1;//用于显示下一级名称、阈值和奖励的，0级是1，1级是2，顶级维持顶级
+		$stitle = \achievement_base\show_ach_title($achid, $cu);
+		$atitle = \achievement_base\show_ach_title_2($achid, $cu);
+		$dailytype = \skillbase\check_skill_info($achid, 'daily') ? \achievement_base\get_daily_type($achid) : 0;
+		$prize_desc = show_prize_single($cu, $achid);
+		$ach_desc = show_achievement_single_desc($cu, $achid, $ach_threshold[$cu]);
+		if(!$c) {
+			$ach_iconid = 'n';
+			$ach_state_desc = '<span class="red">[未完成]</span>';
+		}elseif(!$top_flag) {
+			$ach_iconid = $c;
+			$ach_state_desc = '<span class="clan">[进行中]</span>';
+		}else {
+			$ach_iconid = $c+1;
+			$ach_state_desc = '<span class="lime">[完成]</span>';
+		}
+		include template('MOD_ACHIEVEMENT_BASE_COMMON_DESC');
+	}
+	
+	function show_achievement_single_desc($data, $achid, $tval)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('skill'.$achid));
+		if(empty(${'ach'.$achid.'_desc'})) return '';
+		else $ach_desc = ${'ach'.$achid.'_desc'};
+		foreach($ach_desc as $dk => $dv){
+			if($data >= $dk) $ret = $dv;
+		}
+		$ret = str_replace('<:threshold:>', $tval, $ret);
+		return $ret;
+	}
+	
+	function show_prize_single($cn, $achid){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('skill'.$achid));
+		$threshold = ${'ach'.$achid.'_threshold'};
+		$qiegao_prize = !empty(${'ach'.$achid.'_qiegao_prize'}) ? ${'ach'.$achid.'_qiegao_prize'} : NULL;
+		$card_prize = !empty(${'ach'.$achid.'_card_prize'}) ? ${'ach'.$achid.'_card_prize'} : NULL;
+		$card_prize_desc = !empty(${'ach'.$achid.'_card_prize_desc'}) ? ${'ach'.$achid.'_card_prize_desc'} : NULL;
+		$ret = '';
+		
+		if(!empty($qiegao_prize) && !empty($qiegao_prize[$cn])) $ret .= '<font color="olive">切糕'.$qiegao_prize[$cn].'</font> ';
+
+		if(!empty($card_prize) && !empty($card_prize[$cn])) {
+			if(!empty($card_prize_desc)) {
+				$ret .= $card_prize_desc;
+			}elseif(is_array($card_prize[$cn])) {
+				$ret1 = '';
+				foreach($card_prize[$cn] as $card) {
+					$ret1 .= show_prize_single_card($card);
+				}
+				$ret .= '<span class="evergreen" title="'.str_replace('"',"'",$ret1).'">卡集（悬浮以查看）</span>';
+			}else{
+				$card = (int)$card_prize[$cn];
+				$ret .= '<span class="evergreen">卡片</span> '.show_prize_single_card($card);
+			}
+		}
+		if(empty($ret)) $ret = '无奖励';
+		return $ret;
+	}
+	
+	function show_prize_single_card($card)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('cardbase'));
+		return '<span class="'.$card_rarecolor[$cards[$card]['rare']].'">'.$cards[$card]['name'].'</span> ';
+	}
+	
 }
 
 ?>

@@ -2,10 +2,16 @@
 
 namespace skill321
 {
+	//旧成就精力所限，未全部修改，请以skill300成就为模板！
+	$ach321_name = array(
+		0=>'杀人越货',
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL321_INFO','achievement;daily;');
 		define('MOD_SKILL321_ACHIEVEMENT_ID','21');
+		define('DAILY_TYPE321',2);
 	}
 	
 	function acquire321(&$pa)

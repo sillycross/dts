@@ -2,10 +2,16 @@
 
 namespace skill316
 {
+	//旧成就精力所限，未全部修改，请以skill300成就为模板！
+	$ach316_name = array(
+		0=>'幻境无双',
+	);
+
 	function init() 
 	{
 		define('MOD_SKILL316_INFO','achievement;daily;');
 		define('MOD_SKILL316_ACHIEVEMENT_ID','16');
+		define('DAILY_TYPE316',2);
 	}
 	
 	function acquire316(&$pa)

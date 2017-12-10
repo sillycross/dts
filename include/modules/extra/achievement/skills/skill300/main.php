@@ -2,11 +2,38 @@
 
 namespace skill300
 {
-	//旧成就精力所限，未全部修改，请以skill327以后的成就为模板！
+	//按照如下格式，成就系统会自动生成界面、计算成就
+	//301-332成就是历史遗留，无力通改，如果要新增成就请以本成就为准！
+	//各级要完成的成就名，如果不存在则取低的
 	$ach300_name = array(
-		0=>'及时补给',
-		1=>'衣食无忧',
-		2=>'奥义很爽',
+		1=>'及时补给',
+		2=>'衣食无忧',
+		3=>'奥义很爽',
+	);
+	
+	//各级显示的要求，如果不存在则取低的
+	$ach300_desc= array(
+		0=>'使用无毒补给的总效果达到<:threshold:>点',
+	);
+	
+	$ach300_proc_words = '目前进度';
+	
+	$ach300_unit = '点';
+	
+	//各级阈值，注意是达到这个阈值则升到下一级
+	$ach300_threshold = array(
+		1 => 32767,
+		2 => 142857,
+		3 => 999983,
+		999 => NULL
+	);
+	
+	//各级给的切糕奖励
+	$ach300_qiegao_prize = array(
+		1 => 200,
+		2 => 300,
+		3 => 500,
+		999 => NULL
 	);
 	
 	function init() 
@@ -24,30 +51,6 @@ namespace skill300
 	function lost300(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-	}
-	
-	function finalize300(&$pa, $data)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($data=='')					
-			$x=0;						
-		else $x=$data;
-		$ox=$x;
-		$x+=\skillbase\skill_getvalue(300,'cnt',$pa);		
-		$x=min($x,(1<<30)-1);
-		
-		if (($ox<32767)&&($x>=32767)){
-			\cardbase\get_qiegao(200,$pa);
-		}
-		if (($ox<142857)&&($x>=142857)){
-			\cardbase\get_qiegao(300,$pa);
-		}
-		if (($ox<999983)&&($x>=999983)){
-			\cardbase\get_qiegao(500,$pa);
-			\cardbase\get_card(86,$pa);
-		}
-		
-		return $x;
 	}
 	
 	/*function edible_recover($itm, $hpup, $spup)
@@ -84,23 +87,6 @@ namespace skill300
 			\skillbase\skill_setvalue(300,'cnt',$x);
 		}
 		return $chprocess($theitem);
-	}
-
-	function show_achievement300($data)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($data=='')
-			$p300=0;
-		else	$p300=$data;	
-		$c300=0;
-		if ($p300>=999983){
-			$c300=999;
-		}else if ($p300>=142857){
-			$c300=2;
-		}else if ($p300>=32767){
-			$c300=1;
-		}
-		include template('MOD_SKILL300_DESC');
 	}
 }
 

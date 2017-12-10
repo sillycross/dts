@@ -1,11 +1,15 @@
+<!--{eval $stitle321 = \achievement_base\show_ach_title(321, $c321);}-->
+<!--{eval $atitle321 = \achievement_base\show_ach_title_2(321, $c321);}-->
+<!--{eval $dailytype321 = \achievement_base\get_daily_type(321);}-->
 <table><tr>
 <td>
-<!--{if ($c321) }--><img src="img/ach/D.gif"><!--{else}--><img src="img/ach/N.gif"><!--{/if}-->
+	<!--{if ($c321=='0') }--><img src="img/ach/daily{$dailytype321}_n.png">
+	<!--{else}--><img src="img/ach/daily{$dailytype321}_1.png"><!--{/if}-->
 </td>
-<td valign="top" align="left">
-<b>
-杀人越货
-</b>
+<td class="ach_cont">
+<span class="ach_title" <!--{if $atitle321 }-->title="$atitle321"<!--{/if}-->>
+	$stitle321
+</span>
 <!--{if ($c321=='999') }--><span class="lime">[完成]</span><!--{else}--><!--{if ($c321==0) }--><span class="red">[未完成]</span><!--{else}--><span class="clan">[进行中]</span><!--{/if}--><!--{/if}--><br>
 <font color="yellow">击杀总数： {$p321}名<br></font>
 <font color="olive">奖励： 切糕110 <br></font> 击杀2名全息幻象<br>

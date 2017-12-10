@@ -24,7 +24,7 @@ function name_check($username){
 		 return 'name_not_set';
 	}elseif(mb_strlen($username,'utf-8')>15) { 
 		return 'name_too_long';
-	} elseif(preg_match('/[,|<|>|&|;|#|"|\s|\p{C}]+/u',$username)) {
+	} elseif(preg_match('/[\s\?\+\'|,<>&;#"]/u', $username) || preg_match('/\p{C}+/u',$username)) {
 		return 'name_invalid';
 	}elseif(preg_match($nmlimit,$username)) { 
 		return 'name_banned';
