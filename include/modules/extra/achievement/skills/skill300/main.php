@@ -3,7 +3,7 @@
 namespace skill300
 {
 	//按照如下格式，成就系统会自动生成界面、计算成就
-	//301-332成就是历史遗留，无力通改，如果要新增成就请以本成就为准！
+	//301-332成就是历史遗留，无力通改，如果要新增成就请以本成就为准！（获得卡片的成就参照313伐木成就）
 	//各级要完成的成就名，如果不存在则取低的
 	$ach300_name = array(
 		1=>'及时补给',
@@ -51,6 +51,17 @@ namespace skill300
 	function lost300(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+	}
+	
+	function ach_finalize_process(&$pa, $data, $achid)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($pa, $data, $achid);
+		if($achid == 300){
+			$var = (int)\skillbase\skill_getvalue(300,'cnt',$pa);
+			$ret += $var;
+		}
+		return $ret;
 	}
 	
 	/*function edible_recover($itm, $hpup, $spup)

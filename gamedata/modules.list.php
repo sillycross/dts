@@ -20,7 +20,6 @@ skill11,extra/club/skills/skill11/,1
 skill10,extra/club/skills/skill10/,1
 skill305,extra/achievement/skills/skill305/,1
 skill306,extra/achievement/skills/skill306/,1
-skill313,extra/achievement/skills/skill313/,1
 skill324,extra/achievement/skills/skill324/,1
 skill326,extra/achievement/skills/skill326/,1
 skill328,extra/activities/nationalday2017/skill328/,1
@@ -28,6 +27,7 @@ skill330,extra/activities/halloween2017/skill330/,1
 skill4,base/skills/skill4/,1
 skill411,extra/card/skills/skill411/,1
 npc,base/npc/,1
+skill313,extra/achievement/skills/skill313/,1
 skill331,extra/activities/halloween2017/skill331/,1
 itemmain,base/itemmain/,1
 metman,base/metman/,1

@@ -58,16 +58,6 @@ namespace instance5
 		return $chprocess();
 	}
 	
-	function act(){//一禁之前每次行动后判断并记录最大金钱数
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','map'));
-		$chprocess();
-		if($gametype==15 && $areanum<$areaadd){
-			if($money > \skillbase\skill_getvalue(313,'max_money')) 
-				\skillbase\skill_setvalue(313,'max_money',$money);
-		}
-	}
-	
 //	function add_once_area($atime)	//一禁时记录玩家身上金钱
 //	{
 //		if (eval(__MAGIC__)) return $___RET_VALUE;

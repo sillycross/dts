@@ -3,7 +3,7 @@
 namespace skill313
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase sys player logger';
+	$___MODULE_dependency = 'skillbase sys player logger achievement_base';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

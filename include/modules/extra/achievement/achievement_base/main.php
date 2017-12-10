@@ -464,7 +464,14 @@ namespace achievement_base
 		return $ret;
 	}
 	
+	function ach_finalize_process(&$pa, $data, $achid)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $data;
+	}
+	
 	//成就通用结算函数，需要成就模块里至少定义$ach332_threshold
+	//$data是既有进度，新进度怎么判定请继承ach_finalize_process()自定义
 	function ach_finalize(&$pa, $data, $achid)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -473,11 +480,11 @@ namespace achievement_base
 		else $x=$data;	
 		$achid = (int)$achid;
 		
-		$z=(int)\skillbase\skill_getvalue($achid,'cnt',$pa);
-		$ox=$x;
-		$x=$ox+$z;
-		
 		eval(import_module('sys', 'skill'.$achid));
+		
+		$ox=$x;
+		$x=ach_finalize_process($pa, $x, $achid);
+		if($x == $ox) return $x;//任何成就只要没变化就不继续判定
 		
 		//if(empty(${'ach'.$achid.'_threshold'})) return;//没有定义阈值则直接返回
 		$threshold = ${'ach'.$achid.'_threshold'};
@@ -493,6 +500,7 @@ namespace achievement_base
 			$card_prize = ${'ach'.$achid.'_card_prize'};
 		}
 		$qiegao_up = 0;
+		writeover('c.txt',$data."\r\n",'ab+');
 		foreach($threshold as $tk => $tv){
 			if(!empty($tv) && $x >= $tv){
 				if($ox >= $tv) continue; 
@@ -504,12 +512,13 @@ namespace achievement_base
 							shuffle($card_got);
 							$card_got = $card_got[0];
 						}
+						writeover('b.txt',$card_got."\r\n",'ab+');
 						\cardbase\get_card($card_got,$pa);
 					}
 				}
 			}
 		}
-		//writeover('a.txt',$qiegao_up."\r\n",'ab+');
+		writeover('a.txt',$qiegao_up."\r\n",'ab+');
 		if(!empty($qiegao_up)) \cardbase\get_qiegao($qiegao_up, $pa);
 
 		return $x;
@@ -575,7 +584,6 @@ namespace achievement_base
 		$card_prize = !empty(${'ach'.$achid.'_card_prize'}) ? ${'ach'.$achid.'_card_prize'} : NULL;
 		$card_prize_desc = !empty(${'ach'.$achid.'_card_prize_desc'}) ? ${'ach'.$achid.'_card_prize_desc'} : NULL;
 		$ret = '';
-		
 		if(!empty($qiegao_prize) && !empty($qiegao_prize[$cn])) $ret .= '<font color="olive">切糕'.$qiegao_prize[$cn].'</font> ';
 
 		if(!empty($card_prize) && !empty($card_prize[$cn])) {
