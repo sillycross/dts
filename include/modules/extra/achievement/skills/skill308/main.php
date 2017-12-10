@@ -2,6 +2,11 @@
 
 namespace skill308
 {
+	//旧成就精力所限，未全部修改，请以skill327以后的成就为模板！
+	$ach308_name = array(
+		0=>'清水池之王',
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL308_INFO','achievement;');

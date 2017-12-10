@@ -1,14 +1,16 @@
+<!--{eval $stitle311 = \achievement_base\show_ach_title(311, $c311);}-->
+<!--{eval $atitle311 = \achievement_base\show_ach_achieved(311, $c311);}-->
 <table><tr>
 <td>
-<!--{if ($c311) }--><img src="img/ach/D.gif"><!--{else}--><img src="img/ach/N.gif"><!--{/if}-->
+	<!--{if ($c311=='0') }--><img src="img/ach/a311_n.png">
+	<!--{elseif ($c311=='1') }--><img src="img/ach/a311_1.png">
+	<!--{elseif ($c311=='2') }--><img src="img/ach/a311_2.png">
+	<!--{else}--><img src="img/ach/a311_3.png"><!--{/if}-->
 </td>
-<td valign="top" align="left">
-<b>
-<!--{if ($c311=='0') }-->Run With Wolves<!--{/if}-->
-<!--{if ($c311=='1') }-->Day Game<!--{/if}-->
-<!--{if ($c311=='2') }-->Thousand Enemies<!--{/if}-->
-<!--{if ($c311=='999') }-->Thousand Enemies<!--{/if}-->
-</b>
+<td class="ach_cont">
+<span class="ach_title" <!--{if $atitle311 }-->title="$atitle311"<!--{/if}-->>
+	$stitle311
+</span>
 <!--{if ($c311=='999') }--><span class="lime">[完成]</span><!--{else}--><!--{if ($c311==0) }--><span class="red">[未完成]</span><!--{else}--><span class="clan">[进行中]</span><!--{/if}--><!--{/if}--><br>
 <font color="yellow">击杀总数： {$p311}名<br></font>
 <!--{if ($c311=='0') }--><font color="olive">奖励： 切糕200 <br></font> 在自己的行动中击杀10名玩家<br><!--{/if}-->

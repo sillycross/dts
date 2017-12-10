@@ -2,6 +2,12 @@
 
 namespace skill305
 {
+	//旧成就精力所限，未全部修改，请以skill327以后的成就为模板！
+	$ach305_name = array(
+		0=>'最后幸存',
+		1=>'不止是运气好而已',
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL305_INFO','achievement;');

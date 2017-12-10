@@ -1,9 +1,14 @@
+<!--{eval $stitle323 = \achievement_base\show_ach_title(323, $c323);}-->
+<!--{eval $atitle323 = \achievement_base\show_ach_achieved(323, $c323);}-->
 <table><tr>
 <td>
-<!--{if ($c323) }--><img src="img/ach/323.gif"><!--{else}--><img src="img/ach/N.gif"><!--{/if}-->
+	<!--{if ($c323=='0') }--><img src="img/ach/a323_n.png">
+	<!--{else}--><img src="img/ach/a323_1.png"><!--{/if}-->
 </td>
-<td valign="top" align="left">
-<b>宛如梦幻</b>
+<td class="ach_cont">
+<span class="ach_title" <!--{if $atitle323 }-->title="$atitle323"<!--{/if}-->>
+	$stitle323
+</span>
 <!--{if ($c323) }--><span class="lime">[完成]</span><!--{else}--><span class="red">[未完成]</span><!--{/if}--><br>
 <font color="yellow">最快速度： {$p323}秒<br></font>
 <font color="olive">奖励： 切糕666 <span class="orange">随机S级卡片</span><br></font> 

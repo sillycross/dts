@@ -1,9 +1,14 @@
+<!--{eval $stitle309 = \achievement_base\show_ach_title(309, $c309);}-->
+<!--{eval $atitle309 = \achievement_base\show_ach_achieved(309, $c309);}-->
 <table><tr>
 <td>
-<!--{if ($c309) }--><img src="img/ach/309.gif"><!--{else}--><img src="img/ach/N.gif"><!--{/if}-->
+	<!--{if ($c309=='0') }--><img src="img/ach/a309_n.png">
+	<!--{else}--><img src="img/ach/a309_1.png"><!--{/if}-->
 </td>
-<td valign="top" align="left">
-<b>不动的大图书馆</b>
+<td class="ach_cont">
+<span class="ach_title" <!--{if $atitle309 }-->title="$atitle309"<!--{/if}-->>
+	$stitle309
+</span>
 <!--{if ($c309) }--><span class="lime">[完成]</span><!--{else}--><span class="red">[未完成]</span><!--{/if}--><br>
 <font color="yellow">最快速度： {$p309}秒<br></font>
 <font color="olive">奖励： 切糕666 <span class="evergreen">卡片</span> <span class="linen">方块挑战者</span><br></font> 

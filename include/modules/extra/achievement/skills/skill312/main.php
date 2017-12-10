@@ -2,6 +2,11 @@
 
 namespace skill312
 {
+	//旧成就精力所限，未全部修改，请以skill327以后的成就为模板！
+	$ach312_name = array(
+		0=>'谈笑风生',
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL312_INFO','achievement;');

@@ -2,6 +2,12 @@
 
 namespace skill307
 {
+	//旧成就精力所限，未全部修改，请以skill327以后的成就为模板！
+	$ach307_name = array(
+		0=>'幻境解离',
+		1=>'奇迹的篝火',
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL307_INFO','achievement;');

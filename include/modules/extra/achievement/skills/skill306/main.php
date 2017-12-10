@@ -2,6 +2,12 @@
 
 namespace skill306
 {
+	//旧成就精力所限，未全部修改，请以skill327以后的成就为模板！
+	$ach306_name = array(
+		0=>'核爆全灭',
+		1=>'核弹粉',
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL306_INFO','achievement;');

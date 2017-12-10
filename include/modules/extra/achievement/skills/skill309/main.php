@@ -2,6 +2,11 @@
 
 namespace skill309
 {
+	//旧成就精力所限，未全部修改，请以skill327以后的成就为模板！
+	$ach309_name = array(
+		0=>'不动的大图书馆',
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL309_INFO','achievement;');

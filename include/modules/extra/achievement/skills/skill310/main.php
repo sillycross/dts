@@ -2,6 +2,13 @@
 
 namespace skill310
 {
+	//旧成就精力所限，未全部修改，请以skill327以后的成就为模板！
+	$ach310_name = array(
+		0=>'脚本小子',
+		1=>'黑客',
+		2=>'幻境解离者？',
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL310_INFO','achievement;');

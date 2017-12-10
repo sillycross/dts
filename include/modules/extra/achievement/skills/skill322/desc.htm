@@ -1,9 +1,14 @@
+<!--{eval $stitle322 = \achievement_base\show_ach_title(322, $c322);}-->
+<!--{eval $atitle322 = \achievement_base\show_ach_achieved(322, $c322);}-->
 <table><tr>
 <td>
-<!--{if ($c322) }--><img src="img/ach/322.gif"><!--{else}--><img src="img/ach/N.gif"><!--{/if}-->
+	<!--{if ($c322=='0') }--><img src="img/ach/a322_n.png">
+	<!--{else}--><img src="img/ach/a322_1.png"><!--{/if}-->
 </td>
-<td valign="top" align="left">
-<b>烈火疾风</b>
+<td class="ach_cont">
+<span class="ach_title" <!--{if $atitle322 }-->title="$atitle322"<!--{/if}-->>
+	$stitle322
+</span>
 <!--{if ($c322) }--><span class="lime">[完成]</span><!--{else}--><span class="red">[未完成]</span><!--{/if}--><br>
 <font color="yellow">最快速度： {$p322}秒<br></font>
 <font color="olive">奖励： 切糕666 <span class="evergreen">卡片</span> <span class="brickred">死斗挑战者</span><br></font> 

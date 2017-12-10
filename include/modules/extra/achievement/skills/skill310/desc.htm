@@ -1,14 +1,16 @@
+<!--{eval $stitle310 = \achievement_base\show_ach_title(310, $c310);}-->
+<!--{eval $atitle310 = \achievement_base\show_ach_achieved(310, $c310);}-->
 <table><tr>
 <td>
-<!--{if ($c310) }--><img src="img/ach/D.gif"><!--{else}--><img src="img/ach/N.gif"><!--{/if}-->
+	<!--{if ($c310=='0') }--><img src="img/ach/a310_n.png">
+	<!--{elseif ($c310=='1') }--><img src="img/ach/a310_1.png">
+	<!--{elseif ($c310=='2') }--><img src="img/ach/a310_2.png">
+	<!--{else}--><img src="img/ach/a310_3.png"><!--{/if}-->
 </td>
-<td valign="top" align="left">
-<b>
-<!--{if ($c310=='0') }-->脚本小子<!--{/if}-->
-<!--{if ($c310=='1') }-->黑客<!--{/if}-->
-<!--{if ($c310=='2') }-->幻境解离者？<!--{/if}-->
-<!--{if ($c310=='999') }-->幻境解离者？<!--{/if}-->
-</b>
+<td class="ach_cont">
+<span class="ach_title" <!--{if $atitle310 }-->title="$atitle310"<!--{/if}-->>
+	$stitle310
+</span>
 <!--{if ($c310=='999') }--><span class="lime">[完成]</span><!--{else}--><!--{if ($c310==0) }--><span class="red">[未完成]</span><!--{else}--><span class="clan">[进行中]</span><!--{/if}--><!--{/if}--><br>
 <font color="yellow">击杀总数： {$p310}名<br></font>
 <!--{if ($c310=='0') }--><font color="olive">奖励： 切糕100 <br></font> 击杀100名NPC<br><!--{/if}-->

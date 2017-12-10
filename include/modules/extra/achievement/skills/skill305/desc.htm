@@ -1,15 +1,15 @@
+<!--{eval $stitle305 = \achievement_base\show_ach_title(305, $c305);}-->
+<!--{eval $atitle305 = \achievement_base\show_ach_achieved(305, $c305);}-->
 <table><tr>
 <td>
-<!--{if ($c305=='999') }--><img src="img/ach/305.gif"><!--{/if}-->
-<!--{if ($c305=='0') }--><img src="img/ach/N.gif"><!--{/if}-->
-<!--{if (($c305!='999')&&($c305!='0')) }--><img src="img/ach/D.gif"><!--{/if}-->
+	<!--{if ($c305=='0') }--><img src="img/ach/a305_n.png">
+	<!--{elseif ($c305=='1') }--><img src="img/ach/a305_1.png">
+	<!--{else}--><img src="img/ach/a305_2.png"><!--{/if}-->
 </td>
-<td valign="top" align="left">
-<b>
-<!--{if ($c305=='0') }-->最后幸存<!--{/if}-->
-<!--{if ($c305=='1') }-->不止是运气好而已<!--{/if}-->
-<!--{if ($c305=='999') }-->不止是运气好而已<!--{/if}-->
-</b>
+<td class="ach_cont">
+<span class="ach_title" <!--{if $atitle305 }-->title="$atitle305"<!--{/if}-->>
+	$stitle305
+</span>
 <!--{if ($c305=='999') }--><span class="lime">[完成]</span><!--{else}--><!--{if ($c305==0) }--><span class="red">[未完成]</span><!--{else}--><span class="clan">[进行中]</span><!--{/if}--><!--{/if}--><br>
 <font color="yellow">目前进度： {$p305}次<br></font>
 <!--{if ($c305=='0') }--><font color="olive">奖励： 切糕100 <br></font> 完成结局：最后幸存 3次<br><!--{/if}-->
