@@ -48,7 +48,7 @@ namespace achievement_base{
 	);
 	
 	//日常成就间隔时间。一天四次真的是“日常”成就？
-	$daily_intv = 21600;
+	$daily_intv = 2;//21600;
 	
 	//成就页面每行几个成就窗格
 	$ach_show_num_per_row = 3;
