@@ -33,7 +33,6 @@ namespace skill300
 		1 => 200,
 		2 => 300,
 		3 => 500,
-		999 => NULL
 	);
 	
 	function init() 
@@ -58,7 +57,7 @@ namespace skill300
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa, $data, $achid);
 		if($achid == 300){
-			$var = (int)\skillbase\skill_getvalue(300,'cnt',$pa);
+			$var = (int)\skillbase\skill_getvalue($achid,'cnt',$pa);
 			$ret += $var;
 		}
 		return $ret;

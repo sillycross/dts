@@ -189,7 +189,7 @@ namespace ex_dmg_att
 		
 		if ($damage < 1) $damage = 1;
 		//计算修正值
-		$pa['ex_dmg_'.$key.'_dealt'] = calculate_ex_single_dmg_change($pa, $pd, $active, $c_key, $damage);
+		$pa['ex_dmg_'.$key.'_dealt'] = $damage = calculate_ex_single_dmg_change($pa, $pd, $active, $c_key, $damage);
 		
 		showlog_ex_single_dmg($pa, $pd, $active, $key);
 		

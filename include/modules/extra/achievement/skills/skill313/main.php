@@ -37,7 +37,6 @@ namespace skill313
 		3 => 500,
 		4 => 3600,
 		5 => 5000,
-		999 => NULL
 	);
 	
 	//各级给的卡片奖励
@@ -46,7 +45,6 @@ namespace skill313
 		3 => 89,
 		4 => 118,
 		5 => 156,
-		999 => NULL
 	);
 	
 	function init() 
@@ -82,17 +80,14 @@ namespace skill313
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa, $data, $achid);
-		writeover('e.txt',$ret);
 		if($achid == 313){
 			eval(import_module('sys','map'));
 			$var=(int)\skillbase\skill_getvalue($achid,'max_money',$pa);
-			var_dump($var);
 			if($areanum < $areaadd) {
 				$var=max($pa['money'], $var);//防止最后那一步没记录
 			}
 			$ret = max($ret, $var);
 		}
-		writeover('f.txt',$ret);
 		return $ret;
 	}
 

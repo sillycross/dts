@@ -24,6 +24,27 @@ namespace achievement_base
 		$achtype = $n_achtype;
 	}
 	
+	//判定成就是否合法存在
+	function check_ach_valid($achid)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return defined('MOD_SKILL'.$achid.'_INFO') && defined('MOD_SKILL'.$achid.'_ACHIEVEMENT_ID')	
+			&& \skillbase\check_skill_info($achid, 'achievement') && !\skillbase\check_skill_info($achid, 'hidden') && 1 == check_achtype_available($achid);
+	}
+	
+	//判定一个成就大类是否过期
+	function check_achtype_available($achid){//0 未开始； 1 进行中； 2 过期
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','achievement_base'));
+		$ret = 1;
+		if(isset($ach_available_period[$achid])){
+			list($achstart, $achend) = $ach_available_period[$achid];
+			if(!empty($achstart) && $now < $achstart) $ret = 0;
+			if(!empty($achend) && $now > $achend) $ret = 2;
+		}
+		return $ret;
+	}
+	
 	function skill_onload_event(&$pa)//技能模块载入时直接加载所有成就
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -38,7 +59,9 @@ namespace achievement_base
 			if (!$pa['type']
 			//确认允许完成成就的模式，未定义则用0键（只有正常游戏可以完成）
 				&& ( ( !isset($ach_allow_mode[$av]) && in_array($gametype, $ach_allow_mode[0]) ) || ( isset($ach_allow_mode[$av]) && in_array($gametype,$ach_allow_mode[$av]) ) )
-				&& !\skillbase\skill_query($av,$pa))
+			//成就没有废弃（不能直接删，否则旧数据可能错位）
+				&& !defined('MOD_SKILL'.$av.'_ABANDONED')
+				&& !\skillbase\skill_query($av,$pa) )
 			\skillbase\skill_acquire($av,$pa);
 		}
 		$chprocess($pa);
@@ -133,13 +156,21 @@ namespace achievement_base
 							if($key==326) $v=\skill326\cardlist_decode326($s);
 							else $v=base64_decode_number($s);	
 							$ret[$key] = $v;
-						}else{
-							$ret[$key] = $s;
 						}
 					}
 				}
 			}
 		}
+		return $ret;
+	}
+	
+	//判定单个成就是否获得（主要涉及日常任务）
+	function check_ach_got($key, $val)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret=false;
+		if (!\skillbase\check_skill_info($key, 'daily')) $ret=true;
+		elseif ( $val!==NULL && $val!=='VWXYZ' ) $ret=true;
 		return $ret;
 	}
 	
@@ -154,17 +185,13 @@ namespace achievement_base
 		//每日任务是根据游戏结束时的用户数据判定的，也就是允许游戏结束前换每日任务
 		foreach (\skillbase\get_acquired_skill_array($pdata) as $key)
 		{
-			if (defined('MOD_SKILL'.$key.'_INFO') && defined('MOD_SKILL'.$key.'_ACHIEVEMENT_ID')
-			&& \skillbase\check_skill_info($key, 'achievement') && 1 == check_achtype_available($key))//技能存在而且有效
+			if (check_ach_valid($key))//技能存在而且有效
 			{
-				$val = 0;
+				$val = NULL;
 				//无视没有获得的日常成就
-				if (!empty($udata['u_achievements'][$key])) $val = $udata['u_achievements'][$key];
-				$vflag=false;
-				if (!\skillbase\check_skill_info($key, 'daily')) $vflag=true;
-				if ( $val!=='VWXYZ' ) $vflag=true;
+				if (isset($udata['u_achievements'][$key])) $val = $udata['u_achievements'][$key];
+				$vflag=check_ach_got($key, $val);
 				if ($vflag){
-
 					$func='\\skill'.$key.'\\finalize'.$key;
 					if(function_exists($func)) $ret=$func($pdata,$val);//兼容性代码，如果存在旧式的结算函数，就按旧式结算函数算
 					else $ret = ach_finalize($pdata, $val, $key);
@@ -266,10 +293,8 @@ namespace achievement_base
 		foreach ($achlist as $tval){
 			foreach ($tval as $key){
 				//成就有定义且合法
-				if (defined('MOD_SKILL'.$key.'_INFO') && defined('MOD_SKILL'.$key.'_ACHIEVEMENT_ID') 
-				&& \skillbase\check_skill_info($key, 'achievement') && !\skillbase\check_skill_info($key, 'hidden')){
-					if(isset($u_achievements[$key]))
-						$v_achievements[$key] = $u_achievements[$key];
+				if (check_ach_valid($key) && isset($u_achievements[$key])){
+					$v_achievements[$key] = $u_achievements[$key];
 				}
 			}
 		}
@@ -284,13 +309,21 @@ namespace achievement_base
 		if(!$aarr) return;
 		eval(import_module('achievement_base'));
 		$showarr = array();
-		foreach ($achlist[$at] as $key){
+		//日常成就独有的显示顺序
+		if(20 == $at) {
+			$showlist = array();
+			foreach($daily_type as $dtv){
+				foreach  ($dtv as $dv){
+					$showlist[] = $dv;
+				}
+			}
+		}
+		else $showlist = $achlist[$at];
+		foreach ($showlist as $key){
 			if(isset($aarr[$key])){
 				$val = $aarr[$key];
 				//不显示没有获得的日常成就
-				$showflag=false;
-				if (!\skillbase\check_skill_info($key, 'daily')) $showflag=true;
-				elseif ( $val!=='VWXYZ' ) $showflag=true;
+				$showflag=check_ach_got($key, $val);
 				if($showflag) {
 					//利用缓冲区挨个输出各成就窗格
 					$func='\\skill'.$key.'\\show_achievement'.$key;
@@ -363,11 +396,18 @@ namespace achievement_base
 		eval(import_module('sys','achievement_base'));
 		
 		if(!is_array($udata['u_achievements'])) $udata['u_achievements'] = decode_achievements($udata);
-		$ta=$achlist[20];
-		shuffle($ta);
-		$ta=array_slice($ta,0,3);
+//		$ta=$achlist[20];
+//		shuffle($ta);
+//		$ta=array_slice($ta,0,3);
+//		
+		$daily_got = array();
+		foreach($daily_type as $dtv){
+			shuffle($dtv);
+			if(check_ach_valid($dtv[0])) $daily_got[] = $dtv[0];
+		}
+		
 		foreach ($achlist[20] as $key){
-			if (in_array($key,$ta)){
+			if (in_array($key,$daily_got)){
 				$udata['u_achievements'][$key]=0;
 			}else{
 				$udata['u_achievements'][$key]='VWXYZ';
@@ -379,46 +419,36 @@ namespace achievement_base
 	}
 		
 
-	function get_daily_quest($un){
+//	function get_daily_quest($un){
+//	
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//	
+//		eval(import_module('sys','achievement_base'));
+//		$res = $db->query("SELECT n_achievements FROM {$gtablepre}users WHERE username='$un'");
+//		if (!$db->num_rows($res)) return;
+//		$zz=$db->fetch_array($res); $ach=$zz['n_achievements']; 
+//		$achdata=explode(';',$ach); 
+//		$maxid=count($achdata)-2;
+//		$ta=$achlist[20];
+//		shuffle($ta);
+//		$ta=array_slice($ta,0,3);
+//		foreach ($achlist[20] as $key){
+//			$id=((int)(constant('MOD_SKILL'.$key.'_ACHIEVEMENT_ID')));
+//			if (isset($achdata[$id])) $s=((string)$achdata[$id]); else $s='';
+//			if ($id>$maxid) $maxid=$id;
+//			if (in_array($key,$ta)){
+//				$achdata[$id]='aaaaa';
+//			}else{
+//				$achdata[$id]='VWXYZ';
+//			}
+//		}
+//		$nachdata='';
+//		for ($i=0; $i<=$maxid; $i++)
+//			$nachdata.=$achdata[$i].';';
+//		$db->query("UPDATE {$gtablepre}users SET n_achievements = '$nachdata',cd_a1 = '$now' WHERE username='$un'");
+//	}
 	
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-	
-		eval(import_module('sys','achievement_base'));
-		$res = $db->query("SELECT n_achievements FROM {$gtablepre}users WHERE username='$un'");
-		if (!$db->num_rows($res)) return;
-		$zz=$db->fetch_array($res); $ach=$zz['n_achievements']; 
-		$achdata=explode(';',$ach); 
-		$maxid=count($achdata)-2;
-		$ta=$achlist[20];
-		shuffle($ta);
-		$ta=array_slice($ta,0,3);
-		foreach ($achlist[20] as $key){
-			$id=((int)(constant('MOD_SKILL'.$key.'_ACHIEVEMENT_ID')));
-			if (isset($achdata[$id])) $s=((string)$achdata[$id]); else $s='';
-			if ($id>$maxid) $maxid=$id;
-			if (in_array($key,$ta)){
-				$achdata[$id]='aaaaa';
-			}else{
-				$achdata[$id]='VWXYZ';
-			}
-		}
-		$nachdata='';
-		for ($i=0; $i<=$maxid; $i++)
-			$nachdata.=$achdata[$i].';';
-		$db->query("UPDATE {$gtablepre}users SET n_achievements = '$nachdata',cd_a1 = '$now' WHERE username='$un'");
-	}
-	
-	function check_achtype_available($achid){//0 未开始； 1 进行中； 2 过期
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','achievement_base'));
-		$ret = 1;
-		if(isset($ach_available_period[$achid])){
-			list($achstart, $achend) = $ach_available_period[$achid];
-			if(!empty($achstart) && $now < $achstart) $ret = 0;
-			if(!empty($achend) && $now > $achend) $ret = 2;
-		}
-		return $ret;
-	}
+
 	
 	function show_ach_title($achid, $achlv, $tp=0)
 	{
@@ -447,7 +477,9 @@ namespace achievement_base
 		foreach($allow_mode as $am){
 			$ret1 .= $gtinfo[$am].' ';
 		}
-		$ret1 = '只能在'.str_replace('"',"'",substr($ret1,0,-1)).'中完成';
+		$ret1 = str_replace('"',"'",substr($ret1,0,-1));
+		$ret1 = preg_replace('/<font class=\'.+?\'>/s', '', str_replace('</font>','',$ret1));//去除颜色
+		$ret1 = '只能在'.$ret1.'中完成';
 		$ret2 = show_ach_title($achid, $achlv-1, 1);
 		if('MISSING' == $ret2) $ret2 = '';
 		else $ret2 = '<br>已完成：<span class=\'evergreen\'>'.$ret2.'</span>';
@@ -458,7 +490,7 @@ namespace achievement_base
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = NULL;
-		if(\skillbase\check_skill_info($achid, 'achievement') && !\skillbase\check_skill_info($achid, 'hidden') && \skillbase\check_skill_info($achid, 'daily')){
+		if(check_ach_valid($achid) && \skillbase\check_skill_info($achid, 'daily')){
 			$ret = (int)(constant('DAILY_TYPE'.$achid));
 		}
 		return $ret;
@@ -500,7 +532,6 @@ namespace achievement_base
 			$card_prize = ${'ach'.$achid.'_card_prize'};
 		}
 		$qiegao_up = 0;
-		writeover('c.txt',$data."\r\n",'ab+');
 		foreach($threshold as $tk => $tv){
 			if(!empty($tv) && $x >= $tv){
 				if($ox >= $tv) continue; 
@@ -512,13 +543,11 @@ namespace achievement_base
 							shuffle($card_got);
 							$card_got = $card_got[0];
 						}
-						writeover('b.txt',$card_got."\r\n",'ab+');
 						\cardbase\get_card($card_got,$pa);
 					}
 				}
 			}
 		}
-		writeover('a.txt',$qiegao_up."\r\n",'ab+');
 		if(!empty($qiegao_up)) \cardbase\get_qiegao($qiegao_up, $pa);
 
 		return $x;
@@ -557,9 +586,10 @@ namespace achievement_base
 			$ach_iconid = $c;
 			$ach_state_desc = '<span class="clan">[进行中]</span>';
 		}else {
-			$ach_iconid = $c+1;
+			$ach_iconid = $c;
 			$ach_state_desc = '<span class="lime">[完成]</span>';
 		}
+		$ach_icon = get_daily_type($achid) ? 'daily'.get_daily_type($achid).'_'.$ach_iconid : 'a'.$achid.'_'.$ach_iconid;
 		include template('MOD_ACHIEVEMENT_BASE_COMMON_DESC');
 	}
 	
@@ -584,20 +614,36 @@ namespace achievement_base
 		$card_prize = !empty(${'ach'.$achid.'_card_prize'}) ? ${'ach'.$achid.'_card_prize'} : NULL;
 		$card_prize_desc = !empty(${'ach'.$achid.'_card_prize_desc'}) ? ${'ach'.$achid.'_card_prize_desc'} : NULL;
 		$ret = '';
-		if(!empty($qiegao_prize) && !empty($qiegao_prize[$cn])) $ret .= '<font color="olive">切糕'.$qiegao_prize[$cn].'</font> ';
-
-		if(!empty($card_prize) && !empty($card_prize[$cn])) {
+		//切糕显示
+		if(!empty($qiegao_prize)) {
+			foreach($qiegao_prize as $lv => $n){
+				if($lv <= $cn) {
+					$qp = $n;
+				}
+			}
+			$ret .= '<font color="olive">切糕'.$qp.'</font> ';
+		}
+		//卡片显示
+		if(!empty($card_prize)) {
 			if(!empty($card_prize_desc)) {
 				$ret .= $card_prize_desc;
-			}elseif(is_array($card_prize[$cn])) {
-				$ret1 = '';
-				foreach($card_prize[$cn] as $card) {
-					$ret1 .= show_prize_single_card($card);
-				}
-				$ret .= '<span class="evergreen" title="'.str_replace('"',"'",$ret1).'">卡集（悬浮以查看）</span>';
 			}else{
-				$card = (int)$card_prize[$cn];
-				$ret .= '<span class="evergreen">卡片</span> '.show_prize_single_card($card);
+				$cp = 0;
+				foreach($card_prize as $lv => $n){
+					if($lv <= $cn) {
+						$cp = $n;
+					}
+				}
+				if(is_array($cp)) {
+					$ret1 = '';
+					foreach($cp as $card) {
+						$ret1 .= show_prize_single_card($card);
+					}
+					$ret .= '<span class="evergreen" title="'.str_replace('"',"'",$ret1).'">卡集(悬浮查看)</span>';
+				}elseif($cp){
+					$card = (int)$cp;
+					$ret .= '<span class="evergreen">卡片</span> '.show_prize_single_card($card);
+				}
 			}
 		}
 		if(empty($ret)) $ret = '无奖励';
@@ -611,6 +657,12 @@ namespace achievement_base
 		return '<span class="'.$card_rarecolor[$cards[$card]['rare']].'">'.$cards[$card]['name'].'</span> ';
 	}
 	
+	//判定是不是活跃玩家的通用函数
+	function ach_check_positive_player($pl)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return !$pl['type'] && $pl['lvl'] >= 7 && $pl['money'] >= 1000;
+	}
 }
 
 ?>

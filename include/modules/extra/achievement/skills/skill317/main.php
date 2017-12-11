@@ -6,6 +6,7 @@ namespace skill317
 	{
 		define('MOD_SKILL317_INFO','achievement;daily;');
 		define('MOD_SKILL317_ACHIEVEMENT_ID','17');
+		define('MOD_SKILL317_ABANDONED','1');//已废弃
 	}
 	
 	function acquire317(&$pa)

@@ -15,7 +15,6 @@ bufficons,extra/misc/bufficons/,1
 explore,base/explore/,1
 noise,base/noise/,1
 lvlctl,base/lvlctl/,1
-achievement_base,extra/achievement/achievement_base/,1
 skill11,extra/club/skills/skill11/,1
 skill10,extra/club/skills/skill10/,1
 skill305,extra/achievement/skills/skill305/,1
@@ -27,7 +26,6 @@ skill330,extra/activities/halloween2017/skill330/,1
 skill4,base/skills/skill4/,1
 skill411,extra/card/skills/skill411/,1
 npc,base/npc/,1
-skill313,extra/achievement/skills/skill313/,1
 skill331,extra/activities/halloween2017/skill331/,1
 itemmain,base/itemmain/,1
 metman,base/metman/,1
@@ -54,7 +52,6 @@ skill317,extra/achievement/skills/skill317/,1
 skill319,extra/achievement/skills/skill319/,1
 skill320,extra/achievement/skills/skill320/,1
 skill431,extra/card/skills/skill431/,1
-skill300,extra/achievement/skills/skill300/,1
 cooldown,base/cooldown/,1
 enemy,base/enemy/,1
 gameflow_duel,core/gameflow/gameflow_duel/,1
@@ -87,7 +84,6 @@ skill310,extra/achievement/skills/skill310/,1
 skill311,extra/achievement/skills/skill311/,1
 skill312,extra/achievement/skills/skill312/,1
 skill314,extra/achievement/skills/skill314/,1
-skill315,extra/achievement/skills/skill315/,1
 skill443,extra/card/skills/skill443/,1
 skill325,extra/achievement/skills/skill325/,1
 skill477,extra/card/skills/skill477/,1
@@ -96,6 +92,7 @@ skill485,extra/card/skills/skill485/,1
 skill486,extra/card/skills/skill486/,1
 skill488,extra/card/skills/skill488/,1
 skill327,extra/activities/nationalday2017/skill327/,1
+achievement_base,extra/achievement/achievement_base/,1
 skill1000,extra/instance/instance7_tutorial/skill1000/,1
 skill418,extra/card/skills/skill418/,1
 set_gametype,extra/misc/set_gametype/,1
@@ -258,6 +255,26 @@ skill1001,extra/instance/skill1001/,1
 skill1002,extra/instance/skill1002/,1
 skill269,extra/club/skills/skill269/,1
 skill78,extra/club/skills/skill78/,1
+skill315,extra/achievement/skills/skill315/,1
+skill313,extra/achievement/skills/skill313/,1
+skill300,extra/achievement/skills/skill300/,1
+skill332,extra/achievement/skills/skill332/,1
+skill333,extra/achievement/skills/skill333/,1
+skill334,extra/achievement/skills/skill334/,1
+skill335,extra/achievement/skills/skill335/,1
+skill336,extra/achievement/skills/skill336/,1
+skill337,extra/achievement/skills/skill337/,1
+skill338,extra/achievement/skills/skill338/,1
+skill339,extra/achievement/skills/skill339/,1
+skill340,extra/achievement/skills/skill340/,1
+skill341,extra/achievement/skills/skill341/,1
+skill342,extra/achievement/skills/skill342/,1
+skill343,extra/achievement/skills/skill343/,1
+skill344,extra/achievement/skills/skill344/,1
+skill345,extra/achievement/skills/skill345/,1
+skill346,extra/achievement/skills/skill346/,1
+skill347,extra/achievement/skills/skill347/,1
+skill348,extra/achievement/skills/skill348/,1
 skill19,extra/club/skills/skill19/,1
 skill79,extra/club/skills/skill79/,1
 skill31,extra/club/skills/skill31/,1

@@ -1,9 +1,9 @@
 <?php
 
-namespace skill313
+namespace skill345
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase sys player logger achievement_base';
+	$___MODULE_dependency = 'skillbase sys player attack weapon achievement_base';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

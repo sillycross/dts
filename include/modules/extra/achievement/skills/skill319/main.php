@@ -6,6 +6,7 @@ namespace skill319
 	{
 		define('MOD_SKILL319_INFO','achievement;daily;');
 		define('MOD_SKILL319_ACHIEVEMENT_ID','19');
+		define('MOD_SKILL319_ABANDONED','1');//已废弃
 	}
 	
 	function acquire319(&$pa)

@@ -6,6 +6,7 @@ namespace skill320
 	{
 		define('MOD_SKILL320_INFO','achievement;daily;');
 		define('MOD_SKILL320_ACHIEVEMENT_ID','20');
+		define('MOD_SKILL320_ABANDONED','1');//已废弃
 	}
 	
 	function acquire320(&$pa)

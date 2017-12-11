@@ -1,51 +1,51 @@
 <?php
 
-namespace skill332
+namespace skill333
 {
 	//各级要完成的成就名，如果不存在则取低的
-	$ach332_name = array(
-		1=>'铁棒横扫',
+	$ach333_name = array(
+		1=>'快刀乱麻',
 	);
 	
 	//各级显示的要求，如果不存在则取低的
-	$ach332_desc= array(
-		0=>'殴系熟练度达到<:threshold:>点',
+	$ach333_desc= array(
+		0=>'斩系熟练度达到<:threshold:>点',
 	);
 	
-	$ach332_proc_words = '最高熟练';
+	$ach333_proc_words = '最高熟练';
 	
-	$ach332_unit = '点';
+	$ach333_unit = '点';
 	
 	//各级阈值，注意是达到这个阈值则升到下一级
-	$ach332_threshold = array(
+	$ach333_threshold = array(
 		1 => 300,
 		999 => NULL
 	);
 	
 	//各级给的切糕奖励
-	$ach332_qiegao_prize = array(
+	$ach333_qiegao_prize = array(
 		1 => 150,
 	);
 	
 	//各级给的卡片奖励
-	$ach332_card_prize = array(
-		1 => 51,
+	$ach333_card_prize = array(
+		1 => 52,
 	);
 	
 	function init() 
 	{
-		define('MOD_SKILL332_INFO','achievement;daily;');
-		define('MOD_SKILL332_ACHIEVEMENT_ID','32');
-		define('DAILY_TYPE332',1);
+		define('MOD_SKILL333_INFO','achievement;daily;');
+		define('MOD_SKILL333_ACHIEVEMENT_ID','33');
+		define('DAILY_TYPE333',1);
 	}
 	
-	function acquire332(&$pa)
+	function acquire333(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		\skillbase\skill_setvalue(332,'cnt',0,$pa);
+		\skillbase\skill_setvalue(333,'cnt',0,$pa);
 	}
 	
-	function lost332(&$pa)
+	function lost333(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
@@ -55,8 +55,8 @@ namespace skill332
 		eval(import_module('player'));
 		$chprocess();
 		
-		if(\skillbase\skill_query(332) && $wp > \skillbase\skill_getvalue(332,'cnt')){
-			\skillbase\skill_setvalue(332,'cnt',$wp);
+		if(\skillbase\skill_query(333) && $wk > \skillbase\skill_getvalue(333,'cnt')){
+			\skillbase\skill_setvalue(333,'cnt',$wk);
 		}
 	}
 	
@@ -64,9 +64,9 @@ namespace skill332
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa, $data, $achid);
-		if($achid == 332){
+		if($achid == 333){
 			
-			$var=max($pa['wp'], (int)\skillbase\skill_getvalue($achid,'cnt',$pa));
+			$var=max($pa['wk'], (int)\skillbase\skill_getvalue($achid,'cnt',$pa));
 			$ret = max($ret, $var);
 		}
 		return $ret;

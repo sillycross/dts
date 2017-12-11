@@ -509,6 +509,13 @@ namespace weapon
 		$chprocess($pa, $pd, $active);
 	}
 	
+	function attack_prepare(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$pa['o_wep'] = $pa['wep']; $pd['o_wep'] = $pd['wep']; 
+		$chprocess($pa, $pd, $active);
+	}
+	
 	function attack_finish(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
