@@ -1,10 +1,13 @@
 <?php
 
-function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
+function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip=NULL)
 {
 	include_once GAME_ROOT.'./include/user.func.php';
 	eval(import_module('sys'));
 	\sys\load_gameinfo();
+	if(empty($ip)) {
+		$ip = real_ip();
+	}
 	if ($xgender!='m' && $xgender!='f') $xgender='m';
 	$validnum++;
 	$alivenum++;
@@ -12,7 +15,7 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 	$pass = create_storedpass($xuser,$xpass);
 	global $gd; $gd = $xgender;
 	$type = 0;
-	$endtime = $now;
+	$endtime = $validtime = $now;
 	global $sNo; $sNo = $validnum;
 	global $hp,$mhp,$sp,$msp,$att,$def,$wep,$itm,$icon; 
 	$hp = $mhp = $hplimit;
@@ -195,12 +198,15 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 		}
 	}
 	///////////////////////////////////////////////////////////////
-	$db->query("INSERT INTO {$tablepre}players (name,pass,type,endtime,gd,sNo,icon,club,hp,mhp,sp,msp,ss,mss,att,def,pls,lvl,`exp`,money,bid,inf,rage,pose,tactic,killnum,state,wp,wk,wg,wc,wd,wf,teamID,teamPass,wep,wepk,wepe,weps,arb,arbk,arbe,arbs,arh,arhk,arhe,arhs,ara,arak,arae,aras,arf,arfk,arfe,arfs,art,artk,arte,arts,itm0,itmk0,itme0,itms0,itm1,itmk1,itme1,itms1,itm2,itmk2,itme2,itms2,itm3,itmk3,itme3,itms3,itm4,itmk4,itme4,itms4,itm5,itmk5,itme5,itms5,itm6,itmk6,itme6,itms6,wepsk,arbsk,arhsk,arask,arfsk,artsk,itmsk0,itmsk1,itmsk2,itmsk3,itmsk4,itmsk5,itmsk6,card,cardname,skillpoint) VALUES ('$name','$pass','$type','$endtime','$gd','$sNo','$icon','$club','$hp','$mhp','$sp','$msp','$ss','$mss','$att','$def','$pls','$lvl','$exp','$money','$bid','$inf','$rage','$pose','$tactic','$state','$killnum','$wp','$wk','$wg','$wc','$wd','$wf','$teamID','$teamPass','$wep','$wepk','$wepe','$weps','$arb','$arbk','$arbe','$arbs','$arh','$arhk','$arhe','$arhs','$ara','$arak','$arae','$aras','$arf','$arfk','$arfe','$arfs','$art','$artk','$arte','$arts','$itm[0]','$itmk[0]','$itme[0]','$itms[0]','$itm[1]','$itmk[1]','$itme[1]','$itms[1]','$itm[2]','$itmk[2]','$itme[2]','$itms[2]','$itm[3]','$itmk[3]','$itme[3]','$itms[3]','$itm[4]','$itmk[4]','$itme[4]','$itms[4]','$itm[5]','$itmk[5]','$itme[5]','$itms[5]','$itm[6]','$itmk[6]','$itme[6]','$itms[6]','$wepsk','$arbsk','$arhsk','$arask','$arfsk','$artsk','$itmsk[0]','$itmsk[1]','$itmsk[2]','$itmsk[3]','$itmsk[4]','$itmsk[5]','$itmsk[6]','$card','$cardname','$skillpoint')");
+	$db->query("INSERT INTO {$tablepre}players (name,pass,ip,type,endtime,validtime,gd,sNo,icon,club,hp,mhp,sp,msp,ss,mss,att,def,pls,lvl,`exp`,money,bid,inf,rage,pose,tactic,killnum,state,wp,wk,wg,wc,wd,wf,teamID,teamPass,wep,wepk,wepe,weps,arb,arbk,arbe,arbs,arh,arhk,arhe,arhs,ara,arak,arae,aras,arf,arfk,arfe,arfs,art,artk,arte,arts,itm0,itmk0,itme0,itms0,itm1,itmk1,itme1,itms1,itm2,itmk2,itme2,itms2,itm3,itmk3,itme3,itms3,itm4,itmk4,itme4,itms4,itm5,itmk5,itme5,itms5,itm6,itmk6,itme6,itms6,wepsk,arbsk,arhsk,arask,arfsk,artsk,itmsk0,itmsk1,itmsk2,itmsk3,itmsk4,itmsk5,itmsk6,card,cardname,skillpoint) VALUES ('$name','$pass','$ip','$type','$endtime','$validtime','$gd','$sNo','$icon','$club','$hp','$mhp','$sp','$msp','$ss','$mss','$att','$def','$pls','$lvl','$exp','$money','$bid','$inf','$rage','$pose','$tactic','$state','$killnum','$wp','$wk','$wg','$wc','$wd','$wf','$teamID','$teamPass','$wep','$wepk','$wepe','$weps','$arb','$arbk','$arbe','$arbs','$arh','$arhk','$arhe','$arhs','$ara','$arak','$arae','$aras','$arf','$arfk','$arfe','$arfs','$art','$artk','$arte','$arts','$itm[0]','$itmk[0]','$itme[0]','$itms[0]','$itm[1]','$itmk[1]','$itme[1]','$itms[1]','$itm[2]','$itmk[2]','$itme[2]','$itms[2]','$itm[3]','$itmk[3]','$itme[3]','$itms[3]','$itm[4]','$itmk[4]','$itme[4]','$itms[4]','$itm[5]','$itmk[5]','$itme[5]','$itms[5]','$itm[6]','$itmk[6]','$itme[6]','$itms[6]','$wepsk','$arbsk','$arhsk','$arask','$arfsk','$artsk','$itmsk[0]','$itmsk[1]','$itmsk[2]','$itmsk[3]','$itmsk[4]','$itmsk[5]','$itmsk[6]','$card','$cardname','$skillpoint')");
 	$db->query("UPDATE {$gtablepre}users SET lastgame='$gamenum' WHERE username='$name'");
 	
 	///////////////////////////////////////////////////////////////
 	$pp=\player\fetch_playerdata($name);
-
+	
+	//判定活跃玩家的必备技能（记录获得金钱数等数据）
+	\skillbase\skill_acquire(1003,$pp);
+	
 	//为了灵活性，直接处理所有技能，在固定称号的时候记得要写入skills不然进游戏就没技能了
 	//if (isset($card_valid_info['club'])){
 	//	\clubbase\club_acquire($card_valid_info['club'],$pp);
@@ -209,7 +215,11 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 		foreach ($card_valid_info['skills'] as $key=>$value){
 			if (defined('MOD_SKILL'.$key)){
 				\skillbase\skill_acquire($key,$pp);
-				if ($value>0){
+				if(is_array($value)){
+					foreach($value as $vk => $vv){
+						\skillbase\skill_setvalue($key,$vk,$vv,$pp);
+					}
+				}elseif ($value>0){
 					\skillbase\skill_setvalue($key,'lvl',$value,$pp);
 				}
 			}	

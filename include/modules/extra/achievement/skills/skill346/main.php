@@ -9,7 +9,7 @@ namespace skill346
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach346_desc= array(
-		0=>'使用陷阱击杀<:threshold:>名<span class="yellow" title=\'等级7 金钱1000以上\'>活跃玩家</span>',
+		0=>'使用陷阱击杀<:threshold:>名<span class="yellow" title=\''.POSITIVE_PLAYER_DESC.'\'>活跃玩家</span>',
 	);
 	
 	$ach346_proc_words = '击杀总数';
@@ -51,9 +51,9 @@ namespace skill346
 		eval(import_module('player','trap'));
 		$skill346_itmsk0 = $itmsk0;
 		$chprocess();	
-		if(!$selflag && $playerflag && $hp<=0 && \achievement_base\ach_check_positive_player($sdata)) {
+		if(!$selflag && $playerflag && $hp<=0) {
 			$edata = \player\fetch_playerdata_by_pid($skill346_itmsk0);
-			if ( \skillbase\skill_query(346,$edata) && !$edata['type'])
+			if ( \skillbase\skill_query(346,$edata) && !$edata['type'] && \achievement_base\ach_check_positive_player($edata, $sdata))
 			{
 				$x=(int)\skillbase\skill_getvalue(346,'cnt',$edata);
 				$x+=1;

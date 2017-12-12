@@ -9,7 +9,7 @@ namespace skill315
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach315_desc= array(
-		0=>'战斗击杀<:threshold:>名<span class="yellow" title=\'等级7 金钱1000以上\'>活跃玩家</span>',
+		0=>'战斗击杀<:threshold:>名<span class="yellow" title=\''.POSITIVE_PLAYER_DESC.'\'>活跃玩家</span>',
 	);
 	
 	$ach315_proc_words = '击杀总数';
@@ -51,7 +51,7 @@ namespace skill315
 		if ( \skillbase\skill_query(315,$pa) && !$pd['type'] && $pd['hp'] <= 0)
 		{
 			//对方为活跃玩家
-			if(\achievement_base\ach_check_positive_player($pd)){
+			if(\achievement_base\ach_check_positive_player($pa,$pd)){
 				$x=(int)\skillbase\skill_getvalue(315,'cnt',$pa);
 				$x+=1;
 				\skillbase\skill_setvalue(315,'cnt',$x,$pa);

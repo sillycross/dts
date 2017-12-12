@@ -24,7 +24,7 @@ namespace skill336
 	
 	//各级给的切糕奖励
 	$ach336_qiegao_prize = array(
-		1 => 150,
+		1 => 100,
 	);
 	
 	//各级给的卡片奖励

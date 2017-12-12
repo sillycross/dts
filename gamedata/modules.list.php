@@ -23,6 +23,7 @@ skill324,extra/achievement/skills/skill324/,1
 skill326,extra/achievement/skills/skill326/,1
 skill328,extra/activities/nationalday2017/skill328/,1
 skill330,extra/activities/halloween2017/skill330/,1
+skill1003,extra/achievement/skills/skill1003/,1
 skill4,base/skills/skill4/,1
 skill411,extra/card/skills/skill411/,1
 npc,base/npc/,1
@@ -39,6 +40,7 @@ scpdrink,base/items/scpdrink/,1
 item_ub,base/items/item_ub/,1
 item_uee,base/items/item_uee/,1
 song,base/items/song/,1
+apm,base/apm/,1
 corpse,base/corpse/,1
 trap,base/items/trap/,1
 itemmix_sync,base/itemmix/itemmix_sync/,1
@@ -275,6 +277,8 @@ skill345,extra/achievement/skills/skill345/,1
 skill346,extra/achievement/skills/skill346/,1
 skill347,extra/achievement/skills/skill347/,1
 skill348,extra/achievement/skills/skill348/,1
+skill349,extra/achievement/skills/skill349/,1
+skill350,extra/achievement/skills/skill350/,1
 skill19,extra/club/skills/skill19/,1
 skill79,extra/club/skills/skill79/,1
 skill31,extra/club/skills/skill31/,1
@@ -430,4 +434,5 @@ smartmix,extra/misc/smartmix/,1
 skill266,extra/club/skills/skill266/,1
 skill81,extra/club/skills/skill81/,1
 searchmemory,extra/searchmemory/,1
+skill351,extra/achievement/skills/skill351/,1
 halloween2017,extra/activities/halloween2017/main/,0

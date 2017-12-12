@@ -24,7 +24,7 @@ namespace skill334
 	
 	//各级给的切糕奖励
 	$ach334_qiegao_prize = array(
-		1 => 150,
+		1 => 100,
 	);
 	
 	//各级给的卡片奖励

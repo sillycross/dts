@@ -2,7 +2,7 @@
 
 namespace achievement_base
 {
-	
+	define('POSITIVE_PLAYER_DESC','与你IP不同、获得金钱不少于1000且APM不少于30');
 	function init() {
 	}
 	
@@ -293,8 +293,9 @@ namespace achievement_base
 		foreach ($achlist as $tval){
 			foreach ($tval as $key){
 				//成就有定义且合法
-				if (check_ach_valid($key) && isset($u_achievements[$key])){
-					$v_achievements[$key] = $u_achievements[$key];
+				if (check_ach_valid($key)){
+					if(isset($u_achievements[$key])) $v_achievements[$key] = $u_achievements[$key];
+					else $v_achievements[$key] = 0;
 				}
 			}
 		}
@@ -507,7 +508,7 @@ namespace achievement_base
 	function ach_finalize(&$pa, $data, $achid)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($data=='')					
+		if (!$data)					
 			$x=0;						
 		else $x=$data;	
 		$achid = (int)$achid;
@@ -658,10 +659,17 @@ namespace achievement_base
 	}
 	
 	//判定是不是活跃玩家的通用函数
-	function ach_check_positive_player($pl)
+	function ach_check_positive_player($pl, $pe)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return !$pl['type'] && $pl['lvl'] >= 7 && $pl['money'] >= 1000;
+		$apm = \apm\calc_apm($pe);
+		$ret = true;
+		
+		if($pl['ip'] == $pe['ip'] || $apm < 30) $ret = false;
+		$skill1003_got = \skillbase\skill_getvalue(1003,'money_got', $pe);	
+		if($skill1003_got < 500) $ret = false;
+		return $ret;
+		//return !$pl['type'] && $pl['lvl'] >= 7 && $pl['money'] >= 1000;
 	}
 }
 

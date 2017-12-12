@@ -39,7 +39,7 @@ if($mode == 'enter') {
 	$ip = real_ip();
 	
 	$userCardData = \cardbase\get_user_cardinfo($cuser);
-	$card_ownlist = $userCardData['cardlist'];;
+	$card_ownlist = $userCardData['cardlist'];
 	$card_energy = $userCardData['cardenergy'];
 	if (!in_array($card,$card_ownlist)) {
 		$card=0;
@@ -87,7 +87,7 @@ if($mode == 'enter') {
 		return;
 	}
 	
-	enter_battlefield($cuser,$cpass,$gender,$icon,$cc);
+	enter_battlefield($cuser,$cpass,$gender,$icon,$cc,$ip);
 	
 	//现在入场跳过validover页面直接进开局提示页面
 	include template('notice');

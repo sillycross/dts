@@ -183,6 +183,7 @@ namespace cardbase
 			if (isset($pa['username'])) $n=$pa['username'];
 			else $n=$pa['name'];
 		}
+		//writeover('a.txt', $num.' '.$n.' '.debug_backtrace()[2]['function']."\r\n",'ab+');
 		$result = $db->query("SELECT gold FROM {$gtablepre}users WHERE username='$n'");
 		$cg = $db->result($result,0);
 		$cg=$cg+$num;

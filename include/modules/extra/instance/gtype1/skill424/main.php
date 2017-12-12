@@ -17,6 +17,9 @@ namespace skill424
 		\skillbase\skill_setvalue(424,'cur2','探测器电池',$pa);
 		\skillbase\skill_setvalue(424,'cur3','',$pa);
 		\skillbase\skill_setvalue(424,'cur4','',$pa);
+		//此外本技能还有储存这局奖励的功能
+		\skillbase\skill_setvalue(424,'rank','0',$pa);
+		\skillbase\skill_setvalue(424,'prize','0',$pa);
 	}
 	
 	function lost424(&$pa)

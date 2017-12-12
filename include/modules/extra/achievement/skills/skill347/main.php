@@ -4,12 +4,14 @@ namespace skill347
 {
 	//各级要完成的成就名，如果不存在则取低的
 	$ach347_name = array(
-		1=>'正义可能迟到',
+		1=>'我能反杀',
+		2=>'先攻归你',
+		3=>'正义可能迟到',
 	);
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach347_desc= array(
-		0=>'在游戏开始30分钟后入场并获胜',
+		0=>'在开场超过10分钟且至少有1名存活玩家时入场并获胜<:threshold:>次',
 	);
 	
 	$ach347_proc_words = '当前纪录';
@@ -19,19 +21,26 @@ namespace skill347
 	//各级阈值，注意是达到这个阈值则升到下一级
 	$ach347_threshold = array(
 		1 => 1,
+		2 => 5,
+		3 => 20,
 		999 => NULL
 	);
 	
 	//各级给的切糕奖励
 	$ach347_qiegao_prize = array(
-		1 => 666,
+		1 => 270,
+		2 => 2001,
+		3 => 4800,
+	);
+	
+	$ach347_card_prize = array(
+		3 => 101,
 	);
 	
 	function init() 
 	{
-		define('MOD_SKILL347_INFO','achievement;daily;');
+		define('MOD_SKILL347_INFO','achievement;');
 		define('MOD_SKILL347_ACHIEVEMENT_ID','47');
-		define('DAILY_TYPE347',3);
 	}
 	
 	function acquire347(&$pa)
@@ -40,7 +49,7 @@ namespace skill347
 		eval(import_module('sys'));
 		//\skillbase\skill_setvalue(347,'cnt','0',$pa);
 		$valid = 0;
-		if($now - $starttime >= 1800) $valid = 1;
+		if($now - $starttime >= 600 && $alivenum > 1) $valid = 1;
 		\skillbase\skill_setvalue(347,'valid',$valid,$pa);
 	}
 	

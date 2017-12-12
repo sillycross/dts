@@ -9,7 +9,7 @@ namespace skill345
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach345_desc= array(
-		0=>'使用【小黄的】武器击杀<:threshold:>名<span class="yellow" title=\'等级7 金钱1000以上\'>活跃玩家</span>',
+		0=>'使用【小黄的】武器击杀<:threshold:>名<span class="yellow" title=\''.POSITIVE_PLAYER_DESC.'\'>活跃玩家</span>',
 	);
 	
 	$ach345_proc_words = '击杀总数';
@@ -56,9 +56,10 @@ namespace skill345
 		if ( \skillbase\skill_query(345,$pa) && !$pd['type'] && $pd['hp'] <= 0)
 		{
 			//武器为小黄，且对方为活跃玩家
-			if(check_wep345($pa['o_wep']) && \achievement_base\ach_check_positive_player($pd)){
+			if(check_wep345($pa['o_wep']) && \achievement_base\ach_check_positive_player($pa,$pd)){
 				$x=(int)\skillbase\skill_getvalue(345,'cnt',$pa);
 				$x+=1;
+				
 				\skillbase\skill_setvalue(345,'cnt',$x,$pa);
 			}			
 		}

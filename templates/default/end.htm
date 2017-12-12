@@ -11,7 +11,7 @@
 	<span class="linen">“其他<ruby>愿意热心教导你的人<rt style="font-size:10px;">群号：556725586</rt></ruby>，也是存在的。但是，在这个虚拟战场里，厮杀才是真正的常态。”<br>
 	“接下来，你能走多远，就靠你自己了。”</span>
 	</p><br>
-<!--{elseif $hp <= 0 || $state >= 10}-->
+<!--{elseif ($hp <= 0 || $state >= 10) && !($gametype == 1 && $winmode == 8)}-->
 	<div class="subtitle">$stateinfo[$state]</div>
 	<div><IMG src="img/$iconImg" width="140" height="80" border="0"align="middle" style="filter: Xray()"></div>
 	<div class="yellow b">$motto</div>
@@ -655,6 +655,16 @@
 					然而很遗憾，凭我们目前的手段，还无法把病毒逼出它的主场。<br>
 					这不是你们的错，或者说，多亏了你们，才有如此进展。<br>
 					你们都先登出吧。我会按约定，给<span class="evergreen">进度名列前茅者</span>发放报酬的。”
+				</p>
+				<p>
+					你的眼前闪过一行字：<br>
+					本次任务报酬采用绩效制，仅有业绩出色的测试员能够得到报酬。<br>
+					<!--{eval $cl=\skillbase\skill_getvalue(424,'lvl');}-->
+					<!--{eval $rank=\skillbase\skill_getvalue(424,'rank');}-->
+					<!--{eval $prize=\skillbase\skill_getvalue(424,'prize');}-->
+					您本次完成了<span class="yellow">$cl</span>层除错任务，在合作者中排名<span class="yellow">第{$rank}</span>。<br>
+					<!--{if $prize}-->我们将支付您<span class="gold b">{$prize}切糕</span>的报酬，感谢您支持金龙通讯社。
+					<!--{else}-->很遗憾，您没有达到我们的要求，请您下次再接再厉。<!--{/if}-->
 				</p>
 				<p>
 					“骗子！合同欺诈！金龙社果然都不是好人！”碰巧又跟你凑在一起的那个测试员忿忿地骂道。<br>
