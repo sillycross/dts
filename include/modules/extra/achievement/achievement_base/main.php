@@ -468,7 +468,7 @@ namespace achievement_base
 				}
 			}
 		}
-		$ret1 = str_replace('"',"'",$ret);
+		$ret = str_replace('"',"'",$ret);
 		if(!$ret) $ret = 'MISSING';
 		return $ret;		
 	}
