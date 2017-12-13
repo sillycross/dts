@@ -2,7 +2,7 @@
 
 namespace achievement_base
 {
-	define('POSITIVE_PLAYER_DESC','与你IP不同、获得金钱不少于1000且APM不少于30');
+	define('POSITIVE_PLAYER_DESC','与你IP不同、获得金钱不少于1000且APM不少于10');
 	function init() {
 	}
 	
@@ -682,7 +682,7 @@ namespace achievement_base
 		$apm = \apm\calc_apm($pe);
 		$ret = true;
 		
-		if($pl['ip'] == $pe['ip'] || $apm < 30) $ret = false;
+		if($pl['ip'] == $pe['ip'] || $apm < 10) $ret = false;
 		$skill1003_got = \skillbase\skill_getvalue(1003,'money_got', $pe);	
 		if($skill1003_got < 500) $ret = false;
 		return $ret;
