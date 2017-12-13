@@ -233,7 +233,7 @@ namespace weapon
 		if ($fixed_dmg>0) {
 			$o_fixed_dmg = $fixed_dmg;
 			list($fixed_dmg, $mult_words) = apply_multiplier($fixed_dmg, get_fixed_dmg_multiplier($pa, $pd, $active), 'yellow');
-			if ($o_fixed_dmg != $fixed_dmg) $log .= '造成了'.$mult_words.'点物理固定伤害！<br>';
+			$log .= '造成了'.$mult_words.'点物理固定伤害！<br>';
 		}elseif($primary_dmg_base == $primary_dmg) {//特殊的台词顺序，如果既没有基础物伤加成，也没有物伤固定加成，就不显示基础物伤这句话
 			$primary_dmg_log = '';
 			$pa['primary_dmg_log_flag'] = 0;

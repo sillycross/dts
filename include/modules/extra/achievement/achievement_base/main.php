@@ -685,7 +685,7 @@ namespace achievement_base
 		
 		if($pl['ip'] == $pe['ip'] || $apm < 10) $ret = false;
 		$skill1003_got = \skillbase\skill_getvalue(1003,'money_got', $pe);	
-		if($skill1003_got < 500) $ret = false;
+		if($skill1003_got < 1000) $ret = false;
 		return $ret;
 		//return !$pl['type'] && $pl['lvl'] >= 7 && $pl['money'] >= 1000;
 	}
