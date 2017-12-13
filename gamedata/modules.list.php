@@ -279,6 +279,7 @@ skill347,extra/achievement/skills/skill347/,1
 skill348,extra/achievement/skills/skill348/,1
 skill349,extra/achievement/skills/skill349/,1
 skill350,extra/achievement/skills/skill350/,1
+skill353,extra/achievement/skills/skill353/,1
 skill19,extra/club/skills/skill19/,1
 skill79,extra/club/skills/skill79/,1
 skill31,extra/club/skills/skill31/,1
@@ -435,4 +436,5 @@ skill266,extra/club/skills/skill266/,1
 skill81,extra/club/skills/skill81/,1
 searchmemory,extra/searchmemory/,1
 skill351,extra/achievement/skills/skill351/,1
+skill352,extra/achievement/skills/skill352/,1
 halloween2017,extra/activities/halloween2017/main/,0

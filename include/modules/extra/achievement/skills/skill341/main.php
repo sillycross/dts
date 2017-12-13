@@ -24,7 +24,7 @@ namespace skill341
 	
 	//各级给的切糕奖励
 	$ach341_qiegao_prize = array(
-		1 => 400,
+		1 => 200,
 	);
 	
 	function init() 

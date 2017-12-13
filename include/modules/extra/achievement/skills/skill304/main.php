@@ -2,7 +2,7 @@
 
 namespace skill304
 {
-	//旧成就精力所限，未全部修改，请以skill300成就为模板！
+	//旧成就精力所限，未全部修改，请以skill300、skill313或skill332之后的成就为模板！
 	$ach304_name = array(
 		0=>'不屈的生命',
 		1=>'那种话最讨厌了',
@@ -54,7 +54,7 @@ namespace skill304
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','map'));
-		if ($itm0=="【KEY系生命弹】"){
+		if ($itm0=="【KEY系生命弹】" || $itm0=="【KEY系未来弹】"){
 			$x=(int)\skillbase\skill_getvalue(304,'cnt');
 			$x++;
 			\skillbase\skill_setvalue(304,'cnt',$x);

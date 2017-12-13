@@ -2,7 +2,7 @@
 
 namespace skill323
 {
-	//旧成就精力所限，未全部修改，请以skill300成就为模板！
+	//旧成就精力所限，未全部修改，请以skill300、skill313或skill332之后的成就为模板！
 	$ach323_name = array(
 		0=>'宛如梦幻',
 	);

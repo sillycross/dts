@@ -6,7 +6,7 @@ namespace achievement_base
 	function init() {
 	}
 	
-	function ach_init(){
+	function ach_show_init(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('achievement_base'));
 		$n_achtype = $bk_list = array();
@@ -151,12 +151,14 @@ namespace achievement_base
 						//需要解码的意思
 						$f=false;
 						if (!\skillbase\check_skill_info($key, 'daily')) $f=true;
-						if ($s!=''&&$s!='VWXYZ') $f=true;
+						if ($s&&$s!='VWXYZ') $f=true;
+						$v=NULL;
 						if ($f){
 							if($key==326) $v=\skill326\cardlist_decode326($s);
 							else $v=base64_decode_number($s);	
 							$ret[$key] = $v;
 						}
+						
 					}
 				}
 			}
@@ -295,7 +297,8 @@ namespace achievement_base
 				//成就有定义且合法
 				if (check_ach_valid($key)){
 					if(isset($u_achievements[$key])) $v_achievements[$key] = $u_achievements[$key];
-					else $v_achievements[$key] = 0;
+					elseif(!in_array($key, $achlist[20])) $v_achievements[$key] = 0;
+					else $v_achievements[$key] = NULL;
 				}
 			}
 		}
@@ -336,6 +339,7 @@ namespace achievement_base
 				}
 			}
 		}
+		
 		while (sizeof($showarr) % $ach_show_num_per_row != 0){//不足3个的分类补位
 			$showarr[] = '';
 		}
@@ -503,13 +507,13 @@ namespace achievement_base
 		return $data;
 	}
 	
-	//成就通用结算函数，需要成就模块里至少定义$ach332_threshold
+	//成就通用结算函数，需要成就模块里至少定义$achXXX_threshold
 	//$data是既有进度，新进度怎么判定请继承ach_finalize_process()自定义
 	function ach_finalize(&$pa, $data, $achid)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!$data)					
-			$x=0;						
+			$x=get_achievement_default_var($achid);						
 		else $x=$data;	
 		$achid = (int)$achid;
 		
@@ -534,7 +538,7 @@ namespace achievement_base
 		}
 		$qiegao_up = 0;
 		foreach($threshold as $tk => $tv){
-			if(!empty($tv) && $x >= $tv){
+			if(!empty($tv) && ach_finalize_check_progress($pa, $tv, $x, $achid)){
 				if($ox >= $tv) continue; 
 				else{
 					if($qiegao_flag && !empty($qiegao_prize[$tk])) $qiegao_up += $qiegao_prize[$tk];		
@@ -554,7 +558,19 @@ namespace achievement_base
 		return $x;
 	}
 	
-	//成就通用显示函数，需要成就模块里至少定义$ach332_threshold
+	//判定数据与阈值的关系，默认是大于等于阈值算达成
+	function ach_finalize_check_progress(&$pa, $t, $data, $achid){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $data >= $t;
+	}
+	
+	//成就默认值
+	function get_achievement_default_var($achid){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 0;
+	}
+	
+	//成就通用显示函数，需要成就模块里至少定义$achXXX_threshold
 	function show_achievement_single($data, $achid)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -562,11 +578,12 @@ namespace achievement_base
 		
 		$unit = ${'ach'.$achid.'_unit'};
 		$proc_words = ${'ach'.$achid.'_proc_words'};
-		$p = $c = 0; $top_flag = 0;
+		$c = 0; $top_flag = 0;
+		$p = get_achievement_default_var($achid);
 		if ($data) $p=$data;
 		$ach_threshold = ${'ach'.$achid.'_threshold'};
 		foreach($ach_threshold as $tk => $tv){
-			if(!empty($tv) && $p >= $tv) {
+			if(!empty($tv) && ach_finalize_check_progress($pa, $tv, $p, $achid)) {
 				$c = $tk;
 			}elseif(empty($tv)){
 				$top_flag = 1;

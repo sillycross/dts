@@ -212,12 +212,9 @@ namespace gtype1
 					}
 					if ($rk==1){
 						$qiegao_prize += 1000;
-						\cardbase\get_card(96,$k);
-						\cardbase\get_card(95,$k);
 					}
 					if ($rk<=2){
 						$qiegao_prize += 500;
-						\cardbase\get_card(95,$k);
 					}
 					if ($rk<=$max_announce_num){
 						$qiegao_prize += 500;
