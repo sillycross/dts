@@ -144,9 +144,9 @@ namespace skill26
 		//连击和灵系体力是唯一需要考虑的特殊“物理伤害加成”
 		//（因为这不是加成，只是被做到加成里去了……）
 		
-		$r = \wep_f\get_WF_dmg_multiplier($pa, $pd, $active);
-		$r = array_merge($r,\ex_rapid_attr\get_rapid_dmg_multiplier($pa, $pd, $active));
-		$pa['skill26_phy_multiplier'] = $r;
+//		$r = \wep_f\get_WF_dmg_multiplier($pa, $pd, $active);
+//		$r = array_merge($r,\ex_rapid_attr\get_rapid_dmg_multiplier($pa, $pd, $active));
+//		$pa['skill26_phy_multiplier'] = $r;
 		//判断属抹
 		$flag=check_ex_dmg_nullify($pa, $pd, $active);
 		
@@ -166,25 +166,9 @@ namespace skill26
 		//把基础伤害当做固定伤害载入属性伤害计算
 		$dmg = \ex_dmg_att\calculate_ex_single_dmg($pa, $pd, $active, $attack_type, $dmg);
 		
-		$fin_dmg = $dmg; $mult_words='';
-		foreach ($r as $key)
-		{
-			$fin_dmg=$fin_dmg*$key;
-			$mult_words.="×{$key}";
-		}
-		$fin_dmg=round($fin_dmg);
-		if ($fin_dmg < 1) $fin_dmg = 1;
-
-		if ($mult_words=='')
-		{
-			$log.="武器攻击造成了<span class=\"red\">{$dmg}</span>点".$itemspkinfo[$attack_type]."伤害！<br>";
-		}
-		else
-		{
-			$log.="武器攻击造成了{$dmg}{$mult_words}＝<span class=\"red\">{$fin_dmg}</span>点".$itemspkinfo[$attack_type]."伤害！<br>";
-		}
-		$pa['physical_dmg_dealt'] += $fin_dmg;
-		$pa['dmg_dealt'] += $fin_dmg;
+		$log.="武器攻击造成了<span class=\"red\">{$dmg}</span>点".$itemspkinfo[$attack_type]."伤害！<br>";
+		$pa['physical_dmg_dealt'] += $dmg;
+		$pa['dmg_dealt'] += $dmg;
 		
 		$pa['skill26_flag2'] = 2;	//攻击属性判断开始正常返回（按次序计算）
 	}
