@@ -2,10 +2,16 @@
 
 namespace skill324
 {
+	//旧成就精力所限，未全部修改，请以skill300、skill313或skill332之后的成就为模板！
+	$ach324_name = array(
+		0=>'我还可以变身两次',
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL324_INFO','achievement;daily;');
 		define('MOD_SKILL324_ACHIEVEMENT_ID','24');
+		define('DAILY_TYPE324',1);
 	}
 	
 	function acquire324(&$pa)
@@ -23,7 +29,7 @@ namespace skill324
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')					
 			$x=0;						
-		else	$x=base64_decode_number($data);		
+		else $x=$data;
 		$ox=$x;
 		$x=$pa['lvl'];
 		$x=max($x,$ox);
@@ -32,7 +38,7 @@ namespace skill324
 			\cardbase\get_qiegao(140,$pa);
 		}
 		
-		return base64_encode_number($x,5);		
+		return $x;
 	}
 	
 	function show_achievement324($data)
@@ -40,7 +46,7 @@ namespace skill324
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')
 			$p324=0;
-		else	$p324=base64_decode_number($data);	
+		else	$p324=$data;	
 		$c324=0;
 		if ($p324>=21){
 			$c324=999;

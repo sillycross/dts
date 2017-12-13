@@ -2,6 +2,13 @@
 
 namespace skill303
 {
+	//旧成就精力所限，未全部修改，请以skill300、skill313或skill332之后的成就为模板！
+	$ach303_name = array(
+		0=>'篝火的引导',
+		1=>'世界的树形图',
+		2=>'地=月',
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL303_INFO','achievement;');
@@ -24,7 +31,7 @@ namespace skill303
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')					
 			$x=0;						
-		else	$x=base64_decode_number($data);		
+		else $x=$data;
 		$ox=$x;
 		$x+=\skillbase\skill_getvalue(303,'cnt',$pa);		
 		$x=min($x,(1<<30)-1);
@@ -39,7 +46,7 @@ namespace skill303
 			\cardbase\get_qiegao(2500,$pa);
 		}
 		
-		return base64_encode_number($x,5);		
+		return $x;
 	}
 	
 	function itemmix_success()
@@ -59,7 +66,7 @@ namespace skill303
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')
 			$p303=0;
-		else	$p303=base64_decode_number($data);	
+		else	$p303=$data;	
 		$c303=0;
 		if ($p303>=30){
 			$c303=999;

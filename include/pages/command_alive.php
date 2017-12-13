@@ -24,7 +24,7 @@ if($gametype == 17){$endtimelimit = $now-300;$cond .= " AND endtime>$endtimelimi
 $sort = " ORDER BY killnum DESC, lvl DESC";
 $limit = "";
 if(!isset($alivemode) || $alivemode == 'last') $limit = " LIMIT $alivelimit";
-$query = $db->query("SELECT name,gd,sNo,icon,lvl,exp,killnum,teamID,nskillpara,pid FROM {$tablepre}players".$cond.$sort.$limit);
+$query = $db->query("SELECT name,ip,gd,sNo,validtime,actionnum,endtime,icon,lvl,exp,hp,killnum,teamID,nskillpara,pid FROM {$tablepre}players".$cond.$sort.$limit);
 //if(!isset($alivemode) || $alivemode == 'last'){
 //	$query = $db->query("SELECT name,gd,sNo,icon,lvl,exp,killnum,teamID,nskillpara,pid FROM {$tablepre}players WHERE type=0 ".($gametype!=2?"AND hp>0":'')" order by killnum desc, lvl desc limit $alivelimit");
 //}elseif($alivemode == 'all'){

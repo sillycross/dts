@@ -4,7 +4,7 @@ namespace skill15
 {
 	function init() 
 	{
-		define('MOD_SKILL15_INFO','club;locked;');
+		define('MOD_SKILL15_INFO','club;feature;');
 		eval(import_module('clubbase'));
 		$clubskillname[15] = '射手';
 		$clubdesc_h[3] = $clubdesc_a[3] = '开局获得25点射系熟练度，每次升级时获得4-6点射系熟练度';

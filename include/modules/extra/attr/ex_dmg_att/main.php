@@ -169,8 +169,9 @@ namespace ex_dmg_att
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('logger','ex_dmg_att'));
 		if ($pd['ex_dmg_'.$key.'_defend_success'] == 1)	//恶心一下吧…… 奇怪的log美观修正……
-			$log .= '造成了<span class="yellow">'.$pa['ex_dmg_'.$key.'_dealt'].'</span>点属性伤害！';
-		else  $log .= $exdmgname[$key].'造成了<span class="yellow">'.$pa['ex_dmg_'.$key.'_dealt'].'</span>点属性伤害！';
+			//这里具体是red还是yellow有待后头决定
+			$log .= '造成了<span class="need-replace">'.$pa['ex_dmg_'.$key.'_dealt'].'</span>点属性伤害！';
+		else  $log .= $exdmgname[$key].'造成了<span class="need-replace">'.$pa['ex_dmg_'.$key.'_dealt'].'</span>点属性伤害！';
 	}
 	
 	//执行单个属性攻击
@@ -188,7 +189,7 @@ namespace ex_dmg_att
 		
 		if ($damage < 1) $damage = 1;
 		//计算修正值
-		$pa['ex_dmg_'.$key.'_dealt'] = calculate_ex_single_dmg_change($pa, $pd, $active, $c_key, $damage);
+		$pa['ex_dmg_'.$key.'_dealt'] = $damage = calculate_ex_single_dmg_change($pa, $pd, $active, $c_key, $damage);
 		
 		showlog_ex_single_dmg($pa, $pd, $active, $key);
 		
@@ -213,17 +214,11 @@ namespace ex_dmg_att
 			//加成值
 			$multiplier = calculate_ex_attack_dmg_multiplier($pa, $pd, $active);
 			
-			$fin_dmg=$dmg; $mult_words='';
-			foreach ($multiplier as $key)
-			{
-				$fin_dmg=$fin_dmg*$key;
-				$mult_words.="×{$key}";
-			}
-			$fin_dmg=round($fin_dmg);
-			if ($fin_dmg < 1) $fin_dmg = 1;
-			if (!empty($mult_words)) $log .= "总计造成{$dmg}{$mult_words}＝<span class=\"red\">{$fin_dmg}</span>点属性伤害！<br>";
-			elseif ($pa['ex_attack_num'] > 1) $log .= "总计造成<span class=\"red\">{$dmg}</span>点属性伤害！<br>";
-			 
+			list($fin_dmg, $mult_words) = \weapon\apply_multiplier($dmg, $multiplier, '<:fin_dmg:>');
+			$ex_dmg_log = '总计造成了'.$mult_words.'点属性伤害！<br>';
+			$replace_color = 'red';
+			if($fin_dmg != $dmg || $pa['ex_attack_num'] > 1) $log .= $ex_dmg_log;
+
 			$dmg = $fin_dmg;
 			
 			//修正值
@@ -231,7 +226,10 @@ namespace ex_dmg_att
 			if($dmg_change != $dmg) {
 				$dmg = $dmg_change;
 				$log .= "总属性伤害：<span class=\"red\">{$dmg}</span>。<br>";
+				$replace_color = 'yellow';
 			}
+			
+			$log = str_replace('<:fin_dmg:>', $replace_color, $log);//如果有伤害变化，那么前面的台词显示黄色，否则显示红色（最终值）
 			
 			$pa['dmg_dealt'] += $dmg;
 		}

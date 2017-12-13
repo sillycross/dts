@@ -29,6 +29,7 @@ $mixinfo = array
 	array('class' => 'wk', 'stuff' => array('针筒','毒药'),'result' => array('毒针','WK',32,20,'p'),),	
 	array('class' => 'wk', 'stuff' => array('毒针','毒针'),'result' => array('D.毒针','WK',48,20,'p'),),
 	array('class' => 'wk', 'stuff' => array('D.毒针','D.毒针','D.毒针'),'result' => array('D.D.D','WK',80,20,'pN'),),
+	array('class' => 'wk', 'stuff' => array('D.D.D','D.毒针','实验饰品A','提示纸条C','原型武器D','原型武器C'),'result' => array('D.D.D.D.C','WK',1976,9,'trN'),),
 	array('class' => 'wk', 'stuff' => array('白色的羽毛','金色方块'),'result' => array('凤凰之羽','WK',20,200,'u'),),
 	array('class' => 'wk', 'stuff' => array('白色的羽毛','银色方块'),'result' => array('露琪亚之羽','WK',50,200,'i'),),
 	array('class' => 'wk', 'stuff' => array('白色的羽毛','白色的羽毛','白色的羽毛','白色的羽毛','白色的羽毛'),'result' => array('纯白片翼','WK',150,200,'ia'),),

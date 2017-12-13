@@ -2,10 +2,16 @@
 
 namespace skill316
 {
+	//旧成就精力所限，未全部修改，请以skill300、skill313或skill332之后的成就为模板！
+	$ach316_name = array(
+		0=>'幻境无双',
+	);
+
 	function init() 
 	{
 		define('MOD_SKILL316_INFO','achievement;daily;');
 		define('MOD_SKILL316_ACHIEVEMENT_ID','16');
+		define('DAILY_TYPE316',2);
 	}
 	
 	function acquire316(&$pa)
@@ -24,7 +30,7 @@ namespace skill316
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')					
 			$x=0;						
-		else	$x=base64_decode_number($data);		
+		else $x=$data;
 		$ox=$x;
 		$x+=\skillbase\skill_getvalue(316,'cnt',$pa);		
 		$x=min($x,(1<<30)-1);
@@ -33,7 +39,7 @@ namespace skill316
 			\cardbase\get_qiegao(250,$pa);
 		}
 		
-		return base64_encode_number($x,5);		
+		return $x;
 	}
 	
 	function player_kill_enemy(&$pa,&$pd,$active){
@@ -52,7 +58,7 @@ namespace skill316
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')
 			$p316=0;
-		else	$p316=base64_decode_number($data);	
+		else	$p316=$data;	
 		$c316=0;
 		if ($p316>=200){
 			$c316=999;

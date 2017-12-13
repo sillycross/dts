@@ -2,6 +2,11 @@
 
 namespace skill308
 {
+	//旧成就精力所限，未全部修改，请以skill300、skill313或skill332之后的成就为模板！
+	$ach308_name = array(
+		0=>'清水池之王',
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL308_INFO','achievement;');
@@ -24,7 +29,7 @@ namespace skill308
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')					
 			$x=0;						
-		else	$x=base64_decode_number($data);		
+		else $x=$data;
 		$ox=$x;
 		$x=\skillbase\skill_getvalue(308,'cnt',$pa);		
 		if ($x==0) $x=$ox;
@@ -34,7 +39,7 @@ namespace skill308
 			\cardbase\get_qiegao(666,$pa);
 		}
 		
-		return base64_encode_number($x,5);		
+		return $x;
 	}
 	
 	function itemmix_success()
@@ -53,7 +58,7 @@ namespace skill308
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')
 			$p308=0;
-		else	$p308=base64_decode_number($data);	
+		else	$p308=$data;	
 		$c308=0;
 		if (($p308<=300)&&($p308!=0)){
 			$c308=999;

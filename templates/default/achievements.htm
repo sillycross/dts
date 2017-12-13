@@ -1,7 +1,6 @@
+<!--{eval eval(import_module('sys','achievement_base'));}-->
+<!--{eval \achievement_base\ach_show_init();}-->
 <table>
-	<!--{eval \achievement_base\ach_init();}-->
-	<!--{eval eval(import_module('sys','achievement_base'));}-->
-	
 	<!--{loop $achtype $k $v}-->
 		<tr><td>
 		<span class="subtitle" align="left">$v</span>
@@ -19,20 +18,42 @@
 		<!--{if $curuser}--><!--{if !$ff}--><span class="yellow">下次可获取每日任务时间：{$ftd}</span><!--{else}--><button type="button" onclick="window.location.href='user_profile.php?action=refdaily';this.disabled=true">点击获得新的每日任务</button><!--{/if}--><!--{/if}-->
 		<br>
 		<!--{/if}-->
-		<table border="1">
-			<!--{eval \achievement_base\show_achievements($username,$k);}-->
-		</table>
+		<div>
+			<!--{eval $showarr = \achievement_base\show_achievements_single_type($u_acharr,$k);}-->
+			<!--{loop $showarr $si $sv}-->
+				<!--{if $si % $ach_show_num_per_row == 0}-->
+				<div>
+				<!--{/if}-->
+					<div class="<!--{if $sv}-->ach_box<!--{else}-->ach_box_empty<!--{/if}-->" width="300" align="left" valign="top">
+						<div>$sv</div>
+					</div>
+				<!--{if $si % $ach_show_num_per_row == $ach_show_num_per_row - 1}-->
+				</div>
+				<!--{/if}-->
+			<!--{/loop}-->
+		</div>
 		</td></tr>
 	<!--{/loop}-->
 </table>
 
 <!--{if $refdaily_flag}-->
-<!--{eval \bubblebox\bubblebox_set_style('id:newdailyquest;height:200;width:930;cancellable:1;');}-->
+<!--{eval \bubblebox\bubblebox_set_style('id:newdailyquest;height:200;width:1000;cancellable:1;');}-->
 {template MOD_BUBBLEBOX_START}
 <div class="subtitle">获得的每日任务：</div>
-<table border="1">
-<!--{eval \achievement_base\show_achievements($username,20);}-->
-</table>
+<div>
+<!--{eval $showarr = \achievement_base\show_achievements_single_type($u_acharr,20);}-->
+<!--{loop $showarr $si $sv}-->
+	<!--{if $si % $ach_show_num_per_row == 0}-->
+	<div>
+	<!--{/if}-->
+		<div class="<!--{if $sv}-->ach_box<!--{else}-->ach_box_empty<!--{/if}-->" width="300" align="left" valign="top">
+			<div>$sv</div>
+		</div>
+	<!--{if $si % $ach_show_num_per_row == $ach_show_num_per_row - 1}-->
+	</div>
+	<!--{/if}-->
+<!--{/loop}-->
+</div>
 <br>
 <button type="button" onclick="bubblebox_hide_all();">关闭</button> 点击气泡框外任意位置也可关闭窗口
 {template MOD_BUBBLEBOX_END}

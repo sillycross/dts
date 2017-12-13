@@ -392,7 +392,7 @@ function unfold($srcfile){
 }
 
 //以post形式向网页发出信息
-function send_post($url, $post_data=array(), $post_cookie=array(), $timeout=5) {
+function send_post($url, $post_data=array(), $post_cookie=array(), $timeout=10) {
   $options = array(
     'http' => array(
       'method' => 'POST',

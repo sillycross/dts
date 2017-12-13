@@ -156,6 +156,31 @@ namespace weapon
 		return rand(-$x,$x);
 	}
 	
+	//生成XXX x XXX = XXX这样格式的玩意
+	//返回一个数组，请用list()截获
+	function apply_multiplier($basedmg, $multiplier, $style=NULL)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$dmg = $basedmg;
+		$mult_words = $basedmg;
+		foreach ($multiplier as $key)
+		{
+			if($key && $key != 1) {
+				$dmg *= $key;
+				$mult_words .= '×'.$key;
+			}
+		}
+		if($dmg != $basedmg) {
+			$dmg = round($dmg);
+			$dmg = max(1, $dmg);
+			if($style) $mult_words .= '=<span class="'.$style.'">'.$dmg.'</span>';
+			else $mult_words .= '='.$dmg;
+		}else{
+			$mult_words = '<span class="'.$style.'">'.$dmg.'</span>';
+		}
+		return array($dmg, $mult_words);
+	}
+	
 	//基础伤害
 	function get_primary_dmg(&$pa, &$pd, $active)
 	{
@@ -173,11 +198,11 @@ namespace weapon
 		return $damage;
 	}
 	
-	//基础伤害修正系数
+	//基础伤害加成系数
 	function get_primary_dmg_multiplier(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return 1.0;
+		return array();
 	}
 	
 	//固定伤害
@@ -187,26 +212,39 @@ namespace weapon
 		return 0;
 	}
 	
-	//固定伤害修正系数
+	//固定伤害加成系数
 	function get_fixed_dmg_multiplier(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return 1.0;
+		return array();
 	}
 	
 	//物理伤害
 	function get_physical_dmg(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$primary_dmg=get_primary_dmg($pa, $pd, $active) * get_primary_dmg_multiplier($pa, $pd, $active);
+		eval(import_module('logger'));
+		$primary_dmg_base = get_primary_dmg($pa, $pd, $active);
+		list($primary_dmg, $mult_words) = apply_multiplier($primary_dmg_base, get_primary_dmg_multiplier($pa, $pd, $active), '<:primary_dmg:>');
+		$pa['primary_dmg_log_flag'] = 1;
+		$primary_dmg_log = '造成了'.$mult_words.'点基础物理伤害！<br>';
+		$log .= '<:primary_dmg_log:>';
 		$fixed_dmg=get_fixed_dmg($pa, $pd, $active);
-		if ($fixed_dmg>0) $fixed_dmg *= get_fixed_dmg_multiplier($pa, $pd, $active);
+		if ($fixed_dmg>0) {
+			$o_fixed_dmg = $fixed_dmg;
+			list($fixed_dmg, $mult_words) = apply_multiplier($fixed_dmg, get_fixed_dmg_multiplier($pa, $pd, $active), 'yellow');
+			if ($o_fixed_dmg != $fixed_dmg) $log .= '造成了'.$mult_words.'点物理固定伤害！<br>';
+		}elseif($primary_dmg_base == $primary_dmg) {//特殊的台词顺序，如果既没有基础物伤加成，也没有物伤固定加成，就不显示基础物伤这句话
+			$primary_dmg_log = '';
+			$pa['primary_dmg_log_flag'] = 0;
+		}
+		$log = str_replace('<:primary_dmg_log:>', $primary_dmg_log, $log);
 		return round($primary_dmg + $fixed_dmg);
 	}
 	
-	//物理伤害修正系数
-	//注意由于物理伤害修正系数会在log里显示出来，所以决定这里返回一个数组，代表各次修正，最后结果是所有元素的乘积
-	//请注意array_merge的次序，应该把你的结果放在array的最前面，这样各次修正数值出现次序才是和判定log的出现次序一致的
+	//物理伤害加成系数
+	//注意由于物理伤害加成系数会在log里显示出来，所以决定这里返回一个数组，代表各次加成，最后结果是所有元素的乘积
+	//请注意array_merge的次序，应该把你的结果放在array的最前面，这样各次加成数值出现次序才是和判定log的出现次序一致的
 	//即，应该写return array_merge(Array(数值),$chprocess($pa,$pd,$active));而不是反过来
 	function get_physical_dmg_multiplier(&$pa, &$pd, $active)
 	{
@@ -229,23 +267,22 @@ namespace weapon
 		$multiplier = get_physical_dmg_multiplier($pa, $pd, $active);
 		$dmg = get_physical_dmg($pa, $pd, $active);
 		
-		$fin_dmg=$dmg; $mult_words='';
-		foreach ($multiplier as $key)
-		{
-			$fin_dmg=$fin_dmg*$key;
-			$mult_words.="×{$key}";
-		}
-		$fin_dmg=round($fin_dmg);
-		if ($fin_dmg < 1) $fin_dmg = 1;
-		if ($mult_words=='')
-			$log .= "造成<span class=\"red\">{$dmg}</span>点伤害！<br>";
-		else  $log .= "造成{$dmg}{$mult_words}＝<span class=\"red\">{$fin_dmg}</span>点伤害！<br>";
+		$primary_dmg_color = 'yellow';
+		list($fin_dmg, $mult_words) = apply_multiplier($dmg, $multiplier, '<:fin_dmg:>');
+		if(empty($pa['primary_dmg_log_flag'])) $log .= '造成了'.$mult_words.'点物理伤害！<br>';
+		elseif($fin_dmg != $dmg) $log .= '加成后的物理伤害：'.$mult_words.'点。<br>';
+		else $primary_dmg_color = 'red';
+		$log = str_replace('<:primary_dmg:>', $primary_dmg_color, $log);
+		
+		$replace_color = 'red';
 		
 		$fin_dmg_change = get_physical_dmg_change($pa, $pd, $active, $fin_dmg);
 		if($fin_dmg_change != $fin_dmg) {
 			$fin_dmg = $fin_dmg_change;
 			$log .= "总物理伤害：<span class=\"red\">{$fin_dmg}</span>。<br>";
+			$replace_color = 'yellow';
 		}
+		$log = str_replace('<:fin_dmg:>', $replace_color, $log);//如果有伤害变化，那么前面的台词显示黄色，否则显示红色（最终值）
 		
 		$pa['physical_dmg_dealt']+=$fin_dmg;
 		$pa['dmg_dealt']+=$fin_dmg;
@@ -469,6 +506,13 @@ namespace weapon
 		
 		apply_weapon_skill_gain($pa, $pd, $active, calculate_attack_weapon_skill_gain($pa, $pd, $active));
 		
+		$chprocess($pa, $pd, $active);
+	}
+	
+	function attack_prepare(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$pa['o_wep'] = $pa['wep']; $pd['o_wep'] = $pd['wep']; 
 		$chprocess($pa, $pd, $active);
 	}
 	

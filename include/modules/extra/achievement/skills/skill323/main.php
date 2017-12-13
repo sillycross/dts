@@ -2,6 +2,11 @@
 
 namespace skill323
 {
+	//旧成就精力所限，未全部修改，请以skill300、skill313或skill332之后的成就为模板！
+	$ach323_name = array(
+		0=>'宛如梦幻',
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL323_INFO','achievement;');
@@ -26,7 +31,7 @@ namespace skill323
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')					
 			$x=0;						
-		else	$x=base64_decode_number($data);		
+		else $x=$data;
 		$ox=$x;
 		$x=\skillbase\skill_getvalue(323,'cnt',$pa);		
 		if ($x==0) $x=$ox;
@@ -40,7 +45,7 @@ namespace skill323
 			\cardbase\get_card($cr,$pa);
 		}
 		
-		return base64_encode_number($x,5);		
+		return $x;
 	}
 	
 	function itemuse(&$theitem)
@@ -61,7 +66,7 @@ namespace skill323
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')
 			$p323=0;
-		else	$p323=base64_decode_number($data);	
+		else	$p323=$data;	
 		$c323=0;
 		if (($p323<=2700)&&($p323!=0)){
 			$c323=999;

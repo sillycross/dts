@@ -7,7 +7,7 @@ namespace skill23
 	
 	function init() 
 	{
-		define('MOD_SKILL23_INFO','club;active;upgrade;locked;');
+		define('MOD_SKILL23_INFO','club;active;upgrade;feature;');
 		eval(import_module('clubbase'));
 		$clubskillname[23] = '宝石';
 		$clubdesc_h[20] = $clubdesc_a[20] = '可用「方块」道具为武器或防具增加效耐值或添加属性';

@@ -43,13 +43,22 @@ namespace wep_f
 		return $pa['wepe'];
 	}
 	
-	function get_fixed_dmg(&$pa, &$pd, $active)
+	//灵系从固伤阶段改到主伤阶段
+	function get_primary_dmg(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r=0;
 		if ($pa['wep_kind']=='F') $r=get_WF_fixed_dmg($pa, $pd, $active);
 		return $chprocess($pa, $pd, $active)+$r;
 	}
+	
+//	function get_fixed_dmg(&$pa, &$pd, $active)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		$r=0;
+//		if ($pa['wep_kind']=='F') $r=get_WF_fixed_dmg($pa, $pd, $active);
+//		return $chprocess($pa, $pd, $active)+$r;
+//	}
 	
 	function get_WF_sp_cost(&$pa, &$pd, $active)
 	{

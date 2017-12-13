@@ -58,8 +58,8 @@ namespace ex_hp_def
 				else
 				{
 					if ($active)
-						$log .= "{$pd['name']}的装备没能发挥限制攻击伤害的效果！<br>";
-					else  $log .= "你的装备没能发挥限制攻击伤害的效果！<br>";
+						$log .= "<span class=\"red\">{$pd['name']}的装备没能发挥限制攻击伤害的效果！</span><br>";
+					else  $log .= "<span class=\"red\">你的装备没能发挥限制攻击伤害的效果！</span><br>";
 				}
 			}
 		}

@@ -2,6 +2,11 @@
 
 namespace skill322
 {
+	//旧成就精力所限，未全部修改，请以skill300、skill313或skill332之后的成就为模板！
+	$ach322_name = array(
+		0=>'烈火疾风',
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL322_INFO','achievement;');
@@ -24,7 +29,7 @@ namespace skill322
 		if (eval(__MAGIC__)) return $___RET_VALUE;	
 		if ($data=='')					
 			$x=0;						
-		else	$x=base64_decode_number($data);		
+		else $x=$data;
 		$ox=$x;
 		$x=\skillbase\skill_getvalue(322,'cnt',$pa);		
 		if ($x==0) $x=$ox;
@@ -35,7 +40,7 @@ namespace skill322
 			\cardbase\get_card(78,$pa);
 		}
 		
-		return base64_encode_number($x,5);		
+		return $x;
 	}
 	
 	function itemuse(&$theitem)
@@ -56,7 +61,7 @@ namespace skill322
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')
 			$p322=0;
-		else	$p322=base64_decode_number($data);	
+		else	$p322=$data;	
 		$c322=0;
 		if (($p322<=1800)&&($p322!=0)){
 			$c322=999;

@@ -6,6 +6,7 @@ namespace skill320
 	{
 		define('MOD_SKILL320_INFO','achievement;daily;');
 		define('MOD_SKILL320_ACHIEVEMENT_ID','20');
+		define('MOD_SKILL320_ABANDONED','1');//已废弃
 	}
 	
 	function acquire320(&$pa)
@@ -24,7 +25,7 @@ namespace skill320
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')					
 			$x=0;						
-		else	$x=base64_decode_number($data);		
+		else $x=$data;
 		$ox=$x;
 		$x+=\skillbase\skill_getvalue(320,'cnt',$pa);		
 		$x=min($x,(1<<30)-1);
@@ -33,7 +34,7 @@ namespace skill320
 			\cardbase\get_qiegao(150,$pa);
 		}
 		
-		return base64_encode_number($x,5);		
+		return $x;
 	}
 
 	function itemmix_success()
@@ -53,7 +54,7 @@ namespace skill320
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')
 			$p320=0;
-		else	$p320=base64_decode_number($data);	
+		else	$p320=$data;	
 		$c320=0;
 		if ($p320>=1){
 			$c320=999;

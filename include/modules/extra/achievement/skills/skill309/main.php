@@ -2,6 +2,11 @@
 
 namespace skill309
 {
+	//旧成就精力所限，未全部修改，请以skill300、skill313或skill332之后的成就为模板！
+	$ach309_name = array(
+		0=>'不动的大图书馆',
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL309_INFO','achievement;');
@@ -24,7 +29,7 @@ namespace skill309
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')					
 			$x=0;						
-		else	$x=base64_decode_number($data);		
+		else $x=$data;
 		$ox=$x;
 		$x=\skillbase\skill_getvalue(309,'cnt',$pa);
 		if ($x==0) $x=$ox;
@@ -35,7 +40,7 @@ namespace skill309
 			\cardbase\get_card(72,$pa);
 		}
 		
-		return base64_encode_number($x,5);		
+		return $x;
 	}
 	
 	function itemmix_success()
@@ -54,7 +59,7 @@ namespace skill309
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')
 			$p309=0;
-		else	$p309=base64_decode_number($data);	
+		else	$p309=$data;	
 		$c309=0;
 		if (($p309<=900)&&($p309!=0)){
 			$c309=999;

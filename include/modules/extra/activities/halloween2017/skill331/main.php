@@ -53,7 +53,7 @@ namespace skill331
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')					
 			$x=0;						
-		else	$x=base64_decode_number($data);		
+		else $x=$data;
 		$ox=$x;
 		$x+=\skillbase\skill_getvalue(331,'cnt',$pa);		
 		$x=min($x,(1<<30)-1);
@@ -76,7 +76,7 @@ namespace skill331
 			\cardbase\get_card($pcard,$pa);
 		}
 
-		return base64_encode_number($x,5);		
+		return $x;
 	}
 	
 	function show_achievement331($data)
@@ -85,7 +85,7 @@ namespace skill331
 		eval(import_module('skill331'));
 		if ($data=='')
 			$p331=0;
-		else	$p331=base64_decode_number($data);	
+		else	$p331=$data;	
 		$c331=0;
 		if ($p331 >= $ach331_threshold[1])
 			$c331=999;

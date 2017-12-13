@@ -4,7 +4,7 @@ namespace skill219
 {
 	function init() 
 	{
-		define('MOD_SKILL219_INFO','club;active;locked;');
+		define('MOD_SKILL219_INFO','club;active;feature;');
 		eval(import_module('clubbase'));
 		$clubskillname[219] = '淬毒';
 		$clubdesc_h[8] = $clubdesc_a[8] = '能够用毒药为武器淬毒（增加带毒属性）';

@@ -4,7 +4,7 @@ namespace skill14
 {
 	function init() 
 	{
-		define('MOD_SKILL14_INFO','club;locked;');
+		define('MOD_SKILL14_INFO','club;feature;');
 		eval(import_module('clubbase'));
 		$clubskillname[14] = '剑士';
 		$clubdesc_h[2] = $clubdesc_a[2] = '开局获得25点斩系熟练度，每次升级时获得4-6点斩系熟练度';

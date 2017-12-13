@@ -4,7 +4,7 @@ namespace skill225
 {
 	function init() 
 	{
-		define('MOD_SKILL225_INFO','club;locked;');
+		define('MOD_SKILL225_INFO','club;feature;');
 		eval(import_module('clubbase'));
 		$clubskillname[225] = '高速';
 		$clubdesc_h[10] = $clubdesc_a[10] = '每次攻击有2/3概率额外获得1点熟练度';

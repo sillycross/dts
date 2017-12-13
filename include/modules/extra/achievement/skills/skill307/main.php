@@ -2,6 +2,12 @@
 
 namespace skill307
 {
+	//旧成就精力所限，未全部修改，请以skill300、skill313或skill332之后的成就为模板！
+	$ach307_name = array(
+		0=>'幻境解离',
+		1=>'奇迹的篝火',
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL307_INFO','achievement;');
@@ -26,7 +32,7 @@ namespace skill307
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')					
 			$x=0;						
-		else	$x=base64_decode_number($data);		
+		else $x=$data;
 		$ox=$x;
 		$x+=\skillbase\skill_getvalue(307,'cnt',$pa);
 		$x=min($x,(1<<30)-1);
@@ -39,7 +45,7 @@ namespace skill307
 			\cardbase\get_card(81,$pa);
 		}
 		
-		return base64_encode_number($x,5);		
+		return $x;
 	}
 	
 	function itemuse(&$theitem)
@@ -60,7 +66,7 @@ namespace skill307
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')
 			$p307=0;
-		else	$p307=base64_decode_number($data);	
+		else	$p307=$data;	
 		$c307=0;
 		if ($p307>=8){
 			$c307=999;

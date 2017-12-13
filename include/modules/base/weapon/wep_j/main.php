@@ -46,14 +46,23 @@ namespace wep_j
 		$damage = min(round($pd['mhp']/3),20000) + round($pa['wepe']*2/3);
 		return $damage;
 	}
-		
-	function get_fixed_dmg(&$pa, &$pd, $active)
+	
+	//重枪从固伤阶段改到主伤阶段
+	function get_primary_dmg(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r=0;
 		if ($pa['wep_kind']=='J') $r=get_WJ_fixed_dmg($pa, $pd, $active);
 		return $r+$chprocess($pa, $pd, $active);
 	}
+	
+//	function get_fixed_dmg(&$pa, &$pd, $active)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		$r=0;
+//		if ($pa['wep_kind']=='J') $r=get_WJ_fixed_dmg($pa, $pd, $active);
+//		return $r+$chprocess($pa, $pd, $active);
+//	}
 	
 	function get_attack_method(&$pdata)
 	{

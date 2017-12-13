@@ -3,7 +3,7 @@
 namespace skill259
 {
 	//附加伤害比例
-	$adddmg = array(5,4,3);
+	$adddmg = array(4,3,2);
 	//升级所需技能点数值
 	$upgradecost = array(3,3,-1);
 	//怒气消耗
@@ -118,10 +118,11 @@ namespace skill259
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('logger','skill259'));
 		if ($pa['bskill']!=259) return $chprocess($pa,$pd,$active);
-		if ($active) $log .= "<span class=\"red\">你对着敌人打出了一屏幕的拳头！</span><br>";
-			else $log .= "<span class=\"red\">敌人对着你打出了一屏幕的拳头！</span><br>";
-		$r259=get_skill259_adddmg($pa);
-		return 1+$r259+$chprocess($pa, $pd, $active);
+		$r259=1+get_skill259_adddmg($pa);
+		if ($active) $log .= "<span class=\"red\">你对着敌人打出了一屏幕的拳头，附加了{$r259}点固定伤害！</span><br>";
+			else $log .= "<span class=\"red\">敌人对着你打出了一屏幕的拳头，附加了{$r259}点固定伤害！</span><br>";
+		
+		return $r259+$chprocess($pa, $pd, $active);
 	}
 	
 	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())

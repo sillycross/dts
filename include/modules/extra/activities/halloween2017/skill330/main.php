@@ -97,7 +97,7 @@ namespace skill330
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')					
 			$x=0;						
-		else	$x=base64_decode_number($data);		
+		else $x=$data;
 		$ox=$x;
 		$x+=\skillbase\skill_getvalue(330,'cnt',$pa);		
 		$x=min($x,(1<<30)-1);
@@ -115,7 +115,7 @@ namespace skill330
 			\cardbase\get_qiegao($ach330_qiegao_prize[3],$pa);
 		}
 
-		return base64_encode_number($x,5);		
+		return $x;
 	}
 	
 	function show_achievement330($data)
@@ -124,7 +124,7 @@ namespace skill330
 		eval(import_module('skill330'));
 		if ($data=='')
 			$p330=0;
-		else	$p330=base64_decode_number($data);	
+		else	$p330=$data;	
 		$c330=0;
 		if ($p330 >= $ach330_threshold[3])
 			$c330=999;

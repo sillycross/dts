@@ -1,15 +1,15 @@
 你的包裹已经满了。想要丢掉哪个物品？<br><br>
-<input type="hidden" name="mode" value="itemmain">
+<input type="hidden" id="mode" name="mode" value="itemmain">
 <!--{if defined('MOD_SEARCHMEMORY') && \searchmemory\searchmemory_available()}-->
 <input type="hidden" id="command" name="command" value="">
 <input type="button" class="cmdbutton" id="z" value="[Z]丢弃" onclick="$('command').value='dropitm0';postCmd('gamecmd','command.php');this.disabled=true;">$itm0/$itme0/$itms0<br><br>
 <ul style="padding-left:24px;">
-	<li><input type="button" class="cmdbutton" id="a" value="[A]丢弃" onclick="$('command').value='swapitm1';postCmd('gamecmd','command.php');this.disabled=true;">$itm1/$itme1/$itms1<br></li>
-	<li><input type="button" class="cmdbutton" id="s" value="[S]丢弃" onclick="$('command').value='swapitm2';postCmd('gamecmd','command.php');this.disabled=true;">$itm2/$itme2/$itms2<br></li>
-	<li><input type="button" class="cmdbutton" id="d" value="[D]丢弃" onclick="$('command').value='swapitm3';postCmd('gamecmd','command.php');this.disabled=true;">$itm3/$itme3/$itms3<br></li>
-	<li><input type="button" class="cmdbutton" id="q" value="[Q]丢弃" onclick="$('command').value='swapitm4';postCmd('gamecmd','command.php');this.disabled=true;">$itm4/$itme4/$itms4<br></li>
-	<li><input type="button" class="cmdbutton" id="w" value="[W]丢弃" onclick="$('command').value='swapitm5';postCmd('gamecmd','command.php');this.disabled=true;">$itm5/$itme5/$itms5<br></li>
-	<li><input type="button" class="cmdbutton" id="e" value="[E]丢弃" onclick="$('command').value='swapitm6';postCmd('gamecmd','command.php');this.disabled=true;">$itm6/$itme6/$itms6<br></li>
+	<li><input type="button" class="dropbutton" id="a" value="[A]丢弃" onclick="$('command').value='swapitm1';postCmd('gamecmd','command.php');this.disabled=true;"> <a onclick=$('a').click();>$itm1/$itme1/$itms1</a></li>
+	<li><input type="button" class="dropbutton" id="s" value="[S]丢弃" onclick="$('command').value='swapitm2';postCmd('gamecmd','command.php');this.disabled=true;"> <a onclick=$('s').click();>$itm2/$itme2/$itms2</a></li>
+	<li><input type="button" class="dropbutton" id="d" value="[D]丢弃" onclick="$('command').value='swapitm3';postCmd('gamecmd','command.php');this.disabled=true;"> <a onclick=$('d').click();>$itm3/$itme3/$itms3</a></li>
+	<li><input type="button" class="dropbutton" id="q" value="[Q]丢弃" onclick="$('command').value='swapitm4';postCmd('gamecmd','command.php');this.disabled=true;"> <a onclick=$('q').click();>$itm4/$itme4/$itms4</a></li>
+	<li><input type="button" class="dropbutton" id="w" value="[W]丢弃" onclick="$('command').value='swapitm5';postCmd('gamecmd','command.php');this.disabled=true;"> <a onclick=$('w').click();>$itm5/$itme5/$itms5</a></li>
+	<li><input type="button" class="dropbutton" id="e" value="[E]丢弃" onclick="$('command').value='swapitm6';postCmd('gamecmd','command.php');this.disabled=true;"> <a onclick=$('e').click();>$itm6/$itme6/$itms6</a></li>
 </ul>
 <!--{else}-->
 <input type="radio" name="command" id="dropitm0" value="dropitm0" checked><a onclick=sl("dropitm0"); href="javascript:void(0);" >$itm0/$itme0/$itms0</a><br><br>

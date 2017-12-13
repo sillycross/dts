@@ -2,6 +2,13 @@
 
 namespace skill304
 {
+	//旧成就精力所限，未全部修改，请以skill300、skill313或skill332之后的成就为模板！
+	$ach304_name = array(
+		0=>'不屈的生命',
+		1=>'那种话最讨厌了',
+		2=>'明亮的未来',
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL304_INFO','achievement;');
@@ -24,7 +31,7 @@ namespace skill304
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')					
 			$x=0;						
-		else	$x=base64_decode_number($data);		
+		else $x=$data;
 		$ox=$x;
 		$x+=\skillbase\skill_getvalue(304,'cnt',$pa);		
 		$x=min($x,(1<<30)-1);
@@ -40,14 +47,14 @@ namespace skill304
 			\cardbase\get_card(87,$pa);
 		}
 		
-		return base64_encode_number($x,5);		
+		return $x;
 	}
 	
 	function itemmix_success()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','map'));
-		if ($itm0=="【KEY系生命弹】"){
+		if ($itm0=="【KEY系生命弹】" || $itm0=="【KEY系未来弹】"){
 			$x=(int)\skillbase\skill_getvalue(304,'cnt');
 			$x++;
 			\skillbase\skill_setvalue(304,'cnt',$x);
@@ -60,7 +67,7 @@ namespace skill304
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')
 			$p304=0;
-		else	$p304=base64_decode_number($data);	
+		else	$p304=$data;	
 		$c304=0;
 		if ($p304>=30){
 			$c304=999;

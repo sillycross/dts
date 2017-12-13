@@ -2,6 +2,12 @@
 
 namespace skill301
 {
+	//旧成就精力所限，未全部修改，请以skill300、skill313或skill332之后的成就为模板！
+	$ach301_name = array(
+		0=>'锁定解除',
+		1=>'最后的荣光',
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL301_INFO','achievement;');
@@ -24,7 +30,7 @@ namespace skill301
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')					
 			$x=0;						
-		else	$x=base64_decode_number($data);		
+		else $x=$data;
 		$ox=$x;
 		$x+=\skillbase\skill_getvalue(301,'cnt',$pa);
 		$x=min($x,(1<<30)-1);
@@ -36,7 +42,7 @@ namespace skill301
 			\cardbase\get_qiegao(1600,$pa);
 		}
 		
-		return base64_encode_number($x,5);		
+		return $x;
 	}
 	
 	function itemuse(&$theitem)
@@ -57,7 +63,7 @@ namespace skill301
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')
 			$p301=0;
-		else	$p301=base64_decode_number($data);	
+		else	$p301=$data;	
 		$c301=0;
 		if ($p301>=10){
 			$c301=999;

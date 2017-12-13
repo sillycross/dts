@@ -51,7 +51,7 @@ namespace skill327
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')					
 			$x=0;						
-		else	$x=base64_decode_number($data);		
+		else $x=$data;
 		$ox=$x;
 		$x+=\skillbase\skill_getvalue(327,'cnt',$pa);		
 		$x=min($x,(1<<30)-1);
@@ -81,7 +81,7 @@ namespace skill327
 			\cardbase\get_card($pcard,$pa);
 		}
 
-		return base64_encode_number($x,5);		
+		return $x;
 	}
 	
 	function show_achievement327($data)
@@ -90,7 +90,7 @@ namespace skill327
 		eval(import_module('skill327'));
 		if ($data=='')
 			$p327=0;
-		else	$p327=base64_decode_number($data);	
+		else	$p327=$data;	
 		$c327=0;
 		if ($p327 >= $ach327_threshold[3])
 			$c327=999;

@@ -13,6 +13,35 @@ namespace item_misc
 		}
 	}
 	
+	function parse_itmuse_desc($n, $k, $e, $s, $sk){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($n, $k, $e, $s, $sk);
+		if(strpos($k,'U')===0) {
+			$ret .= '使用后将扫除本地1枚效果值不小于'.$e.'的陷阱';
+		}elseif(strpos($k,'Y')===0 || strpos($k,'Z')===0){
+			if ($n == '凸眼鱼'){
+				$ret .= '使用后可以销毁整个战场现有的尸体';
+			}elseif ($n == '■DeathNote■') {
+				$ret .= '填入玩家的名字和头像就可以直接杀死该玩家';
+			}elseif ($n == '游戏解除钥匙') {
+				$ret .= '使用后达成『锁定解除』胜利';
+			}elseif ($n == '奇怪的按钮') {
+				$ret .= '警告：高度危险！';
+			}elseif ($n == '『C.H.A.O.S』') {
+				$ret .= '献祭包裹里的全部物品以获得通往『幻境解离』的必备道具';
+			}elseif ($n == '『S.C.R.A.P』') {
+				$ret .= '还不满足『幻境解离』的条件！使用后可以恢复成『C.H.A.O.S』';
+			}elseif ($n == '『G.A.M.E.O.V.E.R』') {
+				$ret .= '使用后达成『幻境解离』胜利';
+			}elseif ($n == '杏仁豆腐的ID卡') {
+				$ret .= '连斗后使用可以让全场NPC消失并进入『死斗阶段』';
+			}elseif ($n == '水果刀') {
+				$ret .= '可以切水果，视你的斩系熟练度决定生成补给还是水果皮';
+			}
+		}
+		return $ret;
+	}
+	
 	function itemuse(&$theitem)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -33,7 +62,8 @@ namespace item_misc
 				$deld = $mi['itm'];
 				$delp = $mi['tid'];
 				$db->query("DELETE FROM {$tablepre}maptrap WHERE tid='$delp'");
-				$log.="远方传来一阵爆炸声，伟大的<span class=\"yellow\">{$itm}</span>用生命和鲜血扫除了<span class=\"yellow\">{$deld}</span>。<br><span class=\"red\">实在是大快人心啊！</span><br>";
+				if($itm=='☆混沌人肉探雷车★') $log.="远方传来一阵爆炸声，伟大的<span class=\"yellow\">{$itm}</span>用生命和鲜血扫除了<span class=\"yellow\">{$deld}</span>。<br><span class=\"red\">实在是大快人心啊！</span><br>";
+				else $log.="远方传来一阵爆炸声，<span class=\"yellow\">{$itm}</span>扫除了<span class=\"yellow\">{$deld}</span>。<br>";
 			}else{
 				$log.="你使用了<span class=\"yellow\">{$itm}</span>，但是没有发现陷阱。<br>";
 			}
@@ -54,7 +84,9 @@ namespace item_misc
 				$cnum = $db->affected_rows ();
 				addnews ( $now, 'corpseclear', $name, $cnum );
 				if (defined('MOD_NOISE')) \noise\addnoise($pls,'corpseclear',$pid);
-				$log .= "使用了<span class=\"yellow\">$itm</span>。<br>突然刮起了一阵怪风，吹走了地上的{$cnum}具尸体！<br>";
+				$log .= "使用了<span class=\"yellow\">$itm</span>。<br>突然刮起了一阵怪风，";
+				if($num) $log .= "<span class=\"yellow\">吹走了地上的{$cnum}具尸体！</span><br>";
+				else $log .= "不过好像没有什么效果？";
 				\itemmain\itms_reduce($theitem);
 				return;
 			} elseif ($itm == '■DeathNote■') {

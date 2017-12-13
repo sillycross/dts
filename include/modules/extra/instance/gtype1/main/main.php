@@ -142,6 +142,11 @@ namespace gtype1
 		
 	}
 	
+	function gtype1_post_rank_event(&$pa, $cl, $rk){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		\player\player_save($pa);
+	}
+	
 	function check_addarea_gameover($atime){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','map'));
@@ -188,30 +193,39 @@ namespace gtype1
 					$kk=$wl[$rk]['n'];
 					$v=$wl[$rk]['c'];
 					$k=\player\fetch_playerdata($kk);
-					if ($v>=5){
-						\cardbase\get_qiegao(150,$k);
-					}
+					$qiegao_prize = 0;
+					$card_prize = array();
 					if ($v>=10){
-						\cardbase\get_qiegao(300,$k);
+						$qiegao_prize += 50;
 					}
 					if ($v>=20){
-						\cardbase\get_qiegao(600,$k);
+						$qiegao_prize += 300;
 					}
 					if ($v>=30){
-						\cardbase\get_card(94,$k);
-						\cardbase\get_qiegao(500,$k);
+						$qiegao_prize += 600;
+					}
+					if ($v>=40){
+						$qiegao_prize += 750;
+					}
+					if ($v>=50){
+						$qiegao_prize += 900;
 					}
 					if ($rk==1){
-						\cardbase\get_card(96,$k);
-						\cardbase\get_card(95,$k);
+						$qiegao_prize += 1000;
 					}
 					if ($rk<=2){
-						\cardbase\get_card(95,$k);
+						$qiegao_prize += 500;
 					}
 					if ($rk<=$max_announce_num){
-						\cardbase\get_qiegao(500,$k);
+						$qiegao_prize += 500;
 						$bestlist[$rk] = Array(0=>$kk, 1=>$v);
-					}		
+					}	
+					\skillbase\skill_setvalue(424,'rank',$rk,$k);
+					if($qiegao_prize) {
+						\cardbase\get_qiegao($qiegao_prize,$k);
+						\skillbase\skill_setvalue(424,'prize',$qiegao_prize,$k);
+						gtype1_post_rank_event($k, $v, $rk);
+					}
 				}
 				
 				for ($i=$max_announce_num; $i>=1; $i--) 

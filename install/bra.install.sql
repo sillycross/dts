@@ -78,6 +78,7 @@ CREATE TABLE `bra_users` (
   `cardenergy` text NOT NULL DEFAULT '',
   `cardlist` text NOT NULL DEFAULT '',
   `elo_history` text NOT NULL DEFAULT '',
+  `u_achievements` text NOT NULL DEFAULT '',
   `n_achievements` text NOT NULL DEFAULT '',
   
   PRIMARY KEY (`uid`),

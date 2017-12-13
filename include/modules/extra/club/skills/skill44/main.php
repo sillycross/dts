@@ -80,7 +80,8 @@ namespace skill44
 	function get_fixed_dmg_multiplier(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(44,$pd) || !check_unlocked44($pd)) return $chprocess($pa, $pd, $active);
+		$ret = $chprocess($pa, $pd, $active);
+		if (!\skillbase\skill_query(44,$pd) || !check_unlocked44($pd)) return $ret;
 		$choice = \skillbase\skill_getvalue(44,'choice',$pd);
 		$choice = (int)$choice; 
 		if ($choice==0) 
@@ -94,7 +95,7 @@ namespace skill44
 			$r=1-$r/100;
 		}
 		else  $r=1;
-		return $chprocess($pa, $pd, $active)*$r;
+		return array_merge($r, $ret);
 	}
 	
 	function calculate_ex_single_dmg_multiple(&$pa, &$pd, $active, $key)

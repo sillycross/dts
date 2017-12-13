@@ -1,11 +1,14 @@
+<!--{eval $stitle312 = \achievement_base\show_ach_title(312, $c312);}-->
+<!--{eval $atitle312 = \achievement_base\show_ach_title_2(312, $c312);}-->
 <table><tr>
 <td>
-<!--{if ($c312) }--><img src="img/ach/312.gif"><!--{else}--><img src="img/ach/N.gif"><!--{/if}-->
+	<!--{if ($c312=='0') }--><img src="img/ach/a312_n.png">
+	<!--{else}--><img src="img/ach/a312_1.png"><!--{/if}-->
 </td>
-<td valign="top" align="left">
-<b>
-谈笑风生
-</b>
+<td class="ach_cont">
+<span class="ach_title" <!--{if $atitle312 }-->title="$atitle312"<!--{/if}-->>
+	$stitle312
+</span>
 <!--{if ($c312=='999') }--><span class="lime">[完成]</span><!--{else}--><!--{if ($c312==0) }--><span class="red">[未完成]</span><!--{else}--><span class="clan">[进行中]</span><!--{/if}--><!--{/if}--><br>
 <font color="yellow">击杀总数： {$p312}名<br></font>
 <font color="olive">奖励： 切糕888 <span class="evergreen">卡片</span> <span class="orange">Dr.Clef</span><br></font> 

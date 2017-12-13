@@ -26,7 +26,7 @@ namespace itemmain
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','player','itemmain','logger'));
-		if ($itmn < 1 || $itmn > 6) {
+		if ($itmn < 0 || $itmn > 6) {
 			$log .= '此道具不存在，请重新选择。';
 			$mode = 'command';
 			return;
@@ -46,7 +46,6 @@ namespace itemmain
 			$mode = 'command';
 			return;
 		}
-		
 		itemuse($theitem);
 		
 		$mode = 'command';

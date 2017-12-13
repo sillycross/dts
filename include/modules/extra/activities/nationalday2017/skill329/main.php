@@ -55,7 +55,7 @@ namespace skill329
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')					
 			$x=0;						
-		else	$x=base64_decode_number($data);		
+		else $x=$data;
 		$ox=$x;
 		$x+=\skillbase\skill_getvalue(329,'cnt',$pa);		
 		$x=min($x,(1<<30)-1);
@@ -82,7 +82,7 @@ namespace skill329
 			\cardbase\get_card($pcard,$pa);
 		}
 
-		return base64_encode_number($x,5);		
+		return $x;
 	}
 	
 	function show_achievement329($data)
@@ -91,7 +91,7 @@ namespace skill329
 		eval(import_module('skill329'));
 		if ($data=='')
 			$p329=0;
-		else	$p329=base64_decode_number($data);	
+		else	$p329=$data;	
 		$c329=0;
 		if ($p329 >= $ach329_threshold[3])
 			$c329=999;

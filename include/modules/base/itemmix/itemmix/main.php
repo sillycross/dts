@@ -50,7 +50,7 @@ namespace itemmix
 		foreach(Array($itmname_ignore) as $value){
 			$n = preg_replace($value,'',$n);
 		}
-		if(strpos($n, '小黄的超级球')!==false) $n = preg_replace('/\[\+[0-9]+?\]/si','',$n);//超级球强化特判可以合成
+		if(strpos($n, '小黄的')!==false) $n = preg_replace('/\[\+[0-9]+?\]/si','',$n);//小黄强化特判可以合成
 		$n = str_replace('钉棍棒','棍棒',$n);
 		return $n;
 	}

@@ -73,13 +73,13 @@ namespace ex_dmg_def
 			{
 				if (check_ex_dmg_def_proc($pa, $pd, $active, $key))
 				{
-					$log .= "{$exdmgname[$key]}被防具防御了！";
+					$log .= $exdmgname[$key].'<span class="yellow">被防具防御了！</span>';
 					$r = 0.5;
 					$pd['ex_dmg_'.$key.'_defend_success'] = 1;
 				}
 				else
 				{
-					$log .= "属性防御装备没能发挥应有的作用！";
+					$log .= '<span class="red">属性防御装备没能发挥应有的作用！</span>';
 				}
 			}
 		}
