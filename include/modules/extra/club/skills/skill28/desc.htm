@@ -1,12 +1,25 @@
 <!--{eval $___TEMP_SKILL_ID=28;}-->
+<!--{eval eval(import_module('skill28'));$skill28var=\skillbase\skill_getvalue(28,'choice',$who);}-->
 {template MOD_CLUBBASE_SKILLDESC_START}
 <span>
 毅重
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
-若你的武器除“天然”和“奇迹”以外没有任何属性，<br>你视为装备着“<span class="yellow">全系防御</span>”。目前<!--{if \skill28\check_available28($who)}--><span class="clan">生效</span><!--{else}--><span class="red">无效</span><!--{/if}-->
-</span></td>
+<td class=b3>
+<span style="margin-top:8px; margin-bottom:8px; display:block;">
+<!--{if $skill28var==1}-->如果本技能开启，<!--{else}--><span class="clan">本技能开启中！</span><!--{/if}-->你在战斗中视为只拥有<span class="yellow">物防、属防和控血</span>属性。<br>
+可以自由切换：
+<!--{loop range(1,2) $i}-->
+	<!--{if $skill28var==$i}-->
+		<input type="button" style="width:70px;margin:4px" disabled value="[已选择]">
+	<!--{else}-->
+		<input type="button" style="width:70px;margin:4px" onclick="$('mode').value='special';$('command').value='skill28_special';$('subcmd').value='upgrade';$('skillpara1').value='$i';postCmd('gamecmd','command.php');this.disabled=true;" value="$skill28stateinfo[$i]">
+	<!--{/if}-->
+	<!--{if $i<2}-->&nbsp;&nbsp;&nbsp;<!--{/if}-->
+<!--{/loop}--><br>
+
+</span>
+</td>
 <td class=b3 width=96>
 
 </td>

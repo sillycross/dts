@@ -156,31 +156,6 @@ namespace weapon
 		return rand(-$x,$x);
 	}
 	
-	//生成XXX x XXX = XXX这样格式的玩意
-	//返回一个数组，请用list()截获
-	function apply_multiplier($basedmg, $multiplier, $style=NULL)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$dmg = $basedmg;
-		$mult_words = $basedmg;
-		foreach ($multiplier as $key)
-		{
-			if($key && $key != 1) {
-				$dmg *= $key;
-				$mult_words .= '×'.$key;
-			}
-		}
-		if($dmg != $basedmg) {
-			$dmg = round($dmg);
-			$dmg = max(1, $dmg);
-			if($style) $mult_words .= '=<span class="'.$style.'">'.$dmg.'</span>';
-			else $mult_words .= '='.$dmg;
-		}else{
-			$mult_words = '<span class="'.$style.'">'.$dmg.'</span>';
-		}
-		return array($dmg, $mult_words);
-	}
-	
 	//基础伤害
 	function get_primary_dmg(&$pa, &$pd, $active)
 	{
@@ -225,20 +200,23 @@ namespace weapon
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('logger'));
 		$primary_dmg_base = get_primary_dmg($pa, $pd, $active);
-		list($primary_dmg, $mult_words) = apply_multiplier($primary_dmg_base, get_primary_dmg_multiplier($pa, $pd, $active), '<:primary_dmg:>');
-		$pa['primary_dmg_log_flag'] = 1;
-		$primary_dmg_log = '造成了'.$mult_words.'点基础物理伤害！<br>';
-		$log .= '<:primary_dmg_log:>';
+		list($primary_dmg, $mult_words, $mult_words_prmdmg) = \attack\apply_multiplier($primary_dmg_base, get_primary_dmg_multiplier($pa, $pd, $active), '<:primary_dmg:>');
+//		$pa['primary_dmg_log_flag'] = 1;
+//		$primary_dmg_log = '造成了'.$mult_words.'点基础物理伤害！<br>';
+//		$log .= '<:primary_dmg_log:>';
 		$fixed_dmg=get_fixed_dmg($pa, $pd, $active);
 		if ($fixed_dmg>0) {
 			$o_fixed_dmg = $fixed_dmg;
-			list($fixed_dmg, $mult_words) = apply_multiplier($fixed_dmg, get_fixed_dmg_multiplier($pa, $pd, $active), 'yellow');
-			$log .= '造成了'.$mult_words.'点物理固定伤害！<br>';
-		}elseif($primary_dmg_base == $primary_dmg) {//特殊的台词顺序，如果既没有基础物伤加成，也没有物伤固定加成，就不显示基础物伤这句话
-			$primary_dmg_log = '';
-			$pa['primary_dmg_log_flag'] = 0;
+			list($fixed_dmg, $mult_words, $mult_words_fxddmg) = \attack\apply_multiplier($fixed_dmg, get_fixed_dmg_multiplier($pa, $pd, $active), 'yellow');
+//			$log .= '造成了'.$mult_words.'点物理固定伤害！<br>';
 		}
-		$log = str_replace('<:primary_dmg_log:>', $primary_dmg_log, $log);
+		if(!empty($mult_words_fxddmg)) $pa['mult_words_phydmgbs'] = $mult_words_prmdmg.'+'.$mult_words_fxddmg;
+		else $pa['mult_words_phydmgbs'] = $mult_words_prmdmg;
+//		elseif($primary_dmg_base == $primary_dmg) {//特殊的台词顺序，如果既没有基础物伤加成，也没有物伤固定加成，就不显示基础物伤这句话
+//			$primary_dmg_log = '';
+//			$pa['primary_dmg_log_flag'] = 0;
+//		}
+//		$log = str_replace('<:primary_dmg_log:>', $primary_dmg_log, $log);
 		return round($primary_dmg + $fixed_dmg);
 	}
 	
@@ -268,11 +246,16 @@ namespace weapon
 		$dmg = get_physical_dmg($pa, $pd, $active);
 		
 		$primary_dmg_color = 'yellow';
-		list($fin_dmg, $mult_words) = apply_multiplier($dmg, $multiplier, '<:fin_dmg:>');
-		if(empty($pa['primary_dmg_log_flag'])) $log .= '造成了'.$mult_words.'点物理伤害！<br>';
-		elseif($fin_dmg != $dmg) $log .= '加成后的物理伤害：'.$mult_words.'点。<br>';
-		else $primary_dmg_color = 'red';
-		$log = str_replace('<:primary_dmg:>', $primary_dmg_color, $log);
+		list($fin_dmg, $mult_words, $mult_words_phydmg) = \attack\apply_multiplier($dmg, $multiplier, '<:fin_dmg:>', $pa['mult_words_phydmgbs']);
+		$mult_words_phydmg = \attack\equalsign_format($fin_dmg, $mult_words_phydmg, '<:fin_dmg:>');
+//		if(strpos($mult_words_phydmgbs,'+')!==false || strpos($mult_words_phydmgbs,'×')!==false) 
+//			$mult_words_phydmgbs = $mult_words_phydmgbs.'=<span class="<:fin_dmg:>">'.$fin_dmg.'</span>';
+//		else $mult_words_phydmgbs = '<span class="<:fin_dmg:>">'.$fin_dmg.'</span>';
+		$log .= '造成了'.$mult_words_phydmg.'点物理伤害！<br>';
+//		if(empty($pa['primary_dmg_log_flag'])) $log .= '造成了'.$mult_words.'点物理伤害！<br>';
+//		elseif($fin_dmg != $dmg) $log .= '加成后的物理伤害：'.$mult_words.'点。<br>';
+//		else $primary_dmg_color = 'red';
+//		$log = str_replace('<:primary_dmg:>', $primary_dmg_color, $log);
 		
 		$replace_color = 'red';
 		
@@ -286,6 +269,7 @@ namespace weapon
 		
 		$pa['physical_dmg_dealt']+=$fin_dmg;
 		$pa['dmg_dealt']+=$fin_dmg;
+		$pa['mult_words_fdmgbs'] .= ' + '.$fin_dmg;
 	}
 	
 	function calculate_wepimp_rate(&$pa, &$pd, $active)

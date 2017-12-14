@@ -681,12 +681,12 @@ namespace achievement_base
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$apm = \apm\calc_apm($pe);
-		$ret = true;
 		
-		if($pl['ip'] == $pe['ip'] || $apm < 10) $ret = false;
+		if($pe['type']) return false;
+		if($pl['ip'] == $pe['ip'] || $apm < 10) return false;
 		$skill1003_got = \skillbase\skill_getvalue(1003,'money_got', $pe);	
-		if($skill1003_got < 1000) $ret = false;
-		return $ret;
+		if($skill1003_got < 1000) return false;
+		return true;
 		//return !$pl['type'] && $pl['lvl'] >= 7 && $pl['money'] >= 1000;
 	}
 }

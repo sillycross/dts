@@ -143,15 +143,26 @@ namespace skill265
 		return $ret;
 	}
 	
-	//无视连击属性，但是带贯穿属性
+	//带贯穿属性
+	function get_ex_attack_array_core(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($pa, $pd, $active);
+		if (isset($pa['bskill']) && $pa['bskill']==265) 
+		{
+			array_push($ret,'n');
+		}
+		return $ret;
+	}
+	
+	//无视连击属性
 	function get_ex_attack_array(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa, $pd, $active);
 		if (isset($pa['bskill']) && $pa['bskill']==265) 
 		{
-			$ret = array_diff($ret, array('r', 'n'));
-			array_push($ret,'n');
+			$ret = array_diff($ret, array('r'));
 		}
 		return $ret;
 	}

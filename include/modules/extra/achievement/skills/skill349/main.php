@@ -9,7 +9,7 @@ namespace skill349
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach349_desc= array(
-		0=>'在冰封墓场、SCP研究设施或者英灵殿战斗击杀<:threshold:>名<span class="yellow" title=\''.POSITIVE_PLAYER_DESC.'\'>活跃玩家</span>',
+		0=>'在冰封墓场、SCP研究设施或者英灵殿战斗击杀<:threshold:>名玩家</span>',
 	);
 	
 	$ach349_proc_words = '击杀总数';
@@ -51,7 +51,7 @@ namespace skill349
 		if ( \skillbase\skill_query(349,$pa) && !$pd['type'] && $pd['hp'] <= 0)
 		{
 			//位于指定地图，且对方为活跃玩家
-			if(in_array($pa['pls'], array(26,32,34)) && \achievement_base\ach_check_positive_player($pa,$pd)){
+			if(in_array($pa['pls'], array(26,32,34)) && !$pd['type']){
 				$x=(int)\skillbase\skill_getvalue(349,'cnt',$pa);
 				$x+=1;
 				

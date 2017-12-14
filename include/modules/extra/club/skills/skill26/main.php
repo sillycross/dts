@@ -91,7 +91,7 @@ namespace skill26
 		return $chprocess($pa, $pd, $active, $key);
 	}
 	
-	function get_ex_attack_array(&$pa, &$pd, $active)
+	function get_ex_attack_array_core(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa, $pd, $active);

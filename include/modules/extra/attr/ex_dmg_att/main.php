@@ -172,6 +172,7 @@ namespace ex_dmg_att
 			//这里具体是red还是yellow有待后头决定
 			$log .= '造成了<span class="need-replace">'.$pa['ex_dmg_'.$key.'_dealt'].'</span>点属性伤害！';
 		else  $log .= $exdmgname[$key].'造成了<span class="need-replace">'.$pa['ex_dmg_'.$key.'_dealt'].'</span>点属性伤害！';
+		$pa['mult_words_exdmgbs'] .= empty($pa['mult_words_exdmgbs']) ? $pa['ex_dmg_'.$key.'_dealt'] : '+'.$pa['ex_dmg_'.$key.'_dealt'];
 	}
 	
 	//执行单个属性攻击
@@ -209,13 +210,16 @@ namespace ex_dmg_att
 			eval(import_module('logger'));
 			ex_attack_prepare($pa, $pd, $active);
 			//基础值
+			$pa['mult_words_exdmgbs'] = ''; 
 			$dmg = calculate_ex_attack_dmg_base($pa, $pd, $active);
 			if(!$dmg) return;
 			//加成值
 			$multiplier = calculate_ex_attack_dmg_multiplier($pa, $pd, $active);
 			
-			list($fin_dmg, $mult_words) = \weapon\apply_multiplier($dmg, $multiplier, '<:fin_dmg:>');
-			$ex_dmg_log = '总计造成了'.$mult_words.'点属性伤害！<br>';
+			list($fin_dmg, $mult_words, $mult_words_exdmg) = \attack\apply_multiplier($dmg, $multiplier, '<:fin_dmg:>',$pa['mult_words_exdmgbs']);
+			$mult_words_exdmg = \attack\equalsign_format($fin_dmg, $mult_words_exdmg, '<:fin_dmg:>');
+			$ex_dmg_log = '共计造成了'.$mult_words_exdmg.'点属性伤害！<br>';
+			
 			$replace_color = 'red';
 			if($fin_dmg != $dmg || $pa['ex_attack_num'] > 1) $log .= $ex_dmg_log;
 
@@ -232,6 +236,7 @@ namespace ex_dmg_att
 			$log = str_replace('<:fin_dmg:>', $replace_color, $log);//如果有伤害变化，那么前面的台词显示黄色，否则显示红色（最终值）
 			
 			$pa['dmg_dealt'] += $dmg;
+			$pa['mult_words_fdmgbs'] .= '+'.$dmg;
 		}
 	}
 	

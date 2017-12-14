@@ -105,6 +105,7 @@ namespace skill232
 			$v=$shieldeff[$clv];
 			$log.=\battle\battlelog_parser($pa,$pd,$active,'力场护盾抵消了<:pd_name:>受到的<span class="yellow">'.$v.'</span>点伤害！<br>');
 			$ret -= $v;
+			$pa['mult_words_fdmgbs'] .= '-'.$v;
 		}
 		return $ret;
 	}
