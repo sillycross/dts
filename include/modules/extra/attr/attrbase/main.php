@@ -4,8 +4,19 @@ namespace attrbase
 {
 	function init() {}
 	
+	//下面这两个获取属性的函数规则如下：
+	//添加：请在get_ex_XXX_array_core()里使用array_push()
+	//删除/改变：请在get_ex_XXX_array()里删除或者直接赋值
+	//也就是说，删除的效果一定覆盖添加的效果，至于删除怎么判定再说
+	
 	//获取防御属性列表（全部战斗装备）
 	function get_ex_def_array(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return get_ex_def_array_core($pa, $pd, $active);
+	}
+	
+	function get_ex_def_array_core(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player'));
@@ -19,6 +30,12 @@ namespace attrbase
 	
 	//获取攻击属性列表（武器防具和饰品）
 	function get_ex_attack_array(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return get_ex_attack_array_core($pa, $pd, $active);
+	}
+	
+	function get_ex_attack_array_core(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (attr_dmg_check_not_WPG($pa, $pd, $active))

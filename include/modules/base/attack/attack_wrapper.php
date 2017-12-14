@@ -101,7 +101,7 @@ namespace attack
 				if($dmg < 0)	$dmg = 0;
 			}
 		}
-		
+		$pa['mult_words_fdmgbs'] = substr($pa['mult_words_fdmgbs'],3);
 		//最终伤害乘算阶段
 		//获取最终伤害修正系数，类似物理伤害修正系数，这里返回的是一个数组
 		if ($dmg>0){
@@ -109,26 +109,33 @@ namespace attack
 		}else{
 			$multiplier= Array();
 		}
-		
-		if ((isset($pa['physical_dmg_dealt']) && $dmg>0 && $dmg!=$pa['physical_dmg_dealt']) 
-			|| ($dmg>0 && count($multiplier)>0))	//好吧这个写法有点糟糕……
-		{
-			$fin_dmg=$dmg; $mult_words='';
-			foreach ($multiplier as $key)
-			{
-				$fin_dmg=$fin_dmg*$key;
-				$mult_words.="×{$key}";
-			}
-			$fin_dmg=round($fin_dmg);
-			if ($fin_dmg < 1) $fin_dmg = 1;
-			if ($mult_words=='')
-				$log .= "<span class=\"yellow\">造成的总伤害：<span class=\"red\">{$dmg}</span>。</span><br>";
-			else  $log .= "<span class=\"yellow\">造成的总伤害：</span>{$dmg}{$mult_words}＝<span class=\"red\">{$fin_dmg}</span><span class=\"yellow\">。</span><br>";
-			$pa['dmg_dealt']=$fin_dmg;
-		}elseif($dmg!=$pa['physical_dmg_dealt']){
-			$log .= "<span class=\"yellow\">造成的总伤害：<span class=\"red\">{$dmg}</span>。</span><br>";
-			$pa['dmg_dealt'] = $dmg;
+		if($dmg > 0){
+			list($fin_dmg, $mult_words, $mult_words_fdmg) = apply_multiplier($dmg, $multiplier, '<:fin_dmg:>', $pa['mult_words_fdmgbs']);
+			$mult_words_fdmg = equalsign_format($fin_dmg, $mult_words_fdmg, '<:fin_dmg:>');
+			if($fin_dmg!=$pa['physical_dmg_dealt']) $log .= '<span class="yellow">造成的总伤害：'.$mult_words_fdmg.'。</span><br>';
+			$dmg = $pa['dmg_dealt'] = $fin_dmg;
 		}
+		
+//		if ((isset($pa['physical_dmg_dealt']) && $dmg>0 && $dmg!=$pa['physical_dmg_dealt']) 
+//			|| ($dmg>0 && count($multiplier)>0))	//好吧这个写法有点糟糕……
+//		{
+//			
+//			$fin_dmg=$dmg; $mult_words='';
+//			foreach ($multiplier as $key)
+//			{
+//				$fin_dmg=$fin_dmg*$key;
+//				$mult_words.="×{$key}";
+//			}
+//			$fin_dmg=round($fin_dmg);
+//			if ($fin_dmg < 1) $fin_dmg = 1;
+//			if ($mult_words=='')
+//				$log .= "<span class=\"yellow\">造成的总伤害：<span class=\"red\">{$dmg}</span>。</span><br>";
+//			else  $log .= "<span class=\"yellow\">造成的总伤害：</span>{$dmg}{$mult_words}＝<span class=\"red\">{$fin_dmg}</span><span class=\"yellow\">。</span><br>";
+//			$pa['dmg_dealt']=$fin_dmg;
+//		}elseif($dmg!=$pa['physical_dmg_dealt']){
+//			$log .= "<span class=\"yellow\">造成的总伤害：<span class=\"red\">{$dmg}</span>。</span><br>";
+//			$pa['dmg_dealt'] = $dmg;
+//		}
 		
 		//最终伤害修正阶段，应用对总伤害的特殊修正
 		//最优先：无敌
@@ -142,7 +149,12 @@ namespace attack
 		//秒杀技，最后判定
 		apply_total_damage_modifier_seckill($pa,$pd,$active);
 		
-		if($dmg != $pa['dmg_dealt'] && empty($pa['seckill'])) $log .= "<span class=\"yellow\">最终伤害：<span class=\"red\">{$pa['dmg_dealt']}</span>。</span><br>";
+		$replace_color = 'red';
+		if($dmg != $pa['dmg_dealt'] && empty($pa['seckill'])) {
+			$log .= "<span class=\"yellow\">最终伤害：<span class=\"red\">{$pa['dmg_dealt']}</span>。</span><br>";
+			$replace_color = 'yellow';
+		}
+		$log = str_replace('<:fin_dmg:>', $replace_color, $log);//如果有伤害变化，那么前面的台词显示黄色，否则显示红色（最终值）
 		
 		//扣血并更新最高伤害
 		apply_damage($pa,$pd,$active);
@@ -248,6 +260,7 @@ namespace attack
 		else  load_auto_combat_command($pa);
 		load_auto_combat_command($pd);
 		$pa['dmg_dealt']=0;
+		$pa['mult_words_fdmgbs'] = '';
 	}
 	
 	//攻击结束
@@ -295,6 +308,45 @@ namespace attack
 		attack_prepare($pa, $pd, $active);
 		attack($pa,$pd,$active);
 		attack_finish($pa,$pd,$active);		
+	}
+	
+	//生成XXX x XXX = XXX这样格式的玩意
+	//如果给了$style，$mult_words的等号右边数字会用一个span套住
+	//如果$reptxt为真，$mult_words_2的第一个数字会用$reptxt替换，且会自动给$reptxt加括号
+	//返回一个数组，请用list()截获
+	function apply_multiplier($basedmg, $multiplier, $style=NULL, $reptxt=NULL)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$dmg = $basedmg;
+		$mult_words = $basedmg;
+		$mult_words_2 = $reptxt ? '<:reptxt:>' : $basedmg;
+		
+		foreach ($multiplier as $key)
+		{
+			if($key && $key != 1) {
+				$dmg *= $key;
+				$mult_words .= '×'.$key;
+				$mult_words_2 .= '×'.$key;
+			}
+		}
+		if($dmg != $basedmg) {
+			$dmg = round($dmg);
+			$dmg = max(1, $dmg);
+		}
+		$mult_words .= equalsign_format($dmg, $mult_words, $style);
+		if(strpos($mult_words_2, '×')!==false && strpos($reptxt, '+')!==false) $mult_words_2 = str_replace('<:reptxt:>','(<:reptxt:>)',$mult_words_2);
+		if($reptxt) $mult_words_2 = str_replace('<:reptxt:>',$reptxt,$mult_words_2);
+		return array($dmg, $mult_words, $mult_words_2);
+	}
+	
+	//在右边添加=xxx格式的玩意
+	function equalsign_format($var, $str, $style=NULL)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$spanstr = $style ? '<span class="'.$style.'">' : '<span>';
+		if(strpos($str,'+')!==false || strpos($str,'×')!==false) 
+			return $str.'='.$spanstr.$var.'</span>';
+		else return $spanstr.$str.'</span>';
 	}
 }
 

@@ -54,6 +54,7 @@ namespace skill263
 					$log.='<span class="yellow">敌人精湛的格斗技术抵挡了'.$dmgred.'点伤害！</span><br>';
 				else	$log.='<span class="yellow">你精湛的格斗技术抵挡了'.$dmgred.'点伤害！</span><br>';
 				$ret-=$dmgred;
+				$pa['mult_words_fdmgbs'] .= '-'.$dmgred;
 			}
 		}
 		return $ret;

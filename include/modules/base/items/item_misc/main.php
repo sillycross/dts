@@ -85,7 +85,7 @@ namespace item_misc
 				addnews ( $now, 'corpseclear', $name, $cnum );
 				if (defined('MOD_NOISE')) \noise\addnoise($pls,'corpseclear',$pid);
 				$log .= "使用了<span class=\"yellow\">$itm</span>。<br>突然刮起了一阵怪风，";
-				if($num) $log .= "<span class=\"yellow\">吹走了地上的{$cnum}具尸体！</span><br>";
+				if($cnum) $log .= "<span class=\"yellow\">吹走了地上的{$cnum}具尸体！</span><br>";
 				else $log .= "不过好像没有什么效果？";
 				\itemmain\itms_reduce($theitem);
 				return;

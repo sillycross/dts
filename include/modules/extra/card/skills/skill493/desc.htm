@@ -14,7 +14,7 @@ $clubskillname[$___TEMP_SKILL_ID]
 	<!--{else}-->
 		<input type="button" style="width:70px;margin:4px" onclick="$('mode').value='special';$('command').value='skill493_special';$('subcmd').value='upgrade';$('skillpara1').value='$i';postCmd('gamecmd','command.php');this.disabled=true;" value="$skill493stateinfo[$i]">
 	<!--{/if}-->
-	&nbsp;&nbsp;&nbsp;
+	<!--{if $i<3}-->&nbsp;&nbsp;&nbsp;<!--{/if}-->
 <!--{/loop}-->
 <br>获得经验值和怒气时，你的等级视为
 <br>熟练度、经验值和怒气中的最大值换算成经验值时的对应等级。

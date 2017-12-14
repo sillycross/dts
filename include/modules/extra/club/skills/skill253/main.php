@@ -73,7 +73,7 @@ namespace skill253
 	function get_skill(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill']!=253) return $chprocess($pa,$pd,$active);
+		if (empty($pa['bskill']) || $pa['bskill']!=253) return $chprocess($pa,$pd,$active);
 		$r = min(220,round($pa['lvl']*($pa['rage']+get_rage_cost253())/6));
 		eval(import_module('logger'));
 		if ($active)

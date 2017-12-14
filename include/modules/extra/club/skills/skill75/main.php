@@ -92,6 +92,7 @@ namespace skill75
 			$d=$pa['lvl']+30;
 			$log.='<span class="yellow">「剑心」附加了'.$d.'点伤害！</span><br>';
 			$ret += $d;
+			$pa['mult_words_fdmgbs'] .= '+'.$d;
 		}
 		return $ret;
 	}

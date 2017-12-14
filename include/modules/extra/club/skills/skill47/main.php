@@ -84,7 +84,7 @@ namespace skill47
 		return $chprocess($pa, $pd, $active);
 	}
 	
-	function get_ex_attack_array(&$pa, &$pd, $active)
+	function get_ex_attack_array_core(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($pa['bskill']!=47) return $chprocess($pa, $pd, $active);

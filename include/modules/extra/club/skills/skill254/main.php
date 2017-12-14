@@ -32,7 +32,7 @@ namespace skill254
 		return max(100-max(100-$chprocess($pa, $pd, $active),0)*3,0);
 	}
 	
-	function get_ex_attack_array(&$pa, &$pd, $active)
+	function get_ex_attack_array_core(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa, $pd, $active);

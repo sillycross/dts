@@ -83,6 +83,7 @@ namespace skill30
 		if ($pa['bskill']==30 && $pa['is_hit'] && !empty($pa['skill30_hpcost'])) 
 		{
 			$ret+=$pa['skill30_hpcost'];
+			$pa['mult_words_fdmgbs'] .= '+'.$pa['skill30_hpcost'];
 		}
 		return $ret;
 	}
