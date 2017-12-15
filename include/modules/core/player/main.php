@@ -12,7 +12,7 @@ namespace player
 		
 		global $db_player_structure, $db_player_structure_types, $tpldata; 
 		$db_player_structure = $db_player_structure_types = $tpldata=Array();
-		$result = $db->query("DESCRIBE {$gtablepre}players");
+		$result = $db->query("DESCRIBE {$gtablepre}players");//这样的一个直接后果是：涉及到player.sql的改动需要先开新游戏再重载执行代码缓存才有效
 		while ($sttdata = $db->fetch_array($result))
 		{
 			global ${$sttdata['Field']}; 
