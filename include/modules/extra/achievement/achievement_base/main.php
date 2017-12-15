@@ -680,10 +680,10 @@ namespace achievement_base
 	function ach_check_positive_player($pl, $pe)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$apm = \apm\calc_apm($pe);
-		
+		list($vapm, $aapm) = \apm\calc_apm($pe);
+
 		if($pe['type']) return false;
-		if($pl['ip'] == $pe['ip'] || $apm < 10) return false;
+		if($pl['ip'] == $pe['ip'] || $vapm < 10) return false;
 		$skill1003_got = \skillbase\skill_getvalue(1003,'money_got', $pe);	
 		if($skill1003_got < 1000) return false;
 		return true;
