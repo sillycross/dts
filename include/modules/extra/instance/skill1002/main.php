@@ -65,7 +65,7 @@ namespace skill1002
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		$chprocess($pa,$pd);
+		$ret = $chprocess($pa,$pd);
 		
 		eval(import_module('skill1002'));
 		if (in_array($pd['state'],Array(20,21,22,23,24,25,27,29)))
@@ -77,6 +77,8 @@ namespace skill1002
 					$log.="<span class=\"clan\">都告诉你了，无垢对某些NPC无效……快去死吧。</span><br>";
 				}
 			}
+			
+		return $ret;
 	}
 	
 	function get_trap_final_damage_modifier_down(&$pa, &$pd, $tritm, $damage)

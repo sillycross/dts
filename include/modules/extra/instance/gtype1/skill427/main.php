@@ -81,7 +81,7 @@ namespace skill427
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		$chprocess($pa,$pd);
+		$ret = $chprocess($pa,$pd);
 		
 		eval(import_module('sys','logger'));
 		
@@ -97,6 +97,7 @@ namespace skill427
 		}elseif(!empty($pd['skill427ignore'])){
 			$log.= "后台监工的声音响起：<span class=\"linen\">“人作死，就会死……快去死吧。”</span><br>";
 		}
+		return $ret;
 	}
 	
 	function player_kill_enemy(&$pa,&$pd,$active)

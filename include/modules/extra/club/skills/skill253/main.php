@@ -86,7 +86,7 @@ namespace skill253
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		$chprocess($pa,$pd);
+		$ret = $chprocess($pa,$pd);
 		
 		if ($pa['bskill']==253 && $pa['dmg_dealt'] <= $pd['old_hp']*1.5)
 		{
@@ -96,6 +96,7 @@ namespace skill253
 			$pa['rage']+=$r;
 			if ($pa['rage']>100) $pa['rage']=100;
 		}
+		return $ret;
 	}
 	
 	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())

@@ -168,7 +168,13 @@ else
 		$wdata = winner_parse($wdata);
 		list($wiconImg, $wiconImgB) = \player\icon_parser(0, $wdata['gd'], $wdata['icon']);
 		$wdata['iconImg'] = $wiconImg;
+		//APM
+		list($vapm,$aapm) =  \apm\calc_apm($wdata);
+		$wdata['apm_words'] = $vapm.' / '.$aapm;
+		if('- / -' == $wdata['apm_words']) $wdata['apm_words'] = '<span class="grey">-</span>';
+		else $wdata['apm_words'] = str_replace('-', '<span class="grey">-</span>', $wdata['apm_words']);
 		$winfo[$wdata['gid']] = $wdata;
+		
 	}
 	$winfo_keys=array_keys($winfo);rsort($winfo_keys);
 	$max_wdata_num=$winfo_keys[0];

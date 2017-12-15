@@ -6,24 +6,31 @@ namespace apm
 	{
 	}
 	
-	function add_actionnum()
+	function add_a_actionnum()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player'));
-		$actionnum++;
+		$a_actionnum++;
+	}
+	
+	function add_v_actionnum()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player'));
+		$v_actionnum++;
 	}
 	
 	function move($moveto = 99) 
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess($moveto);
-		add_actionnum();
+		add_v_actionnum();
 	}
 	
 	function search() {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess();
-		add_actionnum();
+		add_v_actionnum();
 	}
 	
 	function itemuse($theitem)
@@ -35,17 +42,34 @@ namespace apm
 		$chprocess($theitem);
 		//消耗了道具耐久，或者HP、SP有变化（无限耐补给）时才算操作
 		if($theitem['itms'] !== $tmp_theitems || $tmp_hp != $hp || $tmp_sp != $sp)
-			add_actionnum();
+			add_v_actionnum();
 	}
 	
-	function calc_apm($pa)
+	//返回值：0=>有效vapm；1=>所有apm
+	function calc_apm($pa=NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
+		if(!$pa) {
+			eval(import_module('player'));
+			$pa=$sdata;
+		}
+		if(!isset($pa['v_actionnum']) && isset($pa['actionnum'])) $pa['v_actionnum'] = $pa['actionnum'];
 		if($pa['hp'] > 0 && $gamestate >= 20) $judgetime = $now;
 		else $judgetime = $pa['endtime'];
-		$apm = $pa['actionnum'] / (($judgetime - $pa['validtime']) / 60);
-		return round($apm*10)/10;
+		$judgemin = ($judgetime - $pa['validtime']) / 60;
+		if(isset($pa['a_actionnum'])) $vapm = round($pa['v_actionnum'] / $judgemin * 10) / 10;
+		else $vapm = '-';
+		if(isset($pa['a_actionnum'])) $aapm = round($pa['a_actionnum'] / $judgemin * 10) / 10;
+		else $aapm = '-';
+		return array($vapm, $aapm);
+	}
+	
+	function act()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess();
+		add_a_actionnum();
 	}
 }
 

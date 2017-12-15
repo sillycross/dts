@@ -74,7 +74,7 @@ namespace skill58
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		$chprocess($pa,$pd);
+		$ret = $chprocess($pa,$pd);
 		
 		eval(import_module('sys','logger'));
 		
@@ -88,6 +88,7 @@ namespace skill58
 				}
 			}
 		}
+		return $ret;
 	}
 	
 	function player_kill_enemy(&$pa,&$pd,$active)

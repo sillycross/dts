@@ -743,8 +743,12 @@ function set_credits(){
 	$list = $creditlist = $updatelist = Array();
 	while($data = $db->fetch_array($result)){
 		$list[$data['name']]['players'] = $data;
-	}	
-	$result = $db->query("SELECT * FROM {$gtablepre}users WHERE lastgame='$gamenum'");
+	}
+	if(empty($list)) return;
+	$wherecause = "('".implode("','",array_keys($list))."')";
+	//在房间制之前这样写是对的……但是呢，房间会刷新lastgame，这样可能会导致拿不到积分
+	//$result = $db->query("SELECT * FROM {$gtablepre}users WHERE lastgame='$gamenum'");
+	$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username IN $wherecause");
 	while($data = $db->fetch_array($result)){
 		$list[$data['username']]['users'] = $data;
 	}
