@@ -424,15 +424,15 @@ namespace weather
 		unset($pa['aurora_revive_flag'],$pd['aurora_revive_flag']);
 	}
 	
-	function kill(&$pa, &$pd)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
-		$chprocess($pa,$pd);
-		
-		eval(import_module('sys','logger'));
-		//weather_aurora_revive_process($pa, $pd);
-	}
+//	function kill(&$pa, &$pd)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		
+//		$chprocess($pa,$pd);
+//		
+//		eval(import_module('sys','logger'));
+//		//weather_aurora_revive_process($pa, $pd);
+//	}
 	
 	//复活判定注册
 	function set_revive_sequence(&$pa, &$pd)

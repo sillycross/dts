@@ -97,7 +97,7 @@ namespace skill428
 				\skillbase\skill_setvalue(424,'lvl',$lv,$pd); 
 			}
 		}
-		$chprocess($pa,$pd);	
+		return $chprocess($pa,$pd);	
 	}
 }
 

@@ -209,15 +209,11 @@ namespace attack
 		$pd['state']=$pd['deathmark'];
 		
 		$kilmsg = \player\kill($pa, $pd);
-		
-		if ($active)
-		{
-			if ($kilmsg!='') $log.="<span class=\"yellow\">你对{$pd['name']}说：“{$kilmsg}”</span><br>";
-		}
-		else
-		{
-			if ($kilmsg!='') $log.="<span class=\"yellow\">{$pa['name']}对你说：“{$kilmsg}”</span><br>";
-		}
+		if(!empty($kilmsg))
+			if ($active)
+				$log.="<br><span class='b'>你对{$pd['name']}说道：</span><span class='yellow'>“{$kilmsg}”</span><br><br>";
+			else
+				$log.="<br><span class='b'>{$pa['name']}对你说道：</span><span class='yellow'>“{$kilmsg}”</span><br><br>";
 	}
 	
 	//当玩家主动发起攻击时，加载玩家提供的攻击参数
