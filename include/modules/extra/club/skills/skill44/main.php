@@ -95,7 +95,7 @@ namespace skill44
 			$r=1-$r/100;
 		}
 		else  $r=1;
-		return array_merge($r, $ret);
+		return array_merge(array($r), $ret);
 	}
 	
 	function calculate_ex_single_dmg_multiple(&$pa, &$pd, $active, $key)
