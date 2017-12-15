@@ -170,8 +170,8 @@ namespace ex_dmg_att
 		eval(import_module('logger','ex_dmg_att'));
 		if ($pd['ex_dmg_'.$key.'_defend_success'] == 1)	//恶心一下吧…… 奇怪的log美观修正……
 			//这里具体是red还是yellow有待后头决定
-			$log .= '造成了<span class="need-replace">'.$pa['ex_dmg_'.$key.'_dealt'].'</span>点属性伤害！';
-		else  $log .= $exdmgname[$key].'造成了<span class="need-replace">'.$pa['ex_dmg_'.$key.'_dealt'].'</span>点属性伤害！';
+			$log .= '造成了<span class="<:ex_single_dmg:>">'.$pa['ex_dmg_'.$key.'_dealt'].'</span>点属性伤害！';
+		else  $log .= $exdmgname[$key].'造成了<span class="<:ex_single_dmg:>">'.$pa['ex_dmg_'.$key.'_dealt'].'</span>点属性伤害！';
 		$pa['mult_words_exdmgbs'] .= empty($pa['mult_words_exdmgbs']) ? $pa['ex_dmg_'.$key.'_dealt'] : '+'.$pa['ex_dmg_'.$key.'_dealt'];
 	}
 	
@@ -220,8 +220,11 @@ namespace ex_dmg_att
 			$mult_words_exdmg = \attack\equalsign_format($fin_dmg, $mult_words_exdmg, '<:fin_dmg:>');
 			$ex_dmg_log = '共计造成了'.$mult_words_exdmg.'点属性伤害！<br>';
 			
-			$replace_color = 'red';
-			if($fin_dmg != $dmg || $pa['ex_attack_num'] > 1) $log .= $ex_dmg_log;
+			$replace_color_single = $replace_color = 'red';
+			if($fin_dmg != $dmg || $pa['ex_attack_num'] > 1) {
+				$log .= $ex_dmg_log;
+				$replace_color_single = 'b';
+			}
 
 			$dmg = $fin_dmg;
 			
@@ -231,12 +234,14 @@ namespace ex_dmg_att
 				$dmg = $dmg_change;
 				$log .= "总属性伤害：<span class=\"red\">{$dmg}</span>。<br>";
 				$replace_color = 'yellow';
+				$replace_color_single = 'b';
 			}
 			
-			$log = str_replace('<:fin_dmg:>', $replace_color, $log);//如果有伤害变化，那么前面的台词显示黄色，否则显示红色（最终值）
+			//如果有伤害变化，那么前面的台词显示黄色，否则显示红色（最终值）
+			$log = str_replace('<:fin_dmg:>', $replace_color, str_replace('<:ex_single_dmg:>', $replace_color_single, $log));
 			
 			$pa['dmg_dealt'] += $dmg;
-			$pa['mult_words_fdmgbs'] .= '+'.$dmg;
+			$pa['mult_words_fdmgbs'] .= ' + '.$dmg;
 		}
 	}
 	

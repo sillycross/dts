@@ -89,54 +89,36 @@ namespace attack
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		$dmg=$pa['dmg_dealt'];
+		//$dmg=$pa['dmg_dealt'];
 		
 		eval(import_module('logger'));
-		
+		$tmp_dmg = $pa['dmg_dealt'];
 		//先加减，后乘除，最终伤害加算阶段
-		if($dmg > 0) {
+		if($pa['dmg_dealt'] > 0) {
 			$dmg_base = get_final_dmg_base($pa, $pd, $active);
 			if($dmg_base != 0) {
-				$dmg += $dmg_base;
-				if($dmg < 0)	$dmg = 0;
+				$pa['dmg_dealt'] += $dmg_base;
+				if($pa['dmg_dealt'] < 0)	$pa['dmg_dealt'] = 0;
 			}
 		}
 		$pa['mult_words_fdmgbs'] = substr($pa['mult_words_fdmgbs'],3);
 		//最终伤害乘算阶段
 		//获取最终伤害修正系数，类似物理伤害修正系数，这里返回的是一个数组
-		if ($dmg>0){
+		if ($pa['dmg_dealt']>0){
 			$multiplier = get_final_dmg_multiplier($pa, $pd, $active);
 		}else{
 			$multiplier= Array();
 		}
-		if($dmg > 0){
-			list($fin_dmg, $mult_words, $mult_words_fdmg) = apply_multiplier($dmg, $multiplier, '<:fin_dmg:>', $pa['mult_words_fdmgbs']);
+		if($pa['dmg_dealt'] > 0){//伤害大于零时判定加成值
+			list($fin_dmg, $mult_words, $mult_words_fdmg) = apply_multiplier($pa['dmg_dealt'], $multiplier, '<:fin_dmg:>', $pa['mult_words_fdmgbs']);
 			$mult_words_fdmg = equalsign_format($fin_dmg, $mult_words_fdmg, '<:fin_dmg:>');
 			if($fin_dmg!=$pa['physical_dmg_dealt']) $log .= '<span class="yellow">造成的总伤害：'.$mult_words_fdmg.'。</span><br>';
-			$dmg = $pa['dmg_dealt'] = $fin_dmg;
+			$pa['dmg_dealt'] = $fin_dmg;
+		}elseif($tmp_dmg != $pa['dmg_dealt']){//伤害等于零但是是扣成零时也显示一下总伤害
+			$log .= '<span class="yellow">造成的总伤害：<span class="<:fin_dmg:>">'.$pa['dmg_dealt'].'</span>。</span><br>';
 		}
-		
-//		if ((isset($pa['physical_dmg_dealt']) && $dmg>0 && $dmg!=$pa['physical_dmg_dealt']) 
-//			|| ($dmg>0 && count($multiplier)>0))	//好吧这个写法有点糟糕……
-//		{
-//			
-//			$fin_dmg=$dmg; $mult_words='';
-//			foreach ($multiplier as $key)
-//			{
-//				$fin_dmg=$fin_dmg*$key;
-//				$mult_words.="×{$key}";
-//			}
-//			$fin_dmg=round($fin_dmg);
-//			if ($fin_dmg < 1) $fin_dmg = 1;
-//			if ($mult_words=='')
-//				$log .= "<span class=\"yellow\">造成的总伤害：<span class=\"red\">{$dmg}</span>。</span><br>";
-//			else  $log .= "<span class=\"yellow\">造成的总伤害：</span>{$dmg}{$mult_words}＝<span class=\"red\">{$fin_dmg}</span><span class=\"yellow\">。</span><br>";
-//			$pa['dmg_dealt']=$fin_dmg;
-//		}elseif($dmg!=$pa['physical_dmg_dealt']){
-//			$log .= "<span class=\"yellow\">造成的总伤害：<span class=\"red\">{$dmg}</span>。</span><br>";
-//			$pa['dmg_dealt'] = $dmg;
-//		}
-		
+		//var_dump($pa['dmg_dealt']);
+		$tmp_dmg = $pa['dmg_dealt'];
 		//最终伤害修正阶段，应用对总伤害的特殊修正
 		//最优先：无敌
 		if($pa['dmg_dealt']) apply_total_damage_modifier_invincible($pa,$pd,$active);
@@ -148,9 +130,9 @@ namespace attack
 		if($pa['dmg_dealt']) apply_total_damage_modifier_insurance($pa,$pd,$active);
 		//秒杀技，最后判定
 		apply_total_damage_modifier_seckill($pa,$pd,$active);
-		
+		//var_dump($pa['dmg_dealt']);
 		$replace_color = 'red';
-		if($dmg != $pa['dmg_dealt'] && empty($pa['seckill'])) {
+		if($tmp_dmg != $pa['dmg_dealt'] && empty($pa['seckill'])) {
 			$log .= "<span class=\"yellow\">最终伤害：<span class=\"red\">{$pa['dmg_dealt']}</span>。</span><br>";
 			$replace_color = 'yellow';
 		}
@@ -344,8 +326,9 @@ namespace attack
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$spanstr = $style ? '<span class="'.$style.'">' : '<span>';
+		$esign = strpos($str,' + ')!==false ? ' = ' : '=';
 		if(strpos($str,'+')!==false || strpos($str,'×')!==false) 
-			return $str.'='.$spanstr.$var.'</span>';
+			return $str.$esign.$spanstr.$var.'</span>';
 		else return $spanstr.$str.'</span>';
 	}
 }
