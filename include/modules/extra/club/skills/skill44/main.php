@@ -77,11 +77,10 @@ namespace skill44
 		}
 	}
 	
-	function get_fixed_dmg_multiplier(&$pa, &$pd, $active)
+	function get_skill44_effect(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$ret = $chprocess($pa, $pd, $active);
-		if (!\skillbase\skill_query(44,$pd) || !check_unlocked44($pd)) return $ret;
+		if (!\skillbase\skill_query(44,$pd) || !check_unlocked44($pd)) return 1;
 		$choice = \skillbase\skill_getvalue(44,'choice',$pd);
 		$choice = (int)$choice; 
 		if ($choice==0) 
@@ -89,13 +88,45 @@ namespace skill44
 			eval(import_module('skill44','logger'));
 			$clv = \skillbase\skill_getvalue(44,'lvl',$pd);
 			$r=min(50,$dmgreduction[$clv]*$pd['internal_def']); 
-			if ($active)
-				$log.='<span class="yellow">敌人健硕的身躯使你的固定伤害降低了'.round($r).'%！</span><br>';
-			else  $log.='<span class="yellow">你健硕的身躯使敌人的固定伤害降低了'.round($r).'%！</span><br>';
+			if(empty($pa['skill44_log_flag'])){
+				if ($active)
+					$log.='<span class="yellow">敌人健硕的身躯使你的固定伤害降低了'.round($r).'%！</span><br>';
+				else  $log.='<span class="yellow">你健硕的身躯使敌人的固定伤害降低了'.round($r).'%！</span><br>';
+				$pa['skill44_log_flag'] = 1;
+			}
 			$r=1-$r/100;
 		}
 		else  $r=1;
-		return array_merge(array($r), $ret);
+		return $r;
+	}
+	
+	function get_primary_fixed_dmg_multiplier(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($pa, $pd, $active);
+		return array_merge(array(get_skill44_effect($pa, $pd, $active)), $ret);
+	}
+	
+	function get_fixed_dmg_multiplier(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($pa, $pd, $active);
+		return array_merge(array(get_skill44_effect($pa, $pd, $active)), $ret);
+//		if (!\skillbase\skill_query(44,$pd) || !check_unlocked44($pd)) return $ret;
+//		$choice = \skillbase\skill_getvalue(44,'choice',$pd);
+//		$choice = (int)$choice; 
+//		if ($choice==0) 
+//		{
+//			eval(import_module('skill44','logger'));
+//			$clv = \skillbase\skill_getvalue(44,'lvl',$pd);
+//			$r=min(50,$dmgreduction[$clv]*$pd['internal_def']); 
+//			if ($active)
+//				$log.='<span class="yellow">敌人健硕的身躯使你的固定伤害降低了'.round($r).'%！</span><br>';
+//			else  $log.='<span class="yellow">你健硕的身躯使敌人的固定伤害降低了'.round($r).'%！</span><br>';
+//			$r=1-$r/100;
+//		}
+//		else  $r=1;
+//		return array_merge(array($r), $ret);
 	}
 	
 	function calculate_ex_single_dmg_multiple(&$pa, &$pd, $active, $key)
