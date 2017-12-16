@@ -279,15 +279,20 @@ function showData(sdata){
 		}
 		//遍历innerHTML属性，对每一个子属性（键值对）都寻找匹配的DOM并改写其innerHTML
 		var sDi = shwData['innerHTML'];
+		var logshow = 0;
 		for(var id in sDi){
 			if($(id)!=null){
 				if(sDi['id'] !== ''){
-					$(id).innerHTML = datalib_decode(sDi[id]);
+					var cont = datalib_decode(sDi[id]);
+					$(id).innerHTML = cont;
+					if('log'==id && cont !== '') logshow = 1;
 				}else{
 					$(id).innerHTML = '';
 				}
 			}
 		}
+		if(1==logshow) jQuery('#log').css({display:"table-cell"});
+		else jQuery('#log').css({display:"none"});
 		var sDs = shwData['src'];
 		for(var id in sDs){
 			if($(id)!=null){
