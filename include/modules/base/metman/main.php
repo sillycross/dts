@@ -6,6 +6,8 @@ namespace metman
 	global $w_upexp,$battle_title;
 	global $hideflag;
 	
+	$hidelog = '<span class="yellow">周围一个人都没有，但你觉得应该有人的……</span><br>';
+	
 	function init()
 	{
 		global $tdata; $tdata=Array(); 
@@ -283,7 +285,8 @@ namespace metman
 		if($hideflag == true){
 			$log .= '似乎有人隐藏着……<br>';
 		}else{
-			$log .= '<span class="yellow">周围一个人都没有，但你觉得应该有人的……</span><br>';
+			eval(import_module('metman'));
+			$log .= $hidelog;
 		}
 		$mode = 'command';
 		return;

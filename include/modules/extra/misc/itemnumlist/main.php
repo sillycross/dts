@@ -2,11 +2,24 @@
 
 namespace itemnumlist
 {
+	//æ— è§†çš„é“å…·ååˆ—è¡¨
+	$itemname_ignore = array(
+		'é¢åŒ…','çŸ¿æ³‰æ°´',
+		'æ¸¸æˆè§£é™¤é’¥åŒ™',
+		'SCP-294çš„é¥®æ–™',
+	);
+	
+	//æ— è§†çš„é“å…·åœ°ç‚¹
+	$itempls_ignore = array(
+		0,32,
+	);
+	
 	function init() {}
 	
-	//µÀ¾ßÊıÄ¿ºÍ½ûÊıµÄÍ³Ò»´¦Àí
+	//é“å…·æ•°ç›®å’Œç¦æ•°çš„ç»Ÿä¸€å¤„ç†ï¼Œå¹¶ä¸”å†™å…¥é“å…·åˆ—è¡¨
 	function itemnumlist_num_area_proc(&$slist, $ikey, $iname, $thisnum, $thisarea){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		eval(import_module('itemnumlist'));
 		$first = 0;
 		if(isset($slist[$iname])) {
 			list($ikind, $globalnum, $globalarea) = $slist[$iname];
@@ -18,16 +31,19 @@ namespace itemnumlist
 
 		if(!in_array($ikey, $ikind)) $ikind[] = $ikey;
 		if(empty($thisarea)) $thisarea = 0;
-		if(!$first && $thisarea > $globalarea) {//0½ûºÍ1½û¶¼Ë¢Ê±£¬ÈÏÎªÊÇ0½ûÎï£¬µ«ÊÇ1½ûÄÇ²¿·ÖÊıÄ¿¼õ°ë
+		if(!$first && $thisarea > $globalarea) {//0ç¦å’Œ1ç¦éƒ½åˆ·æ—¶ï¼Œè®¤ä¸ºæ˜¯0ç¦ç‰©ï¼Œä½†æ˜¯1ç¦é‚£éƒ¨åˆ†æ•°ç›®å‡åŠ
 			$thisarea = $globalarea;
 			$thisnum /= 2;
 		}
 		$thisnum = $globalnum + $thisnum;
 		if($thisnum > 500) $thisnum = 500;
-		$slist[$iname] = array($ikind, $thisnum, $thisarea);
+		//å¿½ç•¥ä¸€äº›æµ®äº‘ç‰©
+		if(!in_array($iname, $itemname_ignore)) {
+			$slist[$iname] = array($ikind, $thisnum, $thisarea);
+		}
 	}
 	
-	//Ğ´ÈëµÀ¾ß±íÊı×é£¬$filenameÖ»ĞèÒªÊÇ×Ö·û´®
+	//å†™å…¥é“å…·è¡¨æ•°ç»„ï¼Œ$filenameåªéœ€è¦æ˜¯å­—ç¬¦ä¸²
 	function itemnumlist_write($file, $cont){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(!$file) return false;
@@ -45,16 +61,16 @@ namespace itemnumlist
 		chmod($file, 0777);
 	}
 	
-	//Éú³ÉµÀ¾ß±í¹¦ÄÜµÄÍâ¿Ç£¬»á¼ì²éÊÇ·ñĞèÒªÉú³ÉµÀ¾ß±í
+	//ç”Ÿæˆé“å…·è¡¨åŠŸèƒ½çš„å¤–å£³ï¼Œä¼šæ£€æŸ¥æ˜¯å¦éœ€è¦ç”Ÿæˆé“å…·è¡¨
 	function itemnumlist_create($filename, $iplacefilelist = NULL){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		//×Ô¶¯Éú³ÉÄ¿Â¼
+		//è‡ªåŠ¨ç”Ÿæˆç›®å½•
 		$dir = GAME_ROOT.'./gamedata/cache';
 		if(!file_exists($dir)) mymkdir($dir);
-		//Éú³ÉÎÄ¼şÃû
+		//ç”Ÿæˆæ–‡ä»¶å
 		if(!$filename) return false;
 		$file = $dir.'/'.$filename.'.config.php';
-		//¸÷ÎÄ¼şÄ¬ÈÏÎ»ÖÃ
+		//å„æ–‡ä»¶é»˜è®¤ä½ç½®
 		if(!$iplacefilelist) $iplacefilelist = array(
 			'mapitem' => GAME_ROOT.'/include/modules/base/itemmain/config/mapitem.config.php',
 			'shopitem' => GAME_ROOT.'./include/modules/base/itemshop/config/shopitem.config.php',
@@ -68,7 +84,7 @@ namespace itemnumlist
 			'anpcinfo' => GAME_ROOT.'./include/modules/base/addnpc/config/addnpc.config.php',
 			'enpcinfo' => GAME_ROOT.'./include/modules/extra/club/skills/skill21/config/evonpc.config.php',
 		);
-		//Èç¹û¸üĞÂ¹ıÎÄ¼şÔòÉú³ÉµÀ¾ß±í
+		//å¦‚æœæ›´æ–°è¿‡æ–‡ä»¶åˆ™ç”Ÿæˆé“å…·è¡¨
 		$need_update = 0;
 		$versionfile = GAME_ROOT.'./include/modules/core/sys/config/version.config.php';
 		if(!file_exists($file) || filemtime($versionfile) > filemtime($file)) $need_update = 1;
@@ -85,12 +101,12 @@ namespace itemnumlist
 		if(!empty($contents)) itemnumlist_write($file, $contents);
 	}
 	
-	//Éú³ÉµÀ¾ß±íÊı×é
+	//ç”Ÿæˆé“å…·è¡¨æ•°ç»„
 	function itemnumlist_create_proc($iplacefilelist)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys'));
-		//´Ó¸÷ÎÄ¼şÌáÈ¡µÀ¾ßĞÅÏ¢
+		eval(import_module('sys','itemnumlist'));
+		//ä»å„æ–‡ä»¶æå–é“å…·ä¿¡æ¯
 		$iplacefiledata = array();
 		foreach($iplacefilelist as $ipfkey => $ipfval){
 			if($ipfkey == 'mixitem') {
@@ -106,19 +122,19 @@ namespace itemnumlist
 				$iplacefiledata[$ipfkey] = openfile($ipfval);
 			}
 		}
-		//Éú³É¸öÊıÊı×é
+		//ç”Ÿæˆä¸ªæ•°æ•°ç»„
 		$slist = array();
-		//Ôİ´æÓÎÏ·ÍõĞÇÊıÊı¾İ
+		//æš‚å­˜æ¸¸æˆç‹æ˜Ÿæ•°æ•°æ®
 		$starnum = array();
 		foreach($iplacefiledata as $ipdkey => $ipdval){
 			foreach($ipdval as $ipdkey2 => $ipdval2){
 				$globalnum = $thisnum = $thisarea = 0;
-				//µØÍ¼µôÂä
+				//åœ°å›¾æ‰è½
 				if(strpos($ipdkey, 'mapitem')===0) {
 					if(!empty($ipdval2) && strpos($ipdval2,',')!==false)
 					{
 						list($iarea,$imap,$inum,$iname,$ikind,$ieff,$ista,$iskind) = explode(',',$ipdval2);
-
+						
 						$thisnum = $inum;
 						$thisarea = $iarea;
 						if($iarea == 99){
@@ -127,19 +143,19 @@ namespace itemnumlist
 						}elseif($iarea == 98){
 							$thisarea = 1;
 						}
-						if($thisarea > 1) {
-							$iname = '';//¹ıÂË2½ûÒÔºóË¢ĞÂµÄÍæÒâ
+						if($thisarea > 1 || in_array($imap, $itempls_ignore)) {
+							$iname = '';//è¿‡æ»¤2ç¦ä»¥ååˆ·æ–°çš„æˆ–è€…å±é™©åœ°ç‚¹ç©æ„
 						}else{
-							if($imap == 99) {//È«Í¼Ëæ»úÎïÕÛ¼õÊıÄ¿
+							if($imap == 99) {//å…¨å›¾éšæœºç‰©æŠ˜å‡æ•°ç›®
 								$thisnum /= 33;
 							}
-							$star = \itemmix_sync\itemmix_get_star($ikind);//¼ÇÂ¼ÓÎÏ·ÍõµÀ¾ßĞÇÊı
+							$star = \itemmix_sync\itemmix_get_star($ikind);//è®°å½•æ¸¸æˆç‹é“å…·æ˜Ÿæ•°
 							if(!isset($starnum[$star])) $starnum[$star] = 0;
 							$starnum[$star] += $thisnum;
 						}
 					}					
 				}
-				//ÉÌµê³öÊÛ
+				//å•†åº—å‡ºå”®
 				elseif(strpos($ipdkey, 'shopitem')===0) {
 					if(!empty($ipdval2) && strpos($ipdval2,',')!==false)
 					{
@@ -149,18 +165,18 @@ namespace itemnumlist
 							//$thisnum = $num;
 							$thisarea = $area;
 							if($thisarea > 2) {
-								$iname = '';//¹ıÂË2½ûÒÔºóË¢ĞÂµÄÍæÒâ
+								$iname = '';//è¿‡æ»¤2ç¦ä»¥ååˆ·æ–°çš„ç©æ„
 							}else{
-								//¹ÀËãÍæ¼Ò¹ºÂòÒâÔ¸£¬10¿éÇ®Ïàµ±ÓÚÊıÄ¿500£¨³£Ë¢µÄ¹Ì¶¨µÀ¾ß£©£¬60000¿éÇ®Ïàµ±ÓÚÊıÄ¿1£¨¸¡ÔÆÎï£©
+								//ä¼°ç®—ç©å®¶è´­ä¹°æ„æ„¿ï¼Œ10å—é’±ç›¸å½“äºæ•°ç›®500ï¼ˆå¸¸åˆ·çš„å›ºå®šé“å…·ï¼‰ï¼Œ60000å—é’±ç›¸å½“äºæ•°ç›®1ï¼ˆæµ®äº‘ç‰©ï¼‰
 								$thisnum = 	4989.918/$price + 1.0082;
-								if($thisnum > $num) $thisnum = $num;//¸öÊıÏŞÖÆ
+								if($thisnum > $num) $thisnum = $num;//ä¸ªæ•°é™åˆ¶
 							}
 						}else{
 							$iname = '';
 						}
 					}
 				}
-				//Í¬µ÷
+				//åŒè°ƒ
 				elseif(strpos($ipdkey, 'sync')===0){
 					if(!empty($ipdval2) && strpos($ipdval2,',')!==false)
 					{
@@ -171,7 +187,7 @@ namespace itemnumlist
 							for($j=1;$j<=$star-$i;$j++){
 								if(isset($starnum[$i]) && isset($starnum[$j])){
 									$recipe0 = array($i, $j);
-									if($i + $j < $star) $recipe0[] = $star - $i - $j;//Ö»Ëã2-3¸öºÏ³ÉµÄÇé¿ö
+									if($i + $j < $star) $recipe0[] = $star - $i - $j;//åªç®—2-3ä¸ªåˆæˆçš„æƒ…å†µ
 									sort($recipe0);
 									$recipe0 = implode('_', $recipe0);
 									$recipe[] = $recipe0;
@@ -186,33 +202,33 @@ namespace itemnumlist
 							foreach($rr as $rrv){
 								$tmpnum += $starnum[$rrv];
 							}
-							$avg[] = $tmpnum / count($rr) / count($rr); //Æ½¾ùÊıÔÙ³ıÒÔ¸öÊı
+							$avg[] = $tmpnum / count($rr) / count($rr); //å¹³å‡æ•°å†é™¤ä»¥ä¸ªæ•°
 						}
 						if(!empty($avg)) $thisnum = array_sum($avg) / count($avg);
 						else $thisnum = 0;
 						if($special) $thisnum /= 2;
 					}
 				}
-				//³¬Á¿
+				//è¶…é‡
 				elseif(strpos($ipdkey, 'overlay')===0){
 					if(!empty($ipdval2) && strpos($ipdval2,',')!==false)
 					{
 						list($iname,$ik,$ie,$is,$isk,$star,$num)=explode(',',$ipdval2);
-						$thisnum = $starnum[$star] / $num / 2;//´ó²¿·Ö³¬Á¿Òª´òÇ®²ÅÄÜºÏ£¬ÄÑ¶ÈÊÓÎª2±¶
+						$thisnum = $starnum[$star] / $num / 2;//å¤§éƒ¨åˆ†è¶…é‡è¦æ‰“é’±æ‰èƒ½åˆï¼Œéš¾åº¦è§†ä¸º2å€
 					}
 				}
-				//Í¨³£ºÏ³É
+				//é€šå¸¸åˆæˆ
 				elseif(strpos($ipdkey, 'mixitem')===0){
 					$iname = trim($ipdval2['result'][0]);
-					//ºöÂÔÒş²ØºÏ³ÉÒÔ¼°Ò»Ğ©¸¡ÔÆÍæÒâ
-					if($ipdval2['class'] == 'hidden' || in_array($iname, array('ÓÎÏ·½â³ıÔ¿³×', '¡ºG.A.M.E.O.V.E.R¡»'))){
+					//å¿½ç•¥éšè—åˆæˆ
+					if($ipdval2['class'] == 'hidden'){
 						$iname = '';
 					}else{
 						$thisnum = 500;
 						$thisarea = 0;
-						foreach($ipdval2['stuff'] as $stv){//°¤¸öÅĞ¶¨ºÏ³ÉËØ²Ä
+						foreach($ipdval2['stuff'] as $stv){//æŒ¨ä¸ªåˆ¤å®šåˆæˆç´ æ
 							if(!isset($slist[$stv])){
-								$iname = ''; break;//ÒÑ´¦ÀíÊı¾İÀï²»´æÔÚÕâ¸öËØ²Ä£¬ÄÇÃ´ÕâÒ»ºÏ³É²»Óè´¦Àí£¨¿ÉÄÜ»áÓĞÉÙÊı²»°´Ë³ĞòÀ´µÄºÏ³É±»¹ıÂË£©
+								$iname = ''; break;//å·²å¤„ç†æ•°æ®é‡Œä¸å­˜åœ¨è¿™ä¸ªç´ æï¼Œé‚£ä¹ˆè¿™ä¸€åˆæˆä¸äºˆå¤„ç†ï¼ˆå¯èƒ½ä¼šæœ‰å°‘æ•°ä¸æŒ‰é¡ºåºæ¥çš„åˆæˆè¢«è¿‡æ»¤ï¼‰
 							}else{
 								$thisnum = min($slist[$stv][1], $thisnum); 
 								$thisarea = max($slist[$stv][2], $thisarea);
@@ -222,19 +238,20 @@ namespace itemnumlist
 					}
 				}
 				
-				//¸÷ÀàÀñÆ·ºĞ
+				//å„ç±»ç¤¼å“ç›’
 				elseif(strpos($ipdkey, 'present')===0 || strpos($ipdkey, 'ygo')===0 || strpos($ipdkey, 'fybox')===0){
 					if(!empty($ipdval2) && strpos($ipdval2,',')!==false)
 					{
 						list($iname,$kind)=explode(',',$ipdval2);
 
-						$thisnum = 0.1;//ÀñÆ·ºĞºãÊÓÎª0.1
-						$thisarea = 1;//ÀñÆ·ºĞºãÊÓÎª1½û
-						if(strpos($ipdkey, 'fybox')===0) $thisnum = 0.01;//¸¡ÔÆ¸ü¸¡ÔÆ
+						$thisnum = 0.1;//ç¤¼å“ç›’æ’è§†ä¸º0.1
+						$thisarea = 1;//ç¤¼å“ç›’æ’è§†ä¸º1ç¦
+						if(strpos($ipdkey, 'fybox')===0) $thisnum = 0.01;//æµ®äº‘æ›´æµ®äº‘
 					}
 				}
 				//NPC
-				elseif(strpos($ipdkey, 'npc')!==false && (!isset($ipdval2['num']) || $ipdval2['num'] > 0) && !in_array($ipdkey2, array(1, 4, 7, 9, 12, 13, 14, 15, 16, 20, 21, 22, 40))){
+				elseif(strpos($ipdkey, 'npc')!==false && (!isset($ipdval2['num']) || $ipdval2['num'] > 0) 
+					&& !in_array($ipdkey2, array(1, 4, 7, 9, 12, 13, 14, 15, 16, 20, 21, 22, 40))){
 					$nownpclist = array($ipdval2);
 					
 					if(isset($ipdval2['sub'])){
@@ -258,9 +275,9 @@ namespace itemnumlist
 
 								$thisnum = isset($nownpc['num']) ? $nownpc['num']/sizeof($nownpclist) : 1;
 								if($nownpc['type'] != 90){
-									//$thisnum /= 2;//·ÇÔÓ±øÊıÄ¿³ıÒÔ2
+									//$thisnum /= 2;//éæ‚å…µæ•°ç›®é™¤ä»¥2
 									if($nownpc['mhp'] > 3000){
-										$thisnum /= ($nownpc['mhp'] / 3000);//ÑªÔ½¶àÔòÊıÄ¿ÊÓÎªÔ½ÉÙ
+										$thisnum /= ($nownpc['mhp'] / 3000);//è¡€è¶Šå¤šåˆ™æ•°ç›®è§†ä¸ºè¶Šå°‘
 									}
 								}
 								
@@ -271,7 +288,7 @@ namespace itemnumlist
 					
 				}
 				
-				if(!empty($iname) && strpos($ipdkey, 'npc')===false){//npcÁíÍâÅĞ¶¨
+				if(!empty($iname) && strpos($ipdkey, 'npc')===false){//npcå¦å¤–åˆ¤å®š
 					itemnumlist_num_area_proc($slist, $ipdkey, $iname, $thisnum, $thisarea);
 				}
 				

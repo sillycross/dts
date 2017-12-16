@@ -2,9 +2,8 @@
 
 namespace skill429
 {
-	$dmglimit = Array(33,50,80,99);
-	$trapdmgdown = Array(0,10,25,45);
-	$upgradecost = Array(6,7,8,-1);
+	$trapdmgdown = Array(0,10,20,35,55);
+	$upgradecost = Array(5,6,7,8,-1);
 	
 	function init() 
 	{
@@ -88,22 +87,6 @@ namespace skill429
 			}
 		}
 		return array_merge($r,$chprocess($pa,$pd,$trap,$damage));
-	}
-
-	function apply_total_damage_modifier_limit(&$pa,&$pd,$active){
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa,$pd,$active);
-		if (!\skillbase\skill_query(429,$pa) || !check_unlocked429($pa)) return;
-		$var_429=get_skill429_dmg($pa);
-		if ( $var_429>0 && $var_429<100 ){
-			$d429=round($pd['mhp']*$var_429/100);
-			if ($pa['dmg_dealt']>$d429){
-				$pa['dmg_dealt']=$d429;
-				eval(import_module('logger'));
-				if ($active) $log .= "<span class=\"yellow\">你造成的伤害被限制为<span class=\"red\">{$d429}</span>点。</span><br>";
-				else $log .= "<span class=\"yellow\">敌人造成的伤害被限制为<span class=\"red\">{$d429}</span>点。</span><br>";
-			}
-		}
 	}
 }
 

@@ -48,7 +48,7 @@ namespace wep_j
 	}
 	
 	//重枪从固伤阶段改到主伤阶段
-	function get_primary_dmg(&$pa, &$pd, $active)
+	function get_primary_fixed_dmg_base(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r=0;

@@ -46,18 +46,26 @@ namespace apm
 	}
 	
 	//返回值：0=>有效vapm；1=>所有apm
-	function calc_apm($pa=NULL)
+	function calc_apm($pa, $use_endtime=0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		if(!$pa) {
-			eval(import_module('player'));
-			$pa=$sdata;
-		}
-		if(!isset($pa['v_actionnum']) && isset($pa['actionnum'])) $pa['v_actionnum'] = $pa['actionnum'];
-		if($pa['hp'] > 0 && $gamestate >= 20) $judgetime = $now;
+		if(!$use_endtime && $pa['hp'] > 0 && $gamestate >= 20) $judgetime = $now;
 		else $judgetime = $pa['endtime'];
 		$judgemin = ($judgetime - $pa['validtime']) / 60;
+		$vapm = round($pa['v_actionnum'] / $judgemin * 10) / 10;
+		$aapm = round($pa['a_actionnum'] / $judgemin * 10) / 10;
+		return array($vapm, $aapm);
+	}
+	
+	//返回值：0=>有效vapm；1=>所有apm
+	function calc_winner_apm($pa, $judgetime)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		if(!isset($pa['v_actionnum']) && !isset($pa['actionnum'])) return array('-','-');
+		if(!isset($pa['v_actionnum']) && isset($pa['actionnum'])) $pa['v_actionnum'] = $pa['actionnum'];
+		$judgemin = $judgetime / 60;
 		if(isset($pa['a_actionnum'])) $vapm = round($pa['v_actionnum'] / $judgemin * 10) / 10;
 		else $vapm = '-';
 		if(isset($pa['a_actionnum'])) $aapm = round($pa['a_actionnum'] / $judgemin * 10) / 10;

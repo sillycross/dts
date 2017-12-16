@@ -341,7 +341,7 @@ namespace skill21
 				'mss' => 50,
 				'wep' => 'REND BOSS KNIFE',
 				'wepk' => 'WK',
-				'wepe' => 1400,
+				'wepe' => 1700,
 				'weps' => 2700,
 				'wepsk' => 'ket',
 				'arb' => '蜡翼天马装备 - CORE mk.R',

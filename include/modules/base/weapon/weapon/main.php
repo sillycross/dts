@@ -170,7 +170,40 @@ namespace weapon
 		$dmg_factor = (100+$fluc)/100;
 		$damage = round ( $damage * $dmg_factor * rand ( 4, 10 ) / 10 );
 		if ($damage<1) $damage=1;
+		
+		//基础伤害的固定值，只跟武器有关
+		$pa['mult_words_pridmgbs'] = $damage;
+		$primary_dmg_fixed = get_primary_fixed_dmg($pa, $pd, $active);
+		if($primary_dmg_fixed) {
+			$damage += $primary_dmg_fixed;
+			$pa['mult_words_pridmgbs'] .= '+'.$pa['mult_words_pridmgfxdbs'];
+		}
 		return $damage;
+	}
+	
+	//基础固定伤害（灵和重枪之类）
+	function get_primary_fixed_dmg(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$pa['mult_words_pridmgfxdbs'] = '';
+		$fxddmg = get_primary_fixed_dmg_base($pa, $pd, $active);
+		if(!$fxddmg) return 0;
+		list($fxddmg, $mult_words, $pa['mult_words_pridmgfxdbs']) = \attack\apply_multiplier($fxddmg, get_primary_fixed_dmg_multiplier($pa, $pd, $active), '', $pa['mult_words_pridmgfxdbs']);
+		return $fxddmg;
+	}
+	
+	//基础固定伤害（灵和重枪之类）
+	function get_primary_fixed_dmg_base(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 0;
+	}
+	
+	//基础固定伤害加成值（金刚）
+	function get_primary_fixed_dmg_multiplier(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return array();
 	}
 	
 	//基础伤害加成系数
@@ -200,15 +233,13 @@ namespace weapon
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('logger'));
 		$primary_dmg_base = get_primary_dmg($pa, $pd, $active);
-		list($primary_dmg, $mult_words, $mult_words_prmdmg) = \attack\apply_multiplier($primary_dmg_base, get_primary_dmg_multiplier($pa, $pd, $active), '<:primary_dmg:>');
-//		$pa['primary_dmg_log_flag'] = 1;
-//		$primary_dmg_log = '造成了'.$mult_words.'点基础物理伤害！<br>';
-//		$log .= '<:primary_dmg_log:>';
+		list($primary_dmg, $mult_words, $mult_words_prmdmg) = \attack\apply_multiplier($primary_dmg_base, get_primary_dmg_multiplier($pa, $pd, $active), '<:primary_dmg:>', $pa['mult_words_pridmgbs']);
+
 		$fixed_dmg=get_fixed_dmg($pa, $pd, $active);
 		if ($fixed_dmg>0) {
 			$o_fixed_dmg = $fixed_dmg;
 			list($fixed_dmg, $mult_words, $mult_words_fxddmg) = \attack\apply_multiplier($fixed_dmg, get_fixed_dmg_multiplier($pa, $pd, $active), 'yellow');
-//			$log .= '造成了'.$mult_words.'点物理固定伤害！<br>';
+
 		}
 		if(!empty($mult_words_fxddmg)) $pa['mult_words_phydmgbs'] = $mult_words_prmdmg.'+'.$mult_words_fxddmg;
 		else $pa['mult_words_phydmgbs'] = $mult_words_prmdmg;
