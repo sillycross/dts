@@ -2,6 +2,8 @@
 
 namespace corpse
 {
+	$cannot_pick_notice = '无法拾取';
+	
 	function init() {}
 	
 	//检查该尸体是否是发现的合法目标
@@ -52,7 +54,7 @@ namespace corpse
 	function findcorpse(&$edata){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','itemmain','metman','logger'));
+		eval(import_module('sys','player','itemmain','metman','logger','corpse'));
 		$sdata['keep_corpse'] = 1;
 		$battle_title = '发现尸体';
 		extract($edata,EXTR_PREFIX_ALL,'w');
@@ -63,7 +65,11 @@ namespace corpse
 		
 		$r=\itemmain\parse_item_words($edata,1);
 		extract($r,EXTR_PREFIX_ALL,'w');
-		
+		$w_can_destroy = check_can_destroy($edata);
+		$w_can_pick_money = check_can_pick_money($edata);
+		$default_selection = 'menu';
+		if($w_can_pick_money && $w_money) $default_selection = 'money';
+		elseif($w_can_destroy && !$w_money && $w_type == 90) $default_selection = 'destroy';
 		include template(get_corpse_filename());
 		$cmd = ob_get_contents();
 		ob_clean();
@@ -115,6 +121,7 @@ namespace corpse
 		$chprocess();
 	}
 	
+	
 	function getcorpse_action(&$edata, $item)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -147,6 +154,11 @@ namespace corpse
 			$edata['itm'.$itmn] = $edata['itmk'.$itmn] = $edata['itmsk'.$itmn] = '';
 			$edata['itme'.$itmn] = $edata['itms'.$itmn] = 0;  
 		} elseif($item == 'money') {
+			if(!check_can_pick_money($edata)){
+				$log .= '你不能拾取金钱！';
+				$mode = 'command';
+				return;
+			}
 			$money += $edata['money'];
 			$log .= '获得了金钱 <span class="yellow">'.$edata['money'].'</span>。<br>';
 			$edata['money'] = 0;
@@ -155,6 +167,11 @@ namespace corpse
 			$mode = 'command';
 			return;
 		} elseif($item == 'destroy') {
+			if(!check_can_destroy($edata)){
+				$log .= '你不能销毁这具尸体！';
+				$mode = 'command';
+				return;
+			}
 			$edata['weps'] = 0;
 			$edata['arbs'] = 0;
 			$edata['arhs'] = 0;
@@ -270,6 +287,18 @@ namespace corpse
 		}
 		
 		$chprocess();
+	}
+	
+	function check_can_destroy($edata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return true;
+	}
+	
+	function check_can_pick_money($edata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return true;
 	}
 
 	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())

@@ -73,9 +73,11 @@ namespace skill428
 		{
 			eval(import_module('logger'));
 			$a=get_skill428_dmg_gain($pa);
-			if($pa['pid'] == $pd['pid']) $log .= '你自己的「阴谋」让陷阱伤害增加了'.$a.'%！';
-			else $log .= '对方的技能「阴谋」让陷阱伤害增加了'.$a.'%！';
-			$r=Array((100+$a)/100);
+			if($a > 0) {
+				if($pa['pid'] == $pd['pid']) $log .= '你自己的「阴谋」让陷阱伤害增加了'.$a.'%！';
+				else $log .= '对方的技能「阴谋」让陷阱伤害增加了'.$a.'%！';
+				$r=Array((100+$a)/100);
+			}
 		}
 		return array_merge($r,$chprocess($pa,$pd,$trap,$damage));
 	}

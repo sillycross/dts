@@ -17,6 +17,7 @@ namespace skill424
 		\skillbase\skill_setvalue(424,'cur2','探测器电池',$pa);
 		\skillbase\skill_setvalue(424,'cur3','',$pa);
 		\skillbase\skill_setvalue(424,'cur4','',$pa);
+		\skillbase\skill_setvalue(424,'npclvlsum','0',$pa);
 		//此外本技能还有储存这局奖励的功能
 		\skillbase\skill_setvalue(424,'rank','0',$pa);
 		\skillbase\skill_setvalue(424,'prize','0',$pa);
@@ -155,6 +156,29 @@ namespace skill424
 		}
 		return implode('或', $reqarr);
 	}
+	
+	//初始100，每10级+100
+	function get_wdebug_money(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(\skillbase\skill_query(424)){
+			$clv=\skillbase\skill_getvalue(424,'lvl');
+			$prize=100+floor($clv/10)*100;
+			return $prize;
+		}else return 0;
+	}
+	
+	//如果杀死NPC等级数/5大于当前除错等级，每多1则扣50，扣到0为止
+	//简单说就是每2层允许杀1个兵，每5层允许杀1个全息，每超过1个兵扣100，每超过1个全息扣250
+	function get_wdebug_money_punish(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(\skillbase\skill_query(424)){
+			$clv=\skillbase\skill_getvalue(424,'lvl');
+			$sum=\skillbase\skill_getvalue(424,'npclvlsum');
+			$diff = max(round($sum/5) - $clv, 0);
+			$punish = $diff*50;
+			return $punish;
+		}else return 0;
+	}
 		
 	function wdebug(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -170,9 +194,17 @@ namespace skill424
 				${'itm'.$position} = ${'itmk'.$position} = ${'itmsk'.$position} = '';
 				${'itme'.$position} =${'itms'.$position} =0;
 				$gdice=rand(1,3);
-				$money+=200;
-				$skillpoint++;
-				$log .="<span class=\"yellow\">获得了200元和1个技能点。</span><br />";
+				$money_prize = get_wdebug_money();
+				$money_punish = get_wdebug_money_punish();
+				if($money_punish) $log .="<span class=\"red\">你不顾任务只顾伐木的行为让你的奖励下降了！</span><br />";
+				$money_prize = max(0, $money_prize-$money_punish);
+				$money += $money_prize;
+				$skillpoint_prize = 1;
+				//if($clv && $clv<10) $skillpoint_prize = 0;//1-9层不会给技能点
+				$skillpoint += $skillpoint_prize;
+				$log .="<span class=\"yellow\">获得了{$money_prize}元";
+				if($skillpoint_prize) $log .="和{$skillpoint_prize}个技能点";
+				$log .= "。</span><br />";
 				if ($gdice==1){
 					$wp+=10;$wk+=10;$wc+=10;$wd+=10;$wg+=10;$wf+=10;
 					$log .="<span class=\"yellow\">获得了10点全熟练。</span><br />";
@@ -204,6 +236,17 @@ namespace skill424
 			return;
 		}
 	}
+	
+	//杀死NPC时记录NPC等级总和
+	function player_kill_enemy(&$pa,&$pd,$active){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($pa, $pd, $active);		
+		if ( \skillbase\skill_query(424,$pa) && check_unlocked424($pa) && $pd['type'] && $pd['hp'] <= 0)
+		{
+			$sum = \skillbase\skill_getvalue(424,'npclvlsum',$pa);
+			\skillbase\skill_setvalue(424,'npclvlsum',$sum+$pd['lvl'],$pa);		
+		}
+	}	
 	
 	function act()
 	{

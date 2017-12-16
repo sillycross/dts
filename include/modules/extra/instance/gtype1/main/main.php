@@ -49,15 +49,18 @@ namespace gtype1
 		\itemnumlist\itemnumlist_create('gtype1item', $iplacefilelist);
 	}
 	
-//	function check_player_discover(&$edata)
-//	{
-//		if (eval(__MAGIC__)) return $___RET_VALUE;
-//		eval(import_module('sys'));
-//		if ($edata['type']==0 && $gametype == 1) {
-//			return 0;	
-//		}
-//		return $chprocess($edata);
-//	}
+	function check_player_discover(&$edata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player'));
+		//重视躲避不会摸到活的队友
+		if ($gametype == 1 && $tactic==4 && $edata['type']==0 && $edata['hp'] > 0) {
+			eval(import_module('metman'));
+			$hidelog = '<span class="yellow">周围有人，不过你刻意避开了他们。</span><br>';;
+			return 0;	
+		}
+		return $chprocess($edata);
+	}
 
 	function get_npclist(){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
@@ -267,6 +270,15 @@ namespace gtype1
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">本次游戏第<span class=\"yellow\">{$a}</span>名是完成了<span class=\"yellow\">{$c}</span>次除错的<span class=\"yellow\">{$b}</span>。</span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
+	}
+	
+	//除错模式不能销毁小兵和玩家以外的尸体
+	function check_can_destroy($edata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		if($gametype==1 && $edata['type'] && $edata['type']!=90) return false;
+		return $chprocess($edata);
 	}
 	
 	//改变DN逻辑

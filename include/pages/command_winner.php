@@ -50,20 +50,12 @@ if($command == 'info')
 		$wdata['gsdate'] = date("m/d/Y H:i:s",$wdata['gstime']);
 		$wdata['gedate'] = date("m/d/Y H:i:s",$wdata['getime']);
 	}
-//	elseif($winner_table_exists){
-//		$result = $db->query("SELECT * FROM {$wtablepre}winners WHERE gid='$gnum' LIMIT 1");
-//		if($db->num_rows($result)){
-//			$pdata = $db->fetch_array($result);
-//			$pdata['gdate'] = floor($pdata['gtime']/3600).':'.floor($pdata['gtime']%3600/60).':'.($pdata['gtime']%60);
-//			$pdata['gsdate'] = date("m/d/Y H:i:s",$pdata['gstime']);
-//			$pdata['gedate'] = date("m/d/Y H:i:s",$pdata['getime']);
-//		}
-//	}
 	$pdata = $wdata;
 	\player\load_playerdata($pdata);
 	\player\init_playerdata();
 	\player\parse_interface_profile();
 	extract($pdata);
+	list($vapm,$aapm) =  \apm\calc_winner_apm($wdata,$wdata['getime']-$wdata['gstime']);
 }
 //查看特定局历史记录
 elseif($command == 'news') 
@@ -169,7 +161,7 @@ else
 		list($wiconImg, $wiconImgB) = \player\icon_parser(0, $wdata['gd'], $wdata['icon']);
 		$wdata['iconImg'] = $wiconImg;
 		//APM
-		list($vapm,$aapm) =  \apm\calc_apm($wdata);
+		list($vapm,$aapm) =  \apm\calc_winner_apm($wdata,$wdata['getime']-$wdata['gstime']);
 		$wdata['apm_words'] = $vapm.' / '.$aapm;
 		if('- / -' == $wdata['apm_words']) $wdata['apm_words'] = '<span class="grey">-</span>';
 		else $wdata['apm_words'] = str_replace('-', '<span class="grey">-</span>', $wdata['apm_words']);
