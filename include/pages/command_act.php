@@ -116,6 +116,8 @@ if($hp <= 0) {
 		$gamedata['innerHTML']['cmd'] = dump_template(MOD_TUTORIAL_TUTORIAL);
 	}	else {
 		$gamedata['innerHTML']['cmd'] = dump_template('command');
+		//给#log窗格加了最小高度，但又需要让不存在$log的页面正常显示，于是让js自动隐藏空的#log窗格，那么这里就得输出一个东西
+		if(empty($uip['innerHTML']['log'])) $uip['innerHTML']['log'] = ' ';
 	}
 } else {
 	$log .= '游戏流程故障，请联系管理员<br>';
