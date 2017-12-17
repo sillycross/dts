@@ -5,13 +5,16 @@ namespace sys
 	//$mode决定给玩家显示哪个界面
 	//$command是玩家提交的命令也是act()判断的依据
 	//$db是数据库类
-	//$plock文件锁的文件
+	//$plock进程锁的文件
 	//$url如果存在，ajax将会直接跳转
 	//$uip其他要传给界面的变量请写在这里
 	global $mode, $command, $db, $plock, $url, $uip;
 	//玩家数据池，fetch的时候先判断池里存不存在，如果有则优先调用池里的；
 	//万一以后pdata_pool要变成引用呢？所以多一个origin池
-	global $pdata_pool, $pdata_origin_pool; $pdata_origin_pool = $pdata_pool = array();
+	//此外玩家池兼任玩家数据锁记录器
+	//daemon进程结束以及commmand_act.php结束时都会检查并释放玩家池对应的锁文件
+	global $pdata_pool, $pdata_origin_pool;
+	$pdata_origin_pool = $pdata_pool = array();
 	
 	function init()
 	{

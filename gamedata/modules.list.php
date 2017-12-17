@@ -259,6 +259,7 @@ skill1001,extra/instance/skill1001/,1
 skill1002,extra/instance/skill1002/,1
 skill269,extra/club/skills/skill269/,1
 skill78,extra/club/skills/skill78/,1
+skill496,extra/card/skills/skill496/,1
 skill315,extra/achievement/skills/skill315/,1
 skill313,extra/achievement/skills/skill313/,1
 skill300,extra/achievement/skills/skill300/,1

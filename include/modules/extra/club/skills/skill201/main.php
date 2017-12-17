@@ -67,7 +67,7 @@ namespace skill201
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill201','player','logger'));
 		if (!\skillbase\skill_query(201, $pa) || !check_unlocked201($pa)) return 1;
-		if ($pa['wep_kind']!='G') return 1;
+		if ($pa['wep_kind']!='G' && $pa['wep_kind']!='J') return 1;
 		$accgainrate = $accgain[\skillbase\skill_getvalue(201,'lvl',$pa)];
 		return 1+($accgainrate)/100;
 	}
@@ -77,7 +77,7 @@ namespace skill201
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill201','player','logger'));
 		if (!\skillbase\skill_query(201, $pa) || !check_unlocked201($pa)) return 1;
-		if ($pa['wep_kind']!='G') return 1;
+		if ($pa['wep_kind']!='G' && $pa['wep_kind']!='J') return 1;
 		$rbgainrate = $rbgain[\skillbase\skill_getvalue(201,'lvl',$pa)];
 		return 1+($rbgainrate)/100;
 	}

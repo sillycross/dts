@@ -179,7 +179,16 @@ if ($___MOD_SRV)
 							file_put_contents(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$pid.'/replay.txt',\replay\replay_record_op($oprecorder).','.($___PAGE_STARTTIME_VALUE-$starttime+$moveut*3600+$moveutmin*60).','.$___MOD_TMP_FILE_DIRECTORY.$___TEMP_uid.','."\n",FILE_APPEND);
 						}
 					}
-					
+					//清除文件锁，避免烂代码导致daemon卡死
+					if(!empty($plock)) {
+						\sys\process_unlock();
+					}
+					if(!empty($pdata_origin_pool)) {
+						foreach($pdata_origin_pool as $popv){
+							\player\release_player_lock($popv);
+						}
+						writeover('b.txt',2,'ab+');
+					}
 					//收尾工作，清除所有全局变量
 					$___TEMP_remain_list=Array('_SERVER','GLOBALS','magic_quotes_gpc','module_hook_list','language','_ERROR');
 							
@@ -365,6 +374,19 @@ elseif(in_array($page, array('command_game','command_valid','command_end','comma
 		$___IN_HELP = 1;//代替常量IN_HELP
 	}
 	include GAME_ROOT.'./include/pages/'.$page.'.php';
+}
+
+//清除文件锁，避免烂代码导致daemon卡死x2
+//不确定哪边是真正执行的，试试好了
+if(!empty($plock)) {
+	\sys\process_unlock();
+	
+}
+if(!empty($pdata_origin_pool)) {
+	foreach($pdata_origin_pool as $popv){
+		\player\release_player_lock($popv);
+	}
+	writeover('b.txt',1,'ab+');
 }
 
 /* End of file command.php */

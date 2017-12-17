@@ -7,7 +7,7 @@ namespace skill429
 	
 	function init() 
 	{
-		define('MOD_SKILL429_INFO','club;upgrade;');
+		define('MOD_SKILL429_INFO','card;unique;upgrade;');
 		eval(import_module('clubbase'));
 		$clubskillname[429] = '谨慎';
 	}

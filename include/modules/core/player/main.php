@@ -22,6 +22,35 @@ namespace player
 		}
 	}
 	
+	//创建玩家锁文件。在daemon进程结束以及commmand_act.php结束时都会检查并释放玩家池对应的锁文件
+	function create_player_lock($pdata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		if(!is_dir(GAME_ROOT.'./gamedata/tmp/playerlock/')) mymkdir(GAME_ROOT.'./gamedata/tmp/playerlock/');
+		$pdid = $pdata['pid'];
+		$dir = GAME_ROOT.'./gamedata/tmp/playerlock/room'.$groomid.'/';
+		$file = 'player_'.$pdid.'.nlk';
+		$lstate = \sys\check_lock($dir, $file, 5000);
+		$res = false;
+		if(!$lstate) {
+			$res = \sys\create_lock($dir, $file);
+		}
+		return $res;
+	}
+	
+	//释放玩家锁文件
+	function release_player_lock($pdata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		$pdid = $pdata['pid'];
+		$dir = GAME_ROOT.'./gamedata/tmp/playerlock/room'.$groomid.'/';
+		$file = 'player_'.$pdid.'.nlk';
+		\sys\release_lock($dir, $file);
+		writeover('a.txt', $dir.' ' .$file."\r\n",'ab+');
+	}
+	
 	//注意这个函数默认情况下只能找玩家
 	function fetch_playerdata($Pname, $Ptype = 0, $ignore_pool = 0)
 	{
@@ -43,6 +72,7 @@ namespace player
 			$pdata = $db->fetch_array($result);
 			$pdata_origin_pool[$pdata['pid']] = $pdata_pool[$pdata['pid']] = $pdata;
 		}
+		create_player_lock($pdata);
 		$pdata = playerdata_construct_process($pdata);
 		return $pdata;
 	}
@@ -59,6 +89,7 @@ namespace player
 			$pdata = $db->fetch_array($result);
 			$pdata_origin_pool[$pdata['pid']] = $pdata_pool[$pdata['pid']] = $pdata;
 		}
+		create_player_lock($pdata);
 		$pdata = playerdata_construct_process($pdata);
 		return $pdata;
 	}

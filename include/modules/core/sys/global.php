@@ -3,33 +3,98 @@
 namespace sys
 {
 	//文件进程锁，对game表如果有操作，建议在操作前加锁
+	//由于代码兼容问题，现在不是采用flock，而是直接生成一个文件，判定此文件是否存在
 	//如果本进程已经加过锁则不会进行任何操作
 	function process_lock($locktype = LOCK_EX) {//可使用LOCK_SH LOCK_EX LOCK_UN
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		$res = NULL;
 		$dir = GAME_ROOT.'./gamedata/tmp/processlock/';
-		$file = 'process_'.$groomid.'.lock';
-		if(!file_exists($dir)) mymkdir($dir);
-		if(!file_exists($dir.$file)) touch($dir.$file);
-		//startmicrotime();
+		$file = 'process_'.$groomid.'.nlk';
+		$res = NULL;
 		if(empty($plock)) {
-			$plock=fopen($dir.$file,'w+');
-			$res = flock($plock,$locktype);
+			$lstate = check_lock($dir, $file, 5000);
+			if(!$lstate) {
+				$res = create_lock($dir, $file);
+			}
+			$plock = Array($dir, $file);
 		}
 		return $res;
 	}
 	
 	//文件进程解锁，对game表操作完请解锁，否则会在脚本结束才解锁，如果是daemon模式目测会卡死
-	//如果本进程已经加过锁则不会进行任何操作
 	function process_unlock() {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		//logmicrotime('锁时间'.debug_backtrace()[1]['function']);
 		if(!empty($plock)) {
-			fclose($plock);
+			list($dir, $file) = $plock;
+			release_lock($dir, $file);
+			$plock = NULL;
 		}
-		$plock = NULL;
+	}
+	
+	//15s内循环判断锁是否存在，如果存在则挂起10毫秒之后继续判定，直到时间耗尽，起到阻塞作用
+	//返回true表示锁存在，false表示锁不存在
+	//如果加了$timeout，会阻塞到时间耗尽或者锁释放为止。$timeout时间是毫秒
+	function check_lock($dirname, $filename, $timeout=0)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$sleept = 0;
+		$res = file_exists($dirname.$filename);
+		while($res){
+			usleep(10000);
+			$sleept += 10000;
+			if($sleept > $timeout*1000) break;
+			$res = file_exists($dirname.$filename);
+		}
+		return $res;
+	}
+	
+	//用于判定/生成锁
+	//如果文件存在，生成并返回true
+	//如果文件已经存在，返回false
+	function create_lock($dirname, $filename)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!file_exists($dirname)) mymkdir($dirname);
+		if(!file_exists($dirname.$filename)) {
+			touch($dirname.$filename);
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	//清除生成的锁
+	function release_lock($dirname, $filename)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!file_exists($dirname)) mymkdir($dirname);
+		if(file_exists($dirname.$filename)) unlink($dirname.$filename);
+	}
+	
+	//只能在linux下使用的旧函数
+	function file_lock(&$handle, $dirname, $filename, $locktype = LOCK_EX)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!file_exists($dirname)) mymkdir($dirname);
+		if(!file_exists($dirname.$filename)) touch($dirname.$filename);
+		$res = NULL;
+		if(empty($handle)) {
+			$handle=fopen($dirname.$filename,'w+');
+			$res = flock($handle,$locktype);
+		}
+		return $res;
+	}
+	
+	//只能在linux下使用的旧函数
+	function file_unlock(&$handle)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!empty($handle)) {
+			fclose($handle);
+		}
+		$handle = NULL;
 	}
 	
 	function load_gameinfo() {	//sys模块初始化的时候并没有调用这个函数
@@ -121,8 +186,7 @@ namespace sys
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		$t = $t ? $t : $now;
-		$newsfile = GAME_ROOT.'./gamedata/tmp/news/newsinfo_'.$room_prefix.'.php';
-		touch($newsfile);
+		
 		if(is_array($a)){
 			$a=implode('_',$a);
 		}
@@ -141,6 +205,9 @@ namespace sys
 			$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,recv,msg) VALUES ('3','$t','【{$plsinfo[$place]}】 $a','','$lastword')");
 		}
 		$db->query("INSERT INTO {$tablepre}newsinfo (`time`,`news`,`a`,`b`,`c`,`d`,`e`) VALUES ('$t','$n','$a','$b','$c','$d','$e')");
+		
+		$newsfile = GAME_ROOT.'./gamedata/tmp/news/newsinfo_'.$room_prefix.'.php';
+		touch($newsfile);
 	}
 	
 	function addchat($ctype, $msg,  $csender = '', $creceiver = '', $ctime = 0){

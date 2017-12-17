@@ -1144,11 +1144,11 @@ $cards = array(
 		'rare' => 'S',
 		'pack' => 'Way of Life',
 		'desc' => 'ACFUN大逃杀史上第一神触',
-		'effect' => '战斗中获得的熟练度+1（不与高速成长特性叠加）',
+		'effect' => '战斗中获得的熟练度+1',
 		'energy' => 100,
 		'valid' => array(
 			'skills' => array(
-				'225' => '0', 
+				'496' => '0', 
 			),
 		)
 	),
