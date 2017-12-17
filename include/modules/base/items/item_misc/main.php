@@ -402,6 +402,11 @@ namespace item_misc
 				$rp = 0;
 				$log .= "你使用了<span class=\"yellow\">$itm</span>。你的RP归零了。<br>";
 				return;
+			} elseif(strpos($itm,'测试用阻塞设备')!==false){
+				sleep(10);
+				$log .= "刚才那是什么，是卡了么？<br>";
+				$hp = 1;
+				return;
 			} elseif('『我是说在座的各位都是垃圾』' === $itm){
 				$mhpdown = 100;
 				if($mhp <= $mhpdown){

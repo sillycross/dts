@@ -3,8 +3,8 @@
 namespace gtype1
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'sys player logger metman gameflow_combo map weather lvlctl skill424 item_misc team npc event itemnumlist skill21 corpse';
-	$___MODULE_dependency_optional = 'cardbase';
+	$___MODULE_dependency = 'sys player logger metman gameflow_combo map weather lvlctl item_misc team npc event itemnumlist skill21 corpse itemshop';
+	$___MODULE_dependency_optional = 'skill424 cardbase';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php config/npc.data.config.php config/evonpc.config.php';
 	$___MODULE_templatelist = 'showhacklevel';

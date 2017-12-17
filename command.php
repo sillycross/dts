@@ -180,15 +180,15 @@ if ($___MOD_SRV)
 						}
 					}
 					//清除文件锁，避免烂代码导致daemon卡死
+					//为了防止未来可能会绕过文件末尾那个判定的情况，放在这里
 					if(!empty($plock)) {
 						\sys\process_unlock();
 					}
 					if(!empty($pdata_origin_pool)) {
 						foreach($pdata_origin_pool as $popv){
-							\player\release_player_lock($popv);
+							\player\release_player_lock($popv['pid']);
 						}
-						writeover('b.txt',2,'ab+');
-					}
+					}					
 					//收尾工作，清除所有全局变量
 					$___TEMP_remain_list=Array('_SERVER','GLOBALS','magic_quotes_gpc','module_hook_list','language','_ERROR');
 							
@@ -376,17 +376,16 @@ elseif(in_array($page, array('command_game','command_valid','command_end','comma
 	include GAME_ROOT.'./include/pages/'.$page.'.php';
 }
 
-//清除文件锁，避免烂代码导致daemon卡死x2
-//不确定哪边是真正执行的，试试好了
+//清除进程锁，避免烂代码导致daemon卡死
 if(!empty($plock)) {
 	\sys\process_unlock();
-	
 }
+//清除玩家锁，这个大概只能放这里执行
 if(!empty($pdata_origin_pool)) {
 	foreach($pdata_origin_pool as $popv){
-		\player\release_player_lock($popv);
+		\player\release_player_lock($popv['pid']);
 	}
-	writeover('b.txt',1,'ab+');
+	unset($pdata_origin_pool);
 }
 
 /* End of file command.php */
