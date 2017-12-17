@@ -7,7 +7,7 @@ namespace skill495
 	
 	function init() 
 	{
-		define('MOD_SKILL495_INFO','club;upgrade;');
+		define('MOD_SKILL495_INFO','card;unique;upgrade;');
 		eval(import_module('clubbase'));
 		$clubskillname[495] = '额度';
 	}

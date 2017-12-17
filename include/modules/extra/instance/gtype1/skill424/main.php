@@ -4,7 +4,7 @@ namespace skill424
 {
 	function init() 
 	{
-		define('MOD_SKILL424_INFO','club;active;locked;');
+		define('MOD_SKILL424_INFO','card;unique;active;locked;');
 		eval(import_module('clubbase'));
 		$clubskillname[424] = '除错';
 	}
@@ -19,6 +19,7 @@ namespace skill424
 		\skillbase\skill_setvalue(424,'cur4','',$pa);
 		\skillbase\skill_setvalue(424,'npclvlsum','0',$pa);
 		//此外本技能还有储存这局奖励的功能
+		\skillbase\skill_setvalue(424,'maxlvl','0',$pa);
 		\skillbase\skill_setvalue(424,'rank','0',$pa);
 		\skillbase\skill_setvalue(424,'prize','0',$pa);
 	}
@@ -194,32 +195,43 @@ namespace skill424
 				${'itm'.$position} = ${'itmk'.$position} = ${'itmsk'.$position} = '';
 				${'itme'.$position} =${'itms'.$position} =0;
 				$gdice=rand(1,3);
-				$money_prize = get_wdebug_money();
-				$money_punish = get_wdebug_money_punish();
-				if($money_punish) $log .="<span class=\"red\">你不顾任务只顾伐木的行为让你的奖励下降了！</span><br />";
-				$money_prize = max(0, $money_prize-$money_punish);
-				$money += $money_prize;
-				$skillpoint_prize = 1;
-				//if($clv && $clv<10) $skillpoint_prize = 0;//1-9层不会给技能点
-				$skillpoint += $skillpoint_prize;
-				$log .="<span class=\"yellow\">获得了{$money_prize}元";
-				if($skillpoint_prize) $log .="和{$skillpoint_prize}个技能点";
-				$log .= "。</span><br />";
-				if ($gdice==1){
-					$wp+=10;$wk+=10;$wc+=10;$wd+=10;$wg+=10;$wf+=10;
-					$log .="<span class=\"yellow\">获得了10点全熟练。</span><br />";
-				}
-				if ($gdice==2){
-					$att+=10;$def+=10;
-					$log .="<span class=\"yellow\">获得了10点基础攻防。</span><br />";
-				}	
-				if ($gdice==3){
-					$mhp+=10;$msp+=10;$hp+=10;$sp+=10;
-					$log .="<span class=\"yellow\">获得了10点命体上限。</span><br />";
+				//判定是否已经到过这个层
+				$prizeflag = 1;
+				$mlv = (int)\skillbase\skill_getvalue(424,'maxlvl',$pa);
+				if($clv < $mlv && $clv < 20) $prizeflag = 0;
+				//开始实际判定
+				if($prizeflag) {
+					$money_prize = get_wdebug_money();
+					$money_punish = get_wdebug_money_punish();
+					if($money_punish) $log .="<span class=\"red\">你不顾任务只顾伐木的行为让你的奖励下降了！</span><br />";
+					$money_prize = max(0, $money_prize-$money_punish);
+					$money += $money_prize;
+					
+					$skillpoint_prize = 1;
+					$skillpoint += $skillpoint_prize;
+					//提示
+					$log .="<span class=\"yellow\">获得了{$money_prize}元";
+					if($skillpoint_prize) $log .="和{$skillpoint_prize}个技能点";
+					$log .= "。</span><br />";
+					if ($gdice==1){
+						$wp+=10;$wk+=10;$wc+=10;$wd+=10;$wg+=10;$wf+=10;
+						$log .="<span class=\"yellow\">获得了10点全熟练。</span><br />";
+					}
+					if ($gdice==2){
+						$att+=10;$def+=10;
+						$log .="<span class=\"yellow\">获得了10点基础攻防。</span><br />";
+					}	
+					if ($gdice==3){
+						$mhp+=10;$msp+=10;$hp+=10;$sp+=10;
+						$log .="<span class=\"yellow\">获得了10点命体上限。</span><br />";
+					}
+				}else{
+					$log .='<span class="yellow">你已经获得过这一层的奖励了。</span><br />';
 				}
 				$clv++;
-				
 				\skillbase\skill_setvalue(424,'lvl',$clv);
+				if($clv > $mlv) \skillbase\skill_setvalue(424,'maxlvl',$clv);
+				
 				wdebug_reset();
 				$log .='下次除错需要物品'.wdebug_showreq();
 				

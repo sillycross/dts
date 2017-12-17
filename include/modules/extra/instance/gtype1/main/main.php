@@ -34,7 +34,7 @@ namespace gtype1
 		//各文件位置
 		$iplacefilelist = array(
 			'mapitem' => GAME_ROOT.'/include/modules/base/itemmain/config/mapitem.config.php',
-			'shopitem' => GAME_ROOT.'./include/modules/base/itemshop/config/shopitem.config.php',
+			'shopitem' => GAME_ROOT.'./include/modules/extra/instance/gtype1/main/config/shopitem.config.php',
 			'mixitem' => GAME_ROOT.'./include/modules/base/itemmix/itemmix/config/itemmix.config.php',
 			'syncitem' => GAME_ROOT.'./include/modules/base/itemmix/itemmix_sync/config/sync.config.php',
 			'overlayitem' => GAME_ROOT.'./include/modules/base/itemmix/itemmix_overlay/config/overlay.config.php',
@@ -76,6 +76,16 @@ namespace gtype1
 		eval(import_module('sys','gtype1'));
 		if (1 == $gametype){
 			return $enpcinfo_gtype1;
+		}else return $chprocess();
+	}
+	
+	function get_shoplist(){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		eval(import_module('sys'));
+		if ($gametype==1){
+			$file = __DIR__.'/config/shopitem.config.php';
+			$sl = openfile($file);
+			return $sl;
 		}else return $chprocess();
 	}
 	

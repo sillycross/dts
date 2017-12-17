@@ -7,7 +7,7 @@ namespace skill426
 	
 	function init() 
 	{
-		define('MOD_SKILL426_INFO','club;upgrade;locked;');
+		define('MOD_SKILL426_INFO','card;unique;upgrade;locked;');
 		eval(import_module('clubbase'));
 		$clubskillname[426] = '整备';
 	}
