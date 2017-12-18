@@ -158,18 +158,27 @@ namespace skill26
 			$pa['physical_dmg_dealt'] += $pa['ex_dmg_dealt'];
 			$pa['dmg_dealt'] += $pa['ex_dmg_dealt'];
 			$pa['ex_dmg_dealt'] = 0;
+			$pa['mult_words_fdmgbs'] = \attack\add_format($pa['ex_dmg_dealt'], $pa['mult_words_fdmgbs']);
 			return;
 		}
 		
 		//只计算武器基础伤害
-		$dmg = \weapon\get_physical_dmg($pa, $pd, $active);
+		$odmg = $dmg = \weapon\get_physical_dmg($pa, $pd, $active);
+		$mult_words_phydmg = \attack\equalsign_format($dmg, $pa['mult_words_phydmgbs'], '<:phy_dmg:>');
 		//把基础伤害当做固定伤害载入属性伤害计算
 		$dmg = \ex_dmg_att\calculate_ex_single_dmg($pa, $pd, $active, $attack_type, $dmg);
 		
-		$log.="武器攻击造成了<span class=\"red\">{$dmg}</span>点".$itemspkinfo[$attack_type]."伤害！<br>";
+		if($dmg == $odmg) {
+			$mult_words_phydmg = str_replace('<:phy_dmg:>','red',$mult_words_phydmg);
+			$log.='武器攻击造成了'.$mult_words_phydmg.'点'.$itemspkinfo[$attack_type]."伤害！<br>";
+		}else {
+			$mult_words_phydmg = str_replace('<:phy_dmg:>','yellow',$mult_words_phydmg);
+			$log.='武器攻击造成了'.$mult_words_phydmg.'点基础伤害，并转化为了<span class="red">'.$dmg.'</span>点'.$itemspkinfo[$attack_type].'伤害！<br>';
+		}
+		
 		$pa['physical_dmg_dealt'] += $dmg;
 		$pa['dmg_dealt'] += $dmg;
-		
+		$pa['mult_words_fdmgbs'] = \attack\add_format($dmg, $pa['mult_words_fdmgbs']);
 		$pa['skill26_flag2'] = 2;	//攻击属性判断开始正常返回（按次序计算）
 	}
 	

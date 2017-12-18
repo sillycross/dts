@@ -9,6 +9,9 @@ namespace skill259
 	//怒气消耗
 	$ragecost = 20;
 	
+	$alternate_skillno259 = 274;//互斥技能编号
+	$unlock_lvl259 = 5;//解锁等级
+	
 	function init() 
 	{
 		define('MOD_SKILL259_INFO','club;battle;upgrade;');
@@ -20,18 +23,21 @@ namespace skill259
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		\skillbase\skill_setvalue(259,'lvl','0',$pa);
+		\skillbase\skill_setvalue(259,'unlocked','0',$pa);	//是否已经被解锁
 	}
 	
 	function lost259(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		\skillbase\skill_delvalue(259,'lvl',$pa);
+		\skillbase\skill_delvalue(259,'unlocked',$pa);
 	}
 	
 	function check_unlocked259(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return $pa['lvl']>=5;
+		if(\clubbase\skill_check_unlocked_state(259, $pa) > 0) return 0;
+		else return 1;
 	}
 	
 	function get_rage_cost259(&$pa = NULL)
@@ -44,26 +50,42 @@ namespace skill259
 	function upgrade259()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('skill259','player','logger'));
+		eval(import_module('skill259','player','logger','input','clubbase'));
 		if (!\skillbase\skill_query(259))
 		{
 			$log.='你没有这个技能！<br>';
 			return;
 		}
-		$clv = \skillbase\skill_getvalue(259,'lvl');
-		$ucost = $upgradecost[$clv];
-		if ($clv == -1)
-		{
-			$log.='你已经升级完成了，不能继续升级！<br>';
-			return;
+		if('choose'==$skillpara1) {
+			if (\skillbase\skill_getvalue(259,'unlocked') > 0)
+			{
+				$log .= '你已经选择了这个技能<br>';
+				return;
+			}
+
+			\skillbase\skill_setvalue(259,'unlocked',1);
+			
+			$log.='技能「'.$clubskillname[259].'」选择成功。<br>';
+		}else{
+			if( !check_unlocked259($sdata)) {
+				$log .= '你尚未解锁这个技能<br>';
+				return;
+			}
+			$clv = \skillbase\skill_getvalue(259,'lvl');
+			$ucost = $upgradecost[$clv];
+			if ($clv == -1)
+			{
+				$log.='你已经升级完成了，不能继续升级！<br>';
+				return;
+			}
+			if ($skillpoint<$ucost) 
+			{
+				$log.='技能点不足。<br>';
+				return;
+			}
+			$skillpoint-=$ucost; \skillbase\skill_setvalue(259,'lvl',$clv+1);
+			$log.='升级成功。<br>';
 		}
-		if ($skillpoint<$ucost) 
-		{
-			$log.='技能点不足。<br>';
-			return;
-		}
-		$skillpoint-=$ucost; \skillbase\skill_setvalue(259,'lvl',$clv+1);
-		$log.='升级成功。<br>';
 	}
 	
 	function strike_prepare(&$pa, &$pd, $active)

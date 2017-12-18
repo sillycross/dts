@@ -53,7 +53,7 @@ namespace ex_dmg_nullify
 		if ($pa['is_hit'] && check_ex_dmg_nullify($pa, $pd, $active)) {
 			$ret = false;
 			$pa['dmg_dealt'] += $pa['ex_dmg_dealt'];
-			$pa['mult_words_fdmgbs'] .= ' + '.$pa['ex_dmg_dealt'];
+			$pa['mult_words_fdmgbs'] = \attack\add_format($pa['ex_dmg_dealt'], $pa['mult_words_fdmgbs']);
 		}
 		return $ret;
 	}

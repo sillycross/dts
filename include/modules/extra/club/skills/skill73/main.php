@@ -92,7 +92,7 @@ namespace skill73
 	function attack_finish(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\attrbase\check_itmsk('c',$pa) && $pa['bskill']==73 && $pa['club']==9)
+		if (in_array('c', \attrbase\get_ex_attack_array($pa, $pd, $active)) && $pa['bskill']==73 && $pa['club']==9)
 		{
 			//灵系称号且有重辅额外返还15点怒气
 			$pa['rage']+=15;

@@ -1,10 +1,13 @@
-<!--{eval $rageneed = \skill48\get_rage_cost48();}-->
+<!--{eval $rageneed = \skill48\get_rage_cost48();$attrgot = \skill48\check_available_attr48($sdata, $edata, 1);}-->
 <!--{if $rage>=$rageneed}-->
 <!--{if substr($wepk,0,2) == 'WC'}-->
 <input type="button" class="cmdbutton" style="width:98" name="" value="附魔" 
 onclick="$('command').value='$w1';$('bskill').value=48;postCmd('gamecmd','command.php');this.disabled=true;"><br />
 <div style="width:90%; text-align:left;">
-随机选择一种本次攻击造成的属性伤害，你造成的该种属性伤害将永久<span class="yellow">+3%</span>；消耗<span class="red">$rageneed</span>怒气
+<!--{if empty($attrgot)}-->
+本次攻击随机附加一种下位攻击属性。此外，
+<!--{/if}-->
+攻击后在本次施加的属性中随机选择一种，你持投系武器造成的该属性伤害永久<span class="yellow">+3%</span>；消耗<span class="red">$rageneed</span>怒气
 </div>
 <!--{else}-->
 <input type="button" class="cmdbutton" style="width:98" name="" value="附魔" disabled="true"><br />

@@ -90,6 +90,18 @@ namespace skill261
 		$chprocess($moveto);
 	}
 	
+	function get_skill263_chance(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($pa, $pd, $active);
+		if (\skillbase\skill_query(261,$pd) && check_unlocked261($pd))
+		{
+			$t=(int)\skillbase\skill_getvalue(261,'lastuse',$pd);
+			if ($t>0) $ret += 15;
+		}
+		return $ret;
+	}
+	
 	function bufficons_list()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

@@ -22,7 +22,7 @@ namespace ex_hp_def
 		$rate = 0.5;
 		if ($pa['dmg_dealt']>=2000) $rate = 2.0/3.0;
 		if ($pa['dmg_dealt']>=5000) $rate = 0.8;
-		if (\attrbase\check_itmsk('H',$pa)) $rate *= 0.1;
+		if (in_array('H', \attrbase\get_ex_attack_array($pa, $pd, $active))) $rate *= 0.1;
 		$damage = round($pa['hp']*$rate);
 		if ($damage >= $pa['hp']) $damage = $pa['hp'] - 1;
 		return $damage;

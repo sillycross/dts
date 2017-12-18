@@ -241,7 +241,7 @@ namespace ex_dmg_att
 			$log = str_replace('<:fin_dmg:>', $replace_color, str_replace('<:ex_single_dmg:>', $replace_color_single, $log));
 			
 			$pa['dmg_dealt'] += $dmg;
-			$pa['mult_words_fdmgbs'] .= ' + '.$dmg;
+			$pa['mult_words_fdmgbs'] = \attack\add_format($dmg, $pa['mult_words_fdmgbs']);
 		}
 	}
 	

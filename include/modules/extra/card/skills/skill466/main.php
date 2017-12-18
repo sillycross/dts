@@ -37,7 +37,7 @@ namespace skill466
 				$log.='<class span="yellow">你的技能「死神」额外造成了'.$dmg.'点伤害！</span><br>';
 			else  $log.='<class span="yellow">敌人的技能「死神」额外造成了'.$dmg.'点伤害！</span><br>';
 			$ret += $dmg;
-			$pa['mult_words_fdmgbs'] .= '+'.$dmg;
+			$pa['mult_words_fdmgbs'] = \attack\add_format($dmg, $pa['mult_words_fdmgbs']);
 		}
 		return $ret;
 	}

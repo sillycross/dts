@@ -1,0 +1,24 @@
+<!--{eval eval(import_module('skill273','sys'));}-->
+<!--{eval $null1=array('type'=>0);$null2=array('type'=>1);$chance1 = \skill273\get_skill273_chance($null1, $sdata, 0);$chance2 = \skill273\get_skill273_chance($null2, $sdata, 0);$dmgdown=\skill273\get_skill273_effect($null1, $sdata, 0);}-->
+<!--{eval $___TEMP_SKILL_ID=273;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+对撞
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+持投系武器且“重视躲避”时，你对玩家/NPC分别有<span class="yellow">{$chance1}%/{$chance2}%</span>几率<br>在受到伤害时抵挡 (武器效果值的平方根 x 10) 点伤害(最多3000)。<br>
+如果武器耐久有限，会消耗1耐久。
+<!--{if $dmgdown}-->当前可以抵挡<span class="yellow">{$dmgdown}</span>点伤害
+<!--{else}--><span class="yellow">当前不可抵挡伤害</span>
+<!--{/if}-->
+</span></td>
+<td class=b3 width=96>
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+{$unlock_lvl273}级时解锁
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}
