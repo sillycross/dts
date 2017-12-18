@@ -44,7 +44,7 @@ namespace skill263
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa,$pd,$active);
-		if ($ret > 0 && \skillbase\skill_query(263,$pd) && check_unlocked263($pd))
+		if ($pa['is_hit'] && \skillbase\skill_query(263,$pd) && check_unlocked263($pd))
 		{
 			$chance=get_skill263_chance($pa, $pd, $active);
 			if (rand(0,99)<$chance)
