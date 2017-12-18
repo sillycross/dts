@@ -58,8 +58,9 @@ namespace skill47
 				addnews ( 0, 'bskill47', $pa['name'], $pd['name'] );
 				
 				eval(import_module('ex_dmg_att'));
-				$lis=Array();
-				foreach ($ex_attack_list as $key) if ($key!='f' && $key!='k' && $key!='d') array_push($lis,$key);
+				$lis = Array('p', 'u', 'i', 'e', 'w');
+//				$lis=Array();
+//				foreach ($ex_attack_list as $key) if ($key!='f' && $key!='k' && $key!='t' && $key!='d') array_push($lis,$key);
 				$pa['skill47_flag']=$lis[rand(0,count($lis)-1)];
 			}
 			else

@@ -92,7 +92,7 @@ namespace skill38
 				$log.="闷棍对体力不支的敌人造成了<span class=\"yellow\">{$pa['skill38_dmg_extra']}</span>点额外伤害！<br>";
 			else  $log.="闷棍对体力不支的你造成了<span class=\"yellow\">{$pa['skill38_dmg_extra']}</span>点额外伤害！<br>";
 			$ret+=$pa['skill38_dmg_extra'];
-			$pa['mult_words_fdmgbs'] .= '+'.$pa['skill38_dmg_extra'];
+			$pa['mult_words_fdmgbs'] = \attack\add_format($pa['skill38_dmg_extra'], $pa['mult_words_fdmgbs']);
 		}
 		return $ret;
 	}

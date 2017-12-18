@@ -33,7 +33,7 @@ namespace sys
 		}
 	}
 	
-	//15s内循环判断锁是否存在，如果存在则挂起10毫秒之后继续判定，直到时间耗尽，起到阻塞作用
+	//循环判断锁是否存在，如果存在则挂起10毫秒之后继续判定，直到时间耗尽，起到阻塞作用
 	//返回true表示锁存在，false表示锁不存在
 	//如果加了$timeout，会阻塞到时间耗尽或者锁释放为止。$timeout时间是毫秒
 	function check_lock($dirname, $filename, $timeout=0)
@@ -73,6 +73,7 @@ namespace sys
 		if(file_exists($dirname.$filename)) unlink($dirname.$filename);
 	}
 	
+	/*
 	//只能在linux下使用的旧函数
 	function file_lock(&$handle, $dirname, $filename, $locktype = LOCK_EX)
 	{
@@ -96,6 +97,7 @@ namespace sys
 		}
 		$handle = NULL;
 	}
+	*/
 	
 	function load_gameinfo() {	//sys模块初始化的时候并没有调用这个函数
 		if (eval(__MAGIC__)) return $___RET_VALUE;

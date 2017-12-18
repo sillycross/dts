@@ -288,6 +288,15 @@ namespace attack
 		attack_finish($pa,$pd,$active);		
 	}
 	
+	//在字符串右边加数字/减数字的玩意
+	function add_format($var, $str, $space=1)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$asign = $var>=0 ? '+' : '-';
+		if($space) $asign = ' '.$asign.' ';
+		return $str.$asign.abs($var);
+	}
+	
 	//生成XXX x XXX = XXX这样格式的玩意
 	//如果给了$style，$mult_words的等号右边数字会用一个span套住
 	//如果$reptxt为真，$mult_words_2的第一个数字会用$reptxt替换，且会自动给$reptxt加括号
