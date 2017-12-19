@@ -154,7 +154,7 @@ $mixinfo = array
 	array('class' => 'pokemon', 'stuff' => array('《小黄的精灵球》','《小黄的收服特训》','露琪亚之羽','凤凰之羽'),'result' => array('《小黄的超级球》','WC',233,'∞','Zriuce'),),
 	array('class' => 'pokemon', 'stuff' => array('《小黄的超级球》','《小黄的常磐之力》','《小黄的收服特训》'),'result' => array('《小黄的大师球》','WC',386,'∞','ZcrdNe'),),
 	array('class' => 'pokemon', 'stuff' => array('《小黄的超级球》','《小黄的常磐之力》','露琪亚之羽','凤凰之羽'),'result' => array('《小黄的大师球》','WC',493,'∞','ZcrdNeiu'),),
-	array('class' => 'pokemon', 'stuff' => array('《小黄的精灵球》','治愈之叶'),'result' => array('小黄的『十万伏特』','WC',386,'∞','cewH'),),
+	array('class' => 'pokemon', 'stuff' => array('《小黄的精灵球》','治愈之叶'),'result' => array('小黄的『十万伏特』','WC',251,'∞','cewH'),),
 	array('class' => 'pokemon', 'stuff' => array('小黄的『十万伏特』','红色方块','绿色方块','蓝色方块'),'result' => array('小黄的『百万伏特』','WC',493,'∞','cewrnj'),),
 	array('class' => 'pokemon', 'stuff' => array('小黄的『百万伏特』','金色方块','银色方块','水晶方块'),'result' => array('小黄的『伏特攻击』','WC',649,'∞','cedrnZ'),),
 	array('class' => 'pokemon', 'stuff' => array('小黄的『伏特攻击』','《小黄的常磐之力》','《小黄的收服特训》','黄色方块'),'result' => array('小黄的『皮卡必杀击』','WC',721,'∞','cetdHrnZ'),),

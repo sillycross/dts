@@ -184,11 +184,7 @@ if ($___MOD_SRV)
 					if(!empty($plock)) {
 						\sys\process_unlock();
 					}
-					if(!empty($pdata_origin_pool)) {
-						foreach($pdata_origin_pool as $popv){
-							\player\release_player_lock($popv['pid']);
-						}
-					}					
+					\player\release_lock_from_pool();
 					//收尾工作，清除所有全局变量
 					$___TEMP_remain_list=Array('_SERVER','GLOBALS','magic_quotes_gpc','module_hook_list','language','_ERROR');
 							
@@ -381,12 +377,7 @@ if(!empty($plock)) {
 	\sys\process_unlock();
 }
 //清除玩家锁
-if(!empty($pdata_origin_pool)) {
-	foreach($pdata_origin_pool as $popv){
-		\player\release_player_lock($popv['pid']);
-	}
-	unset($pdata_origin_pool);
-}
+\player\release_lock_from_pool();
 
 /* End of file command.php */
 /* Location: /command.php */

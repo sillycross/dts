@@ -57,7 +57,7 @@ $tutorial_story[1] = Array(
 		'next' => 70		
 	),
 	70 => Array(
-		'tips' => '“很好。移动需要消耗体力，所以请确保你体力充足。移动之后也可能遇到<span class="yellow">突发事件</span>甚至<span class="red">敌人</span>，不过这次没事。<br>除了移动之外，你还可以原地搜寻。请点击<span class="yellow">【搜寻】</span>按钮。”<br>',
+		'tips' => '“很好。移动需要消耗体力，所以请确保你体力充足。移动之后也可能遇到<span class="yellow">突发事件</span>甚至<span class="red">敌人</span>，不过这次没事。<br>除了移动之外，你还可以原地探索。请点击<span class="yellow">【探索】</span>按钮。”<br>',
 		'object' => 'search',
 		'obj2' => Array(
 			'itm' => '充能手套',
@@ -79,12 +79,12 @@ $tutorial_story[1] = Array(
 			'itms' => 15,
 			'itmsk' => 'E'
 		),
-		'prog' => '“如果你不小心丢弃了物品，在原地<span class="yellow">搜寻</span>有概率重新捡到。”<br>',
+		'prog' => '“如果你不小心丢弃了物品，在原地<span class="yellow">探索</span>有概率重新捡到。”<br>',
 		'pulse' => '#z',
 		'next' => 90
 	),
 	90 => Array(
-		'tips' => '“搜寻是获得有用的装备或道具的重要方式之一。现在请再次点击<span class="yellow">【搜寻】</span>按钮。”<br>',
+		'tips' => '“探索是获得有用的装备或道具的重要方式之一。现在请再次点击<span class="yellow">【探索】</span>按钮。”<br>',
 		'object' => 'search',
 		'obj2' => Array(
 			'meetnpc' => 91, 'meetsub' => 0,'active' => 0,'inf' => 'f','ex_inf' => 'p','always_hit' => 1
@@ -93,7 +93,7 @@ $tutorial_story[1] = Array(
 		'next' => 100
 	),
 	100 => Array(
-		'tips' => '“哎呀，看来这次运气不好，你在搜寻时遭遇了一次袭击。”<br>',
+		'tips' => '“哎呀，看来这次运气不好，你在探索时遭遇了一次袭击。”<br>',
 		'object' => 'any',
 		'obj2' => Array(
 			'meetnpc' => 91, 'meetsub' => 0,'active' => 0,'inf' => 'f','ex_inf' => 'p','always_hit' => 1
@@ -128,7 +128,7 @@ $tutorial_story[1] = Array(
 		'next' => 140
 	),
 	140 => Array(
-		'tips' => '“很好，现在你从受伤状态完全恢复了。<br>除了使用道具之外，消耗<span class="lime">【技能点数】</span>或者<span class="lime">【静养】</span>一定时间也可以解除异常状态。<br>敌人还在当前地点，让我们去还击吧。点击<span class="yellow">【搜寻】</span>”<br>',
+		'tips' => '“很好，现在你从受伤状态完全恢复了。<br>除了使用道具之外，消耗<span class="lime">【技能点数】</span>或者<span class="lime">【静养】</span>一定时间也可以解除异常状态。<br>敌人还在当前地点，让我们去还击吧。点击<span class="yellow">【探索】</span>”<br>',
 		'object' => 'search',
 		'obj2' => Array(
 			'meetnpc' => 91, 'meetsub' => 0,'active' => 1,'changehp' => 1,'always_hit' => 1
@@ -143,7 +143,7 @@ $tutorial_story[1] = Array(
 			'meetnpc' => 91, 'meetsub' => 0,'active' => 1,'changehp' => 1,'always_hit' => 1
 		),
 		'pulse' => '#z',		
-		'prog' => '“错过攻击机会也没有关系，在原地<span class="yellow">搜寻</span>仍有机会发现同一个敌人。”<br>',
+		'prog' => '“错过攻击机会也没有关系，在原地<span class="yellow">探索</span>仍有机会发现同一个敌人。”<br>',
 		'next' => 160
 	),
 	160 => Array(
@@ -153,7 +153,7 @@ $tutorial_story[1] = Array(
 		'obj2' => Array(
 			'meetnpc' => 91, 'meetsub' => 0,'corpse' => 1
 		),
-		'prog' => '“拿了别的东西？没关系，在原地<span class="yellow">搜寻</span>仍有机会发现那具尸体。<br>不过，游戏进入<span class="red">【连斗】</span>阶段或者其他玩家将尸体销毁后，就没法再发现尸体了。<br>',
+		'prog' => '“拿了别的东西？没关系，在原地<span class="yellow">探索</span>仍有机会发现那具尸体。<br>不过，游戏进入<span class="red">【连斗】</span>阶段或者其他玩家将尸体销毁后，就没法再发现尸体了。<br>',
 		'next' => 170
 	),
 	170 => Array(
@@ -185,7 +185,7 @@ $tutorial_story[1] = Array(
 		'next' => 202		
 	),
 	202 => Array(
-		'tips' => '“这把剑显然比你的初始武器好多了。<br><span class="lime">商店购买</span>、<span class="lime">地图搜寻</span>，或者拾取<span class="lime">战利品</span>，都有可能给你带来更好的武器，如何尽快获得高级武器是一门学问。”<br>',
+		'tips' => '“这把剑显然比你的初始武器好多了。<br><span class="lime">商店购买</span>、<span class="lime">地图探索</span>，或者拾取<span class="lime">战利品</span>，都有可能给你带来更好的武器，如何尽快获得高级武器是一门学问。”<br>',
 		'object' => 'continue',
 		'obj2' => Array(
 			'addchat' => Array(

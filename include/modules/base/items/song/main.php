@@ -2,6 +2,39 @@
 
 namespace song
 {
+	$ef_type = array(
+		'hp' => '生命',
+		'mhp' => '最大生命',
+		'sp' => '体力',
+		'msp' => '最大体力',
+		'ss' => '歌魂',
+		'mss' => '最大歌魂',
+		'att' => '攻击力',
+		'def' => '防御力',
+		'money' => '金钱',
+		'rage' => '怒气',
+		'wp' => '殴系熟练度',
+		'wk' => '斩系熟练度',
+		'wg' => '射系熟练度',
+		'wc' => '投系熟练度',
+		'wd' => '爆系熟练度',
+		'wf' => '灵系熟练度',
+		'wep' => '武器',
+		'arb' => '身体防具',
+		'arh' => '头部防具',
+		'ara' => '手部防具',
+		'arf' => '足部防具',
+		'art' => '饰物',
+		'itm' => '包裹道具',
+	);
+	
+	$ef_type2 = array(
+		'k' => '类别',
+		'e' => '效果值',
+		's' => '耐久值',
+		'sk' => '属性',
+	);
+	
 	function init() 
 	{
 		eval(import_module('itemmain'));
@@ -11,11 +44,129 @@ namespace song
 		if (defined('MOD_NOISE'))
 		{
 			eval(import_module('noise'));
-			$noiseinfo['Crow Song']='Crow Song';
-			$noiseinfo['Alicemagic']='Alicemagic';
+			$noiseinfo['ss_CS']='《Crow Song》';
+			$noiseinfo['ss_AM']='《Alicemagic》';
 			$noiseinfo['KARMA']='■';
-			$noiseinfo['HWEIHOA']='驱寒颂歌';
+			$noiseinfo['ss_HWC']='《驱寒颂歌》';
+			$noiseinfo['ss_BF']='《Butterfly》';
+			$noiseinfo['ss_XPG']='《小苹果》';
 		}
+	}
+	
+	function ss_get_affected_players($pos)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player'));
+		//获得受影响的自身以外玩家的pid
+		$result = $db->query("SELECT pid FROM {$tablepre}players WHERE pls='$pos' AND type=0 AND hp>0 AND pid != '$pid'");
+		if(!$db->num_rows($result)) return array();
+		$list = array();
+		while($r = $db->fetch_array($result)){
+			$list[] = $r['pid'];
+		}
+		//然后挨个获得数据。因为可能涉及到技能、上限之类的，不能直接粗暴UPDATE
+		//这里同时也加了锁
+		$ret = array();
+		foreach($list as $pdid){
+			$ret[] = \player\fetch_playerdata_by_pid($pdid);
+		}
+		return $ret;
+	}
+	
+	//单项处理，返回一个提示信息
+	function ss_data_proc_single(&$pdata, $effect)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ss_log = $ss_log_2 = array();
+		if(empty($effect)) return $ss_log;
+		eval(import_module('song'));
+		foreach($effect as $ek => $ev){
+			if(isset($pdata[$ek])){
+				//如果变化量是数值，那么变化量乘以一个系数
+				//生成提示变化了哪里，目前仅支持HP SP 歌魂 怒气 金钱 攻防 装备道具的效果和耐久值
+				if(strpos($ek,'wep')===0 || strpos($ek,'ar')===0 || strpos($ek,'itm')===0) {
+					$ss_tn = $ef_type[substr($ek,0,3)];
+					if(strpos($ek,'itm')===0) {
+						$ss_tn .= substr($ek,3,1).$ef_type2[substr($ek,4,1)];
+					}else{
+						$ss_tn .= $ef_type2[substr($ek,3,1)];
+					}
+				}else{
+					$ss_tn = $ef_type[$ek];
+				}
+				if(strpos($ev,'=')===0) {//变化值
+					$change = substr($ev,1);
+					if(is_numeric($change)) $change *= ss_factor($pdata);
+					$pdata[$ek] = $change;
+					$ss_log[] = $ss_tn.'<span class="yellow">变成了'.$change.'</span>';
+				}elseif(is_numeric($ev)) {
+					$change = $ev;
+					if(is_numeric($change)) $change *= ss_factor($pdata);
+					if($change > 0) {//增加值，要判定是否最大值
+						if(!isset($pdata['m'.$ek]) || $pdata[$ek] < $pdata['m'.$ek]){
+							if(isset($pdata['m'.$ek]) && $pdata[$ek] + $change > $pdata['m'.$ek]) {
+								$change = $pdata['m'.$ek] - $pdata[$ek];
+							}
+							$pdata[$ek] += $change;
+						}else{//超过最大值的不改动
+							$change = 0;
+						}
+						if($change) $ss_log[] = $ss_tn.'<span class="clan">增加了'.$change.'</span>';
+					}else{//减少值直接减
+						if($pdata[$ek] + $change < 1 && in_array($ek, array('hp','mhp','sp','msp'))) {
+							$change = 1 - $pdata[$ek];//生命体力不会降低到小于1，也就是不会唱死人
+						}elseif($pdata[$ek] + $change < 0){
+							$change = -$pdata[$ek];
+						}
+						$pdata[$ek] += $change;
+						if($change != 0) $ss_log[] = $ss_tn.'<span class="red">减少了'.(0-$change).'</span>';
+					}
+				}
+				//装备耐久变成0的情况
+				if(!$pdata[$ek] && (((strpos($ek,'wep')===0 || strpos($ek,'ar')===0) && 's' == substr($ek,3,1)) || (strpos($ek,'itm')===0 && 's' == substr($ek,4,1)))){
+					$itmpos = (strpos($ek,'wep')===0 || strpos($ek,'ar')===0) ? substr($ek,0,3) : substr($ek,0,3).substr($ek,3,1);
+					$itmname = $pdata[$itmpos];
+					$ss_log_2[] = $itmname;
+				}
+			}
+		}
+		$ss_log_f = '歌声让你的'.implode('，',$ss_log).'。<br>';
+		if(!empty($ss_log_2)) $ss_log_f .= '<span class="red">你的'.implode('、',$ss_log_2).'损坏了！</span><br>';
+		return $ss_log_f;
+	}
+	
+	//歌效果处理
+	function ss_data_proc($effect)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		if(empty($effect)) return;
+		//先处理自己
+		eval(import_module('sys','player','logger'));
+		$log .= ss_data_proc_single($sdata, $effect);
+		//获取所有影响到的玩家		
+		$pdlist = ss_get_affected_players($pls);
+		if(empty($pdlist)) return;
+		//依次处理玩家
+		foreach($pdlist as $pdata){
+			$ss_log = ss_data_proc_single($pdata, $effect);
+			\logger\logsave ( $pdata['pid'], $now, $ss_log ,'o');			
+			\player\player_save($pdata);
+		}
+	}
+	
+	//消耗歌魂的前置处理
+	function ss_cost_proc($cost)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $cost;
+	}
+	
+	//歌唱效果加成系数
+	function ss_factor(&$pdata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 1;
 	}
 	
 	function ss_sing($sn)
@@ -33,7 +184,7 @@ namespace song
 			$log .= '好像不存在这样一首歌呢……<br>';
 			return;
 		}
-		$r=$songcfg['cost'];
+		$r = ss_cost_proc($songcfg['cost']);
 		$nkey = $songcfg['noisekey'];
 
 		if ($ss>=$r){
@@ -44,63 +195,47 @@ namespace song
 			return;
 		}
 		addnews($now,'song',$name,$plsinfo[$pls],$songcfg['songname']);
-		$lyricnum = sizeof($songcfg['lyrics']);
-		$songchatlimit = 2;
-		$songchat = '';
-		for($i=0;$i<$lyricnum;$i++){
-			$log .= $songcfg['lyrics'][$i].'<br>';
-			if($i<$songchatlimit) $songchat .= $songcfg['lyrics'][$i].'　';
-			if($i == $songchatlimit-1) $songchat .= '……';
-		}
-		\sys\addchat(0, $songchat, $name);
-//		foreach($songcfg['lyrics'] as $lyric){
-//			$log .= $lyric.'<br>';
-//			\sys\addchat(0, $lyric, $name);
-//		}
-		if (defined('MOD_NOISE') && !empty($nkey)) \noise\addnoise($pls,$nkey,$pid);
 		
-		$songqry = '';
-		foreach($songcfg['effect'] as $sekey => $seval){
-			if(isset($sdata[$sekey])){//如果不存在这个数值就无视掉
-				$qry_sign=NULL;
-				if(strpos($seval,'=')===0){
-					$seval = (int)substr($seval,1);
-					${$sekey} = $seval;
-					$ef_sign = '<span class="yellow">变成</span>';
-					$qry_sign = '=';
-				}elseif((int)$seval > 0){
-					$seval = (int)$seval;
-					${$sekey} += $seval;
-					$ef_sign = '<span class="lime">增加</span>';
-					$qry_sign = '+';
-				}elseif((int)$seval < 0){
-					$seval = (int)$seval;
-					${$sekey} += $seval;
-					$ef_sign = '<span class="red">减少</span>';
-					$qry_sign = '-';
-				}
-				//这里最好和lang.php合并一下
-				if($sekey == 'att') $ef_word = '攻击力';
-				elseif($sekey == 'def') $ef_word = '防御力';
-				elseif($sekey == 'hp') $ef_word = '生命';
-				elseif($sekey == 'mhp') $ef_word = '最大生命';
-				elseif($sekey == 'sp') $ef_word = '体力';
-				elseif($sekey == 'msp') $ef_word = '最大体力';
-				elseif($sekey == 'ss') $ef_word = '歌魂';
-				elseif($sekey == 'mss') $ef_word = '最大歌魂';
-				elseif($sekey == 'rp') $ef_word = 'RP';
-				elseif($sekey == 'money') $ef_word = '金钱';
-				else $ef_word = $sekey;
-				if($qry_sign){
-					$log .= "歌声让你以及附近的玩家的{$ef_word}{$ef_sign}了".abs($seval)."。<br>";
-					$songqry .= $qry_sign == '=' ? $sekey.'='.$seval.',' : $sekey.'='.$sekey.$qry_sign.$seval.',';
-				}
+		//歌词显示部分
+		$lyricnum = sizeof($songcfg['lyrics']);
+		$songchat = '';
+		$songloop = defined('MOD_SKILL1003');//如果技能1003存在，会按顺序唱歌词，否则唱前两句
+		if($songloop) {
+			$songkind = \skillbase\skill_getvalue(1003,'songkind');
+			$songpos = $songkind == $sn ? (int)\skillbase\skill_getvalue(1003,'songpos') : 0;//如果上一次唱的不是这首歌则从头
+		}
+		if(isset($songcfg['lyrics_ruby'])) {
+			$song_font_size = 16;
+			$song_line_height = 28;
+		}
+		for($i=0;$i<$lyricnum;$i++){
+			$ss_log = '<span style="font-size:<:fs:>px;line-height:<:lh:>px">'.$songcfg['lyrics'][$i].'</span>';
+			if(isset($songcfg['lyrics_ruby'])) {
+				$ss_log = '<ruby>'.$ss_log.'<rt>'.$songcfg['lyrics_ruby'][$i].'</rt></ruby>';
+				$replace = '28px';
+			}
+			$ss_log = str_replace('<:lh:>', $song_line_height, str_replace('<:fs:>', $song_font_size, $ss_log));
+			$log .= $ss_log.'<br>';
+			if($songloop) {
+				if ($i==$songpos) $songchat .= $songcfg['lyrics'][$i];
+			}else{
+				if($i < $songchatlimit) $songchat .= $songcfg['lyrics'][$i].'　';
+				if($i == $songchatlimit-1) $songchat .= '……';
 			}
 		}
-		if(!empty($songqry)){
-			$songqry = substr($songqry,0,-1);
-			$db->query ("UPDATE {$tablepre}players SET ".$songqry." WHERE `pls` ={$pls} AND hp>0 AND type=0");
+		$log .= '<br>';
+		\sys\addchat(0, $songchat, $name);
+		if($songloop) {
+			if($songpos+1 >= sizeof($songcfg['lyrics']) ) $songpos = 0;
+			else $songpos ++;
+			\skillbase\skill_setvalue(1003,'songpos',$songpos);
+			\skillbase\skill_setvalue(1003,'songkind',$sn);
 		}
+		if (defined('MOD_NOISE') && !empty($nkey)) \noise\addnoise($pls,$nkey,$pid);
+		
+		//歌效果处理核心函数
+		ss_data_proc($songcfg['effect']);
+		
 		return;
 	}
 	

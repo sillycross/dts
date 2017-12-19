@@ -5,9 +5,6 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip=NULL)
 	include_once GAME_ROOT.'./include/user.func.php';
 	eval(import_module('sys'));
 	\sys\load_gameinfo();
-	if(empty($ip)) {
-		$ip = real_ip();
-	}
 	if ($xgender!='m' && $xgender!='f') $xgender='m';
 	$validnum++;
 	$alivenum++;
@@ -69,9 +66,13 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip=NULL)
 //		$itm[3] = '手枪子弹'; $itmk[3] = 'GB'; $itme[3] = 1; $itms[3] = 12; $itmsk[3] = '';
 //	}
 
-	global $gamefounder;
-	$result = $db->query("SELECT groupid FROM {$gtablepre}users WHERE username='$xuser'");
-	$groupid = $db->fetch_array($result)['groupid'];
+	global $gamefounder,$ip;
+	$result = $db->query("SELECT groupid,ip FROM {$gtablepre}users WHERE username='$xuser'");
+	$r = $db->fetch_array($result);
+	
+	$groupid = $r['groupid'];
+	$ip = $r['ip'];
+	
 	if ($name == $gamefounder||$groupid >= 5) {
 		$itm[6] = '权限狗的ID卡'; $itmk[6] = 'Z'; $itme[6] = 1; $itms[6] = 1;$itmsk[6] = '';
 //		$msp += 100;$mhp += 100;$hp += 100;$sp += 100;

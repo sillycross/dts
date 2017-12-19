@@ -209,7 +209,8 @@ namespace attack
 		$pd['state']=$pd['deathmark'];
 		
 		$kilmsg = \player\kill($pa, $pd);
-		if(!empty($kilmsg))
+		
+		if($pd['hp'] <= 0 && !empty($kilmsg))
 			if ($active)
 				$log.="<br><span class='b'>你对{$pd['name']}说道：</span><span class='yellow'>“{$kilmsg}”</span><br><br>";
 			else
