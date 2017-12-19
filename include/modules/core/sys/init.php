@@ -13,8 +13,8 @@ namespace sys
 	//万一以后pdata_pool要变成引用呢？所以多一个origin池
 	//此外玩家池兼任玩家数据锁记录器
 	//daemon进程结束以及commmand_act.php结束时都会检查并释放玩家池对应的锁文件
-	global $pdata_pool, $pdata_origin_pool;
-	$pdata_origin_pool = $pdata_pool = array();
+	global $pdata_pool, $pdata_origin_pool, $pdata_lock_pool;
+	$pdata_origin_pool = $pdata_pool = $pdata_lock_pool = array();
 	
 	function init()
 	{

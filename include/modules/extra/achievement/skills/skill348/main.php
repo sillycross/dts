@@ -62,7 +62,7 @@ namespace skill348
 		if($pa['type'] || $pd['type']) return false;
 		$rare_a = $cards[$pa['card']]['rare'];
 		$rare_d = $cards[$pd['card']]['rare'];
-		return in_array($rare_a,array('C','M')) && $rare_d === 'S';
+		return in_array($rare_a,array('C','M')) && ($rare_d === 'S');
 	}
 	
 	function player_kill_enemy(&$pa,&$pd,$active){

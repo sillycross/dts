@@ -87,6 +87,7 @@ namespace npcchat
 			if ($flag){
 				$sid = 13;	//击杀玩家 原为13，但不需要在这里设置
 				$chattag = 'kill';
+				$pa['npcchat_kill'] = 1;
 			}else {
 				$sid = 9;	//被击杀
 				$chattag = 'retreat';
