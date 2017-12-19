@@ -5,7 +5,7 @@ namespace song
 	$songlist = array(
 		1 => array(
 			'songname' => 'Alicemagic',
-			'noisekey' => 'Alicemagic',
+			'noisekey' => 'ss_AM',
 			'cost' => 30,
 			'lyrics' => array(
 				'♪你說過在哭泣之後應該可以破涕而笑♪',
@@ -19,7 +19,7 @@ namespace song
 		),
 		2 => array(
 			'songname' => 'Crow Song',
-			'noisekey' => 'Crow Song',
+			'noisekey' => 'ss_CS',
 			'cost' => 90,
 			'lyrics' => array(
 				'♪从这里找一条路♪',
@@ -34,7 +34,7 @@ namespace song
 		),
 		3 => array(
 			'songname' => 'KARMA',
-			'noisekey' => '',
+			'noisekey' => 'KARMA',
 			'cost' => 233,
 			'lyrics' => array(
 				'■'
@@ -45,13 +45,19 @@ namespace song
 		),
 		4 => array(
 			'songname' => '驱寒颂歌',
-			'noisekey' => 'HWEIHOA',
+			'noisekey' => 'ss_HWC',
 			'cost' => 120,
 			'lyrics' => array(
 				'♪欢声笑语似天籁♪',
 				'♪驱寒之夜又到来♪',
 				'♪心中敞亮又欢快♪',
-				'♪驱寒之夜又到来♪'
+				'♪驱寒之夜又到来♪',
+			),
+			'lyrics_ruby' => array(
+				'Ponies’ voices fill the night',
+				'Hearth’s Warming Eve is here once again',
+				'Happy hearts so full and bright',
+				'Hearth’s Warming Eve is here once again',
 			),
 			'effect' => array(
 				'mhp' => 10,
@@ -60,5 +66,44 @@ namespace song
 				'rp' => -10
 			)
 		),
+		5 => array(
+			'songname' => 'Butterfly',
+			'noisekey' => 'ss_BF',
+			'cost' => 600,
+			'lyrics' => array(
+				'♪無限大な夢のあとの♪',
+				'♪何もない世の中じゃ♪',
+				'♪そうさ愛しい♪',
+				'♪想いも負けそうになるけど♪',
+			),
+			'effect' => array(
+				'weps' => '=∞',
+				'hp' => 5000,
+				'sp' => 5000,
+			)
+		),
+		6 => array(
+			'songname' => '小苹果',
+			'noisekey' => 'ss_XPG',
+			'cost' => 10,
+			'lyrics' => array(
+				'♪你是我的小呀小苹果♪',
+				'♪怎么爱你都不嫌多♪',
+				'♪红红的小脸儿温暖我的心窝♪',
+				'♪点亮我生命的火 火火火火~♪',
+			),
+			'effect' => array(
+				'sp' => -100,
+				'rage' => 5,
+			)
+		),
+		
 	);
+	
+	//聊天记录歌词显示条数
+	$songchatlimit = 2;
+	
+	//没有注音时的歌词字体大小和行距
+	$song_font_size = 14;
+	$song_line_height = 16;
 }
