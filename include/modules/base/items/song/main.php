@@ -143,7 +143,7 @@ namespace song
 		if(empty($effect)) return;
 		//先处理自己
 		eval(import_module('sys','player','logger'));
-		$log .= str_replace('歌声让你的','歌声让你和附近所有玩家的',ss_data_proc_single($sdata, $effect));
+		$log .= ss_data_proc_single($sdata, $effect);
 		//获取所有影响到的玩家		
 		$pdlist = ss_get_affected_players($pls);
 		if(empty($pdlist)) return;
