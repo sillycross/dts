@@ -17,8 +17,8 @@ namespace gtype1
 			$zz=$db->fetch_array($res); $gt=$zz['gametype'];
 		}
 
-		if (!$disable_event && $gt!=1){//开启活动&&最多连续3局
- 			if ( ($wday==3 && $hour>=19 && $hour<21) || ($wday==6 && $hour>=15 && $hour<17) ){ //周三19点-21点；周六15点-17点
+		if (1||!$disable_event && $gt!=1){//开启活动&&最多连续3局
+ 			if (1|| ($wday==3 && $hour>=19 && $hour<21) || ($wday==6 && $hour>=15 && $hour<17) ){ //周三19点-21点；周六15点-17点
  				$gametype=1;
  				prepare_new_game_gtype1();
  			}
@@ -41,9 +41,9 @@ namespace gtype1
 			'presentitem' => GAME_ROOT.'./include/modules/base/items/boxes/config/present.config.php',
 			'ygoitem' => GAME_ROOT.'./include/modules/base/items/boxes/config/ygobox.config.php',
 			'fyboxitem' => GAME_ROOT.'./include/modules/base/items/boxes/config/fybox.config.php',
-			'npcinfo_gtype1' => GAME_ROOT.'./include/modules/extra/instance/gtype1/main/config/npc.data.config.php',
-			'anpcinfo' => GAME_ROOT.'./include/modules/base/addnpc/config/addnpc.config.php',
-			'enpcinfo_gtype1' => GAME_ROOT.'./include/modules/extra/instance/gtype1/main/config/evonpc.config.php',
+			//'npcinfo_gtype1' => GAME_ROOT.'./include/modules/extra/instance/gtype1/main/config/npc.data.config.php',
+			//'anpcinfo' => GAME_ROOT.'./include/modules/base/addnpc/config/addnpc.config.php',
+			//'enpcinfo_gtype1' => GAME_ROOT.'./include/modules/extra/instance/gtype1/main/config/evonpc.config.php',
 		);
 		
 		\itemnumlist\itemnumlist_create('gtype1item', $iplacefilelist);
@@ -66,7 +66,7 @@ namespace gtype1
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		eval(import_module('sys','gtype1'));
 		if (1 == $gametype){
-			return array();
+			return $npcinfo_gtype1;
 		}else return $chprocess();
 	}
 	
