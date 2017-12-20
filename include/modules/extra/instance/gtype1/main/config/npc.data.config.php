@@ -7,7 +7,7 @@ namespace gtype1
 		1 => array
 			(
 			'mode' => 3,
-			'num' => 1,
+			'num' => 0,
 			'pass' => 'bra',
 			'club' => 0,
 			'bid' => 0,
@@ -78,7 +78,7 @@ namespace gtype1
 		2 => array
 		(
 		'mode' => 2,
-		'num' => 16,
+		'num' => 0,//16,
 		'pass' => 'bra',
 		'club' => 0,
 		'bid' => 0,
@@ -374,7 +374,7 @@ namespace gtype1
 			5 => array
 			(
 			'mode' => 2,
-			'num' => 2,
+			'num' => 0,//2,
 			'pass' => 'bra',
 			'bid' => 0,
 			'inf' => '',
@@ -477,7 +477,7 @@ namespace gtype1
 		6 => array
 			(
 			'mode' => 2,
-			'num' => 1,
+			'num' => 0,
 			'pass' => 'bra',
 			'club' => 0,
 			'bid' => 0,
@@ -656,7 +656,7 @@ namespace gtype1
 		9 => array
 			(
 			'mode' => 3,
-			'num' => 1,
+			'num' => 0,
 			'pass' => 'bra',
 			'club' => 17,
 			'bid' => 0,
@@ -729,7 +729,7 @@ namespace gtype1
 		11 => array
 			(
 			'mode' => 1,
-			'num' => 7,
+			'num' => 0,
 			'pass' => 'bra',
 			'club' => 0,
 			'bid' => 0,
@@ -1111,7 +1111,7 @@ namespace gtype1
 		
 		14 => array(
 		'mode' => 1,
-		'num' => 3,
+		'num' => 0,
 		'pass' => 'bra',
 		'club' => 99,
 		'bid' => 0,
@@ -2086,7 +2086,7 @@ namespace gtype1
 	45=> array
 		(
 		'mode' => 2,
-		'num' => 8,
+		'num' => 0,
 		'pass' => 'bra',
 		'club' => 14,
 		'bid' => 0,
@@ -2241,7 +2241,7 @@ namespace gtype1
 		88 => array
 			(
 			'mode' => 1,
-			'num' => 4,
+			'num' => 0,
 			'pass' => 'bra',
 			'club' => 17,
 			'bid' => 0,
@@ -2337,7 +2337,7 @@ namespace gtype1
 		90 => array
 			(
 			'mode' => 2,
-			'num' => 300,
+			'num' => 0,//300,
 			'pass' => 'bra',
 			'club' => 0,
 			'bid' => 0,
