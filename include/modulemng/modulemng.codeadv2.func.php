@@ -1046,6 +1046,7 @@ function merge_contents_calc($modid)
 					if(NULL===$im_root_token_offset || !merge_check_same_cp_tree($im_root_token_offset, $im_token_offset, $im_tokens)){
 						$im_root_token_offset = $im_token_offset;
 						//如果是，则重新记录$im_diff_arr
+						$im_diff_arr = array();
 						foreach(explode(',', $ret_d) as $val){
 							$im_diff_arr[] = trim($val);
 						}
