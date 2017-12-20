@@ -2,7 +2,7 @@
 
 namespace skill495
 {
-	$moneylimit = Array(5000,10000,20000,32767);
+	$moneylimit = Array(10000,15000,25000,36000);
 	$upgradecost = Array(5,12,15,-1);
 	
 	function init() 
