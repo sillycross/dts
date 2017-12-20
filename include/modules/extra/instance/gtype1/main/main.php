@@ -17,8 +17,8 @@ namespace gtype1
 			$zz=$db->fetch_array($res); $gt=$zz['gametype'];
 		}
 
-		if (1||!$disable_event && $gt!=1){//开启活动&&最多连续3局
- 			if (1|| ($wday==3 && $hour>=19 && $hour<21) || ($wday==6 && $hour>=15 && $hour<17) ){ //周三19点-21点；周六15点-17点
+		if (!$disable_event && $gt!=1){//开启活动&&最多连续3局
+ 			if ( ($wday==3 && $hour>=19 && $hour<21) || ($wday==6 && $hour>=15 && $hour<17) ){ //周三19点-21点；周六15点-17点
  				$gametype=1;
  				prepare_new_game_gtype1();
  			}

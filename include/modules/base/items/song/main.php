@@ -80,6 +80,7 @@ namespace song
 		$ss_log = $ss_log_2 = array();
 		if(empty($effect)) return $ss_log;
 		eval(import_module('song'));
+		$pdata['mrage'] = \rage\get_max_rage($pdata);
 		foreach($effect as $ek => $ev){
 			if(isset($pdata[$ek])){
 				//如果变化量是数值，那么变化量乘以一个系数
@@ -130,6 +131,7 @@ namespace song
 				}
 			}
 		}
+		unset($pdata['mrage']);
 		$ss_log_f = '歌声让你的'.implode('，',$ss_log).'。<br>';
 		if(!empty($ss_log_2)) $ss_log_f .= '<span class="red">你的'.implode('、',$ss_log_2).'损坏了！</span><br>';
 		return $ss_log_f;
