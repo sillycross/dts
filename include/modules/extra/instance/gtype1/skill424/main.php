@@ -85,22 +85,22 @@ namespace skill424
 			$req2 = wdebug_getreq(array('mapitem', 'shopitem'), 10, 40, $aready);
 		}elseif($clv <= 30){//20-30层产生个数在5-30的地图道具或3-20的地图商店道具（有可能两个都是地图道具）和个数在20-200的合成物、NPC道具
 			$req1 = wdebug_getreq('mapitem', 5, 20, $aready);
-			$req2 = wdebug_getreq(array('mapitem', 'shopitem'), 3, 15, $aready);
-			$req3 = wdebug_getreq(array('mixitem','syncitem','overlayitem','npc'), 20, 200, $aready);
+			$req2 = wdebug_getreq(array('mapitem'), 3, 15, $aready);
+			$req3 = wdebug_getreq(array('mixitem','syncitem','overlayitem'), 20, 200, $aready);
 		}elseif($clv <= 40){//30-40层产生个数在2-10的地图道具或1-8的地图商店道具（有可能两个都是地图道具）和个数在3-20的合成物、NPC道具
 			$req1 = wdebug_getreq('mapitem', 2, 10, $aready);
-			$req2 = wdebug_getreq(array('mapitem', 'shopitem'), 1, 8, $aready);
-			$req3 = wdebug_getreq(array('mixitem','syncitem','overlayitem','npc'), 3, 20, $aready);
+			$req2 = wdebug_getreq(array('mapitem'), 1, 8, $aready);
+			$req3 = wdebug_getreq(array('mixitem','syncitem','overlayitem'), 3, 20, $aready);
 		}elseif($clv <= 50){//40-50层产生个数在1-6的地图道具或0.5-5的地图商店道具（有可能两个都是地图道具）、个数在1-10的合成物、NPC道具以及所有个数在8以下的玩意儿
 			$req1 = wdebug_getreq('mapitem', 1, 6, $aready);
-			$req2 = wdebug_getreq(array('mapitem', 'shopitem'), 0.5, 5, $aready);
-			$req3 = wdebug_getreq(array('mixitem','syncitem','overlayitem','npc'), 1, 10, $aready);
-			$req4 = wdebug_getreq(array('mapitem','shopitem','mixitem','syncitem','overlayitem','npc','presentitem','ygoitem'), 0, 8, $aready);
+			$req2 = wdebug_getreq(array('mapitem'), 0.5, 5, $aready);
+			$req3 = wdebug_getreq(array('mixitem','syncitem','overlayitem'), 1, 10, $aready);
+			$req4 = wdebug_getreq(array('mapitem','mixitem','syncitem','overlayitem','presentitem','ygoitem'), 0, 8, $aready);
 		}else{//50层以上全部浮云物，哈哈哈哈！而且不再能买了
-			$req1 = wdebug_getreq(array('mapitem','mixitem','syncitem','overlayitem','npc','presentitem','ygoitem'), 0, 5, $aready);
-			$req2 = wdebug_getreq(array('mapitem','mixitem','syncitem','overlayitem','npc','presentitem','ygoitem'), 0, 5, $aready);
-			$req3 = wdebug_getreq(array('mapitem','mixitem','syncitem','overlayitem','npc','presentitem','ygoitem'), 0, 5, $aready);
-			$req4 = wdebug_getreq(array('mapitem','mixitem','syncitem','overlayitem','npc','presentitem','ygoitem'), 0, 5, $aready);
+			$req1 = wdebug_getreq(array('mapitem','mixitem','syncitem','overlayitem','presentitem','ygoitem'), 0, 5, $aready);
+			$req2 = wdebug_getreq(array('mapitem','mixitem','syncitem','overlayitem','presentitem','ygoitem'), 0, 5, $aready);
+			$req3 = wdebug_getreq(array('mapitem','mixitem','syncitem','overlayitem','presentitem','ygoitem'), 0, 5, $aready);
+			$req4 = wdebug_getreq(array('mapitem','mixitem','syncitem','overlayitem','presentitem','ygoitem'), 0, 5, $aready);
 		}
 		\skillbase\skill_setvalue(424,'cur1',$req1,$pa);
 		\skillbase\skill_setvalue(424,'cur2',$req2,$pa);
