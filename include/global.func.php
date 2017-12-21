@@ -121,37 +121,46 @@ function language($file, $templateid = 0, $tpldir = '') {
 	}
 }
 
-function dump_template($file, $templateid = 0, $tpldir = ''){
+function dump_template($file, $templateid = 0){
 	extract($GLOBALS);
 	ob_start();
-	include template($file, $templateid, $tpldir);
+	include template($file, $templateid);
 	$ret = ob_get_contents();
 	ob_end_clean();
 	return $ret;
 }
 
-function template($file, $templateid = 0, $tpldir = '') {
-	global $tplrefresh;
-
-	$tpldir = $tpldir ? $tpldir : TPLDIR;
-	$templateid = $templateid ? $templateid : TEMPLATEID;
+function template($file, $templateid = NULL) {
+	global $tplrefresh, $u_templateid;
+	
+	$templateid = $templateid ? $templateid : ($u_templateid ? $u_templateid : TEMPLATEID);
+	$tpldir = 1!=$templateid ? str_replace('default',$templateid,TPLDIR) : TPLDIR;//其他主题模板文件夹名改为数字编号
 
 	if (substr($file,0,4)=='MOD_') $file=__MODULE_GET_TEMPLATE__($file);
 	if (strpos($file,'/')===false)
 	{
 		$tplfile = GAME_ROOT.'./'.$tpldir.'/'.$file.'.htm';
+		if(!file_exists($tplfile)) {//文件不存在则沿用默认TEMPLATEID的
+			$templateid = TEMPLATEID;
+			$tpldir = TPLDIR;
+			$tplfile = GAME_ROOT.'./'.$tpldir.'/'.$file.'.htm';
+		}
+		
 		$objfile = GAME_ROOT.'./gamedata/templates/'.$templateid.'_'.$file.'.tpl.php';
 	}
 	else  
 	{
 		global $___MOD_CODE_ADV2;
-		if ($___MOD_CODE_ADV2) 	//写死吧…… 无所谓了
+		if ($___MOD_CODE_ADV2) 	//写死吧…… 无所谓了 //不明白这里是在干啥，算了……
 		{
 			$file = str_replace('include/modules','gamedata/run',$file);
 			if (substr($file, -4) != '.adv') $file .= '.adv';
 		}
-		
-		$tplfile = $file.'.htm';
+		$tplfile = $file.'_'.$templateid.'.htm';
+		if(!file_exists($tplfile)){
+			$templateid = TEMPLATEID;
+			$tplfile = $file.'.htm';
+		}
 		$xdname=dirname($file); 
 		$xdname=substr($xdname,strlen(GAME_ROOT));
 		if (strpos($xdname,'./include/modules/')===0)
@@ -162,11 +171,6 @@ function template($file, $templateid = 0, $tpldir = '') {
 		$xbname=basename($file);
 		$objfile = GAME_ROOT.'./gamedata/templates/'.$templateid.'_mod_'.$xdname.'_'.$xbname.'.tpl.php';
 	}
-	/*
-	if(TEMPLATEID != 1 && $templateid != 1 && !file_exists($tplfile)) {
-		return template($file, 1, './templates/default/');
-	}
-	*/
 	global $___TEMP_template_force_refresh;
 	if($tplrefresh == 1 || (isset($___TEMP_template_force_refresh) && $___TEMP_template_force_refresh==1)) {
 		if ((!file_exists($objfile) || filemtime($tplfile) > filemtime($objfile)) || (isset($___TEMP_template_force_refresh) && $___TEMP_template_force_refresh==1)) {

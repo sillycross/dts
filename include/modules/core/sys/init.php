@@ -18,16 +18,20 @@ namespace sys
 	
 	function init()
 	{
-		global $gtablepre, $tablepre, $wtablepre, $room_prefix, $room_id, $moveut, $moveutmin;
+		global $gtablepre, $tablepre, $wtablepre, $room_prefix, $room_id, $moveut, $moveutmin, $u_templateid;
 		global ${$gtablepre.'user'}, ${$gtablepre.'pass'}, $___MOD_SRV;
 		if (isset($_COOKIE))
 		{
 			$_COOKIE=gstrfilter($_COOKIE);
 			foreach ($_COOKIE as $key => $value)
 			{
-				if ($key==$gtablepre.'user' || $key==$gtablepre.'pass')
+				if (in_array($key, array($gtablepre.'user',$gtablepre.'pass')))
 				{
 					$$key=$value;
+				}
+				elseif(in_array($key, array('templateid')))
+				{
+					${'u_'.$key} = $value;
 				}
 			}
 		}
@@ -45,13 +49,28 @@ namespace sys
 		global $sec,$min,$hour,$day,$month,$year,$wday;
 		list($sec,$min,$hour,$day,$month,$year,$wday) = explode(',',date("s,i,H,j,n,Y,w",$now));
 		
+		
 		//从玩家提交的信息（一般是$_POST）里获取用户名和密码
 		global $___LOCAL_INPUT__VARS__INPUT_VAR_LIST;
 		if (isset($___LOCAL_INPUT__VARS__INPUT_VAR_LIST[$gtablepre.'user']))
 			${$gtablepre.'user'}=$___LOCAL_INPUT__VARS__INPUT_VAR_LIST[$gtablepre.'user'];
 		if (isset($___LOCAL_INPUT__VARS__INPUT_VAR_LIST[$gtablepre.'pass']))
 			${$gtablepre.'pass'}=$___LOCAL_INPUT__VARS__INPUT_VAR_LIST[$gtablepre.'pass'];
-			
+		
+		//获取玩家提交的模板编号
+		if (isset($___LOCAL_INPUT__VARS__INPUT_VAR_LIST['templateid']))
+			$u_templateid = $___LOCAL_INPUT__VARS__INPUT_VAR_LIST['templateid'];
+		
+		//统一获取一些用户数据备用
+		if (isset(${$gtablepre.'user'})){
+			$result = $db->query("SELECT p_settings,roomid FROM {$gtablepre}users where username='".${$gtablepre.'user'}."'");
+			if ($db->num_rows($result)) {
+				$rarr = $db->fetch_array($result);
+				if(!empty($rarr['p_settings'])) $rarr['p_settings'] = gdecode($rarr['p_settings'],1);
+			}
+		}
+		
+		if(empty($u_templateid) && !empty($rarr['p_settings']['templateid'])) $u_templateid = $rarr['p_settings']['templateid'];
 		//进入当前用户房间判断
 		$room_prefix = '';
 		$room_id = 0;
@@ -63,12 +82,7 @@ namespace sys
 		{
 			if (isset(${$gtablepre.'user'}))
 			{
-				$result = $db->query("SELECT roomid FROM {$gtablepre}users where username='".${$gtablepre.'user'}."'");
-				if ($db->num_rows($result))
-				{
-					$rarr = $db->fetch_array($result);
-					$room_id = $rarr['roomid'];
-				}
+				$room_id = $rarr['roomid'];
 			}
 		}
 		

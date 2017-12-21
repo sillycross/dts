@@ -80,6 +80,7 @@ CREATE TABLE `bra_users` (
   `elo_history` text NOT NULL DEFAULT '',
   `u_achievements` text NOT NULL DEFAULT '',
   `n_achievements` text NOT NULL DEFAULT '',
+  `p_settings` text NOT NULL DEFAULT '',
   
   PRIMARY KEY (`uid`),
   UNIQUE KEY `username` (`username`)

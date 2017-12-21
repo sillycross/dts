@@ -68,11 +68,19 @@ namespace skill258
 		return 0;
 	}
 	
+	function strike_prepare(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (\skillbase\skill_query(258,$pa) && check_unlocked258($pa))
+			$pa['skill258_owepk'] = $pa['wepk'];
+		return $chprocess($pa, $pd, $active);
+	}
+	
 	function get_final_dmg_multiplier(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r=Array();
-		if ((\skillbase\skill_query(258,$pa))&&(check_unlocked258($pa))&&($pa['wepk']!="WN"))
+		if ((\skillbase\skill_query(258,$pa))&&(check_unlocked258($pa))&&($pa['skill258_owepk']!="WN"))
 		{
 			eval(import_module('logger'));
 			if ($active)

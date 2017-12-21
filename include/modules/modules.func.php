@@ -190,10 +190,11 @@ function import_module()
 	return $ret;
 }
 
-function __MODULE_GET_TEMPLATE__($file)
+function __MODULE_GET_TEMPLATE__($file, $templateid=NULL)
 {
 	if (!defined($file)) throw new Exception('undefined template constant '.$file);
 	$file=constant($file);
+	$templateid = $templateid ? $templateid : TEMPLATEID;
 	global $___MOD_CODE_ADV2;
 	if ($___MOD_CODE_ADV2) 
 	{
