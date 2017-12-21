@@ -39,19 +39,35 @@ namespace skill70
 			$lvupskpt ++;
 	}
 	
+	function get_factor70(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if ($pa['lvl']>=19) return 0.55;
+		return 0.25;
+	}
+	
+	function get_wskillup70(&$pa,$wep_kind)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('weapon'));
+		$ret = 0;
+		$r70=get_factor70($pa);
+		//if ($pa['lvl']>=19) $r70=0.55;
+		foreach (array_unique(array_values($skillinfo)) as $key)
+			if ($key!=$wep_kind)
+				$ret+=$r70*$pa[$key];
+		$ret=round($ret);
+		return $ret;
+	}
+	
 	function get_skill_by_kind(&$pa, &$pd, $active, $wep_kind)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(70,$pa)) return $chprocess($pa,$pd,$active,$wep_kind);
-		eval(import_module('weapon'));
-		$fsk=$chprocess($pa,$pd,$active,$wep_kind);
-		$r70=0.25;
-		if ($pa['lvl']>=19) $r70=0.55;
-		foreach (array_unique(array_values($skillinfo)) as $key)
-			if ($key!=$wep_kind)
-				$fsk+=$r70*$pa[$key];
-		$fsk=round($fsk);
-		return $fsk;
+		$ret = $chprocess($pa,$pd,$active,$wep_kind);
+		if (\skillbase\skill_query(70,$pa)){
+			$ret += get_wskillup70($pa,$wep_kind);
+		}
+		return $ret;
 	}
 	
 }

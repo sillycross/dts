@@ -28,7 +28,7 @@ namespace skill452
 	function battle_finish(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_query(452,$pd)&&(check_unlocked452($pd))&&($pa['dmg_dealt']>=150)&&($pd['hp']>0))
+		if (\skillbase\skill_query(452,$pd) && check_unlocked452($pd) && $pa['dmg_dealt']>=150 && $pd['hp']>0 && $pd['tactic']==4)
 		{
 			eval(import_module('logger','map','sys'));
 			$plsnum = sizeof($plsinfo) - 1;

@@ -161,6 +161,7 @@ namespace searchmemory
 	function act(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','input'));
+		$tmp_pls = $pls;
 		if(searchmemory_available()){
 			if ($mode == 'command' && strpos($command,'memory')===0){
 				$smn = substr($command,6);
@@ -181,6 +182,9 @@ namespace searchmemory
 			}
 		}
 		$chprocess();
+		if($pls != $tmp_pls && !empty($searchmemory)) {
+			remove_memory('ALL');
+		}
 	}
 //	
 

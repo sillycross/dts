@@ -24,6 +24,14 @@ namespace skill77
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return $pa['lvl']>=19;
 	}
+	
+	function get_factor70(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		if (\skillbase\skill_query(77,$pa) && check_unlocked77($pa)) return 0.55;
+		else return $chprocess($pa);
+	}
 }
 
 ?>
