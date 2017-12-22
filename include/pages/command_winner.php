@@ -56,7 +56,6 @@ if($command == 'info')
 	\player\init_playerdata();
 	\player\parse_interface_profile();
 	extract($pdata);
-	
 	list($vapm,$aapm) =  \apm\calc_winner_apm($wdata,$wdata['duration']);
 }
 //查看特定局历史记录
@@ -159,8 +158,8 @@ else
 	while($wdata = $db->fetch_array($result)) {
 		$wdata['date'] = date("Y-m-d",$wdata['getime']);
 		$wdata['time'] = date("H:i:s",$wdata['getime']);
-		$wdata['duration'] = !empty($wdata['validtime']) ? $wdata['getime']-$wdata['validtime'] : $wdata['getime'] - $wdata['gstime'];
 		$wdata = winner_parse($wdata);
+		$wdata['duration'] = !empty($wdata['validtime']) ? $wdata['getime']-$wdata['validtime'] : $wdata['getime'] - $wdata['gstime'];
 		list($wiconImg, $wiconImgB) = \player\icon_parser(0, $wdata['gd'], $wdata['icon']);
 		$wdata['iconImg'] = $wiconImg;
 		//APM
