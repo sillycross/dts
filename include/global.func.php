@@ -108,13 +108,12 @@ function gstrfilter($str) {
 }
 
 function language($file, $templateid = 0, $tpldir = '') {
-	$tpldir = $tpldir ? $tpldir : TPLDIR;
-	$templateid = $templateid ? $templateid : TEMPLATEID;
-
+	if(!$templateid) $templateid = TEMPLATEID;
+	if(TEMPLATEID == $templateid || !$tpldir) $tpldir = TPLDIR;
 	$languagepack = GAME_ROOT.'./'.$tpldir.'/'.$file.'.lang.php';
 	if(file_exists($languagepack)) {
 		return $languagepack;
-	} elseif($templateid != 1 && $tpldir != './templates/default') {
+	} elseif($templateid != 1 || $tpldir != './templates/default') {
 		return language($file, 1, './templates/default');
 	} else {
 		return FALSE;
@@ -159,6 +158,7 @@ function template($file, $templateid = NULL) {
 		$tplfile = $file.'_'.$templateid.'.htm';
 		if(!file_exists($tplfile)){
 			$templateid = TEMPLATEID;
+			$tpldir = TPLDIR;
 			$tplfile = $file.'.htm';
 		}
 		$xdname=dirname($file); 
