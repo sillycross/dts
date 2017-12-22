@@ -49,13 +49,14 @@ if($command == 'info')
 		$wdata['gdate'] = floor($wdata['gtime']/3600).':'.floor($wdata['gtime']%3600/60).':'.($wdata['gtime']%60);
 		$wdata['gsdate'] = date("m/d/Y H:i:s",$wdata['gstime']);
 		$wdata['gedate'] = date("m/d/Y H:i:s",$wdata['getime']);
+		$wdata['duration'] = !empty($wdata['validtime']) ? $wdata['getime']-$wdata['validtime'] : $wdata['getime'] - $wdata['gstime'];
 	}
 	$pdata = $wdata;
 	\player\load_playerdata($pdata);
 	\player\init_playerdata();
 	\player\parse_interface_profile();
 	extract($pdata);
-	list($vapm,$aapm) =  \apm\calc_winner_apm($wdata,$wdata['getime']-$wdata['gstime']);
+	list($vapm,$aapm) =  \apm\calc_winner_apm($wdata,$wdata['duration']);
 }
 //查看特定局历史记录
 elseif($command == 'news') 
@@ -158,10 +159,11 @@ else
 		$wdata['date'] = date("Y-m-d",$wdata['getime']);
 		$wdata['time'] = date("H:i:s",$wdata['getime']);
 		$wdata = winner_parse($wdata);
+		$wdata['duration'] = !empty($wdata['validtime']) ? $wdata['getime']-$wdata['validtime'] : $wdata['getime'] - $wdata['gstime'];
 		list($wiconImg, $wiconImgB) = \player\icon_parser(0, $wdata['gd'], $wdata['icon']);
 		$wdata['iconImg'] = $wiconImg;
 		//APM
-		list($vapm,$aapm) =  \apm\calc_winner_apm($wdata,$wdata['getime']-$wdata['gstime']);
+		list($vapm,$aapm) =  \apm\calc_winner_apm($wdata,$wdata['duration']);
 		$wdata['apm_words'] = $vapm.' / '.$aapm;
 		if('- / -' == $wdata['apm_words']) $wdata['apm_words'] = '<span class="grey">-</span>';
 		else $wdata['apm_words'] = str_replace('-', '<span class="grey">-</span>', $wdata['apm_words']);

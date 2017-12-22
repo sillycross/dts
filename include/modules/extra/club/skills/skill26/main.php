@@ -157,8 +157,8 @@ namespace skill26
 			//$log .= "<span class=\"red\">属性攻击的力量完全被防具吸收了！</span>只造成了<span class=\"red\">".$pa['ex_dmg_dealt']."</span>点伤害！<br>";
 			$pa['physical_dmg_dealt'] += $pa['ex_dmg_dealt'];
 			$pa['dmg_dealt'] += $pa['ex_dmg_dealt'];
+			//$pa['mult_words_fdmgbs'] = \attack\add_format($pa['ex_dmg_dealt'], $pa['mult_words_fdmgbs']);
 			$pa['ex_dmg_dealt'] = 0;
-			$pa['mult_words_fdmgbs'] = \attack\add_format($pa['ex_dmg_dealt'], $pa['mult_words_fdmgbs']);
 			return;
 		}
 		

@@ -153,7 +153,6 @@ skill461,extra/card/skills/skill461/,1
 skill251,extra/club/skills/skill251/,1
 skill255,extra/club/skills/skill255/,1
 skill462,extra/card/skills/skill462/,1
-skill77,extra/club/skills/skill77/,1
 skill257,extra/club/skills/skill257/,1
 skill474,extra/card/skills/skill474/,1
 skill484,extra/card/skills/skill484/,1
@@ -301,6 +300,7 @@ rest,base/rest/,1
 item_uc,base/items/item_uc/,1
 skill12,extra/club/skills/skill12/,1
 skill223,extra/club/skills/skill223/,1
+skill77,extra/club/skills/skill77/,1
 skill492,extra/card/skills/skill492/,1
 skill261,extra/club/skills/skill261/,1
 skill274,extra/club/skills/skill274/,1

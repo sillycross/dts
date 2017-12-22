@@ -60,12 +60,11 @@ namespace enemy
 		$active_r = min(max(calculate_active_obbs($ldata,$edata),1), 150);
 		//echo "先攻率基础：$active_r <br>";
 		//calculate_active_obbs_multiplier()是乘算，返回0-1的小数
-		//echo "各技能加成最终值：".calculate_active_obbs_multiplier($ldata,$edata).' <br>';
+		
 		$active_r *= calculate_active_obbs_multiplier($ldata,$edata);
 		
 		//calculate_active_obbs_change()是最后改变，返回0-100的数值，这里只放特判，一般增减请用前两个函数
 		$active_r = calculate_active_obbs_change($ldata,$edata,$active_r);
-		
 		//先攻率最大最小值判定
 		$active_r = max($active_obbs_range[0], min($active_obbs_range[1], $active_r));
 		//echo $active_r;
