@@ -4,7 +4,7 @@
 --
 -- 主机: localhost
 -- 生成日期: 2017 �?12 �?17 �?12:17
--- 服务器版本: 5.5.53
+-- 服务器版�?: 5.5.53
 -- PHP 版本: 5.6.27
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- 数据库: `acdts_2`
+-- 数据�?: `acdts_2`
 --
 
 -- --------------------------------------------------------
@@ -381,6 +381,7 @@ CREATE TABLE IF NOT EXISTS `acbra2_users` (
   `cd_a1` int(10) unsigned NOT NULL DEFAULT '0',
   `cd_b` int(10) unsigned NOT NULL DEFAULT '0',
   `cardenergylastupd` int(10) unsigned NOT NULL DEFAULT '0',
+  `u_templateid` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `icon` varchar(255) NOT NULL DEFAULT '0',
   `cardenergy` text NOT NULL,
   `cardlist` text NOT NULL,

@@ -63,14 +63,13 @@ namespace sys
 		
 		//统一获取一些用户数据备用
 		if (isset(${$gtablepre.'user'})){
-			$result = $db->query("SELECT p_settings,roomid FROM {$gtablepre}users where username='".${$gtablepre.'user'}."'");
+			$result = $db->query("SELECT u_templateid,roomid FROM {$gtablepre}users where username='".${$gtablepre.'user'}."'");
 			if ($db->num_rows($result)) {
 				$rarr = $db->fetch_array($result);
-				if(!empty($rarr['p_settings'])) $rarr['p_settings'] = gdecode($rarr['p_settings'],1);
 			}
 		}
 		
-		if(empty($u_templateid) && !empty($rarr['p_settings']['templateid'])) $u_templateid = $rarr['p_settings']['templateid'];
+		if(empty($u_templateid) && !empty($rarr['u_templateid'])) $u_templateid = $rarr['u_templateid'];
 		//进入当前用户房间判断
 		$room_prefix = '';
 		$room_id = 0;

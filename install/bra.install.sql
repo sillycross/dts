@@ -74,13 +74,13 @@ CREATE TABLE `bra_users` (
   `cd_a1` int(10) unsigned NOT NULL DEFAULT '0',
   `cd_b` int(10) unsigned NOT NULL DEFAULT '0',
   `cardenergylastupd` int(10) unsigned NOT NULL DEFAULT '0',
+  `u_templateid` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `icon` varchar(255) NOT NULL DEFAULT '0',
   `cardenergy` text NOT NULL DEFAULT '',
   `cardlist` text NOT NULL DEFAULT '',
   `elo_history` text NOT NULL DEFAULT '',
   `u_achievements` text NOT NULL DEFAULT '',
   `n_achievements` text NOT NULL DEFAULT '',
-  `p_settings` text NOT NULL DEFAULT '',
   
   PRIMARY KEY (`uid`),
   UNIQUE KEY `username` (`username`)
