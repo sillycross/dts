@@ -152,27 +152,29 @@ function floating_hint()
 {
 	jQuery('[title]').each(function() {
 		var msg = jQuery(this).attr('title');
-		jQuery(this).on({
-			mouseover: function(e) { 
-				jQuery('#hoverHintMsgInner').html(msg);
-				jQuery('#hoverHintMsg').css({
-					display: "block",
-					left: Number(Math.floor(e.clientX)+10).toString()+'px',
-					top: Number(Math.floor(e.clientY)+10).toString()+'px'
-				});
-			},
-			mousemove: function(e) {
-				jQuery('#hoverHintMsg').css({
-					left: Number(Math.floor(e.clientX)+10).toString()+'px',
-					top: Number(Math.floor(e.clientY)+10).toString()+'px'
-				});
-			},
-			mouseout: function() { 
-				jQuery('#hoverHintMsg').css({
-					display:"none"
-				});
-			}
-		});
-		jQuery(this).attr('title','');
+		if(''!=msg){
+			jQuery(this).on({
+				mouseover: function(e) { 
+					jQuery('#hoverHintMsgInner').html(msg);
+					jQuery('#hoverHintMsg').css({
+						display: "block",
+						left: Number(Math.floor(e.clientX)+10).toString()+'px',
+						top: Number(Math.floor(e.clientY)+10).toString()+'px'
+					});
+				},
+				mousemove: function(e) {
+					jQuery('#hoverHintMsg').css({
+						left: Number(Math.floor(e.clientX)+10).toString()+'px',
+						top: Number(Math.floor(e.clientY)+10).toString()+'px'
+					});
+				},
+				mouseout: function() { 
+					jQuery('#hoverHintMsg').css({
+						display:"none"
+					});
+				}
+			});
+			jQuery(this).attr('title','');
+		}
 	});
 }

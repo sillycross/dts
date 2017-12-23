@@ -594,7 +594,7 @@ namespace achievement_base
 		$cu = $c;
 		if(!empty($ach_threshold[$c+1])) $cu = $c + 1;//用于显示下一级名称、阈值和奖励的，0级是1，1级是2，顶级维持顶级
 		$stitle = \achievement_base\show_ach_title($achid, $cu);
-		$atitle = \achievement_base\show_ach_title_2($achid, $cu);
+		$atitle = \achievement_base\show_ach_title_2($achid, $c+1);
 		$dailytype = \skillbase\check_skill_info($achid, 'daily') ? \achievement_base\get_daily_type($achid) : 0;
 		$prize_desc = show_prize_single($cu, $achid);
 		$ach_desc = show_achievement_single_desc($cu, $achid, $ach_threshold[$cu]);

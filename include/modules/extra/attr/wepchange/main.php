@@ -69,7 +69,7 @@ namespace wepchange
 		return $chprocess($itm,$itme);
 	}
 	
-	function use_stone($itm, $itme)
+	function use_hone($itm, $itme)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
