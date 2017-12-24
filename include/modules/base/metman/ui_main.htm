@@ -37,9 +37,9 @@ Table Design:
 		<td class="b8" width=140px rowspan="2" valign="bottom">
 			<div style="position:relative;width:140px;height:350px;">
 				<!--{if $iconImgB}-->
-				<IMG src="img/{$iconImgB}" align="middle" style="border:0;height:340px;position:absolute;left:<!--{eval echo round((140-$iconImgBwidth)/2);}-->px;bottom:0px;<!--{if $hp==0}-->filter:Xray();<!--{/if}-->" />
+				<IMG src="img/{$iconImgB}" style="border:0;height:340px;position:absolute;left:<!--{eval echo round((140-$iconImgBwidth)/2);}-->px;bottom:0px;<!--{if $hp==0}-->filter:Xray();<!--{/if}-->" />
 				<!--{else}-->
-				<IMG src="img/{$iconImg}" align="middle" style="border:0;height:80px;<!--{if $hp==0}-->filter:Xray();<!--{/if}-->" />
+				<IMG src="img/{$iconImg}" style="border:0;height:80px;position:absolute;left:0;bottom:0;<!--{if $hp==0}-->filter:Xray();<!--{/if}-->" />
 				<!--{/if}-->
 			</div>
 		</td>
