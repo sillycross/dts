@@ -218,8 +218,8 @@ namespace player
 		if(!file_exists('img/'.$iconImgB)) {
 			$iconImgB = '';
 		}else {
-			$iz = getimagesize('img/'.$iconImgB);
-			$iconImgBwidth = $iz[0];
+			list($w,$h) = getimagesize('img/'.$iconImgB);
+			$iconImgBwidth = round($w/($h/340));
 		}
 		return array($iconImg, $iconImgB, $iconImgBwidth);
 	}
