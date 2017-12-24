@@ -340,6 +340,29 @@ namespace cardbase
 		}
 		return $n_packlist;
 	}
+	
+	//卡名显示
+	function parse_interface_profile()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess();
+		eval(import_module('sys','player','cardbase'));
+		$uip['cardname_show'] = !empty($cards[$card]['title']) ? $cards[$card]['title'] : $cardname;
+	}
+	
+	function init_battle($ismeet = 0)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($ismeet);
+		eval(import_module('sys','player','metman','cardbase'));
+		
+		$tdata['cardinfo'] = '';
+		if(!empty($w_cardname)){
+			if(!empty($cards[$w_card]['title']))
+				$tdata['cardinfo'] = $cards[$w_card]['title'];
+			else $tdata['cardinfo'] = $w_cardname;
+		}
+	}
 }
 
 ?>

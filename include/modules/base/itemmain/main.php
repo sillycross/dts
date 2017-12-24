@@ -182,7 +182,7 @@ namespace itemmain
 			$r[$skv.'_words'] = parse_itmsk_words($edata[$skv], $simple, $elli);
 			$r[$skv.'_desc'] = parse_itmsk_desc($edata[$skv]);
 			$itmuse_words = parse_itmuse_desc($edata[$v], $edata[$kv], $edata[$ev], $edata[$sv], $edata[$skv]);
-			if(!empty($itmuse_words)) $r[$v.'_itmuse_desc'] = $itmuse_words;
+			$r[$v.'_itmuse_desc'] = $itmuse_words;
 		}
 		
 		return $r;

@@ -740,6 +740,7 @@ $cards = array(
 	),
 	38 => array(
 		'name' => '『芙蓉（Fleur）』',
+		'title' => '『芙蓉』',
 		'rare' => 'S',
 		'pack' => 'Crimson Swear',
 		'desc' => '低调行事的年轻女性，红暮的青梅竹马。目前是红暮的影一样的存在。担当红杀组织中并不存在的隐秘行动课程的教头。',
@@ -753,6 +754,7 @@ $cards = array(
 	),
 	39 => array(
 		'name' => '『红暮（Crimson）』',
+		'title' => '『红暮』',
 		'rare' => 'S',
 		'pack' => 'Crimson Swear',
 		'desc' => '英姿飒爽的年轻女性。表面上是城内世家的千金，湾城最大的实业『金龙通讯社』的CEO，实际是佣兵组织红杀的现任当家',
@@ -766,6 +768,7 @@ $cards = array(
 	),
 	40 => array(
 		'name' => '『蓝凝（Azure）』',
+		'title' => '『蓝凝』',
 		'rare' => 'S',
 		'pack' => 'Crimson Swear',
 		'desc' => '<span class="clan">“蓝凝我觉得啊，这个地方没什么好写的。”<br>“总之我比红暮可强的多了，哈哈哈！”</span>',
@@ -785,6 +788,7 @@ $cards = array(
 	),
 	41 => array(
 		'name' => '『丁香（Lila）』',
+		'title' => '『丁香』',
 		'rare' => 'S',
 		'pack' => 'Crimson Swear',
 		'desc' => '芙蓉的妹妹，现年初二，在一般的平民初中就读。是学校演剧部的部长，也备有无数的戏服用品。爱好是写剧本和读其他人的剧本',
@@ -798,6 +802,7 @@ $cards = array(
 	),
 	42 => array(
 		'name' => 'Tianming "Fleur" Li',
+		'title' => '"Fleur"',
 		'rare' => 'S',
 		'pack' => 'Event Bonus',
 		'desc' => '低调行事的年轻女性，红暮的青梅竹马。目前是红暮的影一样的存在。担当红杀组织中并不存在的隐秘行动课程的教头。',
@@ -811,6 +816,7 @@ $cards = array(
 	),
 	43 => array(
 		'name' => '『飞龙（Wyvern）』',
+		'title' => '『飞龙』',
 		'rare' => 'A',
 		'pack' => 'Crimson Swear',
 		'desc' => '红暮和蓝凝的爷爷。前代红杀将军。在二人的父亲『幻铁』行踪不明后，抚养二人长大。目前隐居在城外的乡村中卖中药为生。',
@@ -824,6 +830,7 @@ $cards = array(
 	),
 	44 => array(
 		'name' => '『翼虎（Manticore）』',
+		'title' => '『翼虎』',
 		'rare' => 'A',
 		'pack' => 'Crimson Swear',
 		'desc' => '『飞龙』的好友。前代红杀菁英。据说只要他的盾还在身上，没什么东西能伤的了他。目前他的盾由红暮收藏，他自己则在飞龙之前已经退役了。',
@@ -837,6 +844,7 @@ $cards = array(
 	),
 	45 => array(
 		'name' => '『铁城（Rook）』',
+		'title' => '『铁城』',
 		'rare' => 'A',
 		'pack' => 'Crimson Swear',
 		'desc' => '红杀的拳脚教头',
@@ -850,6 +858,7 @@ $cards = array(
 	),
 	46 => array(
 		'name' => '『灵翼（Bishop）』',
+		'title' => '『灵翼』',
 		'rare' => 'A',
 		'pack' => 'Crimson Swear',
 		'desc' => '红杀的火器教头',
@@ -863,6 +872,7 @@ $cards = array(
 	),
 	47 => array(
 		'name' => '『破石（Knight）』',
+		'title' => '『破石』',
 		'rare' => 'A',
 		'pack' => 'Crimson Swear',
 		'desc' => '红杀的冷兵器教头',
@@ -876,6 +886,7 @@ $cards = array(
 	),
 	48 => array(
 		'name' => '『银锤（Pawn）』',
+		'title' => '『银锤』',
 		'rare' => 'A',
 		'pack' => 'Crimson Swear',
 		'desc' => '红杀的爆炸物教头',
@@ -889,6 +900,7 @@ $cards = array(
 	),
 	49 => array(
 		'name' => '『电返（King）』',
+		'title' => '『电返』',
 		'rare' => 'A',
 		'pack' => 'Crimson Swear',
 		'desc' => '红杀的信息技术教头',
@@ -902,6 +914,7 @@ $cards = array(
 	),
 	50 => array(
 		'name' => '『三步（Queen）』',
+		'title' => '『三步』',
 		'rare' => 'A',
 		'pack' => 'Crimson Swear',
 		'desc' => '红杀的轻功体能教头',
@@ -985,6 +998,7 @@ $cards = array(
 	),
 	57 => array(
 		'name' => '书卷使卡玛',
+		'title' => '书卷使',
 		'rare' => 'C',
 		'pack' => 'Crimson Swear',
 		'desc' => '在时空特使里默默无闻打工的工作人员。某次事件之后就消失了',
@@ -1115,6 +1129,7 @@ $cards = array(
 	),
 	65 => array(
 		'name' => '"KHIBIKI《黑曲》"',
+		'title' => '『黑曲』',
 		'rare' => 'S',
 		'pack' => 'Way of Life',
 		'desc' => 'ACFUN大逃杀画师，这次更新的大头像和新UI都出自她手',
@@ -1580,6 +1595,7 @@ $cards = array(
 	),
 	94 => array(
 		'name' => '大自然的搬运工',
+		'title' => '搬运工',
 		'rare' => 'A',
 		'pack' => 'Event Bonus',
 		'desc' => '他能找到别人找不到的东西',
@@ -1593,6 +1609,7 @@ $cards = array(
 	),
 	95 => array(
 		'name' => '『冰炎（Rimefire）』',
+		'title' => '『冰炎』',
 		'rare' => 'S',
 		'pack' => 'Crimson Swear',
 		'desc' => '可能是家庭暴力的受害者',
@@ -2462,6 +2479,7 @@ $cards = array(
 	),
 	200 => array(
 		'name' => '幻影斗将神 S.A.S',
+		'title' => '幻影斗将神',
 		'rare' => 'A',
 		'pack' => 'Balefire Rekindle',
 		'desc' => '“只要能为我的族人复仇，哪怕我堕入永劫地狱也在所不惜！”',
@@ -2476,6 +2494,7 @@ $cards = array(
 	),
 	201 => array(
 		'name' => '熵魔法传人 Howling',
+		'title' => '熵魔法传人',
 		'rare' => 'A',
 		'pack' => 'Balefire Rekindle',
 		'desc' => '“银月哨兵是不死之身！”',
@@ -2490,6 +2509,7 @@ $cards = array(
 	),
 	202 => array(
 		'name' => '通灵冒险家 星海',
+		'title' => '通灵冒险家',
 		'rare' => 'A',
 		'pack' => 'Balefire Rekindle',
 		'desc' => '“你住酒店时有没有第一时间确认逃生通道的习惯？没有吧？我有。”',
@@ -2504,6 +2524,7 @@ $cards = array(
 	),
 	203 => array(
 		'name' => '银白愿天使 Annabelle',
+		'title' => '银白愿天使',
 		'rare' => 'A',
 		'pack' => 'Balefire Rekindle',
 		'desc' => '“只要你相信神的存在，什么邪恶都没法左右你。”',
@@ -2518,6 +2539,7 @@ $cards = array(
 	),
 	204 => array(
 		'name' => '麻烦妖精 Sophia',
+		'title' => '麻烦妖精',
 		'rare' => 'A',
 		'pack' => 'Balefire Rekindle',
 		'desc' => '“今天的Sophia也是元气满满的哟！”',
@@ -2532,6 +2554,7 @@ $cards = array(
 	),
 	205 => array(
 		'name' => '飞行员 狂飙',
+		'title' => '飞行员',
 		'rare' => 'A',
 		'pack' => 'Balefire Rekindle',
 		'desc' => '“等我拿下了第一名，我就要建立我自己的飞行俱乐部！”',
@@ -2550,6 +2573,30 @@ $cards = array(
 				'252' => '0', 
 				'254' => '0', 
 				'41' => array('u' => '1'),
+			),
+		)
+	),
+	206 => array(
+		'name' => '算法大师 薇娜',
+		'title' => '算法大师',
+		'rare' => 'A',
+		'pack' => 'Balefire Rekindle',
+		'desc' => '“借助量子迭代演算，<br>我们甚至可以计算出未来<br>——或者说，洞悉命运。”',
+		'effect' => '称号固定为「最强大脑」，<br>且在「规约」计算前伤害必然变为偶数。',
+		'energy' => 120,
+		'valid' => array(
+			'club' => '21',
+			'skills' => array(
+				'10' => '0', 
+				'11' => '0', 
+				'12' => '0', 
+				'239' => '0', 
+				'240' => '0', 
+				'241' => '0', 
+				'242' => '0', 
+				'243' => '0', 
+				'244' => '0', 
+				'497' => '0', 
 			),
 		)
 	),

@@ -4,6 +4,29 @@ namespace empowers
 {
 	function init() {}
 	
+	function parse_itmuse_desc($n, $k, $e, $s, $sk){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($n, $k, $e, $s, $sk);
+		if(strpos($k,'Y')===0 || strpos($k,'Z')===0){
+			if (check_nail($n)){
+				$ret .= '为手中名字带有“棍棒”的钝器打钉子，以增加效果值';
+			}elseif (check_hone($n)) {
+				$ret .= '让手中锐器更加锋利，以增加效果值';
+			}elseif ($n == '针线包') {
+				$ret .= '增加装备着的身体防具的效果值';
+			}elseif ($n == '武器师安雅的奖赏') {
+				$ret .= '强化手中武器的效果值、耐久值，或者将类型转变为你更擅长的系别';
+			}
+		}
+		return $ret;
+	}
+	
+	function check_nail($itm)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return preg_match ( "/钉$/", $itm ) || preg_match ( "/钉\[/", $itm );
+	}
+	
 	function use_nail($itm, $itme)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -39,7 +62,13 @@ namespace empowers
 		}
 	}
 	
-	function use_stone($itm, $itme)
+	function check_hone($itm)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return strpos ( $itm, '磨刀石' ) !== false;
+	}
+	
+	function use_hone($itm, $itme)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -122,17 +151,17 @@ namespace empowers
 		
 		if (strpos ( $itmk, 'Y' ) === 0 || strpos ( $itmk, 'Z' ) === 0) 
 		{
-			if (strpos ( $itm, '磨刀石' ) !== false) 
+			if (check_hone($itm)) 
 			{
-				if (use_stone($itm,$itme)) \itemmain\itms_reduce($theitem);
+				if (use_hone($itm,$itme)) \itemmain\itms_reduce($theitem);
 				return;
 			} 
-			else  if (preg_match ( "/钉$/", $itm ) || preg_match ( "/钉\[/", $itm )) 
+			elseif (check_nail($itm)) 
 			{
 				if (use_nail($itm,$itme)) \itemmain\itms_reduce($theitem);
 				return;
 			} 
-			else  if ($itm == '针线包') 
+			elseif ($itm == '针线包') 
 			{
 				if (($arb == $noarb) || ! $arb) {
 					$log .= '你没有装备防具，不能使用针线包。<br>';

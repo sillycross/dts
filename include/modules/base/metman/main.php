@@ -70,13 +70,10 @@ namespace metman
 			$tdata['wepestate'] = "$wepeinfo[0]";
 		}
 		
-		$tdata['cardinfo'] = $w_cardname;
 		$tdata['sNoinfo'] = $typeinfo[$w_type];
 		if(!$w_type) $tdata['sNoinfo'] .= "({$sexinfo[$w_gd]}{$w_sNo}号)";
 		else $tdata['sNoinfo'] .= "({$sexinfo[$w_gd]})";
-		list($wiconImg, $wiconImgB) = \player\icon_parser($w_type, $w_gd, $w_icon);
-		$tdata['iconImg'] = $wiconImg;
-		$tdata['iconImgB'] = $wiconImgB;
+		list($tdata['iconImg'], $tdata['iconImgB'], $tdata['iconImgBwidth']) = \player\icon_parser($w_type, $w_gd, $w_icon);
 //		echo 'img/'.$wiconImgB;
 //		if(file_exists('img/'.$wiconImgB)) $tdata['iconImg'] = $wiconImgB;
 //		else $tdata['iconImg'] = $wiconImg;

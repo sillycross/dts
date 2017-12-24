@@ -60,7 +60,8 @@ namespace skill219
 				}
 				$wepsk .= 'p';
 				$log .= "<span class=\"yellow\">用毒药为{$wep}淬毒了，{$wep}增加了带毒属性！</span><br />";
-				$wep = '毒性'.$wep;
+				if(strpos($wep,'毒性')===false)
+					$wep = '毒性'.$wep;
 				${'itms'.$position}-=1;
 				$itm = ${'itm'.$position};
 				if(${'itms'.$position} == 0){

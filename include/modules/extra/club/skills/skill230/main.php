@@ -61,7 +61,8 @@ namespace skill230
 				${'itms'.$position}-=1;
 				$itm = ${'itm'.$position};
 				$log .= "<span class=\"yellow\">用{$itm}改造了{$wep}，{$wep}增加了电击属性！</span><br />";
-				$wep = '电气'.$wep;
+				if(strpos($wep,'电气')===false)
+					$wep = '电气'.$wep;
 				$wepsk .= 'e';
 				if(${'itms'.$position} == 0){
 					$log .= "<span class=\"red\">$itm</span>用光了。<br />";

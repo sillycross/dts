@@ -70,9 +70,10 @@ namespace skill244
 		$chprocess($pa, $pd, $active);
 	}	
 	
-	function sk244_get_factor_sum($z)
+	function sk244_get_factor_sum(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$z = $pa['dmg_dealt'];
 		if ($z>1e11) return $z;	
 		$z=(int)$z; $x=2; $ret=1;
 		if ($z==0) return $z;
@@ -118,7 +119,7 @@ namespace skill244
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess($pa,$pd, $active, $akey);
 		if('skill244' == $akey){
-			$pa['dmg_dealt']=sk244_get_factor_sum($pa['dmg_dealt']);
+			$pa['dmg_dealt']=sk244_get_factor_sum($pa);
 			eval(import_module('logger'));
 			$log.='<span class="yellow">「归约」使最终伤害变为'.$pa['dmg_dealt'].'点！</span><br>';
 		}

@@ -3,7 +3,7 @@
 namespace player
 {
 	global $db_player_structure, $db_player_structure_types, $gamedata, $cmd, $main, $sdata;//注意，$sdata所有键值都是引用！
-	global $fog,$upexp,$lvlupexp,$iconImg,$iconImgB,$ardef;//这些鬼玩意包括可以回头全部丢进$uip
+	global $fog,$upexp,$lvlupexp,$iconImg,$iconImgB,$iconImgBwidth,$ardef;//这些鬼玩意可以回头全部丢进$uip
 	global $hpcolor,$spcolor,$newhpimg,$newspimg,$splt,$hplt, $tpldata; 
 	
 	function init()
@@ -200,6 +200,7 @@ namespace player
 	
 	function icon_parser($type, $gd, $icon){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
 		if(is_numeric($icon)){
 			if(!$type){
 				$iconImg = $gd.'_'.$icon.'.gif';
@@ -213,7 +214,15 @@ namespace player
 			$ext = pathinfo($icon,PATHINFO_EXTENSION);
 			$iconImgB = substr($icon,0,strlen($icon)-strlen($ext)-1).'_a.'.$ext;
 		}
-		return array($iconImg, $iconImgB);
+		$iconImgBwidth = 0;
+		if(!file_exists('img/'.$iconImgB)) {
+			$iconImgB = '';
+		}else {
+			list($w,$h) = getimagesize('img/'.$iconImgB);
+			if($h < 340) $iconImgB = '';
+			else $iconImgBwidth = round($w/($h/340));
+		}
+		return array($iconImg, $iconImgB, $iconImgBwidth);
 	}
 	
 	function init_playerdata(){
@@ -222,7 +231,7 @@ namespace player
 		eval(import_module('sys','player'));
 		
 		//$ardef = $arbe + $arhe + $arae + $arfe;
-		list($iconImg, $iconImgB) = icon_parser($type, $gd, $icon);
+		list($iconImg, $iconImgB, $iconImgBwidth) = icon_parser($type, $gd, $icon);
 		
 		if(!$weps) {
 			$wep = $nowep;$wepk = 'WN';$wepsk = '';
