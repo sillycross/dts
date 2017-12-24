@@ -163,18 +163,20 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip=NULL)
 	if ($card==81){//篝火挑战者
 		$o_card = $card;
 		$arr=array('0');
-		$r=rand(1,100);
-		if ($r<=20){
-			$arr=$cardindex['S'];
-		}else if($r<=60){
-			$arr=$cardindex['A'];
-		}else if($r<=80){
-			$arr=$cardindex['B'];
-		}else{
-			$arr=$cardindex['C'];
-		}
-		$c=count($arr)-1;
-		$card=$arr[rand(0,$c)];
+		do{
+			$r=rand(1,100);
+			if ($r<=20){
+				$arr=$cardindex['S'];
+			}else if($r<=60){
+				$arr=$cardindex['A'];
+			}else if($r<=80){
+				$arr=$cardindex['B'];
+			}else{
+				$arr=$cardindex['C'];
+			}
+			$c=count($arr)-1;
+			$card=$arr[rand(0,$c)];
+		}while($card == 81);
 	}
 	$card_valid_info=$cards[$card]['valid'];
 	
