@@ -113,9 +113,15 @@ namespace instance5
 		if (strpos ( $itmk, 'Y' ) === 0 || strpos ( $itmk, 'Z' ) === 0) {
 			if ($itm == '伐木解除钥匙') 
 			{
-				$url = 'end.php';
-				addnews ( $now, 'itemuse', $name, $itm );
-				\sys\gameover ( $now, 'end8', $name );
+				if(15==$gametype) {
+					$url = 'end.php';
+					addnews ( $now, 'itemuse', $name, $itm );
+					\sys\gameover ( $now, 'end8', $name );
+				}else{
+					$log .= '这玩意究竟是怎么冒出来的呢？<br>';
+					$mode = 'command';
+					return;
+				}
 			}
 		}
 		$chprocess($theitem);
@@ -134,6 +140,17 @@ namespace instance5
 			return $res;
 		}
 		return $chprocess();
+	}
+	
+	function parse_itmuse_desc($n, $k, $e, $s, $sk){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($n, $k, $e, $s, $sk);
+		if(strpos($k,'Y')===0 || strpos($k,'Z')===0){
+			if ($n == '伐木解除钥匙') {
+				$ret .= '使用后可结束当前局伐木模式';
+			}
+		}
+		return $ret;
 	}
 }
 

@@ -17,8 +17,10 @@ Table Design:
 -->
 <TABLE border="0" width=720px height=420px align="center" cellspacing="0" cellpadding="0" class="battle">
 	<tr>
-		<td class="b8" valign="top" width=140px rowspan=2>
-			<IMG src="<!--{eval echo file_exists('img/'.$tdata['iconImgB']) ? 'img/'.$tdata['iconImgB'] : 'img/'.$tdata['iconImg']}-->" width=140px border="0" align="middle" <!--{if $w_hp==0}-->style="filter:Xray()"<!--{/if}--> />
+		<td class="b8" valign="top" rowspan=2>
+			<div style="position:relative;width:140px;height:340px;">
+				<IMG src="<!--{if $tdata['iconImgB']}-->img/{$tdata['iconImgB']}<!--{else}-->img/{$tdata['iconImg']}<!--{/if}-->" style="border:0;" style="position:absolute;left:<!--{eval echo round((140-$tdata['iconImgBwidth'])/2);}-->px;top:0px;<!--{if $w_hp==0}-->filter:Xray();<!--{/if}-->" />
+			</div>
 		</td>
 		<td colspan=2 width=580px>
 		{template MOD_METMAN_ENEMY_PROFILE}
@@ -29,7 +31,9 @@ Table Design:
 			<span><B><FONT color="#ff0000" size="5" face="黑体">$battle_title</FONT></B></span>
 		</TD>
 		<td class="b8" width=140px rowspan="2" valign="bottom">
-			<div style="height:10px">&nbsp;</div><div style="max-height:330px; overflow:hidden;"><IMG src="<!--{eval echo file_exists('img/'.$iconImgB) ? 'img/'.$iconImgB : 'img/'.$iconImg}-->" width=140px border="0" align="middle" <!--{if $hp==0}-->style="filter:Xray()"<!--{/if}--> /></div>
+			<div style="position:relative;width:140px;height:340px;">
+				<IMG src="<!--{if $iconImgB}-->img/{$iconImgB}<!--{else}-->img/{$iconImg}<!--{/if}-->" align="middle" style="position:absolute;left:<!--{eval echo round((140-$iconImgBwidth)/2);}-->px;bottom:0px;<!--{if $hp==0}-->filter:Xray();<!--{/if}-->" />
+			</div>
 		</td>
 	</TR>
 	<tr>

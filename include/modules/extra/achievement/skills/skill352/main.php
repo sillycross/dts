@@ -84,7 +84,7 @@ namespace skill352
 		eval(import_module('sys'));
 		if($achid == 352 && 1==$gametype){
 			$var=(int)\skillbase\skill_getvalue($achid,'cnt',$pa);
-			$ret = min($ret, $var);
+			if($var) $ret = min($ret, $var);//如果那个值为0则跳过判定，避免非正常结束导致所有玩家的成就清空
 		}
 		return $ret;
 	}
