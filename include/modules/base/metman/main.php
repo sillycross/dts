@@ -70,7 +70,6 @@ namespace metman
 			$tdata['wepestate'] = "$wepeinfo[0]";
 		}
 		
-		$tdata['cardinfo'] = $w_cardname;
 		$tdata['sNoinfo'] = $typeinfo[$w_type];
 		if(!$w_type) $tdata['sNoinfo'] .= "({$sexinfo[$w_gd]}{$w_sNo}号)";
 		else $tdata['sNoinfo'] .= "({$sexinfo[$w_gd]})";

@@ -6,7 +6,7 @@ namespace skill351
 	$ach351_name = array(
 		1=>'摸鱼测试员',
 		2=>'堆栈溢出',
-		3=>'从入门到天然呆',
+		3=>'0x5f3759df',
 	);
 	
 	//各级显示的要求，如果不存在则取低的
@@ -36,7 +36,7 @@ namespace skill351
 	//各级给的卡片奖励
 	$ach351_card_prize = array(
 		1 => 94,
-		3 => 117,
+		3 => 206,
 	);
 	
 	function init() 

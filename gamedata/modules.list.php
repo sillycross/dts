@@ -434,6 +434,7 @@ skill467,extra/card/skills/skill467/,1
 skill468,extra/card/skills/skill468/,1
 skill481,extra/card/skills/skill481/,1
 skill482,extra/card/skills/skill482/,1
+skill497,extra/card/skills/skill497/,1
 skill266,extra/club/skills/skill266/,1
 skill81,extra/club/skills/skill81/,1
 searchmemory,extra/searchmemory/,1

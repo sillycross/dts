@@ -219,7 +219,8 @@ namespace player
 			$iconImgB = '';
 		}else {
 			list($w,$h) = getimagesize('img/'.$iconImgB);
-			$iconImgBwidth = round($w/($h/340));
+			if($h < 340) $iconImgB = '';
+			else $iconImgBwidth = round($w/($h/340));
 		}
 		return array($iconImg, $iconImgB, $iconImgBwidth);
 	}
