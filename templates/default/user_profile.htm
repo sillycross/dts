@@ -89,38 +89,14 @@
 {template MOD_BUBBLEBOX_END}
 <!--{/if}-->
 
-<!--{eval \bubblebox\bubblebox_set_style('id:carddata;height:363;width:283;cancellable:1;');}-->
+<!--{eval \bubblebox\bubblebox_set_style('id:carddata;height:370;width:250;cancellable:1;');}-->
 {template MOD_BUBBLEBOX_START}
-<p style="margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px;">
-<br>
-以下是该身份卡的数据。<br><br>
-</p>
-	<table CellSpacing=0 CellPadding=1 width="250" height="260">
-		<tr height="40">
-			<td class=b2 width="40" height="40">卡名</td>
-			<td class=b3 width="210" height="40">$carr['name']</td>
-		</tr>
-		<tr height="40">
-			<td class=b2 width="40" height="40">罕贵</td>
-			<td class=b3 width="210" height="40"><span class="{$card_rarecolor[$carr['rare']]}">$carr['rare']</span></td>
-		</tr>
-		<tr height="40">
-			<td class=b2 width="40" height="40">系列</td>
-			<td class=b3 width="210" height="40">$carr['pack']</td>
-		</tr>
-		<tr height="70">
-			<td class=b2 width="40" height="70">介绍</td>
-			<td class=b3 width="210" height="70">$carr['desc']</td>
-		</tr>
-		<tr height="70">
-			<td class=b2 width="40" height="70">效果</td>
-			<td class=b3 width="210" height="70">$carr['effect']</td>
-		</tr>
-	</table>
-	<br/>
-<input class="cmdbutton" onclick="bubblebox_hide_all();" value="关闭窗口" type="button">
-</p>
+<div style="text-align:center;">
+	<div style="margin:2px">以下是该身份卡的数据。</div>
+	<!--{eval $nowcard=$carr;}-->	
+	{template MOD_CARDBASE_CARD_FRAME}
+	<div style="margin:2px"><input class="cmdbutton" onclick="bubblebox_hide_all();" value="关闭窗口" type="button"></div>
+</div>
 {template MOD_BUBBLEBOX_END}
 
 {template footer}
-
