@@ -1,0 +1,19 @@
+<!--{eval $___TEMP_SKILL_ID=498;$skill498var=(int)\skillbase\skill_getvalue(498,'fv',$who);}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+朋友
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+每次所在地区有人唱《ぼくのフレンド》，增加1点「朋友计数」，<br>之后全系熟练增加当前「朋友计数」的数值<br>
+当朋友计数达到11点时，失去本技能，获得90s的无敌技能「决然」<br>
+你当前的「朋友计数」为<span class="clan">$skill498var</span>点
+</span></td>
+<td class=b3 width=96>
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span>
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

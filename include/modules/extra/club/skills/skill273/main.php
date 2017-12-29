@@ -11,9 +11,11 @@ namespace skill273
 	
 	$unlock_lvl273 = 13;
 	
+	$skill273stateinfo=Array(1=>'关闭', 2=>'开启');
+	
 	function init() 
 	{
-		define('MOD_SKILL273_INFO','club;');
+		define('MOD_SKILL273_INFO','club;upgrade;');
 		eval(import_module('clubbase'));
 		$clubskillname[273] = '对撞';
 	}
@@ -21,11 +23,13 @@ namespace skill273
 	function acquire273(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		\skillbase\skill_setvalue(273,'choice','1',$pa);
 	}
 	
 	function lost273(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		\skillbase\skill_delvalue(273,'choice',$pa);
 	}
 	
 	function check_unlocked273(&$pa)
@@ -33,6 +37,27 @@ namespace skill273
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill273'));
 		return $pa['lvl']>=$unlock_lvl273;
+	}
+	
+	function upgrade273()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player','logger'));
+		if (!\skillbase\skill_query(273) || !check_unlocked273($sdata))
+		{
+			$log .= '你没有这个技能。<br>';
+			return;
+		}
+		eval(import_module('input'));
+		$val = (int)$skillpara1;
+		if ($val<1 || $val>2)
+		{
+			$log .= '参数不合法。<br>';
+			return;
+		}
+		\skillbase\skill_setvalue(273,'choice',$val);
+		if(1==$val) $log.='现在不会触发「对撞」。<br>';
+		else $log.='现在会自动触发「对撞」。<br>';
 	}
 	
 	function get_skill273_chance(&$pa, &$pd, $active)
@@ -59,7 +84,7 @@ namespace skill273
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa,$pd,$active);
-		if (\skillbase\skill_query(273,$pd) && check_unlocked273($pd) && 4==$pd['tactic'])
+		if (\skillbase\skill_query(273,$pd) && check_unlocked273($pd) && 2==\skillbase\skill_getvalue(273,'choice',$pd))
 		{
 			$chance = get_skill273_chance($pa, $pd, $active);
 			if ($pd['club']!=4) $chance=round($chance*3/4);

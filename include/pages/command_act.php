@@ -93,7 +93,6 @@ if ($___MOD_SRV)
 
 \player\parse_interface_gameinfo();
 \player\parse_interface_profile();
-
 if($hp <= 0) {
 	$dtime = date("Y年m月d日H时i分s秒",$endtime);
 	$kname='';

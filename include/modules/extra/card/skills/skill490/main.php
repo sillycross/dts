@@ -97,16 +97,16 @@ namespace skill490
 				}
 			}	
 		}
-		$exception = array('TNc','TOc','VS','Y','Z');
-		if($ritms > 1) $exception[] = 'VO';//卡片礼物
-		if($ritms > 3) $exception = array_merge($exception, array('TN', 'TO'));//陷阱
-		if($ritms > 10) $exception = array_merge($exception, array('p', 'ygo', 'fy', 'kj3'));//各类礼品
-		if($ritms > 70) $exception = array_merge($exception, array('WN', 'WP', 'WK', 'WC', 'WG','WJ','WD','WF'));//各类武器
-		if($ritme > 180) $exception = array_merge($exception, array('DB', 'DA', 'DH', 'DF'));//各类防具
-		if($ritme * $ritms > 40) $exception = array_merge($exception, array('VV','VP','VK','VG','VC','VD','VF','MS'));//各类技能书
-		if($ritme * $ritms > 50) $exception = array_merge($exception, array('MV','MH','ME'));//攻防以外的强化药
-		if($ritme * $ritms > 100) $exception = array_merge($exception, array('MA','MD'));//攻防强化药
-		if($ritme * $ritms > 200) $exception = array_merge($exception, array('HM','HT'));//歌魂增加和回复
+		$exception = array('TNc','TOc','VS','Y','Z');//不管怎样都不会出现奇迹雷、获得技能的技能书、特殊道具
+		if($ritms > 1) $exception[] = 'VO';//随出的耐久大于1时，阻止出现卡片礼物
+		if($ritms > 3) $exception = array_merge($exception, array('TN', 'TO'));//随出的耐久大于3时，阻止出现陷阱
+		if($ritms > 10) $exception = array_merge($exception, array('p', 'ygo', 'fy', 'kj3'));//随出的耐久大于10时，阻止出现各类礼品
+		if($ritms > 70) $exception = array_merge($exception, array('WN', 'WP', 'WK', 'WC', 'WG','WJ','WD','WF'));//随出的耐久大于70时，阻止出现各类武器
+		if($ritme > 180) $exception = array_merge($exception, array('DB', 'DA', 'DH', 'DF'));//随出的效果值大于180时，阻止出现各类防具
+		if($ritme * $ritms > 40) $exception = array_merge($exception, array('VV','VP','VK','VG','VC','VD','VF','MS'));//随出的效*耐之乘积大于40时，阻止出现各类技能书
+		if($ritme * $ritms > 50) $exception = array_merge($exception, array('MV','MH','ME'));//随出的效*耐之乘积大于50时，阻止出现攻防以外的强化药
+		if($ritme * $ritms > 100) $exception = array_merge($exception, array('MA','MD'));//随出的效*耐之乘积大于100时，阻止出现攻防强化药
+		if($ritme * $ritms > 200) $exception = array_merge($exception, array('HM','HT'));//随出的效*耐之乘积大于200时，阻止出现歌魂增加和回复道具
 		$itemklist = array_diff($itemklist, $exception);
 		
 		foreach($itemklist as $ik => &$iv){//防止一些奇葩武器类型的出现
