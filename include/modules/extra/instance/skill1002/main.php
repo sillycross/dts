@@ -7,7 +7,7 @@ namespace skill1002
 	
 	function init() 
 	{
-		define('MOD_SKILL1002_INFO','card;upgrade;locked;unique;');
+		define('MOD_SKILL1002_INFO','card;locked;unique;');
 		eval(import_module('clubbase'));
 		$clubskillname[1002] = '无垢';
 	}

@@ -1,0 +1,24 @@
+<!--{eval eval(import_module('skill499','sys'));}-->
+<!--{eval $___TEMP_SKILL_ID=499;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+决然
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<!--{eval $skill499_rm = \skillbase\skill_getvalue(499,'expire')-$now}-->
+<span class="yellow">$skill499_act_time</span>秒内，你免疫一切战斗和陷阱伤害<br>
+<!--{if $skill499_rm>0}-->
+<span class="yellow">技能作用有效时间还剩<span>$skill499_rm</span>秒。</span><br>
+<!--{else}-->
+<span class="yellow">技能作用生效时间已经结束。</span><br>
+<!--{/if}-->
+</span></td>
+<td class=b3 width=96>
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

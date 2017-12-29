@@ -247,6 +247,7 @@ skill1002,extra/instance/skill1002/,1
 skill269,extra/club/skills/skill269/,1
 skill78,extra/club/skills/skill78/,1
 skill496,extra/card/skills/skill496/,1
+skill499,extra/card/skills/skill499/,1
 skill315,extra/achievement/skills/skill315/,1
 skill313,extra/achievement/skills/skill313/,1
 skill300,extra/achievement/skills/skill300/,1
@@ -389,6 +390,7 @@ skill270,extra/club/skills/skill270/,1
 cooldown,base/cooldown/,1
 item_misc,base/items/item_misc/,1
 skill458,extra/card/skills/skill458/,1
+skill498,extra/card/skills/skill498/,1
 skill206,extra/club/skills/skill206/,1
 miracletrap,base/items/miracletrap/,1
 skill231,extra/club/skills/skill231/,1
