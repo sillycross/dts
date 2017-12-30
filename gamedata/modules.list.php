@@ -165,6 +165,7 @@ club95,extra/club/clubs/club95/,1
 club96,extra/club/clubs/club96/,1
 skill494,extra/instance/gtype1/skill494/,1
 skill495,extra/instance/gtype1/skill495/,1
+skill83,extra/club/skills/skill83/,1
 skill256,extra/club/skills/skill256/,1
 skill433,extra/card/skills/skill433/,1
 skill221,extra/club/skills/skill221/,1

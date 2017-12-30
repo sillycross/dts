@@ -2,7 +2,7 @@
 <!--{eval $___TEMP_SKILL_ID=258;}-->
 {template MOD_CLUBBASE_SKILLDESC_START}
 <span>
-尊严
+快拳
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
@@ -10,7 +10,7 @@
 <!--{eval $totlv = count($upgradecost)-1; }-->
 <span class="lime">当前级别$clv/$totlv</span>&nbsp;
 <!--{if $upgradecost[$clv] !== -1}-->消耗<span class="lime">$upgradecost[$clv]</span>点技能点升至下一级<!--{/if}--><br>
-空手战斗时有<span class="yellow">$procrate[$clv]%</span>的概率发动连击。<br>使用武器战斗时造成的伤害减少<span class="yellow">90%</span>。<br>
+空手战斗时有<span class="yellow">$procrate[$clv]%</span>的概率发动连击。
 </span></td>
 <td class=b3 width=96>
 <!--{if $upgradecost[$clv] !== -1}-->
