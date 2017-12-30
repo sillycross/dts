@@ -86,13 +86,22 @@
 <!--{eval \bubblebox\bubblebox_set_style('id:ev_npc;height:560;width:772;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:10px;');}-->
 {template MOD_BUBBLEBOX_START}
 <p><span class="lime">数据碎片第二形态NPC简介</span>：</p>
-<p>女主的第二形态实力强大，无准备的情况下遭遇她们<span class="yellow">有性命之忧！</span>。不过，击倒她们也是<span class="lime">特殊胜利</span>的必经之路。</p>
+<p>女主的第二形态实力强大，无准备的情况下遭遇她们<span class="yellow">有性命之忧！</span>不过，击倒她们也是<span class="lime">特殊胜利</span>的必经之路。</p>
 <br>
 <!--{loop Array(14) $key}-->
 <!--{eval \npcinfo\npcinfo_get_npc_description_all($key, $enpcinfo_show);}-->
 <!--{/loop}-->
 <br> 
 {template MOD_BUBBLEBOX_END}
+
+<p><span class="lime">拟似意识NPC简介</span>：</p>
+在雏菊之丘有一位特殊的NPC，她平时以<span class="yellow">特殊事件</span>的形式存在，不加入战斗。但如果玩家击倒三女主的第二形态，之后合成<span class="yellow">破灭之诗</span>并使用，这名NPC就会加入战场。<br>
+她掉落的道具是<span class="lime">特殊胜利</span>的必须道具。虽然她血量甚至不如玩家开局状态，但攻击力和防御力都十分吓人，并且装备属性拥有<span class="yellow">物抹+属抹</span>的双重抗性，要击倒她必须动点脑筋。<br>
+<br>
+<!--{loop Array(4) $key}-->
+<!--{eval \npcinfo\npcinfo_get_npc_description_all($key, $anpcinfo);}-->
+<!--{/loop}-->
+<br>
 
 <p><span class="lime">佣兵NPC 简介</span>：</p>
 佣兵是<u><A href="help.php#称号与技能">富家子弟的称号技能</A></u>召唤出的NPC。不同的佣兵实力差距很大，能召唤出什么佣兵纯靠运气。<br>

@@ -254,6 +254,11 @@ div.card_frame_outer
 	background-color:rgba(144,144,144,0.6); *BACKGROUND:rgb(144,144,144); *filter:alpha(opacity=60);
 }
 
+div.card_frame_middler
+{
+	position:absolute;z-index:10;
+}
+
 div.frame_S{background-color:rgba(252,174,10,0.6); *BACKGROUND:rgb(252,174,10); *filter:alpha(opacity=60);}
 div.frame_A{background-color:rgba(90,240,255,0.6); *BACKGROUND:rgb(90,240,255); *filter:alpha(opacity=60);}
 div.frame_B{background-color:rgba(250,128,110,0.6); *BACKGROUND:rgb(250,128,110); *filter:alpha(opacity=60);}
@@ -261,6 +266,7 @@ div.frame_B{background-color:rgba(250,128,110,0.6); *BACKGROUND:rgb(250,128,110)
 div.card_frame_inner
 {
 	display: flex;
+	position:relative;
 	align-items: center;
 	justify-content: center;
 	-moz-border-radius:9px; 
@@ -270,6 +276,13 @@ div.card_frame_inner
 	margin:3px;
 	background-color:rgba(0,0,0,0.7); *BACKGROUND:rgb(0,0,0); *filter:alpha(opacity=70);
 	text-align:center;
+}
+
+div.card_frame_inner .watermark
+{
+	position:absolute;bottom:3px;right:6px;z-index:-5;
+	color: #000; font:bold 18pt "Arial";
+	filter:alpha(opacity=0.15); -moz-opacity:0.15; opacity:0.15; -khtml-opacity: 0.15;
 }
 
 div.card_frame_float_left
@@ -294,6 +307,7 @@ div.card_frame_inner span#cname
   background: #888;
   position: absolute;
   text-align:center;
+  z-index:15;
 }
 
 .card_hexagon span {

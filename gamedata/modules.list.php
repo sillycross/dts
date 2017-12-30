@@ -165,6 +165,7 @@ club95,extra/club/clubs/club95/,1
 club96,extra/club/clubs/club96/,1
 skill494,extra/instance/gtype1/skill494/,1
 skill495,extra/instance/gtype1/skill495/,1
+skill83,extra/club/skills/skill83/,1
 skill256,extra/club/skills/skill256/,1
 skill433,extra/card/skills/skill433/,1
 skill221,extra/club/skills/skill221/,1
@@ -350,6 +351,7 @@ skill49,extra/club/skills/skill49/,1
 skill201,extra/club/skills/skill201/,1
 skill248,extra/club/skills/skill248/,1
 ex_rapid_def,extra/attr/ex_rapid_def/,1
+skill82,extra/club/skills/skill82/,1
 ex_attr_trap,extra/attr/ex_attr_trap/,1
 skill422,extra/card/skills/skill422/,1
 skill230,extra/club/skills/skill230/,1

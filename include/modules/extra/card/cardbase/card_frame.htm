@@ -8,36 +8,40 @@
 			frame_B
 		<!--{/if}-->
 		">
-		<div class="card_frame_inner" style="margin-left:50px;width:187px;height:45px;">
-			<!--{if !empty($nownew)}-->
-				<span id="cname" style="max-width:225px">$nowcard['name']</span>&nbsp;&nbsp;<span class="L5">NEW!</span>
-			<!--{else}-->
-				<span id="cname" style="max-width:225px">$nowcard['name']</span>
-			<!--{/if}-->
-		</div>
-		<div class="card_frame_inner" style="height:140px;margin-top:3px">
-			<span id="cdesc" style="max-width:225px">$nowcard['desc']</span>
-		</div>
-		<div class="card_frame_inner" style="height:100px">
-			<span id="ceffect">$nowcard['effect']</span>
-		</div>
-		<div>
-			<div class="card_frame_inner card_frame_float_left" style="width:175px;height:20px;">
-				<span>
-					<!--{if empty($lockcard) && empty($showpack)}-->
-						<!--{if $card_energy[$nowcard['id']]<$nowcard['energy']}-->
-							<!--{eval $cd_desc=convert_tm(($nowcard['energy']-$card_energy[$nowcard['id']])/$energy_recover_rate[$nowcard['rare']]);}-->
-							<font color="red">在{$cd_desc}后可使用</font>
-						<!--{else}-->
-							蓄能完成，可以使用
-						<!--{/if}-->
-					<!--{else}-->
-						$nowcard['pack']
-					<!--{/if}-->
-				</span>
+		<div class="card_frame_middler">
+			<div class="card_frame_inner" style="margin-left:50px;width:187px;height:45px;">
+				<!--{if !empty($nownew)}-->
+					<span id="cname">$nowcard['name']</span>&nbsp;&nbsp;<span class="L5">NEW!</span>
+				<!--{else}-->
+					<span id="cname">$nowcard['name']</span>
+				<!--{/if}-->
 			</div>
-			<div id="cenergy" class="card_frame_inner card_frame_float_right" style="width:50px;height:20px;">
-				<span>$nowcard['energy']</span>
+			<div class="card_frame_inner" style="height:140px;margin-top:3px">
+				<span id="cdesc" style="max-width:225px">$nowcard['desc']</span>
+				<span class="watermark">COMMENT</span>
+			</div>
+			<div class="card_frame_inner" style="height:100px">
+				<span id="ceffect">$nowcard['effect']</span>
+				<span class="watermark">EFFECT</span>
+			</div>
+			<div>
+				<div class="card_frame_inner card_frame_float_left" style="width:175px;height:20px;">
+					<span>
+						<!--{if empty($lockcard) && empty($showpack)}-->
+							<!--{if $card_energy[$nowcard['id']]<$nowcard['energy']}-->
+								<!--{eval $cd_desc=convert_tm(($nowcard['energy']-$card_energy[$nowcard['id']])/$energy_recover_rate[$nowcard['rare']]);}-->
+								<font color="red">在{$cd_desc}后可使用</font>
+							<!--{else}-->
+								蓄能完成，可以使用
+							<!--{/if}-->
+						<!--{else}-->
+							$nowcard['pack']
+						<!--{/if}-->
+					</span>
+				</div>
+				<div id="cenergy" class="card_frame_inner card_frame_float_right" style="width:50px;height:20px;">
+					<span>$nowcard['energy']</span>
+				</div>
 			</div>
 		</div>
 	</div>
