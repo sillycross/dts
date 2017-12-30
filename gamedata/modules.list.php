@@ -350,6 +350,7 @@ skill49,extra/club/skills/skill49/,1
 skill201,extra/club/skills/skill201/,1
 skill248,extra/club/skills/skill248/,1
 ex_rapid_def,extra/attr/ex_rapid_def/,1
+skill82,extra/club/skills/skill82/,1
 ex_attr_trap,extra/attr/ex_attr_trap/,1
 skill422,extra/card/skills/skill422/,1
 skill230,extra/club/skills/skill230/,1
