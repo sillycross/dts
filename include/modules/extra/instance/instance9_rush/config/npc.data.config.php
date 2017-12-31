@@ -2759,7 +2759,7 @@ namespace instance9
 				1 => array
 				(
 				'name' => 'SCP-173',
-				'icon' => 98,
+				'icon' => 106,
 				'wep' => '[数据删除]',
 				'wepk' => 'WF',
 				'wepe' => 8888,
@@ -2770,7 +2770,7 @@ namespace instance9
 				2 => array
 				(
 				'name' => 'SCP-076',
-				'icon' => 98,
+				'icon' => 107,
 				'wep' => '[数据删除]',
 				'wepk' => 'WK',
 				'wepe' => 8888,
@@ -2781,7 +2781,7 @@ namespace instance9
 				3 => array
 				(
 				'name' => 'SCP-958',
-				'icon' => 98,
+				'icon' => 108,
 				'wep' => '[数据删除]',
 				'wepk' => 'WG',
 				'wepe' => 8888,

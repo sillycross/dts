@@ -105,11 +105,17 @@ namespace skill26
 		return $ret;
 	}
 	
+	function check_attr_pierce_proc(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if ($pa['bskill']==26 && $pa['skill26_flag1']==2) return $pa['attr_pierce_success'];
+		return $chprocess($pa, $pd, $active);
+	}
+	
 	function check_ex_dmg_nullify(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill']!=26) return $chprocess($pa, $pd, $active);
-		if ($pa['skill26_flag1']==2) return $pd['exdmg_nullify_success'];
+		if ($pa['bskill']==26 && $pa['skill26_flag1']==2) return $pd['exdmg_nullify_success'];
 		return $chprocess($pa, $pd, $active);
 	}
 	
@@ -147,10 +153,12 @@ namespace skill26
 //		$r = \wep_f\get_WF_dmg_multiplier($pa, $pd, $active);
 //		$r = array_merge($r,\ex_rapid_attr\get_rapid_dmg_multiplier($pa, $pd, $active));
 //		$pa['skill26_phy_multiplier'] = $r;
+		//判断属穿
+		$pflag=check_attr_pierce_proc($pa, $pd, $active);
 		//判断属抹
 		$flag=check_ex_dmg_nullify($pa, $pd, $active);
 		
-		$pa['skill26_flag1'] = 2;	//跳过之后的属抹判断
+		$pa['skill26_flag1'] = 2;	//跳过之后的属穿和属抹判断
 		
 		if ($flag)
 		{

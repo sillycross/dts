@@ -73,6 +73,7 @@ if($urcmd == 'ban' || $urcmd == 'unban' || $urcmd == 'del') {
 			$opernames = implode(',',($operlist));
 			$db->query("$qryword WHERE uid IN $qrywhere");
 			$cmd_info .= " 帐户 $opernames 被 $operword 。<br>";
+			adminlog($urcmd.'ur',$opernames);
 		}
 		if($gfaillist){
 			$gfailnames = implode(',',($gfaillist));
@@ -86,7 +87,7 @@ if($urcmd == 'ban' || $urcmd == 'unban' || $urcmd == 'del') {
 		$cmd_info = "指定的帐户超出查询范围或指令错误。";
 	}
 	$urcmd = 'list';
-}  elseif($urcmd == 'del2') {
+}elseif($urcmd == 'del2') {
 	$result = $db->query("SELECT username,uid FROM {$gtablepre}users WHERE lastgame = 0 AND groupid<='$mygroup' LIMIT 1000");
 	while($ddata = $db->fetch_array($result)){
 		$n = $ddata['username'];$u = $ddata['uid'];
@@ -106,12 +107,14 @@ if($urcmd == 'ban' || $urcmd == 'unban' || $urcmd == 'del') {
 		$cmd_info = "权限不够，不能修改此帐户信息！";
 	}else{
 		include_once './include/user.func.php';
+		$log_old_data = $urdata[$no];
 		$urdata[$no]['motto'] = $urmotto = astrfilter(${'motto_'.$no});
 		$urdata[$no]['killmsg'] = $urkillmsg = astrfilter(${'killmsg_'.$no});
 		$urdata[$no]['lastword'] = $urlastword = astrfilter(${'lastword_'.$no});
 		$urdata[$no]['gold'] = $urgold = astrfilter(${'gold_'.$no});
 		$urdata[$no]['icon'] = $uricon = (int)(${'icon_'.$no});
 		$urdata[$no]['a_achievements'] = ${'a_achievements_'.$no};
+		
 		$tmp_urna = json_decode(htmlspecialchars_decode(${'a_achievements_'.$no}),1);
 		
 		if($tmp_urna) $ur_achievements = \achievement_base\encode_achievements($tmp_urna);
@@ -121,6 +124,9 @@ if($urcmd == 'ban' || $urcmd == 'unban' || $urcmd == 'del') {
 		}else{
 			$urdata[$no]['gender'] = $urgender = ${'gender_'.$no};
 		}
+		
+		$log_new_data = $urdata[$no];
+		$log_new_data['a_achievements'] = htmlspecialchars_decode(${'a_achievements_'.$no});
 		$cmd_info = '';
 		$extrasql='';
 		if(!empty(${'pass_'.$no})){
@@ -137,12 +143,25 @@ if($urcmd == 'ban' || $urcmd == 'unban' || $urcmd == 'del') {
 		$db->query("UPDATE {$gtablepre}users SET motto='$urmotto',killmsg='$urkillmsg',lastword='$urlastword',icon='$uricon',gender='$urgender',gold='$urgold'{$extrasql} WHERE uid='$uid'");
 		$cmd_info .= "帐户 ".$urdata[$no]['username']." 的信息已修改！";
 		
+		//为了记录具体改了啥真是大费周章啊
+		$log_diff_data = array_diff_assoc($log_new_data,$log_old_data);
+		if(isset($log_diff_data['a_achievements'])) {
+			$log_new_data['a_achievements'] = json_decode($log_new_data['a_achievements'],1);
+			$log_old_data['a_achievements'] = json_decode($log_old_data['a_achievements'],1);
+			if($log_new_data['a_achievements'][326] !== $log_old_data['a_achievements'][326])//特判
+			{
+				$log_diff326 = array_diff($log_new_data['a_achievements'][326], $log_old_data['a_achievements'][326]);
+				$log_new_data['a_achievements'][326] = json_encode($log_diff326); 
+				$log_old_data['a_achievements'][326] = '';
+			}else{
+				$log_old_data['a_achievements'][326] = $log_new_data['a_achievements'][326] = '';
+			}
+			$log_diff_data['a_achievements'] =array_diff_assoc($log_new_data['a_achievements'], $log_old_data['a_achievements']);
+		}
+		adminlog('editur',$urdata[$no]['username'],gencode($log_diff_data));
 	}
 	$urcmd = 'list';
 }
 include template('admin_urlist');
-
-function urlist($htm,$cmd='',$start=0) {
-}
 
 ?>

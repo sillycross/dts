@@ -402,7 +402,6 @@ skill243,extra/club/skills/skill243/,1
 skill208,extra/club/skills/skill208/,1
 skill215,extra/club/skills/skill215/,1
 skill271,extra/club/skills/skill271/,1
-skill26,extra/club/skills/skill26/,1
 skill51,extra/club/skills/skill51/,1
 skill493,extra/card/skills/skill493/,1
 ex_gender_attr,extra/attr/ex_gender_attr/,1
@@ -423,8 +422,7 @@ skill322,extra/achievement/skills/skill322/,1
 skill323,extra/achievement/skills/skill323/,1
 skill244,extra/club/skills/skill244/,1
 skill233,extra/club/skills/skill233/,1
-skill27,extra/club/skills/skill27/,1
-skill489,extra/card/skills/skill489/,1
+skill26,extra/club/skills/skill26/,1
 skill265,extra/club/skills/skill265/,1
 gtype1,extra/instance/gtype1/main/,1
 skill57,extra/club/skills/skill57/,1
@@ -439,6 +437,8 @@ skill468,extra/card/skills/skill468/,1
 skill481,extra/card/skills/skill481/,1
 skill482,extra/card/skills/skill482/,1
 skill497,extra/card/skills/skill497/,1
+skill27,extra/club/skills/skill27/,1
+skill489,extra/card/skills/skill489/,1
 skill266,extra/club/skills/skill266/,1
 skill81,extra/club/skills/skill81/,1
 searchmemory,extra/searchmemory/,1

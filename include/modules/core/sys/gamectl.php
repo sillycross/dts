@@ -324,8 +324,6 @@ namespace sys
 //		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-切糕发放');
 		//重置游戏开始时间和当前游戏状态
 		rs_sttime();
-		//至此解锁，后面是消息记录、历史记录、录像处理之类的事
-		process_unlock();
 		
 		//进行天梯积分计算、录像处理之类的后期工作
 		post_gameover_events();
@@ -358,6 +356,8 @@ namespace sys
 			if (room_check_subroom($room_prefix)) $room_gprefix = (substr($room_prefix,0,1)).'.';
 			writeover(GAME_ROOT."./gamedata/bak/{$room_gprefix}{$gamenum}_newsinfo.dat",$newsinfo,'wb+');
 		}
+		//至此解锁，保证所有处理都不出错
+		process_unlock();
 		
 //		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-写入消息并结束');
 		return;

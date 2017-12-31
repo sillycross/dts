@@ -52,7 +52,7 @@ if($command == 'edit') {
 			file_put_contents($cf_run,$config_cont);
 			$cmd_info .= '监测到ADV模式已打开，对应运行时文件已修改。<br>';
 		}
-		adminlog('configmng');
+		adminlog('configmng',gencode($edlist));
 		$cmd_info .= '服务参数已修改';
 	}
 }
