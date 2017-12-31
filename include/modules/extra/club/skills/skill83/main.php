@@ -55,7 +55,7 @@ namespace skill83
 			if ($active)
 				$log.="<span class=\"yellow\">「尊严」使你造成的最终伤害降低了{$rr}%！</span><br>";
 			else  $log.="<span class=\"yellow\">「尊严」使敌人造成的最终伤害降低了{$rr}！</span><br>";
-			$r=Array($rr/100);	
+			$r=Array(1-$rr/100);	
 		}
 		return array_merge($r,$chprocess($pa,$pd,$active));
 	}
