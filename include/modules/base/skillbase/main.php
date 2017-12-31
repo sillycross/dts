@@ -54,6 +54,7 @@ namespace skillbase
 	function parse_skill_parameter_data($nskparas)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!$nskparas) return array();
 		$para=explode(',',$nskparas);
 		$cn=count($para);
 		

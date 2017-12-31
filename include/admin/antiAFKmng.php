@@ -9,7 +9,7 @@ if($command == 'kill'){
 }
 
 function kill_all_AFKer($timelimit=1){
-	global $now,$db,$tablepre,$antiAFKertime_normal,$alivenum,$deathnum,$antiAFKintv,$cmd_info;
+	global $now,$gamenum,$db,$tablepre,$antiAFKertime_normal,$alivenum,$deathnum,$antiAFKintv,$cmd_info;
 	$cmd_info = '';
 	if (!is_numeric($timelimit)){
 		$cmd_info .= '时间间隔错误！<br>';
@@ -28,10 +28,11 @@ function kill_all_AFKer($timelimit=1){
 	}
 
 	if(!$afkerlist){$cmd_info .= '没有符合条件的角色。';return;}
+	$affected_names = array();
 	foreach($afkerlist as $kid => $kcontent){
 		$db->query("UPDATE {$tablepre}players SET hp='0',state='32' WHERE pid='$kid' AND type='0' AND hp>'0' AND state<'10'");
 		if($db->affected_rows()){
-			adminlog('killafker',$kid);
+			$affected_names[] = $kcontent['name'];
 			$cmd_info .= '角色 '.$kcontent['name'].' 被杀死。<br>';
 			addnews($now,'death32',$kcontent['name'],'',$kcontent['pls']);
 			$alivenum--;
@@ -41,6 +42,7 @@ function kill_all_AFKer($timelimit=1){
 			$cmd_info .= '无法杀死角色 '.$kcontent['name'].' 。<br>';
 		}
 	}
+	adminlog('killafker',$room_prefix,$gamenum,gencode($affected_names));
 	save_gameinfo();
 	return;
 }

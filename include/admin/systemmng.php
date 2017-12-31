@@ -57,10 +57,10 @@ if($command == 'edit') {
 	$cmd_info .= "提交的修改请求数量： $ednum <br>";
 	
 	if($ednum){
-		if(in_array('adminmsg',array_keys($edlist))){
+		if(isset($edlist['adminmsg'])){
 			file_put_contents('./gamedata/adminmsg.htm',$adminmsg);
 		}
-		if(in_array('systemmsg',array_keys($edlist))){
+		if(isset($edlist['systemmsg'])){
 			file_put_contents('./gamedata/systemmsg.htm',$systemmsg);
 		}
 		$sf = GAME_ROOT.'./include/modules/core/sys/config/system.config.php';
@@ -90,7 +90,7 @@ if($command == 'edit') {
 			$cmd_info .= '监测到ADV模式已打开，对应运行时文件已修改。<br>';
 		}
 		//putadminlog($adminlog);
-		adminlog('systemmng');
+		adminlog('systemmng',gencode($edlist));
 		$cmd_info .= '系统环境修改完毕';
 	}
 }

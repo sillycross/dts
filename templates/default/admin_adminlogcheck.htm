@@ -1,0 +1,24 @@
+<div id="notice"></div>
+<span class="subtitle">管理员操作记录</span>
+<center>
+	<div id="adminlog">
+	<TABLE border="0" cellspacing="2" cellpadding="0" style="min-width:700px">
+		<TR height="20">
+		<TD class="b1"><span> 时间 </span></TD>
+		<TD class="b1"><span> 管理员ID </span></TD>
+		<TD class="b1"><span> 操作 </span></TD>
+		<TD class="b1"><span> 内容 </span></TD>
+		<TD class="b1"><span> 局数 </span></TD>
+		</TR>
+        <!--{loop $showdata $d}-->
+        <TR height="25">
+        	<TD class="b3"><span>$d['0']</span></TD>
+            <TD class="b3"><span>$d['1']</span></TD>
+            <TD class="b3"><span>$d['2']</span></TD>
+            <TD class="b3"><span>$d['3']</span></TD>
+            <TD class="b3"><span>$d['4']</span></TD>
+        </TR>
+        <!--{/loop}-->
+	</TABLE>
+    </div>
+<center>
