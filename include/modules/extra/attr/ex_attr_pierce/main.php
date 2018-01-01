@@ -122,7 +122,7 @@ namespace ex_attr_pierce
 	function calculate_ex_attack_dmg(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		check_attr_pierce_proc($pa, $pd, $active);
+		if($pa['is_hit']) check_attr_pierce_proc($pa, $pd, $active);
 		return $chprocess($pa, $pd, $active);
 	}
 	

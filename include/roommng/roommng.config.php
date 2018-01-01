@@ -3,7 +3,7 @@
 //房间设置
 
 //全局最大房间数目
-$max_room_num = 10;
+$max_room_num = 5;
 
 //单人最大房间数目
 $max_private_room_num = 3;

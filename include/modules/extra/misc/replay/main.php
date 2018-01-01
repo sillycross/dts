@@ -263,10 +263,31 @@ namespace replay
 					$sstr.=$wz['pid'].',';
 			
 			file_put_contents(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.rep.index',$sstr);
+			unset($jreplaydata);
 			$filelist[] = GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.rep.index';
 			//打包成文件
-			fold(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.dat', $filelist);
-			foreach($filelist as $fv) unlink($fv);//删除源文件
+			$foldfile = GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.dat';
+			fold($foldfile, $filelist);
+			//如果设定为远程储存，则发送到远端，并删除打包的文件
+			//POST传输率简直慢得惊人，不能直接发送！
+			if(!empty($replay_remote_storage) && $replay_remote_send){
+				$rpurl = $replay_remote_storage;
+				$context = array(
+					'sign'=>$replay_remote_storage_sign, 
+					'pass'=>$replay_remote_storage_key, 
+					'cmd'=>'storage', 
+					'filename'=>$room_gprefix.$gamenum.'.dat',
+					'callurl'=>$server_address.'/replay_receive.php',
+					//'content'=>file_get_contents($foldfile),
+					'datalibname'=>$curdatalib,
+					//'datalibcont'=>''//gencode(file_get_contents(GAME_ROOT.'./gamedata/javascript/'.$curdatalib))
+				);
+				$ret = send_post($rpurl, $context);
+				//if(strpos($ret,'Successfully Received')!==false) unlink($foldfile);
+			}
+			
+			//删除源文件
+			foreach($filelist as $fv) unlink($fv);
 			//logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-储存录像索引');
 		}
 		// 注意虽然tmp文件夹下所有其他目录都是以room_prefix作为索引
@@ -338,8 +359,33 @@ namespace replay
 			{
 				unfold($replay_path.$room_gprefix.$gnum.'.dat');
 			}else{
-				include template('MOD_REPLAY_GNUM_NO_REPLAY');
-				return;
+				$remote_rdata = '';
+				if(!empty($replay_remote_storage)){
+					//获取录像文件和对应的datalib.js
+					$rpurl = $replay_remote_storage;
+					$context = array('sign'=>$replay_remote_storage_sign, 'cmd'=>'loadrep', 'filename'=>$room_gprefix.$gnum.'.dat');
+					$ret = send_post($rpurl, $context);
+					if(strpos($ret, 'does not exist')===false && strpos($ret, 'Bad command')===false && strpos($ret, 'Invalid Sign')===false){
+						$ret = gdecode($ret,1);
+						$remote_rdata = $ret['rdata'];
+						$remote_datalibname = $ret['datalib_name'];
+						$datalibpath = GAME_ROOT.'./gamedata/javascript/'.$remote_datalibname;
+						if(!file_exists($datalibpath)) {
+							$context = array('sign'=>$replay_remote_storage_sign, 'cmd'=>'loaddatalib', 'filename'=>$remote_datalibname);
+							$ret2 = send_post($rpurl, $context);
+							if(strpos($ret2, 'does not exist')===false && strpos($ret2, 'Bad command')===false && strpos($ret2, 'Invalid Sign')===false){
+								file_put_contents($datalibpath, $ret2);
+							}
+						}
+					}
+				}
+				if(!empty($remote_rdata)) {
+					file_put_contents($replay_path.$room_gprefix.$gnum.'.dat', $remote_rdata);
+					unfold($replay_path.$room_gprefix.$gnum.'.dat');
+				}else{
+					include template('MOD_REPLAY_GNUM_NO_REPLAY');
+					return;
+				}
 			}
 		}
 		$arr=explode(',',file_get_contents($replay_path.$room_gprefix.$gnum.'.rep.index'));
