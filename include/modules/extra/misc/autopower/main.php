@@ -93,7 +93,7 @@ namespace autopower
 				for ($i=1; $i<=$itms; $i++)
 				{
 					$log.='<span id="autopower'.$i.'" style="display:none">';
-					if ($itm=='全自动订书机') $funcname = '\empowers\use_nail'; else $funcname = '\empowers\use_stone';
+					if ($itm=='全自动订书机') $funcname = '\empowers\use_nail'; else $funcname = '\empowers\use_hone';
 					$flag = $funcname($itm,$itme);
 					if (!$flag || $i==$itms) 
 					{
