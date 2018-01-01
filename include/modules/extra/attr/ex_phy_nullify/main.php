@@ -36,7 +36,7 @@ namespace ex_phy_nullify
 			else
 			{
 				if ($active)
-					$log .= "<span class=\"red\">{$pd['name']}的装备使攻击无效化的属性竟然失效了！</span><br>";
+					$log .= "<span class=\"red\">{$pd['name']}的装备免疫物理伤害的效果竟然失效了！</span><br>";
 				else  $log .= "<span class=\"red\">你的装备免疫物理伤害的效果竟然失效了！</span><br>";
 			}
 		}
@@ -73,7 +73,10 @@ namespace ex_phy_nullify
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		//抹消成功则只有1点伤害了
-		if ($pd['physical_nullify_success']) return 1;
+		if ($pd['physical_nullify_success']) {
+			$pa['mult_words_phydmgbs'] = 1;
+			return 1;
+		}
 		return $chprocess($pa, $pd, $active);
 	}
 	

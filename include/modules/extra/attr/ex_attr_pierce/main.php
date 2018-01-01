@@ -118,8 +118,8 @@ namespace ex_attr_pierce
 		return $chprocess($pa, $pd, $active);
 	}
 	
-	//属穿的判定是在属性攻击准备时
-	function ex_attack_prepare(&$pa, &$pd, $active)
+	//属穿的判定是在计算属性伤害之前
+	function calculate_ex_attack_dmg(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		check_attr_pierce_proc($pa, $pd, $active);
