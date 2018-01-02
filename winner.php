@@ -13,7 +13,7 @@ $cookies = array();
 foreach($_COOKIE as $ckey => $cval){
 	if(strpos($ckey,'user')!==false || strpos($ckey,'pass')!==false) $cookies[$ckey] = $cval;
 }
-$winnerinfo = send_post($url, $context, $cookies);
+$winnerinfo = curl_post($url, $context, $cookies);
 echo $winnerinfo;
 
 /* End of file winner.php */

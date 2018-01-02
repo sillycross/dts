@@ -5,7 +5,6 @@ define('IN_REPLAY', TRUE);
 require './include/common.inc.php';
 
 $repid=$_GET['repid'];
-
 if (!isset($repid)) { header("Location: winner.php"); exit(); } 
 
 //过滤repid
@@ -46,8 +45,11 @@ if ($cn==1)
 	if (!file_exists(GAME_ROOT.'./gamedata/replays/'.$repid.'.rep')) 
 	{ 
 		if(!file_exists(GAME_ROOT.'./gamedata/replays/'.$repid.'.dat')){
-			include template('no_replay');
-			exit(); 
+			$flag = \replay\get_replay_remote($repid);
+			if(!$flag) {
+				include template('no_replay');
+				exit(); 
+			}
 		}else{
 			unfold(GAME_ROOT.'./gamedata/replays/'.$repid.'.dat');
 		}

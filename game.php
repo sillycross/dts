@@ -23,7 +23,7 @@ $cookies = array();
 foreach($_COOKIE as $ckey => $cval){
 	if(strpos($ckey,'user')!==false || strpos($ckey,'pass')!==false) $cookies[$ckey] = $cval;
 }
-$gameinfo = send_post($url, $context, $cookies);
+$gameinfo = curl_post($url, $context, $cookies);
 if(strpos($gameinfo,'<head>')===false){
 	$d_gameinfo = gdecode($gameinfo,1);
 	if(is_array($d_gameinfo) && isset($d_gameinfo['url']) && 'error.php' == $d_gameinfo['url']){

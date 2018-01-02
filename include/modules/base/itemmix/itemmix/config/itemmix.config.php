@@ -257,7 +257,7 @@ $mixinfo = array
 	array('class' => 'wf', 'stuff' => array('月符「Silent Serena」-劣','《魔女的魔导书》'),'result' => array('月符「Silent Serena」','WF',120,'∞','irc'),),
 	array('class' => 'wf', 'stuff' => array('月符「Silent Serena」','日符「Royal Flare」'),'result' => array('日&月符『Royal Diamond Ring』','WF',432,'∞','riud'),),
 	array('class' => 'wf', 'stuff' => array('空白符卡','★制御棒★','日符「Royal Flare」'),'result' => array('『地狱的人造太阳』','WF',666,'∞',),),
-	array('class' => 'hidden', 'stuff' => array('月符「Silent Serena」-劣','日符「Royal Flare」-劣'),'result' => array('日&月符『Royal Diamond Ring』-劣','WF',9,'9','rd'),),
+	array('class' => 'wf', 'stuff' => array('月符「Silent Serena」-劣','日符「Royal Flare」-劣'),'result' => array('日&月符『Royal Diamond Ring』-劣','WF',99,999,'zzzzz'),),
 	array('class' => 'wf', 'stuff' => array('金符「Metal Fatigue」','火符「Agni Shine」','《魔女的魔导书》'),'result' => array('火&金符『St. Elmo Pillar』','WF',330,'∞','ndfc'),),
 	array('class' => 'wf', 'stuff' => array('水符『Jerry Fish Princess』','月符「Silent Serena」','消音器','天然水'),'result' => array('水&月符『Silent Deluge』','WF',233,'∞','kZz'),),
 	array('class' => 'wf', 'stuff' => array('火符「Agni Shine」','水符「Princess Undine」','木符『Sylphy Horn』','金符「Metal Fatigue」','土符「Lazy Trilithon」'),'result' => array('火水木金土符『贤者之石』','WF',5000,'∞','uipwe'),),
