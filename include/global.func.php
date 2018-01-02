@@ -395,8 +395,8 @@ function unfold($srcfile){
 	}else	return 0;
 }
 
-//以post形式向网页发出信息
-function send_post($url, $post_data=array(), $post_cookie=array(), $timeout=10) {
+//通过file_get_contents()以post形式向网页发出信息，慢，不建议使用
+function file_get_contents_post($url, $post_data=array(), $post_cookie=array(), $timeout=10) {
   $options = array(
     'http' => array(
       'method' => 'POST',
@@ -410,8 +410,21 @@ function send_post($url, $post_data=array(), $post_cookie=array(), $timeout=10) 
   }
   $context = stream_context_create($options);
   $result = file_get_contents($url, false, $context);
- 
   return $result;
+}
+
+//通过curl扩展以post形式向网页发出信息
+function curl_post($url, $post_data=array(), $post_cookie=array(), $timeout = 10){
+	if($url == '') return false;
+	$con = curl_init((string)$url);
+	curl_setopt($con, CURLOPT_TIMEOUT,(int)$timeout);
+	curl_setopt($con, CURLOPT_POST,true);
+	curl_setopt($con, CURLOPT_RETURNTRANSFER,true);
+	curl_setopt($con, CURLOPT_HEADER, false);
+	curl_setopt($con, CURLOPT_POSTFIELDS, http_build_query($post_data));
+	curl_setopt($con, CURLOPT_COOKIE, http_build_cookiedata($post_cookie));
+	
+	return curl_exec($con); 
 }
 
 function http_build_cookiedata($cookie_arr){

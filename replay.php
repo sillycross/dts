@@ -45,30 +45,8 @@ if ($cn==1)
 	if (!file_exists(GAME_ROOT.'./gamedata/replays/'.$repid.'.rep')) 
 	{ 
 		if(!file_exists(GAME_ROOT.'./gamedata/replays/'.$repid.'.dat')){
-			$remote_rdata = '';
-			if(!empty($replay_remote_storage)){
-				//获取录像文件和对应的datalib.js
-				$rpurl = $replay_remote_storage;
-				$context = array('sign'=>$replay_remote_storage_sign, 'cmd'=>'loadrep', 'filename'=>$repid.'.dat');
-				$ret = send_post($rpurl, $context);
-				if(strpos($ret, 'does not exist')===false && strpos($ret, 'Bad command')===false && strpos($ret, 'Invalid Sign')===false){
-					$ret = gdecode($ret,1);
-					$remote_rdata = $ret['rdata'];
-					$remote_datalibname = $ret['datalib_name'];
-					$datalibpath = GAME_ROOT.'./gamedata/javascript/'.$remote_datalibname;
-					if(!file_exists($datalibpath)) {
-						$context = array('sign'=>$replay_remote_storage_sign, 'cmd'=>'loaddatalib', 'filename'=>$remote_datalibname);
-						$ret2 = send_post($rpurl, $context);
-						if(strpos($ret2, 'does not exist')===false && strpos($ret2, 'Bad command')===false && strpos($ret2, 'Invalid Sign')===false){
-							file_put_contents($datalibpath, $ret2);
-						}
-					}
-				}
-			}
-			if(!empty($remote_rdata)) {
-				file_put_contents(GAME_ROOT.'./gamedata/replays/'.$repid.'.dat', $remote_rdata);
-				unfold(GAME_ROOT.'./gamedata/replays/'.$repid.'.dat');
-			}else{
+			$flag = \replay\get_replay_remote($repid);
+			if(!$flag) {
 				include template('no_replay');
 				exit(); 
 			}

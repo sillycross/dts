@@ -13,7 +13,7 @@ $cookies = array();
 foreach($_COOKIE as $ckey => $cval){
 	if(strpos($ckey,'user')!==false || strpos($ckey,'pass')!==false) $cookies[$ckey] = $cval;
 }
-$helpinfo = send_post($url, $context, $cookies);
+$helpinfo = curl_post($url, $context, $cookies);
 echo $helpinfo;
 
 /* End of file help.php */

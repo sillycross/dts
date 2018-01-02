@@ -90,7 +90,7 @@ if (CURSCRIPT == 'index') {//首页，所有房间刷新
 	if($___MOD_SRV) {//如果daemon开启，则试图调用daemon
 		$routine_url = 'http://'.$_SERVER['HTTP_HOST'].substr($_SERVER['PHP_SELF'],0,-9).'command.php';
 		$routine_context = array('command'=>'room_routine');
-		send_post($routine_url,$routine_context);
+		curl_post($routine_url,$routine_context,1);//相当于异步
 		unset($routine_url,$routine_context);
 	}else{
 		include_once './include/roommng/roommng.func.php';
