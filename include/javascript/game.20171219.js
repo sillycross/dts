@@ -153,6 +153,7 @@ js_stop_flag = 0;
 function postCmd(formName,sendto,disableall){
 	if (in_replay_mode == 1) return;
 	jQuery('#hoverHintMsg').css({display:"none"});//清除悬停提示
+	if(jQuery('#loading')) jQuery('#loading').css({display:"block"});//显示Loading画面
 	if(disableall) jQuery('.cmdbutton').attr("disabled","disabled")
 	replay_listener();	//IE Hack，处理IE不支持catch的问题
 	var oXmlHttp = zXmlHttp.createRequest();
@@ -225,6 +226,7 @@ room_cur_chat_maxcid = 0;
 
 function showData(sdata){
 	if (js_stop_flag) return;
+	if(jQuery('#loading')) jQuery('#loading').css({display:"none"});//隐藏Loading画面
 	if(typeof sdata == 'string' && sdata.indexOf('<html>') > 0 && sdata.indexOf('</html>') > 0){
 		document.write(sdata);
 		return;

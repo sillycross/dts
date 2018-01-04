@@ -7,18 +7,20 @@
 		<!--{/if}-->
 	<!--{else}-->&nbsp;-&nbsp;标准区<!--{/if}-->
 </span>
-
-<!--{if $command == 'info'}-->
-{template winnerinfo}
-<!--{elseif $command == 'news'}-->
-<form method="post" name="info" action="winner.php">
-<input type="submit" value="返回优胜列表">
-<div align="left">
-$hnewsinfo
+<div style="position:relative">
+	<div id="loading"></div>
+	<!--{if $command == 'info'}-->
+		{template winnerinfo}
+	<!--{elseif $command == 'news'}-->
+		<form method="post" name="info" action="winner.php">
+		<input type="submit" value="返回优胜列表">
+		<div align="left">
+		$hnewsinfo
+		</div>
+		<input type="submit" value="返回优胜列表">
+		</form>
+	<!--{else}-->
+		{template winnerlist}
+	<!--{/if}-->
 </div>
-<input type="submit" value="返回优胜列表">
-</form>
-<!--{else}-->
-{template winnerlist}
-<!--{/if}-->
 {template footer}

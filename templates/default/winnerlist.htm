@@ -97,7 +97,7 @@
 			<!--{if defined('MOD_REPLAY')}-->
 			<TD class="b3">
 				<span>
-					<input type="button" style="width:80px;height:40px;-webkit-appearance:default-button;" value="录像回放" <!--{if $info['wmode'] && $info['wmode'] !=4 }-->onclick="document.list.start.value = '$start'; document.list.command.value='replay';document.list.gnum.value='$gid';document.list.submit();"<!--{else}-->disabled<!--{/if}-->>
+					<input type="button" style="width:80px;height:40px;-webkit-appearance:default-button;" value="录像回放" <!--{if $info['wmode'] && $info['wmode'] !=4 }-->onclick="document.list.start.value = '$start'; document.list.command.value='replay';document.list.gnum.value='$gid';document.list.submit();$('loading').style.display = 'block';"<!--{else}-->disabled<!--{/if}-->>
 				</span>
 			</TD>
 			<!--{else}-->
@@ -105,8 +105,8 @@
 			<!--{/if}-->
 			<TD class="b3" width=60px>
 				<span>
-					<input type="button" style="width:80px;height:20px;" value="角色信息" <!--{if $info['wmode'] && $info['wmode'] != 1 && $info['wmode'] !=4 && $info['wmode'] != 6 && $info['winnernum']<=1}-->onclick="document.list.command.value='info';document.list.gnum.value='$gid';document.list.submit();"<!--{else}-->disabled<!--{/if}-->>
-					<input type="button" style="width:80px;height:20px;" value="该局状况" <!--{if $info['wmode'] && $info['wmode'] !=4}-->onclick="document.list.command.value='news';document.list.gnum.value='$gid';document.list.submit();"<!--{else}-->disabled<!--{/if}-->>
+					<input type="button" style="width:80px;height:20px;" value="角色信息" <!--{if $info['wmode'] && $info['wmode'] != 1 && $info['wmode'] !=4 && $info['wmode'] != 6 && $info['winnernum']<=1}-->onclick="document.list.command.value='info';document.list.gnum.value='$gid';document.list.submit();$('loading').style.display = 'block';"<!--{else}-->disabled<!--{/if}-->>
+					<input type="button" style="width:80px;height:20px;" value="该局状况" <!--{if $info['wmode'] && $info['wmode'] !=4}-->onclick="document.list.command.value='news';document.list.gnum.value='$gid';document.list.submit();$('loading').style.display = 'block';"<!--{else}-->disabled<!--{/if}-->>
 				</span>
 			</TD>
 		</TR>

@@ -409,7 +409,7 @@ namespace replay
 						file_put_contents($datalibpath, $ret2);
 					}
 				}
-			}
+			}else $remote_rdata = '';
 		}
 		$ret = false;
 		if(!empty($remote_rdata)) {
