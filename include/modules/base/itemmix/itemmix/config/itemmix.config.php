@@ -19,6 +19,7 @@ $mixinfo = array
 	array('class' => 'h', 'stuff' => array('寂寞','脸','杯子'),'result' => array('淡定红茶','HB',200,20,),),
 	array('class' => 'h', 'stuff' => array('凸眼鱼','面包','锅'),'result' => array('仰望星空派','HR',30,3,),),
 	array('class' => 'h', 'stuff' => array('河豚鱼','氯化氢','大夭使的气息'),'result' => array('鲱鱼罐头','PR9',90,10,),),
+	array('class' => 'h', 'stuff' => array('矿泉水','杏仁豆腐','SCP-294的饮料'),'result' => array('【社系摧泪弹】','PB',3600,5,'zd'),),
 	
 	
 	array('class' => 'wc', 'stuff' => array('汽油','空瓶'),'result' => array('☆火焰瓶☆','WC',80,50,'ud'),),	
@@ -52,7 +53,7 @@ $mixinfo = array
 	array('class' => 'wk', 'stuff' => array('曾经的荣光-深蓝','蓝宝石方块','《曾伽·宗博尔特自传》'),'result' => array('奥义『超⑨武神霸斩』','WK',999,'∞','rkNaH'),),
 	//array('class' => 'wk', 'stuff' => array('飞龙刀【银】','悲叹之种','《曾伽·宗博尔特自传》'),'result' => array('氷刃【雪月花】','WK',1500,'∞','Znrik'),),
 	array('class' => 'wk', 'stuff' => array('原型武器K','食堂的盒饭'),'result' => array('骨刃','WK',130,80,'',),),
-	array('class' => 'wk', 'stuff' => array('骨刃','嘴炮','搬运之力','神字幕','销魂之歌'),'result' => array('轰剑【虎眼】','WK',360,200,'',),),
+	array('class' => 'wk', 'stuff' => array('骨刃','+1之枪','丢人之摸','恶臭之剑','杀妈之波'),'result' => array('轰剑【虎眼】','WK',360,200,'',),),
 	array('class' => 'wk', 'stuff' => array('轰剑【虎眼】','磨刀石','沉默磨刀石','传说的白磨刀石'),'result' => array('吼剑【地咬】','WK',840,120,'',),),
 	array('class' => 'wk', 'stuff' => array('轰剑【虎眼】','磨刀石','沉默磨刀石','赛路尔之磨刀石'),'result' => array('吼剑【地咬】','WK',840,120,'',),),
 	array('class' => 'wk', 'stuff' => array('吼剑【地咬】','大型闹钟','GS【伪Hand_Sonic】','【逆转的女神】','触手的力量'),'result' => array('冲剑【虎啸】','WK',3170,250,'',),),

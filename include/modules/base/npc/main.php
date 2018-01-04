@@ -241,9 +241,10 @@ namespace npc
 		eval(import_module('player'));
 		if ($pdata['type']>0)
 		{
-			if (isset($killmsginfo [$pdata['type']]))
-				$kilmsg = $killmsginfo [$pdata['type']];
-			else  $kilmsg = '';
+			if (isset($killmsginfo[$pdata['type']])){
+				if(is_array($killmsginfo[$pdata['type']])) $kilmsg = $killmsginfo[$pdata['type']][$pdata['name']];
+				else $kilmsg = $killmsginfo[$pdata['type']];
+			}else  $kilmsg = '';
 			return $kilmsg;
 		}
 		else  return $chprocess($pdata);
