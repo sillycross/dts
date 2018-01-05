@@ -13,7 +13,7 @@ gamedata/newsinfo.php
 gamedata/gameinfo.php
 gamedata/banlist.list
 gamedata/replays/*.*
-gamedata/remote_replays/*.*
+gamedata/remote_replays/
 gamedata/tmp/*.*
 templates/default/itemhelp.htm
 templates/default/tmp_*.htm
