@@ -69,6 +69,7 @@ foreach($adminlogdata as $aval){
 			if('I'==$p3) $show_o = '立刻增加禁区';
 			elseif('L'==$p3) $show_o = '60s后增加禁区';
 		}
+		$show_gnum = adminlog_parse_gnum($a1,$a2);
 	}elseif(in_array($o, array('killpc', 'livepc', 'delpc', 'delcp', 'editpc', 'killnpc', 'livenpc', 'delnpc', 'delncp', 'editnpc'))){
 		if(strpos($o, 'kill')===0) {
 			$show_o = '杀死';
