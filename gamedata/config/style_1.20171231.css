@@ -135,7 +135,7 @@ border-left: #666 2px solid;
 border-bottom: #ddc 2px solid;
 }
 #log{
-	line-height:15px
+	line-height:15px;
 }
 .footerline {
 height: 1px;
@@ -158,6 +158,13 @@ input.bigbutton{
 
 .auto-style1 {
 	border-width: 0px;
+}
+
+div#loading{
+	display:none;	
+	width:100%;height:100%;	position:absolute;z-index:10;
+	BACKGROUND: #000;filter:alpha(opacity=50); opacity:0.5;
+	background-image: url("../../img/loading.gif");background-repeat: no-repeat;background-position:center;
 }
 
 div.ach_box
