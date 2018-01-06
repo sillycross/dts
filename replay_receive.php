@@ -21,7 +21,7 @@ if(isset($_POST['sign']) && isset($_POST['pass'])) {
 		}
 	} 
 }
-if(!$valid && $_POST['cmd']=='storage') {//只有储存请求需要判定密码
+if(!$valid && $_POST['cmd']=='storage_req') {//只有储存请求需要判定密码
 	exit( 'Invalid Sign');
 }
 
@@ -35,59 +35,41 @@ if($_POST['cmd'] == 'storage_req') {
 	$objdir3 = str_replace('.dat','',$_POST['filename']);
 	if(!is_dir($objdir.'/'. $objdir2.'/'.$objdir3)) mymkdir($objdir.'/'. $objdir2.'/'.$objdir3);
 	$objfile = $objdir.'/'. $objdir2.'/'.$objdir3.'/'.$_POST['filename'];
-	//反向请求
+	//反向请求1，请求载入录像
 	$callbackurl = $_POST['callurl'];
 	$context = array(
 		'cmd'=>'storage_callback', 
 		'filename'=>$_POST['filename'],
-		'datalibname'=>$_POST['datalibname']
 	);
-	$ret = curl_post($callbackurl, $context);
-	//$ret = html_entity_decode($ret,ENT_COMPAT);
-	list($content,$datalibcont) = gdecode($ret,1);
-	//$content = $_POST['content'];
-	$datalibname = $_POST['datalibname'];
-	//$datalibcont = gdecode($_POST['datalibcont']);
-	$objdir_datalib = $objdir.'/'. $objdir2.'/datalib';
-	if(!is_dir($objdir_datalib)) mymkdir($objdir_datalib);
-	$objfile_datalib = $objdir_datalib.'/'.$datalibname;
-	
-	if(empty($content)) echo 'Some error occurred.';
-	else {
+	$content = curl_post($callbackurl, $context);
+	if(empty($content)) {
+		echo 'Some error occurred.';
+		return;
+	} else {
 		file_put_contents($objfile, $content);
+	}
+	
+	//反向请求2，请求载入datalib
+	$datalibcont = '';
+	$datalibname = !empty($_POST['datalibname']) ? $_POST['datalibname'] : '';
+	if($datalibname) {
+		$context = array(
+			'cmd'=>'storage_callback_datalib', 
+			'datalibname'=>$datalibname,
+		);
+		$datalibcont = curl_post($callbackurl, $context);
+		
+		$objdir_datalib = $objdir.'/'. $objdir2.'/datalib';
+		if(!is_dir($objdir_datalib)) mymkdir($objdir_datalib);
+		$objfile_datalib = $objdir_datalib.'/'.$datalibname;
 		//记录datalib的编号
 		file_put_contents(str_replace('.dat','.datalib.txt',$objfile), $datalibname);
 		//记录datalib
 		if(!file_exists($objfile_datalib)) file_put_contents($objfile_datalib, $datalibcont);
-		echo 'Successfully Received.';
 	}
-	
-//	if ($_FILES['file']['type'] == 'dat'){//只允许接受dat
-//		if ($_FILES['file']['error'] > 0){
-//			echo 'Error Code: ' . $_FILES["file"]["error"] . '<br />';
-//		}else{
-//			echo 'Upload: ' . $_FILES['file']['name'] . '<br />';
-//	    echo 'Type: ' . $_FILES['file']['type'] . '<br />';
-//	    echo 'Size: ' . ($_FILES['file']['size'] / 1024) . ' Kb<br />';
-//	    echo 'Temp file: ' . $_FILES['file']['tmp_name'] . '<br />';
-//	    
-//	    $objdir = './gamedata/remote_replays';
-//	    if(!is_dir($objdir)) mymkdir($objdir);
-//	    $objdir2 = $_POST['sign'];
-//	    if(!is_dir($objdir.'/'. $objdir2)) mymkdir($objdir.'/'. $objdir2);
-//	    $objfile = $objdir.'/'. $objdir2.'/'.$_FILES['file']['name'];
-//	    
-//	    if (file_exists($objfile))
-//	    {
-//	      echo $objfile . ' already exists. ';
-//	    }
-//	    else
-//	    {
-//	      move_uploaded_file($_FILES['file']['tmp_name'], $objfile);
-//	      echo 'Stored in: ' .$objfile;
-//	    }
-//		}
-//	}
+
+	echo 'Successfully Received.';
+
 }elseif($_POST['cmd'] == 'loadrep' || $_POST['cmd'] == 'checkdatalib' || $_POST['cmd'] == 'loaddatalib') {
 	$objdir = './gamedata/remote_replays/'.$_POST['sign'].'/'.str_replace('.dat','',$_POST['filename']);
 	$objfile = $objdir.'/'.$_POST['filename'];
@@ -98,13 +80,21 @@ if($_POST['cmd'] == 'storage_req') {
 		ob_clean();
 	  echo file_get_contents($objfile);
 	}else{
-		echo $objfile . 'does not exist. ';
+		echo $objfile . ' does not exist. ';
 	}
-}elseif($_POST['cmd'] == 'storage_callback') {
-	$objfile = './gamedata/replays/'.$_POST['filename'];
-	$datalibfile = './gamedata/javascript/'.$_POST['datalibname'];
-	ob_clean();
-	echo gencode(array(file_get_contents($objfile), file_get_contents($datalibfile)));
+}elseif(strpos($_POST['cmd'],'storage_callback')===0) {
+	if($_POST['cmd'] == 'storage_callback') {
+		$objfile = './gamedata/replays/'.$_POST['filename'];
+	}elseif($_POST['cmd'] == 'storage_callback_datalib'){
+		$objfile = './gamedata/javascript/'.$_POST['datalibname'];
+	}
+	if (file_exists($objfile))
+	{
+		ob_clean();
+	  echo file_get_contents($objfile);
+	}else{
+		echo $objfile . ' does not exist. ';
+	}
 }else{
 	echo 'Bad command';
 }

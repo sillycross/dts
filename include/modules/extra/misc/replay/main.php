@@ -282,7 +282,10 @@ namespace replay
 					'datalibname'=>$curdatalib,
 					//'datalibcont'=>''//gencode(file_get_contents(GAME_ROOT.'./gamedata/javascript/'.$curdatalib))
 				);
-				curl_post($rpurl, $context, 1);//因为是对方反向请求，相当于异步调用
+				startmicrotime();
+				logmicrotime('1');
+				curl_post($rpurl, $context, 0.1);//因为是对方反向请求，相当于异步调用
+				logmicrotime('2');
 				//if(strpos($ret,'Successfully Received')!==false) unlink($foldfile);
 			}
 			

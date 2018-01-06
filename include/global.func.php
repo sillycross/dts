@@ -417,7 +417,12 @@ function file_get_contents_post($url, $post_data=array(), $post_cookie=array(), 
 function curl_post($url, $post_data=array(), $post_cookie=array(), $timeout = 10){
 	if($url == '') return false;
 	$con = curl_init((string)$url);
-	curl_setopt($con, CURLOPT_TIMEOUT,(int)$timeout);
+	if($timeout>=1) {
+		curl_setopt($con, CURLOPT_TIMEOUT,(int)$timeout);
+	}else{//毫秒级超时
+		curl_setopt($ch, CURLOPT_NOSIGNAL, 1);
+		curl_setopt($ch, CURLOPT_TIMEOUT_MS, (int)($timeout*1000));
+	}
 	curl_setopt($con, CURLOPT_POST,true);
 	curl_setopt($con, CURLOPT_RETURNTRANSFER,true);
 	curl_setopt($con, CURLOPT_HEADER, false);
