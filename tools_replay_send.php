@@ -1,6 +1,11 @@
 <?php
 ignore_user_abort(1);//这一代码基本上是以异步调用的方式执行的
-
+header('Content-Type: text/HTML; charset=utf-8'); // 以事件流的形式告知浏览器进行显示
+header( 'Content-Encoding: none; ' );
+header('Cache-Control: no-cache');         // 告知浏览器不进行缓存
+header('X-Accel-Buffering: no');           // 关闭加速缓冲
+@ini_set('implicit_flush',1);
+ob_implicit_flush(1);
 define('CURSCRIPT', 'replay_receive');
 define('IN_GAME', true);
 
