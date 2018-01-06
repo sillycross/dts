@@ -199,6 +199,8 @@ div.ach_box_empty
 
 span.ach_title{font-weight:bold;font-size:12pt;line-height:14pt;}
 
+img.card_achieved{width:35px;height:20px;position:absolute;z-index:30;top:-13px;left:11px;}
+
 div.skill_unacquired
 {
 	position:relative; left:0px; top:0px; 

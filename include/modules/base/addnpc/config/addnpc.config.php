@@ -66,12 +66,12 @@ namespace addnpc
 			'arak' => 'DA',
 			'arae' => 800,
 			'aras' => 15,
-			'arask' => 'by',
+			'arask' => 'b',
 			'art' => '红黑色的耳塞',
 			'artk' => 'A',
 			'arte' => 1,
 			'arts' => 1,
-			'artsk' => 'W',
+			'artsk' => 'Wy',
 			'sub' => array
 			(
 				0 => array

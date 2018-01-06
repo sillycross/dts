@@ -96,7 +96,7 @@ function gstrfilter($str) {
 			$str[gstrfilter($key)] = gstrfilter($val);
 		}
 	} else {		
-		if($GLOBALS['magic_quotes_gpc']) {
+		if(!empty($GLOBALS['magic_quotes_gpc'])) {
 			$str = stripslashes($str);
 		}
 		$str = str_replace("'","",$str);//屏蔽单引号'
@@ -416,8 +416,15 @@ function file_get_contents_post($url, $post_data=array(), $post_cookie=array(), 
 //通过curl扩展以post形式向网页发出信息
 function curl_post($url, $post_data=array(), $post_cookie=array(), $timeout = 10){
 	if($url == '') return false;
+	
 	$con = curl_init((string)$url);
-	curl_setopt($con, CURLOPT_TIMEOUT,(int)$timeout);
+	if($timeout>=1) {
+		curl_setopt($con, CURLOPT_TIMEOUT,(int)$timeout);
+	}else{//毫秒级超时
+		curl_setopt($con, CURLOPT_NOSIGNAL, 1);
+		curl_setopt($con, CURLOPT_TIMEOUT_MS, (int)($timeout*1000));
+	}
+	
 	curl_setopt($con, CURLOPT_POST,true);
 	curl_setopt($con, CURLOPT_RETURNTRANSFER,true);
 	curl_setopt($con, CURLOPT_HEADER, false);

@@ -82,7 +82,7 @@ namespace sys
 	//开启后会先查询本地是否存在录像，再查询远程是否存在录像
 	$replay_remote_storage = 'http://127.0.0.1/dts1/dts/replay_receive.php';
 	//是否在生成录像时就直接存到远端。就算启动也不会删除本地录像，请定期手动删除
-	$replay_remote_send = 0;
+	$replay_remote_send = 1;
 	//录像远程存放签名
 	$replay_remote_storage_sign = 'local';
 	//录像远程存放密钥

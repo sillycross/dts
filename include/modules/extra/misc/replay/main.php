@@ -282,10 +282,10 @@ namespace replay
 					'datalibname'=>$curdatalib,
 					//'datalibcont'=>''//gencode(file_get_contents(GAME_ROOT.'./gamedata/javascript/'.$curdatalib))
 				);
-				curl_post($rpurl, $context, 1);//因为是对方反向请求，相当于异步调用
+				curl_post($rpurl, $context, NULL, 0.1);//因为是对方反向请求，相当于异步调用
+				
 				//if(strpos($ret,'Successfully Received')!==false) unlink($foldfile);
 			}
-			
 			//删除源文件
 			foreach($filelist as $fv) unlink($fv);
 			//logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-储存录像索引');
@@ -396,7 +396,7 @@ namespace replay
 			//先获取录像文件
 			$rpurl = $replay_remote_storage;
 			$context = array('sign'=>$replay_remote_storage_sign, 'cmd'=>'loadrep', 'filename'=>$repfilename.'.dat');
-			$remote_rdata = curl_post($rpurl, $context, 30);
+			$remote_rdata = curl_post($rpurl, $context, NULL, 30);
 			if(strpos($remote_rdata, 'does not exist')===false && strpos($remote_rdata, 'Bad command')===false && strpos($remote_rdata, 'Invalid Sign')===false){
 				//然后尝试获取对应的datalib.js
 				$context = array('sign'=>$replay_remote_storage_sign, 'cmd'=>'checkdatalib', 'filename'=>$repfilename.'.dat');

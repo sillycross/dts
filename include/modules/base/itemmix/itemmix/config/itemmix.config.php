@@ -265,6 +265,7 @@ $mixinfo = array
 	array('class' => 'wf', 'stuff' => array('月符「Silent Serena」','月符「Silent Serena」','火水木金土符『贤者之石』','金符「Metal Fatigue」'),'result' => array('月月火水木金金符『年中无休』（笑）','WF',65500,'∞','rdnc'),),
 	array('class' => 'wf', 'stuff' => array('日&月符『Royal Diamond Ring』','梦幻『幻月』','神枪『Spear The Gungnir』','紫奥义『弹幕结界』'),'result' => array('模式『EX』','WF',72000,'∞','crdyZB'),),
 	array('class' => 'wf', 'stuff' => array('空白符卡','生命探测器','精神制剂'),'result' => array('想起「恐怖催眠术」','WF',65,100,'cd'),),
+	array('class' => 'wf', 'stuff' => array('空白符卡','广域生命探测器','精神制剂'),'result' => array('想起「恐怖催眠术」','WF',80,100,'cd'),),
 	array('class' => 'wf', 'stuff' => array('空白符卡','小五拖鞋'),'result' => array('想起「恐怖催眠术」','WF',90,'∞','cd'),),
 	array('class' => 'wf', 'stuff' => array('想起「恐怖催眠术」','鬼火『超高密度燐祸术』'),'result' => array('想起「户隐山之投」','WF',150,'∞','cf'),),
 	array('class' => 'wf', 'stuff' => array('想起「户隐山之投」','☆博丽护符☆','造雾设备'),'result' => array('想起「蒙蒙迷雾」','WF',400,'∞','cfa'),),

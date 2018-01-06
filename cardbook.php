@@ -58,4 +58,8 @@ if ($pname!="") {
 		$unlock_num = count($unlock_cards);
 	}
 }
+$d_achievements = \achievement_base\decode_achievements($udata);
+$card_achieved_list = array();
+//全能骑士成就特判
+if(!empty($d_achievements['326'])) $card_achieved_list = $d_achievements['326'];
 include template('card_book');

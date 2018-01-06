@@ -57,7 +57,7 @@ namespace skill486
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa, $pd, $rkey);
 		if('skill486' == $rkey){
-			if(in_array($pd['state'],Array(20,21,22,23,24,25,29)) && rand(0,99) < get_skill486prob($pd)) $ret = true;
+			if(in_array($pd['state'],Array(20,21,22,23,24,25,29,39,40,41)) && rand(0,99) < get_skill486prob($pd)) $ret = true;
 		}
 		return $ret;
 	}
