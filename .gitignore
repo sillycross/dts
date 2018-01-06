@@ -14,7 +14,7 @@ gamedata/gameinfo.php
 gamedata/banlist.list
 gamedata/replays/*.*
 gamedata/remote_replays/
-gamedata/tmp/*.*
+gamedata/tmp/
 templates/default/itemhelp.htm
 templates/default/tmp_*.htm
 *.bak
