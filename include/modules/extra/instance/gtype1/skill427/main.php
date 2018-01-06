@@ -44,7 +44,7 @@ namespace skill427
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa, $pd, $rkey);
-		if('skill427' == $rkey && in_array($pd['state'],Array(20,21,22,23,24,25,27,29))){
+		if('skill427' == $rkey && in_array($pd['state'],Array(20,21,22,23,24,25,27,29,39,40,41))){
 			eval(import_module('skill427'));
 			if(!in_array($pa['type'],$skill427ignorelist)) {
 				$ret = true;

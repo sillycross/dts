@@ -1,4 +1,7 @@
 <div <!--{if !empty($lockcard)}-->class="lockcard"<!--{/if}--> style="position:relative;">
+	<!--{if !empty($card_achieved)}-->
+		<img class="card_achieved" src="img/card_achieved.png" />
+	<!--{/if}-->
 	<div class="card_frame_outer
 		<!--{if 'S'==$nowcard['rare']}-->
 			frame_S
@@ -8,6 +11,7 @@
 			frame_B
 		<!--{/if}-->
 		">
+		
 		<div class="card_frame_middler">
 			<div class="card_frame_inner" style="margin-left:50px;width:187px;height:45px;">
 				<!--{if !empty($nownew)}-->
