@@ -649,7 +649,7 @@ namespace achievement_base
 			}else{
 				$cp = 0;
 				foreach($card_prize as $lv => $n){
-					if($lv <= $cn) {
+					if($lv == $cn) {
 						$cp = $n;
 					}
 				}

@@ -35,6 +35,8 @@ if($_POST['cmd'] == 'storage_req') {
 	$objdir3 = str_replace('.dat','',$_POST['filename']);
 	if(!is_dir($objdir.'/'. $objdir2.'/'.$objdir3)) mymkdir($objdir.'/'. $objdir2.'/'.$objdir3);
 	$objfile = $objdir.'/'. $objdir2.'/'.$objdir3.'/'.$_POST['filename'];
+	
+	if(!empty($_POST['no-overlap']) && file_exists($objfile)) exit($_POST['filename'].' has already existed.');
 	//反向请求1，请求载入录像
 	$callbackurl = $_POST['callurl'];
 	$context = array(
@@ -43,8 +45,7 @@ if($_POST['cmd'] == 'storage_req') {
 	);
 	$content = curl_post($callbackurl, $context);
 	if(empty($content)) {
-		echo 'Some error occurred.';
-		return;
+		exit ('Some error occurred.');
 	} else {
 		file_put_contents($objfile, $content);
 	}
