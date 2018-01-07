@@ -52,7 +52,7 @@ namespace sys
 		clear_dir(GAME_ROOT.'./gamedata/tmp/playerlock/room'.$groomid.'/',1);
 		global $___MOD_TMP_FILE_DIRECTORY;
 		clear_dir($___MOD_TMP_FILE_DIRECTORY.$room_id.'_/',1);
-		
+		clear_dir($___MOD_TMP_FILE_DIRECTORY.'_/',1,21600); //遗留问题，现在每次开局会清除4小时以前的无房间编号的显示记录（主要是看首页之类的）
 	}
 	
 	function reset_gametype(){

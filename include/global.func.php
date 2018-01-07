@@ -268,7 +268,7 @@ function openfile($filename){
 	return $filedb;
 }
 
-function clear_dir($dirName, $keep_root = 0)	//递归清空目录
+function clear_dir($dirName, $keep_root = 0, $expire = 0)	//递归清空目录
 {
 	if ($dirName[strlen($dirName)-1]=='/') $dirName=substr($dirName,0,-1);
 	if(!file_exists($dirName) || !is_dir($dirName)) return;
@@ -280,8 +280,8 @@ function clear_dir($dirName, $keep_root = 0)	//递归清空目录
 			{
 				if (is_dir($dirName.'/'.$item)) 
 				{
-					clear_dir($dirName.'/'.$item,0);
-				} else {
+					clear_dir($dirName.'/'.$item,0,$expire);
+				} elseif(!$expire || time()-filemtime($dirName.'/'.$item) > $expire) {
 					if (!unlink($dirName.'/'.$item))
 					{
 						//__SOCKET_WARNLOG__("clear_dir错误：无法删除文件。");

@@ -33,10 +33,10 @@ if(!file_exists('tmp_replist.dat')){
 	}
 	sort($list);
 	file_put_contents('tmp_replist.dat', json_encode($list));
-	echo 'tmp_replist.dat created.';
+	echo 'tmp_replist.dat created.';ob_end_flush(); flush();
 }else{
 	$list = json_decode(file_get_contents('tmp_replist.dat'),1);
-	echo 'tmp_replist.dat loaded.';
+	echo 'tmp_replist.dat loaded.';ob_end_flush(); flush();
 }
 
 if(empty($_GET['start'])){
@@ -67,8 +67,8 @@ foreach($list as $li => $lv){
 	);
 	
 	echo '<br>'.$lv.' sent...';
-	echo ' ';
-	echo curl_post($rpurl, $context);
+	echo ' ';ob_end_flush(); flush();
+	echo curl_post($rpurl, $context);ob_end_flush(); flush();
 	
 	$i++;
 	if($i-$start >= $limit) {
