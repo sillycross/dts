@@ -9,8 +9,8 @@
 		<input type="radio" name="cons_pls" id="cons_pls{$plsno}" value="$plsno">
 			<a onclick=sl('cons_pls{$plsno}'); href="javascript:void(0);" >{$plsname}</a><br>
 	<!--{/loop}-->
-	<input type="button" class="cmdbutton" name="submit" id="z" value="[Z]提交" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
-	<input type="button" class="cmdbutton" name="submit" id="x" value="[X]返回" onclick="$('command').value='menu'; postCmd('gamecmd','command.php');this.disabled=true;">
+	<input type="button" class="cmdbutton"  id="z" value="[Z]提交" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
+	<input type="button" class="cmdbutton"  id="x" value="[X]返回" onclick="$('command').value='menu'; postCmd('gamecmd','command.php');this.disabled=true;">
 
 <!--{elseif 2==$cons_page}-->
 	当前地图：<!--{if 99==$cons_pls}-->随机<!--{else}-->$plsinfo[$cons_pls]<!--{/if}--><br>
@@ -24,5 +24,5 @@
 				$item['itm'] / $item['itmk'] / $item['itme'] /  $item['itms'] / $item['itmsk']
 			</a><br>
 	<!--{/loop}-->
-	<input type="button" class="cmdbutton" name="submit" id="z" value="[Z]提交" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
+	<input type="button" class="cmdbutton"  id="z" value="[Z]提交" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
 <!--{/if}--> 

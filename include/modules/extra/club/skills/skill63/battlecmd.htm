@@ -1,13 +1,13 @@
 <!--{eval $skill63_cnt = (int)\skillbase\skill_getvalue(63,'t');}-->
 <!--{if $skill63_cnt>0}-->
-<input type="button" class="cmdbutton" style="width:98" name="" value="噩梦" 
+<input type="button" class="cmdbutton" style="width:98"  value="噩梦" 
 onclick="$('command').value='$w1';$('bskill').value=63;postCmd('gamecmd','command.php');this.disabled=true;"><br />
 <div style="width:90%; text-align:left;">
 这名敌人对你的伤害将永久降低<span class="yellow">20%</span><br>
 <span class="red">本局游戏还可发动1次</span>
 </div>
 <!--{else}-->
-<input type="button" class="cmdbutton" style="width:98" name="" value="噩梦" disabled="true"><br />
+<input type="button" class="cmdbutton" style="width:98"  value="噩梦" disabled="true"><br />
 <div style="width:90%; text-align:left;">
 <span class="red">发动次数已达上限</span>
 </div>

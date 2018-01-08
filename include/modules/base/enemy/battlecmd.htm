@@ -9,7 +9,7 @@
 <!--{if (defined('MOD_WEAPON'))}-->
 {template MOD_WEAPON_ATT_METHOD}
 <!--{/if}-->
-<br><input type="button" class="cmdbutton" name="back" id="x" value="[X]逃跑" onclick="postCmd('gamecmd','command.php');this.disabled=true;"> 
+<br><input type="button" class="cmdbutton" id="x" value="[X]逃跑" onclick="postCmd('gamecmd','command.php');this.disabled=true;"> 
 <!--{else}-->
 <input type="hidden" id="bskill" name="bskill" value="0">
 <input type="hidden" id="bskillpara" name="bskillpara" value="">
@@ -19,7 +19,7 @@
 {template MOD_WEAPON_ATT_METHOD}
 <!--{/if}-->
 <!--{eval \clubbase\get_battle_skill_entry($edata,3);}-->
-<br><input type="button" class="cmdbutton" name="back" id="x" value="[X]逃跑" onclick="postCmd('gamecmd','command.php');this.disabled=true;"> 
+<br><input type="button" class="cmdbutton" id="x" value="[X]逃跑" onclick="postCmd('gamecmd','command.php');this.disabled=true;"> 
 </td>
 <td width=100px align="center" style="vertical-align:top">
 <!--{eval \clubbase\get_battle_skill_entry($edata,1);}-->

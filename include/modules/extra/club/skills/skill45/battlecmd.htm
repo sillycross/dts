@@ -1,12 +1,12 @@
 <!--{eval $rageneed = \skill45\get_rage_cost45();}-->
 <!--{if $rage>=$rageneed}-->
-<input type="button" class="cmdbutton" style="width:98" name="" value="重拳" 
+<input type="button" class="cmdbutton" style="width:98"  value="重拳" 
 onclick="$('command').value='$w1';$('bskill').value=45;postCmd('gamecmd','command.php');this.disabled=true;"><br />
 <div style="width:90%; text-align:left;">
 造成<span class="yellow">130%</span>物理伤害；消耗<span class="red">$rageneed</span>怒气
 </div>
 <!--{else}-->
-<input type="button" class="cmdbutton" style="width:98" name="" value="重拳" disabled="true"><br />
+<input type="button" class="cmdbutton" style="width:98"  value="重拳" disabled="true"><br />
 <div style="width:90%; text-align:left;">
 需要<span class="red">$rageneed</span>怒气方可发动
 </div>
