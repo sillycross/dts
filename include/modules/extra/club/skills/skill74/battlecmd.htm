@@ -1,13 +1,13 @@
 <!--{eval $rageneed = \skill74\get_rage_cost74();}-->
 <!--{if $rage>=$rageneed}-->
-<input type="button" class="cmdbutton" style="width:98" name="" value="心火" 
+<input type="button" class="cmdbutton" style="width:98"  value="心火" 
 onclick="$('command').value='$w1';$('bskill').value=74;postCmd('gamecmd','command.php');this.disabled=true;"><br />
 <div style="width:90%; text-align:left;">
 <!--{eval $sk74_coef=($club==9?2:1.7);}-->
 本次攻击最终伤害<span class="yellow">×$sk74_coef</span>，消耗<span class="red">$rageneed</span>怒气
 </div>
 <!--{else}-->
-<input type="button" class="cmdbutton" style="width:98" name="" value="心火" disabled="true"><br />
+<input type="button" class="cmdbutton" style="width:98"  value="心火" disabled="true"><br />
 <div style="width:90%; text-align:left;">
 需要<span class="red">$rageneed</span>怒气方可发动
 </div>

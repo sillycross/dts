@@ -11,7 +11,7 @@
 		<!--{/if}-->
 	<!--{/loop}-->
 	<span style="display:block; height:5px;">&nbsp;</span>
-	<input type="button" class="cmdbutton" name="submit" value="提交" onclick="
+	<input type="button" class="cmdbutton"  value="提交" onclick="
 	<!--{loop $roomtypelist $i $value}-->
 		<!--{if check_room_available($value)}-->
 		if ($('type$i').checked) rtype=$i; 
@@ -19,7 +19,7 @@
 	<!--{/loop}-->
 	window.location.href='roomcmd.php?command=newroom&para1='+rtype;
 	this.disabled=true;">
-	<input type="button" class="cmdbutton" name="submit" value="返回" onclick="bubblebox_hide_all();">
+	<input type="button" class="cmdbutton"  value="返回" onclick="bubblebox_hide_all();">
 </div>
 </td></tr></table>
 {template MOD_BUBBLEBOX_END} 

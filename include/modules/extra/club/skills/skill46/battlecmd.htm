@@ -1,12 +1,12 @@
 <!--{eval $remtime=(int)\skill46\get_remaintime46();}-->
 <!--{if $remtime>0}-->
-<input type="button" class="cmdbutton" style="width:98" name="" value="暴打" 
+<input type="button" class="cmdbutton" style="width:98"  value="暴打" 
 onclick="$('command').value='$w1';$('bskill').value=46;postCmd('gamecmd','command.php');this.disabled=true;"><br />
 <div style="width:90%; text-align:left;">
 本次攻击物理伤害<span class="yellow">+65%</span>；本次战斗中敌方所有称号技能无效；本局还可发动<span class="red">$remtime</span>次
 </div>
 <!--{else}-->
-<input type="button" class="cmdbutton" style="width:98" name="" value="暴打" disabled="true"><br />
+<input type="button" class="cmdbutton" style="width:98"  value="暴打" disabled="true"><br />
 <div style="width:90%; text-align:left;">
 本局发动次数已达上限
 </div>

@@ -1,12 +1,12 @@
 <!--{eval $rageneed = \skill60\get_rage_cost60();}-->
 <!--{if $rage>=$rageneed}-->
-<input type="button" class="cmdbutton" style="width:98" name="" value="恐惧" 
+<input type="button" class="cmdbutton" style="width:98"  value="恐惧" 
 onclick="$('command').value='$w1';$('bskill').value=60;postCmd('gamecmd','command.php');this.disabled=true;"><br />
 <div style="width:90%; text-align:left;">
 物理伤害<span class="yellow">+x%</span><br><span class="yellow">x</span>为敌方已损失生命值百分比<br>消耗<span class="red">$rageneed</span>怒气
 </div>
 <!--{else}-->
-<input type="button" class="cmdbutton" style="width:98" name="" value="恐惧" disabled="true"><br />
+<input type="button" class="cmdbutton" style="width:98"  value="恐惧" disabled="true"><br />
 <div style="width:90%; text-align:left;">
 需要<span class="red">$rageneed</span>怒气方可发动
 </div>

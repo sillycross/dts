@@ -28,5 +28,5 @@
 <!--{if $itms6}--><option value="6">包裹6：$itm6/$itme6/$itms6<!--{else}--><option value="6">包裹6：将道具1移动到这里<!--{/if}-->
 </select>
 <br><br>
-<input type="button" class="cmdbutton" name="submit" id="z" value="[Z]提交" onclick="$('from').value=$('merge1').value;$('to').value=$('merge2').value;postCmd('gamecmd','command.php');this.disabled=true;">
-<input type="button" class="cmdbutton" name="back" id="x" value="[X]返回" onclick="$('cmdspare').name='command';$('cmdspare').value='menu';$('itemmerge').checked=false;$('itemmove').checked=false;postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="button" class="cmdbutton"  id="z" value="[Z]提交" onclick="$('from').value=$('merge1').value;$('to').value=$('merge2').value;postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="button" class="cmdbutton"  id="x" value="[X]返回" onclick="$('cmdspare').name='command';$('cmdspare').value='menu';$('itemmerge').checked=false;$('itemmove').checked=false;postCmd('gamecmd','command.php');this.disabled=true;">

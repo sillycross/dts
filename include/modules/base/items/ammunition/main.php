@@ -3,7 +3,7 @@
 namespace ammunition
 {
 	$ammukind = array(
-		'WJ' => array('GBh', 1),
+		'WJ' => array('GBh', 4),
 		'e' => array('GBe', 10),
 		'w' => array('GBe', 10),
 		'i' => array('GBi', 10),
@@ -35,7 +35,10 @@ namespace ammunition
 		foreach($ammukind as $ak => $av){
 			if((strpos($ak, 'W')===0 && strpos($cwepk, $ak) === 0) || (strpos($ak, 'W')!==0 && strpos($cwepsk, $ak) !== false)){
 				$retk = $av[0]; $retn = $av[1];
-				if($retn <= 10 && strpos($cwepsk, 'r') !== false) $retn = 12;//带连击的气体和能源枪的弹夹数变成12
+				if($retn <= 10 && strpos($cwepsk, 'r') !== false) {
+					if('WJ'==$retk) $retn = 6;//连击重枪弹夹数为6
+					else $retn = 12;//带连击的气体和能源枪的弹夹数变成12
+				}
 				break;
 			}
 		}

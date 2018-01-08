@@ -12,5 +12,5 @@
 <!--{if $itms5}--><div class="slitmsingle"><input type="checkbox" id="mitm5" name="mitm5" value="0"><a onclick="$('mitm5').click();" href="javascript:void(0);">$itm5/$itme5/$itms5</a>&nbsp;&nbsp;&nbsp;<!--{eval echo \smartmix\parse_smartmix_recipelink($itm5,'查公式');}--></div><!--{/if}-->
 <!--{if $itms6}--><div class="slitmsingle"><input type="checkbox" id="mitm6" name="mitm6" value="0"><a onclick="$('mitm6').click();" href="javascript:void(0);">$itm6/$itme6/$itms6</a>&nbsp;&nbsp;&nbsp;<!--{eval echo \smartmix\parse_smartmix_recipelink($itm6,'查公式');}--></div><!--{/if}-->
 <br>
-<input type="button" class="cmdbutton" name="submit" id="z" value="[Z]提交" onclick="$('command').value='itemmix';itemmixchooser();postCmd('gamecmd','command.php');this.disabled=true;">
-<input type="button" class="cmdbutton" name="submit" id="x" value="[X]放弃" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="button" class="cmdbutton"  id="z" value="[Z]提交" onclick="$('command').value='itemmix';itemmixchooser();postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="button" class="cmdbutton"  id="x" value="[X]放弃" onclick="postCmd('gamecmd','command.php');this.disabled=true;">

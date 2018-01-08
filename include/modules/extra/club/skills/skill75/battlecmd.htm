@@ -1,19 +1,19 @@
 <!--{eval eval(import_module('sys','skill75'));}-->
 <!--{eval $lastuse=\skillbase\skill_getvalue(75,'lastuse'); $sk75_rem=$skill75_cd-($now-$lastuse); $sk75_dmg=$lvl+30;}-->
 <!--{if $now-$lastuse>=$skill75_cd && $wepk=='WK'}-->
-<input type="button" class="cmdbutton" style="width:98" name="" value="剑心" 
+<input type="button" class="cmdbutton" style="width:98"  value="剑心" 
 onclick="$('command').value='$w1';$('bskill').value=75;postCmd('gamecmd','command.php');this.disabled=true;"><br />
 <div style="width:90%; text-align:left;">
 附加<span class="yellow">$sk75_dmg</span>点伤害
 </div>
 <!--{else}-->
 <!--{if $wepk!='WK'}-->
-<input type="button" class="cmdbutton" style="width:98" name="" value="剑心" disabled="true"><br />
+<input type="button" class="cmdbutton" style="width:98"  value="剑心" disabled="true"><br />
 <div style="width:90%; text-align:left;">
 持斩系武器方可发动
 </div>
 <!--{else}-->
-<input type="button" class="cmdbutton" style="width:98" name="" value="剑心" disabled="true"><br />
+<input type="button" class="cmdbutton" style="width:98"  value="剑心" disabled="true"><br />
 <div style="width:90%; text-align:left;">
 冷却时间还剩<span class="clan">$sk75_rem</span>秒
 </div>

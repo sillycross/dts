@@ -1,6 +1,11 @@
 <?php
 ignore_user_abort(1);//这一代码基本上是以异步调用的方式执行的
-
+header('Content-Type: text/HTML; charset=utf-8'); // 以事件流的形式告知浏览器进行显示
+header( 'Content-Encoding: none; ' );
+header('Cache-Control: no-cache');         // 告知浏览器不进行缓存
+header('X-Accel-Buffering: no');           // 关闭加速缓冲
+@ini_set('implicit_flush',1);
+ob_implicit_flush(1);
 define('CURSCRIPT', 'replay_receive');
 define('IN_GAME', true);
 
@@ -28,10 +33,10 @@ if(!file_exists('tmp_replist.dat')){
 	}
 	sort($list);
 	file_put_contents('tmp_replist.dat', json_encode($list));
-	echo 'tmp_replist.dat created.';
+	echo 'tmp_replist.dat created.';ob_end_flush(); flush();
 }else{
 	$list = json_decode(file_get_contents('tmp_replist.dat'),1);
-	echo 'tmp_replist.dat loaded.';
+	echo 'tmp_replist.dat loaded.';ob_end_flush(); flush();
 }
 
 if(empty($_GET['start'])){
@@ -62,8 +67,8 @@ foreach($list as $li => $lv){
 	);
 	
 	echo '<br>'.$lv.' sent...';
-	echo ' ';
-	echo curl_post($rpurl, $context);
+	echo ' ';ob_end_flush(); flush();
+	echo curl_post($rpurl, $context);ob_end_flush(); flush();
 	
 	$i++;
 	if($i-$start >= $limit) {
