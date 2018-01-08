@@ -2493,7 +2493,7 @@ namespace instance9
 			(
 			'name' => '喷火',
 			'gd' => 'f',
-			'icon' => 0,
+			'icon' => 34,
 			'wep' => '蜡翼天马装备 - 炎',
 			'wepk' => 'WG',
 			'wepe' => 400,
@@ -2505,7 +2505,7 @@ namespace instance9
 			(
 			'name' => '腾翼',
 			'gd' => 'm',
-			'icon' => 0,
+			'icon' => 36,
 			'wep' => '蜡翼天马装备 - 风',
 			'wepk' => 'WK',
 			'wepe' => 400,
@@ -2517,7 +2517,7 @@ namespace instance9
 			(
 			'name' => '惊梦',
 			'gd' => 'f',
-			'icon' => 0,
+			'icon' => 37,
 			'wep' => '蜡翼天马装备 - 地',
 			'wepk' => 'WD',
 			'wepe' => 400,
@@ -2529,7 +2529,7 @@ namespace instance9
 			(
 			'name' => '雷暴',
 			'gd' => 'm',
-			'icon' => 0,
+			'icon' => 35,
 			'wep' => '蜡翼天马装备 - 水',
 			'wepk' => 'WF',
 			'wepe' => 400,

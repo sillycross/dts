@@ -165,7 +165,7 @@ namespace wep_j
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r=Array();
-		if ($pd['wepk']=='WJ')	//防守方持重型枪械受到额外伤害
+		if (strpos($pd['wepk'],'J')!==false)	//防守方持重型枪械受到额外伤害
 		{
 			eval(import_module('logger'));
 			if ($active)

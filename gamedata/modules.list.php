@@ -307,7 +307,6 @@ skill492,extra/card/skills/skill492/,1
 skill261,extra/club/skills/skill261/,1
 skill274,extra/club/skills/skill274/,1
 skill20,extra/club/skills/skill20/,1
-skill246,extra/club/skills/skill246/,1
 skill203,extra/club/skills/skill203/,1
 dualwep,base/weapon/dualwep/,1
 ammunition,base/items/ammunition/,1
@@ -321,6 +320,7 @@ skill445,extra/card/skills/skill445/,1
 pose,base/pose/,1
 skill1,base/skills/skill1/,1
 skill600,extra/club/skills/skill600/,1
+skill246,extra/club/skills/skill246/,1
 ex_phy_def,extra/attr/ex_phy_def/,1
 rage,extra/attr/rage/,1
 skill30,extra/club/skills/skill30/,1

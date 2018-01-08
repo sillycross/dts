@@ -2,10 +2,131 @@
 <br>
 <div style="width:800px; margin:0 auto; text-align:left;font-size:15px; line-height:22px;">
 <h2>更新日志</h2>
-<h3>2018年1月8日 (v1.8.15)</h3>
+<h3>2018年1月9日 (v1.8.15)</h3>
 <p>游戏功能更新：</p>
 <ul>
 	<li>修正了部分临时文件不会被删除，导致几个月会残留几个G文件的BUG</li>
+	<li>修改/新增以下双系武器类别：
+		<ul>
+			<li>【烈刃】改名【灵刃】（灵+斩）</li>
+			<li>【暴斩】改名【无锋重剑】（殴+斩）</li>
+			<li>【巨力】改名【投掷钝器】（殴+投）</li>
+			<li>【重炮】改名【爆击枪械】（爆+射）</li>
+			<li>新增【爆击重炮】（爆+重枪）</li>
+			<li>新增【灵枪】（灵+射）</li>
+			<li>新增【灵力重炮】（灵+重枪）</li>
+			<li>新增【灵力爆风】（灵+爆）</li>
+		</ul>
+	</li>
+	<li>现在双系武器可以通过菜单【武器系别】按钮自由切换默认攻击和反击的系别</li>
+	<li>双系武器的损耗模式修改：现在多重武器在判定损耗时，会根据以下顺序选取比较靠前的那个系别：
+		<ol>
+			<li>耐久为<span class="yellow">∞</span>的投、爆、灵系武器</li>
+			<li>有子弹的射系武器</li>
+			<li>殴、斩系武器；没子弹的射系武器</li>
+			<li>耐久有限的投、爆、灵系武器</li>
+		</ol>
+	</li>
+	<li>现在装备双系武器时不能发动除【破隐一击】之外的战斗技能。</li>
+	<li>现在双系武器里只要类别包含重枪就会受到伤害惩罚。</li>
+</ul>
+<p>数据调整：</p>
+<ul>
+	<li>重枪的弹药上限上升到4，如果是连击重枪则上升到6</li>
+	<li>商店新增灵系技能书《东方灵异传》，增加300灵熟，售价与大爆书一样都是6300</li>
+	<li>给模因卫队加了头像</li>
+	<li>新增以下合成：<br>
+		<table width=900>
+			<tr>
+			<td class="b1" height=20px><span>素材1</span></td>
+			<td class="b1"><span>素材2</span></td>
+			<td class="b1"><span>素材3</span></td>
+			<td class="b1"><span>素材4</span></td>
+			<td class="b1"></td>
+			<td class="b1"><span>合成结果</span></td>
+			<td class="b1"><span>用途</span></td>
+			</tr><tr>
+			<td class="b3" height='19px' title='0禁于梦幻馆刷新10个<br>每禁于白穗神社刷新10个<br>0禁于守矢神社刷新30个<br>每禁于风祭森林刷新20个<br>0禁全图随机刷新20个<br>荣耀模式：0禁于梦幻馆刷新5个<br>荣耀模式：0禁于白穗神社刷新10个<br>荣耀模式：0禁于守矢神社刷新5个<br>荣耀模式：0禁于风祭森林刷新5个<br>荣耀模式：0禁全图随机刷新5个<br>极速模式：0禁于梦幻馆刷新5个<br>极速模式：0禁于白穗神社刷新10个<br>极速模式：0禁于守矢神社刷新5个<br>极速模式：0禁于风祭森林刷新5个<br>极速模式：0禁全图随机刷新5个<br>0禁起在商店中出售(5元)<br>打开礼品盒时有概率获得'><span>空白符卡</span></td><td class="b3"title='0禁全图随机刷新1个<br>0禁起在商店中出售(300元)<br>打开礼品盒时有概率获得'><span>☆博丽护符☆</span></td><td class="b3"><span>-</span></td><td class="b3"><span>-</span></td><td class="b3"><span>→</span></td>
+			<td class="b3"><span>霊符「夢想妙珠」</span></td>
+			<td class="b3"><span>灵力兵器/40/∞/连击</span></td>
+			</tr>
+			<tr>
+			<td class="b3" height='19px' title='0禁于梦幻馆刷新10个<br>每禁于白穗神社刷新10个<br>0禁于守矢神社刷新30个<br>每禁于风祭森林刷新20个<br>0禁全图随机刷新20个<br>荣耀模式：0禁于梦幻馆刷新5个<br>荣耀模式：0禁于白穗神社刷新10个<br>荣耀模式：0禁于守矢神社刷新5个<br>荣耀模式：0禁于风祭森林刷新5个<br>荣耀模式：0禁全图随机刷新5个<br>极速模式：0禁于梦幻馆刷新5个<br>极速模式：0禁于白穗神社刷新10个<br>极速模式：0禁于守矢神社刷新5个<br>极速模式：0禁于风祭森林刷新5个<br>极速模式：0禁全图随机刷新5个<br>0禁起在商店中出售(5元)<br>打开礼品盒时有概率获得'><span>空白符卡</span></td><td class="b3"title='0禁全图随机刷新25个<br>1禁全图随机刷新15个<br>荣耀模式：1禁后每禁全图随机刷新15个<br>极速模式：1禁后每禁全图随机刷新15个<br>打开礼品盒时有概率获得'><span>红色方块</span></td><td class="b3"title='0禁全图随机刷新15个<br>1禁全图随机刷新9个<br>荣耀模式：1禁后每禁全图随机刷新15个<br>极速模式：1禁后每禁全图随机刷新15个'><span>白色方块</span></td><td class="b3"><span>-</span></td><td class="b3"><span>→</span></td>
+			<td class="b3"><span>阴阳玉</span></td>
+			<td class="b3"><span>灵弹/90/∞/爆炸</span></td>
+			</tr>
+			<tr>
+			<td class="b3" height='19px' title='通过合成获取：空白符卡+☆博丽护符☆'><span>霊符「夢想妙珠」</span></td><td class="b3"title='通过合成获取：空白符卡+红色方块+白色方块'><span>阴阳玉</span></td><td class="b3"><span>-</span></td><td class="b3"><span>-</span></td><td class="b3"><span>→</span></td>
+			<td class="b3"><span>宝符「陰陽宝玉」</span></td>
+			<td class="b3"><span>灵弹/150/∞/集气+爆炸</span></td>
+			</tr>
+			<tr>
+			<td class="b3" height='19px' title='通过合成获取：霊符「夢想妙珠」+阴阳玉'><span>宝符「陰陽宝玉」</span></td><td class="b3"title='0禁起在商店中出售(1500元)'><span>『祝福宝石』</span></td><td class="b3"><span>-</span></td><td class="b3"><span>-</span></td><td class="b3"><span>→</span></td>
+			<td class="b3"><span>霊符「夢想封印」</span></td>
+			<td class="b3"><span>灵力兵器/150/∞/集气+物穿+爆炸</span></td>
+			</tr>
+			<tr>
+			<td class="b3" height='19px' title='通过合成获取：宝符「陰陽宝玉」+『祝福宝石』'><span>霊符「夢想封印」</span></td><td class="b3"title='0禁起在商店中出售(6300元)'><span>《东方灵异传》</span></td><td class="b3"><span>-</span></td><td class="b3"><span>-</span></td><td class="b3"><span>→</span></td>
+			<td class="b3"><span>神技「八方鬼縛陣」</span></td>
+			<td class="b3"><span>灵力爆风/240/∞/集气+连击+爆炸</span></td>
+			</tr>
+			<tr>
+			<td class="b3" height='19px' title=''><span>霊符「梦想封印」</span></td><td class="b3"title='0禁起在商店中出售(6300元)'><span>《东方灵异传》</span></td><td class="b3"title='0禁起在商店中出售(3500元)'><span>☆★☆大打击☆★☆</span></td><td class="b3"><span>-</span></td><td class="b3"><span>→</span></td>
+			<td class="b3"><span>神技「八方龍殺陣」</span></td>
+			<td class="b3"><span>灵力爆风/320/∞/集气+连击+爆炸</span></td>
+			</tr>
+			<tr>
+			<td class="b3" height='19px' title='通过合成获取：霊符「夢想封印」+《东方灵异传》'><span>神技「八方鬼縛陣」</span></td><td class="b3"title='0禁于天使队移动格纳库刷新7个'><span>原型武器F</span></td><td class="b3"title='0禁于天使队移动格纳库刷新7个'><span>原型武器D</span></td><td class="b3"title='击倒全息幻象 思念体-触手众可拾取'><span>触手的力量</span></td><td class="b3"><span>→</span></td>
+			<td class="b3"><span>神霊「夢想封印　瞬」</span></td>
+			<td class="b3"><span>灵力爆风/1500/∞/集气+物穿+连击+爆炸+菁英</span></td>
+			</tr>
+			<tr>
+			<td class="b3" height='19px' title='通过合成获取：霊符「梦想封印」+《东方灵异传》+☆★☆大打击☆★☆'><span>神技「八方龍殺陣」</span></td><td class="b3"title='0禁于天使队移动格纳库刷新7个'><span>原型武器F</span></td><td class="b3"title='0禁于天使队移动格纳库刷新7个'><span>原型武器D</span></td><td class="b3"title='击倒数据碎片 本气（？） 叶留佳可拾取'><span>CAVE社特典CD『胎慟』</span></td><td class="b3"><span>→</span></td>
+			<td class="b3"><span>「梦想天生」</span></td>
+			<td class="b3"><span>灵力爆风/6000/∞/集气+物穿+连击+爆炸+菁英</span></td>
+			</tr>
+			<tr>
+			<td class="b3" height='19px' title='0禁于梦幻馆刷新10个<br>每禁于白穗神社刷新10个<br>0禁于守矢神社刷新30个<br>每禁于风祭森林刷新20个<br>0禁全图随机刷新20个<br>荣耀模式：0禁于梦幻馆刷新5个<br>荣耀模式：0禁于白穗神社刷新10个<br>荣耀模式：0禁于守矢神社刷新5个<br>荣耀模式：0禁于风祭森林刷新5个<br>荣耀模式：0禁全图随机刷新5个<br>极速模式：0禁于梦幻馆刷新5个<br>极速模式：0禁于白穗神社刷新10个<br>极速模式：0禁于守矢神社刷新5个<br>极速模式：0禁于风祭森林刷新5个<br>极速模式：0禁全图随机刷新5个<br>0禁起在商店中出售(5元)<br>打开礼品盒时有概率获得'><span>空白符卡</span></td><td class="b3"title='0禁全图随机刷新1个<br>0禁起在商店中出售(300元)<br>打开礼品盒时有概率获得'><span>☆山蘑菇粉☆</span></td><td class="b3"><span>-</span></td><td class="b3"><span>-</span></td><td class="b3"><span>→</span></td>
+			<td class="b3"><span>星符『星尘狂欢』</span></td>
+			<td class="b3"><span>灵力兵器/60/∞/火焰</span></td>
+			</tr>
+			<tr>
+			<td class="b3" height='19px' title='0禁于梦幻馆刷新10个<br>每禁于白穗神社刷新10个<br>0禁于守矢神社刷新30个<br>每禁于风祭森林刷新20个<br>0禁全图随机刷新20个<br>荣耀模式：0禁于梦幻馆刷新5个<br>荣耀模式：0禁于白穗神社刷新10个<br>荣耀模式：0禁于守矢神社刷新5个<br>荣耀模式：0禁于风祭森林刷新5个<br>荣耀模式：0禁全图随机刷新5个<br>极速模式：0禁于梦幻馆刷新5个<br>极速模式：0禁于白穗神社刷新10个<br>极速模式：0禁于守矢神社刷新5个<br>极速模式：0禁于风祭森林刷新5个<br>极速模式：0禁全图随机刷新5个<br>0禁起在商店中出售(5元)<br>打开礼品盒时有概率获得'><span>空白符卡</span></td><td class="b3"title='0禁全图随机刷新15个<br>1禁全图随机刷新9个<br>荣耀模式：1禁后每禁全图随机刷新15个<br>极速模式：1禁后每禁全图随机刷新15个'><span>黑色方块</span></td><td class="b3"title='0禁全图随机刷新15个<br>1禁全图随机刷新9个<br>荣耀模式：1禁后每禁全图随机刷新15个<br>极速模式：1禁后每禁全图随机刷新15个'><span>白色方块</span></td><td class="b3"><span>-</span></td><td class="b3"><span>→</span></td>
+			<td class="b3"><span>迷你八卦炉</span></td>
+			<td class="b3"><span>灵枪/90/∞/火焰</span></td>
+			</tr>
+			<tr>
+			<td class="b3" height='19px' title='通过合成获取：空白符卡+☆山蘑菇粉☆'><span>星符『星尘狂欢』</span></td><td class="b3"title='通过合成获取：空白符卡+黑色方块+白色方块'><span>迷你八卦炉</span></td><td class="b3"><span>-</span></td><td class="b3"><span>-</span></td><td class="b3"><span>→</span></td>
+			<td class="b3"><span>恋符「非定向光线」</span></td>
+			<td class="b3"><span>灵枪/150/∞/集气+灼焰</span></td>
+			</tr>
+			<tr>
+			<td class="b3" height='19px' title='通过合成获取：星符『星尘狂欢』+迷你八卦炉'><span>恋符「非定向光线」</span></td><td class="b3"title='0禁全图随机刷新2个<br>0禁起在商店中出售(1500元)'><span>《占星术导论》</span></td><td class="b3"><span>-</span></td><td class="b3"><span>-</span></td><td class="b3"><span>→</span></td>
+			<td class="b3"><span>恋符「极限火花」</span></td>
+			<td class="b3"><span>灵力兵器/150/∞/集气+冲击+灼焰</span></td>
+			</tr>
+			<tr>
+			<td class="b3" height='19px' title='通过合成获取：恋符「非定向光线」+《占星术导论》'><span>恋符「极限火花」</span></td><td class="b3"title='0禁起在商店中出售(6300元)'><span>《蘑菇种植指南》</span></td><td class="b3"><span>-</span></td><td class="b3"><span>-</span></td><td class="b3"><span>→</span></td>
+			<td class="b3"><span>光符「地球光」</span></td>
+			<td class="b3"><span>灵力重炮/360/∞/集气+灼焰+爆炸</span></td>
+			</tr>
+			<tr>
+			<td class="b3" height='19px' title='通过合成获取：恋符「非定向光线」+《占星术导论》'><span>恋符「极限火花」</span></td><td class="b3"title='0禁起在商店中出售(6300元)'><span>《蘑菇种植指南》</span></td><td class="b3"title='0禁起在商店中出售(5500元)'><span>《魔女的魔导书》</span></td><td class="b3"><span>-</span></td><td class="b3"><span>→</span></td>
+			<td class="b3"><span>光击「击月」</span></td>
+			<td class="b3"><span>灵力重炮/480/∞/集气+灼焰+爆炸</span></td>
+			</tr>
+			<tr>
+			<td class="b3" height='19px' title='通过合成获取：恋符「极限火花」+《蘑菇种植指南》'><span>光符「地球光」</span></td><td class="b3"title='0禁于天使队移动格纳库刷新7个'><span>原型武器F</span></td><td class="b3"title='0禁于天使队移动格纳库刷新7个'><span>原型武器G</span></td><td class="b3"title='击倒全息幻象 思念体-触手众可拾取'><span>触手的力量</span></td><td class="b3"><span>→</span></td>
+			<td class="b3"><span>星符「龙陨星」</span></td>
+			<td class="b3"><span>灵力重炮/1500/∞/集气+冲击+灼焰+爆炸+菁英</span></td>
+			</tr>
+			<tr>
+			<td class="b3" height='19px' title='通过合成获取：恋符「极限火花」+《蘑菇种植指南》+《魔女的魔导书》'><span>光击「击月」</span></td><td class="b3"title='0禁于天使队移动格纳库刷新7个'><span>原型武器F</span></td><td class="b3"title='0禁于天使队移动格纳库刷新7个'><span>原型武器G</span></td><td class="b3"title='击倒数据碎片 本气（？） 叶留佳可拾取'><span>CAVE社特典CD『胎慟』</span></td><td class="b3"><span>→</span></td>
+			<td class="b3"><span>「掠日彗星」</span></td>
+			<td class="b3"><span>灵力重炮/6000/∞/集气+冲击+灼焰+爆炸+菁英</span></td>
+			</tr>
+		</table>
+	</li>
 </ul>
 <h3>2018年1月7日 (v1.8.14)</h3>
 <p>游戏功能更新：</p>
