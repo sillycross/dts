@@ -160,7 +160,7 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip=NULL)
 	///////////////////////////////////////////////////////////////
 	eval(import_module('cardbase'));
 	
-	if ($card==81){//篝火挑战者
+	if ($card==81){//篝火挑战者，进行状况、游戏入场判定、成就判定都是篝火，但是功能和显示是随出来的卡
 		$o_card = $card;
 		$arr=array('0');
 		do{
@@ -227,6 +227,11 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip=NULL)
 				}
 			}	
 		}
+	}
+	//如果是篝火挑战者，或者别的会换卡的卡，在这里把$card换回原卡，就能做到入场后按篝火判定，但显示的是实际的卡
+	if(isset($o_card) && \skillbase\skill_query(1003,$pp)) {
+		//\skillbase\skill_setvalue(1003,'actual_card',$card,$pp);
+		$pp['card'] = $o_card;
 	}
 	//追加模式入场技能。
 	eval(import_module('skillbase'));

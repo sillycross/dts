@@ -70,7 +70,7 @@
 			<!--{else}-->
 			<!--{eval $info['urlname']=htmlentities(urlencode($info['winner']));}-->
 			<TD class="b3" style="white-space: nowrap;"><!--{if $info['winner']}--><a style="cursor:pointer;" href="user_profile.php?playerID=$info['urlname']"><span class="evergreen">$info['winner']</span></a><!--{else}--><span class="grey">无</span><!--{/if}--></TD>
-			<TD class="b3"><!--{if $info['winner']}--><span <!--{if isset($info['card'])}-->class="{$card_rarecolor[$cards[$info['card']]['rare']]}"<!--{/if}-->>$info['cardname']</span><!--{else}--><span class="grey">-</span><!--{/if}--></TD>
+			<TD class="b3"><!--{if $info['winner']}--><!--{if isset($info['card'])}--><span class="{$card_rarecolor[$cards[$info['card']]['rare']]}">$cards[$info['card']]['name']</span><!--{else}--><span></span>$info['cardname']</span><!--{/if}--><!--{else}--><span class="grey">-</span><!--{/if}--></TD>
 			<TD class="b3"><span><img src="img/$info['iconImg']" style="width:70;height:40;"></span></TD>
 			
 			<!--{/if}-->
