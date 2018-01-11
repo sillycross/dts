@@ -1,6 +1,6 @@
 <?php
 //游戏版本
-$gameversion = 'N.E.W. v1.8.15';
+$gameversion = 'N.E.W. v1.8.17';
 //版权信息
 $gamecredits = <<<GAMECREDITS
 	<a href="http://www.amarilloviridian.com">DTS $gameversion developed by sillycross, Lein, Yoshiko_G AND illustrated by KHIBIKI. 感谢所有为这个游戏做出贡献的人</a><br>

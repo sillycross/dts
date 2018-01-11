@@ -193,7 +193,6 @@ skill63,extra/club/skills/skill63/,1
 skill64,extra/club/skills/skill64/,1
 skill209,extra/club/skills/skill209/,1
 skill66,extra/club/skills/skill66/,1
-skill70,extra/club/skills/skill70/,1
 skill71,extra/club/skills/skill71/,1
 skill74,extra/club/skills/skill74/,1
 skill213,extra/club/skills/skill213/,1
@@ -302,7 +301,6 @@ rest,base/rest/,1
 item_uc,base/items/item_uc/,1
 skill12,extra/club/skills/skill12/,1
 skill223,extra/club/skills/skill223/,1
-skill77,extra/club/skills/skill77/,1
 skill492,extra/card/skills/skill492/,1
 skill261,extra/club/skills/skill261/,1
 skill274,extra/club/skills/skill274/,1
@@ -320,6 +318,7 @@ skill445,extra/card/skills/skill445/,1
 pose,base/pose/,1
 skill1,base/skills/skill1/,1
 skill600,extra/club/skills/skill600/,1
+skill70,extra/club/skills/skill70/,1
 skill246,extra/club/skills/skill246/,1
 ex_phy_def,extra/attr/ex_phy_def/,1
 rage,extra/attr/rage/,1
@@ -336,6 +335,7 @@ blessstone,extra/attr/blessstone/,1
 skill33,extra/club/skills/skill33/,1
 weather,base/weather/,1
 npcinfo,extra/misc/npcinfo/,1
+skill77,extra/club/skills/skill77/,1
 skill28,extra/club/skills/skill28/,1
 skill254,extra/club/skills/skill254/,1
 song,base/items/song/,1

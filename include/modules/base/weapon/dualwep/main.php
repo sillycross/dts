@@ -12,18 +12,28 @@ namespace dualwep
 		$iteminfo+=$dualwep_iteminfo;
 	}
 	
+	function check_w2_valid($w2, $weps)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('weapon'));
+		if (!isset($attinfo[$w2])) $w2='';//非$attinfo里定义的武器类型，全部无效
+		elseif(in_array($w2, array('G','J')) && $weps==$nosta) $w2 = 'P';//空枪当成殴
+		return $w2;
+	}
+	
+	function get_other_attack_method(&$pdata, $w1)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if($w1 == $pdata['wepk'][1]) $wo = $pdata['wepk'][2];
+		else $wo = $pdata['wepk'][1];
+		return check_w2_valid($wo, $pdata['weps']);
+	}
+	
 	function get_sec_attack_method(&$pdata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		extract($pdata);
-		eval(import_module('weapon'));
-		$w2 = substr($wepk,2,1);
-		if (is_numeric($w2)) $w2='';
-		if ($w2)
-		{
-			if(in_array($w2, array('G','J')) && $weps==$nosta) $w2 = 'P';
-		}
-		return $w2;
+		$w2 = substr($pdata['wepk'],2,1);
+		return check_w2_valid($w2, $pdata['weps']);
 	}
 	
 	function check_attack_method(&$pdata, $wm)
@@ -46,8 +56,22 @@ namespace dualwep
 		$chprocess($pa,$pd,$active);
 	}
 	
-	//多重武器消耗规则：
-	//无限耐投爆灵 > 射 > 殴斩 > 有限耐投爆灵
+	//如果选用的攻击方式的熟练度是另一种攻击方式的一半以下，则会自动加到另一种攻击方式的一半
+	function get_skill_by_kind(&$pa, &$pd, $active, $wep_skillkind)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('weapon'));
+		$ret = $chprocess($pa,$pd,$active,$wep_skillkind);
+		$w2 = get_sec_attack_method($pa);
+		if($w2){
+			$wo = get_other_attack_method($pa, $pa['wep_kind']);
+			$reto = $chprocess($pa,$pd,$active,$skillinfo[$wo]);
+			if($ret < $reto / 2) $ret = round($reto / 2);
+		}
+		//echo $ret.' ';
+		return $ret;
+	}
+	
 	function get_dualwep_imp_kind(&$pa, &$pd, $active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$w1 = \weapon\get_attack_method($pa);
@@ -58,6 +82,8 @@ namespace dualwep
 		else return $w1;
 	}
 	
+	//多重武器消耗规则：
+	//无限耐投爆灵 > 射 > 殴斩 > 有限耐投爆灵
 	function get_dualwep_imp_kind_tier($ak, $weps){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('weapon'));
@@ -71,19 +97,33 @@ namespace dualwep
 	function calculate_wepimp(&$pa, &$pd, $active, $is_hit)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//计算实际的消耗类别
 		$w2 = get_sec_attack_method($pa);
 		if($w2){
 			$pa['dw_o_wep_kind'] = $pa['wep_kind'];
 			$pa['wep_kind'] = get_dualwep_imp_kind($pa, $pd, $active);
 		}
 		$chprocess($pa,$pd,$active,$is_hit);
+		//计算消耗方式后恢复武器类别
+		if(isset($pa['dw_o_wep_kind'])){
+			if($pa['wep_kind'] != $pa['dw_o_wep_kind'])
+				$pa['wep_kind'] = $pa['dw_o_wep_kind'];
+			unset($pa['dw_o_wep_kind']);
+		}		
 	}
 	
-	//应用消耗后恢复武器类别
+	//仅在应用消耗时替代掉武器类别
 	function apply_weapon_imp(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//计算实际的消耗类别
+		$w2 = get_sec_attack_method($pa);
+		if($w2){
+			$pa['dw_o_wep_kind'] = $pa['wep_kind'];
+			$pa['wep_kind'] = get_dualwep_imp_kind($pa, $pd, $active);
+		}
 		$chprocess($pa,$pd,$active);
+		//应用消耗后恢复武器类别
 		if(isset($pa['dw_o_wep_kind'])){
 			if($pa['wep_kind'] != $pa['dw_o_wep_kind'])
 				$pa['wep_kind'] = $pa['dw_o_wep_kind'];

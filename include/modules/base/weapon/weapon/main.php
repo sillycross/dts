@@ -55,11 +55,11 @@ namespace weapon
 		return $pd['internal_def'];
 	}
 	
-	function get_skill_by_kind(&$pa, &$pd, $active, $wep_kind)
+	function get_skill_by_kind(&$pa, &$pd, $active, $wep_skillkind)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('weapon'));
-		return $pa[$wep_kind];
+		return $pa[$wep_skillkind];
 	}
 	
 	function get_skill(&$pa,&$pd,$active)
