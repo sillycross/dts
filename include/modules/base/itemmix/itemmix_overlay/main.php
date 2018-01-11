@@ -53,10 +53,23 @@ namespace itemmix_overlay
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','itemmix'));
 		$star=0;
-		if(${'itms'.$itmn} && strpos(${'itmsk'.$itmn},'J')!==false){
+		if(${'itms'.$itmn}){
 			$star = \itemmix_sync\itemmix_get_star(${'itmk'.$itmn});
+			if(!check_valid_overlay_material(${'itm'.$itmn}, ${'itmsk'.$itmn}, $star)){
+				$star = 0;
+			}
 		}
 		return $star;
+	}
+	
+	//有效的超量素材：带有“超量素材”属性，或者是真卡（名称里有★数字，数字与星数一致，并且没有“-仮”字样）
+	function check_valid_overlay_material($itm, $itmsk, $star)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(strpos($itmsk,'J')!==false) return true;
+		preg_match('/★(\d+?)/s', $itm, $matches);
+		if(!empty($matches) && $star == $matches[1] && strpos($itm,'-仮')===false) return true;
+		return false;
 	}
 	
 //	function itemmix_star_culc_overlay($mlist){
