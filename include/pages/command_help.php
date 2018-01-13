@@ -68,13 +68,15 @@ MIXITEM_HELP_TABLE_TITLE;
 			}
 			$mixhelpinfo .= 
 			"<tr>
-				<td class=\"b3\" height='19px' title='" . get_item_place_single ( $val ['stuff'] [0] ) . "'><span>{$val['stuff'][0]}</span></td>";
+				<td class=\"b3\" height='19px' title='" . get_item_place_single ( $val ['stuff'] [0] ) . "'><span>{$val['stuff'][0]}</span></td>
+				";
 			for($i = 1; $i < 6; $i ++) {
 				$mixhelpinfo .= "<td class=\"b3\"";
 				if ($val ['stuff'] [$i] != '-') {
 					$mixhelpinfo .= "title='" . get_item_place_single ( $val ['stuff'] [$i] ) . "'";
 				}
-				$mixhelpinfo .= "><span>{$val['stuff'][$i]}</span></td>";
+				$mixhelpinfo .= "><span>{$val['stuff'][$i]}</span></td>
+				";
 			}
 			$mixhelpinfo .= "<td class=\"b3\"><span>→</span></td>
 				<td class=\"b3\"><span>{$val['result'][0]}</span></td>
@@ -102,6 +104,23 @@ if(!file_exists($writefile) || filemtime($syncfile) > filemtime($writefile)){
 		$sync_arr['itmsk'] = \itemmain\parse_itmsk_words($sync_arr['itmsk']);
 		if(!empty($sync_arr['special'])){
 			$sync_arr['special'] = explode('+',$sync_arr['special']);
+			if(!in_array('st',$sync_arr['special']) && !in_array('sm',$sync_arr['special']) ){
+				$sync_x = 0;
+				foreach($sync_arr['special'] as $ssv){
+					preg_match('/★(\d+)/s', $ssv, $matches);
+					if($matches) $sync_x += $matches[1];
+				}
+				$sync_arr['special'][] = '其他星数合计为'.($sync_arr['star'] - $sync_x).'的素材';
+			}else{
+				foreach($sync_arr['special'] as &$ssv){
+					if('st' == $ssv) $ssv = ' “同调”调整1体 ';
+					elseif(strpos($ssv,'sm')===0){
+						$smnum = (int)substr($ssv,2);
+						if($smnum < 1) $smnum = 1;
+						$ssv = ' “同调”素材'.$smnum.'体以上 ';
+					}
+				}
+			}			
 			$syncitem_special[] = $sync_arr;
 		}else{
 			$syncitem[] = $sync_arr;
@@ -163,7 +182,7 @@ SYNC_HELP_INFO_SPEC_DOC_TR;
 	$writecont=<<<SYNC_HELP_WRITE_CONTENT
 <p>以下是可能获得的同调结果的列表。</p>
 {$synchelpinfo}
-<p>另外，上述只是一般情况。 有一些同调结果必须通过<span class="yellow">特定的同调道具</span>才能合成，这些合成将在下表中列出。</p>
+<p>另外，上述只是一般情况。 有一些同调结果必须<span class="yellow">包含特定的素材</span>才能合成，这些合成将在下表中列出。</p>
 {$synchelpinfo_special}
 <br>
 SYNC_HELP_WRITE_CONTENT;

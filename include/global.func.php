@@ -482,6 +482,11 @@ function get_script_runtime($pagestartime)
 	return $timecost;
 }
 
+function gwrite_var($file, $var)
+{
+	file_put_contents($file, var_export($var,1));
+}
+
 function check_alnumudline($key)
 {
 	$key=(string)$key;
