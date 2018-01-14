@@ -148,7 +148,8 @@ namespace smartmix
 							$mstuff = $mresult = '';
 						}
 						$o_type = $mval['type'];
-						if(!$mstuff) {//配方只显示1次								
+						if(!$mstuff) {//配方只显示1次					
+							sort($mval['stuff']);			
 							foreach($mval['stuff'] as $ms){
 								$mstuff .= parse_smartmix_recipelink($ms).' + ';
 							}
