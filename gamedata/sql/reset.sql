@@ -43,7 +43,7 @@ CREATE TABLE bra_mapitem (
   itmk char(5) not null default '',
   itme mediumint unsigned NOT NULL default '0',
   itms char(5) not null default '0',
-  itmsk char(5) not null default '',
+  itmsk varchar(40) not null default '',
   pls tinyint unsigned not null default '0',
   
   PRIMARY KEY  (iid)
@@ -61,7 +61,7 @@ CREATE TABLE bra_maptrap (
   itmk char(5) not null default '',
   itme smallint unsigned NOT NULL default '0',
   itms char(5) not null default '0',
-  itmsk char(5) not null default '',
+  itmsk varchar(40) not null default '',
   pls tinyint unsigned not null default '0',
   
   PRIMARY KEY  (tid)
