@@ -48,7 +48,7 @@ $mixinfo = array
 	array('class' => 'wk', 'stuff' => array('夜刀【月影】','悲叹之种'),'result' => array('疾风刀【里月影】','WK',570,240,'rdc'),),
 	array('class' => 'wk', 'stuff' => array('夜刀【月影】','《魔女的魔导书》'),'result' => array('破岩刀【焰】','WK',660,120,'Hudc'),),
 	array('class' => 'wk', 'stuff' => array('破岩刀【焰】','☆爆裂模式☆'),'result' => array('碎光之晓刀','WK',2400,14,'Hdc'),),
-	array('class' => 'wk', 'stuff' => array('夜刀【月影】','《曾伽·宗博尔特自传》'),'result' => array('七星刀【天权】','WK',777,777,'Nnr'),),
+	array('class' => 'wk', 'stuff' => array('夜刀【月影】','《曾伽·宗博尔特自传》'),'result' => array('七星刀【天权】','WK',777,777,'Nnrp'),),
 	array('class' => 'wk', 'stuff' => array('曾经的荣光-深蓝','蓝宝石方块'),'result' => array('奥义『冰华⑨咲』','WK',299,'∞','crkN'),),
 	array('class' => 'wk', 'stuff' => array('曾经的荣光-深蓝','蓝宝石方块','《曾伽·宗博尔特自传》'),'result' => array('奥义『超⑨武神霸斩』','WK',999,'∞','rkNaH'),),
 	//array('class' => 'wk', 'stuff' => array('飞龙刀【银】','悲叹之种','《曾伽·宗博尔特自传》'),'result' => array('氷刃【雪月花】','WK',1500,'∞','Znrik'),),
