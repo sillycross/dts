@@ -57,6 +57,12 @@ namespace song
 				$ret .= '歌唱：耗尽歌魂，你和同地区玩家的攻击、防御、生命、体力、怒气、各系熟练、武器和防具耐久随机增加，增加值总和不大于你消耗的歌魂';
 			}elseif($sn == 'ぼくのフレンド'){
 				$ret .= '歌唱：使你和同地区玩家获得技能「朋友」';
+			}elseif($sn == '星めぐりの歌'){
+				$ret .= '歌唱：使你和同地区玩家的射熟和投熟上升30';
+			}elseif($sn == 'CANOE'){
+				$ret .= '歌唱：使你和同地区玩家的爆熟和灵熟上升30';
+			}elseif($sn == '遥か彼方'){
+				$ret .= '歌唱：使你和同地区玩家的殴熟和斩熟上升30';
 			}
 		}
 		return $ret;
@@ -80,6 +86,9 @@ namespace song
 			$noiseinfo['ss_XPG']='《小苹果》';
 			$noiseinfo['ss_kuusou']='《空想神话》';
 			$noiseinfo['ss_friend']='《ぼくのフレンド》';
+			$noiseinfo['ss_planet']='《星めぐりの歌》';
+			$noiseinfo['ss_rewrite']='《CANOE》';
+			$noiseinfo['ss_lb']='《遥か彼方》';
 		}
 	}
 	
@@ -418,7 +427,11 @@ namespace song
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		foreach(array('【','】','《','》') as $tv)
 			$sname=str_replace($tv,'',$sname);
-		if(strpos($sname, '空想道具')!==false) $sname = '空想神话';//特判
+		//以下特判
+		if(strpos($sname, '空想道具')!==false) $sname = '空想神话';
+		elseif('歌词卡片星空'==$sname) $sname = '星めぐりの歌';//括号去掉了……
+		elseif('歌词卡片大地'==$sname) $sname = '遥か彼方';
+		elseif('歌词卡片海洋'==$sname) $sname = 'CANOE';
 		return $sname;
 	}
 	
