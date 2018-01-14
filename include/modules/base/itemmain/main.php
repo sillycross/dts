@@ -74,6 +74,8 @@ namespace itemmain
 		return $ret;
 	}
 	
+	//鉴于字母已经基本用完，新属性应该全部命名为“^数字”的形式，其中数字可以任意
+	//例： ^233 => '防拳' 
 	function get_itmsk_array($sk_value)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -85,20 +87,22 @@ namespace itemmain
 			if(!empty($sub)){
 				if ($sub=='^')
 				{
+					//$flag = 1;
 					while ($i<strlen($sk_value) && '0'<=$sk_value[$i] && $sk_value[$i]<='9') 
 					{
 						$sub.=$sk_value[$i];
 						$i++;
 					}
-					if ($i<strlen($sk_value) && $sk_value[$i]=='^')
-					{
-						$sub.='^'; $i++;
-					}
-					else  continue;
+//					if ($i<strlen($sk_value) && $sk_value[$i]=='^')
+//					{
+//						$sub.='^'; $i++;
+//					}
+//					else  continue;
 				}
 				array_push($ret,$sub);
 			}					
 		}
+		//if(!empty($flag)) var_dump($ret);
 		return $ret;		
 	}
 	

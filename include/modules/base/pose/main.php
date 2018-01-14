@@ -111,11 +111,13 @@ namespace pose
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','pose'));
-		if (!$pa['is_counter'])		//姿态的进攻加成在主动或先制攻击时才有用
-		{
-			return $chprocess($pa,$pd,$active)*(1+$pose_attack_modifier[$pa['pose']]/100);
-		}
-		else  return $chprocess($pa,$pd,$active);
+		//改为全部生效
+		return $chprocess($pa,$pd,$active)*(1+$pose_attack_modifier[$pa['pose']]/100);
+//		if (!$pa['is_counter'])		//姿态的进攻加成在主动或先制攻击时才有用
+//		{
+//			return $chprocess($pa,$pd,$active)*(1+$pose_attack_modifier[$pa['pose']]/100);
+//		}
+//		else  return $chprocess($pa,$pd,$active);
 	}
 	
 	function get_def_multiplier(&$pa,&$pd,$active)

@@ -3,6 +3,7 @@
 namespace song
 {
 	$ef_type = array(
+		'rp' => '■',
 		'hp' => '生命',
 		'mhp' => '最大生命',
 		'sp' => '体力',

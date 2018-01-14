@@ -48,11 +48,11 @@ namespace pose
 	//涉及到NPC先制率，最好少改
 	$pose_dactive_obbs = Array(0,0,-40,0,-10,35);
 	
-	//姿态对自己主动或先制攻击敌人的攻击力修正
+	//姿态对攻击力的修正
 	//$pose_attack_modifier = Array(0,60,0,-25,25,-50);
 	$pose_attack_modifier = Array(0,40,0,-25,25,-50);
 	
-	//姿态对自己防御力的修正（这是始终生效的）
+	//姿态对防御力的修正
 	//$pose_defend_modifier = Array(0,30,0,-20,-25,-50);
 	$pose_defend_modifier = Array(0,20,0,10,-25,-50);
 	

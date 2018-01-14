@@ -55,11 +55,13 @@ namespace tactic
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','tactic'));
-		if ($pa['is_counter'])		//应战策略的进攻加成只在反击时才有用
-		{
-			return $chprocess($pa,$pd,$active)*(1+$tactic_attack_modifier[$pa['tactic']]/100);
-		}
-		else  return $chprocess($pa,$pd,$active);
+		//改为全部生效
+		return $chprocess($pa,$pd,$active)*(1+$tactic_attack_modifier[$pa['tactic']]/100);
+//		if ($pa['is_counter'])		//应战策略的进攻加成只在反击时才有用
+//		{
+//			return $chprocess($pa,$pd,$active)*(1+$tactic_attack_modifier[$pa['tactic']]/100);
+//		}
+//		else  return $chprocess($pa,$pd,$active);
 	}
 	
 	function get_def_multiplier(&$pa,&$pd,$active)
