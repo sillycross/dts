@@ -60,6 +60,9 @@ if ($pname!="") {
 }
 $d_achievements = \achievement_base\decode_achievements($udata);
 $card_achieved_list = array();
-//全能骑士成就特判
+//鍏ㄨ兘楠戝＋鎴愬氨鐗瑰垽
 if(!empty($d_achievements['326'])) $card_achieved_list = $d_achievements['326'];
 include template('card_book');
+
+/* End of file cardbook.php */
+/* Location: /cardbook.php */

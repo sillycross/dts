@@ -135,6 +135,35 @@ namespace cardbase
 		$db->query("UPDATE {$gtablepre}users SET cardenergy='$nt' WHERE username = '$who'");
 	}
 	
+	//生成一条获得卡片的站内信，返回值为1则表示是新卡
+	function get_card_message($ci,$ext='',&$pa=NULL)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','cardbase'));
+		if ($pa==NULL){
+			$n=$name;
+		}else{
+			if (isset($pa['username'])) $n=$pa['username'];
+			else $n=$pa['name'];
+		}
+		//判定卡片是不是新卡
+		$result = $db->query("SELECT cardlist FROM {$gtablepre}users WHERE username='$n'");
+		if(!$db->num_rows($result)) return;
+		if(!empty($ext)) $ext.='<br>';
+		include_once './include/messages.func.php';
+		message_create(
+			$n,
+			'获得卡片',
+			$ext.'查收本消息即可获取此卡片，如果已有此卡片则会转化为切糕。',
+			'getcard_'.$ci
+		);
+		
+		$ret = 0;
+		$clist = explode('_',$db->fetch_array($result)['cardlist']);
+		if (!in_array($ci,$clist)) $ret = 1;
+		return $ret;
+	}
+	
 	//获得卡的外壳，主要是数据库读写
 	function get_card($ci,&$pa=NULL,$ignore_qiegao=0)
 	{
