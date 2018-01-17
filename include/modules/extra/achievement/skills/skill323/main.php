@@ -41,8 +41,9 @@ namespace skill323
 		$c=count($arr)-1;
 		$cr=$arr[rand(0,$c)];
 		if (($x!=0)&&($x<=2700)&&(($ox>2700)||($ox==0))){
-			\cardbase\get_qiegao(666,$pa);
-			\cardbase\get_card($cr,$pa);
+			//\cardbase\get_qiegao(666,$pa);
+			//\cardbase\get_card($cr,$pa);
+			\achievement_base\ach_create_prize_message($pa, 323, 0, 666, $cr);
 		}
 		
 		return $x;

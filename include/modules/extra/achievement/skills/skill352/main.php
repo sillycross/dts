@@ -11,7 +11,7 @@ namespace skill352
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach352_desc= array(
-		0=>'在<span class="clan">除错模式</span>中获得第<:threshold:>名',
+		1=>'在<span class="clan">除错模式</span>中获得第<:threshold:>名',
 	);
 	
 	$ach352_proc_words = '最佳名次';

@@ -13,7 +13,7 @@ namespace skill313
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach313_desc= array(
-		0=>'<span class="yellow">伐木挑战</span>一禁前所持金钱数最高时达到<:threshold:>元',
+		1=>'<span class="yellow">伐木挑战</span>一禁前所持金钱数最高时达到<:threshold:>元',
 	);
 	
 	$ach313_proc_words = '目前纪录';

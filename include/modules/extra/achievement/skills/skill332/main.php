@@ -9,7 +9,7 @@ namespace skill332
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach332_desc= array(
-		0=>'殴系熟练度达到<:threshold:>点',
+		1=>'殴系熟练度达到<:threshold:>点',
 	);
 	
 	$ach332_proc_words = '最高熟练';

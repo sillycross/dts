@@ -9,7 +9,7 @@ namespace skill346
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach346_desc= array(
-		0=>'使用陷阱击杀<:threshold:>名<span class="yellow" title=\''.POSITIVE_PLAYER_DESC.'\'>活跃玩家</span>',
+		1=>'使用陷阱击杀<:threshold:>名<span class="yellow" title=\''.POSITIVE_PLAYER_DESC.'\'>活跃玩家</span>',
 	);
 	
 	$ach346_proc_words = '击杀总数';

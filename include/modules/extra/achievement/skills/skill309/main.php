@@ -36,8 +36,9 @@ namespace skill309
 		if ($ox!=0) $x=min($x,$ox);
 		
 		if (($x!=0)&&($x<=900)&&(($ox>900)||($ox==0))){
-			\cardbase\get_qiegao(666,$pa);
-			\cardbase\get_card(72,$pa);
+			//\cardbase\get_qiegao(666,$pa);
+			//\cardbase\get_card(72,$pa);
+			\achievement_base\ach_create_prize_message($pa, 309, 0, 666, 72);
 		}
 		
 		return $x;

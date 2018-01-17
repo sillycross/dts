@@ -35,7 +35,8 @@ namespace skill324
 		$x=max($x,$ox);
 		
 		if (($ox<21)&&($x>=21)){
-			\cardbase\get_qiegao(140,$pa);
+			//\cardbase\get_qiegao(140,$pa);
+			\achievement_base\ach_create_prize_message($pa, 324, 0, 140);
 		}
 		
 		return $x;

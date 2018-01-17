@@ -9,7 +9,7 @@ namespace skill334
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach334_desc= array(
-		0=>'射系熟练度达到<:threshold:>点',
+		1=>'射系熟练度达到<:threshold:>点',
 	);
 	
 	$ach334_proc_words = '最高熟练';

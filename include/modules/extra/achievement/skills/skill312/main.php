@@ -35,8 +35,9 @@ namespace skill312
 		$x=min($x,(1<<30)-1);
 		
 		if (($ox<4)&&($x>=4)){
-			\cardbase\get_qiegao(888,$pa);
-			\cardbase\get_card(88,$pa);
+			//\cardbase\get_qiegao(888,$pa);
+			//\cardbase\get_card(88,$pa);
+			\achievement_base\ach_create_prize_message($pa, 312, 0, 888, 88);
 		}
 		
 		return $x;

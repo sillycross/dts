@@ -36,10 +36,12 @@ namespace skill301
 		$x=min($x,(1<<30)-1);
 		
 		if (($ox<1)&&($x>=1)){
-			\cardbase\get_qiegao(300,$pa);
+			//\cardbase\get_qiegao(300,$pa);
+			\achievement_base\ach_create_prize_message($pa, 301, 0, 300);
 		}
 		if (($ox<10)&&($x>=10)){
-			\cardbase\get_qiegao(1600,$pa);
+			//\cardbase\get_qiegao(1600,$pa);
+			\achievement_base\ach_create_prize_message($pa, 301, 1, 1600);
 		}
 		
 		return $x;

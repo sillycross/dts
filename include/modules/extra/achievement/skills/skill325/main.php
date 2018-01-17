@@ -37,12 +37,14 @@ namespace skill325
 		$x=$ox+$z;
 		
 		if (($ox<1)&&($x>=1)){
-			\cardbase\get_qiegao(233,$pa);
+			//\cardbase\get_qiegao(233,$pa);
+			\achievement_base\ach_create_prize_message($pa, 325, 0, 233);
 		}
 		
 		if (($ox<100)&&($x>=100)){
-			\cardbase\get_qiegao(2333,$pa);
-			\cardbase\get_card(119,$pa);
+			//\cardbase\get_qiegao(2333,$pa);
+			//\cardbase\get_card(119,$pa);
+			\achievement_base\ach_create_prize_message($pa, 325, 1, 2333, 119);
 		}
 		
 		return $x;

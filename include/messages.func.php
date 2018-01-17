@@ -24,13 +24,20 @@ function message_load($mid_only=0)
 {
 	global $udata,$db,$gtablepre;
 	$username = $udata['username'];
-	if($mid_only) $result = $db->query("SELECT mid FROM {$gtablepre}messages WHERE receiver='$username' AND deleted=0 ORDER BY timestamp DESC");
-	else $result = $db->query("SELECT * FROM {$gtablepre}messages WHERE receiver='$username' AND deleted=0 ORDER BY timestamp DESC");
+	if($mid_only) $result = $db->query("SELECT mid FROM {$gtablepre}messages WHERE receiver='$username' AND deleted=0 ORDER BY timestamp DESC, mid DESC");
+	else $result = $db->query("SELECT * FROM {$gtablepre}messages WHERE receiver='$username' AND deleted=0 ORDER BY timestamp DESC, mid DESC");
 	$messages = array();
 	while($r = $db->fetch_array($result)){
 		$messages[$r['mid']] = $r;
 	}
 	return $messages;
+}
+
+function message_get_encl_num($encl, $tp)
+{
+	preg_match('/'.$tp.'_(\d+)/s', $encl, $matches);
+	if($matches && is_numeric($matches[1])) return $matches[1];
+	else return 0;
 }
 
 function message_disp($messages)
@@ -51,9 +58,14 @@ function message_disp($messages)
 		$mv['encl_disp'] = '';
 		if(!empty($mv['enclosure']) && defined('MOD_CARDBASE')){
 			$mv['encl_disp'] .= '<br>附件：';
-			preg_match('/getcard_(\d+)/s', $mv['enclosure'], $matches);
-			if(is_numeric($matches[1])) {
-				$getcard = $matches[1];
+			//切糕判定
+			$getqiegao = message_get_encl_num($mv['enclosure'], 'getqiegao');
+			if($getqiegao) {
+				$mv['encl_disp'] .= '<br><span class="gold b">'.$getqiegao.'切糕</span>';
+			}
+			//卡片判定
+			$getcard = message_get_encl_num($mv['enclosure'], 'getcard');
+			if($getcard) {
 				$nowcard = $cards[$getcard];
 				$nownew = !in_array($getcard, $user_cards);
 				ob_start();
@@ -72,12 +84,20 @@ function message_check($checklist, $messages)
 	if(defined('MOD_CARDBASE')) eval(import_module('cardbase'));
 	if(!defined('MOD_CARDBASE')) return;
 	$user_cards = explode('_',$udata['cardlist']);
+	$getqiegaosum = 0;
+	
 	foreach($checklist as $cid){
 		if($messages[$cid]['checked']) continue;
 		if(!empty($messages[$cid]['enclosure'])){
-			preg_match('/getcard_(\d+)/s', $messages[$cid]['enclosure'], $matches);
-			if(is_numeric($matches[1])) {
-				$getcard = $matches[1];
+			//获得切糕
+			$getqiegao = message_get_encl_num($messages[$cid]['enclosure'], 'getqiegao');
+			if($getqiegao) {
+				$info[] = '获得了<span class="gold b">'.$getqiegao.'切糕</span>';
+				$getqiegaosum += $getqiegao;
+			}
+			//获得卡片
+			$getcard = message_get_encl_num($messages[$cid]['enclosure'], 'getcard');
+			if($getcard) {
 				$getname = $cards[$getcard]['name'];
 				$getrare = $cards[$getcard]['rare'];
 				if(!in_array($getcard, $user_cards)) $info[] = '获得了卡片“<span class="'.$card_rarecolor[$getrare].'">'.$getname.'</span>”！';
@@ -85,6 +105,10 @@ function message_check($checklist, $messages)
 				\cardbase\get_card($getcard, $udata);
 			}
 		}
+	}
+	if(!empty($getqiegaosum)) {
+		$n = $udata['username'];
+		$db->query("UPDATE {$gtablepre}users SET gold=gold+$getqiegaosum WHERE username='$n'");
 	}
 }
 

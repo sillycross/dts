@@ -9,7 +9,7 @@ namespace skill333
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach333_desc= array(
-		0=>'斩系熟练度达到<:threshold:>点',
+		1=>'斩系熟练度达到<:threshold:>点',
 	);
 	
 	$ach333_proc_words = '最高熟练';

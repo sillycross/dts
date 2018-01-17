@@ -235,7 +235,14 @@ namespace gtype1
 					}	
 					\skillbase\skill_setvalue(424,'rank',$rk,$k);
 					if($qiegao_prize) {
-						\cardbase\get_qiegao($qiegao_prize,$k);
+						//\cardbase\get_qiegao($qiegao_prize,$k);
+						include_once './include/messages.func.php';
+						message_create(
+							$kk,
+							'除错模式奖励',
+							'感谢您为金龙通讯社所做的工作，这里是您的奖励，请查收。<br>',
+							'getqiegao_'.$qiegao_prize
+						);	
 						\skillbase\skill_setvalue(424,'prize',$qiegao_prize,$k);
 						gtype1_post_rank_event($k, $v, $rk);
 					}

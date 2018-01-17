@@ -9,7 +9,7 @@ namespace skill349
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach349_desc= array(
-		0=>'在冰封墓场、SCP研究设施或者英灵殿战斗击杀<:threshold:>名玩家</span>',
+		1=>'在冰封墓场、SCP研究设施或者英灵殿战斗击杀<:threshold:>名玩家</span>',
 	);
 	
 	$ach349_proc_words = '击杀总数';

@@ -37,13 +37,16 @@ namespace skill311
 		$x=min($x,(1<<30)-1);
 		
 		if (($ox<10)&&($x>=10)){
-			\cardbase\get_qiegao(200,$pa);
+			//\cardbase\get_qiegao(200,$pa);
+			\achievement_base\ach_create_prize_message($pa, 311, 0, 200);
 		}
 		if (($ox<100)&&($x>=100)){
-			\cardbase\get_qiegao(1200,$pa);
+			//\cardbase\get_qiegao(1200,$pa);
+			\achievement_base\ach_create_prize_message($pa, 311, 1, 1200);
 		}
 		if (($ox<1000)&&($x>=1000)){
-			\cardbase\get_qiegao(4000,$pa);
+			//\cardbase\get_qiegao(4000,$pa);
+			\achievement_base\ach_create_prize_message($pa, 311, 2, 4000);
 		}
 		
 		return $x;

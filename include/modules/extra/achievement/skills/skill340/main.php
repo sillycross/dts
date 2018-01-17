@@ -9,7 +9,7 @@ namespace skill340
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach340_desc= array(
-		0=>'击杀<:threshold:>名电波幽灵',
+		1=>'击杀<:threshold:>名电波幽灵',
 	);
 	
 	$ach340_proc_words = '击杀总数';

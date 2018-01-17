@@ -13,7 +13,7 @@ namespace skill300
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach300_desc= array(
-		0=>'使用无毒补给的总效果达到<:threshold:>点',
+		1=>'使用无毒补给的总效果达到<:threshold:>点',
 	);
 	
 	$ach300_proc_words = '目前进度';
