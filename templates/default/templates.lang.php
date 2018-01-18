@@ -10,7 +10,7 @@ $language = array
 	
 	'register' => '账号注册',
 	'user' => '帐号资料',
-	'messages' => '站内讯息',
+	'messages' => '站内邮件',
 	'game' => '进入游戏',
 	'map' => '战场地图',
 	'news' => '进行状况',

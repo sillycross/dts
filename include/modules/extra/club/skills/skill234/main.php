@@ -64,9 +64,9 @@ namespace skill234
 					
 					if ((($areanum/$areaadd)<4)&&(!in_array($gametype,$qiegao_ignore_mode))){
 						$get_card_id=63;
-						$ext = '您在'.($room_prefix ? '房间' : '').$gamenum.'局完成了破解流程，获得了奖励卡！';
+						$ext = '您在'.($room_prefix ? '房间' : '').'第'.$gamenum.'局完成了破解流程，获得了奖励卡！';
 						\cardbase\get_card_message($get_card_id,$ext);
-						$log.='<span class="yellow">您获得了活动奖励卡，请前往“站内讯息”查收。</span><br>';
+						$log.='<span class="yellow">您获得了活动奖励卡，请前往“站内邮件”查收。</span><br>';
 //						$null = NULL;
 //						if (\cardbase\get_card(63,$null,1)==1){
 //							$log.="恭喜您获得了活动奖励卡<span class=\"orange\">lemon</span>！<br>";

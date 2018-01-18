@@ -158,7 +158,7 @@ namespace item_uv
 					}
 					
 					$is_new = '';
-					$ext = '来自'.$itm.'。';
+					$ext = '来自'.($room_prefix ? '房间' : '').'第'.$gamenum.'局的'.$itm.'。';
 					if($cards[$get_card_id]['rare'] == 'A') $ext.='运气不错！';
 					elseif($cards[$get_card_id]['rare'] == 'S') $ext.='一是欧洲人吧！';
 					if ((\cardbase\get_card_message($get_card_id,$ext))==1) $is_new = "<span class=\"L5\">NEW!</span>";;
@@ -167,7 +167,7 @@ namespace item_uv
 					$log .= ob_get_contents();
 					ob_clean();
 					
-					$log.='<span class="yellow">你获得了卡片「'.$cards[$get_card_id]['name'].'」！请前往“站内讯息”查收。</span><br>';
+					$log.='<span class="yellow">你获得了卡片「'.$cards[$get_card_id]['name'].'」！请前往“站内邮件”查收。</span><br>';
 					
 					addnews ( 0, 'VOgetcard', $name, $itm, $cards[$get_card_id]['name'] );
 					

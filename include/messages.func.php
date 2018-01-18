@@ -24,8 +24,8 @@ function message_load($mid_only=0)
 {
 	global $udata,$db,$gtablepre;
 	$username = $udata['username'];
-	if($mid_only) $result = $db->query("SELECT mid FROM {$gtablepre}messages WHERE receiver='$username' AND deleted=0 ORDER BY timestamp DESC, mid DESC");
-	else $result = $db->query("SELECT * FROM {$gtablepre}messages WHERE receiver='$username' AND deleted=0 ORDER BY timestamp DESC, mid DESC");
+	if($mid_only) $result = $db->query("SELECT mid FROM {$gtablepre}messages WHERE receiver='$username' ORDER BY timestamp DESC, mid DESC");
+	else $result = $db->query("SELECT * FROM {$gtablepre}messages WHERE receiver='$username' ORDER BY timestamp DESC, mid DESC");
 	$messages = array();
 	while($r = $db->fetch_array($result)){
 		$messages[$r['mid']] = $r;
@@ -49,7 +49,7 @@ function message_disp($messages)
 	$showpack=1;
 	foreach($messages as &$mv){
 		$mv['hint'] = '<span class="L5">未读!</span>';
-		if($mv['read']) $mv['hint'] = '<span class="grey">已读</span>';
+		if($mv['rd']) $mv['hint'] = '<span class="grey">已读</span>';
 		if(!empty($mv['enclosure'])) {
 			if($mv['checked']) $mv['hint'] .= ' <span class="grey">附件已收</span>';
 			else $mv['hint'] .= ' <span class="L5">附件未收!</span>';
@@ -57,11 +57,11 @@ function message_disp($messages)
 		$mv['time_disp'] = date("Y年m月d日 H:i:s", $mv['timestamp']);
 		$mv['encl_disp'] = '';
 		if(!empty($mv['enclosure']) && defined('MOD_CARDBASE')){
-			$mv['encl_disp'] .= '<br>附件：';
+			$mv['encl_disp'] .= '<div class="message_encl_hint">附件：</div><div style="text-align:center">';
 			//切糕判定
 			$getqiegao = message_get_encl_num($mv['enclosure'], 'getqiegao');
 			if($getqiegao) {
-				$mv['encl_disp'] .= '<br><span class="gold b">'.$getqiegao.'切糕</span>';
+				$mv['encl_disp'] .= '<div class="gold b">'.$getqiegao.'切糕</div>';
 			}
 			//卡片判定
 			$getcard = message_get_encl_num($mv['enclosure'], 'getcard');
@@ -70,9 +70,11 @@ function message_disp($messages)
 				$nownew = !in_array($getcard, $user_cards);
 				ob_start();
 				include template(MOD_CARDBASE_CARD_FRAME);
-				$mv['encl_disp'] .= ob_get_contents();
+				$tmp_cardpage = ob_get_contents();
 				ob_end_clean();
+				$mv['encl_disp'] .= '<div>卡片：<span class="'.$card_rarecolor[$nowcard['rare']].'" title="'.str_replace('"',"'",$tmp_cardpage).'">'.$nowcard['name'].($nownew ? ' <span class="L5">NEW!</span>' : '').'</span></div>';
 			}
+			$mv['encl_disp'] .= '</div>';
 		}
 	}
 	return $messages;
@@ -83,8 +85,12 @@ function message_check($checklist, $messages)
 	global $udata,$db,$gtablepre,$info;
 	if(defined('MOD_CARDBASE')) eval(import_module('cardbase'));
 	if(!defined('MOD_CARDBASE')) return;
-	$user_cards = explode('_',$udata['cardlist']);
+	if(!is_array($udata['cardlist'])) {
+		$cl_changed = 1;
+		$udata['cardlist'] = explode('_',$udata['cardlist']);
+	}
 	$getqiegaosum = 0;
+	$getcardflag = 0;
 	
 	foreach($checklist as $cid){
 		if($messages[$cid]['checked']) continue;
@@ -100,15 +106,21 @@ function message_check($checklist, $messages)
 			if($getcard) {
 				$getname = $cards[$getcard]['name'];
 				$getrare = $cards[$getcard]['rare'];
-				if(!in_array($getcard, $user_cards)) $info[] = '获得了卡片“<span class="'.$card_rarecolor[$getrare].'">'.$getname.'</span>”！';
+				if(!in_array($getcard, $udata['cardlist'])) $info[] = '获得了卡片“<span class="'.$card_rarecolor[$getrare].'">'.$getname.'</span>”！';
 				else $info[] = '已有卡片“<span class="'.$card_rarecolor[$getrare].'">'.$getname.'</span>”，转化为了'.$card_price[$getrare].'切糕！';
-				\cardbase\get_card($getcard, $udata);
+				//\cardbase\get_card($getcard, $udata);
+				//不直接写数据库，最后统一写
+				\cardbase\get_card_process($getcard, $udata);
+				$getcardflag = 1;
 			}
 		}
 	}
-	if(!empty($getqiegaosum)) {
+	if(!empty($cl_changed)) $udata['cardlist'] = implode('_',$udata['cardlist']);
+	if($getqiegaosum || $getcardflag) {
 		$n = $udata['username'];
-		$db->query("UPDATE {$gtablepre}users SET gold=gold+$getqiegaosum WHERE username='$n'");
+		$gold = $udata['gold']+$getqiegaosum;
+		$cardlist = $udata['cardlist'];
+		$db->query("UPDATE {$gtablepre}users SET gold='$gold',cardlist='$cardlist' WHERE username='$n'");
 	}
 }
 

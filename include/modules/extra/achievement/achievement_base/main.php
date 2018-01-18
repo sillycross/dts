@@ -512,15 +512,15 @@ namespace achievement_base
 	function ach_create_prize_message($pa, $achid, $c, $getqiegao=0, $getcard=0, $ext='')
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if(!$pa || !$achid) return;
 		
+		if(!$pa || !$achid) return;
 		if (isset($pa['username'])) $n=$pa['username'];
 		else $n=$pa['name'];
 		
-		eval(import_module('skill'.$achid));
+		eval(import_module('sys','skill'.$achid));
 		$achtitle = ${'ach'.$achid.'_name'}[$c];
 		
-		$pt = '祝贺你获得了成就<span class="yellow">'.$achtitle.'</span>！<br>'.$ext;
+		$pt = '祝贺你在'.($room_prefix ? '房间' : '').'第'.$gamenum.'局获得了成就<span class="yellow">'.$achtitle.'</span>！'.$ext;
 		if($getqiegao || $getcard) $pt .= '查收本消息即可获取奖励。';
 		if($getcard) $pt .= '如果已有奖励卡片则会转化为切糕。';
 		include_once './include/messages.func.php';
@@ -572,11 +572,11 @@ namespace achievement_base
 						$getqiegao = $qiegao_prize[$tk];		
 					}
 					if($card_flag && !empty($card_prize[$tk])) {
-						$card_got = $card_prize[$tk];
-						if(is_array($card_got)) {
-							shuffle($card_got);
-							//$card_got = $card_got[0];
-							$getcard = $card_got[0];
+						$getcard = $card_prize[$tk];
+						if(is_array($getcard)) {
+							shuffle($getcard);
+							//$getcard = $getcard[0];
+							$getcard = $getcard[0];
 						}
 						//\cardbase\get_card($card_got,$pa);
 					}

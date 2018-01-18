@@ -48,9 +48,29 @@ DROP TABLE IF EXISTS `bra_messages`;
 CREATE TABLE `bra_messages` (
   `mid` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `timestamp` int(10) unsigned NOT NULL DEFAULT '0',
-  `read` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `rd` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `checked` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `deleted` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `receiver` char(15) NOT NULL DEFAULT '',
+  `sender` char(15) NOT NULL DEFAULT '',
+  `title` varchar(255) NOT NULL DEFAULT '',
+  `content` text NOT NULL DEFAULT '',
+  `enclosure` text NOT NULL DEFAULT '',
+  PRIMARY KEY (`mid`),
+  INDEX `RECEIVER` (`receiver`),
+  INDEX `SENDER` (`sender`)
+  
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Table structure for table `bra_del_messages`
+--
+
+DROP TABLE IF EXISTS `bra_del_messages`;
+CREATE TABLE `bra_del_messages` (
+  `mid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `timestamp` int(10) unsigned NOT NULL DEFAULT '0',
+  `rd` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `checked` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `receiver` char(15) NOT NULL DEFAULT '',
   `sender` char(15) NOT NULL DEFAULT '',
   `title` varchar(255) NOT NULL DEFAULT '',

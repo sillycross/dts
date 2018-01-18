@@ -13,4 +13,7 @@ $install_db = file_get_contents('./install/bra.install.sql');
 preg_match('/DROP TABLE IF EXISTS `bra_messages`[\s\S]+ENGINE=InnoDB DEFAULT CHARSET=utf8;/s', $install_db, $matches);
 $query = str_replace('bra_',$gtablepre,$matches[0]);
 $db->queries($query);
+preg_match('/DROP TABLE IF EXISTS `bra_del_messages`[\s\S]+ENGINE=InnoDB DEFAULT CHARSET=utf8;/s', $install_db, $matches);
+$query = str_replace('bra_',$gtablepre,$matches[0]);
+$db->queries($query);
 echo 'done';

@@ -149,7 +149,7 @@ namespace cardbase
 		//判定卡片是不是新卡
 		$result = $db->query("SELECT cardlist FROM {$gtablepre}users WHERE username='$n'");
 		if(!$db->num_rows($result)) return;
-		if(!empty($ext)) $ext.='<br>';
+		//if(!empty($ext)) $ext.='<br>';
 		include_once './include/messages.func.php';
 		message_create(
 			$n,
@@ -187,18 +187,22 @@ namespace cardbase
 	}
 	
 	//获得卡片和切糕的核心判定，如果卡重复，则换算成切糕
+	//会自动判定输入的cardlist键值是字符串还是数组
 	function get_card_process($ci,&$pa,$ignore_qiegao=0){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!is_array($pa['cardlist'])) {
+			$cl_changed = 1;
+			$pa['cardlist'] = explode('_',$pa['cardlist']);
+		}
 		eval(import_module('sys','player','cardbase'));
-		$clist = explode('_',$pa['cardlist']);
-		if (in_array($ci,$clist)){
+		if (in_array($ci,$pa['cardlist'])){
 			if(!$ignore_qiegao) $pa['gold'] += $card_price[$cards[$ci]['rare']];
 			$ret = 0;
 		}else{
-			$clist[] = $ci;
-			$pa['cardlist'] = implode('_',$clist);
+			$pa['cardlist'][] = $ci;
 			$ret = 1;
 		}
+		if(!empty($cl_changed)) $pa['cardlist'] = implode('_',$pa['cardlist']);
 		return $ret;
 	}
 	

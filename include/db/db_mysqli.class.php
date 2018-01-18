@@ -100,17 +100,39 @@ class dbstuff {
 //		return preg_replace("/\s*(CREATE TABLE\s+.+\s+\(.+?\)).*;$/isU", "\\1", $sql)." ENGINE=$type DEFAULT CHARSET=$dbcharset;";
 	}
 	
-	function array_insert($dbname, $data){ //根据$data的键和键值插入数据
+	//根据$data的键和键值插入数据。多数据插入是直接按字段先后顺序排的，请保证输入数据字段顺序完全一致！
+	function array_insert($dbname, $data){
+		$tp = 1;//单记录插入
+		if(is_array(array_values($data)[0])) $tp = 2;//多记录插入 
 		$query = "INSERT INTO {$dbname} ";
 		$fieldlist = $valuelist = '';
-		foreach ($data as $key => $value) {
-			$fieldlist .= "{$key},";
-			$valuelist .= "'{$value}',";
+		if(2!=$tp){//单记录插入
+			if(!$data) return;
+			foreach ($data as $key => $value) {
+				$fieldlist .= "{$key},";
+				$valuelist .= "'{$value}',";
+			}
+			if(!empty($fieldlist) && !empty($valuelist)){
+				$query .= '(' . substr($fieldlist, 0, -1) . ') VALUES (' . substr($valuelist, 0, -1) .')';
+			}
+		}else{//多记录插入
+			foreach (array_keys(array_values($data)[0]) as $key) {
+				$fieldlist .= "{$key},";
+			}
+			foreach ($data as $dv){
+				if(!$dv) continue;
+				$valuelist .= "(";
+				foreach ($dv as $value) {
+					$valuelist .= "'{$value}',";
+				}
+				$valuelist = substr($valuelist, 0, -1).'),';
+			}
+			if(!empty($valuelist)) {
+				$query .= '(' . substr($fieldlist, 0, -1) . ') VALUES '.substr($valuelist, 0, -1);
+			}
 		}
-		if(!empty($fieldlist) && !empty($valuelist)){
-			$query .= '(' . substr($fieldlist, 0, -1) . ') VALUES (' . substr($valuelist, 0, -1) .')';
-		}
-		$this->query ($query);
+		
+		if(!empty($query)) $this->query ($query);
 		return $query;
 	}
 	

@@ -47,9 +47,16 @@ if($editflag) {
 	}
 	if(!empty($dellist)){
 		$delc = implode(',',$dellist);
-		$db->query("UPDATE {$gtablepre}messages SET deleted='1' WHERE mid IN ($delc) AND receiver='$username'");
+		$db->query("DELETE FROM {$gtablepre}messages WHERE mid IN ($delc) AND receiver='$username'");
 		$dnum = $db->affected_rows();
 		$info[] = '已删除'.$dnum.'条消息！';
+		$ins_arr = array();
+		foreach($dellist as $di){
+			$tmp = $messages[$di];
+			unset($tmp['mid']);
+			$ins_arr[] = $tmp;
+		}
+		if(!empty($ins_arr)) $db->array_insert("{$gtablepre}del_messages", $ins_arr);
 	}
 	
 	//重载一次信息
@@ -59,8 +66,8 @@ if($editflag) {
 }
 //全部设为已读
 foreach($messages as $mv){
-	if(!$mv['read']) {
-		$db->query("UPDATE {$gtablepre}messages SET `read`='1' WHERE receiver='$username' AND `read`='0'");
+	if(!$mv['rd']) {
+		$db->query("UPDATE {$gtablepre}messages SET rd='1' WHERE receiver='$username' AND rd='0'");
 		break;
 	}
 }

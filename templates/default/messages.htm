@@ -1,6 +1,6 @@
 <form method="post" name="message_cmd" onsubmit="messages.php">
 <input type="hidden" id="mode" name="mode" value="show">
-<div class="scroll-pane" style="max-width:1300px;max-height:640px;overflow:hidden;vertical-align:top">
+<div class="scroll-pane" style="max-width:1210px;max-height:640px;overflow:hidden;vertical-align:top">
 	<!--{if empty($messages)}-->
 	<span class="grey">一条信息都没有呢</span>
 	<!--{else}-->
@@ -14,8 +14,8 @@
 						<input type="checkbox" name="sl$mi" id="message_sl$mi" style="display:none" class="message_sl" value="0" />
 						<span class="message_title">$mv['title']</span> <div class="message_hint">$mv['hint']</div>
 					</div>
-					<hr class="message_hr">
 					<div class="message_cont"><span>$mv['content']</span></div>
+					<hr class="message_hr">
 					<div class="message_encl"><span>$mv['encl_disp']</span></div>
 					<hr class="message_hr">
 					<div class="grey message_date"><span>$mv['time_disp']</span></div>

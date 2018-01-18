@@ -33,7 +33,6 @@ namespace kujibase
 			$r=$arr[rand(0,$c)];
 			if (!$is_dryrun)
 			{
-				//重复卡返回切糕做到get_card里面去
 				\cardbase\get_card_process($r,$pa);
 			}
 			$rr[] = $r;
