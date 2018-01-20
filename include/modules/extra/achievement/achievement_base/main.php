@@ -400,11 +400,6 @@ namespace achievement_base
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','achievement_base'));
 		
-		if(!is_array($udata['u_achievements'])) $udata['u_achievements'] = decode_achievements($udata);
-//		$ta=$achlist[20];
-//		shuffle($ta);
-//		$ta=array_slice($ta,0,3);
-//		
 		$daily_got = array();
 		foreach($daily_type as $dtv){
 			shuffle($dtv);

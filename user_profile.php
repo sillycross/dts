@@ -19,7 +19,7 @@ if (empty($_REQUEST["playerID"]))
 //	if($udata['password'] != $cpass) { gexit($_ERROR['wrong_pw'], __file__, __line__); }
 //	if($udata['groupid'] <= 0) { gexit($_ERROR['user_ban'], __file__, __line__); }
 
-	extract($udata);
+	
 	$curuser=true;
 }
 else
@@ -28,18 +28,19 @@ else
 	$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$uname'");
 	if(!$db->num_rows($result)) { gexit($_ERROR['user_not_exists'],__file__,__line__); }
 	$udata = $db->fetch_array($result);
-	extract($udata);
 	$curuser=false;
 	if ($uname==$cuser) $curuser=true;
 }
 
-$u_acharr = \achievement_base\get_valid_achievements(\achievement_base\decode_achievements($udata));
+$udata['u_achievements'] = \achievement_base\decode_achievements($udata);
 
 if ($curuser && isset($_REQUEST["action"]) && $_REQUEST["action"]=="refdaily"){
 	$refdaily_flag = \achievement_base\refresh_daily_quest($udata);
-	$u_acharr = \achievement_base\get_valid_achievements($udata['u_achievements']);
 }
 else  $refdaily_flag = false;
+
+$u_acharr = \achievement_base\get_valid_achievements($udata['u_achievements']);
+extract($udata);
 
 $iconarray = get_iconlist($icon);
 $select_icon = $icon;
