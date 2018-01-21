@@ -219,12 +219,19 @@ function get_item_place_single($which){
 		return '-';
 	global $iplacedata;
 	$result = '';
+	if(preg_match('/\[\+\d+\]/s',$which,$matches)){
+		$enhance = $matches[0];
+		$which = preg_replace('/\[\+\d+\]/s','',$which);
+	}
 	if(!empty($iplacedata[$which])){
 		$result = implode('<br>',$iplacedata[$which] );
 	}
 	if ($which=="悲叹之种") {
 		if(!empty($result)) $result .= '<br>';
 		$result.="通过使用『灵魂宝石』强化物品失败获得<br>";
+	}
+	if(!empty($enhance)){
+		$result.="<br>并使用『祝福宝石』/『灵魂宝石』强化到{$enhance}<br>";
 	}
 	return $result;
 }

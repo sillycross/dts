@@ -70,6 +70,7 @@ namespace itemmain
 		//J itemmix_overlay 超量素材
 		//K ex_phy_def 防斩
 		//k ex_dmg_att 冰华
+		//L ex_direct 直击
 		//l ex_gender_attr 热恋
 		//M ex_attr_trap 探雷（陷阱探测）
 		//m ex_attr_trap 防雷（陷阱迎击）
@@ -85,6 +86,7 @@ namespace itemmain
 		//t ex_dmg_att 音爆
 		//U ex_dmg_def 防火
 		//u ex_dmg_att 火焰
+		//V ex_seckill 弑神
 		//W ex_dmg_def 隔音
 		//w ex_dmg_att 音波
 		'x' => '奇迹',

@@ -74,6 +74,16 @@ namespace itemmain
 		return;
 	}
 
+	function itemdrop_valid_check($itm, $itmk, $itme, $itms, $itmsk)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!$itms||!$itmk||$itmk=='WN'||$itmk=='DN'){
+			eval(import_module('logger'));
+			$log .= '该物品不存在！<br>';
+			return false;
+		}
+		return true;
+	}
 
 	function itemdrop($item) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -102,13 +112,12 @@ namespace itemmain
 			$itms = & ${'itms'.$itmn};
 			$itmsk = & ${'itmsk'.$itmn};
 		}
-
-		if(!$itms||!$itmk||$itmk=='WN'||$itmk=='DN'){
-			$log .= '该物品不存在！<br>';
-			$itms = 0;
+		
+		if(!itemdrop_valid_check($itm, $itmk, $itme, $itms, $itmsk)){
 			$mode = 'command';
 			return;
 		}
+
 	//	$mapfile = GAME_ROOT."./gamedata/mapitem/{$pls}mapitem.php";
 	//	$itemdata = "$itm,$itmk,$itme,$itms,$itmsk,\n";
 	//	writeover($mapfile,$itemdata,'ab');
@@ -128,6 +137,17 @@ namespace itemmain
 		$itme = $itms = 0;
 		}
 		return array($dropid,$dropname);
+	}
+	
+	function itemoff_valid_check($itm, $itmk, $itme, $itms, $itmsk)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!$itms||!$itmk||$itmk=='WN'||$itmk=='DN'){
+			eval(import_module('logger'));
+			$log .= '该物品不存在！<br>';
+			return false;
+		}
+		return true;
 	}
 
 	function itemoff($item){
@@ -149,9 +169,7 @@ namespace itemmain
 			$itms = & ${'ar'.$itmn.'s'};
 			$itmsk = & ${'ar'.$itmn.'sk'};
 		}
-		if(!$itms||!$itmk||$itmk=='WN'||$itmk=='DN'){
-			$log .= '该物品不存在！<br>';
-			$itms = 0;
+		if(!itemoff_valid_check($itm, $itmk, $itme, $itms, $itmsk)){
 			$mode = 'command';
 			return;
 		}

@@ -330,6 +330,9 @@ ex_attr_silencer,extra/attr/ex_attr_silencer/,1
 ex_dmg_att,extra/attr/ex_dmg_att/,1
 ex_attr_charge,extra/attr/ex_attr_charge/,1
 ex_hp_def,extra/attr/ex_hp_def/,1
+ex_direct,extra/attr/ex_direct/,1
+ex_seckill,extra/attr/ex_seckill/,1
+ex_cursed,extra/attr/ex_cursed/,1
 wepchange,extra/attr/wepchange/,1
 blessstone,extra/attr/blessstone/,1
 skill33,extra/club/skills/skill33/,1
