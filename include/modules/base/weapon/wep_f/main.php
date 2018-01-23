@@ -10,7 +10,8 @@ namespace wep_f
 		//武器类型依赖的熟练度名称
 		$skillinfo['F'] = 'wf';
 		//武器类型攻击动词
-		$attinfo['F'] = '攻击';
+		$attinfo['F'] = '灵击';
+		$attinfo2['F'] = '释放灵力攻击';
 		//武器类型名
 		$iteminfo['WF'] = '灵力兵器';
 		

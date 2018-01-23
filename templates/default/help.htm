@@ -491,238 +491,142 @@
 
 <p>武器分为<span class="yellow">殴、斩、射、投、爆、灵</span>六系。不同的武器之间的特性差异很大，详情见下表。</p>
 
-<table cellSpacing=0 cellPadding=0 height=295px width=1140px>
+<table cellSpacing=0 cellPadding=0 height=300px width=1250px>
 	<tr>
 		<td class="b1" height=20px width=160px>
 		<span>武器种类</span>
 		</td>
-		<td class="b1" width=60px>
+		<td class="b1" width=75px>
+		<span>所需熟练度</span>
+		</td>
+		<td class="b1" width=50px>
 		<span>射程</span>
 		</td>
-		<td class="b1" width=100px>
+		<td class="b1" width=60px>
 		<span>伤害成长</span>
 		</td>
-		<td class="b1" width=100px>
+		<td class="b1" width=60px>
 		<span>初始命中</span>
 		</td>
-		<td class="b1" width=100px>
+		<td class="b1" width=60px>
 		<span>后期命中</span>
 		</td>
-		<td class="b1" width=80px>
+		<td class="b1" width=60px>
 		<span>致伤率</span>
 		</td>
-		<td class="b1" width=250px>
+		<td class="b1" width=60px>
+		<span>反击率</span>
+		</td>
+		<td class="b1" width=300px>
 		<span>优势</span>
 		</td>
 		<td class="b1" width=300px>
 		<span>劣势</span>
 		</td>
 	</tr>
+	<!--{eval eval(import_module('weapon','itemmain','wound'));}-->
+	<!--{eval $wep_adv_desc = array('P'=>'空手也能造成可观伤害；<br>能够用钉子加强棍棒类钝器', 
+	'K'=>'伤害正向浮动大；<br>能够用磨刀石加强武器；',
+	'G'=>'射程远；<br>反击率高，故对NPC输出较高',
+	'J'=>'射程最远；<br>有与武器效果值和敌方生命上限相关的固定伤害值，伤害输出优秀',
+	'C'=>'后期命中率最高；<br>命中率成长最快',
+	'B'=>'熟练度越高射程越高；<br>箭矢的攻击属性也能生效',
+	'D'=>'伏击型武器，不会被反击；<br>伤害输出优秀，且难以防御',
+	'F'=>'有等于武器效果值的固定伤害值；<br>命中率高；<br>大部分合成武器耐久无限'
+	);}-->
+	<!--{eval $wep_wea_desc = array('P'=>'各数值平庸', 
+	'K'=>'伤害负向浮动也大；<br>武器容易损坏',
+	'G'=>'有子弹数量和种类限制；<br>反制装备较多；<br>基础攻击力不能充分发挥作用；<br>攻击时会发出枪声',
+	'J'=>'反击率低；被他人袭击时会遭受额外伤害；<br>反制装备较多；装备本身和子弹均难以获得；<br>射熟低时命中率极端低下；<br>不可以发动大部分战斗技能<br>攻击时会发出枪声',
+	'C'=>'致伤率最低；<br>伤害输出不佳',
+	'B'=>'反击率低；<br>有箭矢数量限制；<br>每次攻击都需要上箭',
+	'D'=>'伏击型武器，无法反击他人；<br>命中率低下；<br>大部分武器耐久较低<br>攻击时会发出爆炸声',
+	'F'=>'射程最近；<br>伤害成长率最慢；<br>攻击时需要消耗体力；<br>有容易获得的反制装备'
+	);}-->
+	<!--{loop Array('P','K','G','J','C','B','D','F') $val}-->
 	<tr>
 		<td class="b1" height=60px>
-		<span>钝器（殴系）</span>
+		<span><!--{eval echo $iteminfo['W'.$val]}--></span>
 		</td>
 		<td class="b3">
-		<span class="yellow">近</span>
+		<span><!--{eval echo $skilltypeinfo[$skillinfo[$val]].'熟'}--></span>
 		</td>
 		<td class="b3">
-		<span class="lime">中等</span>
+			<!--{if $rangeinfo[$val] > 5}-->
+				<span class="clan">$rangeinfo[$val]</span>
+			<!--{elseif $rangeinfo[$val] > 3}-->
+				<span class="lime">$rangeinfo[$val]</span>
+			<!--{elseif $rangeinfo[$val] > 1}-->
+				<span class="yellow">$rangeinfo[$val]</span>
+			<!--{elseif $rangeinfo[$val] > 0}-->
+				<span class="red">$rangeinfo[$val]</span>
+			<!--{else}-->
+				<span class="evergreen">伏击</span>
+			<!--{/if}-->
 		</td>
 		<td class="b3">
-		<span class="lime">中等</span>
+			<!--{if $skill_dmg[$val] > 0.65}-->
+				<span class="clan">$skill_dmg[$val]</span>
+			<!--{elseif $skill_dmg[$val] > 0.5}-->
+				<span class="lime">$skill_dmg[$val]</span>
+			<!--{elseif $skill_dmg[$val] > 0.35}-->
+				<span class="yellow">$skill_dmg[$val]</span>
+			<!--{else}-->
+				<span class="red">$skill_dmg[$val]</span>
+			<!--{/if}-->
 		</td>
 		<td class="b3">
-		<span class="lime">中等</span>
+			<!--{if $hitrate_obbs[$val] > 70}-->
+				<span class="clan">$hitrate_obbs[$val]</span>
+			<!--{elseif $hitrate_obbs[$val] > 60}-->
+				<span class="lime">$hitrate_obbs[$val]</span>
+			<!--{elseif $hitrate_obbs[$val] > 50}-->
+				<span class="yellow">$hitrate_obbs[$val]</span>
+			<!--{else}-->
+				<span class="red">$hitrate_obbs[$val]</span>
+			<!--{/if}-->
 		</td>
 		<td class="b3">
-		<span class="yellow">低</span>
+			<!--{if $hitrate_max_obbs[$val] > 90}-->
+				<span class="clan">$hitrate_max_obbs[$val]</span>
+			<!--{elseif $hitrate_max_obbs[$val] > 85}-->
+				<span class="lime">$hitrate_max_obbs[$val]</span>
+			<!--{elseif $hitrate_max_obbs[$val] > 80}-->
+				<span class="yellow">$hitrate_max_obbs[$val]</span>
+			<!--{else}-->
+				<span class="red">$hitrate_max_obbs[$val]</span>
+			<!--{/if}-->
 		</td>
 		<td class="b3">
-		<div class="nttx">空手也能造成可观伤害；<br>
-		能够用钉子加强棍棒类钝器；</div>
+			<!--{if $wep_infobbs[$val] > 75}-->
+				<span class="clan">$wep_infobbs[$val]</span>
+			<!--{elseif $wep_infobbs[$val] > 50}-->
+				<span class="lime">$wep_infobbs[$val]</span>
+			<!--{elseif $wep_infobbs[$val] > 25}-->
+				<span class="yellow">$wep_infobbs[$val]</span>
+			<!--{else}-->
+				<span class="red">$wep_infobbs[$val]</span>
+			<!--{/if}-->
 		</td>
 		<td class="b3">
-		<span>各数值平庸；</span>
+			<!--{if $counter_obbs[$val] > 60}-->
+				<span class="clan">$counter_obbs[$val]</span>
+			<!--{elseif $counter_obbs[$val] > 40}-->
+				<span class="lime">$counter_obbs[$val]</span>
+			<!--{elseif $counter_obbs[$val] > 20}-->
+				<span class="yellow">$counter_obbs[$val]</span>
+			<!--{else}-->
+				<span class="red">$counter_obbs[$val]</span>
+			<!--{/if}-->
+		</td>
+		<td class="b3">
+			<span class="clan">$wep_adv_desc[$val]</span>
+		</td>
+		<td class="b3">
+			<span class="yellow">$wep_wea_desc[$val]</span>
 		</td>
 	</tr>
-	<tr>
-		<td class="b1" height=60px>
-		<span>锐器（斩系）</span>
-		</td>
-		<td class="b3">
-		<span class="yellow">近</span>
-		</td>
-		<td class="b3">
-		<span class="clan">高</span>
-		</td>
-		<td class="b3">
-		<span class="lime">中等</span>
-		</td>
-		<td class="b3">
-		<span class="lime">中等</span>
-		</td>
-		<td class="b3">
-		<span class="clan">高</span>
-		</td>
-		<td class="b3">
-		<div class="nttx">伤害浮动大；<br>能够用磨刀石加强武器；</div>
-		</td>
-		<td class="b3">
-		<span>伤害浮动大；<br>武器容易损坏，耐久普遍低下；</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b1" height=60px>
-		<span>远程武器（射系）</span>
-		</td>
-		<td class="b3">
-		<span class="clan">远</span>
-		</td>
-		<td class="b3">
-		<span class="lime">中等</span>
-		</td>
-		<td class="b3">
-		<span class="yellow">低</span>
-		</td>
-		<td class="b3">
-		<span class="clan">高</span>
-		</td>
-		<td class="b3">
-		<span class="lime">中等</span>
-		</td>
-		<td class="b3">
-		<div class="nttx">射程远；
-		前中期伤害输出优秀；<br>
-		能在固定地点取得高级装备；</div>
-		</td>
-		<td class="b3">
-		<div class="nttx">有子弹数量和种类限制；<br>
-		反制装备较多；
-		后期伤害输出不佳；<br>
-		基础攻击力不能充分发挥作用；</div>
-		</td>
-	</tr>
-	<tr>
-		<td class="b1" height=60px>
-		<span>重型枪械（射系）</span>
-		</td>
-		<td class="b3">
-		<span class="clan">最远</span>
-		</td>
-		<td class="b3">
-		<span class="clan">最高</span>
-		</td>
-		<td class="b3">
-		<span class="red">无</span>
-		</td>
-		<td class="b3">
-		<span class="clan">最高</span>
-		</td>
-		<td class="b3">
-		<span class="clan">最高</span>
-		</td>
-		<td class="b3">
-		<div class="nttx">射程最远；<br>
-		有与武器效果值和敌方生命上限相关的固定伤害值；伤害输出优秀；</div>
-		</td>
-		<td class="b3">
-		<div class="nttx">被他人袭击时会遭受额外伤害；<br>
-		反制装备较多；装备本身和子弹均难以获得；<br>
-		命中率完全依赖于熟练，对熟练度要求很高；<br>
-		不可以发动主动战斗技能；</div>
-		</td>
-	</tr>
-	<tr>
-		<td class="b1" height=60px>
-		<span>投掷武器（投系）</span>
-		</td>
-		<td class="b3">
-		<span class="lime">中等</span>
-		</td>
-		<td class="b3">
-		<span class="lime">低</span>
-		</td>
-		<td class="b3">
-		<span class="yellow">低</span>
-		</td>
-		<td class="b3">
-		<span class="clan">最高</span>
-		</td>
-		<td class="b3">
-		<span class="red">最低</span>
-		</td>
-		<td class="b3">
-		<div class="nttx">后期命中率最高；命中率最快封顶；<br>
-		能在固定地点取得高级装备；<br>
-		中后期伤害输出优秀；</div>
-		</td>
-		<td class="b3">
-		<div class="nttx">前期命中率较低；<br>
-		前期伤害输出不佳；
-		</div>
-		</td>
-	</tr>
-	<tr>
-		<td class="b1" height=60px>
-		<span>爆炸物（爆系）</span>
-		</td>
-		<td class="b3">
-		<span class="evergreen">伏击</span>
-		</td>
-		<td class="b3">
-		<span class="clan">最高</span>
-		</td>
-		<td class="b3">
-		<span class="red">最低</span>
-		</td>
-		<td class="b3">
-		<span class="red">最低</span>
-		</td>
-		<td class="b3">
-		<span class="clan">高</span>
-		</td>
-		<td class="b3">
-		<div class="nttx">伏击型武器，不会被反击；<br>
-		伤害输出优秀，且难以防御；</div>
-		</td>
-		<td class="b3">
-		<div class="nttx">伏击型武器，无法反击他人；<br>
-		命中率低下；大部分武器耐久较低；
-		</div>
-		</td>
-	</tr>
-	<tr>
-		<td class="b1" height=60px>
-		<span>灵力武器（灵系）</span>
-		</td>
-		<td class="b3">
-		<span class="red">最近</span>
-		</td>
-		<td class="b3">
-		<span class="red">最低</span>
-		</td>
-		<td class="b3">
-		<span class="clan">最高</span>
-		</td>
-		<td class="b3">
-		<span class="clan">最高</span>
-		</td>
-		<td class="b3">
-		<span class="clan">较高</span>
-		</td>
-		<td class="b3">
-		<div class="nttx">
-		有等于武器效果值的固定伤害值；<br>
-		命中率高；
-		大部分合成武器耐久无限；</div>
-		</td>
-		<td class="b3">
-		<div class="nttx">射程最近；
-		伤害成长率最慢；<br>
-		攻击时需要消耗体力；<br>
-		有容易获得的反制装备；</div>
-		</td>
-	</tr>
+	<!--{/loop}-->
 </table>
 <p>※“伏击”指不能反击任何系的攻击，但是其他系也不能反击自己的主动攻击。</p>
 <br>

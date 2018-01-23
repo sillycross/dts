@@ -72,50 +72,7 @@ namespace ammunition
 			$mode = 'command';
 			return;
 		}
-//		if (strpos ($wepk,'WG')===false){
-//			if ($itmk=='GBh'){
-//				$bulletnum = 1;	
-//			}else{
-//				$log .= "<span class=\"red\">枪械类型和弹药类型不匹配。</span><br>";
-//				$mode = 'command';
-//				return;
-//			}
-//		}
-//		elseif (strpos ( $wepsk, 'e' ) !== false || strpos ( $wepsk, 'w' ) !== false) {
-//			if ($itmk == 'GBe') {
-//				$bulletnum = 10;
-//			} else {
-//				$log .= "<span class=\"red\">枪械类型和弹药类型不匹配。</span><br>";
-//				$mode = 'command';
-//				return;
-//			}
-//		} elseif (strpos ( $wepsk, 'i' ) !== false || strpos ( $wepsk, 'u' ) !== false) {
-//			if ($itmk == 'GBi') {
-//				$bulletnum = 10;
-//			} else {
-//				$log .= "<span class=\"red\">枪械类型和弹药类型不匹配。</span><br>";
-//				$mode = 'command';
-//				return;
-//			}
-//		} else {
-//			if (strpos ( $wepsk, 'r' ) !== false) {
-//				if ($itmk == 'GBr') {
-//					$bulletnum = 20;
-//				} else {
-//					$log .= "<span class=\"red\">枪械类型和弹药类型不匹配。</span><br>";
-//					$mode = 'command';
-//					return;
-//				}
-//			} else {
-//				if ($itmk == 'GB') {
-//					$bulletnum = 6;
-//				} else {
-//					$log .= "<span class=\"red\">枪械类型和弹药类型不匹配。</span><br>";
-//					$mode = 'command';
-//					return;
-//				}
-//			}
-//		}
+
 		if ($weps == $nosta) {
 			$weps = 0;
 		}

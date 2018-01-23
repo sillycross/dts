@@ -110,7 +110,9 @@ if(!file_exists($writefile) || filemtime($syncfile) > filemtime($writefile)){
 					preg_match('/★(\d+)/s', $ssv, $matches);
 					if($matches) $sync_x += $matches[1];
 				}
-				$sync_arr['special'][] = '其他星数合计为'.($sync_arr['star'] - $sync_x).'的素材';
+				$otherstar = $sync_arr['star'] - $sync_x;
+				if(1 == $otherstar) $sync_arr['special'][] = '星数为1的不带“调整”属性的素材';
+				else $sync_arr['special'][] = '星数合计为'.$otherstar.'的不带“调整”属性的素材';
 			}else{
 				foreach($sync_arr['special'] as &$ssv){
 					if('st' == $ssv) $ssv = ' 带“同调”和“调整”属性的素材1体 ';

@@ -8,7 +8,8 @@ namespace weapon
 	$nosta = '∞';
 	
 	$skilltypeinfo = Array('wp' => '殴','wk' => '斩', 'wg' => '射', 'wc' => '投', 'wd' => '爆', 'wf' => '灵');
-	$attinfo = Array();
+	//前者是攻击按钮用的，后者是$log里用的
+	$attinfo = $attinfo2 = Array();
 	$skillinfo = Array();
 	
 	$wep_equip_list=Array(
