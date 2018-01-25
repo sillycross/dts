@@ -85,12 +85,12 @@ namespace blessstone
 		}
 		
 		$o_itm = $itm;
-		if(!preg_match("/\[\+[0-9]\]/",$itm)){
+		if(!preg_match("/\[\+[0-9]+?\]/",$itm)){
 			$itm = ${'itm'.$itmn}.'[+0]';
 			$flag = true;
 			$zitmlv = 0;
 		}else{
-			preg_match("/\[\+([0-9])\]/",$itm,$zitmlv);
+			preg_match("/\[\+([0-9]+?)\]/",$itm,$zitmlv);
 			$zitmlv = $zitmlv[1];
 			if($zitmlv >= 4 && $gem != '『灵魂宝石』'){
 				$log .= '你所选的宝石只能强化装备到[+4]哦!DA☆ZE<br>';
@@ -104,10 +104,10 @@ namespace blessstone
 						$mode = 'command';
 						return;
 					}
-					if ($gems==2) 	//两颗成功率1/3
+					if ($gems==2) 	//两颗成功率2/3
 					{
 						$gems--;
-						$dice = rand(1,30);
+						$dice = rand(1,15);
 					}
 					else 			//3颗必定成功
 					{
@@ -115,11 +115,11 @@ namespace blessstone
 						$dice = 1;
 					}
 				}elseif ($zitmlv >= 4){
-					$dice = rand(1,10*($zitmlv-2));//+5概率10/20，+6概率10/30
-				}elseif ($zitmlv >= 6){
-					$dice = rand(1,10*($zitmlv-1));//+7概率10/50，+8概率10/60，+9概率10/70，+10概率10/80
-				}elseif ($zitmlv >= 10){
-					$dice = rand(1,10*$zitmlv);//其实到不了这一步
+					$dice = rand(1,10*($zitmlv-2));//+5概率10/20，+6概率10/30，+7概率10/40，+8概率10/50
+//				}elseif ($zitmlv >= 6){
+//					$dice = rand(1,10*($zitmlv-1));//+7概率10/50，+8概率10/60，+9概率10/70，+10概率10/80
+//				}elseif ($zitmlv >= 10){
+//					$dice = rand(1,10*$zitmlv);//+11概率10/100，+12概率10/110以此类推
 				}else{
 					$dice = 1;
 				}

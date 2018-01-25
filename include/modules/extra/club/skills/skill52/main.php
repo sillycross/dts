@@ -63,7 +63,7 @@ namespace skill52
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa, $pd, $active);
 		if (!\skillbase\skill_query(52,$pa) || !check_unlocked52($pa)) return $ret;
-		if (substr($pa['wepk'],0,2)!='WC') return $ret;
+		if (\weapon\get_skillkind($pa,$pd,$active) != 'wc') return $ret;
 		eval(import_module('skill52'));
 		$clv = (int)\skillbase\skill_getvalue(52,'lvl');
 		$r=(100+$counterperc[$clv])/100;

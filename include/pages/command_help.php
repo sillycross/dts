@@ -39,6 +39,7 @@ if(!file_exists($writefile) || filemtime($mixfile) > filemtime($writefile)){
 		'ocg'=> array('游戏王系道具','clan'),
 		'key'=> array('KEY系道具','lime'),
 		'cube'=> array('方块系道具','yellow'),
+		'madoka'=> array('最终战术系道具','yellow'),
 		'item'=> array('其他道具','yellow'),
 		);
 	$mixhelpinfo = '';
