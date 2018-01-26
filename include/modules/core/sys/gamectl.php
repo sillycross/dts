@@ -33,6 +33,16 @@ namespace sys
 		$gamestate = 5;//正在重设游戏
 		save_gameinfo(0);
 		
+		//只保留$registered_gamevars定义过的游戏参数
+		if(!is_array($gamevars)) $gamevars = array();
+		else {
+			$registered_gamevars = user_set_gamevars_list_init();
+			$n_gamevars = array();
+			foreach($gamevars as $key => $val){
+				if(in_array($key, $registered_gamevars)) $n_gamevars[$key] = $val;
+			}
+		}
+		
 		//重设玩家互动信息、聊天记录、地图道具、地图陷阱、进行状况的数据库
 		$sql = file_get_contents("{$sqldir}reset.sql");
 		$sql = str_replace("\r", "\n", str_replace(' bra_', ' '.$tablepre, $sql));

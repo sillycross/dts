@@ -2602,6 +2602,20 @@ $cards = array(
 			),
 		)
 	),
+	207 => array(
+		'name' => '沙罗曼蛇的战乙女',
+		'rare' => 'A',
+		'pack' => 'Event Bonus',
+		'desc' => '“只要能拯救你，就算身陷永恒的<br>迷宫，我也在所不惜。”',
+		'effect' => '获得技能「时停」，但不能赢得幸存胜利。',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'500' => '0', 
+				'501' => '0',
+			),
+		)
+	),
 	1000 => array(
 		'name'=>'补给品',
 		'rare'=>'C',

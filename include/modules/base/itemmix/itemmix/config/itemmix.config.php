@@ -298,7 +298,7 @@ $mixinfo = array
 	array('class' => 'madoka', 'stuff' => array('最终战术『剑海』','悲叹之种'),'result' => array('魔导迷城『恋沫』','WK',70000,'∞','Zkcrd'),),
 	array('class' => 'madoka', 'stuff' => array('最终战术『心火』','悲叹之种'),'result' => array('魔导迷城『愚刑』','WD',70000,'∞','Lcrd'),),
 	//0.8%的概率还要至少花148000（富家是111000），体会一下轮回的感受吧
-	array('class' => 'madoka', 'stuff' => array('最终战术『心火』[+8]','最终战术『光矢』'),'result' => array('概念武装『破则』','WF',1000000,'∞','Bbrdnx'),),		
+	array('class' => 'madoka', 'stuff' => array('最终战术『心火』[+8]','最终战术『光矢』'),'result' => array('概念武装『破则』','WF',10000000,'∞','Bbrdnx'),),		
 	//3%的概率还要至少花428000（富家是321000)
 	array('class' => 'madoka', 'stuff' => array('魔导迷城『愚刑』','魔导迷城『恋沫』[+5]','魔导迷城『糖风』[+5]','最终战术『蝎尾』[+5]','最终战术『银花』[+5]','最终战术『光矢』[+5]'),'result' => array('狱魇之都『泷庭』','WFJ',201310,'∞','LOVMadx'),),
 	
