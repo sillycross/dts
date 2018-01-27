@@ -23,6 +23,11 @@ if(strpos($endinfo,'<head>')===false){
 		gexit($d_endinfo['errormsg'],__file__,__line__);
 	}
 }
+if(strpos($endinfo, 'redirect')===0){
+	list($null, $url) = explode(':',$endinfo);
+	header('Location: '.$url);
+	exit();
+}
 echo $endinfo;
 
 /* End of file end.php */

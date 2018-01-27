@@ -31,7 +31,7 @@ namespace wep_b
 		//各种攻击方式的武器损伤概率
 		$wepimprate['B'] = 10000;
 		//以该类武器击杀敌人后的死亡状态标号
-		$wepdeathstate['B'] = 24;
+		$wepdeathstate['B'] = 43;
 	}
 	
 	//弓没弓箭时当做锐器

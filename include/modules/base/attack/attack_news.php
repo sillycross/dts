@@ -69,7 +69,9 @@ namespace attack
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>被<span class=\"yellow\">$c</span>埋设<span class=\"red\">$d</span>伏击炸死$e0</li>";
 		} elseif($news == 'death29') {
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>被<span class=\"yellow\">$c</span>发动<span class=\"red\">$d</span>以灵力杀死$e0</li>";
-		} elseif($news == 'damage') {
+		} elseif($news == 'death43') {
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>被<span class=\"yellow\">$c</span>使用<span class=\"red\">$d</span>投射致死$e0</li>";
+		}elseif($news == 'damage') {
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">$a</span></li>";
 		} else return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
