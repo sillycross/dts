@@ -36,8 +36,9 @@ namespace skill322
 		if ($ox!=0) $x=min($x,$ox);
 		
 		if (($x!=0)&&($x<=1800)&&(($ox>1800)||($ox==0))){
-			\cardbase\get_qiegao(666,$pa);
-			\cardbase\get_card(78,$pa);
+			//\cardbase\get_qiegao(666,$pa);
+			//\cardbase\get_card(78,$pa);
+			\achievement_base\ach_create_prize_message($pa, 322, 0, 666, 78);
 		}
 		
 		return $x;

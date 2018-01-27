@@ -74,7 +74,7 @@ namespace itemmix_sync
 			if($mtunner){
 				$tunner[] = $mval;
 			}
-			if(strpos(${'itmsk'.$mval},'^002')!==false)//生命肌瘤龙变星效果
+			if(in_array('^002',\itemmain\get_itmsk_array(${'itmsk'.$mval})))//生命肌瘤龙变星效果
 			{
 				$streamstar = $mstar;
 			}
@@ -101,13 +101,13 @@ namespace itemmix_sync
 					foreach($req as $rv){
 						if('st'==$rv){//调整要求是同调
 							$tunnersk = ${'itmsk'.$tunner[0]};
-							if(strpos($tunnersk, '^001')===false) $preqflag = false;
+							if(!in_array('^001',\itemmain\get_itmsk_array($tunnersk))) $preqflag = false;
 						}elseif(strpos($rv,'sm')===0){//调整以外要求是同调
 							$smnum = (int)substr($rv,2);
 							foreach($mlist as $mi){
 								if(!in_array($mi, $tunner)){
 									$misk = ${'itmsk'.$mi};
-									if(strpos($misk, '^001')===false) {
+									if(!in_array('^001',\itemmain\get_itmsk_array($misk))) {
 										$preqflag = false;
 										break;
 									}

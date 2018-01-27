@@ -400,11 +400,6 @@ namespace achievement_base
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','achievement_base'));
 		
-		if(!is_array($udata['u_achievements'])) $udata['u_achievements'] = decode_achievements($udata);
-//		$ta=$achlist[20];
-//		shuffle($ta);
-//		$ta=array_slice($ta,0,3);
-//		
 		$daily_got = array();
 		foreach($daily_type as $dtv){
 			shuffle($dtv);
@@ -508,6 +503,30 @@ namespace achievement_base
 		return $data;
 	}
 	
+	//用于生成一条成就奖励站内信
+	function ach_create_prize_message($pa, $achid, $c, $getqiegao=0, $getcard=0, $ext='')
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		if(!$pa || !$achid) return;
+		if (isset($pa['username'])) $n=$pa['username'];
+		else $n=$pa['name'];
+		
+		eval(import_module('sys','skill'.$achid));
+		$achtitle = ${'ach'.$achid.'_name'}[$c];
+		
+		$pt = '祝贺你在'.($room_prefix ? '房间' : '').'第'.$gamenum.'局获得了成就<span class="yellow">'.$achtitle.'</span>！'.$ext;
+		if($getqiegao || $getcard) $pt .= '查收本消息即可获取奖励。';
+		if($getcard) $pt .= '如果已有奖励卡片则会转化为切糕。';
+		include_once './include/messages.func.php';
+		message_create(
+			$n,
+			'成就奖励',
+			$pt,
+			($getqiegao ? 'getqiegao_'.$getqiegao : '').';'.($getcard ? 'getcard_'.$getcard : '')
+		);		
+	}
+	
 	//成就通用结算函数，需要成就模块里至少定义$achXXX_threshold
 	//$data是既有进度，新进度怎么判定请继承ach_finalize_process()自定义
 	function ach_finalize(&$pa, $data, $achid)
@@ -542,19 +561,25 @@ namespace achievement_base
 			if(!empty($tv) && ach_finalize_check_progress($pa, $tv, $x, $achid)){
 				if($ox >= $tv) continue; 
 				else{
-					if($qiegao_flag && !empty($qiegao_prize[$tk])) $qiegao_up += $qiegao_prize[$tk];		
-					if($card_flag && !empty($card_prize[$tk])) {
-						$card_got = $card_prize[$tk];
-						if(is_array($card_got)) {
-							shuffle($card_got);
-							$card_got = $card_got[0];
-						}
-						\cardbase\get_card($card_got,$pa);
+					$getqiegao=$getcard=0;
+					if($qiegao_flag && !empty($qiegao_prize[$tk])) {
+						//$qiegao_up += $qiegao_prize[$tk];		
+						$getqiegao = $qiegao_prize[$tk];		
 					}
+					if($card_flag && !empty($card_prize[$tk])) {
+						$getcard = $card_prize[$tk];
+						if(is_array($getcard)) {
+							shuffle($getcard);
+							//$getcard = $getcard[0];
+							$getcard = $getcard[0];
+						}
+						//\cardbase\get_card($card_got,$pa);
+					}
+					ach_create_prize_message($pa, $achid, $tk, $getqiegao, $getcard);
 				}
 			}
 		}
-		if(!empty($qiegao_up)) \cardbase\get_qiegao($qiegao_up, $pa);
+		//if(!empty($qiegao_up)) \cardbase\get_qiegao($qiegao_up, $pa);
 
 		return $x;
 	}
@@ -592,6 +617,7 @@ namespace achievement_base
 			}else break;
 		}
 		$cu = $c;
+		//这个部分顶级和非顶级之间的关系做得有点烂……没办法，历史原因顶级变成了999，只能舍近求远
 		if(!empty($ach_threshold[$c+1])) $cu = $c + 1;//用于显示下一级名称、阈值和奖励的，0级是1，1级是2，顶级维持顶级
 		$stitle = \achievement_base\show_ach_title($achid, $cu);
 		$atitle = \achievement_base\show_ach_title_2($achid, $c+1);

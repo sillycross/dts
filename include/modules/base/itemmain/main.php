@@ -12,7 +12,7 @@ namespace itemmain
 	//1:一般可合并道具  2:食物  0:不可合并
 	function check_mergable($ik){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if(preg_match('/^(WC|WD|WF|Y|B|C|TN|GB|M|V|ygo|fy|p)/',$ik)) return 1;
+		if(preg_match('/^(WC|WD|WF|Y|B|C|TN|GA|GB|M|V|ygo|fy|p)/',$ik)) return 1;
 		elseif(preg_match('/^(H|P)/',$ik)) return 2;
 		else return 0;
 	}
@@ -63,15 +63,17 @@ namespace itemmain
 	function count_itmsk_num($sk_value)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$ret=0;
-		for ($i=0; $i<strlen($sk_value); $i++)
-		{
-			if ('a'<=$sk_value[$i] && $sk_value[$i]<='z') $ret+=2;
-			if ('A'<=$sk_value[$i] && $sk_value[$i]<='Z') $ret+=2;
-			if ($sk_value[$i]=='^') $ret+=1;
-		}
-		$ret/=2; $ret=(int)$ret;
-		return $ret;
+		$sk_arr = get_itmsk_array($sk_value);
+		return count($sk_arr);
+//		$ret=0;
+//		for ($i=0; $i<strlen($sk_value); $i++)
+//		{
+//			if ('a'<=$sk_value[$i] && $sk_value[$i]<='z') $ret+=1;
+//			if ('A'<=$sk_value[$i] && $sk_value[$i]<='Z') $ret+=1;
+//			if ($sk_value[$i]=='^') $ret+=1;
+//		}
+//		//$ret/=2; $ret=(int)$ret;
+//		return $ret;
 	}
 	
 	//鉴于字母已经基本用完，新属性应该全部命名为“^数字”的形式，其中数字可以任意
@@ -83,8 +85,9 @@ namespace itemmain
 		$i = 0;
 		while ($i < strlen($sk_value))
 		{
-			$sub = substr($sk_value,$i,1); $i++;
-			if(!empty($sub)){
+			$sub = substr($sk_value,$i,1); 
+			$i++;
+			if(!empty($sub) && !in_array($sub, array('|'))){
 				if ($sub=='^')
 				{
 					//$flag = 1;

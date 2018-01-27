@@ -11,7 +11,7 @@ namespace skill353
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach353_desc= array(
-		0=>'合成★一发逆转神话★ <:threshold:>次',
+		1=>'合成★一发逆转神话★ <:threshold:>次',
 	);
 	
 	$ach353_proc_words = '目前进度';

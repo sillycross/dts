@@ -37,20 +37,23 @@ namespace skill310
 		$x=min($x,(1<<30)-1);
 		
 		if (($ox<100)&&($x>=100)){
-			\cardbase\get_qiegao(100,$pa);
+			//\cardbase\get_qiegao(100,$pa);
+			\achievement_base\ach_create_prize_message($pa, 310, 0, 100);
 		}
 		eval(import_module('cardbase'));
 		$arr=$cardindex['A'];
 		$c=count($arr)-1;
 		$cr=$arr[rand(0,$c)];
 		if (($ox<2500)&&($x>=2500)){
-			\cardbase\get_qiegao(400,$pa);
-			\cardbase\get_card($cr,$pa);
+			//\cardbase\get_qiegao(400,$pa);
+			//\cardbase\get_card($cr,$pa);
+			\achievement_base\ach_create_prize_message($pa, 310, 1, 400, $cr);
 		}
 		$cr=$arr[rand(0,$c)];
 		if (($ox<10000)&&($x>=10000)){
-			\cardbase\get_qiegao(1500,$pa);
-			\cardbase\get_card($cr,$pa);
+			//\cardbase\get_qiegao(1500,$pa);
+			//\cardbase\get_card($cr,$pa);
+			\achievement_base\ach_create_prize_message($pa, 310, 2, 1500, $cr);
 		}
 		
 		return $x;

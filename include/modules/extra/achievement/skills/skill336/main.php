@@ -9,7 +9,7 @@ namespace skill336
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach336_desc= array(
-		0=>'爆系熟练度达到<:threshold:>点',
+		1=>'爆系熟练度达到<:threshold:>点',
 	);
 	
 	$ach336_proc_words = '最高熟练';

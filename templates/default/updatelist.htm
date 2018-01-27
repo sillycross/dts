@@ -1,8 +1,109 @@
 {template header}
 <br>
 <div style="width:800px; margin:0 auto; text-align:left;font-size:15px; line-height:22px;">
+	
 <h2>更新日志</h2>
-<h3>2018年1月14日 (v1.8.19)</h3>
+<h3>2018年1月28日 (v1.9.1)</h3>
+<p>游戏功能更新：</p>
+<ul>
+	<li>新增武器类别：<span class="yellow">弓</span>，使用投熟，每次攻击都需要上箭，优点是射程随着熟练增加，并且能够使用箭矢带有的属性
+	<li>灌篮高手的【臂力】、【百出】现在对弓也有效，【潜能】能用弓使出，但是【附魔】战斗技必须用投掷兵器而不是弓才能使出</li>
+	<li>现在灵魂宝石强化[+10]会变成[+11]而不是[+10][+1]；此外用2颗祝福宝石强化+4的概率从1/3变为2/3
+	<li>装备道具的效果值上限扩展到43亿（4294967295）。
+	<li>新增了<span class="yellow">直击</span>属性，攻击时30%概率无视对方一切技能。
+	<li>新增了<span class="yellow">弑神</span>属性，攻击命中时30%概率直接杀死对方。
+	<li>新增了<span class="yellow">诅咒</span>属性，带有这个属性的装备无法更换、卸下或者丢弃。
+	<li>稍微调整了灵系武器攻击时的用词</li>
+	<li>复刻了绝冲大剑的成就<span class="yellow">【天明的秘剑】系列</span>（现在真的是个成就了），合成1次可以获得切糕，合成3次可以获得Event Bonus里的芙蓉卡。</li>
+	<li>新增成就<span class="yellow">【我最棒的朋友】</span>，合成<span class="yellow">【概念武装『破则』】</span>完成，可以获得新卡片<span class="yellow">【沙罗曼蛇的战乙女】</span>，其效果是能够花费30怒气让当前地图其他玩家的时间停止2秒（CD时间60秒），且时间停止时自己不会被先制和反击，但是自己不能赢得幸存胜利（一旦满足幸存胜利条件则会自尽）。</li>
+	<li>现在淬毒和带电技能能够正常识别拥有同调和变星属性的武器的属性数目了</li>
+	<li>更改了部分死法的讯息。
+</ul>
+<p>数据调整：</p>
+<ul>
+	<li>卡片【全能骑士】及【黑锋精英】从B卡改为A卡
+	<li>篝的【属穿】属性位置从饰物移动到武器上。
+	<li>Dark Force完全体现在是偷袭姿态，且头部和足部防具现在分别带有物穿和属穿属性</li>
+	<li>重枪的致伤率从100%下降到75%
+	<li>现在0禁会全图随机刷新箭、火焰箭和寒冰箭
+	<li>商店的概念武装『破则』改名为<span class="yellow">魔导迷城『糖风』</span>，数值不变；嵌合最终战术龙 ★12改名为<span class="yellow">最终战术『光矢』</span>，类别改为弓系武器
+	<li>商店投掷兵器栏新增弓系武器<span class="yellow">■落月弓■</span>，720/1/集气+音波
+	<li>商店杂物栏新增蓄能箭（10元1支）、火焰箭（20元1支）、毒箭（30元1支）和爆裂箭（50元1支），都是弓系需要用的箭矢
+	<li>地图新增全图随机的弓系武器弹弓/72/1、最终兵器【Apollon】/200/1/灼焰、【流星一条】（1禁）/777/7/连击+爆炸
+	<li>新增超量合成：4星素材X2=英豪冠军 英弓王/弓/210/∞/爆炸</li>
+	<li>新增以下合成：
+		<table width=1200>
+			<tr>
+			<td class="b1" height=20px><span>素材1</span></td>
+			<td class="b1"><span>素材2</span></td>
+			<td class="b1"><span>素材3</span></td>
+			<td class="b1"><span>素材4</span></td>
+			<td class="b1"><span>素材5</span></td>
+			<td class="b1"><span>素材6</span></td>
+			<td class="b1"></td>
+			<td class="b1"><span>合成结果</span></td>
+			<td class="b1"><span>用途</span></td>
+			</tr><tr>
+			<td class="b3" height='19px' title='0禁起在商店中出售(65500元)'><span>最终战术『剑海』</span></td>
+			<td class="b3"title='击倒电波幽灵 虚名可拾取<br>通过使用『灵魂宝石』强化物品失败获得<br>'><span>悲叹之种</span></td>
+			<td class="b3"><span>-</span></td>
+			<td class="b3"><span>-</span></td>
+			<td class="b3"><span>-</span></td>
+			<td class="b3"><span>-</span></td>
+			<td class="b3"><span>→</span></td>
+			<td class="b3"><span>魔导迷城『恋沫』</span></td>
+			<td class="b3"><span>锐器/70000/∞/菁英+冰华+集气+连击+爆炸</span></td>
+			</tr>
+			<tr>
+			<td class="b3" height='19px' title='0禁起在商店中出售(65500元)'><span>最终战术『心火』</span></td>
+			<td class="b3"title='击倒电波幽灵 虚名可拾取<br>通过使用『灵魂宝石』强化物品失败获得<br>'><span>悲叹之种</span></td>
+			<td class="b3"><span>-</span></td>
+			<td class="b3"><span>-</span></td>
+			<td class="b3"><span>-</span></td>
+			<td class="b3"><span>-</span></td>
+			<td class="b3"><span>→</span></td>
+			<td class="b3"><span>魔导迷城『愚刑』</span></td>
+			<td class="b3"><span>爆炸物/70000/∞/直击+集气+连击+爆炸</span></td>
+			</tr>
+			<tr>
+			<td class="b3" height='19px' title='0禁起在商店中出售(65500元)<br>并使用『祝福宝石』/『灵魂宝石』强化到[+8]<br>'><span>最终战术『心火』[+8]</span></td>
+			<td class="b3"title='0禁起在商店中出售(65500元)'><span>最终战术『光矢』</span></td>
+			<td class="b3"><span>-</span></td>
+			<td class="b3"><span>-</span></td>
+			<td class="b3"><span>-</span></td>
+			<td class="b3"><span>-</span></td>
+			<td class="b3"><span>→</span></td>
+			<td class="b3"><span>概念武装『破则』</span></td>
+			<td class="b3"><span>灵力兵器/10000000/∞/物抹+属抹+连击+爆炸+物穿+奇迹</span></td>
+			</tr>
+			<tr>
+			<td class="b3" height='19px' title='通过合成获取：最终战术『心火』+悲叹之种'><span>魔导迷城『愚刑』</span></td>
+			<td class="b3"title='通过合成获取：最终战术『剑海』+悲叹之种<br>并使用『祝福宝石』/『灵魂宝石』强化到[+5]<br>'><span>魔导迷城『恋沫』[+5]</span></td>
+			<td class="b3"title='0禁起在商店中出售(65500元)<br>并使用『祝福宝石』/『灵魂宝石』强化到[+5]<br>'><span>魔导迷城『糖风』[+5]</span></td>
+			<td class="b3"title='0禁起在商店中出售(65500元)<br>并使用『祝福宝石』/『灵魂宝石』强化到[+5]<br>'><span>最终战术『蝎尾』[+5]</span></td>
+			<td class="b3"title='0禁起在商店中出售(65500元)<br>并使用『祝福宝石』/『灵魂宝石』强化到[+5]<br>'><span>最终战术『银花』[+5]</span></td>
+			<td class="b3"title='0禁起在商店中出售(65500元)<br>并使用『祝福宝石』/『灵魂宝石』强化到[+5]<br>'><span>最终战术『光矢』[+5]</span></td>
+			<td class="b3"><span>→</span></td>
+			<td class="b3"><span>狱魇之都『泷庭』</span></td>
+			<td class="b3"><span>灵力重炮/20131026/∞/直击+诅咒+弑神+探雷+属防+爆炸+奇迹</span></td>
+			</tr>
+		</table>
+	</li>
+</ul>
+<h3>1月20日 (v1.9.0)</h3>
+<p>游戏功能更新：</p>
+<ul>
+	<li>新增了<span class="yellow">站内信</span>系统，现在所有<span class="yellow">成就奖励</span>和<span class="yellow">游戏内获得卡片</span>都改为通过站内信发放。玩家可以通过查收对应的站内信来领取奖励。
+	<li>修正了【破解】技能的过时的道具要求
+	<li>修复了点击【获取新的每日任务】之后连续刷新页面会导致成就显示异常的BUG
+	<li>现在物穿和属穿同时生效时，能击穿对方的【控血】属性
+</ul>
+<p>数据调整：</p>
+<ul>
+	<li>【对天使作战用本部】新增掉落1星调整【涡轮同调士 ★1】和1星卡【入侵蠕虫 ★1】，各0禁刷新5张
+	<li>No.7 幸运条纹人 ☆7的效果值从300下降为177
+</ul>
+<h3>1月14日 (v1.8.19)</h3>
 <p>游戏功能更新：</p>
 <ul>
 	<li>三女主掉落的歌词卡片现在真的可以用来唱歌了：
@@ -106,7 +207,7 @@
 			</table>
 	</li>
 </ul>
-<h3>2018年1月13日 (v1.8.18)</h3>
+<h3>1月13日 (v1.8.18)</h3>
 <p>游戏功能更新：</p>
 <ul>
 	<li>新增“同调”属性，为同调合成出来的真卡所特有（同调假卡在合成对应真卡时获得）</li>
@@ -211,7 +312,7 @@
 		</table>
 	</li>
 </ul>
-<h3>2018年1月12日 (v1.8.17)</h3>
+<h3>1月12日 (v1.8.17)</h3>
 <p>游戏功能更新：</p>
 <ul>
 	<li>现在名字里带★的游戏王真卡（名称里有★数字，数字与星数一致，并且没有“-仮”字样）可以直接当超量素材参与超量合成，但是没★的假卡不行<br>

@@ -9,7 +9,7 @@ namespace skill337
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach337_desc= array(
-		0=>'灵系熟练度达到<:threshold:>点',
+		1=>'灵系熟练度达到<:threshold:>点',
 	);
 	
 	$ach337_proc_words = '最高熟练';

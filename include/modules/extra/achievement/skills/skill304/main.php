@@ -37,14 +37,17 @@ namespace skill304
 		$x=min($x,(1<<30)-1);
 		
 		if (($ox<1)&&($x>=1)){
-			\cardbase\get_qiegao(100,$pa);
+			//\cardbase\get_qiegao(100,$pa);
+			\achievement_base\ach_create_prize_message($pa, 304, 0, 100);
 		}
 		if (($ox<5)&&($x>=5)){
-			\cardbase\get_qiegao(400,$pa);
+			//\cardbase\get_qiegao(400,$pa);
+			\achievement_base\ach_create_prize_message($pa, 304, 1, 400);
 		}
 		if (($ox<30)&&($x>=30)){
-			\cardbase\get_qiegao(1200,$pa);
-			\cardbase\get_card(87,$pa);
+			//\cardbase\get_qiegao(1200,$pa);
+			//\cardbase\get_card(87,$pa);
+			\achievement_base\ach_create_prize_message($pa, 304, 2, 1200, 87);
 		}
 		
 		return $x;

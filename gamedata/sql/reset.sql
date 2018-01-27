@@ -41,8 +41,8 @@ CREATE TABLE bra_mapitem (
   iid mediumint unsigned NOT NULL auto_increment,
   itm char(30) NOT NULL default '',
   itmk char(5) not null default '',
-  itme mediumint unsigned NOT NULL default '0',
-  itms char(5) not null default '0',
+  itme int(10) unsigned NOT NULL default '0',
+  itms varchar(10) not null default '0',
   itmsk varchar(40) not null default '',
   pls tinyint unsigned not null default '0',
   
@@ -59,8 +59,8 @@ CREATE TABLE bra_maptrap (
   tid mediumint unsigned NOT NULL auto_increment,
   itm char(30) NOT NULL default '',
   itmk char(5) not null default '',
-  itme smallint unsigned NOT NULL default '0',
-  itms char(5) not null default '0',
+  itme int(10) unsigned NOT NULL default '0',
+  itms varchar(10) not null default '0',
   itmsk varchar(40) not null default '',
   pls tinyint unsigned not null default '0',
   

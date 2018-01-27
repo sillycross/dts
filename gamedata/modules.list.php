@@ -165,6 +165,7 @@ club95,extra/club/clubs/club95/,1
 club96,extra/club/clubs/club96/,1
 skill494,extra/instance/gtype1/skill494/,1
 skill495,extra/instance/gtype1/skill495/,1
+skill501,extra/card/skills/skill501/,1
 skill83,extra/club/skills/skill83/,1
 skill256,extra/club/skills/skill256/,1
 skill433,extra/card/skills/skill433/,1
@@ -271,6 +272,8 @@ skill348,extra/achievement/skills/skill348/,1
 skill349,extra/achievement/skills/skill349/,1
 skill350,extra/achievement/skills/skill350/,1
 skill353,extra/achievement/skills/skill353/,1
+skill354,extra/achievement/skills/skill354/,1
+skill355,extra/achievement/skills/skill355/,1
 skill19,extra/club/skills/skill19/,1
 skill79,extra/club/skills/skill79/,1
 skill31,extra/club/skills/skill31/,1
@@ -289,6 +292,7 @@ skill260,extra/club/skills/skill260/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
+wep_b,base/weapon/wep_b/,1
 event,base/event/,1
 skill5,extra/attr/skills/skill5/,1
 skill6,extra/attr/skills/skill6/,1
@@ -330,6 +334,9 @@ ex_attr_silencer,extra/attr/ex_attr_silencer/,1
 ex_dmg_att,extra/attr/ex_dmg_att/,1
 ex_attr_charge,extra/attr/ex_attr_charge/,1
 ex_hp_def,extra/attr/ex_hp_def/,1
+ex_direct,extra/attr/ex_direct/,1
+ex_seckill,extra/attr/ex_seckill/,1
+ex_cursed,extra/attr/ex_cursed/,1
 wepchange,extra/attr/wepchange/,1
 blessstone,extra/attr/blessstone/,1
 skill33,extra/club/skills/skill33/,1
@@ -415,6 +422,7 @@ skill329,extra/activities/nationalday2017/skill329/,1
 autopower,extra/misc/autopower/,1
 skill601,extra/club/skills/skill601/,1
 skill602,extra/club/skills/skill602/,1
+skill603,extra/club/skills/skill603/,1
 skill301,extra/achievement/skills/skill301/,1
 skill307,extra/achievement/skills/skill307/,1
 skill318,extra/achievement/skills/skill318/,1
@@ -436,6 +444,7 @@ skill467,extra/card/skills/skill467/,1
 skill468,extra/card/skills/skill468/,1
 skill481,extra/card/skills/skill481/,1
 skill482,extra/card/skills/skill482/,1
+skill500,extra/card/skills/skill500/,1
 skill497,extra/card/skills/skill497/,1
 skill27,extra/club/skills/skill27/,1
 skill489,extra/card/skills/skill489/,1

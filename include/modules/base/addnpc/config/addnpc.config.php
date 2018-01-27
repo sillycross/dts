@@ -71,7 +71,7 @@ namespace addnpc
 			'artk' => 'A',
 			'arte' => 1,
 			'arts' => 1,
-			'artsk' => 'Wy',
+			'artsk' => 'W',
 			'sub' => array
 			(
 				0 => array
@@ -82,7 +82,7 @@ namespace addnpc
 				'wepk' => 'WP',
 				'wepe' => 800,
 				'weps' => 20,
-				'wepsk' => 'u',
+				'wepsk' => 'uy',
 				'itm1' => '十字发卡',
 				'itmk1' => 'Y',
 				'itme1' => 1,

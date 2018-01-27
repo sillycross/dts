@@ -36,7 +36,8 @@ namespace skill316
 		$x=min($x,(1<<30)-1);
 		
 		if (($ox<200)&&($x>=200)){
-			\cardbase\get_qiegao(250,$pa);
+			//\cardbase\get_qiegao(250,$pa);
+			\achievement_base\ach_create_prize_message($pa, 316, 0, 250);
 		}
 		
 		return $x;

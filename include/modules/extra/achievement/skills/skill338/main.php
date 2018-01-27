@@ -9,7 +9,7 @@ namespace skill338
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach338_desc= array(
-		0=>'将最大生命提升到<:threshold:>点以上',
+		1=>'将最大生命提升到<:threshold:>点以上',
 	);
 	
 	$ach338_proc_words = '最高纪录';

@@ -36,7 +36,8 @@ namespace skill314
 		$x=min($x,(1<<30)-1);
 		
 		if (($ox<10)&&($x>=10)){
-			\cardbase\get_qiegao(100,$pa);
+			//\cardbase\get_qiegao(100,$pa);
+			\achievement_base\ach_create_prize_message($pa, 314, 0, 100);
 		}
 		
 		return $x;

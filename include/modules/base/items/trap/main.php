@@ -84,6 +84,11 @@ namespace trap
 		*/
 	}
 		
+	function calculate_real_trap_obbs_change($var)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $var;
+	}
 			
 	function get_trap_escape_rate()
 	{
@@ -363,6 +368,7 @@ namespace trap
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','map','itemmain','trap'));
 		$real_trap_obbs = calculate_real_trap_obbs();
+		$real_trap_obbs = calculate_real_trap_obbs_change($real_trap_obbs);
 		$trap_dice=rand(0,$trap_max_obbs-1);
 		if($trap_dice < $real_trap_obbs){//踩陷阱判断
 			$trapresult = get_traplist();

@@ -9,12 +9,12 @@ namespace ex_attr_pierce
 	{
 		eval(import_module('itemmain'));
 		$itemspkinfo['n'] = '物穿';
-		$itemspkdesc['n']='计算物理伤害时，无视对方装备的物理防御属性';
-		$itemspkremark['n']='无视列表：防殴、防斩、防弹、防投、防爆、防灵、防连、物防和物抹；<br>30%概率生效';
+		$itemspkdesc['n']='计算物理伤害时，可能无视对方装备的物理防御属性';
+		$itemspkremark['n']='无视列表：防殴、防斩、防弹、防投、防爆、防灵、防连、物防和物抹；<br>30%概率生效；与“属穿”同时生效时能无视“控血”属性';
 		
 		$itemspkinfo['y'] = '属穿';
-		$itemspkdesc['y']='计算属性伤害时，无视对方装备的属性防御属性';
-		$itemspkremark['y']='无视列表：防火、防冻、防毒、隔音、绝缘、属防和属抹；<br>30%概率生效';
+		$itemspkdesc['y']='计算属性伤害时，可能无视对方装备的属性防御属性';
+		$itemspkremark['y']='无视列表：防火、防冻、防毒、隔音、绝缘、属防和属抹；<br>30%概率生效；与“物穿”同时生效时能无视“控血”属性';
 	}
 	
 	//贯穿触发率
@@ -133,6 +133,20 @@ namespace ex_attr_pierce
 		$pa['physical_pierce_success'] = $pa['attr_pierce_success'] = 0;
 		$chprocess($pa, $pd, $active);
 	}
+	
+	//双穿同时生效时控血失效
+	function check_dmg_def_attr(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!empty($pa['physical_pierce_success']) && !empty($pa['attr_pierce_success']))
+		{
+			eval(import_module('logger'));
+			$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="red"><:pa_name:>的攻击贯穿了<:pd_name:>的控血属性！</span><br>');
+			return;
+		}
+		$chprocess($pa, $pd, $active);
+	}
+		
 }
 
 ?>

@@ -66,32 +66,43 @@ namespace itemmain
 		//h ex_hp_def 控血（伤害制御）
 		//I ex_dmg_def 防冻
 		//i ex_dmg_att 冻气
-		//j wepchange 多重
 		//J itemmix_overlay 超量素材
+		//j wepchange 多重
 		//K ex_phy_def 防斩
 		//k ex_dmg_att 冰华
+		//L ex_direct 直击
 		//l ex_gender_attr 热恋
 		//M ex_attr_trap 探雷（陷阱探测）
 		//m ex_attr_trap 防雷（陷阱迎击）
-		//n ex_attr_pierce 物穿
 		//N ex_attr_charge 冲击 
+		//n ex_attr_pierce 物穿
+		//O ex_cursed 诅咒
 		//o ammunition 枪械一发
 		//P ex_phy_def 防殴
 		//p ex_dmg_att 带毒
+		//Q ///////////////////////////
 		//q ex_dmg_def 防毒
+		//R ex_rapid_def 防连
 		//r ex_rapid_attr 连击		
 		//S ex_attr_silencer 消音
 		//s itemmix_sync 调整（同调合成必需）
+		//T ///////////////////////////
 		//t ex_dmg_att 音爆
 		//U ex_dmg_def 防火
 		//u ex_dmg_att 火焰
+		//V ex_seckill 弑神
+		//v ///////////////////////////
 		//W ex_dmg_def 隔音
 		//w ex_dmg_att 音波
+		//X ///////////////////////////
 		'x' => '奇迹',
+		//Y ///////////////////////////
 		//y ex_attr_pierce 属穿
 		//Z blessstone 菁英
 		'z' => '天然',
+		//| 特殊分隔符
 		//^001 itemmix_sync 同调（标记是同调产物）
+		//^002 itemmix_sync 变星
 	);
 	
 	$itemspkdesc = array(

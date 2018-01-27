@@ -9,7 +9,7 @@ namespace skill335
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach335_desc= array(
-		0=>'投系熟练度达到<:threshold:>点',
+		1=>'投系熟练度达到<:threshold:>点',
 	);
 	
 	$ach335_proc_words = '最高熟练';

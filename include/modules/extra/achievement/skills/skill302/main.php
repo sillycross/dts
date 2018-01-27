@@ -38,14 +38,17 @@ namespace skill302
 		$x=min($x,(1<<30)-1);
 		
 		if (($ox<1)&&($x>=1)){
-			\cardbase\get_qiegao(50,$pa);
+			//\cardbase\get_qiegao(50,$pa);
+			\achievement_base\ach_create_prize_message($pa, 302, 0, 50);
 		}
 		if (($ox<5)&&($x>=5)){
-			\cardbase\get_qiegao(300,$pa);
+			//\cardbase\get_qiegao(300,$pa);
+			\achievement_base\ach_create_prize_message($pa, 302, 1, 300);
 		}
 		if (($ox<30)&&($x>=30)){
-			\cardbase\get_qiegao(1000,$pa);
-			\cardbase\get_card(66,$pa);
+			//\cardbase\get_qiegao(1000,$pa);
+			//\cardbase\get_card(66,$pa);
+			\achievement_base\ach_create_prize_message($pa, 302, 2, 1000, 66);
 		}
 		
 		return $x;

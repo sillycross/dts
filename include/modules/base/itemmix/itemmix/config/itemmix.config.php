@@ -52,6 +52,7 @@ $mixinfo = array
 	array('class' => 'wk', 'stuff' => array('曾经的荣光-深蓝','蓝宝石方块'),'result' => array('奥义『冰华⑨咲』','WK',299,'∞','crkN'),),
 	array('class' => 'wk', 'stuff' => array('曾经的荣光-深蓝','蓝宝石方块','《曾伽·宗博尔特自传》'),'result' => array('奥义『超⑨武神霸斩』','WK',999,'∞','rkNaH'),),
 	//array('class' => 'wk', 'stuff' => array('飞龙刀【银】','悲叹之种','《曾伽·宗博尔特自传》'),'result' => array('氷刃【雪月花】','WK',1500,'∞','Znrik'),),
+	
 	array('class' => 'wk', 'stuff' => array('原型武器K','食堂的盒饭'),'result' => array('骨刃','WK',130,80,'',),),
 	array('class' => 'wk', 'stuff' => array('骨刃','水群之枪','丢人之摸','雪碧之罐','捧杀之钩'),'result' => array('轰剑【虎眼】','WK',360,200,'',),),
 	array('class' => 'wk', 'stuff' => array('轰剑【虎眼】','磨刀石','沉默磨刀石','传说的白磨刀石'),'result' => array('吼剑【地咬】','WK',840,120,'',),),
@@ -134,7 +135,7 @@ $mixinfo = array
 	array('class' => 'd', 'stuff' => array('探测器电池','实验装甲A'),'result' => array('电磁充能手套','DA',45,15,'E'),),
 	
 	array('class' => 'item', 'stuff' => array('生命探测器','增幅设备'),'result' => array('广域生命探测器','ER',1,1,2),),
-	//array('class' => 'item', 'stuff' => array('☆自爆电池☆','☆★☆大打击☆★☆'),'result' => array('★捆绑式炸药★','Y',1,1,),),
+	//array('class' => 'item', 'stuff' => array('☆自爆电池☆','☆★☆大打击☆★☆'),'result' => array('★捆绑式炸药★','Y',1,1,),), 
 	array('class' => 'item', 'stuff' => array('安雅人体冰雕','火把'),'result' => array('武器师安雅的奖赏','Y',1,1,),),
 	array('class' => 'item', 'stuff' => array('安雅人体冰雕','解冻药水'),'result' => array('武器师安雅的奖赏','Y',1,1,),),
 	array('class' => 'item', 'stuff' => array('手机','笔记本电脑'),'result' => array('移动PC','EE',1,1,),),
@@ -291,8 +292,15 @@ $mixinfo = array
 	array('class' => 'wf', 'stuff' => array('想起「恐怖催眠术」','蓝色方块','金色方块'),'result' => array('想起「Mercury Poison」','WF',94,'∞','cpa'),),
 	array('class' => 'wf', 'stuff' => array('想起「Mercury Poison」','红色方块','绿色方块','黄色方块'),'result' => array('想起「贤者之石」','WF',500,'∞','cuipwe'),),
 	array('class' => 'wf', 'stuff' => array('想起「蒙蒙迷雾」','想起「鸟居旋风」','想起「贤者之石」'),'result' => array('想起「朦胧记忆中的金阁寺」','WF',55555,'∞','cyfkt'),),
+	
 	//余辉尚未实现 
 	//array('class' => 'ocg', 'stuff' => array('八咫镜','★全图不唯一的野生巨大香蕉★'),'result' => array('【余晖】','WF',1,1,'x'),),
+	array('class' => 'madoka', 'stuff' => array('最终战术『剑海』','悲叹之种'),'result' => array('魔导迷城『恋沫』','WK',70000,'∞','Zkcrd'),),
+	array('class' => 'madoka', 'stuff' => array('最终战术『心火』','悲叹之种'),'result' => array('魔导迷城『愚刑』','WD',70000,'∞','Lcrd'),),
+	//0.8%的概率还要至少花148000（富家是111000），体会一下轮回的感受吧
+	array('class' => 'madoka', 'stuff' => array('最终战术『心火』[+8]','最终战术『光矢』'),'result' => array('概念武装『破则』','WF',10000000,'∞','Bbrdnx'),),		
+	//3%的概率还要至少花428000（富家是321000)
+	array('class' => 'madoka', 'stuff' => array('魔导迷城『愚刑』','魔导迷城『恋沫』[+5]','魔导迷城『糖风』[+5]','最终战术『蝎尾』[+5]','最终战术『银花』[+5]','最终战术『光矢』[+5]'),'result' => array('狱魇之都『泷庭』','WFJ',20131026,'∞','LOVMadx'),),
 	
 	array('class' => 'ocg', 'stuff' => array('「被封印的艾克佐迪亚」','「被封印者的左腕」','「被封印者的右腕」','「被封印者的左足」','「被封印者的右足」'),'result' => array('「被封印的黑暗大法师」','WC',8192,1,),),
 	array('class' => 'ocg', 'stuff' => array('「被封印的黑暗大法师」','★神卡认证★'),'result' => array('『黑暗大法师』','WC12',8192,'∞','AaZ'),),

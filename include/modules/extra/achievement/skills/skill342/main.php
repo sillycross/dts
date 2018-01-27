@@ -9,7 +9,7 @@ namespace skill342
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach342_desc= array(
-		0=>'击杀<:threshold:>次黑幕 Acg_xilin',
+		1=>'击杀<:threshold:>次黑幕 Acg_xilin',
 	);
 	
 	$ach342_proc_words = '击杀总数';

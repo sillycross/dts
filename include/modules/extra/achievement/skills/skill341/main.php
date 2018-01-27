@@ -9,7 +9,7 @@ namespace skill341
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach341_desc= array(
-		0=>'击杀<:threshold:>名杏仁豆腐',
+		1=>'击杀<:threshold:>名杏仁豆腐',
 	);
 	
 	$ach341_proc_words = '击杀总数';

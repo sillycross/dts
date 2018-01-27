@@ -57,11 +57,26 @@ namespace skill326
 		
 		$o=sizeof($data);
 		
-		if ($o==10) \cardbase\get_qiegao(888,$pa);
-		if ($o==25) { \cardbase\get_card(81,$pa); \cardbase\get_qiegao(1200,$pa); }
-		if ($o==50) \cardbase\get_qiegao(1600,$pa);
-		if ($o==75) \cardbase\get_qiegao(2000,$pa);
-		if ($o==100) \cardbase\get_qiegao(2500,$pa);
+		if ($o==10) {
+			//\cardbase\get_qiegao(888,$pa);
+			\achievement_base\ach_create_prize_message($pa, 326, 0, 888);
+		}
+		if ($o==25) { 
+			//\cardbase\get_card(81,$pa); //\cardbase\get_qiegao(1200,$pa);
+			\achievement_base\ach_create_prize_message($pa, 326, 1, 1200, 81);
+		}
+		if ($o==50) {
+			//\cardbase\get_qiegao(1600,$pa);
+			\achievement_base\ach_create_prize_message($pa, 326, 2, 1600);
+		}
+		if ($o==75) {
+			//\cardbase\get_qiegao(2000,$pa);
+			\achievement_base\ach_create_prize_message($pa, 326, 3, 2000);
+		}
+		if ($o==100) {
+			//\cardbase\get_qiegao(2500,$pa);
+			\achievement_base\ach_create_prize_message($pa, 326, 4, 2500);
+		}
 		
 		return $data;
 	}

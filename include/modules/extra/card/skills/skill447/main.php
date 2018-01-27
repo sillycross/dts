@@ -32,8 +32,8 @@ namespace skill447
 		if ( $pa['dmg_dealt'] > $pd['hp']*0.9 && $pa['dmg_dealt'] < $pd['hp'] ){
 			$pa['dmg_dealt']=$pd['hp'];
 			eval(import_module('logger'));
-			if ($active) $log .= "<span class=\"clan\">敌人的形体直接消失了，就像本来就没有存在过一样。</span><br>";
-			else $log .= "<span class=\"clan\">你的形体直接消失了，就像本来就没有存在过一样。</span><br>";
+			if ($active) $log .= "<span class=\"clan\">敌人的生命之火直接熄灭了，就像本来就没有存在过一样。</span><br>";
+			else $log .= "<span class=\"clan\">你的生命之火直接熄灭了，就像本来就没有存在过一样。</span><br>";
 			$pa['seckill'] = 1;
 		}
 		

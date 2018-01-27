@@ -66,7 +66,16 @@ namespace weapon
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('weapon'));
-		return get_skill_by_kind($pa, $pd, $active, $skillinfo[$pa['wep_kind']]);
+		return get_skill_by_kind($pa, $pd, $active, get_skillkind($pa,$pd,$active));
+	}
+	
+	function get_skillkind(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('weapon'));
+		if(!empty($pa['wep_kind'])) $wep_kind = $pa['wep_kind'];
+		else $wep_kind = get_attack_method($pa);
+		return $skillinfo[$wep_kind];
 	}
 	
 	function get_attack_method(&$pdata)
@@ -363,13 +372,15 @@ namespace weapon
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('weapon','logger'));
+		if(isset($attinfo2[$pa['wep_kind']])) $attwords = $attinfo2[$pa['wep_kind']];
+		else $attwords = $attinfo[$pa['wep_kind']];
 		if ($active)
 		{
-			$log .= "使用{$pa['wep']}<span class=\"yellow\">".$attinfo[$pa['wep_kind']]."</span>{$pd['name']}！<br>";
+			$log .= "使用{$pa['wep']}<span class=\"yellow\">{$attwords}</span>{$pd['name']}！<br>";
 		}
 		else  
 		{
-			$log .= "{$pa['name']}使用{$pa['wep']}<span class=\"yellow\">".$attinfo[$pa['wep_kind']]."</span>你！<br>";
+			$log .= "{$pa['name']}使用{$pa['wep']}<span class=\"yellow\">{$attwords}</span>你！<br>";
 		}
 		
 		$pd['deathmark']=$wepdeathstate[$pa['wep_kind']];
