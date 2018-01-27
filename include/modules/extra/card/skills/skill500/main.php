@@ -43,7 +43,7 @@ namespace skill500
 			return;
 		}
 		elseif($rage < $skill500_rage){
-			$log.='怒气不足，需要<span class="yellow">100点怒气</span>！<br>';
+			$log.='怒气不足，需要<span class="yellow">{$skill500_rage}点怒气</span>！<br>';
 			return;
 		}
 		$st = check_skill500_state($sdata);

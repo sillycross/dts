@@ -49,11 +49,12 @@ namespace skill230
 				}
 			}
 			if($position){
-				if(strpos($wepsk,'e')!==false){
+				$wepsk_arr = \itemmain\get_itmsk_array($wepsk);
+				if(in_array('e',$wepsk_arr)){
 					$log .= '<span class="red">武器已经带电，不用改造！</span><br />';
 					$mode = 'command';
 					return;
-				}elseif(strlen($wepsk)>=5){
+				}elseif(count($wepsk_arr) >= 12){
 					$log .= '<span class="red">武器属性数目达到上限，无法改造！</span><br />';
 					$mode = 'command';
 					return;
