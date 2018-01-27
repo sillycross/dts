@@ -21,6 +21,7 @@ namespace ex_direct
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
+		$pd['direct_ignore_skills'] = 0;
 		if (in_array('L', \attrbase\get_ex_attack_array($pa, $pd, $active)) && rand(0,99) < get_ex_direct_proc_rate($pa, $pd, $active))
 		{
 			eval(import_module('logger'));
