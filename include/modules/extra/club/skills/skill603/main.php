@@ -7,7 +7,7 @@ namespace skill603
 	{
 		define('MOD_SKILL603_INFO','hidden;debuff;');
 		eval(import_module('clubbase'));
-		$clubskillname[603] = '冻结';
+		$clubskillname[603] = '静止';
 	}
 	
 	function acquire603(&$pa)
