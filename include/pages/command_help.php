@@ -112,8 +112,8 @@ if(!file_exists($writefile) || filemtime($syncfile) > filemtime($writefile)){
 					if($matches) $sync_x += $matches[1];
 				}
 				$otherstar = $sync_arr['star'] - $sync_x;
-				if(1 == $otherstar) $sync_arr['special'][] = '星数为1的不带“调整”属性的素材';
-				else $sync_arr['special'][] = '星数合计为'.$otherstar.'的不带“调整”属性的素材';
+				if(1 == $otherstar) $sync_arr['special'][] = '星数为1的素材';
+				else $sync_arr['special'][] = '星数合计为'.$otherstar.'的素材';
 			}else{
 				foreach($sync_arr['special'] as &$ssv){
 					if('st' == $ssv) $ssv = ' 带“同调”和“调整”属性的素材1体 ';
@@ -185,7 +185,7 @@ SYNC_HELP_INFO_SPEC_DOC_TR;
 	$writecont=<<<SYNC_HELP_WRITE_CONTENT
 <p>以下是可能获得的同调结果的列表。</p>
 {$synchelpinfo}
-<p>另外，上述只是一般情况。有一些同调结果除了<span class="yellow">星数符合要求</span>之外，还必须<span class="yellow">包含特定的素材</span>才能合成，这些合成将在下表中列出。</p>
+<p>另外，上述只是一般情况。有一些同调结果除了<span class="yellow">星数符合要求、“调整”属性道具数目正确</span>之外，还必须<span class="yellow">包含特定的素材</span>才能合成，这些合成将在下表中列出。</p>
 {$synchelpinfo_special}
 <br>
 SYNC_HELP_WRITE_CONTENT;
@@ -303,15 +303,18 @@ P{ line-height:16px
 }
 
 DIV.FAQ {
-	PADDING-LEFT: 1em; line-height:16px
+	PADDING-LEFT: 1em; line-height:20px; font-size: 10pt;
 }
 DIV.FAQ DT {
-	COLOR: #98fb98
+	COLOR: #98fb98;font-weight:bold;
 }
 DIV.FAQ DD {
 	
 }
 
+DIV.FAQ DD A {
+	color:#98fb98
+}
 </STYLE>
 EOT;
 
