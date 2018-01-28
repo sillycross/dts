@@ -53,7 +53,7 @@ namespace skill355
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player'));
-		if ($itm0=='绝冲大剑【神威】' && \skillbase\skill_query(355)){
+		if ($itm0=='概念武装『破则』' && \skillbase\skill_query(355)){
 			$cnt = (int)\skillbase\skill_getvalue(355,'cnt');
 			\skillbase\skill_setvalue(355,'cnt',$cnt + 1);
 		}

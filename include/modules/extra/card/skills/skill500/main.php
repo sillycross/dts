@@ -147,6 +147,16 @@ namespace skill500
 		return $ret;
 	}
 	
+	//不会受到敌人反击
+	//若要接管此函数，请阅读base\battle\battle.php里的注释，并加以判断
+	function check_can_counter(&$pa, &$pd, $active)			
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//注意判定的是$pa能否反击$pd
+		if (1 == check_skill500_state($pd)) return 0; 
+		return $chprocess($pa, $pd, $active);
+	}
+	
 	function bufficons_list()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
