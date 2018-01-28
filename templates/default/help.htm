@@ -90,7 +90,7 @@
 </TABLE>
 <HR>
 <center>
-<div style="margin-left:12px;text-align:left;width:900px" >
+<div class='help_body'>
 
 <p><span class="subtitle2">写在前面的话</span></p>
 <p>作为一款以文本为主要表现形式的webgame，虽然ACFUN大逃杀即将迎来她的第10个年头，但玩过它、或者涉猎过同类游戏的人依然十分稀少。<br>
@@ -109,70 +109,109 @@
 	<DT>问：ACFUN大逃杀是什么，怎么玩？
 	<DD>答：ACFUN大逃杀是一个网页游戏（webgame），不需要安装客户端，基本操作通过鼠标/快捷键来进行。<br>
 	<DT>问：怎么进入游戏？
-	<DD>答：如果你尚未注册，需要先点击屏幕上方、标题上方的<a>&gt;&gt;账号注册</a>，并输入想要的用户名和密码来创建账号。<br>
+	<DD>答：如果你尚未注册，需要先点击屏幕上方、标题下方的<a>&gt;&gt;账号注册</a>，并输入想要的用户名和密码来创建账号。<br>
 	如果已经注册过，在首页登陆以后，单击<input type="button" value="进入游戏">按钮，或者屏幕上方的<a>&gt;&gt;进入游戏</a>链接皆可。<br>
+	<dt>问：我能否中途离开游戏？
+	<DD>答：如果要中途离开游戏，只要关闭浏览器即可；如果这局游戏未结束，而你想回到游戏，登陆账号进入游戏就可以继续。<br>
+	<DD>请注意，就算你离开游戏，你的游戏角色仍留在在游戏中，有可能被别的玩家杀死、因停留在禁区被抹杀，或者被清除挂机系统给清除。<br>
 	<DT>问：房间是什么？怎么进入房间？
 	<DD>答：“房间”相当于标准游戏之外的副本，在首页点击<input type="button" value="新建一个房间">即可创建，或者选择已经存在的房间<input type="button" value="进入">或者<input type="button" value="旁观">。<br>
 	进入已存在的房间需要再次点击<input type="button" value="进入游戏">才能加入。<br>
 	<DT>问：游戏目标是什么？
 	<DD>答：首先，<span class="yellow">保证自己的存活</span>；其次，设法通过<span class="yellow">最后幸存</span>、<span class="yellow">锁定解除</span>或其他胜利方式结束游戏，并成为那个胜利者。
+	<DT>问：场上只有我一个人了，为什么还没有获胜？<BR>
+	<DD>答：游戏开局时是<span class="yellow">开放激活</span>状态，此时任何玩家都能随时加入游戏，就算只剩1个人也不会立刻结束。<br>
+	当游戏<span class="yellow">停止激活</span>（一般同时会进入<span class="yellow">连斗阶段</span>）之后，如果场上只有1位玩家幸存，那么这位玩家才会获得<span class="yellow">最后幸存</span>胜利。<br>
+	<DT>问：为什么我刚入场没多久就死了？
+	<DD>答：死亡的原因有很多种，常见的原因有：<span class="yellow">被高级NPC杀害，误食毒物，踩到了陷阱</span>，或是触发了某些区域的<span class="yellow">特殊即死事件</span>。<br>
+	游戏中尽量保持<span class="yellow">生命值处于高位乃至全满</span>，能够减少上述情况的发生率。<BR>
+	还有一种情况是，有其他玩家比你入场早或者发展比你快，到了<span class="yellow">足以秒杀你</span>的程度。这种情况需要你多积累一些游戏经验、提升生存能力。<BR>
+	<DT>问：为什么那些玩家开局很快就能击杀我、击杀NPC？他们是不是充值了？
+	<DD>答：这些玩家可能<span class="yellow">手速更快</span>，这样移动和探索的次数更多，获取道具资源和攻击NPC的机会就更多；<BR>
+	而且他们可能<span class="yellow">对游戏更加熟悉</span>，选择了容易发育的武器路线、称号或者卡片。<BR>
+	ACFUN大逃杀是一个开源免费运营的游戏，不存在充值系统，每位玩家的起点都是相同的。与新玩家相比，老玩家的优势在于游戏经验更为丰富，并且在更长的游戏时间里积累了更多的卡片等游戏资源。<BR>
 	<DT>问：怎么移动和探索？
-	<DD>答：在<select><option>■ 移动 ■</option></select>下拉框</span>点选<span class="yellow">目的地</span>，就可以移动到该地点。<br>
+	<DD>答：在<select><option>■ 移动 ■ </option></select>下拉框</span>点选<span class="yellow">目的地</span>，就可以移动到该地点。<br>
 	点击<input type="button" class="cmdbutton" value="[Z]探索">则会<span class="yellow">在原地进行探索。</span><br>
-	移动和探索都会消耗一定体力，如果自己处于异常状态还可能损失一定生命，而且可能遇到敌人、队友、尸体陷阱、意外事件，或者发现物品。<br>
-	<DT>问：怎么获得道具？
+	移动和探索都会消耗一定体力，如果自己处于异常状态还可能损失一定生命，而且可能发现物品、遇到敌人、队友、尸体、陷阱或者意外事件。<br>
+	<DT>问：怎么获得强力的武器和防具？
 	<DD>答：<span class="yellow">移动</span>和<span class="yellow">探索</span>都可能发现物品，这时只要<input type="button" class="cmdbutton" value="[Z]拾取">就会将其放入包裹，如果包裹已满则会让你进行取舍；选择<input type="button" class="cmdbutton" value="[X]丢弃">则会将其放回原处。<BR>
-	<DT>问：怎样杀人？怎样会死？
+	除了拾取以外，杀死其他玩家和NPC也能<span class="yellow">缴获装备道具</span>；使用缴获的金钱能够<span class="yellow">在商店购买装备道具</span>；此外，<span class="yellow">进行道具合成</span>也是中后期获取强力装备道具的手段。<br>
+	<DT>问：怎样杀死其他玩家和NPC？被杀死的玩家会怎样？
 	<DD>答：<span class="yellow">移动</span>和<span class="yellow">探索</span>都有一定概率遭遇敌人。<br>
 	如果对方发现了你，那么强制进入战斗；<br>
-	如果对方没有发现你，那么你可以酌情选择<input type="button" class="cmdbutton" value="[Z]攻击">或者<input type="button" class="cmdbutton" value="[X]逃跑">。<br>
+	如果对方没有发现你，那么你可以酌情点击<input type="button" class="cmdbutton" value="[Z]攻击">或者<input type="button" class="cmdbutton" value="[X]逃跑">。<br>
 	战斗时依据双方攻击、防御以及熟练度，会互相造成损伤。<br>
 	战斗中如果对方生命减为0，那么对方死亡，你可以在尸体上<span class="yellow">掠夺一件物品或者拿走金钱</span>。<br>
 	如果游戏没有进入连斗状态，原地还有可能再遇到这具尸体，并再拿物品；当然其他玩家也可能捷足先登。<br>
-	如果你自己生命减为0，那么你将死去，在同一局游戏中无法再进行任何活动。<br>
-	<DT>问：钱是干么用的？怎么赚钱？怎么买东西？能不能卖东西？
-	<DD>答：钱可以在<span class="yellow">商店</span>购买装备或者道具。<br>
-	开局会发放非常少量的金钱；NPC身上有大量金钱，<span class="yellow">杀死玩家或者NPC</span>就能拿到他身上携带的金钱。<br>
+	被杀死的玩家在同一局游戏中无法再行动，但是下一局游戏这位玩家依然可以重新入场。<br>
+	<DT>问：NPC会不会主动攻击我？
+	<DD>答：在游戏机制里，战斗都是由玩家触发的。只有玩家移动或者探索时，才有可能遇见NPC、进入战斗。<BR>
+	如果玩家不探索/移动，是不会被NPC攻击的，可以利用这一点避免伤亡。但是，玩家就算不动，也还是有可能被其他玩家主动攻击的。<BR>
+	<DT>问：怎么赚钱？钱能干什么？
+	<DD>答：开局会发放非常少量的金钱；NPC身上有大量金钱，<span class="yellow">杀死玩家或者NPC</span>就能拿到他身上携带的金钱。<br>
 	一些<span class="yellow">特殊事件</span>或者<span class="yellow">特殊道具</span>也能获得金钱。但是，并不能通过贩卖来获取金钱（这是一个你死我活的游戏）。<br>
-	<span class="yellow">商店</span>位于“无月之影”、“光坂高校”或者“花菱商厦”，在这些区域点击。
-	<DT>问：能组队吗？怎么组队？怎样加入队伍？怎么给队友东西？给队友钱？
-	<DD>答：在游戏进入“连斗”阶段之前都可以组队，进入“连斗”之后所有队伍自动解散并且无法再组队，此时玩家只能自相残杀。<BR>
-	想创立队伍或加入队伍请选“队伍”指令。<BR>
-	创立队伍请直接输入你想用的队伍名称以及想用的密码，如果创立成功会消耗一定体力。<BR>
-	加入别人的队伍则输入对方的队名密码，加入成功也会消耗一定体力。<BR>
-	成为队友之后，只要可见度良好，队友之间都不会互相攻击。<BR>
-	遇到队友时，可以选择将道具送给队友，但是钱不能给队友。<BR>
-	起雾或者浓雾天气，可见度差，就算是队友也会误伤。<BR>
+	钱可以在<span class="yellow">商店</span>购买装备或者道具。<br>
+	<span class="yellow">商店</span>位于“无月之影”、“光坂高校”或者“花菱商厦”，在这些区域点击<input type="button" class="cmdbutton" value="[C]商店">即可进入商店页面。
 	<DT>问：体力耗尽了！生命值快归零了！怎样回复体力和生命？
-	<DD>答：回复体力和生命有三种办法：吃补给品、睡眠/治疗/静养，以及等级提升。<BR>
-	游戏开局会发面包和矿泉水，分别能回复生命和体力。游戏各地区地面上也散布有大量的补给品，不过可能带毒，服用后反而损失生命。<BR>
-	如果补给耗尽，选择“睡眠”指令并提交可以随时间回复体力，选“治疗”指令则是回复生命，在“精灵中心”以及“对天使用作战本部”还可以选择“静养”指令，同时回复体力和生命。<BR>
-	点击“提交”能看到回复量，在回复时，无法进行其他行动；点击“返回”并提交则返回作战状态。<BR>
-	此外，等级提升时也能回复少量体力和生命值。<BR>
+	<DD>答：回复体力和生命通常有3种办法：<span class="yellow">吃补给品、睡眠/治疗/静养、使用「治疗」技能。</span><BR>
+	1. 开局会发面包和矿泉水，分别能回复生命和体力。游戏中也可拾取、缴获大量补给品，不过可能带毒导致损失生命。<BR>
+	2. 如果补给耗尽，点击<input type="button" class="cmdbutton" value="睡眠">可以进入睡眠状态，逐渐回复体力；点击<input type="button" class="cmdbutton" value="治疗">则是回复生命。<BR>
+	3. 选择称号后可以获得<span class="yellow">「治疗」技能</span>，点击<input type="button" class="cmdbutton" value="[V]技能表">并在技能表界面<input type="button" value="治疗">，即可立刻回复500点生命和体力，但是需要消耗1个技能点<BR>
+	此外，等级提升时也能回复少量体力；一些特殊技能和道具也能回复体力或者生命。<BR>
 	<DT>问：受伤了怎么办？进入异常状态了怎么办？
 	<DD>答：受伤跟异常状态都不会自动解除。<BR>
-	受伤时在“特殊”下拉框选择“包扎伤口”指令，消耗一定体力包扎伤口。<BR>
-	如果进入异常状态，有两种办法：一是只有寻找或购买相应的药剂并服用才能解除；二是到有医院的地图通过“静养”指令解除。<BR>
+	受伤时直接<span class="yellow">点击状态图标的受伤部位</span>，即可消耗一定体力包扎伤口。<BR>
+	解除异常状态则有3种办法：其一是寻找或购买相应的药剂并服用；其二是到特定地图通过“静养”指令解除；其三是通过<span class="yellow">「治疗」</span>等技能直接解除。<BR>
+	<DT>问：能组队吗？怎么组队？组队有什么好处？
+	<DD>答：在游戏进入“连斗”阶段之前都可以组队<BR>
+	想创立队伍请点击<input type="button" class="cmdbutton" value="组建队伍">，相应地还能<input type="button" class="cmdbutton" value="加入队伍">和<input type="button" class="cmdbutton" value="退出队伍"><BR>
+	队友不会相互攻击（但是雾天可能误伤）；遇到队友时，可以将道具赠送给队友，但是不能赠送钱。<BR>
+	如果是组队对抗的房间，队友之间还能即时赠送物品和呼叫支援。<BR>
+	需要注意的是，进入“连斗”之后队伍功能失效，此时玩家只能自相残杀。<BR>
+	<DT>问：称号是什么？
+	<DD>答：<span class="yellow">内定称号</span>相当于“职业”，不同称号能让玩家获得不同的优势。<BR>
+	一般情况下，玩家开局能从若干称号中任选一个。选择后，会立刻获得一定的加成和技能，之后一般就不能再更换称号了。<BR>
+	根据游戏目的和场上情况选择合适的称号是生存和获胜的必修课。<BR>
+	<DT>问：技能是什么？
+	<DD>答：<span class="yellow">技能</span>让玩家具有一定的特殊能力。<BR>
+	技能可以通过选取称号、使用技能书或者使用特定卡片入场来获得。<BR>
+	活用技能也是生存和获胜的必由之路。<BR>
+	<DT>问：卡片是什么？
+	<DD>答：在进入游戏之前选择不同的<span class="yellow">卡片</span>，能让玩家以不同的初始状态进入游戏。<BR>
+	只有<span class="yellow">卡片模式</span>和部分房间模式允许玩家自选入场卡片。<BR>
+	卡片可以靠<span class="yellow">游戏中使用卡片包、抽卡、完成成就</span>等方式获得。<BR>
+	卡片具有罕贵度，<span class="gold b">S卡</span>最为稀有和强大，之后<span class="clan">A卡</span>、<span class="brickred b">B卡</span>、<span class="white">C卡</span>和<span class="grey b">M卡</span>稀有度和强度依次下降。<BR>
+	合适的卡片能够让玩家一开局就获得优势，不过总体而言，胜负的决定因素还是在于人的技术而不是卡片强度。<br>
 	</DD>
 </DL>
 </DIV>
 <br>
 <p><a name="参加游戏"><span class="subtitle2">1.参加游戏</span></a></p>
 
-<p>在ACFUN大逃杀的首页，可以看到输入用户名和密码的输入框。<br>
-<br>
-如果游戏是以论坛插件形式存在的，必须首先注册相应论坛的账号。<br>
-然后在登陆论坛后，进入论坛的大逃杀插件，并用论坛账号登陆即可进行游戏。<br>
-<br>
-如果游戏不依附于论坛，在游戏首页输入用户名和密码并点击<span class="yellow">“登陆”</span><br>
-如果以前用同一个账号登陆过，则会激活此账号。若为新账号，则会自动进行新用户注册。<br>
-如果已经激活了账号，将不显示用户名密码输入框，而显示<span class="yellow">“进入游戏”</span>按钮。<br>
-若游戏状态为<span class="yellow">“开放激活”</span>，点击“进入游戏”即可进入游戏角色创建流程。<br>
-注意，每局游戏开始时，必须重新激活一次角色。<br>
-<br>
-如果中途要离开游戏，只要退出论坛或者关闭浏览器即可。<br>
-请注意，就算你离开游戏，你的游戏角色仍留在在游戏中，有可能被别人杀死、因停留在禁区被抹杀，或者遭遇到别的事情。<br>
-所以，在离开前请注意将游戏角色移动到合适的地点，并调整自己的迎战策略。</p>
+<p>
+	要加入游戏，首先必须<span class="yellow">登录账号</span>。<br>
+	<br>
+	1. 如果你尚未注册过账号，需要先点击屏幕上方、标题下方的<a>&gt;&gt;账号注册</a>，并输入想要的用户名和密码来创建账号。<br>
+	用户名必须是未注册过的，并且不可包含敏感词汇。不同服务器的账号是互不通用的。<br>
+	注册完毕后会自动登录账号。<br>	
+	2. 如果已经注册过，在首页输入用户名和密码进行登陆。<br>
+	<br>
+	登录以后，你可以自由选择参与<span class="yellow">标准局</span>或者<span class="yellow">房间局</span><br>
+	若要参加标准游戏，登陆后直接单击<input type="button" value="进入游戏">，或者屏幕上方的<a>&gt;&gt;进入游戏</a>链接就可以了<br>
+	<img src="img/help/help_1.1.gif"><br>
+	这样首先会进入<span class="yellow">入场手续</span>页面，在这个页面可以即时修改自己选用的头像、性别和口头禅等，还可以修改用于入场的卡片。
+	<img src="img/help/help_1.2.gif" style="width:900px"><br>
+	选好以后，点击<input type="button" value="提交">就可以进入游戏了。<br>
+	<br>
+	若要参加房间游戏，登陆后在画面右侧的<span class="yellow">房间列表</span>中选择已经存在的房间<input type="button" value="进入">或者<input type="button" value="旁观">。<br>
+	<img src="img/help/help_1.3.gif"><br>
+	进入房间以后，还需要再次点击左侧的<input type="button" value="进入游戏">才能到达<span class="yellow">入场手续</span>页面。<br>
+	也可以创建新房间。点击<input type="button" value="新建一个房间">即可进入创建新房间的页面。<br>
+	<img src="img/help/help_1.4.gif"><br>
+	一般而言，在选好房间模式并点击<span class="yellow">准备</span>按钮之后，就会自动进入新房间的游戏中。<br>
+</p>
+
 
 <br>
 
@@ -180,133 +219,151 @@
 
 <p>
 <span class="lime">【胜利条件】</span>：<br>
-“ACFUN大逃杀”是玩家被迫互相残杀以争取唯一的生存名额的游戏。<br>
-因此，简要地说，杀光其他所有玩家，最后独存的那个人，就是本局游戏的胜利者，将迎来<span class="yellow">“最后幸存”</span>结局。<br>
-此外，如果玩家设法杀死位于管理后台的BOSS，并使用从BOSS身上拾取的特殊道具，也可以带领剩余玩家逃离“ACFUN大逃杀”的世界，迎来<span
-	class="yellow">“锁定解除”</span>结局。<br>
-此外，也存在别的游戏结局，期待玩家可以找到。<br><br>
+“ACFUN大逃杀”的故事背景简而言之，是玩家们被锁死在虚拟幻境中，被迫互相残杀来争取唯一的生存名额。<br>
+因此，简要地说，<span class="yellow">杀光其他所有玩家，最后独存</span>的那个人，就是本局游戏的胜利者，将迎来<span class="yellow">「最后幸存」</span>结局。<br>
+如果玩家设法杀死位于<span class="yellow">无月之影</span>的BOSS，并使用从BOSS身上拾取的特殊道具<span class="yellow">「游戏解除钥匙」</span>，也可以带领剩余玩家逃离“ACFUN大逃杀”的世界，迎来<span class="yellow">「锁定解除」</span>结局。<br>
+若玩家以某种方式找到<span class="yellow">奇怪的按钮</span>，使用后则有一定概率引来电子病毒核弹炸毁整个虚拟世界，也即<span class="yellow">「核爆全灭」</span>结局。<br>
+此外，还存在面向PVE的<span class="yellow">「幻境解离」</span>结局，其流程较为复杂，推荐有一定基础的玩家挑战。<br>
+另外，房间和某些限时开放的特殊局也有自己的游戏结局。<br><br>
 
 <span class="lime">【游戏路线】</span>：<br>
 进入游戏 →→ 通过战斗提升等级和熟练 →→ 杀死NPC和玩家存钱买补给、武器、强化道具  →→ 连斗以后与其他玩家决斗并获胜 →→ <span class="yellow">『最后幸存』</span><br>
 进入游戏 →→ 选择合适的姿势和策略 →→ 回避战斗并等待其他玩家自相残杀或被NPC杀死  →→ 躲藏在安全地点等待高等级玩家因禁区停留、踩高伤陷阱、撞BOSS或者其他RP死法而死亡 →→ <span class="yellow">『最后幸存』</span><br>
-进入游戏 →→ 通过战斗提升等级和熟练 →→ 杀死NPC和玩家存钱买补给、武器、强化道具  →→ 用移动PC解除禁区 →→ 杀死位于管理后台的BOSS NPC →→ <span class="yellow">『锁定解除』</span><br>
+进入游戏 →→ 通过战斗提升等级和熟练 →→ 杀死NPC和玩家存钱买补给、武器、强化道具  →→ 用移动PC解除禁区 →→ 杀死位于无月之影的BOSS NPC →→ <span class="yellow">『锁定解除』</span><br>
+这里只列出最常见的游戏路线，其他路线或者其他游戏模式的打法也请玩家自行探索。<br>
 </p>
-<br>
 
 
 <p><a name="禁区和连斗"><span class="subtitle2">3.禁区和连斗</span></a></p>
-
-<p>ACFUN大逃杀地图中共有25个区域。<br>
-根据服务器的设定，每隔一定的时间，就会有一些地区变为<span class="yellow">禁区</span>。<br>
-在禁区增加的那一刻，如果有人<span class="yellow">滞留在禁区</span>，并且姿态没有调整为<span class="yellow">“躲避姿态”</span>，那么这个人将会被<span class="yellow">强行杀死</span>。<br><br>
-如果找到道具“移动PC”，玩家可以<span class="yellow">解除禁区</span>。<br>
-从禁区解除的时刻起，一直到下一次增加禁区的时刻为止，玩家可以任意访问被禁止的区域。<br>
-如玩家想挑战游戏BOSS，也必须先解除禁区，才能到管理后台与BOSS决战。<br><br>
-
-当禁区数量增加到一定程度，或者在游戏中死亡的玩家和NPC总数超过一定数目时，都将使游戏进入<span class="yellow">“连斗阶段”</span>。<br>
-当前服务器的设定是<span class="yellow">禁区增加三次</span>或者<span class="yellow">死亡100人</span>则进入连斗，别的服务器可能会有所调整。<br>
-进入连斗以后，<span class="yellow">游戏停止激活</span>，<span class="yellow">所有尸体消失且无法再摸到尸体</span>，<span class="yellow">所有队伍解散</span>，<span class="yellow">躲避姿态也无法回避禁区</span>，剩下的人必须决一死战。<br>
-同时禁区还会继续增加，如果全部地区都变为禁区，那么所有的参与者都会死亡，这局游戏将没有胜利者。</p>
-<p>此外，在游戏进入连斗以后，如果玩家杀死了<span class="yellow">杏仁豆腐</span>并使用掉落的<span class="yellow">“杏仁豆腐的ID卡”</span>，则会使游戏进入<span class="red">“死斗模式”</span>。<br>
-进入死斗模式以后，玩家将不会再遇到任何NPC，同时也意味着解禁结局成为不可能。<br>
-不过，如果想要快速消灭剩下的玩家，死斗模式不失为一种很好的选择。</p><br>
-<p><a name="游戏界面"><span class="subtitle2">4.游戏界面</span></a></p>
-
+<!--{eval eval(import_module('sys','map','gameflow_combo'));}-->
+<img src="img/help/help_3.1.gif"><br>
+<!--{eval $plsnum1=sizeof($plsinfo);}-->
+<p>ACFUN大逃杀地图中共有{$plsnum1}个区域。<br>
+<span class="yellow">无月之影</span>是玩家的出生地，也是默认的禁区，离开之后就不能返回。<br>
+此外，每隔一定的时间，就会有一些地区变为<span class="yellow">禁区</span>。禁区的间隔时间因模式而异，通常为30分钟增加1次禁区，极速模式为10分钟增加1次禁区。<br>
+在禁区增加的那一刻，<span class="yellow">滞留在禁区</span>的玩家都会被强行杀死。变为禁区的区域将<span class="yellow">不能进入</span>。<br>
+不过，在连斗前将应战策略改为<span class="yellow">“重视躲避”</span>，则可以<span class="yellow">自动回避禁区</span>。<br>
+NPC不会被禁区杀死。此外，多数NPC也会自动回避禁区。<br>
 <br>
-<p><span class="lime">下面这是一般游戏进行中的画面。</span><br><br>
-左上显示你的各种游戏状态数据；左下部分是聊天框；右半边是指令区。<br>
-<span class="yellow">『游戏状态』</span> 显示玩家的姓名、头像、内定称号、攻防指数、熟练度、受伤状况等等各种数值，以及身上装备和包裹道具的界面。<br>
-数值会随游戏进行而变动。了解自己的各项能力有助于战术的制定。<br>
-其中“体力”、“生命”以及“受伤状况”也以图像的形式显示，这三个数值与玩家息息相关，请多加留意。<br>
-<span class="yellow">『聊天框』</span> 显示聊天信息。<br>
-玩家可以听到公共频道所有人的聊天信息，也可以发送聊天信息。<br>
-此外如果玩家加入了队伍，还可以在队伍频道聊天，此时信息只有队友能收到。<br>
-另外，当玩家或者NPC死亡时，也会以红色粗体字在聊天框留下遗言，同时会显示死亡的地点。<br>
-<span class="yellow">『指令区』</span> 供玩家下指令。<br>
-各指令的用途参见<span class="yellow">“指令说明”</span>。</p>
-<p><img style="border-style: solid;border-width:1px; border-color:#00ff00" src="img/help.png" width="937" height="580"></p>
-<p>此外，游戏界面上方有各游戏页面的链接。<br>
-<span class="yellow">『首页』</span> 回到首页，可以看游戏的进行时间和激活、生存、死亡人数。<br>
-<span class="yellow">『游戏』</span> 从其他页面进入游戏界面，如果网速不快导致“提交”按钮卡住了也能通过这个链接刷新当前页面。<br>
-<span class="yellow">『地图』</span> 显示大逃杀战场的简易地图，暂时没什么用。<br>
+玩家可以使用道具<span class="yellow">“移动PC”</span>，来<span class="yellow">临时解除禁区</span>。如果解除了禁区，一直到下一次增加禁区的时刻为止，玩家可以任意进入这些区域，不过已经移走的NPC不会返回。<br>
+如玩家想挑战游戏BOSS，也必须先解除禁区，才能到无月之影与BOSS决战。<br>
+<br>
+<!--{eval $combonum1=$deathlimit_by_gtype[0]+20;}-->
+当禁区数量增加到一定程度（一般是游戏<span class="yellow">第{$arealimit}次增加禁区</span>的时刻），游戏会<span class="yellow">停止激活</span>，新玩家不能再任意加入游戏了。<br>
+如果<span class="yellow">停止激活时存活玩家数少于{$combolimit}人</span>，或者在游戏中死亡的玩家和NPC<span class="yellow">总数超过{$combonum1}人的阈值</span>，都将使游戏进入<span class="yellow">“连斗阶段”</span>。如果加入游戏的玩家数目较多，死亡人数阈值会有一定上浮。<br>
+进入连斗以后，<span class="yellow">所有尸体消失且无法再摸到尸体</span>，<span class="yellow">所有队伍解散</span>，<span class="yellow">躲避姿态也无法回避禁区</span>，剩下的人必须决一死战。<br>
+而且，禁区还会继续增加。如果全部地区都变为禁区，那么所有的参与者都会死亡，这局游戏将没有胜利者。</p>
+<p>此外，在游戏进入连斗以后，如果玩家使用从<span class="yellow">杏仁豆腐</span>处缴获的<span class="yellow">“杏仁豆腐的ID卡”</span>，则会使游戏进入<span class="red">“死斗模式”</span>。<br>
+进入死斗模式以后，玩家将不会再遇到任何NPC。如果想要快速消灭剩下的玩家，死斗模式不失为一种选择。</p><br>
+<p><a name="游戏界面"><span class="subtitle2">4.游戏界面</span></a></p>
+<p>
+	<span class="lime">下面这是一般游戏进行中的画面。</span><br>
+	画面顶端这样一行链接对应的含义如下：<br>
+<span class="yellow">『首页』</span> 回到首页，可以登录登出、更换房间，也可以看当前游戏的进行时间，激活、生存、死亡人数。<br>
+<span class="yellow">『站内邮件』</span> 用于查看和收取游戏站内信，成就奖励、卡片获得都要收取站内信的附件才算真正完成。<br>
+<span class="yellow">『账号资料』</span> 查看自己账号的<span class="yellow">个人资料和成就完成状况</span>，<br>
+还可以选择主卡片、查看自己的卡册、花费切糕进行抽卡，或是获取日常任务<br>
+<span class="yellow">『进入游戏』</span> 从其他页面进入游戏界面，如果网速不快导致“提交”按钮卡住了也能通过这个链接刷新当前页面。<br>
+<span class="yellow">『战场地图』</span> 显示大逃杀战场的简易地图，除了可以看禁区以外暂时没什么用。<br>
 <span class="yellow">『进行状况』</span> 显示游戏的进行状况以及最新的50条聊天记录，不参加游戏的旁观者也可以从这个页面观看游戏进度。<br>
-此外进行状况页面还能察看禁区解除与否、当前禁区状况以及未来3个小时之内的禁区状况，请多加留意。<br>
-<span class="yellow">『当前幸存者』</span> 按杀人数和等级顺序显示当前存活的玩家情况，如果想要把握其他玩家的游戏进展，请多加注意此页面。<br>
-<span class="yellow">『历史优胜者』</span> 可以查看服务器上储存的历次游戏获胜者以及进行情况记录。<br>
+此外，这一页面还能察看<span class="yellow">禁区解除与否、当前以及未来3次的禁区状况</span>，请多加留意。<br>
+<span class="yellow">『当前幸存』</span> 按杀人数和等级顺序显示当前存活的玩家情况，可以用于掌握其他玩家的游戏进展。<br>
+<span class="yellow">『历史优胜』</span> 可以查看服务器上储存的<span class="yellow">历次游戏获胜者、该局进行状况以及录像</span>。<br>
+<span class="yellow">『玩家排行』</span> 查看本服务器的玩家排行榜。点击玩家名可以查看该玩家的详细信息和他的卡册。<br>
 <span class="yellow">『游戏帮助』</span> 即是本帮助文档所在的页面。<br>
-<span class="yellow">『游戏管理』</span> GM可以通过这个页面对游戏进行管理。<br>
-<span class="yellow">『建议和举报』</span> 类似留言板，对ACFUN大逃杀提出建议以及举报玩家的不良行为。<br>
-<span class="yellow">『官方网站』</span> ACFUN大逃杀作者的网站。<br>
+<span class="yellow">『游戏管理』</span> GM可以由此进入管理界面。<br>
+<span class="yellow">『官方讨论区』</span> 通往本游戏的官方论坛。<br>
+<span class="yellow">『官方网站』</span> 通往本游戏的设定站。<br>
 </p>
+<img src="img/help/help_4.1.gif" style="width:900px"><br>
+<div class="FAQ">
+<dl>
+	<dt>『玩家状态数据』
+		<dd>显示玩家的等级、内定称号、攻防数据、熟练度、受伤状况等等各种数值，以及身上装备和包裹道具的界面。<br>
+		其中“体力”、“生命”以及“受伤状况”也以图像的形式显示，这三个数值与玩家息息相关，请多加留意。<br>
+		此外，<span class="yellow">基础姿态</span>和<span class="yellow">应战策略</span>的切换、<span class="yellow">内定称号</span>的选择、<span class="yellow">武器装备</span>的卸下，以及一些<span class="yellow">主动技能</span>的触发也是在这个区域进行。
+	<dt>『聊天及进行状况』
+		<dd>默认显示聊天信息。点击<input type="button" value="切换模式">可以切换到进行状况显示。<br>
+		<span class="yellow">聊天信息：</span><br>
+		玩家可以听到公共频道所有人的聊天信息，也可以发送聊天信息。<br>
+		如果玩家加入了队伍，还可以在队伍频道聊天，此时信息只有队友能收到。<br>
+		当玩家或者NPC死亡时，也会以红字在聊天框留下遗言，同时会显示死亡的地点。<br>
+		游戏开始、结束、增加禁区时，会以黄字在聊天框发送提示。<br>
+		<span class="yellow">进行状况：</span><br>
+		这里会即时显示游戏开始、结束、增加禁区、天气变化、玩家杀死玩家或者NPC、合成道具、发动技能、造成伤害等等的讯息。<br>
+		经常关注聊天框的信息有助于掌握战场态势。<br>
+	<dt>『反馈区』
+		<dd>玩家操作的结果一般以文字的形式显示在这里。
+	<dt>『指令区』</span> 
+		<dd>玩家各指令的用途参见下方的<span class="yellow">“指令说明”</span>。
+</dl>
+</div>
 <br>
 
 <p><a name="指令说明"><span class="subtitle2">5.指令说明</span></a></p>
+<div class="FAQ">
+<dl>
+	<dt>『移动与探索』
+		<dd>
+			<span class="yellow">『移动』</span> 消耗15点体力，离开现在的区域而移动到别的区域。<br>
+			<span class="yellow">『探索』</span> 消耗15点体力，探索现在的区域。快捷键为Z。<br>
+			移动和探索都可能发现物品、遇到敌人、队友、尸体，或者遇上突发事件。<br>
+	<dt>『包裹道具使用』
+		<dd>
+			使用或者装备对应道具，具体效果根据道具的类型而定。可拥有的道具上限是6个。<br>
+			从包裹1号到6号的快捷键分别是A、S、D、Q、W、E。
+	<dt>『道具特殊操作』
+		<dd>
+			<span class="yellow">『装备卸下』</span> 位于状态数据区，可以卸下装备的武器和防具并放到包裹里。<br>
+			<span class="yellow">『道具合成』</span> 将2-6个不同道具合成为一个新道具。常见的合成公式请参考后文<br>
+			<span class="yellow">『包裹管理』</span>
+			可以将完全相同的道具合并，以节约包裹空间。注意，将有毒的食物和无毒的食物合并，会使全部食物带毒。此外，还可以将两个道具互换位置。<br>
+			<span class="yellow">『道具丢弃』</span> 选择装备或者包裹道具并丢掉。该道具不会消失，而是丢在当前的地区，自己可以通过<span class="yellow">『视野』</span>立刻捡回来，别的玩家也能捡到。<br>
+	<dt>『回复操作』
+		<!--{eval eval(import_module('rest'));}-->
+		<!--{eval $rest_sleep_val = round((1/$rest_sleep_time)*10000)/10000;$rest_heal_val = round((1/$rest_heal_time)*10000)/10000;}-->
+		<dd>
+			<span class="yellow">『睡眠』</span> 每秒回复体力上限的{$rest_sleep_val}%的体力。<br>
+			<span class="yellow">『治疗』</span> 每秒回复生命上限的{$rest_heal_val}%的体力。<br>
+			<span class="yellow">『静养』</span> 按上述速度同时恢复生命和体力，同时有一定概率解除异常状态，静养时间越长，解除概率越高。<br>
+			<!--{eval $rest_pls=implode(',',$rest_hospital_list);$rest_pls = str_replace(',','、',$rest_pls);}-->
+			静养只能在<span class="yellow">$rest_pls</span>内进行。
+	<dt>『队伍』
+		<!--{eval eval(import_module('team'));}-->
+		<dd>队友不能互相攻击，可以互相赠送道具，可以队内聊天。<br>
+		不过，在<span class="yellow">起雾、浓雾和暴风雪</span>天气下，由于进入战斗时无法识别对方，可能会误伤队友。<br>
+		进入连斗后，所有的队伍都将被取消，并且不能再组建或者加入队伍。<br>
 
-<p><span class="yellow">『移动』</span> 消耗15点体力，离开现在的区域而移动到别的区域。<br>
-<span class="yellow">『探索』</span> 消耗15点体力，探索现在的区域。<br>
-移动和探索都可能遇到敌人、队友、尸体，遇上突发事件，或者发现物品。<br>
-<span class="yellow">『道具使用』</span> 根据道具的类型使用或者装备所选的道具。可拥有的道具上限是5个。</p>
-
-
-<p><span class="lime">“道具”</span>：<br>
-<span class="yellow">『道具合成』</span> 将2或3个不同的道具，合成为一个新道具。常见的合成公式请参考下文<br>
-<span class="yellow">『道具丢弃』</span>
-将包裹里的道具丢掉。丢弃的道具不会消失，将被放置在当前的地区，自己或别人还能再次找到。<br>
-<span class="yellow">『整理包裹』</span>
-可以将完全相同的道具合并在一起，节约包裹空间。注意，将有毒的食物和无毒的食物合并，会使全部食物带毒。<br>
-<span class="yellow">『卸下装备』</span> 将身上的武器或者防具卸下放置到包裹里。</p>
-
-
-<p><span class="lime">“恢复”</span>：<br>
-<span class="yellow">『睡眠』</span> 根据睡眠的时间和体力上限，按一定比例恢复体力。<br>
-<span class="yellow">『治疗』</span>
-根据睡眠的时间和生命上限，按一定比例恢复生命，但是不会治疗伤口或解除异常状态。伤口治疗在“特殊”功能内。<br>
-<span class="yellow">『静养』</span> 同时恢复生命和体力，同时有一定概率解除异常状态，静养时间越长，解除概率越高。只能在精灵中心和对天使用作战本部内进行。</p>
-
-
-
-
-<p><span class="lime">“特殊”</span>：<br>
-<span class="yellow">『商店』</span>
-在管理后台、光坂高校或者花菱商厦时，可以进入商店购买道具。购买前请确认包裹里有空位放置道具，否则会要求丢弃一个道具。<br>
-<span class="yellow">『基础姿态』</span> 更改自己的行动姿态，各种行动姿态的详情见下文。<br>
-<span class="yellow">『应战策略』</span> 更改自己的应战策略，各种应战策略的详情见下文。<br>
-<span class="yellow">『留言变更』</span> 修改自己的座右铭，杀人留言和遗言。<br>
-<span class="yellow">『包扎伤口』</span>
-如果在战斗中受伤，可以使用此功能处理伤口。包扎每处伤口要消耗25点体力，如果体力不足则无法包扎。<br>
-<span class="yellow">『武器带电』</span>  给装备着的武器附加“电击”属性，只有特性为“锡安成员”时才具有此功能。需要消耗1个电池/探测器电池
-。<br>
-<span class="yellow">『查毒』</span> 检查饮食中是否有毒，只有称号为“黑衣组织”时才具有此功能。<br>
-<span class="yellow">『武器淬毒』</span> 给装备着的武器附加“带毒”属性，只有称号为“黑衣组织”时才具有此功能。需要消耗1个毒药。</p>
-
-
-<p><span class="lime">“队伍”</span>：<br>
-同一队伍的人可以赠送道具，但是不能互相攻击。注意：在能见度很低的天气状况下可能会误伤。<br>
-进入连斗后，所有的队伍都将被取消，并且不能再组建或者加入队伍。<br>
-<span class="yellow">『创建队伍』</span> 消耗50点体力，组建一个新的队伍，队伍必须有名称和密码。<br>
-<span class="yellow">『加入队伍』</span>
-消耗25点体力，加入一个已经存在的队伍，需要填写队伍名称和密码。每支队伍最多有5人。<br>
-<span class="yellow">『脱离队伍』</span> 脱离目前已经加入的队伍。</p>
-<br>
-
+		<span class="yellow">『创建队伍』</span> 消耗{$team_sp}点体力，组建一个新的队伍，队伍必须有名称和密码。<br>
+		<span class="yellow">『加入队伍』</span> 消耗{$teamj_sp}点体力，加入一个已经存在的队伍，需要填写队伍名称和密码。每支队伍最多能有{$teamlimit}人。<br>
+		<span class="yellow">『脱离队伍』</span> 脱离目前已经加入的队伍。
+	<dt>『商店』
+		<!--{eval eval(import_module('itemshop'));}-->
+		<!--{eval $shop_pls=implode(',',$shops);$shop_pls = str_replace(',','、',$shop_pls);}-->
+		<dd>
+			在<span class="yellow">$shop_pls</span>内可以访问商店。商店的快捷键是C。<br>
+			在商店内可以购买回复品、异常治疗药剂、各系武器、防具、武器强化道具、陷阱，以及一些意味不明的杂物。<br>
+	<dt>『技能表』
+		<dd>
+			可以打开技能表，使用或者学习技能。具体技能讲解见后文。
+</dl>
+</div>
 <p><a name="战斗说明"><span class="subtitle2">6.战斗说明</span></a></p>
 
 <p>战斗分为两种：<span class="yellow">自己引发的战斗</span>和<span class="yellow">其他玩家引发的战斗</span>。<BR>
 玩家自己移动或者探索时，遇见了其它的玩家便会发生战斗，这种战斗是由玩家自己引发的。<BR>
-玩家有一定的概率先发现对手，此时可以选择<span class="yellow">“攻击”</span>或者<span class="yellow">“逃跑”</span>，还可以向对方<span class="yellow">喊话</span>。<BR>
-如果选择攻击，则能先制攻击。此时会依照武器的类型，进行不同类型的攻击。<BR>
-如果选择逃走，则一定能回避战斗。<BR>
-相反的，如果玩家被对方先发现，就是对方先发动攻击。此时无法回避战斗。<BR>
+玩家有一定的概率先发现对手，此时可以向对方<span class="yellow">喊话</span>，选择<input type="button" class="cmdbutton" value="[Z]攻击">或者<input type="button" class="cmdbutton" value="[X]逃跑">，还可以<span class="yellow">发动战斗技能</span>。<BR>
+如果选择攻击，则能先制攻击对手。具体的攻击方式依据你所持武器或者发动的战斗技能而有区别。而如果选择逃走，则必然回避战斗。<BR>
+相反的，如果玩家被对方先发现，就是对方先发动攻击，此时无法回避战斗。<BR>
 <BR>
 此外，其他玩家也会行动。当一名玩家主动行动而遇到另一名玩家时，主动行动的玩家是战斗的引发者，可以看到详细的作战讯息。<BR>
 另一名玩家不属于战斗的引发者，只能看到简要的战斗报告。</p>
-<p><span class="lime">下面就是先发现对手时的战斗界面。左边显示自己和对方的部分能力值和状态，右边就是指令区。</span></p>
-<p><img  style="border-style: solid;border-width:1px; border-color:#00ff00" src="img/help_2.png" width="947" height="577"></p>
-<p>如果选择用武器进行攻击，则会根据自己的攻击力和熟练度，以及对方的防御力，分别计算攻击伤害。<BR>
+<p><span class="lime">下面就是先发现对手时的战斗界面。左边的主界面显示双方的能力值和状态，右边则是指令区。</span></p>
+<img  src="img/help/help_6.1.gif" style="width:900">
+<p>如果选择用武器进行攻击，则会根据自己的攻击力和熟练度，以及对方的防御力来计算攻击伤害。<BR>
 如果玩家的攻击造成对方的生命值归零，那么对方就被玩家<span class="yellow">杀死</span>了。<BR>
-同样的，如果敌人的攻击造成玩家的生命值归零，那么玩家就被敌方杀害，在这局游戏中就无法再进行任何行动了。</p>
-<p>引发战斗的玩家，在战斗当中杀害对手时，可以从对方所拥有的武器防具或者金钱中，<span class="yellow">选择一个拿走</span>。<BR>
-不过，如果战斗并非由玩家引发，但是在战斗中杀了对方，这种情况下没有办法捡取对方的物品。<BR>
+同样的，如果敌人的攻击造成玩家的生命值归零，那么玩家就被敌方杀害，在这局游戏中就无法再进行任何行动了。<BR>
+玩家杀死对手后（无论是否是主动发起方），可以从对方的武器、防具、包裹道具或者金钱中，<span class="yellow">选择一个缴获</span>。<BR>
 </p>
 <br>
 
@@ -328,6 +385,7 @@
 <p>玩家的<span class="yellow">“基础姿态”</span>可以影响攻击、防御、遇敌率等一系列重要数值，因此请务必根据战场局势，选择合适的姿态。<br>
 基础姿态对攻击力的加成只在主动攻击时有效。<br>
 注意：角色发现率、道具发现率同时影响玩家“去找角色还是去找道具”以及“是否能找到这个角色/道具”的双重概率。</p>
+</div>
 <table cellSpacing=0 cellPadding=0 width="1200px">
 	<TBODY>
 		<TR>
@@ -389,6 +447,7 @@
 		<!--{/loop}-->
 	</TBODY>
 </TABLE>
+<div class='help_body'>
 <BR>
 <BR>
 <br>
@@ -398,6 +457,7 @@
 <p>玩家的<span class="yellow">“迎战策略”</span>可以被敌人先制攻击时的各项参数，同时还有一系列额外的效果。<br>
 应战策略对攻击力的加成只在反击时有效。<br>
 注意：角色发现率同时影响玩家“去找角色还是去找道具”以及“是否能找到这个角色/道具”的双重概率。</p>
+</div>
 
 <table cellSpacing=0 cellPadding=0 width="1000px">
 	<TBODY>
@@ -454,8 +514,7 @@
 		<!--{/loop}-->
 	</TBODY>
 </TABLE>
-
-<p></p>
+<div class='help_body'>
 <BR>
 <BR>
 <br>
@@ -491,7 +550,7 @@
 <p><a name="武器"><span class="subtitle2">11.武器</span></a></p>
 
 <p>武器分为<span class="yellow">殴、斩、射、投、爆、灵</span>六系。不同的武器之间的特性差异很大，详情见下表。</p>
-
+</div>
 <table cellSpacing=0 cellPadding=0 height=300px width=1250px>
 	<tr>
 		<td class="b1" height=20px width=160px>
@@ -546,7 +605,7 @@
 	);}-->
 	<!--{loop Array('P','K','G','J','C','B','D','F') $val}-->
 	<tr>
-		<td class="b1" height=60px>
+		<td class="b3" height=60px>
 		<span><!--{eval echo $iteminfo['W'.$val]}--></span>
 		</td>
 		<td class="b3">
@@ -629,6 +688,7 @@
 	</tr>
 	<!--{/loop}-->
 </table>
+<div class='help_body'>
 <p>※“伏击”指不能反击任何系的攻击，但是其他系也不能反击自己的主动攻击。</p>
 <br>
 <br>
@@ -1027,7 +1087,9 @@
 <p>合成成功时，如果所用的材料是武器或者防具，则会将整个材料耗尽；其他情况下，材料的耐久会减1。</p>
 <br>
 <br>
+</div>
 {template tmp_mixhelp}
+<div class='help_body'>
 <br>
 <p><span class="lime">同调合成与超量合成说明：</span></p>
 <p><font size=2>
@@ -1037,15 +1099,17 @@
 例如：卡片汽车 D ★2 + 水灵使-艾莉娅 ★3 + 盟军 次时代鸟人 ★3（这个道具有调整属性） => 星尘龙 ★8<br>
 或者：救世龙 ★1（这个道具有调整属性） + 凭依装着-希塔 ★4 + 光灵使-莱娜 ★3 => 星尘龙 ★8<br>
 </p>
+</div>
 {template tmp_mixhelp_sync}
-
+<div class='help_body'>
 <br>
 <p>
 道具属性中带有<span class="yellow">“超量素材”属性</span>的道具，或者<span class="yellow">名字里带★数字，且没有“-仮”字样的道具</span>可以进行超量合成。装备<span class="yellow">具有“多重”属性且具有星数的投系武器</span>，点击“武器模式”按钮，即可将武器转化为超量素材。注意，多数转化是不可逆的！<br>
 超量合成要求所有参与合成的道具都是超量素材，且<span class="yellow">星数相同</span>。 参与合成的超量素材的星数和个数决定了合成结果，与同调一样，如果有多个，你可以<span class="yellow">从中任选一个</span>。<br>
 </p>
+</div>
 {template tmp_mixhelp_overlay}
-
+<div class='help_body'>
 <p><a name="特殊道具"><span class="subtitle2">17.特殊道具</span></a></p>
 
 <p>在此列出游戏中部分特殊道具的用途。</p>
@@ -1704,7 +1768,9 @@
 
 <p><a name="NPC简介"><span class="subtitle2">20.NPC简介</span></a></p>
 <br>
+</div>
 {template tmp_npchelp}
+<div class='help_body'>
 <BR>
 
 <BR>

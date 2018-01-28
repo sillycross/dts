@@ -83,8 +83,13 @@ namespace cardbase
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','cardbase'));
-		$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$who'");
-		$udata = $db->fetch_array($result);
+		if(is_array($who) && isset($who['username'])) {//减少一次数据库操作
+			$udata = $who;
+			$who = $udata['username'];
+		}else{
+			$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$who'");
+			$udata = $db->fetch_array($result);
+		}
 		
 		$cardlist = get_user_cards_process($udata);		
 		$energy_recover_rate = get_energy_recover_rate($cardlist, $udata['gold']);

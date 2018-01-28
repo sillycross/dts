@@ -48,7 +48,9 @@ $winning_rate=$validgames?round($wingames/$validgames*100)."%":'0%';
 
 eval(import_module('cardbase'));//总觉得这里是废弃代码啊
 $carr=$cards[$card];
+$carr['id'] = $card;
 $cr=$carr['rare'];
+$rarecolor = $card_rarecolor[$cr];
 $cf=true;$sf=true;$af=true;$bf=true;$ff=true;
 if (($now-$udata['cd_s'])<86400){
 	$sf=false;
@@ -68,18 +70,10 @@ if (($now-$udata['cd_a1']) < $daily_intv){
 	else  $ftd="明天".$hour."时".$min."分";
 }
 
-$rarecolor = $card_rarecolor[$cr];
-//if ($cr=="S"){
-//	$rarecolor="orange";
-//	if (!$sf) $cf=false;
-//}else if ($cr=='A'){
-//	$rarecolor="linen";
-//	if (!$af) $cf=false;
-//}else if ($cr=='B'){
-//	$rarecolor="brickred";
-//	if (!$bf) $cf=false;
-//}else if ($cr=='C'){
-//	$rarecolor="seagreen";
-//}
+$userCardData = \cardbase\get_user_cardinfo($udata);
+$user_cards = $userCardData['cardlist'];
+$card_energy = $userCardData['cardenergy'];
+$energy_recover_rate = \cardbase\get_energy_recover_rate($user_cards, $gold);
+
 
 include template('user_profile');

@@ -158,7 +158,13 @@ namespace item_uv
 					}
 					
 					$is_new = '';
-					$ext = '来自'.($room_prefix ? '房间' : '').'第'.$gamenum.'局的'.$itm.'。';
+					//$ext = '来自'.($room_prefix ? '房间' : '').'第'.$gamenum.'局的'.$itm.'。'; 
+					//小房间的编号未必是历史记录的编号，因此小房间就不显示房间号了
+					if($room_prefix) {
+						$ext = '来自'.$gtinfo[$gametype].'的'.$itm.'。';
+					}else{
+						$ext = '来自第'.$gamenum.'局的'.$itm.'。';
+					}
 					if($cards[$get_card_id]['rare'] == 'A') $ext.='运气不错！';
 					elseif($cards[$get_card_id]['rare'] == 'S') $ext.='一是欧洲人吧！';
 					if ((\cardbase\get_card_message($get_card_id,$ext))==1) $is_new = "<span class=\"L5\">NEW!</span>";;
