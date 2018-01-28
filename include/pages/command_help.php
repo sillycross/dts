@@ -312,8 +312,16 @@ DIV.FAQ DD {
 	
 }
 
-DIV.FAQ DD A {
+DIV.help_body {
+	margin-left:12px;text-align:left;width:900px
+}
+
+DIV.help_body A {
 	color:#98fb98
+}
+
+DIV.help_body img {
+	margin:10px 20px;border:1.5px dashed #999;border-radius:5px;
 }
 </STYLE>
 EOT;
