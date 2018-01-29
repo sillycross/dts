@@ -17,15 +17,15 @@ namespace instance9
 		}else return $chprocess();
 	}
 	
-	function get_shoplist(){
-		if (eval(__MAGIC__)) return $___RET_VALUE; 
-		eval(import_module('sys','instance9'));
-		if (19 == $gametype){
-			$file = __DIR__.'/config/shopitem.config.php';
-			$l = openfile($file);
-			return $l;
-		}else return $chprocess();
-	}
+//	function get_shopconfig(){
+//		if (eval(__MAGIC__)) return $___RET_VALUE; 
+//		eval(import_module('sys','instance9'));
+//		if (19 == $gametype){
+//			$file = __DIR__.'/config/shopitem.config.php';
+//			$l = openfile($file);
+//			return $l;
+//		}else return $chprocess();
+//	}
 	
 	function get_itemfilecont(){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 

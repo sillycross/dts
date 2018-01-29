@@ -86,7 +86,7 @@ namespace skill490
 //			if(isset($ival[4]) && !in_array($ival[4], $itemklist)) $itemklist[] = $ival[4];
 //			if(isset($ival[7]) && !in_array($ival[7], $itemsklist)) $itemsklist[] = $ival[7];
 		}
-		$shoplist=\itemshop\get_shoplist();
+		$shoplist=\itemshop\get_shopconfig();
 		foreach($shoplist as $lst){
 			if(!empty($lst) && strpos($lst,',')!==false){
 				list($kind,$num,$price,$area,$item,$itmk,$itme,$itms,$itmsk)=explode(',',$lst);

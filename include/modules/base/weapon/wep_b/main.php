@@ -171,9 +171,9 @@ namespace wep_b
 			$weps = $nosta;
 		}
 		
-		$wepsk_var = \itemmain\get_itmsk_array($wepsk);
-		$itmsk_var = \itemmain\get_itmsk_array($itmsk);
-		$arrowmax = (in_array('r',$itmsk_var) || in_array('r',$wepsk_var)) ? 2 + min ( floor(${$skillinfo['B']} / 200), 4 ) : 1;
+		$wepsk_arr = \itemmain\get_itmsk_array($wepsk);
+		$itmsk_arr = \itemmain\get_itmsk_array($itmsk);
+		$arrowmax = (in_array('r',$itmsk_arr) || in_array('r',$wepsk_arr)) ? 2 + min ( floor(${$skillinfo['B']} / 200), 4 ) : 1;
 		$arrownum = min($arrowmax, $itms);
 		$weps = $arrownum;
 		$itms -= $arrownum;
@@ -181,8 +181,10 @@ namespace wep_b
 		//记录箭矢名
 		$wepk .= '|'.$itm;
 		//为武器增加箭属性
-		if(!empty($itmsk_var)){
-			$wepsk .= '|'.implode('', $itmsk_var).'|';
+		if(!empty($itmsk_arr)){
+//			$add_arr = array_diff($itmsk_arr,$wepsk_arr);
+//			$wepsk .= '|'.implode('', $add_arr).'|';
+			$wepsk .= '|'.implode('', $itmsk_arr).'|';
 		}
 		
 		if(!$swapnum)	$log .= "为<span class=\"red\">$wep</span>选用了<span class=\"red\">$itm</span>，<span class=\"red\">$wep</span>发射次数增加了<span class=\"yellow\">$arrownum</span>。<br>";

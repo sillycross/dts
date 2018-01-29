@@ -603,12 +603,14 @@ namespace weapon
 		eval(import_module('weapon'));
 		if (isset($pa['wep_kind']))
 			return $rangeinfo[$pa['wep_kind']];
-		else  return $rangeinfo[$pa['wepk'][1]];
+		else  return $rangeinfo[get_attack_method($pa)];
 	}
 	
 	function check_counterable_by_weapon_range(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$pa['wep_kind'] = get_attack_method($pa);
+		$pd['wep_kind'] = get_attack_method($pd);
 		$r1 = get_weapon_range($pa, $active);
 		$r2 = get_weapon_range($pd, 1-$active);
 		if ($r1 >= $r2 && $r1 != 0 && $r2 != 0)

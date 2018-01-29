@@ -4,12 +4,60 @@ namespace itemshop
 {
 	function init() {}
 	
-	function get_shoplist(){
+	function get_shopconfig(){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
-		eval(import_module('sys'));
 		$file = __DIR__.'/config/shopitem.config.php';
 		$sl = openfile($file);
 		return $sl;
+	}
+	
+	//按类别整理出$sil_bykind
+	function get_shopitem_list_by_kind($filecont)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$sil_bykind = array();
+		foreach($filecont as $fv){
+			if(!empty($fv) && strpos($fv,',')!==false){
+				$sil_single = shopitem_data_process(explode(',',$fv));
+				if($sil_single[0]){
+					if(!isset($sil_bykind[$sil_single[0]])) $sil_bykind[$sil_single[0]] = array();
+					$sil_bykind[$sil_single[0]][] = $sil_single;
+				}
+			}			
+		}
+		return $sil_bykind;
+	}
+	
+	//自动合并不同模式的数据，并且给出正确的商店道具数组
+	//返回不含类别的$sil
+	function get_shopitem_list($filecont=array())
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//首先是基础数据
+		$file = __DIR__.'/config/shopitem.config.php';
+		$filecont0 = openfile($file);
+		$sil_bykind = get_shopitem_list_by_kind($filecont0);
+		
+		//其次是不同模式的定制数据
+		if(!empty($filecont) && $filecont != $filecont0){
+			//gwrite_var('a.txt',array_diff($filecont0, $filecont));
+			$sil_bykind_c = get_shopitem_list_by_kind($filecont);
+			foreach($sil_bykind_c as $sk => $sv){
+				$sil_bykind[$sk] = $sv;
+			}
+		}
+		
+		ksort($sil_bykind);
+		$sil = array();
+		//然后去掉类别，返回一个扁平化的列表
+		foreach($sil_bykind as $sv) {
+			foreach($sv as $v){
+//				$tmp = array();
+//				list($tmp['kind'], $tmp['num'], $tmp['price'], $tmp['area'], $tmp['item'], $tmp['itmk'], $tmp['itme'], $tmp['itms'], $tmp['itmsk']) = list($v);
+				$sil[] = $v;
+			}
+		}
+		return $sil;
 	}
 	
 	function rs_game($xmode)
@@ -27,16 +75,12 @@ namespace itemshop
 			$sql = str_replace("\r", "\n", str_replace(' bra_', ' '.$tablepre, $sql));
 			$db->queries($sql);
 			
-			$shoplist=get_shoplist();
+			$shopitem_list = get_shopitem_list(get_shopconfig());
 			
 			$qry = '';
-			foreach($shoplist as $lst){
-				if(!empty($lst) && strpos($lst,',')!==false){
-					list($kind,$num,$price,$area,$item,$itmk,$itme,$itms,$itmsk)=shopitem_data_process(explode(',',$lst));
-					if($kind != 0){
-						$qry .= "('$kind','$num','$price','$area','$item','$itmk','$itme','$itms','$itmsk'),";
-					}
-				}			
+			foreach($shopitem_list as $lst){
+				list($kind,$num,$price,$area,$item,$itmk,$itme,$itms,$itmsk)=$lst;
+				$qry .= "('$kind','$num','$price','$area','$item','$itmk','$itme','$itms','$itmsk'),";	
 			}
 			if(!empty($qry)){
 				$qry = "INSERT INTO {$tablepre}shopitem (kind,num,price,area,item,itmk,itme,itms,itmsk) VALUES ".substr($qry, 0, -1);
@@ -84,13 +128,11 @@ namespace itemshop
 	
 	function get_itemshop_filename(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','logger','player'));
 		return MOD_ITEMSHOP_SHOP;
 	}
 	
 	function get_sp_shop_filename(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','logger','player'));
 		return MOD_ITEMSHOP_SP_SHOP;
 	}
 
@@ -235,7 +277,6 @@ namespace itemshop
 		}
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
-		
 }
 
 ?>
