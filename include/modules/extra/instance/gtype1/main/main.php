@@ -79,7 +79,7 @@ namespace gtype1
 		}else return $chprocess();
 	}
 	
-	function get_shoplist(){
+	function get_shopconfig(){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		eval(import_module('sys'));
 		if ($gametype==1){

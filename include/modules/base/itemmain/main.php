@@ -121,18 +121,22 @@ namespace itemmain
 			$i = $elli_aready = 0;
 			$imax = count($sk_arr);
 			if(!empty($sk_arr)){
+				$got = array();//除天然和奇迹外的同种属性只显示1次
 				foreach($sk_arr as $sv){
-					if(!$i){
-						$ret .= $itemspkinfo[$sv];
-					}elseif($elli && $i >= 3 && $i < $imax-1){
-						if(!$elli_aready){
-							$ret .= '+…';
-							$elli_aready = 1;
+					if(!in_array($sv,$got)){
+						if(!$i){
+							$ret .= $itemspkinfo[$sv];
+						}elseif($elli && $i >= 3 && $i < $imax-1){
+							if(!$elli_aready){
+								$ret .= '+…';
+								$elli_aready = 1;
+							}
+						}else{
+							$ret .= '+'.$itemspkinfo[$sv];
 						}
-					}else{
-						$ret .= '+'.$itemspkinfo[$sv];
 					}
 					$i ++ ;
+					if('z'!=$sv && 'x'!=$sv) $got[] = $sv;
 				}
 				//$ret = substr($ret,0,-1);
 			}
