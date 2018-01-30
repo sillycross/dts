@@ -177,6 +177,15 @@ namespace pose
 		}
 		return round($chprocess($theitem)*$modifier);
 	}
+	
+	//如果是探物姿态，探索玩家流程结束以后会继续探索道具
+	function can_continue_post_discover_player($dpret)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player'));
+		if(!$dpret && 3==$pose) return true;
+		return $chprocess($dpret);
+	}	
 		
 	function act()
 	{

@@ -209,11 +209,11 @@ namespace item_misc
 					$ss=$mss=600;
 					$att+=200;$def+=200;
 					$money+=19980;
-					$itm1='美味补给';$itmk1 = 'HB';$itmsk1 = '';$itme1 = 777;$itms1 = 177;
+					$itm1='美味补给';$itmk1 = 'HB';$itmsk1 = '';$itme1 = 2777;$itms1 = 277;
 					$itm2='全恢复药剂';$itmk2 = 'Ca';$itmsk2 = '';$itme2 = 1;$itms2 = 44;
-					$itm3='移动PC';$itmk3 = 'EE';$itmsk3 = '';$itme3 = 20;$itms3 = 1;
+					$itm3='食堂的剩饭';$itmk3 = 'HR';$itmsk3 = '';$itme3 = 100;$itms3 = 15;
 					$itm4='量子雷达';$itmk4 = 'ER';$itmsk4 = '2';$itme4 = 20;$itms4 = 1;
-					$itm5='聪明药';$itmk5 = 'ME';$itmsk5 = '';$itme5 = 30;$itms5 = 8;
+					$itm5='聪明药';$itmk5 = 'ME';$itmsk5 = '';$itme5 = 100;$itms5 = 4;
 					//$itm5='游戏解除钥匙';$itmk5 = 'Y';$itmsk5 = '';$itme5 = 1;$itms5 = 1;
 					$arb='代码聚合体的长袍';$arbk = 'DB';$arbsk = 'Bb';$arbe = 500;$arbs = 100;
 					$art='Untainted Glory';$artk = 'A';$artsk = 'Hh';$arte = 1;$arts = 1;

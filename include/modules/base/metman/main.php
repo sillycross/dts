@@ -241,6 +241,7 @@ namespace metman
 		return $ret;
 	}
 	
+	//如果发现玩家，返回true
 	function discover_player()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -272,7 +273,7 @@ namespace metman
 				if ($z)
 				{
 					meetman($edata['pid']);
-					return;
+					return true;
 				}
 			}
 			else {
@@ -292,16 +293,24 @@ namespace metman
 	function discover($schmode)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//echo 'metman ';
 		$dice = rand(0,99);
 		eval(import_module('logger'));
 		$meetman_rate = calculate_meetman_rate($schmode);
 		if($meetman_rate < 20) $meetman_rate = 20;//任何时候遇敌率不低于20%；
 		//$log .= '发现玩家判定：骰'.$dice.' 阈：'.$meetman_rate.' ';
 		if($dice < $meetman_rate) {
-			discover_player();
-			return;
+			$ret = discover_player();
+			if(!can_continue_post_discover_player($ret)) return;
 		} 
 		$chprocess($schmode);
+	}
+	
+	//探索玩家流程结束以后是否能够继续探索道具
+	function can_continue_post_discover_player($dpret)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return false;
 	}
 }
 
