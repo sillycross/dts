@@ -107,7 +107,7 @@ namespace empowers
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','itemmain','logger'));
+		eval(import_module('sys','player','itemmain','logger','weapon'));
 		
 		if (! $weps || ! $wepe || strpos($wepk,'W')!==0) {
 			$log .= '请先装备武器。<br>';
@@ -116,14 +116,19 @@ namespace empowers
 
 		$dice = rand ( 0, 99 );
 		$dice2 = rand ( 0, 99 );
-		$skill = array ('WP' => $wp, 'WK' => $wk, 'WG' => $wg, 'WC' => $wc, 'WD' => $wd, 'WF' => $wf );
+		$skill = array();
+		foreach($skillinfo as $skiv){
+			$skill[$skiv] = ${$skiv};
+		}
+		//$skill = array ('WP' => $wp, 'WK' => $wk, 'WG' => $wg, 'WC' => $wc, 'WD' => $wd, 'WF' => $wf );
 		arsort ( $skill );
 		$skill_keys = array_keys ( $skill );
-		$nowsk = substr ( $wepk, 0, 2 );
-		if('WJ' == $nowsk) $nowsk = 'WG';
+		$nowsk = $skillinfo[substr ( $wepk, 1, 1 )];
+		//if('WJ' == $nowsk) $nowsk = 'WG';
 		$maxsk = $skill_keys [0];
 		if (($skill [$nowsk] != $skill [$maxsk]) && ($dice < 30)) {
-			$wepk = $maxsk;
+			$changek = array('wp' => 'WP', 'wk' => 'WK', 'wg' => 'WG', 'wc' => 'WC', 'wd' => 'WD', 'wf' => 'WF');
+			$wepk = $changek[$maxsk]. substr($wepk,2);
 			$kind = "更改了{$wep}的<span class=\"yellow\">类别</span>！";
 		} elseif (($weps != $nosta) && ($dice2 < 70)) {
 			$weps += ceil ( $wepe / 2 );

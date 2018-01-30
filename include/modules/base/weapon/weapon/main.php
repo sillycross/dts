@@ -609,8 +609,10 @@ namespace weapon
 	function check_counterable_by_weapon_range(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//$pa反击方有可能因为某些原因改变了攻击方式，从而要重算$wep_kind
 		$pa['wep_kind'] = get_attack_method($pa);
-		$pd['wep_kind'] = get_attack_method($pd);
+		//而$pd原攻击方的攻击已经是既成事实，至少在这个函数里不需要重算$wep_kind
+		//$pd['wep_kind'] = get_attack_method($pd);
 		$r1 = get_weapon_range($pa, $active);
 		$r2 = get_weapon_range($pd, 1-$active);
 		if ($r1 >= $r2 && $r1 != 0 && $r2 != 0)

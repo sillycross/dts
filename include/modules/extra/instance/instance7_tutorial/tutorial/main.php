@@ -343,6 +343,7 @@ namespace tutorial
 	//接管discover()，玩家某几步必定发现NPC或者道具
 	function discover($schmode) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//echo 'tutorial ';
 		eval(import_module('sys','player','logger'));
 		if($gametype == 17){
 			$ct = get_tutorial();
@@ -428,11 +429,11 @@ namespace tutorial
 						$n = tutorial_changehp_npc($ct['obj2']['meetnpc'],$ct['obj2']['meetsub'],$pid,1,$nid);
 					}
 					\metman\meetman($nid);
-					return;
+					return true;
 				}else{//尸体
 					$mnpcd = tutorial_checknpc($ct['obj2']['meetnpc'], $ct['obj2']['meetsub'], $pid, 0, 1);
 					if($mnpcd['pls'] == $pls) \metman\meetman($mnpcd['pid']);
-					return;
+					return true;
 				}				
 			}
 //			}elseif($ct_prev['object']=='kill' && isset($ct_prev['obj2']['meetnpc']) && $ct['object']=='money' && $tprog){//上一次打死人但是没捡到东西

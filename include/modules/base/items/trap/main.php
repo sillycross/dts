@@ -386,7 +386,7 @@ namespace trap
 	function discover($schmode) 
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
+		//echo 'trap ';
 		eval(import_module('trap','logger'));
 		$trap_dice=rand(0,99);//随机数，开始判断是否踩陷阱
 		if($trap_dice < $trap_max_obbs)

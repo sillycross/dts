@@ -340,6 +340,7 @@ namespace itemmain
 	function discover($schmode)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//echo 'itemmain ';
 		$find_obbs = calculate_itemfind_obbs()*calculate_itemfind_obbs_multiplier();
 		$dice = rand(0,99);
 		if($dice < $find_obbs) {

@@ -32,8 +32,8 @@
 			<!--{if $atime>$now}--><span class="linen">{$atd}开始才可再使用A级身份卡</span><br><!--{/if}-->
 			<!--{if $btime>$now}--><span class="brickred">{$btd}开始才可再使用B级身份卡</span><br><!--{/if}-->
 			<br />
-			<input type="submit" class="cmdbutton" onClick="$('cardChosen').value=chosen_card_id;" value="{lang submit}">
-			<input type="reset" class="cmdbutton" value="{lang reset}">
+			<input type="submit" class="b_button bc_black" onClick="$('cardChosen').value=chosen_card_id;" value="{lang submit}">
+			<input type="reset" class="b_button bc_black" value="{lang reset}">
 	</form>
 	<br />
 {template footer}
