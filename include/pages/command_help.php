@@ -302,13 +302,13 @@ P{ line-height:16px
 	font-family: "微软雅黑"; color: #98fb98; width: 100%;font-size: 16px;font-weight:900;
 }
 
-DIV.FAQ {
-	PADDING-LEFT: 1em; line-height:20px; font-size: 10pt;
+DL {
+	line-height:20px; font-size: 10pt;
 }
-DIV.FAQ DT {
+DT {
 	COLOR: #98fb98;font-weight:bold;
 }
-DIV.FAQ DD {
+DD {
 	
 }
 
