@@ -16,12 +16,16 @@
 
 ## 安装指南
 1. 首先把游戏文件属性全部改成777，然后如果之前没有建过mysql结构，进mysql里执行：
+
+```
 	create database acdts;
 	use acdts;
-	source gamedata/sql/all.sql
+	source gamedata/sql/all.sql;
 	insert into acbra2_users (uid) values (0);
 	insert into acbra2_winners (gid) values (0);
 	insert into acbra2_game (gamenum) values (0);
+```
+
 2. 将./include/modules/core/sys/config/server.config.sample.php ****复制一份**** 然后重命名为server.config.php，并填写相应参数。****切记要复制文件，不要直接重命名****，不然push一下github那边就没有sample文件了……
 3. 将./include/modulemng/modulemng.config.sample.php ****复制一份**** 然后重命名为modulemng.config.php，暂时不要动里面的东西。****切记要复制文件，不要直接重命名****，不然push一下github那边就没有sample文件了……
 4. 访问游戏首页（这时应该没有任何错误了），用gamefounder帐号登录（这一步是为了获取有权限的cookie）。
