@@ -9,7 +9,18 @@ if($sendmode != 'newspage' && (!$cuser || !defined('IN_GAME'))) {
 	exit('Not in game.');
 }
 
-if(($sendmode == 'send')&&$chatmsg) {//发送聊天
+$ctablecorrect = 1;
+//如果拉取的房间号同账号不对应则进行游戏局数判定
+if((isset($cgamenum) && $gamenum != $cgamenum) || (isset($croomid) && $groomid != $croomid)){
+	if(room_check_gamenum($croomid, $cgamenum)) {
+		//如果房间存在且局数有效，则修改当前聊天房间号
+		$ctablepre = room_get_tablepre(room_id2prefix($croomid));
+	}else{
+		$ctablecorrect = 0;//否则标记房间号错误
+	}
+}
+
+if($ctablecorrect && $sendmode == 'send' && $chatmsg ) {//发送聊天
 	if(strpos($chatmsg,'/') === 0) {
 		$result = $db->query("SELECT groupid FROM {$gtablepre}users WHERE username='$cuser'");
 		$groupid = $db->result($result,0);
@@ -21,10 +32,10 @@ if(($sendmode == 'send')&&$chatmsg) {//发送聊天
 					//$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,msg) VALUES ('4','$now','$cuser','$chatmsg')");
 				}
 			} else {
-				$chatdata = array('lastcid' => $lastcid, 'msg' => Array('<span class="red">指令错误。<br></span>'));
+				$showdata = array('lastcid' => $lastcid, 'msg' => Array('<span class="red">指令错误。<br></span>'));
 			}
 		} else {
-			$chatdata = array('lastcid' => $lastcid, 'msg' => Array('<span class="red">聊天信息不能用 / 开头。<br></span>'));
+			$showdata = array('lastcid' => $lastcid, 'msg' => Array('<span class="red">聊天信息不能用 / 开头。<br></span>'));
 		}
 	} else { 
 		if($chattype == 0) {
@@ -33,7 +44,7 @@ if(($sendmode == 'send')&&$chatmsg) {//发送聊天
 			\sys\addchat(1, $chatmsg, $cuser, $teamID);
 		}
 	}
-}elseif($sendmode == 'newspage'){//来自news.php的调用
+}elseif($ctablecorrect && $sendmode == 'newspage'){//来自news.php的调用
 	$showdata['innerHTML']['newsinfo'] = '';
 	$chats = getchat(0,'',0,$chatinnews);
 	$chatmsg = $chats['msg'];
@@ -41,8 +52,13 @@ if(($sendmode == 'send')&&$chatmsg) {//发送聊天
 		$showdata['innerHTML']['newsinfo'] .= $val;
 	}	
 }
+//房间号错误，显示错误信息并停止轮询js运行
+if(!$ctablecorrect && $lastcid >= 0) {
+	$lastcid = -1;
+	$showdata = array('lastcid' => $lastcid, 'msg' => Array('<span class="red">房间号错误，可能是新一局游戏已开始。<br></span>'));
+}
 //$sendmode=='ref'时没有特殊判断，直接作下列处理
-if(!$showdata) {
+if($ctablecorrect && !$showdata) {
 	if($chatpid) $showdata = getchat($lastcid,$teamID,$chatpid);
 	else $showdata = getchat($lastcid,$teamID);
 }

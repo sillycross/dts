@@ -20,6 +20,17 @@ function room_check_subroom($room_prefix=''){//检查是标准局还是房间
 	return ($room_prefix && 's' == room_prefix_kind($room_prefix));
 }
 
+function room_check_gamenum($room_id, $room_gamenum){//检查对应房间的局数是否正确
+	global $db,$gtablepre;
+	$ret = false;
+	$roomresult = $db->query("SELECT groomid, gamenum FROM {$gtablepre}game WHERE groomid='$room_id'");
+	if($db->num_rows($roomresult)) {
+		$rs = $db->fetch_array($roomresult);
+		if($rs['gamenum'] == $room_gamenum) $ret = true;
+	}
+	return $ret;
+}
+
 function room_prefix2id($room_prefix=''){
 	//if(!$room_prefix) global $room_prefix;
 	if (room_check_subroom($room_prefix)) return (int)substr($room_prefix,1);

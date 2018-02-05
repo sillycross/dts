@@ -18,7 +18,7 @@ namespace sys
 	
 	function init()
 	{
-		global $gtablepre, $tablepre, $wtablepre, $room_prefix, $room_id, $moveut, $moveutmin, $u_templateid;
+		global $gtablepre, $tablepre, $wtablepre, $ctablepre, $room_prefix, $room_id, $moveut, $moveutmin, $u_templateid;
 		global ${$gtablepre.'user'}, ${$gtablepre.'pass'}, $___MOD_SRV;
 		if (isset($_COOKIE))
 		{
@@ -136,6 +136,7 @@ namespace sys
 		
 		//为$tablepre赋值，之后除game表之外的数据库操作都被引入对应前缀的数据表
 		$tablepre = room_get_tablepre();
+		$ctablepre = $tablepre;
 		
 		if ($room_prefix=='') $wtablepre = $gtablepre;
 		else $wtablepre = $gtablepre.room_prefix_kind($room_prefix);
