@@ -187,7 +187,8 @@ if ($___MOD_SRV)
 						}
 					}else{
 						//非游戏指令则删除对应的回应文件
-						unlink($___MOD_TMP_FILE_DIRECTORY.$___TEMP_uid);
+						//蛋疼，不能删，socket是异步的
+						//unlink($___MOD_TMP_FILE_DIRECTORY.$___TEMP_uid);
 					}
 					//清除进程锁，避免烂代码导致daemon卡死
 					//为了防止未来可能会绕过文件末尾那个判定的情况，放在这里
