@@ -160,24 +160,34 @@ if ($___MOD_SRV)
 					}
 					socket_close($___TEMP_connection);  
 					__SOCKET_DEBUGLOG__("关闭连接。");
-					
-					if (defined('MOD_REPLAY') && $___MOD_SRV && $___MOD_CODE_ADV3 && !in_array($gametype, $replay_ignore_mode)) 
-					{
-						if (!isset($jgamedata['url']))
+					//只有游戏内指令需要储存成录像
+					if(!isset($page) || 'command' == $page) {
+						if (defined('MOD_REPLAY') && $___MOD_SRV && $___MOD_CODE_ADV3 && !in_array($gametype, $replay_ignore_mode)) 
 						{
-							$pid=(int)$pid;
-							if (!file_exists(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$pid))
+							if (!isset($jgamedata['url']))
 							{
-								create_dir(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$pid);
+								$pid=(int)$pid;
+								$rdir = GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$pid;
+								if (!file_exists($rdir))
+								{
+									create_dir($rdir);
+								}
+								elseif (!is_dir($rdir))
+								{
+									unlink($rdir);
+									create_dir($rdir);
+								}
+								$rfile = $rdir.'/replay.php';
+								$rcont = \replay\replay_record_op($oprecorder).','.($___PAGE_STARTTIME_VALUE-$starttime+$moveut*3600+$moveutmin*60).','.$___MOD_TMP_FILE_DIRECTORY.$___TEMP_uid.','."\n";
+								if(!file_exists($rfile)) {
+									$rcont = "<?php if(!defined('IN_GAME')) exit('Access Denied'); ?>\n".$rcont;
+								}
+								file_put_contents($rfile,$rcont,FILE_APPEND);
 							}
-							elseif (!is_dir(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$pid))
-							{
-								unlink(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$pid);
-								create_dir(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$pid);
-							}
-							
-							file_put_contents(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$pid.'/replay.txt',\replay\replay_record_op($oprecorder).','.($___PAGE_STARTTIME_VALUE-$starttime+$moveut*3600+$moveutmin*60).','.$___MOD_TMP_FILE_DIRECTORY.$___TEMP_uid.','."\n",FILE_APPEND);
 						}
+					}else{
+						//非游戏指令则删除对应的回应文件
+						unlink($___MOD_TMP_FILE_DIRECTORY.$___TEMP_uid);
 					}
 					//清除进程锁，避免烂代码导致daemon卡死
 					//为了防止未来可能会绕过文件末尾那个判定的情况，放在这里

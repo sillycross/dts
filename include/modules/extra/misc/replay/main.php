@@ -109,7 +109,7 @@ namespace replay
 			//logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-前序处理');
 			while($data = $db->fetch_array($result))
 			{
-				if (is_dir(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$data['pid']) && file_exists(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$data['pid'].'/replay.txt'))
+				if (is_dir(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$data['pid']) && file_exists(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$data['pid'].'/replay.php'))
 				{
 					$totsz = 0;
 					//$arr=录像头文件，记录基本信息和每次操作的时刻
@@ -119,7 +119,7 @@ namespace replay
 					$arr['replay_timelen'] = $gametimelen;
 					$arr['replay_optime'] = Array();
 					//读对应的replay.txt，内容什么时刻对应哪个response文件
-					$oplist = openfile(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$data['pid'].'/replay.txt');
+					$oplist = openfile(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$data['pid'].'/replay.php');
 					$cnt = sizeof($oplist);
 					//计算分几段
 					//卧槽你这里直接ceil()不就好了嘛……算了不改了

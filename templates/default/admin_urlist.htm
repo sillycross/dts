@@ -59,6 +59,9 @@
 			<td><input type="text" name="killmsg_$n" size="12" maxlength="20" value="$ur['killmsg']" disabled="true"></td>
 			<td><input type="text" name="lastword_$n" size="12" maxlength="20" value="$ur['lastword']" disabled="true"></td>
 			<td>
+				<input type="submit" value="不可修改" disabled="true">
+			</td>
+			<td>
 				<input type="submit" value="修改" disabled="true">
 			</td>
 			<!--{else}-->
@@ -81,7 +84,10 @@
 			<td><input type="text" name="motto_$n" size="12" maxlength="60" value="$ur['motto']"></td>
 			<td><input type="text" name="killmsg_$n" size="12" maxlength="60" value="$ur['killmsg']"></td>
 			<td><input type="text" name="lastword_$n" size="12" maxlength="60" value="$ur['lastword']"></td>
-			<td><textarea cols="70" rows="4" style="overflow:auto" name="a_achievements_$n">$ur['a_achievements']</textarea></td>
+			<td>
+				<input type="button" id="achlist$n" value="展开列表" onclick="this.style.display='none';$('a_achievements_$n').style.display='block'">
+				<textarea cols="70" rows="4" style="overflow:auto;display:none;" id="a_achievements_$n" name="a_achievements_$n">$ur['a_achievements']</textarea>
+			</td>
 			<td>
 				<input type="submit" value="修改" onclick="$('urcmd').value='edit_{$n}_{$ur['uid']}'">
 			</td>
@@ -94,6 +100,18 @@
 				<input type="submit" name="submit" value="封停选中玩家" onclick="$('urcmd').value='ban'">
 				<input type="submit" name="submit" value="解封选中玩家" onclick="$('urcmd').value='unban'">
 				<input type="submit" name="submit" value="删除选中玩家" onclick="$('urcmd').value='del'">
+			</td>
+		</tr>
+		<tr>
+			<td colspan=2></td>
+			<td colspan=12 style="text-align:center;">
+				标题：
+				<input type="text" name="stitle" size="6" maxlength="20" value="发放奖励">&nbsp;&nbsp;&nbsp;
+				正文：
+				<input type="text" name="scontent" size="20" maxlength="30" value="您获得了奖励，请查收！">&nbsp;&nbsp;&nbsp;
+				附件：
+				<input type="text" name="senclosure" size="20" maxlength="30" value="getqiegao_0;getcard_0">&nbsp;&nbsp;&nbsp;s
+				<input type="submit" name="submit" value="发送站内邮件" onclick="$('urcmd').value='sendmessage'">
 			</td>
 		</tr>
 		<!--{/if}-->
