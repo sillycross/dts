@@ -13,8 +13,8 @@ function init_item_place()
 		'mapitem_i8' => GAME_ROOT.'./include/modules/extra/instance/instance8_proud/config/mapitem.config.php',
 		'mapitem_i9' => GAME_ROOT.'./include/modules/extra/instance/instance9_rush/config/mapitem.config.php',
 		'shopitem' => GAME_ROOT.'./include/modules/base/itemshop/config/shopitem.config.php',
-		'shopitem_i8' => GAME_ROOT.'./include/modules/extra/instance/instance8_proud/config/shopitem.config.php',
-		'shopitem_i9' => GAME_ROOT.'./include/modules/extra/instance/instance9_rush/config/shopitem.config.php',
+//		'shopitem_i8' => GAME_ROOT.'./include/modules/extra/instance/instance8_proud/config/shopitem.config.php',
+//		'shopitem_i9' => GAME_ROOT.'./include/modules/extra/instance/instance9_rush/config/shopitem.config.php',
 		'mixitem' => GAME_ROOT.'./include/modules/base/itemmix/itemmix/config/itemmix.config.php',
 		'syncitem' => GAME_ROOT.'./include/modules/base/itemmix/itemmix_sync/config/sync.config.php',
 		'overlayitem' => GAME_ROOT.'./include/modules/base/itemmix/itemmix_overlay/config/overlay.config.php',
@@ -70,7 +70,7 @@ function init_item_place()
 		}
 	}
 	//商店数据预处理，trim
-	foreach(array('shopitem', 'shopitem_i8', 'shopitem_i9') as $val){
+	foreach(array('shopitem') as $val){
 		foreach($iplacefiledata[$val] as $ndk => $ndv){
 			$iplacefiledata[$val][$ndk] = trim($ndv);
 		}

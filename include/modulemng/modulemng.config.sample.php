@@ -27,6 +27,7 @@ $___MOD_CODE_COMBINE = 1;
 //是否开启模板html预处理
 //要求CODE_ADV1与CODE_ADV2均开启方可开启
 //这可以大幅降低流量消耗（降低70%）
+//此外，开启后才能记录游戏录像
 $___MOD_CODE_ADV3 = 0;
 
 //是否使用daemon模式，daemon模式可以完全消除模块加载时间

@@ -223,7 +223,7 @@ namespace sys
 			'recv' => $creceiver,
 			'msg' => $msg
 		);
-		$result = $db->array_insert("{$tablepre}chat", $aarr);
+		$result = $db->array_insert("{$ctablepre}chat", $aarr);
 		return $result;
 		//$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,recv,msg) VALUES ('$ctype', '$ctime', '$csender', '$creceiver', '$msg')");
 	}
@@ -259,14 +259,14 @@ namespace sys
 		return $premsg.$msg.$postmsg;
 	}
 	
+	//房间号判定移动到chat.php了
 	function getchat($last,$team='',$chatpid=0,$limit=0) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chatdata = Array('lastcid' => $last, 'msg' => array());
 		eval(import_module('sys', 'input'));
-		//如果拉取的房间号同账号不对应（另一窗口换了房间）或者游戏局数不对应（该房间重开了游戏）则返回
-		if((isset($cgamenum) && $gamenum != $cgamenum) || (isset($croomid) && $groomid != $croomid)) return $chatdata;
+
 		$limit = $limit ? $limit : $chatlimit;
-		$result = $db->query("SELECT * FROM {$tablepre}chat WHERE cid>'$last' AND (recv='' OR (type='1' AND recv='$team') OR (type!='1' AND recv='$chatpid')) ORDER BY cid desc LIMIT $limit");
+		$result = $db->query("SELECT * FROM {$ctablepre}chat WHERE cid>'$last' AND (recv='' OR (type='1' AND recv='$team') OR (type!='1' AND recv='$chatpid')) ORDER BY cid desc LIMIT $limit");
 		
 		if(!$db->num_rows($result)){$chatdata = array('lastcid' => $last, 'msg' => array());return $chatdata;}
 		

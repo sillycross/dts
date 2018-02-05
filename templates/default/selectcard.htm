@@ -150,7 +150,8 @@ handleShowCardErrorMouseOut = function()
 		</div>
 		<!--{/if}-->
 	</div>
-</div><div style="display:inline-block; width:5px;"></div><div style="display:inline-block; height:320px; width:250px; vertical-align:top;">
+</div>
+<div style="display:inline-block; height:320px; width:240px; vertical-align:top;">
 	<div style="height:30px;">
 		<span class="yellow" style="line-height:30px">当前被选择的卡片</span>
 	</div>
@@ -158,6 +159,7 @@ handleShowCardErrorMouseOut = function()
 		<!--{eval $showpack=1;}-->
 		<!--{loop $cards $cardid $nowcard}-->
 			<!--{if in_array($cardid,$card_ownlist) && !in_array($cardid, array_keys($card_disabledlist))}-->
+				<!--{eval $card_achieved=in_array($cardid,$card_achieved_list);}-->
 				<div id="card{$cardid}" class="cardoption"<!--{if $chosencard!=$cardid}--> style="display:none"<!--{/if}-->>
 					{template MOD_CARDBASE_CARD_FRAME}
 				</div>

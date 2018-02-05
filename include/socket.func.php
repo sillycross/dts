@@ -419,8 +419,4 @@ function MODSRV_shutDownFunction()
 	}
 	die();
 }
-
-
 ?>
-		
-				

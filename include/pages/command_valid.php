@@ -118,6 +118,8 @@ if($mode == 'enter') {
 	$hideDisableButton = 1;
 	list($card_disabledlist,$card_error) = card_validate($udata);
 	
+	$d_achievements = \achievement_base\decode_achievements($udata);
+	if(!empty($d_achievements['326'])) $card_achieved_list = $d_achievements['326'];
 	
 	$showCardUnavailableHint = 1;
 	include template('valid');
