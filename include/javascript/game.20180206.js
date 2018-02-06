@@ -1,5 +1,6 @@
 var ms;
 hotkey_ok = true;
+refchat_ok = true;
 
 function hotkey(evt) 
 { 
@@ -420,8 +421,10 @@ function chat(mode,reftime) {
 	oXmlHttp.send(sBody);
 	if(mode == 'send'){$('chatmsg').value = '';$('sendmode').value = 'ref';}
 	rtime = reftime;
-	if(mode == 'news') refchat = setTimeout("chat('news',rtime)",rtime);
-	else refchat = setTimeout("chat('ref',rtime)",rtime);
+	if(refchat_ok) {
+		if(mode == 'news') refchat = setTimeout("chat('news',rtime)",rtime);
+		else refchat = setTimeout("chat('ref',rtime)",rtime);
+	}
 }
 
 function showChatdata(chatdata) {
@@ -432,9 +435,15 @@ function showChatdata(chatdata) {
 		return;
 	}
 	chatdata = JSON.parse(chatdata);
+	if(null==chatdata) return;
 	var lastvarid='';
 	var pdomid='';
 	var cdata='';
+	if(chatdata['cmd']) {
+		if('chat-ref-stop' == chatdata['cmd']) {
+			refchat_ok = false;
+		}
+	}
 	if(chatdata['msg']) {
 		lastvarid='lastcid';
 		pdomid='chatlist';

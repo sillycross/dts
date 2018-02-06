@@ -1,25 +1,27 @@
-<!--{eval \bubblebox\bubblebox_set_style('id:persistent-rmeditbox;height:280;width:160;scroll-bar:0;');}-->
+<!--{eval \bubblebox\bubblebox_set_style('id:persistent-rmeditbox;height:250;width:200;scroll-bar:0;');}-->
 {template MOD_BUBBLEBOX_START}
-<table CellSpacing=0 CellPadding=0 width=200px height=200px>
-<tr><td class="b3">
-<div style="text-align:left; margin-top:20px; margin-bottom:20px; margin-left:20px;">
-	设置游戏模式：<br>
+<div id="loading2"></div>
+<div style="text-align:middle; margin-top:20px; margin-bottom:20px; margin-left:20px;">
+	设置游戏模式：
 	<!--{eval global $roomtypelist;}-->
 	<!--{loop $roomtypelist $i $value}-->
-		<!--{if check_room_available($value)}-->
-			<input type="radio" name="rmmode" id="type$i" value="type$i" <!--{if $i==0}-->checked<!--{/if}-->><a onclick="sl('type$i');">$value['name']</a><br>
+		<!--{if check_room_available($value) && !$roomtypelist[$i]['without-ready']}-->
+			<div>
+			<!--{eval $bname=str_replace('"',"'",$value['name']);}-->
+			<a class="b_button bc_black" onclick="
+				$('loading2').style.display='block';
+				$('command').value='rmsetmode';
+				$('para1').value=$i; 
+			postCmd('roomcmd','roomcmd.php'); 
+			sleep(1000);
+			bubblebox_show('persistent-roommain');
+			$('loading2').style.display='none';
+			" style="margin:3px;width:85px">$bname</a>
+			</div>
 		<!--{/if}-->
 	<!--{/loop}-->
-	<span style="display:block; height:5px;">&nbsp;</span>
-	<input type="button" class="cmdbutton"  value="提交" onclick="$('command').value='rmsetmode';
-	<!--{loop $roomtypelist $i $value}-->
-		<!--{if check_room_available($value)}-->
-		if ($('type$i').checked) $('para1').value=$i; 
-		<!--{/if}-->
-	<!--{/loop}-->
-	postCmd('roomcmd','roomcmd.php'); 
-	this.disabled=true; sleep(1000); this.disabled=false; bubblebox_show('persistent-roommain');">
-	<input type="button" class="cmdbutton"  value="返回" onclick="bubblebox_show('persistent-roommain');">
+	<div>
+		<a class="b_button bc_black" onclick="bubblebox_show('persistent-roommain');" style="margin:3px;width:85px">返回</a>
+	</div>
 </div>
-</td></tr></table>
 {template MOD_BUBBLEBOX_END} 

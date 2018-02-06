@@ -161,67 +161,33 @@
 </table>
 <!--{/if}-->
 <!--{if $roomdata['roomtype']==4}-->
+<!--<div style="margin:10px">
+	<ul class="roomteam-ul" style="list-style-type:none;">
+		<li style="display:block;">
+			<div style="float:left">
+				
+			</div>
+		</li>
+	</ul>
+</div>-->
 <table CellSpacing=0 CellPadding=0 width=100%>
-<tr>
-	<td class="b3" height=40px width=20px>
-	</td>
-	<td class="b3" height=40px width=40px>
-		<span style="color:#ff0022;">红队</span>
-	</td>
-	<!--{loop range(0,4) $i}-->
-	<td class="b3" id="room-position-$i" width=90px align=center style="position:relative;">
-		{template roomslot_s}
-	</td>
+	<!--{loop range(0,room_get_vars($roomdata,'pnum')-1) $i}-->
+		<!--{eval $lp = room_get_vars($roomdata,'leader-position')[$i];$tcolor = room_get_vars($roomdata,'color')[$lp];$tname = room_get_vars($roomdata,'teamID')[$lp];}-->
+		<!--{if $i % 5 == 0}-->
+		<tr>
+			<td class="b3" height=40px width=20px>
+			</td>
+			<td class="b3" height=40px width=40px>
+				<span style="color:$tcolor;">$tname</span>
+			</td>
+		<!--{/if}-->
+			<td class="b3" id="room-position-$i" width=90px align=center style="position:relative;">
+				{template roomslot_s}
+			</td>
+		<!--{if $i % 5 == 4}-->
+		</tr>
+		<!--{/if}-->
 	<!--{/loop}-->
-</tr>
-<tr>
-	<td class="b3" height=40px width=20px>
-	</td>
-	<td class="b3" height=40px width=40px>
-		<span style="color:#5900ff;">蓝队</span>
-	</td>
-	<!--{loop range(5,9) $i}-->
-	<td id="room-position-$i" class="b3" width=90px align=center style="position:relative;">
-		{template roomslot_s}
-	</td>
-	<!--{/loop}-->
-</tr>
-<tr>
-	<td class="b3" height=40px width=20px>
-	</td>
-	<td class="b3" height=40px width=40px>
-		<span style="color:#8cff00;">绿队</span>
-	</td>
-	<!--{loop range(10,14) $i}-->
-	<td id="room-position-$i" class="b3" width=90px align=center style="position:relative;">
-		{template roomslot_s}
-	</td>
-	<!--{/loop}-->
-</tr>
-<tr>
-	<td class="b3" height=40px width=20px>
-	</td>
-	<td class="b3" height=40px width=40px>
-		<span style="color:#ffc700;">黄队</span>
-	</td>
-	<!--{loop range(15,19) $i}-->
-	<td id="room-position-$i" class="b3" width=90px align=center style="position:relative;">
-		{template roomslot_s}
-	</td>
-	<!--{/loop}-->
-</tr>
-<tr>
-	<td class="b3" height=40px width=20px>
-	</td>
-	<td class="b3" height=40px width=40px>
-		<span style="color:#fcfcfc;">白队</span>
-	</td>
-	<!--{loop range(20,24) $i}-->
-	<td id="room-position-$i" class="b3" width=90px align=center style="position:relative;">
-		{template roomslot_s}
-	</td>
-	<!--{/loop}-->
-</tr>
 </table>
 <!--{/if}-->
 <!--{if $roomdata['roomtype']==5}-->
@@ -234,7 +200,7 @@
 	<td class="b3" height=25px width=100px>
 	</td>
 	<td class="b3" height=25px width=310px>
-		<span style="color:#ff9933;">挑战内容：在1禁前获得尽可能多的金钱</span>
+		<span style="color:#ff9933;">本模式可以熟悉游戏，也可以尝试在1禁前尽可能获取金钱</span>
 	</td>
 	<td class="b3" height=25px width=100px>
 	</td>
@@ -258,7 +224,7 @@
 <!--{if $roomdata['roomtype']==6}-->
 <table CellSpacing=0 CellPadding=0 width=100%>
 <tr>
-	<td class="b3" height=10px colspan=5>
+	<td class="b3" height=10px colspan=7>
 		<span style="color:#ff9933;">本模式中可以完成解离相关成就 限制时间为4禁 注意2禁会进入连斗</span>
 	</td>
 </tr>

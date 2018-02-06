@@ -257,7 +257,7 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip=NULL)
 //	}
 	$result = $db->query("SELECT groupid FROM {$gtablepre}users WHERE username='$cuser'");
 	$udata = $db->fetch_array($result);
-	if($udata['groupid'] >= 6 || $cuser == $gamefounder){
+	if($gamestate >= 30 && ($udata['groupid'] >= 6 || $cuser == $gamefounder)){
 		addnews($now,'newgm',"<span class=\"".$rarecolor."\">".$newscardname.'</span> '.$name,"{$sexinfo[$gd]}{$sNo}号");
 	}else{
 		addnews($now,'newpc',"<span class=\"".$rarecolor."\">".$newscardname.'</span> '.$name,"{$sexinfo[$gd]}{$sNo}号");

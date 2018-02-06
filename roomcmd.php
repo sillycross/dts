@@ -375,6 +375,15 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 			}
 			room_set_game_option($roomdata, $para1, $para2);
 			room_new_chat($roomdata,"<span class=\"grey\">{$cuser}将 {$gokey_words} 从 {$o_oval_words} 变为 {$n_oval_words} </span><br>");
+			//队伍数目特判，改变队伍数目时刷新新增或者删去的队伍位置
+			if('group-num'==$para1){
+				$range1 = min($para2, $o_oval) * 5; $range2 = max($para2, $o_oval) * 5;
+				for($oi=$range1;$oi<$range2;$oi++){
+					$roomdata['player'][$oi]['name']='';
+					$roomdata['player'][$oi]['ready']=0;
+					$roomdata['player'][$oi]['forbidden']=0;
+				}
+			}
 		}
 		room_save_broadcast($room_id_r,$roomdata);
 		die();
@@ -464,21 +473,26 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 				{	
 					addnews($now,'roominfo',room_get_vars($roomdata, 'name'),'对决者:&nbsp;'.room_getteamhtml($roomdata,0).'&nbsp;<span class="yellow">VS</span>&nbsp;'.room_getteamhtml($roomdata,1).'！');
 				}
-				else  if ($roomdata['roomtype']==1)	//2
+				else  if ($roomdata['roomtype']==1)	//2 废弃
 				{
 					addnews($now,'roominfo',room_get_vars($roomdata, 'name'),'对决者:&nbsp;<span style="color:#ff0022">红队&nbsp;'.room_getteamhtml($roomdata,0).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#5900ff">蓝队 '.room_getteamhtml($roomdata,5).'</span>！');
 				}
-				else  if ($roomdata['roomtype']==2)	//3
+				else  if ($roomdata['roomtype']==2)	//3 废弃
 				{
 					addnews($now,'roominfo',room_get_vars($roomdata, 'name'),'对决者:&nbsp;<span style="color:#ff0022">红队&nbsp;'.room_getteamhtml($roomdata,0).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#5900ff">蓝队 '.room_getteamhtml($roomdata,5).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#8cff00">绿队 '.room_getteamhtml($roomdata,10).'</span>！');
 				}
-				else  if ($roomdata['roomtype']==3)	//4
+				else  if ($roomdata['roomtype']==3)	//4 废弃
 				{
 					addnews($now,'roominfo',room_get_vars($roomdata, 'name'),'对决者:&nbsp;<span style="color:#ff0022">红队&nbsp;'.room_getteamhtml($roomdata,0).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#5900ff">蓝队 '.room_getteamhtml($roomdata,5).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#8cff00">绿队 '.room_getteamhtml($roomdata,10).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#ffc700">黄队 '.room_getteamhtml($roomdata,15).'</span>！');
 				}
-				else  if ($roomdata['roomtype']==4)	//5
+				else  if ($roomdata['roomtype']==4)	//组队模式
 				{
-					addnews($now,'roominfo',room_get_vars($roomdata, 'name'),'对决者:&nbsp;<span style="color:#ff0022">红队&nbsp;'.room_getteamhtml($roomdata,0).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#5900ff">蓝队 '.room_getteamhtml($roomdata,5).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#8cff00">绿队 '.room_getteamhtml($roomdata,10).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#ffc700">黄队 '.room_getteamhtml($roomdata,15).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#fefefe">白队 '.room_getteamhtml($roomdata,20).'</span>！');
+					$groupnum = room_get_vars($roomdata,'group-num');
+					$newsarr = array();
+					for($gi=0;$gi<$groupnum;$gi++){
+						$newsarr[] = '<span style="color:'.(room_get_vars($roomdata, 'color')[$gi*5]).'">'.(room_get_vars($roomdata, 'teamID')[$gi*5]).'&nbsp;'.room_getteamhtml($roomdata,$gi*5).'</span>';
+					}
+					addnews($now,'roominfo',room_get_vars($roomdata, 'name'),'对决者:&nbsp;'.implode('&nbsp;<span class="yellow">VS</span>&nbsp;', $newsarr).'！');
 				}
 				else if ($roomdata['roomtype']==5)	//单人挑战
 				{	

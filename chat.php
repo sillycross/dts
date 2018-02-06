@@ -55,7 +55,11 @@ if($ctablecorrect && $sendmode == 'send' && $chatmsg ) {//发送聊天
 //房间号错误，显示错误信息并停止轮询js运行
 if(!$ctablecorrect && $lastcid >= 0) {
 	$lastcid = -1;
-	$showdata = array('lastcid' => $lastcid, 'msg' => Array('<span class="red">房间号错误，可能是新一局游戏已开始。<br></span>'));
+	$showdata = array(
+		'lastcid' => $lastcid,
+		'msg' => Array('<span class="red">房间号错误，可能是新一局游戏已开始。<br></span>'),
+		'cmd' => 'chat-ref-stop'
+	);
 }
 //$sendmode=='ref'时没有特殊判断，直接作下列处理
 if($ctablecorrect && !$showdata) {
