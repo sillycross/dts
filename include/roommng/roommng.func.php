@@ -224,9 +224,17 @@ function fetch_roomdata($roomid, $roomstate=NULL){
 //获得房间参数，如果房间数组没有就去$roomtypelist里找
 function &room_get_vars(&$roomdata, $varname){
 	global $roomtypelist;
-	$r = NULL;
+	$null = NULL;
+	$r = &$null;
 	if(isset($roomdata[$varname])) $r = &$roomdata[$varname];
 	elseif(isset($roomtypelist[$roomdata['roomtype']][$varname])) $r = &$roomtypelist[$roomdata['roomtype']][$varname];
+	elseif(isset($roomdata['current_game_option'][$varname])) $r = &$roomdata['current_game_option'][$varname];
+	
+	//pnum特判
+	if('pnum' == $varname && isset($roomdata['current_game_option']['group-num'])) {
+		$val = $roomdata['current_game_option']['group-num'] * 5;//没法传引用了，应该不会踩雷吧
+		$r = &$val;
+	}
 	return $r;
 }
 

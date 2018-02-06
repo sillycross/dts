@@ -64,7 +64,7 @@ $roomtypelist = Array(
 			)
 		)
 	),
-	
+	/*
 	1 => Array(
 		'name' => '二队模式',
 		'gtype' => 11, //对应的游戏模式编号
@@ -96,7 +96,7 @@ $roomtypelist = Array(
 			5 => '蓝队',
 		),
 		'show-team-leader' => 1,
-	),
+	),*/
 	/*
 	2 => Array(
 		'name' => '3v3模式',
@@ -119,6 +119,7 @@ $roomtypelist = Array(
 		),
 		'show-team-leader' => 1,
 	),*/
+	/*
 	2 => Array(
 		'name' => '三队模式',
 		'gtype' => 12, //对应的游戏模式编号
@@ -203,9 +204,9 @@ $roomtypelist = Array(
 			15 => '黄队',
  		),
 		'show-team-leader' => 1,
-	),
+	),*/
 	4 => Array(
-		'name' => '五队模式',
+		'name' => '组队模式',
 		'gtype' => 14, //对应的游戏模式编号
 		'available' => true,
 		'soleroom' => false,//唯一房间，只有不存在时才会新建房间。
@@ -214,7 +215,7 @@ $roomtypelist = Array(
 		'pnum' => 25,//最大参与人数，只有开启准备才有效
 		'globalnum' => 0,	//全场最大开启数目，不设或者0认为无限制
 		'privatenum' => 1,	//单人最大开启数目，不设或者0认为无限制；不需要准备的房间无视这个值
-		'leader-position' => Array(
+		'leader-position' => Array(//先这么办吧，回头如果要改队伍人数上限再说
 			0 => 0,
 			1 => 0,
 			2 => 0,
@@ -256,6 +257,35 @@ $roomtypelist = Array(
 			20 => '白队',
  		),
 		'show-team-leader' => 1,
+		'game-option' => array(
+			'group-num' => array(//变量名
+				'title' => '队伍数目',//界面显示的提示
+				'type' => 'radio',//input类型
+				'options' => array(
+					array(
+						'value' => '2',
+						'name' => '二队',
+						'title' => '两支队伍互相对抗',
+						'default' => true,
+					),
+					array(
+						'value' => '3',
+						'name' => '三队',
+						'title' => '三支队伍互相对抗',
+					),
+					array(
+						'value' => '4',
+						'name' => '四队',
+						'title' => '四支队伍互相对抗',
+					),
+					array(
+						'value' => '5',
+						'name' => '五队',
+						'title' => '五支队伍互相对抗',
+					)
+				)
+			)
+		)
 	),
 	5 => Array(
 		'name' => '<font class="yellow">伐木挑战</font>',

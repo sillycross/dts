@@ -61,11 +61,16 @@ function updateTime(domid,t,tm,intv,fmt)
 		timinglist[domid]['timing'] = t;
 		if(0==t){
 			if(0 < t0 && 'timing'==domid) window.location.reload(); //首页
-			else if('area_timing' == domid) {//游戏界面内禁区自动刷新
-				var o_command = $('command').value;
-				$('command').value = 'area_timing_refresh';
-				postCmd('gamecmd','command.php');
-				$('command').value = o_command;
+			else if('area_timing' == domid) {//游戏界面内禁区自动刷新，不过由于两边时间不同步，可能执行不正常
+				setTimeout(
+					function(){
+						var o_command = $('command').value;
+						$('command').value = 'area_timing_refresh';
+						postCmd('gamecmd','command.php');
+						$('command').value = o_command;
+					},
+					1000
+				);
 			}
 		}
 	}
