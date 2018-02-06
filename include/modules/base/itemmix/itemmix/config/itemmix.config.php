@@ -292,7 +292,7 @@ $mixinfo = array
 	
 	array('class' => 'wf_pn', 'stuff' => array('月符「Silent Serena」-劣','日符「Royal Flare」-劣'),'result' => array('日&月符『Royal Diamond Ring』-劣','WF',99,999,'zzzzz'),),
 	array('class' => 'wf_pn', 'stuff' => array('月符「Silent Serena」','月符「Silent Serena」','火水木金土符『贤者之石』','金符「Metal Fatigue」'),'result' => array('月月火水木金金符『年中无休』（笑）','WF',65500,'∞','rdnNc'),),
-	array('class' => 'wf_pn', 'stuff' => array('月符「Silent Serena」','月符「Silent Serena」','火水木金土符『贤者之石-上级』','金符「Metal Fatigue」'),'result' => array('月月火水木金金符『年中无休』','WF',65500,'∞','rdnNcZ'),),
+	array('class' => 'wf_pn', 'stuff' => array('月符「Silent Serena」','月符「Silent Serena」','火水木金土符『贤者之石-上级』','金符「Metal Fatigue」'),'result' => array('月月火水木金金符『年中无休』','WF',65500,'∞','rdnyNcZ'),),
 	
 	array('class' => 'wf_ks', 'stuff' => array('空白符卡','生命探测器','精神制剂'),'result' => array('想起「恐怖催眠术」','WF',65,100,'cd'),),
 	array('class' => 'wf_ks', 'stuff' => array('空白符卡','广域生命探测器','精神制剂'),'result' => array('想起「恐怖催眠术」','WF',80,100,'cd'),),
