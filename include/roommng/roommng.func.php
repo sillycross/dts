@@ -336,7 +336,7 @@ function room_create($roomtype)
 	global $roomtypelist,$max_room_num, $max_private_room_num;
 	
 	$roomtype=(int)$roomtype;
-	if ($roomtype>=count($roomtypelist)){
+	if (!isset($roomtypelist[$roomtype])){
 		gexit('房间参数错误',__file__,__line__);
 	}
 	elseif(!check_room_available($roomtypelist[$roomtype])){
