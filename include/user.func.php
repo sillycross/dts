@@ -55,8 +55,8 @@ function create_storedpass($cuser, $cpass){//获得储存密码（加盐）
 
 function pass_compare($cuser, $cpass, $spass){//比较cookie密码及数据库密码
 	global $oldpswdcmp, $db, $tablepre;
-	if (create_storedpass($cuser, $cpass) == $spass) return true;
-	elseif((!isset($oldpswdcmp) || $oldpswdcmp) && $cpass == $spass) return true;
+	if (create_storedpass($cuser, $cpass) === $spass) return true;
+	elseif((!isset($oldpswdcmp) || $oldpswdcmp) && $cpass === $spass) return true;
 	return false;
 }
 

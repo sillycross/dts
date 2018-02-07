@@ -190,11 +190,13 @@ function content($file = '') {
 	return $content;
 }
 
-function gsetcookie($var, $value, $life = 0, $prefix = 1) {
+function gsetcookie($varname, $value, $life = 0, $prefix = 1) {
 	global $tablepre, $gtablepre, $cookiedomain, $cookiepath, $now, $_SERVER;
-	setcookie(($prefix ? $gtablepre : '').$var, $value,
-		$life ? $now + $life : 0, $cookiepath,
-		$cookiedomain, $_SERVER['SERVER_PORT'] == 443 ? 1 : 0);
+	$cname = ($prefix ? $gtablepre : '').$varname;
+	$expire = $life ? $now + $life : 0;
+	$secure = $_SERVER['SERVER_PORT'] == 443 ? 1 : 0;
+	$httponly = 'pass' == $varname ? 1 : 0;
+	setcookie($cname, $value, $expire, $cookiepath, $cookiedomain, $secure, $httponly);
 }
 
 function clearcookies() {
