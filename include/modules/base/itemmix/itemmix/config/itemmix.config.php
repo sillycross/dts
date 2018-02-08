@@ -5,7 +5,7 @@ namespace itemmix
 //合成时无视的词缀，是正则表达式
 $itmname_ignore = Array('/锋利的/si','/电气/si','/毒性/si','/-改/si');
 
-$mixinfo = array
+$mixinfo = array 
 	( 
 	array('class' => 'h', 'stuff' => array('杂炊','松茸'),'result' => array('松茸御饭','HS',120,10,),),
 	array('class' => 'h', 'stuff' => array('咖喱','面包'),'result' => array('咖喱面包','HH',140,2,),),
@@ -82,6 +82,12 @@ $mixinfo = array
 	array('class' => 'wp', 'stuff' => array('『诺基亚』','曾经的荣光-巨盾','防弹背心','防弹背心','防弹背心','防弹背心'),'result' => array('『曾经的荣光-诺基亚』','WP',255,9999,'NAZ'),),
 	array('class' => 'wp', 'stuff' => array('葱娘の葱','葱娘肉包'),'result' => array('葱娘V4X的合成器','WP',200,50,'tr'),),
 	array('class' => 'wp', 'stuff' => array('MIKU的原味内裤','MIKU的小葱'),'result' => array('MIKU V4X的双马尾','WP',600,100,'miku'),),
+	
+	array('class' => 'wp_mrm', 'stuff' => array('雏人形','《东方灵异传》','原型武器P'),'result' => array('【人形降临】','WP',666,666,'t'),),
+	array('class' => 'wp_mrm', 'stuff' => array('【人形降临】','触手的力量','☆十星认证☆'),'result' => array('【人形降临·白恶魔】','WP',666,666,'etdaj'),),
+	array('class' => 'wp_mrm', 'stuff' => array('【人形降临·白恶魔】','职人的荣耀','安雅人体冰雕'),'result' => array('【人形降临·光魔】','WP',666,666,'ewtrLj'),),
+	array('class' => 'wp_mrm', 'stuff' => array('【人形降临·光魔】','小型高威力试作性防身设备『绯蜂』','悲叹之种'),'result' => array('【人形降临·神忌】','WP',6666,666,'dfbrLj'),),
+	array('class' => 'wp_mrm', 'stuff' => array('【人形降临·终堕天】','龙虎旗帜','【HP制御系统】','【HP制御系统】','【HP制御系统】'),'result' => array('【死神降临】','WP',66666,666,'ZdyBbrL'),),
 	
 	array('class' => 'wg', 'stuff' => array('『环形激光』','红宝石方块','原型武器G'),'result' => array('『红石光束炮』','WG',240,360,'ud'),),
 	array('class' => 'hidden', 'stuff' => array('红宝石方块','蓝宝石方块','绿宝石方块','非法枪械部件'),'result' => array('『宝石光束炮-试作型』','WG',1800,144,'ndo'),),
@@ -183,13 +189,15 @@ $mixinfo = array
 	array('class' => 'key', 'stuff' => array('生命之源','微小日常之爱恋'),'result' => array('该物品不存在！','ss',98,98,'Z'),),
 	array('class' => 'key', 'stuff' => array('红色的丝带','红色的丝带','红色的丝带','红色的丝带','红色的丝带'),'result' => array('篝酱的奇迹☆丝带～刃','WK',4200,100,'cjN'),),
 
-	
 	array('class' => 'cube', 'stuff' => array('绿色方块','银色方块'),'result' => array('炙热的绶带','DH',180,80,),),
 	array('class' => 'cube', 'stuff' => array('红色方块','黄色方块'),'result' => array('坚强戒指','DA',180,80,),),
 	array('class' => 'cube', 'stuff' => array('金色方块','水晶方块'),'result' => array('活力之靴','DF',180,80,),),
 	array('class' => 'cube', 'stuff' => array('红色方块','银色方块'),'result' => array('红宝石方块','X',1,1,),),
 	array('class' => 'cube', 'stuff' => array('金色方块','绿色方块'),'result' => array('蓝宝石方块','X',1,1,),),
 	array('class' => 'cube', 'stuff' => array('蓝色方块','黄色方块'),'result' => array('绿宝石方块','X',1,1,),),
+	array('class' => 'cube', 'stuff' => array('金色方块','白色方块'),'result' => array('心金方块','X',1,1,),),
+	array('class' => 'cube', 'stuff' => array('银色方块','黑色方块'),'result' => array('魂银方块','X',1,1,),),
+	array('class' => 'cube', 'stuff' => array('黄色方块','水晶方块'),'result' => array('翡翠方块','X',1,1,),),
 	array('class' => 'cube', 'stuff' => array('红宝石方块','蓝宝石方块'),'result' => array('绿宝石方块','X',1,2,),),
 	array('class' => 'cube', 'stuff' => array('绿宝石方块','黄色方块'),'result' => array('黄色的宝石枪','WG',240,180,'e'),),
 	array('class' => 'cube', 'stuff' => array('绿宝石方块','红色方块'),'result' => array('红色的宝石刀','WK',240,180,'u'),),
@@ -197,12 +205,15 @@ $mixinfo = array
 	array('class' => 'cube', 'stuff' => array('绿宝石方块','绿色方块'),'result' => array('绿色的宝石镖','WC',240,180,'p'),),
 	array('class' => 'cube', 'stuff' => array('绿宝石方块','金色方块'),'result' => array('金色的宝石炸弹','WD',240,180,'d'),),
 	array('class' => 'cube', 'stuff' => array('绿宝石方块','银色方块'),'result' => array('银色的宝石符卡','WF',240,180,'w'),),
+	array('class' => 'cube', 'stuff' => array('绿宝石方块','心金方块'),'result' => array('心金色的宝石弓','WB',240,'∞','c'),),
+	array('class' => 'cube', 'stuff' => array('绿宝石方块','魂银方块'),'result' => array('魂银色的宝石重炮','WJ',240,'∞','c'),),
 	array('class' => 'hidden', 'stuff' => array('绿宝石方块','黄鸡方块'),'result' => array('黄鸡的宝石大炮','WJ',1,1,'uiwepo'),),
 	array('class' => 'cube', 'stuff' => array('红色的宝石刀','悲叹之种'),'result' => array('★恐惧的黑色安息日★','WK',240,320,'rudy'),),
 	array('class' => 'cube', 'stuff' => array('银色的宝石符卡','悲叹之种'),'result' => array('★失落的银色镇魂歌★','WF',240,320,'rwdy'),),
 	array('class' => 'cube', 'stuff' => array('绿宝石方块','水晶方块'),'result' => array('水晶宝石盾','DA',240,180,'PC'),),
 	array('class' => 'cube', 'stuff' => array('绿宝石方块','红宝石方块'),'result' => array('珍珠头盔','DH',360,180,'KDa'),),
 	array('class' => 'cube', 'stuff' => array('绿宝石方块','蓝宝石方块'),'result' => array('钻石靴子','DF',360,180,'GFa'),),
+	array('class' => 'cube', 'stuff' => array('绿宝石方块','翡翠方块'),'result' => array('翡翠色的假宝石','A',240,180,'mL'),),
 	array('class' => 'cube', 'stuff' => array('红宝石方块','红色方块'),'result' => array('深红色的项链','A',240,180,'aM'),),
 	array('class' => 'cube', 'stuff' => array('蓝宝石方块','蓝色方块'),'result' => array('蔚蓝色的项链','A',240,180,'Hc'),),
 	array('class' => 'cube', 'stuff' => array('红宝石方块','黑色方块'),'result' => array('终极红宝石之秘药','HB',386,76,'z'),),
@@ -270,8 +281,8 @@ $mixinfo = array
 	array('class' => 'wf_pn', 'stuff' => array('红色方块','打火机','空白符卡'),'result' => array('火符「Agni Shine」','WF',60,'∞','uU'),),
 	array('class' => 'wf_pn', 'stuff' => array('蓝色方块','水','空白符卡'),'result' => array('水符「Princess Undine」','WF',70,'∞','iI'),),
 	array('class' => 'wf_pn', 'stuff' => array('绿色方块','治愈之叶','空白符卡'),'result' => array('木符「Sylphy Horn」','WF',80,'∞','wW'),),
-	array('class' => 'wf_pn', 'stuff' => array('金色方块','银色方块','电池','空白符卡'),'result' => array('金符「Metal Fatigue」','WF',130,'∞','eE'),),
-	array('class' => 'wf_pn', 'stuff' => array('黄色方块','水晶方块','岩石','空白符卡'),'result' => array('土符「Lazy Trilithon」','WF',150,'∞','Nc'),),
+	array('class' => 'wf_pn', 'stuff' => array('心金方块','电池','空白符卡'),'result' => array('金符「Metal Fatigue」','WF',130,'∞','eE'),),
+	array('class' => 'wf_pn', 'stuff' => array('翡翠方块','岩石','空白符卡'),'result' => array('土符「Lazy Trilithon」','WF',150,'∞','Nc'),),
 	array('class' => 'wf_pn', 'stuff' => array('火符「Agni Shine」','水符「Princess Undine」','木符「Sylphy Horn」','金符「Metal Fatigue」','土符「Lazy Trilithon」'),'result' => array('火水木金土符『贤者之石』','WF',5000,'∞','uipwe'),),
 	array('class' => 'wf_pn', 'stuff' => array('火符「Agni Shine」','『环形激光』','☆残页的魔导书☆'),'result' => array('火符『Akiba Summer』','WF',220,'∞','uUf'),),
 	array('class' => 'wf_pn', 'stuff' => array('水符「Princess Undine」','对魔物用卵石','☆残页的魔导书☆'),'result' => array('水符『Jerry Fish Princess』','WF',90,'∞','riI'),),

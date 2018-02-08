@@ -2,8 +2,8 @@
 
 namespace skill500
 {
-	$skill500_cd = 60;
-	$skill500_act_time = 2;
+	$skill500_cd = 20;
+	$skill500_act_time = 3;
 	
 	$skill500_rage = 30;
 	
@@ -43,7 +43,7 @@ namespace skill500
 			return;
 		}
 		elseif($rage < $skill500_rage){
-			$log.='怒气不足，需要<span class="yellow">{$skill500_rage}点怒气</span>！<br>';
+			$log.='怒气不足，需要<span class="yellow">'.$skill500_rage.'点怒气</span>！<br>';
 			return;
 		}
 		$st = check_skill500_state($sdata);
@@ -208,7 +208,7 @@ namespace skill500
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill500') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}让时间暂时停止了流动！</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}发动了技能「时停」，让时间暂时停止了流动！</span></li>";
 		elseif($news == 'bskill500_end') 
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">时间重新开始流动了！</span></li>";
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);

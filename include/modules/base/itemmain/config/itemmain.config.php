@@ -25,6 +25,7 @@ namespace itemmain
 		//EE item_uee 电脑设备
 		//ER radar 雷达
 		//EW weather 天气控制道具
+		//GA wep_b 箭矢
 		//GB* ammunition 各类弹药
 		//HH,HS,HB edible 各类命体恢复
 		//HM,HT song 歌魂补给

@@ -153,7 +153,7 @@ namespace itemnumlist
 							if(!isset($starnum[$star])) $starnum[$star] = 0;
 							$starnum[$star] += $thisnum;
 						}
-					}					
+					}
 				}
 				//商店出售
 				elseif(strpos($ipdkey, 'shopitem')===0) {
@@ -161,7 +161,6 @@ namespace itemnumlist
 					{
 						list($kind,$num,$price,$area,$iname)=explode(',',$ipdval2);
 						if($price > 0){
-
 							//$thisnum = $num;
 							$thisarea = $area;
 							if($thisarea > 2) {
@@ -288,7 +287,7 @@ namespace itemnumlist
 					
 				}
 				
-				if(!empty($iname) && strpos($ipdkey, 'npc')===false){//npc另外判定
+				if((is_array($ipdval2) || !empty(trim($ipdval2))) && !empty($iname) && strpos($ipdkey, 'npc')===false){//npc另外判定
 					itemnumlist_num_area_proc($slist, $ipdkey, $iname, $thisnum, $thisarea);
 				}
 				

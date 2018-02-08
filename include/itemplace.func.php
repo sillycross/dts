@@ -51,6 +51,7 @@ function init_item_place()
 		//第一遍 合并同名物品
 		foreach($iplacefiledata[$val] as $ndv){
 			$ndv_a = explode(',',trim($ndv));
+			if(sizeof($ndv_a) <= 1) continue;
 			$ndv_num = $ndv_a[2];//记录数量
 			//忽略数量、类别、效、耐、属性的差异（只保留名字、地点、禁数）
 			$ndv_a[2] = 0; $ndv_a[4] = ''; $ndv_a[5] = 0; $ndv_a[6] = 1; $ndv_a[7] = '';
@@ -333,5 +334,35 @@ function get_item_place($which)
 	}
 	if ($which=="悲叹之种") $result.="通过使用『灵魂宝石』强化物品失败获得<br>";
 	return $result;
+}
+
+function get_resultjwords($mixresult){
+	$resultjwords = '';
+	$mixr = array();
+	if(!isset($mixresult['itm'])) {
+		list($mixr['itm'], $mixr['itmk'], $mixr['itme'], $mixr['itms'], $mixr['itmsk']) = $mixresult;
+	}else{
+		$mixr = $mixresult;
+	}
+	if(!empty($mixr['itmsk']) && strpos($mixr['itmsk'],'j')!==false) {
+		$rarr = array();
+		$wname = $mixr['itm'];
+		$i = 0;
+		do{
+			$i++; if($i>99) break;
+			$wret = \wepchange\get_weaponswap_obj($wname);
+			if(empty($wret)) break;
+			$wnlist[] = $wname;
+			$wname = $wret[1];
+			
+			$rarr[] = '<span class=\'yellow\'>'.$wret[1].'</span>/'.\itemmain\parse_itmk_words($wret[2],1).'/'.$wret[3].'/'.$wret[4].(!empty($wret[5]) ? '/'.\itemmain\parse_itmsk_words($wret[5]) : '');
+		}while(!in_array($wret[1],$wnlist) && !empty($wret[5]) && strpos($wret[5],'j')!==false);
+		
+		
+		if(!empty($rarr)) {
+			$resultjwords = '用『武器模式』可变换为：<br>'.implode('<br>→',$rarr);
+		}
+	}
+	return $resultjwords;
 }
 ?>

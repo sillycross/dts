@@ -18,9 +18,12 @@ if(!file_exists($writefile) || filemtime($mixfile) > filemtime($writefile)){
 	foreach($mixinfo as $mix){
 		if($mix['class'] !== 'hidden'){
 			$mixitmk = \itemmain\parse_itmk_words($mix['result'][1],1);
-			$mixitmsk = \itemmain\parse_itmsk_words($mix['result'][4]);
+			$mixitmsk = '';
+			if(!empty($mix['result'][4])) $mixitmsk = \itemmain\parse_itmsk_words($mix['result'][4]);
 			if ($mixitmsk == '--') $mixitmsk = '';
-			$mixitem[$mix['class']][] = array('stuff' => $mix['stuff'], 'result' => array($mix['result'][0],$mixitmk,$mix['result'][2],$mix['result'][3],$mixitmsk));
+			$resultjwords = get_resultjwords($mix['result']);
+
+			$mixitem[$mix['class']][] = array('stuff' => $mix['stuff'], 'result' => array($mix['result'][0],$mixitmk,$mix['result'][2],$mix['result'][3],$mixitmsk), 'resultjwords' => $resultjwords);
 		}
 		
 	}
@@ -35,6 +38,7 @@ if(!file_exists($writefile) || filemtime($mixfile) > filemtime($writefile)){
 		'w' => array('其他武器','yellow'),
 		'd' => array('防具','yellow'),
 		'h' => array('补给品','lime'),
+		'wp_mrm'=> array('殴系武器（人形降临系列）','yellow'),
 		'wf_pn'=> array('灵系武器（帕秋莉·诺雷姬系列）','yellow'),
 		'wf_ks'=> array('灵系武器（古明地觉系列）','yellow'),
 		'pokemon'=> array('小黄系武器','yellow'),
@@ -64,8 +68,8 @@ if(!file_exists($writefile) || filemtime($mixfile) > filemtime($writefile)){
 	</tr>
 MIXITEM_HELP_TABLE_TITLE;
 		foreach($list as $val){
-			if(!empty($val['result'][4])){$itmskword = '/'.$val['result'][4];}
-			else{$itmskword = '';}
+			$itmskword = '';
+			if(!empty($val['result'][4])) $itmskword = '/'.$val['result'][4];
 			for($i = 2;$i < 6; $i++) {
 				if(!isset($val['stuff'][$i])){$val['stuff'][$i] = '-';}
 			}
@@ -81,8 +85,10 @@ MIXITEM_HELP_TABLE_TITLE;
 				$mixhelpinfo .= "><span>{$val['stuff'][$i]}</span></td>
 				";
 			}
+			$resultjwords = '';
+			if(!empty($val['resultjwords'])) $resultjwords = ' title="'.$val['resultjwords'].'"';
 			$mixhelpinfo .= "<td class=\"b3\"><span>→</span></td>
-				<td class=\"b3\"><span>{$val['result'][0]}</span></td>
+				<td class=\"b3\"{$resultjwords}><span>{$val['result'][0]}</span></td>
 				<td class=\"b3\"><span>{$val['result'][1]}/{$val['result'][2]}/{$val['result'][3]}{$itmskword}</span></td>
 			</tr>
 			";
@@ -103,6 +109,7 @@ if(!file_exists($writefile) || filemtime($syncfile) > filemtime($writefile)){
 	$syncitem_special = array();
 	foreach($syncinfo as $sync){
 		$sync_arr=array_combine(array('itm', 'itmk', 'itme', 'itms', 'itmsk', 'star', 'special'), array_slice(explode(',',$sync), 0, 7));
+		$sync_arr['resultjwords'] = get_resultjwords($sync_arr);
 		$sync_arr['itmk'] = \itemmain\parse_itmk_words($sync_arr['itmk'],1);
 		$sync_arr['itmsk'] = \itemmain\parse_itmsk_words($sync_arr['itmsk']);
 		if(!empty($sync_arr['special'])){
@@ -157,9 +164,11 @@ SYNC_HELP_INFO_SPEC_DOC;
 	foreach ($syncitem as $sval){
 		if(!empty($sval['itmsk'])){$itmskwords = '/'.$sval['itmsk'];}
 		else{$itmskwords = '';}
+		$resultjwords = '';
+		if($sval['resultjwords']) $resultjwords = ' title="'.$sval['resultjwords'].'"';
 		$synchelpinfo .= <<<SYNC_HELP_INFO_DOC_TR
 	<tr>
-		<td class='b3' height='20px'><span>{$sval['itm']}</span></td>
+		<td class='b3' height='20px' {$resultjwords}><span>{$sval['itm']}</span></td>
 		<td class='b3'><span>{$sval['itmk']}/{$sval['itme']}/{$sval['itms']}{$itmskwords}</span></td>
 	</tr>
 SYNC_HELP_INFO_DOC_TR;
@@ -175,9 +184,11 @@ SYNC_HELP_INFO_DOC_TR;
 			if (isset($sval['special'][$i])) $synchelpinfo_special .= "title='" . get_item_place_single ( $sval['special'][$i] ) . "'";
 			$synchelpinfo_special .= isset($sval['special'][$i]) ? "><span>{$sval['special'][$i]}</span></td>" : "><span>-</span></td>";
 		}
+		$resultjwords = '';
+		if($sval['resultjwords']) $resultjwords = ' title="'.$sval['resultjwords'].'"';
 		$synchelpinfo_special .=<<<SYNC_HELP_INFO_SPEC_DOC_TR
 		<td class='b3'>→</td>
-		<td class='b3'><span>{$sval['itm']}</span></td>
+		<td class='b3'{$resultjwords}><span>{$sval['itm']}</span></td>
 		<td class='b3'><span>{$sval['itmk']}/{$sval['itme']}/{$sval['itms']}{$itmskwords}</span></td>
 	</tr>
 SYNC_HELP_INFO_SPEC_DOC_TR;
@@ -202,8 +213,10 @@ if(!file_exists($writefile) || filemtime($overlayfile) > filemtime($writefile)){
 	$overlayitem = array();
 	foreach($overlayinfo as $overlay){
 		$overlay_arr=array_combine(array('itm', 'itmk', 'itme', 'itms', 'itmsk', 'star', 'num'), array_slice(explode(',',$overlay), 0, 7));
+		$overlay_arr['resultjwords'] = get_resultjwords($overlay_arr);
 		$overlay_arr['itmk'] = \itemmain\parse_itmk_words($overlay_arr['itmk'],1);
 		$overlay_arr['itmsk'] = \itemmain\parse_itmsk_words($overlay_arr['itmsk']);
+		
 		$overlayitem[] = $overlay_arr;
 	}
 	$overlayhelpinfo = '<p><span class="yellow">超量合成表</span>：</p>';
@@ -231,11 +244,13 @@ OVERLAY_HELP_INFO_DOC;
 	foreach ($overlayitem as $oval){
 		if(!empty($oval['itmsk'])){$itmskwords = '/'.$oval['itmsk'];}
 		else{$itmskwords = '';}
+		$resultjwords = '';
+		if($oval['resultjwords']) $resultjwords = ' title="'.$oval['resultjwords'].'"';
 		$overlayhelpinfo .= <<<OVERLAY_HELP_INFO_DOC_TR
 	<tr>
 		<td class='b3' height='20px'><span>{$overlay_star_words[$oval['star']]}</span></td>
 		<td class='b3'><span> × {$oval['num']}</span></td>
-		<td class='b3'><span>{$oval['itm']}</span></td>
+		<td class='b3' {$resultjwords}><span>{$oval['itm']}</span></td>
 		<td class='b3'><span>{$oval['itmk']}/{$oval['itme']}/{$oval['itms']}{$itmskwords}</span></td>
 	</tr>
 OVERLAY_HELP_INFO_DOC_TR;
