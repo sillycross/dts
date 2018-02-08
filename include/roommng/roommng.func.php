@@ -530,7 +530,7 @@ function room_enter($id)
 	//global $cuser;
 	global $roomtypelist, $gametype, $startime, $now, $room_prefix, $alivenum, $soleroom_resettime, $soleroom_private_resettime;
 	if($roomtypelist[$rd['groomtype']]['without-ready']){//不需要点击准备的房间，要么直接加入，要么跳转加入画面
-		if ($disable_newgame || $disable_newroom) {
+		if ($rd['groomstatus'] < 40 && ($disable_newgame || $disable_newroom)) {//不能通过加入房间来创建新房间
 			gexit('系统维护中，暂时不能加入房间',__file__,__line__);
 			die();
 		}
