@@ -147,7 +147,7 @@ namespace skill48
 		else
 		{
 			$rcost = get_rage_cost48($pa);
-			if ($pa['rage']>=$rcost && $pa['wep_kind']=='C')
+			if ($pa['rage']>=$rcost && $pa['wep_kind']=='C' && \weapon\get_skillkind($pa,$pd,$active) == 'wc')
 			{
 				eval(import_module('logger'));
 				if ($active)

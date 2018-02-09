@@ -62,7 +62,7 @@ namespace skill32
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill32','player','logger'));
 		if (!\skillbase\skill_query(32, $pd) || !check_unlocked32($pd)) return 0;
-		if ($pd['wepk']!='WP') return 0;
+		if (\weapon\get_skillkind($pd,$pa,1-$active) != 'wp') return 0;
 		$defgainrate = $defgain[\skillbase\skill_getvalue(32,'lvl',$pd)];
 		return min(2000, $defgainrate * $pd['wepe'] / 100);
 	}

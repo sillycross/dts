@@ -167,25 +167,35 @@ namespace dualwep
 		$chprocess();
 	}
 	
+	//双系武器不再忽略战斗技能，但是一切跟系别有关的称号战斗技能都无法发动
+	function get_skillkind(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($pa,$pd,$active);
+		$sm = get_sec_attack_method($pa);
+		if($sm) $ret .= $sm;
+		return $ret;
+	}
+	
 	//双系武器忽略战斗技能
 	//这个函数应该是“与”的关系
-	function check_battle_skill_available(&$edata,$skillno)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('player','dualwep'));
-		if (get_sec_attack_method($sdata) && !in_array($skillno, $dualwep_allowed_bskill)) return false;
-		else return $chprocess($edata,$skillno);
-	}
+//	function check_battle_skill_available(&$edata,$skillno)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		eval(import_module('player','dualwep'));
+//		if (get_sec_attack_method($sdata) && !in_array($skillno, $dualwep_allowed_bskill)) return false;
+//		else return $chprocess($edata,$skillno);
+//	}
 
 	//双系武器忽略战斗技能
-	function strike_prepare(&$pa, &$pd, $active)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('dualwep'));
-		if (get_sec_attack_method($pa) && !in_array($pa['bskill'], $dualwep_allowed_bskill)) $pa['bskill']=0;
-		
-		return $chprocess($pa, $pd, $active);
-	}
+//	function strike_prepare(&$pa, &$pd, $active)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		eval(import_module('dualwep'));
+//		if (get_sec_attack_method($pa) && !in_array($pa['bskill'], $dualwep_allowed_bskill)) $pa['bskill']=0;
+//		
+//		return $chprocess($pa, $pd, $active);
+//	}
 }
 
 ?>

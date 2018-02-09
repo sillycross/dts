@@ -54,7 +54,7 @@ namespace skill82
 		else
 		{
 			$rcost = get_rage_cost82($pa);
-			if ( $pa['rage']>=$rcost && $pa['wep_kind']=='K')
+			if ( $pa['rage']>=$rcost && \weapon\get_skillkind($pa,$pd,$active) == 'wk')
 			{
 				eval(import_module('logger'));
 				if ($active)
@@ -96,7 +96,7 @@ namespace skill82
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa, $pd, $active);
-		if($pa['bskill']==82 && $pa['wep_kind']=='K') $ret/=2;
+		if($pa['bskill']==82 && \weapon\get_skillkind($pa,$pd,$active) == 'wk') $ret/=2;
 		return $ret;
 	}
 

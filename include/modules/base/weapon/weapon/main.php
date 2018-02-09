@@ -66,7 +66,7 @@ namespace weapon
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('weapon'));
-		return get_skill_by_kind($pa, $pd, $active, get_skillkind($pa,$pd,$active));
+		return get_skill_by_kind($pa, $pd, $active, substr(get_skillkind($pa,$pd,$active),0,2));//使双系武器能直接回避系别战斗技的判定，但又能正常判断熟练度
 	}
 	
 	function get_skillkind(&$pa,&$pd,$active)

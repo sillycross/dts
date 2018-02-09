@@ -48,7 +48,7 @@ namespace skill215
 		else
 		{
 			$rcost = get_rage_cost215($pa);
-			if (($pa['rage']>=$rcost)&&($pa['wep_kind']=="D"))
+			if (($pa['rage']>=$rcost)&&(\weapon\get_skillkind($pa,$pd,$active) == 'wd'))
 			{
 				eval(import_module('logger'));
 				if ($active)
@@ -107,8 +107,8 @@ namespace skill215
 		if ( $key=='d' && $pa['bskill']==215 && !empty($pa['skill215_o_dmg']) && $ret != $pa['skill215_o_dmg']) 
 		{
 			eval(import_module('logger'));
+			if($ret < $pa['skill215_o_dmg']) $log .= '<span class="clan">但是，爆炸伤害不受影响！</span>';
 			$ret = round($pa['skill215_o_dmg']);
-			$log.='但是，爆炸伤害不受影响！';
 			unset($pa['skill215_o_dmg']);
 		}
 		return $ret;

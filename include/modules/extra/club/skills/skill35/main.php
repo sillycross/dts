@@ -73,7 +73,7 @@ namespace skill35
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill35','player','logger'));
 		if (!\skillbase\skill_query(35, $pa) || !check_unlocked35($pa)) return Array();
-		if ($pa['wepk']!='WP') return Array();
+		if (\weapon\get_skillkind($pa,$pd,$active) != 'wp') return Array();
 		if (rand(0,99)<calculate_skill35_proc_rate($pa,$pd,$active))
 		{
 			if ($active)

@@ -1,6 +1,6 @@
-<!--{eval $rageneed = \skill38\get_rage_cost38();}-->
+<!--{eval $rageneed = \skill38\get_rage_cost38();$dummy = array();}-->
 <!--{if $rage>=$rageneed}-->
-<!--{if $wepk == 'WP'}-->
+<!--{if \weapon\get_skillkind($sdata,$dummy,1) == 'wp'}-->
 <input type="button" class="cmdbutton" style="width:98"  value="闷棍" 
 onclick="$('command').value='$w1';$('bskill').value=38;postCmd('gamecmd','command.php');this.disabled=true;"><br />
 <div style="width:90%; text-align:left;">

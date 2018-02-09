@@ -1,5 +1,5 @@
-<!--{eval $remtime=(int)\skill216\get_remaintime216();}-->
-<!--{if substr($wepk,0,2) == 'WD'}-->
+<!--{eval $remtime=(int)\skill216\get_remaintime216();$dummy = array();}-->
+<!--{if \weapon\get_skillkind($sdata,$dummy,1) == 'wp'}-->
 <!--{if $remtime>0}-->
 <input type="button" class="cmdbutton" style="width:98"  value="双响" 
 onclick="$('command').value='$w1';$('bskill').value=216;postCmd('gamecmd','command.php');this.disabled=true;"><br />

@@ -54,15 +54,15 @@ namespace skill217
 		$log.='升级成功。<br>';
 	}
 	
-	function get_skill217_extra_acc_gain(&$pa, &$pd, $active)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('skill217','player','logger'));
-		if (!\skillbase\skill_query(217, $pa) || !check_unlocked217($pa)) return 1;
-		if ($pa['wep_kind']!='G') return 1;
-		$accgainrate = $accgain[\skillbase\skill_getvalue(217,'lvl',$pa)];
-		return 1+($accgainrate)/100;
-	}
+//	function get_skill217_extra_acc_gain(&$pa, &$pd, $active)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		eval(import_module('skill217','player','logger'));
+//		if (!\skillbase\skill_query(217, $pa) || !check_unlocked217($pa)) return 1;
+//		if ($pa['wep_kind']!='G') return 1;
+//		$accgainrate = $accgain[\skillbase\skill_getvalue(217,'lvl',$pa)];
+//		return 1+($accgainrate)/100;
+//	}
 	
 	function get_skill217_extra_dmg_gain(&$pa, &$pd, $active)
 	{
