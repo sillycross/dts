@@ -66,7 +66,7 @@ namespace skill207
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill207','player','logger'));
 		if (!\skillbase\skill_query(207, $pa) || !check_unlocked207($pa)) return 1;
-		if ($pa['wep_kind']!='K') return 1;
+		if (\weapon\get_skillkind($pa,$pd,$active) != 'wk') return 1;
 		$accgainrate = $accgain[\skillbase\skill_getvalue(207,'lvl',$pa)];
 		return 1+($accgainrate)/100;
 	}
@@ -76,7 +76,7 @@ namespace skill207
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill207','player','logger'));
 		if (!\skillbase\skill_query(207, $pa) || !check_unlocked207($pa)) return 1;
-		if ($pa['wep_kind']!='K') return 1;
+		if (\weapon\get_skillkind($pa,$pd,$active) != 'wk') return 1;
 		$rbgainrate = $rbgain[\skillbase\skill_getvalue(207,'lvl',$pa)];
 		return 1+($rbgainrate)/100;
 	}
@@ -101,7 +101,7 @@ namespace skill207
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill207','player','logger'));
 		if (!\skillbase\skill_query(207, $pa) || !check_unlocked207($pa)) return 1;
-		if ($pa['wep_kind']!='K') return 1;
+		if (\weapon\get_skillkind($pa,$pd,$active) != 'wk') return 1;
 		$fluc = $flucgain[\skillbase\skill_getvalue(207,'lvl',$pa)];
 		return (100+$fluc)/100;
 	}
@@ -111,7 +111,8 @@ namespace skill207
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill207','player','logger'));
 		if (!\skillbase\skill_query(207, $pa) || !check_unlocked207($pa)) return 0;
-		if ($pa['wep_kind']!='K') return 0;
+		$dummy = array();
+		if (\weapon\get_skillkind($pa,$dummy,$active) != 'wk') return 0;
 		$ra = $rangerate[\skillbase\skill_getvalue(207,'lvl',$pa)];
 		return $ra;
 	}
@@ -137,7 +138,7 @@ namespace skill207
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa,$pd,$active);
 		if (!\skillbase\skill_query(207,$pa) || !check_unlocked207($pa)) return $ret;
-		if ($pa['wepk']!='WK') return $ret;
+		if (\weapon\get_skillkind($pa,$pd,$active) != 'wk') return $ret;
 		eval(import_module('skill207'));
 		$clv = (int)\skillbase\skill_getvalue(207,'lvl',$pa);
 		$r=1;

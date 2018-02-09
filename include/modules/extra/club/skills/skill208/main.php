@@ -48,7 +48,7 @@ namespace skill208
 		else
 		{
 			$rcost = get_rage_cost208($pa);
-			if (($pa['rage']>=$rcost)&&($pa['wep_kind']=="K"))
+			if ( $pa['rage']>=$rcost && \weapon\get_skillkind($pa,$pd,$active) == 'wk')
 			{
 				eval(import_module('logger'));
 				if ($active)

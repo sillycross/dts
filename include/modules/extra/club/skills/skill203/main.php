@@ -49,7 +49,7 @@ namespace skill203
 		else
 		{
 			$rcost = get_rage_cost203($pa);
-			if ( $pa['rage']>=$rcost &&($pa['wep_kind']=="G" || $pa['wep_kind']=="J"))
+			if ( $pa['rage']>=$rcost && \weapon\get_skillkind($pa,$pd,$active) == 'wg')
 			{
 				eval(import_module('logger'));
 				if ($active)

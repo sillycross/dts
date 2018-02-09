@@ -69,7 +69,7 @@ namespace skill202
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill202','player','logger'));
 		if (!\skillbase\skill_query(202, $pa) || !check_unlocked202($pa)) return 1;
-		if ($pa['wep_kind']!='G' && $pa['wep_kind']!='J') return 1;
+		if (\weapon\get_skillkind($pa,$pd,$active) != 'wg') return 1;
 		$infrgainrate = $infrgain[\skillbase\skill_getvalue(202,'lvl',$pa)];
 		return 1+($infrgainrate)/100;
 	}
@@ -87,7 +87,7 @@ namespace skill202
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill202','player','logger'));
 		if (!\skillbase\skill_query(202, $pa) || !check_unlocked202($pa)) return 0;
-		if ($pa['wep_kind']!='G' && $pa['wep_kind']!='J') return 0;
+		if (\weapon\get_skillkind($pa,$pd,$active) != 'wg') return 0;
 		$extrahit2 = $exthit2[\skillbase\skill_getvalue(202,'lvl',$pa)];
 		return $extrahit2; 
 	}
@@ -104,7 +104,7 @@ namespace skill202
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill202','player','logger'));
 		if (!\skillbase\skill_query(202, $pa) || !check_unlocked202($pa)) return 0;
-		if ($pa['wep_kind']!='G' && $pa['wep_kind']!='J') return 0;
+		if (\weapon\get_skillkind($pa,$pd,$active) != 'wg') return 0;
 		$extd = $extrdmg[\skillbase\skill_getvalue(202,'lvl',$pa)];
 		return $extd; 
 	}
@@ -114,7 +114,7 @@ namespace skill202
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess($pa, $pd, $active, $hurtposition);
 		
-		if ((\skillbase\skill_query(202,$pa))&&(check_unlocked202($pa))&&($pa['wep_kind']=="G" || $pa['wep_kind']=='J'))
+		if ((\skillbase\skill_query(202,$pa))&&(check_unlocked202($pa))&&(\weapon\get_skillkind($pa,$pd,$active) == 'wg'))
 		{
 			$pa['skill202_count']++;
 		}
@@ -126,7 +126,7 @@ namespace skill202
 		
 		$chprocess($pa, $pd, $active);
 
-		if ((\skillbase\skill_query(202,$pa))&&(check_unlocked202($pa))&&($pa['wep_kind']=="G" || $pa['wep_kind']=='J'))
+		if ((\skillbase\skill_query(202,$pa))&&(check_unlocked202($pa))&&(\weapon\get_skillkind($pa,$pd,$active) == 'wg'))
 		{
 			$pa['skill202_count']=0;
 		}
@@ -136,7 +136,7 @@ namespace skill202
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r=Array();
-		if ((\skillbase\skill_query(202,$pa))&&(check_unlocked202($pa))&&($pa['wep_kind']=="G" || $pa['wep_kind']=='J'))
+		if ((\skillbase\skill_query(202,$pa))&&(check_unlocked202($pa))&&(\weapon\get_skillkind($pa,$pd,$active) == 'wg'))
 		{
 			$var_202=$pa['skill202_count']*get_skill202_extra_dmgrate($pa,$pd,$active);
 			eval(import_module('logger'));

@@ -104,10 +104,10 @@ namespace blessstone
 						$mode = 'command';
 						return;
 					}
-					if ($gems==2) 	//两颗成功率2/3
+					if ($gems==2) 	//两颗成功率1/3
 					{
 						$gems--;
-						$dice = rand(1,15);
+						$dice = rand(1,30);
 					}
 					else 			//3颗必定成功
 					{

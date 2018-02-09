@@ -28,7 +28,7 @@ namespace skill209
 	function get_weapon_fluc_percentage(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ((\skillbase\skill_query(209,$pa))&&(check_unlocked209($pa))&&($pa['wep_kind']=='K'))
+		if ( \skillbase\skill_query(209,$pa) && check_unlocked209($pa) && \weapon\get_skillkind($pa,$pd,$active) == 'wk')
 			return abs($chprocess($pa, $pd, $active));
 		else  return $chprocess($pa, $pd, $active);
 	}

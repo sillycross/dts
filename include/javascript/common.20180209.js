@@ -25,12 +25,15 @@ function $(id) {
 	return document.getElementById(id);
 }
 
+timingforbidden = new Array();
+
 //update time
 function updateTime(domid,t,tm,intv,fmt)
 {
 	var tm = tm || 0;
 	var domid = domid || 'timing';
 	var init_flag = 0;
+	if('undefined'!=typeof(timingforbidden[domid])) return;//如果计时被禁用则不计时
 	if('undefined'==typeof(timinglist)) {
 		timinglist = new Array();
 		init_flag = 1;

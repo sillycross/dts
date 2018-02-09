@@ -180,6 +180,38 @@ function replay_pause_handler()
 	$('replay_start_selector').style.color="#ffffff";
 }
 
+function replay_bk_handler()
+{
+	replay_pause_handler();
+	if(replay_now<=0) return;
+	var rn = replay_now;
+	var i = 0;
+	do {
+		rn -= 0.1;
+		i++;
+		if(i>36000 || rn<0) break;
+		rnframe = replay_get_frame(rn);
+	}while(rnframe == replay_nowframe);
+	replay_set_time(rn);
+	replay_cursor_set_position_by_time(rn);
+}
+
+function replay_fd_handler()
+{
+	replay_pause_handler();
+	if(replay_now>=replay_data.length) return;
+	var rn = replay_now;
+	var i = 0;
+	do {
+		rn += 0.1;
+		i++;
+		if(i>36000 || rn>replay_data.length) break;
+		rnframe = replay_get_frame(rn);		
+	}while(rnframe == replay_nowframe);
+	replay_set_time(rn);
+	replay_cursor_set_position_by_time(rn);
+}
+
 replay_timestep = 20;
 
 replay_player_id = -1;
@@ -322,7 +354,7 @@ function replay_stimulate_click(t)
 function replay_stimulate_click_events(t)
 {
 	var f = replay_get_frame(t);
-	if (f+1==replay_data.length) return;
+	if (f+1>=replay_data.length) return;
 	var z = replay_oprecord[f+1].length;
 	if (z==0) return;
 	//最后一次点击操作在下一次操作显示前175毫秒触发

@@ -119,6 +119,7 @@ if($mode == 'enter') {
 	list($card_disabledlist,$card_error) = card_validate($udata);
 	
 	$d_achievements = \achievement_base\decode_achievements($udata);
+	$card_achieved_list = array();
 	if(!empty($d_achievements['326'])) $card_achieved_list = $d_achievements['326'];
 	
 	$showCardUnavailableHint = 1;

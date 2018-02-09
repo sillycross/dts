@@ -1,5 +1,6 @@
 {template header}
-<script type="text/javascript" src="include/javascript/replay.20170428.js"></script>
+<script type="text/javascript" src="include/javascript/replay.20180209.js"></script>
+<script type="text/javascript">timingforbidden['area_timing'] = 1;</script><!-- 阻止倒计时 -->
 <!-- Replay Game Word Lib Load Start -->
 <script type="text/javascript" src=<!--{echo '"gamedata/javascript/'.$repdatalib.'"';}-->></script>
 <!-- Replay Game Word Lib Load End -->
@@ -112,7 +113,8 @@ $('replay_bar').addEventListener('mousedown',replay_bar_mouse_down_handler);
 <!-- 录像操作界面 START -->
 <div align="left">
 
-<table><tr>
+<table>
+	<tr>
 
 <td width="8px"></td>
 
@@ -137,6 +139,26 @@ $('replay_bar').addEventListener('mousedown',replay_bar_mouse_down_handler);
 </div>
 </td>
 <!-- 暂停按钮 END -->
+
+<!-- 后退按钮 START -->
+<td>
+<div class="noselect" id="replay_bk_selector" style="cursor:pointer;border:1px #ffffff solid; height:30px;" onmousedown="replay_bk_handler();">
+<span style="height:5px; display:block;">&nbsp;</span>
+<div style="text-align:center;z-index:10020; ">&nbsp;后退1步&nbsp;</div>
+<span style="height:5px; display:block;">&nbsp;</span>
+</div>
+</td>
+<!-- 后退按钮 END -->
+
+<!-- 前进按钮 START -->
+<td>
+<div class="noselect" id="replay_fd_selector" style="cursor:pointer;border:1px #ffffff solid; height:30px;" onmousedown="replay_fd_handler();">
+<span style="height:5px; display:block;">&nbsp;</span>
+<div style="text-align:center;z-index:10020; ">&nbsp;前进1步&nbsp;</div>
+<span style="height:5px; display:block;">&nbsp;</span>
+</div>
+</td>
+<!-- 前进按钮 END -->
 
 <td width="15px"></td>
 

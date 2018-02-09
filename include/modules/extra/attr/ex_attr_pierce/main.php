@@ -138,7 +138,7 @@ namespace ex_attr_pierce
 	function check_dmg_def_attr(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if(!empty($pa['physical_pierce_success']) && !empty($pa['attr_pierce_success']))
+		if(!empty($pa['physical_pierce_success']) && !empty($pa['attr_pierce_success']) && in_array('h',\attrbase\get_ex_def_array($pa, $pd, $active)))
 		{
 			eval(import_module('logger'));
 			$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="red"><:pa_name:>的攻击贯穿了<:pd_name:>的控血属性！</span><br>');

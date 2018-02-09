@@ -60,7 +60,7 @@ namespace skill75
 		{
 			eval(import_module('sys','skill75'));
 			$l=\skillbase\skill_getvalue(75,'lastuse',$pa);
-			if ($now-$l>=$skill75_cd && $pa['wep_kind']=='K')
+			if ($now-$l>=$skill75_cd && \weapon\get_skillkind($pa,$pd,$active) == 'wk')
 			{
 				eval(import_module('logger'));
 				if ($active)
