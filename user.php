@@ -8,7 +8,6 @@ require './include/user.func.php';
 eval(import_module('cardbase'));
 
 $udata = udata_check();
-
 //if(!$cuser||!$cpass) { gexit($_ERROR['no_login'],__file__,__line__); }
 //
 //$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$cuser'");
@@ -98,6 +97,10 @@ if($mode == 'edit') {
 	$card_disabledlist=Array();
 	$card_error=Array();
 	$packlist = \cardbase\pack_filter($packlist);
+	
+	$card_achieved_list = array();
+	$d_achievements = \achievement_base\decode_achievements($udata);
+	if(!empty($d_achievements['326'])) $card_achieved_list = $d_achievements['326'];
 	include template('user');
 }
 

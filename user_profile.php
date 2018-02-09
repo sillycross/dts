@@ -75,5 +75,4 @@ $user_cards = $userCardData['cardlist'];
 $card_energy = $userCardData['cardenergy'];
 $energy_recover_rate = \cardbase\get_energy_recover_rate($user_cards, $gold);
 
-
 include template('user_profile');
