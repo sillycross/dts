@@ -17,16 +17,16 @@ foreach($_COOKIE as $ckey => $cval){
 	if(strpos($ckey,'user')!==false || strpos($ckey,'pass')!==false) $cookies[$ckey] = $cval;
 }
 $endinfo = curl_post($url, $context, $cookies);
+if(strpos($endinfo, 'redirect')===0){
+	list($null, $url) = explode(':',$endinfo);
+	header('Location: '.$url);
+	exit();
+}
 if(strpos($endinfo,'<head>')===false){
 	$d_endinfo = gdecode($endinfo,1);
 	if(is_array($d_endinfo) && isset($d_endinfo['url']) && 'error.php' == $d_endinfo['url']){
 		gexit($d_endinfo['errormsg'],__file__,__line__);
 	}
-}
-if(strpos($endinfo, 'redirect')===0){
-	list($null, $url) = explode(':',$endinfo);
-	header('Location: '.$url);
-	exit();
 }
 echo $endinfo;
 

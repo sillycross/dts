@@ -87,6 +87,9 @@ if($command == 'edit') {
 		$sf_run = GAME_ROOT.'./gamedata/run/core/sys/config/system.config.adv.php';
 		if($___MOD_CODE_ADV1 && file_exists($sf_run)){
 			file_put_contents($sf_run,$system_cont);
+			$daemonmng_url = 'http://'.$_SERVER['HTTP_HOST'].substr($_SERVER['PHP_SELF'],0,-9).'daemonmng.php';
+			$get_var = 'action=restart&in_game_pass='.substr(base64_encode($___MOD_CONN_PASSWD),0,6);
+			file_get_contents($daemonmng_url.'?'.$get_var);
 			$cmd_info .= '监测到ADV模式已打开，对应运行时文件已修改。<br>';
 		}
 		//putadminlog($adminlog);

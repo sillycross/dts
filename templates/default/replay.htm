@@ -1,5 +1,5 @@
 {template header}
-<script type="text/javascript" src="include/javascript/replay.20180209.js"></script>
+<script type="text/javascript" src="include/javascript/replay.20180210.js"></script>
 <script type="text/javascript">timingforbidden['area_timing'] = 1;</script><!-- 阻止倒计时 -->
 <!-- Replay Game Word Lib Load Start -->
 <script type="text/javascript" src=<!--{echo '"gamedata/javascript/'.$repdatalib.'"';}-->></script>
@@ -304,10 +304,7 @@ replay_player_num_tot = $replay_player_num_tot;
 replay_data_full = JSON.parse(JXG.decompress(___temp_s));
 delete ___temp_s;
 replay_player_now_num = 0;
-</script>
-
-<script type="text/javascript">
-jQuery.cachedScript("gamedata/replays/$repindexdata[0]['repfileid'].replay.header.js")
+jQuery.cachedScript("gamedata/replays/$repindexdata[0]['repfileid'].replay.header.js");
 </script>
 
 {template game_interface}

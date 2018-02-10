@@ -11,7 +11,7 @@ namespace skill348
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach348_desc= array(
-		1=>'使用C或M级卡片时击杀<:threshold:>名使用S级卡片的<span class="yellow" title=\''.POSITIVE_PLAYER_DESC.'\'>活跃玩家</span>',
+		1=>'使用C或M级卡片时击杀<:threshold:>名使用S或A级卡片的<span class="yellow" title=\''.POSITIVE_PLAYER_DESC.'\'>活跃玩家</span>',
 	);
 	
 	$ach348_proc_words = '击杀总数';
@@ -62,7 +62,7 @@ namespace skill348
 		if($pa['type'] || $pd['type']) return false;
 		$rare_a = $cards[$pa['card']]['rare'];
 		$rare_d = $cards[$pd['card']]['rare'];
-		return in_array($rare_a,array('C','M')) && ($rare_d === 'S');
+		return in_array($rare_a,array('C','M')) && in_array($rare_d,array('S','A'));
 	}
 	
 	function player_kill_enemy(&$pa,&$pd,$active){
