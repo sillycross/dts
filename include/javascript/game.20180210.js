@@ -262,6 +262,8 @@ function showData(sdata){
 		shwData = JSON.parse(sdata);
 	else  shwData = sdata;
 	
+	if(!shwData) return;
+	
 	//url属性存在时直接跳转
 	if(shwData['url']) {
 		if (in_replay_mode==0)

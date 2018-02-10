@@ -189,9 +189,10 @@ function replay_bk_handler()
 	do {
 		rn -= 0.1;
 		i++;
-		if(i>36000 || rn<0) break;
+		if(i>108000 || rn<0) break;
 		rnframe = replay_get_frame(rn);
 	}while(rnframe == replay_nowframe);
+	if(rn<0) rn=0;
 	replay_set_time(rn);
 	replay_cursor_set_position_by_time(rn);
 }
@@ -199,15 +200,17 @@ function replay_bk_handler()
 function replay_fd_handler()
 {
 	replay_pause_handler();
-	if(replay_now>=replay_data.length) return;
+	rmax = replay_header['replay_timelen'];
+	if(replay_now>=rmax) return;
 	var rn = replay_now;
 	var i = 0;
 	do {
 		rn += 0.1;
 		i++;
-		if(i>36000 || rn>replay_data.length) break;
+		if(i>108000 || rn>rmax) break;
 		rnframe = replay_get_frame(rn);		
 	}while(rnframe == replay_nowframe);
+	if(rn>rmax) rn=rmax;
 	replay_set_time(rn);
 	replay_cursor_set_position_by_time(rn);
 }
@@ -297,6 +300,7 @@ function replay_init()
 	replay_cursor_set_position_by_time(replay_header['replay_optime'][0]);
 	*/
 	showData(replay_data[0]);
+	replay_fd_handler();	
 }
 
 function replay_cursor_set_position_by_time(t)

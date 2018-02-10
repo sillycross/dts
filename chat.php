@@ -53,7 +53,7 @@ if($ctablecorrect && $sendmode == 'send' && $chatmsg ) {//发送聊天
 	}	
 }
 //房间号错误，显示错误信息并停止轮询js运行
-if(!$ctablecorrect && $lastcid >= 0) {
+if(!$ctablecorrect && $lastcid >= 0 && $gamestate > 0) {
 	$lastcid = -1;
 	$showdata = array(
 		'lastcid' => $lastcid,
