@@ -1,6 +1,7 @@
 <?php
 
 define('CURSCRIPT', 'login');
+define('LOAD_CORE_ONLY', TRUE);
 
 require './include/common.inc.php';
 

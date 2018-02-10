@@ -83,11 +83,17 @@ $mixinfo = array
 	array('class' => 'wp', 'stuff' => array('葱娘の葱','葱娘肉包'),'result' => array('葱娘V4X的合成器','WP',200,50,'tr'),),
 	array('class' => 'wp', 'stuff' => array('MIKU的原味内裤','MIKU的小葱'),'result' => array('MIKU V4X的双马尾','WP',600,100,'miku'),),
 	
-	array('class' => 'wp_mrm', 'stuff' => array('雏人形','《东方灵异传》','原型武器P'),'result' => array('【人形降临】','WP',666,666,'t'),),
-	array('class' => 'wp_mrm', 'stuff' => array('【人形降临】','触手的力量','☆十星认证☆'),'result' => array('【人形降临·白恶魔】','WP',666,666,'etdaj'),),
-	array('class' => 'wp_mrm', 'stuff' => array('【人形降临·白恶魔】','职人的荣耀','安雅人体冰雕'),'result' => array('【人形降临·光魔】','WP',666,666,'ewtrLj'),),
-	array('class' => 'wp_mrm', 'stuff' => array('【人形降临·光魔】','小型高威力试作性防身设备『绯蜂』','悲叹之种'),'result' => array('【人形降临·神忌】','WP',6666,666,'dfbrLj'),),
-	array('class' => 'wp_mrm', 'stuff' => array('【人形降临·终堕天】','龙虎旗帜','【HP制御系统】','【HP制御系统】','【HP制御系统】'),'result' => array('【死神降临】','WP',66666,666,'ZdyBbrL'),),
+	array('class' => 'wp_mrm', 'stuff' => array('雏人形','☆博丽护符☆','原型武器P'),'result' => array('【人形降临】','WP',66,666,'t'),),
+	array('class' => 'wp_mrm', 'stuff' => array('【人形降临】','触手的力量','☆十星认证☆'),'result' => array('【人形降临·白恶魔】','WP',666,666,'etAj'),),
+	array('class' => 'wp_mrm', 'stuff' => array('【人形降临·白恶魔】','触手的潜能','《东方灵异传》'),'result' => array('【人形降临·光魔】','WP',666,666,'trdj'),),
+	array('class' => 'wp_mrm', 'stuff' => array('【人形降临·光魔】','简称为UCW的杏仁豆腐','悲叹之种'),'result' => array('【人形降临·神忌】','WP',6666,666,'tbrdj'),),
+	array('class' => 'wp_mrm', 'stuff' => array('【人形降临·忌影】','深生态杏仁豆腐','悲叹之种'),'result' => array('【人形降临·皇祸】','WP',6666,666,'kBrdj'),),
+	array('class' => 'wp_mrm', 'stuff' => array('【人形降临·血鬼】','【全屏幕弹幕发射】','悲叹之种'),'result' => array('【人形降临·终堕天】','WP',6666,666,'fyrdj'),),
+	array('class' => 'wp_mrm', 'stuff' => array('【人形降临·终堕天】','『410Gauge重型左轮』','【HP制御系统】'),'result' => array('【死神降临】','WP',6666,666,'Nnydrv'),),
+	array('class' => 'wp_mrm', 'stuff' => array('【人形降临·终堕天】','格林多管激光炮','【HP制御系统】'),'result' => array('【死神降临】','WP',6666,666,'NBydrv'),),
+	array('class' => 'wp_mrm', 'stuff' => array('【人形降临·终堕天】','小型高威力试作性防身设备『绯蜂』','【HP制御系统】'),'result' => array('【死神降临】','WP',6666,666,'NbBdrv'),),
+	array('class' => 'wp_mrm', 'stuff' => array('【死神降临】','【死神降临】','【死神降临】'),'result' => array('【死神绝界】','WP',6666,666,'ZBbdrV'),),
+	
 	
 	array('class' => 'wg', 'stuff' => array('『环形激光』','红宝石方块','原型武器G'),'result' => array('『红石光束炮』','WG',240,360,'ud'),),
 	array('class' => 'hidden', 'stuff' => array('红宝石方块','蓝宝石方块','绿宝石方块','非法枪械部件'),'result' => array('『宝石光束炮-试作型』','WG',1800,144,'ndo'),),

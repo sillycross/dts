@@ -92,7 +92,7 @@ namespace itemmain
 		//U ex_dmg_def 防火
 		//u ex_dmg_att 火焰
 		//V ex_seckill 弑神
-		//v ///////////////////////////
+		//v ex_seckill 直死
 		//W ex_dmg_def 隔音
 		//w ex_dmg_att 音波
 		//X ///////////////////////////

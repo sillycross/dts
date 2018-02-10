@@ -1,7 +1,7 @@
 <?php
 
 define('CURSCRIPT', 'register');
-
+define('LOAD_CORE_ONLY', TRUE);
 require './include/common.inc.php';
 
 include './include/user.func.php';

@@ -331,16 +331,18 @@ function room_create($roomtype)
 	eval(import_module('sys'));
 	if ($disable_newgame || $disable_newroom) {
 		gexit('系统维护中，暂时不开放新房间',__file__,__line__);
-		die();
+		return;
 	}
 	global $roomtypelist,$max_room_num, $max_private_room_num;
 	
 	$roomtype=(int)$roomtype;
 	if (!isset($roomtypelist[$roomtype])){
 		gexit('房间参数错误',__file__,__line__);
+		return;
 	}
 	elseif(!check_room_available($roomtypelist[$roomtype])){
 		gexit('该房间类型暂不能使用',__file__,__line__);
+		return;
 	}
 	$rchoice = -1;
 	$rsetting = $roomtypelist[$roomtype];
@@ -434,7 +436,7 @@ function room_create($roomtype)
 			
 			if(!empty($roomtypelist[$rrs['groomtype']]['globalnum']) && $exist_roomnum_bytype[$rrs['groomtype']] >= $roomtypelist[$rrs['groomtype']]['globalnum']	&& $rrs['groomtype'] == $roomtype) {
 				gexit("{$roomtypelist[$rrs['groomtype']]['name']}房间数目已达上限，请在其中任一房间游戏结束后再尝试创建房间！",__file__,__line__);
-				die();
+				return;
 			}
 			
 			if($rrs['groomstatus'] > 0 && isset($rrs['roomvars']['roomfounder']) && $rrs['roomvars']['roomfounder']==$cuser && !$roomtypelist[$rrs['groomtype']]['soleroom']){
@@ -444,10 +446,10 @@ function room_create($roomtype)
 				
 				if(!$roomtypelist[$rrs['groomtype']]['without-ready'] && !empty($roomtypelist[$rrs['groomtype']]['privatenum']) && $founded_roomnum_bytype[$rrs['groomtype']] >= $roomtypelist[$rrs['groomtype']]['privatenum']) {
 					gexit("你已经创建了{$roomtypelist[$rrs['groomtype']]['privatenum']}个{$roomtypelist[$rrs['groomtype']]['name']}房间，请在其中任一房间游戏结束后再尝试创建房间！",__file__,__line__);
-					die();
+					return;
 				}elseif($founded_roomnum >= $max_private_room_num){
 					gexit("你已经创建了{$max_private_room_num}个以上的房间，请在其中任一房间游戏结束后再尝试创建房间",__file__,__line__);
-					die();
+					return;
 				}
 			}
 		}
@@ -471,7 +473,7 @@ function room_create($roomtype)
 	if ($rchoice == -1)
 	{
 		gexit('房间数目已经达到上限，请加入一个已存在的房间',__file__,__line__);
-		die();
+		return;
 	}
 	//房间等待变量初始化
 	$roomdata = room_init($roomtype);
@@ -500,10 +502,6 @@ function room_new_chat(&$roomdata,$str)
 function room_enter($id)
 {
 	eval(import_module('sys'));
-//	if ($disable_newgame || $disable_newroom) {
-//		gexit('管理员禁止了加入房间',__file__,__line__);
-//		die();
-//	}
 	$id=(int)$id;
 	$rd = fetch_roomdata($id);
 	//$result = $db->query("SELECT groomid,groomstatus,groomtype,roomvars FROM {$gtablepre}game WHERE groomid = '$id'");
@@ -511,19 +509,19 @@ function room_enter($id)
 	if(empty($rd)) 
 	{
 		gexit('房间'.$id.'数据记录不存在',__file__,__line__);
-		die();
+		return;
 	}
 	//$rd=$db->fetch_array($result);
 	if ($rd['groomstatus']==0)
 	{
 		gexit('房间'.$id.'已关闭',__file__,__line__);
-		die();
+		return;
 	}
 	
 	if (!file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$id.'.txt')) 
 	{
 		gexit('房间'.$id.'缓存文件不存在',__file__,__line__);
-		die();
+		return;
 	}
 	//$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$id.'.txt'),1);
 	$roomdata = gdecode($rd['roomvars'], 1);
@@ -532,7 +530,7 @@ function room_enter($id)
 	if($roomtypelist[$rd['groomtype']]['without-ready']){//不需要点击准备的房间，要么直接加入，要么跳转加入画面
 		if ($rd['groomstatus'] < 40 && ($disable_newgame || $disable_newroom)) {//不能通过加入房间来创建新房间
 			gexit('系统维护中，暂时不能加入房间',__file__,__line__);
-			die();
+			return;
 		}
 		$room_prefix = room_id2prefix($id);
 		$room_id = $id;
@@ -588,8 +586,9 @@ function room_enter($id)
 		$header = 'index.php';
 	}
 	$db->query("UPDATE {$gtablepre}users SET roomid = '{$id}' WHERE username = '$cuser'");
-	header('Location: '.$header);
-	die();
+
+	echo 'redirect:'.$header;
+	return 1;
 }
 	
 function room_showdata($roomdata, $user)
