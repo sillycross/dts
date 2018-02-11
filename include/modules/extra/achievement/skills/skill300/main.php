@@ -35,6 +35,10 @@ namespace skill300
 		3 => 500,
 	);
 	
+	$ach300_card_prize = array(
+		3 => 86,
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL300_INFO','achievement;');

@@ -241,47 +241,6 @@ namespace achievement_base
 		$chprocess();
 	}
 	
-//	function post_gameover_events()
-//	{
-//		if (eval(__MAGIC__)) return $___RET_VALUE;
-//		
-//		eval(import_module('sys'));
-//		$result = $db->query("SELECT name,pid FROM {$tablepre}players WHERE type=0");
-//		while ($udata=$db->fetch_array($result))
-//		{
-//			$edata=\player\fetch_playerdata_by_pid($udata['pid']);
-//			if ($edata===NULL) continue;
-//			$res = $db->query("SELECT n_achievements FROM {$gtablepre}users WHERE username='{$udata['name']}'");
-//			if (!$db->num_rows($res)) continue;
-//			$zz=$db->fetch_array($res); $ach=$zz['n_achievements'];
-//			$achdata=explode(';',$ach);
-//			$maxid=count($achdata)-2;
-//			foreach (\skillbase\get_acquired_skill_array($edata) as $key) //也就是说，允许先进游戏后换每日任务，甚至可以先清场，结束前换每日任务
-//				if (defined('MOD_SKILL'.$key.'_INFO') && defined('MOD_SKILL'.$key.'_ACHIEVEMENT_ID') && 1 == check_achtype_available($key))
-//					if (\skillbase\check_skill_info($key, 'achievement'))
-//					{
-//						$id=((int)(constant('MOD_SKILL'.$key.'_ACHIEVEMENT_ID')));
-//						if ($id>$maxid) $maxid=$id;
-//						if (isset($achdata[$id])) $s=((string)$achdata[$id]); else $s='';
-//						$f=false;
-//						if (!\skillbase\check_skill_info($key, 'daily')) $f=true;
-//						if (($s!='')&&($s!='VWXYZ')) $f=true;
-//						if ($f){
-//							$func='\\skill'.$key.'\\finalize'.$key;
-//							$achdata[$id]=$func($edata,$s);
-//						}
-//					}
-//			
-//			$nachdata='';
-//			for ($i=0; $i<=$maxid; $i++)
-//				$nachdata.=$achdata[$i].';';
-//			
-//			$db->query("UPDATE {$gtablepre}users SET n_achievements = '$nachdata' WHERE username='{$udata['name']}'");	
-//		}
-//		
-//		$chprocess();
-//	}
-	
 	//返回合法的成就数组（显示用）
 	function get_valid_achievements($u_achievements)
 	{
@@ -346,44 +305,6 @@ namespace achievement_base
 		return $showarr;
 	}
 	
-//	function show_achievements($un,$at)
-//	{
-//		if (eval(__MAGIC__)) return $___RET_VALUE;
-//		
-//		eval(import_module('sys','achievement_base'));
-//		$res = $db->query("SELECT n_achievements FROM {$gtablepre}users WHERE username='$un'");
-//		if (!$db->num_rows($res)) return;
-//		$zz=$db->fetch_array($res); $ach=$zz['n_achievements']; 
-//		$achdata=explode(';',$ach); 
-//		$c=0;
-//		foreach ($achlist[$at] as $key)
-//			if (defined('MOD_SKILL'.$key.'_INFO') && defined('MOD_SKILL'.$key.'_ACHIEVEMENT_ID'))
-//				if ((\skillbase\check_skill_info($key, 'achievement'))&&(!\skillbase\check_skill_info($key, 'hidden')))
-//				{
-//					$id=((int)(constant('MOD_SKILL'.$key.'_ACHIEVEMENT_ID')));
-//					if (isset($achdata[$id])) $s=((string)$achdata[$id]); else $s='';
-//					$f=false;
-//					if (!\skillbase\check_skill_info($key, 'daily')) $f=true;
-//					if (($s!='')&&($s!='VWXYZ')) $f=true;
-//					if ($f){
-//						$func='\\skill'.$key.'\\show_achievement'.$key;
-//						$c++;
-//						if ($c%3==1) echo "<tr>";
-//						echo '<td width="300" align="left" valign="top">';
-//						$func($s);
-//						echo "</td>";
-//						if ($c%3==0) echo "</tr>";
-//					}
-//				}
-//		while ($c<3){//不足3个的分类补位
-//			$c++;
-//			echo '<td width="300" align="left" valign="top" style="border-style:none">';
-//			echo "</td>";
-//			if ($c%3==0) echo "</tr>";
-//		}
-//		if ($c%3!=0) echo "</tr>";
-//	}
-	
 	function refresh_daily_quest(&$udata){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$refdaily_flag = false;
@@ -417,38 +338,6 @@ namespace achievement_base
 		$u_n = $udata['username'];
 		$db->query("UPDATE {$gtablepre}users SET u_achievements = '$u_ach',cd_a1 = '$now' WHERE username='$u_n'");
 	}
-		
-
-//	function get_daily_quest($un){
-//	
-//		if (eval(__MAGIC__)) return $___RET_VALUE;
-//	
-//		eval(import_module('sys','achievement_base'));
-//		$res = $db->query("SELECT n_achievements FROM {$gtablepre}users WHERE username='$un'");
-//		if (!$db->num_rows($res)) return;
-//		$zz=$db->fetch_array($res); $ach=$zz['n_achievements']; 
-//		$achdata=explode(';',$ach); 
-//		$maxid=count($achdata)-2;
-//		$ta=$achlist[20];
-//		shuffle($ta);
-//		$ta=array_slice($ta,0,3);
-//		foreach ($achlist[20] as $key){
-//			$id=((int)(constant('MOD_SKILL'.$key.'_ACHIEVEMENT_ID')));
-//			if (isset($achdata[$id])) $s=((string)$achdata[$id]); else $s='';
-//			if ($id>$maxid) $maxid=$id;
-//			if (in_array($key,$ta)){
-//				$achdata[$id]='aaaaa';
-//			}else{
-//				$achdata[$id]='VWXYZ';
-//			}
-//		}
-//		$nachdata='';
-//		for ($i=0; $i<=$maxid; $i++)
-//			$nachdata.=$achdata[$i].';';
-//		$db->query("UPDATE {$gtablepre}users SET n_achievements = '$nachdata',cd_a1 = '$now' WHERE username='$un'");
-//	}
-	
-
 	
 	function show_ach_title($achid, $achlv, $tp=0)
 	{
@@ -542,7 +431,6 @@ namespace achievement_base
 		$ox=$x;
 		$x=ach_finalize_process($pa, $x, $achid);
 		if($x == $ox) return $x;//任何成就只要没变化就不继续判定
-		
 		//if(empty(${'ach'.$achid.'_threshold'})) return;//没有定义阈值则直接返回
 		$threshold = ${'ach'.$achid.'_threshold'};
 		
@@ -559,7 +447,7 @@ namespace achievement_base
 		$qiegao_up = 0;
 		foreach($threshold as $tk => $tv){
 			if(!empty($tv) && ach_finalize_check_progress($pa, $tv, $x, $achid)){
-				if($ox >= $tv) continue; 
+				if(ach_finalize_check_progress($pa, $tv, $ox, $achid)) continue; 
 				else{
 					$getqiegao=$getcard=0;
 					if($qiegao_flag && !empty($qiegao_prize[$tk])) {

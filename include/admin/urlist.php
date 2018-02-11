@@ -175,4 +175,4 @@ if($urcmd == 'ban' || $urcmd == 'unban' || $urcmd == 'del' || $urcmd == 'sendmes
 }
 include template('admin_urlist');
 
-?>m
+?>

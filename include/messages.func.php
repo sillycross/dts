@@ -48,8 +48,8 @@ function message_disp($messages)
 	//显示卡片的基本参数
 	$showpack=1;
 	foreach($messages as &$mv){
-		$mv['hint'] = '<span class="L5">未读!</span>';
-		if($mv['rd']) $mv['hint'] = '<span class="grey">已读</span>';
+		$mv['hint'] = '<span class="L5">NEW!</span>';
+		if($mv['rd']) $mv['hint'] = '';
 		if(!empty($mv['enclosure'])) {
 			if($mv['checked']) $mv['hint'] .= ' <span class="grey">附件已收</span>';
 			else $mv['hint'] .= ' <span class="L5">附件未收!</span>';

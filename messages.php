@@ -3,8 +3,8 @@
 define('CURSCRIPT', 'messages');
 
 require './include/common.inc.php';
-require './include/user.func.php';
-require './include/messages.func.php';
+require_once './include/user.func.php';
+require_once './include/messages.func.php';
 $udata = udata_check();
 $username = $udata['username'];
 
