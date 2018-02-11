@@ -206,29 +206,16 @@ namespace gtype1
 					$kk=$wl[$rk]['n'];
 					$v=$wl[$rk]['c'];
 					$k=\player\fetch_playerdata($kk);
-					$qiegao_prize = 0;
+					$qiegao_prize = $v*10;
 					$card_prize = array();
-					if ($v>=10){
-						$qiegao_prize += 50;
-					}
-					if ($v>=20){
-						$qiegao_prize += 300;
-					}
-					if ($v>=30){
-						$qiegao_prize += 600;
-					}
-					if ($v>=40){
-						$qiegao_prize += 750;
-					}
-					if ($v>=50){
-						$qiegao_prize += 900;
-					}
-					if ($rk==1){
-						$qiegao_prize += 1000;
-					}
-					if ($rk<=2){
-						$qiegao_prize += 500;
-					}
+					if ($v>=20) $qiegao_prize += 200;
+					if ($v>=30) $qiegao_prize += 500;
+					if ($v>=40) $qiegao_prize += 700;
+					if ($v>=50) $qiegao_prize += 900;
+					if ($v>=60) $qiegao_prize += 1100;
+					if ($v>=70) $qiegao_prize += 1200;
+					if ($rk==1) $qiegao_prize += 1000;
+					if ($rk<=2) $qiegao_prize += 500;
 					if ($rk<=$max_announce_num){
 						$qiegao_prize += 500;
 						$bestlist[$rk] = Array(0=>$kk, 1=>$v);
