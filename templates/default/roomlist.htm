@@ -85,7 +85,7 @@
 	<!--{if $roomtypelist[$value['roomtype']]['without-ready']}-->
 		进入
 	<!--{else}-->
-		<!--{if $value['status']>=10 && $value['status']<40 && $value['nowplayer']<$value['maxplayer']}-->
+		<!--{if ($value['status']>=10 && $value['status']<40 && $value['nowplayer']<$value['maxplayer']) || (!empty($value['validlist']) && in_array($cuser, $value['validlist']))}-->
 			进入
 		<!--{else}-->
 			旁观

@@ -2,6 +2,10 @@
 
 namespace skill331
 {
+	$ach331_name = array(
+		1=>'不给糖就解禁',
+	);
+	
 	$ach331_threshold = array(
 		1 => 1,
 		999 => NULL

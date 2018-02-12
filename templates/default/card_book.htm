@@ -26,7 +26,7 @@
 </center>
 <center>
 	<ul style="width:1000px;list-style-type:none;">
-		<!--{loop $unlock_cards $key $nowcard}-->
+		<!--{loop $unlock_cards $nowcard}-->
 		<!--{eval $lockcard=0;$card_achieved=in_array($nowcard['id'],$card_achieved_list);}-->
 		<li style="float:left;margin:5px;margin-bottom:10px"
 			<!--{if $card_energy[$nowcard['id']]<$nowcard['energy']}-->
@@ -41,7 +41,8 @@
 		<!--{/loop}-->
 		<!--{loop $lock_cards $nowcard}-->
 		<!--{eval $nowcard["desc"]=$nowcard["effect"]='???';$lockcard=1;$card_achieved=0;}-->
-		<li class="lockcard" style="float:left;margin:5px;margin-bottom:10px" title="你尚未获得这张卡片">
+		<!--{eval $gaining = '你尚未获得这张卡片'; if(!empty($card_gaining_method[$nowcard['id']])) $gaining .= '<br>'.implode('<br>',$card_gaining_method[$nowcard['id']]);}-->
+		<li class="lockcard" style="float:left;margin:5px;margin-bottom:10px" title="$gaining">
 			{template MOD_CARDBASE_CARD_FRAME}
 		</li>
 		<!--{/loop}-->

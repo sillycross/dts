@@ -2,6 +2,12 @@
 
 namespace skill328
 {
+	$ach328_name = array(
+		1=>'血染乐园 LV1',
+		2=>'血染乐园 LV2',
+		3=>'血染乐园 LV3',
+	);
+	
 	$ach328_threshold = array(
 		1 => 5,
 		2 => 20,

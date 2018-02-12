@@ -469,6 +469,9 @@ function showChatdata(chatdata) {
 	}
 }
 
+//oSourceObj按钮本身
+//oTargetObj要开闭的标签
+//shutAble开启后是否能关闭
 function openShutManager(oSourceObj,oTargetObj,shutAble,oOpenTip,oShutTip){
 	var sourceObj = typeof oSourceObj == "string" ? document.getElementById(oSourceObj) : oSourceObj;
 	var targetObj = typeof oTargetObj == "string" ? document.getElementById(oTargetObj) : oTargetObj;

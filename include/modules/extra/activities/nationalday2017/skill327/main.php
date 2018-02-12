@@ -2,6 +2,12 @@
 
 namespace skill327
 {
+	$ach327_name = array(
+		1=>'新的战场 LV1',
+		2=>'新的战场 LV2',
+		3=>'新的战场 LV3',
+	);
+	
 	$ach327_threshold = array(
 		1 => 10,
 		2 => 30,

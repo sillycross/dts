@@ -12,4 +12,3 @@ $message = $_POST['errormsg'];
 include template('error');
 
 ?>
-

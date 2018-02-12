@@ -1,13 +1,59 @@
-<form method="post" name="message_cmd" onsubmit="messages.php">
-<input type="hidden" id="mode" name="mode" value="show">
 <div style="position:relative">
 	<div id="loading"></div>
 	<div>
-	<!--{if !empty($messages)}-->
-		<input type="button" class="b_button bc_black" value="全选/反选" onclick="jQuery('.message_sl').each(function(){this.click();});" />
-		<input type="button" class="b_button bc_black" value="查收附件" onclick="$('mode').value='check';postCmd('message_cmd', 'messages.php');this.disabled=true;" />
-		<input type="button" class="b_button bc_black" value="删除" onclick="$('mode').value='del';postCmd('message_cmd', 'messages.php');this.disabled=true;" />
-	<!--{/if}-->
+		<!--{if 'showdel' == $mode || 'recover' == $mode}-->
+			<div style="display:inline-block;width:160px"></div>
+			<input type="button" class="b_button bc_black" value="返回邮箱" onclick="$('mode').value='showmail';postCmd('message_cmd', 'messages.php');this.disabled=true;" />&nbsp;&nbsp;&nbsp;
+			<!--{if !empty($messages)}-->
+				<!--<input type="button" class="b_button bc_black" value="全选/反选" onclick="jQuery('.message_sl').each(function(){this.click();});" />-->
+				<input type="button" class="b_button bc_black" style="width:114px" value="恢复" onclick="
+					var recflag=0;
+					jQuery('.message_sl').each(function(){
+						if(this.checked){recflag=1;return false;}
+					});
+					if(recflag){
+						if($('mode').value!='recover') {
+							$('rec_confirm').style.display='inline';
+							this.value='确认恢复';
+							$('mode').value='recover';
+						}else{
+							$('rec_confirm').style.display='none';
+							postCmd('message_cmd', 'messages.php');this.disabled=true;
+							$('mode').value='';
+						}
+					}
+				" />
+				
+			<!--{/if}-->
+			<div style="display:inline-block;width:160px"><span class="yellow" id="rec_confirm" style="display:none">每条{$message_rec_cost}切糕，确认恢复？</span></div>
+		<!--{else}-->
+			<div style="display:inline-block;width:80px"></div>
+			<input type="button" class="b_button bc_black" value="查看已删邮件" onclick="$('mode').value='showdel';postCmd('message_cmd', 'messages.php');this.disabled=true;" />&nbsp;&nbsp;&nbsp;
+			<!--{if !empty($messages)}-->
+				<input type="button" class="b_button bc_black" value="全选/反选" onclick="jQuery('.message_sl').each(function(){this.click();});" />
+				<input type="button" class="b_button bc_black" value="查收附件" onclick="$('mode').value='check';postCmd('message_cmd', 'messages.php');this.disabled=true;" />
+				<input type="button" class="b_button bc_black" style="width:114px" value="删除" onclick="
+					var delflag=0;
+					jQuery('.message_sl').each(function(){
+						if(this.checked){delflag=1;return false;}
+					});
+					if(delflag){
+						if($('mode').value!='del') {
+							$('del_confirm').style.display='inline';
+							this.value='确认删除';
+							$('mode').value='del';
+						}else{
+							$('del_confirm').style.display='none';
+							postCmd('message_cmd', 'messages.php');this.disabled=true;
+							$('mode').value='';
+						}
+					}
+				" />
+				
+			<!--{/if}-->
+			<div style="display:inline-block;width:80px"><span class="yellow" id="del_confirm" style="display:none">确认删除？</span></div>
+		<!--{/if}-->
+
 	</div>
 	<div class="scroll-pane" style="max-width:1210px;max-height:640px;overflow:hidden;vertical-align:top">
 		<!--{if empty($messages)}-->
@@ -35,6 +81,5 @@
 			<!--{/loop}-->
 		<!--{/if}-->
 	</div>
-	</form>
-	<img class="scroll-pane" type="hidden" src="img/blank.png" onload="jQuery(function() { jQuery('.scroll-pane').jScrollPane(); });">
+	<img type="hidden" style="display:none" src="img/blank.png" onload="jQuery(function() { jQuery('.scroll-pane').jScrollPane(); });">
 </div>

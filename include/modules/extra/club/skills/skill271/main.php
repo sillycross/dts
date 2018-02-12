@@ -40,10 +40,10 @@ namespace skill271
 		//$log .= '你的熟练度'.$s1.' 敌人熟练度'.$s2.'<br>';
 		
 		$t = 0;
-//		if ($s1 > $s2) {
-//			$t = floor(($s1-$s2)/$skill271deno);
-//		}
-		$t = floor($s1/$skill271deno);
+		if ($s1 > $s2) {
+			$t = floor(($s1-$s2)/$skill271deno);
+		}
+		//$t = floor($s1/$skill271deno);
 		return $t;
 	}
 	

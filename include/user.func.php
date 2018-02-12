@@ -141,15 +141,16 @@ function get_iconlist(){
 	return $iconarray;
 }
 
-function convert_tm($t)
+function convert_tm($t, $simple=0)
 {
 	$s1=floor($t/86400);
 	$s2=floor(($t%86400)/3600);
 	$s3=round(($t%3600)/60);
 	$ret='';
 	if ($s1>0) $ret.=$s1.'天';
-	if ($s1>0 || $s2>0) $ret.=$s2.'小时';
-	$ret.=$s3.'分钟';
+	if($simple) $s2 = round(($t%86400)/3600);
+	if($s2 > 0) $ret.=$s2.'小时';
+	if($s1 <= 0 || !$simple) $ret.=$s3.'分钟';//超过1天，在$simple时不显示详细分钟数
 	return $ret;
 }
 ?>

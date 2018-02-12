@@ -2,6 +2,12 @@
 
 namespace skill330
 {
+	$ach330_name = array(
+		1=>'噩梦之夜 LV1',
+		2=>'噩梦之夜 LV2',
+		3=>'噩梦之夜 LV3',
+	);
+	
 	$ach330_threshold = array(
 		1 => 30,
 		2 => 100,

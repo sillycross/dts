@@ -3,10 +3,13 @@
 define('CURSCRIPT', 'messages');
 
 require './include/common.inc.php';
+define('LOAD_CORE_ONLY', TRUE);
 require_once './include/user.func.php';
 require_once './include/messages.func.php';
 $udata = udata_check();
 $username = $udata['username'];
+
+$message_rec_cost = 100;//恢复邮件价格
 
 if(defined('MOD_CARDBASE')) {
 	eval(import_module('cardbase'));
@@ -17,8 +20,7 @@ if(defined('MOD_CARDBASE')) {
 if(!isset($mode)){
 	$mode = 'show';
 }
-
-$messages = message_load();
+$messages = init_messages($mode);
 
 $editflag = 0;
 $info = array();
@@ -35,6 +37,21 @@ if($mode == 'del') {//删除
 		if(!empty(${'sl'.$mi}) && !$messages[$mi]['checked'] && !empty($messages[$mi]['enclosure'])) $checklist[] = $mi;
 	}
 	if(!empty($checklist)) $editflag = 1;
+}elseif($mode == 'recover') {//恢复删除邮件
+	$reclist = array();
+	foreach(array_keys($messages) as $mi){
+		if(!empty(${'sl'.$mi})) $reclist[] = $mi;
+	}
+	if(!empty($reclist)) {
+		$cost = $message_rec_cost * sizeof($reclist);
+		if($udata['gold'] < $cost) {
+			$info[] = '切糕不足，无法恢复邮件！';
+		}else {
+			\cardbase\get_qiegao(-$cost, $udata);
+			$info[] = '支付了'.$cost.'切糕';
+			$editflag = 1;
+		}
+	}
 }
 
 if($editflag) {
@@ -46,10 +63,6 @@ if($editflag) {
 		$db->query("UPDATE {$gtablepre}messages SET checked='1' WHERE mid IN ($checkc) AND receiver='$username'");
 	}
 	if(!empty($dellist)){
-		$delc = implode(',',$dellist);
-		$db->query("DELETE FROM {$gtablepre}messages WHERE mid IN ($delc) AND receiver='$username'");
-		$dnum = $db->affected_rows();
-		$info[] = '已删除'.$dnum.'条消息！';
 		$ins_arr = array();
 		foreach($dellist as $di){
 			$tmp = $messages[$di];
@@ -57,21 +70,39 @@ if($editflag) {
 			$ins_arr[] = $tmp;
 		}
 		if(!empty($ins_arr)) $db->array_insert("{$gtablepre}del_messages", $ins_arr);
+		$delc = implode(',',$dellist);
+		$db->query("DELETE FROM {$gtablepre}messages WHERE mid IN ($delc) AND receiver='$username'");
+		$dnum = $db->affected_rows();
+		$info[] = '已删除'.$dnum.'条消息！';
+	}
+	if(!empty($reclist)){
+		$ins_arr = array();
+		foreach($reclist as $ri){
+			$tmp = $messages[$ri];
+			unset($tmp['mid']);
+			$ins_arr[] = $tmp;
+		}
+		if(!empty($ins_arr)) $db->array_insert("{$gtablepre}messages", $ins_arr);
+		$recc = implode(',',$reclist);
+		$db->query("DELETE FROM {$gtablepre}del_messages WHERE mid IN ($recc) AND receiver='$username'");
+		$rnum = $db->affected_rows();
+		$info[] = '已恢复'.$rnum.'条消息！';
 	}
 	
 	//重载一次信息
-	$messages = message_load();
-}else{
+	$messages = init_messages($mode);
+}elseif(strpos($mode,'show') !== 0 && empty($info)){
 	$info[] = '没有做任何更改';
 }
 //全部设为已读
-foreach($messages as $mv){
-	if(!$mv['rd']) {
-		$db->query("UPDATE {$gtablepre}messages SET rd='1' WHERE receiver='$username' AND rd='0'");
-		break;
+if('show' == $mode){
+	foreach($messages as $mv){
+		if(!$mv['rd']) {
+			$db->query("UPDATE {$gtablepre}messages SET rd='1' WHERE receiver='$username' AND rd='0'");
+			break;
+		}
 	}
 }
-
 
 $messages = message_disp($messages);
 if('show'==$mode){//生成整个页面，不用ajax
