@@ -124,7 +124,8 @@ if($urcmd == 'ban' || $urcmd == 'unban' || $urcmd == 'del' || $urcmd == 'sendmes
 		$urdata[$no]['lastword'] = $urlastword = astrfilter(${'lastword_'.$no});
 		$urdata[$no]['gold'] = $urgold = astrfilter(${'gold_'.$no});
 		$urdata[$no]['icon'] = $uricon = (int)(${'icon_'.$no});
-		$urdata[$no]['a_achievements'] = ${'a_achievements_'.$no};
+		$urdata[$no]['cardlist'] = $urcardlist = astrfilter(${'cardlist_'.$no});
+		$urdata[$no]['a_achievements'] = astrfilter(${'a_achievements_'.$no});
 		
 		$tmp_urna = json_decode(htmlspecialchars_decode(${'a_achievements_'.$no}),1);
 		
@@ -151,7 +152,7 @@ if($urcmd == 'ban' || $urcmd == 'unban' || $urcmd == 'del' || $urcmd == 'sendmes
 			$extrasql.=",u_achievements='$ur_achievements'";
 		}
 		
-		$db->query("UPDATE {$gtablepre}users SET motto='$urmotto',killmsg='$urkillmsg',lastword='$urlastword',icon='$uricon',gender='$urgender',gold='$urgold'{$extrasql} WHERE uid='$uid'");
+		$db->query("UPDATE {$gtablepre}users SET motto='$urmotto',killmsg='$urkillmsg',lastword='$urlastword',icon='$uricon',gender='$urgender',gold='$urgold',cardlist='$urcardlist'{$extrasql} WHERE uid='$uid'");
 		$cmd_info .= "帐户 ".$urdata[$no]['username']." 的信息已修改！";
 		
 		//为了记录具体改了啥真是大费周章啊
