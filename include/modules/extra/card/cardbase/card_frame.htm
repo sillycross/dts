@@ -29,22 +29,27 @@
 				<span class="watermark">EFFECT</span>
 			</div>
 			<div>
-				<div class="card_frame_inner card_frame_float_left" style="width:175px;height:20px;">
+				<div class="card_frame_inner card_frame_float_left" style="margin-right:0;width:170px;height:20px;">
 					<span>
 						<!--{if empty($lockcard) && empty($showpack)}-->
 							<!--{if $card_energy[$nowcard['id']]<$nowcard['energy']}-->
-								<!--{eval $cd_desc=convert_tm(($nowcard['energy']-$card_energy[$nowcard['id']])/$energy_recover_rate[$nowcard['rare']]);}-->
-								<font color="red">在{$cd_desc}后可使用</font>
+								<!--{eval $cd_desc=convert_tm(($nowcard['energy']-$card_energy[$nowcard['id']])/$energy_recover_rate[$nowcard['rare']], 1);}-->
+								<font color="red">充能中，剩余{$cd_desc}</font>
 							<!--{else}-->
-								蓄能完成，可以使用
+								充能完成，可以使用
 							<!--{/if}-->
 						<!--{else}-->
 							$nowcard['pack']
 						<!--{/if}-->
 					</span>
 				</div>
-				<div id="cenergy" class="card_frame_inner card_frame_float_right" style="width:50px;height:20px;">
+				<div id="cenergy" class="card_frame_inner card_frame_float_right" style="width:60px;height:20px;">
+					<!--{if empty($lockcard) && empty($showpack) && $card_energy[$nowcard['id']]<$nowcard['energy']}-->
+					<!--{eval $ecolor = $card_energy[$nowcard['id']] < $nowcard['energy'] / 2 ? 'red' : 'yellow';$cenergy = round($card_energy[$nowcard['id']]);}-->
+					<span><span class="$ecolor">{$cenergy}</span>/{$nowcard['energy']}</span>
+					<!--{else}-->
 					<span>$nowcard['energy']</span>
+					<!--{/if}-->
 				</div>
 			</div>
 		</div>

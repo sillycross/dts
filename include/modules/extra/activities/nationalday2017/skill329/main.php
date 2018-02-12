@@ -2,6 +2,12 @@
 
 namespace skill329
 {
+	$ach329_name = array(
+		1=>'极光处刑 LV1',
+		2=>'极光处刑 LV2',
+		3=>'极光处刑 LV3',
+	);
+	
 	$ach329_threshold = array(
 		1 => 3,
 		2 => 15,

@@ -33,6 +33,12 @@ if ($_REQUEST["playerID"]=="") {
 	$n=$uname;
 }
 
+//刷新卡片获得方式
+\cardbase\parse_card_gaining_method();
+//读取卡片获得方式
+$cgmfile = GAME_ROOT.'./gamedata/cache/card_gaining_method.config.php';
+if(file_exists($cgmfile)) include $cgmfile; 
+
 $userCardData = \cardbase\get_user_cardinfo($n);
 $user_cards = $userCardData['cardlist'];
 $card_energy = $userCardData['cardenergy'];

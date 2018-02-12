@@ -2480,6 +2480,48 @@ $cards = array(
 			'itmsk6' => '',
 		)
 	),
+	161 => array(
+		'name' => '红杀特工F',
+		'rare' => 'B',
+		'pack' => 'Crimson Swear',
+		'desc' => '其实红杀里并没有超能力者。<br>不知道这个特工是哪儿来的。',
+		'effect' => '开局灵熟+35',
+		'energy' => 100,
+		'valid' => array(
+			'wf' => '35',
+		)
+	),
+	162 => array(
+		'name' => '解离挑战者',
+		'rare' => 'C',
+		'pack' => 'Way of Life Game',
+		'desc' => '被禁死在雏菊之丘时还差最后30歌魂的玩家。',
+		'effect' => '开局歌魂+30',
+		'energy' => 100,
+		'valid' => array(
+			'ss' => '30',
+			'mss' => '30',
+		)
+	),
+	163 => array(
+		'name' => '黄鸡挑战者',
+		'rare' => 'C',
+		'pack' => 'Way of Life Game',
+		'desc' => '一切都是黄鸡的选择！',
+		'effect' => '开局手里持有黄鸡方块',
+		'energy' => 100,
+		'valid' => array(
+			'wep' => '黄鸡方块',
+			'wepk' => 'WC',
+			'wepe' => '1',
+			'weps' => '1',
+			'wepsk' => 'z',
+		)
+	),
+	/////////////////////////////////////////////////
+	
+	
+	//////////////////////////////////////////////////
 	200 => array(
 		'name' => '幻影斗将神 S.A.S',
 		'title' => '幻影斗将神',
@@ -2617,44 +2659,7 @@ $cards = array(
 			),
 		)
 	),
-	208 => array(
-		'name' => '红杀特工F',
-		'rare' => 'B',
-		'pack' => 'Crimson Swear',
-		'desc' => '其实红杀里并没有超能力者。<br>不知道这个特工是哪儿来的。',
-		'effect' => '开局灵熟+35',
-		'energy' => 100,
-		'valid' => array(
-			'wf' => '35',
-		)
-	),
-	209 => array(
-		'name' => '解离挑战者',
-		'rare' => 'C',
-		'pack' => 'Way of Life Game',
-		'desc' => '被禁死在雏菊之丘时还差最后30歌魂的玩家。',
-		'effect' => '开局歌魂+30',
-		'energy' => 100,
-		'valid' => array(
-			'ss' => '30',
-			'mss' => '30',
-		)
-	),
-	210 => array(
-		'name' => '黄鸡挑战者',
-		'rare' => 'C',
-		'pack' => 'Way of Life Game',
-		'desc' => '一切都是黄鸡的选择！',
-		'effect' => '开局手里持有黄鸡方块',
-		'energy' => 100,
-		'valid' => array(
-			'wep' => '黄鸡方块',
-			'wepk' => 'WC',
-			'wepe' => '1',
-			'weps' => '1',
-			'wepsk' => 'z',
-		)
-	),
+	
 	1000 => array(
 		'name'=>'补给品',
 		'rare'=>'C',

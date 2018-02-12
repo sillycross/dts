@@ -29,7 +29,7 @@ namespace skill337
 	
 	//各级给的卡片奖励
 	$ach337_card_prize = array(
-		1 => 208,
+		1 => 161,
 	);
 	
 	function init() 

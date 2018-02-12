@@ -388,6 +388,7 @@ namespace cardbase
 		$uip['cardname_show'] = !empty($cards[$card]['title']) ? $cards[$card]['title'] : $cardname;
 	}
 	
+	//战斗界面显示敌方卡片
 	function init_battle($ismeet = 0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -400,6 +401,99 @@ namespace cardbase
 				$tdata['cardinfo'] = $cards[$w_card]['title'];
 			else $tdata['cardinfo'] = $w_cardname;
 		}
+	}
+	
+	//如果成就或者卡片设定有变，更新卡片获得方式
+	function parse_card_gaining_method()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//自动生成目录
+		$dir = GAME_ROOT.'./gamedata/cache';
+		if(!file_exists($dir)) mymkdir($dir);
+		//生成文件名
+		$filename = 'card_gaining_method';
+		$file = $dir.'/'.$filename.'.config.php';
+		
+		$card_config_file = GAME_ROOT.'/include/modules/extra/card/cardbase/config/card.config.php';
+		$card_main_file = GAME_ROOT.'/include/modules/extra/card/cardbase/main.php';
+		$ach_config_file = GAME_ROOT.'/include/modules/extra/achievement/achievement_base/config/achievement_base.config.php';
+		
+		//如果文件存在且最新，就不改变
+		if(file_exists($file) && filemtime($card_main_file) < filemtime($file) && filemtime($card_config_file) < filemtime($file) && filemtime($ach_config_file) < filemtime($file)) return;
+		
+		$cgmethod = array();
+		eval(import_module('cardbase', 'achievement_base'));
+		//抽卡
+		foreach($cardindex as $ckey => $cval){
+			foreach($cval as $ci)
+				$cgmethod[$ci] = array('通过抽卡获得');
+		}
+		//成就
+		foreach($achlist as $aclass => $aval) {
+			foreach($aval as $ai) {
+				if(defined('MOD_SKILL'.$ai.'_ACHIEVEMENT_ID') && !defined('MOD_SKILL'.$ai.'_ABANDONED')){
+					eval(import_module('skill'.$ai));
+					$astart = ${'ach'.$ai.'_name'};$astart = array_shift($astart);
+					//新成就储存格式，直接读数据
+					if(!empty(${'ach'.$ai.'_desc'})) {
+						if(!empty(${'ach'.$ai.'_card_prize'})) {
+							foreach (${'ach'.$ai.'_card_prize'} as $at => $acard) {
+								if(!isset($cgmethod[$acard])) $cgmethod[$acard] = array();
+								if(count(${'ach'.$ai.'_name'})==1) $cgmethod[$acard][] = '完成成就「'.$astart.'」获得';
+								else $cgmethod[$acard][] = '完成系列成就「'.$astart.'」的第'.$at.'阶段「'.${'ach'.$ai.'_name'}[$at].'」获得';
+							}
+						}
+					}else{
+						//旧成就储存格式，要暴力读desc.htm
+						$desc_cont_file = constant('MOD_SKILL'.$ai.'_DESC').'.htm';
+						if(file_exists($desc_cont_file)){
+							
+							$desc_cont = file_get_contents($desc_cont_file);
+							//第一步读取所有奖励显示
+							preg_match_all('|if\s*?\(\$c'.$ai.'\s*?==\'(\d)\'.+?\-\-\>(.+?)\<\!\-\-\{/if|s', $desc_cont, $matches);
+							$count = count($matches[0])-1;
+							for($i=1;$i<=$count;$i++) {
+								$at = $matches[1][$i];
+								$adesc = $matches[2][$i];
+								preg_match('|卡片.+?\<span.+?\>(.+?)\<\/span|s', $adesc, $matches2);
+								if(!empty($matches2)) {
+									$cn = $matches2[1];
+									$acard = 0;
+									foreach($cards as $acard => $cv){
+										if($cv['name'] == $cn) break;
+									}
+									if($acard) {
+										if(!isset($cgmethod[$acard])) $cgmethod[$acard] = array();
+										if(count(${'ach'.$ai.'_name'})==1) $cgmethod[$acard][] = '完成成就「'.$astart.'」获得';
+										else $cgmethod[$acard][] = '完成系列成就「'.$astart.'」的第'.$i.'阶段「'.${'ach'.$ai.'_name'}[$at].'」获得';
+									}
+									
+								}
+							}
+						}
+						
+					}
+				}
+			}
+		}
+		//特判
+		$cgmethod[0][] = '注册账号即有';
+		$cgmethod[63][] = '使锡安成员技能「破解」达到50层以上获得';
+		$cgmethod[88][] = '完成成就「谈笑风生」获得';
+		$cgmethod[119][] = '完成成就「常磐的训练师」的第2阶段「常磐之心」获得';
+		$cgmethod[158][] = '在「伐木模式」从商店购买「博丽神社的参拜券」并在开局20分钟之内使用以获得';
+		$cgmethod[159][] = '通过礼品盒开出的★闪熠着光辉的大逃杀卡牌包★获得（15%概率）';
+		$cgmethod[160][] = '通过2017年万圣节活动获得';
+		for($ci=200;$ci<=204;$ci++) {
+			$cgmethod[$ci][] = '通过2017年国庆及万圣节活动获得';
+		}
+		if(empty($cgmethod)) return;
+		$contents = "<?php\r\nif(!defined('IN_GAME')) exit('Access Denied');\r\n";
+
+		$contents .= '$card_gaining_method = '.var_export($cgmethod,1).';';
+		
+		file_put_contents($file, $contents);
+		chmod($file, 0777);
 	}
 }
 
