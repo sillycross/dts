@@ -4,6 +4,14 @@ if(!defined('IN_GAME')) {
 	exit('Access Denied');
 }
 
+function init_messages($mode){
+	if('showdel' == $mode || 'recover' == $mode) {
+		return deleted_message_load();
+	}else{
+		return message_load();
+	}
+}
+
 function message_create($to, $title='', $content='', $enclosure='', $from='sys', $t=0)
 {
 	global $now,$db,$gtablepre;
@@ -31,6 +39,18 @@ function message_load($mid_only=0)
 		$messages[$r['mid']] = $r;
 	}
 	return $messages;
+}
+
+function deleted_message_load()
+{
+	global $udata,$db,$gtablepre;
+	$username = $udata['username'];
+	$result = $db->query("SELECT * FROM {$gtablepre}del_messages WHERE receiver='$username' ORDER BY timestamp DESC, mid DESC");
+	$d_messages = array();
+	while($r = $db->fetch_array($result)){
+		$d_messages[$r['mid']] = $r;
+	}
+	return $d_messages;
 }
 
 function message_get_encl_num($encl, $tp)

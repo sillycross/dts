@@ -1,0 +1,37 @@
+<div style="position:relative">
+	<div>
+		<input type="button" class="b_button bc_black" value="返回邮箱" onclick="$('messages').style.display='block';$('deleted_messages').style.display='none';" />&nbsp;&nbsp;&nbsp;
+	<!--{if !empty($deleted_messages)}-->
+		<input type="button" class="b_button bc_black" value="全选/反选" onclick="jQuery('.d_message_sl').each(function(){this.click();});" />
+		<input type="button" class="b_button bc_black" value="恢复" onclick="$('mode').value='recover';postCmd('message_cmd', 'messages.php');this.disabled=true;" />
+	<!--{/if}-->
+	</div>
+	<div class="scroll-pane" style="max-width:1210px;max-height:640px;overflow:hidden;vertical-align:top">
+		<!--{if empty($deleted_messages)}-->
+		<span class="grey">一条信息都没有呢</span>
+		<!--{else}-->
+			<!--{eval $i=0;}-->
+			<!--{loop $deleted_messages $mi $mv}-->
+			<!--{if $i%4==0}--><div class="message_line"><!--{/if}-->
+				<div class="message_ib">
+					<div class="message_box" onclick="$('d_message_sl$mi').click();if($('d_message_sl$mi').checked) {$('d_message_sl$mi').value=1;$('sign$mi').style.display='block';} else {$('d_message_sl$mi').value=0;$('sign$mi').style.display='none';}">
+						<div class="message_title_bar">
+							<img id="sign$mi" class="message_sign" src="img/message_sl_sign.png">
+							<input type="checkbox" name="sl$mi" id="d_message_sl$mi" style="display:none" class="message_sl" value="0" />
+							<span class="message_title">$mv['title']</span> <div class="message_hint">$mv['hint']</div>
+						</div>
+						<div class="message_cont"><span>$mv['content']</span></div>
+						<hr class="message_hr">
+						<div class="message_encl"><span>$mv['encl_disp']</span></div>
+						<hr class="message_hr">
+						<div class="grey message_date"><span>$mv['time_disp']</span></div>
+					</div>
+				</div>
+			<!--{if $i%4==3 || $i==count($deleted_messages)-1}--></div><!--{/if}-->
+			<!--{eval $i++;}-->
+			<!--{/loop}-->
+		<!--{/if}-->
+	</div>
+	</form>
+	
+</div>

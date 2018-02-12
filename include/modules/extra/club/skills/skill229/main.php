@@ -3,7 +3,7 @@
 namespace skill229
 {
 	$alternate_skillno229 = 226;//互斥技能编号
-	$unlock_lvl229 = 13;//解锁等级
+	$unlock_lvl229 = 11;//解锁等级
 	
 	
 	function init() 
