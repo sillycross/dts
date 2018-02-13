@@ -176,6 +176,7 @@ namespace itemmix
 		else{
 			$itmsk0 = '';
 		}
+		$uip['mixcls'] = !empty($minfo['class']) ? $minfo['class'] : '';
 		$uip['mixtp'] = $minfo['type'];
 		itemmix_success();
 	}

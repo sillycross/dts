@@ -274,6 +274,10 @@ skill350,extra/achievement/skills/skill350/,1
 skill353,extra/achievement/skills/skill353/,1
 skill354,extra/achievement/skills/skill354/,1
 skill355,extra/achievement/skills/skill355/,1
+skill356,extra/achievement/skills/skill356/,1
+skill357,extra/achievement/skills/skill357/,1
+skill358,extra/achievement/skills/skill358/,1
+skill359,extra/achievement/skills/skill359/,1
 skill19,extra/club/skills/skill19/,1
 skill79,extra/club/skills/skill79/,1
 skill31,extra/club/skills/skill31/,1
@@ -342,6 +346,7 @@ blessstone,extra/attr/blessstone/,1
 skill33,extra/club/skills/skill33/,1
 weather,base/weather/,1
 npcinfo,extra/misc/npcinfo/,1
+skill502,extra/card/skills/skill502/,1
 skill77,extra/club/skills/skill77/,1
 skill28,extra/club/skills/skill28/,1
 skill254,extra/club/skills/skill254/,1
