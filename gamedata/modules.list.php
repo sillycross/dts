@@ -278,6 +278,8 @@ skill356,extra/achievement/skills/skill356/,1
 skill357,extra/achievement/skills/skill357/,1
 skill358,extra/achievement/skills/skill358/,1
 skill359,extra/achievement/skills/skill359/,1
+skill360,extra/activities/lunany2018/skill360/,1
+skill361,extra/activities/lunany2018/skill361/,1
 skill19,extra/club/skills/skill19/,1
 skill79,extra/club/skills/skill79/,1
 skill31,extra/club/skills/skill31/,1

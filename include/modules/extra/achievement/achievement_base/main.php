@@ -523,6 +523,12 @@ namespace achievement_base
 			$ach_state_desc = '<span class="lime">[完成]</span>';
 		}
 		$ach_icon = get_daily_type($achid) ? 'daily'.get_daily_type($achid).'_'.$ach_iconid : 'a'.$achid.'_'.$ach_iconid;
+		$ach_icon .= '.png';
+		if(!file_exists(GAME_ROOT."/img/ach/{$ach_icon}")) {
+			if(!$c) $ach_icon = 'N.gif';
+			elseif($top_flag) $ach_icon = 'DA.gif';
+			else $ach_icon = 'D.gif';
+		}
 		include template('MOD_ACHIEVEMENT_BASE_COMMON_DESC');
 	}
 	

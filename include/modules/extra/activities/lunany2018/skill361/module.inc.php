@@ -1,9 +1,9 @@
 <?php
 
-namespace skill355
+namespace skill361
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase sys player logger itemmix achievement_base';
+	$___MODULE_dependency = 'skillbase sys player achievement_base';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

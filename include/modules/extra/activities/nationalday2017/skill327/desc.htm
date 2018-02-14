@@ -1,8 +1,10 @@
 <table><tr>
 <!--{eval eval(import_module('skill327'));}-->
 <td>
-<!--{if ($c327=='0') }--><img src="img/ach/N.gif"><!--{/if}-->
-<!--{if ($c327!='0') }--><img src="img/ach/D.gif"><!--{/if}-->
+<!--{if ($c327=='0') }--><img src="img/ach/N.gif">
+<!--{elseif ($c327=='999') }--><img src="img/ach/DA.gif">
+<!--{else}--><img src="img/ach/D.gif">
+<!--{/if}-->
 </td>
 <td valign="top" align="left">
 <b>

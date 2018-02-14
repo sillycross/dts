@@ -41,7 +41,6 @@ namespace skill359
 	function acquire359(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		\skillbase\skill_setvalue(359,'cnt',0,$pa);
 	}
 	
 	function lost359(&$pa)
