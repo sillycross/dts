@@ -513,23 +513,34 @@ namespace achievement_base
 		$prize_desc = show_prize_single($cu, $achid);
 		$ach_desc = show_achievement_single_desc($cu, $achid, $ach_threshold[$cu]);
 		if(!$c) {
-			$ach_iconid = 'n';
 			$ach_state_desc = '<span class="red">[未完成]</span>';
 		}elseif(!$top_flag) {
-			$ach_iconid = $c;
 			$ach_state_desc = '<span class="clan">[进行中]</span>';
 		}else {
-			$ach_iconid = $c;
 			$ach_state_desc = '<span class="lime">[完成]</span>';
 		}
-		$ach_icon = get_daily_type($achid) ? 'daily'.get_daily_type($achid).'_'.$ach_iconid : 'a'.$achid.'_'.$ach_iconid;
-		$ach_icon .= '.png';
+		$ach_icon = show_achievement_icon($achid, $c, $top_flag);
 		if(!file_exists(GAME_ROOT."/img/ach/{$ach_icon}")) {
 			if(!$c) $ach_icon = 'N.gif';
 			elseif($top_flag) $ach_icon = 'DA.gif';
 			else $ach_icon = 'D.gif';
 		}
 		include template('MOD_ACHIEVEMENT_BASE_COMMON_DESC');
+	}
+	
+	function show_achievement_icon($achid, $c, $top_flag)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!$c) {
+			$ach_iconid = 'n';
+		}elseif(!$top_flag) {
+			$ach_iconid = $c;
+		}else {
+			$ach_iconid = $c;
+		}
+		$ach_icon = get_daily_type($achid) ? 'daily'.get_daily_type($achid).'_'.$ach_iconid : 'a'.$achid.'_'.$ach_iconid;
+		$ach_icon .= '.png';
+		return $ach_icon;
 	}
 	
 	function show_achievement_single_desc($data, $achid, $tval)

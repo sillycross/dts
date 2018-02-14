@@ -2,7 +2,8 @@
 
 namespace gtype1
 {
-	function init() {}
+	function init() {
+	}
 	
 	function prepare_new_game()
 	{
@@ -24,6 +25,14 @@ namespace gtype1
  			}
  		}
 		$chprocess();
+	}
+	
+	function get_uee_deathlog () {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess();
+		eval(import_module('sys'));
+		if(1 == $gametype) $ret = '<span class="clan">“这下必须动用权限了。”</span>——<span class="clan">薇娜·安妮茜</span><br>';
+		return $ret;
 	}
 	
 	//除错模式每局之前生成一次道具表

@@ -65,6 +65,31 @@ namespace skill360
 		}
 		return $ret;
 	}
+	
+	function get_lny2018_icon($achid, $c, $top_flag)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		if(!$c) {
+			$ach_iconid = 'lny2018_N.png';
+		}elseif(!$top_flag) {
+			$ach_iconid = 'lny2018_D.png';
+		}else {
+			$ach_iconid = 'lny2018_DA.png';
+		}
+
+		return $ach_iconid;
+	}
+	
+	function show_achievement_icon($achid, $c, $top_flag)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($achid, $c, $top_flag);
+		if(360 == $achid) {
+			$ret = get_lny2018_icon($achid, $c, $top_flag);
+		}
+		return $ret;
+	}
 }
 
 ?>

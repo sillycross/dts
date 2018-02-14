@@ -34,7 +34,7 @@ namespace skill271
 		
 		$o_log = $log;//某些技能（比如天威）会在获取熟练度时写log，要屏蔽掉这种消息
 		$s1 = \weapon\get_skill($pa, $pd, $active);
-		//$s2 = \weapon\get_skill($pd, $pa, 1-$active);
+		$s2 = \weapon\get_skill($pd, $pa, 1-$active);
 		$log = $o_log;
 		//测试用语句
 		//$log .= '你的熟练度'.$s1.' 敌人熟练度'.$s2.'<br>';

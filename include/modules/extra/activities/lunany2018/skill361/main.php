@@ -11,7 +11,7 @@ namespace skill361
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach361_desc= array(
-		1=>'在<span class="evergreen">标准模式</span>获胜<:threshold:>场',
+		1=>'使用卡片「挑战者」获胜<:threshold:>场',
 	);
 	
 	$ach361_proc_words = '目前进度';
@@ -21,8 +21,8 @@ namespace skill361
 	//各级阈值，注意是达到这个阈值则升到下一级
 	$ach361_threshold = array(
 		1 => 1,
-		2 => 3,
-		3 => 6,
+		2 => 4,
+		3 => 9,
 		999 => NULL
 	);
 	
@@ -35,7 +35,7 @@ namespace skill361
 	
 	//各级给的卡片奖励
 	$ach361_card_prize = array(
-		//1 => 208,
+		3 => 209,
 	);
 	
 	function init() 
@@ -60,9 +60,19 @@ namespace skill361
 		$ret = $chprocess($pa, $data, $achid);
 		if($achid == 361){
 			eval(import_module('sys'));
-			if($winner === $pa['name'] && 0==$gametype) {
+			if($winner === $pa['name'] && 0==$pa['card']) {
 				$ret += 1;
 			}
+		}
+		return $ret;
+	}
+	
+	function show_achievement_icon($achid, $c, $top_flag)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($achid, $c, $top_flag);
+		if(361 == $achid) {
+			$ret = \skill360\get_lny2018_icon($achid, $c, $top_flag);
 		}
 		return $ret;
 	}

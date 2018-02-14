@@ -439,8 +439,9 @@ namespace cardbase
 						if(!empty(${'ach'.$ai.'_card_prize'})) {
 							foreach (${'ach'.$ai.'_card_prize'} as $at => $acard) {
 								if(!isset($cgmethod[$acard])) $cgmethod[$acard] = array();
-								if(count(${'ach'.$ai.'_name'})==1) $cgmethod[$acard][] = '完成成就「'.$astart.'」获得';
-								else $cgmethod[$acard][] = '完成系列成就「'.$astart.'」的第'.$at.'阶段「'.${'ach'.$ai.'_name'}[$at].'」获得';
+								$seriesname = $achtype[$aclass];
+								if(count(${'ach'.$ai.'_name'})==1) $cgmethod[$acard][] = '完成'.$seriesname.'「'.$astart.'」获得';
+								else $cgmethod[$acard][] = '完成'.$seriesname.'「'.$astart.'」的第'.$at.'阶段「'.${'ach'.$ai.'_name'}[$at].'」获得';
 							}
 						}
 					}else{

@@ -306,6 +306,12 @@ namespace sys
 			$msg = '游戏开始！';
 		}elseif($type == 'gameover'){
 			$msg = '游戏结束！';
+		}elseif($type == 'hack'){
+			$msg = '警告，幻境遭到干扰，所有禁区暂时解除！';
+		}elseif($type == 'hack2'){
+			$msg = '警告，幻境遭到干扰，下一次禁区将在60秒后提前到来！';
+		}elseif($type == 'hack3'){
+			$msg = '警告，幻境遭到干扰，未来禁区顺序已遭篡改！';
 		}
 		$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,msg) VALUES ('5','$time','','$msg')");
 		return;

@@ -279,7 +279,6 @@ skill357,extra/achievement/skills/skill357/,1
 skill358,extra/achievement/skills/skill358/,1
 skill359,extra/achievement/skills/skill359/,1
 skill360,extra/activities/lunany2018/skill360/,1
-skill361,extra/activities/lunany2018/skill361/,1
 skill19,extra/club/skills/skill19/,1
 skill79,extra/club/skills/skill79/,1
 skill31,extra/club/skills/skill31/,1
@@ -314,6 +313,7 @@ skill223,extra/club/skills/skill223/,1
 skill492,extra/card/skills/skill492/,1
 skill261,extra/club/skills/skill261/,1
 skill274,extra/club/skills/skill274/,1
+skill361,extra/activities/lunany2018/skill361/,1
 skill20,extra/club/skills/skill20/,1
 skill203,extra/club/skills/skill203/,1
 dualwep,base/weapon/dualwep/,1
@@ -460,6 +460,7 @@ skill81,extra/club/skills/skill81/,1
 searchmemory,extra/searchmemory/,1
 skill351,extra/achievement/skills/skill351/,1
 skill352,extra/achievement/skills/skill352/,1
+skill503,extra/card/skills/skill503/,1
 skill36,extra/club/skills/skill36/,1
 skill38,extra/club/skills/skill38/,1
 skill34,extra/club/skills/skill34/,1

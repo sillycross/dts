@@ -10,6 +10,15 @@ namespace item_uee
 		$iteminfo['EE'] = '电脑设备';
 	}
 	
+	function parse_itmuse_desc($n, $k, $e, $s, $sk){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($n, $k, $e, $s, $sk);
+		if(strpos($k,'EE')===0) {
+			$ret .= '可干扰虚拟幻境系统。<br>如果成功，所有禁区解除，直到下一次增加禁区为止。<br>注意：不论成功与否，都有被反击代码反杀的风险。';
+		}
+		return $ret;
+	}
+	
 	function calculate_hack_proc_rate()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -17,26 +26,38 @@ namespace item_uee
 		return $hack_obbs;
 	}
 	
+	//返回两个数字，第一个是设备毁坏概率，第二个是被杀死概率，不叠加（叠加在外部程序进行）
+	function calculate_post_hack_proc_rate()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return array(5,3);
+	}
+	
+	function get_uee_deathlog () {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return '<span class="evergreen">“就算是我这种代码白痴，一样能使用林无月留下的力量哦？”</span>——<span class="red">红暮</span><br>';
+	}
+	
 	function post_hack_events($itmn = 0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','logger'));
-		
-		$itm = & ${'itm'.$itmn};
-		$itmk = & ${'itmk'.$itmn};
-		$itme = & ${'itme'.$itmn};
-		$itms = & ${'itms'.$itmn};
-		$itmsk = & ${'itmsk'.$itmn};
+		eval(import_module('sys','player','logger','item_uee'));
 		
 		$hack_dice2 = rand(0,99);
-
-		if($hack_dice2 < 5) {
-			$log .= '由于你的不当操作，禁区系统防火墙锁定了你的电脑并远程引爆了它。幸好你本人的位置并没有被发现。<br>';
+		list($ph_rate1, $ph_rate2) = calculate_post_hack_proc_rate();
+		if($hack_dice2 < $ph_rate1) {
+			$log .= '由于你操作不当，幻境反击代码定位了你的设备，并将它直接抹消了。幸好你本人安然无恙。<br>';
+			$itm = & ${'itm'.$itmn};
+			$itmk = & ${'itmk'.$itmn};
+			$itme = & ${'itme'.$itmn};
+			$itms = & ${'itms'.$itmn};
+			$itmsk = & ${'itmsk'.$itmn};
 			$itm = $itmk = $itmsk = '';
 			$itme = $itms = 0;
-		} elseif($hack_dice2 < 8) {
-			$log .= "<span class=\"evergreen\">“小心隔墙有耳哦。”</span>——林无月<br>";
-			$log .= '你擅自入侵禁区控制系统，被控制系统远程消灭！<br>';
+		} elseif($hack_dice2 < $ph_rate1 + $ph_rate2) {
+			
+			$log .= '<br>'.get_uee_deathlog();
+			$log .= '你擅自攻击虚拟幻境系统，被反击代码远程消灭！<br>';
 			$state = 14;
 			\player\update_sdata(); $sdata['sourceless'] = 1; $sdata['attackwith'] = '';
 			\player\kill($sdata,$sdata);
@@ -67,28 +88,38 @@ namespace item_uee
 			$mode = 'command';
 			return;
 		}
-
+		
+		$ret = itemuse_uee_core($itmn);
+		if($ret) {
+			$itme--;
+			$log .= "消耗了<span class=\"yellow\">$itm</span>的电力。<br>";
+			if($itme <= 0) {
+				$log .= "<span class=\"red\">$itm</span>的电池耗尽了。";
+			}
+		}
+		
+		post_hack_events($itmn);
+		return;
+	}
+	
+	function itemuse_uee_core($itmn)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','logger'));
 		$hack_dice = rand(0,99);
 		$hack_proc = calculate_hack_proc_rate();
 		if ($hack_dice < $hack_proc) 
 		{
 			$hack = 1;
-			$log .= '入侵禁区控制系统成功了！全部禁区都被解除了！<br>';
+			$log .= '干扰成功了！全部禁区都被解除了！<br>';
 			//\map\movehtm();
 			addnews($now,'hack',$name);
+			\sys\systemputchat($now,'hack');
 			save_gameinfo();
 		} else {
-			$log .= '可是，入侵禁区控制系统失败了……<br>';
+			$log .= '可是，干扰失败了……<br>';
 		}
-		
-		$itme--;
-		$log .= "消耗了<span class=\"yellow\">$itm</span>的电力。<br>";
-		if($itme <= 0) {
-			$log .= "<span class=\"red\">$itm</span>的电池耗尽了。";
-		}
-		
-		post_hack_events($itmn);
-		return;
+		return true;
 	}
 	
 	function itemuse(&$theitem)
@@ -111,12 +142,12 @@ namespace item_uee
 		eval(import_module('sys','player'));
 		
 		if($news == 'hack') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}启动了hack程序，全部禁区解除！</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}成功干扰了幻境的运转，全部禁区暂时解除了！</span></li>";
 		
 		if(isset($exarr['dword'])) $e0 = $exarr['dword'];
 			
 		if($news == 'death14') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因<span class=\"red\">入侵禁区系统失败</span>死亡{$e0}</li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因<span class=\"red\">干扰幻境系统失败</span>死亡{$e0}</li>";
 	
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
