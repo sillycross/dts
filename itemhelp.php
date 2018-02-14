@@ -3,11 +3,12 @@
 define('CURSCRIPT', 'help');
 
 require './include/common.inc.php';
+$selffile = GAME_ROOT.'/itemhelp.php';
 $mapitemfile = GAME_ROOT.'/include/modules/base/itemmain/config/mapitem.config.php';
 $mapitemfile_i8 = GAME_ROOT.'./include/modules/extra/instance/instance8_proud/config/mapitem.config.php';
 $mapitemfile_i9 = GAME_ROOT.'./include/modules/extra/instance/instance9_rush/config/mapitem.config.php';
 $writefile = GAME_ROOT.TPLDIR.'/tmp_itemhelp.htm';
-if(!file_exists($writefile) || filemtime($mapitemfile) > filemtime($writefile) || filemtime($mapitemfile_i8) > filemtime($writefile)  || filemtime($mapitemfile_i9) > filemtime($writefile))
+if(!file_exists($writefile) || filemtime($selffile) > filemtime($writefile) || filemtime($mapitemfile) > filemtime($writefile) || filemtime($mapitemfile_i8) > filemtime($writefile)  || filemtime($mapitemfile_i9) > filemtime($writefile))
 {
 	$iinfo_all = array();
 	$list = Array('标准局道具列表' => $mapitemfile, '荣耀模式道具列表' => $mapitemfile_i8, '极速模式道具列表' => $mapitemfile_i9);
@@ -27,7 +28,11 @@ if(!file_exists($writefile) || filemtime($mapitemfile) > filemtime($writefile) |
 					$ikind_w.="（可拾取）";
 				else  if ($ikind[0]=="P") 
 				{
-					if ($ikind[strlen($ikind)-1]>="2") $ikind_w.="（猛毒）"; else $ikind_w.="（有毒）";
+					$psign = strlen($ikind) >= 3 ? substr($ikind,2,1) : 0;
+					if('1' === $psign) $psign=1.5;
+					if(!$psign) $ikind_w.="（有毒）";
+					else $ikind_w.="（{$psign}倍毒）";
+					//if ($ikind[strlen($ikind)-1]>="2") $ikind_w.="（猛毒）"; else $ikind_w.="（有毒）";
 				}
 				$iskind_w = \itemmain\parse_itmsk_words($iskind,0);
 				if ($iarea==99) $iarea_w = "每禁"; 

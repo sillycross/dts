@@ -88,7 +88,7 @@ namespace skill253
 		
 		$ret = $chprocess($pa,$pd);
 		
-		if ($pa['bskill']==253 && $pa['dmg_dealt'] <= $pd['old_hp']*1.5)
+		if (!empty($pa['bskill']) && $pa['bskill']==253 && $pa['dmg_dealt'] <= $pd['old_hp']*1.5)
 		{
 			$r=get_rage_cost253();
 			eval(import_module('logger'));

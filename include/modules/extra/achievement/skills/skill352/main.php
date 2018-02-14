@@ -56,7 +56,7 @@ namespace skill352
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
-	//判定数据与阈值的关系，默认是大于等于阈值算达成
+	//判定数据与阈值的关系，这里是小于阈值算达成
 	function ach_finalize_check_progress(&$pa, $t, $data, $achid){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(352 == $achid) return $data <= $t;

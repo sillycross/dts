@@ -148,6 +148,14 @@ namespace instance9
 		if(19==$gametype && ($pls == 33 || $pls == 34)) return false;
 		return $chprocess();
 	}
+	
+	function get_uee_deathlog () {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess();
+		eval(import_module('sys'));
+		if(19 == $gametype) $ret = '<span class="clan">“那家伙托付给我的东西，怎么能让你随便玷污？”</span>——<span class="clan">狂飙</span><br>';
+		return $ret;
+	}
 }
 
 ?>

@@ -24,7 +24,7 @@
 				<!--{if $si % $ach_show_num_per_row == 0}-->
 				<div>
 				<!--{/if}-->
-					<div class="<!--{if $sv}-->ach_box<!--{else}-->ach_box_empty<!--{/if}-->" width="300" align="left" valign="top">
+					<div class="<!--{if $sv}-->ach_box<!--{else}-->ach_box_empty<!--{/if}-->" align="left" valign="top">
 						<div>$sv</div>
 					</div>
 				<!--{if $si % $ach_show_num_per_row == $ach_show_num_per_row - 1}-->
@@ -37,7 +37,7 @@
 </table>
 
 <!--{if $refdaily_flag}-->
-<!--{eval \bubblebox\bubblebox_set_style('id:newdailyquest;height:200;width:1000;cancellable:1;');}-->
+<!--{eval \bubblebox\bubblebox_set_style('id:newdailyquest;height:200;width:1060;cancellable:1;');}-->
 {template MOD_BUBBLEBOX_START}
 <div class="subtitle">获得的每日任务：</div>
 <div>
@@ -46,7 +46,7 @@
 	<!--{if $si % $ach_show_num_per_row == 0}-->
 	<div>
 	<!--{/if}-->
-		<div class="<!--{if $sv}-->ach_box<!--{else}-->ach_box_empty<!--{/if}-->" width="300" align="left" valign="top">
+		<div class="<!--{if $sv}-->ach_box<!--{else}-->ach_box_empty<!--{/if}-->" align="left" valign="top">
 			<div>$sv</div>
 		</div>
 	<!--{if $si % $ach_show_num_per_row == $ach_show_num_per_row - 1}-->

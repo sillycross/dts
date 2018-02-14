@@ -1,6 +1,6 @@
 <!--{eval \bubblebox\bubblebox_set_style('id:persistent-rmeditbox;height:250;width:200;scroll-bar:0;');}-->
 {template MOD_BUBBLEBOX_START}
-<div id="loading2"></div>
+<div id="loading3"></div>
 <div style="text-align:middle; margin-top:20px; margin-bottom:20px; margin-left:20px;">
 	设置游戏模式：
 	<!--{eval global $roomtypelist;}-->
@@ -9,13 +9,13 @@
 			<div>
 			<!--{eval $bname=str_replace('"',"'",$value['name']);}-->
 			<a class="b_button bc_black" onclick="
-				$('loading2').style.display='block';
+				$('loading3').style.display='block';
 				$('command').value='rmsetmode';
 				$('para1').value=$i; 
 			postCmd('roomcmd','roomcmd.php'); 
 			sleep(1000);
 			bubblebox_show('persistent-roommain');
-			$('loading2').style.display='none';
+			$('loading3').style.display='none';
 			" style="margin:3px;width:85px">$bname</a>
 			</div>
 		<!--{/if}-->

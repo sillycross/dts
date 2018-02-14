@@ -154,7 +154,7 @@
 		钱可以在<span class="yellow">商店</span>购买装备或者道具。<br>
 		<span class="yellow">商店</span>位于“无月之影”、“光坂高校”或者“花菱商厦”，在这些区域点击<input type="button" class="cmdbutton" value="[C]商店">即可进入商店页面。
 	<DT>问14：体力耗尽了！生命值快归零了！怎样回复体力和生命？
-		<DD>答：回复体力和生命通常有3种办法：<span class="yellow">吃补给品、睡眠/治疗/静养、使用「治疗」技能。</span><BR>
+		<DD>答：回复体力和生命通常有3种办法：<span class="yellow">吃补给品、使用睡眠/治疗/静养功能、使用「治疗」技能。</span><BR>
 		1. 开局会发面包和矿泉水，分别能回复生命和体力。游戏中也可拾取、缴获大量补给品，不过可能带毒导致损失生命。<BR>
 		2. 如果补给耗尽，点击<input type="button" class="cmdbutton" value="睡眠">可以进入睡眠状态，逐渐回复体力；点击<input type="button" class="cmdbutton" value="治疗">则是回复生命。<BR>
 		3. 选择称号后可以获得<span class="yellow">「治疗」技能</span>，点击<input type="button" class="cmdbutton" value="[V]技能表">并在技能表界面<input type="button" value="治疗">，即可立刻回复500点生命和体力，但是需要消耗1个技能点<BR>
@@ -323,7 +323,7 @@ NPC不会被禁区杀死。此外，多数NPC也会自动回避禁区。<br>
 		<!--{eval $rest_sleep_val = round((1/$rest_sleep_time)*10000)/10000;$rest_heal_val = round((1/$rest_heal_time)*10000)/10000;}-->
 		<dd>
 			<span class="yellow">『睡眠』</span> 每秒回复体力上限的{$rest_sleep_val}%的体力。<br>
-			<span class="yellow">『治疗』</span> 每秒回复生命上限的{$rest_heal_val}%的体力。<br>
+			<span class="yellow">『治疗』</span> 每秒回复生命上限的{$rest_heal_val}%的生命。<br>
 			<span class="yellow">『静养』</span> 按上述速度同时恢复生命和体力，同时有一定概率解除异常状态，静养时间越长，解除概率越高。<br>
 			<!--{eval $rest_pls_arr=array();foreach($rest_hospital_list as $rhlv) $rest_pls_arr[]=$plsinfo[$rhlv];$rest_pls = implode('、',$rest_pls_arr);}-->
 			静养只能在<span class="yellow">$rest_pls</span>内进行。

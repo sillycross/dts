@@ -439,8 +439,9 @@ namespace cardbase
 						if(!empty(${'ach'.$ai.'_card_prize'})) {
 							foreach (${'ach'.$ai.'_card_prize'} as $at => $acard) {
 								if(!isset($cgmethod[$acard])) $cgmethod[$acard] = array();
-								if(count(${'ach'.$ai.'_name'})==1) $cgmethod[$acard][] = '完成成就「'.$astart.'」获得';
-								else $cgmethod[$acard][] = '完成系列成就「'.$astart.'」的第'.$at.'阶段「'.${'ach'.$ai.'_name'}[$at].'」获得';
+								$seriesname = $achtype[$aclass];
+								if(count(${'ach'.$ai.'_name'})==1) $cgmethod[$acard][] = '完成'.$seriesname.'「'.$astart.'」获得';
+								else $cgmethod[$acard][] = '完成'.$seriesname.'「'.$astart.'」的第'.$at.'阶段「'.${'ach'.$ai.'_name'}[$at].'」获得';
 							}
 						}
 					}else{
@@ -479,6 +480,8 @@ namespace cardbase
 		//特判
 		$cgmethod[0][] = '注册账号即有';
 		$cgmethod[63][] = '使锡安成员技能「破解」达到50层以上获得';
+		$cgmethod[72][] = '完成成就「不动的大图书馆」获得';
+		$cgmethod[78][] = '完成成就「烈火疾风」获得';
 		$cgmethod[88][] = '完成成就「谈笑风生」获得';
 		$cgmethod[119][] = '完成成就「常磐的训练师」的第2阶段「常磐之心」获得';
 		$cgmethod[158][] = '在「伐木模式」从商店购买「博丽神社的参拜券」并在开局20分钟之内使用以获得';
