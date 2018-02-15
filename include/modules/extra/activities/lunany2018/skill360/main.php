@@ -35,6 +35,7 @@ namespace skill360
 	
 	//各级给的卡片奖励
 	$ach360_card_prize = array(
+		3 => 164,
 	);
 	
 	function init() 
