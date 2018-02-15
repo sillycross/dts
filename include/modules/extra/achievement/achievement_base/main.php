@@ -196,7 +196,7 @@ namespace achievement_base
 				if ($vflag){
 					$func='\\skill'.$key.'\\finalize'.$key;
 					if(function_exists($func)) $ret=$func($pdata,$val);//兼容性代码，如果存在旧式的结算函数，就按旧式结算函数算
-					else $ret = ach_finalize($pdata, $val, $key);
+					else $ret = ach_finalize($pdata, $udata, $val, $key);
 
 					$udata['u_achievements'][$key]=$ret;
 				}
@@ -418,7 +418,7 @@ namespace achievement_base
 	
 	//成就通用结算函数，需要成就模块里至少定义$achXXX_threshold
 	//$data是既有进度，新进度怎么判定请继承ach_finalize_process()自定义
-	function ach_finalize(&$pa, $data, $achid)
+	function ach_finalize(&$pa, &$ud, $data, $achid)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!$data)					
@@ -457,8 +457,10 @@ namespace achievement_base
 					if($card_flag && !empty($card_prize[$tk])) {
 						$getcard = $card_prize[$tk];
 						if(is_array($getcard)) {
+							$cardlist_got = explode('_', $ud['cardlist']);
+							$getcard = array_diff($getcard, $cardlist_got);//优先获得没有拿到过的卡
+							if(empty($getcard)) $getcard = $card_prize[$tk];//如果这个卡集全部获得了，那么随机一个
 							shuffle($getcard);
-							//$getcard = $getcard[0];
 							$getcard = $getcard[0];
 						}
 						//\cardbase\get_card($card_got,$pa);
@@ -588,8 +590,11 @@ namespace achievement_base
 					$ret1 = '';
 					foreach($cp as $card) {
 						$ret1 .= show_prize_single_card($card);
+						if(count($cp) > 1) $ret1 .= '|';
 					}
-					$ret .= '<span class="evergreen" title="'.str_replace('"',"'",$ret1).'">卡集(悬浮查看)</span>';
+					if(substr($ret1,strlen($ret1)-1) === '|') $ret1 = substr($ret1,0,-1);
+					$ret1 = str_replace('|','、',$ret1);
+					$ret .= '<span class="evergreen" title="'.str_replace('"',"'",$ret1).'">卡集(悬浮查看)中随机卡片1张</span>';
 				}elseif($cp){
 					$card = (int)$cp;
 					$ret .= '<span class="evergreen">卡片</span> '.show_prize_single_card($card);
@@ -604,7 +609,7 @@ namespace achievement_base
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('cardbase'));
-		return '<span class="'.$card_rarecolor[$cards[$card]['rare']].'">'.$cards[$card]['name'].'</span> ';
+		return '<span class="'.$card_rarecolor[$cards[$card]['rare']].'">'.$cards[$card]['name'].'</span>';
 	}
 	
 	//判定是不是活跃玩家的通用函数

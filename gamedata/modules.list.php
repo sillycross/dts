@@ -314,6 +314,7 @@ skill492,extra/card/skills/skill492/,1
 skill261,extra/club/skills/skill261/,1
 skill274,extra/club/skills/skill274/,1
 skill361,extra/activities/lunany2018/skill361/,1
+skill362,extra/activities/lunany2018/skill362/,1
 skill20,extra/club/skills/skill20/,1
 skill203,extra/club/skills/skill203/,1
 dualwep,base/weapon/dualwep/,1

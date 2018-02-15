@@ -277,18 +277,25 @@ namespace cardbase
 	function player_kill_enemy(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess($pa, $pd, $active);
-		eval(import_module('cardbase','sys','logger','map'));
+		battle_get_qiegao($pa,$pd,$active);
+	}	
+	
+	function battle_get_qiegao(&$pa,&$pd,$active){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('logger'));
 		$qiegaogain=calc_qiegao_drop($pa,$pd,$active);
 		if ($qiegaogain>0){
 			get_qiegao($qiegaogain,$pa);
 			$log.="<span class=\"orange\">敌人掉落了{$qiegaogain}单位的切糕！</span><br>";
 		}
-	}	
+		return $qiegaogain;
+	}
 	
+	/*
 	function itemmix_success()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		/*eval(import_module('sys','player','logger','map','cardbase'));
+		eval(import_module('sys','player','logger','map','cardbase'));
 		if (!in_array($gametype,$qiegao_ignore_mode)){
 			if (($itm0=="绝冲大剑【神威】")&&(($areanum/$areaadd)<2)){
 				if (get_card(42)==1){
@@ -298,9 +305,9 @@ namespace cardbase
 					get_qiegao(100);
 				}
 			}
-		}*/
+		}
 		$chprocess();	
-	}
+	}*/
 	
 	function get_card_pack($card_pack_name) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -422,73 +429,94 @@ namespace cardbase
 		if(file_exists($file) && filemtime($card_main_file) < filemtime($file) && filemtime($card_config_file) < filemtime($file) && filemtime($ach_config_file) < filemtime($file)) return;
 		
 		$cgmethod = array();
-		eval(import_module('cardbase', 'achievement_base'));
+		eval(import_module('cardbase'));
 		//抽卡
 		foreach($cardindex as $ckey => $cval){
 			foreach($cval as $ci)
 				$cgmethod[$ci] = array('通过抽卡获得');
 		}
 		//成就
-		foreach($achlist as $aclass => $aval) {
-			foreach($aval as $ai) {
-				if(defined('MOD_SKILL'.$ai.'_ACHIEVEMENT_ID') && !defined('MOD_SKILL'.$ai.'_ABANDONED')){
-					eval(import_module('skill'.$ai));
-					$astart = ${'ach'.$ai.'_name'};$astart = array_shift($astart);
-					//新成就储存格式，直接读数据
-					if(!empty(${'ach'.$ai.'_desc'})) {
-						if(!empty(${'ach'.$ai.'_card_prize'})) {
-							foreach (${'ach'.$ai.'_card_prize'} as $at => $acard) {
-								if(!isset($cgmethod[$acard])) $cgmethod[$acard] = array();
-								$seriesname = $achtype[$aclass];
-								if(count(${'ach'.$ai.'_name'})==1) $cgmethod[$acard][] = '完成'.$seriesname.'「'.$astart.'」获得';
-								else $cgmethod[$acard][] = '完成'.$seriesname.'「'.$astart.'」的第'.$at.'阶段「'.${'ach'.$ai.'_name'}[$at].'」获得';
-							}
-						}
-					}else{
-						//旧成就储存格式，要暴力读desc.htm
-						$desc_cont_file = constant('MOD_SKILL'.$ai.'_DESC').'.htm';
-						if(file_exists($desc_cont_file)){
-							
-							$desc_cont = file_get_contents($desc_cont_file);
-							//第一步读取所有奖励显示
-							preg_match_all('|if\s*?\(\$c'.$ai.'\s*?==\'(\d)\'.+?\-\-\>(.+?)\<\!\-\-\{/if|s', $desc_cont, $matches);
-							$count = count($matches[0])-1;
-							for($i=1;$i<=$count;$i++) {
-								$at = $matches[1][$i];
-								$adesc = $matches[2][$i];
-								preg_match('|卡片.+?\<span.+?\>(.+?)\<\/span|s', $adesc, $matches2);
-								if(!empty($matches2)) {
-									$cn = $matches2[1];
-									$acard = 0;
-									foreach($cards as $acard => $cv){
-										if($cv['name'] == $cn) break;
+		if(defined('MOD_ACHIEVEMENT_BASE')){
+			eval(import_module('achievement_base'));
+			foreach($achlist as $aclass => $aval) {
+				foreach($aval as $ai) {
+					if(defined('MOD_SKILL'.$ai.'_ACHIEVEMENT_ID') && !defined('MOD_SKILL'.$ai.'_ABANDONED')){
+						eval(import_module('skill'.$ai));
+						$astart = ${'ach'.$ai.'_name'};$astart = array_shift($astart);
+						//新成就储存格式，直接读数据
+						if(!empty(${'ach'.$ai.'_desc'})) {
+							if(!empty(${'ach'.$ai.'_card_prize'})) {
+								foreach (${'ach'.$ai.'_card_prize'} as $at => $aarr) {
+									$cardset_flag = 1;
+									if(!is_array($aarr)) {
+										$aarr = array($aarr);
+										$cardset_flag = 0;
 									}
-									if($acard) {
+									foreach($aarr as $acard) {
 										if(!isset($cgmethod[$acard])) $cgmethod[$acard] = array();
-										if(count(${'ach'.$ai.'_name'})==1) $cgmethod[$acard][] = '完成成就「'.$astart.'」获得';
-										else $cgmethod[$acard][] = '完成系列成就「'.$astart.'」的第'.$i.'阶段「'.${'ach'.$ai.'_name'}[$at].'」获得';
+										$seriesname = $achtype[$aclass];
+										$cardset_notice = $cardset_flag ? '可能' : '';
+										$aname = ${'ach'.$ai.'_name'}[$at];
+										if(count(${'ach'.$ai.'_name'})==1) $cgmethod[$acard][] = '完成'.$seriesname.'「'.$astart.'」'.$cardset_notice.'获得';
+										elseif(preg_match('/LV\d/s', $aname)) $cgmethod[$acard][] = '完成'.$seriesname.'成就「'.$aname.'」'.$cardset_notice.'获得';
+										else $cgmethod[$acard][] = '完成'.$seriesname.'「'.$astart.'」的第'.$at.'阶段「'.$aname.'」'.$cardset_notice.'获得';
 									}
-									
 								}
 							}
+						}else{
+							//旧成就储存格式，要暴力读desc.htm
+							$desc_cont_file = constant('MOD_SKILL'.$ai.'_DESC').'.htm';
+							if(file_exists($desc_cont_file)){
+								
+								$desc_cont = file_get_contents($desc_cont_file);
+								//第一步读取所有奖励显示
+								preg_match_all('|if\s*?\(\$c'.$ai.'\s*?==\'(\d)\'.+?\-\-\>(.+?)\<\!\-\-\{/if|s', $desc_cont, $matches);
+								$count = count($matches[0])-1;
+								for($i=1;$i<=$count;$i++) {
+									$at = $matches[1][$i];
+									$adesc = $matches[2][$i];
+									preg_match('|卡片.+?\<span.+?\>(.+?)\<\/span|s', $adesc, $matches2);
+									if(!empty($matches2)) {
+										$cn = $matches2[1];
+										$acard = 0;
+										foreach($cards as $acard => $cv){
+											if($cv['name'] == $cn) break;
+										}
+										if($acard) {
+											if(!isset($cgmethod[$acard])) $cgmethod[$acard] = array();
+											$seriesname = $achtype[$aclass];
+											$aname = ${'ach'.$ai.'_name'}[$at];
+											if(count(${'ach'.$ai.'_name'})==1) $cgmethod[$acard][] = '完成'.$seriesname.'「'.$astart.'」获得';
+											elseif(preg_match('/LV\d/s', $aname)) $cgmethod[$acard][] = '完成'.$seriesname.'「'.$aname.'」获得';
+											else $cgmethod[$acard][] = '完成'.$seriesname.'「'.$astart.'」的第'.$i.'阶段「'.$aname.'」获得';
+										}
+										
+									}
+								}
+							}
+							
 						}
-						
 					}
 				}
 			}
 		}
+		
 		//特判
 		$cgmethod[0][] = '注册账号即有';
 		$cgmethod[63][] = '使锡安成员技能「破解」达到50层以上获得';
-		$cgmethod[72][] = '完成成就「不动的大图书馆」获得';
-		$cgmethod[78][] = '完成成就「烈火疾风」获得';
-		$cgmethod[88][] = '完成成就「谈笑风生」获得';
-		$cgmethod[119][] = '完成成就「常磐的训练师」的第2阶段「常磐之心」获得';
+		$cgmethod[72][] = '完成竞速挑战「不动的大图书馆」获得';
+		$cgmethod[78][] = '完成竞速挑战「烈火疾风」获得';
+		$cgmethod[88][] = '完成战斗成就「谈笑风生」获得';
+		$cgmethod[119][] = '完成特殊挑战「常磐的训练师」的第2阶段「常磐之心」获得';
 		$cgmethod[158][] = '在「伐木模式」从商店购买「博丽神社的参拜券」并在开局20分钟之内使用以获得';
 		$cgmethod[159][] = '通过礼品盒开出的★闪熠着光辉的大逃杀卡牌包★获得（15%概率）';
-		$cgmethod[160][] = '通过2017年万圣节活动获得';
+		$cgmethod[160][] = '完成2017万圣节活动「噩梦之夜 LV2」获得';
 		for($ci=200;$ci<=204;$ci++) {
-			$cgmethod[$ci][] = '通过2017年国庆及万圣节活动获得';
+			$cgmethod[$ci][] = '完成2017十一活动「新的战场 LV2」可能获得';
+			$cgmethod[$ci][] = '完成2017十一活动「新的战场 LV3」可能获得';
+			$cgmethod[$ci][] = '完成2017十一活动「血染乐园 LV3」可能获得';
+			$cgmethod[$ci][] = '完成2017十一活动「极光处刑 LV3」可能获得';
+			$cgmethod[$ci][] = '完成2017万圣节活动「不给糖就解禁」可能获得';
 		}
 		if(empty($cgmethod)) return;
 		$contents = "<?php\r\nif(!defined('IN_GAME')) exit('Access Denied');\r\n";
