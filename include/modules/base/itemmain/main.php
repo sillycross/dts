@@ -371,8 +371,8 @@ namespace itemmain
 		{
 			ob_clean();
 			if ($itemcmd=='itemmerge') include template(MOD_ITEMMAIN_ITEMMERGE);
-			if ($itemcmd=='itemmove') include template(MOD_ITEMMAIN_ITEMMOVE);
-			if ($itemcmd=='itemdrop') include template(MOD_ITEMMAIN_ITEMDROP);
+			elseif ($itemcmd=='itemmove') include template(MOD_ITEMMAIN_ITEMMOVE);
+			elseif ($itemcmd=='itemdrop') include template(MOD_ITEMMAIN_ITEMDROP);
 			$cmd = ob_get_contents();
 			ob_clean();
 		}

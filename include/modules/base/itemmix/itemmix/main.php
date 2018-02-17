@@ -2,7 +2,7 @@
 
 namespace itemmix
 {
-	$mix_type = array('normal' => '通常');
+	$mix_type = array('normal' => '');
 	
 	function init() {}
 	
@@ -11,8 +11,10 @@ namespace itemmix
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','itemmix'));
 		$itmstr = $uip['itmstr'];
-
-		$tpstr = empty($uip['mixtp']) ? $mix_type['normal'] : $mix_type[$uip['mixtp']];
+		
+		//“通常”合成当动词实在是太奇怪了
+		$tpstr = (empty($uip['mixtp']) || $uip['mixtp']==$mix_type['normal']) ? '' : $mix_type[$uip['mixtp']];
+		
 		$log .= "<span class=\"yellow\">$itmstr</span>{$tpstr}合成了<span class=\"yellow\">{$itm0}</span><br>";
 		addnews($now,'itemmix',$name,$itm0,$tpstr);
 	
