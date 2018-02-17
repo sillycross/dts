@@ -51,6 +51,7 @@ namespace itemmix
 	function itemmix_name_proc($n){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','itemmix'));
+		$n = trim($n);
 		foreach(Array($itmname_ignore) as $value){
 			$n = preg_replace($value,'',$n);
 		}
