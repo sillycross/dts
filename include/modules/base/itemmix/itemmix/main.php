@@ -88,7 +88,7 @@ namespace itemmix
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		$ret = $rarr[0].'/'.\itemmain\parse_itmk_words($rarr[1],1).'/'.$rarr[2].'/'.$rarr[3];
-		$itmskw = \itemmain\parse_itmsk_words($rarr[4],1);
+		$itmskw = !empty($rarr[4]) ? \itemmain\parse_itmsk_words($rarr[4],1) : '';
 		if($itmskw) $ret .= '/'.$itmskw;
 		return $ret;
 	}
@@ -230,7 +230,7 @@ namespace itemmix
 					if (!isset($mixmask))
 					{
 						for($i=1;$i<=6;$i++)
-							if(isset(${'mitm'.$i}) && ${'mitm'.$i} == $i)
+							if(!empty(${'mitm'.$i}))
 								$mixlist[] = $i;
 					}
 					else

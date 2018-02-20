@@ -120,7 +120,7 @@ function getRequestBody(oForm) {
 	var aParams = new Array();
 	var n = oForm.elements.length;
   for (var i=0 ; i < n ; i++) {
-		if((oForm.elements[i].type == 'radio')&&(!oForm.elements[i].checked)){continue;}
+		if((oForm.elements[i].type == 'radio' || oForm.elements[i].type == 'checkbox')&&(!oForm.elements[i].checked)){continue;}
 		var sParam = encodeURIComponent(oForm.elements[i].name);
 		sParam += "=" + encodeURIComponent(oForm.elements[i].value);
 		aParams.push(sParam);
