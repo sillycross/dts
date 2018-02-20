@@ -50,6 +50,13 @@ class dbstuff {
 		if (! $result && $type != 'SILENT') {
 			$this->halt ( 'MySQL Query Error', $sql );
 		}
+		if(strpos($sql,'UPDATE')===0){
+			if(strpos($sql, 'users') !==false) {
+				$bk = debug_backtrace();
+				global $now;
+				writeover('tmp_roomid_log_2.txt', $sql.' from line '.$bk[1]['line']." at file ".$bk[1]['file'].' at '.$now."\r\n");
+			}
+		}
 		//if(strpos($sql, 'acbra2_users')!==false && strpos($sql, 'UPDATE')!==false && strpos($sql, 'roomid')!==false) writeover('a.txt', substr($sql,0,30).'...'.substr($sql,strlen($sql)-30).' <--- '.debug_backtrace()[0]['file'].' : '.debug_backtrace()[0]['line']."\r\n",'ab+');
 //		$this->querynum ++;
 //		if(strpos($sql,'SELECT')===0){$this->selectnum ++;}

@@ -438,11 +438,13 @@ function curl_post($url, $post_data=array(), $post_cookie=array(), $timeout = 10
 
 function http_build_cookiedata($cookie_arr){
 	$cookiedata= '';
-	foreach($cookie_arr as $k=> $v){
-		$cookiedata.= $k.'='.$v.'; ';//浏览器传cookie时;后有空格
-	}
-	if(strlen($cookiedata)>0){
-		$cookiedata= substr($cookiedata, 0, -2);
+	if(!empty($cookie_arr)){
+		foreach($cookie_arr as $k=> $v){
+			$cookiedata.= $k.'='.$v.'; ';//浏览器传cookie时;后有空格
+		}
+		if(strlen($cookiedata)>0){
+			$cookiedata= substr($cookiedata, 0, -2);
+		}
 	}
 	return $cookiedata;
 }

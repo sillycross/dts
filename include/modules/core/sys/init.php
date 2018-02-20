@@ -73,9 +73,15 @@ namespace sys
 		//进入当前用户房间判断
 		$room_prefix = '';
 		$room_id = 0;
-		if (!empty($___LOCAL_INPUT__VARS__INPUT_VAR_LIST['___GAME_ROOMID']))
+		if (isset($___LOCAL_INPUT__VARS__INPUT_VAR_LIST['___GAME_ROOMID']) && '' !== $___LOCAL_INPUT__VARS__INPUT_VAR_LIST['___GAME_ROOMID'])
 		{
-			$room_id = ((string)$___LOCAL_INPUT__VARS__INPUT_VAR_LIST['___GAME_ROOMID']);
+			$room_id = ((int)$___LOCAL_INPUT__VARS__INPUT_VAR_LIST['___GAME_ROOMID']);
+			///test code
+//			if(isset(${$gtablepre.'user'}) && $room_id != $rarr['roomid']){
+//				writeover('tmp_roomid_log_1.txt', ${$gtablepre.'user'}."'s roomid ".$room_id.' -> '.$rarr['roomid'].' at '.$now."\r\n",'ab+');
+//				$rarr['room_id'] = $room_id;
+//				$db->query("UPDATE {$gtablepre}users SET roomid = '{$room_id}' WHERE username = '".${$gtablepre.'user'}."'");
+//			}
 		}
 		else  
 		{

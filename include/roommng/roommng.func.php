@@ -563,7 +563,7 @@ function room_enter($id)
 			$result = $db->query("SELECT * FROM {$tablepre}players WHERE name = '$pname' AND type = 0");
 			if(!$db->num_rows($result)){//从未进入过则直接进入战场
 				include_once GAME_ROOT.'./include/valid.func.php';
-				enter_battlefield($udata['username'],$udata['password'],$udata['gender'],$udata['icon'],$pcard);
+				enter_battlefield($udata['username'],$udata['password'],$udata['gender'],$udata['icon'],$pcard,$udata['ip']);
 			}elseif($roomtypelist[$rd['groomtype']]['soleroom']){//教程房特判，离开超过一定时间则清空数据从头开始
 				$pdata = $db->fetch_array($result);
 				$ppid = $pdata['pid'];
@@ -573,7 +573,7 @@ function room_enter($id)
 					$db->query("DELETE FROM {$tablepre}players WHERE type>0 AND teamID = '$ppid'");
 					$alivenum --;
 					include_once GAME_ROOT.'./include/valid.func.php';
-					enter_battlefield($udata['username'],$udata['password'],$udata['gender'],$udata['icon'],$pcard);
+					enter_battlefield($udata['username'],$udata['password'],$udata['gender'],$udata['icon'],$pcard,$udata['ip']);
 				}
 			}
 		}
