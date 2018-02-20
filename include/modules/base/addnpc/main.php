@@ -3,6 +3,21 @@
 namespace addnpc
 {
 	function init() {}
+	
+	function parse_itmuse_desc($n, $k, $e, $s, $sk){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($n, $k, $e, $s, $sk);
+		if(strpos($k,'Y')===0 || strpos($k,'Z')===0){
+			if ($n == '挑战者之印'){
+				$ret .= '召唤3名「幻影执行官」进入战场，击败他们能缴获「社员的ID卡」以合成「游戏解除钥匙」';
+			}elseif ($n == '破灭之诗') {
+				$ret .= '暂时解除禁区，天气变为极光，同时让拟似意识在雏菊之丘登场，通往『幻境解离』的必经之路';
+			}elseif ($n == '黑色碎片') {
+				$ret .= '召唤「Dark Force幼体」进入战场，把她彻底击倒能缴获「游戏解除钥匙」';
+			}
+		}
+		return $ret;
+	}
 		
 	function addnpc($xtype,$xsub,$num,$time = 0) 
 	{
@@ -130,7 +145,8 @@ namespace addnpc
 				$hack = 1;
 				$log .= '因为破灭之歌的作用，全部锁定被打破了！<br>';
 				//\map\movehtm();
-				addnews($now,'hack2',$name);
+				addnews($now,'hackb',$name);
+				\sys\systemputchat($now,'hack');
 				save_gameinfo();
 				$itm = $itmk = $itmsk = '';
 				$itme = $itms = 0;
@@ -168,8 +184,8 @@ namespace addnpc
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}触发了对虚拟现实的救济！虚拟意识已经在■■■■活性化！</span></li>";
 		if($news == 'dfphase') 
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}使用了黑色碎片，让1名未知存在加入了战场！打倒她去获得ID卡来解除游戏吧！</span></li>";
-		if($news == 'hack2') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}启动了救济程序，全部禁区解除！</span></li>";
+		if($news == 'hackb') 
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}启动了救济程序，暂时解除了全部禁区！</span></li>";
 		if($news == 'dfsecphase') 
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}闯了大祸，打破了Dark Force的封印！</span></li>";
 		

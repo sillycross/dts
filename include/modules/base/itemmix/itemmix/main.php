@@ -2,7 +2,7 @@
 
 namespace itemmix
 {
-	$mix_type = array('normal' => '通常');
+	$mix_type = array('normal' => '');
 	
 	function init() {}
 	
@@ -11,8 +11,10 @@ namespace itemmix
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','itemmix'));
 		$itmstr = $uip['itmstr'];
-
-		$tpstr = empty($uip['mixtp']) ? $mix_type['normal'] : $mix_type[$uip['mixtp']];
+		
+		//“通常”合成当动词实在是太奇怪了
+		$tpstr = (empty($uip['mixtp']) || $uip['mixtp']==$mix_type['normal']) ? '' : $mix_type[$uip['mixtp']];
+		
 		$log .= "<span class=\"yellow\">$itmstr</span>{$tpstr}合成了<span class=\"yellow\">{$itm0}</span><br>";
 		addnews($now,'itemmix',$name,$itm0,$tpstr);
 	
@@ -51,6 +53,7 @@ namespace itemmix
 	function itemmix_name_proc($n){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','itemmix'));
+		$n = trim($n);
 		foreach(Array($itmname_ignore) as $value){
 			$n = preg_replace($value,'',$n);
 		}
@@ -85,7 +88,7 @@ namespace itemmix
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		$ret = $rarr[0].'/'.\itemmain\parse_itmk_words($rarr[1],1).'/'.$rarr[2].'/'.$rarr[3];
-		$itmskw = \itemmain\parse_itmsk_words($rarr[4],1);
+		$itmskw = !empty($rarr[4]) ? \itemmain\parse_itmsk_words($rarr[4],1) : '';
 		if($itmskw) $ret .= '/'.$itmskw;
 		return $ret;
 	}
@@ -227,7 +230,7 @@ namespace itemmix
 					if (!isset($mixmask))
 					{
 						for($i=1;$i<=6;$i++)
-							if(isset(${'mitm'.$i}) && ${'mitm'.$i} == $i)
+							if(!empty(${'mitm'.$i}))
 								$mixlist[] = $i;
 					}
 					else

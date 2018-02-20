@@ -11,7 +11,7 @@ namespace smartmix
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','itemmix'));
 		$mix_res = array();		
-		$itm = \itemmix\itemmix_name_proc($itm);
+		$itm = htmlspecialchars_decode(\itemmix\itemmix_name_proc($itm));
 		foreach ($mixinfo as $ma){
 			$ma['type'] = 'normal';
 			//隐藏合成是无法查到的

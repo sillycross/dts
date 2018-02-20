@@ -36,25 +36,35 @@ namespace tutorial
 		//界面的具体实现可以在game.js里shwData()函数调整。
 		if(!empty($ct['pulse'])) {
 			if(is_array($ct['pulse'])){
+				list($cpulse, $apulse) = parse_tutorial_condition_arr($ct['pulse']);
+				if(!empty($cpulse)){
+					$pulse = check_tutorial_condition_arr($cpulse);
+				}
+				if((empty($cpulse) || empty($pulse)) && !empty($apulse)) {
+					$pulse = $apulse;
+				}
+				if(!is_array($pulse)) $pulse = array($pulse);
 				if(!isset($uip['effect']['pulse'])){$uip['effect']['pulse'] = Array();}
-				$uip['effect']['pulse'] = array_merge($uip['effect']['pulse'],$ct['pulse']);
+				$uip['effect']['pulse'] = array_merge($uip['effect']['pulse'],$pulse);
 			}
 			else $uip['effect']['pulse'][] = $ct['pulse'];
 		}
-		//当前obj是search并且将要调用itemfind battlecmd battleresult时应该显示下一个tips（search不存在过程所以无视后一点）
-		//之外，如果tprog为真，则显示对应的prog提示而非tips提示
-		//以上两句注释已经废弃，这是作废的设想
-//		$l = $mode.' '.$command;
-//		if($ct['object'] == 'search' && $command == 'search' && (isset($ct['obj2']['meetnpc']) || isset($ct['obj2']['itm']))){
-//			$nct = get_tutorial_setting($ct['next']);
-//			$r = Array(
-//				$nct['tips']."分歧A；命令：".$l,
-//				$ct['object']
-//			);
-//		}else
 		if($tprog && isset($ct['prog'])){
+			$prog_tips = '';
+			//如果prog是数组，则按条件/随机来给出提示
+			if(!is_array($ct['prog'])) $prog_tips = $ct['prog'];
+			else {
+				list($cond_tips, $random_tips) = parse_tutorial_condition_arr($ct['prog']);
+				if(!empty($cond_tips)) {
+					$prog_tips = check_tutorial_condition_arr($cond_tips);
+				}
+				if((empty($cond_tips) || empty($prog_tips)) && !empty($random_tips)) {
+					shuffle($random_tips);
+					$prog_tips = $random_tips[0];
+				}
+			}
 			$r = Array(
-				$ct['prog'],
+				$prog_tips,
 				$ct['object']
 			);
 		}else{
@@ -64,6 +74,57 @@ namespace tutorial
 			);
 		}
 		return $r;
+	}
+	
+	//自动判定带键名的选项数组，返回array(按条件区分的数组, 无条件的数组)
+	function parse_tutorial_condition_arr($carr){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$cret = $rret = array();
+		foreach($carr as $ckey => $cval) {
+			if(is_numeric($ckey)) $rret[] = $cval;
+			else $cret[$ckey] = $cval;
+		}
+		return array($cret, $rret);
+	}
+	
+	//根据sys和player模块的对应值，判定条件选项是否符合
+	//不进行最适判定，只按先后顺序
+	//如果给的不是关联数组，会返回空
+	function check_tutorial_condition_arr($carr){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player'));
+		foreach($carr as $ckey => $cval){
+			preg_match('/(\<\=*|\>\=*|\=\=\=*|\!\=\=*)/s', $ckey, $matches);
+			if(empty($matches)) continue;
+			$match = $matches[0];
+			list($left, $right) = explode($match, $ckey);
+			$left = trim($left);$right = trim($right);
+			if(is_int($right)) $right = (int)$right;
+			elseif(is_float($right)) $right = (float)$right;
+			preg_match('|[\+\-\*\/]|s',$right,$rmatches);
+			if(!empty($rmatches)){
+				$rmatch = $rmatches[0];
+				list($right0, $right1) = explode($rmatch, $right);
+				$right0 = trim($right0);$right1 = trim($right1);
+				if('+'==$rmatch) $right = ${$right0} + $right1;
+				if('-'==$rmatch) $right = ${$right0} - $right1;
+				if('*'==$rmatch) $right = ${$right0} * $right1;
+				if('/'==$rmatch) $right = ${$right0} / $right1;
+			}
+			$flag = 0;
+			if('<'==$match) $flag = ${$left} < $right;
+			elseif('<='==$match) $flag = ${$left} <= $right;
+			elseif('>'==$match) $flag = ${$left} > $right;
+			elseif('>='==$match) $flag = ${$left} >= $right;
+			elseif('=='==$match) $flag = ${$left} == $right;
+			elseif('==='==$match) $flag = ${$left} === $right;
+			elseif('!='==$match) $flag = ${$left} != $right;
+			elseif('!=='==$match) $flag = ${$left} !== $right;
+			if($flag) {
+				return $cval;
+			}
+		}
+		return '';
 	}
 	
 	//获得当前玩家所处教程阶段的各项参数，目前只是一个外壳，供其他函数调用
@@ -137,6 +198,7 @@ namespace tutorial
 			if($ct['next'] < 0){//游戏结束判定
 				//$log.='教程结束。这句话最终版应该删掉。<br>';
 				$state = 4;
+				$endtime = -1;
 				addnews($now, 'wintutorial', $name);	
 				$url = 'end.php';
 				//\sys\gameover ( $now, 'end9', $name );

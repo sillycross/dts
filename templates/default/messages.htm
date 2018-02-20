@@ -63,10 +63,10 @@
 			<!--{loop $messages $mi $mv}-->
 			<!--{if $i%4==0}--><div class="message_line"><!--{/if}-->
 				<div class="message_ib">
-					<div class="message_box" onclick="$('message_sl$mi').click();if($('message_sl$mi').checked) {$('message_sl$mi').value=1;$('sign$mi').style.display='block';} else {$('message_sl$mi').value=0;$('sign$mi').style.display='none';}">
+					<div class="message_box" onclick="$('message_sl$mi').click();if($('message_sl$mi').checked) {$('sign$mi').style.display='block';} else {$('sign$mi').style.display='none';}">
 						<div class="message_title_bar">
 							<img id="sign$mi" class="message_sign" src="img/message_sl_sign.png">
-							<input type="checkbox" name="sl$mi" id="message_sl$mi" style="display:none" class="message_sl" value="0" />
+							<input type="checkbox" name="sl$mi" id="message_sl$mi" style="display:none" class="message_sl" value="1" />
 							<span class="message_title">$mv['title']</span> <div class="message_hint">$mv['hint']</div>
 						</div>
 						<div class="message_cont"><span>$mv['content']</span></div>

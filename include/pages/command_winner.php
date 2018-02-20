@@ -12,6 +12,7 @@ if (isset($user_prefix)) {
 }
 if (isset($show_all)) $showall=$show_all; else $showall=1;
 for($i=1;$i<=8;$i++) if(!isset(${'winner_show_wmode_'.$i})) ${'winner_show_wmode_'.$i}=0;
+for($i=0;$i<=20;$i++) if(!isset(${'winner_show_gtype_'.$i})) ${'winner_show_gtype_'.$i}=0;
 if (!isset($winner_show_winner)) $winner_show_winner='';
 $room_gprefix = '';
 if (room_check_subroom($room_prefix)) $room_gprefix = ((string)$room_prefix).'.';
@@ -109,6 +110,15 @@ else
 	//生成query
 	//gid起始条件（翻页）
 	$query_gid = $start > 0 ? "gid<='$start'" : "";
+	//gmode条件（游戏模式）
+	$query_gtype = ''; $show_gtype_arr = array();
+	for($i=0;$i<=20;$i++) {
+		if(!empty(${'winner_show_gtype_'.$i})) $show_gtype_arr[] = $i;
+	}
+	sort($show_gtype_arr);
+	if(!empty($show_gtype_arr)) {
+		$query_gtype = "gametype IN ('".implode("','",$show_gtype_arr)."')";
+	}
 	//wmode条件（胜利类型）
 	$query_wmode = ''; $show_wmode_arr = array();
 	for($i=1;$i<=8;$i++) {
@@ -125,8 +135,9 @@ else
 	}
 	//先不拼接gid条件，为了获得所有符合查找条件的结果数
 	$query_where = '';
-	if(!empty($query_wmode) || !empty($query_winner)) {
+	if(!empty($query_wmode) || !empty($query_gtype)  || !empty($query_winner)) {
 		$query_where .= $query_wmode;
+		$query_where .= (!empty($query_where) && !empty($query_gtype) ? ' AND ' : '') . $query_gtype;
 		$query_where .= (!empty($query_where) && !empty($query_winner) ? ' AND ' : '') . $query_winner;
 		$query_where = ' AND '.$query_where;
 	}
@@ -145,16 +156,17 @@ else
 	
 	//然后拼接含gid的WHERE条件
 	$query_where = '';
-	if(!empty($query_gid) || !empty($query_wmode) || !empty($query_winner)) {
+	if(!empty($query_gid) || !empty($query_wmode) || !empty($query_gtype) || !empty($query_winner)) {
 		$query_where .= $query_gid;
 		$query_where .= (!empty($query_where) && !empty($query_wmode) ? ' AND ' : '') . $query_wmode;
+		$query_where .= (!empty($query_where) && !empty($query_gtype) ? ' AND ' : '') . $query_gtype;
 		$query_where .= (!empty($query_where) && !empty($query_winner) ? ' AND ' : '') . $query_winner;
 		$query_where = ' AND '.$query_where;
 	}
 	$query_limit = "SELECT gid,wmode,winner,motto,gametype,vnum,gtime,gstime,getime,hdmg,hdp,hkill,hkp,winnernum,winnerteamID,winnerlist,winnerpdata,validlist FROM {$wtablepre}history WHERE gid>0 $query_where ORDER BY gid DESC LIMIT $winlimit";
 	//echo $query;
 	$result = $db->query($query_limit);
-	
+	$winfo = array();
 	while($wdata = $db->fetch_array($result)) {
 		$wdata['date'] = date("Y-m-d",$wdata['getime']);
 		$wdata['time'] = date("H:i:s",$wdata['getime']);

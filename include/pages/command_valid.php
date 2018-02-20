@@ -36,7 +36,8 @@ if($mode == 'enter') {
 		}
 	}	
 
-	$ip = real_ip();
+	//$ip = real_ip();
+	$ip = $udata['ip'];
 	
 	$userCardData = \cardbase\get_user_cardinfo($cuser);
 	$card_ownlist = $userCardData['cardlist'];

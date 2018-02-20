@@ -66,12 +66,15 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip=NULL)
 //		$itm[3] = '手枪子弹'; $itmk[3] = 'GB'; $itme[3] = 1; $itms[3] = 12; $itmsk[3] = '';
 //	}
 
-	global $gamefounder,$ip;
-	$result = $db->query("SELECT groupid,ip FROM {$gtablepre}users WHERE username='$xuser'");
-	$r = $db->fetch_array($result);
-	
-	$groupid = $r['groupid'];
-	$ip = $r['ip'];
+	//如果没有提供ip，则自行查询
+	if(empty($ip)) {
+		global $gamefounder,$ip;
+		$result = $db->query("SELECT groupid,ip FROM {$gtablepre}users WHERE username='$xuser'");
+		$r = $db->fetch_array($result);
+		
+		$groupid = $r['groupid'];
+		$ip = $r['ip'];
+	}
 	
 	if ($name == $gamefounder||$groupid >= 5) {
 		$itm[6] = '权限狗的ID卡'; $itmk[6] = 'Z'; $itme[6] = 1; $itms[6] = 1;$itmsk[6] = '';

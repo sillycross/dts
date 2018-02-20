@@ -28,6 +28,17 @@ namespace ammunition
 		
 	}
 	
+	function parse_itmk_desc($k_value, $sk_value) {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($k_value, $sk_value);
+		if(strpos($k_value,'WG')===0 || strpos($k_value,'WJ')===0) {
+			list($bulletkind, $bulletnum) = check_ammukind($k_value, $sk_value);
+			eval(import_module('itemmain'));
+			$ret .= '<br>弹药类型为'.$iteminfo[$bulletkind].'，弹夹'. $bulletnum .'发';
+		}
+		return $ret;
+	}
+	
 	function check_ammukind($cwepk, $cwepsk){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('ammunition'));
@@ -36,7 +47,7 @@ namespace ammunition
 			if((strpos($ak, 'W')===0 && strpos($cwepk, $ak) === 0) || (strpos($ak, 'W')!==0 && strpos($cwepsk, $ak) !== false)){
 				$retk = $av[0]; $retn = $av[1];
 				if($retn <= 10 && strpos($cwepsk, 'r') !== false) {
-					if('WJ'==$retk) $retn = 6;//连击重枪弹夹数为6
+					if('GBh'==$retk) $retn = 6;//连击重枪弹夹数为6
 					else $retn = 12;//带连击的气体和能源枪的弹夹数变成12
 				}
 				break;

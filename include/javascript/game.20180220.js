@@ -115,6 +115,7 @@ function demiSecTimerStarter(msec){
 	if (typeof timerid == 'undefined') timerid = setInterval(demiSecTimer,itv);
 }
 
+//已废弃
 function itemmixchooser(){
 	for(i=1;i<=6;i++){
 		var mname = 'mitm'+i;

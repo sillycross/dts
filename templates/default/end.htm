@@ -722,9 +722,12 @@
 游戏尚在运行，可能是新一局已经开始，请返回游戏首页！
 <!--{/if}-->
 
+<!--{if $state == 4 && $gametype == 17}-->
+<input type="button" value="退出教程" onclick="room_quit();">
+<!--{else}-->
 <form method="post" name="backindex" action="index.php">
-	<input type="submit" name="enter" value="{lang backindex}">
+	<input type="submit" value="{lang backindex}">
 </form>
-
+<!--{/if}-->
 
 {template footer}

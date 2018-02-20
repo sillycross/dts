@@ -60,6 +60,11 @@ namespace itemmain
 		return $ret;
 	}
 	
+	function parse_itmk_desc($k_value, $sk_value) {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return '';
+	}
+	
 	function count_itmsk_num($sk_value)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -190,6 +195,7 @@ namespace itemmain
 			$skv=$p1.'sk'.$p2;
 			$r[$v.'_words'] = parse_itmname_words($edata[$v], $elli);
 			$r[$kv.'_words'] = parse_itmk_words($edata[$kv]);
+			$r[$kv.'_desc'] = parse_itmk_desc($edata[$kv],$edata[$skv]);
 			$r[$skv.'_words'] = parse_itmsk_words($edata[$skv], $simple, $elli);
 			$r[$skv.'_desc'] = parse_itmsk_desc($edata[$skv]);
 			$itmuse_words = parse_itmuse_desc($edata[$v], $edata[$kv], $edata[$ev], $edata[$sv], $edata[$skv]);
@@ -365,8 +371,8 @@ namespace itemmain
 		{
 			ob_clean();
 			if ($itemcmd=='itemmerge') include template(MOD_ITEMMAIN_ITEMMERGE);
-			if ($itemcmd=='itemmove') include template(MOD_ITEMMAIN_ITEMMOVE);
-			if ($itemcmd=='itemdrop') include template(MOD_ITEMMAIN_ITEMDROP);
+			elseif ($itemcmd=='itemmove') include template(MOD_ITEMMAIN_ITEMMOVE);
+			elseif ($itemcmd=='itemdrop') include template(MOD_ITEMMAIN_ITEMDROP);
 			$cmd = ob_get_contents();
 			ob_clean();
 		}

@@ -3,7 +3,7 @@
 namespace empowers
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'sys player itemmain logger armor';
+	$___MODULE_dependency = 'sys player itemmain logger armor dualwep';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

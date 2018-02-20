@@ -25,3 +25,5 @@ templates/default/mixhelp.htm
 include/modules/extra/club/skills/skill206/desc - 副本.htm
 include/modules/extra/club/skills/skill206/main - 副本.php
 gamedata/adminlog_nf.php
+tmp_roomid_log_1.txt
+tmp_roomid_log_2.txt

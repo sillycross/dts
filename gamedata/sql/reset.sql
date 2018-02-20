@@ -39,8 +39,8 @@ CREATE TABLE bra_chat (
 DROP TABLE IF EXISTS bra_mapitem;
 CREATE TABLE bra_mapitem (
   iid mediumint unsigned NOT NULL auto_increment,
-  itm char(30) NOT NULL default '',
-  itmk char(5) not null default '',
+  itm varchar(30) NOT NULL default '',
+  itmk varchar(15) not null default '',
   itme int(10) unsigned NOT NULL default '0',
   itms varchar(10) not null default '0',
   itmsk varchar(40) not null default '',
@@ -57,8 +57,8 @@ CREATE TABLE bra_mapitem (
 DROP TABLE IF EXISTS bra_maptrap;
 CREATE TABLE bra_maptrap (
   tid mediumint unsigned NOT NULL auto_increment,
-  itm char(30) NOT NULL default '',
-  itmk char(5) not null default '',
+  itm varchar(30) NOT NULL default '',
+  itmk varchar(15) not null default '',
   itme int(10) unsigned NOT NULL default '0',
   itms varchar(10) not null default '0',
   itmsk varchar(40) not null default '',

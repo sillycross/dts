@@ -10,6 +10,17 @@ namespace weapon
 		$battle_equip_list=array_merge($battle_equip_list,$wep_equip_list);
 	}
 	
+	function parse_itmk_desc($k_value, $sk_value) {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($k_value, $sk_value);
+		if(strpos($k_value,'W')===0) {
+			$wep_kind = substr($k_value,1,1);
+			eval(import_module('weapon'));
+			$ret .= '攻击方式为'.$attinfo[$wep_kind].'，依赖'.$skilltypeinfo[$skillinfo[$wep_kind]].'熟';
+		}
+		return $ret;
+	}
+	
 	function get_att_multiplier(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

@@ -64,17 +64,17 @@ function updateTime(domid,t,tm,intv,fmt)
 		timinglist[domid]['timing'] = t;
 		if(0==t){
 			if(0 < t0 && 'timing'==domid) window.location.reload(); //首页
-			else if('area_timing' == domid) {//游戏界面内禁区自动刷新，不过由于两边时间不同步，可能执行不正常
-				setTimeout(
-					function(){
-						var o_command = $('command').value;
-						$('command').value = 'area_timing_refresh';
-						postCmd('gamecmd','command.php');
-						$('command').value = o_command;
-					},
-					1000
-				);
-			}
+//			else if('area_timing' == domid) {//游戏界面内禁区自动刷新，不过由于两边时间不同步，可能执行不正常
+//				setTimeout(
+//					function(){
+//						var o_command = $('command').value;
+//						$('command').value = 'area_timing_refresh';
+//						postCmd('gamecmd','command.php');
+//						$('command').value = o_command;
+//					},
+//					1000
+//				);
+//			}
 		}
 	}
 	var tstr = updateTime_render(timinglist[domid]['timing'], timinglist[domid]['mode'], timinglist[domid]['format']);
@@ -120,7 +120,7 @@ function getRequestBody(oForm) {
 	var aParams = new Array();
 	var n = oForm.elements.length;
   for (var i=0 ; i < n ; i++) {
-		if((oForm.elements[i].type == 'radio')&&(!oForm.elements[i].checked)){continue;}
+		if((oForm.elements[i].type == 'radio' || oForm.elements[i].type == 'checkbox')&&(!oForm.elements[i].checked)){continue;}
 		var sParam = encodeURIComponent(oForm.elements[i].name);
 		sParam += "=" + encodeURIComponent(oForm.elements[i].value);
 		aParams.push(sParam);

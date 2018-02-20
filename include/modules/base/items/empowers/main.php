@@ -124,6 +124,11 @@ namespace empowers
 		arsort ( $skill );
 		$skill_keys = array_keys ( $skill );
 		$nowsk = $skillinfo[substr ( $wepk, 1, 1 )];
+		$sec_wepk = \dualwep\get_sec_attack_method($sdata);
+		if($sec_wepk) {
+			$secsk = $skillinfo[$sec_wepk];
+			if(${$secsk} > ${$nowsk}) $nowsk = $secsk;
+		}
 		//if('WJ' == $nowsk) $nowsk = 'WG';
 		$maxsk = $skill_keys [0];
 		if (($skill [$nowsk] != $skill [$maxsk]) && ($dice < 30)) {

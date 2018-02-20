@@ -276,8 +276,8 @@ $mixinfo = array
 	array('class' => 'wf', 'stuff' => array('『咲夜的世界』','鲜红的生血','灵魂的结晶'),'result' => array('『收缩的世界』','WF',450,'∞','ircy'),),
 	array('class' => 'wf', 'stuff' => array('幽鬼剑『妖童饿鬼之断食』','☆楼观剑☆','☆白楼剑☆'),'result' => array('空观剑『六根清净斩』','WF',360,'∞','rc'),),
 	
-	array('class' => 'wf', 'stuff' => array('鲜红的生血','长矛','造雾设备'),'result' => array('神枪『Spear The Gungnir』 ','WF',5500,'1','c'),),
-	array('class' => 'wf', 'stuff' => array('《东方幻想乡》','触手的力量','【触手的萃取液】'),'result' => array('梦幻『幻月』 ','WF',900,'∞','rdcm'),),
+	array('class' => 'wf', 'stuff' => array('鲜红的生血','长矛','造雾设备'),'result' => array('神枪『Spear The Gungnir』','WF',5500,'1','c'),),
+	array('class' => 'wf', 'stuff' => array('《东方幻想乡》','触手的力量','【触手的萃取液】'),'result' => array('梦幻『幻月』','WF',900,'∞','rdcm'),),
 	array('class' => 'wf', 'stuff' => array('空白符卡','《魔女的魔导书》'),'result' => array('《魔导师速成攻略》','VF',233,'1',''),),
 	
 	array('class' => 'wf', 'stuff' => array('空白符卡','★制御棒★','日符「Royal Flare」'),'result' => array('『地狱的人造太阳』','WF',666,'∞',),),
