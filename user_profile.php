@@ -33,6 +33,8 @@ else
 }
 
 $udata['u_achievements'] = \achievement_base\decode_achievements($udata);
+//判定全局成就
+\achievement_base\ach_global_ach_check($udata);
 
 if ($curuser && isset($_REQUEST["action"]) && $_REQUEST["action"]=="refdaily"){
 	$refdaily_flag = \achievement_base\refresh_daily_quest($udata);

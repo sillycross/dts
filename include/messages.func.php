@@ -103,6 +103,11 @@ function message_disp($messages)
 				ob_end_clean();
 				$mv['encl_disp'] .= '<div>卡片：<span class="'.$card_rarecolor[$nowcard['rare']].'" title="'.str_replace('"',"'",$tmp_cardpage).'">'.$nowcard['name'].($nownew ? ' <span class="L5">NEW!</span>' : '').'</span></div>';
 			}
+			//因果判定
+			$getkarma = message_get_encl_num($mv['enclosure'], 'getkarma');
+			if($getkarma) {
+				$mv['encl_disp'] .= '<div class="clan">'.$getkarma.'因果</div>';
+			}
 		}
 	}
 	return $messages;
@@ -117,8 +122,7 @@ function message_check($checklist, $messages)
 		$cl_changed = 1;
 		$udata['cardlist'] = explode('_',$udata['cardlist']);
 	}
-	$getqiegaosum = 0;
-	$getcardflag = 0;
+	$getqiegaosum = $getcardflag = $getkarmasum = 0;
 	
 	foreach($checklist as $cid){
 		if($messages[$cid]['checked']) continue;
@@ -141,14 +145,21 @@ function message_check($checklist, $messages)
 				\cardbase\get_card_process($getcard, $udata);
 				$getcardflag = 1;
 			}
+			//获得因果
+			$getkarma = message_get_encl_num($messages[$cid]['enclosure'], 'getkarma');
+			if($getkarma) {
+				$info[] = '获得了<span class="clan">'.$getkarma.'因果</span>';
+				$getkarmasum += $getkarma;
+			}
 		}
 	}
 	if(!empty($cl_changed)) $udata['cardlist'] = implode('_',$udata['cardlist']);
-	if($getqiegaosum || $getcardflag) {
+	if($getqiegaosum || $getcardflag || $getkarmasum) {
 		$n = $udata['username'];
 		$gold = $udata['gold']+$getqiegaosum;
+		$gold2 = $udata['gold2']+$getkarmasum;
 		$cardlist = $udata['cardlist'];
-		$db->query("UPDATE {$gtablepre}users SET gold='$gold',cardlist='$cardlist' WHERE username='$n'");
+		$db->query("UPDATE {$gtablepre}users SET gold='$gold',gold2='$gold2',cardlist='$cardlist' WHERE username='$n'");
 	}
 }
 
