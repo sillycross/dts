@@ -2,7 +2,8 @@
 
 namespace skill228
 {
-
+	$stuntime228 = 1000;
+	
 	function init() 
 	{
 		define('MOD_SKILL228_INFO','club;battle;');
@@ -23,7 +24,7 @@ namespace skill228
 	function check_unlocked228(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return $pa['lvl']>=15;
+		return $pa['lvl']>=21;
 	}
 	
 	function get_rage_cost228(&$pa = NULL)
@@ -79,12 +80,12 @@ namespace skill228
 		$r=Array();
 		if ($pa['bskill']==228) 
 		{
-			eval(import_module('logger'));
+			eval(import_module('logger','skill228'));
 			if ($active)
 				$log.='<span class="lime">你有如天神下凡，对敌人打出雷霆一击！</span><span class="clan">敌人被你击晕了！</span><br>';
 			else  $log.='<span class="lime">敌人有如天神下凡，对你打出雷霆一击！</span><span class="clan">你被敌人击晕了！</span><br>';
 			$r=Array(1.6);
-			\skill602\set_stun_period(1500,$pd);
+			\skill602\set_stun_period($stuntime228,$pd);
 			\skill602\send_stun_battle_news($pa['name'],$pd['name']);
 		}
 		return array_merge($r,$chprocess($pa,$pd,$active));

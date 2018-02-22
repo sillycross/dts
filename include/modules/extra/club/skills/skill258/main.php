@@ -9,9 +9,9 @@ namespace skill258
 	
 	function init() 
 	{
-		define('MOD_SKILL258_INFO','club;upgrade;locked;');
+		define('MOD_SKILL258_INFO','club;upgrade;');
 		eval(import_module('clubbase'));
-		$clubskillname[258] = '尊严';
+		$clubskillname[258] = '快拳';
 	}
 	
 	function acquire258(&$pa)
@@ -30,6 +30,12 @@ namespace skill258
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return 1;
+	}
+	
+	function check_wepk_debuff258($owep, $owepk)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $owepk!='WN' && !($owepk=='WP' && strpos($owep,'拳')!==false);
 	}
 	
 	function upgrade258()
@@ -66,21 +72,6 @@ namespace skill258
 			if ($procrate[$l258]>=rand(0,99)) return 1;
 		}
 		return 0;
-	}
-	
-	function get_final_dmg_multiplier(&$pa, &$pd, $active)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$r=Array();
-		if ((\skillbase\skill_query(258,$pa))&&(check_unlocked258($pa))&&($pa['wepk']!="WN"))
-		{
-			eval(import_module('logger'));
-			if ($active)
-				$log.="<span class=\"yellow\">「尊严」使你造成的最终伤害降低了90%！</span><br>";
-			else  $log.="<span class=\"yellow\">「尊严」使敌人造成的最终伤害降低了90%！</span><br>";
-			$r=Array(0.1);	
-		}
-		return array_merge($r,$chprocess($pa,$pd,$active));
 	}
 	
 	function check_rapid(&$pa, &$pd, $active)

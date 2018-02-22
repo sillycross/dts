@@ -48,7 +48,7 @@ namespace skill208
 		else
 		{
 			$rcost = get_rage_cost208($pa);
-			if (($pa['rage']>=$rcost)&&($pa['wep_kind']=="K"))
+			if ( $pa['rage']>=$rcost && \weapon\get_skillkind($pa,$pd,$active) == 'wk')
 			{
 				eval(import_module('logger'));
 				if ($active)
@@ -69,6 +69,15 @@ namespace skill208
 		}
 		$chprocess($pa, $pd, $active);
 	}	
+	
+	function check_ex_rapid_def_exists(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret =  $chprocess($pa, $pd, $active);
+		//强袭跳过防连判定
+		if ($pa['bskill']==208) $ret = 0;
+		return $ret;
+	}
 	
 	function check_physical_def_attr(&$pa, &$pd, $active)
 	{
@@ -93,9 +102,9 @@ namespace skill208
 			eval(import_module('logger'));
 			if ($pa['card']==5){
 				if ($active)
-					$log.='<span class="yellow">「强袭」使你造成的最终伤害提高了100%！</span><br>';
-				else  $log.='<span class="yellow">「强袭」使敌人造成的最终伤害提高了100%！</span><br>';
-				$r=Array(2);
+					$log.='<span class="yellow">「强袭」使你造成的最终伤害提高了70%！</span><br>';
+				else  $log.='<span class="yellow">「强袭」使敌人造成的最终伤害提高了70%！</span><br>';
+				$r=Array(1.7);
 			}else{
 				if ($active)
 					$log.='<span class="yellow">「强袭」使你造成的最终伤害提高了40%！</span><br>';

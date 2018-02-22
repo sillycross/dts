@@ -1,0 +1,70 @@
+<div <!--{if !empty($lockcard)}-->class="lockcard"<!--{/if}--> style="position:relative;">
+	<!--{if !empty($card_achieved)}-->
+		<img class="card_achieved" src="img/card_achieved.png" />
+	<!--{/if}-->
+	<div class="card_frame_outer
+		<!--{if 'S'==$nowcard['rare']}-->
+			frame_S
+		<!--{elseif 'A'==$nowcard['rare']}-->
+			frame_A
+		<!--{elseif 'B'==$nowcard['rare']}-->
+			frame_B
+		<!--{/if}-->
+		">
+		
+		<div class="card_frame_middler">
+			<div class="card_frame_inner" style="margin-left:50px;width:187px;height:45px;">
+				<!--{if !empty($nownew)}-->
+					<span id="cname">$nowcard['name']</span>&nbsp;&nbsp;<span class="L5">NEW!</span>
+				<!--{else}-->
+					<span id="cname">$nowcard['name']</span>
+				<!--{/if}-->
+			</div>
+			<div class="card_frame_inner" style="height:140px;margin-top:3px">
+				<span id="cdesc" style="max-width:225px">$nowcard['desc']</span>
+				<span class="watermark">COMMENT</span>
+			</div>
+			<div class="card_frame_inner" style="height:100px">
+				<span id="ceffect">$nowcard['effect']</span>
+				<span class="watermark">EFFECT</span>
+			</div>
+			<div>
+				<div class="card_frame_inner card_frame_float_left" style="margin-right:0;width:170px;height:20px;">
+					<span>
+						<!--{if empty($lockcard) && empty($showpack)}-->
+							<!--{if $card_energy[$nowcard['id']]<$nowcard['energy']}-->
+								<!--{eval $cd_desc=convert_tm(($nowcard['energy']-$card_energy[$nowcard['id']])/$energy_recover_rate[$nowcard['rare']], 1);}-->
+								<font color="red">充能中，剩余{$cd_desc}</font>
+							<!--{elseif $nowcard['energy']}-->
+								充能完成，可以使用
+							<!--{else}-->
+								无需充能，可以使用
+							<!--{/if}-->
+						<!--{else}-->
+							$nowcard['pack']
+						<!--{/if}-->
+					</span>
+				</div>
+				<div id="cenergy" class="card_frame_inner card_frame_float_right" style="width:60px;height:20px;">
+					<!--{if empty($lockcard) && empty($showpack) && $card_energy[$nowcard['id']]<$nowcard['energy']}-->
+					<!--{eval $ecolor = $card_energy[$nowcard['id']] < $nowcard['energy'] / 2 ? 'red' : 'yellow';$cenergy = round($card_energy[$nowcard['id']]);}-->
+					<span><span class="$ecolor">{$cenergy}</span>/{$nowcard['energy']}</span>
+					<!--{else}-->
+					<span>$nowcard['energy']</span>
+					<!--{/if}-->
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card_hexagon 
+		<!--{if 'S'==$nowcard['rare']}-->
+			hexagon_S
+		<!--{elseif 'A'==$nowcard['rare']}-->
+			hexagon_A
+		<!--{elseif 'B'==$nowcard['rare']}-->
+			hexagon_B
+		<!--{/if}-->
+		">
+		<span id="crare" class="{$card_rarecolor[$nowcard['rare']]}">$nowcard['rare']</span>
+	</div>
+</div>

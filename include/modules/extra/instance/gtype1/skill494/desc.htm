@@ -1,0 +1,29 @@
+<!--{eval eval(import_module('skill494'));}-->
+<!--{eval $___TEMP_SKILL_ID=494;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+摸鱼
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<!--{eval $clv = (int)\skillbase\skill_getvalue(494,'lvl'); }-->
+<!--{eval $totlv = count($upgradecost)-1; }-->
+<span class="lime">当前级别$clv/$totlv</span>&nbsp;
+<!--{if $upgradecost[$clv] !== -1}-->消耗<span class="lime">$upgradecost[$clv]</span>点技能点升至下一级<!--{/if}--><br>
+你对NPC的单次战斗伤害不能超过其最大生命的<span class="yellow">$dmglimit[$clv]%</span><br>
+</span></td>
+<td class=b3 width=96>
+<!--{if $upgradecost[$clv] !== -1}-->
+<!--{if $skillpoint>=$upgradecost[$clv]}-->
+<input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill494_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="升级">
+<!--{else}-->
+<input type="button" style="width:46px" disabled="true" value="升级">
+<!--{/if}-->
+<!--{/if}-->
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

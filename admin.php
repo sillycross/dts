@@ -18,6 +18,7 @@ $admin_cmd_list = Array(
 	'urlist' => 8,
 	'banlistmng' => 5,
 	'gamecheck' => 2,
+	'adminlogcheck' => 2,
 	'pcmng' => 5,
 	'npcmng' => 5,
 	'gameinfomng' => 5,
@@ -63,13 +64,14 @@ ob_end_flush();
 
 function adminlog($op,$an1='',$an2='',$an3=''){
 	global $now,$cuser;
-	$alfile = GAME_ROOT.'./gamedata/adminlog.php';
+	$alfile = GAME_ROOT.'./gamedata/adminlog_nf.php';
 	if($op){
 		$aldata = "$now,$cuser,$op,$an1,$an2,$an3,\n";
 		writeover($alfile,$aldata,'ab+');
 	}
 	return;
 }
+
 function getstart($start = 0,$mode = ''){
 	global $showlimit;
 	$start = (int)$start;

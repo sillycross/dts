@@ -31,7 +31,9 @@ namespace skill262
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ct = floor(getmicrotime()*1000);
+		//eval(import_module('logger'));
 		\skillbase\skill_setvalue(262,'ct',$ct);
+		//$log .= '$ct='.$ct.'<br>';
 		return $chprocess($edata);
 	}
 	
@@ -61,9 +63,9 @@ namespace skill262
 		{
 			eval(import_module('logger'));
 			$ct = floor(getmicrotime()*1000);
-			$st = (int)\skillbase\skill_getvalue(262,'ct',$pa); 
+			$st = floor(\skillbase\skill_getvalue(262,'ct',$pa)); 
 			$t = $ct - $st;
-			//$log.='t='.$t;
+			//$log.='ct='.$ct.' '.'st='.$st.'<br>';
 			$pretime = skill262_get_pretime($pa);
 			$dmgperc = skill262_get_dmgperc($pa);
 			$maxdmgperc = skill262_get_maxdmgperc($pa);

@@ -41,33 +41,36 @@ namespace pose
 	function calculate_meetman_rate($schmode)	//遇敌率
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player'));
+		eval(import_module('sys','player','pose'));
 		//$r = 1;
-		$a = 0;
-		if ($schmode == 'search') 
-		{
-			if($pose==3) {//探索姿态不容易遇见敌人
-				$a = -25;
-				//$r = 0.85;	
-			}
-			elseif($pose==4) {//隐藏姿态容易遇见敌人
-				$a = 10;
-				//$r = 1.1;	
-			}
-		}
-		if ($schmode == 'move') 
-		{
-			if($pose==3) {
-				$a = -25;
-				//$r = 0.85;
-			}elseif($pose==4) {
-				$a = 10;
-				//$r = 1.1;
-			}
-		}
+//		$a = 0;
+//		if ($schmode == 'search') 
+//		{
+//			if($pose==3) {//探索姿态不容易遇见敌人
+//				$a = -25;
+//				//$r = 0.85;	
+//			}
+//			elseif($pose==4) {//隐藏姿态容易遇见敌人
+//				$a = 10;
+//				//$r = 1.1;	
+//			}
+//		}
+//		if ($schmode == 'move') 
+//		{
+//			if($pose==3) {
+//				$a = -25;
+//				//$r = 0.85;
+//			}elseif($pose==4) {
+//				$a = 10;
+//				//$r = 1.1;
+//			}
+//		}
+		//该姿态人物发现率减去物品发现率，越大越容易找到人
+		$a = $pose_findman_obbs[$pose] - $pose_itemfind_obbs[$pose];
 		return $chprocess($schmode) + $a;
 	}
 	
+	//若要接管此函数，请阅读base\battle\battle.php里的注释，并加以判断
 	function check_can_counter(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -93,7 +96,7 @@ namespace pose
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','pose'));
-		return $chprocess($edata)+$pose_meetman_obbs[$pose];
+		return $chprocess($edata)+$pose_findman_obbs[$pose];
 	}
 	
 	function calculate_active_obbs(&$ldata,&$edata)
@@ -108,11 +111,13 @@ namespace pose
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','pose'));
-		if (!$pa['is_counter'])		//姿态的进攻加成在主动或先制攻击时才有用
-		{
-			return $chprocess($pa,$pd,$active)*(1+$pose_attack_modifier[$pa['pose']]/100);
-		}
-		else  return $chprocess($pa,$pd,$active);
+		//改为全部生效
+		return $chprocess($pa,$pd,$active)*(1+$pose_attack_modifier[$pa['pose']]/100);
+//		if (!$pa['is_counter'])		//姿态的进攻加成在主动或先制攻击时才有用
+//		{
+//			return $chprocess($pa,$pd,$active)*(1+$pose_attack_modifier[$pa['pose']]/100);
+//		}
+//		else  return $chprocess($pa,$pd,$active);
 	}
 	
 	function get_def_multiplier(&$pa,&$pd,$active)
@@ -127,8 +132,8 @@ namespace pose
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player'));
-		if ($pose == 5) 	//治疗姿态恢复双倍
-			return $chprocess($rtime)*2; 
+		if ($pose == 5) 	//治疗姿态恢复3倍
+			return $chprocess($rtime)*3; 
 		else  return $chprocess($rtime);
 	}
 	
@@ -136,8 +141,8 @@ namespace pose
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player'));
-		if ($pose == 5) 	//治疗姿态恢复双倍
-			return $chprocess($rtime)*2; 
+		if ($pose == 5) 	//治疗姿态恢复3倍
+			return $chprocess($rtime)*3; 
 		else  return $chprocess($rtime);
 	}
 	
@@ -149,6 +154,38 @@ namespace pose
 			return $chprocess() - 30; 
 		else  return $chprocess();
 	}
+	
+	//治疗姿态服用补给效果*1.2
+	function get_edible_hpup(&$theitem)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player','pose'));
+		$modifier = 1;
+		if($pose_edible_modifier[$pose] != 0){
+			$modifier = (100+$pose_edible_modifier[$pose])/100;
+		}
+		return round($chprocess($theitem)*$modifier);
+	}
+	
+	function get_edible_spup(&$theitem)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player','pose'));
+		$modifier = 1;
+		if($pose_edible_modifier[$pose] != 0){
+			$modifier = (100+$pose_edible_modifier[$pose])/100;
+		}
+		return round($chprocess($theitem)*$modifier);
+	}
+	
+	//如果是探物姿态，探索玩家流程结束以后会继续探索道具
+	function can_continue_post_discover_player($dpret)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player'));
+		if(!$dpret && 3==$pose) return true;
+		return $chprocess($dpret);
+	}	
 		
 	function act()
 	{

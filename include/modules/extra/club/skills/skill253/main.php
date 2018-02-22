@@ -73,7 +73,7 @@ namespace skill253
 	function get_skill(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill']!=253) return $chprocess($pa,$pd,$active);
+		if (empty($pa['bskill']) || $pa['bskill']!=253) return $chprocess($pa,$pd,$active);
 		$r = min(220,round($pa['lvl']*($pa['rage']+get_rage_cost253())/6));
 		eval(import_module('logger'));
 		if ($active)
@@ -86,9 +86,9 @@ namespace skill253
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		$chprocess($pa,$pd);
+		$ret = $chprocess($pa,$pd);
 		
-		if ($pa['bskill']==253 && $pa['dmg_dealt'] <= $pd['old_hp']*1.5)
+		if (!empty($pa['bskill']) && $pa['bskill']==253 && $pa['dmg_dealt'] <= $pd['old_hp']*1.5)
 		{
 			$r=get_rage_cost253();
 			eval(import_module('logger'));
@@ -96,6 +96,7 @@ namespace skill253
 			$pa['rage']+=$r;
 			if ($pa['rage']>100) $pa['rage']=100;
 		}
+		return $ret;
 	}
 	
 	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())

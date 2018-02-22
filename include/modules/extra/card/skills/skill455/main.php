@@ -28,7 +28,7 @@ namespace skill455
 		return 1;
 	}
 	
-	function apply_total_damage_modifier_down(&$pa,&$pd,$active){
+	function apply_total_damage_modifier_invincible(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!\skillbase\skill_query(455,$pd)) return $chprocess($pa,$pd,$active);
 		eval(import_module('sys','logger','skill455'));
@@ -45,7 +45,7 @@ namespace skill455
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		$chprocess($pa,$pd);
+		$ret = $chprocess($pa,$pd);
 		
 		eval(import_module('skill455'));
 		if (in_array($pd['state'],Array(20,21,22,23,24,25,27,29)))
@@ -58,6 +58,7 @@ namespace skill455
 					$log.="<span class=\"clan\">都告诉你了，无敌对某些NPC无效……快去死吧。</span><br>";
 				}
 			}
+		return $ret;
 	}
 	
 	function get_trap_final_damage_modifier_down(&$pa, &$pd, $tritm, $damage)

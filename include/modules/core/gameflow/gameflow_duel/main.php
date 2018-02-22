@@ -37,12 +37,23 @@ namespace gameflow_duel
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 	
-	function check_player_discover(&$edata)
+//	function check_player_discover(&$edata)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		eval(import_module('sys'));
+//		if ($edata['type']>0 && $gamestate >= 50) return 0;	//死斗后无NPC
+//		return $chprocess($edata);
+//	}
+
+	//死斗后直接摸不到NPC
+	function discover_player_filter_alive(&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($edata);
 		eval(import_module('sys'));
-		if ($edata['type']>0 && $gamestate >= 50) return 0;	//死斗后无NPC
-		return $chprocess($edata);
+		if ($edata['type']>0 && $gamestate >= 50) 
+			$ret = false;	
+		return $ret;
 	}
 	
 	function calculate_meetman_rate($schmode)

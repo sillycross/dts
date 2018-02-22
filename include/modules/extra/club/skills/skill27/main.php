@@ -22,7 +22,8 @@ namespace skill27
 	function check_unlocked27(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return $pa['lvl']>=7;
+		return 1;
+		//return $pa['lvl']>=11;
 	}
 	
 	function armor_break(&$pa, &$pd, $active, $whicharmor)
@@ -53,9 +54,9 @@ namespace skill27
 			if ($pa['bskill']==26)	//聚能发动时损伤所有防具
 			{
 				$target = $armor_equip_list;
-				if (\skillbase\skill_getvalue(26,'lvl',$pa))
-					$damage = 2;
-				else  $damage = 3; 
+				if (2==\skillbase\skill_getvalue(26,'lvl',$pa))
+					$damage = 3;
+				else  $damage = 2; 
 			}
 			else  
 			{

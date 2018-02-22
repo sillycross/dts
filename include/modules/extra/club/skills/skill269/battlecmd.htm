@@ -1,0 +1,18 @@
+<!--{eval list($rageneed, $rageneed0) = \skill269\get_rage_cost269();}-->
+<!--{eval $hpcost = \skill269\get_hp_cost269($sdata, $edata, 1);}-->
+<!--{if $rage<$rageneed0}-->
+<input type="button" class="cmdbutton" style="width:98"  value="浴血" disabled="true"><br />
+<div style="width:90%; text-align:left;">
+需要<span class="red">$rageneed0</span>怒气方可发动
+</div>
+<!--{else}-->
+<input type="button" class="cmdbutton" style="width:98"  value="浴血" 
+onclick="$('command').value='$w1';$('bskill').value=269;postCmd('gamecmd','command.php');this.disabled=true;"><br />
+<div style="width:90%; text-align:left;">
+<!--{if $rage>=$rageneed}-->
+消耗<span class="red">$rageneed</span>怒气，附加<span class="red">$hpcost</span>点伤害。
+<!--{else}-->
+消耗<span class="red">$rageneed0</span>怒气以及<span class="red">$hpcost</span>点生命值，附加消耗生命数值的伤害。
+<!--{/if}-->
+</div>
+<!--{/if}-->

@@ -35,7 +35,6 @@ if($command == 'edit') {
 			'hack_obbs'=>'int'
 		),
 		'map' => array(
-			'areahour'=>'int',
 			'areaadd'=>'int',
 			'areawarntime'=>'int',
 			'arealimit'=>'int',
@@ -43,10 +42,6 @@ if($command == 'edit') {
 		),
 		'gameflow_antiafk' => array(
 			'antiAFKertime'=>'int'
-		),
-		'gameflow_combo' => array(
-			'combolimit'=>'int',
-			'deathlimit'=>'int'
 		),
 		'corpse' => array(
 			'corpseprotect'=>'int'
@@ -117,7 +112,7 @@ if($command == 'edit') {
 			}
 		}
 		if($run_flag) $cmd_info .= '监测到ADV模式已打开，对应运行时文件已修改。<br>';
-		adminlog('gamecfgmng',$gamecfg);
+		adminlog('gamecfgmng',gencode($edlist));
 		$cmd_info .= '游戏数据修改完毕';
 	}
 }

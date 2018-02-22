@@ -4,7 +4,6 @@ defined('IN_GAME') || define('IN_GAME', TRUE);
 defined('IN_COMMAND') || define('IN_COMMAND', TRUE);
 defined('CURSCRIPT') || define('CURSCRIPT', 'game');
 defined('GAME_ROOT') || define('GAME_ROOT', dirname(__FILE__).'/');
-
 require GAME_ROOT.'./include/modulemng/modulemng.config.php';
 
 if ($___MOD_SRV)
@@ -98,7 +97,7 @@ if ($___MOD_SRV)
 						__SOCKET_LOG__("由于过长时间没有收到命令且不是惟一的服务器，没有要求启动替代者。");
 					__SERVER_QUIT__();
 				}
-				else  if ($___TEMP_runned_time+$___MOD_SRV_WAKETIME*2+5>$___TEMP_max_time && !$___TEMP_newsrv_flag)
+				elseif ($___TEMP_runned_time+$___MOD_SRV_WAKETIME*2+5>$___TEMP_max_time && !$___TEMP_newsrv_flag)
 				{
 					//老server即将在下一次唤醒时主动退出，发信息给脚本启动一台新server。
 					if ($___TEMP_runned_time-$___TEMP_last_cmd<=$___MOD_VANISH_TIME || $___TEMP_is_root)
@@ -154,33 +153,49 @@ if ($___MOD_SRV)
 							//允许最多0.2秒等待，这应该已经非常非常宽松了……
 							__SOCKET_WARNLOG__("警告：socket_write等待时间过长。结束流程。"); 
 						}
-						else  if (!socket_write($___TEMP_connection,$___MOD_CONN_PASSWD.'_ok'."\n")) 
+						elseif (!socket_write($___TEMP_connection,$___MOD_CONN_PASSWD.'_ok'."\n")) 
 						{ 
 							__SOCKET_WARNLOG__("警告：socket_write失败。结束流程。"); 
 						}  
 					}
 					socket_close($___TEMP_connection);  
 					__SOCKET_DEBUGLOG__("关闭连接。");
-					
-					if (defined('MOD_REPLAY') && $___MOD_SRV && $___MOD_CODE_ADV3 && !in_array($gametype, $replay_ignore_mode)) 
-					{
-						if (!isset($jgamedata['url']))
+					//只有游戏内指令需要储存成录像
+					if(!isset($page) || 'command' == $page) {
+						if (defined('MOD_REPLAY') && $___MOD_SRV && $___MOD_CODE_ADV3 && !in_array($gametype, $replay_ignore_mode)) 
 						{
-							$pid=(int)$pid;
-							if (!file_exists(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$pid))
+							if (!isset($jgamedata['url']))
 							{
-								create_dir(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$pid);
+								$pid=(int)$pid;
+								$rdir = GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$pid;
+								if (!file_exists($rdir))
+								{
+									create_dir($rdir);
+								}
+								elseif (!is_dir($rdir))
+								{
+									unlink($rdir);
+									create_dir($rdir);
+								}
+								$rfile = $rdir.'/replay.php';
+								$rcont = \replay\replay_record_op($oprecorder).','.($___PAGE_STARTTIME_VALUE-$starttime+$moveut*3600+$moveutmin*60).','.$___MOD_TMP_FILE_DIRECTORY.$___TEMP_uid.','."\n";
+								if(!file_exists($rfile)) {
+									$rcont = "<?php if(!defined('IN_GAME')) exit('Access Denied'); ?>\n".$rcont;
+								}
+								file_put_contents($rfile,$rcont,FILE_APPEND);
 							}
-							else  if (!is_dir(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$pid))
-							{
-								unlink(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$pid);
-								create_dir(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$pid);
-							}
-							
-							file_put_contents(GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$pid.'/replay.txt',\replay\replay_record_op($oprecorder).','.($___PAGE_STARTTIME_VALUE-$starttime+$moveut*3600+$moveutmin*60).','.$___MOD_TMP_FILE_DIRECTORY.$___TEMP_uid.','."\n",FILE_APPEND);
 						}
+					}else{
+						//非游戏指令则删除对应的回应文件
+						//蛋疼，不能删，socket是异步的
+						//unlink($___MOD_TMP_FILE_DIRECTORY.$___TEMP_uid);
 					}
-					
+					//清除进程锁，避免烂代码导致daemon卡死
+					//为了防止未来可能会绕过文件末尾那个判定的情况，放在这里
+					if(!empty($plock)) {
+						\sys\process_unlock();
+					}
+					\player\release_lock_from_pool();
 					//收尾工作，清除所有全局变量
 					$___TEMP_remain_list=Array('_SERVER','GLOBALS','magic_quotes_gpc','module_hook_list','language','_ERROR');
 							
@@ -226,7 +241,7 @@ if ($___MOD_SRV)
 				__SOCKET_LOG__("已经运行了 ".$___TEMP_runned_time."秒。主动退出。");
 				__SERVER_QUIT__();
 			}
-			else  if ($___TEMP_runned_time+$___MOD_SRV_WAKETIME*2+5>$___TEMP_max_time && !$___TEMP_newsrv_flag)
+			elseif ($___TEMP_runned_time+$___MOD_SRV_WAKETIME*2+5>$___TEMP_max_time && !$___TEMP_newsrv_flag)
 			{
 				//老server即将在下一次唤醒时主动退出，发信息给脚本启动一台新server。
 				if ($___TEMP_runned_time-$___TEMP_last_cmd<=$___MOD_VANISH_TIME || $___TEMP_is_root)
@@ -243,7 +258,7 @@ if ($___MOD_SRV)
 				unlink(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT.'/busy');
 		}
 	}
-	else  if ($___TEMP_WORKFLAG==0)
+	elseif ($___TEMP_WORKFLAG==0)
 	{
 		ignore_user_abort(1);
 		
@@ -262,7 +277,7 @@ if ($___MOD_SRV)
 	
 		if ($handle=opendir(GAME_ROOT.'./gamedata/tmp/server')) 
 		{
-			$flag=0; $srvlist=Array(); $chosen=-1;
+			$flag=0; $srvlist=Array(); $chosen=-1; $touch_error_list=array();
 			while (($sid=readdir($handle))!==false) 
 			{
 				if ($sid=='.' || $sid=='..') continue;
@@ -273,6 +288,11 @@ if ($___MOD_SRV)
 					array_push($srvlist,$sid);
 					$flag=1;
 					if (file_exists(GAME_ROOT.'./gamedata/tmp/server/'.$sid.'/busy')) continue;
+					$touchflag = __SEND_TOUCH_CMD__($sid);
+					if ('ok' != $touchflag && 'ok_root' != $touchflag) {
+						$touch_error_list[]=$sid;
+						continue;
+					}
 					$chosen = $sid; break;
 				}
 			}
@@ -285,6 +305,24 @@ if ($___MOD_SRV)
 			}
 			__SOCKET_DEBUGLOG__("选择了端口号为 ".$chosen.'的服务器 。');
 			$___TEMP_CONN_PORT=$chosen;
+			
+			$auto_server_file = GAME_ROOT.'./gamedata/tmp/server/auto_requested_new_server';
+			if (!empty($touch_error_list)) //请求daemonmng.php关闭检测到的异常进程
+			{
+				if(!file_exists($auto_server_file)){
+					touch($auto_server_file);
+					$daemonmng_url = 'http://'.$_SERVER['HTTP_HOST'].substr($_SERVER['PHP_SELF'],0,-11).'daemonmng.php';
+					foreach($touch_error_list as $tev){
+						$get_var = 'action=stop'.$tev.'&in_game_pass='.substr(base64_encode($___MOD_CONN_PASSWD),0,6);
+						file_get_contents($daemonmng_url.'?'.$get_var);
+					}
+				}else{
+					__SOCKET_ERRORLOG__("服务器连接错误，且尝试自动重启socket失败。");
+				}				
+			}else{
+				if(file_exists($auto_server_file)) unlink($auto_server_file);
+			}
+			unset($touch_error_list, $auto_server_file, $touchflag, $daemonmng_url, $get_var);
 		}
 		else  __SOCKET_ERRORLOG__('无法打开gamedata/tmp/server目录。');
 		
@@ -315,15 +353,7 @@ else	//未开启server-client模式，正常执行准备流程
 ////////////////////////////////////////////////////////////////////////////
 
 if(isset($command)){
-	if('get_news_in_game' == $command && isset($lastnid) && isset($news_room_prefix)){//获取进行状况
-		$lastnid=(int)$lastnid;
-		$newsinfo = \sys\getnews($lastnid,$newslimit,$news_room_prefix);
-		ob_clean();
-		$jgamedata = gencode($newsinfo);
-		echo $jgamedata;
-		ob_end_flush();
-		return;
-	}elseif('area_timing_refresh' == $command){//刷新禁区时间
+	if('area_timing_refresh' == $command){//刷新禁区时间
 		\sys\routine();
 		\map\init_areatiming();
 		$gamedata = array('timing' => $uip['timing']);
@@ -341,167 +371,27 @@ if(isset($command)){
 }
 
 ////////////////////////////////////////////////////////////////////////////
-//////////////////////////游戏前玩家信息检查///////////////////////////////////
+//////////////////////////执行页面//////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
 
-if(!$cuser||!$cpass) 
-{ 
-	gexit($_ERROR['no_login'],__file__,__line__); 
-	return;
-} 
-
-$result = $db->query("SELECT * FROM {$tablepre}players WHERE name = '$cuser' AND type = 0");
-
-if(!$db->num_rows($result)) 
-{ 
-	$gamedata['url'] = 'valid.php';
-	ob_clean();
-	$jgamedata = gencode($gamedata);
-	echo $jgamedata;
-	return;
-}
-
-$pdata = $db->fetch_array($result);
-
-//判断是否密码错误
-if($pdata['pass'] != $cpass) {
-	$tr = $db->query("SELECT `password` FROM {$gtablepre}users WHERE username='$cuser'");
-	$tp = $db->fetch_array($tr);
-	$password = $tp['password'];
-	if($password == $cpass) {
-		$db->query("UPDATE {$tablepre}players SET pass='$password' WHERE name='$cuser'");
-	} else {
-		gexit($_ERROR['wrong_pw'],__file__,__line__);
-		return;
+if(!isset($page) || 'command' == $page) {
+	$___CURSCRIPT = 'ACT';
+	include GAME_ROOT.'./include/pages/command_act.php';
+}elseif(in_array($page, array('command_game','command_roomcmd','command_valid','command_end','command_winner','command_rank','command_alive','command_help','command_news'))) {
+	$___tmp_disable_codeadv3 = 1;//暂时还做不到游戏外页面解压文字
+	$___CURSCRIPT = strtoupper(substr($page,strpos($page,'_')+1));
+	if('command_help' == $page) {
+		$___IN_HELP = 1;//代替常量IN_HELP
 	}
-}
-	
-if($gamestate == 0) {
-	$gamedata['url'] = 'end.php';
-	ob_clean();
-	$jgamedata = gencode($gamedata);
-	echo $jgamedata;
-	return;
+	include GAME_ROOT.'./include/pages/'.$page.'.php';
 }
 
-////////////////////////////////////////////////////////////////////////////
-////////////////////////////正式进入游戏//////////////////////////////////////
-///////////从这里开始，不应该有任何错误信息返回，应该只返回$jgamedata///////////////
-////////////////////////////////////////////////////////////////////////////
-	
-//初始化各变量
-$log = $cmd = $main = '';
-
-//$timecost = get_script_runtime($pagestartime);
-//$timecostlis = (string)$timecost;
-
-$pagestartimez=microtime(true); 
-
-\player\load_playerdata(\player\fetch_playerdata($cuser));
-
-$gamedata = array(
-	'innerHTML' => array(),
-	'value' => array(),
-	'src' => array()
-);
-\player\init_playerdata();
-
-\player\pre_act();
-if ($hp > 0 && $state <= 3) \player\act();
-\player\post_act();
-
-$endtime = $now;
-
-if ($___MOD_SRV)
-{
-	$timecost = microtime(true) - $pagestartimez;
-	$timecost = sprintf("%.4f",$timecost); 
-	if ($timecost >= 0.05) __SOCKET_WARNLOG__("本次操作同步问题触发窗口达到了 $timecost 秒");
+//清除进程锁，避免烂代码导致daemon卡死
+if(!empty($plock)) {
+	\sys\process_unlock();
 }
+//清除玩家锁
+\player\release_lock_from_pool();
 
-//$timecost = get_script_runtime($pagestartime);
-//$timecostlis .= '/'.$timecost;
-
-//显示指令执行结果
-\player\prepare_response_content();
-
-\player\parse_interface_gameinfo();
-\player\parse_interface_profile();
-
-if($hp <= 0) {
-	$dtime = date("Y年m月d日H时i分s秒",$endtime);
-	$kname='';
-	if($bid) {
-		$result = $db->query("SELECT name FROM {$tablepre}players WHERE pid='$bid'");
-		if($db->num_rows($result)) { $kname = $db->result($result,0); }
-	}
-	ob_clean();
-	include template('death');
-	$gamedata['innerHTML']['cmd'] = ob_get_contents();
-	$mode = 'death';
-} elseif($cmd){	
-	$gamedata['innerHTML']['cmd'] = $cmd;
-} elseif($itms0){
-	ob_clean();
-	include template(MOD_ITEMMAIN_ITEMFIND);
-	$gamedata['innerHTML']['cmd'] = ob_get_contents();
-} elseif($state == 1 || $state == 2 || $state ==3) {
-	ob_clean();
-	include template('rest');
-	$gamedata['innerHTML']['cmd'] = ob_get_contents();
-} elseif(!$cmd) {
-	ob_clean();
-	if($mode != 'command' && $mode&&(file_exists($mode.'.htm') || file_exists(GAME_ROOT.TPLDIR.'/'.$mode.'.htm'))) {
-		include template($mode);
-	} elseif(defined('MOD_TUTORIAL') && $gametype == 17){
-		include template(MOD_TUTORIAL_TUTORIAL);
-	}	else {
-		include template('command');
-	}
-	$gamedata['innerHTML']['cmd'] = ob_get_contents();
-} else {
-	$log .= '游戏流程故障，请联系管理员<br>';
-}
-
-if(isset($url)){$gamedata['url'] = $url;}
-if(!empty($uip['timing'])) {$gamedata['timing'] = $uip['timing'];}
-if(!empty($uip['effect'])) {$gamedata['effect'] = $uip['effect'];}
-if(!empty($uip['innerHTML'])) {$gamedata['innerHTML'] = array_merge($gamedata['innerHTML'], $uip['innerHTML']);}
-if(!empty($uip['src'])) {$gamedata['src'] = array_merge($gamedata['src'], $uip['src']);}
-
-//$gamedata['innerHTML']['pls'] = $plsinfo[$pls];
-//if ($gametype!=2) $gamedata['innerHTML']['anum'] = $alivenum; else $gamedata['innerHTML']['anum'] = $validnum;
-ob_clean();
-$main ? include template($main) : include template('profile');
-$gamedata['innerHTML']['main'] = ob_get_contents();
-if(isset($error)){$gamedata['innerHTML']['error'] = $error;}
-
-
-//测试
-//函数调用计数
-//$log.="<span class=\"grey\">Fn call count: ".count($___TEMP_CALLS_COUNT)."</span><br>"; 
-/*
-$timecost = get_script_runtime($pagestartime);
-if (isset($timecost2)) $log.="<span class=\"grey\">模块加载时间: $timecost2 秒</span><br>"; 
-if ($___MOD_SRV)
-{
-	$log.="<span class=\"grey\">核心运行时间: $timecost 秒</span><br>"; 
-	$log.="<span class=\"grey\">页面运行时间: _____PAGE_RUNNING_TIME_____ 秒</span>"; //这个好像显示不了
-}
-else  $log.="<span class=\"grey\">页面运行时间: $timecost 秒$ts</span>"; 
-*/
-
-//$timecost = get_script_runtime($pagestartime);
-//$timecostlis .= '/'.$timecost;
-
-//$jgamedata = str_replace('_____CORE_RUNNING_TIME_____',$timecostlis,$jgamedata);
-
-$jgamedata=gencode($gamedata);
-ob_clean();
-echo $jgamedata;
-
-\player\update_sdata();
-\player\player_save($sdata);
-
-
-?>
+/* End of file command.php */
+/* Location: /command.php */

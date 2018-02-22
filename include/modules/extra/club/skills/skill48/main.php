@@ -9,6 +9,7 @@ namespace skill48
 	$skill48_ex_map = Array(
 		'f' => 'u',
 		'k' => 'i',
+		't' => 'w',
 	);
 	
 	function init() 
@@ -123,6 +124,16 @@ namespace skill48
 		}
 	}
 	
+	function check_available_attr48(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('ex_dmg_att'));
+		if(empty($pa['bskill'])) $pa['bskill']=0;
+		if(empty($pa['wep_kind'])) $pa['wep_kind']=\weapon\get_attack_method($pa);
+		$att_arr = \attrbase\get_ex_attack_array_core($pa, $pd, $active);
+		return array_intersect($att_arr, $ex_attack_list);
+	}
+	
 	function strike_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -136,7 +147,7 @@ namespace skill48
 		else
 		{
 			$rcost = get_rage_cost48($pa);
-			if ($pa['rage']>=$rcost && $pa['wep_kind']=='C')
+			if ($pa['rage']>=$rcost && $pa['wep_kind']=='C' && \weapon\get_skillkind($pa,$pd,$active) == 'wc')
 			{
 				eval(import_module('logger'));
 				if ($active)
@@ -144,6 +155,15 @@ namespace skill48
 				else  $log.="<span class=\"lime\">{$pa['name']}对你发动了技能「附魔」！</span><br>";
 				$pa['rage']-=$rcost;
 				addnews ( 0, 'bskill48', $pa['name'], $pd['name'] );
+				//原花雨技能
+//				eval(import_module('ex_dmg_att'));
+//				$att_arr = \attrbase\get_ex_attack_array_core($pa, $pd, $active);
+				//var_dump(array_intersect($att_arr, $ex_attack_list));
+				if(empty(check_available_attr48($pa, $pd, $active))){
+					$lis = Array('p', 'u', 'i', 'e', 'w');
+					shuffle($lis);
+					$pa['skill48_flag2']=$lis[0];
+				}
 				
 				//更新附魔发动次数
 				$ori_val=(int)\skillbase\skill_getvalue(48,'tot',$pa);
@@ -177,24 +197,29 @@ namespace skill48
 	}	
 	
 	//主动发动附魔，叠属性伤害加成
-	function calculate_ex_attack_dmg(&$pa, &$pd, $active)
+	function ex_attack_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill']!=48) return $chprocess($pa, $pd, $active);
-		
 		$r=$chprocess($pa, $pd, $active);
-		
-		eval(import_module('itemmain','logger'));
-		if (isset($pa['skill48_flag']))
-		{
-			if ($active)
-				$log.='技能「附魔」使你的<span class="yellow">'.$itemspkinfo[$pa['skill48_flag']].'</span>伤害永久提高了<span class="yellow">3%</span>。<br>';
-			else  $log.='技能「附魔」使敌人的<span class="yellow">'.$itemspkinfo[$pa['skill48_flag']].'</span>伤害永久提高了<span class="yellow">3%</span>。<br>';
-			$ori_val=(int)\skillbase\skill_getvalue(48,$pa['skill48_flag'],$pa);
-			$ori_val+=3;
-			if ($ori_val>150) $ori_val=150;
-			\skillbase\skill_setvalue(48,$pa['skill48_flag'],$ori_val,$pa);
+		if ($pa['bskill']==48) {
+			eval(import_module('itemmain','logger'));
+			$headword = '技能「附魔」';
+			if(!empty($pa['skill48_flag2'])){
+				$log.='技能「附魔」附加了<span class="yellow">'.$itemspkinfo[$pa['skill48_flag2']].'</span>属性伤害！<br>';
+				$headword = '并';
+			} 
+			if (isset($pa['skill48_flag']))
+			{
+				if ($active)
+					$log.=$headword.'使你的<span class="yellow">'.$itemspkinfo[$pa['skill48_flag']].'</span>伤害永久提高了<span class="yellow">3%</span>。<br>';
+				else  $log.=$headword.'使敌人的<span class="yellow">'.$itemspkinfo[$pa['skill48_flag']].'</span>伤害永久提高了<span class="yellow">3%</span>。<br>';
+				$ori_val=(int)\skillbase\skill_getvalue(48,$pa['skill48_flag'],$pa);
+				$ori_val+=3;
+				if ($ori_val>150) $ori_val=150;
+				\skillbase\skill_setvalue(48,$pa['skill48_flag'],$ori_val,$pa);
+			}
 		}
+		
 		return $r;
 	}
 	
@@ -208,6 +233,16 @@ namespace skill48
 		$z=$key; if (isset($skill48_ex_map[$z])) $z=$skill48_ex_map[$z];
 		$ori_val=(int)\skillbase\skill_getvalue(48,$z,$pa);
 		return $chprocess($pa, $pd, $active, $key)*(1+$ori_val/100);
+	}
+	
+	function get_ex_attack_array_core(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$r=$chprocess($pa, $pd, $active);
+		if ($pa['bskill']==48 && !empty($pa['skill48_flag2'])) {
+			array_push($r,$pa['skill48_flag2']);
+		}
+		return $r;
 	}
 	
 	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())

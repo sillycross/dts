@@ -1,0 +1,21 @@
+<!--{eval $___TEMP_SKILL_ID=487;}-->
+<!--{eval eval(import_module('player','skill487'));}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+后手
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+你主动操作时因战斗或陷阱导致不足半血时，自动服用上一次吃的无毒回复道具直到HP回满或道具耗尽。这一技能不会产生道具CD。
+<!--{if $sdata}-->
+<br>当前留作后手的道具是<!--{eval echo \skill487\show_last_hitem487($sdata)}-->。
+<!--{/if}-->
+</span></td>
+<td class=b3 width=96>
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

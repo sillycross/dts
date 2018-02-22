@@ -8,14 +8,22 @@ gamedata/adminmsg.htm
 gamedata/systemmsg.htm
 gamedata/modules.list.temp.php
 gamedata/modules.list.pass.php
-templates/default/itemhelp.htm
-templates/default/tmp_*.htm
 gamedata/combatinfo.php
 gamedata/newsinfo.php
 gamedata/gameinfo.php
+gamedata/banlist.list
+gamedata/replays/*.*
+gamedata/remote_replays/
+gamedata/tmp/
+templates/default/itemhelp.htm
+templates/default/tmp_*.htm
 *.bak
-gamedata/tmp/*.*
 query_log.txt
 *.lock
 gamedata/cache/
 templates/default/mixhelp.htm
+include/modules/extra/club/skills/skill206/desc - 副本.htm
+include/modules/extra/club/skills/skill206/main - 副本.php
+gamedata/adminlog_nf.php
+tmp_roomid_log_1.txt
+tmp_roomid_log_2.txt

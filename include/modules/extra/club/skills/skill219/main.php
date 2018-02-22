@@ -4,7 +4,10 @@ namespace skill219
 {
 	function init() 
 	{
-		define('MOD_SKILL219_INFO','club;active;hidden;');
+		define('MOD_SKILL219_INFO','club;active;feature;');
+		eval(import_module('clubbase'));
+		$clubskillname[219] = '淬毒';
+		$clubdesc_h[8] = $clubdesc_a[8] = '能够用毒药为武器淬毒（增加带毒属性）';
 	}
 	
 	function acquire219(&$pa)
@@ -15,6 +18,12 @@ namespace skill219
 	function lost219(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+	}
+	
+	function check_unlocked219(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 1;
 	}
 	
 	function wpoison(){
@@ -40,18 +49,20 @@ namespace skill219
 				}
 			}
 			if($position){
-				if(strpos($wepsk,'p')!==false){
+				$wepsk_arr = \itemmain\get_itmsk_array($wepsk);
+				if(in_array('p',$wepsk_arr)){
 					$log .= '<span class="red">武器已经带毒，不用改造！</span><br />';
 					$mode = 'command';
 					return;
-				}elseif(strlen($wepsk)>=5){
+				}elseif(count($wepsk_arr) >= 12){
 					$log .= '<span class="red">武器属性数目达到上限，无法改造！</span><br />';
 					$mode = 'command';
 					return;
 				}
 				$wepsk .= 'p';
 				$log .= "<span class=\"yellow\">用毒药为{$wep}淬毒了，{$wep}增加了带毒属性！</span><br />";
-				$wep = '毒性'.$wep;
+				if(strpos($wep,'毒性')===false)
+					$wep = '毒性'.$wep;
 				${'itms'.$position}-=1;
 				$itm = ${'itm'.$position};
 				if(${'itms'.$position} == 0){

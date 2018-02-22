@@ -5,6 +5,7 @@ if(!defined('IN_ADMIN')) {
 
 $adminmsg = file_get_contents('./gamedata/adminmsg.htm') ;
 $systemmsg = file_get_contents('./gamedata/systemmsg.htm') ;
+include GAME_ROOT.'./include/roommng/roommng.config.php';//由于room不是模块，参数会被input覆盖，必须再载入一次
 
 if($command == 'edit') {
 	$ednum = 0;
@@ -22,6 +23,7 @@ if($command == 'edit') {
 		'chatlimit'=>'int',
 		'chatrefresh'=>'int',
 		'chatinnews'=>'int',
+		'max_room_num'=>'int',
 		'disable_event'=>'int',
 		'disable_newgame'=>'int',
 		'disable_newroom'=>'int'
@@ -55,17 +57,17 @@ if($command == 'edit') {
 	$cmd_info .= "提交的修改请求数量： $ednum <br>";
 	
 	if($ednum){
-		if(in_array('adminmsg',array_keys($edlist))){
+		if(isset($edlist['adminmsg'])){
 			file_put_contents('./gamedata/adminmsg.htm',$adminmsg);
 		}
-		if(in_array('systemmsg',array_keys($edlist))){
+		if(isset($edlist['systemmsg'])){
 			file_put_contents('./gamedata/systemmsg.htm',$systemmsg);
 		}
 		$sf = GAME_ROOT.'./include/modules/core/sys/config/system.config.php';
 		//$sf = dirname(dirname(__FILE__)).'/modules/core/sys/config/system.config.php';
 		$system_cont = file_get_contents($sf);
 		foreach($edlist as $key => $val){
-			if($key != 'adminmsg' && $key != 'systemmsg'){
+			if($key != 'adminmsg' && $key != 'systemmsg' && $key != 'max_room_num'){
 				if($edfmt[$key] == 'int' || $edfmt[$key] == 'b'){
 					$system_cont = preg_replace("/[$]{$key}\s*\=\s*-?[0-9]+;/is", "\${$key} = ${$key};", $system_cont);
 				}else{
@@ -74,14 +76,24 @@ if($command == 'edit') {
 			}
 		}
 		file_put_contents($sf,$system_cont);
+		if(in_array('max_room_num',array_keys($edlist))){
+			$key = 'max_room_num';
+			$rf = GAME_ROOT.'./include/roommng/roommng.config.php';
+			$roommng_cont = file_get_contents($rf);
+			$roommng_cont = preg_replace("/[$]{$key}\s*\=\s*-?[0-9]+;/is", "\${$key} = ${$key};", $roommng_cont);
+			file_put_contents($rf,$roommng_cont);
+		}
 		//打开ADV1以上时需要同时修改run文件夹下的内容
 		$sf_run = GAME_ROOT.'./gamedata/run/core/sys/config/system.config.adv.php';
 		if($___MOD_CODE_ADV1 && file_exists($sf_run)){
 			file_put_contents($sf_run,$system_cont);
+			$daemonmng_url = 'http://'.$_SERVER['HTTP_HOST'].substr($_SERVER['PHP_SELF'],0,-9).'daemonmng.php';
+			$get_var = 'action=restart&in_game_pass='.substr(base64_encode($___MOD_CONN_PASSWD),0,6);
+			file_get_contents($daemonmng_url.'?'.$get_var);
 			$cmd_info .= '监测到ADV模式已打开，对应运行时文件已修改。<br>';
 		}
 		//putadminlog($adminlog);
-		adminlog('systemmng');
+		adminlog('systemmng',gencode($edlist));
 		$cmd_info .= '系统环境修改完毕';
 	}
 }

@@ -1,0 +1,19 @@
+<!--{eval eval(import_module('skill271'));}-->
+<!--{eval $___TEMP_SKILL_ID=271;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+神裁
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+你所用武器熟练度每比敌人高{$skill271deno}点，就随机无视1项敌人的减半类防御属性。
+</span></td>
+<td class=b3 width=96>
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+13级时解锁
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

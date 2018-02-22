@@ -1,40 +1,34 @@
 <?php
 
 define('CURSCRIPT', 'end');
+define('IN_GAME', true);
+defined('GAME_ROOT') || define('GAME_ROOT', dirname(__FILE__).'/');
 
-require './include/common.inc.php';
-if(!$cuser||!$cpass) { gexit($_ERROR['no_login'],__file__,__line__); } 
-$result = $db->query("SELECT * FROM {$tablepre}players WHERE name = '$cuser' AND type = 0");
-if(!$db->num_rows($result)) { header("Location: index.php");exit(); }
+require GAME_ROOT.'./include/global.func.php';
+include GAME_ROOT.'./include/modules/core/sys/config/server.config.php';
 
-$pdata = $db->fetch_array($result);
-if($pdata['pass'] != $cpass) {
-	$tr = $db->query("SELECT `password` FROM {$gtablepre}users WHERE username='$cuser'");
-	$tp = $db->fetch_array($tr);
-	$password = $tp['password'];
-	if($password == $cpass) {
-		$db->query("UPDATE {$tablepre}players SET pass='$password' WHERE name='$cuser'");
-	} else {
-		gexit($_ERROR['wrong_pw'],__file__,__line__);
+$url = url_dir().'command.php';
+$context = array('page'=>'command_end');
+foreach($_POST as $pkey => $pval){
+	$context[$pkey] = $pval;
+}
+$cookies = array();
+foreach($_COOKIE as $ckey => $cval){
+	if(strpos($ckey,'user')!==false || strpos($ckey,'pass')!==false) $cookies[$ckey] = $cval;
+}
+$endinfo = curl_post($url, $context, $cookies);
+if(strpos($endinfo, 'redirect')===0){
+	list($null, $url) = explode(':',$endinfo);
+	header('Location: '.$url);
+	exit();
+}
+if(strpos($endinfo,'<head>')===false){
+	$d_endinfo = gdecode($endinfo,1);
+	if(is_array($d_endinfo) && isset($d_endinfo['url']) && 'error.php' == $d_endinfo['url']){
+		gexit($d_endinfo['errormsg'],__file__,__line__);
 	}
 }
+echo $endinfo;
 
-eval(import_module('player'));
-\player\load_playerdata($pdata);
-\player\init_playerdata();
-extract($pdata);
-
-if($hp<=0 || $state>=10) {
-	$result = $db->query("SELECT lastword FROM {$gtablepre}users WHERE username='$name'");
-	$motto = $db->result($result,0);
-	$dtime = date("Y年m月d日H时i分s秒",$endtime);
-	if($bid) {
-		$result = $db->query("SELECT name FROM {$tablepre}players WHERE pid='$bid'");
-		if($db->num_rows($result)) { $kname = $db->result($result,0); }
-	}
-}
-
-include template('end');
-
-
-?>
+/* End of file end.php */
+/* Location: /end.php */

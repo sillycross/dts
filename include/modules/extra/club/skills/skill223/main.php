@@ -69,10 +69,10 @@ namespace skill223
 		$chprocess($pa, $pd, $active);
 	}	
 	
-	function get_hitrate(&$pa,&$pd,$active)
+	function get_hitrate_change(&$pa,&$pd,$active,$hitrate)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill']!=223) return $chprocess($pa, $pd, $active);
+		if ($pa['bskill']!=223) return $chprocess($pa, $pd, $active,$hitrate);
 		return 10000;
 	}
 	
@@ -83,7 +83,11 @@ namespace skill223
 		if ($pa['bskill']==223) 
 		{
 			eval(import_module('logger'));
-			$var_223=50;
+			if ($pa['card']==5){
+				$var_223=100;
+			}else{
+				$var_223=50;
+			}
 			if (isset($pd['original_inf'])){
 				$var_223+=(50*strlen($pd['original_inf']));
 			}

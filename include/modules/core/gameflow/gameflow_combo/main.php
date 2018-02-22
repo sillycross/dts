@@ -12,29 +12,47 @@ namespace gameflow_combo
 		
 		eval(import_module('sys','gameflow_combo'));
 		//重设连斗判断死亡数
-		$combonum = $deathlimit;
+		$combonum = calculate_combonum(1);
 		//save_gameinfo();//已改到外侧
 	}
 	
-	function checkcombo(){
+	function checkcombo($time = 0){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','gameflow_combo'));
+		if(!$time) $time = $now;
 		if($gamestate < 40 && $gamestate >= 30 && $alivenum <= $combolimit) {//判定进入连斗条件1：停止激活时玩家数少于特定值
 			$gamestate = 40;
-			addnews($now,'combo');
-			systemputchat($now,'combo');
+			addnews($time,'combo');
+			systemputchat($time,'combo');
 		}elseif($gamestate < 40 && $gamestate >= 20 && $combonum && $deathnum >= $combonum){//判定进入连斗条件2：死亡人数超过特定公式计算出的值
-			$real_combonum = $deathlimit + ceil($validnum/$deathdeno) * $deathnume;
+			$real_combonum = calculate_combonum();
 			if($deathnum >= $real_combonum){
 				$gamestate = 40;
-				addnews($now,'combo');
-				systemputchat($now,'combo');
+				addnews($time,'combo');
+				systemputchat($time,'combo');
 			}else{
 				$combonum = $real_combonum;
-				addnews($now,'comboupdate',$combonum,$deathnum);
-				systemputchat($now,'comboupdate',$combonum);
+				addnews($time,'comboupdate',$combonum,$deathnum);
+				systemputchat($time,'comboupdate',$combonum);
 			}		
 		}
+	}
+	
+	//每次增加禁区之后都判定是否连斗
+	function post_addarea_process($atime, $areaaddlist)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($atime, $areaaddlist);
+		checkcombo($atime);
+	}	
+	
+	function calculate_combonum($reset = false){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','gameflow_combo'));
+		$dlimit = $deathlimit_by_gtype[0];
+		if(!empty($deathlimit_by_gtype[$gametype])) $dlimit = $deathlimit_by_gtype[$gametype];
+		if(!$reset)	return $dlimit + ceil($validnum/$deathdeno) * $deathnume;
+		else return $dlimit;
 	}
 	
 	function gamestateupdate()
@@ -53,19 +71,30 @@ namespace gameflow_combo
 		
 		if($news == 'combo') 
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">游戏进入连斗阶段！</span></li>";
-		if($news == 'comboupdate') 
+		elseif($news == 'comboupdate') 
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">连斗判断死亡数修正为{$a}人，当前死亡数为{$b}人！</span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 	
-	function check_corpse_discover(&$edata)
+	//连斗以后摸不到尸体
+	function discover_player_filter_corpse(&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($edata);
 		eval(import_module('sys'));
-		if ($gamestate>=40) return 0;	//连斗后无尸体
-		return $chprocess($edata);
+		if ($gamestate >= 40) 
+			$ret = false;	
+		return $ret;
 	}
+	
+//	function check_corpse_discover(&$edata)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		eval(import_module('sys'));
+//		if ($gamestate>=40) return 0;	//连斗后无尸体
+//		return $chprocess($edata);
+//	}
 
 	function calculate_meetman_rate($schmode)
 	{

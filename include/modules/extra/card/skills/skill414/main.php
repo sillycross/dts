@@ -71,10 +71,10 @@ namespace skill414
 		return 3;
 	}
 	
-	function get_hitrate(&$pa,&$pd,$active)
+	function get_hitrate_change(&$pa,&$pd,$active,$hitrate)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(414,$pa) || !(check_skill414_state($pa)==1) || $pa['wep_kind']=='D' || $pa['wepk']=='WJ') return $chprocess($pa, $pd, $active);
+		if (!\skillbase\skill_query(414,$pa) || !(check_skill414_state($pa)==1) || $pa['wep_kind']=='D' || $pa['wepk']=='WJ') return $chprocess($pa, $pd, $active,$hitrate);
 		return 10000;
 	}
 	

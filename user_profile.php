@@ -7,7 +7,7 @@ require './include/common.inc.php';
 require './include/user.func.php';
 
 $_REQUEST = gstrfilter($_REQUEST);
-if ($_REQUEST["playerID"]=="")
+if (empty($_REQUEST["playerID"]))
 {
 	$udata = udata_check();
 	
@@ -19,7 +19,7 @@ if ($_REQUEST["playerID"]=="")
 //	if($udata['password'] != $cpass) { gexit($_ERROR['wrong_pw'], __file__, __line__); }
 //	if($udata['groupid'] <= 0) { gexit($_ERROR['user_ban'], __file__, __line__); }
 
-	extract($udata);
+	
 	$curuser=true;
 }
 else
@@ -28,26 +28,29 @@ else
 	$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$uname'");
 	if(!$db->num_rows($result)) { gexit($_ERROR['user_not_exists'],__file__,__line__); }
 	$udata = $db->fetch_array($result);
-	extract($udata);
 	$curuser=false;
 	if ($uname==$cuser) $curuser=true;
 }
 
-if ($curuser && $_REQUEST["action"]=="refdaily" && ($now-$udata['cd_a1'])>=43200){
-	$db->query("UPDATE {$gtablepre}users SET cd_a1='$now' WHERE username='".$udata['username']."'" );
-	\achievement_base\get_daily_quest($username);
-	$udata['cd_a1']=$now;
-	$refdaily_flag = true;
+$udata['u_achievements'] = \achievement_base\decode_achievements($udata);
+
+if ($curuser && isset($_REQUEST["action"]) && $_REQUEST["action"]=="refdaily"){
+	$refdaily_flag = \achievement_base\refresh_daily_quest($udata);
 }
 else  $refdaily_flag = false;
+
+$u_acharr = \achievement_base\get_valid_achievements($udata['u_achievements']);
+extract($udata);
 
 $iconarray = get_iconlist($icon);
 $select_icon = $icon;
 $winning_rate=$validgames?round($wingames/$validgames*100)."%":'0%';
 
-eval(import_module('cardbase'));
+eval(import_module('cardbase'));//总觉得这里是废弃代码啊
 $carr=$cards[$card];
+$carr['id'] = $card;
 $cr=$carr['rare'];
+$rarecolor = $card_rarecolor[$cr];
 $cf=true;$sf=true;$af=true;$bf=true;$ff=true;
 if (($now-$udata['cd_s'])<86400){
 	$sf=false;
@@ -56,9 +59,10 @@ if (($now-$udata['cd_s'])<86400){
 	$std=$year."年".$month."月".$day."日".$hour."时".$min."分";
 }
 
-if (($now-$udata['cd_a1'])<43200){
+eval(import_module('achievement_base'));
+if (($now-$udata['cd_a1']) < $daily_intv){
 	$ff=false;
-	$ntime=$udata['cd_a1']+43200;
+	$ntime=$udata['cd_a1'] + $daily_intv;
 	list($min,$hour,$day,$month,$year)=explode(',',date("i,H,j,n,Y",$ntime));
 	list($cmin,$chour,$cday,$cmonth,$cyear)=explode(',',date("i,H,j,n,Y",$now));
 	if ($cday==$day && $cmonth==$month && $cyear==$year)
@@ -66,18 +70,9 @@ if (($now-$udata['cd_a1'])<43200){
 	else  $ftd="明天".$hour."时".$min."分";
 }
 
-$rarecolor = $card_rarecolor[$cr];
-//if ($cr=="S"){
-//	$rarecolor="orange";
-//	if (!$sf) $cf=false;
-//}else if ($cr=='A'){
-//	$rarecolor="linen";
-//	if (!$af) $cf=false;
-//}else if ($cr=='B'){
-//	$rarecolor="brickred";
-//	if (!$bf) $cf=false;
-//}else if ($cr=='C'){
-//	$rarecolor="seagreen";
-//}
-include template('user_profile');
+$userCardData = \cardbase\get_user_cardinfo($udata);
+$user_cards = $userCardData['cardlist'];
+$card_energy = $userCardData['cardenergy'];
+$energy_recover_rate = \cardbase\get_energy_recover_rate($user_cards, $gold);
 
+include template('user_profile');

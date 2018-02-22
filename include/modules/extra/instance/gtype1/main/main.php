@@ -2,7 +2,8 @@
 
 namespace gtype1
 {
-	function init() {}
+	function init() {
+	}
 	
 	function prepare_new_game()
 	{
@@ -11,31 +12,91 @@ namespace gtype1
 		if (room_check_subroom($room_prefix)) return $chprocess();
 		list($sec,$min,$hour,$day,$month,$year,$wday) = explode(',',date("s,i,H,j,n,Y,w",$now));
 		$tg=$gamenum-3;
-		$res=$db->query("SELECT gametype FROM {$gtablepre}winners WHERE gid='$tg'");
+		$res=$db->query("SELECT gametype FROM {$gtablepre}history WHERE gid='$tg'");
 		$gt=1;
 		if ($db->num_rows($res)){
 			$zz=$db->fetch_array($res); $gt=$zz['gametype'];
 		}
-		if ($wday==3){
- 			if (($hour>=19)&&($hour<21)&&($gt!=1)){ 
+
+		if (!$disable_event && $gt!=1){//开启活动&&最多连续3局
+ 			if ( ($wday==3 && $hour>=19 && $hour<21) || ($wday==6 && $hour>=15 && $hour<17) ){ //周三19点-21点；周六15点-17点
  				$gametype=1;
- 			}else{
- 				$gametype=0;
+ 				prepare_new_game_gtype1();
  			}
  		}
- 		if ($disable_event) $gametype=0; 
 		$chprocess();
 	}
 	
-//	function check_player_discover(&$edata)
-//	{
-//		if (eval(__MAGIC__)) return $___RET_VALUE;
-//		eval(import_module('sys'));
-//		if ($edata['type']==0 && $gametype == 1) {
-//			return 0;	
-//		}
-//		return $chprocess($edata);
-//	}
+	function get_uee_deathlog () {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess();
+		eval(import_module('sys'));
+		if(1 == $gametype) $ret = '<span class="clan">“这下必须动用权限了。”</span>——<span class="clan">薇娜·安妮茜</span><br>';
+		return $ret;
+	}
+	
+	//除错模式每局之前生成一次道具表
+	function prepare_new_game_gtype1()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+
+		//各文件位置
+		$iplacefilelist = array(
+			'mapitem' => GAME_ROOT.'/include/modules/base/itemmain/config/mapitem.config.php',
+			'shopitem' => GAME_ROOT.'./include/modules/extra/instance/gtype1/main/config/shopitem.config.php',
+			'mixitem' => GAME_ROOT.'./include/modules/base/itemmix/itemmix/config/itemmix.config.php',
+			'syncitem' => GAME_ROOT.'./include/modules/base/itemmix/itemmix_sync/config/sync.config.php',
+			'overlayitem' => GAME_ROOT.'./include/modules/base/itemmix/itemmix_overlay/config/overlay.config.php',
+			'presentitem' => GAME_ROOT.'./include/modules/base/items/boxes/config/present.config.php',
+			'ygoitem' => GAME_ROOT.'./include/modules/base/items/boxes/config/ygobox.config.php',
+			'fyboxitem' => GAME_ROOT.'./include/modules/base/items/boxes/config/fybox.config.php',
+			//'npcinfo_gtype1' => GAME_ROOT.'./include/modules/extra/instance/gtype1/main/config/npc.data.config.php',
+			//'anpcinfo' => GAME_ROOT.'./include/modules/base/addnpc/config/addnpc.config.php',
+			//'enpcinfo_gtype1' => GAME_ROOT.'./include/modules/extra/instance/gtype1/main/config/evonpc.config.php',
+		);
+		
+		\itemnumlist\itemnumlist_create('gtype1item', $iplacefilelist);
+	}
+	
+	function check_player_discover(&$edata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player'));
+		//重视躲避不会摸到活的队友
+		if ($gametype == 1 && $tactic==4 && $edata['type']==0 && $edata['hp'] > 0) {
+			eval(import_module('metman'));
+			$hidelog = '<span class="yellow">周围有人，不过你刻意避开了他们。</span><br>';;
+			return 0;	
+		}
+		return $chprocess($edata);
+	}
+
+	function get_npclist(){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		eval(import_module('sys','gtype1'));
+		if (1 == $gametype){
+			return $npcinfo_gtype1;
+		}else return $chprocess();
+	}
+	
+	function get_enpcinfo()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','gtype1'));
+		if (1 == $gametype){
+			return $enpcinfo_gtype1;
+		}else return $chprocess();
+	}
+	
+	function get_shopconfig(){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		eval(import_module('sys'));
+		if ($gametype==1){
+			$file = __DIR__.'/config/shopitem.config.php';
+			$sl = openfile($file);
+			return $sl;
+		}else return $chprocess();
+	}
 	
 	//接管meetman_alternative，主要是判定遭遇玩家时必定为队友
 	function meetman_alternative($edata)
@@ -50,6 +111,17 @@ namespace gtype1
 			}
 		}
 		return $chprocess($edata);
+	}
+	//接管calculate_hide_obbs，玩家隐蔽率上升40%（不然太容易互相遭遇）
+	function calculate_hide_obbs(&$edata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($edata);
+		eval(import_module('sys'));
+		if($gametype == 1 && !$edata['type']){
+			$ret += 40;
+		}
+		return $ret;
 	}
 	
 	//递送道具时无视teamID
@@ -67,13 +139,13 @@ namespace gtype1
 		return $chprocess($edata);
 	}
 	
-	function checkcombo(){
+	function checkcombo($time){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','map','gameflow_combo'));
-		if (($gametype==1)&&($areanum<$areaadd*2)&&($alivenum>0)){
+		if ( $gametype==1 && $areanum<$areaadd*2 && $alivenum>0 ){
 			return;
 		}
-		$chprocess();
+		$chprocess($time);
 	}
 	
 	function rs_game($xmode = 0) 
@@ -90,6 +162,11 @@ namespace gtype1
 			//save_gameinfo();
 		}
 		
+	}
+	
+	function gtype1_post_rank_event(&$pa, $cl, $rk){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		\player\player_save($pa);
 	}
 	
 	function check_addarea_gameover($atime){
@@ -138,30 +215,33 @@ namespace gtype1
 					$kk=$wl[$rk]['n'];
 					$v=$wl[$rk]['c'];
 					$k=\player\fetch_playerdata($kk);
-					if ($v>=5){
-						\cardbase\get_qiegao(150,$k);
-					}
-					if ($v>=10){
-						\cardbase\get_qiegao(300,$k);
-					}
-					if ($v>=20){
-						\cardbase\get_qiegao(600,$k);
-					}
-					if ($v>=30){
-						\cardbase\get_card(94,$k);
-						\cardbase\get_qiegao(500,$k);
-					}
-					if ($rk==1){
-						\cardbase\get_card(96,$k);
-						\cardbase\get_card(95,$k);
-					}
-					if ($rk<=2){
-						\cardbase\get_card(95,$k);
-					}
+					$qiegao_prize = $v*10;
+					$card_prize = array();
+					if ($v>=20) $qiegao_prize += 200;
+					if ($v>=30) $qiegao_prize += 500;
+					if ($v>=40) $qiegao_prize += 700;
+					if ($v>=50) $qiegao_prize += 900;
+					if ($v>=60) $qiegao_prize += 1100;
+					if ($v>=70) $qiegao_prize += 1200;
+					if ($rk==1) $qiegao_prize += 1000;
+					if ($rk<=2) $qiegao_prize += 500;
 					if ($rk<=$max_announce_num){
-						\cardbase\get_qiegao(500,$k);
+						$qiegao_prize += 500;
 						$bestlist[$rk] = Array(0=>$kk, 1=>$v);
-					}		
+					}	
+					\skillbase\skill_setvalue(424,'rank',$rk,$k);
+					if($qiegao_prize) {
+						//\cardbase\get_qiegao($qiegao_prize,$k);
+						include_once './include/messages.func.php';
+						message_create(
+							$kk,
+							'除错模式奖励',
+							'感谢您为金龙通讯社所做的工作，这里是您的奖励，请查收。<br>',
+							'getqiegao_'.$qiegao_prize
+						);	
+						\skillbase\skill_setvalue(424,'prize',$qiegao_prize,$k);
+						gtype1_post_rank_event($k, $v, $rk);
+					}
 				}
 				
 				for ($i=$max_announce_num; $i>=1; $i--) 
@@ -185,6 +265,13 @@ namespace gtype1
 		if ($gametype==1) $lvupskpt=0;
 	}
 	
+	//除错模式雏菊无事件
+	function event_available(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys', 'player'));
+		if(19==$gametype && $pls == 33) return false;
+		return $chprocess();
+	}
 	
 	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{
@@ -198,13 +285,22 @@ namespace gtype1
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 	
+	//除错模式不能销毁小兵和玩家以外的尸体
+	function check_can_destroy($edata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		if($gametype==1 && $edata['type'] && $edata['type']!=90) return false;
+		return $chprocess($edata);
+	}
+	
 	//改变DN逻辑
 	function deathnote_process($dnname='',$dndeath='',$dngender='m',$dnicon=1){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','logger','player','metman'));
 		if($gametype==1 && $dnname){
 			$edata = \player\fetch_playerdata('黑熊',21);
-			if(isset($edata['pid'])){//黑熊NPC存在，可以伪造战斗界面，因而剧情不同
+			if(isset($edata['pid']) && $edata['hp'] > 0){//黑熊NPC存在且存活，可以伪造战斗界面，因而剧情不同
 				$o_fog = $fog; $fog = 0;
 				extract($edata,EXTR_PREFIX_ALL,'w');
 				$battle_title = '发现敌人';

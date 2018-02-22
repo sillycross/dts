@@ -26,8 +26,17 @@ namespace trap
 			for($i = 1; $i < $in; $i++) {
 				if(!empty($itemlist[$i]) && strpos($itemlist[$i],',')!==false){
 					list($iarea,$imap,$inum,$iname,$ikind,$ieff,$ista,$iskind) = explode(',',$itemlist[$i]);
+					if(strpos($iskind,'=')===0){
+						$tmp_pa_name = substr($iskind,1);
+						$iskind = '';
+						$result = $db->query("SELECT pid FROM {$tablepre}players WHERE name='$tmp_pa_name' AND type>0");
+						if($db->num_rows($result)){
+							$ipid = $db->fetch_array($result);
+							$iskind = $ipid['pid'];
+						}
+					}
 					if(($iarea == $an)||($iarea == 99)) {
-						for($j = $inum; $j>0; $j--) {
+						for($j = $inum; $j>0; $j--) {							
 							if ($imap == 99)
 							{
 								do {
@@ -75,6 +84,11 @@ namespace trap
 		*/
 	}
 		
+	function calculate_real_trap_obbs_change($var)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $var;
+	}
 			
 	function get_trap_escape_rate()
 	{
@@ -163,9 +177,10 @@ namespace trap
 		}else {
 			$pa=\player\create_dummy_playerdata();
 		}
+		$log .= "糟糕，你触发了{$trprefix}陷阱<span class=\"yellow\">$itm0</span>！";
 		$damage = get_trap_damage();
 		
-		$log .= "糟糕，你触发了{$trprefix}陷阱<span class=\"yellow\">$itm0</span>！";
+		
 	
 		$tritm=Array();
 		$tritm['itm']=$itm0; $tritm['itmk']=$itmk0; 
@@ -353,6 +368,7 @@ namespace trap
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','map','itemmain','trap'));
 		$real_trap_obbs = calculate_real_trap_obbs();
+		$real_trap_obbs = calculate_real_trap_obbs_change($real_trap_obbs);
 		$trap_dice=rand(0,$trap_max_obbs-1);
 		if($trap_dice < $real_trap_obbs){//踩陷阱判断
 			$trapresult = get_traplist();
@@ -370,7 +386,7 @@ namespace trap
 	function discover($schmode) 
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
+		//echo 'trap ';
 		eval(import_module('trap','logger'));
 		$trap_dice=rand(0,99);//随机数，开始判断是否踩陷阱
 		if($trap_dice < $trap_max_obbs)
@@ -406,6 +422,38 @@ namespace trap
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 	
+	function parse_itmuse_desc($n, $k, $e, $s, $sk){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($n, $k, $e, $s, $sk);
+		if(strpos($k,'TNc')===0 || strpos($k,'TOc')===0) {
+			$ret .= '埋设后拥有必杀效果';
+		}elseif(strpos($k,'T')===0){
+			$theitem = Array('itm' => $n, 'itmk' => $k, 'itme' => $e, 'itms' => $s, 'itmsk' => $sk);
+			$trape = get_trap_itme_limit($theitem);
+			$ret .= '埋设后效果值为'.$trape;
+		}
+		return $ret;
+	}
+	
+	function get_trap_itme_limit(&$theitem, &$pa=NULL){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','logger'));
+		if(!$pa) $pa = &$sdata;
+		
+		$itm=&$theitem['itm']; $itmk=&$theitem['itmk'];
+		$itme=&$theitem['itme']; $itms=&$theitem['itms']; $itmsk=&$theitem['itmsk'];
+		
+		if(strpos($itmk, 'TNc')===0) return $itme;//奇迹雷不判定这个
+		
+		$trape0 = round($itme / 2); //基础伤害是陷阱效果值/2
+		$trape1 = $pa['lvl'] * 50;//阈值1，等级*50
+		$trape2 = $pa['wd'] * 5;//阈值2，爆熟*5
+		$trape_add = max($trape1, $trape2);//取上述较大那个
+		
+		$trape = $trape0 + $trape_add < $itme ? $trape0 + $trape_add : $itme;
+		return $trape;
+	}
+	
 	function trap_use(&$theitem)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -414,9 +462,19 @@ namespace trap
 		$itm=&$theitem['itm']; $itmk=&$theitem['itmk'];
 		$itme=&$theitem['itme']; $itms=&$theitem['itms']; $itmsk=&$theitem['itmsk'];
 		
+		$log .= "设置了陷阱<span class=\"red\">$itm</span>。<br>";
+		
+		$trape = get_trap_itme_limit($theitem);
+		if($trape >= $itme) {
+			$trape = $itme;
+		}else{
+			$log .= "<span class=\"yellow\">你笨拙的技术让陷阱的最大伤害限制在了<span class=\"red\">$trape</span>点。</span><br>";
+		}
+		
+		$log .= "小心，自己也很难发现。<br>";
+		
 		$trapk = str_replace('TN','TO',$itmk);
-		$db->query("INSERT INTO {$tablepre}maptrap (itm, itmk, itme, itms, itmsk, pls) VALUES ('$itm', '$trapk', '$itme', '1', '$pid', '$pls')");
-		$log .= "设置了陷阱<span class=\"red\">$itm</span>。<br>小心，自己也很难发现。<br>";
+		$db->query("INSERT INTO {$tablepre}maptrap (itm, itmk, itme, itms, itmsk, pls) VALUES ('$itm', '$trapk', '$trape', '1', '$pid', '$pls')");
 		
 		\lvlctl\getexp(1);
 		$wd++;

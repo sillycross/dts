@@ -67,7 +67,7 @@ namespace skill201
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill201','player','logger'));
 		if (!\skillbase\skill_query(201, $pa) || !check_unlocked201($pa)) return 1;
-		if ($pa['wep_kind']!='G') return 1;
+		if (\weapon\get_skillkind($pa,$pd,$active) != 'wg') return 1;
 		$accgainrate = $accgain[\skillbase\skill_getvalue(201,'lvl',$pa)];
 		return 1+($accgainrate)/100;
 	}
@@ -77,7 +77,7 @@ namespace skill201
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill201','player','logger'));
 		if (!\skillbase\skill_query(201, $pa) || !check_unlocked201($pa)) return 1;
-		if ($pa['wep_kind']!='G') return 1;
+		if (\weapon\get_skillkind($pa,$pd,$active) != 'wg') return 1;
 		$rbgainrate = $rbgain[\skillbase\skill_getvalue(201,'lvl',$pa)];
 		return 1+($rbgainrate)/100;
 	}
@@ -89,11 +89,12 @@ namespace skill201
 		return $chprocess($pa, $pd, $active)*get_skill201_extra_rb_gain($pa, $pd, $active);
 	}
 	
-	function get_hitrate(&$pa,&$pd,$active)
+	function get_hitrate_multiplier(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(201,$pa) || !check_unlocked201($pa)) return $chprocess($pa, $pd, $active);
-		return $chprocess($pa, $pd, $active)*get_skill201_extra_acc_gain($pa, $pd, $active);
+		$ret=$chprocess($pa, $pd, $active);
+		if (!\skillbase\skill_query(201,$pa) || !check_unlocked201($pa)) return $ret;
+		return $ret*get_skill201_extra_acc_gain($pa, $pd, $active);
 	}
 }
 

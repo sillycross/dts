@@ -66,15 +66,30 @@ namespace skill41
 	}
 	
 	//进行一次判定，60%几率触发反击
-	function check_counter_dice(&$pa, &$pd, $active)
+//	function check_counter_dice(&$pa, &$pd, $active)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		if (!\skillbase\skill_query(41,$pa) || !check_unlocked41($pa)) return $chprocess($pa,$pd,$active);
+//		if (rand(0,99)<65) 
+//		{
+//			$pa['skill41_proced']=1; return 1;
+//		}
+//		return $chprocess($pa, $pd, $active);
+//	}
+	
+	//改为继承反击率变化函数
+	//若要接管此函数，请阅读base\battle\battle.php里的注释，并加以判断
+	function calculate_counter_rate_change(&$pa, &$pd, $active, $counter_rate)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(41,$pa) || !check_unlocked41($pa)) return $chprocess($pa,$pd,$active);
+		$ret = $chprocess($pa,$pd,$active,$counter_rate);
+		if (!\skillbase\skill_query(41,$pa) || !check_unlocked41($pa)) return $ret;
 		if (rand(0,99)<65) 
 		{
-			$pa['skill41_proced']=1; return 1;
+			$pa['skill41_proced']=1;
+			return 100;
 		}
-		return $chprocess($pa, $pd, $active);
+		return $ret;
 	}
 	
 	function counter_assault(&$pa, &$pd, $active)

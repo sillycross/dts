@@ -2,6 +2,13 @@
 
 namespace attack
 {
+	//最终伤害基础值，返回的是一个数值
+	function get_final_dmg_base(&$pa, &$pd, &$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 0;
+	}
+	
 	//最终伤害修正接口
 	//类似物理伤害修正，返回的是一个数组
 	function get_final_dmg_multiplier(&$pa, &$pd, &$active)
@@ -10,17 +17,64 @@ namespace attack
 		return Array();
 	}
 	
-	function apply_total_damage_modifier_up(&$pa,&$pd,$active)
+	
+	//无敌判定，最优先
+	function apply_total_damage_modifier_invincible(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
-	function apply_total_damage_modifier_down(&$pa,&$pd,$active)
+	//特殊变化类，次优先
+	function apply_total_damage_modifier_special(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$sequence = apply_total_damage_modifier_special_set_sequence($pa, $pd, $active);
+		if(empty($pd['atdms_sequence'])) return;
+		ksort($pd['atdms_sequence']);
+		foreach($pd['atdms_sequence'] as $akey){
+			if(apply_total_damage_modifier_special_check($pa, $pd, $active, $akey)){
+				apply_total_damage_modifier_special_core($pa, $pd, $active, $akey);
+				if($pa['dmg_dealt'] <= 0) break;
+			}
+		}
+	}
+	
+	//特殊变化次序注册
+	function apply_total_damage_modifier_special_set_sequence(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$pd['atdms_sequence'] = array();
+		return;
+	}
+	
+	//特殊变化生效判定，建议采用或的逻辑关系
+	function apply_total_damage_modifier_special_check(&$pa, &$pd, $active, $akey)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return false;
+	}
+	
+	//特殊变化执行
+	function apply_total_damage_modifier_special_core(&$pa, &$pd, $active, $akey)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return;
+	}
+	
+	//限制伤害类，第三优先
+	function apply_total_damage_modifier_limit(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
-	function apply_total_damage_change(&$pa,&$pd,$active)
+	//保命类，第四优先
+	function apply_total_damage_modifier_insurance(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+	}
+	
+	//秒杀，最后判定
+	function apply_total_damage_modifier_seckill(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
@@ -35,40 +89,54 @@ namespace attack
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		$dmg=$pa['dmg_dealt'];
+		//$dmg=$pa['dmg_dealt'];
 		
 		eval(import_module('logger'));
-		
+		$tmp_dmg = $pa['dmg_dealt'];
+		//先加减，后乘除，最终伤害加算阶段
+		if($pa['dmg_dealt'] > 0) {
+			$dmg_base = get_final_dmg_base($pa, $pd, $active);
+			if($dmg_base != 0) {
+				$pa['dmg_dealt'] += $dmg_base;
+				if($pa['dmg_dealt'] < 0)	$pa['dmg_dealt'] = 0;
+			}
+		}
+		$pa['mult_words_fdmgbs'] = substr($pa['mult_words_fdmgbs'],3);
+		//最终伤害乘算阶段
 		//获取最终伤害修正系数，类似物理伤害修正系数，这里返回的是一个数组
-		if ($dmg>0){
+		if ($pa['dmg_dealt']>0){
 			$multiplier = get_final_dmg_multiplier($pa, $pd, $active);
 		}else{
 			$multiplier= Array();
 		}
-		
-		if ((isset($pa['physical_dmg_dealt']) && $dmg>0 && $dmg!=$pa['physical_dmg_dealt']) 
-			|| ($dmg>0 && count($multiplier)>0))	//好吧这个写法有点糟糕……
-			{
-				$fin_dmg=$dmg; $mult_words='';
-				foreach ($multiplier as $key)
-				{
-					$fin_dmg=$fin_dmg*$key;
-					$mult_words.="×{$key}";
-				}
-				$fin_dmg=round($fin_dmg);
-				if ($fin_dmg < 1) $fin_dmg = 1;
-				if ($mult_words=='')
-					$log .= "<span class=\"yellow\">造成的总伤害：<span class=\"red\">{$dmg}</span>。</span><br>";
-				else  $log .= "<span class=\"yellow\">造成的总伤害：</span>{$dmg}{$mult_words}＝<span class=\"red\">{$fin_dmg}</span><span class=\"yellow\">。</span><br>";
-				$pa['dmg_dealt']=$fin_dmg;
-			}
-		
-		//应用对总伤害的加算修正
-		//先应用降低类，后应用提高类
-		apply_total_damage_modifier_down($pa,$pd,$active);
-		apply_total_damage_modifier_up($pa,$pd,$active);
-		//最后执行变化类修正（伤害制御、反演、数体教等）
-		apply_total_damage_change($pa,$pd,$active);
+		if($pa['dmg_dealt'] > 0){//伤害大于零时判定加成值
+			list($fin_dmg, $mult_words, $mult_words_fdmg) = apply_multiplier($pa['dmg_dealt'], $multiplier, '<:fin_dmg:>', $pa['mult_words_fdmgbs']);
+			$mult_words_fdmg = equalsign_format($fin_dmg, $mult_words_fdmg, '<:fin_dmg:>');
+			if($fin_dmg!=$pa['physical_dmg_dealt']) $log .= '<span class="yellow">造成的总伤害：'.$mult_words_fdmg.'。</span><br>';
+			$pa['dmg_dealt'] = $fin_dmg;
+		}elseif($tmp_dmg != $pa['dmg_dealt']){//伤害等于零但是是扣成零时也显示一下总伤害
+			$log .= '<span class="yellow">造成的总伤害：<span class="<:fin_dmg:>">'.$pa['dmg_dealt'].'</span>。</span><br>';
+		}
+		//var_dump($pa['dmg_dealt']);
+		$tmp_dmg = $pa['dmg_dealt'];
+		//最终伤害修正阶段，应用对总伤害的特殊修正
+		//最优先：无敌
+		if($pa['dmg_dealt']) apply_total_damage_modifier_invincible($pa,$pd,$active);
+		//第二优先：特殊变化
+		if($pa['dmg_dealt']) apply_total_damage_modifier_special($pa,$pd,$active);
+		//第三优先：伤害限制类
+		if($pa['dmg_dealt']) apply_total_damage_modifier_limit($pa,$pd,$active);
+		//第四优先：保命类
+		if($pa['dmg_dealt']) apply_total_damage_modifier_insurance($pa,$pd,$active);
+		//秒杀技，最后判定
+		apply_total_damage_modifier_seckill($pa,$pd,$active);
+		//var_dump($pa['dmg_dealt']);
+		$replace_color = 'red';
+		if($tmp_dmg != $pa['dmg_dealt'] && empty($pa['seckill'])) {
+			$log .= "<span class=\"yellow\">最终伤害：<span class=\"red\">{$pa['dmg_dealt']}</span>。</span><br>";
+			$replace_color = 'yellow';
+		}
+		$log = str_replace('<:fin_dmg:>', $replace_color, $log);//如果有伤害变化，那么前面的台词显示黄色，否则显示红色（最终值）
 		
 		//扣血并更新最高伤害
 		apply_damage($pa,$pd,$active);
@@ -142,14 +210,11 @@ namespace attack
 		
 		$kilmsg = \player\kill($pa, $pd);
 		
-		if ($active)
-		{
-			if ($kilmsg!='') $log.="<span class=\"yellow\">你对{$pd['name']}说：“{$kilmsg}”</span><br>";
-		}
-		else
-		{
-			if ($kilmsg!='') $log.="<span class=\"yellow\">{$pa['name']}对你说：“{$kilmsg}”</span><br>";
-		}
+		if($pd['hp'] <= 0 && !empty($kilmsg))
+			if ($active)
+				$log.="<br><span class='b'>你对{$pd['name']}说道：</span><span class='yellow'>“{$kilmsg}”</span><br><br>";
+			else
+				$log.="<br><span class='b'>{$pa['name']}对你说道：</span><span class='yellow'>“{$kilmsg}”</span><br><br>";
 	}
 	
 	//当玩家主动发起攻击时，加载玩家提供的攻击参数
@@ -174,6 +239,7 @@ namespace attack
 		else  load_auto_combat_command($pa);
 		load_auto_combat_command($pd);
 		$pa['dmg_dealt']=0;
+		$pa['mult_words_fdmgbs'] = '';
 	}
 	
 	//攻击结束
@@ -208,6 +274,11 @@ namespace attack
 			}
 		}
 		unset($pa['physical_dmg_dealt']);
+		foreach(array_keys($pa) as $pak){
+			if(strpos($pak, 'battlelogflag') === 0) {
+				unset($pa[$pak]);
+			}
+		}
 	}
 	
 	function attack_wrapper(&$pa, &$pd, $active)
@@ -216,6 +287,55 @@ namespace attack
 		attack_prepare($pa, $pd, $active);
 		attack($pa,$pd,$active);
 		attack_finish($pa,$pd,$active);		
+	}
+	
+	//在字符串右边加数字/减数字的玩意
+	function add_format($var, $str, $space=1)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$asign = $var>=0 ? '+' : '-';
+		if($space) $asign = ' '.$asign.' ';
+		return $str.$asign.abs($var);
+	}
+	
+	//生成XXX x XXX = XXX这样格式的玩意
+	//如果给了$style，$mult_words的等号右边数字会用一个span套住
+	//如果$reptxt为真，$mult_words_2的第一个数字会用$reptxt替换，且会自动给$reptxt加括号
+	//返回一个数组，请用list()截获
+	function apply_multiplier($basedmg, $multiplier, $style=NULL, $reptxt=NULL)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$dmg = $basedmg;
+		$mult_words = $basedmg;
+		$mult_words_2 = $reptxt ? '<:reptxt:>' : $basedmg;
+		
+		foreach ($multiplier as $key)
+		{
+			if($key && $key != 1) {
+				$dmg *= $key;
+				$mult_words .= '×'.$key;
+				$mult_words_2 .= '×'.$key;
+			}
+		}
+		if($dmg != $basedmg) {
+			$dmg = round($dmg);
+			$dmg = max(1, $dmg);
+		}
+		$mult_words .= equalsign_format($dmg, $mult_words, $style);
+		if(strpos($mult_words_2, '×')!==false && strpos($reptxt, '+')!==false) $mult_words_2 = str_replace('<:reptxt:>','(<:reptxt:>)',$mult_words_2);
+		if($reptxt) $mult_words_2 = str_replace('<:reptxt:>',$reptxt,$mult_words_2);
+		return array($dmg, $mult_words, $mult_words_2);
+	}
+	
+	//在右边添加=xxx格式的玩意
+	function equalsign_format($var, $str, $style=NULL)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$spanstr = $style ? '<span class="'.$style.'">' : '<span>';
+		$esign = strpos($str,' + ')!==false ? ' = ' : '=';
+		if(strpos($str,'+')!==false || strpos($str,'×')!==false) 
+			return $str.$esign.$spanstr.$var.'</span>';
+		else return $spanstr.$str.'</span>';
 	}
 }
 

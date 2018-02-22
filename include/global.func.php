@@ -37,6 +37,9 @@ function gameerrorhandler($code, $msg, $file, $line){
 
 function gexit($message = '',$file = '', $line = 0) {
 	global $charset,$title,$extrahead,$allowcsscache,$errorinfo;
+	defined('STYLEID') || define('STYLEID', '1');
+	defined('TEMPLATEID') || define('TEMPLATEID', '1');
+	defined('TPLDIR') || define('TPLDIR', './templates/default');
 	if (defined('IN_DAEMON'))
 	{
 		if (defined('GEXIT_RETURN_JSON'))
@@ -79,6 +82,10 @@ function output($content = '') {
 	ob_end_flush();
 }
 
+function url_dir(){
+	return 'http://'.$_SERVER['HTTP_HOST'].substr($_SERVER['PHP_SELF'],0,strrpos($_SERVER['PHP_SELF'],'/')+1);
+}
+
 //----------------------------------------
 //              输入输出函数
 //----------------------------------------
@@ -89,7 +96,7 @@ function gstrfilter($str) {
 			$str[gstrfilter($key)] = gstrfilter($val);
 		}
 	} else {		
-		if($GLOBALS['magic_quotes_gpc']) {
+		if(!empty($GLOBALS['magic_quotes_gpc'])) {
 			$str = stripslashes($str);
 		}
 		$str = str_replace("'","",$str);//屏蔽单引号'
@@ -101,41 +108,59 @@ function gstrfilter($str) {
 }
 
 function language($file, $templateid = 0, $tpldir = '') {
-	$tpldir = $tpldir ? $tpldir : TPLDIR;
-	$templateid = $templateid ? $templateid : TEMPLATEID;
-
+	if(!$templateid) $templateid = TEMPLATEID;
+	if(TEMPLATEID == $templateid || !$tpldir) $tpldir = TPLDIR;
 	$languagepack = GAME_ROOT.'./'.$tpldir.'/'.$file.'.lang.php';
 	if(file_exists($languagepack)) {
 		return $languagepack;
-	} elseif($templateid != 1 && $tpldir != './templates/default') {
+	} elseif($templateid != 1 || $tpldir != './templates/default') {
 		return language($file, 1, './templates/default');
 	} else {
 		return FALSE;
 	}
 }
 
-function template($file, $templateid = 0, $tpldir = '') {
-	global $tplrefresh;
+function dump_template($file, $templateid = 0){
+	extract($GLOBALS);
+	ob_start();
+	include template($file, $templateid);
+	$ret = ob_get_contents();
+	ob_end_clean();
+	return $ret;
+}
 
-	$tpldir = $tpldir ? $tpldir : TPLDIR;
-	$templateid = $templateid ? $templateid : TEMPLATEID;
+function template($file, $templateid = NULL) {
+	global $tplrefresh, $u_templateid;
+	
+	$templateid = $templateid ? $templateid : ($u_templateid ? $u_templateid : TEMPLATEID);
+	$tpldir = 1!=$templateid ? str_replace('default',$templateid,TPLDIR) : TPLDIR;//其他主题模板文件夹名改为数字编号
 
 	if (substr($file,0,4)=='MOD_') $file=__MODULE_GET_TEMPLATE__($file);
 	if (strpos($file,'/')===false)
 	{
 		$tplfile = GAME_ROOT.'./'.$tpldir.'/'.$file.'.htm';
+		if(!file_exists($tplfile)) {//文件不存在则沿用默认TEMPLATEID的
+			$templateid = TEMPLATEID;
+			$tpldir = TPLDIR;
+			$tplfile = GAME_ROOT.'./'.$tpldir.'/'.$file.'.htm';
+		}
+		
 		$objfile = GAME_ROOT.'./gamedata/templates/'.$templateid.'_'.$file.'.tpl.php';
 	}
 	else  
 	{
 		global $___MOD_CODE_ADV2;
-		if ($___MOD_CODE_ADV2) 	//写死吧…… 无所谓了
+		if ($___MOD_CODE_ADV2) 	//写死吧…… 无所谓了 //不明白这里是在干啥，算了……
 		{
 			$file = str_replace('include/modules','gamedata/run',$file);
 			if (substr($file, -4) != '.adv') $file .= '.adv';
 		}
-		
-		$tplfile = $file.'.htm';
+		$tplfile = $file.'_'.$templateid.'.htm';
+		if(!file_exists($tplfile)){
+			$templateid = TEMPLATEID;
+			$tpldir = TPLDIR;
+			$tplfile = $file.'.htm';
+		}
 		$xdname=dirname($file); 
 		$xdname=substr($xdname,strlen(GAME_ROOT));
 		if (strpos($xdname,'./include/modules/')===0)
@@ -146,11 +171,6 @@ function template($file, $templateid = 0, $tpldir = '') {
 		$xbname=basename($file);
 		$objfile = GAME_ROOT.'./gamedata/templates/'.$templateid.'_mod_'.$xdname.'_'.$xbname.'.tpl.php';
 	}
-	/*
-	if(TEMPLATEID != 1 && $templateid != 1 && !file_exists($tplfile)) {
-		return template($file, 1, './templates/default/');
-	}
-	*/
 	global $___TEMP_template_force_refresh;
 	if($tplrefresh == 1 || (isset($___TEMP_template_force_refresh) && $___TEMP_template_force_refresh==1)) {
 		if ((!file_exists($objfile) || filemtime($tplfile) > filemtime($objfile)) || (isset($___TEMP_template_force_refresh) && $___TEMP_template_force_refresh==1)) {
@@ -170,11 +190,13 @@ function content($file = '') {
 	return $content;
 }
 
-function gsetcookie($var, $value, $life = 0, $prefix = 1) {
+function gsetcookie($varname, $value, $life = 0, $prefix = 1) {
 	global $tablepre, $gtablepre, $cookiedomain, $cookiepath, $now, $_SERVER;
-	setcookie(($prefix ? $gtablepre : '').$var, $value,
-		$life ? $now + $life : 0, $cookiepath,
-		$cookiedomain, $_SERVER['SERVER_PORT'] == 443 ? 1 : 0);
+	$cname = ($prefix ? $gtablepre : '').$varname;
+	$expire = $life ? $now + $life : 0;
+	$secure = $_SERVER['SERVER_PORT'] == 443 ? 1 : 0;
+	$httponly = 'pass' == $varname ? 1 : 0;
+	setcookie($cname, $value, $expire, $cookiepath, $cookiedomain, $secure, $httponly);
 }
 
 function clearcookies() {
@@ -248,7 +270,7 @@ function openfile($filename){
 	return $filedb;
 }
 
-function clear_dir($dirName, $keep_root = 0)	//递归清空目录
+function clear_dir($dirName, $keep_root = 0, $expire = 0)	//递归清空目录
 {
 	if ($dirName[strlen($dirName)-1]=='/') $dirName=substr($dirName,0,-1);
 	if(!file_exists($dirName) || !is_dir($dirName)) return;
@@ -260,8 +282,8 @@ function clear_dir($dirName, $keep_root = 0)	//递归清空目录
 			{
 				if (is_dir($dirName.'/'.$item)) 
 				{
-					clear_dir($dirName.'/'.$item,0);
-				} else {
+					clear_dir($dirName.'/'.$item,0,$expire);
+				} elseif(!$expire || time()-filemtime($dirName.'/'.$item) > $expire) {
 					if (!unlink($dirName.'/'.$item))
 					{
 						//__SOCKET_WARNLOG__("clear_dir错误：无法删除文件。");
@@ -309,7 +331,7 @@ function create_dir($pa)	//建立目录（自动创建不存在的父文件夹�
 	}
 }
 
-function copy_dir($source, $destination)		//递归复制目录
+function copy_dir($source, $destination, $filetype='')		//递归复制目录
 {   
 	if(!is_dir($destination)) mymkdir($destination);
 	if ($source[strlen($source)-1]=='/') $source=substr($source,0,-1);
@@ -318,7 +340,7 @@ function copy_dir($source, $destination)		//递归复制目录
 	{
 		while (($entry=readdir($handle))!==false)
 		{   
-			if(($entry!=".")&&($entry!=".."))
+			if( $entry!="." && $entry!=".." && (is_dir($source."/".$entry) || !$filetype || $filetype==pathinfo($entry,PATHINFO_EXTENSION) ) )
 			{   
 				if(is_dir($source."/".$entry))
 				{ 
@@ -340,22 +362,91 @@ function copy_dir($source, $destination)		//递归复制目录
 	}
 }
 
-//以post形式向网页发出信息
-function send_post($url, $post_data=array(), $timeout=5) {
- 
-  $qrydata = http_build_query($post_data);
+//创建打包文件，先用gencode凑合
+function fold($objfile, $filelist){
+	if(!empty($filelist)){
+		$filedata = array();
+		foreach($filelist as $fv){
+			$filename = pathinfo($fv, PATHINFO_BASENAME);
+			$exname = pathinfo($fv, PATHINFO_EXTENSION);
+			$filedata[$filename] = file_get_contents($fv);
+			if(in_array($exname, array('bmp','png','jpg','gif')))
+				$filedata[$filename] = base64_encode($filedata[$filename]);
+		}
+		$filedata = gencode($filedata);
+		return file_put_contents($objfile, $filedata);
+	}else{
+		return false;
+	}
+}
+
+//在该文件目录展开打包文件，先用gdecode凑合
+function unfold($srcfile){
+	$srcpath = pathinfo($srcfile, PATHINFO_DIRNAME);
+	$filedata = file_get_contents($srcfile);
+	$filedata = gdecode($filedata, 1);
+	if($filedata){
+		foreach($filedata as $fk => $fv){
+			$filename = $srcpath.'/'.$fk;
+			$exname = pathinfo($fk, PATHINFO_EXTENSION);
+			if(in_array($exname, array('bmp','png','jpg','gif')))
+				$fv = base64_decode($fv);
+			file_put_contents($filename, $fv);
+		}
+		return 1;
+	}else	return 0;
+}
+
+//通过file_get_contents()以post形式向网页发出信息，慢，不建议使用
+function file_get_contents_post($url, $post_data=array(), $post_cookie=array(), $timeout=10) {
   $options = array(
     'http' => array(
       'method' => 'POST',
       'header' => 'Content-type:application/x-www-form-urlencoded',
-      'content' => $qrydata,
+      'content' => http_build_query($post_data),
       'timeout' => $timeout
     )
   );
+  if(!empty($post_cookie)){
+  	$options['http']['header'] .= "\r\nCookie: ".http_build_cookiedata($post_cookie);
+  }
   $context = stream_context_create($options);
   $result = file_get_contents($url, false, $context);
- 
   return $result;
+}
+
+//通过curl扩展以post形式向网页发出信息
+function curl_post($url, $post_data=array(), $post_cookie=array(), $timeout = 10){
+	if($url == '') return false;
+	
+	$con = curl_init((string)$url);
+	if($timeout>=1) {
+		curl_setopt($con, CURLOPT_TIMEOUT,(int)$timeout);
+	}else{//毫秒级超时
+		curl_setopt($con, CURLOPT_NOSIGNAL, 1);
+		curl_setopt($con, CURLOPT_TIMEOUT_MS, (int)($timeout*1000));
+	}
+	
+	curl_setopt($con, CURLOPT_POST,true);
+	curl_setopt($con, CURLOPT_RETURNTRANSFER,true);
+	curl_setopt($con, CURLOPT_HEADER, false);
+	curl_setopt($con, CURLOPT_POSTFIELDS, http_build_query($post_data));
+	curl_setopt($con, CURLOPT_COOKIE, http_build_cookiedata($post_cookie));
+	
+	return curl_exec($con); 
+}
+
+function http_build_cookiedata($cookie_arr){
+	$cookiedata= '';
+	if(!empty($cookie_arr)){
+		foreach($cookie_arr as $k=> $v){
+			$cookiedata.= $k.'='.$v.'; ';//浏览器传cookie时;后有空格
+		}
+		if(strlen($cookiedata)>0){
+			$cookiedata= substr($cookiedata, 0, -2);
+		}
+	}
+	return $cookiedata;
 }
 
 //----------------------------------------
@@ -395,6 +486,11 @@ function get_script_runtime($pagestartime)
 	return $timecost;
 }
 
+function gwrite_var($file, $var)
+{
+	file_put_contents($file, var_export($var,1));
+}
+
 function check_alnumudline($key)
 {
 	$key=(string)$key;
@@ -404,6 +500,16 @@ function check_alnumudline($key)
 			return false;
 	}
 	return true;
+}
+
+function token_get_all_dic($code){
+	$r = token_get_all($code);
+	for($i=0;$i<sizeof($r);$i++){
+		if(is_array($r[$i])){
+			$r[$i][0] = token_name($r[$i][0]);
+		}
+	}
+	return $r;
 }
 
 //----------------------------------------
@@ -451,6 +557,19 @@ function combination($a, $m) {
   }  
   return $r;  
 } 
+
+function seconds2hms($seconds){
+	list($d, $h, $m, $s) = explode(' ', gmstrftime('%j %H %M %S', $seconds));
+	$d=(int)$d - 1;
+	$h = (int)$h; $m = (int)$m; $s = (int)$s;
+	$ret = '';
+	if($d) $ret .= $d.'天';
+	if($h) $ret .= $h.'小时';
+	if($m) $ret .= $m.'分钟';
+	if($s) $ret .= $s.'秒';
+	
+	return $ret;
+}
 
 //----------------------------------------
 //              数组运算
@@ -619,6 +738,7 @@ function init_dbstuff(){
 function check_authority()
 {
 	include GAME_ROOT.'./include/modules/core/sys/config/server.config.php';
+	include_once GAME_ROOT.'./include/user.func.php';
 	$_COOKIE=gstrfilter($_COOKIE);
 	$cuser=$_COOKIE[$gtablepre.'user'];
 	$cpass=$_COOKIE[$gtablepre.'pass'];
@@ -626,7 +746,7 @@ function check_authority()
 	$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$cuser'");
 	if(!$db->num_rows($result)) { echo "<span><font color=\"red\">Cookie无效，请登录。</font></span><br>"; die(); }
 	$udata = $db->fetch_array($result);
-	if($udata['password'] != $cpass) { echo "<span><font color=\"red\">Cookie无效，请登录。</font></span><br>"; die(); }
+	if(!pass_compare($udata['username'],$cpass,$udata['password'])) { echo "<span><font color=\"red\">密码错误，请重新登录并重试。</font></span><br>"; die(); }
 	elseif(($udata['groupid'] < 9)&&($cuser!==$gamefounder)) { echo "<span><font color=\"red\">要求至少9权限。</font></span><br>"; die(); }
 }
 
@@ -656,8 +776,12 @@ function set_credits(){
 	$list = $creditlist = $updatelist = Array();
 	while($data = $db->fetch_array($result)){
 		$list[$data['name']]['players'] = $data;
-	}	
-	$result = $db->query("SELECT * FROM {$gtablepre}users WHERE lastgame='$gamenum'");
+	}
+	if(empty($list)) return;
+	$wherecause = "('".implode("','",array_keys($list))."')";
+	//在房间制之前这样写是对的……但是呢，房间会刷新lastgame，这样可能会导致拿不到积分
+	//$result = $db->query("SELECT * FROM {$gtablepre}users WHERE lastgame='$gamenum'");
+	$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username IN $wherecause");
 	while($data = $db->fetch_array($result)){
 		$list[$data['username']]['users'] = $data;
 	}
@@ -712,7 +836,7 @@ function get_credit_up($data,$winner = '',$winmode = 0){
 		else{$up = 50;}//其他胜利方式+50（暂时没有这种胜利方式）
 	}
 	elseif($data['hp']>0){$up = 25;}//存活但不是获胜者+25
-	else{$up = 10;}//死亡+5
+	else{$up = 10;}//死亡+10
 	if($data['killnum']){
 		$up += $data['killnum'] * 2;//杀一玩家/NPC加2
 	}

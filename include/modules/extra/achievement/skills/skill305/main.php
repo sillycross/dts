@@ -2,6 +2,12 @@
 
 namespace skill305
 {
+	//旧成就精力所限，未全部修改，请以skill300、skill313或skill332之后的成就为模板！
+	$ach305_name = array(
+		0=>'最后幸存',
+		1=>'不止是运气好而已',
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL305_INFO','achievement;');
@@ -24,25 +30,27 @@ namespace skill305
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')					
 			$x=0;						
-		else	$x=base64_decode_number($data);		
+		else $x=$data;
 		$ox=$x;
 		$x+=\skillbase\skill_getvalue(305,'cnt',$pa);
 		$x=min($x,(1<<30)-1);
 		
 		if (($ox<3)&&($x>=3)){
-			\cardbase\get_qiegao(100,$pa);
+			//\cardbase\get_qiegao(100,$pa);
+			\achievement_base\ach_create_prize_message($pa, 305, 0, 100);
 		}
 		if (($ox<20)&&($x>=20)){
-			\cardbase\get_qiegao(800,$pa);
+			//\cardbase\get_qiegao(800,$pa);
+			\achievement_base\ach_create_prize_message($pa, 305, 1, 800);
 		}
 		
-		return base64_encode_number($x,5);		
+		return $x;
 	}
 	
 	function gameover($time = 0, $gmode = '', $winname = '') {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		if($gamestate < 10) return;
+		if($gamestate < 5) return;
 		if(((!$gmode)||(($gmode=='end2')&&(!$winname)))&&(!in_array($gametype,$teamwin_mode))){
 			$result = $db->query("SELECT * FROM {$tablepre}players WHERE hp>0 AND type=0");
 			$alivenum = $db->num_rows($result);
@@ -64,7 +72,7 @@ namespace skill305
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')
 			$p305=0;
-		else	$p305=base64_decode_number($data);	
+		else	$p305=$data;	
 		$c305=0;
 		if ($p305>=20){
 			$c305=999;

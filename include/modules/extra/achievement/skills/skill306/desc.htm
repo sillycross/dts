@@ -1,19 +1,19 @@
+<!--{eval $stitle306 = \achievement_base\show_ach_title(306, $c306);}-->
+<!--{eval $atitle306 = \achievement_base\show_ach_title_2(306, $c306);}-->
 <table><tr>
 <td>
-<!--{if ($c306=='999') }--><img src="img/ach/306.gif"><!--{/if}-->
-<!--{if ($c306=='0') }--><img src="img/ach/N.gif"><!--{/if}-->
-<!--{if (($c306!='999')&&($c306!='0')) }--><img src="img/ach/D.gif"><!--{/if}-->
+	<!--{if ($c306=='0') }--><img src="img/ach/a306_n.png">
+	<!--{elseif ($c306=='1') }--><img src="img/ach/a306_1.png">
+	<!--{else}--><img src="img/ach/a306_2.png"><!--{/if}-->
 </td>
-<td valign="top" align="left">
-<b>
-<!--{if ($c306=='0') }-->核爆全灭<!--{/if}-->
-<!--{if ($c306=='1') }-->核弹粉<!--{/if}-->
-<!--{if ($c306=='999') }-->核弹粉<!--{/if}-->
-</b>
+<td class="ach_cont">
+<span class="ach_title" <!--{if $atitle306 }-->title="$atitle306"<!--{/if}-->>
+	$stitle306
+</span>
 <!--{if ($c306=='999') }--><span class="lime">[完成]</span><!--{else}--><!--{if ($c306==0) }--><span class="red">[未完成]</span><!--{else}--><span class="clan">[进行中]</span><!--{/if}--><!--{/if}--><br>
 <font color="yellow">目前进度： {$p306}次<br></font>
 <!--{if ($c306=='0') }--><font color="olive">奖励： 切糕200 <br></font> 完成结局：核爆全灭 1次<br><!--{/if}-->
-<!--{if ($c306=='1') }--><font color="olive">奖励： 切糕500 <span class="evergreen">卡片</span> <span class="orange">DK^BurNIng</span><br></font> 完成结局：核爆全灭 5次<br><!--{/if}-->
-<!--{if ($c306=='999') }--><font color="olive">奖励： 切糕500 <span class="evergreen">卡片</span> <span class="orange">DK^BurNIng</span><br></font> 完成结局：核爆全灭 5次<br><!--{/if}-->
+<!--{if ($c306=='1') }--><font color="olive">奖励： 切糕500 <span class="evergreen">卡片</span> <span class="gold b">DK^BurNIng</span><br></font> 完成结局：核爆全灭 5次<br><!--{/if}-->
+<!--{if ($c306=='999') }--><font color="olive">奖励： 切糕500 <span class="evergreen">卡片</span> <span class="gold b">DK^BurNIng</span><br></font> 完成结局：核爆全灭 5次<br><!--{/if}-->
 </td>
 </tr></table>

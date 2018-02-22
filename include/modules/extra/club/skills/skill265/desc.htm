@@ -1,0 +1,33 @@
+<!--{eval $___TEMP_SKILL_ID=265;eval(import_module('skill265','clubbase'));$ustate = \clubbase\skill_check_unlocked_state(265,$who);}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+穿杨
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<span class="yellow">战斗技</span>&nbsp;&nbsp;物理伤害<span class="yellow">+{$skill265phyup}%</span>，命中率<span class="yellow">+{$skill265htrup}%</span>，射程<span class="yellow">+1</span>，<span class="yellow">连击</span>无效，<br>但<span class="yellow">{$skill265prate}%概率贯穿</span>。使用远程武器/重型枪械方可发动，消耗<span class="yellow">$ragecost</span>点怒气
+</span></td>
+<td class=b3 width=96>
+	<!--这个只是一个假的按钮，实际点击的是下面那个-->
+	<!--{if $ustate & 2 && !($ustate & 4)}-->
+	<input type="button" style="width:46px" value="选择">
+	<!--{/if}-->
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if $ustate & 4}-->
+<span class="red b">
+已获得技能「{$clubskillname[$alternate_skillno265]}」，无法解锁！
+</span>
+<!--{else}-->
+	<span class="yellow">
+	<!--{if $ustate & 2}-->
+		请在右侧选择本技能。与技能「{$clubskillname[$alternate_skillno265]}」互斥。
+		<input type="button" style="width:47px;margin-right:25px;float:right;" onclick="$('mode').value='special';$('command').value='skill265_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="选择">
+	<!--{else}-->
+		已选择。{$unlock_lvl265}级时解锁
+	<!--{/if}-->
+	</span>
+<!--{/if}-->
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

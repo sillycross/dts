@@ -8,7 +8,6 @@ require './include/user.func.php';
 eval(import_module('cardbase'));
 
 $udata = udata_check();
-
 //if(!$cuser||!$cpass) { gexit($_ERROR['no_login'],__file__,__line__); }
 //
 //$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$cuser'");
@@ -23,6 +22,7 @@ if(!isset($mode)){
 
 if($mode == 'edit') {
 	$gamedata=Array();$gamedata['innerHTML']['info'] = '';
+	$passarr = array();
 	if($opass && $npass && $rnpass){
 		$pass_right = true;
 		$pass_check = pass_check($npass,$rnpass);
@@ -30,22 +30,23 @@ if($mode == 'edit') {
 			$gamedata['innerHTML']['info'] .= $_ERROR[$pass_check].'<br />';
 			$pass_right = false;
 		}
-		$opass = md5($opass);
-		$npass = md5($npass);
-		if($opass != $udata['password']){
+		$opass = create_cookiepass($opass);
+		$npass = create_cookiepass($npass);
+		if(!pass_compare($udata['username'], $opass, $udata['password'])){
 			$gamedata['innerHTML']['info'] .= $_ERROR['wrong_pw'].'<br />';
 			$pass_right = false;
 		}
 		if($pass_right){
 			gsetcookie('pass',$npass);
-			$passqry = "`password` ='$npass',";
+			$nspass = create_storedpass($udata['username'], $npass);
+			$passarr = array('password' => $nspass, 'alt_pswd' => 1);
 			$gamedata['innerHTML']['info'] .= $_INFO['pass_success'].'<br />';
 		}else{
-			$passqry = '';
+			//$passqry = '';
 			$gamedata['innerHTML']['info'] .= $_INFO['pass_failure'].'<br />';
 		}
 	}else{
-		$passqry = '';
+		//$passqry = '';
 		$gamedata['innerHTML']['info'] .= $_INFO['pass_failure'].'<br />';
 	}
 	
@@ -58,8 +59,17 @@ if($mode == 'edit') {
 		}
 	}
 	if (!$cflag) $card=0;
-	
-	$db->query("UPDATE {$gtablepre}users SET gender='$gender', icon='$icon',{$passqry}motto='$motto',  killmsg='$killmsg', lastword='$lastword' ,card='$card' WHERE username='$cuser'");
+	$updarr = array(
+		'gender' => $gender,
+		'icon' => $icon,
+		'motto' => $motto,
+		'killmsg' => $killmsg,
+		'lastword' => $lastword,
+		'card' => $card
+	);
+	if(!empty($passarr)) $updarr = array_merge($updarr, $passarr);
+	$db->array_update("{$gtablepre}users", $updarr, "username='$cuser'");
+	//$db->query("UPDATE {$gtablepre}users SET gender='$gender', icon='$icon',{$passqry}motto='$motto',  killmsg='$killmsg', lastword='$lastword' ,card='$card' WHERE username='$cuser'");
 	//affected_rows好像一直返回0，不知怎么回事
 	//if($db->affected_rows()){
 		$gamedata['innerHTML']['info'] .= $_INFO['data_success'];
@@ -86,8 +96,12 @@ if($mode == 'edit') {
 	$cardChosen = $userCardData['cardchosen'];
 	$card_disabledlist=Array();
 	$card_error=Array();
-	include template('user');
+	$packlist = \cardbase\pack_filter($packlist);
 	
+	$card_achieved_list = array();
+	$d_achievements = \achievement_base\decode_achievements($udata);
+	if(!empty($d_achievements['326'])) $card_achieved_list = $d_achievements['326'];
+	include template('user');
 }
 
 ?> 

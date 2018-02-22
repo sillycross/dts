@@ -2,16 +2,42 @@
 
 namespace skill315
 {
+	//各级要完成的成就名，如果不存在则取低的
+	$ach315_name = array(
+		1=>'第一滴血',
+	);
+	
+	//各级显示的要求，如果不存在则取低的
+	$ach315_desc= array(
+		1=>'战斗击杀<:threshold:>名<span class="yellow" title=\''.POSITIVE_PLAYER_DESC.'\'>活跃玩家</span>',
+	);
+	
+	$ach315_proc_words = '击杀总数';
+	
+	$ach315_unit = '次';
+	
+	//各级阈值，注意是达到这个阈值则升到下一级
+	$ach315_threshold = array(
+		1 => 1,
+		999 => NULL
+	);
+	
+	//各级给的切糕奖励
+	$ach315_qiegao_prize = array(
+		1 => 200,
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL315_INFO','achievement;daily;');
 		define('MOD_SKILL315_ACHIEVEMENT_ID','15');
+		define('DAILY_TYPE315',3);
 	}
 	
 	function acquire315(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		\skillbase\skill_setvalue(315,'cnt','0',$pa);
+		\skillbase\skill_setvalue(315,'cnt',0,$pa);
 	}
 	
 	function lost315(&$pa)
@@ -19,45 +45,29 @@ namespace skill315
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
-	function finalize315(&$pa, $data)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($data=='')					
-			$x=0;						
-		else	$x=base64_decode_number($data);		
-		$ox=$x;
-		$x+=\skillbase\skill_getvalue(315,'cnt',$pa);		
-		$x=min($x,(1<<30)-1);
-		
-		if (($ox<1)&&($x>=1)){
-			\cardbase\get_qiegao(100,$pa);
-		}
-		
-		return base64_encode_number($x,5);		
-	}
-	
 	function player_kill_enemy(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ((\skillbase\skill_query(315,$pa))&&($pd['type']==0))
+		$chprocess($pa, $pd, $active);		
+		if ( \skillbase\skill_query(315,$pa) && !$pd['type'] && $pd['hp'] <= 0)
 		{
-			$x=(int)\skillbase\skill_getvalue(315,'cnt',$pa);
-			$x+=1;
-			\skillbase\skill_setvalue(315,'cnt',$x,$pa);
+			//对方为活跃玩家
+			if(\achievement_base\ach_check_positive_player($pa,$pd)){
+				$x=(int)\skillbase\skill_getvalue(315,'cnt',$pa);
+				$x+=1;
+				\skillbase\skill_setvalue(315,'cnt',$x,$pa);
+			}			
 		}
-		$chprocess($pa, $pd, $active);
 	}	
 	
-	function show_achievement315($data)
+	function ach_finalize_process(&$pa, $data, $achid)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($data=='')
-			$p315=0;
-		else	$p315=base64_decode_number($data);	
-		$c315=0;
-		if ($p315>=1){
-			$c315=999;
+		$ret = $chprocess($pa, $data, $achid);
+		if($achid == 315){
+			$var = (int)\skillbase\skill_getvalue($achid,'cnt',$pa);
+			$ret += $var;
 		}
-		include template('MOD_SKILL315_DESC');
+		return $ret;
 	}
 }
 

@@ -17,11 +17,19 @@ namespace skill21
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
+	function get_enpcinfo()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('skill21'));
+		return $enpcinfo;
+	}
+	
 	function evonpc($xtype,$xname)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','map','skill21','lvlctl','logger'));
+		eval(import_module('sys','player','map','lvlctl','logger'));
 		if(!$xtype || !$xname){return false;}
+		$enpcinfo = get_enpcinfo();
 		if(!isset($enpcinfo[$xtype])){return false;}
 		$result = $db->query("SELECT * FROM {$tablepre}players WHERE type = '$xtype' AND name = '$xname'");
 		$num = $db->num_rows($result);
@@ -33,7 +41,8 @@ namespace skill21
 		$npc['exp'] = \lvlctl\calc_upexp($npc['lvl'] - 1);
 		//$npc['exp'] = round(($npc['lvl']*2+1)*$baseexp);
 		if(!isset($npc['state'])){$npc['state'] = 0;}
-		$npc['wp'] = $npc['wk'] = $npc['wg'] = $npc['wc'] = $npc['wd'] = $npc['wf'] = $npc['skill'];
+		if(is_array($npc['skill'])) {$npc = array_merge($npc,$npc['skill']);}
+		else { $npc['wp'] = $npc['wk'] = $npc['wg'] = $npc['wc'] = $npc['wd'] = $npc['wf'] = $npc['skill'];}
 		unset($npc['skill']);
 		return $npc;
 	}
@@ -63,7 +72,12 @@ namespace skill21
 					foreach ($npcdata['skills'] as $key=>$value){
 						if (defined('MOD_SKILL'.$key)){
 							\skillbase\skill_acquire($key,$pd);
-							if ($value>0){
+							if (is_array($value)){
+								foreach($value as $vk => $vv){
+									\skillbase\skill_setvalue($key,$vk,$vv,$pd);
+								}
+							}
+							elseif ($value>0){
 								\skillbase\skill_setvalue($key,'lvl',$value,$pd);
 							}
 						}	

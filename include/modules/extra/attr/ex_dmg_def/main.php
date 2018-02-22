@@ -19,12 +19,32 @@ namespace ex_dmg_def
 	{
 		eval(import_module('itemmain'));
 		$itemspkinfo['q'] = '防毒';
+		$itemspkdesc['q']='受到带毒属性伤害减半，且不会中毒';
+		$itemspkremark['q']='10%概率失效。注意：本属性不会免疫毒补给';
+		
 		$itemspkinfo['U'] = '防火';
+		$itemspkdesc['U']='受到火焰属性伤害减半，且不会烧伤';
+		$itemspkremark['U']='10%概率失效。不能防御灼焰';
+		
 		$itemspkinfo['I'] = '防冻';
+		$itemspkdesc['I']='受到冻气属性伤害减半，且不会冻结';
+		$itemspkremark['I']='10%概率失效。不能防御冰华';
+		
 		$itemspkinfo['E'] = '绝缘';
+		$itemspkdesc['E']='受到电气属性伤害减半，且不会身体麻痹';
+		$itemspkremark['E']='10%概率失效';
+		
 		$itemspkinfo['W'] = '隔音';
+		$itemspkdesc['W']='受到音波属性伤害减半，且不会混乱';
+		$itemspkremark['W']='10%概率失效。不能防御音爆';
+		
 		$itemspkinfo['D'] = '防爆';
-		$itemspkinfo['a'] = '属性防御';
+		$itemspkdesc['D']='受到爆炸物的物理伤害、爆炸属性伤害皆减半。';
+		$itemspkremark['D']='10%概率失效';
+		
+		$itemspkinfo['a'] = '属防';
+		$itemspkdesc['a']='所有下位属性伤害减半，且不会遭受对应的异常状态。';
+		$itemspkremark['a']='防御列表：带毒、火焰、冻气、电击、音波、爆炸；10%概率失效';
 	}
 	
 	function get_ex_dmg_def_proc_rate(&$pa, &$pd, $active, $key)
@@ -53,13 +73,13 @@ namespace ex_dmg_def
 			{
 				if (check_ex_dmg_def_proc($pa, $pd, $active, $key))
 				{
-					$log .= "{$exdmgname[$key]}被防具防御了！";
+					$log .= $exdmgname[$key].'<span class="yellow">被防具防御了！</span>';
 					$r = 0.5;
 					$pd['ex_dmg_'.$key.'_defend_success'] = 1;
 				}
 				else
 				{
-					$log .= "属性防御装备没能发挥应有的作用！";
+					$log .= '<span class="red">属性防御装备没能发挥应有的作用！</span>';
 				}
 			}
 		}

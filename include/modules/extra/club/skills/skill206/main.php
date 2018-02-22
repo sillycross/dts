@@ -4,7 +4,7 @@ namespace skill206
 {
 	function init() 
 	{
-		define('MOD_SKILL206_INFO','club;');
+		define('MOD_SKILL206_INFO','club;locked;');
 		eval(import_module('clubbase'));
 		$clubskillname[206] = '爆头';
 	}
@@ -40,15 +40,16 @@ namespace skill206
 		return (get_gunner_skillpoint_need($pa)<=0);
 	}
 	
-	function apply_total_damage_modifier_up(&$pa,&$pd,$active){
+	function apply_total_damage_modifier_seckill(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!\skillbase\skill_query(206,$pa) || !check_unlocked206($pa)) return $chprocess($pa,$pd,$active);
 		$chprocess($pa,$pd,$active);
-		if ((($pd['hp']*0.85)<$pa['dmg_dealt'])&&($pd['hp']>$pa['dmg_dealt'])&&($pa['wep_kind']=='G')){
+		if ( $pa['dmg_dealt'] > $pd['hp']*0.85 && $pa['dmg_dealt'] < $pd['hp'] && \weapon\get_skillkind($pa,$pd,$active) == 'wg'  ){
 			$pa['dmg_dealt']=$pd['hp'];
 			eval(import_module('logger'));
 			if ($active) $log .= "<span class=\"red\">你的攻击直接将敌人爆头！</span><br>";
 			else $log .= "<span class=\"red\">敌人的攻击直接将你爆头！</span><br>";
+			$pa['seckill'] = 1;
 		}
 		
 	}

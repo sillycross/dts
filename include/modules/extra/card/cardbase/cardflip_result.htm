@@ -1,0 +1,19 @@
+<!--{eval \bubblebox\bubblebox_set_style('id:cardresult;height:406;width:246;cancellable:1');}-->
+{template MOD_BUBBLEBOX_START}
+<p>
+你翻开了卡片。<br>
+</p>
+	<div style="
+		cursor:pointer;
+		position:relative; -moz-border-radius:8px; 
+		-webkit-border-radius:8px;
+		border-radius:8px; height:340px; width:240px; overflow:hidden; 
+		"
+		title="点击返回"
+		onclick="bubblebox_hide_all();"
+		>
+		<!--{eval $nowcard=$cards[$get_card_id];$nownew=$is_new?1:0;$showpack=1;}-->
+		{template MOD_CARDBASE_CARD_FRAME}
+	</div>
+{template MOD_BUBBLEBOX_END}
+<img style="display:none;" type="hidden" src="img/blank.png" onload="bubblebox_show('cardresult');">

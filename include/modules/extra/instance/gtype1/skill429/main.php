@@ -2,12 +2,12 @@
 
 namespace skill429
 {
-	$dmglimit = Array(33,50,80,99);
-	$upgradecost = Array(6,7,8,-1);
+	$trapdmgdown = Array(0,10,20,35,55);
+	$upgradecost = Array(5,6,7,8,-1);
 	
 	function init() 
 	{
-		define('MOD_SKILL429_INFO','club;upgrade;');
+		define('MOD_SKILL429_INFO','card;unique;upgrade;');
 		eval(import_module('clubbase'));
 		$clubskillname[429] = '谨慎';
 	}
@@ -62,21 +62,31 @@ namespace skill429
 		$rate = $dmglimit[\skillbase\skill_getvalue(429,'lvl',$pa)];
 		return $rate;
 	}
-
-	function apply_total_damage_modifier_down(&$pa,&$pd,$active){
+	
+	function get_skill429_trapdmg_down($pa)
+	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(429,$pa) || !check_unlocked429($pa)) return $chprocess($pa,$pd,$active);
-		$var_429=get_skill429_dmg($pa);
-		if (($var_429>0)&&($var_429<100)){
-			$d429=round($pd['mhp']*$var_429/100);
-			if ($pa['dmg_dealt']>$d429){
-				$pa['dmg_dealt']=$d429;
-				eval(import_module('logger'));
-				if ($active) $log .= "<span class=\"yellow\">你造成的伤害被限制为<span class=\"red\">{$d429}</span>点。</span><br>";
-				else $log .= "<span class=\"yellow\">敌人造成的伤害被限制为<span class=\"red\">{$d429}</span>点。</span><br>";
+		eval(import_module('skill429','player'));
+		if (!\skillbase\skill_query(429,$pa)) return 0;
+		$rate = $trapdmgdown[\skillbase\skill_getvalue(429,'lvl',$pa)];
+		return $rate;
+	}
+	
+	function get_trap_damage_multiplier(&$pa, &$pd, $trap, $damage)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$r=Array();
+		if (\skillbase\skill_query(429,$pa)) 
+		{
+			eval(import_module('logger'));
+			$var_429=get_skill429_trapdmg_down($pd);
+			if($var_429 > 0) {
+				$log .= '「谨慎」让陷阱伤害减少了'.$var_429.'%！';
+				if($var_429 > 100) $var_429 = 100;
+				$r=Array((100-$var_429)/100);
 			}
 		}
-		$chprocess($pa,$pd,$active);
+		return array_merge($r,$chprocess($pa,$pd,$trap,$damage));
 	}
 }
 

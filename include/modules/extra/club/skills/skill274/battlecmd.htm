@@ -1,0 +1,20 @@
+<!--{eval eval(import_module('skill274'));$rageneed = \skill274\get_rage_cost274();}-->
+<!--{if $rage>=$rageneed}-->
+	<!--{if $wepk == 'WN'}-->
+	<input type="button" class="cmdbutton" style="width:98"  value="截拳" 
+	onclick="$('command').value='$w1';$('bskill').value=274;postCmd('gamecmd','command.php');this.disabled=true;"><br />
+	<div style="width:90%; text-align:left;">
+	本次攻击最终伤害增加对方总面板攻击力的<span class="yellow">{$skill274_factor_pc}%</span>，且本次战斗中「格斗」触发概率<span class="yellow">+{$skill274_263up}%</span>。<br>消耗<span class="red">$rageneed</span>怒气
+	</div>
+	<!--{else}-->
+	<input type="button" class="cmdbutton" style="width:98"  value="截拳" disabled="true"><br />
+	<div style="width:90%; text-align:left;">
+	<span class="yellow">空手</span>方可发动
+	</div>
+	<!--{/if}-->
+<!--{else}-->
+	<input type="button" class="cmdbutton" style="width:98"  value="截拳" disabled="true"><br />
+	<div style="width:90%; text-align:left;">
+	需要<span class="red">$rageneed</span>怒气方可发动
+	</div>
+<!--{/if}-->

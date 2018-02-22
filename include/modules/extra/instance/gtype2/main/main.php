@@ -13,22 +13,20 @@ namespace gtype2
 		if (room_check_subroom($room_prefix)) return $chprocess();
 		list($sec,$min,$hour,$day,$month,$year,$wday) = explode(',',date("s,i,H,j,n,Y,w",$now));
 		$tg=$gamenum-3;
-		$res=$db->query("SELECT gametype FROM {$gtablepre}winners WHERE gid='$tg'");
+		$res=$db->query("SELECT gametype FROM {$gtablepre}history WHERE gid='$tg'");
 		$gt=2;
 		if ($db->num_rows($res)){
 			$zz=$db->fetch_array($res); $gt=$zz['gametype'];
 		}
-		if ($wday==5){
+		if ($wday==5 && !$disable_event){
 			if (($hour>=19)&&($hour<21)&&($gt!=2)){ 
 				$gametype=2;
-			}else{
-				$gametype=0;
 			}
 		}
- 		if ($disable_event) $gametype=0; 
 		$chprocess();
 	}
 	
+	//这已经失效了，但是反正这个模式废了，懒得改
 	function check_player_discover(&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -37,13 +35,13 @@ namespace gtype2
 		return $chprocess($edata);
 	}
 	
-	function checkcombo(){
+	function checkcombo($time){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','map','gameflow_combo'));
-		if (($gametype==2)&&($areanum<$areaadd*2)&&($alivenum>0)){
+		if ( $gametype==2 && $areanum<$areaadd*2 && $alivenum>0 ){
 			return;
 		}
-		$chprocess();
+		$chprocess($time);
 	}
 	
 	function rs_game($xmode = 0) 
@@ -87,7 +85,7 @@ namespace gtype2
 		return $chprocess($typ);
 	}
 	
-	function get_shoplist()
+	function get_shopconfig()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		eval(import_module('sys'));

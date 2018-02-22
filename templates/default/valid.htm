@@ -1,29 +1,39 @@
 {template header}
 <div class="subtitle" align="center">{lang valid}</div>
 
+<!--{if 1 == $gametype || 9 == $gametype}-->
+<p align="center">
+	即将登录虚拟幻境……<br />
+	请最后确认您的身份数据。<br />
+</p>
+<!--{else}-->
 <p><img border="0" src="img/story_0.gif" style="align:center"></p>
-
-<p align="center">“欢迎参加本次ACFUN动漫祭。<br />
+<p align="center">
+	“欢迎参加本次ACFUN动漫祭。<br />
 	“我是本次ACFUN动漫祭的工作人员。<br />
 	“本次动漫祭不同于以往，各项活动将采用虚拟现实系统进行。<br />
 	“请参加者如实填写身份资料，以便领取神经接入装置。<br />
-	“身份资料请填写在下面。”<br /></p>
+	“身份资料请填写在下面。”<br />
+</p>
+<!--{/if}-->
+
 
 	<form method="post"  action="valid.php" name="valid">
 		<input type="hidden" name="mode" value="enter">
-		<input type="hidden" id="cardChosen" name="card" value="$cardChosen"> {lang name} : $username <br />
-		<center>
-		{template useradvdata}
-		<span class ="yellow">选择一张身份卡</span><br>
-		<div style="height:3px">&nbsp;</div>
-		{template selectcard}
-		</center>
-		<!--{if $stime>$now}--><span class="orange">{$std}开始才可再使用S级身份卡</span><br><!--{/if}-->
-		<!--{if $atime>$now}--><span class="linen">{$atd}开始才可再使用A级身份卡</span><br><!--{/if}-->
-		<!--{if $btime>$now}--><span class="brickred">{$btd}开始才可再使用B级身份卡</span><br><!--{/if}-->
-		<br />
-		<input type="submit" name="enter" onClick="$('cardChosen').value=chosen_card_id; this.submit(); return false;" value="{lang submit}">
-		<input type="reset" name="reset" value="{lang reset}">
+		{lang name} : $username <br />
+			<center>
+			{template useradvdata}
+			<input type="hidden" id="cardChosen" name="card" value="$cardChosen"> 
+			<span class ="yellow">选择一张身份卡</span><br>
+			<div style="height:3px">&nbsp;</div>
+			{template selectcard}
+			</center>
+			<!--{if $stime>$now}--><span class="orange">{$std}开始才可再使用S级身份卡</span><br><!--{/if}-->
+			<!--{if $atime>$now}--><span class="linen">{$atd}开始才可再使用A级身份卡</span><br><!--{/if}-->
+			<!--{if $btime>$now}--><span class="brickred">{$btd}开始才可再使用B级身份卡</span><br><!--{/if}-->
+			<br />
+			<input type="submit" class="b_button bc_black" onClick="$('cardChosen').value=chosen_card_id;" value="{lang submit}">
+			<input type="reset" class="b_button bc_black" value="{lang reset}">
 	</form>
 	<br />
 {template footer}

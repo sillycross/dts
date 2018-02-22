@@ -6,7 +6,7 @@ namespace skill468
 	{
 		define('MOD_SKILL468_INFO','card;unique;');
 		eval(import_module('clubbase'));
-		$clubskillname[468] = '月光';
+		$clubskillname[468] = '崎岖';
 	}
 	
 	function acquire468(&$pa)
@@ -28,7 +28,7 @@ namespace skill468
 	function check_skill468_proc(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (rand(0,99)<17 && \skillbase\skill_query(468,$pd))
+		if (rand(0,99)<17 && \skillbase\skill_query(468,$pd) && $pa['is_hit'])
 		{
 			eval(import_module('player','logger'));
 			if ($active)
@@ -40,11 +40,18 @@ namespace skill468
 		return Array();
 	}
 	
-	function get_physical_dmg_multiplier(&$pa, &$pd, $active)
+//	function get_physical_dmg_multiplier(&$pa, &$pd, $active)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		check_skill468_proc($pa,$pd,$active);
+//		return $chprocess($pa,$pd,$active);
+//	}
+	
+	function strike_finish(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		check_skill468_proc($pa,$pd,$active);
-		return $chprocess($pa,$pd,$active);
+		$chprocess($pa,$pd,$active);
 	}
 }
 

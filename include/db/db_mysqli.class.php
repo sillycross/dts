@@ -50,6 +50,14 @@ class dbstuff {
 		if (! $result && $type != 'SILENT') {
 			$this->halt ( 'MySQL Query Error', $sql );
 		}
+		if(strpos($sql,'UPDATE')===0){
+			if(strpos($sql, 'users') !==false) {
+				$bk = debug_backtrace();
+				global $now;
+				writeover('tmp_roomid_log_2.txt', $sql.' from line '.$bk[1]['line']." at file ".$bk[1]['file'].' at '.$now."\r\n");
+			}
+		}
+		//if(strpos($sql, 'acbra2_users')!==false && strpos($sql, 'UPDATE')!==false && strpos($sql, 'roomid')!==false) writeover('a.txt', substr($sql,0,30).'...'.substr($sql,strlen($sql)-30).' <--- '.debug_backtrace()[0]['file'].' : '.debug_backtrace()[0]['line']."\r\n",'ab+');
 //		$this->querynum ++;
 //		if(strpos($sql,'SELECT')===0){$this->selectnum ++;}
 //		elseif(strpos($sql,'INSERT')===0){$this->insertnum ++;}
@@ -99,17 +107,39 @@ class dbstuff {
 //		return preg_replace("/\s*(CREATE TABLE\s+.+\s+\(.+?\)).*;$/isU", "\\1", $sql)." ENGINE=$type DEFAULT CHARSET=$dbcharset;";
 	}
 	
-	function array_insert($dbname, $data){ //根据$data的键和键值插入数据
+	//根据$data的键和键值插入数据。多数据插入是直接按字段先后顺序排的，请保证输入数据字段顺序完全一致！
+	function array_insert($dbname, $data){
+		$tp = 1;//单记录插入
+		if(is_array(array_values($data)[0])) $tp = 2;//多记录插入 
 		$query = "INSERT INTO {$dbname} ";
 		$fieldlist = $valuelist = '';
-		foreach ($data as $key => $value) {
-			$fieldlist .= "{$key},";
-			$valuelist .= "'{$value}',";
+		if(2!=$tp){//单记录插入
+			if(!$data) return;
+			foreach ($data as $key => $value) {
+				$fieldlist .= "{$key},";
+				$valuelist .= "'{$value}',";
+			}
+			if(!empty($fieldlist) && !empty($valuelist)){
+				$query .= '(' . substr($fieldlist, 0, -1) . ') VALUES (' . substr($valuelist, 0, -1) .')';
+			}
+		}else{//多记录插入
+			foreach (array_keys(array_values($data)[0]) as $key) {
+				$fieldlist .= "{$key},";
+			}
+			foreach ($data as $dv){
+				if(!$dv) continue;
+				$valuelist .= "(";
+				foreach ($dv as $value) {
+					$valuelist .= "'{$value}',";
+				}
+				$valuelist = substr($valuelist, 0, -1).'),';
+			}
+			if(!empty($valuelist)) {
+				$query .= '(' . substr($fieldlist, 0, -1) . ') VALUES '.substr($valuelist, 0, -1);
+			}
 		}
-		if(!empty($fieldlist) && !empty($valuelist)){
-			$query .= '(' . substr($fieldlist, 0, -1) . ') VALUES (' . substr($valuelist, 0, -1) .')';
-		}
-		$this->query ($query);
+		
+		if(!empty($query)) $this->query ($query);
 		return $query;
 	}
 	

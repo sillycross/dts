@@ -2,10 +2,16 @@
 
 namespace skill321
 {
+	//旧成就精力所限，未全部修改，请以skill300、skill313或skill332之后的成就为模板！
+	$ach321_name = array(
+		0=>'杀人越货',
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL321_INFO','achievement;daily;');
 		define('MOD_SKILL321_ACHIEVEMENT_ID','21');
+		define('DAILY_TYPE321',2);
 	}
 	
 	function acquire321(&$pa)
@@ -24,16 +30,17 @@ namespace skill321
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')					
 			$x=0;						
-		else	$x=base64_decode_number($data);		
+		else $x=$data;
 		$ox=$x;
 		$x+=\skillbase\skill_getvalue(321,'cnt',$pa);		
 		$x=min($x,(1<<30)-1);
 		
 		if (($ox<2)&&($x>=2)){
-			\cardbase\get_qiegao(110,$pa);
+			//\cardbase\get_qiegao(110,$pa);
+			\achievement_base\ach_create_prize_message($pa, 321, 0, 110);
 		}
 		
-		return base64_encode_number($x,5);		
+		return $x;
 	}
 	
 	function player_kill_enemy(&$pa,&$pd,$active){
@@ -52,7 +59,7 @@ namespace skill321
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')
 			$p321=0;
-		else	$p321=base64_decode_number($data);	
+		else	$p321=$data;	
 		$c321=0;
 		if ($p321>=2){
 			$c321=999;

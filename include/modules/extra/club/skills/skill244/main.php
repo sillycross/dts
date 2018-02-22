@@ -70,9 +70,10 @@ namespace skill244
 		$chprocess($pa, $pd, $active);
 	}	
 	
-	function sk244_get_factor_sum($z)
+	function sk244_get_factor_sum(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$z = $pa['dmg_dealt'];
 		if ($z>1e11) return $z;	
 		$z=(int)$z; $x=2; $ret=1;
 		if ($z==0) return $z;
@@ -93,15 +94,35 @@ namespace skill244
 		return $ret;
 	}
 	
-	function apply_total_damage_modifier_up(&$pa,&$pd,$active){
+	//特殊变化次序注册
+	function apply_total_damage_modifier_special_set_sequence(&$pa, &$pd, $active)
+	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('logger'));
-		if ($pa['bskill']==244 && $pa['dmg_dealt']>0)
-		{
-			$pa['dmg_dealt']=sk244_get_factor_sum($pa['dmg_dealt']);
+		$chprocess($pa, $pd, $active);
+		if ($pa['bskill']==244 && \skillbase\skill_query(244,$pa) && check_unlocked244($pa)) 
+			$pd['atdms_sequence'][50] = 'skill244';
+		return;
+	}
+	
+	//特殊变化生效判定，建议采用或的逻辑关系
+	function apply_total_damage_modifier_special_check(&$pa, &$pd, $active, $akey)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($pa, $pd, $active, $akey);
+		if('skill244' == $akey && $pa['dmg_dealt'] > 0) $ret = 1;
+		return $ret;
+	}
+	
+	//特殊变化执行
+	function apply_total_damage_modifier_special_core(&$pa, &$pd, $active, $akey)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($pa,$pd, $active, $akey);
+		if('skill244' == $akey){
+			$pa['dmg_dealt']=sk244_get_factor_sum($pa);
+			eval(import_module('logger'));
 			$log.='<span class="yellow">「归约」使最终伤害变为'.$pa['dmg_dealt'].'点！</span><br>';
 		}
-		$chprocess($pa,$pd,$active);
 	}
 	
 	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())

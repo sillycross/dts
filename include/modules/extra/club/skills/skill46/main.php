@@ -103,8 +103,8 @@ namespace skill46
 		$skillid=(int)$skillid;
 		if ($pa!=NULL && isset($pa['skill46_flag']) && $pa['skill46_flag'])
 		{
-			//所有技能失效
-			if (!\skillbase\check_skill_info($skillid,'achievement') && !\skillbase\check_skill_info($skillid,'hidden'))
+			//所有技能失效（称号特性不失效）
+			if (!\skillbase\check_skill_info($skillid,'achievement') && !\skillbase\check_skill_info($skillid,'hidden') && !\skillbase\check_skill_info($skillid,'feature'))
 				return 0;
 		}
 		return $chprocess($skillid,$pa);

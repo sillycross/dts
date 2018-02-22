@@ -6,6 +6,8 @@ namespace blessstone
 	{
 		eval(import_module('itemmain'));
 		$itemspkinfo['Z'] = '菁英';
+		$itemspkdesc['Z']='带有此属性的物品可以用『祝福宝石』或『灵魂宝石』强化效果值';
+		$itemspkremark['Z']='第4次强化需要用2个以上的『祝福宝石』，第5次及以上只能用『灵魂宝石』。<br>第5次及以上强化有可能失败，次数越高概率越大。<br>不能使用磨刀石或者补丁来强化这一装备。';
 	}
 	
 	function itemuse(&$theitem) 
@@ -83,12 +85,12 @@ namespace blessstone
 		}
 		
 		$o_itm = $itm;
-		if(!preg_match("/\[\+[0-9]\]/",$itm)){
+		if(!preg_match("/\[\+[0-9]+?\]/",$itm)){
 			$itm = ${'itm'.$itmn}.'[+0]';
 			$flag = true;
 			$zitmlv = 0;
 		}else{
-			preg_match("/\[\+([0-9])\]/",$itm,$zitmlv);
+			preg_match("/\[\+([0-9]+?)\]/",$itm,$zitmlv);
 			$zitmlv = $zitmlv[1];
 			if($zitmlv >= 4 && $gem != '『灵魂宝石』'){
 				$log .= '你所选的宝石只能强化装备到[+4]哦!DA☆ZE<br>';
@@ -113,11 +115,11 @@ namespace blessstone
 						$dice = 1;
 					}
 				}elseif ($zitmlv >= 4){
-					$dice = rand(1,10*($zitmlv-2));
-				}elseif ($zitmlv >= 6){
-					$dice = rand(1,10*($zitmlv-1));
-				}elseif ($zitmlv >= 10){
-					$dice = rand(1,10*$zitmlv);
+					$dice = rand(1,10*($zitmlv-2));//+5概率10/20，+6概率10/30，+7概率10/40，+8概率10/50
+//				}elseif ($zitmlv >= 6){
+//					$dice = rand(1,10*($zitmlv-1));//+7概率10/50，+8概率10/60，+9概率10/70，+10概率10/80
+//				}elseif ($zitmlv >= 10){
+//					$dice = rand(1,10*$zitmlv);//+11概率10/100，+12概率10/110以此类推
 				}else{
 					$dice = 1;
 				}
@@ -164,7 +166,7 @@ namespace blessstone
 		$chprocess();
 	}
 	
-	function use_stone($itm, $itme)
+	function use_hone($itm, $itme)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		

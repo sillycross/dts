@@ -27,8 +27,9 @@ namespace skill412
 	}
 	
 	//住手啊，这根本就不是莫比乌斯！
-	//如果伤害里包含平方数，或者伤害本身大于一千亿，返回0
-	//否则如果伤害的（1和本身以外的）因数数目为偶数，返回1；如果为奇数则返回-1
+	//如果伤害里包含平方数，或者伤害本身大于一千亿，返回0（免疫）
+	//否则如果伤害的（1和本身以外的）因数数目为偶数，返回1（正常造成伤害）
+	//如果因数数目为奇数，或者是质数，则返回-1（反弹）
 	//比如，24=2*2*2*3，包含平方数4，所以返回0
 	//再比如，14=2*7，因数个数为偶数，返回1
 	//再比如，17是个质数，返回-1；66=2*3*11，因数个数为奇数，返回-1
@@ -51,11 +52,31 @@ namespace skill412
 		if ($c%2==0) return 1; else return -1;
 	}
 	
-	function apply_total_damage_change(&$pa,&$pd,$active)
+	//特殊变化次序注册
+	function apply_total_damage_modifier_special_set_sequence(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_query(412,$pd) && check_unlocked412($pd) && $pa['dmg_dealt']>0)
-		{
+		$chprocess($pa, $pd, $active);
+		if (\skillbase\skill_query(412,$pd) && check_unlocked412($pd)) 
+			$pd['atdms_sequence'][150] = 'skill412';
+		return;
+	}
+	
+	//特殊变化生效判定，建议采用或的逻辑关系
+	function apply_total_damage_modifier_special_check(&$pa, &$pd, $active, $akey)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($pa, $pd, $active, $akey);
+		if('skill412' == $akey && $pa['dmg_dealt'] > 0) $ret = 1;
+		return $ret;
+	}
+	
+	//特殊变化执行
+	function apply_total_damage_modifier_special_core(&$pa, &$pd, $active, $akey)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($pa,$pd, $active, $akey);
+		if('skill412' == $akey){
 			eval(import_module('logger'));
 			$t=calculate_mobius_function($pa['dmg_dealt']);
 			if ($t==0)
@@ -64,7 +85,7 @@ namespace skill412
 				$log.='<span class="lime">只见敌人周围突然出现了奇怪的呈U形的力场，你的伤害似乎被力场完全吸收了。</span><br>';
 				$pa['dmg_dealt']=0;
 			}
-			else  if ($t==1)
+			elseif ($t==1)
 			{
 				//有效
 				$log.='<span class="lime">只见敌人周围突然出现了奇怪的呈U形的力场，但是你的攻击势不可挡地击穿了它。</span><br>';
@@ -75,7 +96,6 @@ namespace skill412
 				$pa['mobiusflag'] = 1;//临时性的标记就不搞skill了				
 			}
 		}
-		$chprocess($pa, $pd, $active);
 	}
 	
 	//反演的反弹效果移到伤害效果的发生阶段，这样就在伤害制御之后了
@@ -86,6 +106,11 @@ namespace skill412
 		if(isset($pa['mobiusflag']) && $pa['mobiusflag']) {
 			unset($pa['mobiusflag']);
 			$log.='<span class="lime">只见敌人周围突然出现了奇怪的呈U形的力场，你造成的伤害竟然被反弹了回来！</span><br>';
+			//反弹伤害作为最终伤害过一遍结算
+//			$pd['dmg_dealt']=$pd['mult_words_fdmgbs']=$pa['dmg_dealt'];
+//			$pd['is_hit']=1;
+//			$pa['dmg_dealt']=0;
+//			\attack\player_damaged_enemy($pd, $pa, 1-$active);
 			$log.="<span class=\"red\">你受到了{$pa['dmg_dealt']}点伤害！</span><br>";
 			\attack\post_damage_news($pd, $pa, 1-$active, $pa['dmg_dealt']);
 			$pa['hp']-=$pa['dmg_dealt'];
@@ -107,10 +132,10 @@ namespace skill412
 		eval(import_module('sys','player'));
 		
 		if($news == 'death39') {
-			$dname = $typeinfo[$b].' '.$a;
-			if(!$e)
-				$e0="<span class=\"yellow\">【{$dname} 什么都没说就死去了】</span><br>\n";
-			else  $e0="<span class=\"yellow\">【{$dname}：“{$e}”】</span><br>\n";
+//			$dname = $typeinfo[$b].' '.$a;
+//			if(!$e)
+//				$e0="<span class=\"yellow\">【{$dname} 什么都没说就死去了】</span><br>\n";
+//			else  $e0="<span class=\"yellow\">【{$dname}：“{$e}”】</span><br>\n";
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>被<span class=\"red\">$c</span>的反演力场反弹伤害而亡{$e0}</li>";
 		}
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);

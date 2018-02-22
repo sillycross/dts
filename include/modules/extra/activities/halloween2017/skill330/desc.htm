@@ -1,0 +1,20 @@
+<table><tr>
+<!--{eval eval(import_module('skill330'));}-->
+<td style="vertical-align:top">
+<!--{if ($c330=='999') }--><img src="img/ach/DA_h2017.png">
+<!--{elseif ($c330=='0') }--><img src="img/ach/N_h2017.png">
+<!--{else}--><img src="img/ach/D_h2017.png"><!--{/if}-->
+</td>
+<td valign="top" align="left">
+<b>
+<!--{if ($c330==0) }-->噩梦之夜 LV1<!--{/if}-->
+<!--{if ($c330==1) }-->噩梦之夜 LV2<!--{/if}-->
+<!--{if ($c330>=2) }-->噩梦之夜 LV3<!--{/if}-->
+</b>
+<!--{if ($c330=='999') }--><span class="lime">[完成]</span><!--{else}--><!--{if ($c330==0) }--><span class="red">[未完成]</span><!--{else}--><span class="clan">[进行中]</span><!--{/if}--><!--{/if}--><br>
+<font color="yellow"><span>目前总数：{$p330}个</span><br></font>
+<!--{if ($c330==0) }--><font color="olive">奖励： 切糕{$ach330_qiegao_prize[1]}</font> <br> 获胜时身上拥有「万圣节X色糖果」总数超过{$ach330_threshold[1]}个<br><!--{/if}-->
+<!--{if ($c330==1) }--><font color="olive">奖励： 切糕{$ach330_qiegao_prize[2]}</font> <span class="clan">卡片「梦魇瑞尔提」</span><br> 获胜时身上拥有「万圣节X色糖果」总数超过{$ach330_threshold[2]}个<br><!--{/if}-->
+<!--{if ($c330>=2) }--><font color="olive">奖励： 切糕{$ach330_qiegao_prize[3]}</font> <br> 获胜时身上拥有「万圣节X色糖果」总数超过{$ach330_threshold[3]}个<br><!--{/if}-->
+</td>
+</tr></table>

@@ -1,0 +1,53 @@
+你的包裹已经满了。想要丢掉哪个物品？<br><br>
+<input type="hidden" id="mode" name="mode" value="itemmain">
+<!--{if defined('MOD_SEARCHMEMORY') && \searchmemory\searchmemory_available()}-->
+<input type="hidden" id="command" name="command" value="">
+<input type="button" class="cmdbutton" id="z" value="[Z]丢弃" onclick="$('command').value='dropitm0';postCmd('gamecmd','command.php');this.disabled=true;">$itm0/$itme0/$itms0<br><br>
+<ul style="padding-left:24px;">
+	<!-- 需要/itemmain/main.php第389行（可能有变化）取消注释 -->
+	<!--{if strpos($itmk0,'W')===0 || strpos($itmk0,'D')===0 || strpos($itmk0,'A')===0}-->
+		<!--{if strpos($itmk0,'W')===0}-->
+			<li><input type="button" class="dropbutton" id="swapwep" 
+				<!--{if $weps && $wepe}-->value="丢弃装备" onclick="$('command').value='swapwep';postCmd('gamecmd','command.php');this.disabled=true;"> <a onclick=$('swapwep').click();>$wep/$wepe/$weps</a></li>
+				<!--{else}-->value="直接装备" onclick="$('mode').value='command';$('command').value='itm0';postCmd('gamecmd','command.php');this.disabled=true;"></li><!--{/if}-->
+		<!--{elseif strpos($itmk0,'DB')===0}-->
+			<li><input type="button" class="dropbutton" id="swaparb" 
+				<!--{if $arbs && $arbe}-->value="丢弃装备" onclick="$('command').value='swaparb';postCmd('gamecmd','command.php');this.disabled=true;"> <a onclick=$('swaparb').click();>$arb/$arbe/$arbs</a></li>
+				<!--{else}-->value="直接装备" onclick="$('mode').value='command';$('command').value='itm0';postCmd('gamecmd','command.php');this.disabled=true;"></li><!--{/if}-->
+		<!--{elseif strpos($itmk0,'DH')===0}-->
+			<li><input type="button" class="dropbutton" id="swaparh" 
+				<!--{if $arhs && $arhe}-->value="丢弃装备" onclick="$('command').value='swaparh';postCmd('gamecmd','command.php');this.disabled=true;"> <a onclick=$('swaparh').click();>$arh/$arhe/$arhs</a></li>
+				<!--{else}-->value="直接装备" onclick="$('mode').value='command';$('command').value='itm0';postCmd('gamecmd','command.php');this.disabled=true;"></li><!--{/if}-->
+		<!--{elseif strpos($itmk0,'DA')===0}-->
+			<li><input type="button" class="dropbutton" id="swapara" 
+				<!--{if $aras && $arae}-->value="丢弃装备" onclick="$('command').value='swapara';postCmd('gamecmd','command.php');this.disabled=true;"> <a onclick=$('swapara').click();>$ara/$arae/$aras</a></li>
+				<!--{else}-->value="直接装备" onclick="$('mode').value='command';$('command').value='itm0';postCmd('gamecmd','command.php');this.disabled=true;"></li><!--{/if}-->
+		<!--{elseif strpos($itmk0,'DF')===0}-->
+			<li><input type="button" class="dropbutton" id="swaparf" 
+				<!--{if $arfs && $arfe}-->value="丢弃装备" onclick="$('command').value='swaparf';postCmd('gamecmd','command.php');this.disabled=true;"> <a onclick=$('swaparf').click();>$arf/$arfe/$arfs</a></li>
+				<!--{else}-->value="直接装备" onclick="$('mode').value='command';$('command').value='itm0';postCmd('gamecmd','command.php');this.disabled=true;"></li><!--{/if}-->
+		<!--{elseif strpos($itmk0,'A')===0}-->
+			<li><input type="button" class="dropbutton" id="swapart" 
+				<!--{if $arts && $arte}-->value="丢弃装备" onclick="$('command').value='swapart';postCmd('gamecmd','command.php');this.disabled=true;"> <a onclick=$('swapart').click();>$art/$arte/$arts</a></li>
+				<!--{else}-->value="直接装备" onclick="$('mode').value='command';$('command').value='itm0';postCmd('gamecmd','command.php');this.disabled=true;"></li><!--{/if}-->
+		<!--{/if}-->
+	<br>
+	<!--{/if}-->
+	<li><input type="button" class="dropbutton" id="a" value="[A]丢弃" onclick="$('command').value='swapitm1';postCmd('gamecmd','command.php');this.disabled=true;"> <a onclick=$('a').click();>$itm1/$itme1/$itms1</a></li>
+	<li><input type="button" class="dropbutton" id="s" value="[S]丢弃" onclick="$('command').value='swapitm2';postCmd('gamecmd','command.php');this.disabled=true;"> <a onclick=$('s').click();>$itm2/$itme2/$itms2</a></li>
+	<li><input type="button" class="dropbutton" id="d" value="[D]丢弃" onclick="$('command').value='swapitm3';postCmd('gamecmd','command.php');this.disabled=true;"> <a onclick=$('d').click();>$itm3/$itme3/$itms3</a></li>
+	<li><input type="button" class="dropbutton" id="q" value="[Q]丢弃" onclick="$('command').value='swapitm4';postCmd('gamecmd','command.php');this.disabled=true;"> <a onclick=$('q').click();>$itm4/$itme4/$itms4</a></li>
+	<li><input type="button" class="dropbutton" id="w" value="[W]丢弃" onclick="$('command').value='swapitm5';postCmd('gamecmd','command.php');this.disabled=true;"> <a onclick=$('w').click();>$itm5/$itme5/$itms5</a></li>
+	<li><input type="button" class="dropbutton" id="e" value="[E]丢弃" onclick="$('command').value='swapitm6';postCmd('gamecmd','command.php');this.disabled=true;"> <a onclick=$('e').click();>$itm6/$itme6/$itms6</a></li>
+</ul>
+<!--{else}-->
+<input type="radio" name="command" id="dropitm0" value="dropitm0" checked><a onclick=sl("dropitm0"); href="javascript:void(0);" >$itm0/$itme0/$itms0</a><br><br>
+<input type="radio" name="command" id="itm1" value="swapitm1"><a onclick=sl('itm1'); href="javascript:void(0);" >$itm1/$itme1/$itms1 </a><br>
+<input type="radio" name="command" id="itm2" value="swapitm2"><a onclick=sl('itm2'); href="javascript:void(0);" >$itm2/$itme2/$itms2 </a><br>
+<input type="radio" name="command" id="itm3" value="swapitm3"><a onclick=sl('itm3'); href="javascript:void(0);" >$itm3/$itme3/$itms3 </a><br>
+<input type="radio" name="command" id="itm4" value="swapitm4"><a onclick=sl('itm4'); href="javascript:void(0);" >$itm4/$itme4/$itms4 </a><br>
+<input type="radio" name="command" id="itm5" value="swapitm5"><a onclick=sl('itm5'); href="javascript:void(0);" >$itm5/$itme5/$itms5 </a><br>
+<input type="radio" name="command" id="itm6" value="swapitm6"><a onclick=sl('itm6'); href="javascript:void(0);" >$itm6/$itme6/$itms6 </a><br>
+<br><br>
+<input type="button" class="cmdbutton"  id="z" value="[Z]确定" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
+<!--{/if}-->

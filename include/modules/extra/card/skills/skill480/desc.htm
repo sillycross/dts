@@ -5,7 +5,7 @@
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
-	<!--{if !\skillbase\skill_getvalue(480,'activated')}-->
+	<!--{if !\skillbase\skill_getvalue(480,'activated',$who)}-->
 		<span class="gold">一次性技能。发动后，你的金钱数翻倍，但之后的每次探索或移动，金钱数-50。</span>
 	<!--{else}-->
 		<span class="red">你已经发动了此技能，现在你每次探索或移动后，金钱数都会-50！</span>

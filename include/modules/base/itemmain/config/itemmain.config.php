@@ -25,6 +25,7 @@ namespace itemmain
 		//EE item_uee 电脑设备
 		//ER radar 雷达
 		//EW weather 天气控制道具
+		//GA wep_b 箭矢
 		//GB* ammunition 各类弹药
 		//HH,HS,HB edible 各类命体恢复
 		//HM,HT song 歌魂补给
@@ -44,53 +45,76 @@ namespace itemmain
 	
 	//物品属性类型
 	//请在对应模块中赋值，这里只写注释代表哪些名字已经被哪些模块占用了
-	//鉴于字母已经基本用完，新属性应该全部命名为“^数字^”的形式，其中数字可以任意
-	//例： ^233^ => '防拳' 
+	//鉴于字母已经基本用完，新属性应该全部命名为“^数字”的形式，其中数字可以任意
+	//例： ^233 => '防拳' 
 	//\itemmain\count_itmsk_num(属性)可以计数物品属性个数
 	$itemspkinfo = Array(
-		//A skill10 全系防御
-		//a ex_dmg_def 属性防御
-		//B ex_phy_nullify 伤害抹消
-		//b ex_dmg_nullify 属性抹消
-		//C skill10 防投
-		//c rage 重击辅助
-		//D skill10 防爆
+		//A ex_phy_def 物防（全系防御）
+		//a ex_dmg_def 属防（属性防御）
+		//B ex_phy_nullify 物抹（伤害抹消）
+		//b ex_dmg_nullify 属抹（属性抹消）
+		//C ex_phy_def 防投
+		//c rage 集气（重击辅助）
+		//D ex_phy_def 防爆
 		//d ex_dmg_att 爆炸
 		//E ex_dmg_def 绝缘
 		//e ex_dmg_att 电击
-		//F skill10 防符
+		//F ex_phy_def 防符
 		//f ex_dmg_att 灼焰
-		//G skill10 防弹
+		//G ex_phy_def 防弹
 		//g ex_gender_attr 同志
-		//H ex_hp_def HP制御
-		//h ex_hp_def 伤害制御
+		//H ex_hp_def 控噬（HP制御）
+		//h ex_hp_def 控血（伤害制御）
 		//I ex_dmg_def 防冻
 		//i ex_dmg_att 冻气
-		//j wepchange 多重
 		//J itemmix_overlay 超量素材
-		//K skill10 防斩
+		//j wepchange 多重
+		//K ex_phy_def 防斩
 		//k ex_dmg_att 冰华
+		//L ex_direct 直击
 		//l ex_gender_attr 热恋
-		//M ex_attr_trap 陷阱探测
-		//m ex_attr_trap 陷阱迎击
-		//n ex_attr_pierce 贯穿
+		//M ex_attr_trap 探雷（陷阱探测）
+		//m ex_attr_trap 防雷（陷阱迎击）
 		//N ex_attr_charge 冲击 
+		//n ex_attr_pierce 物穿
+		//O ex_cursed 诅咒
 		//o ammunition 枪械一发
-		//P skill10 防殴
+		//P ex_phy_def 防殴
 		//p ex_dmg_att 带毒
+		//Q ///////////////////////////
 		//q ex_dmg_def 防毒
+		//R ex_rapid_def 防连
 		//r ex_rapid_attr 连击		
 		//S ex_attr_silencer 消音
-		//s itemmix_sync 同调调整
+		//s itemmix_sync 调整（同调合成必需）
+		//T ///////////////////////////
+		//t ex_dmg_att 音爆
 		//U ex_dmg_def 防火
 		//u ex_dmg_att 火焰
+		//V ex_seckill 弑神
+		//v ex_seckill 直死
 		//W ex_dmg_def 隔音
 		//w ex_dmg_att 音波
+		//X ///////////////////////////
 		'x' => '奇迹',
+		//Y ///////////////////////////
+		//y ex_attr_pierce 属穿
 		//Z blessstone 菁英
 		'z' => '天然',
-		);
-		
+		//| 特殊分隔符
+		//^001 itemmix_sync 同调（标记是同调产物）
+		//^002 itemmix_sync 变星
+	);
+	
+	$itemspkdesc = array(
+		'x' => '人类，可以超越神么？……',
+		'z' => '使用后会变成冴冴一样的天然呆',
+	);
+	
+	$itemspkremark = array(
+		'x' => '……',
+		'z' => '……',
+	);
 }
 
 ?>

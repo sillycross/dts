@@ -4,7 +4,9 @@ namespace skill29
 {
 	function init() 
 	{
-		define('MOD_SKILL29_INFO','club;upgrade;locked;');
+		define('MOD_SKILL29_INFO','club;upgrade;feature;');
+		eval(import_module('clubbase'));
+		$clubdesc_h[13] = $clubdesc_a[13] = '初始生命上限+200，每次升级额外获得5-7点生命上限<br>技能点换取生命上限数值大幅提高';//根性的特性显示是在skill31里
 	}
 	
 	function acquire29(&$pa)
@@ -54,7 +56,7 @@ namespace skill29
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('lvlctl'));
-		if (\skillbase\skill_query(29,$pa)) $lvuphp += rand ( 6, 9 );
+		if (\skillbase\skill_query(29,$pa)) $lvuphp += rand ( 5, 7 );
 		$chprocess($pa);
 	}
 	

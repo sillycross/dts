@@ -69,7 +69,7 @@ namespace skill210
 		return 3;
 	}
 	
-	/*function get_hitrate(&$pa,&$pd,$active)
+	/*function get_hitrate_multiplier(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!\skillbase\skill_query(210,$pd) || !(check_skill210_state($pd)==1) || $pd['club']!=2 || $pd['wepk']!='WK') return $chprocess($pa, $pd, $active);
@@ -79,7 +79,7 @@ namespace skill210
 	function get_basic_ex_dmg(&$pa,&$pd,$active,$key)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(210,$pa) || !(check_skill210_state($pa)==1) || $pa['wepk']!='WK') return $chprocess($pa, $pd, $active,$key);
+		if (!\skillbase\skill_query(210,$pa) || !(check_skill210_state($pa)==1) || \weapon\get_skillkind($pa,$pd,$active) != 'wk') return $chprocess($pa, $pd, $active,$key);
 		eval(import_module('ex_dmg_att'));
 		$var_210=$pa['att']/$ex_wep_dmg[$key];
 		if ($pa['club']!=2) $var_210=$var_210/2;
@@ -93,7 +93,7 @@ namespace skill210
 		eval(import_module('logger','skill210'));
 		$var_210=20;
 		if ($pa['card']==5) $var_210=40;
-		if ((\skillbase\skill_query(210,$pa))&&(check_skill210_state($pa)==1)&&(rand(0,99)<$var_210)&&($pa['wep_kind']=='K')&&($pa['club']!=2)) 
+		if ((\skillbase\skill_query(210,$pa))&&(check_skill210_state($pa)==1)&&(rand(0,99)<$var_210)&&(\weapon\get_skillkind($pa,$pd,$active) == 'wk')&&($pa['club']!=2)) 
 		{
 			$z=2;
 			if ($active)
@@ -111,7 +111,7 @@ namespace skill210
 		eval(import_module('logger','skill210'));
 		$var_210=20;
 		if ($pa['card']==5) $var_210=40;
-		if ((\skillbase\skill_query(210,$pa))&&(check_skill210_state($pa)==1)&&(rand(0,99)<$var_210)&&($pa['wep_kind']=='K')&&($pa['club']==2)) 
+		if ((\skillbase\skill_query(210,$pa))&&(check_skill210_state($pa)==1)&&(rand(0,99)<$var_210)&&(\weapon\get_skillkind($pa,$pd,$active) == 'wk')&&($pa['club']==2)) 
 		{
 			$z=2;
 			if ($active)

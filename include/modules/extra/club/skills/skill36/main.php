@@ -48,7 +48,7 @@ namespace skill36
 		else
 		{
 			$rcost = get_rage_cost36($pa);
-			if ($pa['rage']>=$rcost && $pa['wepk']=='WP')
+			if ($pa['rage']>=$rcost && \weapon\get_skillkind($pa,$pd,$active) == 'wp')
 			{
 				eval(import_module('logger'));
 				if ($active)
@@ -78,6 +78,7 @@ namespace skill36
 		return 100;
 	}
 	
+	//若要接管此函数，请阅读base\battle\battle.php里的注释，并加以判断
 	function check_can_counter(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

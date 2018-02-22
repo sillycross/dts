@@ -1,0 +1,20 @@
+<!--{eval eval(import_module('skill269'));}-->
+<!--{eval $___TEMP_SKILL_ID=269;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+浴血
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<span class="yellow">战斗技</span>：附加等于<br><span class="yellow">你与敌方当前生命差值的一半</span>与<span class="yellow">你25%生命上限</span>中较大者的物理伤害。<br>
+发动消耗<span class="yellow">$ragecost</span>点怒气 <span class="clan">或者</span> <span class="yellow">$ragecost0</span>点怒气+<span class="red">附加伤害数值的</span>当前生命
+</span></td>
+<td class=b3 width=96>
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+21级时解锁
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

@@ -10,27 +10,23 @@
 持投系武器方可发动，消耗<span class="yellow">$ragecost</span>点怒气
 </span></td>
 <td class=b3 width=96>
-<!--这个只是一个假的按钮，实际点击的是下面那个-->
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
-<!--{if $skillpoint>=$unlockcost}-->
-<input id="skill49_unlock_button" type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill49_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="解锁">
-<!--{else}-->
-<input type="button" style="width:46px" disabled="true" value="解锁">
-<!--{/if}-->
-<!--{/if}-->
+	<!--这个只是一个假的按钮，实际点击的是下面那个-->
+	<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+	<!--{if $skillpoint>=$unlockcost}-->
+	<input id="skill49_unlock_button" type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill49_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="解锁">
+	<!--{else}-->
+	<input type="button" style="width:46px" disabled="true" value="解锁">
+	<!--{/if}-->
+	<!--{/if}-->
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
 <!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
-<span class="yellow">
-<span style="float:left;width:46px;min-width:46px;max-width:46px;">&nbsp;</span>
-消耗<span>$unlockcost</span>点技能点解锁
-<span style="float:right;margin-right:1px;">
+<div class="yellow">消耗<span>$unlockcost</span>点技能点解锁
 <!--{if $skillpoint>=$unlockcost}-->
-<input type="button" style="width:47px" onclick="$('mode').value='special';$('command').value='skill49_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');$('skill49_unlock_button').disabled=true;this.disabled=true;" value="解锁">
+<input type="button" style="width:47px;margin-right:25px;float:right;" onclick="$('mode').value='special';$('command').value='skill49_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');$('skill49_unlock_button').disabled=true;this.disabled=true;" value="解锁">
 <!--{else}-->
-<input type="button" style="width:47px" disabled="true" value="解锁">
+<input type="button" style="width:47px;margin-right:25px;float:right;" disabled="true" value="解锁">
 <!--{/if}-->
-</span>
-</span>
+</div>
 <!--{/if}-->
 {template MOD_CLUBBASE_SKILLDESC_END}

@@ -4,7 +4,7 @@
 	<!--{if CURSCRIPT == 'game' && $mode == 'command' && $arts}--><span><input type="button" value="卸下" onclick="$('mode').value='itemmain';$('command').value='offart';postCmd('gamecmd','command.php');return false;"</span><!--{/if}-->
 	<span><!--{if $arts}-->$tpldata['art_words']<!--{else}-->$noitm<!--{/if}--></span>
 	</TD>
-	<TD class=b3><span>$tpldata['artsk_words']</span></TD>
+	<TD class=b3><span <!--{if $tpldata['artsk_desc']}-->title="{$tpldata['artsk_desc']}"<!--{/if}-->>$tpldata['artsk_words']</span></TD>
 	<TD class=b3><span>$arte</span></TD>
 	<TD class=b3><span>$arts</span></TD>
 </tr> 

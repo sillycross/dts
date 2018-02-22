@@ -6,6 +6,8 @@ namespace wepchange
 	{
 		eval(import_module('itemmain'));
 		$itemspkinfo['j'] = '多重';
+		$itemspkdesc['j']='能切换武器模式';
+		$itemspkremark['j']='部分转换不可逆；不能使用任何方式强化或改造这个装备';
 	}
 	
 	function weaponswap()
@@ -21,18 +23,29 @@ namespace wepchange
 		}
 		
 		$oldw=$wep;
+		$wobj = get_weaponswap_obj($wep);
+		if(!empty($wobj)){
+			list($null,$wep,$wepk,$wepe,$weps,$wepsk) = $wobj;
+			$log.="<span class=\"yellow\">{$oldw}</span>变换成了<span class=\"yellow\">{$wep}</span>。<br>";
+			if(strpos($wepk,'W')!==0) {//变出非武器时自动卸下
+				\itemmain\itemoff('wep');
+			}
+			return;
+		}
+		$log.="<span class=\"yellow\">{$oldw}</span>由于改造或其他原因不能变换。<br>";
+	}
+	
+	function get_weaponswap_obj($wn)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$file = __DIR__.'/config/wepchange.config.php';
 		$wlist = openfile($file);
 		$wnum = count($wlist)-1;
 		for ($i=0;$i<=$wnum;$i++){
-			list($on,$nn,$nk,$ne,$ns,$nsk) = explode(',',$wlist[$i]);
-			if ($wep==$on){
-				$wep=$nn;$wepk=$nk;$wepe=$ne;$weps=$ns;$wepsk=$nsk;
-				$log.="<span class=\"yellow\">{$oldw}</span>变换成了<span class=\"yellow\">{$wep}</span>。<br>";
-				return;
-			}
+			$wret = explode(',',$wlist[$i]);
+			if ($wn==$wret[0]) return $wret;
 		}
-		$log.="<span class=\"yellow\">{$oldw}</span>由于改造或其他原因不能变换。<br>";
+		return array();
 	}
 	
 	function act()	
@@ -64,7 +77,7 @@ namespace wepchange
 		return $chprocess($itm,$itme);
 	}
 	
-	function use_stone($itm, $itme)
+	function use_hone($itm, $itme)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		

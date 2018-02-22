@@ -1,0 +1,46 @@
+<!--{eval $___TEMP_SKILL_ID=274;eval(import_module('skill274','clubbase'));$ustate = \clubbase\skill_check_unlocked_state(274,$who);}-->
+<!--{eval $clv = (int)\skillbase\skill_getvalue(274,'lvl');$f1 = \skill274\get_skill274_factor($clv, 0);$f2 = \skill274\get_skill274_factor($clv, 1);}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+截拳
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<span class="yellow">战斗技</span>&nbsp;&nbsp;本次攻击最终伤害增加敌方(攻击力+武器效果值)的<span class="yellow">{$f1}%</span>，<br>如果对方是NPC则为<span class="yellow">{$f2}%</span>，（但不超过对方{$skill274_factor_maxhp}%HP上限），<br>且本次战斗中「格斗」触发概率<span class="yellow">+{$skill274_263up}%</span>。空手方可发动，消耗<span class="yellow">$ragecost</span>点怒气<br>
+<!--{eval $clv = (int)\skillbase\skill_getvalue(274,'lvl'); }-->
+<!--{eval $totlv = count($upgradecost)-1; }-->
+<span class="lime">当前级别$clv/$totlv</span>&nbsp;
+<!--{if $upgradecost[$clv] !== -1}-->消耗<span class="lime">$upgradecost[$clv]</span>点技能点升至下一级<!--{/if}--><br>
+</span></td>
+<td class=b3 width=96>
+<!--这个只是一个假的按钮，实际点击的是下面那个-->
+<!--{if $ustate & 2 && !($ustate & 4)}-->
+	<input type="button" style="width:46px" value="选择">
+<!--{else}-->
+	<!--{if $upgradecost[$clv] !== -1}-->
+		<!--{if $skillpoint>=$upgradecost[$clv]}-->
+			<input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill274_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="升级">
+		<!--{else}-->
+			<input type="button" style="width:46px" disabled="true" value="升级">
+		<!--{/if}-->
+	<!--{/if}-->
+<!--{/if}-->
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if $ustate & 4}-->
+<span class="red b">
+已获得技能「{$clubskillname[$alternate_skillno274]}」，无法解锁！
+</span>
+<!--{else}-->
+	<span class="yellow">
+	<!--{if $ustate & 2}-->
+		请在右侧选择本技能。与技能「{$clubskillname[$alternate_skillno274]}」互斥。
+		<input type="button" style="width:47px;margin-right:25px;float:right;" onclick="$('mode').value='special';$('command').value='skill274_special';$('subcmd').value='upgrade';$('skillpara1').value='choose';postCmd('gamecmd','command.php');this.disabled=true;" value="选择">
+	<!--{else}-->
+		已选择。{$unlock_lvl274}级时解锁
+	<!--{/if}-->
+	</span>
+<!--{/if}-->
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

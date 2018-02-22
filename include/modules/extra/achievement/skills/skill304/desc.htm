@@ -1,19 +1,21 @@
+<!--{eval $stitle304 = \achievement_base\show_ach_title(304, $c304);}-->
+<!--{eval $atitle304 = \achievement_base\show_ach_title_2(304, $c304);}-->
 <table><tr>
 <td>
-<!--{if ($c304) }--><img src="img/ach/D.gif"><!--{else}--><img src="img/ach/N.gif"><!--{/if}-->
+	<!--{if ($c304=='0') }--><img src="img/ach/a304_n.png">
+	<!--{elseif ($c304=='1') }--><img src="img/ach/a304_1.png">
+	<!--{elseif ($c304=='2') }--><img src="img/ach/a304_2.png">
+	<!--{else}--><img src="img/ach/a304_3.png"><!--{/if}-->
 </td>
-<td valign="top" align="left">
-<b>
-<!--{if ($c304=='0') }-->不屈的生命<!--{/if}-->
-<!--{if ($c304=='1') }-->那种话最讨厌了<!--{/if}-->
-<!--{if ($c304=='2') }-->明亮的未来<!--{/if}-->
-<!--{if ($c304=='999') }-->明亮的未来<!--{/if}-->
-</b>
+<td class="ach_cont">
+<span class="ach_title" <!--{if $atitle304 }-->title="$atitle304"<!--{/if}-->>
+	$stitle304
+</span>
 <!--{if ($c304=='999') }--><span class="lime">[完成]</span><!--{else}--><!--{if ($c304==0) }--><span class="red">[未完成]</span><!--{else}--><span class="clan">[进行中]</span><!--{/if}--><!--{/if}--><br>
 <font color="yellow">合成次数： {$p304}次<br></font>
-<!--{if ($c304=='0') }--><font color="olive">奖励： 切糕100<br></font> 合成物品【KEY系生命弹】1次<br><!--{/if}-->
-<!--{if ($c304=='1') }--><font color="olive">奖励： 切糕400<br></font> 合成物品【KEY系生命弹】5次<br><!--{/if}-->
-<!--{if ($c304=='2') }--><font color="olive">奖励： 切糕1200 <span class="evergreen">卡片</span> <span class="linen">未来战士</span><br></font> 合成物品【KEY系生命弹】30次<br><!--{/if}-->
-<!--{if ($c304=='999') }--><font color="olive">奖励： 切糕1200 <span class="evergreen">卡片</span> <span class="linen">未来战士</span><br></font> 合成物品【KEY系生命弹】30次<br><!--{/if}-->
+<!--{if ($c304=='0') }--><font color="olive">奖励： 切糕100<br></font> 合成物品【KEY系生命弹】或【KEY系未来弹】1次<br><!--{/if}-->
+<!--{if ($c304=='1') }--><font color="olive">奖励： 切糕400<br></font> 合成物品【KEY系生命弹】或【KEY系未来弹】5次<br><!--{/if}-->
+<!--{if ($c304=='2') }--><font color="olive">奖励： 切糕1200 <span class="evergreen">卡片</span> <span class="clan">未来战士</span><br></font> 合成物品【KEY系生命弹】或【KEY系未来弹】30次<br><!--{/if}-->
+<!--{if ($c304=='999') }--><font color="olive">奖励： 切糕1200 <span class="evergreen">卡片</span> <span class="clan">未来战士</span><br></font> 合成物品【KEY系生命弹】或【KEY系未来弹】30次<br><!--{/if}-->
 </td>
 </tr></table>

@@ -1,12 +1,15 @@
+<!--{eval $stitle318 = \achievement_base\show_ach_title(318, $c318);}-->
+<!--{eval $atitle318 = \achievement_base\show_ach_title_2(318, $c318);}-->
+<!--{eval $dailytype318 = \achievement_base\get_daily_type(318);}-->
 <table><tr>
 <td>
-<!--{if ($c318=='0') }--><img src="img/ach/N.gif"><!--{/if}-->
-<!--{if ($c318!='0') }--><img src="img/ach/D.gif"><!--{/if}-->
+	<!--{if ($c318=='0') }--><img src="img/ach/daily{$dailytype318}_n.png">
+	<!--{else}--><img src="img/ach/daily{$dailytype318}_1.png"><!--{/if}-->
 </td>
-<td valign="top" align="left">
-<b>
-风祭之旅
-</b>
+<td class="ach_cont">
+<span class="ach_title" <!--{if $atitle318 }-->title="$atitle318"<!--{/if}-->>
+	$stitle318
+</span>
 <!--{if ($c318=='999') }--><span class="lime">[完成]</span><!--{else}--><!--{if ($c318==0) }--><span class="red">[未完成]</span><!--{else}--><span class="clan">[进行中]</span><!--{/if}--><!--{/if}--><br>
 <font color="yellow">目前进度： {$p318}次<br></font>
 <font color="olive">奖励： 切糕573 <br></font> 完成结局：幻境解离 1次<br>

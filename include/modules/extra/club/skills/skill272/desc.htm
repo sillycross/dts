@@ -1,0 +1,42 @@
+<!--{eval eval(import_module('sys','skill272','itemmain'));}-->
+<!--{eval $___TEMP_SKILL_ID=272;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+吸光
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<!--{eval $skill272_lst = (int)\skillbase\skill_getvalue(272,'lastuse'); $skill272_time = ($now-$skill272_lst);$skill272_cd_left=($skill272_cd+$skill272_act_time-$skill272_time);$skill272_rem=($skill272_act_time-$skill272_time);}-->
+选择1个装备/道具，<span class="yellow">必须具有以下属性1个以上：</span><br>
+<span class="grey">
+<!--{eval $i=1;}-->
+<!--{loop \skill272\create_effect_list272() $skval}-->
+$itemspkinfo[$skval] 
+<!--{eval $i++;}-->
+<!--{if $i%10==0}--><br><!--{/if}-->
+<!--{/loop}-->
+</span>
+<br>
+你将吸收掉这些属性，并且战斗属性伤害增加<span class="yellow">吸收属性数目 x {$skill272_factor}%</span>。<br>
+发动后<span class="clan">{$skill272_act_time}</span>秒有效，冷却时间<span class="clan">$skill272_cd</span>秒。<br>
+<!--{if $skill272_time>$skill272_act_time && $skill272_time<$skill272_cd+$skill272_act_time}-->
+	<span class="clan">技能冷却时间还剩<span>$skill272_cd_left</span>秒。</span><br>
+<!--{elseif $skill272_time<=$skill272_act_time}-->
+	<!--{eval $effect272 = $skill272_factor * \skillbase\skill_getvalue(272,'num',$pa);}-->
+	<span class="yellow">技能发动中，属性伤害增加{$effect272}%！持续时间还剩<span>$skill272_rem</span>秒。</span><br>
+<!--{/if}-->
+</span></td>
+<td class=b3 width=96>
+<!--{if $skill272_time>$skill272_cd+$skill272_act_time}-->
+<input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill272_special';$('subcmd').value='';postCmd('gamecmd','command.php');this.disabled=true;" value="发动">
+<!--{else}-->
+<input type="button" style="width:46px" disabled="true" value="发动">
+<!--{/if}-->
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+15级时解锁
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

@@ -11,7 +11,7 @@ namespace smartmix
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','itemmix'));
 		$mix_res = array();		
-		$itm = \itemmix\itemmix_name_proc($itm);
+		$itm = htmlspecialchars_decode(\itemmix\itemmix_name_proc($itm));
 		foreach ($mixinfo as $ma){
 			$ma['type'] = 'normal';
 			//隐藏合成是无法查到的
@@ -42,17 +42,19 @@ namespace smartmix
 		for($i=1;$i<=6;$i++){
 			if(!empty(${'itms'.$i})){
 				$packn[] = $i;
-				$packname[] = \itemmix\itemmix_name_proc(${'itm'.$i});
+				//$packname[] = \itemmix\itemmix_name_proc(${'itm'.$i});
 			}
 		}
 		//生成道具序号的全组合
 		$fc = full_combination($packn, 2);
 		//基于全组合生成道具名的组合
-		$fcname = full_combination($packname, 2);
+		//$fcname = full_combination($packname, 2);
+		
 		//所有的组合全部判断一遍是否可以合成，最简单粗暴和兼容
 		$mix_available = $mix_overlay_available = $mix_sync_available = array();
-		foreach($fcname as $fnval){
-			$mix_res = \itemmix\itemmix_recipe_check($fnval);
+		foreach($fc as $fcval){
+
+			$mix_res = \itemmix\itemmix_get_result($fcval);
 			if($mix_res){
 				//$mix_res['type'] = 'normal';
 				$mix_available[] = $mix_res;
@@ -103,79 +105,77 @@ namespace smartmix
 	}
 	
 	//显示之前的处理
+	function smartmix_show()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','logger','input','itemmix'));
+		if(isset($itemindex)){
+			$mix_res = smartmix_find_recipe($itemindex, 1 + 2);				
+			if($mix_res){
+				$log .= '<span class="yellow">'.$itemindex.'</span>涉及的合成公式有：<br>';
+				foreach($mix_res as $mval){
+					if(!isset($mval['type']) || $mval['type'] == 'normal'){
+						foreach($mval['stuff'] as $ms){
+							$log .= parse_smartmix_recipelink($ms).' + ';
+						}
+						$log = substr($log,0,-3);
+					}
+					$mr = $mval['result'][0];
+					$log .= ' → '.parse_smartmix_recipelink($mr, \itemmix\parse_itemmix_resultshow($mval['result'])).'<br>';
+				}
+			}	else{
+				$log .= '所选道具不存在相关的合成公式。<br>';
+			}
+		}else{
+			list($mix_available,$mix_overlay_available,$mix_sync_available) = smartmix_check_available();
+			if(empty($mix_available) && empty($mix_overlay_available) && empty($mix_sync_available)){
+				$log .= '可合成的道具不存在。<br>';
+			}else{
+				$log .= '<span>合成提示：</span><br>';
+				$shown_list = array();
+				foreach($mix_available as $mlist){//第一层：不同配方
+					$mstuff = $mresult = '';
+					$o_type = '';
+					foreach ($mlist as $mval){//第二层：不同结果
+						if(!empty($o_type) && $o_type != $mval['type']) {//换类型时把上一合成类别显示，并且清空显示的配方和结果列表
+							$mtstr = '';
+							if(isset($mix_type[$o_type])) $mtstr = $mix_type[$o_type];
+							$show_str = '<span>'.$mstuff.'</span>可'.$mtstr.'合成：<ul>'.$mresult.'</ul><br>';
+							if(!in_array($show_str, $shown_list)){
+								$shown_list[] = $show_str;
+								$log .= $show_str;
+							}
+							$mstuff = $mresult = '';
+						}
+						$o_type = $mval['type'];
+						if(!$mstuff) {//配方只显示1次					
+							sort($mval['stuff']);			
+							foreach($mval['stuff'] as $ms){
+								$mstuff .= parse_smartmix_recipelink($ms).' + ';
+							}
+							$mstuff = substr($mstuff,0,-3);
+						}
+						$mresult .= '<li>'.parse_smartmix_recipelink($mval['result'][0], \itemmix\parse_itemmix_resultshow($mval['result']), 'yellow').'</li>';
+					}
+					$mtstr = '';
+					if(isset($mix_type[$o_type])) $mtstr = $mix_type[$o_type];
+					$show_str = '<span>'.$mstuff.'</span>可'.$mtstr.'合成：<ul>'.$mresult.'</ul>';
+					if(!in_array($show_str, $shown_list)){
+						$shown_list[] = $show_str;
+						$log .= $show_str;
+					}
+				}
+			}
+		}
+		$log .= '<br>';
+	}
+	
+	//显示之前的处理
 	function act(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','input','itemmix'));
 		if ($mode == 'command' && $command == 'itemmain' && $itemcmd=='itemmix'){
-			if(isset($itemindex)){
-				$mix_res = smartmix_find_recipe($itemindex, 1 + 2);				
-				if($mix_res){
-					$log .= '<span class="yellow">'.$itemindex.'</span>涉及的合成公式有：<br>';
-					foreach($mix_res as $mval){
-						if(!isset($mval['type']) || $mval['type'] == 'normal'){
-							foreach($mval['stuff'] as $ms){
-								$log .= parse_smartmix_recipelink($ms).' + ';
-							}
-							$log = substr($log,0,-3);
-						}
-						$mr = $mval['result'][0];
-						$log .= ' → '.parse_smartmix_recipelink($mr, \itemmix\parse_itemmix_resultshow($mval['result'])).'<br>';
-					}
-				}	else{
-					$log .= '所选道具不存在相关的合成公式。<br>';
-				}
-			}else{
-				list($mix_available,$mix_overlay_available,$mix_sync_available) = smartmix_check_available();
-				if(empty($mix_available) && empty($mix_overlay_available) && empty($mix_sync_available)){
-					$log .= '可合成的道具不存在。<br>';
-				}else{
-					$log .= '<span>合成提示：</span><br>';
-					foreach($mix_available as $mval){
-						$mstuff = '';
-						foreach($mval['stuff'] as $ms){
-							$mstuff .= parse_smartmix_recipelink($ms).' + ';
-						}
-						$mstuff = substr($mstuff,0,-3);
-						$mresult = parse_smartmix_recipelink($mval['result'][0], \itemmix\parse_itemmix_resultshow($mval['result']), 'yellow');
-						$log .= '<span>'.$mstuff.'</span>可合成'.$mresult.'<br>';
-					}
-					foreach($mix_overlay_available as $mval){
-						$ostuff = $oresult = '';
-						foreach($mval as $mv){
-							foreach($mv['list'] as $ml){
-								$ostuff .= parse_smartmix_recipelink(${'itm'.$ml}).' + ';
-							}
-							$ostuff = substr($ostuff,0,-3).' / ';
-							if(!$oresult){
-								foreach($mv['choices'] as $mc){
-									$oresult .= '<li>'.\itemmix\parse_itemmix_resultshow($mc).'</li>';
-								}
-								//$oresult = substr($oresult,0,-3);
-							}
-						}
-						$ostuff = substr($ostuff,0,-3);
-						$log .= '<span>'.$ostuff.'</span>可超量合成'.$oresult.'<br>';
-					}
-					foreach($mix_sync_available as $mval){
-						$sstuff = $sresult = '';
-						foreach($mval as $mv){
-							foreach($mv['list'] as $ml){
-								$sstuff .= parse_smartmix_recipelink(${'itm'.$ml}).' + ';
-							}
-							$sstuff = substr($sstuff,0,-3).' / ';
-							if(!$sresult){
-								foreach($mv['choices'] as $mc){
-									$sresult .= '<li>'.\itemmix\parse_itemmix_resultshow($mc).'</li>';
-								}
-								//$sresult = substr($sresult,0,-3);
-							}
-						}
-						$sstuff = substr($sstuff,0,-3);
-						$log .= '<span>'.$sstuff.'</span>可同调合成'.$sresult.'<br>';
-					}
-				}
-			}
-			$log .= '<br>';
+			smartmix_show();
 		}
 		$chprocess();
 	}

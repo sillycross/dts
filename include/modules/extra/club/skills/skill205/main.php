@@ -3,18 +3,29 @@
 namespace skill205
 {
 
-	$ragecost=85;
+	$ragecost=75;
+	
+	$alternate_skillno205 = 265;//互斥技能编号
+	$unlock_lvl205 = 15;//解锁等级
 	
 	function init() 
 	{
-		define('MOD_SKILL205_INFO','club;battle;');
-		eval(import_module('clubbase'));
+		define('MOD_SKILL205_INFO','club;battle;upgrade;');
+		eval(import_module('clubbase','wep_j'));
 		$clubskillname[205] = '咆哮';
+		$wj_allowed_bskill[] = 205;
 	}
-	
+
 	function acquire205(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		\skillbase\skill_setvalue(205,'unlocked','0',$pa);	//是否已经被解锁
+	}
+	
+	function unlock205(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		\skillbase\skill_setvalue(205,'unlocked','1',$pa);
 	}
 	
 	function lost205(&$pa)
@@ -25,7 +36,8 @@ namespace skill205
 	function check_unlocked205(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return $pa['lvl']>=15;
+		if(\clubbase\skill_check_unlocked_state(205, $pa) > 0) return 0;
+		else return 1;
 	}
 	
 	function get_rage_cost205(&$pa = NULL)
@@ -48,7 +60,7 @@ namespace skill205
 		else
 		{
 			$rcost = get_rage_cost205($pa);
-			if (($pa['rage']>=$rcost)&&($pa['wep_kind']=="G"))
+			if ( $pa['rage']>=$rcost && \weapon\get_skillkind($pa,$pd,$active) == 'wg')
 			{
 				eval(import_module('logger'));
 				if ($active)
@@ -70,6 +82,26 @@ namespace skill205
 		$chprocess($pa, $pd, $active);
 	}	
 	
+	function upgrade205()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('skill205','player','logger','clubbase'));
+		if (!\skillbase\skill_query(205))
+		{
+			$log .= '你没有这个技能。<br>';
+			return;
+		}
+		if (\skillbase\skill_getvalue(205,'unlocked') > 0)
+		{
+			$log .= '你已经选择了这个技能<br>';
+			return;
+		}
+
+		\skillbase\skill_setvalue(205,'unlocked',1);
+		
+		$log.='技能「'.$clubskillname[205].'」选择成功。<br>';
+	}
+	
 	function get_physical_dmg_multiplier(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -85,7 +117,7 @@ namespace skill205
 		return array_merge($r,$chprocess($pa,$pd,$active));
 	}
 	
-	function calculate_ex_attack_dmg(&$pa, &$pd, $active)
+	function ex_attack_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($pa['bskill']==205) 
@@ -101,14 +133,25 @@ namespace skill205
 		return $chprocess($pa, $pd, $active);
 	}
 	
-	function calculate_ex_single_dmg_multiple(&$pa, &$pd, $active, $key)
+//	function calculate_ex_single_dmg_multiple(&$pa, &$pd, $active, $key)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		if ($pa['bskill']==205) 
+//		{
+//			return $chprocess($pa, $pd, $active, $key)*1.8;
+//		}
+//		return $chprocess($pa, $pd, $active, $key);
+//	}
+//	
+	function calculate_ex_attack_dmg_multiplier(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$r = Array();
 		if ($pa['bskill']==205) 
 		{
-			return $chprocess($pa, $pd, $active, $key)*1.8;
+			$r[] = 1.8;
 		}
-		return $chprocess($pa, $pd, $active, $key);
+		return array_merge($r,$chprocess($pa,$pd,$active));
 	}
 	
 	function calculate_weapon_wound_multiplier(&$pa, &$pd, $active, $hurtposition) 

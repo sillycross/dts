@@ -2,6 +2,13 @@
 
 namespace skill302
 {
+	//旧成就精力所限，未全部修改，请以skill300、skill313或skill332之后的成就为模板！
+	$ach302_name = array(
+		0=>'永恒世界的住人',
+		1=>'幻想世界的往人',
+		2=>'永恒的覆唱',
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL302_INFO','achievement;');
@@ -25,23 +32,26 @@ namespace skill302
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')					
 			$x=0;						
-		else	$x=base64_decode_number($data);		
+		else $x=$data;
 		$ox=$x;
 		$x+=\skillbase\skill_getvalue(302,'cnt',$pa);		
 		$x=min($x,(1<<30)-1);
 		
 		if (($ox<1)&&($x>=1)){
-			\cardbase\get_qiegao(50,$pa);
+			//\cardbase\get_qiegao(50,$pa);
+			\achievement_base\ach_create_prize_message($pa, 302, 0, 50);
 		}
 		if (($ox<5)&&($x>=5)){
-			\cardbase\get_qiegao(300,$pa);
+			//\cardbase\get_qiegao(300,$pa);
+			\achievement_base\ach_create_prize_message($pa, 302, 1, 300);
 		}
 		if (($ox<30)&&($x>=30)){
-			\cardbase\get_qiegao(1000,$pa);
-			\cardbase\get_card(66,$pa);
+			//\cardbase\get_qiegao(1000,$pa);
+			//\cardbase\get_card(66,$pa);
+			\achievement_base\ach_create_prize_message($pa, 302, 2, 1000, 66);
 		}
 		
-		return base64_encode_number($x,5);		
+		return $x;
 	}
 	
 	function itemmix_success()
@@ -61,7 +71,7 @@ namespace skill302
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')
 			$p302=0;
-		else	$p302=base64_decode_number($data);	
+		else	$p302=$data;	
 		$c302=0;
 		if ($p302>=30){
 			$c302=999;

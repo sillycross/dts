@@ -10,6 +10,17 @@ namespace weapon
 		$battle_equip_list=array_merge($battle_equip_list,$wep_equip_list);
 	}
 	
+	function parse_itmk_desc($k_value, $sk_value) {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($k_value, $sk_value);
+		if(strpos($k_value,'W')===0) {
+			$wep_kind = substr($k_value,1,1);
+			eval(import_module('weapon'));
+			$ret .= '攻击方式为'.$attinfo[$wep_kind].'，依赖'.$skilltypeinfo[$skillinfo[$wep_kind]].'熟';
+		}
+		return $ret;
+	}
+	
 	function get_att_multiplier(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -55,18 +66,27 @@ namespace weapon
 		return $pd['internal_def'];
 	}
 	
-	function get_skill_by_kind(&$pa, &$pd, $active, $wep_kind)
+	function get_skill_by_kind(&$pa, &$pd, $active, $wep_skillkind)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('weapon'));
-		return $pa[$wep_kind];
+		return $pa[$wep_skillkind];
 	}
 	
 	function get_skill(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('weapon'));
-		return get_skill_by_kind($pa, $pd, $active, $skillinfo[$pa['wep_kind']]);
+		return get_skill_by_kind($pa, $pd, $active, substr(get_skillkind($pa,$pd,$active),0,2));//使双系武器能直接回避系别战斗技的判定，但又能正常判断熟练度
+	}
+	
+	function get_skillkind(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('weapon'));
+		if(!empty($pa['wep_kind'])) $wep_kind = $pa['wep_kind'];
+		else $wep_kind = get_attack_method($pa);
+		return $skillinfo[$wep_kind];
 	}
 	
 	function get_attack_method(&$pdata)
@@ -99,14 +119,43 @@ namespace weapon
 		$chprocess($pdata);
 	}
 	
-	function get_hitrate(&$pa,&$pd,$active)
+	//命中率基础值，这个函数应该是加算
+	function get_hitrate_base(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
 		eval(import_module('weapon'));
 		$hitrate = $hitrate_obbs[$pa['wep_kind']];
 		$hitrate += round($pa['fin_skill'] * $hitrate_r[$pa['wep_kind']]); 
 		$hitrate = min($hitrate, $hitrate_max_obbs[$pa['wep_kind']]);
+		return $hitrate;
+	}
+	
+	//命中率加成值，这个函数应该是乘算
+	function get_hitrate_multiplier(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 1;
+	}
+	
+	//命中率修正值
+	function get_hitrate_change(&$pa,&$pd,$active,$hitrate)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $hitrate;
+	}
+	
+	function get_hitrate(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$hitrate = get_hitrate_base($pa,$pd,$active);
+		//echo '命中率基础值'.$hitrate;
+		$hitrate_r = get_hitrate_multiplier($pa,$pd,$active);
+		$hitrate *= $hitrate_r;
+		//echo '命中率加成值'.$hitrate;
+		$hitrate_c = get_hitrate_change($pa,$pd,$active,$hitrate);
+		$hitrate = $hitrate_c;
+		//echo '命中率修正值'.$hitrate;
+		
 		return $hitrate;
 	}
 	
@@ -135,19 +184,53 @@ namespace weapon
 		$pa['fin_att']=get_att($pa,$pd,$active)*get_att_multiplier($pa,$pd,$active);
 		$pd['fin_def']=get_def($pa,$pd,$active)*get_def_multiplier($pa,$pd,$active);
 		$att_pow=$pa['fin_att']; $def_pow=$pd['fin_def']; $ws=$pa['fin_skill']; $wp_kind=$pa['wep_kind'];
+		if($def_pow <= 0) $def_pow = 1;
 		$damage = ($att_pow/$def_pow)*$ws*$skill_dmg[$wp_kind];
 		$fluc = get_weapon_fluc_percentage($pa, $pd, $active);
 		$dmg_factor = (100+$fluc)/100;
 		$damage = round ( $damage * $dmg_factor * rand ( 4, 10 ) / 10 );
 		if ($damage<1) $damage=1;
+		
+		//基础伤害的固定值，只跟武器有关
+		$pa['mult_words_pridmgbs'] = $damage;
+		$primary_dmg_fixed = get_primary_fixed_dmg($pa, $pd, $active);
+		if($primary_dmg_fixed) {
+			$damage += $primary_dmg_fixed;
+			$pa['mult_words_pridmgbs'] .= '+'.$pa['mult_words_pridmgfxdbs'];
+		}
 		return $damage;
 	}
 	
-	//基础伤害修正系数
+	//基础固定伤害（灵和重枪之类）
+	function get_primary_fixed_dmg(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$pa['mult_words_pridmgfxdbs'] = '';
+		$fxddmg = get_primary_fixed_dmg_base($pa, $pd, $active);
+		if(!$fxddmg) return 0;
+		list($fxddmg, $mult_words, $pa['mult_words_pridmgfxdbs']) = \attack\apply_multiplier($fxddmg, get_primary_fixed_dmg_multiplier($pa, $pd, $active), '', $pa['mult_words_pridmgfxdbs']);
+		return $fxddmg;
+	}
+	
+	//基础固定伤害（灵和重枪之类）
+	function get_primary_fixed_dmg_base(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 0;
+	}
+	
+	//基础固定伤害加成值（金刚）
+	function get_primary_fixed_dmg_multiplier(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return array();
+	}
+	
+	//基础伤害加成系数
 	function get_primary_dmg_multiplier(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return 1.0;
+		return array();
 	}
 	
 	//固定伤害
@@ -157,31 +240,52 @@ namespace weapon
 		return 0;
 	}
 	
-	//固定伤害修正系数
+	//固定伤害加成系数
 	function get_fixed_dmg_multiplier(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return 1.0;
+		return array();
 	}
 	
 	//物理伤害
 	function get_physical_dmg(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$primary_dmg=get_primary_dmg($pa, $pd, $active) * get_primary_dmg_multiplier($pa, $pd, $active);
+		eval(import_module('logger'));
+		$primary_dmg_base = get_primary_dmg($pa, $pd, $active);
+		list($primary_dmg, $mult_words, $mult_words_prmdmg) = \attack\apply_multiplier($primary_dmg_base, get_primary_dmg_multiplier($pa, $pd, $active), '<:primary_dmg:>', $pa['mult_words_pridmgbs']);
+
 		$fixed_dmg=get_fixed_dmg($pa, $pd, $active);
-		if ($fixed_dmg>0) $fixed_dmg *= get_fixed_dmg_multiplier($pa, $pd, $active);
+		if ($fixed_dmg>0) {
+			$o_fixed_dmg = $fixed_dmg;
+			list($fixed_dmg, $mult_words, $mult_words_fxddmg) = \attack\apply_multiplier($fixed_dmg, get_fixed_dmg_multiplier($pa, $pd, $active), 'yellow');
+
+		}
+		if(!empty($mult_words_fxddmg)) $pa['mult_words_phydmgbs'] = $mult_words_prmdmg.'+'.$mult_words_fxddmg;
+		else $pa['mult_words_phydmgbs'] = $mult_words_prmdmg;
+//		elseif($primary_dmg_base == $primary_dmg) {//特殊的台词顺序，如果既没有基础物伤加成，也没有物伤固定加成，就不显示基础物伤这句话
+//			$primary_dmg_log = '';
+//			$pa['primary_dmg_log_flag'] = 0;
+//		}
+//		$log = str_replace('<:primary_dmg_log:>', $primary_dmg_log, $log);
 		return round($primary_dmg + $fixed_dmg);
 	}
 	
-	//物理伤害修正系数
-	//注意由于物理伤害修正系数会在log里显示出来，所以决定这里返回一个数组，代表各次修正，最后结果是所有元素的乘积
-	//请注意array_merge的次序，应该把你的结果放在array的最前面，这样各次修正数值出现次序才是和判定log的出现次序一致的
+	//物理伤害加成系数
+	//注意由于物理伤害加成系数会在log里显示出来，所以决定这里返回一个数组，代表各次加成，最后结果是所有元素的乘积
+	//请注意array_merge的次序，应该把你的结果放在array的最前面，这样各次加成数值出现次序才是和判定log的出现次序一致的
 	//即，应该写return array_merge(Array(数值),$chprocess($pa,$pd,$active));而不是反过来
 	function get_physical_dmg_multiplier(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return Array();
+	}
+	
+	//变化阶段，如果有需要最后变化物理伤害的技能请继承这里
+	function get_physical_dmg_change(&$pa, &$pd, $active, $dmg)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $dmg;
 	}
 	
 	function calculate_physical_dmg(&$pa, &$pd, $active)
@@ -192,19 +296,31 @@ namespace weapon
 		$multiplier = get_physical_dmg_multiplier($pa, $pd, $active);
 		$dmg = get_physical_dmg($pa, $pd, $active);
 		
-		$fin_dmg=$dmg; $mult_words='';
-		foreach ($multiplier as $key)
-		{
-			$fin_dmg=$fin_dmg*$key;
-			$mult_words.="×{$key}";
+		$primary_dmg_color = 'yellow';
+		list($fin_dmg, $mult_words, $mult_words_phydmg) = \attack\apply_multiplier($dmg, $multiplier, '<:fin_dmg:>', $pa['mult_words_phydmgbs']);
+		$mult_words_phydmg = \attack\equalsign_format($fin_dmg, $mult_words_phydmg, '<:fin_dmg:>');
+//		if(strpos($mult_words_phydmgbs,'+')!==false || strpos($mult_words_phydmgbs,'×')!==false) 
+//			$mult_words_phydmgbs = $mult_words_phydmgbs.'=<span class="<:fin_dmg:>">'.$fin_dmg.'</span>';
+//		else $mult_words_phydmgbs = '<span class="<:fin_dmg:>">'.$fin_dmg.'</span>';
+		$log .= '造成了'.$mult_words_phydmg.'点物理伤害！<br>';
+//		if(empty($pa['primary_dmg_log_flag'])) $log .= '造成了'.$mult_words.'点物理伤害！<br>';
+//		elseif($fin_dmg != $dmg) $log .= '加成后的物理伤害：'.$mult_words.'点。<br>';
+//		else $primary_dmg_color = 'red';
+//		$log = str_replace('<:primary_dmg:>', $primary_dmg_color, $log);
+		
+		$replace_color = 'red';
+		
+		$fin_dmg_change = get_physical_dmg_change($pa, $pd, $active, $fin_dmg);
+		if($fin_dmg_change != $fin_dmg) {
+			$fin_dmg = $fin_dmg_change;
+			$log .= "总物理伤害：<span class=\"red\">{$fin_dmg}</span>。<br>";
+			$replace_color = 'yellow';
 		}
-		$fin_dmg=round($fin_dmg);
-		if ($fin_dmg < 1) $fin_dmg = 1;
-		if ($mult_words=='')
-			$log .= "造成<span class=\"red\">{$dmg}</span>点伤害！<br>";
-		else  $log .= "造成{$dmg}{$mult_words}＝<span class=\"red\">{$fin_dmg}</span>点伤害！<br>";
+		$log = str_replace('<:fin_dmg:>', $replace_color, $log);//如果有伤害变化，那么前面的台词显示黄色，否则显示红色（最终值）
+		
 		$pa['physical_dmg_dealt']+=$fin_dmg;
 		$pa['dmg_dealt']+=$fin_dmg;
+		$pa['mult_words_fdmgbs'] = \attack\add_format($fin_dmg, $pa['mult_words_fdmgbs']);
 	}
 	
 	function calculate_wepimp_rate(&$pa, &$pd, $active)
@@ -267,13 +383,15 @@ namespace weapon
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('weapon','logger'));
+		if(isset($attinfo2[$pa['wep_kind']])) $attwords = $attinfo2[$pa['wep_kind']];
+		else $attwords = $attinfo[$pa['wep_kind']];
 		if ($active)
 		{
-			$log .= "使用{$pa['wep']}<span class=\"yellow\">".$attinfo[$pa['wep_kind']]."</span>{$pd['name']}！<br>";
+			$log .= "使用{$pa['wep']}<span class=\"yellow\">{$attwords}</span>{$pd['name']}！<br>";
 		}
 		else  
 		{
-			$log .= "{$pa['name']}使用{$pa['wep']}<span class=\"yellow\">".$attinfo[$pa['wep_kind']]."</span>你！<br>";
+			$log .= "{$pa['name']}使用{$pa['wep']}<span class=\"yellow\">{$attwords}</span>你！<br>";
 		}
 		
 		$pd['deathmark']=$wepdeathstate[$pa['wep_kind']];
@@ -328,24 +446,81 @@ namespace weapon
 	function calculate_attack_weapon_skill_gain(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$skillup = calculate_attack_weapon_skill_gain_base($pa, $pd, $active);
+		$skillup *= calculate_attack_weapon_skill_gain_multiplier($pa, $pd, $active);
+		$skillup = calculate_attack_weapon_skill_gain_change($pa, $pd, $active, $skillup);
+		return $skillup;
+	}
+	
+	//计算武器熟练获得基础值为1点
+	function calculate_attack_weapon_skill_gain_base(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return 1;
 	}
 	
+	//加成值
+	function calculate_attack_weapon_skill_gain_multiplier(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 1;
+	}
+	
+	//修正值
+	function calculate_attack_weapon_skill_gain_change(&$pa, &$pd, $active, $skillup)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $skillup;
+	}
+	
 	//增加熟练
-	function apply_weapon_skill_gain(&$pa, &$pd, $active)
+	function apply_weapon_skill_gain(&$pa, &$pd, $active, $skillup)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('weapon'));
-		$pa[$skillinfo[$pa['wep_kind']]]+=calculate_attack_weapon_skill_gain($pa, $pd, $active);
+		$pa[$skillinfo[$pa['wep_kind']]]+=$skillup;
+	}
+	
+	//攻击经验基础值
+	function calculate_attack_exp_gain_base(&$pa, &$pd, $active, $fixed_val=0)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if($fixed_val) $expup = $fixed_val;//如果设了固定值，则基础值视为这个固定值
+		else {
+			$expup = round ( (calculate_attack_lvl($pd) - calculate_attack_lvl($pa)) / 3 );
+			$expup = $expup > 0 ? $expup : 1;
+		}
+		return $expup;
+	}
+	
+	function calculate_attack_lvl(&$pdata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $pdata['lvl'];
+	}
+	
+	//加成值
+	function calculate_attack_exp_gain_multiplier(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 1;
+	}
+	
+	//修正值
+	function calculate_attack_exp_gain_change(&$pa, &$pd, $active, $expup)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $expup;
 	}
 	
 	//计算攻击经验获得
-	function calculate_attack_exp_gain(&$pa, &$pd, $active)
+	function calculate_attack_exp_gain(&$pa, &$pd, $active, $fixed_val=0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$expup = round ( ($pd['lvl'] - $pa['lvl']) / 3 );
-		$expup = $expup > 0 ? $expup : 1;
+		$expup = calculate_attack_exp_gain_base($pa, $pd, $active, $fixed_val);
+		$expup *= calculate_attack_exp_gain_multiplier($pa, $pd, $active);
+		$expup = calculate_attack_exp_gain_change($pa, $pd, $active, $expup);
 		return $expup;
 	}
 	
@@ -366,8 +541,15 @@ namespace weapon
 		apply_weapon_imp($pa, $pd, $active);
 		unset($pa['wepimp']);
 		
-		apply_weapon_skill_gain($pa, $pd, $active);
+		apply_weapon_skill_gain($pa, $pd, $active, calculate_attack_weapon_skill_gain($pa, $pd, $active));
 		
+		$chprocess($pa, $pd, $active);
+	}
+	
+	function attack_prepare(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$pa['o_wep'] = $pa['wep']; $pd['o_wep'] = $pd['wep']; 
 		$chprocess($pa, $pd, $active);
 	}
 	
@@ -383,20 +565,42 @@ namespace weapon
 	function calculate_counter_rate(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = calculate_counter_rate_base ($pa, $pd, $active);
+		//echo '基础反击率：'.$ret;
+		$ret *= calculate_counter_rate_multiplier ($pa, $pd, $active);
+		//echo '加成后反击率：'.$ret;
+		$ret = calculate_counter_rate_change ($pa, $pd, $active, $ret);
+		//echo '修正后反击率：'.$ret;
+		return $ret;
+	}
+	
+	//反击率基础值，加算
+	function calculate_counter_rate_base(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('weapon'));
 		return $counter_obbs[$pa['wep_kind']];
 	}
 	
+	//反击率加成值，乘算
 	function calculate_counter_rate_multiplier(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return 1.0;
 	}
 	
+	//反击率修正值，直接变化
+	//若要接管此函数，请阅读base\battle\battle.php里的注释，并加以判断
+	function calculate_counter_rate_change(&$pa, &$pd, $active, $counter_rate)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $counter_rate;
+	}
+	
 	function check_counter_dice(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$counter_rate = calculate_counter_rate ($pa, $pd, $active) * calculate_counter_rate_multiplier ($pa, $pd, $active);
+		$counter_rate = calculate_counter_rate ($pa, $pd, $active);
 		$counter_dice = rand ( 0, 99 );
 		if ($counter_dice < $counter_rate) 
 			return 1;
@@ -410,12 +614,16 @@ namespace weapon
 		eval(import_module('weapon'));
 		if (isset($pa['wep_kind']))
 			return $rangeinfo[$pa['wep_kind']];
-		else  return $rangeinfo[$pa['wepk'][1]];
+		else  return $rangeinfo[get_attack_method($pa)];
 	}
 	
 	function check_counterable_by_weapon_range(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//$pa反击方有可能因为某些原因改变了攻击方式，从而要重算$wep_kind
+		$pa['wep_kind'] = get_attack_method($pa);
+		//而$pd原攻击方的攻击已经是既成事实，至少在这个函数里不需要重算$wep_kind
+		//$pd['wep_kind'] = get_attack_method($pd);
 		$r1 = get_weapon_range($pa, $active);
 		$r2 = get_weapon_range($pd, 1-$active);
 		if ($r1 >= $r2 && $r1 != 0 && $r2 != 0)
@@ -423,6 +631,7 @@ namespace weapon
 		else  return 0;
 	}
 	
+	//若要接管此函数，请阅读base\battle\battle.php里的注释，并加以判断
 	function check_can_counter(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -431,7 +640,11 @@ namespace weapon
 			if (!$chprocess($pa,$pd,$active)) return 0;
 			return check_counter_dice($pa, $pd, $active);
 		}
-		else  return 0;
+		else
+		{
+			$pa['out_of_range'] = 1;//标记一下是射程不足所致
+			return 0;
+		}
 	}
 	
 	function itemuse(&$theitem)

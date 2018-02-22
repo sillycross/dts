@@ -48,7 +48,7 @@ namespace skill38
 		else
 		{
 			$rcost = get_rage_cost38($pa);
-			if ($pa['rage']>=$rcost && $pa['wepk']=='WP')
+			if ($pa['rage']>=$rcost && \weapon\get_skillkind($pa,$pd,$active) == 'wp')
 			{
 				eval(import_module('logger'));
 				if ($active)
@@ -81,21 +81,37 @@ namespace skill38
 		return 100;
 	}
 	
-	//附加伤害
-	function strike_finish(&$pa, &$pd, $active)
+	function get_final_dmg_base(&$pa, &$pd, &$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill']!=38) return $chprocess($pa, $pd, $active);
-		eval(import_module('logger'));
-		if ($pa['is_hit'])
+		$ret = $chprocess($pa,$pd,$active);
+		if ($pa['bskill']==38 && $pa['is_hit'] && !empty($pa['skill38_dmg_extra'])) 
 		{
+			eval(import_module('logger'));
 			if ($active)
 				$log.="闷棍对体力不支的敌人造成了<span class=\"yellow\">{$pa['skill38_dmg_extra']}</span>点额外伤害！<br>";
 			else  $log.="闷棍对体力不支的你造成了<span class=\"yellow\">{$pa['skill38_dmg_extra']}</span>点额外伤害！<br>";
-			$pa['dmg_dealt']+=$pa['skill38_dmg_extra'];
+			$ret+=$pa['skill38_dmg_extra'];
+			$pa['mult_words_fdmgbs'] = \attack\add_format($pa['skill38_dmg_extra'], $pa['mult_words_fdmgbs']);
 		}
-		$chprocess($pa, $pd, $active);
+		return $ret;
 	}
+	
+	//附加伤害
+//	function strike_finish(&$pa, &$pd, $active)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		if ($pa['bskill']!=38) return $chprocess($pa, $pd, $active);
+//		eval(import_module('logger'));
+//		if ($pa['is_hit'])
+//		{
+//			if ($active)
+//				$log.="闷棍对体力不支的敌人造成了<span class=\"yellow\">{$pa['skill38_dmg_extra']}</span>点额外伤害！<br>";
+//			else  $log.="闷棍对体力不支的你造成了<span class=\"yellow\">{$pa['skill38_dmg_extra']}</span>点额外伤害！<br>";
+//			$pa['dmg_dealt']+=$pa['skill38_dmg_extra'];
+//		}
+//		$chprocess($pa, $pd, $active);
+//	}
 	
 	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{

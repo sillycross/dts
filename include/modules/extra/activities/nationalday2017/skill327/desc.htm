@@ -1,0 +1,21 @@
+<table><tr>
+<!--{eval eval(import_module('skill327'));}-->
+<td>
+<!--{if ($c327=='0') }--><img src="img/ach/N.gif">
+<!--{elseif ($c327=='999') }--><img src="img/ach/DA.gif">
+<!--{else}--><img src="img/ach/D.gif">
+<!--{/if}-->
+</td>
+<td valign="top" align="left">
+<b>
+<!--{if ($c327==0) }-->新的战场 LV1<!--{/if}-->
+<!--{if ($c327==1) }-->新的战场 LV2<!--{/if}-->
+<!--{if ($c327>=2) }-->新的战场 LV3<!--{/if}-->
+</b>
+<!--{if ($c327=='999') }--><span class="lime">[完成]</span><!--{else}--><!--{if ($c327==0) }--><span class="red">[未完成]</span><!--{else}--><span class="clan">[进行中]</span><!--{/if}--><!--{/if}--><br>
+<font color="yellow"><span>击杀总数：{$p327}名</span><br></font>
+<!--{if ($c327==0) }--><font color="olive">奖励： 切糕{$ach327_qiegao_prize[1]} <br></font> 在<span class="clan">荣耀模式</span>房间内击杀全息幻象级NPC共{$ach327_threshold[1]}次。<br><!--{/if}-->
+<!--{if ($c327==1) }--><font color="olive">奖励： 切糕{$ach327_qiegao_prize[2]}</font> <span class="clan">「Balefire Rekindle」卡片1张</span><br> 在<span class="clan">荣耀模式</span>房间内击杀全息幻象级NPC共{$ach327_threshold[2]}次。<br><!--{/if}-->
+<!--{if ($c327>=2) }--><font color="olive">奖励： 切糕{$ach327_qiegao_prize[3]}</font> <span class="clan">「Balefire Rekindle」卡片1张</span><br> 在<span class="clan">荣耀模式</span>房间内击杀全息幻象级NPC共{$ach327_threshold[3]}次。<br><!--{/if}-->
+</td>
+</tr></table>

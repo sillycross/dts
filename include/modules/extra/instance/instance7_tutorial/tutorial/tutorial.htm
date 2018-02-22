@@ -1,0 +1,27 @@
+<!--{eval eval(import_module('sys','player','tutorial'));}-->
+<!--{eval list($t_tips,$t_object) = \tutorial\init_current_tutorial(0);}-->
+<br>
+<!--{if strpos($action,'corpse')!==0 && strpos($action,'pacorpse')!==0}-->
+<span class="linen">
+{$t_tips}
+</span>
+<!--{/if}-->
+<br/>
+<!--{if $t_object == 'continue'}-->
+<input type="button" class="cmdbutton" id="continue" value="继续…" onclick="$('command').value='continue';postCmd('gamecmd','command.php');this.disabled=true;">
+<!--{/if}-->
+<div style="<!--{if $t_object == 'continue'}-->display:none<!--{/if}-->">
+<!--{if $state >=1 && $state <= 3}-->
+{template rest}
+<!--{elseif $itms0}-->
+{template MOD_ITEMMAIN_ITEMFIND}
+<!--{elseif $cmd}-->
+$cmd
+<!--{else}-->
+{template command}
+<!--{/if}-->
+</div>
+<br><br>
+<div>
+	<input type="button" class="cmdbutton" id="exittutorial" value="退出教程" onclick="$('command').value='exittutorial';postCmd('gamecmd','command.php');this.disabled=true;">
+</div>

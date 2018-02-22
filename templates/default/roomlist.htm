@@ -14,33 +14,84 @@
 <td class="b1" width="80px">游戏模式</td>
 <td class="b1" width="60px">状态</td>
 <td class="b1" width="50px">人数</td>
-<td class="b1" width="120px">创建者</td>
-<td class="b1" width="120px">房主</td>
+<td class="b1" width="120px">创建者/房主</td>
+<td class="b1" width="120px">运行时间</td>
 <td class="b1" width="50px">操作</td>
 </tr>
 <!--{loop $shroomlist $value}-->
 <tr>
 <td class="b3" height="30px" width="30px">$value['id']</td>
 <td class="b3" width="80px">$roomtypelist[$value['roomtype']]['name']</td>
-<td class="b3" width="60px"><!--{if $value['status']==1}--><!--{if $value['nowplayer']==$value['maxplayer']}--><span class="white">等待中</span><!--{else}--><span class="lime">等待中</span><!--{/if}--><!--{else}--><span class="grey">游戏中</span><!--{/if}--></td>
-<td class="b3" width="50px"><!--{if $value['status']==1 || $roomtypelist[$value['roomtype']]['soleroom']}--><!--{if $value['nowplayer']==$value['maxplayer']}--><span class="grey"><!--{else}--><!--{if $value['nowplayer']+1==$value['maxplayer']}--><span class="red" style="color:#ff0022;"><!--{else}--><!--{if $value['nowplayer']+2==$value['maxplayer']}--><span class="yellow"><!--{else}--><span class="white"><!--{/if}--><!--{/if}--><!--{/if}-->$value['nowplayer']/$value['maxplayer']</span><!--{else}--><span class="grey">-</span><!--{/if}--></td>
-<td class="b3" width="120px"><!--{if !$value['roomdata']['roomfounder'] || $roomtypelist[$value['roomtype']]['soleroom']}-->-<!--{else}-->$value['roomdata']['roomfounder']<!--{/if}--></td>
-<td class="b3" width="120px"><!--{if $value['roomdata']['player'][0]['name']=='' || $roomtypelist[$value['roomtype']]['soleroom']}-->-<!--{else}-->$value['roomdata']['player'][0]['name']<!--{/if}--></td>
+<td class="b3" width="60px">
+	<!--{if $value['status']>=10 && $value['status']<40}-->
+		<span class=
+		<!--{if $value['nowplayer']==$value['maxplayer']}-->
+			"grey"
+		<!--{else}-->
+			"lime"
+		<!--{/if}-->
+		>等待中</span>
+	<!--{else}-->
+		<span class=
+		<!--{if $value['gamestate']==20}-->
+			"lime"
+		<!--{else}-->
+			"grey"
+		<!--{/if}-->
+		>$gstate[$value['gamestate']]</span>
+	<!--{/if}-->
+</td>
+<td class="b3" width="50px">
+	<!--{if $roomtypelist[$value['roomtype']]['without-ready']}-->
+		<!--{if !$value['nowplayer']}-->
+			<span class="grey">
+		<!--{else}-->
+			<span class="white">
+		<!--{/if}-->
+		$value['nowplayer']
+	<!--{elseif $value['status']>=10 && $value['status']<40}-->
+		<!--{if $value['nowplayer']==$value['maxplayer']}-->
+			<span class="grey">
+		<!--{else}-->
+			<!--{if $value['nowplayer']+1==$value['maxplayer']}-->
+				<span class="red" style="color:#ff0022;">
+			<!--{else}-->
+				<!--{if $value['nowplayer']+2==$value['maxplayer']}-->
+					<span class="yellow">
+				<!--{else}-->
+					<span class="white">
+				<!--{/if}-->
+			<!--{/if}-->
+		<!--{/if}-->
+		$value['nowplayer']/$value['maxplayer']</span>
+	<!--{else}-->
+		<span class="grey">-</span>
+	<!--{/if}-->
+</td>
+<td class="b3" width="120px">
+	<!--{if !$value['roomdata']['roomfounder'] || $roomtypelist[$value['roomtype']]['soleroom']}-->-<!--{else}-->$value['roomdata']['roomfounder']<!--{/if}-->
+	<!--{if !empty($value['roomdata']['player'][0]['name']) && !$roomtypelist[$value['roomtype']]['soleroom'] && $value['roomdata']['player'][0]['name'] != $value['roomdata']['roomfounder']}--> / $value['roomdata']['player'][0]['name']<!--{/if}-->
+</td>
+<td class="b3" width="120px">
+	<!--{eval echo round($value['runningtime']/60).'min'}-->
+</td>
 <td class="b3" width="50px">
 <!--{if !$cuser || !$cpass}-->
 	<span class="grey">-</span>
 <!--{elseif room_check_subroom($room_prefix)}-->
 	<span class="grey">-</span>
 <!--{else}-->
-	<!--{if $value['status']==1 || $roomtypelist[$value['roomtype']]['soleroom']}-->
-		<!--{if $value['nowplayer']<$value['maxplayer'] || $roomtypelist[$value['roomtype']]['soleroom']}-->
-			<input type="button" style="width:46px" onclick="room_enter($value['id']);" value="进入">
-		<!--{else}-->
-			<input type="button" style="width:46px" onclick="room_enter($value['id']);" value="旁观">
-		<!--{/if}-->
+	<input type="button" style="width:46px" onclick="room_enter($value['id']);" value="
+	<!--{if $roomtypelist[$value['roomtype']]['without-ready']}-->
+		进入
 	<!--{else}-->
-		<input type="button" style="width:46px" onclick="room_enter($value['id']);" value="旁观">
+		<!--{if ($value['status']>=10 && $value['status']<40 && $value['nowplayer']<$value['maxplayer']) || (!empty($value['validlist']) && in_array($cuser, $value['validlist']))}-->
+			进入
+		<!--{else}-->
+			旁观
+		<!--{/if}-->
 	<!--{/if}-->
+	">
 <!--{/if}-->
 </td>
 <!--{/loop}-->
@@ -53,7 +104,7 @@
 	你尚未登陆，请先登陆。
 <!--{elseif room_check_subroom($room_prefix)}-->
 	你现在在房间<!--{eval echo room_prefix2id($room_prefix);}--> 中。
-	<!--{if isset($roomlist[substr($room_prefix,1)]) && $roomlist[substr($room_prefix,1)]['status']==2}-->
+	<!--{if isset($roomlist[substr($room_prefix,1)]) && $roomlist[substr($room_prefix,1)]['status']>=40}-->
 		这个房间正在游戏中，请进入游戏。<br>
 		如果你在游戏中已阵亡，你也可以<input type="button" style="width:80px" onclick="room_quit();" value="退出房间">然后加入其他房间。<br>
 	<!--{else}-->

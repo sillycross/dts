@@ -4,7 +4,10 @@ namespace skill58
 {
 	function init() 
 	{
-		define('MOD_SKILL58_INFO','club;hidden;');
+		define('MOD_SKILL58_INFO','club;feature;');
+		eval(import_module('clubbase'));
+		$clubskillname[58] = '复活';
+		$clubdesc_h[24] = $clubdesc_a[24] = '你被战斗/陷阱杀死时会立即复活。1局游戏只能复活1次。';
 	}
 	
 	function acquire58(&$pa)
@@ -20,38 +23,72 @@ namespace skill58
 		\skillbase\skill_delvalue(58,'r',$pa);
 	}
 	
+	function check_unlocked58(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 1;
+	}
+	
+	//复活判定注册
+	function set_revive_sequence(&$pa, &$pd)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($pa, $pd);
+		if(\skillbase\skill_query(58,$pd) && check_unlocked58($pd)){
+			$pd['revive_sequence'][200] = 'skill58';
+		}
+		return;
+	}	
+
+	//复活判定
+	function revive_check(&$pa, &$pd, $rkey)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($pa, $pd, $rkey);
+		if('skill58' == $rkey && in_array($pd['state'],Array(20,21,22,23,24,25,27,29,39,40,41))){
+			if((int)\skillbase\skill_getvalue(58,'r',$pd) == 0)
+			$ret = true;
+		}
+		return $ret;
+	}
+	
+	//回满血，发复活状况
+	function post_revive_events(&$pa, &$pd, $rkey)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($pa, $pd, $rkey);
+		if('skill58' == $rkey){
+			$pd['hp']=$pd['mhp'];
+			$pd['skill58_flag']=1;
+			\skillbase\skill_setvalue(58,'r','1',$pd);
+			addnews ( 0, 'revival', $pd['name']);
+			//满血复活时加成效果（这个其实是技能“新生”的内容，但直接做在一起好了）
+			$pd['mhp']+=$pd['lvl']*2; 
+			$pd['hp']+=$pd['lvl']*2;
+			$pd['def']+=$pd['lvl']*5;
+		}
+		return;
+	}
+	
 	function kill(&$pa, &$pd)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		$chprocess($pa,$pd);
+		$ret = $chprocess($pa,$pd);
 		
 		eval(import_module('sys','logger'));
-		if (in_array($pd['state'],Array(20,21,22,23,24,25,27,29,40,41)))
-			if (\skillbase\skill_query(58,$pd) && ((int)\skillbase\skill_getvalue(58,'r',$pd))==0)
+		
+		if(!empty($pd['skill58_flag'])){
+			if ($pd['o_state']==27)	//陷阱
 			{
-				\skillbase\skill_setvalue(58,'r','1',$pd);
-				if ($pd['state']==27 && !$pd['sourceless'])	//陷阱
-				{
-					$log.= "<span class=\"lime\">但是，由于你及时按下了BOMB键，你原地满血复活了！</span><br>";
+				$log.= "<span class=\"lime\">但是，由于你及时按下了BOMB键，你原地满血复活了！</span><br>";
+				if(!$pd['sourceless']){
 					$w_log = "<span class=\"lime\">但是，由于{$pd['name']}及时按下了BOMB键，其原地满血复活了！</span><br>";
 					\logger\logsave ( $pa['pid'], $now, $w_log ,'b');
 				}
-				else
-				{
-					//击杀复活提示将接管player_kill_enemy进行
-				}
-				$pd['state']=0; $pd['hp']=$pd['mhp'];
-				$pd['skill58_flag']=1;
-				$deathnum--;
-				if ($pd['type']==0) $alivenum++;
-				save_gameinfo();
-				
-				addnews ( $now, 'revival', $pd['name'] );
-				//满血复活时加成效果（这个其实是技能“新生”的内容，但直接做在一起好了）
-				$pd['mhp']+=$pd['lvl']*2; $pd['hp']+=$pd['lvl']*2;
-				$pd['def']+=$pd['lvl']*5;
 			}
+		}
+		return $ret;
 	}
 	
 	function player_kill_enemy(&$pa,&$pd,$active)

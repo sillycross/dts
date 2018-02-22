@@ -1,4 +1,4 @@
-<input type="hidden" name="mode" value="deathnote">
+<input type="hidden" id="mode" name="mode" value="deathnote">
 <input type="hidden" name="item" value="$theitem['itmn']">
 <!--{if $gametype==1}-->
 <input type="hidden" id="npc" value="1">
@@ -12,7 +12,7 @@
 请选择对方的相貌<br>
 <div id="dniconImg" class="iconimg" >
 	<!--{if $gametype==1}-->
-	<img src="img/n_7a.gif" alt="0">
+	<img src="img/n_7.gif" alt="0">
 	<!--{else}-->
 	<img src="img/m_0.gif" alt="0">
 	<!--{/if}-->
@@ -33,7 +33,9 @@
 <br />
 <!--{if $gametype==1}-->
 没地方落笔了，你要把名字写在红暮脸上吗？<br>
-<input type="button" name="submit" value="写！" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="button" value="写！" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="button" value="算了" onclick="$('mode').value='command';postCmd('gamecmd','command.php');this.disabled=true;">
 <!--{else}-->
-<input type="button" name="submit" value="提交" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="button" value="提交" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="button" value="返回" onclick="$('mode').value='command';postCmd('gamecmd','command.php');this.disabled=true;">
 <!--{/if}-->

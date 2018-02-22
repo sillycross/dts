@@ -5,8 +5,13 @@ namespace ex_hp_def
 	function init()
 	{
 		eval(import_module('itemmain'));
-		$itemspkinfo['H'] = 'HP制御';
-		$itemspkinfo['h'] = '伤害制御';
+		$itemspkinfo['H'] = '控噬';
+		$itemspkdesc['H']='自己受到的反噬伤害-90%';
+		$itemspkremark['H']='反噬伤害指对敌方伤害破1000时自己受到的伤害';
+		
+		$itemspkinfo['h'] = '控血';
+		$itemspkdesc['h']='受到总伤害超过1997时变为1997';
+		$itemspkremark['h']='10%概率失效';
 	}
 	
 	function calculate_hp_rev_dmg(&$pa, &$pd, $active)
@@ -17,7 +22,7 @@ namespace ex_hp_def
 		$rate = 0.5;
 		if ($pa['dmg_dealt']>=2000) $rate = 2.0/3.0;
 		if ($pa['dmg_dealt']>=5000) $rate = 0.8;
-		if (\attrbase\check_itmsk('H',$pa)) $rate *= 0.1;
+		if (in_array('H', \attrbase\get_ex_attack_array($pa, $pd, $active))) $rate *= 0.1;
 		$damage = round($pa['hp']*$rate);
 		if ($damage >= $pa['hp']) $damage = $pa['hp'] - 1;
 		return $damage;
@@ -53,14 +58,14 @@ namespace ex_hp_def
 				else
 				{
 					if ($active)
-						$log .= "{$pd['name']}的装备没能发挥限制攻击伤害的效果！<br>";
-					else  $log .= "你的装备没能发挥限制攻击伤害的效果！<br>";
+						$log .= "<span class=\"red\">{$pd['name']}的装备没能发挥限制攻击伤害的效果！</span><br>";
+					else  $log .= "<span class=\"red\">你的装备没能发挥限制攻击伤害的效果！</span><br>";
 				}
 			}
 		}
 	}
 	
-	function apply_total_damage_change(&$pa,&$pd,$active)
+	function apply_total_damage_modifier_limit(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess($pa, $pd, $active);
@@ -72,9 +77,6 @@ namespace ex_hp_def
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('logger'));
-		//判定伤害制御
-		//改到apply_total_damage_change()内进行判定
-		//check_dmg_def_attr($pa, $pd, $active);
 		
 		$chprocess($pa, $pd, $active);
 		

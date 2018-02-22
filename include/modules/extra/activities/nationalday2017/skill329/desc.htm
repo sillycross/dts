@@ -1,0 +1,21 @@
+<table><tr>
+<!--{eval eval(import_module('skill329'));}-->
+<td>
+<!--{if ($c329=='0') }--><img src="img/ach/N.gif">
+<!--{elseif ($c329=='999') }--><img src="img/ach/DA.gif">
+<!--{else}--><img src="img/ach/D.gif">
+<!--{/if}-->
+</td>
+<td valign="top" align="left">
+<b>
+<!--{if ($c329==0) }-->极光处刑 LV1<!--{/if}-->
+<!--{if ($c329==1) }-->极光处刑 LV2<!--{/if}-->
+<!--{if ($c329>=2) }-->极光处刑 LV3<!--{/if}-->
+</b>
+<!--{if ($c329=='999') }--><span class="lime">[完成]</span><!--{else}--><!--{if ($c329==0) }--><span class="red">[未完成]</span><!--{else}--><span class="clan">[进行中]</span><!--{/if}--><!--{/if}--><br>
+<font color="yellow"><span>完成次数：{$p329}次</span><br></font>
+<!--{if ($c329==0) }--><font color="olive">奖励： 切糕{$ach329_qiegao_prize[1]}</font> <br> 在<span class="clan">荣耀模式</span>房间内使用『破灭之诗』共计{$ach329_threshold[1]}次。<br><!--{/if}-->
+<!--{if ($c329==1) }--><font color="olive">奖励： 切糕{$ach329_qiegao_prize[2]}</font> <br> 在<span class="clan">荣耀模式</span>房间内使用『破灭之诗』共计{$ach329_threshold[2]}次。<br><!--{/if}-->
+<!--{if ($c329>=2) }--><font color="olive">奖励： 切糕{$ach329_qiegao_prize[3]}</font> <span class="clan">「Balefire Rekindle」随机卡片1张</span><br> 在<span class="clan">荣耀模式</span>房间内使用『破灭之诗』共计{$ach329_threshold[3]}次。<br><!--{/if}-->
+</td>
+</tr></table>

@@ -6,6 +6,7 @@ namespace skill317
 	{
 		define('MOD_SKILL317_INFO','achievement;daily;');
 		define('MOD_SKILL317_ACHIEVEMENT_ID','17');
+		define('MOD_SKILL317_ABANDONED','1');//已废弃
 	}
 	
 	function acquire317(&$pa)
@@ -24,7 +25,7 @@ namespace skill317
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')					
 			$x=0;						
-		else	$x=base64_decode_number($data);		
+		else $x=$data;
 		$ox=$x;
 		$x+=\skillbase\skill_getvalue(317,'cnt',$pa);		
 		$x=min($x,(1<<30)-1);
@@ -33,7 +34,7 @@ namespace skill317
 			\cardbase\get_qiegao(233,$pa);
 		}
 		
-		return base64_encode_number($x,5);		
+		return $x;
 	}
 
 	function itemmix_success()
@@ -53,7 +54,7 @@ namespace skill317
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')
 			$p317=0;
-		else	$p317=base64_decode_number($data);	
+		else	$p317=$data;	
 		$c317=0;
 		if ($p317>=1){
 			$c317=999;

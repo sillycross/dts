@@ -1,89 +1,41 @@
 <?php
 
 define('CURSCRIPT', 'game');
-require './include/common.inc.php';
+define('IN_GAME', true);
+defined('GAME_ROOT') || define('GAME_ROOT', dirname(__FILE__).'/');
 
-if(!$cuser||!$cpass) { gexit($_ERROR['no_login'],__file__,__line__); } 
-if($mode == 'quit') {
+require GAME_ROOT.'./include/global.func.php';
+include GAME_ROOT.'./include/modules/core/sys/config/server.config.php';
 
+if(isset($_POST['mode']) && $_POST['mode'] == 'quit') {
 	gsetcookie('user','');
 	gsetcookie('pass','');
 	header("Location: index.php");
 	exit();
-
 }
-$result = $db->query("SELECT * FROM {$tablepre}players WHERE name = '$cuser' AND type = 0");
-if(!$db->num_rows($result)) { header("Location: valid.php");exit(); }
 
-$pdata = $db->fetch_array($result);
-if($pdata['pass'] != $cpass) {
-	$tr = $db->query("SELECT `password` FROM {$gtablepre}users WHERE username='$cuser'");
-	$tp = $db->fetch_array($tr);
-	$password = $tp['password'];
-	if($password == $cpass) {
-		$db->query("UPDATE {$tablepre}players SET pass='$password' WHERE name='$cuser'");
-	} else {
-		gexit($_ERROR['wrong_pw'],__file__,__line__);
+$url = url_dir().'command.php';
+$context = array('page'=>'command_game');
+foreach($_POST as $pkey => $pval){
+	$context[$pkey] = $pval;
+}
+$cookies = array();
+foreach($_COOKIE as $ckey => $cval){
+	if(strpos($ckey,'user')!==false || strpos($ckey,'pass')!==false) $cookies[$ckey] = $cval;
+}
+$gameinfo = curl_post($url, $context, $cookies);
+if(strpos($gameinfo, 'redirect')===0){
+	list($null, $url) = explode(':',$gameinfo);
+	header('Location: '.$url);
+	return;
+}
+if(strpos($gameinfo,'<head>')===false){
+	$d_gameinfo = gdecode($gameinfo,1);
+	if(is_array($d_gameinfo) && isset($d_gameinfo['url']) && 'error.php' == $d_gameinfo['url']){
+		gexit($d_gameinfo['errormsg'],__file__,__line__);
 	}
 }
+echo $gameinfo;
 
-if($gamestate == 0) {
-	header("Location: end.php");exit();
-}
-
-\player\load_playerdata(\player\fetch_playerdata($cuser));
-
-\player\init_playerdata();
-\player\parse_interface_profile();
-
-if($state == 4) {
-	header("Location: end.php");exit();
-}
-
-$log = '';
-//读取聊天信息
-//$chatdata = array_merge(getchat(0,$teamID,$pid),\sys\getnews(0));
-$chatdata = getchat(0,$teamID,$pid);
-//生成进行状况id但是不马上拉取（非常耗时，用ajax完成）
-$result = $db->query("SELECT nid FROM {$tablepre}newsinfo ORDER BY nid LIMIT $newslimit");
-$lastnid = $db->fetch_array($result)['nid'];
-$chatdata['lastnid'] = $lastnid-1;
-$nidtmp = 'nid'.($lastnid);
-$chatdata['news'] = array('<li id="'.$nidtmp.'" class="red">正在拉取进行状况…</li>');
-
-$hp_backup_temp=$hp;
-$player_dead_flag_backup_temp=$player_dead_flag;
-
-if ($hp<=0 || $player_dead_flag)
-{
-	player\pre_act();
-	player\post_act();
-}
-
-if($hp <= 0){
-	$dtime = date("Y年m月d日H时i分s秒",$endtime);
-	$kname='';
-	if($bid) {
-		$result = $db->query("SELECT name FROM {$tablepre}players WHERE pid='$bid'");
-		if($db->num_rows($result)) { $kname = $db->result($result,0); }
-	}
-	$mode = 'death';
-} elseif($state ==1 || $state == 2 || $state == 3){
-	$mode = 'rest';
-} elseif($itms0){
-	$mode = 'itemmain';
-} else {
-	$mode = 'command';
-}
-
-player\prepare_initial_response_content();
-
-include template('game');
-
-if ($hp!=$hp_backup_temp || $player_dead_flag!=$player_dead_flag_backup_temp)
-{
-	\player\update_sdata();
-	\player\player_save($sdata);
-}
-
-?>
+/* End of file game.php */
+/* Location: /game.php */

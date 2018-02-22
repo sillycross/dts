@@ -4,7 +4,7 @@
 			<table border="1" cellspacing="0" cellpadding="0" valign="middle">
 				<tr>
 					<td>
-						<IMG width=140px src="img/n_$nownpc['icon'].gif" border="0" valign="middle"/>
+						<IMG width=140px src="<!--{eval list($icon1, $icon2) = \player\icon_parser(1, $nownpc['gd'], $nownpc['icon']);echo 'img/'.$icon1;}-->" border="0" valign="middle"/>
 					</td>
 					<td>
 						<table border="1" height=100% width=100% cellspacing="0" cellpadding="0">
@@ -111,7 +111,13 @@
 									熟练度
 								</td>
 								<td width=100px align="center" class="b3">
-									<!--{if isset($nownpc['___count'])}-->$nownpc['skill']<!--{else}-->$nownpc['wp']<!--{/if}-->
+									<!--{if isset($nownpc['___count'])}-->
+										<!--{if is_array($nownpc['skill'])}-->
+											<span title="<!--{loop $nownpc['skill'] $nskk $nskv}-->{$skilltypeinfo[$nskk]}熟:{$nskv}<br><!--{/loop}-->">不定值</span>
+										<!--{else}-->
+											<span>$nownpc['skill']</span>
+										<!--{/if}-->
+									<!--{else}-->$nownpc['wp']<!--{/if}-->
 								</td>
 								<td width=80px align="center" class="b1">
 									怒气值

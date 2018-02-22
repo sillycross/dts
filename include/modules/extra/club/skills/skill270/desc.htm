@@ -1,0 +1,19 @@
+<!--{eval eval(import_module('skill270'));}-->
+<!--{eval $___TEMP_SKILL_ID=270;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+神影
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+如果你所用武器熟练度大于敌人所用武器熟练度，<br>你对其先制攻击率<span class="clan">+{$skill270active}%</span>，命中率<span class="clan">+{$skill270hitrate}%</span>
+</span></td>
+<td class=b3 width=96>
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+9级时解锁
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

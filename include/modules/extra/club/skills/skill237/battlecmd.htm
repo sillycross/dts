@@ -1,12 +1,14 @@
 <!--{eval $rageneed = \skill237\get_rage_cost237();}-->
+<!--{eval eval(import_module('skill237'));}-->
+<!--{eval $stunsec237 = $stuntime237 / 1000;}-->
 <!--{if $rage>=$rageneed}-->
-<input type="button" class="cmdbutton" style="width:98" name="" value="EMP" 
+<input type="button" class="cmdbutton" style="width:98"  value="EMP" 
 onclick="$('command').value='$w1';$('bskill').value=237;postCmd('gamecmd','command.php');this.disabled=true;"><br />
 <div style="width:90%; text-align:left;">
-造成<span class="yellow">130%</span>物理伤害，晕眩敌人<span class="clan">4</span>秒，且延长目标的行动CD；消耗<span class="red">$rageneed</span>怒气
+物理伤害<span class="yellow">变成0</span>，但晕眩敌人<span class="clan">$stunsec237</span>秒，且延长目标的行动CD；消耗<span class="red">$rageneed</span>怒气
 </div>
 <!--{else}-->
-<input type="button" class="cmdbutton" style="width:98" name="" value="EMP" disabled="true"><br />
+<input type="button" class="cmdbutton" style="width:98"  value="EMP" disabled="true"><br />
 <div style="width:90%; text-align:left;">
 需要<span class="red">$rageneed</span>怒气方可发动
 </div>

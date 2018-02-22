@@ -100,7 +100,7 @@ function __SOCKET_SEND_TO_SERVER__()
 	$___TEMP_data['___PAGE_STARTTIME_VALUE'] = $cli_pagestartime;
 	if (isset($___TEMP_data['game_roomid'])) 
 		$game_roomid = $___TEMP_data['game_roomid'];
-	else  $game_roomid = '';
+	else  $game_roomid = '';//非command的返回数据（开局、结尾、用daemon加速的幸存之类）会存到'_'文件夹，这个文件夹会在游戏开局时定期清空
 	$___TEMP_data['___GAME_ROOMID'] = $game_roomid;
 	
 	//防止注入，去掉不合法变量名，去掉可能的global名称
@@ -108,7 +108,6 @@ function __SOCKET_SEND_TO_SERVER__()
 	foreach ($___TEMP_data_keys as $keyc) 
 		if (!($keyc!='' && (('a'<=$keyc[0] && $keyc[0]<='z') || ('A'<=$keyc[0] && $keyc[0]<='Z') || $keyc[0]=='_') && check_alnumudline($keyc)))
 			unset($___TEMP_data[$keyc]);
-	
 	if (isset($___TEMP_data['_COOKIE'])) unset($___TEMP_data['_COOKIE']);
 	if (isset($___TEMP_data['_POST'])) unset($___TEMP_data['_POST']);
 	if (isset($___TEMP_data['_REQUEST'])) unset($___TEMP_data['_REQUEST']);
@@ -137,7 +136,7 @@ function __SOCKET_SEND_TO_SERVER__()
 			unlink($___MOD_TMP_FILE_DIRECTORY.$game_roomid.'_');
 			create_dir($___MOD_TMP_FILE_DIRECTORY.$game_roomid.'_');
 		}
-							
+		
 		writeover($___MOD_TMP_FILE_DIRECTORY.$game_roomid.'_/'.$___TEMP_uid,$___TEMP_data);
 	}
 	
@@ -194,7 +193,7 @@ function __SOCKET_SEND_TO_SERVER__()
 		global $___MOD_TMP_FILE_DIRECTORY;
 		$___TEMP_res=file_get_contents($___MOD_TMP_FILE_DIRECTORY.$game_roomid.'_/'.$___TEMP_uid);
 		if (!defined('MOD_REPLAY')) 	//如果录像模式开启，最后删缓存的工作由录像模块进行
-			unlink($___MOD_TMP_FILE_DIRECTORY.$room_prefix.'_/'.$___TEMP_uid);
+			unlink($___MOD_TMP_FILE_DIRECTORY.$game_roomid.'_/'.$___TEMP_uid);
 	}
 	
 	__SOCKET_DEBUGLOG__("已载入回应文件。");
@@ -385,15 +384,7 @@ function __STOP_ALL_SERVER__()
 		{
 			if ($sid=='.' || $sid=='..') continue;
 			$sid=(int)$sid; 
-			if (is_dir(GAME_ROOT.'./gamedata/tmp/server/'.(string)$sid))
-			{
-				__SOCKET_LOG__("开始向端口号为 {$sid} 的服务器发送停止指令。");
-				if (!__SEND_STOP_CMD__($sid))
-				{
-					__SOCKET_WARNLOG__("消息发送失败，强行删除文件夹 {$sid} 。");
-					clear_dir(GAME_ROOT.'./gamedata/tmp/server/'.(string)$sid);
-				}
-			}
+			__STOP_SINGLE_SERVER__($sid);
 		}
 			
 		if (file_exists(GAME_ROOT.'./gamedata/tmp/server/request_new_server'))
@@ -403,6 +394,19 @@ function __STOP_ALL_SERVER__()
 			unlink(GAME_ROOT.'./gamedata/tmp/server/request_new_root_server');
 	}
 	else  __SOCKET_ERRORLOG__('无法打开gamedata/tmp/server目录。');
+}
+
+function __STOP_SINGLE_SERVER__($sid)
+{
+	if (is_dir(GAME_ROOT.'./gamedata/tmp/server/'.(string)$sid))
+	{
+		__SOCKET_LOG__("开始向端口号为 {$sid} 的服务器发送停止指令。");
+		if (!__SEND_STOP_CMD__($sid))
+		{
+			__SOCKET_WARNLOG__("消息发送失败，强行删除文件夹 {$sid} 。");
+			clear_dir(GAME_ROOT.'./gamedata/tmp/server/'.(string)$sid);
+		}
+	}
 }
 
 function MODSRV_shutDownFunction()
@@ -415,8 +419,4 @@ function MODSRV_shutDownFunction()
 	}
 	die();
 }
-
-
 ?>
-		
-				

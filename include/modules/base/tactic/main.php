@@ -20,16 +20,12 @@ namespace tactic
 		return $chprocess($pa, $pd, $active);
 	}
 	
+	//若要接管此函数，请阅读base\battle\battle.php里的注释，并加以判断
 	function calculate_meetman_rate($schmode)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player'));
-		//$r = 1;
-		$a = 0;
-		if ($tactic == 4) {
-			$a = -10;
-			//$r = 0.9;		//重视躲避不容易遇见敌人
-		}
+		eval(import_module('sys','player','tactic'));
+		$a = $tactic_meetman_obbs[$tactic];
 		return $chprocess($schmode) + $a;
 	}
 	
@@ -47,7 +43,7 @@ namespace tactic
 		return $chprocess($edata)+$tactic_hide_obbs[$edata['tactic']];
 	}
 	
-	function calculate_counter_rate(&$pa, &$pd, $active)
+	function calculate_counter_rate_base(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r = 0;
@@ -59,11 +55,13 @@ namespace tactic
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','tactic'));
-		if ($pa['is_counter'])		//应战策略的进攻加成只在反击时才有用
-		{
-			return $chprocess($pa,$pd,$active)*(1+$tactic_attack_modifier[$pa['tactic']]/100);
-		}
-		else  return $chprocess($pa,$pd,$active);
+		//改为全部生效
+		return $chprocess($pa,$pd,$active)*(1+$tactic_attack_modifier[$pa['tactic']]/100);
+//		if ($pa['is_counter'])		//应战策略的进攻加成只在反击时才有用
+//		{
+//			return $chprocess($pa,$pd,$active)*(1+$tactic_attack_modifier[$pa['tactic']]/100);
+//		}
+//		else  return $chprocess($pa,$pd,$active);
 	}
 	
 	function get_def_multiplier(&$pa,&$pd,$active)

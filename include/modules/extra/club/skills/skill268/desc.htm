@@ -1,0 +1,21 @@
+<!--{eval $___TEMP_SKILL_ID=268;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+不屈
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+如果受到的战斗伤害不超过你最大HP的一半，你不会因为这次伤害而死。
+<!--{eval $rmt = \skillbase\skill_getvalue(268,'rmt',$who);}-->
+<!--{eval if(!$rmt) $rmt = 0;}-->
+本局游戏还可以触发<span class=<!--{if $rmt}-->"clan"<!--{else}-->"red"<!--{/if}-->>{$rmt}/2</span>次。
+</span></td>
+<td class=b3 width=96>
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+15级时解锁
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

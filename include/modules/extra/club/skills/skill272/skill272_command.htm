@@ -1,0 +1,30 @@
+<input type="hidden" name="mode" value="special">
+<input type="hidden" id="command" name="command" value="skill272_special">
+<input type="hidden" id="subcmd" name="subcmd" value="activate">
+<!--{eval eval(import_module('skill272','player','itemmain'));\itemmain\parse_interface_profile();$effect_list = \skill272\create_effect_list272();}-->
+选择1个装备/道具，<span class="yellow">必须具有以下属性1个以上：</span><br>
+<span class="grey">
+<!--{eval $i=1;}-->
+<!--{loop \skill272\create_effect_list272() $skval}-->
+$itemspkinfo[$skval] 
+<!--{eval $i++;}-->
+<!--{if $i%10==0}--><br><!--{/if}-->
+<!--{/loop}-->
+</span><br>
+你将吸收掉道具上的这些属性，之后战斗属性伤害增加<span class="yellow">（吸收数目 x {$skill272_factor}%）</span>。发动后<span class="clan">{$skill272_act_time}</span>秒有效。
+<br><br>
+请选择你将吸收属性的装备/道具：<br>
+<select id="skill272_ipos" name="skill272_ipos" value="back">
+<!--{loop $skill272_pos_list $val}-->
+	<!--{if (strpos($val, 'ar')===0 || 'wep'== $val) && \skill272\check_valid_single272($val,1,$effect_list)}-->
+		<option value="$val">$sdata[$val] / {$tpldata[$val.'sk_words']}<br>
+	<!--{elseif strpos($val, 'itm')===0 && \skill272\check_valid_single272($val,1,$effect_list)}-->
+		<!--{eval $tmp_itmskn = 'itmsk'.substr($val,3,1).'_words';}-->
+		<option value="$val">$sdata[$val] / {$tpldata[$tmp_itmskn]}<br>
+	<!--{/if}-->
+<!--{/loop}-->
+</select>
+<br>
+<br>
+<input type="button" class="cmdbutton"  id="z" value="[Z]提交" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="button" class="cmdbutton"  id="x" value="[X]返回" onclick="$('command').value='menu'; postCmd('gamecmd','command.php');this.disabled=true;">

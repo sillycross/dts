@@ -58,8 +58,9 @@ namespace skill47
 				addnews ( 0, 'bskill47', $pa['name'], $pd['name'] );
 				
 				eval(import_module('ex_dmg_att'));
-				$lis=Array();
-				foreach ($ex_attack_list as $key) if ($key!='f' && $key!='k' && $key!='d') array_push($lis,$key);
+				$lis = Array('p', 'u', 'i', 'e', 'w');
+//				$lis=Array();
+//				foreach ($ex_attack_list as $key) if ($key!='f' && $key!='k' && $key!='t' && $key!='d') array_push($lis,$key);
 				$pa['skill47_flag']=$lis[rand(0,count($lis)-1)];
 			}
 			else
@@ -75,7 +76,7 @@ namespace skill47
 		$chprocess($pa, $pd, $active);
 	}	
 	
-	function calculate_ex_attack_dmg(&$pa, &$pd, $active)
+	function ex_attack_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($pa['bskill']!=47) return $chprocess($pa, $pd, $active);
@@ -84,7 +85,7 @@ namespace skill47
 		return $chprocess($pa, $pd, $active);
 	}
 	
-	function get_ex_attack_array(&$pa, &$pd, $active)
+	function get_ex_attack_array_core(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($pa['bskill']!=47) return $chprocess($pa, $pd, $active);

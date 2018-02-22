@@ -46,7 +46,7 @@ namespace skill216
 		else
 		{
 			$remtime = (int)get_remaintime216($pa);
-			if (($remtime>=1)&&($pa['wep_kind']=="D"))
+			if (($remtime>=1)&&(\weapon\get_skillkind($pa,$pd,$active) == 'wd'))
 			{
 				eval(import_module('logger'));
 				if ($active)
@@ -74,7 +74,7 @@ namespace skill216
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess($pa,$pd,$active);
 		eval(import_module('logger'));
-		if (($pa['bskill']==216)&&($pa['wep_kind']=="D")&&($pa['wepe']>0)&&(($pa['weps']>0)||($pa['weps']=='∞'))){
+		if (($pa['bskill']==216)&&(\weapon\get_skillkind($pa,$pd,$active) == 'wd')&&($pa['wepe']>0)&&(($pa['weps']>0)||($pa['weps']=='∞'))){
 			unset($pa['bskill']);
 			$log.="<span class=\"yellow\">你再一次引爆了爆炸物！</span><br>";
 			$chprocess($pa,$pd,$active);

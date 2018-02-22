@@ -101,7 +101,7 @@ namespace wound
 		else  $log .= "你的<span class=\"red\">".$infinfo[$hurtposition]."</span>部受伤了！<br>";
 		if (get_inf($hurtposition, $pd))
 		{
-			addnews($now,'inf',$pa['name'],$pd['name'],$hurtposition);
+			addnews(0,'inf',$pa['name'],$pd['name'],$hurtposition);
 		}
 	}
 	
@@ -161,7 +161,7 @@ namespace wound
 				if ($str!='') $str.='、';
 				$str.=$value;
 			}
-		if ($str!='') $str='敌人的攻击导致你'.$str.'了！<br>';
+		if ($str!='') $str='这场战斗导致你'.$str.'了！<br>';
 		
 		if ($active)
 			$pd['battlelog'] .= $str;

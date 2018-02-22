@@ -24,10 +24,11 @@ namespace skill471
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return 1;
 	}
-
-	function apply_damage(&$pa,&$pd,$active)
+	
+	function apply_total_damage_modifier_insurance(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($pa,$pd,$active);
 		if (\skillbase\skill_query(471,$pd) && $pa['dmg_dealt']>=$pd['hp'] && $pd['rage']>0)
 		{
 			$dmgred = min(round($pd['rage']*1.5), $pa['dmg_dealt']-$pd['hp']+1);
@@ -39,7 +40,6 @@ namespace skill471
 			$pd['rage']-=$rageused;
 			$pa['dmg_dealt']-=$dmgred;
 		}
-		return $chprocess($pa,$pd,$active);
 	}
 }
 

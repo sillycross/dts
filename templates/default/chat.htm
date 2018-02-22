@@ -31,6 +31,8 @@
 		<td class="b3" height="35">
 			<div>
 				<form type="post" id="sendchat" name="sendchat" action="chat.php" onsubmit="return false;" >
+					<input type="hidden" id="cgamenum" name="cgamenum" value="$gamenum">
+					<input type="hidden" id="croomid" name="croomid" value="$groomid">
 					<input type="hidden" id="lastcid" name="lastcid" value="$chatdata['lastcid']">
 					<input type="hidden" id="lastnid" name="lastnid" value="$chatdata['lastnid']">
 					<input type="hidden" id="teamID" name="teamID" value="$teamID">

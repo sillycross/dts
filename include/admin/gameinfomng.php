@@ -18,7 +18,7 @@ if($command == 'wthedit'){
 		$cmd_info = '当前天气修改为：'.$wthinfo[$iweather];
 		$weather = $iweather;
 		save_gameinfo();
-		adminlog('wthedit',$iweather);
+		adminlog('wthedit',$room_prefix,$gamenum,$iweather);
 		addnews($now,'syswthchg',$iweather);		
 	}
 }elseif($command == 'hackedit'){
@@ -29,7 +29,7 @@ if($command == 'wthedit'){
 		$cmd_info = '当前禁区状态修改为：'.($ihack ? '解除' : '未解除');
 		$hack = $ihack;
 		save_gameinfo();
-		adminlog('hackedit',$ihack);
+		adminlog('hackedit',$room_prefix,$gamenum,$ihack);
 		addnews($now,'syshackchg',$ihack);		
 		//\map\movehtm();
 	}
@@ -51,25 +51,25 @@ if($command == 'wthedit'){
 		$cmd_info = '当前游戏状态修改为：'.$gstate[$igamestate];
 		$gamestate = $igamestate;
 		save_gameinfo();
-		adminlog('gsedit',$igamestate);
+		adminlog('gsedit',$room_prefix,$gamenum,$igamestate);
 		addnews($now,'sysgschg',$igamestate);	
 	}elseif($igamestate == 20){
 		$cmd_info = '游戏立即开始！请访问任意游戏页面以刷新游戏状态。';
 		$starttime = $now;
 		save_gameinfo();
-		adminlog('gsedit',$igamestate);
+		adminlog('gsedit',$room_prefix,$gamenum,$igamestate);
 		addnews($now,'sysgschg',$igamestate);	
 	}elseif($igamestate == 10){
 		$cmd_info = '游戏立即进入准备状态！请访问任意游戏页面以刷新游戏状态。';
 		$readymin = $readymin > 0 ? $readymin : 1;
 		$starttime = $now + $readymin * 60;
 		save_gameinfo();
-		adminlog('gsedit',$igamestate);
+		adminlog('gsedit',$room_prefix,$gamenum,$igamestate);
 	}else{
 		$cmd_info = "第 $gamenum 局大逃杀紧急中止";
 		\sys\gameover($now,'end6');
 		save_gameinfo();
-		adminlog('gameover');
+		adminlog('gameover',$room_prefix,$gamenum);
 	}
 }elseif($command == 'sttimeedit'){
 	if($gamestate){
@@ -87,13 +87,14 @@ if($command == 'wthedit'){
 }elseif($command == 'areaadd'){
 	if($gamestate <= 10){
 		$cmd_info = "本局游戏尚未开始，不能增加禁区。";
-	}elseif((!$areanum && $starttime + 10 > $now) || ($areanum && $areatime - $areahour*60 + 30 > $now)){
+	}elseif((!$areanum && $starttime + 10 > $now) || ($areanum && $areatime - \map\get_area_interval() * 60 + 10 > $now)){
 		$cmd_info = "禁区到来后10秒内不能增加禁区。";
 	}else{
 		$areatime = $now;
 		save_gameinfo();
-		$areatime += $areahour * 60;
+		$areatime += \map\get_area_interval() * 60;
 		$cmd_info = '下一次禁区时间提前到来。请访问任意游戏页面以刷新游戏状态。';
+		adminlog('addarea',$room_prefix,$gamenum,'I');
 		addnews($now,'sysaddarea');	
 	}
 }elseif($command == 'areawarn'){
@@ -103,6 +104,7 @@ if($command == 'wthedit'){
 		$areatime = $now+60;
 		save_gameinfo();
 		$cmd_info = '下一次禁区时间已设为60秒后。请访问任意游戏页面以刷新游戏状态。';
+		adminlog('addarea',$room_prefix,$gamenum,'L');
 		addnews($now,'sysaddarea');	
 	}
 }

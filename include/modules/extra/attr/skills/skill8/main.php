@@ -53,13 +53,22 @@ namespace skill8
 		else  return $chprocess();
 	}
 	
-	function get_hitrate(&$pa,&$pd,$active)		//麻痹命中率降低
+	function get_hitrate_multiplier(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_query(8,$pa))			
-			return $chprocess($pa,$pd,$active)*0.9;
-		else  return $chprocess($pa,$pd,$active);
-	}
+		$ret = $chprocess($pa,$pd,$active);
+		if (\skillbase\skill_query(8,$pa))		//麻痹命中率降低
+			$ret *= 0.9;
+		return $ret;
+	}	
+	
+//	function get_hitrate(&$pa,&$pd,$active)		//麻痹命中率降低
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		if (\skillbase\skill_query(8,$pa))			
+//			return $chprocess($pa,$pd,$active)*0.9;
+//		else  return $chprocess($pa,$pd,$active);
+//	}
 	
 	function calculate_active_obbs_multiplier(&$ldata,&$edata)	//麻痹先攻率降低（但出于对原版本的兼容，对手麻痹不会增加你的先攻率，不然NPC要哭了）
 	{
@@ -72,9 +81,10 @@ namespace skill8
 	function calculate_counter_rate_multiplier(&$pa, &$pd, $active)	//麻痹反击率降低
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($pa,$pd,$active);
 		if (\skillbase\skill_query(8,$pa)) 
-			return $chprocess($pa,$pd,$active)*0.2;
-		else  return $chprocess($pa,$pd,$active);
+			return $ret*0.2;
+		else  return $ret;
 	}
 }
 

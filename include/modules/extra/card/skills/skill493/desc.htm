@@ -1,0 +1,29 @@
+<!--{eval $___TEMP_SKILL_ID=493;}-->
+<!--{eval eval(import_module('clubbase','skill493'));$skill493var=\skillbase\skill_getvalue(493,'choice');}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+你可以自由选择以下1个状态。<br>
+当前选择：战斗中获得的熟练度、经验值和怒气全部转化为<span class="lime">$skill493stateinfo[$skill493var]</span>。<br>
+<!--{loop range(1,3) $i}-->
+	<!--{if $skill493var==$i}-->
+		<input type="button" style="width:70px;margin:4px" disabled value="[已选择]">
+	<!--{else}-->
+		<input type="button" style="width:70px;margin:4px" onclick="$('mode').value='special';$('command').value='skill493_special';$('subcmd').value='upgrade';$('skillpara1').value='$i';postCmd('gamecmd','command.php');this.disabled=true;" value="$skill493stateinfo[$i]">
+	<!--{/if}-->
+	<!--{if $i<3}-->&nbsp;&nbsp;&nbsp;<!--{/if}-->
+<!--{/loop}-->
+<br>获得经验值和怒气时，你的等级视为
+<br>熟练度、经验值和怒气中的最大值换算成经验值时的对应等级。
+</span></td>
+<td class=b3 width=96>
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

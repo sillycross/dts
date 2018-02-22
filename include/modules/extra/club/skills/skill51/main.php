@@ -51,7 +51,7 @@ namespace skill51
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!\skillbase\skill_query(51,$pa) || !check_unlocked51($pa)) return $chprocess($pa, $pd, $active);
-		if (substr($pa['wepk'],0,2)!='WC') return $chprocess($pa, $pd, $active);
+		if (\weapon\get_skillkind($pa,$pd,$active) != 'wc') return $chprocess($pa, $pd, $active);
 		eval(import_module('logger'));
 		$z=get_skill51_multiplier($pa);
 		$r=Array((100+$z)/100);

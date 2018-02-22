@@ -58,14 +58,13 @@ namespace enemy
 		eval(import_module('enemy'));
 		//calculate_active_obbs()是加算，返回1-150的数值
 		$active_r = min(max(calculate_active_obbs($ldata,$edata),1), 150);
-		
+		//echo "先攻率基础：$active_r <br>";
 		//calculate_active_obbs_multiplier()是乘算，返回0-1的小数
-		//echo "各技能加成最终值：".calculate_active_obbs_multiplier($ldata,$edata).' <br>';
+		
 		$active_r *= calculate_active_obbs_multiplier($ldata,$edata);
 		
 		//calculate_active_obbs_change()是最后改变，返回0-100的数值，这里只放特判，一般增减请用前两个函数
 		$active_r = calculate_active_obbs_change($ldata,$edata,$active_r);
-		
 		//先攻率最大最小值判定
 		$active_r = max($active_obbs_range[0], min($active_obbs_range[1], $active_r));
 		//echo $active_r;
@@ -91,6 +90,7 @@ namespace enemy
 			extract($edata,EXTR_PREFIX_ALL,'w');
 			if (check_enemy_meet_active($sdata,$edata)) {
 				$action = 'enemy'.$edata['pid'];
+				$sdata['keep_enemy'] = 1;
 				findenemy($edata);
 				return;
 			} else {
@@ -106,17 +106,29 @@ namespace enemy
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
+	function post_act()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess();
+		eval(import_module('player'));
+		if(empty($sdata['keep_enemy']) && strpos($action, 'enemy')===0){
+			$action = '';
+			unset($sdata['keep_enemy']);
+		}
+	}
+	
 	function act()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','map','player','logger','metman','input'));
+		if($command == 'enter')
+			$sdata['keep_enemy'] = 1;
 		if($mode == 'combat') 
 		{
 			if ($command == 'back') 
 			{
 				$log .= "你逃跑了。";
-				$action = '';
 				$mode = 'command';
 				return;
 			}
@@ -125,7 +137,6 @@ namespace enemy
 			
 			if(!$enemyid || strpos($action,'enemy')===false){
 				$log .= "<span class=\"yellow\">你没有遇到敌人，或已经离开战场！</span><br>";
-				$action = '';
 				$mode = 'command';
 				return;
 			}
@@ -133,7 +144,7 @@ namespace enemy
 			$result = $db->query ( "SELECT * FROM {$tablepre}players WHERE pid='$enemyid'" );
 			if (! $db->num_rows ( $result )) {
 				$log .= "对方不存在！<br>";
-				$action = '';
+				
 				$mode = 'command';
 				return;
 			}
@@ -143,7 +154,7 @@ namespace enemy
 			
 			if ($edata ['pls'] != $pls) {
 				$log .= "<span class=\"yellow\">" . $edata ['name'] . "</span>已经离开了<span class=\"yellow\">$plsinfo[$pls]</span>。<br>";
-				$action = '';
+				
 				$mode = 'command';
 				return;
 			} elseif ($edata ['hp'] <= 0) {
@@ -151,6 +162,7 @@ namespace enemy
 				if(\corpse\check_corpse_discover($edata))
 				{
 					$action = 'corpse'.$edata['pid'];
+					$sdata['keep_enemy'] = 1;
 					\corpse\findcorpse ( $edata );
 				}
 				return;

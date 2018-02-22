@@ -2,6 +2,15 @@
 
 namespace skill326
 {
+	//旧成就精力所限，未全部修改，请以skill300、skill313或skill332之后的成就为模板！
+	$ach326_name = array(
+		0=>'全能骑士 LV10',
+		1=>'全能骑士 LV25',
+		2=>'全能骑士 LV50',
+		3=>'全能骑士 LV75',
+		4=>'全能骑士 LV100',
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL326_INFO','achievement;');
@@ -18,7 +27,7 @@ namespace skill326
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
-	//�������ÿ�Ƭ
+	//解码已用卡片
 	function cardlist_decode326($data){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r = array();
@@ -42,22 +51,32 @@ namespace skill326
 			return $data;
 		
 		$c=(int)$pa['card'];
-		$clist = cardlist_decode326($data);
-		if(in_array($c, $clist)) return $data;
-//		for ($i=0; $i<strlen($data); $i+=3)
-//		{
-//			$x=base64_decode_number(substr($data,$i,3));
-//			if ($x==$c) return $data;
-//		}
+		if(!is_array($data)) return $data;
+		if(in_array($c, $data)) return $data;
+		$data[] = $c;
 		
-		$data.=base64_encode_number($c,3);
-		$o=ceil(strlen($data)/3);
+		$o=sizeof($data);
 		
-		if ($o==10) \cardbase\get_qiegao(888,$pa);
-		if ($o==25) { \cardbase\get_card(81,$pa); \cardbase\get_qiegao(1200,$pa); }
-		if ($o==50) \cardbase\get_qiegao(1600,$pa);
-		if ($o==75) \cardbase\get_qiegao(2000,$pa);
-		if ($o==100) \cardbase\get_qiegao(2500,$pa);
+		if ($o==10) {
+			//\cardbase\get_qiegao(888,$pa);
+			\achievement_base\ach_create_prize_message($pa, 326, 0, 888);
+		}
+		if ($o==25) { 
+			//\cardbase\get_card(81,$pa); //\cardbase\get_qiegao(1200,$pa);
+			\achievement_base\ach_create_prize_message($pa, 326, 1, 1200, 81);
+		}
+		if ($o==50) {
+			//\cardbase\get_qiegao(1600,$pa);
+			\achievement_base\ach_create_prize_message($pa, 326, 2, 1600);
+		}
+		if ($o==75) {
+			//\cardbase\get_qiegao(2000,$pa);
+			\achievement_base\ach_create_prize_message($pa, 326, 3, 2000);
+		}
+		if ($o==100) {
+			//\cardbase\get_qiegao(2500,$pa);
+			\achievement_base\ach_create_prize_message($pa, 326, 4, 2500);
+		}
 		
 		return $data;
 	}
@@ -66,13 +85,13 @@ namespace skill326
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('cardbase'));
-		$ca326=\skill326\cardlist_decode326($data);
+		$ca326=$data;
 		$cn326='';
 		foreach($ca326 as $val){
 			$cn326 .= $cards[$val]['name'].' ';
 		}
 		$cn326 = str_replace('"','&quot;',substr($cn326,0,-1));
-		$p326=ceil(strlen($data)/3);
+		$p326=sizeof($data);
 		$c326=0;
 		if ($p326>=100)
 			$c326=999;

@@ -19,13 +19,37 @@ namespace ex_phy_def
 	function init() 
 	{
 		eval(import_module('itemmain'));
+		$itemspkinfo['N'] = '防拳';
+		$itemspkdesc['N']='受到空手攻击的物理伤害减半';
+		$itemspkremark['N']='10%概率失效';
+		
 		$itemspkinfo['P'] = '防殴';
+		$itemspkdesc['P']='受到钝器物理伤害减半';
+		$itemspkremark['P']='10%概率失效';
+		
 		$itemspkinfo['K'] = '防斩';
+		$itemspkdesc['K']='受到锐器物理伤害减半';
+		$itemspkremark['K']='10%概率失效';
+		
 		$itemspkinfo['G'] = '防弹';
+		$itemspkdesc['G']='受到远程武器和重型枪械物理伤害减半';
+		$itemspkremark['G']='10%概率失效';
+		
 		$itemspkinfo['C'] = '防投';
+		$itemspkdesc['C']='受到投掷武器物理伤害减半';
+		$itemspkremark['C']='10%概率失效';
+		
 		$itemspkinfo['D'] = '防爆';
+//		$itemspkdesc['D']='受到爆炸物物理伤害减半';
+//		$itemspkremark['D']='10%概率失效';
+		
 		$itemspkinfo['F'] = '防符';
-		$itemspkinfo['A'] = '全系防御';
+		$itemspkdesc['F']='受到灵力武器物理伤害减半';
+		$itemspkremark['F']='10%概率失效';
+		
+		$itemspkinfo['A'] = '物防';
+		$itemspkdesc['A']='所有攻击方式的物理伤害减半';
+		$itemspkremark['A']='10%概率失效；注意：与防爆不同，物防不能防御爆炸属性伤害。';
 	}
 	
 	function get_ex_phy_def_proc_rate(&$pa, &$pd, $active)
@@ -62,8 +86,8 @@ namespace ex_phy_def
 				else
 				{
 					if ($active)
-						$log .= "<span class=\"yellow\">{$pd['name']}的装备没能发挥攻击伤害减半的效果！</span><br>";
-					else  $log .= "<span class=\"yellow\">你的装备没能发挥攻击伤害减半的效果！</span><br>";
+						$log .= "<span class=\"red\">{$pd['name']}的装备没能发挥攻击伤害减半的效果！</span><br>";
+					else  $log .= "<span class=\"red\">你的装备没能发挥攻击伤害减半的效果！</span><br>";
 					return Array();
 				}
 			}

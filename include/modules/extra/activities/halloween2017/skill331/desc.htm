@@ -1,0 +1,16 @@
+<table><tr>
+<!--{eval eval(import_module('skill331'));}-->
+<td style="vertical-align:top">
+<!--{if ($c331=='999') }--><img src="img/ach/DA_h2017.png">
+<!--{elseif ($c331=='0') }--><img src="img/ach/N_h2017.png">
+<!--{else}--><img src="img/ach/D_h2017.png"><!--{/if}-->
+</td>
+<td valign="top" align="left">
+<b>
+不给糖就解禁
+</b>
+<!--{if ($c331=='999') }--><span class="lime">[完成]</span><!--{else}--><!--{if ($c331==0) }--><span class="red">[未完成]</span><!--{else}--><span class="clan">[进行中]</span><!--{/if}--><!--{/if}--><br>
+<font color="yellow"><span>完成次数：{$p331}次</span><br></font>
+<font color="olive">奖励： 切糕{$ach331_qiegao_prize[1]}</font> <span class="clan">「Balefire Rekindle」卡片1张</span><br> 开局20分钟内解禁完成，且身上拥有总数{$ach331_itemnum}个以上的万圣节糖果<br>
+</td>
+</tr></table>

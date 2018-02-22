@@ -4,7 +4,10 @@ namespace skill230
 {
 	function init() 
 	{
-		define('MOD_SKILL230_INFO','club;active;hidden;');
+		define('MOD_SKILL230_INFO','club;active;feature;');
+		eval(import_module('clubbase'));
+		$clubskillname[230] = '感电';
+		$clubdesc_h[7] = $clubdesc_a[7] = '能够用电池、探测器电池为武器增加电击属性';
 	}
 	
 	function acquire230(&$pa)
@@ -15,6 +18,12 @@ namespace skill230
 	function lost230(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+	}
+	
+	function check_unlocked230(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 1;
 	}
 	
 	function wele(){
@@ -40,11 +49,12 @@ namespace skill230
 				}
 			}
 			if($position){
-				if(strpos($wepsk,'e')!==false){
+				$wepsk_arr = \itemmain\get_itmsk_array($wepsk);
+				if(in_array('e',$wepsk_arr)){
 					$log .= '<span class="red">武器已经带电，不用改造！</span><br />';
 					$mode = 'command';
 					return;
-				}elseif(strlen($wepsk)>=5){
+				}elseif(count($wepsk_arr) >= 12){
 					$log .= '<span class="red">武器属性数目达到上限，无法改造！</span><br />';
 					$mode = 'command';
 					return;
@@ -52,7 +62,8 @@ namespace skill230
 				${'itms'.$position}-=1;
 				$itm = ${'itm'.$position};
 				$log .= "<span class=\"yellow\">用{$itm}改造了{$wep}，{$wep}增加了电击属性！</span><br />";
-				$wep = '电气'.$wep;
+				if(strpos($wep,'电气')===false)
+					$wep = '电气'.$wep;
 				$wepsk .= 'e';
 				if(${'itms'.$position} == 0){
 					$log .= "<span class=\"red\">$itm</span>用光了。<br />";

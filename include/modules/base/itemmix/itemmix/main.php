@@ -2,15 +2,21 @@
 
 namespace itemmix
 {
+	$mix_type = array('normal' => '');
+	
 	function init() {}
 	
 	function itemmix_success()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','logger'));
+		eval(import_module('sys','player','logger','itemmix'));
 		$itmstr = $uip['itmstr'];
-		$log .= "<span class=\"yellow\">$itmstr</span>合成了<span class=\"yellow\">{$itm0}</span><br>";
-		addnews($now,'itemmix',$name,$itm0);
+		
+		//“通常”合成当动词实在是太奇怪了
+		$tpstr = (empty($uip['mixtp']) || $uip['mixtp']==$mix_type['normal']) ? '' : $mix_type[$uip['mixtp']];
+		
+		$log .= "<span class=\"yellow\">$itmstr</span>{$tpstr}合成了<span class=\"yellow\">{$itm0}</span><br>";
+		addnews($now,'itemmix',$name,$itm0,$tpstr);
 	
 		$wd+=1;
 		if((strpos($itmk0,'H') === 0)&&($club == 16)&&($itms0 !== $nosta)){ $itms0 = ceil($itms0*2); }
@@ -47,32 +53,82 @@ namespace itemmix
 	function itemmix_name_proc($n){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','itemmix'));
-		foreach(Array('/锋利的/','/电气/','/毒性/','/-改$/') as $value){
+		$n = trim($n);
+		foreach(Array($itmname_ignore) as $value){
 			$n = preg_replace($value,'',$n);
 		}
+		if(strpos($n, '小黄的')!==false) $n = preg_replace('/\[\+[0-9]+?\]/si','',$n);//小黄强化特判可以合成
 		$n = str_replace('钉棍棒','棍棒',$n);
 		return $n;
 	}
 	
-	function itemmix_recipe_check($mi){//$mi是道具名数组；
+	//查看哪些合成公式符合要求
+	//$mi已改为道具数组
+	function itemmix_recipe_check($mixitem){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','itemmix'));
-		if(count($mi) >= 2){
+		$res = array();
+		if(count($mixitem) >= 2){
+			$mi_names = array();
+			foreach($mixitem as $i) $mi_names[] = itemmix_name_proc($i['itm']);
+			sort($mi_names);
 			foreach($mixinfo as $minfo){
-				$mi0 = $mi; $ms = $minfo['stuff'];
-				sort($mi0);sort($ms);
-				if(count($mi0)==count($ms) && $mi0 == $ms) {
-					return $minfo;
+				$ms = $minfo['stuff'];
+				sort($ms);
+				if(count($mi_names)==count($ms) && $mi_names == $ms) {
+					$minfo['type'] = 'normal';
+					$res[] = $minfo;
 				}
 			}
 		}
-		return false;	
+		return $res;	
 	}
 	
 	function parse_itemmix_resultshow($rarr){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		return $rarr[0].'/'.\itemmain\parse_itmk_words($rarr[1]).'/'.$rarr[2].'/'.$rarr[3].'/'.\itemmain\parse_itmsk_words($rarr[4]);
+		$ret = $rarr[0].'/'.\itemmain\parse_itmk_words($rarr[1],1).'/'.$rarr[2].'/'.$rarr[3];
+		$itmskw = !empty($rarr[4]) ? \itemmain\parse_itmsk_words($rarr[4],1) : '';
+		if($itmskw) $ret .= '/'.$itmskw;
+		return $ret;
+	}
+	
+	function itemmix_option_show($mix_res)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		ob_start();
+		include template(MOD_ITEMMIX_ITEMMIX_OPTIONS);
+		$res = ob_get_contents();
+		ob_end_clean();
+		return $res;
+	}
+	
+	//用户界面暂存的合成素材列表
+	function calc_mixmask($mlist)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$mask=0;
+			foreach($mlist as $k)
+				if ($k>=1 && $k<=6)
+					$mask|=(1<<((int)$k-1));
+		return $mask;
+	}
+	
+	function itemmix_get_result($mlist){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player'));
+		$mixitem = array();
+		foreach($mlist as $val){
+			$mixitem[$val] = array(
+				'itm' => ${'itm'.$val},
+				'itmk' => ${'itmk'.$val},
+				'itme' => ${'itme'.$val},
+				'itms' => ${'itms'.$val},
+				'itmsk' => ${'itmsk'.$val},
+			);
+		}
+		return itemmix_recipe_check($mixitem);
 	}
 	
 	function itemmix($mlist, $itemselect=-1) {
@@ -81,59 +137,51 @@ namespace itemmix
 		
 		if(!itemmix_place_check($mlist)) return;
 		
-		$mixitem = array();
-		foreach($mlist as $val){
-			$mixitem[] = itemmix_name_proc(${'itm'.$val});
-		}
-		$mix_res = itemmix_recipe_check($mixitem);
-//		
-//		$mixflag = false;
-//		foreach($mixinfo as $minfo)
-//		{
-//			if (count($mixitem)==count($minfo['stuff']))
-//			{
-//				$t1=$mixitem; $t2=$minfo['stuff'];
-//				sort($t1); sort($t2);
-//				$flag=1;
-//				for ($i=0; $i<count($t1); $i++)
-//					if ($t1[$i]!=$t2[$i])
-//					{
-//						$flag=0; break;
-//					}
-//				if ($flag) { $mixflag=true; break; }			
-//			}
-//		}
+		$mix_res = itemmix_get_result($mlist);
 		
-		$itmstr = '';
-		foreach($mixitem as $val){
-			$itmstr .= $val.' ';
-		}
-		$itmstr = substr($itmstr,0,-1);
-			
-		if(!$mix_res) {
-			$log .= "<span class=\"yellow\">$itmstr</span>不能合成！<br>";
+		$mixitemname = array();
+		foreach($mlist as $val) $mixitemname[] = ${'itm'.$val};
+		$uip['itmstr'] = implode(' ', $mixitemname);
+		$uip['mixmask'] = calc_mixmask($mlist);
+		if(!$mix_res) {//没有合成选项
+			$log .= "<span class=\"yellow\">{$uip['itmstr']}</span>不能合成！<br>";
 			ob_clean();
-			template(get_itemmix_filename());
+			include template(get_itemmix_filename());
 			$cmd = ob_get_contents();
 			ob_clean();
-		} else {
-			foreach($mlist as $val){
-				itemreduce('itm'.$val);
+		} elseif(count($mix_res) > 1) {//合成选项2个以上
+			if($itemselect >= 0) {//有选择则合成
+				itemmix_proc($mlist, $mix_res[$itemselect]);
+			}else{//否则显示合成选项
+				$cmd.=itemmix_option_show($mix_res);
+				$uip['itemmix_option_show'] = 1;
 			}
-			$minfo = $mix_res;
-			$itm0 = $minfo['result'][0];
-			$itmk0 = $minfo['result'][1];
-			$itme0 = $minfo['result'][2];
-			$itms0 = $minfo['result'][3];
-			if (isset($minfo['result'][4]))
-				$itmsk0 = $minfo['result'][4];
-			else{
-				$itmsk0 = '';
-			}
-			$uip['itmstr'] = $itmstr;
-			itemmix_success();
+		} else {//只有1个合成选项则直接合成
+			itemmix_proc($mlist, $mix_res[0]);
 		}
 		return;
+	}
+	
+	//执行合成
+	function itemmix_proc($mlist, $minfo)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player'));
+		foreach($mlist as $val){
+			itemreduce('itm'.$val);
+		}
+		$itm0 = $minfo['result'][0];
+		$itmk0 = $minfo['result'][1];
+		$itme0 = $minfo['result'][2];
+		$itms0 = $minfo['result'][3];
+		if (isset($minfo['result'][4]))
+			$itmsk0 = $minfo['result'][4];
+		else{
+			$itmsk0 = '';
+		}
+		$uip['mixcls'] = !empty($minfo['class']) ? $minfo['class'] : '';
+		$uip['mixtp'] = $minfo['type'];
+		itemmix_success();
 	}
 	
 	function get_itemmix_filename(){
@@ -182,7 +230,7 @@ namespace itemmix
 					if (!isset($mixmask))
 					{
 						for($i=1;$i<=6;$i++)
-							if(isset(${'mitm'.$i}) && ${'mitm'.$i} == $i)
+							if(!empty(${'mitm'.$i}))
 								$mixlist[] = $i;
 					}
 					else
@@ -194,10 +242,20 @@ namespace itemmix
 					if (isset($itemselect))
 						itemmix($mixlist,$itemselect);
 					else  itemmix($mixlist);
+					
+					if(!empty($uip['itemmix_option_show'])) {
+						ob_start();
+						//显示合成选项表的头尾
+						include template(MOD_ITEMMIX_ITEMMIX_OPTION_START);
+						echo $cmd;
+						include template(MOD_ITEMMIX_ITEMMIX_OPTION_END);
+						$cmd = ob_get_contents();
+						ob_end_clean();
+					}
 				}
 			}
 		}
-		if ($mode == 'command' && $command == 'itemmain' && $itemcmd=='itemmix')
+		elseif ($mode == 'command' && $command == 'itemmain' && $itemcmd=='itemmix')
 		{
 			ob_clean();
 			if ($itemcmd=='itemmix') include template(get_itemmix_filename());
@@ -212,7 +270,7 @@ namespace itemmix
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		if($news == 'itemmix') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}合成了{$b}</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}{$c}合成了{$b}</span></li>";
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 

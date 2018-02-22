@@ -1,0 +1,19 @@
+<!--{eval eval(import_module('skill481'));}-->
+<!--{eval $stunsec481 = $stuntime481 / 1000;}-->
+<!--{eval $___TEMP_SKILL_ID=481;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+■■
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+被你命中的敌人在战斗后晕眩<span class="yellow">$stunsec481</span>秒
+</span></td>
+<td class=b3 width=96>
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

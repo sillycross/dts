@@ -1,0 +1,27 @@
+<!--{eval $___TEMP_SKILL_ID=490;}-->
+<!--{eval eval(import_module('sys','skill490'));}-->
+<!--{eval $skill490_nextuse = (int)\skillbase\skill_getvalue(490,'nextuse'); $skill490_cd_left=$skill490_nextuse-$now;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+空想
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+支付体力到{$skill490_minsp}，获得1个类别、效果、耐久和属性皆随机的「空想道具」，其效和耐合计值不超过支付的体力。
+<!--{if $skill490_nextuse > $now}-->
+<br><span class="clan">技能冷却中，冷却时间还剩<span class="yellow">$skill490_cd_left</span>秒。</span><br>
+<!--{elseif $sp > $skill490_minsp}-->
+<br>你当前发动技能需要支付<span class="yellow"><!--{eval echo $sp-$skill490_minsp;}--></span>点体力。
+<!--{else}-->
+<br><span class="red">你当前体力过少，无法发动技能！</span>
+<!--{/if}-->
+</span></td>
+<td class=b3 width=96>
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+	<input type="button" value="发动" onclick="$('mode').value='special';$('command').value='skill490_special';$('subcmd').value='activate';postCmd('gamecmd','command.php');this.disabled=true;" <!--{if $skill490_nextuse > $now}-->disabled<!--{/if}--> />
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

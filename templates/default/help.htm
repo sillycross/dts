@@ -16,7 +16,7 @@
 		</TR>
 		<TR>
 			<TD class="b3" height=25px width=105px>
-			<span><A href="help.php#常见问题">常见问题</A></span>
+			<span><A href="help.php#基本概念">基本概念</A></span>
 			</TD>
 			<TD class="b3" width=105px>
 			<span><A href="help.php#参加游戏">参加游戏</A></span>
@@ -37,7 +37,7 @@
 			<span><A href="help.php#战斗说明">战斗说明</A></span>
 			</TD>
 			<TD class="b3" width=105px>
-			<span><A href="help.php#熟练度">熟练度</A></span>
+			<span><A href="help.php#伤害与熟练">伤害与熟练</A></span>
 			</TD>
 		</TR>
 		<TR>
@@ -89,89 +89,129 @@
 	</TBODY>
 </TABLE>
 <HR>
-<div align="left" style="margin-left:2em;">
+<center>
+<div class='help_body'>
 
 <p><span class="subtitle2">写在前面的话</span></p>
-<p>作为一款网页游戏，BR大逃杀也算是有点年头的东西了。<br>
+<p>作为一款以文本为主要表现形式的webgame，虽然ACFUN大逃杀即将迎来她的第10个年头，但玩过它、或者涉猎过同类游戏的人依然十分稀少。<br>
 也许你已经是BR原版的老玩家了；也许你虽然没怎么玩过BR大逃杀，但是对类似的网页游戏有所涉猎；当然更可能的情况是你以前并没有接触过这款网页游戏。<br>
-无论你是刚刚在上一局游戏胜出的老手，为了打发下一盘游戏开始前的等待时间而点进来看帮助；<br>
-还是你是初出茅庐的菜鸟，刚刚莫名其妙地死亡之后决定好好了解一下游戏的进行方式，<br>
-本帮助文档都希望使你了解到关于这款BR大逃杀改进版——ACFUN大逃杀——的更多的知识。</p>
+虽然，当代游戏节奏越来越快，这样大段的帮助也许已经是时代眼泪了，但无论是刚接触本游戏的新手，还是已经对玩法有相当认识的老手，本帮助文档都希望能让你了解到有关这款游戏的更多的知识。</p>
 <p>以下就是关于这款游戏的基本说明，包括游戏的操作方式、游戏过程、基本的道具资料以及NPC资料。<BR>
 部分内容并未在此说明，则是为了保留一点神秘感，增加游戏的趣味性。</p>
-<p>注意，以下帮助文档中的所有资料，都是ACFUN大逃杀v.2.91版本的资料，如果版本号更新则可能出现变动。一切数据以游戏为准，本帮助文档仅供参考。<BR>
-本帮助参考了CSIEBR的帮助文档，并且感谢所有参与撰写帮助的玩家的协助。<BR>
+<p>注意，以下帮助文档中的所有资料基于ACFUN大逃杀N.E.W.1.9.1版的资料，如果版本号更新则可能出现变动。<BR>
+本文档最早原型为CSIEBR的帮助文档。感谢所有参与撰写帮助的玩家的协助。<BR>
 <BR>
 </p>
 
-<p><a name="常见问题"><span class="subtitle2">■FAQ 常见问题</span></a></p>
-<DIV align="left" class=FAQ>下面以FAQ的形式将ACFUN大逃杀最基本的游戏概念作简要的阐述。<BR>
-<DL>
-	<DT>问：ACFUN大逃杀怎么玩？
-	<DD>答：ACFUN大逃杀是一个网页游戏，基本操作跟浏览其他网页是一样的，用鼠标选择指令并发送就可以进行游戏了。<br>
-	至于更深入的知识，请大略把整份帮助文档浏览一遍，<BR>
-	第一次看可能很多地方一知半解，不用急着把它背起来，<BR>
-	只要头脑中有游戏概念，玩的时候遇到不了解的情况就查询帮助，<BR>
-	两三盘游戏之后差不多就会明白游戏流程了<BR>
-	<DT>问：怎么注册？
-	<DD>答：如果游戏依附于论坛，那么可能需要你注册那个论坛的账号，并用这个账号登陆游戏。<BR>
-	不过多数情况下游戏是独立运行的，只要在首页输入用户名密码就算注册了，并且下次登陆键入相同的用户名密码就能沿用这个账号。<br>
-	<DT>问：怎么移动？怎么捡东西？怎么找敌人？
-	<DD>答：在“移动”下拉框选择想移动到的地点并且提交，就可以移动到该地点。<br>
-	选择“搜索”选项并且提交则会在原地进行探索。<br>
-	移动和探索都会消耗一定体力，如果自己处于异常状态还可能损失一定生命，而且可能遇到敌人、队友、尸体陷阱、意外事件，或者发现物品。<br>
-	如果发现物品，选择“拾取”则会将其放入包裹，如果包裹已满则会让你进行取舍；选择“丢弃”则会将不要的物品直接丢弃。<BR>
-	<DT>问：怎样杀人？怎样会死？
-	<DD>答：原地探索或者移动之后，有一定概率遭遇敌人。<br>
-	如果对方发现了你，那么强制进入战斗；<br>
-	如果对方没有发现你，那么你可以酌情选择攻击或者逃跑。<br>
-	战斗时依据双方攻击、防御以及熟练度，会互相造成损伤。<br>
-	战斗中如果对方生命减为0，那么对方死亡，你可以在尸体上掠夺一件物品或者拿走金钱。<br>
-	如果游戏没有进入连斗状态，以后还有可能再遇到同一个人的尸体，还有机会再拿物品，当然其他玩家也可能捷足先登。<br>
-	如果你自己生命减为0，那么你将死去，在同一局游戏中无法再进行任何活动。<br>
-	<DT>问：钱是干么用的？怎么赚钱？怎么买东西？能不能卖东西？
-	<DD>答：钱可以在商店购买装备或者道具。<br>
-	进入游戏时会自动给每个玩家发一定数量的金钱，NPC身上也有大量金钱，杀死玩家或者NPC就能拿到他身上携带的金钱。<br>
-	除此之外，没有别的获得金钱的方式。<br>
-	不同游戏版本里，商店的位置并不完全一样。ACFUN大逃杀里，在“无月之影”、“光坂高校”或者“花菱商厦”选择“特殊”下拉框的“商店”就能够进入商店了。
-	<DT>问：能组队吗？怎么组队？怎样加入队伍？怎么给队友东西？给队友钱？
-	<DD>答：在游戏进入“连斗”阶段之前都可以组队，进入“连斗”之后所有队伍自动解散并且无法再组队，此时玩家只能自相残杀。<BR>
-	想创立队伍或加入队伍请选“队伍”指令。<BR>
-	创立队伍请直接输入你想用的队伍名称以及想用的密码，如果创立成功会消耗一定体力。<BR>
-	加入别人的队伍则输入对方的队名密码，加入成功也会消耗一定体力。<BR>
-	成为队友之后，只要可见度良好，队友之间都不会互相攻击。<BR>
-	遇到队友时，可以选择将道具送给队友，但是钱不能给队友。<BR>
-	起雾或者浓雾天气，可见度差，就算是队友也会误伤。<BR>
-	<DT>问：体力耗尽了！生命值快归零了！怎样回复体力和生命？
-	<DD>答：回复体力和生命有三种办法：吃补给品、睡眠/治疗/静养，以及等级提升。<BR>
-	游戏开局会发面包和矿泉水，分别能回复生命和体力。游戏各地区地面上也散布有大量的补给品，不过可能带毒，服用后反而损失生命。<BR>
-	如果补给耗尽，选择“睡眠”指令并提交可以随时间回复体力，选“治疗”指令则是回复生命，在“精灵中心”以及“对天使用作战本部”还可以选择“静养”指令，同时回复体力和生命。<BR>
-	点击“提交”能看到回复量，在回复时，无法进行其他行动；点击“返回”并提交则返回作战状态。<BR>
-	此外，等级提升时也能回复少量体力和生命值。<BR>
-	<DT>问：受伤了怎么办？进入异常状态了怎么办？
-	<DD>答：受伤跟异常状态都不会自动解除。<BR>
-	受伤时在“特殊”下拉框选择“包扎伤口”指令，消耗一定体力包扎伤口。<BR>
-	如果进入异常状态，有两种办法：一是只有寻找或购买相应的药剂并服用才能解除；二是到有医院的地图通过“静养”指令解除。<BR>
-	</DD>
+<p><a name="基本概念"><span class="subtitle2">■基本概念Q&A</span></a></p>
+<DIV align="left" class=FAQ>下面以问与答的形式简述基本游戏概念。<BR>
+<DL class="FAQ">
+	<DT>问1：ACFUN大逃杀是什么，怎么玩？
+		<DD>答：ACFUN大逃杀是一个网页游戏（webgame），不需要安装客户端，基本操作通过鼠标/快捷键来进行。<br>
+	<DT>问2：怎么进入游戏？
+		<DD>答：如果你尚未注册，需要先点击屏幕上方、标题下方的<a>&gt;&gt;账号注册</a>，并输入想要的用户名和密码来创建账号。<br>
+	如果已经注册过，在首页登陆以后，单击<input type="button" value="进入游戏">按钮，或者屏幕上方的<a>&gt;&gt;进入游戏</a>链接皆可。<br>
+	<dt>问3：我能否中途离开游戏？
+		<DD>答：如果要中途离开游戏，只要关闭浏览器即可；如果这局游戏未结束，而你想回到游戏，登陆账号进入游戏就可以继续。<br>
+		请注意，就算你离开游戏，你的游戏角色仍留在在游戏中，有可能被别的玩家杀死、因停留在禁区被抹杀，或者被清除挂机系统给清除。<br>
+	<DT>问4：房间是什么？怎么进入房间？
+		<DD>答：“房间”相当于标准游戏之外的副本，在首页点击<input type="button" value="新建一个房间">即可创建，或者选择已经存在的房间<input type="button" value="进入">或者<input type="button" value="旁观">。<br>
+	进入已存在的房间需要再次点击<input type="button" value="进入游戏">才能加入。<br>
+	<DT>问5：游戏目标是什么？
+		<DD>答：首先，<span class="yellow">保证自己的存活</span>；其次，设法通过<span class="yellow">最后幸存</span>、<span class="yellow">锁定解除</span>或其他胜利方式结束游戏，并成为那个胜利者。
+	<DT>问6：场上只有我一个人了，为什么还没有获胜？<BR>
+		<DD>答：游戏开局时是<span class="yellow">开放激活</span>状态，此时任何玩家都能随时加入游戏，就算只剩1个人也不会立刻结束。<br>
+		当游戏<span class="yellow">停止激活</span>（一般同时会进入<span class="yellow">连斗阶段</span>）之后，如果场上只有1位玩家幸存，那么这位玩家才会获得<span class="yellow">最后幸存</span>胜利。<br>
+	<DT>问7：为什么我刚入场没多久就死了？
+		<DD>答：死亡的原因有很多种，常见的原因有：<span class="yellow">被高级NPC杀害，误食毒物，踩到了陷阱</span>，或是触发了某些区域的<span class="yellow">特殊即死事件</span>。<br>
+		游戏中尽量保持<span class="yellow">生命值处于高位乃至全满</span>，能够减少上述情况的发生率。<BR>
+	还有一种情况是，有其他玩家比你入场早或者发展比你快，到了<span class="yellow">足以秒杀你</span>的程度。这种情况需要你多积累一些游戏经验、提升生存能力。<BR>
+	<DT>问8：为什么那些玩家开局很快就能击杀我、击杀NPC？他们是不是充值了？
+		<DD>答：这些玩家可能<span class="yellow">手速更快</span>，这样移动和探索的次数更多，获取道具资源和攻击NPC的机会就更多；<BR>
+		而且他们可能<span class="yellow">对游戏更加熟悉</span>，选择了容易发育的武器路线、称号或者卡片。<BR>
+	ACFUN大逃杀是一个开源免费运营的游戏，不存在充值系统，每位玩家的起点都是相同的。与新玩家相比，老玩家的优势在于游戏经验更为丰富，并且在更长的游戏时间里积累了更多的卡片等游戏资源。<BR>
+	<DT>问9：怎么移动和探索？
+		<DD>答：在<select><option>■ 移动 ■ </option></select>下拉框</span>点选<span class="yellow">目的地</span>，就可以移动到该地点。<br>
+		点击<input type="button" class="cmdbutton" value="[Z]探索">则会<span class="yellow">在原地进行探索。</span><br>
+		移动和探索都会消耗一定体力，如果自己处于异常状态还可能损失一定生命，而且可能发现物品、遇到敌人、队友、尸体、陷阱或者意外事件。<br>
+	<DT>问10：怎么获得强力的武器和防具？
+		<DD>答：<span class="yellow">移动</span>和<span class="yellow">探索</span>都可能发现物品，这时只要<input type="button" class="cmdbutton" value="[Z]拾取">就会将其放入包裹，如果包裹已满则会让你进行取舍；选择<input type="button" class="cmdbutton" value="[X]丢弃">则会将其放回原处。<BR>
+	除了拾取以外，杀死其他玩家和NPC也能<span class="yellow">缴获装备道具</span>；使用缴获的金钱能够<span class="yellow">在商店购买装备道具</span>；此外，<span class="yellow">进行道具合成</span>也是中后期获取强力装备道具的手段。<br>
+	<DT>问11：怎样杀死其他玩家和NPC？被杀死的玩家会怎样？
+		<DD>答：<span class="yellow">移动</span>和<span class="yellow">探索</span>都有一定概率遭遇敌人。<br>
+		如果对方发现了你，那么强制进入战斗；<br>
+		如果对方没有发现你，那么你可以酌情点击<input type="button" class="cmdbutton" value="[Z]攻击">或者<input type="button" class="cmdbutton" value="[X]逃跑">。<br>
+		战斗时依据双方攻击、防御以及熟练度，会互相造成损伤。<br>
+		战斗中如果对方生命减为0，那么对方死亡，你可以在尸体上<span class="yellow">掠夺一件物品或者拿走金钱</span>。<br>
+		如果游戏没有进入连斗状态，原地还有可能再遇到这具尸体，并再拿物品；当然其他玩家也可能捷足先登。<br>
+		被杀死的玩家在同一局游戏中无法再行动，但是下一局游戏这位玩家依然可以重新入场。<br>
+	<DT>问12：NPC会不会主动攻击我？
+		<DD>答：在游戏机制里，战斗都是由玩家触发的。只有玩家移动或者探索时，才有可能遇见NPC、进入战斗。<BR>
+		如果玩家不探索/移动，是不会被NPC攻击的，可以利用这一点避免伤亡。但是，玩家就算不动，也还是有可能被其他玩家主动攻击的。<BR>
+	<DT>问13：怎么赚钱？钱能干什么？
+		<DD>答：开局会发放非常少量的金钱；NPC身上有大量金钱，<span class="yellow">杀死玩家或者NPC</span>就能拿到他身上携带的金钱。<br>
+		一些<span class="yellow">特殊事件</span>或者<span class="yellow">特殊道具</span>也能获得金钱。但是，并不能通过贩卖来获取金钱（这是一个你死我活的游戏）。<br>
+		钱可以在<span class="yellow">商店</span>购买装备或者道具。<br>
+		<span class="yellow">商店</span>位于“无月之影”、“光坂高校”或者“花菱商厦”，在这些区域点击<input type="button" class="cmdbutton" value="[C]商店">即可进入商店页面。
+	<DT>问14：体力耗尽了！生命值快归零了！怎样回复体力和生命？
+		<DD>答：回复体力和生命通常有3种办法：<span class="yellow">吃补给品、使用睡眠/治疗/静养功能、使用「治疗」技能。</span><BR>
+		1. 开局会发面包和矿泉水，分别能回复生命和体力。游戏中也可拾取、缴获大量补给品，不过可能带毒导致损失生命。<BR>
+		2. 如果补给耗尽，点击<input type="button" class="cmdbutton" value="睡眠">可以进入睡眠状态，逐渐回复体力；点击<input type="button" class="cmdbutton" value="治疗">则是回复生命。<BR>
+		3. 选择称号后可以获得<span class="yellow">「治疗」技能</span>，点击<input type="button" class="cmdbutton" value="[V]技能表">并在技能表界面<input type="button" value="治疗">，即可立刻回复500点生命和体力，但是需要消耗1个技能点<BR>
+		此外，等级提升时也能回复少量体力；一些特殊技能和道具也能回复体力或者生命。<BR>
+	<DT>问15：受伤了怎么办？进入异常状态了怎么办？
+		<DD>答：受伤跟异常状态都不会自动解除。<BR>
+		受伤时直接<span class="yellow">点击状态图标的受伤部位</span>，即可消耗一定体力包扎伤口。<BR>
+		解除异常状态则有3种办法：其一是寻找或购买相应的药剂并服用；其二是到特定地图通过“静养”指令解除；其三是通过<span class="yellow">「治疗」</span>等技能直接解除。<BR>
+	<DT>问16：能组队吗？怎么组队？组队有什么好处？
+		<DD>答：在游戏进入“连斗”阶段之前都可以组队<BR>
+		想创立队伍请点击<input type="button" class="cmdbutton" value="组建队伍">，相应地还能<input type="button" class="cmdbutton" value="加入队伍">和<input type="button" class="cmdbutton" value="退出队伍"><BR>
+		队友不会相互攻击（但是雾天可能误伤）；遇到队友时，可以将道具赠送给队友，但是不能赠送钱。<BR>
+		如果是组队对抗的房间，队友之间还能即时赠送物品和呼叫支援。<BR>
+		需要注意的是，进入“连斗”之后队伍功能失效，此时玩家只能自相残杀。<BR>
+	<DT>问17：称号是什么？
+		<DD>答：<span class="yellow">内定称号</span>相当于“职业”，不同称号能让玩家获得不同的优势。<BR>
+		一般情况下，玩家开局能从若干称号中任选一个。选择后，会立刻获得一定的加成和技能，之后一般就不能再更换称号了。<BR>
+		根据游戏目的和场上情况选择合适的称号是生存和获胜的必修课。<BR>
+	<DT>问18：技能是什么？
+		<DD>答：<span class="yellow">技能</span>让玩家具有一定的特殊能力。<BR>
+		技能可以通过选取称号、使用技能书或者使用特定卡片入场来获得。<BR>
+		活用技能也是生存和获胜的必由之路。<BR>
+	<DT>问19：卡片是什么？
+		<DD>答：在进入游戏之前选择不同的<span class="yellow">卡片</span>，能让玩家以不同的初始状态进入游戏。<BR>
+		只有<span class="yellow">卡片模式</span>和部分房间模式允许玩家自选入场卡片。<BR>
+		卡片可以靠<span class="yellow">游戏中使用卡片包、抽卡、完成成就</span>等方式获得。<BR>
+		卡片具有罕贵度，<span class="gold b">S卡</span>最为稀有和强大，之后<span class="clan">A卡</span>、<span class="brickred b">B卡</span>、<span class="white">C卡</span>和<span class="grey b">M卡</span>稀有度和强度依次下降。<BR>
+		合适的卡片能够让玩家一开局就获得优势，不过总体而言，胜负的决定因素还是在于人的技术而不是卡片强度。<br>
+		</DD>
 </DL>
 </DIV>
 <br>
 <p><a name="参加游戏"><span class="subtitle2">1.参加游戏</span></a></p>
 
-<p>在ACFUN大逃杀的首页，可以看到输入用户名和密码的输入框。<br>
-<br>
-如果游戏是以论坛插件形式存在的，必须首先注册相应论坛的账号。<br>
-然后在登陆论坛后，进入论坛的大逃杀插件，并用论坛账号登陆即可进行游戏。<br>
-<br>
-如果游戏不依附于论坛，在游戏首页输入用户名和密码并点击<span class="yellow">“登陆”</span><br>
-如果以前用同一个账号登陆过，则会激活此账号。若为新账号，则会自动进行新用户注册。<br>
-如果已经激活了账号，将不显示用户名密码输入框，而显示<span class="yellow">“进入游戏”</span>按钮。<br>
-若游戏状态为<span class="yellow">“开放激活”</span>，点击“进入游戏”即可进入游戏角色创建流程。<br>
-注意，每局游戏开始时，必须重新激活一次角色。<br>
-<br>
-如果中途要离开游戏，只要退出论坛或者关闭浏览器即可。<br>
-请注意，就算你离开游戏，你的游戏角色仍留在在游戏中，有可能被别人杀死、因停留在禁区被抹杀，或者遭遇到别的事情。<br>
-所以，在离开前请注意将游戏角色移动到合适的地点，并调整自己的迎战策略。</p>
+<p>
+	要加入游戏，首先必须<span class="yellow">登录账号</span>。<br>
+	<br>
+	1. 如果你尚未注册过账号，需要先点击屏幕上方、标题下方的<a>&gt;&gt;账号注册</a>，并输入想要的用户名和密码来创建账号。<br>
+	用户名必须是未注册过的，并且不可包含敏感词汇。不同服务器的账号是互不通用的。<br>
+	注册完毕后会自动登录账号。<br>	
+	2. 如果已经注册过，在首页输入用户名和密码进行登陆。<br>
+	<br>
+	登录以后，你可以自由选择参与<span class="yellow">标准局</span>或者<span class="yellow">房间局</span><br>
+	若要参加标准游戏，登陆后直接单击<input type="button" value="进入游戏">，或者屏幕上方的<a>&gt;&gt;进入游戏</a>链接就可以了<br>
+	<img src="img/help/help_1.1.gif"><br>
+	这样首先会进入<span class="yellow">入场手续</span>页面，在这个页面可以即时修改自己选用的头像、性别和口头禅等，还可以修改用于入场的卡片。
+	<img src="img/help/help_1.2.gif" style="width:900px"><br>
+	选好以后，点击<input type="button" value="提交">就可以进入游戏了。<br>
+	<br>
+	若要参加房间游戏，登陆后在画面右侧的<span class="yellow">房间列表</span>中选择已经存在的房间<input type="button" value="进入">或者<input type="button" value="旁观">。<br>
+	<img src="img/help/help_1.3.gif"><br>
+	进入房间以后，还需要再次点击左侧的<input type="button" value="进入游戏">才能到达<span class="yellow">入场手续</span>页面。<br>
+	也可以创建新房间。点击<input type="button" value="新建一个房间">即可进入创建新房间的页面。<br>
+	<img src="img/help/help_1.4.gif"><br>
+	一般而言，在选好房间模式并点击<span class="yellow">准备</span>按钮之后，就会自动进入新房间的游戏中。<br>
+</p>
+
 
 <br>
 
@@ -179,288 +219,344 @@
 
 <p>
 <span class="lime">【胜利条件】</span>：<br>
-“ACFUN大逃杀”是玩家被迫互相残杀以争取唯一的生存名额的游戏。<br>
-因此，简要地说，杀光其他所有玩家，最后独存的那个人，就是本局游戏的胜利者，将迎来<span class="yellow">“最后幸存”</span>结局。<br>
-此外，如果玩家设法杀死位于管理后台的BOSS，并使用从BOSS身上拾取的特殊道具，也可以带领剩余玩家逃离“ACFUN大逃杀”的世界，迎来<span
-	class="yellow">“锁定解除”</span>结局。<br>
-此外，也存在别的游戏结局，期待玩家可以找到。<br><br>
+“ACFUN大逃杀”的故事背景简而言之，是玩家们被锁死在虚拟幻境中，被迫互相残杀来争取唯一的生存名额。<br>
+因此，简要地说，<span class="yellow">杀光其他所有玩家，最后独存</span>的那个人，就是本局游戏的胜利者，将迎来<span class="yellow">「最后幸存」</span>结局。<br>
+如果玩家设法杀死位于<span class="yellow">无月之影</span>的BOSS，并使用从BOSS身上拾取的特殊道具<span class="yellow">「游戏解除钥匙」</span>，也可以带领剩余玩家逃离“ACFUN大逃杀”的世界，迎来<span class="yellow">「锁定解除」</span>结局。<br>
+若玩家以某种方式找到<span class="yellow">奇怪的按钮</span>，使用后则有一定概率引来电子病毒核弹炸毁整个虚拟世界，也即<span class="yellow">「核爆全灭」</span>结局。<br>
+此外，还存在面向PVE的<span class="yellow">「幻境解离」</span>结局，其流程较为复杂，推荐有一定基础的玩家挑战。<br>
+另外，房间和某些限时开放的特殊局也有自己的游戏结局。<br><br>
 
 <span class="lime">【游戏路线】</span>：<br>
 进入游戏 →→ 通过战斗提升等级和熟练 →→ 杀死NPC和玩家存钱买补给、武器、强化道具  →→ 连斗以后与其他玩家决斗并获胜 →→ <span class="yellow">『最后幸存』</span><br>
 进入游戏 →→ 选择合适的姿势和策略 →→ 回避战斗并等待其他玩家自相残杀或被NPC杀死  →→ 躲藏在安全地点等待高等级玩家因禁区停留、踩高伤陷阱、撞BOSS或者其他RP死法而死亡 →→ <span class="yellow">『最后幸存』</span><br>
-进入游戏 →→ 通过战斗提升等级和熟练 →→ 杀死NPC和玩家存钱买补给、武器、强化道具  →→ 用移动PC解除禁区 →→ 杀死位于管理后台的BOSS NPC →→ <span class="yellow">『锁定解除』</span><br>
+进入游戏 →→ 通过战斗提升等级和熟练 →→ 杀死NPC和玩家存钱买补给、武器、强化道具  →→ 用移动PC解除禁区 →→ 杀死位于无月之影的BOSS NPC →→ <span class="yellow">『锁定解除』</span><br>
+这里只列出最常见的游戏路线，其他路线或者其他游戏模式的打法也请玩家自行探索。<br>
 </p>
-<br>
 
 
 <p><a name="禁区和连斗"><span class="subtitle2">3.禁区和连斗</span></a></p>
-
-<p>ACFUN大逃杀地图中共有25个区域。<br>
-根据服务器的设定，每隔一定的时间，就会有一些地区变为<span class="yellow">禁区</span>。<br>
-在禁区增加的那一刻，如果有人<span class="yellow">滞留在禁区</span>，并且姿态没有调整为<span class="yellow">“躲避姿态”</span>，那么这个人将会被<span class="yellow">强行杀死</span>。<br><br>
-如果找到道具“移动PC”，玩家可以<span class="yellow">解除禁区</span>。<br>
-从禁区解除的时刻起，一直到下一次增加禁区的时刻为止，玩家可以任意访问被禁止的区域。<br>
-如玩家想挑战游戏BOSS，也必须先解除禁区，才能到管理后台与BOSS决战。<br><br>
-
-当禁区数量增加到一定程度，或者在游戏中死亡的玩家和NPC总数超过一定数目时，都将使游戏进入<span class="yellow">“连斗阶段”</span>。<br>
-当前服务器的设定是<span class="yellow">禁区增加三次</span>或者<span class="yellow">死亡100人</span>则进入连斗，别的服务器可能会有所调整。<br>
-进入连斗以后，<span class="yellow">游戏停止激活</span>，<span class="yellow">所有尸体消失且无法再摸到尸体</span>，<span class="yellow">所有队伍解散</span>，<span class="yellow">躲避姿态也无法回避禁区</span>，剩下的人必须决一死战。<br>
-同时禁区还会继续增加，如果全部地区都变为禁区，那么所有的参与者都会死亡，这局游戏将没有胜利者。</p>
-<p>此外，在游戏进入连斗以后，如果玩家杀死了<span class="yellow">代码聚合体</span>并使用掉落的<span class="yellow">“代码聚合体的ID卡”</span>，则会使游戏进入<span class="red">“死斗模式”</span>。<br>
-进入死斗模式以后，玩家将不会再遇到任何NPC，同时也意味着解禁结局成为不可能。<br>
-不过，如果想要快速消灭剩下的玩家，死斗模式不失为一种很好的选择。</p><br>
-<p><a name="游戏界面"><span class="subtitle2">4.游戏界面</span></a></p>
-
+<!--{eval eval(import_module('sys','map','gameflow_combo'));}-->
+<img src="img/help/help_3.1.gif"><br>
+<!--{eval $plsnum1=sizeof($plsinfo);}-->
+<p>ACFUN大逃杀地图中共有{$plsnum1}个区域。<br>
+<span class="yellow">无月之影</span>是玩家的出生地，也是默认的禁区，离开之后就不能返回。<br>
+此外，每隔一定的时间，就会有一些地区变为<span class="yellow">禁区</span>。禁区的间隔时间因模式而异，通常为30分钟增加1次禁区，极速模式为10分钟增加1次禁区。<br>
+在禁区增加的那一刻，<span class="yellow">滞留在禁区</span>的玩家都会被强行杀死。变为禁区的区域将<span class="yellow">不能进入</span>。<br>
+不过，在连斗前将应战策略改为<span class="yellow">“重视躲避”</span>，则可以<span class="yellow">自动回避禁区</span>。<br>
+NPC不会被禁区杀死。此外，多数NPC也会自动回避禁区。<br>
 <br>
-<p><span class="lime">下面这是一般游戏进行中的画面。</span><br><br>
-左上显示你的各种游戏状态数据；左下部分是聊天框；右半边是指令区。<br>
-<span class="yellow">『游戏状态』</span> 显示玩家的姓名、头像、内定称号、攻防指数、熟练度、受伤状况等等各种数值，以及身上装备和包裹道具的界面。<br>
-数值会随游戏进行而变动。了解自己的各项能力有助于战术的制定。<br>
-其中“体力”、“生命”以及“受伤状况”也以图像的形式显示，这三个数值与玩家息息相关，请多加留意。<br>
-<span class="yellow">『聊天框』</span> 显示聊天信息。<br>
-玩家可以听到公共频道所有人的聊天信息，也可以发送聊天信息。<br>
-此外如果玩家加入了队伍，还可以在队伍频道聊天，此时信息只有队友能收到。<br>
-另外，当玩家或者NPC死亡时，也会以红色粗体字在聊天框留下遗言，同时会显示死亡的地点。<br>
-<span class="yellow">『指令区』</span> 供玩家下指令。<br>
-各指令的用途参见<span class="yellow">“指令说明”</span>。</p>
-<p><img style="border-style: solid;border-width:1px; border-color:#00ff00" src="img/help.png" width="937" height="580"></p>
-<p>此外，游戏界面上方有各游戏页面的链接。<br>
-<span class="yellow">『首页』</span> 回到首页，可以看游戏的进行时间和激活、生存、死亡人数。<br>
-<span class="yellow">『游戏』</span> 从其他页面进入游戏界面，如果网速不快导致“提交”按钮卡住了也能通过这个链接刷新当前页面。<br>
-<span class="yellow">『地图』</span> 显示大逃杀战场的简易地图，暂时没什么用。<br>
+玩家可以使用道具<span class="yellow">“移动PC”</span>，来<span class="yellow">临时解除禁区</span>。如果解除了禁区，一直到下一次增加禁区的时刻为止，玩家可以任意进入这些区域，不过已经移走的NPC不会返回。<br>
+如玩家想挑战游戏BOSS，也必须先解除禁区，才能到无月之影与BOSS决战。<br>
+<br>
+<!--{eval $combonum1=$deathlimit_by_gtype[0]+20;}-->
+当禁区数量增加到一定程度（一般是游戏<span class="yellow">第{$arealimit}次增加禁区</span>的时刻），游戏会<span class="yellow">停止激活</span>，新玩家不能再任意加入游戏了。<br>
+如果<span class="yellow">停止激活时存活玩家数少于{$combolimit}人</span>，或者在游戏中死亡的玩家和NPC<span class="yellow">总数超过{$combonum1}人的阈值</span>，都将使游戏进入<span class="yellow">“连斗阶段”</span>。如果加入游戏的玩家数目较多，死亡人数阈值会有一定上浮。<br>
+进入连斗以后，<span class="yellow">所有尸体消失且无法再摸到尸体</span>，<span class="yellow">所有队伍解散</span>，<span class="yellow">躲避姿态也无法回避禁区</span>，剩下的人必须决一死战。<br>
+而且，禁区还会继续增加。如果全部地区都变为禁区，那么所有的参与者都会死亡，这局游戏将没有胜利者。</p>
+<p>此外，在游戏进入连斗以后，如果玩家使用从<span class="yellow">杏仁豆腐</span>处缴获的<span class="yellow">“杏仁豆腐的ID卡”</span>，则会使游戏进入<span class="red">“死斗模式”</span>。<br>
+进入死斗模式以后，玩家将不会再遇到任何NPC。如果想要快速消灭剩下的玩家，死斗模式不失为一种选择。</p><br>
+<p><a name="游戏界面"><span class="subtitle2">4.游戏界面</span></a></p>
+<p>
+	<span class="lime">下面这是一般游戏进行中的画面。</span><br>
+	画面顶端这样一行链接对应的含义如下：<br>
+<span class="yellow">『首页』</span> 回到首页，可以登录登出、更换房间，也可以看当前游戏的进行时间，激活、生存、死亡人数。<br>
+<span class="yellow">『站内邮件』</span> 用于查看和收取游戏站内信，成就奖励、卡片获得都要收取站内信的附件才算真正完成。<br>
+<span class="yellow">『账号资料』</span> 查看自己账号的<span class="yellow">个人资料和成就完成状况</span>，<br>
+还可以选择主卡片、查看自己的卡册、花费切糕进行抽卡，或是获取日常任务<br>
+<span class="yellow">『进入游戏』</span> 从其他页面进入游戏界面，如果网速不快导致“提交”按钮卡住了也能通过这个链接刷新当前页面。<br>
+<span class="yellow">『战场地图』</span> 显示大逃杀战场的简易地图，除了可以看禁区以外暂时没什么用。<br>
 <span class="yellow">『进行状况』</span> 显示游戏的进行状况以及最新的50条聊天记录，不参加游戏的旁观者也可以从这个页面观看游戏进度。<br>
-此外进行状况页面还能察看禁区解除与否、当前禁区状况以及未来3个小时之内的禁区状况，请多加留意。<br>
-<span class="yellow">『当前幸存者』</span> 按杀人数和等级顺序显示当前存活的玩家情况，如果想要把握其他玩家的游戏进展，请多加注意此页面。<br>
-<span class="yellow">『历史优胜者』</span> 可以查看服务器上储存的历次游戏获胜者以及进行情况记录。<br>
+此外，这一页面还能察看<span class="yellow">禁区解除与否、当前以及未来3次的禁区状况</span>，请多加留意。<br>
+<span class="yellow">『当前幸存』</span> 按杀人数和等级顺序显示当前存活的玩家情况，可以用于掌握其他玩家的游戏进展。<br>
+<span class="yellow">『历史优胜』</span> 可以查看服务器上储存的<span class="yellow">历次游戏获胜者、该局进行状况以及录像</span>。<br>
+<span class="yellow">『玩家排行』</span> 查看本服务器的玩家排行榜。点击玩家名可以查看该玩家的详细信息和他的卡册。<br>
 <span class="yellow">『游戏帮助』</span> 即是本帮助文档所在的页面。<br>
-<span class="yellow">『游戏管理』</span> GM可以通过这个页面对游戏进行管理。<br>
-<span class="yellow">『建议和举报』</span> 类似留言板，对ACFUN大逃杀提出建议以及举报玩家的不良行为。<br>
-<span class="yellow">『官方网站』</span> ACFUN大逃杀作者的网站。<br>
+<span class="yellow">『游戏管理』</span> GM可以由此进入管理界面。<br>
+<span class="yellow">『官方讨论区』</span> 通往本游戏的官方论坛。<br>
+<span class="yellow">『官方网站』</span> 通往本游戏的设定站。<br>
 </p>
+<img src="img/help/help_4.1.gif" style="width:900px"><br>
+<div class="FAQ">
+<dl>
+	<dt>『玩家状态数据』
+		<dd>显示玩家的等级、内定称号、攻防数据、熟练度、受伤状况等等各种数值，以及身上装备和包裹道具的界面。<br>
+		其中“体力”、“生命”以及“受伤状况”也以图像的形式显示，这三个数值与玩家息息相关，请多加留意。<br>
+		此外，<span class="yellow">基础姿态</span>和<span class="yellow">应战策略</span>的切换、<span class="yellow">内定称号</span>的选择、<span class="yellow">武器装备</span>的卸下，以及一些<span class="yellow">主动技能</span>的触发也是在这个区域进行。
+	<dt>『聊天及进行状况』
+		<dd>默认显示聊天信息。点击<input type="button" value="切换模式">可以切换到进行状况显示。<br>
+		<span class="yellow">聊天信息：</span><br>
+		玩家可以听到公共频道所有人的聊天信息，也可以发送聊天信息。<br>
+		如果玩家加入了队伍，还可以在队伍频道聊天，此时信息只有队友能收到。<br>
+		当玩家或者NPC死亡时，也会以红字在聊天框留下遗言，同时会显示死亡的地点。<br>
+		游戏开始、结束、增加禁区时，会以黄字在聊天框发送提示。<br>
+		<span class="yellow">进行状况：</span><br>
+		这里会即时显示游戏开始、结束、增加禁区、天气变化、玩家杀死玩家或者NPC、合成道具、发动技能、造成伤害等等的讯息。<br>
+		经常关注聊天框的信息有助于掌握战场态势。<br>
+	<dt>『反馈区』
+		<dd>玩家操作的结果一般以文字的形式显示在这里。
+	<dt>『指令区』</span> 
+		<dd>玩家各指令的用途参见下方的<span class="yellow">“指令说明”</span>。
+</dl>
+</div>
 <br>
 
 <p><a name="指令说明"><span class="subtitle2">5.指令说明</span></a></p>
+<dl>
+	<dt>『移动与探索』
+		<dd>
+			<span class="yellow">『移动』</span> 消耗15点体力，离开现在的区域而移动到别的区域。<br>
+			<span class="yellow">『探索』</span> 消耗15点体力，探索现在的区域。快捷键为Z。<br>
+			移动和探索都可能发现物品、遇到敌人、队友、尸体，或者遇上突发事件。<br>
+	<dt>『包裹道具使用』
+		<dd>
+			使用或者装备对应道具，具体效果根据道具的类型而定。可拥有的道具上限是6个。<br>
+			从包裹1号到6号的快捷键分别是A、S、D、Q、W、E。
+	<dt>『道具特殊操作』
+		<dd>
+			<span class="yellow">『装备卸下』</span> 位于状态数据区，可以卸下装备的武器和防具并放到包裹里。<br>
+			<span class="yellow">『道具合成』</span> 将2-6个不同道具合成为一个新道具。常见的合成公式请参考后文<br>
+			<span class="yellow">『包裹管理』</span>
+			可以将完全相同的道具合并，以节约包裹空间。注意，将有毒的食物和无毒的食物合并，会使全部食物带毒。此外，还可以将两个道具互换位置。<br>
+			<span class="yellow">『道具丢弃』</span> 选择装备或者包裹道具并丢掉。该道具不会消失，而是丢在当前的地区，自己可以通过<span class="yellow">『视野』</span>立刻捡回来，别的玩家也能捡到。<br>
+	<dt>『回复操作』
+		<!--{eval eval(import_module('rest'));}-->
+		<!--{eval $rest_sleep_val = round((1/$rest_sleep_time)*10000)/10000;$rest_heal_val = round((1/$rest_heal_time)*10000)/10000;}-->
+		<dd>
+			<span class="yellow">『睡眠』</span> 每秒回复体力上限的{$rest_sleep_val}%的体力。<br>
+			<span class="yellow">『治疗』</span> 每秒回复生命上限的{$rest_heal_val}%的生命。<br>
+			<span class="yellow">『静养』</span> 按上述速度同时恢复生命和体力，同时有一定概率解除异常状态，静养时间越长，解除概率越高。<br>
+			<!--{eval $rest_pls_arr=array();foreach($rest_hospital_list as $rhlv) $rest_pls_arr[]=$plsinfo[$rhlv];$rest_pls = implode('、',$rest_pls_arr);}-->
+			静养只能在<span class="yellow">$rest_pls</span>内进行。
+	<dt>『队伍』
+		<!--{eval eval(import_module('team'));}-->
+		<dd>队友不能互相攻击，可以互相赠送道具，可以队内聊天。<br>
+		不过，在<span class="yellow">起雾、浓雾和暴风雪</span>天气下，由于进入战斗时无法识别对方，可能会误伤队友。<br>
+		进入连斗后，所有的队伍都将被取消，并且不能再组建或者加入队伍。<br>
 
-<p><span class="yellow">『移动』</span> 消耗15点体力，离开现在的区域而移动到别的区域。<br>
-<span class="yellow">『探索』</span> 消耗15点体力，探索现在的区域。<br>
-移动和探索都可能遇到敌人、队友、尸体，遇上突发事件，或者发现物品。<br>
-<span class="yellow">『道具使用』</span> 根据道具的类型使用或者装备所选的道具。可拥有的道具上限是5个。</p>
-
-
-<p><span class="lime">“道具”</span>：<br>
-<span class="yellow">『道具合成』</span> 将2或3个不同的道具，合成为一个新道具。常见的合成公式请参考下文<br>
-<span class="yellow">『道具丢弃』</span>
-将包裹里的道具丢掉。丢弃的道具不会消失，将被放置在当前的地区，自己或别人还能再次找到。<br>
-<span class="yellow">『整理包裹』</span>
-可以将完全相同的道具合并在一起，节约包裹空间。注意，将有毒的食物和无毒的食物合并，会使全部食物带毒。<br>
-<span class="yellow">『卸下装备』</span> 将身上的武器或者防具卸下放置到包裹里。</p>
-
-
-<p><span class="lime">“恢复”</span>：<br>
-<span class="yellow">『睡眠』</span> 根据睡眠的时间和体力上限，按一定比例恢复体力。<br>
-<span class="yellow">『治疗』</span>
-根据睡眠的时间和生命上限，按一定比例恢复生命，但是不会治疗伤口或解除异常状态。伤口治疗在“特殊”功能内。<br>
-<span class="yellow">『静养』</span> 同时恢复生命和体力，同时有一定概率解除异常状态，静养时间越长，解除概率越高。只能在精灵中心和对天使用作战本部内进行。</p>
-
-
-
-
-<p><span class="lime">“特殊”</span>：<br>
-<span class="yellow">『商店』</span>
-在管理后台、光坂高校或者花菱商厦时，可以进入商店购买道具。购买前请确认包裹里有空位放置道具，否则会要求丢弃一个道具。<br>
-<span class="yellow">『基础姿态』</span> 更改自己的行动姿态，各种行动姿态的详情见下文。<br>
-<span class="yellow">『应战策略』</span> 更改自己的应战策略，各种应战策略的详情见下文。<br>
-<span class="yellow">『留言变更』</span> 修改自己的座右铭，杀人留言和遗言。<br>
-<span class="yellow">『包扎伤口』</span>
-如果在战斗中受伤，可以使用此功能处理伤口。包扎每处伤口要消耗25点体力，如果体力不足则无法包扎。<br>
-<span class="yellow">『武器带电』</span>  给装备着的武器附加“电击”属性，只有特性为“锡安成员”时才具有此功能。需要消耗1个电池/探测器电池
-。<br>
-<span class="yellow">『查毒』</span> 检查饮食中是否有毒，只有称号为“黑衣组织”时才具有此功能。<br>
-<span class="yellow">『武器淬毒』</span> 给装备着的武器附加“带毒”属性，只有称号为“黑衣组织”时才具有此功能。需要消耗1个毒药。</p>
-
-
-<p><span class="lime">“队伍”</span>：<br>
-同一队伍的人可以赠送道具，但是不能互相攻击。注意：在能见度很低的天气状况下可能会误伤。<br>
-进入连斗后，所有的队伍都将被取消，并且不能再组建或者加入队伍。<br>
-<span class="yellow">『创建队伍』</span> 消耗50点体力，组建一个新的队伍，队伍必须有名称和密码。<br>
-<span class="yellow">『加入队伍』</span>
-消耗25点体力，加入一个已经存在的队伍，需要填写队伍名称和密码。每支队伍最多有5人。<br>
-<span class="yellow">『脱离队伍』</span> 脱离目前已经加入的队伍。</p>
-<br>
-
+		<span class="yellow">『创建队伍』</span> 消耗{$team_sp}点体力，组建一个新的队伍，队伍必须有名称和密码。<br>
+		<span class="yellow">『加入队伍』</span> 消耗{$teamj_sp}点体力，加入一个已经存在的队伍，需要填写队伍名称和密码。每支队伍最多能有{$teamlimit}人。<br>
+		<span class="yellow">『脱离队伍』</span> 脱离目前已经加入的队伍。
+	<dt>『商店』
+		<!--{eval eval(import_module('itemshop'));}-->
+		<!--{eval $shop_pls_arr=array();foreach($shops as $sv) $shop_pls_arr[]=$plsinfo[$sv];$shop_pls = implode('、',$shop_pls_arr);}-->
+		<dd>
+			在<span class="yellow">$shop_pls</span>内可以访问商店。商店的快捷键是C。<br>
+			在商店内可以购买回复品、异常治疗药剂、各系武器、防具、武器强化道具、陷阱，以及一些有用的杂物。<br>
+	<dt>『技能表』
+		<dd>
+			可以打开技能表，使用或者学习技能。具体技能讲解见后文<A href="help.php#称号与技能">称号与技能</A>。
+</dl>
 <p><a name="战斗说明"><span class="subtitle2">6.战斗说明</span></a></p>
 
-<p>战斗分为两种：<span class="yellow">自己引发的战斗</span>和<span class="yellow">其他玩家引发的战斗</span>。<BR>
-玩家自己移动或者探索时，遇见了其它的玩家便会发生战斗，这种战斗是由玩家自己引发的。<BR>
-玩家有一定的概率先发现对手，此时可以选择<span class="yellow">“攻击”</span>或者<span class="yellow">“逃跑”</span>，还可以向对方<span class="yellow">喊话</span>。<BR>
-如果选择攻击，则能先制攻击。此时会依照武器的类型，进行不同类型的攻击。<BR>
-如果选择逃走，则一定能回避战斗。<BR>
-相反的，如果玩家被对方先发现，就是对方先发动攻击。此时无法回避战斗。<BR>
+<p>
+玩家移动或者探索时，若遇见其他的角色（包括玩家和NPC）便会发生战斗。此时，战斗的<span class="yellow">发起方</span>是玩家自己。<BR>
+战斗发起方有一定概率<span class="yellow">先制攻击</span>。<BR>
+敌方是玩家时，先制率基础值是50%，而敌方是NPC时，基础值是55%；天气良好时先制率增加，天气恶劣时则降低；选用合适的策略和技能也能增加先制率。对战斗发起方而言，先制率通常是大于50%的。<br>
+如果你先制攻击，可以向对方<span class="yellow">喊话</span>，选择<input type="button" class="cmdbutton" value="[Z]攻击">或者<input type="button" class="cmdbutton" value="[X]逃跑">，还可以<span class="yellow">发动战斗技能</span>。<BR>
+如果选择攻击，则你先攻击对手，在你攻击完毕后对手再反击（也有可能无法反击）。具体的攻击方式依据你所持武器或者发动的战斗技能而有区别。而如果选择逃走，则必然回避战斗。<BR>
+而如果敌方先制攻击，就是对方先发动攻击，此时直接进入战斗而无法逃跑。就算战斗发起方是你自己，也有可能被敌方先制攻击。<BR>
 <BR>
-此外，其他玩家也会行动。当一名玩家主动行动而遇到另一名玩家时，主动行动的玩家是战斗的引发者，可以看到详细的作战讯息。<BR>
-另一名玩家不属于战斗的引发者，只能看到简要的战斗报告。</p>
-<p><span class="lime">下面就是先发现对手时的战斗界面。左边显示自己和对方的部分能力值和状态，右边就是指令区。</span></p>
-<p><img  style="border-style: solid;border-width:1px; border-color:#00ff00" src="img/help_2.png" width="947" height="577"></p>
-<p>如果选择用武器进行攻击，则会根据自己的攻击力和熟练度，以及对方的防御力，分别计算攻击伤害。<BR>
+注意，其他玩家也会行动。当一名玩家主动行动并遭遇另一名玩家时，主动行动方就是战斗发起方，可以看到详细的作战讯息。而另一名玩家只能看到简要的战斗报告。<BR>
+<span class="lime">下面就是先制敌方时的战斗界面。左边的主界面显示双方的能力值和状态，右边则是指令区。</span></p>
+<img  src="img/help/help_6.1.gif" style="width:900">
+<p>如果选择用武器进行攻击，则会根据自己的攻击力和熟练度，以及对方的防御力来计算攻击伤害。<BR>
 如果玩家的攻击造成对方的生命值归零，那么对方就被玩家<span class="yellow">杀死</span>了。<BR>
-同样的，如果敌人的攻击造成玩家的生命值归零，那么玩家就被敌方杀害，在这局游戏中就无法再进行任何行动了。</p>
-<p>引发战斗的玩家，在战斗当中杀害对手时，可以从对方所拥有的武器防具或者金钱中，<span class="yellow">选择一个拿走</span>。<BR>
-不过，如果战斗并非由玩家引发，但是在战斗中杀了对方，这种情况下没有办法捡取对方的物品。<BR>
+同样的，如果敌人的攻击造成玩家的生命值归零，那么玩家就被敌方杀害，在这局游戏中就无法再进行任何行动了。<BR>
+玩家杀死对手后（无论是否是发起方），可以从对方的武器、防具、包裹道具或者金钱中，<span class="yellow">选择一项来缴获</span>。<BR>
+缴获以后无法立刻再次缴获别的道具，必须在原地再次发现尸体才有机会。<BR>
 </p>
 <br>
 
-<p><a name="熟练度"><span class="subtitle2">7.熟练度</span></a></p>
+<p><a name="伤害与熟练"><span class="subtitle2">7.战斗伤害与熟练度</span></a></p>
+<p>
+	战斗造成的伤害分为<span class="yellow">物理伤害</span>和<span class="yellow">属性伤害</span>两大部分。
+	此两大部分相加得到<span class="yellow">最终伤害</span><br>
+</p>
+<p>
+	<span class="lime">1.『物理伤害』</span><br>
+	与攻击者的<span class="yellow">总攻击力</span>和<span class="yellow">武器对应系别的“熟练度”</span>成正比例关系，并与防御者的<span class="yellow">总防御力</span>成反比例关系。<BR>
+	此外，部分武器拥有固定的物理伤害值。连击属性也影响物理伤害值。<br>
+	整体而言，物理伤害的特点是<span class="lime">成长性明显</span>，初期数值很小，但后期伤害通常非常可观。<br>
+	<dl>
+		<dt>『总攻击力』
+			<dd>通常等于攻击者基础攻击力 + 武器攻击力 x 2。<br>
+			要增加基础攻击力，可以依靠<span class="yellow">升级</span>、<span class="yellow">攻击强化药物</span>、<span class="yellow">部分技能</span>或者其他一些途径来提升基本数值。<br>
+			要增加武器攻击力（即武器效果值），则可以依靠<span class="yellow">拾取、缴获、合成更强大的武器</span>或者<span class="yellow">使用武器强化道具</span>来提升武器的效果值。
+		<dt>『熟练度』
+			<dd>熟练度对伤害的影响同各系<span class="yellow">熟练度</span>以及<span class="yellow">熟练度伤害系数</span>成正比例关系。<br>
+			各系武器的熟练度伤害系数参见<A href="help.php#武器">武器</A>部分。<BR>
+			同样的武器攻击同样的敌人，在熟练度很低时可能只能造成1-2点的伤害，但在熟练度很高完全可能把敌人秒杀。<BR>
+			要增加熟练度通常有以下方式：<br>
+			①只要<span class="yellow">攻击敌人</span>，无论命中与否，武器对应的熟练度都会上升。<BR>
+			②阅读<span class="yellow">“技能书”</span>或者使用特定的<span class="yellow">“能力药”</span>也可以提高熟练度。<BR>
+			③部分<span class="yellow">“内定称号”</span>或<span class="yellow">“卡片”</span>也会自带增加熟练度的<span class="yellow">“技能”</span>。<BR>
+			④比较特殊的是，<span class="yellow">合成物品</span>和<span class="yellow">设置陷阱</span>可以增加爆系熟练度；使用<span class="yellow">水果刀</span>可以增加斩系熟练度。<BR>
+			⑤此外，使用“装有H173的注射器”进行自杀时，有微小概率会进入<span class="yellow">L5状态</span>，此时全系熟练度都会大幅度上升。
+		<dt>『总防御力』
+			<dd>通常等于防御者的基础防御力 + 身体/头部/手部/足部四个部位的防具防御力之和。注意饰物的效果值不计入防御力。<br>
+			要增加基础防御力，可以依靠<span class="yellow">升级</span>、<span class="yellow">防御强化药物</span>、<span class="yellow">部分技能</span>或者其他一些途径来提升基本数值。<br>
+			要增加防具防御力，则可以依靠<span class="yellow">拾取、缴获、合成更强大的防具</span>或者<span class="yellow">使用强化道具</span>来提升防具的效果值。<br>
+			此外，部分属性和技能还会导致防御方的防御力下降。
+		<dt>『物理固定伤害』
+			<dd>指的是<span class="yellow">重型枪械</span>和<span class="yellow">灵力兵器</span>的固定伤害值，在<A href="help.php#武器">武器</A>部分会专门阐述。
+		<dt>『连击』
+			<dd>属性<span class="yellow">连击</span>会让物理伤害值直接乘上一个系数，在<A href="help.php#属性">属性</A>部分会专门阐述。
+	</dl>
+</p>
+<p>
+	另外，若要考察整个物理伤害前后阶段，则可分为<span class="yellow">物抹判定、物伤基础值、物伤加成值、物伤修正值</span>四个阶段。<br>
+	<dl>
+		<dt>1.1 物抹判定阶段
+			<dd>如果物抹（伤害抹消）生效，物理伤害只有1，并且不再进行后续判定。</dd>
+		<dt>1.2 基础值阶段
+			<dd>这一阶段又分为2个子阶段，将两个子阶段的伤害简单相加得到的基础值：
+				<ol>
+					<li>武器主伤害阶段，根据前述的总攻击力、熟练度和总防御力算出武器主伤，加上重枪和灵系的固定伤害，之后计算连击属性的伤害加成。
+					<li>固定伤害阶段，又分为固伤加算阶段和固伤乘算阶段，【底力】、【科学】、【乱击】、【浴血】的固定伤害属于加算阶段，【金刚】降低固伤的效果属于乘算阶段，先加算，后乘算。
+				</ol>
+			</dd>
+		<dt>1.3 加成值阶段
+			<dd>所有影响这一阶段的技能给出一个系数，全部乘到基础值上。<br>
+				影响这一阶段的技能/功能有【灵力兵器的体力衰减】、【重枪挨打时伤害增加】、【热恋/同志属性的激怒】、【物理减半类防御属性】以及【重击/烈击】、【硬化/钢化】、钱四爷【嗑药】、【藤甲】、【梦想天生】、【瞄准】、【咆哮】、【歼灭】、【蓄力】、【穿杨】、【重拳】、【暴打】、【潜能】、【百出】、【恐惧】、【解构】和【必杀】技能的物伤加成。</li>
+		<dt>1.4 修正值阶段
+			<dd>满足条件时，直接改变整个物理伤害。<br>
+				【EMP】影响这里（物理伤害变成0）。
+	</dl>
+</p>
+<p>
+	<span class="lime">2.『属性伤害』</span><br>
+	只有在拥有<span class="yellow">攻击属性</span>时才会拥有此项伤害。攻击属性列表见<A href="help.php#属性">属性</A>部分<BR>
+	无视防御者的防御力，且与攻击者的<span class="yellow">武器攻击力</span>和<span class="yellow">武器对应系别的“熟练度”</span>有关，但不同属性的伤害计算指标有较大区别。<br>
+	整体而言，属性伤害的特点是<span class="lime">两极分化</span>，前期大部分攻击属性都能无视防御力，快速打出伤害，但中后期大部分下位攻击属性的伤害封顶，只有上位属性伤害能随着武器攻击的上涨而继续上升。<br>
+</p>
+<p>
+	另外，若要考察整个属性伤害前后阶段，则可分为为<span class="yellow">属抹判定、总属伤基础值、总属伤加成值、总属伤修正值</span>四个阶段。
+	<dl>
+		<dt>2.1 属抹判定阶段
+			<dd>如果属抹（属性抹消）生效，只按照攻击属性数目返回伤害，并且不再进行后续判定。
+		<dt>2.2 总属伤基础值阶段
+			<dd>这一阶段所有的攻击属性依次进行判定，将各个属性伤害简单相加得到的总属伤基础值。单个属性伤害又分为以下阶段：
+				<ol>
+					<li>单属性基础值，根据属性类别、武器攻击力、熟练度和对方是否受伤计算出一个伤害。暂时没有任何技能/功能影响这个阶段。
+					<li>单属性加成值，将基础值乘上各功能/技能对单属性伤害的加成值。影响这一阶段的有【属性减半防御属性】、DK^BurNIng的【核弹】、冥界亚龙的【创世】、【藤甲】、FFF的【圣火】、【催化】、【过载】、【金刚】、【附魔】等影响单项属性伤害的技能/功能。
+					<li>单属性修正值。技能【高能】影响这一阶段。
+				</ol>
+			</dd>
+		<dt>2.3 总属伤加成值阶段
+			<dd>所有影响这一阶段的技能/功能给出一个系数，全部乘到基础值上。<br>
+				影响这一阶段的技能/功能有【咆哮】、【特攻】、【圣光】、【吸光】、【圣盾】等影响所有属性的技能。
+		<dt>2.4 修正值阶段
+			<dd>目前还没有技能影响这一阶段。
+	</dl>
 
-<p>武器的伤害值跟该武器类型的<span class="yellow">“熟练度”</span>息息相关。<BR>
-玩家刚进入游戏时，熟练度低下，可能用武器只能造成1-2点的伤害。<BR>
-但是到后期，熟练度升高以后，可能用同样的武器都能将敌人秒杀。<BR>
-战斗时，只要<span class="yellow">对敌人进行攻击</span>，无论命中与否，武器类型对应的熟练度都会上升。<BR>
-如果逃跑，自然得不到熟练度。<BR>
-比较特别的是，<span class="yellow">合成物品</span>和<span class="yellow">设置陷阱</span>也可以增加爆系武器的熟练度。<BR>
-阅读<span class="yellow">“技能书”</span>或者使用特定的<span class="yellow">“能力药”</span>也可以提高熟练度。<BR>
-此外，使用“装有H173的注射器”进行自杀时，有微小概率会进入<span class="yellow">L5状态</span>，此时全系熟练度都会大幅度上升。
+</p>
+<p>
+	<span class="lime">3.『最终伤害』</span><br>
+	前述两个伤害的简单相加。<br>有许多功能/技能会影响最终伤害，具体分为<span class="yellow">终伤基础值、终伤加成值、终伤修正值</span>共3个阶段。<br>
+	<dl>
+		<dt>3.1 基础值阶段
+			<dd>用物理伤害+属性伤害得到基础值，之后加上各直接增减最终伤害的技能。<br>
+		【力场】【解牛】【闷棍】【压制】【死神】【神蚀】【格斗】等技能位于此阶段。这一阶段是<span class="yellow">加减关系</span>。比如，【解牛】技能附加30+对方等级伤害，就是在这个阶段加到终伤基础值上。
+		<dt>3.2 加成值阶段
+			<dd>大部分影响最终伤害的技能都在这个阶段判定，是<span class="yellow">乘除关系</span>。<br>
+				比如，蓝凝卡的【心火】使最终伤害+100%，就是在这个阶段使基础值x2。
+		<dt>3.3 修正值阶段
+			<dd>主要是无敌、直死之类特殊技能。<br>
+				这些技能的执行顺序目前分为5个步骤，按下列顺序依次判定。
+				<ol>
+					<li>无敌类技能，这样的技能有Dr.Clef的【魔鬼】、亚巴顿的【死线】、CTY的【无敌】、宛如疾风生效状态的【天佑】以及极速模式开场的【无垢】技能
+					<li>特殊变化类技能，这里是固定顺序，为最强大脑【规约】 >> 黑曲的【影像】 >> sc的【反演】 >> 数体教的【口胡】
+					<li>限制伤害类技能，这样的技能/功能有除错模式【谨慎】以及控血（伤害制御）属性。注意，【反演】技能特殊，它反弹的伤害也会经过伤害制御的判定。
+					<li>保命类技能，这样的技能有根性兄贵的【不屈】和独立技能【气功】等
+					<li>秒杀类技能，这样的技能有【直死】、远古冰魄的【热寂】和狙击鹰眼的【爆头】，以及属性【弑神】
+				</ol>
+			</dd>
+			<dd>除了秒杀步骤外的其他步骤，如果最终伤害为0就不会判定。此外，“复活”的判定是在击杀之后，并不属于伤害阶段。
+	</dl>
 </p>
 <BR>
 
 <p><a name="基础姿态"><span class="subtitle2">8.基础姿态</span></a></p>
 
-<br>
-<table cellSpacing=0 cellPadding=0>
+<p>玩家的<span class="yellow">“基础姿态”</span>可以影响攻击、防御、遇敌率等一系列重要数值，因此请务必根据战场局势，选择合适的姿态。<br>
+在游戏界面左侧的“基础姿态”栏的下拉列表处可以随时修改基础姿态。<br>
+注：角色发现率-道具发现率的值越大，则玩家每次探索时遭遇角色而不是道具的概率就越高，反之亦然；<br>
+此外，角色发现率/道具发现率越高，玩家就越不容易“什么都没发现”。</p>
+</div>
+<table cellSpacing=0 cellPadding=0 width="1200px">
 	<TBODY>
 		<TR>
-			<TD class="b1" height=20px>
-				<span>基础姿态</span>
+			<TD class="b1" height=25px>
+				<span> 基础姿态 </span>
 			</TD>
 			<TD class="b1">
-				<span>说明</span>
+				<span> 说明 </span>
 			</TD>
 			<TD class="b1">
-				<span>攻击力</span>
+				<span> 攻击力 </span>
 			</TD>
 			<TD class="b1">
-				<span>防御力</span>
+				<span> 防御力 </span>
 			</TD>
 			<TD class="b1">
-				<span>发见率</span>
+				<span> 角色发现率 </span>
 			</TD>
 			<TD class="b1">
-				<span>隐蔽率</span>
+				<span> 道具发现率 </span>
 			</TD>
 			<TD class="b1">
-				<span>先制攻击率</span>
+				<span> 隐蔽率 </span>
+			</TD>
+			<TD class="b1">
+				<span> 先制攻击率 </span>
+			</TD>
+			<TD class="b1">
+				<span> 备注 </span>
 			</TD>
 		</TR>
-		<TR>
-			<TD class="b2" height=20px>
-				<span>通常</span>
-			</TD>
-			<TD class="b3">
-				<span>不注重任何一方面的姿态</span>
-			</TD>
-			<TD class="b3"></TD>
-			<TD class="b3"></TD>
-			<TD class="b3"></TD>
-			<TD class="b3"></TD>
-			<TD class="b3"></TD>
-		</TR>
-
-		<TR>
-			<TD class="b2" height=20px>
-				<span>作战姿态</span>
-			</TD>
-			<TD class="b3">
-				<span>注重攻击和防御的姿态</span>
-			</TD>
-			<TD class="b3">
-				<span class="clan">↑↑↑↑</span>
-			</TD>
-			<TD class="b3">
-				<span class="clan">↑↑</span>
-			</TD>
-			<TD class="b3"></TD>
-			<TD class="b3">
-				<span class="yellow">↓↓</span>
-			</TD>
-			<TD class="b3"><span class="yellow">↓</span></TD>
-		</TR>
-		<TR>
-			<TD class="b2" height=20px>
-				<span>探物姿态</span>
-			</TD>
-			<TD class="b3">
-				<span>注重探索物品效率的姿态</span>
-			</TD>
-			<TD class="b3">
-				<span class="yellow">↓↓</span>
-			</TD>
-			<TD class="b3">
-				<span class="yellow">↓↓</span>
-			</TD>
-			<TD class="b3">
-				<span class="clan">↑↑↑</span>
-			</TD>
-			<TD class="b3">
-				<span class="yellow">↓</span>
-			</TD>
-			<TD class="b3"></TD>
-		</TR>
-		<TR>
-			<TD class="b2" height=20px>
-				<span>偷袭姿态</span>
-			</TD>
-			<TD class="b3">
-				<span>注重隐蔽袭击的姿态</span>
-			</TD>
-			<TD class="b3">
-				<span class="clan">↑↑</span>
-			</TD>
-			<TD class="b3">
-				<span class="yellow">↓↓</span>
-			</TD>
-			<TD class="b3">
-			<span class="yellow">↓</span>
-			</TD>
-			<TD class="b3">
-				<span class="clan">↑</span>
-			</TD>
-			<TD class="b3">
-				<span class="clan">↑↑↑</span>
-			</TD>
-		</TR>
-		<TR>
-			<TD class="b2" height=20px>
-				<span>治疗姿态</span>
-			</TD>
-			<TD class="b3">
-				<span>注重睡眠、治疗和静养效率的姿态</span>
-			</TD>
-			<TD class="b3">
-				<span class="yellow">↓↓↓</span>
-			</TD>
-			<TD class="b3">
-				<span class="yellow">↓↓↓</span>
-			</TD>
-			<TD class="b3">
-				<span class="yellow">↓↓↓</span>
-			</TD>
-			<TD class="b3">
-				<span class="yellow">↓↓↓</span>
-			</TD>
-			<TD class="b3">
-				<span class="yellow">↓↓↓</span>
-			</TD>
-		</TR>
+		<!--{loop $poseinfo $pi $pn}-->
+			<!--{if $pose_player_usable[$pi]}-->
+				<TR>
+					<TD class="b2" height=25px>
+						<span>$pn</span>
+					</TD>
+					<TD class="b3">
+						<span>$posedesc[$pi]</span>
+					</TD>
+					<!--{eval $tmp_pose_loop = array($pose_attack_modifier[$pi], $pose_defend_modifier[$pi], $pose_findman_obbs[$pi], $pose_itemfind_obbs[$pi], $pose_hide_obbs[$pi], $pose_active_obbs[$pi]);}-->
+					<!--{loop $tmp_pose_loop $tmp_pose_var}-->
+						<TD class="b3">
+							<span class=
+							<!--{if $tmp_pose_var > 0}-->
+								"clan"
+							<!--{elseif $tmp_pose_var < 0}-->
+								"red"
+							<!--{else}-->
+								"white"
+							<!--{/if}-->
+							><!--{if $tmp_pose_var > 0}-->+{$tmp_pose_var}%<!--{else}-->{$tmp_pose_var}%<!--{/if}--></span>
+						</TD>
+					<!--{/loop}-->
+					<TD class="b3">
+						<span>$poseremark[$pi]</span>
+					</TD>
+			<!--{/if}-->
+		<!--{/loop}-->
 	</TBODY>
 </TABLE>
+<div class='help_body'>
 <BR>
 <BR>
 <br>
 
 <p><a name="应战策略"><span class="subtitle2">9.应战策略</span></a></p>
 
-<br>
+<p>玩家的<span class="yellow">“应战策略”</span>可以影响作战时的各项参数，同时还有一系列额外的效果。<br>
+注：角色发现率-道具发现率的值越大，则玩家每次探索时遭遇角色而不是道具的概率就越高，反之亦然；<br>
+此外，角色发现率/道具发现率越高，玩家就越不容易“什么都没发现”。</p>
+</div>
 
-<table cellSpacing=0 cellPadding=0>
+<table cellSpacing=0 cellPadding=0 width="1000px">
 	<TBODY>
 		<TR>
 			<TD class="b1" height=20px>
@@ -476,84 +572,46 @@
 				<span>防御力</span>
 			</TD>
 			<TD class="b1">
+				<span>角色发现率</span>
+			</TD>
+			<TD class="b1">
 				<span>隐蔽率</span>
 			</TD>
 			<TD class="b1">
-				<span>反击率</span>
+				<span> 备注 </span>
 			</TD>
 		</TR>
-		<TR>
-			<TD class="b2" height=20px>
-				<span>通常</span>
-			</TD>
-			<TD class="b3">
-				<span>不注重任何一方面的策略</span>
-			</TD>
-			<TD class="b3"></TD>
-			<TD class="b3"></TD>
-			<TD class="b3"></TD>
-			<TD class="b3"></TD>
-		</TR>
-
-		<TR>
-			<TD class="b2" height=20px>
-				<span>重视反击</span>
-			</TD>
-			<TD class="b3">
-				<span>增加反击机会的策略，对攻击力有提升</span>
-			</TD>
-			<TD class="b3">
-				<span class="clan">↑↑</span>
-			</TD>
-			<TD class="b3">
-				<span class="yellow">↓↓</span>
-			</TD>
-			<TD class="b3">
-				<span class="yellow">↓</span>
-			</TD>
-			<TD class="b3">
-				<span class="clan">↑↑↑</span>
-			</TD>
-		</TR>
-		<TR>
-			<TD class="b2" height=20px>
-				<span>重视防御</span>
-			</TD>
-			<TD class="b3">
-				<span>增加战斗和应对陷阱的防御力的策略</span>
-			</TD>
-			<TD class="b3">
-			<span class="yellow">↓↓</span>
-			</TD>
-			<TD class="b3">
-			<span class="clan">↑↑↑</span>
-			</TD>
-			<TD class="b3"></TD>
-			<TD class="b3"></TD>
-		</TR>
-		<TR>
-			<TD class="b2" height=20px>
-				<span>重视躲避</span>
-			</TD>
-			<TD class="b3">
-				<span>试图回避敌人和陷阱的策略，在连斗前还能躲避禁区</span>
-			</TD>
-			<TD class="b3">
-				<span class="yellow">↓↓↓</span>
-			</TD>
-			<TD class="b3"></TD>
-			<TD class="b3">
-				<span class="clan">↑↑</span>
-			</TD>
-			<TD class="b3">
-				<span class="yellow">↓↓↓</span>
-			</TD>
-		</TR>
-
+		<!--{loop $tacinfo $ti $tn}-->
+			<!--{if $tactic_player_usable[$ti]}-->
+				<TR>
+				<TD class="b2" height=25px>
+					<span>$tn</span>
+				</TD>
+				<TD class="b3">
+					<span>$tacticdesc[$ti]</span>
+				</TD>
+				<!--{eval $tmp_tactic_loop = array($tactic_attack_modifier[$ti], $tactic_defend_modifier[$ti], $tactic_meetman_obbs[$ti], $tactic_hide_obbs[$ti]);}-->
+				<!--{loop $tmp_tactic_loop $tmp_tactic_var}-->
+					<TD class="b3">
+						<span class=
+						<!--{if $tmp_tactic_var > 0}-->
+							"clan"
+						<!--{elseif $tmp_tactic_var < 0}-->
+							"red"
+						<!--{else}-->
+							"white"
+						<!--{/if}-->
+						><!--{if $tmp_tactic_var > 0}-->+{$tmp_tactic_var}%<!--{else}-->{$tmp_tactic_var}%<!--{/if}--></span>
+					</TD>
+				<!--{/loop}-->
+				<TD class="b3">
+					<span>$tacticremark[$ti]</span>
+				</TD>
+			<!--{/if}-->
+		<!--{/loop}-->
 	</TBODY>
 </TABLE>
-
-<p>※被发现率表示被其它玩家发现的机率</p>
+<div class='help_body'>
 <BR>
 <BR>
 <br>
@@ -561,793 +619,343 @@
 
 
 <p><a name="道具说明"><span class="subtitle2">10.道具说明</span></a></p>
-<p>道具有以下几种类型：<br>
-<span class="yellow">『生命恢复』</span> 使用后按道具的效果值恢复生命。<br>
-<span class="yellow">『体力恢复』</span> 使用后按道具的效果值恢复体力。<br>
-<span class="yellow">『命体恢复』</span> 使用后同时恢复生命和体力。<br>
-小提示：所有的恢复类道具，都有可能含毒。如果使用了带毒的恢复类道具，不仅不能恢复生命或者体力，还会损失一定的生命，并且进入“中毒”状态。<br>
+<p>道具有以下几种类型：</p>
+<dl>
+	<dt>『武器』</dt>
+	<dd>
+		可装备在<span class="yellow">武器栏</span>，增加玩家的伤害输出。<br>
+		开局给的武器几乎没有战斗能力，而且武器在攻击后可能消耗或者损坏，因而随着游戏进展，玩家几乎必然需要寻找更加强大的武器。<br>
+		武器分为殴、斩、射、投、爆、灵六系，不同的武器有不同的特性，详情见<A href="help.php#武器">武器</A>章节。
+	<dt>『防具』</dt>
+	<dd>
+		分为身体、头部、手臂和腿部四个部位，可以装备在对应的<span class="yellow">装备栏</span>，在战斗中减少玩家受到的伤害，并保护该部位不受伤。<br>
+		开局给的防具几乎没有防御能力，且防具在受到攻击时耐久会下降甚至损坏，因而随着游戏进展，玩家几乎必然需要寻找更加强大的防具。<br>
+	<dt>『饰物』</dt>
+	<dd>
+		可装备在<span class="yellow">饰物栏</span>，虽然并不直接增加玩家的攻击和防御力，但其属性在战斗中也有效，且部分饰物具有特殊效果，例如“妖精的羽翼”在下毒时可以将毒药变为解毒剂，“Untainted Glory”允许玩家进入英灵殿等。
+	<dt>『恢复类道具』</dt>
+	<dd>依据道具的不同，可以回复生命、体力、歌魂、怒气等等，但以最大值为限。<br>
+		提示：所有恢复类道具<span class="yellow">都可能有毒</span>。如果服用了有毒的恢复类道具，不仅没有恢复效果，还可能倒扣生命并染上<span class="purple">“中毒”</span>状态，如果生命扣尽则会被毒死！所以如果捡到<span class="yellow">看上去不能吃的回复品，切勿随便服用</span>。<br>
+		<ul>
+			<li><span class="yellow">『生命恢复』</span> 恢复道具效果值的生命。
+			<li><span class="yellow">『体力恢复』</span> 恢复道具效果值的体力。
+			<li><span class="yellow">『命体恢复』</span> 恢复道具效果值的生命和体力。
+			<li><span class="yellow">『歌魂恢复』</span> 恢复道具效果值的歌魂。
+			<li><span class="yellow">『怒气恢复』</span> 恢复道具效果值的怒气。
+		</ul>
+	</dd>
+	<dt>『药剂』</dt>
+	<dd>药剂分为两类：<br>
+		其一是<span class="yellow">『异常状态药剂』</span>，如解毒剂、解冻药水、烧伤药剂等，可以去除对应的异常状态。如果不在异常状态则没有效果。<br>
+		另一类是<span class="yellow">『特殊药剂』</span>，主要指商店药剂栏出售的“溶剂SCP-294”开头的一类“特殊”类别的道具，能够减少你的一些数值，并增加另一些数值，如“溶剂SCP-294_PT_Poini_Kune”的效果是随机减少你的生命和体力上限，之后让你的全系熟练增加减少的值，不失为一种剑走偏锋的打法。需要注意的是，服用这类药剂若让数值减少到0则会死亡！而且就算不死，称号也会变为“走路萌物”从而失去所有技能，所以服用此类药剂前请三思。
+	<dt>『技能书』</dt>
+	<dd>技能书分为两类：<br>
+		其一是<span class="yellow">『熟练技能书』</span>，类别名是“殴系书籍”、“全系书籍”等，能够增加玩家的熟练度。玩家熟练度小于100时，增加值就是道具的效果值，但如果玩家熟练度高于100，技能书的效果会降低。玩家熟练度很高时技能书会完全无效，甚至倒扣熟练度。<br>
+		另一类是<span class="yellow">『技能学习书』</span>，类别名就是“技能书籍”，使用后能够让玩家获得指定的技能。如果玩家已有这一技能，则没有作用，也不会消耗技能书。
+	<dt>『强化药物』</dt>
+	<dd>依据道具的不同，可以增加玩家的生命上限、体力上限、歌魂上限、攻击力、防御力、经验、全系熟练等各项数值。<br>
+		强化药物绝对无毒，捡到可以放心服用。但是，除生命、体力、歌魂、经验以外的强化药物，在玩家对应数值较高时，强化效果也会下降、无效，甚至倒扣。
+	<dt>『陷阱』</dt>
+	<dd>能在当前地区埋下陷阱。<br>
+		陷阱对其他玩家的伤害不受防御力影响，因而是劣势翻盘的好办法。不过，埋设陷阱时，如果你的等级和爆系熟练度都很低，则<span class="yellow">陷阱的效果值会下降（不会低于原值的一半）</span>。<br>
+		陷阱的详细介绍见<A href="help.php#毒药和陷阱">毒药和陷阱</A>章节。
+	<dt>『扫雷设备』</dt>
+	<dd>能扫除当前地图的任意1个陷阱，前提条件是该陷阱的效果值 ≥ 扫雷设备的效果值。
+	<dt>『电脑设备』</dt>
+	<dd>道具名一般是“移动PC”。使用后有一定概率能够<span class="yellow">解封当前禁区</span>，让玩家可以进入禁区探索，但这一危险行动有一定概率导致该设备毁坏，甚至杀死玩家！<br>
+		电脑设备使用后会消耗电力（效果值），电力降到0则需要用『电池』充电才能继续使用。
+	<dt>『探测仪器』</dt>
+	<dd>道具名一般是<span class="yellow">“生命探测器”或者“广域生命探测器”</span>。前者使用后可以看到玩家所在地区的其他玩家以及各类NPC的数目，而后者的视野更是扩展到全地图。<br>
+		无论是PVP还是PVE，掌握对手动向都是至关重要的，因而寻找/合成广域生命探测器是高水平玩家必做的事。<br>
+		探测仪器使用后会消耗电力（效果值），电力降到0则需要用『探测器电池』充电才能继续使用。
+	<dt>『电池』</dt>
+	<dd>分为『电池』和『探测器电池』两种，分别为『电脑设备』及『探测仪器』供电。
+	<dt>『弹药』</dt>
+	<dd>使用后可为手中装备的射系武器，即<span class="yellow">『远程兵器』</span>和<span class="yellow">『重型枪械』</span>补充弹药。<br>
+		分为『手枪弹药』、『机枪弹药』、『能源弹药』（枪械电池）、『气体弹药』（枪械电池）和『重型弹药』五种，分别对应不同类型和属性的枪械。不同弹药的判定优先顺序如下：
+		<ol>
+			<li><span class="yellow">『重型弹药』</span> 武器类别为 <span class="yellow">『重型枪械』</span>。弹夹上限4发，如果有<span class="white">“连击”</span>属性则是6发。
+			<li><span class="yellow">『能源弹药』</span> 不满足以上条件，且枪械属性有<span class="yellow">“电击”</span>或者<span class="grey">“音波”</span>。弹夹上限10发，如果有<span class="white">“连击”</span>属性则是12发。
+			<li><span class="yellow">『气体弹药』</span> 不满足以上条件，且枪械属性有<span class="red">“火焰”</span>或者<span class="clan">“冻气”</span>。弹夹上限10发，如果有<span class="white">“连击”</span>属性则是12发。
+			<li><span class="yellow">『机枪弹药』</span> 不满足以上条件，且枪械属性有<span class="white">“连击”</span>。弹夹上限20发。
+			<li><span class="yellow">『手枪弹药』</span> 以上条件皆不满足时的弹药类型。弹夹上限6发。
+		</ol>
+		射系武器用尽弹药后如果继续攻击，则会当做钝器使用，不仅属性无效，攻击力还会迅速下降，因此使用射系武器时请保证弹药充足！
+	<dt>『箭矢』</dt>
+	<dd>使用后可为手中装备的弓类武器上箭。如果那把弓已上过箭矢，则会替换那支箭矢。如果弓或者箭有<span class="white">“连击”</span>属性，则会根据玩家的连续攻击次数上箭。弓类武器攻击时，所上的箭的属性也会生效。<br>
+		弓类武器用尽弹药后如果继续攻击，则会当做锐器使用，不仅属性无效，攻击力还会迅速下降，因此使用弓类武器时请保证随时装上箭矢！
+	<dt>『天气控制』</dt>
+	<dd>可改变当前天气。“驱云弹”会将天气变为<span class="yellow">『大晴』</span>，“造雾设备”会将天气变为<span class="grey">『起雾』或『浓雾』</span>，其他天气道具也有各自的效果。
+	<dt>『歌词卡片』</dt>
+	<dd>可装备在饰品栏，之后可以<span class="yellow">歌唱</span>。歌唱需要消耗对应歌魂，带来的效果因各歌词卡片而异。
+	<dt>『礼包类道具』</dt>
+	<dd>分为『礼物』、『卡包』和『浮云』三类，使用后可以随机获得一项道具。<br>
+		卡包能开出的道具多是游戏王卡片（投系武器或者素材），礼物（礼品盒）能开出多种多样的道具，不过一般以无价值的杂物为主。浮云道具只在“SCP研究所”这一危险地图存在，使用后得到的道具较好。
+	<dt>『合成专用』</dt>
+	<dd>只能用来合成更高级的物品，本身没有用处。
+	<dt>『特殊』</dt>
+	<dd>有特殊用途的道具，详情见<A href="help.php#特殊道具">特殊道具</A>章节。
+</dl>
 <br>
-<span class="yellow">『药剂』</span>
-根据药剂类型的不同，使用后能够去除异常状态。如果不在异常状态，服用药剂完全无效。<br>
-<span class="yellow">『技能书』</span>
-使用后，能够按一定比例增加玩家的熟练度。如果玩家熟练度较高，技能书的效果会降低，甚至倒扣熟练度。<br>
-<span class="yellow">『能力药』</span>
-使用后，能够按一定比例增加玩家的各项能力。如果玩家各项能力较高，能力药的效果会降低，甚至倒扣能力值。<br>
 <br>
-<span class="yellow">『武器』</span>
-使用后装备在手上，增加攻击力。武器分为殴，斩，射，投，爆，灵六系，不同的武器有不同的特性，详情见下文。<br>
-<span class="yellow">『防具』</span>
-使用后装备在身体上，增加防御力，并保护该部位不会受伤。分为体，头，腕，足四个部位。<br>
-<span class="yellow">『饰品』</span> 使用后佩戴在身体上，部分饰物有特殊用途。<br>
-<br>
-<span class="yellow">『合成专用』</span> 用来合成更高级道具的物品，单独携带是没有任何作用的。<br>
-<span class="yellow">『陷阱』</span> 使用后会在当前地区设下陷阱。<br>
-<span class="yellow">『天气控制』</span> 使用后将改变当前天气。<br>
-<span class="yellow">『特殊』</span> 有特殊用途的道具，详情见“特殊道具”部分</p>
-
-
 <p><a name="武器"><span class="subtitle2">11.武器</span></a></p>
 
 <p>武器分为<span class="yellow">殴、斩、射、投、爆、灵</span>六系。不同的武器之间的特性差异很大，详情见下表。</p>
-
-<table cellSpacing=0 cellPadding=0 height=295px width=1140px>
+</div>
+<table cellSpacing=0 cellPadding=0 height=300px width=1250px>
 	<tr>
 		<td class="b1" height=20px width=160px>
 		<span>武器种类</span>
 		</td>
-		<td class="b1" width=60px>
+		<td class="b1" width=75px>
+		<span>所需熟练度</span>
+		</td>
+		<td class="b1" width=50px>
 		<span>射程</span>
 		</td>
-		<td class="b1" width=100px>
+		<td class="b1" width=60px>
 		<span>伤害成长</span>
 		</td>
-		<td class="b1" width=100px>
+		<td class="b1" width=60px>
 		<span>初始命中</span>
 		</td>
-		<td class="b1" width=100px>
+		<td class="b1" width=60px>
 		<span>后期命中</span>
 		</td>
-		<td class="b1" width=80px>
+		<td class="b1" width=60px>
 		<span>致伤率</span>
 		</td>
-		<td class="b1" width=250px>
+		<td class="b1" width=60px>
+		<span>反击率</span>
+		</td>
+		<td class="b1" width=300px>
 		<span>优势</span>
 		</td>
 		<td class="b1" width=300px>
 		<span>劣势</span>
 		</td>
 	</tr>
+	<!--{eval eval(import_module('weapon','itemmain','wound'));}-->
+	<!--{eval $wep_adv_desc = array('P'=>'空手也能造成可观伤害；<br>能够用钉子加强棍棒类钝器', 
+	'K'=>'伤害正向浮动大；<br>能够用磨刀石加强武器；',
+	'G'=>'射程远；<br>反击率高，故对NPC输出较高',
+	'J'=>'射程最远；<br>有与武器效果值和敌方生命上限相关的固定伤害值；<br>伤害输出优秀',
+	'C'=>'后期命中率最高；<br>命中率成长最快',
+	'B'=>'熟练度越高射程越高；<br>箭矢的攻击属性也能生效',
+	'D'=>'伏击型武器，不会被反击；<br>伤害输出优秀，且难以防御',
+	'F'=>'有等于武器效果值的固定伤害值；<br>命中率高；<br>大部分合成武器耐久无限'
+	);}-->
+	<!--{eval $wep_wea_desc = array('P'=>'各数值平庸', 
+	'K'=>'伤害负向浮动也大；<br>武器容易损坏',
+	'G'=>'有子弹数量和种类限制；<br>反制装备较多；<br>基础攻击力不能充分发挥作用；<br>攻击时会发出枪声',
+	'J'=>'反击率低；被他人袭击时会遭受额外伤害；<br>反制装备较多；装备本身和子弹均难以获得；<br>射熟低时命中率极端低下；<br>不可以发动大部分战斗技能；<br>攻击时会发出枪声',
+	'C'=>'致伤率最低；<br>伤害输出不佳',
+	'B'=>'反击率低；<br>有箭矢数量限制；<br>每次攻击都需要上箭',
+	'D'=>'伏击型武器，无法反击他人；<br>命中率低下；<br>大部分武器耐久较低<br>攻击时会发出爆炸声',
+	'F'=>'射程最近；<br>伤害成长率最慢；<br>攻击时需要消耗体力；<br>有容易获得的反制装备'
+	);}-->
+	<!--{loop Array('P','K','G','J','C','B','D','F') $val}-->
 	<tr>
-		<td class="b1" height=60px>
-		<span>钝器（殴系）</span>
+		<td class="b3">
+		<span><!--{eval echo $iteminfo['W'.$val]}--></span>
 		</td>
 		<td class="b3">
-		<span class="yellow">近</span>
+		<span><!--{eval echo $skilltypeinfo[$skillinfo[$val]].'熟'}--></span>
 		</td>
 		<td class="b3">
-		<span class="lime">中等</span>
+			<!--{if $rangeinfo[$val] > 5}-->
+				<span class="clan">$rangeinfo[$val]</span>
+			<!--{elseif $rangeinfo[$val] > 3}-->
+				<span class="lime">$rangeinfo[$val]</span>
+			<!--{elseif $rangeinfo[$val] > 1}-->
+				<span class="yellow">$rangeinfo[$val]</span>
+			<!--{elseif $rangeinfo[$val] > 0}-->
+				<span class="red">$rangeinfo[$val]</span>
+			<!--{else}-->
+				<span class="evergreen">伏击※</span>
+			<!--{/if}-->
 		</td>
 		<td class="b3">
-		<span class="lime">中等</span>
+			<!--{if $skill_dmg[$val] > 0.65}-->
+				<span class="clan">$skill_dmg[$val]</span>
+			<!--{elseif $skill_dmg[$val] > 0.5}-->
+				<span class="lime">$skill_dmg[$val]</span>
+			<!--{elseif $skill_dmg[$val] > 0.35}-->
+				<span class="yellow">$skill_dmg[$val]</span>
+			<!--{else}-->
+				<span class="red">$skill_dmg[$val]</span>
+			<!--{/if}-->
 		</td>
 		<td class="b3">
-		<span class="lime">中等</span>
+			<!--{if $hitrate_obbs[$val] > 70}-->
+				<span class="clan">$hitrate_obbs[$val]</span>
+			<!--{elseif $hitrate_obbs[$val] > 60}-->
+				<span class="lime">$hitrate_obbs[$val]</span>
+			<!--{elseif $hitrate_obbs[$val] > 50}-->
+				<span class="yellow">$hitrate_obbs[$val]</span>
+			<!--{else}-->
+				<span class="red">$hitrate_obbs[$val]</span>
+			<!--{/if}-->
 		</td>
 		<td class="b3">
-		<span class="yellow">低</span>
+			<!--{if $hitrate_max_obbs[$val] > 90}-->
+				<span class="clan">$hitrate_max_obbs[$val]</span>
+			<!--{elseif $hitrate_max_obbs[$val] > 85}-->
+				<span class="lime">$hitrate_max_obbs[$val]</span>
+			<!--{elseif $hitrate_max_obbs[$val] > 80}-->
+				<span class="yellow">$hitrate_max_obbs[$val]</span>
+			<!--{else}-->
+				<span class="red">$hitrate_max_obbs[$val]</span>
+			<!--{/if}-->
 		</td>
 		<td class="b3">
-		<div class="nttx">空手也能造成可观伤害；<br>
-		能够用钉子加强棍棒类钝器；</div>
+			<!--{if $wep_infobbs[$val] > 75}-->
+				<span class="clan">$wep_infobbs[$val]</span>
+			<!--{elseif $wep_infobbs[$val] > 50}-->
+				<span class="lime">$wep_infobbs[$val]</span>
+			<!--{elseif $wep_infobbs[$val] > 25}-->
+				<span class="yellow">$wep_infobbs[$val]</span>
+			<!--{else}-->
+				<span class="red">$wep_infobbs[$val]</span>
+			<!--{/if}-->
 		</td>
 		<td class="b3">
-		<span>各数值平庸；</span>
+			<!--{if $counter_obbs[$val] > 60}-->
+				<span class="clan">$counter_obbs[$val]</span>
+			<!--{elseif $counter_obbs[$val] > 40}-->
+				<span class="lime">$counter_obbs[$val]</span>
+			<!--{elseif $counter_obbs[$val] > 20}-->
+				<span class="yellow">$counter_obbs[$val]</span>
+			<!--{else}-->
+				<span class="red">$counter_obbs[$val]</span>
+			<!--{/if}-->
+		</td>
+		<td class="b3">
+			<div style="margin:8 0"><span class="clan">$wep_adv_desc[$val]</span></div>
+		</td>
+		<td class="b3" style="margin:5 0">
+			<div style="margin:8 0"><span class="yellow">$wep_wea_desc[$val]</span></div>
 		</td>
 	</tr>
-	<tr>
-		<td class="b1" height=60px>
-		<span>锐器（斩系）</span>
-		</td>
-		<td class="b3">
-		<span class="yellow">近</span>
-		</td>
-		<td class="b3">
-		<span class="clan">高</span>
-		</td>
-		<td class="b3">
-		<span class="lime">中等</span>
-		</td>
-		<td class="b3">
-		<span class="lime">中等</span>
-		</td>
-		<td class="b3">
-		<span class="clan">高</span>
-		</td>
-		<td class="b3">
-		<div class="nttx">伤害浮动大；<br>能够用磨刀石加强武器；</div>
-		</td>
-		<td class="b3">
-		<span>伤害浮动大；<br>武器容易损坏，耐久普遍低下；</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b1" height=60px>
-		<span>远程武器（射系）</span>
-		</td>
-		<td class="b3">
-		<span class="clan">远</span>
-		</td>
-		<td class="b3">
-		<span class="lime">中等</span>
-		</td>
-		<td class="b3">
-		<span class="yellow">低</span>
-		</td>
-		<td class="b3">
-		<span class="clan">高</span>
-		</td>
-		<td class="b3">
-		<span class="lime">中等</span>
-		</td>
-		<td class="b3">
-		<div class="nttx">射程远；
-		前中期伤害输出优秀；<br>
-		能在固定地点取得高级装备；</div>
-		</td>
-		<td class="b3">
-		<div class="nttx">有子弹数量和种类限制；<br>
-		反制装备较多；
-		后期伤害输出不佳；<br>
-		基础攻击力不能充分发挥作用；</div>
-		</td>
-	</tr>
-	<tr>
-		<td class="b1" height=60px>
-		<span>重型枪械（射系）</span>
-		</td>
-		<td class="b3">
-		<span class="clan">最远</span>
-		</td>
-		<td class="b3">
-		<span class="clan">最高</span>
-		</td>
-		<td class="b3">
-		<span class="red">无</span>
-		</td>
-		<td class="b3">
-		<span class="clan">最高</span>
-		</td>
-		<td class="b3">
-		<span class="clan">最高</span>
-		</td>
-		<td class="b3">
-		<div class="nttx">射程最远；<br>
-		有与武器效果值和敌方生命上限相关的固定伤害值；伤害输出优秀；</div>
-		</td>
-		<td class="b3">
-		<div class="nttx">被他人袭击时会遭受额外伤害；<br>
-		反制装备较多；装备本身和子弹均难以获得；<br>
-		命中率完全依赖于熟练，对熟练度要求很高；<br>
-		不可以发动主动战斗技能；</div>
-		</td>
-	</tr>
-	<tr>
-		<td class="b1" height=60px>
-		<span>投掷武器（投系）</span>
-		</td>
-		<td class="b3">
-		<span class="lime">中等</span>
-		</td>
-		<td class="b3">
-		<span class="lime">低</span>
-		</td>
-		<td class="b3">
-		<span class="yellow">低</span>
-		</td>
-		<td class="b3">
-		<span class="clan">最高</span>
-		</td>
-		<td class="b3">
-		<span class="red">最低</span>
-		</td>
-		<td class="b3">
-		<div class="nttx">后期命中率最高；命中率最快封顶；<br>
-		能在固定地点取得高级装备；<br>
-		中后期伤害输出优秀；</div>
-		</td>
-		<td class="b3">
-		<div class="nttx">前期命中率较低；<br>
-		前期伤害输出不佳；
-		</div>
-		</td>
-	</tr>
-	<tr>
-		<td class="b1" height=60px>
-		<span>爆炸物（爆系）</span>
-		</td>
-		<td class="b3">
-		<span class="evergreen">伏击</span>
-		</td>
-		<td class="b3">
-		<span class="clan">最高</span>
-		</td>
-		<td class="b3">
-		<span class="red">最低</span>
-		</td>
-		<td class="b3">
-		<span class="red">最低</span>
-		</td>
-		<td class="b3">
-		<span class="clan">高</span>
-		</td>
-		<td class="b3">
-		<div class="nttx">伏击型武器，不会被反击；<br>
-		伤害输出优秀，且难以防御；</div>
-		</td>
-		<td class="b3">
-		<div class="nttx">伏击型武器，无法反击他人；<br>
-		命中率低下；大部分武器耐久较低；
-		</div>
-		</td>
-	</tr>
-	<tr>
-		<td class="b1" height=60px>
-		<span>灵力武器（灵系）</span>
-		</td>
-		<td class="b3">
-		<span class="red">最近</span>
-		</td>
-		<td class="b3">
-		<span class="red">最低</span>
-		</td>
-		<td class="b3">
-		<span class="clan">最高</span>
-		</td>
-		<td class="b3">
-		<span class="clan">最高</span>
-		</td>
-		<td class="b3">
-		<span class="clan">较高</span>
-		</td>
-		<td class="b3">
-		<div class="nttx">
-		有等于武器效果值的固定伤害值；<br>
-		命中率高；
-		大部分合成武器耐久无限；</div>
-		</td>
-		<td class="b3">
-		<div class="nttx">射程最近；
-		伤害成长率最慢；<br>
-		攻击时需要消耗体力；<br>
-		有容易获得的反制装备；</div>
-		</td>
-	</tr>
+	<!--{/loop}-->
 </table>
+<div class='help_body'>
 <p>※“伏击”指不能反击任何系的攻击，但是其他系也不能反击自己的主动攻击。</p>
 <br>
 <br>
 <BR>
 
-<p>殴、斩系武器，命中对手之后，有一定机率造成武器<span class="yellow">“损坏”</span>。<BR>
-如果武器的耐久值不是“无限”，那么耐久将会下降。耐久降为0后，武器会损毁，之后就必须赤手空拳了。<BR>
-如果武器的耐久值是“无限”，那么武器的攻击效果将会下降，效果降为0时武器同样会损毁。<BR>
-无限耐久的殴、斩系武器比有限耐久的殴、斩系武器更容易损坏，请注意取舍。<BR>
+<p>殴、斩系武器，命中对手之后，有一定机率造成武器<span class="yellow">“损耗”</span>。<BR>
+如果武器的耐久值不是<span class="yellow">“∞”</span>，那么耐久会下降。如果耐久降为0，武器会<span class="yellow">“毁坏”</span>，不能再使用了。<BR>
+如果武器的耐久值是<span class="yellow">“∞”</span>，那么武器的攻击力（效果值）将会下降，效果降为0时武器同样会毁坏。<BR>
+与一般殴、斩系武器相比，无限耐久的殴、斩系武器更容易损坏，请注意取舍。<BR>
 <BR>
-射系武器有<span class="yellow">“子弹”</span>的设定，当武器耐久非“无限”时才能作为枪械进行射击。<BR>
-如果射系武器子弹用尽，在游戏中耐久值将显示为“无限”。此时射系武器只能直接作为钝器攻击，攻击力会飞速下降。<BR>
-根据射系武器所拥有的属性的不同，需要的子弹类型也不同，请注意收集。<BR>
-带“电击”或者“音波”属性的射系武器，需要能量弹药；<BR>
-带“火焰”或者“冰冻”属性的射系武器，需要气体弹药；<BR>
-除此之外，连续攻击的射系武器属于“机枪”，需要机枪子弹。这些类型之外的射系武器属于手枪，用手枪子弹就可以装填。<BR>
-此外，还存在属性为“一发”的枪械，这种枪械不能装填弹药，弹药用尽就永远无法作为枪械攻击。<BR>
-根据子弹类型的不同，弹夹上限也不同。<BR>
+射系武器有<span class="yellow">“子弹”</span>的设定。
+如果射系武器子弹用尽，耐久值将显示为<span class="yellow">“∞”</span>。此时射系武器只能直接作为钝器攻击，攻击力会飞速下降，而当耐久并非<span class="yellow">“∞”</span>时才能作为枪械进行射击。<BR>
 装填子弹的方法是装备射系武器并「使用」子弹。<BR>
+不同类别、属性的射系武器需要的子弹类型也不同，具体请见<A href="help.php#道具说明">道具说明</A>章节中，<span class="yellow">弹药</span>的部分。<BR>
 <BR>
-投系，爆系和灵系的武器，属于<span class="yellow">消耗品</span>，每攻击一次数量都会减少。当然也存在可以无限攻击的这三类武器。<BR>
+投系、爆系和灵系的武器，属于<span class="yellow">消耗品</span>，每次攻击后，数量（耐久）都会减少。<BR>
+当然，耐久是<span class="yellow">“∞”</span>的这三类武器，可以无限次攻击。<BR>
 <BR>
-部分道具如“磨刀石”、“钉”、“武器师安雅的奖赏”等，都能<span class="yellow">强化武器</span>，使用方法是装备武器然后使用特殊道具即可。具体情况见“特殊道具”。
+部分道具如“磨刀石”、“钉”、“武器师安雅的奖赏”等，都能<span class="yellow">强化武器</span>，使用方法是装备武器然后使用特殊道具即可。具体情况见<A href="help.php#特殊道具">特殊道具</A>章节。
 </p>
 <BR>
 <p><a name="属性"><span class="subtitle2">12.属性</span></a></p>
 
-<p>属性是ACFUN大逃杀在原版大逃杀基础上独创的系统，能极大丰富游戏的玩法。<BR>
-属性分为武器属性和装备属性。具体的属性说明见下表。</p>
+<p>一切道具皆可能拥有属性。属性分为攻击属性、防御属性和杂项属性，其中攻击和防御属性只有<span class="yellow">装备着的道具</span>有效。<BR>
+获得属性的办法有：寻找/缴获/购买/合成属性更丰富的武器和装备、使用宝石骑士的技能给道具上属性、某些特定技能可以为玩家带来额外的攻击/防御属性。<br>
+具体的属性说明见下表。</p>
 
-<p><span class="yellow">武器属性</span>：</p>
+<p><span class="yellow">攻击属性</span>：</p>
 <table cellSpacing=0 cellPadding=0>
 	<tr>
 		<td class="b1" height=20px>
-		<span>属性名称</span>
+			<span>属性名称</span>
 		</td>
 		<td class="b1">
-		<span>属性效果</span>
-		</td>
-
-		<td class="b1">
-		<span>导致异常状态</span>
+			<span>属性效果</span>
 		</td>
 		<td class="b1">
-		<span>备注</span>
+			<span>备注</span>
 		</td>
-
 	</tr>
+	<!--{loop array('S','r','d','p','u','i','e','w','f','k','t','n','y','N','L','v','V') $tmp_attr}-->
 	<tr>
 		<td class="b2" height=20px>
-		<span>连击</span>
+			<span>$itemspkinfo[$tmp_attr]</span>
 		</td>
-		<td class="b3">
-		<span>进行2-6次连续攻击</span>
+		<td class="b3" style="padding:6 0">
+			<span>$itemspkdesc[$tmp_attr]</span>
 		</td>
-		<td class="b3">
-		<span>无</span>
-		</td>
-		<td class="b3">
-		<span>连续攻击次数与熟练度有关。连击导致的伤害要乘以一定的系数。</span>
+		<td class="b3" style="padding:6 0">
+			<span>$itemspkremark[$tmp_attr]</span>
 		</td>
 	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>冲击</span>
-		</td>
-		<td class="b3">
-		<span>计算伤害时对方装备防御力减半</span>
-		</td>
-		<td class="b3">
-		<span>无</span>
-		</td>
-		<td class="b3">
-		<span>概率生效，对属性攻击无影响</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>贯穿</span>
-		</td>
-		<td class="b3">
-		<span>计算伤害时无视对方装备的防御属性</span>
-		</td>
-		<td class="b3">
-		<span>无</span>
-		</td>
-		<td class="b3">
-		<span>概率生效，对属性攻击无影响</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>消音</span>
-		</td>
-		<td class="b3">
-		<span>远程武器特有的属性，攻击时不会发出枪声。</span>
-		</td>
-		<td class="b3">
-		<span>无</span>
-		</td>
-		<td class="b3">
-		<span>无</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>一发</span>
-		</td>
-		<td class="b3">
-		<span>远程武器特有的属性，该武器无法装填弹药，弹药用完就只能当钝器使用。</span>
-		</td>
-		<td class="b3">
-		<span>无</span>
-		</td>
-		<td class="b3">
-		<span>无</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>爆炸</span>
-		</td>
-		<td class="b3">
-		<span>产生额外的伤害</span>
-		</td>
-		<td class="b3">
-		<span class="yellow">无</span>
-		</td>
-		<td class="b3">
-		<span>无</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>火焰</span>
-		</td>
-		<td class="b3">
-		<span>攻击附带火焰伤害</span>
-		</td>
-		<td class="b3">
-		<span class="red">烧伤</span>
-		</td>
-		<td class="b3">
-		<span>概率导致异常状态</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>冻气</span>
-		</td>
-		<td class="b3">
-		<span>攻击附带冻气伤害</span>
-		</td>
-		<td class="b3">
-		<span class="clan">冻结</span>
-		</td>
-		<td class="b3">
-		<span>概率导致异常状态</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>带毒</span>
-		</td>
-		<td class="b3">
-		<span>攻击附带毒性伤害</span>
-		</td>
-		<td class="b3">
-		<span class="purple">中毒</span>
-		</td>
-		<td class="b3">
-		<span>概率导致异常状态</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>电击</span>
-		</td>
-		<td class="b3">
-		<span>攻击附带电气伤害</span>
-		</td>
-		<td class="b3">
-		<span class="yellow">身体麻痹</span>
-		</td>
-		<td class="b3">
-		<span>概率导致异常状态</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>音波</span>
-		</td>
-		<td class="b3">
-		<span>攻击附带音波伤害</span>
-		</td>
-		<td class="b3">
-		<span class="grey">混乱</span>
-		</td>
-		<td class="b3">
-		<span>概率导致异常状态</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>灼焰</span>
-		</td>
-		<td class="b3">
-		<span>攻击附带额外火焰伤害，无法被防御</span>
-		</td>
-		<td class="b3">
-		<span class="red">烧伤</span>
-		</td>
-		<td class="b3">
-		<span>高概率导致异常状态</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>冰华</span>
-		</td>
-		<td class="b3">
-		<span>攻击附带额外冻气伤害，无法被防御</span>
-		</td>
-		<td class="b3">
-		<span class="clan">冻结</span>
-		</td>
-		<td class="b3">
-		<span>高概率导致异常状态</span>
-		</td>
-	</tr>
+	<!--{/loop}-->
 </table>
 <br>
 <br>
 
-<p><span class="clan">装备属性</span>：</p>
+<p><span class="clan">防御属性</span>：</p>
 <table cellSpacing=0 cellPadding=0>
 	<tr>
 		<td class="b1" height=20px>
-		<span>属性名称</span>
+			<span>属性名称</span>
 		</td>
 		<td class="b1">
-		<span>属性效果</span>
+			<span>属性效果</span>
 		</td>
-
 		<td class="b1">
-		<span>备注</span>
+			<span>备注</span>
 		</td>
 
 	</tr>
+	<!--{loop array('A','a','B','b','R','P','K','G','C','D','F','q','U','I','E','W','c','H','h','M','m','l','g') $tmp_attr}-->
 	<tr>
 		<td class="b2" height=20px>
-		<span>全系防御</span>
+			<span>$itemspkinfo[$tmp_attr]</span>
 		</td>
-		<td class="b3">
-		<span>所有六种武器类型的伤害减半</span>
+		<td class="b3" style="padding:6 0">
+			<span>$itemspkdesc[$tmp_attr]</span>
 		</td>
-		<td class="b3">
-		<span>有时无法发挥防御作用</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>伤害抹消</span>
-		</td>
-		<td class="b3">
-		<span>将受到的普通攻击的伤害减至最少，接近神一般的存在</span>
-		</td>
-		<td class="b3">
-		<span>……</span>
+		<td class="b3" style="padding:6 0">
+			<span>$itemspkremark[$tmp_attr]</span>
 		</td>
 	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>防拳</span>
-		</td>
-		<td class="b3">
-		<span>空手的伤害减半</span>
-		</td>
-		<td class="b3">
-		<span>有时无法发挥防御作用</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>防殴</span>
-		</td>
-		<td class="b3">
-		<span>钝器的伤害减半</span>
-		</td>
-		<td class="b3">
-		<span>有时无法发挥防御作用</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>防斩</span>
-		</td>
-		<td class="b3">
-		<span>锐器的伤害减半</span>
-		</td>
-		<td class="b3">
-		<span>有时无法发挥防御作用</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>防弹</span>
-		</td>
-		<td class="b3">
-		<span>远程武器的伤害减半</span>
-		</td>
-		<td class="b3">
-		<span>有时无法发挥防御作用</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>防投</span>
-		</td>
-		<td class="b3">
-		<span>投掷武器的伤害减半</span>
-		</td>
-		<td class="b3">
-		<span>有时无法发挥防御作用</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>防爆</span>
-		</td>
-		<td class="b3">
-		<span>爆炸物和爆炸属性的伤害减半</span>
-		</td>
-		<td class="b3">
-		<span>有时无法发挥防御作用</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>防灵</span>
-		</td>
-		<td class="b3">
-		<span>灵力武器的伤害减半</span>
-		</td>
-		<td class="b3">
-		<span>有时无法发挥防御作用</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>属性防御</span>
-		</td>
-		<td class="b3">
-		<span>所有属性攻击的伤害减半，且不会中异常状态</span>
-		</td>
-		<td class="b3">
-		<span>有时无法发挥防御作用</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>属性抹消</span>
-		</td>
-		<td class="b3">
-		<span>将受到的属性攻击的伤害减至最少，并且防御异常状态，接近神一般的存在</span>
-		</td>
-		<td class="b3">
-		<span>……</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>防火</span>
-		</td>
-		<td class="b3">
-		<span>火焰属性的伤害减半，且不会烧伤</span>
-		</td>
-		<td class="b3">
-		<span>有时无法发挥防御作用</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>防冻</span>
-		</td>
-		<td class="b3">
-		<span>冻气属性的伤害减半，且不会冻结</span>
-		</td>
-		<td class="b3">
-		<span>有时无法发挥防御作用</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>防毒</span>
-		</td>
-		<td class="b3">
-		<span>带毒属性的伤害减半，且不会中毒</span>
-		</td>
-		<td class="b3">
-		<span>有时无法发挥防御作用</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>绝缘</span>
-		</td>
-		<td class="b3">
-		<span>电气属性的伤害减半，且不会身体麻痹</span>
-		</td>
-		<td class="b3">
-		<span>有时无法发挥防御作用</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>隔音</span>
-		</td>
-		<td class="b3">
-		<span>音波属性的伤害减半，且不会混乱</span>
-		</td>
-		<td class="b3">
-		<span>有时无法发挥防御作用</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>同志</span>
-		</td>
-		<td class="b3">
-		<span>如果玩家性别与敌人性别相同则会无法全力攻击；反之则可能造成暴击。</span>
-		</td>
-		<td class="b3">
-		<span>效果的发生有一定概率</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>热恋</span>
-		</td>
-		<td class="b3">
-		<span>如果玩家性别与敌人性别不同则会无法全力攻击；反之则可能造成暴击。</span>
-		</td>
-		<td class="b3">
-		<span>效果的发生有一定概率</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>重击辅助</span>
-		</td>
-		<td class="b3">
-		<span>攻击时获得1点怒气；战斗中发动消耗怒气的技能时，会返还10%消耗的怒气</span>
-		</td>
-		<td class="b3">
-		<span>无</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>HP制御</span>
-		</td>
-		<td class="b3">
-		<span>减少反噬伤害损失的HP</span>
-		</td>
-		<td class="b3">
-		<span>无</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>陷阱探测</span>
-		</td>
-		<td class="b3">
-		<span>增加遭遇陷阱时的回避率</span>
-		</td>
-		<td class="b3">
-		<span>无</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>陷阱迎击</span>
-		</td>
-		<td class="b3">
-		<span>遭遇陷阱时可以免疫伤害</span>
-		</td>
-		<td class="b3">
-		<span>效果的发生有一定概率</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>天然</span>
-		</td>
-		<td class="b3">
-		<span>使用后会变成冴冴一样的天然呆</span>
-		</td>
-		<td class="b3">
-		<span>现在AC大逃杀玩家中天然呆数量急剧上升中……</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>菁英</span>
-		</td>
-		<td class="b3">
-		<span>带有此属性的物品可以用“宝石”系道具强化效果值</span>
-		</td>
-		<td class="b3">
-		<span>物品强化次数越高越容易失败</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>奇迹</span>
-		</td>
-		<td class="b3">
-		<span>人类，可以超越神么？……</span>
-		</td>
-		<td class="b3">
-		<span>……</span>
-		</td>
-	</tr>
+	<!--{/loop}-->
 </table>
+<br>
+<br>
+
+<p><span class="yellow">杂项属性</span>：</p>
+<table cellSpacing=0 cellPadding=0>
+	<tr>
+		<td class="b1" width=60px height=20px>
+			<span>属性名称</span>
+		</td>
+		<td class="b1">
+			<span>属性效果</span>
+		</td>
+		<td class="b1">
+			<span>备注</span>
+		</td>
+	</tr>
+	<!--{loop array('s','^001','^002','J','O','o','Z','x','z') $tmp_attr}-->
+	<tr>
+		<td class="b2" height=20px>
+			<span>$itemspkinfo[$tmp_attr]</span>
+		</td>
+		<td class="b3" style="padding:6 0">
+			<span>$itemspkdesc[$tmp_attr]</span>
+		</td>
+		<td class="b3" style="padding:6 0">
+			<span>$itemspkremark[$tmp_attr]</span>
+		</td>
+	</tr>
+	<!--{/loop}-->
+</table>
+<br>
 <br>
 
 <p><a name="受伤与状态"><span class="subtitle2">13.受伤与异常状态</span></a></p>
@@ -1536,7 +1144,7 @@
 <!--{/loop}-->
 	
 
-<table cellSpacing=0 cellPadding=0>
+<table cellSpacing=0 cellPadding=0 width="700px">
 	<tr>
 		<td class="b1" height=20px>
 		<span>称号名</span>
@@ -1550,320 +1158,44 @@
 		<span>技能</span>
 		</td>
 	</tr>
-	<tr>
-		<td class="b2" height=20px>
-			<span>街头霸王</span>
-		</td>
-		<td class="b3">
-			<span>一般</span>
-		</td>
-		<td class="b3">
-			<span>开局获得25殴系熟练；升级时额外增加殴系熟练；</span>
-		</td>
-		<td class="b3">
-			<span>
-			<input class="cmdbutton" onclick="bubblebox_show('club1');" value="点我查看称号技能" type="button">
-			</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>见敌必斩</span>
-		</td>
-		<td class="b3">
-		<span>一般</span>
-		</td>
-		<td class="b3">
-		<span>开局获得25斩系熟练；升级时额外增加斩系熟练；</span>
-		</td>
-		<td class="b3">
-			<span>
-			<input class="cmdbutton" onclick="bubblebox_show('club2');" value="点我查看称号技能" type="button">
-			</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>狙击鹰眼</span>
-		</td>
-		<td class="b3">
-		<span>一般</span>
-		</td>
-		<td class="b3">
-		<span>开局获得25射系熟练；升级时额外增加射系熟练；</span>
-		</td>
-		<td class="b3">
-		<span><input class="cmdbutton" onclick="bubblebox_show('club3');" value="点我查看称号技能" type="button"></span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>灌篮高手</span>
-		</td>
-		<td class="b3">
-		<span>一般</span>
-		</td>
-		<td class="b3">
-		<span>开局获得25投系熟练；升级时额外增加投系熟练；</span>
-		</td>
-		<td class="b3">
-		<span>
-		<input class="cmdbutton" onclick="bubblebox_show('club4');" value="点我查看称号技能" type="button">
-		</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>拆弹专家</span>
-		</td>
-		<td class="b3">
-		<span>一般</span>
-		</td>
-		<td class="b3">
-		<span>开局获得25爆系熟练；升级时额外增加爆系熟练；设置陷阱有熟练度和经验值加成；合成爆炸物有数量加成；陷阱回避概率上升；</span>
-		</td>
-		<td class="b3">
-		<span><input class="cmdbutton" onclick="bubblebox_show('club5');" value="点我查看称号技能" type="button"></span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>超能力者</span>
-		</td>
-		<td class="b3">
-		<span>一般</span>
-		</td>
-		<td class="b3">
-		<span>开局获得20灵系熟练；升级时额外增加灵系熟练；</span>
-		</td>
-		<td class="b3">
-		<span>
-		<input class="cmdbutton" onclick="bubblebox_show('club9');" value="点我查看称号技能" type="button">
-		</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>锡安成员</span>
-		</td>
-		<td class="b3">
-		<span>特殊</span>
-		</td>
-		<td class="b3">
-		<span>能够用电池为武器增加电击属性；电击属性致伤率提高；hack成功率提高；</span>
-		</td>
-		<td class="b3">
-		<span>
-		<input class="cmdbutton" onclick="bubblebox_show('club7');" value="点我查看称号技能" type="button">
-		</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>黑衣组织</span>
-		</td>
-		<td class="b3">
-		<span>特殊</span>
-		</td>
-		<td class="b3">
-		<span>能够用毒药为武器增加带毒属性；带毒属性致伤率提高；能够检查补给是否有毒；</span>
-		</td>
-		<td class="b3">
-		<span>
-		<input class="cmdbutton" onclick="bubblebox_show('club8');" value="点我查看称号技能" type="button">
-		</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>高速成长</span>
-		</td>
-		<td class="b3">
-		<span>特殊</span>
-		</td>
-		<td class="b3">
-		<span>每次攻击获得的熟练度为2点；</span>
-		</td>
-		<td class="b3">
-		<span>
-		<input class="cmdbutton" onclick="bubblebox_show('club10');" value="点我查看称号技能" type="button">
-		</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>富家子弟</span>
-		</td>
-		<td class="b3">
-		<span>特殊</span>
-		</td>
-		<td class="b3">
-		<span>初始资金500元；购买物品所需金钱数下降；</span>
-		</td>
-		<td class="b3">
-		<span>
-		<input class="cmdbutton" onclick="bubblebox_show('club11');" value="点我查看称号技能" type="button">
-		</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>根性兄贵</span>
-		</td>
-		<td class="b3">
-		<span>特殊</span>
-		</td>
-		<td class="b3">
-		<span>初始生命+200，生命成长率大幅提高；技能点换取生命数值大幅提高；食用补给生命回复效果×2.5倍；</span>
-		</td>
-		<td class="b3">
-		<span>
-		<input class="cmdbutton" onclick="bubblebox_show('club13');" value="点我查看称号技能" type="button">
-		</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>肌肉兄贵</span>
-		</td>
-		<td class="b3">
-		<span>特殊</span>
-		</td>
-		<td class="b3">
-		<span>初始基础攻击力、基础防御力+200；基础攻防成长率更高；技能点换取基础攻防数值大幅提高；</span>
-		</td>
-		<td class="b3">
-		<span>
-		<input class="cmdbutton" onclick="bubblebox_show('club14');" value="点我查看称号技能" type="button">
-		</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>天赋异禀</span>
-		</td>
-		<td class="b3">
-		<span>特殊</span>
-		</td>
-		<td class="b3">
-		<span>开局获得5点全系熟练和5点技能点；升到偶数级时额外获得1点技能点；计算武器熟练度时会额外加上其他各系熟练度的25%；</span>
-		</td>
-		<td class="b3">
-		<span>
-		<input class="cmdbutton" onclick="bubblebox_show('club18');" value="点我查看称号技能" type="button">
-		</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>亡灵骑士</span>
-		</td>
-		<td class="b3">
-		<span>特殊</span>
-		</td>
-		<td class="b3">
-		<span>当你被击杀或因陷阱而死时，会立即复活（仅一次）；升级时生命成长微小提高；</span>
-		</td>
-		<td class="b3">
-		<span>
-		<input class="cmdbutton" onclick="bubblebox_show('club24');" value="点我查看称号技能" type="button">
-		</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>宝石骑士</span>
-		</td>
-		<td class="b3">
-		<span>特殊</span>
-		</td>
-		<td class="b3">
-		<span>可将各类方块或宝石镶嵌至武器或防具上，为其增加效耐值、添加属性<sup>※</sup>；升级时生命成长微小提高；</span>
-		</td>
-		<td class="b3">
-		<span>
-		<input class="cmdbutton" onclick="bubblebox_show('club20');" value="点我查看称号技能" type="button">
-		</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>最强大脑</span>
-		</td>
-		<td class="b3">
-		<span>特殊</span>
-		</td>
-		<td class="b3">
-		<span>称号效果只是装饰，明明技能才是本体；</span>
-		</td>
-		<td class="b3">
-		<span>
-		<input class="cmdbutton" onclick="bubblebox_show('club21');" value="点我查看称号技能" type="button">
-		</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>宛如疾风</span>
-		</td>
-		<td class="b3">
-		<span>特殊</span>
-		</td>
-		<td class="b3">
-		<span>移动和探索体力消耗大幅减少，而且减少程度随着等级提升会上升；陷阱回避率增加，而遭遇陷阱几率减少；</span>
-		</td>
-		<td class="b3">
-		<span>
-		<input class="cmdbutton" onclick="bubblebox_show('club6');" value="点我查看称号技能" type="button">
-		</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>铁拳无敌</span>
-		</td>
-		<td class="b3">
-		<span>特殊</span>
-		</td>
-		<td class="b3">
-		<span>开局获得50殴系熟练，精于空手战斗的特殊称号；</span>
-		</td>
-		<td class="b3">
-		<span>
-		<input class="cmdbutton" onclick="bubblebox_show('club19');" value="点我查看称号技能" type="button">
-		</span>
-		</td>
-	</tr>
-	<!--
-	<tr>
-		<td class="b2" height=20px>
-		<span>全能骑士</span>
-		</td>
-		<td class="b3">
-		<span>特殊</span>
-		</td>
-		<td class="b3">
-		<span>全系熟练+50；升级时额外增加全系熟练</span>
-		</td>
-		<td class="b3">
-		<span>该称号不存在！</span>
-		</td>
-	</tr>
-	-->
+	<!--{loop Array(1,2,3,4,5,9,6,7,8,10,11,13,14,18,19,20,21,24) $clubn}-->
+		<tr>
+			<td class="b2" height=24px>
+				<span>$clubinfo[$clubn]</span>
+			</td>
+			<td class="b3">
+				<!--{if $clublist[$clubn]['type']}-->
+					<span>特殊</span>
+				<!--{else}-->
+					<span>一般</span>
+				<!--{/if}-->
+			</td>
+			<td class="b3" style="padding:5px">
+				<span>$clubdesc_h[$clubn]</span>
+			</td>
+			<td class="b3" width="125px">
+				<span>
+				<input class="cmdbutton" onclick="bubblebox_show('club{$clubn}');" value="点我查看称号技能" type="button">
+				</span>
+			</td>
+		</tr>
+	<!--{/loop}-->
 </table>
 <!--jScrollPane支持-->
 <!--<img type="hidden" src="img/blank.png" onload="jQuery(function() { jQuery('.scroll-pane').jScrollPane(); });">-->
 <!--jScrollPane支持-->
 <br>
 <br>
+<p>
 ※ 对涉及“眩晕敌人”技能的解释：眩晕状态与黑衣组织的“衰弱”、锡安成员的“EMP”类似，是一个时效性负面状态：它无法被解除，只能等待效果时间过去自行消失。<br>
 眩晕期间，角色无法进行任何行动或战斗（包括反击敌人的攻击）。出于平衡原因，“死斗”模式下眩晕时长为面板数值的三分之一。<br>
 <BR>
 ※ 宝石骑士技能中，每颗宝石/方块都会为装备增加一定效果值和耐久值（无限耐久装备只增加效果值）。如成功获得属性则获得少量经验，而未能成功获得属性则获得较多经验和一些怒气。
-各类方块/宝石可以为装备添加的属性如下：<br><br>
+各类方块/宝石可以为装备添加的属性如下：</p><br>
+<!--{eval eval(import_module('itemmain','skill23'));}-->
 <table cellSpacing=0 cellPadding=0>
 	<tr>
-		<td class="b1" height=20px>
+		<td class="b1" height=24px>
 		<span>道具名称</span>
 		</td>
 		<td class="b1">
@@ -1873,138 +1205,27 @@
 		<span>镶嵌至防具上的效果</span>
 		</td>
 	</tr>
+	<!--{loop $bufflist23 $bl23k $bl23v}-->
 	<tr>
-		<td class="b2" height=20px>
-		<span>黄色方块</span>
+		<td class="b2" height=24px>
+		<span>$bl23k</span>
 		</td>
-		<td class="b3">
-		<span>获得重击辅助属性</span>
+		<td class="b3" style="max-width:300px;padding:5px">
+		<span>
+			<!--{loop $bl23v['W'] $bl23vs}-->
+				{$bl23vs[0]}%{$itemspkinfo[$bl23vs[1]]} 
+			<!--{/loop}-->
+		</span>
 		</td>
-		<td class="b3">
-		<span>获得 重击辅助 或 防爆 属性</span>
+		<td class="b3" style="max-width:300px;padding:5px">
+		<span>
+			<!--{loop $bl23v['D'] $bl23vs}-->
+				{$bl23vs[0]}%{$itemspkinfo[$bl23vs[1]]} 
+			<!--{/loop}-->
+		</span>
 		</td>
 	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>红色方块</span>
-		</td>
-		<td class="b3">
-		<span>一定概率获得<span class="red">火焰</span>属性</span>
-		</td>
-		<td class="b3">
-		<span>获得 防火 或 防殴 属性</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>蓝色方块</span>
-		</td>
-		<td class="b3">
-		<span>一定概率获得<span class="blue">冻气</span>属性</span>
-		</td>
-		<td class="b3">
-		<span>获得 防冻 或 防弹 属性</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>绿色方块</span>
-		</td>
-		<td class="b3">
-		<span>一定概率获得<span class="purple">带毒</span>属性</span>
-		</td>
-		<td class="b3">
-		<span>获得 防毒 或 防斩 属性</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>金色方块</span>
-		</td>
-		<td class="b3">
-		<span>一定概率获得<span class="yellow">电击</span>属性</span>
-		</td>
-		<td class="b3">
-		<span>获得 绝缘 或 防投 属性</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>银色方块</span>
-		</td>
-		<td class="b3">
-		<span>一定概率获得<span class="grey">音波</span>属性</span>
-		</td>
-		<td class="b3">
-		<span>获得 隔音 或 防符 属性</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>水晶方块</span>
-		</td>
-		<td class="b3">
-		<span>极小概率获得<span class="lime">连击</span>属性</span>
-		</td>
-		<td class="b3">
-		<span>很小概率获得HP制御属性</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>黑色方块</span>
-		</td>
-		<td class="b3">
-		<span>很小概率获得<span class="lime">贯穿</span>属性</span>
-		</td>
-		<td class="b3">
-		<span>很小概率获得陷阱迎击属性</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>白色方块</span>
-		</td>
-		<td class="b3">
-		<span>很小概率获得<span class="lime">冲击</span>属性</span>
-		</td>
-		<td class="b3">
-		<span>很小概率获得陷阱探测属性</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>红宝石方块</span>
-		</td>
-		<td class="b3">
-		<span>大概率获得<span class="red">火焰</span>属性，小概率获得<span class="red">灼焰</span>属性</span>
-		</td>
-		<td class="b3">
-		<span>获得防火属性</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>蓝宝石方块</span>
-		</td>
-		<td class="b3">
-		<span>大概率获得<span class="blue">冻气</span>属性，小概率获得<span class="clan">冰华</span>属性</span>
-		</td>
-		<td class="b3">
-		<span>获得防冻属性</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>绿宝石方块</span>
-		</td>
-		<td class="b3">
-		<span>获得随机攻击属性</span>
-		</td>
-		<td class="b3">
-		<span>获得随机防御属性</span>
-		</td>
-	</tr>
+	<!--{/loop}-->
 </table>
 
 <br><br>
@@ -2014,25 +1235,29 @@
 <p>合成成功时，如果所用的材料是武器或者防具，则会将整个材料耗尽；其他情况下，材料的耐久会减1。</p>
 <br>
 <br>
+</div>
 {template tmp_mixhelp}
+<div class='help_body'>
 <br>
 <p><span class="lime">同调合成与超量合成说明：</span></p>
 <p><font size=2>
-游戏王系道具名字后面带有‘★ 数字’的道具可以参与同调合成。只要你选择的道具均可以参与同调合成，且至少<span class="yellow">存在一个道具含有“调整”属性</span>，同调合成就能进行。<br>
-若干同调道具合成时，会对‘★’后面的数字求和，不妨设结果为x，那么合成结果就是星数为x的道具，如果有多种，你可以<span class="yellow">从中任选一个作为结果</span>。<br>
-总之，<span class="yellow">同调合成就是算星数的和</span>。 只要参与合成的道具都具有星数，且恰好存在一个道具具有调整属性，也存在对应星数的合成结果，就能成功合成。<br>
-例如：卡片汽车 D ★2 + 水灵使-艾莉娅 ★3 + 盟军 次时代鸟人 ★3（这个道具具有调整属性） => 星尘龙 ★8<br>
-或者：救世龙 ★1（这个道具具有调整属性） + 凭依装着-希塔 ★4 + 光灵使-莱娜 ★3 => 星尘龙 ★8<br>
+游戏王系道具（名字后面带有‘★ 数字’的道具，也包含少量例外）可以参与同调合成。<br>
+合成时，会对‘★’后面的数字求和，合成结果就是星数为这个总和值的道具。如果有多种，你可以<span class="yellow">从中任选一个作为结果</span>。<br>
+总之，<span class="yellow">同调合成就是算星数的和</span>。 只要<span class="yellow">参与合成的道具都具有星数</span>，且<span class="yellow">有且仅有1个道具有“调整”属性</span>，也存在对应星数的合成结果，就能成功合成。<br>
+例如：卡片汽车 D ★2 + 水灵使-艾莉娅 ★3 + 盟军 次时代鸟人 ★3（这个道具有调整属性） => 星尘龙 ★8<br>
+或者：救世龙 ★1（这个道具有调整属性） + 凭依装着-希塔 ★4 + 光灵使-莱娜 ★3 => 星尘龙 ★8<br>
 </p>
+</div>
 {template tmp_mixhelp_sync}
-
+<div class='help_body'>
 <br>
 <p>
-道具属性中带有<span class="yellow">超量素材属性</span>的道具可以进行超量合成。装备<span class="yellow">具有“多重”属性且具有星数的投系武器</span>，点击“武器模式”按钮，即可将武器转化为超量素材。注意，转化是不可逆的！<br>
+道具属性中带有<span class="yellow">“超量素材”属性</span>的道具，或者<span class="yellow">名字里带★数字，且没有“-仮”字样的道具</span>可以进行超量合成。装备<span class="yellow">具有“多重”属性且具有星数的投系武器</span>，点击“武器模式”按钮，即可将武器转化为超量素材。注意，多数转化是不可逆的！<br>
 超量合成要求所有参与合成的道具都是超量素材，且<span class="yellow">星数相同</span>。 参与合成的超量素材的星数和个数决定了合成结果，与同调一样，如果有多个，你可以<span class="yellow">从中任选一个</span>。<br>
 </p>
+</div>
 {template tmp_mixhelp_overlay}
-
+<div class='help_body'>
 <p><a name="特殊道具"><span class="subtitle2">17.特殊道具</span></a></p>
 
 <p>在此列出游戏中部分特殊道具的用途。</p>
@@ -2331,13 +1556,13 @@
 	</tr>
 	<tr>
 		<td class="b2" height=20px>
-		<span>代码聚合体的ID卡</span>
+		<span>杏仁豆腐的ID卡</span>
 		</td>
 		<td class="b3">
 		<span>使用后会使游戏进入死斗模式</span>
 		</td>
 		<td class="b3">
-		<span>代码聚合体NPC掉落</span>
+		<span>杏仁豆腐NPC掉落</span>
 		</td>
 		<td class="b3">
 		<span>如果游戏未进入连斗则无法使用</span>
@@ -2691,7 +1916,9 @@
 
 <p><a name="NPC简介"><span class="subtitle2">20.NPC简介</span></a></p>
 <br>
+</div>
 {template tmp_npchelp}
+<div class='help_body'>
 <BR>
 
 <BR>
@@ -2704,6 +1931,7 @@
 感谢能遵守以上三条的人的默默支持，祝你们都能享受到“ACFUN大逃杀”的游戏乐趣。</span></p>
 
 </div>
+</center>
 <a href="updatelist.php">新版更新履历</a><br>
 
 

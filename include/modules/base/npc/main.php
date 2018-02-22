@@ -65,7 +65,11 @@ namespace npc
 			foreach ($npc['skills'] as $key=>$value){
 				if (defined('MOD_SKILL'.$key)){
 					\skillbase\skill_acquire($key,$npc);
-					if ($value>0){
+					if(is_array($value)){
+						foreach($value as $vk => $vv){
+							\skillbase\skill_setvalue($key,$vk,$vv,$npc);
+						}
+					}elseif ($value>0){
 						\skillbase\skill_setvalue($key,'lvl',$value,$npc);
 					}
 				}	
@@ -237,9 +241,10 @@ namespace npc
 		eval(import_module('player'));
 		if ($pdata['type']>0)
 		{
-			if (isset($killmsginfo [$pdata['type']]))
-				$kilmsg = $killmsginfo [$pdata['type']];
-			else  $kilmsg = '';
+			if (isset($killmsginfo[$pdata['type']])){
+				if(is_array($killmsginfo[$pdata['type']])) $kilmsg = $killmsginfo[$pdata['type']][$pdata['name']];
+				else $kilmsg = $killmsginfo[$pdata['type']];
+			}else  $kilmsg = '';
 			return $kilmsg;
 		}
 		else  return $chprocess($pdata);

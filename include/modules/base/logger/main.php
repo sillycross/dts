@@ -23,7 +23,15 @@ namespace logger
 		eval(import_module('sys','player','logger'));
 		$result = $db->query("SELECT time,log FROM {$tablepre}log WHERE toid = '$pid' ORDER BY time,lid");
 		while($logtemp = $db->fetch_array($result)){
-			$log .= date("H:i:s",$logtemp['time']).'，'.$logtemp['log'].'<br />';
+			$td = $now - $logtemp['time'];
+			$td_h = floor($td / 3600);
+			$td_m = floor($td % 3600 / 60);
+			$td_s = $td % 60;
+			$td_word = '';
+			if($td_h) $td_word.= $td_h.'小时';
+			if($td_m) $td_word.= $td_m.'分钟';
+			$td_word.= $td_s.'秒';
+			$log .= $td_word.'前，'.$logtemp['log'].'<br />';
 		}
 		$db->query("DELETE FROM {$tablepre}log WHERE toid = '$pid'");
 		

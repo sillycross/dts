@@ -1,13 +1,13 @@
 <!--{eval $rageneed = \skill30\get_rage_cost30();}-->
 <!--{if $rage>=$rageneed}-->
-<input type="button" class="cmdbutton" style="width:98" name="" value="压制" 
+<input type="button" class="cmdbutton" style="width:98"  value="压制" 
 onclick="$('command').value='$w1';$('bskill').value=30;postCmd('gamecmd','command.php');this.disabled=true;"><br />
 <div style="width:90%; text-align:left;">
 <!--{eval $hpcost = min($hp-1,round($mhp*0.15));}-->
-消耗<span class="red">$hpcost</span>点生命值，附加相同的伤害。消耗<span class="red">$rageneed</span>怒气
+消耗<span class="red">$rageneed</span>点怒气以及<span class="red">$hpcost</span>点生命值，附加相同的伤害。
 </div>
 <!--{else}-->
-<input type="button" class="cmdbutton" style="width:98" name="" value="压制" disabled="true"><br />
+<input type="button" class="cmdbutton" style="width:98"  value="压制" disabled="true"><br />
 <div style="width:90%; text-align:left;">
 需要<span class="red">$rageneed</span>怒气方可发动
 </div>

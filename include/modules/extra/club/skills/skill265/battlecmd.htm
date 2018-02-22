@@ -1,0 +1,21 @@
+<!--{eval eval(import_module('skill265'));$dummy = array();}-->
+<!--{eval $rageneed = \skill265\get_rage_cost265();}-->
+<!--{if $rage>=$rageneed}-->
+<!--{if \weapon\get_skillkind($sdata,$dummy,1) == 'wg'}-->
+<input type="button" class="cmdbutton" style="width:98"  value="穿杨" 
+onclick="$('command').value='$w1';$('bskill').value=265;postCmd('gamecmd','command.php');this.disabled=true;"><br />
+<div style="width:90%; text-align:left;">
+物理伤害<span class="yellow">+{$skill265phyup}%</span>，命中率<span class="yellow">+{$skill265htrup}%</span>，射程<span class="yellow">+1</span>，<span class="yellow">连击</span>无效，但<span class="yellow">{$skill265prate}%概率贯穿</span>。消耗<span class="yellow">$rageneed</span>点怒气
+</div>
+<!--{else}-->
+<input type="button" class="cmdbutton" style="width:98"  value="穿杨" disabled="true"><br />
+<div style="width:90%; text-align:left;">
+手持<span class="yellow">远程兵器/重型枪械</span>方可发动
+</div>
+<!--{/if}-->
+<!--{else}-->
+<input type="button" class="cmdbutton" style="width:98"  value="穿杨" disabled="true"><br />
+<div style="width:90%; text-align:left;">
+需要<span class="red">$rageneed</span>怒气方可发动
+</div>
+<!--{/if}-->

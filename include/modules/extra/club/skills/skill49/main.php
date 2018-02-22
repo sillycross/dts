@@ -77,7 +77,7 @@ namespace skill49
 		else
 		{
 			$rcost = get_rage_cost49($pa);
-			if ($pa['rage']>=$rcost && $pa['wep_kind']=='C')
+			if ($pa['rage']>=$rcost && \weapon\get_skillkind($pa,$pd,$active) == 'wc')
 			{
 				eval(import_module('logger'));
 				if ($active)
@@ -100,10 +100,10 @@ namespace skill49
 	}	
 	
 	//必中
-	function get_hitrate(&$pa,&$pd,$active)
+	function get_hitrate_change(&$pa,&$pd,$active,$hitrate)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill']!=49) return $chprocess($pa, $pd, $active);
+		if ($pa['bskill']!=49) return $chprocess($pa, $pd, $active,$hitrate);
 		return 10000;
 	}
 	

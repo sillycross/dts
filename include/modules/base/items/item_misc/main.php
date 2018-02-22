@@ -13,6 +13,35 @@ namespace item_misc
 		}
 	}
 	
+	function parse_itmuse_desc($n, $k, $e, $s, $sk){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($n, $k, $e, $s, $sk);
+		if(strpos($k,'U')===0) {
+			$ret .= '使用后将扫除本地1枚效果值不小于'.$e.'的陷阱';
+		}elseif(strpos($k,'Y')===0 || strpos($k,'Z')===0){
+			if ($n == '凸眼鱼'){
+				$ret .= '使用后可以销毁整个战场现有的尸体';
+			}elseif ($n == '■DeathNote■') {
+				$ret .= '填入玩家的名字和头像就可以直接杀死该玩家';
+			}elseif ($n == '游戏解除钥匙') {
+				$ret .= '使用后达成『锁定解除』胜利';
+			}elseif ($n == '奇怪的按钮') {
+				$ret .= '警告：高度危险！';
+			}elseif ($n == '『C.H.A.O.S』') {
+				$ret .= '献祭包裹里的全部物品以获得通往『幻境解离』的必备道具';
+			}elseif ($n == '『S.C.R.A.P』') {
+				$ret .= '还不满足『幻境解离』的条件！使用后可以恢复成『C.H.A.O.S』';
+			}elseif ($n == '『G.A.M.E.O.V.E.R』') {
+				$ret .= '使用后达成『幻境解离』胜利';
+			}elseif ($n == '杏仁豆腐的ID卡') {
+				$ret .= '连斗后使用可以让全场NPC消失并进入『死斗阶段』';
+			}elseif ($n == '水果刀') {
+				$ret .= '可以切水果，视你的斩系熟练度决定生成补给还是水果皮';
+			}
+		}
+		return $ret;
+	}
+	
 	function itemuse(&$theitem)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -33,7 +62,8 @@ namespace item_misc
 				$deld = $mi['itm'];
 				$delp = $mi['tid'];
 				$db->query("DELETE FROM {$tablepre}maptrap WHERE tid='$delp'");
-				$log.="远方传来一阵爆炸声，伟大的<span class=\"yellow\">{$itm}</span>用生命和鲜血扫除了<span class=\"yellow\">{$deld}</span>。<br><span class=\"red\">实在是大快人心啊！</span><br>";
+				if($itm=='☆混沌人肉探雷车★') $log.="远方传来一阵爆炸声，伟大的<span class=\"yellow\">{$itm}</span>用生命和鲜血扫除了<span class=\"yellow\">{$deld}</span>。<br><span class=\"red\">实在是大快人心啊！</span><br>";
+				else $log.="远方传来一阵爆炸声，<span class=\"yellow\">{$itm}</span>扫除了<span class=\"yellow\">{$deld}</span>。<br>";
 			}else{
 				$log.="你使用了<span class=\"yellow\">{$itm}</span>，但是没有发现陷阱。<br>";
 			}
@@ -54,7 +84,9 @@ namespace item_misc
 				$cnum = $db->affected_rows ();
 				addnews ( $now, 'corpseclear', $name, $cnum );
 				if (defined('MOD_NOISE')) \noise\addnoise($pls,'corpseclear',$pid);
-				$log .= "使用了<span class=\"yellow\">$itm</span>。<br>突然刮起了一阵怪风，吹走了地上的{$cnum}具尸体！<br>";
+				$log .= "使用了<span class=\"yellow\">$itm</span>。<br>突然刮起了一阵怪风，";
+				if($cnum) $log .= "<span class=\"yellow\">吹走了地上的{$cnum}具尸体！</span><br>";
+				else $log .= "不过好像没有什么效果？";
 				\itemmain\itms_reduce($theitem);
 				return;
 			} elseif ($itm == '■DeathNote■') {
@@ -117,13 +149,15 @@ namespace item_misc
 					$itms0=1;
 					$itmsk0='';
 					\itemmain\itemget();
-					for ($i=1;$i<=6;$i++){
-						if(!${'itms'.$i}) {
-							${'itm'.$i} = $tmp_itm; ${'itmk'.$i} = $tmp_itmk; ${'itmsk'.$i} = $tmp_itmsk;
-							${'itme'.$i} = $tmp_itme; ${'itms'.$i} = $tmp_itms;
-							break;
+					if(isset($tmp_itm)){
+						for ($i=1;$i<=6;$i++){
+							if(!${'itms'.$i}) {
+								${'itm'.$i} = $tmp_itm; ${'itmk'.$i} = $tmp_itmk; ${'itmsk'.$i} = $tmp_itmsk;
+								${'itme'.$i} = $tmp_itme; ${'itms'.$i} = $tmp_itms;
+								break;
+							}
 						}
-					}
+					}					
 				}
 				return;
 			}elseif ($itm == '『S.C.R.A.P』') {
@@ -168,16 +202,20 @@ namespace item_misc
 				$result = $db->fetch_array($result);
 				$ugroupid = $result['groupid'];
 				$upassword = $result['password'];
-				if($cpass == $upassword && ($ugroupid >= 5 || $cuser == $gamefounder)){
+				include_once GAME_ROOT.'./include/user.func.php';
+				if(pass_compare($cuser, $cpass, $upassword) && ($ugroupid >= 5 || $cuser == $gamefounder)){
 					$log.='大逃杀幻境已确认你的权限狗身份，正在为你输送权限套装……<br>';
 					$wp=$wk=$wg=$wc=$wd=$wf=666;
 					$ss=$mss=600;
 					$att+=200;$def+=200;
 					$money+=19980;
-					$itm1='美味补给';$itmk1 = 'HB';$itmsk1 = '';$itme1 = 777;$itms1 = 177;
+					$itm1='美味补给';$itmk1 = 'HB';$itmsk1 = '';$itme1 = 2777;$itms1 = 277;
 					$itm2='全恢复药剂';$itmk2 = 'Ca';$itmsk2 = '';$itme2 = 1;$itms2 = 44;
-					$itm3='移动PC';$itmk3 = 'EE';$itmsk3 = '';$itme3 = 20;$itms3 = 1;
+					$itm3='食堂的剩饭';$itmk3 = 'HR';$itmsk3 = '';$itme3 = 100;$itms3 = 15;
 					$itm4='量子雷达';$itmk4 = 'ER';$itmsk4 = '2';$itme4 = 20;$itms4 = 1;
+					$itm5='聪明药';$itmk5 = 'ME';$itmsk5 = '';$itme5 = 100;$itms5 = 4;
+					//$itm5='游戏解除钥匙';$itmk5 = 'Y';$itmsk5 = '';$itme5 = 1;$itms5 = 1;
+					$arb='代码聚合体的长袍';$arbk = 'DB';$arbsk = 'Bb';$arbe = 500;$arbs = 100;
 					$art='Untainted Glory';$artk = 'A';$artsk = 'Hh';$arte = 1;$arts = 1;
 					if (defined('MOD_CLUBBASE')) eval(import_module('clubbase'));
 					foreach(array(1010,1011) as $skv){
@@ -245,7 +283,7 @@ namespace item_misc
 				} elseif ($itm == '提示纸条K') {
 					$log .= '你读着纸条上的内容：<br>“水符？”<br>“你当然需要水，然后水看起来是什么颜色的？”<br>“找一个颜色类似的东西合成就有了吧。”<br>';
 				} elseif ($itm == '提示纸条L') {
-					$log .= '你读着纸条上的内容：<br>“木符？”<br>“你当然需要树叶，然后说到树叶那是什么颜色？”<br>“找一个颜色类似的东西合成就有了吧。”<br>';
+					$log .= '你读着纸条上的内容：<br>“木符？”<br>“你当然需要树叶，而且是拥有治愈之力的树叶。然后说到树叶那是什么颜色？”<br>“找一个颜色类似的东西合成就有了吧。”<br>';
 				} elseif ($itm == '提示纸条M') {
 					$log .= '你读着纸条上的内容：<br>“火符？”<br>“你当然需要找把火，然后说到火那是什么颜色？”<br>“找一个颜色类似的东西合成就有了吧。”<br>';
 				} elseif ($itm == '提示纸条N') {
@@ -365,6 +403,29 @@ namespace item_misc
 			} elseif(strpos($itm,'RP回复设备')!==false){
 				$rp = 0;
 				$log .= "你使用了<span class=\"yellow\">$itm</span>。你的RP归零了。<br>";
+				return;
+			} elseif(strpos($itm,'测试用阻塞设备')!==false){
+				sleep(10);
+				$log .= "刚才那是什么，是卡了么？<br>";
+				$hp = 1;
+				return;
+			} elseif('『我是说在座的各位都是垃圾』' === $itm){
+				$mhpdown = 100;
+				if($mhp <= $mhpdown){
+					$log .= '一个声音传来：<span class="yellow">“wslnm，没血你装什么逼？！”</span><br>';
+				}elseif($now - $starttime > 300){//开局5分钟之内吃才有用
+					$log .= '你一边拉屎，一边看着外边满地乱滚的无名沙包，忽然决定给自己增加一点挑战。不过你胯下的翔似乎已经凉了。<br>';
+				}else{
+					$mhp -= $mhpdown;
+					if($hp > $mhp) $hp = $mhp;
+					$log .= '你一边拉屎，一边看着外边满地乱滚的无名沙包，忽然决定给自己增加一点挑战。于是你抓起自己胯下的翔，大口地吃了下去。<br><span class="red">你自扣了100点生命上限！</span><br>';
+					if(!$club) {
+						$log .= '你突然想起一件很重要的事情：<span class="red">老子还没选称号呢？</span>不过似乎你不用担心了，因为<span class="yellow">你刚才吃下的翔化为了你的力量！</span><br>';
+						\clubbase\club_acquire(97);
+					}
+					\sys\addnews ( 0, 'debuffself', $name);
+					\sys\addchat(6, "{$name}一边大口吃翔一边说道：“满场沙包，不足为惧。且看爷吃了这百斤翔，再来包你们爽！”");
+				}
 				return;
 			}
 		}
@@ -525,12 +586,14 @@ namespace item_misc
 		
 		if($news == 'adminitem') 
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}使用了{$b}，变成了一条权限狗！（管理员{$a}宣告其正在进行测试。）</span></li>";	
-		if($news == 'death28') 
+		elseif($news == 'death28') 
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因<span class=\"yellow\">$d</span>意外身亡{$e0}</li>";
-		if($news == 'death30') 
+		elseif($news == 'death30') 
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因误触伪装成核弹按钮的蛋疼机关被炸死{$e0}</li>";
-		if($news == 'death38')
+		elseif($news == 'death38')
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因为敌意过剩，被虚拟意识救♀济！{$e0}</li>";
+		elseif($news == 'debuffself')
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}认为在座的各位都是垃圾，并大口吃下一百斤翔以表达他的不屑！（{$a}自扣了100点生命上限）</span></li>";
 			
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

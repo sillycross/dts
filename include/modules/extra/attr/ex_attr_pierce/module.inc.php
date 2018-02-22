@@ -3,8 +3,8 @@
 namespace ex_attr_pierce
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'itemmain logger attrbase skillbase weapon';
-	$___MODULE_dependency_optional = 'ex_phy_def ex_phy_nullify armor';
+	$___MODULE_dependency = 'itemmain logger attrbase ex_dmg_att skillbase weapon ex_phy_def ex_dmg_def ex_phy_nullify ex_dmg_nullify ex_rapid_def';
+	$___MODULE_dependency_optional = 'armor ex_hp_def';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';
 	$___MODULE_templatelist = '';

@@ -1,0 +1,12 @@
+
+<!--{eval eval(import_module('itemmix'));$mt0='';}-->
+
+<!--{loop $mix_res $mi $mv}-->
+	<!--{if $mv['type']!=$mt0}-->
+		<!--{eval $mtype = $mix_type[$mv['type']];}-->
+		可{$mtype}合成： <br>
+		<!--{eval $mt0=$mv['type'];}-->
+	<!--{/if}-->
+	<!--{eval $mname=\itemmain\parse_itmname_words($mv['result'][0],1,23);}-->
+	<input type="button" class="cmdbutton" style="width:200" value="{$mname}" onclick="$('itemselect').value='$mi';postCmd('gamecmd','command.php');this.disabled=true;"><br>
+<!--{/loop}-->

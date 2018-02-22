@@ -4,7 +4,10 @@ namespace skill220
 {
 	function init() 
 	{
-		define('MOD_SKILL220_INFO','club;active;hidden;');
+		define('MOD_SKILL220_INFO','club;active;locked;');
+		eval(import_module('clubbase'));
+		$clubskillname[220] = '毒师';
+		$clubdesc_h[8] .= '<br>用毒药给补给下毒造成的伤害x2；可以检查补给是否有毒';
 	}
 	
 	function acquire220(&$pa)
@@ -15,6 +18,12 @@ namespace skill220
 	function lost220(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+	}
+	
+	function check_unlocked220(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 1;
 	}
 
 	function pcheck($itmn){
@@ -63,6 +72,18 @@ namespace skill220
 		include template(MOD_SKILL220_POISONCHECK);
 		$cmd=ob_get_contents();
 		ob_clean();
+	}
+	
+	function check_poison_factor(){//下毒2倍伤害
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('logger'));
+		$ret = $chprocess();
+		if (\skillbase\skill_query(220) && (int)$ret < 2) {
+			$log .= '你的专业知识让毒剂更加危险了。';
+			$ret = '2';
+		}
+		
+		return $ret;
 	}
 	
 	function act()

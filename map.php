@@ -4,9 +4,10 @@ define('CURSCRIPT', 'map');
 
 require './include/common.inc.php';
 
-$mapvcoordinate = Array('A','B','C','D','E','F','G','H','I','J');
+$vcoor = Array('A','B','C','D','E','F','G','H','I','J');
+$hcoor = range(0,10);
 
-for($i=0;$i<count($plsinfo);$i++){
+for($i=0;$i < count($plsinfo);$i++){
 	if($hack || array_search($i,$arealist) > ($areanum + $areaadd)){
 		$plscolor[$i] = 'mapspanlime';
 	} elseif(array_search($i,$arealist) <= $areanum) {
@@ -14,13 +15,30 @@ for($i=0;$i<count($plsinfo);$i++){
 	} else {
 		$plscolor[$i] = 'mapspanyellow';
 	}
-//	$position[$i] = array(substr($xyinfo[$i],0,1),substr($xyinfo[$i],3,1));
-	$position=explode('-',$xyinfo[$i]);
-	$mpp[$position[0]][$position[1]]=$i;
-//	$vposition[$i] = substr($xyinfo[$i],0,1);
-//	$hposition[$i] = substr($xyinfo[$i],3,1);
+	list($v, $h) = explode('-',$xyinfo[$i]);
+	$mpp[$v][$h]=$i;
 }
 
+//$plsref = array();
+//for($i=0;$i < count($plsinfo);$i++){
+//	//先判定周围8格有没有临近地区
+//	list($v, $h) = explode('-',$xyinfo[$i]);
+//	$vn = array_search($v, $vcoor);
+//	$vrange = array($vn - 1, $vn, $vn + 1);
+//	$hrange = array($h - 1, $h, $h + 1);
+//	foreach($vrange as $vval){
+//		if($vval >= 0 && $vval < count($vcoor) ){
+//			foreach($hrange as $hval){
+//				if($hval > 0 && $hval <= count($hcoor)){
+//					if(isset($mpp[$vval][$hval])){//存在临近地区（斜角也算）
+//						if(!isset($plsref[$i])) $plsref[$i] = array($mpp[$vval][$hval]);
+//						else $plsref[$i][] = $mpp[$vval][$hval];
+//					}
+//				}
+//			}
+//		}
+//	}
+//}
 
 $mapcontent = '<TABLE border="1" cellspacing="0" cellpadding="0" align=center background="map/neomap.jpg" style="position:relative;background-repeat:no-repeat;background-position:right bottom;">';
 $mapcontent .= 
@@ -38,10 +56,10 @@ $mapcontent .=
 		<TD width="48" height="48" class=map align=center><div class=nttx>10</div></TD>
 	</TR>';
 for($i=0;$i<10;$i++){
-	$mapcontent .= '<tr align="center"><TD class=map align=center><div class=nttx>'.$mapvcoordinate[$i].'</div></TD>';
+	$mapcontent .= '<tr align="center"><TD class=map align=center><div class=nttx>'.$vcoor[$i].'</div></TD>';
 	for($j=1;$j<=10;$j++){
-		if(isset($mpp[$mapvcoordinate[$i]][$j])){
-			$mapcontent .= '<td width="48" height="48" class="map2" align=middle><span class="'.$plscolor[$mpp[$mapvcoordinate[$i]][$j]].'">'.$plsinfo[$mpp[$mapvcoordinate[$i]][$j]].'</span></td>';
+		if(isset($mpp[$vcoor[$i]][$j])){
+			$mapcontent .= '<td width="48" height="48" class="map2" align=middle><span class="'.$plscolor[$mpp[$vcoor[$i]][$j]].'">'.$plsinfo[$mpp[$vcoor[$i]][$j]].'</span></td>';
 		}else{
 			$mapcontent .= '<td width="48" height="48" class="map2" align=middle><IMG src="map/blank.gif" width="48" height="48" border=0></td>';
 		}

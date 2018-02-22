@@ -7,8 +7,8 @@
 		<span class="subtitle">幸存者一览</span>
 		<form method="post" name="alive" onSubmit="return false;">
 			<input type="hidden" id="alivemode" name="alivemode" value="last">
-			<input type="button" name="enter" value="显示前{$alivelimit}名幸存者" onClick="$('alivemode').value='last';postCmd('alive','alive.php');">
-			<input type="button" name="enter" value="显示全部幸存者" onClick="$('alivemode').value='all';postCmd('alive','alive.php');">
+			<input type="button"  value="显示前{$alivelimit}名幸存者" onClick="$('alivemode').value='last';postCmd('alive','alive.php');">
+			<input type="button"  value="显示全部幸存者" onClick="$('alivemode').value='all';postCmd('alive','alive.php');">
 		</form>
 		<div id="alivelist">
 			{template alivelist}

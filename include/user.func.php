@@ -8,13 +8,13 @@ function udata_check(){
 	global $db, $gtablepre, $cuser, $cpass, $_ERROR;
 	$file = debug_backtrace()[0]['file'];
 	$line = debug_backtrace()[0]['line'];
-	if(!$cuser||!$cpass) { gexit($_ERROR['no_login'],$file,$line); } 
+	if(!$cuser||!$cpass) { gexit($_ERROR['no_login'],$file,$line);return; } 
 	
 	$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$cuser'");
-	if(!$db->num_rows($result)) { gexit($_ERROR['login_check'],$file,$line); }
+	if(!$db->num_rows($result)) { gexit($_ERROR['login_check'],$file,$line);return; }
 	$udata = $db->fetch_array($result);
-	if($udata['password'] != $cpass) { gexit($_ERROR['wrong_pw'], $file, $line); }
-	if($udata['groupid'] <= 0) { gexit($_ERROR['user_ban'], $file, $line); }
+	if(!pass_compare($udata['username'], $cpass, $udata['password'])) { gexit($_ERROR['wrong_pw'], $file, $line);return; }
+	if($udata['groupid'] <= 0) { gexit($_ERROR['user_ban'], $file, $line);return; }
 	return $udata;
 }
 
@@ -24,7 +24,7 @@ function name_check($username){
 		 return 'name_not_set';
 	}elseif(mb_strlen($username,'utf-8')>15) { 
 		return 'name_too_long';
-	} elseif(preg_match('/[,|<|>|&|;|#|"|\s|\p{C}]+/u',$username)) {
+	} elseif(preg_match('/[\s\?\+\'|,<>&;#"]/u', $username) || preg_match('/\p{C}+/u',$username)) {
 		return 'name_invalid';
 	}elseif(preg_match($nmlimit,$username)) { 
 		return 'name_banned';
@@ -43,6 +43,21 @@ function pass_check($pass,$rpass){//未经md5处理的
 		return 'pass_too_long';
 	}
 	return 'pass_ok';
+}
+
+function create_cookiepass($pass){//获得cookie密码，单纯对输入密码进行1次md5加密
+	return md5($pass);
+}
+
+function create_storedpass($cuser, $cpass){//获得储存密码（加盐）
+	return md5($cuser.$cpass);
+}
+
+function pass_compare($cuser, $cpass, $spass){//比较cookie密码及数据库密码
+	global $oldpswdcmp, $db, $tablepre;
+	if (create_storedpass($cuser, $cpass) === $spass) return true;
+	elseif((!isset($oldpswdcmp) || $oldpswdcmp) && $cpass === $spass) return true;
+	return false;
 }
 
 /**  
@@ -126,15 +141,16 @@ function get_iconlist(){
 	return $iconarray;
 }
 
-function convert_tm($t)
+function convert_tm($t, $simple=0)
 {
 	$s1=floor($t/86400);
 	$s2=floor(($t%86400)/3600);
 	$s3=round(($t%3600)/60);
 	$ret='';
 	if ($s1>0) $ret.=$s1.'天';
-	if ($s1>0 || $s2>0) $ret.=$s2.'小时';
-	$ret.=$s3.'分钟';
+	if($simple) $s2 = round(($t%86400)/3600);
+	if($s2 > 0) $ret.=$s2.'小时';
+	if($s1 <= 0 || !$simple) $ret.=$s3.'分钟';//超过1天，在$simple时不显示详细分钟数
 	return $ret;
 }
 ?>

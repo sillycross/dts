@@ -3,8 +3,8 @@
 namespace skill400
 {
 	$paneldesc=array('重击','重击','重击','重击','重击','烈击','烈击');
-	$attgain=array(0,20,30,50,100,100,75);
-	$procrate=array(0,20,25,30,35,75,90);
+	$attgain=array(0,20,30,50,100,75,100);
+	$procrate=array(0,20,25,30,35,60,75);
 
 	function init() 
 	{

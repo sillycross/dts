@@ -48,6 +48,7 @@ namespace skill34
 		$arr = array_values($def_kind);
 		eval(import_module('ex_dmg_def'));
 		$arr = array_merge($arr,array_values($def_kind));
+		$arr[] = 'R';
 		$arr = array_unique($arr);
 		return $arr;
 	}
@@ -72,7 +73,7 @@ namespace skill34
 		$log.='设置成功。<br>';
 	}
 	
-	function get_ex_def_array(&$pa, &$pd, $active)
+	function get_ex_def_array_core(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!\skillbase\skill_query(34,$pd) || !check_unlocked34($pd)) return $chprocess($pa, $pd, $active);

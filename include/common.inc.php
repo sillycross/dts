@@ -75,7 +75,7 @@ for ($___TEMP_MOD_LOAD_i=1; $___TEMP_MOD_LOAD_i<=$___TEMP_MOD_LIST_n; $___TEMP_M
 
 /////////////////////Load Module End////////////////////////
 
-if ((CURSCRIPT == 'game' || CURSCRIPT =='winner' || CURSCRIPT =='news' || CURSCRIPT =='alive') && !defined('LOAD_CORE_ONLY'))
+if (CURSCRIPT == 'game' && !defined('LOAD_CORE_ONLY'))
 {
 	eval(import_module('sys','map','player','logger','itemmain','input'));
 }
@@ -86,17 +86,17 @@ else
 
 if (defined('NO_SYS_UPDATE')) return;
 
-if (CURSCRIPT == 'index') {//Ê×Ò³£¬ËùÓÐ·¿¼äË¢ÐÂ
-	if($___MOD_SRV) {//Èç¹ûdaemon¿ªÆô£¬ÔòÊÔÍ¼µ÷ÓÃdaemon
+if (CURSCRIPT == 'index') {//é¦–é¡µï¼Œæ‰€æœ‰æˆ¿é—´åˆ·æ–°
+	if($___MOD_SRV) {//å¦‚æžœdaemonå¼€å¯ï¼Œåˆ™è¯•å›¾è°ƒç”¨daemon
 		$routine_url = 'http://'.$_SERVER['HTTP_HOST'].substr($_SERVER['PHP_SELF'],0,-9).'command.php';
 		$routine_context = array('command'=>'room_routine');
-		send_post($routine_url,$routine_context);
+		curl_post($routine_url,$routine_context,NULL,0.1);//ç›¸å½“äºŽå¼‚æ­¥
 		unset($routine_url,$routine_context);
 	}else{
 		include_once './include/roommng/roommng.func.php';
 		room_all_routine();
 	}
 }
-if (CURSCRIPT != 'chat' && !(CURSCRIPT == 'news' && isset($sendmode) && $sendmode=='news') && CURSCRIPT != 'help') sys\routine();//ÁÄÌì¡¢ÓÎÏ·ÄÚ½øÐÐ×´¿ö¡¢°ïÖúÒ³Ãæ²»Ë¢ÐÂÓÎÏ·×´Ì¬
+if (!in_array(CURSCRIPT, array('chat', 'login', 'register', 'help')) && !(CURSCRIPT == 'news' && isset($sendmode) && $sendmode=='news')) sys\routine();//èŠå¤©ã€æ¸¸æˆå†…è¿›è¡ŒçŠ¶å†µã€å¸®åŠ©é¡µé¢ä¸åˆ·æ–°æ¸¸æˆçŠ¶æ€
 
 ?>

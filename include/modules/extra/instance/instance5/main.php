@@ -4,9 +4,9 @@ namespace instance5
 {
 	function init() {}
 	
-	function get_shoplist(){
+	function get_shopconfig(){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
-		eval(import_module('sys','instance5'));
+		eval(import_module('sys'));
 		if ($gametype==15){
 			$file = __DIR__.'/config/shopitem.config.php';
 			$sl5 = openfile($file);
@@ -14,7 +14,15 @@ namespace instance5
 		}else return $chprocess();
 	}
 	
-	function checkcombo(){
+	function get_npclist(){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		eval(import_module('sys','instance5'));
+		if (15 == $gametype){
+			return $npcinfo_instance5;
+		}else return $chprocess();
+	}
+	
+	function checkcombo($time){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','map','gameflow_combo'));
 		if(15 == $gametype){
@@ -22,7 +30,7 @@ namespace instance5
 				return;
 			}
 		}
-		$chprocess();
+		$chprocess($time);
 	}
 	
 	function rs_game($xmode = 0) 	//开局禁区时间、天气初始化
@@ -34,25 +42,20 @@ namespace instance5
 		eval(import_module('sys'));
 		if (($gametype==15)&&($xmode & 2)) 
 		{
-			if(!$areanum && isset($roomvars['current_game_option'])){
-				//writeover('a.txt',var_export($roomvars['current_game_option'],1));
-				$option = $roomvars['current_game_option'];
-				if(isset($option['area-mode']) && 'extreme'==$option['area-mode']){
-					$areatime = $starttime + 60*40;//极限挑战模式，1禁恒为40分钟。
-				}
-			}
 			$weather = 1;//天气必然大晴
 		}
 	}
 	
-	function act(){//一禁之前每次行动后判断并记录最大金钱数
+	function rs_areatime(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','map'));
-		$chprocess();
-		if($gametype==15 && $areanum<$areaadd){
-			if($money > \skillbase\skill_getvalue(313,'max_money')) 
-				\skillbase\skill_setvalue(313,'max_money',$money);
+		eval(import_module('sys'));
+		if(15==$gametype){
+			$option = $roomvars['current_game_option'];
+			if(isset($option['area-mode']) && 'extreme'==$option['area-mode'])	{
+				return $starttime + 60*40;//极限挑战模式，1禁恒为40分钟。
+			}
 		}
+		return $chprocess();
 	}
 	
 //	function add_once_area($atime)	//一禁时记录玩家身上金钱
@@ -110,9 +113,15 @@ namespace instance5
 		if (strpos ( $itmk, 'Y' ) === 0 || strpos ( $itmk, 'Z' ) === 0) {
 			if ($itm == '伐木解除钥匙') 
 			{
-				$url = 'end.php';
-				addnews ( $now, 'itemuse', $name, $itm );
-				\sys\gameover ( $now, 'end8', $name );
+				if(15==$gametype) {
+					$url = 'end.php';
+					addnews ( $now, 'itemuse', $name, $itm );
+					\sys\gameover ( $now, 'end8', $name );
+				}else{
+					$log .= '这玩意究竟是怎么冒出来的呢？<br>';
+					$mode = 'command';
+					return;
+				}
 			}
 		}
 		$chprocess($theitem);
@@ -131,6 +140,17 @@ namespace instance5
 			return $res;
 		}
 		return $chprocess();
+	}
+	
+	function parse_itmuse_desc($n, $k, $e, $s, $sk){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($n, $k, $e, $s, $sk);
+		if(strpos($k,'Y')===0 || strpos($k,'Z')===0){
+			if ($n == '伐木解除钥匙') {
+				$ret .= '使用后可结束当前局伐木模式';
+			}
+		}
+		return $ret;
 	}
 }
 

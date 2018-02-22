@@ -1,0 +1,19 @@
+<input type="hidden" id="mode" name="mode" value="command">
+<input type="hidden" id="command" name="command" value="itm{$ueen}">
+<input type="hidden" id="ueecmd" name="ueecmd" value="0">
+<div>请选择你想要进行的操作：<br></div>
+<input type="button" class="cmdbutton" style="width:120px" value="解除禁区" onclick="$('ueecmd').value='1';postCmd('gamecmd','command.php');this.disabled=true;"><br>
+同正常使用移动PC一样，尝试解除当前禁区。<br><br>
+<input type="button" class="cmdbutton" style="width:120px" value="禁区提前到来" onclick="$('ueecmd').value='2';postCmd('gamecmd','command.php');this.disabled=true;"><br>
+<!--{eval $tmp_interval = \map\get_area_interval()/2;}-->
+<!--{if $hack2_r}-->让下次禁区时间提前到1分钟后。只有在连斗前，且1分钟≤距离下次禁区时间≤{$tmp_interval}分钟时才能操作。本局游戏中还能操作<span class="clan">{$hack2_r}</span>次。
+<!--{else}--><span class="red">本局游戏中无法再这么操作了。</span>
+<!--{/if}-->
+<br><br>
+<input type="button" class="cmdbutton" style="width:120px" value="打乱禁区顺序" onclick="$('ueecmd').value='3';postCmd('gamecmd','command.php');this.disabled=true;"><br>
+<!--{if $hack3_r}-->打乱未来的禁区顺序。只有在连斗前，且距离下次禁区时间≥1分钟时才能操作。本局游戏中还能操作<span class="clan">{$hack3_r}</span>次
+<!--{else}--><span class="red">本局游戏中无法再这么操作了。</span>
+<!--{/if}-->
+<br><br>
+<br>
+<input type="button" class="cmdbutton" value="返回" onclick="$('command').value='back';postCmd('gamecmd','command.php');this.disabled=true;">

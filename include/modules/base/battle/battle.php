@@ -2,6 +2,12 @@
 
 namespace battle
 {
+	//2017.11.17更新
+	//现在如果要实现“不能反击”效果，请继承此 check_can_counter(&$pa, &$pd, $active) 函数并返回0。请勿继承此函数返回1，会打乱整个判断。
+	//如果要实现“必定反击”效果，请继承calculate_counter_rate_change(&$pa, &$pd, $active, $counter_rate)函数，并返回100
+	//由于check_can_counter()是calculate_counter_rate_change()的外层函数，因此这样就实现了//////“不能反击”优先级高于“必定反击”//////
+	////////////////////以下是之前的说明//////////////////////
+	
 	//注意，这个函数是判定是否跳过反击阶段
 	//由于很多技能描述中“必定反击”和“不能反击”这两个天生的矛盾
 	//决定明晰化如下：
@@ -19,6 +25,17 @@ namespace battle
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return 1;
+	}
+	
+	//输入：类似"<:pa_name:>攻击了<:pd_name:>"这样的字符串，并自动替换"你"或者对方的玩家名
+	function battlelog_parser(&$pa, &$pd, $active, $battlelogstr){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if($active){
+			$pa_name = '你'; $pd_name = $pd['name'];
+		}else{
+			$pa_name = $pa['name']; $pd_name = '你';
+		}
+		return str_replace('<:pa_name:>', $pa_name, str_replace('<:pd_name:>', $pd_name, $battlelogstr));
 	}
 	
 	function attack_wrapper(&$pa, &$pd, $active)
@@ -50,16 +67,23 @@ namespace battle
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('logger'));
-		if ($active)
-		{
-			$log .= "<span class=\"red\">你处于无法反击的状态，逃跑了！</span><br>";
-			$pd['battlelog'] .= "其无法反击，逃跑了。<br>";
+		if(isset($pa['out_of_range'])){
+			$log .= battlelog_parser($pa, $pd, $active, '<span class="red"><:pa_name:>射程不足，无法反击，逃跑了！</span><br>');
+			$pd['battlelog'] .= battlelog_parser($pa, $pd, 1-$active,'<:pa_name:>射程不足，无法反击，逃跑了。<br>');
+		}else{
+			$log .= battlelog_parser($pa, $pd, $active, '<span class="red"><:pa_name:>没能及时反击，逃跑了！</span><br>');
+			$pd['battlelog'] .= battlelog_parser($pa, $pd, 1-$active,'<:pa_name:>没能及时反击，逃跑了。<br>');
 		}
-		else
-		{
-			$log .= "<span class=\"red\">敌人处于无法反击的状态，逃跑了！</span><br>";
-			$pa['battlelog'] .= "你无法反击，逃跑了。<br>";
-		}
+//		if ($active)
+//		{
+//			$log .= "<span class=\"red\">你处于无法反击的状态，逃跑了！</span><br>";
+//			$pd['battlelog'] .= "其无法反击，逃跑了。<br>";
+//		}
+//		else
+//		{
+//			$log .= "<span class=\"red\">敌人处于无法反击的状态，逃跑了！</span><br>";
+//			$pa['battlelog'] .= "你无法反击，逃跑了。<br>";
+//		}
 	}
 	
 	function cannot_counter(&$pa, &$pd, $active)
@@ -92,7 +116,7 @@ namespace battle
 				$pa['counter_assaulted']=0;
 				cannot_counter($pa,$pd,$active);
 			}
-			unset($pa['is_counter']);
+			unset($pa['is_counter'], $pa['out_of_range']);
 		}
 	}
 	

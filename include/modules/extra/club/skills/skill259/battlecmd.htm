@@ -1,19 +1,21 @@
 <!--{eval $rageneed = \skill259\get_rage_cost259();}-->
 <!--{if substr($wepk,0,2) == 'WN'}-->
 <!--{if $rage>=$rageneed}-->
-<input type="button" class="cmdbutton" style="width:98" name="" value="乱击" 
+<input type="button" class="cmdbutton" style="width:98"  value="乱击" 
 onclick="$('command').value='$w1';$('bskill').value=259;postCmd('gamecmd','command.php');this.disabled=true;"><br />
 <div style="width:90%; text-align:left;">
-本次攻击附加殴熟一定比例的伤害；消耗<span class="red">$rageneed</span>怒气
+<!--{eval eval(import_module('player'));}-->
+<!--{eval $dmgadd = 1+\skill259\get_skill259_adddmg($sdata);}-->
+本次攻击附加{$dmgadd}点物理固定伤害；消耗<span class="red">$rageneed</span>怒气
 </div>
 <!--{else}-->
-<input type="button" class="cmdbutton" style="width:98" name="" value="乱击" disabled="true"><br />
+<input type="button" class="cmdbutton" style="width:98"  value="乱击" disabled="true"><br />
 <div style="width:90%; text-align:left;">
 需要<span class="red">$rageneed</span>怒气方可发动
 </div>
 <!--{/if}-->
 <!--{else}-->
-<input type="button" class="cmdbutton" style="width:98" name="" value="乱击" disabled="true"><br />
+<input type="button" class="cmdbutton" style="width:98"  value="乱击" disabled="true"><br />
 <div style="width:90%; text-align:left;">
 空手时方可发动
 </div>

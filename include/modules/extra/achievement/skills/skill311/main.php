@@ -2,6 +2,13 @@
 
 namespace skill311
 {
+	//旧成就精力所限，未全部修改，请以skill300、skill313或skill332之后的成就为模板！
+	$ach311_name = array(
+		0=>'Run With Wolves',
+		1=>'Day Game',
+		2=>'<font style="font-size:11pt">Thousand Enemies</font>',
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL311_INFO','achievement;');
@@ -24,22 +31,25 @@ namespace skill311
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')					
 			$x=0;						
-		else	$x=base64_decode_number($data);		
+		else $x=$data;
 		$ox=$x;
 		$x+=\skillbase\skill_getvalue(311,'cnt',$pa);		
 		$x=min($x,(1<<30)-1);
 		
 		if (($ox<10)&&($x>=10)){
-			\cardbase\get_qiegao(200,$pa);
+			//\cardbase\get_qiegao(200,$pa);
+			\achievement_base\ach_create_prize_message($pa, 311, 0, 200);
 		}
 		if (($ox<100)&&($x>=100)){
-			\cardbase\get_qiegao(1200,$pa);
+			//\cardbase\get_qiegao(1200,$pa);
+			\achievement_base\ach_create_prize_message($pa, 311, 1, 1200);
 		}
 		if (($ox<1000)&&($x>=1000)){
-			\cardbase\get_qiegao(4000,$pa);
+			//\cardbase\get_qiegao(4000,$pa);
+			\achievement_base\ach_create_prize_message($pa, 311, 2, 4000);
 		}
 		
-		return base64_encode_number($x,5);		
+		return $x;
 	}
 	
 	function player_kill_enemy(&$pa,&$pd,$active){
@@ -58,7 +68,7 @@ namespace skill311
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($data=='')
 			$p311=0;
-		else	$p311=base64_decode_number($data);	
+		else	$p311=$data;	
 		$c311=0;
 		if ($p311>=1000){
 			$c311=999;

@@ -67,10 +67,11 @@ namespace addnpc
 			'arae' => 800,
 			'aras' => 15,
 			'arask' => 'b',
-			'art' => '十字发卡',
-			'artk' => 'Y',
+			'art' => '红黑色的耳塞',
+			'artk' => 'A',
 			'arte' => 1,
 			'arts' => 1,
+			'artsk' => 'W',
 			'sub' => array
 			(
 				0 => array
@@ -81,7 +82,12 @@ namespace addnpc
 				'wepk' => 'WP',
 				'wepe' => 800,
 				'weps' => 20,
-				'wepsk' => 'u',
+				'wepsk' => 'uy',
+				'itm1' => '十字发卡',
+				'itmk1' => 'Y',
+				'itme1' => 1,
+				'itms1' => 1,
+				'description' => '拟似意识 ■ (通称篝)。如果仓促上阵，<span class="yellow">不仅难以击倒她，而且很容易屈死于她之手！</span>',
 				),
 			),
 		),

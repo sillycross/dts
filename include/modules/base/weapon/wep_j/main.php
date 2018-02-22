@@ -2,6 +2,9 @@
 
 namespace wep_j
 {
+	//重枪默认无法发动任何战斗技能，但以下技能可以发动
+	$wj_allowed_bskill = array();
+	
 	function init() 
 	{
 		eval(import_module('weapon','itemmain'));
@@ -43,14 +46,23 @@ namespace wep_j
 		$damage = min(round($pd['mhp']/3),20000) + round($pa['wepe']*2/3);
 		return $damage;
 	}
-		
-	function get_fixed_dmg(&$pa, &$pd, $active)
+	
+	//重枪从固伤阶段改到主伤阶段
+	function get_primary_fixed_dmg_base(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r=0;
 		if ($pa['wep_kind']=='J') $r=get_WJ_fixed_dmg($pa, $pd, $active);
 		return $r+$chprocess($pa, $pd, $active);
 	}
+	
+//	function get_fixed_dmg(&$pa, &$pd, $active)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		$r=0;
+//		if ($pa['wep_kind']=='J') $r=get_WJ_fixed_dmg($pa, $pd, $active);
+//		return $r+$chprocess($pa, $pd, $active);
+//	}
 	
 	function get_attack_method(&$pdata)
 	{
@@ -153,7 +165,7 @@ namespace wep_j
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r=Array();
-		if ($pd['wepk']=='WJ')	//防守方持重型枪械受到额外伤害
+		if (strpos($pd['wepk'],'J')!==false)	//防守方持重型枪械受到额外伤害
 		{
 			eval(import_module('logger'));
 			if ($active)
@@ -163,6 +175,28 @@ namespace wep_j
 		}
 		return array_merge($r,$chprocess($pa, $pd, $active));
 	}
+	
+	//重枪忽略战斗技能
+	//这个函数应该是“与”的关系
+	function check_battle_skill_available(&$edata,$skillno)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player','wep_j'));
+		//var_dump(in_array($skillno, $wj_allowed_bskill));
+		if ($wepk=='WJ' && !in_array($skillno, $wj_allowed_bskill)) return false;
+		else return $chprocess($edata,$skillno);
+	}
+
+	//重枪忽略战斗技能
+	function strike_prepare(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('wep_j'));
+		if ($pa['wepk']=='WJ' && !in_array($pa['bskill'], $wj_allowed_bskill)) $pa['bskill']=0;
+		
+		return $chprocess($pa, $pd, $active);
+	}
+	
 }
 
 ?>

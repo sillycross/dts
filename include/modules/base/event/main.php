@@ -8,7 +8,7 @@ namespace event
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','map','logger','wound'));
-		
+		$ret = 0;
 		$dice1 = rand(0,5);
 		$dice2 = rand(20,40);//原为rand(5,10)
 		if($pls == 0) { //无月之影
@@ -29,6 +29,7 @@ namespace event
 			}else{
 				$log = ($log . "呼，总算逃脱了。<BR>");
 			}
+			$ret = 1;
 		} elseif($pls == 3) { //雪之镇
 			if($rp <=70){
 				$log = ($log . "突然，一位拿着纸袋的少女向你撞来！<BR>");
@@ -58,6 +59,7 @@ namespace event
 					$rp = $rp - 5;
 				}
 			}		
+			$ret = 1;
 		} elseif($pls == 4) { //索拉利斯
 		} elseif($pls == 5) { //指挥中心
 		} elseif($pls == 6) { //梦幻馆
@@ -73,10 +75,11 @@ namespace event
 			}else{
 				$log = ($log . "万幸，你没跌进池中。<BR>");
 			}
+			$ret = 1;
 		} elseif($pls == 8) { //白穗神社
 		} elseif($pls == 9) { //墓地
 		} elseif($pls == 10) { //麦斯克林
-		} elseif($pls == 11) { //央中电视台 - 现对天使用作战本部
+		} elseif($pls == 11) { //现对天使用作战本部
 			$log = ($log . "哇！一个大锤向你锤来！<BR>");
 			if($dice1 == 2){
 				$log = ($log . "大锤重重地<span class=\"red\">砸到了腿上</span>，好疼！<BR>");
@@ -88,6 +91,7 @@ namespace event
 			}else{
 				$log = ($log . "你勉强躲过了大锤的攻击。<BR>");
 			}
+			$ret = 1;
 		} elseif($pls == 12) { //夏之镇
 			$log = ($log . "突然，天空出现一大群乌鸦！<BR>");
 			if($dice1 == 2){
@@ -100,6 +104,7 @@ namespace event
 			}else{
 				$log = ($log . "呼，总算击退了。<BR>");
 			}
+			$ret = 1;
 		} elseif($pls == 13) { //三体星
 		} elseif($pls == 14) { //光坂高校
 		} elseif($pls == 15) { //守矢神社
@@ -114,6 +119,7 @@ namespace event
 			}else{
 				$log = ($log . "呼，所谓妖怪不过是个撑着紫伞的少女而已，没什么可害怕的。<BR>");
 			}
+			$ret = 1;
 		} elseif($pls == 16) { //常磐森林
 			$log = ($log . "野生的皮卡丘从草丛中钻出来了！<BR>");
 			if($dice1 == 2){
@@ -126,6 +132,7 @@ namespace event
 			}else{
 				$log = ($log . "成功地逃跑了。<BR>");
 			}
+			$ret = 1;
 		} elseif($pls == 17) { //常磐台中学
 		} elseif($pls == 18) { //秋之镇
 			$log = ($log . "突然，天空出现一大群乌鸦！<BR>");
@@ -139,7 +146,7 @@ namespace event
 			}else{
 				$log = ($log . "呼，总算击退了。<BR>");
 			}
-
+			$ret = 1;
 		} elseif($pls == 19) { //精灵中心
 		} elseif($pls == 20) { //春之镇
 		} elseif($pls == 21) { //圣Gradius学园
@@ -147,7 +154,7 @@ namespace event
 				$log = ($log . "隶属于时空部门G的特殊部队『天使』正在实弹演习！<BR>你被卷入了弹幕中！<BR>");
 				if($dice1 <= 1 ){
 					$log = ($log . "在弹幕的狂风中，你有惊无险地回避着弹幕，总算擦弹成功了。<BR>");
-					if($dice2 == 40 && $rp > 40){
+					if($dice2 == 40 && $rp > 40 && $killnum > 0){
 						$log = ($log . "咦，头顶上……好像有一名少女被弹幕击中了……？<BR>“对不起、对不起！”伴随着焦急的道歉声，少女以及她乘坐的机体向你笔直坠落下来。<br>你还来不及反应，重达数十吨的机体便直接落在了你的头上。<br>");
 						$state = 33;
 						\player\update_sdata(); $sdata['sourceless'] = 1; $sdata['attackwith'] = '';
@@ -217,6 +224,7 @@ namespace event
 			} else {
 				$log = ($log . "特殊部队『天使』的少女们不知道去了哪里。<BR>");
 			}
+			$ret = 1;
 		} elseif($pls == 22) { //初始之树
 		} elseif($pls == 23) { //幻想世界
 		} elseif($pls == 24) { //永恒的世界
@@ -399,6 +407,7 @@ namespace event
 					}		
 				}
 				//echo $rp;
+				$ret = 1;
 			}elseif($flag == 1){
 				$log .= '明白了少女已经是敌人的你，刻意躲避着少女的追踪。不过至少你不用担心被绘卷搞得七窍流血了。<BR>';
 			}else{
@@ -415,6 +424,7 @@ namespace event
 				$log.="殿堂的深处传来一个声音：<span class=\"evergreen\">“你还没有进入这里的资格”。</span><br>一股未知的力量包围了你，当你反应过来的时候，发现自己正身处<span class=\"yellow\">{$plsinfo[$pls]}</span>。<br>";
 				if (CURSCRIPT !== 'botservice') $log.="<span id=\"HsUipfcGhU\"></span>";
 			}
+			$ret = 1;
 		}	else {
 		}
 
@@ -425,7 +435,7 @@ namespace event
 			\player\player_save($sdata);
 			\player\load_playerdata($sdata);
 		}
-		return;
+		return $ret;
 	}
 
 	function death_kagari($type)
@@ -508,14 +518,29 @@ namespace event
 	
 	function discover($schmode) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//echo 'event ';
 		eval(import_module('sys','player','map','logger','event'));
 		$event_dice = rand(0,99);
-		if(($event_dice < $event_obbs)||(($art!="Untainted Glory")&&($pls==34)&&($gamestate != 50))){
-			event();
-			$mode = 'command';
-			return;
+		if(event_available() && ($event_dice < $event_obbs || ( $art!="Untainted Glory" && $pls==34 && $gamestate != 50 ))){
+			$ret = event();
+			if(!can_continue_post_event_proc($ret)) {
+				$mode = 'command';
+				return;
+			}
 		}
 		$chprocess($schmode);
+	}
+	
+	function event_available(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return true;
+	}
+	
+	//没有事件的地图，执行event事件以后继续判定遭遇敌人
+	function can_continue_post_event_proc($evret)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return !$evret;
 	}
 }
 

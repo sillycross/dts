@@ -13,6 +13,7 @@ if($command == 'write'){
 	writeover("{$dir}banlist.list","<?php\n\n\$nmlimit = '$nmlimit';\n\$iplimit = '$iplimit';\n\n?>");
 	//write_list($dir,$postnmlmt,$postiplmt);
 	$cmd_info = '新的屏蔽列表已经写入。';
+	adminlog('editbanlist',gencode($nmlimit),gencode($iplimit));
 }else{
 	include_once $dir.'banlist.list';
 }

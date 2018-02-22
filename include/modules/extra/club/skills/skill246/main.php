@@ -8,8 +8,10 @@ namespace skill246
 	function init() 
 	{
 		define('MOD_SKILL246_INFO','club;upgrade;locked;unique;');
-		eval(import_module('clubbase'));
+		eval(import_module('clubbase','wep_j','dualwep'));
 		$clubskillname[246] = '隐身';
+		$wj_allowed_bskill[] = 246;
+		$dualwep_allowed_bskill[] = 246;
 	}
 	
 	function acquire246(&$pa)
@@ -68,12 +70,24 @@ namespace skill246
 		return 3;
 	}
 	
+	//隐身状态下攻击不会显示战斗技
+	function check_battle_skill_available(&$edata,$skillno)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player'));
+		if (\skillbase\skill_query(246,$sdata) && check_skill246_state($sdata)==1) return false;
+		else return $chprocess($edata,$skillno);
+	}
+	
 	//隐身状态下攻击不允许使用其他战斗技能，但自动触发破隐效果
+	//隐身刚结束那一下无法使用任何技能
 	function load_user_battleskill_command(&$pdata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (\skillbase\skill_query(246,$pdata) && check_skill246_state($pdata)==1)
 			$pdata['bskill']=246; 
+		elseif (\skillbase\skill_query(246,$pdata) && check_skill246_state($pdata)==2)
+			$pdata['bskill']=0; 
 		else  $chprocess($pdata);
 	}
 	
@@ -98,11 +112,12 @@ namespace skill246
 	}	
 	
 	//命中率增加
-	function get_hitrate(&$pa,&$pd,$active)
+	function get_hitrate_multiplier(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill']!=246) return $chprocess($pa, $pd, $active);
-		return $chprocess($pa, $pd, $active)*1.3;
+		$ret=$chprocess($pa, $pd, $active);
+		if ($pa['bskill']!=246) return $ret;
+		return $ret*1.3;
 	}
 	
 	//不会被发现

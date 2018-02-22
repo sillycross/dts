@@ -1,12 +1,64 @@
-<p><span class="lime">BOSS NPC简介</span>：</p>
+<p><span class="lime">剧情BOSS NPC简介</span>：</p>
+此类NPC是<span class="lime">达成特殊胜利</span>必须要击倒的对象。红暮坐镇于<span class="yellow">无月之影</span>，蓝凝则呆在<span class="yellow">冰封墓场</span>。
+<br>她们对游戏前中期的玩家拥有压倒性的优势，但只要不去招惹她们，玩家并无性命之忧。
+<br>如果成功击倒了他们，能够获取<span class="lime">优质的装备</span>和<span class="lime">特殊胜利关键道具</span>。<br>
+<br>此外，{$gtinfo[19]}拥有特殊的剧情BOSS NPC。<input class="cmdbutton" onclick="bubblebox_show('i9_npc');" value="点击这里查看" type="button"><br>
+<br>
+<!--{loop Array(1,9) $key}-->
+<!--{eval \npcinfo\npcinfo_get_npc_description_all($key);}-->
+<!--{/loop}-->
+
+<!--{eval \bubblebox\bubblebox_set_style('id:i9_npc;height:560;width:772;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:10px;');}-->
+{template MOD_BUBBLEBOX_START}
+<p><span class="lime">{$gtinfo[19]} 剧情BOSS NPC简介</span>：</p>
+<p>{$gtinfo[19]}的BOSS NPC的数据和技能与标准模式略有差异。由于极速模式禁区节奏较快，其BOSS<span class="yellow">击杀难度比标准模式稍大</span>。</p>
+<br>
+<!--{eval \npcinfo\npcinfo_get_npc_description_all(15, $npcinfo_instance9);}-->
+<!--{eval \npcinfo\npcinfo_get_npc_description_all(15, $enpcinfo_show);}-->
+<!--{eval \npcinfo\npcinfo_get_npc_description_all(40, $npcinfo_instance9);}-->
+<br> 
+{template MOD_BUBBLEBOX_END}
+
+
+<p><span class="lime">高危NPC简介</span>：</p>
 此类NPC对玩家<span class="yellow">均有较大威胁</span>，在<span class="yellow">没有足够高的防御</span>的情况下，请<span class="yellow">尽可能避免和它们的接触</span>，也<span class="yellow">不要贸然攻击它们</span>，否则很可能导致自己被击杀。<br>
 当然，如果成功击杀了这些NPC，它们也会掉落<span class="lime">大量有用的道具或金钱</span>。<br>
 <br>
-<!--{loop Array(6,5,1,9,88) $key}-->
+<!--{loop Array(6,5,88) $key}-->
 <!--{eval \npcinfo\npcinfo_get_npc_description_all($key);}-->
 <!--{/loop}-->
 <br>
-<p><span class="lime">真职人 NPC简介</span>：</p>
+<p><span class="lime">杂兵NPC简介</span>：</p>
+此类NPC对玩家基本无威胁。每个小兵NPC掉落金钱220元，是玩家<span class="yellow">最主要的熟练度、经验来源，也是最主要的击杀对象</span>。每个小兵NPC掉落金钱220元，是玩家<span class="lime">主要金钱来源</span>。<br>
+<br>
+<!--{loop Array(90) $key}-->
+<!--{eval \npcinfo\npcinfo_get_npc_description_all($key);}-->
+<!--{/loop}-->
+<br>
+<p><span class="lime">全息幻象NPC简介</span>：</p>
+全息幻象虽然比杂兵更难以击倒，但也掉落<span class="lime">更多的金钱</span>以及<span class="lime">各系优秀的武器或强化道具</span>。
+<br>借助<span class="lime">探测器、进行状况，甚至记忆</span>来找到全息幻象的位置并尽快击倒，往往是<span class="yellow">拉开玩家差距、建立优势乃至取得最终胜利的关键</span>。
+<br>此外，{$gtinfo[18]}拥有特殊的全息幻象NPC。<input class="cmdbutton" onclick="bubblebox_show('i8_npc');" value="点击这里查看" type="button"><br>
+<br>
+<!--{loop Array(2) $key}-->
+<!--{eval \npcinfo\npcinfo_get_npc_description_all($key);}-->
+<!--{/loop}-->
+<br>
+
+
+<!--{eval \bubblebox\bubblebox_set_style('id:i8_npc;height:560;width:772;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:10px;');}-->
+{template MOD_BUBBLEBOX_START}
+<p><span class="lime">{$gtinfo[18]} 全息幻象NPC简介</span>：</p>
+<p>{$gtinfo[18]}拥有特殊的全息幻象NPC。他们比标准模式的NPC强度更高，且<span class="yellow">具有独特的技能</span>，虽然对玩家一般不会有什么威胁，但<span class="yellow">击杀难度也稍大</span>。</p>
+<br>
+<!--{loop Array(2) $key}-->
+<!--{eval \npcinfo\npcinfo_get_npc_description_all($key, $npcinfo_instance8);}-->
+<!--{/loop}-->
+<br> 
+{template MOD_BUBBLEBOX_END}
+
+
+<p><span class="lime">真职人NPC简介</span>：</p>
 此类NPC在开局对<span class="yellow">无防具的玩家有较大威胁</span>，这类NPC的特点是<span class="yellow">防御非常高</span>，且<span class="yellow">武器均带有“电击+冻气+带毒+火焰+音波”属性</span>，很容易导致玩家中异常状态。<br>如果防具很差，或没有属性防御也没钱买药剂，请不要贸然攻击它们，否则很可能导致自己中大量异常状态后难以恢复，苦不堪言。<br>
 当然，击杀这些NPC后可以获取<span class="lime">极为优秀的防具</span>，在游戏中后期<span class="lime">击杀它们并拾取它们的防具保护自己</span>往往是玩家取胜的关键。<br>
 <br>
@@ -14,20 +66,43 @@
 <!--{eval \npcinfo\npcinfo_get_npc_description_all($key);}-->
 <!--{/loop}-->
 <br>
-<p><span class="lime">初级NPC 简介</span>：</p>
-此类NPC对玩家基本无威胁，是玩家<span class="yellow">最主要的熟练度、经验来源，也是最主要的击杀对象</span>。每个小兵NPC掉落金钱220元，是玩家<span class="lime">主要金钱来源</span>。<br>全息幻象和电波幽灵掉落<span class="lime">更多的金钱</span>以及<span class="lime">各系优秀的武器或强化道具</span>，往往是<span class="yellow">拉开玩家差距、建立优势乃至取得最终胜利的关键</span>。<br>
+<p><span class="lime">电波幽灵NPC简介</span>：</p>
+此类NPC在开局对<span class="yellow">无防具的玩家有较大威胁</span>，<span class="yellow">受到一定伤害之后会狂暴</span>，而且<span class="yellow">探测器上并不能看到他们</span>，麻烦程度相当高。
+<br>不过，电波幽灵比全息幻象掉落<span class="lime">更多的金钱</span>以及<span class="lime">更优秀的武器和防具</span>，如果能找到并且顺利击倒，<span class="yellow">对游戏的帮助非常大。</span><br>
 <br>
-<!--{loop Array(2,45,90) $key}-->
+<!--{loop Array(45) $key}-->
 <!--{eval \npcinfo\npcinfo_get_npc_description_all($key);}-->
 <!--{/loop}-->
 <br>
-<p><span class="lime">特殊NPC 简介</span>：</p>
-此类NPC对玩家无威胁，但当玩家击杀它们后，它们会变身为<span class="yellow">“第二形态”</span>，此时<span class="yellow">攻击力会变得极强</span>。<br>可别不小心击杀了它们后被第二形态秒杀哦～ 不过，当自己处于劣势时，偷偷击杀这类NPC，并期望对手撞上它们并被它们秒杀，也是不错的翻盘思路哦～<br>
-<br>
+
+<p><span class="lime">数据碎片NPC简介</span>：</p>
+此类NPC对玩家威胁不大，但当玩家击杀它们后，它们会变身为<span class="yellow">“第二形态”</span>，此时<span class="yellow">攻击力会变得极强</span>。<br>可别不小心击杀了它们后被第二形态秒杀哦～ 不过，当自己处于劣势时，偷偷击杀这类NPC，并期望对手撞上它们并被它们秒杀，也是不错的翻盘思路哦～
+<br><input class="cmdbutton" onclick="bubblebox_show('ev_npc');" value="点击这里查看" type="button">女主的第二形态。<br>
 <!--{loop Array(14) $key}-->
 <!--{eval \npcinfo\npcinfo_get_npc_description_all($key);}-->
 <!--{/loop}-->
 <br>
+
+<!--{eval \bubblebox\bubblebox_set_style('id:ev_npc;height:560;width:772;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:10px;');}-->
+{template MOD_BUBBLEBOX_START}
+<p><span class="lime">数据碎片第二形态NPC简介</span>：</p>
+<p>女主的第二形态实力强大，无准备的情况下遭遇她们<span class="yellow">有性命之忧！</span>不过，击倒她们也是<span class="lime">特殊胜利</span>的必经之路。</p>
+<br>
+<!--{loop Array(14) $key}-->
+<!--{eval \npcinfo\npcinfo_get_npc_description_all($key, $enpcinfo_show);}-->
+<!--{/loop}-->
+<br> 
+{template MOD_BUBBLEBOX_END}
+
+<p><span class="lime">拟似意识NPC简介</span>：</p>
+在雏菊之丘有一位特殊的NPC，她平时以<span class="yellow">特殊事件</span>的形式存在，不加入战斗。但如果玩家击倒三女主的第二形态，之后合成<span class="yellow">破灭之诗</span>并使用，这名NPC就会加入战场。<br>
+她掉落的道具是<span class="lime">特殊胜利</span>的必须道具。虽然她血量甚至不如玩家开局状态，但攻击力和防御力都十分吓人，并且装备属性拥有<span class="yellow">物抹+属抹</span>的双重抗性，要击倒她必须动点脑筋。<br>
+<br>
+<!--{loop Array(4) $key}-->
+<!--{eval \npcinfo\npcinfo_get_npc_description_all($key, $anpcinfo);}-->
+<!--{/loop}-->
+<br>
+
 <p><span class="lime">佣兵NPC 简介</span>：</p>
 佣兵是<u><A href="help.php#称号与技能">富家子弟的称号技能</A></u>召唤出的NPC。不同的佣兵实力差距很大，能召唤出什么佣兵纯靠运气。<br>
 以下是所有佣兵的列表：<input class="cmdbutton" onclick="bubblebox_show('skill56_merc');" value="点击这里查看" type="button"><br>

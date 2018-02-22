@@ -1,0 +1,32 @@
+<!--{eval eval(import_module('skill500','sys'));}-->
+<!--{eval $___TEMP_SKILL_ID=500;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+时停
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<!--{eval $skill500_lst = (int)\skillbase\skill_getvalue(500,'lastuse'); $skill500_time = ($now-$skill500_lst);$skill500_cd_left=($skill500_cd-$skill500_time);}-->
+消耗{$skill500_rage}点怒气，让当前地图其他玩家的时间停止<span class="clan">{$skill500_act_time}秒</span>。CD时间{$skill500_cd}秒。<br>
+若时间停止中，你的命中率变为原来的150%，不会被发现、被先制、被反击，也不会遭遇任何陷阱。<br>
+<!--{if $skill500_lst!=0}-->
+	<!--{if $skill500_time<$skill500_act_time}-->
+	<span class="clan">时间停止中！</span><br>
+	<!--{elseif $skill500_time<$skill500_act_time+$skill500_cd}-->
+	<span class="yellow">技能冷却中，冷却时间还剩{$skill500_cd_left}秒。</span><br>
+	<!--{/if}-->
+<!--{/if}-->
+</span></td>
+<td class=b3 width=96>
+<!--{if $skill500_time>$skill500_cd}-->
+<input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill500_special';$('subcmd').value='activate';postCmd('gamecmd','command.php');this.disabled=true;" value="发动">
+<!--{else}-->
+<input type="button" style="width:46px" disabled="true" value="发动">
+<!--{/if}-->
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

@@ -100,9 +100,15 @@ namespace explore
 		return;
 
 	}
-
+	
+	//目前的判定顺序：
+	//1.事件（event），如果遭遇就不继续
+	//2.陷阱（trap），如果遭遇就不继续
+	//3.探人（metman，衍生出team、enemy、corpse），如果是探物姿态，在没有探到人的情况下会继续探索道具
+	//4.探物（itemmain）
 	function discover($schmode) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//echo 'explore ';
 		eval(import_module('logger'));
 		$log .= "但是什么都没有发现。<br>";
 	}

@@ -2,22 +2,22 @@
 <input type="hidden" name="mode" value="senditem">
 <input type="hidden" id="command" name="command" value="back">
 留言：<br><input size="30" type="text" name="message" maxlength="60"><br><br>
-<input type="button" class="cmdbutton" id="x" value="[X]返回" onclick="postCmd('gamecmd','command.php');"><br><br>
+<input type="button" class="cmdbutton" id="x" value="[X]返回" onclick="postCmd('gamecmd','command.php');this.disabled=true;"><br><br>
 <!--{if $itms1}-->
-转让：<input type="button" name="item1" value="{$itm1}/{$itme1}/{$itms1}" onclick="$('command').value='item1';postCmd('gamecmd','command.php');"><br>
+转让：<input type="button"  value="{$itm1}/{$itme1}/{$itms1}" onclick="$('command').value='item1';postCmd('gamecmd','command.php');this.disabled=true;"><br>
 <!--{/if}-->
 <!--{if $itms2}-->
-转让：<input type="button" name="item2" value="{$itm2}/{$itme2}/{$itms2}" onclick="$('command').value='item2';postCmd('gamecmd','command.php');"><br>
+转让：<input type="button"  value="{$itm2}/{$itme2}/{$itms2}" onclick="$('command').value='item2';postCmd('gamecmd','command.php');this.disabled=true;"><br>
 <!--{/if}-->
 <!--{if $itms3}-->
-转让：<input type="button" name="item3" value="{$itm3}/{$itme3}/{$itms3}" onclick="$('command').value='item3';postCmd('gamecmd','command.php');"><br>
+转让：<input type="button"  value="{$itm3}/{$itme3}/{$itms3}" onclick="$('command').value='item3';postCmd('gamecmd','command.php');this.disabled=true;"><br>
 <!--{/if}-->
 <!--{if $itms4}-->
-转让：<input type="button" name="item4" value="{$itm4}/{$itme4}/{$itms4}" onclick="$('command').value='item4';postCmd('gamecmd','command.php');"><br>
+转让：<input type="button"  value="{$itm4}/{$itme4}/{$itms4}" onclick="$('command').value='item4';postCmd('gamecmd','command.php');this.disabled=true;"><br>
 <!--{/if}-->
 <!--{if $itms5}-->
-转让：<input type="button" name="item5" value="{$itm5}/{$itme5}/{$itms5}" onclick="$('command').value='item5';postCmd('gamecmd','command.php');"><br>
+转让：<input type="button"  value="{$itm5}/{$itme5}/{$itms5}" onclick="$('command').value='item5';postCmd('gamecmd','command.php');this.disabled=true;"><br>
 <!--{/if}-->
 <!--{if $itms6}-->
-转让：<input type="button" name="item6" value="{$itm6}/{$itme6}/{$itms6}" onclick="$('command').value='item6';postCmd('gamecmd','command.php');"><br>
+转让：<input type="button"  value="{$itm6}/{$itme6}/{$itms6}" onclick="$('command').value='item6';postCmd('gamecmd','command.php');this.disabled=true;"><br>
 <!--{/if}-->

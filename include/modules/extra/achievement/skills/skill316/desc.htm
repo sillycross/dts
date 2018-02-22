@@ -1,11 +1,15 @@
+<!--{eval $stitle316 = \achievement_base\show_ach_title(316, $c316);}-->
+<!--{eval $atitle316 = \achievement_base\show_ach_title_2(316, $c316);}-->
+<!--{eval $dailytype316 = \achievement_base\get_daily_type(316);}-->
 <table><tr>
 <td>
-<!--{if ($c316) }--><img src="img/ach/D.gif"><!--{else}--><img src="img/ach/N.gif"><!--{/if}-->
+	<!--{if ($c316=='0') }--><img src="img/ach/daily{$dailytype316}_n.png">
+	<!--{else}--><img src="img/ach/daily{$dailytype316}_1.png"><!--{/if}-->
 </td>
-<td valign="top" align="left">
-<b>
-幻境无双
-</b>
+<td class="ach_cont">
+<span class="ach_title" <!--{if $atitle316 }-->title="$atitle316"<!--{/if}-->>
+	$stitle316
+</span>
 <!--{if ($c316=='999') }--><span class="lime">[完成]</span><!--{else}--><!--{if ($c316==0) }--><span class="red">[未完成]</span><!--{else}--><span class="clan">[进行中]</span><!--{/if}--><!--{/if}--><br>
 <font color="yellow">击杀总数： {$p316}名<br></font>
 <font color="olive">奖励： 切糕250 <br></font> 击杀200名杂兵<br>

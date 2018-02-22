@@ -1,21 +1,18 @@
-<!--{eval \bubblebox\bubblebox_set_style('id:persistent-newroombox;height:240;width:200;scroll-bar:0;');}-->
+<!--{eval \bubblebox\bubblebox_set_style('id:persistent-newroombox;height:320;width:200;scroll-bar:0;cancellable:1;');}-->
 {template MOD_BUBBLEBOX_START}
-<table CellSpacing=0 CellPadding=0>
-<tr><td class="b3">
-<div style="text-align:left; margin-top:20px; margin-bottom:20px; margin-left:20px;">
-	设置游戏模式：<br>
+<div id="loading"></div>
+<div style="text-align:middle; margin-top:20px; margin-bottom:20px; margin-left:20px;">
+	设置游戏模式：
 	<!--{eval global $roomtypelist;}-->
 	<!--{loop $roomtypelist $i $value}-->
-	<input type="radio" name="rmmode" id="type$i" value="type$i" <!--{if $i==0}-->checked<!--{/if}-->>$value['name']<br>
+		<!--{if check_room_available($value)}-->
+			<div>
+			<!--{eval $bname=str_replace('"',"'",$value['name']);}-->
+			<a class="b_button bc_black" onclick="
+			window.location.href='roomcmd.php?command=newroom&para1='+$i;
+			$('loading').style.display='block'" style="margin:3px;width:85px">$bname</a>
+			</div>
+		<!--{/if}-->
 	<!--{/loop}-->
-	<span style="display:block; height:5px;">&nbsp;</span>
-	<input type="button" class="cmdbutton" name="submit" value="提交" onclick="
-	<!--{loop $roomtypelist $i $value}-->
-	if ($('type$i').checked) rtype=$i; 
-	<!--{/loop}-->
-	window.location.href='roomcmd.php?command=newroom&para1='+rtype;
-	this.disabled=true;">
-	<input type="button" class="cmdbutton" name="submit" value="返回" onclick="bubblebox_hide_all();">
 </div>
-</td></tr></table>
 {template MOD_BUBBLEBOX_END} 

@@ -1,0 +1,30 @@
+div.message_line{display:flex;display:-webkit-flex;justify-content:flex-start;}
+div.message_ib{margin:5px 10px 10px 0px;display:inline-block;}
+div.message_box
+{
+	background-color:rgba(20,22,24,0.5); *BACKGROUND: rgb(20,22,24); *filter:alpha(opacity=50); 
+	width:290px;
+	border:1px solid #666;	border-radius:7px;
+}
+
+div.message_box span{position:relative;max-height:300px;overflow:hidden;}
+
+div.message_title_bar {position:relative;text-align:center;margin: 5px 5px 10px 5px;}
+
+div.message_cont{text-align:left;margin: 0 5px;min-height:50px;}
+
+div.message_encl{text-align:center;text-align:left;margin: 0 5px;min-height:32px;}
+
+div.message_encl_hint{width:50px;position:absolute;left:0px;top:0px;}
+
+div.message_date{text-align:right;margin: 0 5px;}
+
+span.message_title{color:#98fb98;font:bold 15pt "微软雅黑";}
+
+div.message_hint{position:absolute;right:3px;bottom:3px}
+
+hr.message_hr{border:1px dashed #777;}
+
+img.message_sign{
+	position:absolute;right:15px;top:5px;display:none;font:bold 22pt "微软雅黑";color:#999;
+}

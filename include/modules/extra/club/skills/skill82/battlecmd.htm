@@ -1,0 +1,20 @@
+<!--{eval $rageneed = \skill82\get_rage_cost82();$sk82_dmg=\skill82\get_dmg82($sdata);$dummy = array();}-->
+<!--{if $rage>=$rageneed}-->
+	<!--{if \weapon\get_skillkind($sdata,$dummy,1) == 'wk'}-->
+	<input type="button" class="cmdbutton" style="width:98"  value="解牛" 
+	onclick="$('command').value='$w1';$('bskill').value=82;postCmd('gamecmd','command.php');this.disabled=true;"><br />
+	<div style="width:90%; text-align:left;">
+	本次攻击附加<span class="yellow">$sk82_dmg</span>点伤害，且武器损耗率减半，消耗<span class="red">$rageneed</span>怒气
+	</div>
+	<!--{else}-->
+	<input type="button" class="cmdbutton" style="width:98"  value="解牛" disabled="true"><br />
+	<div style="width:90%; text-align:left;">
+	手持<span class="yellow">锐器</span>方可发动
+	</div>
+	<!--{/if}-->
+<!--{else}-->
+	<input type="button" class="cmdbutton" style="width:98"  value="解牛" disabled="true"><br />
+	<div style="width:90%; text-align:left;">
+	需要<span class="red">$rageneed</span>怒气方可发动
+	</div>
+<!--{/if}-->
