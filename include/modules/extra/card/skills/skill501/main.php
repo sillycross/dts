@@ -6,7 +6,7 @@ namespace skill501
 	{
 		define('MOD_SKILL501_INFO','card;unique;');
 		eval(import_module('clubbase'));
-		$clubskillname[501] = '拯救';
+		$clubskillname[501] = '无尽';
 	}
 	
 	function acquire501(&$pa)

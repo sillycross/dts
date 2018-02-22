@@ -28,10 +28,13 @@ function message_create($to, $title='', $content='', $enclosure='', $from='sys',
 	$db->array_insert("{$gtablepre}messages", $ins_arr);
 }
 
+//直接放到sys模块里了
 //function message_check_new($username)
 //{
 //	global $db,$gtablepre;
-//	$result = $db->query("SELECT mid FROM {$gtablepre}messages WHERE receiver='$username' AND ");
+//	$result = $db->query("SELECT mid FROM {$gtablepre}messages WHERE receiver='$username' AND rd=0");
+//	if($db->num_rows($result)) return true;
+//	return false;
 //}
 
 function message_load($mid_only=0)

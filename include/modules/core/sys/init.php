@@ -18,7 +18,7 @@ namespace sys
 	
 	function init()
 	{
-		global $gtablepre, $tablepre, $wtablepre, $ctablepre, $room_prefix, $room_id, $moveut, $moveutmin, $u_templateid;
+		global $gtablepre, $tablepre, $wtablepre, $ctablepre, $room_prefix, $room_id, $moveut, $moveutmin, $u_templateid, $new_messages;
 		global ${$gtablepre.'user'}, ${$gtablepre.'pass'}, $___MOD_SRV;
 		if (isset($_COOKIE))
 		{
@@ -174,6 +174,14 @@ namespace sys
 			$mode=$___LOCAL_INPUT__VARS__mode;
 			$command=$___LOCAL_INPUT__VARS__command;
 		}
+		
+		//只要登陆就检查一下有没有新站内信，由于就几行，不需要直接include整个messages.func.php
+		$new_messages = 0;
+		if($cuser){
+			$result = $db->query("SELECT mid FROM {$gtablepre}messages WHERE receiver='$cuser' AND rd=0");
+			$new_messages = $db->num_rows($result);
+		}
+		
 	}
 	
 }

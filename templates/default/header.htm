@@ -26,7 +26,7 @@ jQuery.noConflict();
 <!-- jScrollPanel Utility End -->
 
 <script type="text/javascript" src="include/javascript/common.20180219.js"></script>
-<script type="text/javascript" src="include/javascript/game.20180210.js"></script>
+<script type="text/javascript" src="include/javascript/game.20180222.js"></script>
 
 <!-- gzip Decode Utility Start -->
 <script type="text/javascript" src="include/javascript/gzip.util.js"></script>
@@ -50,7 +50,11 @@ jQuery.noConflict();
 <div class="headerlink" >
 <a href="index.php">>>{lang index}</a>
 <!--{if isset($cuser) && isset($cpass)}-->
-<a href="messages.php">>>{lang messages}</a>
+<a href="messages.php">>>{lang messages}
+	<!--{if !empty($new_messages)}-->
+	<span class="L5">NEW!</span>
+	<!--{/if}-->
+</a>
 <a href="user_profile.php">>>{lang user}</a>
 <!--{else}--><a href="register.php">>>{lang register}</a>
 <!--{/if}-->

@@ -161,6 +161,7 @@ $mixinfo = array
 	array('class' => 'item', 'stuff' => array('水','黑色雏菊','白色方块'),'result' => array('风祭河水','Y',1,1,'x'),),
 	array('class' => 'item', 'stuff' => array('水','黑色方块','白色雏菊'),'result' => array('仪水镜','Y',1,1,'x'),),
 	array('class' => 'item', 'stuff' => array('风祭河水','仪水镜','白色雏菊','黑色雏菊'),'result' => array('八咫镜','DH',1,1,'bx'),),
+	array('class' => 'item', 'stuff' => array('《チト的日记》','鱼罐头','【雨だれの歌】'),'result' => array('【More One Night】','ss',200,1,'h'),),
 	
 	array('class' => 'pokemon', 'stuff' => array('《小黄的草帽》','《小黄的钓鱼竿》','《小黄的行军靴》'),'result' => array('《小黄的精灵球》','WC',233,'∞','ce',),),
 	array('class' => 'pokemon', 'stuff' => array('《小黄的精灵球》','《小黄的收服特训》'),'result' => array('《小黄的超级球》','WC',233,'∞','Zrce'),),
