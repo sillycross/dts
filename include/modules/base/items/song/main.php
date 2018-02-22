@@ -63,6 +63,8 @@ namespace song
 				$ret .= '歌唱：使你和同地区玩家的爆熟和灵熟上升30';
 			}elseif($sn == '遥か彼方'){
 				$ret .= '歌唱：使你和同地区玩家的殴熟和斩熟上升30';
+			}elseif($sn == '雨だれの歌'){
+				$ret .= '歌唱：使你和同地区玩家的生命上限上升15，体力上限上升50';
 			}
 		}
 		return $ret;
@@ -89,6 +91,7 @@ namespace song
 			$noiseinfo['ss_planet']='《星めぐりの歌》';
 			$noiseinfo['ss_rewrite']='《CANOE》';
 			$noiseinfo['ss_lb']='《遥か彼方》';
+			$noiseinfo['ss_amadare']='《雨だれの歌》';
 		}
 	}
 	
