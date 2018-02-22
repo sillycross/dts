@@ -1,6 +1,5 @@
 <?php
 header('Content-Type: text/HTML; charset=utf-8');
-header( 'Content-Encoding: none; ' );
 
 define('IN_MODULEMNG', TRUE);
 
