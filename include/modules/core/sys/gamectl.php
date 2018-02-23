@@ -41,6 +41,7 @@ namespace sys
 			foreach($gamevars as $key => $val){
 				if(in_array($key, $registered_gamevars)) $n_gamevars[$key] = $val;
 			}
+			$gamevars = $n_gamevars;
 		}
 		
 		//重设玩家互动信息、聊天记录、地图道具、地图陷阱、进行状况的数据库
