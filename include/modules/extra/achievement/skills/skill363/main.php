@@ -9,7 +9,7 @@ namespace skill363
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach363_desc= array(
-		1=>'用隐藏卡片以外的所有卡片获胜',
+		1=>'用卡册中的所有卡片获胜',
 	);
 	
 	$ach363_proc_words = '完成版本';
@@ -74,6 +74,22 @@ namespace skill363
 				}
 			}
 			$ret = $flag;
+		}
+		return $ret;
+	}
+	
+	function ach_global_ach_finalize_save_getnum($data, $achid)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($data, $achid);
+		if(363 == $achid){
+			eval(import_module('cardbase'));
+			$ret = 0;
+			foreach($cards as $ci => $cv){
+				if('hidden' != $cv['pack'] && \cardbase\check_pack_availble($cv['pack'])){
+					$ret ++;
+				}
+			}
 		}
 		return $ret;
 	}

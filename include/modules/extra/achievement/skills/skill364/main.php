@@ -9,7 +9,7 @@ namespace skill364
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach364_desc= array(
-		1=>'完成除日常任务、活动成就和终生成就之外的所有成就',
+		1=>'完成所有成就（日常、任务、终生成就除外）',
 	);
 	
 	$ach364_proc_words = '完成版本';
@@ -95,6 +95,25 @@ namespace skill364
 				}
 			}
 			$ret = $flag;
+		}
+		return $ret;
+	}
+	
+	function ach_global_ach_finalize_save_getnum($data, $achid)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($data, $achid);
+		if(364 == $achid){
+			eval(import_module('achievement_base'));
+			$ret = 0;
+			foreach($achlist as $aclass => $av){
+				foreach($av as $ai){
+					if($achid != $ai && !\skillbase\check_skill_info($ai, 'daily') && !\skillbase\check_skill_info($ai, 'spec-activity') && !\skillbase\check_skill_info($ai, 'clobal'))
+					{
+						$ret ++ ;
+					}
+				}
+			}
 		}
 		return $ret;
 	}

@@ -512,11 +512,14 @@ namespace achievement_base
 			//这个部分顶级和非顶级之间的关系做得有点烂……没办法，历史原因顶级变成了999，只能舍近求远
 			if(!empty($ach_threshold[$c+1])) $cu = $c + 1;//用于显示下一级名称、阈值和奖励的，0级是1，1级是2，顶级维持顶级
 		}else{//全局成就
-			$c = $top_flag = 0;$cu = 1;
+			$c = $top_flag = 0;$cu = 1;$p = '';
 			eval(import_module('sys'));
-			if($data && $data >= $gameversion) {
+			list($lversion, $lnum) = ach_global_ach_last_acomplish($data, $achid);
+			if($lversion && $lversion >= $gameversion) {
 				$c = $cu = 1;
 				$top_flag = 1;
+				$acmp_list = implode('<br>',array_keys($data));
+				$p = '<span title="已完成版本：<br>'.$acmp_list.'">'.$lversion.'</span>';
 			}
 		}		
 		
@@ -653,12 +656,15 @@ namespace achievement_base
 		$flag = 0;
 		foreach($achlist[5] as $ai){
 			if (\skillbase\check_skill_info($ai, 'global')){
-				if(empty($ud['u_achievements'][$ai])) $ud['u_achievements'][$ai] = 0;
-				$aval = $ud['u_achievements'][$ai];
-				if($aval && $aval >= $gameversion) continue;
-				$flag = ach_global_ach_check_single($ud, $ai);
+				if(empty($ud['u_achievements'][$ai])) $ud['u_achievements'][$ai] = array();
+				list($lversion, $lnum) = ach_global_ach_last_acomplish($ud['u_achievements'][$ai], $ai);
+				//重新判定条件：完成版本号、完成时数目与当前都不同
+				if(!$lversion || ($lversion < $gameversion && $lnum != ach_global_ach_finalize_save_getnum($ud['u_achievements'][$ai], $ai))) {
+					$flag = $flag || ach_global_ach_check_single($ud, $ai);
+				}
 			}
 		}
+		
 		//如果成就有修改则写一次
 		if($flag) {
 			$ud_str = encode_achievements($ud['u_achievements']);
@@ -685,15 +691,15 @@ namespace achievement_base
 		return false;
 	}
 	
-	//全局成就推进，把版本号往前推
+	//全局成就结算
 	function ach_global_ach_finalize(&$ud, $achid)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys', 'skill'.$achid));
-		$o_ud_var = $ud['u_achievements'][$achid];
-		$ud['u_achievements'][$achid] = $gameversion;
+		list($lversion,$lnum) = ach_global_ach_last_acomplish($ud['u_achievements'][$achid], $achid);
+		ach_global_ach_finalize_save($ud, $achid);
 		$getqiegao = $getcard = $getkarma = 0;
-		if(!$o_ud_var){//第一次完成
+		if(!$lversion){//第一次完成
 			if(!empty(${'ach'.$achid.'_qiegao_prize'})) $getqiegao = ${'ach'.$achid.'_qiegao_prize'}[1];
 			if(!empty(${'ach'.$achid.'_card_prize'})) $getcard = ${'ach'.$achid.'_card_prize'}[1];
 			if(!empty(${'ach'.$achid.'_karma_prize'})) $getkarma = ${'ach'.$achid.'_karma_prize'}[1];
@@ -703,8 +709,8 @@ namespace achievement_base
 			if(!empty(${'ach'.$achid.'_karma_prize'})) $getkarma = ${'ach'.$achid.'_karma_prize'}[2];
 		}
 		
-		$achtitle = ${'ach'.$achid.'_name'}[1];
-		$pt = '祝贺你'.($o_ud_var ? '再次' : '').'获得了成就<span class="yellow">'.$achtitle.'</span>！';
+		$achtitle = \achievement_base\show_ach_title($achid, 1);
+		$pt = '祝贺你'.($lversion ? '再次' : '').'获得了成就<span class="yellow">'.$achtitle.'</span>！';
 		if($getqiegao || $getcard || $getkarma) $pt .= '查收本消息即可获取奖励。';
 		if($getcard) $pt .= '如果已有奖励卡片则会转化为切糕。';
 		include_once './include/messages.func.php';
@@ -715,7 +721,41 @@ namespace achievement_base
 			($getqiegao ? 'getqiegao_'.$getqiegao : '').';'.($getcard ? 'getcard_'.$getcard : '').';'.($getkarma ? 'getkarma_'.$getkarma : '')
 		);
 	}
-
+	
+	//全局成就储存，同时储存版本号和完成时的数目
+	function ach_global_ach_finalize_save(&$ud, $achid)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (!\skillbase\check_skill_info($achid, 'global')) return;
+		eval(import_module('sys'));
+		$num = ach_global_ach_finalize_save_getnum($ud['u_achievements'][$achid], $achid);
+		if(!isset($ud['u_achievements'][$achid]) || !is_array($ud['u_achievements'][$achid])) {
+			$ud['u_achievements'][$achid] = array($gameversion => $num);
+		}else {
+			$ud['u_achievements'][$achid][$gameversion] = $num;
+		}
+	}
+	
+	function ach_global_ach_finalize_save_getnum($data, $achid)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 0;
+	}
+	
+	//全局成就读取最新获得的版本号和数目
+	function ach_global_ach_last_acomplish($data, $achid)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!is_array($data)) return '';
+		$tmp_version = ''; $tmp_num = 0;
+		foreach ($data as $ak => $av){
+			if(!$tmp_version || $ak > $tmp_version) {
+				$tmp_version = $ak;
+				$tmp_num = $av;
+			}
+		}
+		return array($tmp_version, $tmp_num);
+	}
 }
 
 ?>
