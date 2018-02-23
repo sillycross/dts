@@ -9,8 +9,8 @@ namespace skill274
 	$upgradecost = array(3,5,7,-1);
 	
 	$ragecost=30;
-	$skill274_factor_pc = 25;//附加对面总面板攻击力25%的最终伤害
-	$skill274_factor_npc = 50;
+	$skill274_factor_pc = 40;//附加对面总面板攻击力25%的最终伤害
+	$skill274_factor_npc = 75;
 	$skill274_factor_maxhp = 40;//不超过对方mhp
 	$skill274_263up = 30;//格斗触发概率+10%
 	

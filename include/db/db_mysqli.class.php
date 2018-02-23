@@ -51,10 +51,10 @@ class dbstuff {
 			$this->halt ( 'MySQL Query Error', $sql );
 		}
 		if(strpos($sql,'UPDATE')===0){
-			if(strpos($sql, 'users') !==false) {
+			if(strpos($sql, 'users') !==false && strpos($sql, 'room') !==false) {
 				$bk = debug_backtrace();
 				global $now;
-				writeover('tmp_roomid_log_2.txt', $sql.' from line '.$bk[1]['line']." at file ".$bk[1]['file'].' at '.$now."\r\n");
+				writeover('tmp_roomid_log_2.txt', $sql.' from line '.$bk[1]['line']." at file ".$bk[1]['file'].' at '.$now."\r\n",'ab+');
 			}
 		}
 		//if(strpos($sql, 'acbra2_users')!==false && strpos($sql, 'UPDATE')!==false && strpos($sql, 'roomid')!==false) writeover('a.txt', substr($sql,0,30).'...'.substr($sql,strlen($sql)-30).' <--- '.debug_backtrace()[0]['file'].' : '.debug_backtrace()[0]['line']."\r\n",'ab+');
@@ -259,7 +259,6 @@ class dbstuff {
 	
 	function halt($message = '', $sql = '') {
 		header('Content-Type: text/HTML; charset=utf-8');
-		header( 'Content-Encoding: none; ' );
 		echo '数据库错误。请联系管理员。<br><br>';
 		$dberror = $this->errno().' '.$this->error();
 		echo '错误信息：'.$dberror.'<br><br>';

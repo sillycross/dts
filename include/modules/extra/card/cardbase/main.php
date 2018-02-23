@@ -440,7 +440,7 @@ namespace cardbase
 			eval(import_module('achievement_base'));
 			foreach($achlist as $aclass => $aval) {
 				foreach($aval as $ai) {
-					if(defined('MOD_SKILL'.$ai.'_ACHIEVEMENT_ID') && !defined('MOD_SKILL'.$ai.'_ABANDONED')){
+					if(defined('MOD_SKILL'.$ai.'_ACHIEVEMENT_ID') && !defined('MOD_SKILL'.$ai.'_ABANDONED') && !\skillbase\check_skill_info($ai, 'global')){
 						eval(import_module('skill'.$ai));
 						$astart = ${'ach'.$ai.'_name'};$astart = array_shift($astart);
 						//新成就储存格式，直接读数据

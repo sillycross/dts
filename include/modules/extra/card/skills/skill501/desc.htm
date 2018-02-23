@@ -2,7 +2,7 @@
 <!--{eval eval(import_module('clubbase'));}-->
 {template MOD_CLUBBASE_SKILLDESC_START}
 <span>
-$clubskillname[$___TEMP_SKILL_ID]
+	<!--{if \skillbase\skill_query(500,$who)}-->拯救<!--{else}-->无尽<!--{/if}-->
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">

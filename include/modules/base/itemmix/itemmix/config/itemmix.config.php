@@ -12,6 +12,7 @@ $mixinfo = array
 	array('class' => 'h', 'stuff' => array('牛奶','立顿茶包','糯米丸子'),'result' => array('珍珠奶茶','HB',270,9,),),
 	array('class' => 'h', 'stuff' => array('早苗面包','像围棋子一样的饼干','浓厚粘稠果汁','桔黄色的果酱'),'result' => array('KEY系儿童套餐','HB',333,33,),),
 	array('class' => 'h', 'stuff' => array('针筒','疗伤药',),'result' => array('治疗针','HH',200,5,),),
+	array('class' => 'h', 'stuff' => array('精神制剂','解毒剂',),'result' => array('体力回复药','HS',200,5,),),
 	array('class' => 'h', 'stuff' => array('治疗针','体力回复药','蒸馏水'),'result' => array('特级恢复药','HB',240,3,),),	
 	array('class' => 'h', 'stuff' => array('甜生姜','地雷酥糖'),'result' => array('曾经的荣光-橙黄','HB',50,1,),),
 	array('class' => 'h', 'stuff' => array('曾经的荣光-橙黄','面包'),'result' => array('更改菜谱后的不甜酱包','HB',300,4,'Z'),), 
@@ -161,6 +162,7 @@ $mixinfo = array
 	array('class' => 'item', 'stuff' => array('水','黑色雏菊','白色方块'),'result' => array('风祭河水','Y',1,1,'x'),),
 	array('class' => 'item', 'stuff' => array('水','黑色方块','白色雏菊'),'result' => array('仪水镜','Y',1,1,'x'),),
 	array('class' => 'item', 'stuff' => array('风祭河水','仪水镜','白色雏菊','黑色雏菊'),'result' => array('八咫镜','DH',1,1,'bx'),),
+	array('class' => 'item', 'stuff' => array('《チト的日记》','鱼罐头','【雨だれの歌】'),'result' => array('【More One Night】','ss',200,1,'h'),),
 	
 	array('class' => 'pokemon', 'stuff' => array('《小黄的草帽》','《小黄的钓鱼竿》','《小黄的行军靴》'),'result' => array('《小黄的精灵球》','WC',233,'∞','ce',),),
 	array('class' => 'pokemon', 'stuff' => array('《小黄的精灵球》','《小黄的收服特训》'),'result' => array('《小黄的超级球》','WC',233,'∞','Zrce'),),

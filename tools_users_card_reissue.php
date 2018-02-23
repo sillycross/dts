@@ -1,6 +1,5 @@
 <?php
 header('Content-Type: text/HTML; charset=utf-8');
-header( 'Content-Encoding: none; ' );
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 define('CURSCRIPT', 'card_reissue');
 define('IN_GAME', TRUE);

@@ -64,7 +64,9 @@ namespace song
 			}elseif($sn == '遥か彼方'){
 				$ret .= '歌唱：使你和同地区玩家的殴熟和斩熟上升30';
 			}elseif($sn == '雨だれの歌'){
-				$ret .= '歌唱：使你和同地区玩家的生命上限上升15，体力上限上升50';
+				$ret .= '歌唱：使你和同地区玩家的生命上限上升10，体力上限上升50';
+			}elseif($sn == 'More One Night'){
+				$ret .= '歌唱：使你和同地区玩家的最大生命增加，增加值等于场上死亡NPC数，但无法再赢得「最后幸存」胜利';
 			}
 		}
 		return $ret;
@@ -92,6 +94,7 @@ namespace song
 			$noiseinfo['ss_rewrite']='《CANOE》';
 			$noiseinfo['ss_lb']='《遥か彼方》';
 			$noiseinfo['ss_amadare']='《雨だれの歌》';
+			$noiseinfo['ss_mon']='《More One Night》';
 		}
 	}
 	
@@ -121,7 +124,7 @@ namespace song
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ss_log = $ss_log_2 = array();
 		if(empty($effect)) return $ss_log;
-		eval(import_module('song'));
+		eval(import_module('sys','song'));
 		$pdata['mrage'] = \rage\get_max_rage($pdata);
 		//一些特殊歌的处理
 		if(!empty($effect['special'])){
@@ -147,6 +150,12 @@ namespace song
 				foreach($kinds as $sei => $sev){
 					if($ups[$sei] > 0) $effect[$sev] = $ups[$sei];
 				}
+			}
+			elseif(2==$effect['special']){//More One Night，按场上死亡NPC数增加最大生命
+				$result = $db->query("SELECT pid FROM {$tablepre}players WHERE type>0 AND hp=0");
+				$dpnum = $db->num_rows($result);
+				$dpnum = (int)$dpnum;
+				$effect['mhp'] = $dpnum;
 			}
 			unset($effect['special']);
 		}
