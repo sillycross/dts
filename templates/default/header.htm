@@ -9,7 +9,7 @@
 
 <link rel="stylesheet" type="text/css" id="css" href="gamedata/config/style_1.20180118.css">
 <link rel="stylesheet" type="text/css" id="css" href="gamedata/config/style_buttons.20180118.css">
-<!--{if CURSCRIPT=='messages'}--><link rel="stylesheet" type="text/css" href="gamedata/config/style_messages.20180118.css">
+<!--{if CURSCRIPT=='messages'}--><link rel="stylesheet" type="text/css" href="gamedata/config/style_messages.20180221.css">
 <!--{elseif CURSCRIPT=='user_profile'}--><link rel="stylesheet" type="text/css" href="gamedata/config/style_ach.20180213.css">
 <!--{/if}-->
 
@@ -50,7 +50,11 @@ jQuery.noConflict();
 <div class="headerlink" >
 <a href="index.php">>>{lang index}</a>
 <!--{if isset($cuser) && isset($cpass)}-->
-<a href="messages.php">>>{lang messages}</a>
+<a href="messages.php">>>{lang messages}
+	<!--{if !empty($new_messages)}-->
+	<span class="L5">NEW!</span>
+	<!--{/if}-->
+</a>
 <a href="user_profile.php">>>{lang user}</a>
 <!--{else}--><a href="register.php">>>{lang register}</a>
 <!--{/if}-->

@@ -29,7 +29,9 @@ namespace skill504
 	function skill504_get_popko_html()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(504,$pa)) return;
+		eval(import_module('player'));
+		if($sdata['hp']<=0) return;
+		if (!\skillbase\skill_query(504)) return;
 		$val = (int)\skillbase\skill_getvalue(504,'done');
 		if ($val == 1) return;
 		include template(MOD_SKILL504_ANIME);
@@ -38,8 +40,8 @@ namespace skill504
 	function skill504_popko_anime_complete()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(504,$pa)) return;
-		\skillbase\skill_setvalue(504,'done','1',$pa);
+		if (!\skillbase\skill_query(504)) return;
+		\skillbase\skill_setvalue(504,'done','1');
 		eval(import_module('logger'));
 		ob_clean();
 		include template('MOD_SKILL504_OKOTTA');

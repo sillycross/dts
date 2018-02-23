@@ -28,6 +28,15 @@ function message_create($to, $title='', $content='', $enclosure='', $from='sys',
 	$db->array_insert("{$gtablepre}messages", $ins_arr);
 }
 
+//直接放到sys模块里了
+//function message_check_new($username)
+//{
+//	global $db,$gtablepre;
+//	$result = $db->query("SELECT mid FROM {$gtablepre}messages WHERE receiver='$username' AND rd=0");
+//	if($db->num_rows($result)) return true;
+//	return false;
+//}
+
 function message_load($mid_only=0)
 {
 	global $udata,$db,$gtablepre;
@@ -67,17 +76,17 @@ function message_disp($messages)
 	$user_cards = explode('_',$udata['cardlist']);
 	//显示卡片的基本参数
 	$showpack=1;
-	foreach($messages as &$mv){
+	foreach($messages as $mi => &$mv){
 		$mv['hint'] = '<span class="L5">NEW!</span>';
 		if($mv['rd']) $mv['hint'] = '';
-		if(!empty($mv['enclosure'])) {
-			if($mv['checked']) $mv['hint'] .= ' <span class="grey">附件已收</span>';
-			else $mv['hint'] .= ' <span class="L5">附件未收!</span>';
-		}
+		
 		$mv['time_disp'] = date("Y年m月d日 H:i:s", $mv['timestamp']);
 		$mv['encl_disp'] = '';
 		if(!empty($mv['enclosure']) && defined('MOD_CARDBASE')){
-			$mv['encl_disp'] .= '<div class="message_encl_hint">附件：</div><div style="text-align:center">';
+			
+			if($mv['checked']) $mv['encl_hint'] = '<span class="grey">附件已收</span>';
+			else $mv['encl_hint'] = "<a class='L5' onclick=\"$('extracmd').name='sl$mi';$('extracmd').value='1';$('mode').value='check';postCmd('message_cmd', 'messages.php');$('extracmd').name='extracmd';$('extracmd').value='';\">附件<br>点此查收</a>";
+
 			//切糕判定
 			$getqiegao = message_get_encl_num($mv['enclosure'], 'getqiegao');
 			if($getqiegao) {
@@ -94,7 +103,11 @@ function message_disp($messages)
 				ob_end_clean();
 				$mv['encl_disp'] .= '<div>卡片：<span class="'.$card_rarecolor[$nowcard['rare']].'" title="'.str_replace('"',"'",$tmp_cardpage).'">'.$nowcard['name'].($nownew ? ' <span class="L5">NEW!</span>' : '').'</span></div>';
 			}
-			$mv['encl_disp'] .= '</div>';
+			//因果判定
+			$getkarma = message_get_encl_num($mv['enclosure'], 'getkarma');
+			if($getkarma) {
+				$mv['encl_disp'] .= '<div class="clan">'.$getkarma.'因果</div>';
+			}
 		}
 	}
 	return $messages;
@@ -109,8 +122,7 @@ function message_check($checklist, $messages)
 		$cl_changed = 1;
 		$udata['cardlist'] = explode('_',$udata['cardlist']);
 	}
-	$getqiegaosum = 0;
-	$getcardflag = 0;
+	$getqiegaosum = $getcardflag = $getkarmasum = 0;
 	
 	foreach($checklist as $cid){
 		if($messages[$cid]['checked']) continue;
@@ -133,14 +145,21 @@ function message_check($checklist, $messages)
 				\cardbase\get_card_process($getcard, $udata);
 				$getcardflag = 1;
 			}
+			//获得因果
+			$getkarma = message_get_encl_num($messages[$cid]['enclosure'], 'getkarma');
+			if($getkarma) {
+				$info[] = '获得了<span class="clan">'.$getkarma.'因果</span>';
+				$getkarmasum += $getkarma;
+			}
 		}
 	}
 	if(!empty($cl_changed)) $udata['cardlist'] = implode('_',$udata['cardlist']);
-	if($getqiegaosum || $getcardflag) {
+	if($getqiegaosum || $getcardflag || $getkarmasum) {
 		$n = $udata['username'];
 		$gold = $udata['gold']+$getqiegaosum;
+		$gold2 = $udata['gold2']+$getkarmasum;
 		$cardlist = $udata['cardlist'];
-		$db->query("UPDATE {$gtablepre}users SET gold='$gold',cardlist='$cardlist' WHERE username='$n'");
+		$db->query("UPDATE {$gtablepre}users SET gold='$gold',gold2='$gold2',cardlist='$cardlist' WHERE username='$n'");
 	}
 }
 

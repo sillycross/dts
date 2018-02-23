@@ -1,12 +1,12 @@
-<div style="position:absolute;top:0px;left:-20px;width:300px;height:224px;overflow:hidden;">
-<div id="popko2" style="position:absolute;top:33px;left:-20px;display:none;">
-<img width=300 src="img/popko2.png" />
+<div style="position:absolute;top:0px;left:-20px;width:310px;height:224px;overflow:hidden;">
+<div id="popko2" style="position:absolute;top:33px;left:0px;display:none;">
+	<img width=270 src="img/popko2.png" />
 </div>
-<div id="popko1" style="position:absolute;top:225px;left:-20px;display:none">
-<img width=237 src="img/popko1.png" />
+<div id="popko1" style="position:absolute;top:280px;left:10px;display:none">
+	<img width=180 src="img/popko1.png" />
 </div>
-<div id="popko_okotta" style="position:absolute;top:50px;left:200px;height:50px;width:80px;background-color:white;display:none;">
-<span class="red"><br>&nbsp;&nbsp;生气了吗？</span>
+<div id="popko_okotta" style="position:absolute;border:1px solid #000;-moz-border-radius:8px; -webkit-border-radius:8px;top:50px;left:200px;height:50px;width:90px;background-color:white;display:none;">
+<span class="red b" style="font-size:12pt"><br>&nbsp;&nbsp;生气了吗？</span>
 </div>
 </div>
 <script>
@@ -15,7 +15,7 @@ disableAllCommands = 1;
 	jQuery('#profile_sp_grid').html('<span><span class="clan">400 / 400</span></span>');
 	jQuery('#profile_hp_grid').html('<span><span class="clan">400 / 400</span></span>');
 	jQuery('#popko1').css('display','block');
-	var popko1top = 225; var cnt = 0;
+	var popko1top = 280; var cnt = 0;
 	var popko1MoveUpTracer = setInterval(popko1MoveUpFn, 100);
 	function popko1MoveUpFn() {
 		popko1top -= 8.4; cnt += 1;

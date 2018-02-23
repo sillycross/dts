@@ -57,11 +57,13 @@ namespace achievement_base
 		foreach($alist as $av){
 			//只有玩家可以获得成就技能
 			if (!$pa['type']
+			//非全局成就
+				&& !\skillbase\check_skill_info($av, 'global')
 			//确认允许完成成就的模式，未定义则用0键（只有正常游戏可以完成）
 				&& ( ( !isset($ach_allow_mode[$av]) && in_array($gametype, $ach_allow_mode[0]) ) || ( isset($ach_allow_mode[$av]) && in_array($gametype,$ach_allow_mode[$av]) ) )
 			//成就没有废弃（不能直接删，否则旧数据可能错位）
 				&& !defined('MOD_SKILL'.$av.'_ABANDONED')
-				&& !\skillbase\skill_query($av,$pa) )
+				&& !\skillbase\skill_query($av,$pa))
 			\skillbase\skill_acquire($av,$pa);
 		}
 		$chprocess($pa);
@@ -187,7 +189,7 @@ namespace achievement_base
 		//每日任务是根据游戏结束时的用户数据判定的，也就是允许游戏结束前换每日任务
 		foreach (\skillbase\get_acquired_skill_array($pdata) as $key)
 		{
-			if (check_ach_valid($key))//技能存在而且有效
+			if (check_ach_valid($key) && !\skillbase\check_skill_info($key, 'global'))//技能存在而且有效
 			{
 				$val = NULL;
 				//无视没有获得的日常成就
@@ -393,7 +395,7 @@ namespace achievement_base
 	}
 	
 	//用于生成一条成就奖励站内信
-	function ach_create_prize_message($pa, $achid, $c, $getqiegao=0, $getcard=0, $ext='')
+	function ach_create_prize_message($pa, $achid, $c, $getqiegao=0, $getcard=0, $ext='', $getkarma=0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -412,7 +414,7 @@ namespace achievement_base
 			$n,
 			'成就奖励',
 			$pt,
-			($getqiegao ? 'getqiegao_'.$getqiegao : '').';'.($getcard ? 'getcard_'.$getcard : '')
+			($getqiegao ? 'getqiegao_'.$getqiegao : '').';'.($getcard ? 'getcard_'.$getcard : '').';'.($getkarma ? 'getkarma_'.$getkarma : '')
 		);		
 	}
 	
@@ -491,29 +493,46 @@ namespace achievement_base
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill'.$achid));
-		
 		$unit = ${'ach'.$achid.'_unit'};
 		$proc_words = ${'ach'.$achid.'_proc_words'};
 		$c = 0; $top_flag = 0;
 		$p = get_achievement_default_var($achid);
 		if ($data) $p=$data;
 		$ach_threshold = ${'ach'.$achid.'_threshold'};
-		foreach($ach_threshold as $tk => $tv){
-			if(!empty($tv) && ach_finalize_check_progress($pa, $tv, $p, $achid)) {
-				$c = $tk;
-			}elseif(empty($tv)){
+		if(!\skillbase\check_skill_info($achid, 'global')){//非全局成就
+			foreach($ach_threshold as $tk => $tv){
+				if(!empty($tv) && ach_finalize_check_progress($pa, $tv, $p, $achid)) {
+					$c = $tk;
+				}elseif(empty($tv)){
+					$top_flag = 1;
+					break;
+				}else break;
+			}
+			$cu = $c;
+			//这个部分顶级和非顶级之间的关系做得有点烂……没办法，历史原因顶级变成了999，只能舍近求远
+			if(!empty($ach_threshold[$c+1])) $cu = $c + 1;//用于显示下一级名称、阈值和奖励的，0级是1，1级是2，顶级维持顶级
+		}else{//全局成就
+			$c = $top_flag = 0;$cu = 1;$p = '';
+			eval(import_module('sys'));
+			list($lversion, $lnum) = ach_global_ach_last_acomplish($data, $achid);
+			if($lversion && ($lversion >= $gameversion || $lnum == ach_global_ach_finalize_save_getnum($data, $achid))) {
+				$c = $cu = 1;
 				$top_flag = 1;
-				break;
-			}else break;
-		}
-		$cu = $c;
-		//这个部分顶级和非顶级之间的关系做得有点烂……没办法，历史原因顶级变成了999，只能舍近求远
-		if(!empty($ach_threshold[$c+1])) $cu = $c + 1;//用于显示下一级名称、阈值和奖励的，0级是1，1级是2，顶级维持顶级
+			}elseif($lversion){
+				$c = $cu = 1;
+			}
+			if($lversion) {
+				$acmp_list = implode('<br>',array_keys($data));
+				$p = '<span title="已完成版本：<br>'.$acmp_list.'">'.$lversion.'</span>';
+			}
+		}		
+		
 		$stitle = \achievement_base\show_ach_title($achid, $cu);
 		$atitle = \achievement_base\show_ach_title_2($achid, $c+1);
 		$dailytype = \skillbase\check_skill_info($achid, 'daily') ? \achievement_base\get_daily_type($achid) : 0;
 		$prize_desc = show_prize_single($cu, $achid);
 		$ach_desc = show_achievement_single_desc($cu, $achid, $ach_threshold[$cu]);
+		
 		if(!$c) {
 			$ach_state_desc = '<span class="red">[未完成]</span>';
 		}elseif(!$top_flag) {
@@ -575,29 +594,34 @@ namespace achievement_base
 			}
 			$ret .= '<font color="olive">切糕'.$qp.'</font> ';
 		}
-		//卡片显示
-		if(!empty($card_prize)) {
-			if(!empty($card_prize_desc)) {
-				$ret .= $card_prize_desc;
-			}else{
-				$cp = 0;
-				foreach($card_prize as $lv => $n){
-					if($lv == $cn) {
-						$cp = $n;
+		//自定义显示
+		if(!empty(${'ach'.$achid.'_unique_prize_desc'})) {
+			$ret .= ${'ach'.$achid.'_unique_prize_desc'};
+		}else{
+			//卡片显示
+			if(!empty($card_prize)) {
+				if(!empty($card_prize_desc)) {
+					$ret .= $card_prize_desc;
+				}else{
+					$cp = 0;
+					foreach($card_prize as $lv => $n){
+						if($lv == $cn) {
+							$cp = $n;
+						}
 					}
-				}
-				if(is_array($cp)) {
-					$ret1 = '';
-					foreach($cp as $card) {
-						$ret1 .= show_prize_single_card($card);
-						if(count($cp) > 1) $ret1 .= '|';
+					if(is_array($cp)) {
+						$ret1 = '';
+						foreach($cp as $card) {
+							$ret1 .= show_prize_single_card($card);
+							if(count($cp) > 1) $ret1 .= '|';
+						}
+						if(substr($ret1,strlen($ret1)-1) === '|') $ret1 = substr($ret1,0,-1);
+						$ret1 = str_replace('|','、',$ret1);
+						$ret .= '<span class="evergreen" title="'.str_replace('"',"'",$ret1).'">卡集(悬浮查看)中随机卡片1张</span>';
+					}elseif($cp){
+						$card = (int)$cp;
+						$ret .= '<span class="evergreen">卡片</span> '.show_prize_single_card($card);
 					}
-					if(substr($ret1,strlen($ret1)-1) === '|') $ret1 = substr($ret1,0,-1);
-					$ret1 = str_replace('|','、',$ret1);
-					$ret .= '<span class="evergreen" title="'.str_replace('"',"'",$ret1).'">卡集(悬浮查看)中随机卡片1张</span>';
-				}elseif($cp){
-					$card = (int)$cp;
-					$ret .= '<span class="evergreen">卡片</span> '.show_prize_single_card($card);
 				}
 			}
 		}
@@ -624,6 +648,117 @@ namespace achievement_base
 		if($skill1003_got < 1000) return false;
 		return true;
 		//return !$pl['type'] && $pl['lvl'] >= 7 && $pl['money'] >= 1000;
+	}
+	
+	//全局成就的判定，依据是版本号
+	//如果版本号跟当前版本一致，则直接跳过判定（已完成）
+	//也就是说并不储存“上一次完成”的信息，需要注意和一般成就的不同
+	function ach_global_ach_check(&$ud)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','achievement_base'));
+		$flag = 0;
+		foreach($achlist[5] as $ai){
+			if (\skillbase\check_skill_info($ai, 'global')){
+				if(empty($ud['u_achievements'][$ai])) $ud['u_achievements'][$ai] = array();
+				list($lversion, $lnum) = ach_global_ach_last_acomplish($ud['u_achievements'][$ai], $ai);
+				//重新判定条件：完成版本号、完成时数目与当前都不同
+				if(!$lversion || ($lversion < $gameversion && $lnum != ach_global_ach_finalize_save_getnum($ud['u_achievements'][$ai], $ai))) {
+					$flag = $flag || ach_global_ach_check_single($ud, $ai);
+				}
+			}
+		}
+		
+		//如果成就有修改则写一次
+		if($flag) {
+			$ud_str = encode_achievements($ud['u_achievements']);
+			$username = $ud['username'];
+			$db->query("UPDATE {$gtablepre}users SET u_achievements='$ud_str' WHERE username = '$username'");
+		}
+	}
+	
+	function ach_global_ach_check_single(&$ud, $achid)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (ach_global_ach_check_progress($ud, $achid)) {
+			ach_global_ach_finalize($ud, $achid);
+			return 1;
+		}
+		return 0;
+	}
+	
+	//全局成就是否满足条件
+	//而是新完成还是已完成，是在ach_global_ach_check()根据版本号判定的
+	function ach_global_ach_check_progress(&$ud, $achid)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return false;
+	}
+	
+	//全局成就结算
+	function ach_global_ach_finalize(&$ud, $achid)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys', 'skill'.$achid));
+		list($lversion,$lnum) = ach_global_ach_last_acomplish($ud['u_achievements'][$achid], $achid);
+		ach_global_ach_finalize_save($ud, $achid);
+		$getqiegao = $getcard = $getkarma = 0;
+		if(!$lversion){//第一次完成
+			if(!empty(${'ach'.$achid.'_qiegao_prize'})) $getqiegao = ${'ach'.$achid.'_qiegao_prize'}[1];
+			if(!empty(${'ach'.$achid.'_card_prize'})) $getcard = ${'ach'.$achid.'_card_prize'}[1];
+			if(!empty(${'ach'.$achid.'_karma_prize'})) $getkarma = ${'ach'.$achid.'_karma_prize'}[1];
+		}else{//非第一次完成
+			if(!empty(${'ach'.$achid.'_qiegao_prize'})) $getqiegao = ${'ach'.$achid.'_qiegao_prize'}[2];
+			if(!empty(${'ach'.$achid.'_card_prize'})) $getcard = ${'ach'.$achid.'_card_prize'}[2];
+			if(!empty(${'ach'.$achid.'_karma_prize'})) $getkarma = ${'ach'.$achid.'_karma_prize'}[2];
+		}
+		
+		$achtitle = \achievement_base\show_ach_title($achid, 1);
+		$pt = '祝贺你'.($lversion ? '再次' : '').'获得了成就<span class="yellow">'.$achtitle.'</span>！';
+		if($getqiegao || $getcard || $getkarma) $pt .= '查收本消息即可获取奖励。';
+		if($getcard) $pt .= '如果已有奖励卡片则会转化为切糕。';
+		include_once './include/messages.func.php';
+		message_create(
+			$ud['username'],
+			'全局成就奖励',
+			$pt,
+			($getqiegao ? 'getqiegao_'.$getqiegao : '').';'.($getcard ? 'getcard_'.$getcard : '').';'.($getkarma ? 'getkarma_'.$getkarma : '')
+		);
+	}
+	
+	//全局成就储存，同时储存版本号和完成时的数目
+	function ach_global_ach_finalize_save(&$ud, $achid)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (!\skillbase\check_skill_info($achid, 'global')) return;
+		eval(import_module('sys'));
+		$num = ach_global_ach_finalize_save_getnum($ud['u_achievements'][$achid], $achid);
+		if(!isset($ud['u_achievements'][$achid]) || !is_array($ud['u_achievements'][$achid])) {
+			$ud['u_achievements'][$achid] = array($gameversion => $num);
+		}else {
+			$ud['u_achievements'][$achid][$gameversion] = $num;
+		}
+	}
+	
+	function ach_global_ach_finalize_save_getnum($data, $achid)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 0;
+	}
+	
+	//全局成就读取最新获得的版本号和数目
+	function ach_global_ach_last_acomplish($data, $achid)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!is_array($data)) return '';
+		$tmp_version = ''; $tmp_num = 0;
+		foreach ($data as $ak => $av){
+			if(!$tmp_version || $ak > $tmp_version) {
+				$tmp_version = $ak;
+				$tmp_num = $av;
+			}
+		}
+		return array($tmp_version, $tmp_num);
 	}
 }
 

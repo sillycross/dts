@@ -7,94 +7,58 @@ function hotkey(evt)
 	if(hotkey_ok && document.activeElement.tagName != 'INPUT'){
 		evt = (evt) ? evt : ((window.event) ? window.event : '');
 		var ky = evt.keyCode ? evt.keyCode : evt.which;
-		flag=1;
+		flag=1;//是否完成冷却
 		if (ms!=undefined) {
 			if (ms>0) flag=0;
 		}	
 		//双字母id=冷却时间内不可执行的操作 单字母可以执行
 		if(!evt.ctrlKey && !evt.altKey && !evt.shiftKey){
-			if (flag==1){
-				if(ky==90){
-					k=document.getElementById("zz");
-					if (k) $('zz').click(); else $('z').click();
-				}
-				if(ky==65){
-					k=document.getElementById("aa");
-					if (k) $('aa').click(); else $('a').click();
-				}
-				if(ky==68){
-					k=document.getElementById("dd");
-					if (k) $('dd').click(); else $('d').click();
-				}	
-				if(ky==69){
-					k=document.getElementById("ee");
-					if (k) $('ee').click(); else $('e').click();
-				}
-				if(ky==83){
-					k=document.getElementById("ss");
-					if (k) $('ss').click(); else $('s').click();
-				}
-				if(ky==81){
-					k=document.getElementById("qq");
-					if (k) $('qq').click(); else $('q').click();
-				}	
-				if(ky==87){
-					k=document.getElementById("ww");
-					if (k) $('ww').click(); else $('w').click();
-				}	
-				if(ky==67){
-					$('c').click();
-				}
-				if(ky==86){
-					$('v').click();
-				}	
-				if((ky>=49)&&(ky<=54)){
-					var kc=(ky-48).toString();
-					$(kc).click();
-				}
-				if(ky==88){
-					$('x').click();
-				}
-			}else{
-				if(ky==90){
-					$('z').click();
-				}
-				if(ky==88){
-					$('x').click();
-				}
-				if((ky>=49)&&(ky<=54)){
-					var kc=(ky-48).toString();
-					$(kc).click();
-				}
-				if(ky==65){
-					$('a').click();
-				}
-				if(ky==67){
-					$('c').click();
-				}
-				if(ky==68){
-					$('d').click();
-				}	
-				if(ky==69){
-					$('e').click();
-				}
-				if(ky==83){
-					$('s').click();
-				}
-				if(ky==81){
-					$('q').click();
-				}
-				if(ky==86){
-					$('v').click();
-				}	
-				if(ky==87){
-					$('w').click();
-				}
+			if(ky==90){
+				flag==1 ? hotkey_click('zz') : hotkey_click('z');
+			}
+			else if(ky==65){
+				flag==1 ? hotkey_click('aa') : hotkey_click('a');
+			}
+			else if(ky==83){
+				flag==1 ? hotkey_click('ss') : hotkey_click('s');
+			}
+			else if(ky==68){
+				flag==1 ? hotkey_click('dd') : hotkey_click('d');
+			}
+			else if(ky==81){
+				flag==1 ? hotkey_click('qq') : hotkey_click('q');
+			}
+			else if(ky==87){
+				flag==1 ? hotkey_click('ww') : hotkey_click('w');
+			}
+			else if(ky==69){
+				flag==1 ? hotkey_click('ee') : hotkey_click('e');
+			}
+			else if(ky==88){
+				hotkey_click('x');
+			}
+			else if(ky==67){
+				hotkey_click('c');
+			}
+			else if(ky==86){
+				hotkey_click('v');
+			}
+			else if(ky >= 49 && ky <= 54){
+				var kc=(ky-48).toString();
+				hotkey_click(kc);
 			}
 		}
 	}	
 }
 
+function hotkey_click(hkid){
+	hk = $(hkid);
+	if (hk) hk.click();
+	else if (hkid.length > 1) {
+		hk = $(hkid.substr(0,1));
+		if (hk) hk.click();
+	}
+}
 
 function demiSecTimer(){
 	if($('timer') && ms>=itv)	{

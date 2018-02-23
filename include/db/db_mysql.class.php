@@ -61,10 +61,10 @@ class dbstuff {
 		elseif(strpos($sql,'INSERT')===0){$this->insertnum ++;}
 		elseif(strpos($sql,'UPDATE')===0){
 			$this->updatenum ++;
-			if(strpos($sql, 'users') !==false) {
+			if(strpos($sql, 'users') !==false && strpos($sql, 'room') !==false) {
 				$bk = debug_backtrace();
 				global $now;
-				writeover('tmp_roomid_log_2.txt', $sql.' from line '.$bk[1]['line']." at file ".$bk[1]['file'].' at '.$now."\r\n");
+				writeover('tmp_roomid_log_2.txt', $sql.' from line '.$bk[1]['line']." at file ".$bk[1]['file'].' at '.$now."\r\n",'ab+');
 			}
 		}
 		elseif(strpos($sql,'DELETE')===0){$this->deletenum ++;}
@@ -299,7 +299,6 @@ class dbstuff {
 	
 	function halt($message = '', $sql = '') {
 		header('Content-Type: text/HTML; charset=utf-8');
-		header( 'Content-Encoding: none; ' );
 		echo '数据库错误。请联系管理员。<br><br>';
 		$dberror = $this->errno().' '.$this->error();
 		echo '错误信息：'.$dberror.'<br><br>';

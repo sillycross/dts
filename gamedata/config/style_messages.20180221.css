@@ -13,9 +13,9 @@ div.message_title_bar {position:relative;text-align:center;margin: 5px 5px 10px 
 
 div.message_cont{text-align:left;margin: 0 5px;min-height:50px;}
 
-div.message_encl{text-align:center;text-align:left;margin: 0 5px;min-height:32px;}
+div.message_encl{position:relative;text-align:center;text-align:left;margin: 0 5px;min-height:32px;}
 
-div.message_encl_hint{width:50px;position:absolute;left:0px;top:0px;}
+div.message_encl_hint{z-index:5;position:absolute;left:0px;top:0px;}
 
 div.message_date{text-align:right;margin: 0 5px;}
 
