@@ -61,7 +61,7 @@ class dbstuff {
 		elseif(strpos($sql,'INSERT')===0){$this->insertnum ++;}
 		elseif(strpos($sql,'UPDATE')===0){
 			$this->updatenum ++;
-			if(strpos($sql, 'users') !==false) {
+			if(strpos($sql, 'users') !==false && strpos($sql, 'room') !==false) {
 				$bk = debug_backtrace();
 				global $now;
 				writeover('tmp_roomid_log_2.txt', $sql.' from line '.$bk[1]['line']." at file ".$bk[1]['file'].' at '.$now."\r\n",'ab+');

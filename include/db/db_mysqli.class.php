@@ -51,7 +51,7 @@ class dbstuff {
 			$this->halt ( 'MySQL Query Error', $sql );
 		}
 		if(strpos($sql,'UPDATE')===0){
-			if(strpos($sql, 'users') !==false) {
+			if(strpos($sql, 'users') !==false && strpos($sql, 'room') !==false) {
 				$bk = debug_backtrace();
 				global $now;
 				writeover('tmp_roomid_log_2.txt', $sql.' from line '.$bk[1]['line']." at file ".$bk[1]['file'].' at '.$now."\r\n",'ab+');
