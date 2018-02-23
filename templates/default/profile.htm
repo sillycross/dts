@@ -1,3 +1,4 @@
+<div style="position:relative">
 <table border="0" width="720" height="100%" cellspacing="0" cellpadding="0"  valign="middle">
 	<tr>
 		<td>
@@ -99,11 +100,11 @@
 							</tr>
 							<tr>
 								<td class="b2" height="20"><span>{lang sp}</span></td>
-								<td class="b3"><span><span class="<!--{if $sp <= $msp*0.2}-->grey<!--{elseif $sp <= $msp*0.5}-->yellow<!--{else}-->clan<!--{/if}-->">$sp / $msp</span></span></td>
+								<td id="profile_sp_grid" class="b3"><span><span class="<!--{if $sp <= $msp*0.2}-->grey<!--{elseif $sp <= $msp*0.5}-->yellow<!--{else}-->clan<!--{/if}-->">$sp / $msp</span></span></td>
 							</tr>
 							<tr>
 								<td class="b2" height="20"><span>{lang hp}</span></td>
-								<td class="b3"><span><span class="<!--{if $hp <= $mhp*0.2}-->red<!--{elseif $hp <= $mhp*0.5}-->yellow<!--{else}-->clan<!--{/if}-->">$hp / $mhp</span></span></td>
+								<td id="profile_hp_grid" class="b3"><span><span class="<!--{if $hp <= $mhp*0.2}-->red<!--{elseif $hp <= $mhp*0.5}-->yellow<!--{else}-->clan<!--{/if}-->">$hp / $mhp</span></span></td>
 							</tr>
 							<tr>
 								<td class="b2" height="20"><span>{lang ss}</span></td>
@@ -227,3 +228,7 @@
 		</td>
 	</tr>
 </table>
+<!--{if defined('MOD_SKILL504')}-->
+<!--{eval \skill504\skill504_get_popko_html();}-->
+<!--{/if}-->
+</div>
