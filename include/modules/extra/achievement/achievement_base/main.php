@@ -515,9 +515,13 @@ namespace achievement_base
 			$c = $top_flag = 0;$cu = 1;$p = '';
 			eval(import_module('sys'));
 			list($lversion, $lnum) = ach_global_ach_last_acomplish($data, $achid);
-			if($lversion && $lversion >= $gameversion) {
+			if($lversion && ($lversion >= $gameversion || $lnum == ach_global_ach_finalize_save_getnum($data, $achid))) {
 				$c = $cu = 1;
 				$top_flag = 1;
+			}elseif($lversion){
+				$c = $cu = 1;
+			}
+			if($lversion) {
 				$acmp_list = implode('<br>',array_keys($data));
 				$p = '<span title="已完成版本：<br>'.$acmp_list.'">'.$lversion.'</span>';
 			}
