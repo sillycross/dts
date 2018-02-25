@@ -4,6 +4,7 @@ namespace skill205
 {
 
 	$ragecost=75;
+	$wep_skillkind_req = 'wg';
 	
 	$alternate_skillno205 = 265;//互斥技能编号
 	$unlock_lvl205 = 15;//解锁等级

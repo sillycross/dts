@@ -231,6 +231,7 @@ namespace clubbase
 		return $ret;
 	}
 	
+	//生成战斗技能按钮
 	function get_battle_skill_entry(&$edata,$which)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -254,7 +255,12 @@ namespace clubbase
 							if ($which==0)
 							{
 								if ($zflag) echo '<span style="display:block;height:6px;">&nbsp;</span>';
-								include template(constant('MOD_SKILL'.$key.'_BATTLECMD'));
+								ob_start();
+								include template(MOD_CLUBBASE_BATTLECMD_COMMON);
+								$default = ob_get_contents();
+								ob_end_clean();
+								if (empty(trim($default))) include template(constant('MOD_SKILL'.$key.'_BATTLECMD'));
+								else echo $default;
 								return;
 							}
 						}
@@ -277,7 +283,12 @@ namespace clubbase
 							if ($which==0)
 							{
 								if ($zflag) echo '<span style="display:block;height:6px;">&nbsp;</span>';
-								include template(constant('MOD_SKILL'.$key.'_BATTLECMD'));
+								ob_start();
+								include template(MOD_CLUBBASE_BATTLECMD_COMMON);
+								$default = ob_get_contents();
+								ob_end_clean();
+								if (empty(trim($default))) include template(constant('MOD_SKILL'.$key.'_BATTLECMD'));
+								else echo $default;
 								return;
 							}
 						}
