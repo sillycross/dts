@@ -199,6 +199,9 @@ namespace clubbase
 	//4:正在CD，需要定义check_skillXXX_state(&$pa)函数
 	//5:次数用尽
 	//6以后自定义
+	//6:神击特殊提示
+	//7:浴血特殊提示
+	//8:不能对NPC发动
 	function check_battle_skill_unactivatable(&$ldata,&$edata,$skillno)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -250,7 +253,7 @@ namespace clubbase
 		//第二轮循环，对所有技能进行判断，提取战斗技能
 		//非隐藏技能则会额外判定是否解锁
 		foreach ($alist as $key) {
-			if (\skillbase\check_skill_info($key, 'club') && \skillbase\check_skill_info($key, 'battle') 
+			if (!\skillbase\check_skill_info($key, 'achievement') && \skillbase\check_skill_info($key, 'battle') 
 			 && \skillbase\skill_query($key) && check_battle_skill_available($edata,$key))
 			{
 				$flag = 0;

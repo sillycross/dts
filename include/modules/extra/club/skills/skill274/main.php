@@ -9,6 +9,7 @@ namespace skill274
 	$upgradecost = array(3,5,7,-1);
 	
 	$ragecost=30;
+	$wepk_req='WN';
 	$skill274_factor_pc = 40;//附加对面总面板攻击力25%的最终伤害
 	$skill274_factor_npc = 75;
 	$skill274_factor_maxhp = 40;//不超过对方mhp
@@ -71,7 +72,7 @@ namespace skill274
 			else
 			{
 				$rcost = get_rage_cost274($pa);
-				if ( $pa['rage']>=$rcost && $pa['wep_kind']=='N')
+				if ( !\clubbase\check_battle_skill_unactivatable($pa,$pd,274) )
 				{
 					eval(import_module('logger'));
 					$log .= \battle\battlelog_parser($pa,$pd,$active,"<span class=\"lime\"><:pa_name:>对<:pd_name:>发动了技能「截拳」！</span><br>");

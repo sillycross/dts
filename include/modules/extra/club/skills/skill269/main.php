@@ -40,6 +40,19 @@ namespace skill269
 //		return \skill28\check_available28($pa);
 	}
 	
+	//如果满足下位怒气消耗，也可以消耗怒气+生命发动
+	function check_battle_skill_unactivatable(&$ldata,&$edata,$skillno)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($ldata,$edata,$skillno);
+		if(269 == $skillno && 3 == $ret){
+			eval(import_module('skill269'));
+			if($ldata['rage'] >= $ragecost0 && $ldata['hp'] > get_hp_cost269($ldata, $edata)) $ret = 0;//满足要求，返回0
+			else $ret = 7;//都不满足，返回7
+		}
+		return $ret;
+	}
+	
 	function get_rmt269(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -52,7 +65,14 @@ namespace skill269
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill269'));
-		return array($ragecost, $ragecost0);
+		return $ragecost;
+	}
+	
+	function get_min_rage_cost269()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('skill269'));
+		return $ragecost0;
 	}
 	
 	function get_hp_cost269(&$pa, &$pd, $fuzzy = 0)
@@ -69,34 +89,37 @@ namespace skill269
 		return $hpcost;
 	} 
 	
+	
 	function strike_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($pa['bskill']!=269) return $chprocess($pa, $pd, $active);
 		$hpcost = get_hp_cost269($pa, $pd);
-		list($rcost,$rcost0) = get_rage_cost269();
-//		$rmt = get_rmt269($pa);
+		$rcost = get_rage_cost269();
+		$rcost0 = get_min_rage_cost269();
 		eval(import_module('logger'));
 		if (!\skillbase\skill_query(269,$pa) || !check_unlocked269($pa))
 		{
 			$log .= '你尚未解锁这个技能！';
 			$pa['bskill']=0;
 		}
-		elseif($pa['rage'] < $rcost0)
-		{
-			$log .= '你怒气不足，不能发动此技能！';
-			$pa['bskill']=0;
-		}
-		elseif($hpcost >= $pa['hp'])
-		{
-			$log .= '你的身体状态不允许你发动这个技能！';
-			$pa['bskill']=0;
-		}
-//		elseif(!check_available269($pa))
-//		{
-//			$log .= '「毅重」生效中才能发动此技能！';
-//			$pa['bskill']=0;
-//		}
+		elseif (\clubbase\check_battle_skill_unactivatable($pa,$pd,269)) {//跟其他是反着的，历史原因
+			if($pa['rage'] < $rcost0)
+			{
+				$log .= '你怒气不足，不能发动此技能！';
+				$pa['bskill']=0;
+			}
+			elseif($hpcost >= $pa['hp'])
+			{
+				$log .= '你的身体状态不允许你发动这个技能！';
+				$pa['bskill']=0;
+			}
+			else
+			{
+				$log .= '由于其他原因不能发动技能，可能是BUG';
+				$pa['bskill']=0;
+			}
+		}		
 		else
 		{
 			$log .= \battle\battlelog_parser($pa, $pd, $active, "<span class=\"lime\"><:pa_name:>对<:pd_name:>发动了技能「浴血」！</span><br>");

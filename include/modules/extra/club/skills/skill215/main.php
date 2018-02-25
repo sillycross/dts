@@ -5,6 +5,8 @@ namespace skill215
 
 	$ragecost=40;
 	
+	$wep_skillkind_req = 'wd';
+	
 	function init() 
 	{
 		define('MOD_SKILL215_INFO','club;battle;');
@@ -48,7 +50,7 @@ namespace skill215
 		else
 		{
 			$rcost = get_rage_cost215($pa);
-			if (($pa['rage']>=$rcost)&&(\weapon\get_skillkind($pa,$pd,$active) == 'wd'))
+			if (!\clubbase\check_battle_skill_unactivatable($pa,$pd,215))
 			{
 				eval(import_module('logger'));
 				if ($active)

@@ -2,6 +2,7 @@
 
 namespace skill228
 {
+	$skill228_skillpoint_req = 5;
 	$stuntime228 = 1000;
 	
 	function init() 
@@ -33,6 +34,19 @@ namespace skill228
 		return 100;
 	}
 	
+	//怒气不足但是有技能点时也可发动
+	function check_battle_skill_unactivatable(&$ldata,&$edata,$skillno)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($ldata,$edata,$skillno);
+		if(228 == $skillno && 3 == $ret){
+			eval(import_module('skill228'));
+			if($ldata['skillpoint'] >= $skill228_skillpoint_req) $ret = 0;//有技能点，返回0
+			else $ret = 6;//没技能点返回特殊值6
+		}
+		return $ret;
+	}
+	
 	function strike_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -54,7 +68,7 @@ namespace skill228
 				else  $log.="<span class=\"lime\">{$pa['name']}对你发动了技能「神击」！</span><br>";
 				$pa['rage']-=$rcost;
 				addnews ( 0, 'bskill228', $pa['name'], $pd['name'] );
-			}else if ($pa['skillpoint']>=5){
+			}elseif (!\clubbase\check_battle_skill_unactivatable($pa,$pd,228)){
 				eval(import_module('logger'));
 				if ($active)
 					$log.="<span class=\"lime\">你对{$pd['name']}发动了技能「神击」！</span><br>";
