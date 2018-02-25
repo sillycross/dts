@@ -5,6 +5,8 @@ namespace skill38
 	//怒气消耗
 	$ragecost = 85; 
 	
+	$wepk_req = 'WP';
+	
 	function init() 
 	{
 		define('MOD_SKILL38_INFO','club;battle;');
@@ -48,7 +50,7 @@ namespace skill38
 		else
 		{
 			$rcost = get_rage_cost38($pa);
-			if ($pa['rage']>=$rcost && \weapon\get_skillkind($pa,$pd,$active) == 'wp')
+			if (!\clubbase\check_battle_skill_unactivatable($pa,$pd,38))
 			{
 				eval(import_module('logger'));
 				if ($active)

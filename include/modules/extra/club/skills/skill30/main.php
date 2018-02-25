@@ -35,6 +35,16 @@ namespace skill30
 		return $ragecost;
 	}
 	
+	function get_hp_cost30(&$pa = NULL)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!$pa) {
+			eval(import_module('player'));
+			$pa = $sdata;
+		}
+		return min($pa['hp']-1, round($pa['mhp']*0.15));
+	}
+	
 	function strike_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -48,9 +58,9 @@ namespace skill30
 		else
 		{
 			$rcost = get_rage_cost30($pa);
-			if ($pa['rage']>=$rcost)
+			if (!\clubbase\check_battle_skill_unactivatable($pa,$pd,30))
 			{
-				$hpcost = min($pa['hp']-1, round($pa['mhp']*0.15));
+				$hpcost = get_hp_cost30($pa);
 				eval(import_module('logger'));
 				if ($active)
 					$log.="<span class=\"lime\">你对{$pd['name']}发动了技能「压制」！</span><br>

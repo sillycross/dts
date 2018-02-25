@@ -5,6 +5,8 @@ namespace skill48
 	//怒气消耗
 	$ragecost = 8; 
 	
+	$wepk_req = 'WC';
+	
 	//共享属性加成的属性
 	$skill48_ex_map = Array(
 		'f' => 'u',
@@ -147,7 +149,7 @@ namespace skill48
 		else
 		{
 			$rcost = get_rage_cost48($pa);
-			if ($pa['rage']>=$rcost && $pa['wep_kind']=='C' && \weapon\get_skillkind($pa,$pd,$active) == 'wc')
+			if ( !\clubbase\check_battle_skill_unactivatable($pa,$pd,48) )
 			{
 				eval(import_module('logger'));
 				if ($active)

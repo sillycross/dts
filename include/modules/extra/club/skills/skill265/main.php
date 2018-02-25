@@ -7,6 +7,7 @@ namespace skill265
 	$skill265prate = 90;//贯穿触发概率
 	
 	$ragecost=95;
+	
 	$wep_skillkind_req = 'wg';
 	
 	$alternate_skillno265 = 205;//互斥技能编号

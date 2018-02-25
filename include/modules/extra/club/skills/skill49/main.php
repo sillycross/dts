@@ -5,6 +5,8 @@ namespace skill49
 	//怒气消耗
 	$ragecost = 70; 
 	
+	$wep_skillkind_req = 'wc';
+	
 	//解锁消耗
 	$unlockcost = 5;
 	
@@ -77,7 +79,7 @@ namespace skill49
 		else
 		{
 			$rcost = get_rage_cost49($pa);
-			if ($pa['rage']>=$rcost && \weapon\get_skillkind($pa,$pd,$active) == 'wc')
+			if ( !\clubbase\check_battle_skill_unactivatable($pa,$pd,49) )
 			{
 				eval(import_module('logger'));
 				if ($active)

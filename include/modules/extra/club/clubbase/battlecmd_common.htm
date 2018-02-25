@@ -14,7 +14,9 @@
 	<!--{elseif 3==$skill_state}-->
 		怒气不足，需要<span class="red">{$rageneed}</span>点怒气
 	<!--{elseif 4==$skill_state}-->
-		技能尚在冷却中
+		<span class="yellow">技能冷却中</span>
+	<!--{elseif 5==$skill_state}-->
+		<span class="red">剩余次数用尽</span>
 	<!--{else}-->
 		<!--{eval $desc_htm = 'MOD_SKILL'.$key.'_BATTLECMD_DESC'; }-->
 		<!--{if defined($desc_htm)}-->

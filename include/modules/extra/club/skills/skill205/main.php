@@ -61,7 +61,7 @@ namespace skill205
 		else
 		{
 			$rcost = get_rage_cost205($pa);
-			if ( $pa['rage']>=$rcost && \weapon\get_skillkind($pa,$pd,$active) == 'wg')
+			if ( !\clubbase\check_battle_skill_unactivatable($pa,$pd,205) )
 			{
 				eval(import_module('logger'));
 				if ($active)

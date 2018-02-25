@@ -3,6 +3,7 @@
 namespace skill75
 {
 	$skill75_cd = 90;
+	$wep_skillkind_req = 'wk';
 	
 	function init() 
 	{
@@ -59,8 +60,8 @@ namespace skill75
 		else
 		{
 			eval(import_module('sys','skill75'));
-			$l=\skillbase\skill_getvalue(75,'lastuse',$pa);
-			if ($now-$l>=$skill75_cd && \weapon\get_skillkind($pa,$pd,$active) == 'wk')
+			//$l=\skillbase\skill_getvalue(75,'lastuse',$pa);
+			if ( !\clubbase\check_battle_skill_unactivatable($pa,$pd,75) )
 			{
 				eval(import_module('logger'));
 				if ($active)
