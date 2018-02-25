@@ -23,12 +23,12 @@
 	<!--{/if}-->
 	</div>
 <!--{else}-->
+	<!--{eval $desc_htm = 'MOD_SKILL'.$key.'_BATTLECMD_DESC';}-->
+	<!--{if defined($desc_htm)}-->
 	<input type="button" class="cmdbutton" style="width:98"  value="{$clubskillname[$key]}" 
 	onclick="$('command').value='';$('bskill').value={$key};postCmd('gamecmd','command.php');this.disabled=true;"><br />
 	<div style="width:90%; text-align:left;">
-		<!--{eval $desc_htm = 'MOD_SKILL'.$key.'_BATTLECMD_DESC';}-->
-		<!--{if defined($desc_htm)}-->
-			<!--{eval include template($desc_htm);}-->
-		<!--{/if}-->
+		<!--{eval include template($desc_htm);}-->
 	</div>
+	<!--{/if}-->
 <!--{/if}-->
