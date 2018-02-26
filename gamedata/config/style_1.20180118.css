@@ -21,6 +21,7 @@ input {cursor: crosshair;}
 .ver a{font:10pt "Viner Hand ITC","隶书";color:#ff0000;}
 .b1 {background-color:rgba(98,135,163,0.6); *BACKGROUND: rgb(98,135,163); *filter:alpha(opacity=60); BORDER: #000 0px none; TEXT-ALIGN: center; COLOR: #fff; border-right: #111 1px solid; border-bottom: #111 1px solid;}
 .b2 {background-color:rgba(98,135,163,0.6); *BACKGROUND: rgb(98,135,163); *filter:alpha(opacity=80); BORDER: #000 0px none; TEXT-ALIGN: center; COLOR: #fff; border-right: #111 1px solid;}
+.b2h {background-color:rgba(98,135,163,0.3); *BACKGROUND: rgb(98,135,163); *filter:alpha(opacity=30); }
 .b3 {background-color:rgba(17,17,17,0.5); *BACKGROUND:rgb(17,17,17); *filter:alpha(opacity=50); BORDER: #000 0px none; color: #fff; text-align: center; border-right: #111 1px solid;}
 .long-list .b3 {text-align:left}
 .b4 {BORDER: #000 0px none; color: #fff; text-align: center;font: 10pt;}

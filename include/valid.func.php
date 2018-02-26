@@ -66,13 +66,13 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip=NULL)
 //		$itm[3] = '手枪子弹'; $itmk[3] = 'GB'; $itme[3] = 1; $itms[3] = 12; $itmsk[3] = '';
 //	}
 
+	global $gamefounder;
+	$result = $db->query("SELECT groupid,ip FROM {$gtablepre}users WHERE username='$xuser'");
+	$r = $db->fetch_array($result);
+	$groupid = $r['groupid'];
+	
 	//如果没有提供ip，则自行查询
 	if(empty($ip)) {
-		global $gamefounder,$ip;
-		$result = $db->query("SELECT groupid,ip FROM {$gtablepre}users WHERE username='$xuser'");
-		$r = $db->fetch_array($result);
-		
-		$groupid = $r['groupid'];
 		$ip = $r['ip'];
 	}
 	

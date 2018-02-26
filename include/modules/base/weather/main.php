@@ -310,8 +310,8 @@ namespace weather
 	function init_playerdata()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player'));
-		if(($weather == 8)||($weather == 9)||($weather == 12)) 
+		eval(import_module('sys','player','weather'));
+		if($weather_fog[$weather]) 
 		{
 			$fog = true;
 		}

@@ -28,7 +28,8 @@ namespace skill252
 	function apply_fog_meetenemy_effect($ismeet)	//无视雾天影响
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_query(252)) return;
+		eval(import_module('player'));
+		if (\skillbase\skill_query(252) && check_unlocked252($sdata)) return;
 		return $chprocess($ismeet);
 	}
 	
