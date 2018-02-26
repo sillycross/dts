@@ -3,7 +3,7 @@
 namespace skill449
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase player weapon attack logger clubbase';
+	$___MODULE_dependency = 'skillbase clubbase player weapon attack logger';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

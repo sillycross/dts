@@ -3,7 +3,7 @@
 namespace skill346
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase sys player trap achievement_base';
+	$___MODULE_dependency = 'skillbase clubbase sys player trap achievement_base';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

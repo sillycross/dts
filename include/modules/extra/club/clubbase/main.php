@@ -191,57 +191,112 @@ namespace clubbase
 		return true;
 	}
 	
+	//检查战斗技能是否不可启用
+	//0:可释放
+	//1:武器系别不正确，需要定义$wepk_req变量，其中是$iteminfo代码（WC WG等）
+	//2:攻击方式不正确，需要定义$wep_skillkind_req变量，其中是熟练度代码（wc wg等）
+	//3:怒气不足，需要定义get_rage_costXXX(&$pa)函数
+	//4:正在CD，需要定义check_skillXXX_state(&$pa)函数
+	//5:次数用尽
+	//6以后自定义
+	//6:神击特殊提示
+	//7:浴血特殊提示
+	//8:不能对NPC发动
+	function check_battle_skill_unactivatable(&$ldata,&$edata,$skillno)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('skill'.$skillno));
+		$ret = 0;
+		$rage_func = '\\skill'.$skillno.'\\get_rage_cost'.$skillno;
+		$state_func = '\\skill'.$skillno.'\\check_skill'.$skillno.'_state';
+		$remain_func = '\\skill'.$skillno.'\\get_remaintime'.$skillno;
+		if(!empty($wepk_req) && substr($ldata['wepk'],0,2) != $wepk_req) $ret = 1;
+		elseif(!empty($wep_skillkind_req) && \weapon\get_skillkind($ldata,$edata,1) != $wep_skillkind_req) $ret = 2;
+		elseif(function_exists($rage_func) && $ldata['rage'] < $rage_func($ldata)) $ret = 3;
+		elseif(function_exists($state_func) && 2 == $state_func($ldata)) $ret = 4;
+		elseif(function_exists($remain_func) && $remain_func($ldata) <= 0) $ret = 5;
+		//6以后请自定义
+		return $ret;
+	}
+	
+	//返回不可用的提示，如果返回空则为可用
+//	function get_battle_skill_unactivatable_words(&$edata,$skillno)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		eval(import_module('player','itemmain','weapon','skill'.$skillno));
+//		$ret = '';
+//		$skill_state = check_battle_skill_unactivatable($sdata,$edata,$skillno);
+//		
+//		if(1 == $skill_state) $ret = '武器不适用，需持<span class="yellow">'.$iteminfo[$wepk_req].'</span>';
+//		elseif(2 == $skill_state) $ret = '武器不适用，需持<span class="yellow">'.$skilltypeinfo[$wep_skillkind_req].'系武器</span>';
+//		elseif(3 == $skill_state) {
+//			$rage_func = '\\skill'.$skillno.'\\get_rage_cost'.$skillno;
+//			$ret = '怒气不足，需要<span class="red">'.($rage_func($sdata)).'</span>点怒气';
+//		}elseif(4 == $skill_state) $ret = '技能尚在冷却中';
+//		return $ret;
+//	}
+	
+	//获得包含所有战斗技能的数组
+	function get_battle_skill_entry_array(&$edata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('clubbase','player'));
+		$blist = array();
+		//第一轮循环，获得所有技能，称号技能优先
+		$alist = array();
+		if (isset($clublist[$club])){
+			$alist = $clublist[$club]['skills'];
+		}
+		foreach (\skillbase\get_acquired_skill_array() as $v) {
+			if(!in_array($v, $alist)) $alist[] = $v;
+		}
+		//第二轮循环，对所有技能进行判断，提取战斗技能
+		//非隐藏技能则会额外判定是否解锁
+		foreach ($alist as $key) {
+			if (!\skillbase\check_skill_info($key, 'achievement') && \skillbase\check_skill_info($key, 'battle') 
+			 && \skillbase\skill_query($key) && check_battle_skill_available($edata,$key))
+			{
+				$flag = 0;
+				if (\skillbase\check_skill_info($key, 'hidden')) $flag = 1;
+				if (!$flag) 
+				{
+					$func = 'skill'.$key.'\\check_unlocked'.$key;
+					if ($func($sdata)) $flag = 1;
+				}
+				if ($flag)
+				{
+					$blist[] = $key;
+				}
+			}
+		}
+		return $blist;
+	}
+	
+	
+	//生成战斗技能按钮
 	function get_battle_skill_entry(&$edata,$which)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($which==3) $zflag = 1; else $zflag = 0;
-		eval(import_module('clubbase','player'));
-		if (isset($clublist[$club]))
-			foreach ($clublist[$club]['skills'] as $key) 
-				if (defined('MOD_SKILL'.$key.'_INFO'))
-					if (\skillbase\check_skill_info($key, 'club') && \skillbase\check_skill_info($key, 'battle') && \skillbase\skill_query($key) && check_battle_skill_available($edata,$key))
-					{
-						$flag = 0;
-						if (\skillbase\check_skill_info($key, 'hidden')) $flag = 1;
-						if (!$flag) 
-						{
-							$func = 'skill'.$key.'\\check_unlocked'.$key;
-							if ($func($sdata)) $flag = 1;
-						}
-						if ($flag)
-						{
-							$which--;
-							if ($which==0)
-							{
-								if ($zflag) echo '<span style="display:block;height:6px;">&nbsp;</span>';
-								include template(constant('MOD_SKILL'.$key.'_BATTLECMD'));
-								return;
-							}
-						}
-					}
-		foreach (\skillbase\get_acquired_skill_array() as $key) 
-			if (isset($clublist[$club]) && !in_array($key,$clublist[$club]['skills']))
-				if (defined('MOD_SKILL'.$key.'_INFO'))
-					if (!\skillbase\check_skill_info($key, 'achievement') && \skillbase\check_skill_info($key, 'battle') && check_battle_skill_available($edata,$key))
-					{
-						$flag = 0;
-						if (\skillbase\check_skill_info($key, 'hidden')) $flag = 1;
-						if (!$flag) 
-						{
-							$func = 'skill'.$key.'\\check_unlocked'.$key;
-							if ($func($sdata)) $flag = 1;
-						}
-						if ($flag)
-						{
-							$which--;
-							if ($which==0)
-							{
-								if ($zflag) echo '<span style="display:block;height:6px;">&nbsp;</span>';
-								include template(constant('MOD_SKILL'.$key.'_BATTLECMD'));
-								return;
-							}
-						}
-					}
+		eval(import_module('sys','clubbase','player'));
+		//一次性获得所有战斗技能，然后根据$which的值来生成页面
+		//会占用$uip['blist']
+		if(!isset($uip['blist'])) $uip['blist'] = get_battle_skill_entry_array($edata);
+		foreach($uip['blist'] as $key){
+			$which--;
+			if ($which==0)
+			{
+				if ($zflag) echo '<span style="display:block;height:6px;">&nbsp;</span>';
+				ob_start();
+				include template(MOD_CLUBBASE_BATTLECMD_COMMON);
+				$default = ob_get_contents();
+				ob_end_clean();
+				//兼容旧模式，请勿在battlecmd_common.htm里写任何非空格的意外输出，注释也不行
+				if (empty(trim($default))) include template(constant('MOD_SKILL'.$key.'_BATTLECMD'));
+				else echo $default;
+				return;
+			}
+		}
 	}
 					
 	function get_profile_skill_buttons()

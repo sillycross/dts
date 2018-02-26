@@ -3,7 +3,7 @@
 namespace skill420
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase player itemmain sys logger clubbase bufficons';
+	$___MODULE_dependency = 'skillbase clubbase player itemmain sys logger bufficons';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

@@ -9,6 +9,8 @@ namespace skill259
 	//怒气消耗
 	$ragecost = 20;
 	
+	$wepk_req = 'WN';
+	
 	$alternate_skillno259 = 274;//互斥技能编号
 	$unlock_lvl259 = 5;//解锁等级
 	
@@ -101,7 +103,7 @@ namespace skill259
 		else
 		{
 			$rcost = get_rage_cost259($pa);
-			if (($pa['wepk']=="WN")&&($pa['rage']>=$rcost))
+			if ( !\clubbase\check_battle_skill_unactivatable($pa,$pd,259) )
 			{
 				eval(import_module('logger'));
 				if ($active)

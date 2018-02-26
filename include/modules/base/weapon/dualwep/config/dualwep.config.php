@@ -5,8 +5,8 @@ namespace dualwep
 	$dualwep_iteminfo=Array(
 		'WGK' => '枪刃',
 		'WKG' => '枪刃',
-		'WCF' => '灵弹',
 		'WFC' => '灵弹',
+		'WCF' => '灵弹',
 		'WFK' => '灵刃',
 		'WKF' => '灵刃',
 		'WFG' => '灵枪',

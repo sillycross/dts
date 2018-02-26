@@ -3,7 +3,7 @@
 namespace skill437
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase weapon lvlctl logger enemy';
+	$___MODULE_dependency = 'skillbase clubbase weapon lvlctl logger enemy';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

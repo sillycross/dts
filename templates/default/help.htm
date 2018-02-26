@@ -756,7 +756,7 @@ NPC不会被禁区杀死。此外，多数NPC也会自动回避禁区。<br>
 	);}-->
 	<!--{loop Array('P','K','G','J','C','B','D','F') $val}-->
 	<tr>
-		<td class="b3">
+		<td class="b2 b2h">
 		<span><!--{eval echo $iteminfo['W'.$val]}--></span>
 		</td>
 		<td class="b3">
@@ -842,9 +842,8 @@ NPC不会被禁区杀死。此外，多数NPC也会自动回避禁区。<br>
 <div class='help_body'>
 <p>※“伏击”指不能反击任何系的攻击，但是其他系也不能反击自己的主动攻击。</p>
 <br>
-<br>
 <BR>
-
+<BR>
 <p>殴、斩系武器，命中对手之后，有一定机率造成武器<span class="yellow">“损耗”</span>。<BR>
 如果武器的耐久值不是<span class="yellow">“∞”</span>，那么耐久会下降。如果耐久降为0，武器会<span class="yellow">“毁坏”</span>，不能再使用了。<BR>
 如果武器的耐久值是<span class="yellow">“∞”</span>，那么武器的攻击力（效果值）将会下降，效果降为0时武器同样会毁坏。<BR>
@@ -860,6 +859,50 @@ NPC不会被禁区杀死。此外，多数NPC也会自动回避禁区。<br>
 <BR>
 部分道具如“磨刀石”、“钉”、“武器师安雅的奖赏”等，都能<span class="yellow">强化武器</span>，使用方法是装备武器然后使用特殊道具即可。具体情况见<A href="help.php#特殊道具">特殊道具</A>章节。
 </p>
+<BR>
+<p>另外，也存在一部分「复合」武器。复合武器在主动攻击时能够自由选择两种攻击方式之一来进行攻击，而反击时采用主攻系别进行反击。玩家可以自由切换当前的主攻系别。
+	<br>如果选用的攻击方式的熟练度比另一种攻击方式的一半还要低，则会按另一种攻击方式的一半来计算。
+	<br>复合武器的消耗方式与主攻方式无关，而是根据复合武器的耐久值和两种系别，按如下顺序中较为靠前的那个为准：无限耐久的投、爆、灵系武器 > 射系武器 > 殴、斩系武器 > 有限耐久的投、爆、灵系武器。例如：耐久有限的「灵刃」按斩系武器判定，而耐久无限的「灵刃」按灵系武器判定（也即不会降低攻击或者耐久）。
+	<br>不过，一切依赖于武器系别的战斗技，<span class="yellow">都不能用复合武器来发动</span>。
+	<br><br>复合武器具体种类见下表：
+</p>
+<!--{eval eval(import_module('dualwep'));}-->
+<table cellSpacing=0 cellPadding=0 width=400px>
+	<tr>
+		<td class="b1" height=20px>
+			复合武器种类
+		</td>
+		<td class="b1"> </td>
+		<td class="b1">
+			类别1
+		</td>
+		<td class="b1"> </td>
+		<td class="b1">
+			类别2
+		</td>
+	</tr>
+<!--{loop $dualwep_iteminfo $dk $dv}-->
+	<!--{eval $tmp1 = substr($dk,1,1);$tmp2 = substr($dk,2,1);}-->
+	<!--{if empty($o_k) || $o_k != $tmp2.$tmp1}-->
+	<tr>
+		<td class="b3" height=20px>
+			$dv
+		</td>
+		<td class="b3">=</td>
+		<td class="b3">
+			<!--{eval echo $iteminfo['W'.$tmp1];}-->
+		</td>
+		<td class="b3">+</td>
+		<td class="b3">
+			<!--{eval echo $iteminfo['W'.$tmp2];}-->
+		</td>
+	</tr>
+	<!--{/if}-->
+	<!--{eval $o_k = $tmp1.$tmp2;}-->
+<!--{/loop}-->
+</table>
+<BR>
+<BR>
 <BR>
 <p><a name="属性"><span class="subtitle2">12.属性</span></a></p>
 
@@ -960,16 +1003,19 @@ NPC不会被禁区杀死。此外，多数NPC也会自动回避禁区。<br>
 
 <p><a name="受伤与状态"><span class="subtitle2">13.受伤与异常状态</span></a></p>
 
-<p>战斗中，玩家自己或者敌人都有一定几率发出“致伤攻击”。<BR>
-致伤攻击会随机选择被攻击者的一个身体部位。<BR>
-如果该部位装备有防具，则会减少该防具的耐久。如果防具耐久下降到0，那么防具将会损坏。<BR>
-如果该部位未装备防具，那么被攻击者的那个部位则会“受伤”。<BR>
-此外，部分武器带有“属性攻击”，有一定几率导致异常状态。<BR>
-受伤部位和异常状态种类不同，被攻击者受到的影响也不同。详细情况见下表。</p>
+<p>战斗中，角色每次攻击都可能对敌人某个身体部位发出“致伤攻击”。<BR>
+如果该部位有防具，则其耐久会减少，防具耐久下降到0时会<span class="red">毁坏</span>。注意，耐久为“∞”的防具实际相当于耐久只有1。<BR>
+而如果该部位没有防具，那么被攻击者该部位会<span class="red">“受伤”</span>。<BR>
+受伤可以靠<span class="clan">单击人物状态上的受伤部位</span>来“包扎伤口”并治愈，不过需要消耗50体力。<BR>
+此外，部分武器带有“属性攻击”，有一定几率导致<span class="yellow">“异常状态”</span>。战斗技能或者特殊事件也可能导致异常状态。<BR>
+异常状态无法通过包扎来解除，需要寻找或者购买对应的“药剂”并服用。<br>
+“静养”90秒（治疗姿态为60秒）能够恢复所有的异常状态。<br>
+在有技能点时，通过技能窗口的“治疗”技能，能一次性治愈所有的受伤和异常状态，不过要消耗1个技能点。<BR>
+受伤部位和异常状态种类的具体影响见下表。</p>
 
-<table cellSpacing=0 cellPadding=0>
+<table cellSpacing=0 cellPadding=0 width=800px>
 	<tr>
-		<td class="b1" height=20px>
+		<td class="b1" height=20px  width=80px>
 		<span>异常状态名</span>
 		</td>
 		<td class="b1">
@@ -978,58 +1024,58 @@ NPC不会被禁区杀死。此外，多数NPC也会自动回避禁区。<br>
 		<td class="b1">
 		<span>战斗影响</span>
 		</td>
-		<td class="b1">
+		<td class="b1" width=80px>
 		<span>解除方法</span>
 		</td>
 	</tr>
 	<tr>
-		<td class="b2" height=20px>
+		<td class="b2" height=30px>
 		<span class="red">胸部受伤</span>
 		</td>
 		<td class="b3">
-		<span>睡眠、治疗、静养效果<span class="yellow">↓↓</span></span>
+		<span>睡眠、治疗、静养<span class="yellow">效果x50%</span></span>
 		</td>
 		<td class="b3">
-		<span>防御力<span class="yellow">↓↓</span></span>
+		<span>防御力<span class="yellow">x75%</span></span>
 		</td>
 		<td class="b3">
 		<span>包扎伤口</span>
 		</td>
 	</tr>
 	<tr>
-		<td class="b2" height=20px>
+		<td class="b2" height=30px>
 		<span class="red">头部受伤</span>
 		</td>
 		<td class="b3">
 		<span>无</span>
 		</td>
 		<td class="b3">
-		<span>命中率<span class="yellow">↓↓</span></span>
+		<span>命中率<span class="yellow">x75%</span></span>
 		</td>
 		<td class="b3">
 		<span>包扎伤口</span>
 		</td>
 	</tr>
 	<tr>
-		<td class="b2" height=20px>
+		<td class="b2" height=30px>
 		<span class="red">腕部受伤</span>
 		</td>
 		<td class="b3">
-		<span>探索体力消耗<span class="yellow">↑↑</span></span>
+		<span>探索体力消耗<span class="yellow">+10</span></span>
 		</td>
 		<td class="b3">
-		<span>攻击力<span class="yellow">↓↓</span></span>
+		<span>攻击力<span class="yellow">x75%</span></span>
 		</td>
 		<td class="b3">
 		<span>包扎伤口</span>
 		</td>
 	</tr>
 	<tr>
-		<td class="b2" height=20px>
+		<td class="b2" height=30px>
 		<span class="red">足部受伤</span>
 		</td>
 		<td class="b3">
-		<span>移动体力消耗<span class="yellow">↑↑</span></span>
+		<span>移动体力消耗<span class="yellow">+10</span></span>
 		</td>
 		<td class="b3">
 		<span>无</span>
@@ -1039,12 +1085,11 @@ NPC不会被禁区杀死。此外，多数NPC也会自动回避禁区。<br>
 		</td>
 	</tr>
 	<tr>
-		<td class="b2" height=20px>
+		<td class="b2" height=30px>
 		<span class="purple">中毒</span>
 		</td>
 		<td class="b3">
-		<div class="nttx">移动生命<span class="red">↓↓</span>；探索生命<span
-			class="red">↓</span></div>
+		<div>移动和探索时生命值减少。移动约为最大生命的<span class="red">1/16</span>，探索则为<span	class="red">1/32</span>。生命降到0将会<span	class="red">毒发身亡</span>。</div>
 		</td>
 		<td class="b3">
 		<span>无</span>
@@ -1054,59 +1099,56 @@ NPC不会被禁区杀死。此外，多数NPC也会自动回避禁区。<br>
 		</td>
 	</tr>
 	<tr>
-		<td class="b2" height=20px>
+		<td class="b2" height=30px>
 		<span class="red">烧伤</span>
 		</td>
 		<td class="b3">
-		<div class="nttx">移动生命<span class="red">↓↓</span>；探索生命<span
-			class="red">↓</span></div>
+		<div>移动和探索时生命值减少。移动约为最大生命的<span class="red">1/16</span>，探索则为<span	class="red">1/32</span>。生命降到0将会<span	class="red">烧伤发作身亡</span>。</div>
 		</td>
 		<td class="b3">
-		<span>攻击力<span class="yellow">↓↓↓</span></span>
+		<span>攻击力<span class="yellow">x60%</span></span>
 		</td>
 		<td class="b3">
 		<span>烧伤药剂</span>
 		</td>
 	</tr>
 	<tr>
-		<td class="b2" height=20px>
+		<td class="b2" height=30px>
 		<span class="clan">冻结</span>
 		</td>
 		<td class="b3">
-		<span>移动和探索体力消耗<span class="yellow">↑↑↑</span></span>
+		<span>移动和探索体力消耗<span class="yellow">+20</span></span>
 		</td>
 		<td class="b3">
-		<span>攻击力、防御力、命中率、先制攻击率<span class="yellow">↓</span></span>
+		<span>命中率<span class="yellow">x80%</span>，攻击力、防御力、先攻率、反击率<span class="yellow">x90%</span></span>
 		</td>
 		<td class="b3">
 		<span>解冻药水</span>
 		</td>
 	</tr>
 	<tr>
-		<td class="b2" height=20px>
+		<td class="b2" height=30px>
 		<span class="yellow">身体麻痹</span>
 		</td>
 		<td class="b3">
-		<span>移动和探索体力消耗<span class="yellow">↑</span></span>
+		<span>移动和探索体力消耗<span class="yellow">+5</span></span>
 		</td>
 		<td class="b3">
-		<div class="nttx">命中率<span class="yellow">↓</span>；先制攻击率和反击率<span
-			class="yellow">↓↓↓↓</span></div>
+		<div>命中率<span class="yellow">x90%</span>；先制攻击率和反击率<span class="red">x20%</span></div>
 		</td>
 		<td class="b3">
 		<span>麻痹药剂</span>
 		</td>
 	</tr>
 	<tr>
-		<td class="b2" height=20px>
+		<td class="b2" height=30px>
 		<span class="grey">混乱</span>
 		</td>
 		<td class="b3">
 		<span>无</span>
 		</td>
 		<td class="b3">
-		<div class="nttx">防御力<span class="yellow">↓↓↓</span>；先制攻击率和反击率<span
-			class="yellow">↓↓</span></div>
+		<div>防御力<span class="yellow">x70%</span>；先制攻击率和反击率<span class="yellow">x80%</span></div>
 		</td>
 		<td class="b3">
 		<span>清醒药剂</span>
@@ -1119,17 +1161,25 @@ NPC不会被禁区杀死。此外，多数NPC也会自动回避禁区。<br>
 <BR>
 <p><a name="毒药和陷阱"><span class="subtitle2">14.毒药和陷阱</span></a></p>
 
-<p>陷阱类道具：「使用」之后可以在所在的区域设下陷阱，设置的同时可以增加经验值和爆系熟练度。陷阱也可能被其他玩家回避。如果未触发陷阱，玩家还能拾取该陷阱。<BR>
-毒药：「使用」后可对大部份回复物品下毒。<BR>
-自己设的陷阱可能会被自己触发，自己下毒的食物可能会被自己捡到并且误食，所以在设下陷阱或是下毒的时候要谨慎。<BR>
-陷阱类道具会造成不超过道具效果值的伤害，下毒的食物会造成与食物效果值一样的伤害。</p>
+<p><span class="lime">陷阱类道具：</span>「使用」之后可以在所在的区域设下陷阱。<br>
+设置陷阱时可以增加经验值和爆系熟练度。<br>
+设下陷阱后，其他玩家在该区域探索，或者移动到该区域时，有可能踩中陷阱，并受到介于<span class="yellow">陷阱效果值的一半</span>~<span class="yellow">陷阱效果值</span>的伤害。这一伤害不受防御力影响，但采取“重视防御”应战策略有大概率把这一伤害降低25%。因此，劣势局面时可以靠埋设高伤陷阱来翻盘，而优势局时需要小心他人埋设的陷阱。<br>
+陷阱也可能被其他玩家回避，玩家等级越高则回避率越高，自己也有较高概率回避自己埋设的陷阱。如果玩家回避了陷阱，还有可能拾取该陷阱。<BR>
+不过，埋设陷阱时，如果你的等级和爆系熟练度都很低，则陷阱的效果值会下降（不会低于原值的一半）。鼠标在“使用”按钮处悬停，可以看到陷阱埋设效果的悬浮提示。<br>
+如果装备有「探雷」属性的道具，会提升自己对陷阱的回避率。而如果装备有「防雷」属性的道具，则有概率完全免疫陷阱的伤害。<br>
+自己设下的陷阱可能被自己触发，甚至反杀自己，因此在设下陷阱时需要谨慎。<br><br>
+<span class="lime">毒药：</span>「使用」后可对恢复类物品下毒。<BR>
+下毒后的恢复道具将失去恢复效果，还会反过来扣除使用者的生命。如果使用者的生命值被扣到0，则会<span class="yellow">误食毒物身亡</span>。<br>
+正常情况下，下毒道具的伤害等同于道具的效果值，因而原本恢复效果越好的道具，也越具有下毒的价值。如果玩家装备「毒物说明书」再下毒，则毒物的杀伤效果会+50%；如果玩家拥有「毒师」技能（黑衣组织自带）则毒物杀伤效果会+100%！<br>
+下毒后，从外表是看不出该恢复道具是否有毒（只有吃了才会知道）。而且无论是将这一道具丢弃、赠与对方，甚或是故意让对方杀死自己而缴获之，道具的毒性都依然存在。可以利用这一点来反杀领先的玩家。<br>
+自己下毒的道具可能会被自己捡到并误食，因此在下毒时同样需要谨慎。<BR></p>
 <BR>
 <p><a name="称号与技能"><span class="subtitle2">15.称号与技能</span></a></p>
 
 <br>
 <p>
 内定称号分为“一般”和“特殊”两种类型。<BR>
-玩家进入游戏时，会随机分配到三个内定称号，其中1个“一般”类型称号和2个“特殊”类型称号，玩家可从中任选一个作为自己的称号。<BR>
+玩家进入游戏时，会随机分配到4个内定称号，其中有2个“一般”类型称号和2个“特殊”类型称号，玩家可从中任选一个作为自己的称号。<BR>
 不同的内定称号有不同的特性与技能，各种技能涉及的两个重要资源便是“<span class="lime">技能点</span>”与“<span class="yellow">怒气</span>”。<br>
 “<span class="lime">技能点</span>”在升级时获得，每升1级获得1点技能点；技能点是对各类技能进行升级强化的资源。<br>
 而“<span class="yellow">怒气</span>”在战斗中获得：当你遭到敌人攻击时，你会获得一定怒气。敌人比你的等级高出越多，你获得的怒气也越多。怒气可以用于释放出各种不同的战斗技能。<br>
@@ -1231,8 +1281,18 @@ NPC不会被禁区杀死。此外，多数NPC也会自动回避禁区。<br>
 <br><br>
 <p><a name="道具合成"><span class="subtitle2">16.道具合成</span></a></p>
 
-<p>可以将某些物品合成为另一种物品，只要名称正确即可合成。合成道具成功则可增加爆熟。</p>
-<p>合成成功时，如果所用的材料是武器或者防具，则会将整个材料耗尽；其他情况下，材料的耐久会减1。</p>
+<p>“道具合成”是获得高级道具的重要途径。只要玩家集齐了特定合成公式的素材道具，就可以通过“道具合成”将它们转化为更高级的武器、防具或者其他道具，增加自己获胜的机会。
+	<br>合成分为<span class="lime">通常合成、同调合成与超量合成</span>三种。
+	<br>其中，通常合成只要素材道具的名称正确，无论素材道具是什么类别、效果或者数目，都可以顺利合成。而且，素材道具的部分前后缀（黑衣组织淬毒带来的“毒性”、锡安成员带电带来的“电气”、磨刀石带来的“锋利的”、武器师安雅的奖赏带来的“-改”）也不影响合成。但是，上钉子带来的“钉”前缀，以及祝福宝石/灵魂宝石带来的“[+x]”后缀会让素材无法参与合成。道具名里的一些特殊符号（如书名号《》、方括号【】等）的区别，也会让道具无法成为正确的合成素材。
+	<br>而同调和超量合成对道具有更特殊的要求，其具体规则列在后面。
+</p>
+<p>道具合成的具体操作是：点击「道具合成」按钮后，把合成素材前面的复选框勾上，然后单击「提交」。
+	<br>如果素材正确，会顺利合成；如果不正确，什么都不会发生。<br>
+	合成界面也会提示当前包裹道具能够完成的合成公式。点击反查链接也能看到该道具参与的合成公式（只限通常合成）。</p>
+<p>合成成功时，如果素材是武器或防具，或者素材耐久为“∞”，则素材消失；其他情况下，材料的耐久会减1。
+	<br>合成成功时还会让玩家的爆系熟练度+1。
+	<br>如果合成产物是恢复类道具，无论素材是否有毒，产物都是无毒的。
+</p>
 <br>
 <br>
 </div>
@@ -1260,162 +1320,154 @@ NPC不会被禁区杀死。此外，多数NPC也会自动回避禁区。<br>
 <div class='help_body'>
 <p><a name="特殊道具"><span class="subtitle2">17.特殊道具</span></a></p>
 
-<p>在此列出游戏中部分特殊道具的用途。</p>
+<p>游戏中类别为“特殊”的道具，依照名字不同拥有完全不同的功能效果。在此列出游戏中部分特殊道具的用途。</p>
 <p><span class="yellow">强化道具用途</span>：</p>
-<table cellSpacing=0 cellPadding=0>
+<table cellSpacing=0 cellPadding=0 width=1100px>
 	<tr>
-		<td class="b1" height=20px>
+		<td class="b1" height=20px width=180px>
 		<span>道具名称</span>
 		</td>
-		<td class="b1">
+		<td class="b1" width=300px>
 		<span>道具用途</span>
 		</td>
 
 		<td class="b1">
 		<span>取得方式</span>
 		</td>
-		<td class="b1">
+		<td class="b1" width=300px>
 		<span>备注</span>
 		</td>
 
 	</tr>
 	<tr>
-		<td class="b2" height=20px>
-		<span>钉</span>
+		<td class="b2 b2h" height=30px>
+			<span>名字以“钉”结尾的道具</span>
 		</td>
 		<td class="b3">
-		<span>为武器名字带有“棍棒”的钝器增加攻击力</span>
+			<span>为武器名字带有“棍棒”的钝器增加攻击力</span>
 		</td>
 		<td class="b3">
-		<span>商店出售；地图拾取</span>
+			<span>购买、拾取、缴获、礼品盒</span>
 		</td>
 		<td class="b3">
-		<span>有可能失败导致武器攻击力反而下降</span>
-		</td>
-
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
-		<span>钢钉</span>
-		</td>
-		<td class="b3">
-		<span>为武器名字带有“棍棒”的钝器增加攻击力，效果更好</span>
-		</td>
-		<td class="b3">
-		<span>1禁起商店出售</span>
-		</td>
-		<td class="b3">
-		<span>有可能失败导致武器攻击力反而下降</span>
+			<div style="margin:8px">使用对象为装备着的武器<br>10%概率失败，反而让武器效果值下降</div>
 		</td>
 	</tr>
 	<tr>
-		<td class="b2" height=20px>
-		<span>磨刀石</span>
+		<td class="b2 b2h" height=30px>
+		<span>名字包含“磨刀石”的道具</span>
 		</td>
 		<td class="b3">
 		<span>为锐器增加攻击力</span>
 		</td>
 		<td class="b3">
-		<span>商店出售；地图拾取</span>
+		<span>购买、拾取、缴获、礼品盒</span>
 		</td>
 		<td class="b3">
-		<span>有可能失败导致武器攻击力反而下降</span>
+			<div style="margin:8px">使用对象为装备着的武器<br>15%概率失败，反而让武器效果值下降</div>
 		</td>
 	</tr>
 	<tr>
-		<td class="b2" height=20px>
-		<span>贤者之磨刀石</span>
-		</td>
-		<td class="b3">
-		<span>为锐器增加攻击力，效果更好</span>
-		</td>
-		<td class="b3">
-		<span>1禁起商店出售</span>
-		</td>
-		<td class="b3">
-		<span>有可能失败导致武器攻击力反而下降</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="b2" height=20px>
+		<td class="b2 b2h" height=30px>
 		<span>武器师安雅的奖赏</span>
 		</td>
 		<td class="b3">
-		<span>增加武器攻击力/耐久/转换武器的类型</span>
+			<div style="margin:8px">随机选择以下1个效果：<br>1. 武器系别变为自己最擅长的系别<br>2. 武器耐久值+效果值的50%<br>3. 武器武器效果值x150%</div>
 		</td>
 		<td class="b3">
 		<span>合成</span>
 		</td>
 		<td class="b3">
-		<span>使用时产生哪种效果是随机决定的</span>
+		<div style="margin:10px">
+			使用对象为装备着的武器<br>
+			3种效果的概率分别是：改系30%、改耐40%、改效30%<br>
+			但如果武器已经是自己最擅长的系，则改系概率变为改耐概率。<br>
+			如果武器耐久为“∞”，则改耐概率变为改效概率。<br>
+			如果这两个条件都满足，则100%改效。<br>
+			改造“复合武器”时，只要其任意1个系别是你最擅长的，就不会改系。
+		</div>
 		</td>
 	</tr>
 	<tr>
-		<td class="b2" height=20px>
+		<td class="b2 b2h" height=20px>
 		<span>『祝福宝石』</span>
 		</td>
 		<td class="b3">
-		<span>可以强化“菁英”属性道具的效果值</span>
+		<span>可以强化带“菁英”属性道具的效果值</span>
 		</td>
 		<td class="b3">
-		<span>商店出售</span>
+		<span>购买</span>
 		</td>
 		<td class="b3">
-		<span>强化效果与已进行强化的次数有关，但次数过高容易失败</span>
+			<div style="margin:10px">
+				任选包裹道具强化。<br>
+				初次强化时，会给道具名加上[+1]的后缀，之后每次强化，x的值会+1。<br>
+				第1次强化效果是1.5倍，之后根据被强化时[+x]的值，强化效果为(1.5+0.1x)倍。<br>
+				单个『祝福宝石』只能把道具强化到[+3]；<br>
+				2个『祝福宝石』有1/3概率强化到[+4]，但2/3概率失败；<br>
+				3个『祝福宝石』必定能强化到[+4]。<br>
+				无论如何都不能强化到[+5]或者以上。<br>
+				强化失败时，所选道具变成“悲叹之种”并且无法复原。
+			</div>
 		</td>
 	</tr>
 	<tr>
-		<td class="b2" height=20px>
+		<td class="b2 b2h" height=20px>
 		<span>『灵魂宝石』</span>
 		</td>
 		<td class="b3">
-		<span>可以强化“菁英”属性道具的效果值，成功率比祝福宝石更高</span>
+		<span>可以强化“菁英”属性道具的效果值，<br>能够强化到更高阶段</span>
 		</td>
 		<td class="b3">
-		<span>1禁起商店出售</span>
+		<span>1禁后可购买</span>
 		</td>
 		<td class="b3">
-		<span>强化效果与已进行强化的次数有关，但次数过高容易失败</span>
+			<div style="margin:10px">
+				任选包裹道具强化。<br>
+				初次强化时，会给道具名加上[+1]的后缀，之后每次强化，x的值会+1。<br>
+				第1次强化效果是1.5倍，之后根据被强化时[+x]的值，强化效果为(1.5+0.1x)倍。<br>
+				强化没有上限，强化到[+4]必定成功，但之后有概率失败。<br>
+				强化到[+5]的成功率为1/2，[+6]为1/3，[+7]为1/4，以此类推。<br>
+				强化失败时，所选道具变成“悲叹之种”并且无法复原。
+			</div>
 		</td>
 	</tr>
 	<tr>
-		<td class="b2" height=20px>
+		<td class="b2 b2h" height=20px>
 		<span>针线包</span>
 		</td>
 		<td class="b3">
-		<span>增加身体防具的防御效果</span>
+		<span>增加身体防具的效果值</span>
 		</td>
 		<td class="b3">
-		<span>商店出售</span>
+		<span>购买、拾取</span>
 		</td>
 		<td class="b3">
-		<span>无</span>
+		<div style="margin:8px">使用对象为装备着的身体防具</div>
 		</td>
 	</tr>
 	<tr>
-		<td class="b2" height=20px>
+		<td class="b2 b2h" height=20px>
 		<span>消音器</span>
 		</td>
 		<td class="b3">
-		<span>为远程武器添加消音属性</span>
+		<span>为远程武器添加“消音”属性</span>
 		</td>
 		<td class="b3">
-		<span>地图拾取</span>
+		<span>拾取</span>
 		</td>
 		<td class="b3">
-		<span>无</span>
+		<div style="margin:8px">使用对象为装备着的武器</div>
 		</td>
 	</tr>
 </table>
 <br>
-※ 以下是关于『祝福宝石』和『灵魂宝石』的具体说明：每个道具的前3次强化都是必定成功的，使用『祝福宝石』或『灵魂宝石』没有任何区别。<br>
-第4次强化如果使用『灵魂宝石』，则只需一颗且必定成功；但如果使用『祝福宝石』，则需要消耗2颗或3颗：2颗成功率为1/3，3颗必定成功。<br>
-第5次及之后的强化只能使用『灵魂宝石』进行，第5次强化成功率为1/2，随后的强化成功率会更低。
 <br>
 <br>
 
+<p>游戏还有一类可以通过使用“电池”来充电的道具，称为“电子装备”。它们的效果如下：</p>
 <p><span class="lime">电子装备用途</span>：</p>
-<table cellSpacing=0 cellPadding=0>
+<table cellSpacing=0 cellPadding=0 width=900>
 	<tr>
 		<td class="b1" height=20px>
 		<span>道具名称</span>
@@ -1433,74 +1485,76 @@ NPC不会被禁区杀死。此外，多数NPC也会自动回避禁区。<br>
 
 	</tr>
 	<tr>
-		<td class="b2" height=20px>
+		<td class="b2 b2h" height=30px width=120px>
 		<span>生命探测器</span>
 		</td>
-		<td class="b3">
-		<span>探测自己所在区域内的玩家和NPC数目</span>
+		<td class="b3" width=240px>
+		<span>探测当前区域的玩家和NPC数目</span>
 		</td>
 		<td class="b3">
-		<span>一定几率初始携带；地图拾取</span>
+		<span>拾取、开局可能携带</span>
 		</td>
-		<td class="b3">
-		<span>消耗电池</span>
+		<td class="b3" width=450>
+		<div style="margin:8px">每次使用后，效果值-1<br>效果值为0时不能使用，须用“探测器电池”充电</div>
 		</td>
 
 	</tr>
 	<tr>
-		<td class="b2" height=20px>
+		<td class="b2 b2h" height=30px>
 		<span>广域生命探测器</span>
 		</td>
 		<td class="b3">
-		<span>探测全游戏所有区域内的玩家和NPC数目</span>
+		<span>探测<span class="lime">所有区域</span>的玩家和NPC数目</span>
 		</td>
 		<td class="b3">
-		<span>合成</span>
+		<span>合成、1禁后可购买</span>
 		</td>
 		<td class="b3">
-		<span>消耗电池</span>
+		<div style="margin:8px">每次使用后，效果值-1<br>效果值为0时不能使用，须用“探测器电池”充电</div>
 		</td>
 	</tr>
 	<tr>
-		<td class="b2" height=20px>
+		<td class="b2 b2h" height=30px>
 		<span>探测器电池</span>
 		</td>
 		<td class="b3">
 		<span>为生命探测器和广域生命探测器充电</span>
 		</td>
 		<td class="b3">
-		<span>商店出售</span>
+		<span>购买、拾取</span>
 		</td>
 		<td class="b3">
-		<span>无</span>
+		<div style="margin:8px">电量（效果值）最多充到5<br>包裹有超过1个探测器时，靠前的优先。</div>
 		</td>
 	</tr>
 	<tr>
-		<td class="b2" height=20px>
+		<td class="b2 b2h" height=30px>
 		<span>移动PC</span>
 		</td>
 		<td class="b3">
-		<span>入侵禁区控制系统以解除禁区限制</span>
+		<span>干扰幻境，用以暂时解除禁区</span>
 		</td>
 		<td class="b3">
-		<span>合成</span>
+		<span>合成、拾取</span>
 		</td>
 		<td class="b3">
-		<span>成功率不高；可能导致道具损坏或者玩家死亡！</span>
+		<div style="margin:8px">40%概率成功解除禁区；<br>被解除的禁区在下一次过禁时会复原<br>
+			无论是否成功，都有5%概率毁坏移动PC，且3%概率导致角色死亡！<br>
+			称号「锡安成员」的「网瘾」技能可以95%成功且完全无风险。</div>
 		</td>
 	</tr>
 	<tr>
-		<td class="b2" height=20px>
+		<td class="b2 b2h" height=30px>
 		<span>电池</span>
 		</td>
 		<td class="b3">
 		<span>为移动PC充电</span>
 		</td>
 		<td class="b3">
-		<span>商店出售；地图拾取</span>
+		<span>购买、拾取</span>
 		</td>
 		<td class="b3">
-		<span>无</span>
+		<div style="margin:8px">电量（效果值）最多充到5<br>包裹有超过1个移动PC时，靠前的优先</div>
 		</td>
 	</tr>
 </table>
@@ -1508,7 +1562,7 @@ NPC不会被禁区杀死。此外，多数NPC也会自动回避禁区。<br>
 <br>
 
 <p><span class="clan">剧情道具用途</span>：</p>
-<table cellSpacing=0 cellPadding=0>
+<table cellSpacing=0 cellPadding=0 width=1000>
 	<tr>
 		<td class="b1" height=20px>
 		<span>道具名称</span>
@@ -1526,14 +1580,14 @@ NPC不会被禁区杀死。此外，多数NPC也会自动回避禁区。<br>
 
 	</tr>
 	<tr>
-		<td class="b2" height=20px>
+		<td class="b2 b2h" height=30px>
 		<span>游戏解除钥匙</span>
 		</td>
 		<td class="b3">
-		<span>使用后成为获胜者，进入“锁定解除”结局</span>
+		<span>使用后获得“锁定解除”胜利</span>
 		</td>
 		<td class="b3">
-		<span>BOSS NPC掉落或者合成</span>
+		<div style="margin:8px">BOSS NPC『幻影执行官』掉落的「社员的ID卡」集齐3张以合成<br><span class="red">极速模式</span>BOSS 无尽狂飙直接掉落</div>
 		</td>
 		<td class="b3">
 		<span>无</span>
@@ -1541,31 +1595,101 @@ NPC不会被禁区杀死。此外，多数NPC也会自动回避禁区。<br>
 
 	</tr>
 	<tr>
-		<td class="b2" height=20px>
+		<td class="b2 b2h" height=30px>
 		<span>奇怪的按钮</span>
 		</td>
 		<td class="b3">
-		<span>使用后……</span>
+		<span>使用后30%概率获得“核爆全灭”胜利</span>
 		</td>
 		<td class="b3">
 		<span>地图拾取</span>
 		</td>
 		<td class="b3">
-		<span>有一定概率导致玩家死亡！</span>
+		<div style="margin:8px">除30%概率胜利外，还有40%概率按钮变为可乐，<br>另外30%概率导致玩家被炸死！</div>
 		</td>
 	</tr>
 	<tr>
-		<td class="b2" height=20px>
+		<td class="b2 b2h" height=30px>
+		<span>『G.A.M.E.O.V.E.R』</span>
+		</td>
+		<td class="b3">
+		<span>使用后获得“幻境解离”胜利</span>
+		</td>
+		<td class="b3">
+		<span>通过一定步骤获得素材并合成</span>
+		</td>
+		<td class="b3">
+		<div style="margin:8px">获得解离胜利有一定难度并需要运气，新手不建议挑战</div>
+		</td>
+	</tr>
+	<tr>
+		<td class="b2 b2h" height=30px>
+		<span>伐木解除钥匙</span>
+		</td>
+		<td class="b3">
+		<span>使用后结束本次伐木挑战</span>
+		</td>
+		<td class="b3">
+		<span>伐木模式商店“杂物”出售</span>
+		</td>
+		<td class="b3">
+		<span>无</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="b2 b2h" height=30px>
 		<span>杏仁豆腐的ID卡</span>
 		</td>
 		<td class="b3">
-		<span>使用后会使游戏进入死斗模式</span>
+		<span>使用后使游戏进入死斗模式</span>
 		</td>
 		<td class="b3">
 		<span>杏仁豆腐NPC掉落</span>
 		</td>
 		<td class="b3">
-		<span>如果游戏未进入连斗则无法使用</span>
+		<div style="margin:8px">进入连斗后方可使用；<br>死斗后所有NPC消失，所有恶性事件消失。</div>
+		</td>
+	</tr>
+	<tr>
+		<td class="b2 b2h" height=30px>
+		<span>挑战者之印</span>
+		</td>
+		<td class="b3">
+		<span>使用后召唤三位幻影执行官</span>
+		</td>
+		<td class="b3">
+		<span>BOSS NPC『红暮』掉落</span>
+		</td>
+		<td class="b3">
+		<div style="margin:8px">幻影执行官会进入随机未禁地区，击倒后分别掉落“游戏解除钥匙”的素材</div>
+		</td>
+	</tr>
+	<tr>
+		<td class="b2 b2h" height=30px>
+		<span>黑色碎片</span>
+		</td>
+		<td class="b3">
+		<span>使用后召唤Dark Force幼体</span>
+		</td>
+		<td class="b3">
+		<span>BOSS NPC『红暮』掉落</span>
+		</td>
+		<td class="b3">
+		<div style="margin:8px">获取的黑色碎片需先切换武器模式才能使用。<br>DF会进入随机未禁地区，击倒获得“游戏解除钥匙”。<br>击杀难度较高。</div>
+		</td>
+	</tr>
+	<tr>
+		<td class="b2 b2h" height=30px>
+		<span>破灭之诗</span>
+		</td>
+		<td class="b3">
+		<div style="margin:8px">使用后暂时解除禁区、天气变为<span class="gold b">极光</span>，<br>且召唤■到雏菊之丘</div>
+		</td>
+		<td class="b3">
+		<span>三名『数据碎片』掉落的歌词卡片合成</span>
+		</td>
+		<td class="b3">
+		<div style="margin:8px">击倒后获得“幻境解离”路线的必需道具。击杀难度较高。</div>
 		</td>
 	</tr>
 </table>
@@ -1574,7 +1698,7 @@ NPC不会被禁区杀死。此外，多数NPC也会自动回避禁区。<br>
 
 
 <p><span class="lime">其他特殊道具用途</span>：</p>
-<table cellSpacing=0 cellPadding=0>
+<table cellSpacing=0 cellPadding=0 width=1000>
 	<tr>
 		<td class="b1" height=20px>
 		<span>道具名称</span>
@@ -1592,14 +1716,14 @@ NPC不会被禁区杀死。此外，多数NPC也会自动回避禁区。<br>
 
 	</tr>
 	<tr>
-		<td class="b2" height=20px>
+		<td class="b2 b2h" height=30px>
 		<span>装有H173的注射器</span>
 		</td>
 		<td class="b3">
 		<span>使用后立刻自杀</span>
 		</td>
 		<td class="b3">
-		<span>商店超低价格出售</span>
+		<span>购买</span>
 		</td>
 		<td class="b3">
 		<span>有微小概率自杀失败并且进入L5状态</span>
@@ -1607,42 +1731,42 @@ NPC不会被禁区杀死。此外，多数NPC也会自动回避禁区。<br>
 
 	</tr>
 	<tr>
-		<td class="b2" height=20px>
+		<td class="b2 b2h" height=30px>
 		<span>毒物说明书</span>
 		</td>
 		<td class="b3">
 		<span>装备以后，下毒效果x1.5</span>
 		</td>
 		<td class="b3">
-		<span>地图拾取</span>
+		<span>拾取</span>
 		</td>
 		<td class="b3">
-		<span>不能和“黑衣组织”称号的能力效果叠加</span>
+		<span>会被“黑衣组织”称号的技能覆盖</span>
 		</td>
 	</tr>
 	<tr>
-		<td class="b2" height=20px>
+		<td class="b2 b2h" height=20px>
 		<span>妖精的羽翼</span>
 		</td>
 		<td class="b3">
-		<span>装备以后，下毒的效果改为去除补给品中的有毒物质</span>
+		<span>装备以后，下毒的效果变为去除恢复品的毒性</span>
 		</td>
 		<td class="b3">
-		<span>商店出售；NPC掉落</span>
+		<span>购买；NPC掉落</span>
 		</td>
 		<td class="b3">
-		<span>装备后覆盖“黑衣组织”称号的能力效果。</span>
+		<span>会覆盖“毒物说明书”或者“黑衣组织”的效果。</span>
 		</td>
 	</tr>
 	<tr>
-		<td class="b2" height=20px>
+		<td class="b2 b2h" height=30px>
 		<span>御神签</span>
 		</td>
 		<td class="b3">
-		<span>使用后随机增加或者减少少量能力值</span>
+		<span>使用后随机增减少量能力值</span>
 		</td>
 		<td class="b3">
-		<span>地图拾取</span>
+		<span>拾取</span>
 		</td>
 		<td class="b3">
 		<span>无</span>
@@ -1650,46 +1774,61 @@ NPC不会被禁区杀死。此外，多数NPC也会自动回避禁区。<br>
 	</tr>
 
 	<tr>
-		<td class="b2" height=20px>
+		<td class="b2 b2h" height=30px>
 		<span>凸眼鱼</span>
 		</td>
 		<td class="b3">
-		<span>使用后使地图上所有尸体消失</span>
+		<span>使用后让当前所有尸体消失</span>
 		</td>
 		<td class="b3">
-		<span>商店出售</span>
+		<span>购买</span>
 		</td>
 		<td class="b3">
-		<span>无</span>
+		<span>刚死亡不到10秒的尸体不受影响</span>
 		</td>
 	</tr>
 
 	<tr>
-		<td class="b2" height=20px>
+		<td class="b2 b2h" height=20px>
 		<span>■DeathNote■</span>
 		</td>
 		<td class="b3">
-		<span>使用后，获得杀死任意一名玩家的能力。</span>
+		<span>填入玩家名字和头像即可将其杀死。</span>
 		</td>
 		<td class="b3">
-		<span>地图拾取；NPC掉落</span>
+		<span>拾取；NPC掉落</span>
 		</td>
 		<td class="b3">
-		<span>需要填写该玩家的正确资料</span>
+		<div style="margin:8px">如果名字或者头像不正确则无效<br>除错模式中不可使用</div>
 		</td>
 	</tr>
 	<tr>
-		<td class="b2" height=20px>
+		<td class="b2 b2h" height=20px>
 		<span>水果刀</span>
 		</td>
 		<td class="b3">
-		<span>使用后，将根据当前的斩系熟练度，把身上携带的水果变为强化补给或者陷阱。</span>
+		<span>使用后可把包裹里的水果变为补给或者陷阱。</span>
 		</td>
 		<td class="b3">
-		<span>地图拾取；商店出售</span>
+		<span>购买；拾取</span>
 		</td>
 		<td class="b3">
-		<span>每次使用水果刀有一定几率损坏</span>
+		<div style="margin:8px">斩系熟练度度低于120会转化为陷阱，否则转化为补给<br>
+			每次使用后斩熟+1，且水果刀有20%几率损坏</div>
+		</td>
+	</tr>
+	<tr>
+		<td class="b2 b2h" height=20px>
+		<span>“提示纸条”类道具</span>
+		</td>
+		<td class="b3">
+		<span>可以查看游戏提示，并无特殊用处</span>
+		</td>
+		<td class="b3">
+		<span>购买；拾取</span>
+		</td>
+		<td class="b3">
+		<span>无</span>
 		</td>
 	</tr>
 </table>
@@ -1700,17 +1839,16 @@ NPC不会被禁区杀死。此外，多数NPC也会自动回避禁区。<br>
 
 <p><a name="天气"><span class="subtitle2">18.天气状况</span></a></p>
 <br>
-<p>在禁区增加的同时，天气也会变化。<BR>
-天气会影响游戏状况中的各种数据的变化，变化的程度请参考以下的表。<BR>
-不过，天气对游戏状况的影响一般是微乎其微的。<br>
-当天气能见度不好的时候，先制攻击时无法确定对方的身份。<BR>
-这时贸然攻击可能会伤害自己的队友，请小心。<BR>
-此外，如果使用道具“天候棒”，则会将天气强制改变成<span class="blue">“冰雹”</span>、<span
-	class="red">“龙卷风”</span>、<span class="yellow">“瘴气”</span>和<span
-	class="clan">“暴风雪”</span>的其中一种。<BR>
-这些天气对游戏的具体影响请玩家自己体会。<BR>
+<p>天气对玩家探索和战斗有一定的加成/减成。<br>
+	开局天气会是“晴天”、“多云”、“小雨”、“暴雨”、“下雪”中的一种。在禁区增加时，天气也会变化，诸如“大晴”或者“台风”这样的天气将出现。<BR>
+<BR>
+天气为“起雾”、“浓雾”或者“暴风雪”时，先制攻击时无法确定对方的身份。这时贸然攻击可能会伤害自己的队友，请小心。<BR>
+使用道具“驱云弹”能把天气变为“大晴”，有利于探索和战斗。<BR>
+使用“造雾设备”会把天气变为“起雾”或“浓雾”。<br>
+使用道具“天候棒”，则会将天气强制改变成<span class="blue">“冰雹”</span>、<span class="red">“龙卷风”</span>、<span class="yellow">“瘴气”</span>和<span class="clan">“暴风雪”</span>的其中一种。<BR>
+天气对游戏的影响如下：<BR>
 </p>
-<TABLE cellSpacing=0 cellPadding=0>
+<TABLE cellSpacing=0 cellPadding=0 width=700>
 	<TBODY>
 		<TR>
 			<TD class="b1" height=20px>
@@ -1723,184 +1861,97 @@ NPC不会被禁区杀死。此外，多数NPC也会自动回避禁区。<br>
 			<span>防御力</span>
 			</TD>
 			<TD class="b1">
-			<span>发现率</span>
+			<span>角色发现率</span>
+			</TD>
+			<TD class="b1">
+			<span>道具发现率</span>
 			</TD>
 			<TD class="b1">
 			<span>先攻率</span>
 			</TD>
-		</TR>
-		<TR>
-			<TD class="b2" height=20px>
-			<span>『大晴』</span>
-			</TD>
-			<TD class="b3">
-			<span class="clan">强</span>
-			</TD>
-			<TD class="b3">
-			<span class="blue">极强</span>
-			</TD>
-			<TD class="b3">
-			<span class="blue">极高</span>
-			</TD>
-			<TD class="b3">
-			<span class="blue">极高</span>
+			<TD class="b1">
+			<span>备注</span>
 			</TD>
 		</TR>
-		<TR>
-			<TD class="b2" height=20px>
-			<span>『晴天』</span>
-			</TD>
-			<TD class="b3">
-			<span class="clan">强</span>
-			</TD>
-			<TD class="b3">
-			<span class="clan">强</span>
-			</TD>
-			<TD class="b3">
-			<span class="clan">高</span>
-			</TD>
-			<TD class="b3">
-			<span class="clan">高</span>
-			</TD>
-		</TR>
-		<TR>
-			<TD class="b2" height=20px>
-			<span>『多云』</span>
-			</TD>
-			<TD class="b3">
-			<span class="lime">一般</span>
-			</TD>
-			<TD class="b3">
-			<span class="lime">一般</span>
-			</TD>
-			<TD class="b3">
-			<span class="lime">中</span>
-			</TD>
-			<TD class="b3">
-			<span class="lime">中</span>
-			</TD>
-		</TR>
-		<TR>
-			<TD class="b2" height=20px>
-			<span>『小雨』</span>
-			</TD>
-			<TD class="b3">
-			<span class="yellow">弱</span>
-			</TD>
-			<TD class="b3">
-			<span class="lime">一般</span>
-			</TD>
-			<TD class="b3">
-			<span class="lime">弱</span>
-			</TD>
-			<TD class="b3">
-			<span class="yellow">低</span>
-			</TD>
-		</TR>
-		<TR>
-			<TD class="b2" height=20px>
-			<span>『暴雨』</span>
-			</TD>
-			<TD class="b3">
-			<span class="yellow">弱</span>
-			</TD>
-			<TD class="b3">
-			<span class="yellow">弱</span>
-			</TD>
-			<TD class="b3">
-			<span class="lime">弱</span>
-			</TD>
-			<TD class="b3">
-			<span class="yellow">低</span>
-			</TD>
-		</TR>
-		<TR>
-			<TD class="b2" height=20px>
-			<span>『雷雨』</span>
-			</TD>
-			<TD class="b3">
-			<span class="yellow">很弱</span>
-			</TD>
-			<TD class="b3">
-			<span class="yellow">弱</span>
-			</TD>
-			<TD class="b3">
-			<span class="lime">弱</span>
-			</TD>
-			<TD class="b3">
-			<span class="red">极低</span>
-			</TD>
-		</TR>
-		<TR>
-			<TD class="b2" height=20px>
-			<span>『台风』</span>
-			</TD>
-			<TD class="b3">
-			<span class="red">极弱</span>
-			</TD>
-			<TD class="b3">
-			<span class="yellow">很弱</span>
-			</TD>
-			<TD class="b3">
-			<span class="yellow">很弱</span>
-			</TD>
-			<TD class="b3">
-			<span class="red">极低</span>
-			</TD>
-		</TR>
-		<TR>
-			<TD class="b2" height=20px>
-			<span>『下雪』</span>
-			</TD>
-			<TD class="b3">
-			<span class="lime">一般</span>
-			</TD>
-			<TD class="b3">
-			<span class="lime">一般</span>
-			</TD>
-			<TD class="b3">
-			<span class="clan">强</span>
-			</TD>
-			<TD class="b3">
-			<span class="lime">中</span>
-			</TD>
-		</TR>
-		<TR>
-			<TD class="b2" height=20px>
-			<span>『起雾』</span>
-			</TD>
-			<TD class="b3">
-			<span class="lime">一般</span>
-			</TD>
-			<TD class="b3">
-			<span class="yellow">很弱</span>
-			</TD>
-			<TD class="b3">
-			<span class="yellow">很弱</span>
-			</TD>
-			<TD class="b3">
-			<span class="yellow">低</span>
-			</TD>
-		</TR>
-		<TR>
-			<TD class="b2" height=20px>
-			<span>『浓雾』</span>
-			</TD>
-			<TD class="b3">
-			<span class="clan">强</span>
-			</TD>
-			<TD class="b3">
-			<span class="red">极弱</span>
-			</TD>
-			<TD class="b3">
-			<span class="red">极弱</span>
-			</TD>
-			<TD class="b3">
-			<span class="yellow">低</span>
-			</TD>
-		</TR>
+		<!--{eval eval(import_module('weather'));}-->
+		<!--{loop $wthinfo $wi $wn}-->
+			<!--{if $wi < 14 || $wi > 16}-->
+			<TR>
+				<TD class="b2 b2h" height=20px width=70px>
+					<span>{$wn}</span>
+				</TD>
+				<TD class="b3">
+					<!--{if $weather_attack_modifier[$wi] > 10}-->
+						<span class="clan">+{$weather_attack_modifier[$wi]}%</span>
+					<!--{elseif $weather_attack_modifier[$wi] > 0}-->
+						<span class="lime">+{$weather_attack_modifier[$wi]}%</span>
+					<!--{elseif $weather_attack_modifier[$wi] > -10}-->
+						<span class="yellow">{$weather_attack_modifier[$wi]}%</span>
+					<!--{else}-->
+						<span class="red">{$weather_attack_modifier[$wi]}%</span>
+					<!--{/if}-->
+				</TD>
+				<TD class="b3">
+					<!--{if $weather_defend_modifier[$wi] > 10}-->
+						<span class="clan">+{$weather_defend_modifier[$wi]}%</span>
+					<!--{elseif $weather_defend_modifier[$wi] > 0}-->
+						<span class="lime">+{$weather_defend_modifier[$wi]}%</span>
+					<!--{elseif $weather_defend_modifier[$wi] > -10}-->
+						<span class="yellow">{$weather_defend_modifier[$wi]}%</span>
+					<!--{else}-->
+						<span class="red">{$weather_defend_modifier[$wi]}%</span>
+					<!--{/if}-->
+				</TD>
+				<TD class="b3">
+					<!--{if $weather_meetman_obbs[$wi] > 10}-->
+						<span class="clan">+{$weather_meetman_obbs[$wi]}%</span>
+					<!--{elseif $weather_meetman_obbs[$wi] > 0}-->
+						<span class="lime">+{$weather_meetman_obbs[$wi]}%</span>
+					<!--{elseif $weather_meetman_obbs[$wi] > -10}-->
+						<span class="yellow">{$weather_meetman_obbs[$wi]}%</span>
+					<!--{else}-->
+						<span class="red">{$weather_meetman_obbs[$wi]}%</span>
+					<!--{/if}-->
+				</TD>
+				<TD class="b3">
+					<!--{if $weather_itemfind_obbs[$wi] > 10}-->
+						<span class="clan">+{$weather_itemfind_obbs[$wi]}%</span>
+					<!--{elseif $weather_itemfind_obbs[$wi] > 0}-->
+						<span class="lime">+{$weather_itemfind_obbs[$wi]}%</span>
+					<!--{elseif $weather_itemfind_obbs[$wi] > -10}-->
+						<span class="yellow">{$weather_itemfind_obbs[$wi]}%</span>
+					<!--{else}-->
+						<span class="red">{$weather_itemfind_obbs[$wi]}%</span>
+					<!--{/if}-->
+				</TD>
+				<TD class="b3">
+					<!--{if $weather_active_obbs[$wi] > 10}-->
+						<span class="clan">+{$weather_active_obbs[$wi]}%</span>
+					<!--{elseif $weather_active_obbs[$wi] > 0}-->
+						<span class="lime">+{$weather_active_obbs[$wi]}%</span>
+					<!--{elseif $weather_active_obbs[$wi] > -10}-->
+						<span class="yellow">{$weather_active_obbs[$wi]}%</span>
+					<!--{else}-->
+						<span class="red">{$weather_active_obbs[$wi]}%</span>
+					<!--{/if}-->
+				</TD>
+				<td class="b3">
+					<!--{if $weather_fog[$wi]}-->
+					<span>有雾</span>
+					<!--{elseif 17==$wi}-->
+					<span>玩家10%概率复活；NPC 1%概率复活</span>
+					<!--{else}-->
+					<span>-</span>
+					<!--{/if}-->
+				</td>
+			</TR>
+			<!--{/if}-->
+	
+		<!--{/loop}-->
 	</TBODY>
 </TABLE>
+<p>注：角色发现率-道具发现率的值越大，则玩家每次探索时遭遇角色而不是道具的概率就越高，反之亦然；<br>
+此外，角色发现率/道具发现率越高，玩家就越不容易“什么都没发现”。</p>
 <BR>
 <BR>
 <BR>

@@ -3,7 +3,7 @@
 namespace skill50
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase player logger weapon ex_rapid_attr enemy';
+	$___MODULE_dependency = 'skillbase clubbase player logger weapon ex_rapid_attr enemy';
 	$___MODULE_dependency_optional = 'weather';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

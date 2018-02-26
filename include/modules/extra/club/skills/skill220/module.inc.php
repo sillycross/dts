@@ -3,7 +3,7 @@
 namespace skill220
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase sys player logger itemmain input poison clubbase';
+	$___MODULE_dependency = 'skillbase clubbase sys player logger itemmain input poison';
 	$___MODULE_dependency_optional = 'skill219';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

@@ -46,7 +46,7 @@ namespace skill223
 		else
 		{
 			$remtime = (int)get_remaintime223($pa);
-			if ($remtime>=1)
+			if ( !\clubbase\check_battle_skill_unactivatable($pa,$pd,223) )
 			{
 				eval(import_module('logger'));
 				if ($active)

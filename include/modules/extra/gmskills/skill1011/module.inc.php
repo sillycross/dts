@@ -3,7 +3,7 @@
 namespace skill1011
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase sys player map input logger itemmain itemmix clubbase';
+	$___MODULE_dependency = 'skillbase clubbase sys player map input logger itemmain itemmix';
 	$___MODULE_dependency_optional = 'itemmix_sync itemmix_overlay';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

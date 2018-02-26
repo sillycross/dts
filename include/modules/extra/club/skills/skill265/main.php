@@ -5,7 +5,10 @@ namespace skill265
 	$skill265phyup = 80;//物伤加成
 	$skill265htrup = 20;//命中率加成
 	$skill265prate = 90;//贯穿触发概率
+	
 	$ragecost=95;
+	
+	$wep_skillkind_req = 'wg';
 	
 	$alternate_skillno265 = 205;//互斥技能编号
 	$unlock_lvl265 = 17;//解锁等级
@@ -62,7 +65,7 @@ namespace skill265
 		else
 		{
 			$rcost = get_rage_cost265($pa);
-			if ( $pa['rage']>=$rcost && \weapon\get_skillkind($pa,$pd,$active) == 'wg')
+			if ( !\clubbase\check_battle_skill_unactivatable($pa,$pd,265) )
 			{
 				eval(import_module('logger'));
 				if ($active)

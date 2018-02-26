@@ -32,6 +32,12 @@ namespace skill63
 		return $pa['lvl']>=21;
 	}
 	
+	function get_remaintime63(&$pa = NULL)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return \skillbase\skill_getvalue(63,'t',$pa);
+	}
+	
 	function strike_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -44,8 +50,8 @@ namespace skill63
 		}
 		else
 		{
-			$clv = (int)\skillbase\skill_getvalue(63,'t',$pa);
-			if ($clv>0)
+			$clv = (int)get_remaintime63($pa);
+			if ( !\clubbase\check_battle_skill_unactivatable($pa,$pd,63) )
 			{
 				eval(import_module('logger'));
 				if ($active)

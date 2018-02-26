@@ -52,7 +52,7 @@ namespace skill74
 		else
 		{
 			$rcost = get_rage_cost74($pa);
-			if ($pa['rage']>=$rcost)
+			if ( !\clubbase\check_battle_skill_unactivatable($pa,$pd,74) )
 			{
 				eval(import_module('logger'));
 				if ($active)

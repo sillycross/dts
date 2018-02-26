@@ -29,6 +29,17 @@ namespace skill440
 		return 1;
 	}
 	
+	
+	function check_battle_skill_unactivatable(&$ldata,&$edata,$skillno)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($ldata,$edata,$skillno);
+		if(440 == $skillno && 0 == $ret){//额外判定对方是不是玩家
+			if($edata['type'] >0) $ret = 8;
+		}
+		return $ret;
+	}
+	
 	//return 1:技能生效中 2:技能冷却中 3:技能冷却完毕 其他:不能使用这个技能
 	function check_skill440_state(&$pa){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -53,7 +64,7 @@ namespace skill440
 		{
 			eval(import_module('sys','skill440'));
 			$l=\skillbase\skill_getvalue(440,'lastuse',$pa);
-			if (($pd['type']==0)&&(($now-$l)>=$skill440_cd)){
+			if ( !\clubbase\check_battle_skill_unactivatable($pa,$pd,440) ){
 				eval(import_module('logger'));
 				if ($active)
 					$log.="<span class=\"lime\">你对{$pd['name']}发动了技能「父爱」！</span><br>";

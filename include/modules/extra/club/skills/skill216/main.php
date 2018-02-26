@@ -2,6 +2,7 @@
 
 namespace skill216
 {
+	$wep_skillkind_req = 'wd';
 	
 	function init() 
 	{
@@ -46,7 +47,7 @@ namespace skill216
 		else
 		{
 			$remtime = (int)get_remaintime216($pa);
-			if (($remtime>=1)&&(\weapon\get_skillkind($pa,$pd,$active) == 'wd'))
+			if ( !\clubbase\check_battle_skill_unactivatable($pa,$pd,216) )
 			{
 				eval(import_module('logger'));
 				if ($active)
@@ -75,8 +76,8 @@ namespace skill216
 		$chprocess($pa,$pd,$active);
 		eval(import_module('logger'));
 		if (($pa['bskill']==216)&&(\weapon\get_skillkind($pa,$pd,$active) == 'wd')&&($pa['wepe']>0)&&(($pa['weps']>0)||($pa['weps']=='∞'))){
-			unset($pa['bskill']);
-			$log.="<span class=\"yellow\">你再一次引爆了爆炸物！</span><br>";
+			$pa['bskill'] = 0;
+			$log.="<span class=\"yellow\">你引爆了预埋的另一组爆炸物！</span><br>";
 			$chprocess($pa,$pd,$active);
 		}
 	}

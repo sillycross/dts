@@ -5,6 +5,8 @@ namespace skill47
 	//怒气消耗
 	$ragecost = 5; 
 	
+	$wep_skillkind_req = 'wc';
+	
 	function init() 
 	{
 		define('MOD_SKILL47_INFO','club;battle;');
@@ -48,7 +50,7 @@ namespace skill47
 		else
 		{
 			$rcost = get_rage_cost47($pa);
-			if ($pa['rage']>=$rcost && $pa['wep_kind']=='C')
+			if ( !\clubbase\check_battle_skill_unactivatable($pa,$pd,47) )
 			{
 				eval(import_module('logger'));
 				if ($active)

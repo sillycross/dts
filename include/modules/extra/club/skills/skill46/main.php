@@ -45,7 +45,7 @@ namespace skill46
 		else
 		{
 			$remtime = (int)get_remaintime46($pa);
-			if ($remtime>=1)
+			if (!\clubbase\check_battle_skill_unactivatable($pa,$pd,46))
 			{
 				eval(import_module('logger'));
 				if ($active)
@@ -61,7 +61,7 @@ namespace skill46
 				if ($active)
 				{
 					eval(import_module('logger'));
-					$log.='怒气不足或其他原因不能发动。<br>';
+					$log.='剩余次数用尽，不能发动。<br>';
 				}
 				$pa['bskill']=0;
 			}
