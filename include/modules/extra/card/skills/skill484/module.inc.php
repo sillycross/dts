@@ -3,7 +3,7 @@
 namespace skill484
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase clubbase player sys clubbase';
+	$___MODULE_dependency = 'skillbase clubbase player sys';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

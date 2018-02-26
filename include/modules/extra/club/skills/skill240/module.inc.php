@@ -3,7 +3,7 @@
 namespace skill240
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase trap enemy clubbase';
+	$___MODULE_dependency = 'skillbase clubbase trap enemy';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

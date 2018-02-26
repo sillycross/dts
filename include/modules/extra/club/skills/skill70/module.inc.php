@@ -3,7 +3,7 @@
 namespace skill70
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase sys player lvlctl weapon clubbase';
+	$___MODULE_dependency = 'skillbase clubbase sys player lvlctl weapon';
 	$___MODULE_dependency_optional = 'dualwep';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

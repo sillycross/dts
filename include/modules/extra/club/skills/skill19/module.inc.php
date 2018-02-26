@@ -3,7 +3,7 @@
 namespace skill19
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase trap player clubbase';
+	$___MODULE_dependency = 'skillbase clubbase trap player';
 	$___MODULE_dependency_optional = 'skill17';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

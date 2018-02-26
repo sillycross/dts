@@ -3,7 +3,7 @@
 namespace skill411
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase lvlctl';
+	$___MODULE_dependency = 'skillbase clubbase lvlctl';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

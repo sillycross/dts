@@ -3,7 +3,7 @@
 namespace skill352
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase sys player gtype1 achievement_base';
+	$___MODULE_dependency = 'skillbase clubbase sys player gtype1 achievement_base';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

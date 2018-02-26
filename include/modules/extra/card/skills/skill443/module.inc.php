@@ -3,7 +3,7 @@
 namespace skill443
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase corpse battle attack enemy logger';
+	$___MODULE_dependency = 'skillbase clubbase corpse battle attack enemy logger';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

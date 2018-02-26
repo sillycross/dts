@@ -3,7 +3,7 @@
 namespace skill237
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase sys player weapon logger clubbase skill601 skill602';
+	$___MODULE_dependency = 'skillbase clubbase sys player weapon logger skill601 skill602';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

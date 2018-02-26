@@ -3,7 +3,7 @@
 namespace skill12
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase sys player wound logger';
+	$___MODULE_dependency = 'skillbase clubbase sys player wound logger';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

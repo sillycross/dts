@@ -3,7 +3,7 @@
 namespace skill218
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase attack battle player wound ex_dmg_att logger';
+	$___MODULE_dependency = 'skillbase clubbase attack battle player wound ex_dmg_att logger';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

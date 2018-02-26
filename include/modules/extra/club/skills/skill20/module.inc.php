@@ -3,7 +3,7 @@
 namespace skill20
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase itemmix player clubbase';
+	$___MODULE_dependency = 'skillbase clubbase itemmix player';
 	$___MODULE_dependency_optional = 'skill17 skill19';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';
