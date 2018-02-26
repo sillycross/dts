@@ -3,7 +3,7 @@
 namespace skill495
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase player logger corpse clubbase';
+	$___MODULE_dependency = 'skillbase clubbase player logger corpse clubbase';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

@@ -3,7 +3,7 @@
 namespace skill73
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase player weapon attack sys logger clubbase attrbase rage';
+	$___MODULE_dependency = 'skillbase clubbase player weapon attack sys logger attrbase rage';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

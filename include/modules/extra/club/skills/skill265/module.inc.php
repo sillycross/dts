@@ -3,7 +3,7 @@
 namespace skill265
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase player weapon sys logger attrbase ex_attr_pierce';
+	$___MODULE_dependency = 'skillbase clubbase player weapon sys logger attrbase ex_attr_pierce';
 	$___MODULE_dependency_optional = 'wep_j';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

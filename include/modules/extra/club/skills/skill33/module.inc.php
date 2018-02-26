@@ -3,7 +3,7 @@
 namespace skill33
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase player weapon armor logger clubbase input';
+	$___MODULE_dependency = 'skillbase clubbase player weapon armor logger input';
 	$___MODULE_dependency_optional = 'skill32';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

@@ -3,7 +3,7 @@
 namespace skill270
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase player logger weapon enemy';
+	$___MODULE_dependency = 'skillbase clubbase player logger weapon enemy';
 	$___MODULE_dependency_optional = 'weather pose tactic';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

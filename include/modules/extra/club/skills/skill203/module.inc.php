@@ -3,7 +3,7 @@
 namespace skill203
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase player weapon sys logger';
+	$___MODULE_dependency = 'skillbase clubbase player weapon sys logger';
 	$___MODULE_dependency_optional = 'wep_j';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

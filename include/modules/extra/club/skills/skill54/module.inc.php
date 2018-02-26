@@ -3,7 +3,7 @@
 namespace skill54
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase player logger weapon ex_dmg_att';
+	$___MODULE_dependency = 'skillbase clubbase player logger weapon ex_dmg_att';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

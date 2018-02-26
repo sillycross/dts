@@ -3,7 +3,7 @@
 namespace skill82
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase player clubbase weapon sys logger attack';
+	$___MODULE_dependency = 'skillbase clubbase player clubbase weapon sys logger attack';
 	$___MODULE_dependency_optional = 'wep_k ex_rapid_attr';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';
