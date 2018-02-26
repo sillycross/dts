@@ -3,15 +3,15 @@
 namespace skill274
 {
 	//附加伤害比例
-	$factor = array(10,16,22,28);
+	$factor = array(10,20,30,40);
 	$npc_factor = 2;
 	//升级所需技能点数值
 	$upgradecost = array(3,5,7,-1);
 	
 	$ragecost=30;
 	$wepk_req='WN';
-	$skill274_factor_pc = 40;//附加对面总面板攻击力25%的最终伤害
-	$skill274_factor_npc = 75;
+//	$skill274_factor_pc = 40;//附加对面总面板攻击力25%的最终伤害
+//	$skill274_factor_npc = 75;
 	$skill274_factor_maxhp = 40;//不超过对方mhp
 	$skill274_263up = 30;//格斗触发概率+10%
 	
