@@ -5,7 +5,7 @@ if(!defined('IN_GAME')) {
 	exit('Access Denied');
 }
 
-function parse_template($tplfile, $objfile, $templateid, $tpldir, $nospace=1) {
+function parse_template($tplfile, $objfile, $templateid, $tpldir, $nospace=0) {
 	global $language;
 
 	$nest = 5;
@@ -110,6 +110,7 @@ function parse_template($tplfile, $objfile, $templateid, $tpldir, $nospace=1) {
 	}
 	
 	//开启无空字符模式，php开闭符号前后不会输出空格，但是tpl文件可读性会变差
+	//好像会导致一些奇怪的故障，先关闭
 	if($nospace){
 		$template = str_replace("\n<?", "<?", $template);
 		$template = str_replace("?>\n", "?>", $template);

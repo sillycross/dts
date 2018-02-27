@@ -383,6 +383,7 @@ if(isset($command)){
 		//清空1个月以上的被删除邮件
 		$dtime = $now - 86400*30;
 		$db->query("DELETE FROM {$gtablepre}del_messages WHERE dtimestamp <= $dtime");
+		return;
 	}
 }
 
