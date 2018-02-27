@@ -367,6 +367,22 @@ if(isset($command)){
 		include_once './include/roommng/roommng.func.php';
 		room_all_routine();
 		return;
+	}elseif('maintain' == $command){//维护服务器
+		ignore_user_abort(1);
+		$dirpath = GAME_ROOT.'./gamedata/replays';//清空replays 文件夹下的所有非dat文件
+		if ($handle=opendir($dirpath)) 
+		{
+			while (($entry=readdir($handle))!==false)
+			{   
+				if($entry != '.' && $entry != '..'){
+					$exname = pathinfo($entry, PATHINFO_EXTENSION);
+					if($exname != 'dat' && $exname != 'gitignore') unlink($dirpath.'/'.$entry);
+				}
+			}
+		}
+		//清空1个月以上的被删除邮件
+		$dtime = $now - 86400*30;
+		$db->query("DELETE FROM {$gtablepre}del_messages WHERE dtimestamp <= $dtime");
 	}
 }
 

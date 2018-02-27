@@ -1,6 +1,7 @@
 <div style="position:relative">
 	<div id="loading"></div>
 	<div>
+		<!--{if 'showdel' == $mode && empty($info) }--><div class="grey">系统会定期清空垃圾箱中1个月以上的邮件</div><!--{/if}-->
 		<!--{if 'showdel' == $mode || 'recover' == $mode}-->
 			<div style="display:inline-block;width:160px"></div>
 			<input type="button" class="b_button bc_black" value="返回邮箱" onclick="$('mode').value='showmail';postCmd('message_cmd', 'messages.php');this.disabled=true;" />&nbsp;&nbsp;&nbsp;

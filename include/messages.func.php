@@ -54,7 +54,7 @@ function deleted_message_load()
 {
 	global $udata,$db,$gtablepre;
 	$username = $udata['username'];
-	$result = $db->query("SELECT * FROM {$gtablepre}del_messages WHERE receiver='$username' ORDER BY timestamp DESC, mid DESC");
+	$result = $db->query("SELECT * FROM {$gtablepre}del_messages WHERE receiver='$username' ORDER BY dtimestamp DESC, mid DESC");
 	$d_messages = array();
 	while($r = $db->fetch_array($result)){
 		$d_messages[$r['mid']] = $r;
@@ -81,6 +81,7 @@ function message_disp($messages)
 		if($mv['rd']) $mv['hint'] = '';
 		
 		$mv['time_disp'] = date("Y年m月d日 H:i:s", $mv['timestamp']);
+		if(isset($mv['dtimestamp'])) $mv['del_time_disp'] = date("Y年m月d日 H:i:s", $mv['dtimestamp']);
 		$mv['encl_disp'] = '';
 		if(!empty($mv['enclosure']) && defined('MOD_CARDBASE')){
 			
