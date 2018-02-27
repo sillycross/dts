@@ -79,7 +79,13 @@
 							</div>
 						</div>
 						<hr class="message_hr">
-						<div class="grey message_date"><span>$mv['time_disp']</span></div>
+						<div class="grey message_date">
+							<!--{if isset($mv['del_time_disp'])}-->
+								<span>删除时间: $mv['del_time_disp']</span>
+							<!--{else}-->
+								<span>$mv['time_disp']</span>
+							<!--{/if}-->
+						</div>
 					</div>
 				</div>
 			<!--{if $i%4==3 || $i==count($messages)-1}--></div><!--{/if}-->
