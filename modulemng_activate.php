@@ -400,18 +400,6 @@ unlink(GAME_ROOT.'./gamedata/modules.list.pass.php');
 unlink(GAME_ROOT.'./gamedata/modules.list.temp.php');
 touch(GAME_ROOT.'./gamedata/modules.list.php');//更新文件时间以保证quick模式正常运转
 
-$dirpath = GAME_ROOT.'./gamedata/replays';//顺便清空replays 文件夹下的所有非dat文件
-if ($handle=opendir($dirpath)) 
-{
-	while (($entry=readdir($handle))!==false)
-	{   
-		if($entry != '.' && $entry != '..'){
-			$exname = pathinfo($entry, PATHINFO_EXTENSION);
-			if($exname != 'dat' && $exname != 'gitignore') unlink($dirpath.'/'.$entry);
-		}
-	}
-}
-
 if ($___MOD_SRV)
 {
 	//重启daemon
@@ -422,6 +410,11 @@ if ($___MOD_SRV)
 	__SOCKET_LOG__("已请求脚本启动一台新的服务器。");
 	echo '<font color="blue">完成。</font><br><br>';
 }
+
+//执行1次服务器维护
+$url = url_dir().'command.php';
+$context = array('command'=>'maintain');
+curl_post($url, $context, NULL, 1);
 
 echo '<font color="green">操作成功完成。修改已经被应用。<br><br></font>';
 echo '<a href="modulemng.php" style="text-decoration: none"><span><font color="blue">[返回首页]</font></span></a><br>';   

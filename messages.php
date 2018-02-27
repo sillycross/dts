@@ -25,7 +25,7 @@ $messages = init_messages($mode);
 $editflag = 0;
 $info = array();
 
-if($mode == 'del') {//删除
+if($mode == 'del' || $mode == 'del2') {//删除
 	$dellist = array();
 	foreach(array_keys($messages) as $mi){
 		if(!empty(${'sl'.$mi})) $dellist[] = $mi;
@@ -66,20 +66,28 @@ if($editflag) {
 		$ins_arr = array();
 		foreach($dellist as $di){
 			$tmp = $messages[$di];
+			$tmp['dtimestamp'] = $now;
 			unset($tmp['mid']);
 			$ins_arr[] = $tmp;
 		}
 		if(!empty($ins_arr)) $db->array_insert("{$gtablepre}del_messages", $ins_arr);
 		$delc = implode(',',$dellist);
-		$db->query("DELETE FROM {$gtablepre}messages WHERE mid IN ($delc) AND receiver='$username'");
-		$dnum = $db->affected_rows();
-		$info[] = '已删除'.$dnum.'条消息！';
+		if('del' == $mode){
+			$db->query("DELETE FROM {$gtablepre}messages WHERE mid IN ($delc) AND receiver='$username'");
+			$dnum = $db->affected_rows();
+			$info[] = '已删除'.$dnum.'条消息！';
+		}elseif('del2' == $mode){
+			$db->query("DELETE FROM {$gtablepre}dmessages WHERE mid IN ($delc) AND receiver='$username'");
+			$dnum = $db->affected_rows();
+			$info[] = '已彻底删除'.$dnum.'条消息！';
+		}
+		
 	}
 	if(!empty($reclist)){
 		$ins_arr = array();
 		foreach($reclist as $ri){
 			$tmp = $messages[$ri];
-			unset($tmp['mid']);
+			unset($tmp['mid'],$tmp['dtimestamp']);
 			$ins_arr[] = $tmp;
 		}
 		if(!empty($ins_arr)) $db->array_insert("{$gtablepre}messages", $ins_arr);

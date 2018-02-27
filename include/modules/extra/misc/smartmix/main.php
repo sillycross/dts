@@ -108,30 +108,31 @@ namespace smartmix
 	function smartmix_show()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','logger','input','itemmix'));
+		eval(import_module('sys','player','input','itemmix'));
+		$mhint = '';
 		if(isset($itemindex)){
 			$mix_res = smartmix_find_recipe($itemindex, 1 + 2);				
 			if($mix_res){
-				$log .= '<span class="yellow">'.$itemindex.'</span>涉及的合成公式有：<br>';
+				$mhint .= '<span class="yellow">'.$itemindex.'</span>涉及的合成公式有：<br>';
 				foreach($mix_res as $mval){
 					if(!isset($mval['type']) || $mval['type'] == 'normal'){
 						foreach($mval['stuff'] as $ms){
-							$log .= parse_smartmix_recipelink($ms).' + ';
+							$mhint .= parse_smartmix_recipelink($ms).' + ';
 						}
-						$log = substr($log,0,-3);
+						$mhint = substr($mhint,0,-3);
 					}
 					$mr = $mval['result'][0];
-					$log .= ' → '.parse_smartmix_recipelink($mr, \itemmix\parse_itemmix_resultshow($mval['result'])).'<br>';
+					$mhint .= ' → '.parse_smartmix_recipelink($mr, \itemmix\parse_itemmix_resultshow($mval['result'])).'<br>';
 				}
 			}	else{
-				$log .= '所选道具不存在相关的合成公式。<br>';
+				$mhint .= '所选道具不存在相关的合成公式。<br>';
 			}
 		}else{
 			list($mix_available,$mix_overlay_available,$mix_sync_available) = smartmix_check_available();
 			if(empty($mix_available) && empty($mix_overlay_available) && empty($mix_sync_available)){
-				$log .= '可合成的道具不存在。<br>';
+				$mhint .= '可合成的道具不存在。<br>';
 			}else{
-				$log .= '<span>合成提示：</span><br>';
+				$mhint .= '<span>合成提示：</span><br>';
 				$shown_list = array();
 				foreach($mix_available as $mlist){//第一层：不同配方
 					$mstuff = $mresult = '';
@@ -143,7 +144,7 @@ namespace smartmix
 							$show_str = '<span>'.$mstuff.'</span>可'.$mtstr.'合成：<ul>'.$mresult.'</ul><br>';
 							if(!in_array($show_str, $shown_list)){
 								$shown_list[] = $show_str;
-								$log .= $show_str;
+								$mhint .= $show_str;
 							}
 							$mstuff = $mresult = '';
 						}
@@ -162,12 +163,13 @@ namespace smartmix
 					$show_str = '<span>'.$mstuff.'</span>可'.$mtstr.'合成：<ul>'.$mresult.'</ul>';
 					if(!in_array($show_str, $shown_list)){
 						$shown_list[] = $show_str;
-						$log .= $show_str;
+						$mhint .= $show_str;
 					}
 				}
 			}
 		}
-		$log .= '<br>';
+		$mhint .= '<br>';
+		$uip['mixhint'] = $mhint;
 	}
 	
 	//显示之前的处理
@@ -176,6 +178,9 @@ namespace smartmix
 		eval(import_module('sys','player','logger','input','itemmix'));
 		if ($mode == 'command' && $command == 'itemmain' && $itemcmd=='itemmix'){
 			smartmix_show();
+			if(!empty($uip['mixhint'])) {
+				$main = MOD_SMARTMIX_MIXHINT_MAIN;
+			}
 		}
 		$chprocess();
 	}

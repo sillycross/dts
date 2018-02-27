@@ -69,6 +69,7 @@ DROP TABLE IF EXISTS `bra_del_messages`;
 CREATE TABLE `bra_del_messages` (
   `mid` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `timestamp` int(10) unsigned NOT NULL DEFAULT '0',
+  `dtimestamp` int(10) unsigned NOT NULL DEFAULT '0',
   `rd` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `checked` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `receiver` char(15) NOT NULL DEFAULT '',
@@ -100,7 +101,8 @@ CREATE TABLE `bra_users` (
   `killmsg` char(30) NOT NULL DEFAULT '',
   `lastword` char(30) NOT NULL DEFAULT '', 
   `lastwin` int(10) unsigned NOT NULL DEFAULT '0',
-  `lastgame` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `lastgame` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `lastroomgame` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `validgames` smallint(5) unsigned NOT NULL DEFAULT '0',
   `wingames` smallint(5) unsigned NOT NULL DEFAULT '0',  
   `credits` int(10) NOT NULL DEFAULT '0',
