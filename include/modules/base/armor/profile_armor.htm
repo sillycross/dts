@@ -1,40 +1,13 @@
+<!--{eval $tmp_arpos = Array('b'=>'B', 'h'=>'H', 'a'=>'A', 'f'=>'F');}-->
+<!--{loop $tmp_arpos $apl $apu}-->
 <tr>
-	<TD class=b2 height="26"><span><!--{if $arbs}-->$iteminfo['DB']<!--{else}--><span class="grey">$iteminfo['DB']</span><!--{/if}--></span></TD>
+	<TD class=b2 height="26"><span><!--{if ${'ar'.$apl.'s'}}-->$iteminfo['D'.$apu]<!--{else}--><span class="grey">$iteminfo['D'.$apu]</span><!--{/if}--></span></TD>
 	<TD class=b3>
-	<!--{if CURSCRIPT == 'game' && $mode == 'command' && $arbe}--><span><input type="button" value="卸下" onclick="$('mode').value='itemmain';$('command').value='offarb';postCmd('gamecmd','command.php');return false;"</span><!--{/if}-->
-	<span><!--{if $arbs}-->$tpldata['arb_words']<!--{else}-->$noarb<!--{/if}--></span>
+	<!--{if CURSCRIPT == 'game' && $mode == 'command' && ${'ar'.$apl.'s'}}--><span><input type="button" value="卸下" onclick="$('mode').value='itemmain';$('command').value='offar{$apl}';postCmd('gamecmd','command.php');return false;"</span><!--{/if}-->
+	<span><!--{if ${'ar'.$apl.'s'}}-->$tpldata['ar'.$apl.'_words']<!--{elseif 'b'==$apl}-->$noarb<!--{else}-->$noitm<!--{/if}--></span>
 	</TD>
-	<TD class=b3><span <!--{if $tpldata['arbsk_desc']}-->title="{$tpldata['arbsk_desc']}"<!--{/if}-->>$tpldata['arbsk_words']</span></TD>
-	<TD class=b3><span>$arbe</span></TD>
-	<TD class=b3><span>$arbs</span></TD>
+	<TD class=b3><span <!--{if $tpldata['ar'.$apl.'sk_desc']}-->title="{$tpldata['ar'.$apl.'sk_desc']}"<!--{/if}-->>$tpldata['ar'.$apl.'sk_words']</span></TD>
+	<TD class=b3><span>${'ar'.$apl.'e'}</span></TD>
+	<TD class=b3><span>${'ar'.$apl.'s'}</span></TD>
 </tr>
-<tr>
-	<TD class=b2 height="26"><span><!--{if $arhs}-->$iteminfo['DH']<!--{else}--><span class="grey">$iteminfo['DH']</span><!--{/if}--></span></TD>
-	<TD class=b3>
-	<!--{if CURSCRIPT == 'game' && $mode == 'command' && $arhs}--><span><input type="button" value="卸下" onclick="$('mode').value='itemmain';$('command').value='offarh';postCmd('gamecmd','command.php');return false;"</span><!--{/if}-->
-	<span><!--{if $arhs}-->$tpldata['arh_words']<!--{else}-->$noitm<!--{/if}--></span>
-	</TD>
-	<TD class=b3><span <!--{if $tpldata['arhsk_desc']}-->title="{$tpldata['arhsk_desc']}"<!--{/if}-->>$tpldata['arhsk_words']</span></TD>
-	<TD class=b3><span>$arhe</span></TD>
-	<TD class=b3><span>$arhs</span></TD>
-</tr>
-<tr>
-	<TD class=b2 height="26"><span><!--{if $aras}-->$iteminfo['DA']<!--{else}--><span class="grey">$iteminfo['DA']</span><!--{/if}--></span></TD>
-	<TD class=b3>
-	<!--{if CURSCRIPT == 'game' && $mode == 'command' && $aras}--><span><input type="button" value="卸下" onclick="$('mode').value='itemmain';$('command').value='offara';postCmd('gamecmd','command.php');return false;"</span><!--{/if}-->
-	<span><!--{if $aras}-->$tpldata['ara_words']<!--{else}-->$noitm<!--{/if}--></span>
-	</TD>
-	<TD class=b3><span <!--{if $tpldata['arask_desc']}-->title="{$tpldata['arask_desc']}"<!--{/if}-->>$tpldata['arask_words']</span></TD>
-	<TD class=b3><span>$arae</span></TD>
-	<TD class=b3><span>$aras</span></TD>
-</tr>
-<tr>
-	<TD class=b2 height="26"><span><!--{if $arfs}-->$iteminfo['DF']<!--{else}--><span class="grey">$iteminfo['DF']</span><!--{/if}--></span></TD>
-	<TD class=b3>
-	<!--{if CURSCRIPT == 'game' && $mode == 'command' && $arfs}--><span><input type="button" value="卸下" onclick="$('mode').value='itemmain';$('command').value='offarf';postCmd('gamecmd','command.php');return false;"</span><!--{/if}-->
-	<span><!--{if $arfs}-->$tpldata['arf_words']<!--{else}-->$noitm<!--{/if}--></span>
-	</TD>
-	<TD class=b3><span <!--{if $tpldata['arfsk_desc']}-->title="{$tpldata['arfsk_desc']}"<!--{/if}-->>$tpldata['arfsk_words']</span></TD>
-	<TD class=b3><span>$arfe</span></TD>
-	<TD class=b3><span>$arfs</span></TD>
-</tr>
+<!--{/loop}-->
