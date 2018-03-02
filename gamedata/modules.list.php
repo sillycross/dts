@@ -42,6 +42,7 @@ gameflow_combo,core/gameflow/gameflow_combo/,1
 advteam,extra/misc/advteam/,1
 attack,base/attack/,1
 instance7,extra/instance/instance7_tutorial/,1
+instance0,extra/instance/instance0/,1
 cardbase,extra/card/cardbase/,1
 weapon,base/weapon/weapon/,1
 npcchat,base/npcchat/,1

@@ -45,20 +45,42 @@ $roomtypelist = Array(
 		),
 		'show-team-leader' => 0,	//是否显示“队长”标签（如队伍大于1人设为1）
 		'game-option' => array(
-			'special-rule' => array(//变量名
-				'title' => '特殊规则',//界面显示的提示
+			'opening-gamestate' => array(//变量名
+				'title' => '入场后游戏状况',//界面显示的提示
 				'type' => 'radio',//input类型
 				'options' => array(
 					array(
-						'value' => 'common',
-						'name' => '通常模式',
-						'title' => '与正常游戏一样，可选卡入内',
+						'value' => '40',
+						'name' => '进入连斗',
+						'title' => '入场后连斗，容易遭遇角色，不容易摸道具',
 						'default' => true,
 					),
 					array(
-						'value' => '4000lp',
-						'name' => '掘豆模式',
-						'title' => '强制双方选择卡片【掘豆挑战者】，以4000LP进场',
+						'value' => '30',
+						'name' => '停止激活',
+						'title' => '入场后只停止激活，发现率正常，死亡180人或者2禁后进入连斗',
+					)
+				)
+			),
+			'card-select' => array(//变量名
+				'title' => '卡片设置',//界面显示的提示
+				'type' => 'radio',//input类型
+				'options' => array(
+					array(
+						'value' => '0',
+						'name' => '自选卡片',
+						'title' => '参与者在“账号资料”里自选卡片再入场',
+						'default' => true,
+					),
+					array(
+						'value' => '1',
+						'name' => '仅挑战者',
+						'title' => '参与者强制使用挑战者入场',
+					),
+					array(
+						'value' => '2',
+						'name' => '与房主相同',
+						'title' => '其他参与者使用与房主相同的卡入场',
 					)
 				)
 			)
@@ -282,6 +304,33 @@ $roomtypelist = Array(
 						'value' => '5',
 						'name' => '五队',
 						'title' => '五支队伍互相对抗',
+					)
+				)
+			),
+			'card-select' => array(//变量名
+				'title' => '卡片设置',//界面显示的提示
+				'type' => 'radio',//input类型
+				'options' => array(
+					array(
+						'value' => '0',
+						'name' => '自选卡片',
+						'title' => '参与者在“账号资料”里自选卡片再入场',
+						'default' => true,
+					),
+					array(
+						'value' => '1',
+						'name' => '仅挑战者',
+						'title' => '参与者强制使用挑战者入场',
+					),
+					array(
+						'value' => '2',
+						'name' => '与房主相同',
+						'title' => '其他参与者使用与房主相同的卡入场',
+					),
+					array(
+						'value' => '3',
+						'name' => '与队长相同',
+						'title' => '队员使用与队长相同的卡入场',
 					)
 				)
 			)
