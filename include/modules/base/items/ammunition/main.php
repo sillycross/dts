@@ -8,7 +8,7 @@ namespace ammunition
 		'w' => array('GBe', 10),
 		'i' => array('GBi', 10),
 		'u' => array('GBi', 10),
-		'r' => array('GBr', 20),
+		'r' => array('GBr', 24),
 		'WG' => array('GB', 6),
 	);
 	//注意目前连击的气体和能源弹药的弹夹数会额外+2
