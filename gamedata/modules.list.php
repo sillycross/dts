@@ -29,6 +29,7 @@ scpdrink,base/items/scpdrink/,1
 item_ub,base/items/item_ub/,1
 item_uee,base/items/item_uee/,1
 apm,base/apm/,1
+item_slip,extra/item_extra/item_slip/,1
 corpse,base/corpse/,1
 trap,base/items/trap/,1
 itemmix_sync,base/itemmix/itemmix_sync/,1
@@ -426,7 +427,7 @@ skill493,extra/card/skills/skill493/,1
 ex_gender_attr,extra/attr/ex_gender_attr/,1
 ex_attr_pierce,extra/attr/ex_attr_pierce/,1
 skill43,extra/club/skills/skill43/,1
-itemnumlist,extra/misc/itemnumlist/,1
+itemnumlist,extra/item_extra/itemnumlist/,1
 skill56,extra/club/skills/skill56/,1
 skill435,extra/card/skills/skill435/,1
 tutorial,extra/instance/instance7_tutorial/tutorial/,1
@@ -445,6 +446,7 @@ skill233,extra/club/skills/skill233/,1
 skill26,extra/club/skills/skill26/,1
 skill265,extra/club/skills/skill265/,1
 gtype1,extra/instance/gtype1/main/,1
+randmix,extra/misc/randmix/,1
 skill57,extra/club/skills/skill57/,1
 skill436,extra/card/skills/skill436/,1
 smartmix,extra/misc/smartmix/,1

@@ -7,7 +7,7 @@ namespace skill432
 	{
 		define('MOD_SKILL432_INFO','card;unique;locked;');
 		eval(import_module('clubbase'));
-		$clubskillname[432] = '冰心';
+		$clubskillname[432] = '凝心';
 	}
 	
 	function acquire432(&$pa)
@@ -35,6 +35,15 @@ namespace skill432
 		return $chprocess($pa,$pd,$active);
 	}
 
+	function calculate_attack_rage_gain_change(&$pa, &$pd, $active, $rageup)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($pa, $pd, $active, $rageup);
+		if (\skillbase\skill_query(432,$pd) && check_unlocked432($pd)) {
+			$ret = 0;
+		}
+		return $ret;
+	}
 }
 
 ?>
