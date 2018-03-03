@@ -29,9 +29,9 @@ scpdrink,base/items/scpdrink/,1
 item_ub,base/items/item_ub/,1
 item_uee,base/items/item_uee/,1
 apm,base/apm/,1
-item_slip,extra/item_extra/item_slip/,1
 corpse,base/corpse/,1
 trap,base/items/trap/,1
+item_slip,extra/item_extra/item_slip/,1
 itemmix_sync,base/itemmix/itemmix_sync/,1
 enemy,base/enemy/,1
 gameflow_duel,core/gameflow/gameflow_duel/,1
@@ -471,4 +471,5 @@ skill503,extra/card/skills/skill503/,1
 skill36,extra/club/skills/skill36/,1
 skill38,extra/club/skills/skill38/,1
 skill34,extra/club/skills/skill34/,1
+skill505,extra/card/skills/skill505/,1
 halloween2017,extra/activities/halloween2017/main/,0

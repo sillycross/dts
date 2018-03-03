@@ -33,11 +33,14 @@ namespace item_slip
 	);
 	
 	//纸条效果：商店卖的纸条没有特殊效果；地上刷的纸条在生成时就决定了随机的效果
-	//随机效果由属性决定，规则如下：1-100留给该局特殊合成；100-1000备用；1000以上时十万为+万位+千位决定是哪个pid的NPC的位置，个、十、百位是对应所在地点（禁区之后地点全部失效）
+	//随机效果由属性决定，规则如下：1-500备用；501-999 META_GAME；1000以上时十万为+万位+千位决定是哪个pid的NPC的位置，个、十、百位是对应所在地点（禁区之后地点全部失效）
 	
 	//被纸条提示的NPC类型
 	$item_slip_npc = array(5, 6, 11, 14 ,45);
 	
+	$item_slip_metagame_list = array(
+		'印着黑色三叶草的卡片' => array('印着黑色三叶草的卡片','VO',1,1,165),
+	);
 	
 	function init() 
 	{
@@ -71,8 +74,10 @@ namespace item_slip
 			
 			//纸条特殊效果显示
 			if(!empty($itmsk && is_numeric($itmsk))){
-				if($itmsk <= 100){//提示并参与随机合成
-					
+				if($itmsk >= 500 && $itmsk <= 1000){//提示并参与随机合成
+					$log .= '除此之外，纸条上有一句意味深长的话：<br>“有的提示在字里，有的提示在行间，有的提示甚至在游戏之外。”后面是一大段空白。<br><br><br><br><br>';
+					$log .= '<!--/gamedata/cache/'.$itmsk.'.txt-->';
+					$log .= '这是什么意思呢？<br><br>';
 				}elseif($itmsk > 1000){//提示NPC位置
 					$nid = floor($itmsk / 1000);
 					$npls = $itmsk % 1000;
@@ -101,7 +106,13 @@ namespace item_slip
 		if(strpos($iname,'提示纸条')===0){
 			eval(import_module('sys','item_slip'));
 			$dice = rand(0,99);
-			if($dice < 40){//纸条40%概率有提示
+			if(in_array(substr($iname, strlen($iname)-1), Array('N','I','K','O')) && $dice < 20){//20%概率给mega game提示
+				$metaid = item_slip_set_puzzle($iname);
+				list($istuff,$iresult) = item_slip_get_puzzle($gamevars['metagame']);
+				if(in_array($iname, $istuff)) {
+					$iskind = $metaid;//保证只有在合成表里的纸条才参与合成，不然有可能要找4张纸条……
+				}
+			}elseif($dice < 50){//纸条50%概率有提示
 				//目前只提示NPC
 				if(empty($item_slip_npclist)){
 					//如果没拉取过NPC资料，则一次性拉取并储存
@@ -114,10 +125,92 @@ namespace item_slip
 				$nlist = array_keys($item_slip_npclist);
 				shuffle($nlist);
 				$iskind = $nlist[0] * 1000 + $item_slip_npclist[$nlist[0]]['pls'];
+			}else{
+				$iskind = '';
 			}
 		}
 		return array($iname, $ikind, $ieff, $ista, $iskind, $imap);
 	}
 	
+	//META大法好
+	function item_slip_set_puzzle($itm){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		eval(import_module('sys'));
+		if(empty($gamevars['metagame'])) {
+			//返回一个随机数字，并生成以这个数字命名的文本文件
+			do {
+				$ret = rand(501,999);
+				$file = GAME_ROOT.'./gamedata/cache/'.$ret.'.txt';
+			} while(file_exists($file));
+			//内容是合成
+			$arr1 = array('提示纸条N');
+			$arr2 = array('提示纸条I', '★I-力场★');
+			$arr3 = array('提示纸条K', '原型武器K');
+			$arr4 = array('提示纸条O');
+			$stuff = array();
+			foreach(array($arr1,$arr2,$arr3,$arr4) as $v){
+				if(in_array($itm, $v)) {
+					$nowv = $itm;
+				}else{
+					shuffle($v);
+					$nowv = $v[0];
+				}
+				$stuff[] = $nowv;
+			}
+			$cont = implode('+',$stuff).'=印着黑色三叶草的卡片';
+			writeover($file, $cont);
+			chmod($file,0777);
+			//记录一下生成的文件，避免重复生成，游戏结束时删除
+			$gamevars['metagame'] = $ret;
+			\sys\save_gameinfo();
+		}else{
+			$ret = $gamevars['metagame'];
+		}
+		return $ret;
+	}
+	
+	//meta特殊合成
+	function itemmix_recipe_check($mixitem){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','itemmix','item_slip'));
+		if(count($mixitem) >= 2){
+			$mi_names = array();
+			foreach($mixitem as $i) $mi_names[] = \itemmix\itemmix_name_proc($i['itm']);
+			
+			if(!empty($gamevars['metagame'])) {//如果有metagame数据，则追加一项合成
+				list($stuff,$result) = item_slip_get_puzzle($gamevars['metagame']);
+				if(isset($item_slip_metagame_list[$result]) && empty($mixinfo['metagame'])) 
+					$mixinfo['metagame'] = array('class' => 'hidden', 'stuff' => $stuff, 'result' => $item_slip_metagame_list[$result]);
+			}
+		}
+		return $chprocess($mixitem);
+	}
+	
+	function item_slip_get_puzzle($puzzleid){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		$ret = array();
+		if(!empty($gamevars['metagame']) && $puzzleid == $gamevars['metagame']) {
+			$file = GAME_ROOT.'./gamedata/cache/'.$gamevars['metagame'].'.txt';
+			$cont = file_get_contents($file);
+			list($stuff0, $result) = explode('=',$cont);
+			$stuff = explode('+',$stuff0);
+			$ret[0] = $stuff;
+			$ret[1] = $result;
+		}
+		return $ret;
+	}
+	
+	//游戏结束时删除生成的metagame提示
+	function post_gameover_events()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess();
+		eval(import_module('sys'));
+		if(!empty($gamevars['metagame'])) {
+			$file = GAME_ROOT.'./gamedata/cache/'.$gamevars['metagame'].'.txt';
+			if(file_exists($file)) unlink($file);
+		}
+	}
 }
 ?>
