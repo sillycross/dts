@@ -75,9 +75,9 @@ namespace item_slip
 			//纸条特殊效果显示
 			if(!empty($itmsk && is_numeric($itmsk))){
 				if($itmsk >= 500 && $itmsk <= 1000){//提示并参与随机合成
-					$log .= '除此之外，纸条上有一句意味深长的话：<br>“有的提示在字里，有的提示在行间，有的提示甚至在游戏之外。”后面是一大段空白。<br><br><br><br><br>';
+					$log .= '除此之外，纸条上有一句意味深长的话：<br>“有的提示在字里，有的提示在行间，有的提示甚至在游戏之外。”后面是一大段空白。<br><br>';
 					$log .= '<!--/gamedata/cache/'.$itmsk.'.txt-->';
-					$log .= '这是什么意思呢？<br><br>';
+					$log .= '<br><br>这是什么意思呢？<br><br>';
 				}elseif($itmsk > 1000){//提示NPC位置
 					$nid = floor($itmsk / 1000);
 					$npls = $itmsk % 1000;
