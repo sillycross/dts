@@ -1,13 +1,13 @@
 <?php
 
-namespace skill432
+namespace randmix
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase clubbase player logger ex_hp_def rage';
-	$___MODULE_dependency_optional = '';
+	$___MODULE_dependency = 'sys player itemmain itemmix itemnumlist item_slip';
+	$___MODULE_dependency_optional = 'itemmix_overlay itemmix_sync';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';
-	$___MODULE_templatelist = 'desc';
+	$___MODULE_templatelist = '';
 	////////// MODULE HEADER END /////////////////
 	require __INIT_MODULE__(__NAMESPACE__,__DIR__);
 }

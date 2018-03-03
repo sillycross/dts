@@ -110,14 +110,11 @@ namespace sys
 				$room_prefix = room_id2prefix(0);
 				$gameinfo = NULL;
 			}
-			//如果房间是开启状态，但游戏在结束状态，则把房间状态设为打开
+			//如果房间没有关闭，但游戏在结束状态，则把房间状态设为开放
 			elseif ($gameinfo['groomstatus'] > 0 && $gameinfo['gamestate']==0 && room_check_subroom($room_prefix))
 			{
 				$db->query("UPDATE {$gtablepre}game SET groomstatus=10 WHERE groomid='$room_id'");
 				$gameinfo['groomstatus'] = 10;
-//				$room_prefix = '';
-//				$room_id = 0;
-//				$gameinfo = NULL;
 			}
 		}
 		else
@@ -146,9 +143,6 @@ namespace sys
 		
 		if ($room_prefix=='') $wtablepre = $gtablepre;
 		else $wtablepre = $gtablepre.room_prefix_kind($room_prefix);
-		
-		//room_auto_init();//新建房间时，自动初始化房间表
-		//实际上不应该放在这里，应该只在新建房间时调用
 		
 		//当前用户名和密码变量初始化
 		global $cuser, $cpass;

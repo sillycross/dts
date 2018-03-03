@@ -401,8 +401,8 @@ $mixinfo = array
 	array('class' => 'ocg', 'stuff' => array('「幽鬼兔」-仮','☆手坑认证☆'),'result' => array('「幽鬼兔」 ★3','WC03',50,'∞','dbs'),),
 	array('class' => 'ocg', 'stuff' => array('「浮幽樱」-仮','☆手坑认证☆'),'result' => array('「浮幽樱」 ★3','WC03',50,'∞','pnys'),),
 	array('class' => 'ocg', 'stuff' => array('「灰流呜啦啦」','☆手坑认证☆'),'result' => array('「灰流丽」 ★3','WC03',50,'∞','fkts'),),
-	array('class' => 'ocg', 'stuff' => array('彼岸的旅人 但丁 ☆3','☆四星认证☆'),'result' => array('彼岸的旅人 但丁 ☆3（攻表）','WC',250,'∞','uR'),),
-	array('class' => 'ocg', 'stuff' => array('彼岸的旅人 但丁 ☆3（攻表）','☆叠♂放☆','☆六星认证☆'),'result' => array('永远的淑女 贝阿特丽切 ☆6','WC',320,'∞','urR'),),
+	array('class' => 'ocg', 'stuff' => array('彼岸的旅人 但丁 ☆3','☆四星认证☆'),'result' => array('彼岸的旅人 但丁 ☆3（攻击表示）','WC',180,'∞','uR'),),
+	array('class' => 'ocg', 'stuff' => array('彼岸的旅人 但丁 ☆3（攻击表示）','☆叠♂放☆','☆六星认证☆'),'result' => array('永远的淑女 贝阿特丽切 ☆6','WC',320,'∞','urR'),),
 	array('class' => 'ocg', 'stuff' => array('电子龙·新星 ☆5','☆叠♂放☆','☆五星认证☆'),'result' => array('电子龙·无限 ☆5','WC',250,'∞','rdnya'),),
 	 
 	array('class' => 'hidden', 'stuff' => array('歌词卡片【海洋】','歌词卡片【大地】','歌词卡片【星空】'),'result' => array('破灭之诗','Y',1,1,95),),

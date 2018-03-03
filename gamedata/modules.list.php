@@ -31,6 +31,7 @@ item_uee,base/items/item_uee/,1
 apm,base/apm/,1
 corpse,base/corpse/,1
 trap,base/items/trap/,1
+item_slip,extra/item_extra/item_slip/,1
 itemmix_sync,base/itemmix/itemmix_sync/,1
 enemy,base/enemy/,1
 gameflow_duel,core/gameflow/gameflow_duel/,1
@@ -42,6 +43,7 @@ gameflow_combo,core/gameflow/gameflow_combo/,1
 advteam,extra/misc/advteam/,1
 attack,base/attack/,1
 instance7,extra/instance/instance7_tutorial/,1
+instance0,extra/instance/instance0/,1
 cardbase,extra/card/cardbase/,1
 weapon,base/weapon/weapon/,1
 npcchat,base/npcchat/,1
@@ -425,7 +427,7 @@ skill493,extra/card/skills/skill493/,1
 ex_gender_attr,extra/attr/ex_gender_attr/,1
 ex_attr_pierce,extra/attr/ex_attr_pierce/,1
 skill43,extra/club/skills/skill43/,1
-itemnumlist,extra/misc/itemnumlist/,1
+itemnumlist,extra/item_extra/itemnumlist/,1
 skill56,extra/club/skills/skill56/,1
 skill435,extra/card/skills/skill435/,1
 tutorial,extra/instance/instance7_tutorial/tutorial/,1
@@ -444,6 +446,7 @@ skill233,extra/club/skills/skill233/,1
 skill26,extra/club/skills/skill26/,1
 skill265,extra/club/skills/skill265/,1
 gtype1,extra/instance/gtype1/main/,1
+randmix,extra/misc/randmix/,1
 skill57,extra/club/skills/skill57/,1
 skill436,extra/card/skills/skill436/,1
 smartmix,extra/misc/smartmix/,1
@@ -468,4 +471,5 @@ skill503,extra/card/skills/skill503/,1
 skill36,extra/club/skills/skill36/,1
 skill38,extra/club/skills/skill38/,1
 skill34,extra/club/skills/skill34/,1
+skill505,extra/card/skills/skill505/,1
 halloween2017,extra/activities/halloween2017/main/,0

@@ -11,14 +11,37 @@ namespace player
 		eval(import_module('sys'));
 		
 		global $db_player_structure, $db_player_structure_types, $tpldata; 
-		$db_player_structure = $db_player_structure_types = $tpldata=Array();
-		$result = $db->query("DESCRIBE {$gtablepre}players");//这样的一个直接后果是：涉及到player.sql的改动需要先开新游戏再重载执行代码缓存才有效
-		while ($sttdata = $db->fetch_array($result))
-		{
-			global ${$sttdata['Field']}; 
-			$db_player_structure[] = $sttdata['Field'];
-			$db_player_structure_types[$sttdata['Field']] = $sttdata['Type'];
-			//array_push($db_player_structure,$pdata['Field']);
+		$db_player_structure = $db_player_structure_types = $tpldata = Array();
+		
+		$dps_need_update = 0;//判定是否需要更新玩家字段
+		$dps_file = GAME_ROOT.'./gamedata/cache/db_player_structure.config.php';
+		$sql_file = GAME_ROOT.'./gamedata/sql/players.sql';
+		if(!file_exists($dps_file) || filemtime($sql_file) > filemtime($dps_file)){
+			$dps_need_update = 1;
+		}
+		
+		if($dps_need_update){//如果要更新，直接新建一个表，不需要依赖已有的players表
+			$sql = file_get_contents($sql_file);
+			$sql = str_replace("\r", "\n", str_replace(' bra_', ' '.$gtablepre.'tmp_', $sql));
+			$db->queries($sql);
+			$result = $db->query("DESCRIBE {$gtablepre}tmp_players");
+			while ($sttdata = $db->fetch_array($result))
+			{
+				global ${$sttdata['Field']}; 
+				$db_player_structure[] = $sttdata['Field'];
+				$db_player_structure_types[$sttdata['Field']] = $sttdata['Type'];
+				//array_push($db_player_structure,$pdata['Field']);
+			}
+			$dps_cont = str_replace('?>','',$checkstr);
+			$dps_cont .= '$db_player_structure = ' . var_export($db_player_structure,1).";\r\n".'$db_player_structure_types = ' . var_export($db_player_structure_types,1).';';
+			writeover($dps_file, $dps_cont);
+			chmod($dps_file,777);
+			
+		}else{//若不需要更新，则直接读文件就好
+			include $dps_file ;
+			foreach ($db_player_structure as $dps_field) {
+				global $$dps_field; 
+			}
 		}
 	}
 	
@@ -592,6 +615,7 @@ namespace player
 		else  $kilmsg = '';
 		
 		if ($pd['type']==0 && $pd['pid']!=$pa['pid']) $pa['killnum']++;
+		elseif ($pd['type']>0) $pa['npckillnum']++;
 	
 		deathnews($pa, $pd);
 		

@@ -1,0 +1,22 @@
+<!--{eval $___TEMP_SKILL_ID=505;}-->
+<!--{eval eval(import_module('map','clubbase','skill505'));}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+	只要你装备着{$skill505_keyitm}，你免疫一切战斗和陷阱伤害。<br>
+	但是，如果你装备、包裹及视野中都不存在{$skill505_keyitm}，你会立即从这局游戏中消失。
+</span></td>
+<td class=b3 width=96>
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow">
+	<!--{eval $plsname = $plsinfo[\skillbase\skill_getvalue(505,'rpls')];}-->
+	找到并装备上{$skill505_keyitm}以解锁<br>
+	{$skill505_keyitm}位于{$plsname}
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

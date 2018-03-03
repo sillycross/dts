@@ -353,6 +353,7 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 					addnews($now,'roominfo',room_get_vars($roomdata, 'name'),'挑战者:&nbsp;'.room_getteamhtml($roomdata,0).'！');
 				}
 				//所有玩家进入游戏
+				$ownercard = $leadercard = 0;
 				for ($i=0; $i < $rdpnum; $i++)
 					if (!$rdplist[$i]['forbidden'])
 					{
@@ -361,7 +362,23 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 						$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username = '$pname'");
 						if($db->num_rows($result)!=1) continue;
 						$udata = $db->fetch_array($result);
-						$pcard = $udata['card'];
+						if(0 == room_get_vars($roomdata,'card-select')){//自选卡片
+							$pcard = $udata['card'];
+						}elseif(1 == room_get_vars($roomdata,'card-select')){//仅挑战者
+							$pcard = 0;
+						}elseif(2 == room_get_vars($roomdata,'card-select')){//与房主相同
+							if(!$i){
+								$pcard = $ownercard = $udata['card'];
+							}else{
+								$pcard = $ownercard;
+							}
+						}elseif(3 == room_get_vars($roomdata,'card-select')){//与队长相同
+							if($i == room_get_vars($roomdata,'leader-position')[$i]) {
+								$pcard = $leadercard = $udata['card'];
+							}else{
+								$pcard = $leadercard;
+							}
+						}
 						if (isset($roomtypelist[$roomdata['roomtype']]['card'])){
 							$pcard=$roomtypelist[$roomdata['roomtype']]['card'][$i];
 						}
@@ -369,10 +386,13 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 						$db->query("UPDATE {$tablepre}players SET teamID='{$roomtypelist[$roomdata['roomtype']]['teamID'][$roomtypelist[$roomdata['roomtype']]['leader-position'][$i]]}' WHERE name='$pname' AND type=0");
 					}
 				//进入连斗
-				if (in_array($roomdata['roomtype'],array(0,1,2,3,4))){
+				$opgamestate = room_get_vars($roomdata,'opening-gamestate');
+				if (in_array($roomdata['roomtype'],array(0,1,2,3,4)) && (empty($opgamestate) || 40 == $opgamestate)){
 					$gamestate = 40;
 					addnews($now,'combo');
 					systemputchat($now,'combo');
+				}elseif(!empty($opgamestate)){
+					$gamestate = $opgamestate;
 				}else{
 					$gamestate = 30;
 				}

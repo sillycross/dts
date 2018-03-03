@@ -231,15 +231,6 @@ namespace itemmain
 			for($i = 1; $i < $in; $i++) {
 				if(!empty($itemlist[$i]) && strpos($itemlist[$i],',')!==false){
 					list($iarea,$imap,$inum,$iname,$ikind,$ieff,$ista,$iskind) = mapitem_data_process(explode(',',$itemlist[$i]));
-					if(strpos($iskind,'=')===0){
-						$tmp_pa_name = substr($iskind,1);
-						$iskind = '';
-						$result = $db->query("SELECT pid FROM {$tablepre}players WHERE name='$tmp_pa_name' AND type>0");
-						if($db->num_rows($result)){
-							$ipid = $db->fetch_array($result);
-							$iskind = $ipid['pid'];
-						}
-					}
 					if( $iarea == $an || $iarea == 99 || ($iarea == 98 && $an > 0)) {
 						for($j = $inum; $j>0; $j--) {
 							if ($imap == 99)
@@ -249,6 +240,7 @@ namespace itemmain
 								} while (in_array($rmap,$map_noitemdrop_arealist));
 							}
 							else  $rmap = $imap;
+							list($iname, $ikind, $ieff, $ista, $iskind, $rmap) = mapitem_single_data_process($iname, $ikind, $ieff, $ista, $iskind, $rmap);
 							$iqry .= "('$iname', '$ikind','$ieff','$ista','$iskind','$rmap'),";
 						}
 					}
@@ -261,10 +253,31 @@ namespace itemmain
 		}
 	}
 	
-	//某些模式特殊处理数据
+	//同名道具的data处理
+	//天然带毒物品的NPC pid自动处理
+	//也用于某些模式特殊处理数据
 	function mapitem_data_process($data){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		if(!empty($data[7])){
+			$iskind = $data[7];
+			if(strpos($iskind,'=')===0){
+				eval(import_module('sys'));
+				$tmp_pa_name = substr($iskind,1);
+				$iskind = '';
+				$result = $db->query("SELECT pid FROM {$tablepre}players WHERE name='$tmp_pa_name' AND type>0");
+				if($db->num_rows($result)){
+					$iskind = $db->fetch_array($result)['pid'];
+				}
+				$data[7] = $iskind;
+			}
+		}
 		return $data;
+	}
+	
+	//每个刷新到地图上的道具的data处理
+	function mapitem_single_data_process($iname, $ikind, $ieff, $ista, $iskind, $imap){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		return array($iname, $ikind, $ieff, $ista, $iskind, $imap);
 	}
 	
 	function get_itemfilecont(){

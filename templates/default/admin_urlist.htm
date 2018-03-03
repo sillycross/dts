@@ -133,7 +133,7 @@
 	<input type="submit" name="submit" value="返回玩家帐户管理">
 </form>
 <!--{else}-->
-<form method="post" name="urlist" onsubmit="admin.php">
+<form method="post" name="urlist" onsubmit="admin.php" enctype="multipart/form-data">
 	<input type="hidden" name="mode" value="urlist">
 	<input type="hidden" name="pagecmd" id="pagecmd" value="">
 	<input type="hidden" name="urcmd" value="list">
@@ -168,6 +168,11 @@
 		<tr>
 			<td style="text-align:center;"><input style="width:100px;height:30px;" type="submit" value="搜索" onclick="$('pagecmd').value='find';"></td>
 			<td style="text-align:center;"><input style="width:100px;height:30px;" type="submit" value="查看" onclick="$('pagecmd').value='check';"></td>
+		</tr>
+		<tr>
+			<td style="text-align:center;"><input type="file" accept=".dat" name="uploadfile"><input style="width:130px;height:30px;" type="submit" value="上传并恢复数据" onclick="$('pagecmd').value='upload';"></td>
+				
+			<td style="text-align:center;"><input style="width:150px;height:30px;" type="submit" value="下载用户数据备份" onclick="$('pagecmd').value='download';"></td>
 		</tr>
 	</table>
 

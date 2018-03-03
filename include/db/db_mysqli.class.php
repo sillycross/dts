@@ -100,6 +100,7 @@ class dbstuff {
 	
 	function parse_create_table($sql) {//修改了替换逻辑，不会有什么区别的
 		global $dbcharset;
+		if(!$dbcharset) include GAME_ROOT.'./include/modules/core/sys/config/server.config.php';
 		$sql = preg_replace("/ENGINE\s*=\s*([a-z]+)/i", "ENGINE=$1 DEFAULT CHARSET=".$dbcharset, $sql);
 		return $sql;
 //		$type = strtoupper(preg_replace("/\s*CREATE TABLE\s+.+\s+\(.+?\).*(ENGINE|TYPE)\s*=\s*([a-z]+?).*;/isU", "\\2", $sql));
@@ -108,7 +109,7 @@ class dbstuff {
 	}
 	
 	//根据$data的键和键值插入数据。多数据插入是直接按字段先后顺序排的，请保证输入数据字段顺序完全一致！
-	function array_insert($dbname, $data){
+	function array_insert($dbname, $data, $on_duplicate_update = 0, $keycol=''){
 		$tp = 1;//单记录插入
 		if(is_array(array_values($data)[0])) $tp = 2;//多记录插入 
 		$query = "INSERT INTO {$dbname} ";
@@ -137,6 +138,15 @@ class dbstuff {
 			if(!empty($valuelist)) {
 				$query .= '(' . substr($fieldlist, 0, -1) . ') VALUES '.substr($valuelist, 0, -1);
 			}
+		}
+		if(!empty($query) && $on_duplicate_update && $keycol) {
+			$query .= ' ON DUPLICATE KEY UPDATE ';
+			foreach(reset($data) as $key => $value){
+				if($key !== $keycol){
+					$query .= '`'.$key.'`=VALUES(`'.$key.'`),';
+				}
+			}
+			$query = substr($query, 0, -1);
 		}
 		
 		if(!empty($query)) $this->query ($query);

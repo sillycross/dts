@@ -144,7 +144,11 @@
 								{template MOD_SKILL475_SHOWWPT}
 								<!--{else}-->
 								<td class="b2" height="20"><span>{lang killnum}</span></td>
-								<td class="b3"><span>$killnum</span></td>
+								<td class="b3">
+									<span title="{lang pckillnum}：{$killnum} {lang npckillnum}：{$npckillnum}">
+									<!--{eval echo $killnum+$npckillnum;}-->
+									</span>
+								</td>
 								<!--{/if}-->
 								<!--{/if}-->
 							</tr>

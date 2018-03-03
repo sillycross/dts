@@ -7,7 +7,7 @@ namespace addnpc
 			'name' => '',	'pass' => 'bra', 'gd' => 'm',	'icon' => 0,	'club' => 0,	
 			'mhp' => 0,	'msp' => 0,	'att' => 0,	'def' => 0,	'pls' => 0,	'lvl' => 0,
 			'money' => 0,	'inf' => '',	'rage' => 0,	'pose' => 0,	'tactic' => 0,	
-			'killnum' => 0,	'state' => 1,	'teamID' => '',	'teamPass' => '','bid' => 0,
+			'killnum' => 0,	'npckillnum' => 0, 'state' => 1,	'teamID' => '',	'teamPass' => '','bid' => 0,
 			'wep' => '',	'wepk' => '',	'wepe' => 0,	'weps' => 0,	'wepsk' => '',
 			'arb' => '',	'arbk' => '',	'arbe' => 0,	'arbs' => 0,	'arbsk' => '',
 			'arh' => '',	'arhk' => '',	'arhe' => 0,	'arhs' => 0,	'arhsk' => '',

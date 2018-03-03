@@ -2,6 +2,77 @@
 if(!defined('IN_ADMIN')) {
 	exit('Access Denied');
 }
+if(!empty($pagecmd) && $pagecmd == 'upload'){
+	if(!isset($_FILES['uploadfile']) || empty($_FILES['uploadfile']['name'])) {
+		$cmd_info = "不能上传空文件";
+	}elseif($_FILES['uploadfile']['error'] > 0) {
+		$cmd_info = '上传错误，编号：'.$_FILES['uploadfile']['error'];
+	}else{
+		$cont = file_get_contents($_FILES['uploadfile']['tmp_name']);
+		$cont = explode("\r\n", $cont);
+		$errno = 0;
+		$cont_arr = array();
+		foreach($cont as $cv){
+			$cv = json_decode(trim($cv),1);
+			if(!$cv || !isset($cv['username']) ) {
+				if(!$cont_arr){
+					$errno = 1;break;
+				}
+			}else{
+				if($cv['username'] == $cuser && $cv['groupid'] < $udata['groupid']) {
+					$errno = 2;break;
+				}
+				$cont_arr[] = $cv;
+			}
+		}
+		if(1==$errno) {
+			$cmd_info = '上传文件的格式错误';
+		}elseif(2==$errno) {
+			$cmd_info = '覆盖后将导致管理员信息不正确';
+		}else{
+			$result = $db->query("SELECT * FROM {$gtablepre}users");
+			$o_arr = array();
+			while($r = $db->fetch_array($result)){
+				$o_arr[$r['uid']] = $r;
+			}
+			$o_cont = '';
+			foreach($o_arr as $v){
+				$o_cont .= json_encode($v, JSON_UNESCAPED_UNICODE)."\r\n";
+			}
+			$odbname = 'odb'.uniqid().'.dat';
+			file_put_contents($odbname, $o_cont);
+			$cmd_info = '旧数据库已保存为"'.$odbname.'"';
+			
+			$db->array_insert("{$gtablepre}users", $cont_arr, 1, 'username');
+			
+			$cmd_info .= '，用户数据覆盖成功';
+			
+		}
+	}
+	
+	$urcmd = '';
+}elseif(!empty($pagecmd) && $pagecmd == 'download'){
+	$result = $db->query("SELECT * FROM {$gtablepre}users");
+	//$i = 0;
+	$udb = array();
+	while($r = $db->fetch_array($result)){
+		$udb[$r['uid']] = $r;
+		//$i ++;
+	}
+	$cont = '';
+	foreach($udb as $v){
+		$cont .= json_encode($v, JSON_UNESCAPED_UNICODE)."\r\n";
+	}
+	//$cont = "<?php if(!defined('IN_ADMIN')) exit('Access Denied');\r\n".var_export($udb, 1);
+	//file_put_contents(GAME_ROOT.'./userdb_backup.php', $cont);
+	ob_clean();
+	header("Content-type: application/octet-stream");  
+  header("Accept-Ranges: bytes");  
+  header("Accept-Length: ".strlen($cont));  
+  header("Content-Disposition: attachment; filename=userdb.dat");  
+  echo $cont;
+  die();
+}
 if(!isset($urcmd)){$urcmd = '';}
 if($urcmd){
 	if(!isset($start)){$start = 0;}

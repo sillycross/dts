@@ -429,7 +429,7 @@ namespace cardbase
 		if(file_exists($file) && filemtime($card_main_file) < filemtime($file) && filemtime($card_config_file) < filemtime($file) && filemtime($ach_config_file) < filemtime($file)) return;
 		
 		$cgmethod = array();
-		eval(import_module('cardbase'));
+		eval(import_module('sys','cardbase'));
 		//抽卡
 		foreach($cardindex as $ckey => $cval){
 			foreach($cval as $ci)
@@ -511,6 +511,7 @@ namespace cardbase
 		$cgmethod[158][] = '在「伐木模式」从商店购买「博丽神社的参拜券」并在开局20分钟之内使用以获得';
 		$cgmethod[159][] = '通过礼品盒开出的★闪熠着光辉的大逃杀卡牌包★获得（15%概率）';
 		$cgmethod[160][] = '完成2017万圣节活动「噩梦之夜 LV2」获得';
+		$cgmethod[165][] = '这张卡要怎么获得呢……？';
 		for($ci=200;$ci<=204;$ci++) {
 			$cgmethod[$ci][] = '完成2017十一活动「新的战场 LV2」可能获得';
 			$cgmethod[$ci][] = '完成2017十一活动「新的战场 LV3」可能获得';
@@ -519,7 +520,7 @@ namespace cardbase
 			$cgmethod[$ci][] = '完成2017万圣节活动「不给糖就解禁」可能获得';
 		}
 		if(empty($cgmethod)) return;
-		$contents = "<?php\r\nif(!defined('IN_GAME')) exit('Access Denied');\r\n";
+		$contents = str_replace('?>','',$checkstr);//"<?php\r\nif(!defined('IN_GAME')) exit('Access Denied');\r\n";
 
 		$contents .= '$card_gaining_method = '.var_export($cgmethod,1).';';
 		

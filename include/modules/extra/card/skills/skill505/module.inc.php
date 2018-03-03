@@ -1,9 +1,9 @@
 <?php
 
-namespace skill432
+namespace skill505
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase clubbase player logger ex_hp_def rage';
+	$___MODULE_dependency = 'skillbase clubbase sys player map logger armor weapon attack trap searchmemory itemmain';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

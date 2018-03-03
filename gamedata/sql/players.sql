@@ -42,6 +42,7 @@ CREATE TABLE bra_players (
   `pose` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `tactic` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `killnum` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `npckillnum` smallint(5) unsigned NOT NULL DEFAULT '0',
   `state` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `skillpoint` smallint(5) NOT NULL DEFAULT '0',
   `flare` tinyint(1) NOT NULL DEFAULT '0',
