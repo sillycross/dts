@@ -838,7 +838,10 @@ function get_credit_up($data,$winner = '',$winmode = 0){
 	elseif($data['hp']>0){$up = 25;}//存活但不是获胜者+25
 	else{$up = 10;}//死亡+10
 	if($data['killnum']){
-		$up += $data['killnum'] * 2;//杀一玩家/NPC加2
+		$up += $data['killnum'] * 10;//杀一玩家加10
+	}
+	if($data['npckillnum']){
+		$up += $data['npckillnum'] * 2;//杀一NPC加2
 	}
 	if($data['lvl']){
 		$up += round($data['lvl'] /2);//等级每2级加1

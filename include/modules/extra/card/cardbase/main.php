@@ -519,7 +519,7 @@ namespace cardbase
 			$cgmethod[$ci][] = '完成2017万圣节活动「不给糖就解禁」可能获得';
 		}
 		if(empty($cgmethod)) return;
-		$contents = "<?php\r\nif(!defined('IN_GAME')) exit('Access Denied');\r\n";
+		$contents = str_replace('?>','',$checkstr);//"<?php\r\nif(!defined('IN_GAME')) exit('Access Denied');\r\n";
 
 		$contents .= '$card_gaining_method = '.var_export($cgmethod,1).';';
 		

@@ -90,6 +90,7 @@ class dbstuff {
 	
 	function create_table($sql) {
 		global $dbcharset;
+		if(!$dbcharset) include GAME_ROOT.'./include/modules/core/sys/config/server.config.php';
 		$type = strtoupper(preg_replace("/^\s*CREATE TABLE\s+.+\s+\(.+?\).*(ENGINE|TYPE)\s*=\s*([a-z]+?).*$/isU", "\\2", $sql));
 		$type = in_array($type, array('MYISAM', 'HEAP')) ? $type : 'MYISAM';
 		return preg_replace("/^\s*(CREATE TABLE\s+.+\s+\(.+?\)).*$/isU", "\\1", $sql).

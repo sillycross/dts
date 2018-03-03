@@ -100,6 +100,7 @@ class dbstuff {
 	
 	function parse_create_table($sql) {//修改了替换逻辑，不会有什么区别的
 		global $dbcharset;
+		if(!$dbcharset) include GAME_ROOT.'./include/modules/core/sys/config/server.config.php';
 		$sql = preg_replace("/ENGINE\s*=\s*([a-z]+)/i", "ENGINE=$1 DEFAULT CHARSET=".$dbcharset, $sql);
 		return $sql;
 //		$type = strtoupper(preg_replace("/\s*CREATE TABLE\s+.+\s+\(.+?\).*(ENGINE|TYPE)\s*=\s*([a-z]+?).*;/isU", "\\2", $sql));

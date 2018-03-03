@@ -8,8 +8,14 @@ if(!function_exists('cmp_by_killnum')){
 	{
 		if ($a['killnum']==$b['killnum']) 
 		{
-			if ($a['pid']==$b['pid']) return 0;
-			if ($a['pid']>$b['pid']) return -1; else return 1;	//杀人数相同的，后入场靠前
+			if ($a['npckillnum'] == $b['npckillnum']) {
+				if ($a['pid']==$b['pid']) return 0;
+				if ($a['pid']>$b['pid']) return -1; else return 1;	//杀人数相同的，后入场靠前
+			}elseif ($a['npckillnum'] > $b['npckillnum']) {
+				return -1;
+			}else {
+				return 1;
+			}
 		}
 		else  
 		{
@@ -24,7 +30,7 @@ if($gametype == 17){$endtimelimit = $now-300;$cond .= " AND endtime>$endtimelimi
 $sort = " ORDER BY killnum DESC, lvl DESC";
 $limit = "";
 if(!isset($alivemode) || $alivemode == 'last') $limit = " LIMIT $alivelimit";
-$query = $db->query("SELECT name,ip,gd,sNo,validtime,a_actionnum,v_actionnum,endtime,icon,lvl,exp,hp,killnum,teamID,nskillpara,pid FROM {$tablepre}players".$cond.$sort.$limit);
+$query = $db->query("SELECT name,ip,gd,sNo,validtime,a_actionnum,v_actionnum,endtime,icon,lvl,exp,hp,killnum,npckillnum,teamID,nskillpara,pid FROM {$tablepre}players".$cond.$sort.$limit);
 //if(!isset($alivemode) || $alivemode == 'last'){
 //	$query = $db->query("SELECT name,gd,sNo,icon,lvl,exp,killnum,teamID,nskillpara,pid FROM {$tablepre}players WHERE type=0 ".($gametype!=2?"AND hp>0":'')" order by killnum desc, lvl desc limit $alivelimit");
 //}elseif($alivemode == 'all'){
