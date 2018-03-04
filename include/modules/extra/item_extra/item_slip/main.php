@@ -127,9 +127,13 @@ namespace item_slip
 						$item_slip_npclist[$nd['pid']] = $nd;
 					}
 				}
-				$nlist = array_keys($item_slip_npclist);
-				shuffle($nlist);
-				$iskind = $nlist[0] * 1000 + $item_slip_npclist[$nlist[0]]['pls'];
+				if(!empty($item_slip_npclist)){
+					$nlist = array_keys($item_slip_npclist);
+					shuffle($nlist);
+					$iskind = $nlist[0] * 1000 + $item_slip_npclist[$nlist[0]]['pls'];
+				}else{
+					$iskind = '';
+				}
 			}else{
 				$iskind = '';
 			}
