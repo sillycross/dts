@@ -202,6 +202,19 @@ namespace skill505
 		return $exists;
 	}
 	
+	function gemming($t1, $t2)	//宝石骑士宝石buff技能
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','skill505','logger'));
+		$itm=&${$t1}; 
+		if($itm == $skill505_keyitm){
+			$log.='在灯泡上镶嵌宝石是会坏的！<br>';
+			$mode = 'command';
+			return;
+		}
+		$chprocess($t1, $t2);
+	}
+	
 	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

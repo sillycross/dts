@@ -219,18 +219,26 @@ div.skill_unacquired_hint_transparent
 	top: -16px; 
 }
 
-.dialogue-bubble-container{ margin:0;padding:0;}
+.dialogue-bubble-container{ 
+	position: relative;
+	margin:0;padding:0;
+	text-align:left;
+	width:430px;
+}
 
 .dialogue-bubble{
+	float:left;
 	position: relative;
-	top:100px;
-	left:100px;
-	width: 140px;
+	left:5px;
+	margin:5px 0;
 	height: 60px;
-	background: rgba(98,135,163,0.6);
+	min-width:120px;
+	max-width:420px;
+	background: rgb(83,113,138);
 	-moz-border-radius: 12px;
 	-webkit-border-radius: 12px;
 	border-radius: 12px;
+	display:inline-block;
 }
 .dialogue-bubble:before{
 	position: absolute;
@@ -240,12 +248,16 @@ div.skill_unacquired_hint_transparent
 	right: 100%;
 	top: 23px;
 	border-top: 8px solid transparent;
-	border-right: 12px solid rgba(98,135,163,0.6);
+	border-right: 12px solid rgb(83,113,138);
 	border-bottom: 8px solid transparent;
 }
 
-.dialogue-bubble div{position: relative;}
+.dialogue-bubble div{position: relative;margin:20px 25px;text-align:left;}
 .dialogue-bubble span{position: relative;}
+
+.dialogue-bubble.fade{
+	opacity:0.6;filter:alpha(opacity=60);
+}
 
 .Pulse{
 	-webkit-animation-name: brightPulse; -webkit-animation-duration: 2s;-webkit-animation-iteration-count: infinite; 
