@@ -6,8 +6,8 @@
 	<!--{if CURSCRIPT == 'game' && $mode == 'command' && ${'ar'.$apl.'s'}}--><span><input type="button" value="卸下" onclick="$('mode').value='itemmain';$('command').value='offar{$apl}';postCmd('gamecmd','command.php');return false;"</span><!--{/if}-->
 	<span><!--{if ${'ar'.$apl.'s'}}-->$tpldata['ar'.$apl.'_words']<!--{elseif 'b'==$apl}-->$noarb<!--{else}-->$noitm<!--{/if}--></span>
 	</TD>
-	<TD class=b3><span <!--{if $tpldata['ar'.$apl.'sk_desc']}-->title="{$tpldata['ar'.$apl.'sk_desc']}"<!--{/if}-->>$tpldata['ar'.$apl.'sk_words']</span></TD>
-	<TD class=b3><span>${'ar'.$apl.'e'}</span></TD>
+	<TD class=b3><span <!--{if ${'ar'.$apl.'s'} && $tpldata['ar'.$apl.'sk_desc']}-->title="{$tpldata['ar'.$apl.'sk_desc']}"<!--{/if}-->><!--{if ${'ar'.$apl.'s'}}-->$tpldata['ar'.$apl.'sk_words']<!--{else}-->--<!--{/if}--></span></TD>
+	<TD class=b3><span><!--{if ${'ar'.$apl.'s'}}-->${'ar'.$apl.'e'}<!--{else}-->0<!--{/if}--></span></TD>
 	<TD class=b3><span>${'ar'.$apl.'s'}</span></TD>
 </tr>
 <!--{/loop}-->
