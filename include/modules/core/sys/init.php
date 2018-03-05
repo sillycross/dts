@@ -78,7 +78,7 @@ namespace sys
 			$room_id = ((int)$___LOCAL_INPUT__VARS__INPUT_VAR_LIST['___GAME_ROOMID']);
 			///test code
 //			if(isset(${$gtablepre.'user'}) && $room_id != $rarr['roomid']){
-//				writeover('tmp_roomid_log_1.txt', ${$gtablepre.'user'}."'s roomid ".$room_id.' -> '.$rarr['roomid'].' at '.$now."\r\n",'ab+');
+				writeover('tmp_roomid_log_1.txt', ${$gtablepre.'user'}."'s roomid ".$room_id.' -> '.$rarr['roomid'].' at '.$now."\r\n",'ab+');
 //				$rarr['room_id'] = $room_id;
 //				$db->query("UPDATE {$gtablepre}users SET roomid = '{$room_id}' WHERE username = '".${$gtablepre.'user'}."'");
 //			}
