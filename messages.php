@@ -13,8 +13,6 @@ $message_rec_cost = 100;//恢复邮件价格
 
 if(defined('MOD_CARDBASE')) {
 	eval(import_module('cardbase'));
-//	$result = $db->query("SELECT cards FROM {$gtablepre}users WHERE username='$username'");
-//	$udata['cards'] = $db->fetch_array($result)['cards'];
 }
 
 if(!isset($mode)){
