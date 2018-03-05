@@ -1033,7 +1033,7 @@ if(!$action) {
 
 	}
 } elseif($action == 'install') {
-	exit(111);
+	
 
 	$username = $_POST['username'];
 	$brpswd = $_POST['brpswd']
