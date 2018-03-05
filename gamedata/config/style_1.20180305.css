@@ -219,114 +219,45 @@ div.skill_unacquired_hint_transparent
 	top: -16px; 
 }
 
-img.card_achieved{width:35px;height:20px;position:absolute;z-index:30;top:-13px;left:11px;}
-
-div.card_frame_outer
-{
-	position:relative;
-	-moz-border-radius:12px; 
-	-webkit-border-radius:12px;
-	border-radius:12px;
-	height:320px; width:240px;
-	overflow:hidden; 
-	background-color:rgba(144,144,144,0.6); *BACKGROUND:rgb(144,144,144); *filter:alpha(opacity=60);
+.dialogue-bubble-container{ 
+	position: relative;
+	margin:0;padding:0;
+	text-align:left;
+	width:430px;
 }
 
-div.card_frame_middler
-{
-	position:absolute;z-index:10;
+.dialogue-bubble{
+	float:left;
+	position: relative;
+	left:5px;
+	margin:5px 0;
+	height: 60px;
+	min-width:120px;
+	max-width:420px;
+	background: rgb(83,113,138);
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;
+	border-radius: 12px;
+	display:inline-block;
+}
+.dialogue-bubble:before{
+	position: absolute;
+	content: "";
+	width: 0;
+	height: 0;
+	right: 100%;
+	top: 23px;
+	border-top: 8px solid transparent;
+	border-right: 12px solid rgb(83,113,138);
+	border-bottom: 8px solid transparent;
 }
 
-div.frame_S{background-color:rgba(252,174,10,0.6); *BACKGROUND:rgb(252,174,10); *filter:alpha(opacity=60);}
-div.frame_A{background-color:rgba(90,240,255,0.6); *BACKGROUND:rgb(90,240,255); *filter:alpha(opacity=60);}
-div.frame_B{background-color:rgba(250,128,110,0.6); *BACKGROUND:rgb(250,128,110); *filter:alpha(opacity=60);}
+.dialogue-bubble div{position: relative;margin:20px 25px;text-align:left;}
+.dialogue-bubble span{position: relative;}
 
-div.card_frame_inner
-{
-	display: flex;
-	position:relative;
-	align-items: center;
-	justify-content: center;
-	-moz-border-radius:9px; 
-	-webkit-border-radius:9px;
-	border-radius:9px;
-	width:234px;
-	margin:3px;
-	background-color:rgba(0,0,0,0.7); *BACKGROUND:rgb(0,0,0); *filter:alpha(opacity=70);
-	text-align:center;
+.dialogue-bubble.fade{
+	opacity:0.6;filter:alpha(opacity=60);
 }
-
-div.card_frame_inner .watermark
-{
-	position:absolute;bottom:3px;right:6px;z-index:-5;
-	color: #000; font:bold 18pt "Arial";
-	filter:alpha(opacity=0.15); -moz-opacity:0.15; opacity:0.15; -khtml-opacity: 0.15;
-}
-
-div.card_frame_float_left
-{
-	margin:0 3px;float:left;
-}
-
-div.card_frame_float_right
-{
-	margin:0 3px;float:right;
-}
-
-div.card_frame_inner span#cname
-{
-	font:bold 12pt "微软雅黑";
-}
-
-.card_hexagon {
-	top:12px;left:3px;
-  width: 50px;
-  height: 28px;
-  background: #888;
-  position: absolute;
-  text-align:center;
-  z-index:15;
-}
-
-.card_hexagon span {
-	position: relative;font:bold 18pt "微软雅黑";color:#000;
-	line-height:28px;
-}
-
-.card_hexagon:before {
-  content: "";
-  position: absolute;
-  top: -12px;
-  left: 0;
-  width: 0;
-  height: 0;
-  border-left: 25px solid transparent;
-  border-right: 25px solid transparent;
-  border-bottom: 12px solid #888;
-}
-.card_hexagon:after {
-  content: "";
-  position: absolute;
-  bottom: -12px;
-  left: 0;
-  width: 0;
-  height: 0;
-  border-left: 25px solid transparent;
-  border-right: 25px solid transparent;
-  border-top: 12px solid #888;
-}
-
-div.hexagon_S{background:rgb(252,174,10);}
-div.hexagon_S:before{ border-bottom: 12px solid rgb(252,174,10);}
-div.hexagon_S:after{ border-top: 12px solid rgb(252,174,10);}
-
-div.hexagon_A{background:rgb(90,220,240);}
-div.hexagon_A:before{ border-bottom: 12px solid rgb(90,220,240);}
-div.hexagon_A:after{ border-top: 12px solid rgb(90,220,240);}
-
-div.hexagon_B{background:rgb(220,108,90);}
-div.hexagon_B:before{ border-bottom: 12px solid rgb(220,108,90);}
-div.hexagon_B:after{ border-top: 12px solid rgb(220,108,90);}
 
 .Pulse{
 	-webkit-animation-name: brightPulse; -webkit-animation-duration: 2s;-webkit-animation-iteration-count: infinite; 
