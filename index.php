@@ -80,10 +80,11 @@ while ($data = $db->fetch_array($roomresult))
 			$roomlist[$data['groomid']]['soleroom'] = room_get_vars($roomdata,'soleroom');
 			$roomlist[$data['groomid']]['without-ready'] = room_get_vars($roomdata,'without-ready');
 			$roomlist[$data['groomid']]['runningtime'] = $data['starttime'] > 0 ? $now - $data['starttime'] : 0;
+			$rid = 's'.$data['groomid'];
+			$rtablepre = $gtablepre.$rid.'_';
 			//不需准备的房间，查看300秒内有行动的存活玩家
 			if($roomlist[$data['groomid']]['without-ready']){
-				$rid = 's'.$data['groomid'];
-				$rtablepre = $gtablepre.$rid.'_';
+				
 				$endtimelimit = $now-300;
 				$result = $db->query("SELECT pid FROM {$rtablepre}players WHERE type=0 AND state <= 3 AND endtime > '$endtimelimit'");
 				$roomlist[$data['groomid']]['nowplayer'] = $db->num_rows($result);

@@ -78,6 +78,22 @@ namespace sys
 	//不允许PVE的游戏类型
 	$pve_ignore_mode=Array(1,3,10,11,12,13,14);	
 	
+	//用户数据库远程存放地址（是特定的一个接收php），留空为存本地
+	$userdb_remote_storage = 'http://127.0.0.1/dts1/dts/userdb_receive.php';
+	//远端数据库是否设为主服。开启后，本地数据库相当于缓存，实际以远端数据库为准
+	$userdb_remote_master_flag = 1;
+	//用户数据远程存放签名
+	$userdb_remote_storage_sign = 'local';
+	//用户数据远程存放密钥
+	$userdb_remote_storage_key = '111111';
+	//接收来自以下地址的用户数据读写
+	//键名为地址（其实只是个签名），键值为密钥，应该与发送端上面那个密钥对应
+	$userdb_receive_list = array(
+		'local' => '111111',
+	);
+	//接收远端读写所用的特殊表，测试用
+	$userdb_receive_dbname = 'test';
+	
 	//录像远程存放地址（是特定的一个接收php），留空为存本地
 	//开启后会先查询本地是否存在录像，再查询远程是否存在录像
 	$replay_remote_storage = 'http://127.0.0.1/dts1/dts/replay_receive.php';
@@ -92,6 +108,7 @@ namespace sys
 	$replay_receive_list = array(
 		'local' => '142857',
 	);
+	
 	//不记录录像的游戏类型
 	//这个要在command里调用，倒是可以直接写在这个文件了
 	$replay_ignore_mode=Array(17);

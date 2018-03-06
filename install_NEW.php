@@ -1,5 +1,4 @@
 <?php
-
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 //set_magic_quotes_runtime(0);
 //ini_set('date.timezone','Asia/Shanghai');
@@ -520,6 +519,8 @@ if(!$action) {
               </tr>
 <?php
 	if(!$exist_error) {
+		
+	
 
 		if(!$write_error) {
 			if(function_exists('mysql_connect')) $default_database = 'mysql';
@@ -667,6 +668,7 @@ if(!$action) {
 
 	}
 } elseif($action == 'environment') {
+	
 
 	if($_POST['saveconfig'] && is_writeable($server_config)) {
 
@@ -966,7 +968,8 @@ if(!$action) {
 		list($nowsec,$nowmin,$nowhour,$nowday,$nowmonth,$nowyear,$nowwday,$nowyday,$nowisdst) = localtime($now);
 		$nowmonth++;
 		$nowyear += 1900;
-		$adminmsg = file_get_contents('./gamedata/adminmsg.htm') ;
+		if(file_exists('./gamedata/adminmsg.htm')) $adminmsg = file_get_contents('./gamedata/adminmsg.htm') ;
+		else $adminmsg = '';
 
 ?>
         <form method="post" action="?language=<?php echo $language; ?>" <?php echo $alert; ?>>
@@ -1030,6 +1033,7 @@ if(!$action) {
 
 	}
 } elseif($action == 'install') {
+	
 
 	$username = $_POST['username'];
 	$brpswd = $_POST['brpswd']

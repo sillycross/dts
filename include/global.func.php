@@ -436,6 +436,18 @@ function curl_post($url, $post_data=array(), $post_cookie=array(), $timeout = 10
 	return curl_exec($con); 
 }
 
+//curl请求启动新的进程，到处都会用，所以放到这里
+function curl_new_server($pass, $is_root=0)
+{
+	$url = url_dir().'command.php';
+	$context = array(
+		'conn_passwd'=>$pass,
+		'command'=>'start',
+		'is_root'=>$is_root
+	);
+	curl_post($url, $context, NULL, 0.1);
+}
+
 function http_build_cookiedata($cookie_arr){
 	$cookiedata= '';
 	if(!empty($cookie_arr)){
@@ -447,6 +459,53 @@ function http_build_cookiedata($cookie_arr){
 		}
 	}
 	return $cookiedata;
+}
+
+//各页面通用接口，转发请求给command
+function render_page($page, $extra_context=array()){
+	$url = url_dir().'command.php';
+	$context = array('page'=>$page);
+	foreach($_POST as $pkey => $pval){
+		$context[$pkey] = $pval;
+	}
+	if(!empty($extra_context)){
+		$context = array_merge($context, $extra_context);
+	}
+	$cookies = array();
+	foreach($_COOKIE as $ckey => $cval){
+		if(strpos($ckey,'user')!==false || strpos($ckey,'pass')!==false) $cookies[$ckey] = $cval;
+	}
+	
+	$pageinfo = curl_post($url, $context, $cookies);
+	if(strpos($pageinfo, 'redirect')===0){
+		list($null, $url) = explode(':',$pageinfo);
+		header('Location: '.$url);
+		exit();
+	}
+	if(strpos($pageinfo,'<head>')===false){
+		$d_pageinfo = gdecode($pageinfo,1);
+		if(is_array($d_pageinfo) && isset($d_pageinfo['url']) && 'error.php' == $d_pageinfo['url']){
+			gexit($d_pageinfo['errormsg'],__file__,__line__);
+		}
+	}
+	return $pageinfo;
+}
+
+//获得一个文件夹下的所有特定类型的文件名，返回数组。
+function gdir($dir, $tp=''){
+	$ret = array();
+	if($handle=opendir($dir)){
+		while (($fn=readdir($handle))!==false) 
+		{
+			if($fn!='.' && $fn!='..') {
+				if(empty($tp) || (is_dir($dir.'/'.$fn) && 'dir' == $tp) || (!is_dir($dir.'/'.$fn) && $tp == pathinfo($fn, PATHINFO_EXTENSION)) )
+					array_push($ret,$fn);
+			}
+		}
+	}else{
+		$ret = NULL;
+	}
+	return $ret;
 }
 
 //----------------------------------------
