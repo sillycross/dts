@@ -136,7 +136,7 @@ if ($handle=opendir(GAME_ROOT.'./gamedata/tmp/server'))
 	
 	if ($ff)
 	{
-		echo '<br>点击下面的按钮可以杀死所有进程，<br>如果处于Daemon模式（或于未来重新开启Daemon模式时），<br>一个新的根进程将被自动重新启动。<br>
+		echo '<br>点击下面的按钮可以杀死所有进程，然后启动一个新的根进程。<br>
 		（有几秒的延迟，请等待几秒然后刷新页面）<br>
 		<a href="daemonmng.php?action=restart" style="text-decoration: none"><span><font color="red">[重启所有进程]</font></span></a><br>';
 	}
