@@ -14,28 +14,7 @@ if(isset($_POST['mode']) && $_POST['mode'] == 'quit') {
 	exit();
 }
 
-$url = url_dir().'command.php';
-$context = array('page'=>'command_game');
-foreach($_POST as $pkey => $pval){
-	$context[$pkey] = $pval;
-}
-$cookies = array();
-foreach($_COOKIE as $ckey => $cval){
-	if(strpos($ckey,'user')!==false || strpos($ckey,'pass')!==false) $cookies[$ckey] = $cval;
-}
-$gameinfo = curl_post($url, $context, $cookies);
-if(strpos($gameinfo, 'redirect')===0){
-	list($null, $url) = explode(':',$gameinfo);
-	header('Location: '.$url);
-	return;
-}
-if(strpos($gameinfo,'<head>')===false){
-	$d_gameinfo = gdecode($gameinfo,1);
-	if(is_array($d_gameinfo) && isset($d_gameinfo['url']) && 'error.php' == $d_gameinfo['url']){
-		gexit($d_gameinfo['errormsg'],__file__,__line__);
-	}
-}
-echo $gameinfo;
+echo render_page('command_game');
 
 /* End of file game.php */
 /* Location: /game.php */

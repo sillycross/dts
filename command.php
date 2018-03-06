@@ -258,7 +258,7 @@ if ($___MOD_SRV)
 				unlink(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT.'/busy');
 		}
 	}
-	elseif ($___TEMP_WORKFLAG==0)
+	elseif (empty($___TEMP_WORKFLAG))
 	{
 		ignore_user_abort(1);
 		

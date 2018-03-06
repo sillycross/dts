@@ -449,6 +449,36 @@ function http_build_cookiedata($cookie_arr){
 	return $cookiedata;
 }
 
+//各页面通用接口，转发请求给command
+function render_page($page, $extra_context=array()){
+	$url = url_dir().'command.php';
+	$context = array('page'=>$page);
+	foreach($_POST as $pkey => $pval){
+		$context[$pkey] = $pval;
+	}
+	if(!empty($extra_context)){
+		$context = array_merge($context, $extra_context);
+	}
+	$cookies = array();
+	foreach($_COOKIE as $ckey => $cval){
+		if(strpos($ckey,'user')!==false || strpos($ckey,'pass')!==false) $cookies[$ckey] = $cval;
+	}
+	
+	$pageinfo = curl_post($url, $context, $cookies);
+	if(strpos($pageinfo, 'redirect')===0){
+		list($null, $url) = explode(':',$pageinfo);
+		header('Location: '.$url);
+		exit();
+	}
+	if(strpos($pageinfo,'<head>')===false){
+		$d_pageinfo = gdecode($pageinfo,1);
+		if(is_array($d_pageinfo) && isset($d_pageinfo['url']) && 'error.php' == $d_pageinfo['url']){
+			gexit($d_pageinfo['errormsg'],__file__,__line__);
+		}
+	}
+	return $pageinfo;
+}
+
 //----------------------------------------
 //              调试函数
 //----------------------------------------
