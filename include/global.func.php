@@ -436,6 +436,18 @@ function curl_post($url, $post_data=array(), $post_cookie=array(), $timeout = 10
 	return curl_exec($con); 
 }
 
+//curl请求启动新的进程，到处都会用，所以放到这里
+function curl_new_server($pass, $is_root=0)
+{
+	$url = url_dir().'command.php';
+	$context = array(
+		'conn_passwd'=>$pass,
+		'command'=>'start',
+		'is_root'=>$is_root
+	);
+	curl_post($url, $context, NULL, 0.1);
+}
+
 function http_build_cookiedata($cookie_arr){
 	$cookiedata= '';
 	if(!empty($cookie_arr)){
@@ -477,6 +489,23 @@ function render_page($page, $extra_context=array()){
 		}
 	}
 	return $pageinfo;
+}
+
+//获得一个文件夹下的所有特定类型的文件名，返回数组。
+function gdir($dir, $tp=''){
+	$ret = array();
+	if($handle=opendir($dir)){
+		while (($fn=readdir($handle))!==false) 
+		{
+			if($fn!='.' && $fn!='..') {
+				if(empty($tp) || (is_dir($dir.'/'.$fn) && 'dir' == $tp) || (!is_dir($dir.'/'.$fn) && $tp == pathinfo($fn, PATHINFO_EXTENSION)) )
+					array_push($ret,$fn);
+			}
+		}
+	}else{
+		$ret = NULL;
+	}
+	return $ret;
 }
 
 //----------------------------------------

@@ -35,6 +35,12 @@ $___MOD_CODE_ADV3 = 0;
 //要求php开启socket扩展，须从服务器命令行中启动acdts-daemonctl.sh
 //服务器版中有条件则建议开启，单机版中关闭就行
 $___MOD_SRV = 0;
+
+//是否允许php自动接力启动驻留进程。只在acdts-daemonctl.sh不在运行时才有效。
+$___MOD_SRV_AUTO = 1;
+//是否允许php在有用户指令时，冷启动驻留进程
+$___MOD_SRV_COLD_START = 1;
+
 //daemon模式下连接密码，各项命令都要验证密码
 $___MOD_CONN_PASSWD = '233';
 //daemon模式下端口号范围
@@ -46,9 +52,13 @@ $___MOD_CONN_W_DB = 0;
 //daemon模式下，如最终结果通过文件返回，临时文件存放目录
 //默认使用游戏内目录
 $___MOD_TMP_FILE_DIRECTORY = GAME_ROOT.'./gamedata/tmp/response/';
+//daemon模式下驻留进程最小执行时间。如果服务器max_execution_time小于这个值，会以这个值为准；超过则以max_execution_time为准
+$___MOD_SRV_MIN_EXECUTION_TIME = 180;
+//daemon模式下驻留进程最大执行时间。
+$___MOD_SRV_MAX_EXECUTION_TIME = 1800;
 //daemon模式下server无连接情况下的唤醒时间（秒），daemon的实际执行时间大约是服务器设置的max_execution_time减去这个值
-//不要超过服务器设置max_execution_time的五分之一，尽可能低一些，但不要低于5秒
-$___MOD_SRV_WAKETIME = 60;
+//不要超过服务器设置max_execution_time的五分之一，尽可能低一些，但不要低于5秒。WIN下应适当增加这个时间（POWERSHEL执行速度慢）
+$___MOD_SRV_WAKETIME = 30;
 //daemon模式下，如果一台非根daemon在主动退出前已经超过这个时间（秒）没有接到任何命令了，它将不会要求启动一台新daemon替代它
 $___MOD_VANISH_TIME = 300;
 //daemon模式下日志级别 
