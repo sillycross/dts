@@ -27,7 +27,7 @@ if ($___MOD_SRV)
 		unset($size);
 
 		//开始执行
-		if (isset($_POST['is_root'])) $___TEMP_is_root=1; else $___TEMP_is_root=0;
+		if (!empty($_POST['is_root'])) $___TEMP_is_root=1; else $___TEMP_is_root=0;
 		
 		unset($_COOKIE); unset($_POST); unset($_GET); unset($_REQUEST); unset($_FILES);
 		
