@@ -13,9 +13,9 @@ if (empty($_REQUEST["playerID"]))
 else
 {
 	$uname=urldecode($_REQUEST["playerID"]);
-	$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$uname'");
-	if(!$db->num_rows($result)) { gexit($_ERROR['user_not_exists'],__file__,__line__); }
-	$udata = $db->fetch_array($result);
+	$result = fetch_udata('*', "username = '$username'");
+	if(empty($result)) { gexit($_ERROR['user_not_exists'],__file__,__line__); }
+	$udata = $result[0];
 	$curuser=false;
 	if ($uname==$cuser) $curuser=true;
 }

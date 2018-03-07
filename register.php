@@ -30,8 +30,8 @@ if(!isset($cmd)){
 	}elseif(preg_match($iplimit,$onlineip)){
 		$gamedata['innerHTML']['info'] = $_ERROR['ip_banned'];
 	}else{
-		$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username = '$username'");
-		if($db->num_rows($result) > 0) {
+		$result = fetch_udata('uid', "username = '$username'");
+		if(!empty($result)) {
 			$gamedata['innerHTML']['info'] = $_ERROR['name_exists'];
 		}else{//现在开始注册
 			$groupid = 1;

@@ -36,11 +36,11 @@ $groupid = 1;
 $credits = 0;
 $gender = 0;
 
-$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username = '$username'");
-if(!$db->num_rows($result)) {
+$result = fetch_udata('*', "username = '$username'");
+if(empty($result)) {
 	gexit($_ERROR['user_not_exists'],__file__,__line__);
 } else {
-	$userdata = $db->fetch_array($result);
+	$userdata = $result[0];
 	if($userdata['groupid'] <= 0){
 		gexit($_ERROR['user_ban'],__file__,__line__);
 	} elseif(!pass_compare($userdata['username'], $password, $userdata['password'])) {
@@ -57,4 +57,5 @@ gsetcookie('pass',$password);
 Header("Location: index.php");
 exit();
 
-?>
+/* End of file login.php */
+/* Location: /login.php */

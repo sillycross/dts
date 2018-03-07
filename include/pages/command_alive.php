@@ -31,24 +31,11 @@ $sort = " ORDER BY killnum DESC, lvl DESC";
 $limit = "";
 if(!isset($alivemode) || $alivemode == 'last') $limit = " LIMIT $alivelimit";
 $query = $db->query("SELECT name,ip,gd,sNo,validtime,a_actionnum,v_actionnum,endtime,icon,lvl,exp,hp,killnum,npckillnum,teamID,nskillpara,pid FROM {$tablepre}players".$cond.$sort.$limit);
-//if(!isset($alivemode) || $alivemode == 'last'){
-//	$query = $db->query("SELECT name,gd,sNo,icon,lvl,exp,killnum,teamID,nskillpara,pid FROM {$tablepre}players WHERE type=0 ".($gametype!=2?"AND hp>0":'')" order by killnum desc, lvl desc limit $alivelimit");
-//}elseif($alivemode == 'all'){
-//	$query = $db->query("SELECT name,gd,sNo,icon,lvl,exp,killnum,teamID,nskillpara,pid FROM {$tablepre}players WHERE type=0 ".($gametype!=2?"AND hp>0":'')." order by killnum desc, lvl desc");
-//}else{
-//	echo 'error';
-//	exit();
-//}
-//if($alivemode == 'all') {
-//	$query = $db->query("SELECT name,gd,sNo,icon,lvl,exp,killnum,teamID FROM {$tablepre}players WHERE type=0 AND hp>0 order by killnum desc, lvl desc");
-//} else {
-//	$query = $db->query("SELECT name,gd,sNo,icon,lvl,exp,killnum,teamID FROM {$tablepre}players WHERE type=0 AND hp>0 order by killnum desc, lvl desc limit $alivelimit");
-//}
+
 while($playerdata = $db->fetch_array($query)) {
 	list($iconImg, $iconImgB) = \player\icon_parser(0, $playerdata['gd'], $playerdata['icon']);
 	$playerdata['iconImg'] = $iconImg;
-	$result = fetch_udata('motto', $playerdata['name']);
-	$playerdata['motto'] = $result[0]['motto'];
+	
 	/**
 	 * 摸东西模式下按照破解层数排名，而不是按照杀人数
 	 */
@@ -62,7 +49,16 @@ while($playerdata = $db->fetch_array($query)) {
 		$playerdata['bounty']=(int)\skillbase\skill_getvalue_direct(475,'bounty',$playerdata['nskillpara']);
 	}
 	
-	$alivedata[] = $playerdata;
+	$alivedata[$playerdata['name']] = $playerdata;
+}
+//第二轮读取用户表，避免大量数据库读写
+if(!empty($alivedata)){
+	$alist = implode("','",array_keys($alivedata));
+	$result = fetch_udata('username, motto', "username IN ('{$alist}')");
+	foreach($result as $rv){
+		if(isset($alivedata[$rv['username']]))
+			$alivedata[$rv['username']]['motto'] = $rv['motto'];
+	}
 }
 
 usort($alivedata, "cmp_by_killnum");

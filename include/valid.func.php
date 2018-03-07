@@ -67,8 +67,8 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip=NULL)
 //	}
 
 	global $gamefounder;
-	$result = $db->query("SELECT groupid,ip FROM {$gtablepre}users WHERE username='$xuser'");
-	$r = $db->fetch_array($result);
+	$result = fetch_udata('groupid,ip', "username='$xuser'");
+	$r = $result[0];
 	$groupid = $r['groupid'];
 	
 	//如果没有提供ip，则自行查询
@@ -249,18 +249,8 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip=NULL)
 	\player\player_save($pp);
 	///////////////////////////////////////////////////////////////
 	$rarecolor = $card_rarecolor[$newscardrare];
-//	if ($cardrare=="S"){
-//		$rarecolor="orange";
-//	}else if ($cardrare=='A'){
-//		$rarecolor="linen";
-//	}else if ($cardrare=='B'){
-//		$rarecolor="brickred";
-//	}else if ($cardrare=='C'){
-//		$rarecolor="seagreen";
-//	}
-	$result = $db->query("SELECT groupid FROM {$gtablepre}users WHERE username='$cuser'");
-	$udata = $db->fetch_array($result);
-	if($gamestate >= 30 && ($udata['groupid'] >= 6 || $cuser == $gamefounder)){
+
+	if($gamestate >= 30 && ($groupid >= 6 || $cuser == $gamefounder)){
 		addnews($now,'newgm',"<span class=\"".$rarecolor."\">".$newscardname.'</span> '.$name,"{$sexinfo[$gd]}{$sNo}号");
 	}else{
 		addnews($now,'newpc',"<span class=\"".$rarecolor."\">".$newscardname.'</span> '.$name,"{$sexinfo[$gd]}{$sNo}号");

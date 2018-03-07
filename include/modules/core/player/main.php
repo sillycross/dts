@@ -186,9 +186,8 @@ namespace player
 		eval(import_module('sys'));
 		if ($pdata['type']==0)
 		{
-			$result = $db->query ( "SELECT killmsg FROM {$gtablepre}users WHERE username = '{$pdata['name']}'" );
-			$kilmsg = $db->result ( $result, 0 );
-			return $kilmsg;
+			$result = fetch_udata('killmsg', "username='{$pdata['name']}'");
+			return $result[0]['killmsg'];
 		}
 		return '';
 	}
@@ -199,9 +198,8 @@ namespace player
 		eval(import_module('sys'));
 		if ($pdata['type']==0)
 		{
-			$result = $db->query ( "SELECT lastword FROM {$gtablepre}users WHERE username = '{$pdata['name']}'" );
-			$lstwd = $db->result ( $result, 0 );
-			return $lstwd;
+			$result = fetch_udata('lastword', "username='{$pdata['name']}'");
+			return $result[0]['lastword'];
 		}
 		return '';
 	}

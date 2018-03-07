@@ -8,19 +8,9 @@ if(!defined('IN_GAME')) {
 //返回相当于fetch_array得到的数组
 function fetch_udata($fields, $where, $sort='', $local=0){
 	global $db, $gtablepre;
-	//自动判定$where是不是单只有一个用户名
-	$nameonly = 1;
-	foreach(array('=','<','>','!','LIKE') as $val){
-		if(strpos($where, $val)!==false && strpos($where, "'")!==false) {
-			$nameonly = 0;
-			break;
-		}
-	}
 	//生成查询
-	$qry = "SELECT {$fields} FROM {$gtablepre}users WHERE ";
-	if($nameonly) $qry .= "username='{$where}'";
-	else $qry .= $where;
-	if(!empty($sort)) $qry .= ' '.$sort;
+	$qry = "SELECT {$fields} FROM {$gtablepre}users WHERE {$where} ";
+	if(!empty($sort)) $qry .= "ORDER BY $sort";
 	//获取结果并自动fetch
 	$result = $db->query($qry);
 	$ret = array();
@@ -45,7 +35,7 @@ function udata_check(){
 	$line = debug_backtrace()[0]['line'];
 	if(!$cuser||!$cpass) { gexit($_ERROR['no_login'],$file,$line);return; } 
 	
-	$udata = fetch_udata('*', $cuser);
+	$udata = fetch_udata('*', "username='$cuser'");
 	if(empty($udata)) { gexit($_ERROR['login_check'],$file,$line);return; }
 	$udata = $udata[0];
 	if(!pass_compare($udata['username'], $cpass, $udata['password'])) { gexit($_ERROR['wrong_pw'], $file, $line);return; }

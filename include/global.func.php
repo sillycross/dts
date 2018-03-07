@@ -796,15 +796,16 @@ function init_dbstuff(){
 
 function check_authority()
 {
+	global $gtablepre;
 	include GAME_ROOT.'./include/modules/core/sys/config/server.config.php';
 	include_once GAME_ROOT.'./include/user.func.php';
 	$_COOKIE=gstrfilter($_COOKIE);
 	$cuser=$_COOKIE[$gtablepre.'user'];
 	$cpass=$_COOKIE[$gtablepre.'pass'];
-	$db = init_dbstuff();
-	$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$cuser'");
-	if(!$db->num_rows($result)) { echo "<span><font color=\"red\">Cookie无效，请登录。</font></span><br>"; die(); }
-	$udata = $db->fetch_array($result);
+	global $db; $db = init_dbstuff(); 
+	$result = fetch_udata('*', "username='$cuser'");
+	if(empty($result)) { echo "<span><font color=\"red\">Cookie无效，请登录。</font></span><br>"; die(); }
+	$udata = $result[0];
 	if(!pass_compare($udata['username'],$cpass,$udata['password'])) { echo "<span><font color=\"red\">密码错误，请重新登录并重试。</font></span><br>"; die(); }
 	elseif(($udata['groupid'] < 9)&&($cuser!==$gamefounder)) { echo "<span><font color=\"red\">要求至少9权限。</font></span><br>"; die(); }
 }

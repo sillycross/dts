@@ -53,6 +53,7 @@ if(!empty($pagecmd) && $pagecmd == 'upload'){
 	
 	$urcmd = '';
 }elseif(!empty($pagecmd) && $pagecmd == 'download'){
+	//这也维持调取本地
 	$result = $db->query("SELECT * FROM {$gtablepre}users");
 	//$i = 0;
 	$udb = array();

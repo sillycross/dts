@@ -198,8 +198,8 @@ namespace item_misc
 				}
 				return;
 			} elseif ($itm == '权限狗的ID卡') {
-				$result = $db->query("SELECT groupid,password FROM {$gtablepre}users WHERE username='$cuser'");
-				$result = $db->fetch_array($result);
+				$result = fetch_udata('groupid,password', "username='$cuser'");
+				$result = $result[0];
 				$ugroupid = $result['groupid'];
 				$upassword = $result['password'];
 				if(pass_compare($cuser, $cpass, $upassword) && ($ugroupid >= 5 || $cuser == $gamefounder)){
