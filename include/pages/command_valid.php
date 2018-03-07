@@ -5,7 +5,6 @@ if(!defined('IN_GAME')) {
 
 eval(import_module('sys','player','map','input'));
 
-include_once './include/user.func.php';
 include_once './include/valid.func.php';
 
 if(!$cuser||!$cpass) {

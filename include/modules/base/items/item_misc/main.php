@@ -202,7 +202,6 @@ namespace item_misc
 				$result = $db->fetch_array($result);
 				$ugroupid = $result['groupid'];
 				$upassword = $result['password'];
-				include_once GAME_ROOT.'./include/user.func.php';
 				if(pass_compare($cuser, $cpass, $upassword) && ($ugroupid >= 5 || $cuser == $gamefounder)){
 					$log.='大逃杀幻境已确认你的权限狗身份，正在为你输送权限套装……<br>';
 					$wp=$wk=$wg=$wc=$wd=$wf=666;

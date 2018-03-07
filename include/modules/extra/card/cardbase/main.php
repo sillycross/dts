@@ -285,10 +285,16 @@ namespace cardbase
 		eval(import_module('logger'));
 		$qiegaogain=calc_qiegao_drop($pa,$pd,$active);
 		if ($qiegaogain>0){
-			get_qiegao($qiegaogain,$pa);
+			battle_get_qiegao_update($qiegaogain,$pa);
 			$log.="<span class=\"orange\">敌人掉落了{$qiegaogain}单位的切糕！</span><br>";
 		}
 		return $qiegaogain;
+	}
+	
+	function battle_get_qiegao_update($qiegaogain,&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		get_qiegao($qiegaogain,$pa);
 	}
 	
 	/*

@@ -4,8 +4,6 @@ define('CURSCRIPT', 'user_profile');
 
 require './include/common.inc.php';
 
-require './include/user.func.php';
-
 $_REQUEST = gstrfilter($_REQUEST);
 if (empty($_REQUEST["playerID"]))
 {

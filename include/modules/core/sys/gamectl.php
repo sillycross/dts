@@ -331,7 +331,7 @@ namespace sys
 		$insert_gid = $gamenum;
 //		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-优胜记录修改');
 		//发放切糕工资
-		set_credits();
+		gameover_set_credits();
 //		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-切糕发放');
 		//重置游戏开始时间和当前游戏状态
 		rs_sttime();
@@ -386,6 +386,83 @@ namespace sys
 			save_gameinfo();
 			process_unlock();
 		}
+	}
+	
+	function gameover_set_credits()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		$result = $db->query("SELECT * FROM {$tablepre}players WHERE type='0'");
+		$list = $creditlist = $updatelist = Array();
+		while($data = $db->fetch_array($result)){
+			$list[$data['name']]['players'] = $data;
+		}
+		if(empty($list)) return;
+		$wherecause = "('".implode("','",array_keys($list))."')";
+		//在房间制之前这样写是对的……但是呢，房间会刷新lastgame，这样可能会导致拿不到积分
+		//$result = $db->query("SELECT * FROM {$gtablepre}users WHERE lastgame='$gamenum'");
+		$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username IN $wherecause");
+		while($data = $db->fetch_array($result)){
+			$list[$data['username']]['users'] = $data;
+		}
+		foreach($list as $key => $val){
+			if(isset($val['players']) && isset($val['users'])){
+				$credits = gameover_get_credit_up($val['players'],$winner,$winmode) + $val['users']['credits'];
+				$gold = gameover_get_gold_up($val['players'],$winner,$winmode) + $val['users']['gold'];
+				//伐木不算参与次数
+				$validgames = $gametype != 15 ? $val['users']['validgames'] + 1 : $val['users']['validgames'];
+				//非伐木房的幸存、解禁、解离、核爆才算获胜次数
+				$wingames = ($gametype != 15 && in_array($winmode, array(2, 3, 5, 7)) && $key == $winner) ? $val['users']['wingames'] + 1 : $val['users']['wingames'];
+				$lastwin = ($gametype != 15 && in_array($winmode, array(2, 3, 5, 7)) && $key == $winner) ? $now : $val['users']['lastwin'];
+				$updatelist[] = Array('username' => $key, 'credits' => $credits, 'wingames' => $wingames, 'validgames' => $validgames,'lastwin'=>$lastwin,'gold'=>$gold);
+			}
+		}
+		$db->multi_update("{$gtablepre}users", $updatelist, 'username');
+		return;
+	}
+
+	function gameover_get_credit_up($data,$winner = '',$winmode = 0)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		if (in_array($gametype,$qiegao_ignore_mode)) return 0;
+		if($data['name'] == $winner){//获胜
+			if($winmode == 2){$up = 200;}//最后幸存+200
+			elseif($winmode == 3){$up = 500;}//解禁+500
+			elseif($winmode == 5){$up = 100;}//核弹+100
+			elseif($winmode == 7){$up = 1200;}//解离+1200
+			else{$up = 50;}//其他胜利方式+50（暂时没有这种胜利方式）
+		}
+		elseif($data['hp']>0){$up = 25;}//存活但不是获胜者+25
+		else{$up = 10;}//死亡+10
+		if($data['killnum']){
+			$up += $data['killnum'] * 10;//杀一玩家加10
+		}
+		if($data['npckillnum']){
+			$up += $data['npckillnum'] * 2;//杀一NPC加2
+		}
+		if($data['lvl']){
+			$up += round($data['lvl'] /2);//等级每2级加1
+		}
+		$skill = array ($data['wp'] , $data['wk'] , $data['wg'] , $data['wc'] , $data['wd'] , $data['wf']);
+		rsort ( $skill );
+		$maxskill = $skill[0];
+		$up += round($maxskill / 25);//熟练度最高的系每25点熟练加1
+		$up += round($data['money']/500);//每500点金钱加1
+		return $up;
+	}
+
+	function gameover_get_gold_up($data, $winner = '',$winmode = 0)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		if (in_array($gametype,$qiegao_ignore_mode)) return 0;//嘻嘻
+		if($data['name'] == $winner){//获胜
+			if($winmode == 3){$up = 60;}//解禁
+			elseif($winmode == 7){$up = 150;}//解离
+			else{$up = 40;}//其他胜利方式
+		}else{$up = 10;}
+		return $up;
 	}
 }
 

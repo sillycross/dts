@@ -47,9 +47,8 @@ $query = $db->query("SELECT name,ip,gd,sNo,validtime,a_actionnum,v_actionnum,end
 while($playerdata = $db->fetch_array($query)) {
 	list($iconImg, $iconImgB) = \player\icon_parser(0, $playerdata['gd'], $playerdata['icon']);
 	$playerdata['iconImg'] = $iconImg;
-	//$playerdata['iconImg'] = "{$playerdata['gd']}_{$playerdata['icon']}.gif";
-	$result = $db->query("SELECT motto FROM {$gtablepre}users WHERE username = '".$playerdata['name']."'");
-	$playerdata['motto'] = $db->result($result, 0);
+	$result = fetch_udata('motto', $playerdata['name']);
+	$playerdata['motto'] = $result[0]['motto'];
 	/**
 	 * 摸东西模式下按照破解层数排名，而不是按照杀人数
 	 */

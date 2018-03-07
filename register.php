@@ -3,8 +3,6 @@
 define('CURSCRIPT', 'register');
 define('LOAD_CORE_ONLY', TRUE);
 require './include/common.inc.php';
-
-include './include/user.func.php';
 include './gamedata/banlist.list';
 
 if(isset($cuser) && isset($cpass)){
@@ -38,9 +36,25 @@ if(!isset($cmd)){
 		}else{//现在开始注册
 			$groupid = 1;
 			$credits = 0;
+			$gold = 100;
 			$password = create_cookiepass($npass);
 			$stored_password = create_storedpass($username, $password);
-			$result = $db->query("INSERT INTO {$gtablepre}users (username,password,alt_pswd,groupid,ip,credits,gender,icon,motto,killmsg,lastword,gold,cardlist) VALUES ('$username', '$stored_password', 1, '$groupid', '$onlineip', '$credits', '$gender', '$icon', '$motto', '$killmsg', '$lastword','80','0')");
+			$i_udata = array(
+				'username' => $username,
+				'password' => $stored_password,
+				'alt_pswd' => 1,
+				'groupid' => $groupid,
+				'ip' => $onlineip,
+				'credits' => $credits,
+				'gold' => $gold,
+				'gender' => $gender,
+				'icon' => $icon,
+				'motto' => $motto,
+				'killmsg' => $killmsg,
+				'lastword' => $lastword,
+				'cardlist' => '0',
+			);
+			$result = insert_udata($i_udata);
 			if($result){
 				$gamedata['innerHTML']['info'] = $_INFO['reg_success'];
 				$ustate = 'check';

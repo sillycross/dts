@@ -43,6 +43,7 @@ if(!empty($pagecmd) && $pagecmd == 'upload'){
 			file_put_contents($odbname, $o_cont);
 			$cmd_info = '旧数据库已保存为"'.$odbname.'"';
 			
+			//这个就维持覆盖本地好了
 			$db->array_insert("{$gtablepre}users", $cont_arr, 1, 'username');
 			adminlog('uploadurdata');
 			$cmd_info .= '，用户数据覆盖成功';

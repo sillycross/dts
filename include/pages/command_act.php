@@ -32,7 +32,6 @@ if($pdata['pass'] != $cpass) {
 	$tr = $db->query("SELECT `password` FROM {$gtablepre}users WHERE username='$cuser'");
 	$tp = $db->fetch_array($tr);
 	$password = $tp['password'];
-	include_once './include/user.func.php';
 	if(pass_compare($cuser, $cpass, $password)) {
 		$db->query("UPDATE {$tablepre}players SET pass='$password' WHERE name='$cuser'");
 	} else {

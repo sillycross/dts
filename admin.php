@@ -6,7 +6,6 @@ require './include/common.inc.php';
 define('IN_ADMIN', TRUE);
 require GAME_ROOT.'./gamedata/admincfg.php';
 require GAME_ROOT.'./include/admin/admin.lang.php';
-require './include/user.func.php';
 
 $udata = udata_check();
 

@@ -3,7 +3,6 @@
 define('CURSCRIPT', 'cardbook');
 
 require './include/common.inc.php';
-require './include/user.func.php';
 
 eval(import_module('cardbase'));
 

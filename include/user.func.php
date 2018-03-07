@@ -4,15 +4,50 @@ if(!defined('IN_GAME')) {
 	exit('Access Denied');
 }
 
+//获取用户数据的通用函数，会自动获取远端数据
+//返回相当于fetch_array得到的数组
+function fetch_udata($fields, $where, $sort='', $local=0){
+	global $db, $gtablepre;
+	//自动判定$where是不是单只有一个用户名
+	$nameonly = 1;
+	foreach(array('=','<','>','!','LIKE') as $val){
+		if(strpos($where, $val)!==false && strpos($where, "'")!==false) {
+			$nameonly = 0;
+			break;
+		}
+	}
+	//生成查询
+	$qry = "SELECT {$fields} FROM {$gtablepre}users WHERE ";
+	if($nameonly) $qry .= "username='{$where}'";
+	else $qry .= $where;
+	if(!empty($sort)) $qry .= ' '.$sort;
+	//获取结果并自动fetch
+	$result = $db->query($qry);
+	$ret = array();
+	if($db->num_rows($result)) {
+		while($r = $db->fetch_array($result)) {
+			$ret[] = $r;
+		}
+	}
+	return $ret;
+}
+
+function insert_udata($udata)
+{
+	global $db, $gtablepre;
+	if(empty($udata['username']) || empty($udata['password'])) return false;
+	return $db->array_insert("{$gtablepre}users", $udata);
+}
+
 function udata_check(){
 	global $db, $gtablepre, $cuser, $cpass, $_ERROR;
 	$file = debug_backtrace()[0]['file'];
 	$line = debug_backtrace()[0]['line'];
 	if(!$cuser||!$cpass) { gexit($_ERROR['no_login'],$file,$line);return; } 
 	
-	$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$cuser'");
-	if(!$db->num_rows($result)) { gexit($_ERROR['login_check'],$file,$line);return; }
-	$udata = $db->fetch_array($result);
+	$udata = fetch_udata('*', $cuser);
+	if(empty($udata)) { gexit($_ERROR['login_check'],$file,$line);return; }
+	$udata = $udata[0];
 	if(!pass_compare($udata['username'], $cpass, $udata['password'])) { gexit($_ERROR['wrong_pw'], $file, $line);return; }
 	if($udata['groupid'] <= 0) { gexit($_ERROR['user_ban'], $file, $line);return; }
 	return $udata;

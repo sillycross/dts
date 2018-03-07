@@ -9,7 +9,6 @@ define('CURSCRIPT', 'roomcmd');
 //$not_ready_command_flag = 0;
 include './include/roommng/roommng.config.php';
 include_once './include/roommng/roommng.func.php';
-include_once './include/user.func.php';
 
 if ($command!='ready')
 {

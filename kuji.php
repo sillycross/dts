@@ -3,7 +3,6 @@
 define('CURSCRIPT', 'kuji');
 
 require './include/common.inc.php';
-require './include/user.func.php';
 
 $_REQUEST = gstrfilter($_REQUEST);
 $ktype=$_REQUEST['type'];
