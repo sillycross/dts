@@ -169,7 +169,7 @@ $lang = array
 	'configmng' => '底层参数设置',
 	'configmng_comment' => '配置服务器时差、错误信息显示等游戏底层参数<br>对应server.config.php',
 	'systemmng' => '全局参数设置',
-	'systemmng_comment' => '配置游戏开始模式等全局环境相关的系统参数<br>对应system.config.php',
+	'systemmng_comment' => '配置游戏开始模式等全局环境相关的系统参数<br>对应game.config.php',
 	'gamecfgmng' => '游戏参数配置',
 	'gamecfgmng_comment' => '设置跟单局游戏相关的游戏参数<br>对应modules文件夹下的某些*.config.php',
 	

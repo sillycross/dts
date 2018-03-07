@@ -101,6 +101,10 @@ foreach($adminlogdata as $aval){
 			$show_gnum = adminlog_parse_gnum($p1,$p2);
 			$show_p = '<span class="yellow">'.$p3.'</span>';
 		}
+	}elseif('downloadurdata'==$o) {
+		$show_o = '下载用户数据库';
+	}elseif('uploadurdata'==$o) {
+		$show_o = '上传并覆盖用户数据库';
 	}elseif(in_array($o, array('banur','unbanur','delur','delur2','editur'))){
 		if('banur'==$o) {
 			$show_o = '封禁账户';
@@ -118,13 +122,17 @@ foreach($adminlogdata as $aval){
 			$show_p .= ' 修改内容：<br>';
 			$cont = gdecode($p2,1);
 			foreach($cont as $ck => $cv){
+				if(is_array($cv)) $cv = json_encode($cv);
 				if(isset($lang[$ck])) $ck = $lang[$ck];
 				if('gender'==$ck) $ck='默认性别';
 				elseif('gold'==$ck) $ck='切糕';
 //				elseif('motto'==$ck) $ck='口头禅';
 //				elseif('lastword'==$ck) $ck='遗言';
-				elseif('a_achievements'==$ck) $ck='成就';
-				if(is_array($cv)) $cv = json_encode($cv);
+				elseif('a_achievements'==$ck || 'cardlist'==$ck) {
+					if('a_achievements'==$ck) $ck='成就';
+					else $ck='卡片';
+					$cv = '<a title="'.str_replace('"',"'",$cv).'">悬浮查看</a>';
+				}
 				$show_p .= $ck.' → '.$cv.'<br>';
 			}
 		}

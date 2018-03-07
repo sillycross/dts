@@ -44,7 +44,7 @@ if(!empty($pagecmd) && $pagecmd == 'upload'){
 			$cmd_info = '旧数据库已保存为"'.$odbname.'"';
 			
 			$db->array_insert("{$gtablepre}users", $cont_arr, 1, 'username');
-			
+			adminlog('uploadurdata');
 			$cmd_info .= '，用户数据覆盖成功';
 			
 		}
@@ -65,11 +65,16 @@ if(!empty($pagecmd) && $pagecmd == 'upload'){
 	}
 	//$cont = "<?php if(!defined('IN_ADMIN')) exit('Access Denied');\r\n".var_export($udb, 1);
 	//file_put_contents(GAME_ROOT.'./userdb_backup.php', $cont);
+	global $server_address;
+	$sitename = explode('.',$server_address);
+	if(sizeof($sitename) <= 2) $sitename = $sitename[0];
+	else $sitename = $sitename[1];
+	adminlog('downloadurdata');
 	ob_clean();
 	header("Content-type: application/octet-stream");  
   header("Accept-Ranges: bytes");  
   header("Accept-Length: ".strlen($cont));  
-  header("Content-Disposition: attachment; filename=userdb.dat");  
+  header("Content-Disposition: attachment; filename=userdb_{$sitename}.dat");  
   echo $cont;
   die();
 }

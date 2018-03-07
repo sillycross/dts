@@ -63,7 +63,7 @@ if($command == 'edit') {
 		if(isset($edlist['systemmsg'])){
 			file_put_contents('./gamedata/systemmsg.htm',$systemmsg);
 		}
-		$sf = GAME_ROOT.'./include/modules/core/sys/config/system.config.php';
+		$sf = GAME_ROOT.'./include/modules/core/sys/config/game.config.php';
 		//$sf = dirname(dirname(__FILE__)).'/modules/core/sys/config/system.config.php';
 		$system_cont = file_get_contents($sf);
 		foreach($edlist as $key => $val){
@@ -84,7 +84,7 @@ if($command == 'edit') {
 			file_put_contents($rf,$roommng_cont);
 		}
 		//打开ADV1以上时需要同时修改run文件夹下的内容
-		$sf_run = GAME_ROOT.'./gamedata/run/core/sys/config/system.config.adv.php';
+		$sf_run = GAME_ROOT.'./gamedata/run/core/sys/config/game.config.adv.php';
 		if($___MOD_CODE_ADV1 && file_exists($sf_run)){
 			file_put_contents($sf_run,$system_cont);
 			$daemonmng_url = 'http://'.$_SERVER['HTTP_HOST'].substr($_SERVER['PHP_SELF'],0,-9).'daemonmng.php';
