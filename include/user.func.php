@@ -30,14 +30,18 @@ function insert_udata($udata)
 }
 
 function udata_check(){
-	global $db, $gtablepre, $cuser, $cpass, $_ERROR;
+	global $db, $gtablepre, $cuser, $cpass, $cudata, $_ERROR;
 	$file = debug_backtrace()[0]['file'];
 	$line = debug_backtrace()[0]['line'];
 	if(!$cuser||!$cpass) { gexit($_ERROR['no_login'],$file,$line);return; } 
-	
-	$udata = fetch_udata('*', "username='$cuser'");
-	if(empty($udata)) { gexit($_ERROR['login_check'],$file,$line);return; }
-	$udata = $udata[0];
+	if(empty($cudata)) {
+		$udata = fetch_udata('*', "username='$cuser'");
+		if(empty($udata)) { gexit($_ERROR['login_check'],$file,$line);return; }
+		$udata = $udata[0];
+	}else{
+		//如果载入过common.inc.php，那么就用$cudata的值，这样一定只读取1次users表
+		$udata = $cudata;
+	}
 	if(!pass_compare($udata['username'], $cpass, $udata['password'])) { gexit($_ERROR['wrong_pw'], $file, $line);return; }
 	if($udata['groupid'] <= 0) { gexit($_ERROR['user_ban'], $file, $line);return; }
 	return $udata;

@@ -317,8 +317,8 @@ namespace sys
 					$pdata = $db->fetch_array($result);
 				}
 				$winnerdata['winnerpdata'] = gencode($pdata);
-				$result2 = $db->query("SELECT motto FROM {$gtablepre}users WHERE username='$winner'");
-				$winnerdata['motto'] = $db->result($result2, 0);
+//				$result2 = $db->query("SELECT motto FROM {$gtablepre}users WHERE username='$winner'");
+//				$winnerdata['motto'] = $db->result($result2, 0);
 			}else{
 				//其实这里也可以把组队玩家资料全部丢进$winnerdata['winnerpdata']，再说吧
 				$winnerdata['winnerteamID'] = $firstteamID;

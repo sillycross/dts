@@ -8,9 +8,11 @@
 	<li>现在战斗中获得的切糕会在游戏结束时才结算</li>
 	<li>修正了一个会导致首页崩溃的房间BUG</li>
 </ul>
-<p>部署维护相关：</p>
+<p>开发、部署、维护相关：</p>
 <ul>
 	<li>system.config.php里常会根据各服情况修改的变量移动到了game.config.php</li>
+	<li>大量改动users表读写的逻辑，现在users表读写全部通过专用函数完成，且大大减少读写次数</li>
+	<li>现在players表里会自动载入killmsg等的内容</li>
 	<li>现在不需要shell或者后台开着脚本也能自动维持php驻留进程的运行了。这个更新会改动modluemng.config.php及command.php，部署中的服务器需要先关停，然后手动修改modluemng.config.php！</li>
 </ul>
 <h3>3月4日 (v1.9.19)</h3>

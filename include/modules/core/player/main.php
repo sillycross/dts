@@ -183,25 +183,27 @@ namespace player
 	function get_player_killmsg(&$pdata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys'));
-		if ($pdata['type']==0)
-		{
-			$result = fetch_udata('killmsg', "username='{$pdata['name']}'");
-			return $result[0]['killmsg'];
-		}
-		return '';
+		return $pdata['killmsg'];
+//		eval(import_module('sys'));
+//		if ($pdata['type']==0)
+//		{
+//			$result = fetch_udata('killmsg', "username='{$pdata['name']}'");
+//			return $result[0]['killmsg'];
+//		}
+//		return '';
 	}
 	
 	function get_player_lastword(&$pdata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys'));
-		if ($pdata['type']==0)
-		{
-			$result = fetch_udata('lastword', "username='{$pdata['name']}'");
-			return $result[0]['lastword'];
-		}
-		return '';
+		return $pdata['lastword'];
+//		eval(import_module('sys'));
+//		if ($pdata['type']==0)
+//		{
+//			$result = fetch_udata('lastword', "username='{$pdata['name']}'");
+//			return $result[0]['lastword'];
+//		}
+//		return '';
 	}
 	
 	//查skill_query()如果给的$pa是NULL则会自动调用当前玩家，这是个大坑，判定陷阱方面尤其如此……只能给个假玩家数据蒙混一下了
@@ -684,9 +686,14 @@ namespace player
 			*/
 	}
 	
+	//用用户表中的motto、killmsg、lastword替换player的
 	function post_act()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player'));
+		$motto = $cudata['motto'];
+		$killmsg = $cudata['killmsg'];
+		$lastword = $cudata['lastword'];
 	}
 	
 	function prepare_response_content()

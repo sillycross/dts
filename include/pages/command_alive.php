@@ -30,7 +30,7 @@ if($gametype == 17){$endtimelimit = $now-300;$cond .= " AND endtime>$endtimelimi
 $sort = " ORDER BY killnum DESC, lvl DESC";
 $limit = "";
 if(!isset($alivemode) || $alivemode == 'last') $limit = " LIMIT $alivelimit";
-$query = $db->query("SELECT name,ip,gd,sNo,validtime,a_actionnum,v_actionnum,endtime,icon,lvl,exp,hp,killnum,npckillnum,teamID,nskillpara,pid FROM {$tablepre}players".$cond.$sort.$limit);
+$query = $db->query("SELECT * FROM {$tablepre}players".$cond.$sort.$limit);
 
 while($playerdata = $db->fetch_array($query)) {
 	list($iconImg, $iconImgB) = \player\icon_parser(0, $playerdata['gd'], $playerdata['icon']);
@@ -50,15 +50,6 @@ while($playerdata = $db->fetch_array($query)) {
 	}
 	
 	$alivedata[$playerdata['name']] = $playerdata;
-}
-//第二轮读取用户表，避免大量数据库读写
-if(!empty($alivedata)){
-	$alist = implode("','",array_keys($alivedata));
-	$result = fetch_udata('username, motto', "username IN ('{$alist}')");
-	foreach($result as $rv){
-		if(isset($alivedata[$rv['username']]))
-			$alivedata[$rv['username']]['motto'] = $rv['motto'];
-	}
 }
 
 usort($alivedata, "cmp_by_killnum");
