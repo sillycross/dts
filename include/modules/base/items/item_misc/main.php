@@ -76,7 +76,7 @@ namespace item_misc
 				\itemmain\itms_reduce($theitem);
 				return;
 			} elseif ($itm == '凸眼鱼') {
-				eval(import_module('sys','corpse'));
+				eval(import_module('corpse'));
 				$tm = $now - $corpseprotect;//尸体保护
 				if ($gametype!=2)
 					$db->query ( "UPDATE {$tablepre}players SET corpse_clear_flag='1',weps='0',arbs='0',arhs='0',aras='0',arfs='0',arts='0',itms0='0',itms1='0',itms2='0',itms3='0',itms4='0',itms5='0',itms6='0',money='0' WHERE hp <= 0 AND endtime <= $tm" );
@@ -180,7 +180,6 @@ namespace item_misc
 				$url = 'end.php';
 				\sys\gameover ( $now, 'end7', $name );
 			}elseif ($itm == '杏仁豆腐的ID卡') {
-				eval(import_module('sys'));
 				if ($gametype==2)
 				{
 					$log.='本模式下不可用。<br>';
@@ -198,10 +197,8 @@ namespace item_misc
 				}
 				return;
 			} elseif ($itm == '权限狗的ID卡') {
-				$result = fetch_udata('groupid,password', "username='$cuser'");
-				$result = $result[0];
-				$ugroupid = $result['groupid'];
-				$upassword = $result['password'];
+				$ugroupid = $cudata['groupid'];
+				$upassword = $cudata['password'];
 				if(pass_compare($cuser, $cpass, $upassword) && ($ugroupid >= 5 || $cuser == $gamefounder)){
 					$log.='大逃杀幻境已确认你的权限狗身份，正在为你输送权限套装……<br>';
 					$wp=$wk=$wg=$wc=$wd=$wf=666;

@@ -558,8 +558,8 @@ function room_enter($id)
 		}
 		if($roomtypelist[$rd['groomtype']]['without-valid']){//如果直接进入房间，在这里处理
 			$pname = (string)$cuser;
-			$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username = '$pname' LIMIT 1");
-			$udata = $db->fetch_array($result);
+			global $cudata;
+			$udata = $cudata;
 			$result = $db->query("SELECT * FROM {$tablepre}players WHERE name = '$pname' AND type = 0");
 			if(!$db->num_rows($result)){//从未进入过则直接进入战场
 				include_once GAME_ROOT.'./include/valid.func.php';

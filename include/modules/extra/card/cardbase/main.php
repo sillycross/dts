@@ -7,8 +7,8 @@ namespace cardbase
 	function get_user_cards($username){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$username'");
-		$udata = $db->fetch_array($result);
+		$result = fetch_udata('*', "username='$username'");
+		$udata = $result[0];
 		$cardlist = get_user_cards_process($udata);
 		return $cardlist;
 	}	
@@ -87,8 +87,8 @@ namespace cardbase
 			$udata = $who;
 			$who = $udata['username'];
 		}else{
-			$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$who'");
-			$udata = $db->fetch_array($result);
+			$result = fetch_udata('*', "username='$who'");
+			$udata = $result[0];
 		}
 		
 		$cardlist = get_user_cards_process($udata);		
@@ -152,8 +152,8 @@ namespace cardbase
 			else $n=$pa['name'];
 		}
 		//判定卡片是不是新卡
-		$result = $db->query("SELECT cardlist FROM {$gtablepre}users WHERE username='$n'");
-		if(!$db->num_rows($result)) return;
+		$result = fetch_udata('cardlist', "username='$n'");
+		if(empty($result)) return;
 		//if(!empty($ext)) $ext.='<br>';
 		include_once './include/messages.func.php';
 		message_create(
@@ -164,7 +164,7 @@ namespace cardbase
 		);
 		
 		$ret = 0;
-		$clist = explode('_',$db->fetch_array($result)['cardlist']);
+		$clist = explode('_',$result[0]['cardlist']);
 		if (!in_array($ci,$clist)) $ret = 1;
 		return $ret;
 	}
@@ -180,8 +180,8 @@ namespace cardbase
 			if (isset($pa['username'])) $n=$pa['username'];
 			else $n=$pa['name'];
 		}
-		$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$n'");
-		$pu = $db->fetch_array($result);
+		$result = fetch_udata('*', "username='$n'");
+		$pu = $result[0];
 		$ret = get_card_process($ci,$pu,$ignore_qiegao);
 		
 		$p_cardlist = $pu['cardlist'];
@@ -221,9 +221,8 @@ namespace cardbase
 			if (isset($pa['username'])) $n=$pa['username'];
 			else $n=$pa['name'];
 		}
-		//writeover('a.txt', $num.' '.$n.' '.debug_backtrace()[2]['function']."\r\n",'ab+');
-		$result = $db->query("SELECT gold FROM {$gtablepre}users WHERE username='$n'");
-		$cg = $db->result($result,0);
+		$result = fetch_udata('gold', "username='$n'");
+		$cg = $result[0];
 		$cg=$cg+$num;
 		if ($cg<0) $cg=0;
 		if($pa) $pa['gold'] = $cg;

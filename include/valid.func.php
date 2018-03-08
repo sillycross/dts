@@ -66,9 +66,13 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip=NULL)
 //		$itm[3] = '手枪子弹'; $itmk[3] = 'GB'; $itme[3] = 1; $itms[3] = 12; $itmsk[3] = '';
 //	}
 
-	global $gamefounder;
-	$result = fetch_udata('groupid,ip,motto,killmsg,lastword', "username='$xuser'");
-	$r = $result[0];
+	global $gamefounder, $cuser;
+	if($xuser != $cuser) {
+		$result = fetch_udata('groupid,ip,motto,killmsg,lastword', "username='$xuser'");
+		$r = $result[0];
+	}else{
+		$r = $cudata;
+	}
 	$groupid = $r['groupid'];
 	$motto = $r['motto'];
 	$killmsg = $r['killmsg'];

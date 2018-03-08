@@ -22,6 +22,18 @@ function fetch_udata($fields, $where, $sort='', $local=0){
 	return $ret;
 }
 
+//自动生成WHERE xxx IN ()这个格式的查询语句
+//所给$wherearr必须是一个以字段名为键名，以内容列表为键值的二阶数组。暂时只支持1个查询条件
+function fetch_udata_multilist($fields, $wherearr, $sort='', $local=0){
+	if(is_array($wherearr)) {
+		$wherefield = array_keys($wherearr)[0];
+		$where = $wherefield." IN ('".implode("','", $wherearr[$wherefield])."')";
+	}else{
+		$where = $wherearr;
+	}
+	return fetch_udata($fields, $where, $sort, $local);
+}
+
 function insert_udata($udata)
 {
 	global $db, $gtablepre;
@@ -29,6 +41,7 @@ function insert_udata($udata)
 	return $db->array_insert("{$gtablepre}users", $udata);
 }
 
+//判定用户名与密码，如果判定正确，返回user表的数组
 function udata_check(){
 	global $db, $gtablepre, $cuser, $cpass, $cudata, $_ERROR;
 	$file = debug_backtrace()[0]['file'];

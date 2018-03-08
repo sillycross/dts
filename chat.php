@@ -22,8 +22,7 @@ if((isset($cgamenum) && $gamenum != $cgamenum) || (isset($croomid) && $groomid !
 
 if($ctablecorrect && $sendmode == 'send' && $chatmsg ) {//发送聊天
 	if(strpos($chatmsg,'/') === 0) {
-		$result = fetch_udata('groupid', "username='$cuser'");
-		$groupid = $result[0]['groupid'];
+		$groupid = $cudata['groupid'];
 		if($groupid > 1) {
 			if(strpos($chatmsg,'/post') === 0) {
 				$chatmsg = substr($chatmsg,6);

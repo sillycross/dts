@@ -27,16 +27,18 @@ eval(import_module('cardbase'));
 
 //入场
 if($mode == 'enter') {
+	$ip = $udata['ip'];
+	
 	if($iplimit) {
-		$result = $db->query("SELECT * FROM {$gtablepre}users AS u, {$tablepre}players AS p WHERE u.ip='{$udata['ip']}' AND ( u.username=p.name AND p.type=0)");
-		if($db->num_rows($result) > $iplimit) {
+		$result = $db->query("SELECT * FROM {$tablepre}players WHERE type=0 AND ip='$ip'");
+		if($db->num_rows($result) >= $iplimit) {
 			gexit($_ERROR['ip_limit'],__file__,__line__);
 			return;
 		}
 	}	
 
 	//$ip = real_ip();
-	$ip = $udata['ip'];
+	
 	
 	$userCardData = \cardbase\get_user_cardinfo($cuser);
 	$card_ownlist = $userCardData['cardlist'];

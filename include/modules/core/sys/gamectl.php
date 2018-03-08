@@ -2,6 +2,8 @@
 
 namespace sys
 {
+	global $gameover_ulist;
+	
 	function updategame()
 	{	
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -317,8 +319,6 @@ namespace sys
 					$pdata = $db->fetch_array($result);
 				}
 				$winnerdata['winnerpdata'] = gencode($pdata);
-//				$result2 = $db->query("SELECT motto FROM {$gtablepre}users WHERE username='$winner'");
-//				$winnerdata['motto'] = $db->result($result2, 0);
 			}else{
 				//其实这里也可以把组队玩家资料全部丢进$winnerdata['winnerpdata']，再说吧
 				$winnerdata['winnerteamID'] = $firstteamID;
@@ -398,12 +398,10 @@ namespace sys
 			$list[$data['name']]['players'] = $data;
 		}
 		if(empty($list)) return;
-		$wherecause = "('".implode("','",array_keys($list))."')";
-		//在房间制之前这样写是对的……但是呢，房间会刷新lastgame，这样可能会导致拿不到积分
-		//$result = $db->query("SELECT * FROM {$gtablepre}users WHERE lastgame='$gamenum'");
-		$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username IN $wherecause");
-		while($data = $db->fetch_array($result)){
-			$list[$data['username']]['users'] = $data;
+		
+		$result = fetch_udata_multilist('*', array('username' => array_keys($list)));
+		foreach($result as $r){
+			$list[$r['username']]['users'] = $r;
 		}
 		foreach($list as $key => $val){
 			if(isset($val['players']) && isset($val['users'])){

@@ -64,9 +64,9 @@ namespace sys
 		//统一获取用户数据备用
 		global $cudata;
 		if (isset(${$gtablepre.'user'})){
-			$result = $db->query("SELECT * FROM {$gtablepre}users where username='".${$gtablepre.'user'}."'");
-			if ($db->num_rows($result)) {
-				$cudata = $db->fetch_array($result);
+			$result = fetch_udata('*', "username='".${$gtablepre.'user'}."'");
+			if (!empty($result)) {
+				$cudata = $result[0];
 			}
 		}
 		

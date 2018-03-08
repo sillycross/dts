@@ -351,6 +351,20 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 				{	
 					addnews($now,'roominfo',room_get_vars($roomdata, 'name'),'挑战者:&nbsp;'.room_getteamhtml($roomdata,0).'！');
 				}
+				//一次性查询所有玩家
+				$namelist = array();
+				for ($i=0; $i < $rdpnum; $i++){
+					if (!$rdplist[$i]['forbidden'])
+					{
+						$pname = $rdplist[$i]['name'];
+						$namelist[] = (string)$pname;
+					}
+				}
+				$result = fetch_udata_multilist('*', array('username' => $namelist));
+				$ulist = array();
+				foreach($result as $r){
+					$ulist[$r['username']] = $r;
+				}
 				//所有玩家进入游戏
 				$ownercard = $leadercard = 0;
 				for ($i=0; $i < $rdpnum; $i++)
@@ -358,9 +372,8 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 					{
 						$pname = $rdplist[$i]['name'];
 						$pname = (string)$pname;
-						$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username = '$pname'");
-						if($db->num_rows($result)!=1) continue;
-						$udata = $db->fetch_array($result);
+						if(!isset($ulist[$pname])) continue;
+						$udata = $ulist[$pname];
 						if(0 == room_get_vars($roomdata,'card-select')){//自选卡片
 							$pcard = $udata['card'];
 						}elseif(1 == room_get_vars($roomdata,'card-select')){//仅挑战者

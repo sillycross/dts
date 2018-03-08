@@ -220,10 +220,8 @@ namespace achievement_base
 		$updatelist = array();
 		//然后一次性读用户记录，尽量减少在循环里读写数据库
 		if(!empty($namelist)){
-			$wherecause = "('".implode("','",$namelist)."')";
-			$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username IN $wherecause");
-			while ($udata=$db->fetch_array($result))
-			{
+			$result = fetch_udata_multilist('*', array('username' => $namelist));
+			foreach($result as $udata){
 				$pdata = \player\fetch_playerdata($udata['username']);//这句理论上可以被玩家池加速
 				update_achievements_by_udata($udata, $pdata);
 				$updatelist[] = Array(

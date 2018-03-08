@@ -196,14 +196,15 @@ namespace sys
 		//这尼玛写的太坑了吧…… 不管了直接import map模块进来了……
 		eval(import_module('map'));
 		if(strpos($n,'death11') === 0  || strpos($n,'death32') === 0) {
-			$result = $db->query("SELECT lastword FROM {$gtablepre}users WHERE username = '$a'");
-			$e = $lastword = $db->result($result, 0);
+			$result = $db->query("SELECT lastword FROM {$tablepre}players WHERE name = '$a'");
+			$r = $db->fetch_array($result);
+			$e = $lastword = $r['lastword'];
 			$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,recv,msg) VALUES ('3','$t','【{$plsinfo[$c]}】 $a','','$lastword')");
 		}	elseif(strpos($n,'death15') === 0 || strpos($n,'death16') === 0) {
-			$result = $db->query("SELECT lastword FROM {$gtablepre}users WHERE username = '$a'");
-			$e = $lastword = $db->result($result, 0);
-			$result = $db->query("SELECT pls FROM {$tablepre}players WHERE name = '$a' AND type = '0'");
-			$place = $db->result($result, 0);
+			$result = $db->query("SELECT lastword,pls FROM {$tablepre}players WHERE name = '$a'");
+			$r = $db->fetch_array($result);
+			$e = $lastword = $r['lastword'];
+			$place = $r['pls'];
 			$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,recv,msg) VALUES ('3','$t','【{$plsinfo[$place]}】 $a','','$lastword')");
 		}
 		$db->query("INSERT INTO {$tablepre}newsinfo (`time`,`news`,`a`,`b`,`c`,`d`,`e`) VALUES ('$t','$n','$a','$b','$c','$d','$e')");
