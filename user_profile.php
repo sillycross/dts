@@ -13,9 +13,8 @@ if (empty($_REQUEST["playerID"]))
 else
 {
 	$uname=urldecode($_REQUEST["playerID"]);
-	$result = fetch_udata('*', "username = '$username'");
-	if(empty($result)) { gexit($_ERROR['user_not_exists'],__file__,__line__); }
-	$udata = $result[0];
+	$udata = fetch_udata_by_username($uname);
+	if(empty($udata)) { gexit($_ERROR['user_not_exists'],__file__,__line__); }
 	$curuser=false;
 	if ($uname==$cuser) $curuser=true;
 }

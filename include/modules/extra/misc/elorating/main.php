@@ -312,9 +312,8 @@ namespace elorating
 			$result = $db->query("SELECT name,hp,state,teamID,killnum FROM {$tablepre}players WHERE type = 0");
 			while($data = $db->fetch_array($result))
 			{
-				$result2 = fetch_udata('elo_rating,elo_volatility,elo_playedtimes,elo_history', "username = '{$data['name']}'");
-				if(empty($result2)) continue;
-				$z=$result2[0];
+				$z = fetch_udata_by_username($data['name'], 'elo_rating,elo_volatility,elo_playedtimes,elo_history');
+				if(empty($z)) continue;
 				$data['rating']=$z['elo_rating'];
 				$data['vol']=$z['elo_volatility'];
 				$data['timesPlayed']=$z['elo_playedtimes'];

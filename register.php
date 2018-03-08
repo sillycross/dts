@@ -30,8 +30,8 @@ if(!isset($cmd)){
 	}elseif(preg_match($iplimit,$onlineip)){
 		$gamedata['innerHTML']['info'] = $_ERROR['ip_banned'];
 	}else{
-		$result = fetch_udata('uid', "username = '$username'");
-		if(!empty($result)) {
+		$userdata = fetch_udata_by_username($username,'uid');
+		if(!empty($userdata)) {
 			$gamedata['innerHTML']['info'] = $_ERROR['name_exists'];
 		}else{//现在开始注册
 			$groupid = 1;
@@ -66,7 +66,7 @@ if(!isset($cmd)){
 			}
 		}
 	}
-	if($ustate == 'check'){
+	if(!empty($ustate) && $ustate == 'check'){
 		$gamedata['innerHTML']['postreg'] = '<input type="button" value="返回游戏首页" onclick="window.location.href=\'index.php\'">';
 		if(isset($error)){$gamedata['innerHTML']['error'] = $error;}
 		ob_clean();

@@ -64,10 +64,7 @@ namespace sys
 		//统一获取用户数据备用
 		global $cudata;
 		if (isset(${$gtablepre.'user'})){
-			$result = fetch_udata('*', "username='".${$gtablepre.'user'}."'");
-			if (!empty($result)) {
-				$cudata = $result[0];
-			}
+			$cudata = fetch_udata_by_username(${$gtablepre.'user'});
 		}
 		
 		if(empty($u_templateid) && !empty($cudata['u_templateid'])) $u_templateid = $cudata['u_templateid'];

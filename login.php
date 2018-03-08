@@ -36,11 +36,10 @@ $groupid = 1;
 $credits = 0;
 $gender = 0;
 
-$result = fetch_udata('*', "username = '$username'");
-if(empty($result)) {
+$userdata = fetch_udata_by_username($username);
+if(empty($userdata)) {
 	gexit($_ERROR['user_not_exists'],__file__,__line__);
 } else {
-	$userdata = $result[0];
 	if($userdata['groupid'] <= 0){
 		gexit($_ERROR['user_ban'],__file__,__line__);
 	} elseif(!pass_compare($userdata['username'], $password, $userdata['password'])) {

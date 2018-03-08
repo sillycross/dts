@@ -7,8 +7,7 @@ namespace cardbase
 	function get_user_cards($username){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		$result = fetch_udata('*', "username='$username'");
-		$udata = $result[0];
+		$udata = fetch_udata_by_username($username);
 		$cardlist = get_user_cards_process($udata);
 		return $cardlist;
 	}	
@@ -87,8 +86,7 @@ namespace cardbase
 			$udata = $who;
 			$who = $udata['username'];
 		}else{
-			$result = fetch_udata('*', "username='$who'");
-			$udata = $result[0];
+			$udata = fetch_udata_by_username($who);
 		}
 		
 		$cardlist = get_user_cards_process($udata);		
@@ -152,7 +150,7 @@ namespace cardbase
 			else $n=$pa['name'];
 		}
 		//判定卡片是不是新卡
-		$result = fetch_udata('cardlist', "username='$n'");
+		$result = fetch_udata_by_username($n,'cardlist');
 		if(empty($result)) return;
 		//if(!empty($ext)) $ext.='<br>';
 		include_once './include/messages.func.php';
@@ -164,7 +162,7 @@ namespace cardbase
 		);
 		
 		$ret = 0;
-		$clist = explode('_',$result[0]['cardlist']);
+		$clist = explode('_',$result['cardlist']);
 		if (!in_array($ci,$clist)) $ret = 1;
 		return $ret;
 	}
@@ -180,8 +178,7 @@ namespace cardbase
 			if (isset($pa['username'])) $n=$pa['username'];
 			else $n=$pa['name'];
 		}
-		$result = fetch_udata('*', "username='$n'");
-		$pu = $result[0];
+		$pu = fetch_udata_by_username($n);
 		$ret = get_card_process($ci,$pu,$ignore_qiegao);
 		
 		$p_cardlist = $pu['cardlist'];
@@ -221,8 +218,8 @@ namespace cardbase
 			if (isset($pa['username'])) $n=$pa['username'];
 			else $n=$pa['name'];
 		}
-		$result = fetch_udata('gold', "username='$n'");
-		$cg = $result[0];
+		$result = fetch_udata_by_username($n,'gold');
+		$cg = $result['gold'];
 		$cg=$cg+$num;
 		if ($cg<0) $cg=0;
 		if($pa) $pa['gold'] = $cg;

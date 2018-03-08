@@ -34,6 +34,13 @@ function fetch_udata_multilist($fields, $wherearr, $sort='', $local=0){
 	return fetch_udata($fields, $where, $sort, $local);
 }
 
+//根据$username返回单个数组，注意与fetch_udata()返回值数组结构的差别！
+function fetch_udata_by_username($username, $fields='*'){
+	$ret = fetch_udata($fields, "username='$username'");
+	if(empty($ret)) return NULL;
+	else return $ret[0];
+}
+
 function insert_udata($udata)
 {
 	global $db, $gtablepre;
@@ -48,9 +55,8 @@ function udata_check(){
 	$line = debug_backtrace()[0]['line'];
 	if(!$cuser||!$cpass) { gexit($_ERROR['no_login'],$file,$line);return; } 
 	if(empty($cudata)) {
-		$udata = fetch_udata('*', "username='$cuser'");
+		$udata = fetch_udata_by_username($udata);
 		if(empty($udata)) { gexit($_ERROR['login_check'],$file,$line);return; }
-		$udata = $udata[0];
 	}else{
 		//如果载入过common.inc.php，那么就用$cudata的值，这样一定只读取1次users表
 		$udata = $cudata;
