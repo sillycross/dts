@@ -360,11 +360,7 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 						$namelist[] = (string)$pname;
 					}
 				}
-				$result = fetch_udata_multilist('*', array('username' => $namelist));
-				$ulist = array();
-				foreach($result as $r){
-					$ulist[$r['username']] = $r;
-				}
+				$ulist = fetch_udata_multilist('*', array('username' => $namelist));
 				//所有玩家进入游戏
 				$ownercard = $leadercard = 0;
 				for ($i=0; $i < $rdpnum; $i++)

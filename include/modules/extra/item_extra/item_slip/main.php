@@ -171,6 +171,7 @@ namespace item_slip
 			chmod($file,0777);
 			//记录一下生成的文件，避免重复生成，游戏结束时删除
 			$gamevars['metagame'] = $ret;
+			$gamevars['metagame_mixinfo'] = $cont;
 			\sys\save_gameinfo();
 		}else{
 			$ret = $gamevars['metagame'];
@@ -182,14 +183,12 @@ namespace item_slip
 	function itemmix_recipe_check($mixitem){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','itemmix','item_slip'));
-		if(count($mixitem) >= 2){
-			$mi_names = array();
-			foreach($mixitem as $i) $mi_names[] = \itemmix\itemmix_name_proc($i['itm']);
-			
+		if(count($mixitem) >= 2){	
 			if(!empty($gamevars['metagame'])) {//如果有metagame数据，则追加一项合成
 				list($stuff,$result) = item_slip_get_puzzle($gamevars['metagame']);
-				if(isset($item_slip_metagame_list[$result]) && empty($mixinfo['metagame'])) 
+				if(isset($item_slip_metagame_list[$result]) && empty($mixinfo['metagame'])) {
 					$mixinfo['metagame'] = array('class' => 'hidden', 'stuff' => $stuff, 'result' => $item_slip_metagame_list[$result]);
+				}
 			}
 		}
 		return $chprocess($mixitem);
@@ -200,8 +199,9 @@ namespace item_slip
 		eval(import_module('sys'));
 		$ret = array();
 		if(!empty($gamevars['metagame']) && $puzzleid == $gamevars['metagame']) {
-			$file = GAME_ROOT.'./gamedata/cache/'.$gamevars['metagame'].'.txt';
-			$cont = file_get_contents($file);
+			$cont = $gamevars['metagame_mixinfo'];
+			//$file = GAME_ROOT.'./gamedata/cache/'.$gamevars['metagame'].'.txt';
+			//$cont = file_get_contents($file);
 			list($stuff0, $result) = explode('=',$cont);
 			$stuff = explode('+',$stuff0);
 			$ret[0] = $stuff;

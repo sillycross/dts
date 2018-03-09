@@ -10,10 +10,10 @@ include './include/global.func.php';
 check_authority();
 $db = init_dbstuff();
 
-dump_db("{$tablepre}users");
-dump_db("{$tablepre}history");
-dump_db("{$tablepre}shistory");
-dump_db("{$tablepre}messages");
+dump_db("{$gtablepre}users");
+dump_db("{$gtablepre}history");
+dump_db("{$gtablepre}shistory");
+dump_db("{$gtablepre}messages");
 echo 'done.';
 
 function dump_db($dbname){

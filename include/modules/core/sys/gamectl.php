@@ -2,7 +2,7 @@
 
 namespace sys
 {
-	global $gameover_ulist;
+	global $gameover_plist, $gameover_ulist;
 	
 	function updategame()
 	{	
@@ -142,13 +142,29 @@ namespace sys
 	//模式：0保留：程序故障；1：全部死亡；2：最后幸存；3：禁区解除；4：无人参加；5：核爆全灭；6：GM中止；7：幻境解离；8：挑战结束；9：教程结束；
 	function gameover($time = 0, $gmode = '', $winname = '') {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys'));
+		eval(import_module('sys','player'));
 //		startmicrotime();
 		//先加锁以阻塞对game表的读取，免得这个进程还在执行时，别的请求穿透到数据库造成各种各样的脏数据问题
 		process_lock();
 		load_gameinfo();
 		//游戏未准备的情况下直接返回
 		if($gamestate < 5) return;
+		
+		//提取所有入场玩家的pdata和udata数据备用
+		$gameover_plist = $gmeover_alivelist = array();
+		$result = $db->query("SELECT name FROM {$tablepre}players WHERE type=0");
+		while($r = $db->fetch_array($result)){
+			if(!empty($sdata) && $r['pid'] == $sdata['pid']){
+				$gameover_plist[$r['name']] = $sdata;
+			}else{
+				$gameover_plist[$r['name']] = \player\fetch_playerdata($r['name']);
+			}
+			if($gameover_plist[$r['name']]['hp'] > 0) $gameover_alivelist[$r['name']] = &$gameover_plist[$r['name']];
+		}
+		$gameover_ulist = fetch_udata_multilist('*', array('username' => array_keys($gameover_plist)));
+		$validnum = count($gameover_plist);
+		$alivenum = count($gameover_alivelist);
+		
 		//在没提供游戏结束模式的情况下，自行判断模式
 		if((!$gmode)||(($gmode=='end2')&&(!$winname))) {
 			if($validnum <= 0) {//无激活者情况下，无人参加
@@ -157,23 +173,6 @@ namespace sys
 				$winmode = 4;
 				$winner = '';
 			} else {//判断谁是最后幸存者
-				$result = $db->query("SELECT * FROM {$tablepre}players WHERE hp>0 AND type=0");
-				$alivenum = $db->num_rows($result);
-				//先缓存全部存活玩家
-				$alive_pool = array();
-				while($pd = $db->fetch_array($result)){
-					//如果是自己，则用自己
-					if(!empty($sdata) && $pd['pid'] == $sdata['pid']){
-						$alive_pool[] = &$sdata;
-					}else{
-						//如果玩家池里没这个pid，就储存；如果有，就用玩家池里的（热优先于冷）
-						if(!isset($pdata_pool[$pd['pid']])) {
-							$pdata_pool[$pd['pid']] = $pd;
-						}
-						$pd = \player\playerdata_construct_process($pd);
-						$alive_pool[] = &$pdata_pool[$pd['pid']];
-					}
-				}
 				if(!$alivenum) {//全部死亡
 					$winmode = 1;
 					$winnum = 0;
@@ -185,11 +184,10 @@ namespace sys
 						if($alivenum == 1) {
 							$winmode = 2;
 							$winnum = 1;
-							$wdata = &$alive_pool[0];
+							$wdata = array_pop($gameover_alivelist);
 							$winner = $wdata['name'];
 							$wdata['state'] = 5;
 							\player\player_save($wdata);
-							//$db->query("UPDATE {$tablepre}players SET state='5' where pid='{$wdata['pid']}'");
 						} 
 						else
 						{	//不满足游戏结束条件，返回
@@ -200,7 +198,7 @@ namespace sys
 					else//团队模式
 					{
 						$flag=1; $first=1; $firstteamID = '';
-						foreach($alive_pool as $ai => $data){
+						foreach($gameover_alivelist as $ai => $data){
 							if($first) {
 								$first=0;
 								$firstteamID=$data['teamID'];
@@ -213,7 +211,7 @@ namespace sys
 						{
 							if (!$firstteamID)	//单人胜利
 							{	
-								$wdata = &$alive_pool[0];
+								$wdata = array_pop($gameover_alivelist);
 								$wdata['state'] = 5;
 								\player\player_save($wdata);
 								$winnum = 1;
@@ -221,25 +219,23 @@ namespace sys
 							}
 							else				//团队胜利，要记录已经死掉的玩家的名字，所以重新读1次数据库
 							{
-								foreach($alive_pool as &$wdata){
+								foreach($gameover_alivelist as &$wdata){
 									if($wdata['teamID'] == $firstteamID){
 										$wdata['state'] = 5; //实际上只是处理热数据，并没有在这里存数据库
 									}
 								}
 								$db->query("UPDATE {$tablepre}players SET state='5' WHERE type = 0 AND teamID = '$firstteamID'");
-								$result = $db->query("SELECT name FROM {$tablepre}players WHERE type = 0 AND teamID = '$firstteamID'");
-								$winnum=$db->num_rows($result);
+								
+								$teammatelist = array();
+								foreach($gameover_plist as $tname => $tdata){
+									if($tdata['teamID'] == $firstteamID) $teammatelist[] = $tname;
+								}
+								$winnum=count($teammatelist);
 								if ($winnum == 1)
 								{
-									$data = $db->fetch_array($result);
-									$winner = $data['name'];
+									$winner = $teammatelist[0];
 								}elseif($winnum > 1){
-									$namelist=''; $gdlist=''; $iconlist=''; $weplist='';//回头应该
-									while($data = $db->fetch_array($result)) 
-									{
-										$namelist.=$data['name'].',';
-									}
-									$winner = $namelist = substr($namelist,0,-1);
+									$winner = $namelist = implode(',',$teammatelist);
 								}
 							}
 							
@@ -248,11 +244,6 @@ namespace sys
 						{	//不满足游戏结束条件，返回
 							save_gameinfo();
 							return;
-						}
-						
-						if ($winnum > 1)
-						{	
-							
 						}
 						$winmode = 2;
 					}
@@ -265,7 +256,7 @@ namespace sys
 		}
 		
 		//需要先判定获胜者的成就请重载这里
-		post_winnercheck_events($winner);
+		post_winnercheck_events($winner);		
 		
 		$gamestate = 0;
 		$gamevars['o_starttime'] = $starttime; $starttime = 0; //偶尔会发生穿透事故，先这么一修看看情况
@@ -295,30 +286,13 @@ namespace sys
 			$hk = $db->fetch_array($result);
 			$winnerdata['hkill'] = $hk['killnum'];
 			$winnerdata['hkp'] = $hk['name'];
-			$validlist = array();
-			$result2 = $db->query("SELECT name FROM {$tablepre}players WHERE type=0");
-			while($data = $db->fetch_array($result2)) {
-				$validlist[] = $data['name'];
-			}
-			$winnerdata['validlist'] = gencode($validlist);
+			$winnerdata['validlist'] = gencode($gameover_plist);
 		}
 		if($winmode != 1 && $winmode != 6){//非全部死亡/GM中止，需要记录优胜者
 			$winnerdata['winner'] = $winner;
 			$winnerdata['winnernum'] = $winnum;
 			if ($winnum == 1){
-				if(isset($alive_pool)){
-					$pdata = NULL;
-					foreach($alive_pool as &$av){
-						if($av['name'] == $winner) {
-							$pdata = &$av;
-							break;
-						}
-					}
-				}else{
-					$result = $db->query("SELECT * FROM {$tablepre}players WHERE name='$winner' AND type=0");
-					$pdata = $db->fetch_array($result);
-				}
-				$winnerdata['winnerpdata'] = gencode($pdata);
+				$winnerdata['winnerpdata'] = gencode($gameover_plist[$winner]);
 			}else{
 				//其实这里也可以把组队玩家资料全部丢进$winnerdata['winnerpdata']，再说吧
 				$winnerdata['winnerteamID'] = $firstteamID;
@@ -340,6 +314,18 @@ namespace sys
 		post_gameover_events();
 //		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-录像等后续处理');
 		//echo '**游戏结束**';
+		
+		//这里把$gameover_ulist一起更新
+		$updatelist = $gameover_ulist;
+		foreach($updatelist as &$gv){
+			foreach (array_keys($gv) as $fv){
+				if(!in_array($fv, array('username', 'validgames', 'wingames', 'lastwin', 'credits', 'gold', 'u_achievements')))
+					unset($gv[$fv]);
+			}
+		}
+		$db->multi_update("{$gtablepre}users", $updatelist, 'username');
+		
+		//新闻之类
 		addnews($time, "end$winmode",$winner);
 		addnews($time, 'gameover' ,$gamenum);
 		systemputchat($time,'gameover');
@@ -392,30 +378,22 @@ namespace sys
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		$result = $db->query("SELECT * FROM {$tablepre}players WHERE type='0'");
-		$list = $creditlist = $updatelist = Array();
-		while($data = $db->fetch_array($result)){
-			$list[$data['name']]['players'] = $data;
-		}
-		if(empty($list)) return;
+		if(empty($gameover_plist)) return;
 		
-		$result = fetch_udata_multilist('*', array('username' => array_keys($list)));
-		foreach($result as $r){
-			$list[$r['username']]['users'] = $r;
-		}
-		foreach($list as $key => $val){
-			if(isset($val['players']) && isset($val['users'])){
-				$credits = gameover_get_credit_up($val['players'],$winner,$winmode) + $val['users']['credits'];
-				$gold = gameover_get_gold_up($val['players'],$winner,$winmode) + $val['users']['gold'];
+		foreach($gameover_plist as $key => $val){
+			if(isset($gameover_ulist[$key])){
+				$gudata = &$gameover_ulist[$key];
+				$gudata['credits'] += gameover_get_credit_up($val,$winner,$winmode);
+				$gudata['gold'] += gameover_get_gold_up($val,$winner,$winmode);
 				//伐木不算参与次数
-				$validgames = $gametype != 15 ? $val['users']['validgames'] + 1 : $val['users']['validgames'];
+				if($gametype != 15) $gudata['validgames']+= 1;
 				//非伐木房的幸存、解禁、解离、核爆才算获胜次数
-				$wingames = ($gametype != 15 && in_array($winmode, array(2, 3, 5, 7)) && $key == $winner) ? $val['users']['wingames'] + 1 : $val['users']['wingames'];
-				$lastwin = ($gametype != 15 && in_array($winmode, array(2, 3, 5, 7)) && $key == $winner) ? $now : $val['users']['lastwin'];
-				$updatelist[] = Array('username' => $key, 'credits' => $credits, 'wingames' => $wingames, 'validgames' => $validgames,'lastwin'=>$lastwin,'gold'=>$gold);
+				if($gametype != 15 && in_array($winmode, array(2, 3, 5, 7)) && $key == $winner) {
+					$gudata['wingames'] += 1;
+					$gudata['lastwin'] = $now;
+				}
 			}
 		}
-		$db->multi_update("{$gtablepre}users", $updatelist, 'username');
 		return;
 	}
 
