@@ -323,7 +323,7 @@ namespace sys
 					unset($gv[$fv]);
 			}
 		}
-		$db->multi_update("{$gtablepre}users", $updatelist, 'username');
+		update_udata_multilist($updatelist);
 		
 		//新闻之类
 		addnews($time, "end$winmode",$winner);

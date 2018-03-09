@@ -47,7 +47,7 @@ if(empty($userdata)) {
 	}
 }
 //重新登陆之后房间设为0
-$db->query("UPDATE {$gtablepre}users SET ip='$onlineip',roomid='0' WHERE username = '$username'");
+update_udata_by_username(array('ip' => $onlineip, 'roomid' => 0), $username);
 
 gsetcookie('user',$userdata['username']);
 gsetcookie('pass',$password);

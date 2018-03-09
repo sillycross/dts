@@ -42,11 +42,38 @@ function fetch_udata_by_username($username, $fields='*'){
 	else return $ret[0];
 }
 
+//通过数组来插入user表
 function insert_udata($udata)
 {
 	global $db, $gtablepre;
 	if(empty($udata['username']) || empty($udata['password'])) return false;
 	return $db->array_insert("{$gtablepre}users", $udata);
+}
+
+//通过数组来更新user表
+function update_udata($udata, $where)
+{
+	global $db, $gtablepre;
+	return $db->array_update("{$gtablepre}users", $udata, $where);
+}
+
+//同时更新多个用户，按数组的username字段判定
+function update_udata_multilist($updatelist)
+{
+	global $db, $gtablepre;
+	return $db->multi_update("{$gtablepre}users", $updatelist, 'username');
+}
+
+//通过数组来更新user表，直接按数组中username键值作为条件
+function update_udata_by_username($udata, $username='')
+{
+	if(empty($udata['username'])) {
+		if(!$username) return false;
+	}else {
+		$username = $udata['username'];
+		unset($udata['username']);
+	}
+	return update_udata($udata, "username='{$username}'");
 }
 
 //判定用户名与密码，如果判定正确，返回user表的数组

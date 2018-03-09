@@ -42,7 +42,7 @@ if (!room_check_subroom($room_prefix)) {
 	}
 }
 if(!$room_flag){
-	$db->query("UPDATE {$gtablepre}users SET roomid='0' WHERE username='$cuser'");
+	update_udata_by_username(array('roomid' => 0), $cuser);
 	ob_clean();
 	$gamedata['url']='index.php';
 	echo gencode($gamedata);

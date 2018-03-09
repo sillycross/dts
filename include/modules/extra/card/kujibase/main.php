@@ -43,7 +43,7 @@ namespace kujibase
 			$p_cardlist = $pa['cardlist'];
 			$p_gold = $pa['gold'];
 			
-			$db->query("UPDATE {$gtablepre}users SET cardlist='$p_cardlist',gold='$p_gold' WHERE username='$p_username'");
+			update_udata_by_username(array('cardlist' => $p_cardlist, 'gold' => $p_gold), $p_username);
 		}
 		
 		return $rr;

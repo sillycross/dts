@@ -340,9 +340,8 @@ namespace achievement_base
 				$udata['u_achievements'][$key]='VWXYZ';
 			}
 		}
-		$u_ach = encode_achievements($udata['u_achievements']);
-		$u_n = $udata['username'];
-		$db->query("UPDATE {$gtablepre}users SET u_achievements = '$u_ach',cd_a1 = '$now' WHERE username='$u_n'");
+		$ud_str = encode_achievements($udata['u_achievements']);
+		update_udata_by_username(array('u_achievements' => $ud_str, 'cd_a1' => $now), $udata['username']);
 	}
 	
 	function show_ach_title($achid, $achlv, $tp=0)
@@ -676,8 +675,7 @@ namespace achievement_base
 		//如果成就有修改则写一次
 		if($flag) {
 			$ud_str = encode_achievements($ud['u_achievements']);
-			$username = $ud['username'];
-			$db->query("UPDATE {$gtablepre}users SET u_achievements='$ud_str' WHERE username = '$username'");
+			update_udata_by_username(array('u_achievements' => $ud_str), $ud['username']);
 		}
 	}
 	
