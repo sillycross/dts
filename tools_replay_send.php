@@ -27,7 +27,8 @@ if(!file_exists('tmp_replist.dat')){
 		{  
 			if( $entry!="." && $entry!=".." && !is_dir($source."/".$entry) && substr($entry, strlen($entry)-4)=='.dat')
 			{
-				$list[] = $entry;
+				if((substr($entry,0,1) == 's' && substr($entry,2,2) >= 67) || (substr($entry,0,1) != 's' && substr($entry,0,3) >= 453))
+					$list[] = $entry;
 			}
 		}
 	}
@@ -44,10 +45,10 @@ if(empty($_GET['start'])){
 }else{
 	$start = $_GET['start'];
 }
-$limit = 10000;
+$limit = 100000;
 if(!empty($_GET['limit'])) $limit = $_GET['limit'];
 //$limit = 5;//每这么多次运行后结束，同时让客户界面重新发送一次请求
-$sleep = 30;//每次请求之后等待这么久时间，避免造成数据轰炸
+$sleep = 10;//每次请求之后等待这么久时间，避免造成数据轰炸
 
 if(empty($replay_remote_storage)) exit('<br>Replay remote storage is closed!');
 

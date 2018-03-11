@@ -50,7 +50,15 @@ if($mode == 'enter') {
 	if ($gender !== 'm' && $gender !== 'f'){
 		$gender = 'f';
 	}
-	$db->query("UPDATE {$gtablepre}users SET gender='$gender', icon='$icon', motto='$motto', killmsg='$killmsg', card='$card', lastword='$lastword' WHERE username='".$udata['username']."'" );
+	$updatearr = array(
+		'gender' => $gender,
+		'icon' => $icon,
+		'motto' => $motto,
+		'killmsg' => $killmsg,
+		'card' => $card,
+		'lastword'=>$lastword
+	);
+	update_udata_by_username($updatearr, $udata['username']);
 	if($validnum >= $validlimit) {
 		gexit($_ERROR['player_limit'],__file__, __line__);
 		return;
@@ -79,8 +87,8 @@ if($mode == 'enter') {
 		if(!empty($cardtypecd[$r])){
 			$ctcdtime = $now;
 			if(18 == $gametype || 19 == $gametype) $ctcdtime -= round($cardtypecd[$r] / 2);//荣誉模式、极速模式类别CD减半
-			$setquery = 'cd_'.strtolower($r)."='$ctcdtime'";
-			$db->query("UPDATE {$gtablepre}users SET $setquery WHERE username='".$udata['username']."'" );
+			$updatearr = array('cd_'.strtolower($r) => $ctcdtime);
+			update_udata_by_username($updatearr, $udata['username']);
 		}
 	}
 	

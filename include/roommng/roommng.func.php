@@ -585,7 +585,7 @@ function room_enter($id)
 		room_save_broadcast($id,$roomdata);
 		$header = 'index.php';
 	}
-	$db->query("UPDATE {$gtablepre}users SET roomid = '{$id}' WHERE username = '$cuser'");
+	update_udata_by_username(array('roomid' => $id), $cuser);
 
 	echo 'redirect:'.$header;
 	return 1;

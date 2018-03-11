@@ -3,10 +3,22 @@
 namespace cardbase
 {
 	function init() {}
+	
+	function cardlist_decode($str){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = explode('_',$str);
+		if(empty($ret)) $ret[] = '0';
+		return $ret;
+	}
+	
+	function cardlist_encode($arr){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = implode('_',$arr);
+		return $ret;
+	}
 
 	function get_user_cards($username){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys'));
 		$udata = fetch_udata_by_username($username);
 		$cardlist = get_user_cards_process($udata);
 		return $cardlist;
@@ -14,14 +26,7 @@ namespace cardbase
 	
 	function get_user_cards_process($udata){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys'));
-		$cardlist = explode('_',$udata['cardlist']);
-		if (!in_array(0, $cardlist))
-		{
-			$cardlist[] = 0;
-			$clstr = implode('_',$cardlist);
-			$db->query("UPDATE {$gtablepre}users SET cardlist='{$clstr}' WHERE username = '$username'");
-		}
+		$cardlist = cardlist_decode($udata['cardlist']);
 		return $cardlist;
 	}
 	
@@ -78,6 +83,7 @@ namespace cardbase
 		return $ret;
 	}
 		
+	//获得玩家的卡片数据，会自动更新卡片冷却信息
 	function get_user_cardinfo($who)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -95,6 +101,7 @@ namespace cardbase
 		$cardenergy=Array();
 		if ($udata['cardenergy']=="") $t=Array(); else $t=explode('_',$udata['cardenergy']);
 		$lastupd = $udata['cardenergylastupd'];
+		
 		for ($i=0; $i<count($cardlist); $i++)
 			if ($i<count($t))
 			{
@@ -107,35 +114,41 @@ namespace cardbase
 				$cardenergy[$cardlist[$i]] = $cards[$cardlist[$i]]['energy'];
 			}
 		
-		$nt='';
-		for ($i=0; $i<count($cardlist); $i++)
-		{
-			$x=(double)$cardenergy[$cardlist[$i]];
-			if ($i>0) $nt.='_';
-			$nt.=$x;
-		}
-		$db->query("UPDATE {$gtablepre}users SET cardenergy='$nt', cardenergylastupd='$now' WHERE username = '$who'");
-		
 		$ret=Array(
 			'cardlist' => $cardlist,
 			'cardenergy' => $cardenergy,
-			'cardchosen' => $udata['card']
+			'cardchosen' => $udata['card'],
+			'cardenergylastupd' => $now,
 		);
+		
+		if($t != $cardenergy) {
+			save_cardenergy($ret, $who);
+		}
+			
 		return $ret;
 	}
 	
+	//更新卡片能量数据库，会自动将能量值转化为浮点数
 	function save_cardenergy($data, $who)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		$nt='';
-		for ($i=0; $i<count($data['cardlist']); $i++)
-		{
-			$x=(double)$data['cardenergy'][$data['cardlist'][$i]];
-			if ($i>0) $nt.='_';
-			$nt.=$x;
+		if(is_array($data['cardenergy'])) {
+			$cd_n='';
+			for ($i=0; $i<count($data['cardlist']); $i++)
+			{
+				$x=(double)$data['cardenergy'][$data['cardlist'][$i]];
+				if ($i>0) $cd_n.='_';
+				$cd_n.=$x;
+			}
+		}else{
+			$cd_n = $data['cardenergy'];
 		}
-		$db->query("UPDATE {$gtablepre}users SET cardenergy='$nt' WHERE username = '$who'");
+		$upd=Array(
+			'cardenergy' => $cd_n,
+			'cardenergylastupd' => $data['cardenergylastupd'],
+		);
+		update_udata_by_username($upd, $who);
 	}
 	
 	//生成一条获得卡片的站内信，返回值为1则表示是新卡
@@ -181,10 +194,11 @@ namespace cardbase
 		$pu = fetch_udata_by_username($n);
 		$ret = get_card_process($ci,$pu,$ignore_qiegao);
 		
-		$p_cardlist = $pu['cardlist'];
-		$p_gold = $pu['gold'];
-		
-		$db->query("UPDATE {$gtablepre}users SET cardlist='$p_cardlist',gold='$p_gold' WHERE username='$n'");
+		$upd = array(
+			'cardlist' => $pu['cardlist'],
+			'gold' => $pu['gold'],
+		);
+		update_udata_by_username($upd, $n);
 		return $ret;
 	}
 	
@@ -223,7 +237,7 @@ namespace cardbase
 		$cg=$cg+$num;
 		if ($cg<0) $cg=0;
 		if($pa) $pa['gold'] = $cg;
-		$db->query("UPDATE {$gtablepre}users SET gold='$cg' WHERE username='$n'");
+		update_udata_by_username(array('gold' => $cg), $n);
 	}
 	
 	function calc_qiegao_drop(&$pa,&$pd,&$active){

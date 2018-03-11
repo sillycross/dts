@@ -151,7 +151,7 @@ namespace sys
 		if($gamestate < 5) return;
 		
 		//提取所有入场玩家的pdata和udata数据备用
-		$gameover_plist = $gmeover_alivelist = array();
+		$gameover_plist = $gameover_alivelist = array();
 		$result = $db->query("SELECT name FROM {$tablepre}players WHERE type=0");
 		while($r = $db->fetch_array($result)){
 			if(!empty($sdata) && $r['pid'] == $sdata['pid']){
@@ -279,7 +279,7 @@ namespace sys
 			'getime' => $time,
 			'gtime' => $time - $starttime,
 		);
-		if($winmode != 4 && $winmode != 0){//非无人参加/程序故障，需要记录杀人最多和最高伤害，并记录参与玩家
+		if(!in_array($winmode, array(0, 4))){//非无人参加/程序故障，需要记录杀人最多和最高伤害，并记录参与玩家
 			$winnerdata['hdmg'] = $hdamage;
 			$winnerdata['hdp'] = $hplayer;
 			$result = $db->query("SELECT name,killnum FROM {$tablepre}players WHERE type=0 order by killnum desc, lvl desc limit 1");
@@ -288,7 +288,7 @@ namespace sys
 			$winnerdata['hkp'] = $hk['name'];
 			$winnerdata['validlist'] = gencode($gameover_plist);
 		}
-		if($winmode != 1 && $winmode != 6){//非全部死亡/GM中止，需要记录优胜者
+		if(!in_array($winmode, array(0, 1, 4, 6))){//非全部死亡/GM中止，需要记录优胜者
 			$winnerdata['winner'] = $winner;
 			$winnerdata['winnernum'] = $winnum;
 			if ($winnum == 1){
@@ -319,7 +319,7 @@ namespace sys
 		$updatelist = $gameover_ulist;
 		foreach($updatelist as &$gv){
 			foreach (array_keys($gv) as $fv){
-				if(!in_array($fv, array('username', 'validgames', 'wingames', 'lastwin', 'credits', 'gold', 'u_achievements')))
+				if(!in_array($fv, get_gameover_udata_update_fields()))
 					unset($gv[$fv]);
 			}
 		}
@@ -358,6 +358,11 @@ namespace sys
 		
 //		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-写入消息并结束');
 		return;
+	}
+	
+	function get_gameover_udata_update_fields(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return array('username', 'validgames', 'wingames', 'lastwin', 'credits', 'gold');
 	}
 
 	function routine()
