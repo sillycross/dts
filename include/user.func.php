@@ -6,9 +6,11 @@ if(!defined('IN_GAME')) {
 
 //获取用户数据的通用函数，会自动获取远端数据
 //返回相当于fetch_array得到的数组
-function fetch_udata($fields, $where, $sort='', $local=0, $namekey=0){
+//$keytype==0为无键名，为1是username当键名，为2是uid当键名
+function fetch_udata($fields, $where='', $sort='', $local=0, $keytype=0){
 	global $db, $gtablepre;
 	//生成查询
+	if(empty($where)) $where = '1';
 	$qry = "SELECT {$fields} FROM {$gtablepre}users WHERE {$where} ";
 	if(!empty($sort)) $qry .= "ORDER BY $sort";
 	//获取结果并自动fetch
@@ -16,7 +18,8 @@ function fetch_udata($fields, $where, $sort='', $local=0, $namekey=0){
 	$ret = array();
 	if($db->num_rows($result)) {
 		while($r = $db->fetch_array($result)) {
-			if($namekey) $ret[$r['username']] = $r;
+			if(1==$keytype) $ret[$r['username']] = $r;
+			elseif(2==$keytype) $ret[$r['uid']] = $r;
 			else $ret[] = $r;
 		}
 	}
@@ -43,11 +46,14 @@ function fetch_udata_by_username($username, $fields='*'){
 }
 
 //通过数组来插入user表
-function insert_udata($udata)
+function insert_udata($udata, $on_duplicate_update=0)
 {
 	global $db, $gtablepre;
-	if(empty($udata['username']) || empty($udata['password'])) return false;
-	return $db->array_insert("{$gtablepre}users", $udata);
+	if(empty($udata['username']) || empty($udata['password'])) {
+		$tmp = reset($udata);
+		if(empty($tmp['username']) || empty($tmp['password'])) return false;
+	}
+	return $db->array_insert("{$gtablepre}users", $udata, $on_duplicate_update, 'username');
 }
 
 //通过数组来更新user表
@@ -74,6 +80,13 @@ function update_udata_by_username($udata, $username='')
 		unset($udata['username']);
 	}
 	return update_udata($udata, "username='{$username}'");
+}
+
+function delete_udata($where)
+{
+	global $db, $gtablepre;
+	if(!$where) return false;
+	return $db->query("DELETE FROM {$gtablepre}users WHERE $where");
 }
 
 //判定用户名与密码，如果判定正确，返回user表的数组
