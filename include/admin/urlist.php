@@ -37,7 +37,10 @@ if(!empty($pagecmd) && $pagecmd == 'upload'){
 				$o_cont .= json_encode($v, JSON_UNESCAPED_UNICODE)."\r\n";
 			}
 			$odbname = 'old_db_'.uniqid().'.dat';
-			file_put_contents($odbname, $o_cont);
+			$filepath = GAME_ROOT.'./gamedata/cache/user_backup';
+			if(!is_dir($filepath)) mymkdir($filepath);
+			$filepath .= '/';
+			file_put_contents($filepath.$odbname, $o_cont);
 			$cmd_info = '旧数据库已保存为"'.$odbname.'"';
 			
 			//这个就维持覆盖本地好了
@@ -57,18 +60,24 @@ if(!empty($pagecmd) && $pagecmd == 'upload'){
 		$cont .= json_encode($v, JSON_UNESCAPED_UNICODE)."\r\n";
 	}
 	//$cont = "<?php if(!defined('IN_ADMIN')) exit('Access Denied');\r\n".var_export($udb, 1);
-	//file_put_contents(GAME_ROOT.'./userdb_backup.php', $cont);
+	$filepath = GAME_ROOT.'./gamedata/cache/user_backup';
+	if(!is_dir($filepath)) mymkdir($filepath);
+	$filepath .= '/';
 	global $server_address;
 	$sitename = explode('.',$server_address);
 	if(sizeof($sitename) <= 2) $sitename = $sitename[0];
 	else $sitename = $sitename[1];
+	$filename = 'userdb_'.$sitename.'_'.uniqid().'.dat';
+	file_put_contents($filepath.$filename, $cont);
+	
+	
 	adminlog('downloadurdata');
 	ob_clean();
 	header("Content-type: application/octet-stream");  
   header("Accept-Ranges: bytes");  
-  header("Accept-Length: ".strlen($cont));  
-  header("Content-Disposition: attachment; filename=userdb_{$sitename}.dat");  
-  echo $cont;
+  header("Accept-Length: ".filesize($filepath.$filename));  
+  header("Content-Disposition: attachment; filename={$filename}");  
+  readfile($filepath.$filename);
   die();
 }
 if(!isset($urcmd)){$urcmd = '';}
