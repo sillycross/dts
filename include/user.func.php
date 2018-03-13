@@ -4,6 +4,48 @@ if(!defined('IN_GAME')) {
 	exit('Access Denied');
 }
 
+//创建用户锁文件。在各需要处理用户数据的php结束时务必清空用户锁，否则会导致阻塞
+//返回值：0正常加锁  1本进程上过锁  2被阻塞导致失败
+//是以用户名为标签的（最兼容各种查询方式）
+function create_user_lock($un)
+{
+	if (eval(__MAGIC__)) return $___RET_VALUE;
+	global $udata_lock_pool;
+	if(!is_array($udata_lock_pool)) $udata_lock_pool = array();
+	if(isset($udata_lock_pool[$un])) return 1;//如果用户锁池里已有键，认为已经上锁了
+	$dir = GAME_ROOT.'./gamedata/tmp/userlock/';
+	$file = $un.'.nlk';
+	$lstate = \sys\check_lock($dir, $file, 3000);//最多允许1秒等待，之后穿透
+	$res = 2;
+	if(!$lstate) {
+		if(\sys\create_lock($dir, $file)) $res = 0;
+	}
+	return $res;
+}
+
+//释放用户锁文件
+function release_user_lock($un)
+{
+	if (eval(__MAGIC__)) return $___RET_VALUE;
+	global $udata_lock_pool;
+	$dir = GAME_ROOT.'./gamedata/tmp/userlock/';
+	$file = $un.'.nlk';
+	\sys\release_lock($dir, $file);
+	unset($udata_lock_pool[$un]);
+}
+
+//清空用户锁
+function release_user_lock_from_pool()
+{
+	if (eval(__MAGIC__)) return $___RET_VALUE;
+	global $udata_lock_pool;
+	if(!empty($udata_lock_pool)) {
+		foreach(array_keys($udata_lock_pool) as $un){
+			release_user_lock($un);
+		}
+	}
+}
+
 //获取用户数据的通用函数，会自动获取远端数据
 //返回相当于fetch_array得到的数组
 //$keytype==0为无键名，为1是username当键名，为2是uid当键名
@@ -11,6 +53,12 @@ function fetch_udata($fields, $where='', $sort='', $local=0, $keytype=0){
 	global $db, $gtablepre;
 	//生成查询
 	if(empty($where)) $where = '1';
+	//一定返回username
+//	$forced_un = 0;
+//	if('*' != $fields && strpos($fields, 'username')===false) {
+//		$fields .= ',username';
+//		$forced_un = 1;
+//	}
 	$qry = "SELECT {$fields} FROM {$gtablepre}users WHERE {$where} ";
 	if(!empty($sort)) $qry .= "ORDER BY $sort";
 	//获取结果并自动fetch
@@ -23,6 +71,11 @@ function fetch_udata($fields, $where='', $sort='', $local=0, $keytype=0){
 			else $ret[] = $r;
 		}
 	}
+	//去除额外的username
+//	if($forced_un) {
+//		foreach($ret as &$rv)
+//			unset($rv['username']);
+//	}
 	return $ret;
 }
 
