@@ -49,16 +49,11 @@ function release_user_lock_from_pool()
 //获取用户数据的通用函数，会自动获取远端数据
 //返回相当于fetch_array得到的数组
 //$keytype==0为无键名，为1是username当键名，为2是uid当键名
-function fetch_udata($fields, $where='', $sort='', $local=0, $keytype=0){
+function fetch_udata($fields, $where='', $sort='', $local=0, $keytype=0, $nolock=0){
 	global $db, $gtablepre;
+	//如果where里有username，直接加锁；否则先查询username再加锁，加完锁才真查询
 	//生成查询
 	if(empty($where)) $where = '1';
-	//一定返回username
-//	$forced_un = 0;
-//	if('*' != $fields && strpos($fields, 'username')===false) {
-//		$fields .= ',username';
-//		$forced_un = 1;
-//	}
 	$qry = "SELECT {$fields} FROM {$gtablepre}users WHERE {$where} ";
 	if(!empty($sort)) $qry .= "ORDER BY $sort";
 	//获取结果并自动fetch
@@ -71,16 +66,13 @@ function fetch_udata($fields, $where='', $sort='', $local=0, $keytype=0){
 			else $ret[] = $r;
 		}
 	}
-	//去除额外的username
-//	if($forced_un) {
-//		foreach($ret as &$rv)
-//			unset($rv['username']);
-//	}
+
 	return $ret;
 }
 
 //自动生成WHERE xxx IN ()这个格式的查询语句
 //所给$wherearr必须是一个以字段名为键名，以内容列表为键值的二阶数组。暂时只支持1个查询条件
+//返回值以username为键名
 function fetch_udata_multilist($fields, $wherearr, $sort='', $local=0){
 	if(is_array($wherearr)) {
 		$wherefield = array_keys($wherearr)[0];
@@ -88,12 +80,12 @@ function fetch_udata_multilist($fields, $wherearr, $sort='', $local=0){
 	}else{
 		$where = $wherearr;
 	}
-	return fetch_udata($fields, $where, $sort, $local, 1);
+	return fetch_udata($fields, $where, $sort, $local, 1, 1);
 }
 
 //根据$username返回单个数组，注意与fetch_udata()返回值数组结构的差别！
-function fetch_udata_by_username($username, $fields='*'){
-	$ret = fetch_udata($fields, "username='$username'");
+function fetch_udata_by_username($username, $fields='*', $local=0){
+	$ret = fetch_udata($fields, "username='$username'", '', $local, 0, 1);
 	if(empty($ret)) return NULL;
 	else return $ret[0];
 }
