@@ -14,7 +14,7 @@ function create_user_lock($un)
 	//如果用户锁池里已有键，认为已经上锁了
 	if(isset($udata_lock_pool[$un])) return 1;
 	//如果是调用command执行的，不用加锁（command来加锁）；roomupdate这种长轮询也不加锁
-	elseif(defined('CURSCRIPT') && in_array(CURSCRIPT, array('roomupdate','chat','roomcmd','valid','end','winner','rank','alive','help','news'))) return 3;
+	elseif(!defined('CURSCRIPT') || in_array(CURSCRIPT, array('roomupdate','chat','roomcmd','valid','end','winner','rank','alive','help','news'))) return 3;
 	$dir = GAME_ROOT.'./gamedata/tmp/userlock/';
 	$file = $un.'.nlk';
 	$lstate = check_lock($dir, $file, 3000);//最多允许3秒等待，之后穿透
