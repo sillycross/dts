@@ -9,7 +9,6 @@ if(!defined('IN_GAME')) {
 //是以用户名为标签的（最兼容各种查询方式）
 function create_user_lock($un)
 {
-	if (eval(__MAGIC__)) return $___RET_VALUE;
 	global $udata_lock_pool;
 	if(!is_array($udata_lock_pool)) $udata_lock_pool = array();
 	//如果用户锁池里已有键，认为已经上锁了
@@ -30,7 +29,6 @@ function create_user_lock($un)
 //释放用户锁文件
 function release_user_lock($un)
 {
-	if (eval(__MAGIC__)) return $___RET_VALUE;
 	global $udata_lock_pool;
 	$dir = GAME_ROOT.'./gamedata/tmp/userlock/';
 	$file = $un.'.nlk';
@@ -41,7 +39,6 @@ function release_user_lock($un)
 //清空用户锁
 function release_user_lock_from_pool()
 {
-	if (eval(__MAGIC__)) return $___RET_VALUE;
 	global $udata_lock_pool;
 	if(!empty($udata_lock_pool)) {
 		foreach(array_keys($udata_lock_pool) as $un){
