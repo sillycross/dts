@@ -362,7 +362,7 @@ namespace sys
 	
 	function get_gameover_udata_update_fields(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return array('username', 'validgames', 'wingames', 'lastwin', 'credits', 'gold');
+		return array('username', 'validgames', 'wingames', 'lastwin', 'credits', 'gold', 'u_achievements');
 	}
 
 	function routine()

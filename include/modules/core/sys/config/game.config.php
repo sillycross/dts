@@ -3,7 +3,7 @@
 namespace sys
 {
 	//是否禁止曜日活动
-	$disable_event = 0;
+	$disable_event = 1;
 	//是否禁止沙盒模式
 	//$disable_sandbox_mode = 0;
 	//是否禁止新游戏（主游戏下一局时间会变为未定，无法新建房间）用于更新
