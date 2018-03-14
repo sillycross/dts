@@ -329,7 +329,7 @@ namespace item_misc
 								$wk++;
 							}else{
 								$log .= "想削皮吃<span class=\"yellow\">${'itm'.$i}</span>，没想到削完发现只剩下一堆果皮……<br>手太笨拙了啊。<br>";
-								${'itm' . $i} = str_replace($fruit, $fruit.'皮',${'itm' . $i} );
+								${'itm' . $i} = str_replace('唯一','不唯一',str_replace($fruit, $fruit.'皮',${'itm' . $i} ));
 								${'itmk' . $i} = 'TN';
 								${'itms' . $i} *= rand(2,4);
 								$flag = true;
