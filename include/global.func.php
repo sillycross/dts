@@ -6,6 +6,8 @@ if(!defined('IN_GAME')) {
 
 require GAME_ROOT.'./include/roommng/roommng.config.php';
 
+register_shutdown_function('global_shutdown_function');
+
 //----------------------------------------
 //              底层机制函数
 //----------------------------------------
@@ -84,6 +86,62 @@ function output($content = '') {
 
 function url_dir(){
 	return 'http://'.$_SERVER['HTTP_HOST'].substr($_SERVER['PHP_SELF'],0,strrpos($_SERVER['PHP_SELF'],'/')+1);
+}
+
+//正常执行时，自动清空玩家锁与用户锁
+function global_shutdown_function(){
+	$e = error_get_last();
+	if(!$e) {
+		//清除玩家锁
+		if(function_exists('\player\release_player_lock_from_pool'))
+			\player\release_player_lock_from_pool();
+		//清除用户锁
+		if(function_exists('release_user_lock_from_pool'))
+			release_user_lock_from_pool();
+	}
+}
+
+//循环判断锁是否存在，如果存在则挂起10毫秒之后继续判定，直到时间耗尽，起到阻塞作用
+//返回true表示锁存在，false表示锁不存在
+//如果加了$timeout，会阻塞到时间耗尽或者锁释放为止。$timeout时间是毫秒
+function check_lock($dirname, $filename, $timeout=0)
+{
+	$sleept = $etime = 0;
+	$res = file_exists($dirname.$filename);
+	if($res) {
+		//如果有文件，那么超时时间从文件建立时开始计算
+		$etime = time() - filemtime($dirname.$filename);
+	}
+	$timeout = max(0, $timeout-$etime);
+	
+	while($res){
+		usleep(10000);
+		$sleept += 10000;
+		if($sleept > $timeout*1000) break;
+		$res = file_exists($dirname.$filename);
+	}
+	return $res;
+}
+
+//用于判定/生成锁
+//如果文件存在，生成并返回true
+//如果文件已经存在，返回false
+function create_lock($dirname, $filename)
+{
+	if(!file_exists($dirname)) mymkdir($dirname);
+	if(!file_exists($dirname.$filename)) {
+		touch($dirname.$filename);
+		return true;
+	}else{
+		return false;
+	}
+}
+
+//清除生成的锁
+function release_lock($dirname, $filename)
+{
+	if(!file_exists($dirname)) mymkdir($dirname);
+	if(file_exists($dirname.$filename)) unlink($dirname.$filename);
 }
 
 //----------------------------------------
@@ -796,15 +854,15 @@ function init_dbstuff(){
 
 function check_authority()
 {
+	global $gtablepre;
 	include GAME_ROOT.'./include/modules/core/sys/config/server.config.php';
 	include_once GAME_ROOT.'./include/user.func.php';
 	$_COOKIE=gstrfilter($_COOKIE);
 	$cuser=$_COOKIE[$gtablepre.'user'];
 	$cpass=$_COOKIE[$gtablepre.'pass'];
-	$db = init_dbstuff();
-	$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$cuser'");
-	if(!$db->num_rows($result)) { echo "<span><font color=\"red\">Cookie无效，请登录。</font></span><br>"; die(); }
-	$udata = $db->fetch_array($result);
+	global $db; $db = init_dbstuff(); 
+	$udata = fetch_udata_by_username($cuser);
+	if(empty($udata)) { echo "<span><font color=\"red\">Cookie无效，请登录。</font></span><br>"; die(); }
 	if(!pass_compare($udata['username'],$cpass,$udata['password'])) { echo "<span><font color=\"red\">密码错误，请重新登录并重试。</font></span><br>"; die(); }
 	elseif(($udata['groupid'] < 9)&&($cuser!==$gamefounder)) { echo "<span><font color=\"red\">要求至少9权限。</font></span><br>"; die(); }
 }
@@ -826,111 +884,5 @@ function systemputchat($time,$type,$msg = ''){
 	\sys\systemputchat($time,$type,$msg );
 }
 
-//////////////////////////////
-
-////暂时丢在这……
-function set_credits(){
-	global $db,$gtablepre,$tablepre,$winmode,$gamenum,$winner,$pdata,$now,$gametype;
-	$result = $db->query("SELECT * FROM {$tablepre}players WHERE type='0'");
-	$list = $creditlist = $updatelist = Array();
-	while($data = $db->fetch_array($result)){
-		$list[$data['name']]['players'] = $data;
-	}
-	if(empty($list)) return;
-	$wherecause = "('".implode("','",array_keys($list))."')";
-	//在房间制之前这样写是对的……但是呢，房间会刷新lastgame，这样可能会导致拿不到积分
-	//$result = $db->query("SELECT * FROM {$gtablepre}users WHERE lastgame='$gamenum'");
-	$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username IN $wherecause");
-	while($data = $db->fetch_array($result)){
-		$list[$data['username']]['users'] = $data;
-	}
-	eval(import_module('sys'));
-	foreach($list as $key => $val){
-		if(isset($val['players']) && isset($val['users'])){
-			$credits = get_credit_up($val['players'],$winner,$winmode) + $val['users']['credits'];
-			$gold = get_gold_up($val['players'],$winner,$winmode) + $val['users']['gold'];
-			//伐木不算参与次数
-			$validgames = $gametype != 15 ? $val['users']['validgames'] + 1 : $val['users']['validgames'];
-			//非伐木房的幸存、解禁、解离、核爆才算获胜次数
-			$wingames = ($gametype != 15 && in_array($winmode, array(2, 3, 5, 7)) && $key == $winner) ? $val['users']['wingames'] + 1 : $val['users']['wingames'];
-			$lastwin = ($gametype != 15 && in_array($winmode, array(2, 3, 5, 7)) && $key == $winner) ? $now : $val['users']['lastwin'];
-			//$obtain = get_honour_obtain($val['players'],$val['users']);
-			//$honour = $val['users']['honour'] . $obtain;
-			
-			//首胜已放入每日任务
-			/*
-			if (($winner==$val['players']['name'])&&(($now-$lastwin)>72000)&&(!in_array($gametype,$qiegao_ignore_mode))){
-				if ($lastwin==0) $gold+=800;//帐号首次获胜
-				$lastwin=$now;
-				$gold+=200;
-			}*/
-			$updatelist[] = Array('username' => $key, 'credits' => $credits, 'wingames' => $wingames, 'validgames' => $validgames,'lastwin'=>$lastwin,'gold'=>$gold);
-//			if(!empty($obtain)){
-//				$udghkey[] = $key;
-//				if($pdata['name'] == $key){
-//					$pdata['gainhonour'] = $obtain;
-//				}else{
-//					$udghlist[] = Array('name' => $key, 'gainhonour' => $obtain);
-//				}
-//			}			
-		}
-	}
-	$db->multi_update("{$gtablepre}users", $updatelist, 'username');
-//	if(!empty($udghkey)){
-//		$udghkey = implode(',',$udghkey);
-//		$db->multi_update("{$tablepre}players", $upghlist, 'name', "name IN ($udghkey)");
-//	}
-	return;
-}
-
-function get_credit_up($data,$winner = '',$winmode = 0){
-	global $gametype;
-	eval(import_module('sys'));
-	if (in_array($gametype,$qiegao_ignore_mode)) return 0;
-	if($data['name'] == $winner){//获胜
-		if($winmode == 2){$up = 200;}//最后幸存+200
-		elseif($winmode == 3){$up = 500;}//解禁+500
-		elseif($winmode == 5){$up = 100;}//核弹+100
-		elseif($winmode == 7){$up = 1200;}//解离+1200
-		else{$up = 50;}//其他胜利方式+50（暂时没有这种胜利方式）
-	}
-	elseif($data['hp']>0){$up = 25;}//存活但不是获胜者+25
-	else{$up = 10;}//死亡+10
-	if($data['killnum']){
-		$up += $data['killnum'] * 10;//杀一玩家加10
-	}
-	if($data['npckillnum']){
-		$up += $data['npckillnum'] * 2;//杀一NPC加2
-	}
-	if($data['lvl']){
-		$up += round($data['lvl'] /2);//等级每2级加1
-	}
-//	$skill = $data['wp'] + $data['wk'] + $data['wg'] + $data['wc'] + $data['wd'] + $data['wf'];
-//	$maxskill = ;
-	$skill = array ($data['wp'] , $data['wk'] , $data['wg'] , $data['wc'] , $data['wd'] , $data['wf']);
-	rsort ( $skill );
-	$maxskill = $skill[0];
-	$up += round($maxskill / 25);//熟练度最高的系每25点熟练加1
-	$up += round($data['money']/500);//每500点金钱加1
-//	foreach(Array('wp','wk','wg','wc','wd','wf') as $val){
-//		$skill = $data[$val];
-//		$up += round($skill / 100);//每100点熟练加1
-//	}
-	return $up;
-}
-
-function get_gold_up($data,$winner = '',$winmode = 0){
-	global $gametype,$now;
-	eval(import_module('sys'));
-	if (in_array($gametype,$qiegao_ignore_mode)) return 0;//嘻嘻
-	if($data['name'] == $winner){//获胜
-		if($winmode == 3){$up = 60;}//解禁
-		elseif($winmode == 7){$up = 150;}//解离
-		else{$up = 40;}//其他胜利方式
-	}else{$up = 10;}
-	return $up;
-}
-
-
-
-?>
+/* End of file global.func.php */
+/* Location: /include/global.func.php */

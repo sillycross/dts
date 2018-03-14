@@ -2,6 +2,8 @@
 
 namespace sys
 {
+	global $gameover_plist, $gameover_ulist;
+	
 	function updategame()
 	{	
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -140,13 +142,29 @@ namespace sys
 	//模式：0保留：程序故障；1：全部死亡；2：最后幸存；3：禁区解除；4：无人参加；5：核爆全灭；6：GM中止；7：幻境解离；8：挑战结束；9：教程结束；
 	function gameover($time = 0, $gmode = '', $winname = '') {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys'));
+		eval(import_module('sys','player'));
 //		startmicrotime();
 		//先加锁以阻塞对game表的读取，免得这个进程还在执行时，别的请求穿透到数据库造成各种各样的脏数据问题
 		process_lock();
 		load_gameinfo();
 		//游戏未准备的情况下直接返回
 		if($gamestate < 5) return;
+		
+		//提取所有入场玩家的pdata和udata数据备用
+		$gameover_plist = $gameover_alivelist = array();
+		$result = $db->query("SELECT name FROM {$tablepre}players WHERE type=0");
+		while($r = $db->fetch_array($result)){
+			if(!empty($sdata) && $r['pid'] == $sdata['pid']){
+				$gameover_plist[$r['name']] = $sdata;
+			}else{
+				$gameover_plist[$r['name']] = \player\fetch_playerdata($r['name']);
+			}
+			if($gameover_plist[$r['name']]['hp'] > 0) $gameover_alivelist[$r['name']] = &$gameover_plist[$r['name']];
+		}
+		$gameover_ulist = fetch_udata_multilist('*', array('username' => array_keys($gameover_plist)));
+		$validnum = count($gameover_plist);
+		$alivenum = count($gameover_alivelist);
+		
 		//在没提供游戏结束模式的情况下，自行判断模式
 		if((!$gmode)||(($gmode=='end2')&&(!$winname))) {
 			if($validnum <= 0) {//无激活者情况下，无人参加
@@ -155,23 +173,6 @@ namespace sys
 				$winmode = 4;
 				$winner = '';
 			} else {//判断谁是最后幸存者
-				$result = $db->query("SELECT * FROM {$tablepre}players WHERE hp>0 AND type=0");
-				$alivenum = $db->num_rows($result);
-				//先缓存全部存活玩家
-				$alive_pool = array();
-				while($pd = $db->fetch_array($result)){
-					//如果是自己，则用自己
-					if(!empty($sdata) && $pd['pid'] == $sdata['pid']){
-						$alive_pool[] = &$sdata;
-					}else{
-						//如果玩家池里没这个pid，就储存；如果有，就用玩家池里的（热优先于冷）
-						if(!isset($pdata_pool[$pd['pid']])) {
-							$pdata_pool[$pd['pid']] = $pd;
-						}
-						$pd = \player\playerdata_construct_process($pd);
-						$alive_pool[] = &$pdata_pool[$pd['pid']];
-					}
-				}
 				if(!$alivenum) {//全部死亡
 					$winmode = 1;
 					$winnum = 0;
@@ -183,11 +184,10 @@ namespace sys
 						if($alivenum == 1) {
 							$winmode = 2;
 							$winnum = 1;
-							$wdata = &$alive_pool[0];
+							$wdata = array_pop($gameover_alivelist);
 							$winner = $wdata['name'];
 							$wdata['state'] = 5;
 							\player\player_save($wdata);
-							//$db->query("UPDATE {$tablepre}players SET state='5' where pid='{$wdata['pid']}'");
 						} 
 						else
 						{	//不满足游戏结束条件，返回
@@ -198,7 +198,7 @@ namespace sys
 					else//团队模式
 					{
 						$flag=1; $first=1; $firstteamID = '';
-						foreach($alive_pool as $ai => $data){
+						foreach($gameover_alivelist as $ai => $data){
 							if($first) {
 								$first=0;
 								$firstteamID=$data['teamID'];
@@ -211,7 +211,7 @@ namespace sys
 						{
 							if (!$firstteamID)	//单人胜利
 							{	
-								$wdata = &$alive_pool[0];
+								$wdata = array_pop($gameover_alivelist);
 								$wdata['state'] = 5;
 								\player\player_save($wdata);
 								$winnum = 1;
@@ -219,25 +219,23 @@ namespace sys
 							}
 							else				//团队胜利，要记录已经死掉的玩家的名字，所以重新读1次数据库
 							{
-								foreach($alive_pool as &$wdata){
+								foreach($gameover_alivelist as &$wdata){
 									if($wdata['teamID'] == $firstteamID){
 										$wdata['state'] = 5; //实际上只是处理热数据，并没有在这里存数据库
 									}
 								}
 								$db->query("UPDATE {$tablepre}players SET state='5' WHERE type = 0 AND teamID = '$firstteamID'");
-								$result = $db->query("SELECT name FROM {$tablepre}players WHERE type = 0 AND teamID = '$firstteamID'");
-								$winnum=$db->num_rows($result);
+								
+								$teammatelist = array();
+								foreach($gameover_plist as $tname => $tdata){
+									if($tdata['teamID'] == $firstteamID) $teammatelist[] = $tname;
+								}
+								$winnum=count($teammatelist);
 								if ($winnum == 1)
 								{
-									$data = $db->fetch_array($result);
-									$winner = $data['name'];
+									$winner = $teammatelist[0];
 								}elseif($winnum > 1){
-									$namelist=''; $gdlist=''; $iconlist=''; $weplist='';//回头应该
-									while($data = $db->fetch_array($result)) 
-									{
-										$namelist.=$data['name'].',';
-									}
-									$winner = $namelist = substr($namelist,0,-1);
+									$winner = $namelist = implode(',',$teammatelist);
 								}
 							}
 							
@@ -246,11 +244,6 @@ namespace sys
 						{	//不满足游戏结束条件，返回
 							save_gameinfo();
 							return;
-						}
-						
-						if ($winnum > 1)
-						{	
-							
 						}
 						$winmode = 2;
 					}
@@ -263,7 +256,7 @@ namespace sys
 		}
 		
 		//需要先判定获胜者的成就请重载这里
-		post_winnercheck_events($winner);
+		post_winnercheck_events($winner);		
 		
 		$gamestate = 0;
 		$gamevars['o_starttime'] = $starttime; $starttime = 0; //偶尔会发生穿透事故，先这么一修看看情况
@@ -286,39 +279,20 @@ namespace sys
 			'getime' => $time,
 			'gtime' => $time - $starttime,
 		);
-		if($winmode != 4 && $winmode != 0){//非无人参加/程序故障，需要记录杀人最多和最高伤害，并记录参与玩家
+		if(!in_array($winmode, array(0, 4))){//非无人参加/程序故障，需要记录杀人最多和最高伤害，并记录参与玩家
 			$winnerdata['hdmg'] = $hdamage;
 			$winnerdata['hdp'] = $hplayer;
 			$result = $db->query("SELECT name,killnum FROM {$tablepre}players WHERE type=0 order by killnum desc, lvl desc limit 1");
 			$hk = $db->fetch_array($result);
 			$winnerdata['hkill'] = $hk['killnum'];
 			$winnerdata['hkp'] = $hk['name'];
-			$validlist = array();
-			$result2 = $db->query("SELECT name FROM {$tablepre}players WHERE type=0");
-			while($data = $db->fetch_array($result2)) {
-				$validlist[] = $data['name'];
-			}
-			$winnerdata['validlist'] = gencode($validlist);
+			$winnerdata['validlist'] = gencode($gameover_plist);
 		}
-		if($winmode != 1 && $winmode != 6){//非全部死亡/GM中止，需要记录优胜者
+		if(!in_array($winmode, array(0, 1, 4, 6))){//非全部死亡/GM中止，需要记录优胜者
 			$winnerdata['winner'] = $winner;
 			$winnerdata['winnernum'] = $winnum;
 			if ($winnum == 1){
-				if(isset($alive_pool)){
-					$pdata = NULL;
-					foreach($alive_pool as &$av){
-						if($av['name'] == $winner) {
-							$pdata = &$av;
-							break;
-						}
-					}
-				}else{
-					$result = $db->query("SELECT * FROM {$tablepre}players WHERE name='$winner' AND type=0");
-					$pdata = $db->fetch_array($result);
-				}
-				$winnerdata['winnerpdata'] = gencode($pdata);
-				$result2 = $db->query("SELECT motto FROM {$gtablepre}users WHERE username='$winner'");
-				$winnerdata['motto'] = $db->result($result2, 0);
+				$winnerdata['winnerpdata'] = gencode($gameover_plist[$winner]);
 			}else{
 				//其实这里也可以把组队玩家资料全部丢进$winnerdata['winnerpdata']，再说吧
 				$winnerdata['winnerteamID'] = $firstteamID;
@@ -331,7 +305,7 @@ namespace sys
 		$insert_gid = $gamenum;
 //		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-优胜记录修改');
 		//发放切糕工资
-		set_credits();
+		gameover_set_credits();
 //		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-切糕发放');
 		//重置游戏开始时间和当前游戏状态
 		rs_sttime();
@@ -340,6 +314,18 @@ namespace sys
 		post_gameover_events();
 //		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-录像等后续处理');
 		//echo '**游戏结束**';
+		
+		//这里把$gameover_ulist一起更新
+		$updatelist = $gameover_ulist;
+		foreach($updatelist as &$gv){
+			foreach (array_keys($gv) as $fv){
+				if(!in_array($fv, get_gameover_udata_update_fields()))
+					unset($gv[$fv]);
+			}
+		}
+		update_udata_multilist($updatelist);
+		
+		//新闻之类
 		addnews($time, "end$winmode",$winner);
 		addnews($time, 'gameover' ,$gamenum);
 		systemputchat($time,'gameover');
@@ -373,6 +359,11 @@ namespace sys
 //		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-写入消息并结束');
 		return;
 	}
+	
+	function get_gameover_udata_update_fields(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return array('username', 'validgames', 'wingames', 'lastwin', 'credits', 'gold', 'u_achievements');
+	}
 
 	function routine()
 	{
@@ -386,6 +377,73 @@ namespace sys
 			save_gameinfo();
 			process_unlock();
 		}
+	}
+	
+	function gameover_set_credits()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		if(empty($gameover_plist)) return;
+		
+		foreach($gameover_plist as $key => $val){
+			if(isset($gameover_ulist[$key])){
+				$gudata = &$gameover_ulist[$key];
+				$gudata['credits'] += gameover_get_credit_up($val,$winner,$winmode);
+				$gudata['gold'] += gameover_get_gold_up($val,$winner,$winmode);
+				//伐木不算参与次数
+				if($gametype != 15) $gudata['validgames']+= 1;
+				//非伐木房的幸存、解禁、解离、核爆才算获胜次数
+				if($gametype != 15 && in_array($winmode, array(2, 3, 5, 7)) && $key == $winner) {
+					$gudata['wingames'] += 1;
+					$gudata['lastwin'] = $now;
+				}
+			}
+		}
+		return;
+	}
+
+	function gameover_get_credit_up($data,$winner = '',$winmode = 0)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		if (in_array($gametype,$qiegao_ignore_mode)) return 0;
+		if($data['name'] == $winner){//获胜
+			if($winmode == 2){$up = 200;}//最后幸存+200
+			elseif($winmode == 3){$up = 500;}//解禁+500
+			elseif($winmode == 5){$up = 100;}//核弹+100
+			elseif($winmode == 7){$up = 1200;}//解离+1200
+			else{$up = 50;}//其他胜利方式+50（暂时没有这种胜利方式）
+		}
+		elseif($data['hp']>0){$up = 25;}//存活但不是获胜者+25
+		else{$up = 10;}//死亡+10
+		if($data['killnum']){
+			$up += $data['killnum'] * 10;//杀一玩家加10
+		}
+		if($data['npckillnum']){
+			$up += $data['npckillnum'] * 2;//杀一NPC加2
+		}
+		if($data['lvl']){
+			$up += round($data['lvl'] /2);//等级每2级加1
+		}
+		$skill = array ($data['wp'] , $data['wk'] , $data['wg'] , $data['wc'] , $data['wd'] , $data['wf']);
+		rsort ( $skill );
+		$maxskill = $skill[0];
+		$up += round($maxskill / 25);//熟练度最高的系每25点熟练加1
+		$up += round($data['money']/500);//每500点金钱加1
+		return $up;
+	}
+
+	function gameover_get_gold_up($data, $winner = '',$winmode = 0)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		if (in_array($gametype,$qiegao_ignore_mode)) return 0;//嘻嘻
+		if($data['name'] == $winner){//获胜
+			if($winmode == 3){$up = 60;}//解禁
+			elseif($winmode == 7){$up = 150;}//解离
+			else{$up = 40;}//其他胜利方式
+		}else{$up = 10;}
+		return $up;
 	}
 }
 

@@ -1,15 +1,13 @@
 <?php
 
 error_reporting(0);
-
+define('CURSCRIPT', 'roomupdate');	
 define('GEXIT_RETURN_JSON',TRUE);
 define('NO_MOD_LOAD', TRUE);	
 define('NO_SYS_UPDATE', TRUE);
 require './include/common.inc.php';
 require GAME_ROOT.'./include/socket.func.php';
 require GAME_ROOT.'./include/roommng/roommng.func.php';
-require GAME_ROOT.'./include/user.func.php';
-
 include GAME_ROOT.'./include/modules/core/sys/config/server.config.php';
 
 
@@ -44,7 +42,7 @@ if (!room_check_subroom($room_prefix)) {
 	}
 }
 if(!$room_flag){
-	$db->query("UPDATE {$gtablepre}users SET roomid='0' WHERE username='$cuser'");
+	update_udata_by_username(array('roomid' => 0), $cuser);
 	ob_clean();
 	$gamedata['url']='index.php';
 	echo gencode($gamedata);

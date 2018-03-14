@@ -22,8 +22,7 @@ if((isset($cgamenum) && $gamenum != $cgamenum) || (isset($croomid) && $groomid !
 
 if($ctablecorrect && $sendmode == 'send' && $chatmsg ) {//发送聊天
 	if(strpos($chatmsg,'/') === 0) {
-		$result = $db->query("SELECT groupid FROM {$gtablepre}users WHERE username='$cuser'");
-		$groupid = $db->result($result,0);
+		$groupid = $cudata['groupid'];
 		if($groupid > 1) {
 			if(strpos($chatmsg,'/post') === 0) {
 				$chatmsg = substr($chatmsg,6);
@@ -71,4 +70,6 @@ ob_clean();
 $jgamedata = gencode($showdata);
 echo $jgamedata;
 ob_end_flush();
-?>
+
+/* End of file chat.php */
+/* Location: /chat.php */

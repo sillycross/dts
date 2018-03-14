@@ -3,8 +3,8 @@ if(!defined('IN_GAME')) {
 	exit('Access Denied');
 }
 
-$result = $db->query("SELECT COUNT(*) FROM {$gtablepre}users");
-$count = $db->result($result,0);
+$result = fetch_udata('COUNT(*)', '1');
+$count = array_shift($result[0]);
 if($ranklimit < 1){$ranklimit = 1;}
 $ostart = -1;
 if(!isset($command) || !isset($start) || $start < 0) {
@@ -37,19 +37,22 @@ if($start + $ranklimit > $count){
 }
 
 if(!isset($command) || $start != $ostart){
+	$where = 'validgames>0';
 	if(!isset($checkmode) || $checkmode == 'credits'){
-		$result = $db->query("SELECT * FROM {$gtablepre}users WHERE validgames>0 ORDER BY credits DESC, wingames DESC, uid ASC LIMIT $start,$ranklimit");
+		$sort = "credits DESC, wingames DESC, uid ASC LIMIT $start,$ranklimit";
 	}elseif($checkmode == 'total'){
-		$result = $db->query("SELECT * FROM {$gtablepre}users WHERE validgames>0 ORDER BY totalcredits DESC, credits DESC, uid ASC LIMIT $start,$ranklimit");
+		$sort = "totalcredits DESC, credits DESC, uid ASC LIMIT $start,$ranklimit";
 	}elseif($checkmode == 'winrate'){
 		$mingames = $winratemingames >= 1 ? $winratemingames : 1;
-		$result = $db->query("SELECT * FROM {$gtablepre}users WHERE validgames>='$mingames' ORDER BY (wingames/validgames) DESC, credits DESC, uid ASC LIMIT $start,$ranklimit");
+		$where = "validgames>='$mingames'";
+		$sort = "(wingames/validgames) DESC, credits DESC, uid ASC LIMIT $start,$ranklimit";
 	}elseif($checkmode == 'elorate'){
-		$result = $db->query("SELECT * FROM {$gtablepre}users ORDER BY elo_rating DESC, uid ASC LIMIT $start,$ranklimit");
+		$sort = "elo_rating DESC, uid ASC LIMIT $start,$ranklimit";
 	}	
+	$result = fetch_udata('*', $where, $sort);
 	$rankdata = Array();
 	$n = $start+1;
-	while($data = $db->fetch_array($result)){
+	foreach($result as $data){
 		list($riconImg, $riconImgB) = \player\icon_parser(0, $data['gender'], $data['icon']);
 		$data['img'] = $riconImg;
 		//$data['img'] = $data['gender'] == 'm' ? 'm_'.$data['icon'].'.gif' : 'f_'.$data['icon'].'.gif';

@@ -9,7 +9,6 @@ define('CURSCRIPT', 'roomcmd');
 //$not_ready_command_flag = 0;
 include './include/roommng/roommng.config.php';
 include_once './include/roommng/roommng.func.php';
-include_once './include/user.func.php';
 
 if ($command!='ready')
 {
@@ -77,7 +76,7 @@ update_roomstate($roomdata,$runflag);
 if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 	if ($command=='leave')
 	{
-		$db->query("UPDATE {$gtablepre}users SET roomid='0' WHERE username='$cuser'");
+		update_udata_by_username(array('roomid' => 0), $cuser);
 		if ($not_ajax)
 			echo 'redirect:index.php';
 		else
@@ -269,7 +268,7 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 		}
 		room_new_chat($roomdata,"<span class=\"grey\">{$cuser}离开了房间</span><br>");
 		room_save_broadcast($room_id_r,$roomdata);
-		$db->query("UPDATE {$gtablepre}users SET roomid='0' WHERE username='$cuser'");
+		update_udata_by_username(array('roomid' => 0), $cuser);
 		if ($not_ajax)
 			echo 'redirect:index.php';
 		else
@@ -282,7 +281,7 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 	{
 		if($disable_newgame || $disable_newroom)
 		{
-			$db->query("UPDATE {$gtablepre}users SET roomid='0' WHERE username='$cuser'");
+			update_udata_by_username(array('roomid' => 0), $cuser);
 			gexit('系统维护中，暂时不能进入房间。');
 			return;
 		}
@@ -352,6 +351,16 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 				{	
 					addnews($now,'roominfo',room_get_vars($roomdata, 'name'),'挑战者:&nbsp;'.room_getteamhtml($roomdata,0).'！');
 				}
+				//一次性查询所有玩家
+				$namelist = array();
+				for ($i=0; $i < $rdpnum; $i++){
+					if (!$rdplist[$i]['forbidden'])
+					{
+						$pname = $rdplist[$i]['name'];
+						$namelist[] = (string)$pname;
+					}
+				}
+				$ulist = fetch_udata_multilist('*', array('username' => $namelist));
 				//所有玩家进入游戏
 				$ownercard = $leadercard = 0;
 				for ($i=0; $i < $rdpnum; $i++)
@@ -359,9 +368,8 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 					{
 						$pname = $rdplist[$i]['name'];
 						$pname = (string)$pname;
-						$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username = '$pname'");
-						if($db->num_rows($result)!=1) continue;
-						$udata = $db->fetch_array($result);
+						if(!isset($ulist[$pname])) continue;
+						$udata = $ulist[$pname];
 						if(0 == room_get_vars($roomdata,'card-select')){//自选卡片
 							$pcard = $udata['card'];
 						}elseif(1 == room_get_vars($roomdata,'card-select')){//仅挑战者
@@ -411,7 +419,7 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 	elseif('start' == $command){
 		if($disable_newgame || $disable_newroom)
 		{
-			$db->query("UPDATE {$gtablepre}users SET roomid='0' WHERE username='$cuser'");
+			update_udata_by_username(array('roomid' => 0), $cuser);
 			gexit('系统维护中，暂时不能进入房间。');
 			return;
 		}

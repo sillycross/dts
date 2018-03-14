@@ -158,7 +158,7 @@ $mixinfo = array
 	//array('class' => 'item', 'stuff' => array('古旧的ID卡','古旧的ID卡','古旧的ID卡','古旧的ID卡'),'result' => array('幻境配置终端','Y',1,1,),),
 	//array('class' => 'item', 'stuff' => array('混乱的代码片段','混乱的代码片段','混乱的代码片段'),'result' => array('写着代码的小纸条','Y',1,1,),),
 	//array('class' => 'item', 'stuff' => array('代码聚合体的ID卡','代码聚合体的ID卡'),'result' => array('幻境解离代码','Y',1,1,),),
-	array('class' => 'item', 'stuff' => array('★荆棘式电子地雷★','★阔剑地雷★','★全图不唯一的野生巨大香蕉★'),'result' => array('★一发逆转神话★','TNc',1,1,'x'),),
+	array('class' => 'item', 'stuff' => array('★荆棘式电子地雷★','★阔剑地雷★','★全图唯一的野生巨大香蕉★'),'result' => array('★一发逆转神话★','TNc',1,1,'x'),),
 	array('class' => 'item', 'stuff' => array('水','黑色雏菊','白色方块'),'result' => array('风祭河水','Y',1,1,'x'),),
 	array('class' => 'item', 'stuff' => array('水','黑色方块','白色雏菊'),'result' => array('仪水镜','Y',1,1,'x'),),
 	array('class' => 'item', 'stuff' => array('风祭河水','仪水镜','白色雏菊','黑色雏菊'),'result' => array('八咫镜','DH',1,1,'bx'),),
@@ -325,7 +325,7 @@ $mixinfo = array
 	array('class' => 'wf_ks', 'stuff' => array('想起「蒙蒙迷雾」','想起「鸟居旋风」','想起「贤者之石」'),'result' => array('想起「朦胧记忆中的金阁寺」','WF',55555,'∞','cyfkt'),),
 	
 	//余辉尚未实现 
-	//array('class' => 'ocg', 'stuff' => array('八咫镜','★全图不唯一的野生巨大香蕉★'),'result' => array('【余晖】','WF',1,1,'x'),),
+	//array('class' => 'ocg', 'stuff' => array('八咫镜','★全图唯一的野生巨大香蕉★'),'result' => array('【余晖】','WF',1,1,'x'),),
 	array('class' => 'madoka', 'stuff' => array('最终战术『剑海』','悲叹之种'),'result' => array('魔导迷城『恋沫』','WK',70000,'∞','Zkcrd'),),
 	array('class' => 'madoka', 'stuff' => array('最终战术『心火』','悲叹之种'),'result' => array('魔导迷城『愚刑』','WD',70000,'∞','Lcrd'),),
 	//0.8%的概率，至少花148000（富家是111000），考虑95%显著性水平的话需要尝试373次，总成本是65500+(65500+1500*3+2500*5)*373=30,838,000，体会一下轮回的感受吧

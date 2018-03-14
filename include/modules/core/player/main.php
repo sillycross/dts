@@ -56,11 +56,14 @@ namespace player
 		//if(!is_dir(GAME_ROOT.'./gamedata/tmp/playerlock/')) mymkdir(GAME_ROOT.'./gamedata/tmp/playerlock/');
 		$dir = GAME_ROOT.'./gamedata/tmp/playerlock/room'.$groomid.'/';
 		$file = 'player_'.$pdid.'.nlk';
-		$lstate = \sys\check_lock($dir, $file, 5000);//最多允许5秒等待，之后穿透
+		$lstate = check_lock($dir, $file, 2000);//最多允许2秒等待，之后穿透
 		$res = 2;
 		if(!$lstate) {
-			if(\sys\create_lock($dir, $file)) $res = 0;
+			if(create_lock($dir, $file)) {
+				$res = 0;				
+			}
 		}
+		$pdata_lock_pool[$pdid] = 1;
 		return $res;
 	}
 	
@@ -71,12 +74,13 @@ namespace player
 		eval(import_module('sys'));
 		$dir = GAME_ROOT.'./gamedata/tmp/playerlock/room'.$groomid.'/';
 		$file = 'player_'.$pdid.'.nlk';
-		\sys\release_lock($dir, $file);
+		release_lock($dir, $file);
+		unset($pdata_lock_pool[$pdid]);
 		//writeover('a.txt', $dir.' ' .$file."\r\n",'ab+');
 	}
 	
 	//清空玩家池对应的进程锁
-	function release_lock_from_pool()
+	function release_player_lock_from_pool()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
@@ -85,7 +89,6 @@ namespace player
 				release_player_lock($pdid);
 			}
 		}
-		$pdata_lock_pool=array();
 	}
 	
 	//注意这个函数默认情况下只能找玩家
@@ -115,7 +118,6 @@ namespace player
 			$result = $db->query($query);
 			$pdata = $db->fetch_array($result);
 			$pdata_origin_pool[$pdata['pid']] = $pdata_pool[$pdata['pid']] = $pdata;
-			$pdata_lock_pool[$pdata['pid']] = 1;
 			//if($pdata['name'] == 'a') writeover('a.txt', $pdata['hp'].' ','ab+');
 		}
 		$pdata = playerdata_construct_process($pdata);
@@ -138,7 +140,6 @@ namespace player
 			$result = $db->query($query);
 			$pdata = $db->fetch_array($result);
 			$pdata_origin_pool[$pdata['pid']] = $pdata_pool[$pdata['pid']] = $pdata;
-			$pdata_lock_pool[$pdata['pid']] = 1;
 		}
 		$pdata = playerdata_construct_process($pdata);
 		return $pdata;
@@ -183,27 +184,13 @@ namespace player
 	function get_player_killmsg(&$pdata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys'));
-		if ($pdata['type']==0)
-		{
-			$result = $db->query ( "SELECT killmsg FROM {$gtablepre}users WHERE username = '{$pdata['name']}'" );
-			$kilmsg = $db->result ( $result, 0 );
-			return $kilmsg;
-		}
-		return '';
+		return $pdata['killmsg'];
 	}
 	
 	function get_player_lastword(&$pdata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys'));
-		if ($pdata['type']==0)
-		{
-			$result = $db->query ( "SELECT lastword FROM {$gtablepre}users WHERE username = '{$pdata['name']}'" );
-			$lstwd = $db->result ( $result, 0 );
-			return $lstwd;
-		}
-		return '';
+		return $pdata['lastword'];
 	}
 	
 	//查skill_query()如果给的$pa是NULL则会自动调用当前玩家，这是个大坑，判定陷阱方面尤其如此……只能给个假玩家数据蒙混一下了
@@ -686,9 +673,14 @@ namespace player
 			*/
 	}
 	
+	//用用户表中的motto、killmsg、lastword替换player的
 	function post_act()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player'));
+		$motto = $cudata['motto'];
+		$killmsg = $cudata['killmsg'];
+		$lastword = $cudata['lastword'];
 	}
 	
 	function prepare_response_content()

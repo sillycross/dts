@@ -211,29 +211,33 @@ namespace achievement_base
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		//先获得当前局所有玩家的名称
-		$namelist = array();
-		$result = $db->query("SELECT name FROM {$tablepre}players WHERE type=0");
-		while ($pd=$db->fetch_array($result))
-		{
-			$namelist[] = $pd['name'];
+//		$namelist = array();
+//		$result = $db->query("SELECT name FROM {$tablepre}players WHERE type=0");
+//		while ($pd=$db->fetch_array($result))
+//		{
+//			$namelist[] = $pd['name'];
+//		}
+//		$updatelist = array();
+//		//然后一次性读用户记录，尽量减少在循环里读写数据库
+//		if(!empty($namelist)){
+//			$result = fetch_udata_multilist('*', array('username' => $namelist));
+//			foreach($result as $udata){
+//				$pdata = \player\fetch_playerdata($udata['username']);//这句理论上可以被玩家池加速
+//				update_achievements_by_udata($udata, $pdata);
+//				$updatelist[] = Array(
+//					'username' => $udata['username'],
+//					'u_achievements' => encode_achievements($udata['u_achievements'])
+//				);
+//			}
+//		}
+//		//一次性更新
+//		$db->multi_update("{$gtablepre}users", $updatelist, 'username');
+		
+		foreach($gameover_ulist as &$udata){
+			$pdata = $gameover_plist[$udata['username']];
+			update_achievements_by_udata($udata, $pdata);
+			$udata['u_achievements'] = encode_achievements($udata['u_achievements']);
 		}
-		$updatelist = array();
-		//然后一次性读用户记录，尽量减少在循环里读写数据库
-		if(!empty($namelist)){
-			$wherecause = "('".implode("','",$namelist)."')";
-			$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username IN $wherecause");
-			while ($udata=$db->fetch_array($result))
-			{
-				$pdata = \player\fetch_playerdata($udata['username']);//这句理论上可以被玩家池加速
-				update_achievements_by_udata($udata, $pdata);
-				$updatelist[] = Array(
-					'username' => $udata['username'],
-					'u_achievements' => encode_achievements($udata['u_achievements'])
-				);
-			}
-		}
-		//一次性更新
-		$db->multi_update("{$gtablepre}users", $updatelist, 'username');
 	}
 	
 	function post_gameover_events()
@@ -336,9 +340,8 @@ namespace achievement_base
 				$udata['u_achievements'][$key]='VWXYZ';
 			}
 		}
-		$u_ach = encode_achievements($udata['u_achievements']);
-		$u_n = $udata['username'];
-		$db->query("UPDATE {$gtablepre}users SET u_achievements = '$u_ach',cd_a1 = '$now' WHERE username='$u_n'");
+		$ud_str = encode_achievements($udata['u_achievements']);
+		update_udata_by_username(array('u_achievements' => $ud_str, 'cd_a1' => $now), $udata['username']);
 	}
 	
 	function show_ach_title($achid, $achlv, $tp=0)
@@ -672,8 +675,7 @@ namespace achievement_base
 		//如果成就有修改则写一次
 		if($flag) {
 			$ud_str = encode_achievements($ud['u_achievements']);
-			$username = $ud['username'];
-			$db->query("UPDATE {$gtablepre}users SET u_achievements='$ud_str' WHERE username = '$username'");
+			update_udata_by_username(array('u_achievements' => $ud_str), $ud['username']);
 		}
 	}
 	

@@ -22,6 +22,7 @@ set_error_handler('gameerrorhandler');
 $magic_quotes_gpc = get_magic_quotes_gpc();
 
 require GAME_ROOT.'./include/modules/modules.func.php';
+require GAME_ROOT.'./include/user.func.php';
 require GAME_ROOT.'./include/roommng/room.func.php';
 
 define('STYLEID', '1');

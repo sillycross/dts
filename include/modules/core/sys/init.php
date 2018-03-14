@@ -8,13 +8,12 @@ namespace sys
 	//$plock进程锁的文件
 	//$url如果存在，ajax将会直接跳转
 	//$uip其他要传给界面的变量请写在这里
-	global $mode, $command, $db, $plock, $url, $uip;
+	global $mode, $command, $db, $plock, $url, $uip, $cudata;
 	//玩家数据池，fetch的时候先判断池里存不存在，如果有则优先调用池里的；
 	//万一以后pdata_pool要变成引用呢？所以多一个origin池
-	//此外玩家池兼任玩家数据锁记录器
 	//daemon进程结束以及commmand_act.php结束时都会检查并释放玩家池对应的锁文件
-	global $pdata_pool, $pdata_origin_pool, $pdata_lock_pool;
-	$pdata_origin_pool = $pdata_pool = $pdata_lock_pool = array();
+	global $pdata_pool, $pdata_origin_pool, $pdata_lock_pool, $udata_lock_pool;
+	$pdata_origin_pool = $pdata_pool = $pdata_lock_pool = $udata_lock_pool = array();
 	
 	function init()
 	{
@@ -61,15 +60,13 @@ namespace sys
 		if (isset($___LOCAL_INPUT__VARS__INPUT_VAR_LIST['templateid']))
 			$u_templateid = $___LOCAL_INPUT__VARS__INPUT_VAR_LIST['templateid'];
 		
-		//统一获取一些用户数据备用
+		//统一获取用户数据备用
+		global $cudata;
 		if (isset(${$gtablepre.'user'})){
-			$result = $db->query("SELECT u_templateid,roomid FROM {$gtablepre}users where username='".${$gtablepre.'user'}."'");
-			if ($db->num_rows($result)) {
-				$rarr = $db->fetch_array($result);
-			}
+			$cudata = fetch_udata_by_username(${$gtablepre.'user'});
 		}
 		
-		if(empty($u_templateid) && !empty($rarr['u_templateid'])) $u_templateid = $rarr['u_templateid'];
+		if(empty($u_templateid) && !empty($cudata['u_templateid'])) $u_templateid = $cudata['u_templateid'];
 		//进入当前用户房间判断
 		$room_prefix = '';
 		$room_id = 0;
@@ -77,20 +74,19 @@ namespace sys
 		{
 			$room_id = ((int)$___LOCAL_INPUT__VARS__INPUT_VAR_LIST['___GAME_ROOMID']);
 			///test code
-//			if(isset(${$gtablepre.'user'}) && $room_id != $rarr['roomid']){
-				writeover('tmp_roomid_log_1.txt', ${$gtablepre.'user'}."'s roomid ".$room_id.' -> '.$rarr['roomid'].' at '.$now."\r\n",'ab+');
-//				$rarr['room_id'] = $room_id;
-//				$db->query("UPDATE {$gtablepre}users SET roomid = '{$room_id}' WHERE username = '".${$gtablepre.'user'}."'");
-//			}
+			if(!empty($cudata) && $room_id != $cudata['roomid']){
+				//writeover('tmp_roomid_log_1.txt', ${$gtablepre.'user'}."'s roomid ".$room_id.' -> '.$cudata['roomid'].' at '.$now."\r\n",'ab+');
+				$cudata['roomid'] = $room_id;
+				update_udata_by_username(array('roomid' => $room_id), ${$gtablepre.'user'});
+			}
 		}
 		else  
 		{
 			if (isset(${$gtablepre.'user'}))
 			{
-				$room_id = $rarr['roomid'];
+				$room_id = $cudata['roomid'];
 			}
 		}
-		
 		$room_prefix = room_id2prefix($room_id);
 
 		//$room_status = 0;

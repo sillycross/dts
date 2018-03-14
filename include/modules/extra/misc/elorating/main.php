@@ -306,15 +306,16 @@ namespace elorating
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
+		if(empty($gameover_plist)) return;
+		//已改为直接用$gameover_plist和$gameover_ulist直接判定
 		if (room_check_subroom($room_prefix) && in_array($gametype,$elorated_mode))
 		{
-			$tlist=Array();
-			$result = $db->query("SELECT name,hp,state,teamID,killnum FROM {$tablepre}players WHERE type = 0");
-			while($data = $db->fetch_array($result))
+			$tlist = Array();
+			
+			foreach($gameover_plist as $data)
 			{
-				$result2=$db->query("SELECT elo_rating,elo_volatility,elo_playedtimes,elo_history FROM {$gtablepre}users WHERE username = '{$data['name']}'");
-				if (!$db->num_rows($result2)) continue;
-				$z=$db->fetch_array($result2);
+				$z = $gameover_ulist[$data['name']];
+				if(empty($z)) continue;
 				$data['rating']=$z['elo_rating'];
 				$data['vol']=$z['elo_volatility'];
 				$data['timesPlayed']=$z['elo_playedtimes'];
@@ -343,9 +344,24 @@ namespace elorating
 				if ($room_prefix=='') $xr=' '; else $xr=room_prefix_kind($room_prefix);
 				$eh=$data['elo_history'].$xr.base64_encode_number($gamenum,4).base64_encode_number($gametype,1).base64_encode_number($data['winner']?1:0,1).base64_encode_number($data['rating']+131072,3);
 				//考虑了一下还是不拼成一个大query了，毕竟有个text…… 爆了mysql最大query长度限制就囧了
-				$db->query("UPDATE {$gtablepre}users SET elo_rating='{$data['rating']}', elo_volatility='{$data['vol']}', elo_playedtimes='{$data['timesPlayed']}', elo_history='{$eh}' WHERE username = '{$data['name']}'");
+				//$db->query("UPDATE {$gtablepre}users SET elo_rating='{$data['rating']}', elo_volatility='{$data['vol']}', elo_playedtimes='{$data['timesPlayed']}', elo_history='{$eh}' WHERE username = '{$data['name']}'");
+				//现在改成存回$gameover_ulist
+				$gameover_ulist[$data['name']]['elo_rating'] = $data['rating'];
+				$gameover_ulist[$data['name']]['elo_volatility'] = $data['vol'];
+				$gameover_ulist[$data['name']]['elo_playedtimes'] = $data['timesPlayed'];
+				$gameover_ulist[$data['name']]['elo_history'] = $eh;
 			}
 		}
+	}
+	
+	function get_gameover_udata_update_fields(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess();
+		eval(import_module('sys'));
+		if (room_check_subroom($room_prefix) && in_array($gametype,$elorated_mode)) {
+			$ret = array_merge($ret, array('u_achievements', 'elo_rating', 'elo_volatility', 'elo_playedtimes', 'elo_history'));
+		}
+		return $ret;
 	}
 	
 	function post_gameover_events()

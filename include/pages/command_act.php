@@ -28,18 +28,9 @@ if(!$db->num_rows($result))
 $pdata = $db->fetch_array($result);
 
 //判断是否密码错误
-if($pdata['pass'] != $cpass) {
-	$tr = $db->query("SELECT `password` FROM {$gtablepre}users WHERE username='$cuser'");
-	$tp = $db->fetch_array($tr);
-	$password = $tp['password'];
-	include_once './include/user.func.php';
-	if(pass_compare($cuser, $cpass, $password)) {
-		$db->query("UPDATE {$tablepre}players SET pass='$password' WHERE name='$cuser'");
-	} else {
-		gexit($_ERROR['wrong_pw'],__file__,__line__);
-		return;
-	}
-}
+$udata = udata_check();
+if($pdata['pass'] != $udata['password'])
+	$db->query("UPDATE {$tablepre}players SET pass='{$udata['password']}' WHERE name='$cuser'");
 	
 if($gamestate == 0) {
 	$gamedata['url'] = 'end.php';

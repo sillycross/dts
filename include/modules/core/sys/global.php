@@ -33,46 +33,6 @@ namespace sys
 		}
 	}
 	
-	//循环判断锁是否存在，如果存在则挂起10毫秒之后继续判定，直到时间耗尽，起到阻塞作用
-	//返回true表示锁存在，false表示锁不存在
-	//如果加了$timeout，会阻塞到时间耗尽或者锁释放为止。$timeout时间是毫秒
-	function check_lock($dirname, $filename, $timeout=0)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$sleept = 0;
-		$res = file_exists($dirname.$filename);
-		while($res){
-			usleep(10000);
-			$sleept += 10000;
-			if($sleept > $timeout*1000) break;
-			$res = file_exists($dirname.$filename);
-		}
-		return $res;
-	}
-	
-	//用于判定/生成锁
-	//如果文件存在，生成并返回true
-	//如果文件已经存在，返回false
-	function create_lock($dirname, $filename)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if(!file_exists($dirname)) mymkdir($dirname);
-		if(!file_exists($dirname.$filename)) {
-			touch($dirname.$filename);
-			return true;
-		}else{
-			return false;
-		}
-	}
-	
-	//清除生成的锁
-	function release_lock($dirname, $filename)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if(!file_exists($dirname)) mymkdir($dirname);
-		if(file_exists($dirname.$filename)) unlink($dirname.$filename);
-	}
-	
 	/*
 	//只能在linux下使用的旧函数
 	function file_lock(&$handle, $dirname, $filename, $locktype = LOCK_EX)
@@ -196,14 +156,15 @@ namespace sys
 		//这尼玛写的太坑了吧…… 不管了直接import map模块进来了……
 		eval(import_module('map'));
 		if(strpos($n,'death11') === 0  || strpos($n,'death32') === 0) {
-			$result = $db->query("SELECT lastword FROM {$gtablepre}users WHERE username = '$a'");
-			$e = $lastword = $db->result($result, 0);
+			$result = $db->query("SELECT lastword FROM {$tablepre}players WHERE name = '$a'");
+			$r = $db->fetch_array($result);
+			$e = $lastword = $r['lastword'];
 			$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,recv,msg) VALUES ('3','$t','【{$plsinfo[$c]}】 $a','','$lastword')");
 		}	elseif(strpos($n,'death15') === 0 || strpos($n,'death16') === 0) {
-			$result = $db->query("SELECT lastword FROM {$gtablepre}users WHERE username = '$a'");
-			$e = $lastword = $db->result($result, 0);
-			$result = $db->query("SELECT pls FROM {$tablepre}players WHERE name = '$a' AND type = '0'");
-			$place = $db->result($result, 0);
+			$result = $db->query("SELECT lastword,pls FROM {$tablepre}players WHERE name = '$a'");
+			$r = $db->fetch_array($result);
+			$e = $lastword = $r['lastword'];
+			$place = $r['pls'];
 			$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,recv,msg) VALUES ('3','$t','【{$plsinfo[$place]}】 $a','','$lastword')");
 		}
 		$db->query("INSERT INTO {$tablepre}newsinfo (`time`,`news`,`a`,`b`,`c`,`d`,`e`) VALUES ('$t','$n','$a','$b','$c','$d','$e')");

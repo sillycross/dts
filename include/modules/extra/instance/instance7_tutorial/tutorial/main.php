@@ -15,7 +15,7 @@ namespace tutorial
 		eval(import_module('sys','player'));
 		$alivenum--;
 		$sdata['endtime'] = -1;//负数会在command_act.php最后被变为0，下次进房会触发教程重置角色功能
-		$db->query("UPDATE {$gtablepre}users SET roomid='0' WHERE username='$cuser'");
+		update_udata_by_username(array('roomid' => 0), $cuser);
 		$gamedata['url']='index.php';
 		return;
 	}

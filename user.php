@@ -3,7 +3,6 @@
 define('CURSCRIPT', 'user');
 
 require './include/common.inc.php';
-require './include/user.func.php';
 
 eval(import_module('cardbase'));
 
@@ -61,7 +60,7 @@ if($mode == 'edit') {
 		'card' => $card
 	);
 	if(!empty($passarr)) $updarr = array_merge($updarr, $passarr);
-	$db->array_update("{$gtablepre}users", $updarr, "username='$cuser'");
+	update_udata_by_username($updarr, $cuser);
 	
 	$gamedata['innerHTML']['info'] .= $_INFO['data_success'];
 

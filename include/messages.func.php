@@ -157,10 +157,12 @@ function message_check($checklist, $messages)
 	if(!empty($cl_changed)) $udata['cardlist'] = implode('_',$udata['cardlist']);
 	if($getqiegaosum || $getcardflag || $getkarmasum) {
 		$n = $udata['username'];
-		$gold = $udata['gold']+$getqiegaosum;
-		$gold2 = $udata['gold2']+$getkarmasum;
-		$cardlist = $udata['cardlist'];
-		$db->query("UPDATE {$gtablepre}users SET gold='$gold',gold2='$gold2',cardlist='$cardlist' WHERE username='$n'");
+		$upd = array(
+			'gold' => $udata['gold']+$getqiegaosum,
+			'gold2' => $udata['gold2']+$getkarmasum,
+			'cardlist' => $udata['cardlist'],
+		);
+		update_udata_by_username($upd, $udata['username']);
 	}
 }
 

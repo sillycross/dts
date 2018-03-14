@@ -3,7 +3,6 @@
 define('CURSCRIPT', 'cardbook');
 
 require './include/common.inc.php';
-require './include/user.func.php';
 
 eval(import_module('cardbase'));
 
@@ -17,9 +16,8 @@ if ($_REQUEST["playerID"]=="") {
 	$curuser=true;
 } else {
 	$uname=urldecode($_REQUEST["playerID"]);
-	$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='$uname'");
-	if(!$db->num_rows($result)) { gexit($_ERROR['user_not_exists'],__file__,__line__); }
-	$udata = $db->fetch_array($result);
+	$udata = fetch_udata_by_username($uname);
+	if(empty($udata)) { gexit($_ERROR['user_not_exists'],__file__,__line__); }
 	extract($udata);
 	$curuser=false;
 	if ($uname==$cuser) $curuser=true;

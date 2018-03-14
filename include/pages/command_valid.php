@@ -5,7 +5,6 @@ if(!defined('IN_GAME')) {
 
 eval(import_module('sys','player','map','input'));
 
-include_once './include/user.func.php';
 include_once './include/valid.func.php';
 
 if(!$cuser||!$cpass) {
@@ -28,16 +27,18 @@ eval(import_module('cardbase'));
 
 //入场
 if($mode == 'enter') {
+	$ip = $udata['ip'];
+	
 	if($iplimit) {
-		$result = $db->query("SELECT * FROM {$gtablepre}users AS u, {$tablepre}players AS p WHERE u.ip='{$udata['ip']}' AND ( u.username=p.name AND p.type=0)");
-		if($db->num_rows($result) > $iplimit) {
+		$result = $db->query("SELECT * FROM {$tablepre}players WHERE type=0 AND ip='$ip'");
+		if($db->num_rows($result) >= $iplimit) {
 			gexit($_ERROR['ip_limit'],__file__,__line__);
 			return;
 		}
 	}	
 
 	//$ip = real_ip();
-	$ip = $udata['ip'];
+	
 	
 	$userCardData = \cardbase\get_user_cardinfo($cuser);
 	$card_ownlist = $userCardData['cardlist'];
@@ -49,7 +50,15 @@ if($mode == 'enter') {
 	if ($gender !== 'm' && $gender !== 'f'){
 		$gender = 'f';
 	}
-	$db->query("UPDATE {$gtablepre}users SET gender='$gender', icon='$icon', motto='$motto', killmsg='$killmsg', card='$card', lastword='$lastword' WHERE username='".$udata['username']."'" );
+	$updatearr = array(
+		'gender' => $gender,
+		'icon' => $icon,
+		'motto' => $motto,
+		'killmsg' => $killmsg,
+		'card' => $card,
+		'lastword'=>$lastword
+	);
+	update_udata_by_username($updatearr, $udata['username']);
 	if($validnum >= $validlimit) {
 		gexit($_ERROR['player_limit'],__file__, __line__);
 		return;
@@ -78,8 +87,8 @@ if($mode == 'enter') {
 		if(!empty($cardtypecd[$r])){
 			$ctcdtime = $now;
 			if(18 == $gametype || 19 == $gametype) $ctcdtime -= round($cardtypecd[$r] / 2);//荣誉模式、极速模式类别CD减半
-			$setquery = 'cd_'.strtolower($r)."='$ctcdtime'";
-			$db->query("UPDATE {$gtablepre}users SET $setquery WHERE username='".$udata['username']."'" );
+			$updatearr = array('cd_'.strtolower($r) => $ctcdtime);
+			update_udata_by_username($updatearr, $udata['username']);
 		}
 	}
 	
