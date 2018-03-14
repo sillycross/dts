@@ -30,7 +30,7 @@ if(!empty($pagecmd) && $pagecmd == 'upload'){
 		}elseif(2==$errno) {
 			$cmd_info = '覆盖后将导致管理员信息不正确';
 		}else{
-			$o_arr = fetch_udata('*', '1', '', 0, 2);
+			$o_arr = fetch_udata();
 
 			$o_cont = '';
 			foreach($o_arr as $v){
@@ -53,7 +53,7 @@ if(!empty($pagecmd) && $pagecmd == 'upload'){
 	
 	$urcmd = '';
 }elseif(!empty($pagecmd) && $pagecmd == 'download'){
-	$udb = fetch_udata('*', '1', '', 0, 2);
+	$udb = fetch_udata();
 
 	$cont = '';
 	foreach($udb as $v){
@@ -269,5 +269,4 @@ if($urcmd == 'ban' || $urcmd == 'unban' || $urcmd == 'del' || $urcmd == 'sendmes
 	$urcmd = 'list';
 }
 include template('admin_urlist');
-
 ?>

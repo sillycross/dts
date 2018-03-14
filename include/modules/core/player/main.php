@@ -56,14 +56,14 @@ namespace player
 		//if(!is_dir(GAME_ROOT.'./gamedata/tmp/playerlock/')) mymkdir(GAME_ROOT.'./gamedata/tmp/playerlock/');
 		$dir = GAME_ROOT.'./gamedata/tmp/playerlock/room'.$groomid.'/';
 		$file = 'player_'.$pdid.'.nlk';
-		$lstate = \sys\check_lock($dir, $file, 5000);//最多允许5秒等待，之后穿透
+		$lstate = check_lock($dir, $file, 2000);//最多允许2秒等待，之后穿透
 		$res = 2;
 		if(!$lstate) {
-			if(\sys\create_lock($dir, $file)) {
-				$res = 0;
-				$pdata_lock_pool[$pdid] = 1;
+			if(create_lock($dir, $file)) {
+				$res = 0;				
 			}
 		}
+		$pdata_lock_pool[$pdid] = 1;
 		return $res;
 	}
 	
@@ -74,7 +74,7 @@ namespace player
 		eval(import_module('sys'));
 		$dir = GAME_ROOT.'./gamedata/tmp/playerlock/room'.$groomid.'/';
 		$file = 'player_'.$pdid.'.nlk';
-		\sys\release_lock($dir, $file);
+		release_lock($dir, $file);
 		unset($pdata_lock_pool[$pdid]);
 		//writeover('a.txt', $dir.' ' .$file."\r\n",'ab+');
 	}

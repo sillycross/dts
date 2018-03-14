@@ -51,9 +51,8 @@ update_udata_by_username(array('ip' => $onlineip, 'roomid' => 0), $username);
 
 gsetcookie('user',$userdata['username']);
 gsetcookie('pass',$password);
-//}
-
 Header("Location: index.php");
+
 exit();
 
 /* End of file login.php */

@@ -231,6 +231,7 @@ if ($___MOD_SRV)
 						\sys\process_unlock();
 					}
 					\player\release_player_lock_from_pool();
+					release_user_lock_from_pool();
 					//收尾工作，清除所有全局变量
 					$___TEMP_remain_list=Array('_SERVER','GLOBALS','magic_quotes_gpc','module_hook_list','language','_ERROR');
 							
@@ -447,6 +448,8 @@ if(!empty($plock)) {
 }
 //清除玩家锁
 \player\release_player_lock_from_pool();
+//清除用户锁
+release_user_lock_from_pool();
 
 /* End of file command.php */
 /* Location: /command.php */

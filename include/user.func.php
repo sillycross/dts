@@ -5,21 +5,25 @@ if(!defined('IN_GAME')) {
 }
 
 //创建用户锁文件。在各需要处理用户数据的php结束时务必清空用户锁，否则会导致阻塞
-//返回值：0正常加锁  1本进程上过锁  2被阻塞导致失败
+//返回值：0正常加锁  1本进程上过锁  2被阻塞导致失败  3无需加锁
 //是以用户名为标签的（最兼容各种查询方式）
 function create_user_lock($un)
 {
 	if (eval(__MAGIC__)) return $___RET_VALUE;
 	global $udata_lock_pool;
 	if(!is_array($udata_lock_pool)) $udata_lock_pool = array();
-	if(isset($udata_lock_pool[$un])) return 1;//如果用户锁池里已有键，认为已经上锁了
+	//如果用户锁池里已有键，认为已经上锁了
+	if(isset($udata_lock_pool[$un])) return 1;
+	//如果是调用command执行的，不用加锁（command来加锁）；roomupdate这种长轮询也不加锁
+	elseif(in_array(CURSCRIPT, array('roomupdate','chat','roomcmd','valid','end','winner','rank','alive','help','news'))) return 3;
 	$dir = GAME_ROOT.'./gamedata/tmp/userlock/';
 	$file = $un.'.nlk';
-	$lstate = \sys\check_lock($dir, $file, 3000);//最多允许1秒等待，之后穿透
+	$lstate = check_lock($dir, $file, 10000);//最多允许3秒等待，之后穿透
 	$res = 2;
 	if(!$lstate) {
-		if(\sys\create_lock($dir, $file)) $res = 0;
+		if(create_lock($dir, $file)) $res = 0;
 	}
+	$udata_lock_pool[$un] = 1;
 	return $res;
 }
 
@@ -30,7 +34,7 @@ function release_user_lock($un)
 	global $udata_lock_pool;
 	$dir = GAME_ROOT.'./gamedata/tmp/userlock/';
 	$file = $un.'.nlk';
-	\sys\release_lock($dir, $file);
+	release_lock($dir, $file);
 	unset($udata_lock_pool[$un]);
 }
 
@@ -44,21 +48,51 @@ function release_user_lock_from_pool()
 			release_user_lock($un);
 		}
 	}
+	
 }
 
 //获取用户数据的通用函数，会自动获取远端数据
 //返回相当于fetch_array得到的数组
 //$keytype==0为无键名，为1是username当键名，为2是uid当键名
-function fetch_udata($fields, $where='', $sort='', $local=0, $keytype=0, $nolock=0){
+function fetch_udata($fields='', $where='', $sort='', $keytype=0, $nolock=0){
 	global $db, $gtablepre;
-	//如果where里有username，直接加锁；否则先查询username再加锁，加完锁才真查询
-	//生成查询
+	//缺省查询
+	if(empty($fields)) $fields = '*';
 	if(empty($where)) $where = '1';
+	$ret = array();
+	//如果where里有username，直接加锁；否则先查询username再加锁，加完锁才真查询
+	if(!$nolock && strpos($fields, 'COUNT(')===false){
+		if(strpos($where, 'username')!==false){
+			if(preg_match('/username\s*?IN\s*?\((.*?)\)/s', $where, $matches)) {
+				$wherecont = explode(',',$matches[1]);
+				foreach($wherecont as &$un){
+					$un = trim($un,"' \n\r\t");
+					create_user_lock($un);
+				}
+			}elseif(preg_match('/username\s*?=\s*?\'(.*?)\'/s', $where, $matches)){
+				$un = $matches[1];
+				create_user_lock($un);
+			}
+		}else{
+			$qry = "SELECT username FROM {$gtablepre}users WHERE {$where} ";
+			if(!empty($sort)) $qry .= "ORDER BY $sort";
+			$result = $db->query($qry);
+			if($db->num_rows($result)) {
+				while($r = $db->fetch_array($result)) {
+					$un = $r['username'];
+					create_user_lock($un);
+				}
+			}else{
+				return $ret;
+			}
+		}
+	}
+	
 	$qry = "SELECT {$fields} FROM {$gtablepre}users WHERE {$where} ";
 	if(!empty($sort)) $qry .= "ORDER BY $sort";
 	//获取结果并自动fetch
 	$result = $db->query($qry);
-	$ret = array();
+	
 	if($db->num_rows($result)) {
 		while($r = $db->fetch_array($result)) {
 			if(1==$keytype) $ret[$r['username']] = $r;
@@ -73,19 +107,19 @@ function fetch_udata($fields, $where='', $sort='', $local=0, $keytype=0, $nolock
 //自动生成WHERE xxx IN ()这个格式的查询语句
 //所给$wherearr必须是一个以字段名为键名，以内容列表为键值的二阶数组。暂时只支持1个查询条件
 //返回值以username为键名
-function fetch_udata_multilist($fields, $wherearr, $sort='', $local=0){
+function fetch_udata_multilist($fields, $wherearr, $sort=''){
 	if(is_array($wherearr)) {
 		$wherefield = array_keys($wherearr)[0];
 		$where = $wherefield." IN ('".implode("','", $wherearr[$wherefield])."')";
 	}else{
 		$where = $wherearr;
 	}
-	return fetch_udata($fields, $where, $sort, $local, 1, 1);
+	return fetch_udata($fields, $where, $sort, 1);
 }
 
 //根据$username返回单个数组，注意与fetch_udata()返回值数组结构的差别！
-function fetch_udata_by_username($username, $fields='*', $local=0){
-	$ret = fetch_udata($fields, "username='$username'", '', $local, 0, 1);
+function fetch_udata_by_username($username, $fields='*'){
+	$ret = fetch_udata($fields, "username='$username'");
 	if(empty($ret)) return NULL;
 	else return $ret[0];
 }

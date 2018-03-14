@@ -3,7 +3,7 @@ if(!defined('IN_ADMIN')) {
 	exit('Access Denied');
 }
 
-$gmdata = fetch_udata('uid,username,groupid', 'groupid > 1', 'groupid DESC', 0, 2);
+$gmdata = fetch_udata('uid,username,groupid', 'groupid > 1', 'groupid DESC', 2);
 $cmd_info = '';
 if($command == 'add') {
 	$addgroup = intval($addgroup);
@@ -64,5 +64,4 @@ if($command == 'add') {
 	$command = 'gmlist';
 }
 include template('admin_gmlist');
-
 ?>
