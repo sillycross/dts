@@ -1,6 +1,9 @@
 <?php
 ignore_user_abort(1);//这一代码基本上是以异步调用的方式执行的
 
+//先关闭
+die();
+
 define('CURSCRIPT', 'userdb_receive');
 define('IN_GAME', true);
 
