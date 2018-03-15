@@ -6,6 +6,7 @@ namespace attack
 	function strike_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		unset($pa['seckill'], $pd['seckill']);
 	}
 	
 	//打击进行

@@ -51,17 +51,19 @@ namespace skill505
 		if (\skillbase\skill_query(505,$sdata) && !check_unlocked505($sdata)){//注意这里是没解锁才有效
 			eval(import_module('sys','player','logger','skill505'));
 			$ipls = \skillbase\skill_getvalue(505,'rpls',$sdata);
-			$result = $db->query("SELECT * FROM {$tablepre}mapitem WHERE pls='$ipls' AND itm='$skill505_keyitm'");
-			if($db->num_rows($result)){
-				$idata = $db->fetch_array($result);
-				if(rand(0,99) < 5) {
-					$itms0 = \itemmain\focus_item($idata);
-					if($itms0){
-						\itemmain\itemfind();
-						return;
+			if($pls == $ipls) {
+				$result = $db->query("SELECT * FROM {$tablepre}mapitem WHERE pls='$ipls' AND itm='$skill505_keyitm'");
+				if($db->num_rows($result)){
+					$idata = $db->fetch_array($result);
+					if(rand(0,99) < 5) {
+						$itms0 = \itemmain\focus_item($idata);
+						if($itms0){
+							\itemmain\itemfind();
+							return;
+						}
 					}
 				}
-			}
+			}			
 		}
 		$chprocess();		
 	}
