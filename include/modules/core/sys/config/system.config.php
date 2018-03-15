@@ -36,11 +36,11 @@ namespace sys
 	//用户数据远程存放签名
 	$userdb_remote_storage_sign = 'local';
 	//用户数据远程存放密钥
-	$userdb_remote_storage_key = '142857';
+	$userdb_remote_storage_pass = '142857';
 	//接收来自以下地址的用户数据读写
-	//键名为地址（其实只是个签名），键值为密钥，应该与发送端上面那个密钥对应
+	//键名为地址（其实只是个签名），键值为密钥和IP，应该与发送端上面那个密钥对应
 	$userdb_receive_list = array(
-		'local' => '142857',
+		'local' => Array('pass' => '142857', 'ip' => ''),
 	);
 	
 	//录像远程存放地址（是特定的一个接收php），留空为存本地

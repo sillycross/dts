@@ -6,7 +6,6 @@ define('IN_GAME', true);
 
 //啥也不载入，只判断密钥是否匹配
 defined('GAME_ROOT') || define('GAME_ROOT', dirname(__FILE__).'/');
-ini_set('post_max_size', '20M');
 
 require GAME_ROOT.'./include/global.func.php';
 include GAME_ROOT.'./include/modules/core/sys/config/server.config.php';

@@ -129,6 +129,7 @@ namespace attack
 		//第四优先：保命类
 		if($pa['dmg_dealt']) apply_total_damage_modifier_insurance($pa,$pd,$active);
 		//秒杀技，最后判定
+		//成功秒杀则$pa['seckill']会是1
 		apply_total_damage_modifier_seckill($pa,$pd,$active);
 		//var_dump($pa['dmg_dealt']);
 		$replace_color = 'red';

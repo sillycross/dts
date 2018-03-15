@@ -35,7 +35,7 @@ namespace player
 			$dps_cont = str_replace('?>','',$checkstr);
 			$dps_cont .= '$db_player_structure = ' . var_export($db_player_structure,1).";\r\n".'$db_player_structure_types = ' . var_export($db_player_structure_types,1).';';
 			writeover($dps_file, $dps_cont);
-			chmod($dps_file,777);
+			chmod($dps_file,0777);
 			
 		}else{//若不需要更新，则直接读文件就好
 			include $dps_file ;
