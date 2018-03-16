@@ -16,7 +16,7 @@ $url = '127.0.0.1/dts1/dts/userdb_receive.php';
 $context = array(
 	'sign' => 'local',
 	'pass' => '142857',
-	'command' => 'update_udata_multilist',
+	'command' => 'get_ip',
 	'para1' => gencode(Array(array('username'=>'b','groupid'=>'3'),array('username'=>'c','groupid'=>'4'))),
 );
 //echo curl_post($url, $context);

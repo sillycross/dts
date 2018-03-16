@@ -31,6 +31,19 @@ if (!file_exists($modulemng_config)){
 		if(!copy($modulemng_config_sample,$modulemng_config)) exit('Cannot create "modulemng.config.php".');
 	}
 }
+
+$system_config =  './include/modules/core/sys/config/system.config.php';
+$system_config_sample =  './include/modules/core/sys/config/system.config.sample.php';
+if (!file_exists($system_config)){
+	if(!file_exists($system_config_sample))	exit('"system.config.sample.php" doesn\'t exist.');
+	else {
+		if(!copy($system_config_sample,$system_config)) exit('Cannot create "system.config.php".');
+	}
+}
+
+$game_config = './include/modules/core/sys/config/game.config.php';
+if(!file_exists($game_config))	exit('"game.config.php" doesn\'t exist.');
+
 $mdcontents = file_get_contents($modulemng_config);
 $mdcontents = preg_replace("/[$]___MOD_CODE_ADV1\s*\=\s*-?[0-9]+;/is", "\$___MOD_CODE_ADV1 = 0;", $mdcontents);
 $mdcontents = preg_replace("/[$]___MOD_CODE_ADV2\s*\=\s*-?[0-9]+;/is", "\$___MOD_CODE_ADV2 = 0;", $mdcontents);
@@ -38,8 +51,6 @@ $mdcontents = preg_replace("/[$]___MOD_CODE_ADV3\s*\=\s*-?[0-9]+;/is", "\$___MOD
 $mdcontents = preg_replace("/[$]___MOD_SRV\s*\=\s*-?[0-9]+;/is", "\$___MOD_SRV = 0;", $mdcontents);
 file_put_contents($modulemng_config,$mdcontents);
 
-$system_config = './include/modules/core/sys/config/system.config.php';
-if (!file_exists($system_config)){exit('"system.config.php" doesn\'t exist.');}
 @include $server_config;
 
 switch($language) {
@@ -1184,14 +1195,14 @@ if($startmode == 1) {
 }
 
 
-$sscontents = file_get_contents($system_config);
+$gcontents = file_get_contents($game_config);
 
-//$sscontents = preg_replace("/[$]adminmsg\s*\=\s*[\"'].*?[\"'];/is", "\$adminmsg = '$adminmsg';", $sscontents);
-$sscontents = preg_replace("/[$]startmode\s*\=\s*[0-9]+;/is", "\$startmode = $startmode;", $sscontents);
-$sscontents = preg_replace("/[$]starthour\s*\=\s*[0-9]+;/is", "\$starthour = $starthour;", $sscontents);
-$sscontents = preg_replace("/[$]iplimit\s*\=\s*[0-9]+;/is", "\$iplimit = $iplimit;", $sscontents);
+//$gcontents = preg_replace("/[$]adminmsg\s*\=\s*[\"'].*?[\"'];/is", "\$adminmsg = '$adminmsg';", $gcontents);
+$gcontents = preg_replace("/[$]startmode\s*\=\s*[0-9]+;/is", "\$startmode = $startmode;", $gcontents);
+$gcontents = preg_replace("/[$]starthour\s*\=\s*[0-9]+;/is", "\$starthour = $starthour;", $gcontents);
+$gcontents = preg_replace("/[$]iplimit\s*\=\s*[0-9]+;/is", "\$iplimit = $iplimit;", $gcontents);
 
-file_put_contents($system_config,$sscontents);
+file_put_contents($game_config,$gcontents);
 file_put_contents('./gamedata/adminmsg.htm',$adminmsg);
 
 result();

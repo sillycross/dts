@@ -32,7 +32,7 @@ namespace sys
 	
 	//用户数据库远程存放地址（是特定的一个接收php），留空为存本地
 	//开启后，本地数据库相当于缓存，实际以远端数据库为准
-	$userdb_remote_storage = 'http://127.0.0.1/dts1/dts/userdb_receive.php';
+	$userdb_remote_storage = '127.0.0.1/dts1/dts/userdb_receive.php';
 	//用户数据远程存放签名
 	$userdb_remote_storage_sign = 'local';
 	//用户数据远程存放密钥
@@ -40,14 +40,16 @@ namespace sys
 	//接收来自以下地址的用户数据读写
 	//键名为地址（其实只是个签名），键值为密钥和IP，应该与发送端上面那个密钥对应
 	$userdb_receive_list = array(
-		'local' => Array('pass' => '142857', 'ip' => ''),
+		'local' => Array('pass' => '142857', 'ip' => '127.0.0.1'),
 	);
+	//远程数据库重连次数
+	$userdb_remote_connect_times = 3;
 	
 	//录像远程存放地址（是特定的一个接收php），留空为存本地
 	//开启后会先查询本地是否存在录像，再查询远程是否存在录像
-	$replay_remote_storage = 'http://127.0.0.1/dts1/dts/replay_receive.php';
+	$replay_remote_storage = '';
 	//是否在生成录像时就直接存到远端。就算启动也不会删除本地录像，请定期手动删除
-	$replay_remote_send = 1;
+	$replay_remote_send = 0;
 	//录像远程存放签名
 	$replay_remote_storage_sign = 'local';
 	//录像远程存放密钥

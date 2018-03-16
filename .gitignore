@@ -2,6 +2,7 @@
 ideas.txt
 nohup.out
 include/modules/core/sys/config/server.config.php
+include/modules/core/sys/config/system.config.php
 include/modulemng/modulemng.config.php
 gamedata/adminlog.php
 gamedata/adminmsg.htm
@@ -14,7 +15,7 @@ gamedata/gameinfo.php
 gamedata/banlist.list
 gamedata/replays/*.*
 gamedata/remote_replays/
-gamedata/tmp/*.temp
+gamedata/tmp/
 templates/default/itemhelp.htm
 templates/default/tmp_*.htm
 *.bak
