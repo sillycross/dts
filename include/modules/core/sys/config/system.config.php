@@ -43,7 +43,9 @@ namespace sys
 		'local' => Array('pass' => '142857', 'ip' => '127.0.0.1'),
 	);
 	//远程数据库重连次数
-	$userdb_remote_connect_times = 3;
+	$userdb_remote_reconnect_times = 5;
+	//远程数据库重连延时（微秒）
+	$userdb_remote_reconnect_duration = 200;
 	
 	//录像远程存放地址（是特定的一个接收php），留空为存本地
 	//开启后会先查询本地是否存在录像，再查询远程是否存在录像

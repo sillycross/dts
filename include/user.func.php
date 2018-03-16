@@ -51,7 +51,7 @@ function release_user_lock_from_pool($key='')
 	
 	//这里只向远端发送清空锁的命令，具体清空哪些锁是储存在远端的
 	if(!empty($userdb_remote_storage) && !empty($userdb_remote_key)) {
-		global $userdb_remote_storage_sign, $userdb_remote_storage_pass, $userdb_remote_connect_times;
+		global $userdb_remote_storage_sign, $userdb_remote_storage_pass, $userdb_remote_reconnect_times;
 		$url = $userdb_remote_storage;
 		$context = array(
 			'sign' => $userdb_remote_storage_sign,
@@ -59,18 +59,18 @@ function release_user_lock_from_pool($key='')
 			'command' => 'release_user_lock_from_pool',
 			'key' => $userdb_remote_key,
 		);
-		for($i=0;$i<$userdb_remote_connect_times;$i++) {
+		for($i=0;$i<$userdb_remote_reconnect_times;$i++) {
 			$ret = curl_post($url, $context);
 			if('Release success' == gdecode($ret,1)) break;
 		}
 	}
 }
 
-//连接远程数据库，重试$userdb_remote_connect_times次
+//连接远程数据库，重试$userdb_remote_reconnect_times次
 function curl_udata_cmd($command, $para1='', $para2='', $para3='', $para4='', $para5=''){
-	global $userdb_remote_storage, $userdb_remote_storage_sign, $userdb_remote_storage_pass, $userdb_remote_connect_times, $userdb_remote_key;
+	global $userdb_remote_storage, $userdb_remote_storage_sign, $userdb_remote_storage_pass, $userdb_remote_reconnect_times, $userdb_remote_reconnect_duration, $userdb_remote_key;
 	if(!$userdb_remote_storage) return;
-	$userdb_remote_connect_times = max(1, $userdb_remote_connect_times);
+	$userdb_remote_reconnect_times = max(1, $userdb_remote_reconnect_times);
 	if(empty($userdb_remote_key)) $userdb_remote_key = uniqid();
 	$url = $userdb_remote_storage;
 	//参数处理
@@ -88,16 +88,22 @@ function curl_udata_cmd($command, $para1='', $para2='', $para3='', $para4='', $p
 		'para5' => $para5,
 		'key' => $userdb_remote_key,
 	);
-	for($t=0;$t<$userdb_remote_connect_times;$t++){
+	for($t=0;$t<$userdb_remote_reconnect_times;$t++){
 		$ret_raw = curl_post($url, $context);
 		$ret = gdecode($ret_raw,1);
 		if(NULL!==$ret || strpos($ret_raw, 'Error')===0) break;
-		else usleep(200000);//挂起0.2秒再试
+		else usleep($userdb_remote_reconnect_duration * 1000);//挂起0.2秒再试
 	}
 //	writeover('n.txt', $t);
 //	writeover('e.txt', var_export($ret_raw,1));
 	if(NULL===$ret || ('fetch_udata' == $command && !is_array($ret))) {
-		gexit('连接远程数据库失败',__file__,__line__);
+		$error_message = '连接远程数据库失败'.$t;
+		if(strpos($ret_raw, 'Error')===0) $error_message .= ' '.$ret_raw;
+		if(!in_array(CURSCRIPT, array('chat'))) gexit($error_message,__file__,__line__);
+		else {
+			global $error;
+			$error = $error_message;
+		}
 	}
 	return $ret;
 }

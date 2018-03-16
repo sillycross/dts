@@ -26,6 +26,10 @@ if(isset($_POST['sign']) && isset($_POST['pass'])) {
 if(!$valid) {//所有请求都必须判定密码
 	exit( 'Error: Invalid sign');
 }
+
+//测试代码：90%丢包
+//if(rand(0,1)==1) exit('Package loss');
+
 if(empty($_POST['command'])) {
 	exit( 'Error: Invalid command');
 }else{
