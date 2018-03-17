@@ -97,7 +97,7 @@ function curl_udata_cmd($command, $para1='', $para2='', $para3='', $para4='', $p
 //	writeover('n.txt', $t);
 //	writeover('e.txt', var_export($ret_raw,1));
 	if(NULL===$ret || ('fetch_udata' == $command && !is_array($ret))) {
-		$error_message = '连接远程数据库失败'.$t;
+		$error_message = '连接远程数据库失败';
 		if(strpos($ret_raw, 'Error')===0) $error_message .= ' '.$ret_raw;
 		if(!in_array(CURSCRIPT, array('chat'))) gexit($error_message,__file__,__line__);
 		else {
