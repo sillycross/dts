@@ -42,7 +42,7 @@ if(!empty($pagecmd) && $pagecmd == 'upload'){
 			$filepath .= '/';
 			file_put_contents($filepath.$odbname, $o_cont);
 			$cmd_info = '旧数据库已保存为"'.$odbname.'"';
-			
+			$db->query("TRUNCATE TABLE {$gtablepre}users");
 			//这个就维持覆盖本地好了
 			insert_udata($cont_arr, 1);
 			adminlog('uploadurdata');

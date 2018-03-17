@@ -1,7 +1,19 @@
 <?php
 error_reporting(E_ALL);
+@ob_end_clean();
+header('Content-Type: text/HTML; charset=utf-8'); // ä»¥äº‹ä»¶æµçš„å½¢å¼å‘ŠçŸ¥æµè§ˆå™¨è¿›è¡Œæ˜¾ç¤º
+header('Cache-Control: no-cache');         // å‘ŠçŸ¥æµè§ˆå™¨ä¸è¿›è¡Œç¼“å­˜
+header('X-Accel-Buffering: no');           // å…³é—­åŠ é€Ÿç¼“å†²
+@ini_set('implicit_flush',1);
+ob_implicit_flush(1);
 set_time_limit(0);
+@ini_set('zlib.output_compression',0);
 define('IN_MAINTAIN',true);
+echo str_repeat(" ",1024);
+echo '<script language="javascript"> 
+$z=setInterval(function() { window.scroll(0,document.body.scrollHeight); },100); 
+function stop() { window.scroll(0,document.body.scrollHeight); clearInterval($z); }</script>
+<body onload=stop(); ></body>'; 
 require './include/common.inc.php';
 
 check_authority();
@@ -27,7 +39,7 @@ function combine_db_single($cv){
 		$flag = 2;
 	}
 	if(1==$flag || 2==$flag){
-		//writeover('r.txt', $dv['username'].' '.$flag."\r\n",'ab+');
+		
 		foreach(array('credits','totalcredits','credits2','gold','gold2','validgames','wingames') as $val) {
 			$dv[$val] += $cv[$val];
 		}
@@ -56,11 +68,14 @@ function combine_db_single($cv){
 		
 		$db->array_update("{$gtablepre}users", $dv, "username='{$dv['username']}'");
 	}else{
-		if($dv['username'] == $cv['username']) {
+		if(strtolower($dv['username']) == strtolower($cv['username'])) {
 			$cv['username'].='_dianbo';
+			$flag = 3;
 		}
+		unset($cv['uid']);
 		$db->array_insert("{$gtablepre}users", $cv);
 	}
+	combine_log($cv['username'], $flag);
 }
 
 function ach_combine(&$udata, $x, $key){
@@ -68,7 +83,7 @@ function ach_combine(&$udata, $x, $key){
 		if(!$udata['u_achievements'][$key]) $udata['u_achievements'][$key] = array();
 		if(!$x) $x = array();
 		$udata['u_achievements'][$key] = array_merge($udata['u_achievements'][$key], $x);
-	}elseif (\achievement_base\check_ach_valid($key) && !\skillbase\check_skill_info($key, 'global'))//¼¼ÄÜ´æÔÚ¶øÇÒÓÐÐ§
+	}elseif (\achievement_base\check_ach_valid($key) && !\skillbase\check_skill_info($key, 'global'))//æŠ€èƒ½å­˜åœ¨è€Œä¸”æœ‰æ•ˆ
 	{
 		$pdata = \player\create_dummy_playerdata();
 		\skillbase\skill_acquire($key,$pdata);
@@ -78,14 +93,14 @@ function ach_combine(&$udata, $x, $key){
 			$udata['u_achievements'][$key]=\achievement_base\ach_finalize($pdata, $udata, $udata['u_achievements'][$key], $key, 1);
 		}elseif(!\skillbase\check_skill_info($key, 'daily')){
 			if(in_array($key, array(313, 351, 327, 328, 329, 330, 331))){
-				//×î´óÖµÀàÐÍµÄ³É¾Í£¬Ö±½ÓÈ¡½Ï´óÕß¡£²»ÐèÒª¼ÆËãÊÇ·ñ»ñµÃ³É¾Í¡£¹ýÆÚ»î¶¯Ò²ÀàËÆ
+				//æœ€å¤§å€¼ç±»åž‹çš„æˆå°±ï¼Œç›´æŽ¥å–è¾ƒå¤§è€…ã€‚ä¸éœ€è¦è®¡ç®—æ˜¯å¦èŽ·å¾—æˆå°±ã€‚è¿‡æœŸæ´»åŠ¨ä¹Ÿç±»ä¼¼
 				$udata['u_achievements'][$key] = max($udata['u_achievements'][$key], $x);
 			}elseif(in_array($key, array(308, 309, 322, 323, 359, 352))){
-				//×îÐ¡ÖµÀàÐÍµÄ³É¾Í£¬Ö±½ÓÈ¡½ÏÐ¡Õß£¬²»ÐèÒª¼ÆËãÊÇ·ñ»ñµÃ³É¾Í¡£
+				//æœ€å°å€¼ç±»åž‹çš„æˆå°±ï¼Œç›´æŽ¥å–è¾ƒå°è€…ï¼Œä¸éœ€è¦è®¡ç®—æ˜¯å¦èŽ·å¾—æˆå°±ã€‚
 				if($x > 0 && (!$udata['u_achievements'][$key] || $x < $udata['u_achievements'][$key]))
 					$udata['u_achievements'][$key] = $x;
 			}else{
-				//ÀÛ»ýÐÔµÄ³É¾Í£¬ÒÔ½Ï´óµÄÖµÎª»ù´¡£¬¼ÓÉÏ½ÏÐ¡µÄÖµ¡£ÐèÒª¼ÆËãÊÇ·ñ»ñµÃ³É¾Í
+				//ç´¯ç§¯æ€§çš„æˆå°±ï¼Œä»¥è¾ƒå¤§çš„å€¼ä¸ºåŸºç¡€ï¼ŒåŠ ä¸Šè¾ƒå°çš„å€¼ã€‚éœ€è¦è®¡ç®—æ˜¯å¦èŽ·å¾—æˆå°±
 				$gudata['cardlist'] = $udata['cardlist'];
 				$gudata['gold'] = $udata['gold'];
 				if($udata['u_achievements'][$key] < $x) list($udata['u_achievements'][$key], $x) = array($x, $udata['u_achievements'][$key]);
@@ -93,7 +108,7 @@ function ach_combine(&$udata, $x, $key){
 				
 				
 				$func='\\skill'.$key.'\\finalize'.$key;
-				if(function_exists($func)) $ret=$func($pdata,$udata['u_achievements'][$key]);//¼æÈÝÐÔ´úÂë£¬Èç¹û´æÔÚ¾ÉÊ½µÄ½áËãº¯Êý£¬¾Í°´¾ÉÊ½½áËãº¯ÊýËã
+				if(function_exists($func)) $ret=$func($pdata,$udata['u_achievements'][$key]);//å…¼å®¹æ€§ä»£ç ï¼Œå¦‚æžœå­˜åœ¨æ—§å¼çš„ç»“ç®—å‡½æ•°ï¼Œå°±æŒ‰æ—§å¼ç»“ç®—å‡½æ•°ç®—
 				else $ret = \achievement_base\ach_finalize($pdata, $udata, $udata['u_achievements'][$key], $key);
 
 				$udata['u_achievements'][$key]=$ret;
@@ -104,4 +119,20 @@ function ach_combine(&$udata, $x, $key){
 			}
 		}
 	}
+}
+
+function combine_log($un, $flag) {
+	global $no;
+	if(!$no) $no = 1;
+	else $no ++;
+	$file = 'combine.log';
+	file_put_contents('', $file);
+	$log = 'No.'.$no.'  '.$un;
+	if(0==$flag) $log .= ' æ— è´¦å· æ’å…¥';
+	elseif(1==$flag) $log .= ' åŒååŒå¯†ç  åˆå¹¶';
+	elseif(2==$flag) $log .= ' åŒåæ–°æ—§æ ¼å¼å¯†ç  åˆå¹¶';
+	elseif(3==$flag) $log .= ' åŒåä¸åŒå¯†ç  æ’å…¥';
+	echo $log.'<br>';
+	ob_end_flush(); flush();
+	writeover($file, $log."\r\n", 'ab+');
 }

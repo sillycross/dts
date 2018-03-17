@@ -42,6 +42,7 @@ if(empty($_POST['command'])) {
 	
 	$userdb_foreced_local = 1;
 	$userdb_foreced_key = !empty($_POST['key']) ? $_POST['key'] : NULL;
+	writeover('userdb_receive.log', time().' '.$command.' '.$para1.' '.$para2.' '.$para3.' '.$para4.' '.$para5."\r\n", 'ab+');
 	
 	if('get_ip' == $command){
 		$ret = real_ip();
