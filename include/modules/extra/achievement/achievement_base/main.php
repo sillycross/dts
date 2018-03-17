@@ -381,6 +381,13 @@ namespace achievement_base
 		return $ret1.$ret2;
 	}
 	
+	//用于其他模块继承
+	function show_ach_title_3($achid, $adata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return NULL;
+	}
+	
 	function get_daily_type($achid)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -496,6 +503,12 @@ namespace achievement_base
 		return 0;
 	}
 	
+	//成就进度值处理
+	function parse_achievement_progress_var($achid, $x){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $x;
+	}
+	
 	//成就通用显示函数，需要成就模块里至少定义$achXXX_threshold
 	function show_achievement_single($data, $achid)
 	{
@@ -519,6 +532,7 @@ namespace achievement_base
 			$cu = $c;
 			//这个部分顶级和非顶级之间的关系做得有点烂……没办法，历史原因顶级变成了999，只能舍近求远
 			if(!empty($ach_threshold[$c+1])) $cu = $c + 1;//用于显示下一级名称、阈值和奖励的，0级是1，1级是2，顶级维持顶级
+			$p = parse_achievement_progress_var($achid, $p);
 		}else{//全局成就
 			$c = $top_flag = 0;$cu = 1;$p = '';
 			eval(import_module('sys'));
@@ -537,6 +551,7 @@ namespace achievement_base
 		
 		$stitle = \achievement_base\show_ach_title($achid, $cu);
 		$atitle = \achievement_base\show_ach_title_2($achid, $c+1);
+		$ptitle = \achievement_base\show_ach_title_3($achid, $data);
 		$dailytype = \skillbase\check_skill_info($achid, 'daily') ? \achievement_base\get_daily_type($achid) : 0;
 		$prize_desc = show_prize_single($cu, $achid);
 		$ach_desc = show_achievement_single_desc($cu, $achid, $ach_threshold[$cu]);

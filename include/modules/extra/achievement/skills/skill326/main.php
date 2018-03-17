@@ -4,11 +4,43 @@ namespace skill326
 {
 	//旧成就精力所限，未全部修改，请以skill300、skill313或skill332之后的成就为模板！
 	$ach326_name = array(
-		0=>'全能骑士 LV10',
-		1=>'全能骑士 LV25',
-		2=>'全能骑士 LV50',
-		3=>'全能骑士 LV75',
-		4=>'全能骑士 LV100',
+		1=>'全能骑士 LV10',
+		2=>'全能骑士 LV25',
+		3=>'全能骑士 LV50',
+		4=>'全能骑士 LV75',
+		5=>'全能骑士 LV100',
+	);
+	
+	//各级显示的要求，如果不存在则取低的
+	$ach326_desc= array(
+		1=>'使用<:threshold:>张不同卡片获得游戏胜利',
+	);
+	
+	$ach326_proc_words = '目前纪录';
+	
+	$ach326_unit = '张';
+	
+	//各级阈值，注意是达到这个阈值则升到下一级
+	$ach326_threshold = array(
+		1 => 10,
+		2 => 25,
+		3 => 50,
+		4 => 75,
+		5 => 100,
+		999 => NULL
+	);
+	
+	//各级给的切糕奖励
+	$ach326_qiegao_prize = array(
+		1 => 888,
+		2 => 1200,
+		3 => 1600,
+		4 => 2000,
+		5 => 2500,
+	);
+	
+	$ach326_card_prize = array(
+		2 => 81,
 	);
 	
 	function init() 
@@ -38,6 +70,54 @@ namespace skill326
 		return $r;
 	}
 	
+	function ach_finalize_process(&$pa, $data, $achid)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($pa, $data, $achid);
+		if($achid == 326){
+			if(!is_array($ret)) $ret = array();
+			eval(import_module('sys'));
+			if($winner === $pa['name'] && !in_array($pa['card'], $ret)) {
+				$ret[] = $pa['card'];
+				$ret = array_unique($ret);
+			}
+		}
+		return $ret;
+	}
+	
+	//判定数据与阈值的关系，这里是计算$data的元素个数，然后跟阈值相比较
+	function ach_finalize_check_progress(&$pa, $t, $data, $achid){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(326 == $achid) return sizeof($data) >= $t;
+		else return $chprocess($pa, $t, $data, $achid);
+	}
+	
+	function show_ach_title_3($achid, $adata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($achid, $adata);
+		if(326 == $achid) {
+			eval(import_module('cardbase'));
+			$ret = '';
+			foreach($adata as $val){
+				$ret .= $cards[$val]['name'].'&nbsp; ';
+			}
+			$ret =str_replace('"','&quot;',substr($ret,0,-1));
+		}
+		return $ret;
+	}
+	
+	//成就进度值处理
+	function parse_achievement_progress_var($achid, $x){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$x = $chprocess($achid, $x);
+		if(326 == $achid) {
+			$x = sizeof($x);
+		}
+		return $x;
+	}
+	
+	/*
 	function finalize326(&$pa, $data)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -106,6 +186,7 @@ namespace skill326
 		else  $c326=0;
 		include template('MOD_SKILL326_DESC');
 	}
+	*/
 }
 
 ?>
