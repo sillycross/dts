@@ -410,7 +410,19 @@ namespace achievement_base
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		if(!$pa || !$achid) return;
-		if(defined('IN_MAINTAIN')) return;
+		if(defined('IN_MAINTAIN')) {
+			global $gudata;
+			$gudata['gold'] += $getqiegao;
+			$gudata['cardlist'] = explode('_', $gudata['cardlist'] );
+			if(!in_array($getcard, $gudata['cardlist'])) {
+				$gudata['cardlist'][] = $getcard;
+				$gudata['cardlist'] = implode('_', $gudata['cardlist'] );
+			}else{
+				eval(import_module('cardbase'));
+				$gudata['gold'] += $card_price[$cards[$getcard]['rare']];
+			}
+			return;
+		}
 		if (isset($pa['username'])) $n=$pa['username'];
 		else $n=$pa['name'];
 		
@@ -431,7 +443,7 @@ namespace achievement_base
 	
 	//成就通用结算函数，需要成就模块里至少定义$achXXX_threshold
 	//$data是既有进度，新进度怎么判定请继承ach_finalize_process()自定义
-	function ach_finalize(&$pa, &$ud, $data, $achid, $direct=0)
+	function ach_finalize(&$pa, &$ud, $data, $achid)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!$data)					
@@ -478,11 +490,7 @@ namespace achievement_base
 						}
 						//\cardbase\get_card($card_got,$pa);
 					}
-					if(!$direct) ach_create_prize_message($pa, $achid, $tk, $getqiegao, $getcard);
-					else {
-						$ud['qiegao'] += $getqiegao;
-						\cardbase\get_card_process($getcard, $ud);
-					}
+					ach_create_prize_message($pa, $achid, $tk, $getqiegao, $getcard);
 				}
 			}
 		}
