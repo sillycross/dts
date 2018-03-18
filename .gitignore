@@ -28,3 +28,4 @@ include/modules/extra/club/skills/skill206/main - 副本.php
 gamedata/adminlog_nf.php
 tmp_roomid_log_1.txt
 tmp_roomid_log_2.txt
+include/modules/core/sys/config/system.config.php
