@@ -182,7 +182,8 @@ class dbstuff {
 		}
 		if(!empty($query) && $on_duplicate_update && $keycol) {
 			$query .= ' ON DUPLICATE KEY UPDATE ';
-			foreach(reset($data) as $key => $value){
+			$tmp = 2==$tp ? reset($data) : $data;
+			foreach($tmp as $key => $value){
 				if($key !== $keycol){
 					$query .= '`'.$key.'`=VALUES(`'.$key.'`),';
 				}

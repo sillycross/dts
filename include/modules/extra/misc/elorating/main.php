@@ -8,7 +8,7 @@ namespace elorating
 
 	}
 	
-	function servermark_init() {
+	function get_servermark() {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys', 'elorating'));
 		//确定自己的服务器代号

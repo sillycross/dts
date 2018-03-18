@@ -61,8 +61,9 @@ function release_user_lock_from_pool($key='')
 		);
 		for($i=0;$i<$userdb_remote_reconnect_times;$i++) {
 			$ret = curl_post($url, $context);
-			if('Release success' == gdecode($ret,1)) break;
+			if(strpos(gdecode($ret,1), 'Release success') !== false) break;
 		}
+		$userdb_remote_key = '';
 	}
 }
 
@@ -128,11 +129,13 @@ function fetch_udata($fields='', $where='', $sort='', $keytype=0, $nolock=0){
 	if(!$nolock && strpos($fields, 'COUNT(')===false){
 		if(strpos($where, 'username')!==false){
 			if(preg_match('/username\s*?IN\s*?\((.*?)\)/s', $where, $matches)) {
-				$wherecont = explode(',',$matches[1]);
-				foreach($wherecont as &$un){
-					$un = trim($un,"' \n\r\t");
-					create_user_lock($un, $userdb_foreced_key);
-				}
+				if(sizeof($matches[1]) <= 500) {//返回结果超过500条时不加锁
+					$wherecont = explode(',',$matches[1]);
+					foreach($wherecont as &$un){
+						$un = trim($un,"' \n\r\t");
+						create_user_lock($un, $userdb_foreced_key);
+					}
+				}				
 			}elseif(preg_match('/username\s*?=\s*?\'(.*?)\'/s', $where, $matches)){
 				$un = $matches[1];
 				create_user_lock($un, $userdb_foreced_key);
@@ -201,10 +204,12 @@ function insert_udata($udata, $on_duplicate_update=0)
 	
 	//远程储存时
 	if($userdb_remote_storage && empty($userdb_foreced_local)) {
-		return curl_udata_cmd('insert_udata', $udata, $on_duplicate_update);
+		$ret = curl_udata_cmd('insert_udata', $udata, $on_duplicate_update);
+		$db->array_insert("{$gtablepre}users", $udata, 1, 'username');
+		return $ret;
 	}	
 	
-	//以下是无远程储存时
+	//非远程储存时
 	return $db->array_insert("{$gtablepre}users", $udata, $on_duplicate_update, 'username');
 }
 
@@ -216,10 +221,14 @@ function update_udata($udata, $where)
 	
 	//远程储存时
 	if($userdb_remote_storage && empty($userdb_foreced_local)) {
-		return curl_udata_cmd('update_udata', $udata, $where);
+		$ret = curl_udata_cmd('update_udata', $udata, $where);
+		
+		//检查本地是否有数据，有则更新，无则插入
+		if(isset($udata['username'])) $db->array_insert("{$gtablepre}users", $udata, 1, 'username');
+		return $ret;
 	}	
 	
-	//以下是无远程储存时
+	//非远程储存时
 	return $db->array_update("{$gtablepre}users", $udata, $where);
 }
 
@@ -230,10 +239,14 @@ function update_udata_multilist($updatelist)
 	
 	//远程储存时
 	if($userdb_remote_storage && empty($userdb_foreced_local)) {
-		return curl_udata_cmd('update_udata_multilist', $updatelist);
+		$ret = curl_udata_cmd('update_udata_multilist', $updatelist);
+		
+		//检查本地是否有数据，有则更新，无则不管
+		$db->multi_update("{$gtablepre}users", $updatelist, 'username');
+		return $ret;
 	}	
 	
-	//以下是无远程储存时
+	//非远程储存时
 	return $db->multi_update("{$gtablepre}users", $updatelist, 'username');
 }
 
@@ -409,4 +422,6 @@ function convert_tm($t, $simple=0)
 	if($s1 <= 0 || !$simple) $ret.=$s3.'分钟';//超过1天，在$simple时不显示详细分钟数
 	return $ret;
 }
-?>
+
+/* End of file user.func.php */
+/* Location: /include/user.func.php */
