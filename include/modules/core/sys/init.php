@@ -61,9 +61,12 @@ namespace sys
 			$u_templateid = $___LOCAL_INPUT__VARS__INPUT_VAR_LIST['templateid'];
 		
 		//统一获取用户数据备用
-		global $cudata;
+		global $cudata, $userdb_foreced_local;
 		if (isset(${$gtablepre.'user'})){
+			$userdb_foreced_local = 1;
+			//强制读取本地
 			$cudata = fetch_udata_by_username(${$gtablepre.'user'});
+			$userdb_foreced_local = 0;
 		}
 		
 		if(empty($u_templateid) && !empty($cudata['u_templateid'])) $u_templateid = $cudata['u_templateid'];
