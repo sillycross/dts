@@ -37,14 +37,21 @@ function combine_db_single($cv){
 		$flag = 1;
 	}elseif(pass_compare($cv['username'], $cv['password'], $dv['password'])){
 		$flag = 2;
+	}elseif(in_array($cv['username'], array('Amarillo_NMC', 'nemoma', ))){
+		$flag = 4;
 	}
-	if(1==$flag || 2==$flag){
+	if(1==$flag || 2==$flag || 4==$flag){
 		
 		foreach(array('credits','totalcredits','credits2','gold','gold2','validgames','wingames') as $val) {
 			$dv[$val] += $cv[$val];
 		}
 		foreach(array('lastwin','lastgame','lastroomgame') as $val){
 			$dv[$val] = max($dv[$val], $cv[$val]);
+		}
+		if($cv['elo_playedtimes'] > $dv['elo_playedtimes']) {
+			foreach(array('elo_rating', 'elo_volatility', 'elo_playedtimes', 'elo_history') as $val){
+				$dv[$val] = $cv[$val];
+			}
 		}
 		$cv['cardlist'] = explode('_',$cv['cardlist']);
 		$dv['cardlist'] = explode('_',$dv['cardlist']);
@@ -132,6 +139,7 @@ function combine_log($un, $flag) {
 	elseif(1==$flag) $log .= ' 同名同密码 合并';
 	elseif(2==$flag) $log .= ' 同名新旧格式密码 合并';
 	elseif(3==$flag) $log .= ' 同名不同密码 插入';
+	elseif(4==$flag) $log .= ' 特例 合并';
 	echo $log.'<br>';
 	ob_end_flush(); flush();
 	writeover($file, $log."\r\n", 'ab+');
