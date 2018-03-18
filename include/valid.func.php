@@ -69,6 +69,7 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip=NULL)
 	global $gamefounder, $cuser;
 	if($xuser != $cuser) {
 		$r = fetch_udata_by_username($xuser, 'groupid,ip,motto,killmsg,lastword');
+		if(empty($r)) return;
 	}else{
 		$r = $cudata;
 	}

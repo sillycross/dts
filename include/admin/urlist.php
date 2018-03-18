@@ -30,7 +30,8 @@ if(!empty($pagecmd) && $pagecmd == 'upload'){
 		}elseif(2==$errno) {
 			$cmd_info = '覆盖后将导致管理员信息不正确';
 		}else{
-			$o_arr = fetch_udata();
+			global $userdb_foreced_local; $userdb_foreced_local=1;
+			$o_arr = fetch_udata(NULL,NULL,NULL,NULL,1);
 
 			$o_cont = '';
 			foreach($o_arr as $v){
@@ -42,7 +43,8 @@ if(!empty($pagecmd) && $pagecmd == 'upload'){
 			$filepath .= '/';
 			file_put_contents($filepath.$odbname, $o_cont);
 			$cmd_info = '旧数据库已保存为"'.$odbname.'"';
-			
+			set_time_limit(0);
+			$db->query("TRUNCATE TABLE {$gtablepre}users");
 			//这个就维持覆盖本地好了
 			insert_udata($cont_arr, 1);
 			adminlog('uploadurdata');
@@ -53,7 +55,8 @@ if(!empty($pagecmd) && $pagecmd == 'upload'){
 	
 	$urcmd = '';
 }elseif(!empty($pagecmd) && $pagecmd == 'download'){
-	$udb = fetch_udata();
+	global $userdb_foreced_local; $userdb_foreced_local=1;
+	$udb = fetch_udata(NULL,NULL,NULL,NULL,1);
 
 	$cont = '';
 	foreach($udb as $v){

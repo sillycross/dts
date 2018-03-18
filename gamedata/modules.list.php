@@ -70,7 +70,6 @@ skill10,extra/club/skills/skill10/,1
 skill305,extra/achievement/skills/skill305/,1
 skill306,extra/achievement/skills/skill306/,1
 skill324,extra/achievement/skills/skill324/,1
-skill326,extra/achievement/skills/skill326/,1
 skill328,extra/activities/nationalday2017/skill328/,1
 skill330,extra/activities/halloween2017/skill330/,1
 skill1003,extra/achievement/skills/skill1003/,1
@@ -298,6 +297,7 @@ skill445,extra/card/skills/skill445/,1
 pose,base/pose/,1
 skill1,base/skills/skill1/,1
 skill600,extra/club/skills/skill600/,1
+skill326,extra/achievement/skills/skill326/,1
 skill315,extra/achievement/skills/skill315/,1
 skill313,extra/achievement/skills/skill313/,1
 skill300,extra/achievement/skills/skill300/,1
@@ -328,7 +328,6 @@ skill357,extra/achievement/skills/skill357/,1
 skill358,extra/achievement/skills/skill358/,1
 skill359,extra/achievement/skills/skill359/,1
 skill360,extra/activities/lunany2018/skill360/,1
-skill363,extra/achievement/skills/skill363/,1
 skill364,extra/achievement/skills/skill364/,1
 skill20,extra/club/skills/skill20/,1
 empowers,base/items/empowers/,1
@@ -351,6 +350,7 @@ skill33,extra/club/skills/skill33/,1
 weather,base/weather/,1
 npcinfo,extra/misc/npcinfo/,1
 skill502,extra/card/skills/skill502/,1
+skill363,extra/achievement/skills/skill363/,1
 skill361,extra/activities/lunany2018/skill361/,1
 skill362,extra/activities/lunany2018/skill362/,1
 wepchange,extra/attr/wepchange/,1

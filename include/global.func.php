@@ -104,7 +104,8 @@ function global_shutdown_function(){
 //循环判断锁是否存在，如果存在则挂起10毫秒之后继续判定，直到时间耗尽，起到阻塞作用
 //返回true表示锁存在，false表示锁不存在
 //如果加了$timeout，会阻塞到时间耗尽或者锁释放为止。$timeout时间是毫秒
-function check_lock($dirname, $filename, $timeout=0)
+//如果加了$key，会检测锁文件内容，如果跟$key对应，则认为锁不存在
+function check_lock($dirname, $filename, $timeout=0, $key='')
 {
 	$sleept = $etime = 0;
 	$res = file_exists($dirname.$filename);
@@ -119,29 +120,43 @@ function check_lock($dirname, $filename, $timeout=0)
 		$sleept += 10000;
 		if($sleept > $timeout*1000) break;
 		$res = file_exists($dirname.$filename);
+		if($key && $res) {
+			if(trim(file_get_contents($dirname.$filename)) == $key) {
+				$res = false;
+				break;
+			}
+		}
 	}
 	return $res;
 }
 
 //用于判定/生成锁
 //如果文件存在，生成并返回true
-//如果文件已经存在，返回false
-function create_lock($dirname, $filename)
+//如果文件已经存在且跟$key不对应，返回false
+function create_lock($dirname, $filename, $key='')
 {
 	if(!file_exists($dirname)) mymkdir($dirname);
 	if(!file_exists($dirname.$filename)) {
-		touch($dirname.$filename);
+		if($key) file_put_contents($dirname.$filename, $key);
+		else touch($dirname.$filename);
 		return true;
 	}else{
-		return false;
+		if($key && $key == trim(file_get_contents($dirname.$filename))) {
+			touch($dirname.$filename);
+			return true;
+		}else return false;
 	}
 }
 
 //清除生成的锁
-function release_lock($dirname, $filename)
+//远程锁最多有效10秒
+function release_lock($dirname, $filename, $key='')
 {
 	if(!file_exists($dirname)) mymkdir($dirname);
-	if(file_exists($dirname.$filename)) unlink($dirname.$filename);
+	if(file_exists($dirname.$filename)) {
+		$cont = trim(file_get_contents($dirname.$filename));
+		if(empty($cont) || $key == $cont || time() - filemtime($dirname.$filename) > 10) unlink($dirname.$filename);
+	}		
 }
 
 //----------------------------------------

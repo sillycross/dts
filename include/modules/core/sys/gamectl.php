@@ -161,7 +161,12 @@ namespace sys
 			}
 			if($gameover_plist[$r['name']]['hp'] > 0) $gameover_alivelist[$r['name']] = &$gameover_plist[$r['name']];
 		}
-		$gameover_ulist = fetch_udata_multilist('*', array('username' => array_keys($gameover_plist)));
+		if(!empty($gameover_plist)) {
+			$gameover_ulist = fetch_udata_multilist('*', array('username' => array_keys($gameover_plist)));
+			if(empty($gameover_ulist)) return; //如果对应的玩家都不存在（一般是远端数据库无响应），直接返回，避免污染数据库
+		}else{
+			$gameover_ulist = array();
+		}
 		$validnum = count($gameover_plist);
 		$alivenum = count($gameover_alivelist);
 		

@@ -81,7 +81,7 @@ namespace item_slip
 			if(!empty($itmsk && is_numeric($itmsk))){
 				if($itmsk >= 500 && $itmsk <= 1000){//提示并参与随机合成
 					$log .= '除此之外，纸条上有一句意味深长的话：<br>“有的提示在字里，有的提示在行间，有的提示甚至在游戏之外。”后面是一大段空白。<br><br>';
-					$log .= '<!--/gamedata/cache/'.$itmsk.'.txt-->';
+					$log .= '<!--'.$server_address.'/gamedata/cache/'.$itmsk.'.htm-->';
 					$log .= '<br><br>这是什么意思呢？<br><br>';
 				}elseif($itmsk > 1000){//提示NPC位置
 					$nid = floor($itmsk / 1000);
@@ -149,13 +149,13 @@ namespace item_slip
 			//返回一个随机数字，并生成以这个数字命名的文本文件
 			do {
 				$ret = rand(501,999);
-				$file = GAME_ROOT.'./gamedata/cache/'.$ret.'.txt';
+				$file = GAME_ROOT.'./gamedata/cache/'.$ret.'.htm';
 			} while(file_exists($file));
 			//内容是合成
 			$arr1 = array('提示纸条N');
 			$arr2 = array('提示纸条I', '★I-力场★');
 			$arr3 = array('提示纸条K', '原型武器K');
-			$arr4 = array('提示纸条O');
+			$arr4 = array('提示纸条O', '『Oathkeeper』', '『Oblivion』');
 			$stuff = array();
 			foreach(array($arr1,$arr2,$arr3,$arr4) as $v){
 				if(in_array($itm, $v)) {
@@ -167,7 +167,11 @@ namespace item_slip
 				$stuff[] = $nowv;
 			}
 			$cont = implode('+',$stuff).'=印着黑色三叶草的卡片';
-			writeover($file, $cont);
+			$cont_html = '<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>'.$cont.'</body>';
+			writeover($file, $cont_html);
 			chmod($file,0777);
 			//记录一下生成的文件，避免重复生成，游戏结束时删除
 			$gamevars['metagame'] = $ret;
@@ -217,7 +221,7 @@ namespace item_slip
 		$chprocess();
 		eval(import_module('sys'));
 		if(!empty($gamevars['metagame'])) {
-			$file = GAME_ROOT.'./gamedata/cache/'.$gamevars['metagame'].'.txt';
+			$file = GAME_ROOT.'./gamedata/cache/'.$gamevars['metagame'].'.htm';
 			if(file_exists($file)) unlink($file);
 		}
 	}
