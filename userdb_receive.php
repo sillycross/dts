@@ -48,7 +48,7 @@ if(empty($_POST['command'])) {
 		$ret = real_ip();
 	}elseif('fetch_udata' == $command) {
 		//查询1次不可超过500条返回结果
-		if(userdb_receive_count($para2, $para3) > 500) exit('Error: Too many results');
+		if(strpos($para1, 'COUNT(')===false && userdb_receive_count($para2, $para3) > 500) exit('Error: Too many results');
 		$ret = fetch_udata($para1, $para2, $para3, $para4, $para5);
 		userdb_receive_save_pool($userdb_foreced_key);
 	}elseif('insert_udata' == $command){
@@ -79,8 +79,8 @@ if(empty($_POST['command'])) {
 }
 
 function userdb_receive_count($where, $sort=''){
-	$tmp = fetch_udata('COUNT(*)', $where, $sort);
-	return array_shift($tmp[0]);
+	$tmp = fetch_udata('uid', $where, $sort, 0, 1);
+	return sizeof($tmp);
 }
 
 function userdb_receive_save_pool($key){
