@@ -79,8 +79,8 @@ if(empty($_POST['command'])) {
 }
 
 function userdb_receive_count($where, $sort=''){
-	$tmp = fetch_udata('COUNT(*)', $where, $sort);
-	return array_shift($tmp[0]);
+	$tmp = fetch_udata('uid', $where, $sort, 0, 1);
+	return sizeof($tmp);
 }
 
 function userdb_receive_save_pool($key){
