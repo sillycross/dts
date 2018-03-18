@@ -15,9 +15,12 @@ $z=setInterval(function() { window.scroll(0,document.body.scrollHeight); },100);
 function stop() { window.scroll(0,document.body.scrollHeight); clearInterval($z); }</script>
 <body onload=stop(); ></body>'; 
 require './include/common.inc.php';
-
+$servermark = '';
+//$servermark = 'S';
+$insert_only = 1;
 check_authority();
-$db = init_dbstuff();
+if($insert_only) $db->query("TRUNCATE TABLE {$gtablepre}users");
+$namecase=array('Amarillo_NMC', 'nemoma', 'digichart', 'Saphil', '2Ag', '完美而潇洒的变态', '箱子npc');
 
 $file = 'recover.dat';
 if(!file_exists($file)) exit("Cannot find file ".$file);
@@ -28,19 +31,34 @@ foreach($cont as $cv) {
 }
 echo 'done';
 function combine_db_single($cv){
-	global $db,$gtablepre,$gudata;
+	global $db,$gtablepre,$gudata,$namecase,$servermark;
 	if(empty($cv['username'])) return;
-	$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='{$cv['username']}'");
-	$dv = $db->fetch_array($result);
-	$flag = 0;
-	if($dv['password'] == $cv['password']) {
-		$flag = 1;
-	}elseif(pass_compare($cv['username'], $cv['password'], $dv['password'])){
-		$flag = 2;
-	}elseif(in_array($cv['username'], array('Amarillo_NMC', 'nemoma', ))){
-		$flag = 4;
+	if(empty($insert_only)) {
+		$result = $db->query("SELECT * FROM {$gtablepre}users WHERE username='{$cv['username']}'");
+		$dv = $db->fetch_array($result);
+		$flag = 0;
+		if($dv['password'] == $cv['password']) {
+			$flag = 1;
+		}elseif(pass_compare($cv['username'], $cv['password'], $dv['password'])){
+			$flag = 2;
+		}elseif(!empty($dv) && in_array($cv['username'], $namecase)){
+			$flag = 4;
+		}elseif(!empty($dv) && substr($dv['ip'],0,7) == substr($cv['ip'],0,7)){
+			//$flag = 5;
+		}
+	}else{
+		$cv = array('username' => '');
 	}
-	if(1==$flag || 2==$flag || 4==$flag){
+	
+	if(!empty($cv['elo_history']))
+	{
+		$eha = '';
+		for($i=0; $i<strlen($cv['elo_history']); $i+=10){
+			$eha.= $servermark.substr($cv['elo_history'], $i, 10);
+		}
+		$cv['elo_history'] = $eha;
+	}
+	if(1==$flag || 2==$flag || 4==$flag || 5 == $flag){
 		
 		foreach(array('credits','totalcredits','credits2','gold','gold2','validgames','wingames') as $val) {
 			$dv[$val] += $cv[$val];
@@ -76,7 +94,8 @@ function combine_db_single($cv){
 		$db->array_update("{$gtablepre}users", $dv, "username='{$dv['username']}'");
 	}else{
 		if(strtolower($dv['username']) == strtolower($cv['username'])) {
-			$cv['username'].='_dianbo';
+			$cv['username'].='_'.$servermark;
+			$cv['password']=md5($cv['username'].md5($cv['username']));
 			$flag = 3;
 		}
 		unset($cv['uid']);
@@ -140,7 +159,8 @@ function combine_log($un, $flag) {
 	elseif(2==$flag) $log .= ' 同名新旧格式密码 合并';
 	elseif(3==$flag) $log .= ' 同名不同密码 插入';
 	elseif(4==$flag) $log .= ' 特例 合并';
+	elseif(5==$flag) $log .= ' 同名不同密码但IP相同 合并';
 	echo $log.'<br>';
 	ob_end_flush(); flush();
-	writeover($file, $log."\r\n", 'ab+');
+	if(3==$flag) writeover($file, $log."\r\n", 'ab+');
 }
