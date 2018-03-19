@@ -36,8 +36,21 @@ if ($command=='newroom' || $command=='enterroom')
 //其他命令的情况下，如果不在房间内则出错退出
 elseif (!room_check_subroom($room_prefix)) 
 {
-	gexit('你不在房间内，请先进入房间', __file__, __line__);
+	if ($command=='leave')
+	{
+		update_udata_by_username(array('roomid' => 0), $cuser);
+		if ($not_ajax)
+			echo 'redirect:index.php';
+		else
+		{
+			$gamedata['url']='index.php';
+			echo gencode($gamedata);
+		}
+	}else{
+		gexit('你不在房间内，请先进入房间', __file__, __line__);
+	}
 	return;
+
 }
 
 $room_id_r = room_prefix2id($room_prefix);
