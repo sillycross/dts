@@ -55,7 +55,7 @@ function release_user_lock_from_pool($key='')
 		$url = $userdb_remote_storage;
 		$context = array(
 			'sign' => $userdb_remote_storage_sign,
-			'pass' => $userdb_remote_storage_pass,
+			'pass' => timestamp_salt($userdb_remote_storage_pass),
 			'command' => 'release_user_lock_from_pool',
 			'key' => $userdb_remote_key,
 		);
@@ -80,7 +80,7 @@ function curl_udata_cmd($command, $para1='', $para2='', $para3='', $para4='', $p
 	}
 	$context = array(
 		'sign' => $userdb_remote_storage_sign,
-		'pass' => $userdb_remote_storage_pass,
+		'pass' => timestamp_salt($userdb_remote_storage_pass),
 		'command' => $command,
 		'para1' => $para1,
 		'para2' => $para2,
@@ -127,18 +127,12 @@ function fetch_udata($fields='', $where='', $sort='', $keytype=0, $nolock=0){
 	//以下是无远程储存时
 	//如果where里有username，直接加锁；否则先查询username再加锁，加完锁才真查询
 	if(!$nolock && strpos($fields, 'COUNT(')===false){
-		if(strpos($where, 'username')!==false){
-			if(preg_match('/username\s*?IN\s*?\((.*?)\)/s', $where, $matches)) {
-				if(sizeof($matches[1]) <= 500) {//返回结果超过500条时不加锁
-					$wherecont = explode(',',$matches[1]);
-					foreach($wherecont as &$un){
-						$un = trim($un,"' \n\r\t");
-						create_user_lock($un, $userdb_foreced_key);
-					}
-				}				
-			}elseif(preg_match('/username\s*?=\s*?\'(.*?)\'/s', $where, $matches)){
-				$un = $matches[1];
-				create_user_lock($un, $userdb_foreced_key);
+		$unlist = get_where_username($where);
+		if(!empty($unlist)){
+			if(sizeof($unlist) <= 500) {
+				foreach($unlist as $un) {
+					create_user_lock($un, $userdb_foreced_key);
+				}
 			}
 		}else{
 			$qry = "SELECT username FROM {$gtablepre}users WHERE {$where} ";
@@ -168,6 +162,20 @@ function fetch_udata($fields='', $where='', $sort='', $keytype=0, $nolock=0){
 		}
 	}
 	
+	return $ret;
+}
+
+function get_where_username($where)
+{
+	$ret = array();
+	if(preg_match('/username\s*?IN\s*?\((.*?)\)/s', $where, $matches)) {
+		$wherecont = explode(',',$matches[1]);
+		foreach($wherecont as $un){
+			$ret[] = trim($un,"' \n\r\t");
+		}
+	}elseif(preg_match('/username\s*?=\s*?\'(.*?)\'/s', $where, $matches)){
+		$ret[] = $matches[1];
+	}
 	return $ret;
 }
 
@@ -224,6 +232,8 @@ function update_udata($udata, $where)
 		$ret = curl_udata_cmd('update_udata', $udata, $where);
 		
 		//检查本地是否有数据，有则更新，无则插入
+		$un = get_where_username($where);
+		if(!empty($un) && !isset($udata['username'])) $udata['username'] = $un;
 		if(isset($udata['username'])) $db->array_insert("{$gtablepre}users", $udata, 1, 'username');
 		return $ret;
 	}	
@@ -421,6 +431,22 @@ function convert_tm($t, $simple=0)
 	if($s2 > 0) $ret.=$s2.'小时';
 	if($s1 <= 0 || !$simple) $ret.=$s3.'分钟';//超过1天，在$simple时不显示详细分钟数
 	return $ret;
+}
+
+//以服务器时间（分钟数）为密码加盐
+function timestamp_salt($pass, $offset=0){
+	$time = (int)ceil(time()/60) + $offset;
+	return sha1($time.$pass);
+}
+
+//比较传来的加盐密码与本地加盐密码（误差1分钟）
+function compare_ts_pass($rsha, $pass){
+	foreach(array(0, -1, 1) as $o) {
+		if($rsha === timestamp_salt($pass, $o)) {
+			return true;
+		}
+	}
+	return false;
 }
 
 /* End of file user.func.php */

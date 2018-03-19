@@ -17,7 +17,7 @@ $db = init_dbstuff();
 $valid = false;
 if(isset($_POST['sign']) && isset($_POST['pass'])) {
 	foreach($userdb_receive_list as $rs => $rp){
-		if($rs === $_POST['sign'] && $rp['pass'] === $_POST['pass'] && (empty($rp['ip']) || $rp['ip'] == real_ip())){
+		if($rs === $_POST['sign'] && compare_ts_pass($_POST['pass'], $rp['pass']) && (empty($rp['ip']) || $rp['ip'] == real_ip())){
 			$valid = true;
 			break;
 		}
