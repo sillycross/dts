@@ -249,6 +249,7 @@ skill476,extra/instance/gtype3/skill476/,1
 skill269,extra/club/skills/skill269/,1
 skill78,extra/club/skills/skill78/,1
 skill496,extra/card/skills/skill496/,1
+skill506,extra/card/skills/skill506/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1

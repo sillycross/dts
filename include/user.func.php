@@ -318,7 +318,7 @@ function pass_check($pass,$rpass){//未经md5处理的
 		return 'pass_not_match';
 	} elseif(strlen($pass)<4) {
 		//return 'pass_too_short';
-	} elseif(strlen($pass)>24) {
+	} elseif(mb_strlen($pass,'utf-8')>24) {
 		return 'pass_too_long';
 	}
 	return 'pass_ok';
