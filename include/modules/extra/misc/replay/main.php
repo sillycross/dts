@@ -277,7 +277,7 @@ namespace replay
 					'pass'=>$replay_remote_storage_key, 
 					'cmd'=>'storage_req', 
 					'filename'=>$room_gprefix.$gamenum.'.dat',
-					'callurl'=>$server_address.'/replay_receive.php',
+					'callurl'=>gurl().'replay_receive.php',
 					//'content'=>file_get_contents($foldfile),
 					'datalibname'=>$curdatalib,
 					//'datalibcont'=>''//gencode(file_get_contents(GAME_ROOT.'./gamedata/javascript/'.$curdatalib))

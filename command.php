@@ -164,7 +164,13 @@ if ($___MOD_SRV)
 
 						$___TEMP_EXEC_START_TIME=microtime();
 						
-						include GAME_ROOT.'./command.php';
+						//用try catch机制来中断执行（gexit）并且直接输出
+						try {
+							include GAME_ROOT.'./command.php';
+						}
+						catch (Exception $e) {
+							echo $e->getMessage();
+						}
 						
 						$___TEMP_WORKFLAG=0;
 						

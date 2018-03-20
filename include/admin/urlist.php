@@ -66,8 +66,7 @@ if(!empty($pagecmd) && $pagecmd == 'upload'){
 	$filepath = GAME_ROOT.'./gamedata/cache/user_backup';
 	if(!is_dir($filepath)) mymkdir($filepath);
 	$filepath .= '/';
-	global $server_address;
-	$sitename = explode('.',$server_address);
+	$sitename = explode('.',gurl());
 	if(sizeof($sitename) <= 2) $sitename = $sitename[0];
 	else $sitename = $sitename[1];
 	$filename = 'userdb_'.$sitename.'_'.uniqid().'.dat';

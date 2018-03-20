@@ -2,7 +2,7 @@
 
 namespace elorating
 {
-	global $server_address, $elo_servermark;
+	global $elo_servermark;
 	
 	function init() {
 
@@ -14,7 +14,7 @@ namespace elorating
 		//确定自己的服务器代号
 		$ret = 'X';
 		foreach($elo_servermark as $ek => $ev){
-			if(strpos($server_address, $ev)!==false) {
+			if(strpos(gurl(), $ev)!==false) {
 				$ret = $ek;
 				break;
 			}
