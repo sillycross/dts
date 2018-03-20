@@ -63,10 +63,10 @@ namespace sys
 		//统一获取用户数据备用
 		global $cudata, $userdb_foreced_local;
 		if (isset(${$gtablepre.'user'})){
-//			$page = '';
-//			if (isset($___LOCAL_INPUT__VARS__INPUT_VAR_LIST['page']))	$page = $___LOCAL_INPUT__VARS__INPUT_VAR_LIST['page'];
-//			elseif(isset($_POST['page'])) $page = $_POST['page'];
-			if('game' == CURSCRIPT || 'chat' == CURSCRIPT) $userdb_foreced_local = 1;
+			$page = '';
+			if (isset($___LOCAL_INPUT__VARS__INPUT_VAR_LIST['page']))	$page = $___LOCAL_INPUT__VARS__INPUT_VAR_LIST['page'];
+			elseif(isset($_POST['page'])) $page = $_POST['page'];
+			if(('game' == CURSCRIPT && !in_array($page, array('command_roomcmd'))) || 'chat' == CURSCRIPT) $userdb_foreced_local = 1;
 			//强制读取本地
 			$cudata = fetch_udata_by_username(${$gtablepre.'user'});
 			$userdb_foreced_local = 0;
