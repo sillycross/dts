@@ -48,13 +48,13 @@ function gexit($message = '',$file = '', $line = 0) {
 		{
 			$gamedata['url'] = 'error.php';
 			$gamedata['errormsg'] = $message;
-			ob_clean();
-			echo gencode($gamedata);
+			//ob_clean();
+			throw new Exception( gencode($gamedata) );
 		}
 		else
 		{
 			ob_clean();
-			include template('error');
+			throw new Exception( include template('error'));
 		}
 	}
 	else
@@ -85,7 +85,10 @@ function output($content = '') {
 }
 
 function url_dir(){
-	return 'http://'.$_SERVER['HTTP_HOST'].substr($_SERVER['PHP_SELF'],0,strrpos($_SERVER['PHP_SELF'],'/')+1);
+	global $server_address;
+	if(!$server_address) include GAME_ROOT.'./include/modules/core/sys/config/server.config.php';
+	return $server_address.'/';
+	//return 'http://'.$_SERVER['HTTP_HOST'].substr($_SERVER['PHP_SELF'],0,strrpos($_SERVER['PHP_SELF'],'/')+1);
 }
 
 //正常执行时，自动清空玩家锁与用户锁
@@ -578,6 +581,14 @@ function gdir($dir, $tp=''){
 	}else{
 		$ret = NULL;
 	}
+	return $ret;
+}
+
+//获得游戏对外url，并且自动加上结尾的/
+function gurl(){
+	global $gameurl;
+	$ret = $gameurl;
+	if(substr($gameurl, strlen($gameurl)-1, 1) != '/' ) $ret .= '/';
 	return $ret;
 }
 

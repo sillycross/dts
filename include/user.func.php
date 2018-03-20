@@ -232,9 +232,15 @@ function update_udata($udata, $where)
 		$ret = curl_udata_cmd('update_udata', $udata, $where);
 		
 		//检查本地是否有数据，有则更新，无则插入
-		$un = get_where_username($where);
-		if(!empty($un) && !isset($udata['username'])) $udata['username'] = $un;
-		if(isset($udata['username'])) $db->array_insert("{$gtablepre}users", $udata, 1, 'username');
+		$unlist = get_where_username($where);
+		if(!empty($unlist)) {
+			foreach ($unlist as $un) {
+				$ud = $udata;
+				if(!isset($ud['username'])) $ud['username'] = $un;
+				if(isset($ud['username'])) $db->array_insert("{$gtablepre}users", $ud, 1, 'username');
+			}
+		}
+		
 		return $ret;
 	}	
 	
