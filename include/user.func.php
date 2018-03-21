@@ -109,6 +109,22 @@ function curl_udata_cmd($command, $para1='', $para2='', $para3='', $para4='', $p
 	return $ret;
 }
 
+/*
+function update_udata_from_remote($udata, $username)
+{
+	global $db, $gtablepre, $userdb_foreced_local;
+	$tmp_userdb_foreced_local = $userdb_foreced_local;
+	$userdb_foreced_local = 1;
+	$flag = $db->query("SELECT uid FROM {$gtablepre}users WHERE username='$username'");
+	$flag = $db->num_rows($flag);
+	if(!$flag) {
+		$udata = curl_udata_cmd('fetch_udata', '*', "username='$username'");
+		$udata = reset($udata);
+	}
+	$db->array_update("{$gtablepre}users", $udata, "username='$username'");
+	$userdb_foreced_local = $tmp_userdb_foreced_local;
+}*/
+
 //获取用户数据的通用函数，会自动获取远端数据
 //返回相当于fetch_array得到的数组
 //$keytype==0为无键名，为1是username当键名，为2是uid当键名
@@ -143,8 +159,6 @@ function fetch_udata($fields='', $where='', $sort='', $keytype=0, $nolock=0){
 					$un = $r['username'];
 					create_user_lock($un, $userdb_foreced_key);
 				}
-			}else{
-				return $ret;
 			}
 		}
 	}
@@ -160,6 +174,28 @@ function fetch_udata($fields='', $where='', $sort='', $keytype=0, $nolock=0){
 			elseif(2==$keytype) $ret[$r['uid']] = $r;
 			else $ret[] = $r;
 		}
+	}
+	//有远程数据库、单条返回记录时，判定本地数据是否可能不合法，如果不合法则读远程数据并直接覆盖本地
+	//可能不合法：无用户、空密码，都要去远程再验证一次
+	if($userdb_remote_storage && sizeof($ret) <= 1) {
+		if(empty($ret) || (isset(reset($ret)['password']) && empty(reset($ret)['password']))) {
+			$ret_remote = curl_udata_cmd('fetch_udata', '*', $where, $sort, $keytype, $nolock);
+			if(!empty($ret_remote)) {
+				$udarr = $ret_remote;
+				foreach($udarr as &$iv) unset($iv['uid']);
+				if(empty($ret)) {
+					$db->array_insert("{$gtablepre}users", $udarr);
+				}else{
+					if(sizeof($udarr) > 1) {
+						$db->multi_update("{$gtablepre}users", $udarr, 'username');
+					}else{
+						$udarr = reset($udarr);
+						$db->array_update("{$gtablepre}users", $udarr, "username='{$udarr['username']}'");
+					}
+				}
+				$ret = $ret_remote;
+			}
+		}		
 	}
 	
 	return $ret;
@@ -231,15 +267,17 @@ function update_udata($udata, $where)
 	if($userdb_remote_storage && empty($userdb_foreced_local)) {
 		$ret = curl_udata_cmd('update_udata', $udata, $where);
 		
-		//检查本地是否有数据，有则更新，无则插入
-		$unlist = get_where_username($where);
-		if(!empty($unlist)) {
-			foreach ($unlist as $un) {
-				$ud = $udata;
-				if(!isset($ud['username'])) $ud['username'] = $un;
-				if(isset($ud['username'])) $db->array_insert("{$gtablepre}users", $ud, 1, 'username');
-			}
-		}
+		//检查本地是否有数据，有则更新，无则不管
+		$db->array_update("{$gtablepre}users", $udata, $where);
+		//本来想没有数据则插入的，但其实这里插入的话会导致本地数据严重缺失。插入在fetch的时候做
+//		$unlist = get_where_username($where);
+//		if(!empty($unlist)) {
+//			foreach ($unlist as $un) {
+//				$ud = $udata;
+//				if(!isset($ud['username'])) $ud['username'] = $un;
+//				if(isset($ud['username'])) $db->array_insert("{$gtablepre}users", $ud, 1, 'username');
+//			}
+//		}
 		
 		return $ret;
 	}	
@@ -287,7 +325,7 @@ function delete_udata($where)
 
 //判定用户名与密码，如果判定正确，返回user表的数组
 function udata_check(){
-	global $db, $gtablepre, $cuser, $cpass, $cudata, $_ERROR;
+	global $db, $gtablepre, $cuser, $cpass, $cudata, $_ERROR, $userdb_remote_storage;
 	$file = debug_backtrace()[0]['file'];
 	$line = debug_backtrace()[0]['line'];
 	if(!$cuser||!$cpass) { gexit($_ERROR['no_login'],$file,$line);return; } 
@@ -298,7 +336,23 @@ function udata_check(){
 		//如果载入过common.inc.php，那么就用$cudata的值，这样一定只读取1次users表
 		$udata = $cudata;
 	}
-	if(!pass_compare($udata['username'], $cpass, $udata['password'])) { gexit($_ERROR['wrong_pw'], $file, $line);return; }
+	if(!pass_compare($udata['username'], $cpass, $udata['password'])) { 
+		//如果是强制读取本地时密码错误，则再验证一次远端
+		$wrong_pw_flag = 1;
+		if($userdb_remote_storage && ('game' == CURSCRIPT || 'chat' == CURSCRIPT)) {
+			$udata_remote = curl_udata_cmd('fetch_udata', 'password', "username='{$udata['username']}'");
+			$udata_remote = reset($udata_remote);
+			if(!empty($udata_remote['password']) && pass_compare($udata['username'], $cpass, $udata_remote['password'])) {
+				$wrong_pw_flag = 0;
+				$db->array_update("{$gtablepre}users", array('password' => $udata_remote['password']), "username='{$udata['username']}'");
+				$udata['password'] = $udata_remote['password'];
+			}
+		} 
+		if($wrong_pw_flag) {
+			gexit($_ERROR['wrong_pw'], $file, $line);
+			return; 
+		}
+	}
 	if($udata['groupid'] <= 0) { gexit($_ERROR['user_ban'], $file, $line);return; }
 	return $udata;
 }

@@ -2,6 +2,8 @@
 if(!defined('IN_ADMIN')) {
 	exit('Access Denied');
 }
+global $userdb_foreced_local;
+$userdb_foreced_local = 1;
 if(!empty($pagecmd) && $pagecmd == 'upload'){
 	if(!isset($_FILES['uploadfile']) || empty($_FILES['uploadfile']['name'])) {
 		$cmd_info = "不能上传空文件";
