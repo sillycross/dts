@@ -330,6 +330,7 @@ skill358,extra/achievement/skills/skill358/,1
 skill359,extra/achievement/skills/skill359/,1
 skill360,extra/activities/lunany2018/skill360/,1
 skill364,extra/achievement/skills/skill364/,1
+skill365,extra/activities/aprilfool2018/skill365/,1
 skill20,extra/club/skills/skill20/,1
 empowers,base/items/empowers/,1
 skill70,extra/club/skills/skill70/,1
