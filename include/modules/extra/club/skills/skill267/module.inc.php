@@ -3,7 +3,7 @@
 namespace skill267
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'clubbase skillbase player battle';
+	$___MODULE_dependency = 'clubbase skillbase player battle attack';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';
