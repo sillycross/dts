@@ -3,7 +3,7 @@
 namespace activity_ranking
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase clubbase achievement_base sys player';
+	$___MODULE_dependency = 'achievement_base sys';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

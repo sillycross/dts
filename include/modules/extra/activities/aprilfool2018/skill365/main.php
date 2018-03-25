@@ -105,6 +105,32 @@ namespace skill365
 		}
 		return $ret;
 	}
+	
+	function activity_ranking_process365()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		$upd_arr = array();
+		foreach($gameover_ulist as $udata){
+			$u_a = \achievement_base\decode_achievements($udata);
+			if($u_a[365]) {
+				$upd_arr[] = array(
+					'username' => $udata['username'],
+					'score1' => $u_a[365],
+				);
+			}
+		}
+		\activity_ranking\save_ulist_aranking('aprillfool2018', $upd_arr);
+	}
+	
+	//在成就结算完以后，保存成就排行榜
+	function post_gameover_events()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess();
+		if(!\achievement_base\check_achtype_available(34)) return; //只在愚人节期间有效
+		activity_ranking_process365();
+	}
 }
 
 ?>

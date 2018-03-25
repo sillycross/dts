@@ -1056,7 +1056,7 @@ namespace npc
 		13 => array
 			(
 			'mode' => 1,
-			'num' => 0,
+			'num' => 1,
 			'pass' => 'bra',
 			'club' => 99,
 			'bid' => 0,
