@@ -20,6 +20,8 @@ namespace skill326
 	
 	$ach326_unit = '张';
 	
+	$ach326_proc_words2 = '（悬浮查看完成情况）';
+	
 	//各级阈值，注意是达到这个阈值则升到下一级
 	$ach326_threshold = array(
 		1 => 10,

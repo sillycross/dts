@@ -20,6 +20,8 @@ namespace skill365
 	
 	$ach365_unit = '点';
 	
+	$ach365_proc_words2 = '（悬浮查看排名）';
+	
 	//各级阈值，注意是达到这个阈值则升到下一级
 	$ach365_threshold = array(
 		1 => 1000,
@@ -106,6 +108,23 @@ namespace skill365
 		return $ret;
 	}
 	
+	function activity_ranking_show365()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$adata = activity_ranking_load365();
+		ob_start();
+		include template(MOD_SKILL365_RANKING);
+		$ret = ob_get_contents();
+		ob_end_clean();
+		return $ret;
+	}
+	
+	function activity_ranking_load365()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return \activity_ranking\load_aranking('aprillfool2018', 10);
+	}
+	
 	function activity_ranking_process365()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -130,6 +149,16 @@ namespace skill365
 		$chprocess();
 		if(!\achievement_base\check_achtype_available(34)) return; //只在愚人节期间有效
 		activity_ranking_process365();
+	}
+	
+	function show_ach_title_3($achid, $adata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($achid, $adata);
+		if(365 == $achid) {
+			$ret = activity_ranking_show365();
+		}
+		return $ret;
 	}
 }
 

@@ -524,6 +524,7 @@ namespace achievement_base
 		eval(import_module('skill'.$achid));
 		$unit = ${'ach'.$achid.'_unit'};
 		$proc_words = ${'ach'.$achid.'_proc_words'};
+		$proc_words2 = !empty(${'ach'.$achid.'_proc_words2'}) ? ${'ach'.$achid.'_proc_words2'} : '';
 		$c = 0; $top_flag = 0;
 		$p = get_achievement_default_var($achid);
 		if ($data) $p=$data;
