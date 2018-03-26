@@ -323,6 +323,10 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 			if ($flag)
 			{
 				include_once GAME_ROOT.'./include/valid.func.php';
+				//先关闭房间，避免后面fetch_udata远程调用出问题导致房间卡住
+				$roomdata['readystat']=0;
+				roomdata_save($room_id_r,$roomdata);
+
 				//开始游戏，并设置好游戏模式类型（2v2和3v3为队伍胜利模式）
 				//$gametype = 10 + $roomdata['roomtype'];
 				$gamestate = 0;
@@ -421,7 +425,6 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 				save_gameinfo();
 				
 				//再次广播信息，这次让所有玩家跳转到游戏中
-				$roomdata['readystat']=0;
 				$db->query("UPDATE {$gtablepre}game SET groomstatus=40 WHERE groomid='$room_id_r'");
 				$roomdata['timestamp']++;
 				$roomdata['chatdata']=room_init($roomdata['roomtype'])['chatdata'];
