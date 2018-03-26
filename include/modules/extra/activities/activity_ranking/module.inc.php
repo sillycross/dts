@@ -1,13 +1,13 @@
 <?php
 
-namespace skill267
+namespace activity_ranking
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'clubbase skillbase player battle attack';
+	$___MODULE_dependency = 'achievement_base sys';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';
-	$___MODULE_templatelist = 'desc';
+	$___MODULE_templatelist = '';
 	////////// MODULE HEADER END /////////////////
 	require __INIT_MODULE__(__NAMESPACE__,__DIR__);
 }

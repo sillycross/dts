@@ -230,6 +230,13 @@ namespace attack
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
+	//要在player_damaged_enemy之后执行的功能请加载这里
+	//attack_finish和player_damaged_enemy耦合得太密切了。
+	function post_player_damaged_enemy_event(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+	}
+	
 	//攻击准备，发通告，加载攻击参数
 	function attack_prepare(&$pa, &$pd, $active)
 	{
@@ -244,10 +251,13 @@ namespace attack
 	}
 	
 	//攻击结束
+	//注意：在任一参战方死亡的情况，$sdata会初始化一次，其中储存的非数据库字段的键值会全部丢失！
+	//要修改这一点牵扯到的东西比较多，目前先放着吧
 	function attack_finish(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		player_damaged_enemy($pa,$pd,$active);
+		post_player_damaged_enemy_event($pa,$pd,$active);
 		if ($pd['hp']<=0){
 			player_kill_enemy($pa, $pd, $active);
 			\player\player_save($pa);

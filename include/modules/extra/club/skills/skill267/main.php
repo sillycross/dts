@@ -108,7 +108,7 @@ namespace skill267
 	}
 	
 	//战斗前记录HP
-	function assault_prepare(&$pa, &$pd, $active)
+	function attack_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess($pa, $pd, $active);
@@ -117,14 +117,13 @@ namespace skill267
 	}
 	
 	//战斗后处理效果
-	function assault_finish(&$pa, &$pd, $active)
+	function post_player_damaged_enemy_event(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$ret = $chprocess($pa, $pd, $active);
 		$mhpup = 0;
 		if(\skillbase\skill_query(267,$pa) && check_unlocked267($pa)) {
 			$mhpup = check_effect267($pa, $active);
-			unset($pa['skill267ohp']);
+			$pa['skill267ohp'] = $pa['hp'];
 			if($mhpup > 0 && $active) {
 				eval(import_module('logger'));
 				$log .= '「代偿」让你的生命上限增加了<span class="lime">'.$mhpup.'</span>点！<br>';
@@ -132,15 +131,14 @@ namespace skill267
 		}
 		if(\skillbase\skill_query(267,$pd) && check_unlocked267($pd)) {
 			$mhpup = check_effect267($pd, $active);
-			unset($pd['skill267ohp']);
+			$pd['skill267ohp'] = $pd['hp'];
 			if($mhpup > 0 && !$active) {
 				eval(import_module('logger'));
 				$log .= '「代偿」让你的生命上限增加了<span class="lime">'.$mhpup.'</span>点！<br>';
 			}
 		}
-		
-		return $ret;
 	}
+	
 }
 
 ?>

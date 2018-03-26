@@ -40,9 +40,9 @@ if(empty($_POST['command'])) {
 	$para4 = !empty($_POST['para4']) ? $_POST['para4'] : NULL;
 	$para5 = !empty($_POST['para5']) ? $_POST['para5'] : NULL;
 	
-	$userdb_foreced_local = 1;
-	$userdb_foreced_key = !empty($_POST['key']) ? $_POST['key'] : NULL;
-	writeover('userdb_receive.log', time().' '.$command.' '.$para1.' '.$para2.' '.$para3.' '.$para4.' '.$para5."\r\n", 'ab+');
+	$userdb_forced_local = 1;
+	$userdb_forced_key = !empty($_POST['key']) ? $_POST['key'] : NULL;
+	writeover('userdb_receive.log', time().' '.$command.' '.$para1.' '.$para2.' '.$para3.' '.$para4.' '.$para5.' '.$userdb_forced_key."\r\n", 'ab+');
 	
 	if('get_ip' == $command){
 		$ret = real_ip();
@@ -50,7 +50,7 @@ if(empty($_POST['command'])) {
 		//查询1次不可超过500条返回结果
 		if(strpos($para1, 'COUNT(')===false && userdb_receive_count($para2, $para3) > 500) exit('Error: Too many results');
 		$ret = fetch_udata($para1, $para2, $para3, $para4, $para5);
-		userdb_receive_save_pool($userdb_foreced_key);
+		userdb_receive_save_pool($userdb_forced_key);
 	}elseif('insert_udata' == $command){
 		$para1 = gdecode($para1, 1);
 		//插入1次不可超过10条数据
@@ -68,9 +68,9 @@ if(empty($_POST['command'])) {
 		if(sizeof($para1) > 500) exit('Error: Too many updates');
 		$ret = update_udata_multilist($para1, $para2, $para3, $para4, $para5);
 	}elseif('release_user_lock_from_pool' == $command){
-		userdb_receive_load_pool($userdb_foreced_key);
-		release_user_lock_from_pool($userdb_foreced_key);
-		userdb_receive_clean_pool($userdb_foreced_key);
+		userdb_receive_load_pool($userdb_forced_key);
+		release_user_lock_from_pool($userdb_forced_key);
+		userdb_receive_clean_pool($userdb_forced_key);
 		$ret = 'Info: Release success';
 	}else{
 		exit( 'Error: Invalid command 2');

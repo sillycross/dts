@@ -29,7 +29,7 @@ namespace achievement_base
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return defined('MOD_SKILL'.$achid.'_INFO') && defined('MOD_SKILL'.$achid.'_ACHIEVEMENT_ID')	
-			&& \skillbase\check_skill_info($achid, 'achievement') && !\skillbase\check_skill_info($achid, 'hidden') && 1 == check_achtype_available($achid);
+			&& \skillbase\check_skill_info($achid, 'achievement') && !\skillbase\check_skill_info($achid, 'hidden');
 	}
 	
 	//判定一个成就大类是否过期

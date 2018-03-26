@@ -4,6 +4,16 @@ if(!defined('IN_GAME')) {
 	exit('Access Denied');
 }
 
+//无需加锁的CURSCRIPT值
+//在create_user_lock及fetch_udata里都用到
+function user_lock_unnecessity()
+{
+	if(!defined('CURSCRIPT')) return true;
+	elseif(in_array(CURSCRIPT, array('roomupdate','roomcmd','chat','valid','end','winner','rank','alive','help','news'))) return true;
+	elseif (!empty($GLOBALS['page']) && in_array($GLOBALS['page'], array('command_roomcmd','command_valid','command_end','command_winner','command_rank','command_alive','command_help','command_news'))) return true;
+	return false;
+}
+
 //创建用户锁文件。在各需要处理用户数据的php结束时务必清空用户锁，否则会导致阻塞
 //返回值：0正常加锁  1本进程上过锁  2被阻塞导致失败  3无需加锁
 //是以用户名为标签的（最兼容各种查询方式）
@@ -15,7 +25,9 @@ function create_user_lock($un, $key='')
 	//如果用户锁池里已有键，认为已经上锁了
 	if(isset($udata_lock_pool[$un])) return 1;
 	//如果是调用command执行的，不用加锁（command来加锁）；roomupdate这种长轮询也不加锁
-	elseif(!$un || !defined('CURSCRIPT') || in_array(CURSCRIPT, array('roomupdate','chat','roomcmd','valid','end','winner','rank','alive','help','news'))) return 3;
+	//不过这段对远程是失效的
+	//远程的情况下，目前sys\init()是强制本地加锁，不影响这里
+	elseif(!$un || user_lock_unnecessity()) return 3;
 	$dir = GAME_ROOT.'./gamedata/tmp/userlock/';
 	$file = $un.'.nlk';
 	$lstate = check_lock($dir, $file, 3000, $key);//最多允许3秒等待，之后穿透
@@ -23,6 +35,7 @@ function create_user_lock($un, $key='')
 	if(!$lstate) {
 		if(create_lock($dir, $file, $key)) $res = 0;
 	}
+	//writeover('b.txt', $key.' '.$res."\r\n", 'ab+');
 	$udata_lock_pool[$un] = 1;
 	return $res;
 }
@@ -95,10 +108,9 @@ function curl_udata_cmd($command, $para1='', $para2='', $para3='', $para4='', $p
 		if(NULL!==$ret || strpos($ret_raw, 'Error')===0) break;
 		else usleep($userdb_remote_reconnect_duration * 1000);//挂起0.2秒再试
 	}
-//	writeover('n.txt', $t);
-//	writeover('e.txt', var_export($ret_raw,1));
+	//writeover('a.txt', debug_backtrace()[2]['file'].' '.debug_backtrace()[3]['file'].' '.$userdb_remote_key."\r\n", 'ab+');
 	if(NULL===$ret || ('fetch_udata' == $command && !is_array($ret))) {
-		$error_message = '连接远程数据库失败';
+		$error_message = '连接远程数据库失败'.$ret_raw;
 		if(strpos($ret_raw, 'Error')===0) $error_message .= ' '.$ret_raw;
 		if(!in_array(CURSCRIPT, array('chat'))) gexit($error_message,__file__,__line__);
 		else {
@@ -112,9 +124,9 @@ function curl_udata_cmd($command, $para1='', $para2='', $para3='', $para4='', $p
 /*
 function update_udata_from_remote($udata, $username)
 {
-	global $db, $gtablepre, $userdb_foreced_local;
-	$tmp_userdb_foreced_local = $userdb_foreced_local;
-	$userdb_foreced_local = 1;
+	global $db, $gtablepre, $userdb_forced_local;
+	$tmp_userdb_forced_local = $userdb_forced_local;
+	$userdb_forced_local = 1;
 	$flag = $db->query("SELECT uid FROM {$gtablepre}users WHERE username='$username'");
 	$flag = $db->num_rows($flag);
 	if(!$flag) {
@@ -122,21 +134,22 @@ function update_udata_from_remote($udata, $username)
 		$udata = reset($udata);
 	}
 	$db->array_update("{$gtablepre}users", $udata, "username='$username'");
-	$userdb_foreced_local = $tmp_userdb_foreced_local;
+	$userdb_forced_local = $tmp_userdb_forced_local;
 }*/
 
 //获取用户数据的通用函数，会自动获取远端数据
 //返回相当于fetch_array得到的数组
 //$keytype==0为无键名，为1是username当键名，为2是uid当键名
-//$userdb_foreced_local为真时强制查询本地
+//$userdb_forced_local为真时强制查询本地
 function fetch_udata($fields='', $where='', $sort='', $keytype=0, $nolock=0){
-	global $db, $gtablepre, $userdb_remote_storage, $userdb_foreced_local, $userdb_foreced_key;
+	global $db, $gtablepre, $userdb_remote_storage, $userdb_forced_local, $userdb_forced_key;
 	//缺省查询
 	if(empty($fields)) $fields = '*';
 	if(empty($where)) $where = '1';
 	$ret = array();
 	//如果设置了远程数据库储存
-	if($userdb_remote_storage && empty($userdb_foreced_local)) {
+	if($userdb_remote_storage && empty($userdb_forced_local)) {
+		if(user_lock_unnecessity()) $nolock = 1;
 		return curl_udata_cmd('fetch_udata', $fields, $where, $sort, $keytype, $nolock);
 	}	
 	
@@ -147,7 +160,7 @@ function fetch_udata($fields='', $where='', $sort='', $keytype=0, $nolock=0){
 		if(!empty($unlist)){
 			if(sizeof($unlist) <= 500) {
 				foreach($unlist as $un) {
-					create_user_lock($un, $userdb_foreced_key);
+					create_user_lock($un, $userdb_forced_key);
 				}
 			}
 		}else{
@@ -157,7 +170,7 @@ function fetch_udata($fields='', $where='', $sort='', $keytype=0, $nolock=0){
 			if($db->num_rows($result)) {
 				while($r = $db->fetch_array($result)) {
 					$un = $r['username'];
-					create_user_lock($un, $userdb_foreced_key);
+					create_user_lock($un, $userdb_forced_key);
 				}
 			}
 		}
@@ -238,16 +251,16 @@ function fetch_udata_by_username($username, $fields='*'){
 //通过数组来插入user表
 function insert_udata($udata, $on_duplicate_update=0)
 {
-	global $db, $gtablepre, $userdb_foreced_key, $userdb_remote_storage, $userdb_foreced_local;
+	global $db, $gtablepre, $userdb_forced_key, $userdb_remote_storage, $userdb_forced_local;
 	if(empty($udata['username']) || empty($udata['password'])) {
 		$tmp = reset($udata);
 		if(empty($tmp['username']) || empty($tmp['password'])) return false;
 	}
 	//插入好像不需要加锁
-	//create_user_lock($un, $userdb_foreced_key);
+	//create_user_lock($un, $userdb_forced_key);
 	
 	//远程储存时
-	if($userdb_remote_storage && empty($userdb_foreced_local)) {
+	if($userdb_remote_storage && empty($userdb_forced_local)) {
 		$ret = curl_udata_cmd('insert_udata', $udata, $on_duplicate_update);
 		$db->array_insert("{$gtablepre}users", $udata, 1, 'username');
 		return $ret;
@@ -261,10 +274,10 @@ function insert_udata($udata, $on_duplicate_update=0)
 //更新好像也不需要加锁……
 function update_udata($udata, $where)
 {
-	global $db, $gtablepre, $userdb_remote_storage, $userdb_foreced_local;
+	global $db, $gtablepre, $userdb_remote_storage, $userdb_forced_local;
 	
 	//远程储存时
-	if($userdb_remote_storage && empty($userdb_foreced_local)) {
+	if($userdb_remote_storage && empty($userdb_forced_local)) {
 		$ret = curl_udata_cmd('update_udata', $udata, $where);
 		
 		//检查本地是否有数据，有则更新，无则不管
@@ -289,10 +302,10 @@ function update_udata($udata, $where)
 //同时更新多个用户，按数组的username字段判定
 function update_udata_multilist($updatelist)
 {
-	global $db, $gtablepre, $userdb_remote_storage, $userdb_foreced_local;
+	global $db, $gtablepre, $userdb_remote_storage, $userdb_forced_local;
 	
 	//远程储存时
-	if($userdb_remote_storage && empty($userdb_foreced_local)) {
+	if($userdb_remote_storage && empty($userdb_forced_local)) {
 		$ret = curl_udata_cmd('update_udata_multilist', $updatelist);
 		
 		//检查本地是否有数据，有则更新，无则不管

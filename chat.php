@@ -10,6 +10,8 @@ if($sendmode != 'newspage' && (!$cuser || !defined('IN_GAME'))) {
 }
 
 $ctablecorrect = 1;
+//强制读本地用户数据（如果有的话）
+$userdb_forced_local = 1;
 //如果拉取的房间号同账号不对应则进行游戏局数判定
 if((isset($cgamenum) && $gamenum != $cgamenum) || (isset($croomid) && $groomid != $croomid)){
 	if(room_check_gamenum($croomid, $cgamenum)) {

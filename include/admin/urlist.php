@@ -2,8 +2,8 @@
 if(!defined('IN_ADMIN')) {
 	exit('Access Denied');
 }
-global $userdb_foreced_local;
-$userdb_foreced_local = 1;
+global $userdb_forced_local;
+$userdb_forced_local = 1;
 if(!empty($pagecmd) && $pagecmd == 'upload'){
 	if(!isset($_FILES['uploadfile']) || empty($_FILES['uploadfile']['name'])) {
 		$cmd_info = "不能上传空文件";
@@ -32,7 +32,7 @@ if(!empty($pagecmd) && $pagecmd == 'upload'){
 		}elseif(2==$errno) {
 			$cmd_info = '覆盖后将导致管理员信息不正确';
 		}else{
-			global $userdb_foreced_local; $userdb_foreced_local=1;
+			global $userdb_forced_local; $userdb_forced_local=1;
 			$o_arr = fetch_udata(NULL,NULL,NULL,NULL,1);
 
 			$o_cont = '';
@@ -57,7 +57,7 @@ if(!empty($pagecmd) && $pagecmd == 'upload'){
 	
 	$urcmd = '';
 }elseif(!empty($pagecmd) && $pagecmd == 'download'){
-	global $userdb_foreced_local; $userdb_foreced_local=1;
+	global $userdb_forced_local; $userdb_forced_local=1;
 	$udb = fetch_udata(NULL,NULL,NULL,NULL,1);
 
 	$cont = '';
