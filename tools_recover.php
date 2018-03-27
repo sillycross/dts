@@ -17,13 +17,16 @@ function stop() { window.scroll(0,document.body.scrollHeight); clearInterval($z)
 require './include/common.inc.php';
 $servermark = '';
 //$servermark = 'S';
-$insert_only = 1;
+
 check_authority();
-if($insert_only) $db->query("TRUNCATE TABLE {$gtablepre}users");
+
 $namecase=array('Amarillo_NMC', 'nemoma', 'digichart', 'Saphil', '2Ag', '完美而潇洒的变态', '箱子npc');
 
 $file = 'recover.dat';
 if(!file_exists($file)) exit("Cannot find file ".$file);
+$insert_only = 1;
+if($insert_only) $db->query("TRUNCATE TABLE {$gtablepre}users");
+
 $cont = openfile($file);
 foreach($cont as $cv) {
 	$cv = json_decode($cv,1);

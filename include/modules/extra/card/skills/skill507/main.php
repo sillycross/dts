@@ -4,6 +4,13 @@ namespace skill507
 {
 	$skill507_intv = 6;//每被攻击多少次触发
 	
+	$skill507_display_effect = array(//斩杀时的特殊文字显示
+		'一一五' => array(
+			'type' => 42,
+			'icon' => 'avatar_rek/115_s.png',
+		)
+	);
+	
 	function init() 
 	{
 		define('MOD_SKILL507_INFO','card;unique;');
@@ -49,20 +56,33 @@ namespace skill507
 		}
 		return $ret;
 	}
-	
 
-	//解锁后，攻击最终伤害x666，命中率+66%，双穿概率+66%
+	//解锁后，武器攻击力x66666，攻击最终伤害x666，命中率+66%，双穿概率+66%，必定超射程反击
 	function strike_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (\skillbase\skill_query(507,$pa) && check_unlocked507($pa))
 		{
+			eval(import_module('sys','logger'));
 			$pa['skill507_flag'] = 1;
-			eval(import_module('logger'));
+			//由于$pa里的乱七八糟可能会被洗掉，记录在$uip里吧
+			$uip['skill507_flag'] = $pa['name'];
+			
 			$log.=\battle\battlelog_parser($pa, $pd, $active, "<span class=\"red\"><:pa_name:>出其不意地施展出华丽的攻击！<:pd_name:>觉得这次凶多吉少了。</span><br>");
 		}
 		$chprocess($pa, $pd, $active);
 	}	
+	
+	function get_external_att(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($pa, $pd, $active);
+		if ( !empty($pa['skill507_flag']) )
+		{
+			$ret *= 66666;
+		}
+		return $ret;
+	}
 	
 	function get_hitrate_base(&$pa,&$pd,$active)
 	{
@@ -118,6 +138,15 @@ namespace skill507
 		return $ret;
 	}
 	
+	function check_counterable_by_weapon_range(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($pa, $pd, $active);
+		if (!empty($pa['skill507_flag'])) 
+			$ret = 1;
+		return $ret;
+	}
+	
 	//攻击结束时，已解锁变为未解锁状态
 	function strike_finish(&$pa, &$pd, $active)
 	{
@@ -127,6 +156,40 @@ namespace skill507
 			init_countdown507($pa);
 		}
 		$chprocess($pa, $pd, $active);
+	}
+	
+	function metman_load_playerdata($pdata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($pdata);
+		if(\skillbase\skill_query(507,$pdata) && check_unlocked507($pdata)){
+			eval(import_module('sys'));
+			$uip['skill507_flag'] = $pdata['name'];
+		}
+	}
+	
+	function meetman_alternative($edata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(\skillbase\skill_query(507,$edata) && check_unlocked507($edata)){
+			eval(import_module('sys'));
+			$uip['skill507_flag'] = $edata['name'];
+		}
+		$chprocess($edata);
+	}
+	
+	function init_battle($ismeet = 0){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($ismeet);
+		eval(import_module('sys','metman'));
+		if(!empty($uip['skill507_flag']) && $uip['skill507_flag']==$w_name){
+			eval(import_module('skill507','player'));
+			if(!empty($skill507_display_effect[$w_name])) {
+				$ddata = $skill507_display_effect[$w_name];
+				if(!empty($ddata['type'])) $tdata['sNoinfo'] = $typeinfo[$ddata['type']];
+				if(!empty($ddata['icon'])) list($tdata['iconImg'], $tdata['iconImgB'], $tdata['iconImgBwidth']) = \player\icon_parser($w_type, $w_gd, $ddata['icon']);
+			}
+		}
 	}
 }
 

@@ -331,6 +331,7 @@ skill359,extra/achievement/skills/skill359/,1
 skill360,extra/activities/lunany2018/skill360/,1
 skill364,extra/achievement/skills/skill364/,1
 activity_ranking,extra/activities/activity_ranking/,1
+aprilfool2018,extra/activities/aprilfool2018/main/,1
 skill20,extra/club/skills/skill20/,1
 empowers,base/items/empowers/,1
 skill70,extra/club/skills/skill70/,1
