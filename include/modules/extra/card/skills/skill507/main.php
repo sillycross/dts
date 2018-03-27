@@ -15,7 +15,7 @@ namespace skill507
 	{
 		define('MOD_SKILL507_INFO','card;unique;');
 		eval(import_module('clubbase'));
-		$clubskillname[507] = '斩杀';
+		$clubskillname[507] = '断罪';
 	}
 	
 	function acquire507(&$pa)
@@ -58,7 +58,7 @@ namespace skill507
 	}
 
 	//解锁后，武器攻击力x66666，攻击最终伤害x666，命中率+66%，双穿概率+66%，必定超射程反击
-	function strike_prepare(&$pa, &$pd, $active)
+	function attack_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (\skillbase\skill_query(507,$pa) && check_unlocked507($pa))
@@ -68,10 +68,20 @@ namespace skill507
 			//由于$pa里的乱七八糟可能会被洗掉，记录在$uip里吧
 			$uip['skill507_flag'] = $pa['name'];
 			
-			$log.=\battle\battlelog_parser($pa, $pd, $active, "<span class=\"red\"><:pa_name:>出其不意地施展出华丽的攻击！<:pd_name:>觉得这次凶多吉少了。</span><br>");
 		}
 		$chprocess($pa, $pd, $active);
 	}	
+	
+	function strike_prepare(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys', 'logger'));
+		
+		if (!empty($pa['skill507_flag'])) {
+			$log.=\battle\battlelog_parser($pa, $pd, $active, "<span class=\"red\"><:pa_name:>出其不意地施展出华丽的攻击！<:pd_name:>觉得你大限将至！</span><br>");
+		}
+		$chprocess($pa, $pd, $active);
+	}
 	
 	function get_external_att(&$pa,&$pd,$active)
 	{
@@ -148,7 +158,7 @@ namespace skill507
 	}
 	
 	//攻击结束时，已解锁变为未解锁状态
-	function strike_finish(&$pa, &$pd, $active)
+	function attack_finish(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!empty($pa['skill507_flag']))
@@ -190,6 +200,16 @@ namespace skill507
 				if(!empty($ddata['icon'])) list($tdata['iconImg'], $tdata['iconImgB'], $tdata['iconImgBwidth']) = \player\icon_parser($w_type, $w_gd, $ddata['icon']);
 			}
 		}
+	}
+	
+	function npcchat_tag_process(&$pa, &$pd, $active, $situation, $flag, $nchat){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		list($chattag, $sid) = $chprocess($pa, $pd, $active, $situation, $flag, $nchat);
+		eval(import_module('sys'));
+		if(!empty($uip['skill507_flag']) && in_array($uip['skill507_flag'], array($pa['name'], $pd['name']))){
+			if(isset($nchat[$chattag.'_sp'])) $chattag .= '_sp';
+		}
+		return array($chattag, $sid);
 	}
 }
 

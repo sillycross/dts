@@ -1,10 +1,10 @@
 <?php
 
-namespace skill507
+namespace skill509
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase clubbase sys player logger battle attack weapon ex_attr_pierce attrbase metman npcchat';
-	$___MODULE_dependency_optional = 'enemy corpse team';
+	$___MODULE_dependency = 'skillbase clubbase sys player logger weapon enemy metman';
+	$___MODULE_dependency_optional = 'skill507';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';
 	$___MODULE_templatelist = 'desc';

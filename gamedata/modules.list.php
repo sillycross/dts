@@ -446,6 +446,7 @@ skill318,extra/achievement/skills/skill318/,1
 skill322,extra/achievement/skills/skill322/,1
 skill323,extra/achievement/skills/skill323/,1
 skill244,extra/club/skills/skill244/,1
+skill508,extra/card/skills/skill508/,1
 skill233,extra/club/skills/skill233/,1
 skill26,extra/club/skills/skill26/,1
 skill265,extra/club/skills/skill265/,1
@@ -469,6 +470,8 @@ skill27,extra/club/skills/skill27/,1
 skill489,extra/card/skills/skill489/,1
 skill266,extra/club/skills/skill266/,1
 skill81,extra/club/skills/skill81/,1
+skill509,extra/card/skills/skill509/,1
+skill510,extra/card/skills/skill510/,1
 searchmemory,extra/searchmemory/,1
 skill351,extra/achievement/skills/skill351/,1
 skill352,extra/achievement/skills/skill352/,1
