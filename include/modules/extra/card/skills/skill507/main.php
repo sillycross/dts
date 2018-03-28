@@ -67,7 +67,7 @@ namespace skill507
 			$pa['skill507_flag'] = 1;
 			//由于$pa里的乱七八糟可能会被洗掉，记录在$uip里吧
 			$uip['skill507_flag'] = $pa['name'];
-			
+			$pa['state'] = 1;
 		}
 		$chprocess($pa, $pd, $active);
 	}	
@@ -164,6 +164,7 @@ namespace skill507
 		if (!empty($pa['skill507_flag']))
 		{
 			init_countdown507($pa);
+			$pa['state'] = 1;
 		}
 		$chprocess($pa, $pd, $active);
 	}

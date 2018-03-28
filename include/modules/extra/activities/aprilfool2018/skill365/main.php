@@ -13,7 +13,7 @@ namespace skill365
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach365_desc= array(
-		1=>'对'.$ach365_npcname.'造成的伤害超过<:threshold:>点',
+		1=>'使'.$ach365_npcname.'失去的生命值超过<:threshold:>点',
 	);
 	
 	$ach365_proc_words = '目前进度';
@@ -39,7 +39,8 @@ namespace skill365
 	
 	//各级给的卡片奖励
 	$ach365_card_prize = array(
-		3 => 164,
+		1 => 166,
+		3 => 211,
 	);
 	
 	function init() 
@@ -98,13 +99,14 @@ namespace skill365
 	function apply_damage(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$ret = $chprocess($pa, $pd, $active);
 		eval(import_module('skill365'));
 		if (\skillbase\skill_query(365,$pa) && $pa['dmg_dealt']>0 && $pd['name'] == $ach365_npcname)
 		{
+			$var = min($pd['hp'], $pa['dmg_dealt']);
 			$cnt = \skillbase\skill_getvalue(365,'cnt',$pa);
-			\skillbase\skill_setvalue(365,'cnt',$cnt+$pa['dmg_dealt'],$pa);
+			\skillbase\skill_setvalue(365,'cnt',$cnt+$var,$pa);
 		}
+		$ret = $chprocess($pa, $pd, $active);
 		return $ret;
 	}
 	
