@@ -1,0 +1,21 @@
+<!--{eval $___TEMP_SKILL_ID=510;}-->
+<!--{eval eval(import_module('clubbase'));$lvl510=\skillbase\skill_getvalue(510,'lvl',$who);}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<!--{if 2==$lvl510}-->你的防御、抹消和控血属性不会失效，被贯穿概率变为十分之一
+<!--{elseif 1==$lvl510}-->你的防御和抹消属性失效概率减半，被贯穿概率减半<!--{/if}-->
+<!--{if \skillbase\skill_query(507,$who)}--><br>「断罪」触发时会暂时失效<!--{/if}-->
+</span></td>
+<td class=b3 width=96>
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="red">
+	「断罪」解锁时不可用
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

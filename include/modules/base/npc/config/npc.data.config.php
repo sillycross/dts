@@ -1075,7 +1075,7 @@ namespace npc
 			'def' => 115,
 			'lvl' => 1,
 			'skill' => 99,
-			'skills' => array('81'=>'0', '506'=>'0'),
+			'skills' => array('81'=>'0', '506'=>'0', '507'=>'0'),
 			'money' => 1,
 			'arb' => '希-玻粒子固化装甲',
 			'arbk' => 'DB',

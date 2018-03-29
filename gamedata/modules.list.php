@@ -250,6 +250,7 @@ skill269,extra/club/skills/skill269/,1
 skill78,extra/club/skills/skill78/,1
 skill496,extra/card/skills/skill496/,1
 skill506,extra/card/skills/skill506/,1
+skill511,extra/card/skills/skill511/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
@@ -331,6 +332,7 @@ skill359,extra/achievement/skills/skill359/,1
 skill360,extra/activities/lunany2018/skill360/,1
 skill364,extra/achievement/skills/skill364/,1
 activity_ranking,extra/activities/activity_ranking/,1
+aprilfool2018,extra/activities/aprilfool2018/main/,1
 skill20,extra/club/skills/skill20/,1
 empowers,base/items/empowers/,1
 skill70,extra/club/skills/skill70/,1
@@ -412,6 +414,7 @@ skill252,extra/club/skills/skill252/,1
 gtype2,extra/instance/gtype2/main/,1
 gtype3,extra/instance/gtype3/main/,1
 skill270,extra/club/skills/skill270/,1
+skill366,extra/activities/aprilfool2018/skill366/,1
 cooldown,base/cooldown/,1
 item_misc,base/items/item_misc/,1
 skill458,extra/card/skills/skill458/,1
@@ -445,9 +448,11 @@ skill318,extra/achievement/skills/skill318/,1
 skill322,extra/achievement/skills/skill322/,1
 skill323,extra/achievement/skills/skill323/,1
 skill244,extra/club/skills/skill244/,1
+skill508,extra/card/skills/skill508/,1
 skill233,extra/club/skills/skill233/,1
 skill26,extra/club/skills/skill26/,1
 skill265,extra/club/skills/skill265/,1
+skill507,extra/card/skills/skill507/,1
 gtype1,extra/instance/gtype1/main/,1
 randmix,extra/misc/randmix/,1
 skill57,extra/club/skills/skill57/,1
@@ -467,6 +472,8 @@ skill27,extra/club/skills/skill27/,1
 skill489,extra/card/skills/skill489/,1
 skill266,extra/club/skills/skill266/,1
 skill81,extra/club/skills/skill81/,1
+skill509,extra/card/skills/skill509/,1
+skill510,extra/card/skills/skill510/,1
 searchmemory,extra/searchmemory/,1
 skill351,extra/achievement/skills/skill351/,1
 skill352,extra/achievement/skills/skill352/,1

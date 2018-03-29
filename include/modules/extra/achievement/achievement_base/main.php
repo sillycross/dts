@@ -524,6 +524,7 @@ namespace achievement_base
 		eval(import_module('skill'.$achid));
 		$unit = ${'ach'.$achid.'_unit'};
 		$proc_words = ${'ach'.$achid.'_proc_words'};
+		$proc_words2 = !empty(${'ach'.$achid.'_proc_words2'}) ? ${'ach'.$achid.'_proc_words2'} : '';
 		$c = 0; $top_flag = 0;
 		$p = get_achievement_default_var($achid);
 		if ($data) $p=$data;
@@ -694,7 +695,7 @@ namespace achievement_base
 				if(empty($ud['u_achievements'][$ai])) $ud['u_achievements'][$ai] = array();
 				list($lversion, $lnum) = ach_global_ach_last_acomplish($ud['u_achievements'][$ai], $ai);
 				//重新判定条件：完成版本号、完成时数目与当前都不同
-				if(!$lversion || ($lversion < $gameversion && $lnum != ach_global_ach_finalize_save_getnum($ud['u_achievements'][$ai], $ai))) {
+				if(!$lversion || ($lversion != $gameversion && $lnum != ach_global_ach_finalize_save_getnum($ud['u_achievements'][$ai], $ai))) {
 					$flag = $flag || ach_global_ach_check_single($ud, $ai);
 				}
 			}

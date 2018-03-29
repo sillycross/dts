@@ -22,7 +22,7 @@ namespace skill43
 	function check_unlocked43(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return ($pa['lvl']>=3);
+		return $pa['lvl']>=7;
 	}
 	
 	function upgrade43()

@@ -1,0 +1,28 @@
+<table width=390>
+	<tr>
+		<td class='b1' width=50>
+			排名
+		</td>
+		<td class='b1' width=220>
+			用户名
+		</td>
+		<td class='b1' width=120>
+			分数
+		</td>
+	</tr>
+	<!--{eval $i=1;}-->
+	<!--{loop $adata $ad}-->
+	<tr>
+		<td class='b3'>
+			$i
+		</td>
+		<td class='b3'>
+			$ad['username']
+		</td>
+		<td class='b3'>
+			$ad['score1']
+		</td>
+	</tr>
+	<!--{eval $i++;}-->
+	<!--{/loop}-->
+</table>
