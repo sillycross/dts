@@ -414,6 +414,7 @@ skill252,extra/club/skills/skill252/,1
 gtype2,extra/instance/gtype2/main/,1
 gtype3,extra/instance/gtype3/main/,1
 skill270,extra/club/skills/skill270/,1
+skill366,extra/activities/aprilfool2018/skill366/,1
 cooldown,base/cooldown/,1
 item_misc,base/items/item_misc/,1
 skill458,extra/card/skills/skill458/,1

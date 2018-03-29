@@ -13,7 +13,7 @@ namespace skill365
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach365_desc= array(
-		1=>'使'.$ach365_npcname.'失去的生命值超过<:threshold:>点',
+		1=>'使活动NPC「'.$ach365_npcname.'」失去的生命值超过<:threshold:>点',
 	);
 	
 	$ach365_proc_words = '目前进度';
