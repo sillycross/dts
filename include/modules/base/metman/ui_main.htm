@@ -32,7 +32,16 @@ Table Design:
 	</tr>
 	<tr>
 		<TD class="b8" height=270px width=440px>
-			<span><B><FONT color="#ff0000" size="5" face="黑体">$battle_title</FONT></B></span>
+			<div style="position:relative;height:268px;width:438px;display: flex;align-items:center;justify-content: center;">
+				<!--{if defined('MOD_NPCCHAT_BUBBLE') && !empty($uip['npcchat'])}-->
+				<div style="position:absolute;top:0;left:0;display:block;">
+					<!--{eval echo \npcchat_bubble\npcchat_bubble_show();}-->
+				</div>
+				<!--{else}-->
+					<span><B><FONT color="#ff0000" size="5" face="黑体">$battle_title</FONT></B></span>
+				<!--{/if}-->
+				
+			</div>
 		</TD>
 		<td class="b8" width=140px rowspan="2" valign="bottom">
 			<div style="position:relative;width:140px;height:350px;">

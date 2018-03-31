@@ -1,0 +1,9 @@
+<!--传入一个bubblecont变量-->
+<div class="dialogue-bubble-container">
+	<!--{eval $imax = sizeof($bubblecont);}-->
+	<!--{loop $bubblecont $i $v}-->
+	<div class="dialogue-bubble <!--{if $i<$imax-1}-->fade<!--{/if}-->">
+		<div>{$v}</div>
+	 </div>
+	 <!--{/loop}-->
+</div>
