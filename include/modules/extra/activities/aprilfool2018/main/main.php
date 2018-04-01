@@ -20,5 +20,16 @@ namespace aprilfool2018
 		}
 		return $ret;
 	}
+	
+	//如果是大房间且在活动期间，安雅数目x10
+	function shopitem_data_process($data){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		eval(import_module('sys'));
+		$ret = $chprocess($data);
+		if(in_array($gametype, array(0,4)) && \achievement_base\check_achtype_available(34)) {
+			if('安雅人体冰雕' == $ret[4]) $ret[1] *= 10;
+		}
+		return $ret;
+	}
 }
 ?>

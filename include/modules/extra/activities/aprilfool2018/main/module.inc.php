@@ -3,7 +3,7 @@
 namespace aprilfool2018
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'achievement_base sys npc';
+	$___MODULE_dependency = 'achievement_base sys npc itemshop';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php config/specialnpc.config.php';
