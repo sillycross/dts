@@ -482,4 +482,5 @@ skill36,extra/club/skills/skill36/,1
 skill38,extra/club/skills/skill38/,1
 skill34,extra/club/skills/skill34/,1
 skill505,extra/card/skills/skill505/,1
+npcchat_bubble,extra/misc/npcchat_bubble/,0
 halloween2017,extra/activities/halloween2017/main/,0

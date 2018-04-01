@@ -3,11 +3,6 @@
 if (! defined ( 'IN_GAME' )) { exit ( 'Access Denied' ); }
 
 class dbstuff {
-//	var $querynum = 0;
-//	var $selectnum = 0;
-//	var $insertnum = 0;
-//	var $updatenum = 0;
-//	var $deletenum = 0;
 	private $con = NULL;
 	public $query_log = array();
 	
@@ -150,8 +145,26 @@ class dbstuff {
 			$query = substr($query, 0, -1);
 		}
 		
-		if(!empty($query)) $this->query ($query);
+		if(!empty($query)) {
+			$querystrlen = mb_strlen($query);
+			if(2==$tp && sizeof($data) > 1 && $querystrlen > 1073000000) {
+				//如果长度超过1M，从中断成两个数组再尝试
+				//留一点冗余所以不是1073741824
+				list($data1, $data2) = $this->arr_query_divide($data);
+				$this->array_insert($dbname, $data1, $on_duplicate_update, $keycol);
+				$this->array_insert($dbname, $data2, $on_duplicate_update, $keycol);
+			}else{
+				$this->query ($query);
+			}
+		}
 		return $query;
+	}
+	
+	function arr_query_divide($data)
+	{
+		if(sizeof($data) <= 1) return $data;
+		$offset = (int)floor(sizeof($data)/2);
+		return array(array_slice($data, 0, $offset), array_slice($data, $offset));
 	}
 	
 	function array_update($dbname, $data, $where, $o_data=NULL){ //根据$data的键和键值更新数据
@@ -190,11 +203,22 @@ class dbstuff {
 				$query .= "$val = ${$val.'qry'},";
 			}
 		}
-		if(!empty($query)){
+		
+		if(!empty($query)) {
 			if($singleqry){$singleqry = ','.$singleqry;}
 			$query = "UPDATE {$dbname} SET ".substr($query,0,-1)."$singleqry WHERE $confield IN (".implode(',',$range).")";
-			$this->query ($query);
+			
+			$querystrlen = mb_strlen($query);
+			if(sizeof($data) > 1 && $querystrlen > 1073000000) {
+				//如果长度超过1M，从中断成两个数组再尝试
+				list($data1, $data2) = $this->arr_query_divide($data);
+				$this->multi_update($dbname, $data1, $confield, $singleqry);
+				$this->multi_update($dbname, $data2, $confield, $singleqry);
+			}else{
+				$this->query ($query);
+			}
 		}
+		
 		return $query;
 	}
 	

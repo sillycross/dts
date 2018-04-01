@@ -24,7 +24,7 @@ $namecase=array('Amarillo_NMC', 'nemoma', 'digichart', 'Saphil', '2Ag', '完美�
 
 $file = 'recover.dat';
 if(!file_exists($file)) exit("Cannot find file ".$file);
-$insert_only = 1;
+//$insert_only = 1;
 if($insert_only) $db->query("TRUNCATE TABLE {$gtablepre}users");
 
 $cont = openfile($file);

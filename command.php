@@ -353,7 +353,7 @@ if ($___MOD_SRV)
 			$auto_server_file = GAME_ROOT.'./gamedata/tmp/server/auto_requested_new_server';
 			if (!empty($touch_error_list)) //请求daemonmng.php关闭检测到的异常进程
 			{
-				if(!file_exists($auto_server_file)){
+				if(!file_exists($auto_server_file) || filemtime($auto_server_file) < time() - 300){
 					touch($auto_server_file);
 					$daemonmng_url = url_dir().'daemonmng.php';
 					foreach($touch_error_list as $tev){

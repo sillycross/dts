@@ -43,20 +43,26 @@ namespace npcchat
 			return;
 		}
 		
-		$pringlog = '';
+		$printlog = '';
 		if($print){
 			$chatcolor = $nchat['color'];
 			if(!empty($chatcolor)){
-				$pringlog = "<span class = \"{$chatcolor}\">".$chatlog;
+				$printlog = "<span class = \"{$chatcolor}\">".$chatlog;
 			}else{
-				$pringlog = '<span>'.$chatlog;
+				$printlog = '<span>'.$chatlog;
 			}
-			$pringlog .= '</span><br>';
+			$printlog .= '</span><br>';
 		
-			eval(import_module('logger'));
-			$log .= $pringlog;
+			npcchat_print($printlog);
 		}
 		return $chatlog;
+	}
+	
+	function npcchat_print($printlog)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('logger'));
+		$log .= $printlog;
 	}
 	
 	function npcchat_tag_process(&$pa, &$pd, $active, $situation, $npc_active, $nchat){
