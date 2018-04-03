@@ -87,7 +87,7 @@ namespace skill44
 		{
 			eval(import_module('skill44','logger'));
 			$clv = \skillbase\skill_getvalue(44,'lvl',$pd);
-			$r=min(50,$dmgreduction[$clv]*$pd['internal_def']); 
+			$r=min(50,$dmgreduction[$clv]*\weapon\get_internal_def($pa,$pd,$active));
 			if(empty($pa['skill44_log_flag'])){
 				if ($active)
 					$log.='<span class="yellow">敌人健硕的身躯使你的固定伤害降低了'.round($r).'%！</span><br>';
@@ -139,7 +139,7 @@ namespace skill44
 		{
 			eval(import_module('skill44','logger'));
 			$clv = \skillbase\skill_getvalue(44,'lvl',$pd);
-			$r=min(50,$dmgreduction[$clv]*$pd['internal_def']); 
+			$r=min(50,$dmgreduction[$clv]*\weapon\get_internal_def($pa,$pd,$active));
 			if ($active)
 				$log.='<span class="yellow">敌人健硕的身躯抵挡了'.round($r).'%的爆炸伤害！</span><br>';
 			else  $log.='<span class="yellow">你健硕的身躯抵挡了'.round($r).'%的爆炸伤害！</span><br>';

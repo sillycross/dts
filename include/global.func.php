@@ -910,5 +910,13 @@ function systemputchat($time,$type,$msg = ''){
 	\sys\systemputchat($time,$type,$msg );
 }
 
+function gversion_compare($v1, $v2){
+	preg_match('/\d*\.\d*\.\d*/s', $v1, $matches);
+	$v1e = $matches[0];
+	preg_match('/\d*\.\d*\.\d*/s', $v2, $matches);
+	$v2e = $matches[0];
+	return version_compare($v1e, $v2e);
+}
+
 /* End of file global.func.php */
 /* Location: /include/global.func.php */
