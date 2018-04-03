@@ -21,6 +21,19 @@ namespace aprilfool2018
 		return $ret;
 	}
 	
+	//开场新增NPC时报告位置
+	function init_npcdata($npc, $plslist=array()){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		$npc = $chprocess($npc, $plslist);
+		eval(import_module('sys'));
+		if(in_array($gametype, array(0,4)) && \achievement_base\check_achtype_available(34) && 41 == $npc['type']) {
+			eval(import_module('player'));
+			$newsname=$typeinfo[$npc['type']].' '.$npc['name'];
+			\sys\addnews(0, 'addnpc_pls', $newsname, '', $npc['pls']);
+		}
+		return $npc;
+	}
+	
 	//如果是大房间且在活动期间，安雅数目x10
 	function shopitem_data_process($data){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
