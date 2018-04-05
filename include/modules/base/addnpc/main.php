@@ -19,7 +19,7 @@ namespace addnpc
 		return $ret;
 	}
 		
-	function addnpc($xtype,$xsub,$num,$time = 0) 
+	function addnpc($xtype,$xsub,$num,$newspls = 0,$time = 0) 
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','map','logger','addnpc','lvlctl','skillbase'));
@@ -66,7 +66,8 @@ namespace addnpc
 				$summon_ids[] = $db->insert_id();
 				$newsname=$typeinfo[$xtype].' '.$npc['name'];
 				//$npcwordlist[] = $typeinfo[$type].' '.$npc['name'];
-				addnews($now, 'addnpc', $newsname);
+				if($newspls) addnews($now, 'addnpc_pls', $newsname, '', $npc['pls']);
+				else addnews($now, 'addnpc', $newsname);
 				//$result = $db->query("SELECT pid FROM {$tablepre}players where pass='$spid' AND type>0");
 //				if (!$summon_pid)
 //				{

@@ -438,6 +438,7 @@ skill56,extra/club/skills/skill56/,1
 skill435,extra/card/skills/skill435/,1
 tutorial,extra/instance/instance7_tutorial/tutorial/,1
 skill329,extra/activities/nationalday2017/skill329/,1
+skill512,extra/card/skills/skill512/,1
 autopower,extra/misc/autopower/,1
 skill601,extra/club/skills/skill601/,1
 skill602,extra/club/skills/skill602/,1

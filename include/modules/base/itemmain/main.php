@@ -81,8 +81,10 @@ namespace itemmain
 //		return $ret;
 	}
 	
-	//鉴于字母已经基本用完，新属性应该全部命名为“^数字”的形式，其中数字可以任意
-	//例： ^233 => '防拳' 
+	//属性格式有3种：
+	//1. 单个字母
+	//2. ^数字
+	//3. ^字母数字，必须以数字结尾
 	function get_itmsk_array($sk_value)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -95,30 +97,72 @@ namespace itemmain
 			if(!empty($sub) && !in_array($sub, array('|'))){
 				if ($sub=='^')
 				{
-					//$flag = 1;
-					while ($i<strlen($sk_value) && '0'<=$sk_value[$i] && $sk_value[$i]<='9') 
+					$flag = 1;
+					while ($i<strlen($sk_value)) 
 					{
+						//^后，出现数字以后，遇到第一个不是数字的字符时跳出
+						if('0'<=$sk_value[$i] && $sk_value[$i]<='9') $flag = 0;
+						elseif(!$flag) break;
 						$sub.=$sk_value[$i];
 						$i++;
 					}
-//					if ($i<strlen($sk_value) && $sk_value[$i]=='^')
-//					{
-//						$sub.='^'; $i++;
-//					}
-//					else  continue;
 				}
 				array_push($ret,$sub);
-			}					
+			}
 		}
 		//if(!empty($flag)) var_dump($ret);
 		return $ret;		
+	}
+	
+	//获得复合属性的代号和数值。非复合属性返回NULL
+	function get_comp_itmsk_info($str){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!is_string($str) || '^' != $str[0]) return NULL;
+		$skk = $skn = '';
+		for($i=1;$i<strlen($str);$i++) {
+			if('0'<=$str[$i] && $str[$i]<='9') {
+				if(empty($skk)) return NULL;
+				else $skn .= $str[$i];
+			}else{
+				$skk .= $str[$i];
+			}
+		}
+		$skk = '^'.$skk;
+		return array($skk, $skn);
+	}
+	
+	function get_itmsk_words_single($str)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('itemmain'));
+		$cinfo = get_comp_itmsk_info($str);
+		if(!empty($cinfo)) return $itemspkinfo[$cinfo[0]];
+		elseif(!empty($itemspkinfo[$str])) return $itemspkinfo[$str];
+		else return '';
+	}
+	
+	function get_itmsk_desc_single($str)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('itemmain'));
+		$cinfo = get_comp_itmsk_info($str);
+		if(!empty($cinfo)) {
+			$desc = $itemspkdesc[$cinfo[0]];
+			$desc = str_replace('<:skn:>', get_itmsk_desc_single_comp_process($cinfo[0], $cinfo[1]), $desc);
+			return $desc;
+		}elseif(!empty($itemspkdesc[$str])) return $itemspkdesc[$str];
+		else return '';
+	}
+	
+	function get_itmsk_desc_single_comp_process($skk, $skn) {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $skn;
 	}
 	
 	function parse_itmsk_words($sk_value, $simple = 0, $elli = 0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('itemmain'));
 		//纯数字或者以等号开头的，也认为是空的（特殊用法）
 		if($sk_value && is_numeric($sk_value) === false && strpos($sk_value,'=')!==0){
 			$ret = '';
@@ -129,15 +173,16 @@ namespace itemmain
 				$got = array();//除天然和奇迹外的同种属性只显示1次
 				foreach($sk_arr as $sv){
 					if(!in_array($sv,$got)){
+						$skw = get_itmsk_words_single($sv);
 						if(!$i){
-							$ret .= $itemspkinfo[$sv];
+							$ret .= $skw;
 						}elseif($elli && $i >= 3 && $i < $imax-1){
 							if(!$elli_aready){
 								$ret .= '+…';
 								$elli_aready = 1;
 							}
 						}else{
-							$ret .= '+'.$itemspkinfo[$sv];
+							$ret .= '+'.$skw;
 						}
 					}
 					$i ++ ;
@@ -146,6 +191,7 @@ namespace itemmain
 				//$ret = substr($ret,0,-1);
 			}
 		} else {
+			eval(import_module('itemmain'));
 			if ($simple)
 				$ret='';
 			else  $ret = $nospk;
@@ -160,14 +206,14 @@ namespace itemmain
 	
 	function parse_itmsk_desc($sk_value){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('itemmain'));
 		$ret = '';
 		if($sk_value && is_numeric($sk_value) === false && strpos($sk_value,'=')!==0){
 			$i = 0;
 			$sk_arr = get_itmsk_array($sk_value);
 			if(!empty($sk_arr)){
 				foreach($sk_arr as $sv){
-					$ret .= $itemspkinfo[$sv].'：'.$itemspkdesc[$sv].'<br>';
+					$skw = get_itmsk_words_single($sv);
+					$ret .= $skw.'：'.get_itmsk_desc_single($sv).'<br>';
 				}
 				$ret = substr($ret,0,-4);
 			}

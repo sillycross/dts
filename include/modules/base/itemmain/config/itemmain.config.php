@@ -102,13 +102,16 @@ namespace itemmain
 		//Z blessstone 菁英
 		'z' => '天然',
 		//| 特殊分隔符
+		//
 		//^001 itemmix_sync 同调（标记是同调产物）
 		//^002 itemmix_sync 变星
+		'^TEST' => '蛋疼',
 	);
 	
 	$itemspkdesc = array(
 		'x' => '人类，可以超越神么？……',
 		'z' => '使用后会变成冴冴一样的天然呆',
+		'^TEST' => '你的蛋疼度增加<:skn:>%',
 	);
 	
 	$itemspkremark = array(
