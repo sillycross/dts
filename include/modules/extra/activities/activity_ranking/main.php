@@ -29,10 +29,45 @@ namespace activity_ranking
 		return true;
 	}
 	
+	function aranking_send($cmd, $para1='', $para2='')
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		$url = str_replace('userdb','aranking',$userdb_remote_storage);
+		if('save_ulist_aranking' == $cmd) {
+			$para2 = gencode($para2);
+		}
+		$context = array(
+			'sign' => $userdb_remote_storage_sign,
+			'pass' => timestamp_salt($userdb_remote_storage_pass),
+			'cmd' => $cmd,
+			'para1' => $para1,
+			'para2' => $para2,
+		);
+		for($i=0;$i<$userdb_remote_reconnect_times;$i++) {
+			$ret_raw = curl_post($url, $context);
+			$ret = gdecode($ret_raw,1);
+			if(NULL!==$ret || strpos($ret_raw, 'Error')===0) break;
+		}
+		if(NULL===$ret || ('load_aranking' == $cmd && !is_array($ret))) {
+			return array('error' => '连接远程数据库失败'.$ret_raw);
+		}
+		else {
+			return $ret;
+		}
+	}
+	
 	//载入成就排行，排序直接按数组的
 	function load_aranking($activity_name, $limit=10)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		global $userdb_forced_local;
+		//有远程数据库储存时，读远程数据库
+		if($userdb_remote_storage && !$userdb_forced_local) {
+			return aranking_send('load_aranking', $activity_name, $limit);
+		}
+		//没有远程数据库时读本地
 		if(!prepare_aranking_table($activity_name)) return NULL;
 		eval(import_module('sys'));
 		if($limit <= 0) $limit = 1;
@@ -50,8 +85,14 @@ namespace activity_ranking
 	function save_ulist_aranking($activity_name, $ulist)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if(!prepare_aranking_table($activity_name)) return NULL;
 		eval(import_module('sys'));
+		global $userdb_forced_local;
+		//有远程数据库储存时，写远程数据库
+		if($userdb_remote_storage && !$userdb_forced_local) {
+			return aranking_send('save_ulist_aranking', $activity_name, $ulist);
+		}
+		//没有远程数据库时写本地
+		if(!prepare_aranking_table($activity_name)) return NULL;		
 		$upd_arr = array();
 		foreach($ulist as $uv){
 			if(isset($uv['username'])) {

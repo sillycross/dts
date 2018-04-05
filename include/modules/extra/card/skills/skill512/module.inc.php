@@ -1,10 +1,10 @@
 <?php
 
-namespace skill489
+namespace skill512
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase clubbase player sys ex_dmg_att skill5 skill6';
-	$___MODULE_dependency_optional = 'ex_dmg_def skill26 skill461';
+	$___MODULE_dependency = 'skillbase clubbase sys player logger addnpc attack battle';
+	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';
 	$___MODULE_templatelist = 'desc';
