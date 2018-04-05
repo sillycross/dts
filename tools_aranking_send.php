@@ -18,11 +18,17 @@ $userdb_forced_local = 0;
 $adata = \activity_ranking\load_aranking('aprillfool2018', 10);
 $al = array();
 foreach($adata as $lv){
-	$al[] = $lv['name'];
+	$al[] = $lv['username'];
 }
 
+$sl = array();
 foreach($ldata as $lv){
-	if(!in_array($lv['name'], $al) || $lv['score1'] > $adata[array_search($lv['name'], $al)]['score1']){
-		\activity_ranking\save_ulist_aranking('aprillfool2018', $lv);
-	}
+	if(!in_array($lv['username'], $al) || $lv['score1'] > $adata[array_search($lv['username'], $al)]['score1']){
+		$sl[] = array(
+			'username' => $lv['username'],
+			'score1' => $lv['score1']
+		);
+		echo $lv['username'].' done.';
+	} 
 }
+if(!empty($sl)) \activity_ranking\save_ulist_aranking('aprillfool2018', $sl);
