@@ -36,8 +36,7 @@ namespace skill512
 		if (!$pd['hp'] && \skillbase\skill_query(512,$pd))
 		{
 			eval(import_module('sys','logger'));
-			$pname = $pd['name'];$ptype = $pd['type'];$ppid = $pd['pid'];
-			$result = $db->query("SELECT hp FROM {$tablepre}players WHERE name='$pname' AND type='$ptype' AND pid!='$ppid'");
+			$result = $db->query("SELECT hp FROM {$tablepre}players WHERE name='{$pd['name']}' AND type='{$pd['type']}' AND pid!='{$pd['pid']}'");
 			$flag = 1;
 			while($r = $db->fetch_array($result)){
 				if($r['hp']) {
