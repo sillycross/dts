@@ -41,6 +41,7 @@ if(empty($cmd)) {
 	}
 	
 	echo gencode($ret);
+	writeover('aranking_receive.log', time().' '.$command.' '.$para1.' '.$para2."\r\n", 'ab+');
 }
 
 /* End of file aranking_receive.php */
