@@ -21,12 +21,14 @@ foreach($adata as $lv){
 	$al[] = $lv['username'];
 }
 
-$i = 0;
+$sl = array();
 foreach($ldata as $lv){
 	if(!in_array($lv['username'], $al) || $lv['score1'] > $adata[array_search($lv['username'], $al)]['score1']){
-		\activity_ranking\save_ulist_aranking('aprillfool2018', $lv);
+		$sl[] = array(
+			'username' => $lv['username'],
+			'score1' => $lv['score1']
+		);
 		echo $lv['username'].' done.';
-		if($i > 2) break;
 	} 
-	$i ++;
 }
+if(!empty($sl)) \activity_ranking\save_ulist_aranking('aprillfool2018', $sl);

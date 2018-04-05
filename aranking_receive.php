@@ -35,13 +35,13 @@ if(empty($cmd)) {
 		$ret = \activity_ranking\load_aranking($para1, $para2);
 	}elseif('save_ulist_aranking' == $cmd){
 		$para2 = gdecode($para2, 1);
-		$ret = \activity_ranking\save_ulist_aranking($para1, $para2);
+		\activity_ranking\save_ulist_aranking($para1, $para2);
+		$ret = 'Successed.';
 	}else{
 		exit( 'Error: Invalid command 2');
 	}
-	
 	echo gencode($ret);
-	writeover('aranking_receive.log', time().' '.$command.' '.$para1.' '.$para2."\r\n", 'ab+');
+	
 }
 
 /* End of file aranking_receive.php */
