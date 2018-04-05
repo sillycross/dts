@@ -114,6 +114,7 @@ namespace skill365
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$adata = activity_ranking_load365();
+		if(!empty($adata['error'])) return $adata['error'];
 		ob_start();
 		include template(MOD_SKILL365_RANKING);
 		$ret = ob_get_contents();
