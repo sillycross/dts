@@ -38,11 +38,11 @@ namespace activity_ranking
 			$para2 = gencode($para2);
 		}
 		$context = array(
-			'sign' => $userdb_remote_storage_sign,
-			'pass' => timestamp_salt($userdb_remote_storage_pass),
-			'cmd' => $cmd,
-			'para1' => $para1,
-			'para2' => $para2,
+			'asign' => $userdb_remote_storage_sign,
+			'apass' => timestamp_salt($userdb_remote_storage_pass),
+			'acmd' => $cmd,
+			'apara1' => $para1,
+			'apara2' => $para2,
 		);
 		for($i=0;$i<$userdb_remote_reconnect_times;$i++) {
 			$ret_raw = curl_post($url, $context);
