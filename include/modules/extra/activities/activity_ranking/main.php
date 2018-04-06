@@ -29,27 +29,27 @@ namespace activity_ranking
 		return true;
 	}
 	
-	function aranking_send($cmd, $para1='', $para2='')
+	function aranking_send($acmd, $apara1='', $apara2='')
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		$url = str_replace('userdb','aranking',$userdb_remote_storage);
-		if('save_ulist_aranking' == $cmd) {
-			$para2 = gencode($para2);
+		$aurl = str_replace('userdb','aranking',$userdb_remote_storage);
+		if('save_ulist_aranking' == $acmd) {
+			$apara2 = gencode($apara2);
 		}
 		$context = array(
-			'sign' => $userdb_remote_storage_sign,
-			'pass' => timestamp_salt($userdb_remote_storage_pass),
-			'cmd' => $cmd,
-			'para1' => $para1,
-			'para2' => $para2,
+			'asign' => $userdb_remote_storage_sign,
+			'apass' => timestamp_salt($userdb_remote_storage_pass),
+			'acmd' => $acmd,
+			'apara1' => $apara1,
+			'apara2' => $apara2,
 		);
 		for($i=0;$i<$userdb_remote_reconnect_times;$i++) {
-			$ret_raw = curl_post($url, $context);
+			$ret_raw = curl_post($aurl, $context);
 			$ret = gdecode($ret_raw,1);
 			if(NULL!==$ret || strpos($ret_raw, 'Error')===0) break;
 		}
-		if(NULL===$ret || ('load_aranking' == $cmd && !is_array($ret))) {
+		if(NULL===$ret || ('load_aranking' == $acmd && !is_array($ret))) {
 			return array('error' => '连接远程数据库失败'.$ret_raw);
 		}
 		else {

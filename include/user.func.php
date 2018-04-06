@@ -9,8 +9,8 @@ if(!defined('IN_GAME')) {
 function user_lock_unnecessity()
 {
 	if(!defined('CURSCRIPT')) return true;
-	elseif(in_array(CURSCRIPT, array('roomupdate','roomcmd','chat','valid','end','winner','rank','alive','help','news'))) return true;
-	elseif (!empty($GLOBALS['page']) && in_array($GLOBALS['page'], array('command_roomcmd','command_valid','command_end','command_winner','command_rank','command_alive','command_help','command_news'))) return true;
+	elseif(in_array(CURSCRIPT, array('roomupdate','roomcmd','chat','valid','end','winner','rank','alive','help','news','aranking_receive'))) return true;
+	elseif (!empty($GLOBALS['page']) && in_array($GLOBALS['page'], array('command_roomcmd','command_valid','command_end','command_winner','command_rank','command_alive','command_help','command_news','command_aranking'))) return true;
 	return false;
 }
 
