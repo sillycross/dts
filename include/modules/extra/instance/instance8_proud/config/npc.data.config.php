@@ -171,7 +171,7 @@ namespace instance8
 			'mss' => 50,
 			'wep' => '『雷米尔之冲击』',
 			'wepk' => 'WC',
-			'wepe' => 700,
+			'wepe' => 75,
 			'weps' => 200,
 			'arf' => '神启之羽翼',
 			'arfk' => 'DF',

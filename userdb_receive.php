@@ -83,17 +83,37 @@ function userdb_receive_count($where, $sort=''){
 	return sizeof($tmp);
 }
 
+//储存时会自动和已存在的文件合并
 function userdb_receive_save_pool($key){
 	global $udata_lock_pool;
-	writeover('./gamedata/tmp/userlock/'.$key.'.pool', gencode($udata_lock_pool));
+	$tmp_write_pool = $udata_lock_pool;
+	$file = './gamedata/tmp/userlock/'.$key.'.pool';
+	if(file_exists($file)) {
+		$tmp_existed_pool = userdb_receive_load_pool_core($file);
+		if(!$tmp_existed_pool) $tmp_existed_pool = array();
+		$tmp_write_pool = array_merge($tmp_write_pool, $tmp_existed_pool);
+	}
+	writeover($file, userdb_receive_save_pool_core($tmp_write_pool));
+}
+
+function userdb_receive_save_pool_core($pool)
+{
+	return gencode($pool);
 }
 
 function userdb_receive_load_pool($key){
 	global $udata_lock_pool;
 	$file = './gamedata/tmp/userlock/'.$key.'.pool';
 	if(file_exists($file)) {
-		$udata_lock_pool = gdecode(trim(file_get_contents($file)),1);
+		$udata_lock_pool = userdb_receive_load_pool_core($file);
+		
+		//writeover('a.txt', $file.' '.file_get_contents($file).' '.var_export($udata_lock_pool,1), 'ab+');
 	}
+}
+
+function userdb_receive_load_pool_core($file)
+{
+	return gdecode(trim(file_get_contents($file)),1);
 }
 
 function userdb_receive_clean_pool($key){
