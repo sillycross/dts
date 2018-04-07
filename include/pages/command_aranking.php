@@ -9,7 +9,7 @@ eval(import_module('sys','player'));
 $valid = false;
 if(isset($asign) && isset($apass)) {
 	foreach($userdb_receive_list as $rs => $rp){
-		if($rs === $asign && compare_ts_pass($apass, $rp['pass']) && (empty($rp['ip']) || $rp['ip'] == real_ip())){
+		if($rs === $asign && compare_ts_pass($apass, $rp['pass']) && (empty($rp['ip']) || $rp['ip'] == $arealip)){
 			$valid = true;
 			break;
 		}
