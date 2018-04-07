@@ -98,6 +98,6 @@ if (CURSCRIPT == 'index') {//首页，所有房间刷新
 		room_all_routine();
 	}
 }
-if (!in_array(CURSCRIPT, array('chat', 'login', 'register', 'help')) && !(CURSCRIPT == 'news' && isset($sendmode) && $sendmode=='news')) sys\routine();//聊天、游戏内进行状况、帮助页面不刷新游戏状态
+if (!defined('LOAD_CORE_ONLY') && !in_array(CURSCRIPT, array('help')) && !(CURSCRIPT == 'news' && isset($sendmode) && $sendmode=='news')) sys\routine();//聊天、游戏内进行状况、帮助页面不刷新游戏状态
 
 ?>
