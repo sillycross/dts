@@ -29,6 +29,7 @@ scpdrink,base/items/scpdrink/,1
 item_ub,base/items/item_ub/,1
 item_uee,base/items/item_uee/,1
 apm,base/apm/,1
+item_addarea,extra/item_extra/item_addarea/,1
 corpse,base/corpse/,1
 trap,base/items/trap/,1
 item_slip,extra/item_extra/item_slip/,1
