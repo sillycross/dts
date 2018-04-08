@@ -87,6 +87,7 @@ function userdb_receive_count($where, $sort=''){
 function userdb_receive_save_pool($key){
 	global $udata_lock_pool;
 	$tmp_write_pool = $udata_lock_pool;
+	if(!$tmp_write_pool) $tmp_write_pool=array();
 	$file = './gamedata/tmp/userlock/'.$key.'.pool';
 	if(file_exists($file)) {
 		$tmp_existed_pool = userdb_receive_load_pool_core($file);
