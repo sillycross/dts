@@ -268,7 +268,7 @@ function content($file = '') {
 
 function gsetcookie($varname, $value, $life = 0, $prefix = 1) {
 	global $tablepre, $gtablepre, $cookiedomain, $cookiepath, $now, $_SERVER;
-	$cname = ($prefix ? $gtablepre : '').$varname;
+	$cname = ($prefix ? (strpos($varname, $gtablepre)!==0 ? $gtablepre : '') : '').$varname;
 	$expire = $life ? $now + $life : 0;
 	$secure = $_SERVER['SERVER_PORT'] == 443 ? 1 : 0;
 	$httponly = 'pass' == $varname ? 1 : 0;
@@ -492,6 +492,7 @@ function file_get_contents_post($url, $post_data=array(), $post_cookie=array(), 
 }
 
 //通过curl扩展以post形式向网页发出信息
+//如果有cookie修改，则会为全局变量$response_cookies赋值
 function curl_post($url, $post_data=array(), $post_cookie=array(), $timeout = 10){
 	if($url == '') return false;
 	
@@ -505,11 +506,29 @@ function curl_post($url, $post_data=array(), $post_cookie=array(), $timeout = 10
 	
 	curl_setopt($con, CURLOPT_POST,true);
 	curl_setopt($con, CURLOPT_RETURNTRANSFER,true);
-	curl_setopt($con, CURLOPT_HEADER, false);
+	curl_setopt($con, CURLOPT_HEADER, true);
 	curl_setopt($con, CURLOPT_POSTFIELDS, http_build_query($post_data));
 	curl_setopt($con, CURLOPT_COOKIE, http_build_cookiedata($post_cookie));
 	
-	return curl_exec($con); 
+	$ret = curl_exec($con); 
+	
+	$header_size = curl_getinfo($con, CURLINFO_HEADER_SIZE);
+	if(!$header_size) $header_size = 0;
+	$header = substr($ret, 0, $header_size);
+	$body = substr($ret, $header_size);
+	
+	//检查是否有cookies修改
+	preg_match_all('/^Set-Cookie: (.*?);/m', $header, $matches);
+	if(!empty($matches)) {
+		global $response_cookies;
+		$response_cookies = array();
+		foreach($matches[1] as $mv){
+			list($ck, $cv) = explode('=', $mv, 2);
+			$response_cookies[$ck] = $cv;
+		}
+	}
+	
+	return $body;
 }
 
 //curl请求启动新的进程，到处都会用，所以放到这里
@@ -549,10 +568,18 @@ function render_page($page, $extra_context=array()){
 	}
 	$cookies = array();
 	foreach($_COOKIE as $ckey => $cval){
-		if(strpos($ckey,'user')!==false || strpos($ckey,'pass')!==false) $cookies[$ckey] = $cval;
+		if(render_page_cookie_key_filter($ckey)) $cookies[$ckey] = $cval;
 	}
 	
 	$pageinfo = curl_post($url, $context, $cookies);
+	
+	global $response_cookies;
+	if(!empty($response_cookies)) {
+		foreach($response_cookies as $rckey => $rcval){
+			gsetcookie($rckey, $rcval);
+		}
+	}
+	
 	if(strpos($pageinfo, 'redirect')===0){
 		list($null, $url) = explode(':',$pageinfo);
 		header('Location: '.$url);
@@ -565,6 +592,13 @@ function render_page($page, $extra_context=array()){
 		}
 	}
 	return $pageinfo;
+}
+
+function render_page_cookie_key_filter($key)
+{
+	$ret = 0;
+	if(strpos($key,'user')!==false || strpos($key,'pass')!==false || strpos($key,'roomid')!==false) $ret = 1;
+	return $ret;
 }
 
 //获得一个文件夹下的所有特定类型的文件名，返回数组。
@@ -629,9 +663,9 @@ function get_script_runtime($pagestartime)
 	return $timecost;
 }
 
-function gwrite_var($file, $var)
+function gwrite_var($file, $var, $method='rb+')
 {
-	file_put_contents($file, var_export($var,1));
+	writeover($file, var_export($var,1), $method);
 }
 
 function check_alnumudline($key)
