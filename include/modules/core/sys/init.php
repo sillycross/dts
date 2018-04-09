@@ -24,7 +24,7 @@ namespace sys
 			$_COOKIE=gstrfilter($_COOKIE);
 			foreach ($_COOKIE as $key => $value)
 			{
-				if (in_array($key, array($gtablepre.'user',$gtablepre.'pass')))
+				if (in_array($key, array($gtablepre.'user',$gtablepre.'pass',$gtablepre.'roomid')))
 				{
 					$$key=$value;
 				}
@@ -55,17 +55,22 @@ namespace sys
 			${$gtablepre.'user'}=$___LOCAL_INPUT__VARS__INPUT_VAR_LIST[$gtablepre.'user'];
 		if (isset($___LOCAL_INPUT__VARS__INPUT_VAR_LIST[$gtablepre.'pass']))
 			${$gtablepre.'pass'}=$___LOCAL_INPUT__VARS__INPUT_VAR_LIST[$gtablepre.'pass'];
+		if (isset($___LOCAL_INPUT__VARS__INPUT_VAR_LIST[$gtablepre.'roomid']))
+			${$gtablepre.'roomid'} = $___LOCAL_INPUT__VARS__INPUT_VAR_LIST[$gtablepre.'roomid'];
 		
-		//获取玩家提交的模板编号
+		//获取玩家提交的模板编号和房间号
 		if (isset($___LOCAL_INPUT__VARS__INPUT_VAR_LIST['templateid']))
 			$u_templateid = $___LOCAL_INPUT__VARS__INPUT_VAR_LIST['templateid'];
+		
 		
 		//统一获取用户数据备用
 		global $cudata, $userdb_forced_local;
 		if (isset(${$gtablepre.'user'})){
-			$page = '';
-			if (isset($___LOCAL_INPUT__VARS__INPUT_VAR_LIST['page']))	$page = $___LOCAL_INPUT__VARS__INPUT_VAR_LIST['page'];
-			elseif(isset($_POST['page'])) $page = $_POST['page'];
+			//这段可能没用
+//			$page = '';
+//			if (isset($___LOCAL_INPUT__VARS__INPUT_VAR_LIST['page']))	$page = $___LOCAL_INPUT__VARS__INPUT_VAR_LIST['page'];
+//			elseif(isset($_POST['page'])) $page = $_POST['page'];
+			//这段可能没用
 			$tmp_userdb_forced_local = $userdb_forced_local;
 			if('game' == CURSCRIPT || 'chat' == CURSCRIPT) $userdb_forced_local = 1;
 			//强制读取本地
@@ -77,25 +82,25 @@ namespace sys
 		//进入当前用户房间判断
 		$room_prefix = '';
 		$room_id = 0;
+		
+		//第一顺位：用户post的room_id
 		if (isset($___LOCAL_INPUT__VARS__INPUT_VAR_LIST['___GAME_ROOMID']) && '' !== $___LOCAL_INPUT__VARS__INPUT_VAR_LIST['___GAME_ROOMID'])
 		{
 			$room_id = ((int)$___LOCAL_INPUT__VARS__INPUT_VAR_LIST['___GAME_ROOMID']);
-			///test code
-			if(!empty($cudata) && $room_id != $cudata['roomid']){
-				//writeover('tmp_roomid_log_1.txt', ${$gtablepre.'user'}."'s roomid ".$room_id.' -> '.$cudata['roomid'].' at '.$now."\r\n",'ab+');
-				$cudata['roomid'] = $room_id;
-				update_udata_by_username(array('roomid' => $room_id), ${$gtablepre.'user'});
+			if($room_id != ${$gtablepre.'roomid'}){
+				${$gtablepre.'roomid'} = $room_id;
+				set_current_roomid($room_id);
 			}
 		}
+		//第二顺位：cookie里的room_id
 		else  
 		{
-			if (isset(${$gtablepre.'user'}))
+			if (!empty(${$gtablepre.'roomid'}))
 			{
-				$room_id = $cudata['roomid'];
+				$room_id = ${$gtablepre.'roomid'};
 			}
 		}
 		$room_prefix = room_id2prefix($room_id);
-
 		//$room_status = 0;
 		//$room_id = room_prefix2id($room_prefix);
 		

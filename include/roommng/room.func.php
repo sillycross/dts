@@ -48,5 +48,10 @@ function room_id2prefix($id){
 	else return 's'.$id;
 }
 
+//设置当前roomid，根据IN_DAEMON的值来决定是否gsetcookie
+function set_current_roomid($id){
+	gsetcookie_comp('roomid', $id);
+}
+
 /* End of file room.func.php */
 /* Location: /include/roommng/room.func.php */

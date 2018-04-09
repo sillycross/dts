@@ -38,7 +38,8 @@ elseif (!room_check_subroom($room_prefix))
 {
 	if ($command=='leave')
 	{
-		update_udata_by_username(array('roomid' => 0), $cuser);
+		set_current_roomid(0);
+		//update_udata_by_username(array('roomid' => 0), $cuser);
 		if ($not_ajax)
 			echo 'redirect:index.php';
 		else
@@ -89,7 +90,8 @@ update_roomstate($roomdata,$runflag);
 if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 	if ($command=='leave')
 	{
-		update_udata_by_username(array('roomid' => 0), $cuser);
+		set_current_roomid(0);
+		//update_udata_by_username(array('roomid' => 0), $cuser);
 		if ($not_ajax)
 			echo 'redirect:index.php';
 		else
@@ -281,7 +283,8 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 		}
 		room_new_chat($roomdata,"<span class=\"grey\">{$cuser}离开了房间</span><br>");
 		room_save_broadcast($room_id_r,$roomdata);
-		update_udata_by_username(array('roomid' => 0), $cuser);
+		set_current_roomid(0);
+		//update_udata_by_username(array('roomid' => 0), $cuser);
 		if ($not_ajax)
 			echo 'redirect:index.php';
 		else
@@ -294,7 +297,8 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 	{
 		if($disable_newgame || $disable_newroom)
 		{
-			update_udata_by_username(array('roomid' => 0), $cuser);
+			set_current_roomid(0);
+			//update_udata_by_username(array('roomid' => 0), $cuser);
 			gexit('系统维护中，暂时不能进入房间。');
 			return;
 		}
@@ -436,7 +440,8 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 	elseif('start' == $command){
 		if($disable_newgame || $disable_newroom)
 		{
-			update_udata_by_username(array('roomid' => 0), $cuser);
+			set_current_roomid(0);
+			//update_udata_by_username(array('roomid' => 0), $cuser);
 			gexit('系统维护中，暂时不能进入房间。');
 			return;
 		}

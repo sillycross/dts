@@ -156,7 +156,7 @@ if ($___MOD_SRV)
 				{  
 					$___TEMP_pagestarttime=microtime();
 					__SOCKET_DEBUGLOG__("收到了一个新连接。");
-					if (($___TEMP_uid=__SOCKET_LOAD_DATA__($___TEMP_connection))!==false)
+					if (($___TEMP_uid=__SOCKET_LOAD_DATA__($___TEMP_connection))!==false)//注意这里$___TEMP_uid是带房间号前缀的
 					{
 						$___TEMP_WORKFLAG=1;
 						eval(import_module('sys','map','player','logger','itemmain','input'));
@@ -186,7 +186,7 @@ if ($___MOD_SRV)
 						}
 						else
 						{
-							writeover($___MOD_TMP_FILE_DIRECTORY.$___TEMP_uid,$jgamedata);
+							__SOCKET_SAVE_RESPONSE__($___TEMP_uid, $jgamedata);							
 						}
 						//返回消息给client
 						if (!__SOCKET_CHECK_WITH_TIMEOUT__($___TEMP_connection, 'w', 0, 200000))	

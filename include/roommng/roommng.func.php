@@ -585,7 +585,8 @@ function room_enter($id)
 		room_save_broadcast($id,$roomdata);
 		$header = 'index.php';
 	}
-	update_udata_by_username(array('roomid' => $id), $cuser);
+	set_current_roomid($id);
+	//update_udata_by_username(array('roomid' => $id), $cuser);
 
 	echo 'redirect:'.$header;
 	return 1;

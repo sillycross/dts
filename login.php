@@ -46,11 +46,14 @@ if(empty($userdata)) {
 		gexit($_ERROR['wrong_pw'],__file__,__line__);
 	}
 }
-//重新登陆之后房间设为0
-update_udata_by_username(array('ip' => $onlineip, 'roomid' => 0), $username);
+//重设IP
+update_udata_by_username(array('ip' => $onlineip), $username);
 
 gsetcookie('user',$userdata['username']);
 gsetcookie('pass',$password);
+//重新登陆之后房间设为0
+set_current_roomid(0);
+
 Header("Location: index.php");
 
 exit();

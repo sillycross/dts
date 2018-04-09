@@ -266,8 +266,28 @@ function content($file = '') {
 	return $content;
 }
 
+//兼容IN_DAEMON的cookie设置
+function gsetcookie_comp($varname, $value, $life = 0, $prefix = 1)
+{
+	if (defined('IN_DAEMON'))
+	{
+		global $___LOCAL_INPUT__VARS__COOKIE_VAR_LIST;
+		if(empty($___LOCAL_INPUT__VARS__COOKIE_VAR_LIST) || !is_array($___LOCAL_INPUT__VARS__COOKIE_VAR_LIST)) $___LOCAL_INPUT__VARS__COOKIE_VAR_LIST=Array();
+		$___LOCAL_INPUT__VARS__COOKIE_VAR_LIST[$varname] = array(
+			'value' => $value,
+			'life' => $life,
+			'prefix' => $prefix
+		);
+	}
+	else
+	{
+		gsetcookie($varname, $value, $life, $prefix);
+	}
+}
+
 function gsetcookie($varname, $value, $life = 0, $prefix = 1) {
 	global $tablepre, $gtablepre, $cookiedomain, $cookiepath, $now, $_SERVER;
+	if(empty($gtablepre)) include GAME_ROOT.'./include/modules/core/sys/config/server.config.php';
 	$cname = ($prefix ? (strpos($varname, $gtablepre)!==0 ? $gtablepre : '') : '').$varname;
 	$expire = $life ? $now + $life : 0;
 	$secure = $_SERVER['SERVER_PORT'] == 443 ? 1 : 0;
@@ -518,7 +538,7 @@ function curl_post($url, $post_data=array(), $post_cookie=array(), $timeout = 10
 	$body = substr($ret, $header_size);
 	
 	//检查是否有cookies修改
-	preg_match_all('/^Set-Cookie: (.*?);/m', $header, $matches);
+	preg_match_all('/^Set-Cookie: (.*?)[;\r\n]/m', $header, $matches);
 	if(!empty($matches)) {
 		global $response_cookies;
 		$response_cookies = array();

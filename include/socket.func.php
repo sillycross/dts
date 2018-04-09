@@ -83,6 +83,14 @@ function __SOCKET_CHECK_WITH_TIMEOUT__($socket, $optype, $tsec, $tusec = 0)
 	else  return true;
 }
 
+function __SOCKET_SAVE_RESPONSE__($file_uid, $data)
+{
+	global $___MOD_TMP_FILE_DIRECTORY, $___LOCAL_INPUT__VARS__COOKIE_VAR_LIST;
+	writeover($___MOD_TMP_FILE_DIRECTORY.$file_uid, $data);
+	if(!empty($___LOCAL_INPUT__VARS__COOKIE_VAR_LIST))
+		writeover($___MOD_TMP_FILE_DIRECTORY.$file_uid.'.setcookie', gencode($___LOCAL_INPUT__VARS__COOKIE_VAR_LIST));
+}
+
 function __SOCKET_SEND_TO_SERVER__()
 {
 	global $___MOD_CONN_W_DB;
@@ -194,6 +202,16 @@ function __SOCKET_SEND_TO_SERVER__()
 		$___TEMP_res=file_get_contents($___MOD_TMP_FILE_DIRECTORY.$game_roomid.'_/'.$___TEMP_uid);
 		if (!defined('MOD_REPLAY')) 	//如果录像模式开启，最后删缓存的工作由录像模块进行
 			unlink($___MOD_TMP_FILE_DIRECTORY.$game_roomid.'_/'.$___TEMP_uid);
+	}
+	
+	$___TEMP_res_setcookie = array();
+	if(file_exists($___MOD_TMP_FILE_DIRECTORY.$game_roomid.'_/'.$___TEMP_uid.'.setcookie'))
+	{
+		$___TEMP_res_setcookie=file_get_contents($___MOD_TMP_FILE_DIRECTORY.$game_roomid.'_/'.$___TEMP_uid.'.setcookie');
+		$___TEMP_res_setcookie=gdecode($___TEMP_res_setcookie,1);
+		unlink($___MOD_TMP_FILE_DIRECTORY.$game_roomid.'_/'.$___TEMP_uid.'.setcookie');
+		foreach($___TEMP_res_setcookie as $tmp_rc_k => $tmp_rc_v) 
+			gsetcookie($tmp_rc_k, $tmp_rc_v['value'], $tmp_rc_v['life'], $tmp_rc_v['prefix']);
 	}
 	
 	__SOCKET_DEBUGLOG__("已载入回应文件。");
