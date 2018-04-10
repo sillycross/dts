@@ -7,6 +7,7 @@ header('X-Accel-Buffering: no');           // 关闭加速缓冲
 ob_implicit_flush(1);
 define('CURSCRIPT', 'replay_receive');
 define('IN_GAME', true);
+define('IN_MAINTAIN', true);
 set_time_limit(0);
 
 //啥也不载入，只判断密钥是否匹配
@@ -27,8 +28,7 @@ if(!file_exists('tmp_replist.dat')){
 		{  
 			if( $entry!="." && $entry!=".." && !is_dir($source."/".$entry) && substr($entry, strlen($entry)-4)=='.dat')
 			{
-				if((substr($entry,0,1) == 's' && substr($entry,2,2) >= 67) || (substr($entry,0,1) != 's' && substr($entry,0,3) >= 453))
-					$list[] = $entry;
+				$list[] = $entry;
 			}
 		}
 	}

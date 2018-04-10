@@ -156,7 +156,7 @@ if ($___MOD_SRV)
 				{  
 					$___TEMP_pagestarttime=microtime();
 					__SOCKET_DEBUGLOG__("收到了一个新连接。");
-					if (($___TEMP_uid=__SOCKET_LOAD_DATA__($___TEMP_connection))!==false)
+					if (($___TEMP_uid=__SOCKET_LOAD_DATA__($___TEMP_connection))!==false)//注意这里$___TEMP_uid是带房间号前缀的
 					{
 						$___TEMP_WORKFLAG=1;
 						eval(import_module('sys','map','player','logger','itemmain','input'));
@@ -186,7 +186,7 @@ if ($___MOD_SRV)
 						}
 						else
 						{
-							writeover($___MOD_TMP_FILE_DIRECTORY.$___TEMP_uid,$jgamedata);
+							__SOCKET_SAVE_RESPONSE__($___TEMP_uid, $jgamedata);							
 						}
 						//返回消息给client
 						if (!__SOCKET_CHECK_WITH_TIMEOUT__($___TEMP_connection, 'w', 0, 200000))	
@@ -408,26 +408,12 @@ if(isset($command)){
 		ob_end_flush();
 		return;
 	}elseif('room_routine' == $command){//刷新房间内游戏状态
-		ignore_user_abort(1);
 		include_once './include/roommng/roommng.func.php';
 		room_all_routine();
 		return;
-	}elseif('maintain' == $command){//维护驻留进程
-		ignore_user_abort(1);
-		$dirpath = GAME_ROOT.'./gamedata/replays';//清空replays 文件夹下的所有非dat文件
-		if ($handle=opendir($dirpath)) 
-		{
-			while (($entry=readdir($handle))!==false)
-			{   
-				if($entry != '.' && $entry != '..'){
-					$exname = pathinfo($entry, PATHINFO_EXTENSION);
-					if($exname != 'dat' && $exname != 'gitignore') unlink($dirpath.'/'.$entry);
-				}
-			}
-		}
-		//清空1个月以上的被删除邮件
-		$dtime = $now - 86400*30;
-		$db->query("DELETE FROM {$gtablepre}del_messages WHERE dtimestamp <= $dtime");
+	}elseif('maintain' == $command || 3 == date('H', $now)){//凌晨3点自动维护，也可以手动启动维护
+		$mcode = 1+2+4+8;
+		include './include/auto_maintain/auto_maintain.inc.php';
 		return;
 	}
 }

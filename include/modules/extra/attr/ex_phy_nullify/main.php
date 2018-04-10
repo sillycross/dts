@@ -7,7 +7,7 @@ namespace ex_phy_nullify
 		eval(import_module('itemmain'));
 		$itemspkinfo['B'] = '物抹';
 		$itemspkdesc['B']='抹消受到的所有攻击方式的物理伤害至1';
-		$itemspkremark['B']='4%概率失效；注意本属性会被贯穿属性击穿。';
+		$itemspkremark['B']='4%概率失效；注意本属性会被物穿属性击穿。';
 	}
 	
 	function get_ex_phy_nullify_proc_rate(&$pa, &$pd, $active)

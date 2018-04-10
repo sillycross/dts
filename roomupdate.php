@@ -14,16 +14,17 @@ include GAME_ROOT.'./include/modules/core/sys/config/system.config.php';
 $_COOKIE=gstrfilter($_COOKIE);
 $cuser=$_COOKIE[$gtablepre.'user'];
 $cpass=$_COOKIE[$gtablepre.'pass'];
+$u_roomid=$_COOKIE[$gtablepre.'roomid'];
 
 $db = init_dbstuff();
 $udata = udata_check();
 
-$room_prefix = room_id2prefix($udata['roomid']);
+$room_prefix = room_id2prefix($u_roomid);
 $room_flag = 1;
 if (!room_check_subroom($room_prefix)) {
 	$room_flag = 0;
 }else{
-	$room_id_r = $udata['roomid'];//substr($udata['roomid'],1);
+	$room_id_r = $u_roomid;
 
 	ignore_user_abort(1);
 	
@@ -42,7 +43,8 @@ if (!room_check_subroom($room_prefix)) {
 	}
 }
 if(!$room_flag){
-	update_udata_by_username(array('roomid' => 0), $cuser);
+	set_current_roomid(0);
+	//update_udata_by_username(array('roomid' => 0), $cuser);
 	ob_clean();
 	$gamedata['url']='index.php';
 	echo gencode($gamedata);
