@@ -560,7 +560,7 @@ function curl_new_server($pass, $is_root=0)
 		'command'=>'start',
 		'is_root'=>$is_root
 	);
-	curl_post($url, $context, NULL, 0.1);
+	curl_post($url, $context, NULL, 2);
 }
 
 function http_build_cookiedata($cookie_arr){
