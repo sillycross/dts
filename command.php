@@ -245,7 +245,7 @@ if ($___MOD_SRV)
 					$___TEMP_a=array_keys(get_defined_vars());
 					foreach ($___TEMP_a as $___TEMP_key) 
 					{
-						if (strpos($___TEMP_key,'___LOCAL_')===0) continue;
+						if (strpos($___TEMP_key,'___LOCAL_')===0 && strpos($___TEMP_key,'___LOCAL_INPUT')!==0) continue;
 						if (strpos($___TEMP_key,'___PRESET_')===0) continue;
 						if (strpos($___TEMP_key,'___PRIVATE_')===0) continue;
 						if (strpos($___TEMP_key,'___TEMP')===0) continue;
