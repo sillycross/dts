@@ -16,6 +16,7 @@ gamedata/banlist.list
 gamedata/replays/*.*
 gamedata/remote_replays/
 gamedata/tmp/
+! callmesilly.txt
 templates/default/itemhelp.htm
 templates/default/tmp_*.htm
 *.bak
