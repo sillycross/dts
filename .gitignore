@@ -16,7 +16,6 @@ gamedata/banlist.list
 gamedata/replays/*.*
 gamedata/remote_replays/
 gamedata/tmp/
-! callmesilly.txt
 templates/default/itemhelp.htm
 templates/default/tmp_*.htm
 *.bak
@@ -27,3 +26,4 @@ templates/default/mixhelp.htm
 include/modules/extra/club/skills/skill206/desc - 副本.htm
 include/modules/extra/club/skills/skill206/main - 副本.php
 gamedata/adminlog_nf.php
+!callmesilly.txt
