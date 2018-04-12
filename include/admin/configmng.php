@@ -7,9 +7,12 @@ if($command == 'edit') {
 	
 	$ednum = 0;
 	$edfmt = Array('authkey'=>'','bbsurl'=>'','gtitle'=>'','gameurl'=>'','server_address'=>'','homepage'=>'','moveut'=>'int','moveutmin'=>'int','tplrefresh'=>'b','errorinfo'=>'b');
+	//system.config.php的也放这了
+	$edfmt_system = Array('userdb_remote_storage'=>'','userdb_remote_storage_sign'=>'','userdb_remote_storage_pass'=>'','replay_remote_send'=>'b','replay_remote_storage'=>'','replay_remote_storage_sign'=>'','replay_remote_storage_pass'=>'',);
+	$edfmt_both = array_merge($edfmt,$edfmt_system);
 	$edlist = Array();
 	$cmd_info = '';
-	foreach($edfmt as $key => $val){
+	foreach($edfmt_both as $key => $val){
 		if(isset($_POST[$key])){
 			${'o_'.$key} = ${$key};
 			if($val == 'int'){
@@ -34,24 +37,31 @@ if($command == 'edit') {
 	$cmd_info .= "提交的修改请求数量： $ednum <br>";
 	
 	if($ednum){
-		//$adminlog = '';
-		$cf = GAME_ROOT.'./include/modules/core/sys/config/server.config.php';
-		$config_cont = file_get_contents($cf);
-		foreach($edlist as $key => $val){
-			if($edfmt[$key] == 'int' || $edfmt[$key] == 'b'){
-				$config_cont = preg_replace("/[$]{$key}\s*\=\s*-?[0-9]+;/is", "\${$key} = ${$key};", $config_cont);
-			}else{
-				$config_cont = preg_replace("/[$]{$key}\s*\=\s*[\"'].*?[\"'];/is", "\${$key} = '${$key}';", $config_cont);
-			}
+		$runflagnotice = 0;
+		foreach(array('server', 'system') as $sn){
+			$cf = GAME_ROOT.'./include/modules/core/sys/config/'.$sn.'.config.php';
+			$config_cont = file_get_contents($cf);
+			$edfmt_system_key = array_keys($edfmt_system);
 			
-			//$adminlog .= setadminlog('configmng',$key,$val);
+			foreach($edlist as $key => $val){
+				if((!in_array($key, $edfmt_system_key) && 'server' == $sn) || (in_array($key, $edfmt_system_key) && 'system' == $sn)) {
+					if($edfmt_both[$key] == 'int' || $edfmt_both[$key] == 'b'){
+						$config_cont = preg_replace("/[$]{$key}\s*\=\s*-?[0-9]+;/is", "\${$key} = ${$key};", $config_cont);
+					}else{
+						$config_cont = preg_replace("/[$]{$key}\s*\=\s*[\"'].*?[\"'];/is", "\${$key} = '${$key}';", $config_cont);
+					}
+				}
+			}
+			file_put_contents($cf,$config_cont);
+			$cf_run = GAME_ROOT.'./gamedata/run/core/sys/config/'.$sn.'.config.adv.php';
+			if($___MOD_CODE_ADV1 && file_exists($cf_run)){
+				file_put_contents($cf_run,$config_cont);
+				$runflagnotice = 1;
+			}
 		}
-		file_put_contents($cf,$config_cont);
-		$cf_run = GAME_ROOT.'./gamedata/run/core/sys/config/server.config.adv.php';
-		if($___MOD_CODE_ADV1 && file_exists($cf_run)){
-			file_put_contents($cf_run,$config_cont);
-			$cmd_info .= '监测到ADV模式已打开，对应运行时文件已修改。<br>';
-		}
+		
+		if($runflagnotice) $cmd_info .= '监测到ADV模式已打开，对应运行时文件已修改。<br>';
+		
 		adminlog('configmng',gencode($edlist));
 		$cmd_info .= '服务参数已修改';
 	}

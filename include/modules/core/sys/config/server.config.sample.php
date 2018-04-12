@@ -4,7 +4,7 @@
 // [EN]	Set below parameters according to your account information provided by your hosting
 // [CH] 以下变量请根据空间商提供的账号参数修改 如有疑问,请联系服务器提供者
 
-	$server_address = 'http://127.0.0.1/dts'; 			//本地服务器域名，用于daemon，不要加最后的斜杠！建议这里用本地IP，最大程度加快速度
+	$server_address = 'http://127.0.0.1/dts'; 			//本地服务器域名，用于daemon，建议这里用本地IP，最大程度加快速度
 	
 	$dbhost = '127.0.0.1';			// database server
 						// 数据库服务器

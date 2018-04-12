@@ -11,7 +11,7 @@ $udata = udata_check();
 
 $admin_cmd_list = Array(
 	'configmng' => 7,
-	'systemmng' => 6,
+	'globalgamemng' => 6,
 	'gamecfgmng' => 6,
 	'gmlist' => 9,
 	'urlist' => 8,
