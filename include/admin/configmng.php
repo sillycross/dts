@@ -6,7 +6,7 @@ if(!defined('IN_ADMIN')) {
 if($command == 'edit') {
 	
 	$ednum = 0;
-	$edfmt = Array('authkey'=>'','bbsurl'=>'','gameurl'=>'','homepage'=>'','moveut'=>'int','moveutmin'=>'int','tplrefresh'=>'b','errorinfo'=>'b');
+	$edfmt = Array('authkey'=>'','bbsurl'=>'','gtitle'=>'','gameurl'=>'','server_address'=>'','homepage'=>'','moveut'=>'int','moveutmin'=>'int','tplrefresh'=>'b','errorinfo'=>'b');
 	$edlist = Array();
 	$cmd_info = '';
 	foreach($edfmt as $key => $val){
