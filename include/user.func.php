@@ -512,9 +512,9 @@ function timestamp_salt($pass, $offset=0){
 	return sha1($time.$pass);
 }
 
-//比较传来的加盐密码与本地加盐密码（误差1分钟）
+//比较传来的加盐密码与本地加盐密码（误差3分钟）
 function compare_ts_pass($rsha, $pass){
-	foreach(array(0, -1, 1) as $o) {
+	foreach(array(0, -1, 1, -2, 2, -3, 3) as $o) {
 		if($rsha === timestamp_salt($pass, $o)) {
 			return true;
 		}

@@ -32,18 +32,12 @@ if(!empty($pagecmd) && $pagecmd == 'upload'){
 		}elseif(2==$errno) {
 			$cmd_info = '覆盖后将导致管理员信息不正确';
 		}else{
-			global $userdb_forced_local; $userdb_forced_local=1;
-			$o_arr = fetch_udata(NULL,NULL,NULL,NULL,1);
-
-			$o_cont = '';
-			foreach($o_arr as $v){
-				$o_cont .= json_encode($v, JSON_UNESCAPED_UNICODE)."\r\n";
-			}
-			$odbname = 'old_db_'.uniqid().'.dat';
+			
 			$filepath = GAME_ROOT.'./gamedata/cache/user_backup';
 			if(!is_dir($filepath)) mymkdir($filepath);
+			$odbname = 'old_db_'.uniqid().'.dat';
 			$filepath .= '/';
-			file_put_contents($filepath.$odbname, $o_cont);
+			urlist_userdb_backup($filepath.$odbname);
 			$cmd_info = '旧数据库已保存为"'.$odbname.'"';
 			set_time_limit(0);
 			$db->query("TRUNCATE TABLE {$gtablepre}users");
@@ -57,14 +51,7 @@ if(!empty($pagecmd) && $pagecmd == 'upload'){
 	
 	$urcmd = '';
 }elseif(!empty($pagecmd) && $pagecmd == 'download'){
-	global $userdb_forced_local; $userdb_forced_local=1;
-	$udb = fetch_udata(NULL,NULL,NULL,NULL,1);
 
-	$cont = '';
-	foreach($udb as $v){
-		$cont .= json_encode($v, JSON_UNESCAPED_UNICODE)."\r\n";
-	}
-	//$cont = "<?php if(!defined('IN_ADMIN')) exit('Access Denied');\r\n".var_export($udb, 1);
 	$filepath = GAME_ROOT.'./gamedata/cache/user_backup';
 	if(!is_dir($filepath)) mymkdir($filepath);
 	$filepath .= '/';
@@ -72,16 +59,26 @@ if(!empty($pagecmd) && $pagecmd == 'upload'){
 	if(sizeof($sitename) <= 2) $sitename = $sitename[0];
 	else $sitename = $sitename[1];
 	$filename = 'userdb_'.$sitename.'_'.uniqid().'.dat';
-	file_put_contents($filepath.$filename, $cont);
-	
+	urlist_userdb_backup($filepath.$filename);
 	
 	adminlog('downloadurdata');
+	$file_size = filesize($filepath.$filename);
 	ob_clean();
 	header("Content-type: application/octet-stream");  
   header("Accept-Ranges: bytes");  
-  header("Accept-Length: ".filesize($filepath.$filename));  
+  header("Accept-Length: ".$file_size);  
   header("Content-Disposition: attachment; filename={$filename}");  
-  readfile($filepath.$filename);
+  $fp = fopen($filepath.$filename,"r");
+  $buffer_size = 4096;
+  $cur_pos = 0;
+    
+  while(!feof($fp))
+  {
+    $buffer = fread($fp,$buffer_size);
+    echo $buffer;
+    $cur_pos += $buffer_size;
+  }
+    
   die();
 }
 if(!isset($urcmd)){$urcmd = '';}
@@ -273,4 +270,15 @@ if($urcmd == 'ban' || $urcmd == 'unban' || $urcmd == 'del' || $urcmd == 'sendmes
 	$urcmd = 'list';
 }
 include template('admin_urlist');
+
+//直接读本地数据库比较快，也省内存
+function urlist_userdb_backup($file){
+	global $db, $gtablepre, $checkstr;
+	$result = $db->query("SELECT * FROM {$gtablepre}users");
+	writeover($file, $checkstr);
+	while($r = $db->fetch_array($result)){
+		writeover($file, json_encode($r, JSON_UNESCAPED_UNICODE)."\r\n", 'ab+');
+	}
+	return $file;
+}
 ?>
