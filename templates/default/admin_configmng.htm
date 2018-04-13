@@ -14,9 +14,14 @@
 	  <td>$lang['moveut_comment']<br>{$lang['orin_time']}{$orin_time}<br>{$lang['set_time']}{$set_time}</td>
 	</tr>
 	<tr>
-	  <td>$lang['authkey']</td>
-	  <td><input type="text" name="authkey" value="$authkey" size="30" disabled="true"></td>
-	  <td>$lang['authkey_comment']</td>
+	  <td>$lang['gtitle']</td>
+	  <td><input type="text" name="gtitle" value="$gtitle" size="30"></td>
+	  <td>$lang['gtitle_comment']</td>
+	</tr>
+	<tr>
+	  <td>$lang['server_address']</td>
+	  <td><input type="text" name="server_address" value="$server_address" size="30"></td>
+	  <td>$lang['server_address_comment']</td>
 	</tr>
 	<tr>
 	  <td>$lang['tplrefresh']</td>
@@ -42,6 +47,42 @@
 	  <td>$lang['homepage']</td>
 	  <td><input type="text" name="homepage" value="$homepage" size="30"></td>
 	  <td>$lang['homepage_comment']</td>
+	</tr>
+	
+	<tr>
+	  <td>$lang['userdb_remote_storage']</td>
+	  <td><input type="text" name="userdb_remote_storage" value="$userdb_remote_storage" size="30"></td>
+	  <td>$lang['userdb_remote_storage_comment']</td>
+	</tr>
+	<tr>
+	  <td>$lang['userdb_remote_storage_sign']</td>
+	  <td><input type="text" name="userdb_remote_storage_sign" value="$userdb_remote_storage_sign" size="30"></td>
+	  <td>$lang['userdb_remote_storage_sign_comment']</td>
+	</tr>
+	<tr>
+	  <td>$lang['userdb_remote_storage_pass']</td>
+	  <td><input type="text" name="userdb_remote_storage_pass" value="$userdb_remote_storage_pass" size="30"></td>
+	  <td>$lang['userdb_remote_storage_pass_comment']</td>
+	</tr>
+	<tr>
+	  <td>$lang['replay_remote_send']</td>
+	  <td><input type="radio" name="replay_remote_send" value="1" <!--{if $replay_remote_send}-->checked="true"<!--{/if}-->>$lang['on']&nbsp;&nbsp;&nbsp;<input type="radio" name="replay_remote_send" value="0" <!--{if !$replay_remote_send}-->checked="true"<!--{/if}-->>$lang['off']</td>
+	  <td>$lang['replay_remote_send_comment']</td>
+	</tr>
+	<tr>
+	  <td>$lang['replay_remote_storage']</td>
+	  <td><input type="text" name="replay_remote_storage" value="$replay_remote_storage" size="30"></td>
+	  <td>$lang['replay_remote_storage_comment']</td>
+	</tr>
+	<tr>
+	  <td>$lang['replay_remote_storage_sign']</td>
+	  <td><input type="text" name="replay_remote_storage_sign" value="$replay_remote_storage_sign" size="30"></td>
+	  <td>$lang['replay_remote_storage_sign_comment']</td>
+	</tr>
+	<tr>
+	  <td>$lang['replay_remote_storage_key']</td>
+	  <td><input type="text" name="replay_remote_storage_key" value="$replay_remote_storage_key" size="30"></td>
+	  <td>$lang['replay_remote_storage_key_comment']</td>
 	</tr>
 </table>
 <input type="submit" value="提交" onclick="$('command').value='edit';">

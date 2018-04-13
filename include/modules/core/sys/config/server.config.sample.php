@@ -1,94 +1,94 @@
 <?php
 
-//ÒÔÏÂÄÚÈÝÔÚÓÎÏ·°²×°Ê±³õÊ¼»¯£¬²»ÄÜÍ¨¹ýÓÎÏ·ºóÌ¨ÐÞ¸Ä
+//ä»¥ä¸‹å†…å®¹åœ¨æ¸¸æˆå®‰è£…æ—¶åˆå§‹åŒ–ï¼Œä¸èƒ½é€šè¿‡æ¸¸æˆåŽå°ä¿®æ”¹
 // [EN]	Set below parameters according to your account information provided by your hosting
-// [CH] ÒÔÏÂ±äÁ¿Çë¸ù¾Ý¿Õ¼äÉÌÌá¹©µÄÕËºÅ²ÎÊýÐÞ¸Ä ÈçÓÐÒÉÎÊ,ÇëÁªÏµ·þÎñÆ÷Ìá¹©Õß
+// [CH] ä»¥ä¸‹å˜é‡è¯·æ ¹æ®ç©ºé—´å•†æä¾›çš„è´¦å·å‚æ•°ä¿®æ”¹ å¦‚æœ‰ç–‘é—®,è¯·è”ç³»æœåŠ¡å™¨æä¾›è€…
 
-	$server_address = 'http://127.0.0.1/dts'; 			//±¾µØ·þÎñÆ÷ÓòÃû£¬ÓÃÓÚdaemon£¬²»Òª¼Ó×îºóµÄÐ±¸Ü£¡½¨ÒéÕâÀïÓÃ±¾µØIP£¬×î´ó³Ì¶È¼Ó¿ìËÙ¶È
+	$server_address = 'http://127.0.0.1/dts'; 			//æœ¬åœ°æœåŠ¡å™¨åŸŸåï¼Œç”¨äºŽdaemonï¼Œå»ºè®®è¿™é‡Œç”¨æœ¬åœ°IPï¼Œæœ€å¤§ç¨‹åº¦åŠ å¿«é€Ÿåº¦
 	
 	$dbhost = '127.0.0.1';			// database server
-						// Êý¾Ý¿â·þÎñÆ÷
+						// æ•°æ®åº“æœåŠ¡å™¨
 
 	$dbuser = 'root';			// database username
-						// Êý¾Ý¿âÓÃ»§Ãû
+						// æ•°æ®åº“ç”¨æˆ·å
 
 	$dbpw = 'root';			// database password
-						// Êý¾Ý¿âÃÜÂë
+						// æ•°æ®åº“å¯†ç 
 
 	$dbname = 'acdts';			// database name
-						// Êý¾Ý¿âÃû
+						// æ•°æ®åº“å
 
 	$dbreport = 1;				// send db error report? 1=yes
-						// ÊÇ·ñ·¢ËÍÊý¾Ý¿â´íÎó±¨¸æ? 0=ÊÇ 1=·ñ
+						// æ˜¯å¦å‘é€æ•°æ®åº“é”™è¯¯æŠ¥å‘Š? 0=æ˜¯ 1=å¦
 
 // [EN] If you have problems logging in Discuz!, then modify the following parameters, else please leave default
-// [CH] ÈçÄú?cookie ×÷ÓÃ·¶Î§ÓÐÌØÊâÒªÇó»òÓÎÏ·µÇÂ¼²»Õý³£,ÇëÐÞ¸ÄÏÂÃæ±äÁ¿·ñÔòÇë±£³ÖÄ¬ÈÏ
+// [CH] å¦‚æ‚¨?cookie ä½œç”¨èŒƒå›´æœ‰ç‰¹æ®Šè¦æ±‚æˆ–æ¸¸æˆç™»å½•ä¸æ­£å¸¸,è¯·ä¿®æ”¹ä¸‹é¢å˜é‡å¦åˆ™è¯·ä¿æŒé»˜è®¤
 
 	$cookiedomain = ''; 			// cookie domain
-						// cookie ×÷ÓÃÓò
+						// cookie ä½œç”¨åŸŸ
 
 	$cookiepath = '/';			// cookie path
-						// cookie ×÷ÓÃÂ·¾¶
+						// cookie ä½œç”¨è·¯å¾„
 
 
 // [EN] Special parameters, DO NOT modify these unless you are an expert in Discuz!
-// [CH] ÒÔÏÂ±äÁ¿ÎªÌØ±ðÑ¡Ïî,Ò»°ãÇé¿öÏÂÃ»ÓÐ±ØÒªÐÞ¸Ä
+// [CH] ä»¥ä¸‹å˜é‡ä¸ºç‰¹åˆ«é€‰é¡¹,ä¸€èˆ¬æƒ…å†µä¸‹æ²¡æœ‰å¿…è¦ä¿®æ”¹
 
 	$headercharset = 0;			// force outputing charset header
-						// Ç¿ÖÆÉèÖÃ×Ö·û¼¯£¬Ö»ÂÒÂëÊ±Ê¹ÓÃ
+						// å¼ºåˆ¶è®¾ç½®å­—ç¬¦é›†ï¼Œåªä¹±ç æ—¶ä½¿ç”¨
 
 	$onlinehold = 900;			// time span of online recording
-						// ÔÚÏß±£³ÖÊ±¼ä,µ¥Î»Ãë
+						// åœ¨çº¿ä¿æŒæ—¶é—´,å•ä½ç§’
 
 	$pconnect = true;				// persistent database connection, 0=off, 1=on
-						// Êý¾Ý¿â³Ö¾ÃÁ¬½Ó false=¹Ø±Õ, true=´ò¿ª mysqlÖ®ÍâµÄÄ£Ê½¿ÉÄÜ²»ÊÊÓÃ
+						// æ•°æ®åº“æŒä¹…è¿žæŽ¥ false=å…³é—­, true=æ‰“å¼€ mysqlä¹‹å¤–çš„æ¨¡å¼å¯èƒ½ä¸é€‚ç”¨
 
 	$gamefounder = 'admin';			// super administrator's UID
-						// ÓÎÏ·´´Ê¼ÈËUID£¬Ïàµ±ÓÚÈ¨ÏÞ10
+						// æ¸¸æˆåˆ›å§‹äººUIDï¼Œç›¸å½“äºŽæƒé™10
 
 	$moveut = 8; //set the difference of server time and client time
-			//Èç¹û±¾µØÊ±¼ä¸ú·þÎñÆ÷Ê±¼äÓÐÊ±²î£¬ÔÚ´Ë´¦¸ü¸Ä
+			//å¦‚æžœæœ¬åœ°æ—¶é—´è·ŸæœåŠ¡å™¨æ—¶é—´æœ‰æ—¶å·®ï¼Œåœ¨æ­¤å¤„æ›´æ”¹
 
 	$moveutmin = 0; //set the difference of server time and client time, by minutes
-	//Èç¹û±¾µØÊ±¼ä¸ú·þÎñÆ÷Ê±¼äÓÐ·ÖÖÓ²î£¬ÔÚ´Ë´¦¸ü¸Ä£¬µ¥Î»·ÖÖÓ
+	//å¦‚æžœæœ¬åœ°æ—¶é—´è·ŸæœåŠ¡å™¨æ—¶é—´æœ‰åˆ†é’Ÿå·®ï¼Œåœ¨æ­¤å¤„æ›´æ”¹ï¼Œå•ä½åˆ†é’Ÿ
 
 // [EN] !ATTENTION! Do NOT modify following after your board was settle down
-// [CH] ÓÎÏ·Í¶ÈëÊ¹ÓÃºó²»ÄÜÐÞ¸ÄµÄ±äÁ¿
+// [CH] æ¸¸æˆæŠ•å…¥ä½¿ç”¨åŽä¸èƒ½ä¿®æ”¹çš„å˜é‡
 
-	$gtablepre = 'acbra2_';   			// ±íÃûÇ°×º, Í¬Ò»Êý¾Ý¿â°²×°¶à¸öÓÎÏ·ÇëÐÞ¸Ä´Ë´¦
+	$gtablepre = 'acbra2_';   			// è¡¨åå‰ç¼€, åŒä¸€æ•°æ®åº“å®‰è£…å¤šä¸ªæ¸¸æˆè¯·ä¿®æ”¹æ­¤å¤„
 						// table prefix, modify this when you are installingmore than 1 Discuz! in the same database.
 
 	$authkey = 'bra';		//game encrypt key ,the same of plus key
-						//ÓÎÏ·¼ÓÃÜÃÜÔ¿£¬ÒªÓë²å¼þÃÜÔ¿ÏàÍ¬
+						//æ¸¸æˆåŠ å¯†å¯†é’¥ï¼Œè¦ä¸Žæ’ä»¶å¯†é’¥ç›¸åŒ
 
 // [EN] !ATTENTION! Preservation or debugging for developing
-// [CH] ÇÐÎðÐÞ¸ÄÒÔÏÂ±äÁ¿,½ö¹©³ÌÐò¿ª·¢µ÷ÊÔÓÃ!
+// [CH] åˆ‡å‹¿ä¿®æ”¹ä»¥ä¸‹å˜é‡,ä»…ä¾›ç¨‹åºå¼€å‘è°ƒè¯•ç”¨!
 
 	$database = 'mysql';			// 'mysql' for MySQL version and 'pgsql' for PostgreSQL version
-						// MySQL °æ±¾ÇëÉèÖÃ'mysql', MySQLi °æ±¾ÇëÉèÖÃ'mysqli'
+						// MySQL ç‰ˆæœ¬è¯·è®¾ç½®'mysql', MySQLi ç‰ˆæœ¬è¯·è®¾ç½®'mysqli'
 
 	$charset = 'utf-8';			// default character set, 'gbk', 'big5', 'utf-8' are available
-						// ÓÎÏ·Ä¬ÈÏ×Ö·û¼¯ ¿ÉÑ¡'gbk', 'big5', 'utf-8'
+						// æ¸¸æˆé»˜è®¤å­—ç¬¦é›† å¯é€‰'gbk', 'big5', 'utf-8'
 
 	$dbcharset = 'utf8';			// default database character set, 'gbk', 'big5', 'utf8', 'latin1' and blank are available
-						// MySQL ×Ö·û¼¯ ¿ÉÑ¡'gbk', 'big5', 'utf8', 'latin1', Áô¿ÕÎª°´ÕÕÓÎÏ·×Ö·û¼¯Éè¶¨
+						// MySQL å­—ç¬¦é›† å¯é€‰'gbk', 'big5', 'utf8', 'latin1', ç•™ç©ºä¸ºæŒ‰ç…§æ¸¸æˆå­—ç¬¦é›†è®¾å®š
 
 	$tplrefresh = 1;			// auto check validation of templates, 0=off, 1=on
-						// Ä£°å×Ô¶¯Ë¢ÐÂ¿ª¹Ø 0=¹Ø±Õ, 1=´ò¿ª, ÔÚ²»ÐÞ¸ÄÒ³ÃæµÄÇé¿öÏÂ¿ÉÒÔ¹Ø±Õ
+						// æ¨¡æ¿è‡ªåŠ¨åˆ·æ–°å¼€å…³ 0=å…³é—­, 1=æ‰“å¼€, åœ¨ä¸ä¿®æ”¹é¡µé¢çš„æƒ…å†µä¸‹å¯ä»¥å…³é—­
 
-	$bbsurl = 'http://000.76573.org/';    //the bbs url for the game plus
-									//°²×°ÓÎÏ·²å¼þµÄÂÛÌ³µØÖ·
+	$bbsurl = 'http://6666.76573.org/';    //the bbs url for the game plus
+									//å®‰è£…æ¸¸æˆæ’ä»¶çš„è®ºå›åœ°å€
 
 	$gameurl = 'http://127.0.0.1/dts';    // the url of game program files,for the full-window mode
-									//ÓÎÏ·ÓòÃûµØÖ·£¬ÓÃÓÚ½çÃæÁ´½Ó
+									//æ¸¸æˆåŸŸååœ°å€ï¼Œç”¨äºŽç•Œé¢é“¾æŽ¥
 
 	$homepage = 'http://soul573.com/';      // game homepage
-									//¹Ù·½ÍøÕ¾µØÖ·
+									//å®˜æ–¹ç½‘ç«™åœ°å€
 
-	$title = 'µç ²¨ ´ó ÌÓ É±';     //game title
-							//ÓÎÏ·±êÌâ ²»Æð×÷ÓÃ£¬ÒÑ·ÏÆú£¬ÇëÈ¥template.lang.phpÀïÐÞ¸Ä
+	$gtitle = 'ACFUN å¤§ é€ƒ æ€';     //game title
+							//æ¸¸æˆæ ‡é¢˜
 
-	$errorinfo = 1;				//ÊÇ·ñ¿ªÆô´íÎóÐÅÏ¢ÌáÊ¾£¬1Îª¿ªÆô£¬0Îª¹Ø±Õ¡£¿ªÆô»áÐ¹Â©ÓÎÏ·°²×°Â·¾¶
+	$errorinfo = 1;				//æ˜¯å¦å¼€å¯é”™è¯¯ä¿¡æ¯æç¤ºï¼Œ1ä¸ºå¼€å¯ï¼Œ0ä¸ºå…³é—­ã€‚å¼€å¯ä¼šæ³„æ¼æ¸¸æˆå®‰è£…è·¯å¾„
 
 	
 // ============================================================================

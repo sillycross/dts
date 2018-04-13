@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=$charset">
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv='expires' content='0'>
-<title> {lang title} </title>
+<title> $gtitle </title>
 <!--{if isset($extrahead)}-->$extrahead<!--{/if}-->
 
 <link rel="stylesheet" type="text/css" id="css" href="gamedata/config/style_1.20180305.css">
@@ -51,7 +51,7 @@ jQuery.noConflict();
 
 </head>
 <BODY <!--{if CURSCRIPT == 'game'}-->onkeyup="hotkey(event);"<!--{if !empty($gamestate) && $gamestate >= 40}-->style="background-image:url('img/PB2.gif');"<!--{/if}--><!--{/if}-->>
-<div class="title" >{lang title}</div>
+<div class="title" >$gtitle</div>
 
 <div class="headerlink" >
 <a href="index.php">>>{lang index}</a>

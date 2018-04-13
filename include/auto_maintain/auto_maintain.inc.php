@@ -70,6 +70,28 @@ if($mcode & 8) {
 		am_log("All replay files sent to remote server and created over 30 days ago deleted. Affected $am_num files.");
 	}
 }
+if($mcode & 16) {
+	//保留3天的用户数据
+	$dir = GAME_ROOT.'./gamedata/cache/user_backup';
+	if(!is_dir($dir)) mymkdir($dir);
+	//加锁，不然如果穿透就爆数据了
+	$lstate = check_lock($dir.'/', 'userdb_auto_backup', 60);
+	if(!$lstate) create_lock($dir.'/', 'userdb_auto_backup');
+	if(file_exists($dir.'/'.'userdb_0.php')) unlink($dir.'/'.'userdb_0.php');
+	if(file_exists($dir.'/'.'userdb_1.php')) rename($dir.'/'.'userdb_1.php', $dir.'/'.'userdb_0.php');
+	if(file_exists($dir.'/'.'userdb_2.php')) rename($dir.'/'.'userdb_2.php', $dir.'/'.'userdb_1.php');
+	$file = 'userdb_2.php';
+	writeover($dir.'/'.$file, $checkstr);
+	//这里只读取本地数据库
+	$result = $db->query("SELECT * FROM {$gtablepre}users");
+	$am_num = 0;
+	while($r = $db->fetch_array($result)){
+		writeover($dir.'/'.$file, json_encode($r, JSON_UNESCAPED_UNICODE)."\r\n", 'ab+');
+		$am_num ++;
+	}
+	release_lock($dir.'/', 'userdb_auto_backup');
+	am_log("Userdb backuped. Affected $am_num records.");
+}
 
 am_log("Auto-maintaining finished.\r\n-------------------------------------------------");
 

@@ -34,10 +34,10 @@ foreach($adminlogdata as $aval){
 		$show_o = '修改屏蔽词/IP';
 		$nmlimit = gdecode($p1,1);$iplimit = gdecode($p2,1);
 		$show_p = '用户名屏蔽：<br>'.htmlentities($nmlimit).'<br>IP屏蔽：<br>'.htmlentities($iplimit);
-	}elseif('configmng'==$o || 'gamecfgmng'==$o || 'systemmng'==$o){
+	}elseif('configmng'==$o || 'gamecfgmng'==$o || 'globalgamemng'==$o){
 		$show_o = $lang[$o];
 //		if('configmng'==$o) $show_o = '底层参数设置';
-//		elseif('systemmng'==$o) $show_o = '全局参数设置';
+//		elseif('globalgamemng'==$o) $show_o = '全局参数设置';
 //		elseif('gamecfgmng'==$o) $show_o = '游戏参数设置';
 		$edlist = gdecode($p1,1);
 		foreach($edlist as $edk => $edv){

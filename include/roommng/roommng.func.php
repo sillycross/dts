@@ -629,7 +629,6 @@ function room_getteamhtml(&$roomdata, $u)
 }
 
 function room_init_db_process($room_id){
-	if (eval(__MAGIC__)) return $___RET_VALUE;
 	global $gtablepre,$db;
 	$room_prefix = room_id2prefix($room_id);
 	$init_state = 0;
