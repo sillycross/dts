@@ -1327,9 +1327,8 @@ function dir_clear($dir) {
 	global $lang;
 
 	echo $lang['clear_dir'].' '.$dir;
-	while(!($directory = dir($dir))){
-		mkdir($dir);
-		chmod(0777, $dir);
+	while(!($directory = @dir($dir))){
+		@mkdir($dir, 0777);
 	}
 	while($entry = $directory->read()) {
 		$filename = $dir.'/'.$entry;
