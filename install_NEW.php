@@ -1166,11 +1166,11 @@ loginit('adminlog');
 loginit('newsinfo');
 
 dir_clear('./gamedata/bak');
-//dir_clear('./gamedata/log');
-//dir_clear('./gamedata/mapitem');
-//dir_clear('./gamedata/shopitem');
-dir_clear('./gamedata/templates');
+dir_clear('./gamedata/cache');
+dir_clear('./gamedata/javascript');
+dir_clear('./gamedata/remote_replays');
 dir_clear('./gamedata/replays');
+dir_clear('./gamedata/templates');
 
 dir_clear('./gamedata/tmp/log');
 dir_clear('./gamedata/tmp/news');
@@ -1327,7 +1327,9 @@ function dir_clear($dir) {
 	global $lang;
 
 	echo $lang['clear_dir'].' '.$dir;
-	$directory = dir($dir);
+	while(!($directory = @dir($dir))){
+		@mkdir($dir, 0777);
+	}
 	while($entry = $directory->read()) {
 		$filename = $dir.'/'.$entry;
 		if(is_file($filename) && $entry != '.gitignore') {

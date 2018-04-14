@@ -4,6 +4,8 @@ if(!defined('IN_GAME')) {
 	exit('Access Denied');
 }
 
+include_once GAME_ROOT.'./include/auto_maintain/auto_maintain_misc.func.php';
+
 $am_logfile = GAME_ROOT.'./gamedata/tmp/log/auto_maintain.txt';
 //24小时内执行过维护，则直接返回
 if(file_exists($am_logfile) && time() - filemtime($am_logfile) < 86400) return;
@@ -94,12 +96,6 @@ if($mcode & 16) {
 }
 
 am_log("Auto-maintaining finished.\r\n-------------------------------------------------");
-
-function am_log($mlog)
-{
-	global $am_logfile;
-	writeover($am_logfile, $mlog."\r\n", 'ab+');
-}
 
 /* End of file auto_maintain.inc.php */
 /* Location: /include/auto_maintain/auto_maintain.inc.php */
