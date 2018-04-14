@@ -414,7 +414,7 @@ if(isset($command)){
 	}elseif('maintain' == $command || 3 == date('H', $now)){//凌晨3点自动维护，也可以手动启动维护
 		$mcode = 1+2+4+8+16;
 		include './include/auto_maintain/auto_maintain.inc.php';
-		return;
+		if('maintain' == $command) return;
 	}
 }
 
