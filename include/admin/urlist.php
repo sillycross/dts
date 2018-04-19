@@ -2,8 +2,11 @@
 if(!defined('IN_ADMIN')) {
 	exit('Access Denied');
 }
+
+//这个文件只能调本地用户
 global $userdb_forced_local;
 $userdb_forced_local = 1;
+
 if(!empty($pagecmd) && $pagecmd == 'upload'){
 	if(!isset($_FILES['uploadfile']) || empty($_FILES['uploadfile']['name'])) {
 		$cmd_info = "不能上传空文件";
@@ -33,8 +36,7 @@ if(!empty($pagecmd) && $pagecmd == 'upload'){
 			$cmd_info = '覆盖后将导致管理员信息不正确';
 		}else{
 			
-			$filepath = GAME_ROOT.'./gamedata/cache/user_backup';
-			if(!is_dir($filepath)) mymkdir($filepath);
+			$filepath = dir_init(GAME_ROOT.'./gamedata/cache/user_backup');
 			$odbname = 'old_db_'.uniqid().'.dat';
 			$filepath .= '/';
 			urlist_userdb_backup($filepath.$odbname);
@@ -51,9 +53,7 @@ if(!empty($pagecmd) && $pagecmd == 'upload'){
 	
 	$urcmd = '';
 }elseif(!empty($pagecmd) && $pagecmd == 'download'){
-
-	$filepath = GAME_ROOT.'./gamedata/cache/user_backup';
-	if(!is_dir($filepath)) mymkdir($filepath);
+	$filepath = dir_init(GAME_ROOT.'./gamedata/cache/user_backup');
 	$filepath .= '/';
 	$sitename = explode('.',gurl());
 	if(sizeof($sitename) <= 2) $sitename = $sitename[0];

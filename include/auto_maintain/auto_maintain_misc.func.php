@@ -82,8 +82,7 @@ function am_main($mcode)
 	if($mcode & 16) {
 		global $checkstr;
 		//保留3天的用户数据
-		$dir = GAME_ROOT.'./gamedata/cache/user_backup';
-		if(!is_dir($dir)) mymkdir($dir);
+		$dir = dir_init(GAME_ROOT.'./gamedata/cache/user_backup');
 		//加锁，不然如果穿透就爆数据了
 		$lstate = check_lock($dir.'/', 'userdb_auto_backup', 60);
 		if(!$lstate) create_lock($dir.'/', 'userdb_auto_backup');

@@ -53,7 +53,6 @@ namespace player
 		eval(import_module('sys'));
 		if(!defined('IN_COMMAND') && !$forced) return 3;//若没开启$forced，COMMAND以外的指令不加锁
 		if(isset($pdata_lock_pool[$pdid])) return 1;//如果玩家池已存在，认为已经上锁了
-		//if(!is_dir(GAME_ROOT.'./gamedata/tmp/playerlock/')) mymkdir(GAME_ROOT.'./gamedata/tmp/playerlock/');
 		$dir = GAME_ROOT.'./gamedata/tmp/playerlock/room'.$groomid.'/';
 		$file = 'player_'.$pdid.'.nlk';
 		$lstate = check_lock($dir, $file, 2000);//最多允许2秒等待，之后穿透

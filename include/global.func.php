@@ -138,7 +138,7 @@ function check_lock($dirname, $filename, $timeout=0, $key='')
 //如果文件已经存在且跟$key不对应，返回false
 function create_lock($dirname, $filename, $key='')
 {
-	if(!file_exists($dirname)) mymkdir($dirname);
+	dir_init($dirname);
 	if(!file_exists($dirname.$filename)) {
 		if($key) file_put_contents($dirname.$filename, $key);
 		else touch($dirname.$filename);
@@ -155,7 +155,7 @@ function create_lock($dirname, $filename, $key='')
 //远程锁最多有效10秒
 function release_lock($dirname, $filename, $key='')
 {
-	if(!file_exists($dirname)) mymkdir($dirname);
+	dir_init($dirname);
 	if(file_exists($dirname.$filename)) {
 		$cont = trim(file_get_contents($dirname.$filename));
 		if(empty($cont) || $key == $cont || time() - filemtime($dirname.$filename) > 10) unlink($dirname.$filename);
@@ -406,6 +406,12 @@ function mymkdir($pa)
 	mkdir($pa); chmod($pa, 0777);
 }
 
+function dir_init($pa)
+{
+	if(!is_dir($pa)) create_dir($pa);
+	return $pa;
+}
+
 function create_dir($pa)	//建立目录（自动创建不存在的父文件夹），别用父目录符号“../”
 {
 	strpos($pa,'..')!==false && debug_print_backtrace() && exit('Forbidden');
@@ -429,7 +435,7 @@ function create_dir($pa)	//建立目录（自动创建不存在的父文件夹�
 
 function copy_dir($source, $destination, $filetype='')		//递归复制目录
 {   
-	if(!is_dir($destination)) mymkdir($destination);
+	dir_init($destination);
 	if ($source[strlen($source)-1]=='/') $source=substr($source,0,-1);
 	if ($destination[strlen($destination)-1]=='/') $destination=substr($destination,0,-1);
 	if ($handle=opendir($source)) 
