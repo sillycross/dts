@@ -430,9 +430,7 @@ namespace cardbase
 	function parse_card_gaining_method()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		//自动生成目录
 		$dir = GAME_ROOT.'./gamedata/cache';
-		if(!file_exists($dir)) mymkdir($dir);
 		//生成文件名
 		$filename = 'card_gaining_method';
 		$file = $dir.'/'.$filename.'.config.php';

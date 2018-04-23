@@ -2,7 +2,9 @@
 if(!defined('IN_ADMIN')) {
 	exit('Access Denied');
 }
-
+//这个文件只能调本地管理员
+global $userdb_forced_local;
+$userdb_forced_local = 1;
 $gmdata = fetch_udata('uid,username,groupid', 'groupid > 1', 'groupid DESC', 2);
 $cmd_info = '';
 if($command == 'add') {

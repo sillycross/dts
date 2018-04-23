@@ -2,9 +2,62 @@
 if(!defined('IN_ADMIN')) {
 	exit('Access Denied');
 }
+
+//这个文件只能调本地用户
 global $userdb_forced_local;
 $userdb_forced_local = 1;
-if(!empty($pagecmd) && $pagecmd == 'upload'){
+
+$recover_dir = GAME_ROOT.'./gamedata/cache/user_backup';
+$user_backup_list = array();
+$user_backup_date_list = array();
+if ($handle=opendir($recover_dir)) 
+{
+	while (($entry=readdir($handle))!==false) 
+	{
+		if ($entry!='.' && $entry!='..' && in_array(pathinfo($entry,PATHINFO_EXTENSION),array('dat','php'))) 
+		{
+			$user_backup_list[] = $entry;
+			$user_backup_date_list[] = date("Y-m-d H:i:s", filemtime($recover_dir.'/'.$entry) + $now - time());
+		}
+	}
+}
+
+if(!empty($pagecmd) && $pagecmd == 'recover'){
+	if(empty($recover_file) || !in_array($recover_file, $user_backup_list)){
+		$cmd_info = "恢复参数错误";
+	}else{
+		$cont = file_get_contents($recover_dir.'/'.$recover_file);
+		if(empty($cont)) $cmd_info = "文件格式错误";
+		else{
+			set_time_limit(0);
+			$filepath = dir_init($recover_dir);
+			$odbname = 'old_db_'.uniqid().'.php';
+			$filepath .= '/';
+			urlist_userdb_backup($filepath.$odbname);
+			$cmd_info = '旧数据库已保存为"'.$odbname.'"';
+			$db->query("TRUNCATE TABLE {$gtablepre}users");
+			$cont = explode("\n", $cont);
+			$cont_size = sizeof($cont);
+			$cont_arr = array();
+			$i = 0;
+			foreach($cont as $ci => $cv){
+				if(strpos($cv, '<?php')===0) continue;
+				$cv = json_decode(trim($cv),1);
+				if(isset($cv['username']) ) {
+					$cont_arr[] = $cv;
+					$i ++;
+				}
+				//一个记录可能有400个字符，达到1M时insert1次
+				if(sizeof($cont_arr) >= 2500 || $ci >= $cont_size - 1) {
+					insert_udata($cont_arr);
+					$cont_arr = array();
+				}
+			}
+			$cmd_info .= '<br>'.$i.'条记录已恢复，用户数据恢复成功';
+		}
+	}
+	$urcmd = '';
+}elseif(!empty($pagecmd) && $pagecmd == 'upload'){
 	if(!isset($_FILES['uploadfile']) || empty($_FILES['uploadfile']['name'])) {
 		$cmd_info = "不能上传空文件";
 	}elseif($_FILES['uploadfile']['error'] > 0) {
@@ -33,9 +86,8 @@ if(!empty($pagecmd) && $pagecmd == 'upload'){
 			$cmd_info = '覆盖后将导致管理员信息不正确';
 		}else{
 			
-			$filepath = GAME_ROOT.'./gamedata/cache/user_backup';
-			if(!is_dir($filepath)) mymkdir($filepath);
-			$odbname = 'old_db_'.uniqid().'.dat';
+			$filepath = dir_init($recover_dir);
+			$odbname = 'old_db_'.uniqid().'.php';
 			$filepath .= '/';
 			urlist_userdb_backup($filepath.$odbname);
 			$cmd_info = '旧数据库已保存为"'.$odbname.'"';
@@ -51,14 +103,12 @@ if(!empty($pagecmd) && $pagecmd == 'upload'){
 	
 	$urcmd = '';
 }elseif(!empty($pagecmd) && $pagecmd == 'download'){
-
-	$filepath = GAME_ROOT.'./gamedata/cache/user_backup';
-	if(!is_dir($filepath)) mymkdir($filepath);
+	$filepath = dir_init(GAME_ROOT.'./gamedata/cache/user_backup');
 	$filepath .= '/';
 	$sitename = explode('.',gurl());
 	if(sizeof($sitename) <= 2) $sitename = $sitename[0];
 	else $sitename = $sitename[1];
-	$filename = 'userdb_'.$sitename.'_'.uniqid().'.dat';
+	$filename = 'userdb_'.$sitename.'_'.uniqid().'.php';
 	urlist_userdb_backup($filepath.$filename);
 	
 	adminlog('downloadurdata');

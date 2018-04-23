@@ -12,7 +12,7 @@ namespace aprilfool2018
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		eval(import_module('sys'));
 		$ret = $chprocess();
-		if(in_array($gametype, array(0,4)) && \achievement_base\check_achtype_available(34)) {
+		if(in_array($gametype, array(0,4)) && 1 == \achievement_base\check_achtype_available(34)) {
 			eval(import_module('aprilfool2018'));
 			foreach($snpcinfo as $i => $v){
 				$ret[$i] = $v;
@@ -26,7 +26,7 @@ namespace aprilfool2018
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		$npc = $chprocess($npc, $plslist);
 		eval(import_module('sys'));
-		if(in_array($gametype, array(0,4)) && \achievement_base\check_achtype_available(34) && 41 == $npc['type']) {
+		if(in_array($gametype, array(0,4)) && 1 == \achievement_base\check_achtype_available(34) && 41 == $npc['type']) {
 			eval(import_module('player'));
 			$newsname=$typeinfo[$npc['type']].' '.$npc['name'];
 			\sys\addnews(0, 'addnpc_pls', $newsname, '', $npc['pls']);
@@ -39,7 +39,7 @@ namespace aprilfool2018
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		eval(import_module('sys'));
 		$ret = $chprocess($data);
-		if(in_array($gametype, array(0,4)) && \achievement_base\check_achtype_available(34)) {
+		if(in_array($gametype, array(0,4)) && 1 == \achievement_base\check_achtype_available(34)) {
 			if('安雅人体冰雕' == $ret[4]) $ret[1] *= 10;
 		}
 		return $ret;

@@ -66,7 +66,6 @@ namespace itemnumlist
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		//自动生成目录
 		$dir = GAME_ROOT.'./gamedata/cache';
-		if(!file_exists($dir)) mymkdir($dir);
 		//生成文件名
 		if(!$filename) return false;
 		$file = $dir.'/'.$filename.'.config.php';

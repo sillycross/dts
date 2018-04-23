@@ -14,6 +14,7 @@ if(PHP_VERSION < '5.5.0') {
 }
 
 require GAME_ROOT.'./include/global.func.php';
+dir_init(GAME_ROOT.'./gamedata/cache');
 
 $___TEMP_pagestart_time=getmicrotime();
 
