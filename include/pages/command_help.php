@@ -29,24 +29,24 @@ if(!file_exists($writefile) || filemtime($mixfile) > filemtime($writefile)){
 	}
 	
 	$mixclass = array(
-		'wp'=> array('殴系武器','yellow'),
-		'wk'=> array('斩系武器','yellow'),
-		'wg'=> array('射系武器','yellow'),
-		'wc'=> array('投系武器','yellow'),
-		'wd'=> array('爆系武器','yellow'),
-		'wf'=> array('灵系武器','yellow'),
-		'w' => array('其他武器','yellow'),
-		'd' => array('防具','yellow'),
-		'h' => array('补给品','lime'),
-		'wp_mrm'=> array('殴系武器（人形降临系列）','yellow'),
-		'wf_pn'=> array('灵系武器（帕秋莉·诺雷姬系列）','yellow'),
-		'wf_ks'=> array('灵系武器（古明地觉系列）','yellow'),
-		'pokemon'=> array('小黄系武器','yellow'),
-		'ocg'=> array('游戏王系武器','clan'),
-		'key'=> array('KEY系道具','lime'),
-		'cube'=> array('方块系道具','yellow'),
-		'madoka'=> array('最终战术系道具','yellow'),
-		'item'=> array('其他道具','yellow'),
+		'wp'=> array('殴系武器','yellow b'),
+		'wk'=> array('斩系武器','yellow b'),
+		'wg'=> array('射系武器','yellow b'),
+		'wc'=> array('投系武器','yellow b'),
+		'wd'=> array('爆系武器','yellow b'),
+		'wf'=> array('灵系武器','yellow b'),
+		'w' => array('其他武器','yellow b'),
+		'd' => array('防具','yellow b'),
+		'h' => array('补给品','lime b'),
+		'wp_mrm'=> array('殴系武器（人形降临系列）','yellow b'),
+		'wf_pn'=> array('灵系武器（帕秋莉·诺雷姬系列）','yellow b'),
+		'wf_ks'=> array('灵系武器（古明地觉系列）','yellow b'),
+		'pokemon'=> array('小黄系武器','yellow b'),
+		'ocg'=> array('游戏王系武器','cyan b'),
+		'key'=> array('KEY系道具','lime b'),
+		'cube'=> array('方块系道具','yellow b'),
+		'madoka'=> array('最终战术系道具','yellow b'),
+		'item'=> array('其他道具','yellow b'),
 		);
 	$mixhelpinfo = '';
 	foreach($mixitem as $class => $list){
@@ -138,7 +138,7 @@ if(!file_exists($writefile) || filemtime($syncfile) > filemtime($writefile)){
 			$syncitem[] = $sync_arr;
 		}
 	}
-	$synchelpinfo = '<p><span class="yellow">通常同调合成表</span>：</p>';
+	$synchelpinfo = '<p><span class="yellow b">通常同调合成表</span>：</p>';
 	$synchelpinfo .= <<<'SYNC_HELP_INFO_DOC'
 <table>
 	<tr>
@@ -146,7 +146,7 @@ if(!file_exists($writefile) || filemtime($syncfile) > filemtime($writefile)){
 		<td class="b1"><span>用途</span></td>
 	</tr>
 SYNC_HELP_INFO_DOC;
-	$synchelpinfo_special = '<p><span class="lime">特殊同调合成表</span>：</p>';
+	$synchelpinfo_special = '<p><span class="lime b">特殊同调合成表</span>：</p>';
 	$synchelpinfo_special .= <<<'SYNC_HELP_INFO_SPEC_DOC'
 <table>
 	<tr>
@@ -198,7 +198,7 @@ SYNC_HELP_INFO_SPEC_DOC_TR;
 	$writecont=<<<SYNC_HELP_WRITE_CONTENT
 <p>以下是可能获得的同调结果的列表。</p>
 {$synchelpinfo}
-<p>另外，上述只是一般情况。有一些同调结果除了<span class="yellow">星数符合要求、“调整”属性道具数目正确</span>之外，还必须<span class="yellow">包含特定的素材</span>才能合成，这些合成将在下表中列出。</p>
+<p>另外，上述只是一般情况。有一些同调结果除了<span class="yellow b">星数符合要求、“调整”属性道具数目正确</span>之外，还必须<span class="yellow b">包含特定的素材</span>才能合成，这些合成将在下表中列出。</p>
 {$synchelpinfo_special}
 <br>
 SYNC_HELP_WRITE_CONTENT;
@@ -219,7 +219,7 @@ if(!file_exists($writefile) || filemtime($overlayfile) > filemtime($writefile)){
 		
 		$overlayitem[] = $overlay_arr;
 	}
-	$overlayhelpinfo = '<p><span class="yellow">超量合成表</span>：</p>';
+	$overlayhelpinfo = '<p><span class="yellow b">超量合成表</span>：</p>';
 	$overlayhelpinfo .= <<<'OVERLAY_HELP_INFO_DOC'
 <table>
 	<tr>

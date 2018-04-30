@@ -259,7 +259,7 @@ namespace itemshop
 					return;
 				}
 			}else{
-				$log .= '<span class="yellow">你所在的地区没有商店。</span><br />';
+				$log .= '<span class="yellow b">你所在的地区没有商店。</span><br />';
 				$mode = 'command';
 				return;
 			}
@@ -272,7 +272,7 @@ namespace itemshop
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
 		if($news == 'itembuy') {
-			//return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}购买了{$b}</span></li>";
+			//return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime b\">{$a}购买了{$b}</span></li>";
 			return '';
 		}
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);

@@ -48,9 +48,9 @@ namespace skill220
 		}	
 	
 		if(strpos($itmk,'P') === 0) {
-			$log .= '<span class="red">'.$itm.'有毒！</span>';
+			$log .= '<span class="red b">'.$itm.'有毒！</span>';
 		} else {
-			$log .= '<span class="yellow">'.$itm.'是安全的。</span>';
+			$log .= '<span class="yellow b">'.$itm.'是安全的。</span>';
 		}
 		$mode = 'command';
 		return;

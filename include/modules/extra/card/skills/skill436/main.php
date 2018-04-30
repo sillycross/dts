@@ -63,7 +63,7 @@ namespace skill436
 						$emoney -=$mercsal;
 						$lastsal+=60;
 						\skillbase\skill_setvalue(435,'l'.$i,$lastsal,$employer);
-						$w_log = '你支付了<span class="yellow">'.$mercsal.'</span>元作为佣兵<span class="yellow">'.$skill435_npc['sub'][$ty]['name'].'</span>的薪水！<br>';
+						$w_log = '你支付了<span class="yellow b">'.$mercsal.'</span>元作为佣兵<span class="yellow b">'.$skill435_npc['sub'][$ty]['name'].'</span>的薪水！<br>';
 						\logger\logsave($z, $lastsal, $w_log ,'b');
 						$infochanged = 1;
 						$pa['infochanged']=1;
@@ -79,7 +79,7 @@ namespace skill436
 							\skillbase\skill_setvalue(435,'l'.$i,$lastsal,$employer);
 							\skillbase\skill_setvalue(435,'h'.$i,2,$employer);
 							if ($skill435_npc['sub'][$ty]['mercfireaction']==1) $pa['pls']=999;
-							$w_log = '<span class="red">因为你长期拖欠佣兵<span class="yellow">'.$skill435_npc['sub'][$ty]['name'].'</span>的薪水，佣兵<span class="yellow">'.$skill435_npc['sub'][$ty]['name'].'</span>与你解除了雇佣合同！</span><br>';
+							$w_log = '<span class="red b">因为你长期拖欠佣兵<span class="yellow b">'.$skill435_npc['sub'][$ty]['name'].'</span>的薪水，佣兵<span class="yellow b">'.$skill435_npc['sub'][$ty]['name'].'</span>与你解除了雇佣合同！</span><br>';
 							\logger\logsave($z, $lastsal, $w_log ,'b');
 							$infochanged = 1;
 							$pa['infochanged']=1;

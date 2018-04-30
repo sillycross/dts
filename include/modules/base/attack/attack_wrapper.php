@@ -112,10 +112,10 @@ namespace attack
 		if($pa['dmg_dealt'] > 0){//伤害大于零时判定加成值
 			list($fin_dmg, $mult_words, $mult_words_fdmg) = apply_multiplier($pa['dmg_dealt'], $multiplier, '<:fin_dmg:>', $pa['mult_words_fdmgbs']);
 			$mult_words_fdmg = equalsign_format($fin_dmg, $mult_words_fdmg, '<:fin_dmg:>');
-			if($fin_dmg!=$pa['physical_dmg_dealt']) $log .= '<span class="yellow">造成的总伤害：'.$mult_words_fdmg.'。</span><br>';
+			if($fin_dmg!=$pa['physical_dmg_dealt']) $log .= '<span class="yellow b">造成的总伤害：'.$mult_words_fdmg.'。</span><br>';
 			$pa['dmg_dealt'] = $fin_dmg;
 		}elseif($tmp_dmg != $pa['dmg_dealt']){//伤害等于零但是是扣成零时也显示一下总伤害
-			$log .= '<span class="yellow">造成的总伤害：<span class="<:fin_dmg:>">'.$pa['dmg_dealt'].'</span>。</span><br>';
+			$log .= '<span class="yellow b">造成的总伤害：<span class="<:fin_dmg:>">'.$pa['dmg_dealt'].'</span>。</span><br>';
 		}
 		//var_dump($pa['dmg_dealt']);
 		$tmp_dmg = $pa['dmg_dealt'];
@@ -132,10 +132,10 @@ namespace attack
 		//成功秒杀则$pa['seckill']会是1
 		apply_total_damage_modifier_seckill($pa,$pd,$active);
 		//var_dump($pa['dmg_dealt']);
-		$replace_color = 'red';
+		$replace_color = 'red b';
 		if($tmp_dmg != $pa['dmg_dealt'] && empty($pa['seckill'])) {
-			$log .= "<span class=\"yellow\">最终伤害：<span class=\"red\">{$pa['dmg_dealt']}</span>。</span><br>";
-			$replace_color = 'yellow';
+			$log .= "<span class=\"yellow b\">最终伤害：<span class=\"red b\">{$pa['dmg_dealt']}</span>。</span><br>";
+			$replace_color = 'yellow b';
 		}
 		$log = str_replace('<:fin_dmg:>', $replace_color, $log);//如果有伤害变化，那么前面的台词显示黄色，否则显示红色（最终值）
 		
@@ -153,11 +153,11 @@ namespace attack
 		//发log
 		if (!$active)
 			if ($pa['is_counter'])
-				$pa['battlelog'] .= "对其做出了<span class=\"yellow\">{$pa['dmg_dealt']}</span>点反击。<br>";
-			else  $pa['battlelog'] .= "你对其做出<span class=\"yellow\">{$pa['dmg_dealt']}</span>点攻击，";
+				$pa['battlelog'] .= "对其做出了<span class=\"yellow b\">{$pa['dmg_dealt']}</span>点反击。<br>";
+			else  $pa['battlelog'] .= "你对其做出<span class=\"yellow b\">{$pa['dmg_dealt']}</span>点攻击，";
 		else  if ($pa['is_counter'])
-				$pd['battlelog'] .= "受到其<span class=\"yellow\">{$pa['dmg_dealt']}</span>点反击。<br>";
-			else  $pd['battlelog'] .= "你受到其<span class=\"yellow\">{$pa['dmg_dealt']}</span>点攻击，";
+				$pd['battlelog'] .= "受到其<span class=\"yellow b\">{$pa['dmg_dealt']}</span>点反击。<br>";
+			else  $pd['battlelog'] .= "你受到其<span class=\"yellow b\">{$pa['dmg_dealt']}</span>点攻击，";
 			
 		//发伤害新闻
 		post_damage_news($pa, $pd, $active, $pa['dmg_dealt']);
@@ -172,21 +172,21 @@ namespace attack
 		if ($active)
 			if ($pa['is_counter'])
 			{
-				$log .= "<span class=\"red\">你的反击！</span><br>";
+				$log .= "<span class=\"red b\">你的反击！</span><br>";
 			}
 			else
 			{
-				$log .= "你向<span class=\"red\">{$pd['name']}</span>发起了攻击！<br>";
-				$pd['battlelog'] .= "手持<span class=\"red\">{$pa['wep']}</span>的<span class=\"yellow\">{$pa['name']}</span>向你袭击！";
+				$log .= "你向<span class=\"red b\">{$pd['name']}</span>发起了攻击！<br>";
+				$pd['battlelog'] .= "手持<span class=\"red b\">{$pa['wep']}</span>的<span class=\"yellow b\">{$pa['name']}</span>向你袭击！";
 			}
 		else  if ($pa['is_counter'])
 			{
-				$log .= "<span class=\"red\">{$pa['name']}的反击！</span><br>";
+				$log .= "<span class=\"red b\">{$pa['name']}的反击！</span><br>";
 			}
 			else
 			{
-				$log .= "<span class=\"red\">{$pa['name']}</span>突然向你袭来！<br>";
-				$pa['battlelog'] .= "你发现了手持<span class=\"red\">{$pd['wep']}</span>的<span class=\"yellow\">{$pd['name']}</span>并且先发制人！";
+				$log .= "<span class=\"red b\">{$pa['name']}</span>突然向你袭来！<br>";
+				$pa['battlelog'] .= "你发现了手持<span class=\"red b\">{$pd['wep']}</span>的<span class=\"yellow b\">{$pd['name']}</span>并且先发制人！";
 			}
 	}
 	
@@ -198,13 +198,13 @@ namespace attack
 		eval(import_module('sys','logger','player'));
 		if ($active)
 		{
-			$log .= "<span class=\"yellow\">{$pd['name']}</span><span class=\"red\">被你杀死了！</span><br>";
-			$pd['battlelog'] .= "<span class=\"red\">你被{$pa['name']}杀死了！</span><br>";
+			$log .= "<span class=\"yellow b\">{$pd['name']}</span><span class=\"red b\">被你杀死了！</span><br>";
+			$pd['battlelog'] .= "<span class=\"red b\">你被{$pa['name']}杀死了！</span><br>";
 		}
 		else
 		{
-			$log .= "<span class=\"red\">你被{$pa['name']}杀死了！</span><br>";
-			$pa['battlelog'] .= "<span class=\"yellow\">{$pd['name']}</span><span class=\"red\">被你杀死了！</span><br>";
+			$log .= "<span class=\"red b\">你被{$pa['name']}杀死了！</span><br>";
+			$pa['battlelog'] .= "<span class=\"yellow b\">{$pd['name']}</span><span class=\"red b\">被你杀死了！</span><br>";
 		}
 		
 		$pd['state']=$pd['deathmark'];
@@ -213,9 +213,9 @@ namespace attack
 		
 		if($pd['hp'] <= 0 && !empty($kilmsg))
 			if ($active)
-				$log.="<br><span class='b'>你对{$pd['name']}说道：</span><span class='yellow'>“{$kilmsg}”</span><br><br>";
+				$log.="<br><span class='b'>你对{$pd['name']}说道：</span><span class='yellow b'>“{$kilmsg}”</span><br><br>";
 			else
-				$log.="<br><span class='b'>{$pa['name']}对你说道：</span><span class='yellow'>“{$kilmsg}”</span><br><br>";
+				$log.="<br><span class='b'>{$pa['name']}对你说道：</span><span class='yellow b'>“{$kilmsg}”</span><br><br>";
 	}
 	
 	//当玩家主动发起攻击时，加载玩家提供的攻击参数

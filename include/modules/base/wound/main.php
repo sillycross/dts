@@ -97,8 +97,8 @@ namespace wound
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('wound','logger'));
 		if ($active)
-			$log .= "{$pd['name']}的<span class=\"red\">".$infinfo[$hurtposition]."</span>部受伤了！<br>";
-		else  $log .= "你的<span class=\"red\">".$infinfo[$hurtposition]."</span>部受伤了！<br>";
+			$log .= "{$pd['name']}的<span class=\"red b\">".$infinfo[$hurtposition]."</span>部受伤了！<br>";
+		else  $log .= "你的<span class=\"red b\">".$infinfo[$hurtposition]."</span>部受伤了！<br>";
 		if (get_inf($hurtposition, $pd))
 		{
 			addnews(0,'inf',$pa['name'],$pd['name'],$hurtposition);
@@ -206,7 +206,7 @@ namespace wound
 			} else {
 				heal_inf($infpos);
 				$sp -= $inf_recover_sp_cost;
-				$log .= "消耗<span class=\"yellow\">$inf_recover_sp_cost</span>点体力，{$infinfo[$infpos]}<span class=\"red\">部</span>的伤口已经包扎好了！";
+				$log .= "消耗<span class=\"yellow b\">$inf_recover_sp_cost</span>点体力，{$infinfo[$infpos]}<span class=\"red b\">部</span>的伤口已经包扎好了！";
 				$mode = 'command';
 				return;
 			}
@@ -220,7 +220,7 @@ namespace wound
 				} else {
 					$inf = str_replace($infpos,'',$inf);
 					$sp -= $inf_sp_2;
-					$log .= "消耗<span class=\"yellow\">$inf_sp_2</span>点体力，{$exdmginf[$infpos]}状态已经完全治愈了！";
+					$log .= "消耗<span class=\"yellow b\">$inf_sp_2</span>点体力，{$exdmginf[$infpos]}状态已经完全治愈了！";
 					$mode = 'command';
 					return;
 				}
@@ -245,7 +245,7 @@ namespace wound
 		{
 			eval(import_module('wound'));
 			if (strpos('bhaf',$c)===false)	//普通受伤不显示
-				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}的攻击致使{$b}</span>{$infname[$c]}<span class=\"red\">了</span></li>";
+				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red b\">{$a}的攻击致使{$b}</span>{$infname[$c]}<span class=\"red b\">了</span></li>";
 			else  return '';
 		}
 		

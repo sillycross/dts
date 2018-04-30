@@ -51,15 +51,15 @@ namespace ex_hp_def
 				if ($dice<$proc_rate)
 				{
 					if ($active)
-						$log .= "在{$pd['name']}的装备的作用下，攻击伤害被限制到了<span class=\"yellow\">$dmg_dice</span>点！<br>";
-					else  $log .= "在你的装备的作用下，攻击伤害被限制到了<span class=\"yellow\">$dmg_dice</span>点！<br>";
+						$log .= "在{$pd['name']}的装备的作用下，攻击伤害被限制到了<span class=\"yellow b\">$dmg_dice</span>点！<br>";
+					else  $log .= "在你的装备的作用下，攻击伤害被限制到了<span class=\"yellow b\">$dmg_dice</span>点！<br>";
 					$pa['dmg_dealt'] = $dmg_dice;
 				}
 				else
 				{
 					if ($active)
-						$log .= "<span class=\"red\">{$pd['name']}的装备没能发挥限制攻击伤害的效果！</span><br>";
-					else  $log .= "<span class=\"red\">你的装备没能发挥限制攻击伤害的效果！</span><br>";
+						$log .= "<span class=\"red b\">{$pd['name']}的装备没能发挥限制攻击伤害的效果！</span><br>";
+					else  $log .= "<span class=\"red b\">你的装备没能发挥限制攻击伤害的效果！</span><br>";
 				}
 			}
 		}
@@ -85,8 +85,8 @@ namespace ex_hp_def
 		if ($damage > 0)
 		{
 			if ($active)
-				$log .= "惨无人道的攻击对你自身造成了<span class=\"red\">$damage</span>点<span class=\"red\">反噬伤害！</span><br>";
-			else  $log .= "惨无人道的攻击对{$pa['name']}自身造成了<span class=\"red\">$damage</span>点<span class=\"red\">反噬伤害！</span><br>";
+				$log .= "惨无人道的攻击对你自身造成了<span class=\"red b\">$damage</span>点<span class=\"red b\">反噬伤害！</span><br>";
+			else  $log .= "惨无人道的攻击对{$pa['name']}自身造成了<span class=\"red b\">$damage</span>点<span class=\"red b\">反噬伤害！</span><br>";
 			$pa['hp']-=$damage;
 		}
 	}

@@ -41,7 +41,7 @@ elseif (!room_check_subroom($room_prefix))
 		set_current_roomid(0);
 		//update_udata_by_username(array('roomid' => 0), $cuser);
 		if ($not_ajax)
-			echo 'redirect:index.php';
+			echo 'red birect:index.php';
 		else
 		{
 			$gamedata['url']='index.php';
@@ -93,7 +93,7 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 		set_current_roomid(0);
 		//update_udata_by_username(array('roomid' => 0), $cuser);
 		if ($not_ajax)
-			echo 'redirect:index.php';
+			echo 'red birect:index.php';
 		else
 		{
 			$gamedata['url']='index.php';
@@ -106,7 +106,7 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 	
 	if ('newchat'==$command)
 	{
-		room_new_chat($roomdata,"<span class=\"white\"><span class=\"yellow\">{$cuser}:</span>&nbsp;{$para1}</span><br>");
+		room_new_chat($roomdata,"<span class=\"white b\"><span class=\"yellow b\">{$cuser}:</span>&nbsp;{$para1}</span><br>");
 		room_save_broadcast($room_id_r,$roomdata);
 	}	
 	elseif (strpos($command,'pos')===0)
@@ -114,16 +114,16 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 		$para1=(int)$para1;
 		$upos = room_upos_check($roomdata);
 		if($para1 == $upos) 
-			room_new_chat($roomdata,"<span class=\"red\">{$cuser}试图操作他自己的位置</span><br>");
+			room_new_chat($roomdata,"<span class=\"red b\">{$cuser}试图操作他自己的位置</span><br>");
 		elseif($para1 < 0 || $para1 >= room_get_vars($roomdata,'pnum')) 
-			room_new_chat($roomdata,"<span class=\"red\">{$cuser}试图操作一个不存在的位置</span><br>");
+			room_new_chat($roomdata,"<span class=\"red b\">{$cuser}试图操作一个不存在的位置</span><br>");
 		
 		//进入位置，任何人都能操作
 		elseif($command=='pos_enter'){
 			if($roomdata['player'][$para1]['forbidden']) 
-				room_new_chat($roomdata,"<span class=\"red\">{$cuser}试图进入一个被禁用的位置</span><br>");
+				room_new_chat($roomdata,"<span class=\"red b\">{$cuser}试图进入一个被禁用的位置</span><br>");
 			elseif($roomdata['player'][$para1]['name']) 
-				room_new_chat($roomdata,"<span class=\"red\">{$cuser}试图进入一个有人的位置</span><br>");
+				room_new_chat($roomdata,"<span class=\"red b\">{$cuser}试图进入一个有人的位置</span><br>");
 			else{
 				if ($upos >= 0)//已在房间内，换位置
 				{
@@ -136,37 +136,37 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 				$roomdata['player'][$para1]['name']=$cuser;
 				$roomdata['player'][$para1]['ready']=0;
 				if ($upos < 0)
-					room_new_chat($roomdata,"<span class=\"grey\">{$cuser}进入了一个空位置</span><br>");
-				else  room_new_chat($roomdata,"<span class=\"grey\">{$cuser}移动了位置</span><br>");
+					room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}进入了一个空位置</span><br>");
+				else  room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}移动了位置</span><br>");
 			}
 		}else{//进入位置之外的操作必须先在房间内
 			if($upos < 0)
-				room_new_chat($roomdata,"<span class=\"red\">不在房间内的{$cuser}试图操作一个位置</span><br>");
+				room_new_chat($roomdata,"<span class=\"red b\">不在房间内的{$cuser}试图操作一个位置</span><br>");
 			//启用和禁用位置，只有队长可以操作
 			elseif($command=='pos_disable' || $command=='pos_enable'){
 				if($upos != room_team_leader_check($roomdata,$para1))
-					room_new_chat($roomdata,"<span class=\"red\">并非队长的{$cuser}试图操作一个位置</span><br>");
+					room_new_chat($roomdata,"<span class=\"red b\">并非队长的{$cuser}试图操作一个位置</span><br>");
 				elseif($roomdata['player'][$para1]['name']) 
-					room_new_chat($roomdata,"<span class=\"red\">{$cuser}试图操作一个有人的位置</span><br>");
+					room_new_chat($roomdata,"<span class=\"red b\">{$cuser}试图操作一个有人的位置</span><br>");
 				else{
 					$roomdata['player'][$para1]['name']='';
 					$roomdata['player'][$upos]['ready']=0;
 					if($command=='pos_disable'){
 						$roomdata['player'][$para1]['forbidden']=1;
-						room_new_chat($roomdata,"<span class=\"grey\">{$cuser}禁用了其队伍的一个位置</span><br>");
+						room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}禁用了其队伍的一个位置</span><br>");
 					}elseif($command=='pos_enable'){
 						$roomdata['player'][$para1]['forbidden']=0;
-						room_new_chat($roomdata,"<span class=\"grey\">{$cuser}重新启用了其队伍的一个位置</span><br>");
+						room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}重新启用了其队伍的一个位置</span><br>");
 					}
 				}
 			//踢人，房主可以踢任何人，队长可以踢同队队员
 			}elseif($command=='pos_kick'){
 				if(!$roomdata['player'][$para1]['name']) 
-					room_new_chat($roomdata,"<span class=\"red\">{$cuser}试图踢掉一个不存在的玩家</span><br>");
+					room_new_chat($roomdata,"<span class=\"red b\">{$cuser}试图踢掉一个不存在的玩家</span><br>");
 				elseif($upos!=0 && $upos != room_team_leader_check($roomdata,$para1))
-					room_new_chat($roomdata,"<span class=\"red\">并非房主或队长的{$cuser}试图踢人</span><br>");
+					room_new_chat($roomdata,"<span class=\"red b\">并非房主或队长的{$cuser}试图踢人</span><br>");
 				elseif($upos!=0 && $para1 == room_team_leader_check($roomdata,$para1))
-					room_new_chat($roomdata,"<span class=\"red\">并非房主的{$cuser}试图踢队长</span><br>");
+					room_new_chat($roomdata,"<span class=\"red b\">并非房主的{$cuser}试图踢队长</span><br>");
 				else{
 					//如踢掉队长，该队所有位置重新回到启用状态
 					if ($para1 == room_team_leader_check($roomdata,$para1))
@@ -174,7 +174,7 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 					$tmp=$roomdata['player'][$para1]['name'];
 					$roomdata['player'][$para1]['name']='';
 					$roomdata['player'][$para1]['ready']=0;
-					room_new_chat($roomdata,"<span class=\"grey\">{$cuser}将{$tmp}踢出了房间</span><br>");
+					room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}将{$tmp}踢出了房间</span><br>");
 				}
 			}
 		}		
@@ -219,7 +219,7 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 				$nroomdata['timestamp']=$roomdata['timestamp'];
 				$roomdata=$nroomdata;
 				$rname = room_get_vars($roomdata, 'name');
-				room_new_chat($roomdata,"<span class=\"grey\">{$cuser}将房间模式修改为了{$rname}</span><br>");
+				room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}将房间模式修改为了{$rname}</span><br>");
 				room_save_broadcast($room_id_r,$roomdata);
 			}
 	}
@@ -227,9 +227,9 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 	{
 		$upos = room_upos_check($roomdata);
 		if($upos!=0)
-			room_new_chat($roomdata,"<span class=\"red\">并非房主的{$cuser}试图改变游戏设置</span><br>");
+			room_new_chat($roomdata,"<span class=\"red b\">并非房主的{$cuser}试图改变游戏设置</span><br>");
 		elseif(!room_check_game_option($roomdata['roomtype'], $para1, $para2))
-			room_new_chat($roomdata,"<span class=\"red\">{$cuser}试图设置一个错误的游戏参数</span><br>");
+			room_new_chat($roomdata,"<span class=\"red b\">{$cuser}试图设置一个错误的游戏参数</span><br>");
 		else {
 			$go = room_get_vars($roomdata,'game-option');
 			$gokey_words = $go[$para1]['title'];
@@ -240,7 +240,7 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 				if(isset($o_oval_words) && isset($n_oval_words)) break;
 			}
 			room_set_game_option($roomdata, $para1, $para2);
-			room_new_chat($roomdata,"<span class=\"grey\">{$cuser}将 {$gokey_words} 从 {$o_oval_words} 变为 {$n_oval_words} </span><br>");
+			room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}将 {$gokey_words} 从 {$o_oval_words} 变为 {$n_oval_words} </span><br>");
 			//队伍数目特判，改变队伍数目时刷新新增或者删去的队伍位置
 			if('group-num'==$para1){
 				$range1 = min($para2, $o_oval) * 5; $range2 = max($para2, $o_oval) * 5;
@@ -281,12 +281,12 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 			$rdplist[$upos]['name']='';
 			$rdplist[$upos]['ready']=0;
 		}
-		room_new_chat($roomdata,"<span class=\"grey\">{$cuser}离开了房间</span><br>");
+		room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}离开了房间</span><br>");
 		room_save_broadcast($room_id_r,$roomdata);
 		set_current_roomid(0);
 		//update_udata_by_username(array('roomid' => 0), $cuser);
 		if ($not_ajax)
-			echo 'redirect:index.php';
+			echo 'red birect:index.php';
 		else
 		{
 			$gamedata['url']='index.php';
@@ -317,11 +317,11 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 				if (!$rdplist[$i]['forbidden'] && !$rdplist[$i]['ready'])
 					$flag = 0;
 			
-			room_new_chat($roomdata,"<span class=\"grey\">{$cuser}点击了准备</span><br>");
+			room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}点击了准备</span><br>");
 			if ($flag) 
 			{
 				$roomdata['readystat']=2;
-				room_new_chat($roomdata,"<span class=\"grey\">所有人均已准备，游戏即将开始..</span><br>");
+				room_new_chat($roomdata,"<span class=\"grey b\">所有人均已准备，游戏即将开始..</span><br>");
 			}
 			room_save_broadcast($room_id_r,$roomdata);
 			if ($flag)
@@ -341,19 +341,19 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 				//发送游戏模式新闻
 				if ($roomdata['roomtype']==0)	//1v1
 				{	
-					addnews($now,'roominfo',room_get_vars($roomdata, 'name'),'对决者:&nbsp;'.room_getteamhtml($roomdata,0).'&nbsp;<span class="yellow">VS</span>&nbsp;'.room_getteamhtml($roomdata,1).'！');
+					addnews($now,'roominfo',room_get_vars($roomdata, 'name'),'对决者:&nbsp;'.room_getteamhtml($roomdata,0).'&nbsp;<span class="yellow b">VS</span>&nbsp;'.room_getteamhtml($roomdata,1).'！');
 				}
 				else  if ($roomdata['roomtype']==1)	//2 废弃
 				{
-					addnews($now,'roominfo',room_get_vars($roomdata, 'name'),'对决者:&nbsp;<span style="color:#ff0022">红队&nbsp;'.room_getteamhtml($roomdata,0).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#5900ff">蓝队 '.room_getteamhtml($roomdata,5).'</span>！');
+					addnews($now,'roominfo',room_get_vars($roomdata, 'name'),'对决者:&nbsp;<span style="color:#ff0022">红队&nbsp;'.room_getteamhtml($roomdata,0).'</span>&nbsp;<span class="yellow b">VS</span>&nbsp;<span style="color:#5900ff">蓝队 '.room_getteamhtml($roomdata,5).'</span>！');
 				}
 				else  if ($roomdata['roomtype']==2)	//3 废弃
 				{
-					addnews($now,'roominfo',room_get_vars($roomdata, 'name'),'对决者:&nbsp;<span style="color:#ff0022">红队&nbsp;'.room_getteamhtml($roomdata,0).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#5900ff">蓝队 '.room_getteamhtml($roomdata,5).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#8cff00">绿队 '.room_getteamhtml($roomdata,10).'</span>！');
+					addnews($now,'roominfo',room_get_vars($roomdata, 'name'),'对决者:&nbsp;<span style="color:#ff0022">红队&nbsp;'.room_getteamhtml($roomdata,0).'</span>&nbsp;<span class="yellow b">VS</span>&nbsp;<span style="color:#5900ff">蓝队 '.room_getteamhtml($roomdata,5).'</span>&nbsp;<span class="yellow b">VS</span>&nbsp;<span style="color:#8cff00">绿队 '.room_getteamhtml($roomdata,10).'</span>！');
 				}
 				else  if ($roomdata['roomtype']==3)	//4 废弃
 				{
-					addnews($now,'roominfo',room_get_vars($roomdata, 'name'),'对决者:&nbsp;<span style="color:#ff0022">红队&nbsp;'.room_getteamhtml($roomdata,0).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#5900ff">蓝队 '.room_getteamhtml($roomdata,5).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#8cff00">绿队 '.room_getteamhtml($roomdata,10).'</span>&nbsp;<span class="yellow">VS</span>&nbsp;<span style="color:#ffc700">黄队 '.room_getteamhtml($roomdata,15).'</span>！');
+					addnews($now,'roominfo',room_get_vars($roomdata, 'name'),'对决者:&nbsp;<span style="color:#ff0022">红队&nbsp;'.room_getteamhtml($roomdata,0).'</span>&nbsp;<span class="yellow b">VS</span>&nbsp;<span style="color:#5900ff">蓝队 '.room_getteamhtml($roomdata,5).'</span>&nbsp;<span class="yellow b">VS</span>&nbsp;<span style="color:#8cff00">绿队 '.room_getteamhtml($roomdata,10).'</span>&nbsp;<span class="yellow b">VS</span>&nbsp;<span style="color:#ffc700">黄队 '.room_getteamhtml($roomdata,15).'</span>！');
 				}
 				else  if ($roomdata['roomtype']==4)	//组队模式
 				{
@@ -362,7 +362,7 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 					for($gi=0;$gi<$groupnum;$gi++){
 						$newsarr[] = '<span style="color:'.(room_get_vars($roomdata, 'color')[$gi*5]).'">'.(room_get_vars($roomdata, 'teamID')[$gi*5]).'&nbsp;'.room_getteamhtml($roomdata,$gi*5).'</span>';
 					}
-					addnews($now,'roominfo',room_get_vars($roomdata, 'name'),'对决者:&nbsp;'.implode('&nbsp;<span class="yellow">VS</span>&nbsp;', $newsarr).'！');
+					addnews($now,'roominfo',room_get_vars($roomdata, 'name'),'对决者:&nbsp;'.implode('&nbsp;<span class="yellow b">VS</span>&nbsp;', $newsarr).'！');
 				}
 				else if ($roomdata['roomtype']==5)	//单人挑战
 				{	

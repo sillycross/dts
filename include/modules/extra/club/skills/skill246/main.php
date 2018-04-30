@@ -56,7 +56,7 @@ namespace skill246
 			return;
 		}
 		\skillbase\skill_setvalue(246,'lastuse',$now);
-		$log.='<span class="lime">技能「隐身」发动成功。</span><br>';
+		$log.='<span class="lime b">技能「隐身」发动成功。</span><br>';
 	}
 	
 	//return 1:技能生效中 2:技能冷却中 3:技能冷却完毕 其他:不能使用这个技能
@@ -104,7 +104,7 @@ namespace skill246
 		else
 		{
 			eval(import_module('logger'));
-			$log .= '<span class="yellow">敌人完全没有预料到你的存在，你对着措手不及的敌人发起了致命一击！</span><br>';
+			$log .= '<span class="yellow b">敌人完全没有预料到你的存在，你对着措手不及的敌人发起了致命一击！</span><br>';
 			\skillbase\skill_lost(246, $pa);
 			addnews ( 0, 'bskill246', $pa['name'], $pd['name'] );
 		}
@@ -184,7 +184,7 @@ namespace skill246
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill246') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}对{$b}发动了技能<span class=\"yellow\">「破隐一击」</span></span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}对{$b}发动了技能<span class=\"yellow b\">「破隐一击」</span></span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

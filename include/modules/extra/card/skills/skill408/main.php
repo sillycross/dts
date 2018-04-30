@@ -4,10 +4,10 @@ namespace skill408
 {
 	$paneldesc=array(
 		"咕咕咕",
-		"战斗中殴系伤害<span class=\"yellow\">+20%</span>，徒手伤害<span class=\"yellow\">+30%</span>。<br>",
-		"战斗中远程兵器伤害<span class=\"yellow\">+20%</span>。<br>",
-		"战斗中斩系伤害<span class=\"yellow\">+20%</span>，投系伤害<span class=\"yellow\">+15%</span>。<br>",
-		"战斗中爆系伤害<span class=\"yellow\">+15%</span>。<br>",
+		"战斗中殴系伤害<span class=\"yellow b\">+20%</span>，徒手伤害<span class=\"yellow b\">+30%</span>。<br>",
+		"战斗中远程兵器伤害<span class=\"yellow b\">+20%</span>。<br>",
+		"战斗中斩系伤害<span class=\"yellow b\">+20%</span>，投系伤害<span class=\"yellow b\">+15%</span>。<br>",
+		"战斗中爆系伤害<span class=\"yellow b\">+15%</span>。<br>",
 		"敌人的射程越远，造成的伤害越高。<br>",
 	);
 	function init() 
@@ -59,8 +59,8 @@ namespace skill408
 			}
 			if ($var_408>0){
 				if ($active)
-					$log.="<span class=\"yellow\">「菁英」使你造成的最终伤害提高了{$var_408}%！</span><br>";
-				else  $log.="<span class=\"yellow\">「菁英」使敌人造成的最终伤害提高了{$var_408}%！</span><br>";
+					$log.="<span class=\"yellow b\">「菁英」使你造成的最终伤害提高了{$var_408}%！</span><br>";
+				else  $log.="<span class=\"yellow b\">「菁英」使敌人造成的最终伤害提高了{$var_408}%！</span><br>";
 				$r=Array(1+$var_408/100);
 			}
 		}

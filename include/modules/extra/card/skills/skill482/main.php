@@ -35,8 +35,8 @@ namespace skill482
 		{
 			eval(import_module('logger'));
 			if ($active)
-				$log.='<span class="red">你身体中的灵力仿佛与武器融为了一体，打出了爆炸般的伤害！</span><br>';
-			else  $log.='<span class="red">敌人身体中的灵力仿佛与武器融为了一体，打出了爆炸般的伤害！</span><br>';
+				$log.='<span class="red b">你身体中的灵力仿佛与武器融为了一体，打出了爆炸般的伤害！</span><br>';
+			else  $log.='<span class="red b">敌人身体中的灵力仿佛与武器融为了一体，打出了爆炸般的伤害！</span><br>';
 			$r=Array(2);
 		}
 		return array_merge($r,$ret);

@@ -56,8 +56,8 @@ namespace skill453
 			$skill453_count++;
 			$rat=$skill453_count*$skill453_factor;
 			if ($active)
-				$log.='<span class="yellow">你对敌人的连续攻击使伤害增加了'.$rat.'%！</span><br>';
-			else  $log.='<span class="yellow">敌人对你的连续攻击使伤害增加了'.$rat.'%！</span><br>';
+				$log.='<span class="yellow b">你对敌人的连续攻击使伤害增加了'.$rat.'%！</span><br>';
+			else  $log.='<span class="yellow b">敌人对你的连续攻击使伤害增加了'.$rat.'%！</span><br>';
 			$r=Array(1+$rat/100.0);
 			\skillbase\skill_setvalue(453,'cnt',$skill453_count,$pa); 
 			\skillbase\skill_setvalue(453,'lasthit',$now,$pa);

@@ -45,8 +45,8 @@ namespace skill448
 			{
 				$pa['inf'].='p';
 				if ($active)
-					$log.='<span class="purple">创世龙的力量使你中毒了！</span><br>';
-				else  $log.="<span class=\"purple\">创世龙的力量使{$pa['name']}中毒了！</span><br>";
+					$log.='<span class="purple b">创世龙的力量使你中毒了！</span><br>';
+				else  $log.="<span class=\"purple b\">创世龙的力量使{$pa['name']}中毒了！</span><br>";
 			}
 		}
 		$chprocess($pa,$pd,$active);

@@ -38,23 +38,23 @@ namespace skill252
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','metman'));
 		if($w_hp <= 0) {
-			$tdata['hpstate'] = "<span class=\"red\">$hpinfo[3]</span>";
-			$tdata['spstate'] = "<span class=\"red\">$spinfo[3]</span>";
-			$tdata['ragestate'] = "<span class=\"red\">$rageinfo[3]</span>";
+			$tdata['hpstate'] = "<span class=\"red b\">$hpinfo[3]</span>";
+			$tdata['spstate'] = "<span class=\"red b\">$spinfo[3]</span>";
+			$tdata['ragestate'] = "<span class=\"red b\">$rageinfo[3]</span>";
 			$tdata['isdead'] = true;
 		} else{
 			if($w_hp < $w_mhp*0.2) {
-				$tdata['hpstate'] = "<span class=\"red\">$w_hp / $w_mhp</span>";
+				$tdata['hpstate'] = "<span class=\"red b\">$w_hp / $w_mhp</span>";
 			} elseif($w_hp < $w_mhp*0.5) {
-				$tdata['hpstate'] = "<span class=\"yellow\">$w_hp / $w_mhp</span>";
+				$tdata['hpstate'] = "<span class=\"yellow b\">$w_hp / $w_mhp</span>";
 			} else {
-				$tdata['hpstate'] = "<span class=\"clan\">$w_hp / $w_mhp</span>";
+				$tdata['hpstate'] = "<span class=\"cyan b\">$w_hp / $w_mhp</span>";
 			}
 			$tdata['spstate'] = "$w_sp / $w_msp";
 			if($w_rage >= 100) {
-				$tdata['ragestate'] = "<span class=\"red\">$w_rage</span>";
+				$tdata['ragestate'] = "<span class=\"red b\">$w_rage</span>";
 			} elseif($w_rage >= 30) {
-				$tdata['ragestate'] = "<span class=\"yellow\">$w_rage</span>";
+				$tdata['ragestate'] = "<span class=\"yellow b\">$w_rage</span>";
 			} else {
 				$tdata['ragestate'] = $w_rage;
 			}

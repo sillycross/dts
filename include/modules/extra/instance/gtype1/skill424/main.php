@@ -153,7 +153,7 @@ namespace skill424
 			if(${'req'.$i}) $reqarr[] = ${'req'.$i};
 		}
 		foreach($reqarr as &$req){
-			$req = "<span class=\"yellow\">{$req}</span>";
+			$req = "<span class=\"yellow b\">{$req}</span>";
 		}
 		return implode('或', $reqarr);
 	}
@@ -189,8 +189,8 @@ namespace skill424
 			$position = wdebug_check();
 			if($position){
 				$itm = ${'itm'.$position};
-				$log .= "<span class=\"yellow\">除错成功。</span><br />";
-				$log .= "<span class=\"red\">$itm</span>用光了。<br />";
+				$log .= "<span class=\"yellow b\">除错成功。</span><br />";
+				$log .= "<span class=\"red b\">$itm</span>用光了。<br />";
 				addnews ( 0, 'skill424', $name, $clv+1, $itm);
 				${'itm'.$position} = ${'itmk'.$position} = ${'itmsk'.$position} = '';
 				${'itme'.$position} =${'itms'.$position} =0;
@@ -203,30 +203,30 @@ namespace skill424
 				if($prizeflag) {
 					$money_prize = get_wdebug_money();
 					$money_punish = get_wdebug_money_punish();
-					if($money_punish) $log .="<span class=\"red\">你不顾任务只顾伐木的行为让你的奖励下降了！</span><br />";
+					if($money_punish) $log .="<span class=\"red b\">你不顾任务只顾伐木的行为让你的奖励下降了！</span><br />";
 					$money_prize = max(0, $money_prize-$money_punish);
 					$money += $money_prize;
 					
 					$skillpoint_prize = 1;
 					$skillpoint += $skillpoint_prize;
 					//提示
-					$log .="<span class=\"yellow\">获得了{$money_prize}元";
+					$log .="<span class=\"yellow b\">获得了{$money_prize}元";
 					if($skillpoint_prize) $log .="和{$skillpoint_prize}个技能点";
 					$log .= "。</span><br />";
 					if ($gdice==1){
 						$wp+=10;$wk+=10;$wc+=10;$wd+=10;$wg+=10;$wf+=10;
-						$log .="<span class=\"yellow\">获得了10点全熟练。</span><br />";
+						$log .="<span class=\"yellow b\">获得了10点全熟练。</span><br />";
 					}
 					if ($gdice==2){
 						$att+=10;$def+=10;
-						$log .="<span class=\"yellow\">获得了10点基础攻防。</span><br />";
+						$log .="<span class=\"yellow b\">获得了10点基础攻防。</span><br />";
 					}	
 					if ($gdice==3){
 						$mhp+=10;$msp+=10;$hp+=10;$sp+=10;
-						$log .="<span class=\"yellow\">获得了10点命体上限。</span><br />";
+						$log .="<span class=\"yellow b\">获得了10点命体上限。</span><br />";
 					}
 				}else{
-					$log .='<span class="yellow">你已经获得过这一层的奖励了。</span><br />';
+					$log .='<span class="yellow b">你已经获得过这一层的奖励了。</span><br />';
 				}
 				$clv++;
 				\skillbase\skill_setvalue(424,'lvl',$clv);
@@ -243,7 +243,7 @@ namespace skill424
 				return;
 			}
 		}else{
-			$log .= '<span class="red">你没有这个技能！</span><br />';
+			$log .= '<span class="red b">你没有这个技能！</span><br />';
 			$mode = 'command';
 			return;
 		}
@@ -282,7 +282,7 @@ namespace skill424
 		eval(import_module('sys','player'));
 		
 		if($news == 'skill424') 
-				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}</span>提交了<span class=\"yellow\">{$c}</span>，完成了<span class=\"clan\">第{$b}次「除错」尝试</span></li>";
+				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}</span>提交了<span class=\"yellow b\">{$c}</span>，完成了<span class=\"cyan b\">第{$b}次「除错」尝试</span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

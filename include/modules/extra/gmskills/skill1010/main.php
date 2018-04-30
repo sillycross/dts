@@ -155,9 +155,9 @@ namespace skill1010
 		eval(import_module('sys','player'));
 		
 		if($news == 'admin_mani') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}发动了技能「降神」，直接传送到了「{$b}」面前！（管理员{$a}宣告自己正在进行战斗测试。）</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red b\">{$a}发动了技能「降神」，直接传送到了「{$b}」面前！（管理员{$a}宣告自己正在进行战斗测试。）</span></li>";
 		elseif($news == 'admin_exma')
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}发动了技能「降神」，与「{$b}」交换了能力值和装备！（管理员{$a}宣告自己正在进行NPC测试。）</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red b\">{$a}发动了技能「降神」，与「{$b}」交换了能力值和装备！（管理员{$a}宣告自己正在进行NPC测试。）</span></li>";
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 }

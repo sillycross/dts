@@ -22,7 +22,7 @@ namespace npcchat
 			11 => '“真是的，竟然在射程之外啊……”',
 			12 => '“咱也是生于常磐森林的人啊！”',
 			13 => '“你还不懂得运用你的力量，咱为此感到惋惜。”',
-			'color' => 'evergreen'
+			'color' => 'evergreen b'
 		),
 		'红暮' => Array(
 			0 => '“哦，杀回来了么……不过你也就到此为止了！”',
@@ -39,7 +39,7 @@ namespace npcchat
 			11 => '“判定目标完全在射程外，敢面对面打么？”',
 			12 => '“你是不可能让一个没有死的概念的存在感到恐惧的！”',
 			13 => '“任务完了。”',
-			'color' => 'evergreen'
+			'color' => 'evergreen b'
 		),
 		'红暮 DUMMY' => Array(
 			0 => '“[操作者未登录，加载拟合数据]”',
@@ -56,7 +56,7 @@ namespace npcchat
 			11 => '“[读取语音碎片…]……这点代价，不算……”',
 			12 => '“[能量过强，机能不稳定警告]”',
 			13 => '“[读取语音碎片…]……不会，交给你的。”',
-			'color' => 'evergreen'
+			'color' => 'evergreen b'
 		),
 	),
 	5 => Array(
@@ -111,7 +111,7 @@ namespace npcchat
 			11 => '“竟打不到……竟打不到……”',
 			12 => 'Acg_Xilin露出了古怪的笑容：“尝尝我的奥义吧，这可是我精心收藏的魔法哟！”',
 			13 => '“忘记历史就意味着背叛，背叛就意味着……死亡。”',
-			'color' => 'purple'
+			'color' => 'purple b'
 		)
 	),
 	7 => Array(
@@ -130,7 +130,7 @@ namespace npcchat
 			11 => '“电磁炮50米的射程竟然不够……”',
 			12 => '御坂 美琴周身被蓝色电光层层笼罩：“别以为我的能力只能击飞硬币！”',
 			13 => '“所以说，你这样的人最差劲了。”',
-			'color' => 'clan'
+			'color' => 'cyan'
 		),
 		'班主任 坂持 金发' => Array(
 			0 => '“这个世界没有项圈，那只好由老师我亲手实施惩罚了。”',
@@ -164,7 +164,7 @@ namespace npcchat
 			11 => '“弹幕射程不够啊，总之先撤退吧。”',
 			12 => '风见 幽香张开阳伞做出了一个潇洒的转身：“也许你还没见识过魔炮的力量吧？”',
 			13 => '“我还没满足呢，可别就这样轻易地死掉了哦。”',
-			'color' => 'lime'
+			'color' => 'lime b'
 		)
 	),
 	9 => Array(
@@ -183,7 +183,7 @@ namespace npcchat
 			11 => '“……target OUT OF RANGE。”',
 			12 => '“……………………………………”',
 			13 => '“No Remorse。”',
-			'color' => 'clan'
+			'color' => 'cyan'
 		),
 		'蓝凝 DUMMY' => Array(
 			0 => '“[操作者未登录，加载拟合数据]”',
@@ -200,7 +200,7 @@ namespace npcchat
 			11 => '“[读取语音碎片…]……会再会的……”',
 			12 => '“[能量过强，机能不稳定警告]”',
 			13 => '“[读取语音碎片…]……CODE: LAST RESORT.”',
-			'color' => 'clan'
+			'color' => 'cyan'
 		),
 	),
 	10 => Array(
@@ -222,7 +222,7 @@ namespace npcchat
 			11 => '“……看我不舒服么？”',
 			12 => '“……能成功吧……？”',
 			13 => '“虽然情感上很对不起，但这是必要的牺牲。”',
-			'color' => 'linen'
+			'color' => 'linen b'
 		),
 		'Dark Force' => Array(
 			0 => '“你所作的一切都要被偿还。”',
@@ -239,7 +239,7 @@ namespace npcchat
 			11 => '“武器的射程，还不够吗？”',
 			12 => '“……这样设定的话，应该能成功吧……？”',
 			13 => '“反对巴特利安的力量都要被毁灭。”',
-			'color' => 'linen'
+			'color' => 'linen b'
 		)
 	),
 	
@@ -292,7 +292,7 @@ namespace npcchat
 			'critical' => array(
 				'“很怀念啊。吃我一记，彩虹——”',
 			),
-			'color' => 'clan'
+			'color' => 'cyan'
 		),
 		'无尽狂飙' => Array(
 			'meet' => array(
@@ -340,7 +340,7 @@ namespace npcchat
 			'critical' => array(
 				'“很怀念啊。吃我一记，彩虹——”',
 			),
-			'color' => 'clan'
+			'color' => 'cyan'
 		)
 	),
 	16 => Array(
@@ -388,7 +388,7 @@ namespace npcchat
 			'critical' => array(
 				'“很怀念啊。吃我一记，彩虹——”',
 			),
-			'color' => 'clan'
+			'color' => 'cyan'
 		),
 	),
 	
@@ -408,7 +408,7 @@ namespace npcchat
 			11 => '“有没有兄弟变个鸟，很急，很关键！”',//out of range
 			12 => '“爆爆爆爆爆爆爆爆爆爆爆爆爆爆爆！”',//critical
 			13 => '“灵性-2！”',
-			'color' => 'linen'
+			'color' => 'linen b'
 		),
 		
 		'水月' => Array(
@@ -426,11 +426,11 @@ namespace npcchat
 			11 => '“……Avoid godless chatter……”',//out of range
 			12 => '“野驴有草岂能叫唤，牛有料，岂能吼叫？！”',//critical
 			13 => '“……JOB 38:11”',		
-			'color' => 'clan'
+			'color' => 'cyan'
 		),
 		'北京推倒你' => Array(
-		  0 => '“虽然我自称是<span class="blue">历史的眼泪</span>。但很可惜，历史这东西是不相信眼泪的。”',//meet
-			1 => '“所谓<span class="red">铁拳无敌</span>，那么就一定是用拳头来证明一切的。”',//attackfine
+		  0 => '“虽然我自称是<span class="blue b">历史的眼泪</span>。但很可惜，历史这东西是不相信眼泪的。”',//meet
+			1 => '“所谓<span class="red b">铁拳无敌</span>，那么就一定是用拳头来证明一切的。”',//attackfine
 			2 => '“力道不错，那么该我的反击了！”',
 			3 => '“不错啊，也许我也应该重新审视审视你了。”',
 			4 => '“很久没有遇到过你这种强力的人物了。”',
@@ -441,9 +441,9 @@ namespace npcchat
 			9 => '“看起来快结束了呢。小心不要一时疏忽领便当了哦。”',//retreat
 			10 => '“闪避能力很高啊，但是下一招你还能闪过去吗？”',//can't counterattack
 			11 => '“用远程武器打游击战术啊！那么小心，不要让我捕捉到你的身影哦。”',//out of range
-			12 => '<span class="white">不知从何而来的数据附着在面前那人的拳头上，使其发出了异样的光芒</span>，“如果说之前都是小意思的话，那么就尝试接下这招吧！”',//critical
+			12 => '<span class="white b">不知从何而来的数据附着在面前那人的拳头上，使其发出了异样的光芒</span>，“如果说之前都是小意思的话，那么就尝试接下这招吧！”',//critical
 			13 => '“弱者，就应该去弱者应该呆的地方。”',
-			'color' => 'clan'
+			'color' => 'cyan'
 		),
 		'BorisX' => Array(
 		  0 => '“It is I, Boris!”',//meet
@@ -477,7 +477,7 @@ namespace npcchat
 			11 => '“这个一点都不好！”',//out of range
 			12 => '“不！要！强！调！为！什！么！是（ping）（ru）啦！！和（pin）（ru）完全没有关系！”',//critical
 			13 => '“看来存在感能＋1了呢……”',
-			'color' => 'lime'
+			'color' => 'lime b'
 		),
 		'beijuzhu' => Array(
 			0 => '“我也是ACFUN大逃殺第一批的玩家，和捂臉姬一樣都是搬運９課的成員之一，人稱「北極豬」。”',
@@ -494,7 +494,7 @@ namespace npcchat
 			11 => '“目標太遠了，打不到人啊。”',
 			12 => '“你在地圖上看見的「變磚PSP」，效果只是杏仁豆腐版本，有本事就試試看這個PSP吧！”',
 			13 => '“武神當中我最沒存在感了，那這回又如何呢？”',
-			'color' => 'linen'
+			'color' => 'linen b'
 		),
 		'黑色奪魂曲' => Array(
 			0 => '“你好，我是黑曲，是台灣人，與冴冴共同創作大逃殺劇情，像是「紅暮」「藍凝」。”',
@@ -511,7 +511,7 @@ namespace npcchat
 			11 => '“武器射程太近了，但是靈系即使是已經被削的現在，依然不會弱。”',
 			12 => '“奧義，超！９！武！神！霸！斬！！！”',
 			13 => '“對不起，出手太重了。喂！你快醒醒啊！不會就這樣...死了吧？”',
-			'color' => 'clan'
+			'color' => 'cyan'
 		),
 		'捂脸姬' => Array(
 		  0 => '“大家好，我是ACFUN大逃殺第一批的玩家，真要說有什麼職位的話，那就是「試玩」。”',//meet
@@ -528,7 +528,7 @@ namespace npcchat
 			11 => '“就因為是爆系又不是強襲姿態才會被一個叫「計劃通行」的ID給偷到武神之魂了啊！！”',//out of range
 			12 => '“既然你讓我先攻了，那就試試看爆系這70%的最高命中率吧！”',//critical
 			13 => '“最弱武神組的我，竟然能殺死人了？你弱爆了。”',
-			'color' => 'linen'
+			'color' => 'linen b'
 		),		
 		'Yoshiko-G' => Array(
       0 => '“賭玉？輸了會有什麼後果嗎？”',//meet
@@ -545,7 +545,7 @@ namespace npcchat
       11 => '“只敢用爆系的你，與其說是小心，不如說是膽小。”',//out of range
       12 => '「守序善良」？那個會想辦法討好玩家的四面已經死了，讓你看看什麼才是「混亂邪惡」！”',//critical
       13 => '“賭玉的後果，就是被人卸了一條腿，但是我可是有幾萬條腿呢，哈哈哈！”',//kill
-      'color' => 'linen'
+      'color' => 'linen b'
 		),
 		
 		'埃尔兰卡' => Array(
@@ -619,7 +619,7 @@ namespace npcchat
 			11 => '“留下可怜的我独自哀伤，有人同情却无人理解！哎！”',//out of range
 			12 => '“水月这个id，老是拿什么必杀技说事，其实是什么都搞不清楚，还一直说！”',//critical
 			13 => '“已经被打死了！大快人心啊！”',
-			'color' => 'linen'
+			'color' => 'linen b'
 		),
 		'lemon' => Array(
 		    0 => '“ACDTS Bot beta #1. Moving out.”',//meet
@@ -636,7 +636,7 @@ namespace npcchat
 			11 => '“Enemy out of range.”',//out of range
 			12 => '“For the further!”',//critical
 			13 => '“Enemy down.”',
-			'color' => 'clan'
+			'color' => 'cyan'
 		),
 	),
 	24 => Array(
@@ -674,7 +674,7 @@ namespace npcchat
 			11 => '“咕咕，再见，咕咕，傻逼！”',
 			12 => '“呱！呱！呱！”',
 			13 => '“下回别这样了，你演的叫这么假观众都看不下去了，中午盒饭没有鸡腿了。”',
-			'color' => 'clan'
+			'color' => 'cyan'
 		)
 	),
 	13 => Array(
@@ -710,7 +710,7 @@ namespace npcchat
 			11 => '“武器的射程，还不够吗？”',
 			12 => '“……这样设定的话，应该能成功吧……？”',
 			13 => '“这是我必须做的事，给您添麻烦了……”',
-			'color' => 'linen'
+			'color' => 'linen b'
 		),
 		'莱卡' => Array(
 			0 => '“我似乎沉浸在过去的回忆和相似的人的眷恋里了呢。”',
@@ -727,7 +727,7 @@ namespace npcchat
 			11 => '“射程不足？……怎么会发生这种事？”',
 			12 => '莱卡的身后，展开了蝙蝠状的翅膀！<br>“就让你，被牢牢锁死在这濒死的幻想世界里吧，一直到世界崩坏的那一刻……”',
 			13 => '“无论是这个世界，还是那个世界，都把你永久放逐了呢。”',
-			'color' => 'linen'
+			'color' => 'linen b'
 		)
 	),
 	41 => Array(

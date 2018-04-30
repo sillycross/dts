@@ -317,7 +317,7 @@ namespace cardbase
 				if (get_card(42)==1){
 					$log.="恭喜您获得了活动奖励卡<span class=\"orange\">Fleur</span>！<br>";
 				}else{
-					$log.="您已经拥有活动奖励卡了，系统奖励您<span class=\"yellow\">100</span>切糕！<br>";
+					$log.="您已经拥有活动奖励卡了，系统奖励您<span class=\"yellow b\">100</span>切糕！<br>";
 					get_qiegao(100);
 				}
 			}
@@ -525,7 +525,7 @@ namespace cardbase
 		$cgmethod[158][] = '在「伐木模式」从商店购买「博丽神社的参拜券」并在开局20分钟之内使用以获得';
 		$cgmethod[159][] = '通过礼品盒开出的★闪熠着光辉的大逃杀卡牌包★获得（15%概率）';
 		$cgmethod[160][] = '完成2017万圣节活动「噩梦之夜 LV2」获得';
-		$cgmethod[165][] = '这张卡要怎么获得呢……？';
+		$cgmethod[165][] = '<br>当你看到某张小纸条有「奇怪的空白」时，你可以按下F12。<br>这张卡的获得方式，就藏在那段空白对应的页面代码的位置。<br>　　　　　　　　　　　　　　　　　　　　——林苍月';
 		for($ci=200;$ci<=204;$ci++) {
 			$cgmethod[$ci][] = '完成2017十一活动「新的战场 LV2」可能获得';
 			$cgmethod[$ci][] = '完成2017十一活动「新的战场 LV3」可能获得';

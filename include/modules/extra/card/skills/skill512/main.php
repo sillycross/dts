@@ -49,7 +49,7 @@ namespace skill512
 				$asub = \skillbase\skill_getvalue(512,'sub',$pd);
 				$anum = \skillbase\skill_getvalue(512,'num',$pd);
 				if($atype && $anum) {
-					$log .= '<span class="yellow">'.$pd['name'].'死去了，但你发现那只是一个分身，而'.('m'==$pd['gd'] ? '他' : '她').'的本体刚刚苏醒……</span><br>';
+					$log .= '<span class="yellow b">'.$pd['name'].'死去了，但你发现那只是一个分身，而'.('m'==$pd['gd'] ? '他' : '她').'的本体刚刚苏醒……</span><br>';
 					\addnpc\addnpc($atype,$asub,$anum,1);
 				}
 			}

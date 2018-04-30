@@ -55,7 +55,7 @@ namespace skill210
 		}
 		\skillbase\skill_setvalue(210,'lastuse',$now);
 		addnews ( 0, 'bskill210', $name );
-		$log.='<span class="lime">技能「歼灭」发动成功。</span><br>';
+		$log.='<span class="lime b">技能「歼灭」发动成功。</span><br>';
 	}
 	
 	//return 1:技能生效中 2:技能冷却中 3:技能冷却完毕 其他:不能使用这个技能
@@ -97,8 +97,8 @@ namespace skill210
 		{
 			$z=2;
 			if ($active)
-				$log.='<span class="red">暴击！</span><span class="lime">「歼灭」使你造成了'.$z.'倍物理伤害！</span><br>';
-			else  $log.='<span class="red">暴击！</span><span class="lime">「歼灭」使敌人造成了'.$z.'倍物理伤害！</span><br>';
+				$log.='<span class="red b">暴击！</span><span class="lime b">「歼灭」使你造成了'.$z.'倍物理伤害！</span><br>';
+			else  $log.='<span class="red b">暴击！</span><span class="lime b">「歼灭」使敌人造成了'.$z.'倍物理伤害！</span><br>';
 			$r=Array($z);
 		}
 		return array_merge($r,$chprocess($pa,$pd,$active));
@@ -115,8 +115,8 @@ namespace skill210
 		{
 			$z=2;
 			if ($active)
-				$log.='<span class="red">暴击！</span><span class="lime">「歼灭」使你造成了'.$z.'倍最终伤害！</span><br>';
-			else  $log.='<span class="red">暴击！</span><span class="lime">「歼灭」使敌人造成了'.$z.'倍最终伤害！</span><br>';
+				$log.='<span class="red b">暴击！</span><span class="lime b">「歼灭」使你造成了'.$z.'倍最终伤害！</span><br>';
+			else  $log.='<span class="red b">暴击！</span><span class="lime b">「歼灭」使敌人造成了'.$z.'倍最终伤害！</span><br>';
 			$r=Array($z);
 		}
 		return array_merge($r,$chprocess($pa,$pd,$active));
@@ -167,7 +167,7 @@ namespace skill210
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill210') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}发动了技能<span class=\"red\">「歼灭」</span></span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}发动了技能<span class=\"red b\">「歼灭」</span></span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

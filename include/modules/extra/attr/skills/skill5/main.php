@@ -6,9 +6,9 @@ namespace skill5
 	{
 		eval(import_module('wound'));
 		//受伤状态简称（用于profile显示）
-		$infinfo['p'] = '<span class="purple">毒</span>';
+		$infinfo['p'] = '<span class="purple b">毒</span>';
 		//受伤状态名称动词
-		$infname['p'] = '<span class="purple">中毒</span>';
+		$infname['p'] = '<span class="purple b">中毒</span>';
 		//受伤状态对应的特效技能编号
 		$infskillinfo['p'] = 5;
 	}
@@ -43,7 +43,7 @@ namespace skill5
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
 		$hp -= $damage;
-		$log .= "<span class=\"purple\">毒发</span>减少了<span class=\"red\">$damage</span>点生命！<br>";
+		$log .= "<span class=\"purple b\">毒发</span>减少了<span class=\"red b\">$damage</span>点生命！<br>";
 		if($hp <= 0 ){
 			$state = 12;
 			\player\update_sdata(); $sdata['sourceless'] = 1;
@@ -86,9 +86,9 @@ namespace skill5
 		{
 			$dname = $typeinfo[$b].' '.$a;
 			if(!$e)
-				$e0="<span class=\"yellow\">【{$dname} 什么都没说就死去了】</span><br>\n";
-			else  $e0="<span class=\"yellow\">【{$dname}：“{$e}”】</span><br>\n";
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因<span class=\"red\">毒发</span>死亡{$e0}</li>";
+				$e0="<span class=\"yellow b\">【{$dname} 什么都没说就死去了】</span><br>\n";
+			else  $e0="<span class=\"yellow b\">【{$dname}：“{$e}”】</span><br>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">$a</span>因<span class=\"red b\">毒发</span>死亡{$e0}</li>";
 		} 
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);

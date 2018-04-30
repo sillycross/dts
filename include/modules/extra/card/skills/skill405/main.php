@@ -34,8 +34,8 @@ namespace skill405
 		{
 			eval(import_module('logger'));
 			if ($active)
-				$log.="<span class=\"yellow\">「疾走」使你造成的最终伤害提高了20%！</span><br>";
-			else  $log.="<span class=\"yellow\">「疾走」使敌人造成的最终伤害提高了20%！</span><br>";
+				$log.="<span class=\"yellow b\">「疾走」使你造成的最终伤害提高了20%！</span><br>";
+			else  $log.="<span class=\"yellow b\">「疾走」使敌人造成的最终伤害提高了20%！</span><br>";
 			$r=Array(1.2);	
 		}
 		return array_merge($r,$chprocess($pa,$pd,$active));

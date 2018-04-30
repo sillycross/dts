@@ -35,13 +35,13 @@ namespace skill476
 			eval(import_module('logger'));
 			if (strpos($pa['wep'],"精工")===false){
 				if ($active)
-					$log.="<span class=\"yellow\">「尊严」使你造成的最终伤害降低了60%！</span><br>";
-				else  $log.="<span class=\"yellow\">「尊严」使敌人造成的最终伤害降低了60%！</span><br>";
+					$log.="<span class=\"yellow b\">「尊严」使你造成的最终伤害降低了60%！</span><br>";
+				else  $log.="<span class=\"yellow b\">「尊严」使敌人造成的最终伤害降低了60%！</span><br>";
 				$r=Array(0.4);
 			}else{
 				if ($active)
-					$log.="<span class=\"yellow\">「尊严」使你造成的最终伤害提高了10%！</span><br>";
-				else  $log.="<span class=\"yellow\">「尊严」使敌人造成的最终伤害提高了10%！</span><br>";
+					$log.="<span class=\"yellow b\">「尊严」使你造成的最终伤害提高了10%！</span><br>";
+				else  $log.="<span class=\"yellow b\">「尊严」使敌人造成的最终伤害提高了10%！</span><br>";
 				$r=Array(1.1);
 			}
 		}

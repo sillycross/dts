@@ -35,8 +35,8 @@ namespace skill473
 			$pa['sp']-=$spcost;
 			eval(import_module('logger'));
 			if ($active)
-				$log.='<class span="yellow">你的技能「神蚀」消耗了'.$spcost.'点体力，并对敌人造成了相同的伤害！</span><br>';
-			else  $log.='<class span="yellow">敌人的技能「神蚀」消耗了'.$spcost.'点体力，并对你造成了相同的伤害！</span><br>';
+				$log.='<class span="yellow b">你的技能「神蚀」消耗了'.$spcost.'点体力，并对敌人造成了相同的伤害！</span><br>';
+			else  $log.='<class span="yellow b">敌人的技能「神蚀」消耗了'.$spcost.'点体力，并对你造成了相同的伤害！</span><br>';
 			$ret+=$spcost;
 			$pa['mult_words_fdmgbs'] = \attack\add_format($spcost, $pa['mult_words_fdmgbs']);
 		}
@@ -53,8 +53,8 @@ namespace skill473
 //			$pa['dmg_dealt']+=$spcost;
 //			eval(import_module('logger'));
 //			if ($active)
-//				$log.='<class span="yellow">你的技能「神蚀」消耗了'.$spcost.'点体力，并对敌人造成了相同的伤害！</span><br>';
-//			else  $log.='<class span="yellow">敌人的技能「神蚀」消耗了'.$spcost.'点体力，并对你造成了相同的伤害！</span><br>';
+//				$log.='<class span="yellow b">你的技能「神蚀」消耗了'.$spcost.'点体力，并对敌人造成了相同的伤害！</span><br>';
+//			else  $log.='<class span="yellow b">敌人的技能「神蚀」消耗了'.$spcost.'点体力，并对你造成了相同的伤害！</span><br>';
 //			$pa['dmg_dealt']+=$dmg;
 //		}
 //		$chprocess($pa, $pd, $active);

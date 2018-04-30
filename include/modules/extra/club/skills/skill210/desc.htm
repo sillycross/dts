@@ -10,25 +10,25 @@
 发动后获得增益效果：<br>
 <!--{if $card==5}-->
 	<!--{if $club==2}-->
-		你持斩系武器时，你的攻击有<span class="yellow">40%</span>概率造成<span class="red">200%</span>最终伤害；<br>
+		你持斩系武器时，你的攻击有<span class="yellow b">40%</span>概率造成<span class="red b">200%</span>最终伤害；<br>
 	<!--{else}-->
-		你持斩系武器时，你的攻击有<span class="yellow">40%</span>概率造成<span class="red">200%</span>物理伤害；<br>
+		你持斩系武器时，你的攻击有<span class="yellow b">40%</span>概率造成<span class="red b">200%</span>物理伤害；<br>
 	<!--{/if}-->
 <!--{else}-->
 	<!--{if $club==2}-->
-		你持斩系武器时，你的攻击有<span class="yellow">20%</span>概率造成<span class="red">200%</span>最终伤害；<br>
+		你持斩系武器时，你的攻击有<span class="yellow b">20%</span>概率造成<span class="red b">200%</span>最终伤害；<br>
 	<!--{else}-->
-		你持斩系武器时，你的攻击有<span class="yellow">20%</span>概率造成<span class="red">200%</span>物理伤害；<br>
+		你持斩系武器时，你的攻击有<span class="yellow b">20%</span>概率造成<span class="red b">200%</span>物理伤害；<br>
 	<!--{/if}-->
 <!--{/if}-->
 
 <!--{if $club!=2}-->计算属性伤害时你基础攻击力的1/2将视作武器攻击力。<!--{else}-->计算属性伤害时你的基础攻击力将视作武器攻击力。<!--{/if}--><br>
-增益效果持续时间<span class="yellow">$skill210_act_time</span>秒，冷却时间<span class="clan">$skill210_cd</span>秒。<br>
+增益效果持续时间<span class="yellow b">$skill210_act_time</span>秒，冷却时间<span class="cyan b">$skill210_cd</span>秒。<br>
 <!--{if $skill210_time>$skill210_act_time && $skill210_time<$skill210_cd+$skill210_act_time}-->
-<span class="clan">技能冷却中，冷却时间还剩<span>$skill210_cd_left</span>秒。</span><br>
+<span class="cyan b">技能冷却中，冷却时间还剩<span>$skill210_cd_left</span>秒。</span><br>
 <!--{else}-->
 <!--{if $skill210_time<=$skill210_act_time}-->
-<span class="yellow">技能发动中！持续时间还剩<span>$skill210_rem</span>秒。</span><br>
+<span class="yellow b">技能发动中！持续时间还剩<span>$skill210_rem</span>秒。</span><br>
 <!--{/if}-->
 <!--{/if}-->
 </span></td>
@@ -41,7 +41,7 @@
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
 <!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
-<span class="yellow">
+<span class="yellow b">
 21级时解锁
 </span>
 <!--{/if}-->

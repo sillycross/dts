@@ -87,7 +87,7 @@ namespace addnpc
 				'itmk1' => 'Y',
 				'itme1' => 1,
 				'itms1' => 1,
-				'description' => '拟似意识 ■ (通称篝)。如果仓促上阵，<span class="yellow">不仅难以击倒她，而且很容易屈死于她之手！</span>',
+				'description' => '拟似意识 ■ (通称篝)。如果仓促上阵，<span class="yellow b">不仅难以击倒她，而且很容易屈死于她之手！</span>',
 				),
 			),
 		),

@@ -47,8 +47,8 @@ namespace skill402
 			$pa['dmg_dealt']=$pd['hp'];
 			//if ($pa['dmg_dealt']<100000000) $pa['dmg_dealt']=100000000;
 			eval(import_module('logger'));
-			if ($active) $log .= "<span class=\"red\">一股来自东方的神秘力量直接杀死了你的敌人！</span><br>";
-			else $log .= "<span class=\"red\">一股来自东方的神秘力量直接杀死了你！</span><br>";
+			if ($active) $log .= "<span class=\"red b\">一股来自东方的神秘力量直接杀死了你的敌人！</span><br>";
+			else $log .= "<span class=\"red b\">一股来自东方的神秘力量直接杀死了你！</span><br>";
 			$pa['seckill'] = 1;
 		}
 		

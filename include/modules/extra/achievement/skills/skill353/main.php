@@ -21,16 +21,16 @@ namespace skill353
 	//各级阈值，注意是达到这个阈值则升到下一级
 	$ach353_threshold = array(
 		1 => 1,
-		2 => 5,
-		3 => 12,
+		2 => 3,
+		3 => 6,
 		999 => NULL
 	);
 	
 	//各级给的切糕奖励
 	$ach353_qiegao_prize = array(
 		1 => 444,
-		2 => 2333,
-		3 => 6666,
+		2 => 1333,
+		3 => 2333,
 	);
 	
 	function init() 

@@ -57,7 +57,7 @@ namespace skill483
 		$c=(int)\skillbase\skill_getvalue(483,'cost',$pa);
 		if ($money<$c)
 		{
-			$log.='<span class="yellow">金钱不足！用你的脑子想一想，不充钱你会变得更强吗？</span><br>';
+			$log.='<span class="yellow b">金钱不足！用你的脑子想一想，不充钱你会变得更强吗？</span><br>';
 			return;
 		}
 		$money-=$c;
@@ -65,7 +65,7 @@ namespace skill483
 		\skillbase\skill_setvalue(483,'lastuse',$now);
 		\skillbase\skill_setvalue(483,'cost',$c*2);
 		addnews ( 0, 'bskill483', $name );
-		$log.='<span class="lime">技能「氪金」发动成功。</span><br>';
+		$log.='<span class="lime b">技能「氪金」发动成功。</span><br>';
 	}
 	
 	//return 1:技能生效中 2:技能冷却中 3:技能冷却完毕 其他:不能使用这个技能
@@ -127,13 +127,13 @@ namespace skill483
 		{
 			if ($active)
 			{
-				$log.='<span class="lime">但是氪金战士不可能死！敌人又站了起来！</span><br>';
-				$pd['battlelog'].='<span class="lime">但是氪金战士不可能死！</span>你又站了起来，';
+				$log.='<span class="lime b">但是氪金战士不可能死！敌人又站了起来！</span><br>';
+				$pd['battlelog'].='<span class="lime b">但是氪金战士不可能死！</span>你又站了起来，';
 			}
 			else
 			{
-				$log.='<span class="lime">但是氪金战士不可能死！你又站了起来！</span><br>';
-				$pa['battlelog'].='<span class="lime">但是氪金战士不可能死！</span>敌人又站了起来，';
+				$log.='<span class="lime b">但是氪金战士不可能死！你又站了起来！</span><br>';
+				$pa['battlelog'].='<span class="lime b">但是氪金战士不可能死！</span>敌人又站了起来，';
 			}
 		}
 	}
@@ -185,10 +185,10 @@ namespace skill483
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill483') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}发动了技能<span class=\"yellow\">「氪金」</span></span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}发动了技能<span class=\"yellow b\">「氪金」</span></span></li>";
 		
 		if($news == 'revival483') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}击杀了{$b}，却不料{$b}是传说中的氪金战士！{$b}又站了起来！</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime b\">{$a}击杀了{$b}，却不料{$b}是传说中的氪金战士！{$b}又站了起来！</span></li>";
 		
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);

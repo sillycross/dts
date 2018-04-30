@@ -146,7 +146,7 @@ namespace dualwep
 			return;
 		}
 		list($wepk[1], $wepk[2]) = array($wepk[2], $wepk[1]);//玩个杂技
-		$log .= '武器主攻系别已经切换为<span class="yellow">'.$iteminfo['W'.$wepk[1]].'</span>。';
+		$log .= '武器主攻系别已经切换为<span class="yellow b">'.$iteminfo['W'.$wepk[1]].'</span>。';
 		$mode = 'command';
 		return;
 	}

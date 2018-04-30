@@ -18,7 +18,7 @@
 <!--{eval \npcinfo\npcinfo_get_npc_description_all(25);}-->
 {template MOD_BUBBLEBOX_END}
 
-你共雇佣过<span class="yellow">$merc_num</span>名佣兵，你还可以再招募<span class="yellow">$merc_num_left</span>名佣兵。<br>
+你共雇佣过<span class="yellow b">$merc_num</span>名佣兵，你还可以再招募<span class="yellow b">$merc_num_left</span>名佣兵。<br>
 <!--{if $merc_num_left>0}-->
 <input type="button" style="width:120px" onclick="$('mode').value='special';$('command').value='skill56_special';$('subcmd').value='action56';$('skillpara1').value=1;postCmd('gamecmd','command.php');this.disabled=true;" value="招募一名新佣兵"><input type="button" style="width:170px" onclick="bubblebox_show('skill56_merc')" value="查看所有可能的佣兵列表">
 <br>
@@ -50,9 +50,9 @@
 </td>
 <tr>
 <td class="b2" width=60px height=20px>佣兵名称</td>
-<td class="b3" ><span class="yellow">$nowmerc['name']</span></td>
+<td class="b3" ><span class="yellow b">$nowmerc['name']</span></td>
 <td class="b3" width=40px>状况</td>
-<td class="b3" width=80px><!--{if $nowmerc['hp']<=0}--><span class="red">已经死亡</span><!--{else}--><!--{if $nowmerc['hp']<=$nowmerc['mhp']*0.2}--><span class="red">生命危险</span><!--{else}--><!--{if $nowmerc['hp']<=$nowmerc['mhp']*0.5}--><span class="yellow">伤痕累累</span><!--{else}--><span class="clan">并无大碍</span><!--{/if}--><!--{/if}--><!--{/if}-->
+<td class="b3" width=80px><!--{if $nowmerc['hp']<=0}--><span class="red b">已经死亡</span><!--{else}--><!--{if $nowmerc['hp']<=$nowmerc['mhp']*0.2}--><span class="red b">生命危险</span><!--{else}--><!--{if $nowmerc['hp']<=$nowmerc['mhp']*0.5}--><span class="yellow b">伤痕累累</span><!--{else}--><span class="cyan b">并无大碍</span><!--{/if}--><!--{/if}--><!--{/if}-->
 </tr>
 <tr>
 <td class="b2" width=60px>佣兵位置</td>
@@ -66,14 +66,14 @@
 <td class="b3" colspan=3>
 <span style="text-align:left; display:inline-block;">
 <table><tr><td>
-该佣兵的雇佣工资是每分钟<span class="yellow">$skill56_npc['sub'][$now_merctype]['mercsalary']</span>元。<br>
+该佣兵的雇佣工资是每分钟<span class="yellow b">$skill56_npc['sub'][$now_merctype]['mercsalary']</span>元。<br>
 <!--{if $now-$now_lastsal>=60}-->
 <!--{eval $now_mercnextpay = $now-$now_lastsal;}-->
-<span class="yellow">因为无钱支付工资，你已经拖欠该佣兵的工资<span>$now_mercnextpay</span>秒了！</span><span class="red">
+<span class="yellow b">因为无钱支付工资，你已经拖欠该佣兵的工资<span>$now_mercnextpay</span>秒了！</span><span class="red b">
 拖欠<span>$merc_leave_timeout</span>秒后该佣兵将与你解除雇佣合同！</span>
 <!--{else}-->
 <!--{eval $now_mercnextpay = $now_lastsal+60-$now;}-->
-下次工资结算将在<span class="yellow">$now_mercnextpay</span>秒后进行。
+下次工资结算将在<span class="yellow b">$now_mercnextpay</span>秒后进行。
 <!--{/if}-->
 </td></tr></table>
 </span>
@@ -85,7 +85,7 @@
 <!--{eval $now_mercmovecost = $skill56_npc['sub'][$now_merctype]['mercsalary']*2;}-->
 <span style="text-align:left; display:inline-block;">
 <table><tr><td>
-每次移动这名佣兵需要花费<span class="yellow">$now_mercmovecost</span>元。<br>
+每次移动这名佣兵需要花费<span class="yellow b">$now_mercmovecost</span>元。<br>
 移动到
 <select name="skill56_movepls" id="skill56_movepls">
 <!--{loop range(0,count($arealist)-1) $pl}-->
@@ -122,7 +122,7 @@
 {template MOD_BUBBLEBOX_START}
 <table height=100% width=100% CellSpacing=0 CellPadding=0>
 <tr><td height=50px colspan=2 class="b3">
-你确定要解雇佣兵<span class="yellow">$nowmerc['name']</span>吗？
+你确定要解雇佣兵<span class="yellow b">$nowmerc['name']</span>吗？
 </td></tr>
 <tr>
 <td width=50% class="b3" height=50px >
@@ -155,7 +155,7 @@
 </td>
 <tr>
 <td class="b2" width=60px height=20px>佣兵名称</td>
-<td class="b3" ><span class="yellow">$nowmerc['name']</span></td>
+<td class="b3" ><span class="yellow b">$nowmerc['name']</span></td>
 </tr>
 <tr> 
 <td class="b2" width=60px height=20px>佣兵状态</td>
@@ -163,7 +163,7 @@
 <!--{if $now_hirestat == 2}-->
 <!--{eval $now_lastsal = (int)\skillbase\skill_getvalue(56,'l'.$i);}-->
 <!--{eval $merc_leave_time = date("H:i:s",$now_lastsal);}-->
-因为你长期无钱支付工资，该佣兵已经于<span class="yellow">$merc_leave_time</span>与你解除了雇佣合同。
+因为你长期无钱支付工资，该佣兵已经于<span class="yellow b">$merc_leave_time</span>与你解除了雇佣合同。
 <!--{else}-->
 你主动解雇了该佣兵。
 <!--{/if}-->

@@ -34,8 +34,8 @@ namespace skill466
 			$dmg=round($pd['mhp']*min($pd['lvl'],30)/100.0);
 			eval(import_module('logger'));
 			if ($active)
-				$log.='<class span="yellow">你的技能「死神」额外造成了'.$dmg.'点伤害！</span><br>';
-			else  $log.='<class span="yellow">敌人的技能「死神」额外造成了'.$dmg.'点伤害！</span><br>';
+				$log.='<class span="yellow b">你的技能「死神」额外造成了'.$dmg.'点伤害！</span><br>';
+			else  $log.='<class span="yellow b">敌人的技能「死神」额外造成了'.$dmg.'点伤害！</span><br>';
 			$ret += $dmg;
 			$pa['mult_words_fdmgbs'] = \attack\add_format($dmg, $pa['mult_words_fdmgbs']);
 		}
@@ -50,8 +50,8 @@ namespace skill466
 //			$dmg=round($pd['mhp']*min($pd['lvl'],30)/100.0);
 //			eval(import_module('logger'));
 //			if ($active)
-//				$log.='<class span="yellow">你的技能「死神」额外造成了'.$dmg.'点伤害！</span><br>';
-//			else  $log.='<class span="yellow">敌人的技能「死神」额外造成了'.$dmg.'点伤害！</span><br>';
+//				$log.='<class span="yellow b">你的技能「死神」额外造成了'.$dmg.'点伤害！</span><br>';
+//			else  $log.='<class span="yellow b">敌人的技能「死神」额外造成了'.$dmg.'点伤害！</span><br>';
 //			$pa['dmg_dealt']+=$dmg;
 //		}
 //		$chprocess($pa, $pd, $active);

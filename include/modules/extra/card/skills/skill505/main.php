@@ -79,8 +79,8 @@ namespace skill505
 		
 		if(\skillbase\skill_query(505,$pd) && !check_unlocked505($pd) && $skill505_keyitm == $ara && $skill505_keyitm != $o_ara){
 			\skillbase\skill_setvalue(505,'u','1');
-			$log .= '你抱起了那个被称为「太阳」的灯泡。<span class="yellow">你感到它暖洋洋的。</span><br>';
-			$log .= '<span class="red">提示：技能「'.$clubskillname[505].'」已激活！请时刻注意保护好'.$skill505_keyitm.'！</span><br>';
+			$log .= '你抱起了那个被称为「太阳」的灯泡。<span class="yellow b">你感到它暖洋洋的。</span><br>';
+			$log .= '<span class="red b">提示：技能「'.$clubskillname[505].'」已激活！请时刻注意保护好'.$skill505_keyitm.'！</span><br>';
 		}
 	}
 	
@@ -90,7 +90,7 @@ namespace skill505
 		if (\skillbase\skill_query(505,$pd) && check_unlocked505($pd) && skill505_check_keyitm_equiped($pd)){
 			eval(import_module('logger','clubbase'));
 			$pa['dmg_dealt']=0;
-			$log .= \battle\battlelog_parser($pa,$pd,$active,"<span class=\"yellow\"><:pd_name:>的技能「{$clubskillname[505]}」使<:pa_name:>的攻击没有造成任何伤害！</span><br>");
+			$log .= \battle\battlelog_parser($pa,$pd,$active,"<span class=\"yellow b\"><:pd_name:>的技能「{$clubskillname[505]}」使<:pa_name:>的攻击没有造成任何伤害！</span><br>");
 		}
 		$chprocess($pa,$pd,$active);
 	}
@@ -101,7 +101,7 @@ namespace skill505
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (\skillbase\skill_query(505,$pd) && check_unlocked505($pd) && skill505_check_keyitm_equiped($pd)){
 			eval(import_module('sys','logger','clubbase'));
-			$log .= "<span class=\"yellow\">你的技能「{$clubskillname[505]}」使你免疫了陷阱伤害！</span><br>";
+			$log .= "<span class=\"yellow b\">你的技能「{$clubskillname[505]}」使你免疫了陷阱伤害！</span><br>";
 			return 0;
 		}
 		
@@ -141,12 +141,12 @@ namespace skill505
 			$pa['hp'] = 0;
 			$pa['state']=$pa['deathmark']=44;
 			skill505_clear_corpse($pa);
-			$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="red"><:pa_name:>的「太阳」被击碎了，其灵魂无法再在这个世界维持存在了！</span><br>');
+			$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="red b"><:pa_name:>的「太阳」被击碎了，其灵魂无法再在这个世界维持存在了！</span><br>');
 		}elseif($pd['hp']>0 && !empty($pd['skill505_fatal'])){
 			$pd['hp'] = 0;
 			$pd['state']=$pd['deathmark']=44;
 			skill505_clear_corpse($pd);
-			$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="red"><:pd_name:>的「太阳」被击碎了，其灵魂无法再在这个世界维持存在了！</span><br>');
+			$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="red b"><:pd_name:>的「太阳」被击碎了，其灵魂无法再在这个世界维持存在了！</span><br>');
 		}
 		$chprocess($pa,$pd,$active);
 	}
@@ -224,7 +224,7 @@ namespace skill505
 		if(isset($exarr['dword'])) $e0 = $exarr['dword'];
 
 		if($news == 'death44' || $news == 'death45') {
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span><span class=\"red\">维系存在的关键道具被毁，意识消散了</span>$e0</li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">$a</span><span class=\"red b\">维系存在的关键道具被毁，意识消散了</span>$e0</li>";
 		} else return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 }

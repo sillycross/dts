@@ -1,29 +1,29 @@
 {template header}
 <table align="center" style="text-align:center;border:0;padding:0;">
 	<tr>
-		<td><span class="yellow">{lang gameversion}：</span></td>
-		<td style="text-align:left;"><span class="evergreen">$gameversion</span></td>
-		<td style="text-align:center;padding:0 0 0 25px;"><span class="yellow">{lang adminmsg}</span></td>
+		<td><span class="yellow b">{lang gameversion}：</span></td>
+		<td style="text-align:left;"><span class="evergreen b">$gameversion</span></td>
+		<td style="text-align:center;padding:0 0 0 25px;"><span class="yellow b">{lang adminmsg}</span></td>
 	</tr>
 	<tr>
-		<td><span class="yellow">{lang now}：</span></td>
+		<td><span class="yellow b">{lang now}：</span></td>
 		
-		<td style="text-align:left;"><span class="evergreen">{lang gamedate}</span></td>
+		<td style="text-align:left;"><span class="evergreen b">{lang gamedate}</span></td>
 		<td rowspan="2" style="width:520px; height:100%; vertical-align:top;text-align:left;">
-			<span class="evergreen">$adminmsg</span>		
+			<span class="evergreen b">$adminmsg</span>		
 		</td>
 	</tr>
 	<tr>
-		<td><span class="yellow">{lang systemmsg}：</span></td>
-		<td style="text-align:left;"><span class="evergreen">$systemmsg</span></td>
+		<td><span class="yellow b">{lang systemmsg}：</span></td>
+		<td style="text-align:left;"><span class="evergreen b">$systemmsg</span></td>
 	</tr>
 	<tr>
-		<td><span class="yellow">{lang gameinfo}：</span></td>
+		<td><span class="yellow b">{lang gameinfo}：</span></td>
 		<td style="text-align:left;">
-			<span class="evergreen">
+			<span class="evergreen b">
 				<span class="evergreen2">
 				<!--{if room_check_subroom($room_prefix)}-->
-					<span class="yellow"><!--{eval echo '房间&nbsp;'.room_prefix2id($room_prefix).'&nbsp;';}--></span>
+					<span class="yellow b"><!--{eval echo '房间&nbsp;'.room_prefix2id($room_prefix).'&nbsp;';}--></span>
 				<!--{else}-->
 					{lang numinfo}
 				<!--{/if}-->
@@ -69,8 +69,8 @@
 			</div>
 			禁区间隔时间： $areaintv 分钟 ， $arealimit 禁后停止激活<br>
 			每次增加禁区： $areaadd 个 ， 当前禁区数： $areanum<br>
-			自动逃避禁区功能：<!--{if $areaesc && $gamestate < 40}--><span class="yellow">开放</span><!--{else}--><span class="red">关闭</span><!--{/if}--><br>
-			<span class="red">注意：进入连斗后，自动逃避功能自动关闭。</span><br><br>
+			自动逃避禁区功能：<!--{if $areaesc && $gamestate < 40}--><span class="yellow b">开放</span><!--{else}--><span class="red b">关闭</span><!--{/if}--><br>
+			<span class="red b">注意：进入连斗后，自动逃避功能自动关闭。</span><br><br>
 			激活人数：<span id="alivenum">$validnum</span>
 			生存人数：<span id="alivenum">$alivenum</span>
 			死亡总数：<span id="alivenum">$deathnum</span>

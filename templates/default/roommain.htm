@@ -66,7 +66,7 @@
 	<span style="20px" id="room_banner">
 	<!--{if $roomdata['readystat']!=1}-->
 		<!--{if $upos == -1}-->
-		<span class="yellow">请点击一个空位置以进入。</span>
+		<span class="yellow b">请点击一个空位置以进入。</span>
 		<!--{else}-->
 		请等待人满后点击“准备”按钮。点击一个空位置可以移动位置。
 		<!--{/if}-->
@@ -74,7 +74,7 @@
 		<!--{eval $kicktimeleft = $roomdata['kicktime']-time()+1;}-->
 		<!--{if $upos>=0}-->
 			<!--{if !$roomdata['player'][$upos]['ready']}-->
-			<span class="yellow">请点击“准备”按钮，<span id="roomkick_timer">$kicktimeleft</span>秒后没有准备的玩家将被自动踢出房间。</span>
+			<span class="yellow b">请点击“准备”按钮，<span id="roomkick_timer">$kicktimeleft</span>秒后没有准备的玩家将被自动踢出房间。</span>
 			<!--{else}-->
 			请等待其他人准备，<span id="roomkick_timer">$kicktimeleft</span>秒后没有准备的玩家将被自动踢出房间。
 			<!--{/if}-->
@@ -95,7 +95,7 @@
 		<!--{eval $game_option=room_get_vars($roomdata, 'game-option');}-->
 		<!--{loop $game_option $gokey $goval}-->
 		<div>
-			<span class="white">$goval['title']</span> 
+			<span class="white b">$goval['title']</span> 
 			<!--{loop $goval['options'] $oval}-->
 				<input type="{$goval['type']}" name="{$gokey}" id="{$gokey}_{$oval['value']}" 
 					onchange="$('command').value='game-option';$('para1').value='$gokey';$('para2').value='{$oval['value']}';postCmd('roomcmd','roomcmd.php');"
@@ -115,7 +115,7 @@
 <!--{else}-->
 <table CellSpacing=0 CellPadding=0 width=100% height=398px>
 <tr><td height=398px class="b3">
-<span class="yellow">游戏即将开始，请等待几秒钟，页面将自动跳转至游戏界面<br>
+<span class="yellow b">游戏即将开始，请等待几秒钟，页面将自动跳转至游戏界面<br>
 如果页面很久都没有跳转，请手动 <a href="game.php">点击这里</a> 进入游戏<br></span>
 </td></tr></table>
 <!--{/if}-->

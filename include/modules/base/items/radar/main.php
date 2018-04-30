@@ -122,10 +122,10 @@ namespace radar
 		
 		if (strpos ( $itmk, 'ER' ) === 0) {//雷达
 			if ($itme > 0) {
-				$log .= "使用了<span class=\"red\">$itm</span>。<br>";
+				$log .= "使用了<span class=\"red b\">$itm</span>。<br>";
 				newradar ( $itmsk );
 				$itme--;
-				$log .= "消耗了<span class=\"yellow\">$itm</span>的电力。<br>";
+				$log .= "消耗了<span class=\"yellow b\">$itm</span>的电力。<br>";
 				if ($itme <= 0) {
 					$log .= $itm . '的电力用光了，请使用电池充电。<br>';
 				}

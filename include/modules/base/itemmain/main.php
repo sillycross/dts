@@ -356,7 +356,7 @@ namespace itemmain
 		$result = $db->query("SELECT * FROM {$tablepre}mapitem WHERE pls = '$pls'");
 		$itemnum = $db->num_rows($result);
 		if($itemnum <= 0){
-			$log .= '<span class="yellow">周围找不到任何物品。</span><br>';
+			$log .= '<span class="yellow b">周围找不到任何物品。</span><br>';
 			$mode = 'command';
 			return;
 		}

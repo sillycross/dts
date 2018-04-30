@@ -37,8 +37,8 @@ namespace skill452
 				while ($pls452==34) {$pls452 = $arealist[rand($areanum+1,$plsnum)];}
 			}
 			if ($active)
-				$log.="<span class=\"clan\">{$pd['name']}通过相位裂隙紧急转移到了{$plsinfo[$pls452]}！</span><br>";
-			else  $log.="<span class=\"clan\">你通过相位裂隙紧急转移到了{$plsinfo[$pls452]}！</span><br>";
+				$log.="<span class=\"cyan b\">{$pd['name']}通过相位裂隙紧急转移到了{$plsinfo[$pls452]}！</span><br>";
+			else  $log.="<span class=\"cyan b\">你通过相位裂隙紧急转移到了{$plsinfo[$pls452]}！</span><br>";
 			$pd['pls']=$pls452;
 		}
 		$chprocess($pa,$pd,$active);

@@ -7,16 +7,16 @@
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
 <!--{eval $skill420_lst = (int)\skillbase\skill_getvalue(420,'lastuse'); $skill420_time = ($now-$skill420_lst);$skill420_cd_left=($skill420_cd+$skill420_act_time-$skill420_time);$skill420_rem=($skill420_act_time-$skill420_time);}-->
-消耗<span class="lime">1</span>个技能点，随机获得一个基本方块。<br>
+消耗<span class="lime b">1</span>个技能点，随机获得一个基本方块。<br>
 <!--{if $skill420_time<$skill420_cd}-->
-<span class="clan">技能冷却中，冷却时间还剩<span>$skill420_cd_left</span>秒。</span><br>
+<span class="cyan b">技能冷却中，冷却时间还剩<span>$skill420_cd_left</span>秒。</span><br>
 <!--{/if}-->
 </span></td>
 <td class=b3 width=96>
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
 <!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
-<span class="yellow">
+<span class="yellow b">
 </span>
 <!--{/if}-->
 {template MOD_CLUBBASE_SKILLDESC_END}

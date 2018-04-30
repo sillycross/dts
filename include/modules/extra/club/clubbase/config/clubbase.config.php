@@ -33,7 +33,7 @@ namespace clubbase
 		12=>'全能骑士',
 		//13 根性兄贵
 		//14 肌肉兄贵
-		15=>'<span class="L5">L5状态</span>',
+		15=>'<span class="L5 b">L5状态</span>',
 		16=>'冥土追魂',
 		//17 走路萌物
 		//18 天赋异禀

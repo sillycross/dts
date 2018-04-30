@@ -75,7 +75,7 @@ namespace instance8
 				'itmk3' => 'Y',
 				'itme3' => 1,
 				'itms3' => 1,
-				'description' => '红杀将军 红暮，坐镇于无月之影的BOSS，达成锁定解除结局所必须击杀的NPC。 <span class="linen">"红暮真可爱呀！"</span>',
+				'description' => '红杀将军 红暮，坐镇于无月之影的BOSS，达成锁定解除结局所必须击杀的NPC。 <span class="linen b">"红暮真可爱呀！"</span>',
 				),
 			),
 		),
@@ -752,7 +752,7 @@ namespace instance8
 				'itmk3' => 'Y',
 				'itme3' => 1,
 				'itms3' => 1,
-				'description' => '坐镇于冰封墓场的NPC，几乎无敌的存在。<span class="yellow">没事还是不要惹她好了……</span>',
+				'description' => '坐镇于冰封墓场的NPC，几乎无敌的存在。<span class="yellow b">没事还是不要惹她好了……</span>',
 				),
 			),
 		),
@@ -1199,7 +1199,7 @@ namespace instance8
 			'arte' => 1,
 			'arts' => 1,
 			'artsk' => 'H',
-			'description' => '数据碎片 讲解员 梦美，<span class="yellow">被击杀后会变身为攻击力极强的NPC</span>。',
+			'description' => '数据碎片 讲解员 梦美，<span class="yellow b">被击杀后会变身为攻击力极强的NPC</span>。',
 			),
 			1 => array
 			(
@@ -1233,7 +1233,7 @@ namespace instance8
 			'arte' => 1,
 			'arts' => 1,
 			'artsk' => 'H',
-			'description' => '数据碎片 喧哗少女 叶留佳，<span class="yellow">被击杀后会变身为攻击力极强的NPC</span>。',
+			'description' => '数据碎片 喧哗少女 叶留佳，<span class="yellow b">被击杀后会变身为攻击力极强的NPC</span>。',
 			),
 			2 => array
 			(
@@ -1267,7 +1267,7 @@ namespace instance8
 			'arte' => 1,
 			'arts' => 1,
 			'artsk' => 'H',
-			'description' => '数据碎片 风纪委员 静流，<span class="yellow">被击杀后会变身为攻击力极强的NPC</span>。',
+			'description' => '数据碎片 风纪委员 静流，<span class="yellow b">被击杀后会变身为攻击力极强的NPC</span>。',
 			),
 		),
 	), 
@@ -1849,7 +1849,7 @@ namespace instance8
 			'itmk4' => 'Y',
 			'itme4' => 1,
 			'itms4' => 1,
-			'description' => '武神 黑熊，<span class="yellow">旧英灵四天王之首，被称为英灵殿唯一的良心。（咦？）<br>附带很不要脸的<span class="red">【直死1】</span>和<span class="red">【暴风】</span>技能</span>',
+			'description' => '武神 黑熊，<span class="yellow b">旧英灵四天王之首，被称为英灵殿唯一的良心。（咦？）<br>附带很不要脸的<span class="red b">【直死1】</span>和<span class="red b">【暴风】</span>技能</span>',
 			),
 //			1 => array
 //			(
@@ -1906,7 +1906,7 @@ namespace instance8
 //			'itme3' => 153,
 //			'itms3' => 1,
 //			'itmsk3' => 'Z',
-//			'description' => '武神 虚子，<span class="yellow">旧英灵四天王之首，被称为英灵殿唯一的良心。（咦？）<br>附带很不要脸的<span class="red">【直死4】</span>技能</span>',
+//			'description' => '武神 虚子，<span class="yellow b">旧英灵四天王之首，被称为英灵殿唯一的良心。（咦？）<br>附带很不要脸的<span class="red b">【直死4】</span>技能</span>',
 //			),
 			2 => array
 			(
@@ -1962,7 +1962,7 @@ namespace instance8
 			'itmk3' => 'Z',
 			'itme3' => 1,
 			'itms3' => 1,
-			'description' => '武神 水月，<span class="yellow">旧英灵四天王之一。</span>身上的火金符对玩家威胁很大，称号为换装迷宫，台词来源于圣经。初始武器自带双抹，但威力不足。',
+			'description' => '武神 水月，<span class="yellow b">旧英灵四天王之一。</span>身上的火金符对玩家威胁很大，称号为换装迷宫，台词来源于圣经。初始武器自带双抹，但威力不足。',
 			),
 			3 => array
 			(
@@ -2008,7 +2008,7 @@ namespace instance8
 			'arte' => 233,
 			'arts' => 233,
 			'artsk' => 'z',
-			'description' => '武神 黑色奪魂曲，<span class="yellow">英灵殿吉祥物。</span>攻击力低，二形态血量为1000W，自带双抹，同时武器拥有贯穿属性，具有一定威胁。',
+			'description' => '武神 黑色奪魂曲，<span class="yellow b">英灵殿吉祥物。</span>攻击力低，二形态血量为1000W，自带双抹，同时武器拥有贯穿属性，具有一定威胁。',
 			),
 			4 => array
 			(
@@ -2048,7 +2048,7 @@ namespace instance8
 			'itme1' => 4000,
 			'itms1' => '∞',
 			'itmsk1' => 'g',
-			'description' => '武神 北京推倒你，<span class="yellow">曾经被誉为最弱武神，经过BUFF后变的丧心病狂起来。</span>武器为空手，但拥有6000点的基础熟练，隐隐有成为小黑熊的架势。',
+			'description' => '武神 北京推倒你，<span class="yellow b">曾经被誉为最弱武神，经过BUFF后变的丧心病狂起来。</span>武器为空手，但拥有6000点的基础熟练，隐隐有成为小黑熊的架势。',
 			),
 			5 => array
 			(
@@ -2064,7 +2064,7 @@ namespace instance8
 			'wepe' => 2600,
 			'weps' => 4000,
 			'wepsk' => 'n',
-			'description' => '武神 BorisX，<span class="yellow">旧英灵四天王之一，经过BUFF后变的更加丧心病狂。</span>武器为重枪，同时具有1150点的基础熟练，而且血量也有所提升，大家看见之后绕着走就行了。',
+			'description' => '武神 BorisX，<span class="yellow b">旧英灵四天王之一，经过BUFF后变的更加丧心病狂。</span>武器为重枪，同时具有1150点的基础熟练，而且血量也有所提升，大家看见之后绕着走就行了。',
 			),
 			6 => array
 			(
@@ -2080,7 +2080,7 @@ namespace instance8
 			'wepe' => 1900,
 			'weps' => 999,
 			'wepsk' => 'rdn',
-			'description' => '武神 Renamon，<span class="yellow">旧时代毫无存在感的武神之一，被BUFF能拯救她阿卡林的命运吗？</span>血量为武神中最高，同时武器基础效和全熟在被BUFF后隐隐有与当年黄鸡寻星比肩的势头。',
+			'description' => '武神 Renamon，<span class="yellow b">旧时代毫无存在感的武神之一，被BUFF能拯救她阿卡林的命运吗？</span>血量为武神中最高，同时武器基础效和全熟在被BUFF后隐隐有与当年黄鸡寻星比肩的势头。',
 			),
 			7 => array
 			(
@@ -2095,7 +2095,7 @@ namespace instance8
 			'wepe' => 2100,
 			'weps' => 999,
 			'wepsk' => 'rne',
-			'description' => '武神 beijuzhu，<span class="yellow">旧时代毫无存在感的武神之一，被BUFF能拯救他阿卡林的命运吗？</span>虽然和小狐一样，武器基础效得到了BUFF，但看起来还是很弱小。',
+			'description' => '武神 beijuzhu，<span class="yellow b">旧时代毫无存在感的武神之一，被BUFF能拯救他阿卡林的命运吗？</span>虽然和小狐一样，武器基础效得到了BUFF，但看起来还是很弱小。',
 			),
 			8 => array
 			(
@@ -2112,7 +2112,7 @@ namespace instance8
 			'wepe' => 10000,
 			'weps' => 999,
 			'wepsk' => 'cdn',
-			'description' => '武神 捂脸姬，<span class="yellow">旧时代毫无存在感的武神之一，被BUFF能拯救她阿卡林的命运吗？</span>少数没有强袭姿态的武神之一，但是武器基础效直接被提高了十倍，看起来很危险的样子。',
+			'description' => '武神 捂脸姬，<span class="yellow b">旧时代毫无存在感的武神之一，被BUFF能拯救她阿卡林的命运吗？</span>少数没有强袭姿态的武神之一，但是武器基础效直接被提高了十倍，看起来很危险的样子。',
 			),
 			9 => array
 			(
@@ -2128,7 +2128,7 @@ namespace instance8
 			'wepe' => 2000,
 			'weps' => 999,
 			'wepsk' => 'nre',
-			'description' => '武神 Yoshiko-G，<span class="yellow">四面衍生物，特征是毒舌与傲娇。</span>武神中基础防御力仅低于lemon，在得到BUFF后翻身农奴把歌唱，自带迅疾和静息技能，同时称号变为天赋，要被耀西子教做人了吗！？',
+			'description' => '武神 Yoshiko-G，<span class="yellow b">四面衍生物，特征是毒舌与傲娇。</span>武神中基础防御力仅低于lemon，在得到BUFF后翻身农奴把歌唱，自带迅疾和静息技能，同时称号变为天赋，要被耀西子教做人了吗！？',
 			),
 //			10 => array
 //			(
@@ -2204,7 +2204,7 @@ namespace instance8
 //			'itme6' => 20,
 //			'itms6' => 20,
 //			'itmsk6' => 'z',
-//			'description' => '武神 lemon，<span class="yellow">旧英灵四天王之一，经过BUFF后，好像没啥影响。</span><span class="yellow">拥有最高的基础攻击与防御，十分吓人，当然现在比起来好像也不是那么吓人了。</span>',
+//			'description' => '武神 lemon，<span class="yellow b">旧英灵四天王之一，经过BUFF后，好像没啥影响。</span><span class="yellow b">拥有最高的基础攻击与防御，十分吓人，当然现在比起来好像也不是那么吓人了。</span>',
 //			),
 		),
 	),
@@ -2374,7 +2374,7 @@ namespace instance8
 			'itme3' => 153,
 			'itms3' => 1,
 			'itmsk3' => 'Z',
-			'description' => '天神 虚子，AC大逃杀程序员，毒舌属性。<br>附带很不要脸的<span class="red">【直死4】</span>技能，命中抬走送往印度，现在订购还附赠美味香蕉一串。pong友，今天你被直死了吗？',
+			'description' => '天神 虚子，AC大逃杀程序员，毒舌属性。<br>附带很不要脸的<span class="red b">【直死4】</span>技能，命中抬走送往印度，现在订购还附赠美味香蕉一串。pong友，今天你被直死了吗？',
 			),
 			3 => array
 			(
@@ -2404,7 +2404,7 @@ namespace instance8
 			'itme1' => 20,
 			'itms1' => 200,
 			'itmsk1' => 'z',
-			'description' => '天神 lemon，AC大逃杀程序员，代码力深不见底。<br>拥有全英灵殿最高的基础攻击与防御，而更吓人的是其拥有的<span class="red">【反演】</span>技能，让无数屠殿老司机铩羽而归。',
+			'description' => '天神 lemon，AC大逃杀程序员，代码力深不见底。<br>拥有全英灵殿最高的基础攻击与防御，而更吓人的是其拥有的<span class="red b">【反演】</span>技能，让无数屠殿老司机铩羽而归。',
 			),
 		),
 	),
@@ -2623,7 +2623,7 @@ namespace instance8
 				'wepe' => 8888,
 				'weps' => 8888,
 				'wepsk' => 'nrd',
-				'description' => 'SCP-682，坐镇于SCP研究设施，完全无敌的存在，要是不幸被打到的话，必死无疑。最好的避免方法，就是<span class="yellow">永远不要去SCP研究设施</span>。',
+				'description' => 'SCP-682，坐镇于SCP研究设施，完全无敌的存在，要是不幸被打到的话，必死无疑。最好的避免方法，就是<span class="yellow b">永远不要去SCP研究设施</span>。',
 				),
 				1 => array
 				(
@@ -2634,7 +2634,7 @@ namespace instance8
 				'wepe' => 8888,
 				'weps' => 8888,
 				'wepsk' => 'nrd',
-				'description' => 'SCP-173，坐镇于SCP研究设施，完全无敌的存在，要是不幸被打到的话，必死无疑。最好的避免方法，就是<span class="yellow">永远不要去SCP研究设施</span>。',
+				'description' => 'SCP-173，坐镇于SCP研究设施，完全无敌的存在，要是不幸被打到的话，必死无疑。最好的避免方法，就是<span class="yellow b">永远不要去SCP研究设施</span>。',
 				),
 				2 => array
 				(
@@ -2645,7 +2645,7 @@ namespace instance8
 				'wepe' => 8888,
 				'weps' => 8888,
 				'wepsk' => 'nrd',
-				'description' => 'SCP-076，坐镇于SCP研究设施，完全无敌的存在，要是不幸被打到的话，必死无疑。最好的避免方法，就是<span class="yellow">永远不要去SCP研究设施</span>。',
+				'description' => 'SCP-076，坐镇于SCP研究设施，完全无敌的存在，要是不幸被打到的话，必死无疑。最好的避免方法，就是<span class="yellow b">永远不要去SCP研究设施</span>。',
 				),
 				3 => array
 				(
@@ -2656,7 +2656,7 @@ namespace instance8
 				'wepe' => 8888,
 				'weps' => 8888,
 				'wepsk' => 'nrd',
-				'description' => 'SCP-958，坐镇于SCP研究设施，完全无敌的存在，要是不幸被打到的话，必死无疑。最好的避免方法，就是<span class="yellow">永远不要去SCP研究设施</span>。',
+				'description' => 'SCP-958，坐镇于SCP研究设施，完全无敌的存在，要是不幸被打到的话，必死无疑。最好的避免方法，就是<span class="yellow b">永远不要去SCP研究设施</span>。',
 				),
 			),
 		),

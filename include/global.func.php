@@ -606,7 +606,7 @@ function render_page($page, $extra_context=array()){
 		}
 	}
 	
-	if(strpos($pageinfo, 'redirect')===0){
+	if(strpos($pageinfo, 'red birect')===0){
 		list($null, $url) = explode(':',$pageinfo);
 		header('Location: '.$url);
 		exit();

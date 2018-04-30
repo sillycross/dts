@@ -22,8 +22,8 @@ namespace battle
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','logger','input'));
 		if(!empty($message)){
-			$log .= "<span class=\"lime\">你向{$pd['name']}喊道：“{$message}”</span><br>";
-			$pd['battle_msg'] = "<span class=\"lime\">{$pa['name']}向你喊道：“{$message}”</span><br><br>";
+			$log .= "<span class=\"lime b\">你向{$pd['name']}喊道：“{$message}”</span><br>";
+			$pd['battle_msg'] = "<span class=\"lime b\">{$pa['name']}向你喊道：“{$message}”</span><br><br>";
 			\sys\addchat(6, "{$pa['name']}高喊着“{$message}”杀向了{$pd['name']}");
 		}
 	}

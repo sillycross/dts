@@ -39,7 +39,7 @@ namespace cooldown
 		
 		if($coldtimeon && $rmcdtime > 0)
 		{
-			$log .= '<span class="yellow">冷却时间尚未结束！</span><br>';
+			$log .= '<span class="yellow b">冷却时间尚未结束！</span><br>';
 			$mode = 'command';
 			return;
 		}
@@ -62,7 +62,7 @@ namespace cooldown
 
 		if ($coldtimeon && $rmcdtime > 0)
 		{
-			$log .= '<span class="yellow">冷却时间尚未结束！</span><br>';
+			$log .= '<span class="yellow b">冷却时间尚未结束！</span><br>';
 			$mode = 'command';
 			return;
 		}
@@ -86,7 +86,7 @@ namespace cooldown
 
 		if ($coldtimeon && $rmcdtime > 0)
 		{
-			$log .= '<span class="yellow">冷却时间尚未结束！</span><br>';
+			$log .= '<span class="yellow b">冷却时间尚未结束！</span><br>';
 			$mode = 'command';
 			return;
 		}
@@ -167,7 +167,7 @@ namespace cooldown
 			}
 			if($hp > 0 && $showcoldtimer && $rmcdtime){
 				$x1=$rmcdtime/1000; $x1=(int)$x1; $y1=($rmcdtime%1000)/100; $y1=(int)$y1;
-				$log .= "行动冷却时间：<span id=\"timer\" class=\"yellow\">{$x1}.{$y1}</span>秒<script type=\"text/javascript\">demiSecTimerStarter($rmcdtime);</script><br>";
+				$log .= "行动冷却时间：<span id=\"timer\" class=\"yellow b\">{$x1}.{$y1}</span>秒<script type=\"text/javascript\">demiSecTimerStarter($rmcdtime);</script><br>";
 			}
 		}
 	}
@@ -187,7 +187,7 @@ namespace cooldown
 			if($hp > 0 && $showcoldtimer && $rmcdtime)
 			{
 				$x1=$rmcdtime/1000; $x1=(int)$x1; $y1=($rmcdtime%1000)/100; $y1=(int)$y1;
-				$log .= "行动冷却时间：<span id=\"timer\" class=\"yellow\">{$x1}.{$y1}</span>秒<script type=\"text/javascript\">demiSecTimerStarter($rmcdtime);</script><br>";
+				$log .= "行动冷却时间：<span id=\"timer\" class=\"yellow b\">{$x1}.{$y1}</span>秒<script type=\"text/javascript\">demiSecTimerStarter($rmcdtime);</script><br>";
 			}
 		}
 	}

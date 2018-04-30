@@ -9,11 +9,11 @@
 <!--{eval $clv = (int)\skillbase\skill_getvalue(426,'lvl'); }-->
 <!--{eval $totlv = count($upgradecost)-1; }-->
 <!--{eval $skill426_lst = (int)\skillbase\skill_getvalue(426,'lastuse'); $skill426_time = ($now-$skill426_lst);$skill426_cd_left=($skill426_cd[$clv]-$skill426_time);}-->
-<span class="lime">当前级别$clv/$totlv</span>&nbsp;
-<!--{if $upgradecost[$clv] !== -1}-->消耗<span class="lime">$upgradecost[$clv]</span>点技能点升至下一级<!--{/if}--><br>
-恢复满HP、SP，并治好所有伤口和异常状态，冷却时间<span class="clan">$skill426_cd[$clv]</span>秒<br>
+<span class="lime b">当前级别$clv/$totlv</span>&nbsp;
+<!--{if $upgradecost[$clv] !== -1}-->消耗<span class="lime b">$upgradecost[$clv]</span>点技能点升至下一级<!--{/if}--><br>
+恢复满HP、SP，并治好所有伤口和异常状态，冷却时间<span class="cyan b">$skill426_cd[$clv]</span>秒<br>
 <!--{if $skill426_time<$skill426_cd[$clv]}-->
-<span class="clan">技能冷却中，冷却时间还剩<span>$skill426_cd_left</span>秒。</span><br>
+<span class="cyan b">技能冷却中，冷却时间还剩<span>$skill426_cd_left</span>秒。</span><br>
 <!--{/if}-->
 </span></td>
 <td class=b3 width=96>
@@ -27,7 +27,7 @@
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
 <!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
-<span class="yellow">
+<span class="yellow b">
 </span>
 <!--{/if}-->
 {template MOD_CLUBBASE_SKILLDESC_END}

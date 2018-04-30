@@ -66,6 +66,7 @@ wound,base/wound/,1
 skill2,base/skills/skill2/,1
 skill3,base/skills/skill3/,1
 item_uv,base/items/item_uv/,1
+npcchat_bubble,extra/misc/npcchat_bubble/,1
 skill11,extra/club/skills/skill11/,1
 skill10,extra/club/skills/skill10/,1
 skill305,extra/achievement/skills/skill305/,1
@@ -93,7 +94,6 @@ skill311,extra/achievement/skills/skill311/,1
 skill312,extra/achievement/skills/skill312/,1
 skill314,extra/achievement/skills/skill314/,1
 skill443,extra/card/skills/skill443/,1
-skill325,extra/achievement/skills/skill325/,1
 skill477,extra/card/skills/skill477/,1
 skill479,extra/card/skills/skill479/,1
 skill327,extra/activities/nationalday2017/skill327/,1
@@ -300,6 +300,7 @@ skill445,extra/card/skills/skill445/,1
 pose,base/pose/,1
 skill1,base/skills/skill1/,1
 skill600,extra/club/skills/skill600/,1
+skill325,extra/achievement/skills/skill325/,1
 skill326,extra/achievement/skills/skill326/,1
 skill315,extra/achievement/skills/skill315/,1
 skill313,extra/achievement/skills/skill313/,1
@@ -484,5 +485,4 @@ skill36,extra/club/skills/skill36/,1
 skill38,extra/club/skills/skill38/,1
 skill34,extra/club/skills/skill34/,1
 skill505,extra/card/skills/skill505/,1
-npcchat_bubble,extra/misc/npcchat_bubble/,0
 halloween2017,extra/activities/halloween2017/main/,0

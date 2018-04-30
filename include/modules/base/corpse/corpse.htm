@@ -48,7 +48,7 @@
 <input type="radio" name="command" id="money" value="money" <!--{if $default_selection == 'money'}-->checked<!--{/if}-->><a id="amoney" onclick=sl('money'); href="javascript:void(0);" >$w_money {lang moneyunit} </a><br>
 <!--{elseif $w_money}-->
 <!--{eval eval(import_module('corpse'));}-->
-<input type="radio" name="command" id="money" value="money" disabled><span class="grey">$w_money {lang moneyunit} $cannot_pick_notice</span><br>
+<input type="radio" name="command" id="money" value="money" disabled><span class="grey b">$w_money {lang moneyunit} $cannot_pick_notice</span><br>
 <!--{/if}-->
 
 <input type="button" id="z" value="[Z]提交" onclick="postCmd('gamecmd','command.php');this.disabled=true;">

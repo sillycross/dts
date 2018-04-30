@@ -1,7 +1,7 @@
 <!--{eval $tmp_arpos = Array('b'=>'B', 'h'=>'H', 'a'=>'A', 'f'=>'F');}-->
 <!--{loop $tmp_arpos $apl $apu}-->
 <tr>
-	<TD class=b2 height="26"><span><!--{if ${'ar'.$apl.'s'}}-->$iteminfo['D'.$apu]<!--{else}--><span class="grey">$iteminfo['D'.$apu]</span><!--{/if}--></span></TD>
+	<TD class=b2 height="26"><span><!--{if ${'ar'.$apl.'s'}}-->$iteminfo['D'.$apu]<!--{else}--><span class="grey b">$iteminfo['D'.$apu]</span><!--{/if}--></span></TD>
 	<TD class=b3>
 	<!--{if CURSCRIPT == 'game' && $mode == 'command' && ${'ar'.$apl.'s'}}--><span><input type="button" value="卸下" onclick="$('mode').value='itemmain';$('command').value='offar{$apl}';postCmd('gamecmd','command.php');return false;"</span><!--{/if}-->
 	<span><!--{if ${'ar'.$apl.'s'}}-->$tpldata['ar'.$apl.'_words']<!--{elseif 'b'==$apl}-->$noarb<!--{else}-->$noitm<!--{/if}--></span>

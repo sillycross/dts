@@ -32,8 +32,8 @@ namespace skill467
 		{
 			eval(import_module('player','logger'));
 			if ($active)
-				$log.="<span class=\"clan\">你的攻击让敌人晕了过去！</span></span><br>";
-			else  $log.="<span class=\"clan\">敌人的攻击使你晕了过去！</span></span><br>";
+				$log.="<span class=\"cyan b\">你的攻击让敌人晕了过去！</span></span><br>";
+			else  $log.="<span class=\"cyan b\">敌人的攻击使你晕了过去！</span></span><br>";
 			\skill602\set_stun_period(2500,$pd);
 			\skill602\send_stun_battle_news($pa['name'],$pd['name']);
 		}

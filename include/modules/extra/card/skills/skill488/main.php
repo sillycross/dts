@@ -37,7 +37,7 @@ namespace skill488
 				else $hpup = round($pa['dmg_dealt']*0.5);
 				$pd['hp'] += $hpup;
 				eval(import_module('logger'));
-				$log .= \battle\battlelog_parser($pa, $pd, $active, "然而，<:pd_name:>留有后路，<span class='lime'>回复了{$hpup}点生命！</span>");
+				$log .= \battle\battlelog_parser($pa, $pd, $active, "然而，<:pd_name:>留有后路，<span class='lime b'>回复了{$hpup}点生命！</span>");
 			}
 		}
 	}

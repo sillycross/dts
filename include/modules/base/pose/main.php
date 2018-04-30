@@ -23,7 +23,7 @@ namespace pose
 		$npose=(int)$npose;
 		if ($pose_player_usable[$npose])
 		{
-			$log .= "基础姿态变为<span class=\"yellow\">$poseinfo[$npose]</span>。<br> ";
+			$log .= "基础姿态变为<span class=\"yellow b\">$poseinfo[$npose]</span>。<br> ";
 			$pose = $npose;
 		}
 		else  $log .= "这个姿势太奇怪啦！<br> ";

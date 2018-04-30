@@ -50,7 +50,7 @@ namespace skill501
 		
 		eval(import_module('sys','map'));
 		if($news == 'death42')
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">不愿意独存的<span class=\"yellow\">$a</span>绝望地自尽了</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red b\">不愿意独存的<span class=\"yellow b\">$a</span>绝望地自尽了</span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

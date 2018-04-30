@@ -307,7 +307,7 @@
 	</table>
 	<br>
 	<input type="submit" value="上一页" onclick="javascript:document.npcmng.pagemode.value='up';">
-	<span class="yellow">$resultinfo</span>
+	<span class="yellow b">$resultinfo</span>
 	<input type="submit" value="下一页" onclick="javascript:document.npcmng.pagemode.value='down';">
 	<table class="admin">
 		<tr>
@@ -331,13 +331,13 @@
 		<!--{loop $npcdata $n $npc}-->
 		<tr>
 			<td><input type="checkbox" id="npc_$n" name="npc_$n" value="{$npc['pid']}"></td>
-			<td><span <!--{if $npc['hp']<=0 || $npc['state']>=10}-->class="red"<!--{/if}-->>{$npc['name']}</span></td>
+			<td><span <!--{if $npc['hp']<=0 || $npc['state']>=10}-->class="red b"<!--{/if}-->>{$npc['name']}</span></td>
 			<td>{$sexinfo[$npc['gd']]}</td>
 			<td>{$npc['sNo']}</td>
 			<td>{$npc['lvl']}</td>
 			<td>{$plsinfo[$npc['pls']]}</td>
 			<td>{$npc['teamID']}</td>
-			<td><span <!--{if $npc['state']>=10}-->class="red"<!--{/if}-->>{$stateinfo[$npc['state']]}</span></td>
+			<td><span <!--{if $npc['state']>=10}-->class="red b"<!--{/if}-->>{$stateinfo[$npc['state']]}</span></td>
 			<td>{$npc['sp']}/{$npc['msp']}</td>
 			<td>{$npc['hp']}/{$npc['mhp']}</td>
 			<td>{$clubinfo[$npc['club']]}</td>

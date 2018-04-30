@@ -69,8 +69,8 @@ namespace skill265
 			{
 				eval(import_module('logger'));
 				if ($active)
-					$log.="<span class=\"lime\">你对{$pd['name']}发动了技能「穿杨」！</span><br>";
-				else  $log.="<span class=\"lime\">{$pa['name']}对你发动了技能「穿杨」！</span><br>";
+					$log.="<span class=\"lime b\">你对{$pd['name']}发动了技能「穿杨」！</span><br>";
+				else  $log.="<span class=\"lime b\">{$pa['name']}对你发动了技能「穿杨」！</span><br>";
 				$pa['rage']-=$rcost;
 				addnews ( 0, 'bskill265', $pa['name'], $pd['name'] );
 			}
@@ -114,7 +114,7 @@ namespace skill265
 		if (isset($pa['bskill']) && $pa['bskill']==265) 
 		{
 			eval(import_module('logger','skill265'));
-			$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow">「穿杨」使<:pa_name:>造成的物理伤害提高了'.$skill265phyup.'%！</span><br>');
+			$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow b">「穿杨」使<:pa_name:>造成的物理伤害提高了'.$skill265phyup.'%！</span><br>');
 			$r=Array(1+$skill265phyup/100);
 		}
 		return array_merge($r,$chprocess($pa,$pd,$active));
@@ -128,7 +128,7 @@ namespace skill265
 		{
 			eval(import_module('skill265'));
 //			eval(import_module('logger'));
-//			$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow">「穿杨」使<:pa_name:>的命中率提升了20%！</span><br>');
+//			$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow b">「穿杨」使<:pa_name:>的命中率提升了20%！</span><br>');
 			$r = 1+$skill265htrup/100;
 		}
 		return $chprocess($pa, $pd, $active)*$r;
@@ -189,7 +189,7 @@ namespace skill265
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill265') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}对{$b}发动了技能<span class=\"yellow\">「穿杨」</span></span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}对{$b}发动了技能<span class=\"yellow b\">「穿杨」</span></span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

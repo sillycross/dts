@@ -99,7 +99,7 @@ namespace weather
 		eval(import_module('sys','player','logger'));
 		$damage = calculate_hailstorm_weather_damage();
 		$hp -= $damage;
-		$log .= "被<span class=\"blue\">冰雹</span>击中，生命减少了<span class=\"red\">$damage</span>点！<br>";
+		$log .= "被<span class=\"blue b\">冰雹</span>击中，生命减少了<span class=\"red b\">$damage</span>点！<br>";
 		if($hp <= 0 ) {
 			$state = 17;
 			\player\update_sdata();
@@ -121,7 +121,7 @@ namespace weather
 		{
 			$pls = rand($areanum+1,sizeof($plsinfo)-1);$pls=$arealist[$pls];
 		}
-		$log .= "但是强烈的龙卷风把你吹到了<span class=\"yellow\">$plsinfo[$pls]</span>！<br>";
+		$log .= "但是强烈的龙卷风把你吹到了<span class=\"yellow b\">$plsinfo[$pls]</span>！<br>";
 	}
 	
 	function move_to_area($moveto)	//天气对移动的特效
@@ -142,10 +142,10 @@ namespace weather
 		{
 			$dice = rand(0,9);
 			if($dice ==0 && strpos($inf,'e')===false){
-				$log .= "空气中充斥着的<span class=\"linen\">狂暴电磁波</span>导致你<span class=\"yellow\">身体麻痹</span>了！<br>";
+				$log .= "空气中充斥着的<span class=\"linen b\">狂暴电磁波</span>导致你<span class=\"yellow b\">身体麻痹</span>了！<br>";
 				\wound\get_inf('e');
 			}elseif($dice ==1 && strpos($inf,'w')===false){
-				$log .= "空气中充斥着的<span class=\"linen\">狂暴电磁波</span>导致你<span class=\"grey\">混乱</span>了！<br>";
+				$log .= "空气中充斥着的<span class=\"linen b\">狂暴电磁波</span>导致你<span class=\"grey b\">混乱</span>了！<br>";
 				\wound\get_inf('w');
 			}else{
 				$log .= "空气中充斥着狂暴的电磁波……<br>";
@@ -157,7 +157,7 @@ namespace weather
 			if($dice == 0){
 				$mhpdown = rand(1,4);
 				if($mhp > $mhpdown){
-					$log .= "空气中弥漫着的<span class=\"green\">放射性尘埃</span>导致你的生命上限减少了<span class=\"red\">{$mhpdown}</span>点！<br>";
+					$log .= "空气中弥漫着的<span class=\"green b\">放射性尘埃</span>导致你的生命上限减少了<span class=\"red b\">{$mhpdown}</span>点！<br>";
 					$mhp -= $mhpdown;
 					if($hp > $mhp){$hp = $mhp;}
 				}
@@ -171,11 +171,11 @@ namespace weather
 			if($dice == 0){
 				$defdown = rand(2,5);
 				if($def > $defdown){
-					$log .= "高强度的<span class=\"purple\">紫外线照射</span>导致你的防御力减少了<span class=\"red\">{$defdown}</span>点！<br>";
+					$log .= "高强度的<span class=\"purple b\">紫外线照射</span>导致你的防御力减少了<span class=\"red b\">{$defdown}</span>点！<br>";
 					$def -= $defdown;
 				}
 			}elseif($dice ==1 && strpos($inf,'u')===false){
-				$log .= "高强度的<span class=\"purple\">紫外线照射</span>导致你<span class=\"red\">烧伤</span>了！<br>";
+				$log .= "高强度的<span class=\"purple b\">紫外线照射</span>导致你<span class=\"red b\">烧伤</span>了！<br>";
 				\wound\get_inf('u');
 			}else{
 				$log .= "高强度的紫外线灼烧着大地……<br>";
@@ -202,10 +202,10 @@ namespace weather
 		{
 			$dice = rand(0,9);
 			if($dice ==0 && strpos($inf,'e')===false){
-				$log .= "空气中充斥着的<span class=\"linen\">狂暴电磁波</span>导致你<span class=\"yellow\">身体麻痹</span>了！<br>";
+				$log .= "空气中充斥着的<span class=\"linen b\">狂暴电磁波</span>导致你<span class=\"yellow b\">身体麻痹</span>了！<br>";
 				\wound\get_inf('e');
 			}elseif($dice ==1 && strpos($inf,'w')===false){
-				$log .= "空气中充斥着的<span class=\"linen\">狂暴电磁波</span>导致你<span class=\"grey\">混乱</span>了！<br>";
+				$log .= "空气中充斥着的<span class=\"linen b\">狂暴电磁波</span>导致你<span class=\"grey b\">混乱</span>了！<br>";
 				\wound\get_inf('w');
 			}else{
 				$log .= "空气中充斥着狂暴的电磁波……<br>";
@@ -217,7 +217,7 @@ namespace weather
 			if($dice == 0){
 				$mhpdown = rand(1,4);
 				if($mhp > $mhpdown){
-					$log .= "空气中弥漫着的<span class=\"green\">放射性尘埃</span>导致你的生命上限减少了<span class=\"red\">{$mhpdown}</span>点！<br>";
+					$log .= "空气中弥漫着的<span class=\"green b\">放射性尘埃</span>导致你的生命上限减少了<span class=\"red b\">{$mhpdown}</span>点！<br>";
 					$mhp -= $mhpdown;
 					if($hp > $mhp){$hp = $mhp;}
 				}
@@ -231,11 +231,11 @@ namespace weather
 			if($dice == 0){
 				$defdown = rand(2,5);
 				if($def > $defdown){
-					$log .= "高强度的<span class=\"purple\">紫外线照射</span>导致你的防御力减少了<span class=\"red\">{$defdown}</span>点！<br>";
+					$log .= "高强度的<span class=\"purple b\">紫外线照射</span>导致你的防御力减少了<span class=\"red b\">{$defdown}</span>点！<br>";
 					$def -= $defdown;if($def < 0) $def = 0;
 				}
 			}elseif($dice ==1 && strpos($inf,'u')===false){
-				$log .= "高强度的<span class=\"purple\">紫外线照射</span>导致你<span class=\"red\">烧伤</span>了！<br>";
+				$log .= "高强度的<span class=\"purple b\">紫外线照射</span>导致你<span class=\"red b\">烧伤</span>了！<br>";
 				\wound\get_inf('u');
 			}else{
 				$log .= "高强度的紫外线灼烧着大地……<br>";
@@ -256,7 +256,7 @@ namespace weather
 		eval(import_module('sys','map','player','logger','weather'));
 		if($weather >= 14 && $itmsk != 95){
 			addnews ( $now, 'wthfail', $name, $weather, $itm );
-			$log .= "你使用了{$itm}。<br /><span class=\"red\">但是天气并未发生任何变化！</span><br />";
+			$log .= "你使用了{$itm}。<br /><span class=\"red b\">但是天气并未发生任何变化！</span><br />";
 		}else{
 			if($itmsk==99){$weather = rand ( 0, 13 );}//随机全天气
 			elseif($itmsk==98){$weather = rand ( 10, 13 );}//随机恶劣天气
@@ -272,7 +272,7 @@ namespace weather
 			else{$weather = 0;}
 			save_gameinfo ();
 			addnews ( $now, 'wthchange', $name, $weather, $itm );
-			$log .= "你使用了{$itm}。<br />天气突然转变成了<span class=\"red\">$wthinfo[$weather]</span>！<br />";
+			$log .= "你使用了{$itm}。<br />天气突然转变成了<span class=\"red b\">$wthinfo[$weather]</span>！<br />";
 		}
 		return;
 	}
@@ -341,27 +341,27 @@ namespace weather
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','weather'));
 		if($news == 'wthchange') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}使用了{$c}，天气变成了{$wthinfo[$b]}！</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime b\">{$a}使用了{$c}，天气变成了{$wthinfo[$b]}！</span></li>";
 		elseif($news == 'wthfail') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}使用了{$c}，但是天气并未发生改变！</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime b\">{$a}使用了{$c}，但是天气并未发生改变！</span></li>";
 		elseif($news == 'syswthchg') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">奇迹和魔法都是存在的！当前天气变成了{$wthinfo[$a]}！</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime b\">奇迹和魔法都是存在的！当前天气变成了{$wthinfo[$a]}！</span></li>";
 		elseif($news == 'aurora_revival') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}在奥罗拉的作用下原地复活了！</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime b\">{$a}在奥罗拉的作用下原地复活了！</span></li>";
 		elseif($news == 'death17') 
 		{
 			$dname = $typeinfo[$b].' '.$a;
 			if(!$e){
-				$e="<span class=\"yellow\">【{$dname} 什么都没说就死去了】</span><br>\n";
+				$e="<span class=\"yellow b\">【{$dname} 什么都没说就死去了】</span><br>\n";
 			}else{
-				$e="<span class=\"yellow\">【{$dname}：“{$e}”】</span><br>\n";
+				$e="<span class=\"yellow b\">【{$dname}：“{$e}”】</span><br>\n";
 			}
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>被<span class=\"red\">冰雹砸死</span>{$e}</li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">$a</span>被<span class=\"red b\">冰雹砸死</span>{$e}</li>";
 		}
 		elseif($news == 'addarea') 
 		{
 			$info = $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
-			$info = str_replace("</li>", "<span class=\"yellow\">【天气：{$wthinfo[$b]}】</span></li>", $info);
+			$info = str_replace("</li>", "<span class=\"yellow b\">【天气：{$wthinfo[$b]}】</span></li>", $info);
 			return $info;
 		}
 		
@@ -374,7 +374,7 @@ namespace weather
 		eval(import_module('sys','logger'));
 		if($weather == 14)
 		{
-			$log .= '由于<span class="linen">离子风暴</span>造成了电磁干扰，探测仪器完全显示不出信息……<br>';
+			$log .= '由于<span class="linen b">离子风暴</span>造成了电磁干扰，探测仪器完全显示不出信息……<br>';
 			return;
 		}
 		$chprocess($mms);
@@ -482,15 +482,15 @@ namespace weather
 		{
 			if ($active)
 			{
-				$log.='但是，空气中弥漫着的<span class="clan">奥罗拉</span><span class="lime">让敌人重新站了起来！</span><br>';
-				$log .= '并且，敌人的生命回复了<span class="clan">'.$pd['aurora_revive_flag'].'</span>点！<br>';
-				$pd['battlelog'].='<span class="lime">但是，空气中弥漫着的奥罗拉让你重新站了起来！</span>';
+				$log.='但是，空气中弥漫着的<span class="cyan b">奥罗拉</span><span class="lime b">让敌人重新站了起来！</span><br>';
+				$log .= '并且，敌人的生命回复了<span class="cyan b">'.$pd['aurora_revive_flag'].'</span>点！<br>';
+				$pd['battlelog'].='<span class="lime b">但是，空气中弥漫着的奥罗拉让你重新站了起来！</span>';
 			}
 			else
 			{
-				$log.='但是，空气中弥漫着的<span class="clan">奥罗拉</span><span class="lime">让你重新站了起来！</span><br>';
-				$log .= '并且，你的生命回复了<span class="clan">'.$pd['aurora_revive_flag'].'</span>点！<br>';
-				$pd['battlelog'].='<span class="lime">但是，空气中弥漫着的奥罗拉让敌人重新站了起来！</span>';
+				$log.='但是，空气中弥漫着的<span class="cyan b">奥罗拉</span><span class="lime b">让你重新站了起来！</span><br>';
+				$log .= '并且，你的生命回复了<span class="cyan b">'.$pd['aurora_revive_flag'].'</span>点！<br>';
+				$pd['battlelog'].='<span class="lime b">但是，空气中弥漫着的奥罗拉让敌人重新站了起来！</span>';
 			}
 			//unset($pd['aurora_revive_flag']);
 		}
@@ -535,7 +535,7 @@ namespace weather
 					else $logname = ${$pn}['name'];
 
 					//复活时在player_kill_enemy()里记录$log
-					$log .= "空气中弥漫着的<span class='clan'>奥罗拉</span>让{$logname}的生命回复了<span class='clan'>$aurora_revive</span>点！<br>";
+					$log .= "空气中弥漫着的<span class='cyan b'>奥罗拉</span>让{$logname}的生命回复了<span class='cyan b'>$aurora_revive</span>点！<br>";
 				}
 				unset(${$pn}['aurora_revive']);
 			}

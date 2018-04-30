@@ -58,8 +58,8 @@ namespace skill237
 			{
 				eval(import_module('logger'));
 				if ($active)
-					$log.="<span class=\"lime\">你对{$pd['name']}发动了技能「EMP」！</span><br>";
-				else  $log.="<span class=\"lime\">{$pa['name']}对你发动了技能「EMP」！</span><br>";
+					$log.="<span class=\"lime b\">你对{$pd['name']}发动了技能「EMP」！</span><br>";
+				else  $log.="<span class=\"lime b\">{$pa['name']}对你发动了技能「EMP」！</span><br>";
 				$pa['rage']-=$rcost;
 				addnews ( 0, 'bskill237', $pa['name'], $pd['name'] );
 			}
@@ -84,7 +84,7 @@ namespace skill237
 		if ($pa['bskill']==237) 
 		{
 			eval(import_module('logger'));
-			$log .=  \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow"><:pa_name:>将武器的伤害转化成了电磁干扰攻击！</span><br>');
+			$log .=  \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow b"><:pa_name:>将武器的伤害转化成了电磁干扰攻击！</span><br>');
 			$ret = 0;
 		}
 		return $ret;
@@ -99,7 +99,7 @@ namespace skill237
 //		if ($pa['bskill']==237) 
 //		{
 //			eval(import_module('logger'));
-//			$log .=  \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow"><:pa_name:>将武器的伤害转化成了电磁干扰攻击！</span><br>');
+//			$log .=  \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow b"><:pa_name:>将武器的伤害转化成了电磁干扰攻击！</span><br>');
 //		}
 //		else return $chprocess($pa, $pd, $active);
 //	}
@@ -113,8 +113,8 @@ namespace skill237
 //			eval(import_module('logger'));
 //			$r=Array(1.3);
 //			if ($active)
-//				$log.='<span class="yellow">你借用武器施展出了电磁干扰攻击！</span><br>';
-//			else  $log.='<span class="yellow">敌人借用武器施展出了电磁干扰攻击！</span><br>';
+//				$log.='<span class="yellow b">你借用武器施展出了电磁干扰攻击！</span><br>';
+//			else  $log.='<span class="yellow b">敌人借用武器施展出了电磁干扰攻击！</span><br>';
 //		}
 //		return array_merge($r,$chprocess($pa, $pd, $active));
 //	}
@@ -147,7 +147,7 @@ namespace skill237
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill237') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}对{$b}发动了技能<span class=\"yellow\">「EMP」</span></span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}对{$b}发动了技能<span class=\"yellow b\">「EMP」</span></span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

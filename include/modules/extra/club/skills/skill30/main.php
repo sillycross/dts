@@ -63,10 +63,10 @@ namespace skill30
 				$hpcost = get_hp_cost30($pa);
 				eval(import_module('logger'));
 				if ($active)
-					$log.="<span class=\"lime\">你对{$pd['name']}发动了技能「压制」！</span><br>
-						<span class=\"yellow\">你消耗了<span class=\"red\">{$hpcost}</span>点生命值，发动了鲁莽的一击！</span><br>";
-				else  $log.="<span class=\"lime\">{$pa['name']}对你发动了技能「压制」！</span><br>
-						<span class=\"yellow\">其消耗了<span class=\"red\">{$hpcost}</span>点生命值，发动了鲁莽的一击！</span><br>";
+					$log.="<span class=\"lime b\">你对{$pd['name']}发动了技能「压制」！</span><br>
+						<span class=\"yellow b\">你消耗了<span class=\"red b\">{$hpcost}</span>点生命值，发动了鲁莽的一击！</span><br>";
+				else  $log.="<span class=\"lime b\">{$pa['name']}对你发动了技能「压制」！</span><br>
+						<span class=\"yellow b\">其消耗了<span class=\"red b\">{$hpcost}</span>点生命值，发动了鲁莽的一击！</span><br>";
 				$pa['rage']-=$rcost;
 				$pa['hp']-=$hpcost;
 				//$pd['hp']-=$hpcost;
@@ -115,7 +115,7 @@ namespace skill30
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill30') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}对{$b}发动了技能<span class=\"yellow\">「压制」</span></span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}对{$b}发动了技能<span class=\"yellow b\">「压制」</span></span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

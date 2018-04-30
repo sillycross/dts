@@ -117,17 +117,17 @@ namespace trap
 		if ($is_hit)
 		{
 			if($playerflag && !$selflag && $hp<=0){
-				$w_log = "<span class=\"red\">{$name}触发了你设置的陷阱{$itm0}并被杀死了！</span><br>";
+				$w_log = "<span class=\"red b\">{$name}触发了你设置的陷阱{$itm0}并被杀死了！</span><br>";
 				\logger\logsave ( $itmsk0, $now, $w_log ,'b');
 			}elseif($playerflag && !$selflag){
-				$w_log = "<span class=\"yellow\">{$name}触发了你设置的陷阱{$itm0}！</span><br>";
+				$w_log = "<span class=\"yellow b\">{$name}触发了你设置的陷阱{$itm0}！</span><br>";
 				\logger\logsave ( $itmsk0, $now, $w_log ,'b');
 			}
 		}
 		else
 		{
 			if($playerflag && !$selflag){
-				$w_log = "<span class=\"yellow\">{$name}回避了你设置的陷阱{$itm0}！</span><br>";
+				$w_log = "<span class=\"yellow b\">{$name}回避了你设置的陷阱{$itm0}！</span><br>";
 				\logger\logsave ( $itmsk0, $now, $w_log ,'b');
 			}
 		}
@@ -177,7 +177,7 @@ namespace trap
 		}else {
 			$pa=\player\create_dummy_playerdata();
 		}
-		$log .= "糟糕，你触发了{$trprefix}陷阱<span class=\"yellow\">$itm0</span>！";
+		$log .= "糟糕，你触发了{$trprefix}陷阱<span class=\"yellow b\">$itm0</span>！";
 		$damage = get_trap_damage();
 		
 		
@@ -230,7 +230,7 @@ namespace trap
 		trap_deal_damage();
 		
 		if($hp <= 0) {
-			$log .= "<span class=\"red\">你被{$trprefix}陷阱杀死了！</span>";
+			$log .= "<span class=\"red b\">你被{$trprefix}陷阱杀死了！</span>";
 			$state = 27;
 			\player\update_sdata();
 			if (!$selflag && $playerflag) 	//有来源且不是自己
@@ -255,7 +255,7 @@ namespace trap
 			
 			if (isset($sdata['sourceless'])) unset($sdata['sourceless']);
 			if($killmsg != ''){
-				$log .= "<span class=\"yellow\">{$trname}对你说：“{$killmsg}”</span><br>";
+				$log .= "<span class=\"yellow b\">{$trname}对你说：“{$killmsg}”</span><br>";
 			}				
 		}
 		
@@ -276,7 +276,7 @@ namespace trap
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','trap'));
-		$log .= "你发现了{$trprefix}陷阱<span class=\"yellow\">$itm0</span>，不过你并没有触发它。陷阱看上去还可以重复使用。<br>";			
+		$log .= "你发现了{$trprefix}陷阱<span class=\"yellow b\">$itm0</span>，不过你并没有触发它。陷阱看上去还可以重复使用。<br>";			
 		$itmsk0 = '';$itmk0 = str_replace('TO','TN',$itmk0);
 		$mode = 'itemfind';
 	}
@@ -285,7 +285,7 @@ namespace trap
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','trap'));
-		$log .= "你发现了{$trprefix}陷阱<span class=\"yellow\">$itm0</span>，不过你成功地回避了它。<br>";
+		$log .= "你发现了{$trprefix}陷阱<span class=\"yellow b\">$itm0</span>，不过你成功地回避了它。<br>";
 		$itm0 = $itmk0 = $itmsk0 = '';
 		$itme0 = $itms0 = 0;
 		$mode = 'command';
@@ -346,7 +346,7 @@ namespace trap
 		
 		if($playerflag && !$selflag){
 			$wdata = \player\fetch_playerdata_by_pid($itmsk0);
-			$trname = $wdata['name'];$trtype = $wdata['type'];$trprefix = '<span class="yellow">'.$trname.'</span>设置的';
+			$trname = $wdata['name'];$trtype = $wdata['type'];$trprefix = '<span class="yellow b">'.$trname.'</span>设置的';
 		}elseif($selflag){
 			$trname = $name;$trtype = 0;$trprefix = '你自己设置的';
 		}else{
@@ -404,19 +404,19 @@ namespace trap
 		
 		if($news == 'trap') 
 			if ($d>0)
-				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}中了{$b}设置的陷阱{$c}，受到了{$d}点伤害！</span></li>";
-			else  return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}中了{$b}设置的陷阱{$c}</span></li>";
+				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red b\">{$a}中了{$b}设置的陷阱{$c}，受到了{$d}点伤害！</span></li>";
+			else  return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red b\">{$a}中了{$b}设置的陷阱{$c}</span></li>";
 		if($news == 'trapmiss') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}回避了{$b}设置的陷阱{$c}</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">{$a}回避了{$b}设置的陷阱{$c}</span></li>";
 		if($news == 'death27') {
 			$dname = $typeinfo[$b].' '.$a;
 			if(!$e)
-				$e0="<span class=\"yellow\">【{$dname} 什么都没说就死去了】</span><br>\n";
-			else  $e0="<span class=\"yellow\">【{$dname}：“{$e}”】</span><br>\n";
+				$e0="<span class=\"yellow b\">【{$dname} 什么都没说就死去了】</span><br>\n";
+			else  $e0="<span class=\"yellow b\">【{$dname}：“{$e}”】</span><br>\n";
 			if($c){
-				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因触发了<span class=\"yellow\">$c</span>设置的陷阱<span class=\"red\">$d</span>被杀死{$e0}</li>";
+				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">$a</span>因触发了<span class=\"yellow b\">$c</span>设置的陷阱<span class=\"red b\">$d</span>被杀死{$e0}</li>";
 			} else {
-				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因触发了陷阱<span class=\"red\">$d</span>被杀死{$e0}</li>";
+				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">$a</span>因触发了陷阱<span class=\"red b\">$d</span>被杀死{$e0}</li>";
 			}
 		}
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
@@ -462,13 +462,13 @@ namespace trap
 		$itm=&$theitem['itm']; $itmk=&$theitem['itmk'];
 		$itme=&$theitem['itme']; $itms=&$theitem['itms']; $itmsk=&$theitem['itmsk'];
 		
-		$log .= "设置了陷阱<span class=\"red\">$itm</span>。<br>";
+		$log .= "设置了陷阱<span class=\"red b\">$itm</span>。<br>";
 		
 		$trape = get_trap_itme_limit($theitem);
 		if($trape >= $itme) {
 			$trape = $itme;
 		}else{
-			$log .= "<span class=\"yellow\">你笨拙的技术让陷阱的最大伤害限制在了<span class=\"red\">$trape</span>点。</span><br>";
+			$log .= "<span class=\"yellow b\">你笨拙的技术让陷阱的最大伤害限制在了<span class=\"red b\">$trape</span>点。</span><br>";
 		}
 		
 		$log .= "小心，自己也很难发现。<br>";

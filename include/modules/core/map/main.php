@@ -16,8 +16,8 @@ namespace map
 		if(defined('IN_REPLAY') || !in_array($GLOBALS['___CURSCRIPT'], array('GAME', 'ACT'))) $on = false;
 		$timing = ($areatime-$now);
 		$timing_r = sprintf("%02d", floor($timing/60)).':'.sprintf("%02d", $timing%60);
-		if($timing < 10) $timing_r = '<span class="red">'.$timing_r.'</span>';
-		elseif($timing < 60) $timing_r = '<span class="yellow">'.$timing_r.'</span>';
+		if($timing < 10) $timing_r = '<span class="red b">'.$timing_r.'</span>';
+		elseif($timing < 60) $timing_r = '<span class="yellow b">'.$timing_r.'</span>';
 		$uip['timing']['area_timing'] = array(
 			'on' => $on,
 			'mode' => 0,
@@ -266,7 +266,7 @@ namespace map
 		
 		eval(import_module('sys','map'));
 		if($news == 'death11') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因滞留在<span class=\"red\">禁区【{$plsinfo[$c]}】</span>死亡</li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">$a</span>因滞留在<span class=\"red b\">禁区【{$plsinfo[$c]}】</span>死亡</li>";
 		
 		elseif($news == 'addarea') {
 			$info = "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，增加禁区：";

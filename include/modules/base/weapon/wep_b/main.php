@@ -95,7 +95,7 @@ namespace wep_b
 		eval(import_module('weapon','logger'));
 		if ($pa['wep_kind']=='B')	//弓系武器损坏特判（箭矢用光）
 		{
-			$log .= \battle\battlelog_parser($pa, $pd, $active, "<:pa_name:>的<span class=\"red\">{$pa['wep']}</span>的箭矢用光了！<br>");
+			$log .= \battle\battlelog_parser($pa, $pd, $active, "<:pa_name:>的<span class=\"red b\">{$pa['wep']}</span>的箭矢用光了！<br>");
 			$pa['weps']=$nosta;
 			//箭矢用光时抹掉箭矢名
 			wep_b_clean_arrow_name($pa['wepk']);
@@ -156,7 +156,7 @@ namespace wep_b
 		$itme=&$theitem['itme']; $itms=&$theitem['itms']; $itmsk=&$theitem['itmsk'];
 		
 		if (strpos ( $wepk, 'WB' ) !== 0) {
-			$log .= "<span class=\"red\">你没有装备弓，不能给武器上箭。</span><br>";
+			$log .= "<span class=\"red b\">你没有装备弓，不能给武器上箭。</span><br>";
 			$mode = 'command';
 			return;
 		}
@@ -187,10 +187,10 @@ namespace wep_b
 			$wepsk .= '|'.implode('', $itmsk_arr).'|';
 		}
 		
-		if(!$swapnum)	$log .= "为<span class=\"red\">$wep</span>选用了<span class=\"red\">$itm</span>，<span class=\"red\">$wep</span>发射次数增加了<span class=\"yellow\">$arrownum</span>。<br>";
-		else $log .= "为<span class=\"red\">$wep</span>换上了<span class=\"red\">$itm</span>，<span class=\"red\">$wep</span>发射次数增加了<span class=\"yellow\">$arrownum</span>。<br>";
+		if(!$swapnum)	$log .= "为<span class=\"red b\">$wep</span>选用了<span class=\"red b\">$itm</span>，<span class=\"red b\">$wep</span>发射次数增加了<span class=\"yellow b\">$arrownum</span>。<br>";
+		else $log .= "为<span class=\"red b\">$wep</span>换上了<span class=\"red b\">$itm</span>，<span class=\"red b\">$wep</span>发射次数增加了<span class=\"yellow b\">$arrownum</span>。<br>";
 		if ($itms <= 0) {
-			$log .= "<span class=\"red\">$itm</span>用光了。<br>";
+			$log .= "<span class=\"red b\">$itm</span>用光了。<br>";
 			$itm = $itmk = $itmsk = '';
 			$itme = $itms = 0;
 		}
@@ -213,6 +213,35 @@ namespace wep_b
 			return;
 		}
 		$chprocess($theitem);
+	}
+		
+	//先制敌人时，如果箭是空的，自动装填
+	function findenemy(&$edata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','itemmain','logger'));
+		
+		if (strpos ( $wepk, 'WB' ) === 0 && $weps == $nosta) {			
+			$tmp_log = $log;
+			$pos = 0;
+			//遍历所有包裹，寻找最靠前的箭矢装填
+			for($i=1; $i<=6; $i++){
+				if($sdata['itmk'.$i] == 'GA') {
+					$pos = $i;
+					break;
+				}
+			}
+			//直接调用使用道具的函数试试
+			if($pos) {
+				$log .= '你及时弯弓搭箭，';
+				\itemmain\itemuse_wrapper($pos);
+			}
+			$tmp_log_2 = substr($log, strlen($tmp_log));
+			$log = $tmp_log;//暂存一下$log，调整显示顺序，不过可能不利于以后扩展，再说吧……
+		}
+		$ret = $chprocess($edata);
+		if(!empty($tmp_log_2)) $log .= $tmp_log_2;
+		return $ret;
 	}
 }
 

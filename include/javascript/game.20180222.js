@@ -137,7 +137,7 @@ function postCmd(formName,sendto,disableall){
 			if (sendto=='roomupdate.php')
 			{
 				if ($('connect-status-text')) 
-					$('connect-status-text').innerHTML='<span class="grey">正在连接..</span>';
+					$('connect-status-text').innerHTML='<span class="grey b">正在连接..</span>';
 			}
 			if (oXmlHttp.status == 200) {
 				if (oXmlHttp.responseText!='')
@@ -157,7 +157,7 @@ function postCmd(formName,sendto,disableall){
 	oXmlHttp.send(sBody);
 	if (sendto=='roomupdate.php')
 	{
-		if ($('connect-status-text')) $('connect-status-text').innerHTML='<span class="grey">连接已建立</span>';
+		if ($('connect-status-text')) $('connect-status-text').innerHTML='<span class="grey b">连接已建立</span>';
 	}	
 	if ($('oprecorder'))
 	{

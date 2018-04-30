@@ -263,9 +263,9 @@ namespace player
 //		$uip['innerHTML']['weather'] = $wthinfo[$weather];
 //		$uip['innerHTML']['gamedate'] = "{$month}月{$day}日 星期{$week[$wday]} {$hour}:{$min}";
 //		if ($gamestate == 40 ||($gametype == 17 && \skillbase\skill_getvalue(1000,'step')>=206)) {
-//			$uip['innerHTML']['gamestateinfo'] = '<span class="yellow">连斗</span>';
+//			$uip['innerHTML']['gamestateinfo'] = '<span class="yellow b">连斗</span>';
 //		} elseif ($gamestate == 50) {
-//			$uip['innerHTML']['gamestateinfo'] = '<span class="red">死斗</span>';
+//			$uip['innerHTML']['gamestateinfo'] = '<span class="red b">死斗</span>';
 //		}
 	}
 	
@@ -279,17 +279,17 @@ namespace player
 		
 		//$karma = ($rp * $killnum - $def )+ $att;
 		
-		$hpcolor = 'clan';
-		if($hp <= $mhp*0.2) $hpcolor = 'red';
-		elseif($hp <= $mhp*0.5) $hpcolor = 'yellow';
+		$hpcolor = 'cyan b';
+		if($hp <= $mhp*0.2) $hpcolor = 'red b';
+		elseif($hp <= $mhp*0.5) $hpcolor = 'yellow b';
 		$newhppre = 6+floor(155*(1-$hp/$mhp));
 		$newhpimg = '<img src="img/hpman.gif" style="position:absolute; clip:rect('.$newhppre.'px,55px,160px,0px);">';
 		$hpltp = 3+floor(155*(1-$hp/$mhp));
 		$hplt = '<img src="img/hplt.gif" style="position:absolute; clip:rect('.$hpltp.'px,55px,160px,0px);">';
 		
-		$spcolor = 'clan';
-		if($sp <= $msp*0.2) $spcolor = 'grey';
-		elseif($sp <= $msp*0.5) $spcolor = 'yellow';
+		$spcolor = 'cyan b';
+		if($sp <= $msp*0.2) $spcolor = 'grey b';
+		elseif($sp <= $msp*0.5) $spcolor = 'yellow b';
 		$newsppre = 6+floor(155*(1-$sp/$msp));
 		$newspimg = '<img src="img/spman.gif" style="position:absolute; clip:rect('.$newsppre.'px,55px,160px,0px);">';
 		$spltp = 3+floor(155*(1-$sp/$msp));

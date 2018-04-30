@@ -35,8 +35,8 @@ namespace skill455
 		$x=$now-$starttime;
 		if ($x<=$skill455_act_time && !in_array($pa['type'],$skill455_no_effect_array)){	//scp和蓝凝无效
 			$pa['dmg_dealt']=0;
-			if ($active) $log .= "<span class=\"yellow\">敌人的技能「无敌」使你的攻击没有造成任何伤害！</span><br>";
-			else $log .= "<span class=\"yellow\">你的技能「无敌」使敌人的攻击没有造成任何伤害！</span><br>";
+			if ($active) $log .= "<span class=\"yellow b\">敌人的技能「无敌」使你的攻击没有造成任何伤害！</span><br>";
+			else $log .= "<span class=\"yellow b\">你的技能「无敌」使敌人的攻击没有造成任何伤害！</span><br>";
 		}
 		$chprocess($pa,$pd,$active);
 	}
@@ -55,7 +55,7 @@ namespace skill455
 				$x=$now-$starttime;
 				if ($x<=$skill455_act_time)
 				{
-					$log.="<span class=\"clan\">都告诉你了，无敌对某些NPC无效……快去死吧。</span><br>";
+					$log.="<span class=\"cyan b\">都告诉你了，无敌对某些NPC无效……快去死吧。</span><br>";
 				}
 			}
 		return $ret;
@@ -69,7 +69,7 @@ namespace skill455
 		$x=$now-$starttime;
 		if ($x<=$skill455_act_time)
 		{
-			$log .= "<span class=\"yellow\">你的技能「无敌」使你免疫了陷阱伤害！</span><br>";
+			$log .= "<span class=\"yellow b\">你的技能「无敌」使你免疫了陷阱伤害！</span><br>";
 			return 0;
 		}	
 		return $chprocess($pa,$pd,$tritm,$damage);

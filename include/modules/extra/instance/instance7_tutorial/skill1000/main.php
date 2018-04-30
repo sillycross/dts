@@ -66,7 +66,7 @@ namespace skill1000
 //		if(\skillbase\skill_getvalue(1000,'step',$pa)==1) {
 //			//假造一个item
 //		}else {
-//			$log .= "<span class='yellow'>请按教程的要求执行。</span><br>";
+//			$log .= "<span class='yellow b'>请按教程的要求执行。</span><br>";
 //			$mode = 'command';
 //			return;
 //		}

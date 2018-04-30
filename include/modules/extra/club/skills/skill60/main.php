@@ -59,8 +59,8 @@ namespace skill60
 			{
 				eval(import_module('logger'));
 				if ($active)
-					$log.="<span class=\"lime\">你对{$pd['name']}发动了技能「恐惧」！</span><br>";
-				else  $log.="<span class=\"lime\">{$pa['name']}对你发动了技能「恐惧」！</span><br>";
+					$log.="<span class=\"lime b\">你对{$pd['name']}发动了技能「恐惧」！</span><br>";
+				else  $log.="<span class=\"lime b\">{$pa['name']}对你发动了技能「恐惧」！</span><br>";
 				$pa['rage']-=$rcost;
 				$pa['skill60_flag']=floor((1-min(1,$pd['hp']/$pd['mhp']))*100);
 				addnews ( 0, 'bskill60', $pa['name'], $pd['name'] );
@@ -87,8 +87,8 @@ namespace skill60
 			eval(import_module('logger'));
 			$r=Array(1+$pa['skill60_flag']/100);
 			if ($active)
-				$log.='<span class="yellow">敌人因惊吓过度，受到的物理伤害增加了'.$pa['skill60_flag'].'%！</span><br>';
-			else  $log.='<span class="yellow">你因惊吓过度，受到的物理伤害增加了'.$pa['skill60_flag'].'%！</span><br>';
+				$log.='<span class="yellow b">敌人因惊吓过度，受到的物理伤害增加了'.$pa['skill60_flag'].'%！</span><br>';
+			else  $log.='<span class="yellow b">你因惊吓过度，受到的物理伤害增加了'.$pa['skill60_flag'].'%！</span><br>';
 		}
 		return array_merge($r,$chprocess($pa,$pd,$active));
 	}
@@ -107,7 +107,7 @@ namespace skill60
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill60') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}对{$b}发动了技能<span class=\"yellow\">「恐惧」</span></span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}对{$b}发动了技能<span class=\"yellow b\">「恐惧」</span></span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

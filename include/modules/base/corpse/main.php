@@ -61,7 +61,7 @@ namespace corpse
 		\metman\init_battle(1);
 		
 		$main = MOD_METMAN_MEETMAN;
-		$log .= '你发现了<span class="red">'.$w_name.'</span>的尸体！<br>';
+		$log .= '你发现了<span class="red b">'.$w_name.'</span>的尸体！<br>';
 		
 		$r=\itemmain\parse_item_words($edata,1);
 		extract($r,EXTR_PREFIX_ALL,'w');
@@ -160,7 +160,7 @@ namespace corpse
 				return;
 			}
 			$money += $edata['money'];
-			$log .= '获得了金钱 <span class="yellow">'.$edata['money'].'</span>。<br>';
+			$log .= '获得了金钱 <span class="yellow b">'.$edata['money'].'</span>。<br>';
 			$edata['money'] = 0;
 			\player\player_save($edata);
 			
@@ -214,7 +214,7 @@ namespace corpse
 		
 		$corpseid = strpos($action,'corpse')===0 ? str_replace('corpse','',$action) : str_replace('pacorpse','',$action);
 		if(!$corpseid || strpos($action,'corpse')===false){
-			$log .= '<span class="yellow">你没有遇到尸体，或已经离开现场！</span><br>';
+			$log .= '<span class="yellow b">你没有遇到尸体，或已经离开现场！</span><br>';
 			
 			$mode = 'command';
 			return;
@@ -308,7 +308,7 @@ namespace corpse
 		eval(import_module('sys','player'));
 		
 		if($news == 'cdestroy') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}把{$b}的尸体销毁了</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red b\">{$a}把{$b}的尸体销毁了</span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

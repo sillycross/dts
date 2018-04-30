@@ -53,8 +53,8 @@ namespace skill263
 				$dmgred=min($pd['wp'],800);
 				//if($dmgred > $pa['dmg_dealt']-1) $dmgred = $pa['dmg_dealt']-1;
 				if ($active)
-					$log.='<span class="yellow">敌人精湛的格斗技术抵挡了'.$dmgred.'点伤害！</span><br>';
-				else	$log.='<span class="yellow">你精湛的格斗技术抵挡了'.$dmgred.'点伤害！</span><br>';
+					$log.='<span class="yellow b">敌人精湛的格斗技术抵挡了'.$dmgred.'点伤害！</span><br>';
+				else	$log.='<span class="yellow b">你精湛的格斗技术抵挡了'.$dmgred.'点伤害！</span><br>';
 				$ret-=$dmgred;
 				$pa['mult_words_fdmgbs'] = \attack\add_format(-$dmgred, $pa['mult_words_fdmgbs']);
 			}
@@ -80,8 +80,8 @@ namespace skill263
 //				$dmgred=min($pd['wp'],800);
 //				if($dmgred > $pa['dmg_dealt']-1) $dmgred = $pa['dmg_dealt']-1;
 //				if ($active)
-//					$log.='<span class="yellow">敌人精湛的格斗技术抵挡了'.$dmgred.'点伤害！</span><br>';
-//				else	$log.='<span class="yellow">你精湛的格斗技术抵挡了'.$dmgred.'点伤害！</span><br>';
+//					$log.='<span class="yellow b">敌人精湛的格斗技术抵挡了'.$dmgred.'点伤害！</span><br>';
+//				else	$log.='<span class="yellow b">你精湛的格斗技术抵挡了'.$dmgred.'点伤害！</span><br>';
 //				$pa['dmg_dealt']-=$dmgred;
 //				//if ($pa['dmg_dealt']<1) $pa['dmg_dealt']=1;
 //			}

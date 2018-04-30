@@ -8,7 +8,7 @@
 <!--{eval $remcnt=$lvl-(int)\skillbase\skill_getvalue(242,'c');}-->
 <!--{eval $sk242id=(int)\skillbase\skill_getvalue(242,'i'); $sk242n=($sk242id==0?'暂无':$clubskillname[$sk242id]);}-->
 随机获得一个其他称号的技能，每次升级可以获得一次改变的机会<br>
-目前还可改变<span class="yellow">$remcnt</span>次，当前你获得的技能是<span class="yellow">$sk242n</span>
+目前还可改变<span class="yellow b">$remcnt</span>次，当前你获得的技能是<span class="yellow b">$sk242n</span>
 </span></td>
 <td class=b3 width=96>
 <!--{if $remcnt>0}-->
@@ -19,7 +19,7 @@
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
 <!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
-<span class="yellow">
+<span class="yellow b">
 7级时解锁
 </span>
 <!--{/if}-->

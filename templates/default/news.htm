@@ -9,11 +9,11 @@
 </div>
 <br>
 <!--{eval eval(import_module('weather'));}-->
-<span class="evergreen">当前时间：{lang gamedate}</span><br />
-<span class="evergreen">当前天气：{$wthinfo[$weather]}</span><br />
-<!--{if $gamestate==40}--><span class="yellow">游戏已经进入连斗阶段！</span><br /><!--{/if}-->
-<!--{if $gamestate==50}--><span class="red">游戏已经进入死斗模式！</span><br /><!--{/if}-->
-<!--{if $hack}--><span class="evergreen">（禁区已解除）</span><!--{/if}-->
+<span class="evergreen b">当前时间：{lang gamedate}</span><br />
+<span class="evergreen b">当前天气：{$wthinfo[$weather]}</span><br />
+<!--{if $gamestate==40}--><span class="yellow b">游戏已经进入连斗阶段！</span><br /><!--{/if}-->
+<!--{if $gamestate==50}--><span class="red b">游戏已经进入死斗模式！</span><br /><!--{/if}-->
+<!--{if $hack}--><span class="evergreen b">（禁区已解除）</span><!--{/if}-->
 {template areainfo}
 <br><br>
 <form method="post" name="news" onSubmit="return false;">

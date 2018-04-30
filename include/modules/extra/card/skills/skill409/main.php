@@ -34,8 +34,8 @@ namespace skill409
 		{
 			eval(import_module('logger'));
 			if ($active)
-				$log.="<span class=\"yellow\">「不动」使敌人受到的最终伤害降低了10%！</span><br>";
-			else  $log.="<span class=\"yellow\">「不动」使你受到的最终伤害降低了10%！</span><br>";
+				$log.="<span class=\"yellow b\">「不动」使敌人受到的最终伤害降低了10%！</span><br>";
+			else  $log.="<span class=\"yellow b\">「不动」使你受到的最终伤害降低了10%！</span><br>";
 			$r=Array(0.9);	
 		}
 		return array_merge($r,$chprocess($pa,$pd,$active));

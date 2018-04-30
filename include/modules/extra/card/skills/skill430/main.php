@@ -113,7 +113,7 @@ namespace skill430
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill430') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}发动了技能<span class=\"yellow\">「搬运」</span>，获得了<span class=\"yellow\">{$b}</span></span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}发动了技能<span class=\"yellow b\">「搬运」</span>，获得了<span class=\"yellow b\">{$b}</span></span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

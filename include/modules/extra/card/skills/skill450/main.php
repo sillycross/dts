@@ -34,8 +34,8 @@ namespace skill450
 			eval(import_module('skill450','logger'));
 			if ($pd['hp']<($pd['mhp']*0.2)){
 				if ($active)
-					$log.="<span class=\"yellow\">「淘汰」使你造成的最终伤害提高了15%！</span><br>";
-				else  $log.="<span class=\"yellow\">「淘汰」使敌人造成的最终伤害提高了15%！</span><br>";
+					$log.="<span class=\"yellow b\">「淘汰」使你造成的最终伤害提高了15%！</span><br>";
+				else  $log.="<span class=\"yellow b\">「淘汰」使敌人造成的最终伤害提高了15%！</span><br>";
 				$r=Array(1.15);
 			}
 		}

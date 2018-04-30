@@ -82,13 +82,13 @@ namespace skill412
 			if ($t==0)
 			{
 				//无伤害
-				$log.='<span class="lime">只见敌人周围突然出现了奇怪的呈U形的力场，你的伤害似乎被力场完全吸收了。</span><br>';
+				$log.='<span class="lime b">只见敌人周围突然出现了奇怪的呈U形的力场，你的伤害似乎被力场完全吸收了。</span><br>';
 				$pa['dmg_dealt']=0;
 			}
 			elseif ($t==1)
 			{
 				//有效
-				$log.='<span class="lime">只见敌人周围突然出现了奇怪的呈U形的力场，但是你的攻击势不可挡地击穿了它。</span><br>';
+				$log.='<span class="lime b">只见敌人周围突然出现了奇怪的呈U形的力场，但是你的攻击势不可挡地击穿了它。</span><br>';
 			}
 			else  
 			{
@@ -104,13 +104,13 @@ namespace skill412
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('logger'));
 		if(empty($pa['seckill']) && !empty($pa['mobiusflag'])) {//被秒杀则不会反弹
-			$log.='<span class="lime">只见敌人周围突然出现了奇怪的呈U形的力场，你造成的伤害竟然被反弹了回来！</span><br>';
+			$log.='<span class="lime b">只见敌人周围突然出现了奇怪的呈U形的力场，你造成的伤害竟然被反弹了回来！</span><br>';
 			//反弹伤害作为最终伤害过一遍结算
 //			$pd['dmg_dealt']=$pd['mult_words_fdmgbs']=$pa['dmg_dealt'];
 //			$pd['is_hit']=1;
 //			$pa['dmg_dealt']=0;
 //			\attack\player_damaged_enemy($pd, $pa, 1-$active);
-			$log.="<span class=\"red\">你受到了{$pa['dmg_dealt']}点伤害！</span><br>";
+			$log.="<span class=\"red b\">你受到了{$pa['dmg_dealt']}点伤害！</span><br>";
 			\attack\post_damage_news($pd, $pa, 1-$active, $pa['dmg_dealt']);
 			$pa['hp']-=$pa['dmg_dealt'];
 			if ($pa['hp']<0) $pa['hp']=0;
@@ -134,9 +134,9 @@ namespace skill412
 		if($news == 'death39') {
 //			$dname = $typeinfo[$b].' '.$a;
 //			if(!$e)
-//				$e0="<span class=\"yellow\">【{$dname} 什么都没说就死去了】</span><br>\n";
-//			else  $e0="<span class=\"yellow\">【{$dname}：“{$e}”】</span><br>\n";
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>被<span class=\"red\">$c</span>的反演力场反弹伤害而亡{$e0}</li>";
+//				$e0="<span class=\"yellow b\">【{$dname} 什么都没说就死去了】</span><br>\n";
+//			else  $e0="<span class=\"yellow b\">【{$dname}：“{$e}”】</span><br>\n";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">$a</span>被<span class=\"red b\">$c</span>的反演力场反弹伤害而亡{$e0}</li>";
 		}
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

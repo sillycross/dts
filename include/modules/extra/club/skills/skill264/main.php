@@ -47,7 +47,7 @@ namespace skill264
 				$pa['sk262flag']=1;	//不再触发蓄力
 				eval(import_module('input')); $bskill=0;	//不再发动乱击
 				eval(import_module('logger','skill264'));
-				$log.='<span class="clan">'.$sk264_words[rand(0,count($sk264_words)-1)].'</span><br>';
+				$log.='<span class="cyan b">'.$sk264_words[rand(0,count($sk264_words)-1)].'</span><br>';
 				$chprocess($pa,$pd,$active);
 			}
 		}

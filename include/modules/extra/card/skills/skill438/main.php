@@ -45,8 +45,8 @@ namespace skill438
 			$r=Array(($r438/100));	
 			$r438-=100;
 			if ($active)
-				$log.="<span class=\"yellow\">「挽鸽」使你造成的最终伤害提高了{$r438}%！</span><br>";
-			else  $log.="<span class=\"yellow\">「挽鸽」使敌人造成的最终伤害提高了{$r438}%！</span><br>";
+				$log.="<span class=\"yellow b\">「挽鸽」使你造成的最终伤害提高了{$r438}%！</span><br>";
+			else  $log.="<span class=\"yellow b\">「挽鸽」使敌人造成的最终伤害提高了{$r438}%！</span><br>";
 			
 		}
 		return array_merge($r,$chprocess($pa,$pd,$active));

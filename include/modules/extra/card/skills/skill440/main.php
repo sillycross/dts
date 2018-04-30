@@ -67,8 +67,8 @@ namespace skill440
 			if ( !\clubbase\check_battle_skill_unactivatable($pa,$pd,440) ){
 				eval(import_module('logger'));
 				if ($active)
-					$log.="<span class=\"lime\">你对{$pd['name']}发动了技能「父爱」！</span><br>";
-				else  $log.="<span class=\"lime\">{$pa['name']}对你发动了技能「父爱」！</span><br>";
+					$log.="<span class=\"lime b\">你对{$pd['name']}发动了技能「父爱」！</span><br>";
+				else  $log.="<span class=\"lime b\">{$pa['name']}对你发动了技能「父爱」！</span><br>";
 				\skillbase\skill_setvalue(440,'lastuse',$now,$pa);
 				$pd['skill440_flag']=1;
 				addnews ( 0, 'bskill440', $pa['name'], $pd['name'] );
@@ -156,8 +156,8 @@ namespace skill440
 			$pd['inf'].='p';
 		}
 		if ($active)
-			$log.='<span class="red">敌人已经大难临头了！</span><br>';
-		else  $log.="<span class=\"red\">你已经大难临头了！</span><br>";
+			$log.='<span class="red b">敌人已经大难临头了！</span><br>';
+		else  $log.="<span class=\"red b\">你已经大难临头了！</span><br>";
 		$chprocess($pa,$pd,$active);
 	}
 	
@@ -168,7 +168,7 @@ namespace skill440
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill440') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}对{$b}发动了技能<span class=\"yellow\">「父爱」</span></span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}对{$b}发动了技能<span class=\"yellow b\">「父爱」</span></span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

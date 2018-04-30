@@ -30,7 +30,7 @@ namespace skill219
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','itemmain','logger'));
 		if($wepk == 'WN' || !$wepe || !$weps){
-			$log .= '<span class="red">你没有装备武器，无法改造！</span><br />';
+			$log .= '<span class="red b">你没有装备武器，无法改造！</span><br />';
 			$mode = 'command';
 			return;
 		}
@@ -51,34 +51,34 @@ namespace skill219
 			if($position){
 				$wepsk_arr = \itemmain\get_itmsk_array($wepsk);
 				if(in_array('p',$wepsk_arr)){
-					$log .= '<span class="red">武器已经带毒，不用改造！</span><br />';
+					$log .= '<span class="red b">武器已经带毒，不用改造！</span><br />';
 					$mode = 'command';
 					return;
 				}elseif(count($wepsk_arr) >= 12){
-					$log .= '<span class="red">武器属性数目达到上限，无法改造！</span><br />';
+					$log .= '<span class="red b">武器属性数目达到上限，无法改造！</span><br />';
 					$mode = 'command';
 					return;
 				}
 				$wepsk .= 'p';
-				$log .= "<span class=\"yellow\">用毒药为{$wep}淬毒了，{$wep}增加了带毒属性！</span><br />";
+				$log .= "<span class=\"yellow b\">用毒药为{$wep}淬毒了，{$wep}增加了带毒属性！</span><br />";
 				if(strpos($wep,'毒性')===false)
 					$wep = '毒性'.$wep;
 				${'itms'.$position}-=1;
 				$itm = ${'itm'.$position};
 				if(${'itms'.$position} == 0){
-					$log .= "<span class=\"red\">$itm</span>用光了。<br />";
+					$log .= "<span class=\"red b\">$itm</span>用光了。<br />";
 					${'itm'.$position} = ${'itmk'.$position} = ${'itmsk'.$position} = '';
 					${'itme'.$position} =${'itms'.$position} =0;				
 				}
 				$mode = 'command';
 				return;
 			}else{
-				$log .= '<span class="red">你没有毒药，无法给武器淬毒！</span><br />';
+				$log .= '<span class="red b">你没有毒药，无法给武器淬毒！</span><br />';
 				$mode = 'command';
 				return;
 			}
 		}else{
-			$log .= '<span class="red">你没有这个技能！</span><br />';
+			$log .= '<span class="red b">你没有这个技能！</span><br />';
 			$mode = 'command';
 			return;
 		}

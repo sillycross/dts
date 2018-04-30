@@ -201,20 +201,20 @@ namespace sys
 		if(0 == $chat['type']) {
 			$premsg .= ' class="chat0">';
 		} elseif(1 == $chat['type']) {
-			$premsg .= ' class="clan chat1">';
+			$premsg .= ' class="cyan b chat1">';
 		} elseif(3 == $chat['type']) {
-			$premsg .= ' class="red chat3">';
+			$premsg .= ' class="red b chat3">';
 			if ($chat['msg']){
 			} else {
 				$msg = '【'.$chatinfo[$chat['type']].'】'.$chat['send'].'什么都没说就死去了 ('.date("H:i:s",$chat['time']).')';
 			}
 		} elseif(4 == $chat['type']) {
-			$premsg .= ' class="yellow chat4">';
+			$premsg .= ' class="yellow b chat4">';
 		} elseif(5 == $chat['type']) {
-			$premsg .= ' class="yellow chat5">';
+			$premsg .= ' class="yellow b chat5">';
 			$msg = '【'.$chatinfo[$chat['type']].'】'.$chat['msg'].'('.date("H:i:s",$chat['time']).')';
 		} elseif(6 == $chat['type']) {
-			$premsg .= ' class="lime chat6">';
+			$premsg .= ' class="lime b chat6">';
 			$msg = '【'.$chatinfo[$chat['type']].'】'.$chat['msg'].'('.date("H:i:s",$chat['time']).')';
 		}
 		return $premsg.$msg.$postmsg;

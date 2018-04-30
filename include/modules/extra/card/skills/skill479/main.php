@@ -79,9 +79,9 @@ namespace skill479
 		eval(import_module('logger'));
 		$r_dmg = round($dmg/100)*100;
 		if($r_dmg != $dmg) {
-			$log .= \battle\battlelog_parser($pa, $pd, $active, "「口胡」使<:pd_name:>受到的伤害由{$dmg}点变成了<span class=\"yellow\">{$r_dmg}</span>点！<br>");
-//			if ($active) $log.="「口胡」使敌人受到的伤害由{$dmg}点变成了<span class=\"yellow\">{$r_dmg}</span>点！<br>";
-//			else $log.="「口胡」使你受到的伤害由{$dmg}点变成了<span class=\"yellow\">{$r_dmg}</span>点！<br>";
+			$log .= \battle\battlelog_parser($pa, $pd, $active, "「口胡」使<:pd_name:>受到的伤害由{$dmg}点变成了<span class=\"yellow b\">{$r_dmg}</span>点！<br>");
+//			if ($active) $log.="「口胡」使敌人受到的伤害由{$dmg}点变成了<span class=\"yellow b\">{$r_dmg}</span>点！<br>";
+//			else $log.="「口胡」使你受到的伤害由{$dmg}点变成了<span class=\"yellow b\">{$r_dmg}</span>点！<br>";
 		}
 		return $r_dmg;
 	}

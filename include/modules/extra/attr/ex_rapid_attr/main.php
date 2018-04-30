@@ -67,7 +67,7 @@ namespace ex_rapid_attr
 		if ($pa['is_rapid_strike'] == 1)
 		{
 			eval(import_module('logger'));
-			$log .= "{$pa['actual_rapid_time']}次连续攻击命中<span class=\"yellow\">{$pa['actual_hit_time']}</span>次！";
+			$log .= "{$pa['actual_rapid_time']}次连续攻击命中<span class=\"yellow b\">{$pa['actual_hit_time']}</span>次！";
 			$r = Array(get_rapid_damage_modifier($pa, $pd, $active, $pa['actual_hit_time']));
 		}
 		return $r;

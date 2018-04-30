@@ -29,7 +29,7 @@ foreach($adminlogdata as $aval){
 		elseif('delgm'==$o) $show_o = '删除权限';
 		elseif('editgm'==$o) $show_o = '修改权限';
 		$p2=(int)$p2;
-		$show_p = '账户 <span class="clan">'.$p1.'</span> → <span class="yellow">'.$p2.'权限</span>';
+		$show_p = '账户 <span class="cyan b">'.$p1.'</span> → <span class="yellow b">'.$p2.'权限</span>';
 	}elseif('editbanlist'==$o) {
 		$show_o = '修改屏蔽词/IP';
 		$nmlimit = gdecode($p1,1);$iplimit = gdecode($p2,1);
@@ -86,7 +86,7 @@ foreach($adminlogdata as $aval){
 		if(strpos($o, 'edit')===0){
 			list($a1,$a2) = explode('_',$p1);
 			$show_gnum = adminlog_parse_gnum($a1,$a2);
-			$show_p = '<span class="yellow">'.$p2.'</span> 修改内容：<br>';
+			$show_p = '<span class="yellow b">'.$p2.'</span> 修改内容：<br>';
 			$diff = gdecode($p3,1);
 			foreach($diff as $dk => $dv){
 				if(isset($lang[$dk])) $dk = $lang[$dk];
@@ -99,7 +99,7 @@ foreach($adminlogdata as $aval){
 			}
 		}else{
 			$show_gnum = adminlog_parse_gnum($p1,$p2);
-			$show_p = '<span class="yellow">'.$p3.'</span>';
+			$show_p = '<span class="yellow b">'.$p3.'</span>';
 		}
 	}elseif('downloadurdata'==$o) {
 		$show_o = '下载用户数据库';
@@ -117,7 +117,7 @@ foreach($adminlogdata as $aval){
 		}elseif('editur'==$o) {
 			$show_o = '修改账户数据';
 		}
-		$show_p = '<span class="yellow">'.$p1.'</span>';
+		$show_p = '<span class="yellow b">'.$p1.'</span>';
 		if('editur'==$o) {
 			$show_p .= ' 修改内容：<br>';
 			$cont = gdecode($p2,1);

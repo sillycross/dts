@@ -226,7 +226,7 @@ $mixinfo = array
 	array('class' => 'cube', 'stuff' => array('蓝宝石方块','蓝色方块'),'result' => array('蔚蓝色的项链','A',240,180,'Hc'),),
 	array('class' => 'cube', 'stuff' => array('红宝石方块','黑色方块'),'result' => array('终极红宝石之秘药','HB',386,76,'z'),),
 	array('class' => 'cube', 'stuff' => array('蓝宝石方块','白色方块'),'result' => array('始源蓝宝石之秘药','MV',76,2,'z'),),
-	array('class' => 'cube', 'stuff' => array('黄色方块','黄色方块','黄色方块'),'result' => array('★高压电击★','WD',152,251,'red'),),
+	array('class' => 'cube', 'stuff' => array('黄色方块','黄色方块','黄色方块'),'result' => array('★高压电击★','WD',152,251,'red b'),),
 	array('class' => 'cube', 'stuff' => array('红色方块','红色方块','红色方块'),'result' => array('★烈焰冲撞★','WP',152,76,'ru'),),
 	array('class' => 'cube', 'stuff' => array('绿色方块','绿色方块','绿色方块'),'result' => array('★飞叶快刀★','WK',152,76,'Zrp'),),
 	array('class' => 'cube', 'stuff' => array('蓝色方块','蓝色方块','蓝色方块'),'result' => array('★急冻光线★','WG',152,251,'ric'),),
@@ -328,10 +328,8 @@ $mixinfo = array
 	//array('class' => 'ocg', 'stuff' => array('八咫镜','★全图唯一的野生巨大香蕉★'),'result' => array('【余晖】','WF',1,1,'x'),),
 	array('class' => 'madoka', 'stuff' => array('最终战术『剑海』','悲叹之种'),'result' => array('魔导迷城『恋沫』','WK',70000,'∞','Zkcrd'),),
 	array('class' => 'madoka', 'stuff' => array('最终战术『心火』','悲叹之种'),'result' => array('魔导迷城『愚刑』','WD',70000,'∞','Lcrd'),),
-	//0.8%的概率，至少花148000（富家是111000），考虑95%显著性水平的话需要尝试373次，总成本是65500+(65500+1500*3+2500*5)*373=30,838,000，体会一下轮回的感受吧
-	array('class' => 'madoka', 'stuff' => array('最终战术『心火』[+8]','最终战术『光矢』'),'result' => array('概念武装『破则』','WF',20110424,'∞','EnkaNxhyLd'),),		
-	//3%的概率，至少花428000（富家是321000)，考虑95%显著性水平的话，5个道具每个都需要尝试5次，总成本是65500+(65500+1500*3+2500*2)*5*5=1,940,500，其实比上面那个好做多了
-	array('class' => 'madoka', 'stuff' => array('魔导迷城『愚刑』','魔导迷城『恋沫』[+5]','魔导迷城『糖风』[+5]','最终战术『蝎尾』[+5]','最终战术『银花』[+5]','最终战术『光矢』[+5]'),'result' => array('狱魇之都『泷庭』','WFJ',20131026,'∞','LOVxMad'),),
+	array('class' => 'madoka', 'stuff' => array('最终战术『心火』[+7]','最终战术『光矢』'),'result' => array('概念武装『破则』','WF',20110424,'∞','EnkaNxhyLd'),),		
+	array('class' => 'madoka', 'stuff' => array('魔导迷城『愚刑』','魔导迷城『恋沫』[+4]','魔导迷城『糖风』[+4]','最终战术『蝎尾』[+4]','最终战术『银花』[+4]','最终战术『光矢』[+4]'),'result' => array('狱魇之都『泷庭』','WFJ',20131026,'∞','LOVxMad'),),
 	
 	array('class' => 'ocg', 'stuff' => array('「被封印的艾克佐迪亚」','「被封印者的左腕」','「被封印者的右腕」','「被封印者的左足」','「被封印者的右足」'),'result' => array('「被封印的黑暗大法师」','WC',8192,1,),),
 	array('class' => 'ocg', 'stuff' => array('「被封印的黑暗大法师」','★神卡认证★'),'result' => array('『黑暗大法师』','WC12',8192,'∞','AaZ'),),

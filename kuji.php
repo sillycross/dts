@@ -49,7 +49,7 @@ if ($ktype==1 || $choice>0)
 				$isnew[$key]=""; continue;
 			}
 			if (!in_array($val,$oc)){
-				$isnew[$key]="<span class=\"L5\">NEW!</span>";
+				$isnew[$key]="<span class=\"L5 b\">NEW!</span>";
 			}else{
 				$isnew[$key]="";
 			}

@@ -6,7 +6,7 @@ namespace metman
 	global $w_upexp,$battle_title;
 	global $hideflag;
 	
-	$hidelog = '<span class="yellow">周围一个人都没有，但你觉得应该有人的……</span><br>';
+	$hidelog = '<span class="yellow b">周围一个人都没有，但你觉得应该有人的……</span><br>';
 	
 	function init()
 	{
@@ -32,17 +32,17 @@ namespace metman
 		//$w_upexp = round(($w_lvl*$baseexp)+(($w_lvl+1)*$baseexp));
 		
 		if($w_hp <= 0) {
-			$tdata['hpstate'] = "<span class=\"red\">$hpinfo[3]</span>";
-			$tdata['spstate'] = "<span class=\"red\">$spinfo[3]</span>";
-			$tdata['ragestate'] = "<span class=\"red\">$rageinfo[3]</span>";
+			$tdata['hpstate'] = "<span class=\"red b\">$hpinfo[3]</span>";
+			$tdata['spstate'] = "<span class=\"red b\">$spinfo[3]</span>";
+			$tdata['ragestate'] = "<span class=\"red b\">$rageinfo[3]</span>";
 			$tdata['isdead'] = true;
 		} else{
 			if($w_hp < $w_mhp*0.2) {
-			$tdata['hpstate'] = "<span class=\"red\">$hpinfo[2]</span>";
+			$tdata['hpstate'] = "<span class=\"red b\">$hpinfo[2]</span>";
 			} elseif($w_hp < $w_mhp*0.5) {
-			$tdata['hpstate'] = "<span class=\"yellow\">$hpinfo[1]</span>";
+			$tdata['hpstate'] = "<span class=\"yellow b\">$hpinfo[1]</span>";
 			} else {
-			$tdata['hpstate'] = "<span class=\"clan\">$hpinfo[0]</span>";
+			$tdata['hpstate'] = "<span class=\"cyan b\">$hpinfo[0]</span>";
 			}
 			if($w_sp < $w_msp*0.2) {
 			$tdata['spstate'] = "$spinfo[2]";
@@ -52,9 +52,9 @@ namespace metman
 			$tdata['spstate'] = "$spinfo[0]";
 			}
 			if($w_rage >= 100) {
-			$tdata['ragestate'] = "<span class=\"red\">$rageinfo[2]</span>";
+			$tdata['ragestate'] = "<span class=\"red b\">$rageinfo[2]</span>";
 			} elseif($w_rage >= 30) {
-			$tdata['ragestate'] = "<span class=\"yellow\">$rageinfo[1]</span>";
+			$tdata['ragestate'] = "<span class=\"yellow b\">$rageinfo[1]</span>";
 			} else {
 			$tdata['ragestate'] = "$rageinfo[0]";
 			}
@@ -160,7 +160,7 @@ namespace metman
 		$battle_title = '发现人物';
 		extract($edata,EXTR_PREFIX_ALL,'w');
 		init_battle(1);
-		$log .= "你发现了人物<span class=\"yellow\">$w_name</span>。<br>你友善地打了个招呼。<br>";
+		$log .= "你发现了人物<span class=\"yellow b\">$w_name</span>。<br>你友善地打了个招呼。<br>";
 		include template(MOD_METMAN_MEETMAN_CMD);
 		$cmd = ob_get_contents();
 		ob_clean();
@@ -250,7 +250,7 @@ namespace metman
 		$edata_arr = discover_player_get_epids($pls, $pid);
 
 		if(!sizeof($edata_arr)){
-			$log .= '<span class="yellow">周围一个人都没有。</span><br>';
+			$log .= '<span class="yellow b">周围一个人都没有。</span><br>';
 			$mode = 'command';
 			return;
 		}

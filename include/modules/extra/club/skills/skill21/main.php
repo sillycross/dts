@@ -55,7 +55,7 @@ namespace skill21
 		if (\skillbase\skill_query(21,$pd))
 		{
 			$npcdata = evonpc($pd['type'],$pd['name']);
-			$log .= '<span class="yellow">'.$pd['name'].'却没死去，反而爆发出真正的实力！</span><br>';
+			$log .= '<span class="yellow b">'.$pd['name'].'却没死去，反而爆发出真正的实力！</span><br>';
 			if($npcdata){
 				addnews($now , 'evonpc',$pd['name'], $npcdata['name'], $pa['name']);
 				foreach($npcdata as $key => $val){
@@ -102,11 +102,11 @@ namespace skill21
 		
 		if($news == 'evonpc') {
 			if($a == 'Dark Force幼体'){
-				$nword = "<span class=\"lime\">{$c}击杀了{$a}，却没料到这只是幻影……{$b}的封印已经被破坏了！</span>";
+				$nword = "<span class=\"lime b\">{$c}击杀了{$a}，却没料到这只是幻影……{$b}的封印已经被破坏了！</span>";
 			}elseif($a == '小莱卡'){
-				$nword = "<span class=\"lime\">{$c}击杀了{$a}，却发现这只是幻象……真正的{$b}受到惊动，方才加入战场！</span>";
+				$nword = "<span class=\"lime b\">{$c}击杀了{$a}，却发现这只是幻象……真正的{$b}受到惊动，方才加入战场！</span>";
 			}else{
-				$nword = "<span class=\"lime\">{$c}击杀了{$a}，却发现对方展现出了第二形态：{$b}！</span>";
+				$nword = "<span class=\"lime b\">{$c}击杀了{$a}，却发现对方展现出了第二形态：{$b}！</span>";
 			}
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，$nword</li>";
 		}

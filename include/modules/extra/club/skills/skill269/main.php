@@ -122,20 +122,20 @@ namespace skill269
 		}		
 		else
 		{
-			$log .= \battle\battlelog_parser($pa, $pd, $active, "<span class=\"lime\"><:pa_name:>对<:pd_name:>发动了技能「浴血」！</span><br>");
+			$log .= \battle\battlelog_parser($pa, $pd, $active, "<span class=\"lime b\"><:pa_name:>对<:pd_name:>发动了技能「浴血」！</span><br>");
 			
 			if ($pa['rage']>=$rcost)
 			{
 				//怒气充足则消耗怒气
 				$pa['rage']-=$rcost;
-				$log .= \battle\battlelog_parser($pa, $pd, $active, "<span class=\"yellow\"><:pa_name:>打出了排山倒海的一击，物理伤害增加了<span class=\"yellow\">{$hpcost}</span>点！</span><br>");
+				$log .= \battle\battlelog_parser($pa, $pd, $active, "<span class=\"yellow b\"><:pa_name:>打出了排山倒海的一击，物理伤害增加了<span class=\"yellow b\">{$hpcost}</span>点！</span><br>");
 			}
 			else
 			{
 				//否则消耗较低怒气值+生命
 				$pa['rage']-=$rcost0;
 				$pa['hp']-=$hpcost;
-				$log .= \battle\battlelog_parser($pa, $pd, $active, "<span class=\"yellow\"><:pa_name:>燃烧了<span class=\"red\">{$hpcost}</span>点生命值，打出了视死如归的一击！</span><br>");
+				$log .= \battle\battlelog_parser($pa, $pd, $active, "<span class=\"yellow b\"><:pa_name:>燃烧了<span class=\"red b\">{$hpcost}</span>点生命值，打出了视死如归的一击！</span><br>");
 			}
 			
 			$pa['skill269_hpcost']=$hpcost;
@@ -164,7 +164,7 @@ namespace skill269
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill269') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}对{$b}发动了技能<span class=\"yellow\">「浴血」</span></span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}对{$b}发动了技能<span class=\"yellow b\">「浴血」</span></span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

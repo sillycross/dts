@@ -59,7 +59,7 @@ namespace skill490
 		get_random_item490($spdown);
 		addnews ( 0, 'bskill490', $name , $itmk0, $itm0);
 		if($itms0) {
-			$log.='<span class="lime">获得了「空想道具」！</span><br>';
+			$log.='<span class="lime b">获得了「空想道具」！</span><br>';
 			\itemmain\itemget();
 		}
 	}
@@ -174,7 +174,7 @@ namespace skill490
 		
 		if($news == 'bskill490') {
 			$kwords = \itemmain\parse_itmk_words($b);
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}发动了技能<span class=\"yellow\">「空想」</span>，获得了{$kwords}{$c}！</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}发动了技能<span class=\"yellow b\">「空想」</span>，获得了{$kwords}{$c}！</span></li>";
 		}
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

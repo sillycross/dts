@@ -2,10 +2,37 @@
 
 namespace skill325
 {
-	//旧成就精力所限，未全部修改，请以skill300、skill313或skill332之后的成就为模板！
+	//各级要完成的成就名，如果不存在则取低的
 	$ach325_name = array(
-		0=>'常磐的训练师',
-		1=>'常磐之心',
+		1=>'常磐的训练师',
+		2=>'常磐之心',
+	);
+	
+	//各级显示的要求，如果不存在则取低的
+	$ach325_desc= array(
+		1=>'在0禁使用「精灵球」或者带「小黄的」字样的武器击杀<:threshold:>名NPC',
+	);
+	
+	$ach325_proc_words = '击杀总数';
+	
+	$ach325_unit = '次';
+	
+	//各级阈值，注意是达到这个阈值则升到下一级
+	$ach325_threshold = array(
+		1 => 1,
+		2 => 100,
+		999 => NULL
+	);
+	
+	//各级给的切糕奖励
+	$ach325_qiegao_prize = array(
+		1 => 233,
+		2 => 2333,
+	);
+	
+	//各级给的卡片奖励
+	$ach325_card_prize = array(
+		2 => 119,
 	);
 	
 	function init() 
@@ -25,57 +52,29 @@ namespace skill325
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
-	function finalize325(&$pa, $data)
-	{
+	function player_kill_enemy(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($data=='')					
-			$x=0;						
-		else $x=$data;	
-		
-		$z=(int)\skillbase\skill_getvalue(325,'cnt',$pa);
-		$ox=$x;
-		$x=$ox+$z;
-		
-		if (($ox<1)&&($x>=1)){
-			//\cardbase\get_qiegao(233,$pa);
-			\achievement_base\ach_create_prize_message($pa, 325, 0, 233);
-		}
-		
-		if (($ox<100)&&($x>=100)){
-			//\cardbase\get_qiegao(2333,$pa);
-			//\cardbase\get_card(119,$pa);
-			\achievement_base\ach_create_prize_message($pa, 325, 1, 2333, 119);
-		}
-		
-		return $x;
-	}
-	
-	function player_kill_enemy(&$pa,&$pd,$active)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('map'));
-		if (\skillbase\skill_query(325,$pa) && $pd['type']>0 && $pa['attackwith']=='精灵球' && $areanum==0 && (!isset($pa['bskill']) || $pa['bskill']==0))
+		$chprocess($pa, $pd, $active);		
+		eval(import_module('sys'));
+		if (!$areanum &&  \skillbase\skill_query(325,$pa) && $pd['type']>0 && $pd['hp'] <= 0 && (strpos($pa['attackwith'], '小黄的')!==false || $pa['attackwith']=='精灵球'))
 		{
 			$x=(int)\skillbase\skill_getvalue(325,'cnt',$pa);
 			$x+=1;
 			\skillbase\skill_setvalue(325,'cnt',$x,$pa);
 		}
-		$chprocess($pa, $pd, $active);
 	}	
 	
-	function show_achievement325($data)
+	function ach_finalize_process(&$pa, $data, $achid)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($data=='')
-			$p325=0;
-		else	$p325=$data;	
-		$c325=0;
-		if ($p325>=100)
-			$c325=999;
-		else if ($p325>=1)
-			$c325=1;
-		include template('MOD_SKILL325_DESC');
+		$ret = $chprocess($pa, $data, $achid);
+		if($achid == 325){
+			$var = (int)\skillbase\skill_getvalue($achid,'cnt',$pa);
+			$ret += $var;
+		}
+		return $ret;
 	}
+
 }
 
 ?>

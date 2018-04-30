@@ -8,10 +8,10 @@
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
 <!--{eval $clv = (int)\skillbase\skill_getvalue(26,'lvl'); }-->
 <!--{if $clv <= 1}-->
-<span class="yellow">战斗技</span>：消耗<span class="yellow">$ragecost[1]</span>点怒气发动，本次攻击伤害全部视为<span class="red">火焰</span>伤害<br>
-可花费<span class="lime">$upgradecost</span>点技能点升级，升级后伤害变为<span class="red">灼焰</span>伤害，消耗<span class="yellow">$ragecost[2]</span>点怒气
+<span class="yellow b">战斗技</span>：消耗<span class="yellow b">$ragecost[1]</span>点怒气发动，本次攻击伤害全部视为<span class="red b">火焰</span>伤害<br>
+可花费<span class="lime b">$upgradecost</span>点技能点升级，升级后伤害变为<span class="red b">灼焰</span>伤害，消耗<span class="yellow b">$ragecost[2]</span>点怒气
 <!--{else}-->
-<span class="yellow">战斗技</span>：消耗<span class="yellow">$ragecost[2]</span>点怒气发动，本次攻击伤害全部视为<span class="red">灼焰</span>伤害<br>
+<span class="yellow b">战斗技</span>：消耗<span class="yellow b">$ragecost[2]</span>点怒气发动，本次攻击伤害全部视为<span class="red b">灼焰</span>伤害<br>
 <!--{/if}-->
 </span></td>
 <td class=b3 width=96>
@@ -23,7 +23,7 @@
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
 <!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
-<span class="yellow">
+<span class="yellow b">
 3级时解锁
 </span>
 <!--{/if}-->

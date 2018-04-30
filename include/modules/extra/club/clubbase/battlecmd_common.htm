@@ -11,17 +11,17 @@
 		<!--{if 'WN' == $wepk_req}-->
 			空手方可发动
 		<!--{else}-->
-			武器不适用，需持<span class="yellow">{$iteminfo[$wepk_req]}</span>
+			武器不适用，需持<span class="yellow b">{$iteminfo[$wepk_req]}</span>
 		<!--{/if}-->
 	<!--{elseif 2==$skill_state}-->
 		<!--{eval eval(import_module('weapon'));}-->
-		武器不适用，需持<span class="yellow">{$skilltypeinfo[$wep_skillkind_req]}系武器</span>
+		武器不适用，需持<span class="yellow b">{$skilltypeinfo[$wep_skillkind_req]}系武器</span>
 	<!--{elseif 3==$skill_state}-->
-		怒气不足，需要<span class="red">{$rageneed}</span>点怒气
+		怒气不足，需要<span class="red b">{$rageneed}</span>点怒气
 	<!--{elseif 4==$skill_state}-->
-		<span class="yellow">技能冷却中</span>
+		<span class="yellow b">技能冷却中</span>
 	<!--{elseif 5==$skill_state}-->
-		<span class="red">剩余次数用尽</span>
+		<span class="red b">剩余次数用尽</span>
 	<!--{else}-->
 		<!--{if defined($desc_htm)}-->
 			{template $desc_htm}

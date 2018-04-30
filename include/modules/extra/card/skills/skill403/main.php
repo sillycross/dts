@@ -45,7 +45,7 @@ namespace skill403
 		eval(import_module('logger','skill403'));
 		$var_403=get_skill403_procrate($pa,$pd,$active);
 		while (rand(0,99)<$var_403){
-			$log.="<span class=\"clan\">追加攻击！</span><br>";
+			$log.="<span class=\"cyan b\">追加攻击！</span><br>";
 			$chprocess($pa,$pd,$active);
 		}
 	}

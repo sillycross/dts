@@ -158,7 +158,7 @@ namespace skill475
 		}
 		else if ($item=='itm0' || $item=='itm1' || $item=='itm2' || $item=='itm3' || $item=='itm4' || $item=='itm5' || $item=='itm6')
 		{
-			$w_log='敌人摧毁了你背包中的物品<span class="yellow">'.$edata[$item].'</span>！<br>';
+			$w_log='敌人摧毁了你背包中的物品<span class="yellow b">'.$edata[$item].'</span>！<br>';
 			$edata[$item]='';
 			$edata['itmk'.$item[3]]='';
 			$edata['itme'.$item[3]]=0;

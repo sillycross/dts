@@ -49,8 +49,8 @@ namespace ex_gender_attr
 			{
 				//迷惑触发，视为伤抹成功
 				if ($active)
-					$log .= "<span class=\"red\">你被{$pd['name']}迷惑，无法全力攻击！</span><br>";
-				else  $log .= "<span class=\"red\">{$pa['name']}被你迷惑，无法全力攻击！</span><br>";
+					$log .= "<span class=\"red b\">你被{$pd['name']}迷惑，无法全力攻击！</span><br>";
+				else  $log .= "<span class=\"red b\">{$pa['name']}被你迷惑，无法全力攻击！</span><br>";
 				$pd['physical_nullify_success'] = 1;
 			}
 		}
@@ -63,8 +63,8 @@ namespace ex_gender_attr
 			{
 				//激怒触发，伤害*2
 				if ($active)
-					$log .= "<span class=\"red\">你被{$pd['name']}激怒，伤害加倍！</span><br>";
-				else  $log .= "<span class=\"red\">{$pa['name']}被你激怒，伤害加倍！</span><br>";
+					$log .= "<span class=\"red b\">你被{$pd['name']}激怒，伤害加倍！</span><br>";
+				else  $log .= "<span class=\"red b\">{$pa['name']}被你激怒，伤害加倍！</span><br>";
 				return Array(2);
 			}
 		}

@@ -72,7 +72,7 @@ namespace skill76
 		}
 		$rage = \rage\get_max_rage();
 		addnews ( 0, 'bskill76', $name );
-		$log.='<span class="lime">技能「充能」发动成功。</span><br>';
+		$log.='<span class="lime b">技能「充能」发动成功。</span><br>';
 	}
 	
 	function bufficons_list()
@@ -116,7 +116,7 @@ namespace skill76
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill76') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}发动了技能<span class=\"yellow\">「充能」</span></span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}发动了技能<span class=\"yellow b\">「充能」</span></span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

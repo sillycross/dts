@@ -43,13 +43,13 @@ namespace skill498
 			if(strpos($ret_a,'<!--SPERATOR-->')!==false) {
 				list($ret_a,$ret_b) = explode('<!--SPERATOR-->', $ret_a);
 			}
-			$ret = $ret_a.'你的全系熟练度<span class="clan">增加了'.$skill498var.'</span><br>'.$ret_b;
+			$ret = $ret_a.'你的全系熟练度<span class="cyan b">增加了'.$skill498var.'</span><br>'.$ret_b;
 			if($skill498var<11){
 				\skillbase\skill_setvalue(498,'fv',$skill498var,$pdata);
 			}else{//达到第11次时，失去本技能，获得无敌技能
 				\skillbase\skill_lost(498,$pdata);
 				\skillbase\skill_acquire(499, $pdata);
-				$ret .= '“我不能游，不会飞，跑得也不快。但为了朋友，我无所不能。”<span class="yellow">你感到心中涌出了无尽的勇气。</span><br>' ;
+				$ret .= '“我不能游，不会飞，跑得也不快。但为了朋友，我无所不能。”<span class="yellow b">你感到心中涌出了无尽的勇气。</span><br>' ;
 			}
 		}
 		return $ret;

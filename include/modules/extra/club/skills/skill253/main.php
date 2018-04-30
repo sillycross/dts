@@ -51,8 +51,8 @@ namespace skill253
 			{
 				eval(import_module('logger'));
 				if ($active)
-					$log.="<span class=\"lime\">你对{$pd['name']}发动了技能「天威」！</span><br>";
-				else  $log.="<span class=\"lime\">{$pa['name']}对你发动了技能「天威」！</span><br>";
+					$log.="<span class=\"lime b\">你对{$pd['name']}发动了技能「天威」！</span><br>";
+				else  $log.="<span class=\"lime b\">{$pa['name']}对你发动了技能「天威」！</span><br>";
 				$pa['rage']-=$rcost;
 				addnews ( 0, 'bskill253', $pa['name'], $pd['name'] );
 				$pd['old_hp']=$pd['hp'];	//记录战斗开始时的hp，用于判定返还怒气
@@ -77,8 +77,8 @@ namespace skill253
 		$r = min(220,round($pa['lvl']*($pa['rage']+get_rage_cost253())/6));
 		eval(import_module('logger'));
 		if ($active)
-			$log.='<span class="yellow">「天威」使你的熟练度暂时增加了'.$r.'点！</span><br>';
-		else  $log.='<span class="yellow">「天威」使敌人的熟练度暂时增加了'.$r.'点！</span><br>';
+			$log.='<span class="yellow b">「天威」使你的熟练度暂时增加了'.$r.'点！</span><br>';
+		else  $log.='<span class="yellow b">「天威」使敌人的熟练度暂时增加了'.$r.'点！</span><br>';
 		return $chprocess($pa,$pd,$active)+$r;
 	}
 	
@@ -92,7 +92,7 @@ namespace skill253
 		{
 			$r=get_rage_cost253();
 			eval(import_module('logger'));
-			$log.='「天威」击杀效果触发，返还了<span class="yellow">'.$r.'</span>点怒气！<br>';
+			$log.='「天威」击杀效果触发，返还了<span class="yellow b">'.$r.'</span>点怒气！<br>';
 			$pa['rage']+=$r;
 			if ($pa['rage']>100) $pa['rage']=100;
 		}
@@ -106,7 +106,7 @@ namespace skill253
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill253') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}对{$b}发动了技能<span class=\"yellow\">「天威」</span></span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}对{$b}发动了技能<span class=\"yellow b\">「天威」</span></span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

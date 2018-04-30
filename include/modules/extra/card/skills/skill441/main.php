@@ -35,9 +35,9 @@ namespace skill441
 		if ($l441>0)
 		{
 			if ($active){
-				$log.="<span class=\"yellow\">你拖着病体反而越战越勇，造成的物理伤害提高了{$l441}%！</span><br>";
+				$log.="<span class=\"yellow b\">你拖着病体反而越战越勇，造成的物理伤害提高了{$l441}%！</span><br>";
 			}else{
-				$log.="<span class=\"yellow\">{$pa['name']}拖着病体反而越战越勇，造成的物理伤害提高了{$l441}%！</span><br>";
+				$log.="<span class=\"yellow b\">{$pa['name']}拖着病体反而越战越勇，造成的物理伤害提高了{$l441}%！</span><br>";
 			}
 			$dmggain = (100+$l441)/100;
 			return Array($dmggain);

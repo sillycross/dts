@@ -7,8 +7,8 @@
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
 <!--{eval $skill435_cnt=$skill435_lim-(int)\skillbase\skill_getvalue(435,'t');}-->
-<span class="red">限定技&nbsp;本局还可发动<span>$skill435_cnt</span>/<span>$skill435_lim</span>次</span><br>	
-花费<span class="yellow">$skill435_need</span>元，在当前地点随机召唤一名保安；<br>
+<span class="red b">限定技&nbsp;本局还可发动<span>$skill435_cnt</span>/<span>$skill435_lim</span>次</span><br>	
+花费<span class="yellow b">$skill435_need</span>元，在当前地点随机召唤一名保安；<br>
 雇佣关系存在时，你的保安不会与你进入战斗界面；<br>雇佣保安后需每分钟耗费一定数量的金钱以维持雇佣关系；<br>
 <input type="button" onclick="bubblebox_show('skill435_merc')" value="点我查看可能召唤出的保安列表">
 
@@ -25,7 +25,7 @@
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
 <!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
-<span class="yellow">
+<span class="yellow b">
 12级时解锁
 </span>
 <!--{/if}-->

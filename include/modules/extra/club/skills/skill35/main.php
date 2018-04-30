@@ -77,8 +77,8 @@ namespace skill35
 		if (rand(0,99)<calculate_skill35_proc_rate($pa,$pd,$active))
 		{
 			if ($active)
-				$log.="<span class=\"yellow\">你朝着{$pd['name']}打出了凶猛的一击！<span class=\"clan\">敌人被打晕了过去！</span></span><br>";
-			else  $log.="<span class=\"yellow\">{$pa['name']}朝你打出了凶猛的一击！<span class=\"clan\">你被打晕了过去！</span></span><br>";
+				$log.="<span class=\"yellow b\">你朝着{$pd['name']}打出了凶猛的一击！<span class=\"cyan b\">敌人被打晕了过去！</span></span><br>";
+			else  $log.="<span class=\"yellow b\">{$pa['name']}朝你打出了凶猛的一击！<span class=\"cyan b\">你被打晕了过去！</span></span><br>";
 			$clv = (int)\skillbase\skill_getvalue(35,'lvl',$pa);
 			$dmggain = (100+$attgain[$clv])/100;
 			\skill602\set_stun_period($sk35_stuntime[$clv]*1000,$pd);

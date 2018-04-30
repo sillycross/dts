@@ -47,8 +47,8 @@ namespace skill206
 		if ( $pa['dmg_dealt'] > $pd['hp']*0.85 && $pa['dmg_dealt'] < $pd['hp'] && \weapon\get_skillkind($pa,$pd,$active) == 'wg'  ){
 			$pa['dmg_dealt']=$pd['hp'];
 			eval(import_module('logger'));
-			if ($active) $log .= "<span class=\"red\">你的攻击直接将敌人爆头！</span><br>";
-			else $log .= "<span class=\"red\">敌人的攻击直接将你爆头！</span><br>";
+			if ($active) $log .= "<span class=\"red b\">你的攻击直接将敌人爆头！</span><br>";
+			else $log .= "<span class=\"red b\">敌人的攻击直接将你爆头！</span><br>";
 			$pa['seckill'] = 1;
 		}
 		

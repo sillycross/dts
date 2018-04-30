@@ -63,7 +63,7 @@ namespace skill245
 		$heal = \weather\calculate_hailstorm_weather_damage();
 		$hpup = min($heal, $mhp-$hp); $hpup = max($hpup, 0);
 		$hp+=$hpup;
-		$log .= "你被<span class=\"blue\">冰雹</span>击中了，但是你不仅没有受到伤害，还回复了<span class=\"lime\">$heal</span>点生命！<br>";
+		$log .= "你被<span class=\"blue b\">冰雹</span>击中了，但是你不仅没有受到伤害，还回复了<span class=\"lime b\">$heal</span>点生命！<br>";
 	}
 	
 	function apply_tornado_weather_effect()
@@ -71,7 +71,7 @@ namespace skill245
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!\skillbase\skill_query(245)) return $chprocess();
 		eval(import_module('logger'));
-		$log .= "<span class=\"lime\">即使强烈的龙卷风已经把目力所及的一切都搅的一片狼藉，你竟没有受到任何影响便到达了目的地。</span><br>";
+		$log .= "<span class=\"lime b\">即使强烈的龙卷风已经把目力所及的一切都搅的一片狼藉，你竟没有受到任何影响便到达了目的地。</span><br>";
 	}
 }
 

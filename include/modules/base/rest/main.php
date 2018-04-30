@@ -44,7 +44,7 @@ namespace rest
 			$sp += $upsp; $sp = min($sp, $msp);
 			$upsp = $sp - $oldsp;
 			$upsp=max(0,$upsp);
-			$log .= "你的体力恢复了<span class=\"yellow\">$upsp</span>点。";
+			$log .= "你的体力恢复了<span class=\"yellow b\">$upsp</span>点。";
 		} 
 		
 		if ($state == 2 || $state == 3) {
@@ -53,7 +53,7 @@ namespace rest
 			$hp += $uphp; $hp = min($hp, $mhp);
 			$uphp = $hp - $oldhp;
 			$uphp=max(0,$uphp);
-			$log .= "你的生命恢复了<span class=\"yellow\">$uphp</span>点。";
+			$log .= "你的生命恢复了<span class=\"yellow b\">$uphp</span>点。";
 		} 
 		
 		$log .= '<br>';
@@ -66,7 +66,7 @@ namespace rest
 			{
 				while ($inf!='')
 				{
-					$log .= "<span class=\"yellow\">你从{$infname[$inf[0]]}状态中恢复了！</span><br>";
+					$log .= "<span class=\"yellow b\">你从{$infname[$inf[0]]}状态中恢复了！</span><br>";
 					\wound\heal_inf($inf[0]);
 				}
 			}
@@ -108,7 +108,7 @@ namespace rest
 		{
 			eval(import_module('rest'));
 			if($command=='rest3' && !in_array($pls,$rest_hospital_list)){
-				$log .= '<span class="yellow">你所在的位置并非医院，不能静养！</span><br>';
+				$log .= '<span class="yellow b">你所在的位置并非医院，不能静养！</span><br>';
 			}else{
 				$state = substr($command,4,1);
 				$mode = 'rest';

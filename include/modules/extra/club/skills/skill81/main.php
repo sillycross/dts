@@ -154,11 +154,11 @@ namespace skill81
 		if($logflag) {
 			eval(import_module('logger'));
 			if (strpos ( $eqpk , $noeqp ) === 0 || !$eqps ) {
-				$log .= "{$pa['name']}卸下了<span class=\"yellow\">$itm</span>。<br>";
+				$log .= "{$pa['name']}卸下了<span class=\"yellow b\">$itm</span>。<br>";
 			} elseif(strpos ( $itmk , $noeqp ) === 0 || !$itms) {
-				$log .= "{$pa['name']}迅速装备了<span class=\"yellow\">$eqp</span>。<br>";
+				$log .= "{$pa['name']}迅速装备了<span class=\"yellow b\">$eqp</span>。<br>";
 			}else{
-				$log .= "{$pa['name']}迅速将<span class=\"red\">$itm</span>卸下，装备了<span class=\"yellow\">$eqp</span>！<br>";
+				$log .= "{$pa['name']}迅速将<span class=\"red b\">$itm</span>卸下，装备了<span class=\"yellow b\">$eqp</span>！<br>";
 			}
 		}
 		

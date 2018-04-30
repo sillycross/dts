@@ -24,12 +24,12 @@ namespace poison
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
 		if($hp<=0){
-			$w_log = "<span class=\"red\">{$name}食用了你下毒的补给{$itm}并被毒死了！</span><br>";
+			$w_log = "<span class=\"red b\">{$name}食用了你下毒的补给{$itm}并被毒死了！</span><br>";
 			\logger\logsave ( $itmsk, $now, $w_log ,'b');
 		}
 		else
 		{
-			$w_log = "<span class=\"yellow\">{$name}食用了你下毒的补给{$itm}！</span><br>";
+			$w_log = "<span class=\"yellow b\">{$name}食用了你下毒的补给{$itm}！</span><br>";
 			\logger\logsave ( $itmsk, $now, $w_log ,'b');
 		}
 	}
@@ -60,13 +60,13 @@ namespace poison
 			if  ($playerflag)
 			{
 				$wdata = \player\fetch_playerdata_by_pid($itmsk);
-				$wprefix = '<span class="yellow">'.$wdata['name'].'</span>';
+				$wprefix = '<span class="yellow b">'.$wdata['name'].'</span>';
 				if ($selflag) $wprefix = '你自己';
-				$log .= "糟糕，<span class=\"yellow\">$itm</span>中被{$wprefix}掺入了毒药！你受到了<span class=\"dmg\">$damage</span>点伤害！<br>";
+				$log .= "糟糕，<span class=\"yellow b\">$itm</span>中被{$wprefix}掺入了毒药！你受到了<span class=\"dmg\">$damage</span>点伤害！<br>";
 				addnews ( $now, 'poison', $name, $wdata ['name'], $itm );
 				if (!$selflag) send_poison_enemylog($itm,$itmsk);
 			} else {
-				$log .= "糟糕，<span class=\"yellow\">$itm</span>有毒！你受到了<span class=\"dmg\">$damage</span>点伤害！<br>";
+				$log .= "糟糕，<span class=\"yellow b\">$itm</span>有毒！你受到了<span class=\"dmg\">$damage</span>点伤害！<br>";
 			}
 			if ($hp <= 0) {
 			
@@ -76,7 +76,7 @@ namespace poison
 				if ($playerflag && !$selflag) 	//有来源且不是自己
 				{	
 					$sdata['bid'] = $itmsk;
-					$log .= "你被<span class=\"red\">" . $wdata ['name'] . "</span>毒死了！";
+					$log .= "你被<span class=\"red b\">" . $wdata ['name'] . "</span>毒死了！";
 				}
 				else  if ($playerflag)			//有来源，来源是自己（自己下的毒）
 				{
@@ -94,7 +94,7 @@ namespace poison
 				$killmsg = \player\kill($wdata,$sdata);
 				if (isset($sdata['sourceless'])) unset($sdata['sourceless']);
 				
-				if($killmsg){$log .= "<span class=\"yellow\">{$wdata['name']}对你说：“{$killmsg}”</span><br>";}
+				if($killmsg){$log .= "<span class=\"yellow b\">{$wdata['name']}对你说：“{$killmsg}”</span><br>";}
 				
 				if ($playerflag && !$selflag) \player\player_save($wdata);
 				\player\player_save($sdata);
@@ -157,14 +157,14 @@ namespace poison
 			$itmsk = $pid;
 		}
 		if($art == '妖精的羽翼') {
-			$log .= "使用了 <span class=\"red\">$poison</span> ，<span class=\"yellow\">${'itm'.$itmn}</span> 被净化了！<br>";
+			$log .= "使用了 <span class=\"red b\">$poison</span> ，<span class=\"yellow b\">${'itm'.$itmn}</span> 被净化了！<br>";
 		}
 		else {
-			$log .= "使用了 <span class=\"red\">$poison</span> ，<span class=\"yellow\">${'itm'.$itmn}</span> 被下毒了！<br>";
+			$log .= "使用了 <span class=\"red b\">$poison</span> ，<span class=\"yellow b\">${'itm'.$itmn}</span> 被下毒了！<br>";
 		}
 		$poisons--;
 		if($poisons <= 0){
-			$log .= "<span class=\"red\">$poison</span> 用光了。<br>";
+			$log .= "<span class=\"red b\">$poison</span> 用光了。<br>";
 			$poison = $poisonk = '';$poisone = $poisons = 0;
 		}
 
@@ -208,19 +208,19 @@ namespace poison
 		eval(import_module('sys','player'));
 		
 		if($news == 'poison') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"purple\">{$a}食用了{$b}下毒的{$c}</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"purple b\">{$a}食用了{$b}下毒的{$c}</span></li>";
 		
 		if($news == 'death26') {
 			$dname = $typeinfo[$b].' '.$a;
 			if(!$e){
-				$e0="<span class=\"yellow\">【{$dname} 什么都没说就死去了】</span><br>\n";
+				$e0="<span class=\"yellow b\">【{$dname} 什么都没说就死去了】</span><br>\n";
 			}else{
-				$e0="<span class=\"yellow\">【{$dname}：“{$e}”】</span><br>\n";
+				$e0="<span class=\"yellow b\">【{$dname}：“{$e}”】</span><br>\n";
 			}
 			if($c) {
-				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因食用了<span class=\"yellow\">$c</span>下毒的<span class=\"red\">$d</span>被毒死{$e0}</li>";
+				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">$a</span>因食用了<span class=\"yellow b\">$c</span>下毒的<span class=\"red b\">$d</span>被毒死{$e0}</li>";
 			} else {
-				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因食用了有毒的<span class=\"red\">$d</span>被毒死{$e0}</li>";
+				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">$a</span>因食用了有毒的<span class=\"red b\">$d</span>被毒死{$e0}</li>";
 			}
 		}
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);

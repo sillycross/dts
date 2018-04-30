@@ -95,8 +95,8 @@ namespace skill273
 				if($dmgdown) {
 					$wepstr = substr($pd['wepk'],1,1) == 'B' ? '使用'.$pd['wep'].'射出箭' : '掷出手中的'.$pd['wep'];
 					if ($active)
-						$log.='然而，敌人'.$wepstr.'，<span class="yellow">抵挡了'.$dmgdown.'点伤害！</span><br>';
-					else	$log.='然而，你'.$wepstr.'，<span class="yellow">抵挡了'.$dmgdown.'点伤害！</span><br>';
+						$log.='然而，敌人'.$wepstr.'，<span class="yellow b">抵挡了'.$dmgdown.'点伤害！</span><br>';
+					else	$log.='然而，你'.$wepstr.'，<span class="yellow b">抵挡了'.$dmgdown.'点伤害！</span><br>';
 					$pd['wepimp'] = 1;
 					\weapon\apply_weapon_imp($pd, $pa, 1-$active);
 					$pd['wepimp'] = 0;

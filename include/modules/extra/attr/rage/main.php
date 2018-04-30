@@ -38,7 +38,7 @@ namespace rage
 		
 		$rageup = calculate_rest_rageup($resttime);
 		$rageup = get_rage($rageup);
-		$log .= "你的怒气增加了<span class=\"yellow\">$rageup</span>点。";
+		$log .= "你的怒气增加了<span class=\"yellow b\">$rageup</span>点。";
 		
 		$chprocess($restcommand);
 	}
@@ -137,7 +137,7 @@ namespace rage
 				$log.='你已经出离愤怒了，动怒伤肝，还是歇歇吧！<br>';
 				return;
 			}
-			$log.="你吃了一口{$itm}，顿时感觉心中充满了愤怒。你的怒气值增加了<span class=\"yellow\">{$rageup}</span>点！<br>";
+			$log.="你吃了一口{$itm}，顿时感觉心中充满了愤怒。你的怒气值增加了<span class=\"yellow b\">{$rageup}</span>点！<br>";
 			\itemmain\itms_reduce($theitem);
 			return;
 		}

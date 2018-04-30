@@ -113,7 +113,7 @@ namespace smartmix
 		if(isset($itemindex)){
 			$mix_res = smartmix_find_recipe($itemindex, 1 + 2);				
 			if($mix_res){
-				$mhint .= '<span class="yellow">'.$itemindex.'</span>涉及的合成公式有：<br>';
+				$mhint .= '<span class="yellow b">'.$itemindex.'</span>涉及的合成公式有：<br>';
 				foreach($mix_res as $mval){
 					if(!isset($mval['type']) || $mval['type'] == 'normal'){
 						foreach($mval['stuff'] as $ms){
@@ -156,7 +156,7 @@ namespace smartmix
 							}
 							$mstuff = substr($mstuff,0,-3);
 						}
-						$mresult .= '<li>'.parse_smartmix_recipelink($mval['result'][0], \itemmix\parse_itemmix_resultshow($mval['result']), 'yellow').'</li>';
+						$mresult .= '<li>'.parse_smartmix_recipelink($mval['result'][0], \itemmix\parse_itemmix_resultshow($mval['result']), 'yellow b').'</li>';
 					}
 					$mtstr = '';
 					if(isset($mix_type[$o_type])) $mtstr = $mix_type[$o_type];

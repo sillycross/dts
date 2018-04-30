@@ -43,8 +43,8 @@ namespace ex_attr_charge
 		{
 			eval(import_module('logger'));
 			if ($active)
-				$log .= "<span class=\"yellow\">你的攻击隔着{$pd['name']}的防具造成了伤害！</span><br>";
-			else  $log .= "<span class=\"yellow\">{$pa['name']}的攻击隔着你的防具造成了伤害！</span><br>";
+				$log .= "<span class=\"yellow b\">你的攻击隔着{$pd['name']}的防具造成了伤害！</span><br>";
+			else  $log .= "<span class=\"yellow b\">{$pa['name']}的攻击隔着你的防具造成了伤害！</span><br>";
 			return $chprocess($pa, $pd, $active)/2;
 		}
 		else  return $chprocess($pa, $pd, $active);

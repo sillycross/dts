@@ -85,7 +85,7 @@ namespace skill486
 		eval(import_module('sys','logger'));
 		//现在这里只需要发$log通告
 		if(!empty($pd['skill486rivv'])){
-			$tmp_log = "<span class='lime'>然而，<:pd_name:>奇迹般从致命一击中活了下来，还剩下一口气。</span><br>";
+			$tmp_log = "<span class='lime b'>然而，<:pd_name:>奇迹般从致命一击中活了下来，还剩下一口气。</span><br>";
 			$log .= \battle\battlelog_parser($pa, $pd, $active, $tmp_log);
 			$pd['battlelog'] .= \battle\battlelog_parser($pa, $pd, 1-$active, $tmp_log);
 		}
@@ -96,7 +96,7 @@ namespace skill486
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
 		if($news == 'skill486_revv') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}奇迹般地逃过一劫，活了下来！</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime b\">{$a}奇迹般地逃过一劫，活了下来！</span></li>";
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 }

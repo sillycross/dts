@@ -6,10 +6,10 @@
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
 <!--{if $who['card']==63}-->
-你造成的电击伤害没有上限，且电击伤害提高<span class="yellow">50%</span>
+你造成的电击伤害没有上限，且电击伤害提高<span class="yellow b">50%</span>
 <!--{else}-->
 <!--{if $who['card']==64}-->
-你造成的电击伤害没有上限，且电击伤害提高<span class="yellow">25%</span>
+你造成的电击伤害没有上限，且电击伤害提高<span class="yellow b">25%</span>
 <!--{else}-->
 你造成的电击伤害没有上限
 <!--{/if}-->
@@ -19,7 +19,7 @@
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
 <!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
-<span class="yellow">
+<span class="yellow b">
 20级时解锁
 </span>
 <!--{/if}-->

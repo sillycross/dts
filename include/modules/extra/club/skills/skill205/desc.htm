@@ -5,7 +5,7 @@
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
-<span class="yellow">战斗技</span>&nbsp;&nbsp;本次攻击物理伤害<span class="yellow">+20%</span>，属性伤害<span class="yellow">+80%</span>，<br>防具损坏效果<span class="yellow">×2</span>。使用射系武器方可发动，消耗<span class="yellow">$ragecost</span>点怒气
+<span class="yellow b">战斗技</span>&nbsp;&nbsp;本次攻击物理伤害<span class="yellow b">+20%</span>，属性伤害<span class="yellow b">+80%</span>，<br>防具损坏效果<span class="yellow b">×2</span>。使用射系武器方可发动，消耗<span class="yellow b">$ragecost</span>点怒气
 </span></td>
 <td class=b3 width=96>
 	<!--这个只是一个假的按钮，实际点击的是下面那个-->
@@ -20,7 +20,7 @@
 已获得技能「{$clubskillname[$alternate_skillno205]}」，无法解锁！
 </span>
 <!--{else}-->
-	<span class="yellow">
+	<span class="yellow b">
 	<!--{if $ustate & 2}-->
 		请在右侧选择本技能。与技能「{$clubskillname[$alternate_skillno205]}」互斥。
 		<input type="button" style="width:47px;margin-right:25px;float:right;" onclick="$('mode').value='special';$('command').value='skill205_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="选择">

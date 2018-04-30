@@ -91,8 +91,8 @@ function updateTime_render(t, tm, fmt)
 	var tobj = new Date();
 	tobj.setTime(t);
 	var tstr = tobj.Format(fmt);
-	if(0==tm && t < 10*1000) tstr = '<span class="red">'+tstr+'</span>';
-	else if(0==tm && t < 60*1000) tstr = '<span class="yellow">'+tstr+'</span>';
+	if(0==tm && t < 10*1000) tstr = '<span class="red b">'+tstr+'</span>';
+	else if(0==tm && t < 60*1000) tstr = '<span class="yellow b">'+tstr+'</span>';
 	return tstr;
 }
 

@@ -22,7 +22,7 @@ namespace item_uc
 			$ck=substr($itmk,1,1);
 			if($ck == 'a'){
 				$flag=false;
-				$log .= "服用了<span class=\"red\">$itm</span>。<br>";
+				$log .= "服用了<span class=\"red b\">$itm</span>。<br>";
 				$inf0 = $inf;
 				for ($i=0; $i<strlen($inf0); $i++)
 				{
@@ -41,9 +41,9 @@ namespace item_uc
 			{
 				if(strpos ( $inf, $ck ) !== false){
 					$inf = str_replace ( $ck, '', $inf );
-					$log .= "服用了<span class=\"red\">$itm</span>，{$infname[$ck]}状态解除了。<br>";
+					$log .= "服用了<span class=\"red b\">$itm</span>，{$infname[$ck]}状态解除了。<br>";
 				}else{
-					$log .= "服用了<span class=\"red\">$itm</span>，但是什么效果也没有。<br>";
+					$log .= "服用了<span class=\"red b\">$itm</span>，但是什么效果也没有。<br>";
 				}
 			}
 			

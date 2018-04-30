@@ -39,7 +39,7 @@ namespace empowers
 			if ($dice >= 10) 
 			{
 				$wepe += $itme;
-				$log .= "使用了<span class=\"yellow\">$itm</span>，<span class=\"yellow\">$wep</span>的攻击力变成了<span class=\"yellow\">$wepe</span>。<br>";
+				$log .= "使用了<span class=\"yellow b\">$itm</span>，<span class=\"yellow b\">$wep</span>的攻击力变成了<span class=\"yellow b\">$wepe</span>。<br>";
 				if (strpos ( $wep, '钉' ) === false) {
 					$wep = str_replace ( '棍棒', '钉棍棒', $wep );
 				}
@@ -48,11 +48,11 @@ namespace empowers
 			{
 				$wepe -= ceil ( $itme / 2 );
 				if ($wepe <= 0) {
-					$log .= "<span class=\"red\">$itm</span>使用失败，<span class=\"red\">$wep</span>损坏了！<br>";
+					$log .= "<span class=\"red b\">$itm</span>使用失败，<span class=\"red b\">$wep</span>损坏了！<br>";
 					$wep = $wepk = $wepsk = '';
 					$wepe = $weps = 0;
 				} else {
-					$log .= "<span class=\"red\">$itm</span>使用失败，<span class=\"red\">$wep</span>的攻击力变成了<span class=\"red\">$wepe</span>。<br>";
+					$log .= "<span class=\"red b\">$itm</span>使用失败，<span class=\"red b\">$wep</span>的攻击力变成了<span class=\"red b\">$wepe</span>。<br>";
 				}
 			}
 			return 1;
@@ -80,7 +80,7 @@ namespace empowers
 			if ($dice >= 15) 
 			{
 				$wepe += $itme;					
-				$log .= "使用了<span class=\"yellow\">$itm</span>，<span class=\"yellow\">$wep</span>的攻击力变成了<span class=\"yellow\">$wepe</span>。<br>";
+				$log .= "使用了<span class=\"yellow b\">$itm</span>，<span class=\"yellow b\">$wep</span>的攻击力变成了<span class=\"yellow b\">$wepe</span>。<br>";
 				if (strpos ( $wep, '锋利的' ) === false) {
 					$wep = '锋利的'.$wep;
 				}
@@ -89,11 +89,11 @@ namespace empowers
 			{
 				$wepe -= ceil ( $itme / 2 );
 				if ($wepe <= 0) {
-					$log .= "<span class=\"red\">$itm</span>使用失败，<span class=\"red\">$wep</span>损坏了！<br>";
+					$log .= "<span class=\"red b\">$itm</span>使用失败，<span class=\"red b\">$wep</span>损坏了！<br>";
 					$wep = $wepk = $wepsk = '';
 					$wepe = $weps = 0;
 				} else {
-					$log .= "<span class=\"red\">$itm</span>使用失败，<span class=\"red\">$wep</span>的攻击力变成了<span class=\"red\">$wepe</span>。<br>";
+					$log .= "<span class=\"red b\">$itm</span>使用失败，<span class=\"red b\">$wep</span>的攻击力变成了<span class=\"red b\">$wepe</span>。<br>";
 				}
 			}
 			return 1;
@@ -134,15 +134,15 @@ namespace empowers
 		if (($skill [$nowsk] != $skill [$maxsk]) && ($dice < 30)) {
 			$changek = array('wp' => 'WP', 'wk' => 'WK', 'wg' => 'WG', 'wc' => 'WC', 'wd' => 'WD', 'wf' => 'WF');
 			$wepk = $changek[$maxsk]. substr($wepk,2);
-			$kind = "更改了{$wep}的<span class=\"yellow\">类别</span>！";
+			$kind = "更改了{$wep}的<span class=\"yellow b\">类别</span>！";
 		} elseif (($weps != $nosta) && ($dice2 < 70)) {
 			$weps += ceil ( $wepe / 2 );
-			$kind = "增强了{$wep}的<span class=\"yellow\">耐久</span>！";
+			$kind = "增强了{$wep}的<span class=\"yellow b\">耐久</span>！";
 		} else {
 			$wepe += ceil ( $wepe / 2 );
-			$kind = "提高了{$wep}的<span class=\"yellow\">攻击力</span>！";
+			$kind = "提高了{$wep}的<span class=\"yellow b\">攻击力</span>！";
 		}
-		$log .= "你使用了<span class=\"yellow\">$itm</span>，{$kind}";
+		$log .= "你使用了<span class=\"yellow b\">$itm</span>，{$kind}";
 		addnews ( $now, 'newwep', $name, $itm, $wep );
 		if (strpos ( $wep, '-改' ) === false) {
 			$wep = $wep . '-改';
@@ -176,10 +176,10 @@ namespace empowers
 				if (($arb == $noarb) || ! $arb) {
 					$log .= '你没有装备防具，不能使用针线包。<br>';
 				} elseif(strpos($arbsk,'Z')!==false){
-					$log .= '<span class="yellow">该防具太单薄以至于不能使用针线包。</span><br>你感到一阵蛋疼菊紧，你的蛋疼度增加了<span class="yellow">233</span>点。<br>';
+					$log .= '<span class="yellow b">该防具太单薄以至于不能使用针线包。</span><br>你感到一阵蛋疼菊紧，你的蛋疼度增加了<span class="yellow b">233</span>点。<br>';
 				}else {
 					$arbe += (rand ( 0, 2 ) + $itme);
-					$log .= "用<span class=\"yellow\">$itm</span>给防具打了补丁，<span class=\"yellow\">$arb</span>的防御力变成了<span class=\"yellow\">$arbe</span>。<br>";
+					$log .= "用<span class=\"yellow b\">$itm</span>给防具打了补丁，<span class=\"yellow b\">$arb</span>的防御力变成了<span class=\"yellow b\">$arbe</span>。<br>";
 					\itemmain\itms_reduce($theitem);
 				}
 				return;
@@ -199,7 +199,7 @@ namespace empowers
 		eval(import_module('sys','player'));
 		
 		if($news == 'newwep') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}使用了{$b}，改造了<span class=\"yellow\">$c</span>！</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime b\">{$a}使用了{$b}，改造了<span class=\"yellow b\">$c</span>！</span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

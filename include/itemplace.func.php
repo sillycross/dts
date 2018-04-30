@@ -355,7 +355,7 @@ function get_resultjwords($mixresult){
 			$wnlist[] = $wname;
 			$wname = $wret[1];
 			
-			$rarr[] = '<span class=\'yellow\'>'.$wret[1].'</span>/'.\itemmain\parse_itmk_words($wret[2],1).'/'.$wret[3].'/'.$wret[4].(!empty($wret[5]) ? '/'.\itemmain\parse_itmsk_words($wret[5]) : '');
+			$rarr[] = '<span class=\'yellow b\'>'.$wret[1].'</span>/'.\itemmain\parse_itmk_words($wret[2],1).'/'.$wret[3].'/'.$wret[4].(!empty($wret[5]) ? '/'.\itemmain\parse_itmsk_words($wret[5]) : '');
 		}while(!in_array($wret[1],$wnlist) && !empty($wret[5]) && strpos($wret[5],'j')!==false);
 		
 		

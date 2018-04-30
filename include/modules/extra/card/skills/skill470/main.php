@@ -33,8 +33,8 @@ namespace skill470
 		{
 			eval(import_module('logger'));
 			if ($active)
-				$log.='<span class="yellow">「狙击」使敌人受到的最终伤害增加了12%！</span><br>';
-			else  $log.='<span class="yellow">「狙击」使你受到的最终伤害增加了12%！</span><br>';
+				$log.='<span class="yellow b">「狙击」使敌人受到的最终伤害增加了12%！</span><br>';
+			else  $log.='<span class="yellow b">「狙击」使你受到的最终伤害增加了12%！</span><br>';
 			$r=Array(1.12);
 		}
 		return array_merge($r,$chprocess($pa,$pd,$active));

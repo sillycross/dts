@@ -47,7 +47,7 @@ namespace skill11
 		$att += $att_dice;
 		$def_dice = $skillpara1*6;
 		$def += $def_dice;
-		$log.='消耗了<span class="lime">'.$skillpara1.'</span>点技能点，你的攻击力提升了<span class="yellow">'.$att_dice.'</span>点，防御力提升了<span class="yellow">'.$def_dice.'</span>点。<br>';
+		$log.='消耗了<span class="lime b">'.$skillpara1.'</span>点技能点，你的攻击力提升了<span class="yellow b">'.$att_dice.'</span>点，防御力提升了<span class="yellow b">'.$def_dice.'</span>点。<br>';
 		$skillpoint-=$skillpara1;
 	}
 }

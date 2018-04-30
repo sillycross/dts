@@ -52,8 +52,8 @@ namespace skill45
 			{
 				eval(import_module('logger'));
 				if ($active)
-					$log.="<span class=\"lime\">你对{$pd['name']}发动了技能「重拳」！</span><br>";
-				else  $log.="<span class=\"lime\">{$pa['name']}对你发动了技能「重拳」！</span><br>";
+					$log.="<span class=\"lime b\">你对{$pd['name']}发动了技能「重拳」！</span><br>";
+				else  $log.="<span class=\"lime b\">{$pa['name']}对你发动了技能「重拳」！</span><br>";
 				$pa['rage']-=$rcost;
 				addnews ( 0, 'bskill45', $pa['name'], $pd['name'] );
 			}
@@ -79,8 +79,8 @@ namespace skill45
 			eval(import_module('logger'));
 			$r=Array(1.3);
 			if ($active)
-				$log.='<span class="yellow">你向敌人打出了一记重拳！</span><br>';
-			else  $log.='<span class="yellow">敌人向你打出了一记重拳！</span><br>';
+				$log.='<span class="yellow b">你向敌人打出了一记重拳！</span><br>';
+			else  $log.='<span class="yellow b">敌人向你打出了一记重拳！</span><br>';
 		}
 		return array_merge($r,$chprocess($pa, $pd, $active));
 	}
@@ -92,7 +92,7 @@ namespace skill45
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill45') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}对{$b}发动了技能<span class=\"yellow\">「重拳」</span></span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}对{$b}发动了技能<span class=\"yellow b\">「重拳」</span></span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

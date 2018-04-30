@@ -126,8 +126,8 @@ namespace wep_j
 		if ($pa['wep_kind']=='J')	//射系武器损坏特判（子弹用光）
 		{
 			if ($active)
-				$log .= "你的<span class=\"red\">{$pa['wep']}</span>的弹药用光了！<br>";
-			else  $log .= "{$pa['name']}的<span class=\"red\">{$pa['wep']}</span>的弹药用光了！<br>";
+				$log .= "你的<span class=\"red b\">{$pa['wep']}</span>的弹药用光了！<br>";
+			else  $log .= "{$pa['name']}的<span class=\"red b\">{$pa['wep']}</span>的弹药用光了！<br>";
 			$pa['weps']=$nosta;
 		}
 		else  $chprocess($pa,$pd,$active);
@@ -169,8 +169,8 @@ namespace wep_j
 		{
 			eval(import_module('logger'));
 			if ($active)
-				$log.="<span class=\"red\">由于{$pd['name']}手中的武器过于笨重，受到的伤害大增！</span><br>";
-			else  $log.="<span class=\"red\">由于你手中的武器过于笨重，受到的伤害大增！真是大快人心啊！</span><br>";
+				$log.="<span class=\"red b\">由于{$pd['name']}手中的武器过于笨重，受到的伤害大增！</span><br>";
+			else  $log.="<span class=\"red b\">由于你手中的武器过于笨重，受到的伤害大增！真是大快人心啊！</span><br>";
 			$r=Array(1.5);
 		}
 		return array_merge($r,$chprocess($pa, $pd, $active));

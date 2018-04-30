@@ -4,23 +4,23 @@
 {template MOD_BUBBLEBOX_START}
 <div>
 <div style="height:50px">&nbsp;</div>
-<div style="text-align:center; height:40px;"><span class="lime" style="font-size:40px;">击杀玩家</span></div>
+<div style="text-align:center; height:40px;"><span class="lime b" style="font-size:40px;">击杀玩家</span></div>
 <div style="display:inline-block;width:35px;">&nbsp;</div><div style="display:inline-block;">
 <br>
 <!--{eval $sk475ptgain=round(((int)\skillbase\skill_getvalue(475,'bounty',$edata))/0.55*0.15);}-->
-<span>你击杀了<span class="yellow">$w_name</span>！你获得了<span class="orange">$sk475ptgain</span>点胜利点数。</span><br><br>
+<span>你击杀了<span class="yellow b">$w_name</span>！你获得了<span class="orange">$sk475ptgain</span>点胜利点数。</span><br><br>
 <span>请选择一项对敌人的惩罚(请在15秒内选择，15秒后敌人复活即无法再选择)：</span><br>
 <table style="width:720px;">
 <tr><td class="b1" colspan=2>金钱</td></tr>
 <tr><td colspan=2 class="b3" style="text-align:left; vertical-align:top;">
 <div style="width:720px;">
-<span>敌人携带了<span class="yellow">$w_money</span>元。</span><!--{eval $tmp=round($w_money*0.3);}--><br>
-<input type="radio" name="gtype2corpse" id="money1" value="money1" checked><a onclick=sl('money1'); href="javascript:void(0);" >销毁敌人<span class="yellow">30%</span>的金钱(<span>$tmp</span>元)。</a><br>
-<input type="radio" name="gtype2corpse" id="money2" value="money2"><a onclick=sl('money2'); href="javascript:void(0);" >获得敌人<span class="yellow">30%</span>的金钱(<span>$tmp</span>元)，但需要放弃同等数值的胜利点数。</a><br>
+<span>敌人携带了<span class="yellow b">$w_money</span>元。</span><!--{eval $tmp=round($w_money*0.3);}--><br>
+<input type="radio" name="gtype2corpse" id="money1" value="money1" checked><a onclick=sl('money1'); href="javascript:void(0);" >销毁敌人<span class="yellow b">30%</span>的金钱(<span>$tmp</span>元)。</a><br>
+<input type="radio" name="gtype2corpse" id="money2" value="money2"><a onclick=sl('money2'); href="javascript:void(0);" >获得敌人<span class="yellow b">30%</span>的金钱(<span>$tmp</span>元)，但需要放弃同等数值的胜利点数。</a><br>
 </td></tr>
 <tr><td class="b1" style="width:360px">装备</td><td class="b1" style="width:360px">物品</td></tr>
 <tr><td class="b3" style="width:360px; text-align:left; vertical-align:top;">
-削弱敌人的装备，对武器降低<span class="yellow">12%</span>效果值，对防具降低<span class="yellow">20%</span>效果值，摧毁饰品。<br>
+削弱敌人的装备，对武器降低<span class="yellow b">12%</span>效果值，对防具降低<span class="yellow b">20%</span>效果值，摧毁饰品。<br>
 <!--{if $w_weps && $w_wepe}-->
 <input type="radio" name="gtype2corpse" id="wep" value="wep"><a onclick=sl('wep'); href="javascript:void(0);" >$w_wep/$w_wepk_words/$w_wepe/$w_weps<!--{if $w_wepsk_words}-->/$w_wepsk_words<!--{/if}--></a><br>
 <!--{/if}-->

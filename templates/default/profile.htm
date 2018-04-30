@@ -19,7 +19,7 @@
 					<td colspan="2" class="b1"></td>
 					<!--{/if}-->
 					<td colspan="1" class="b1">
-							<!--{if ($gamestate == 40 ||($gametype == 17 && \skillbase\skill_getvalue(1000,'step')>=206))}--><span class="yellow">{lang combo}</span><!--{/if}--><!--{if $gamestate == 50 }--><span class="red">{lang duel}</span><!--{/if}--> 
+							<!--{if ($gamestate == 40 ||($gametype == 17 && \skillbase\skill_getvalue(1000,'step')>=206))}--><span class="yellow b">{lang combo}</span><!--{/if}--><!--{if $gamestate == 50 }--><span class="red b">{lang duel}</span><!--{/if}--> 
 						{template MOD_MAP_PROFILE_AREAINFO}
 					</td>
 				</tr>
@@ -100,15 +100,15 @@
 							</tr>
 							<tr>
 								<td class="b2" height="20"><span>{lang sp}</span></td>
-								<td id="profile_sp_grid" class="b3"><span><span class="<!--{if $sp <= $msp*0.2}-->grey<!--{elseif $sp <= $msp*0.5}-->yellow<!--{else}-->clan<!--{/if}-->">$sp / $msp</span></span></td>
+								<td id="profile_sp_grid" class="b3"><span><span class="$spcolor">$sp / $msp</span></span></td>
 							</tr>
 							<tr>
 								<td class="b2" height="20"><span>{lang hp}</span></td>
-								<td id="profile_hp_grid" class="b3"><span><span class="<!--{if $hp <= $mhp*0.2}-->red<!--{elseif $hp <= $mhp*0.5}-->yellow<!--{else}-->clan<!--{/if}-->">$hp / $mhp</span></span></td>
+								<td id="profile_hp_grid" class="b3"><span><span class="$hpcolor">$hp / $mhp</span></span></td>
 							</tr>
 							<tr>
 								<td class="b2" height="20"><span>{lang ss}</span></td>
-								<td class="b3"><span class="<!--{if $ss <= $mss*0.2}-->red<!--{elseif $ss <= $mss*0.5}-->yellow<!--{else}-->clan<!--{/if}-->">$ss / $mss</span></td>
+								<td class="b3"><span class="<!--{if $ss <= $mss*0.2}-->grey b<!--{elseif $ss <= $mss*0.5}-->yellow b<!--{else}-->cyan b<!--{/if}-->">$ss / $mss</span></td>
 							</tr>
 							<tr>
 								<!--{if defined('MOD_APM')}-->
@@ -129,11 +129,11 @@
 							<!--{/if}-->
 							<tr>
 								<td class="b2" height="20"><span>{lang rage}</span></td>
-								<td class="b3"><span><!--{if $rage >= 30}--><span class="yellow">$rage</span><!--{else}-->$rage<!--{/if}--></span></td>
+								<td class="b3"><span><!--{if $rage >= 30}--><span class="yellow b">$rage</span><!--{else}-->$rage<!--{/if}--></span></td>
 							</tr>
 							<tr>
 								<td class="b2" height="20"><span>技能点</span></td>
-								<td class="b3"><!--{if $skillpoint>0}--><span class="lime">$skillpoint<!--{else}-->$skillpoint<!--{/if}--></span></td>
+								<td class="b3"><!--{if $skillpoint>0}--><span class="lime b">$skillpoint<!--{else}-->$skillpoint<!--{/if}--></span></td>
 							</tr>
 							<tr>
 								<!--摸东西模式下杀人数计数改为破解层数显示-->

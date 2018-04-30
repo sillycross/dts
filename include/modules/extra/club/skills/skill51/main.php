@@ -56,8 +56,8 @@ namespace skill51
 		$z=get_skill51_multiplier($pa);
 		$r=Array((100+$z)/100);
 		if ($active)
-			$log.='<span class="yellow">你打得敌人落花流水，物理伤害增加了'.$z.'%！</span><br>';
-		else  $log.='<span class="yellow">敌人打得你落花流水，物理伤害增加了'.$z.'%！</span><br>';
+			$log.='<span class="yellow b">你打得敌人落花流水，物理伤害增加了'.$z.'%！</span><br>';
+		else  $log.='<span class="yellow b">敌人打得你落花流水，物理伤害增加了'.$z.'%！</span><br>';
 		return array_merge($r,$chprocess($pa, $pd, $active));
 	}
 	

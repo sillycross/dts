@@ -164,7 +164,7 @@ function import_module()
 				if (strtoupper($key)=='INPUT' || strtoupper($key)=='SYS')
 				{
 					global $faillog;
-					$faillog = "<span class=\"red\">你在{$___TEMP_CUR_INITING_MODULE_NAME}的init函数中import了input或sys模块，这是不允许的。</span>";
+					$faillog = "<span class=\"red b\">你在{$___TEMP_CUR_INITING_MODULE_NAME}的init函数中import了input或sys模块，这是不允许的。</span>";
 					die();
 				}
 			}

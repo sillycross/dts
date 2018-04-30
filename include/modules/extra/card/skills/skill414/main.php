@@ -56,7 +56,7 @@ namespace skill414
 		\skillbase\skill_setvalue(414,'dur',600+$wc*4);
 		\skillbase\skill_setvalue(414,'lastuse',$now);
 		addnews ( 0, 'bskill414', $name );
-		$log.='<span class="lime">技能「鹰眼」发动成功。</span><br>';
+		$log.='<span class="lime b">技能「鹰眼」发动成功。</span><br>';
 	}
 	
 	//return 1:技能生效中 2:技能冷却中 3:技能冷却完毕 其他:不能使用这个技能
@@ -125,7 +125,7 @@ namespace skill414
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill414') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}发动了技能<span class=\"yellow\">「鹰眼」</span></span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}发动了技能<span class=\"yellow b\">「鹰眼」</span></span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
