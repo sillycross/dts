@@ -71,8 +71,8 @@ foreach($list as $li => $lv){
 	echo ' ';ob_end_flush(); flush();
 	$ret = curl_post($rpurl, $context);
 	if(empty(trim($ret))) $ret = 'Unknown error occured';
-	elseif(strpos($ret, 'already')!==false) $ret = '<font color="grey b">'.$ret.'</font>';
-	elseif(strpos($ret, 'Successfully')!==false) $ret = '<font color="lime b">'.$ret.'</font>';
+	elseif(strpos($ret, 'already')!==false) $ret = '<font color="grey">'.$ret.'</font>';
+	elseif(strpos($ret, 'Successfully')!==false) $ret = '<font color="lime">'.$ret.'</font>';
 	echo $ret; ob_end_flush(); flush();
 	
 	$i++;

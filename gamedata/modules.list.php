@@ -94,7 +94,6 @@ skill311,extra/achievement/skills/skill311/,1
 skill312,extra/achievement/skills/skill312/,1
 skill314,extra/achievement/skills/skill314/,1
 skill443,extra/card/skills/skill443/,1
-skill325,extra/achievement/skills/skill325/,1
 skill477,extra/card/skills/skill477/,1
 skill479,extra/card/skills/skill479/,1
 skill327,extra/activities/nationalday2017/skill327/,1
@@ -301,6 +300,7 @@ skill445,extra/card/skills/skill445/,1
 pose,base/pose/,1
 skill1,base/skills/skill1/,1
 skill600,extra/club/skills/skill600/,1
+skill325,extra/achievement/skills/skill325/,1
 skill326,extra/achievement/skills/skill326/,1
 skill315,extra/achievement/skills/skill315/,1
 skill313,extra/achievement/skills/skill313/,1

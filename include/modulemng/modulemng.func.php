@@ -43,7 +43,7 @@ function module_validity_check($file)
 	$log='';
 	if (!file_exists($file))
 	{
-		$log.="<span><font color=\"red b\">模块列表文件不存在。</font></span><br>";
+		$log.="<span><font color=\"red\">模块列表文件不存在。</font></span><br>";
 		return $log;
 	}
 	$content=openfile($file);
@@ -55,7 +55,7 @@ function module_validity_check($file)
 		{
 			if (isset($modnamelist[$modname]))
 			{
-				$log.="<span><font color=\"red b\">模块{$modname}被多次加载，路径分别为{$modpath}和{$modnamelist[$modname]}。</font></span><br>";
+				$log.="<span><font color=\"red\">模块{$modname}被多次加载，路径分别为{$modpath}和{$modnamelist[$modname]}。</font></span><br>";
 				return $log;
 			}
 			$modnamelist[$modname]=$modpath;
@@ -79,24 +79,24 @@ function module_validity_check($file)
 		$modname=$modn[$i]; $modpath=$modp[$i];
 		if (!file_exists(GAME_ROOT.'./include/modules/'.$modpath.'module.inc.php'))
 		{
-			$log.="<span><font color=\"red b\">模块{$modname}没有提供module.inc.php。</font></span><br>";
+			$log.="<span><font color=\"red\">模块{$modname}没有提供module.inc.php。</font></span><br>";
 			return $log;
 		}
 		global $faillog;
-		$faillog="<span><font color=\"red b\">遇到了一个未知错误。这可能是由于模块{$modname}包含语法错误造成的。</font></span><br>";
+		$faillog="<span><font color=\"red\">遇到了一个未知错误。这可能是由于模块{$modname}包含语法错误造成的。</font></span><br>";
 		require GAME_ROOT.'./include/modules/'.$modpath.'module.inc.php';
 		$faillog='';
 		$mod_exist[$modname]=$modpath;
 		if (isset($conflict_list[$modname]))
 		{
-			$log.="<span><font color=\"red b\">模块{$modname}与模块{$conflict_list[$modname]}冲突。</font></span><br>";
+			$log.="<span><font color=\"red\">模块{$modname}与模块{$conflict_list[$modname]}冲突。</font></span><br>";
 			return $log;
 		}
 		foreach(explode(' ',$___MODULE_conflict) as $key) if ($key!='')
 		{
 			if (isset($mod_exist[$key]))
 			{
-				$log.="<span><font color=\"red b\">模块{$modname}与模块{$key}冲突。</font></span><br>";
+				$log.="<span><font color=\"red\">模块{$modname}与模块{$key}冲突。</font></span><br>";
 				return $log;
 			}
 			$conflict_list[$key]=$modname;
@@ -112,13 +112,13 @@ function module_validity_check($file)
 		foreach(explode(' ',$___MODULE_codelist) as $key) if ($key!='')
 			if (!file_exists(GAME_ROOT.'./include/modules/'.$modpath.$key))
 			{
-				$log.="<span><font color=\"red b\">模块{$modname}声明包含代码文件{$key}，但这个文件并不存在。</font></span><br>";
+				$log.="<span><font color=\"red\">模块{$modname}声明包含代码文件{$key}，但这个文件并不存在。</font></span><br>";
 				return $log;
 			}
 		foreach(explode(' ',$___MODULE_templatelist) as $key) if ($key!='')
 			if (!file_exists(GAME_ROOT.'./include/modules/'.$modpath.$key.'.htm'))
 			{
-				$log.="<span><font color=\"red b\">模块{$modname}声明包含模板文件{$key}.htm，但这个文件并不存在。</font></span><br>";
+				$log.="<span><font color=\"red\">模块{$modname}声明包含模板文件{$key}.htm，但这个文件并不存在。</font></span><br>";
 				return $log;
 			}
 		$a=get_defined_functions()['user']; $b=Array();
@@ -137,7 +137,7 @@ function module_validity_check($file)
 		
 		if (!$init_exist)
 		{
-			$log.="<span><font color=\"red b\">模块{$modname}没有包含init()函数。</font></span><br>";
+			$log.="<span><font color=\"red\">模块{$modname}没有包含init()函数。</font></span><br>";
 			return $log;
 		}
 		
@@ -145,7 +145,7 @@ function module_validity_check($file)
 			if ($key!='init')
 			{
 				global $faillog;
-				$faillog="<span><font color=\"red b\">模块{$modname}的函数{$key}的开头没有写上".
+				$faillog="<span><font color=\"red\">模块{$modname}的函数{$key}的开头没有写上".
 					'<pre>if (eval(__MAGIC__)) return $___RET_VALUE;</pre>这句话。</font></span><br>';
 				$expect=$___TEMP_DRY_RUN_COUNTER+1;
 				global $___TEMP_FUNCNAME_EXPECT; $___TEMP_FUNCNAME_EXPECT = $modname.'\\'.$key;
@@ -155,7 +155,7 @@ function module_validity_check($file)
 				$faillog='';
 				if ($__RET!='23333333' || $___TEMP_DRY_RUN_COUNTER!=$expect)
 				{
-					$log.="<span><font color=\"red b\">模块{$modname}的函数{$key}的开头没有写上".
+					$log.="<span><font color=\"red\">模块{$modname}的函数{$key}的开头没有写上".
 					'<pre>if (eval(__MAGIC__)) return $___RET_VALUE;</pre>这句话。</font></span><br>';
 					return $log;
 				}
@@ -175,7 +175,7 @@ function module_validity_check($file)
 			}
 			if (!$flag)
 			{
-				$log.="<span><font color=\"red b\">模块{$modn[$i]}的依赖{$key}没有满足。</font></span><br>";
+				$log.="<span><font color=\"red\">模块{$modn[$i]}的依赖{$key}没有满足。</font></span><br>";
 				return $log;
 			}
 		}
@@ -211,7 +211,7 @@ function module_validity_check($file)
 	
 	if ($tail!=$n+1)
 	{
-		$log.="<span><font color=\"red b\">模块出现了循环依赖，请检查。</font></span><br>";
+		$log.="<span><font color=\"red\">模块出现了循环依赖，请检查。</font></span><br>";
 		return $log;
 	}
 	
@@ -235,7 +235,7 @@ function module_validity_check($file)
 				if (isset($funclist[strtoupper($key)]))
 				{
 					$x=$funclist[strtoupper($key)];
-					$log.="<span><font color=\"red b\">模块{$modname}提供了函数{$key}，
+					$log.="<span><font color=\"red\">模块{$modname}提供了函数{$key}，
 					这个函数没有重载任何其依赖的模块中的同名函数，
 					却重载了模块{$x}中的同名函数。这可能是函数名冲突造成的。</font></span><br>";
 					return $log;
@@ -258,7 +258,7 @@ function printmodtable($file, $readonly=0)
 {
 	if (!file_exists($file))
 	{
-		$log.="<span><font color=\"red b\">错误：模块列表文件不存在。</font></span><br>";
+		$log.="<span><font color=\"red\">错误：模块列表文件不存在。</font></span><br>";
 		die();
 	}
 	$content=openfile($file);
@@ -280,7 +280,7 @@ function printmodtable($file, $readonly=0)
 			continue;
 		}
 		global $faillog;
-		$faillog="<span><font color=\"red b\">遇到了一个未知错误。这可能是由于模块{$modname}包含语法错误造成的。</font></span><br>";
+		$faillog="<span><font color=\"red\">遇到了一个未知错误。这可能是由于模块{$modname}包含语法错误造成的。</font></span><br>";
 		require GAME_ROOT.'./include/modules/'.$modpath.'module.inc.php';
 		$faillog='';
 		$dependency[$i]=explode(" ",$___MODULE_dependency);
@@ -288,28 +288,28 @@ function printmodtable($file, $readonly=0)
 		$conflict[$i]=explode(" ",$___MODULE_conflict);
 	}
 	
-	echo '<span><font color="red b">红色</font>：损坏的模块或不满足的依赖关系<br><font color="green b">绿色</font>：启用的模块或满足的依赖关系<br><font color="grey b">灰色</font>：被禁用的模块或不满足的可选依赖关系</span>';
+	echo '<span><font color="red">红色</font>：损坏的模块或不满足的依赖关系<br><font color="green">绿色</font>：启用的模块或满足的依赖关系<br><font color="grey">灰色</font>：被禁用的模块或不满足的可选依赖关系</span>';
 	echo '<br><br><table border="1"><tr><td>模块名</td><td>依赖</td><td>可选依赖</td><td>冲突</td><td>操作</td>';
 	for ($i=0; $i<$in; $i++)
 	{
 		$modname=$modn[$i]; $modpath=$modp[$i]; $inuse=$modinuse[$i];
 		echo '<tr><td>';
 		if ($inuse==0)
-			echo "<font color=\"grey b\">{$modname}</font>";
+			echo "<font color=\"grey\">{$modname}</font>";
 		elseif ($inuse==1)
-			echo "<font color=\"green b\">{$modname}</font>";
-		else echo "<font color=\"red b\">{$modname}</font>";
+			echo "<font color=\"green\">{$modname}</font>";
+		else echo "<font color=\"red\">{$modname}</font>";
 		echo '</td><td style="max-width:600px;word-wrap:break-word">';
 		if ($inuse==2)
 		{
-			echo "<font color=\"red b\">损坏</font>";
+			echo "<font color=\"red\">损坏</font>";
 		}
 		else 
 		{
 			foreach ($dependency[$i] as $key) if ($key!='')
 			{
 				if ($inuse==0)
-					echo "<font color=\"grey b\">{$key}</font>";
+					echo "<font color=\"grey\">{$key}</font>";
 				else
 				{
 					$flag=0;
@@ -318,15 +318,15 @@ function printmodtable($file, $readonly=0)
 						{
 							$flag=1;
 							if ($modinuse[$j]==0 && $key!='root')
-								echo "<font color=\"red b\">{$key}</font>";
+								echo "<font color=\"red\">{$key}</font>";
 							elseif ($modinuse[$j]==1 || $key=='root')
-								echo "<font color=\"green b\">{$key}</font>";
-							else echo "<font color=\"red b\">{$key}</font>";
+								echo "<font color=\"green\">{$key}</font>";
+							else echo "<font color=\"red\">{$key}</font>";
 							break;
 						}
 					if (!$flag)
 					{
-						echo "<font color=\"red b\">{$key}</font>";
+						echo "<font color=\"red\">{$key}</font>";
 					}
 				}
 				echo '&nbsp;';
@@ -335,14 +335,14 @@ function printmodtable($file, $readonly=0)
 		echo '</td><td style="max-width:600px;word-wrap:break-word">';
 		if ($inuse==2)
 		{
-			echo "<font color=\"red b\">损坏</font>";
+			echo "<font color=\"red\">损坏</font>";
 		}
 		else 
 		{
 			foreach ($dependency_optional[$i] as $key) if ($key!='')
 			{
 				if ($inuse==0)
-					echo "<font color=\"grey b\">{$key}</font>";
+					echo "<font color=\"grey\">{$key}</font>";
 				else
 				{
 					$flag=0;
@@ -351,15 +351,15 @@ function printmodtable($file, $readonly=0)
 						{
 							$flag=1;
 							if ($modinuse[$j]==0 && $key!='root')
-								echo "<font color=\"grey b\">{$key}</font>";
+								echo "<font color=\"grey\">{$key}</font>";
 							elseif ($modinuse[$j]==1 || $key=='root')
-								echo "<font color=\"green b\">{$key}</font>";
-							else echo "<font color=\"grey b\">{$key}</font>";
+								echo "<font color=\"green\">{$key}</font>";
+							else echo "<font color=\"grey\">{$key}</font>";
 							break;
 						}
 					if (!$flag)
 					{
-						echo "<font color=\"grey b\">{$key}</font>";
+						echo "<font color=\"grey\">{$key}</font>";
 					}
 				}
 				echo '&nbsp;';
@@ -368,14 +368,14 @@ function printmodtable($file, $readonly=0)
 		echo '</td><td>';
 		if ($inuse==2)
 		{
-			echo "<font color=\"red b\">损坏</font>";
+			echo "<font color=\"red\">损坏</font>";
 		}
 		else 
 		{
 			foreach ($conflict[$i] as $key) if ($key!='')
 			{
 				if ($inuse==0)
-					echo "<font color=\"grey b\">{$key}</font>";
+					echo "<font color=\"grey\">{$key}</font>";
 				else
 				{
 					$flag=0;
@@ -384,13 +384,13 @@ function printmodtable($file, $readonly=0)
 						{
 							$flag=1;
 							if ($modinuse2[$j]==0 && $key!='root')
-								echo "<font color=\"grey b\">{$key}</font>";
-							else echo "<font color=\"red b\">{$key}</font>";
+								echo "<font color=\"grey\">{$key}</font>";
+							else echo "<font color=\"red\">{$key}</font>";
 							break;
 						}
 					if (!$flag)
 					{
-						echo "<font color=\"grey b\">{$key}</font>";
+						echo "<font color=\"grey\">{$key}</font>";
 					}
 				}
 				echo '&nbsp;';
@@ -403,12 +403,12 @@ function printmodtable($file, $readonly=0)
 			{
 				if ($modinuse2[$i]==0)
 					echo '<span><font color="black">[无效]</font></span>';
-				else echo '<a href="modulemng.php?action=disable&sid='.$i.'" style="text-decoration: none"><span><font color="red b">[禁用]</font></span></a>';
+				else echo '<a href="modulemng.php?action=disable&sid='.$i.'" style="text-decoration: none"><span><font color="red">[禁用]</font></span></a>';
 			}
 			elseif ($modinuse2[$i]==0)
-				echo '<a href="modulemng.php?action=enable&sid='.$i.'" style="text-decoration: none"><span><font color="blue b">[启用]</font></span></a>';
-			else echo '<a href="modulemng.php?action=disable&sid='.$i.'" style="text-decoration: none"><span><font color="red b">[禁用]</font></span></a>';
-			echo ' | <a href="modulemng.php?action=remove&sid='.$i.'" style="text-decoration: none"><span><font color="red b">[删除模块]</font></span></a>';
+				echo '<a href="modulemng.php?action=enable&sid='.$i.'" style="text-decoration: none"><span><font color="blue">[启用]</font></span></a>';
+			else echo '<a href="modulemng.php?action=disable&sid='.$i.'" style="text-decoration: none"><span><font color="red">[禁用]</font></span></a>';
+			echo ' | <a href="modulemng.php?action=remove&sid='.$i.'" style="text-decoration: none"><span><font color="red">[删除模块]</font></span></a>';
 		}
 		echo '</td></tr>';
 	}
@@ -417,9 +417,9 @@ function printmodtable($file, $readonly=0)
 
 function show_adv_state(){
 	global $___MOD_CODE_ADV1, $___MOD_CODE_ADV2, $___MOD_CODE_ADV3, $___MOD_SRV;
-	$lang_on = '<font color="green b">已开启</font>';
+	$lang_on = '<font color="green">已开启</font>';
 	$lang_off = '<font>已关闭</font>';
-	$lang_unav = '<font color="red b">无法正常运行</font>';
+	$lang_unav = '<font color="red">无法正常运行</font>';
 	$lang_turn_on = '[点此开启]';
 	$lang_turn_off = '[点此关闭]';
 	$adv_state_log = '';

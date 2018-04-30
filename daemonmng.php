@@ -45,10 +45,10 @@ if (isset($action) && strpos($action,'stop')===0)
 echo '<br><span><font size=5>Daemon管理系统</font></span><br><br>';
 
 if (!$___MOD_SRV)
-	echo '<font color="red b">目前不处于Daemon模式下。</font><br><br>';
+	echo '<font color="red">目前不处于Daemon模式下。</font><br><br>';
 
 echo '自动启动驻留进程： ';
-echo $___MOD_SRV_AUTO ? '<font color="green b">是</font>' : '<font color="red b">否</font>';
+echo $___MOD_SRV_AUTO ? '<font color="green">是</font>' : '<font color="red">否</font>';
 echo '<br>';
 
 echo '外部触发脚本状况： ';
@@ -60,11 +60,11 @@ $running = 1;
 $ff=1;
 if (time()-$t<=10)
 {
-	echo '<font color="green b">正在运行</font><br>';
+	echo '<font color="green">正在运行</font><br>';
 }
 else 
 {
-	echo '<font color="red b">不在运行</font><br>';
+	echo '<font color="red">不在运行</font><br>';
 	$running = 0;
 }
 echo '<br>';
@@ -86,7 +86,7 @@ if ($handle=opendir(GAME_ROOT.'./gamedata/tmp/server'))
 	{
 		echo '点击启动一个新的根进程。<br>
 		（有几秒的延迟，请等待几秒然后刷新页面）<br><a href="daemonmng.php?action=start" style="text-decoration: none"><span>
-		<font color="green b">[启动]</font></span></a><br><br>';
+		<font color="green">[启动]</font></span></a><br><br>';
 	}
 	
 	if (isset($action) && $action=='start' && count($srvlist)==0)
@@ -98,7 +98,7 @@ if ($handle=opendir(GAME_ROOT.'./gamedata/tmp/server'))
 	}
 	
 	if(!$running && (!$___MOD_SRV_AUTO || !count($srvlist))) {
-		echo '<font color="blue b">请手动启动根进程，或者从服务器shell中启动./acdts-daemonctl.sh（Linux）或者启动./acdts-daemonctl.bat（WIN）</font><br>';
+		echo '<font color="blue">请手动启动根进程，或者从服务器shell中启动./acdts-daemonctl.sh（Linux）或者启动./acdts-daemonctl.bat（WIN）</font><br>';
 		$ff = 0;
 	}
 	
@@ -108,7 +108,7 @@ if ($handle=opendir(GAME_ROOT.'./gamedata/tmp/server'))
 	{
 		echo '点击启动一个新的根进程。<br>
 		（有几秒的延迟，请等待几秒然后刷新页面）<br><a href="daemonmng.php?action=start" style="text-decoration: none"><span>
-		<font color="green b">[启动]</font></span></a>';
+		<font color="green">[启动]</font></span></a>';
 		die();
 	}
 	
@@ -121,16 +121,16 @@ if ($handle=opendir(GAME_ROOT.'./gamedata/tmp/server'))
 		if ($r == 'ok' || $r=='ok_root')
 		{
 			if ($r=='ok')
-				echo "&nbsp;&nbsp;　&nbsp;&nbsp;进程 {$i}: 端口 <font color=\"blue b\">{$key}</font> 状态 ";
-			else  echo "&nbsp;[根]&nbsp;进程 {$i}: 端口 <font color=\"blue b\">{$key}</font> 状态 ";
-			echo '<font color="green b">正常</font>';
+				echo "&nbsp;&nbsp;　&nbsp;&nbsp;进程 {$i}: 端口 <font color=\"blue\">{$key}</font> 状态 ";
+			else  echo "&nbsp;[根]&nbsp;进程 {$i}: 端口 <font color=\"blue\">{$key}</font> 状态 ";
+			echo '<font color="green">正常</font>';
 		}
 		else
 		{
-			echo "&nbsp;&nbsp;　&nbsp;&nbsp;进程 {$i}: 端口 <font color=\"blue b\">{$key}</font> 状态 ";
-			echo '<font color="red b">异常</font> 错误信息：'.$r;
+			echo "&nbsp;&nbsp;　&nbsp;&nbsp;进程 {$i}: 端口 <font color=\"blue\">{$key}</font> 状态 ";
+			echo '<font color="red">异常</font> 错误信息：'.$r;
 		}
-		echo '&nbsp;&nbsp;<a href="daemonmng.php?action=stop'.$key.'"><font color="red b">[关闭]</font></a>';
+		echo '&nbsp;&nbsp;<a href="daemonmng.php?action=stop'.$key.'"><font color="red">[关闭]</font></a>';
 		echo '<br>';
 	}
 	
@@ -138,11 +138,11 @@ if ($handle=opendir(GAME_ROOT.'./gamedata/tmp/server'))
 	{
 		echo '<br>点击下面的按钮可以杀死所有进程，然后启动一个新的根进程。<br>
 		（有几秒的延迟，请等待几秒然后刷新页面）<br>
-		<a href="daemonmng.php?action=restart" style="text-decoration: none"><span><font color="red b">[重启所有进程]</font></span></a><br>';
+		<a href="daemonmng.php?action=restart" style="text-decoration: none"><span><font color="red">[重启所有进程]</font></span></a><br>';
 	}
 	
 	echo '<br>点击下面的按钮可以杀死所有进程。<br>
-	<a href="daemonmng.php?action=stopall" style="text-decoration: none"><span><font color="red b">[杀死所有进程]</font></span></a><br>';
+	<a href="daemonmng.php?action=stopall" style="text-decoration: none"><span><font color="red">[杀死所有进程]</font></span></a><br>';
 }
 else  echo '无法打开gamedata/tmp/server目录。';
 

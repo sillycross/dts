@@ -117,7 +117,7 @@ function check_import_module($tplfile, &$content, &$i2, &$ret)
 			$c='IMPORT_MODULE_'.strtoupper($key).'_GLOBALS';
 			if (!defined($c))
 			{
-				echo '&nbsp;&nbsp;&nbsp;&nbsp;<font color="red b">严重错误！！代码'.$tplfile.'中引用了一个未知模块'.$key.'！<br></font>';
+				echo '&nbsp;&nbsp;&nbsp;&nbsp;<font color="red">严重错误！！代码'.$tplfile.'中引用了一个未知模块'.$key.'！<br></font>';
 			}
 			else
 			{

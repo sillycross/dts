@@ -214,6 +214,35 @@ namespace wep_b
 		}
 		$chprocess($theitem);
 	}
+		
+	//先制敌人时，如果箭是空的，自动装填
+	function findenemy(&$edata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','itemmain','logger'));
+		
+		if (strpos ( $wepk, 'WB' ) === 0 && $weps == $nosta) {			
+			$tmp_log = $log;
+			$pos = 0;
+			//遍历所有包裹，寻找最靠前的箭矢装填
+			for($i=1; $i<=6; $i++){
+				if($sdata['itmk'.$i] == 'GA') {
+					$pos = $i;
+					break;
+				}
+			}
+			//直接调用使用道具的函数试试
+			if($pos) {
+				$log .= '你及时弯弓搭箭，';
+				\itemmain\itemuse_wrapper($pos);
+			}
+			$tmp_log_2 = substr($log, strlen($tmp_log));
+			$log = $tmp_log;//暂存一下$log，调整显示顺序，不过可能不利于以后扩展，再说吧……
+		}
+		$ret = $chprocess($edata);
+		if(!empty($tmp_log_2)) $log .= $tmp_log_2;
+		return $ret;
+	}
 }
 
 ?>

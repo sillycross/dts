@@ -34,7 +34,7 @@
 						<!--{if empty($lockcard) && empty($showpack)}-->
 							<!--{if $card_energy[$nowcard['id']]<$nowcard['energy']}-->
 								<!--{eval $cd_desc=convert_tm(($nowcard['energy']-$card_energy[$nowcard['id']])/$energy_recover_rate[$nowcard['rare']], 1);}-->
-								<font color="red b">充能中，剩余{$cd_desc}</font>
+								<font color="red">充能中，剩余{$cd_desc}</font>
 							<!--{elseif $nowcard['energy']}-->
 								充能完成，可以使用
 							<!--{else}-->

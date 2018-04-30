@@ -137,6 +137,7 @@ namespace sys
 			$gameinfo = $db->fetch_array($result);
 		}
 		//$gameinfo初始化，初次global这些变量
+		//所以一切在gameinfo表里定义的字段都是在这里global的
 		//注意这里并没有对$arealist等变量进行处理，真正的处理是在common.inc.php调用routine()调用load_gameinfo()时
 		foreach ($gameinfo as $key => $value)
 		{

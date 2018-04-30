@@ -452,7 +452,7 @@ function copy_dir($source, $destination, $filetype='')		//递归复制目录
 				{   
 					if (!copy($source."/".$entry,$destination."/".$entry))
 					{
-						echo "&nbsp;&nbsp;&nbsp;&nbsp;<font color=\"red b\">copy_dir错误</font>：无法复制文件{$source}/{$entry}到{$destination}/{$entry}。<br>";
+						echo "&nbsp;&nbsp;&nbsp;&nbsp;<font color=\"red\">copy_dir错误</font>：无法复制文件{$source}/{$entry}到{$destination}/{$entry}。<br>";
 					}
 				}   
 			}
@@ -460,7 +460,7 @@ function copy_dir($source, $destination, $filetype='')		//递归复制目录
 	}   
 	else
 	{
-		echo '&nbsp;&nbsp;&nbsp;&nbsp;<font color=\"red b\">copy_dir错误</font>: 进入目录'.$source.'失败。<br>';
+		echo '&nbsp;&nbsp;&nbsp;&nbsp;<font color=\"red\">copy_dir错误</font>: 进入目录'.$source.'失败。<br>';
 	}
 }
 
@@ -948,9 +948,9 @@ function check_authority()
 	$cpass=$_COOKIE[$gtablepre.'pass'];
 	global $db; $db = init_dbstuff(); 
 	$udata = fetch_udata_by_username($cuser);
-	if(empty($udata)) { echo "<span><font color=\"red b\">Cookie无效，请登录。</font></span><br>"; die(); }
-	if(!pass_compare($udata['username'],$cpass,$udata['password'])) { echo "<span><font color=\"red b\">密码错误，请重新登录并重试。</font></span><br>"; die(); }
-	elseif(($udata['groupid'] < 9)&&($cuser!==$gamefounder)) { echo "<span><font color=\"red b\">要求至少9权限。</font></span><br>"; die(); }
+	if(empty($udata)) { echo "<span><font color=\"red\">Cookie无效，请登录。</font></span><br>"; die(); }
+	if(!pass_compare($udata['username'],$cpass,$udata['password'])) { echo "<span><font color=\"red\">密码错误，请重新登录并重试。</font></span><br>"; die(); }
+	elseif(($udata['groupid'] < 9)&&($cuser!==$gamefounder)) { echo "<span><font color=\"red\">要求至少9权限。</font></span><br>"; die(); }
 }
 
 //因为调用次数太多，懒得一个一个改了
