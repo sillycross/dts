@@ -54,8 +54,8 @@ namespace skill236
 			{
 				eval(import_module('logger'));
 				if ($active)
-					$log.="<span class=\"lime\">你对{$pd['name']}发动了技能「科学」！</span><br>";
-				else  $log.="<span class=\"lime\">{$pa['name']}对你发动了技能「科学」！</span><br>";
+					$log.="<span class=\"lime b\">你对{$pd['name']}发动了技能「科学」！</span><br>";
+				else  $log.="<span class=\"lime b\">{$pa['name']}对你发动了技能「科学」！</span><br>";
 				$pa['rage']-=$rcost;
 				addnews ( 0, 'bskill236', $pa['name'], $pd['name'] );
 			}
@@ -77,8 +77,8 @@ namespace skill236
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('logger'));
 		if ($pa['bskill']!=236) return $chprocess($pa,$pd,$active);
-		if ($active) $log .= "<span class=\"red\">你掏出撬棍猛击敌人！</span><span class=\"clan\">敌人被你打晕了过去！</span><br>";
-			else $log .= "<span class=\"red\">敌人掏出撬棍猛击你！</span><span class=\"clan\">你被打晕了过去！</span><br>";
+		if ($active) $log .= "<span class=\"red b\">你掏出撬棍猛击敌人！</span><span class=\"cyan b\">敌人被你打晕了过去！</span><br>";
+			else $log .= "<span class=\"red b\">敌人掏出撬棍猛击你！</span><span class=\"cyan b\">你被打晕了过去！</span><br>";
 		eval(import_module('skill236'));
 		\skill602\set_stun_period($stuntime236,$pd);
 		\skill602\send_stun_battle_news($pa['name'],$pd['name']);
@@ -92,7 +92,7 @@ namespace skill236
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill236') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}对{$b}发动了技能<span class=\"yellow\">「科学」</span></span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}对{$b}发动了技能<span class=\"yellow b\">「科学」</span></span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

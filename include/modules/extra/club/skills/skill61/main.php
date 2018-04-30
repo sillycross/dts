@@ -57,8 +57,8 @@ namespace skill61
 						$pd[$key]--;
 					}
 				if ($active)
-					$log.='<span class="yellow">你吸取了敌人1点全系熟练！</span><br>';
-				else  $log.='<span class="yellow">敌人吸取了你1点全系熟练！</span><br>';
+					$log.='<span class="yellow b">你吸取了敌人1点全系熟练！</span><br>';
+				else  $log.='<span class="yellow b">敌人吸取了你1点全系熟练！</span><br>';
 			}
 			if (rand(0,99)<get_hp_procrate61($pa))
 			{
@@ -68,8 +68,8 @@ namespace skill61
 					$pd['mhp']--; $pd['hp']--;
 				}
 				if ($active)
-					$log.='<span class="yellow">你吸取了敌人1点生命上限！</span><br>';
-				else  $log.='<span class="yellow">敌人吸取了你1点生命上限！</span><br>';
+					$log.='<span class="yellow b">你吸取了敌人1点生命上限！</span><br>';
+				else  $log.='<span class="yellow b">敌人吸取了你1点生命上限！</span><br>';
 			}
 		}
 		$chprocess($pa,$pd,$active);

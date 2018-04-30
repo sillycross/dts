@@ -107,8 +107,8 @@ namespace skill259
 			{
 				eval(import_module('logger'));
 				if ($active)
-					$log.="<span class=\"lime\">你对{$pd['name']}发动了技能「乱击」！</span><br>";
-				else  $log.="<span class=\"lime\">{$pa['name']}对你发动了技能「乱击」！</span><br>";
+					$log.="<span class=\"lime b\">你对{$pd['name']}发动了技能「乱击」！</span><br>";
+				else  $log.="<span class=\"lime b\">{$pa['name']}对你发动了技能「乱击」！</span><br>";
 				$pa['rage']-=$rcost;
 				addnews ( 0, 'bskill259', $pa['name'], $pd['name'] );
 			}
@@ -143,8 +143,8 @@ namespace skill259
 		eval(import_module('logger','skill259'));
 		if ($pa['bskill']!=259) return $chprocess($pa,$pd,$active);
 		$r259=1+get_skill259_adddmg($pa);
-		if ($active) $log .= "<span class=\"red\">你对着敌人打出了一屏幕的拳头，附加了{$r259}点固定伤害！</span><br>";
-			else $log .= "<span class=\"red\">敌人对着你打出了一屏幕的拳头，附加了{$r259}点固定伤害！</span><br>";
+		if ($active) $log .= "<span class=\"red b\">你对着敌人打出了一屏幕的拳头，附加了{$r259}点固定伤害！</span><br>";
+			else $log .= "<span class=\"red b\">敌人对着你打出了一屏幕的拳头，附加了{$r259}点固定伤害！</span><br>";
 		
 		return $r259+$chprocess($pa, $pd, $active);
 	}
@@ -156,7 +156,7 @@ namespace skill259
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill259') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}对{$b}发动了技能<span class=\"yellow\">「乱击」</span></span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}对{$b}发动了技能<span class=\"yellow b\">「乱击」</span></span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

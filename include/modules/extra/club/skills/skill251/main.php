@@ -37,8 +37,8 @@ namespace skill251
 		$x=$now-$s;
 		if ($x<=$skill251_act_time && !in_array($pa['type'],$skill251_no_effect_array)){	//scp和蓝凝无效
 			$pa['dmg_dealt']=0;
-			if ($active) $log .= "<span class=\"yellow\">敌人的技能「天佑」使你的攻击没有造成任何伤害！</span><br>";
-			else $log .= "<span class=\"yellow\">你的技能「天佑」使敌人的攻击没有造成任何伤害！</span><br>";
+			if ($active) $log .= "<span class=\"yellow b\">敌人的技能「天佑」使你的攻击没有造成任何伤害！</span><br>";
+			else $log .= "<span class=\"yellow b\">你的技能「天佑」使敌人的攻击没有造成任何伤害！</span><br>";
 		}
 		$chprocess($pa,$pd,$active);
 	}
@@ -58,7 +58,7 @@ namespace skill251
 				$x=$now-$s;
 				if ($x<=$skill251_act_time)
 				{
-					$log.="<span class=\"clan\">都告诉你了，无敌对某些NPC无效……快去死吧。</span><br>";
+					$log.="<span class=\"cyan b\">都告诉你了，无敌对某些NPC无效……快去死吧。</span><br>";
 				}
 			}
 		
@@ -74,7 +74,7 @@ namespace skill251
 		$x=$now-$s;
 		if ($x<=$skill251_act_time)
 		{
-			$log .= "<span class=\"yellow\">你的技能「天佑」使你免疫了陷阱伤害！</span><br>";
+			$log .= "<span class=\"yellow b\">你的技能「天佑」使你免疫了陷阱伤害！</span><br>";
 			return 0;
 		}	
 		return $chprocess($pa,$pd,$tritm,$damage);
@@ -88,8 +88,8 @@ namespace skill251
 		{
 			eval(import_module('sys','logger'));
 			if ($active) 
-				$log .= '<span class="yellow">敌人的技能「天佑」被触发，暂时进入了无敌状态。</span><br>';
-			else  $log .= '<span class="yellow">你的技能「天佑」被触发，暂时进入了无敌状态！</span><br>';
+				$log .= '<span class="yellow b">敌人的技能「天佑」被触发，暂时进入了无敌状态。</span><br>';
+			else  $log .= '<span class="yellow b">你的技能「天佑」被触发，暂时进入了无敌状态！</span><br>';
 			\skillbase\skill_setvalue(251,'start',$now,$pd);
 		}
 		return $ret;
@@ -102,7 +102,7 @@ namespace skill251
 		{
 			eval(import_module('sys','logger'));
 			//$log .= $damage.' '.$sdata['mhp'].'<br>';
-			$log .= '<span class="yellow">你的技能「天佑」被触发，暂时进入了无敌状态！</span><br>';
+			$log .= '<span class="yellow b">你的技能「天佑」被触发，暂时进入了无敌状态！</span><br>';
 			\skillbase\skill_setvalue(251,'start',$now);
 		}
 		return $chprocess($pa, $sdata, $tritm, $damage);

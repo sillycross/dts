@@ -80,7 +80,7 @@ namespace skill247
 		);
 		addnews ( 0, 'bskill247', $name );
 		\trap\trap_use($trapitem); \trap\trap_use($trapitem);
-		$log.='<span class="lime">技能「挖坑」发动成功。</span><br>';
+		$log.='<span class="lime b">技能「挖坑」发动成功。</span><br>';
 		\skillbase\skill_setvalue(247,'lastuse',$now);
 	}
 	
@@ -140,7 +140,7 @@ namespace skill247
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill247') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}发动了技能<span class=\"yellow\">「挖坑」</span></span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}发动了技能<span class=\"yellow b\">「挖坑」</span></span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

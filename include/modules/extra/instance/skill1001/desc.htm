@@ -11,14 +11,14 @@
 		<option value="$stkey">{$stval}系</option>
 	<!--{/loop}-->
 </select>
-获得<span class="yellow">{$___TEMP_SKILL_VAR_1001}</span>点熟练度。
+获得<span class="yellow b">{$___TEMP_SKILL_VAR_1001}</span>点熟练度。
 </span></td>
 <td class=b3 width=96>
 <input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill1001_special';$('subcmd').value=jQuery('#skill1001sl  option:selected').val();postCmd('gamecmd','command.php');this.disabled=true;" value="发动">
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
 <!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
-<span class="yellow">
+<span class="yellow b">
 </span>
 <!--{/if}-->
 {template MOD_CLUBBASE_SKILLDESC_END}

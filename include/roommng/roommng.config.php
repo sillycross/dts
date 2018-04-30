@@ -337,7 +337,7 @@ $roomtypelist = Array(
 		)
 	),
 	5 => Array(
-		'name' => '<font class="yellow">伐木挑战</font>',
+		'name' => '<font class="yellow b">伐木挑战</font>',
 		'gtype' => 15, //对应的游戏模式编号
 		'available' => true,
 		'soleroom' => false,//唯一房间，只有不存在时才会新建房间。
@@ -380,7 +380,7 @@ $roomtypelist = Array(
 		)
 	),
 	6 => Array(
-		'name' => '<font class="green">PVE解离模式</font>',
+		'name' => '<font class="green b">PVE解离模式</font>',
 		'gtype' => 16, //对应的游戏模式编号
 		'available' => true,
 		'soleroom' => false,//唯一房间，只有不存在时才会新建房间。
@@ -408,7 +408,7 @@ $roomtypelist = Array(
 		)
 	),
 	7 => Array(//教程模式为唯一房间
-		'name' => '<font class="red">教程模式</font>',
+		'name' => '<font class="red b">教程模式</font>',
 		'gtype' => 17, //对应的游戏模式编号
 		'available' => true,
 		'soleroom' => true,//唯一房间，只有不存在时才会新建房间。
@@ -432,7 +432,7 @@ $roomtypelist = Array(
 		)
 	),
 	8 => Array(
-		'name' => '<font class="clan">荣耀模式</font>',
+		'name' => '<font class="cyan b">荣耀模式</font>',
 		'gtype' => 18, //对应的游戏模式编号
 		'available' => true,
 		'available-start' => 1506816000, //如果设置并大于零，表明时间戳迟于此时才显示和开放
@@ -456,7 +456,7 @@ $roomtypelist = Array(
 		'show-team-leader' => 0,	//是否显示“队长”标签（如队伍大于1人设为1）
 	),
 	9 => Array(
-		'name' => '<font class="red">极速模式</font>',
+		'name' => '<font class="red b">极速模式</font>',
 		'gtype' => 19, //对应的游戏模式编号
 		'available' => true,
 		'available-start' => 1509408000, //如果设置并大于零，表明时间戳迟于此时才显示和开放

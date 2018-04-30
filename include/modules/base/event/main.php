@@ -16,14 +16,14 @@ namespace event
 		} elseif($pls == 2) { //现RF高校
 			$log = ($log . "突然，一个戴着面具的怪人出现了！<BR>");
 			if($dice1 == 2){
-				$log = ($log . "“呜嘛呜——！”<br>被怪人<span class=\"red\">打中了头</span>！<BR>");
+				$log = ($log . "“呜嘛呜——！”<br>被怪人<span class=\"red b\">打中了头</span>！<BR>");
 				$inf = str_replace('h','',$inf);
 				$inf = ($inf . 'h');
 			}elseif($dice1 == 3){
-				$log = ($log . "“呜嘛呜——！”<br>被怪人打中了，<span class=\"red\">受到{$dice2}点伤害</span>！<BR>");
+				$log = ($log . "“呜嘛呜——！”<br>被怪人打中了，<span class=\"red b\">受到{$dice2}点伤害</span>！<BR>");
 				$hp-=$dice2;
 			}elseif($rp <=45){
-				$log = ($log . "“呜嘛呜——！”<br>怪人给了你一个钱包！里面有<span class=\"red\">{$dice2}个1元硬币</span>！<BR>");
+				$log = ($log . "“呜嘛呜——！”<br>怪人给了你一个钱包！里面有<span class=\"red b\">{$dice2}个1元硬币</span>！<BR>");
 				$money = $money + $dice2 * 1;
 				$rp = $rp + 15;
 			}else{
@@ -71,7 +71,7 @@ namespace event
 					$dice2 = $sp-1;
 				}
 				$sp-=$dice2;
-				$log = ($log . "你摔进了池里！<BR>从水池里爬出来<span class=\"red\">消耗了{$dice2}点体力</span>。<BR>");
+				$log = ($log . "你摔进了池里！<BR>从水池里爬出来<span class=\"red b\">消耗了{$dice2}点体力</span>。<BR>");
 			}else{
 				$log = ($log . "万幸，你没跌进池中。<BR>");
 			}
@@ -82,11 +82,11 @@ namespace event
 		} elseif($pls == 11) { //现对天使用作战本部
 			$log = ($log . "哇！一个大锤向你锤来！<BR>");
 			if($dice1 == 2){
-				$log = ($log . "大锤重重地<span class=\"red\">砸到了腿上</span>，好疼！<BR>");
+				$log = ($log . "大锤重重地<span class=\"red b\">砸到了腿上</span>，好疼！<BR>");
 				$inf = str_replace('f','',$inf);
 				$inf = ($inf . 'f');
 			}elseif($dice1 == 3){
-				$log = ($log . "你被击飞出了窗外，<span class=\"red\">受到{$dice2}点伤害</span>！<BR>");
+				$log = ($log . "你被击飞出了窗外，<span class=\"red b\">受到{$dice2}点伤害</span>！<BR>");
 				$hp-=$dice2;
 			}else{
 				$log = ($log . "你勉强躲过了大锤的攻击。<BR>");
@@ -95,11 +95,11 @@ namespace event
 		} elseif($pls == 12) { //夏之镇
 			$log = ($log . "突然，天空出现一大群乌鸦！<BR>");
 			if($dice1 == 2){
-				$log = ($log . "被乌鸦袭击，<span class=\"red\">头部受了伤</span>！<BR>");
+				$log = ($log . "被乌鸦袭击，<span class=\"red b\">头部受了伤</span>！<BR>");
 				$inf = str_replace('h','',$inf);
 				$inf = ($inf . 'h');
 			}elseif($dice1 == 3){
-				$log = ($log . "被乌鸦袭击，<span class=\"red\">受到{$dice2}点伤害</span>！<BR>");
+				$log = ($log . "被乌鸦袭击，<span class=\"red b\">受到{$dice2}点伤害</span>！<BR>");
 				$hp-=$dice2;
 			}else{
 				$log = ($log . "呼，总算击退了。<BR>");
@@ -110,11 +110,11 @@ namespace event
 		} elseif($pls == 15) { //守矢神社
 			$log = ($log . "突然有妖怪袭击你！<BR>");
 			if($dice1 == 2){
-				$log = ($log . "被妖怪吓着了！你惊慌中<span class=\"red\">撞伤了自己的头部</span>！<BR>");
+				$log = ($log . "被妖怪吓着了！你惊慌中<span class=\"red b\">撞伤了自己的头部</span>！<BR>");
 				$inf = str_replace('h','',$inf);
 				$inf = ($inf . 'h');
 			}elseif($dice1 == 3){
-				$log = ($log . "妖怪的弹幕使你<span class=\"red\">受到{$dice2}点伤害</span>！<BR>");
+				$log = ($log . "妖怪的弹幕使你<span class=\"red b\">受到{$dice2}点伤害</span>！<BR>");
 				$hp-=$dice2;
 			}else{
 				$log = ($log . "呼，所谓妖怪不过是个撑着紫伞的少女而已，没什么可害怕的。<BR>");
@@ -123,11 +123,11 @@ namespace event
 		} elseif($pls == 16) { //常磐森林
 			$log = ($log . "野生的皮卡丘从草丛中钻出来了！<BR>");
 			if($dice1 == 2){
-				$log = ($log . "皮卡丘使用了电击！<span class=\"red\">手臂被击伤了</span>！<BR>");
+				$log = ($log . "皮卡丘使用了电击！<span class=\"red b\">手臂被击伤了</span>！<BR>");
 				$inf = str_replace('a','',$inf);
 				$inf = ($inf . 'a');
 			}elseif($dice1 == 3){
-				$log = ($log . "皮卡丘使用了电光石火！<span class=\"red\">受到{$dice2}点伤害</span>！<BR>");
+				$log = ($log . "皮卡丘使用了电光石火！<span class=\"red b\">受到{$dice2}点伤害</span>！<BR>");
 				$hp-=$dice2;
 			}else{
 				$log = ($log . "成功地逃跑了。<BR>");
@@ -137,11 +137,11 @@ namespace event
 		} elseif($pls == 18) { //秋之镇
 			$log = ($log . "突然，天空出现一大群乌鸦！<BR>");
 			if($dice1 == 2){
-				$log = ($log . "被乌鸦袭击，<span class=\"red\">头部受了伤</span>！<BR>");
+				$log = ($log . "被乌鸦袭击，<span class=\"red b\">头部受了伤</span>！<BR>");
 				$inf = str_replace('h','',$inf);
 				$inf = ($inf . 'h');
 			}elseif($dice1 == 3){
-				$log = ($log . "被乌鸦袭击，<span class=\"red\">受到{$dice2}点伤害</span>！<BR>");
+				$log = ($log . "被乌鸦袭击，<span class=\"red b\">受到{$dice2}点伤害</span>！<BR>");
 				$hp-=$dice2;
 			}else{
 				$log = ($log . "呼，总算击退了。<BR>");
@@ -177,13 +177,13 @@ namespace event
 						if($dice3<=6){
 							$inf = str_replace($value,'',$inf);
 							$infcache .= $value;
-							$log .= "<span class=\"red\">弹幕造成你{$infname[$value]}了！</span><br />";
+							$log .= "<span class=\"red b\">弹幕造成你{$infname[$value]}了！</span><br />";
 						}
 					}
 					if(empty($infcache)){
 						$inf = str_replace('b','',$inf);
 						$inf .= 'b';
-						$log .= "<span class=\"red\">弹幕造成你胸部受伤了！</span><br />";
+						$log .= "<span class=\"red b\">弹幕造成你胸部受伤了！</span><br />";
 					} else {$inf .= $infcache;}
 		//			$inf = str_replace('h','',$inf);
 		//			$inf = str_replace('b','',$inf);
@@ -191,31 +191,31 @@ namespace event
 		//			$inf = str_replace('f','',$inf);
 		//			$inf = ($inf . 'hbaf');
 					if($dice2 >= 39){
-						$log = ($log . "并且，少女们的弹幕击中了要害！<BR><span class=\"red\">你感觉小命差点就交代在这里了</span>。<BR>");
+						$log = ($log . "并且，少女们的弹幕击中了要害！<BR><span class=\"red b\">你感觉小命差点就交代在这里了</span>。<BR>");
 						$hp = 1;
 					}
 					elseif($dice2 >= 36){
-						$log = ($log . "并且，黑洞激光造成你<span class=\"blue\">冻结</span>了！<BR>");
+						$log = ($log . "并且，黑洞激光造成你<span class=\"blue b\">冻结</span>了！<BR>");
 						$inf = str_replace('i','',$inf);
 						$inf = ($inf . 'i');
 					}
 					elseif($dice2 >= 32){
-						$log = ($log . "并且，环形激光导致你<span class=\"red\">烧伤</span>了！<BR>");
+						$log = ($log . "并且，环形激光导致你<span class=\"red b\">烧伤</span>了！<BR>");
 						$inf = str_replace('u','',$inf);
 						$inf = ($inf . 'u');
 					}
 					elseif($dice2 >= 27){
-						$log = ($log . "并且，精神震荡弹导致你<span class=\"yellow\">全身麻痹</span>了！<BR>");
+						$log = ($log . "并且，精神震荡弹导致你<span class=\"yellow b\">全身麻痹</span>了！<BR>");
 						$inf = str_replace('e','',$inf);
 						$inf = ($inf . 'e');
 					}
 					elseif($dice2 >= 23){
-						$log = ($log . "并且，音波装备导致你<span class=\"grey\">混乱</span>了！<BR>");
+						$log = ($log . "并且，音波装备导致你<span class=\"grey b\">混乱</span>了！<BR>");
 						$inf = str_replace('w','',$inf);
 						$inf = ($inf . 'w');
 					}
 					else{
-						$log = ($log . "并且，干扰用强袭装备导致你<span class=\"purple\">中毒</span>了！<BR>");
+						$log = ($log . "并且，干扰用强袭装备导致你<span class=\"purple b\">中毒</span>了！<BR>");
 						$inf = str_replace('p','',$inf);
 						$inf = ($inf . 'p');
 					}
@@ -421,7 +421,7 @@ namespace event
 					else {$rpls = rand($areanum+1,sizeof($plsinfo)-1);}
 				} 
 				$pls=$arealist[$rpls];
-				$log.="殿堂的深处传来一个声音：<span class=\"evergreen\">“你还没有进入这里的资格”。</span><br>一股未知的力量包围了你，当你反应过来的时候，发现自己正身处<span class=\"yellow\">{$plsinfo[$pls]}</span>。<br>";
+				$log.="殿堂的深处传来一个声音：<span class=\"evergreen b\">“你还没有进入这里的资格”。</span><br>一股未知的力量包围了你，当你反应过来的时候，发现自己正身处<span class=\"yellow b\">{$plsinfo[$pls]}</span>。<br>";
 				if (CURSCRIPT !== 'botservice') $log.="<span id=\"HsUipfcGhU\"></span>";
 			}
 			$ret = 1;
@@ -503,15 +503,15 @@ namespace event
 		if(isset($exarr['dword'])) $e0 = $exarr['dword'];
 			
 		if($news == 'death13') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因<span class=\"red\">意外事故</span>死亡{$e0}</li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">$a</span>因<span class=\"red b\">意外事故</span>死亡{$e0}</li>";
 		if($news == 'death33')
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因卷入特殊部队『天使』的实弹演习，被坠落的少女和机体“亲吻”而死{$e0}</li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">$a</span>因卷入特殊部队『天使』的实弹演习，被坠落的少女和机体“亲吻”而死{$e0}</li>";
 		if($news == 'death35')
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因为敌意过剩，被虚拟意识救♀济！{$e0}</li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">$a</span>因为敌意过剩，被虚拟意识救♀济！{$e0}</li>";
 		if($news == 'death36')
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因为敌意过剩，被虚拟意识腰★斩！{$e0}</li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">$a</span>因为敌意过剩，被虚拟意识腰★斩！{$e0}</li>";
 		if($news == 'death37')
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因为敌意过剩，被虚拟意识断★头！{$e0}</li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">$a</span>因为敌意过剩，被虚拟意识断★头！{$e0}</li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

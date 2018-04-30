@@ -317,7 +317,7 @@ namespace cardbase
 				if (get_card(42)==1){
 					$log.="恭喜您获得了活动奖励卡<span class=\"orange\">Fleur</span>！<br>";
 				}else{
-					$log.="您已经拥有活动奖励卡了，系统奖励您<span class=\"yellow\">100</span>切糕！<br>";
+					$log.="您已经拥有活动奖励卡了，系统奖励您<span class=\"yellow b\">100</span>切糕！<br>";
 					get_qiegao(100);
 				}
 			}

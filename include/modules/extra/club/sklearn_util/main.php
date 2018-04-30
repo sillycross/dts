@@ -59,8 +59,8 @@ namespace sklearn_util
 						echo '<td class="b3">'.$clubskillname[$skillid].'</td>';
 						if (\skillbase\skill_query($skillid))
 						{
-							if ($is_show_cost) echo '<td class="b3"><span class="grey">∞</span></td>';
-							echo '<td class="b3"><span class="grey">已经获得</span></td>';
+							if ($is_show_cost) echo '<td class="b3"><span class="grey b">∞</span></td>';
+							echo '<td class="b3"><span class="grey b">已经获得</span></td>';
 						}
 						else
 						{
@@ -68,8 +68,8 @@ namespace sklearn_util
 							{
 								$cost=$callback_funcname('query_cost',$skillid);
 								if ($cost>0)
-									echo '<td class="b3"><span class="lime">'.$cost.'</span></td>';
-								else  echo '<td class="b3"><span class="grey">-</span></td>';
+									echo '<td class="b3"><span class="lime b">'.$cost.'</span></td>';
+								else  echo '<td class="b3"><span class="grey b">-</span></td>';
 							}
 							echo '<td class="b3"><span style="width:40px;" onmouseover="$(\'skl_util_'.$caller_id.'_skilllearn_'.$skillid.'\').style.display=\'block\'; $(\'skl_util_'.$caller_id.'_skilllearn_'.$skillid.'\').style.top=Number(jQuery(this).offset().top-jQuery(window).scrollTop()+10).toString()+\'px\'; $(\'skl_util_'.$caller_id.'_skilllearn_'.$skillid.'\').style.left=Number(jQuery(this).offset().left-jQuery(window).scrollLeft()+20'.($j<3?'':'-420').').toString()+\'px\'; " onmouseout="$(\'skl_util_'.$caller_id.'_skilllearn_'.$skillid.'\').style.display=\'none\';"><input type="button" style="width:38px" value="查看"></span>';
 							if ($callback_funcname('now_learnable',$skillid))

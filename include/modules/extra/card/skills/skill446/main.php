@@ -55,7 +55,7 @@ namespace skill446
 		}
 		\skillbase\skill_setvalue(446,'lastuse',$now);
 		addnews ( 0, 'bskill446', $name );
-		$log.='<span class="lime">技能「死线」发动成功。</span><br>';
+		$log.='<span class="lime b">技能「死线」发动成功。</span><br>';
 	}
 	
 	//return 1:技能生效中 2:技能冷却中 3:技能冷却完毕 其他:不能使用这个技能
@@ -76,8 +76,8 @@ namespace skill446
 		$var_446=check_skill446_state($pd);
 		if ($var_446==1){
 			$pa['dmg_dealt']=0;
-			if ($active) $log .= "<span class=\"yellow\">敌人的技能「死线」使你的攻击没有造成任何伤害！</span><br>";
-			else $log .= "<span class=\"yellow\">你的技能「死线」使敌人的攻击没有造成任何伤害！</span><br>";
+			if ($active) $log .= "<span class=\"yellow b\">敌人的技能「死线」使你的攻击没有造成任何伤害！</span><br>";
+			else $log .= "<span class=\"yellow b\">你的技能「死线」使敌人的攻击没有造成任何伤害！</span><br>";
 		}
 		$chprocess($pa,$pd,$active);
 	}
@@ -128,7 +128,7 @@ namespace skill446
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill446') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}发动了技能<span class=\"yellow\">「死线」</span></span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}发动了技能<span class=\"yellow b\">「死线」</span></span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

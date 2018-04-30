@@ -79,15 +79,15 @@ namespace ex_phy_def
 				if (check_ex_phy_def_proc($pa,$pd,$active))
 				{
 					if ($active)
-						$log .= "<span class=\"yellow\">{$pd['name']}的装备使你的攻击伤害减半了！</span><br>";
-					else  $log .= "<span class=\"yellow\">你的装备使{$pa['name']}的攻击伤害减半了！</span><br>";
+						$log .= "<span class=\"yellow b\">{$pd['name']}的装备使你的攻击伤害减半了！</span><br>";
+					else  $log .= "<span class=\"yellow b\">你的装备使{$pa['name']}的攻击伤害减半了！</span><br>";
 					return Array(0.5);
 				}
 				else
 				{
 					if ($active)
-						$log .= "<span class=\"red\">{$pd['name']}的装备没能发挥攻击伤害减半的效果！</span><br>";
-					else  $log .= "<span class=\"red\">你的装备没能发挥攻击伤害减半的效果！</span><br>";
+						$log .= "<span class=\"red b\">{$pd['name']}的装备没能发挥攻击伤害减半的效果！</span><br>";
+					else  $log .= "<span class=\"red b\">你的装备没能发挥攻击伤害减半的效果！</span><br>";
 					return Array();
 				}
 			}

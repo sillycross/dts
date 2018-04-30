@@ -13,17 +13,17 @@
 <tr><td>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--{if $nchoice==1}--><span ><!--{/if}-->(1) 遇敌率提高15% <!--{if $nchoice==1}--></span><!--{/if}-->
 </td><td>
-<!--{if $nchoice==1}--><span class="lime">[当前选择]</span><!--{else}--><input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill214_special';$('subcmd').value='upgrade';$('skillpara1').value='1';postCmd('gamecmd','command.php');this.disabled=true;" value="选择"><!--{/if}-->
+<!--{if $nchoice==1}--><span class="lime b">[当前选择]</span><!--{else}--><input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill214_special';$('subcmd').value='upgrade';$('skillpara1').value='1';postCmd('gamecmd','command.php');this.disabled=true;" value="选择"><!--{/if}-->
 </td></tr>
 <tr><td>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--{if $nchoice==2}--><span ><!--{/if}-->(2) 无效果 <!--{if $nchoice==2}--></span><!--{/if}-->
 </td><td>
-<!--{if $nchoice==2}--><span class="lime">[当前选择]</span><!--{else}--><input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill214_special';$('subcmd').value='upgrade';$('skillpara1').value='2';postCmd('gamecmd','command.php');this.disabled=true;" value="选择"><!--{/if}-->
+<!--{if $nchoice==2}--><span class="lime b">[当前选择]</span><!--{else}--><input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill214_special';$('subcmd').value='upgrade';$('skillpara1').value='2';postCmd('gamecmd','command.php');this.disabled=true;" value="选择"><!--{/if}-->
 </td></tr>
 <tr><td>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--{if $nchoice==3}--><span ><!--{/if}-->(3) 物品发现率提高15%  <!--{if $nchoice==3}--></span><!--{/if}-->
 </td><td>
-<!--{if $nchoice==3}--><span class="lime">[当前选择]</span><!--{else}--><input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill214_special';$('subcmd').value='upgrade';$('skillpara1').value='3';postCmd('gamecmd','command.php');this.disabled=true;" value="选择"><!--{/if}-->
+<!--{if $nchoice==3}--><span class="lime b">[当前选择]</span><!--{else}--><input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill214_special';$('subcmd').value='upgrade';$('skillpara1').value='3';postCmd('gamecmd','command.php');this.disabled=true;" value="选择"><!--{/if}-->
 </td></tr>
 </table>
 </span>
@@ -32,7 +32,7 @@
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
 <!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
-<span class="yellow">
+<span class="yellow b">
 3级时解锁
 </span>
 <!--{/if}-->

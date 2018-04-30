@@ -25,7 +25,7 @@ namespace ex_direct
 		if (in_array('L', \attrbase\get_ex_attack_array($pa, $pd, $active)) && rand(0,99) < get_ex_direct_proc_rate($pa, $pd, $active))
 		{
 			eval(import_module('logger'));
-			$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow"><:pa_name:>的攻击无视了<:pd_name:>的一切技能！</span><br>');
+			$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow b"><:pa_name:>的攻击无视了<:pd_name:>的一切技能！</span><br>');
 			$pd['direct_ignore_skills']=1;
 		}
 		$chprocess($pa, $pd, $active);

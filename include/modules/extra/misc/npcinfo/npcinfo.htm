@@ -38,7 +38,7 @@
 									<!--{if $nownpc['pls']==99}-->
 									随机
 									<!--{else}-->
-									<span class="yellow">
+									<span class="yellow b">
 									$plsinfo[$nownpc['pls']]
 									</span>
 									<!--{/if}-->
@@ -57,7 +57,7 @@
 									NPC名称
 								</td>	
 								<td width=100px align="center" class="b3">
-									<span class="lime">
+									<span class="lime b">
 									$nownpc['name']
 									</span>
 								</td>
@@ -105,7 +105,7 @@
 									<!--{if isset($nownpc['___count'])}-->生命上限<!--{else}-->生命状况<!--{/if}-->
 								</td>
 								<td width=100px align="center" class="b3">
-									<!--{if isset($nownpc['___count'])}-->$nownpc['mhp']<!--{else}--><span class="<!--{if $nownpc['hp'] <= $nownpc['mhp']*0.2}-->red<!--{elseif $nownpc['hp'] <= $nownpc['mhp']*0.5}-->yellow<!--{else}-->clan<!--{/if}-->">$nownpc['hp'] / $nownpc['mhp']</span><!--{/if}-->
+									<!--{if isset($nownpc['___count'])}-->$nownpc['mhp']<!--{else}--><span class="<!--{if $nownpc['hp'] <= $nownpc['mhp']*0.2}-->red<!--{elseif $nownpc['hp'] <= $nownpc['mhp']*0.5}-->yellow<!--{else}-->cyan<!--{/if}-->">$nownpc['hp'] / $nownpc['mhp']</span><!--{/if}-->
 								</td>
 								<td width=100px align="center" class="b1">
 									熟练度

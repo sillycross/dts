@@ -6,9 +6,9 @@ namespace skill8
 	{
 		eval(import_module('wound'));
 		//受伤状态简称（用于profile显示）
-		$infinfo['e'] = '<span class="yellow">麻</span>';
+		$infinfo['e'] = '<span class="yellow b">麻</span>';
 		//受伤状态名称动词
-		$infname['e'] = '<span class="yellow">身体麻痹</span>';
+		$infname['e'] = '<span class="yellow b">身体麻痹</span>';
 		//受伤状态对应的特效技能编号
 		$infskillinfo['e'] = 8;
 	}

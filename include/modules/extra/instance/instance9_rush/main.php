@@ -153,7 +153,7 @@ namespace instance9
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess();
 		eval(import_module('sys'));
-		if(19 == $gametype) $ret = '<span class="clan">“那家伙托付给我的东西，怎么能让你随便玷污？”</span>——<span class="clan">狂飙</span><br>';
+		if(19 == $gametype) $ret = '<span class="cyan b">“那家伙托付给我的东西，怎么能让你随便玷污？”</span>——<span class="cyan b">狂飙</span><br>';
 		return $ret;
 	}
 }

@@ -81,7 +81,7 @@ namespace skill232
 		$sc = $shieldgain[$clv];
 		if ($hp<($mhp+$sc)) $hp=$mhp+$sc;
 		addnews ( 0, 'bskill232', $name );
-		$log.='<span class="lime">技能「力场」发动成功。</span><br>';
+		$log.='<span class="lime b">技能「力场」发动成功。</span><br>';
 	}
 	
 	function check_skill232_state(&$pa){
@@ -103,7 +103,7 @@ namespace skill232
 			eval(import_module('logger','skill232'));
 			$clv = (int)\skillbase\skill_getvalue(232,'lvl',$pd);
 			$v=$shieldeff[$clv];
-			$log.=\battle\battlelog_parser($pa,$pd,$active,'力场护盾抵消了<:pd_name:>受到的<span class="yellow">'.$v.'</span>点伤害！<br>');
+			$log.=\battle\battlelog_parser($pa,$pd,$active,'力场护盾抵消了<:pd_name:>受到的<span class="yellow b">'.$v.'</span>点伤害！<br>');
 			$ret -= $v;
 			$pa['mult_words_fdmgbs'] = \attack\add_format(-$v, $pa['mult_words_fdmgbs']);
 		}
@@ -119,7 +119,7 @@ namespace skill232
 //			eval(import_module('logger','skill232'));
 //			$clv = (int)\skillbase\skill_getvalue(232,'lvl',$pd);
 //			$v=$shieldeff[$clv];
-//			$log.='力场护盾使你受到的伤害降低了<span class="yellow">'.$v.'</span>点！<br>';
+//			$log.='力场护盾使你受到的伤害降低了<span class="yellow b">'.$v.'</span>点！<br>';
 //			$pa['dmg_dealt']=max($pa['dmg_dealt']-$v,1);
 //		}
 //		return $chprocess($pa, $pd, $active);
@@ -165,7 +165,7 @@ namespace skill232
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill232') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}发动了技能<span class=\"yellow\">「力场」</span></span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}发动了技能<span class=\"yellow b\">「力场」</span></span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

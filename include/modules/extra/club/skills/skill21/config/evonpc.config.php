@@ -89,7 +89,7 @@ namespace skill21
 				'wepk' => 'WG',
 				'wepe' => 900,
 				'weps' => 1460,
-				'wepsk' => 'redN',
+				'wepsk' => 'red bN',
 				'arb' => '高密度金属护甲',
 				'arbk' => 'DB',
 				'arbe' => 3200,
@@ -375,7 +375,7 @@ namespace skill21
 				'itmk1' => 'Y',
 				'itme1' => 1,
 				'itms1' => 1,
-				'description' => '<span class="yellow">狂飙完全被求胜欲望支配的模样，只有击倒她才能拿到游戏解除钥匙。</span>',
+				'description' => '<span class="yellow b">狂飙完全被求胜欲望支配的模样，只有击倒她才能拿到游戏解除钥匙。</span>',
 			)
 		),
 		21 => array(

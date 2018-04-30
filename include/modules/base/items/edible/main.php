@@ -28,10 +28,10 @@ namespace edible
 		
 		eval(import_module('sys','player','itemmain','logger'));
 		$hp+=$hpup; $sp+=$spup;
-		$log .= "你使用了<span class=\"red\">$itm</span>，恢复了";
-		if ($hpup>0) $log.="<span class=\"yellow\">$hpup</span>点生命";
+		$log .= "你使用了<span class=\"red b\">$itm</span>，恢复了";
+		if ($hpup>0) $log.="<span class=\"yellow b\">$hpup</span>点生命";
 		if ($hpup>0 && $spup>0) $log.='和';
-		if ($spup>0) $log.="<span class=\"yellow\">$spup</span>点体力";
+		if ($spup>0) $log.="<span class=\"yellow b\">$spup</span>点体力";
 		$log.="。<br>";
 	}
 	

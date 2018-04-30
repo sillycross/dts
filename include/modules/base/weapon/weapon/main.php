@@ -258,7 +258,7 @@ namespace weapon
 		$fixed_dmg=get_fixed_dmg($pa, $pd, $active);
 		if ($fixed_dmg>0) {
 			$o_fixed_dmg = $fixed_dmg;
-			list($fixed_dmg, $mult_words, $mult_words_fxddmg) = \attack\apply_multiplier($fixed_dmg, get_fixed_dmg_multiplier($pa, $pd, $active), 'yellow');
+			list($fixed_dmg, $mult_words, $mult_words_fxddmg) = \attack\apply_multiplier($fixed_dmg, get_fixed_dmg_multiplier($pa, $pd, $active), 'yellow b');
 
 		}
 		if(!empty($mult_words_fxddmg)) $pa['mult_words_phydmgbs'] = $mult_words_prmdmg.'+'.$mult_words_fxddmg;
@@ -296,7 +296,7 @@ namespace weapon
 		$multiplier = get_physical_dmg_multiplier($pa, $pd, $active);
 		$dmg = get_physical_dmg($pa, $pd, $active);
 		
-		$primary_dmg_color = 'yellow';
+		$primary_dmg_color = 'yellow b';
 		list($fin_dmg, $mult_words, $mult_words_phydmg) = \attack\apply_multiplier($dmg, $multiplier, '<:fin_dmg:>', $pa['mult_words_phydmgbs']);
 		$mult_words_phydmg = \attack\equalsign_format($fin_dmg, $mult_words_phydmg, '<:fin_dmg:>');
 //		if(strpos($mult_words_phydmgbs,'+')!==false || strpos($mult_words_phydmgbs,'×')!==false) 
@@ -305,16 +305,16 @@ namespace weapon
 		$log .= '造成了'.$mult_words_phydmg.'点物理伤害！<br>';
 //		if(empty($pa['primary_dmg_log_flag'])) $log .= '造成了'.$mult_words.'点物理伤害！<br>';
 //		elseif($fin_dmg != $dmg) $log .= '加成后的物理伤害：'.$mult_words.'点。<br>';
-//		else $primary_dmg_color = 'red';
+//		else $primary_dmg_color = 'red b';
 //		$log = str_replace('<:primary_dmg:>', $primary_dmg_color, $log);
 		
-		$replace_color = 'red';
+		$replace_color = 'red b';
 		
 		$fin_dmg_change = get_physical_dmg_change($pa, $pd, $active, $fin_dmg);
 		if($fin_dmg_change != $fin_dmg) {
 			$fin_dmg = $fin_dmg_change;
-			$log .= "总物理伤害：<span class=\"red\">{$fin_dmg}</span>。<br>";
-			$replace_color = 'yellow';
+			$log .= "总物理伤害：<span class=\"red b\">{$fin_dmg}</span>。<br>";
+			$replace_color = 'yellow b';
 		}
 		$log = str_replace('<:fin_dmg:>', $replace_color, $log);//如果有伤害变化，那么前面的台词显示黄色，否则显示红色（最终值）
 		
@@ -387,11 +387,11 @@ namespace weapon
 		else $attwords = $attinfo[$pa['wep_kind']];
 		if ($active)
 		{
-			$log .= "使用{$pa['wep']}<span class=\"yellow\">{$attwords}</span>{$pd['name']}！<br>";
+			$log .= "使用{$pa['wep']}<span class=\"yellow b\">{$attwords}</span>{$pd['name']}！<br>";
 		}
 		else  
 		{
-			$log .= "{$pa['name']}使用{$pa['wep']}<span class=\"yellow\">{$attwords}</span>你！<br>";
+			$log .= "{$pa['name']}使用{$pa['wep']}<span class=\"yellow b\">{$attwords}</span>你！<br>";
 		}
 		
 		$pd['deathmark']=$wepdeathstate[$pa['wep_kind']];
@@ -409,11 +409,11 @@ namespace weapon
 		eval(import_module('weapon','logger'));
 		if ($active)
 			if ($wepimprate[$pa['wep_kind']]<1000)
-				$log .= "你的<span class=\"red\">{$pa['wep']}</span>使用过度，已经损坏，无法再装备了！<br>";
-			else  $log .= "你的<span class=\"red\">{$pa['wep']}</span>用光了！<br>";
+				$log .= "你的<span class=\"red b\">{$pa['wep']}</span>使用过度，已经损坏，无法再装备了！<br>";
+			else  $log .= "你的<span class=\"red b\">{$pa['wep']}</span>用光了！<br>";
 		else  if ($wepimprate[$pa['wep_kind']]<1000)
-				$log .= "{$pa['name']}的<span class=\"red\">{$pa['wep']}</span>使用过度，已经损坏，无法再装备了！<br>";
-			else  $log .= "{$pa['name']}的<span class=\"red\">{$pa['wep']}</span>用光了！<br>";
+				$log .= "{$pa['name']}的<span class=\"red b\">{$pa['wep']}</span>使用过度，已经损坏，无法再装备了！<br>";
+			else  $log .= "{$pa['name']}的<span class=\"red b\">{$pa['wep']}</span>用光了！<br>";
 			
 		$pa['wep'] = '拳头';
 		$pa['wepk'] = 'WN';
@@ -667,7 +667,7 @@ namespace weapon
 				${$eqp.'e'} = $itme;
 				${$eqp.'s'} = $itms;
 				${$eqp.'sk'} = $itmsk;
-				$log .= "装备了<span class=\"yellow\">$itm</span>。<br>";
+				$log .= "装备了<span class=\"yellow b\">$itm</span>。<br>";
 				$itm = $itmk = $itmsk = '';
 				$itme = $itms = 0;
 			} else {
@@ -676,7 +676,7 @@ namespace weapon
 				swap(${$eqp.'e'},$itme);
 				swap(${$eqp.'s'},$itms);
 				swap(${$eqp.'sk'},$itmsk);
-				$log .= "卸下了<span class=\"red\">$itm</span>，装备了<span class=\"yellow\">${$eqp}</span>。<br>";
+				$log .= "卸下了<span class=\"red b\">$itm</span>，装备了<span class=\"yellow b\">${$eqp}</span>。<br>";
 			}
 			return;
 		}

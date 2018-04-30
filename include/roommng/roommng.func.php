@@ -298,7 +298,7 @@ function room_auto_kick_check(&$roomdata){
 		for ($i=0; $i < $rdpnum; $i++) 
 			if (!$rdplist[$i]['forbidden'] && !$rdplist[$i]['ready'] && $rdplist[$i]['name']!='')
 			{
-				room_new_chat($roomdata,"<span class=\"grey\">{$rdplist[$i]['name']}因为长时间未准备，被系统踢出了位置。</span><br>");
+				room_new_chat($roomdata,"<span class=\"grey b\">{$rdplist[$i]['name']}因为长时间未准备，被系统踢出了位置。</span><br>");
 				$rdplist[$i]['name']='';
 			}
 		$changed = 1;
@@ -581,14 +581,14 @@ function room_enter($id)
 		else $header = 'index.php';
 	}else{
 		//需要准备的房间，只是加入房间准备页面
-		room_new_chat($roomdata,"<span class=\"grey\">{$cuser}进入了房间</span><br>");
+		room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}进入了房间</span><br>");
 		room_save_broadcast($id,$roomdata);
 		$header = 'index.php';
 	}
 	set_current_roomid($id);
 	//update_udata_by_username(array('roomid' => $id), $cuser);
 
-	echo 'redirect:'.$header;
+	echo 'red birect:'.$header;
 	return 1;
 }
 	

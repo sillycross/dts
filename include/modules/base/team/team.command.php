@@ -7,13 +7,13 @@ namespace team
 		
 		eval(import_module('sys','logger','player','team','input'));
 		if($teamID) {
-			$log .= '你已经加入了队伍<span class="yellow">'.$teamID.'</span>，请先退出队伍。<br>';
+			$log .= '你已经加入了队伍<span class="yellow b">'.$teamID.'</span>，请先退出队伍。<br>';
 			$mode = 'command';
 		} elseif($teamcmd == 'teammake' && $sp <= $team_sp) {
-			$log .= '体力不足，不能创建队伍。至少需要<span class="yellow">'.$team_sp.'</span>点体力。<br>';
+			$log .= '体力不足，不能创建队伍。至少需要<span class="yellow b">'.$team_sp.'</span>点体力。<br>';
 			$mode = 'command';
 		} elseif($teamcmd == 'teamjoin' && $sp <= $teamj_sp) {
-			$log .= '体力不足，不能加入队伍。至少需要<span class="yellow">'.$teamj_sp.'</span>点体力。<br>';
+			$log .= '体力不足，不能加入队伍。至少需要<span class="yellow b">'.$teamj_sp.'</span>点体力。<br>';
 			$mode = 'command';
 		} else {
 			include template(MOD_TEAM_TEAM);
@@ -44,24 +44,24 @@ namespace team
 			return;
 		}
 		if($tID == $noitm) {
-			$log .= '队伍名不能为<span class="red">'.$tID.'</span>，请重新输入。<br>';
+			$log .= '队伍名不能为<span class="red b">'.$tID.'</span>，请重新输入。<br>';
 			$mode = 'command';
 			return;
 		}
 			
 		if($teamID) {
-			$log .= '你已经加入了队伍<span class="yellow">'.$teamID.'</span>，请先退出队伍。<br>';
+			$log .= '你已经加入了队伍<span class="yellow b">'.$teamID.'</span>，请先退出队伍。<br>';
 		} elseif($sp <= $team_sp) {
-			$log .= '体力不足，不能创建队伍。至少需要<span class="yellow">'.$team_sp.'</span>点体力。<br>';
+			$log .= '体力不足，不能创建队伍。至少需要<span class="yellow b">'.$team_sp.'</span>点体力。<br>';
 		} else {
 			$result = $db->query("SELECT pid FROM {$tablepre}players WHERE teamID='$tID'");
 			if($db->num_rows($result)){
-				$log .= '队伍<span class="yellow">'.$tID.'</span>已经存在，请更换队伍名。<br>';
+				$log .= '队伍<span class="yellow b">'.$tID.'</span>已经存在，请更换队伍名。<br>';
 			} else {
 				$teamID = $tID;
 				$teamPass = $tPass;
 				$sp -= $team_sp;
-				$log .= '你创建了队伍<span class="yellow">'.$teamID.'</span>。<br>';
+				$log .= '你创建了队伍<span class="yellow b">'.$teamID.'</span>。<br>';
 				addnews($now,'teammake',$teamID,$name);
 			}
 		$mode = 'command';
@@ -90,31 +90,31 @@ namespace team
 			return;
 		}
 		if($tID == $noitm) {
-			$log .= '队伍名不能为<span class="red">'.$tID.'</span>，请重新输入。<br>';
+			$log .= '队伍名不能为<span class="red b">'.$tID.'</span>，请重新输入。<br>';
 			$mode = 'command';
 			return;
 		}
 
 		if($teamID) {
-			$log .= '你已经加入了队伍<span class="yellow">'.$teamID.'</span>，请先退出队伍。<br>';
+			$log .= '你已经加入了队伍<span class="yellow b">'.$teamID.'</span>，请先退出队伍。<br>';
 		} elseif($sp <= $teamj_sp) {
-			$log .= '体力不足，不能加入队伍。至少需要<span class="yellow">'.$teamj_sp.'</span>点体力。<br>';
+			$log .= '体力不足，不能加入队伍。至少需要<span class="yellow b">'.$teamj_sp.'</span>点体力。<br>';
 		} else {
 			$result = $db->query("SELECT teamPass FROM {$tablepre}players WHERE teamID='$tID'");
 			if(!$db->num_rows($result)){
-				$log .= '队伍<span class="yellow">'.$tID.'</span>不存在，请先创建队伍。<br>';
+				$log .= '队伍<span class="yellow b">'.$tID.'</span>不存在，请先创建队伍。<br>';
 			} elseif($db->num_rows($result) >= $teamlimit) {
-				$log .= '队伍<span class="yellow">'.$tID.'</span>人数已满，请更换队伍。<br>';
+				$log .= '队伍<span class="yellow b">'.$tID.'</span>人数已满，请更换队伍。<br>';
 			} else {
 				$password = $db->result($result,0);
 				if($tPass == $password) {
 					$teamID = $tID;
 					$teamPass = $tPass;
 					$sp -= $teamj_sp;
-					$log .= '你加入了队伍<span class="yellow">'.$teamID.'</span>。<br>';
+					$log .= '你加入了队伍<span class="yellow b">'.$teamID.'</span>。<br>';
 					addnews($now,'teamjoin',$teamID,$name);
 				} else {
-					$log .= '密码错误，不能加入队伍<span class="yellow">'.$tID.'</span>。<br>';
+					$log .= '密码错误，不能加入队伍<span class="yellow b">'.$tID.'</span>。<br>';
 				}
 			}
 		}
@@ -128,7 +128,7 @@ namespace team
 		
 		eval(import_module('sys','logger','player','team','input'));
 		if($teamID){
-			$log .= '你退出了队伍<span class="yellow">'.$teamID.'</span>。<br>';
+			$log .= '你退出了队伍<span class="yellow b">'.$teamID.'</span>。<br>';
 			addnews($now,'teamquit',$teamID,$name);
 			$teamID =$teamPass = '';
 		} else {

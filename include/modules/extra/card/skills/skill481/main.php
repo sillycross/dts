@@ -45,8 +45,8 @@ namespace skill481
 		$chprocess($pa,$pd,$active);
 		eval(import_module('logger','skill481'));
 		
-		$b_log_1 = '<span class="yellow">一股神秘的力量使<:pd_name:>晕眩了'.($stuntime481/1000).'秒，你仿佛感觉获得了新的能量。</span><br>';
-		$b_log_2 = '<span class="yellow">一股神秘的力量使你晕眩了'.($stuntime481/1000).'秒，但你仿佛感觉刚刚完成了一件很有意义的事情。</span><br>';
+		$b_log_1 = '<span class="yellow b">一股神秘的力量使<:pd_name:>晕眩了'.($stuntime481/1000).'秒，你仿佛感觉获得了新的能量。</span><br>';
+		$b_log_2 = '<span class="yellow b">一股神秘的力量使你晕眩了'.($stuntime481/1000).'秒，但你仿佛感觉刚刚完成了一件很有意义的事情。</span><br>';
 		
 		if(!empty($pa['skill481_flag'])){
 			\skill602\set_stun_period($stuntime481,$pd);
@@ -80,8 +80,8 @@ namespace skill481
 //		{
 //			eval(import_module('logger','skill481'));
 //			if ($active)
-//				$log.='<span class="yellow">一股神秘的力量使敌人晕眩了'.($stuntime481/1000).'秒，你仿佛感觉获得了新的能量。</span><br>';
-//			else  $log.='<span class="yellow">一股神秘的力量使你晕眩了'.($stuntime481/1000).'秒，但你仿佛感觉刚刚完成了一件很有意义的事情。</span><br>';
+//				$log.='<span class="yellow b">一股神秘的力量使敌人晕眩了'.($stuntime481/1000).'秒，你仿佛感觉获得了新的能量。</span><br>';
+//			else  $log.='<span class="yellow b">一股神秘的力量使你晕眩了'.($stuntime481/1000).'秒，但你仿佛感觉刚刚完成了一件很有意义的事情。</span><br>';
 //			\skill602\set_stun_period($stuntime481,$pd);
 //		}
 //		return $chprocess($pa,$pd,$active);

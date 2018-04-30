@@ -33,10 +33,10 @@ if($ctablecorrect && $sendmode == 'send' && $chatmsg ) {//发送聊天
 					//$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,msg) VALUES ('4','$now','$cuser','$chatmsg')");
 				}
 			} else {
-				$showdata = array('lastcid' => $lastcid, 'msg' => Array('<span class="red">指令错误。<br></span>'));
+				$showdata = array('lastcid' => $lastcid, 'msg' => Array('<span class="red b">指令错误。<br></span>'));
 			}
 		} else {
-			$showdata = array('lastcid' => $lastcid, 'msg' => Array('<span class="red">聊天信息不能用 / 开头。<br></span>'));
+			$showdata = array('lastcid' => $lastcid, 'msg' => Array('<span class="red b">聊天信息不能用 / 开头。<br></span>'));
 		}
 	} else { 
 		if($chattype == 0) {
@@ -58,7 +58,7 @@ if(!$ctablecorrect && $lastcid >= 0 && $gamestate > 0) {
 	$lastcid = -1;
 	$showdata = array(
 		'lastcid' => $lastcid,
-		'msg' => Array('<span class="red">房间号错误，可能是新一局游戏已开始。<br></span>'),
+		'msg' => Array('<span class="red b">房间号错误，可能是新一局游戏已开始。<br></span>'),
 		'cmd' => 'chat-ref-stop'
 	);
 }

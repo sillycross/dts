@@ -22,7 +22,7 @@ namespace boxes
 		
 		if(strpos ( $itmk, 'p' ) === 0)
 		{
-			$log.="你打开了<span class=\"yellow\">$itm</span>。<br>";
+			$log.="你打开了<span class=\"yellow b\">$itm</span>。<br>";
 			$file = __DIR__.'/config/present.config.php';
 			$plist = openfile($file);
 			while (1)
@@ -38,7 +38,7 @@ namespace boxes
 			\itemmain\itemget();		
 			return;
 		} elseif(strpos ( $itmk, 'ygo' ) === 0){
-			$log.="你打开了<span class=\"yellow\">$itm</span>。<br>";
+			$log.="你打开了<span class=\"yellow b\">$itm</span>。<br>";
 			$file = __DIR__.'/config/ygobox.config.php';
 			$plist1 = openfile($file);
 			$rand1 = rand(0,count($plist1)-1);
@@ -49,7 +49,7 @@ namespace boxes
 			\itemmain\itemget();	
 			return;
 		} elseif(strpos ( $itmk, 'fy' ) === 0){
-			$log.="你打开了<span class=\"yellow\">$itm</span>。<br>";
+			$log.="你打开了<span class=\"yellow b\">$itm</span>。<br>";
 			$file = __DIR__.'/config/fybox.config.php';
 			$plist1 = openfile($file);
 			$rand1 = rand(0,count($plist1)-1);
@@ -60,7 +60,7 @@ namespace boxes
 			\itemmain\itemget();	
 			return;
 		} elseif(strpos ( $itmk, 'kj3' ) === 0){
-			$log.="你打开了<span class=\"yellow\">$itm</span>。<br>";
+			$log.="你打开了<span class=\"yellow b\">$itm</span>。<br>";
 			$file = __DIR__.'/config/kj3box.config.php';
 			$plist1 = openfile($file);
 			$rand1 = rand(0,count($plist1)-1);
@@ -80,7 +80,7 @@ namespace boxes
 		eval(import_module('sys','player'));
 		
 		if($news == 'present') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}打开了{$b}，获得了{$c}！</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">{$a}打开了{$b}，获得了{$c}！</span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

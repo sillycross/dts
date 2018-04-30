@@ -87,7 +87,7 @@ namespace skill56
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill56','map','sys','player','logger','input'));
-		$log.='你召唤出了佣兵<span class="yellow">'.$skill56_npc['sub'][$nkind]['name'].'</span>来保护你！<br>';
+		$log.='你召唤出了佣兵<span class="yellow b">'.$skill56_npc['sub'][$nkind]['name'].'</span>来保护你！<br>';
 		$x=(int)\skillbase\skill_getvalue(56,'t');
 		$spids = \addnpc\addnpc(25,$nkind,1);
 		if ($spids==-1)
@@ -263,7 +263,7 @@ namespace skill56
 						$money-=$cost;
 						$employee['money']+=$cost;
 						$employee['pls']=$skillpara3;
-						$log.="消耗了<span class=\"yellow\">$cost</span>元，佣兵<span class=\"yellow\">{$employee['name']}</span>移动到了<span class=\"yellow\">{$plsinfo[$employee['pls']]}</span>。<br>";
+						$log.="消耗了<span class=\"yellow b\">$cost</span>元，佣兵<span class=\"yellow b\">{$employee['name']}</span>移动到了<span class=\"yellow b\">{$plsinfo[$employee['pls']]}</span>。<br>";
 					}
 					else
 					{
@@ -294,7 +294,7 @@ namespace skill56
 					\skillbase\skill_setvalue(56,'l'.$skillpara2,$lastsal);
 					$money-=$cost;
 					$employee['money']+=$cost;
-					$log.="消耗了<span class=\"yellow\">$cost</span>元，预付了佣兵<span class=\"yellow\">{$employee['name']}</span>将来<span class=\"yellow\">$skillpara3</span>分钟的工资。<br>";
+					$log.="消耗了<span class=\"yellow b\">$cost</span>元，预付了佣兵<span class=\"yellow b\">{$employee['name']}</span>将来<span class=\"yellow b\">$skillpara3</span>分钟的工资。<br>";
 				}
 				else
 				{
@@ -364,7 +364,7 @@ namespace skill56
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill56') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}发动了技能<span class=\"yellow\">「招募佣兵」</span></span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}发动了技能<span class=\"yellow b\">「招募佣兵」</span></span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

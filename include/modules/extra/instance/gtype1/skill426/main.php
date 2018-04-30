@@ -80,8 +80,8 @@ namespace skill426
 		}
 		\skillbase\skill_setvalue(426,'lastuse',$now);
 		$hp=max($hp,$mhp);$sp=max($sp,$msp);$inf = '';
-		$log.='<span class="lime">技能「整备」发动成功。</span><br>';
-		$log.='<span class="lime">你的身体已经焕然一新了！</span><br>';
+		$log.='<span class="lime b">技能「整备」发动成功。</span><br>';
+		$log.='<span class="lime b">你的身体已经焕然一新了！</span><br>';
 	}
 	
 	function check_skill426_state(&$pa){

@@ -55,8 +55,8 @@ namespace skill63
 			{
 				eval(import_module('logger'));
 				if ($active)
-					$log.="<span class=\"lime\">你对{$pd['name']}发动了技能「噩梦」！</span><br>";
-				else  $log.="<span class=\"lime\">{$pa['name']}对你发动了技能「噩梦」！</span><br>";
+					$log.="<span class=\"lime b\">你对{$pd['name']}发动了技能「噩梦」！</span><br>";
+				else  $log.="<span class=\"lime b\">{$pa['name']}对你发动了技能「噩梦」！</span><br>";
 				$clv--; \skillbase\skill_setvalue(63,'t',$clv,$pa);
 				\skillbase\skill_setvalue(63,'p',$pd['pid'],$pa);
 				\skillbase\skill_setvalue(63,'n',$pd['name'],$pa);
@@ -89,8 +89,8 @@ namespace skill63
 				if ($pa['pid']==$ep)	//攻击者被噩梦标记
 				{
 					if ($active)
-						$log.='<span class="yellow">由于你被噩梦缠绕，你对其造成的最终伤害减少了20%！</span><br>';
-					else  $log.='<span class="yellow">由于敌人被噩梦缠绕，其对你造成的最终伤害减少了20%！</span><br>';
+						$log.='<span class="yellow b">由于你被噩梦缠绕，你对其造成的最终伤害减少了20%！</span><br>';
+					else  $log.='<span class="yellow b">由于敌人被噩梦缠绕，其对你造成的最终伤害减少了20%！</span><br>';
 					$r=Array(0.8);
 				}
 			}
@@ -105,7 +105,7 @@ namespace skill63
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill63') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}对{$b}发动了技能<span class=\"red\">「噩梦」</span></span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}对{$b}发动了技能<span class=\"red b\">「噩梦」</span></span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

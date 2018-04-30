@@ -70,9 +70,9 @@ namespace gameflow_combo
 		eval(import_module('sys'));
 		
 		if($news == 'combo') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">游戏进入连斗阶段！</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red b\">游戏进入连斗阶段！</span></li>";
 		elseif($news == 'comboupdate') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">连斗判断死亡数修正为{$a}人，当前死亡数为{$b}人！</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">连斗判断死亡数修正为{$a}人，当前死亡数为{$b}人！</span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
@@ -115,7 +115,7 @@ namespace gameflow_combo
 		if (defined('MOD_TEAM'))
 		{
 			if($gamestate>=40 && !in_array($gametype,$teamwin_mode)){
-				$log .= '<span class="yellow">连斗阶段无法赠送物品！</span><br>';
+				$log .= '<span class="yellow b">连斗阶段无法赠送物品！</span><br>';
 				return false;
 			}
 		}
@@ -129,7 +129,7 @@ namespace gameflow_combo
 		if (defined('MOD_TEAM'))
 		{
 			if($gamestate>=40 && !in_array($gametype,$teamwin_mode)){
-				$log .= '<span class="yellow">连斗阶段所有队伍取消！</span><br>';
+				$log .= '<span class="yellow b">连斗阶段所有队伍取消！</span><br>';
 				
 				$mode = 'command';
 				return;

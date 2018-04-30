@@ -29,9 +29,9 @@ namespace item_uv
 		if (strpos ( $itmk, 'V' ) === 0) 
 		{
 			if ($itmk[1] == 'O')
-				$log .= "你打开了<span class=\"red\">$itm</span>。<br>";
+				$log .= "你打开了<span class=\"red b\">$itm</span>。<br>";
 			else
-				$log .= "你阅读了<span class=\"red\">$itm</span>。<br>";
+				$log .= "你阅读了<span class=\"red b\">$itm</span>。<br>";
 				
 			//特殊的技能书类型VS，效果是获得技能编号为itmsk的技能
 			if (strpos ( substr($itmk,1), 'S' ) !== false)	//技能书
@@ -48,7 +48,7 @@ namespace item_uv
 					}
 					else
 					{
-						$log.="你感觉受益匪浅。你获得了技能「<span class=\"yellow\">".$clubskillname[$sk_kind]."</span>」，请前往技能界面查看。<br>";
+						$log.="你感觉受益匪浅。你获得了技能「<span class=\"yellow b\">".$clubskillname[$sk_kind]."</span>」，请前往技能界面查看。<br>";
 						\skillbase\skill_acquire($sk_kind);
 						$useflag = 1;
 						//\itemmain\itms_reduce($theitem);
@@ -86,7 +86,7 @@ namespace item_uv
 				if ($cardpresent_type == '1') $cardpresent_desc = '获得卡片“'.$cards[(int)$itmsk]['name'].'”';
 				if ($cardpresent_type == '2') $cardpresent_desc = '从中有机会获得'.$card_rarity_html['A'].'/'.$card_rarity_html['B'].'/'.$card_rarity_html['C'].'级卡片';
 				if ($cardpresent_type == '3') $cardpresent_desc = '从中有机会获得'.$card_rarity_html['S'].'/'.$card_rarity_html['A'].'/'.$card_rarity_html['B'].'级卡片';
-				if ($cardpresent_type == '4') $cardpresent_desc = '从中有机会获得特殊卡片“<span class="yellow">'.$cards[(int)$itmsk]['name'].'</span>”，或一张'.$card_rarity_html['S'].'级或'.$card_rarity_html['A'].'级的卡片';
+				if ($cardpresent_type == '4') $cardpresent_desc = '从中有机会获得特殊卡片“<span class="yellow b">'.$cards[(int)$itmsk]['name'].'</span>”，或一张'.$card_rarity_html['S'].'级或'.$card_rarity_html['A'].'级的卡片';
 				if ($cardpresent_type == '5') $cardpresent_desc = '从中可以获得一张'.$card_rarity_html['S'].'级卡片';
 				if ($cardpresent_type == '6') $cardpresent_desc = '从中可以获得一张'.$card_rarity_html['A'].'级卡片';
 				if ($cardpresent_type == '7') $cardpresent_desc = '从中可以获得一张'.$card_rarity_html['B'].'级卡片';
@@ -104,7 +104,7 @@ namespace item_uv
 					eval(import_module('sys'));
 					if ($now - $starttime >= 1200)
 					{
-						$log.='<span class="yellow">博丽神社今天已经关门啦，下次请早点来吧。（这个道具必须在开局20分钟内使用）<br></span>';
+						$log.='<span class="yellow b">博丽神社今天已经关门啦，下次请早点来吧。（这个道具必须在开局20分钟内使用）<br></span>';
 						return;
 					}
 				}
@@ -167,13 +167,13 @@ namespace item_uv
 					}
 					if($cards[$get_card_id]['rare'] == 'A') $ext.='运气不错！';
 					elseif($cards[$get_card_id]['rare'] == 'S') $ext.='一是欧洲人吧！';
-					if ((\cardbase\get_card_message($get_card_id,$ext))==1) $is_new = "<span class=\"L5\">NEW!</span>";;
+					if ((\cardbase\get_card_message($get_card_id,$ext))==1) $is_new = "<span class=\"L5 b\">NEW!</span>";;
 					ob_clean();
 					include template('MOD_CARDBASE_CARDFLIP_RESULT');
 					$log .= ob_get_contents();
 					ob_clean();
 					
-					$log.='<span class="yellow">你获得了卡片「'.$cards[$get_card_id]['name'].'」！请前往“站内邮件”查收。</span><br>';
+					$log.='<span class="yellow b">你获得了卡片「'.$cards[$get_card_id]['name'].'」！请前往“站内邮件”查收。</span><br>';
 					
 					addnews ( 0, 'VOgetcard', $name, $itm, $cards[$get_card_id]['name'] );
 					
@@ -321,12 +321,12 @@ namespace item_uv
 			}
 			if(NULL!==$vefct) {
 				if ($vefct > 0) {
-					$log .= "嗯，有所收获。<br>你的{$wsname}提高了<span class=\"yellow\">$vefct</span>点！<br>";
+					$log .= "嗯，有所收获。<br>你的{$wsname}提高了<span class=\"yellow b\">$vefct</span>点！<br>";
 				} elseif ($vefct == 0) {
 					$log .= "对你来说书里的内容过于简单了。<br>你的熟练度没有任何提升。<br>";
 				} else {
 					$vefct = - $vefct;
-					$log .= "对你来说书里的内容过于简单了。<br>而且由于盲目相信书上的知识，你反而被编写者的纰漏所误导了！<br>你的{$wsname}下降了<span class=\"red\">$vefct</span>点！<br>";
+					$log .= "对你来说书里的内容过于简单了。<br>而且由于盲目相信书上的知识，你反而被编写者的纰漏所误导了！<br>你的{$wsname}下降了<span class=\"red b\">$vefct</span>点！<br>";
 				}
 			}
 			if($useflag) \itemmain\itms_reduce($theitem);
@@ -342,7 +342,7 @@ namespace item_uv
 		eval(import_module('sys','player'));
 		
 		if($news == 'VOgetcard') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}打开了{$b}，获得了卡片“{$c}”！</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">{$a}打开了{$b}，获得了卡片“{$c}”！</span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

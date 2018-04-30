@@ -54,11 +54,11 @@ namespace ex_attr_trap
 				addnews($now,'trapdef',$name,$trname,$itm0);
 				if(!$selflag)
 				{
-					$w_log = "<span class=\"yellow\">{$name}触发了你设置的陷阱{$itm0}，但是没有受到任何伤害！</span><br>";
+					$w_log = "<span class=\"yellow b\">{$name}触发了你设置的陷阱{$itm0}，但是没有受到任何伤害！</span><br>";
 					\logger\logsave ( $itmsk0, $now, $w_log ,'b');
 				}	
 			}	
-			$log .= "糟糕，你触发了{$trprefix}陷阱<span class=\"yellow\">$itm0</span>！<br>不过，身上装备着的防雷护盾启动了！<span class=\"yellow\">在防雷功能的保护下你毫发无伤。</span><br>";
+			$log .= "糟糕，你触发了{$trprefix}陷阱<span class=\"yellow b\">$itm0</span>！<br>不过，身上装备着的防雷护盾启动了！<span class=\"yellow b\">在防雷功能的保护下你毫发无伤。</span><br>";
 			return 1;
 		}
 		return 0;
@@ -98,7 +98,7 @@ namespace ex_attr_trap
 		eval(import_module('sys','player'));
 		
 		if($news == 'trapdef') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}依靠防雷装备抵御了{$b}设置的陷阱{$c}的伤害</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">{$a}依靠防雷装备抵御了{$b}设置的陷阱{$c}的伤害</span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

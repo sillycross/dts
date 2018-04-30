@@ -10,7 +10,7 @@ if(!$cuser||!$cpass) {
 } 
 $result = $db->query("SELECT * FROM {$tablepre}players WHERE name = '$cuser' AND type = 0");
 if(!$db->num_rows($result)) { 
-	echo 'redirect:index.php';
+	echo 'red birect:index.php';
 	return;
 }
 

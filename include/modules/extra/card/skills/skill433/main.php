@@ -40,7 +40,7 @@ namespace skill433
 				if($paflag && $active || $pdflag && !$active) $log_tmp = '你';
 				elseif($paflag) $log_tmp = $pa['name'];
 				else $log_tmp = $pd['name'];
-				$log.='<span class="yellow">'.$log_tmp.'的「白板」技能使双方的技能全部暂时失效了！</span><br>';
+				$log.='<span class="yellow b">'.$log_tmp.'的「白板」技能使双方的技能全部暂时失效了！</span><br>';
 				$pa['skill433_flag']=1;
 				$pd['skill433_flag']=1;
 			}
@@ -70,7 +70,7 @@ namespace skill433
 		if ($pa['type']==0 && \skillbase\skill_query(433,$pd) && $pa['user_commanded']==1)	//被玩家击杀才有效
 		{
 			eval(import_module('sys','logger'));
-			$log.='<span class="yellow">敌人的技能「断肠」使你失去了所有称号技能！</span>';
+			$log.='<span class="yellow b">敌人的技能「断肠」使你失去了所有称号技能！</span>';
 			$arr=\skillbase\get_acquired_skill_array($pa);
 			foreach ($arr as $key)
 				if (defined('MOD_SKILL'.$key.'_INFO') && \skillbase\check_skill_info($key, 'club') && !\skillbase\check_skill_info($key, 'hidden'))

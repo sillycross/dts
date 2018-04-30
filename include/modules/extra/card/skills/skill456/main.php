@@ -38,8 +38,8 @@ namespace skill456
 			if ($x<$skill456_act_time)
 			{
 				if ($active)
-					$log.='<span class="yellow">你抱着破釜沉舟之心，对敌人打出致命一击！</span><br>';
-				else  $log.='<span class="yellow">敌人抱着破釜沉舟之心，对你打出致命一击！</span><br>';
+					$log.='<span class="yellow b">你抱着破釜沉舟之心，对敌人打出致命一击！</span><br>';
+				else  $log.='<span class="yellow b">敌人抱着破釜沉舟之心，对你打出致命一击！</span><br>';
 				$r=Array(1.4);
 			}
 		}

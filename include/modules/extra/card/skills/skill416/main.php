@@ -39,25 +39,25 @@ namespace skill416
 			if ($pd['type']==0){
 				if ($l416==0){
 					if ($active)
-						$log.="<span class=\"yellow\">「团结」使你造成的最终伤害降低了50%！</span><br>";
-					else  $log.="<span class=\"yellow\">「团结」使敌人造成的最终伤害降低了50%！</span><br>";
+						$log.="<span class=\"yellow b\">「团结」使你造成的最终伤害降低了50%！</span><br>";
+					else  $log.="<span class=\"yellow b\">「团结」使敌人造成的最终伤害降低了50%！</span><br>";
 					$r=Array(0.5);
 				}else if ($l416==1){
 					if ($active)
-						$log.="<span class=\"yellow\">「独斗」使你造成的最终伤害提高了10%！</span><br>";
-					else  $log.="<span class=\"yellow\">「独斗」使敌人造成的最终伤害提高了10%！</span><br>";
+						$log.="<span class=\"yellow b\">「独斗」使你造成的最终伤害提高了10%！</span><br>";
+					else  $log.="<span class=\"yellow b\">「独斗」使敌人造成的最终伤害提高了10%！</span><br>";
 					$r=Array(1.1);
 				}
 			}else{
 				if ($l416==0){
 					if ($active)
-						$log.="<span class=\"yellow\">「团结」使你造成的最终伤害提高了30%！</span><br>";
-					else  $log.="<span class=\"yellow\">「团结」使敌人造成的最终伤害提高了30%！</span><br>";
+						$log.="<span class=\"yellow b\">「团结」使你造成的最终伤害提高了30%！</span><br>";
+					else  $log.="<span class=\"yellow b\">「团结」使敌人造成的最终伤害提高了30%！</span><br>";
 					$r=Array(1.3);
 				}else if ($l416==1){
 					if ($active)
-						$log.="<span class=\"yellow\">「独斗」使你造成的最终伤害降低了10%！</span><br>";
-					else  $log.="<span class=\"yellow\">「独斗」使敌人造成的最终伤害降低了10%！</span><br>";
+						$log.="<span class=\"yellow b\">「独斗」使你造成的最终伤害降低了10%！</span><br>";
+					else  $log.="<span class=\"yellow b\">「独斗」使敌人造成的最终伤害降低了10%！</span><br>";
 					$r=Array(0.9);
 				}
 			}

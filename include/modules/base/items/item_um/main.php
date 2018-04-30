@@ -30,7 +30,7 @@ namespace item_um
 		
 		eval(import_module('player','weapon','logger','lvlctl'));
 		
-		$log .= "你服用了<span class=\"red\">$itm</span>。<br>";
+		$log .= "你服用了<span class=\"red b\">$itm</span>。<br>";
 			
 		if (strpos ( $itmk, 'MA' ) === 0) {
 			$att_min = 200;
@@ -119,12 +119,12 @@ namespace item_um
 		}
 		if (strpos ( $itmk, 'ME' ) === 0) $mefct = \lvlctl\getexp($mefct) ? $mefct : 0;
 		if ($mefct > 0) {
-			$log .= "身体里有种力量涌出来！<br>你的{$mdname}提高了<span class=\"yellow\">$mefct</span>点！<br>";
+			$log .= "身体里有种力量涌出来！<br>你的{$mdname}提高了<span class=\"yellow b\">$mefct</span>点！<br>";
 		} elseif ($mefct == 0) {
 			$log .= "已经很强了，却还想靠药物继续强化自己，是不是太贪心了？<br>你的能力没有任何提升。<br>";
 		} else {
 			$mefct = - $mefct;
-			$log .= "已经很强了，却还想靠药物继续强化自己，是不是太贪心了？<br>你贪婪的行为引发了药物的副作用！<br>你的{$mdname}下降了<span class=\"red\">$mefct</span>点！<br>";
+			$log .= "已经很强了，却还想靠药物继续强化自己，是不是太贪心了？<br>你贪婪的行为引发了药物的副作用！<br>你的{$mdname}下降了<span class=\"red b\">$mefct</span>点！<br>";
 		}
 		
 		\itemmain\itms_reduce($theitem);

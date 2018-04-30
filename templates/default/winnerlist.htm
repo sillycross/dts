@@ -34,7 +34,7 @@
 		
 		<!--{if $start != $largest_mark}--><a onclick="document.list.start.value = '$largest_mark';document.list.command.value='list';document.list.submit();">第{$largest_mark}回</a>&nbsp;&nbsp;...&nbsp;&nbsp;<!--{/if}-->
 		<!--{if $larger_mark && $larger_mark < $largest_mark}--><a onclick="document.list.start.value = '$larger_mark';document.list.command.value='list';document.list.submit();">第{$larger_mark}回</a>&nbsp;&nbsp;<!--{/if}-->
-		<span class="evergreen">第{$start}回</span>&nbsp;&nbsp;
+		<span class="evergreen b">第{$start}回</span>&nbsp;&nbsp;
 		<!--{if $smaller_mark && $smaller_mark > $smallest_mark}--><a onclick="document.list.start.value = '$smaller_mark';document.list.command.value='list';document.list.submit();">第{$smaller_mark}回</a>&nbsp;&nbsp;<!--{/if}-->
 		<!--{if $start != $smallest_mark}-->...&nbsp;&nbsp;<a onclick="document.list.start.value = '$smallest_mark';document.list.command.value='list';document.list.submit();">第{$smallest_mark}回</a><!--{/if}-->
 		&nbsp;&nbsp;&nbsp;<input id="winnermark" style="width: 60px;" type="text" value="$start">
@@ -75,13 +75,13 @@
 			<TD class="b3"><span>$info['date']</span><br><span>$info['time']</span></TD>
 			<TD class="b3"><span>$info['vnum']</span></TD>
 			<!--{if $info['winnernum']>1}-->
-			<TD class="b3" colspan><span class="yellow">$info['winnerteamID']</span></TD>
+			<TD class="b3" colspan><span class="yellow b">$info['winnerteamID']</span></TD>
 			<TD class="b3"><span></span></TD>
 			<TD class="b3"><span><img src="img/n_0.gif" style="width:70;height:40;"></span></TD>
 			<!--{else}-->
 			<!--{eval $info['urlname']=htmlentities(urlencode($info['winner']));}-->
-			<TD class="b3" style="white-space: nowrap;"><!--{if $info['winner']}--><a style="cursor:pointer;" href="user_profile.php?playerID=$info['urlname']"><span class="evergreen">$info['winner']</span></a><!--{else}--><span class="grey">无</span><!--{/if}--></TD>
-			<TD class="b3"><!--{if $info['winner']}--><!--{if isset($info['card'])}--><span class="{$card_rarecolor[$cards[$info['card']]['rare']]}">$cards[$info['card']]['name']</span><!--{else}--><span></span>$info['cardname']</span><!--{/if}--><!--{else}--><span class="grey">-</span><!--{/if}--></TD>
+			<TD class="b3" style="white-space: nowrap;"><!--{if $info['winner']}--><a style="cursor:pointer;" href="user_profile.php?playerID=$info['urlname']"><span class="evergreen b">$info['winner']</span></a><!--{else}--><span class="grey b">无</span><!--{/if}--></TD>
+			<TD class="b3"><!--{if $info['winner']}--><!--{if isset($info['card'])}--><span class="{$card_rarecolor[$cards[$info['card']]['rare']]}">$cards[$info['card']]['name']</span><!--{else}--><span></span>$info['cardname']</span><!--{/if}--><!--{else}--><span class="grey b">-</span><!--{/if}--></TD>
 			<TD class="b3"><span><img src="img/$info['iconImg']" style="width:70;height:40;"></span></TD>
 			
 			<!--{/if}-->
@@ -97,14 +97,14 @@
 			<!--{/loop}-->
 			<TD class="b3" colspan=2>队伍成员: <!--{eval echo substr($x,0,-1)}--></TD>
 			<!--{else}-->
-			<TD class="b3"><!--{if $info['motto']}--><span class="white">$info['motto']</span><!--{else}--><span class="grey">无</span><!--{/if}--></TD>
-			<TD class="b3"><!--{if $info['wep']}--><span class="white">$info['wep']</span><!--{else}--><span class="grey">无</span><!--{/if}--></TD>
+			<TD class="b3"><!--{if $info['motto']}--><span class="white b">$info['motto']</span><!--{else}--><span class="grey b">无</span><!--{/if}--></TD>
+			<TD class="b3"><!--{if $info['wep']}--><span class="white b">$info['wep']</span><!--{else}--><span class="grey b">无</span><!--{/if}--></TD>
 			<!--{/if}-->
 			<TD class="b3"><span>$info['apm_words']</span></TD>
 			<!--{eval $info['urlhdp']=htmlentities(urlencode($info['hdp']));}-->
 			<!--{eval $info['urlhkp']=htmlentities(urlencode($info['hkp']));}-->
-			<TD class="b3"><!--{if $info['hdmg']}--><a style="cursor:pointer;" href="user_profile.php?playerID=$info['urlhdp']"><span>$info['hdp']</span></a><!--{else}--><span class="grey">无</span><!--{/if}--></TD>
-			<TD class="b3"><!--{if $info['hkill']}--><a style="cursor:pointer;" href="user_profile.php?playerID=$info['urlhkp']"><span>$info['hkp']</span></a><!--{else}--><span class="grey">无</span><!--{/if}--></TD>
+			<TD class="b3"><!--{if $info['hdmg']}--><a style="cursor:pointer;" href="user_profile.php?playerID=$info['urlhdp']"><span>$info['hdp']</span></a><!--{else}--><span class="grey b">无</span><!--{/if}--></TD>
+			<TD class="b3"><!--{if $info['hkill']}--><a style="cursor:pointer;" href="user_profile.php?playerID=$info['urlhkp']"><span>$info['hkp']</span></a><!--{else}--><span class="grey b">无</span><!--{/if}--></TD>
 			<!--{if defined('MOD_REPLAY')}-->
 			<TD class="b3">
 				<span>

@@ -100,8 +100,8 @@ namespace skill41
 		if ($pa['skill41_proced'])
 		{
 			if ($active)
-				$log.='<span class="yellow">你以惊人的速度完成了反击准备，并立即对敌人进行了反击！</span><br>';
-			else  $log.='<span class="yellow">'.$pa['name'].'以惊人的速度完成了反击准备，并立即对你进行了反击！</span><br>';
+				$log.='<span class="yellow b">你以惊人的速度完成了反击准备，并立即对敌人进行了反击！</span><br>';
+			else  $log.='<span class="yellow b">'.$pa['name'].'以惊人的速度完成了反击准备，并立即对你进行了反击！</span><br>';
 		}
 		$pa['skill41_proced']=0;
 		$chprocess($pa, $pd, $active);

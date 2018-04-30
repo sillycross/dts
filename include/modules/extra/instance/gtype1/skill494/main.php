@@ -73,8 +73,8 @@ namespace skill494
 			if ($pa['dmg_dealt']>$d494){
 				$pa['dmg_dealt']=$d494;
 				eval(import_module('logger'));
-				if ($active) $log .= "<span class=\"yellow\">你造成的伤害被限制为<span class=\"red\">{$d494}</span>点。</span><br>";
-				else $log .= "<span class=\"yellow\">敌人造成的伤害被限制为<span class=\"red\">{$d494}</span>点。</span><br>";
+				if ($active) $log .= "<span class=\"yellow b\">你造成的伤害被限制为<span class=\"red b\">{$d494}</span>点。</span><br>";
+				else $log .= "<span class=\"yellow b\">敌人造成的伤害被限制为<span class=\"red b\">{$d494}</span>点。</span><br>";
 			}
 		}
 	}

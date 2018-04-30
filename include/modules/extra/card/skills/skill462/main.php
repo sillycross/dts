@@ -33,8 +33,8 @@ namespace skill462
 		{
 			eval(import_module('logger'));
 			if ($active)
-				$log.='<span class="yellow">「抗性」使敌人受到的最终伤害降低了35%！</span><br>';
-			else  $log.='<span class="yellow">「抗性」使你受到的最终伤害降低了35%！</span><br>';
+				$log.='<span class="yellow b">「抗性」使敌人受到的最终伤害降低了35%！</span><br>';
+			else  $log.='<span class="yellow b">「抗性」使你受到的最终伤害降低了35%！</span><br>';
 			$r=Array(0.65);
 		}
 		return array_merge($r,$chprocess($pa,$pd,$active));

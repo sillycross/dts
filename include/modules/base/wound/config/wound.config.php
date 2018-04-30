@@ -7,18 +7,18 @@ namespace wound
 	
 	//每个受伤状态名称简称（用于profile显示）
 	$infinfo = Array(
-		'b' => '<span class="red">胸</span>', 
-		'h' => '<span class="red">头</span>', 
-		'a' => '<span class="red">腕</span>', 
-		'f' => '<span class="red">足</span>'
+		'b' => '<span class="red b">胸</span>', 
+		'h' => '<span class="red b">头</span>', 
+		'a' => '<span class="red b">腕</span>', 
+		'f' => '<span class="red b">足</span>'
 	);
 	
 	//每个受伤状态的名称
 	$infname = Array(
-		'b' => '<span class="red">胸部受伤</span>', 
-		'h' => '<span class="red">头部受伤</span>', 
-		'a'=> '<span class="red">腕部受伤</span>', 
-		'f'=> '<span class="red">足部受伤</span>'
+		'b' => '<span class="red b">胸部受伤</span>', 
+		'h' => '<span class="red b">头部受伤</span>', 
+		'a'=> '<span class="red b">腕部受伤</span>', 
+		'f'=> '<span class="red b">足部受伤</span>'
 	);
 	
 	//受伤状态对应的特效技能编号（参见skills）

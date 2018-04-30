@@ -377,7 +377,7 @@ namespace achievement_base
 		$ret1 = '只能在'.$ret1.'中完成';
 		$ret2 = show_ach_title($achid, $achlv-1, 1);
 		if('MISSING' == $ret2) $ret2 = '';
-		else $ret2 = '<br>已完成：<span class=\'evergreen\'>'.$ret2.'</span>';
+		else $ret2 = '<br>已完成：<span class=\'evergreen b\'>'.$ret2.'</span>';
 		return $ret1.$ret2;
 	}
 	
@@ -429,7 +429,7 @@ namespace achievement_base
 		eval(import_module('sys','skill'.$achid));
 		$achtitle = ${'ach'.$achid.'_name'}[$c];
 		
-		$pt = '祝贺你在'.($room_prefix ? '房间' : '').'第'.$gamenum.'局获得了成就<span class="yellow">'.$achtitle.'</span>！'.$ext;
+		$pt = '祝贺你在'.($room_prefix ? '房间' : '').'第'.$gamenum.'局获得了成就<span class="yellow b">'.$achtitle.'</span>！'.$ext;
 		if($getqiegao || $getcard) $pt .= '查收本消息即可获取奖励。';
 		if($getcard) $pt .= '如果已有奖励卡片则会转化为切糕。';
 		include_once './include/messages.func.php';
@@ -566,11 +566,11 @@ namespace achievement_base
 		$ach_desc = show_achievement_single_desc($cu, $achid, $ach_threshold[$cu]);
 		
 		if(!$c) {
-			$ach_state_desc = '<span class="red">[未完成]</span>';
+			$ach_state_desc = '<span class="red b">[未完成]</span>';
 		}elseif(!$top_flag) {
-			$ach_state_desc = '<span class="clan">[进行中]</span>';
+			$ach_state_desc = '<span class="cyan b">[进行中]</span>';
 		}else {
-			$ach_state_desc = '<span class="lime">[完成]</span>';
+			$ach_state_desc = '<span class="lime b">[完成]</span>';
 		}
 		$ach_icon = show_achievement_icon($achid, $c, $top_flag);
 		if(!file_exists(GAME_ROOT."/img/ach/{$ach_icon}")) {
@@ -649,10 +649,10 @@ namespace achievement_base
 						}
 						if(substr($ret1,strlen($ret1)-1) === '|') $ret1 = substr($ret1,0,-1);
 						$ret1 = str_replace('|','、',$ret1);
-						$ret .= '<span class="evergreen" title="'.str_replace('"',"'",$ret1).'">卡集(悬浮查看)中随机卡片1张</span>';
+						$ret .= '<span class="evergreen b" title="'.str_replace('"',"'",$ret1).'">卡集(悬浮查看)中随机卡片1张</span>';
 					}elseif($cp){
 						$card = (int)$cp;
-						$ret .= '<span class="evergreen">卡片</span> '.show_prize_single_card($card);
+						$ret .= '<span class="evergreen b">卡片</span> '.show_prize_single_card($card);
 					}
 				}
 			}
@@ -745,7 +745,7 @@ namespace achievement_base
 		}
 		
 		$achtitle = \achievement_base\show_ach_title($achid, 1);
-		$pt = '祝贺你'.($lversion ? '再次' : '').'获得了成就<span class="yellow">'.$achtitle.'</span>！';
+		$pt = '祝贺你'.($lversion ? '再次' : '').'获得了成就<span class="yellow b">'.$achtitle.'</span>！';
 		if($getqiegao || $getcard || $getkarma) $pt .= '查收本消息即可获取奖励。';
 		if($getcard) $pt .= '如果已有奖励卡片则会转化为切糕。';
 		include_once './include/messages.func.php';

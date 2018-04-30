@@ -6,10 +6,10 @@
 	<input type="radio" name="mpid" id="mani$pcid" value="$pcid">
 	<a onclick=sl('mani$pcid'); href="javascript:void(0);" >
 		$typeinfo[$pcd['type']] 
-		<!--{if $pcd['hp'] <= 0}--><span class="red">$pcd['name']</span>
+		<!--{if $pcd['hp'] <= 0}--><span class="red b">$pcd['name']</span>
 		<!--{else}-->$pcd['name']<!--{/if}--> 
 		Lv.{$pcd['lvl']} 
-		<!--{if $pcd['hp'] <= 0}--><span class="red">生命 $pcd['hp'] / $pcd['mhp']</span>
+		<!--{if $pcd['hp'] <= 0}--><span class="red b">生命 $pcd['hp'] / $pcd['mhp']</span>
 		<!--{else}-->生命 $pcd['hp'] / $pcd['mhp']<!--{/if}--> 
 	</a><br>
 <!--{/loop}-->

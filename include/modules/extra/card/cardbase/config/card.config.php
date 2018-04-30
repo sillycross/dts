@@ -39,10 +39,10 @@ $cardindex=array(
 );
 $card_rarecolor=array(
 	'S'=>'gold b ',
-	'A'=>'clan ',
+	'A'=>'cyan b ',
 	'B'=>'brickred b ',
 	'C'=>'white ',
-	'M'=>'grey '
+	'M'=>'grey b '
 );
 $card_rarity_html = array(
 	'S'=>'<span class="'.$card_rarecolor['S'].'">S</span>',
@@ -773,8 +773,8 @@ $cards = array(
 		'title' => '『蓝凝』',
 		'rare' => 'S',
 		'pack' => 'Crimson Swear',
-		'desc' => '<span class="clan">“蓝凝我觉得啊，<br>这个地方没什么好写的。<br>总之我比红暮可强得多了，<br>哈哈哈！”</span>',
-		'effect' => '<span class="clan">“蓝凝觉得你进游戏实际体验一下<br>比较好哦！”</span>',
+		'desc' => '<span class="cyan b">“蓝凝我觉得啊，<br>这个地方没什么好写的。<br>总之我比红暮可强得多了，<br>哈哈哈！”</span>',
+		'effect' => '<span class="cyan b">“蓝凝觉得你进游戏实际体验一下<br>比较好哦！”</span>',
 		'energy' => 90,
 		'valid' => array(
 			'hp' => '260',
@@ -1570,7 +1570,7 @@ $cards = array(
 		'name' => '软件测试工程师',
 		'rare' => 'S',
 		'pack' => 'hidden',
-		'desc' => '“据称阁下乃软件测试界的精英，谨邀请阁下参加幻境除错任务，望阁下予以支持。”<br><span class="red" style="text-align:right">——红暮</span>',
+		'desc' => '“据称阁下乃软件测试界的精英，谨邀请阁下参加幻境除错任务，望阁下予以支持。”<br><span class="red b" style="text-align:right">——红暮</span>',
 		'effect' => '你其实对代码一窍不通，不过你搞野路子的经验很丰富。',
 		'energy' => 0,
 		'valid' => array(
@@ -1942,7 +1942,7 @@ $cards = array(
 		'name' => '常磐之心',
 		'rare' => 'A',
 		'pack' => 'Event Bonus',
-		'desc' => '<span class="yellow">我也是常磐森林出生的训练师！</span>',
+		'desc' => '<span class="yellow b">我也是常磐森林出生的训练师！</span>',
 		'effect' => '开局位于常磐森林。获得技能「通感」',
 		'energy' => 100,
 		'valid' => array(
@@ -2726,7 +2726,7 @@ $cards = array(
 		'title' => '林氏软件董事长',
 		'rare' => 'A',
 		'pack' => 'Balefire Rekindle',
-		'desc' => '<span class="evergreen">“虚拟幻境犹如一道曙光，<br>照亮了这个万物沉沦的黑暗年代。<br>我会守护这道希望之光，<br>直到生命的最后一刻。”</span>',
+		'desc' => '<span class="evergreen b">“虚拟幻境犹如一道曙光，<br>照亮了这个万物沉沦的黑暗年代。<br>我会守护这道希望之光，<br>直到生命的最后一刻。”</span>',
 		'effect' => '你使用移动PC除必定成功之外，还能立刻增加禁区或者打乱未来禁区顺序；其他玩家入侵禁区失败概率上升',
 		'energy' => 90,
 		'valid' => array(

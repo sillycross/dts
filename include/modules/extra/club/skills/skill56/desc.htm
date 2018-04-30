@@ -7,8 +7,8 @@
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
 <!--{eval $skill56_cnt=$skill56_lim-(int)\skillbase\skill_getvalue(56,'t');}-->
-<span class="red">限定技&nbsp;本局还可发动<span>$skill56_cnt</span>/<span>$skill56_lim</span>次</span><br>	
-花费<span class="yellow">$skill56_need</span>元，在当前地点随机召唤一名佣兵；<br>
+<span class="red b">限定技&nbsp;本局还可发动<span>$skill56_cnt</span>/<span>$skill56_lim</span>次</span><br>	
+花费<span class="yellow b">$skill56_need</span>元，在当前地点随机召唤一名佣兵；<br>
 雇佣关系存在时，你的佣兵不会与你进入战斗界面；<br>雇佣佣兵后需每分钟耗费一定数量的金钱以维持雇佣关系；<br>
 <input type="button" onclick="bubblebox_show('skill56_merc')" value="点我查看可能召唤出的佣兵列表">
 
@@ -25,7 +25,7 @@
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
 <!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
-<span class="yellow">
+<span class="yellow b">
 15级时解锁
 </span>
 <!--{/if}-->

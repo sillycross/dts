@@ -92,8 +92,8 @@ namespace skill218
 			if ($var_218>0)
 			{
 				if ($active)
-					$log.="<span class=\"yellow\">「渗透」使你造成的最终伤害提高了{$var_218}%！</span><br>";
-				else  $log.="<span class=\"yellow\">「渗透」使敌人造成的最终伤害提高了{$var_218}%！</span><br>";
+					$log.="<span class=\"yellow b\">「渗透」使你造成的最终伤害提高了{$var_218}%！</span><br>";
+				else  $log.="<span class=\"yellow b\">「渗透」使敌人造成的最终伤害提高了{$var_218}%！</span><br>";
 				$r=Array(1+$var_218/100);
 			}	
 		}

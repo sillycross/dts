@@ -35,7 +35,7 @@ namespace item_uee
 	
 	function get_uee_deathlog () {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return '<span class="evergreen">“就算是我这种代码白痴，一样能使用林无月留下的力量哦？”</span>——<span class="red">红暮</span><br>';
+		return '<span class="evergreen b">“就算是我这种代码白痴，一样能使用林无月留下的力量哦？”</span>——<span class="red b">红暮</span><br>';
 	}
 	
 	function post_hack_events($itmn = 0)
@@ -84,7 +84,7 @@ namespace item_uee
 		}
 
 		if(!$itme) {
-			$log .= "<span class=\"yellow\">$itm</span>已经没电，请寻找<span class=\"yellow\">电池</span>充电。<br>";
+			$log .= "<span class=\"yellow b\">$itm</span>已经没电，请寻找<span class=\"yellow b\">电池</span>充电。<br>";
 			$mode = 'command';
 			return;
 		}
@@ -92,9 +92,9 @@ namespace item_uee
 		$ret = itemuse_uee_core($itmn);
 		if($ret) {
 			$itme--;
-			$log .= "消耗了<span class=\"yellow\">$itm</span>的电力。<br>";
+			$log .= "消耗了<span class=\"yellow b\">$itm</span>的电力。<br>";
 			if($itme <= 0) {
-				$log .= "<span class=\"red\">$itm</span>的电池耗尽了。";
+				$log .= "<span class=\"red b\">$itm</span>的电池耗尽了。";
 			}
 		}
 		
@@ -142,12 +142,12 @@ namespace item_uee
 		eval(import_module('sys','player'));
 		
 		if($news == 'hack') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}成功干扰了幻境的运转，全部禁区暂时解除了！</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">{$a}成功干扰了幻境的运转，全部禁区暂时解除了！</span></li>";
 		
 		if(isset($exarr['dword'])) $e0 = $exarr['dword'];
 			
 		if($news == 'death14') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因<span class=\"red\">干扰幻境系统失败</span>死亡{$e0}</li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">$a</span>因<span class=\"red b\">干扰幻境系统失败</span>死亡{$e0}</li>";
 	
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

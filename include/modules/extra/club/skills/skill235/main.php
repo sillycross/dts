@@ -34,12 +34,12 @@ namespace skill235
 				if ($lv!=1) $skillpoint--;
 				\radar\newradar(2);
 			}else{
-				$log .= '<span class="red">你的技能点不足，不能发动技能！</span><br />';
+				$log .= '<span class="red b">你的技能点不足，不能发动技能！</span><br />';
 				$mode = 'command';
 				return;
 			}
 		}else{
-			$log .= '<span class="red">你没有这个技能！</span><br />';
+			$log .= '<span class="red b">你没有这个技能！</span><br />';
 			$mode = 'command';
 			return;
 		}

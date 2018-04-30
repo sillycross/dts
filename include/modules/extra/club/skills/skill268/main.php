@@ -38,8 +38,8 @@ namespace skill268
 			$rmt = \skillbase\skill_getvalue(268,'rmt',$pd);
 			if($rmt > 0 && $pa['dmg_dealt'] >= $pd['hp'] && $pa['dmg_dealt'] <= $pd['mhp'] / 2){
 				$pa['dmg_dealt'] = $pd['hp'] - 1;
-				$log .= \battle\battlelog_parser($pa,$pd,$active,'<span class="yellow">然而，<:pd_name:>靠着惊人的毅力扛住了致命的伤害！</span><br>');
-				$pa['battlelog'] .= \battle\battlelog_parser($pa,$pd,1-$active,'<span class="yellow">然而，<:pd_name:>靠着惊人的毅力扛住了致命的伤害！</span><br>');
+				$log .= \battle\battlelog_parser($pa,$pd,$active,'<span class="yellow b">然而，<:pd_name:>靠着惊人的毅力扛住了致命的伤害！</span><br>');
+				$pa['battlelog'] .= \battle\battlelog_parser($pa,$pd,1-$active,'<span class="yellow b">然而，<:pd_name:>靠着惊人的毅力扛住了致命的伤害！</span><br>');
 				\skillbase\skill_setvalue(268,'rmt',$rmt-1,$pd);
 				$pd['skill268_flag'] = 1;
 			}
@@ -64,7 +64,7 @@ namespace skill268
 		eval(import_module('sys','player'));
 		
 		if($news == 'skill268_revv') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}凭借技能「不屈」抵御了致命的一击</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">{$a}凭借技能「不屈」抵御了致命的一击</span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

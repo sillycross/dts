@@ -3,7 +3,7 @@
 namespace weather
 {
 	//天气名
-	$wthinfo = Array('晴天','大晴','多云','小雨','暴雨','台风','雷雨','下雪','起雾','浓雾','<span class="yellow">瘴气</span>','<span class="red">龙卷风</span>','<span class="clan">暴风雪</span>','<span class="blue">冰雹</span>','<span class="linen">离子暴</span>','<span class="green">辐射尘</span>','<span class="purple">臭氧洞</span>','<span class="gold">极光</span>');
+	$wthinfo = Array('晴天','大晴','多云','小雨','暴雨','台风','雷雨','下雪','起雾','浓雾','<span class="yellow b">瘴气</span>','<span class="red b">龙卷风</span>','<span class="cyan b">暴风雪</span>','<span class="blue b">冰雹</span>','<span class="linen b">离子暴</span>','<span class="green b">辐射尘</span>','<span class="purple b">臭氧洞</span>','<span class="gold">极光</span>');
 	
 	//天气对物品发现率的影响，加法结合
 	$weather_itemfind_obbs = Array(10,20,0,-2,-3,-10,-7,5,-10,-20,0,-7,-5,-30,-5,-20,0,20);

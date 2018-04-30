@@ -7,9 +7,9 @@
 <img style="float:left; margin-right:10px;" src="img/story_0.gif">
 </td>
 <td width=350px>
-<span class="evergreen" style="font-size:14px">
+<span class="evergreen b" style="font-size:14px">
 『是「时空■■」派你来的吗？请往这边来。<br>
-这些就是第<span class="yellow">$gnum</span>回「计划」的玩家记忆录像。把全息磁盘接入精神界面，就可以「观看」了。<br>
+这些就是第<span class="yellow b">$gnum</span>回「计划」的玩家记忆录像。把全息磁盘接入精神界面，就可以「观看」了。<br>
 除了那些一次操作都没有进行就死掉的人，其他玩家的录像都在这里了。今后也请多多支持我们「通讯社」的工作。』
 </span>
 </td>
@@ -35,7 +35,7 @@
 </tr>
 <!--{loop $lis $key}-->
 <tr>
-<td class="b3" >$key['repname']<!--{if isset($key['is_winner'])}--><span class="red">&nbsp;(优胜者)</span><!--{/if}--></td>
+<td class="b3" >$key['repname']<!--{if isset($key['is_winner'])}--><span class="red b">&nbsp;(优胜者)</span><!--{/if}--></td>
 <td class="b3">$key['repopcnt']</td>
 <td class="b3">
 <input type="button" style="width:80px;" value="观看录像" onclick="window.location.href='replay.php?repid=$room_gprefix$key['link']'">

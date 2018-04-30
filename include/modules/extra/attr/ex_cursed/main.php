@@ -16,7 +16,7 @@ namespace ex_cursed
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(in_array('O',\itemmain\get_itmsk_array($itmsk))){
 			eval(import_module('logger'));
-			$log .= '<span class="red">摆脱这个装备的诅咒是不可能的。</span><br>';
+			$log .= '<span class="red b">摆脱这个装备的诅咒是不可能的。</span><br>';
 			return false;
 		}
 		return $chprocess($itm, $itmk, $itme, $itms, $itmsk);
@@ -27,7 +27,7 @@ namespace ex_cursed
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(in_array('O',\itemmain\get_itmsk_array($itmsk))){
 			eval(import_module('logger'));
-			$log .= '<span class="red">摆脱这个装备的诅咒是不可能的。</span><br>';
+			$log .= '<span class="red b">摆脱这个装备的诅咒是不可能的。</span><br>';
 			return false;
 		}
 		return $chprocess($itm, $itmk, $itme, $itms, $itmsk);
@@ -49,7 +49,7 @@ namespace ex_cursed
 			elseif(strpos ( $itmk, 'DF' ) === 0) $obj = 'arf';
 			elseif(strpos ( $itmk, 'A' ) === 0) $obj = 'art';
 			if(in_array('O',\itemmain\get_itmsk_array(${$obj.'sk'}))){
-				$log .= '<span class="red">摆脱这个装备的诅咒是不可能的。</span><br>';
+				$log .= '<span class="red b">摆脱这个装备的诅咒是不可能的。</span><br>';
 				return;
 			}
 		}

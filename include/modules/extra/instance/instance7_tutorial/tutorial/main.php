@@ -300,11 +300,11 @@ namespace tutorial
 			}
 			$push_flag = NULL;
 			if(in_array($command, Array('team','destroy'))) {//部分行动限制掉
-				$log .= '<span class="red">教程模式不能做出这一指令，请按教程提示操作！<span><br>';
+				$log .= '<span class="red b">教程模式不能做出这一指令，请按教程提示操作！<span><br>';
 				$push_flag = 'PROG';
 				$command = '';$mode = 'command';
 			} elseif($ct['object'] != $command && $ct['object'] !=  'any' && $ct['object'] != 'back' && $ct['object'] != 'itemget'){//一般行动不限死
-				//$log .= '<span class="yellow">请按教程提示操作！</span><br>';
+				//$log .= '<span class="yellow b">请按教程提示操作！</span><br>';
 			}
 			if ((isset($sp_cmd) && $sp_cmd == 'sp_shop' && $ct['object'] == 'sp_shop') || ($command == 'shop4' && $ct['object'] == 'shop4') || ($command == 'itemmain' && isset($itemcmd) && $itemcmd == 'itemmix' && $ct['object'] == 'itemmain' && in_array('itemmix',$ct['obj2']))){//打开商店的初级、次级页面和合成页面则直接推进
 				$push_flag = 'OK';
@@ -627,7 +627,7 @@ namespace tutorial
 			(($active && $pd['type'] && $o_pa_hp > $tutorial_tough_hp && $pa['hp'] < $tutorial_tough_hp)
 			 || (!$active && $pa['type'] && $o_pd_hp > $tutorial_tough_hp && $pd['hp'] < $tutorial_tough_hp))){
 				$pd['hp'] = $tutorial_tough_hp;
-				$log.='<span class="linen">“你也太脆了，真是伤脑筋啊……”</span>不知为何，你忽然觉得受到的伤害没那么严重了。<br>';
+				$log.='<span class="linen b">“你也太脆了，真是伤脑筋啊……”</span>不知为何，你忽然觉得受到的伤害没那么严重了。<br>';
 			}
 		}
 	}

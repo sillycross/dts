@@ -29,7 +29,7 @@ namespace skill363
 		2 => 5,
 	);
 	
-	$ach363_unique_prize_desc = '<font color="olive">首次完成时获得<span class="clan">'.$ach363_karma_prize[1].'因果</span>，之后每次完成获得<span class="clan">'.$ach363_karma_prize[2].'因果</span></font>';
+	$ach363_unique_prize_desc = '<font color="olive">首次完成时获得<span class="cyan b">'.$ach363_karma_prize[1].'因果</span>，之后每次完成获得<span class="cyan b">'.$ach363_karma_prize[2].'因果</span></font>';
 	
 	function init() 
 	{

@@ -1,12 +1,12 @@
 <!--{eval $ika=array_keys($iinfo_all);}-->
 <!--{loop $ika $ii $ikav}-->
-	<a <!--{if $ii==0}-->class="lime"<!--{else}-->class="grey"<!--{/if}--> id="ibtn$ii" 
+	<a <!--{if $ii==0}-->class="lime b"<!--{else}-->class="grey b"<!--{/if}--> id="ibtn$ii" 
 		onclick="
 		<!--{loop $ika $ii2 $ikav2}-->
 			<!--{if $ii==$ii2}-->
-				$('ibtn$ii2').className='lime';$('iinfo$ii2').style.display='block';
+				$('ibtn$ii2').className='lime b';$('iinfo$ii2').style.display='block';
 			<!--{else}-->
-				$('ibtn$ii2').className='grey';$('iinfo$ii2').style.display='none';
+				$('ibtn$ii2').className='grey b';$('iinfo$ii2').style.display='none';
 			<!--{/if}-->
 		<!--{/loop}-->
 	">

@@ -1,7 +1,7 @@
 <div style="position:relative">
 	<div id="loading"></div>
 	<div>
-		<!--{if 'showdel' == $mode && empty($info) }--><div class="grey">系统会定期清空垃圾箱中1个月以上的邮件</div><!--{/if}-->
+		<!--{if 'showdel' == $mode && empty($info) }--><div class="grey b">系统会定期清空垃圾箱中1个月以上的邮件</div><!--{/if}-->
 		<!--{if 'showdel' == $mode || 'recover' == $mode}-->
 			<div style="display:inline-block;width:160px"></div>
 			<input type="button" class="b_button bc_black" value="返回邮箱" onclick="$('mode').value='showmail';postCmd('message_cmd', 'messages.php');this.disabled=true;" />&nbsp;&nbsp;&nbsp;
@@ -26,7 +26,7 @@
 				" />
 				
 			<!--{/if}-->
-			<div style="display:inline-block;width:160px"><span class="yellow" id="rec_confirm" style="display:none">每条{$message_rec_cost}切糕，确认恢复？</span></div>
+			<div style="display:inline-block;width:160px"><span class="yellow b" id="rec_confirm" style="display:none">每条{$message_rec_cost}切糕，确认恢复？</span></div>
 		<!--{else}-->
 			<div style="display:inline-block;width:80px"></div>
 			<input type="button" class="b_button bc_black" value="查看已删邮件" onclick="$('mode').value='showdel';postCmd('message_cmd', 'messages.php');this.disabled=true;" />&nbsp;&nbsp;&nbsp;
@@ -52,13 +52,13 @@
 				" />
 				
 			<!--{/if}-->
-			<div style="display:inline-block;width:80px"><span class="yellow" id="del_confirm" style="display:none">确认删除？</span></div>
+			<div style="display:inline-block;width:80px"><span class="yellow b" id="del_confirm" style="display:none">确认删除？</span></div>
 		<!--{/if}-->
 
 	</div>
 	<div class="scroll-pane" style="max-width:1210px;max-height:640px;overflow:hidden;vertical-align:top">
 		<!--{if empty($messages)}-->
-		<span class="grey">一条信息都没有呢</span>
+		<span class="grey b">一条信息都没有呢</span>
 		<!--{else}-->
 			<!--{eval $i=0;}-->
 			<!--{loop $messages $mi $mv}-->
@@ -79,7 +79,7 @@
 							</div>
 						</div>
 						<hr class="message_hr">
-						<div class="grey message_date">
+						<div class="grey b message_date">
 							<!--{if isset($mv['del_time_disp'])}-->
 								<span>删除时间: $mv['del_time_disp']</span>
 							<!--{else}-->

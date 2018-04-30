@@ -220,7 +220,7 @@ namespace ex_dmg_att
 			$mult_words_exdmg = \attack\equalsign_format($fin_dmg, $mult_words_exdmg, '<:fin_dmg:>');
 			$ex_dmg_log = '共计造成了'.$mult_words_exdmg.'点属性伤害！<br>';
 			
-			$replace_color_single = $replace_color = 'red';
+			$replace_color_single = $replace_color = 'red b';
 			if($fin_dmg != $dmg || $pa['ex_attack_num'] > 1) {
 				$log .= $ex_dmg_log;
 				$replace_color_single = 'b';
@@ -232,8 +232,8 @@ namespace ex_dmg_att
 			$dmg_change = calculate_ex_attack_dmg_change($pa, $pd, $active, $dmg);
 			if($dmg_change != $dmg) {
 				$dmg = $dmg_change;
-				$log .= "总属性伤害：<span class=\"red\">{$dmg}</span>。<br>";
-				$replace_color = 'yellow';
+				$log .= "总属性伤害：<span class=\"red b\">{$dmg}</span>。<br>";
+				$replace_color = 'yellow b';
 				$replace_color_single = 'b';
 			}
 			

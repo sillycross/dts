@@ -57,9 +57,9 @@ namespace skill420
 		addnews ( 0, 'bskill420', $name );
 		$r=rand(0,9);
 		if ($r==9)
-			$log.='<span class="yellow">“咕咕咕！”</span><span class="lime">技能「结晶」发动……成功？</span><br>';
+			$log.='<span class="yellow b">“咕咕咕！”</span><span class="lime b">技能「结晶」发动……成功？</span><br>';
 		else
-			$log.='<span class="lime">技能「结晶」发动成功。</span><br>';
+			$log.='<span class="lime b">技能「结晶」发动成功。</span><br>';
 		
 		$nl=array('红色方块','黄色方块','蓝色方块','绿色方块','金色方块','银色方块','水晶方块','黑色方块','白色方块','黄鸡方块');
 		$itm0=$nl[$r];
@@ -116,7 +116,7 @@ namespace skill420
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill420') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}发动了技能<span class=\"yellow\">「结晶」</span></span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}发动了技能<span class=\"yellow b\">「结晶」</span></span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

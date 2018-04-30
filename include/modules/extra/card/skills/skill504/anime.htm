@@ -12,8 +12,8 @@
 <script>
 disableAllCommands = 1;
 (function() {
-	jQuery('#profile_sp_grid').html('<span><span class="clan">400 / 400</span></span>');
-	jQuery('#profile_hp_grid').html('<span><span class="clan">400 / 400</span></span>');
+	jQuery('#profile_sp_grid').html('<span><span class="cyan b">400 / 400</span></span>');
+	jQuery('#profile_hp_grid').html('<span><span class="cyan b">400 / 400</span></span>');
 	jQuery('#popko1').css('display','block');
 	var popko1top = 280; var cnt = 0;
 	var popko1MoveUpTracer = setInterval(popko1MoveUpFn, 100);
@@ -29,8 +29,8 @@ disableAllCommands = 1;
 		setTimeout(function() {
 			jQuery('#popko1').css('display','none');
 			jQuery('#popko2').css('display','block');
-			jQuery('#profile_sp_grid').html('<span><span class="yellow">300 / 300</span></span>');
-			jQuery('#profile_hp_grid').html('<span><span class="yellow">300 / 300</span></span>');
+			jQuery('#profile_sp_grid').html('<span><span class="yellow b">300 / 300</span></span>');
+			jQuery('#profile_hp_grid').html('<span><span class="yellow b">300 / 300</span></span>');
 			setTimeout(function() {
 				jQuery('#popko2').css('display','none');
 				jQuery('#popko1').css('display','block');
@@ -39,8 +39,8 @@ disableAllCommands = 1;
 					jQuery('#popko1').css('display','none');
 					jQuery('#popko2').css('display','block');
 					jQuery('#popko_okotta').css('display','none');
-					jQuery('#profile_sp_grid').html('<span><span class="red">200 / 200</span></span>');
-					jQuery('#profile_hp_grid').html('<span><span class="red">200 / 200</span></span>');
+					jQuery('#profile_sp_grid').html('<span><span class="red b">200 / 200</span></span>');
+					jQuery('#profile_hp_grid').html('<span><span class="red b">200 / 200</span></span>');
 					setTimeout(function() {
 						jQuery('#popko2').css('display','none');
 						jQuery('#popko1').css('display','block');
@@ -49,8 +49,8 @@ disableAllCommands = 1;
 							jQuery('#popko1').css('display','none');
 							jQuery('#popko2').css('display','block');
 							jQuery('#popko_okotta').css('display','none');
-							jQuery('#profile_sp_grid').html('<span><span class="red">100 / 100</span></span>');
-							jQuery('#profile_hp_grid').html('<span><span class="red">100 / 100</span></span>');
+							jQuery('#profile_sp_grid').html('<span><span class="red b">100 / 100</span></span>');
+							jQuery('#profile_hp_grid').html('<span><span class="red b">100 / 100</span></span>');
 							setTimeout(function() {
 								jQuery('#popko2').css('display','none');
 								jQuery('#popko1').css('display','block');

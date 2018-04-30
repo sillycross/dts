@@ -48,13 +48,13 @@ namespace skill234
 			}
 			if($position){
 				$itm = ${'itm'.$position};
-				$log .= "<span class=\"yellow\">破解成功。</span><br />";
-				$log .= "<span class=\"red\">$itm</span>用光了。<br />";
+				$log .= "<span class=\"yellow b\">破解成功。</span><br />";
+				$log .= "<span class=\"red b\">$itm</span>用光了。<br />";
 				addnews ( 0, 'skill234', $name, $clv+1);
 				${'itm'.$position} = ${'itmk'.$position} = ${'itmsk'.$position} = '';
 				${'itme'.$position} =${'itms'.$position} =0;
 				if ($clv==50){
-					$log .="<span class=\"evergreen\">游戏系统已经完全破解。</span><br />";
+					$log .="<span class=\"evergreen b\">游戏系统已经完全破解。</span><br />";
 					${'itm'.$position} = '游戏解除钥匙';
 					${'itmk'.$position} = 'Y';
 					${'itmsk'.$position} = 'Z';
@@ -66,12 +66,12 @@ namespace skill234
 						$get_card_id=63;
 						$ext = '您在'.($room_prefix ? '房间' : '').'第'.$gamenum.'局完成了破解流程，获得了奖励卡！';
 						\cardbase\get_card_message($get_card_id,$ext);
-						$log.='<span class="yellow">您获得了活动奖励卡，请前往“站内邮件”查收。</span><br>';
+						$log.='<span class="yellow b">您获得了活动奖励卡，请前往“站内邮件”查收。</span><br>';
 //						$null = NULL;
 //						if (\cardbase\get_card(63,$null,1)==1){
 //							$log.="恭喜您获得了活动奖励卡<span class=\"orange\">lemon</span>！<br>";
 //						}else{
-//							$log.="您已经拥有活动奖励卡了，系统奖励您<span class=\"yellow\">500</span>切糕！<br>";
+//							$log.="您已经拥有活动奖励卡了，系统奖励您<span class=\"yellow b\">500</span>切糕！<br>";
 //							\cardbase\get_qiegao(500);
 //						}
 					}
@@ -83,52 +83,52 @@ namespace skill234
 				if ($clv<5){
 					if ($gdice==1){
 						$exp+=10;
-						$log .="<span class=\"yellow\">获得了10点经验值。</span><br />";
+						$log .="<span class=\"yellow b\">获得了10点经验值。</span><br />";
 					}
 					if ($gdice==2){
 						$att+=10;
-						$log .="<span class=\"yellow\">获得了10点基础攻击。</span><br />";
+						$log .="<span class=\"yellow b\">获得了10点基础攻击。</span><br />";
 					}
 					if ($gdice==3){ 
 						$def+=10;
-						$log .="<span class=\"yellow\">获得了10点基础防御。</span><br />";
+						$log .="<span class=\"yellow b\">获得了10点基础防御。</span><br />";
 					}if ($gdice==4){
 						$wp+=10;$wk+=10;$wc+=10;$wd+=10;$wg+=10;$wf+=10;
-						$log .="<span class=\"yellow\">获得了10点全熟练。</span><br />";
+						$log .="<span class=\"yellow b\">获得了10点全熟练。</span><br />";
 					}					
 				}else if ($clv<20){
 					if ($gdice==1){
 						$money+=200;
-						$log .="<span class=\"yellow\">获得了180元。</span><br />";
+						$log .="<span class=\"yellow b\">获得了180元。</span><br />";
 					}
 					if ($gdice==2){
 						$mhp+=7;
-						$log .="<span class=\"yellow\">生命上限提高了7点。</span><br />";
+						$log .="<span class=\"yellow b\">生命上限提高了7点。</span><br />";
 					}
 					if ($gdice==3){
 						$att+=10;$def+=10;
-						$log .="<span class=\"yellow\">基础攻防提高了10点。</span><br />";
+						$log .="<span class=\"yellow b\">基础攻防提高了10点。</span><br />";
 					}
 					if ($gdice==4){
 						$wp+=10;$wk+=10;$wc+=10;$wd+=10;$wg+=10;$wf+=10;
-						$log .="<span class=\"yellow\">获得了10点全熟练。</span><br />";
+						$log .="<span class=\"yellow b\">获得了10点全熟练。</span><br />";
 					}		
 				}else{
 					if ($gdice==1){
 						$money+=320;
-						$log .="<span class=\"yellow\">获得了320元。</span><br />";
+						$log .="<span class=\"yellow b\">获得了320元。</span><br />";
 					}
 					if ($gdice==2){
 						$mhp+=12;
-						$log .="<span class=\"yellow\">生命上限提高了12点。</span><br />";
+						$log .="<span class=\"yellow b\">生命上限提高了12点。</span><br />";
 					}
 					if ($gdice==3){
 						$att+=15;$def+=15;
-						$log .="<span class=\"yellow\">基础攻防提高了15点。</span><br />";
+						$log .="<span class=\"yellow b\">基础攻防提高了15点。</span><br />";
 					}
 					if ($gdice==4){
 						$wp+=13;$wk+=13;$wc+=13;$wd+=13;$wg+=13;$wf+=13;
-						$log .="<span class=\"yellow\">获得了13点全熟练。</span><br />";
+						$log .="<span class=\"yellow b\">获得了13点全熟练。</span><br />";
 					}		
 				}
 				$clv++;
@@ -137,12 +137,12 @@ namespace skill234
 				if ($clv<5) $t=9;
 				$nx=rand(0,$t);
 				$ed=$goal234[$nx];
-				$log .="下次破解需要物品<span class=\"yellow\">{$ed}</span>或";
+				$log .="下次破解需要物品<span class=\"yellow b\">{$ed}</span>或";
 				\skillbase\skill_setvalue(234,'cur1',$nx);	
 				$nx1=rand(0,$t);
 				while ($nx1==$nx) $nx1=rand(0,$t);
 				$ed=$goal234[$nx1];
-				$log .="<span class=\"yellow\">{$ed}</span>。<br />";
+				$log .="<span class=\"yellow b\">{$ed}</span>。<br />";
 				\skillbase\skill_setvalue(234,'cur2',$nx1);				
 				\skillbase\skill_setvalue(234,'lvl',$clv);
 				$mode = 'command';
@@ -153,7 +153,7 @@ namespace skill234
 				return;
 			}
 		}else{
-			$log .= '<span class="red">你没有这个技能！</span><br />';
+			$log .= '<span class="red b">你没有这个技能！</span><br />';
 			$mode = 'command';
 			return;
 		}
@@ -182,9 +182,9 @@ namespace skill234
 		
 		if($news == 'skill234') 
 			if ($b==51)
-				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"evergreen\">{$a}完成了对幻境系统的破解</span></li>";
+				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"evergreen b\">{$a}完成了对幻境系统的破解</span></li>";
 			else
-				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}完成了第{$b}次<span class=\"yellow\">「破解」</span>尝试</span></li>";
+				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}完成了第{$b}次<span class=\"yellow b\">「破解」</span>尝试</span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

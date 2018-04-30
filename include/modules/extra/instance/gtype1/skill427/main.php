@@ -88,14 +88,14 @@ namespace skill427
 		if(!empty($pd['skill427_flag'])){
 			if ($pd['o_state']==27)	//陷阱
 			{
-				$log.= '<br>后台监工的声音响起：<span class="evergreen">“不准死，你还没有找完BUG呢。”</span><br><span class="lime">你原地满血复活了！</span><br>';
+				$log.= '<br>后台监工的声音响起：<span class="evergreen b">“不准死，你还没有找完BUG呢。”</span><br><span class="lime b">你原地满血复活了！</span><br>';
 				if(!$pd['sourceless']){
-					$w_log = '<span class="lime">'.$pd['name'].'原地满血复活了！</span><br>';
+					$w_log = '<span class="lime b">'.$pd['name'].'原地满血复活了！</span><br>';
 					\logger\logsave ( $pa['pid'], $now, $w_log ,'b');
 				}
 			}
 		}elseif(!empty($pd['skill427ignore'])){
-			$log.= "后台监工的声音响起：<span class=\"linen\">“人作死，就会死……快去死吧。”</span><br>";
+			$log.= "后台监工的声音响起：<span class=\"linen b\">“人作死，就会死……快去死吧。”</span><br>";
 		}
 		return $ret;
 	}
@@ -111,13 +111,13 @@ namespace skill427
 		{
 			if ($active)
 			{
-				$log.='<span class="lime">敌人原地满血复活了！</span><br>';
-				$pd['battlelog'].='后台监工的声音响起：<span class="evergreen">“不准死，你还没有找完BUG呢。”</span><span class="lime">你原地满血复活了！</span><br>';
+				$log.='<span class="lime b">敌人原地满血复活了！</span><br>';
+				$pd['battlelog'].='后台监工的声音响起：<span class="evergreen b">“不准死，你还没有找完BUG呢。”</span><span class="lime b">你原地满血复活了！</span><br>';
 			}
 			else
 			{
-				$log.='后台监工的声音响起：<span class="evergreen">“不准死，你还没有找完BUG呢。”</span><span class="lime">你原地满血复活了！</span><br>';
-				$pd['battlelog'].='<span class="lime">敌人原地满血复活了！</span><br>';
+				$log.='后台监工的声音响起：<span class="evergreen b">“不准死，你还没有找完BUG呢。”</span><span class="lime b">你原地满血复活了！</span><br>';
+				$pd['battlelog'].='<span class="lime b">敌人原地满血复活了！</span><br>';
 			}
 		}
 	}
@@ -128,7 +128,7 @@ namespace skill427
 		eval(import_module('sys','player'));
 		
 		if($news == 'revival427') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}还没有完成需求，不得不原地满血复活！</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime b\">{$a}还没有完成需求，不得不原地满血复活！</span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

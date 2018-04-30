@@ -61,7 +61,7 @@ namespace skill503
 		$ret = $chprocess();
 		eval(import_module('sys'));
 		if(!empty($gamevars['skill503_pnlist'])) {
-			$ret = '<span class="evergreen">“也许咱应该断定你上网成瘾？”</span><br>';
+			$ret = '<span class="evergreen b">“也许咱应该断定你上网成瘾？”</span><br>';
 		}
 		return $ret;
 	}
@@ -116,33 +116,33 @@ namespace skill503
 			}elseif(2==$ueecmd){//增加禁区
 				$interval = \map\get_area_interval()/2;
 				if($hack2_r<=0){
-					$log .= '<span class="red">你本局游戏中已经不能再提前禁区了！</span><br>';
+					$log .= '<span class="red b">你本局游戏中已经不能再提前禁区了！</span><br>';
 					return;
 				}elseif($areatime < $now + 60){
-					$log .= '<span class="red">下一次禁区时间已经很近了，无法干扰！</span><br>';
+					$log .= '<span class="red b">下一次禁区时间已经很近了，无法干扰！</span><br>';
 					return;
 				}elseif($now < $areatime - $interval*60){
-					$log .= '<span class="red">距离下次禁区时间还有'.$interval.'分钟以上，无法干扰！</span><br>';
+					$log .= '<span class="red b">距离下次禁区时间还有'.$interval.'分钟以上，无法干扰！</span><br>';
 					return;
 				}elseif($gamestate >= 40){
-					$log .= '<span class="red">连斗后不能再篡改禁区了！</span><br>';
+					$log .= '<span class="red b">连斗后不能再篡改禁区了！</span><br>';
 					return;
 				}
 				$areatime = $now + 60;
 				save_gameinfo();
-				$log .= '<span class="yellow">干扰成功，下一次禁区将在60秒后到来！</span><br>';
+				$log .= '<span class="yellow b">干扰成功，下一次禁区将在60秒后到来！</span><br>';
 				\skillbase\skill_setvalue(503,'hack2_r',$hack2_r - 1);
 				\sys\systemputchat($now,'hack2');
 				addnews($now,'hack2',$name);
 			}elseif(3==$ueecmd){//打乱之后的禁区
 				if($hack3_r<=0){
-					$log .= '<span class="red">你本局游戏中已经不能再打乱禁区了！</span><br>';
+					$log .= '<span class="red b">你本局游戏中已经不能再打乱禁区了！</span><br>';
 					return;
 				}elseif($areatime < $now + 60){
-					$log .= '<span class="red">下一次禁区时间已经很近了，无法干扰！</span><br>';
+					$log .= '<span class="red b">下一次禁区时间已经很近了，无法干扰！</span><br>';
 					return;
 				}elseif($gamestate >= 40){
-					$log .= '<span class="red">连斗后不能再篡改禁区了！</span><br>';
+					$log .= '<span class="red b">连斗后不能再篡改禁区了！</span><br>';
 					return;
 				}
 				
@@ -151,8 +151,8 @@ namespace skill503
 //				shuffle($n_arealist);
 //				$arealist = array_merge(array_slice($arealist,0,1 + $tmp_areanum), $n_arealist);
 //				
-//				if($hack) $log .= '<span class="yellow">干扰成功，你打乱了未来的禁区顺序！</span><br>';
-//				else $log .= '<span class="yellow">干扰成功，你打乱了全部禁区的顺序！</span><br>';
+//				if($hack) $log .= '<span class="yellow b">干扰成功，你打乱了未来的禁区顺序！</span><br>';
+//				else $log .= '<span class="yellow b">干扰成功，你打乱了全部禁区的顺序！</span><br>';
 				
 //				eval(import_module('map'));
 //				$log .= '新禁区顺序列表如下：';
@@ -164,7 +164,7 @@ namespace skill503
 				shuffle($n_arealist);
 				$arealist = array_merge(array_slice($arealist,0,1 + $areanum), $n_arealist);
 				
-				$log .= '<span class="yellow">干扰成功，你打乱了未来的禁区顺序！</span><br>';
+				$log .= '<span class="yellow b">干扰成功，你打乱了未来的禁区顺序！</span><br>';
 				\skillbase\skill_setvalue(503,'hack3_r',$hack3_r - 1);
 				\sys\systemputchat($now,'hack3');
 				save_gameinfo();
@@ -180,9 +180,9 @@ namespace skill503
 		eval(import_module('sys','player'));
 		
 		if($news == 'hack2') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}成功干扰了幻境的运转，下一次禁区将在60秒后到来！</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">{$a}成功干扰了幻境的运转，下一次禁区将在60秒后到来！</span></li>";
 		elseif($news == 'hack3') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}成功干扰了幻境的运转，打乱了未来的禁区顺序！</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">{$a}成功干扰了幻境的运转，打乱了未来的禁区顺序！</span></li>";
 	
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

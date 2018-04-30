@@ -34,8 +34,8 @@ namespace skill463
 			eval(import_module('logger'));
 			$r=Array(0.83);
 			if ($active)
-				$log.='<span class="yellow">敌人的藤甲降低了其受到的物理伤害！</span><br>';
-			else  $log.='<span class="yellow">藤甲降低了你受到的物理伤害！</span><br>';
+				$log.='<span class="yellow b">敌人的藤甲降低了其受到的物理伤害！</span><br>';
+			else  $log.='<span class="yellow b">藤甲降低了你受到的物理伤害！</span><br>';
 		}
 		return array_merge($r,$chprocess($pa, $pd, $active));
 	}
@@ -46,8 +46,8 @@ namespace skill463
 		if (!\skillbase\skill_query(463,$pd) || ($key!='f' && $key!='u')) return $chprocess($pa, $pd, $active, $key);
 		eval(import_module('logger'));
 		if ($active)
-			$log.='<span class="yellow">敌人的藤甲烧起来了！烫烫烫烫烫烫烫！</span><br>';
-		else  $log.='<span class="yellow">你的藤甲烧起来了！烫烫烫烫烫烫烫！</span><br>';
+			$log.='<span class="yellow b">敌人的藤甲烧起来了！烫烫烫烫烫烫烫！</span><br>';
+		else  $log.='<span class="yellow b">你的藤甲烧起来了！烫烫烫烫烫烫烫！</span><br>';
 		return $chprocess($pa, $pd, $active, $key)*2.5;
 	}	
 }

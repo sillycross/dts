@@ -56,8 +56,8 @@ namespace skill71
 			{
 				eval(import_module('logger'));
 				if ($active)
-					$log.="<span class=\"lime\">你对{$pd['name']}发动了技能「解构」！</span><br>";
-				else  $log.="<span class=\"lime\">{$pa['name']}对你发动了技能「解构」！</span><br>";
+					$log.="<span class=\"lime b\">你对{$pd['name']}发动了技能「解构」！</span><br>";
+				else  $log.="<span class=\"lime b\">{$pa['name']}对你发动了技能「解构」！</span><br>";
 				$pa['rage']-=$rcost;
 				addnews ( 0, 'bskill71', $pa['name'], $pd['name'] );
 			}
@@ -82,8 +82,8 @@ namespace skill71
 		{
 			eval(import_module('logger'));
 			if ($active)
-				$log.='<span class="yellow">「解构」使你造成的物理伤害提高了20%！</span><br>';
-			else  $log.='<span class="yellow">「解构」使敌人造成的物理伤害提高了20%！</span><br>';
+				$log.='<span class="yellow b">「解构」使你造成的物理伤害提高了20%！</span><br>';
+			else  $log.='<span class="yellow b">「解构」使敌人造成的物理伤害提高了20%！</span><br>';
 			$r=Array(1.2);
 		}
 		return array_merge($r,$chprocess($pa,$pd,$active));
@@ -108,8 +108,8 @@ namespace skill71
 		{
 			eval(import_module('logger'));			
 			if ($active)
-				$log.='<span class="yellow">「解构」使你获得了额外'.$expgain.'点经验！</span><br>';
-			else  $log.='<span class="yellow">「解构」使敌人获得了额外'.$expgain.'点经验！</span><br>';
+				$log.='<span class="yellow b">「解构」使你获得了额外'.$expgain.'点经验！</span><br>';
+			else  $log.='<span class="yellow b">「解构」使敌人获得了额外'.$expgain.'点经验！</span><br>';
 			\lvlctl\getexp($expgain,$pa);
 		}
 	}
@@ -121,7 +121,7 @@ namespace skill71
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill71') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}对{$b}发动了技能<span class=\"yellow\">「解构」</span></span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}对{$b}发动了技能<span class=\"yellow b\">「解构」</span></span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

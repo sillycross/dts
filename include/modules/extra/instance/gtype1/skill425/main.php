@@ -67,11 +67,11 @@ namespace skill425
 		}
 		if ($st==2){
 			$money-=$skill425_cost;
-			$log.='<span class="lime">消耗了'.$skill425_cost.'元，</span>';
+			$log.='<span class="lime b">消耗了'.$skill425_cost.'元，</span>';
 			$bt=\skillbase\skill_getvalue(425,'bribe_times',$sdata);
 			\skillbase\skill_setvalue(425,'bribe_times',$bt+1,$sdata);
 		}
-		$log.='<span class="lime">技能「重载」发动成功。</span><br>';
+		$log.='<span class="lime b">技能「重载」发动成功。</span><br>';
 		\skillbase\skill_setvalue(425,'lastuse',$now);
 		\skill424\wdebug_reset();
 		$log .='下次除错需要物品'.\skill424\wdebug_showreq();

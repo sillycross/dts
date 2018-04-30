@@ -39,14 +39,14 @@ namespace skill401
 		if ($l401>0){
 			if ($active){
 				if ($l401==5)
-					$log.="<span class=\"yellow\">{$pd['name']}的护甲使其几乎刀枪不入！</span><br>";
+					$log.="<span class=\"yellow b\">{$pd['name']}的护甲使其几乎刀枪不入！</span><br>";
 				else  
-					$log.="<span class=\"yellow\">{$pd['name']}坚硬的护甲减少了你造成的物理伤害！</span><br>";
+					$log.="<span class=\"yellow b\">{$pd['name']}坚硬的护甲减少了你造成的物理伤害！</span><br>";
 			}else{
 				if ($l401==5)
-					$log.="<span class=\"yellow\">你的护甲使你几乎刀枪不入！</span><br>";
+					$log.="<span class=\"yellow b\">你的护甲使你几乎刀枪不入！</span><br>";
 				else  
-					$log.="<span class=\"yellow\">你坚硬的护甲减少了{$pa['name']}造成的物理伤害！</span><br>";
+					$log.="<span class=\"yellow b\">你坚硬的护甲减少了{$pa['name']}造成的物理伤害！</span><br>";
 			}
 			$dmggain = (100-$dmgreduce[$l401])/100;
 			return Array($dmggain);

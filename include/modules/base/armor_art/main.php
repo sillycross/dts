@@ -31,7 +31,7 @@ namespace armor_art
 				${$eqp.'e'} = $itme;
 				${$eqp.'s'} = $itms;
 				${$eqp.'sk'} = $itmsk;
-				$log .= "装备了<span class=\"yellow\">$itm</span>。<br>";
+				$log .= "装备了<span class=\"yellow b\">$itm</span>。<br>";
 				$itm = $itmk = $itmsk = '';
 				$itme = $itms = 0;
 			} else {
@@ -40,7 +40,7 @@ namespace armor_art
 				swap(${$eqp.'e'},$itme);
 				swap(${$eqp.'s'},$itms);
 				swap(${$eqp.'sk'},$itmsk);
-				$log .= "卸下了<span class=\"red\">$itm</span>，装备了<span class=\"yellow\">${$eqp}</span>。<br>";
+				$log .= "卸下了<span class=\"red b\">$itm</span>，装备了<span class=\"yellow b\">${$eqp}</span>。<br>";
 			}
 			return;
 		}

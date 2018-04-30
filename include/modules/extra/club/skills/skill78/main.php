@@ -50,7 +50,7 @@ namespace skill78
 		}
 		$dice = $skillpara1 * 5;
 		${$skillpara2} += $dice;
-		$log.='消耗了<span class="lime">'.$skillpara1.'</span>点技能点，你的'.$skilltypeinfo[$skillpara2].'系熟练度提升了<span class="yellow">'.$dice.'</span>点。<br>';
+		$log.='消耗了<span class="lime b">'.$skillpara1.'</span>点技能点，你的'.$skilltypeinfo[$skillpara2].'系熟练度提升了<span class="yellow b">'.$dice.'</span>点。<br>';
 		$skillpoint-=$skillpara1;
 	}
 	

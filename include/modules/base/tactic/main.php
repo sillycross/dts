@@ -95,7 +95,7 @@ namespace tactic
 		$ntactic=(int)$ntactic;
 		if ($tactic_player_usable[$ntactic])
 		{
-			$log .= "应战策略变为<span class=\"yellow\">{$tacinfo[$ntactic]}</span>。<br> ";
+			$log .= "应战策略变为<span class=\"yellow b\">{$tacinfo[$ntactic]}</span>。<br> ";
 			$tactic = $ntactic;
 		} 
 		else  $log .= "这是什么奇怪的应战策略啦！<br> ";
@@ -128,7 +128,7 @@ namespace tactic
 		eval(import_module('sys','map'));
 		if(!$sub['type']){
 			$subplsinfo = $plsinfo[$sub['pls']];
-			$w_log = "<span class=\"yellow\">为了躲避禁区，你及时移动到了{$subplsinfo}</span><br>";
+			$w_log = "<span class=\"yellow b\">为了躲避禁区，你及时移动到了{$subplsinfo}</span><br>";
 			\logger\logsave ( $sub['pid'],$now, $w_log ,'s');
 		}
 		$chprocess($sub, $atime);

@@ -214,7 +214,7 @@ namespace searchmemory
 		//$mn = (int)substr($schmode,6) - 1;
 		if ($coldtimeon && $rmcdtime > 0)
 		{
-			$log .= '<span class="yellow">冷却时间尚未结束！</span><br>';
+			$log .= '<span class="yellow b">冷却时间尚未结束！</span><br>';
 			$mode = 'command';
 			return;
 		}
@@ -224,7 +224,7 @@ namespace searchmemory
 			remove_memory($mn,0);
 			$mpls = $mem['pls'];
 			if($pls != $mpls){
-				$log .= '<span class="yellow">你和寻找对象不在同一地点。</span><br>';
+				$log .= '<span class="yellow b">你和寻找对象不在同一地点。</span><br>';
 				$mode = 'command';
 				return;
 			}elseif(isset($mem['itm'])){
@@ -232,11 +232,11 @@ namespace searchmemory
 				$result = $db->query("SELECT * FROM {$tablepre}mapitem WHERE iid = '$mid' AND pls = '$mpls'");
 				$itemnum = $db->num_rows($result);
 				if($itemnum <= 0){
-					$log .= '<span class="yellow">道具已经不在原先的位置了，可能是被谁捡走了吧。</span><br>';
+					$log .= '<span class="yellow b">道具已经不在原先的位置了，可能是被谁捡走了吧。</span><br>';
 					$mode = 'command';
 					return;
 				}else{
-					$log .= '<span class="lime">'.$mem['itm'].'还在原来的位置，你轻松拿到了它。</span><br>';
+					$log .= '<span class="lime b">'.$mem['itm'].'还在原来的位置，你轻松拿到了它。</span><br>';
 					if($coldtimeon) $cmdcdtime=\cooldown\get_search_coldtime();
 					$marr=$db->fetch_array($result);
 					focus_item($marr);
@@ -248,22 +248,22 @@ namespace searchmemory
 				$result = $db->query("SELECT * FROM {$tablepre}players WHERE pid = '$mid' AND pls = '$mpls'");
 				$pnum = $db->num_rows($result);
 				if($pnum <= 0){
-					$log .= '<span class="yellow">角色已经不在原来的位置了，可能是已经离开了吧。</span><br>';
+					$log .= '<span class="yellow b">角色已经不在原来的位置了，可能是已经离开了吧。</span><br>';
 					$mode = 'command';
 					return;
 				}else{
 					$marr=$db->fetch_array($result);
 					if($marr['hp']<=0 && $mem['smtype'] != 'corpse') {
-						$log .= '<span class="red">角色已经不在原来的位置了，地上只有一摊血迹……</span><br>';
+						$log .= '<span class="red b">角色已经不在原来的位置了，地上只有一摊血迹……</span><br>';
 						$mode = 'command';
 						return;
 					}elseif($marr['hp']<=0 && !\metman\discover_player_filter_corpse($marr)){
-						$log .= '<span class="red">尸体好像已经被毁尸灭迹了。</span><br>';
+						$log .= '<span class="red b">尸体好像已经被毁尸灭迹了。</span><br>';
 						$mode = 'command';
 						return;
 					}
-					if($fog && $mem['smtype'] != 'corpse') $log .= '<span class="lime">人影还在原来的位置。</span><br>';
-					else $log .= '<span class="lime">'.$mem['Pname'].'还在原来的位置。</span><br>';
+					if($fog && $mem['smtype'] != 'corpse') $log .= '<span class="lime b">人影还在原来的位置。</span><br>';
+					else $log .= '<span class="lime b">'.$mem['Pname'].'还在原来的位置。</span><br>';
 					$sdata['sm_active_debuff'] = 1;//临时这么写写
 					\metman\meetman($mid);
 					unset($sdata['sm_active_debuff']);
@@ -285,7 +285,7 @@ namespace searchmemory
 		eval(import_module('player','logger','searchmemory'));
 		$ret = $chprocess($ldata,$edata);
 		if(isset($sdata['sm_active_debuff']) && $sdata['sm_active_debuff']) {
-			//$log .= '<span class="red">两次打扰同一玩家使你的先制率降低了。</span><br>';
+			//$log .= '<span class="red b">两次打扰同一玩家使你的先制率降低了。</span><br>';
 			$ret += $searchmemory_battle_active_debuff;
 		}
 		return $ret;

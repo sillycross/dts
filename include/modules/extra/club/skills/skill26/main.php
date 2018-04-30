@@ -145,7 +145,7 @@ namespace skill26
 		
 		eval(import_module('logger','itemmain'));
 		$attack_type =  get_skill26_type($pa, $pd, $active);//2级时是灼焰
-		$log .= '在技能的作用下，伤害全部转化为了<span class="red">'.$itemspkinfo[$attack_type].'</span>伤害！<br>';
+		$log .= '在技能的作用下，伤害全部转化为了<span class="red b">'.$itemspkinfo[$attack_type].'</span>伤害！<br>';
 		
 		//连击和灵系体力是唯一需要考虑的特殊“物理伤害加成”
 		//（因为这不是加成，只是被做到加成里去了……）
@@ -162,7 +162,7 @@ namespace skill26
 		
 		if ($flag)
 		{
-			//$log .= "<span class=\"red\">属性攻击的力量完全被防具吸收了！</span>只造成了<span class=\"red\">".$pa['ex_dmg_dealt']."</span>点伤害！<br>";
+			//$log .= "<span class=\"red b\">属性攻击的力量完全被防具吸收了！</span>只造成了<span class=\"red b\">".$pa['ex_dmg_dealt']."</span>点伤害！<br>";
 			$pa['physical_dmg_dealt'] += $pa['ex_dmg_dealt'];
 			$pa['dmg_dealt'] += $pa['ex_dmg_dealt'];
 			//$pa['mult_words_fdmgbs'] = \attack\add_format($pa['ex_dmg_dealt'], $pa['mult_words_fdmgbs']);
@@ -177,11 +177,11 @@ namespace skill26
 		$dmg = \ex_dmg_att\calculate_ex_single_dmg($pa, $pd, $active, $attack_type, $dmg);
 		
 		if($dmg == $odmg) {
-			$mult_words_phydmg = str_replace('<:phy_dmg:>','red',$mult_words_phydmg);
+			$mult_words_phydmg = str_replace('<:phy_dmg:>','red b',$mult_words_phydmg);
 			$log.='武器攻击造成了'.$mult_words_phydmg.'点'.$itemspkinfo[$attack_type]."伤害！<br>";
 		}else {
-			$mult_words_phydmg = str_replace('<:phy_dmg:>','yellow',$mult_words_phydmg);
-			$log.='武器攻击造成了'.$mult_words_phydmg.'点基础伤害，并转化为了<span class="red">'.$dmg.'</span>点'.$itemspkinfo[$attack_type].'伤害！<br>';
+			$mult_words_phydmg = str_replace('<:phy_dmg:>','yellow b',$mult_words_phydmg);
+			$log.='武器攻击造成了'.$mult_words_phydmg.'点基础伤害，并转化为了<span class="red b">'.$dmg.'</span>点'.$itemspkinfo[$attack_type].'伤害！<br>';
 		}
 		
 		$pa['physical_dmg_dealt'] += $dmg;
@@ -207,8 +207,8 @@ namespace skill26
 			{
 				eval(import_module('logger'));
 				if ($active)
-					$log.="<span class=\"lime\">你对{$pd['name']}发动了技能「聚能」！</span><br>";
-				else  $log.="<span class=\"lime\">{$pa['name']}对你发动了技能「聚能」！</span><br>";
+					$log.="<span class=\"lime b\">你对{$pd['name']}发动了技能「聚能」！</span><br>";
+				else  $log.="<span class=\"lime b\">{$pa['name']}对你发动了技能「聚能」！</span><br>";
 				$pa['rage']-=$rcost;
 				$pa['skill26_flag1']=1;//是否正常进行属抹判定，1为是，2为否（沿用已经进行过的判定）
 				$pa['skill26_flag2']=1;//物理阶段是否完成（攻击属性判定是否只返回火焰），1为是，2为否
@@ -278,7 +278,7 @@ namespace skill26
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill26') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}对{$b}发动了技能<span class=\"yellow\">「聚能」</span></span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}对{$b}发动了技能<span class=\"yellow b\">「聚能」</span></span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

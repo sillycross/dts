@@ -31,14 +31,14 @@ namespace ex_dmg_nullify
 			$dice = rand(0,99);
 			if ($dice<$proc_rate)
 			{
-				$log .= "<span class=\"yellow\">属性攻击的力量完全被防具吸收了！</span>只造成了<span class=\"red\">{$exnum}</span>点伤害！<br>";
+				$log .= "<span class=\"yellow b\">属性攻击的力量完全被防具吸收了！</span>只造成了<span class=\"red b\">{$exnum}</span>点伤害！<br>";
 				$pa['ex_dmg_dealt'] = $exnum;
 				$pd['exdmg_nullify_success'] = 1;
 				return 1;
 			}
 			else
 			{
-				$log .= '<span class="red">防具免疫属性攻击的效果竟然失效了！</span><br>';
+				$log .= '<span class="red b">防具免疫属性攻击的效果竟然失效了！</span><br>';
 				return 0;
 			}
 		}

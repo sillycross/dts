@@ -62,16 +62,16 @@ namespace item_misc
 				$deld = $mi['itm'];
 				$delp = $mi['tid'];
 				$db->query("DELETE FROM {$tablepre}maptrap WHERE tid='$delp'");
-				if($itm=='☆混沌人肉探雷车★') $log.="远方传来一阵爆炸声，伟大的<span class=\"yellow\">{$itm}</span>用生命和鲜血扫除了<span class=\"yellow\">{$deld}</span>。<br><span class=\"red\">实在是大快人心啊！</span><br>";
-				else $log.="远方传来一阵爆炸声，<span class=\"yellow\">{$itm}</span>扫除了<span class=\"yellow\">{$deld}</span>。<br>";
+				if($itm=='☆混沌人肉探雷车★') $log.="远方传来一阵爆炸声，伟大的<span class=\"yellow b\">{$itm}</span>用生命和鲜血扫除了<span class=\"yellow b\">{$deld}</span>。<br><span class=\"red b\">实在是大快人心啊！</span><br>";
+				else $log.="远方传来一阵爆炸声，<span class=\"yellow b\">{$itm}</span>扫除了<span class=\"yellow b\">{$deld}</span>。<br>";
 			}else{
-				$log.="你使用了<span class=\"yellow\">{$itm}</span>，但是没有发现陷阱。<br>";
+				$log.="你使用了<span class=\"yellow b\">{$itm}</span>，但是没有发现陷阱。<br>";
 			}
 			\itemmain\itms_reduce($theitem);
 			return;
 		}elseif (strpos ( $itmk, 'Y' ) === 0 || strpos ( $itmk, 'Z' ) === 0) {	
 			if ($itm == '御神签') {
-				$log .= "使用了<span class=\"yellow\">$itm</span>。<br>";
+				$log .= "使用了<span class=\"yellow b\">$itm</span>。<br>";
 				divining ();
 				\itemmain\itms_reduce($theitem);
 				return;
@@ -84,8 +84,8 @@ namespace item_misc
 				$cnum = $db->affected_rows ();
 				addnews ( $now, 'corpseclear', $name, $cnum );
 				if (defined('MOD_NOISE')) \noise\addnoise($pls,'corpseclear',$pid);
-				$log .= "使用了<span class=\"yellow\">$itm</span>。<br>突然刮起了一阵怪风，";
-				if($cnum) $log .= "<span class=\"yellow\">吹走了地上的{$cnum}具尸体！</span><br>";
+				$log .= "使用了<span class=\"yellow b\">$itm</span>。<br>突然刮起了一阵怪风，";
+				if($cnum) $log .= "<span class=\"yellow b\">吹走了地上的{$cnum}具尸体！</span><br>";
 				else $log .= "不过好像没有什么效果？";
 				\itemmain\itms_reduce($theitem);
 				return;
@@ -187,13 +187,13 @@ namespace item_misc
 				}
 				$duelstate = \gameflow_duel\duel($now,$itm);
 				if($duelstate == 50){
-					$log .= "<span class=\"yellow\">你使用了{$itm}。</span><br><span class=\"evergreen\">“干得不错呢，看来咱应该专门为你清扫一下战场……”</span><br><span class=\"evergreen\">“所有的NPC都离开战场了。好好享受接下来的杀戮吧，祝你好运。”</span>——林无月<br>";
+					$log .= "<span class=\"yellow b\">你使用了{$itm}。</span><br><span class=\"evergreen b\">“干得不错呢，看来咱应该专门为你清扫一下战场……”</span><br><span class=\"evergreen b\">“所有的NPC都离开战场了。好好享受接下来的杀戮吧，祝你好运。”</span>——林无月<br>";
 					$itm = $itmk = $itmsk = '';
 					$itme = $itms = 0;
 				}elseif($duelstate == 51){
-					$log .= "你使用了<span class=\"yellow\">{$itm}</span>，不过什么反应也没有。<br><span class=\"evergreen\">“咱已经帮你准备好舞台了，请不要要求太多哦。”</span>——林无月<br>";
+					$log .= "你使用了<span class=\"yellow b\">{$itm}</span>，不过什么反应也没有。<br><span class=\"evergreen b\">“咱已经帮你准备好舞台了，请不要要求太多哦。”</span>——林无月<br>";
 				} else {
-					$log .= "你使用了<span class=\"yellow\">{$itm}</span>，不过什么反应也没有。<br><span class=\"evergreen\">“表演的时机还没到呢，请再忍耐一下吧。”</span>——林无月<br>";
+					$log .= "你使用了<span class=\"yellow b\">{$itm}</span>，不过什么反应也没有。<br><span class=\"evergreen b\">“表演的时机还没到呢，请再忍耐一下吧。”</span>——林无月<br>";
 				}
 				return;
 			} elseif ($itm == '权限狗的ID卡') {
@@ -217,7 +217,7 @@ namespace item_misc
 					foreach(array(1010,1011) as $skv){
 						if(defined('MOD_SKILL'.$skv)) {
 							if (!\skillbase\skill_query($skv)) {
-								$log.="你获得了技能「<span class=\"yellow\">$clubskillname[$skv]</span>」！<br>";
+								$log.="你获得了技能「<span class=\"yellow b\">$clubskillname[$skv]</span>」！<br>";
 								\skillbase\skill_acquire($skv);
 							}
 						}
@@ -232,7 +232,7 @@ namespace item_misc
 				return;
 			} elseif ($itm == '奇怪的按钮') {
 				$button_dice = rand ( 1, 10 );
-				$log .= "你按下了<span class=\"yellow\">$itm</span>。<br>";
+				$log .= "你按下了<span class=\"yellow b\">$itm</span>。<br>";
 				if ($button_dice < 5) {
 					$log .= '按钮不翼而飞，你的手中多了一瓶褐色的饮料，上面还有个标签……<br><span class="gold b">“感谢特朗普总统选用我司的可乐递送服务。”</span><br>蛤？<br>';
 					$itm = '特朗普特供版「核口可乐」';
@@ -245,7 +245,7 @@ namespace item_misc
 					$url = 'end.php';
 					\sys\gameover ( $now, 'end5', $name );
 				} else {
-					$log .= '好像什么也没发生嘛？咦，按钮上的标签写着什么？<br><span class="red">“危险，勿触！”</span>……？<br>呜哇，按钮爆炸了！<br>';
+					$log .= '好像什么也没发生嘛？咦，按钮上的标签写着什么？<br><span class="red b">“危险，勿触！”</span>……？<br>呜哇，按钮爆炸了！<br>';
 					$itm = $itmk = $itmsk = '';
 					$itme = $itms = 0;
 					$state = 30;
@@ -289,7 +289,7 @@ namespace item_misc
 			} elseif ($itm == '风祭河水'){
 				$slv_dice = rand ( 1, 20 );
 					if ($slv_dice < 8) {
-					$log .= "你一口干掉了<span class=\"yellow\">$itm</span>，不过好像什么都没有发生！";
+					$log .= "你一口干掉了<span class=\"yellow b\">$itm</span>，不过好像什么都没有发生！";
 					$itm = $itmk = $itmsk = '';
 					$itme = $itms = 0;
 				} elseif ($slv_dice < 16) {
@@ -321,14 +321,14 @@ namespace item_misc
 						
 						if ( strpos ( ${'itm' . $i} , $fruit ) !== false && strpos ( ${'itm' . $i} , '皮' ) === false && (strpos ( ${'itmk' . $i} , 'H' ) === 0 || strpos ( ${'itmk' . $i} , 'P' ) === 0 )) {
 							if($wk >= 120){
-								$log .= "练过刀就是好啊。你娴熟地削着果皮。<br><span class=\"yellow\">${'itm'.$i}</span>变成了<span class=\"yellow\">★残骸★</span>！<br>咦为什么会出来这种东西？算了还是不要吐槽了。<br>";
+								$log .= "练过刀就是好啊。你娴熟地削着果皮。<br><span class=\"yellow b\">${'itm'.$i}</span>变成了<span class=\"yellow b\">★残骸★</span>！<br>咦为什么会出来这种东西？算了还是不要吐槽了。<br>";
 								${'itm' . $i} = '★残骸★';
 								${'itme' . $i} *= rand(2,4);
 								${'itms' . $i} *= rand(3,5);
 								$flag = true;
 								$wk++;
 							}else{
-								$log .= "想削皮吃<span class=\"yellow\">${'itm'.$i}</span>，没想到削完发现只剩下一堆果皮……<br>手太笨拙了啊。<br>";
+								$log .= "想削皮吃<span class=\"yellow b\">${'itm'.$i}</span>，没想到削完发现只剩下一堆果皮……<br>手太笨拙了啊。<br>";
 								${'itm' . $i} = str_replace('唯一','不唯一',str_replace($fruit, $fruit.'皮',${'itm' . $i} ));
 								${'itmk' . $i} = 'TN';
 								${'itms' . $i} *= rand(2,4);
@@ -345,7 +345,7 @@ namespace item_misc
 				} else {
 					$dice = rand(1,5);
 					if($dice==1){
-						$log .= "<span class=\"red\">$itm</span>变钝了，无法再使用了。<br>";
+						$log .= "<span class=\"red b\">$itm</span>变钝了，无法再使用了。<br>";
 						$itm = $itmk = $itmsk = '';
 						$itme = $itms = 0;
 					}
@@ -353,7 +353,7 @@ namespace item_misc
 				return;
 			} elseif(strpos($itm,'RP回复设备')!==false){
 				$rp = 0;
-				$log .= "你使用了<span class=\"yellow\">$itm</span>。你的RP归零了。<br>";
+				$log .= "你使用了<span class=\"yellow b\">$itm</span>。你的RP归零了。<br>";
 				return;
 			} elseif(strpos($itm,'测试用阻塞设备')!==false){
 				sleep(10);
@@ -363,15 +363,15 @@ namespace item_misc
 			} elseif('『我是说在座的各位都是垃圾』' === $itm){
 				$mhpdown = 100;
 				if($mhp <= $mhpdown){
-					$log .= '一个声音传来：<span class="yellow">“wslnm，没血你装什么逼？！”</span><br>';
+					$log .= '一个声音传来：<span class="yellow b">“wslnm，没血你装什么逼？！”</span><br>';
 				}elseif($now - $starttime > 300){//开局5分钟之内吃才有用
 					$log .= '你一边拉屎，一边看着外边满地乱滚的无名沙包，忽然决定给自己增加一点挑战。不过你胯下的翔似乎已经凉了。<br>';
 				}else{
 					$mhp -= $mhpdown;
 					if($hp > $mhp) $hp = $mhp;
-					$log .= '你一边拉屎，一边看着外边满地乱滚的无名沙包，忽然决定给自己增加一点挑战。于是你抓起自己胯下的翔，大口地吃了下去。<br><span class="red">你自扣了100点生命上限！</span><br>';
+					$log .= '你一边拉屎，一边看着外边满地乱滚的无名沙包，忽然决定给自己增加一点挑战。于是你抓起自己胯下的翔，大口地吃了下去。<br><span class="red b">你自扣了100点生命上限！</span><br>';
 					if(!$club) {
-						$log .= '你突然想起一件很重要的事情：<span class="red">老子还没选称号呢？</span>不过似乎你不用担心了，因为<span class="yellow">你刚才吃下的翔化为了你的力量！</span><br>';
+						$log .= '你突然想起一件很重要的事情：<span class="red b">老子还没选称号呢？</span>不过似乎你不用担心了，因为<span class="yellow b">你刚才吃下的翔化为了你的力量！</span><br>';
 						\clubbase\club_acquire(97);
 					}
 					\sys\addnews ( 0, 'debuffself', $name);
@@ -536,15 +536,15 @@ namespace item_misc
 		if(isset($exarr['dword'])) $e0 = $exarr['dword'];
 		
 		if($news == 'adminitem') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}使用了{$b}，变成了一条权限狗！（管理员{$a}宣告其正在进行测试。）</span></li>";	
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red b\">{$a}使用了{$b}，变成了一条权限狗！（管理员{$a}宣告其正在进行测试。）</span></li>";	
 		elseif($news == 'death28') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因<span class=\"yellow\">$d</span>意外身亡{$e0}</li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">$a</span>因<span class=\"yellow b\">$d</span>意外身亡{$e0}</li>";
 		elseif($news == 'death30') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因误触伪装成核弹按钮的蛋疼机关被炸死{$e0}</li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">$a</span>因误触伪装成核弹按钮的蛋疼机关被炸死{$e0}</li>";
 		elseif($news == 'death38')
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">$a</span>因为敌意过剩，被虚拟意识救♀济！{$e0}</li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">$a</span>因为敌意过剩，被虚拟意识救♀济！{$e0}</li>";
 		elseif($news == 'debuffself')
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}认为在座的各位都是垃圾，并大口吃下一百斤翔以表达他的不屑！（{$a}自扣了100点生命上限）</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">{$a}认为在座的各位都是垃圾，并大口吃下一百斤翔以表达他的不屑！（{$a}自扣了100点生命上限）</span></li>";
 			
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

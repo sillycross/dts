@@ -29,7 +29,7 @@ namespace skill364
 		2 => 20,
 	);
 	
-	$ach364_unique_prize_desc = '<font color="olive">首次完成时获得<span class="clan">'.$ach364_karma_prize[1].'因果</span>，之后每次完成获得<span class="clan">'.$ach364_karma_prize[2].'因果</span></font>';
+	$ach364_unique_prize_desc = '<font color="olive">首次完成时获得<span class="cyan b">'.$ach364_karma_prize[1].'因果</span>，之后每次完成获得<span class="cyan b">'.$ach364_karma_prize[2].'因果</span></font>';
 	
 	function init() 
 	{

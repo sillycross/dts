@@ -57,8 +57,8 @@ namespace skill489
 					\wound\get_inf($ik,$pa);
 				}
 				$inf_log = str_replace('_', '、', substr($inf_log,0,-1));
-				$log .= \battle\battlelog_parser($pa, $pd, $active, '然而，<span class="yellow">「神眷」</span>使<:pd_name:>将'.$inf_log.'<span class="yellow">反弹给了<:pa_name:>！</span>');
-				$pa['battlelog'].=\battle\battlelog_parser($pa, $pd, 1-$active, '<pa:name>你的攻击使<:pd_name:>'.$inf_log.'了，却被<:pd_name:><span class="yellow">反弹了回来！</span>');
+				$log .= \battle\battlelog_parser($pa, $pd, $active, '然而，<span class="yellow b">「神眷」</span>使<:pd_name:>将'.$inf_log.'<span class="yellow b">反弹给了<:pa_name:>！</span>');
+				$pa['battlelog'].=\battle\battlelog_parser($pa, $pd, 1-$active, '<pa:name>你的攻击使<:pd_name:>'.$inf_log.'了，却被<:pd_name:><span class="yellow b">反弹了回来！</span>');
 				addnews($now,'skill489_reflec',$pd['name'],$pa['name'],$inf_log);
 			}
 		}
@@ -70,7 +70,7 @@ namespace skill489
 		if(!\skillbase\skill_query(489)) $chprocess($damage);
 		else{
 			eval(import_module('logger'));
-			$log .= "你耳边传来一阵女声的低语：“虔信神的人<span class=\"lime\">不会受到<span class=\"purple\">毒</span>的侵害</span>。”<br>";
+			$log .= "你耳边传来一阵女声的低语：“虔信神的人<span class=\"lime b\">不会受到<span class=\"purple b\">毒</span>的侵害</span>。”<br>";
 		}
 	}
 	
@@ -80,7 +80,7 @@ namespace skill489
 		if(!\skillbase\skill_query(489)) $chprocess($damage);
 		else{
 			eval(import_module('logger'));
-			$log .= "你耳边传来一阵女声的低语：“虔信神的人<span class=\"lime\">不会遭遇<span class=\"red\">炎</span>的审判</span>。”<br>";
+			$log .= "你耳边传来一阵女声的低语：“虔信神的人<span class=\"lime b\">不会遭遇<span class=\"red b\">炎</span>的审判</span>。”<br>";
 		}
 	}
 	
@@ -89,7 +89,7 @@ namespace skill489
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
 		if($news == 'skill489_reflec') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}使用「神眷」技能，将{$c}反弹给了{$b}！</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">{$a}使用「神眷」技能，将{$c}反弹给了{$b}！</span></li>";
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 }

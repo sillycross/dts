@@ -11,7 +11,7 @@ namespace skill351
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach351_desc= array(
-		1=>'在<span class="clan">除错模式</span>中的除错进度达到第<:threshold:>层',
+		1=>'在<span class="cyan b">除错模式</span>中的除错进度达到第<:threshold:>层',
 	);
 	
 	$ach351_proc_words = '最高进度';

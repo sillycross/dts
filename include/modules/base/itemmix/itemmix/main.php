@@ -15,7 +15,7 @@ namespace itemmix
 		//“通常”合成当动词实在是太奇怪了
 		$tpstr = (empty($uip['mixtp']) || $uip['mixtp']==$mix_type['normal']) ? '' : $mix_type[$uip['mixtp']];
 		
-		$log .= "<span class=\"yellow\">$itmstr</span>{$tpstr}合成了<span class=\"yellow\">{$itm0}</span><br>";
+		$log .= "<span class=\"yellow b\">$itmstr</span>{$tpstr}合成了<span class=\"yellow b\">{$itm0}</span><br>";
 		addnews($now,'itemmix',$name,$itm0,$tpstr);
 	
 		$wd+=1;
@@ -144,7 +144,7 @@ namespace itemmix
 		$uip['itmstr'] = implode(' ', $mixitemname);
 		$uip['mixmask'] = calc_mixmask($mlist);
 		if(!$mix_res) {//没有合成选项
-			$log .= "<span class=\"yellow\">{$uip['itmstr']}</span>不能合成！<br>";
+			$log .= "<span class=\"yellow b\">{$uip['itmstr']}</span>不能合成！<br>";
 			ob_clean();
 			include template(get_itemmix_filename());
 			$cmd = ob_get_contents();
@@ -209,7 +209,7 @@ namespace itemmix
 		else{$itms=0;}
 		if($itms <= 0) {
 			$itms = 0;
-			$log .= "<span class=\"red\">$itm</span>用光了。<br>";
+			$log .= "<span class=\"red b\">$itm</span>用光了。<br>";
 			$itm = $itmk = $itmsk = '';
 			$itme = $itms = 0;
 		}
@@ -270,7 +270,7 @@ namespace itemmix
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		if($news == 'itemmix') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}{$c}合成了{$b}</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime b\">{$a}{$c}合成了{$b}</span></li>";
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 

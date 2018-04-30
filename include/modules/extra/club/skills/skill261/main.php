@@ -53,7 +53,7 @@ namespace skill261
 		\skillbase\skill_setvalue(261,'lastuse',$now);
 		$wp=$wp+$wp;
 		addnews ( 0, 'bskill261', $name );
-		$log.='<span class="red">技能「决战」发动成功。</span><br>';
+		$log.='<span class="red b">技能「决战」发动成功。</span><br>';
 	}
 	
 	//return 1:技能生效中 2:技能冷却中 3:技能冷却完毕 其他:不能使用这个技能
@@ -141,7 +141,7 @@ namespace skill261
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill261') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}发动了技能<span class=\"red\">「决战」</span></span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}发动了技能<span class=\"red b\">「决战」</span></span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

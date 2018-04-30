@@ -52,8 +52,8 @@ namespace skill244
 			{
 				eval(import_module('logger'));
 				if ($active)
-					$log.="<span class=\"lime\">你对{$pd['name']}发动了技能「归约」！</span><br>";
-				else  $log.="<span class=\"lime\">{$pa['name']}对你发动了技能「归约」！</span><br>";
+					$log.="<span class=\"lime b\">你对{$pd['name']}发动了技能「归约」！</span><br>";
+				else  $log.="<span class=\"lime b\">{$pa['name']}对你发动了技能「归约」！</span><br>";
 				$pa['rage']-=$rcost;
 				addnews ( 0, 'bskill244', $pa['name'], $pd['name'] );
 			}
@@ -121,7 +121,7 @@ namespace skill244
 		if('skill244' == $akey){
 			$pa['dmg_dealt']=sk244_get_factor_sum($pa);
 			eval(import_module('logger'));
-			$log.='<span class="yellow">「归约」使最终伤害变为'.$pa['dmg_dealt'].'点！</span><br>';
+			$log.='<span class="yellow b">「归约」使最终伤害变为'.$pa['dmg_dealt'].'点！</span><br>';
 		}
 	}
 	
@@ -132,7 +132,7 @@ namespace skill244
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill244') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}对{$b}发动了技能<span class=\"yellow\">「归约」</span></span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}对{$b}发动了技能<span class=\"yellow b\">「归约」</span></span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

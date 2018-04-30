@@ -94,14 +94,14 @@ namespace halloween2017
 			{
 				if($pa['h2017_wd_flag'] && $pa['dmg_dealt'] <= 0){
 					$treat_num = calc_treat_num_h2017($pa['h2017_wd_e']);
-					$log .= '<span class="lime">对方的惊吓转化为了万圣节的糖果！</span>';
+					$log .= '<span class="lime b">对方的惊吓转化为了万圣节的糖果！</span>';
 				}else{
 					$treat_num = calc_treat_num_h2017($pd['dmg_dealt']);
-					$log .= '<span class="lime">对方的伤害转化为了万圣节的糖果！</span>';
+					$log .= '<span class="lime b">对方的伤害转化为了万圣节的糖果！</span>';
 				}
 				if(3 == $pd['tactic']) {
 					$treat_num *= 2;
-					$log .= '<span class="lime">而且量好多哦！</span>';
+					$log .= '<span class="lime b">而且量好多哦！</span>';
 				}
 				$log .= '<br>';
 			}
@@ -145,13 +145,13 @@ namespace halloween2017
 		if(check_available_h2017()) {
 			eval(import_module('logger'));
 			if($active && !$pa['is_counter'] && 1 == $pa['pose']) {
-				$log .= "你向<span class=\"red\">{$pd['name']}</span>索要糖果！<br>";
-				$pd['battlelog'] .= "手持<span class=\"red\">{$pa['wep']}</span>的<span class=\"yellow\">{$pa['name']}</span>向你要糖！";
+				$log .= "你向<span class=\"red b\">{$pd['name']}</span>索要糖果！<br>";
+				$pd['battlelog'] .= "手持<span class=\"red b\">{$pa['wep']}</span>的<span class=\"yellow b\">{$pa['name']}</span>向你要糖！";
 				$flag = 1;
 			}
 			elseif(!$active && !$pa['is_counter'] && 1 == $pa['pose']){
-				$log .= "<span class=\"red\">{$pa['name']}</span>突然向你要糖！<br>";
-				$pa['battlelog'] .= "你发现了手持<span class=\"red\">{$pd['wep']}</span>的<span class=\"yellow\">{$pd['name']}</span>并且抢先要糖！";
+				$log .= "<span class=\"red b\">{$pa['name']}</span>突然向你要糖！<br>";
+				$pa['battlelog'] .= "你发现了手持<span class=\"red b\">{$pd['wep']}</span>的<span class=\"yellow b\">{$pd['name']}</span>并且抢先要糖！";
 				$flag = 1;
 			}
 		}

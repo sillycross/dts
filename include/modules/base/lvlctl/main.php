@@ -124,9 +124,9 @@ namespace lvlctl
 				}
 				*/
 				if ($pa['pid'] === $pid) {
-					$log .= "<span class=\"yellow\">你升了{$lvup}级！生命上限+{$lvuphp}，体力上限+{$lvupsp}，攻击+{$lvupatt}，防御+{$lvupdef}，体力恢复了{$lvupspref}{$sklog}，获得了{$lvupskpt}点技能点！</span><br>";
+					$log .= "<span class=\"yellow b\">你升了{$lvup}级！生命上限+{$lvuphp}，体力上限+{$lvupsp}，攻击+{$lvupatt}，防御+{$lvupdef}，体力恢复了{$lvupspref}{$sklog}，获得了{$lvupskpt}点技能点！</span><br>";
 				} elseif (!$pa['type']) {
-					$w_log = "<span class=\"yellow\">你升了{$lvup}级！生命上限+{$lvuphp}，体力上限+{$lvupsp}，攻击+{$lvupatt}，防御+{$lvupdef}，体力恢复了{$lvupspref}{$sklog}，获得了{$lvupskpt}点技能点！</span><br>";
+					$w_log = "<span class=\"yellow b\">你升了{$lvup}级！生命上限+{$lvuphp}，体力上限+{$lvupsp}，攻击+{$lvupatt}，防御+{$lvupdef}，体力恢复了{$lvupspref}{$sklog}，获得了{$lvupskpt}点技能点！</span><br>";
 					\logger\logsave ( $pa['pid'], $now, $w_log,'s');
 				}
 			}

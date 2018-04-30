@@ -73,7 +73,7 @@ namespace set_gametype
 		eval(import_module('sys','player'));
 		
 		if($news == 'setnextgametype') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}把下一局游戏设置为「{$gtinfo[$b]}」。</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime b\">{$a}把下一局游戏设置为「{$gtinfo[$b]}」。</span></li>";
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 }

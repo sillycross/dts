@@ -212,7 +212,7 @@ namespace skill272
 			$tmp_list.=$itemspkinfo[$eval].'+';
 		}
 		if(!empty($tmp_list)) $tmp_list = str_replace('+','、',substr($tmp_list,0,-1));
-		$log.='<span class="lime">技能「吸光」发动成功。</span><br>你将'.$itm.'上的'.$tmp_list.'属性化为了自己的力量！<br>效果时间内，你的属性伤害将<span class="clan">增加'.($skill272_factor*$effect_num).'%</span>。<br>';
+		$log.='<span class="lime b">技能「吸光」发动成功。</span><br>你将'.$itm.'上的'.$tmp_list.'属性化为了自己的力量！<br>效果时间内，你的属性伤害将<span class="cyan b">增加'.($skill272_factor*$effect_num).'%</span>。<br>';
 		$mode = 'command';
 		return;
 	}
@@ -244,7 +244,7 @@ namespace skill272
 			eval(import_module('logger','skill272'));
 			$effect = $skill272_factor * \skillbase\skill_getvalue(272,'num',$pa);
 			if(empty($pa['skill272_log'])){
-				$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow">「吸光」使<:pa_name:>的属性伤害增强了'.$effect.'%！</span><br>');
+				$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow b">「吸光」使<:pa_name:>的属性伤害增强了'.$effect.'%！</span><br>');
 				$pa['skill272_log'] = 1;
 			}
 			$r[] = 1 + $effect / 100;
@@ -260,7 +260,7 @@ namespace skill272
 //			eval(import_module('logger','skill272'));
 //			$effect = $skill272_factor * \skillbase\skill_getvalue(272,'num',$pa);
 //			if(empty($pa['skill272_log'])){
-//				$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow">「吸光」使<:pa_name:>的属性伤害增强了'.$effect.'%！</span><br>');
+//				$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow b">「吸光」使<:pa_name:>的属性伤害增强了'.$effect.'%！</span><br>');
 //				$pa['skill272_log'] = 1;
 //			}
 //			return $ret * (1 + $effect / 100);
@@ -329,7 +329,7 @@ namespace skill272
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill272') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}发动了技能<span class=\"yellow\">「吸光」</span></span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}发动了技能<span class=\"yellow b\">「吸光」</span></span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

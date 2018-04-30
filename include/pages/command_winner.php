@@ -177,8 +177,8 @@ else
 		//APM
 		list($vapm,$aapm) =  \apm\calc_winner_apm($wdata,$wdata['duration']);
 		$wdata['apm_words'] = $vapm.' / '.$aapm;
-		if('- / -' == $wdata['apm_words']) $wdata['apm_words'] = '<span class="grey">-</span>';
-		else $wdata['apm_words'] = str_replace('-', '<span class="grey">-</span>', $wdata['apm_words']);
+		if('- / -' == $wdata['apm_words']) $wdata['apm_words'] = '<span class="grey b">-</span>';
+		else $wdata['apm_words'] = str_replace('-', '<span class="grey b">-</span>', $wdata['apm_words']);
 		$winfo[$wdata['gid']] = $wdata;
 		
 	}

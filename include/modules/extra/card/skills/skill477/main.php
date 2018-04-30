@@ -33,8 +33,8 @@ namespace skill477
 		{
 			eval(import_module('logger'));
 			if ($active)
-				$log.="<span class=\"yellow\">由于敌人没戏唱了，你的伤害增加了30%！</span><br>";
-			else  $log.="<span class=\"yellow\">由于你没戏唱了，你受到的伤害增加了30%</span><br>";
+				$log.="<span class=\"yellow b\">由于敌人没戏唱了，你的伤害增加了30%！</span><br>";
+			else  $log.="<span class=\"yellow b\">由于你没戏唱了，你受到的伤害增加了30%</span><br>";
 			$r=Array(1.30);	
 		}
 		return array_merge($r,$chprocess($pa,$pd,$active));

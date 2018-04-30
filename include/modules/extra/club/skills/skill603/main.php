@@ -120,7 +120,7 @@ namespace skill603
 			$rmt = $e - $ct;
 			if ($ct<$e)
 			{
-				$log .= '<span class="yellow">时间被静止了，无法动弹！<br>持续时间还剩<span id="timer">'.floor($rmt/1000).'.'.(floor($rmt/100)%10).'</span>秒</span><br><img style="display:none;" type="hidden" src="img/blank.png" onload="demiSecTimerStarter('.$rmt.');">';
+				$log .= '<span class="yellow b">时间被静止了，无法动弹！<br>持续时间还剩<span id="timer">'.floor($rmt/1000).'.'.(floor($rmt/100)%10).'</span>秒</span><br><img style="display:none;" type="hidden" src="img/blank.png" onload="demiSecTimerStarter('.$rmt.');">';
 				$mode = 'command'; $command = 'menu';
 			}
 		}

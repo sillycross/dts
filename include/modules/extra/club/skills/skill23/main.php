@@ -40,7 +40,7 @@ namespace skill23
 		if ($itms==$nosta) 
 		{
 			$up_e=round(rand(round($lb*0.85),round($ub*0.85))*$r); 
-			$log.="你的装备<span class=\"yellow\">{$itm}</span>的效果值增加了<span class=\"yellow\">{$up_e}</span>点！";
+			$log.="你的装备<span class=\"yellow b\">{$itm}</span>的效果值增加了<span class=\"yellow b\">{$up_e}</span>点！";
 			$itme+=$up_e;
 		}
 		else
@@ -48,7 +48,7 @@ namespace skill23
 			$up_all=round(rand($lb,$ub)*$r); 
 			$up_e=ceil(1.0*$up_all*$itme/($itme+$itms));
 			$up_s=floor(1.0*$up_all*$itms/($itme+$itms));
-			$log.="你的装备<span class=\"yellow\">{$itm}</span>的效果值增加了<span class=\"yellow\">{$up_e}</span>点，耐久值增加了<span class=\"yellow\">{$up_s}</span>点！";	
+			$log.="你的装备<span class=\"yellow b\">{$itm}</span>的效果值增加了<span class=\"yellow b\">{$up_e}</span>点，耐久值增加了<span class=\"yellow b\">{$up_s}</span>点！";	
 			$itme+=$up_e; $itms+=$up_s;
 		}
 	}
@@ -90,8 +90,8 @@ namespace skill23
 		$maxsknum = $skill23max[$clv];
 		
 		if(\itemmain\count_itmsk_num($itmsk)>=$maxsknum){
-			if($upgradecost[$clv]==-1) $log .= '<span class="red">你选择的物品属性数目已达到'.$maxsknum.'个属性的上限，无法改造！</span><br>';
-			else $log .= '<span class="yellow">你最多只能把物品属性加到'.$maxsknum.'个，请升级技能！</span><br>';
+			if($upgradecost[$clv]==-1) $log .= '<span class="red b">你选择的物品属性数目已达到'.$maxsknum.'个属性的上限，无法改造！</span><br>';
+			else $log .= '<span class="yellow b">你最多只能把物品属性加到'.$maxsknum.'个，请升级技能！</span><br>';
 			$mode = 'command';
 			return;
 		}
@@ -135,7 +135,7 @@ namespace skill23
 		}
 		if($dicesum < 100) $dicesum = 100;
 		$dice=rand(1,$dicesum); $flag=0;
-		$log.="你将<span class=\"yellow\">{$gem}</span>镶嵌到了<span class=\"yellow\">{$itm}</span>上。<br>";
+		$log.="你将<span class=\"yellow b\">{$gem}</span>镶嵌到了<span class=\"yellow b\">{$itm}</span>上。<br>";
 		
 		$lb=10; $ub=20;
 		if (strpos($gem,'宝石') !== false) { $lb=round($lb*1.75); $ub=round($ub*1.75); }	//宝石强化效果更高
@@ -147,8 +147,8 @@ namespace skill23
 				$flag=1;
 				$exists = strpos($itmsk,$value[1])!==false;
 				gemming_itme_buff($itm,$itmk,$itme,$itms,$itmsk,$lb,$ub,$exists);
-				if(!$exists)	$log.="同时，你的装备<span class=\"yellow\">{$itm}</span>还获得了“<span class=\"yellow\">{$itemspkinfo[$value[1]]}</span>”属性！<br>";
-				else $log.="你的装备<span class=\"yellow\">{$itm}</span>获得了“<span class=\"yellow\">{$itemspkinfo[$value[1]]}</span>”属性，不过好像它本来已经有了。<br>";
+				if(!$exists)	$log.="同时，你的装备<span class=\"yellow b\">{$itm}</span>还获得了“<span class=\"yellow b\">{$itemspkinfo[$value[1]]}</span>”属性！<br>";
+				else $log.="你的装备<span class=\"yellow b\">{$itm}</span>获得了“<span class=\"yellow b\">{$itemspkinfo[$value[1]]}</span>”属性，不过好像它本来已经有了。<br>";
 				addnews ( 0, 'gemming', $name, $gem, $itm, $itemspkinfo[$value[1]]);
 				if (strpos($itmsk,$value[1]) === false) $itmsk.=$value[1];
 				break;
@@ -162,7 +162,7 @@ namespace skill23
 		{
 			$lb=round($lb/2); $ub=round($ub/2);
 			gemming_itme_buff($itm,$itmk,$itme,$itms,$itmsk,$lb,$ub);
-			$log.="但是你的装备并没有获得额外属性。看起来技术还不过关的样子。<span class=\"yellow\">你决定痛定思痛，总结经验。</span><br>";
+			$log.="但是你的装备并没有获得额外属性。看起来技术还不过关的样子。<span class=\"yellow b\">你决定痛定思痛，总结经验。</span><br>";
 			$rageup = rand(5,15);
 			\rage\get_rage($rageup);
 			$expgain = rand(7,11);
@@ -246,7 +246,7 @@ namespace skill23
 		eval(import_module('sys','player'));
 		
 		if($news == 'gemming') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}使用{$b}为{$c}添加了{$d}属性！</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime b\">{$a}使用{$b}为{$c}添加了{$d}属性！</span></li>";
 
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

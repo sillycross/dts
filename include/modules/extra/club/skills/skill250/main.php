@@ -31,7 +31,7 @@ namespace skill250
 		if (\skillbase\skill_query(250)) 
 		{
 			eval(import_module('logger'));
-			$log.='<span class="clan">“为什么莫名地感到有些不安……” </span><br>';
+			$log.='<span class="cyan b">“为什么莫名地感到有些不安……” </span><br>';
 		}
 		return $chprocess();
 	}

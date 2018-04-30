@@ -40,9 +40,9 @@ namespace skill439
 			}else{
 				\skillbase\skill_setvalue(439,'type','X',$pd);
 				if ($active) 
-					$log .= "<span class=\"yellow\">黄翔把你的攻击方式ban了，造成的伤害降低75%！</span><br>";
+					$log .= "<span class=\"yellow b\">黄翔把你的攻击方式ban了，造成的伤害降低75%！</span><br>";
 				else 
-					$log .= "<span class=\"yellow\">黄翔把敌人的攻击方式ban了，造成的伤害降低75%！</span><br>";
+					$log .= "<span class=\"yellow b\">黄翔把敌人的攻击方式ban了，造成的伤害降低75%！</span><br>";
 				$r=Array(0.25);
 			}
 		}
@@ -60,9 +60,9 @@ namespace skill439
 //		}else{
 //			\skillbase\skill_setvalue(439,'type','0',$pd);
 //			if ($active) 
-//				$log .= "<span class=\"yellow\">黄翔把你的攻击方式ban了，造成的伤害降低75%！</span><br>";
+//				$log .= "<span class=\"yellow b\">黄翔把你的攻击方式ban了，造成的伤害降低75%！</span><br>";
 //			else 
-//				$log .= "<span class=\"yellow\">黄翔把敌人的攻击方式ban了，造成的伤害降低75%！</span><br>";
+//				$log .= "<span class=\"yellow b\">黄翔把敌人的攻击方式ban了，造成的伤害降低75%！</span><br>";
 //			$pa['dmg_dealt']=ceil($pa['dmg_dealt']/4);
 //		}
 //		$chprocess($pa,$pd,$active);

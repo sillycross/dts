@@ -10,13 +10,13 @@
 <!--{eval $sk472=(int)\skillbase\skill_getvalue(472,'l');}-->
 <!--{if $sk472!=0}-->
 <!--{eval $sk472_learnt=$clubskillname[(int)\skillbase\skill_getvalue(472,'l')];}-->
-你现在掌握的技能是“<span class="yellow">$sk472_learnt</span>”
+你现在掌握的技能是“<span class="yellow b">$sk472_learnt</span>”
 <!--{/if}-->
 <!--{eval \bubblebox\bubblebox_set_style('id:learntable472;height:400;width:655;cancellable:1;margin-right:8;');}-->
 {template MOD_BUBBLEBOX_START}
 <p style="margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px;">
 以下是你可以学习的称号技能列表。战斗技和限定技不可以被学习，因此没有显示。<br>
-<span class="yellow">请注意使用“查看”按钮查看技能时，技能的解锁条件没有显示。</span>请阅读帮助以获得完整的技能解锁要求。<br>
+<span class="yellow b">请注意使用“查看”按钮查看技能时，技能的解锁条件没有显示。</span>请阅读帮助以获得完整的技能解锁要求。<br>
 少数几个技能出于游戏平衡原因，相对原版技能有所削弱，也请注意查看。<br>
 <br>
 </p>
@@ -31,7 +31,7 @@
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
 <!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
-<span class="yellow">
+<span class="yellow b">
 15级时解锁
 </span>
 <!--{/if}-->

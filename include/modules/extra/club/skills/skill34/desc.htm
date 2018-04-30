@@ -9,7 +9,7 @@
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
 选择任一单体减半防御属性，你视为具有它。<br>
-当前选择是：<span class="yellow"><!--{if $nchoice!=''}-->$itemspkinfo[$nchoice]<!--{else}-->无<!--{/if}--></span>
+当前选择是：<span class="yellow b"><!--{if $nchoice!=''}-->$itemspkinfo[$nchoice]<!--{else}-->无<!--{/if}--></span>
 &nbsp;
 变更选择为：
 <select name="skill34_choice" id="skill34_choice" onchange="$('mode').value='special';$('command').value='skill34_special';$('subcmd').value='upgrade';$('skillpara1').value=$('skill34_choice').value;postCmd('gamecmd','command.php');this.disabled=true;">
@@ -32,7 +32,7 @@
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
 <!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
-<span class="yellow">
+<span class="yellow b">
 18级时解锁
 </span>
 <!--{/if}-->

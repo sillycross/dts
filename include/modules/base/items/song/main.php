@@ -167,7 +167,7 @@ namespace song
 					foreach($ev as $skv){
 						if(!\skillbase\skill_query($skv, $pdata)){
 							\skillbase\skill_acquire($skv, $pdata);
-							$ss_log[] = '获得了技能<span class="clan">「'.$clubskillname[$skv].'」</span>';
+							$ss_log[] = '获得了技能<span class="cyan b">「'.$clubskillname[$skv].'」</span>';
 						}
 					}
 				}
@@ -194,7 +194,7 @@ namespace song
 					//如果变化量是数值，那么变化量乘以一个系数
 					if(is_numeric($change)) $change *= ss_factor($pdata);
 					$pdata[$ek] = $change;
-					$ss_log[] = $ss_tn.'<span class="yellow">变成了'.$change.'</span>';
+					$ss_log[] = $ss_tn.'<span class="yellow b">变成了'.$change.'</span>';
 				}elseif(is_numeric($ev) && is_numeric($pdata[$ek]) && ($pdata[$ek] > 0 || !ss_check_s($ek))) {//无限耐的统一忽略
 					//如果变化量是数值，那么变化量乘以一个系数
 					$change = $ev * ss_factor($pdata);
@@ -207,7 +207,7 @@ namespace song
 						}else{//超过最大值的不改动
 							$change = 0;
 						}
-						if($change) $ss_log[] = $ss_tn.'<span class="clan">增加了'.$change.'</span>';
+						if($change) $ss_log[] = $ss_tn.'<span class="cyan b">增加了'.$change.'</span>';
 					}else{//减少值直接减
 						if($pdata[$ek] + $change < 1 && in_array($ek, array('hp','mhp','sp','msp'))) {
 							$change = 1 - $pdata[$ek];//生命体力不会降低到小于1，也就是不会唱死人
@@ -215,7 +215,7 @@ namespace song
 							$change = -$pdata[$ek];
 						}
 						$pdata[$ek] += $change;
-						if($change != 0) $ss_log[] = $ss_tn.'<span class="red">减少了'.(0-$change).'</span>';
+						if($change != 0) $ss_log[] = $ss_tn.'<span class="red b">减少了'.(0-$change).'</span>';
 					}
 				}
 				//装备耐久变成0的情况
@@ -230,7 +230,7 @@ namespace song
 		$ss_log_f = '';
 		if(!empty($ss_log)) $ss_log_f .= '歌声让你的'.implode('，',$ss_log).'。<br>';
 		if(strpos($ss_log_f,'获得了技能')!==false) $ss_log_f = str_replace('歌声让你的获得了技能','歌声让你获得了技能',$ss_log_f);
-		if(!empty($ss_log_2)) $ss_log_f .= '<!--SPERATOR--><span class="red">你的'.implode('、',$ss_log_2).'损坏了！</span><br>';
+		if(!empty($ss_log_2)) $ss_log_f .= '<!--SPERATOR--><span class="red b">你的'.implode('、',$ss_log_2).'损坏了！</span><br>';
 		return $ss_log_f;
 	}
 	
@@ -295,9 +295,9 @@ namespace song
 
 		if ($ss>=$r){
 			$ss-=$r;
-			$log.="消耗<span class=\"yellow\">{$r}</span>点歌魂，歌唱了<span class=\"yellow\">{$noiseinfo[$nkey]}</span>。<br><br>";
+			$log.="消耗<span class=\"yellow b\">{$r}</span>点歌魂，歌唱了<span class=\"yellow b\">{$noiseinfo[$nkey]}</span>。<br><br>";
 		}else{
-			$log.="需要至少<span class=\"yellow\">{$r}</span>点歌魂才能唱这首歌！<br>";
+			$log.="需要至少<span class=\"yellow b\">{$r}</span>点歌魂才能唱这首歌！<br>";
 			return;
 		}
 		addnews($now,'song',$name,$plsinfo[$pls],$songcfg['songname']);
@@ -388,7 +388,7 @@ namespace song
 			if($ss+$itme <= $mss) $ss+=$itme;//现有歌魂加完以后不会超限时，也增加物品的效果值
 			elseif($ss <= $mss) $ss = $mss;//现有歌魂加完以后会超限，加到最大歌魂
 			//现有歌魂已经比最大歌魂大时，不加
-			$log .= "你使用了<span class=\"red\">$itm</span>，增加了<span class=\"yellow\">$itme</span>点歌魂。<br>";
+			$log .= "你使用了<span class=\"red b\">$itm</span>，增加了<span class=\"yellow b\">$itme</span>点歌魂。<br>";
 			\itemmain\itms_reduce($theitem);
 			return;
 		}elseif (strpos ( $itmk, 'HT' ) === 0) {
@@ -398,7 +398,7 @@ namespace song
 				$ss += $ssup;
 				$ss = $ss > $mss ? $mss : $ss;
 				$oldss = $ss - $oldss;
-				$log .= "你使用了<span class=\"red\">$itm</span>，恢复了<span class=\"yellow\">$oldss</span>点歌魂。<br>";
+				$log .= "你使用了<span class=\"red b\">$itm</span>，恢复了<span class=\"yellow b\">$oldss</span>点歌魂。<br>";
 				\itemmain\itms_reduce($theitem);
 			} else {
 				$log .= '你的歌魂不需要恢复。<br>';
@@ -417,7 +417,7 @@ namespace song
 				${$eqp.'e'} = $itme;
 				${$eqp.'s'} = $itms;
 				${$eqp.'sk'} = $itmsk;
-				$log .= "装备了<span class=\"yellow\">$itm</span>。<br>";
+				$log .= "装备了<span class=\"yellow b\">$itm</span>。<br>";
 				$itm = $itmk = $itmsk = '';
 				$itme = $itms = 0;
 			} else {
@@ -426,7 +426,7 @@ namespace song
 				swap(${$eqp.'e'},$itme);
 				swap(${$eqp.'s'},$itms);
 				swap(${$eqp.'sk'},$itmsk);
-				$log .= "卸下了<span class=\"red\">$itm</span>，装备了<span class=\"yellow\">${$eqp}</span>。<br>";
+				$log .= "卸下了<span class=\"red b\">$itm</span>，装备了<span class=\"yellow b\">${$eqp}</span>。<br>";
 			}
 			return;
 		}
@@ -465,7 +465,7 @@ namespace song
 		eval(import_module('sys','player'));
 		
 		if($news == 'song') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow\">{$a}</span>在<span class=\"yellow\">{$b}</span>歌唱了<span class=\"red\">{$c}</span>。</li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">{$a}</span>在<span class=\"yellow b\">{$b}</span>歌唱了<span class=\"red b\">{$c}</span>。</li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

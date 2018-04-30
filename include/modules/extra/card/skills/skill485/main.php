@@ -39,9 +39,9 @@ namespace skill485
 			$lvl485 = \skillbase\skill_getvalue(485,'lvl',$pa);
 			$skill485fac = $pd['killnum'] * $skill485factors[$lvl485];
 			if($active){
-				$log .= '对方的举止表明，他无疑犯下了累累血债，这让你怒不可遏！你的伤害增加了<span class="red">'.$skill485fac.'</span>%！<br>';
+				$log .= '对方的举止表明，他无疑犯下了累累血债，这让你怒不可遏！你的伤害增加了<span class="red b">'.$skill485fac.'</span>%！<br>';
 			}else{
-				$log .= '你手中的累累血债让'.$pa['name'].'怒不可遏！'.$pa['name'].'的伤害增加了<span class="red">'.$skill485fac.'</span>%！<br>';
+				$log .= '你手中的累累血债让'.$pa['name'].'怒不可遏！'.$pa['name'].'的伤害增加了<span class="red b">'.$skill485fac.'</span>%！<br>';
 			}			
 			$r[] = 1 + $skill485fac / 100;
 		}
@@ -58,9 +58,9 @@ namespace skill485
 //			$skill485fac = $skill485factors[$lvl485];
 //			$dmgup = round($pd['killnum'] * $skill485fac / 100 * $pa['dmg_dealt']);
 //			if($active){
-//				$log .= '对方的举止表明，他无疑犯下了累累血债，这让你怒不可遏！你的伤害增加了<span class="red">'.$dmgup.'</span>点！<br>';
+//				$log .= '对方的举止表明，他无疑犯下了累累血债，这让你怒不可遏！你的伤害增加了<span class="red b">'.$dmgup.'</span>点！<br>';
 //			}else{
-//				$log .= '你手中的累累血债让'.$pa['name'].'怒不可遏！'.$pa['name'].'的伤害增加了<span class="red">'.$dmgup.'</span>点！<br>';
+//				$log .= '你手中的累累血债让'.$pa['name'].'怒不可遏！'.$pa['name'].'的伤害增加了<span class="red b">'.$dmgup.'</span>点！<br>';
 //			}			
 //			$pa['dmg_dealt'] += $dmgup;
 //		}		

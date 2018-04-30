@@ -56,8 +56,8 @@ namespace skill73
 			{
 				eval(import_module('logger'));
 				if ($active)
-					$log.="<span class=\"lime\">你对{$pd['name']}发动了技能「必杀」！</span><br>";
-				else  $log.="<span class=\"lime\">{$pa['name']}对你发动了技能「必杀」！</span><br>";
+					$log.="<span class=\"lime b\">你对{$pd['name']}发动了技能「必杀」！</span><br>";
+				else  $log.="<span class=\"lime b\">{$pa['name']}对你发动了技能「必杀」！</span><br>";
 				$pa['rage']-=$rcost;
 				addnews ( 0, 'bskill73', $pa['name'], $pd['name'] );
 			}
@@ -82,8 +82,8 @@ namespace skill73
 		{
 			eval(import_module('logger'));
 			if ($active)
-				$log.='<span class="lime">你对敌人释放出必杀技！</span><br>';
-			else  $log.='<span class="lime">敌人对你释放出必杀技！</span><br>';
+				$log.='<span class="lime b">你对敌人释放出必杀技！</span><br>';
+			else  $log.='<span class="lime b">敌人对你释放出必杀技！</span><br>';
 			$r=Array(2);
 		}
 		return array_merge($r,$chprocess($pa,$pd,$active));
@@ -107,7 +107,7 @@ namespace skill73
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill73') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}对{$b}发动了技能<span class=\"yellow\">「必杀」</span></span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}对{$b}发动了技能<span class=\"yellow b\">「必杀」</span></span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

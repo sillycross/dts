@@ -49,7 +49,7 @@ namespace explore
 
 		$sp -= $movesp;
 		
-		$log .= "你消耗<span class=\"yellow\">{$movesp}</span>点体力，移动到了$plsinfo[$moveto]。<br>";
+		$log .= "你消耗<span class=\"yellow b\">{$movesp}</span>点体力，移动到了$plsinfo[$moveto]。<br>";
 		
 		$pls = $moveto;
 		
@@ -93,7 +93,7 @@ namespace explore
 
 		$sp -= $schsp;
 		
-		$log .= "消耗<span class=\"yellow\">{$schsp}</span>点体力，你搜索着周围的一切。。。<br>";
+		$log .= "消耗<span class=\"yellow b\">{$schsp}</span>点体力，你搜索着周围的一切。。。<br>";
 		
 		search_area();
 	

@@ -7,13 +7,13 @@
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
-持投系武器时，你对玩家/NPC分别有<span class="yellow">{$chance1}%/{$chance2}%</span>几率<br>在受到伤害时抵挡 (武器效果值的平方根 x 10) 点伤害(最多3000)。<br>
+持投系武器时，你对玩家/NPC分别有<span class="yellow b">{$chance1}%/{$chance2}%</span>几率<br>在受到伤害时抵挡 (武器效果值的平方根 x 10) 点伤害(最多3000)。<br>
 如果武器耐久有限，会消耗1耐久。<br>
-<!--{if $skill273var==1}--><span class="yellow">本技能当前关闭中</span>。
+<!--{if $skill273var==1}--><span class="yellow b">本技能当前关闭中</span>。
 <!--{else}-->
-	<span class="clan">本技能当前开启中</span>，
-	<!--{if $dmgdown}-->可以抵挡<span class="yellow">{$dmgdown}</span>点伤害
-	<!--{else}--><span class="yellow">但不满足发动条件</span>
+	<span class="cyan b">本技能当前开启中</span>，
+	<!--{if $dmgdown}-->可以抵挡<span class="yellow b">{$dmgdown}</span>点伤害
+	<!--{else}--><span class="yellow b">但不满足发动条件</span>
 	<!--{/if}-->
 <!--{/if}-->
 <br>
@@ -30,7 +30,7 @@
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
 <!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
-<span class="yellow">
+<span class="yellow b">
 {$unlock_lvl273}级时解锁
 </span>
 <!--{/if}-->

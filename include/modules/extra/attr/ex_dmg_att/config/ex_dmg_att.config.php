@@ -6,7 +6,7 @@ namespace ex_dmg_att
 	$ex_attack_list = Array('p', 'u', 'i', 'd', 'e','w','f','k','t');
 	
 	//属性攻击名称
-	$exdmgname = Array('p' => '毒性攻击', 'u' => '火焰燃烧', 'i'=>'冻气缠绕', 'd'=>'爆炸','e'=>'电击','w'=>'音波攻击','f' => '<span class="yellow">炽热之焰</span>','k' => '<span class="clan">凝结之息</span>', 't' => '<span class="seagreen">音爆冲击</span>');
+	$exdmgname = Array('p' => '毒性攻击', 'u' => '火焰燃烧', 'i'=>'冻气缠绕', 'd'=>'爆炸','e'=>'电击','w'=>'音波攻击','f' => '<span class="yellow b">炽热之焰</span>','k' => '<span class="cyan b">凝结之息</span>', 't' => '<span class="seagreen">音爆冲击</span>');
 	
 	//各种属性攻击的得意武器（ 伤害2倍）
 	$ex_good_wep = Array('p' => 'K','u' => 'G','i'=> 'C','d' => 'D', 'e' => 'P', 'w' => 'D');

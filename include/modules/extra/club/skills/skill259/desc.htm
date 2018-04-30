@@ -8,9 +8,9 @@
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
 <!--{eval $clv = (int)\skillbase\skill_getvalue(259,'lvl'); }-->
 <!--{eval $totlv = count($upgradecost)-1; }-->
-<span class="yellow">战斗技</span>： 本次攻击附加殴熟<span class="yellow">1/$adddmg[$clv]</span>的物理伤害，空手时方可使用。<br>
-<span class="lime">当前级别$clv/$totlv</span>&nbsp;
-<!--{if $upgradecost[$clv] !== -1}-->消耗<span class="lime">$upgradecost[$clv]</span>点技能点升至下一级<!--{/if}--><br>
+<span class="yellow b">战斗技</span>： 本次攻击附加殴熟<span class="yellow b">1/$adddmg[$clv]</span>的物理伤害，空手时方可使用。<br>
+<span class="lime b">当前级别$clv/$totlv</span>&nbsp;
+<!--{if $upgradecost[$clv] !== -1}-->消耗<span class="lime b">$upgradecost[$clv]</span>点技能点升至下一级<!--{/if}--><br>
 </span></td>
 <td class=b3 width=96>
 <!--这个只是一个假的按钮，实际点击的是下面那个-->
@@ -33,7 +33,7 @@
 已获得技能「{$clubskillname[$alternate_skillno259]}」，无法解锁！
 </span>
 <!--{else}-->
-	<span class="yellow">
+	<span class="yellow b">
 	<!--{if $ustate & 2}-->
 		请在右侧选择本技能。与技能「{$clubskillname[$alternate_skillno259]}」互斥。
 		<input type="button" style="width:47px;margin-right:25px;float:right;" onclick="$('mode').value='special';$('command').value='skill259_special';$('subcmd').value='upgrade';$('skillpara1').value='choose';postCmd('gamecmd','command.php');this.disabled=true;" value="选择">

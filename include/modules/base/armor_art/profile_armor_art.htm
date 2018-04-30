@@ -1,5 +1,5 @@
 <tr>
-	<TD class=b2 height="26"><span><!--{if $arts}-->$tpldata['artk_words']<!--{else}--><span class="grey">$iteminfo['A']</span><!--{/if}--></span></TD>
+	<TD class=b2 height="26"><span><!--{if $arts}-->$tpldata['artk_words']<!--{else}--><span class="grey b">$iteminfo['A']</span><!--{/if}--></span></TD>
 	<TD class=b3>
 	<!--{if CURSCRIPT == 'game' && $mode == 'command' && $arts}--><span><input type="button" value="卸下" onclick="$('mode').value='itemmain';$('command').value='offart';postCmd('gamecmd','command.php');return false;"</span><!--{/if}-->
 	<span><!--{if $arts}-->$tpldata['art_words']<!--{else}-->$noitm<!--{/if}--></span>

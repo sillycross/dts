@@ -307,7 +307,7 @@
 	</table>
 	<br>
 	<input type="submit" value="上一页" onclick="javascript:document.pcmng.pagemode.value='up';">
-	<span class="yellow">$resultinfo</span>
+	<span class="yellow b">$resultinfo</span>
 	<input type="submit" value="下一页" onclick="javascript:document.pcmng.pagemode.value='down';">
 	<table class="admin">
 		<tr>
@@ -331,13 +331,13 @@
 		<!--{loop $pcdata $n $pc}-->
 		<tr>
 			<td><input type="checkbox" id="pc_$n" name="pc_$n" value="{$pc['pid']}"></td>
-			<td><span <!--{if $pc['hp']<=0 || $pc['state']>=10}-->class="red"<!--{/if}-->>{$pc['name']}</span></td>
+			<td><span <!--{if $pc['hp']<=0 || $pc['state']>=10}-->class="red b"<!--{/if}-->>{$pc['name']}</span></td>
 			<td>{$sexinfo[$pc['gd']]}</td>
 			<td>{$pc['sNo']}</td>
 			<td>{$pc['lvl']}</td>
 			<td>{$plsinfo[$pc['pls']]}</td>
 			<td>{$pc['teamID']}</td>
-			<td><span <!--{if $pc['state']>=10}-->class="red"<!--{/if}-->>{$stateinfo[$pc['state']]}</span></td>
+			<td><span <!--{if $pc['state']>=10}-->class="red b"<!--{/if}-->>{$stateinfo[$pc['state']]}</span></td>
 			<td>{$pc['sp']}/{$pc['msp']}</td>
 			<td>{$pc['hp']}/{$pc['mhp']}</td>
 			<td>{$clubinfo[$pc['club']]}</td>

@@ -56,7 +56,7 @@ namespace skill1002
 		eval(import_module('sys','logger','skill1002'));
 		if ($pa['dmg_dealt'] >= 100 && check_available1002($pd) && !in_array($pa['type'],$skill1002_no_effect_array)){	//scp和蓝凝无效
 			$pa['dmg_dealt']=0;
-			$log .= \battle\battlelog_parser($pa, $pd, $active, "<span class='yellow'><:pd_name:>的技能「无垢」使<:pa_name:>的攻击没有造成任何伤害！</span><br>");
+			$log .= \battle\battlelog_parser($pa, $pd, $active, "<span class='yellow b'><:pd_name:>的技能「无垢」使<:pa_name:>的攻击没有造成任何伤害！</span><br>");
 		}
 		$chprocess($pa,$pd,$active);
 	}
@@ -74,7 +74,7 @@ namespace skill1002
 				eval(import_module('sys','logger'));
 				if (check_available1002($pd))
 				{
-					$log.="<span class=\"clan\">都告诉你了，无垢对某些NPC无效……快去死吧。</span><br>";
+					$log.="<span class=\"cyan b\">都告诉你了，无垢对某些NPC无效……快去死吧。</span><br>";
 				}
 			}
 			
@@ -88,7 +88,7 @@ namespace skill1002
 		eval(import_module('sys','logger','skill1002'));
 		if ($damage >= 100 && check_available1002($pd))
 		{
-			$log .= "<span class=\"yellow\">你的技能「无垢」使你免疫了陷阱伤害！</span><br>";
+			$log .= "<span class=\"yellow b\">你的技能「无垢」使你免疫了陷阱伤害！</span><br>";
 			return 0;
 		}	
 		return $chprocess($pa,$pd,$tritm,$damage);

@@ -40,10 +40,10 @@ namespace armor
 		eval(import_module('logger'));
 		if ($active)
 		{
-			$log .= "{$pd['name']}的<span class=\"red\">".$pd[$whicharmor]."</span>受损过重，无法再装备了！<br>";
-			$pd['armorbreaklog'] .= "你的<span class=\"red\">".$pd[$whicharmor]."</span>受损过重，无法再装备了！<br>";
+			$log .= "{$pd['name']}的<span class=\"red b\">".$pd[$whicharmor]."</span>受损过重，无法再装备了！<br>";
+			$pd['armorbreaklog'] .= "你的<span class=\"red b\">".$pd[$whicharmor]."</span>受损过重，无法再装备了！<br>";
 		}
-		else  $log .= "你的<span class=\"red\">".$pd[$whicharmor]."</span>受损过重，无法再装备了！<br>";
+		else  $log .= "你的<span class=\"red b\">".$pd[$whicharmor]."</span>受损过重，无法再装备了！<br>";
 		
 		$pd[$whicharmor] = ''; $pd[$whicharmor.'e'] = 0; $pd[$whicharmor.'s'] = 0; $pd[$whicharmor.'sk'] = '';
 						
@@ -128,7 +128,7 @@ namespace armor
 				${$eqp.'e'} = $itme;
 				${$eqp.'s'} = $itms;
 				${$eqp.'sk'} = $itmsk;
-				$log .= "装备了<span class=\"yellow\">$itm</span>。<br>";
+				$log .= "装备了<span class=\"yellow b\">$itm</span>。<br>";
 				$itm = $itmk = $itmsk = '';
 				$itme = $itms = 0;
 			} else {
@@ -137,7 +137,7 @@ namespace armor
 				swap(${$eqp.'e'},$itme);
 				swap(${$eqp.'s'},$itms);
 				swap(${$eqp.'sk'},$itmsk);
-				$log .= "卸下了<span class=\"red\">$itm</span>，装备了<span class=\"yellow\">${$eqp}</span>。<br>";
+				$log .= "卸下了<span class=\"red b\">$itm</span>，装备了<span class=\"yellow b\">${$eqp}</span>。<br>";
 			}
 			return;
 		}

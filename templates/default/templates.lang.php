@@ -116,7 +116,7 @@ $language = array
 	'wf' => '灵',
 	'ss' => '歌魂',
 	'karma' => '罪业',
-	'newsnotice' => '<span class="evergreen">“各位仍在努力奋战，咱很欣慰。<br />以下是到现在为止的游戏状况。<br />请各位再接再厉。”</span>',
+	'newsnotice' => '<span class="evergreen b">“各位仍在努力奋战，咱很欣慰。<br />以下是到现在为止的游戏状况。<br />请各位再接再厉。”</span>',
 	'useitem' => '>>使用',
 	'end' => '游戏结束！',
 	'send' => '发送',

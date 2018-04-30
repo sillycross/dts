@@ -44,7 +44,7 @@ namespace ex_attr_pierce
 			$dice = rand(0,99);
 			if ($dice<$proc_rate)
 			{
-				$log .= \battle\battlelog_parser($pa, $pd, $active, "<span class=\"yellow\"><:pa_name:>的攻击贯穿了<:pd_name:>的物理防御属性！</span><br>");
+				$log .= \battle\battlelog_parser($pa, $pd, $active, "<span class=\"yellow b\"><:pa_name:>的攻击贯穿了<:pd_name:>的物理防御属性！</span><br>");
 				$pa['physical_pierce_success'] = 1;
 			}
 		}
@@ -62,7 +62,7 @@ namespace ex_attr_pierce
 			$dice = rand(0,99);
 			if ($dice<$proc_rate)
 			{
-				$log .= \battle\battlelog_parser($pa, $pd, $active, "<span class=\"yellow\"><:pa_name:>的攻击穿透了<:pd_name:>的属性防御属性！</span><br>");
+				$log .= \battle\battlelog_parser($pa, $pd, $active, "<span class=\"yellow b\"><:pa_name:>的攻击穿透了<:pd_name:>的属性防御属性！</span><br>");
 				$pa['attr_pierce_success'] = 1;
 			}
 		}
@@ -141,7 +141,7 @@ namespace ex_attr_pierce
 		if(!empty($pa['physical_pierce_success']) && !empty($pa['attr_pierce_success']) && in_array('h',\attrbase\get_ex_def_array($pa, $pd, $active)))
 		{
 			eval(import_module('logger'));
-			$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="red"><:pa_name:>的攻击贯穿了<:pd_name:>的控血属性！</span><br>');
+			$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="red b"><:pa_name:>的攻击贯穿了<:pd_name:>的控血属性！</span><br>');
 			return;
 		}
 		$chprocess($pa, $pd, $active);

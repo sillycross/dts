@@ -9,7 +9,7 @@ namespace skill359
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach359_desc= array(
-		1=>'在<span class="red">极速模式</span>开局15分钟之内达成锁定解除结局',
+		1=>'在<span class="red b">极速模式</span>开局15分钟之内达成锁定解除结局',
 	);
 	
 	$ach359_proc_words = '最快速度';

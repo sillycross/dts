@@ -31,7 +31,7 @@ namespace skill480
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
 		if(\skillbase\skill_getvalue(480,'activated')){
-			$log .= '<span class="red">本局游戏你已经发动过「泡沫」了！</span><br>';
+			$log .= '<span class="red b">本局游戏你已经发动过「泡沫」了！</span><br>';
 			$mode = 'command';$command = '';
 			return;
 		}
@@ -49,7 +49,7 @@ namespace skill480
 		if($hp>0 && \skillbase\skill_query(480) && \skillbase\skill_getvalue(480,'activated')){
 			$money_loss = 50;
 			if($money < $money_loss) $money_loss = $money;
-			if($money_loss) $log .= '<span class="red">「泡沫」</span>的余波让你的金钱减少了<span class="red">'.$money_loss.'</span>！<br>';
+			if($money_loss) $log .= '<span class="red b">「泡沫」</span>的余波让你的金钱减少了<span class="red b">'.$money_loss.'</span>！<br>';
 			$money -= $money_loss;
 		}
 	}
@@ -92,7 +92,7 @@ namespace skill480
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill480') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}发动了技能<span class=\"gold\">「泡沫」</span>，金钱数翻倍了。</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}发动了技能<span class=\"gold\">「泡沫」</span>，金钱数翻倍了。</span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

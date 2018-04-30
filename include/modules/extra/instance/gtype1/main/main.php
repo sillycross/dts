@@ -31,7 +31,7 @@ namespace gtype1
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess();
 		eval(import_module('sys'));
-		if(1 == $gametype) $ret = '<span class="clan">“这下必须动用权限了。”</span>——<span class="clan">薇娜·安妮茜</span><br>';
+		if(1 == $gametype) $ret = '<span class="cyan b">“这下必须动用权限了。”</span>——<span class="cyan b">薇娜·安妮茜</span><br>';
 		return $ret;
 	}
 	
@@ -65,7 +65,7 @@ namespace gtype1
 		//重视躲避不会摸到活的队友
 		if ($gametype == 1 && $tactic==4 && $edata['type']==0 && $edata['hp'] > 0) {
 			eval(import_module('metman'));
-			$hidelog = '<span class="yellow">周围有人，不过你刻意避开了他们。</span><br>';;
+			$hidelog = '<span class="yellow b">周围有人，不过你刻意避开了他们。</span><br>';;
 			return 0;	
 		}
 		return $chprocess($edata);
@@ -280,7 +280,7 @@ namespace gtype1
 		eval(import_module('sys','player'));
 		
 		if($news == 'g1announce') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">本次游戏第<span class=\"yellow\">{$a}</span>名是完成了<span class=\"yellow\">{$c}</span>次除错的<span class=\"yellow\">{$b}</span>。</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime b\">本次游戏第<span class=\"yellow b\">{$a}</span>名是完成了<span class=\"yellow b\">{$c}</span>次除错的<span class=\"yellow b\">{$b}</span>。</span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
@@ -311,16 +311,16 @@ namespace gtype1
 EOH;
 				$log .= <<<EOT
 你将<span class="yellow b">$dnname</span>的名字写在了红暮的脸上。但是什么都没有发生。<br>哪里出错了？<br>
-还没等你合上■DeathNote■，就听到<span class="red b">英灵殿</span>的方向传来一声愤怒的咆哮。你扭头一看，发现一只长得很像<span class="yellow">熊本熊</span>的东西站在你身后，他看起来很生气。<br>
-“熊本熊”伸出手来，指了指他自己，又指了指你，然后做了个“<span class="yellow">60</span>”的手势。<br>
-虽然你不知道他的意思，但你看得懂气氛，乖乖交出了■DeathNote■，想了想，又<span class="yellow">掏出了60元钱</span>，一起交给了他。<br>
+还没等你合上■DeathNote■，就听到<span class="red b">英灵殿</span>的方向传来一声愤怒的咆哮。你扭头一看，发现一只长得很像<span class="yellow b">熊本熊</span>的东西站在你身后，他看起来很生气。<br>
+“熊本熊”伸出手来，指了指他自己，又指了指你，然后做了个“<span class="yellow b">60</span>”的手势。<br>
+虽然你不知道他的意思，但你看得懂气氛，乖乖交出了■DeathNote■，想了想，又<span class="yellow b">掏出了60元钱</span>，一起交给了他。<br>
 “熊本熊”接过钱愣了几秒，之后把■DeathNote■紧紧抱在怀里，钻进旁边的树丛里不见了踪影。<br>之后，似乎传来了舔什么的声音。<br>
 不知为何，你决定还是把这件事完全忘掉。<br>
 EOT;
 				$money -= 60;if($money < 0) $money = 0;
 				$fog = $o_fog;
 			}else{
-				$log .= '■DeathNote■忽然直接燃烧了起来。<br><span class="red">这不是火焰，是灼焰！你被■DeathNote■点燃的灼焰烧伤了！</span><br>■DeathNote■很快化为了灰烬。<br>';
+				$log .= '■DeathNote■忽然直接燃烧了起来。<br><span class="red b">这不是火焰，是灼焰！你被■DeathNote■点燃的灼焰烧伤了！</span><br>■DeathNote■很快化为了灰烬。<br>';
 				$inf = str_replace('u','',$inf);
 				$inf .= 'u';
 			}

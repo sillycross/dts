@@ -32,7 +32,7 @@ namespace skill249
 		if (\skillbase\skill_query(249,$pa)) 
 		{
 			eval(import_module('logger'));
-			$log.='对方精心埋设的陷阱使伤害增加了<span class="yellow">15</span>%！<br>';
+			$log.='对方精心埋设的陷阱使伤害增加了<span class="yellow b">15</span>%！<br>';
 			$r=Array(1.15);
 		}
 		return array_merge($r,$chprocess($pa,$pd,$trap,$damage));

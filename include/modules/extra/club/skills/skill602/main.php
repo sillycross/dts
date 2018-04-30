@@ -61,7 +61,7 @@ namespace skill602
 		{
 			if (isset($pd['new_stun_flag']) && $pd['new_stun_flag']==1)
 			{
-				$pd['battlelog'] .= '敌人的攻击导致你<span class="clan">晕眩</span>了！<br>';
+				$pd['battlelog'] .= '敌人的攻击导致你<span class="cyan b">晕眩</span>了！<br>';
 				unset($pd['new_stun_flag']);
 			}
 		}
@@ -69,7 +69,7 @@ namespace skill602
 		{
 			if (isset($pa['new_stun_flag']) && $pa['new_stun_flag']==1)
 			{
-				$pa['battlelog'] .= '敌人的攻击导致你<span class="clan">晕眩</span>了！<br>';
+				$pa['battlelog'] .= '敌人的攻击导致你<span class="cyan b">晕眩</span>了！<br>';
 				unset($pa['new_stun_flag']);
 			}
 		}
@@ -89,7 +89,7 @@ namespace skill602
 		eval(import_module('sys','player'));
 		
 		if($news == 'bstun1') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red\">{$a}的攻击致使{$b}<span class=\"clan\">晕眩</span>了</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red b\">{$a}的攻击致使{$b}<span class=\"cyan b\">晕眩</span>了</span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
@@ -164,8 +164,8 @@ namespace skill602
 		{
 			eval(import_module('logger'));
 			if ($active)
-				$log.='<span class="yellow">敌人处于眩晕状态，受到的伤害增加！</span><br>';
-			else  $log.='<span class="yellow">你处于眩晕状态，受到的伤害增加！</span><br>';
+				$log.='<span class="yellow b">敌人处于眩晕状态，受到的伤害增加！</span><br>';
+			else  $log.='<span class="yellow b">你处于眩晕状态，受到的伤害增加！</span><br>';
 			$r=Array(1.2);
 		}
 		return array_merge($r,$chprocess($pa,$pd,$active));
@@ -182,7 +182,7 @@ namespace skill602
 			$rmt = $e - $ct;
 			if ($ct<$e)
 			{
-				$log .= '<span class="yellow">你现在处于晕眩状态，什么都做不了！<br>晕眩状态持续时间还剩<span id="timer">'.floor($rmt/1000).'.'.(floor($rmt/100)%10).'</span>秒</span><br><img style="display:none;" type="hidden" src="img/blank.png" onload="demiSecTimerStarter('.$rmt.');">';
+				$log .= '<span class="yellow b">你现在处于晕眩状态，什么都做不了！<br>晕眩状态持续时间还剩<span id="timer">'.floor($rmt/1000).'.'.(floor($rmt/100)%10).'</span>秒</span><br><img style="display:none;" type="hidden" src="img/blank.png" onload="demiSecTimerStarter('.$rmt.');">';
 				$mode = 'command'; $command = 'menu';
 			}
 		}

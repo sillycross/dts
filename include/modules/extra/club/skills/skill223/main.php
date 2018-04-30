@@ -50,8 +50,8 @@ namespace skill223
 			{
 				eval(import_module('logger'));
 				if ($active)
-					$log.="<span class=\"lime\">你对{$pd['name']}发动了技能「暗杀」！</span><br>";
-				else  $log.="<span class=\"lime\">{$pa['name']}对你发动了技能「暗杀」！</span><br>";
+					$log.="<span class=\"lime b\">你对{$pd['name']}发动了技能「暗杀」！</span><br>";
+				else  $log.="<span class=\"lime b\">{$pa['name']}对你发动了技能「暗杀」！</span><br>";
 				$remtime--; 
 				\skillbase\skill_setvalue(223,'rmtime',$remtime,$pa);
 				addnews ( 0, 'bskill223', $pa['name'], $pd['name'] );
@@ -92,8 +92,8 @@ namespace skill223
 				$var_223+=(50*strlen($pd['original_inf']));
 			}
 			if ($active)
-				$log.="<span class=\"yellow\">「暗杀」使你造成的最终伤害提高了{$var_223}%！</span><br>";
-			else  $log.="<span class=\"yellow\">「暗杀」使敌人造成的最终伤害提高了{$var_223}！</span><br>";
+				$log.="<span class=\"yellow b\">「暗杀」使你造成的最终伤害提高了{$var_223}%！</span><br>";
+			else  $log.="<span class=\"yellow b\">「暗杀」使敌人造成的最终伤害提高了{$var_223}！</span><br>";
 			$var_223=($var_223+100)/100;
 			$r=Array($var_223);
 		}
@@ -107,7 +107,7 @@ namespace skill223
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill223') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"clan\">{$a}对{$b}发动了技能<span class=\"red\">「暗杀」</span></span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}对{$b}发动了技能<span class=\"red b\">「暗杀」</span></span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

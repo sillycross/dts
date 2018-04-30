@@ -75,7 +75,7 @@ namespace gtype1
 				'itmk3' => 'Y',
 				'itme3' => 1,
 				'itms3' => 1,
-				'description' => '红杀将军 红暮，坐镇于无月之影的BOSS，达成锁定解除结局所必须击杀的NPC。 <span class="linen">"红暮真可爱呀！"</span>',
+				'description' => '红杀将军 红暮，坐镇于无月之影的BOSS，达成锁定解除结局所必须击杀的NPC。 <span class="linen b">"红暮真可爱呀！"</span>',
 				),
 			),
 		),
@@ -727,7 +727,7 @@ namespace gtype1
 				'itmk3' => 'Y',
 				'itme3' => 1,
 				'itms3' => 1,
-				'description' => '坐镇于冰封墓场的NPC，几乎无敌的存在。<span class="yellow">没事还是不要惹她好了……</span>',
+				'description' => '坐镇于冰封墓场的NPC，几乎无敌的存在。<span class="yellow b">没事还是不要惹她好了……</span>',
 				),
 			),
 		),
@@ -1174,7 +1174,7 @@ namespace gtype1
 			'arte' => 1,
 			'arts' => 1,
 			'artsk' => 'H',
-			'description' => '数据碎片 讲解员 梦美，<span class="yellow">被击杀后会变身为攻击力极强的NPC</span>。',
+			'description' => '数据碎片 讲解员 梦美，<span class="yellow b">被击杀后会变身为攻击力极强的NPC</span>。',
 			),
 			1 => array
 			(
@@ -1208,7 +1208,7 @@ namespace gtype1
 			'arte' => 1,
 			'arts' => 1,
 			'artsk' => 'H',
-			'description' => '数据碎片 喧哗少女 叶留佳，<span class="yellow">被击杀后会变身为攻击力极强的NPC</span>。',
+			'description' => '数据碎片 喧哗少女 叶留佳，<span class="yellow b">被击杀后会变身为攻击力极强的NPC</span>。',
 			),
 			2 => array
 			(
@@ -1242,7 +1242,7 @@ namespace gtype1
 			'arte' => 1,
 			'arts' => 1,
 			'artsk' => 'H',
-			'description' => '数据碎片 风纪委员 静流，<span class="yellow">被击杀后会变身为攻击力极强的NPC</span>。',
+			'description' => '数据碎片 风纪委员 静流，<span class="yellow b">被击杀后会变身为攻击力极强的NPC</span>。',
 			),
 		),
 	), 
@@ -1890,7 +1890,7 @@ namespace gtype1
 			'itmk4' => 'Y',
 			'itme4' => 1,
 			'itms4' => 1,
-			'description' => '武神 黑熊，<span class="yellow">旧英灵四天王之首，被称为英灵殿唯一的良心。（咦？）<br>附带很不要脸的<span class="red">【直死1】</span>和<span class="red">【暴风】</span>技能</span>',
+			'description' => '武神 黑熊，<span class="yellow b">旧英灵四天王之首，被称为英灵殿唯一的良心。（咦？）<br>附带很不要脸的<span class="red b">【直死1】</span>和<span class="red b">【暴风】</span>技能</span>',
 			),
 		),
 	),
@@ -2060,7 +2060,7 @@ namespace gtype1
 			'itme3' => 153,
 			'itms3' => 1,
 			'itmsk3' => 'Z',
-			'description' => '天神 虚子，AC大逃杀程序员，毒舌属性。<br>附带很不要脸的<span class="red">【直死4】</span>技能，命中抬走送往印度，现在订购还附赠美味香蕉一串。pong友，今天你被直死了吗？',
+			'description' => '天神 虚子，AC大逃杀程序员，毒舌属性。<br>附带很不要脸的<span class="red b">【直死4】</span>技能，命中抬走送往印度，现在订购还附赠美味香蕉一串。pong友，今天你被直死了吗？',
 			),
 			3 => array
 			(
@@ -2090,7 +2090,7 @@ namespace gtype1
 			'itme1' => 20,
 			'itms1' => 200,
 			'itmsk1' => 'z',
-			'description' => '天神 lemon，AC大逃杀程序员，代码力深不见底。<br>拥有全英灵殿最高的基础攻击与防御，而更吓人的是其拥有的<span class="red">【反演】</span>技能，让无数屠殿老司机铩羽而归。',
+			'description' => '天神 lemon，AC大逃杀程序员，代码力深不见底。<br>拥有全英灵殿最高的基础攻击与防御，而更吓人的是其拥有的<span class="red b">【反演】</span>技能，让无数屠殿老司机铩羽而归。',
 			),
 		),
 	),
@@ -2309,7 +2309,7 @@ namespace gtype1
 				'wepe' => 8888,
 				'weps' => 8888,
 				'wepsk' => 'nrd',
-				'description' => 'SCP-682，坐镇于SCP研究设施，完全无敌的存在，要是不幸被打到的话，必死无疑。最好的避免方法，就是<span class="yellow">永远不要去SCP研究设施</span>。',
+				'description' => 'SCP-682，坐镇于SCP研究设施，完全无敌的存在，要是不幸被打到的话，必死无疑。最好的避免方法，就是<span class="yellow b">永远不要去SCP研究设施</span>。',
 				),
 				1 => array
 				(
@@ -2320,7 +2320,7 @@ namespace gtype1
 				'wepe' => 8888,
 				'weps' => 8888,
 				'wepsk' => 'nrd',
-				'description' => 'SCP-173，坐镇于SCP研究设施，完全无敌的存在，要是不幸被打到的话，必死无疑。最好的避免方法，就是<span class="yellow">永远不要去SCP研究设施</span>。',
+				'description' => 'SCP-173，坐镇于SCP研究设施，完全无敌的存在，要是不幸被打到的话，必死无疑。最好的避免方法，就是<span class="yellow b">永远不要去SCP研究设施</span>。',
 				),
 				2 => array
 				(
@@ -2331,7 +2331,7 @@ namespace gtype1
 				'wepe' => 8888,
 				'weps' => 8888,
 				'wepsk' => 'nrd',
-				'description' => 'SCP-076，坐镇于SCP研究设施，完全无敌的存在，要是不幸被打到的话，必死无疑。最好的避免方法，就是<span class="yellow">永远不要去SCP研究设施</span>。',
+				'description' => 'SCP-076，坐镇于SCP研究设施，完全无敌的存在，要是不幸被打到的话，必死无疑。最好的避免方法，就是<span class="yellow b">永远不要去SCP研究设施</span>。',
 				),
 				3 => array
 				(
@@ -2342,7 +2342,7 @@ namespace gtype1
 				'wepe' => 8888,
 				'weps' => 8888,
 				'wepsk' => 'nrd',
-				'description' => 'SCP-958，坐镇于SCP研究设施，完全无敌的存在，要是不幸被打到的话，必死无疑。最好的避免方法，就是<span class="yellow">永远不要去SCP研究设施</span>。',
+				'description' => 'SCP-958，坐镇于SCP研究设施，完全无敌的存在，要是不幸被打到的话，必死无疑。最好的避免方法，就是<span class="yellow b">永远不要去SCP研究设施</span>。',
 				),
 			),
 		),

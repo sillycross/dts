@@ -227,11 +227,11 @@ namespace clubbase
 //		$ret = '';
 //		$skill_state = check_battle_skill_unactivatable($sdata,$edata,$skillno);
 //		
-//		if(1 == $skill_state) $ret = '武器不适用，需持<span class="yellow">'.$iteminfo[$wepk_req].'</span>';
-//		elseif(2 == $skill_state) $ret = '武器不适用，需持<span class="yellow">'.$skilltypeinfo[$wep_skillkind_req].'系武器</span>';
+//		if(1 == $skill_state) $ret = '武器不适用，需持<span class="yellow b">'.$iteminfo[$wepk_req].'</span>';
+//		elseif(2 == $skill_state) $ret = '武器不适用，需持<span class="yellow b">'.$skilltypeinfo[$wep_skillkind_req].'系武器</span>';
 //		elseif(3 == $skill_state) {
 //			$rage_func = '\\skill'.$skillno.'\\get_rage_cost'.$skillno;
-//			$ret = '怒气不足，需要<span class="red">'.($rage_func($sdata)).'</span>点怒气';
+//			$ret = '怒气不足，需要<span class="red b">'.($rage_func($sdata)).'</span>点怒气';
 //		}elseif(4 == $skill_state) $ret = '技能尚在冷却中';
 //		return $ret;
 //	}

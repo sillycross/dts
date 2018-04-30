@@ -26,13 +26,13 @@ namespace wepchange
 		$wobj = get_weaponswap_obj($wep);
 		if(!empty($wobj)){
 			list($null,$wep,$wepk,$wepe,$weps,$wepsk) = $wobj;
-			$log.="<span class=\"yellow\">{$oldw}</span>变换成了<span class=\"yellow\">{$wep}</span>。<br>";
+			$log.="<span class=\"yellow b\">{$oldw}</span>变换成了<span class=\"yellow b\">{$wep}</span>。<br>";
 			if(strpos($wepk,'W')!==0) {//变出非武器时自动卸下
 				\itemmain\itemoff('wep');
 			}
 			return;
 		}
-		$log.="<span class=\"yellow\">{$oldw}</span>由于改造或其他原因不能变换。<br>";
+		$log.="<span class=\"yellow b\">{$oldw}</span>由于改造或其他原因不能变换。<br>";
 	}
 	
 	function get_weaponswap_obj($wn)

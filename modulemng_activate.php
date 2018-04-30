@@ -30,12 +30,12 @@ function shutDownFunction() {
 		echo $faillog;
 		echo '<br>或者因为如下原因：<br>';
 		echo '['.$error['type'].'] '.$error['message'].' at line '.$error['line'].' in file '.$error['file'].'<br>';
-		echo '<br><a href="modulemng.php?mode=edit" style="text-decoration: none"><span><font color="blue">[返回编辑模式]</font></span></a><br>';   
+		echo '<br><a href="modulemng.php?mode=edit" style="text-decoration: none"><span><font color="blue b">[返回编辑模式]</font></span></a><br>';   
 		die();
 	}
 }
 
-$faillog = '<font color="red">看起来遇到了一个错误。请检查模块是否工作正常，然后返回编辑模式再试一次。<br>修改没有保存。<br></font>';
+$faillog = '<font color="red b">看起来遇到了一个错误。请检查模块是否工作正常，然后返回编辑模式再试一次。<br>修改没有保存。<br></font>';
 
 $codelist=Array(); 
 $quickmode = isset($_GET['mode']) && 'quick'==$_GET['mode'] ? 1 : 0;
@@ -48,11 +48,11 @@ $z=setInterval(function() { window.scroll(0,document.body.scrollHeight); },100);
 function stop() { window.scroll(0,document.body.scrollHeight); clearInterval($z); }</script>
 <body onload=stop(); ></body>'; 
 
-echo '<br><font size=4 color="red">请务必阅读以下运行日志，确定没有错误。</font><br><br>'; ob_end_flush(); flush();
+echo '<br><font size=4 color="red b">请务必阅读以下运行日志，确定没有错误。</font><br><br>'; ob_end_flush(); flush();
 
 if ($___MOD_CODE_ADV1)
 {
-	echo '<font color="blue">正在进行代码预处理CODE_ADV1..</font><br>'; ob_end_flush(); flush();
+	echo '<font color="blue b">正在进行代码预处理CODE_ADV1..</font><br>'; ob_end_flush(); flush();
 	
 	global $___TEMP_DRY_RUN, $___TEMP_DRY_RUN_COUNTER;
 	$___TEMP_DRY_RUN=0;
@@ -208,13 +208,13 @@ if ($___MOD_CODE_ADV1)
 		$modn[$i]=$___TEMP_MOD_LOAD_NAME[$i];
 		$modp[$i]=$___TEMP_MOD_LOAD_PATH[$i];
 	}
-	echo '<font color="blue">代码预处理CODE_ADV1完成。</font><br><br>';
+	echo '<font color="blue b">代码预处理CODE_ADV1完成。</font><br><br>';
 }
 
 global $___MOD_CODE_ADV2;
 if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2)
 {
-	echo '<font color="blue">正在进行代码预处理CODE_ADV2..</font><br>';
+	echo '<font color="blue b">正在进行代码预处理CODE_ADV2..</font><br>';
 	include GAME_ROOT.'./include/modulemng/modulemng.codeadv2.func.php';
 	$___TEMP_modfuncs=Array();
 	$___TEMP_flipped_modn = array_flip($modn);
@@ -326,7 +326,7 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2)
 		}
 	}
 	echo '完成。<br>'; ob_end_flush(); flush();
-	echo '<font color="blue">代码预处理CODE_ADV2完成。</font><br><br>';
+	echo '<font color="blue b">代码预处理CODE_ADV2完成。</font><br><br>';
 }
 
 clear_dir(GAME_ROOT.'./gamedata/templates',1);
@@ -337,7 +337,7 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2 && $___MOD_CODE_ADV3)
 	$___TEMP_template_force_refresh = 1;
 	$___TEMP_codeadv3=Array(); $___TEMP_codeadv3_c=0; $___TEMP_codeadv3_v=Array();
 	include GAME_ROOT.'./include/modulemng/modulemng.codeadv3.func.php';
-	echo '<font color="blue">正在进行代码预处理CODE_ADV3..</font><br>';
+	echo '<font color="blue b">正在进行代码预处理CODE_ADV3..</font><br>';
 	for ($i=1; $i<=$n; $i++)
 	{
 		echo '开始处理模块'.$modn[$i].'...<br>'; ob_end_flush(); flush();
@@ -381,7 +381,7 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2 && $___MOD_CODE_ADV3)
 			}
 		}
 	}
-	echo '<font color="blue">代码预处理CODE_ADV3完成。</font><br><br>';
+	echo '<font color="blue b">代码预处理CODE_ADV3完成。</font><br><br>';
 	
 	$str='___temp_s = new String(\''.gencode($___TEMP_codeadv3_v).'\');
 	___datalib = JSON.parse(JXG.decompress(___temp_s));
@@ -403,12 +403,12 @@ touch(GAME_ROOT.'./gamedata/modules.list.php');//更新文件时间以保证quic
 if ($___MOD_SRV)
 {
 	//重启daemon
-	echo '<font color="blue">正在重启Daemon...</font> '; ob_end_flush(); flush();
+	echo '<font color="blue b">正在重启Daemon...</font> '; ob_end_flush(); flush();
 	require GAME_ROOT.'./include/socket.func.php';
 	__STOP_ALL_SERVER__();
 	touch(GAME_ROOT.'./gamedata/tmp/server/request_new_root_server');
 	__SOCKET_LOG__("已请求脚本启动一台新的服务器。");
-	echo '<font color="blue">完成。</font><br><br>';
+	echo '<font color="blue b">完成。</font><br><br>';
 }
 
 //执行1次服务器维护
@@ -416,8 +416,8 @@ $url = url_dir().'command.php';
 $context = array('command'=>'maintain');
 curl_post($url, $context, NULL, 1);
 
-echo '<font color="green">操作成功完成。修改已经被应用。<br><br></font>';
-echo '<a href="modulemng.php" style="text-decoration: none"><span><font color="blue">[返回首页]</font></span></a><br>';   
+echo '<font color="green b">操作成功完成。修改已经被应用。<br><br></font>';
+echo '<a href="modulemng.php" style="text-decoration: none"><span><font color="blue b">[返回首页]</font></span></a><br>';   
 		
 
 /* End of file modulemng_active.php */

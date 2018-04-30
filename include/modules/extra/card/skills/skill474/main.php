@@ -46,7 +46,7 @@ namespace skill474
 		if (\skillbase\skill_query(474,$pd))
 		{
 			eval(import_module('sys','logger'));
-			$log.='<span class="yellow">'.$pa['name'].'被传染上了技能「厌食」！</span><br>';
+			$log.='<span class="yellow b">'.$pa['name'].'被传染上了技能「厌食」！</span><br>';
 			\skillbase\skill_acquire(474,$pa);
 			\skillbase\skill_lost(474,$pd);
 		}
@@ -59,7 +59,7 @@ namespace skill474
 		if (\skillbase\skill_query(474,$pa) && $pa['user_commanded']==1 && $active && !$pa['is_counter'] && $pd['type']==0)
 		{
 			eval(import_module('sys','logger'));
-			$log.='<span class="yellow">你将技能「厌食」传染给了敌人！</span><br>';
+			$log.='<span class="yellow b">你将技能「厌食」传染给了敌人！</span><br>';
 			\skillbase\skill_lost(474,$pa);
 			\skillbase\skill_acquire(474,$pd);
 		}

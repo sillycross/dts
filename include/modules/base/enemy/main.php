@@ -14,7 +14,7 @@ namespace enemy
 		
 		$battle_title = '发现敌人';
 		\metman\init_battle();
-		$log .= "你发现了敌人<span class=\"red\">{$tdata['name']}</span>！<br>对方好像完全没有注意到你！<br>";
+		$log .= "你发现了敌人<span class=\"red b\">{$tdata['name']}</span>！<br>对方好像完全没有注意到你！<br>";
 		
 		include template(get_battlecmd_filename());
 		$cmd = ob_get_contents();
@@ -136,7 +136,7 @@ namespace enemy
 			$enemyid = str_replace('enemy','',$action);
 			
 			if(!$enemyid || strpos($action,'enemy')===false){
-				$log .= "<span class=\"yellow\">你没有遇到敌人，或已经离开战场！</span><br>";
+				$log .= "<span class=\"yellow b\">你没有遇到敌人，或已经离开战场！</span><br>";
 				$mode = 'command';
 				return;
 			}
@@ -153,12 +153,12 @@ namespace enemy
 			extract($edata,EXTR_PREFIX_ALL,'w');
 			
 			if ($edata ['pls'] != $pls) {
-				$log .= "<span class=\"yellow\">" . $edata ['name'] . "</span>已经离开了<span class=\"yellow\">$plsinfo[$pls]</span>。<br>";
+				$log .= "<span class=\"yellow b\">" . $edata ['name'] . "</span>已经离开了<span class=\"yellow b\">$plsinfo[$pls]</span>。<br>";
 				
 				$mode = 'command';
 				return;
 			} elseif ($edata ['hp'] <= 0) {
-				$log .= "<span class=\"red\">" . $edata ['name'] . "</span>已经死亡，不能被攻击。<br>";
+				$log .= "<span class=\"red b\">" . $edata ['name'] . "</span>已经死亡，不能被攻击。<br>";
 				if(\corpse\check_corpse_discover($edata))
 				{
 					$action = 'corpse'.$edata['pid'];

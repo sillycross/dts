@@ -1,11 +1,11 @@
 {template header}
 <div class="subtitle" align="center">{lang user}</div>
 
-<p align="center" class="linen">
+<p align="center" class="linen b">
 	需要修改密码则输入原密码和新密码，留空为不修改。<br />
 	注意：若玩家已进入游戏，对性别和头像的修改将在下一局生效。<br />
 	<span id="notice"></span><br />
-	<span id="info" class="yellow"></span>
+	<span id="info" class="yellow b"></span>
 </p>
 <center>
 	<form method="post" action="user.php" name="userdata">
@@ -13,16 +13,16 @@
 		<input type="hidden" id="newCardChoice" name="card" value="$cardChosen">
 		<div>
 		<div style="display:inline-block;">
-		<span class ="yellow">{lang basicdata}</span>
+		<span class ="yellow b">{lang basicdata}</span>
 		{template userbasicdata}
 		</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<div style="display:inline-block;">
-		<span class ="yellow">{lang advanceddata}</span>
+		<span class ="yellow b">{lang advanceddata}</span>
 		{template useradvdata}
 		</div>
 		</div>
 		<!--{eval $hideDisableButton=0; $showCardUnavailableHint=0;}-->
-		<span class ="yellow">身份卡选择</span><br>
+		<span class ="yellow b">身份卡选择</span><br>
 		<div style="height:3px">&nbsp;</div>
 		{template selectcard}
 		<div id="postdata">

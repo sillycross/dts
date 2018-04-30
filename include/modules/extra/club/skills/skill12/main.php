@@ -43,7 +43,7 @@ namespace skill12
 		}
 		eval(import_module('wound'));
 		$flag=false;
-		$log.="消耗了<span class='lime'>1</span>点技能点，<br>";
+		$log.="消耗了<span class='lime b'>1</span>点技能点，<br>";
 		for ($i=0; $i<strlen($inf); $i++)
 		{
 			$log .= "{$infname[$inf[$i]]}状态解除了。<br>";
@@ -54,14 +54,14 @@ namespace skill12
 			$hpup = 500;
 			if($hp + $hpup > $mhp) $hpup = $mhp - $hp;
 			$hp += $hpup;
-			$log .= "生命回复了<span class='lime'>$hpup</span>点。<br>";
+			$log .= "生命回复了<span class='lime b'>$hpup</span>点。<br>";
 			$flag = true;
 		}
 		if($sp < $msp) {
 			$spup = 500;
 			if($sp + $spup > $msp) $spup = $msp - $sp;
 			$sp += $spup;
-			$log .= "体力回复了<span class='lime'>$spup</span>点。<br>";
+			$log .= "体力回复了<span class='lime b'>$spup</span>点。<br>";
 			$flag = true;
 		}
 		

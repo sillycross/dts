@@ -98,7 +98,7 @@ namespace skill487
 		}
 		if($pa['hp'] > $tmp_hp) {
 			$hpup = $pa['hp'] - $tmp_hp;
-			$log .= "幸好你留有后手，紧急复用了{$i}个{$theitem['itm']}，<span class='lime'>回复了{$hpup}点生命！</span>";
+			$log .= "幸好你留有后手，紧急复用了{$i}个{$theitem['itm']}，<span class='lime b'>回复了{$hpup}点生命！</span>";
 		}
 		return $i;
 	}
@@ -117,9 +117,9 @@ namespace skill487
 //		if($r) {
 //			if($pa['hp'] > $tmp_hp){//回复
 //				$hpup = $pa['hp'] - $tmp_hp;
-//				$log .= "幸好你留有后手，紧急复用了{$r}个{$tmp_itm}，<span class='lime'>回复了{$hpup}点生命！</span>";
-//				//$log .= \battle\battlelog_parser($pa, $pa, $active, "幸好<:pd_name:>留有后手，紧急复用了{$r}个{$tmp_itm}，<span class='lime'>回复了{$hpup}点生命！</span>");
-//				//$pa['battlelog'] .= \battle\battlelog_parser($pa, $pa, $active, "幸好<:pd_name:>留有后手，紧急使用了{$tmp_itm}，<span class='lime'>回复了{$hpup}点生命！</span>");
+//				$log .= "幸好你留有后手，紧急复用了{$r}个{$tmp_itm}，<span class='lime b'>回复了{$hpup}点生命！</span>";
+//				//$log .= \battle\battlelog_parser($pa, $pa, $active, "幸好<:pd_name:>留有后手，紧急复用了{$r}个{$tmp_itm}，<span class='lime b'>回复了{$hpup}点生命！</span>");
+//				//$pa['battlelog'] .= \battle\battlelog_parser($pa, $pa, $active, "幸好<:pd_name:>留有后手，紧急使用了{$tmp_itm}，<span class='lime b'>回复了{$hpup}点生命！</span>");
 //			}
 //		}
 	}
@@ -286,7 +286,7 @@ namespace skill487
 		eval(import_module('sys','player'));
 		
 		if($news == 'skill487_act') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime\">{$a}发动了「后手」，服用了{$b}</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime b\">{$a}发动了「后手」，服用了{$b}</span></li>";
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 }
