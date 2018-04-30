@@ -66,6 +66,7 @@ wound,base/wound/,1
 skill2,base/skills/skill2/,1
 skill3,base/skills/skill3/,1
 item_uv,base/items/item_uv/,1
+npcchat_bubble,extra/misc/npcchat_bubble/,1
 skill11,extra/club/skills/skill11/,1
 skill10,extra/club/skills/skill10/,1
 skill305,extra/achievement/skills/skill305/,1
@@ -484,5 +485,4 @@ skill36,extra/club/skills/skill36/,1
 skill38,extra/club/skills/skill38/,1
 skill34,extra/club/skills/skill34/,1
 skill505,extra/card/skills/skill505/,1
-npcchat_bubble,extra/misc/npcchat_bubble/,0
 halloween2017,extra/activities/halloween2017/main/,0
