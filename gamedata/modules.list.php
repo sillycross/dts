@@ -77,9 +77,6 @@ skill330,extra/activities/halloween2017/skill330/,1
 skill1003,extra/achievement/skills/skill1003/,1
 skill411,extra/card/skills/skill411/,1
 skill413,extra/card/skills/skill413/,1
-skill302,extra/achievement/skills/skill302/,1
-skill303,extra/achievement/skills/skill303/,1
-skill304,extra/achievement/skills/skill304/,1
 skill308,extra/achievement/skills/skill308/,1
 skill309,extra/achievement/skills/skill309/,1
 skill317,extra/achievement/skills/skill317/,1
@@ -300,6 +297,9 @@ skill445,extra/card/skills/skill445/,1
 pose,base/pose/,1
 skill1,base/skills/skill1/,1
 skill600,extra/club/skills/skill600/,1
+skill302,extra/achievement/skills/skill302/,1
+skill303,extra/achievement/skills/skill303/,1
+skill304,extra/achievement/skills/skill304/,1
 skill325,extra/achievement/skills/skill325/,1
 skill326,extra/achievement/skills/skill326/,1
 skill315,extra/achievement/skills/skill315/,1

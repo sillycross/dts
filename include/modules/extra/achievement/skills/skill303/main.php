@@ -2,11 +2,35 @@
 
 namespace skill303
 {
-	//旧成就精力所限，未全部修改，请以skill300、skill313或skill332之后的成就为模板！
+	//各级要完成的成就名，如果不存在则取低的
 	$ach303_name = array(
-		0=>'篝火的引导',
-		1=>'世界的树形图',
-		2=>'地=月',
+		1=>'篝火的引导',
+		2=>'世界的树形图',
+		3=>'地=月',
+	);
+	
+	//各级显示的要求，如果不存在则取低的
+	$ach303_desc= array(
+		1=>'合成【KEY系燃烧弹】<:threshold:>次',
+	);
+	
+	$ach303_proc_words = '目前进度';
+	
+	$ach303_unit = '次';
+	
+	//各级阈值，注意是达到这个阈值则升到下一级
+	$ach303_threshold = array(
+		1 => 1,
+		2 => 5,
+		3 => 15,
+		999 => NULL
+	);
+	
+	//各级给的切糕奖励
+	$ach303_qiegao_prize = array(
+		1 => 300,
+		2 => 1200,
+		3 => 2700,
 	);
 	
 	function init() 
@@ -26,59 +50,26 @@ namespace skill303
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
-	function finalize303(&$pa, $data)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($data=='')					
-			$x=0;						
-		else $x=$data;
-		$ox=$x;
-		$x+=\skillbase\skill_getvalue(303,'cnt',$pa);		
-		$x=min($x,(1<<30)-1);
-		
-		if (($ox<1)&&($x>=1)){
-			//\cardbase\get_qiegao(150,$pa);
-			\achievement_base\ach_create_prize_message($pa, 303, 0, 150);
-		}
-		if (($ox<5)&&($x>=5)){
-			//\cardbase\get_qiegao(500,$pa);
-			\achievement_base\ach_create_prize_message($pa, 303, 1, 500);
-		}
-		if (($ox<30)&&($x>=30)){
-			//\cardbase\get_qiegao(2500,$pa);
-			\achievement_base\ach_create_prize_message($pa, 303, 2, 2500);
-		}
-		
-		return $x;
-	}
-	
 	function itemmix_success()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','logger','map'));
-		if ($itm0=="【KEY系燃烧弹】"){
-			$x=(int)\skillbase\skill_getvalue(303,'cnt');
-			$x++;
-			\skillbase\skill_setvalue(303,'cnt',$x);
+		eval(import_module('player'));
+		if ($itm0=='【KEY系燃烧弹】' && \skillbase\skill_query(303)){
+			$cnt = (int)\skillbase\skill_getvalue(303,'cnt');
+			\skillbase\skill_setvalue(303,'cnt',$cnt + 1);
 		}
 		$chprocess();	
 	}
-
-	function show_achievement303($data)
+	
+	function ach_finalize_process(&$pa, $data, $achid)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($data=='')
-			$p303=0;
-		else	$p303=$data;	
-		$c303=0;
-		if ($p303>=30){
-			$c303=999;
-		}else if ($p303>=5){
-			$c303=2;
-		}else if ($p303>=1){
-			$c303=1;
+		$ret = $chprocess($pa, $data, $achid);
+		if($achid == 303){
+			$var = (int)\skillbase\skill_getvalue($achid,'cnt',$pa);
+			$ret += $var;
 		}
-		include template('MOD_SKILL303_DESC');
+		return $ret;
 	}
 }
 
