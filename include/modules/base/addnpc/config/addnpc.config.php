@@ -469,7 +469,6 @@ namespace addnpc
 				'icon' => 'avatar_kh/sophia.jpg',
 				'gd' => 'f',
 				'mss' => 50,
-				'pose'=> 4,
 				'skills' => array('404'=>'3','461'=>'1','491'=>'0'),
 				'wep' => '空想波动 ~ 共鸣冲击',
 				'wepk' => 'WD',
