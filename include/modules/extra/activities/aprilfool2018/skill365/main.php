@@ -125,7 +125,11 @@ namespace skill365
 	function activity_ranking_load365()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return \activity_ranking\load_aranking('aprillfool2018', 10);
+		$file = GAME_ROOT.'./gamedata/cache/aprillfool2018.dat';
+		if(1 == \achievement_base\check_achtype_available(34) || !file_exists($file)) $ret = \activity_ranking\load_aranking('aprillfool2018', 10);
+		else $ret = gdecode(file_get_contents($file),1);
+		if(1 !== \achievement_base\check_achtype_available(34) && !file_exists($file)) file_put_contents($file, gencode($ret));
+		return $ret;
 	}
 	
 	function activity_ranking_process365()

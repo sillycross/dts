@@ -2,11 +2,40 @@
 
 namespace skill302
 {
-	//旧成就精力所限，未全部修改，请以skill300、skill313或skill332之后的成就为模板！
+	//各级要完成的成就名，如果不存在则取低的
 	$ach302_name = array(
-		0=>'永恒世界的住人',
-		1=>'幻想世界的往人',
-		2=>'永恒的覆唱',
+		1=>'永恒世界的住人',
+		2=>'幻想世界的往人',
+		3=>'永恒的覆唱',
+	);
+	
+	//各级显示的要求，如果不存在则取低的
+	$ach302_desc= array(
+		1=>'合成【KEY系催泪弹】<:threshold:>次',
+	);
+	
+	$ach302_proc_words = '目前进度';
+	
+	$ach302_unit = '次';
+	
+	//各级阈值，注意是达到这个阈值则升到下一级
+	$ach302_threshold = array(
+		1 => 1,
+		2 => 5,
+		3 => 15,
+		999 => NULL
+	);
+	
+	//各级给的切糕奖励
+	$ach302_qiegao_prize = array(
+		1 => 200,
+		2 => 800,
+		3 => 1800,
+	);
+	
+	//各级给的卡片奖励
+	$ach302_card_prize = array(
+		3 => 66,
 	);
 	
 	function init() 
@@ -26,61 +55,26 @@ namespace skill302
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
-	
-	function finalize302(&$pa, $data)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($data=='')					
-			$x=0;						
-		else $x=$data;
-		$ox=$x;
-		$x+=\skillbase\skill_getvalue(302,'cnt',$pa);		
-		$x=min($x,(1<<30)-1);
-		
-		if (($ox<1)&&($x>=1)){
-			//\cardbase\get_qiegao(50,$pa);
-			\achievement_base\ach_create_prize_message($pa, 302, 0, 50);
-		}
-		if (($ox<5)&&($x>=5)){
-			//\cardbase\get_qiegao(300,$pa);
-			\achievement_base\ach_create_prize_message($pa, 302, 1, 300);
-		}
-		if (($ox<30)&&($x>=30)){
-			//\cardbase\get_qiegao(1000,$pa);
-			//\cardbase\get_card(66,$pa);
-			\achievement_base\ach_create_prize_message($pa, 302, 2, 1000, 66);
-		}
-		
-		return $x;
-	}
-	
 	function itemmix_success()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','logger','map'));
-		if ($itm0=="【KEY系催泪弹】"){
-			$x=(int)\skillbase\skill_getvalue(302,'cnt');
-			$x++;
-			\skillbase\skill_setvalue(302,'cnt',$x);
+		eval(import_module('player'));
+		if ($itm0=='【KEY系催泪弹】' && \skillbase\skill_query(302)){
+			$cnt = (int)\skillbase\skill_getvalue(302,'cnt');
+			\skillbase\skill_setvalue(302,'cnt',$cnt + 1);
 		}
 		$chprocess();	
 	}
-
-	function show_achievement302($data)
+	
+	function ach_finalize_process(&$pa, $data, $achid)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($data=='')
-			$p302=0;
-		else	$p302=$data;	
-		$c302=0;
-		if ($p302>=30){
-			$c302=999;
-		}else if ($p302>=5){
-			$c302=2;
-		}else if ($p302>=1){
-			$c302=1;
+		$ret = $chprocess($pa, $data, $achid);
+		if($achid == 302){
+			$var = (int)\skillbase\skill_getvalue($achid,'cnt',$pa);
+			$ret += $var;
 		}
-		include template('MOD_SKILL302_DESC');
+		return $ret;
 	}
 }
 

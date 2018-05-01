@@ -452,6 +452,13 @@ namespace cardbase
 		//成就
 		if(defined('MOD_ACHIEVEMENT_BASE')){
 			eval(import_module('achievement_base'));
+			//生成未生效成就列表
+			$ach_expired = array();
+			foreach(array_keys($ach_available_period) as $aap_key){
+				if(1 != \achievement_base\check_achtype_available($aap_key)) {
+					$ach_expired = array_merge($ach_expired, $achlist[$aap_key]);
+				}
+			}
 			foreach($achlist as $aclass => $aval) {
 				foreach($aval as $ai) {
 					if(defined('MOD_SKILL'.$ai.'_ACHIEVEMENT_ID') && !defined('MOD_SKILL'.$ai.'_ABANDONED') && !\skillbase\check_skill_info($ai, 'global')){
@@ -471,9 +478,12 @@ namespace cardbase
 										$seriesname = $achtype[$aclass];
 										$cardset_notice = $cardset_flag ? '可能' : '';
 										$aname = ${'ach'.$ai.'_name'}[$at];
-										if(count(${'ach'.$ai.'_name'})==1) $cgmethod[$acard][] = '完成'.$seriesname.'「'.$astart.'」'.$cardset_notice.'获得';
-										elseif(preg_match('/LV\d/s', $aname)) $cgmethod[$acard][] = '完成'.$seriesname.'成就「'.$aname.'」'.$cardset_notice.'获得';
-										else $cgmethod[$acard][] = '完成'.$seriesname.'「'.$astart.'」的第'.$at.'阶段「'.$aname.'」'.$cardset_notice.'获得';
+										if(count(${'ach'.$ai.'_name'})==1) $cgmethod_this = '完成'.$seriesname.'「'.$astart.'」'.$cardset_notice.'获得';
+										elseif(preg_match('/LV\d/s', $aname)) $cgmethod_this = '完成'.$seriesname.'成就「'.$aname.'」'.$cardset_notice.'获得';
+										else $cgmethod_this = '完成'.$seriesname.'「'.$astart.'」的第'.$at.'阶段「'.$aname.'」'.$cardset_notice.'获得';
+										//过期成就判定
+										if(in_array($ai, $ach_expired)) $cgmethod_this = '<font color=grey>'.$cgmethod_this.'</font>';
+										$cgmethod[$acard][] = $cgmethod_this;
 									}
 								}
 							}
@@ -504,7 +514,6 @@ namespace cardbase
 											elseif(preg_match('/LV\d/s', $aname)) $cgmethod[$acard][] = '完成'.$seriesname.'「'.$aname.'」获得';
 											else $cgmethod[$acard][] = '完成'.$seriesname.'「'.$astart.'」的第'.$i.'阶段「'.$aname.'」获得';
 										}
-										
 									}
 								}
 							}
@@ -517,22 +526,26 @@ namespace cardbase
 		
 		//特判
 		$cgmethod[0][] = '注册账号即有';
-		$cgmethod[63][] = '使锡安成员技能「破解」达到50层以上获得';
+		$cgmethod[63][] = '在四禁前使锡安成员技能「破解」达到50层以上获得（只在标准、卡片、荣耀或极速模式有效）';
 		$cgmethod[72][] = '完成竞速挑战「不动的大图书馆」获得';
 		$cgmethod[78][] = '完成竞速挑战「烈火疾风」获得';
 		$cgmethod[88][] = '完成战斗成就「谈笑风生」获得';
-		$cgmethod[119][] = '完成特殊挑战「常磐的训练师」的第2阶段「常磐之心」获得';
 		$cgmethod[158][] = '在「伐木模式」从商店购买「博丽神社的参拜券」并在开局20分钟之内使用以获得';
 		$cgmethod[159][] = '通过礼品盒开出的★闪熠着光辉的大逃杀卡牌包★获得（15%概率）';
 		$cgmethod[160][] = '完成2017万圣节活动「噩梦之夜 LV2」获得';
 		$cgmethod[165][] = '<br>当你看到某张小纸条有「奇怪的空白」时，你可以按下F12。<br>这张卡的获得方式，就藏在那段空白对应的页面代码的位置。<br>　　　　　　　　　　　　　　　　　　　　——林苍月';
 		for($ci=200;$ci<=204;$ci++) {
-			$cgmethod[$ci][] = '完成2017十一活动「新的战场 LV2」可能获得';
-			$cgmethod[$ci][] = '完成2017十一活动「新的战场 LV3」可能获得';
-			$cgmethod[$ci][] = '完成2017十一活动「血染乐园 LV3」可能获得';
-			$cgmethod[$ci][] = '完成2017十一活动「极光处刑 LV3」可能获得';
-			$cgmethod[$ci][] = '完成2017万圣节活动「不给糖就解禁」可能获得';
+			$cgmethod[$ci][] = '<font color=grey>完成2017十一活动「新的战场 LV2」可能获得</font>';
+			$cgmethod[$ci][] = '<font color=grey>完成2017十一活动「新的战场 LV3」可能获得</font>';
+			$cgmethod[$ci][] = '<font color=grey>完成2017十一活动「血染乐园 LV3」可能获得</font>';
+			$cgmethod[$ci][] = '<font color=grey>完成2017十一活动「极光处刑 LV3」可能获得</font>';
+			$cgmethod[$ci][] = '<font color=grey>完成2017万圣节活动「不给糖就解禁」可能获得</font>';
 		}
+		$cgmethod[200][] = '在「荣耀模式」模式击杀「全息实体 幻影斗将神 S.A.S」后，使用缴获的★锋利的卡牌包★获得（15%概率）';
+		$cgmethod[201][] = '在「荣耀模式」模式击杀「全息实体 熵魔法传人 Howling」后，使用缴获的★长着兽耳的卡牌包★获得（15%概率）';
+		$cgmethod[202][] = '在「荣耀模式」模式击杀「全息实体 通灵冒险家 星海」后，使用缴获的★套了好几层的卡牌包★获得（15%概率）';
+		$cgmethod[203][] = '在「荣耀模式」模式击杀「全息实体 银白愿天使 Annabelle」后，使用缴获的★羽翼卡牌包★获得（15%概率）';
+		$cgmethod[204][] = '在「荣耀模式」模式击杀「全息实体 麻烦妖精 Sophia」后，使用缴获的★蠢萌的卡牌包★获得（15%概率）';
 		if(empty($cgmethod)) return;
 		$contents = str_replace('?>','',$checkstr);//"<?php\r\nif(!defined('IN_GAME')) exit('Access Denied');\r\n";
 
