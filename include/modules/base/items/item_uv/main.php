@@ -166,7 +166,7 @@ namespace item_uv
 						$ext = '来自第'.$gamenum.'局的'.$itm.'。';
 					}
 					if($cards[$get_card_id]['rare'] == 'A') $ext.='运气不错！';
-					elseif($cards[$get_card_id]['rare'] == 'S') $ext.='一是欧洲人吧！';
+					elseif($cards[$get_card_id]['rare'] == 'S') $ext.='一定是欧洲人吧！';
 					if ((\cardbase\get_card_message($get_card_id,$ext))==1) $is_new = "<span class=\"L5 b\">NEW!</span>";;
 					ob_clean();
 					include template('MOD_CARDBASE_CARDFLIP_RESULT');
