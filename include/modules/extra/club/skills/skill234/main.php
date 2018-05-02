@@ -48,8 +48,21 @@ namespace skill234
 			}
 			if($position){
 				$itm = ${'itm'.$position};
-				$log .= "<span class=\"yellow b\">破解成功。</span><br />";
-				$log .= "<span class=\"red b\">$itm</span>用光了。<br />";
+				$log .= '<span class="yellow b">破解成功。</span><br>';
+				if(!$clv) {
+					$log .= '旗开得胜。你心中泛起一丝得意。这个幻境系统也不过如此嘛。<br>';
+				}elseif(9 == $clv){
+					$log .= '你轻轻松松就找到了10个漏洞，看来红杀菁英们根本不懂怎么维护。<br>';
+				}elseif(19 == $clv){
+					$log .= '你手中积累的“肉鸡道具”已经有20个了，你开始怀疑金龙通讯社的运维都是吃白饭的。<br>';
+				}elseif(29 == $clv){
+					$log .= '30个了！<br>你正准备给自己造个钥匙，眼前突然泛起一层“白雾”。<br>恍惚间，似乎有名女子不怀好意地朝你微笑着，你觉得她像早已失踪的林无月。<br><span class="evergreen b">“好身手，轻易把你干掉似乎太可惜了……”</span><br>你启动了紧急代码，奋力挣脱了控制。<br>惊惧之余你决定多加几层保险。<br>';
+				}elseif(39 == $clv){
+					$log .= '40层了。<br>“林无月”没有再来干扰你，不过代码里的蛛丝马迹让你觉得这一切似乎都在她的安排之中。还是争取万无一失吧……<br>';
+				}elseif(49 == $clv){
+					$log .= '应该差不多了，现在就算天网现身也拿你没有办法。<br>您感觉自己离胜利只有一步之遥。<br>';
+				}
+				$log .= "<br /><span class=\"red b\">$itm</span>用光了。<br />";
 				addnews ( 0, 'skill234', $name, $clv+1);
 				${'itm'.$position} = ${'itmk'.$position} = ${'itmsk'.$position} = '';
 				${'itme'.$position} =${'itms'.$position} =0;
@@ -62,19 +75,12 @@ namespace skill234
 					${'itms'.$position} =1;
 					\skillbase\skill_lost(234);
 					
-					if ((($areanum/$areaadd)<4)&&(!in_array($gametype,$qiegao_ignore_mode))){
-						$get_card_id=63;
-						$ext = '您在'.($room_prefix ? '房间' : '').'第'.$gamenum.'局完成了破解流程，获得了奖励卡！';
-						\cardbase\get_card_message($get_card_id,$ext);
-						$log.='<span class="yellow b">您获得了活动奖励卡，请前往“站内邮件”查收。</span><br>';
-//						$null = NULL;
-//						if (\cardbase\get_card(63,$null,1)==1){
-//							$log.="恭喜您获得了活动奖励卡<span class=\"orange\">lemon</span>！<br>";
-//						}else{
-//							$log.="您已经拥有活动奖励卡了，系统奖励您<span class=\"yellow b\">500</span>切糕！<br>";
-//							\cardbase\get_qiegao(500);
-//						}
-					}
+//					if ((($areanum/$areaadd)<4)&&(!in_array($gametype,$qiegao_ignore_mode))){
+//						$get_card_id=63;
+//						$ext = '您在'.($room_prefix ? '房间' : '').'第'.$gamenum.'局完成了破解流程，获得了奖励卡！';
+//						\cardbase\get_card_message($get_card_id,$ext);
+//						$log.='<span class="yellow b">您获得了活动奖励卡，请前往“站内邮件”查收。</span><br>';
+//					}
 					
 					$mode = 'command';
 					return;

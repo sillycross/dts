@@ -251,6 +251,39 @@
 			<span class="evergreen b">■ RUSH MODE CLEAR - END #3 ■</span><br>
 			<span class="evergreen b" style="font-weight:700;font-size:18pt;line-height:18pt;">极速模式「锁定解除」胜利！恭喜恭喜！</span>
 			</p>
+		<!--{elseif \skillbase\skill_query(367) && \skillbase\skill_getvalue(367,'cnt') >= 50}-->
+		<!--其实破解到50层以后杀执行官解禁也能触发这个文本-->
+			<p>
+				你端详着手中的“游戏解除钥匙”。它的样子平凡无奇，却具有力量决定这个虚拟世界的一切。<BR>
+				本来，它只是虚拟幻境操纵者们的紧急开关。可惜道高一尺魔高一丈，现在是你拯救世界的时候了。<BR>
+				你向“游戏解除钥匙”里注入了代码。<br><br>
+				<span class="evergreen b">“我应该恭喜你吗，黑客？”</span><br>
+				钥匙从你的手中飘了起来，落入了凭空出现的“林无月”手中。<br>
+				最坏的设想应验了！<br>
+				<!--{if $wepe}-->你迅速摸向你的{$wep}，却发现它已不翼而飞。<!--{else}-->然而你专注于破解幻境系统，可谓是手无寸铁。<!--{/if}--><br><br>
+				<span class="evergreen b">“ <span class="yellow b">{$sexinfo[$gd]}{$sNo}号，{$name} ”</span>……是吗？<br>
+					“别担心，至少这一次我不会伤害你。”</span><br>
+				林无月的神色里似乎有一丝……哀伤？<br>
+				<span class="evergreen b">“或者说，我没想过要伤害任何人。”<br><br>
+				“如果你看到了这条讯息，或许我已经遭遇不测了。<br>
+				“虚拟幻境是一个过于危险的玩具，而等我发现这一点时，留给我的时间已经不多了。<br>
+				“虽然我的朋友们十分肝胆，但她们在“真正的危险”面前依然不堪一击。我不能让她们冒这个险。<br>
+				“所以我把真正的秘密藏在这个虚拟幻境中。<br>
+				“只有最强大的黑客能够找到它。他的实力足以利用好它，而他的自尊足以保护好它。</span><br>
+				林无月的声音似乎有一丝颤抖。你这才发现“她”其实只是一段全息录影。<br>
+				<span class="evergreen b">“所以，我希望你能帮我一个忙。<br>
+				“可能我并没有资格这么做。但是，就算我对幻境的热爱不足以弥补我的罪孽……<br>
+				“也请你为被虚拟幻境吞噬掉的人们复仇吧！”</span><br><br>
+				林无月的幻影消失了。四周的场景也开始变幻，你知道这是登出幻境的过程。<br>
+				然而你的眼睛死死地盯着“游戏解除钥匙”。<br>
+				它的外壳开始破碎，而它内部所储存的“真相”数据则让你惶恐不安。<br>
+				“这可真是摊上了大事啊……”林无月的秘密和你一同消失在了传送光芒之中。<br>
+			</p>
+			<br>
+			<br>
+			<br>
+			<span class="evergreen b">■ GAME CLEAR - END #3 - CRACKING ■</span><br>
+			<span class="evergreen b" style="font-weight:700;font-size:18pt;line-height:18pt;">「锁定解除」破解胜利！恭喜恭喜！</span>
 		<!--{else}-->
 			<p>“哈……哈……”我疲惫地呼吸着。<br>
 			三名幻影执行官，之前在开幕仪式上口出狂言的家伙们，如今都面朝下静静地躺在血泊之中。<br>
@@ -357,7 +390,7 @@
 			<br>
 			<br>
 			<span class="evergreen b">■ GAME CLEAR - END #3 ■</span><br>
-			<span class="evergreen b" style="font-weight:700;font-size:18pt;line-height:18pt;">「锁定解除」胜利胜利！恭喜恭喜！</span>
+			<span class="evergreen b" style="font-weight:700;font-size:18pt;line-height:18pt;">「锁定解除」胜利！恭喜恭喜！</span>
 		<!--{/if}-->
 	<!--{elseif $winmode == 3}-->
 		<!--锁定解除（非获胜玩家）-->
