@@ -41,7 +41,7 @@ $card_rarecolor=array(
 	'S'=>'gold b ',
 	'A'=>'cyan b ',
 	'B'=>'brickred b ',
-	'C'=>'white ',
+	'C'=>'white b ',
 	'M'=>'grey b '
 );
 $card_rarity_html = array(
