@@ -20,6 +20,39 @@ namespace npcchat_bubble
 		}
 	}
 	
+	function npcchat_tag_process(&$pa, &$pd, $active, $situation, $npc_active, $nchat){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($pa, $pd, $active, $situation, $npc_active, $nchat);
+		if ($situation == 'revive') //复活特殊演出
+		{
+			$sid = 14;
+			$chattag = 'revive';
+			$ret = array($chattag, $sid);
+		}
+		return $ret;
+	}
+	
+	function npcchat_get_chatlog($chattag,$sid,$nchat){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($chattag,$sid,$nchat);
+		if('revive' == $chattag && NULL !== $ret){
+			eval(import_module('sys','npcchat_bubble'));
+			if(!isset($uip['npcchat']['enemy'])) $uip['npcchat']['enemy']=array();
+			foreach($nchat[$chattag] as $cv){
+				$uip['npcchat']['enemy'][] = \npcchat\npcchat_decorate($cv, $nchat);
+			}
+			$ret = NULL;//不输出标准的npc对白
+		}
+		return $ret;
+	}
+	
+	function player_kill_enemy(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($pa, $pd, $active);
+		if ($pd['type'] && !empty($pd['npc_evolved'])) \npcchat\npcchat($pa, $pd, $active, 'revive');
+	}
+	
 	function npcchat_bubble_show($tp='enemy')
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

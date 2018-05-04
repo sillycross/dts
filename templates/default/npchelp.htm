@@ -141,3 +141,23 @@
 它们与正常游戏几乎没有什么关系，但如果你依然有兴趣，请点击下面的按钮查看它们的数据。<br>
 <input class="cmdbutton" onclick="bubblebox_show('yl_npc');" value="点击这里查看" type="button">
 <br>
+
+<!--{eval \bubblebox\bubblebox_set_style('id:final_npc;height:560;width:772;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:10px;');}-->
+{template MOD_BUBBLEBOX_START}
+<p><span class="lime b">幻境的最后防线 简介</span>：</p>
+<p>断罪女神 一一五将会在玩家全灭场上NPC时，刷新在英灵殿。她的数值高得可怕，而且还有非常麻烦的装备属性和技能。不过对于走到这一步的玩家来说，已经没有什么可以阻挡他们了吧……？</p>
+<br>
+<!--{loop Array(42) $key}-->
+<!--{eval \npcinfo\npcinfo_get_npc_description_all($key, $anpcinfo);}-->
+<!--{/loop}-->
+<!--{loop Array(42) $key}-->
+<!--{eval \npcinfo\npcinfo_get_npc_description_all($key, $enpcinfo_show);}-->
+<!--{/loop}-->
+<br> 
+{template MOD_BUBBLEBOX_END}
+
+<p><span class="lime b">幻境的最后防线 简介</span>：</p>
+当玩家将场上的NPC全灭时，将有一名特殊的NPC入场挑战玩家。<br>
+她与正常游戏几乎没有什么关系，但如果你依然有兴趣，请点击下面的按钮查看她的数据。<br>
+<input class="cmdbutton" onclick="bubblebox_show('final_npc');" value="点击这里查看" type="button">
+<br>

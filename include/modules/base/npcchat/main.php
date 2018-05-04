@@ -31,29 +31,12 @@ namespace npcchat
 		
 		list($chattag, $sid) = npcchat_tag_process($pa, $pd, $active, $situation, $npc_active, $nchat);
 		
-		if(isset($nchat[$chattag])) {
-			$chatlog = $nchat[$chattag];
-			if(is_array($chatlog)){
-				shuffle($chatlog);
-				$chatlog = $chatlog[0];
-			}
-		}elseif(isset($nchat[$sid])){
-			$chatlog = $nchat[$sid];
-		}else{
-			return;
-		}
+		$chatlog = npcchat_get_chatlog($chattag,$sid,$nchat);
 		
-		$printlog = '';
+		if(NULL===$chatlog) return;
+		
 		if($print){
-			$chatcolor = $nchat['color'];
-			if(!empty($chatcolor)){
-				$printlog = "<span class = \"{$chatcolor}\">".$chatlog;
-			}else{
-				$printlog = '<span>'.$chatlog;
-			}
-			$printlog .= '</span><br>';
-		
-			npcchat_print($printlog);
+			npcchat_print(npcchat_decorate($chatlog, $nchat));
 		}
 		return $chatlog;
 	}
@@ -63,6 +46,33 @@ namespace npcchat
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('logger'));
 		$log .= $printlog;
+	}
+	
+	function npcchat_decorate($chatlog, $nchat)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!empty($nchat['color'])){
+			$printlog = "<span class = \"{$nchat['color']}\">".$chatlog;
+		}else{
+			$printlog = '<span>'.$chatlog;
+		}
+		$printlog .= '</span><br>';
+		return $printlog;
+	}
+	
+	function npcchat_get_chatlog($chattag,$sid,$nchat){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chatlog = NULL;
+		if(isset($nchat[$chattag])) {
+			$chatlog = $nchat[$chattag];
+			if(is_array($chatlog)){
+				shuffle($chatlog);
+				$chatlog = $chatlog[0];
+			}
+		}elseif(isset($nchat[$sid])){
+			$chatlog = $nchat[$sid];
+		}
+		return $chatlog;
 	}
 	
 	function npcchat_tag_process(&$pa, &$pd, $active, $situation, $npc_active, $nchat){
