@@ -10,7 +10,7 @@ namespace npcchat
 		eval(import_module('npcchat'));
 		
 		if (!$npcchaton) return;
-		
+		if(!$pa['type'] && !$pd['type']) return;
 		
 		if ($pa['type'])
 		{
@@ -147,6 +147,11 @@ namespace npcchat
 			$sid = 12;
 			$chattag = 'critical';
 		}
+		elseif ($situation == 'addnpc') //addnpc入场特殊宣言
+		{
+			$sid = 15;
+			$chattag = 'addnpc';
+		}
 		return array($chattag, $sid);
 	}
 	
@@ -170,7 +175,9 @@ namespace npcchat
 		$chprocess($pa, $pd, $active);
 		$npcchat_pdflag = 1;
 		//进化了别说话
-		if(isset($pd['npc_evolved']) && $pd['npc_evolved']) $npcchat_pdflag = 0;
+		if(!empty($pd['npc_evolved'])) $npcchat_pdflag = 0;
+		//复活了别说话
+		if(!empty($pd['npc_revived'])) $npcchat_pdflag = 0;
 		//没打中别说话，否则太话痨了
 		if($pa['dmg_dealt'] <= 0) $npcchat_pdflag = 0;
 		if ($pd['type'] && $pd['hp']>0 && $npcchat_pdflag) npcchat($pa, $pd, $active, 'battle');
@@ -202,6 +209,17 @@ namespace npcchat
 			$ret = '';//不需要返回杀人台词
 		}
 		return $ret;
+	}
+	
+	//秒杀阶段如果成功秒杀，发布必杀技宣言
+	function apply_total_damage_modifier_seckill(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($pa, $pd, $active);
+		if (($pa['type'] && !empty($pa['seckill'])) || ($pd['type'] && !empty($pd['seckill']))) 
+		{
+			npcchat($pa, $pd, $active, 'critical');
+		}
 	}
 }
 

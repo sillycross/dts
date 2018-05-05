@@ -1,9 +1,9 @@
 <?php
 
-namespace addnpc_event
+namespace skill368
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'sys player npc addnpc battle attack npcchat';
+	$___MODULE_dependency = 'skillbase clubbase sys player achievement_base';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

@@ -4,7 +4,7 @@ namespace addnpc_event
 {
 	function init() {}
 	
-	//É±ËÀNPCÊ±£¬Èç¹ûNPCËÀÍöÊı³¬¹ıÁ¬¶·ËÀÍöÊı£¬¿ªÊ¼ÅĞ¶¨³¡ÉÏÊÇ·ñÃ»ÓĞ»î×ÅµÄNPCÁË
+	//æ€æ­»NPCæ—¶ï¼Œå¦‚æœNPCæ­»äº¡æ•°è¶…è¿‡è¿æ–—æ­»äº¡æ•°ï¼Œå¼€å§‹åˆ¤å®šåœºä¸Šæ˜¯å¦æ²¡æœ‰æ´»ç€çš„NPCäº†
 	function player_kill_enemy(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess($pa, $pd, $active);		
@@ -12,16 +12,26 @@ namespace addnpc_event
 		if ( $pd['type'] && $pd['hp'] <= 0 && $deathnum > $combonum)
 		{
 			$pdpid = $pd['pid'];
+			//æ¡ä»¶1ï¼šæ²¡æœ‰å…¶ä»–å­˜æ´»NPC
 			$result = $db->query("SELECT pid FROM {$tablepre}players WHERE pid != '{$pdpid}' AND type > 0 AND hp > 0");
 			if(!$db->num_rows($result)){
-				addnpc_event(42);
+				//æ¡ä»¶2ï¼š115åªå…¥åœº1æ¬¡
+				$result2 = $db->query("SELECT pid FROM {$tablepre}players WHERE type = '42'");
+				if(!$db->num_rows($result2))
+					addnpc_event(42);
 			}
 		}
 	}
 	
 	function addnpc_event($ntype, $nsub=0, $num=1){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		\addnpc\addnpc($ntype,$nsub,$num,1);
+		$ids = \addnpc\addnpc($ntype,$nsub,$num,1);
+		$id = reset($ids);
+		eval(import_module('sys','player'));
+		$result = $db->query("SELECT * FROM {$tablepre}players WHERE pid='$id'");
+		$edata = $db->fetch_array($result);
+		$chatlog = \npcchat\npcchat($sdata, $edata, 1, 'addnpc', 0);
+		\sys\addchat(6, $chatlog, $edata['name']);
 	}
 }
 ?>

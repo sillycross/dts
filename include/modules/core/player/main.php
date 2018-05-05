@@ -577,6 +577,7 @@ namespace player
 		$pd['hp']=1;//hp设为1，如果需要满血请在post_revive_events里设置
 		$deathnum--;
 		if ($pd['type']==0) $alivenum++;
+		elseif($pd['type']>0) $pd['npc_revived'] = 1;
 		save_gameinfo();
 		return;
 	}

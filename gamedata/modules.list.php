@@ -249,6 +249,7 @@ skill78,extra/club/skills/skill78/,1
 skill496,extra/card/skills/skill496/,1
 skill506,extra/card/skills/skill506/,1
 skill511,extra/card/skills/skill511/,1
+skill515,extra/card/skills/skill515/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
@@ -336,6 +337,7 @@ skill364,extra/achievement/skills/skill364/,1
 activity_ranking,extra/activities/activity_ranking/,1
 aprilfool2018,extra/activities/aprilfool2018/main/,1
 skill367,extra/achievement/skills/skill367/,1
+skill368,extra/achievement/skills/skill368/,1
 skill20,extra/club/skills/skill20/,1
 empowers,base/items/empowers/,1
 skill70,extra/club/skills/skill70/,1

@@ -1,13 +1,13 @@
 <?php
 
-namespace addnpc_event
+namespace skill515
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'sys player npc addnpc battle attack npcchat';
+	$___MODULE_dependency = 'skillbase clubbase sys player logger battle attack';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';
-	$___MODULE_templatelist = '';
+	$___MODULE_templatelist = 'desc';
 	////////// MODULE HEADER END /////////////////
 	require __INIT_MODULE__(__NAMESPACE__,__DIR__);
 }

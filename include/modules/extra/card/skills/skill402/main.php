@@ -40,18 +40,18 @@ namespace skill402
 
 	function apply_total_damage_modifier_seckill(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(402,$pa) || !check_unlocked402($pa)) return $chprocess($pa,$pd,$active);
-		$chprocess($pa,$pd,$active);
-		$var_402=get_skill402_procrate($pa,$pd,$active);
-		if ( rand(0,99) < $var_402 && $pa['is_hit'] && ( $pd['mhp'] < 5000000 || $var_402 >= 10 )){
-			$pa['dmg_dealt']=$pd['hp'];
-			//if ($pa['dmg_dealt']<100000000) $pa['dmg_dealt']=100000000;
-			eval(import_module('logger'));
-			if ($active) $log .= "<span class=\"red b\">一股来自东方的神秘力量直接杀死了你的敌人！</span><br>";
-			else $log .= "<span class=\"red b\">一股来自东方的神秘力量直接杀死了你！</span><br>";
-			$pa['seckill'] = 1;
+		if (\skillbase\skill_query(402,$pa) && check_unlocked402($pa)){
+			$var_402=get_skill402_procrate($pa,$pd,$active);
+			if ( rand(0,99) < $var_402 && $pa['is_hit'] && ( $pd['mhp'] < 5000000 || $var_402 >= 10 )){
+				$pa['dmg_dealt']=$pd['hp'];
+				//if ($pa['dmg_dealt']<100000000) $pa['dmg_dealt']=100000000;
+				eval(import_module('logger'));
+				if ($active) $log .= "<span class=\"red b\">一股来自东方的神秘力量直接杀死了你的敌人！</span><br>";
+				else $log .= "<span class=\"red b\">一股来自东方的神秘力量直接杀死了你！</span><br>";
+				$pa['seckill'] = 1;
+			}
 		}
-		
+		$chprocess($pa,$pd,$active);
 	}
 }
 
