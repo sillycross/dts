@@ -1,0 +1,18 @@
+<!--{eval $___TEMP_SKILL_ID=514;}-->
+<!--{eval eval(import_module('clubbase'));$skill514_var = \skillbase\skill_getvalue(514,'var',$who)/10;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+敌人对你攻击的命中率不会高于<span class="yellow">{$skill514_var}%</span>。<br>每当你命中敌人，攻击结束后这个值都会翻倍。
+</span></td>
+<td class=b3 width=96>
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<span class="yellow b">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

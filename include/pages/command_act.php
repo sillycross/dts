@@ -50,7 +50,6 @@ $log = $cmd = $main = '';
 
 //$timecost = get_script_runtime($pagestartime);
 //$timecostlis = (string)$timecost;
-
 $pagestartimez=microtime(true); 
 
 \player\load_playerdata(\player\fetch_playerdata($cuser));

@@ -104,6 +104,7 @@ namespace skill412
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('logger'));
 		if(empty($pa['seckill']) && !empty($pa['mobiusflag'])) {//被秒杀则不会反弹
+			if (($pa['type'] || $pd['type']) && defined('MOD_NPCCHAT')) \npcchat\npcchat($pa, $pd, $active, 'critical');
 			$log.='<span class="lime b">只见敌人周围突然出现了奇怪的呈U形的力场，你造成的伤害竟然被反弹了回来！</span><br>';
 			//反弹伤害作为最终伤害过一遍结算
 //			$pd['dmg_dealt']=$pd['mult_words_fdmgbs']=$pa['dmg_dealt'];

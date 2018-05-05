@@ -10,7 +10,7 @@ namespace npcchat
 		eval(import_module('npcchat'));
 		
 		if (!$npcchaton) return;
-		
+		if(!$pa['type'] && !$pd['type']) return;
 		
 		if ($pa['type'])
 		{
@@ -31,29 +31,12 @@ namespace npcchat
 		
 		list($chattag, $sid) = npcchat_tag_process($pa, $pd, $active, $situation, $npc_active, $nchat);
 		
-		if(isset($nchat[$chattag])) {
-			$chatlog = $nchat[$chattag];
-			if(is_array($chatlog)){
-				shuffle($chatlog);
-				$chatlog = $chatlog[0];
-			}
-		}elseif(isset($nchat[$sid])){
-			$chatlog = $nchat[$sid];
-		}else{
-			return;
-		}
+		$chatlog = npcchat_get_chatlog($chattag,$sid,$nchat);
 		
-		$printlog = '';
+		if(NULL===$chatlog) return;
+		
 		if($print){
-			$chatcolor = $nchat['color'];
-			if(!empty($chatcolor)){
-				$printlog = "<span class = \"{$chatcolor}\">".$chatlog;
-			}else{
-				$printlog = '<span>'.$chatlog;
-			}
-			$printlog .= '</span><br>';
-		
-			npcchat_print($printlog);
+			npcchat_print(npcchat_decorate($chatlog, $nchat));
 		}
 		return $chatlog;
 	}
@@ -63,6 +46,33 @@ namespace npcchat
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('logger'));
 		$log .= $printlog;
+	}
+	
+	function npcchat_decorate($chatlog, $nchat)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!empty($nchat['color'])){
+			$printlog = "<span class = \"{$nchat['color']}\">".$chatlog;
+		}else{
+			$printlog = '<span>'.$chatlog;
+		}
+		$printlog .= '</span><br>';
+		return $printlog;
+	}
+	
+	function npcchat_get_chatlog($chattag,$sid,$nchat){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chatlog = NULL;
+		if(isset($nchat[$chattag])) {
+			$chatlog = $nchat[$chattag];
+			if(is_array($chatlog)){
+				shuffle($chatlog);
+				$chatlog = $chatlog[0];
+			}
+		}elseif(isset($nchat[$sid])){
+			$chatlog = $nchat[$sid];
+		}
+		return $chatlog;
 	}
 	
 	function npcchat_tag_process(&$pa, &$pd, $active, $situation, $npc_active, $nchat){
@@ -128,13 +138,19 @@ namespace npcchat
 				$pa['npcchat_kill'] = 1;
 			}else {
 				$sid = 9;	//被击杀
-				$chattag = 'retreat';
+				if($pd['hp'] > 0 && !empty($nchat['revive'])) $chattag = 'revive';
+				else $chattag = 'retreat';
 			}
 		}
 		elseif ($situation == 'critical') //必杀技
 		{
 			$sid = 12;
 			$chattag = 'critical';
+		}
+		elseif ($situation == 'addnpc') //addnpc入场特殊宣言
+		{
+			$sid = 15;
+			$chattag = 'addnpc';
 		}
 		return array($chattag, $sid);
 	}
@@ -159,7 +175,9 @@ namespace npcchat
 		$chprocess($pa, $pd, $active);
 		$npcchat_pdflag = 1;
 		//进化了别说话
-		if(isset($pd['npc_evolved']) && $pd['npc_evolved']) $npcchat_pdflag = 0;
+		if(!empty($pd['npc_evolved'])) $npcchat_pdflag = 0;
+		//复活了别说话
+		if(!empty($pd['npc_revived'])) $npcchat_pdflag = 0;
 		//没打中别说话，否则太话痨了
 		if($pa['dmg_dealt'] <= 0) $npcchat_pdflag = 0;
 		if ($pd['type'] && $pd['hp']>0 && $npcchat_pdflag) npcchat($pa, $pd, $active, 'battle');
@@ -178,8 +196,8 @@ namespace npcchat
 	function player_kill_enemy(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['type'] || $pd['type']) npcchat($pa, $pd, $active, 'kill');
 		$chprocess($pa, $pd, $active);
+		if ($pa['type'] || $pd['type']) npcchat($pa, $pd, $active, 'kill');
 	}
 	
 	function get_player_killmsg(&$pdata)
@@ -191,6 +209,17 @@ namespace npcchat
 			$ret = '';//不需要返回杀人台词
 		}
 		return $ret;
+	}
+	
+	//秒杀阶段如果成功秒杀，发布必杀技宣言
+	function apply_total_damage_modifier_seckill(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($pa, $pd, $active);
+		if (($pa['type'] && !empty($pa['seckill'])) || ($pd['type'] && !empty($pd['seckill']))) 
+		{
+			npcchat($pa, $pd, $active, 'critical');
+		}
 	}
 }
 

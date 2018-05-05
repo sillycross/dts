@@ -577,6 +577,7 @@ namespace player
 		$pd['hp']=1;//hp设为1，如果需要满血请在post_revive_events里设置
 		$deathnum--;
 		if ($pd['type']==0) $alivenum++;
+		elseif($pd['type']>0) $pd['npc_revived'] = 1;
 		save_gameinfo();
 		return;
 	}
@@ -602,8 +603,6 @@ namespace player
 		
 		if ($pd['type']==0 && $pd['pid']!=$pa['pid']) $pa['killnum']++;
 		elseif ($pd['type']>0) $pa['npckillnum']++;
-	
-		deathnews($pa, $pd);
 		
 		$deathnum ++;
 		if ($pd['type']==0) $alivenum--; 
@@ -615,6 +614,8 @@ namespace player
 		set_revive_sequence($pa, $pd);
 		//复活实际执行
 		revive_process($pa, $pd);
+		
+		deathnews($pa, $pd);
 		
 		return $kilmsg;
 	}

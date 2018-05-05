@@ -235,11 +235,25 @@ namespace skillbase
 	function skill_query($skillid, &$pa = NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('skillbase'));
+		eval(import_module('player', 'skillbase'));
 		$skillid=(int)$skillid;
 		if ($ppid==-1) skillbase_set_ppid();
-		if ($pa == NULL || $pa['pid']==$ppid) return ((isset($acquired_list[$skillid])) && ($acquired_list[$skillid]==1));
-		return ((isset($pa['acquired_list'][$skillid])) && ($pa['acquired_list'][$skillid]==1));
+		if ($pa == NULL || $pa['pid']==$ppid) return !empty($acquired_list[$skillid]) && skill_enabled($skillid, $sdata);
+		return !empty($pa['acquired_list'][$skillid]) && skill_enabled($skillid, $pa);
+	}
+	
+	//“禁用无效”>“禁用”
+	//所以要禁用请继承skill_enabled_core()，要保证启用请继承skill_enabled()
+	function skill_enabled($skillid, &$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return skill_enabled_core($skillid, $pa);
+	}
+	
+	function skill_enabled_core($skillid, &$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return true;
 	}
 	
 	function get_acquired_skill_array(&$pa = NULL)

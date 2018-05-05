@@ -42,18 +42,17 @@ namespace skill206
 	
 	function apply_total_damage_modifier_seckill(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(206,$pa) || !check_unlocked206($pa)) return $chprocess($pa,$pd,$active);
-		$chprocess($pa,$pd,$active);
-		if ( $pa['dmg_dealt'] > $pd['hp']*0.85 && $pa['dmg_dealt'] < $pd['hp'] && \weapon\get_skillkind($pa,$pd,$active) == 'wg'  ){
-			$pa['dmg_dealt']=$pd['hp'];
-			eval(import_module('logger'));
-			if ($active) $log .= "<span class=\"red b\">你的攻击直接将敌人爆头！</span><br>";
-			else $log .= "<span class=\"red b\">敌人的攻击直接将你爆头！</span><br>";
-			$pa['seckill'] = 1;
+		if (\skillbase\skill_query(206,$pa) && check_unlocked206($pa)) {
+			if ( $pa['dmg_dealt'] > $pd['hp']*0.85 && $pa['dmg_dealt'] < $pd['hp'] && \weapon\get_skillkind($pa,$pd,$active) == 'wg'  ){
+				$pa['dmg_dealt']=$pd['hp'];
+				eval(import_module('logger'));
+				if ($active) $log .= "<span class=\"red b\">你的攻击直接将敌人爆头！</span><br>";
+				else $log .= "<span class=\"red b\">敌人的攻击直接将你爆头！</span><br>";
+				$pa['seckill'] = 1;
+			}
 		}
-		
+		$chprocess($pa,$pd,$active);
 	}
-	
 }
 
 ?>

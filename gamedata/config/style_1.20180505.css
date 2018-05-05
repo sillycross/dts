@@ -229,6 +229,7 @@ div.skill_unacquired_hint_transparent
 }
 
 .dialogue-bubble{
+	clear:both;
 	float:left;
 	position: relative;
 	left:12px;
@@ -256,7 +257,7 @@ div.skill_unacquired_hint_transparent
 }
 
 .dialogue-bubble div{position: relative;margin:auto 25px;text-align:left;}
-.dialogue-bubble span{position: relative;font-size:12pt;font-weight:bold;}
+.dialogue-bubble span{position: relative;font-size:12pt;font-weight:bold;line-height:16pt;}
 
 .dialogue-bubble.fade{
 	opacity:0.6;filter:alpha(opacity=60);

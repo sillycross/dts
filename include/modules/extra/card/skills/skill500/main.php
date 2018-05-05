@@ -72,8 +72,8 @@ namespace skill500
 				$pids[] = $r['pid'];
 			}
 		}
-		foreach($pids as $ppid){
-			$edata = \player\fetch_playerdata_by_pid($ppid);
+		foreach($pids as $piv){
+			$edata = \player\fetch_playerdata_by_pid($piv);
 			\skill603\set_stun_period603($skill500_act_time*1000,$edata);
 			//就不挨个发送提示了
 			\skillbase\skill_setvalue(603,'timestop',1,$edata);

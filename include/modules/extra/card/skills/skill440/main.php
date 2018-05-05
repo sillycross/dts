@@ -118,7 +118,7 @@ namespace skill440
 		$chprocess();
 	}
 	
-	function skill_query($skillid, &$pa = NULL)
+	function skill_enabled_core($skillid, &$pa = NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skillbase'));

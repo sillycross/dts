@@ -249,6 +249,7 @@ skill78,extra/club/skills/skill78/,1
 skill496,extra/card/skills/skill496/,1
 skill506,extra/card/skills/skill506/,1
 skill511,extra/card/skills/skill511/,1
+skill515,extra/card/skills/skill515/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
@@ -336,6 +337,7 @@ skill364,extra/achievement/skills/skill364/,1
 activity_ranking,extra/activities/activity_ranking/,1
 aprilfool2018,extra/activities/aprilfool2018/main/,1
 skill367,extra/achievement/skills/skill367/,1
+skill368,extra/achievement/skills/skill368/,1
 skill20,extra/club/skills/skill20/,1
 empowers,base/items/empowers/,1
 skill70,extra/club/skills/skill70/,1
@@ -407,6 +409,7 @@ skill478,extra/card/skills/skill478/,1
 skill272,extra/club/skills/skill272/,1
 ex_phy_nullify,extra/attr/ex_phy_nullify/,1
 skill432,extra/card/skills/skill432/,1
+skill513,extra/card/skills/skill513/,1
 instance5,extra/instance/instance5/,1
 instance6,extra/instance/instance6/,1
 skill42,extra/club/skills/skill42/,1
@@ -422,6 +425,7 @@ cooldown,base/cooldown/,1
 item_misc,base/items/item_misc/,1
 skill458,extra/card/skills/skill458/,1
 skill498,extra/card/skills/skill498/,1
+skill514,extra/card/skills/skill514/,1
 skill206,extra/club/skills/skill206/,1
 miracletrap,base/items/miracletrap/,1
 skill231,extra/club/skills/skill231/,1
@@ -442,6 +446,7 @@ skill435,extra/card/skills/skill435/,1
 tutorial,extra/instance/instance7_tutorial/tutorial/,1
 skill329,extra/activities/nationalday2017/skill329/,1
 skill512,extra/card/skills/skill512/,1
+addnpc_event,extra/misc/addnpc_event/,1
 autopower,extra/misc/autopower/,1
 skill601,extra/club/skills/skill601/,1
 skill602,extra/club/skills/skill602/,1

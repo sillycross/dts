@@ -211,8 +211,11 @@ namespace item_misc
 					$itm4='量子雷达';$itmk4 = 'ER';$itmsk4 = '2';$itme4 = 20;$itms4 = 1;
 					$itm5='聪明药';$itmk5 = 'ME';$itmsk5 = '';$itme5 = 100;$itms5 = 4;
 					//$itm5='游戏解除钥匙';$itmk5 = 'Y';$itmsk5 = '';$itme5 = 1;$itms5 = 1;
-					$arb='代码聚合体的长袍';$arbk = 'DB';$arbsk = 'Bb';$arbe = 500;$arbs = 100;
-					$art='Untainted Glory';$artk = 'A';$artsk = 'Hh';$arte = 1;$arts = 1;
+					$arb='代码聚合体的长袍';$arbk = 'DB';$arbsk = 'Bb';$arbe = 5000;$arbs = 1000;
+					$arh='代码聚合体的面罩';$arhk = 'DH';$arhsk = 'Aa';$arhe = 5000;$arhs = 1000;
+					$ara='代码聚合体的手套';$arak = 'DA';$arask = 'Hh';$arae = 5000;$aras = 1000;
+					$arf='代码聚合体的鞋子';$arfk = 'DF';$arfsk = 'Mm';$arfe = 5000;$arfs = 1000;
+					$art='Untainted Glory';$artk = 'A';$artsk = '';$arte = 1;$arts = 1;
 					if (defined('MOD_CLUBBASE')) eval(import_module('clubbase'));
 					foreach(array(1010,1011) as $skv){
 						if(defined('MOD_SKILL'.$skv)) {
@@ -351,7 +354,11 @@ namespace item_misc
 					}
 				}
 				return;
-			} elseif(strpos($itm,'RP回复设备')!==false){
+			} elseif(strpos($itm,'NPC召唤设备')!==false){
+				\addnpc_event\addnpc_event($itmsk);
+				//\addnpc\addnpc($itmsk, 0, 1, 1);
+				return;
+			}elseif(strpos($itm,'RP回复设备')!==false){
 				$rp = 0;
 				$log .= "你使用了<span class=\"yellow b\">$itm</span>。你的RP归零了。<br>";
 				return;

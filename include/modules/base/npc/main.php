@@ -57,6 +57,14 @@ namespace npc
 		//npc初始状态默认为睡眠
 		if(!isset($npc['state'])){$npc['state'] = 1;}
 		//技能的获取
+		init_npcdata_skills($npc);
+		
+		return $npc;
+	}
+	
+	function init_npcdata_skills(&$npc)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		if (isset($npc['skills']) && is_array($npc['skills'])){
 			$npc['pid'] = -2;//0和-1都会出问题
 			$npc['skills']['460']='0';
@@ -78,8 +86,6 @@ namespace npc
 			\skillbase\skillbase_save($npc);
 			unset($npc['pid']);
 		}
-		
-		return $npc;
 	}
 	
 	function rs_game($xmode = 0) {
@@ -254,16 +260,25 @@ namespace npc
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('player'));
 		if ($pdata['type']>0)
 		{
+			eval(import_module('player','npc'));
+			if($pdata['hp'] > 0){
+				if(is_array ( $npc_revive_info [$pdata['type']] )){
+					if (isset($npc_revive_info[$pdata['type']][$pdata['name']]))
+						return $npc_revive_info[$pdata['type']][$pdata['name']];
+				}else {
+					if (isset($npc_revive_info[$pdata['type']]))
+						return $npc_revive_info[$pdata['type']];
+				}
+			}
 			if (is_array ( $lwinfo [$pdata['type']] )) {
-				if (isset($lwinfo [$pdata['type']] [$pdata['name']]))
-					$lstwd = $lwinfo [$pdata['type']] [$pdata['name']];
+				if (isset($lwinfo[$pdata['type']][$pdata['name']]))
+					$lstwd = $lwinfo[$pdata['type']][$pdata['name']];
 				else  $lstwd = '';
 			} else {
-				if (isset($lwinfo [$pdata['type']]))
-					$lstwd = $lwinfo [$pdata['type']];
+				if (isset($lwinfo[$pdata['type']]))
+					$lstwd = $lwinfo[$pdata['type']];
 				else  $lstwd = '';
 			}
 			return $lstwd;

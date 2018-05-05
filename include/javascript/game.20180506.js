@@ -196,6 +196,7 @@ function datalib_decode(val)
 
 room_cur_chat_maxcid = 0;
 
+//处理AJAX返回值的主函数
 function showData(sdata){
 	if (js_stop_flag) return;
 	if(jQuery('#loading')) jQuery('#loading').css({display:"none"});//隐藏Loading画面
@@ -205,16 +206,8 @@ function showData(sdata){
 		return;
 	}
 	
-	////////////////////////////////////////////////////////////////////////
-	///////////////////////////////气泡框相关/////////////////////////////////
-	////////////////////////////////////////////////////////////////////////
-	
 	//消除上次操作的气泡框
 	bubblebox_clear_all();
-	
-	////////////////////////////////////////////////////////////////////////
-	////////////////////////////////标准操作/////////////////////////////////
-	////////////////////////////////////////////////////////////////////////
 	
 	//回放模式中不需要解压
 	if (typeof in_replay_mode == 'undefined' || in_replay_mode == 0){
@@ -226,6 +219,7 @@ function showData(sdata){
 		}
 	}
 	
+	//开始处理
 	if (typeof no_json_decode == 'undefined' || no_json_decode == 0)
 		shwData = JSON.parse(sdata);
 	else  shwData = sdata;
@@ -277,6 +271,7 @@ function showData(sdata){
 				$(id).src = sDs[id];
 			}
 		}
+		//游戏内计时器
 		if (shwData['timing'])
 		{
 			var sDt = shwData['timing'];
@@ -296,30 +291,14 @@ function showData(sdata){
 				}
 			}
 		}
-		//这个回头应该做到专门的js里去
-		if (shwData['effect'])
+		//冷却时间计时器，回头应该统一
+		if(shwData['timer'] && typeof(timerid)=='undefined'){
+			demiSecTimerStarter(datalib_decode(shwData['timer']));
+		}
+		//房间踢人计时器
+		if ($('roomkick_timer') && typeof(RoomKickTimerId)=='undefined')
 		{
-			effect_clear_all();
-			var sDe = shwData['effect'];
-			for(var ef in sDe){
-				if(ef == 'pulse'){
-					for (var ei=0; ei<sDe[ef].length; ei++){
-						if(sDe[ef][ei].search('__BUTTON__') >= 0){
-							sDe[ef][ei] = sDe[ef][ei].replace('__BUTTON__','');
-							var efel=jQuery(sDe[ef][ei]).parent(".itmsingle").children(".cmdbutton");
-							//alert(efel.length);
-						}else{
-							var efel=jQuery(sDe[ef][ei]);
-						}
-						if(efel.length > 0){
-							if(efel.is('img') || efel.is('select')) efel.addClass("TransPulse");
-				  		else efel.addClass("Pulse");
-						}
-				  }
-				}	else if (ef == 'chatref'){
-					chat('ref',15000);
-				}
-			}
+			RoomKickTimerId=setInterval("room_kick_timer()",1000);
 		}
 		//聊天刷新
 		if (shwData['lastchat'])
@@ -340,15 +319,50 @@ function showData(sdata){
 				}
 			}
 		}
+		//各种特效处理
+		showData_effect(shwData);
 	}
-	if(shwData['timer'] && typeof(timerid)=='undefined'){
-		demiSecTimerStarter(datalib_decode(shwData['timer']));
+	//重载悬浮提示
+	floating_hint();
+}
+
+function showData_effect(shwData) {
+	//NPC对白依次显示效果
+	bel=jQuery('.dialogue-bubble')
+	if(bel.length > 0)
+	{
+		var tmp_display = jQuery('.dialogue-bubble:first').css('display');
+		bel.css('display','none');
+		
+		effect_npcchat_display_offset = 0;
+		effect_npcchat_display_timer(2000, tmp_display);
 	}
-	
-	////////////////////////////////////////////////////////////////////////
-	//////////////////////////////自动强化特效////////////////////////////////
-	////////////////////////////////////////////////////////////////////////
-	
+	//图标闪烁效果
+	if (shwData['effect'])
+	{
+		effect_clear_all();
+		var sDe = shwData['effect'];
+		for(var ef in sDe){
+			if(ef == 'pulse'){
+				for (var ei=0; ei<sDe[ef].length; ei++){
+					if(sDe[ef][ei].search('__BUTTON__') >= 0){
+						sDe[ef][ei] = sDe[ef][ei].replace('__BUTTON__','');
+						var efel=jQuery(sDe[ef][ei]).parent(".itmsingle").children(".cmdbutton");
+						//alert(efel.length);
+					}else{
+						var efel=jQuery(sDe[ef][ei]);
+					}
+					if(efel.length > 0){
+						if(efel.is('img') || efel.is('select')) efel.addClass("TransPulse");
+			  		else efel.addClass("Pulse");
+					}
+			  }
+			}	else if (ef == 'chatref'){
+				chat('ref',15000);
+			}
+		}
+	}
+	//自动强化特效
 	if ($('autopower_totnum') && typeof(AutopowerTimerId)=='undefined')
 	{
 		AutopowerLogTimer();
@@ -356,19 +370,9 @@ function showData(sdata){
 		if (totnum>1) 
 			AutopowerTimerId=setInterval("AutopowerLogTimer()",parseInt($('autopower_cd').innerHTML));
 	}
-	
-	////////////////////////////////////////////////////////////////////////
-	////////////////////////////////房间踢人/////////////////////////////////
-	////////////////////////////////////////////////////////////////////////
-	
-	if ($('roomkick_timer') && typeof(RoomKickTimerId)=='undefined')
-	{
-		RoomKickTimerId=setInterval("room_kick_timer()",1000);
-	}
-	
-	//重载悬浮提示
-	floating_hint();
 }
+
+
 
 var refchat = null;
 
@@ -580,10 +584,28 @@ function AutopowerLogTimer()
 	}
 }
 
-//特效相关
+//清除所有特效
 function effect_clear_all(){
 	jQuery("*").removeClass('Pulse');
 	jQuery("*").removeClass('TransPulse');
+}
+
+effect_npcchat_display_offset = 0;
+
+//NPC对话气泡每隔1秒显示
+function effect_npcchat_display_timer(intv, tp){
+	var intv = intv || 1000;
+	var tp = tp || 'block';
+	bel = jQuery('.dialogue-bubble');
+	bel.each(function(i){
+		if (i == effect_npcchat_display_offset){
+			jQuery(this).css('display',tp);
+			jQuery(this).prev().addClass('fade');
+		}
+	});
+	effect_npcchat_display_offset ++ ;
+	if(effect_npcchat_display_offset < bel.length)
+		setTimeout("effect_npcchat_display_timer(" + intv + ",'" + tp + "')",intv);
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -631,7 +653,14 @@ function bubblebox_show(bid)
 	}
 }
 
-
+function bubblebox_hide(bid)
+{
+	if ($('fmsgbox'+(bid.toString())))
+	{
+		$('fmsgbox-container').appendChild($('fmsgbox'+(bid.toString())));
+		$('fmsgbox'+(bid.toString())).style.display = 'none';
+	}
+}
 
 ////////////////////////////////////////////////////////////////////////
 /////////////////////////////发光按钮相关/////////////////////////////////
