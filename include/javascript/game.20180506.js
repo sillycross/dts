@@ -653,7 +653,14 @@ function bubblebox_show(bid)
 	}
 }
 
-
+function bubblebox_hide(bid)
+{
+	if ($('fmsgbox'+(bid.toString())))
+	{
+		$('fmsgbox-container').appendChild($('fmsgbox'+(bid.toString())));
+		$('fmsgbox'+(bid.toString())).style.display = 'none';
+	}
+}
 
 ////////////////////////////////////////////////////////////////////////
 /////////////////////////////发光按钮相关/////////////////////////////////

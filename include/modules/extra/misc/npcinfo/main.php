@@ -36,6 +36,8 @@ namespace npcinfo
 		if ($npcdata)
 			$nownpc = array_merge($nownpc,$npcdata);
 		else  $nownpc['___count']=ceil($npcinfo[$npckind]['num']/sizeof($npcinfo[$npckind]['sub']));
+		$nownpc['type'] = $npckind;
+		\npc\init_npcdata_skills($nownpc);
 		if(strpos($ninfo_custom,'enpc')!==false) $nownpc['pls'] = '原地';
 		include template('MOD_NPCINFO_NPCINFO');
 		if($ninfo_custom) {
