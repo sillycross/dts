@@ -37,6 +37,10 @@
 								<td width=120px align="center" class="b3">
 									<!--{if $nownpc['pls']==99}-->
 									随机
+									<!--{elseif !is_numeric($nownpc['pls'])}-->
+									<span class="yellow b">
+									$nownpc['pls']
+									</span>
 									<!--{else}-->
 									<span class="yellow b">
 									$plsinfo[$nownpc['pls']]

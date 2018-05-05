@@ -12,7 +12,7 @@ namespace skill514
 	function acquire514(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		\skillbase\skill_setvalue(514,'var','5',$pa);
+		\skillbase\skill_setvalue(514,'var','10',$pa);//单位是千分之一
 	}
 	
 	function lost514(&$pa)

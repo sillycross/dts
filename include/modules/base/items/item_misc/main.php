@@ -351,7 +351,10 @@ namespace item_misc
 					}
 				}
 				return;
-			} elseif(strpos($itm,'RP回复设备')!==false){
+			} elseif(strpos($itm,'NPC召唤设备')!==false){
+				\addnpc\addnpc($itmsk, 0, 1, 1);
+				return;
+			}elseif(strpos($itm,'RP回复设备')!==false){
 				$rp = 0;
 				$log .= "你使用了<span class=\"yellow b\">$itm</span>。你的RP归零了。<br>";
 				return;

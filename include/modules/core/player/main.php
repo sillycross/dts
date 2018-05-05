@@ -602,8 +602,6 @@ namespace player
 		
 		if ($pd['type']==0 && $pd['pid']!=$pa['pid']) $pa['killnum']++;
 		elseif ($pd['type']>0) $pa['npckillnum']++;
-	
-		deathnews($pa, $pd);
 		
 		$deathnum ++;
 		if ($pd['type']==0) $alivenum--; 
@@ -615,6 +613,8 @@ namespace player
 		set_revive_sequence($pa, $pd);
 		//复活实际执行
 		revive_process($pa, $pd);
+		
+		deathnews($pa, $pd);
 		
 		return $kilmsg;
 	}
