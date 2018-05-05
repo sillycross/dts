@@ -509,13 +509,22 @@ namespace player
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
+		eval(import_module('sys','player'));
+		//$lwname = $typeinfo [$pd['type']] . ' ' . $pd['name'];
+		$lstwd = \player\get_player_lastword($pd);
+		//\sys\addchat(3, $lstwd, '【'.$plsinfo[$pd['pls']].'】 '.$lwname);
+		//$db->query ( "INSERT INTO {$tablepre}chat (type,`time`,send,recv,msg) VALUES ('3','$now','【{$plsinfo[$pd['pls']]}】 $lwname','','$lstwd')" );
+		if ($pd['sourceless']) $x=''; else $x=$pa['name'];
+		\sys\addnews ( $now, 'death' . $pd['state'], $pd['name'], $pd['type'], $x , $pa['attackwith'], $lstwd );
+	}
+	
+	function deathchat(&$pa, &$pd)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','map','player'));
 		$lwname = $typeinfo [$pd['type']] . ' ' . $pd['name'];
 		$lstwd = \player\get_player_lastword($pd);
 		\sys\addchat(3, $lstwd, '【'.$plsinfo[$pd['pls']].'】 '.$lwname);
-		//$db->query ( "INSERT INTO {$tablepre}chat (type,`time`,send,recv,msg) VALUES ('3','$now','【{$plsinfo[$pd['pls']]}】 $lwname','','$lstwd')" );
-		if ($pd['sourceless']) $x=''; else $x=$pa['name'];
-		\sys\addnews ( $now, 'death' . $pd['state'], $pd['name'], $pd['type'], $x , $pa['attackwith'], $lstwd );
 	}
 	
 	//维护一个名为'revive_sequence'的列表
@@ -603,7 +612,7 @@ namespace player
 		
 		if ($pd['type']==0 && $pd['pid']!=$pa['pid']) $pa['killnum']++;
 		elseif ($pd['type']>0) $pa['npckillnum']++;
-		
+		deathnews($pa, $pd);
 		$deathnum ++;
 		if ($pd['type']==0) $alivenum--; 
 
@@ -615,7 +624,8 @@ namespace player
 		//复活实际执行
 		revive_process($pa, $pd);
 		
-		deathnews($pa, $pd);
+		//遗言，由于可能复活，应该在复活判定之后
+		deathchat($pa, $pd);
 		
 		return $kilmsg;
 	}
