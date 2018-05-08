@@ -88,23 +88,39 @@ namespace skill234
 				$gdice=rand(1,4);
 				if ($clv<5){
 					if ($gdice==1){
-						$exp+=10;
-						$log .="<span class=\"yellow b\">获得了10点经验值。</span><br />";
+						$exp+=2;
+						$log .="<span class=\"yellow b\">获得了2点经验值。</span><br />";
 					}
 					if ($gdice==2){
-						$att+=10;
-						$log .="<span class=\"yellow b\">获得了10点基础攻击。</span><br />";
+						$att+=2;
+						$log .="<span class=\"yellow b\">获得了2点基础攻击。</span><br />";
 					}
 					if ($gdice==3){ 
-						$def+=10;
-						$log .="<span class=\"yellow b\">获得了10点基础防御。</span><br />";
+						$def+=2;
+						$log .="<span class=\"yellow b\">获得了2点基础防御。</span><br />";
 					}if ($gdice==4){
-						$wp+=10;$wk+=10;$wc+=10;$wd+=10;$wg+=10;$wf+=10;
-						$log .="<span class=\"yellow b\">获得了10点全熟练。</span><br />";
+						$wp+=2;$wk+=2;$wc+=2;$wd+=2;$wg+=2;$wf+=2;
+						$log .="<span class=\"yellow b\">获得了2点全熟练。</span><br />";
 					}					
-				}else if ($clv<20){
+				}elseif ($clv<10){
 					if ($gdice==1){
-						$money+=200;
+						$exp+=5;
+						$log .="<span class=\"yellow b\">获得了5点经验值。</span><br />";
+					}
+					if ($gdice==2){
+						$att+=5;
+						$log .="<span class=\"yellow b\">获得了5点基础攻击。</span><br />";
+					}
+					if ($gdice==3){ 
+						$def+=5;
+						$log .="<span class=\"yellow b\">获得了5点基础防御。</span><br />";
+					}if ($gdice==4){
+						$wp+=5;$wk+=5;$wc+=5;$wd+=5;$wg+=5;$wf+=5;
+						$log .="<span class=\"yellow b\">获得了5点全熟练。</span><br />";
+					}					
+				}elseif ($clv<20){
+					if ($gdice==1){
+						$money+=180;
 						$log .="<span class=\"yellow b\">获得了180元。</span><br />";
 					}
 					if ($gdice==2){
@@ -139,8 +155,10 @@ namespace skill234
 				}
 				$clv++;
 				$t=count($goal234)-1;
-				if ($clv<10) $t=19;
 				if ($clv<5) $t=9;
+				elseif ($clv<10) $t=19;
+				elseif ($clv<20) $t=59;
+				elseif ($clv<30) $t=119;
 				$nx=rand(0,$t);
 				$ed=$goal234[$nx];
 				$log .="下次破解需要物品<span class=\"yellow b\">{$ed}</span>或";

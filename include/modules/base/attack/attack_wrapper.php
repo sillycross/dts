@@ -210,7 +210,14 @@ namespace attack
 		$pd['state']=$pd['deathmark'];
 		
 		$kilmsg = \player\kill($pa, $pd);
+		show_player_killwords($pa,$pd,$active,$kilmsg);
 		
+	}
+	
+	function show_player_killwords(&$pa,&$pd,$active,$kilmsg)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('logger'));
 		if($pd['hp'] <= 0 && !empty($kilmsg))
 			if ($active)
 				$log.="<br><span class='b'>你对{$pd['name']}说道：</span><span class='yellow b'>“{$kilmsg}”</span><br><br>";

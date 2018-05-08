@@ -14,7 +14,8 @@ namespace addnpc_event
 			$pdpid = $pd['pid'];
 			//条件1：没有其他存活NPC
 			$result = $db->query("SELECT pid FROM {$tablepre}players WHERE pid != '{$pdpid}' AND type > 0 AND hp > 0");
-			if(!$db->num_rows($result)){
+			$npcnum = $db->num_rows($result);
+			if(!$npcnum){
 				//条件2：115只入场1次
 				$result2 = $db->query("SELECT pid FROM {$tablepre}players WHERE type = '42'");
 				if(!$db->num_rows($result2))
