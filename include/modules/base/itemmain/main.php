@@ -12,7 +12,7 @@ namespace itemmain
 	//1:一般可合并道具  2:食物  0:不可合并
 	function check_mergable($ik){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if(preg_match('/^(WC|WD|WF|Y|B|C|TN|GA|GB|M|V|ygo|fy|p)/',$ik)) return 1;
+		if(preg_match('/^(WC|WD|WF|Y|B|C|TN|GA|GB|M|V|ygo|fy|p)/',$ik) && !preg_match('/^W[A-Z][A-Z]/',$ik)) return 1;
 		elseif(preg_match('/^(H|P)/',$ik)) return 2;
 		else return 0;
 	}
