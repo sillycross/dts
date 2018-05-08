@@ -196,8 +196,8 @@ namespace npcchat
 	function player_kill_enemy(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa, $pd, $active);
 		if ($pa['type'] || $pd['type']) npcchat($pa, $pd, $active, 'kill');
+		$chprocess($pa, $pd, $active);
 	}
 	
 	function get_player_killmsg(&$pdata)

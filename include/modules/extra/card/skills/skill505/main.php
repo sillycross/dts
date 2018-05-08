@@ -156,7 +156,7 @@ namespace skill505
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess();
 		eval(import_module('sys','player'));
-		if(\skillbase\skill_query(505,$sdata) && check_unlocked505($sdata)){
+		if(\skillbase\skill_query(505,$sdata) && check_unlocked505($sdata) && $hp > 0){
 			if(!skill505_check_keyitm_exists($sdata)) {
 				$hp = 0;
 				$state = 45;

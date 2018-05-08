@@ -226,7 +226,7 @@ $mixinfo = array
 	array('class' => 'cube', 'stuff' => array('蓝宝石方块','蓝色方块'),'result' => array('蔚蓝色的项链','A',240,180,'Hc'),),
 	array('class' => 'cube', 'stuff' => array('红宝石方块','黑色方块'),'result' => array('终极红宝石之秘药','HB',386,76,'z'),),
 	array('class' => 'cube', 'stuff' => array('蓝宝石方块','白色方块'),'result' => array('始源蓝宝石之秘药','MV',76,2,'z'),),
-	array('class' => 'cube', 'stuff' => array('黄色方块','黄色方块','黄色方块'),'result' => array('★高压电击★','WD',152,251,'red b'),),
+	array('class' => 'cube', 'stuff' => array('黄色方块','黄色方块','黄色方块'),'result' => array('★高压电击★','WD',152,251,'red'),),
 	array('class' => 'cube', 'stuff' => array('红色方块','红色方块','红色方块'),'result' => array('★烈焰冲撞★','WP',152,76,'ru'),),
 	array('class' => 'cube', 'stuff' => array('绿色方块','绿色方块','绿色方块'),'result' => array('★飞叶快刀★','WK',152,76,'Zrp'),),
 	array('class' => 'cube', 'stuff' => array('蓝色方块','蓝色方块','蓝色方块'),'result' => array('★急冻光线★','WG',152,251,'ric'),),

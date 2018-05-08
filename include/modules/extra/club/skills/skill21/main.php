@@ -58,7 +58,7 @@ namespace skill21
 			$log .= '<span class="yellow b">'.$pd['name'].'却没死去，反而爆发出真正的实力！</span><br>';
 			if($npcdata){
 				$pd['old_icon'] = $pd['icon'];
-				addnews($now , 'evonpc',$pd['name'], $npcdata['name'], $pa['name']);
+				addnews(0, 'evonpc',$pd['name'], $npcdata['name'], $pa['name']);
 				foreach($npcdata as $key => $val){
 					$pd[$key] = $val;
 				}

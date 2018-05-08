@@ -215,7 +215,9 @@ namespace sys
 			$msg = '【'.$chatinfo[$chat['type']].'】'.$chat['msg'].'('.date("H:i:s",$chat['time']).')';
 		} elseif(6 == $chat['type']) {
 			$premsg .= ' class="lime b chat6">';
-			$msg = '【'.$chatinfo[$chat['type']].'】'.$chat['msg'].'('.date("H:i:s",$chat['time']).')';
+			$sender = '';
+			if(!empty($chat['send'])) $sender = $chat['send'].'：';
+			$msg = '【'.$chatinfo[$chat['type']].'】'.$sender.$chat['msg'].'('.date("H:i:s",$chat['time']).')';
 		}
 		return $premsg.$msg.$postmsg;
 	}
