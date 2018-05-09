@@ -61,7 +61,8 @@ namespace skill58
 			$pd['hp']=$pd['mhp'];
 			$pd['skill58_flag']=1;
 			\skillbase\skill_setvalue(58,'r','1',$pd);
-			addnews ( 0, 'revival', $pd['name']);
+			$pd['rivival_news'] = array('revival', $pd['name']);
+			//addnews ( 0, 'revival', $pd['name']);
 			//满血复活时加成效果（这个其实是技能“新生”的内容，但直接做在一起好了）
 			$pd['mhp']+=$pd['lvl']*2; 
 			$pd['hp']+=$pd['lvl']*2;

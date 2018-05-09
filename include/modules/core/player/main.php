@@ -567,6 +567,17 @@ namespace player
 		return;
 	}
 	
+	//由于复活消息一定要在死亡消息后，因此用一个特殊的函数最后统一发布
+	function revive_post_deathnews($narr)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$n = $narr[0];
+		$a = $narr[1];
+		if(!empty($narr[2])) $b = $narr[2];
+		else $b = '';
+		addnews(0, $n, $a, $b);
+	}
+	
 	function revive_events(&$pa, &$pd, $rkey)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -607,7 +618,7 @@ namespace player
 
 		$pd['endtime'] = $now;
 		save_gameinfo ();
-		$tmp_pd = $pd;//复制$pd的值备用
+		$tmp_pd = array_clone($pd);//复制$pd的值备用
 		//复活判定注册
 		set_revive_sequence($pa, $pd);
 		//复活实际执行
@@ -616,7 +627,7 @@ namespace player
 		//消息和遗言，由于可能复活，应该在复活判定之后
 		$tmp_pd['hp'] = $pd['hp'];
 		deathnews($pa, $tmp_pd);
-		
+		if(!empty($pd['rivival_news'])) revive_post_deathnews($pd['rivival_news']);
 		return $kilmsg;
 	}
 	

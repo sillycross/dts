@@ -465,7 +465,8 @@ namespace weather
 		if('aurora' == $rkey){
 			$pd['hp'] = weather_aurora_revive_num($pd);
 			$pd['aurora_revive'] = 0;
-			addnews ( 0, 'aurora_revival', $pd['name'] );
+			$pd['rivival_news'] = array('aurora_revival', $pd['name']);
+			//addnews ( 0, 'aurora_revival', $pd['name'] );
 		}
 		return;
 	}
