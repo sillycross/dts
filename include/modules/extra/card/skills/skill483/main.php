@@ -111,7 +111,8 @@ namespace skill483
 		if('skill483' == $rkey){
 			$pd['hp']=$pd['mhp'];
 			$pd['skill483_flag']=1;
-			addnews ( 0, 'revival483', $pa['name'], $pd['name'] );
+			$pd['rivival_news'] = array('revival483', $pa['name'], $pd['name']);
+			//addnews ( 0, 'revival483', $pa['name'], $pd['name'] );
 		}
 		return;
 	}

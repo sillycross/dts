@@ -70,7 +70,8 @@ namespace skill486
 		if('skill486' == $rkey){
 			\skillbase\skill_setvalue(486,'rtime', \skillbase\skill_getvalue(486,'rtime',$pd) + 1,$pd);
 			$pd['skill486rivv'] = 1;
-			addnews ( 0, 'skill486_revv', $pd['name'] );
+			$pd['rivival_news'] = array('skill486_revv', $pd['name']);
+			//addnews ( 0, 'skill486_revv', $pd['name'] );
 		}
 		return;
 	}
