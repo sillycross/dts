@@ -39,7 +39,7 @@ namespace npcchat_bubble
 			eval(import_module('sys','npcchat_bubble'));
 			if(!isset($uip['npcchat']['enemy'])) $uip['npcchat']['enemy']=array();
 			foreach($nchat[$chattag] as $cv){
-				$uip['npcchat']['enemy'][] = \npcchat\npcchat_decorate(npcchat_bubble_cleanqm($cv), $nchat);
+				$uip['npcchat']['enemy'][] = \npcchat\npcchat_decorate(npcchat_bubble_cleanqm($cv), $nchat, $chattag);
 			}
 			$ret = NULL;//不输出标准的npc对白
 		}

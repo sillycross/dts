@@ -220,9 +220,9 @@ namespace attack
 		eval(import_module('logger'));
 		if($pd['hp'] <= 0 && !empty($kilmsg))
 			if ($active)
-				$log.="<br><span class='b'>你对{$pd['name']}说道：</span><span class='yellow b'>“{$kilmsg}”</span><br><br>";
+				$log.="<br><span class='b'>你对{$pd['name']}说道：</span><span class='yellow b'>“{$kilmsg}”</span><br>";
 			else
-				$log.="<br><span class='b'>{$pa['name']}对你说道：</span><span class='yellow b'>“{$kilmsg}”</span><br><br>";
+				$log.="<br><span class='b'>{$pa['name']}对你说道：</span><span class='yellow b'>“{$kilmsg}”</span><br>";
 	}
 	
 	//当玩家主动发起攻击时，加载玩家提供的攻击参数

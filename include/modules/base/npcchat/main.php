@@ -36,7 +36,7 @@ namespace npcchat
 		if(NULL===$chatlog) return;
 		
 		if($print){
-			npcchat_print(npcchat_decorate($chatlog, $nchat));
+			npcchat_print(npcchat_decorate($chatlog, $nchat, $chattag));
 		}
 		return $chatlog;
 	}
@@ -48,7 +48,7 @@ namespace npcchat
 		$log .= $printlog;
 	}
 	
-	function npcchat_decorate($chatlog, $nchat)
+	function npcchat_decorate($chatlog, $nchat, $chattag)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(!empty($nchat['color'])){
@@ -57,6 +57,7 @@ namespace npcchat
 			$printlog = '<span>'.$chatlog;
 		}
 		$printlog .= '</span><br>';
+		if('kill' == $chattag || 'retreat' == $chattag) $printlog .= '<br>';
 		return $printlog;
 	}
 	
@@ -196,8 +197,8 @@ namespace npcchat
 	function player_kill_enemy(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['type'] || $pd['type']) npcchat($pa, $pd, $active, 'kill');
 		$chprocess($pa, $pd, $active);
+		if ($pa['type'] || $pd['type']) npcchat($pa, $pd, $active, 'kill');
 	}
 	
 	function get_player_killmsg(&$pdata)
