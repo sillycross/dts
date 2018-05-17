@@ -588,7 +588,7 @@ function room_enter($id)
 	set_current_roomid($id);
 	//update_udata_by_username(array('roomid' => $id), $cuser);
 
-	echo 'red birect:'.$header;
+	echo 'redirect:'.$header;
 	return 1;
 }
 	

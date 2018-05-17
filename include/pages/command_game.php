@@ -14,7 +14,7 @@ $result = $db->query("SELECT * FROM {$tablepre}players WHERE name = '$cuser' AND
 
 if(!$db->num_rows($result)) 
 { 
-	echo 'red birect:valid.php';
+	echo 'redirect:valid.php';
 	return;
 }
 
@@ -26,7 +26,7 @@ if($pdata['pass'] != $udata['password'])
 	$db->query("UPDATE {$tablepre}players SET pass='{$udata['password']}' WHERE name='$cuser'");
 
 if($gamestate == 0) {
-	echo 'red birect:end.php';
+	echo 'redirect:end.php';
 	return;
 }
 
@@ -36,7 +36,7 @@ if($gamestate == 0) {
 \player\parse_interface_profile();
 
 if(in_array($state, array(4,5,6))) {
-	echo 'red birect:end.php';
+	echo 'redirect:end.php';
 	return;
 }
 
