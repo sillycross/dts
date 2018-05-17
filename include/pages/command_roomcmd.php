@@ -41,7 +41,7 @@ elseif (!room_check_subroom($room_prefix))
 		set_current_roomid(0);
 		//update_udata_by_username(array('roomid' => 0), $cuser);
 		if ($not_ajax)
-			echo 'red birect:index.php';
+			echo 'redirect:index.php';
 		else
 		{
 			$gamedata['url']='index.php';
@@ -93,7 +93,7 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 		set_current_roomid(0);
 		//update_udata_by_username(array('roomid' => 0), $cuser);
 		if ($not_ajax)
-			echo 'red birect:index.php';
+			echo 'redirect:index.php';
 		else
 		{
 			$gamedata['url']='index.php';
@@ -286,7 +286,7 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 		set_current_roomid(0);
 		//update_udata_by_username(array('roomid' => 0), $cuser);
 		if ($not_ajax)
-			echo 'red birect:index.php';
+			echo 'redirect:index.php';
 		else
 		{
 			$gamedata['url']='index.php';

@@ -93,7 +93,7 @@ if($mode == 'enter') {
 	}
 	
 	if(false==$enterable) {
-		echo 'red birect:valid.php';
+		echo 'redirect:valid.php';
 		return;
 	}
 	
@@ -109,7 +109,7 @@ if($mode == 'enter') {
 	
 	$result = $db->query("SELECT * FROM {$tablepre}players WHERE name = '$cuser' AND type = 0");
 	if($db->num_rows($result)) {
-		echo 'red birect:game.php';
+		echo 'redirect:game.php';
 		return;
 	}
 

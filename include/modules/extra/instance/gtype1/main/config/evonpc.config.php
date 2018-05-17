@@ -89,7 +89,7 @@ namespace gtype1
 				'wepk' => 'WG',
 				'wepe' => 900,
 				'weps' => 1460,
-				'wepsk' => 'red bN',
+				'wepsk' => 'redN',
 				'arb' => '高密度金属护甲',
 				'arbk' => 'DB',
 				'arbe' => 3200,
