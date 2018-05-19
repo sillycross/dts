@@ -12,28 +12,29 @@ namespace dualwep
 		$iteminfo+=$dualwep_iteminfo;
 	}
 	
-	function check_w2_valid($w2, $weps)
+	function check_w2_valid($w2, $weps, $orig=0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('weapon'));
 		if (!isset($attinfo[$w2])) $w2='';//非$attinfo里定义的武器类型，全部无效
-		elseif(in_array($w2, array('G','J')) && $weps==$nosta) $w2 = 'P';//空枪当成殴
+		elseif(in_array($w2, array('G','J')) && $weps==$nosta && !$orig) $w2 = 'P';//空枪当成殴
+		elseif('B' == $w2 && $weps==$nosta && !$orig) $w2 = 'K';//空弓当成斩
 		return $w2;
 	}
 	
-	function get_other_attack_method(&$pdata, $w1)
+	function get_other_attack_method(&$pdata, $w1, $orig=0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if($w1 == $pdata['wepk'][1]) $wo = $pdata['wepk'][2];
 		else $wo = $pdata['wepk'][1];
-		return check_w2_valid($wo, $pdata['weps']);
+		return check_w2_valid($wo, $pdata['weps'], $orig);
 	}
 	
-	function get_sec_attack_method(&$pdata)
+	function get_sec_attack_method(&$pdata, $orig=0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$w2 = substr($pdata['wepk'],2,1);
-		return check_w2_valid($w2, $pdata['weps']);
+		return check_w2_valid($w2, $pdata['weps'], $orig);
 	}
 	
 	function check_attack_method(&$pdata, $wm)
