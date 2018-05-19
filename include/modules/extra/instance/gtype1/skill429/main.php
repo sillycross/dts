@@ -76,7 +76,7 @@ namespace skill429
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r=Array();
-		if (\skillbase\skill_query(429,$pa)) 
+		if (\skillbase\skill_query(429,$pd)) 
 		{
 			eval(import_module('logger'));
 			$var_429=get_skill429_trapdmg_down($pd);
