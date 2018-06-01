@@ -1,6 +1,10 @@
 <?php
 
-//记录得到的金钱数的技能
+//记录一些杂项数据的技能
+//目前记录数据有：
+//本局得到过的金钱数
+//本局累计获得的切糕
+//被DN的理由
 
 namespace skill1003
 {
@@ -65,6 +69,27 @@ namespace skill1003
 		list($tmp_data['acquired_list'], $tmp_data['parameter_list']) = \skillbase\skillbase_load_process($data['nskill'], $data['nskillpara']);
 		if(\skillbase\skill_query(1003, $tmp_data)) {
 			$ret += \skillbase\skill_getvalue(1003,'qiegao_got', $tmp_data);	
+		}
+		return $ret;
+	}
+	
+	//被DN时记录理由
+	function deathnote_process_core(&$pa, &$pd, $dndeath=''){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(\skillbase\skill_query(1003, $pd)) {
+			\skillbase\skill_setvalue(1003,'dndeath', $dndeath, $pd);
+		}
+		$chprocess($pa, $pd, $dndeath);
+	}
+	
+	//顺带着给个DN死亡提示好了
+	function get_dinfo(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($pa);
+		if(28 == $pa['state'] && \skillbase\skill_query(1003, $pa)) {
+			$dndeath = \skillbase\skill_getvalue(1003,'dndeath', $pa);
+			$ret = '你因为<span class="yellow b">'.$dndeath.'</span>意外死去了。<br>';
 		}
 		return $ret;
 	}
