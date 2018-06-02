@@ -1,116 +1,79 @@
 <!--{if $upos==-1}-->
-<!--{if $roomdata['player'][$i]['forbidden']}-->
-<!--{eval glowbutton\glowbutton_set_style('id:pos'.$i.';color:555555;glow-on-hover:0;clickable:0;max-text-width:80;line-height:30;margin-x:30;margin-y:0;');}-->
+	<!--{if $roomdata['player'][$i]['forbidden']}-->
+		<div id="pos$i" class="glow_buttons w140 h30 darkgrey forbidden">(已禁入)</div>
+	<!--{else}-->
+		<!--{if $roomdata['player'][$i]['name']!=''}-->
+			<div id="pos$i" class="glow_buttons w140 h30 forbidden">$roomdata['player'][$i]['name']</div>
+		<!--{else}-->
+			<div id="pos$i" class="glow_buttons w140 h30 evergreen" onclick="$('command').value='pos_enter';$('para1').value=$i;postCmd('roomcmd','roomcmd.php');">
+				<!--{if $i==0}-->
+					成为房主
+				<!--{else}-->
+					<!--{if $roomtypelist[$roomdata['roomtype']]['leader-position'][$i]==$i && $roomtypelist[$roomdata['roomtype']]['show-team-leader']}-->
+						成为队长
+					<!--{else}-->
+						进入位置
+					<!--{/if}-->
+				<!--{/if}-->
+			</div>
+		<!--{/if}-->
+	<!--{/if}-->
 <!--{else}-->
-<!--{if $roomdata['player'][$i]['name']!=''}-->
-<!--{eval glowbutton\glowbutton_set_style('id:pos'.$i.';color:ffffff;glow-on-hover:0;clickable:0;max-text-width:80;line-height:30;margin-x:30;margin-y:0;');}-->
-<!--{else}-->
-<!--{eval glowbutton\glowbutton_set_style('id:pos'.$i.';color:88ff88;clickable:1;max-text-width:80;line-height:30;margin-x:30;margin-y:0;');}-->
-<!--{eval glowbutton\glowbutton_set_mousedown_event("$('command').value='pos_enter';$('para1').value=$i;postCmd('roomcmd','roomcmd.php');");}-->
+	<!--{if $roomdata['player'][$i]['forbidden']}-->
+		<div id="pos$i" class="glow_buttons w140 h30 darkgrey forbidden">(已禁入)</div>
+	<!--{else}-->
+		<!--{if $roomdata['player'][$i]['name']==''}-->
+			<div id="pos$i" class="glow_buttons w140 h30 grey" onclick="$('command').value='pos_enter';$('para1').value=$i;postCmd('roomcmd','roomcmd.php');">
+				<!--{if $i==0}-->
+					空房主位置
+				<!--{else}-->
+					<!--{if $roomtypelist[$roomdata['roomtype']]['leader-position'][$i]==$i && $roomtypelist[$roomdata['roomtype']]['show-team-leader']}-->
+						空队长位置
+					<!--{else}-->
+						空位置
+					<!--{/if}-->
+				<!--{/if}-->
+			</div>
+		<!--{else}-->
+			<!--{if $roomdata['readystat']==1 && $roomdata['player'][$i]['name']!='' && $roomdata['player'][$i]['ready']}-->
+				<div id="pos$i" class="glow_buttons w140 h30 evergreen forbidden">$roomdata['player'][$i]['name']</div>
+			<!--{else}-->
+				<div id="pos$i" class="glow_buttons w140 h30 forbidden">$roomdata['player'][$i]['name']</div>
+			<!--{/if}-->
+		<!--{/if}-->
+	<!--{/if}-->
 <!--{/if}-->
-<!--{/if}-->
-<!--{else}-->
-<!--{if $roomdata['player'][$i]['forbidden']}-->
-<!--{eval glowbutton\glowbutton_set_style('id:pos'.$i.';color:555555;glow-on-hover:0;clickable:0;max-text-width:80;line-height:30;margin-x:30;margin-y:0;');}-->
-<!--{else}-->
-<!--{if $roomdata['player'][$i]['name']==''}-->
-<!--{eval glowbutton\glowbutton_set_style('id:pos'.$i.';color:555555;clickable:1;max-text-width:80;line-height:30;margin-x:30;margin-y:0;');}-->
-<!--{eval glowbutton\glowbutton_set_mousedown_event("$('command').value='pos_enter';$('para1').value=$i;postCmd('roomcmd','roomcmd.php');");}-->
-<!--{else}-->
-<!--{if $roomdata['readystat']==1 && $roomdata['player'][$i]['name']!='' && $roomdata['player'][$i]['ready']}-->
-<!--{eval glowbutton\glowbutton_set_style('id:pos'.$i.';color:88ff88;glow-on-hover:0;clickable:0;max-text-width:80;line-height:30;margin-x:30;margin-y:0;');}-->
-<!--{else}-->
-<!--{eval glowbutton\glowbutton_set_style('id:pos'.$i.';color:ffffff;glow-on-hover:0;clickable:0;max-text-width:80;line-height:30;margin-x:30;margin-y:0;');}-->
-<!--{/if}-->
-<!--{/if}-->
-<!--{/if}-->
-<!--{/if}-->
-{template MOD_GLOWBUTTON_START}
-<!--{if $upos==-1}-->
-<!--{if $roomdata['player'][$i]['forbidden'] || $roomdata['player'][$i]['name']!=''}-->
-<!--{if $roomdata['player'][$i]['forbidden']}-->
-(已禁入)
-<!--{else}-->
-$roomdata['player'][$i]['name']
-<!--{/if}-->
-<!--{else}-->
-<!--{if $roomtypelist[$roomdata['roomtype']]['leader-position'][$i]==$i}-->
-进入位置
-<!--{else}-->
-进入位置
-<!--{/if}-->
-<!--{/if}-->
-<!--{else}-->
-<!--{if $roomdata['player'][$i]['forbidden'] || $roomdata['player'][$i]['name']==''}-->
-<!--{if $roomdata['player'][$i]['forbidden']}-->
-(已禁入)
-<!--{else}-->
-<!--{if $i==0}-->
-空房主位置
-<!--{else}-->
-<!--{if $roomtypelist[$roomdata['roomtype']]['leader-position'][$i]==$i && $roomtypelist[$roomdata['roomtype']]['show-team-leader']}-->
-空队长位置
-<!--{else}-->
-空位置
-<!--{/if}-->
-<!--{/if}-->
-<!--{/if}-->
-<!--{else}-->
-$roomdata['player'][$i]['name']
-<!--{/if}-->
-<!--{/if}-->
-{template MOD_GLOWBUTTON_END}
 
 <!--{if $i==0}-->
-<div style="position:absolute;left:111px;top:19px;">
-<!--{eval glowbutton\glowbutton_set_style('id:action'.$i.';color:00ff00;clickable:0;glow-on-hover:0;max-text-width:33;line-height:15;margin-x:0;margin-y:0;');}-->
-{template MOD_GLOWBUTTON_START}
-房主
-{template MOD_GLOWBUTTON_END}
-<script>glowbutton_highlight("action$i");</script>
+<div style="position:absolute;left:110px;top:19px;">
+	<div id="action$i" class="glow_buttons w35 h15 lime forbidden">房主</div>
 </div>
 <!--{else}-->
+	<!--{if ($upos == 0 || $upos == room_team_leader_check($roomdata,$i)) && $i!=$upos}-->
+		<!--{if !$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']!=''}-->
+			<div style="position:absolute;left:110px;top:19px;">
+				<div id="action$i" class="glow_buttons w35 h15 red" onclick="$('command').value='pos_kick';$('para1').value=$i;postCmd('roomcmd','roomcmd.php');">
+					踢出
+				</div>
+			</div>
+		<!--{elseif !$roomdata['player'][$i]['forbidden']}-->
+			<div style="position:absolute;left:110px;top:19px;">
+				<div id="action$i" class="glow_buttons w35 h15 red" onclick="$('command').value='pos_disable';$('para1').value=$i;postCmd('roomcmd','roomcmd.php');">
+					禁用
+				</div>
+			</div>
+		<!--{else}-->
+			<div style="position:absolute;left:110px;top:19px;">
+				<div id="action$i" class="glow_buttons w35 h15 evergreen" onclick="$('command').value='pos_enable';$('para1').value=$i;postCmd('roomcmd','roomcmd.php');">
+					启用
+				</div>
+			</div>
+		<!--{/if}-->
+	<!--{/if}-->
 
-<!--{if ($upos == 0 || $upos == room_team_leader_check($roomdata,$i)) && !$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']!=''}-->
-<div style="position:absolute;left:111px;top:19px;">
-<!--{eval glowbutton\glowbutton_set_style('id:action'.$i.';color:ff0000;clickable:1;max-text-width:33;line-height:15;margin-x:0;margin-y:0;');}-->
-<!--{eval glowbutton\glowbutton_set_mousedown_event("$('command').value='pos_kick';$('para1').value=$i;postCmd('roomcmd','roomcmd.php');");}-->
-{template MOD_GLOWBUTTON_START}
-踢出
-{template MOD_GLOWBUTTON_END}
-<script>glowbutton_highlight("action$i");</script>
-</div>
-<!--{/if}-->
-
-<!--{if $upos>=0 && $roomdata['player'][$i]['forbidden'] && $roomtypelist[$roomdata['roomtype']]['leader-position'][$i]==$upos}-->
-<div style="position:absolute;left:111px;top:19px;">
-<!--{eval glowbutton\glowbutton_set_style('id:action'.$i.';color:88ff88;clickable:1;max-text-width:33;line-height:15;margin-x:0;margin-y:0;');}-->
-<!--{eval glowbutton\glowbutton_set_mousedown_event("$('command').value='pos_enable';$('para1').value=$i;postCmd('roomcmd','roomcmd.php');");}-->
-{template MOD_GLOWBUTTON_START}
-启用
-{template MOD_GLOWBUTTON_END}
-<script>glowbutton_highlight("action$i");</script>
-
-<!--{/if}-->
-
-<!--{if $upos>=0 && !$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']=='' && $roomtypelist[$roomdata['roomtype']]['leader-position'][$i]==$upos}-->
-<div style="position:absolute;left:111px;top:19px;">
-<!--{eval glowbutton\glowbutton_set_style('id:action'.$i.';color:ff0000;clickable:1;max-text-width:33;line-height:15;margin-x:0;margin-y:0;');}-->
-<!--{eval glowbutton\glowbutton_set_mousedown_event("$('command').value='pos_disable';$('para1').value=$i;postCmd('roomcmd','roomcmd.php');");}-->
-{template MOD_GLOWBUTTON_START}
-禁用
-{template MOD_GLOWBUTTON_END}
-<script>glowbutton_highlight("action$i");</script>
-</div>
-<!--{/if}-->
-
-<!--{if $upos==-1 && $roomtypelist[$roomdata['roomtype']]['leader-position'][$i]==$i && $roomtypelist[$roomdata['roomtype']]['show-team-leader']}-->
-<div style="position:absolute;left:111px;top:19px;">
-<!--{eval glowbutton\glowbutton_set_style('id:action'.$i.';color:00ff00;clickable:0;glow-on-hover:0;max-text-width:33;line-height:15;margin-x:0;margin-y:0;');}-->
-{template MOD_GLOWBUTTON_START}
-队长
-{template MOD_GLOWBUTTON_END}
-<script>glowbutton_highlight("action$i");</script>
-</div>
-<!--{/if}-->
+	<!--{if $upos != 0 && $i==room_team_leader_check($roomdata,$i) && $roomtypelist[$roomdata['roomtype']]['show-team-leader']}-->
+		<div style="position:absolute;left:110px;top:19px;">
+			<div id="action$i" class="glow_buttons w35 h15 lime forbidden">队长</div>
+		</div>
+	<!--{/if}-->
 <!--{/if}-->

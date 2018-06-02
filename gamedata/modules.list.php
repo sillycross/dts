@@ -1,6 +1,5 @@
 input,core/input/,1
 bubblebox,extra/misc/bubblebox/,1
-glowbutton,extra/misc/glowbutton/,1
 sys,core/sys/,1
 map,core/map/,1
 bmp_util,extra/misc/bmp_util/,1
@@ -491,4 +490,5 @@ skill361,extra/activities/lunany2018/skill361/,1
 skill362,extra/activities/lunany2018/skill362/,1
 skill365,extra/activities/aprilfool2018/skill365/,1
 skill366,extra/activities/aprilfool2018/skill366/,1
+glowbutton,extra/misc/glowbutton/,0
 halloween2017,extra/activities/halloween2017/main/,0

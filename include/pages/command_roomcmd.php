@@ -142,9 +142,9 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 		}else{//进入位置之外的操作必须先在房间内
 			if($upos < 0)
 				room_new_chat($roomdata,"<span class=\"red b\">不在房间内的{$cuser}试图操作一个位置</span><br>");
-			//启用和禁用位置，只有队长可以操作
+			//启用和禁用位置，只有房主或队长可以操作
 			elseif($command=='pos_disable' || $command=='pos_enable'){
-				if($upos != room_team_leader_check($roomdata,$para1))
+				if($upos!=0 && $upos != room_team_leader_check($roomdata,$para1))
 					room_new_chat($roomdata,"<span class=\"red b\">并非队长的{$cuser}试图操作一个位置</span><br>");
 				elseif($roomdata['player'][$para1]['name']) 
 					room_new_chat($roomdata,"<span class=\"red b\">{$cuser}试图操作一个有人的位置</span><br>");
@@ -153,10 +153,12 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 					$roomdata['player'][$upos]['ready']=0;
 					if($command=='pos_disable'){
 						$roomdata['player'][$para1]['forbidden']=1;
-						room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}禁用了其队伍的一个位置</span><br>");
+						if($upos!=0) room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}禁用了其队伍的一个位置</span><br>");
+						else room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}禁用了房间的一个位置</span><br>");
 					}elseif($command=='pos_enable'){
 						$roomdata['player'][$para1]['forbidden']=0;
-						room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}重新启用了其队伍的一个位置</span><br>");
+						if($upos!=0) room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}重新启用了其队伍的一个位置</span><br>");
+						else room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}重新启用了房间的一个位置</span><br>");
 					}
 				}
 			//踢人，房主可以踢任何人，队长可以踢同队队员
