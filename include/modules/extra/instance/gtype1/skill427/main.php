@@ -63,7 +63,8 @@ namespace skill427
 		if('skill427' == $rkey){
 			$pd['hp']=$pd['mhp'];
 			$pd['skill427_flag']=1;
-			addnews ( 0, 'revival427', $pd['name']);
+			$pd['rivival_news'] = array('revival427', $pd['name']);
+			//addnews ( 0, 'revival427', $pd['name']);
 			
 			//死亡之后除错层数-2
 			if (\skillbase\skill_query(424,$pd)){

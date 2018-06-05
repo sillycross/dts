@@ -5,11 +5,7 @@
 	<span style="font-size:30px; line-height:40px;">房间{$room_id}&nbsp;-&nbsp; <!--{eval echo room_get_vars($roomdata, 'name');}--></span>
 	<!--{if $upos==0}-->
 	<div style="position:absolute; top:14px; left: 550px;">
-	<!--{eval glowbutton\glowbutton_set_style('id:rmedit;color:ffffff;clickable:1;max-text-width:70;line-height:20;margin-x:0;margin-y:0;');}-->
-	<!--{eval glowbutton\glowbutton_set_mousedown_event("bubblebox_show('persistent-rmeditbox');");}-->
-	{template MOD_GLOWBUTTON_START}
-	修改模式
-	{template MOD_GLOWBUTTON_END}
+		<div class="glow_buttons" onclick="bubblebox_show('persistent-rmeditbox');">修改模式</div>
 	</div>
 	<!--{/if}-->
 	</td>
@@ -25,28 +21,20 @@
 	<td class="b3" width=85px>
 	<!--{if room_get_vars($roomdata,'without-ready')}-->
 		<!--{if $upos==0}-->
-			<!--{eval glowbutton\glowbutton_set_style('id:room-ready;color:ffff00;clickable:1;max-text-width:30;line-height:50;margin-y:0;');}-->
-			<!--{eval glowbutton\glowbutton_set_mousedown_event("$('command').value='start';postCmd('roomcmd','roomcmd.php');");}-->
+			<div class="glow_buttons h50 yellow" onclick="$('command').value='start';postCmd('roomcmd','roomcmd.php');">开始</div>
 		<!--{else}-->
-			<!--{eval glowbutton\glowbutton_set_style('id:room-ready;color:888888;clickable:0;glow-on-hover:0;max-text-width:30;line-height:50;margin-y:0;');}-->
+			<div class="glow_buttons h50 grey forbidden">开始</div>
 		<!--{/if}-->
-		{template MOD_GLOWBUTTON_START}
-			开始
-		{template MOD_GLOWBUTTON_END}
 	<!--{else}-->
 		<!--{if $roomdata['readystat']==1 && $upos>=0 && !$roomdata['player'][$upos]['ready']}-->
-			<!--{eval glowbutton\glowbutton_set_style('id:room-ready;color:ffff00;clickable:1;max-text-width:30;line-height:50;margin-y:0;');}-->
-			<!--{eval glowbutton\glowbutton_set_mousedown_event("$('command').value='ready';postCmd('roomcmd','roomcmd.php');");}-->
+			<div class="glow_buttons h50 yellow" onclick="$('command').value='ready';postCmd('roomcmd','roomcmd.php');">准备</div>
 		<!--{else}-->
 			<!--{if $roomdata['readystat']==1 && $upos>=0 && $roomdata['player'][$upos]['ready']}-->
-				<!--{eval glowbutton\glowbutton_set_style('id:room-ready;color:00ff00;clickable:0;glow-on-hover:0;max-text-width:30;line-height:50;margin-y:0;');}-->
+				<div class="glow_buttons h50 lime forbidden">准备</div>
 			<!--{else}-->
-				<!--{eval glowbutton\glowbutton_set_style('id:room-ready;color:888888;clickable:0;glow-on-hover:0;max-text-width:30;line-height:50;margin-y:0;');}-->
+				<div class="glow_buttons h50 grey forbidden">准备</div>
 			<!--{/if}-->
 		<!--{/if}-->
-		{template MOD_GLOWBUTTON_START}
-			准备
-		{template MOD_GLOWBUTTON_END}
 	<!--{/if}-->
 	</td>
 </tr>
@@ -54,11 +42,7 @@
 	<td class="b3" height=7px>
 	</td>
 	<td class="b3" rowspan=3>
-	<!--{eval glowbutton\glowbutton_set_style('id:room-leave;color:ffffff;clickable:1;max-text-width:60;line-height:20;margin-x:5;margin-y:0;');}-->
-	<!--{eval glowbutton\glowbutton_set_mousedown_event("$('command').value='leave';postCmd('roomcmd','roomcmd.php');");}-->
-	{template MOD_GLOWBUTTON_START}
-	离开房间
-	{template MOD_GLOWBUTTON_END}
+		<div class="glow_buttons" onclick="$('command').value='leave';postCmd('roomcmd','roomcmd.php');">离开房间</div>
 	</td>
 </tr>
 <tr>

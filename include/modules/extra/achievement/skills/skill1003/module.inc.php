@@ -4,7 +4,7 @@ namespace skill1003
 {
 	////////// MODULE HEADER START ///////////////
 	$___MODULE_dependency = 'skillbase clubbase cardbase sys player';
-	$___MODULE_dependency_optional = '';
+	$___MODULE_dependency_optional = 'item_misc';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';
 	$___MODULE_templatelist = '';

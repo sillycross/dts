@@ -99,11 +99,12 @@ if($hp <= 0) {
 } elseif($state == 1 || $state == 2 || $state ==3) {
 	$gamedata['innerHTML']['cmd'] = dump_template('rest');
 } elseif(!$cmd) {
-	if($mode != 'command' && $mode&&(file_exists($mode.'.htm') || file_exists(GAME_ROOT.TPLDIR.'/'.$mode.'.htm'))) {
+	if($mode != 'command' && $mode && (file_exists($mode.'.htm') || file_exists(GAME_ROOT.TPLDIR.'/'.$mode.'.htm'))) {
 		$gamedata['innerHTML']['cmd'] = dump_template($mode);
 	} elseif(defined('MOD_TUTORIAL') && $gametype == 17){
 		$gamedata['innerHTML']['cmd'] = dump_template(MOD_TUTORIAL_TUTORIAL);
 	}	else {
+		//$mode = 'command';
 		$gamedata['innerHTML']['cmd'] = dump_template('command');
 		//给#log窗格加了最小高度，但又需要让不存在$log的页面正常显示，于是让js自动隐藏空的#log窗格，那么这里就得输出一个东西
 		if(empty($uip['innerHTML']['log'])) $uip['innerHTML']['log'] = ' ';

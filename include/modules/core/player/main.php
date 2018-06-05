@@ -516,6 +516,15 @@ namespace player
 		\sys\addnews ( $now, 'death' . $pd['state'], $pd['name'], $pd['type'], $x , $pa['attackwith'], $lstwd );
 	}
 	
+	//格式化死讯
+	function get_dinfo(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		if(isset($dinfo[$pa['state']])) return $dinfo[$pa['state']];
+		else return '你莫名地死了。这应该是BUG，请通知管理员。<br>死亡代号：'.$pa['state'];
+	}
+	
 	//维护一个名为'revive_sequence'的列表
 	//键名为顺序，顺序越小越优先执行；键值在revive_process()里处理
 	function set_revive_sequence(&$pa, &$pd)

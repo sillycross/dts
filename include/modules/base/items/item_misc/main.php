@@ -481,6 +481,7 @@ namespace item_misc
 			$log .= "你不能自杀。<br>";
 			return;
 		}
+		if(!$dndeath){$dndeath = '心脏麻痹';}
 		$dn_ignore_words = deathnote_process($dnname,$dndeath,$dngender,$dnicon);
 		$dns--;
 		if($dns<=0){
@@ -494,7 +495,6 @@ namespace item_misc
 	function deathnote_process($dnname='',$dndeath='',$dngender='m',$dnicon=1){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','logger','player'));
-		if(!$dndeath){$dndeath = '心脏麻痹';}
 		$log .= "你将<span class=\"yellow b\">$dnname</span>的名字写在了■DeathNote■上。";
 		$result = $db->query("SELECT * FROM {$tablepre}players WHERE name='$dnname' AND type = 0 AND hp > 0");
 		if(!$db->num_rows($result)) { 
@@ -505,16 +505,21 @@ namespace item_misc
 				$log .= "但是什么都没有发生。<br>哪里出错了？<br>"; 
 			} else {
 				$log .= "<br><span class=\"yellow b\">$dnname</span>被你杀死了。";
-				$edata['state'] = 28; $sdata['attackwith']=$dndeath;
-				\player\update_sdata(); 
-				\player\kill($sdata,$edata);
-				\player\player_save($edata);
-				\player\player_save($sdata);
-				\player\load_playerdata($sdata);
-				//$killnum++;
+				deathnote_process_core($sdata, $edata, $dndeath);
 			}
 		}
 		return;
+	}
+	
+	function deathnote_process_core(&$pa, &$pd, $dndeath='')
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$pd['state'] = 28;
+		$pa['attackwith']=$dndeath;
+		\player\kill($pa,$pd);
+		\player\player_save($pd);
+		\player\player_save($pa);
+		\player\load_playerdata($pa);
 	}
 	
 	function act()

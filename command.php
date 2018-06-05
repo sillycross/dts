@@ -146,23 +146,26 @@ if ($___MOD_SRV)
 				}
 				continue;
 			}
-			//进入忙碌状态
+			//执行循环开始
 			$___TEMP_last_cmd = time()-$___TEMP_server_start_time;
-			touch(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT.'/busy');
 			while (__SOCKET_CHECK_WITH_TIMEOUT__($___TEMP_socket, 'a', 0, 0))	//处理全部现有消息队列
 			{
-				$___TEMP_connection = socket_accept($___TEMP_socket);  
+				$___TEMP_connection = socket_accept($___TEMP_socket); 
 				if($___TEMP_connection)
 				{  
-					$___TEMP_pagestarttime=microtime();
+					$___TEMP_pagestarttime=microtime(true);
 					__SOCKET_DEBUGLOG__("收到了一个新连接。");
 					if (($___TEMP_uid=__SOCKET_LOAD_DATA__($___TEMP_connection))!==false)//注意这里$___TEMP_uid是带房间号前缀的
 					{
 						$___TEMP_WORKFLAG=1;
+						//有确定指令的时候才进入忙碌状态
+						__SOCKET_DEBUGLOG__("进入忙碌状态。");
+						touch(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT.'/busy');
+						
 						eval(import_module('sys','map','player','logger','itemmain','input'));
 						sys\routine();
 
-						$___TEMP_EXEC_START_TIME=microtime();
+						$___TEMP_EXEC_START_TIME=microtime(true);;
 						
 						//用try catch机制来中断执行（gexit）并且直接输出
 						try {
@@ -201,77 +204,83 @@ if ($___MOD_SRV)
 					}
 					socket_close($___TEMP_connection);  
 					__SOCKET_DEBUGLOG__("关闭连接。");
-					//只有游戏内指令需要储存成录像
-					if(!isset($page) || 'command' == $page) {
-						if (defined('MOD_REPLAY') && $___MOD_SRV && $___MOD_CODE_ADV3 && !in_array($gametype, $replay_ignore_mode)) 
-						{
-							if (!isset($jgamedata['url']))
+					
+					//以下处理只有非测试指令才进行
+					if($___TEMP_uid) {
+						//只有游戏内指令需要储存成录像
+						if(!isset($page) || 'command' == $page) {
+							if (defined('MOD_REPLAY') && $___MOD_SRV && $___MOD_CODE_ADV3 && !in_array($gametype, $replay_ignore_mode)) 
 							{
-								$pid=(int)$pid;
-								$rdir = GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$pid;
-								if (!file_exists($rdir))
+								if (!isset($jgamedata['url']))
 								{
-									create_dir($rdir);
+									$pid=(int)$pid;
+									$rdir = GAME_ROOT.'./gamedata/tmp/replay/'.$room_prefix.'_/'.$pid;
+									if (!file_exists($rdir))
+									{
+										create_dir($rdir);
+									}
+									elseif (!is_dir($rdir))
+									{
+										unlink($rdir);
+										create_dir($rdir);
+									}
+									$rfile = $rdir.'/replay.php';
+									$rcont = \replay\replay_record_op($oprecorder).','.($___PAGE_STARTTIME_VALUE-$starttime+$moveut*3600+$moveutmin*60).','.$___MOD_TMP_FILE_DIRECTORY.$___TEMP_uid.','."\n";
+									if(!file_exists($rfile)) {
+										$rcont = "<?php if(!defined('IN_GAME')) exit('Access Denied'); ?>\n".$rcont;
+									}
+									file_put_contents($rfile,$rcont,FILE_APPEND);
 								}
-								elseif (!is_dir($rdir))
-								{
-									unlink($rdir);
-									create_dir($rdir);
-								}
-								$rfile = $rdir.'/replay.php';
-								$rcont = \replay\replay_record_op($oprecorder).','.($___PAGE_STARTTIME_VALUE-$starttime+$moveut*3600+$moveutmin*60).','.$___MOD_TMP_FILE_DIRECTORY.$___TEMP_uid.','."\n";
-								if(!file_exists($rfile)) {
-									$rcont = "<?php if(!defined('IN_GAME')) exit('Access Denied'); ?>\n".$rcont;
-								}
-								file_put_contents($rfile,$rcont,FILE_APPEND);
 							}
+						}else{
+							//非游戏指令则删除对应的回应文件
+							//蛋疼，不能删，socket是异步的
+							//unlink($___MOD_TMP_FILE_DIRECTORY.$___TEMP_uid);
 						}
-					}else{
-						//非游戏指令则删除对应的回应文件
-						//蛋疼，不能删，socket是异步的
-						//unlink($___MOD_TMP_FILE_DIRECTORY.$___TEMP_uid);
-					}
-					//清除进程锁，避免烂代码导致daemon卡死
-					//为了防止未来可能会绕过文件末尾那个判定的情况，放在这里
-					if(!empty($plock)) {
-						\sys\process_unlock();
-					}
-					\player\release_player_lock_from_pool();
-					release_user_lock_from_pool();
-					//收尾工作，清除所有全局变量
-					$___TEMP_remain_list=Array('_SERVER','GLOBALS','magic_quotes_gpc','module_hook_list','language','_ERROR');
-							
-					$___TEMP_a=Array();
-					$___TEMP_a=array_keys(get_defined_vars());
-					foreach ($___TEMP_a as $___TEMP_key) 
-					{
-						if (strpos($___TEMP_key,'___LOCAL_')===0 && strpos($___TEMP_key,'___LOCAL_INPUT')!==0) continue;
-						if (strpos($___TEMP_key,'___PRESET_')===0) continue;
-						if (strpos($___TEMP_key,'___PRIVATE_')===0) continue;
-						if (strpos($___TEMP_key,'___TEMP')===0) continue;
-						if (strpos($___TEMP_key,'___MOD')===0) continue;
-						if (in_array($___TEMP_key,$___TEMP_remain_list)) continue;
-						unset($$___TEMP_key);
-					}
-					unset($___TEMP_a);
-					
-					//执行模拟载入代码，为下一次执行做准备
-					
-					$___LOCAL_INPUT__VARS__INPUT_VAR_LIST=Array();
-					
-					for ($i=1; $i<=$___TEMP_MOD_LIST_n; $i++) 
-						if (strtoupper($___TEMP_MOD_NAME[$i])!='INPUT') 
+						__SOCKET_DEBUGLOG__("清空变量。");
+						//清除进程锁，避免烂代码导致daemon卡死
+						//为了防止未来可能会绕过文件末尾那个判定的情况，放在这里
+						if(!empty($plock)) {
+							\sys\process_unlock();
+						}
+						\player\release_player_lock_from_pool();
+						release_user_lock_from_pool();
+						//收尾工作，清除所有全局变量
+						$___TEMP_remain_list=Array('_SERVER','GLOBALS','magic_quotes_gpc','module_hook_list','language','_ERROR');
+								
+						$___TEMP_a=Array();
+						$___TEMP_a=array_keys(get_defined_vars());
+						foreach ($___TEMP_a as $___TEMP_key) 
 						{
-							$funcname = $___TEMP_MOD_NAME[$i].'\\___pre_init'; $funcname();
-							$funcname = $___TEMP_MOD_NAME[$i].'\\init'; $funcname();
-							$funcname = $___TEMP_MOD_NAME[$i].'\\___post_init'; $funcname();
-							unset($funcname);
+							if (strpos($___TEMP_key,'___LOCAL_')===0 && strpos($___TEMP_key,'___LOCAL_INPUT')!==0) continue;
+							if (strpos($___TEMP_key,'___PRESET_')===0) continue;
+							if (strpos($___TEMP_key,'___PRIVATE_')===0) continue;
+							if (strpos($___TEMP_key,'___TEMP')===0) continue;
+							if (strpos($___TEMP_key,'___MOD')===0) continue;
+							if (in_array($___TEMP_key,$___TEMP_remain_list)) continue;
+							unset($$___TEMP_key);
 						}
-					unset($i);
+						unset($___TEMP_a);
+						
+						//执行模拟载入代码，为下一次执行做准备
+						__SOCKET_DEBUGLOG__("模拟载入。");
+						$___LOCAL_INPUT__VARS__INPUT_VAR_LIST=Array();
+						
+						for ($i=1; $i<=$___TEMP_MOD_LIST_n; $i++) 
+							if (strtoupper($___TEMP_MOD_NAME[$i])!='INPUT') 
+							{
+								$funcname = $___TEMP_MOD_NAME[$i].'\\___pre_init'; $funcname();
+								$funcname = $___TEMP_MOD_NAME[$i].'\\init'; $funcname();
+								$funcname = $___TEMP_MOD_NAME[$i].'\\___post_init'; $funcname();
+								unset($funcname);
+							}
+						unset($i);
+					}
+					
 		
 					//system('sync && echo 3 > /proc/sys/vm/drop_caches');  
 					
-					$___TEMP_tiused=get_script_runtime($___TEMP_EXEC_START_TIME);
+					$___TEMP_tiused=get_script_runtime($___TEMP_pagestarttime);
 					__SOCKET_DEBUGLOG__("执行完成。核心占用时间 ".$___TEMP_tiused." 秒。");
 				}
 			}
@@ -296,6 +305,7 @@ if ($___MOD_SRV)
 				}
 			}
 			//进入闲置状态
+			__SOCKET_DEBUGLOG__("进入闲置状态。");
 			if (file_exists(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT.'/busy'))
 				unlink(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT.'/busy');
 		}
@@ -324,23 +334,40 @@ if ($___MOD_SRV)
 			$srvlist = array(); $chosen=-1; $touch_error_list=array();
 			foreach($dirlist as $sid) {
 				$sid=(int)$sid; 
-				if ($sid<$___MOD_CONN_PORT_LOW || $sid>$___MOD_CONN_PORT_HIGH) continue;
-				if (file_exists(GAME_ROOT.'./gamedata/tmp/server/'.((string)$sid).'/busy')) continue;
+				//端口号超限，记录错误并跳过
+				if ($sid<$___MOD_CONN_PORT_LOW || $sid>$___MOD_CONN_PORT_HIGH) {
+					$touch_error_list[]=$sid;
+					continue;
+				}
+				//进程异常，记录错误并跳过
 				$touchflag = __SEND_TOUCH_CMD__($sid);
 				if ('ok' != $touchflag && 'ok_root' != $touchflag) {
 					$touch_error_list[]=$sid;
 					continue;
 				}
-				$chosen = $sid; break;
+				//记录是正常的服务器
+				$srvlist[]=$sid;
+				//进程忙碌，跳过
+				if (file_exists(GAME_ROOT.'./gamedata/tmp/server/'.((string)$sid).'/busy')) {
+					continue;
+				}
+				//不忙碌，选择之
+				$chosen = $sid; 
+				break;
 			}
-			if (!$flag) {
+			//无驻留进程，或者所有驻留进程都异常，此时touch是没用的，必须curl。
+			if (!$flag || !$srvlist) {
+				if(!$srvlist) $tmp_log = '所有在线驻留进程都异常。';
+				else $tmp_log = '未找到在线的驻留进程。';
 				if($___MOD_SRV_COLD_START) {//若允许冷启动，则自动发送启动指令
 					curl_new_server($___MOD_CONN_PASSWD, 1);
-					__SOCKET_ERRORLOG__("未找到在线的驻留进程，已请求启动新的根进程，但中断本次执行。");
+					__SOCKET_ERRORLOG__($tmp_log."已请求启动新的根进程，但中断本次执行。");
 				}else{
-					__SOCKET_ERRORLOG__("未找到在线的驻留进程。");
+					__SOCKET_ERRORLOG__($tmp_log);
 				}
+				unset($tmp_log);
 			}
+			//没有选到驻留进程，此时至少有1个不异常的进程
 			if ($chosen == -1) 
 			{
 				$z=rand(0,count($srvlist)-1); $chosen=$srvlist[$z];//随机选择一个。也就是说其实这里允许并发
@@ -362,7 +389,7 @@ if ($___MOD_SRV)
 					curl_post($daemonmng_url, $daemonmng_context, NULL, 0.1);
 					unset($daemonmng_url, $daemonmng_context);
 				}else{
-					__SOCKET_ERRORLOG__("驻留进程连接错误，且尝试自动重启驻留进程失败。");
+					__SOCKET_ERRORLOG__("驻留进程连接错误，且5分钟之内尝试自动重启驻留进程失败。");
 				}		
 			}else{
 				if(file_exists($auto_server_file)) unlink($auto_server_file);
@@ -444,4 +471,4 @@ if(!empty($plock)) {
 release_user_lock_from_pool();
 
 /* End of file command.php */
-/* Location: /command.php */
+/* Location: /command.php */ 
