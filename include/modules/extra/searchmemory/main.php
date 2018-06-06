@@ -212,12 +212,7 @@ namespace searchmemory
 		$mn = (int)$mn;
 		//$searchmemory = array_decode($searchmemory);
 		//$mn = (int)substr($schmode,6) - 1;
-		if ($coldtimeon && $rmcdtime > 0)
-		{
-			$log .= '<span class="yellow b">冷却时间尚未结束！</span><br>';
-			$mode = 'command';
-			return;
-		}
+		if(\cooldown\check_in_coldtime()) return;
 	
 		if(isset($searchmemory[$mn])){
 			$mem = $searchmemory[$mn];
@@ -237,7 +232,7 @@ namespace searchmemory
 					return;
 				}else{
 					$log .= '<span class="lime b">'.$mem['itm'].'还在原来的位置，你轻松拿到了它。</span><br>';
-					if($coldtimeon) $cmdcdtime=\cooldown\get_search_coldtime();
+					\cooldown\set_coldtime(\cooldown\get_search_coldtime());
 					$marr=$db->fetch_array($result);
 					focus_item($marr);
 					\itemmain\itemget();
@@ -264,6 +259,7 @@ namespace searchmemory
 					}
 					if($fog && $mem['smtype'] != 'corpse') $log .= '<span class="lime b">人影还在原来的位置。</span><br>';
 					else $log .= '<span class="lime b">'.$mem['Pname'].'还在原来的位置。</span><br>';
+					\cooldown\set_coldtime(\cooldown\get_search_coldtime());
 					$sdata['sm_active_debuff'] = 1;//临时这么写写
 					\metman\meetman($mid);
 					unset($sdata['sm_active_debuff']);

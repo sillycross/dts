@@ -72,6 +72,9 @@ namespace trap
 		$trpnum = $db->num_rows($trapresult);
 		$result = $db->query("SELECT pid FROM {$tablepre}players WHERE pls='$pls' AND pid!='$pid' AND state!='16'");
 		$pnum=$db->num_rows($result);
+		//同地图有0、1、2、3、4个角色/尸体时，你的踩雷率分别额外上升0.2%、1.4%、0.9%、0.5%、0.5%
+		//分别相当于多安了0.8个、9.6个、3.6个、2个和2个雷
+		//非常神秘的概率，不知道意义何在。
 		$exr=0;
 		if ($pnum<=4) $exr=0.5;
 		if ($pnum<=2) $exr=0.9;
@@ -369,6 +372,8 @@ namespace trap
 		eval(import_module('sys','player','map','itemmain','trap'));
 		$real_trap_obbs = calculate_real_trap_obbs();
 		$real_trap_obbs = calculate_real_trap_obbs_change($real_trap_obbs);
+		//好神奇的算法……在下面那个函数先40%判定是不是进入踩雷判断，再在这里用0-39的随机数判断是不是踩陷阱
+		//概率跟踩雷上限40%概率是一样的
 		$trap_dice=rand(0,$trap_max_obbs-1);
 		if($trap_dice < $real_trap_obbs){//踩陷阱判断
 			$trapresult = get_traplist();
