@@ -128,7 +128,10 @@ namespace pose
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','pose'));
 		//姿态的防御加成是始终生效的
-		return $chprocess($pa,$pd,$active)*(1+$pose_defend_modifier[$pd['pose']]/100);
+		$ret = $chprocess($pa,$pd,$active);
+		$var = 1+$pose_defend_modifier[$pd['pose']]/100;
+		$pd['def_m_words'] = \attack\multiply_format($var, $pd['def_m_words'], 0);
+		return $ret * $var;
 	}
 	
 	function calculate_rest_upsp($rtime)

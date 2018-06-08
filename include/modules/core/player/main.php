@@ -286,7 +286,12 @@ namespace player
 			$sdata['att_words'] .= $sdata['att_m_words'];
 		}
 		$uip['att_words'] = $uip['total_att'].'='.$sdata['att_words'];
-		$uip['total_def'] = \armor\get_def($dummy, $sdata, 0);
+		$uip['total_def'] = round((\weapon\get_def($dummy, $sdata, 0))*10)/10;
+		if(!empty($sdata['def_m_words'])) {
+			if(strpos($sdata['def_words'], '+') !== false) $sdata['def_words'] = '('.$sdata['def_words'].')';
+			$sdata['def_words'] .= $sdata['def_m_words'];
+		}
+		$uip['def_words'] = $uip['total_def'].'='.$sdata['def_words'];
 		unset($sdata['wep_kind']);
 		
 		//$karma = ($rp * $killnum - $def )+ $att;

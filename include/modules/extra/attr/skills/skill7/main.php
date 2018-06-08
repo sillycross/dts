@@ -73,9 +73,13 @@ namespace skill7
 	function get_def_multiplier(&$pa,&$pd,$active)	//冻结防御力降低
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_query(7,$pd))		
-			return $chprocess($pa,$pd,$active)*0.9;
-		else  return $chprocess($pa,$pd,$active);
+		$ret = $chprocess($pa,$pd,$active);
+		if (\skillbase\skill_query(7,$pd)) {
+			$var = 0.9;
+			$pd['def_m_words'] = \attack\multiply_format($var, $pd['def_m_words'], 0);
+			$ret *= $var;
+		}
+		return $ret;
 	}
 	
 	function get_att_multiplier(&$pa,&$pd,$active)	//冻结攻击力降低

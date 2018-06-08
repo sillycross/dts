@@ -26,11 +26,13 @@ namespace armor
 		return $sum;
 	}
 	
-	function get_def(&$pa,&$pd,$active)
+	function get_def_base(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($pa, $pd, $active);
 		$pd['external_def'] = get_external_def($pa,$pd,$active)*get_external_def_multiplier($pa,$pd,$active);
-		return $chprocess($pa, $pd, $active)+$pd['external_def'];
+		$pd['def_words'] = \attack\add_format($pd['external_def'], $pd['def_words'],0);
+		return $ret+$pd['external_def'];
 	}
 	
 	function armor_break(&$pa, &$pd, $active, $whicharmor)

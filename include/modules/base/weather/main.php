@@ -76,7 +76,10 @@ namespace weather
 	function get_def_multiplier(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return $chprocess($pa,$pd,$active)*calculate_weather_defend_modifier($pa,$pd,$active);
+		$ret = $chprocess($pa,$pd,$active);
+		$var = calculate_weather_defend_modifier($pa,$pd,$active);
+		$pd['def_m_words'] = \attack\multiply_format($var, $pd['def_m_words'], 0);
+		return $ret * $var;
 	}
 	
 	function get_hitrate_base(&$pa,&$pd,$active)

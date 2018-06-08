@@ -51,9 +51,13 @@ namespace mapattr
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','mapattr','logger'));
 		//$log.= '防御率修正：'.$pls_defend_modifier[$pa['pls']].' ';
-		if (isset($pls_defend_modifier[$pa['pls']]))		
-			return $chprocess($pa,$pd,$active)*(1+$pls_defend_modifier[$pa['pls']]/100);
-		else  return $chprocess($pa,$pd,$active);
+		$ret = $chprocess($pa,$pd,$active);
+		if (isset($pls_defend_modifier[$pd['pls']])) {
+			$var = 1+$pls_defend_modifier[$pd['pls']]/100;
+			$pd['def_m_words'] = \attack\multiply_format($var, $pd['def_m_words'], 0);
+			$ret *= $var;
+		}
+		return $ret;
 	}
 	
 	function calculate_real_trap_obbs()
