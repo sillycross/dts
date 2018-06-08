@@ -34,8 +34,7 @@ namespace skill3
 		$ret = $chprocess($pa,$pd,$active);
 		if (\skillbase\skill_query(3,$pa)) {
 			$var = 0.75;
-			$pa['att_m_words'] = \attack\multiply_format($var, $pa['att_m_words'], 0);
-			$ret *= $var;
+			array_unshift($ret, $var);
 		}
 		return $ret;
 	}

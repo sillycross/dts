@@ -76,8 +76,7 @@ namespace skill7
 		$ret = $chprocess($pa,$pd,$active);
 		if (\skillbase\skill_query(7,$pd)) {
 			$var = 0.9;
-			$pd['def_m_words'] = \attack\multiply_format($var, $pd['def_m_words'], 0);
-			$ret *= $var;
+			array_unshift($ret, $var);
 		}
 		return $ret;
 	}
@@ -88,8 +87,7 @@ namespace skill7
 		$ret = $chprocess($pa,$pd,$active);
 		if (\skillbase\skill_query(7,$pa)) {
 			$var = 0.9;
-			$pa['att_m_words'] = \attack\multiply_format($var, $pa['att_m_words'], 0);
-			$ret *= $var;
+			array_unshift($ret, $var);
 		}
 		return $ret;
 	}

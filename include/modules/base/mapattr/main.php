@@ -40,8 +40,7 @@ namespace mapattr
 		$ret = $chprocess($pa,$pd,$active);
 		if (isset($pls_attack_modifier[$pa['pls']])) {
 			$var = 1+$pls_attack_modifier[$pa['pls']]/100;
-			$pa['att_m_words'] = \attack\multiply_format($var, $pa['att_m_words'], 0);
-			$ret *= $var;
+			array_unshift($ret, $var);
 		}
 		return $ret;
 	}
@@ -54,8 +53,7 @@ namespace mapattr
 		$ret = $chprocess($pa,$pd,$active);
 		if (isset($pls_defend_modifier[$pd['pls']])) {
 			$var = 1+$pls_defend_modifier[$pd['pls']]/100;
-			$pd['def_m_words'] = \attack\multiply_format($var, $pd['def_m_words'], 0);
-			$ret *= $var;
+			array_unshift($ret, $var);
 		}
 		return $ret;
 	}

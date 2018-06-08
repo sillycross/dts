@@ -46,12 +46,12 @@ namespace weapon
 		return $internal_att + $external_att;
 	}
 	
-	//攻击力计算加成值，返回一个系数，这个系数应该是乘算
+	//攻击力计算加成值，返回一个数组，这个数组应该是乘算
 	function get_att_multiplier(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(!isset($pa['att_m_words'])) $pa['att_m_words'] = '';
-		return 1.0;
+		return Array();
 	}
 	
 	//攻击力计算变化值
@@ -65,7 +65,7 @@ namespace weapon
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = get_att_base($pa,$pd,$active);
-		$ret *= get_att_multiplier($pa,$pd,$active);
+		list($ret, $null, $pa['att_m_words']) = \attack\apply_multiplier($ret, get_att_multiplier($pa,$pd,$active), NULL, $pa['att_words']);
 		$ret = get_att_change($pa,$pd,$active,$ret);
 		return $ret;
 	}
@@ -86,12 +86,12 @@ namespace weapon
 		return $pd['internal_def'];
 	}
 	
-	//防御力计算加成值，返回一个系数，这个系数应该是乘算
+	//防御力计算加成值，返回一个数组，这个数组应该是乘算
 	function get_def_multiplier(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(!isset($pd['def_m_words'])) $pd['def_m_words'] = '';
-		return 1.0;
+		return Array();
 	}
 	
 	//防御力计算变化值
@@ -105,7 +105,7 @@ namespace weapon
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = get_def_base($pa,$pd,$active);
-		$ret *= get_def_multiplier($pa,$pd,$active);
+		list($ret, $null, $pd['def_m_words']) = \attack\apply_multiplier($ret, get_def_multiplier($pa,$pd,$active), NULL, $pd['def_words']);
 		$ret = get_def_change($pa,$pd,$active,$ret);
 		return $ret;
 	}

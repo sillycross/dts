@@ -58,8 +58,8 @@ namespace tactic
 		//改为全部生效
 		$ret = $chprocess($pa,$pd,$active);
 		$var = 1+$tactic_attack_modifier[$pa['tactic']]/100;
-		$pa['att_m_words'] = \attack\multiply_format($var, $pa['att_m_words'], 0);
-		return $ret*$var;
+		array_unshift($ret, $var);
+		return $ret;
 //		if ($pa['is_counter'])		//应战策略的进攻加成只在反击时才有用
 //		{
 //			return $chprocess($pa,$pd,$active)*(1+$tactic_attack_modifier[$pa['tactic']]/100);
@@ -74,8 +74,8 @@ namespace tactic
 		//应战策略的防御加成也是始终生效的
 		$ret = $chprocess($pa,$pd,$active);
 		$var = 1+$tactic_defend_modifier[$pd['tactic']]/100;
-		$pd['def_m_words'] = \attack\multiply_format($var, $pd['def_m_words'], 0);
-		return $ret * $var;
+		array_unshift($ret, $var);
+		return $ret;
 	}
 	
 	function get_trap_damage()

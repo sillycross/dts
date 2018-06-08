@@ -62,8 +62,8 @@ namespace weather
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa,$pd,$active);
 		$var = calculate_weather_attack_modifier($pa,$pd,$active);
-		$pa['att_m_words'] = \attack\multiply_format($var, $pa['att_m_words'], 0);
-		return $ret*$var;
+		array_unshift($ret, $var);
+		return $ret;
 	}
 	
 	function calculate_weather_defend_modifier(&$pa,&$pd,$active)
@@ -78,8 +78,8 @@ namespace weather
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa,$pd,$active);
 		$var = calculate_weather_defend_modifier($pa,$pd,$active);
-		$pd['def_m_words'] = \attack\multiply_format($var, $pd['def_m_words'], 0);
-		return $ret * $var;
+		array_unshift($ret, $var);
+		return $ret;
 	}
 	
 	function get_hitrate_base(&$pa,&$pd,$active)

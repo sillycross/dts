@@ -282,14 +282,12 @@ namespace player
 		$sdata['wep_kind'] = \weapon\get_attack_method($sdata);
 		$uip['total_att'] = round((\weapon\get_att($sdata, $dummy, 1))*10)/10;
 		if(!empty($sdata['att_m_words'])) {
-			if(strpos($sdata['att_words'], '+') !== false) $sdata['att_words'] = '('.$sdata['att_words'].')';
-			$sdata['att_words'] .= $sdata['att_m_words'];
+			$sdata['att_words'] = $sdata['att_m_words'];
 		}
 		$uip['att_words'] = $uip['total_att'].'='.$sdata['att_words'];
 		$uip['total_def'] = round((\weapon\get_def($dummy, $sdata, 0))*10)/10;
 		if(!empty($sdata['def_m_words'])) {
-			if(strpos($sdata['def_words'], '+') !== false) $sdata['def_words'] = '('.$sdata['def_words'].')';
-			$sdata['def_words'] .= $sdata['def_m_words'];
+			$sdata['def_words'] = $sdata['def_m_words'];
 		}
 		$uip['def_words'] = $uip['total_def'].'='.$sdata['def_words'];
 		unset($sdata['wep_kind']);
