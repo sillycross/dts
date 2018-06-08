@@ -311,6 +311,8 @@ ex_hp_def,extra/attr/ex_hp_def/,1
 ex_direct,extra/attr/ex_direct/,1
 ex_seckill,extra/attr/ex_seckill/,1
 ex_cursed,extra/attr/ex_cursed/,1
+ex_def_down,extra/attr/ex_def_down/,1
+ex_mhp_temp_up,extra/attr/ex_mhp_temp_up/,1
 skill33,extra/club/skills/skill33/,1
 tactic,base/tactic/,1
 wepchange,extra/attr/wepchange/,1
