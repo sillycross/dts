@@ -31,9 +31,12 @@ namespace skill1
 	function get_def_multiplier(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_query(1,$pd))	//胸部受伤导致战斗防御力下降
-			return $chprocess($pa,$pd,$active)*0.75;
-		else  return $chprocess($pa,$pd,$active);
+		$ret = $chprocess($pa,$pd,$active);
+		if (\skillbase\skill_query(1,$pd)) {
+			$var = 0.75;
+			array_unshift($ret, $var);
+		}
+		return $ret;
 	}
 	
 	function calculate_rest_upsp($rtime)

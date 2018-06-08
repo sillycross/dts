@@ -60,7 +60,10 @@ namespace weather
 	function get_att_multiplier(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return $chprocess($pa,$pd,$active)*calculate_weather_attack_modifier($pa,$pd,$active);
+		$ret = $chprocess($pa,$pd,$active);
+		$var = calculate_weather_attack_modifier($pa,$pd,$active);
+		array_unshift($ret, $var);
+		return $ret;
 	}
 	
 	function calculate_weather_defend_modifier(&$pa,&$pd,$active)
@@ -73,7 +76,10 @@ namespace weather
 	function get_def_multiplier(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return $chprocess($pa,$pd,$active)*calculate_weather_defend_modifier($pa,$pd,$active);
+		$ret = $chprocess($pa,$pd,$active);
+		$var = calculate_weather_defend_modifier($pa,$pd,$active);
+		array_unshift($ret, $var);
+		return $ret;
 	}
 	
 	function get_hitrate_base(&$pa,&$pd,$active)

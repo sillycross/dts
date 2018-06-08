@@ -26,25 +26,46 @@ namespace cooldown
 		return $itemusecoldtime;
 	}
 	
+	//设置冷却时间的通用函数，单位毫秒
+	//如果别的动作已有了冷却时间，会自动选较大的那个
+	function set_coldtime($cd, $forced=0)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','cooldown'));
+		if($coldtimeon || $forced) {
+			if($cmdcdtime < $cd) $cmdcdtime = $cd;
+		}
+		return $cmdcdtime;
+	}
+	
+	//检查是否在冷却中
+	function check_in_coldtime()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','cooldown','logger'));
+		if($coldtimeon)
+		{
+			$cdover = $cdsec*1000 + $cdmsec;
+			$nowmtime = floor(getmicrotime()*1000);
+			$rmcdtime = $nowmtime >= $cdover ? 0 : $cdover - $nowmtime;
+			if($rmcdtime > 0) {
+				$log .= '<span class="yellow b">冷却时间尚未结束！</span><br>';
+				$mode = 'command';
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	function move($moveto = 99) 
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','logger','player','cooldown'));
-		if($coldtimeon){
-			$cdover = $cdsec*1000 + $cdmsec;
-			$nowmtime = floor(getmicrotime()*1000);
-			$rmcdtime = $nowmtime >= $cdover ? 0 : $cdover - $nowmtime;
-		}
+		eval(import_module('sys','player','cooldown'));
+
+		if(check_in_coldtime()) return;
 		
-		if($coldtimeon && $rmcdtime > 0)
-		{
-			$log .= '<span class="yellow b">冷却时间尚未结束！</span><br>';
-			$mode = 'command';
-			return;
-		}
-		
-		if($coldtimeon) $cmdcdtime=get_move_coldtime($moveto);
+		if($coldtimeon) set_coldtime(get_move_coldtime($moveto));
 		
 		$chprocess($moveto);
 		
@@ -53,21 +74,11 @@ namespace cooldown
 	function search() {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','logger','player','cooldown'));
-		if($coldtimeon){
-			$cdover = $cdsec*1000 + $cdmsec;
-			$nowmtime = floor(getmicrotime()*1000);
-			$rmcdtime = $nowmtime >= $cdover ? 0 : $cdover - $nowmtime;
-		}
-
-		if ($coldtimeon && $rmcdtime > 0)
-		{
-			$log .= '<span class="yellow b">冷却时间尚未结束！</span><br>';
-			$mode = 'command';
-			return;
-		}
+		eval(import_module('sys','player','cooldown'));
+		
+		if(check_in_coldtime()) return;
 	
-		if($coldtimeon) $cmdcdtime=get_search_coldtime();
+		if($coldtimeon) set_coldtime(get_search_coldtime());
 		
 		$chprocess();
 	
@@ -77,21 +88,11 @@ namespace cooldown
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','logger','player','cooldown'));
-		if($coldtimeon){
-			$cdover = $cdsec*1000 + $cdmsec;
-			$nowmtime = floor(getmicrotime()*1000);
-			$rmcdtime = $nowmtime >= $cdover ? 0 : $cdover - $nowmtime;
-		}
+		eval(import_module('sys','player','cooldown'));
 
-		if ($coldtimeon && $rmcdtime > 0)
-		{
-			$log .= '<span class="yellow b">冷却时间尚未结束！</span><br>';
-			$mode = 'command';
-			return;
-		}
+		if(check_in_coldtime()) return;
 		
-		if($coldtimeon) $cmdcdtime=get_itemuse_coldtime($item);
+		if($coldtimeon) set_coldtime(get_itemuse_coldtime($item));
 		
 		$chprocess($item);
 	}

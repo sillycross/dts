@@ -31,9 +31,12 @@ namespace skill3
 	function get_att_multiplier(&$pa,&$pd,$active)	//手部受伤攻击力下降
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_query(3,$pa)) 
-			return $chprocess($pa,$pd,$active)*0.75;
-		else  return $chprocess($pa,$pd,$active);
+		$ret = $chprocess($pa,$pd,$active);
+		if (\skillbase\skill_query(3,$pa)) {
+			$var = 0.75;
+			array_unshift($ret, $var);
+		}
+		return $ret;
 	}
 	
 	function calculate_search_sp_cost()			//探索体力增加

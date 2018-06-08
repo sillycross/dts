@@ -112,7 +112,10 @@ namespace pose
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','pose'));
 		//改为全部生效
-		return $chprocess($pa,$pd,$active)*(1+$pose_attack_modifier[$pa['pose']]/100);
+		$ret = $chprocess($pa,$pd,$active);
+		$var = 1+$pose_attack_modifier[$pa['pose']]/100;
+		array_unshift($ret, $var);
+		return $ret;
 //		if (!$pa['is_counter'])		//姿态的进攻加成在主动或先制攻击时才有用
 //		{
 //			return $chprocess($pa,$pd,$active)*(1+$pose_attack_modifier[$pa['pose']]/100);
@@ -125,7 +128,10 @@ namespace pose
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','pose'));
 		//姿态的防御加成是始终生效的
-		return $chprocess($pa,$pd,$active)*(1+$pose_defend_modifier[$pd['pose']]/100);
+		$ret = $chprocess($pa,$pd,$active);
+		$var = 1+$pose_defend_modifier[$pd['pose']]/100;
+		array_unshift($ret, $var);
+		return $ret;
 	}
 	
 	function calculate_rest_upsp($rtime)

@@ -56,7 +56,10 @@ namespace tactic
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','tactic'));
 		//改为全部生效
-		return $chprocess($pa,$pd,$active)*(1+$tactic_attack_modifier[$pa['tactic']]/100);
+		$ret = $chprocess($pa,$pd,$active);
+		$var = 1+$tactic_attack_modifier[$pa['tactic']]/100;
+		array_unshift($ret, $var);
+		return $ret;
 //		if ($pa['is_counter'])		//应战策略的进攻加成只在反击时才有用
 //		{
 //			return $chprocess($pa,$pd,$active)*(1+$tactic_attack_modifier[$pa['tactic']]/100);
@@ -69,7 +72,10 @@ namespace tactic
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','tactic'));
 		//应战策略的防御加成也是始终生效的
-		return $chprocess($pa,$pd,$active)*(1+$tactic_defend_modifier[$pd['tactic']]/100);
+		$ret = $chprocess($pa,$pd,$active);
+		$var = 1+$tactic_defend_modifier[$pd['tactic']]/100;
+		array_unshift($ret, $var);
+		return $ret;
 	}
 	
 	function get_trap_damage()

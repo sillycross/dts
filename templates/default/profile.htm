@@ -32,13 +32,13 @@
 							<tr>
 								<td colspan="2" height="80" class="b3"><span><img src="img/$iconImg" border="0" style="width:140;height:80" <!--{if $hp==0}-->style="filter:Xray()"<!--{/if}--> /></span></td>
 							</tr>
-							<tr title="结算攻击力=基础攻击力+武器攻击力×2">
+							<tr title="攻击力 $uip['att_words']">
 								<td class="b2" height="20"><span>{lang att}</span></td>
-								<td class="b3"><span>$att + <!--{eval echo $wepe*2;}--></span></td>
+								<td class="b3"><span>{$uip['total_att']}</span></td>
 							</tr>
-							<tr title="结算防御力=基础防御力+所有防具防御力之和">
+							<tr title="防御力 $uip['def_words']">
 								<td class="b2" height="20"><span>{lang def}</span></td>
-								<td class="b3"><span>$def + $ardef</span></td>
+								<td class="b3"><span>{$uip['total_def']}</span></td>
 							</tr>
 							<tr>
 								<!--{if defined('MOD_POSE')}-->

@@ -67,6 +67,51 @@ namespace attrbase
 		return (strpos($pa['wepk'],$pa['wep_kind'])!==false);
 	}
 	
+	//判断两个属性代号$ssk是不是与$mark一致。其中$ssk是从具体道具属性字段里取出的，$mark是需要判定是否存在的（复合属性时，$mark应只有^字母）
+	function check_itmsk_single_mark($ssk, $mark)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$flag = false;
+		if($ssk === $mark) $flag = true;
+		elseif(strpos($mark, '^')===0 && strpos($ssk, $mark)===0) $flag = true;
+		return $flag;
+	}
+	
+	//判定一个属性数组里是不是有给定的属性代号
+	//如果是复合属性或者要统计总数，会返回数值。所以判定属性不存在请用false===
+	//如果$count==1，则会统计属性总数；复合属性则是计算这一属性数值的总和
+	//代码里存在大量的in_array()，如果不涉及复合属性的判断，实际上是等价的，可以不改
+	function check_in_itmsk($mark, $skarr, $count = 0)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$flag = false;
+		if(in_array($mark, $skarr)) {
+			if(!$count) $flag = true;
+			else {
+				$flag = 0;
+				foreach($skarr as $v){
+					if($v === $mark) $flag ++;
+				}
+			}
+		} elseif(strpos($mark, '^')===0) {
+			//判定是不是合法的复合属性
+			$compret = \itemmain\get_comp_itmsk_info($mark);
+			if(NULL !== $compret) {
+				list($skk, $null) = $compret;
+				foreach($skarr as $v) {
+					if (check_itmsk_single_mark($v, $skk)) {
+						//$flag = true;
+						list($null, $skn) = \itemmain\get_comp_itmsk_info($v);
+						if(!$flag) $flag = $skn;
+						else $flag += $skn;
+						if(!$count) break;
+					}
+				}
+			}
+		}
+		return $flag;
+	}
+	
 	//检查$pa是否具有$nm属性，如$pa为NULL则检查当前玩家
 	//警告：本函数不供战斗使用！！！！！本函数只应当被用来检查非战斗相关属性！！！
 	function check_itmsk($nm, &$pa = NULL)
@@ -77,7 +122,7 @@ namespace attrbase
 		{
 			foreach ($battle_equip_list as $itm)
 				foreach (\itemmain\get_itmsk_array(${$itm.'sk'}) as $key)
-					if ($key==$nm)
+					if (check_itmsk_single_mark($key, $nm))
 						return 1;
 			return 0;
 		}
@@ -85,7 +130,7 @@ namespace attrbase
 		{
 			foreach ($battle_equip_list as $itm)
 				foreach (\itemmain\get_itmsk_array($pa[$itm.'sk']) as $key)
-					if ($key==$nm)
+					if (check_itmsk_single_mark($key, $nm))
 						return 1;
 			return 0;
 		}

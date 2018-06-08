@@ -106,7 +106,7 @@ namespace autopower
 				$log.='<span id="autopower_curnum" style="display:none">1</span>';
 				$log.='<span id="autopower_totnum" style="display:none">'.$success_count.'</span>';
 				$log.='<span id="autopower_cd" style="display:none">'.round($itemusecoldtime*$autopower_penalty).'</span>';
-				$cmdcdtime = round($itemusecoldtime*$autopower_penalty)*$success_count;
+				\cooldown\set_coldtime(round($itemusecoldtime*$autopower_penalty)*$success_count, true);
 				if ($success_count==$itms)
 				{
 					$itme=0; $itms=1;

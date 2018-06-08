@@ -40,9 +40,12 @@ namespace skill9
 	function get_def_multiplier(&$pa,&$pd,$active)	//混乱防御力降低
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_query(9,$pd))		
-			return $chprocess($pa,$pd,$active)*0.7;
-		else  return $chprocess($pa,$pd,$active);
+		$ret = $chprocess($pa,$pd,$active);
+		if (\skillbase\skill_query(9,$pd)) {
+			$var = 0.7;
+			array_unshift($ret, $var);
+		}
+		return $ret;
 	}
 	
 	function calculate_active_obbs_multiplier(&$ldata,&$edata)	//混乱先攻率降低（但出于对原版本的兼容，对手冻结不会增加你的先攻率，不然NPC要哭了）

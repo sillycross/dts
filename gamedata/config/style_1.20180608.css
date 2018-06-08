@@ -1,4 +1,30 @@
-﻿body {text-align: center; background-position: 50% 50%; background-image: url("../../img/PB.gif"); background-attachment: fixed; background-repeat: no-repeat; font: 12px Tahoma, Verdana;cursor: crosshair; margin: 0; background-color: #111; color:#ddd;}
+﻿html {
+  overflow-y: scroll;
+}
+
+:root {
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+:root body {
+  position: absolute;
+}
+
+body {
+	margin: 0;
+	width: 100vw;
+	color:#ddd;
+  overflow: hidden;
+	text-align: center;
+	background-position: 50% 50%;
+	background-image: url("../../img/PB.gif");
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-color: #111;
+	font: 12px Tahoma, Verdana;
+	cursor: crosshair;
+}
 a {font:bold 10pt/16px "微软雅黑";text-decoration: none;color: #ddd; cursor: crosshair}
 a:hover {color: #98fb98;text-decoration:underline}
 h2 {font-family: "微软雅黑";}
