@@ -37,9 +37,13 @@ namespace mapattr
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','mapattr','logger'));
 		//$log.= '攻击率修正：'.$pls_attack_modifier[$pa['pls']].' ';
-		if (isset($pls_attack_modifier[$pa['pls']]))		
-			return $chprocess($pa,$pd,$active)*(1+$pls_attack_modifier[$pa['pls']]/100);
-		else  return $chprocess($pa,$pd,$active);
+		$ret = $chprocess($pa,$pd,$active);
+		if (isset($pls_attack_modifier[$pa['pls']])) {
+			$var = 1+$pls_attack_modifier[$pa['pls']]/100;
+			$pa['att_m_words'] = \attack\multiply_format($var, $pa['att_m_words'], 0);
+			$ret *= $var;
+		}
+		return $ret;
 	}
 	
 	function get_def_multiplier(&$pa,&$pd,$active)

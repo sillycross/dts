@@ -277,6 +277,18 @@ namespace player
 		
 		$ardef = $arbe + $arhe + $arae + $arfe;
 		
+		//att和def显示
+		$dummy=\player\create_dummy_playerdata();$dummy['bskill']=0;$dummy['wep_kind']='N';
+		$sdata['wep_kind'] = \weapon\get_attack_method($sdata);
+		$uip['total_att'] = round((\weapon\get_att($sdata, $dummy, 1))*10)/10;
+		if(!empty($sdata['att_m_words'])) {
+			if(strpos($sdata['att_words'], '+') !== false) $sdata['att_words'] = '('.$sdata['att_words'].')';
+			$sdata['att_words'] .= $sdata['att_m_words'];
+		}
+		$uip['att_words'] = $uip['total_att'].'='.$sdata['att_words'];
+		$uip['total_def'] = \armor\get_def($dummy, $sdata, 0);
+		unset($sdata['wep_kind']);
+		
 		//$karma = ($rp * $killnum - $def )+ $att;
 		
 		$hpcolor = 'cyan b';

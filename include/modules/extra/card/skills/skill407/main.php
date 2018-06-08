@@ -36,12 +36,15 @@ namespace skill407
 		return $chprocess($pa,$pd,$active)+($var_407/2);
 	}
 	
-	function get_att(&$pa,&$pd,$active)
+	function get_att_base(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('armor'));
 		$var_407=0;
-		if (($pa['hp']<($pa['mhp']/2))&&(\skillbase\skill_query(407,$pa))&&(check_unlocked407($pa))) $var_407=get_def($pd,$pa,$active);
+		if (($pa['hp']<($pa['mhp']/2))&&(\skillbase\skill_query(407,$pa))&&(check_unlocked407($pa))) {
+			$var_407=get_def($pd,$pa,$active);
+			$pa['att_words'] = \attack\add_format($var_407, $pa['att_words'],0);
+		}
 		return $chprocess($pa,$pd,$active)+($var_407/2);
 	}
 }

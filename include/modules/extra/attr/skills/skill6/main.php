@@ -79,9 +79,13 @@ namespace skill6
 	function get_att_multiplier(&$pa,&$pd,$active)	//烧伤攻击力下降
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_query(6,$pa)) 
-			return $chprocess($pa,$pd,$active)*0.6;
-		else  return $chprocess($pa,$pd,$active);
+		$ret = $chprocess($pa,$pd,$active);
+		if (\skillbase\skill_query(6,$pa)) {
+			$var = 0.6;
+			$pa['att_m_words'] = \attack\multiply_format($var, $pa['att_m_words'], 0);
+			$ret *= $var;
+		}
+		return $ret;
 	}
 	
 	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())	//烧伤发作死亡新闻

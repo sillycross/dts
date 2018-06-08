@@ -60,7 +60,10 @@ namespace weather
 	function get_att_multiplier(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return $chprocess($pa,$pd,$active)*calculate_weather_attack_modifier($pa,$pd,$active);
+		$ret = $chprocess($pa,$pd,$active);
+		$var = calculate_weather_attack_modifier($pa,$pd,$active);
+		$pa['att_m_words'] = \attack\multiply_format($var, $pa['att_m_words'], 0);
+		return $ret*$var;
 	}
 	
 	function calculate_weather_defend_modifier(&$pa,&$pd,$active)

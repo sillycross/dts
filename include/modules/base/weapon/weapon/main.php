@@ -21,12 +21,6 @@ namespace weapon
 		return $ret;
 	}
 	
-	function get_att_multiplier(&$pa,&$pd,$active)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return 1.0;
-	}
-	
 	function get_internal_att(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -41,10 +35,39 @@ namespace weapon
 		return $pa['wepe']*2;		//维持奇葩的老设定，实际计算效果是面板数值*2
 	}
 	
+	//攻击力计算基础值，会自动生成$pa['att_words']也就是攻击力计算的式子
+	function get_att_base(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$internal_att = get_internal_att($pa,$pd,$active);
+		$external_att = get_external_att($pa,$pd,$active);
+		$pa['att_words'] = $internal_att;
+		$pa['att_words'] = \attack\add_format($external_att, $pa['att_words'],0);
+		return $internal_att + $external_att;
+	}
+	
+	//攻击力计算加成值，返回一个系数，这个系数应该是乘算
+	function get_att_multiplier(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!isset($pa['att_m_words'])) $pa['att_m_words'] = '';
+		return 1.0;
+	}
+	
+	//攻击力计算变化值
+	function get_att_change(&$pa,&$pd,$active,$att)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $att;
+	}
+	
 	function get_att(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return get_internal_att($pa,$pd,$active)+get_external_att($pa,$pd,$active);
+		$ret = get_att_base($pa,$pd,$active);
+		$ret *= get_att_multiplier($pa,$pd,$active);
+		$ret = get_att_change($pa,$pd,$active,$ret);
+		return $ret;
 	}
 	
 	function get_def_multiplier(&$pa,&$pd,$active)
@@ -181,7 +204,7 @@ namespace weapon
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('weapon'));
-		$pa['fin_att']=get_att($pa,$pd,$active)*get_att_multiplier($pa,$pd,$active);
+		$pa['fin_att']=get_att($pa,$pd,$active);
 		$pd['fin_def']=get_def($pa,$pd,$active)*get_def_multiplier($pa,$pd,$active);
 		$att_pow=$pa['fin_att']; $def_pow=$pd['fin_def']; $ws=$pa['fin_skill']; $wp_kind=$pa['wep_kind'];
 		if($def_pow <= 0) $def_pow = 1;
