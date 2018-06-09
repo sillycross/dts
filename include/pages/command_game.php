@@ -76,7 +76,7 @@ if($hp <= 0){
 	$mode = 'command';
 }
 
-player\prepare_initial_response_content();
+\player\prepare_initial_response_content();
 
 include template('game');
 

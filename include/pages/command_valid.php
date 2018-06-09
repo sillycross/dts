@@ -99,10 +99,19 @@ if($mode == 'enter') {
 	
 	enter_battlefield($cuser,$cpass,$gender,$icon,$cc,$ip);
 	
-	//现在入场跳过validover页面直接进开局提示页面
-	include template('notice');
-	//include template('validover');
+	
+	if(defined('MOD_OPENING') && \opening\in_game_opening_available()) {
+		//游戏内剧情，这里直接进游戏
+		echo 'redirect:game.php';
+	}else{
+		//现在入场跳过validover页面直接进开局提示页面
+		include template('notice');
+		//include template('validover');
+	}
+	
+	
 } elseif($mode == 'notice') {
+	//遗留分支
 	include template('notice');
 } else {
 	extract($udata);

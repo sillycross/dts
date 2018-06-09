@@ -1,10 +1,16 @@
 <?php
 
 //记录一些杂项数据的技能
+//反正技能参数兼容性比较强，就不考虑耦合问题了
 //目前记录数据有：
-//本局得到过的金钱数
-//本局累计获得的切糕
-//被DN的理由
+
+//本局得到过的金钱数 money_got
+//本局累计获得的切糕 qiegao_got
+//被DN的理由 dndeath
+//本局实际使用的卡片 actual_card 位于valid.func.php
+//上一次唱过的歌 songkind 位于base/items/song
+//上一次唱到的地方 songpos 位于base/items/song
+//是否已跳过开局剧情 opening_skip 位于base/opening
 
 namespace skill1003
 {

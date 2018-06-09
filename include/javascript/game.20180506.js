@@ -125,7 +125,7 @@ function postCmd(formName,sendto,disableall){
 	jQuery('#hoverHintMsg').css({display:"none"});//清除悬停提示
 	if(disableall) jQuery('.cmdbutton').attr("disabled","disabled");//屏蔽所有按钮
 	hotkey_ok = false;//屏蔽快捷键
-	if(jQuery('#loading')) jQuery('#loading').css({display:"block"});//显示Loading画面
+	if(jQuery('#loading').length > 0) jQuery('#loading').css({display:"block"});//显示Loading画面
 	
 	replay_listener();	//IE Hack，处理IE不支持catch的问题
 	var oXmlHttp = zXmlHttp.createRequest();
@@ -199,7 +199,7 @@ room_cur_chat_maxcid = 0;
 //处理AJAX返回值的主函数
 function showData(sdata){
 	if (js_stop_flag) return;
-	if(jQuery('#loading')) jQuery('#loading').css({display:"none"});//隐藏Loading画面
+	if(jQuery('#loading').length > 0) jQuery('#loading').css({display:"none"});//隐藏Loading画面
 	hotkey_ok = true;//重启快捷键
 	if(typeof sdata == 'string' && sdata.indexOf('<html>') > 0 && sdata.indexOf('</html>') > 0){
 		document.write(sdata);
@@ -822,5 +822,54 @@ function xuli_tickfunc()
 		if (x>1) x=1;
 		x=Math.round(x*100);
 		xuli_setpercentage(x);
+	}
+}
+
+//开局剧情
+shooting_current = 0;
+
+function shooting_hideall()
+{
+	sel = jQuery('.shootings');
+	sel.each(function(){
+		jQuery(this).css('display','none');
+	});
+}
+
+function shooting_previous()
+{
+	var spre;
+	spre = 'op_sht_'+(shooting_current-1).toString();
+	if(jQuery('#'+spre).length > 0) {
+		shooting_hideall();
+		jQuery('#'+spre).css('display','block');
+		shooting_current -= 1;
+		spre = 'op_sht_'+(shooting_current-1).toString();
+	}
+	
+	if(jQuery('#'+spre).length > 0) {
+		jQuery('#shooting_next').css('display','inline');
+		jQuery('#shooting_over').css('display','none');
+	}else{
+		jQuery('#shooting_previous').css('display','none');
+	}
+}
+
+function shooting_next()
+{
+	var snxt;
+	snxt = 'op_sht_'+(shooting_current+1).toString();
+	if(jQuery('#'+snxt).length > 0) {
+		shooting_hideall();
+		jQuery('#'+snxt).css('display','block');
+		shooting_current += 1;
+		snxt = 'op_sht_'+(shooting_current+1).toString();
+	}
+	
+	if(jQuery('#'+snxt).length > 0) {
+		jQuery('#shooting_previous').css('display','inline');
+	}else{
+		jQuery('#shooting_next').css('display','none');
+		jQuery('#shooting_over').css('display','inline');
 	}
 }

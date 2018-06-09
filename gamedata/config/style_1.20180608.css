@@ -166,6 +166,30 @@ border-bottom: #ddc 2px solid;
 #log{
 	line-height:15px;
 }
+
+#storyboard_container {
+	background-color:rgba(17,17,17,0.5);
+}
+
+#storyboard_control {
+	position:relative;
+}
+
+#storyboard_control input.cmdbutton{
+	width:120px;height:25px;margin:2;
+}
+
+#shootings_container{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.shootings {
+	text-align:center;
+	display:none;
+}
+
 .footerline {
 height: 1px;
 background-image: url("../../img/footer_line.gif");

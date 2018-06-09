@@ -1,0 +1,9 @@
+<div id="storyboard_container" style="width:720px;height:400px">
+	<div id="shootings_container" style="width:100%;height:350px;">{template MOD_OPENING_STORYBOARD}</div>
+	<div id="storyboard_control">
+		<input type="button" id="shooting_previous" class="cmdbutton" style="display:none;position:absolute;left:215px;" value="上一页" onclick="shooting_previous();"> 
+		<input type="button" id="shooting_next" class="cmdbutton" style="position:absolute;left:385px;" value="下一页" onclick="shooting_next();"> 
+		<input type="button" id="shooting_over" class="cmdbutton" style="display:none;position:absolute;left:385px;" value="进入战场" onclick="$('command').value='skip_op';postCmd('gamecmd','command.php');">
+	</div>
+	<script type="text/javascript">shooting_current = 0;</script>
+</div>
