@@ -6,7 +6,7 @@ namespace opening
 	$in_game_opening = true;
 	
 	//游戏中剧情所适用的游戏模式
-	$in_game_opening_gametype = array(1, 19);
+	$in_game_opening_gametype = array(0, 4, 1, 19);
 }
 
 ?>
