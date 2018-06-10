@@ -52,7 +52,7 @@ while($playerdata = $db->fetch_array($query)) {
 	$alivedata[$playerdata['name']] = $playerdata;
 }
 
-usort($alivedata, "cmp_by_killnum");
+if(!empty($alivedata)) usort($alivedata, "cmp_by_killnum");
 
 if(!isset($alivemode)){
 	include template('alive');
