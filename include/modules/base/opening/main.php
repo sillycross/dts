@@ -4,11 +4,17 @@ namespace opening
 {
 	function init() {}
 	
-	function in_game_opening_available()
+	function get_storyboard_name()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return MOD_OPENING_STORYBOARD;
+	}
+	
+	function opening_by_shootings_available()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','opening'));
-		if($in_game_opening && in_array($gametype, $in_game_opening_gametype)) return true;
+		if($opening_by_shootings && in_array($gametype, $opening_by_shootings_gametype)) return true;
 		return false;
 	}
 	
@@ -30,7 +36,7 @@ namespace opening
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','opening','logger'));
-		if(in_game_opening_available()){
+		if(opening_by_shootings_available()){
 			if(\skillbase\skill_query(1003) && !\skillbase\skill_getvalue(1003,'opening_skip')) {
 				$log .= ' ';
 				$main = MOD_OPENING_STORYBOARD_CONTAINER;

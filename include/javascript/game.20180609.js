@@ -828,48 +828,53 @@ function xuli_tickfunc()
 //开局剧情
 shooting_current = 0;
 
+function shooting_showdefault()
+{
+	var sdft;
+	sdft = 'op_sht_'+(shooting_current).toString();
+	if(jQuery('#'+sdft).length > 0) {
+		jQuery('#'+sdft).css('display','block');
+	}
+	shooting_checkbuttons();
+}
+
 function shooting_hideall()
 {
+	var sel;
 	sel = jQuery('.shootings');
 	sel.each(function(){
 		jQuery(this).css('display','none');
 	});
 }
 
-function shooting_previous()
+function shooting_checkbuttons()
 {
-	var spre;
-	spre = 'op_sht_'+(shooting_current-1).toString();
-	if(jQuery('#'+spre).length > 0) {
-		shooting_hideall();
-		jQuery('#'+spre).css('display','block');
-		shooting_current -= 1;
-		spre = 'op_sht_'+(shooting_current-1).toString();
+	var schk;
+	schk = shooting_current;
+	if(jQuery('#op_sht_'+(schk-1).toString()).length <= 0) {
+		jQuery('#shooting_previous').css('display','none');
+	}else{
+		jQuery('#shooting_previous').css('display','inline');
 	}
 	
-	if(jQuery('#'+spre).length > 0) {
+	if(jQuery('#op_sht_'+(schk+1).toString()).length <= 0) {
+		jQuery('#shooting_next').css('display','none');
+		jQuery('#shooting_over').css('display','inline');
+	}else{
 		jQuery('#shooting_next').css('display','inline');
 		jQuery('#shooting_over').css('display','none');
-	}else{
-		jQuery('#shooting_previous').css('display','none');
 	}
 }
 
-function shooting_next()
+function shooting_jump(num)
 {
-	var snxt;
-	snxt = 'op_sht_'+(shooting_current+1).toString();
-	if(jQuery('#'+snxt).length > 0) {
+	var sjmp;
+	num = parseInt(num);
+	sjmp = 'op_sht_'+(shooting_current+num).toString();
+	if(jQuery('#'+sjmp).length > 0) {
 		shooting_hideall();
-		jQuery('#'+snxt).css('display','block');
-		shooting_current += 1;
-		snxt = 'op_sht_'+(shooting_current+1).toString();
+		jQuery('#'+sjmp).css('display','block');
+		shooting_current += num;
 	}
-	
-	if(jQuery('#'+snxt).length > 0) {
-		jQuery('#shooting_previous').css('display','inline');
-	}else{
-		jQuery('#shooting_next').css('display','none');
-		jQuery('#shooting_over').css('display','inline');
-	}
+	shooting_checkbuttons();
 }

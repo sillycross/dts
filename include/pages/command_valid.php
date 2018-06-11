@@ -99,15 +99,8 @@ if($mode == 'enter') {
 	
 	enter_battlefield($cuser,$cpass,$gender,$icon,$cc,$ip);
 	
-	
-	if(defined('MOD_OPENING') && \opening\in_game_opening_available()) {
-		//游戏内剧情，这里直接进游戏
-		echo 'redirect:game.php';
-	}else{
-		//现在入场跳过validover页面直接进开局提示页面
-		include template('notice');
-		//include template('validover');
-	}
+	//进入游戏
+	echo 'redirect:game.php';
 	
 	
 } elseif($mode == 'notice') {
