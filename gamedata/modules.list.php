@@ -427,6 +427,7 @@ skill482,extra/card/skills/skill482/,1
 skill500,extra/card/skills/skill500/,1
 achievement_base,extra/achievement/achievement_base/,1
 opening,base/opening/,1
+ending,base/ending/,1
 skill497,extra/card/skills/skill497/,1
 skill27,extra/club/skills/skill27/,1
 skill489,extra/card/skills/skill489/,1

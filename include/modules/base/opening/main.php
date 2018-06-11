@@ -4,12 +4,6 @@ namespace opening
 {
 	function init() {}
 	
-	function get_storyboard_name()
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return MOD_OPENING_STORYBOARD;
-	}
-	
 	function opening_by_shootings_available()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
