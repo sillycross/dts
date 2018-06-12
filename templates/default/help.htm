@@ -954,7 +954,8 @@ NPC不会被禁区杀死。此外，多数NPC也会自动回避禁区。<br>
 		</td>
 
 	</tr>
-	<!--{loop array('A','a','B','b','R','P','K','G','C','D','F','q','U','I','E','W','c','H','h','M','m','l','g') $tmp_attr}-->
+	<!--{eval $itemspkdesc['^hu'] = str_replace('<:skn:>','x',$itemspkdesc['^hu']);}-->
+	<!--{loop array('A','a','B','b','R','P','K','G','C','D','F','q','U','I','E','W','c','H','h','^hu','M','m','l','g') $tmp_attr}-->
 	<tr>
 		<td class="b2" height=20px>
 			<span>$itemspkinfo[$tmp_attr]</span>
@@ -984,7 +985,8 @@ NPC不会被禁区杀死。此外，多数NPC也会自动回避禁区。<br>
 			<span>备注</span>
 		</td>
 	</tr>
-	<!--{loop array('s','^001','^002','J','O','o','Z','x','z') $tmp_attr}-->
+	<!--{eval $itemspkdesc['^dd'] = str_replace('<:skn:>','x',$itemspkdesc['^dd']);}-->
+	<!--{loop array('s','^001','^002','J','O','o','^dd','Z','x','z') $tmp_attr}-->
 	<tr>
 		<td class="b2" height=20px>
 			<span>$itemspkinfo[$tmp_attr]</span>
@@ -1401,7 +1403,7 @@ NPC不会被禁区杀死。此外，多数NPC也会自动回避禁区。<br>
 		<td class="b3">
 			<div style="margin:10px">
 				任选包裹道具强化。<br>
-				初次强化时，会给道具名加上[+1]的后缀，之后每次强化，x的值会+1。<br>
+				初次强化时，会给道具名加上[+1]的后缀，之后每次强化，这个值都会+1。<br>
 				第1次强化效果是1.5倍，之后根据被强化时[+x]的值，强化效果为(1.5+0.1x)倍。<br>
 				单个『祝福宝石』只能把道具强化到[+3]；<br>
 				2个『祝福宝石』有1/3概率强化到[+4]，但2/3概率失败；<br>
@@ -1424,7 +1426,7 @@ NPC不会被禁区杀死。此外，多数NPC也会自动回避禁区。<br>
 		<td class="b3">
 			<div style="margin:10px">
 				任选包裹道具强化。<br>
-				初次强化时，会给道具名加上[+1]的后缀，之后每次强化，x的值会+1。<br>
+				初次强化时，会给道具名加上[+1]的后缀，之后每次强化，这个值都会+1。<br>
 				第1次强化效果是1.5倍，之后根据被强化时[+x]的值，强化效果为(1.5+0.1x)倍。<br>
 				强化没有上限，强化到[+4]必定成功，但之后有概率失败。<br>
 				强化到[+5]的成功率为1/2，[+6]为1/3，[+7]为1/4，以此类推。<br>
