@@ -7,6 +7,10 @@
 //本局得到过的金钱数 money_got
 //本局累计获得的切糕 qiegao_got
 //被DN的理由 dndeath
+//上一次击杀的角色名 last_kill_name
+//上一次击杀的角色类型 last_kill_type
+//上一次击杀的方式 last_kill_method
+//击杀过的重要NPC killed_vip
 //本局实际使用的卡片 actual_card 位于valid.func.php
 //上一次唱过的歌 songkind 位于base/items/song
 //上一次唱到的地方 songpos 位于base/items/song
@@ -26,6 +30,7 @@ namespace skill1003
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		\skillbase\skill_setvalue(1003,'money_got',0,$pa);
 		\skillbase\skill_setvalue(1003,'qiegao_got',0,$pa);
+		\skillbase\skill_setvalue(1003,'killed_vip','',$pa);
 	}
 	
 	function lost1003(&$pa)
@@ -99,6 +104,35 @@ namespace skill1003
 		}
 		return $ret;
 	}
+	//记录上一个战斗击杀的角色，以及击杀过的重要角色
+	function record_last_kill(&$pa,&$pd,$method='')
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if ( \skillbase\skill_query(1003,$pa)){
+			\skillbase\skill_setvalue(1003,'last_kill_name',$pd['name'],$pa);
+			\skillbase\skill_setvalue(1003,'last_kill_type',$pd['type'],$pa);
+			if(empty($method)) $method = $pd['state'];
+			\skillbase\skill_setvalue(1003,'last_kill_method',$method,$pa);
+			$killed_vip = \skillbase\skill_getvalue(1003,'killed_vip', $pa);
+			$killed_vip = explode(',',$killed_vip);
+			$killed_vip = array_filter($killed_vip);
+			if(in_array($pd['type'], array(1, 4, 5, 6, 7, 9, 12, 14, 15, 42, 88)) && !in_array($pd['type'], $killed_vip)) {
+				$killed_vip[] = $pd['type'];
+				$killed_vip = implode(',',$killed_vip);
+				\skillbase\skill_setvalue(1003,'killed_vip', $killed_vip, $pa);
+			}
+		}
+	}
+	
+	
+	function player_kill_enemy(&$pa,&$pd,$active){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($pa, $pd, $active);		
+		if ( \skillbase\skill_query(1003,$pa))
+		{
+			record_last_kill($pa,$pd);
+		}
+	}	
 }
 
 ?>

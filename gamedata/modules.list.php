@@ -396,7 +396,7 @@ autopower,extra/misc/autopower/,1
 skill601,extra/club/skills/skill601/,1
 skill602,extra/club/skills/skill602/,1
 skill603,extra/club/skills/skill603/,1
-skill1003,extra/achievement/skills/skill1003/,1
+skill1003,extra/club/skills/skill1003/,1
 skill301,extra/achievement/skills/skill301/,1
 skill307,extra/achievement/skills/skill307/,1
 skill318,extra/achievement/skills/skill318/,1
