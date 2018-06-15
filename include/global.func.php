@@ -116,7 +116,7 @@ function check_lock($dirname, $filename, $timeout=0, $key='')
 		//如果有文件，那么超时时间从文件建立时开始计算
 		$etime = time() - filemtime($dirname.$filename);
 	}
-	$timeout = max(0, $timeout-$etime);
+	$timeout = max(0, $timeout-$etime*1000);
 	
 	while($res){
 		usleep(10000);

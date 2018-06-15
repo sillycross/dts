@@ -19,8 +19,12 @@ namespace ending
 		eval(import_module('sys','player'));
 		if($gamestate <= 0 && ending_by_shootings_available()) 
 		{
-			//最后杀掉的玩家
-			
+			//攻击过和杀死过的重要NPC
+			$uip['attacked_vip'] = explode(',',\skillbase\skill_getvalue(1003,'attacked_vip'));
+			//BOSS状态
+			$boss_type = $gametype == 19 ? 15 : 1;
+			$result = $db->query("SELECT * FROM {$tablepre}players WHERE type='$boss_type'");
+			$uip['boss_data'] = $db->fetch_array($result);
 		}
 		$chprocess();
 	}
