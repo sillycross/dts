@@ -137,8 +137,9 @@
 					<br>
 					<span class="cyan">“<i>后会有期。</i>”</span>
 				<!--{/if}-->
-			</div>
-			<div id="op_sht_3" class="shootings">
+				<br>
+				<br>
+				<br>
 				<span class="evergreen b">■ RUSH MODE CLEAR - END #1 ■</span><br>
 				<span class="evergreen b" style="font-weight:700;font-size:18pt;line-height:18pt;">极速模式「最后幸存」胜利！恭喜！</span>
 			</div>
@@ -261,7 +262,54 @@
 <!--{elseif $winmode == 8}-->
 	<!--////////////////////  除错模式  ////////////////////-->
 	<!--{if $gametype == 1}-->
-	
+		<div id="op_sht_0" class="shootings">
+			<span class="lightpink">“各位辛苦了，这次就到此为止吧。”</span><br>
+			是技术总监——薇娜·安妮茜——的声音。<br>
+			听到这句广播，你，以及正在努力追查病毒的其他黑客们，都不约而同地停下了。<br>
+			<span class="lightpink">“我们已经把病毒本体的位置定位到了很小的范围。<br>
+			“然而很遗憾，凭我们目前的手段，还无法把病毒逼出它的主场。<br>
+			“这不是你们的错，或者说，多亏了你们，才有如此进展。<br>
+			“你们都先登出吧。我会按约定，给<span class="yellow b">进度名列前茅者</span>发放报酬的。”</span>
+		</div>
+		<div id="op_sht_1" class="shootings">
+			你的眼前闪过几行小字：<br>
+			<br>
+			本次任务报酬采用绩效制，报酬多寡与测试员的进度直接挂钩。<br>
+			<!--{eval $cl=\skillbase\skill_getvalue(424,'lvl');}-->
+			<!--{eval $rank=\skillbase\skill_getvalue(424,'rank');}-->
+			<!--{eval $prize=\skillbase\skill_getvalue(424,'prize');}-->
+			您本次完成了<span class="yellow b">$cl</span>层除错任务，在合作者中排名<span class="yellow b">第{$rank}</span>。<br>
+			<!--{if $prize}-->我们将支付您<span class="gold b">{$prize}切糕</span>，感谢您支持金龙通讯社。
+			<!--{else}-->很遗憾，您没有达到我们的要求，请您下次再接再厉。<!--{/if}-->
+		</div>
+		<div id="op_sht_2" class="shootings">
+			“骗子！合同欺诈！金龙社果然都不是好人！”碰巧又跟你凑在一起的那个测试员忿忿地骂道。<br>
+			而你正沾沾自喜。看来野路子很有效呢，下次还得找这帮冤大头。<br>
+			然而，在你们相继登出时，你隐约听到了几句不祥的话。<br>
+			<br>
+			<!--{if $cl >= 70}-->
+				<span class="lightpink">“我们可能有目标了。”</span><br>
+				<span class="cyan">“看来金龙通讯社确实有两下子。<br>
+					“不过你真要把幻境翻个底朝天吗？<br>
+					“——哪怕冒着把<span class="evergreen b">她藏起来的东西</span>公之于众的风险？”</span><br>
+				<span class="lightpink">“既然我为金龙通讯社办事，那这也不可避免。”</span><br>
+				<br>
+				<span class="cyan">“哼……我本以为你不是这么绝情的人，薇娜·安妮茜。”</span><br>
+				<br>
+				<span class="lightpink">“彼此彼此。”</span><br>
+			<!--{else}-->
+				<span class="lightpink">“把虚拟幻境交给这帮人，根本不靠谱吧？”</span><br>
+				<span class="cyan">“这你就不懂了吧。你们红大小姐这一招，是欲擒故纵、一石二鸟。<br>
+					“就算一时没成果，也是可以接受的。”</span><br>
+				<span class="lightpink">“我是搞技术的人，不懂你们统御术那一套。”</span><br>
+				<span class="cyan">“这样才能合作愉快嘛，安妮。”</span>
+			<!--{/if}-->
+			<br>
+			<br>
+			<br>
+			<span class="evergreen b">■ GAME CLEAR - END? ■</span><br>
+			<span class="evergreen b" style="font-weight:700;font-size:18pt;line-height:18pt;">「除错模式」结束？</span>
+		</div>
 	<!--////////////////////  伐木模式  ////////////////////-->
 	<!--{elseif $gametype == 15}-->
 	

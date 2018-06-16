@@ -388,7 +388,7 @@ namespace npcchat
 			'critical' => array(
 				'……',
 			),
-			'color' => 'cyan'
+			'color' => 'lightpink'
 		),
 	),
 	
