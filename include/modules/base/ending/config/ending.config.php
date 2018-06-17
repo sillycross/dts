@@ -6,7 +6,7 @@ namespace ending
 	$ending_by_shootings = true;
 	
 	//游戏中剧情所适用的游戏模式
-	$ending_by_shootings_gametype = array(1, 19);
+	$ending_by_shootings_gametype = array(0, 1, 4, 19);
 }
 
 ?>

@@ -55,7 +55,7 @@ namespace skill359
 		if($achid == 359){
 			eval(import_module('sys'));
 			if($winner === $pa['name'] && 19==$gametype && 3 == $winmode) {
-				$time359 = $now-$gamevars['o_starttime'];
+				$time359 = $pa['endtime']-$gamevars['o_starttime'];
 				if($ret <= 0) $ret = $time359;
 				else $ret = min($ret, $time359);
 			}
