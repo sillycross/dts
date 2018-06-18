@@ -443,12 +443,15 @@ namespace trap
 		
 		if(strpos($itmk, 'TNc')===0) return $itme;//奇迹雷不判定这个
 		
-		$trape0 = round($itme / 2); //基础伤害是陷阱效果值/2
-		$trape1 = $pa['lvl'] * 50;//阈值1，等级*50
-		$trape2 = $pa['wd'] * 5;//阈值2，爆熟*5
+		$trape0 = round($itme * 0.75); //基础伤害是陷阱效果值的75%
+		$trape1 = $pa['lvl'] * 25;//阈值1，等级*25
+		$trape2 = $pa['wd'] * 4;//阈值2，爆熟*4
 		$trape_add = max($trape1, $trape2);//取上述较大那个
+		//也就是，0级0爆熟下阔剑只有600效果，8级或者50爆熟才能满伤
+		//0级0爆熟下JJ雷只有1500效果，20级或者125爆熟才能满伤
 		
-		$trape = $trape0 + $trape_add < $itme ? $trape0 + $trape_add : $itme;
+		$trape = min($trape0 + $trape_add, $itme);
+		//$trape = $trape0 + $trape_add < $itme ? $trape0 + $trape_add : $itme;
 		return $trape;
 	}
 	
