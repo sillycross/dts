@@ -487,6 +487,7 @@ namespace skill21
 				'itmk1' => 'Z',
 				'itme1' => 1,
 				'itms1' => 1,
+				'itmsk1' => 1,
 				'itm2' => '★印着「Mind Over Matters」的卡牌包★',
 				'itmk2' => 'VO',
 				'itme2' => 1,
