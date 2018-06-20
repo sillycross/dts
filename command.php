@@ -163,7 +163,7 @@ if ($___MOD_SRV)
 						touch(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT.'/busy');
 						
 						eval(import_module('sys','map','player','logger','itemmain','input'));
-						sys\routine();
+						//sys\routine();
 
 						$___TEMP_EXEC_START_TIME=microtime(true);;
 						
