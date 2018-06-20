@@ -1,18 +1,18 @@
 <?php
 //gamedata/tmp/rooms下的文件现在只起一个开关作用。
 
-function room_all_routine(){
+function room_all_routine($nowroom = NULL){
 	eval(import_module('sys'));
 	//startmicrotime();
-	$o_room_id = $room_id;
-	$result = $db->query("SELECT groomid,groomstatus FROM {$gtablepre}game WHERE groomid>0 AND groomstatus>=40");
+	$o_room_id = NULL === $nowroom ? $room_id : $nowroom;
+	$result = $db->query("SELECT groomid,groomstatus FROM {$gtablepre}game WHERE groomstatus>=40");
 	$wtablepre = $gtablepre.'s';
 	while($rarr = $db->fetch_array($result)){
 		$room_id = $rarr['groomid'];
 		$room_prefix = room_id2prefix($room_id);
 		if($room_id != $o_room_id) {
 			$tablepre = room_get_tablepre();
-			sys\routine();
+			\sys\routine();
 			if(!$gamestate) {
 				$db->query("UPDATE {$gtablepre}game SET groomstatus=0 WHERE groomid='{$rarr['groomid']}'");
 				if(file_exists(GAME_ROOT.'./gamedata/tmp/rooms/'.$rarr['groomid'].'.txt')) unlink(GAME_ROOT.'./gamedata/tmp/rooms/'.$rarr['groomid'].'.txt');

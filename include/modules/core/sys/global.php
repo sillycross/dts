@@ -9,7 +9,7 @@ namespace sys
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		$dir = GAME_ROOT.'./gamedata/tmp/processlock/';
-		$file = 'process_'.$room_id.'.nlk';
+		$file = 'process_'.(int)$room_id.'.nlk';
 		$res = NULL;
 		if(empty($plock)) {
 			$lstate = check_lock($dir, $file, 5000);
