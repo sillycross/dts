@@ -149,7 +149,7 @@ namespace skill21
 				'wepk' => 'WG',
 				'wepe' => 1700,
 				'weps' => 810,
-				'wepsk' => 'ndo',
+				'wepsk' => 'ndoh',
 				'arb' => '文化衫『东亚』',
 				'arbk' => 'DB',
 				'arbe' => 4500,

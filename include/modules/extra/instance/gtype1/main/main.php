@@ -31,7 +31,7 @@ namespace gtype1
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess();
 		eval(import_module('sys'));
-		if(1 == $gametype) $ret = '<span class="cyan b">“这下必须动用权限了。”</span>——<span class="cyan b">薇娜·安妮茜</span><br>';
+		if(1 == $gametype) $ret = '<span class="lightpink b">“这下必须动用权限了。”</span>——<span class="cyan b">薇娜·安妮茜</span><br>';
 		return $ret;
 	}
 	

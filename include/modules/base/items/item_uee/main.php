@@ -35,7 +35,7 @@ namespace item_uee
 	
 	function get_uee_deathlog () {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return '<span class="evergreen b">“就算是我这种代码白痴，一样能使用林无月留下的力量哦？”</span>——<span class="red b">红暮</span><br>';
+		return '<span class="ltcrimson b">“就算是我这种代码白痴，一样能使用林无月留下的力量哦？”</span>——<span class="red b">红暮</span><br>';
 	}
 	
 	function post_hack_events($itmn = 0)
