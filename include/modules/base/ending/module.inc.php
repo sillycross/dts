@@ -7,7 +7,7 @@ namespace ending
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php config/ending.config.php';
-	$___MODULE_templatelist = 'storyboard storyboard_container';
+	$___MODULE_templatelist = 'storyboard storyboard_container next_gametype';
 	////////// MODULE HEADER END /////////////////
 	require __INIT_MODULE__(__NAMESPACE__,__DIR__);
 }

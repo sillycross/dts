@@ -1,10 +1,28 @@
-<div id="storyboard_container" style="width:720px;height:400px;margin:auto;">
-	<div id="shootings_container" style="width:100%;height:370px;">
+
+<!--////////////////////  结局显示框架，上面是剧情，下面是最后一页出现的下一局选项  ////////////////////-->
+<div id="storyboard_container" style="width:720px;height:420px;margin:auto;">
+	<div id="shootings_container" style="width:100%;height:390px;">
 		{template MOD_ENDING_STORYBOARD}
 	</div>
 	<div id="storyboard_control">
-		<input type="button" id="shooting_previous" class="cmdbutton" style="display:none;position:absolute;left:215px;" value="上一页" onclick="shooting_jump(-1);"> 
-		<input type="button" id="shooting_next" class="cmdbutton" style="position:absolute;left:385px;" value="下一页" onclick="shooting_jump(1);"> 
+		<div class="glow_buttons h25 w125" id="shooting_previous" style="display:inline-block;position:absolute;left:215px;" onclick="shooting_jump(-1);">上一页</div>
+		<div class="glow_buttons h25 w125" id="shooting_next" style="display:inline-block;position:absolute;left:385px;" onclick="shooting_jump(1);">下一页</div>
 	</div>
 	<img style="display:none;" type="hidden" src="img/blank.png" onload="shooting_showdefault();">
 </div>
+<!--////////////////////  选择下一局游戏模式的隐藏form  ////////////////////-->
+<!--{if \ending\ending_changing_gamevars_available()}-->
+<form method="post" id="nextgamevarsform" name="nextgamevarsform">
+	<input type="hidden" name="ecommand" value="nextgamevars">
+	<input type="hidden" id="ngametype" name="ngametype" value="0">
+</form>
+<div style="width:720px;height:100px;margin:10 auto;background-color:rgba(17,17,17,0.5);">
+	<section id="shooting_over">
+		<div id="nextgamevars">
+			<!--{loop $next_gamevars_display $ngds}-->
+				{$ngds}<br>
+			<!--{/loop}-->				
+		</div>
+	</section>
+</div>
+<!--{/if}-->

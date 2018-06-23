@@ -50,10 +50,16 @@ namespace set_gametype
 //					)
 //				)
 //			);
-			$show[] = dump_template(MOD_SET_GAMETYPE_NEXT_GAMETYPE);
+			$show[] = dump_template(get_gametype_setting_html());
 		}
 		$ret = $chprocess($show);
 		return $ret;
+	}
+	
+	function get_gametype_setting_html()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return MOD_SET_GAMETYPE_NEXT_GAMETYPE;
 	}
 	
 	function user_set_gamevars_process($gamevar_key,$gamevar_val,&$valid_gamevars){

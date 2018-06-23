@@ -854,14 +854,14 @@ function shooting_checkbuttons()
 	if(jQuery('#op_sht_'+(schk-1).toString()).length <= 0) {
 		jQuery('#shooting_previous').css('display','none');
 	}else{
-		jQuery('#shooting_previous').css('display','inline');
+		jQuery('#shooting_previous').css('display','inline-block');
 	}
 	
 	if(jQuery('#op_sht_'+(schk+1).toString()).length <= 0) {
 		jQuery('#shooting_next').css('display','none');
-		jQuery('#shooting_over').css('display','inline');
+		jQuery('#shooting_over').css('display','inline-block');
 	}else{
-		jQuery('#shooting_next').css('display','inline');
+		jQuery('#shooting_next').css('display','inline-block');
 		jQuery('#shooting_over').css('display','none');
 	}
 }

@@ -16,8 +16,10 @@
 
 div.glow_buttons.w35{width:35px;}
 div.glow_buttons.w115{width:115px;}
+div.glow_buttons.w125{width:125px;}
 div.glow_buttons.w140{width:140px;}
 div.glow_buttons.h15{height:15px;line-height:15px;}
+div.glow_buttons.h25{height:25px;line-height:25px;}
 div.glow_buttons.h30{height:30px;line-height:30px;}
 div.glow_buttons.h50{height:50px;line-height:50px;}
 
@@ -38,6 +40,11 @@ div.glow_buttons.yellow:hover {
 div.glow_buttons.red:hover {
 	-webkit-box-shadow: 0 0 18px #f00;
 	        box-shadow: 0 0 18px #f00;
+}
+
+div.glow_buttons.cyan:hover {
+	-webkit-box-shadow: 0 0 18px #0ff;
+	        box-shadow: 0 0 18px #0ff;
 }
 
 div.glow_buttons.lime:hover {

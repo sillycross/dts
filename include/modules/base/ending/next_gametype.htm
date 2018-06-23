@@ -1,0 +1,22 @@
+<div style="margin:10 auto">
+	<!--{if !empty($noticelog)}-->
+		<span class="yellow b">$noticelog</span>
+	<!--{elseif isset($gamevars['next_gametype'])}-->
+		<span class="yellow b">下一局标准房的游戏模式已设置为{$gtinfo[$gamevars['next_gametype']]}</span>
+	<!--{else}-->
+		<span class="yellow b">请选择下一局标准房的游戏模式：</span>
+	<!--{/if}-->
+</div>
+<!--{if !isset($gamevars['next_gametype'])}-->
+	<div class="glow_buttons h50 cyan" style="display:inline-block" onclick="$('ngametype').value='0';postCmd('nextgamevarsform','end.php');">标准模式</div>
+	<div class="glow_buttons h50 red" style="display:inline-block;margin:0 0 0 50px" onclick="$('ngametype').value='4';postCmd('nextgamevarsform','end.php');">卡片模式</div>
+<!--{else}-->
+	<!--暂时只有两个选项-->
+	<!--{if 0 == $gamevars['next_gametype']}-->
+		<div class="glow_buttons h50 cyan" style="display:inline-block">标准模式</div>
+		<div class="glow_buttons h50 darkgrey forbidden" style="display:inline-block;margin:0 0 0 50px">卡片模式</div>
+	<!--{else}-->
+		<div class="glow_buttons h50 darkgrey forbidden" style="display:inline-block">标准模式</div>
+		<div class="glow_buttons h50 red" style="display:inline-block;margin:0 0 0 50px">卡片模式</div>
+	<!--{/if}-->
+<!--{/if}-->

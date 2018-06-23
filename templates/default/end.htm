@@ -737,22 +737,24 @@
 		<!--{/if}-->
 	<!--{/if}-->
 	<br><br>
-	<!--{if !$groomid && in_array($winmode, array(2,3,5,7)) && ($state == 5 || $state == 6)}-->
-		<p>
-			<a name="nextgamevars"></a><h2 class="subtitle2">下一局游戏数据设定</h2>
-			<form method="post" id="nextgamevarsform" name="nextgamevarsform">
-				<input type="hidden" name="ecommand" value="nextgamevars">
-				<div id="nextgamevars">
-					<!--{loop $next_gamevars_display $ngds}-->
-						{$ngds}<br>
-					<!--{/loop}-->				
-				</div>
-				<p>
-					<input type="button" class="cmdbutton"  value="提交"
-						onclick="postCmd('nextgamevarsform','end.php');this.disabled=true;">
-				</p>
-			</form>
-		</p>
+	<!--{if !(defined('MOD_ENDING') && \ending\ending_by_shootings_available())}-->
+		<!--{if !$groomid && in_array($winmode, array(2,3,5,7)) && ($state == 5 || $state == 6)}-->
+			<p>
+				<a name="nextgamevars"></a><h2 class="subtitle2">下一局游戏数据设定</h2>
+				<form method="post" id="nextgamevarsform" name="nextgamevarsform">
+					<input type="hidden" name="ecommand" value="nextgamevars">
+					<div id="nextgamevars">
+						<!--{loop $next_gamevars_display $ngds}-->
+							{$ngds}<br>
+						<!--{/loop}-->				
+					</div>
+					<p>
+						<input type="button" class="cmdbutton"  value="提交"
+							onclick="postCmd('nextgamevarsform','end.php');this.disabled=true;">
+					</p>
+				</form>
+			</p>
+		<!--{/if}-->
 	<!--{/if}-->
 <!--{else}-->
 游戏尚在运行，可能是新一局已经开始，请返回游戏首页！

@@ -12,6 +12,19 @@ namespace ending
 		return false;
 	}
 	
+	function ending_changing_gamevars_available()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player'));
+		return !$groomid && in_array($winmode, array(2,3,5,7)) && ($state == 5 || $state == 6);
+	}
+	
+	function get_gametype_setting_html()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return MOD_ENDING_NEXT_GAMETYPE;
+	}
+	
 	//结尾时生成一些判定用的临时变量
 	function init_playerdata()
 	{
