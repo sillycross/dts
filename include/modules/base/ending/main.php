@@ -34,6 +34,7 @@ namespace ending
 		{
 			//攻击过和杀死过的重要NPC
 			$uip['attacked_vip'] = explode(',',\skillbase\skill_getvalue(1003,'attacked_vip'));
+			$uip['killed_vip'] = explode(',',\skillbase\skill_getvalue(1003,'killed_vip'));
 			//BOSS状态
 			$boss_type = $gametype == 19 ? 15 : 1;
 			$result = $db->query("SELECT * FROM {$tablepre}players WHERE type='$boss_type'");
