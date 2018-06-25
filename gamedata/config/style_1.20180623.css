@@ -72,6 +72,13 @@ input {cursor: crosshair;}
 .b2 div{position:relative;}
 .b3 div{position:relative;}
 
+rt{
+	font-size:9px; 
+	font-weight:normal;
+  -webkit-transform-origin-y: bottom;
+  -webkit-transform: scale(0.80);
+}
+
 table.admin {
 	border:0;
 	padding:0;
@@ -107,7 +114,7 @@ table.admin td.tdtitle {
 .orange{color:#ff9900; }
 .gold{color:rgb(255,215,0); }
 .cyan{color: #00ffff;}
-.lightblue{color: #00ffff;}
+.lightblue{color: rgb(150,210,255);}
 .blue{color: #0000ff;}
 .red{color: #ff0000;}
 .red2 {color: #ff0000; font-size:18pt; }

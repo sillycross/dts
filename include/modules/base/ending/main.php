@@ -32,6 +32,19 @@ namespace ending
 		eval(import_module('sys','player'));
 		if($gamestate <= 0 && ending_by_shootings_available()) 
 		{
+			//获胜队伍情况
+			if($winner) {
+				$result = $db->query("SELECT teamID FROM {$tablepre}players WHERE name='$winner'");
+				if($db->num_rows($result)) {
+					$uip['winnerteam'] = $winnerteam = $db->fetch_array($result)['teamID'];
+					$result2 = $db->query("SELECT name, hp FROM {$tablepre}players WHERE teamID='$winnerteam' AND name!='$winner'");
+					$uip['winnerteam_num'] = $uip['winnerteam_alive'] = 1;
+					while($rd2 = $db->fetch_array($result2)) {
+						$uip['winnerteam_num'] ++;
+						if($rd2['hp'] > 0) $uip['winnerteam_alive'] ++;
+					}
+				}
+			}
 			//攻击过和杀死过的重要NPC
 			$uip['attacked_vip'] = explode(',',\skillbase\skill_getvalue(1003,'attacked_vip'));
 			$uip['killed_vip'] = explode(',',\skillbase\skill_getvalue(1003,'killed_vip'));
