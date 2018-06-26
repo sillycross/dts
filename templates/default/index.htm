@@ -44,13 +44,13 @@
 		<td colspan="2" style="vertical-align:top;">
 			<div>
 				<!--{if $gamestate > 10 }-->
-				本局游戏已经进行  <span id="timing"></span><script type="text/javascript">updateTime('timing',$timing,1);</script><br> 
+				本局游戏已经进行  <span id="timing"></span><script type="text/javascript">updateTime('timing',$timing,1,1000,'hh:mm:ss');</script><br> 
 				<!--{if $hplayer}-->
 				当前最高伤害 $hplayer ($hdamage)<br>
 				<!--{/if}-->
 				<!--{else}-->
 					<!--{if $starttime > $now}-->
-					下局游戏开始于  <span id="timing"></span><script type="text/javascript">updateTime('timing',$timing,0);</script>   后<br>
+					下局游戏开始于  <span id="timing"></span><script type="text/javascript">updateTime('timing',$timing,0,1000,'hh:mm:ss');</script>   后<br>
 					<!--{else}-->
 					下局游戏开始时间  <span id="timing"></span>未定<br>
 					<!--{/if}-->

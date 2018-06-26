@@ -125,7 +125,7 @@ function postCmd(formName,sendto,disableall){
 	jQuery('#hoverHintMsg').css({display:"none"});//清除悬停提示
 	if(disableall) jQuery('.cmdbutton').attr("disabled","disabled");//屏蔽所有按钮
 	hotkey_ok = false;//屏蔽快捷键
-	if(jQuery('#loading')) jQuery('#loading').css({display:"block"});//显示Loading画面
+	if(jQuery('#loading').length > 0) jQuery('#loading').css({display:"block"});//显示Loading画面
 	
 	replay_listener();	//IE Hack，处理IE不支持catch的问题
 	var oXmlHttp = zXmlHttp.createRequest();
@@ -199,7 +199,7 @@ room_cur_chat_maxcid = 0;
 //处理AJAX返回值的主函数
 function showData(sdata){
 	if (js_stop_flag) return;
-	if(jQuery('#loading')) jQuery('#loading').css({display:"none"});//隐藏Loading画面
+	if(jQuery('#loading').length > 0) jQuery('#loading').css({display:"none"});//隐藏Loading画面
 	hotkey_ok = true;//重启快捷键
 	if(typeof sdata == 'string' && sdata.indexOf('<html>') > 0 && sdata.indexOf('</html>') > 0){
 		document.write(sdata);
@@ -823,4 +823,58 @@ function xuli_tickfunc()
 		x=Math.round(x*100);
 		xuli_setpercentage(x);
 	}
+}
+
+//开局剧情
+shooting_current = 0;
+
+function shooting_showdefault()
+{
+	var sdft;
+	sdft = 'op_sht_'+(shooting_current).toString();
+	if(jQuery('#'+sdft).length > 0) {
+		jQuery('#'+sdft).css('display','block');
+	}
+	shooting_checkbuttons();
+}
+
+function shooting_hideall()
+{
+	var sel;
+	sel = jQuery('.shootings');
+	sel.each(function(){
+		jQuery(this).css('display','none');
+	});
+}
+
+function shooting_checkbuttons()
+{
+	var schk;
+	schk = shooting_current;
+	if(jQuery('#op_sht_'+(schk-1).toString()).length <= 0) {
+		jQuery('#shooting_previous').css('display','none');
+	}else{
+		jQuery('#shooting_previous').css('display','inline-block');
+	}
+	
+	if(jQuery('#op_sht_'+(schk+1).toString()).length <= 0) {
+		jQuery('#shooting_next').css('display','none');
+		jQuery('#shooting_over').css('display','inline-block');
+	}else{
+		jQuery('#shooting_next').css('display','inline-block');
+		jQuery('#shooting_over').css('display','none');
+	}
+}
+
+function shooting_jump(num)
+{
+	var sjmp;
+	num = parseInt(num);
+	sjmp = 'op_sht_'+(shooting_current+num).toString();
+	if(jQuery('#'+sjmp).length > 0) {
+		shooting_hideall();
+		jQuery('#'+sjmp).css('display','block');
+		shooting_current += num;
+	}
+	shooting_checkbuttons();
 }

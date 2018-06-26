@@ -72,6 +72,13 @@ input {cursor: crosshair;}
 .b2 div{position:relative;}
 .b3 div{position:relative;}
 
+rt{
+	font-size:9px; 
+	font-weight:normal;
+  -webkit-transform-origin-y: bottom;
+  -webkit-transform: scale(0.80);
+}
+
 table.admin {
 	border:0;
 	padding:0;
@@ -107,7 +114,7 @@ table.admin td.tdtitle {
 .orange{color:#ff9900; }
 .gold{color:rgb(255,215,0); }
 .cyan{color: #00ffff;}
-.lightblue{color: #00ffff;}
+.lightblue{color: rgb(150,210,255);}
 .blue{color: #0000ff;}
 .red{color: #ff0000;}
 .red2 {color: #ff0000; font-size:18pt; }
@@ -122,6 +129,9 @@ table.admin td.tdtitle {
 .dmg {color:#ff0000;font-weight:bold; }
 .grey{color:#999;}
 .darkgrey{color:#666;}
+.lightpink{color:rgb(250,180,180);}
+.ltcrimson{color:rgb(255,120,150);}
+.ltazure{color:rgb(110,210,255);}
 .linen{color:rgb(200,192,184);}
 .L5{color: #ff0000;background:url("../../img/backround4.gif") repeat-x;}
 
@@ -166,6 +176,30 @@ border-bottom: #ddc 2px solid;
 #log{
 	line-height:15px;
 }
+
+#storyboard_container {
+	background-color:rgba(17,17,17,0.5);
+}
+
+#storyboard_control {
+	position:relative;
+}
+
+#storyboard_control input.cmdbutton{
+	width:120px;height:25px;margin:2;
+}
+
+#shootings_container{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.shootings {
+	text-align:center;
+	display:none;
+}
+
 .footerline {
 height: 1px;
 background-image: url("../../img/footer_line.gif");

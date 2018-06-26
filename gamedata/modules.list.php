@@ -396,7 +396,7 @@ autopower,extra/misc/autopower/,1
 skill601,extra/club/skills/skill601/,1
 skill602,extra/club/skills/skill602/,1
 skill603,extra/club/skills/skill603/,1
-skill1003,extra/achievement/skills/skill1003/,1
+skill1003,extra/club/skills/skill1003/,1
 skill301,extra/achievement/skills/skill301/,1
 skill307,extra/achievement/skills/skill307/,1
 skill318,extra/achievement/skills/skill318/,1
@@ -426,6 +426,8 @@ skill481,extra/card/skills/skill481/,1
 skill482,extra/card/skills/skill482/,1
 skill500,extra/card/skills/skill500/,1
 achievement_base,extra/achievement/achievement_base/,1
+opening,base/opening/,1
+ending,base/ending/,1
 skill497,extra/card/skills/skill497/,1
 skill27,extra/club/skills/skill27/,1
 skill489,extra/card/skills/skill489/,1

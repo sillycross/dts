@@ -5,11 +5,11 @@ namespace sys
 	//文件进程锁，对game表如果有操作，建议在操作前加锁
 	//由于代码兼容问题，现在不是采用flock，而是直接生成一个文件，判定此文件是否存在
 	//如果本进程已经加过锁则不会进行任何操作
-	function process_lock($locktype = LOCK_EX) {//可使用LOCK_SH LOCK_EX LOCK_UN
+	function process_lock($non_blocking=false) {//可使用LOCK_SH LOCK_EX LOCK_UN
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		$dir = GAME_ROOT.'./gamedata/tmp/processlock/';
-		$file = 'process_'.$groomid.'.nlk';
+		$file = 'process_'.(int)$room_id.'.nlk';
 		$res = NULL;
 		if(empty($plock)) {
 			$lstate = check_lock($dir, $file, 5000);

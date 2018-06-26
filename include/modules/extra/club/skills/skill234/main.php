@@ -74,7 +74,8 @@ namespace skill234
 					${'itme'.$position} =1;
 					${'itms'.$position} =1;
 					\skillbase\skill_lost(234);
-					
+					$gamevars['skill234_flag'] = 1;
+					\sys\save_gameinfo();
 //					if ((($areanum/$areaadd)<4)&&(!in_array($gametype,$qiegao_ignore_mode))){
 //						$get_card_id=63;
 //						$ext = '您在'.($room_prefix ? '房间' : '').'第'.$gamenum.'局完成了破解流程，获得了奖励卡！';

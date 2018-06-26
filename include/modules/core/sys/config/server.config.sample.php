@@ -82,7 +82,7 @@
 	$gameurl = 'http://127.0.0.1/dts';    // the url of game program files,for the full-window mode
 									//游戏域名地址，用于界面链接
 
-	$homepage = 'http://soul573.com/';      // game homepage
+	$homepage = 'http://amarillonmc.github.io/';      // game homepage
 									//官方网站地址
 
 	$gtitle = 'ACFUN 大 逃 杀';     //game title

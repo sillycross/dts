@@ -8,7 +8,7 @@ namespace ex_def_down
 		eval(import_module('itemmain'));
 		$itemspkinfo['^dd'] = '降防';
 		$itemspkdesc['^dd']='你的总防御力减少<:skn:>%，效果可叠加';
-		$itemspkremark['^dd']='……';
+		$itemspkremark['^dd']='具体降低数值视装备而定';
 	}
 	
 	function get_def_multiplier(&$pa,&$pd,$active)

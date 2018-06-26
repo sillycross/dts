@@ -33,7 +33,8 @@ namespace skill256
 		eval(import_module('weapon'));
 		$ret = $chprocess($pa, $pd, $active);
 		if ($pa['wep_kind']=='N' && \skillbase\skill_query(256,$pa) && check_unlocked256($pa))
-			$ret += round($pa[$skillinfo['N']]*1/3);
+			//空手自带2/3
+			$ret += round($pa[$skillinfo['N']]*4/3);
 		return $ret;
 	}
 }

@@ -163,7 +163,7 @@ if ($___MOD_SRV)
 						touch(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT.'/busy');
 						
 						eval(import_module('sys','map','player','logger','itemmain','input'));
-						sys\routine();
+						//\sys\routine();
 
 						$___TEMP_EXEC_START_TIME=microtime(true);;
 						
@@ -426,7 +426,7 @@ else	//未开启server-client模式，正常执行准备流程
 
 if(isset($command)){
 	if('area_timing_refresh' == $command){//刷新禁区时间
-		\sys\routine();
+		//\sys\routine();
 		\map\init_areatiming();
 		$gamedata = array('timing' => $uip['timing']);
 		ob_clean();
@@ -436,7 +436,7 @@ if(isset($command)){
 		return;
 	}elseif('room_routine' == $command){//刷新房间内游戏状态
 		include_once './include/roommng/roommng.func.php';
-		room_all_routine();
+		room_all_routine($nowroom);
 		return;
 	}elseif('maintain' == $command || 3 == date('H', $now)){//凌晨3点有访问时自动维护，也可以手动启动维护
 		include_once GAME_ROOT.'./include/auto_maintain/auto_maintain_misc.func.php';

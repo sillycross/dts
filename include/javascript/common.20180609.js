@@ -44,7 +44,7 @@ function updateTime(domid,t,tm,intv,fmt)
 	}
 	if(init_flag){//初始化，这一次时间不减
 		var intv = intv || 1000;
-		var fmt = fmt || 'hh:mm:ss';
+		var fmt = fmt || 'mm:ss';
 		timinglist[domid]['timing'] = t;//注意timing现以毫秒为单位
 		timinglist[domid]['mode'] = tm;
 		timinglist[domid]['interval'] = intv;

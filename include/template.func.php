@@ -8,7 +8,7 @@ if(!defined('IN_GAME')) {
 function parse_template($tplfile, $objfile, $templateid, $tpldir, $nospace=1) {
 	global $language;
 
-	$nest = 5;
+	$nest = 10;
 	//$tplfile = GAME_ROOT."./$tpldir/$file.htm";
 	//$objfile = GAME_ROOT."./gamedata/templates/{$templateid}_$file.tpl.php";
 	if(!$tplfile) {

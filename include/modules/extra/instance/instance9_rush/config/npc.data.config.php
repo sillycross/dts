@@ -1303,7 +1303,7 @@ namespace instance9
 				(
 				'name' => '狂飙',
 				'icon' => 'avatar_rek/rocket0.png',
-				'wep' => 'REND BOSS PLASMA GUN',
+				'wep' => '蜡翼天马装备 - 回旋粉碎炮',
 				'wepk' => 'WG',
 				'wepe' => 1800,
 				'weps' => 8000,

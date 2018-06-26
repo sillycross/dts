@@ -3,8 +3,8 @@
 	<tr valign=top>
 		<td>
 			<div id="main">
-				<!--{if $main=='battle'}-->
-					{template battle}
+				<!--{if !empty($main)}-->
+					{template $main}
 				<!--{else}-->
 					{template profile}
 				<!--{/if}-->

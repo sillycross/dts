@@ -275,7 +275,7 @@ namespace player
 		
 		eval(import_module('sys','player','map'));
 		
-		$ardef = $arbe + $arhe + $arae + $arfe;
+		//$ardef = $arbe + $arhe + $arae + $arfe;
 		
 		//att和def显示
 		$dummy=\player\create_dummy_playerdata();$dummy['bskill']=0;$dummy['wep_kind']='N';

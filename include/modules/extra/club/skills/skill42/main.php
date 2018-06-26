@@ -49,13 +49,14 @@ namespace skill42
 		$chprocess($pa, $pd, $active);
 	}
 	
-	//击杀敌人时攻击+2防御+4
+	//击杀敌人时攻击+1防御+2
 	function player_kill_enemy(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (\skillbase\skill_query(42,$pa) && check_unlocked42($pa))
 		{
-			$pa['att']+=2; $pa['def']+=4;
+			//$pa['att']+=2; $pa['def']+=4;
+			$pa['att']+=1; $pa['def']+=2;
 		}
 		$chprocess($pa, $pd, $active);
 	}
