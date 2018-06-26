@@ -17,11 +17,10 @@ namespace opening
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
-		
-		if ($command == 'skip_op') 
+		//只要不是自动刷新，就跳过
+		if ($command != 'enter' && \skillbase\skill_query(1003) && !\skillbase\skill_getvalue(1003,'opening_skip')) 
 		{
 			\skillbase\skill_setvalue(1003,'opening_skip',1);
-			return;
 		}
 		$chprocess();
 	}
@@ -34,10 +33,10 @@ namespace opening
 			if(\skillbase\skill_query(1003) && !\skillbase\skill_getvalue(1003,'opening_skip')) {
 				$log .= ' ';
 				$main = MOD_OPENING_STORYBOARD_CONTAINER;
-				ob_start();
-				include template(MOD_OPENING_CMD_SKIP_OP);
-				$cmd = ob_get_contents();
-				ob_end_clean();
+//				ob_start();
+//				include template(MOD_OPENING_CMD_SKIP_OP);
+//				$cmd = ob_get_contents();
+//				ob_end_clean();
 			}
 		}
 	}
