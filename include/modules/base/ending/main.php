@@ -8,7 +8,7 @@ namespace ending
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','ending'));
-		if($ending_by_shootings && in_array($gametype, $ending_by_shootings_gametype)) return true;
+		if($ending_by_shootings) return true;
 		return false;
 	}
 	
