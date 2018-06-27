@@ -4,12 +4,13 @@ namespace addnpc_event
 {
 	function init() {}
 	
+	//115入场专用判断
 	//杀死NPC时，如果NPC死亡数超过连斗死亡数，开始判定场上是否没有活着的NPC了
 	function player_kill_enemy(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess($pa, $pd, $active);		
 		eval(import_module('sys','gameflow_combo'));
-		if ( $pd['type'] && $pd['hp'] <= 0 && $deathnum > $combonum)
+		if ( in_array($gametype, array(0, 4, 18)) && $pd['type'] && $pd['hp'] <= 0 && $deathnum > $combonum)
 		{
 			$pdpid = $pd['pid'];
 			//条件1：没有其他存活NPC
