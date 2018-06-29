@@ -34,8 +34,8 @@ namespace item_addarea
 			if (in_array($itm, $item_addarea_nlist)) {
 				$log .= '你按下了<span class=\"yellow b\">「'.$itm.'」</span>。<br>';
 				if($areatime - $now > 60) {
-					if('不要按这个按钮' == $itm) $log .= '一个声音传来：<span class="evergreen b">“你们都干了些什么？没有看见上面写的“不要按这个按钮”吗？<br><br><br>…………好吧，这只是个不起眼的小按钮。祝你们玩得愉快。”</span><br>';
-					elseif('好想按这个按钮' == $itm) $log .= '一个声音传来：<span class="cyan b">“干得好！按钮不就是用来按的吗？”</span><br>';
+					if('不要按这个按钮' == $itm) $log .= '一个声音传来：<span class="ltcrimson b">“你们都干了些什么？没有看见上面写的“不要按这个按钮”吗？<br><br><br>…………好吧，这只是个不起眼的小按钮。祝你们玩得愉快。”</span><br>';
+					elseif('好想按这个按钮' == $itm) $log .= '一个声音传来：<span class="ltazure b">“干得好！按钮不就是用来按的吗？”</span><br>';
 					elseif('这个是什么按钮' == $itm) $log .= '一个声音传来：<span class="linen b">“建议将三个按钮全部删除，幻境暂时停止增加禁区！谢谢！金龙通讯社不能让触手之风蔓延下去！”</span><br>';
 					$log .= '天边隐约传来轰鸣声，你惊奇地发现<span class="red b">下次禁区提前到来了！</span><br>';
 					$areatime = $now + 60;

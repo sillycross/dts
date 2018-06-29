@@ -1,3 +1,4 @@
+<!--{eval if(!isset($tmp_cannot_forbid)) $tmp_cannot_forbid = room_get_vars($roomdata, 'cannot-forbid');}-->
 <!--{if $upos==-1}-->
 	<!--{if $roomdata['player'][$i]['forbidden']}-->
 		<div id="pos$i" class="glow_buttons w140 h30 darkgrey forbidden">(已禁入)</div>
@@ -57,11 +58,13 @@
 				</div>
 			</div>
 		<!--{elseif !$roomdata['player'][$i]['forbidden']}-->
+			<!--{if !$tmp_cannot_forbid}-->
 			<div style="position:absolute;left:110px;top:19px;">
 				<div id="action$i" class="glow_buttons w35 h15 red" onclick="$('command').value='pos_disable';$('para1').value=$i;postCmd('roomcmd','roomcmd.php');">
 					禁用
 				</div>
 			</div>
+			<!--{/if}-->
 		<!--{else}-->
 			<div style="position:absolute;left:110px;top:19px;">
 				<div id="action$i" class="glow_buttons w35 h15 evergreen" onclick="$('command').value='pos_enable';$('para1').value=$i;postCmd('roomcmd','roomcmd.php');">
