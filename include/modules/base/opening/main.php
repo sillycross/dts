@@ -25,6 +25,17 @@ namespace opening
 		$chprocess();
 	}
 	
+	function init_playerdata()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','logger'));
+		if (\skillbase\skill_query(1003) && !\skillbase\skill_getvalue(1003,'opening_skip')) 
+		{
+			$log .= '<br><span class="yellow b">点击以下任意按钮皆可跳过开场剧情。</span>';
+		}
+		$chprocess();
+	}
+	
 	function show_opening()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

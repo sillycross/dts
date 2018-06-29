@@ -33,10 +33,21 @@ function update_roomstate(&$roomdata, $runflag)
 	
 	global $roomtypelist;
 	$flag=1;
-	for ($i=0; $i < room_get_vars($roomdata, 'pnum'); $i++)//人没满就不能开
-		if (!$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']=='')
-			$flag = 0;
-	
+	$tmp_min_team = (int)room_get_vars($roomdata, 'min-team');
+	$tmp_pnum = room_get_vars($roomdata, 'pnum');
+	$tmp_leader_position = room_get_vars($roomdata, 'leader-position');
+	$tmp_team_ids = Array();
+	for ($i=0; $i < $tmp_pnum; $i++) {//人没满就不能开
+		if(!$roomdata['player'][$i]['forbidden']) {
+			if ($roomdata['player'][$i]['name']=='') {
+				$flag = 0;
+			}elseif(!in_array($tmp_leader_position[$i], $tmp_team_ids)) {
+				$tmp_team_ids[] = $tmp_leader_position[$i];
+			}
+		}
+	}
+	//队伍数过少也不能开
+	if(sizeof($tmp_team_ids) < $tmp_min_team) $flag = 0;
 	$changeflag = 0;
 	if (!$runflag && $flag && $roomdata['readystat']==0)
 	{

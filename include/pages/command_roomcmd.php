@@ -152,9 +152,14 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 					$roomdata['player'][$para1]['name']='';
 					$roomdata['player'][$upos]['ready']=0;
 					if($command=='pos_disable'){
-						$roomdata['player'][$para1]['forbidden']=1;
-						if($upos!=0) room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}禁用了其队伍的一个位置</span><br>");
-						else room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}禁用了房间的一个位置</span><br>");
+						if(!empty(room_get_vars($roomdata, 'cannot-forbid'))){
+							room_new_chat($roomdata,"<span class=\"red b\">{$cuser}试图禁用一个位置，但本房间不允许禁用</span><br>");
+						}else{
+							$roomdata['player'][$para1]['forbidden']=1;
+							if($upos!=0) room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}禁用了其队伍的一个位置</span><br>");
+							else room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}禁用了房间的一个位置</span><br>");
+						}
+						
 					}elseif($command=='pos_enable'){
 						$roomdata['player'][$para1]['forbidden']=0;
 						if($upos!=0) room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}重新启用了其队伍的一个位置</span><br>");
