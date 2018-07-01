@@ -8,7 +8,7 @@ namespace ex_mhp_temp_up
 		eval(import_module('itemmain'));
 		$itemspkinfo['^hu'] = '升血';
 		$itemspkdesc['^hu']='允许恢复道具把你的生命值最多回复到最大值+<:skn:>点，效果可叠加。卸下此装备时会扣除所有额外的生命值';
-		$itemspkremark['^hu']='具体增加数值视装备而定';
+		$itemspkremark['^hu']='具体增加数值视装备而定。';
 	}
 	
 	function itemuse_edible_get_mhp(){
@@ -19,6 +19,9 @@ namespace ex_mhp_temp_up
 		//由于有可能在战斗时回复HP，这里不应该用地图时的属性判断函数
 		$dummy = \player\create_dummy_playerdata();
 		$flag = \attrbase\check_in_itmsk('^hu', \attrbase\get_ex_def_array($dummp, $sdata, 0), 1);
+		//毅重状态下不能升血
+		if(\skillbase\skill_query(28) && \skill28\check_unlocked28($sdata) && 2 == \skillbase\skill_getvalue(28,'choice',$sdata))
+			$flag = false;
 		if(false !== $flag) {
 			$ret += $flag;
 		}
@@ -83,6 +86,29 @@ namespace ex_mhp_temp_up
 		$chprocess($theitem);
 		if($lose_flag) {
 			ex_mhp_temp_lose();
+		}
+	}
+	
+	//因为别的原因而在操作以后失去升血属性时也会失去血量
+	function act()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(\attrbase\check_itmsk('^hu')) $tmp_hp_up_flag = 1;
+		$chprocess();
+		if(!empty($tmp_hp_up_flag) && !\attrbase\check_itmsk('^hu')) ex_mhp_temp_lose();
+	}
+	
+	//毅重开启时自动失去血量
+	function upgrade28()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess();
+		eval(import_module('player'));
+		if (\skillbase\skill_query(28) && \skill28\check_unlocked28($sdata))
+		{
+			if(\attrbase\check_itmsk('^hu')) {
+				ex_mhp_temp_lose();
+			}
 		}
 	}
 }

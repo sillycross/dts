@@ -14,8 +14,8 @@ $packlist=array(
 	'Way of Life',
 	'Best DOTO',
 	'Balefire Rekindle',
-	//'Way of Life Game',
-	'Event Bonus'
+	'Event Bonus',
+	'Indev'
 );
 $packdesc = array(
 	'Standard Pack' => '基本称号卡集。',
@@ -24,11 +24,11 @@ $packdesc = array(
 	'Way of Life' => '大杂烩，主要以游戏方式以及同类游戏为捏他对象的卡集。',
 	'Best DOTO' => '以电竞元素和电竞圈为吐槽对象的卡集。',
 	'Balefire Rekindle' => '以游戏版本「复燃」的新增NPC角色和游戏设定为主题的卡集。',
-	'Way of Life Game' => '第二弹以游戏元素为主要吐槽点的卡集，也夹杂有少量其他要素。',
-	'Event Bonus' => '其他一些零散成就和活动奖励卡。'
+	'Event Bonus' => '其他一些零散成就和活动奖励卡。',
+	'Indev' => '开发中的卡的暂存地',
 );
 $packstart = array(
-	//'Way of Life Game' => 1541905871
+	//'Indev' => 1541905871
 );
 $cardindex=array(
 	'S'=>array(1,5,16,38,39,40,41,64,65,67,71,95,99,100,101,102,117,145,152,153),
@@ -2570,6 +2570,7 @@ $cards = array(
 	),
 	167 => array(
 		'name' => '地下挑战者 Carnage',
+		'title' => '地下挑战者',
 		'rare' => 'S',
 		'pack' => 'Event Bonus',
 		'desc' => '说清场就清场的恶魔',
@@ -2578,6 +2579,32 @@ $cards = array(
 		'valid' => array(
 			'skills' => array(
 				'515' => '0', 
+			),
+		)
+	),
+	168 => array(
+		'name' => '飞雪大大',
+		'rare' => 'S',
+		'pack' => 'Indev',
+		'desc' => '飞雪大魔王<br><br>—————魔王分割线—————<br><br>沙包们最好的朋友',
+		'effect' => '如果你受到的伤害比上一次伤害少，则不会因为这次伤害失去HP。',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'516' => '0', 
+			),
+		)
+	),
+	169 => array(
+		'name' => '冰冻青蛙',
+		'rare' => 'A',
+		'pack' => 'Indev',
+		'desc' => '曾经的dts开发者，<br>其脑洞对玩家十分<ruby>友<rt>bao</rt></ruby><ruby>好<rt>she</rt></ruby>',
+		'effect' => '获得战斗技「鱼雷」',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'517' => '0', 
 			),
 		)
 	),

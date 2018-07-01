@@ -75,7 +75,9 @@ input {cursor: crosshair;}
 rt{
 	font-size:9px; 
 	font-weight:normal;
+	transform-origin-y: bottom;
   -webkit-transform-origin-y: bottom;
+  transform: scale(0.80);
   -webkit-transform: scale(0.80);
 }
 
