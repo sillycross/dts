@@ -248,6 +248,7 @@ skill506,extra/card/skills/skill506/,1
 skill511,extra/card/skills/skill511/,1
 skill515,extra/card/skills/skill515/,1
 skill516,extra/card/skills/skill516/,1
+club15,extra/club/clubs/club15/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
@@ -264,7 +265,6 @@ rest,base/rest/,1
 item_uc,base/items/item_uc/,1
 skill12,extra/club/skills/skill12/,1
 skill223,extra/club/skills/skill223/,1
-skill517,extra/card/skills/skill517/,1
 skill331,extra/activities/halloween2017/skill331/,1
 skill19,extra/club/skills/skill19/,1
 skill79,extra/club/skills/skill79/,1
@@ -288,6 +288,7 @@ skill203,extra/club/skills/skill203/,1
 dualwep,base/weapon/dualwep/,1
 ammunition,base/items/ammunition/,1
 skill487,extra/card/skills/skill487/,1
+skill517,extra/card/skills/skill517/,1
 attrbase,extra/attr/attrbase/,1
 skill407,extra/card/skills/skill407/,1
 skill32,extra/club/skills/skill32/,1

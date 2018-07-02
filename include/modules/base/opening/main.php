@@ -16,31 +16,37 @@ namespace opening
 	function act()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player'));
+		eval(import_module('sys'));
 		//只要不是自动刷新，就跳过
-		if ($command != 'enter' && \skillbase\skill_query(1003) && !\skillbase\skill_getvalue(1003,'opening_skip')) 
-		{
-			\skillbase\skill_setvalue(1003,'opening_skip',1);
+		if(\skillbase\skill_query(1003) && !\skillbase\skill_getvalue(1003,'opening_skip')) {
+			if ($command != 'enter') 
+			{
+				\skillbase\skill_setvalue(1003,'opening_skip',1);
+			}else{
+				eval(import_module('logger'));
+				$log .= '<br><span class="yellow b">点击以下任意按钮皆可跳过开场剧情。</span><br>';
+			}
 		}
+		
 		$chprocess();
 	}
 	
-	function init_playerdata()
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess();
-		eval(import_module('sys','player','logger'));
-		if (opening_by_shootings_available() && \skillbase\skill_query(1003) && !\skillbase\skill_getvalue(1003,'opening_skip')) 
-		{
-			$log .= '<br><span class="yellow b">点击以下任意按钮皆可跳过开场剧情。</span><br>';
-		}
-	}
+//	function init_playerdata()
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		$chprocess();
+//		eval(import_module('sys','player','logger'));
+//		if ($hp > 0 && opening_by_shootings_available() && \skillbase\skill_query(1003) && !\skillbase\skill_getvalue(1003,'opening_skip')) 
+//		{
+//			$log .= '<br><span class="yellow b">点击以下任意按钮皆可跳过开场剧情。</span><br>';
+//		}
+//	}
 	
 	function show_opening()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','opening','logger'));
-		if(opening_by_shootings_available() && \skillbase\skill_query(1003) && !\skillbase\skill_getvalue(1003,'opening_skip')) {
+		if($hp > 0 && opening_by_shootings_available() && \skillbase\skill_query(1003) && !\skillbase\skill_getvalue(1003,'opening_skip')) {
 			$log .= ' ';
 			$main = MOD_OPENING_STORYBOARD_CONTAINER;
 //			ob_start();

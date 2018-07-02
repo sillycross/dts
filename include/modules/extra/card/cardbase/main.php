@@ -408,7 +408,14 @@ namespace cardbase
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess();
 		eval(import_module('sys','player','cardbase'));
-		$uip['cardname_show'] = !empty($cards[$card]['title']) ? $cards[$card]['title'] : $cardname;
+		if($cardname == $cards[$card]['name']) {
+			if(!empty($cards[$card]['title'])) 
+				$uip['cardname_show'] = $cards[$card]['title'];
+			else
+				$uip['cardname_show'] = $cards[$card]['name'];
+		}else{
+			$uip['cardname_show'] = $cardname;
+		}
 	}
 	
 	//战斗界面显示敌方卡片

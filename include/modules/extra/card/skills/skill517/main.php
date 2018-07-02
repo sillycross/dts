@@ -6,7 +6,7 @@ namespace skill517
 	{
 		define('MOD_SKILL517_INFO','card;battle;limited;');
 		eval(import_module('clubbase'));
-		$clubskillname[517] = '鱼雷';
+		$clubskillname[517] = '鱼弹';
 	}
 	
 	function acquire517(&$pa)
@@ -24,7 +24,7 @@ namespace skill517
 	function check_unlocked517(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if($pa['lvl'] > 7) return 1;
+		if($pa['lvl'] > 9) return 1;
 	}
 	
 	function get_remaintime517(&$pa = NULL)
@@ -49,7 +49,8 @@ namespace skill517
 				if (!\clubbase\check_battle_skill_unactivatable($pa,$pd,517))
 				{
 					eval(import_module('logger','clubbase'));
-					$log .= \battle\battlelog_parser($pa, $pd, $active, "<span class=\"yellow b\"><:pa_name:>的攻击直奔<:pd_name:>的装备而去！</span><br>");
+					$log .= \battle\battlelog_parser($pa,$pd,$active,"<span class=\"lime b\"><:pa_name:>对<:pd_name:>发动了技能「{$clubskillname[517]}」！</span><br>");
+					
 					$remtime--; 
 					\skillbase\skill_setvalue(517,'rmtime',$remtime,$pa);
 					$pd['skill517_flag']=1;
@@ -67,6 +68,32 @@ namespace skill517
 			}
 		}
 		return $chprocess($pa, $pd, $active);
+	}
+	
+	//物理伤害变成0
+	function get_physical_dmg_change(&$pa, &$pd, $active, $dmg)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($pa, $pd, $active, $dmg);
+		if ($pa['bskill']==517) 
+		{
+			eval(import_module('logger'));
+			$log .=  \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow b"><:pa_name:>的攻击并没有瞄准<:pd_name:>本身……</span><br>');
+			$ret = 0;
+		}
+		return $ret;
+	}
+	
+	function armor_hurt(&$pa, &$pd, $active, $which, $hurtvalue)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if ($pa['bskill']==517 && 1 == $pa['skill517_hit_flag']) 
+		{
+			eval(import_module('logger'));
+			$log .= \battle\battlelog_parser($pa, $pd, $active, "<span class=\"yellow b\">然而，攻击瞄准的是<:pd_name:>的防具！</span><br>");
+			$pa['skill517_hit_flag'] = 2;
+		}
+		return $chprocess($pa, $pd, $active, $which, $hurtvalue);
 	}
 	
 	//（第一次连击）受攻击部位的耐久下降值额外附加武器效果值的一半
