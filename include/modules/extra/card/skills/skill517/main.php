@@ -96,14 +96,14 @@ namespace skill517
 		return $chprocess($pa, $pd, $active, $which, $hurtvalue);
 	}
 	
-	//（第一次连击）受攻击部位的耐久下降值额外附加武器效果值的一半
+	//（第一次连击）受攻击部位的耐久下降值额外附加武器效果值
 	function weapon_wound_success(&$pa, &$pd, $active, $hurtposition)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess($pa, $pd, $active, $hurtposition);
 		if ($pa['bskill']==517 && empty($pa['skill517_hit_flag'])) 
 		{
-			$pa['attack_wounded_'.$hurtposition]+=round($pa['wepe']/2);
+			$pa['attack_wounded_'.$hurtposition]+=$pa['wepe'];//round($pa['wepe']/2);
 			$pa['skill517_hit_flag'] = 1;
 		}
 	}

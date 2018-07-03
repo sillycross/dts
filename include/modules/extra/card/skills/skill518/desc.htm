@@ -1,21 +1,20 @@
-<!--{eval $___TEMP_SKILL_ID=517;}-->
-<!--{eval eval(import_module('clubbase'));}-->
-<!--{eval $remtime=(int)\skill517\get_remaintime517($who);}-->
+<!--{eval $___TEMP_SKILL_ID=518;}-->
+<!--{eval eval(import_module('clubbase'));$skill518_r = \skill518\get_remaintime518($who);}-->
 {template MOD_CLUBBASE_SKILLDESC_START}
 <span>
 $clubskillname[$___TEMP_SKILL_ID]
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
-<span class="yellow b">战斗技</span>&nbsp;&nbsp;<span class="red b">限定技&nbsp;本局还可发动<span>$remtime</span>/2次</span>
-物理伤害变成0，但对方随机一件防具的耐久值下降你的武器效果值。
+每当你主动行动而经历1次禁区，你就获得1次回归次数。<br>
+只要你有回归次数，你被战斗或陷阱杀死时就能复活。<br>
+当前回归次数：<span class="<!--{if $skill518_r > 0}-->lime b<!--{else}-->red b<!--{/if}-->">{$skill518_r}</span>次（最多累积2次）
 </span></td>
 <td class=b3 width=96>
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
 <!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
 <span class="yellow b">
-	9级时解锁
 </span>
 <!--{/if}-->
 {template MOD_CLUBBASE_SKILLDESC_END}
