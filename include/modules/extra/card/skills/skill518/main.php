@@ -112,7 +112,7 @@ namespace skill518
 			{
 				$log.= "<span class=\"lime b\">但是，你强烈的执念使你挣脱了死亡的束缚！</span><br>";
 				if(!$pd['sourceless']){
-					$w_log = "<span class=\"lime b\">但是，{$pd['name']}强烈的执念使其挣脱了死亡的束缚！</span><br>";
+					$w_log = "<span class=\"lime b\">但是，{$pd['name']}强烈的执念使其从死亡线上回来了！</span><br>";
 					\logger\logsave ( $pa['pid'], $now, $w_log ,'b');
 				}
 			}
@@ -131,13 +131,13 @@ namespace skill518
 		{
 			if ($active)
 			{
-				$log.='<span class="lime b">但是，敌人强烈的执念使其挣脱了死亡的束缚！</span><br>';
+				$log.='<span class="lime b">但是，敌人强烈的执念使其从死亡线上回来了！</span><br>';
 				$pd['battlelog'].='<span class="lime b">但是，你强烈的执念使你挣脱了死亡的束缚！</span>';
 			}
 			else
 			{
 				$log.='<span class="lime b">但是，你强烈的执念使你挣脱了死亡的束缚！</span><br>';
-				$pd['battlelog'].='<span class="lime b">但是，敌人强烈的执念使其挣脱了死亡的束缚！</span>';
+				$pd['battlelog'].='<span class="lime b">但是，敌人强烈的执念使其从死亡线上回来了！</span>';
 			}
 		}
 	}
@@ -148,7 +148,7 @@ namespace skill518
 		eval(import_module('sys','player'));
 		
 		if($news == 'revival518') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime b\">{$a}强烈的执念使他复活了！</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime b\">{$a}强烈的执念使其从死亡线上回来了！</span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
