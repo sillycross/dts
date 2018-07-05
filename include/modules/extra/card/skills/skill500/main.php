@@ -2,7 +2,7 @@
 
 namespace skill500
 {
-	$skill500_cd = 45;
+	$skill500_cd = 30;
 	$skill500_act_time = 3;
 	
 	$skill500_rage = 30;
