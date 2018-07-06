@@ -1,10 +1,10 @@
 <?php
 
-namespace ex_mhp_temp_up
+namespace club15
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'itemmain logger attrbase edible';
-	$___MODULE_dependency_optional = 'skill28';
+	$___MODULE_dependency = 'clubbase';
+	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';
 	$___MODULE_templatelist = '';

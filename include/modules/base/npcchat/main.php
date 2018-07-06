@@ -159,7 +159,8 @@ namespace npcchat
 	function battle_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (($pa['type'] && $pa['state']==1) || ($pd['type'] && $pd['state']==1)) npcchat($pa, $pd, $active, 'meet');
+		if ($pa['type'] && $pa['state']==1) npcchat($pa, $pd, $active, 'meet');//改为只有NPC主动出击才会喊见面台词
+		//if (($pa['type'] && $pa['state']==1) || ($pd['type'] && $pd['state']==1)) npcchat($pa, $pd, $active, 'meet');
 		$chprocess($pa, $pd, $active);
 	}
 	

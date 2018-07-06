@@ -66,12 +66,18 @@ namespace wound
 	function check_weapon_inf_proc(&$pa, &$pd, $active, $hurtposition)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$inf_rate = calculate_inf_rate($pa, $pd, $active);
-		$inf_dice = rand(0,99);
-		if ($inf_dice < $inf_rate) 
+		if (check_weapon_inf_rate_hit($pa, $pd, $active)) 
 		{
 			weapon_wound_success($pa, $pd, $active, $hurtposition);
 		}
+	}
+	
+	function check_weapon_inf_rate_hit(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$inf_rate = calculate_inf_rate($pa, $pd, $active);
+		$inf_dice = rand(0,99);
+		return $inf_dice < $inf_rate;
 	}
 	
 	//判定受伤位置

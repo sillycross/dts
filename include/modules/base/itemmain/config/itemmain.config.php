@@ -105,6 +105,8 @@ namespace itemmain
 		//
 		//^001 itemmix_sync 同调（标记是同调产物）
 		//^002 itemmix_sync 变星
+		//^dd ex_def_down 降防
+		//^hu ex_mhp_temp_up 升血
 		'^TEST' => '蛋疼',
 	);
 	

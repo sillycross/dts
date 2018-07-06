@@ -40,6 +40,7 @@ namespace attack
 	}
 	
 	//特殊变化次序注册
+	//注意是在$pd上
 	function apply_total_damage_modifier_special_set_sequence(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

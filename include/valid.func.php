@@ -192,6 +192,7 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip=NULL)
 	
 	$cardname = $newscardname = $cards[$card]['name'];
 	$cardrare = $newscardrare = $cards[$card]['rare'];
+	if(!empty($cards[$card]['title'])) $cardname = $cards[$card]['title'];//某些有两重名字的卡
 	if(isset($o_card)) {
 		$newscardname=$cards[$o_card]['name'];
 		$newscardrare=$cards[$o_card]['rare'];
@@ -351,7 +352,7 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip=NULL)
 		}
 	}
 	//如果是篝火挑战者，或者别的会换卡的卡，在这里把$card换回原卡，就能做到入场后按篝火判定，但显示的是实际的卡
-	if(isset($o_card) && \skillbase\skill_query(1003,$pp)) {
+	if(isset($o_card)) {
 		//\skillbase\skill_setvalue(1003,'actual_card',$card,$pp);
 		$pp['card'] = $o_card;
 	}

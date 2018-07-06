@@ -17,7 +17,9 @@ namespace scpdrink
 			if ($itm == '装有H173的注射器') {
 				$log .= '你考虑了一会，<br>把袖子卷了起来，给自己注射了H173。<br>';
 				$deathdice = rand ( 0, 8191 );
-				if ($deathdice == 8191 || $club == 15) {
+				if ($club == 15){
+					$log .= '你的身体里已经充满了病毒，什么也没发生。<br>';
+				}elseif ($deathdice == 8191 || $club == 15) {
 					$log .= '你突然感觉到一种不可思议的力量贯通全身！<br>';
 					$wp = $wk = $wg = $wc = $wd = $wf = 3000;
 					$att = $def = 5000;

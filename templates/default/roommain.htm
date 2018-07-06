@@ -4,10 +4,13 @@
 	<td class="b3" height=40px colspan=2>
 	<span style="font-size:30px; line-height:40px;">房间{$room_id}&nbsp;-&nbsp; <!--{eval echo room_get_vars($roomdata, 'name');}--></span>
 	<!--{if $upos==0}-->
-	<div style="position:absolute; top:14px; left: 550px;">
+	<div style="position:absolute; top:14px; right: 120px;">
 		<div class="glow_buttons" onclick="bubblebox_show('persistent-rmeditbox');">修改模式</div>
 	</div>
 	<!--{/if}-->
+	<div style="position:absolute; top:14px; right: 16px;">
+		<div class="glow_buttons red" onclick="$('command').value='leave';postCmd('roomcmd','roomcmd.php');">离开房间</div>
+	</div>
 	</td>
 </tr>
 <tr>
@@ -39,20 +42,17 @@
 	</td>
 </tr>
 <tr>
-	<td class="b3" height=7px>
-	</td>
-	<td class="b3" rowspan=3>
-		<div class="glow_buttons" onclick="$('command').value='leave';postCmd('roomcmd','roomcmd.php');">离开房间</div>
+	<td class="b3" height=7px colspan=2>
 	</td>
 </tr>
 <tr>
-	<td class="b3" height=20px>
+	<td class="b3" height=20px colspan=2>
 	<span style="20px" id="room_banner">
 	<!--{if $roomdata['readystat']!=1}-->
 		<!--{if $upos == -1}-->
 		<span class="yellow b">请点击一个空位置以进入。</span>
 		<!--{else}-->
-		请等待人满后点击“准备”按钮。点击一个空位置可以移动位置。
+		请等待人满后点击“准备”按钮。点击空位置可以移动到那里。
 		<!--{/if}-->
 	<!--{else}-->
 		<!--{eval $kicktimeleft = $roomdata['kicktime']-time()+1;}-->
@@ -70,7 +70,7 @@
 	</td>
 </tr>
 <tr>
-	<td height=15px colspan=5>
+	<td height=15px colspan=2>
 	</td>
 </tr>
 <tr>

@@ -247,6 +247,9 @@ skill496,extra/card/skills/skill496/,1
 skill506,extra/card/skills/skill506/,1
 skill511,extra/card/skills/skill511/,1
 skill515,extra/card/skills/skill515/,1
+skill516,extra/card/skills/skill516/,1
+club15,extra/club/clubs/club15/,1
+skill518,extra/card/skills/skill518/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
@@ -286,6 +289,7 @@ skill203,extra/club/skills/skill203/,1
 dualwep,base/weapon/dualwep/,1
 ammunition,base/items/ammunition/,1
 skill487,extra/card/skills/skill487/,1
+skill517,extra/card/skills/skill517/,1
 attrbase,extra/attr/attrbase/,1
 skill407,extra/card/skills/skill407/,1
 skill32,extra/club/skills/skill32/,1
@@ -312,7 +316,6 @@ ex_direct,extra/attr/ex_direct/,1
 ex_seckill,extra/attr/ex_seckill/,1
 ex_cursed,extra/attr/ex_cursed/,1
 ex_def_down,extra/attr/ex_def_down/,1
-ex_mhp_temp_up,extra/attr/ex_mhp_temp_up/,1
 skill33,extra/club/skills/skill33/,1
 tactic,base/tactic/,1
 wepchange,extra/attr/wepchange/,1
@@ -365,6 +368,7 @@ skill513,extra/card/skills/skill513/,1
 weather,base/weather/,1
 npcinfo,extra/misc/npcinfo/,1
 skill502,extra/card/skills/skill502/,1
+ex_mhp_temp_up,extra/attr/ex_mhp_temp_up/,1
 cooldown,base/cooldown/,1
 item_misc,base/items/item_misc/,1
 skill458,extra/card/skills/skill458/,1

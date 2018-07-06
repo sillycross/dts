@@ -7,6 +7,10 @@ carderrmsg = <!--{eval if (isset($card_error)) echo json_encode($card_error); el
 isShowAll = 0;
 current_pack = $current_pack;
 chosen_card_id = $chosencard;
+nowsearch = '';
+nowsearchid = 0;
+searchresult = new Array();
+packlist_rev=<!--{eval echo json_encode(array_flip($packlist));}-->;
 cardinfo=<!--{eval echo json_encode($cards);}-->;
 handleShowCardMouseOver = function(id) 
 { 
@@ -30,6 +34,8 @@ handleShowCardMouseClick = function(id)
 	jQuery('#cardbg'+chosen_card_id+'-0').attr('src','img/cardbg-selected.png');
 	if ($hideDisableButton == 1) jQuery('#cardbg'+chosen_card_id+'-1').attr('src','img/cardbg-selected.png');
 	if (jQuery('#cardUnavailableHint')) jQuery('#cardUnavailableHint').html('');
+	var packid; packid = parseInt(packlist_rev[cardinfo[id]['pack']]);
+	if(current_pack != packid) handleCardPackMouseClick(packid);
 }
 handleCardPackMouseClick = function(id) 
 {
@@ -60,21 +66,51 @@ handleShowCardErrorMouseOut = function()
 {
 	$('cardErrMsg').style.display="none";
 }
+cardSearchInit = function()
+{
+	var s = jQuery('#cardsearch_input').val().toString();
+	if(!s) return;
+	if(s != nowsearch){
+		nowsearch = s;
+		nowsearchid = 0;
+		searchresult = new Array();
+		for(var ci in cardinfo){
+			if(unicode_to_chinese(cardinfo[ci]['name']).match(s) || unicode_to_chinese(cardinfo[ci]['effect']).match(s)){
+				if(jQuery('#carderr'+ci).length == 0)
+					searchresult.push(ci);
+			}
+		}
+		if(searchresult.length > 0)	{
+			handleShowCardMouseClick(searchresult[0]);
+			jQuery('#cardsearch_feedback')[0].innerHTML='第'+1+'/'+searchresult.length+'个结果';
+		}else {
+			jQuery('#cardsearch_feedback')[0].innerHTML='没有搜索结果';
+		}
+	}else{
+		if(nowsearchid < searchresult.length - 1) nowsearchid ++;
+		else nowsearchid = 0;
+		handleShowCardMouseClick(searchresult[nowsearchid]);
+		jQuery('#cardsearch_feedback')[0].innerHTML='第'+(nowsearchid+1)+'/'+searchresult.length+'个结果';
+	}
+}
 </script>
+<div>
+	<input type="text" id="cardsearch_input" size="20">&nbsp;&nbsp;&nbsp;
+	<input type="button" class="b_button bc_black" value="搜索/下一个" onclick="cardSearchInit()">&nbsp;&nbsp;&nbsp;
+	<span id="cardsearch_feedback" class="yellow"></span>
+</div>
 <div style="height:320px; width:1125px; margin:auto">
 <div style="display:inline-block; height:320px; width:160px; vertical-align:top;">
 	<div style="height:10px;"></div>
 	<!--{eval $packid=-1;}-->
 	<!--{loop $packlist $cardpack}-->
 		<!--{eval $packid++;}-->
-		<div style="position:relative; height:40px; width:160px;">
-			<div style="position:absolute; left:0px; top:0px;">
-				<img id="cardpackbg$packid" src="<!--{if $packid==$current_pack}-->img/cardpack-selected.png<!--{else}-->img/cardpack.png<!--{/if}-->">
-			</div>
-			<div style="position:absolute; right:5px; top:5px;">
+		<div class="cardpack_bar">
+			<img class="cardpack_bg" id="cardpackbg$packid" src="<!--{if $packid==$current_pack}-->img/cardpack-selected.png<!--{else}-->img/cardpack.png<!--{/if}-->">
+			<div class="cardpack_cnt">
 				$cardpack
 			</div>
-			<div style="position:absolute; left:0px; top:0px; height:40px; width:160px; cursor:pointer;" onmousedown="handleCardPackMouseClick($packid);">
+			<div class="cardpack_czone" onmousedown="handleCardPackMouseClick($packid);">
 			</div>
 		</div>
 	<!--{/loop}-->
@@ -98,40 +134,38 @@ handleShowCardErrorMouseOut = function()
 										<!--{eval $carddisabled = in_array($cardid, array_keys($card_disabledlist));}-->
 										<!--{if !$hideDisableButton || $carddisabled==$disableValue}-->
 											<!--{if $row==0}-->
-											</div><div style="display:inline-block; width:175px; vertical-align:top;">
+											</div><div class="card_row">
 											<!--{/if}-->
 											<!--{eval if (!$carddisabled) $flag=2;}-->
 											<!--{eval if ($carddisabled && ($last==-1 || $t['rare']!=$cards[$last]['rare'])) $flag=1;}-->
 											<!--{eval $cardname=$t['name'];}-->
 											<!--{eval $cl=$card_rarecolor[$cardrank];}-->
 											<!--{eval if ($carddisabled) $cl.='Disabled';}-->
-											<div style="height:25px; width:170px; <!--{if !$carddisabled}-->cursor:pointer;<!--{/if}-->">
-												<div style="position:absolute; top:0px; left:0px;">
-												<img src=<!--{if !$carddisabled}-->"img/cardborder-$cardrank.png"<!--{else}-->"img/cardborder-$cardrank-disabled-1.png"<!--{/if}-->>
-												</div>
-												<div style="position:absolute; top:0px; left:0px;">
-												<img id="cardbg$cardid-$showDisableVal" src=<!--{if $chosencard==$cardid && !$carddisabled}-->"img/cardbg-selected.png"<!--{else}-->"img/cardbg.png"<!--{/if}-->>
-												</div>
-												<div style="position:absolute; top:4px; left:5px;" >
-												<span class="$cl">{$t['rare']} $cardname</span>
+											<div class="card_bar<!--{if !$carddisabled}--> pt<!--{/if}-->">
+												<img class="card_bg" src=<!--{if !$carddisabled}-->"img/cardborder-$cardrank.png"<!--{else}-->"img/cardborder-$cardrank-disabled-1.png"<!--{/if}-->>
+												<img class="card_bg" id="cardbg$cardid-$showDisableVal" src=<!--{if $chosencard==$cardid && !$carddisabled}-->"img/cardbg-selected.png"<!--{else}-->"img/cardbg.png"<!--{/if}-->>
+												<div class="card_name">
+													<span class="$cl">{$t['rare']} $cardname</span>
 												</div>
 												<!--{if !$carddisabled}--> 
-												<div style="position:absolute; top:0px; left:0px; height:25px; width:170px;"
+												<div class="card_czone"
 													onmouseover="handleShowCardMouseOver($cardid);" 
 													onmouseout="handleShowCardMouseOut($cardid);" 
-													onmousedown="handleShowCardMouseClick($cardid);"></div>
+													onmousedown="handleShowCardMouseClick($cardid);">
+												</div>
 												<!--{else}-->
-												<div id="carderr$cardid" style="position:absolute; top:0px; left:0px; height:25px; width:170px;"
+												<div id="carderr$cardid" class="card_err"
 													title="
 													<!--{loop $card_disabledlist[$cardid] $cdlv}-->
 													$card_error[$cdlv]<br>
 													<!--{/loop}-->
-													"></div>
+													">
+												</div>
 												<!--{/if}-->
 											</div>
 											<!--{eval $row=$row+1; $last=$cardid;}-->
 											<!--{if $row==12}-->
-											<!--{eval $row=0; $flag=1; }-->
+												<!--{eval $row=0; $flag=1; }-->
 											<!--{/if}-->
 										<!--{/if}-->
 									<!--{/if}-->

@@ -75,7 +75,9 @@ input {cursor: crosshair;}
 rt{
 	font-size:9px; 
 	font-weight:normal;
+	transform-origin-y: bottom;
   -webkit-transform-origin-y: bottom;
+  transform: scale(0.80);
   -webkit-transform: scale(0.80);
 }
 
@@ -108,7 +110,7 @@ table.admin td.tdtitle {
 
 .Disabled{opacity:0.7;}
 
-
+/*==========各种颜色==========*/
 .black{color:#000000; }
 .yellow{color:#ffff00;}
 .orange{color:#ff9900; }
@@ -135,6 +137,7 @@ table.admin td.tdtitle {
 .linen{color:rgb(200,192,184);}
 .L5{color: #ff0000;background:url("../../img/backround4.gif") repeat-x;}
 
+/*==========杂项界面==========*/
 #main {
 white-space:nowrap;
 vertical-align:middle;
@@ -176,30 +179,6 @@ border-bottom: #ddc 2px solid;
 #log{
 	line-height:15px;
 }
-
-#storyboard_container {
-	background-color:rgba(17,17,17,0.5);
-}
-
-#storyboard_control {
-	position:relative;
-}
-
-#storyboard_control input.cmdbutton{
-	width:120px;height:25px;margin:2;
-}
-
-#shootings_container{
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.shootings {
-	text-align:center;
-	display:none;
-}
-
 .footerline {
 height: 1px;
 background-image: url("../../img/footer_line.gif");
@@ -229,7 +208,32 @@ div#loading{
 	BACKGROUND: #000;filter:alpha(opacity=50); opacity:0.5;
 	background-image: url("../../img/loading.gif");background-repeat: no-repeat;background-position:center;background-attachment: fixed;
 }
+/*==========剧情分镜==========*/
+#storyboard_container {
+	background-color:rgba(17,17,17,0.5);
+}
 
+#storyboard_control {
+	position:relative;
+}
+
+#storyboard_control input.cmdbutton{
+	width:120px;height:25px;margin:2;
+}
+
+#shootings_container{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.shootings {
+	text-align:center;
+	display:none;
+}
+
+
+/*==========技能==========*/
 div.skill_unacquired
 {
 	position:relative; left:0px; top:0px; 
@@ -252,11 +256,69 @@ div.skill_unacquired_hint_transparent
 	background-color:#000000; 
 	filter:alpha(opacity=0.1); -moz-opacity:0.1; opacity:0.1; -khtml-opacity: 0.1;
 }
+/*==========卡片==========*/
 .lockcard
 {
 	filter:alpha(opacity=0.55); -moz-opacity:0.55;opacity: 0.55;
 }
-
+div.cardpack_bar{
+	position:relative;
+	height:40px;
+	width:160px;
+}
+div.cardpack_bar img.cardpack_bg{
+	position:absolute;
+	left:0px;
+	top:0px;
+}
+div.cardpack_bar div.cardpack_cnt{
+	position:absolute;
+	right:5px;
+	top:8px;
+}
+div.cardpack_bar div.cardpack_czone{
+	position:absolute;
+	left:0px;
+	top:0px;
+	height:40px;
+	width:160px;
+	cursor:pointer;
+}
+div.card_row{
+	display:inline-block;
+	width:175px;
+	vertical-align:top;
+}
+div.card_bar{
+	height:25px;
+	width:170px;
+}
+div.pt{cursor:pointer;}
+div.card_bar img.card_bg{
+	position:absolute;
+	top:0px; 
+	left:0px;
+}
+div.card_bar div.card_name{
+	position:absolute;
+	top:4px;
+	left:4px;
+}
+div.card_bar div.card_czone{
+	position:absolute;
+	top:0px;
+	left:0px;
+	height:25px;
+	width:170px;
+}
+div.card_bar div.card_err{
+	position:absolute;
+	top:0px;
+	left:0px;
+	height:25px;
+	width:170px;
+}
+/*==========进度条==========*/
 #progressbar-border
 {
 	width:100%;
@@ -280,7 +342,7 @@ div.skill_unacquired_hint_transparent
 	color: #ffffff;
 	top: -16px; 
 }
-
+/*==========对话气泡==========*/
 .dialogue-bubble-container{ 
 	position: absolute;
 	z-index:5;
@@ -327,7 +389,7 @@ div.skill_unacquired_hint_transparent
 .dialogue-bubble.fade:hover{
 	opacity:1.0;filter:alpha(opacity=100);
 }
-
+/*==========动画效果==========*/
 .Pulse{
 	-webkit-animation-name: brightPulse; -webkit-animation-duration: 2s;-webkit-animation-iteration-count: infinite; 
 }
