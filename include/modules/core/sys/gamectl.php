@@ -397,8 +397,8 @@ namespace sys
 				$gudata['gold'] += gameover_get_gold_up($val,$winner,$winmode);
 				//伐木不算参与次数
 				if($gametype != 15) $gudata['validgames']+= 1;
-				//非伐木房的幸存、解禁、解离、核爆才算获胜次数
-				if($gametype != 15 && in_array($winmode, array(2, 3, 5, 7)) && $key == $winner) {
+				//非伐木房的幸存、解禁、解离、核爆，或者除错局，才算获胜次数
+				if((($gametype != 15 && in_array($winmode, array(2, 3, 5, 7))) || $gametype == 1) && $key == $winner) {
 					$gudata['wingames'] += 1;
 					$gudata['lastwin'] = $now;
 				}

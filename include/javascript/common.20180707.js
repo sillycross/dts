@@ -186,3 +186,9 @@ function floating_hint()
 		}
 	});
 }
+
+//unicode转中文
+function unicode_to_chinese(str)
+{
+	return unescape(str.replace(/\\u/g, '%u'));
+}
