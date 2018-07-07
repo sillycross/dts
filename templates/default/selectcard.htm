@@ -87,6 +87,7 @@ cardSearchInit = function()
 			jQuery('#cardsearch_feedback')[0].innerHTML='没有搜索结果';
 		}
 	}else{
+		if(searchresult.length <= 0) return;
 		if(nowsearchid < searchresult.length - 1) nowsearchid ++;
 		else nowsearchid = 0;
 		handleShowCardMouseClick(searchresult[nowsearchid]);
