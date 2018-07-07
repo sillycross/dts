@@ -16,8 +16,12 @@ namespace ex_cursed
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(in_array('O',\itemmain\get_itmsk_array($itmsk))){
 			eval(import_module('logger'));
-			$log .= '<span class="red b">摆脱这个装备的诅咒是不可能的。</span><br>';
-			return false;
+			if(check_enkan()) {
+				$log .= '<span class="lime b">圆环之理的光辉暂时消解了装备的诅咒。</span><br>';
+			}else{
+				$log .= '<span class="red b">摆脱这个装备的诅咒是不可能的。</span><br>';
+				return false;
+			}
 		}
 		return $chprocess($itm, $itmk, $itme, $itms, $itmsk);
 	}
@@ -27,8 +31,12 @@ namespace ex_cursed
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(in_array('O',\itemmain\get_itmsk_array($itmsk))){
 			eval(import_module('logger'));
-			$log .= '<span class="red b">摆脱这个装备的诅咒是不可能的。</span><br>';
-			return false;
+			if(check_enkan()) {
+				$log .= '<span class="lime b">圆环之理的光辉暂时消解了装备的诅咒。</span><br>';
+			}else{
+				$log .= '<span class="red b">摆脱这个装备的诅咒是不可能的。</span><br>';
+				return false;
+			}
 		}
 		return $chprocess($itm, $itmk, $itme, $itms, $itmsk);
 	}
@@ -49,12 +57,31 @@ namespace ex_cursed
 			elseif(strpos ( $itmk, 'DF' ) === 0) $obj = 'arf';
 			elseif(strpos ( $itmk, 'A' ) === 0) $obj = 'art';
 			if(in_array('O',\itemmain\get_itmsk_array(${$obj.'sk'}))){
-				$log .= '<span class="red b">摆脱这个装备的诅咒是不可能的。</span><br>';
-				return;
+				if(check_enkan()) {
+					$log .= '<span class="lime b">圆环之理的光辉暂时消解了装备的诅咒。</span><br>';
+				}else{
+					$log .= '<span class="red b">摆脱这个装备的诅咒是不可能的。</span><br>';
+					return;
+				}
 			}
 		}
 		$chprocess($theitem);
 	}
+	
+	//恶趣味，装备或者包裹里有破则的时候，诅咒暂时失效
+	function check_enkan(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player','itemmain','armor'));
+		$flag = 0;
+		foreach(array_merge( Array('wep'), array_merge($item_equip_list, $armor_equip_list)) as $v){
+			if(strpos(${$v}, '概念武装『破则』')!==false){
+				$flag = 1;
+				break;
+			}
+		}
+		return $flag;
+	}
 }
+
 
 ?>
