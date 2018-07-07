@@ -43,7 +43,7 @@ namespace team
 			$mode = 'command';
 			return;
 		}
-		if($tID == $noitm) {
+		if($tID == $noitm || $tID == 'all') {//all保留字
 			$log .= '队伍名不能为<span class="red b">'.$tID.'</span>，请重新输入。<br>';
 			$mode = 'command';
 			return;

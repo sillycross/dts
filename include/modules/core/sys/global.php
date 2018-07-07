@@ -229,7 +229,11 @@ namespace sys
 		eval(import_module('sys', 'input'));
 
 		$limit = $limit ? $limit : $chatlimit;
-		$result = $db->query("SELECT * FROM {$ctablepre}chat WHERE cid>'$last' AND (recv='' OR (type='1' AND recv='$team') OR (type!='1' AND recv='$chatpid')) ORDER BY cid desc LIMIT $limit");
+		
+		if('all' == $team)
+			$result = $db->query("SELECT * FROM {$ctablepre}chat WHERE cid>'$last' ORDER BY cid desc LIMIT $limit");
+		else
+			$result = $db->query("SELECT * FROM {$ctablepre}chat WHERE cid>'$last' AND (recv='' OR (type='1' AND recv='$team') OR (type!='1' AND recv='$chatpid')) ORDER BY cid desc LIMIT $limit");
 		
 		if(!$db->num_rows($result)){$chatdata = array('lastcid' => $last, 'msg' => array());return $chatdata;}
 		
