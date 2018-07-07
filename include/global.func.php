@@ -473,8 +473,8 @@ function filelist_achieve($objfile, $filelist)
 		foreach($filelist as $fv){
 			$filename = pathinfo($fv, PATHINFO_BASENAME);
 			//$exname = pathinfo($fv, PATHINFO_EXTENSION);
-			$filedata = gzencode(file_get_contents($fv));//二进制
-			//结构：文件名;长度;二进制内容;
+			$filedata = base64_encode(gzencode(file_get_contents($fv)));
+			//结构：文件名;长度;base64内容;
 			file_put_contents($objfile, $filename.';'.strlen($filedata).';'.$filedata, FILE_APPEND);
 		}
 		return $objfile;
@@ -506,7 +506,7 @@ function filelist_unachieve($srcfile)
 			$tmp = explode(';', substr($str,0,-1));
 			$cntsize = array_pop($tmp);
 			$filename = implode(';', $tmp);
-			$cnt = mgzdecode(file_get_contents($srcfile,NULL,NULL,$offset,$cntsize));
+			$cnt = mgzdecode(base64_decode(file_get_contents($srcfile,NULL,NULL,$offset,$cntsize)));
 			if(!$cnt) $ret = 2;
 			file_put_contents($srcpath.'/'.$filename, $cnt);
 			$offset += $cntsize;
@@ -518,9 +518,8 @@ function filelist_unachieve($srcfile)
 }
 
 function fold($objfile, $filelist){
-	return fold_core($objfile, $filelist);
-	//在录像远程改成传二进制文件之前，不能启用这个
-	//return filelist_achieve($objfile, $filelist);
+	//return fold_core($objfile, $filelist);
+	return filelist_achieve($objfile, $filelist);
 }
 
 function unfold($srcfile){
