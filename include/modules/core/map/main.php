@@ -35,7 +35,7 @@ namespace map
 	}
 	
 	//非禁区域列表。如果$no_dangerous_zone开启，则再排除掉SCP、英灵殿等危险地区
-	function get_safe_plslist($no_dangerous_zone = true){
+	function get_safe_plslist($no_dangerous_zone = true, $type = 0){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		eval(import_module('sys','map'));
 		if($areanum+1 > sizeof($arealist)) return array();
