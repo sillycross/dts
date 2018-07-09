@@ -1,4 +1,5 @@
-﻿div.glow_buttons {
+﻿.glow_buttons {
+	background-color:transparent;
 	width:70px;
 	height:20px;
 	margin:auto;
@@ -14,64 +15,64 @@
 	line-height:20px;
 }
 
-div.glow_buttons.w35{width:35px;}
-div.glow_buttons.w115{width:115px;}
-div.glow_buttons.w125{width:125px;}
-div.glow_buttons.w140{width:140px;}
-div.glow_buttons.h15{height:15px;line-height:15px;}
-div.glow_buttons.h25{height:25px;line-height:25px;}
-div.glow_buttons.h30{height:30px;line-height:30px;}
-div.glow_buttons.h50{height:50px;line-height:50px;}
+.glow_buttons.w35{width:35px;}
+.glow_buttons.w115{width:115px;}
+.glow_buttons.w125{width:125px;}
+.glow_buttons.w140{width:140px;}
+.glow_buttons.h15{height:15px;line-height:15px;}
+.glow_buttons.h25{height:25px;line-height:25px;}
+.glow_buttons.h30{height:30px;line-height:30px;}
+.glow_buttons.h50{height:50px;line-height:50px;}
 
-div.glow_buttons span{
+.glow_buttons span{
 	line-height:20px;
 }
 
-div.glow_buttons:hover {
+.glow_buttons:hover {
 	-webkit-box-shadow: 0 0 12px #fff;
 	        box-shadow: 0 0 12px #fff;
 }
 
-div.glow_buttons.yellow:hover {
+.glow_buttons.yellow:hover {
 	-webkit-box-shadow: 0 0 18px #ff0;
 	        box-shadow: 0 0 18px #ff0;
 }
 
-div.glow_buttons.red:hover {
+.glow_buttons.red:hover {
 	-webkit-box-shadow: 0 0 18px #f00;
 	        box-shadow: 0 0 18px #f00;
 }
 
-div.glow_buttons.cyan:hover {
+.glow_buttons.cyan:hover {
 	-webkit-box-shadow: 0 0 18px #0ff;
 	        box-shadow: 0 0 18px #0ff;
 }
 
-div.glow_buttons.lime:hover {
+.glow_buttons.lime:hover {
 	-webkit-box-shadow: 0 0 18px #0f0;
 	        box-shadow: 0 0 18px #0f0;
 }
 
-div.glow_buttons.grey:hover {
+.glow_buttons.grey:hover {
 	-webkit-box-shadow: 0 0 18px #999;
 	        box-shadow: 0 0 18px #999;
 }
 
-div.glow_buttons.darkgrey:hover {
+.glow_buttons.darkgrey:hover {
 	-webkit-box-shadow: 0 0 18px #666;
 	        box-shadow: 0 0 18px #666;
 }
 
-div.glow_buttons.evergreen:hover {
+.glow_buttons.evergreen:hover {
 	-webkit-box-shadow: 0 0 18px #98fb98;
 	        box-shadow: 0 0 18px #98fb98;
 }
 
-div.glow_buttons.forbidden{
+.glow_buttons.forbidden{
 	cursor:crosshair;
 }
 
-div.glow_buttons.forbidden:hover{
+.glow_buttons.forbidden:hover{
 	-webkit-box-shadow: none;
 	        box-shadow: none;
 }

@@ -135,6 +135,8 @@ if($mode == 'enter') {
 	if(!empty($d_achievements['326'])) $card_achieved_list = $d_achievements['326'];
 	
 	$showCardUnavailableHint = 1;
+	
+	$no_select = (0 == $gametype || 1 == $gametype) ? 1 : 0;
 	include template('valid');
 }
 

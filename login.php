@@ -49,8 +49,8 @@ if(empty($userdata)) {
 //重设IP
 update_udata_by_username(array('ip' => $onlineip), $username);
 
-gsetcookie('user',$userdata['username']);
-gsetcookie('pass',$password);
+gsetcookie('user',$userdata['username'],86400*15);
+gsetcookie('pass',$password,86400*15);
 //重新登陆之后房间设为0
 set_current_roomid(0);
 
