@@ -87,6 +87,7 @@ cardSearchInit = function()
 			jQuery('#cardsearch_feedback')[0].innerHTML='没有搜索结果';
 		}
 	}else{
+		if(searchresult.length <= 0) return;
 		if(nowsearchid < searchresult.length - 1) nowsearchid ++;
 		else nowsearchid = 0;
 		handleShowCardMouseClick(searchresult[nowsearchid]);
@@ -94,10 +95,11 @@ cardSearchInit = function()
 	}
 }
 </script>
-<div>
+<div <!--{if !empty($no_select)}-->style="display:none"<!--{/if}-->>
 	<input type="text" id="cardsearch_input" size="20">&nbsp;&nbsp;&nbsp;
 	<input type="button" class="b_button bc_black" value="搜索/下一个" onclick="cardSearchInit()">&nbsp;&nbsp;&nbsp;
-	<span id="cardsearch_feedback" class="yellow"></span>
+	<div style="display:inline-block;width:90px" id="cardsearch_feedback" class="yellow">
+	</div>
 </div>
 <div style="height:320px; width:1125px; margin:auto">
 <div style="display:inline-block; height:320px; width:160px; vertical-align:top;">

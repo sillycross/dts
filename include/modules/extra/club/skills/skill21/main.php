@@ -4,7 +4,7 @@ namespace skill21
 {
 	function init() 
 	{
-		define('MOD_SKILL21_INFO','club;hidden;');
+		define('MOD_SKILL21_INFO','club;hidden;feature;');
 	}
 	
 	function acquire21(&$pa)

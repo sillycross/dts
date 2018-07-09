@@ -62,6 +62,16 @@ namespace npc
 		return $npc;
 	}
 	
+	//非禁区域列表。
+	//type=1:重要NPC（女主）额外回避雏菊、圣G、冰封
+	function get_safe_plslist($no_dangerous_zone = true, $type = 0){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		$ret = $chprocess($no_dangerous_zone, $type);
+		if($no_dangerous_zone && 1 == $type)
+			$ret = array_diff($ret, array(21,26,33));
+		return $ret;
+	}
+	
 	function init_npcdata_skills(&$npc)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
@@ -102,6 +112,8 @@ namespace npc
 			$ninfo = get_npclist();
 			//生成非禁区列表（不含英灵殿）
 			$pls_available = \map\get_safe_plslist();
+			//女主等重要NPC的特殊禁区列表
+			$pls_available2 = \map\get_safe_plslist(1, 1);
 			//外循环：type，编号可以不连续
 			foreach ($ninfo as $i => $npcs){
 				if(!empty($npcs)) {
@@ -132,8 +144,10 @@ namespace npc
 						//类型和编号，放进初始化函数有点蠢
 						$npc['type'] = $i;
 						$npc['sNo'] = $j;
+						//选择所用地图列表
+						$tmp_pls_available = 14 == $i ? $pls_available2 : $pls_available;
 						//初始化函数
-						$npc = init_npcdata($npc, $pls_available);
+						$npc = init_npcdata($npc, $tmp_pls_available);
 						//writeover('a.txt',json_encode($npc['nskillpara']));
 //						$npc['endtime'] = $now;
 //						$npc['hp'] = $npc['mhp'];

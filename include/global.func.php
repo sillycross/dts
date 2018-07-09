@@ -464,8 +464,73 @@ function copy_dir($source, $destination, $filetype='')		//递归复制目录
 	}
 }
 
-//创建打包文件，先用gencode凑合
+//多文件压缩合并成单个文件。
+//挨个读文件并写入，避免撑满内存
+function filelist_achieve($objfile, $filelist)
+{
+	if(!empty($filelist)){
+		file_put_contents($objfile, '');
+		foreach($filelist as $fv){
+			$filename = pathinfo($fv, PATHINFO_BASENAME);
+			//$exname = pathinfo($fv, PATHINFO_EXTENSION);
+			$filedata = base64_encode(gzencode(file_get_contents($fv)));
+			//结构：文件名;长度;base64内容;
+			file_put_contents($objfile, $filename.';'.strlen($filedata).';'.$filedata, FILE_APPEND);
+		}
+		return $objfile;
+	}else{
+		return false;
+	}
+}
+
+//在该文件目录展开压缩的文件。
+function filelist_unachieve($srcfile)
+{
+	$srcpath = pathinfo($srcfile, PATHINFO_DIRNAME);
+	$ret = 0;
+	$offset = $flag1 = $flag2 = 0;
+	$str = ''; 
+	$file_size = filesize($srcfile);
+	while($offset < $file_size){
+		if(!$flag1 || !$flag2){
+			$cnt = file_get_contents($srcfile,NULL,NULL,$offset,1);
+			if(';' == $cnt && $flag1){
+				$flag2 = 1;
+				$ret = 1;
+			} elseif(is_numeric($cnt) && ';' == substr($str,strlen($str)-2,1)) {
+				$flag1 = 1;
+			}
+			$str .= $cnt;
+			$offset ++;
+		}else{
+			$tmp = explode(';', substr($str,0,-1));
+			$cntsize = array_pop($tmp);
+			$filename = implode(';', $tmp);
+			$cnt = mgzdecode(base64_decode(file_get_contents($srcfile,NULL,NULL,$offset,$cntsize)));
+			if(!$cnt) $ret = 2;
+			file_put_contents($srcpath.'/'.$filename, $cnt);
+			$offset += $cntsize;
+			$str = '';
+			$flag1 = $flag2 = 0;
+		}
+	}
+	return $ret;
+}
+
 function fold($objfile, $filelist){
+	//return fold_core($objfile, $filelist);
+	return filelist_achieve($objfile, $filelist);
+}
+
+function unfold($srcfile){
+	$tmp = file_get_contents($srcfile,NULL,NULL,0,64);
+	//如果前64个字符里没有分号则是旧版
+	if(strpos($tmp,';')===false) return unfold_core($srcfile);
+	else return filelist_unachieve($srcfile);
+}
+	
+//创建打包文件，使用gencode的旧版本
+function fold_core($objfile, $filelist){
 	if(!empty($filelist)){
 		$filedata = array();
 		foreach($filelist as $fv){
@@ -482,8 +547,8 @@ function fold($objfile, $filelist){
 	}
 }
 
-//在该文件目录展开打包文件，先用gdecode凑合
-function unfold($srcfile){
+//在该文件目录展开打包文件，使用gdecode的旧版本
+function unfold_core($srcfile){
 	$srcpath = pathinfo($srcfile, PATHINFO_DIRNAME);
 	$filedata = file_get_contents($srcfile);
 	$filedata = gdecode($filedata, 1);
