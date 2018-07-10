@@ -20,11 +20,11 @@
 					<span id="cname">$nowcard['name']</span>
 				<!--{/if}-->
 			</div>
-			<div class="card_frame_inner" style="height:140px;margin-top:3px">
+			<div class="card_frame_inner" style="height:<!--{if !empty($nowcard['bigdesc'])}-->200px<!--{else}-->140px<!--{/if}-->;margin-top:3px">
 				<span id="cdesc" style="max-width:225px">$nowcard['desc']</span>
 				<span class="watermark">COMMENT</span>
 			</div>
-			<div class="card_frame_inner" style="height:100px">
+			<div class="card_frame_inner" style="height:<!--{if !empty($nowcard['bigdesc'])}-->40px<!--{else}-->100px<!--{/if}-->">
 				<span id="ceffect">$nowcard['effect']</span>
 				<span class="watermark">EFFECT</span>
 			</div>

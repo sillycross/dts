@@ -25,24 +25,24 @@ body {
 	font: 12px Tahoma, Verdana;
 	cursor: crosshair;
 }
-a {font:bold 10pt/16px "微软雅黑";text-decoration: none;color: #ddd; cursor: crosshair}
+a {font:bold 10pt/16px "微软雅黑","黑体";text-decoration: none;color: #ddd; cursor: crosshair}
 a:hover {color: #98fb98;text-decoration:underline}
-h2 {font-family: "微软雅黑";}
-h3 {font-family: "微软雅黑";}
-table {align:center;border: 0px;}
-tr {font:10pt "微软雅黑"; margin: 0px;}
-td {font:10pt "微软雅黑"; margin: 0px;}
-th {font:10pt "微软雅黑"; margin: 0px;}
-div {font-family:"微软雅黑";}
-span {font:10pt/16px "微软雅黑";}
+h2 {font-family: "微软雅黑","黑体";}
+h3 {font-family: "微软雅黑","黑体";}
+table {align:center;border: 0px;font:10pt "微软雅黑","黑体";}
+tr {margin: 0px;}
+td {margin: 0px;}
+th {margin: 0px;}
+div {font-family:"微软雅黑","黑体";}
+span {font:10pt/16px "微软雅黑","黑体";}
 .long-list span {line-height:18px}
-p {font:10pt/14pt "微软雅黑";}
-li {font:bold 10pt/16px "微软雅黑";}
+p {font:10pt/14pt "微软雅黑","黑体";}
+li {font:bold 10pt/16px "微软雅黑","黑体";}
 
 input {cursor: crosshair;}
 .b {font-weight:bold;}
-.title {font: 900 30px/32px "微软雅黑"; margin: 6px;color: #cceafa; width: 100%;filter:blur(add=1,direction=90,strength=12):glow(strength=5,color=gold); text-decoration:underline;}
-.subtitle {font: bold 24px/32px "微软雅黑";margin: 6px;color: #cceafa; width: 100%;}
+.title {font: 900 30px/32px "微软雅黑","黑体"; margin: 6px;color: #cceafa; width: 100%;filter:blur(add=1,direction=90,strength=12):glow(strength=5,color=gold); text-decoration:underline;}
+.subtitle {font: bold 24px/32px "微软雅黑","黑体";margin: 6px;color: #cceafa; width: 100%;}
 .headerlink{}
 .small {font-size: 9pt}
 .ver a{font:10pt "Viner Hand ITC","隶书";color:#ff0000;}

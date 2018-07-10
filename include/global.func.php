@@ -722,8 +722,9 @@ function gurl(){
 //----------------------------------------
 
 function getmicrotime(){
-	list($usec, $sec) = explode(" ",microtime());
-	return ((float)$usec + (float)$sec);
+	return microtime(1);
+//	list($usec, $sec) = explode(" ",microtime());
+//	return ((float)$usec + (float)$sec);
 }
 
 function putmicrotime($t_s, $t_e, $file, $info)

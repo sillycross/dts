@@ -105,6 +105,8 @@ skill418,extra/card/skills/skill418/,1
 skill52,extra/club/skills/skill52/,1
 skill71,extra/club/skills/skill71/,1
 skill414,extra/card/skills/skill414/,1
+skill519,extra/card/skills/skill519/,1
+skill520,extra/card/skills/skill520/,1
 skill446,extra/card/skills/skill446/,1
 skill447,extra/card/skills/skill447/,1
 skill453,extra/card/skills/skill453/,1
@@ -385,6 +387,7 @@ skill215,extra/club/skills/skill215/,1
 skill271,extra/club/skills/skill271/,1
 skill51,extra/club/skills/skill51/,1
 skill493,extra/card/skills/skill493/,1
+skill604,extra/club/skills/skill604/,1
 ex_gender_attr,extra/attr/ex_gender_attr/,1
 ex_attr_pierce,extra/attr/ex_attr_pierce/,1
 instance6,extra/instance/instance6/,1

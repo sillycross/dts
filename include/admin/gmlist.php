@@ -15,7 +15,7 @@ if($command == 'add') {
 		$cmd_info =  '权限设置错误！';
 	} else {
 		$newgm = fetch_udata_by_username($addname, 'uid,username,groupid');
-		if(empty($result)) { 
+		if(empty($newgm)) { 
 			$cmd_info =  '此账号不存在。'; 
 		} else {
 			if($newgm['groupid'] >1){
