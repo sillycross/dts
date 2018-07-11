@@ -2,7 +2,7 @@
 
 namespace skill519
 {
-	$skill519_cd = 600;//冷却时间，单位秒
+	$skill519_cd = 360;//冷却时间，单位秒
 	
 	function init() 
 	{

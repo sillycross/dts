@@ -3,7 +3,7 @@
 namespace skill520
 {
 	$skill520_factor = 50;
-	$skill520_debufftime = 60;
+	$skill520_debufftime = 180;
 	
 	function init() 
 	{
@@ -51,7 +51,7 @@ namespace skill520
 		if (\skillbase\skill_query(520,$pd) && check_unlocked520($pd))
 		{
 			eval(import_module('logger','skill520','sys'));	
-			$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow b"><:pa_name:>击杀<:pd_name:>的行为触怒了其身上寄宿着的超自然力量！</span><br>');	
+			$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="red b"><:pa_name:>击杀<:pd_name:>的行为触怒了其身上寄宿着的梦魇之力！</span><br>');	
 			//击杀者获得灾厄DEBUFF
 			\skillbase\skill_acquire(604,$pa);
 			\skillbase\skill_setvalue(604,'start',$now,$pa);

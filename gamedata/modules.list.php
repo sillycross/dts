@@ -490,6 +490,7 @@ activity_ranking,extra/activities/activity_ranking/,1
 aprilfool2018,extra/activities/aprilfool2018/main/,1
 skill367,extra/achievement/skills/skill367/,1
 skill368,extra/achievement/skills/skill368/,1
+skill369,extra/achievement/skills/skill369/,1
 searchmemory,extra/searchmemory/,1
 skill503,extra/card/skills/skill503/,1
 skill351,extra/achievement/skills/skill351/,1
