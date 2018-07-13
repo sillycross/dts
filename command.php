@@ -78,7 +78,9 @@ if ($___MOD_SRV)
 		}
 		if (socket_listen($___TEMP_socket,5)===false) __SOCKET_ERRORLOG__('socket_listen失败。'); 
 		
+		//以端口号为名创建文件夹，其中可能存在busy子文件夹以及start_time文件
 		mymkdir(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT);
+		touch(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT.'/start_time');
 		
 		//进入闲置状态
 		if (file_exists(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT.'/busy'))
@@ -327,6 +329,11 @@ if ($___MOD_SRV)
 		
 		__SOCKET_DEBUGLOG__('Client开始执行。');
 		
+		//最大执行时间的计算
+		$___TEMP_max_time = ini_get('max_execution_time');
+		if ($___TEMP_max_time == 0 || $___TEMP_max_time > $___MOD_SRV_MAX_EXECUTION_TIME) $___TEMP_max_time = $___MOD_SRV_MAX_EXECUTION_TIME;
+		elseif ($___TEMP_max_time < $___MOD_SRV_MIN_EXECUTION_TIME) $___TEMP_max_time = $___MOD_SRV_MIN_EXECUTION_TIME;
+		
 		$dirlist = gdir(GAME_ROOT.'./gamedata/tmp/server', 'dir');
 		if (NULL !== $dirlist) 
 		{
@@ -349,6 +356,11 @@ if ($___MOD_SRV)
 				$srvlist[]=$sid;
 				//进程忙碌，跳过
 				if (file_exists(GAME_ROOT.'./gamedata/tmp/server/'.((string)$sid).'/busy')) {
+					__SOCKET_LOG__("进程{$sid}忙碌，跳过。"); 
+					continue;
+				//该进程即将结束，跳过（比主动结束早10秒）
+				}elseif(time()-filemtime(GAME_ROOT.'./gamedata/tmp/server/'.((string)$sid).'/start_time')+$___MOD_SRV_WAKETIME+15>$___TEMP_max_time){
+					__SOCKET_LOG__("进程{$sid}即将结束，跳过。"); 
 					continue;
 				}
 				//不忙碌，选择之
