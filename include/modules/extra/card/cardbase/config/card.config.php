@@ -2805,7 +2805,7 @@ $cards = array(
 		)
 	),
 	181 => array(
-		'name' => '幽灵 帕比斯麦尔',
+		'name' => '幽灵 帕比丝麦尔',
 		'title' => '幽灵',
 		'rare' => 'S',
 		'pack' => 'Event Bonus',

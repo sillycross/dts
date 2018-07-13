@@ -25,7 +25,7 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip=NULL)
 	$killnum = $npckillnum = 0;
 	$lvl = 0;
 	$skillpoint = 0;
-	$exp = $areanum * 20;
+	$exp = 0;
 	$money = 20;
 	$rage = 0;
 	$pose = 3;
@@ -212,6 +212,9 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip=NULL)
 		}
 	}
 	///////////////////////////////////////////////////////////////
+	//禁区不为0时经验补偿移动到这里
+	$exp += $areanum * 20;
+	
 	$pdata = array(
 		'name' => $name,
 		'pass' => $pass,

@@ -162,19 +162,17 @@ $mixinfo = array
 	array('class' => 'item', 'stuff' => array('水','黑色雏菊','白色方块'),'result' => array('风祭河水','Y',1,1,'x'),),
 	array('class' => 'item', 'stuff' => array('水','黑色方块','白色雏菊'),'result' => array('仪水镜','Y',1,1,'x'),),
 	array('class' => 'item', 'stuff' => array('风祭河水','仪水镜','白色雏菊','黑色雏菊'),'result' => array('八咫镜','DH',1,1,'bx'),),
+	array('class' => 'item', 'stuff' => array('空白符卡','《魔女的魔导书》'),'result' => array('《魔导师速成攻略》','VF',233,'1',''),),
 	array('class' => 'item', 'stuff' => array('《チト的日记》','鱼罐头','【雨だれの歌】'),'result' => array('【More One Night】','ss',200,1,'h'),),
 	
 	array('class' => 'pokemon', 'stuff' => array('《小黄的草帽》','《小黄的钓鱼竿》','《小黄的行军靴》'),'result' => array('《小黄的精灵球》','WC',233,'∞','ce',),),
 	array('class' => 'pokemon', 'stuff' => array('《小黄的精灵球》','《小黄的收服特训》'),'result' => array('《小黄的超级球》','WC',233,'∞','Zrce'),),
-	array('class' => 'pokemon', 'stuff' => array('《小黄的精灵球》','《小黄的收服特训》','露琪亚之羽'),'result' => array('《小黄的超级球》','WC',233,'∞','Zrice'),),
-	array('class' => 'pokemon', 'stuff' => array('《小黄的精灵球》','《小黄的收服特训》','凤凰之羽'),'result' => array('《小黄的超级球》','WC',233,'∞','Zruce'),),
-	array('class' => 'pokemon', 'stuff' => array('《小黄的精灵球》','《小黄的收服特训》','露琪亚之羽','凤凰之羽'),'result' => array('《小黄的超级球》','WC',233,'∞','Zriuce'),),
-	array('class' => 'pokemon', 'stuff' => array('《小黄的超级球》','《小黄的常磐之力》','《小黄的收服特训》'),'result' => array('《小黄的大师球》','WC',386,'∞','ZcrdNe'),),
-	array('class' => 'pokemon', 'stuff' => array('《小黄的超级球》','《小黄的常磐之力》','露琪亚之羽','凤凰之羽'),'result' => array('《小黄的大师球》','WC',493,'∞','ZcrdNeiu'),),
+	array('class' => 'pokemon', 'stuff' => array('《小黄的超级球》','《小黄的常磐之力》'),'result' => array('《小黄的大师球》','WC',493,'∞','ZcrdNe'),),
+	array('class' => 'pokemon', 'stuff' => array('《小黄的超级球》','《小黄的常磐之力》','露琪亚之羽','凤凰之羽'),'result' => array('《小黄的大师球》','WC',1997,'∞','ZcrdNeiu'),),
 	array('class' => 'pokemon', 'stuff' => array('《小黄的精灵球》','治愈之叶'),'result' => array('小黄的『十万伏特』','WC',251,'∞','cewH'),),
 	array('class' => 'pokemon', 'stuff' => array('小黄的『十万伏特』','红色方块','绿色方块','蓝色方块'),'result' => array('小黄的『百万伏特』','WC',493,'∞','cewrnj'),),
 	array('class' => 'pokemon', 'stuff' => array('小黄的『百万伏特』','金色方块','银色方块','水晶方块'),'result' => array('小黄的『伏特攻击』','WC',649,'∞','cedrnZ'),),
-	array('class' => 'pokemon', 'stuff' => array('小黄的『伏特攻击』','《小黄的常磐之力》','《小黄的收服特训》','黄色方块'),'result' => array('小黄的『皮卡必杀击』','WC',721,'∞','cetdHrnZ'),),
+	array('class' => 'pokemon', 'stuff' => array('小黄的『伏特攻击』','《小黄的常磐之力》','《小黄的收服特训》','黄色方块'),'result' => array('小黄的『皮卡必杀击』','WC',2016,'∞','cetdHrnZ'),),
 	
 	array('class' => 'key', 'stuff' => array('月宫 亚由的半身像','神尾 观铃的半身像','古河 渚的半身像'),'result' => array('四季流转的咏叹调','WP',750,1,'N'),),
 	array('class' => 'key', 'stuff' => array('天泽 郁末的半身像','长森 瑞佳的半身像','枣 铃的半身像'),'result' => array('旁观轮回的覆唱诗','WK',750,1,'n'),),
@@ -277,14 +275,13 @@ $mixinfo = array
 	array('class' => 'wf', 'stuff' => array('时符『Private Square』','幻之刃','永恒飞刃'),'result' => array('『咲夜的世界』','WF',120,'∞','ir'),),
 	array('class' => 'wf', 'stuff' => array('『咲夜的世界』','鲜红的生血','灵魂的结晶'),'result' => array('『收缩的世界』','WF',450,'∞','ircy'),),
 	array('class' => 'wf', 'stuff' => array('幽鬼剑『妖童饿鬼之断食』','☆楼观剑☆','☆白楼剑☆'),'result' => array('空观剑『六根清净斩』','WF',360,'∞','rc'),),
-	
-	array('class' => 'wf', 'stuff' => array('鲜红的生血','长矛','造雾设备'),'result' => array('神枪『Spear The Gungnir』','WF',5500,'1','c'),),
-	array('class' => 'wf', 'stuff' => array('《东方幻想乡》','触手的力量','【触手的萃取液】'),'result' => array('梦幻『幻月』','WF',900,'∞','rdcm'),),
-	array('class' => 'wf', 'stuff' => array('空白符卡','《魔女的魔导书》'),'result' => array('《魔导师速成攻略》','VF',233,'1',''),),
-	
 	array('class' => 'wf', 'stuff' => array('空白符卡','★制御棒★','日符「Royal Flare」'),'result' => array('『地狱的人造太阳』','WF',666,'∞',),),
+	array('class' => 'wf', 'stuff' => array('鲜红的生血','长矛','造雾设备'),'result' => array('神枪『Spear The Gungnir』','WF',5500,1,'c'),),
+	array('class' => 'wf', 'stuff' => array('■魔剑－雷瓦丁■','☆残页的魔导书☆','触手的力量'),'result' => array('秘弹『之后就一个人都没有了吗？』','WF',7700,1,'NZ'),),
+	array('class' => 'wf', 'stuff' => array('「妖怪测谎机」','☆守矢神签☆','触手的力量'),'result' => array('『被厌恶者的哲学』','WF',8800,1,'nZ'),),
+	array('class' => 'wf', 'stuff' => array('《东方幻想乡》','月光碎片','触手的力量'),'result' => array('梦幻『幻月』','WF',9900,1,'dZ'),),
 	
-	array('class' => 'wf', 'stuff' => array('日&月符『Royal Diamond Ring』','梦幻『幻月』','神枪『Spear The Gungnir』','紫奥义『弹幕结界』'),'result' => array('模式『EX』','WF',72000,'∞','crdyZB'),),
+	array('class' => 'wf', 'stuff' => array('秘弹『之后就一个人都没有了吗？』','『被厌恶者的哲学』','梦幻『幻月』'),'result' => array('模式『EX』','WF',72000,'∞','crZyVLn'),),//crazy valian
 	
 	array('class' => 'wf_pn', 'stuff' => array('红色方块','打火机','空白符卡'),'result' => array('火符「Agni Shine」','WF',60,'∞','uU'),),
 	array('class' => 'wf_pn', 'stuff' => array('蓝色方块','水','空白符卡'),'result' => array('水符「Princess Undine」','WF',70,'∞','iI'),),

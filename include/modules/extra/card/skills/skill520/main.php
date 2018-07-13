@@ -9,7 +9,7 @@ namespace skill520
 	{
 		define('MOD_SKILL520_INFO','card;unique;');
 		eval(import_module('clubbase'));
-		$clubskillname[520] = '纯洁';
+		$clubskillname[520] = '@v@';
 	}
 	
 	function acquire520(&$pa)
