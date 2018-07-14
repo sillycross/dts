@@ -277,11 +277,11 @@ $mixinfo = array
 	array('class' => 'wf', 'stuff' => array('幽鬼剑『妖童饿鬼之断食』','☆楼观剑☆','☆白楼剑☆'),'result' => array('空观剑『六根清净斩』','WF',360,'∞','rc'),),
 	array('class' => 'wf', 'stuff' => array('空白符卡','★制御棒★','日符「Royal Flare」'),'result' => array('『地狱的人造太阳』','WF',666,'∞',),),
 	array('class' => 'wf', 'stuff' => array('鲜红的生血','长矛','造雾设备'),'result' => array('神枪『Spear The Gungnir』','WF',5500,1,'c'),),
+	array('class' => 'wf', 'stuff' => array('《东方幻想乡》','触手的力量','【触手的萃取液】'),'result' => array('梦幻『幻月』','WF',900,'∞','rdcm'),),
 	array('class' => 'wf', 'stuff' => array('■魔剑－雷瓦丁■','☆残页的魔导书☆','触手的力量'),'result' => array('秘弹『之后就一个人都没有了吗？』','WF',7700,1,'NZ'),),
 	array('class' => 'wf', 'stuff' => array('「妖怪测谎机」','☆守矢神签☆','触手的力量'),'result' => array('『被厌恶者的哲学』','WF',8800,1,'nZ'),),
-	array('class' => 'wf', 'stuff' => array('《东方幻想乡》','月光碎片','触手的力量'),'result' => array('梦幻『幻月』','WF',9900,1,'dZ'),),
-	
-	array('class' => 'wf', 'stuff' => array('秘弹『之后就一个人都没有了吗？』','『被厌恶者的哲学』','梦幻『幻月』'),'result' => array('模式『EX』','WF',72000,'∞','crZyVLn'),),//crazy valian
+	array('class' => 'wf', 'stuff' => array('正体不明的UFO','被遗忘的伞','触手的力量'),'result' => array('『平安京的恶梦』','WF',9900,1,'LZ'),),
+	array('class' => 'wf', 'stuff' => array('秘弹『之后就一个人都没有了吗？』','『被厌恶者的哲学』','『平安京的恶梦』'),'result' => array('模式『EX』','WF',72000,'∞','crZyVLn'),),//crazy valian
 	
 	array('class' => 'wf_pn', 'stuff' => array('红色方块','打火机','空白符卡'),'result' => array('火符「Agni Shine」','WF',60,'∞','uU'),),
 	array('class' => 'wf_pn', 'stuff' => array('蓝色方块','水','空白符卡'),'result' => array('水符「Princess Undine」','WF',70,'∞','iI'),),
