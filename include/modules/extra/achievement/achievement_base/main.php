@@ -652,7 +652,7 @@ namespace achievement_base
 						$ret .= '<span class="evergreen b" title="'.str_replace('"',"'",$ret1).'">卡集(悬浮查看)中随机卡片1张</span>';
 					}elseif($cp){
 						$card = (int)$cp;
-						$ret .= '<span class="evergreen b">卡片</span> '.show_prize_single_card($card);
+						$ret .= '&nbsp;'.show_prize_single_card($card);
 					}
 				}
 			}

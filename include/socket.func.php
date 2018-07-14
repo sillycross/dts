@@ -9,8 +9,8 @@ function __SOCKET_ERRORLOG__($data)	//注意ERRORLOG将直接导致脚本退出
 		//if ($x) $data.=' 错误信息：'.mb_convert_encoding(socket_strerror($x),'UTF-8').'（错误'.$x.'）';//根据系统不同，strerror可能出现乱码
 		if ($x) $data.='（错误'.$x.'）';
 		__SOCKET_WARNLOG__($data);
-		global $___TEMP_runmode, $___TEMP_CONN_PORT;
-		$data = $___TEMP_runmode.' on port '.$___TEMP_CONN_PORT.' : '.$data;
+		global $___TEMP_runmode, $___TEMP_CONN_PORT, $___TEMP_script_uniqid;
+		$data = $___TEMP_runmode.' #'.$___TEMP_script_uniqid.' on port '.$___TEMP_CONN_PORT.' : '.$data;
 		date_default_timezone_set('Etc/GMT');
 		$now = time() + 8*3600 + 0*60;   
 		list($usec,$tsec)=explode(' ',microtime());
@@ -26,8 +26,8 @@ function __SOCKET_WARNLOG__($data)
 {
 	global $___MOD_LOG_LEVEL; if ($___MOD_LOG_LEVEL<2) return;
 	__SOCKET_LOG__($data);
-	global $___TEMP_runmode, $___TEMP_CONN_PORT;
-	$data = $___TEMP_runmode.' on port '.$___TEMP_CONN_PORT.' : '.$data;
+	global $___TEMP_runmode, $___TEMP_CONN_PORT, $___TEMP_script_uniqid;
+	$data = $___TEMP_runmode.' #'.$___TEMP_script_uniqid.' on port '.$___TEMP_CONN_PORT.' : '.$data;
 	date_default_timezone_set('Etc/GMT');
 	$now = time() + 8*3600 + 0*60;   
 	list($usec,$tsec)=explode(' ',microtime());
@@ -41,8 +41,8 @@ function __SOCKET_LOG__($data)
 {
 	global $___MOD_LOG_LEVEL; if ($___MOD_LOG_LEVEL<3) return;
 	__SOCKET_DEBUGLOG__($data);
-	global $___TEMP_runmode, $___TEMP_CONN_PORT;
-	$data = $___TEMP_runmode.' on port '.$___TEMP_CONN_PORT.' : '.$data;
+	global $___TEMP_runmode, $___TEMP_CONN_PORT, $___TEMP_script_uniqid;
+	$data = $___TEMP_runmode.' #'.$___TEMP_script_uniqid.' on port '.$___TEMP_CONN_PORT.' : '.$data;
 	date_default_timezone_set('Etc/GMT');
 	$now = time() + 8*3600 + 0*60;   
 	list($usec,$tsec)=explode(' ',microtime());
@@ -55,8 +55,8 @@ function __SOCKET_LOG__($data)
 function __SOCKET_DEBUGLOG__($data)
 {
 	global $___MOD_LOG_LEVEL; if ($___MOD_LOG_LEVEL<4) return;
-	global $___TEMP_runmode, $___TEMP_CONN_PORT;
-	$data = $___TEMP_runmode.' on port '.$___TEMP_CONN_PORT.' : '.$data;
+	global $___TEMP_runmode, $___TEMP_CONN_PORT, $___TEMP_script_uniqid;
+	$data = $___TEMP_runmode.' #'.$___TEMP_script_uniqid.' on port '.$___TEMP_CONN_PORT.' : '.$data;
 	date_default_timezone_set('Etc/GMT');
 	$now = time() + 8*3600 + 0*60;   
 	list($usec,$tsec)=explode(' ',microtime());

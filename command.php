@@ -5,6 +5,8 @@ defined('IN_COMMAND') || define('IN_COMMAND', TRUE);
 defined('CURSCRIPT') || define('CURSCRIPT', 'game');
 defined('GAME_ROOT') || define('GAME_ROOT', dirname(__FILE__).'/');
 require GAME_ROOT.'./include/modulemng/modulemng.config.php';
+$___TEMP_script_uniqid = uniqid();
+$___TEMP_script_uniqid = substr($___TEMP_script_uniqid, strlen($___TEMP_script_uniqid)-5);
 
 if ($___MOD_SRV)
 {
@@ -93,32 +95,37 @@ if ($___MOD_SRV)
 		{  
 			//新建驻留进程最优先，避免长期无人访问导致驻留进程全部关闭
 			if ($___MOD_SRV_AUTO && $___TEMP_is_root && (file_exists(GAME_ROOT.'./gamedata/tmp/server/request_new_root_server') || file_exists(GAME_ROOT.'./gamedata/tmp/server/request_new_server'))){
-				//获取shell daemon的状态
+				//获取shell daemon（外部bash或者bat）的状态
 				$t=max((int)file_get_contents(GAME_ROOT.'./gamedata/tmp/server/scriptalive.txt'), (int)filemtime(GAME_ROOT.'./gamedata/tmp/server/scriptalive.txt'));
-				//如果shell daemon不在运行，才进入自动新建逻辑
+				//如果shell daemon（外部bash或者bat）不在运行，才进入自动新建逻辑
 				if(time()-$t > 10) {
-					//如果是最新启动的根驻留进程，且监测到有启动新进程的请求，自动新开一个驻留进程
+					//判定自己是不是最新的进程
 					$thisnewest = 1;
-					$thistime = filemtime(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT);
+					$___TEMP_runned_time = time()-$___TEMP_server_start_time;
 					foreach(gdir(GAME_ROOT.'./gamedata/tmp/server', 'dir') as $sid) {
 						$sid=(int)$sid; 
-						if ($sid == $___TEMP_CONN_PORT || $sid<$___MOD_CONN_PORT_LOW || $sid>$___MOD_CONN_PORT_HIGH || 'ok_root' != __SEND_TOUCH_CMD__($sid)) continue;
-						if(filemtime(GAME_ROOT.'./gamedata/tmp/server/'.$sid) > $thistime) {
+						if ($sid == $___TEMP_CONN_PORT || $sid<$___MOD_CONN_PORT_LOW || $sid>$___MOD_CONN_PORT_HIGH) continue;
+						if(time()-(int)filemtime(GAME_ROOT.'./gamedata/tmp/server/'.$sid.'/start_time') < $___TEMP_runned_time) {
 							$thisnewest = 0;
 							break;
 						}
 					}
+					//如果是最新启动的进程，且监测到有启动新进程的请求，自动新开一个驻留进程。会临时进入忙碌状态
 					if($thisnewest){
+						__SOCKET_DEBUGLOG__("进入忙碌状态。");
+						touch(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT.'/busy');
 						if(file_exists(GAME_ROOT.'./gamedata/tmp/server/request_new_server')){
 							unlink(GAME_ROOT.'./gamedata/tmp/server/request_new_server');
-							curl_new_server($___MOD_CONN_PASSWD);
 							__SOCKET_LOG__("接受请求，启动新驻留进程。");
+							curl_new_server($___MOD_CONN_PASSWD);
 						}
 						if(file_exists(GAME_ROOT.'./gamedata/tmp/server/request_new_root_server')) {
 							unlink(GAME_ROOT.'./gamedata/tmp/server/request_new_root_server');
-							curl_new_server($___MOD_CONN_PASSWD,1);
 							__SOCKET_LOG__("接受请求，启动新的根驻留进程。");
+							curl_new_server($___MOD_CONN_PASSWD,1);
 						}
+						unlink(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT.'/busy');
+						__SOCKET_DEBUGLOG__("进入闲置状态。");
 					}
 				}
 			}
@@ -297,6 +304,7 @@ if ($___MOD_SRV)
 			elseif ($___TEMP_runned_time+$___MOD_SRV_WAKETIME*2+5>$___TEMP_max_time && !$___TEMP_newsrv_flag)
 			{
 				//老server即将在下一次唤醒时主动退出，发信息给脚本启动一台新server。
+				//与进程一开始不同，这里不借助curl_new_server()
 				if ($___TEMP_runned_time-$___TEMP_last_cmd<=$___MOD_VANISH_TIME || $___TEMP_is_root)
 				{
 					__SOCKET_LOG__("已经运行了 ".$___TEMP_runned_time."秒，稍后将退出，已请求脚本启动新驻留进程。");
@@ -333,66 +341,88 @@ if ($___MOD_SRV)
 		$___TEMP_max_time = ini_get('max_execution_time');
 		if ($___TEMP_max_time == 0 || $___TEMP_max_time > $___MOD_SRV_MAX_EXECUTION_TIME) $___TEMP_max_time = $___MOD_SRV_MAX_EXECUTION_TIME;
 		elseif ($___TEMP_max_time < $___MOD_SRV_MIN_EXECUTION_TIME) $___TEMP_max_time = $___MOD_SRV_MIN_EXECUTION_TIME;
-		
+		__SOCKET_DEBUGLOG__('开始选择进程。'); 
 		$dirlist = gdir(GAME_ROOT.'./gamedata/tmp/server', 'dir');
 		if (NULL !== $dirlist) 
 		{
-			$flag=sizeof($dirlist); 
-			$srvlist = array(); $chosen=-1; $touch_error_list=array();
-			foreach($dirlist as $sid) {
-				$sid=(int)$sid; 
-				//端口号超限，记录错误并跳过
-				if ($sid<$___MOD_CONN_PORT_LOW || $sid>$___MOD_CONN_PORT_HIGH) {
-					$touch_error_list[]=$sid;
-					continue;
+			$srvlist = array(); $chosen=-1; $touch_error_list=array(); $loopcount = 0;
+			//外层循环体：如果有效进程不存在，则curl_new_server()并sleep一小段时间，再次判断
+			do{
+				//无驻留进程，或者所有驻留进程都异常，此时touch是没用的，必须curl。
+				if ($loopcount && (!$dirlist || !$srvlist)) {
+					if(!$touch_error_list) $tmp_log = '未找到在线的驻留进程。';
+					else $tmp_log = '所有在线驻留进程都异常。';
+					if($___MOD_SRV_COLD_START && $loopcount < 5) {//若允许冷启动，则自动发送启动指令
+						__SOCKET_LOG__($tmp_log.'已请求启动新的根进程，并休眠2秒。');
+						curl_new_server($___MOD_CONN_PASSWD, 1);
+						sleep(2);//暂停2秒
+						__SOCKET_DEBUGLOG__('休眠结束，再次检查在线的驻留进程。');
+						$dirlist = gdir(GAME_ROOT.'./gamedata/tmp/server', 'dir');
+						//__SOCKET_ERRORLOG__('新的根进程已启动，中断本次执行。');
+					}else{
+						__SOCKET_ERRORLOG__($tmp_log);
+					}
+					unset($tmp_log);
 				}
-				//进程异常，记录错误并跳过
-				$touchflag = __SEND_TOUCH_CMD__($sid);
-				if ('ok' != $touchflag && 'ok_root' != $touchflag) {
-					$touch_error_list[]=$sid;
-					continue;
+				$srvlist = array();
+				//内层循环体：选择有效进程
+				foreach($dirlist as $sid) {
+					$sid=(int)$sid; 
+					$srvlist[]=$sid;
+					//端口号超限，记录错误并跳过
+					if ($sid<$___MOD_CONN_PORT_LOW || $sid>$___MOD_CONN_PORT_HIGH) {
+						$touch_error_list[]=$sid;
+						//从可选进程数组中移除
+						array_pop($srvlist);
+						__SOCKET_DEBUGLOG__("进程{$sid}端口号无效，跳过。"); 
+						continue;
+					}
+					//进程忙碌，跳过
+					if (file_exists(GAME_ROOT.'./gamedata/tmp/server/'.((string)$sid).'/busy') && time() - filemtime(GAME_ROOT.'./gamedata/tmp/server/'.((string)$sid).'/busy') < 15) {
+						__SOCKET_DEBUGLOG__("进程{$sid}忙碌，跳过。"); 
+						$buzyflag = 1;
+						continue;
+					}
+					//进程异常，记录错误并跳过
+					__SOCKET_DEBUGLOG__("向进程{$sid}发送测试命令。"); 
+					$touchflag = __SEND_TOUCH_CMD__($sid);
+					if ('ok' != $touchflag && 'ok_root' != $touchflag) {
+						$touch_error_list[]=$sid;
+						//从可选进程数组中移除
+						array_pop($srvlist);
+						__SOCKET_DEBUGLOG__("进程{$sid}异常，跳过。"); 
+						continue;
+					}
+					//该进程即将结束，跳过（比主动结束早10秒）
+					if(time()-filemtime(GAME_ROOT.'./gamedata/tmp/server/'.((string)$sid).'/start_time')+$___MOD_SRV_WAKETIME+15>$___TEMP_max_time){
+						__SOCKET_DEBUGLOG__("进程{$sid}即将结束，跳过。"); 
+						continue;
+					}
+					//不忙碌，选择之
+					$chosen = $sid; 
+					break;
 				}
-				//记录是正常的服务器
-				$srvlist[]=$sid;
-				//进程忙碌，跳过
-				if (file_exists(GAME_ROOT.'./gamedata/tmp/server/'.((string)$sid).'/busy')) {
-					__SOCKET_LOG__("进程{$sid}忙碌，跳过。"); 
-					continue;
-				//该进程即将结束，跳过（比主动结束早10秒）
-				}elseif(time()-filemtime(GAME_ROOT.'./gamedata/tmp/server/'.((string)$sid).'/start_time')+$___MOD_SRV_WAKETIME+15>$___TEMP_max_time){
-					__SOCKET_LOG__("进程{$sid}即将结束，跳过。"); 
-					continue;
-				}
-				//不忙碌，选择之
-				$chosen = $sid; 
-				break;
-			}
-			//无驻留进程，或者所有驻留进程都异常，此时touch是没用的，必须curl。
-			if (!$flag || !$srvlist) {
-				if(!$srvlist) $tmp_log = '所有在线驻留进程都异常。';
-				else $tmp_log = '未找到在线的驻留进程。';
-				if($___MOD_SRV_COLD_START) {//若允许冷启动，则自动发送启动指令
-					curl_new_server($___MOD_CONN_PASSWD, 1);
-					__SOCKET_ERRORLOG__($tmp_log."已请求启动新的根进程，但中断本次执行。");
-				}else{
-					__SOCKET_ERRORLOG__($tmp_log);
-				}
-				unset($tmp_log);
-			}
+				$loopcount++;
+			}while(!$dirlist || !$srvlist);
+			
 			//没有选到驻留进程，此时至少有1个不异常的进程
 			if ($chosen == -1) 
 			{
 				$z=rand(0,count($srvlist)-1); $chosen=$srvlist[$z];//随机选择一个。也就是说其实这里允许并发
-				touch(GAME_ROOT.'./gamedata/tmp/server/request_new_server');
-				__SOCKET_LOG__("没有驻留进程空闲，已请求脚本启动新驻留进程。");
+				if(!empty($buzyflag)){
+					touch(GAME_ROOT.'./gamedata/tmp/server/request_new_server');
+					__SOCKET_LOG__("没有驻留进程空闲，已请求脚本启动新驻留进程。");
+				}
 			}
 			__SOCKET_DEBUGLOG__("选择了端口号为 ".$chosen.'的驻留进程 。');
 			$___TEMP_CONN_PORT=$chosen;
 			
 			$auto_server_file = GAME_ROOT.'./gamedata/tmp/server/auto_requested_new_server';
-			if (!empty($touch_error_list)) //请求daemonmng.php关闭检测到的异常进程
+			//请求daemonmng.php关闭检测到的异常进程。选到才会关闭
+			if (!empty($touch_error_list)) 
 			{
 				if(!file_exists($auto_server_file) || filemtime($auto_server_file) < time() - 300){
+					__SOCKET_LOG__("已请求daemonmng.php关闭检测到的异常进程。");
 					touch($auto_server_file);
 					$daemonmng_url = url_dir().'daemonmng.php';
 					foreach($touch_error_list as $tev){
@@ -401,7 +431,7 @@ if ($___MOD_SRV)
 					curl_post($daemonmng_url, $daemonmng_context, NULL, 0.1);
 					unset($daemonmng_url, $daemonmng_context);
 				}else{
-					__SOCKET_ERRORLOG__("驻留进程连接错误，且5分钟之内尝试自动重启驻留进程失败。");
+					__SOCKET_LOG__("驻留进程连接错误，且5分钟之内尝试自动重启驻留进程失败。");
 				}		
 			}else{
 				if(file_exists($auto_server_file)) unlink($auto_server_file);
