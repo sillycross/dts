@@ -631,7 +631,7 @@ function curl_new_server($pass, $is_root=0)
 		'command'=>'start',
 		'is_root'=>$is_root
 	);
-	curl_post($url, $context, NULL, 2);
+	curl_post($url, $context, NULL, 0.1);
 }
 
 function http_build_cookiedata($cookie_arr){
@@ -722,8 +722,9 @@ function gurl(){
 //----------------------------------------
 
 function getmicrotime(){
-	list($usec, $sec) = explode(" ",microtime());
-	return ((float)$usec + (float)$sec);
+	return microtime(1);
+//	list($usec, $sec) = explode(" ",microtime());
+//	return ((float)$usec + (float)$sec);
 }
 
 function putmicrotime($t_s, $t_e, $file, $info)
