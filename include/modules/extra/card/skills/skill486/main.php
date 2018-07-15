@@ -2,7 +2,7 @@
 
 namespace skill486
 {	
-	$skill486prob = array(0, 30, 100);
+	$skill486prob = array(0, 50, 100);
 	
 	function init() 
 	{

@@ -61,6 +61,15 @@ namespace skill504
 		}
 		$chprocess();
 	}
+	
+	//使用pop子卡时屏蔽开场剧情
+	function opening_by_shootings_available()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess();
+		if(\skillbase\skill_query(504)) $ret = false;
+		return $ret;
+	}
 }
 
 ?>
