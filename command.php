@@ -80,9 +80,10 @@ if ($___MOD_SRV)
 		}
 		if (socket_listen($___TEMP_socket,5)===false) __SOCKET_ERRORLOG__('socket_listen失败。'); 
 		
-		//以端口号为名创建文件夹，其中可能存在busy子文件夹以及start_time文件
+		//以端口号为名创建文件夹，其中可能存在busy子文件夹，start_time文件，is_root文件
 		mymkdir(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT);
 		touch(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT.'/start_time');
+		if($___TEMP_is_root) touch(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT.'/is_root');
 		
 		//进入闲置状态
 		if (file_exists(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT.'/busy'))
@@ -94,17 +95,21 @@ if ($___MOD_SRV)
 		while (true) 
 		{  
 			//新建驻留进程最优先，避免长期无人访问导致驻留进程全部关闭
-			if ($___MOD_SRV_AUTO && $___TEMP_is_root && (file_exists(GAME_ROOT.'./gamedata/tmp/server/request_new_root_server') || file_exists(GAME_ROOT.'./gamedata/tmp/server/request_new_server'))){
+			$request_new_root_server = $request_new_server = 0;
+			if(file_exists(GAME_ROOT.'./gamedata/tmp/server/request_new_root_server')) $request_new_root_server = 1;
+			if(file_exists(GAME_ROOT.'./gamedata/tmp/server/request_new_server')) $request_new_server = 1;
+			if ($___MOD_SRV_AUTO && $___TEMP_is_root && ($request_new_root_server || $request_new_server)){
 				//获取shell daemon（外部bash或者bat）的状态
 				$t=max((int)file_get_contents(GAME_ROOT.'./gamedata/tmp/server/scriptalive.txt'), (int)filemtime(GAME_ROOT.'./gamedata/tmp/server/scriptalive.txt'));
 				//如果shell daemon（外部bash或者bat）不在运行，才进入自动新建逻辑
 				if(time()-$t > 10) {
-					//判定自己是不是最新的进程
+					//判定自己是不是最新的根进程
 					$thisnewest = 1;
 					$___TEMP_runned_time = time()-$___TEMP_server_start_time;
 					foreach(gdir(GAME_ROOT.'./gamedata/tmp/server', 'dir') as $sid) {
 						$sid=(int)$sid; 
-						if ($sid == $___TEMP_CONN_PORT || $sid<$___MOD_CONN_PORT_LOW || $sid>$___MOD_CONN_PORT_HIGH) continue;
+						//自己、端口号非法、并非根进程，都无效
+						if ($sid == $___TEMP_CONN_PORT || $sid<$___MOD_CONN_PORT_LOW || $sid>$___MOD_CONN_PORT_HIGH || !file_exists(GAME_ROOT.'./gamedata/tmp/server/'.$sid.'/is_root')) continue;
 						if(time()-(int)filemtime(GAME_ROOT.'./gamedata/tmp/server/'.$sid.'/start_time') < $___TEMP_runned_time) {
 							$thisnewest = 0;
 							break;
@@ -114,12 +119,12 @@ if ($___MOD_SRV)
 					if($thisnewest){
 						__SOCKET_DEBUGLOG__("进入忙碌状态。");
 						touch(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT.'/busy');
-						if(file_exists(GAME_ROOT.'./gamedata/tmp/server/request_new_server')){
+						if($request_new_server){
 							unlink(GAME_ROOT.'./gamedata/tmp/server/request_new_server');
 							__SOCKET_LOG__("接受请求，启动新驻留进程。");
 							curl_new_server($___MOD_CONN_PASSWD);
 						}
-						if(file_exists(GAME_ROOT.'./gamedata/tmp/server/request_new_root_server')) {
+						if($request_new_root_server) {
 							unlink(GAME_ROOT.'./gamedata/tmp/server/request_new_root_server');
 							__SOCKET_LOG__("接受请求，启动新的根驻留进程。");
 							curl_new_server($___MOD_CONN_PASSWD,1);
@@ -393,7 +398,7 @@ if ($___MOD_SRV)
 						__SOCKET_DEBUGLOG__("进程{$sid}异常，跳过。"); 
 						continue;
 					}
-					//该进程即将结束，跳过（比主动结束早10秒）
+					//该进程即将结束，跳过（比主动结束早15秒）
 					if(time()-filemtime(GAME_ROOT.'./gamedata/tmp/server/'.((string)$sid).'/start_time')+$___MOD_SRV_WAKETIME+15>$___TEMP_max_time){
 						__SOCKET_DEBUGLOG__("进程{$sid}即将结束，跳过。"); 
 						continue;
