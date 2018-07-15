@@ -193,7 +193,6 @@ club96,extra/club/clubs/club96/,1
 skill494,extra/instance/gtype1/skill494/,1
 skill495,extra/instance/gtype1/skill495/,1
 skill501,extra/card/skills/skill501/,1
-skill504,extra/card/skills/skill504/,1
 skill83,extra/club/skills/skill83/,1
 skill256,extra/club/skills/skill256/,1
 skill433,extra/card/skills/skill433/,1
@@ -491,6 +490,7 @@ aprilfool2018,extra/activities/aprilfool2018/main/,1
 skill367,extra/achievement/skills/skill367/,1
 skill368,extra/achievement/skills/skill368/,1
 skill369,extra/achievement/skills/skill369/,1
+skill504,extra/card/skills/skill504/,1
 searchmemory,extra/searchmemory/,1
 skill503,extra/card/skills/skill503/,1
 skill351,extra/achievement/skills/skill351/,1
