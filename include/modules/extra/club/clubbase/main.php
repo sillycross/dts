@@ -105,8 +105,15 @@ namespace clubbase
 				}
 			}
 		}
-		
+		//排序时9号超能视为5.5号
+		foreach($ret as &$v) {
+			if(9==$v) $v = 5.5;
+		}
 		sort($ret);
+		//换回来
+		foreach($ret as &$v) {
+			if(5.5==$v) $v = 9;
+		}
 		return $ret;
 	}
 	

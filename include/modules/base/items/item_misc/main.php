@@ -17,7 +17,7 @@ namespace item_misc
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($n, $k, $e, $s, $sk);
 		if(strpos($k,'U')===0) {
-			$ret .= '使用后将扫除本地1枚效果值不小于'.$e.'的陷阱';
+			$ret .= '使用后将扫除当前地区1枚效果值不小于'.$e.'的陷阱';
 		}elseif(strpos($k,'Y')===0 || strpos($k,'Z')===0){
 			if ($n == '凸眼鱼'){
 				$ret .= '使用后可以销毁整个战场现有的尸体';
@@ -28,7 +28,7 @@ namespace item_misc
 			}elseif ($n == '奇怪的按钮') {
 				$ret .= '警告：高度危险！';
 			}elseif ($n == '『C.H.A.O.S』') {
-				$ret .= '献祭包裹里的全部物品以获得通往『幻境解离』的必备道具';
+				$ret .= '献祭包裹里的全部物品以获得通往『幻境解离』的必备道具。需要持有黑色发卡，当前歌魂不少于600，攻击力减去防御力不多于2000，且击杀玩家数不能过多。';
 			}elseif ($n == '『S.C.R.A.P』') {
 				$ret .= '还不满足『幻境解离』的条件！使用后可以恢复成『C.H.A.O.S』';
 			}elseif ($n == '『G.A.M.E.O.V.E.R』') {
