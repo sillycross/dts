@@ -228,6 +228,7 @@ namespace searchmemory
 		$mn = (int)$mn;
 		//$searchmemory = array_decode($searchmemory);
 		//$mn = (int)substr($schmode,6) - 1;
+		//正在CD时无法探索视野里的东西
 		if(\cooldown\check_in_coldtime()) return;
 	
 		if(isset($searchmemory[$mn])){
@@ -333,10 +334,29 @@ namespace searchmemory
 	function getcorpse_action(&$edata, $item)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($edata, $item);
-		if(check_keep_corpse_in_searchmemory() && !in_array($item, array('back','menu','money','destroy'))) {
-			\cooldown\set_coldtime(get_searchmemory_coldtime());
+		//上一次从尸体上捡东西后若干秒内无法立刻访问同一个尸体上的东西，需要skill1003支持
+		if(check_keep_corpse_in_searchmemory() && !in_array($item, array('back','menu','destroy')) && \skillbase\skill_query(1003)) {
+			eval(import_module('sys','player','logger','searchmemory'));
+			$last_corpse_time = (int)\skillbase\skill_getvalue(1003,'last_corpse_time');//注意这个是以毫秒为单位
+			$last_corpse_pid = (int)\skillbase\skill_getvalue(1003,'last_corpse_pid');
+			$ct = floor(getmicrotime()*1000);
+			if($last_corpse_pid == $edata['pid'] && $ct - $last_corpse_time < $searchmemorycoldtime){
+				$log .= '<span class="yellow b">'.($searchmemorycoldtime/1000).'秒内不能再次拾取同一尸体的道具。</span><br>';
+				$action = '';
+				$mode = 'command';
+				return;
+			}
+			//记录上一次摸尸体的时间和pid，需要skill1003支持
+			//也就是说如果你交错摸两个尸体是不会受干扰的（花费的时间差不多也3秒了）
+			$last_corpse_time = floor(getmicrotime()*1000);//注意这个是以毫秒为单位
+			$last_corpse_pid = $edata['pid'];
+			\skillbase\skill_setvalue(1003,'last_corpse_time',$last_corpse_time);
+			\skillbase\skill_setvalue(1003,'last_corpse_pid',$last_corpse_pid);
 		}
+		$chprocess($edata, $item);
+//		if(check_keep_corpse_in_searchmemory() && !in_array($item, array('back','menu','money','destroy'))) {
+//			\cooldown\set_coldtime(get_searchmemory_coldtime());
+//		}
 	}
 }
 ?>
