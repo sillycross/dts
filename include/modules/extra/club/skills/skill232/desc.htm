@@ -5,7 +5,7 @@
 力场
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 <!--{eval $clv = (int)\skillbase\skill_getvalue(232,'lvl'); }-->
 <!--{eval $totlv = count($upgradecost)-1; }-->
 <!--{eval $skill232_lst = (int)\skillbase\skill_getvalue(232,'lastuse'); $skill232_time = ($now-$skill232_lst);$skill232_cd_left=($skill232_cd[$clv]-$skill232_time);}-->
@@ -16,7 +16,7 @@
 <span class="cyan b">技能冷却中，冷却时间还剩<span>$skill232_cd_left</span>秒。</span><br>
 <!--{/if}-->
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 <!--{if $upgradecost[$clv] !== -1}-->
 <!--{if $skillpoint>=$upgradecost[$clv]}-->
 <input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill232_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="升级">
@@ -26,7 +26,7 @@
 <!--{/if}-->
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 5级时解锁
 </span>

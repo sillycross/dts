@@ -5,7 +5,7 @@
 剑心
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 <!--{eval $skill75_lst = (int)\skillbase\skill_getvalue(75,'lastuse'); $skill75_time = ($now-$skill75_lst);$skill75_cd_left=($skill75_cd-$skill75_time);}-->
 <span class="yellow b">战斗技</span>&nbsp;&nbsp;本次攻击附加<span class="yellow b">(30+等级)</span>点的最终伤害，技能冷却时间<span class="cyan b">$skill75_cd</span>秒<br>
 <!--{if $skill75_lst!=0}-->
@@ -16,10 +16,10 @@
 <!--{/if}-->
 <!--{/if}-->
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 </span>
 <!--{/if}-->

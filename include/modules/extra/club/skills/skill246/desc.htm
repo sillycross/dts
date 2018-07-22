@@ -5,7 +5,7 @@
 隐身
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 <!--{eval $skill246_lst = (int)\skillbase\skill_getvalue(246,'lastuse'); $skill246_time = ($now-$skill246_lst);$skill246_cd_left=($skill246_cd+$skill246_act_time-$skill246_time);$skill246_rem=($skill246_act_time-$skill246_time);}-->
 发动后敌人将无法发现你，效果持续<span class="yellow b">45</span>秒或直到你主动攻击<br>
 这次攻击无法使用战斗技，但命中率将增加<span class="yellow b">30</span>%<br>
@@ -16,7 +16,7 @@
 <!--{/if}-->
 <!--{/if}-->
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 <!--{if $skill246_time>$skill246_cd+$skill246_act_time}-->
 <input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill246_special';$('subcmd').value='activate';postCmd('gamecmd','command.php');this.disabled=true;" value="发动">
 <!--{else}-->
@@ -24,7 +24,7 @@
 <!--{/if}-->
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 </span>
 <!--{/if}-->

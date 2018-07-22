@@ -5,7 +5,7 @@
 学习
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 <!--{eval $skill72_num=(int)\skillbase\skill_getvalue(72,'t'); $skill72_left=$sk72_max_learn_num-$skill72_num;}-->
 <!--{eval $skill72_bnum=(int)\skillbase\skill_getvalue(72,'b'); $skill72_bleft=1-$skill72_bnum;}-->
 你可以学习任意<span class="yellow b">$sk72_max_learn_num</span>个非限定技能，其中至多<span class="yellow b">1</span>个战斗技能<br>
@@ -38,7 +38,7 @@
 <!--{/if}-->
 
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 <!--{if $skill72_left>0}-->
 <input type="button" style="width:46px" onclick="bubblebox_show('learntable72');" value="学习">
 <!--{else}-->
@@ -46,7 +46,7 @@
 <!--{/if}-->
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 
 </span>

@@ -5,7 +5,7 @@
 家教
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 <!--{eval $skill55_nchoice=(int)\skillbase\skill_getvalue(55,'l');}-->
 <!--{if $skill55_nchoice==0}-->
 学习任意一个非限定技能<br>
@@ -36,7 +36,7 @@
 {template MOD_BUBBLEBOX_END}
 
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 <!--{if $skill55_nchoice==0 || $money>=$skill55_need}-->
 <input type="button" style="width:46px" onclick="bubblebox_show('learntable55');" value="学习">
 <!--{else}-->
@@ -44,7 +44,7 @@
 <!--{/if}-->
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 3级时解锁
 </span>

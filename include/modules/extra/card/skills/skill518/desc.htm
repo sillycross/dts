@@ -5,15 +5,15 @@
 $clubskillname[$___TEMP_SKILL_ID]
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 每当你主动行动而经历1次禁区，你就获得1次回归次数。<br>
 只要你有回归次数，你被战斗或陷阱杀死时就能复活。<br>
 当前回归次数：<span class="<!--{if $skill518_r > 0}-->lime b<!--{else}-->red b<!--{/if}-->">{$skill518_r}</span>次（最多累积2次）
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 </span>
 <!--{/if}-->

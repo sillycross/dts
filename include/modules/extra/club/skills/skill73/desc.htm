@@ -6,13 +6,13 @@
 必杀
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 <!--{if $club==9}--><span class="yellow b">战斗技</span>&nbsp;&nbsp;本次攻击造成物理伤害<span class="yellow b">×2</span><br>消耗<span class="yellow b">$ragecost</span>点怒气，<span class="yellow b">集气</span>属性会额外返还<span class="yellow b">15</span>点怒气<!--{else}--><span class="yellow b">战斗技</span>&nbsp;&nbsp;本次攻击造成物理伤害<span class="yellow b">×2</span>，消耗<span class="yellow b">$ragecost</span>点怒气<!--{/if}-->
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 3级时解锁
 </span>

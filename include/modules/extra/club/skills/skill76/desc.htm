@@ -5,7 +5,7 @@
 充能
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 <!--{eval $skill76_lst = (int)\skillbase\skill_getvalue(76,'lastuse'); $skill76_time = ($now-$skill76_lst);$skill76_cd_left=($skill76_cd-$skill76_time);}-->
 发动后立即回复怒气至<span class="yellow b">100</span>点。<br>
 前<span class="yellow b">2</span>次发动没有冷却时间，之后冷却时间<span class="cyan b">600</span>秒<br>
@@ -15,7 +15,7 @@
 <!--{/if}-->
 <!--{/if}-->
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 <!--{if $skill76_time>$skill76_cd}-->
 <input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill76_special';$('subcmd').value='activate';postCmd('gamecmd','command.php');this.disabled=true;" value="发动">
 <!--{else}-->
@@ -23,7 +23,7 @@
 <!--{/if}-->
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 11级时解锁
 </span>

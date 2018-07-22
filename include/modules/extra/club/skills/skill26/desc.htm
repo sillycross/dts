@@ -5,7 +5,7 @@
 聚能
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 <!--{eval $clv = (int)\skillbase\skill_getvalue(26,'lvl'); }-->
 <!--{if $clv <= 1}-->
 <span class="yellow b">战斗技</span>：消耗<span class="yellow b">$ragecost[1]</span>点怒气发动，本次攻击伤害全部视为<span class="red b">火焰</span>伤害<br>
@@ -14,7 +14,7 @@
 <span class="yellow b">战斗技</span>：消耗<span class="yellow b">$ragecost[2]</span>点怒气发动，本次攻击伤害全部视为<span class="red b">灼焰</span>伤害<br>
 <!--{/if}-->
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 <!--{if $clv==1 && $skillpoint>=10}-->
 <input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill26_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="升级">
 <!--{elseif $clv==1}-->
@@ -22,7 +22,7 @@
 <!--{/if}-->
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 3级时解锁
 </span>

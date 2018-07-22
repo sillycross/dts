@@ -5,7 +5,7 @@
 腐蚀
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 <!--{eval $skill62_cnt = (int)\skillbase\skill_getvalue(62,'t'); $skill62_used = 7-$skill62_cnt; $skill62_dmgr=$skill62_used*7;}-->
 <span class="red b">限定技&nbsp;本局还可发动<span>$skill62_cnt</span>次</span><br>
 每次发动提升<span class="yellow b">50</span>点生命上限，但你的战斗伤害输出将永久降低<span class="yellow b">7%</span><br>
@@ -13,7 +13,7 @@
 <span class="cyan b">你已经发动了这个技能<span>$skill62_used</span>次，你的最终伤害输出将降低$skill62_dmgr%</span><br>
 <!--{/if}-->
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 <!--{if $skill62_cnt>0}-->
 <input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill62_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="发动">
 <!--{else}-->
@@ -21,7 +21,7 @@
 <!--{/if}-->
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 7级时解锁
 </span>

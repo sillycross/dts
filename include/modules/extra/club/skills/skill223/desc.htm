@@ -6,13 +6,13 @@
 暗杀
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 <span class="yellow b">战斗技</span><span class="red b">&nbsp;&nbsp;限定技&nbsp;本局还可发动<span>$skill223_cnt</span>/2次</span><br>本次攻击必中，最终伤害提高<span class="yellow b"><!--{if $card==5}-->100%<!--{else}-->50%<!--{/if}--></span>，<br>对方每有一处致伤或异常状态伤害再提高<span class="yellow b">50%</span>。
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 20级时解锁
 </span>

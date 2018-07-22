@@ -5,7 +5,7 @@
 格斗
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 <!--{if $club==19}-->
 你的基础防御力增加<span class="yellow b">殴熟</span>点<br>
 战斗中，你有<span class="yellow b">20%</span>几率抵挡<span class="yellow b">殴熟</span>点伤害(最多800点)
@@ -14,10 +14,10 @@
 战斗中，你有<span class="yellow b">10%</span>几率抵挡<span class="yellow b">殴熟</span>点伤害(最多800点)
 <!--{/if}-->
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 11级时解锁
 </span>

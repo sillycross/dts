@@ -5,7 +5,7 @@
 金刚
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 <!--{eval $clv=(int)\skillbase\skill_getvalue(44,'lvl',$who);}-->
 <!--{eval $choice=(int)\skillbase\skill_getvalue(44,'choice',$who);}-->
 <!--{eval $totlv = count($upgradecost)-1; }-->
@@ -16,7 +16,7 @@
 当前选择：降低你受到的<span class="yellow b">{$skill44_ret}%</span>的<span class="yellow b"><!--{if $choice==0}-->物理固定伤害<!--{else}-->爆炸伤害<!--{/if}--></span> 
 <input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill44_special';$('subcmd').value='upgrade';$('skillpara1').value=2;postCmd('gamecmd','command.php');this.disabled=true;" value="切换">
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 <!--{if $upgradecost[$clv] !== -1}-->
 <!--{if $skillpoint>=$upgradecost[$clv]}-->
 <input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill44_special';$('subcmd').value='upgrade';$('skillpara1').value=1;postCmd('gamecmd','command.php');this.disabled=true;" value="升级">
@@ -26,7 +26,7 @@
 <!--{/if}-->
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 11级时解锁
 </span>

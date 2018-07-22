@@ -6,18 +6,18 @@
 恐惧
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 <span class="yellow b">战斗技</span>：本次攻击物理伤害<span class="yellow b">+x%</span>，<span class="yellow b">x</span>为敌方已损失生命值百分比<br>
 <!--{if $club==24}-->
-发动消耗<span class="yellow b">(50-等级)</span>点怒气，最低20点<!--{if isset($___TEMP_THIS_SKILL_ACQUIRED) && $___TEMP_THIS_SKILL_ACQUIRED}-->(目前为<span class="yellow b">$ragecost</span>点)<!--{/if}--><br>
+发动消耗<span class="yellow b">(50-等级)</span>点怒气，最低20点<!--{if !empty($___TEMP_THIS_SKILL_ACQUIRED)}-->(目前为<span class="yellow b">$ragecost</span>点)<!--{/if}--><br>
 <!--{else}-->
-发动消耗<span class="yellow b">(50-0.7*等级)</span>点怒气，最低25点<!--{if isset($___TEMP_THIS_SKILL_ACQUIRED) && $___TEMP_THIS_SKILL_ACQUIRED}-->(目前为<span class="yellow b">$ragecost</span>点)<!--{/if}--><br>
+发动消耗<span class="yellow b">(50-0.7*等级)</span>点怒气，最低25点<!--{if !empty($___TEMP_THIS_SKILL_ACQUIRED)}-->(目前为<span class="yellow b">$ragecost</span>点)<!--{/if}--><br>
 <!--{/if}-->
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 12级时解锁
 </span>

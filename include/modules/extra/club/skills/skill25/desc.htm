@@ -4,15 +4,15 @@
 圣光
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 你造成的属性伤害<span class="yellow b">+15%</span>，<br>
 如果敌人已有对应异常状态，伤害额外增加<span class="yellow b">+50%</span>
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 11级时解锁
 </span>

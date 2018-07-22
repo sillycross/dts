@@ -234,6 +234,18 @@ div#loading{
 
 
 /*==========技能==========*/
+table.skilltable{
+	height:100%; width:100%; 
+	border:0;margin:0;border-collapse:collapse;border-spacing:0;
+}
+table.skilltable td{padding:0;}
+td.skilldesc_left{}
+td.skilldesc_right{width:96px;}
+span.skilldesc
+{
+	margin:8px auto;
+	display:block;
+}
 div.skill_unacquired
 {
 	position:relative; left:0px; top:0px; 

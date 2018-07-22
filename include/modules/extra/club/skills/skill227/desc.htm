@@ -5,7 +5,7 @@
 神权
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 <!--{if \skillbase\skill_getvalue(227,'l')=='0'}-->
 学习任意一个非战斗非限定技能
 
@@ -31,7 +31,7 @@
 你已经学习了技能“<span class="yellow b">$sk227_learnt</span>”
 <!--{/if}-->
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 <!--{if \skillbase\skill_getvalue(227,'l')=='0'}-->
 <input type="button" style="width:46px" onclick="bubblebox_show('learntable227');" value="学习">
 <!--{else}-->
@@ -39,7 +39,7 @@
 <!--{/if}-->
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 15级时解锁
 </span>

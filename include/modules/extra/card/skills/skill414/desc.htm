@@ -5,7 +5,7 @@
 鹰眼
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 <!--{eval $skill414_act_time=(int)\skillbase\skill_getvalue(414,'dur');}-->
 <!--{eval $skill414_lst = (int)\skillbase\skill_getvalue(414,'lastuse'); $skill414_time = ($now-$skill414_lst);$skill414_cd_left=($skill414_cd+$skill414_act_time-$skill414_time);$skill414_rem=($skill414_act_time-$skill414_time);}-->
 发动后使用爆系和重枪以外的武器命中率均为<span class="yellow b">100</span>%<br>
@@ -17,7 +17,7 @@
 <!--{/if}-->
 <!--{/if}-->
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 <!--{if $skill414_time>$skill414_cd+$skill414_act_time}-->
 <input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill414_special';$('subcmd').value='activate';postCmd('gamecmd','command.php');this.disabled=true;" value="发动">
 <!--{else}-->
@@ -25,7 +25,7 @@
 <!--{/if}-->
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 </span>
 <!--{/if}-->

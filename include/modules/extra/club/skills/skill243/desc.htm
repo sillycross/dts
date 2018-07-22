@@ -4,7 +4,7 @@
 证伪
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 <!--{eval eval(import_module('itemmain')); $sk243l=\skillbase\skill_getvalue(243,'l'); $sk243list='';}-->
 <!--{eval eval(import_module('ex_phy_def'));}-->
 <!--{eval $def_kind0 = $def_kind;}-->
@@ -20,10 +20,10 @@
 战斗中敌人没有正常生效的减半防御属性类型将永久对你无效<br>
 当前你无视的防御属性列表：<span class="cyan b">$sk243list</span>
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 12级时解锁
 </span>

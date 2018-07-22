@@ -6,7 +6,7 @@
 对撞
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 持投系武器时，你对玩家/NPC分别有<span class="yellow b">{$chance1}%/{$chance2}%</span>几率<br>在受到伤害时抵挡 (武器效果值的平方根 x 10) 点伤害(最多3000)。<br>
 如果武器耐久有限，会消耗1耐久。<br>
 <!--{if $skill273var==1}--><span class="yellow b">本技能当前关闭中</span>。
@@ -26,10 +26,10 @@
 	<!--{if $i<2}-->&nbsp;&nbsp;&nbsp;<!--{/if}-->
 <!--{/loop}-->
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 {$unlock_lvl273}级时解锁
 </span>
