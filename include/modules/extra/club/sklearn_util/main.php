@@ -71,7 +71,7 @@ namespace sklearn_util
 									echo '<td class="b3"><span class="lime b">'.$cost.'</span></td>';
 								else  echo '<td class="b3"><span class="grey b">-</span></td>';
 							}
-							echo '<td class="b3"><span style="width:40px;" onmouseover="$(\'skl_util_'.$caller_id.'_skilllearn_'.$skillid.'\').style.display=\'block\'; $(\'skl_util_'.$caller_id.'_skilllearn_'.$skillid.'\').style.top=Number(jQuery(this).offset().top-jQuery(window).scrollTop()+10).toString()+\'px\'; $(\'skl_util_'.$caller_id.'_skilllearn_'.$skillid.'\').style.left=Number(jQuery(this).offset().left-jQuery(window).scrollLeft()+20'.($j<3?'':'-420').').toString()+\'px\'; " onmouseout="$(\'skl_util_'.$caller_id.'_skilllearn_'.$skillid.'\').style.display=\'none\';"><input type="button" style="width:38px" value="查看"></span>';
+							echo '<td class="b3"><span style="width:40px;" onmouseover="$(\'skl_util_'.$caller_id.'_skilllearn_'.$skillid.'\').style.display=\'block\'; $(\'skl_util_'.$caller_id.'_skilllearn_'.$skillid.'\').style.top=Number(jQuery(this).offset().top-jQuery(window).scrollTop()+10).toString()+\'px\'; $(\'skl_util_'.$caller_id.'_skilllearn_'.$skillid.'\').style.left=Number(jQuery(this).offset().left-jQuery(window).scrollLeft()+40'.($j<3?'':'-460').').toString()+\'px\'; " onmouseout="$(\'skl_util_'.$caller_id.'_skilllearn_'.$skillid.'\').style.display=\'none\';"><input type="button" style="width:38px;" value="查看"></span>';
 							if ($callback_funcname('now_learnable',$skillid))
 								echo '<span style="width:40px;"><input type="button" style="width:38px" onclick="$(\'mode\').value=\'special\';$(\'command\').value=\'skill'.$caller_id.'_special\';$(\'subcmd\').value=\'upgrade\';$(\'skillpara1\').value=\''.$skillid.'\';postCmd(\'gamecmd\',\'command.php\');this.disabled=true;" value="学习"></span>';
 							else  echo '<span style="width:40px;"><input type="button" style="width:38px" disabled="true" value="学习"></span>';
@@ -91,7 +91,7 @@ namespace sklearn_util
 		$___TEMP_str='';
 		foreach ($___TEMP_tlis as $___TEMP_now_skillid)
 		{
-			echo '<div id="skl_util_'.$caller_id.'_skilllearn_'.$___TEMP_now_skillid.'" style="width:420px;z-index:10000;position:fixed;display:none; filter:alpha(opacity=95); opacity:0.95; background-color:#000000">';
+			echo '<div id="skl_util_'.$caller_id.'_skilllearn_'.$___TEMP_now_skillid.'" class="skilllearn_desc" style="display:none">';
 			echo '<table width=100% height=100%><tr id="skl_util_'.$caller_id.'_skilllearn_tabrow_'.$___TEMP_now_skillid.'">';
 			global $___TEMP_IN_SKLEARN_FLAG; $___TEMP_IN_SKLEARN_FLAG=1;
 			ob_start();

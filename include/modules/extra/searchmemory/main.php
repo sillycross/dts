@@ -326,7 +326,7 @@ namespace searchmemory
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		//if(18 == $gametype) return true;//暂时仅荣耀模式测试一下
+		if(18 == $gametype) return true;//暂时仅荣耀模式测试一下
 		return false;
 	}
 	
