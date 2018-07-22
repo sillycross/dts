@@ -7,7 +7,7 @@ namespace item_uee
 	function init() 
 	{
 		eval(import_module('itemmain'));
-		$iteminfo['EE'] = '电脑设备';
+		$iteminfo['EE'] = '干扰设备';
 	}
 	
 	function parse_itmuse_desc($n, $k, $e, $s, $sk){
