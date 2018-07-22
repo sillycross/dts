@@ -91,24 +91,43 @@ namespace sklearn_util
 		$___TEMP_str='';
 		foreach ($___TEMP_tlis as $___TEMP_now_skillid)
 		{
-			echo '<div id="skl_util_'.$caller_id.'_skilllearn_'.$___TEMP_now_skillid.'" class="skilllearn_desc" style="display:none">';
-			echo '<table width=100% height=100%><tr id="skl_util_'.$caller_id.'_skilllearn_tabrow_'.$___TEMP_now_skillid.'">';
 			global $___TEMP_IN_SKLEARN_FLAG; $___TEMP_IN_SKLEARN_FLAG=1;
 			ob_start();
 			include template(constant('MOD_SKILL'.$___TEMP_now_skillid.'_DESC'));
 			$str=ob_get_contents();
 			ob_end_clean();
-			$i=strpos($str,'_____TEMP_SKLEARN_START_FLAG_____')+strlen('_____TEMP_SKLEARN_START_FLAG_____');
-			$j=strpos($str,'_____TEMP_SKLEARN_END_FLAG_____');
-			echo substr($str,$i,$j-$i);
+			
+//			$i=strpos($str,'_____TEMP_SKLEARN_START_FLAG_____')+strlen('_____TEMP_SKLEARN_START_FLAG_____');
+//			$j=strpos($str,'_____TEMP_SKLEARN_END_FLAG_____');
+//			$str = substr($str,$i,$j-$i);//取得desc.htm中间的介绍部分
+//			
+//			$i=strpos($str,'<td class="skilldesc_right b3">');
+//			if(false!==$i) $str = substr($str,0,$i);//去掉后边的操作单元格
+			$showcont = parse_skilllearn_desc($str);
 			unset($i); unset($j); unset($str);
 			$___TEMP_IN_SKLEARN_FLAG=0;
-			echo '</tr></table>';
-			echo '</div>';
-			$___TEMP_str.='$(\'skl_util_'.$caller_id.'_skilllearn_tabrow_'.$___TEMP_now_skillid.'\').deleteCell(1);';
+			
+			include template(MOD_SKLEARN_UTIL_SKILLLEARN_DESC);
+			
+			//$___TEMP_str.='$(\'skl_util_'.$caller_id.'_skilllearn_tabrow_'.$___TEMP_now_skillid.'\').deleteCell(1);';
 		}
-		echo '<img style="display:none;" type="hidden" src="img/blank.png" onload="'.$___TEMP_str.'">';
-	}	
+		//echo '<img style="display:none;" type="hidden" src="img/blank.png" onload="'.$___TEMP_str.'">';
+	}
+	
+	//把desc.htm生成的整个内容裁剪到只剩中间介绍部分
+	function parse_skilllearn_desc($str)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//取得desc.htm中间的介绍部分
+		$i=strpos($str,'_____TEMP_SKLEARN_START_FLAG_____')+strlen('_____TEMP_SKLEARN_START_FLAG_____');
+		$j=strpos($str,'_____TEMP_SKLEARN_END_FLAG_____');
+		$str = trim(substr($str,$i,$j-$i));
+		//提取第一个td中间的部分，这里需要用到正则表达式
+		preg_match('|<td[^>]*?skilldesc_left.*?>(.*?)<\\/td>\s*<td[^>]*?skilldesc_right|s', $str, $matches);
+		if($matches) $str = $matches[1];
+		else $str = '';
+		return $str;
+	}
 }
 
 ?>
