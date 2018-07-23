@@ -337,7 +337,7 @@ namespace searchmemory
 		//上一次从尸体上捡东西后若干秒内无法立刻访问同一个尸体上的东西，需要skill1003支持
 		if(check_keep_corpse_in_searchmemory() && !in_array($item, array('back','menu','destroy')) && \skillbase\skill_query(1003)) {
 			eval(import_module('sys','player','logger','searchmemory'));
-			$last_corpse_time = (int)\skillbase\skill_getvalue(1003,'last_corpse_time');//注意这个是以毫秒为单位
+			$last_corpse_time = floor(\skillbase\skill_getvalue(1003,'last_corpse_time'));//注意这个是以毫秒为单位
 			$last_corpse_pid = (int)\skillbase\skill_getvalue(1003,'last_corpse_pid');
 			$ct = floor(getmicrotime()*1000);
 			if($last_corpse_pid == $edata['pid'] && $ct - $last_corpse_time < $searchmemorycoldtime){
