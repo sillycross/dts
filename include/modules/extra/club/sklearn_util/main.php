@@ -44,6 +44,9 @@ namespace sklearn_util
 			}
 		include template(MOD_SKLEARN_UTIL_SKILLLEARN_TABLE);
 		$___TEMP_str='';
+		global $___tmp_disable_codeadv3;
+		$___tmp_disable_codeadv3_old = $___tmp_disable_codeadv3;
+		$___tmp_disable_codeadv3 = 1;
 		foreach ($___TEMP_tlis as $___TEMP_now_skillid)
 		{
 			global $___TEMP_IN_SKLEARN_FLAG; $___TEMP_IN_SKLEARN_FLAG=1;
@@ -59,6 +62,7 @@ namespace sklearn_util
 			
 			//$___TEMP_str.='$(\'skl_util_'.$caller_id.'_skilllearn_tabrow_'.$___TEMP_now_skillid.'\').deleteCell(1);';
 		}
+		$___tmp_disable_codeadv3 = $___tmp_disable_codeadv3_old;
 		//echo '<img style="display:none;" type="hidden" src="img/blank.png" onload="'.$___TEMP_str.'">';
 	}
 	
