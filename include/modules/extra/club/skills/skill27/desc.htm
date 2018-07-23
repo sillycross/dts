@@ -4,16 +4,16 @@
 流火
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 你的<span class="red b">火焰</span>/<span class="red b">灼焰</span>伤害将对敌方一件随机防具造成<span class="yellow b">1点</span>/<span class="yellow b">2点</span>耐久损伤。<br>
 如防具破碎（或该部位无防具），敌人烧伤。<br>
 在你发动“<span class="yellow b">聚能</span>”时效果对敌人的所有防具发生且损伤<span class="yellow b">+1</span>点。
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 
 </span>

@@ -5,14 +5,14 @@
 $clubskillname[$___TEMP_SKILL_ID]
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 用毒药给补给下毒造成的伤害x2；可以检查补给是否有毒
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 	<input type="button" style="width:46px" value="查毒" onclick="$('mode').value='special';$('command').value='skill220_special';$('subcmd').value='pcheck';postCmd('gamecmd','command.php');this.disabled=true;">
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 </span>
 <!--{/if}-->

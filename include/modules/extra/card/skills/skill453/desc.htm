@@ -5,14 +5,14 @@
 狂击
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 连续主动攻击并命中同一目标时，造成的最终伤害每次增加<span class="yellow b">{$skill453_factor}</span>%<br>
 2分钟未作出攻击会自动失去1层强化效果，反击不触发本技能
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 </span>
 <!--{/if}-->

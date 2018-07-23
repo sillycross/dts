@@ -5,7 +5,7 @@
 氪金
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 <!--{eval $skill483_act_time=(int)\skillbase\skill_getvalue(483,'dur');}-->
 <!--{eval $skill483_cost=(int)\skillbase\skill_getvalue(483,'cost');}-->
 <!--{eval $skill483_lst = (int)\skillbase\skill_getvalue(483,'lastuse'); $skill483_time = ($now-$skill483_lst);$skill483_cd_left=($skill483_cd+$skill483_act_time-$skill483_time);$skill483_rem=($skill483_act_time-$skill483_time);}-->
@@ -18,7 +18,7 @@
 <!--{/if}-->
 <!--{/if}-->
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 <!--{if $skill483_time>$skill483_cd+$skill483_act_time}-->
 <input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill483_special';$('subcmd').value='activate';postCmd('gamecmd','command.php');this.disabled=true;" value="发动">
 <!--{else}-->
@@ -26,7 +26,7 @@
 <!--{/if}-->
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 </span>
 <!--{/if}-->

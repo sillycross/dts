@@ -661,15 +661,15 @@ NPC不会被禁区杀死。此外，多数NPC也会自动回避禁区。<br>
 		陷阱的详细介绍见<A href="help.php#毒药和陷阱">毒药和陷阱</A>章节。
 	<dt>『扫雷设备』</dt>
 	<dd>能扫除当前地图的任意1个陷阱，前提条件是该陷阱的效果值 ≥ 扫雷设备的效果值。
-	<dt>『电脑设备』</dt>
+	<dt>『干扰设备』</dt>
 	<dd>道具名一般是“移动PC”。使用后有一定概率能够<span class="yellow b">解封当前禁区</span>，让玩家可以进入禁区探索，但这一危险行动有一定概率导致该设备毁坏，甚至杀死玩家！<br>
-		电脑设备使用后会消耗电力（效果值），电力降到0则需要用『电池』充电才能继续使用。
+		干扰设备使用后会消耗电力（效果值），电力降到0则需要用『电池』充电才能继续使用。
 	<dt>『探测仪器』</dt>
 	<dd>道具名一般是<span class="yellow b">“生命探测器”或者“广域生命探测器”</span>。前者使用后可以看到玩家所在地区的其他玩家以及各类NPC的数目，而后者的视野更是扩展到全地图。<br>
 		无论是PVP还是PVE，掌握对手动向都是至关重要的，因而寻找/合成广域生命探测器是高水平玩家必做的事。<br>
 		探测仪器使用后会消耗电力（效果值），电力降到0则需要用『探测器电池』充电才能继续使用。
 	<dt>『电池』</dt>
-	<dd>分为『电池』和『探测器电池』两种，分别为『电脑设备』及『探测仪器』供电。
+	<dd>分为『电池』和『探测器电池』两种，分别为『干扰设备』及『探测仪器』供电。
 	<dt>『弹药』</dt>
 	<dd>使用后可为手中装备的射系武器，即<span class="yellow b">『远程兵器』</span>和<span class="yellow b">『重型枪械』</span>补充弹药。<br>
 		分为『手枪弹药』、『机枪弹药』、『能源弹药』（枪械电池）、『气体弹药』（枪械电池）和『重型弹药』五种，分别对应不同类型和属性的枪械。不同弹药的判定优先顺序如下：
@@ -1188,11 +1188,11 @@ NPC不会被禁区杀死。此外，多数NPC也会自动回避禁区。<br>
 各个称号的特性与技能请参见下表：</p>
 <BR>
 
-<!--{eval eval(import_module('clubbase'));}-->
-<!--{loop $clublist $nowclub $clubdescr}-->
-<!--{eval \clubbase\club_acquire($nowclub);}-->
-{template MOD_CLUBBASE_SKILLPAGE}
-<!--{eval \clubbase\club_lost();}-->
+<!--{eval eval(import_module('clubbase'));$tmp_clublist=Array(1,2,3,4,5,9,6,7,8,10,11,13,14,18,19,20,21,24);}-->
+<!--{loop $tmp_clublist $nowclub}-->
+	<!--{eval $sdata = \player\create_dummy_playerdata();\clubbase\club_acquire($nowclub);}-->
+	{template MOD_CLUBBASE_SKILLPAGE}
+	<!--{eval \clubbase\club_lost();}-->
 <!--{/loop}-->
 	
 
@@ -1210,7 +1210,7 @@ NPC不会被禁区杀死。此外，多数NPC也会自动回避禁区。<br>
 		<span>技能</span>
 		</td>
 	</tr>
-	<!--{loop Array(1,2,3,4,5,9,6,7,8,10,11,13,14,18,19,20,21,24) $clubn}-->
+	<!--{loop $tmp_clublist $clubn}-->
 		<tr>
 			<td class="b2" height=24px>
 				<span>$clubinfo[$clubn]</span>

@@ -12,7 +12,7 @@ namespace sys
 		$file = 'process_'.(int)$room_id.'.nlk';
 		$res = NULL;
 		if(empty($plock)) {
-			$lstate = check_lock($dir, $file, 5000);
+			$lstate = check_lock($dir, $file, 10000);
 			if(!$lstate) {
 				$res = create_lock($dir, $file);
 			}

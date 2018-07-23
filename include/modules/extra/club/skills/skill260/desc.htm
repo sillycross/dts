@@ -4,14 +4,14 @@
 熟练
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 空手作战时有几率获得额外的殴熟<br>
 有35%/5%/5%/5%的几率额外获得1/2/3/4点熟练
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 2级时解锁
 </span>

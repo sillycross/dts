@@ -5,15 +5,15 @@
 除错
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 <!--{eval $skill424_proc = ((int)\skillbase\skill_getvalue(424,'lvl')); $skill424_need1 = ((int)\skillbase\skill_getvalue(424,'cur1'));$skill424_need2 = ((int)\skillbase\skill_getvalue(424,'cur2'));}-->
 提交指定的物品来追查病毒、修复幻境系统。除错成功会获得奖励。<br>
 除错进度：<span class="yellow b">$skill424_proc</span>次<br>需求物品：<!--{eval echo \skill424\wdebug_showreq();}--><br>
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 </span>
 <!--{/if}-->

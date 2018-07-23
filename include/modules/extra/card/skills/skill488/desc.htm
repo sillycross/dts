@@ -4,13 +4,13 @@
 后路
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 受到敌方伤害时导致不足半血时，只要你还存活，则固定回复那次伤害50%的HP。
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 </span>
 <!--{/if}-->

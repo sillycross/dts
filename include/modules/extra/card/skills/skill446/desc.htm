@@ -5,7 +5,7 @@
 死线
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 <!--{eval $skill446_lst = (int)\skillbase\skill_getvalue(446,'lastuse'); $skill446_time = ($now-$skill446_lst);$skill446_cd_left=($skill446_cd+$skill446_act_time-$skill446_time);$skill446_rem=($skill446_act_time-$skill446_time);}-->
 发动后免疫一切战斗伤害，效果持续<span class="yellow b">$skill446_act_time</span>秒，仅限一次。<br>
 <!--{if $skill446_time>$skill446_act_time && $skill446_time<$skill446_cd+$skill446_act_time}-->
@@ -15,7 +15,7 @@
 <!--{/if}-->
 <!--{/if}-->
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 <!--{if $skill446_time>$skill446_cd+$skill446_act_time}-->
 <input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill446_special';$('subcmd').value='activate';postCmd('gamecmd','command.php');this.disabled=true;" value="发动">
 <!--{else}-->
@@ -23,7 +23,7 @@
 <!--{/if}-->
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 </span>
 <!--{/if}-->

@@ -208,6 +208,15 @@ div#loading{
 	BACKGROUND: #000;filter:alpha(opacity=50); opacity:0.5;
 	background-image: url("../../img/loading.gif");background-repeat: no-repeat;background-position:center;background-attachment: fixed;
 }
+/*==========悬浮提示==========*/
+#hoverHintMsg{
+	display:none;
+	max-width:400px;
+	left:0px; top:0px;z-index:20;position:fixed;
+	text-align:left;
+	background-color:rgba(0,0,0,0.7); *BACKGROUND: rgb(0,0,0); *filter:alpha(opacity=70); 
+}
+#hoverHintMsgInner{margin:3px;}
 /*==========剧情分镜==========*/
 #storyboard_container {
 	background-color:rgba(17,17,17,0.5);
@@ -234,6 +243,19 @@ div#loading{
 
 
 /*==========技能==========*/
+table.skilltable{
+	height:100%; width:100%; 
+	border:0;margin:0;border-collapse:collapse;border-spacing:0;
+}
+table.skilltable td{padding:0;}
+td.skilldesc_left{}
+td.skilldesc_right{width:96px;}
+span.skilldesc
+{
+	margin:8px auto;
+	display:block;
+}
+div.skilldesc{margin:8px auto;display:block;}
 div.skill_unacquired
 {
 	position:relative; left:0px; top:0px; 
@@ -255,6 +277,11 @@ div.skill_unacquired_hint_transparent
 	position:absolute; left:0px; top:0px; height:100%; width:100%;
 	background-color:#000000; 
 	filter:alpha(opacity=0.1); -moz-opacity:0.1; opacity:0.1; -khtml-opacity: 0.1;
+}
+div.skilllearn_desc_container{
+	text-align:center;
+	width:420px;z-index:100;position:fixed;
+	filter:alpha(opacity=95); opacity:0.95; background-color:#000000
 }
 /*==========卡片==========*/
 .lockcard

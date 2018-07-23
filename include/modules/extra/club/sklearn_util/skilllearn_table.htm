@@ -1,0 +1,71 @@
+<!--{eval $tmp_row_num = 4;}-->
+<table border="0" cellSpacing=0 cellPadding=0 style="table-layout:fixed;width:653px;">
+	<tr>
+		<td class="b1" width="80px">技能来源</td>
+		<!--{loop range(1,$tmp_row_num) $i}-->
+			<!--{if $is_show_cost}-->
+				<td class="b1" width="40px">技能</td>
+				<td class="b1" width="20px">费</td>
+			<!--{else}-->
+				<td class="b1" width="60px">技能</td>
+			<!--{/if}-->
+				<td class="b1" width="80px">操作</td>
+		<!--{/loop}-->
+	</tr>
+	<!--{loop $lis $nowclub $slis}-->
+		<!--{if $nowclub != $club}-->
+			<!--这堆外星代码虽然晦涩，但是懒得改了，能用就好……而且改掉未必比这个简洁-->
+			<!--计算最适列数-->
+			<!--{eval $sz=count($slis); if ($sz%$tmp_row_num==0) $lz=$tmp_row_num; else if ($sz%($tmp_row_num-1)==0) $lz=$tmp_row_num-1; else if ($sz%$tmp_row_num>=$sz%($tmp_row_num-1)) $lz=$tmp_row_num; else $lz=$tmp_row_num-1;}-->
+			<!--计算首列的行数-->
+			<!--{eval $rz=floor($sz/$lz); $rz=(int)$rz; if ($sz%$lz!=0) $rz++;}-->
+			<!--{loop range(0,$rz-1) $i}-->
+				<tr>
+				<!--首列：称号名-->
+				<!--{if $i==0}-->
+					<td class="b1" rowspan="{$rz}">{$clubinfo[$nowclub]}</td>
+				<!--{/if}-->
+				<!--{eval $cz=$lz; if ($i==$rz-1 && $sz%$lz!=0) $cz=$sz%$lz;}-->
+				<!--{loop range(0,$cz-1) $j}-->
+					<!--{eval list($skillid,$cost,$now_learnable)=$slis[$i*$lz+$j];}-->
+					<td class="b3">{$clubskillname[$skillid]}</td>
+					<!--{if \skillbase\skill_query($skillid)}-->
+						<!--{if $is_show_cost}-->
+							<td class="b3"><span class="grey b">∞</span></td>
+						<!--{/if}-->
+						<td class="b3"><span class="grey b">已经获得</span></td>
+					<!--{else}-->
+						<!--{if $is_show_cost}-->
+							<!--{if $cost > 0}-->
+								<td class="b3"><span class="lime b">{$cost}</span></td>
+							<!--{else}-->
+								<td class="b3"><span class="grey b">-</span></td>
+							<!--{/if}-->
+						<!--{/if}-->
+						<td class="b3">
+							<!--查看按钮-->
+							<span style="width:40px;"
+								onmouseover="skilldesc_onmouseover({$caller_id}, {$skillid}, this);"
+								onmouseout="skilldesc_onmouseout({$caller_id}, {$skillid});"><input type="button" style="width:38px;" value="查看"></span>
+							<!--学习按钮-->
+							<!--{if $now_learnable}-->
+								<span style="width:40px;"><input type="button" style="width:38px"
+									onclick="$('mode').value='special';$('command').value='skill{$caller_id}_special';$('subcmd').value='upgrade';$('skillpara1').value='{$skillid}';postCmd('gamecmd','command.php');this.disabled=true;" value="学习"></span>
+							<!--{else}-->
+								<span style="width:40px;"><input type="button" style="width:38px" disabled value="学习"></span>
+							<!--{/if}-->
+						</td>
+					<!--{/if}-->
+				<!--{/loop}-->
+				<!--{loop range($cz,$tmp_row_num-1) $k}-->
+					<!--{if $is_show_cost}-->
+						<td></td><td></td><td></td>
+					<!--{else}-->
+						<td></td><td></td>
+					<!--{/if}-->
+				<!--{/loop}-->
+				</tr>
+			<!--{/loop}-->
+		<!--{/if}-->
+	<!--{/loop}-->
+</table>

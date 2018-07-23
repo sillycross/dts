@@ -5,7 +5,7 @@
 挖坑
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 <!--{eval $skill247_lst = (int)\skillbase\skill_getvalue(247,'lastuse'); $skill247_time = ($now-$skill247_lst);$skill247_cd_left=($skill247_cd-$skill247_time);}-->
 在当前地图放置<span class="yellow b">2</span>个毒性陷阱，冷却时间<span class="cyan b">1</span>分钟<br>
 陷阱效果值为你的基础攻击力乘以距上次挖坑的分钟数(最多为3)<br>
@@ -16,7 +16,7 @@
 <!--{/if}-->
 <!--{/if}-->
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 <!--{if $skill247_time>$skill247_cd}-->
 <input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill247_special';$('subcmd').value='activate';postCmd('gamecmd','command.php');this.disabled=true;" value="发动">
 <!--{else}-->
@@ -24,7 +24,7 @@
 <!--{/if}-->
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 </span>
 <!--{/if}-->

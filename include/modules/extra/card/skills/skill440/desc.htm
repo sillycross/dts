@@ -5,7 +5,7 @@
 父爱
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 <!--{eval $skill440_lst = (int)\skillbase\skill_getvalue(440,'lastuse'); $skill440_time = ($now-$skill440_lst);$skill440_cd_left=($skill440_cd-$skill440_time);}-->
 <span class="yellow b">战斗技</span>&nbsp;&nbsp;本次战斗中敌方玩家所有技能无效，并使敌人<span class="red b">烧伤</span><span class="purple b">中毒</span>，且<span class="yellow b">40</span>秒内无法解除异常状态，技能冷却时间<span class="cyan b">$skill440_cd</span>秒<br>
 <!--{if $skill440_lst!=0}-->
@@ -16,10 +16,10 @@
 <!--{/if}-->
 <!--{/if}-->
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 </span>
 <!--{/if}-->

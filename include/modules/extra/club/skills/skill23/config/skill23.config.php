@@ -111,6 +111,43 @@ namespace skill23
 				Array(5,'a')
 			),
 		),
+		'心金方块' => Array(
+			'W' => Array(
+				Array(1,'b'),
+				Array(5,'N'),
+				Array(50,'e'),
+			),
+			'D' => Array(
+				Array(5,'M'),
+				Array(35,'E'),
+				Array(60,'C')
+			),
+		),
+		'魂银方块' => Array(
+			'W' => Array(
+				Array(1,'B'),
+				Array(5,'n'),
+				Array(45,'w'),
+				Array(5,'t')
+			),
+			'D' => Array(
+				Array(5,'m'),
+				Array(35,'W'),
+				Array(65,'F')
+			),
+		),
+		'翡翠方块' => Array(
+			'W' => Array(
+				Array(3,'L'),
+				Array(3,'r'),
+				Array(94,'c')
+			),
+			'D' => Array(
+				Array(6,'H'),
+				Array(34,'R'),
+				Array(60,'c')
+			),
+		),
 		'红宝石方块' => Array(
 			'W' => Array(
 				Array(65,'u'),

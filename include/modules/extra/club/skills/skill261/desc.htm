@@ -5,7 +5,7 @@
 决战
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 <!--{eval $skill261_lst = (int)\skillbase\skill_getvalue(261,'lastuse'); $skill261_time = ($now-$skill261_lst);$skill261_cd_left=($skill261_cd-$skill261_time);}-->
 殴熟翻倍，但每次移动或探索将减少<span class="yellow b">5</span>点殴熟<br>
 技能“<span class="yellow b">格斗</span>”的减伤概率增加<span class="yellow b">15%</span><br>
@@ -15,10 +15,10 @@
 <span class="red b">只能发动一次</span><br>
 <!--{/if}-->
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 19级时解锁
 </span>

@@ -6,7 +6,7 @@
 空想
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 支付体力到{$skill490_minsp}，获得1个类别、效果、耐久和属性皆随机的「空想道具」，其效和耐合计值不超过支付的体力。
 <!--{if $skill490_nextuse > $now}-->
 <br><span class="cyan b">技能冷却中，冷却时间还剩<span class="yellow b">$skill490_cd_left</span>秒。</span><br>
@@ -16,10 +16,10 @@
 <br><span class="red b">你当前体力过少，无法发动技能！</span>
 <!--{/if}-->
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 	<input type="button" value="发动" onclick="$('mode').value='special';$('command').value='skill490_special';$('subcmd').value='activate';postCmd('gamecmd','command.php');this.disabled=true;" <!--{if $skill490_nextuse > $now}-->disabled<!--{/if}--> />
 </span>

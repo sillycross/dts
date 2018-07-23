@@ -5,14 +5,14 @@
 截拳
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 <span class="yellow b">战斗技</span>&nbsp;&nbsp;本次攻击最终伤害增加敌方(攻击力+武器效果值)的<span class="yellow b">{$f1}%</span>，<br>如果对方是NPC则为<span class="yellow b">{$f2}%</span>，（但不超过对方{$skill274_factor_maxhp}%HP上限），<br>且本次战斗中「格斗」触发概率<span class="yellow b">+{$skill274_263up}%</span>。空手方可发动，消耗<span class="yellow b">$ragecost</span>点怒气<br>
 <!--{eval $clv = (int)\skillbase\skill_getvalue(274,'lvl'); }-->
 <!--{eval $totlv = count($upgradecost)-1; }-->
 <span class="lime b">当前级别$clv/$totlv</span>&nbsp;
 <!--{if $upgradecost[$clv] !== -1}-->消耗<span class="lime b">$upgradecost[$clv]</span>点技能点升至下一级<!--{/if}--><br>
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 <!--这个只是一个假的按钮，实际点击的是下面那个-->
 <!--{if $ustate & 2 && !($ustate & 4)}-->
 	<input type="button" style="width:46px" value="选择">
@@ -27,7 +27,7 @@
 <!--{/if}-->
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <!--{if $ustate & 4}-->
 <span class="red b">
 已获得技能「{$clubskillname[$alternate_skillno274]}」，无法解锁！

@@ -6,11 +6,11 @@ namespace cooldown
 	$coldtimeon = 1;
 	//是否显示冷却时间倒计时，0为不显示，1为显示；
 	$showcoldtimer = 1;
-	//移动的冷却时间，单位微秒
+	//移动的冷却时间，单位毫秒
 	$movecoldtime=650;
-	//探索的冷却时间，单位微秒
+	//探索的冷却时间，单位毫秒
 	$searchcoldtime=650;
-	//使用物品的冷却时间，单位微秒
+	//使用物品的冷却时间，单位毫秒
 	$itemusecoldtime=250;
 }
 

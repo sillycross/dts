@@ -5,7 +5,7 @@
 保安
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 <!--{eval $skill435_cnt=$skill435_lim-(int)\skillbase\skill_getvalue(435,'t');}-->
 <span class="red b">限定技&nbsp;本局还可发动<span>$skill435_cnt</span>/<span>$skill435_lim</span>次</span><br>	
 花费<span class="yellow b">$skill435_need</span>元，在当前地点随机召唤一名保安；<br>
@@ -21,10 +21,10 @@
 {template MOD_BUBBLEBOX_END}
 
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 12级时解锁
 </span>

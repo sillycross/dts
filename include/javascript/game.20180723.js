@@ -825,7 +825,9 @@ function xuli_tickfunc()
 	}
 }
 
-//开局剧情
+////////////////////////////////////////////////////////////////////////
+///////////////////////////////开局剧情//////////////////////////////////
+////////////////////////////////////////////////////////////////////////
 shooting_current = 0;
 
 function shooting_showdefault()
@@ -877,4 +879,22 @@ function shooting_jump(num)
 		shooting_current += num;
 	}
 	shooting_checkbuttons();
+}
+
+////////////////////////////////////////////////////////////////////////
+///////////////////////////////技能表//////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+function skilldesc_onmouseover(caller_id, skill_id, srcdom)
+{
+	var obj = jQuery('#skl_util_'+caller_id+'_skilllearn_'+skill_id);
+	obj.css('display','block');
+	obj.css('top',Number(jQuery(srcdom).offset().top-jQuery(window).scrollTop()+10).toString()+'px');
+	var tmp_left = Number(jQuery(srcdom).offset().left-jQuery(window).scrollLeft()+40);
+	if(tmp_left+420>jQuery(window).width()) tmp_left-=460;
+	obj.css('left',tmp_left.toString()+'px');
+}
+
+function skilldesc_onmouseout(caller_id, skill_id)
+{
+	jQuery('#skl_util_'+caller_id+'_skilllearn_'+skill_id).css('display','none');
 }

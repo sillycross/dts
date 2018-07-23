@@ -17,6 +17,8 @@
 //上一次唱过的歌 songkind 位于base/items/song
 //上一次唱到的地方 songpos 位于base/items/song
 //是否已跳过开局剧情 opening_skip 位于base/opening
+//上一次拾取尸体道具的毫秒数 last_corpse_time 位于extra/searchmemory
+//上一次拾取尸体的pid last_corpse_pid 位于extra/searchmemory
 
 namespace skill1003
 {

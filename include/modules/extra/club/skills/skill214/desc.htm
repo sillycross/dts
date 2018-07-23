@@ -6,7 +6,7 @@
 专注
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><div style="margin-top:8px; margin-bottom:8px;">
+<td class="skilldesc_left b3"><div class="skilldesc">
 <span style="text-align:left; display:inline-block;">
 你可以随意于下列三个状态间切换：<br>
 <table>
@@ -28,10 +28,10 @@
 </table>
 </span>
 </div></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 3级时解锁
 </span>

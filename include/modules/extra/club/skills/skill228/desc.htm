@@ -7,13 +7,13 @@
 神击
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 <span class="yellow b">战斗技</span>&nbsp;&nbsp;本次攻击造成的最终伤害<span class="yellow b">×1.6</span>，并晕眩敌人<span class="cyan b">$stunsec228</span>秒<br>消耗<span class="yellow b">$ragecost</span>点怒气或<span class="yellow b">5</span>个技能点
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 21级时解锁
 </span>

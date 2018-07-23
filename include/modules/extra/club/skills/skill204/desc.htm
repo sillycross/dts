@@ -6,13 +6,13 @@
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <!--{eval $gold_r = ($club==3?2.5:1.5);}-->
 <!--{eval $gold_p = round($lvl*$gold_r);}-->
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 当你在战斗中击杀敌人时，你立即获得<span class="yellow b">(你的等级×$gold_r)</span>点金钱。<br>
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 8级时解锁
 </span>

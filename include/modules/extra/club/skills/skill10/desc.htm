@@ -4,11 +4,11 @@
 生命
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 每消耗<span class="lime b">1</span>技能点，
 生命上限<span class="yellow b">+2</span>点
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 <!--{if $skillpoint >= 1}-->
 <input type="number" style="width:40px" id="skill10_num" name="skill10_num" min="1" max="$skillpoint" value="1">
 <input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill10_special';$('subcmd').value='upgrade';$('skillpara1').value=$('skill10_num').value;postCmd('gamecmd','command.php');this.disabled=true;" value="使用">
@@ -18,7 +18,7 @@
 <!--{/if}-->
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 </span>
 <!--{/if}-->

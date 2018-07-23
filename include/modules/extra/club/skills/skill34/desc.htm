@@ -7,7 +7,7 @@
 百战
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 选择任一单体减半防御属性，你视为具有它。<br>
 当前选择是：<span class="yellow b"><!--{if $nchoice!=''}-->$itemspkinfo[$nchoice]<!--{else}-->无<!--{/if}--></span>
 &nbsp;
@@ -28,10 +28,10 @@
 可随时改变
 <br>
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 18级时解锁
 </span>

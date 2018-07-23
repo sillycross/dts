@@ -5,14 +5,14 @@
 $clubskillname[$___TEMP_SKILL_ID]
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 <span class="cyan b">称号特性</span> $clubdesc_a[20]
 <!--{eval $clv = (int)\skillbase\skill_getvalue(23,'lvl'); }-->
 <!--{eval $totlv = count($upgradecost)-1; }-->
 <br><span class="lime b">当前级别$clv/$totlv</span>&nbsp;&nbsp;镶嵌属性上限为<span class="lime b">$skill23max[$clv]</span>个
 &nbsp;&nbsp;<!--{if $upgradecost[$clv] !== -1}-->消耗<span class="lime b">$upgradecost[$clv]</span>点技能点升级<!--{/if}--><br>
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 <!--{if $upgradecost[$clv] !== -1}-->
 <!--{if $skillpoint>=$upgradecost[$clv]}-->
 <input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill23_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="升级">
@@ -22,7 +22,7 @@ $clubskillname[$___TEMP_SKILL_ID]
 <!--{/if}-->
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 </span>
 <!--{/if}-->

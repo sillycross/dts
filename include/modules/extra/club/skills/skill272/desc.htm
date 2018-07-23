@@ -5,7 +5,7 @@
 吸光
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
-<td class=b3><span style="margin-top:8px; margin-bottom:8px; display:block;">
+<td class="skilldesc_left b3"><span class="skilldesc">
 <!--{eval $skill272_lst = (int)\skillbase\skill_getvalue(272,'lastuse'); $skill272_time = ($now-$skill272_lst);$skill272_cd_left=($skill272_cd+$skill272_act_time-$skill272_time);$skill272_rem=($skill272_act_time-$skill272_time);}-->
 选择1个装备/道具，<span class="yellow b">必须具有以下属性1个以上：</span><br>
 <span class="grey b">
@@ -26,7 +26,7 @@ $itemspkinfo[$skval]
 	<span class="yellow b">技能发动中，属性伤害增加{$effect272}%！持续时间还剩<span>$skill272_rem</span>秒。</span><br>
 <!--{/if}-->
 </span></td>
-<td class=b3 width=96>
+<td class="skilldesc_right b3">
 <!--{if $skill272_time>$skill272_cd+$skill272_act_time}-->
 <input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill272_special';$('subcmd').value='';postCmd('gamecmd','command.php');this.disabled=true;" value="发动">
 <!--{else}-->
@@ -34,7 +34,7 @@ $itemspkinfo[$skval]
 <!--{/if}-->
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
-<!--{if !isset($___TEMP_THIS_SKILL_ACQUIRED) || !$___TEMP_THIS_SKILL_ACQUIRED}-->
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 15级时解锁
 </span>
