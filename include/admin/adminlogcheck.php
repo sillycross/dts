@@ -34,7 +34,7 @@ foreach($adminlogdata as $aval){
 		$show_o = '修改屏蔽词/IP';
 		$nmlimit = gdecode($p1,1);$iplimit = gdecode($p2,1);
 		$show_p = '用户名屏蔽：<br>'.htmlentities($nmlimit).'<br>IP屏蔽：<br>'.htmlentities($iplimit);
-	}elseif('configmng'==$o || 'gamecfgmng'==$o || 'globalgamemng'==$o){
+	}elseif('configmng'==$o || 'gamecfgmng'==$o || 'globalgamemng'==$o || 'systemmng'==$o){
 		$show_o = $lang[$o];
 //		if('configmng'==$o) $show_o = '底层参数设置';
 //		elseif('globalgamemng'==$o) $show_o = '全局参数设置';
@@ -69,7 +69,7 @@ foreach($adminlogdata as $aval){
 			if('I'==$p3) $show_o = '立刻增加禁区';
 			elseif('L'==$p3) $show_o = '60s后增加禁区';
 		}
-		$show_gnum = adminlog_parse_gnum($a1,$a2);
+		$show_gnum = adminlog_parse_gnum($p1,$p2);
 	}elseif(in_array($o, array('killpc', 'livepc', 'delpc', 'delcp', 'editpc', 'killnpc', 'livenpc', 'delnpc', 'delncp', 'editnpc'))){
 		if(strpos($o, 'kill')===0) {
 			$show_o = '杀死';
