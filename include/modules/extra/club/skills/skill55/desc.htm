@@ -47,6 +47,9 @@
 <!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
 3级时解锁
+<!--{if !empty($GLOBALS['___IN_HELP'])}-->
+<input type="button" style="width:46px;margin-right:25px;float:right;" onclick="bubblebox_show('learntable55');" value="学习">
+<!--{/if}-->
 </span>
 <!--{/if}-->
 {template MOD_CLUBBASE_SKILLDESC_END}
