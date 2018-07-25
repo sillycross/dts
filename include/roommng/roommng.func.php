@@ -592,10 +592,10 @@ function room_enter($id)
 		else $header = 'index.php';
 	}else{
 		//需要准备的房间，只是加入房间准备页面
-		room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}进入了房间</span><br>");
-		room_save_broadcast($id,$roomdata);
 		$header = 'index.php';
 	}
+	room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}进入了房间</span><br>");
+	room_save_broadcast($id,$roomdata);
 	set_current_roomid($id);
 	//update_udata_by_username(array('roomid' => $id), $cuser);
 
