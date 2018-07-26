@@ -1,3 +1,7 @@
+////////////////////////////////////////////////////////////////////////
+/////////////////////////////快捷键函数/////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
 var ms;
 hotkey_ok = true;
 refchat_ok = true;
@@ -60,6 +64,10 @@ function hotkey_click(hkid){
 	}
 }
 
+////////////////////////////////////////////////////////////////////////
+/////////////////////////////计时器函数/////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
 function demiSecTimer(){
 	if($('timer') && ms>=itv)	{
 		ms -= itv;
@@ -78,6 +86,10 @@ function demiSecTimerStarter(msec){
 	ms = msec;
 	if (typeof timerid == 'undefined') timerid = setInterval(demiSecTimer,itv);
 }
+
+////////////////////////////////////////////////////////////////////////
+/////////////////////////////界面杂项函数/////////////////////////////////
+////////////////////////////////////////////////////////////////////////
 
 //已废弃
 function itemmixchooser(){
@@ -111,6 +123,38 @@ function sl(id) {
 	$(id).checked = true;
 	replay_record_DOM_path($(id));
 }
+
+function sleep(millis)
+{
+	var date = new Date();
+	var curDate = null;
+	do { curDate = new Date(); } while(curDate-date < millis);
+}
+
+//oSourceObj按钮本身
+//oTargetObj要开闭的标签
+//shutAble开启后是否能关闭
+function openShutManager(oSourceObj,oTargetObj,shutAble,oOpenTip,oShutTip){
+	var sourceObj = typeof oSourceObj == "string" ? document.getElementById(oSourceObj) : oSourceObj;
+	var targetObj = typeof oTargetObj == "string" ? document.getElementById(oTargetObj) : oTargetObj;
+	var openTip = oOpenTip || "";
+	var shutTip = oShutTip || "";
+	if(targetObj.style.display!="none"){
+	   if(shutAble) return;
+	   targetObj.style.display="none";
+	   if(openTip  &&  shutTip){
+	    sourceObj.innerHTML = shutTip; 
+	   }
+	} else {
+	   targetObj.style.display="block";
+	   if(openTip  &&  shutTip){
+	    sourceObj.innerHTML = openTip; 
+	   }
+	}
+}
+////////////////////////////////////////////////////////////////////////
+/////////////////////////////AJAX相关函数/////////////////////////////////
+////////////////////////////////////////////////////////////////////////
 
 in_replay_mode = 0;
 last_sender = '';
@@ -163,13 +207,6 @@ function postCmd(formName,sendto,disableall){
 	{
 		$('oprecorder').value=""; last_sender='';
 	}
-}
-
-function sleep(millis)
-{
-	var date = new Date();
-	var curDate = null;
-	do { curDate = new Date(); } while(curDate-date < millis);
 }
 
 //adv3开启时才有效的html缓存解码函数
@@ -438,28 +475,6 @@ function showChatdata(chatdata) {
 			newchat += cdata[cid];
 		}
 		if(newchat) $(pdomid).innerHTML=newchat+$(pdomid).innerHTML;
-	}
-}
-
-//oSourceObj按钮本身
-//oTargetObj要开闭的标签
-//shutAble开启后是否能关闭
-function openShutManager(oSourceObj,oTargetObj,shutAble,oOpenTip,oShutTip){
-	var sourceObj = typeof oSourceObj == "string" ? document.getElementById(oSourceObj) : oSourceObj;
-	var targetObj = typeof oTargetObj == "string" ? document.getElementById(oTargetObj) : oTargetObj;
-	var openTip = oOpenTip || "";
-	var shutTip = oShutTip || "";
-	if(targetObj.style.display!="none"){
-	   if(shutAble) return;
-	   targetObj.style.display="none";
-	   if(openTip  &&  shutTip){
-	    sourceObj.innerHTML = shutTip; 
-	   }
-	} else {
-	   targetObj.style.display="block";
-	   if(openTip  &&  shutTip){
-	    sourceObj.innerHTML = openTip; 
-	   }
 	}
 }
 
