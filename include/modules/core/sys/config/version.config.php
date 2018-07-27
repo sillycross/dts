@@ -1,9 +1,10 @@
 <?php
 //游戏版本
-$gameversion = 'N.E.W. v1.12.6';
+$gameversion = 'N.E.W. v1.12.7';
 //版权信息
 $gamecredits = <<<GAMECREDITS
 	<a href="https://github.com/winddramon/dts/">DTS $gameversion developed by sillycross, Lein, Yoshiko_G AND illustrated by KHIBIKI.</a><br>
+	<a>立绘及剧情图片绘师：KHIBIKI, noui, サークル　うどんワンタン</a><br>
 	<a href="http://www.jewel-s.jp/">部分图像资源采用了JewelSaviorFREE[http://www.jewel-s.jp/]的免费素材</a><br>
 	<a href="http://www.amarilloviridian.com">Reconsituted from 常磐大逃杀 GE600 by 冴月 麟, Yoshiko_G, sillycross, Lein.</a><br>
 	<a>生存游戏 - BRA简体版V3.0.2 translated by azazil@loongyou.com</a><br>
