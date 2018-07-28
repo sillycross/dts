@@ -5,7 +5,7 @@ namespace itemmix
 //合成时无视的词缀，是正则表达式
 $itmname_ignore = Array('/锋利的/si','/电气/si','/毒性/si','/-改/si');
 
-$mixinfo = array 
+$mixinfo = array
 	( 
 	array('class' => 'h', 'stuff' => array('杂炊','松茸'),'result' => array('松茸御饭','HS',120,10,),),
 	array('class' => 'h', 'stuff' => array('咖喱','面包'),'result' => array('咖喱面包','HH',140,2,),),

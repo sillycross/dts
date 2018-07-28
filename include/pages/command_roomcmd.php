@@ -262,36 +262,22 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 	}
 	elseif ('leave'==$command)
 	{
-		$upos = room_upos_check($roomdata);
-//		$upos = -1;
-//		for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
-//			if (!$roomdata['player'][$i]['forbidden'] && $roomdata['player'][$i]['name']==$cuser)
-//				$upos = $i;
-		
-		//如为队长，该队所有位置重新回到启用状态
-		if ($upos>=0)
-		{
-			$rdplist = & room_get_vars($roomdata, 'player');
-			if ($upos == room_team_leader_check($roomdata,$upos))
-				room_refresh_team_pos($roomdata,$upos);
-//			if ($roomtypelist[$roomdata['roomtype']]['leader-position'][$upos]==$upos)
-//			{
-//				for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++)
-//					if (	$roomtypelist[$roomdata['roomtype']]['leader-position'][$i]==$upos
-//						&& $roomdata['player'][$i]['forbidden'])
-//						{
-//							$roomdata['player'][$i]['forbidden']=0;
-//							$roomdata['player'][$i]['name']='';
-//							$roomdata['player'][$i]['ready']=0;
-//						}
-//			}
-			$rdplist[$upos]['name']='';
-			$rdplist[$upos]['ready']=0;
+		//只有房间等待中，离开房间才会更改房间player列表（否则房主在游戏开始后退出会导致部分房间结束后闪退，引起结局看不到等问题）
+		if($rarr['groomstatus'] < 40) {
+			$upos = room_upos_check($roomdata);
+			if ($upos>=0)
+			{
+				$rdplist = & room_get_vars($roomdata, 'player');
+				//如为队长，该队所有位置重新回到启用状态
+				if ($upos == room_team_leader_check($roomdata,$upos))
+					room_refresh_team_pos($roomdata,$upos);
+				$rdplist[$upos]['name']='';
+				$rdplist[$upos]['ready']=0;
+			}
 		}
 		room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}离开了房间</span><br>");
 		room_save_broadcast($room_id_r,$roomdata);
 		set_current_roomid(0);
-		//update_udata_by_username(array('roomid' => 0), $cuser);
 		if ($not_ajax)
 			echo 'redirect:index.php';
 		else

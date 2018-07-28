@@ -33,9 +33,17 @@
 	        box-shadow: 0 0 12px #fff;
 }
 
+.glow_buttons:active {
+	background-color:rgba(221,221,221,0.5);
+}
+
 .glow_buttons.yellow:hover {
 	-webkit-box-shadow: 0 0 18px #ff0;
 	        box-shadow: 0 0 18px #ff0;
+}
+
+.glow_buttons.yellow:active {
+	background-color:rgba(255,255,0,0.5);
 }
 
 .glow_buttons.red:hover {
@@ -43,9 +51,17 @@
 	        box-shadow: 0 0 18px #f00;
 }
 
+.glow_buttons.red:active {
+	background-color:rgba(255,0,0,0.5);
+}
+
 .glow_buttons.cyan:hover {
 	-webkit-box-shadow: 0 0 18px #0ff;
 	        box-shadow: 0 0 18px #0ff;
+}
+
+.glow_buttons.cyan:active {
+	background-color:rgba(0,255,255,0.5);
 }
 
 .glow_buttons.lime:hover {
@@ -53,9 +69,17 @@
 	        box-shadow: 0 0 18px #0f0;
 }
 
+.glow_buttons.lime:active {
+	background-color:rgba(0,255,0,0.5);
+}
+
 .glow_buttons.grey:hover {
 	-webkit-box-shadow: 0 0 18px #999;
 	        box-shadow: 0 0 18px #999;
+}
+
+.glow_buttons.grey:active {
+	background-color:rgba(153,153,153,0.5);
 }
 
 .glow_buttons.darkgrey:hover {
@@ -63,9 +87,17 @@
 	        box-shadow: 0 0 18px #666;
 }
 
+.glow_buttons.darkgrey:active {
+	background-color:rgba(102,102,102,0.5);
+}
+
 .glow_buttons.evergreen:hover {
 	-webkit-box-shadow: 0 0 18px #98fb98;
 	        box-shadow: 0 0 18px #98fb98;
+}
+
+.glow_buttons.evergreen:active {
+	background-color:rgba(152,251,152,0.5);
 }
 
 .glow_buttons.forbidden{

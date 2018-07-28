@@ -84,8 +84,22 @@ function init_item_place()
 		foreach($modelist as $mval){
 			if(isset($iplacefiledata[$val.'_'.$mval])){
 				//由于是字符串，刚好可以用array_diff。返回特殊模式独有的道具数据
-				$res = array_diff($iplacefiledata[$val.'_'.$mval], $basedata);
-				$iplacefiledata[$val.'_'.$mval] = $res;
+				$diff1 = array_diff($iplacefiledata[$val.'_'.$mval], $basedata);
+				$diff2 = array_diff( $basedata, $iplacefiledata[$val.'_'.$mval]);
+				$diff = array_merge($diff1, $diff2);
+				$changedlist = array();//记录有改变的道具名
+				foreach($diff as $dfv){
+					$dfv = explode(',',$dfv);
+					if(!in_array($dfv[3], $changedlist)) $changedlist[] = $dfv[3];
+				}
+				$addlist = array();
+				foreach($iplacefiledata[$val.'_'.$mval] as $ipmv) {
+					$tmp_ipmv = explode(',',$ipmv);
+					if(in_array($tmp_ipmv[3], $changedlist)) {
+						$addlist[] = $ipmv;
+					}
+				}
+				$iplacefiledata[$val.'_'.$mval] = $addlist;
 				//writeover('tmp_'.$val.'_'.$mval.'.txt', var_export($res,1));
 			}
 		}
@@ -107,8 +121,8 @@ function init_item_place()
 					if ($imap==99) $idata.="全图随机"; else $idata.="于{$plsinfo[$imap]}";
 					$idata.="刷新{$inum}个";
 					if(strpos($ipdkey,'_')!==false){//如果特殊模式，加标记
-						if($ipdkey == 'mapitem_i8') $idata = '荣耀模式：'.$idata;
-						elseif($ipdkey == 'mapitem_i9') $idata = '极速模式：'.$idata;
+						if($ipdkey == 'mapitem_i8') $idata = '<span class=cyan>荣耀模式</span>：'.$idata;
+						elseif($ipdkey == 'mapitem_i9') $idata = '<span class=red>极速模式</span>：'.$idata;
 					}
 				}
 			}
@@ -120,8 +134,8 @@ function init_item_place()
 					if(empty($iplacedata[$iname])) $iplacedata[$iname] = array();
 					$idata.="{$area}禁起在商店中出售({$price}元)";
 					if(strpos($ipdkey,'_')!==false){//如果特殊模式，加标记
-						if($ipdkey == 'shopitem_i8') $idata = '荣耀模式：'.$idata;
-						elseif($ipdkey == 'shopitem_i9') $idata = '极速模式：'.$idata;
+						if($ipdkey == 'shopitem_i8') $idata = '<span class=cyan>荣耀模式</span>：'.$idata;
+						elseif($ipdkey == 'shopitem_i9') $idata = '<span class=red>极速模式</span>：'.$idata;
 					}
 				}
 			}
@@ -178,8 +192,8 @@ function init_item_place()
 								$idata='';
 							}else{
 								if(strpos($ipdkey, '_')!==false){
-									if($ipdkey == 'npc_i8') $idata = '荣耀模式：'.$idata;
-									elseif($ipdkey == 'npc_i9') $idata = '极速模式：'.$idata;
+									if($ipdkey == 'npc_i8') $idata = '<span class=cyan>荣耀模式</span>：'.$idata;
+									elseif($ipdkey == 'npc_i9') $idata = '<span class=rdd>极速模式</span>：'.$idata;
 								}
 							}
 							if(empty($iplacedata[$iname])) $iplacedata[$iname] = array();

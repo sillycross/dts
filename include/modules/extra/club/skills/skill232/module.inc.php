@@ -3,7 +3,7 @@
 namespace skill232
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'clubbase skillbase player sys logger bufficons attack';
+	$___MODULE_dependency = 'clubbase skillbase player sys logger bufficons attack ex_hp_def';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';
