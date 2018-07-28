@@ -221,9 +221,12 @@ namespace npc
 		$pid = $sub['pid'];
 		$o_sub = $sub;
 		$pls_available = \map\get_safe_plslist();//不能移动去的区域，如果不存在，NPC不移动
+		$pls_available2 = \map\get_safe_plslist(1, 1);
 		if($sub['type'] && !in_array($sub['type'],$killzone_resistant_typelist) && $pls_available){
-			shuffle($pls_available);
-			$sub['pls'] = $pls_available[0];
+			//选择所用的安全区列表
+			$tmp_pls_available = 14 == $sub['type'] ? $pls_available2 : $pls_available;
+			shuffle($tmp_pls_available);
+			$sub['pls'] = $tmp_pls_available[0];
 			$db->array_update("{$tablepre}players",$sub,"pid='$pid'",$o_sub);
 			\player\post_pc_avoid_killarea($sub, $atime);
 			//echo $sub['pid'].' ';
