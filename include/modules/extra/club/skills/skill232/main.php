@@ -4,8 +4,8 @@ namespace skill232
 {
 	$shieldgain = Array(110,140,170,200,230,300);
 	$shieldeff = Array(10,15,20,25,30,50);
-	$upgradecost = Array(4,4,5,5,5,-1);
-	$skill232_cd = Array(150,120,120,90,60,60);
+	$upgradecost = Array(4,4,5,5,6,-1);
+	$skill232_cd = Array(150,120,120,90,60,45);
 	
 	function init() 
 	{
@@ -94,11 +94,20 @@ namespace skill232
 		return 3;
 	}
 	
+	function check_skill232_shield_on(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = true;
+		if (!\skillbase\skill_query(232, $pa) || !check_unlocked232($pa)) $ret = false;
+		if ($pa['hp'] <= $pa['mhp']) $ret = false;
+		return $ret;
+	}
+	
 	function get_final_dmg_base(&$pa, &$pd, &$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa,$pd,$active);
-		if (\skillbase\skill_query(232,$pd) && check_unlocked232($pd) && $pd['hp']>$pd['mhp']) 
+		if (check_skill232_shield_on($pd)) 
 		{
 			eval(import_module('logger','skill232'));
 			$clv = (int)\skillbase\skill_getvalue(232,'lvl',$pd);
@@ -110,6 +119,15 @@ namespace skill232
 		return $ret;
 	}
 
+	//有盾时不受反噬
+	function calculate_hp_rev_dmg(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (check_skill232_shield_on($pa)){
+			return 0;
+		}
+		return $chprocess($pa,$pd,$active);
+	}
 	
 //	function apply_total_damage_modifier_invincible(&$pa,&$pd,$active)
 //	{

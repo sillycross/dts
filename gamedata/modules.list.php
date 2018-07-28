@@ -158,7 +158,6 @@ club18,extra/club/clubs/club18/,1
 skill211,extra/club/skills/skill211/,1
 skill212,extra/club/skills/skill212/,1
 skill214,extra/club/skills/skill214/,1
-skill232,extra/club/skills/skill232/,1
 skill234,extra/club/skills/skill234/,1
 skill235,extra/club/skills/skill235/,1
 skill420,extra/card/skills/skill420/,1
@@ -364,6 +363,7 @@ skill465,extra/card/skills/skill465/,1
 skill478,extra/card/skills/skill478/,1
 skill272,extra/club/skills/skill272/,1
 ex_phy_nullify,extra/attr/ex_phy_nullify/,1
+skill232,extra/club/skills/skill232/,1
 skill432,extra/card/skills/skill432/,1
 skill513,extra/card/skills/skill513/,1
 weather,base/weather/,1
