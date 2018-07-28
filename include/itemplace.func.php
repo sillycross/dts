@@ -84,8 +84,8 @@ function init_item_place()
 		foreach($modelist as $mval){
 			if(isset($iplacefiledata[$val.'_'.$mval])){
 				//由于是字符串，刚好可以用array_diff。返回特殊模式独有的道具数据
-				$res = array_diff($iplacefiledata[$val.'_'.$mval], $basedata);
-				$iplacefiledata[$val.'_'.$mval] = $res;
+				//$res = array_diff($iplacefiledata[$val.'_'.$mval], $basedata);
+				$iplacefiledata[$val.'_'.$mval] = $iplacefiledata[$val.'_'.$mval];
 				//writeover('tmp_'.$val.'_'.$mval.'.txt', var_export($res,1));
 			}
 		}

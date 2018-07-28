@@ -110,7 +110,7 @@ function curl_udata_cmd($command, $para1='', $para2='', $para3='', $para4='', $p
 	}
 	//writeover('a.txt', debug_backtrace()[2]['file'].' '.debug_backtrace()[3]['file'].' '.$userdb_remote_key."\r\n", 'ab+');
 	if(NULL===$ret || ('fetch_udata' == $command && !is_array($ret))) {
-		$error_message = '连接远程数据库失败'.$ret_raw;
+		$error_message = '连接远程数据库失败';
 		if(strpos($ret_raw, 'Error')===0) $error_message .= ' '.$ret_raw;
 		if(!in_array(CURSCRIPT, array('chat'))) gexit($error_message,__file__,__line__);
 		else {
