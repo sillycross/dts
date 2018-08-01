@@ -253,8 +253,11 @@ div.bubblebox_container{
 	text-align:center;
 	display:none;
 }
-
-
+/*==========雷达屏幕==========*/
+table.radar{
+	border:0;margin:0;border-collapse:collapse;border-spacing:0;text-align:center;
+}
+table.radar tr{height:20px;}
 /*==========技能==========*/
 table.skilltable{
 	height:100%; width:100%; 

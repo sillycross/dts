@@ -2,7 +2,7 @@
 
 namespace radar
 {
-	global $radarscreen;
+	global $radardata, $radar_npctplist;
 	
 	function init()
 	{
@@ -10,7 +10,15 @@ namespace radar
 		$iteminfo['ER'] = '探测仪器';
 	}
 	
-	function newradar($mms = 0)
+	//探测仪器的属性数字代表其类型
+	//0:生命探测器，功能最少的探测器，只能看当前地图一般NPC
+	//1:强化生命探测器，可以看当前和周围各1格地图，不过不打算引入了，广域已经泛滥了
+	//2:广域生命探测器，可以看所有地图
+	//3:高清生命探测器，可以看所有地图，并可以知道杂兵之外的NPC的名字
+	//4:感应生命探测器，可以看所有地图，并可以知道电波幽灵、全息实体、DF、英灵殿NPC的位置和名字
+	//5:避难所生命探测器，可以看所有地图，每次使用后30s自己在当前地图的先制率+3%
+	
+	function use_radar($radarsk = 0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -20,95 +28,79 @@ namespace radar
 			return;
 		}
 		
-		$npctplist = Array(90,2,5,6,7,11,14);
-		$tdheight = 20;
-		$screenheight = count($plsinfo)*$tdheight;
-		$result = $db->query("SELECT type,pls FROM {$tablepre}players WHERE hp>0");
+		$existing_npctp = array();
+		//第一轮循环，得到原始的存活角色数据
+		$radardata_raw = array();
+		$result = $db->query("SELECT name,type,pls,hp FROM {$tablepre}players");
 		while($cd = $db->fetch_array($result)) {
-			$chdata[] = $cd;
+			$cdname = $cd['name']; $cdtype = $cd['type']; $cdpls = $cd['pls']; $cdhp = $cd['hp'];
+			if(!isset($radardata_raw[$cdpls])) $radardata_raw[$cdpls] = array();
+			if(!isset($radardata_raw[$cdpls][$cdtype])) $radardata_raw[$cdpls][$cdtype] = array();
+			if(!isset($radardata_raw[$cdpls][$cdtype]['num'])) $radardata_raw[$cdpls][$cdtype]['num'] = 0;
+			if(!isset($radardata_raw[$cdpls][$cdtype]['namelist'])) $radardata_raw[$cdpls][$cdtype]['namelist'] = array();
+			if(!in_array($cdtype, $existing_npctp)) $existing_npctp[] = $cdtype;
+			//通常状态下只有存活的才记录
+			if($cdhp) {
+				$radardata_raw[$cdpls][$cdtype]['num'] ++;
+				if(in_array($cdtype, array(0, 2, 5, 7, 11, 14, 20, 21, 22, 45, 46))) $radardata_raw[$cdpls][$cdtype]['namelist'][] = $cdname;
+			}
 		}
-		$radar = array();
-		foreach ($chdata as $data){
-			if(isset($radar[$data['pls']][$data['type']])){$radar[$data['pls']][$data['type']]+=1;}
-			else{$radar[$data['pls']][$data['type']]=1;}
-		}
-		$radarscreen = '<table height='.$screenheight.'px width=720px border="0" cellspacing="0" cellpadding="0" valign="middle"><tbody>';
-		$radarscreen .= "<tr>
-			<td class=b2 height={$tdheight}px width=120px><div class=nttx></div></td>
-			<td class=b2><div class=nttx>{$typeinfo[0]}</div></td>";
-		foreach ($npctplist as $value){
-			$radarscreen .= "<td class=b2><div class=nttx>{$typeinfo[$value]}</div></td>";
-		}
-		$radarscreen .= '</tr>';
-		for($i=0;$i<count($plsinfo);$i++) {
-			$radarscreen .= "<tr><td class=b2 height={$tdheight}px><div class=nttx>{$plsinfo[$i]}</div></td>";
-			if((array_search($i,$arealist) > $areanum) || $hack) {
-				if($i==$pls) {
-					$num0 = $radar[$i][0];
-					foreach ($npctplist as $j){
-						if($gamestate == 50){${'num'.$j} = 0;}
-						else{
-							${'num'.$j} = isset($radar[$i][$j]) ? $radar[$i][$j] : 0;
-						}
-					}
-					if($num0){
-						$pnum[$i] ="<span class=\"yellow b\">$num0</span>";
-					} else {
-						$pnum[$i] ='<span class="yellow b">-</span>';
-					}
-					foreach ($npctplist as $j){
-						if(${'num'.$j}){
-						${'npc'.$j.'num'}[$i] ="<span class=\"yellow b\">${'num'.$j}</span>";
-						} else {
-						${'npc'.$j.'num'}[$i] ='<span class="yellow b">-</span>';
-						}
-					}
-				} elseif($mms == 2) {
-					$num0 = isset($radar[$i][0]) ? $radar[$i][0] : 0;
-					foreach ($npctplist as $j){
-						if($gamestate == 50){${'num'.$j} = 0;}
-						else{
-							${'num'.$j} = isset($radar[$i][$j]) ? $radar[$i][$j] : 0;
-						}
-						
-					}
-					if($num0){
-						$pnum[$i] =$num0;
-					} else {
-						$pnum[$i] ='-';
-					}
-					foreach ($npctplist as $j){
-						if(${'num'.$j}){
-						${'npc'.$j.'num'}[$i] =${'num'.$j};
-						} else {
-						${'npc'.$j.'num'}[$i] ='-';
-						}
-					}
-				} else {
-					$pnum[$i] = '？';
-					foreach ($npctplist as $j){
-						${'npc'.$j.'num'}[$i] = '？';
-					}
-				}
+		$radar_npctplist = get_radar_npc_type_list($radarsk, $existing_npctp);
+		//第二轮循环，形成显示用数据
+		$radardata = array();
+		foreach($plsinfo as $plsi => $plsn) {
+			$radardata[$plsi] = array();
+			if(array_search($plsi,$arealist) <= $areanum && !$hack) {
+				$radardata[$plsi] = 'x';//禁区，全部写红叉
+			} elseif((!$radarsk && $plsi!=$pls) || (1==$radarsk && ($plsi < $pls - 1 || $plsi > $pls + 1))) {
+				$radardata[$plsi] = '?';//探测不到，全部写问号
 			} else {
-				$pnum[$i] = '<span class="red b">×</span>';
-				foreach ($npctplist as $j){
-					${'npc'.$j.'num'}[$i] = '<span class="red b">×</span>';
+				$radardata[$plsi] = array();
+				foreach($radar_npctplist as $typei){
+					if(!empty($radardata_raw[$plsi][$typei]['num'])) {
+						$radardata[$plsi][$typei]['num'] = $radardata_raw[$plsi][$typei]['num'];
+						if(3 == $radarsk && !in_array($typei, array(6, 90))) $radardata[$plsi][$typei]['namelist'] = radar_parse_namelist($radardata_raw[$plsi][$typei]['namelist']);
+						elseif(4 == $radarsk && in_array($typei, array(21,45,46))) $radardata[$plsi][$typei]['namelist'] = radar_parse_namelist($radardata_raw[$plsi][$typei]['namelist']);
+					}else{
+						$radardata[$plsi][$typei]['num'] = '-';
+					}
 				}
 			}
-			$radarscreen .= "<td class=b3><div class=nttx>{$pnum[$i]}</div></td>";
-			foreach ($npctplist as $j){
-				$radarscreen .= "<td class=b3><div class=nttx>{${'npc'.$j.'num'}[$i]}</div></td>";
-			}	
-			$radarscreen .= '</tr>';
 		}
-		$radarscreen .= '</tbody></table>';
-		$log .= '白色数字：该区域内的人数<br><span class="yellow b">黄色数字</span>：自己所在区域的人数<br><span class="red b">×</span>：禁区<br><br>';
+		
+		$log .= '白色数字：该区域内的人数<br><span class="yellow b">黄色数字</span>：自己所在区域的人数<br><span class="red b">×</span>：禁区<br>';
+		if($radarsk == 3 || $radarsk == 4) $log .= '鼠标悬停于带[ ]的数字可查看NPC名字列表。<br>';
+		$log .= '<br>';
+		ob_start();
 		include template(MOD_RADAR_RADARCMD);
 		$cmd = ob_get_contents();
-		ob_clean();
+		ob_end_clean();
 		$main = MOD_RADAR_RADAR;
 		return;
+	}
+	
+	function radar_parse_namelist($arr){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(empty($arr)) return '';
+		else return str_replace('"',"'",implode('<br>',$arr));
+	}
+	
+	function get_radar_npc_type_list($radarsk, $existing_npctp=array()){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		//基本显示：玩家、杂兵、全息幻象、豆腐、猴子、幻影执行官、职人、女主
+		$ret = Array(0,90,2,5,6,7,11,14);
+		if(!empty($existing_npctp)){
+			//如果幻影执行官没入场，不会显示执行官
+			if(!in_array(7, $existing_npctp)) $ret = array_diff($ret, array(7));
+			//感应探测器额外显示幽灵、实体、DF、英灵殿
+			if(4==$radarsk) {
+				foreach(Array(12,45,46,21) as $tv) {
+					if(in_array($tv, $existing_npctp)) $ret[] = $tv;
+				}
+			}
+		}
+		return $ret;
 	}
 
 	function itemuse(&$theitem) 
@@ -123,7 +115,7 @@ namespace radar
 		if (strpos ( $itmk, 'ER' ) === 0) {//雷达
 			if ($itme > 0) {
 				$log .= "使用了<span class=\"red b\">$itm</span>。<br>";
-				newradar ( $itmsk );
+				use_radar ( $itmsk );
 				$itme--;
 				$log .= "消耗了<span class=\"yellow b\">$itm</span>的电力。<br>";
 				if ($itme <= 0) {

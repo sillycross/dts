@@ -1,2 +1,38 @@
-<!--{eval eval(import_module('radar'));}-->
-{$radarscreen}
+<!--{eval eval(import_module('radar','npc','map'));$tmp_height=(count($plsinfo)+1)*20;}-->
+<div id="scroll-pane-radarpage" style="width:720px;height:{$tmp_height}px;">
+	<table style="min-width:720px" class="radar">
+		<tr>
+			<td class="b2" width="120px"></td>
+			<!--{loop $radar_npctplist $ni}-->
+				<td class="b2">{$typeinfo[$ni]}</td>
+			<!--{/loop}-->
+		</tr>
+		<!--{loop $plsinfo $plsi $plsn}-->
+			<tr>
+				<td class="b2">{$plsn}</td>
+				<!--{loop $radar_npctplist $ni}-->
+					<td class="b3">
+						<!--{if is_array($radardata[$plsi])}-->
+							<span <!--{if $plsi==$pls}-->class="yellow b"<!--{/if}-->>
+								<!--{if !empty($radardata[$plsi][$ni]['namelist'])}-->
+									<a title="$radardata[$plsi][$ni]['namelist']"><span class="grey">[</span>&nbsp;
+								<!--{/if}-->
+								{$radardata[$plsi][$ni]['num']}
+								<!--{if !empty($radardata[$plsi][$ni]['namelist'])}-->
+									&nbsp;<span class="grey">]</span></a>
+								<!--{/if}-->
+							</span>
+						<!--{elseif 'x' == $radardata[$plsi]}-->
+							<span class="red b">×</span>
+						<!--{elseif '?' == $radardata[$plsi]}-->
+							<span class="darkgrey">??</span>
+						<!--{else}-->
+							<span>ER</span>
+						<!--{/if}-->
+					</td>
+				<!--{/loop}-->
+			</tr>
+		<!--{/loop}-->
+	</table>
+</div>
+<img style="display:none;" type="hidden" src="img/blank.png" onload="jQuery(function() { jQuery('#scroll-pane-radarpage').jScrollPane(); });">

@@ -68,7 +68,7 @@ namespace skill64
 				}	
 			}
 			if(!empty($tmp_log)){
-				$log .= "你的".implode('，',$tmp_log)."！<br>";
+				$log .= \battle\battlelog_parser($pa, $pd, $active, '<:pa_name:>的'.implode('，',$tmp_log).'！<br>');
 			}
 		}
 		$chprocess($pa,$pd,$active);
