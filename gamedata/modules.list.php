@@ -21,7 +21,6 @@ metman,base/metman/,1
 itemmix,base/itemmix/itemmix/,1
 itemshop,base/itemshop/,1
 edible,base/items/edible/,1
-radar,base/items/radar/,1
 armor_art,base/armor_art/,1
 boxes,base/items/boxes/,1
 scpdrink,base/items/scpdrink/,1
@@ -250,6 +249,7 @@ skill515,extra/card/skills/skill515/,1
 skill516,extra/card/skills/skill516/,1
 club15,extra/club/clubs/club15/,1
 skill518,extra/card/skills/skill518/,1
+skill84,extra/club/skills/skill84/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
@@ -285,6 +285,7 @@ skill260,extra/club/skills/skill260/,1
 skill492,extra/card/skills/skill492/,1
 skill261,extra/club/skills/skill261/,1
 skill274,extra/club/skills/skill274/,1
+radar,base/items/radar/,1
 skill203,extra/club/skills/skill203/,1
 dualwep,base/weapon/dualwep/,1
 ammunition,base/items/ammunition/,1
