@@ -1,13 +1,13 @@
 <?php
 
-namespace radar
+namespace skill84
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'sys player itemmain skill84';
+	$___MODULE_dependency = 'skillbase clubbase bufficons player sys enemy';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';
-	$___MODULE_templatelist = 'radar radarcmd';
+	$___MODULE_templatelist = '';
 	////////// MODULE HEADER END /////////////////
 	require __INIT_MODULE__(__NAMESPACE__,__DIR__);
 }

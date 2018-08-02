@@ -82,6 +82,9 @@ namespace skill604
 		if (\skillbase\skill_query(604,$ldata) && 1 == check_skill604_state($ldata)) 
 		{
 			$r = 0.7;
+		}elseif(\skillbase\skill_query(604,$edata) && 1 == check_skill604_state($edata))
+		{
+			$r = 1/0.7;
 		}
 		return $chprocess($ldata,$edata)*$r;
 	}

@@ -71,10 +71,26 @@ namespace radar
 		$log .= '白色数字：该区域内的人数<br><span class="yellow b">黄色数字</span>：自己所在区域的人数<br><span class="red b">×</span>：禁区<br>';
 		if($radarsk == 3 || $radarsk == 4) $log .= '鼠标悬停于带[ ]的数字可查看NPC名字列表。<br>';
 		$log .= '<br>';
-		ob_start();
-		include template(MOD_RADAR_RADARCMD);
-		$cmd = ob_get_contents();
-		ob_end_clean();
+		//避难所探测器增加buff，不会显示特殊指令页面
+		if(5 == $radarsk) {
+			eval(import_module('skill84'));
+			//如果没有获得84号技能，则获得之
+			if(!\skillbase\skill_query(84)) {
+				\skillbase\skill_acquire(84);
+			}
+			if(!\skill84\check_skill84_state($sdata)) {
+				\skillbase\skill_setvalue(84,'start',$now);
+				\skillbase\skill_setvalue(84,'end',$now+\skill84\get_skill84_time($sdata));
+			}
+			$remtime = \skillbase\skill_getvalue(84,'end') - $now;
+			$log .= '在<span class="lime b">'.$remtime.'秒</span>内你可以无消耗使用避难所生命探测器，且你的<span class="lime b">先制率+'.round(\skill84\get_skill84_effect($sdata)*100-100).'%</span>。<br><br>';
+		}else{//其他探测器显示特殊指令页面（就是要返回一下
+			ob_start();
+			include template(MOD_RADAR_RADARCMD);
+			$cmd = ob_get_contents();
+			ob_end_clean();
+		}
+		
 		$main = MOD_RADAR_RADAR;
 		return;
 	}
@@ -115,11 +131,14 @@ namespace radar
 		if (strpos ( $itmk, 'ER' ) === 0) {//雷达
 			if ($itme > 0) {
 				$log .= "使用了<span class=\"red b\">$itm</span>。<br>";
+				$skill84_state = \skill84\check_skill84_state($sdata);
 				use_radar ( $itmsk );
-				$itme--;
-				$log .= "消耗了<span class=\"yellow b\">$itm</span>的电力。<br>";
-				if ($itme <= 0) {
-					$log .= $itm . '的电力用光了，请使用电池充电。<br>';
+				if(5 != $itmsk || !$skill84_state){//避难所探测器生效中不需要消耗电力
+					$itme--;
+					$log .= "消耗了<span class=\"yellow b\">$itm</span>的电力。<br>";
+					if ($itme <= 0) {
+						$log .= $itm . '的电力用光了，请使用电池充电。<br>';
+					}
 				}
 			} else {
 				$itme = 0;
