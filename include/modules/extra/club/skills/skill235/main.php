@@ -32,7 +32,7 @@ namespace skill235
 			$lv=(int)\skillbase\skill_getvalue(235,'lvl');
 			if ($skillpoint>0 || $lv==1){
 				if ($lv!=1) $skillpoint--;
-				\radar\newradar(2);
+				\radar\use_radar(2);
 			}else{
 				$log .= '<span class="red b">你的技能点不足，不能发动技能！</span><br />';
 				$mode = 'command';

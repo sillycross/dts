@@ -58,7 +58,7 @@ namespace sys
 		if (isset($___LOCAL_INPUT__VARS__INPUT_VAR_LIST[$gtablepre.'roomid']))
 			${$gtablepre.'roomid'} = $___LOCAL_INPUT__VARS__INPUT_VAR_LIST[$gtablepre.'roomid'];
 		
-		//获取玩家提交的模板编号和房间号
+		//获取玩家提交的模板编号和房间号，仅供测试用
 		if (isset($___LOCAL_INPUT__VARS__INPUT_VAR_LIST['templateid']))
 			$u_templateid = $___LOCAL_INPUT__VARS__INPUT_VAR_LIST['templateid'];
 		

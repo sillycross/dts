@@ -374,7 +374,7 @@ namespace weather
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 	
-	function newradar($mms = 0)
+	function use_radar($mms = 0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','logger'));
