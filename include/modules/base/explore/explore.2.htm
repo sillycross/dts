@@ -1,0 +1,11 @@
+<div class="cmd_row">
+	<div class="cmd_positioner explore_cmd" style="height:50px;">
+		<div class="hotkey_mark">Z</div>
+		<input type="button" class="cmd_button explore_cmd glow_buttons yellow" style="font-size:12pt;" id="zz" value="探索" onclick="$('command').value='search';postCmd('gamecmd','command.php,this');" <!--{if !\map\check_can_enter($pls)}-->disabled<!--{/if}-->>
+	</div>
+</div>
+
+<span id="moveto_box"><select id="moveto" name="moveto" onchange="$('command').value='move';replay_record_DOM_path(this.options[this.selectedIndex]);postCmd('gamecmd','command.php',this);">
+{template move}
+</select></span>
+<br /> 

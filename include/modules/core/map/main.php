@@ -6,6 +6,20 @@ namespace map
 	{
 		
 	}
+	
+	//检查一个地区编号是否是禁区
+	function check_in_forbidden_area($pno){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		return array_search($pno,$arealist) <= $areanum;
+	}
+	
+	//检查一个地区是否可进入，包含解禁和hack两种情况
+	function check_can_enter($pno){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		return !check_in_forbidden_area($pno) || $hack;
+	}
 
 	function init_areatiming(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;

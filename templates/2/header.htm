@@ -7,7 +7,7 @@
 <title> $gtitle </title>
 <!--{if isset($extrahead)}-->$extrahead<!--{/if}-->
 
-<link rel="stylesheet" type="text/css" id="css" href="gamedata/config/style_1.20180802.css">
+<link rel="stylesheet" type="text/css" id="css" href="gamedata/config/style_2.20180804.css">
 <link rel="stylesheet" type="text/css" id="css" href="gamedata/config/style_buttons.20180118.css">
 <link rel="stylesheet" type="text/css" id="css" href="gamedata/config/style_glowbuttons.20180726.css">
 <!--{if CURSCRIPT=='messages'}-->
@@ -52,7 +52,7 @@ jQuery.noConflict();
 
 </head>
 <BODY <!--{if CURSCRIPT == 'game'}-->onkeyup="hotkey(event);"<!--{if !empty($gamestate) && $gamestate >= 40}-->style="background-image:url('img/PB2.gif');"<!--{/if}--><!--{/if}-->>
-<div class="title" >XX大逃杀</div>
+<div class="title" > $gtitle 测试界面 </div>
 
 <div class="headerlink" >
 <a href="index.php">>>{lang index}</a>

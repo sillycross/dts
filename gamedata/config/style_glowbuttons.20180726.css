@@ -108,3 +108,14 @@
 	-webkit-box-shadow: none;
 	        box-shadow: none;
 }
+
+.glow_buttons:disabled{
+	cursor:crosshair;
+	color:#999;
+	border-color:#999;
+}
+
+.glow_buttons:disabled:hover{
+	-webkit-box-shadow: none;
+	        box-shadow: none;
+}
