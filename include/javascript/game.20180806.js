@@ -327,8 +327,11 @@ function showData(sdata){
 					if('undefined'==typeof(timinglist) || 'undefined'==typeof(timinglist[tid])) {
 						updateTime(tid,t,tm,intv,fmt);
 					}else{
+						var restart_flag = 0;
+						if(!timinglist[tid]['timing'] && !timinglist[tid]['mode']) restart_flag = 1;
 						timinglist[tid]['timing'] = t;
 						timinglist[tid]['mode'] = tm;
+						if(restart_flag) updateTime(tid,t,tm,intv,fmt);
 					}
 				}
 			}
@@ -679,6 +682,14 @@ function bubblebox_hide(bid)
 	{
 		$('fmsgbox-container').appendChild($('fmsgbox'+(bid.toString())));
 		$('fmsgbox'+(bid.toString())).style.display = 'none';
+	}
+}
+
+function bubblebox_switch(bid){
+	if ($('fmsgbox'+(bid.toString())))
+	{
+		if($('fmsgbox'+(bid.toString())).style.display == 'none') bubblebox_show(bid);
+		else bubblebox_hide(bid);
 	}
 }
 

@@ -268,7 +268,7 @@ div.cmd_tag.choosed img{
 }
 /*==========重叠式的道具按钮==========*/
 div.cmd_row{
-	margin:auto 10px;
+	margin:0 0 0 10px;
 }
 div.cmd_positioner{
 	display:inline-block;
@@ -303,10 +303,14 @@ input.common_cmd{
 	width:110px;height:35px;
 }
 div.explore_cmd{
-	width:160px;height:50px;
+	width:165px;height:50px;
 }
 input.explore_cmd{
-	width:160px;height:50px;
+	width:165px;height:50px;
+}
+input.move_to_button{
+	margin:5px 5px 0 0;
+	width:165px;height:35px;
 }
 /*==========快捷键标记==========*/
 div.hotkey_mark {
