@@ -289,6 +289,10 @@ div.itm_cmd_info{
 	align-items: center;
 	justify-content: center;
 }
+div.itm_cmd_info div{
+	text-align:center;
+	width:100px;
+}
 input.itm_cmd_button{
 	width:110px;height:75px;
 	padding-top:52px;

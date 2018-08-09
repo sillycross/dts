@@ -101,6 +101,25 @@ function am_main($mcode)
 		release_lock($dir.'/', 'userdb_auto_backup');
 		am_log("Userdb backuped. Affected $am_num records.");
 	}
+	if($mcode & 32) {
+		//清空cache文件夹下超过1天的htm
+		$source = GAME_ROOT.'./gamedata/cache';
+		$am_num = 0;
+		if ($handle=opendir($source)) 
+		{
+			while (($entry=readdir($handle))!==false)
+			{  
+				if( $entry!="." && $entry!=".." && !is_dir($source."/".$entry) && substr($entry, strlen($entry)-4)=='.htm')
+				{
+					if(time() - filemtime($source."/".$entry) > 86400){
+						unlink($source."/".$entry);
+						$am_num ++;
+					}
+				}
+			}
+		}
+		am_log("Miscellaneous temp files deleted. Affected $am_num records.");
+	}
 
 	am_log("Auto-maintaining finished.\r\n-------------------------------------------------");
 }

@@ -27,13 +27,20 @@
 					<div class="hotkey_mark">
 						<!--{eval echo strtoupper($ihotkey[0]);}-->
 					</div>
+					<!--{eval $tmp_itmname = \itemmain\parse_itmname_words(${'itm'.$ii}, 1, 12);}-->
 					<div class="itm_cmd_info">
-						<div class="yellow b">${'itm'.$ii}</div>
+						<div class="yellow b">
+						<!--{if $tmp_itmname==${'itm'.$ii}}-->
+							${'itm'.$ii}
+						<!--{else}-->
+							{$tmp_itmname}
+						<!--{/if}-->
+						</div>
 						<div>${'itme'.$ii} / ${'itms'.$ii}</div>
 					</div>
 					<input type="button" id="{$ihotkey}" class="cmd_button itm_cmd_button glow_buttons white" 
 						value="<!--{if !empty(${'itmk'.$ii}) && in_array(${'itmk'.$ii}[0], array('W','D','A'))}-->装备<!--{else}-->使用<!--{/if}-->" 
-						title="<!--{eval echo $tpldata['itm'.$ii.'_itmuse_desc'];}-->" 
+						title="<!--{eval if($tmp_itmname!=${'itm'.$ii}) echo ${'itm'.$ii}.'<br>';echo $tpldata['itm'.$ii.'_itmuse_desc'];}-->" 
 						onclick="$('mode').value='command';$('command').value='itm{$ii}';postCmd('gamecmd','command.php',this);">
 				<!--{else}-->
 					<input type="button" class="cmd_button itm_cmd_button glow_buttons grey forbidden" value="无道具">
