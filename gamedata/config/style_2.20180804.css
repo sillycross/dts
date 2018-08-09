@@ -177,7 +177,11 @@ border-left: #666 2px solid;
 border-bottom: #ddc 2px solid;
 }
 #log{
+	height:100px;
+	padding:0 10px;
+	display:table-cell;
 	line-height:15px;
+	vertical-align:middle;
 }
 .footerline {
 height: 1px;
@@ -268,7 +272,7 @@ div.cmd_tag.choosed img{
 }
 /*==========重叠式的道具按钮==========*/
 div.cmd_row{
-	margin:0 0 0 10px;
+	margin:0 0 10px 10px;
 }
 div.cmd_positioner{
 	display:inline-block;
@@ -281,7 +285,7 @@ input.cmd_button{
 div.itm_cmd{
 	width:110px;height:75px;
 }
-div.itm_cmd_info{
+div.itm_cmd div.itm_cmd_info{
 	position:absolute;
 	width:110px;height:50px;
 	display: flex;
@@ -289,15 +293,15 @@ div.itm_cmd_info{
 	align-items: center;
 	justify-content: center;
 }
-div.itm_cmd_info div{
+div.itm_cmd div.itm_cmd_info div{
 	text-align:center;
 	width:100px;
 }
-input.itm_cmd_button{
+div.itm_cmd input.itm_cmd_button{
 	width:110px;height:75px;
 	padding-top:52px;
 }
-input.itm_cmd_button.forbidden{
+div.itm_cmd input.itm_cmd_button.forbidden{
 	padding-top:0px;
 }
 div.common_cmd{
@@ -309,12 +313,26 @@ input.common_cmd{
 div.explore_cmd{
 	width:165px;height:50px;
 }
-input.explore_cmd{
+div.explore_cmd input.explore_cmd{
 	width:165px;height:50px;
 }
 input.move_to_button{
 	margin:5px 5px 0 0;
 	width:165px;height:35px;
+}
+div.searchmemory_cmd{
+	width:110px;height:50px;
+	text-align:left;
+}
+div.searchmemory_cmd div.searchmemory_info{
+	position:absolute;
+	width:110px;height:30px;
+	text-align:center;
+}
+div.searchmemory_cmd div.searchmemory_info span{line-height:30px;}
+div.searchmemory_cmd input.searchmemory_cmd{
+	width:110px;height:50px;
+	padding-top:27px;
 }
 /*==========快捷键标记==========*/
 div.hotkey_mark {
