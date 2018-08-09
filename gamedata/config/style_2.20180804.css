@@ -177,11 +177,15 @@ border-left: #666 2px solid;
 border-bottom: #ddc 2px solid;
 }
 #log{
-	height:100px;
-	padding:0 10px;
-	display:table-cell;
-	line-height:15px;
+	width:325px;height:160px;
+	margin:5px 10px;
+	padding:5px;
 	vertical-align:middle;
+	border:1px solid #999;
+		 -moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	        border-radius: 6px;
+	line-height:15px;
 }
 .footerline {
 height: 1px;

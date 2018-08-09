@@ -166,7 +166,7 @@ disableAllCommands = 0;
 function postCmd(formName,sendto,srcdom,disableall){
 	if (in_replay_mode == 1) return;
 	if (disableAllCommands == 1) return;
-	jQuery('#hoverHintMsg').css({display:"none"});//清除悬停提示
+	jQuery('#hoverHintMsg').css({'display':'none'});//清除悬停提示
 	if(disableall) jQuery('.cmdbutton').attr("disabled","disabled");//屏蔽所有按钮
 	hotkey_ok = false;//屏蔽快捷键
 	//把带快捷键的来源div设成灰色
@@ -174,7 +174,7 @@ function postCmd(formName,sendto,srcdom,disableall){
 		srcdom.disabled = true;
 		if(jQuery(srcdom).parent().hasClass('cmd_positioner')) jQuery(srcdom).parent().addClass('grey');
 	}
-	if(jQuery('#loading').length > 0) jQuery('#loading').css({display:"block"});//显示Loading画面
+	if(jQuery('#loading').length > 0) jQuery('#loading').css({'display':'block'});//显示Loading画面
 	
 	replay_listener();	//IE Hack，处理IE不支持catch的问题
 	var oXmlHttp = zXmlHttp.createRequest();
@@ -241,7 +241,7 @@ room_cur_chat_maxcid = 0;
 //处理AJAX返回值的主函数
 function showData(sdata){
 	if (js_stop_flag) return;
-	if(jQuery('#loading').length > 0) jQuery('#loading').css({display:"none"});//隐藏Loading画面
+	if(jQuery('#loading').length > 0) jQuery('#loading').css({'display':'none'});//隐藏Loading画面
 	hotkey_ok = true;//重启快捷键
 	if(typeof sdata == 'string' && sdata.indexOf('<html>') > 0 && sdata.indexOf('</html>') > 0){
 		document.write(sdata);
@@ -305,8 +305,18 @@ function showData(sdata){
 				}
 			}
 		}
-		if(1==logshow) jQuery('#log').css({display:"table-cell"});
-		else jQuery('#log').css({display:"none"});
+		if(1==logshow) {
+			jQuery('#log').css({'display':log_display,'overflow':'auto'});
+//			//界面2给log div加滚动条
+//			if('block' == log_display) {
+//				var tmp_log = jQuery('#log')[0].innerHTML;
+//				jQuery('#log').empty();
+//				jQuery('#log').append("<div id='log_cont'><div>"+tmp_log+"</div></div>");
+//				jQuery(function() { jQuery('#log_cont').jScrollPane(); });
+//			}
+		}else {
+			jQuery('#log').css({'display':'none'});
+		}
 		var sDs = shwData['src'];
 		for(var id in sDs){
 			if($(id)!=null){
