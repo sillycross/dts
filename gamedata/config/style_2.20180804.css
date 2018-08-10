@@ -72,6 +72,9 @@ input {cursor: crosshair;}
 .b2 div{position:relative;}
 .b3 div{position:relative;}
 
+/*==========jScrollPane兼容==========*/
+.b3 div.jspVerticalBar {position:absolute;}
+
 rt{
 	font-size:9px; 
 	font-weight:normal;
@@ -177,7 +180,7 @@ border-left: #666 2px solid;
 border-bottom: #ddc 2px solid;
 }
 #log{
-	width:325px;height:160px;
+	width:325px;height:200px;
 	margin:5px 10px;
 	padding:5px;
 	vertical-align:middle;
@@ -186,6 +189,9 @@ border-bottom: #ddc 2px solid;
 	-webkit-border-radius: 6px;
 	        border-radius: 6px;
 	line-height:15px;
+}
+#log_cont{
+	width:inherit;height:inherit;
 }
 .footerline {
 height: 1px;
@@ -287,11 +293,11 @@ input.cmd_button{
 	position:absolute;z-index:10;
 }
 div.itm_cmd{
-	width:110px;height:75px;
+	width:110px;height:60px;
 }
 div.itm_cmd div.itm_cmd_info{
 	position:absolute;
-	width:110px;height:50px;
+	width:110px;height:40px;
 	display: flex;
 	flex-direction:column;
 	align-items: center;
@@ -302,8 +308,8 @@ div.itm_cmd div.itm_cmd_info div{
 	width:100px;
 }
 div.itm_cmd input.itm_cmd_button{
-	width:110px;height:75px;
-	padding-top:52px;
+	width:110px;height:60px;
+	padding-top:38px;
 }
 div.itm_cmd input.itm_cmd_button.forbidden{
 	padding-top:0px;
@@ -351,7 +357,7 @@ div.hotkey_mark {
 	line-height:15px;text-align:center;
 }
 div.itm_cmd div.hotkey_mark{
-	left:80px;top:55px;
+	left:80px;top:40px;
 }
 div.common_cmd div.hotkey_mark{
 	left:80px;top:15px;

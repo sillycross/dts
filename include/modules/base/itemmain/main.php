@@ -36,6 +36,23 @@ namespace itemmain
 		else return middle_abbr($name_value,$i-1,$end);
 	}
 	
+	//道具效和耐的省略显示
+	function parse_itmnum_words($num_value, $elli = 0){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!$elli || !is_numeric($num_value)) return $num_value;
+		$ret = $num_value;
+		if($num_value > 100000000) {
+			if(round($num_value/10000000)%10) $ret = round($num_value/10000000)/10;
+			else $ret = round($num_value/100000000);
+			$ret .= '亿';
+		}elseif($num_value > 10000) {
+			if(round($num_value/1000)%10) $ret = round($num_value/1000)/10;
+			else $ret = round($num_value/10000);
+			$ret .= '万';
+		}
+		return $ret;
+	}
+	
 	function parse_itmk_words($k_value, $reveal=0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -241,6 +258,8 @@ namespace itemmain
 			$skv=$p1.'sk'.$p2;
 			$r[$v.'_words'] = parse_itmname_words($edata[$v], $elli);
 			$r[$kv.'_words'] = parse_itmk_words($edata[$kv]);
+			$r[$ev.'_words'] = parse_itmnum_words($edata[$ev], $elli);
+			$r[$sv.'_words'] = parse_itmnum_words($edata[$sv], $elli);
 			$r[$kv.'_desc'] = parse_itmk_desc($edata[$kv],$edata[$skv]);
 			$r[$skv.'_words'] = parse_itmsk_words($edata[$skv], $simple, $elli);
 			$r[$skv.'_desc'] = parse_itmsk_desc($edata[$skv]);

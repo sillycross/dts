@@ -305,18 +305,32 @@ function showData(sdata){
 				}
 			}
 		}
+		//log div处理
 		if(1==logshow) {
-			jQuery('#log').css({'display':log_display,'overflow':'auto'});
-//			//界面2给log div加滚动条
-//			if('block' == log_display) {
-//				var tmp_log = jQuery('#log')[0].innerHTML;
-//				jQuery('#log').empty();
-//				jQuery('#log').append("<div id='log_cont'><div>"+tmp_log+"</div></div>");
-//				jQuery(function() { jQuery('#log_cont').jScrollPane(); });
-//			}
+			jQuery('#log').css({'display':log_display});
+			//界面2给log div加滚动条，修改log div大小
+			if('block' == log_display) {
+				if('undefined' != typeof(shwData['display'])  && 'undefined' != typeof(shwData['display']['log_height']) && 0 != shwData['display']['log_height']) {
+					jQuery('#log').css('height', shwData['display']['log_height']);
+				}else{
+					jQuery('#log').css('height','');
+				}
+				var tmp_log = jQuery('#log')[0].innerHTML;
+				jQuery('#log').empty();
+				jQuery('#log').append("<div id='log_cont'><div>"+tmp_log+"</div></div>");
+				//jQuery('#log').append("<img style='display:none;' type='hidden' src='img/blank.png' onload=\"jQuery(function() { jQuery('#log_cont').jScrollPane(); });\">");
+				jQuery(function() { jQuery('#log_cont').jScrollPane(); });
+			}
 		}else {
 			jQuery('#log').css({'display':'none'});
 		}
+		//自动生成快捷键图标
+		jQuery('.cmd_positioner').children(':button').each(function(){
+			if (-1 != jQuery.inArray(jQuery(this).attr('id'), ['z','zz','a','aa','s','ss','d','dd','q','qq','w','ww','e','ee','x','c','v'])){
+				jQuery(this).before("<div class='hotkey_mark'>"+jQuery(this).attr('id').substr(0,1).toUpperCase()+"</div>");
+			}
+		});		
+		//图片链接更新
 		var sDs = shwData['src'];
 		for(var id in sDs){
 			if($(id)!=null){

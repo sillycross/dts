@@ -1,11 +1,9 @@
 <input type="hidden" id="moveto" name="moveto" value="0">
 <div class="cmd_row">
 	<div class="cmd_positioner explore_cmd">
-		<div class="hotkey_mark">Z</div>
 		<input type="button" class="cmd_button explore_cmd glow_buttons yellow" style="font-size:12pt;" id="zz" value="探索" onclick="$('command').value='search';postCmd('gamecmd','command.php',this);" <!--{if !\map\check_can_enter($pls)}-->disabled<!--{/if}-->>
 	</div>
 	<div class="cmd_positioner explore_cmd">
-		<div class="hotkey_mark">X</div>
 		<input type="button" class="cmd_button explore_cmd glow_buttons cyan" style="font-size:12pt;" id="x" value="移动" 
 		onclick="bubblebox_switch('move_to_list');">
 	</div>

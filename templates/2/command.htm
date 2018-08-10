@@ -9,10 +9,7 @@
 </div>
 <hr class="cmd_tag">
 <div id="common_cmd_subpage" class="cmd_subpage">
-	<!--探索移动按钮-->
-	<!--{if (defined('MOD_EXPLORE'))}-->
-	{template MOD_EXPLORE_EXPLORE}
-	<!--{/if}-->
+	
 	<!--视野-->
 	<!--{if (defined('MOD_SEARCHMEMORY'))}-->
 	{template MOD_SEARCHMEMORY_SMEMORYLIST}
@@ -24,9 +21,6 @@
 		<!--{loop $tmp_itmcmd_list $ii $ihotkey}-->
 			<div class="cmd_positioner itm_cmd">
 				<!--{if ${'itms'.$ii}}-->
-					<div class="hotkey_mark">
-						<!--{eval echo strtoupper($ihotkey[0]);}-->
-					</div>
 					<!--{eval $tmp_itmname = \itemmain\parse_itmname_words(${'itm'.$ii}, 1, 14);}-->
 					<div class="itm_cmd_info">
 						<div class="yellow b">
@@ -36,7 +30,7 @@
 							{$tmp_itmname}
 						<!--{/if}-->
 						</div>
-						<div>${'itme'.$ii} / ${'itms'.$ii}</div>
+						<div>$tpldata['itme'.$ii.'_words'] / $tpldata['itms'.$ii.'_words']</div>
 					</div>
 					<input type="button" id="{$ihotkey}" class="cmd_button itm_cmd_button glow_buttons white" 
 						value="<!--{if !empty(${'itmk'.$ii}) && in_array(${'itmk'.$ii}[0], array('W','D','A'))}-->装备<!--{else}-->使用<!--{/if}-->" 
@@ -58,6 +52,11 @@
 		{template MOD_CLUBBASE_SKILLPAGE_PROFILE}
 		<!--{/if}-->
 	</div>
+	
+	<!--探索移动按钮-->
+	<!--{if (defined('MOD_EXPLORE'))}-->
+	{template MOD_EXPLORE_EXPLORE}
+	<!--{/if}-->
 </div>
 <div id="item_cmd_subpage" class="cmd_subpage" style="display:none">
 	<!--{if defined('MOD_ITEMMIX')}-->

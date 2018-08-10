@@ -115,6 +115,7 @@ if($hp <= 0) {
 
 if(isset($url)){$gamedata['url'] = $url;}
 if(!empty($uip['timing'])) {$gamedata['timing'] = $uip['timing'];}
+if(!empty($uip['display'])) {$gamedata['display'] = $uip['display'];}
 if(!empty($uip['effect'])) {$gamedata['effect'] = $uip['effect'];}
 if(!empty($uip['innerHTML'])) {$gamedata['innerHTML'] = array_merge($gamedata['innerHTML'], $uip['innerHTML']);}
 if(!empty($uip['value'])) {$gamedata['value'] = array_merge($gamedata['value'], $uip['value']);}
