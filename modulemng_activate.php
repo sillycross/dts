@@ -245,6 +245,7 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2)
 		foreach ($codelist[$i] as $key)
 		{
 			$src=GAME_ROOT.'./include/modules/'.$modp[$i].$key;
+			$srcfiletype = substr($src,strlen($src)-3);
 			echo '&nbsp;&nbsp;&nbsp;&nbsp;正在分析代码'.$key.'.. '; ob_end_flush(); flush();
 			$objfile=GAME_ROOT.'./gamedata/run/'.$modp[$i].$key;
 			
@@ -254,8 +255,21 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2)
 				copy_without_comments($src, $objfile);
 				$changed_filelist[] = $modp[$i].$key;
 			}
+			if('htm' == $srcfiletype) {
+				foreach($___MOD_EXTRA_HTMLTPL_LIST as $tplid){
+					$src_a = substr($src,0,-3).$tplid.'.'.substr($src,strlen($src)-3);
+					if(file_exists($src_a)) {
+						$objfile_a = substr($objfile,0,-3).$tplid.'.'.substr($objfile,strlen($objfile)-3);
+						if(!$quickmode || ($quickmode && filemtime($src_a) >= filemtime(GAME_ROOT.'./gamedata/modules.list.php'))) {
+							copy_without_comments($src_a, $objfile_a);
+							$changed_filelist[] = $modp[$i].$key;
+						}
+					}
+				}
+			}
+			
 			//无论是不是快速模式都得预读全部函数内容
-			preparse($i,$src);
+			if('php' == $srcfiletype) preparse($i,$src);
 			echo '完成。<br>'; ob_end_flush(); flush();
 			//快速模式且未修改文件，直接跳过
 		}
@@ -313,6 +327,15 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2)
 
 			if(pathinfo($basefile,PATHINFO_EXTENSION)!='php'){
 				copy($basefile,$advfile);
+				if(pathinfo($basefile,PATHINFO_EXTENSION) == 'htm') {
+					foreach($___MOD_EXTRA_HTMLTPL_LIST as $tplid){
+					$basefile_a = substr($basefile,0,-3).$tplid.'.'.substr($basefile,strlen($basefile)-3);
+					if(file_exists($basefile_a)) {
+						$advfile_a = substr($advfile,0,-3).$tplid.'.'.substr($advfile,strlen($advfile)-3);
+						copy($basefile_a,$advfile_a);
+					}
+				}
+				}
 			}else{
 				if($___MOD_CODE_COMBINE){
 					merge_contents_write($i,$basefile,$advfile);
@@ -345,9 +368,17 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2 && $___MOD_CODE_ADV3)
 			if (substr($key,strlen($key)-4)=='.htm')
 			{
 				echo '&nbsp;&nbsp;&nbsp;&nbsp;正在处理模板'.$key.'.. '; ob_end_flush(); flush();
+				//基础模板
 				$objfile = template('MOD_'.strtoupper($modn[$i]).'_'.strtoupper(substr($key,0,-4)));
 				$data = highlight_file($objfile,true);
 				writeover($objfile,parse_codeadv3($data));
+				foreach($___MOD_EXTRA_HTMLTPL_LIST as $tplid){
+					$objfile_a = template('MOD_'.strtoupper($modn[$i]).'_'.strtoupper(substr($key,0,-4)), $tplid);
+					if($objfile_a != $objfile) {
+						$data_a = highlight_file($objfile_a,true);
+						writeover($objfile_a,parse_codeadv3($data_a));
+					}
+				}
 				echo '完成。<br>'; ob_end_flush(); flush();
 			}
 		echo '完成。<br>'; ob_end_flush(); flush();
@@ -376,6 +407,13 @@ if ($___MOD_CODE_ADV1 && $___MOD_CODE_ADV2 && $___MOD_CODE_ADV3)
 					$objfile = template(substr($sid,0,-4));
 					$data = highlight_file($objfile,true);
 					writeover($objfile,parse_codeadv3($data));
+					foreach($___MOD_EXTRA_HTMLTPL_LIST as $tplid){
+						$objfile_a = template(substr($sid,0,-4), $tplid);
+						if($objfile_a != $objfile) {
+							$data_a = highlight_file($objfile_a,true);
+							writeover($objfile_a,parse_codeadv3($data_a));
+						}
+					}
 					echo '完成。<br>'; ob_end_flush(); flush();
 				}
 			}
