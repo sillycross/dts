@@ -58,6 +58,7 @@ function hotkey(evt)
 function hotkey_click(hkid){
 	hk = $(hkid);
 	if (hk) hk.click();
+	else if ((hkid == 'zz' || hkid == 'z' || hkid == 'x') && $('zx')) $('zx').click();
 	else if (hkid.length > 1) {
 		hk = $(hkid.substr(0,1));
 		if (hk) hk.click();
@@ -326,8 +327,16 @@ function showData(sdata){
 		}
 		//自动生成快捷键图标
 		jQuery('.cmd_positioner').children(':button').each(function(){
-			if (-1 != jQuery.inArray(jQuery(this).attr('id'), ['z','zz','a','aa','s','ss','d','dd','q','qq','w','ww','e','ee','x','c','v'])){
-				jQuery(this).before("<div class='hotkey_mark'>"+jQuery(this).attr('id').substr(0,1).toUpperCase()+"</div>");
+			if (-1 != jQuery.inArray(jQuery(this).attr('id'), ['z','zz','a','aa','s','ss','d','dd','q','qq','w','ww','e','ee','x','c','v','zx'])){
+				if('zx' == jQuery(this).attr('id')){
+					jQuery(this).before("<div class='hotkey_mark'>X</div>");
+					var tmp_left0 = jQuery(this).parent().children('.hotkey_mark').css('left').replace('px','');
+					var tmp_width0 = jQuery(this).parent().children('.hotkey_mark').css('width').replace('px','');
+					var tmp_left = (Number(tmp_left0) -  Number(tmp_width0) - 5).toString()+'px';
+					jQuery(this).before("<div class='hotkey_mark' style='left:"+tmp_left+"'>Z</div>");
+				}else{
+					jQuery(this).before("<div class='hotkey_mark'>"+jQuery(this).attr('id').substr(0,1).toUpperCase()+"</div>");
+				}
 			}
 		});		
 		//图片链接更新

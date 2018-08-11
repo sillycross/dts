@@ -276,7 +276,8 @@ namespace itemmain
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player'));
 		\player\update_sdata();
-		$tpldata+=parse_item_words($sdata,0,1);
+		if(empty($tpldata['itm1_words']))
+			$tpldata+=parse_item_words($sdata,0,1);
 		$chprocess();
 	}
 	
@@ -479,10 +480,15 @@ namespace itemmain
 				itemoff($off_item);
 			} elseif(strpos($command,'swap') === 0) {
 				$swap_item = substr($command,4);
-				itemdrop($swap_item);
-				if(strpos($swap_item,'itm')===0) itemadd();
+				if(strpos($swap_item,'itm')===0) {
+					if(${str_replace('itm','itms',$swap_item)}) itemdrop($swap_item);
+					itemadd(substr($swap_item,3,1));
+				}
 				//如果要允许直接换上拾取的装备，请取消此行注释
-				//else itemuse_wrapper(0);
+				//else {
+//					if(${$swap_item.'s'}) itemdrop($swap_item);
+//					itemuse_wrapper(0);
+//				}
 			} 
 		}
 		$chprocess();

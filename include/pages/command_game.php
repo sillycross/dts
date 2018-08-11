@@ -30,6 +30,8 @@ if($gamestate == 0) {
 	return;
 }
 
+$log = '';
+
 \player\load_playerdata(\player\fetch_playerdata($cuser));
 
 \player\init_playerdata();
@@ -40,7 +42,6 @@ if(in_array($state, array(4,5,6))) {
 	return;
 }
 
-$log = '';
 //读取聊天信息
 //$chatdata = array_merge(getchat(0,$teamID,$pid),\sys\getnews(0));
 $chatdata = getchat(0,$teamID,$pid);

@@ -17,11 +17,10 @@
 	
 	<!--道具按钮-->
 	<div class="cmd_row">
-		<!--{eval $tmp_itmcmd_list = array(1=>'aa', 2=>'ss', 3=>'dd', 4=>'qq', 5=>'ww', 6=>'ee');}-->
-		<!--{loop $tmp_itmcmd_list $ii $ihotkey}-->
+		<!--{loop $item_hotkey_id_list $ii $ihotkey}-->
 			<div class="cmd_positioner itm_cmd">
 				<!--{if ${'itms'.$ii}}-->
-					<!--{eval $tmp_itmname = \itemmain\parse_itmname_words(${'itm'.$ii}, 1, 14);}-->
+					<!--{eval $tmp_itmname = \itemmain\parse_itmname_words(${'itm'.$ii}, 1, 13);}-->
 					<div class="itm_cmd_info">
 						<div class="yellow b">
 						<!--{if $tmp_itmname==${'itm'.$ii}}-->
@@ -30,7 +29,7 @@
 							{$tmp_itmname}
 						<!--{/if}-->
 						</div>
-						<div>$tpldata['itme'.$ii.'_words'] / $tpldata['itms'.$ii.'_words']</div>
+						<div class="grey">$tpldata['itme'.$ii.'_words'] / $tpldata['itms'.$ii.'_words']</div>
 					</div>
 					<input type="button" id="{$ihotkey}" class="cmd_button itm_cmd_button glow_buttons white" 
 						value="<!--{if !empty(${'itmk'.$ii}) && in_array(${'itmk'.$ii}[0], array('W','D','A'))}-->装备<!--{else}-->使用<!--{/if}-->" 

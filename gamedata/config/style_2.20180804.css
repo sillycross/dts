@@ -297,7 +297,8 @@ div.itm_cmd{
 }
 div.itm_cmd div.itm_cmd_info{
 	position:absolute;
-	width:110px;height:40px;
+	bottom:0;
+	width:inherit;height:40px;
 	display: flex;
 	flex-direction:column;
 	align-items: center;
@@ -305,26 +306,37 @@ div.itm_cmd div.itm_cmd_info{
 }
 div.itm_cmd div.itm_cmd_info div{
 	text-align:center;
-	width:100px;
+	width:inherit;
 }
 div.itm_cmd input.itm_cmd_button{
-	width:110px;height:60px;
-	padding-top:38px;
+	width:inherit;height:60px;
+	padding-bottom:35px;
 }
 div.itm_cmd input.itm_cmd_button.forbidden{
-	padding-top:0px;
+	padding-bottom:0px;
 }
 div.common_cmd{
 	width:110px;height:35px;
 }
 input.common_cmd{
-	width:110px;height:35px;
+	width:inherit;height:35px;
 }
 div.explore_cmd{
 	width:165px;height:50px;
 }
+div.explore_cmd div.explore_info{
+	position:absolute;
+	bottom:0;
+	width:inherit;height:25px;
+	text-align:center;
+	display: flex;
+	flex-direction:column;
+	align-items: center;
+	justify-content: center;
+}
 div.explore_cmd input.explore_cmd{
-	width:165px;height:50px;
+	width:inherit;height:50px;
+	font-size:12pt;
 }
 input.move_to_button{
 	margin:5px 5px 0 0;
@@ -336,13 +348,20 @@ div.searchmemory_cmd{
 }
 div.searchmemory_cmd div.searchmemory_info{
 	position:absolute;
-	width:110px;height:30px;
+	bottom:0;
+	width:inherit;height:30px;
 	text-align:center;
+	display: flex;
+	flex-direction:column;
+	align-items: center;
+	justify-content: center;
 }
-div.searchmemory_cmd div.searchmemory_info span{line-height:30px;}
 div.searchmemory_cmd input.searchmemory_cmd{
-	width:110px;height:50px;
-	padding-top:27px;
+	width:inherit;height:50px;
+	padding-bottom:20px;
+}
+div.zx_cmd{
+	width:336px;
 }
 /*==========快捷键标记==========*/
 div.hotkey_mark {
@@ -350,20 +369,24 @@ div.hotkey_mark {
 	margin:auto;
 	width:25px;height:15px;	
 	background-color:transparent;
-	border:1px solid;
+	border:1px solid #999;
+	color:#999;
 	   -moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
 	        border-radius: 6px;
 	line-height:15px;text-align:center;
 }
 div.itm_cmd div.hotkey_mark{
-	left:80px;top:40px;
+	left:80px;top:3px;
 }
 div.common_cmd div.hotkey_mark{
-	left:80px;top:15px;
+	left:80px;top:8px;
 }
 div.explore_cmd div.hotkey_mark{
-	left:130px;top:30px;
+	left:130px;top:3px;
+}
+div.zx_cmd div.hotkey_mark{
+	left:305px;
 }
 /*==========剧情分镜==========*/
 #storyboard_container {

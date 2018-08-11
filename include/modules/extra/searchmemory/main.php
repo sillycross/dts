@@ -16,6 +16,16 @@ namespace searchmemory
 		return !in_array($gametype, $searchmemory_disabled_gtype);
 	}
 	
+	//修改丢弃按钮的提示
+	function init_playerdata() {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','itemmain'));
+		if(searchmemory_available()) {
+			$itemmain_drophint = '将留在视野中';
+		}
+		$chprocess();
+	}
+	
 	function load_playerdata($pdata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

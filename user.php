@@ -11,7 +11,6 @@ $udata = udata_check();
 if(!isset($mode)){
 	$mode = 'show';
 }
-
 if($mode == 'edit') {
 	$gamedata=Array();$gamedata['innerHTML']['info'] = '';
 	$passarr = array();
@@ -57,9 +56,11 @@ if($mode == 'edit') {
 		'motto' => $motto,
 		'killmsg' => $killmsg,
 		'lastword' => $lastword,
-		'card' => $card
+		'card' => $card,
+		'u_templateid' => $templateid
 	);
 	if(!empty($passarr)) $updarr = array_merge($updarr, $passarr);
+	
 	update_udata_by_username($updarr, $cuser);
 	
 	$gamedata['innerHTML']['info'] .= $_INFO['data_success'];
