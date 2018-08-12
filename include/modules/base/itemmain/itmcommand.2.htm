@@ -1,0 +1,136 @@
+<script>
+pack_switch_from = 0;
+pack_switch_to = 0;
+
+function pack_switch_set(packi){
+	if(pack_switch_from && pack_switch_from != packi && !pack_switch_to) {
+		pack_switch_to = packi;
+	}else{
+		pack_switch_from = packi;
+		pack_switch_to = 0;
+	}
+	pack_switch_update_display();
+}
+
+function pack_switch_update_display(){
+	for(var i=1;i<=6;i++){
+		if(jQuery('#pack_switch_'+i).length > 0) {
+			if(i == pack_switch_from) jQuery('#pack_switch_'+i)[0].value = '从';
+			else if(i == pack_switch_to) jQuery('#pack_switch_'+i)[0].value = '到';
+			else jQuery('#pack_switch_'+i)[0].value = '';
+		}
+	}
+	if(pack_switch_from && pack_switch_to) {
+		jQuery('#pack_cmd_switch')[0].disabled = false;
+		jQuery('#pack_cmd_merge')[0].disabled = false;
+	}else{
+		jQuery('#pack_cmd_switch')[0].disabled = true;
+		jQuery('#pack_cmd_merge')[0].disabled = true;
+	}
+}
+
+function pack_send_cmd_prepare(tp){
+	if(!pack_switch_from || !pack_switch_to) return;
+	var name1, name2;
+	if(tp == 'merge') {
+		name1 = 'merge1'; name2 = 'merge2';
+	}else if(tp == 'switch'){
+		name1 = 'from'; name2 = 'to';
+	}
+	if(jQuery('#'+name1).length > 0){
+		jQuery('#'+name1)[0].value=pack_switch_from;
+	}else{
+		jQuery('#subcmd').after("<input type='hidden' id='"+name1+"' name='"+name1+"' value='"+pack_switch_from+"'>");
+	}
+	if(jQuery('#'+name2).length > 0){
+		jQuery('#'+name2)[0].value=pack_switch_to;
+	}else{
+		jQuery('#subcmd').after("<input type='hidden' id='"+name2+"' name='"+name2+"' value='"+pack_switch_to+"'>");
+	}
+}
+</script>
+<div class="cmd_row">
+	<div class="cmd_positioner common_cmd" style="width:165px">
+		<input type="button" id="pack_cmd_tag_eqp" class="cmd_button common_cmd glow_buttons grey" value="武器装备" 
+		onclick="jQuery('#pack_cmd_tag_itm').removeClass('yellow forbidden').addClass('grey');jQuery(this).removeClass('grey').addClass('yellow forbidden');jQuery('#pack_cmd_eqp').css('display','block');jQuery('#pack_cmd_itm').css('display','none');">
+	</div>
+	<div class="cmd_positioner common_cmd" style="width:165px">
+		<input type="button" id="pack_cmd_tag_itm" class="cmd_button common_cmd glow_buttons yellow forbidden" value="包裹道具" 
+		onclick="jQuery('#pack_cmd_tag_eqp').removeClass('yellow forbidden').addClass('grey');jQuery(this).removeClass('grey').addClass('yellow forbidden');jQuery('#pack_cmd_itm').css('display','block');jQuery('#pack_cmd_eqp').css('display','none');">
+	</div>
+</div>
+<div id="pack_cmd_eqp" style="display:none;height:320px">
+	<div style="height:260px">
+		<!--{loop array('wep','arb','arh','ara','arf','art') $packv}-->
+			<div class="pack_row">
+				<!--{if ${$packv.'k'} != 'WN' && ${$packv.'k'} != 'DN' && ${$packv.'s'}}-->
+					<div class="cmd_positioner pack_button">
+						<input type="button" class="pack_button pack_off glow_buttons white" title="卸下" 
+							onclick="$('mode').value='itemmain';$('command').value='off{$packv}';postCmd('gamecmd','command.php',this);">
+					</div>
+					<div class="pack_cell_eqp glow_buttons forbidden white">{$tpldata[$packv.'_words']} / {$tpldata[$packv.'e_words']} / {$tpldata[$packv.'s_words']}</div>
+					<div class="cmd_positioner pack_button">
+						<input type="button" class="pack_button pack_drop glow_buttons red" title="丢弃" 
+							onclick="$('mode').value='itemmain';$('command').value='drop{$packv}';postCmd('gamecmd','command.php',this);">
+					</div>
+				<!--{else}-->
+					<div class="pack_cell_eqp glow_buttons forbidden darkgrey" style="width:335px">
+						<!--{if 'wep' == $packv}-->无武器
+						<!--{elseif 'arb' == $packv}-->无身体防具
+						<!--{elseif 'arh' == $packv}-->无头部防具
+						<!--{elseif 'ara' == $packv}-->无手臂防具
+						<!--{elseif 'arf' == $packv}-->无腿部防具
+						<!--{elseif 'art' == $packv}-->无饰物
+						<!--{else}-->无
+						<!--{/if}-->
+					</div>
+				<!--{/if}-->
+			</div>
+		<!--{/loop}-->
+	</div>
+	<div class="cmd_row" style="margin-top:10px;">
+		<!--{if defined('MOD_WEPCHANGE')}-->
+		{template MOD_WEPCHANGE_WEPCHANGE_PROFILE}
+		<!--{/if}-->
+		<!--{if defined('MOD_DUALWEP')}-->
+		{template MOD_DUALWEP_DUALWEP_ATT_METHOD_PROFILE}
+		<!--{/if}-->
+	</div>
+</div>
+<div id="pack_cmd_itm" style="height:320px">
+	<div style="height:260px">
+		<!--{loop range(1,6) $packi}-->
+			<div class="pack_row">
+				<!--{if ${'itms'.$packi}}-->
+					<div class="cmd_positioner pack_button">
+						<input type="button" id="pack_switch_$packi" class="pack_button pack_switch glow_buttons white" value=""
+							onclick="pack_switch_set($packi);">
+					</div>
+					<div class="pack_cell_eqp glow_buttons forbidden white">
+						<span class="hotkey_hint">[<!--{eval echo strtoupper(substr($item_hotkey_id_list[$packi],0,1));}-->]</span>
+						<span><!--{eval echo \itemmain\parse_itmname_words(${'itm'.$packi}, 1, 13);}--> / {$tpldata['itme'.$packi.'_words']} / {$tpldata['itms'.$packi.'_words']}</span>
+					</div>
+					<div class="cmd_positioner pack_button">
+						<input type="button" class="pack_button pack_drop glow_buttons red" title="丢弃" 
+							onclick="$('mode').value='itemmain';$('command').value='dropitm{$packi}';postCmd('gamecmd','command.php',this);">
+					</div>
+				<!--{else}-->
+					<div class="pack_cell_eqp glow_buttons forbidden darkgrey" style="width:335px">无道具</div>
+				<!--{/if}-->
+			</div>
+		<!--{/loop}-->
+	</div>
+	<div class="cmd_row" style="margin-top:10px;">
+		<div class="cmd_positioner common_cmd" style="width:80px">
+			<input type="button" id="pack_cmd_switch" class="cmd_button common_cmd glow_buttons white" value="交换" 
+				onclick="pack_send_cmd_prepare('switch');$('mode').value='itemmain';$('command').value='itemmove';postCmd('gamecmd','command.php',this);" disabled>
+		</div>
+		<div class="cmd_positioner common_cmd" style="width:80px">
+			<input type="button" id="pack_cmd_merge" class="cmd_button common_cmd glow_buttons white" value="合并" 
+				onclick="pack_send_cmd_prepare('merge');$('mode').value='itemmain';$('command').value='itemmerge';postCmd('gamecmd','command.php',this);" disabled>
+		</div>
+		<!--{if defined('MOD_ITEMMIX')}-->
+		{template MOD_ITEMMIX_ITEMMIX_CMD}
+		<!--{/if}-->
+	</div>
+</div>

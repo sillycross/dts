@@ -109,6 +109,10 @@
 	        box-shadow: none;
 }
 
+.glow_buttons.forbidden:active{
+	background-color:transparent;
+}
+
 .glow_buttons:disabled{
 	cursor:crosshair;
 	color:#999;

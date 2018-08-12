@@ -280,6 +280,9 @@ div.cmd_tag img{
 div.cmd_tag.choosed img{
 	filter: grayscale(0%);
 }
+div.cmd_subpage{
+	overflow:hidden;
+}
 /*==========重叠式的道具按钮==========*/
 div.cmd_row{
 	margin:0 0 10px 10px;
@@ -362,6 +365,56 @@ div.searchmemory_cmd input.searchmemory_cmd{
 }
 div.zx_cmd{
 	width:336px;
+}
+div.pack_row{
+	margin:8px 0 0 10px; height:35px;
+}
+div.pack_cell_eqp{
+	margin:3px 3px 0 0;
+	width:250px;height:33px;
+	display: inline-block;
+	text-align:center;
+	vertical-align:top;
+	line-height:33px;
+}
+div.pack_cell_eqp span{
+	line-height:33px;
+}
+div.pack_cell_eqp span.hotkey_hint{
+	margin-left:5px;
+	float:left;
+	color:#999;
+}
+div.pack_button{
+	width:35px;height:35px;
+	vertical-align:top;
+}
+div.pack_button input.pack_button{
+	display: inline-block;
+	width:inherit;height:35px;
+	line-height:35px;
+}
+div.pack_button input.pack_off{
+	background-image:url('../../img/itemoff.png');
+	background-repeat: no-repeat;
+	background-position:center;
+}
+div.pack_button input.pack_off:disabled{
+	filter: brightness(50%);
+}
+div.pack_button input.pack_drop{
+	background-image:url('../../img/itemdrop.png');
+	background-repeat: no-repeat;
+	background-position:center;
+}
+div.pack_button input.pack_drop:disabled{
+	filter: grayscale(100%) brightness(200%);
+}
+div.pack_button input.pack_switch{
+	font-size:12pt;font-weight:bold;
+}
+div.pack_button input.pack_drop:disabled{
+	filter: grayscale(100%) brightness(200%);
 }
 /*==========快捷键标记==========*/
 div.hotkey_mark {

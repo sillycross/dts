@@ -402,6 +402,8 @@ function showData(sdata){
 	}
 	//重载悬浮提示
 	floating_hint();
+	//新界面自动切到对应的标签页
+	if('common' != now_tag) tag_display();
 }
 
 function showData_effect(shwData) {
@@ -965,10 +967,19 @@ function skilldesc_onmouseout(caller_id, skill_id)
 ////////////////////////////////////////////////////////////////////////
 ///////////////////////////////标签页//////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
-function tag_choose(thisid, targetid)
+now_tag = 'common';
+
+function tag_choose(tgt)
 {
+	if(tgt != 'common') hotkey_ok=false;
+	else hotkey_ok=true;
+	now_tag = tgt;
+	tag_display();
+}
+
+function tag_display(){
 	jQuery('.cmd_tag').removeClass('choosed');
-	jQuery('#'+thisid).addClass('choosed');
+	jQuery('#'+now_tag+'_cmd_tag').addClass('choosed');
 	jQuery('.cmd_subpage').css('display','none');
-	jQuery('#'+targetid).css('display','block');
+	jQuery('#'+now_tag+'_cmd_subpage').css('display','block');
 }

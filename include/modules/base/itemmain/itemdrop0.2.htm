@@ -2,6 +2,14 @@
 <input type="hidden" id="command" name="command" value="">
 <!--{eval eval(import_module('itemmain'));$blanki = \itemmain\get_pack_blank();$tpldata+=\itemmain\parse_item_words($sdata,0,1);}-->
 <div class="cmd_row">
+	<div class="cmd_positioner explore_cmd zx_cmd">
+		<div class="explore_info grey">
+			<!--{eval echo \itemmain\parse_itmname_words($itm0, 1, 13);}-->$itemmain_drophint
+		</div>
+		<input type="button" class="cmd_button explore_cmd glow_buttons red" style="padding-bottom:20px" id="zx" value="丢弃" onclick="$('command').value='dropitm0';postCmd('gamecmd','command.php',this,1);">
+	</div>
+</div>
+<div class="cmd_row">
 	<!--{loop $item_hotkey_id_list $ii $ihotkey}-->
 		<div class="cmd_positioner itm_cmd">
 			<!--{eval $tmp_itmname = \itemmain\parse_itmname_words(${'itm'.$ii}, 1, 13);}-->
@@ -21,12 +29,5 @@
 		<!--{if $ii%3==0}--><br><!--{/if}-->
 	<!--{/loop}-->	
 </div>
-<div class="cmd_row">
-	<div class="cmd_positioner explore_cmd zx_cmd">
-		<div class="explore_info grey">
-			<!--{eval echo \itemmain\parse_itmname_words($itm0, 1, 13);}-->$itemmain_drophint
-		</div>
-		<input type="button" class="cmd_button explore_cmd glow_buttons red" style="padding-bottom:20px" id="zx" value="丢弃" onclick="$('command').value='dropitm0';postCmd('gamecmd','command.php',this,1);">
-	</div>
-</div>
-<!--{eval $uip['display']['log_height'] = 410;}-->
+
+<!--{eval $uip['display']['log_height'] = 240;}-->

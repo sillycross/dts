@@ -3,13 +3,16 @@
 <input type="hidden" id="subcmd" name="subcmd" value="">
 
 <div class="cmd_tag_container">
-	<div type="button" id="common_cmd_tag" class="cmd_tag choosed" onclick="tag_choose('common_cmd_tag', 'common_cmd_subpage')"><img src="img/tag_common.png"> 基本</div>
-	<div type="button" id="item_cmd_tag" class="cmd_tag" onclick="tag_choose('item_cmd_tag', 'item_cmd_subpage')"><img src="img/tag_item.png"> 道具</div>
-	<div type="button" id="special_cmd_tag" class="cmd_tag" onclick="tag_choose('special_cmd_tag', 'special_cmd_subpage')"><img src="img/tag_special.png"> 特殊</div>
+	<div type="button" id="common_cmd_tag" class="cmd_tag choosed" onclick="tag_choose('common')"><img src="img/tag_common.png"> 基本</div>
+	<div type="button" id="item_cmd_tag" class="cmd_tag" onclick="tag_choose('item')"><img src="img/tag_item.png"> 道具</div>
+	<div type="button" id="special_cmd_tag" class="cmd_tag" onclick="tag_choose('special')"><img src="img/tag_special.png"> 特殊</div>
 </div>
 <hr class="cmd_tag">
 <div id="common_cmd_subpage" class="cmd_subpage">
-	
+	<!--探索移动按钮-->
+	<!--{if (defined('MOD_EXPLORE'))}-->
+	{template MOD_EXPLORE_EXPLORE}
+	<!--{/if}-->
 	<!--视野-->
 	<!--{if (defined('MOD_SEARCHMEMORY'))}-->
 	{template MOD_SEARCHMEMORY_SMEMORYLIST}
@@ -52,38 +55,29 @@
 		<!--{/if}-->
 	</div>
 	
-	<!--探索移动按钮-->
-	<!--{if (defined('MOD_EXPLORE'))}-->
-	{template MOD_EXPLORE_EXPLORE}
-	<!--{/if}-->
+	
 </div>
 <div id="item_cmd_subpage" class="cmd_subpage" style="display:none">
-	<!--{if defined('MOD_ITEMMIX')}-->
-	{template MOD_ITEMMIX_ITEMMIX_CMD}
-	<!--{/if}-->
 	<!--{if defined('MOD_ITEMMAIN')}-->
 	{template MOD_ITEMMAIN_ITMCOMMAND}
 	<!--{/if}-->
-	<!--{if defined('MOD_WEPCHANGE')}-->
-	{template MOD_WEPCHANGE_WEPCHANGE_PROFILE}
-	<!--{/if}-->
-	<!--{if defined('MOD_DUALWEP')}-->
-	{template MOD_DUALWEP_DUALWEP_ATT_METHOD_PROFILE}
-	<!--{/if}-->
 </div>
 <div id="special_cmd_subpage" class="cmd_subpage" style="display:none">
-	<!--{if defined('MOD_REST')}-->
-	{template MOD_REST_REST_CMD}
-	<!--{/if}-->
-	<!--{if defined('MOD_TEAM')}-->
-	{template MOD_TEAM_TEAM_COMMAND}
-	<!--{/if}-->
-	<!--{if defined('MOD_SONG')}-->
-	{template MOD_SONG_SONG_PROFILE}
-	<!--{/if}-->
-	<br>
-	<!--{if defined('MOD_CLUBBASE')}-->
-	{template MOD_CLUBBASE_PROFILESKILLPAGE}
-	<!--{/if}-->
-	<br>
+	<div class="cmd_row">
+		<!--{if defined('MOD_REST')}-->
+		{template MOD_REST_REST_CMD}
+		<!--{/if}-->
+		<!--{if defined('MOD_TEAM')}-->
+		{template MOD_TEAM_TEAM_COMMAND}
+		<!--{/if}-->
+		<!--{if defined('MOD_SONG')}-->
+		{template MOD_SONG_SONG_PROFILE}
+		<!--{/if}-->
+		<br>
+		<!--{if defined('MOD_CLUBBASE')}-->
+		{template MOD_CLUBBASE_PROFILESKILLPAGE}
+		<!--{/if}-->
+	</div>
+	
+
 </div>

@@ -2,6 +2,27 @@
 <input type="hidden" id="command" name="command" value="itemget">
 <!--{eval eval(import_module('itemmain'));$blanki = \itemmain\get_pack_blank();$tpldata+=\itemmain\parse_item_words($sdata,0,1);}-->
 <div class="cmd_row">
+	<!--{if $blanki > 0}-->
+	<div class="cmd_positioner explore_cmd">
+		<div class="explore_info grey">
+			<!--{if $blanki > 0}-->
+				将放入包裹[<!--{eval echo strtoupper(substr($item_hotkey_id_list[$blanki],0,1));}-->]位
+			<!--{else}-->
+				将与包裹[E]位道具交换<!--暂时不用-->
+			<!--{/if}-->
+		</div>
+		<input type="button" class="cmd_button explore_cmd glow_buttons cyan" style="padding-bottom:20px" id="z" value="拾取" 
+			onclick="<!--{if !$blanki}-->$('command').value='swapitm6';<!--{/if}-->postCmd('gamecmd','command.php',this,1);">
+	</div>
+	<!--{/if}-->
+	<div class="cmd_positioner explore_cmd<!--{if !$blanki}--> zx_cmd<!--{/if}-->">
+		<div class="explore_info grey">
+			<!--{eval echo \itemmain\parse_itmname_words($itm0, 1, 13);}-->$itemmain_drophint
+		</div>
+		<input type="button" class="cmd_button explore_cmd glow_buttons red" style="padding-bottom:20px" <!--{if !$blanki}-->id="zx"<!--{else}-->id="x"<!--{/if}--> value="丢弃" onclick="$('command').value='dropitm0';postCmd('gamecmd','command.php',this,1);">
+	</div>
+</div>
+<div class="cmd_row">
 	<!--{loop $item_hotkey_id_list $ii $ihotkey}-->
 		<div class="cmd_positioner itm_cmd">
 			<!--{if ${'itms'.$ii}}-->
@@ -31,25 +52,9 @@
 		<!--{if $ii%3==0}--><br><!--{/if}-->
 	<!--{/loop}-->	
 </div>
-<div class="cmd_row">
-	<!--{if $blanki > 0}-->
-	<div class="cmd_positioner explore_cmd">
-		<div class="explore_info grey">
-			<!--{if $blanki > 0}-->
-				将放入包裹[<!--{eval echo strtoupper(substr($item_hotkey_id_list[$blanki],0,1));}-->]位
-			<!--{else}-->
-				将与包裹[E]位道具交换<!--暂时不用-->
-			<!--{/if}-->
-		</div>
-		<input type="button" class="cmd_button explore_cmd glow_buttons cyan" style="padding-bottom:20px" id="z" value="拾取" 
-			onclick="<!--{if !$blanki}-->$('command').value='swapitm6';<!--{/if}-->postCmd('gamecmd','command.php',this,1);">
-	</div>
-	<!--{/if}-->
-	<div class="cmd_positioner explore_cmd<!--{if !$blanki}--> zx_cmd<!--{/if}-->">
-		<div class="explore_info grey">
-			<!--{eval echo \itemmain\parse_itmname_words($itm0, 1, 13);}-->$itemmain_drophint
-		</div>
-		<input type="button" class="cmd_button explore_cmd glow_buttons red" style="padding-bottom:20px" <!--{if !$blanki}-->id="zx"<!--{else}-->id="x"<!--{/if}--> value="丢弃" onclick="$('command').value='dropitm0';postCmd('gamecmd','command.php',this,1);">
-	</div>
-</div>
-<!--{eval $uip['display']['log_height'] = 410;}-->
+
+<!--{eval $uip['display']['log_height'] = 240;}-->
+<!--{if $mode != 'search'}-->
+	<!--game页面直接载入的拾取界面，直接写js-->
+	<img style="display:none;" type="hidden" src="img/blank.png" onload="jQuery('#log').css('height','240px');">
+<!--{/if}-->
