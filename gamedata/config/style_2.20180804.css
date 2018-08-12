@@ -311,6 +311,12 @@ div.itm_cmd div.itm_cmd_info div{
 	text-align:center;
 	width:inherit;
 }
+div.itm_cmd div.itm_cmd_info div.itm_name{
+	color:#ff0;font-weight:bold;
+}
+div.itm_cmd.grey div.itm_cmd_info div.itm_name{
+	color:#999;
+}
 div.itm_cmd input.itm_cmd_button{
 	width:inherit;height:60px;
 	padding-bottom:35px;
@@ -359,6 +365,12 @@ div.searchmemory_cmd div.searchmemory_info{
 	align-items: center;
 	justify-content: center;
 }
+div.searchmemory_cmd div.searchmemory_info span{font-weight:bold;}
+div.searchmemory_cmd div.searchmemory_info span.danger{color:#f00;}
+div.searchmemory_cmd div.searchmemory_info span.corpse{color:#ff0;}
+div.searchmemory_cmd div.searchmemory_info span.safe{color:#0f0;}
+div.searchmemory_cmd div.searchmemory_info span.item{color:#0ff;}
+div.searchmemory_cmd.grey div.searchmemory_info span{color:#999;}
 div.searchmemory_cmd input.searchmemory_cmd{
 	width:inherit;height:50px;
 	padding-bottom:20px;
@@ -393,28 +405,32 @@ div.pack_button input.pack_button{
 	display: inline-block;
 	width:inherit;height:35px;
 	line-height:35px;
+	background-repeat: no-repeat;
+	background-position:center;
 }
 div.pack_button input.pack_off{
 	background-image:url('../../img/itemoff.png');
-	background-repeat: no-repeat;
-	background-position:center;
 }
 div.pack_button input.pack_off:disabled{
 	filter: brightness(50%);
 }
 div.pack_button input.pack_drop{
 	background-image:url('../../img/itemdrop.png');
-	background-repeat: no-repeat;
-	background-position:center;
 }
 div.pack_button input.pack_drop:disabled{
-	filter: grayscale(100%) brightness(200%);
+	filter: grayscale(100%);
 }
 div.pack_button input.pack_switch{
 	font-size:12pt;font-weight:bold;
 }
 div.pack_button input.pack_drop:disabled{
-	filter: grayscale(100%) brightness(200%);
+	filter: grayscale(100%);
+}
+div.pack_button input.pack_from{
+	background-image:url('../../img/itemfrom.png');
+}
+div.pack_button input.pack_to{
+	background-image:url('../../img/itemto.png');
 }
 /*==========快捷键标记==========*/
 div.hotkey_mark {

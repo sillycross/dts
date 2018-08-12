@@ -173,7 +173,9 @@ function postCmd(formName,sendto,srcdom,disableall){
 	//把带快捷键的来源div设成灰色
 	if(srcdom && 'object'==typeof(srcdom)) {
 		srcdom.disabled = true;
-		if(jQuery(srcdom).parent().hasClass('cmd_positioner')) jQuery(srcdom).parent().addClass('grey');
+		if(jQuery(srcdom).parent().hasClass('cmd_positioner')) {
+			jQuery(srcdom).parent().addClass('grey');
+		}
 	}
 	if(jQuery('#loading').length > 0) jQuery('#loading').css({'display':'block'});//显示Loading画面
 	

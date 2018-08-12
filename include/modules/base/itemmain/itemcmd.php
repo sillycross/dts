@@ -73,6 +73,9 @@ namespace itemmain
 				}
 			}
 			if(isset($sameitem[0])){
+				$log .= "是否将 <span class='yellow b'>$itm0</span>与以下物品合并？";
+//				$tpldata['itme0_words'] = \itemmain\parse_itmnum_words($itme,1);
+//				$tpldata['itms0_words'] = \itemmain\parse_itmnum_words($itms,1);
 				include template(MOD_ITEMMAIN_ITEMMERGE0);
 				$cmd = ob_get_contents();
 				ob_clean();

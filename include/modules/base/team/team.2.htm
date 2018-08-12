@@ -1,0 +1,19 @@
+<input type="hidden" id="mode" name="mode" value="team">
+<input type="hidden" id="command" name="command" value="$teamcmd">
+<div class="cmd_row">
+	<br>
+	<div>队伍名称 : <input size="15" type="text" name="nteamID" maxlength="30"> <span class="grey">15个字以内。</span></div>
+	<br>
+	<div>队伍密码 : <input size="15" type="text" name="nteamPass" maxlength="30"> <span class="grey">15个字以内。</span></div>
+</div>
+
+<div class="cmd_row">
+	<div class="cmd_positioner common_cmd" style="width:165px">
+		<input type="button" id="pack_cmd_switch" class="cmd_button common_cmd glow_buttons white" value="<!--{if 'teammake'==$teamcmd}-->组建队伍<!--{else}-->加入队伍<!--{/if}-->" 
+			onclick="postCmd('gamecmd','command.php',this);">
+	</div>
+	<div class="cmd_positioner common_cmd" style="width:165px">
+		<input type="button" id="pack_cmd_switch" class="cmd_button common_cmd glow_buttons white" value="返回" 
+			onclick="$('mode').value='command';$('command').value='menu';postCmd('gamecmd','command.php',this);">
+	</div>
+</div>

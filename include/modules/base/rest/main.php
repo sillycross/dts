@@ -112,6 +112,7 @@ namespace rest
 			}else{
 				$state = substr($command,4,1);
 				$mode = 'rest';
+				$log .= '你开始了'.$restinfo[$state].'…';
 			}
 			return;
 		}

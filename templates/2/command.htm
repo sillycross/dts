@@ -25,7 +25,7 @@
 				<!--{if ${'itms'.$ii}}-->
 					<!--{eval $tmp_itmname = \itemmain\parse_itmname_words(${'itm'.$ii}, 1, 13);}-->
 					<div class="itm_cmd_info">
-						<div class="yellow b">
+						<div class="itm_name">
 						<!--{if $tmp_itmname==${'itm'.$ii}}-->
 							${'itm'.$ii}
 						<!--{else}-->
@@ -63,21 +63,18 @@
 	<!--{/if}-->
 </div>
 <div id="special_cmd_subpage" class="cmd_subpage" style="display:none">
+	<!--{if defined('MOD_REST')}-->
+	{template MOD_REST_REST_CMD}
+	<!--{/if}-->
+	<!--{if defined('MOD_TEAM')}-->
+	{template MOD_TEAM_TEAM_COMMAND}
+	<!--{/if}-->
+	<!--{if defined('MOD_SONG')}-->
+	{template MOD_SONG_SONG_PROFILE}
+	<!--{/if}-->
 	<div class="cmd_row">
-		<!--{if defined('MOD_REST')}-->
-		{template MOD_REST_REST_CMD}
-		<!--{/if}-->
-		<!--{if defined('MOD_TEAM')}-->
-		{template MOD_TEAM_TEAM_COMMAND}
-		<!--{/if}-->
-		<!--{if defined('MOD_SONG')}-->
-		{template MOD_SONG_SONG_PROFILE}
-		<!--{/if}-->
-		<br>
 		<!--{if defined('MOD_CLUBBASE')}-->
 		{template MOD_CLUBBASE_PROFILESKILLPAGE}
 		<!--{/if}-->
 	</div>
-	
-
 </div>

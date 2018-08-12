@@ -6,7 +6,7 @@
 		<div class="explore_info grey">
 			<!--{eval echo \itemmain\parse_itmname_words($itm0, 1, 13);}-->$itemmain_drophint
 		</div>
-		<input type="button" class="cmd_button explore_cmd glow_buttons red" style="padding-bottom:20px" id="zx" value="丢弃" onclick="$('command').value='dropitm0';postCmd('gamecmd','command.php',this,1);">
+		<input type="button" class="cmd_button explore_cmd glow_buttons red b" style="padding-bottom:20px" id="zx" value="丢弃" onclick="$('command').value='dropitm0';postCmd('gamecmd','command.php',this,1);">
 	</div>
 </div>
 <div class="cmd_row">
@@ -23,7 +23,7 @@
 				</div>
 				<div class="grey">$tpldata['itme'.$ii.'_words'] / $tpldata['itms'.$ii.'_words']</div>
 			</div>
-			<input type="button" id="{$ihotkey}" class="cmd_button itm_cmd_button glow_buttons yellow" value="替换" 
+			<input type="button" id="{$ihotkey}" class="cmd_button itm_cmd_button glow_buttons yellow b" value="替换" 
 				onclick="$('command').value='swapitm{$ii}';postCmd('gamecmd','command.php',this);">
 		</div>
 		<!--{if $ii%3==0}--><br><!--{/if}-->

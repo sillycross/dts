@@ -6,11 +6,11 @@
 		<div class="searchmemory_info">
 			<!--{if isset($sm['itm'])}-->
 				<!--{eval $sm['itm']=\itemmain\parse_itmname_words($sm['itm'],1,13); }-->
-				<span class="yellow b">$sm['itm']</span>
+				<span class="item">$sm['itm']</span>
 			<!--{elseif isset($sm['Pname'])}-->
 				<!--{eval $sm['Pname']=\itemmain\parse_itmname_words($sm['Pname'],1,13); }-->
 				<!--{if $sm['smtype'] == 'enemy'}-->
-					<span class="red b">
+					<span class="danger">
 						<!--{if $fog}-->
 							？？？
 						<!--{else}-->
@@ -18,12 +18,12 @@
 						<!--{/if}-->
 					</span>
 				<!--{elseif $sm['smtype'] == 'corpse'}-->
-					<span class="cyan b">$sm['Pname']</span>
+					<span class="corpse">$sm['Pname']</span>
 				<!--{elseif $sm['smtype'] == 'team'}-->
 					<!--{if $fog}-->
-						<span class="red b">？？？</span>
+						<span class="danger">？？？</span>
 					<!--{else}-->
-						<span class="lime b">$sm['Pname']</span>
+						<span class="safe">$sm['Pname']</span>
 					<!--{/if}-->
 				<!--{/if}-->
 			<!--{/if}-->
