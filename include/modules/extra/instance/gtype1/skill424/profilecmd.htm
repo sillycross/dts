@@ -1,1 +1,4 @@
-<input type="button" class="cmdbutton" id="sp_wdebug"  value="进行除错" onclick="$('mode').value='special';$('command').value='skill424_special';$('subcmd').value='wdebug';postCmd('gamecmd','command.php');this.disabled=true;">
+<div class="cmd_positioner common_cmd">
+	<input type="button" id="sp_wdebug" class="cmd_button common_cmd glow_buttons white" value="进行除错" 
+		onclick="$('mode').value='special';$('command').value='skill424_special';$('subcmd').value='wdebug';postCmd('gamecmd','command.php',this);">
+</div>

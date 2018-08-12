@@ -1,1 +1,4 @@
-<input type="button" class="cmdbutton" id="sp_gemming"  value="镶嵌宝石" onclick="$('mode').value='special';$('command').value='skill23_special';$('subcmd').value='gemming';postCmd('gamecmd','command.php');this.disabled=true;">
+<div class="cmd_positioner common_cmd">
+	<input type="button" id="sp_gemming" class="cmd_button common_cmd glow_buttons white" value="镶嵌宝石" 
+		onclick="$('mode').value='special';$('command').value='skill23_special';$('subcmd').value='gemming';postCmd('gamecmd','command.php',this);">
+</div>
