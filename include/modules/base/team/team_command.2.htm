@@ -1,17 +1,17 @@
 <!--{if (\team\check_team_button_exist())}-->
 <div class="cmd_row">
 	<!--{if !$teamID}-->
-	<div class="cmd_positioner common_cmd" style="width:165px">
-		<input type="button" id="pack_cmd_switch" class="cmd_button common_cmd glow_buttons white" value="组建队伍" 
+	<div class="cmd_positioner common_cmd" style="width:167px">
+		<input type="button" class="cmd_button common_cmd glow_buttons white" value="组建队伍" 
 			onclick="$('command').value='team';$('subcmd').name='teamcmd';$('subcmd').value='teammake';postCmd('gamecmd','command.php',this);">
 	</div>
-	<div class="cmd_positioner common_cmd" style="width:165px">
-		<input type="button" id="pack_cmd_switch" class="cmd_button common_cmd glow_buttons white" value="加入队伍" 
+	<div class="cmd_positioner common_cmd" style="width:167px">
+		<input type="button" class="cmd_button common_cmd glow_buttons white" value="加入队伍" 
 			onclick="$('command').value='team';$('subcmd').name='teamcmd';$('subcmd').value='teamjoin';postCmd('gamecmd','command.php',this);">
 	</div>
 	<!--{else}-->
 	<div class="cmd_positioner common_cmd" style="width:336px">
-		<input type="button" id="pack_cmd_switch" class="cmd_button common_cmd glow_buttons white" value="脱离队伍" 
+		<input type="button" class="cmd_button common_cmd glow_buttons white" value="脱离队伍" 
 			onclick="$('command').value='team';$('subcmd').name='teamcmd';$('subcmd').value='teamquit';postCmd('gamecmd','command.php',this);">
 	</div>
 	<!--{/if}-->

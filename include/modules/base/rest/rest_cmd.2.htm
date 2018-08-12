@@ -2,16 +2,16 @@
 <div class="cmd_row">
 	<!--{if in_array($pls,$rest_hospital_list)}-->
 	<div class="cmd_positioner common_cmd" style="width:336px">
-		<input type="button" id="pack_cmd_switch" class="cmd_button common_cmd glow_buttons white" value="静养" 
+		<input type="button" class="cmd_button common_cmd glow_buttons white" value="静养" 
 			onclick="$('command').value='rest3';postCmd('gamecmd','command.php',this);">
 	</div>
 	<!--{else}-->
-	<div class="cmd_positioner common_cmd" style="width:165px">
-		<input type="button" id="pack_cmd_switch" class="cmd_button common_cmd glow_buttons white" value="睡眠" 
+	<div class="cmd_positioner common_cmd" style="width:167px">
+		<input type="button" class="cmd_button common_cmd glow_buttons white" value="睡眠" 
 			onclick="$('command').value='rest1';postCmd('gamecmd','command.php',this);">
 	</div>
-	<div class="cmd_positioner common_cmd" style="width:165px">
-		<input type="button" id="pack_cmd_switch" class="cmd_button common_cmd glow_buttons white" value="治疗" 
+	<div class="cmd_positioner common_cmd" style="width:167px">
+		<input type="button" class="cmd_button common_cmd glow_buttons white" value="治疗" 
 			onclick="$('command').value='rest2';postCmd('gamecmd','command.php',this);">
 	</div>
 	<!--{/if}-->

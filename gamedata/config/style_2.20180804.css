@@ -250,6 +250,7 @@ div.cmd_tag_container{
 }
 div.cmd_tag{
 	display:inline-block;
+	margin-right:2px;
 	height:30px;width:108px;
 	border:1px solid #999;
 	border-bottom-width:0px;
@@ -283,7 +284,9 @@ div.cmd_tag.choosed img{
 div.cmd_subpage{
 	overflow:hidden;
 }
+/*====================================*/
 /*==========重叠式的道具按钮==========*/
+/*====================================*/
 div.cmd_row{
 	margin:0 0 10px 10px;
 }
@@ -295,6 +298,7 @@ div.cmd_positioner{
 input.cmd_button{
 	position:absolute;z-index:10;
 }
+/*==========道具按钮，一行3个==========*/
 div.itm_cmd{
 	width:110px;height:60px;
 }
@@ -324,14 +328,16 @@ div.itm_cmd input.itm_cmd_button{
 div.itm_cmd input.itm_cmd_button.forbidden{
 	padding-bottom:0px;
 }
+/*==========一般按钮，一行3个==========*/
 div.common_cmd{
 	width:110px;height:35px;
 }
 input.common_cmd{
 	width:inherit;height:35px;
 }
+/*==========探索按钮，一行2个（不止探索用）==========*/
 div.explore_cmd{
-	width:165px;height:50px;
+	width:167px;height:50px;
 }
 div.explore_cmd div.explore_info{
 	position:absolute;
@@ -351,6 +357,7 @@ input.move_to_button{
 	margin:5px 5px 0 0;
 	width:165px;height:35px;
 }
+/*==========视野按钮，一行3个==========*/
 div.searchmemory_cmd{
 	width:110px;height:50px;
 	text-align:left;
@@ -375,15 +382,17 @@ div.searchmemory_cmd input.searchmemory_cmd{
 	width:inherit;height:50px;
 	padding-bottom:20px;
 }
+/*==========贯通式按钮==========*/
 div.zx_cmd{
 	width:336px;
 }
+/*==========调整包裹的按钮==========*/
 div.pack_row{
 	margin:8px 0 0 10px; height:35px;
 }
 div.pack_cell_eqp{
 	margin:3px 3px 0 0;
-	width:250px;height:33px;
+	width:260px;height:33px;
 	display: inline-block;
 	text-align:center;
 	vertical-align:top;
@@ -432,6 +441,16 @@ div.pack_button input.pack_from{
 div.pack_button input.pack_to{
 	background-image:url('../../img/itemto.png');
 }
+/*==========战斗技解说==========*/
+div.battlecmd_desc{
+	width:222px;height:63px;
+}
+div.battlecmd_desc div.battlecmd_desc_cont{
+	vertical-align:middle;
+	padding:2px 5px;
+	text-align:left;
+	white-space:normal;
+}
 /*==========快捷键标记==========*/
 div.hotkey_mark {
 	position:absolute;
@@ -444,18 +463,7 @@ div.hotkey_mark {
 	-webkit-border-radius: 6px;
 	        border-radius: 6px;
 	line-height:15px;text-align:center;
-}
-div.itm_cmd div.hotkey_mark{
-	left:80px;top:3px;
-}
-div.common_cmd div.hotkey_mark{
-	left:80px;top:8px;
-}
-div.explore_cmd div.hotkey_mark{
-	left:130px;top:3px;
-}
-div.zx_cmd div.hotkey_mark{
-	left:305px;
+	right:3px;top:3px;
 }
 /*==========剧情分镜==========*/
 #storyboard_container {

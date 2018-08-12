@@ -332,10 +332,10 @@ function showData(sdata){
 			if (-1 != jQuery.inArray(jQuery(this).attr('id'), ['z','zz','a','aa','s','ss','d','dd','q','qq','w','ww','e','ee','x','c','v','zx'])){
 				if('zx' == jQuery(this).attr('id')){
 					jQuery(this).before("<div class='hotkey_mark'>X</div>");
-					var tmp_left0 = jQuery(this).parent().children('.hotkey_mark').css('left').replace('px','');
+					var tmp_right0 = jQuery(this).parent().children('.hotkey_mark').css('right').replace('px','');
 					var tmp_width0 = jQuery(this).parent().children('.hotkey_mark').css('width').replace('px','');
-					var tmp_left = (Number(tmp_left0) -  Number(tmp_width0) - 5).toString()+'px';
-					jQuery(this).before("<div class='hotkey_mark' style='left:"+tmp_left+"'>Z</div>");
+					var tmp_right = (Number(tmp_right0) +  Number(tmp_width0) + 5).toString()+'px';
+					jQuery(this).before("<div class='hotkey_mark' style='right:"+tmp_right+"'>Z</div>");
 				}else{
 					jQuery(this).before("<div class='hotkey_mark'>"+jQuery(this).attr('id').substr(0,1).toUpperCase()+"</div>");
 				}

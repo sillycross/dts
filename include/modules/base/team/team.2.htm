@@ -8,12 +8,12 @@
 </div>
 
 <div class="cmd_row">
-	<div class="cmd_positioner common_cmd" style="width:165px">
-		<input type="button" id="pack_cmd_switch" class="cmd_button common_cmd glow_buttons white" value="<!--{if 'teammake'==$teamcmd}-->组建队伍<!--{else}-->加入队伍<!--{/if}-->" 
+	<div class="cmd_positioner common_cmd" style="width:167px">
+		<input type="button" class="cmd_button common_cmd glow_buttons white" value="<!--{if 'teammake'==$teamcmd}-->组建队伍<!--{else}-->加入队伍<!--{/if}-->" 
 			onclick="postCmd('gamecmd','command.php',this);">
 	</div>
-	<div class="cmd_positioner common_cmd" style="width:165px">
-		<input type="button" id="pack_cmd_switch" class="cmd_button common_cmd glow_buttons white" value="返回" 
+	<div class="cmd_positioner common_cmd" style="width:167px">
+		<input type="button" class="cmd_button common_cmd glow_buttons white" value="返回" 
 			onclick="$('mode').value='command';$('command').value='menu';postCmd('gamecmd','command.php',this);">
 	</div>
 </div>

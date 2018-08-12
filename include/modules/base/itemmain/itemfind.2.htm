@@ -17,7 +17,7 @@
 	<!--{/if}-->
 	<div class="cmd_positioner explore_cmd<!--{if !$blanki}--> zx_cmd<!--{/if}-->">
 		<div class="explore_info grey">
-			<!--{eval echo \itemmain\parse_itmname_words($itm0, 1, 13);}-->$itemmain_drophint
+			<!--{eval echo \itemmain\parse_itmname_words($itm0, 1, !$blanki ? 13 : 10);}-->$itemmain_drophint
 		</div>
 		<input type="button" class="cmd_button explore_cmd glow_buttons red b" style="padding-bottom:20px" <!--{if !$blanki}-->id="zx"<!--{else}-->id="x"<!--{/if}--> value="丢弃" onclick="$('command').value='dropitm0';postCmd('gamecmd','command.php',this,1);">
 	</div>

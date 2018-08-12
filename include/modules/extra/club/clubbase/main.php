@@ -293,7 +293,7 @@ namespace clubbase
 			$which--;
 			if ($which==0)
 			{
-				if ($zflag) echo '<span style="display:block;height:6px;">&nbsp;</span>';
+				if ($zflag && 2 != $u_templateid) echo '<span style="display:block;height:6px;">&nbsp;</span>';
 				ob_start();
 				include template(MOD_CLUBBASE_BATTLECMD_COMMON);
 				$default = ob_get_contents();

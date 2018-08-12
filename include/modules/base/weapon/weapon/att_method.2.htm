@@ -1,0 +1,9 @@
+<!--{eval eval(import_module('weapon'));}-->
+<!--{eval $attmethod=\weapon\get_attack_method($sdata);}-->
+<div class="cmd_positioner <!--{if $secattmethod}-->common_cmd<!--{else}-->explore_cmd<!--{/if}-->" style="height:50px">
+	<input type="button" class="cmd_button <!--{if $secattmethod}-->common_cmd<!--{else}-->explore_cmd<!--{/if}--> glow_buttons yellow b" style="height:50px;font-size:12pt;" id="z" value="{$attinfo[$attmethod]}" 
+		onclick="$('command').value='$attmethod';postCmd('gamecmd','command.php',this);">
+</div>
+<!--{if $secattmethod}-->
+	{template MOD_DUALWEP_SEC_ATT_METHOD}
+<!--{/if}-->

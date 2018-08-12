@@ -30,7 +30,7 @@ function parse_template($tplfile, $objfile, $templateid, $tpldir, $nospace=1) {
 	$const_regexp = "([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)";
 	
 	//去除缩进
-	$template = preg_replace("/([\n\r]+)\t+/s", "\\1", $template);
+	$template = preg_replace("/([\r\n]+)\t+/s", "\\1", $template);
 	//所有<!--{变为{  所有}-->变为}
 	$template = preg_replace("/\<\!\-\-\{(.+?)\}\-\-\>/s", "{\\1}", $template);
 	//lang xxx识别
@@ -108,6 +108,9 @@ function parse_template($tplfile, $objfile, $templateid, $tpldir, $nospace=1) {
 	if(!$fp = fopen($objfile, 'w')) {
 		gexit("Directory './gamedata/templates/' not found or have no access!");
 	}
+	
+	//去除div之间的换行
+	$template = preg_replace("/div\>[\r\n]+\<div/s", "div><div", $template);
 	
 	//开启无空字符模式，php开闭符号前后不会输出空格，但是tpl文件可读性会变差
 	//好像会导致一些奇怪的故障，需要再观察
