@@ -61,7 +61,7 @@ namespace corpse
 		\metman\init_battle(1);
 		
 		$main = MOD_METMAN_MEETMAN;
-		$log .= '你发现了<span class="red b">'.$w_name.'</span>的尸体！<br>';
+		$log .= '你发现了<span class="red b">'.$w_name.'</span>的尸体！<br>想要从尸体上拾取什么？<br>';
 		
 		$r=\itemmain\parse_item_words($edata,1);
 		extract($r,EXTR_PREFIX_ALL,'w');
@@ -273,9 +273,9 @@ namespace corpse
 			return;
 		}
 		
-		if (strpos($action,'pacorpse')===0)
+		if (strpos($action,'pacorpse')===0 || ($command == 'enter' && strpos($action,'corpse')===0))
 		{
-			$cid = str_replace('pacorpse','',$action);
+			$cid = str_replace('corpse','',str_replace('pacorpse','',$action));
 			if($cid){
 				$result = $db->query("SELECT * FROM {$tablepre}players WHERE pid='$cid' AND hp=0");
 				if($db->num_rows($result)>0){

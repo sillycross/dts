@@ -388,7 +388,7 @@ div.zx_cmd{
 }
 /*==========调整包裹的按钮==========*/
 div.pack_row{
-	margin:8px 0 0 10px; height:35px;
+	margin:5px 0 0 10px;
 }
 div.pack_cell_eqp{
 	margin:3px 3px 0 0;
@@ -440,6 +440,24 @@ div.pack_button input.pack_from{
 }
 div.pack_button input.pack_to{
 	background-image:url('../../img/itemto.png');
+}
+/*==========尸体按钮==========*/
+div.corpse_cmd{
+	margin:5px 5px 0 0px; 
+	width:336px;height:35px;
+	position:relative;
+}
+div.corpse_cmd.multi_cont{
+	display: flex;
+	flex-direction:column;
+	align-items: center;
+	justify-content: center;
+}
+div.corpse_cmd div.corpse_info{
+	text-align:center;line-height:13px;
+}
+div.corpse_cmd input.corpse_cmd{
+	width:336px;height:35px;
 }
 /*==========战斗技解说==========*/
 div.battlecmd_desc{

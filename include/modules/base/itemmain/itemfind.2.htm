@@ -54,7 +54,7 @@
 </div>
 
 <!--{eval $uip['display']['log_height'] = 242;}-->
-<!--{if $command != 'search'}-->
+<!--{if !$command}-->
 	<!--game页面直接载入的拾取界面，直接写js-->
 	<img style="display:none;" type="hidden" src="img/blank.png" onload="jQuery('#log').css('height','242px');">
 <!--{/if}-->

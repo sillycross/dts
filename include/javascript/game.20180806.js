@@ -966,22 +966,3 @@ function skilldesc_onmouseout(caller_id, skill_id)
 {
 	jQuery('#skl_util_'+caller_id+'_skilllearn_'+skill_id).css('display','none');
 }
-////////////////////////////////////////////////////////////////////////
-///////////////////////////////标签页//////////////////////////////////
-////////////////////////////////////////////////////////////////////////
-now_tag = 'common';
-
-function tag_choose(tgt)
-{
-	if(tgt != 'common') hotkey_ok=false;
-	else hotkey_ok=true;
-	now_tag = tgt;
-	tag_display();
-}
-
-function tag_display(){
-	jQuery('.cmd_tag').removeClass('choosed');
-	jQuery('#'+now_tag+'_cmd_tag').addClass('choosed');
-	jQuery('.cmd_subpage').css('display','none');
-	jQuery('#'+now_tag+'_cmd_subpage').css('display','block');
-}
