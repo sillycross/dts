@@ -1,7 +1,9 @@
 <input type="hidden" name="mode" value="combat">
 <input type="hidden" id="command" name="command" value="back">
 <div class="cmd_row">
-	向对手大喊：<input size="30" type="text" name="message" maxlength="60">
+	<div class="glow_buttons grey forbidden" style="margin:10px 0 0 0;width:335px;height:35px;text-align:center;">
+		<span class="white" style="line-height:35px;">向对手大喊：<input size="30" type="text" name="message" maxlength="60"></span>
+	</div>
 </div>
 <!--{if defined('MOD_SKILL262') && \skillbase\skill_query(262) && \skill262\check_unlocked262($sdata)}-->
 <div class="cmd_row">
@@ -36,3 +38,5 @@
 <!--{if (defined('MOD_CLUBBASE_NPCSKILLPAGE'))}-->
 	{template MOD_CLUBBASE_NPCSKILLPAGE}
 <!--{/if}-->
+
+<!--{eval $uip['display']['log_height'] = 190;}-->
