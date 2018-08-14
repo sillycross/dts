@@ -1,0 +1,9 @@
+<tr>
+	<TD class=b2 height="26"><span><!--{if $arts}-->$tpldata['artk_words']<!--{else}--><span class="grey b">$iteminfo['A']</span><!--{/if}--></span></TD>
+	<TD class=b3>
+	<span><!--{if $arts}-->$tpldata['art_words']<!--{else}-->$noitm<!--{/if}--></span>
+	</TD>
+	<TD class=b3><span <!--{if $arts && $tpldata['artsk_desc']}-->title="{$tpldata['artsk_desc']}"<!--{/if}-->><!--{if $arts}-->$tpldata['artsk_words']<!--{else}-->--<!--{/if}--></span></TD>
+	<TD class=b3><span><!--{if $arts}-->$arte<!--{else}-->0<!--{/if}--></span></TD>
+	<TD class=b3><span>$arts</span></TD>
+</tr> 

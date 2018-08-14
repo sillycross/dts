@@ -32,7 +32,8 @@
 		<!--{eval $corpse_row_num ++;}-->
 		<div class="cmd_positioner corpse_cmd multi_cont">
 			<div class="corpse_info">
-				${'w_'.$eqpv}/${'w_'.$eqpv.'k_words'}/${'w_'.$eqpv.'e'}/${'w_'.$eqpv.'s'}<!--{if ${'w_'.$eqpv.'sk_words'} && '--' != ${'w_'.$eqpv.'sk_words'}}-->/${'w_'.$eqpv.'sk_words'}<!--{/if}-->
+				<!--{eval $tmp_eqpname = \itemmain\parse_itmname_words(${'w_'.$eqpv},1);$tmp_eqpe = \itemmain\parse_itmnum_words(${'w_'.$eqpv.'e'}, 1);$tmp_eqps = \itemmain\parse_itmnum_words(${'w_'.$eqpv.'s'}, 1);$tmp_eqpsk = \itemmain\parse_itmsk_words(${'w_'.$eqpv.'sk'}, 1, 1);}-->
+				<span class="b">$tmp_eqpname</span><span class="grey"> | </span>${'w_'.$eqpv.'k_words'}<span class="grey"> | </span>$tmp_eqpe<span class="grey"> | </span>$tmp_eqps<!--{if ${'w_'.$eqpv.'sk_words'} && '--' != ${'w_'.$eqpv.'sk_words'}}--><span class="grey"> | </span><span>$tmp_eqpsk</span><!--{/if}-->
 			</div>
 			<input type="button" class="corpse_cmd glow_buttons white" style="position:absolute;" value="" 
 				onclick="$('command').value='$eqpv';postCmd('gamecmd','command.php',this);">
@@ -44,7 +45,8 @@
 		<!--{eval $corpse_row_num ++;}-->
 		<div class="cmd_positioner corpse_cmd multi_cont">
 			<div class="corpse_info">
-				 ${'w_itm'.$itmi}/${'w_itmk'.$itmi.'_words'}/${'w_itme'.$itmi}/${'w_itms'.$itmi}<!--{if ${'w_itmsk'.$itmi.'_words'} && '--' != ${'w_itmsk'.$itmi.'_words'}}-->/${'w_itmsk'.$itmi.'_words'}<!--{/if}-->
+				<!--{eval $tmp_itmname = \itemmain\parse_itmname_words(${'w_itm'.$itmi},1);$tmp_itme = \itemmain\parse_itmnum_words(${'w_itme'.$itmi}, 1);$tmp_itms = \itemmain\parse_itmnum_words(${'w_itms'.$itmi}, 1);$tmp_itmsk = \itemmain\parse_itmsk_words(${'w_itmsk'.$itmi}, 1, 1);}-->
+				<span class="b">$tmp_itmname</span><span class="grey"> | </span>${'w_itmk'.$itmi.'_words'}<span class="grey"> | </span>$tmp_eqpe<span class="grey"> | </span>$tmp_eqps<!--{if ${'w_itmsk'.$itmi.'_words'} && '--' != ${'w_itmsk'.$itmi.'_words'}}--><span class="grey"> | </span><span>$tmp_itmsk</span><!--{/if}-->
 			</div>
 			<input type="button" class="corpse_cmd glow_buttons white" style="position:absolute;" value="" 
 				onclick="$('command').value='itm$itmi';postCmd('gamecmd','command.php',this);">
@@ -53,7 +55,7 @@
 <!--{/loop}-->
 </div>
 
-<!--{eval $uip['display']['log_height'] = 215-max(0, 40*($corpse_row_num-10));}-->
+<!--{eval $uip['display']['log_height'] = 255-max(0, 40*($corpse_row_num-9));}-->
 <!--{if !$command}-->
 	<!--game页面直接载入的拾取界面，直接写js-->
 	<img style="display:none;" type="hidden" src="img/blank.png" onload="jQuery('#log').css('height','{$uip['display']['log_height']}');">

@@ -165,11 +165,6 @@ js_stop_flag = 0;
 disableAllCommands = 0;
 
 function postCmd(formName,sendto,srcdom,disableall){
-	if (in_replay_mode == 1) return;
-	if (disableAllCommands == 1) return;
-	jQuery('#hoverHintMsg').css({'display':'none'});//清除悬停提示
-	if(disableall) jQuery('.cmdbutton').attr("disabled","disabled");//屏蔽所有按钮
-	hotkey_ok = false;//屏蔽快捷键
 	//把带快捷键的来源div设成灰色
 	if(srcdom && 'object'==typeof(srcdom)) {
 		srcdom.disabled = true;
@@ -177,6 +172,13 @@ function postCmd(formName,sendto,srcdom,disableall){
 			jQuery(srcdom).parent().addClass('grey');
 		}
 	}
+	
+	if (in_replay_mode == 1) return;
+	if (disableAllCommands == 1) return;
+	jQuery('#hoverHintMsg').css({'display':'none'});//清除悬停提示
+	if(disableall) jQuery('.cmdbutton').attr("disabled","disabled");//屏蔽所有按钮
+	hotkey_ok = false;//屏蔽快捷键
+	
 	if(jQuery('#loading').length > 0) jQuery('#loading').css({'display':'block'});//显示Loading画面
 	
 	replay_listener();	//IE Hack，处理IE不支持catch的问题

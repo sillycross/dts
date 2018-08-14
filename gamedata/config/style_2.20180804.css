@@ -250,7 +250,7 @@ div.cmd_tag_container{
 }
 div.cmd_tag{
 	display:inline-block;
-	margin-right:2px;
+	margin-right:3px;
 	height:30px;width:108px;
 	border:1px solid #999;
 	border-bottom-width:0px;
@@ -455,9 +455,10 @@ div.corpse_cmd.multi_cont{
 }
 div.corpse_cmd div.corpse_info{
 	text-align:center;line-height:13px;
+	padding:0 3px;
 }
 div.corpse_cmd input.corpse_cmd{
-	width:336px;height:35px;
+	width:inherit;height:35px;
 }
 /*==========战斗技解说==========*/
 div.battlecmd_desc{

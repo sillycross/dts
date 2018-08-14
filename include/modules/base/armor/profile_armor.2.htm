@@ -1,0 +1,12 @@
+<!--{eval $tmp_arpos = Array('b'=>'B', 'h'=>'H', 'a'=>'A', 'f'=>'F');}-->
+<!--{loop $tmp_arpos $apl $apu}-->
+<tr>
+	<TD class=b2 height="26"><span><!--{if ${'ar'.$apl.'s'}}-->$iteminfo['D'.$apu]<!--{else}--><span class="grey b">$iteminfo['D'.$apu]</span><!--{/if}--></span></TD>
+	<TD class=b3>
+	<span><!--{if ${'ar'.$apl.'s'}}-->$tpldata['ar'.$apl.'_words']<!--{elseif 'b'==$apl}-->$noarb<!--{else}-->$noitm<!--{/if}--></span>
+	</TD>
+	<TD class=b3><span <!--{if ${'ar'.$apl.'s'} && $tpldata['ar'.$apl.'sk_desc']}-->title="{$tpldata['ar'.$apl.'sk_desc']}"<!--{/if}-->><!--{if ${'ar'.$apl.'s'}}-->$tpldata['ar'.$apl.'sk_words']<!--{else}-->--<!--{/if}--></span></TD>
+	<TD class=b3><span><!--{if ${'ar'.$apl.'s'}}-->${'ar'.$apl.'e'}<!--{else}-->0<!--{/if}--></span></TD>
+	<TD class=b3><span>${'ar'.$apl.'s'}</span></TD>
+</tr>
+<!--{/loop}-->
