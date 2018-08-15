@@ -318,8 +318,19 @@ div.itm_cmd div.itm_cmd_info div{
 div.itm_cmd div.itm_cmd_info div.itm_name{
 	color:#ff0;font-weight:bold;
 }
+div.itm_cmd div.itm_cmd_info div.itm_bg{
+	position:absolute;
+	top:0;
+	width:inherit;height:inherit;
+	filter:alpha(opacity=50); -moz-opacity:0.50; opacity:0.50;
+	background-repeat: no-repeat;
+	background-position:center;
+}
 div.itm_cmd.grey div.itm_cmd_info div.itm_name{
 	color:#999;
+}
+div.itm_cmd.grey div.itm_cmd_info div.itm_bg{
+	filter:alpha(opacity=25); -moz-opacity:0.25; opacity:0.25;
 }
 div.itm_cmd input.itm_cmd_button{
 	width:inherit;height:60px;
@@ -458,7 +469,7 @@ div.corpse_cmd div.corpse_info{
 	padding:0 3px;
 }
 div.corpse_cmd input.corpse_cmd{
-	width:inherit;height:35px;
+	width:inherit;height:inherit;
 }
 /*==========战斗技解说==========*/
 div.battlecmd_desc{
@@ -546,7 +557,7 @@ div.skill_unacquired_hint_transparent
 {
 	position:absolute; left:0px; top:0px; height:100%; width:100%;
 	background-color:#000000; 
-	filter:alpha(opacity=0.1); -moz-opacity:0.1; opacity:0.1; -khtml-opacity: 0.1;
+	filter:alpha(opacity=10); -moz-opacity:0.1; opacity:0.1; -khtml-opacity: 0.1;
 }
 div.skilllearn_desc_container{
 	text-align:center;
@@ -556,7 +567,7 @@ div.skilllearn_desc_container{
 /*==========卡片==========*/
 .lockcard
 {
-	filter:alpha(opacity=0.55); -moz-opacity:0.55;opacity: 0.55;
+	filter:alpha(opacity=55); -moz-opacity:0.55;opacity: 0.55;
 }
 div.cardpack_bar{
 	position:relative;

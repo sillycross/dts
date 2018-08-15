@@ -39,14 +39,17 @@ namespace logger
 	}
 	
 	//大致预估$log会形成的行数
-	function log_linenum_counter()
+	function log_linenum_counter($str = '', $limit = 48)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('logger'));
+		if(!$str) {
+			eval(import_module('logger'));
+			$str = $log;
+		}
 		$i = 0;
 		$lastt = '';
 		$tnum = $lnum = 0;
-		$tmp_log = strip_tags($log, '<br>');
+		$tmp_log = strip_tags($str, '<br>');
 		$text_count = mb_strlen($tmp_log);
 		while($i < $text_count){
 			$t = mb_substr($tmp_log, $i, 1);
@@ -59,7 +62,7 @@ namespace logger
 				if(mb_strlen($t) == strlen($t)) $tnum += 1;//英文
 				else $tnum += 1.8;//汉字
 				
-				if($tnum >= 38) {//超过长度，换行。这里估测一行能塞38个英文字符
+				if($tnum >= $limit) {//超过长度，换行。这里估测一行能塞38个英文字符
 					$tnum = 0;
 					$lnum ++;
 				}

@@ -14,14 +14,12 @@
 
 <div class="cmd_row">
 	<!--{eval if(defined('MOD_DUALWEP')) $secattmethod=\dualwep\get_sec_attack_method($sdata); else $secattmethod='';}-->
-	<div>
-		<!--{if (defined('MOD_WEAPON'))}-->
-		{template MOD_WEAPON_ATT_METHOD}
-		<!--{/if}-->
-		<div class="cmd_positioner <!--{if $secattmethod}-->common_cmd<!--{else}-->explore_cmd<!--{/if}-->" style="height:50px">
-			<input type="button" class="cmd_button <!--{if $secattmethod}-->common_cmd<!--{else}-->explore_cmd<!--{/if}--> glow_buttons red b" style="height:50px;font-size:12pt;" id="x" value="逃跑" 
-			onclick="postCmd('gamecmd','command.php',this);">
-		</div>
+	<!--{if (defined('MOD_WEAPON'))}-->
+	{template MOD_WEAPON_ATT_METHOD}
+	<!--{/if}-->
+	<div class="cmd_positioner <!--{if $secattmethod}-->common_cmd<!--{else}-->explore_cmd<!--{/if}-->" style="height:50px">
+		<input type="button" class="cmd_button <!--{if $secattmethod}-->common_cmd<!--{else}-->explore_cmd<!--{/if}--> glow_buttons red b" style="height:50px;font-size:12pt;" id="x" value="逃跑" 
+		onclick="postCmd('gamecmd','command.php',this);">
 	</div>
 </div>
 
