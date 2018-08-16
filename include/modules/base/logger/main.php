@@ -49,7 +49,7 @@ namespace logger
 		$i = 0;
 		$lastt = '';
 		$tnum = $lnum = 0;
-		$tmp_log = strip_tags($str, '<br>');
+		$tmp_log = strip_tags(strtolower($str), '<br>');
 		$text_count = mb_strlen($tmp_log);
 		while($i < $text_count){
 			$t = mb_substr($tmp_log, $i, 1);

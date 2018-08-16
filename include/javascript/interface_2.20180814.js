@@ -71,3 +71,33 @@ function pack_send_cmd_prepare(tp){
 		jQuery('#subcmd').after("<input type='hidden' id='"+name2+"' name='"+name2+"' value='"+pack_switch_to+"'>");
 	}
 }
+
+////////////////////////////////////////////////////////////////////////
+///////////////////////////////log div特殊显示//////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
+log_hover_detail_height = 0;
+
+//在原位新建一个隐藏的log div
+function log_hover_detail_init(log_detail_height){
+	//var tmp_log_cont = jQuery('#log_cont')[0].innerHTML;
+	jQuery('#log').after('<div id="log_hover_detail" class="log_block log_hover_detail" style="display:none;">'+log_cont_raw+'</div>');
+	jQuery('#log_hover_detail').css('height',log_detail_height);
+	jQuery('#log').bind('mouseover',log_hover_detail_mouseover);
+	jQuery('#log_hover_detail').bind('mouseout',log_hover_detail_mouseout);
+}
+
+function log_hover_detail_clean(){
+	jQuery('#log').unbind('mouseover');
+	jQuery('#log_hover_detail').unbind('mouseout');
+}
+
+function log_hover_detail_mouseover(){
+	jQuery('#log_cont').css('display','none');
+	jQuery('#log_hover_detail').css('display','block');
+}
+
+function log_hover_detail_mouseout(){
+	jQuery('#log_cont').css('display','block');
+	jQuery('#log_hover_detail').css('display','none');
+}

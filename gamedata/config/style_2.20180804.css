@@ -140,6 +140,29 @@ table.admin td.tdtitle {
 .linen{color:rgb(200,192,184);}
 .L5{color: #ff0000;background:url("../../img/backround4.gif") repeat-x;}
 
+/*==========log div==========*/
+
+div.log_block{
+	width:325px;height:200px;
+	margin:5px 10px;
+	padding:5px;
+	vertical-align:middle;
+	border:1px solid #999;
+		 -moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	        border-radius: 6px;
+	line-height:15px;
+}
+div#log_cont{
+	width:inherit;height:inherit;
+}
+div.log_hover_detail{
+	position:absolute;
+	top:0;left:0;
+	z-index:50;
+	background-color:rgba(15,15,15,0.75);
+}
+
 /*==========杂项界面==========*/
 #main {
 white-space:nowrap;
@@ -179,20 +202,7 @@ border-top: #666 2px solid;
 border-left: #666 2px solid;
 border-bottom: #ddc 2px solid;
 }
-#log{
-	width:325px;height:200px;
-	margin:5px 10px;
-	padding:5px;
-	vertical-align:middle;
-	border:1px solid #999;
-		 -moz-border-radius: 6px;
-	-webkit-border-radius: 6px;
-	        border-radius: 6px;
-	line-height:15px;
-}
-#log_cont{
-	width:inherit;height:inherit;
-}
+
 .footerline {
 height: 1px;
 background-image: url("../../img/footer_line.gif");
@@ -333,7 +343,7 @@ div.itm_cmd.grey div.itm_cmd_info div.itm_bg{
 	filter:alpha(opacity=25); -moz-opacity:0.25; opacity:0.25;
 }
 div.itm_cmd input.itm_cmd_button{
-	width:inherit;height:60px;
+	width:inherit;height:inherit;
 	padding-bottom:35px;
 }
 div.itm_cmd input.itm_cmd_button.forbidden{
@@ -344,7 +354,7 @@ div.common_cmd{
 	width:110px;height:35px;
 }
 input.common_cmd{
-	width:inherit;height:35px;
+	width:inherit;height:inherit;
 }
 /*==========探索按钮，一行2个（不止探索用）==========*/
 div.explore_cmd{
@@ -361,7 +371,7 @@ div.explore_cmd div.explore_info{
 	justify-content: center;
 }
 div.explore_cmd input.explore_cmd{
-	width:inherit;height:50px;
+	width:inherit;height:inherit;
 	font-size:12pt;
 }
 input.move_to_button{
@@ -389,8 +399,9 @@ div.searchmemory_cmd div.searchmemory_info span.corpse{color:#ff0;}
 div.searchmemory_cmd div.searchmemory_info span.safe{color:#0f0;}
 div.searchmemory_cmd div.searchmemory_info span.item{color:#0ff;}
 div.searchmemory_cmd.grey div.searchmemory_info span{color:#999;}
+
 div.searchmemory_cmd input.searchmemory_cmd{
-	width:inherit;height:50px;
+	width:inherit;height:inherit;
 	padding-bottom:20px;
 }
 /*==========贯通式按钮==========*/
@@ -629,11 +640,15 @@ div.card_bar div.card_err{
 /*==========进度条==========*/
 #progressbar-border
 {
-	width:100%;
+	width:320px;
 	height:15px;
+	left:7px;
 	background-color: #000000;
 	border:1px solid #ffffff;
 	overflow:hidden;
+	   -moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	        border-radius: 3px;
 }
 
 #progressbar-inner3

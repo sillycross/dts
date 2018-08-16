@@ -242,12 +242,14 @@ function datalib_decode(val)
 }
 
 room_cur_chat_maxcid = 0;
+log_cont_raw = '';
 
 //处理AJAX返回值的主函数
 function showData(sdata){
 	if (js_stop_flag) return;
 	if(jQuery('#loading').length > 0) jQuery('#loading').css({'display':'none'});//隐藏Loading画面
 	hotkey_ok = true;//重启快捷键
+	log_cont_raw = '';//重置log原始记录
 	if(typeof sdata == 'string' && sdata.indexOf('<html>') > 0 && sdata.indexOf('</html>') > 0){
 		document.write(sdata);
 		return;
@@ -304,7 +306,10 @@ function showData(sdata){
 				if(sDi['id'] !== ''){
 					var cont = datalib_decode(sDi[id]);
 					$(id).innerHTML = cont;
-					if('log'==id && cont !== '') logshow = 1;
+					if('log'==id && cont !== '') {
+						logshow = 1;
+						log_cont_raw = cont;
+					}
 				}else{
 					$(id).innerHTML = '';
 				}
@@ -317,6 +322,7 @@ function showData(sdata){
 			if('block' == log_display) {
 				if('undefined' != typeof(shwData['display'])  && 'undefined' != typeof(shwData['display']['log_height']) && 0 != shwData['display']['log_height']) {
 					jQuery('#log').css('height', shwData['display']['log_height']);
+					if('undefined' != typeof(log_hover_detail_clean)) log_hover_detail_clean();
 				}else{
 					jQuery('#log').css('height','');
 				}

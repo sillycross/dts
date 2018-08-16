@@ -5,4 +5,4 @@
 		<input type="button" class="cmd_button explore_cmd glow_buttons white" style="font-size:12pt;" id="zx" value="确定" onclick="postCmd('gamecmd','command.php',this);">
 	</div>
 </div>
-<!--{eval $uip['display']['log_height'] = \logger\log_linenum_counter() > 15 ? 550 : 240;}-->
+<!--{eval $uip['display']['log_height'] = \logger\log_linenum_counter() > 15 ? ($hp > 0 ? 550 : 360) : 240;}-->
