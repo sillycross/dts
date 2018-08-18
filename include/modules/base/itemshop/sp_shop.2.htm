@@ -6,27 +6,9 @@
 	</div>
 </div>
 
-<!--{eval $tmp_shop_tag_list=array(
-	1 => '补给品',
-	2 => '药剂',
-	3 => $iteminfo['WP'],
-	4 => $iteminfo['WK'],
-	5 => $iteminfo['WG'],
-	6 => $iteminfo['WC'].'及材料',
-	7 => $iteminfo['WD'],
-	8 => $iteminfo['WF'].'及材料',
-	9 => '防具',
-	10 => '书籍',
-	11 => '电子装备',
-	16 => '弹药和箭矢',
-	17 => '陷阱',
-	12 => '杂物',
-	13 => '埃克法轻工<br>特供商品',
-	14 => '林苍月的提示',
-	15 => 'Key社纪念品专卖',
-);}-->
+<!--{eval eval(import_module('itemshop'));}-->
 <div class="cmd_row">
-	<!--{loop $tmp_shop_tag_list $si $sn}-->
+	<!--{loop $shop_tag_list $si $sn}-->
 		<div class="cmd_positioner itm_cmd">
 			<div class="itm_cmd_info" style="height:60px;">
 				<div class="itm_bg" style="background-image: url('img/itm/{$si}.png');"></div>

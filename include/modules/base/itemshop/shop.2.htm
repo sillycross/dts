@@ -1,13 +1,47 @@
-想购买什么物品？<br><br>
-<input type="hidden" name="mode" value="shop">
+<input type="hidden" id="mode" name="mode" value="shop">
+<input type="hidden" id="command" name="command" value="menu">
 <input type="hidden" name="shoptype" value="$shop">
-<input type="radio" name="command" id="menu" value="menu" checked><a onclick=sl('menu'); href="javascript:void(0);" onmouseover="status=' ';return true;">离开商店</a><br>
-<input type="radio" name="command" id="shop" value="shop"><a onclick=sl('shop'); href="javascript:void(0);" onmouseover="status=' ';return true;">返回列表</a><br><br>
+<!--{eval eval(import_module('itemshop'));}-->
+<div class="cmd_row">
+	<div class="glow_buttons grey forbidden" style="margin:10px 0 0 0;width:335px;height:25px;text-align:center;">
+		<span class="white" style="line-height:25px;">当前类别：<!--{eval echo strip_tags($shop_tag_list[$shop]);}--></span>
+	</div>
+</div>
+
+<div class="cmd_row">
 <!--{loop $itemdata $idata}-->
-<!--{if $idata['sid']}-->
-<a id="a$idata['sid']" onclick=sl("$idata['sid']"); href="javascript:void(0);" onmouseover="status=' ';return true;"><input type="radio" name="command" id="$idata['sid']" value="$idata['sid']">$idata['item']/$idata['itmk_words']/$idata['itme']/$idata['itms']<!--{if $idata['itmsk_words']}-->/$idata['itmsk_words']<!--{/if}--> 【价:$idata['price'],数:$idata['num']】</a><br>
-<!--{/if}-->
+	<!--{if $idata['sid']}-->
+		<!--{eval $tmp_name = \itemmain\parse_itmname_words($idata['item'],1);}-->
+		<!--{eval $tmp_hint = $idata['itmk_words'].'<span class=\'grey\'> | </span>'.$idata['itme'].'<span class=\'grey\'> | </span>'.$idata['itms'];}-->
+		<!--{eval if($idata['itmsk_words']) $tmp_hint .= '<span class=\'grey\'> | </span>'.$idata['itmsk_words'];}-->
+		<!--{eval $tmp_hint_price = '<span class="grey"> | </span>价:'.$idata['price'].'<span class="grey"> | </span>数:'.$idata['num'];}-->
+		<div class="cmd_positioner corpse_cmd multi_cont">
+			<div class="corpse_info">
+				<span>$tmp_name</span><span style="float:right;margin-right:10px;">$tmp_hint_price</span>
+			</div>
+			<input type="button" id="shop_option_{$idata['sid']}" class="corpse_cmd glow_buttons white" style="position:absolute;" value="" title="$tmp_hint" 
+				onclick="$('command').value='{$idata['sid']}';shop_selected_display($idata['sid']);">
+		</div>
+	<!--{/if}-->
 <!--{/loop}-->
-请输入购买数量：<input type="number" style="width:50px" name="buynum" value="1" min="1" max="999">
-<br><br>
-<input type="button" class="cmdbutton"  id="z" value="[Z]提交" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
+</div>
+
+<div class="cmd_row">
+	<div class="cmd_positioner explore_cmd glow_buttons grey forbidden" style="width:140px;height:33px;">
+		<span style="line-height:33px;">购买数量：<input type="number" style="width:45px" name="buynum" value="1" min="1" max="999"></span>
+	</div>
+	<div class="cmd_positioner explore_cmd" style="width:194px;height:35px;" >
+		<input type="button" class="cmd_button explore_cmd glow_buttons cyan b" id="z" value="确认购买" 
+			onclick="postCmd('gamecmd','command.php',this);">
+	</div>
+</div>
+<div class="cmd_row">
+	<div class="cmd_positioner explore_cmd" style="height:35px;" >
+		<input type="button" class="cmd_button explore_cmd glow_buttons red b" id="x" value="离开商店" 
+			onclick="$('command').value='menu';postCmd('gamecmd','command.php',this);">
+	</div>
+	<div class="cmd_positioner explore_cmd" style="height:35px;" >
+		<input type="button" class="cmd_button explore_cmd glow_buttons white b" id="c" value="返回列表" 
+			onclick="$('command').value='shop';postCmd('gamecmd','command.php',this);">
+	</div>
+</div>

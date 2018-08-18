@@ -1,0 +1,74 @@
+<!--{if $gametype!=2 || $w_type>0}-->
+<input type="hidden" id="mode" name="mode" value="corpse">
+<input type="hidden" id="command" name="command" value="menu">
+
+<!--{eval $corpse_row_num = 1 + ($w_money?1:0);}-->
+<div class="cmd_row">
+	
+<!--{if $w_can_destroy}-->
+<div class="cmd_positioner corpse_cmd" style="width:165px;">
+	<input type="button" class="corpse_cmd glow_buttons <!--{if $default_selection == 'destroy'}-->red<!--{else}-->white<!--{/if}-->" style="width:165px;"  <!--{if $default_selection == 'destroy'}-->id="z"<!--{/if}--> value="销毁尸体" 
+		onclick="$('command').value='destroy';postCmd('gamecmd','command.php',this);">
+</div>
+<!--{/if}-->
+	
+
+<div class="cmd_positioner corpse_cmd" <!--{if $w_can_destroy}-->style="width:165px;"<!--{/if}-->>
+	<input type="button" class="corpse_cmd glow_buttons yellow" <!--{if $w_can_destroy}-->style="width:165px;"<!--{/if}--> id="x" value="返回" onclick="postCmd('gamecmd','command.php',this);">
+</div>
+<!--{if $w_money && $w_can_pick_money}-->
+	<div class="cmd_positioner corpse_cmd">
+		<input type="button" class="corpse_cmd glow_buttons <!--{if $default_selection == 'money'}-->cyan<!--{else}-->white<!--{/if}-->" <!--{if $default_selection == 'money'}-->id="z"<!--{/if}--> value="$w_money {lang moneyunit}" 
+			onclick="$('command').value='money';postCmd('gamecmd','command.php',this);">
+	</div>
+<!--{elseif $w_money}-->
+	<!--{eval eval(import_module('corpse'));}-->
+	<div class="cmd_positioner corpse_cmd">
+		<input type="button" class="corpse_cmd glow_buttons grey forbidden" value="$w_money {lang moneyunit} $cannot_pick_notice">
+	</div>
+<!--{/if}-->
+<!--{loop Array('wep','arb','arh','ara','arf','art') $eqpv}-->
+	<!--{if ${'w_'.$eqpv.'s'} && substr(${'w_'.$eqpv.'k'},1,1) != 'N'}-->
+		<!--{eval $corpse_row_num ++;}-->
+		<!--{eval $tmp_eqpname = \itemmain\parse_itmname_words(${'w_'.$eqpv},1,12);$tmp_eqpe = \itemmain\parse_itmnum_words(${'w_'.$eqpv.'e'}, 1);$tmp_eqps = \itemmain\parse_itmnum_words(${'w_'.$eqpv.'s'}, 1);$tmp_eqpsk = \itemmain\parse_itmsk_words(${'w_'.$eqpv.'sk'}, 1, 1);}-->
+		<div class="cmd_positioner corpse_cmd multi_cont">
+			<div class="corpse_info">
+				<span class='b'>$tmp_eqpname</span><span class='grey'>|</span>${'w_'.$eqpv.'k_words'}<span class='grey'>|</span>$tmp_eqpe<span class='grey'>|</span>$tmp_eqps<!--{if $tmp_eqpsk && '--' != $tmp_eqpsk}--><span class='grey'>|</span>$tmp_eqpsk<!--{/if}-->
+			</div>
+			<input type="button" class="corpse_cmd glow_buttons white" style="position:absolute;" value="" 
+				<!--{if $tmp_eqpname != ${'w_'.$eqpv} || $tmp_eqpsk != ${'w_'.$eqpv.'sk_words'}}-->title="${'w_'.$eqpv}/${'w_'.$eqpv.'k_words'}/${'w_'.$eqpv.'e'}/${'w_'.$eqpv.'s'}/${'w_'.$eqpv.'sk_words'}"<!--{/if}--> 
+				onclick="$('command').value='$eqpv';postCmd('gamecmd','command.php',this);">
+		</div>
+	<!--{/if}-->
+<!--{/loop}-->
+<!--{loop range(0,6) $itmi}-->
+	<!--{if ${'w_itms'.$itmi}}-->
+		<!--{eval $corpse_row_num ++;}-->
+		<!--{eval $tmp_itmname = \itemmain\parse_itmname_words(${'w_itm'.$itmi},1,12);$tmp_itme = \itemmain\parse_itmnum_words(${'w_itme'.$itmi}, 1);$tmp_itms = \itemmain\parse_itmnum_words(${'w_itms'.$itmi}, 1);$tmp_itmsk = \itemmain\parse_itmsk_words(${'w_itmsk'.$itmi}, 1, 1);}-->
+		<div class="cmd_positioner corpse_cmd multi_cont">
+			<div class="corpse_info">
+				<span class='b'>$tmp_itmname</span><span class='grey'>|</span>${'w_itmk'.$itmi.'_words'}<span class='grey'>|</span>$tmp_eqpe<span class='grey'>|</span>$tmp_eqps<!--{if $tmp_itmsk && '--' != $tmp_itmsk}--><span class='grey'>|</span>$tmp_itmsk<!--{/if}-->
+			</div>
+			<input type="button" class="corpse_cmd glow_buttons white" style="position:absolute;" value="" 
+				<!--{if $tmp_itmname != ${'w_itm'.$itmi} || $tmp_itmsk != ${'w_itmsk'.$itmi.'_words'}}-->title="${'w_itm'.$itmi}/${'w_itmk'.$itmi.'_words'}/${'w_itme'.$itmi}/${'w_itms'.$itmi}/${'w_itmsk'.$itmi.'_words'}"<!--{/if}--> 
+				onclick="$('command').value='itm$itmi';postCmd('gamecmd','command.php',this);">
+		</div>
+	<!--{/if}-->
+<!--{/loop}-->
+</div>
+<!--{eval $uip['display']['log_height'] = max(40, 290-max(0, 40*($corpse_row_num-8)));}-->
+<!--{eval $tmp_log_lnum = \logger\log_linenum_counter();$tmp_log_detail_height = min(640, $tmp_log_lnum * 15 + 10);}-->
+<!--{if !$command}-->
+	<!--game页面直接载入的拾取界面，直接写js-->
+	<img style="display:none;" type="hidden" src="img/blank.png" 
+		onload="jQuery('#log').css('height','{$uip['display']['log_height']}');">
+<!--{/if}-->
+<!--{if $tmp_log_detail_height > $uip['display']['log_height']}-->
+	<!--伸缩log效果-->
+	<img style="display:none;" type="hidden" src="img/blank.png" 
+		onload="log_hover_detail_init({$tmp_log_detail_height});">
+<!--{/if}-->
+
+<!--{else}-->
+{template MOD_SKILL475_CORPSEOPTION}
+<!--{/if}-->

@@ -101,3 +101,21 @@ function log_hover_detail_mouseout(){
 	jQuery('#log_cont').css('display','block');
 	jQuery('#log_hover_detail').css('display','none');
 }
+////////////////////////////////////////////////////////////////////////
+///////////////////////////////商店选项//////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+function shop_selected_display(sid)
+{
+	for(var i=1;i<=999;i++){
+		if(jQuery('#shop_option_'+i).length > 0) {
+			if(i == sid) {
+				jQuery('#shop_option_'+i).parent().children('.corpse_info').removeClass('white').addClass('yellow b');
+				jQuery('#shop_option_'+i).parent().children('.glow_buttons').removeClass('white').addClass('yellow');
+			}
+			else {
+				jQuery('#shop_option_'+i).parent().children('.corpse_info').removeClass('yellow b').addClass('white');
+				jQuery('#shop_option_'+i).parent().children('.glow_buttons').removeClass('yellow').addClass('white');
+			}
+		}
+	}
+}

@@ -476,8 +476,12 @@ div.corpse_cmd.multi_cont{
 	justify-content: center;
 }
 div.corpse_cmd div.corpse_info{
+	width:100%;
 	text-align:center;line-height:13px;
 	padding:0 3px;
+}
+div.corpse_info.b span{
+	font-weight:bold;
 }
 div.corpse_cmd input.corpse_cmd{
 	width:inherit;height:inherit;
