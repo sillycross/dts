@@ -305,6 +305,7 @@ div.cmd_positioner{
 	position:relative;
 	margin:3px 3px 0 0;
 }
+div.cmd_positioner input[type="button"]{outline:none;}
 input.cmd_button{
 	position:absolute;z-index:10;
 }
@@ -377,6 +378,10 @@ div.explore_cmd input.explore_cmd{
 input.move_to_button{
 	margin:5px 5px 0 0;
 	width:165px;height:35px;
+	background-repeat: no-repeat;
+	background-position:4px 50%;
+	background-size:auto 16px;
+	padding-top:3px;
 }
 /*==========视野按钮，一行3个==========*/
 div.searchmemory_cmd{

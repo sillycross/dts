@@ -7,7 +7,7 @@ namespace blessstone
 	$___MODULE_dependency_optional = 'empowers';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';
-	$___MODULE_templatelist = '';
+	$___MODULE_templatelist = 'use_blessstone';
 	////////// MODULE HEADER END /////////////////
 	require __INIT_MODULE__(__NAMESPACE__,__DIR__);
 }

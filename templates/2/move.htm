@@ -1,12 +1,12 @@
 <div style="margin-left:5px;">
-<!--{eval $count_plsinfo = count($plsinfo);$i = 0;}-->
+<!--{eval $count_plsinfo = count($plsinfo);$i = 0;eval(import_module('itemshop','rest'));}-->
 <!--{loop $plsinfo $plsi $plsn}-->
 	<!--{if !\map\check_can_enter($plsi)}-->
-		<input type="button" class="move_to_button glow_buttons darkgrey forbidden" value="{$plsn}">
+		<input type="button" class="move_to_button glow_buttons darkgrey forbidden" value="{$plsn}" style="background-image:url('img/map_forbidden.png');">
 	<!--{elseif $pls == $plsi}-->
-		<input type="button" class="move_to_button glow_buttons yellow forbidden" value="{$plsn}">
+		<input type="button" class="move_to_button glow_buttons yellow forbidden"<!--{if in_array($plsi, $shops)}--> style="background-image:url('img/map_shop.png');"<!--{elseif in_array($plsi, $rest_hospital_list)}--> style="background-image:url('img/map_rest.png');"<!--{/if}--> value="{$plsn}">
 	<!--{else}-->
-		<input type="button" class="move_to_button glow_buttons white" value="{$plsn}" 
+		<input type="button" class="move_to_button glow_buttons white"<!--{if in_array($plsi, $shops)}--> style="background-image:url('img/map_shop.png');"<!--{elseif in_array($plsi, $rest_hospital_list)}--> style="background-image:url('img/map_rest.png');"<!--{/if}--> value="{$plsn}" 
 		onclick="$('command').value='move';$('moveto').value='{$plsi}';postCmd('gamecmd','command.php',this);">
 	<!--{/if}-->
 <!--{/loop}-->
