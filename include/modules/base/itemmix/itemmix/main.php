@@ -257,8 +257,10 @@ namespace itemmix
 		}
 		elseif ($mode == 'command' && $command == 'itemmain' && $itemcmd=='itemmix')
 		{
+			eval(import_module('logger'));
+			$log .= '你想要合成什么？';
 			ob_clean();
-			if ($itemcmd=='itemmix') include template(get_itemmix_filename());
+			include template(get_itemmix_filename());
 			$cmd = ob_get_contents();
 			ob_clean();
 		}

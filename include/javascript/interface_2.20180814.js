@@ -119,3 +119,20 @@ function shop_selected_display(sid)
 		}
 	}
 }
+////////////////////////////////////////////////////////////////////////
+///////////////////////////////合成选项//////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
+function itemmix_switch(packi){
+	if(jQuery('#mitm'+packi.toString()).length > 0)
+		jQuery('#mitm'+packi.toString()).val('0' == jQuery('#mitm'+packi.toString()).val() ? 1 : 0);
+	itemmix_update_display();
+}
+function itemmix_update_display(){
+	for(var i=1;i<=6;i++){
+		if(jQuery('#mitm'+i.toString()).length > 0){
+			if('0' == jQuery('#mitm'+i.toString()).val()) jQuery('#mitmtick'+i.toString()).removeClass('ticked');
+			else jQuery('#mitmtick'+i.toString()).addClass('ticked');
+		}
+	}
+}

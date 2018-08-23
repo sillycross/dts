@@ -433,6 +433,9 @@ div.pack_cell_eqp span.hotkey_hint{
 	float:left;
 	color:#999;
 }
+div.pack_cell_eqp input.pack_cell_eqp{
+	width:inherit;height:inherit;
+}
 div.pack_button{
 	width:35px;height:35px;
 	vertical-align:top;
@@ -444,11 +447,20 @@ div.pack_button input.pack_button{
 	background-repeat: no-repeat;
 	background-position:center;
 }
+div.pack_button input.ticked{
+	background-image:url('../../img/itemticked.png');
+}
+div.pack_button input.itemmix_search{
+	background-image:url('../../img/itemsearch.png');
+}
+div.pack_button input.itemmix_search:disabled{
+	background-image:url('../../img/itemsearch_d.png');
+}
 div.pack_button input.pack_off{
 	background-image:url('../../img/itemoff.png');
 }
 div.pack_button input.pack_off:disabled{
-	filter: brightness(50%);
+	background-image:url('../../img/itemoff_d.png');
 }
 div.pack_button input.pack_drop{
 	background-image:url('../../img/itemdrop.png');
