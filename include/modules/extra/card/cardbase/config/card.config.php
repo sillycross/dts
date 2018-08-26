@@ -1357,6 +1357,9 @@ $cards = array(
 			'hp' => '800',
 			'mhp' => '800',
 			'club' => '17',
+			'skills' => array(
+				'12' => '0', 
+			)
 		)
 	),
 	80 => array(

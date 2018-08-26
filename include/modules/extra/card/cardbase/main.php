@@ -506,7 +506,7 @@ namespace cardbase
 								for($i=1;$i<=$count;$i++) {
 									$at = $matches[1][$i];
 									$adesc = $matches[2][$i];
-									preg_match('|卡片.+?\<span.+?\>(.+?)\<\/span|s', $adesc, $matches2);
+									preg_match('|奖励.+?\<span.+?\>(.+?)\<\/span|s', $adesc, $matches2);
 									if(!empty($matches2)) {
 										$cn = $matches2[1];
 										$acard = 0;
