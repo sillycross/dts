@@ -1,0 +1,34 @@
+<!--注意：如果合成提示(smartmix)模块存在，本文件是被跳过的！-->
+<input type="hidden" name="mode" id="mode" value="itemmain">
+<input type="hidden" name="command" id="command" value="menu">
+<div class="cmd_row">
+	<div class="cmd_positioner explore_cmd" style="height:35px;" >
+		<input type="button" class="cmd_button explore_cmd glow_buttons cyan b" id="z" value="合成" 
+			onclick="$('command').value='itemmix';postCmd('gamecmd','command.php',this);">
+	</div>
+	<div class="cmd_positioner explore_cmd" style="height:35px;" >
+		<input type="button" class="cmd_button explore_cmd glow_buttons red b" id="x" value="返回" 
+			onclick="postCmd('gamecmd','command.php',this);">
+	</div>
+</div>
+<!--{loop range(1,6) $packi}-->
+	<div class="pack_row">
+		<!--{if ${'itms'.$packi}}-->
+			<input type="hidden" id="mitm{$packi}" name="mitm{$packi}" value="0">
+			<div class="cmd_positioner pack_button">
+				<input type="button" id="mitmtick{$packi}" class="pack_button pack_switch glow_buttons white" value="" title="选择"
+					onclick="itemmix_switch($packi);">
+			</div>
+			<div class="pack_cell_eqp cmd_positioner" style="height:35px;width:299px;">
+				<!--{eval $tmp_itmname = \itemmain\parse_itmname_words(${'itm'.$packi}, 1, 18); $tmp_itme = \itemmain\parse_itmnum_words(${'itme'.$packi}, 1);$tmp_itms = \itemmain\parse_itmnum_words(${'itms'.$packi}, 1);}-->
+				<input type="button" 
+					class="pack_cell_eqp glow_buttons white" 
+					value="$tmp_itmname / $tmp_itme / $tmp_itms"
+					onclick="itemmix_switch($packi);">
+			</div>
+		<!--{else}-->
+			<div class="pack_cell_eqp glow_buttons forbidden darkgrey" style="width:335px">无道具</div>
+		<!--{/if}-->
+	</div>
+<!--{/loop}-->
+<!--{eval $uip['display']['log_height'] = 242;}-->
