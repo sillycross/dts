@@ -46,16 +46,16 @@ input {cursor: crosshair;}
 .headerlink{}
 .small {font-size: 9pt}
 .ver a{font:10pt "Viner Hand ITC","隶书";color:#ff0000;}
-.b1 {background-color:rgba(98,135,163,0.6); *BACKGROUND: rgb(98,135,163); *filter:alpha(opacity=60); BORDER: #000 0px none; TEXT-ALIGN: center; COLOR: #fff; border-right: #111 1px solid; border-bottom: #111 1px solid;}
-.b2 {background-color:rgba(98,135,163,0.6); *BACKGROUND: rgb(98,135,163); *filter:alpha(opacity=80); BORDER: #000 0px none; TEXT-ALIGN: center; COLOR: #fff; border-right: #111 1px solid;}
+.b1 {background-color:rgba(98,135,163,0.6); *BACKGROUND: rgb(98,135,163); *filter:alpha(opacity=60); BORDER: 0; TEXT-ALIGN: center; COLOR: #fff; border-right: #111 1px solid; border-bottom: #111 1px solid;}
+.b2 {background-color:rgba(98,135,163,0.6); *BACKGROUND: rgb(98,135,163); *filter:alpha(opacity=80); BORDER: 0; TEXT-ALIGN: center; COLOR: #fff; border-right: #111 1px solid;}
 .b2h {background-color:rgba(98,135,163,0.3); *BACKGROUND: rgb(98,135,163); *filter:alpha(opacity=30); }
-.b3 {background-color:rgba(17,17,17,0.5); *BACKGROUND:rgb(17,17,17); *filter:alpha(opacity=50); BORDER: #000 0px none; color: #fff; text-align: center; border-right: #111 1px solid;}
+.b3 {background-color:rgba(17,17,17,0.5); *BACKGROUND:rgb(17,17,17); *filter:alpha(opacity=50); BORDER: 0; color: #fff; text-align: center; border-right: #111 1px solid;}
 .long-list .b3 {text-align:left}
-.b4 {BORDER: #000 0px none; color: #fff; text-align: center;font: 10pt;}
-.b5 {BORDER: #000 0px none; color: #fff; text-align: center;font: 10pt;}
-.b6 {background-color:rgba(0,99,0,0.65); *BACKGROUND:rgb(0,99,0); *filter:alpha(opacity=65); BORDER: #000 0px none; color: #fff; text-align: center; border-right: #111 1px solid;}
-.b7 {background-color:rgba(99,0,0,0.65); *BACKGROUND:rgb(99,0,0); *filter:alpha(opacity=65); BORDER: #000 0px none; color: #fff; text-align: center; border-right: #111 1px solid;}
-.b8 {background-color:rgba(17,17,17,0.5); *BACKGROUND:rgb(17,17,17); *filter:alpha(opacity=50); BORDER: #000 0px none; color: #fff; text-align: center;}
+.b4 {BORDER: 0; color: #fff; text-align: center;font: 10pt;}
+.b5 {BORDER: 0; color: #fff; text-align: center;font: 10pt;}
+.b6 {background-color:rgba(0,99,0,0.65); *BACKGROUND:rgb(0,99,0); *filter:alpha(opacity=65); BORDER: 0; color: #fff; text-align: center; border-right: #111 1px solid;}
+.b7 {background-color:rgba(99,0,0,0.65); *BACKGROUND:rgb(99,0,0); *filter:alpha(opacity=65); BORDER: 0; color: #fff; text-align: center; border-right: #111 1px solid;}
+.b8 {background-color:rgba(17,17,17,0.5); *BACKGROUND:rgb(17,17,17); *filter:alpha(opacity=50); BORDER: 0; color: #fff; text-align: center;}
 .map {background-color:rgba(17,17,17,0.5); *BACKGROUND:rgb(17,17,17); *filter:alpha(opacity=50);BORDER: #111 1px solid;text-align: center;}
 .map2 {BORDER: #111 1px solid;text-align: center;font: bold 10pt;}
 .maptdred {background-color:rgba(255,0,0,0.25); *BACKGROUND:#f00; *filter:alpha(opacity=25);BORDER: #111 1px solid;text-align: center;}
@@ -195,13 +195,6 @@ border:0px;
 height:35px;
 width:100%;
 }
-#chatmsg{
-width:400px;
-border-right: #ddc 2px solid;
-border-top: #666 2px solid;
-border-left: #666 2px solid;
-border-bottom: #ddc 2px solid;
-}
 
 .footerline {
 height: 1px;
@@ -232,6 +225,46 @@ div#loading{
 	BACKGROUND: #000;filter:alpha(opacity=50); opacity:0.5;
 	background-image: url("../../img/loading.gif");background-repeat: no-repeat;background-position:center;background-attachment: fixed;
 }
+/*==========空的时候有提示的文本框==========*/
+div.inputhint_container{
+	display:inline-block;
+	position:relative;
+	width:100px;height:25px;
+	background-color:rgba(51,51,51,0.5);
+	BORDER: 1px solid #999;
+		 -moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	        border-radius: 6px;
+	vertical-align:bottom;
+}
+div.inputhint_container div.inputhint{
+	position:absolute;
+	top:1px;left:1px;
+	width:inherit;height:inherit;
+	padding-left:5px;
+	line-height:25px;
+	text-align:left;
+	color:#999;
+	display:block;
+}
+div.inputhint_container input[type="text"]{
+	position:absolute;
+	top:1px;left:1px;
+	width:inherit;height:inherit;
+	border: none;
+		 -moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	        border-radius: 6px;
+	box-shadow: 0px;
+	color:white;
+	outline:none;
+	background-color:transparent;
+	padding:0 5px;
+}
+
+div.inputhint_container input[type="text"]:focus{
+}
+
 /*==========半透明悬浮气泡框==========*/
 div.bubblebox_positioner{
 	position:fixed; left:0px; top:0px;
@@ -241,7 +274,7 @@ div.bubblebox_positioner{
 div.bubblebox_container{
 	position:relative;
 	background-color:rgba(17,17,17,0.5); *BACKGROUND:rgb(17,17,17); *filter:alpha(opacity=50);
-	BORDER: #000 0px none; color: #fff;
+	BORDER: 0; color: #fff;
 	text-align: center;
 	font:10pt 微软雅黑 serif;text-align:left; overflow-x:hidden; overflow-y:auto;
 }
@@ -375,6 +408,7 @@ div.explore_cmd input.explore_cmd{
 	width:inherit;height:inherit;
 	font-size:12pt;
 }
+/*==========移动按钮==========*/
 input.move_to_button{
 	margin:5px 5px 0 0;
 	width:165px;height:35px;
@@ -382,6 +416,18 @@ input.move_to_button{
 	background-position:4px 50%;
 	background-size:auto 16px;
 	padding-top:3px;
+}
+input.move_to_button.map_rest{
+	background-image:url('../../img/map_rest.png');
+}
+input.move_to_button.map_rest:disabled{
+	background-image:url('../../img/map_rest_d.png');
+}
+input.move_to_button.map_shop{
+	background-image:url('../../img/map_shop.png');
+}
+input.move_to_button.map_shop:disabled{
+	background-image:url('../../img/map_shop_d.png');
 }
 /*==========视野按钮，一行3个==========*/
 div.searchmemory_cmd{
@@ -414,6 +460,7 @@ div.zx_cmd{
 	width:336px;
 }
 /*==========调整包裹的按钮==========*/
+/*==========35x35小按钮的背景是通过div实现的，通过filter省掉一个变灰的div==========*/
 div.pack_row{
 	margin:5px 0 0 10px;
 }
@@ -439,45 +486,47 @@ div.pack_cell_eqp input.pack_cell_eqp{
 div.pack_button{
 	width:35px;height:35px;
 	vertical-align:top;
-}
-div.pack_button input.pack_button{
-	display: inline-block;
-	width:inherit;height:35px;
-	line-height:35px;
 	background-repeat: no-repeat;
 	background-position:center;
 }
-div.pack_button input.ticked{
+div.pack_button div.bg{
+	position:absolute;
+	background-repeat: no-repeat;
+	background-position:center;
+}
+div.pack_button input.pack_button{
+	position:absolute;
+	width:inherit;height:35px;
+	line-height:35px;
+}
+div.pack_button.ticked div.bg{
 	background-image:url('../../img/itemticked.png');
 }
-div.pack_button input.itemmix_search{
+div.pack_button.itemmix_search div.bg{
 	background-image:url('../../img/itemsearch.png');
 }
-div.pack_button input.itemmix_search:disabled{
-	background-image:url('../../img/itemsearch_d.png');
+div.pack_button.itemmix_search.grey div.bg{
+	filter: brightness(50%);
 }
-div.pack_button input.pack_off{
+div.pack_button.pack_off div.bg{
 	background-image:url('../../img/itemoff.png');
 }
-div.pack_button input.pack_off:disabled{
-	background-image:url('../../img/itemoff_d.png');
+div.pack_button.pack_off.grey div.bg{
+	filter: brightness(50%);
 }
-div.pack_button input.pack_drop{
+div.pack_button.pack_drop div.bg{
 	background-image:url('../../img/itemdrop.png');
 }
-div.pack_button input.pack_drop:disabled{
-	filter: grayscale(100%);
+div.pack_button.pack_drop.grey div.bg{
+	filter: grayscale(100%) brightness(150%);
 }
-div.pack_button input.pack_switch{
+div.pack_button.pack_switch div.bg{
 	font-size:12pt;font-weight:bold;
 }
-div.pack_button input.pack_drop:disabled{
-	filter: grayscale(100%);
-}
-div.pack_button input.pack_from{
+div.pack_button.pack_from div.bg{
 	background-image:url('../../img/itemfrom.png');
 }
-div.pack_button input.pack_to{
+div.pack_button.pack_to div.bg{
 	background-image:url('../../img/itemto.png');
 }
 /*==========尸体按钮==========*/

@@ -4,9 +4,9 @@
 	<!--{if !\map\check_can_enter($plsi)}-->
 		<input type="button" class="move_to_button glow_buttons darkgrey forbidden" value="{$plsn}" style="background-image:url('img/map_forbidden.png');">
 	<!--{elseif $pls == $plsi}-->
-		<input type="button" class="move_to_button glow_buttons yellow forbidden"<!--{if in_array($plsi, $shops)}--> style="background-image:url('img/map_shop.png');"<!--{elseif in_array($plsi, $rest_hospital_list)}--> style="background-image:url('img/map_rest.png');"<!--{/if}--> value="{$plsn}">
+		<input type="button" class="move_to_button glow_buttons yellow forbidden<!--{if in_array($plsi, $shops)}--> map_shop<!--{elseif in_array($plsi, $rest_hospital_list)}--> map_rest<!--{/if}-->" value="{$plsn}">
 	<!--{else}-->
-		<input type="button" class="move_to_button glow_buttons white"<!--{if in_array($plsi, $shops)}--> style="background-image:url('img/map_shop.png');"<!--{elseif in_array($plsi, $rest_hospital_list)}--> style="background-image:url('img/map_rest.png');"<!--{/if}--> value="{$plsn}" 
+		<input type="button" class="move_to_button glow_buttons white<!--{if in_array($plsi, $shops)}--> map_shop<!--{elseif in_array($plsi, $rest_hospital_list)}--> map_rest<!--{/if}-->" value="{$plsn}" 
 		onclick="$('command').value='move';$('moveto').value='{$plsi}';postCmd('gamecmd','command.php',this);">
 	<!--{/if}-->
 <!--{/loop}-->

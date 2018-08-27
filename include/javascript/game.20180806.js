@@ -165,7 +165,7 @@ js_stop_flag = 0;
 disableAllCommands = 0;
 
 function postCmd(formName,sendto,srcdom,disableall){
-	//把带快捷键的来源div设成灰色
+	//把来源div设成灰色
 	if(srcdom && 'object'==typeof(srcdom)) {
 		srcdom.disabled = true;
 		if(jQuery(srcdom).parent().hasClass('cmd_positioner')) {

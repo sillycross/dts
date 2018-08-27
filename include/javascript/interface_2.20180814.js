@@ -38,9 +38,9 @@ function pack_switch_set(packi){
 function pack_switch_update_display(){
 	for(var i=1;i<=6;i++){
 		if(jQuery('#pack_switch_'+i).length > 0) {
-			jQuery('#pack_switch_'+i).removeClass('pack_from pack_to');
-			if(i == pack_switch_from) jQuery('#pack_switch_'+i).addClass('pack_from');
-			else if(i == pack_switch_to) jQuery('#pack_switch_'+i).addClass('pack_to');
+			jQuery('#pack_switch_'+i).parent().removeClass('pack_from pack_to');
+			if(i == pack_switch_from) jQuery('#pack_switch_'+i).parent().addClass('pack_from');
+			else if(i == pack_switch_to) jQuery('#pack_switch_'+i).parent().addClass('pack_to');
 		}
 	}
 	if(pack_switch_from && pack_switch_to) {
@@ -131,8 +131,8 @@ function itemmix_switch(packi){
 function itemmix_update_display(){
 	for(var i=1;i<=6;i++){
 		if(jQuery('#mitm'+i.toString()).length > 0){
-			if('0' == jQuery('#mitm'+i.toString()).val()) jQuery('#mitmtick'+i.toString()).removeClass('ticked');
-			else jQuery('#mitmtick'+i.toString()).addClass('ticked');
+			if('0' == jQuery('#mitm'+i.toString()).val()) jQuery('#mitmtick'+i.toString()).parent().removeClass('ticked');
+			else jQuery('#mitmtick'+i.toString()).parent().addClass('ticked');
 		}
 	}
 }

@@ -192,3 +192,14 @@ function unicode_to_chinese(str)
 {
 	return unescape(str.replace(/\\u/g, '%u'));
 }
+
+////////////////////////////////////////////////////////////////////////
+///////////////////////////////带背景提示的文本输入框//////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+function inputhint_onfocus(dom){
+	jQuery(dom).parent().children('div.inputhint').css('display','none');
+}
+function inputhint_onblur(dom){
+	if(jQuery(dom).val() == '')
+		jQuery(dom).parent().children('div.inputhint').css('display','block');
+}

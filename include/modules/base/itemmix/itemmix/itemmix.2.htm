@@ -15,8 +15,9 @@
 	<div class="pack_row">
 		<!--{if ${'itms'.$packi}}-->
 			<input type="hidden" id="mitm{$packi}" name="mitm{$packi}" value="0">
-			<div class="cmd_positioner pack_button">
-				<input type="button" id="mitmtick{$packi}" class="pack_button pack_switch glow_buttons white" value="" title="选择"
+			<div class="cmd_positioner pack_button pack_switch">
+				<div class="pack_button bg"></div>
+				<input type="button" id="mitmtick{$packi}" class="pack_button glow_buttons white" value="" title="选择"
 					onclick="itemmix_switch($packi);">
 			</div>
 			<div class="pack_cell_eqp cmd_positioner" style="height:35px;width:299px;">

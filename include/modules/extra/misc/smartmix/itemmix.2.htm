@@ -2,22 +2,13 @@
 <input type="hidden" name="command" id="command" value="menu">
 <input type="hidden" id="subcmd" name="subcmd" value="">
 <input type="hidden" id="subcmd2" name="subcmd2" value="">
-<div class="cmd_row">
-	<div class="cmd_positioner explore_cmd" style="height:35px;" >
-		<input type="button" class="cmd_button explore_cmd glow_buttons cyan b" id="z" value="合成" 
-			onclick="$('command').value='itemmix';postCmd('gamecmd','command.php',this);">
-	</div>
-	<div class="cmd_positioner explore_cmd" style="height:35px;" >
-		<input type="button" class="cmd_button explore_cmd glow_buttons red b" id="x" value="返回" 
-			onclick="postCmd('gamecmd','command.php',this);">
-	</div>
-</div>
 <!--{loop range(1,6) $packi}-->
 	<div class="pack_row">
 		<!--{if ${'itms'.$packi}}-->
 			<input type="hidden" id="mitm{$packi}" name="mitm{$packi}" value="0">
-			<div class="cmd_positioner pack_button">
-				<input type="button" id="mitmtick{$packi}" class="pack_button pack_switch glow_buttons white" value="" title="选择"
+			<div class="cmd_positioner pack_button pack_switch">
+				<div class="pack_button bg"></div>
+				<input type="button" id="mitmtick{$packi}" class="pack_button glow_buttons white" value="" title="选择"
 					onclick="itemmix_switch($packi);">
 			</div>
 			<div class="pack_cell_eqp cmd_positioner" style="height:35px">
@@ -27,8 +18,9 @@
 					value="$tmp_itmname / $tmp_itme / $tmp_itms"
 					onclick="itemmix_switch($packi);">
 			</div>
-			<div class="cmd_positioner pack_button">
-				<input type="button" class="pack_button itemmix_search glow_buttons white" value="" title="反查" 
+			<div class="cmd_positioner pack_button itemmix_search">
+				<div class="pack_button bg"></div>
+				<input type="button" class="pack_button glow_buttons white" value="" title="反查" 
 					onclick="$('mode').value='command';$('command').value='itemmain';$('subcmd').name='itemcmd';$('subcmd').value='itemmix';$('subcmd2').name='itemindex';$('subcmd2').value='${'itm'.$packi}';postCmd('gamecmd','command.php',this);">
 			</div>
 		<!--{else}-->
@@ -36,4 +28,13 @@
 		<!--{/if}-->
 	</div>
 <!--{/loop}-->
-<!--{eval $uip['display']['log_height'] = 242;}-->
+<div class="cmd_row" style="margin-top:10px;">
+	<div class="cmd_positioner explore_cmd" style="height:35px;" >
+		<input type="button" class="cmd_button explore_cmd glow_buttons cyan b" id="z" value="合成" 
+			onclick="$('command').value='itemmix';postCmd('gamecmd','command.php',this);">
+	</div>
+	<div class="cmd_positioner explore_cmd" style="height:35px;" >
+		<input type="button" class="cmd_button explore_cmd glow_buttons red b" id="x" value="返回" 
+			onclick="postCmd('gamecmd','command.php',this);">
+	</div>
+</div>
