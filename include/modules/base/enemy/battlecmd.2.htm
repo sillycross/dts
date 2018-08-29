@@ -6,8 +6,9 @@
 </div>
 <!--{/if}-->
 <div class="cmd_row">
-	<div class="glow_buttons grey forbidden" style="margin:10px 0 0 0;width:335px;height:35px;text-align:center;">
-		<span class="white" style="line-height:35px;">向对手大喊：<input size="30" type="text" name="message" maxlength="60"></span>
+	<div class="inputhint_container" style="width:336px;">
+		<div class="inputhint">向对手大喊</div>
+		<input type="text" name="message" maxlength="60" onfocus="inputhint_onfocus(this)" onblur="inputhint_onblur(this)">
 	</div>
 </div>
 
@@ -36,4 +37,4 @@
 	{template MOD_CLUBBASE_NPCSKILLPAGE}
 <!--{/if}-->
 
-<!--{eval $uip['display']['log_height'] = 190;}-->
+<!--{eval $uip['display']['log_height'] = 205;}-->

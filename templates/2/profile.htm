@@ -1,0 +1,262 @@
+<div style="position:relative">
+	<div class="profile_box" style="width:520px; height:80px;">
+		<div class="profile_row">
+			<div class="profile_bar">
+				<!--{if defined('MOD_WEATHER')}-->
+					{template MOD_WEATHER_PROFILE_WEATHER}
+				<!--{/if}-->
+			</div>
+			<div class="profile_bar">
+				<span>地点</span><span class="main_cont">$plsinfo[$pls]</span>
+			</div>
+			<div class="profile_bar">
+				<span>剩余</span><span class="main_cont">{$alivenum}人</span>
+			</div>
+		</div>
+		<div class="profile_row">
+			<div class="profile_bar">
+				{template MOD_MAP_PROFILE_AREAINFO}
+				<!--{if ($gamestate == 40 ||($gametype == 17 && \skillbase\skill_getvalue(1000,'step')>=206))}--><span class="yellow b">{lang combo}</span><!--{/if}--><!--{if $gamestate == 50 }--><span class="red b">{lang duel}</span><!--{/if}--> 
+			</div>
+			<div class="profile_bar" style="width:308px">
+				<span>下次禁区</span><span class="main_cont">XXX</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div style="position:relative">
+<table border="0" width="720" height="100%" cellspacing="0" cellpadding="0"  valign="middle">
+	<tr>
+		<td>
+			<table border="0"  id="profile" width="720" cellspacing="0" cellpadding="0"  valign="middle" >
+				<tr>
+					<td width="73"></td><td width="82"></td><td width="72"></td><td width="123"></td><td width="61"></td><td width="82"></td><td width="221"></td>
+				</tr>
+				<tr>
+					<td colspan="3" class="b1">
+						<span>
+							$uip['cardname_show'] $name
+						</span>
+					</td>
+					<td colspan="1" class="b1"><span>{$sexinfo[$gd]}{$sNo}号</span></td>
+					
+					<td colspan="2" class="b1"></td>
+					
+					<td colspan="1" class="b1">
+						
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" valign="top" height=192>
+						<table border="0" width=156 height=192 cellspacing="0" cellpadding="0" valign="middle" >
+							<tr>
+								<td width="73"></td><td width="82"></td>
+							</tr>
+							<tr>
+								<td colspan="2" height="80" class="b3"><span><img src="img/$iconImg" border="0" style="width:140;height:80;<!--{if $hp==0}-->filter: grayscale(100%)<!--{/if}-->" /></span></td>
+							</tr>
+							<tr title="攻击力 $uip['att_words']">
+								<td class="b2" height="20"><span>{lang att}</span></td>
+								<td class="b3"><span>{$uip['total_att']}</span></td>
+							</tr>
+							<tr title="防御力 $uip['def_words']">
+								<td class="b2" height="20"><span>{lang def}</span></td>
+								<td class="b3"><span>{$uip['total_def']}</span></td>
+							</tr>
+							<tr>
+								<!--{if defined('MOD_POSE')}-->
+								{template MOD_POSE_POSE_PROFILE_CMD}
+								<!--{else}-->
+								<td class="b2" height="20"></td><td class="b3"></td>
+								<!--{/if}-->
+							</tr>
+							<tr>
+								<!--{if defined('MOD_TACTIC')}-->
+								{template MOD_TACTIC_TACTIC_PROFILE_CMD}
+								<!--{else}-->
+								<td class="b2" height="20"></td><td class="b3"></td>
+								<!--{/if}-->
+							</tr>
+							<tr>
+								<!--{if defined('MOD_BUFFICONS')}-->
+								{template MOD_BUFFICONS_PROFILE}
+								<!--{else}-->
+								<td colspan=2 style="height:40px;text-align:middle;vertical-align:middle"></td>
+								<!--{/if}-->
+							</tr>
+						</table>
+					</td>
+					<td colspan="2" valign="top" height=192>
+						<table border="0" width="196" height=180 cellspacing="0" cellpadding="0"  valign="middle" >
+							<tr>
+								<td width="72"></td><td width="123">
+							</tr>
+							<tr>
+								<td class="b2" height="20"><span>{lang level}</span></td>
+								<td class="b3"><span>Lv. $lvl</span></td>
+							</tr>
+							<tr>
+								<td class="b2" height="20"><span>{lang exp}</span></td>
+								<td class="b3"><span>$exp / $upexp</span></td>
+							</tr>
+							<tr>
+								<td class="b2" height="20"><span>{lang team}</span></td>
+								<td class="b3"><span><!--{if $teamID && $gamestate < 40 }-->$teamID<!--{else}--> 无 <!--{/if}--></span></td>
+							</tr>
+							
+							<!--{if defined('MOD_CLUBBASE')}-->
+							{template MOD_CLUBBASE_CLUB_PROFILE}
+							<!--{else}-->
+							<td class="b2" height="20"></td><td class="b3" height="20"></td>
+							<!--{/if}-->
+							</tr>
+							<tr>
+								<td class="b2" height="20"><span>{lang money}</span></td>
+								<td class="b3"><span>$money {lang moneyunit}</span></td>
+							</tr>
+							<tr>
+								<!--{if defined('MOD_WOUND')}-->
+								{template MOD_WOUND_WOUND_PROFILE}
+								<!--{else}-->
+								<td class="b2" height="20"></td><td class="b3" height="20"></td>
+								<!--{/if}-->
+							</tr>
+							<tr>
+								<td class="b2" height="20"><span>{lang sp}</span></td>
+								<td id="profile_sp_grid" class="b3"><span><span class="$spcolor">$sp / $msp</span></span></td>
+							</tr>
+							<tr>
+								<td class="b2" height="20"><span>{lang hp}</span></td>
+								<td id="profile_hp_grid" class="b3"><span><span class="$hpcolor">$hp / $mhp</span></span></td>
+							</tr>
+							<tr>
+								<td class="b2" height="20"><span>{lang ss}</span></td>
+								<td class="b3"><span class="<!--{if $ss <= $mss*0.2}-->grey b<!--{elseif $ss <= $mss*0.5}-->yellow b<!--{else}-->cyan b<!--{/if}-->">$ss / $mss</span></td>
+							</tr>
+							<tr>
+								<!--{if defined('MOD_APM')}-->
+								{template MOD_APM_PROFILE}
+								<!--{else}-->
+								<td class="b2" height="20"></td><td class="b3" height="20"></td>
+								<!--{/if}-->
+							</tr>
+						</table>
+					</td>
+					<td colspan="2" valign="top" height=192>
+						<table border="0" width="144" height=192 cellspacing="0" cellpadding="0"  valign="middle" >
+							<tr>
+								<td width="61"></td><td width="82"></td>
+							</tr>
+							<!--{if defined('MOD_WEAPON')}-->
+							{template MOD_WEAPON_PROFILE_WEPSKILL}
+							<!--{/if}-->
+							<tr>
+								<td class="b2" height="20"><span>{lang rage}</span></td>
+								<td class="b3"><span><!--{if $rage >= 30}--><span class="yellow b">$rage</span><!--{else}-->$rage<!--{/if}--></span></td>
+							</tr>
+							<tr>
+								<td class="b2" height="20"><span>技能点</span></td>
+								<td class="b3"><!--{if $skillpoint>0}--><span class="lime b">$skillpoint<!--{else}-->$skillpoint<!--{/if}--></span></td>
+							</tr>
+							<tr>
+								<!--摸东西模式下杀人数计数改为破解层数显示-->
+								<!--{if defined('MOD_GTYPE1') && $gametype==1}-->
+								{template MOD_GTYPE1_SHOWHACKLEVEL}
+								<!--{else}-->
+								<!--{if defined('MOD_GTYPE2') && $gametype==2}-->
+								{template MOD_SKILL475_SHOWWPT}
+								<!--{else}-->
+								<td class="b2" height="20"><span>{lang killnum}</span></td>
+								<td class="b3">
+									<span title="{lang pckillnum}：{$killnum} {lang npckillnum}：{$npckillnum}">
+									<!--{eval echo $killnum+$npckillnum;}-->
+									</span>
+								</td>
+								<!--{/if}-->
+								<!--{/if}-->
+							</tr>
+							<tr>
+								<td class="b2" height="20"><span></span></td>
+								<td class="b3"><span></span></td>
+							</tr>
+						</table>
+					</td>
+					<td class="b3" style="height:192px;text-align:middle;vertical-align:middle">
+						<div style="margin-left:4px; margin-right:5px;">
+							<table border="0" width=215px height=180px cellspacing="0" cellpadding="0" style="position:relative">
+								<tr>
+									<td height=10px colspan=2></td>
+								</tr>
+								<tr>
+									<td height=170px width=160px background="img/state1.gif" style="position:relative;background-repeat:no-repeat;background-position:right top;">
+										<div style="border:0; margin:0; cellspacing:0; cellpadding:0; position:absolute;z-index:3;top:0;left:0;">
+											<!--{if defined('MOD_WOUND')}-->
+											{template MOD_WOUND_WOUND_PICTURE}
+											<!--{/if}-->
+											<!--{if $hp <= 0}-->
+											<img src="img/dead.gif" style="position:absolute;top:120;left:6;width:94;height:40">
+											<!--{elseif $hp <= $mhp*0.2}-->
+											<img src="img/danger.gif" style="position:absolute;top:120;left:5;width:95;height:37">
+											<!--{elseif $hp <= $mhp*0.5 || $inf!=''}-->
+											<img src="img/caution.gif" style="position:absolute;top:120;left:5;width:95;height:36">
+											<!--{else}-->
+											<img src="img/fine.gif" style="position:absolute;top:120;left:12;width:81;height:38">
+											<!--{/if}-->
+										</div>
+										<div style="border:0; margin:0; cellspacing:0; cellpadding:0; position:absolute;top:0px;left:105px;z-index:2;">
+											$newspimg
+										</div>
+										<!--{if $sp > 0}-->
+										<div style="border:0; margin:0; cellspacing:0; cellpadding:0; position:absolute;top:0px;left:105px;z-index:1;">
+											$splt
+										</div>
+										<!--{/if}-->
+									</td>
+									<td height=170px width=55px background="img/state2.gif" style="position:relative;background-repeat:no-repeat;background-position:left top;">
+										<div style="border:0; margin:0; cellspacing:0; cellpadding:0; position:absolute;top:0px;right:55px;z-index:2;">
+											$newhpimg
+										</div>
+										<!--{if $hp > 0}-->
+										<div style="border:0; margin:0; cellspacing:0; cellpadding:0; position:absolute;top:0px;right:55px;z-index:1;">
+											$hplt
+										</div>
+										<!--{/if}-->
+									</td>
+								</tr>
+							</table>
+						</div>
+					</td>
+				</tr>
+				<!--{if defined('MOD_ADVTEAM')}-->
+				<!--{eval \advteam\get_advteam_html();}-->
+				<!--{/if}-->
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td height="10" class="b5"></td>
+	</tr>
+	<tr>
+		<td>
+  		<TABLE id="packs" border="0" cellSpacing=0 cellPadding=0 height=140 width=720>
+  			<tr>
+      		<td>
+		      	<!--{if defined('MOD_ITEMMAIN')}-->
+				{template MOD_ITEMMAIN_PROFILE_EQUIPMENTS}
+				<!--{/if}-->
+			</td>
+			<td>
+				<!--{if defined('MOD_ITEMMAIN')}-->
+				{template MOD_ITEMMAIN_PROFILE_BACKPACK}
+				<!--{/if}-->
+      		</td>
+      	</tr>
+			</TABLE>
+		</td>
+	</tr>
+</table>
+<!--{if defined('MOD_SKILL504') && \skillbase\skill_query(504)}-->
+<!--{eval \skill504\skill504_get_popko_html();}-->
+<!--{/if}-->
+</div>

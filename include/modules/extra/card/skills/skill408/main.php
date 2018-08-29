@@ -4,7 +4,7 @@ namespace skill408
 {
 	$paneldesc=array(
 		"咕咕咕",
-		"战斗中殴系伤害<span class=\"yellow b\">+20%</span>，徒手伤害<span class=\"yellow b\">+30%</span>。<br>",
+		"战斗中殴系伤害<span class=\"yellow b\">+20%</span>，徒手伤害<span class=\"yellow b\">+40%</span>。<br>",
 		"战斗中远程兵器伤害<span class=\"yellow b\">+20%</span>。<br>",
 		"战斗中斩系伤害<span class=\"yellow b\">+20%</span>，投系伤害<span class=\"yellow b\">+15%</span>。<br>",
 		"战斗中爆系伤害<span class=\"yellow b\">+15%</span>。<br>",
