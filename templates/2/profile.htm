@@ -1,28 +1,69 @@
-<div style="position:relative">
-	<div class="profile_box" style="width:520px; height:80px;">
+<div style="position:relative;height:260px;">
+	<div class="profile_box" style="width:475px; height:65px;">
 		<div class="profile_row">
-			<div class="profile_bar">
+			<div class="profile_bar" style="width:118px">
 				<!--{if defined('MOD_WEATHER')}-->
 					{template MOD_WEATHER_PROFILE_WEATHER}
 				<!--{/if}-->
 			</div>
-			<div class="profile_bar">
-				<span>地点</span><span class="main_cont">$plsinfo[$pls]</span>
+			<div class="profile_bar" style="width:203px">
+				<span class="typename">地点</span><span class="main_cont">$plsinfo[$pls]</span>
 			</div>
-			<div class="profile_bar">
-				<span>剩余</span><span class="main_cont">{$alivenum}人</span>
+			<div class="profile_bar" style="width:128px">
+				<!--{if ($gamestate == 40 ||($gametype == 17 && \skillbase\skill_getvalue(1000,'step')>=206))}--><span class="yellow b">{lang combo}</span> <!--{/if}--><!--{if $gamestate == 50 }--><span class="red b">{lang duel}</span> <!--{/if}--> 
+				<span class="typename">剩余</span><span class="main_cont">{$alivenum}人</span>
 			</div>
 		</div>
 		<div class="profile_row">
-			<div class="profile_bar">
+			<div class="profile_bar" style="width:118px">
 				{template MOD_MAP_PROFILE_AREAINFO}
-				<!--{if ($gamestate == 40 ||($gametype == 17 && \skillbase\skill_getvalue(1000,'step')>=206))}--><span class="yellow b">{lang combo}</span><!--{/if}--><!--{if $gamestate == 50 }--><span class="red b">{lang duel}</span><!--{/if}--> 
 			</div>
-			<div class="profile_bar" style="width:308px">
-				<span>下次禁区</span><span class="main_cont">XXX</span>
+			<div class="profile_bar" style="width:338px">
+				<span class="typename">下次禁区</span><span class="main_cont">XXX</span>
 			</div>
 		</div>
 	</div>
+	
+	<div class="profile_box" style="width:235px; height:152px; left:485px;">
+		<div class="profile_row">
+			<div class="profile_bar right">
+				<span class="main_cont">$name</span>
+			</div>
+		</div>
+		
+		<div class="profile_row">
+			<div class="profile_bar right" style="width:128px">
+				<span class="main_cont">$uip['cardname_show'] </span>
+			</div>
+			<div class="profile_bar right" style="width:88px">
+				<span class="main_cont">{$sexinfo[$gd]}{$sNo}号</span>
+			</div>
+		</div>
+		<div class="profile_row">
+			<!--头像和CD显示-->
+			<div class="profile_bar right" style="width:140px;height:80px;">
+				<img src="img/$iconImg" border="0" style="width:140;height:80;<!--{if $hp==0}-->filter: grayscale(100%)<!--{/if}-->">
+			</div>
+		</div>
+	</div>
+	<div class="profile_box" style="width:475px; height:160px; top:75px;">
+		<div class="profile_row">
+			<div class="profile_bar" style="width:118px">
+				<span class="typename">等级</span><span class="main_cont">Lv. $lvl</span>
+			</div>
+			<div class="profile_bar" style="width:203px">
+				<span class="typename">击杀数</span><span class="main_cont"><span class="grey">玩家</span> $killnum <span class="grey">NPC</span> $npckillnum</span>
+			</div>
+			<div class="profile_bar" style="width:128px">
+				<!--{if defined('MOD_APM')}-->
+				{template MOD_APM_PROFILE}
+				<!--{/if}-->
+			</div>
+		</div>
+	</div>
+	<!--<div class="profile_box" style="width:235px; height:160px; left:485px; top:75px;">
+		
+	</div>-->
 </div>
 
 <div style="position:relative">

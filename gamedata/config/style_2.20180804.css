@@ -331,7 +331,8 @@ div.cmd_subpage{
 /*==========霓虹灯状态页面==========*/
 /*====================================*/
 div.profile_box{
-	position:relative;
+	position:absolute;
+	top:0;left:0;
 	background-color:rgba(34,34,34,0.5);
 	border:1px solid #999;
 		 -moz-border-radius: 6px;
@@ -339,13 +340,14 @@ div.profile_box{
 	        border-radius: 6px;
 }
 div.profile_row{
-	margin-top:10px;
+	position:relative;
+	margin-top:5px;
 }
 div.profile_bar{
 	display:inline-block;
-	margin-left:10px;
-	padding:0 10px;
-	width:138px; height:23px; 
+	margin-left:5px;
+	padding:0px;
+	width:148px; height:23px; 
 	background-color:rgba(0,0,0,0.5);
 	border:1px solid #999;
 		 -moz-border-radius: 6px;
@@ -353,13 +355,18 @@ div.profile_bar{
 	        border-radius: 6px;
 	text-align:left;
 	vertical-align:top;
+	overflow:hidden;
 }
-div.profile_bar span{
+div.profile_bar.right{
+	padding:0;
+	width:223px;text-align:center;
+}
+div.profile_bar span.typename{
+	margin:0 8px;
 	font-size:8pt;color:#999;
 	line-height:23px;
 }
 div.profile_bar span.main_cont{
-	margin-left:5px;
 	font-size:10pt;font-weight:bold;color:#ddd;
 	line-height:23px;
 }
