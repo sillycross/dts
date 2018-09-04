@@ -57,6 +57,7 @@ namespace skill502
 		if (\skillbase\skill_query(502,$edata) && check_unlocked502($edata)) {
 			$r -= get_skill502_active_effect($edata)/100;
 		}
+		if($r != 1) $ldata['active_words'] = \attack\multiply_format($r, $ldata['active_words'],0);
 		return $chprocess($ldata,$edata)*$r;
 	}
 }

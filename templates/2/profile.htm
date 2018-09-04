@@ -32,10 +32,10 @@
 		</div>
 		
 		<div class="profile_row">
-			<div class="profile_bar right" style="width:128px">
+			<div class="profile_bar right" style="width:140px">
 				<span class="main_cont">$uip['cardname_show'] </span>
 			</div>
-			<div class="profile_bar right" style="width:88px">
+			<div class="profile_bar right" style="width:76px">
 				<span class="main_cont">{$sexinfo[$gd]}{$sNo}号</span>
 			</div>
 		</div>
@@ -48,16 +48,50 @@
 	</div>
 	<div class="profile_box" style="width:475px; height:160px; top:75px;">
 		<div class="profile_row">
-			<div class="profile_bar" style="width:118px">
-				<span class="typename">等级</span><span class="main_cont">Lv. $lvl</span>
+			<div class="profile_bar">
+				<span class="typename">等级</span><span class="main_cont" title="经验值 $exp / $upexp 升级阈值">Lv. $lvl</span>
 			</div>
-			<div class="profile_bar" style="width:203px">
-				<span class="typename">击杀数</span><span class="main_cont"><span class="grey">玩家</span> $killnum <span class="grey">NPC</span> $npckillnum</span>
+			<div class="profile_bar">
+				<span class="typename">击杀数</span><span class="main_cont" title="击杀玩家数 + 击杀NPC数">$killnum <span class="grey">+</span> $npckillnum</span>
 			</div>
-			<div class="profile_bar" style="width:128px">
+			<div class="profile_bar">
 				<!--{if defined('MOD_APM')}-->
 				{template MOD_APM_PROFILE}
 				<!--{/if}-->
+			</div>
+		</div>
+		<div class="profile_row">
+			<div class="profile_bar">
+				<span class="typename">金钱</span><span class="main_cont"><!--{if $money>20}--><span class="gold b">$money</span><!--{else}-->$money<!--{/if}--></span>
+			</div>
+			<div class="profile_bar">
+				<span class="typename">怒气</span><span class="main_cont"><!--{if $rage >= 30}--><span class="yellow b">$rage</span><!--{else}-->$rage<!--{/if}--></span>
+			</div>
+			<div class="profile_bar">
+				<span class="typename">技能点</span><span class="main_cont"><!--{if $skillpoint>0}--><span class="lime b">$skillpoint</span><!--{else}-->$skillpoint<!--{/if}--></span>
+			</div>
+		</div>
+		<div class="profile_row">
+			<div class="profile_bar">
+				<span class="typename">攻击</span><span class="main_cont" title="攻击力 $uip['att_words']">{$uip['total_att']}</span>
+			</div>
+			<div class="profile_bar">
+				<span class="typename">防御</span><span class="main_cont" title="防御力 $uip['def_words']">{$uip['total_def']}</span>
+			</div>
+			<div class="profile_bar">
+				<!--{eval $dummy = \player\create_dummy_playerdata();$tmp_active_rate = \enemy\get_final_active_obbs($sdata,$dummy);}-->
+				<span class="typename">先攻率</span><span class="main_cont" title="攻击力 $tmp_active_rate = $sdata['active_words']">{$tmp_active_rate}%</span>
+			</div>
+		</div>
+		<div class="profile_row">
+			<div class="profile_bar">
+				<span class="typename">生命</span><span class="main_cont"><span class="$hpcolor">$hp / $mhp</span></span>
+			</div>
+			<div class="profile_bar">
+				<span class="typename">体力</span><span class="main_cont"><span class="$spcolor">$sp / $msp</span></span>
+			</div>
+			<div class="profile_bar">
+				<span class="typename">歌魂</span><span class="main_cont"><span class="<!--{if $ss <= $mss*0.2}-->grey b<!--{elseif $ss <= $mss*0.5}-->yellow b<!--{else}-->cyan b<!--{/if}-->">$ss / $mss</span></span>
 			</div>
 		</div>
 	</div>

@@ -36,8 +36,10 @@ namespace enemy
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('enemy'));
 		//echo "面对NPC的先制率基础值：".$active_obbs_npc.'% <br>';;
-		if($edata['type']) return $active_obbs_npc;
-		else return $active_obbs_pc;
+		if($edata['type']) $basevar = $active_obbs_npc;
+		else $basevar = $active_obbs_pc;
+		$ldata['active_words'] = str_replace('<:BASEVAR:>', $basevar, $ldata['active_words']);
+		return $basevar;
 	}
 	
 	function calculate_active_obbs_multiplier(&$ldata,&$edata)
@@ -57,10 +59,13 @@ namespace enemy
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('enemy'));
 		//calculate_active_obbs()是加算，返回1-150的数值
+		
+		$ldata['active_words'] = '<:BASEVAR:>';
 		$active_r = min(max(calculate_active_obbs($ldata,$edata),1), 150);
 		//echo "先攻率基础：$active_r <br>";
-		//calculate_active_obbs_multiplier()是乘算，返回0-1的小数
 		
+		//calculate_active_obbs_multiplier()是乘算，返回0-1的小数
+		$ldata['active_words']='('.$ldata['active_words'].')';
 		$active_r *= calculate_active_obbs_multiplier($ldata,$edata);
 		
 		//calculate_active_obbs_change()是最后改变，返回0-100的数值，这里只放特判，一般增减请用前两个函数

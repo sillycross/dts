@@ -39,6 +39,7 @@ namespace skill240
 		$r = 1;
 		if (\skillbase\skill_query(240,$ldata) && check_unlocked240($ldata)) $r*=1.08;
 		if (\skillbase\skill_query(240,$edata) && check_unlocked240($edata)) $r/=1.08;
+		if($r != 1) $ldata['active_words'] = \attack\multiply_format($r, $ldata['active_words'],0);
 		return $chprocess($ldata,$edata)*$r;
 	}
 }

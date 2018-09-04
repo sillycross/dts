@@ -308,6 +308,7 @@ namespace searchmemory
 		$ret = $chprocess($ldata,$edata);
 		if(isset($sdata['sm_active_debuff']) && $sdata['sm_active_debuff']) {
 			//$log .= '<span class="red b">两次打扰同一玩家使你的先制率降低了。</span><br>';
+			$ldata['active_words'] = \attack\add_format($searchmemory_battle_active_debuff, $ldata['active_words'],0);
 			$ret += $searchmemory_battle_active_debuff;
 		}
 		return $ret;
@@ -335,7 +336,7 @@ namespace searchmemory
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		if(18 == $gametype) return true;//暂时仅荣耀模式测试一下
+		if(15 == $gametype || 16 == $gametype) return true;//仅单人房可用
 		return false;
 	}
 	

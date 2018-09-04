@@ -72,6 +72,7 @@ namespace skill248
 			$lv=(int)\skillbase\skill_getvalue(248,'lvl1',$edata);
 			$r/=1+calculate_skill248_obbs_gain($lv)/100;
 		}
+		if($r != 1) $ldata['active_words'] = \attack\multiply_format($r, $ldata['active_words'],0);
 		return $chprocess($ldata,$edata)*$r;
 	}
 	

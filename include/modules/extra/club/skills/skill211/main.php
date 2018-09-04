@@ -89,8 +89,12 @@ namespace skill211
 	//只提高自己主动攻击时的先攻率
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(211,$ldata) || !check_unlocked211($ldata)) return $chprocess($ldata,$edata);
-		return $chprocess($ldata,$edata)*get_skill211_extra_act_gain($ldata, $edata);
+		$var = 1;
+		if (\skillbase\skill_query(211,$ldata) && check_unlocked211($ldata)) {
+			$var = get_skill211_extra_act_gain($ldata, $edata);
+			if($r != 1) $ldata['active_words'] = \attack\multiply_format($var, $ldata['active_words'],0);
+		}
+		return $chprocess($ldata,$edata)*$var;
 	}
 }
 

@@ -104,7 +104,9 @@ namespace pose
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','pose'));
 		//echo "姿态修正：+".$pose_active_obbs[$ldata['pose']].'%+'.$pose_dactive_obbs[$edata['pose']].'% <br>';
-		return $chprocess($ldata,$edata)+$pose_active_obbs[$ldata['pose']]+$pose_dactive_obbs[$edata['pose']];
+		$add = $pose_active_obbs[$ldata['pose']]+$pose_dactive_obbs[$edata['pose']];
+		$ldata['active_words'] = \attack\add_format($add, $ldata['active_words'],0);
+		return $chprocess($ldata,$edata)+$add;
 	}
 	
 	function get_att_multiplier(&$pa,&$pd,$active)

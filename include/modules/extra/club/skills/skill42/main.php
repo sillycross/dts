@@ -68,6 +68,7 @@ namespace skill42
 		$r = 1;
 		if (\skillbase\skill_query(42,$ldata) && check_unlocked42($ldata)) $r*=1.12;
 		if (\skillbase\skill_query(42,$edata) && check_unlocked42($edata)) $r/=1.12;
+		if($r != 1) $ldata['active_words'] = \attack\multiply_format($r, $ldata['active_words'],0);
 		return $chprocess($ldata,$edata)*$r;
 	}
 	
