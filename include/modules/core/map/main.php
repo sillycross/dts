@@ -176,6 +176,20 @@ namespace map
 		//愚蠢的movehtm函数已经被移除…… 现在move.htm和areainfo.htm都由模板自动生成
 		return;
 	}
+	
+	function get_area_plsname($forshort=0, $p1=0, $p2=0){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','map'));
+		$plsnamedata = $forshort ? $plsinfo_for_short : $plsinfo;
+		if(!$p1) $p1 = $areanum+1;
+		if(!$p2) $p2 = $areanum+$areaadd;
+		$retarr = array();
+		for($i=$p1; $i<=$p2; $i++){
+			if(isset($plsnamedata[$arealist[$i]]))
+				$retarr[] = $plsnamedata[$arealist[$i]];
+		}
+		return $retarr;
+	}
 
 	function get_next_areadata_html($atime=0)
 	{
@@ -196,10 +210,7 @@ namespace map
 					$nexthour +=1;$nextmin -= 60;
 				}
 				if($nexthour >= 24){$nexthour-=24;}
-				$areadata .= "<b>{$nexthour}时{$nextmin}分：</b> ";
-				for($i=1;$i<=$areaadd;$i++) {
-					$areadata .= '&nbsp;'.$plsinfo[$arealist[$areanum+$i]].'&nbsp;';
-				}
+				$areadata .= "<b>{$nexthour}时{$nextmin}分：</b> " . implode('&nbsp;&nbsp;', get_area_plsname(0, $areanum+1, $areanum+$areaadd));
 			}
 			if($areanum+$areaadd < count($plsinfo)) {
 				$at2= getdate($atime + get_area_interval()*60);
@@ -208,10 +219,7 @@ namespace map
 					$nexthour2 +=1;$nextmin2 -= 60;
 				}
 				if($nexthour2 >= 24){$nexthour2-=24;}
-				$areadata .= "；<b>{$nexthour2}时{$nextmin2}分：</b> ";
-				for($i=1;$i<=$areaadd;$i++) {
-					$areadata .= '&nbsp;'.$plsinfo[$arealist[$areanum+$areaadd+$i]].'&nbsp;';
-				}
+				$areadata .= "；<b>{$nexthour2}时{$nextmin2}分：</b> " . implode('&nbsp;&nbsp;', get_area_plsname(0, $areanum+$areaadd+1, $areanum+$areaadd*2));
 			}
 			if($areanum+$areaadd*2 < count($plsinfo)) {
 				$at3= getdate($atime + get_area_interval()*120);
@@ -220,10 +228,7 @@ namespace map
 					$nexthour3 +=1;$nextmin3 -= 60;
 				}
 				if($nexthour3 >= 24){$nexthour3-=24;}
-				$areadata .= "；<b>{$nexthour3}时{$nextmin3}分：</b> ";
-				for($i=1;$i<=$areaadd;$i++) {
-					$areadata .= '&nbsp;'.$plsinfo[$arealist[$areanum+$areaadd*2+$i]].'&nbsp;';
-				}
+				$areadata .= "；<b>{$nexthour3}时{$nextmin3}分：</b> " . implode('&nbsp;&nbsp;', get_area_plsname(0, $areanum+$areaadd*2+1, $areanum+$areaadd*3));
 			}
 		}
 		echo $areadata;

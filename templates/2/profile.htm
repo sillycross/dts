@@ -19,7 +19,7 @@
 				{template MOD_MAP_PROFILE_AREAINFO}
 			</div>
 			<div class="profile_bar" style="width:338px">
-				<span class="typename">下次禁区</span><span class="main_cont">XXX</span>
+				<span class="typename">下次禁区</span><span class="main_cont">{$uip['next_area']}</span>
 			</div>
 		</div>
 	</div>
@@ -46,7 +46,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="profile_box" style="width:475px; height:160px; top:75px;">
+	<div class="profile_box" style="width:475px; height:155px; top:75px;">
 		<div class="profile_row">
 			<div class="profile_bar">
 				<span class="typename">等级</span><span class="main_cont" title="经验值 $exp / $upexp 升级阈值">Lv. $lvl</span>
@@ -92,6 +92,29 @@
 			</div>
 			<div class="profile_bar">
 				<span class="typename">歌魂</span><span class="main_cont"><span class="<!--{if $ss <= $mss*0.2}-->grey b<!--{elseif $ss <= $mss*0.5}-->yellow b<!--{else}-->cyan b<!--{/if}-->">$ss / $mss</span></span>
+			</div>
+		</div>
+		<div class="profile_row">
+			<div class="profile_bar">
+				<span class="typename">称号</span><span class="main_cont">
+					<!--{if defined('MOD_CLUBBASE')}-->
+						{template MOD_CLUBBASE_CLUB_PROFILE}
+					<!--{/if}-->
+				</span>
+			</div>
+			<div class="profile_bar">
+				<span class="typename">基础姿态</span><span class="main_cont">
+					<!--{if defined('MOD_POSE')}-->
+						{template MOD_POSE_POSE_PROFILE_CMD}
+					<!--{/if}-->
+				</span>
+			</div>
+			<div class="profile_bar">
+				<span class="typename">应战策略</span><span class="main_cont">
+					<!--{if defined('MOD_TACTIC')}-->
+						{template MOD_TACTIC_TACTIC_PROFILE_CMD}
+					<!--{/if}-->
+				</span>
 			</div>
 		</div>
 	</div>
@@ -140,18 +163,10 @@
 								<td class="b3"><span>{$uip['total_def']}</span></td>
 							</tr>
 							<tr>
-								<!--{if defined('MOD_POSE')}-->
-								{template MOD_POSE_POSE_PROFILE_CMD}
-								<!--{else}-->
-								<td class="b2" height="20"></td><td class="b3"></td>
-								<!--{/if}-->
+								
 							</tr>
 							<tr>
-								<!--{if defined('MOD_TACTIC')}-->
-								{template MOD_TACTIC_TACTIC_PROFILE_CMD}
-								<!--{else}-->
-								<td class="b2" height="20"></td><td class="b3"></td>
-								<!--{/if}-->
+								
 							</tr>
 							<tr>
 								<!--{if defined('MOD_BUFFICONS')}-->
@@ -180,12 +195,9 @@
 								<td class="b3"><span><!--{if $teamID && $gamestate < 40 }-->$teamID<!--{else}--> 无 <!--{/if}--></span></td>
 							</tr>
 							
-							<!--{if defined('MOD_CLUBBASE')}-->
-							{template MOD_CLUBBASE_CLUB_PROFILE}
-							<!--{else}-->
+							
 							<td class="b2" height="20"></td><td class="b3" height="20"></td>
-							<!--{/if}-->
-							</tr>
+							
 							<tr>
 								<td class="b2" height="20"><span>{lang money}</span></td>
 								<td class="b3"><span>$money {lang moneyunit}</span></td>

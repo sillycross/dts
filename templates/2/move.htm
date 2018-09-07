@@ -2,7 +2,7 @@
 <!--{eval $count_plsinfo = count($plsinfo);$i = 0;eval(import_module('itemshop','rest'));}-->
 <!--{loop $plsinfo $plsi $plsn}-->
 	<!--{if !\map\check_can_enter($plsi)}-->
-		<input type="button" class="move_to_button glow_buttons darkgrey forbidden" value="{$plsn}" style="background-image:url('img/map_forbidden.png');">
+		<input type="button" class="move_to_button glow_buttons darkgrey forbidden" value="{$plsn}" style="background-image:url('img/icons/map_forbidden.png');">
 	<!--{elseif $pls == $plsi}-->
 		<input type="button" class="move_to_button glow_buttons yellow forbidden<!--{if in_array($plsi, $shops)}--> map_shop<!--{elseif in_array($plsi, $rest_hospital_list)}--> map_rest<!--{/if}-->" value="{$plsn}">
 	<!--{else}-->

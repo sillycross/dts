@@ -293,7 +293,7 @@ namespace player
 		unset($sdata['wep_kind']);
 		
 		//$karma = ($rp * $killnum - $def )+ $att;
-		
+		//HPSP条的显示
 		$hpcolor = 'cyan b';
 		if($hp <= $mhp*0.2) $hpcolor = 'red b';
 		elseif($hp <= $mhp*0.5) $hpcolor = 'yellow b';
@@ -310,6 +310,7 @@ namespace player
 		$spltp = 3+floor(155*(1-$sp/$msp));
 		$splt = '<img src="img/splt.gif" style="position:absolute; clip:rect('.$spltp.'px,55px,160px,0px);">';
 		
+		//旧界面用的一些参数
 		$uip['innerHTML']['pls'] = $plsinfo[$pls];
 		$uip['value']['teamID'] = $teamID;
 		if($teamID){
@@ -317,7 +318,17 @@ namespace player
 		}else{
 			$uip['innerHTML']['chattype'] = "<select name=\"chattype\" value=\"2\"><option value=\"0\" selected>$chatinfo[0]</select>";
 		}
+		//禁区倒计时
 		\map\init_areatiming();
+		//下次禁区列表
+		$tmp_nextarea = \map\get_area_plsname(1);
+		$tmp_nextarea_str = implode('&nbsp;', $tmp_nextarea);
+		if($areatime - $now <= 60) {
+			$tmp_plsname = $plsinfo_for_short[$pls];
+			if(\map\check_in_forbidden_area($pls)) $tmp_nextarea_str = '<span class="red b">('.$tmp_plsname.')</span>&nbsp;'.$tmp_nextarea_str;
+			if(in_array($tmp_plsname, $tmp_nextarea)) $tmp_nextarea_str = str_replace($tmp_plsname, '<span class="red b">'.$tmp_plsname.'</span>&nbsp;', $tmp_nextarea_str);		
+		}
+		$uip['next_area'] = $tmp_nextarea_str;
 		return;
 	}
 

@@ -52,6 +52,14 @@ namespace map
 		33=>'雏菊之丘',
 		34=>'英灵殿'
 	);
+	$plsinfo_for_short = Array(
+		11=>'对天使',
+		21=>'圣G学园',
+		28=>'FARGO',
+		30=>'格纳库',
+		31=>'和田町',
+		32=>'ＳＣＰ',
+	)+$plsinfo;
 	$xyinfo = Array(
 		0=>'B-2',
 		1=>'A-6',

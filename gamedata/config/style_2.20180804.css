@@ -370,6 +370,15 @@ div.profile_bar span.main_cont{
 	font-size:10pt;font-weight:bold;color:#ddd;
 	line-height:23px;
 }
+div.profile_bar select{
+	height:20px;vertical-align:middle;
+	border:1px solid #333;
+		 -moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	        border-radius: 6px;
+	background-color:rgba(51,51,51,0.5);
+	color:#ddd;
+}
 /*====================================*/
 /*==========霓虹灯按钮==========*/
 /*====================================*/
@@ -461,16 +470,16 @@ input.move_to_button{
 	padding-top:3px;
 }
 input.move_to_button.map_rest{
-	background-image:url('../../img/map_rest.png');
+	background-image:url('../../img/icons/map_rest.png');
 }
 input.move_to_button.map_rest:disabled{
-	background-image:url('../../img/map_rest_d.png');
+	background-image:url('../../img/icons/map_rest_d.png');
 }
 input.move_to_button.map_shop{
-	background-image:url('../../img/map_shop.png');
+	background-image:url('../../img/icons/map_shop.png');
 }
 input.move_to_button.map_shop:disabled{
-	background-image:url('../../img/map_shop_d.png');
+	background-image:url('../../img/icons/map_shop_d.png');
 }
 /*==========视野按钮，一行3个==========*/
 div.searchmemory_cmd{
@@ -543,22 +552,22 @@ div.pack_button input.pack_button{
 	line-height:35px;
 }
 div.pack_button.ticked div.bg{
-	background-image:url('../../img/itemticked.png');
+	background-image:url('../../img/icons/itemticked.png');
 }
 div.pack_button.itemmix_search div.bg{
-	background-image:url('../../img/itemsearch.png');
+	background-image:url('../../img/icons/itemsearch.png');
 }
 div.pack_button.itemmix_search.grey div.bg{
 	filter: brightness(50%);
 }
 div.pack_button.pack_off div.bg{
-	background-image:url('../../img/itemoff.png');
+	background-image:url('../../img/icons/itemoff.png');
 }
 div.pack_button.pack_off.grey div.bg{
 	filter: brightness(50%);
 }
 div.pack_button.pack_drop div.bg{
-	background-image:url('../../img/itemdrop.png');
+	background-image:url('../../img/icons/itemdrop.png');
 }
 div.pack_button.pack_drop.grey div.bg{
 	filter: grayscale(100%) brightness(150%);
@@ -567,10 +576,10 @@ div.pack_button.pack_switch div.bg{
 	font-size:12pt;font-weight:bold;
 }
 div.pack_button.pack_from div.bg{
-	background-image:url('../../img/itemfrom.png');
+	background-image:url('../../img/icons/itemfrom.png');
 }
 div.pack_button.pack_to div.bg{
-	background-image:url('../../img/itemto.png');
+	background-image:url('../../img/icons/itemto.png');
 }
 /*==========尸体按钮==========*/
 div.corpse_cmd{
