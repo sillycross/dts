@@ -90,6 +90,7 @@ function log_hover_detail_init(log_detail_height){
 function log_hover_detail_clean(){
 	jQuery('#log').unbind('mouseover');
 	jQuery('#log_hover_detail').unbind('mouseout');
+	jQuery('#log_hover_detail').remove();
 }
 
 function log_hover_detail_mouseover(){

@@ -24,19 +24,10 @@
 		</div>
 	</div>
 	
-	<div class="profile_box" style="width:235px; height:152px; left:485px;">
+	<div class="profile_box" style="width:235px; height:155px; left:485px;">
 		<div class="profile_row">
 			<div class="profile_bar right">
-				<span class="main_cont">$name</span>
-			</div>
-		</div>
-		
-		<div class="profile_row">
-			<div class="profile_bar right" style="width:140px">
-				<span class="main_cont">$uip['cardname_show'] </span>
-			</div>
-			<div class="profile_bar right" style="width:76px">
-				<span class="main_cont">{$sexinfo[$gd]}{$sNo}号</span>
+				<span class="main_cont">$uip['cardname_show'] $name</span>
 			</div>
 		</div>
 		<div class="profile_row">
@@ -44,6 +35,15 @@
 			<div class="profile_bar right" style="width:140px;height:80px;">
 				<img src="img/$iconImg" border="0" style="width:140;height:80;<!--{if $hp==0}-->filter: grayscale(100%)<!--{/if}-->">
 			</div>
+			<div class="profile_bar right" style="width:76px">
+				<span class="main_cont">{$sexinfo[$gd]}{$sNo}号</span>
+			</div>
+			<div class="profile_bar right" style="position:absolute;top:30px;left:147px;width:76px;height:50px">
+				<span class="typename">队伍</span><br><span class="main_cont">$teamID</span>
+			</div>
+		</div>
+		<div class="profile_row">
+			
 		</div>
 	</div>
 	<div class="profile_box" style="width:475px; height:155px; top:75px;">
@@ -79,8 +79,10 @@
 				<span class="typename">防御</span><span class="main_cont" title="防御力 $uip['def_words']">{$uip['total_def']}</span>
 			</div>
 			<div class="profile_bar">
-				<!--{eval $dummy = \player\create_dummy_playerdata();$tmp_active_rate = \enemy\get_final_active_obbs($sdata,$dummy);}-->
-				<span class="typename">先攻率</span><span class="main_cont" title="攻击力 $tmp_active_rate = $sdata['active_words']">{$tmp_active_rate}%</span>
+				<!--{eval $dummy = \player\create_dummy_playerdata();$dummy['type'] = 1;$tmp_active_rate = \enemy\get_final_active_obbs($sdata,$dummy);$tmp_active_words = $sdata['active_words'];
+				$dummy['pose'] = 4;$tmp_active_rate_2 = \enemy\get_final_active_obbs($sdata,$dummy);$tmp_active_words_2 = $sdata['active_words'];
+				$dummy['pose'] = 2;$tmp_active_rate_3 = \enemy\get_final_active_obbs($sdata,$dummy);$tmp_active_words_3 = $sdata['active_words'];}-->
+				<span class="typename">先攻率</span><span class="main_cont" title="先攻率(VS通常NPC) $tmp_active_rate = $tmp_active_words<br>先攻率(VS偷袭NPC) $tmp_active_rate_2 = $tmp_active_words_2<br>先攻率(VS强袭NPC) $tmp_active_rate_3 = $tmp_active_words_3<br>面对玩家时，先攻率基础值-5%">{$tmp_active_rate}%</span>
 			</div>
 		</div>
 		<div class="profile_row">

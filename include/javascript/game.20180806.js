@@ -320,9 +320,10 @@ function showData(sdata){
 			jQuery('#log').css({'display':log_display});
 			//界面2给log div加滚动条，修改log div大小
 			if('block' == log_display) {
+				//清除悬浮事件
+				if('undefined' != typeof(log_hover_detail_clean)) log_hover_detail_clean();
 				if('undefined' != typeof(shwData['display'])  && 'undefined' != typeof(shwData['display']['log_height']) && 0 != shwData['display']['log_height']) {
 					jQuery('#log').css('height', shwData['display']['log_height']);
-					if('undefined' != typeof(log_hover_detail_clean)) log_hover_detail_clean();
 				}else{
 					jQuery('#log').css('height','');
 				}
