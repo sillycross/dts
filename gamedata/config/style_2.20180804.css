@@ -339,6 +339,10 @@ div.profile_box{
 	-webkit-border-radius: 6px;
 	        border-radius: 6px;
 }
+div.profile_box hr{
+	margin:5px;
+	border:1px dashed #333;	
+}
 div.profile_row{
 	position:relative;
 	margin-top:5px;
@@ -357,7 +361,7 @@ div.profile_bar{
 	vertical-align:top;
 	overflow:hidden;
 }
-div.profile_bar.right{
+div.profile_bar.right_panel{
 	padding:0;
 	width:223px;text-align:center;
 }
@@ -378,6 +382,9 @@ div.profile_bar select{
 	        border-radius: 6px;
 	background-color:rgba(51,51,51,0.5);
 	color:#ddd;
+}
+div.profile_bar select:disabled{
+	color:#666;
 }
 /*====================================*/
 /*==========霓虹灯按钮==========*/
