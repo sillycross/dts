@@ -1,11 +1,27 @@
-<tr>
-<TD class=b2 height="26"><span <!--{if $tpldata['wepk_desc']}-->title="{$tpldata['wepk_desc']}"<!--{/if}-->><!--{if $tpldata['wepk_words']}-->$tpldata['wepk_words']<!--{else}-->$mltwk<!--{/if}--></span></TD>
-<TD class=b3>
-<span>
-	<!--{if $weps}-->$tpldata['wep_words']<!--{else}-->$nowep<!--{/if}-->
-</span>
-</TD>
-<TD class=b3><span <!--{if $tpldata['wepsk_desc']}-->title="{$tpldata['wepsk_desc']}"<!--{/if}-->>$tpldata['wepsk_words']</span></TD>
-<TD class=b3><span>$wepe</span></TD>
-<TD class=b3><span>$weps</span></TD>
-</tr> 
+<div class="profile_row">
+	<div class="profile_bar pack itmk" style="margin-left:5px">
+		<span <!--{if !$weps}-->class="grey"<!--{/if}--> <!--{if $tpldata['wepk_desc']}-->title="{$tpldata['wepk_desc']}"<!--{/if}-->>
+		<!--{if $tpldata['wepk_words']}-->$tpldata['wepk_words']<!--{else}-->$mltwk<!--{/if}-->
+		</span>
+	</div>
+	<div class="profile_bar pack itmname">
+		<span <!--{if !$weps}-->class="grey"<!--{/if}-->>
+			<!--{if $weps}-->$tpldata['wep_words']<!--{else}-->$nowep<!--{/if}-->
+		</span>
+	</div>
+	<div class="profile_bar pack itmsk">
+		<span <!--{if !$weps}-->class="grey"<!--{/if}--> <!--{if $weps && $tpldata['wepsk_desc']}-->title="{$tpldata['wepsk_desc']}"<!--{/if}-->>
+			$tpldata['wepsk_words']
+		</span>
+	</div>
+	<div class="profile_bar pack itme">
+		<span <!--{if !$weps}-->class="grey"<!--{/if}--> <!--{if $weps && $tpldata['wepe_words'] != $wepe}-->title="$wepe"<!--{/if}-->>
+			$tpldata['wepe_words']
+		</span>
+	</div>
+	<div class="profile_bar pack itms">
+		<span <!--{if !$weps}-->class="grey"<!--{/if}--> <!--{if $weps && $tpldata['weps_words'] != $weps}-->title="$weps"<!--{/if}-->>
+			$tpldata['weps_words']
+		</span>
+	</div>
+</div>

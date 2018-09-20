@@ -1,0 +1,26 @@
+<div class="profile_row">
+	<div class="profile_bar pack packtitle itmk" style="margin-left:5px">
+		装备种类
+	</div>
+	<div class="profile_bar pack packtitle itmname">
+		名称
+	</div>
+	<div class="profile_bar pack packtitle itmsk">
+		属性
+	</div>
+	<div class="profile_bar pack packtitle itme">
+		效果值
+	</div>
+	<div class="profile_bar pack packtitle itms">
+		耐久值
+	</div>
+</div>
+<!--{if defined('MOD_WEAPON')}-->
+	{template MOD_WEAPON_PROFILE_WEP}
+<!--{/if}-->
+<!--{if defined('MOD_ARMOR')}-->
+	{template MOD_ARMOR_PROFILE_ARMOR}
+<!--{/if}-->
+<!--{if defined('MOD_ARMOR_ART')}-->
+	{template MOD_ARMOR_ART_PROFILE_ARMOR_ART}
+<!--{/if}-->

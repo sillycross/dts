@@ -1,9 +1,27 @@
-<tr>
-	<TD class=b2 height="26"><span><!--{if $arts}-->$tpldata['artk_words']<!--{else}--><span class="grey b">$iteminfo['A']</span><!--{/if}--></span></TD>
-	<TD class=b3>
-	<span><!--{if $arts}-->$tpldata['art_words']<!--{else}-->$noitm<!--{/if}--></span>
-	</TD>
-	<TD class=b3><span <!--{if $arts && $tpldata['artsk_desc']}-->title="{$tpldata['artsk_desc']}"<!--{/if}-->><!--{if $arts}-->$tpldata['artsk_words']<!--{else}-->--<!--{/if}--></span></TD>
-	<TD class=b3><span><!--{if $arts}-->$arte<!--{else}-->0<!--{/if}--></span></TD>
-	<TD class=b3><span>$arts</span></TD>
-</tr> 
+<div class="profile_row">
+	<div class="profile_bar pack itmk" style="margin-left:5px">
+		<span <!--{if !$arts}-->class="grey"<!--{/if}--> <!--{if $tpldata['artk_desc']}-->title="{$tpldata['artk_desc']}"<!--{/if}-->>
+		<!--{if $tpldata['artk_words']}-->$tpldata['artk_words']<!--{else}-->$iteminfo['A']<!--{/if}-->
+		</span>
+	</div>
+	<div class="profile_bar pack itmname">
+		<span <!--{if !$arts}-->class="grey"<!--{/if}-->>
+			<!--{if $arts}-->$tpldata['art_words']<!--{else}-->$noitm<!--{/if}-->
+		</span>
+	</div>
+	<div class="profile_bar pack itmsk">
+		<span <!--{if !$arts}-->class="grey"<!--{/if}--> <!--{if $arts && $tpldata['artsk_desc']}-->title="{$tpldata['artsk_desc']}"<!--{/if}-->>
+			$tpldata['artsk_words']
+		</span>
+	</div>
+	<div class="profile_bar pack itme">
+		<span <!--{if !$arts}-->class="grey"<!--{/if}--> <!--{if $arts && $tpldata['arte_words'] != $arte}-->title="$arte"<!--{/if}-->>
+			$tpldata['arte_words']
+		</span>
+	</div>
+	<div class="profile_bar pack itms">
+		<span <!--{if !$arts}-->class="grey"<!--{/if}--> <!--{if $arts && $tpldata['arts_words'] != $arts}-->title="$arts"<!--{/if}-->>
+			$tpldata['arts_words']
+		</span>
+	</div>
+</div>

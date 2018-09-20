@@ -386,6 +386,24 @@ div.profile_bar select{
 div.profile_bar select:disabled{
 	color:#666;
 }
+div.profile_box div.pack{
+	margin-left:3px;
+	text-align:center;
+}
+div.profile_box div.pack span{
+	line-height:23px;
+}
+div.profile_box div.pack.packtitle{
+	border:1px solid transparent;
+	background-color:transparent;
+	height:16px;line-height:16px;
+	font-size:8pt;color:#999;
+}
+div.profile_box div.itmk{width:60px;}
+div.profile_box div.itmname{width:170px;}
+div.profile_box div.itmsk{width:170px;}
+div.profile_box div.itme{width:60px;}
+div.profile_box div.itms{width:60px;}
 /*====================================*/
 /*==========霓虹灯按钮==========*/
 /*====================================*/

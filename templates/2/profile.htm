@@ -1,4 +1,4 @@
-<div style="position:relative;height:325px;">
+<div style="position:relative;height:520px;">
 	<div class="profile_box" style="width:475px; height:65px;">
 		<div class="profile_row">
 			<div class="profile_bar" style="width:118px">
@@ -168,9 +168,12 @@
 		<!--{/if}-->
 		
 	</div>
-	<!--<div class="profile_box" style="width:235px; height:160px; left:485px; top:75px;">
-		
-	</div>-->
+	<div class="profile_box" id="profile_eqp" style="width:550px; height:210px; left:0px; top:308px;">
+		<!--{if defined('MOD_ITEMMAIN')}-->
+			{template MOD_ITEMMAIN_PROFILE_EQUIPMENTS}
+		<!--{/if}-->
+	</div>
+	
 </div>
 
 <div style="position:relative">
@@ -181,9 +184,7 @@
   		<TABLE id="packs" border="0" cellSpacing=0 cellPadding=0 height=140 width=720>
   			<tr>
       		<td>
-		      	<!--{if defined('MOD_ITEMMAIN')}-->
-				{template MOD_ITEMMAIN_PROFILE_EQUIPMENTS}
-				<!--{/if}-->
+		      	
 			</td>
 			<td>
 				<!--{if defined('MOD_ITEMMAIN')}-->
