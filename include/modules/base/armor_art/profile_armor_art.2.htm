@@ -5,7 +5,7 @@
 		</span>
 	</div>
 	<div class="profile_bar pack itmname">
-		<span <!--{if !$arts}-->class="grey"<!--{/if}-->>
+		<span <!--{if !$arts}-->class="grey"<!--{/if}--> <!--{if $weps && $tpldata['art_words'] != $art}-->title="$art"<!--{/if}-->>
 			<!--{if $arts}-->$tpldata['art_words']<!--{else}-->$noitm<!--{/if}-->
 		</span>
 	</div>

@@ -400,10 +400,12 @@ div.profile_box div.pack.packtitle{
 	font-size:8pt;color:#999;
 }
 div.profile_box div.itmk{width:60px;}
-div.profile_box div.itmname{width:170px;}
+div.profile_box div.itmname{width:190px;}
 div.profile_box div.itmsk{width:170px;}
 div.profile_box div.itme{width:60px;}
 div.profile_box div.itms{width:60px;}
+
+div.profile_box div.forshort{margin-left:5px;width:128px;}
 /*====================================*/
 /*==========霓虹灯按钮==========*/
 /*====================================*/

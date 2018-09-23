@@ -168,34 +168,17 @@
 		<!--{/if}-->
 		
 	</div>
-	<div class="profile_box" id="profile_eqp" style="width:550px; height:210px; left:0px; top:308px;">
+	<div class="profile_box" id="profile_eqp" style="width:570px; height:210px; left:0px; top:308px;">
 		<!--{if defined('MOD_ITEMMAIN')}-->
 			{template MOD_ITEMMAIN_PROFILE_EQUIPMENTS}
 		<!--{/if}-->
 	</div>
-	
+	<div class="profile_box" id="backpack_eqp" style="width:140px; height:210px; left:580px; top:308px;">
+		<!--{if defined('MOD_ITEMMAIN')}-->
+			{template MOD_ITEMMAIN_PROFILE_BACKPACK_SHORT}
+		<!--{/if}-->
+	</div>
 </div>
-
-<div style="position:relative">
-<table border="0" width="720" height="100%" cellspacing="0" cellpadding="0"  valign="middle">
-	
-	<tr>
-		<td>
-  		<TABLE id="packs" border="0" cellSpacing=0 cellPadding=0 height=140 width=720>
-  			<tr>
-      		<td>
-		      	
-			</td>
-			<td>
-				<!--{if defined('MOD_ITEMMAIN')}-->
-				{template MOD_ITEMMAIN_PROFILE_BACKPACK}
-				<!--{/if}-->
-      		</td>
-      	</tr>
-			</TABLE>
-		</td>
-	</tr>
-</table>
 <!--{if defined('MOD_SKILL504') && \skillbase\skill_query(504)}-->
 <!--{eval \skill504\skill504_get_popko_html();}-->
 <!--{/if}-->

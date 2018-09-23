@@ -1,0 +1,17 @@
+<div class="profile_row">
+	<div class="profile_bar pack packtitle itmk forshort">
+		包裹道具
+	</div>
+</div>
+<!--{loop range(1,6) $ii}-->
+<div class="profile_row">
+	<div class="profile_bar pack itmname forshort">
+		<!--{if ${'itms'.$ii} }-->
+			<!--{eval $tmp_itmname = \itemmain\parse_itmname_words(${'itm'.$ii}, 1, 13);}-->
+			<span <!--{if $tmp_itmname != ${'itm'.$ii}}-->title="${'itm'.$ii}"<!--{/if}-->>$tmp_itmname</span>
+		<!--{else}-->
+			<span class="grey">$noitm</span>
+		<!--{/if}-->
+	</div>
+</div>
+<!--{/loop}-->
