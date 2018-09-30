@@ -1,5 +1,15 @@
 <div class="profile_row">
-	<div class="profile_bar pack itmname" style="width:s">
-		AAA
+	<div class="profile_bar pack packtitle itmname forshort">
+		当前装备
 	</div>
+	<div class="glow_buttons yellow profile_mode_button" onclick="profile_mode_switch();"><></div>
 </div>
+<!--{if defined('MOD_WEAPON')}-->
+	{template MOD_WEAPON_PROFILE_WEP_SHORT}
+<!--{/if}-->
+<!--{if defined('MOD_ARMOR')}-->
+	{template MOD_ARMOR_PROFILE_ARMOR_SHORT}
+<!--{/if}-->
+<!--{if defined('MOD_ARMOR_ART')}-->
+	{template MOD_ARMOR_ART_PROFILE_ARMOR_ART_SHORT}
+<!--{/if}-->

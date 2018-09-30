@@ -406,6 +406,23 @@ div.profile_box div.itme{width:60px;}
 div.profile_box div.itms{width:60px;}
 
 div.profile_box div.forshort{margin-left:5px;width:128px;}
+
+div.profile_box div.profile_mode_button{
+	top:1px; right: 10px;
+	position:absolute; 
+	width:30px; height:15px;
+	line-height:15px;
+}
+
+div.profile_box div.hpstate_container{
+	display:inline-block;
+	position:relative;
+	width:55px;height:165px;
+}
+div.profile_box div.hpstate_container div.hpstate_elm{
+	top:0;left:0;z-index:0;
+	position:absolute;
+}
 /*====================================*/
 /*==========霓虹灯按钮==========*/
 /*====================================*/
@@ -437,6 +454,8 @@ div.itm_cmd div.itm_cmd_info{
 div.itm_cmd div.itm_cmd_info div{
 	text-align:center;
 	width:inherit;
+	white-space:nowrap;
+	overflow:hidden;
 }
 div.itm_cmd div.itm_cmd_info div.itm_name{
 	color:#ff0;font-weight:bold;

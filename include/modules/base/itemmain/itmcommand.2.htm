@@ -60,7 +60,7 @@
 					</div>
 					<div class="pack_cell_eqp glow_buttons forbidden white">
 						<span class="hotkey_hint"><s>[<!--{eval echo strtoupper(substr($item_hotkey_id_list[$packi],0,1));}-->]</s></span>
-						<span><!--{eval echo \itemmain\parse_itmname_words(${'itm'.$packi}, 1, 13);}--> / {$tpldata['itme'.$packi.'_words']} / {$tpldata['itms'.$packi.'_words']}</span>
+						<span>$tpldata['itm'.$packi.'_words_short'] / {$tpldata['itme'.$packi.'_words']} / {$tpldata['itms'.$packi.'_words']}</span>
 					</div>
 					<div class="cmd_positioner pack_button pack_drop">
 						<div class="pack_button bg"></div>

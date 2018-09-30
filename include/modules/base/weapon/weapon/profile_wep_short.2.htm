@@ -1,0 +1,8 @@
+<div class="profile_row">
+	<div class="profile_bar pack itmname forshort">
+		<!--{eval $tmp_eqpname = $tpldata['wep_words_short'];}-->
+		<span <!--{if !$weps}-->class="grey"<!--{/if}--> <!--{if $weps && $tmp_eqpname != $wep}-->title="$wep"<!--{/if}-->>
+			<!--{if $weps}-->$tmp_eqpname<!--{else}-->$nowep<!--{/if}-->
+		</span>
+	</div>
+</div>

@@ -1,0 +1,46 @@
+<div class="profile_row">
+	<div class="profile_bar pack packtitle itmk" style="margin-left:5px">
+		道具种类
+	</div>
+	<div class="profile_bar pack packtitle itmname">
+		名称
+	</div>
+	<div class="profile_bar pack packtitle itmsk">
+		属性
+	</div>
+	<div class="profile_bar pack packtitle itme">
+		效果值
+	</div>
+	<div class="profile_bar pack packtitle itms">
+		耐久值
+	</div>
+</div>
+<!--{loop range(1,6) $ii}-->
+<div class="profile_row">
+	<div class="profile_bar pack itmk" style="margin-left:5px">
+		<span <!--{if !${'itms'.$ii}}-->class="grey"<!--{/if}--> <!--{if $tpldata['itmk'.$ii.'_desc']}-->title="{$tpldata['itmk'.$ii.'_desc']}"<!--{/if}-->>
+		<!--{if $tpldata['itmk'.$ii.'_words']}-->$tpldata['itmk'.$ii.'_words']<!--{else}-->--<!--{/if}-->
+		</span>
+	</div>
+	<div class="profile_bar pack itmname">
+		<span <!--{if !${'itms'.$ii}}-->class="grey"<!--{/if}--> <!--{if ${'itms'.$ii} && $tpldata['itm'.$ii.'_words'] != ${'itm'.$ii}}-->title="${'itm'.$ii}"<!--{/if}-->>
+			<!--{if ${'itms'.$ii}}-->$tpldata['itm'.$ii.'_words']<!--{else}-->$noitm<!--{/if}-->
+		</span>
+	</div>
+	<div class="profile_bar pack itmsk">
+		<span <!--{if !${'itms'.$ii}}-->class="grey"<!--{/if}--> <!--{if ${'itms'.$ii} && $tpldata['itmsk'.$ii.'_desc']}-->title="{$tpldata['itmsk'.$ii.'_desc']}"<!--{/if}-->>
+			$tpldata['itmsk'.$ii.'_words']
+		</span>
+	</div>
+	<div class="profile_bar pack itme">
+		<span <!--{if !${'itms'.$ii}}-->class="grey"<!--{/if}--> <!--{if ${'itms'.$ii} && $tpldata['itme'.$ii.'_words'] != ${'itme'.$ii}}-->title="${'itme'.$ii}"<!--{/if}-->>
+			<!--{if ${'itms'.$ii}}-->$tpldata['itme'.$ii.'_words']<!--{else}-->-<!--{/if}-->
+		</span>
+	</div>
+	<div class="profile_bar pack itms">
+		<span <!--{if !${'itms'.$ii}}-->class="grey"<!--{/if}--> <!--{if ${'itms'.$ii} && $tpldata['itms'.$ii.'_words'] != ${'itms'.$ii}}-->title="${'itms'.$ii}"<!--{/if}-->>
+			<!--{if ${'itms'.$ii}}-->$tpldata['itms'.$ii.'_words']<!--{else}-->-<!--{/if}-->
+		</span>
+	</div>
+</div>
+<!--{/loop}-->

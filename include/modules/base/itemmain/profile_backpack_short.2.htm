@@ -1,13 +1,14 @@
 <div class="profile_row">
-	<div class="profile_bar pack packtitle itmk forshort">
+	<div class="profile_bar pack packtitle itmname forshort">
 		包裹道具
 	</div>
+	<div class="glow_buttons yellow profile_mode_button" onclick="profile_mode_switch();"><></div>
 </div>
 <!--{loop range(1,6) $ii}-->
 <div class="profile_row">
 	<div class="profile_bar pack itmname forshort">
 		<!--{if ${'itms'.$ii} }-->
-			<!--{eval $tmp_itmname = \itemmain\parse_itmname_words(${'itm'.$ii}, 1, 13);}-->
+			<!--{eval $tmp_itmname = $tpldata['itm'.$ii.'_words_short'];}-->
 			<span <!--{if $tmp_itmname != ${'itm'.$ii}}-->title="${'itm'.$ii}"<!--{/if}-->>$tmp_itmname</span>
 		<!--{else}-->
 			<span class="grey">$noitm</span>

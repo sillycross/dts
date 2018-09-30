@@ -4,7 +4,7 @@
 <div class="cmd_row">
 	<div class="cmd_positioner explore_cmd zx_cmd">
 		<div class="explore_info grey">
-			<!--{eval echo \itemmain\parse_itmname_words($itm0, 1, 13);}-->$itemmain_drophint
+			<!--{eval echo \itemmain\parse_itmname_words($itm0, 1, 15);}-->$itemmain_drophint
 		</div>
 		<input type="button" class="cmd_button explore_cmd glow_buttons red b" style="padding-bottom:20px" id="zx" value="丢弃" onclick="$('command').value='dropitm0';postCmd('gamecmd','command.php',this,1);">
 	</div>
@@ -12,7 +12,7 @@
 <div class="cmd_row">
 	<!--{loop $item_hotkey_id_list $ii $ihotkey}-->
 		<div class="cmd_positioner itm_cmd">
-			<!--{eval $tmp_itmname = \itemmain\parse_itmname_words(${'itm'.$ii}, 1, 13);}-->
+			<!--{eval $tmp_itmname = \itemmain\parse_itmname_words(${'itm'.$ii}, 1, 15);}-->
 			<div class="itm_cmd_info">
 				<div class="grey b">
 				<!--{if $tmp_itmname==${'itm'.$ii}}-->

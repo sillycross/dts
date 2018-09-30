@@ -7,7 +7,7 @@ namespace weapon
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php config/weapon.config.php';
-	$___MODULE_templatelist = 'att_method profile_wep profile_wepskill';
+	$___MODULE_templatelist = 'att_method profile_wep profile_wep_short profile_wepskill';
 	////////// MODULE HEADER END /////////////////
 	require __INIT_MODULE__(__NAMESPACE__,__DIR__);
 }

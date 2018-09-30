@@ -39,7 +39,7 @@
 				<span class="main_cont">{$sexinfo[$gd]}{$sNo}号</span>
 			</div>
 			<div class="profile_bar right_panel" style="position:absolute;top:30px;left:147px;width:76px;height:50px">
-				<span class="typename">队伍</span><br><span class="main_cont">$teamID</span>
+				<span class="typename">队伍</span><br><span class="main_cont"><!--{if !empty($teamID)}-->$teamID<!--{else}--><span class="grey">无</span><!--{/if}--></span>
 			</div>
 		</div>
 		<div class="profile_row">
@@ -60,24 +60,24 @@
 					<!--{/if}-->
 					</div>
 				</div>
-				<div style="display:inline-block;position:relative;margin-left:100px;width:55px;height:165px;">
-					<img src="img/state1.gif" style="position:absolute;top:0;left:0;z-index:0;">
-					<div style="position:absolute;top:0;left:0;z-index:2;">
+				<div class="hpstate_container" style="margin-left:100px;">
+					<img src="img/state1.gif" class="hpstate_elm">
+					<div class="hpstate_elm" style="z-index:2;">
 						$newspimg
 					</div>
 					<!--{if $sp > 0}-->
-					<div style="position:absolute;top:0;left:0;z-index:1;">
+					<div class="hpstate_elm" style="z-index:1;">
 						$splt
 					</div>
 					<!--{/if}-->
 				</div>
-				<div style="display:inline-block;position:relative;width:55px;height:165px;">
-					<img src="img/state2.gif" style="position:absolute;top:0;left:0;z-index:0;">
-					<div style="position:absolute;top:0;left:0;z-index:2;">
+				<div class="hpstate_container">
+					<img src="img/state2.gif" class="hpstate_elm">
+					<div class="hpstate_elm" style="z-index:2;">
 						$newhpimg
 					</div>
 					<!--{if $hp > 0}-->
-					<div style="position:absolute;top:0;left:0;z-index:1;">
+					<div class="hpstate_elm" style="z-index:1;">
 						$hplt
 					</div>
 					<!--{/if}-->
@@ -168,16 +168,20 @@
 		<!--{/if}-->
 		
 	</div>
+	<!--{if defined('MOD_ITEMMAIN')}-->
 	<div class="profile_box" id="profile_eqp" style="width:570px; height:210px; left:0px; top:308px;">
-		<!--{if defined('MOD_ITEMMAIN')}-->
-			{template MOD_ITEMMAIN_PROFILE_EQUIPMENTS}
-		<!--{/if}-->
+		{template MOD_ITEMMAIN_PROFILE_EQUIPMENTS}
 	</div>
-	<div class="profile_box" id="backpack_eqp" style="width:140px; height:210px; left:580px; top:308px;">
-		<!--{if defined('MOD_ITEMMAIN')}-->
-			{template MOD_ITEMMAIN_PROFILE_BACKPACK_SHORT}
-		<!--{/if}-->
+	<div class="profile_box" id="profile_eqp_short" style="width:140px; height:210px; left:0px; top:308px; display:none;">
+		{template MOD_ITEMMAIN_PROFILE_EQUIPMENTS_SHORT}
 	</div>
+	<div class="profile_box" id="profile_pack" style="width:570px; height:210px; left:150px; top:308px; display:none;">
+		{template MOD_ITEMMAIN_PROFILE_BACKPACK}
+	</div>
+	<div class="profile_box" id="profile_pack_short" style="width:140px; height:210px; left:580px; top:308px;">
+		{template MOD_ITEMMAIN_PROFILE_BACKPACK_SHORT}
+	</div>
+	<!--{/if}-->
 </div>
 <!--{if defined('MOD_SKILL504') && \skillbase\skill_query(504)}-->
 <!--{eval \skill504\skill504_get_popko_html();}-->

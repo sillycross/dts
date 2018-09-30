@@ -413,8 +413,10 @@ function showData(sdata){
 	}
 	//重载悬浮提示
 	floating_hint();
-	//新界面自动切到对应的标签页
-	if('common' != now_tag) tag_display();
+	
+	//新界面自动切到对应的标签页和状态界面
+	if(jQuery('.cmd_tag').length > 0 && 'common' != now_tag) tag_display_init();
+	if(jQuery('#profile_eqp').length > 0) profile_mode_init();
 }
 
 function showData_effect(shwData) {

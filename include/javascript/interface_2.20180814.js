@@ -8,14 +8,36 @@ function tag_choose(tgt)
 	if(tgt != 'common') hotkey_ok=false;
 	else hotkey_ok=true;
 	now_tag = tgt;
-	tag_display();
+	tag_display_init();
 }
 
-function tag_display(){
+function tag_display_init(){
 	jQuery('.cmd_tag').removeClass('choosed');
 	jQuery('#'+now_tag+'_cmd_tag').addClass('choosed');
 	jQuery('.cmd_subpage').css('display','none');
 	jQuery('#'+now_tag+'_cmd_subpage').css('display','block');
+}
+
+////////////////////////////////////////////////////////////////////////
+///////////////////////////////装备和包裹省略显示切换//////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
+now_profile_mode = 'eqp';
+
+function profile_mode_init(){
+	if('eqp' == now_profile_mode) {
+		jQuery('#profile_eqp,#profile_pack_short').css('display','block');
+		jQuery('#profile_eqp_short,#profile_pack').css('display','none');
+	}else{
+		jQuery('#profile_eqp,#profile_pack_short').css('display','none');
+		jQuery('#profile_eqp_short,#profile_pack').css('display','block');
+	}
+}
+
+function profile_mode_switch(){
+	if('eqp' == now_profile_mode) now_profile_mode = 'pack';
+	else now_profile_mode = 'eqp';
+	profile_mode_init();
 }
 
 ////////////////////////////////////////////////////////////////////////

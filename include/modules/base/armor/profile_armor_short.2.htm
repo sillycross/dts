@@ -1,0 +1,10 @@
+<!--{loop array('b','h','a','f') $apl}-->
+<div class="profile_row">
+	<!--{eval $tmp_eqpname = $tpldata['ar'.$apl.'_words_short'];}-->
+	<div class="profile_bar pack itmname forshort">
+		<span <!--{if !${'ar'.$apl.'s'}}-->class="grey"<!--{/if}--> <!--{if ${'ar'.$apl.'s'} && $tmp_eqpname != ${'ar'.$apl}}-->title="${'ar'.$apl}"<!--{/if}-->>
+			<!--{if ${'ar'.$apl.'s'}}-->$tmp_eqpname<!--{elseif 'b'==$apl}-->$noarb<!--{else}-->$noitm<!--{/if}-->
+		</span>
+	</div>
+</div>
+<!--{/loop}-->

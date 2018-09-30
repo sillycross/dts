@@ -256,7 +256,8 @@ namespace itemmain
 			$ev=$p1.'e'.$p2;
 			$sv=$p1.'s'.$p2;
 			$skv=$p1.'sk'.$p2;
-			$r[$v.'_words'] = parse_itmname_words($edata[$v], $elli);
+			$r[$v.'_words'] = parse_itmname_words($edata[$v], $elli);//这里如果$elli==0则会省略到20个字符
+			$r[$v.'_words_short'] = parse_itmname_words($edata[$v], 1, 15);//常用到的一个省略
 			$r[$kv.'_words'] = parse_itmk_words($edata[$kv]);
 			$r[$ev.'_words'] = parse_itmnum_words($edata[$ev], $elli);
 			$r[$sv.'_words'] = parse_itmnum_words($edata[$sv], $elli);
