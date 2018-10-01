@@ -5,8 +5,8 @@ now_tag = 'common';
 
 function tag_choose(tgt)
 {
-	if(tgt != 'common') hotkey_ok=false;
-	else hotkey_ok=true;
+//	if(tgt != 'common') hotkey_ok=false;
+//	else hotkey_ok=true;
 	now_tag = tgt;
 	tag_display_init();
 }

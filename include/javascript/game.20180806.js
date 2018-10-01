@@ -56,12 +56,19 @@ function hotkey(evt)
 }
 
 function hotkey_click(hkid){
-	hk = $(hkid);
+	var hk = $(hkid);
 	if (hk) hk.click();
 	else if ((hkid == 'zz' || hkid == 'z' || hkid == 'x') && $('zx')) $('zx').click();
 	else if (hkid.length > 1) {
 		hk = $(hkid.substr(0,1));
 		if (hk) hk.click();
+	}
+	var jobj = jQuery('#hotkey2_'+hkid.substr(0,1));
+	if(jobj.length > 0) {
+		jobj.attr("disabled",true);
+		if(jobj.parent().hasClass('cmd_positioner')) {
+			jobj.parent().addClass('grey');
+		}
 	}
 }
 
