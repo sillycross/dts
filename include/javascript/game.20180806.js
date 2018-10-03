@@ -257,6 +257,8 @@ function showData(sdata){
 	if(jQuery('#loading').length > 0) jQuery('#loading').css({'display':'none'});//隐藏Loading画面
 	hotkey_ok = true;//重启快捷键
 	log_cont_raw = '';//重置log原始记录
+	templateid = 1;
+	if(jQuery('#templateid').length > 0) templateid = jQuery('#templateid')[0].value;
 	if(typeof sdata == 'string' && sdata.indexOf('<html>') > 0 && sdata.indexOf('</html>') > 0){
 		document.write(sdata);
 		return;
@@ -326,7 +328,7 @@ function showData(sdata){
 		if(1==logshow) {
 			jQuery('#log').css({'display':log_display});
 			//界面2给log div加滚动条，修改log div大小
-			if('block' == log_display) {
+			if(1 != templateid && 'block' == log_display) {
 				//清除悬浮事件
 				if('undefined' != typeof(log_hover_detail_clean)) log_hover_detail_clean();
 				if('undefined' != typeof(shwData['display'])  && 'undefined' != typeof(shwData['display']['log_height']) && 0 != shwData['display']['log_height']) {

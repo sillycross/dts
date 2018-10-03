@@ -380,18 +380,6 @@ div.profile_bar span.main_cont{
 	font-size:10pt;font-weight:bold;color:#ddd;
 	line-height:23px;
 }
-div.profile_bar select{
-	height:20px;vertical-align:middle;
-	border:1px solid #333;
-		 -moz-border-radius: 6px;
-	-webkit-border-radius: 6px;
-	        border-radius: 6px;
-	background-color:rgba(51,51,51,0.5);
-	color:#ddd;
-}
-div.profile_bar select:disabled{
-	color:#666;
-}
 div.profile_box div.pack{
 	margin-left:3px;
 	text-align:center;
@@ -439,6 +427,19 @@ div.command_box{
 	-webkit-border-radius: 6px;
 	        border-radius: 6px;
 	text-align:left;overflow:auto;overflow-x:hidden;
+}
+
+div.profile_box select{
+	height:20px;vertical-align:middle;
+	border:1px solid #333;
+		 -moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	        border-radius: 6px;
+	background-color:rgba(51,51,51,0.5);
+	color:#ddd;
+}
+div.profile_box select:disabled{
+	color:#666;
 }
 /*====================================*/
 /*==========霓虹灯按钮==========*/
