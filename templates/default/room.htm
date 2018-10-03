@@ -28,7 +28,7 @@
 	<td height="35" colspan=5>
 		<div class="b3" style="margin-left:22px; margin-right:22px;">
 			<form type="post" id="sendchat" name="sendchat" action="chat.php" onsubmit="$('command').value='newchat';$('para1').value=$('chatmsg').value; $('chatmsg').value=''; postCmd('roomcmd','roomcmd.php');return false;" >
-				<input type="text" id="chatmsg" name="chatmsg" maxlength="60" >
+				<input type="text" id="chatmsg" name="chatmsg" maxlength="60" style="width:450px">
 				<button type="button" onClick="$('command').value='newchat';$('para1').value=$('chatmsg').value; $('chatmsg').value=''; postCmd('roomcmd','roomcmd.php');return false;">发送</button>
 			</form>
 		</div>

@@ -8,7 +8,7 @@ if($command == 'edit') {
 	$ednum = 0;
 	$edfmt = Array('authkey'=>'','bbsurl'=>'','gtitle'=>'','gameurl'=>'','server_address'=>'','homepage'=>'','moveut'=>'int','moveutmin'=>'int','tplrefresh'=>'b','errorinfo'=>'b');
 	//system.config.php的也放这了
-	$edfmt_system = Array('userdb_remote_storage'=>'','userdb_remote_storage_sign'=>'','userdb_remote_storage_pass'=>'','replay_remote_send'=>'b','replay_remote_storage'=>'','replay_remote_storage_sign'=>'','replay_remote_storage_pass'=>'',);
+	$edfmt_system = Array('userdb_remote_storage'=>'','userdb_remote_storage_sign'=>'','userdb_remote_storage_pass'=>'','replay_remote_send'=>'b','replay_remote_storage'=>'','replay_remote_storage_sign'=>'','replay_remote_storage_key'=>'',);
 	$edfmt_both = array_merge($edfmt,$edfmt_system);
 	$edlist = Array();
 	$cmd_info = '';

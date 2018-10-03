@@ -171,29 +171,35 @@ vertical-align:middle;
 .battle td{
 text-align: center;
 }
-.chatlist{
-MARGIN: 0px;
-height:120px;
-width:100%;
-word-break:break-all;
-overflow-y:auto;
-position:relative;
+#chat{
+	position:relative;
 }
-.newslist{
-MARGIN: 0px;
-height:120px;
-width:100%;
-word-break:normal;
-overflow-x:hidden;
-overflow-y:auto;
-position:relative;
+#chat #chattitle{
+	margin:5px 5px 0 5px;
+	text-align:center;
+	color:#999;
 }
-#sendchat{
-MARGIN: 0px;
-padding:0px;
-border:0px; 
-height:35px;
-width:100%;
+#chat .chatlist{
+	margin:5px 5px 0 5px;
+	height:125px;
+	width:100%;
+	word-break:break-all;
+	overflow-y:auto;
+	position:relative;
+}
+#chat .newslist{
+	margin:5px 5px 0 5px;
+	height:125px;
+	width:100%;
+	word-break:normal;
+	overflow-x:hidden;
+	overflow-y:auto;
+	position:relative;
+}
+#chat .sendchat{
+	margin:5px;
+	height:35px;
+	text-align:center;
 }
 
 .footerline {
@@ -422,6 +428,17 @@ div.profile_box div.hpstate_container{
 div.profile_box div.hpstate_container div.hpstate_elm{
 	top:0;left:0;z-index:0;
 	position:absolute;
+}
+
+div.command_box{
+	position:relative;
+	width:360px;height:720px;
+	background-color:rgba(34,34,34,0.5);
+	border:1px solid #333;
+		 -moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	        border-radius: 6px;
+	text-align:left;overflow:auto;overflow-x:hidden;
 }
 /*====================================*/
 /*==========霓虹灯按钮==========*/
