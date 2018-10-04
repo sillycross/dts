@@ -179,22 +179,25 @@ text-align: center;
 	text-align:center;
 	color:#999;
 }
-#chat .chatlist{
+#chat .showlist{
 	margin:5px 5px 0 5px;
-	height:125px;
-	width:100%;
-	word-break:break-all;
-	overflow-y:auto;
-	position:relative;
-}
-#chat .newslist{
-	margin:5px 5px 0 5px;
-	height:125px;
-	width:100%;
-	word-break:normal;
+	padding:3px;
+	height:119px;
+	width:702px;
 	overflow-x:hidden;
 	overflow-y:auto;
 	position:relative;
+	background-color:rgba(0,0,0,0.5);
+	border:1px solid #333;
+		 -moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	        border-radius: 6px;
+}
+#chat .chatlist{
+	word-break:break-all;
+}
+#chat .newslist{
+	word-break:normal;
 }
 #chat .sendchat{
 	margin:5px;
@@ -452,6 +455,10 @@ div.cmd_positioner{
 	display:inline-block;
 	position:relative;
 	margin:3px 3px 0 0;
+		 -moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	        border-radius: 6px;
+	background-color:rgba(9,9,9,0.5);
 }
 div.cmd_positioner input[type="button"]{outline:none;}
 input.cmd_button{
