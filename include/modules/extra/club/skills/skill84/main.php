@@ -45,6 +45,7 @@ namespace skill84
 		$r = 1;
 		if (check_skill84_state($ldata)) $r*=get_skill84_effect($ldata);
 		elseif (check_skill84_state($edata)) $r/=get_skill84_effect($edata);
+		if($r != 1) $ldata['active_words'] = \attack\multiply_format($r, $ldata['active_words'],0);
 		return $chprocess($ldata,$edata)*$r;
 	}
 	

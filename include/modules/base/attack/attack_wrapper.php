@@ -266,6 +266,8 @@ namespace attack
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		player_damaged_enemy($pa,$pd,$active);
 		post_player_damaged_enemy_event($pa,$pd,$active);
+//		$pa_o_wepkind = $pa['wep_kind'];
+//		$pd_o_wepkind = $pd['wep_kind'];
 		if ($pd['hp']<=0){
 			player_kill_enemy($pa, $pd, $active);
 			\player\player_save($pa);
@@ -278,6 +280,7 @@ namespace attack
 			{
 				\player\load_playerdata($pd);
 			}
+			//$pa['wep_kind'] = $pa_o_wepkind;$pd['wep_kind'] = $pd_o_wepkind;
 		}
 		if ($pa['hp']<=0){
 			player_kill_enemy($pd, $pa, 1-$active);
@@ -291,6 +294,7 @@ namespace attack
 			{
 				\player\load_playerdata($pd);
 			}
+			//$pa['wep_kind'] = $pa_o_wepkind;$pd['wep_kind'] = $pd_o_wepkind;
 		}
 		unset($pa['physical_dmg_dealt']);
 		foreach(array_keys($pa) as $pak){

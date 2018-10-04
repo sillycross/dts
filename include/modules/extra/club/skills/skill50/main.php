@@ -59,6 +59,7 @@ namespace skill50
 		$r = 1;
 		if (\skillbase\skill_query(50,$ldata) && check_unlocked50($ldata) && check_skill50_proc($ldata, $edata, 1)) $r*=1.1;
 		if (\skillbase\skill_query(50,$edata) && check_unlocked50($edata) && check_skill50_proc($edata, $ldata, 0)) $r/=1.1;
+		if($r != 1) $ldata['active_words'] = \attack\multiply_format($r, $ldata['active_words'],0);
 		return $chprocess($ldata,$edata)*$r;
 	}
 	

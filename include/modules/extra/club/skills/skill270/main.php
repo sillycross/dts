@@ -78,6 +78,7 @@ namespace skill270
 			eval(import_module('skill270'));
 			$r += $skill270active/100;
 		}
+		if($r != 1) $ldata['active_words'] = \attack\multiply_format($r, $ldata['active_words'],0);
 		return $chprocess($ldata,$edata)*$r;
 	}
 	

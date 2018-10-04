@@ -1,0 +1,49 @@
+<div class="cmd_row" style="height:110px;width:340px;text-align:center;">
+<!--{eval $tmp_sm_i=0;$sm_count = count($searchmemory);}-->
+<!--{loop $searchmemory $smn $sm}-->
+	<!--{eval $tmp_sm_i++;}-->
+	<div class="cmd_positioner searchmemory_cmd">
+		<div class="searchmemory_info">
+			<!--{if isset($sm['itm'])}-->
+				<!--{eval $sm['itm']=\itemmain\parse_itmname_words($sm['itm'],1,13); }-->
+				<span class="item">$sm['itm']</span>
+			<!--{elseif isset($sm['Pname'])}-->
+				<!--{eval $sm['Pname']=\itemmain\parse_itmname_words($sm['Pname'],1,13); }-->
+				<!--{if $sm['smtype'] == 'enemy'}-->
+					<span class="danger">
+						<!--{if $fog}-->
+							？？？
+						<!--{else}-->
+							$sm['Pname']
+						<!--{/if}-->
+					</span>
+				<!--{elseif $sm['smtype'] == 'corpse'}-->
+					<span class="corpse">$sm['Pname']</span>
+				<!--{elseif $sm['smtype'] == 'team'}-->
+					<!--{if $fog}-->
+						<span class="danger">？？？</span>
+					<!--{else}-->
+						<span class="safe">$sm['Pname']</span>
+					<!--{/if}-->
+				<!--{/if}-->
+			<!--{/if}-->
+		</div>
+		<input type="button" class="cmd_button searchmemory_cmd glow_buttons white" 
+			<!--{if isset($sm['itm'])}-->
+				value="获取"
+			<!--{elseif isset($sm['Pname'])}-->
+				<!--{if $sm['smtype'] == 'enemy'}-->
+					<!--{if $fog}-->value="再探"
+					<!--{else}-->value="迎战"
+					<!--{/if}-->
+				<!--{elseif $sm['smtype'] == 'corpse'}-->value="检查尸体"
+				<!--{elseif $sm['smtype'] == 'team'}-->
+					<!--{if $fog}-->value="再探"
+					<!--{else}-->value="问候"
+					<!--{/if}-->
+				<!--{/if}-->
+			<!--{/if}--> 
+			onclick="$('mode').value='command';$('command').value='memory{$smn}';postCmd('gamecmd','command.php',this);">
+	</div>
+<!--{/loop}-->
+</div>

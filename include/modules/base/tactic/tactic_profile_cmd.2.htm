@@ -1,0 +1,8 @@
+<!--{eval eval(import_module('tactic'));}-->
+<select id="tactic" name="tactic" onchange="$('mode').value='special';$('command').value=$('tactic').value;postCmd('gamecmd','command.php');return false;" <!--{if CURSCRIPT != 'game' || $mode != 'command'}-->disabled<!--{/if}-->>
+	<!--{loop $tacinfo $key $value}-->
+		<!--{if ($tactic_player_usable[$key] && $value!='')}-->
+			<option value="tac$key"<!--{if $tactic == $key}-->selected<!--{/if}-->>$value
+		<!--{/if}-->
+	<!--{/loop}-->
+</select>

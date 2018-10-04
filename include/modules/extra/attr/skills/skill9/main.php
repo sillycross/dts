@@ -51,9 +51,12 @@ namespace skill9
 	function calculate_active_obbs_multiplier(&$ldata,&$edata)	//混乱先攻率降低（但出于对原版本的兼容，对手冻结不会增加你的先攻率，不然NPC要哭了）
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_query(9,$ldata)) 
-			return $chprocess($ldata,$edata)*0.8;
-		else  return $chprocess($ldata,$edata);
+		$var = 1;
+		if (\skillbase\skill_query(9,$ldata)) {
+			$var = 0.8;
+			$ldata['active_words'] = \attack\multiply_format($var, $ldata['active_words'],0);
+		}
+		return $chprocess($ldata,$edata)*$var;
 	}
 	
 	function calculate_counter_rate_multiplier(&$pa, &$pd, $active)	//混乱反击率降低

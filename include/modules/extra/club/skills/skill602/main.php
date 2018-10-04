@@ -135,8 +135,12 @@ namespace skill602
 	function calculate_active_obbs_change(&$ldata,&$edata,$active_r)	//不会先手敌人
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (check_skill602_state($ldata)) return 0;
-		if (check_skill602_state($edata)) return 100;
+		if (check_skill602_state($ldata)) $change_to = 0;
+		if (check_skill602_state($edata)) $change_to = 100;
+		if(isset($change_to)){
+			$ldata['active_words'] .= '→'.$change_to;
+			return $change_to;
+		}
 		return $chprocess($ldata,$edata,$active_r);
 	}
 	

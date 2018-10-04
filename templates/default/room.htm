@@ -28,7 +28,7 @@
 	<td height="35" colspan=5>
 		<div class="b3" style="margin-left:22px; margin-right:22px;">
 			<form type="post" id="sendchat" name="sendchat" action="chat.php" onsubmit="$('command').value='newchat';$('para1').value=$('chatmsg').value; $('chatmsg').value=''; postCmd('roomcmd','roomcmd.php');return false;" >
-				<input type="text" id="chatmsg" name="chatmsg" maxlength="60" >
+				<input type="text" id="chatmsg" name="chatmsg" maxlength="60" style="width:450px">
 				<button type="button" onClick="$('command').value='newchat';$('para1').value=$('chatmsg').value; $('chatmsg').value=''; postCmd('roomcmd','roomcmd.php');return false;">发送</button>
 			</form>
 		</div>
@@ -40,7 +40,7 @@
 <div style="float:right;text-align:right;">
 <span class="grey b">房间编号:&nbsp;</span><span><span class="grey b">$room_prefix</span></span>&nbsp;&nbsp;
 <span class="grey b">服务器连接状态:&nbsp;</span><span id="connect-status-text"><span class="grey b">正在连接..</span></span><br>
-<span class="grey b">请不要F5刷新，否则界面会挂&nbsp;&nbsp;需要刷新请在浏览器地址栏按回车</span><br>
+<br>
 </div>
 </div>
 <form method="post" id="roomcmd" name="roomcmd" style="display:none;">

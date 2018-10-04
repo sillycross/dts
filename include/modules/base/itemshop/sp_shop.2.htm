@@ -1,0 +1,30 @@
+<input type="hidden" id="mode" name="mode" value="special">
+<input type="hidden" id="command" name="command" value="menu">
+<div class="cmd_row">
+	<div class="glow_buttons grey forbidden" style="margin:10px 0 0 0;width:335px;height:25px;text-align:center;">
+		<span class="white" style="line-height:25px;">想购买什么类别的物品？</span>
+	</div>
+</div>
+
+<!--{eval eval(import_module('itemshop'));}-->
+<div class="cmd_row">
+	<!--{loop $shop_tag_list $si $sn}-->
+		<div class="cmd_positioner itm_cmd">
+			<div class="itm_cmd_info" style="height:60px;">
+				<div class="itm_bg" style="background-image: url('img/itm/{$si}.png');"></div>
+				<div class="itm_name">
+					$sn
+				</div>
+			</div>
+			<input type="button" class="cmd_button itm_cmd_button glow_buttons white" 
+				onclick="$('command').value='shop{$si}';postCmd('gamecmd','command.php',this);">
+		</div>
+	<!--{/loop}-->
+</div>
+
+<div class="cmd_row">
+	<div class="cmd_positioner explore_cmd zx_cmd">
+		<input type="button" class="cmd_button explore_cmd glow_buttons red b" style="font-size:12pt;" id="x" value="离开商店" 
+		onclick="postCmd('gamecmd','command.php',this);">
+	</div>
+</div>

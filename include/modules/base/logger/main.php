@@ -37,6 +37,41 @@ namespace logger
 		
 		$chprocess();
 	}
+	
+	//大致预估$log会形成的行数
+	function log_linenum_counter($str = '', $limit = 48)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!$str) {
+			eval(import_module('logger'));
+			$str = $log;
+		}
+		$i = 0;
+		$lastt = '';
+		$tnum = $lnum = 0;
+		$tmp_log = strip_tags(strtolower($str), '<br>');
+		$text_count = mb_strlen($tmp_log);
+		while($i < $text_count){
+			$t = mb_substr($tmp_log, $i, 1);
+			$lastt .= $t;
+			if(mb_strlen($lastt)>4) $lastt = mb_substr($lastt, 1);
+			if($lastt=='<br>') {//强制换行
+				$tnum = 0;
+				$lnum ++;
+			}else{
+				if(mb_strlen($t) == strlen($t)) $tnum += 1;//英文
+				else $tnum += 1.8;//汉字
+				
+				if($tnum >= $limit) {//超过长度，换行。这里估测一行能塞38个英文字符
+					$tnum = 0;
+					$lnum ++;
+				}
+			}
+			
+			$i ++; 
+		}
+		return $lnum;
+	}
 }
 
 ?>

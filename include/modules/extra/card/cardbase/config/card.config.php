@@ -853,7 +853,7 @@ $cards = array(
 		'rare' => 'A',
 		'pack' => 'Crimson Swear',
 		'desc' => '红杀的拳脚教头',
-		'effect' => '殴系伤害+25%，拳头伤害+40%',
+		'effect' => '殴系伤害+20%，拳头伤害+40%',
 		'energy' => 100,
 		'valid' => array(
 			'skills' => array(
@@ -1357,6 +1357,9 @@ $cards = array(
 			'hp' => '800',
 			'mhp' => '800',
 			'club' => '17',
+			'skills' => array(
+				'12' => '0', 
+			)
 		)
 	),
 	80 => array(

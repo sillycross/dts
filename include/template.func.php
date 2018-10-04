@@ -30,7 +30,7 @@ function parse_template($tplfile, $objfile, $templateid, $tpldir, $nospace=1) {
 	$const_regexp = "([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)";
 	
 	//去除缩进
-	$template = preg_replace("/([\n\r]+)\t+/s", "\\1", $template);
+	$template = preg_replace("/([\r\n]+)\t+/s", "\\1", $template);
 	//所有<!--{变为{  所有}-->变为}
 	$template = preg_replace("/\<\!\-\-\{(.+?)\}\-\-\>/s", "{\\1}", $template);
 	//lang xxx识别
@@ -40,7 +40,6 @@ function parse_template($tplfile, $objfile, $templateid, $tpldir, $nospace=1) {
 	$template = str_replace("{LF}", "<?=\"\\n\"?>", $template);	//WTF?
 
 	//{$abc}变为< ?=和? >包含的短标签，相当于echo。可以识别数组
-	//todo: 能够识别嵌套型的变量${'AAA'.$a}
 	$template = preg_replace("/\{(\\\$[a-zA-Z0-9_\[\]\'\"\$\.\x7f-\xff]+)\}/s", "<?=\\1?>", $template);
 	//加单引号，{$abc[ABC]}变为$abc['ABC']且加上短标签
 	$template = preg_replace_callback("/".$var_regexp."/s", function($r) {
@@ -53,6 +52,7 @@ function parse_template($tplfile, $objfile, $templateid, $tpldir, $nospace=1) {
 	//还原可变变量，上一步之后应该是${'AAA'.< ?=$a? >}的样子。不过只能还原仅有1个变量，且其他部分为纯字符串的可变变量名
 	//此处生成的{ }变为[@[ ]@]以避免干扰if loop等的判定，最后再换回来
 	$template = preg_replace("/\\\$\{([\'\"][a-zA-Z0-9_]*[\'\"]\.)*\<\?\=(\\\$[a-zA-Z0-9_\[\]\'\"\$\.\x7f-\xff]+)\?\>(\.[\'\"][a-zA-Z0-9_]*[\'\"])*\}/s", "<?=\$[@[\\1\\2\\3]@]?>", $template);
+	$template = preg_replace("/\\\$\<\?\=\<\?\=(\\\$[a-zA-Z0-9_\[\]\'\"\$\.\x7f-\xff]+)\?\>(\.[\'\"][a-zA-Z0-9_]*[\'\"])*\?\>/s", "<?=\$[@[\\1\\2]@]?>", $template);
 	$template = preg_replace("/\{\<\?\=\\\$\[\@\[(.*)\]\@\]\?\>\}/s", "<?=\$[@[\\1]@]?>", $template);
 
 	$template = "<? if(!defined('IN_GAME')) exit('Access Denied'); ?>\n$template";
@@ -108,6 +108,9 @@ function parse_template($tplfile, $objfile, $templateid, $tpldir, $nospace=1) {
 	if(!$fp = fopen($objfile, 'w')) {
 		gexit("Directory './gamedata/templates/' not found or have no access!");
 	}
+	
+	//去除div之间的换行
+	$template = preg_replace("/div\>[\r\n]+\<div/s", "div><div", $template);
 	
 	//开启无空字符模式，php开闭符号前后不会输出空格，但是tpl文件可读性会变差
 	//好像会导致一些奇怪的故障，需要再观察

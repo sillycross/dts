@@ -86,6 +86,7 @@ namespace skill604
 		{
 			$r = 1/0.7;
 		}
+		if($r != 1) $ldata['active_words'] = \attack\multiply_format($r, $ldata['active_words'],0);
 		return $chprocess($ldata,$edata)*$r;
 	}
 	

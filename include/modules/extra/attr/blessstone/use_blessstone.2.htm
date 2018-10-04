@@ -1,0 +1,27 @@
+<input type="hidden" id="mode" name="mode" value="item">
+<input type="hidden" id="command" name="command" value="menu">
+<input type="hidden" name="usemode" value="blessstone">
+<input type="hidden" name="itmp" value="{$theitem['itmn']}">
+<div class="cmd_row">
+	<div class="glow_buttons grey forbidden" style="margin:10px 0 0 0;width:335px;height:25px;text-align:center;">
+		<span class="white" style="line-height:25px;">请选择想要强化的装备道具</span>
+	</div>
+</div>
+
+<div class="cmd_row">
+<!--{loop range(1,6) $i}-->
+	<!--{if strpos ( ${'itmsk'.$i}, 'Z' ) !== false && strpos ( ${'itm'.$i}, '宝石』' ) === false}-->
+		<div class="cmd_positioner common_cmd zx_cmd">
+			<!--{eval $tmp_itmname = \itemmain\parse_itmname_words(${'itm'.$i}, 1, 18); $tmp_itme = \itemmain\parse_itmnum_words(${'itme'.$i}, 1);$tmp_itms = \itemmain\parse_itmnum_words(${'itms'.$i}, 1);}-->
+			<input type="button" class="cmd_button common_cmd glow_buttons white" id="<!--{eval echo substr($item_hotkey_id_list[$i],0,1);}-->" value="$tmp_itmname / $tmp_itme / $tmp_itms" 
+				onclick="$('command').value='itm$i';postCmd('gamecmd','command.php',this);">
+		</div>
+	<!--{/if}-->
+<!--{/loop}-->
+</div>
+<div class="cmd_row">
+	<div class="cmd_positioner common_cmd zx_cmd">
+		<input type="button" class="cmd_button common_cmd glow_buttons red b" id="x" value="返回" 
+			onclick="$('mode').value='command';postCmd('gamecmd','command.php',this);">
+	</div>
+</div>

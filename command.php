@@ -487,7 +487,7 @@ if(isset($command)){
 		return;
 	}elseif('maintain' == $command || 3 == date('H', $now)){//凌晨3点有访问时自动维护，也可以手动启动维护
 		include_once GAME_ROOT.'./include/auto_maintain/auto_maintain_misc.func.php';
-		am_main(1+2+4+8+16);
+		am_main(1+2+4+8+16+32);
 		if('maintain' == $command) return;
 	}
 }

@@ -1,0 +1,49 @@
+<!--{eval $rage_func = '\\skill'.$key.'\\get_rage_cost'.$key;if(function_exists($rage_func)) $rageneed=$rage_func($sdata);}-->
+<!--{eval $skill_state = \clubbase\check_battle_skill_unactivatable($sdata,$edata,$key);}-->
+<!--{eval eval(import_module('clubbase','skill'.$key));}-->
+<!--{eval $desc_htm = 'MOD_SKILL'.$key.'_BATTLECMD_DESC'; }-->
+
+<div>
+	<div class="cmd_positioner common_cmd" style="height:65px">
+		<input type="button" class="cmd_button common_cmd glow_buttons white b" style="height:65px;font-size:12pt;" value="{$clubskillname[$key]}" 
+		<!--{if $skill_state>0}-->
+			disabled
+		<!--{else}-->
+			onclick="$('command').value='';$('bskill').value={$key};postCmd('gamecmd','command.php',this);"
+		<!--{/if}-->
+		>
+	</div><div 
+		class="cmd_positioner battlecmd_desc">
+		<div id="battcmd_desc_$key" class="battlecmd_desc glow_buttons <!--{if $skill_state>0}-->grey<!--{else}-->white<!--{/if}--> forbidden">
+			<div class="battlecmd_desc_cont">
+				<!--{if $skill_state>0}-->
+					<!--{if 1==$skill_state}-->
+						<!--{eval eval(import_module('itemmain'));}-->
+						<!--{if 'WN' == $wepk_req}-->
+							空手方可发动
+						<!--{else}-->
+							武器不适用，需持<span class="yellow b">{$iteminfo[$wepk_req]}</span>
+						<!--{/if}-->
+					<!--{elseif 2==$skill_state}-->
+						<!--{eval eval(import_module('weapon'));}-->
+						武器不适用，需持<span class="yellow b">{$skilltypeinfo[$wep_skillkind_req]}系武器</span>
+					<!--{elseif 3==$skill_state}-->
+						怒气不足，需要<span class="red b">{$rageneed}</span>点怒气
+					<!--{elseif 4==$skill_state}-->
+						<span class="yellow b">技能冷却中</span>
+					<!--{elseif 5==$skill_state}-->
+						<span class="red b">剩余次数用尽</span>
+					<!--{else}-->
+						<!--{if defined($desc_htm)}-->
+							{template $desc_htm}
+						<!--{/if}-->
+					<!--{/if}-->
+				<!--{else}-->
+					<!--{if defined($desc_htm)}-->
+						{template $desc_htm}
+					<!--{/if}-->
+				<!--{/if}-->
+			</div>
+		</div>
+	</div>	
+</div>

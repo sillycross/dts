@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=$charset">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv='expires' content='0'>
+<title> $gtitle </title>
+<!--{if isset($extrahead)}-->$extrahead<!--{/if}-->
+
+<link rel="stylesheet" type="text/css" id="css" href="gamedata/config/style_2.20181001.css">
+<link rel="stylesheet" type="text/css" id="css" href="gamedata/config/style_buttons.20180118.css">
+<link rel="stylesheet" type="text/css" id="css" href="gamedata/config/style_glowbuttons.20180812.css">
+<!--{if CURSCRIPT=='messages'}-->
+	<link rel="stylesheet" type="text/css" href="gamedata/config/style_messages.20180221.css">
+<!--{/if}-->
+<!--{if CURSCRIPT=='user_profile'}-->
+	<link rel="stylesheet" type="text/css" href="gamedata/config/style_ach.20180213.css">
+<!--{/if}-->
+<!--{if in_array(CURSCRIPT, array('game','command','cardbook','kuji','kujilist','messages','user','user_profile','valid'))}-->
+	<link rel="stylesheet" type="text/css" href="gamedata/config/style_card.20180304.css">
+<!--{/if}-->
+
+<!-- jScrollPanel Utility Start -->
+<link type="text/css" href="include/javascript/jScrollPane/jquery.jscrollpane.css" rel="stylesheet" media="all" />
+<link type="text/css" href="include/javascript/jScrollPane/jquery.jscrollpane.lozenge.css" rel="stylesheet" media="all" />
+<script type="text/javascript" src="include/javascript/jScrollPane/jquery.min.js"></script>
+<script type="text/javascript" src="include/javascript/jScrollPane/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="include/javascript/jScrollPane/mwheelIntent.js"></script>
+<script type="text/javascript" src="include/javascript/jScrollPane/jquery.jscrollpane.min.js"></script>
+<script type="text/javascript" id="sourcecode">
+jQuery.noConflict();
+</script>
+<!-- jScrollPanel Utility End -->
+
+<script type="text/javascript" src="include/javascript/common.20180827.js"></script>
+<script type="text/javascript" src="include/javascript/game.20180806.js"></script>
+<script type="text/javascript" src="include/javascript/interface_2.20180814.js"></script>
+<!-- gzip Decode Utility Start -->
+<script type="text/javascript" src="include/javascript/gzip.util.js"></script>
+<!-- gzip Decode Utility End -->
+
+<!-- Game Word Data Lib Start -->
+<!--{eval global $___MOD_CODE_ADV3;}-->
+<!--{if $___MOD_CODE_ADV3}-->
+<script type="text/javascript" src=<!--{eval $___TEMP_curdatalibname=file_get_contents(GAME_ROOT.'./gamedata/javascript/datalib.current.txt'); echo '"gamedata/javascript/'.$___TEMP_curdatalibname.'"';}-->></script>
+<!--{/if}-->
+<!-- Game Word Data Lib End -->
+
+<!-- jQuery Load Script Utility -->
+<script type="text/javascript" src="include/javascript/jquery.cachedScript.js"></script>
+<!-- jQuery Load Script Utility End -->
+
+</head>
+<BODY <!--{if CURSCRIPT == 'game'}-->onkeyup="hotkey(event);"<!--{if !empty($gamestate) && $gamestate >= 40}-->style="background-image:url('img/PB2.gif');"<!--{/if}--><!--{/if}-->>
+<div class="title" > $gtitle 测试界面 </div>
+
+<div class="headerlink" >
+<a href="index.php">>>{lang index}</a>
+<!--{if isset($cuser) && isset($cpass)}-->
+<a href="messages.php">>>{lang messages}
+	<!--{if !empty($new_messages)}-->
+	<span class="L5 b">NEW!</span>
+	<!--{/if}-->
+</a>
+<a href="user_profile.php">>>{lang user}</a>
+<!--{else}--><a href="register.php">>>{lang register}</a>
+<!--{/if}-->
+<a href="game.php">>>{lang game}</a>
+<a href="map.php">>>{lang map}</a>
+<a href="news.php">>>{lang news}</a>
+<a href="alive.php">>>{lang alive}</a>
+<a href="winner.php">>>{lang winner}</a>
+<a href="rank.php">>>{lang rank}</a>
+<a href="help.php">>>{lang help}</a>
+<a href="admin.php">>>{lang admin}</a>
+<a href="$bbsurl" target="_blank">>>{lang report}</a>
+<a href="$homepage" target="_blank">>>{lang homepage}</a>
+<!--[if lt IE 7]> <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;'> <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode"><img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0027_Simplified Chinese.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." /></a></div> <![endif]-->
+
+</div>
+<div id="fmsgbox-container"></div>
+<div id="hidden-fmsgbox-container" style="display:none;"></div>
+<div id="hidden-persistent-fmsgbox-container"></div>
+<div style="text-align:center">

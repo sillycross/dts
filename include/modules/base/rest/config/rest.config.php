@@ -11,7 +11,7 @@ namespace rest
 	//休息状态名
 	$restinfo = Array('通常','睡眠','治疗','静养');
 	//可以静养的位置列表
-	$rest_hospital_list = Array(11,19,32);
+	$rest_hospital_list = Array(11,19);
 }
 
 ?>

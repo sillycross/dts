@@ -1,0 +1,13 @@
+<!--{eval eval(import_module('weapon'));$tmp_wskill_i=0;}-->
+<div class="profile_row">
+<!--{loop $skilltypeinfo $key $value}-->
+<!--{if in_array($key,$skillinfo)}-->
+	<!--{eval $tmp_wskill_i++;}-->
+	<div class="profile_bar">
+		<span class="typename">{$value}{lang skill}</span>
+		<span class="main_cont"><span<!--{if $$key >= 500}--> class="yellow b"<!--{elseif $$key < 100}--> class="grey b"<!--{/if}-->><!--{eval echo $$key;}--></span></span>
+	</div>
+<!--{if $tmp_wskill_i % 3 == 0}--></div><div class="profile_row"><!--{/if}-->
+<!--{/if}-->
+<!--{/loop}-->
+</div>

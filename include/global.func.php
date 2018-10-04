@@ -231,7 +231,7 @@ function template($file, $templateid = NULL) {
 			$file = str_replace('include/modules','gamedata/run',$file);
 			if (substr($file, -4) != '.adv') $file .= '.adv';
 		}
-		$tplfile = $file.'_'.$templateid.'.htm';
+		$tplfile = $file.'.'.$templateid.'.htm';
 		if(!file_exists($tplfile)){
 			$templateid = TEMPLATEID;
 			$tpldir = TPLDIR;
@@ -688,7 +688,7 @@ function render_page($page, $extra_context=array()){
 function render_page_cookie_key_filter($key)
 {
 	$ret = 0;
-	if(strpos($key,'user')!==false || strpos($key,'pass')!==false || strpos($key,'roomid')!==false) $ret = 1;
+	if(strpos($key,'user')!==false || strpos($key,'pass')!==false || strpos($key,'roomid')!==false || strpos($key,'templateid')!==false) $ret = 1;
 	return $ret;
 }
 

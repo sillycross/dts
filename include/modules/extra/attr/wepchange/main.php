@@ -90,7 +90,7 @@ namespace wepchange
 		return $chprocess($itm,$itme);
 	}
 	
-	function use_anya($itm)
+	function use_weapon_improvement($itm, $itmsk=0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -100,7 +100,7 @@ namespace wepchange
 			$log.='多重武器不能改造。<br>';
 			return 0;
 		}
-		return $chprocess($itm);
+		return $chprocess($itm, $itmsk);
 	}
 	
 }

@@ -6,7 +6,7 @@ namespace skill46
 	{
 		define('MOD_SKILL46_INFO','club;battle;limited;');
 		eval(import_module('clubbase'));
-		$clubskillname[46] = '暴打';
+		$clubskillname[46] = '破巧';
 	}
 	
 	function acquire46(&$pa)
@@ -49,8 +49,8 @@ namespace skill46
 			{
 				eval(import_module('logger'));
 				if ($active)
-					$log.="<span class=\"lime b\">你对{$pd['name']}发动了技能「暴打」！</span><br>";
-				else  $log.="<span class=\"lime b\">{$pa['name']}对你发动了技能「暴打」！</span><br>";
+					$log.="<span class=\"lime b\">你对{$pd['name']}发动了技能「破巧」！</span><br>";
+				else  $log.="<span class=\"lime b\">{$pa['name']}对你发动了技能「破巧」！</span><br>";
 				$remtime--; 
 				\skillbase\skill_setvalue(46,'rmtime',$remtime,$pa);
 				$pd['skill46_flag']=1;
@@ -78,8 +78,8 @@ namespace skill46
 			eval(import_module('logger'));
 			$r=Array(1.65);
 			if ($active)
-				$log.='<span class="yellow b">你把敌人按在地上一顿暴打！</span><br>';
-			else  $log.='<span class="yellow b">敌人把你按在地上一顿暴打！</span><br>';
+				$log.='<span class="yellow b">你用绝对的力量碾压了敌人的一切技能！</span><br>';
+			else  $log.='<span class="yellow b">敌人用绝对的力量碾压了你的一切技能！</span><br>';
 		}
 		return array_merge($r,$chprocess($pa, $pd, $active));
 	}
@@ -91,7 +91,7 @@ namespace skill46
 		eval(import_module('sys','player'));
 		
 		if($news == 'bskill46') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}对{$b}发动了技能<span class=\"red b\">「暴打」</span></span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}对{$b}发动了技能<span class=\"red b\">「破巧」</span></span></li>";
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

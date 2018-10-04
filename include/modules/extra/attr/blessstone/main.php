@@ -22,18 +22,21 @@ namespace blessstone
 		if (strpos ( $itmk, 'Y' ) === 0 || strpos ( $itmk, 'Z' ) === 0)
 			if ($itm == '『灵魂宝石』' || $itm == '『祝福宝石』')
 			{
-				$cmd = '<input type="hidden" name="mode" value="item"><input type="hidden" name="usemode" value="blessstone"><input type="hidden" name="itmp" value="' . $theitem['itmn'] . '">你想强化哪一件装备？<br><input type="radio" name="command" id="menu" value="menu" checked><a onclick=sl("menu"); href="javascript:void(0);" >返回</a><br>';
+				$flag = false;
 				for($i = 1; $i <= 6; $i ++) {
 					if ((strpos ( ${'itmsk' . $i}, 'Z' ) !== false) && (strpos ( ${'itm' . $i}, '宝石』' ) === false)) {
-						$cmd .= '<input type="radio" name="command" id="itm' . $i . '" value="itm' . $i . '"><a onclick=sl("itm' . $i . '"); href="javascript:void(0);" >' . "${'itm'.$i}/${'itme'.$i}/${'itms'.$i}" . '</a><br>';
 						$flag = true;
+						break;
 					}
 				}
-				$cmd .= '<br><input type="button" id="z" onclick="postCmd(\'gamecmd\',\'command.php\');" value="[Z]提交">';
 				if (! $flag) {
 					$log .='唔？你的包裹里没有可以强化的装备，是不是没有脱下来呢？DA☆ZE<br><br>';
 				}else{
-					$log .="宝石在你的手上发出异样的光芒，似乎有个奇怪的女声在你耳边说道<span class=\"yellow b\">\"我是从天界来的凯丽\"</span>.";
+					$log .="宝石在你的手上发出异样的光芒，似乎有个奇怪的女声在你耳边说道：<span class=\"yellow b\">“我是从天界来的凯丽。”</span>";
+					ob_start();
+					include template(MOD_BLESSSTONE_USE_BLESSSTONE);
+					$cmd = ob_get_contents();
+					ob_end_clean();
 				}				
 				return;
 			}

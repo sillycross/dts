@@ -36,6 +36,23 @@ namespace itemmain
 		else return middle_abbr($name_value,$i-1,$end);
 	}
 	
+	//道具效和耐的省略显示
+	function parse_itmnum_words($num_value, $elli = 0){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!$elli || !is_numeric($num_value)) return $num_value;
+		$ret = $num_value;
+		if($num_value > 100000000) {
+			if(round($num_value/10000000)%10) $ret = round($num_value/10000000)/10;
+			else $ret = round($num_value/100000000);
+			$ret .= '亿';
+		}elseif($num_value > 10000) {
+			if(round($num_value/1000)%10) $ret = round($num_value/1000)/10;
+			else $ret = round($num_value/10000);
+			$ret .= '万';
+		}
+		return $ret;
+	}
+	
 	function parse_itmk_words($k_value, $reveal=0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -239,8 +256,11 @@ namespace itemmain
 			$ev=$p1.'e'.$p2;
 			$sv=$p1.'s'.$p2;
 			$skv=$p1.'sk'.$p2;
-			$r[$v.'_words'] = parse_itmname_words($edata[$v], $elli);
+			$r[$v.'_words'] = parse_itmname_words($edata[$v], $elli);//这里如果$elli==0则会省略到20个字符
+			$r[$v.'_words_short'] = parse_itmname_words($edata[$v], 1, 15);//常用到的一个省略
 			$r[$kv.'_words'] = parse_itmk_words($edata[$kv]);
+			$r[$ev.'_words'] = parse_itmnum_words($edata[$ev], $elli);
+			$r[$sv.'_words'] = parse_itmnum_words($edata[$sv], $elli);
 			$r[$kv.'_desc'] = parse_itmk_desc($edata[$kv],$edata[$skv]);
 			$r[$skv.'_words'] = parse_itmsk_words($edata[$skv], $simple, $elli);
 			$r[$skv.'_desc'] = parse_itmsk_desc($edata[$skv]);
@@ -257,7 +277,8 @@ namespace itemmain
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player'));
 		\player\update_sdata();
-		$tpldata+=parse_item_words($sdata,0,1);
+		if(empty($tpldata['itm1_words']))
+			$tpldata+=parse_item_words($sdata,0,1);
 		$chprocess();
 	}
 	
@@ -460,10 +481,15 @@ namespace itemmain
 				itemoff($off_item);
 			} elseif(strpos($command,'swap') === 0) {
 				$swap_item = substr($command,4);
-				itemdrop($swap_item);
-				if(strpos($swap_item,'itm')===0) itemadd();
+				if(strpos($swap_item,'itm')===0) {
+					if(${str_replace('itm','itms',$swap_item)}) itemdrop($swap_item);
+					itemadd(substr($swap_item,3,1));
+				}
 				//如果要允许直接换上拾取的装备，请取消此行注释
-				//else itemuse_wrapper(0);
+				//else {
+//					if(${$swap_item.'s'}) itemdrop($swap_item);
+//					itemuse_wrapper(0);
+//				}
 			} 
 		}
 		$chprocess();

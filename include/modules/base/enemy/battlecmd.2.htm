@@ -1,0 +1,40 @@
+<input type="hidden" name="mode" value="combat">
+<input type="hidden" id="command" name="command" value="back">
+<!--{if defined('MOD_SKILL262') && \skillbase\skill_query(262) && \skill262\check_unlocked262($sdata)}-->
+<div class="cmd_row">
+	{template MOD_SKILL262_SK262UI}
+</div>
+<!--{/if}-->
+<div class="cmd_row">
+	<div class="inputhint_container" style="width:336px;">
+		<div class="inputhint">向对手大喊</div>
+		<input type="text" name="message" maxlength="60" onfocus="inputhint_onfocus(this)" onblur="inputhint_onblur(this)">
+	</div>
+</div>
+
+<div class="cmd_row">
+	<!--{eval if(defined('MOD_DUALWEP')) $secattmethod=\dualwep\get_sec_attack_method($sdata); else $secattmethod='';}-->
+	<!--{if (defined('MOD_WEAPON'))}-->
+	{template MOD_WEAPON_ATT_METHOD}
+	<!--{/if}-->
+	<div class="cmd_positioner <!--{if $secattmethod}-->common_cmd<!--{else}-->explore_cmd<!--{/if}-->" style="height:50px">
+		<input type="button" class="cmd_button <!--{if $secattmethod}-->common_cmd<!--{else}-->explore_cmd<!--{/if}--> glow_buttons red b" style="height:50px;font-size:12pt;" id="x" value="逃跑" 
+		onclick="postCmd('gamecmd','command.php',this);">
+	</div>
+</div>
+
+<!--{if (defined('MOD_CLUBBASE'))}-->
+	<input type="hidden" id="bskill" name="bskill" value="0">
+	<input type="hidden" id="bskillpara" name="bskillpara" value="">
+	<div class="cmd_row">
+		<!--{eval \clubbase\get_battle_skill_entry($edata,1);}-->
+		<!--{eval \clubbase\get_battle_skill_entry($edata,2);}-->
+		<!--{eval \clubbase\get_battle_skill_entry($edata,3);}-->
+	</div>
+<!--{/if}-->
+
+<!--{if (defined('MOD_CLUBBASE_NPCSKILLPAGE'))}-->
+	{template MOD_CLUBBASE_NPCSKILLPAGE}
+<!--{/if}-->
+
+<!--{eval $uip['display']['log_height'] = 205;}-->

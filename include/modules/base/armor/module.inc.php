@@ -7,7 +7,7 @@ namespace armor
 	$___MODULE_dependency_optional = 'weapon wound';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php config/armor.config.php';
-	$___MODULE_templatelist = 'profile_armor';
+	$___MODULE_templatelist = 'profile_armor profile_armor_short';
 	////////// MODULE HEADER END /////////////////
 	require __INIT_MODULE__(__NAMESPACE__,__DIR__);
 }

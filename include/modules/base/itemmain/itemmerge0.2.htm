@@ -1,0 +1,50 @@
+<input type="hidden" id="mode" name="mode" value="itemmain">
+<input type="hidden" id="command" name="command" value="itemmerge">
+<input type="hidden" name="merge1" value="0">
+<input type="hidden" id="merge2" name="merge2" value="n">
+<!--{eval eval(import_module('itemmain'));$blanki = \itemmain\get_pack_blank();$tpldata+=\itemmain\parse_item_words($sdata,0,1);}-->
+<div class="cmd_row">
+	<div class="cmd_positioner explore_cmd zx_cmd">
+		<div class="explore_info grey">
+			<!--{if $blanki > 0}-->
+				将放入包裹[<!--{eval echo strtoupper(substr($item_hotkey_id_list[$blanki],0,1));}-->]位
+			<!--{else}-->
+				包裹已满，需与包裹道具交换
+			<!--{/if}-->
+		</div>
+		<input type="button" class="cmd_button explore_cmd glow_buttons yellow b" style="font-size:12pt;padding-bottom:20px;" id="zx" value="不合并" 
+			onclick="postCmd('gamecmd','command.php',this);">
+	</div>
+</div>
+<div class="cmd_row">
+	<!--{loop $item_hotkey_id_list $ii $ihotkey}-->
+		<div class="cmd_positioner itm_cmd">
+			<!--{if ${'itms'.$ii} && in_array($ii, $sameitem)}-->
+				<!--{eval $tmp_itmname = \itemmain\parse_itmname_words(${'itm'.$ii}, 1, 15);}-->
+				<div class="itm_cmd_info">
+					<div class="itm_name">
+					<!--{if $tmp_itmname==${'itm'.$ii}}-->
+						${'itm'.$ii}
+					<!--{else}-->
+						{$tmp_itmname}
+					<!--{/if}-->
+					</div>
+					<div class="grey">$tpldata['itme'.$ii.'_words'] / $tpldata['itms'.$ii.'_words']</div>
+				</div>
+				<input type="button" id="{$ihotkey}" class="cmd_button itm_cmd_button glow_buttons white b" value="合并" 
+					onclick="$('merge2').value='{$ii}';postCmd('gamecmd','command.php',this);">
+			<!--{elseif ${'itms'.$ii}}-->
+				<input type="button" class="cmd_button itm_cmd_button glow_buttons grey forbidden" value="不可合并">
+			<!--{else}-->
+				<div class="itm_cmd_info">
+					<div class="grey">
+						包裹空位[<!--{eval echo strtoupper(substr($item_hotkey_id_list[$ii],0,1));}-->]
+					</div>
+				</div>
+				<input type="button" id="{$ihotkey}" class="cmd_button itm_cmd_button glow_buttons cyan b" value="放入" 
+					onclick="$('command').value='swapitm{$ii}';postCmd('gamecmd','command.php',this);">
+			<!--{/if}-->
+		</div>
+		<!--{if $ii%3==0}--><br><!--{/if}-->
+	<!--{/loop}-->
+</div>

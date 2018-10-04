@@ -2,7 +2,10 @@
 
 namespace empowers
 {
-	function init() {}
+	function init() {
+		eval(import_module('itemmain'));
+		$iteminfo['EI'] = '武器改造';
+	}
 	
 	function parse_itmuse_desc($n, $k, $e, $s, $sk){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -16,6 +19,13 @@ namespace empowers
 				$ret .= '增加装备着的身体防具的效果值';
 			}elseif ($n == '武器师安雅的奖赏') {
 				$ret .= '强化手中武器的效果值、耐久值，或者将类型转变为你更擅长的系别';
+			}
+		}elseif(strpos($k,'EI')===0){
+			$ret .= '强化手中武器的效果值、耐久值，或者将类型转变为你更擅长的系别';
+			if(1==$sk){
+				$ret .= '<br>只要武器类型与你最擅长的系不同，则必定改系';
+			}elseif(2==$sk){
+				$ret .= '<br>武器效果值和耐久值都会额外强化1.5倍';
 			}
 		}
 		return $ret;
@@ -103,7 +113,7 @@ namespace empowers
 		}
 	}
 	
-	function use_anya($itm)
+	function use_weapon_improvement($itm, $itmsk=0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -116,6 +126,7 @@ namespace empowers
 
 		$dice = rand ( 0, 99 );
 		$dice2 = rand ( 0, 99 );
+		//判定哪个是最擅长系，只看纸面数字
 		$skill = array();
 		foreach($skillinfo as $skiv){
 			$skill[$skiv] = ${$skiv};
@@ -124,6 +135,7 @@ namespace empowers
 		arsort ( $skill );
 		$skill_keys = array_keys ( $skill );
 		$nowsk = $skillinfo[substr ( $wepk, 1, 1 )];
+		//双系只要有任一系擅长就不会改系
 		$sec_wepk = \dualwep\get_sec_attack_method($sdata, 1);
 		if($sec_wepk) {
 			$secsk = $skillinfo[$sec_wepk];
@@ -131,11 +143,12 @@ namespace empowers
 		}
 		//if('WJ' == $nowsk) $nowsk = 'WG';
 		$maxsk = $skill_keys [0];
-		if (($skill [$nowsk] != $skill [$maxsk]) && ($dice < 30)) {
+		if (1 == $itmsk && $skill [$nowsk] != $skill [$maxsk]) $dice = 0;//$itmsk为1的道具只要可能就必定改系
+		if ($skill [$nowsk] != $skill [$maxsk] && $dice < 30) {
 			$changek = array('wp' => 'WP', 'wk' => 'WK', 'wg' => 'WG', 'wc' => 'WC', 'wd' => 'WD', 'wf' => 'WF');
 			$wepk = $changek[$maxsk]. substr($wepk,2);
 			$kind = "更改了{$wep}的<span class=\"yellow b\">类别</span>！";
-		} elseif (($weps != $nosta) && ($dice2 < 70)) {
+		} elseif ($weps != $nosta && $dice2 < 70) {
 			$weps += ceil ( $wepe / 2 );
 			$kind = "增强了{$wep}的<span class=\"yellow b\">耐久</span>！";
 		} else {
@@ -143,6 +156,12 @@ namespace empowers
 			$kind = "提高了{$wep}的<span class=\"yellow b\">攻击力</span>！";
 		}
 		$log .= "你使用了<span class=\"yellow b\">$itm</span>，{$kind}";
+		if(2 == $itmsk) {//$itmsk为2的道具必定额外将效和耐各提升1.5倍，如果无穷耐则效提升2.25倍
+			$wepe += ceil ( $wepe / 2 );
+			if($weps != $nosta) $weps += ceil ( $weps / 2 );
+			else $wepe += ceil ( $wepe / 2 );
+			$log .= "并对武器产生了额外的增益！";
+		}
 		addnews ( $now, 'newwep', $name, $itm, $wep );
 		if (strpos ( $wep, '-改' ) === false) {
 			$wep = $wep . '-改';
@@ -186,9 +205,12 @@ namespace empowers
 			}
 			elseif ($itm == '武器师安雅的奖赏') 
 			{
-				if (use_anya($itm)) \itemmain\itms_reduce($theitem);
+				if (use_weapon_improvement($itm, $itmsk)) \itemmain\itms_reduce($theitem);
 				return;
 			}
+		}elseif($itmk == 'EI'){
+			if (use_weapon_improvement($itm, $itmsk)) \itemmain\itms_reduce($theitem);
+			return;
 		}
 		$chprocess($theitem);
 	}

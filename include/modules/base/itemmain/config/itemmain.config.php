@@ -4,6 +4,10 @@ namespace itemmain
 {
 	$item_equip_list = Array('itm0','itm1','itm2','itm3','itm4','itm5','itm6');
 	
+	$item_hotkey_id_list = array(4=>'qq', 5=>'ww', 6=>'ee', 1=>'aa', 2=>'ss', 3=>'dd');//跟界面排列顺序有关系
+	
+	$itemmain_drophint = '将离开视线';
+	
 	//■ 无限耐久度 ■
 	$nosta = '∞';
 	//■ 无属性 ■

@@ -1,0 +1,7 @@
+<!--{eval eval(import_module('itemshop'));}-->
+<!--{if \itemshop\check_in_shop_area($pls)}-->
+	<div class="cmd_positioner common_cmd">
+		<input type="button" class="cmd_button common_cmd glow_buttons white" id="c" value="商店" 
+		onclick="$('command').value='special';$('subcmd').name='sp_cmd';$('subcmd').value='sp_shop';postCmd('gamecmd','command.php',this);">
+	</div>
+<!--{/if}-->

@@ -30,18 +30,25 @@ namespace skill509
 		return $flag;
 	}
 	
-	//实际上是使主动探索者的先制率下降
-	function calculate_active_obbs(&$ldata,&$edata)
-	{
+	function get_var509(&$ldata, &$edata){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$var_509 = 0;
+		$ret = 0;
 		if(\skillbase\skill_query(509,$edata) && check_unlocked509($edata)){
 			eval(import_module('skill509','weapon'));
 			$l_att_method = \weapon\get_attack_method($ldata);
 			$range_509 = $rangeinfo[$l_att_method];
 			if(!$range_509) $range_509 = 9;//爆系射程算比重枪还远，会-36%，因为在加算阶段，所以实际非常伤
-			$var_509 = $range_509 * $skill509_factor;
+			$ret = $range_509 * $skill509_factor;
 		}
+		return $ret;
+	}
+	
+	//实际上是使主动探索者的先制率下降
+	function calculate_active_obbs(&$ldata,&$edata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$var_509 = get_var509($ldata, $edata);
+		if($var_509) $ldata['active_words'] = \attack\add_format(-$var_509, $ldata['active_words'],0);
 		return $chprocess($ldata,$edata)-$var_509;
 	}
 }

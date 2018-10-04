@@ -1,0 +1,30 @@
+<!--{eval $tmp_arpos = Array('b'=>'B', 'h'=>'H', 'a'=>'A', 'f'=>'F');}-->
+<!--{loop $tmp_arpos $apl $apu}-->
+<div class="profile_row">
+	<div class="profile_bar pack itmk" style="margin-left:5px">
+		<span <!--{if !${'ar'.$apl.'s'}}-->class="grey"<!--{/if}-->>
+			$iteminfo['D'.$apu]
+		</span>
+	</div>
+	<div class="profile_bar pack itmname">
+		<span <!--{if !${'ar'.$apl.'s'}}-->class="grey"<!--{/if}--> <!--{if ${'ar'.$apl.'s'} && $tpldata['ar'.$apl.'_words'] != ${'ar'.$apl}}-->title="${'ar'.$apl}"<!--{/if}-->>
+			<!--{if ${'ar'.$apl.'s'}}-->$tpldata['ar'.$apl.'_words']<!--{elseif 'b'==$apl}-->$noarb<!--{else}-->$noitm<!--{/if}-->
+		</span>
+	</div>
+	<div class="profile_bar pack itmsk">
+		<span <!--{if !${'ar'.$apl.'s'}}-->class="grey"<!--{/if}--> <!--{if ${'ar'.$apl.'s'} && $tpldata['ar'.$apl.'sk_desc']}-->title="{$tpldata['ar'.$apl.'sk_desc']}"<!--{/if}-->>
+			<!--{if ${'ar'.$apl.'s'}}-->$tpldata['ar'.$apl.'sk_words']<!--{else}-->--<!--{/if}-->
+		</span>
+	</div>
+	<div class="profile_bar pack itme">
+		<span <!--{if !${'ar'.$apl.'s'}}-->class="grey"<!--{/if}--> <!--{if ${'ar'.$apl.'s'} && $tpldata['ar'.$apl.'e_words'] != ${'ar'.$apl.'e'}}-->title="${'ar'.$apl.'e'}"<!--{/if}-->>
+			<!--{if ${'ar'.$apl.'s'}}-->$tpldata['ar'.$apl.'e_words']<!--{else}-->-<!--{/if}-->
+		</span>
+	</div>
+	<div class="profile_bar pack itms">
+		<span <!--{if !${'ar'.$apl.'s'}}-->class="grey"<!--{/if}--> <!--{if ${'ar'.$apl.'s'} && $tpldata['ar'.$apl.'s_words'] != ${'ar'.$apl.'s'}}-->title="${'ar'.$apl.'s'}"<!--{/if}-->>
+			<!--{if ${'ar'.$apl.'s'}}-->$tpldata['ar'.$apl.'s_words']<!--{else}-->-<!--{/if}-->
+		</span>
+	</div>
+</div>
+<!--{/loop}-->

@@ -47,7 +47,9 @@ namespace weather
 //		eval(import_module('sys','weather'));
 //		echo "当前天气：".$wthinfo[$weather].' ';
 //		echo "天气修正：+".calculate_weather_active_obbs($ldata,$edata).'% <br>';
-		return $chprocess($ldata,$edata)+calculate_weather_active_obbs($ldata,$edata);
+		$add = calculate_weather_active_obbs($ldata,$edata);
+		$ldata['active_words'] = \attack\add_format($add, $ldata['active_words'],0);
+		return $chprocess($ldata,$edata)+$add;
 	}
 	
 	function calculate_weather_attack_modifier(&$pa,&$pd,$active)
@@ -374,7 +376,7 @@ namespace weather
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 	
-	function newradar($mms = 0)
+	function use_radar($mms = 0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','logger'));
