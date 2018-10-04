@@ -21,7 +21,7 @@ namespace sys
 		global ${$gtablepre.'user'}, ${$gtablepre.'pass'}, $___MOD_SRV;
 		if (isset($_COOKIE))
 		{
-			$_COOKIE=gstrfilter($_COOKIE);
+			//$_COOKIE=gstrfilter($_COOKIE);
 			foreach ($_COOKIE as $key => $value)
 			{
 				//用户名、密码、房间编号接受cookie传值
@@ -39,7 +39,7 @@ namespace sys
 		if (isset($_POST))
 		{
 			//templateid接受post传值，避免被覆盖
-			$_POST=gstrfilter($_POST);
+			//$_POST=gstrfilter($_POST);
 			foreach ($_POST as $key => $value){
 				if(in_array($key, array('templateid')))
 				{
