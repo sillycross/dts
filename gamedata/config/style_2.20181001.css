@@ -352,6 +352,7 @@ div.profile_box hr{
 div.profile_row{
 	position:relative;
 	margin-top:5px;
+	
 }
 div.profile_bar{
 	display:inline-block;
@@ -359,7 +360,7 @@ div.profile_bar{
 	padding:0px;
 	width:150px; height:23px; 
 	background-color:rgba(0,0,0,0.5);
-	border:1px solid #999;
+	border:1px solid #333;
 		 -moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
 	        border-radius: 6px;
