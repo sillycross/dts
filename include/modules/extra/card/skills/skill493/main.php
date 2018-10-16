@@ -138,7 +138,7 @@ namespace skill493
 				$skill493var = \skillbase\skill_getvalue(493,'choice');
 				$allup = 0;
 				foreach(array('skill493_o_skillup','skill493_o_expup','skill493_o_rageup') as $nval){
-					echo $pl['name'].'的'.$nval.'获得值:'.$pl[$nval].' ';
+					//echo $pl['name'].'的'.$nval.'获得值:'.$pl[$nval].' ';
 					if(!empty($pl[$nval])) $allup += $pl[$nval];
 					//echo $pl['name'].$nval.' '.$pl[$nval].' ';
 				}
