@@ -11,7 +11,7 @@ class dbstuff {
 		
 		$this -> con = mysqli_connect ( $dbhost, $dbuser, $dbpw, $dbname );
 		if (mysqli_connect_errno())
-		$this->halt ( 'Can not connect to MySQL server' );
+		$this->halt ( mysqli_connect_errno().': Can not connect to MySQL server' );
 	
 	
 		global $charset, $dbcharset;
@@ -25,7 +25,7 @@ class dbstuff {
 		
 		mysqli_query ( $this->con, "SET sql_mode=''" );
 		if (mysqli_connect_errno())
-		$this->halt ();
+		$this->halt (mysqli_connect_errno().': Can not connect to MySQL server' );
 	}
 	
 	function select_db($dbname) {
@@ -295,10 +295,13 @@ class dbstuff {
 	function halt($message = '', $sql = '') {
 		header('Content-Type: text/HTML; charset=utf-8');
 		echo '数据库错误。请联系管理员。<br><br>';
+		echo '类错误信息：'.$message.'<br>';
+		if(!empty($sql)) echo 'SQL语句：'.$sql;
+		echo '<br><br>';
 		$dberror = $this->errno().' '.$this->error();
-		echo '错误信息：'.$dberror.'<br><br>';
-		echo '以下是stack dump<br>';
-		var_export(debug_backtrace());
+		echo '数据库错误提示：'.$dberror.'<br><br>';
+		//echo '以下是stack dump<br>';
+		//var_export(debug_backtrace());
 		die();
 		require_once GAME_ROOT . './include/db/db_mysqli_error.inc.php';
 	}
