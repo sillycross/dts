@@ -1,146 +1,3 @@
-html {
-  overflow-y: scroll;
-}
-
-:root {
-  overflow-y: auto;
-  overflow-x: auto;
-}
-
-:root body {
-  position: absolute;
-}
-
-body {
-	margin: 0;
-	width: 100vw;
-	color:#ddd;
-  overflow: hidden;
-	text-align: center;
-	background-position: 50% 50%;
-	background-image: url("../../img/PB.gif");
-	background-attachment: fixed;
-	background-repeat: no-repeat;
-	background-color: #111;
-	font: 12px Tahoma, Verdana;
-	cursor: crosshair;
-}
-a {font:bold 10pt/16px "微软雅黑","黑体";text-decoration: none;color: #ddd; cursor: crosshair}
-a:hover {color: #98fb98;text-decoration:underline}
-h2 {font-family: "微软雅黑","黑体";}
-h3 {font-family: "微软雅黑","黑体";}
-table {align:center;border: 0px;font:10pt "微软雅黑","黑体";}
-tr {margin: 0px;}
-td {margin: 0px;}
-th {margin: 0px;}
-div {font-family:"微软雅黑","黑体";}
-span {font:10pt/16px "微软雅黑","黑体";}
-.long-list span {line-height:18px}
-p {font:10pt/14pt "微软雅黑","黑体";}
-li {font:bold 10pt/16px "微软雅黑","黑体";}
-
-input {cursor: crosshair;}
-.b {font-weight:bold;}
-.title {font: 900 30px/32px "微软雅黑","黑体"; margin: 6px;color: #cceafa; width: 100%;filter:blur(add=1,direction=90,strength=12):glow(strength=5,color=gold); text-decoration:underline;}
-.subtitle {font: bold 24px/32px "微软雅黑","黑体";margin: 6px;color: #cceafa; width: 100%;}
-.headerlink{}
-.small {font-size: 9pt}
-.ver a{font:10pt "Viner Hand ITC","隶书";color:#ff0000;}
-.b1 {background-color:rgba(98,135,163,0.6); *BACKGROUND: rgb(98,135,163); *filter:alpha(opacity=60); BORDER: 0; TEXT-ALIGN: center; COLOR: #fff; border-right: #111 1px solid; border-bottom: #111 1px solid;}
-.b2 {background-color:rgba(98,135,163,0.6); *BACKGROUND: rgb(98,135,163); *filter:alpha(opacity=80); BORDER: 0; TEXT-ALIGN: center; COLOR: #fff; border-right: #111 1px solid;}
-.b2h {background-color:rgba(98,135,163,0.3); *BACKGROUND: rgb(98,135,163); *filter:alpha(opacity=30); }
-.b3 {background-color:rgba(17,17,17,0.5); *BACKGROUND:rgb(17,17,17); *filter:alpha(opacity=50); BORDER: 0; color: #fff; text-align: center; border-right: #111 1px solid;}
-.long-list .b3 {text-align:left}
-.b4 {BORDER: 0; color: #fff; text-align: center;font: 10pt;}
-.b5 {BORDER: 0; color: #fff; text-align: center;font: 10pt;}
-.b6 {background-color:rgba(0,99,0,0.65); *BACKGROUND:rgb(0,99,0); *filter:alpha(opacity=65); BORDER: 0; color: #fff; text-align: center; border-right: #111 1px solid;}
-.b7 {background-color:rgba(99,0,0,0.65); *BACKGROUND:rgb(99,0,0); *filter:alpha(opacity=65); BORDER: 0; color: #fff; text-align: center; border-right: #111 1px solid;}
-.b8 {background-color:rgba(17,17,17,0.5); *BACKGROUND:rgb(17,17,17); *filter:alpha(opacity=50); BORDER: 0; color: #fff; text-align: center;}
-.map {background-color:rgba(17,17,17,0.5); *BACKGROUND:rgb(17,17,17); *filter:alpha(opacity=50);BORDER: #111 1px solid;text-align: center;}
-.map2 {BORDER: #111 1px solid;text-align: center;font: bold 10pt;}
-.maptdred {background-color:rgba(255,0,0,0.25); *BACKGROUND:#f00; *filter:alpha(opacity=25);BORDER: #111 1px solid;text-align: center;}
-.maptdyellow {background-color:rgba(255,255,0,0.25); *BACKGROUND:#ff0; *filter:alpha(opacity=25);BORDER: #111 1px solid;text-align: center;}
-.maptdlime {background-color:rgba(0,255,0,0.2); *BACKGROUND:#0f0; *filter:alpha(opacity=20);BORDER: #111 1px solid;text-align: center;}
-.mapspanred{color:#f00;position:relative;font-size: 9pt;line-height:16px}
-.mapspanlime{color:#0f0;position:relative;font-size: 9pt;line-height:16px}
-.mapspanyellow{color:#ff0;position:relative;font-size: 9pt;line-height:16px}
-
-.b1 span{position:relative;font-weight:bold;}
-.b2 span{position:relative;}
-.b3 span{position:relative;}
-.b1 div{position:relative;}
-.b2 div{position:relative;}
-.b3 div{position:relative;}
-
-/*==========jScrollPane兼容==========*/
-.b3 div.jspVerticalBar {position:absolute;}
-
-rt{
-	font-size:9px; 
-	font-weight:normal;
-	transform-origin-y: bottom;
-  -webkit-transform-origin-y: bottom;
-  transform: scale(0.80);
-  -webkit-transform: scale(0.80);
-}
-
-table.admin {
-	border:0;
-	padding:0;
-	BACKGROUND: #000;
-}
-
-table.admin th {	
-	BACKGROUND: #3A4273;
-	color: #FFFFFF;
-	font: bold 10pt "微软雅黑";
-	TEXT-ALIGN: center;
-}
-
-table.admin td {
-	BACKGROUND: #E3E3EA;
-	color: #3A4273;
-	font: normal 10pt "微软雅黑";
-	TEXT-ALIGN: left;
-}
-
-table.admin td.tdtitle {
-	BACKGROUND: #E3E3EA;
-	color: #3A4273;
-	font: bold 12pt "微软雅黑";
-	TEXT-ALIGN: center;
-}
-
-.Disabled{opacity:0.7;}
-
-/*==========各种颜色==========*/
-.black{color:#000000; }
-.yellow{color:#ffff00;}
-.orange{color:#ff9900; }
-.gold{color:rgb(255,215,0); }
-.cyan{color: #00ffff;}
-.clan{color: #00ffff;}
-.lightblue{color: rgb(150,210,255);}
-.blue{color: #0000ff;}
-.red{color: #ff0000;}
-.red2 {color: #ff0000; font-size:18pt; }
-.green{color: #008000;}
-.lime{color: #00ff00;}
-.purple{color: #9900cc;}
-.brickred{color:#fa8072;}
-.seagreen{color:#4eee94;}
-.evergreen{color:#98fb98;}
-.white{color:#ffffff;}
-.evergreen2{color:#98fb98;font-size:18pt;}
-.dmg {color:#ff0000;font-weight:bold; }
-.grey{color:#999;}
-.darkgrey{color:#666;}
-.lightpink{color:rgb(250,180,180);}
-.ltcrimson{color:rgb(255,120,150);}
-.ltazure{color:rgb(110,210,255);}
-.linen{color:rgb(200,192,184);}
-.L5{color: #ff0000;background:url("../../img/backround4.gif") repeat-x;}
-
 /*==========log div==========*/
 
 div.log_block{
@@ -165,13 +22,7 @@ div.log_hover_detail{
 }
 
 /*==========杂项界面==========*/
-#main {
-white-space:nowrap;
-vertical-align:middle;
-}
-.battle td{
-text-align: center;
-}
+
 #chat{
 	position:relative;
 }
@@ -206,35 +57,6 @@ text-align: center;
 	text-align:center;
 }
 
-.footerline {
-height: 1px;
-background-image: url("../../img/footer_line.gif");
-}
-.clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; } 
-.clearfix {display: inline-table;} /* Hides from IE-mac \*/ * html .clearfix {height: 1%;} .clearfix {display: block;} /* End hide from IE-mac */ 
-
-#gamecmd input.cmdbutton{
-	width:80px;height:25px;margin:2;
-}
-
-input.dropbutton{
-	width:75px;height:23px;margin:1;
-}
-
-input.bigbutton{
-	width:120px;height:25px;margin:2;
-}
-
-.auto-style1 {
-	border-width: 0px;
-}
-
-div#loading{
-	display:none;	
-	width:100%;height:100%;	position:absolute;z-index:10;
-	BACKGROUND: #000;filter:alpha(opacity=50); opacity:0.5;
-	background-image: url("../../img/loading.gif");background-repeat: no-repeat;background-position:center;background-attachment: fixed;
-}
 /*==========空的时候有提示的文本框==========*/
 div.inputhint_container{
 	display:inline-block;
@@ -275,28 +97,6 @@ div.inputhint_container input[type="text"]:focus{
 	border-color: #fff;
 }
 
-/*==========半透明悬浮气泡框==========*/
-div.bubblebox_positioner{
-	position:fixed; left:0px; top:0px;
-	margin:auto auto;
-	min-width:100%; max-width:100%; min-height:100%; max-height:100%;
-}
-div.bubblebox_container{
-	position:relative;
-	background-color:rgba(17,17,17,0.5); *BACKGROUND:rgb(17,17,17); *filter:alpha(opacity=50);
-	BORDER: 0; color: #fff;
-	text-align: center;
-	font:10pt 微软雅黑 serif;text-align:left; overflow-x:hidden; overflow-y:auto;
-}
-/*==========悬浮提示==========*/
-#hoverHintMsg{
-	display:none;
-	max-width:400px;
-	left:0px; top:0px;z-index:20;position:fixed;
-	text-align:left;
-	background-color:rgba(0,0,0,0.7); *BACKGROUND: rgb(0,0,0); *filter:alpha(opacity=70); 
-}
-#hoverHintMsgInner{margin:3px;}
 /*==========菜单标签==========*/
 div.cmd_tag_container{
 	margin:auto 10px;
@@ -378,7 +178,7 @@ div.profile_bar.right_panel{
 }
 div.profile_bar span.typename{
 	margin:0 8px;
-	font-size:8pt;color:#999;
+	font-size:9pt;color:#999;
 	line-height:23px;
 }
 div.profile_bar span.main_cont{
@@ -396,7 +196,7 @@ div.profile_box div.pack.packtitle{
 	border:1px solid transparent;
 	background-color:transparent;
 	height:16px;line-height:16px;
-	font-size:8pt;color:#999;
+	font-size:9pt;color:#999;
 }
 div.profile_box div.itmk{width:60px;}
 div.profile_box div.itmname{width:190px;}
@@ -703,139 +503,8 @@ div.hotkey_mark {
 	line-height:15px;text-align:center;
 	right:3px;top:3px;
 }
-/*==========剧情分镜==========*/
-#storyboard_container {
-	background-color:rgba(17,17,17,0.5);
-}
-
-#storyboard_control {
-	position:relative;
-}
-
-#storyboard_control input.cmdbutton{
-	width:120px;height:25px;margin:2;
-}
-
-#shootings_container{
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.shootings {
-	text-align:center;
-	display:none;
-}
-/*==========雷达屏幕==========*/
-table.radar{
-	border:0;margin:0;border-collapse:collapse;border-spacing:0;text-align:center;
-}
-table.radar tr{height:20px;}
-/*==========技能==========*/
-table.skilltable{
-	height:100%; width:100%; 
-	border:0;margin:0;border-collapse:collapse;border-spacing:0;
-}
-table.skilltable td{padding:0;}
-td.skilldesc_left{}
-td.skilldesc_right{width:96px;}
-span.skilldesc
-{
-	margin:8px auto;
-	display:block;
-}
-div.skilldesc{margin:8px auto;display:block;}
-div.skill_unacquired
-{
-	position:relative; left:0px; top:0px; 
-	background-color:#ffffff; 
-	height:100%; width:100%; 
-	filter:alpha(opacity=18); -moz-opacity:0.18; opacity:0.18; -khtml-opacity: 0.18;
-}
-div.skill_unacquired_transparent
-{
-	position:relative; left:0px; top:0px; 
-	height:100%; width:100%; 
-}
-div.skill_unacquired_hint
-{
-	position:absolute; left:0px; top:0px; height:100%; width:100%;
-}
-div.skill_unacquired_hint_transparent
-{
-	position:absolute; left:0px; top:0px; height:100%; width:100%;
-	background-color:#000000; 
-	filter:alpha(opacity=10); -moz-opacity:0.1; opacity:0.1; -khtml-opacity: 0.1;
-}
-div.skilllearn_desc_container{
-	text-align:center;
-	width:420px;z-index:100;position:fixed;
-	filter:alpha(opacity=95); opacity:0.95; background-color:#000000
-}
-/*==========卡片==========*/
-.lockcard
-{
-	filter:alpha(opacity=55); -moz-opacity:0.55;opacity: 0.55;
-}
-div.cardpack_bar{
-	position:relative;
-	height:40px;
-	width:160px;
-}
-div.cardpack_bar img.cardpack_bg{
-	position:absolute;
-	left:0px;
-	top:0px;
-}
-div.cardpack_bar div.cardpack_cnt{
-	position:absolute;
-	right:5px;
-	top:8px;
-}
-div.cardpack_bar div.cardpack_czone{
-	position:absolute;
-	left:0px;
-	top:0px;
-	height:40px;
-	width:160px;
-	cursor:pointer;
-}
-div.card_row{
-	display:inline-block;
-	width:175px;
-	vertical-align:top;
-}
-div.card_bar{
-	height:25px;
-	width:170px;
-}
-div.pt{cursor:pointer;}
-div.card_bar img.card_bg{
-	position:absolute;
-	top:0px; 
-	left:0px;
-}
-div.card_bar div.card_name{
-	position:absolute;
-	top:4px;
-	left:4px;
-}
-div.card_bar div.card_czone{
-	position:absolute;
-	top:0px;
-	left:0px;
-	height:25px;
-	width:170px;
-}
-div.card_bar div.card_err{
-	position:absolute;
-	top:0px;
-	left:0px;
-	height:25px;
-	width:170px;
-}
-/*==========进度条==========*/
-#progressbar-border
+/*==========style2的进度条==========*/
+#progressbar-border-2
 {
 	width:320px;
 	height:15px;
@@ -846,86 +515,4 @@ div.card_bar div.card_err{
 	   -moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	        border-radius: 3px;
-}
-
-#progressbar-inner3
-{
-	width:0%;
-	height:15px;
-	background: #3333ff; 
-}
-
-#progressbar-text3
-{
-	position:relative;
-	left: 135px;
-	color: #ffffff;
-	top: -16px; 
-}
-/*==========对话气泡==========*/
-.dialogue-bubble-container{ 
-	position: absolute;
-	z-index:5;
-	margin:0;padding:0;
-	text-align:left;
-	width:438px;
-}
-
-.dialogue-bubble{
-	clear:both;
-	float:left;
-	position: relative;
-	left:12px;
-	margin:5px 0;
-	height: 60px;
-	min-width:120px;
-	max-width:400px;
-	background: rgb(60,85,100);
-	-moz-border-radius: 12px;
-	-webkit-border-radius: 12px;
-	border-radius: 12px;
-	display: flex;
-	align-items: center;
-}
-.dialogue-bubble:before{
-	position: absolute;
-	content: "";
-	width: 0;
-	height: 0;
-	right: 100%;
-	top: 23px;
-	border-top: 8px solid transparent;
-	border-right: 12px solid rgb(60,85,100);
-	border-bottom: 8px solid transparent;
-}
-
-.dialogue-bubble div{position: relative;margin:auto 25px;text-align:left;}
-.dialogue-bubble span{position: relative;font-size:12pt;font-weight:bold;line-height:16pt;}
-
-.dialogue-bubble.fade{
-	opacity:0.6;filter:alpha(opacity=60);
-}
-
-.dialogue-bubble.fade:hover{
-	opacity:1.0;filter:alpha(opacity=100);
-}
-/*==========动画效果==========*/
-.Pulse{
-	-webkit-animation-name: brightPulse; -webkit-animation-duration: 2s;-webkit-animation-iteration-count: infinite; 
-}
-
-.TransPulse{
-	-webkit-animation-name: brightTransPulse; -webkit-animation-duration: 2s;-webkit-animation-iteration-count: infinite; 
-}
-
-@-webkit-keyframes brightPulse{
-	from {  -webkit-box-shadow: 0 0 12px #666; }
-  50% { background-color: #fa5; -webkit-box-shadow: 0 0 24px 2px #fa5; }
-  to {  -webkit-box-shadow: 0 0 12px #666; }
-}
-
-@-webkit-keyframes brightTransPulse{
-	from {  -webkit-box-shadow: 0 0 12px #666; }
-  50% {  -webkit-box-shadow: 0 0 24px 2px #fa5; }
-  to {  -webkit-box-shadow: 0 0 12px #666; }
 }

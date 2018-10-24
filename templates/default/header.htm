@@ -8,6 +8,9 @@
 <!--{if isset($extrahead)}-->$extrahead<!--{/if}-->
 
 <link rel="stylesheet" type="text/css" id="css" href="gamedata/config/style_1.20180802.css">
+<!--{if $u_templateid == 2 || defined('IN_REPLAY')}-->
+	<link rel="stylesheet" type="text/css" id="css" href="gamedata/config/style_2.20181024.css">
+<!--{/if}-->
 <link rel="stylesheet" type="text/css" id="css" href="gamedata/config/style_buttons.20180118.css">
 <link rel="stylesheet" type="text/css" id="css" href="gamedata/config/style_glowbuttons.20180812.css">
 <!--{if CURSCRIPT=='messages'}-->
@@ -34,7 +37,9 @@ jQuery.noConflict();
 
 <script type="text/javascript" src="include/javascript/common.20180827.js"></script>
 <script type="text/javascript" src="include/javascript/game.20180806.js"></script>
-
+<!--{if $u_templateid == 2 || defined('IN_REPLAY')}-->
+	<script type="text/javascript" src="include/javascript/interface_2.20180814.js"></script>
+<!--{/if}-->
 <!-- gzip Decode Utility Start -->
 <script type="text/javascript" src="include/javascript/gzip.util.js"></script>
 <!-- gzip Decode Utility End -->
@@ -52,7 +57,7 @@ jQuery.noConflict();
 
 </head>
 <BODY <!--{if CURSCRIPT == 'game'}-->onkeyup="hotkey(event);"<!--{if !empty($gamestate) && $gamestate >= 40}-->style="background-image:url('img/PB2.gif');"<!--{/if}--><!--{/if}-->>
-<div class="title" >$gtitle</div>
+<div class="title" > $gtitle <!--{if $u_templateid == 2}-->TEST INTERFACE<!--{/if}--></div>
 
 <div class="headerlink" >
 <a href="index.php">>>{lang index}</a>

@@ -12,7 +12,7 @@
 		</td>
 		<td valign="top" rowspan="2">
 			<div class="command_box">
-				<div id="log"<!--{if $hp > 0}--> class="log_block"<!--{/if}-->>$log</div>
+				<div id="log"<!--{if $hp > 0 || defined('IN_REPLAY')}--> class="log_block"<!--{/if}-->>$log</div>
 				<script>log_display='block';</script>
 				<div style="position:relative">
 					<!--<div id="loading"></div>-->
