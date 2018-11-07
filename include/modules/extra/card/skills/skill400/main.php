@@ -40,7 +40,7 @@ namespace skill400
 		if (rand(0,99)<$procrate[$l400])
 		{
 			//调用NPC必杀技宣言
-			if (($pa['type'] || $pd['type']) && defined('MOD_NPCCHAT')) \npcchat\npcchat($pa, $pd, $active, 'critical');
+			if ($pa['type'] && defined('MOD_NPCCHAT')) \npcchat\npcchat($pa, $pd, $active, 'critical');
 			
 			if ($active){
 				if ($l400>=5)
