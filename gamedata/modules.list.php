@@ -64,6 +64,7 @@ skill2,base/skills/skill2/,1
 skill3,base/skills/skill3/,1
 item_uv,base/items/item_uv/,1
 npcchat_bubble,extra/misc/npcchat_bubble/,1
+gtype5,extra/instance/gtype5/main/,1
 skill11,extra/club/skills/skill11/,1
 skill10,extra/club/skills/skill10/,1
 skill305,extra/achievement/skills/skill305/,1
