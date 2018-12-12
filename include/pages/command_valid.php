@@ -43,7 +43,7 @@ if($mode == 'enter') {
 	$userCardData = \cardbase\get_user_cardinfo($cuser);
 	$card_ownlist = $userCardData['cardlist'];
 	$card_energy = $userCardData['cardenergy'];
-	if (!in_array($card,$card_ownlist)) {
+	if (!check_card_in_ownlist($card, $card_ownlist)) {
 		$card=0;
 	}
 	
