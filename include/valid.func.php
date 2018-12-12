@@ -471,6 +471,21 @@ function card_validate($udata){
 		$packlist[] = $cards[93]['pack'] = 'Testing Fan Club';
 		$hideDisableButton = 0;
 	}
+	elseif (5==$gametype)	//圣诞模式只允许某4张卡
+	{
+		$tmp_add_hidden_list = array(182, 183, 184, 185);
+		foreach($card_ownlist as $cv){
+			if(!in_array($cv, $tmp_add_hidden_list)) $card_disabledlist[$cv][]='e3';
+		}
+		global $cc,$cardChosen,$card_ownlist,$packlist,$cards,$hideDisableButton;
+		$cc = $cardChosen = $tmp_add_hidden_list[0];//自动选择简单难度
+		foreach ($tmp_add_hidden_list as $adv){
+			$card_ownlist[] = $adv;
+			$cards[$adv]['pack'] = 'Difficulty';
+		}
+		$packlist[] = 'Difficulty';
+		$hideDisableButton = 0;
+	}
 	elseif (2==$gametype)	//deathmatch模式禁用蛋服和炸弹人
 	{
 		if (in_array(97,$card_ownlist)) $card_disabledlist[97][]='e3';

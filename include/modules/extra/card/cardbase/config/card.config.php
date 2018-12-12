@@ -2834,6 +2834,62 @@ $cards = array(
 			),
 		)
 	),
+	182 => array(
+		'name' => '简单',
+		'title' => '简单玩家',
+		'rare' => 'C',
+		'pack' => 'hidden',
+		'desc' => '简单模式',
+		'effect' => '简单模式',
+		'energy' => 0,
+		'valid' => array(
+			'skills' => array(
+				'1004' => '1', 
+			),
+		)
+	),
+	183 => array(
+		'name' => '通常',
+		'title' => '通常玩家',
+		'rare' => 'B',
+		'pack' => 'hidden',
+		'desc' => '通常模式',
+		'effect' => '通常模式',
+		'energy' => 0,
+		'valid' => array(
+			'skills' => array(
+				'1004' => '2', 
+			),
+		)
+	),
+	184 => array(
+		'name' => '困难',
+		'title' => '困难玩家',
+		'rare' => 'A',
+		'pack' => 'hidden',
+		'desc' => '困难模式',
+		'effect' => '困难模式',
+		'energy' => 0,
+		'valid' => array(
+			'skills' => array(
+				'1004' => '3', 
+			),
+		)
+	),
+	185 => array(
+		'name' => '疯狂',
+		'title' => '疯狂玩家',
+		'rare' => 'S',
+		'pack' => 'hidden',
+		'desc' => '疯狂模式',
+		'effect' => '疯狂模式',
+		'energy' => 0,
+		'valid' => array(
+			'skills' => array(
+				'1004' => '4', 
+			),
+		)
+	),
 	/////////////////////////////////////////////////
 	
 	//////////////////////////////////////////////////
