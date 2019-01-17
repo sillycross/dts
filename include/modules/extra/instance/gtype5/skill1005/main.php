@@ -34,13 +34,13 @@ namespace skill1005
 		\skillbase\skill_delvalue(1005,'cur4',$pa);
 	}
 	
-	function check_unlocked1005(&$pa)
+	function check_unlocked1005(&$pa=NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return 1;
 	}
 	
-	function wdebug_check(){
+	function wdebug_check1005(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player'));
 		if(!\skillbase\skill_query(1005)) return false;
@@ -65,7 +65,7 @@ namespace skill1005
 		return $position;
 	}
 	
-	function wdebug_reset(){
+	function wdebug_reset1005(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player'));
 		if(!\skillbase\skill_query(1005)) return false;
@@ -141,7 +141,7 @@ namespace skill1005
 		return $iname;
 	} */
 	
-	function wdebug_showreq(){
+	function wdebug_showreq1005(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player'));
 		$req1=\skillbase\skill_getvalue(1005,'cur1');
@@ -181,12 +181,12 @@ namespace skill1005
 		}else return 0;
 	} */
 		
-	function wdebug(){
+	function wdebug1005(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','itemmain','logger','skill1005','skillbase','map'));
 		if(\skillbase\skill_query(1005)){
 			$clv=\skillbase\skill_getvalue(1005,'lvl');
-			$position = wdebug_check();
+			$position = wdebug_check1005();
 			if($position){
 				$itm = ${'itm'.$position};
 				$log .= "<span class=\"yellow b\">修复成功。</span><br />";
@@ -229,32 +229,33 @@ namespace skill1005
 				}
 				//送物品
 				if ($gdice==1){
-				$itm0=$iname;$itme0=$ieff;$itms0=$ista;$itmsk0=$iskind;$itmk0=$ikind;
-				\itemmain\itemget();
+					$itm0=$iname;$itme0=$ieff;$itms0=$ista;$itmsk0=$iskind;$itmk0=$ikind;
+					\itemmain\itemget();
 				}
 				//送数值
 				if ($gdice==2){
-				$att+=15;$def+=15;
-				$mhp+=10;$msp+=10;$hp+=10;$sp+=10;
-				$log .="<span class=\"yellow b\">获得了15点基础攻防和10点命体上限。</span><br />";
+					$att+=15;$def+=15;
+					$mhp+=10;$msp+=10;$hp+=10;$sp+=10;
+					$log .="<span class=\"yellow b\">获得了15点基础攻防和10点命体上限。</span><br />";
 				}
 				//送钱
 				if ($gdice==3){
-				$money += 386;
-				log .="<span class=\"yellow b\">获得了一些金钱报酬。</span><br />";
+					$addmoney=386;
+					$money += $addmoney;
+					log .="<span class=\"yellow b\">获得了{$addmoney}元报酬。</span><br />";
 				}
 				
 				$clv++;
 				\skillbase\skill_setvalue(1005,'lvl',$clv);
 				if($clv > $mlv) \skillbase\skill_setvalue(1005,'maxlvl',$clv);
 				
-				wdebug_reset();
-				$log .='下次修复需要物品'.wdebug_showreq();
+				wdebug_reset1005();
+				$log .='下次修复需要物品'.wdebug_showreq1005();
 				
 				$mode = 'command';
 				return;
 			}else{
-				$log .= '本次修复需要物品'.wdebug_showreq().'。你没有进行修复所需的物品。<br />';
+				$log .= '本次修复需要物品'.wdebug_showreq1005().'。你没有进行修复所需的物品。<br />';
 				$mode = 'command';
 				return;
 			}
@@ -284,7 +285,7 @@ namespace skill1005
 	
 		if ($mode == 'special' && $command == 'skill1005_special' && $subcmd=='wdebug') 
 		{
-			wdebug();
+			wdebug1005();
 			return;
 		}
 			
