@@ -2502,20 +2502,21 @@ namespace gtype5
 			'arte' => 50,
 			'arts' => 40,
 			
+			'itm1' => '魔法布丁',
+			'itmk1' => 'HB',
+			'itme1' => 35,
+			'itms1' => 10,
+			
+			'itm2' => '魔法灵药',
+			'itmk2' => 'Ca',
+			'itme2' => 1,
+			'itms2' => 3,
+			
 			'itm5' => '智慧果',
 			'itmk5' => 'Y',
 			'itme5' => 1,
 			'itms5' => 1,
 
-			'itm4' => '魔法布丁',
-			'itmk4' => 'HB',
-			'itme4' => 35,
-			'itms4' => 10,
-			
-			'itm3' => '魔法灵药',
-			'itmk3' => 'Ca',
-			'itme3' => 1,
-			'itms3' => 3,
 			
 			'sub' => array
 			(
@@ -2621,30 +2622,32 @@ namespace gtype5
 			//'arte' => 420,
 			//'arts' => 300,
 			
+			
+
+			'itm1' => '恩惠的魔法布丁',
+			'itmk1' => 'HB',
+			'itme1' => 70,
+			'itms1' => 100,
+			
+			'itm2' => '恩惠的魔法灵药',
+			'itmk2' => 'Ca',
+			'itme2' => 1,
+			'itms2' => 30,
+			
+			'itm3' => '智慧果',
+			'itmk3' => 'Y',
+			'itme3' => 1,
+			'itms3' => 1,
+			
+			'itm4' => '智慧果',
+			'itmk4' => 'Y',
+			'itme4' => 1,
+			'itms4' => 1,
+			
 			'itm5' => '智慧果',
 			'itmk5' => 'Y',
 			'itme5' => 1,
 			'itms5' => 1,
-
-			'itm4' => '恩惠的魔法布丁',
-			'itmk4' => 'HB',
-			'itme4' => 70,
-			'itms4' => 100,
-			
-			'itm3' => '恩惠的魔法灵药',
-			'itmk3' => 'Ca',
-			'itme3' => 1,
-			'itms3' => 30,
-			
-			'itm2' => '智慧果',
-			'itmk2' => 'Y',
-			'itme2' => 1,
-			'itms2' => 1,
-			
-			'itm1' => '智慧果',
-			'itmk1' => 'Y',
-			'itme1' => 1,
-			'itms1' => 1,
 			
 			'sub' => array
 			(

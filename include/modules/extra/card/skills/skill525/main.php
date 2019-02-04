@@ -55,27 +55,27 @@ namespace skill525
 	function get_physical_dmg_change(&$pa, &$pd, $active, $dmg)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-
+		$ret = $chprocess($pa, $pd, $active, $dmg);
 		if(check_skill525_proc($pa,$pd,$active, $dmg)){
-			$dmg = 0;
+			$ret = 0;
 		}
-		return $dmg;
+		return $ret;
 	}
 
 	//属性伤害为0
-	function calculate_ex_attack_dmg_change(&$pa, &$pd, $active)
+	function calculate_ex_attack_dmg_change(&$pa, &$pd, $active, $tdmg)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 
-		$r=Array();
-		if ($active && \skillbase\skill_query(525,$pd) && check_unlocked525($pd)){
-			$r = 0;
+		$ret = $chprocess($pa, $pd, $active, $tdmg);
+		if (\skillbase\skill_query(525,$pd) && check_unlocked525($pd)){
+			$ret = 0;
 		}
-		elseif (!$active && \skillbase\skill_query(525,$pa) && check_unlocked525($pa)){
-			$r = 0;
+		elseif (\skillbase\skill_query(525,$pa) && check_unlocked525($pa)){
+			$ret = 0;
 		}
 
-		return $r;
+		return $ret;
 	}
 
 }
