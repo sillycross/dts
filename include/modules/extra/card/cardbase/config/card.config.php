@@ -2836,15 +2836,16 @@ $cards = array(
 	),
 	182 => array(
 		'name' => '简单',
-		'title' => '简单玩家',
+		'title' => '新米玩家',
 		'rare' => 'C',
 		'pack' => 'hidden',
-		'desc' => '简单模式',
-		'effect' => '简单模式',
+		'desc' => '简单模式，适合到幻界游玩的旅游者。',
+		'effect' => '对其他玩家造成的伤害降低，对NPC造成的伤害升高；其他NPC和玩家对你的伤害降低。',
 		'energy' => 0,
 		'valid' => array(
 			'skills' => array(
 				'1004' => '1', 
+				'1005' => '0',
 			),
 		)
 	),
@@ -2853,26 +2854,28 @@ $cards = array(
 		'title' => '通常玩家',
 		'rare' => 'B',
 		'pack' => 'hidden',
-		'desc' => '通常模式',
-		'effect' => '通常模式',
+		'desc' => '通常模式，适合所有的挑战者。',
+		'effect' => '和普通游戏模式一样，不做数值修正。',
 		'energy' => 0,
 		'valid' => array(
 			'skills' => array(
 				'1004' => '2', 
+				'1005' => '0',
 			),
 		)
 	),
 	184 => array(
 		'name' => '困难',
-		'title' => '困难玩家',
+		'title' => '认真玩家',
 		'rare' => 'A',
 		'pack' => 'hidden',
-		'desc' => '困难模式',
-		'effect' => '困难模式',
+		'desc' => '认真模式，你是励志认真修复的异变处理人！',
+		'effect' => '对玩家和NPC造成的伤害降低，NPC和其他玩家对你造成的伤害升高。',
 		'energy' => 0,
 		'valid' => array(
 			'skills' => array(
 				'1004' => '3', 
+				'1005' => '0',
 			),
 		)
 	),
@@ -2881,12 +2884,13 @@ $cards = array(
 		'title' => '疯狂玩家',
 		'rare' => 'S',
 		'pack' => 'hidden',
-		'desc' => '疯狂模式',
-		'effect' => '疯狂模式',
+		'desc' => '疯狂模式，你究竟是来干啥的？',
+		'effect' => 'ERROR 40404 侦测到迷之错误，该难度描述无法找到！',
 		'energy' => 0,
 		'valid' => array(
 			'skills' => array(
 				'1004' => '4', 
+				'1005' => '0',
 			),
 		)
 	),
