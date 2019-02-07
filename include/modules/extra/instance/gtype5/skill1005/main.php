@@ -14,7 +14,7 @@ namespace skill1005
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		\skillbase\skill_setvalue(1005,'lvl',0,$pa);
 		\skillbase\skill_setvalue(1005,'cur1','智慧果',$pa);
-		\skillbase\skill_setvalue(1005,'cur2','智慧果',$pa);
+		\skillbase\skill_setvalue(1005,'cur2','',$pa);
 		\skillbase\skill_setvalue(1005,'cur3','',$pa);
 		\skillbase\skill_setvalue(1005,'cur4','',$pa);
 		\skillbase\skill_setvalue(1005,'npclvlsum','0',$pa);
@@ -72,7 +72,8 @@ namespace skill1005
 		$aready=array(\skillbase\skill_getvalue(1005,'cur1'), \skillbase\skill_getvalue(1005,'cur2'), \skillbase\skill_getvalue(1005,'cur3'), \skillbase\skill_getvalue(1005,'cur4'));
 		$aready = array_filter($aready);
 		$clv=\skillbase\skill_getvalue(1005,'lvl');
-		$req1 = $req2 = $req3 = $req4 = '智慧果';
+		$req1 = '智慧果';
+		$req2 = $req3 = $req4 = '';
 		
 		
 /* 		if(0==$clv) {
@@ -218,7 +219,7 @@ namespace skill1005
 				//没封顶的话，加一层。
 				$gdice=rand(1,3);
 				//生成物品，Reskin搬运
-				$file=GAME_ROOT.".include/modules/extra/instance/gtype5/skill1005/config/awarditem.config.php";//真是丑陋！
+				$file=GAME_ROOT."./include/modules/extra/instance/gtype5/skill1005/config/awarditem.config.php";//真是丑陋！
 				$itemlist = openfile($file);
 				$in = sizeof($itemlist);
 				$i=rand(4,$in-1);//妈了个臀
@@ -247,6 +248,7 @@ namespace skill1005
 				
 				$clv++;
 				\skillbase\skill_setvalue(1005,'lvl',$clv);
+				$mlv = \skillbase\skill_getvalue(1005,'maxlvl');
 				if($clv > $mlv) \skillbase\skill_setvalue(1005,'maxlvl',$clv);
 				
 				wdebug_reset1005();
