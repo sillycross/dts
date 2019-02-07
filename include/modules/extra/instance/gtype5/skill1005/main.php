@@ -242,7 +242,7 @@ namespace skill1005
 				if ($gdice==3){
 					$addmoney=386;
 					$money += $addmoney;
-					log .="<span class=\"yellow b\">获得了{$addmoney}元报酬。</span><br />";
+					$log .="<span class=\"yellow b\">获得了{$addmoney}元报酬。</span><br />";
 				}
 				
 				$clv++;

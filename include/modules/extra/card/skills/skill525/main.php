@@ -32,11 +32,11 @@ namespace skill525
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill525','player','logger'));
 		if ($active && (strstr($pa['wepk'], 'F') != '')){
-			$log .=  \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow b"><:pa_name:>的物理伤害无效</span><br>');
+			$log .=  \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow b">对<:pa_name:>的灵系伤害无效</span><br>');
 			return 1;
 		}
 		if ($active && (strstr($pd['wepk'], 'F') != '')){
-			$log .=  \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow b"><:pd_name:>的物理伤害无效</span><br>');
+			$log .=  \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow b">对<:pd_name:>的灵系伤害无效</span><br>');
 			return 1;
 		}
 

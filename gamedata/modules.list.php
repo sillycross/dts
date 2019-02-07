@@ -500,6 +500,7 @@ skill368,extra/achievement/skills/skill368/,1
 skill369,extra/achievement/skills/skill369/,1
 skill504,extra/card/skills/skill504/,1
 skill1004,extra/instance/gtype5/skill1004/,1
+skill1005,extra/instance/gtype5/skill1005/,1
 searchmemory,extra/searchmemory/,1
 skill503,extra/card/skills/skill503/,1
 skill351,extra/achievement/skills/skill351/,1
