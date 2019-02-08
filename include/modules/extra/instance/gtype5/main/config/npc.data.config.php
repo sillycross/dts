@@ -2655,6 +2655,7 @@ namespace gtype5
 				(
 				'name' => '草妖精 米迦',
 				'icon' => 424,
+				'skills' => array('521'=>'0'),
 				'mhp' => 120000,
 				'att' => 100,
 				'def' => 300,
@@ -2674,6 +2675,7 @@ namespace gtype5
 				(
 				'name' => '水妖精 苏',
 				'icon' => 425,
+				'skills' => array('522'=>'0'),
 				'mhp' => 900,
 				'att' => 300,
 				'def' => 200,
@@ -2692,6 +2694,7 @@ namespace gtype5
 				(
 				'name' => '太阳妖精 李',
 				'icon' => 426,
+				'skills' => array('523'=>'0'),
 				'mhp' => 6000,
 				'att' => 250,
 				'def' => 250,
@@ -2710,6 +2713,7 @@ namespace gtype5
 				(
 				'name' => '月亮妖精 雅斯特',
 				'icon' => 427,
+				'skills' => array('524'=>'0'),
 				'mhp' => 6000,
 				'att' => 250,
 				'def' => 300,
@@ -2728,6 +2732,7 @@ namespace gtype5
 				(
 				'name' => '火龙 锭蓝',
 				'icon' => 428,
+				'skills' => array('525'=>'0'),
 				'mhp' => 8000,
 				'att' => 120,
 				'def' => 400,
@@ -2746,6 +2751,7 @@ namespace gtype5
 				(
 				'name' => '水龙 玫红',
 				'icon' => 429,
+				'skills' => array('526'=>'0'),
 				'mhp' => 8000,
 				'att' => 120,
 				'def' => 400,

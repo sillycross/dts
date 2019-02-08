@@ -32,11 +32,11 @@ namespace skill526
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill526','player','logger'));
 		if (\skillbase\skill_query(526,$pd) && check_unlocked526($pd) && strstr($pa['wepk'], 'F') != ''){
-			$log .=  \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow b">对<:pa_name:>的灵系伤害无效</span><br>');
+			$log .=  \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow b">对这只水溅龙的灵系伤害无效</span><br>');
 			return 1;
 		}
 		elseif (\skillbase\skill_query(526,$pa) && check_unlocked526($pa) && strstr($pd['wepk'], 'F') != ''){
-			$log .=  \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow b">对<:pd_name:>的灵系伤害无效</span><br>');
+			$log .=  \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow b">对对这只水溅龙的灵系伤害无效</span><br>');
 			return 1;
 		}
 
