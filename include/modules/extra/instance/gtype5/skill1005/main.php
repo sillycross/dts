@@ -236,14 +236,14 @@ namespace skill1005
 				//送数值
 				if ($gdice==2){
 					$att+=15;$def+=15;
-					$mhp+=10;$msp+=10;$hp+=10;$sp+=10;
-					$log .="<span class=\"yellow b\">获得了15点基础攻防和10点命体上限。</span><br />";
+					$mhp+=50;$msp+=50;$hp+=50;$sp+=50;
+					$log .="【FOREST】感谢你的努力。<br /><span class=\"yellow b\">获得了15点基础攻防和50点命体上限。</span><br />";
 				}
 				//送钱
 				if ($gdice==3){
 					$addmoney=386;
 					$money += $addmoney;
-					$log .="<span class=\"yellow b\">获得了{$addmoney}元报酬。</span><br />";
+					$log .="【FOREST】感谢你的努力。<br /><span class=\"yellow b\">获得了{$addmoney}元报酬。</span><br />";
 				}
 				
 				$clv++;

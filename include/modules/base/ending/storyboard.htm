@@ -494,6 +494,48 @@
 				<span class="evergreen b">■ GAME CLEAR - END #3 - CRACKING ■</span><br>
 				<span class="evergreen b" style="font-weight:700;font-size:18pt;line-height:18pt;">「锁定解除」破解胜利！恭喜！</span>
 			</div>
+		<!--////////////////////  锁定解除 幻界叫唤  ////////////////////-->
+		<!--{elseif $gametype == 5}-->
+			<div id="op_sht_0" class="shootings">
+				你拿着手中那感觉似乎与印象中不同的『游戏解除钥匙』，<br>
+				端详了许久，在考虑是否要使用它。<br>
+				FOREST的声音从远方传来，但是奇怪的是，你听不清她在说什么。<br>
+				不管怎么说，这里的气氛也太过于诡异，你的本能在告诉你应该逃离这个地方。<br>
+				但不管怎么说，这个奇妙的空间，似乎还少了很多的东西。<br>
+				空荡荡的商店，被异色图景所包裹的大地，还有这大地上游荡着的各种超自然的类似于幽灵一样的物体。<br>
+				都不是你想象中会见到的东西。换言之，那一切已经超出了你的想象了。
+				<br>
+				<img border="0" src="./img/story_end_vapor_1.gif">
+				<br>
+			</div>
+			<div id="op_sht_1" class="shootings">
+				你摇了摇头，想将这些你想象之外的存在赶出你的脑海。<br>
+				你这么想着，按下了『游戏解除钥匙』的开关，<br>
+				在那一瞬间，你似乎看到了FOREST的身影。<br>
+				她似乎在对你说着什么，
+				但你完全听不清楚……<br>
+			</div>
+			<div id="op_sht_2" class="shootings">
+			<span class="yellow b">“{$sexinfo[$gd]}{$sNo}号，{$winner} 。在这里登出。”</span><br>
+				<br>
+				在最后的一瞬间，你听到了一句不属于任何你认识的人的低语。<br>
+				她是谁？在你思索着这个问题的时候，你的意识也坠入了黑暗当中。<br>
+				<img border="0" src="./img/story_end_vapor_2.gif" height="106" width="224">
+				<br>
+				<span class="yellow b">（『系统修复进度：8%』）</span><br>
+				<br>
+				与此同时，幻境里侧·英灵殿。<br>
+				“不行，缺损的信息太多了，这样根本没办法将我送回去啊，你会帮我的吧，爱丽丝？”<br>
+				“喵～～”<br>
+				“我又不是公主，听不懂你在说什么啦，这有点不公平吧？”<br>
+				“喵呜？”<br>
+				<br>
+				在水平面的无限的交点上，<br>
+				一人一猫就站在那里。<br>
+				<br>
+				<span class="evergreen b">■ 幻 界 叫 唤 - END ？ ■</span><br>
+				<span class="evergreen b" style="font-weight:700;font-size:18pt;line-height:18pt;">你的行动已经顺利促进了对幻界里侧的修复！请再接再厉！</span>
+			</div>
 		<!--////////////////////  锁定解除 其他模式  ////////////////////-->
 		<!--{else}-->
 			<div id="op_sht_0" class="shootings">
@@ -762,6 +804,26 @@
 				<br>
 				<span class="evergreen b" style="font-weight:700;font-size:18pt;line-height:18pt;">其他玩家已完成「锁定解除」破解胜利，请再接再厉！</span>
 			</div>
+		</div>
+		<!--////////////////////  锁定解除（非胜利者） 幻界叫唤  ////////////////////-->
+		<!--{elseif $gametype == 5}-->
+		<div id="op_sht_0" class="shootings">
+				一股异样的震动突然在你身边响起。<br>
+				你认得那个迹象，那是『锁定解除』的标志。<br>
+				也就是说，有其他什么人已经完成了修复任务，是吧。<br>
+				不管是哪个家伙——干的还不错嘛。<br>
+		</div>
+		<div id="op_sht_1" class="shootings">
+				果然，整个世界马上开始崩塌。你觉得自己似乎飘了起来，离这个世界越来越远。<br>
+				然后，在天空上，你看到了一行大字。<br>
+				<img border="0" src="./img/story_end_vapor_2.gif" height="106" width="224">
+				<br>
+				<span class="yellow b">（『系统修复进度：8%』）</span><br>
+				也就是说，还会回来的吧。<br>
+				你这么想着，意识落入了黑暗。<br>
+				<br>
+				<br>
+				<span class="evergreen b" style="font-weight:700;font-size:18pt;line-height:18pt;">其他玩家已完成修复任务，请再接再厉！</span>
 		</div>
 		<!--////////////////////  锁定解除（非胜利者） 其他模式  ////////////////////-->
 		<!--{else}-->
@@ -1079,7 +1141,7 @@
 			<span style="color:red;font:bold 24px 微软雅黑;line-height:30px">…………<br>
 				这是……<font style="font-weight:bold"><ruby>■■线■残■<rt>
 					<!--{if in_array(42, $uip['killed_vip'])}--><!--击杀过115则显示此行（故事线的残意）-->
-						Remeant of Stories
+						Remnant of Stories
 					<!--{elseif in_array(88, $uip['killed_vip'])}--><!--击杀过SCP则显示此行（世界线的残余）-->
 						Remnant of Worlds
 					<!--{else}--><!--都不满足则显示此行（时间线的残响）-->

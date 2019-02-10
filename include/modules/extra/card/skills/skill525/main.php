@@ -31,20 +31,20 @@ namespace skill525
 	function check_skill525_proc(&$pa, &$pd, $active, $dmg){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill525','player','logger'));
-		if ($active && (strstr($pa['wepk'], 'F') != '')){
-			$log .=  \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow b">对<:pa_name:>的灵系伤害无效</span><br>');
+		if (\skillbase\skill_query(525,$pd) && check_unlocked525($pd) && strstr($pa['wepk'], 'F') != ''){
+			$log .=  \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow b">对这只火爆龙的的灵系伤害无效</span><br>');
 			return 1;
 		}
-		if ($active && (strstr($pd['wepk'], 'F') != '')){
-			$log .=  \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow b">对<:pd_name:>的灵系伤害无效</span><br>');
+		elseif (\skillbase\skill_query(525,$pa) && check_unlocked525($pa) && strstr($pd['wepk'], 'F') != ''){
+			$log .=  \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow b">对这只火爆龙的灵系伤害无效</span><br>');
 			return 1;
 		}
 
-		if ($active && ((strstr($pa['wepk'], 'C') != '') || (strstr($pa['wepk'], 'D') != '') || (strstr($pa['wepk'], 'B') != ''))) {
+		if (\skillbase\skill_query(525,$pd) && check_unlocked525($pd) && ((strstr($pa['wepk'], 'C') != '') || (strstr($pa['wepk'], 'D') != '') || (strstr($pa['wepk'], 'B') != ''))) {
 			$rate = 0.3;
 			$pd['att'] += $rate * $dmg;
 		}
-		elseif (!$active && ((strstr($pd['wepk'], 'C') != '') || (strstr($pd['wepk'], 'D') != '') || (strstr($pd['wepk'], 'B') != ''))) {
+		elseif (\skillbase\skill_query(525,$pa) && check_unlocked525($pa) && ((strstr($pd['wepk'], 'C') != '') || (strstr($pd['wepk'], 'D') != '') || (strstr($pd['wepk'], 'B') != ''))) {
 			$rate = 0.2;
 			$pa['att'] += $rate * $dmg;
 			//玩家部分暂定
