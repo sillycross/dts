@@ -364,6 +364,12 @@ skill463,extra/card/skills/skill463/,1
 skill465,extra/card/skills/skill465/,1
 skill478,extra/card/skills/skill478/,1
 skill272,extra/club/skills/skill272/,1
+skill521,extra/card/skills/skill521/,1
+skill522,extra/card/skills/skill522/,1
+skill523,extra/card/skills/skill523/,1
+skill524,extra/card/skills/skill524/,1
+skill525,extra/card/skills/skill525/,1
+skill526,extra/card/skills/skill526/,1
 ex_phy_nullify,extra/attr/ex_phy_nullify/,1
 skill232,extra/club/skills/skill232/,1
 skill432,extra/card/skills/skill432/,1
@@ -494,6 +500,7 @@ skill368,extra/achievement/skills/skill368/,1
 skill369,extra/achievement/skills/skill369/,1
 skill504,extra/card/skills/skill504/,1
 skill1004,extra/instance/gtype5/skill1004/,1
+skill1005,extra/instance/gtype5/skill1005/,1
 searchmemory,extra/searchmemory/,1
 skill503,extra/card/skills/skill503/,1
 skill351,extra/achievement/skills/skill351/,1

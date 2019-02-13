@@ -14,7 +14,7 @@ namespace skill1005
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		\skillbase\skill_setvalue(1005,'lvl',0,$pa);
 		\skillbase\skill_setvalue(1005,'cur1','智慧果',$pa);
-		\skillbase\skill_setvalue(1005,'cur2','智慧果',$pa);
+		\skillbase\skill_setvalue(1005,'cur2','',$pa);
 		\skillbase\skill_setvalue(1005,'cur3','',$pa);
 		\skillbase\skill_setvalue(1005,'cur4','',$pa);
 		\skillbase\skill_setvalue(1005,'npclvlsum','0',$pa);
@@ -34,13 +34,13 @@ namespace skill1005
 		\skillbase\skill_delvalue(1005,'cur4',$pa);
 	}
 	
-	function check_unlocked1005(&$pa)
+	function check_unlocked1005(&$pa=NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return 1;
 	}
 	
-	function wdebug_check(){
+	function wdebug_check1005(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player'));
 		if(!\skillbase\skill_query(1005)) return false;
@@ -65,14 +65,15 @@ namespace skill1005
 		return $position;
 	}
 	
-	function wdebug_reset(){
+	function wdebug_reset1005(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player'));
 		if(!\skillbase\skill_query(1005)) return false;
 		$aready=array(\skillbase\skill_getvalue(1005,'cur1'), \skillbase\skill_getvalue(1005,'cur2'), \skillbase\skill_getvalue(1005,'cur3'), \skillbase\skill_getvalue(1005,'cur4'));
 		$aready = array_filter($aready);
 		$clv=\skillbase\skill_getvalue(1005,'lvl');
-		$req1 = $req2 = $req3 = $req4 = '智慧果';
+		$req1 = '智慧果';
+		$req2 = $req3 = $req4 = '';
 		
 		
 /* 		if(0==$clv) {
@@ -141,7 +142,7 @@ namespace skill1005
 		return $iname;
 	} */
 	
-	function wdebug_showreq(){
+	function wdebug_showreq1005(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player'));
 		$req1=\skillbase\skill_getvalue(1005,'cur1');
@@ -181,12 +182,12 @@ namespace skill1005
 		}else return 0;
 	} */
 		
-	function wdebug(){
+	function wdebug1005(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','itemmain','logger','skill1005','skillbase','map'));
 		if(\skillbase\skill_query(1005)){
 			$clv=\skillbase\skill_getvalue(1005,'lvl');
-			$position = wdebug_check();
+			$position = wdebug_check1005();
 			if($position){
 				$itm = ${'itm'.$position};
 				$log .= "<span class=\"yellow b\">修复成功。</span><br />";
@@ -218,7 +219,7 @@ namespace skill1005
 				//没封顶的话，加一层。
 				$gdice=rand(1,3);
 				//生成物品，Reskin搬运
-				$file=GAME_ROOT.".include/modules/extra/instance/gtype5/skill1005/config/awarditem.config.php";//真是丑陋！
+				$file=GAME_ROOT."./include/modules/extra/instance/gtype5/skill1005/config/awarditem.config.php";//真是丑陋！
 				$itemlist = openfile($file);
 				$in = sizeof($itemlist);
 				$i=rand(4,$in-1);//妈了个臀
@@ -229,32 +230,34 @@ namespace skill1005
 				}
 				//送物品
 				if ($gdice==1){
-				$itm0=$iname;$itme0=$ieff;$itms0=$ista;$itmsk0=$iskind;$itmk0=$ikind;
-				\itemmain\itemget();
+					$itm0=$iname;$itme0=$ieff;$itms0=$ista;$itmsk0=$iskind;$itmk0=$ikind;
+					\itemmain\itemget();
 				}
 				//送数值
 				if ($gdice==2){
-				$att+=15;$def+=15;
-				$mhp+=10;$msp+=10;$hp+=10;$sp+=10;
-				$log .="<span class=\"yellow b\">获得了15点基础攻防和10点命体上限。</span><br />";
+					$att+=15;$def+=15;
+					$mhp+=50;$msp+=50;$hp+=50;$sp+=50;
+					$log .="【FOREST】感谢你的努力。<br /><span class=\"yellow b\">获得了15点基础攻防和50点命体上限。</span><br />";
 				}
 				//送钱
 				if ($gdice==3){
-				$money += 386;
-				log .="<span class=\"yellow b\">获得了一些金钱报酬。</span><br />";
+					$addmoney=386;
+					$money += $addmoney;
+					$log .="【FOREST】感谢你的努力。<br /><span class=\"yellow b\">获得了{$addmoney}元报酬。</span><br />";
 				}
 				
 				$clv++;
 				\skillbase\skill_setvalue(1005,'lvl',$clv);
+				$mlv = \skillbase\skill_getvalue(1005,'maxlvl');
 				if($clv > $mlv) \skillbase\skill_setvalue(1005,'maxlvl',$clv);
 				
-				wdebug_reset();
-				$log .='下次修复需要物品'.wdebug_showreq();
+				wdebug_reset1005();
+				$log .='下次修复需要物品'.wdebug_showreq1005();
 				
 				$mode = 'command';
 				return;
 			}else{
-				$log .= '本次修复需要物品'.wdebug_showreq().'。你没有进行修复所需的物品。<br />';
+				$log .= '本次修复需要物品'.wdebug_showreq1005().'。你没有进行修复所需的物品。<br />';
 				$mode = 'command';
 				return;
 			}
@@ -284,7 +287,7 @@ namespace skill1005
 	
 		if ($mode == 'special' && $command == 'skill1005_special' && $subcmd=='wdebug') 
 		{
-			wdebug();
+			wdebug1005();
 			return;
 		}
 			
