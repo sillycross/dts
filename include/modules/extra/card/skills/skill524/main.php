@@ -55,7 +55,7 @@ namespace skill524
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 
 		$r=Array();
-		if (\skillbase\skill_query(524,$pd) && check_unlocked524($pd) (( strstr($pa['wepsk'], 'i') != '') || strstr($pa['wepsk'], 'k'))){
+		if (\skillbase\skill_query(524,$pd) && check_unlocked524($pd) && (( strstr($pa['wepsk'], 'i') != '') || strstr($pa['wepsk'], 'k'))){
 			$r = Array(4);
 		}
 

@@ -195,6 +195,19 @@ namespace skill1005
 				addnews ( 0, 'skill1005', $name, $clv+1, $itm);
 				${'itm'.$position} = ${'itmk'.$position} = ${'itmsk'.$position} = '';
 				${'itme'.$position} =${'itms'.$position} =0;
+				//TODO：59层掉卡
+				if ($clv==59){
+					$log .="<span class=\"evergreen b\">【FOREST】干的不错，还差一点点了！</span><br /><span class=\"evergreen b\">【FOREST】系统足够稳定时，我似乎能给你们点奖励——但不是现在。</span><br />";
+					//TODO：掉卡逻辑
+				}
+				if ($clv>60){
+					$log .="<span class=\"evergreen b\">【FOREST】你的工作已经完成了。</span><br /><span class=\"evergreen b\">再留在这里也没啥意义不是么？</span><br />【FOREST】来，吃个钢蹦儿。<br />从天上掉下了一个硬币，<br />";
+					$addmoney=1;
+					$money += $addmoney;
+					$clv++;
+					\skillbase\skill_setvalue(1005,'lvl',$clv);
+					return;
+				}
 				//60层封顶了！
 				if ($clv==60){
 					$log .="<span class=\"evergreen b\">【FOREST】目前你们能修复的也就这么多了，我来想办法送你们出去。</span><br /><span class=\"evergreen b\">【FOREST】请检查你的背包。</span><br />";
@@ -204,12 +217,9 @@ namespace skill1005
 					${'itme'.$position} =1;
 					${'itms'.$position} =1;
 					$mode = 'command';
+					$clv++;
+					\skillbase\skill_setvalue(1005,'lvl',$clv);
 					return;
-				}
-				//TODO：59层掉卡
-				if ($clv==59){
-					$log .="<span class=\"evergreen b\">【FOREST】干的不错，还差一点点了！</span><br /><span class=\"evergreen b\">【FOREST】系统足够稳定时，我似乎能给你们点奖励——但不是现在。</span><br />";
-					//TODO：掉卡逻辑
 				}
 				//TODO：Hard难度封顶为80层，60层掉UG让人进英灵殿。
 /* 				if ($clv==80){
