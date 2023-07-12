@@ -20,7 +20,7 @@ $___TEMP_pagestart_time=getmicrotime();
 
 error_reporting(E_ALL);
 set_error_handler('gameerrorhandler');
-$magic_quotes_gpc = get_magic_quotes_gpc();
+$magic_quotes_gpc = false;//get_magic_quotes_gpc();
 
 require GAME_ROOT.'./include/modules/modules.func.php';
 require GAME_ROOT.'./include/user.func.php';

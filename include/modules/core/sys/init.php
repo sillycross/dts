@@ -85,7 +85,7 @@ namespace sys
 //			elseif(isset($_POST['page'])) $page = $_POST['page'];
 			//这段可能没用
 			$tmp_userdb_forced_local = $userdb_forced_local;
-			if('game' == CURSCRIPT || 'chat' == CURSCRIPT) $userdb_forced_local = 1;
+			if(defined('CURSCRIPT') && ('game' == CURSCRIPT || 'chat' == CURSCRIPT)) $userdb_forced_local = 1;
 			//强制读取本地
 			$cudata = fetch_udata_by_username(${$gtablepre.'user'});
 			$userdb_forced_local = $tmp_userdb_forced_local;

@@ -6,7 +6,7 @@ define('IN_MODULEMNG', TRUE);
 define('IN_GAME', TRUE);
 define('GAME_ROOT', dirname(__FILE__).'/');
 error_reporting(0);
-$magic_quotes_gpc = get_magic_quotes_gpc();
+$magic_quotes_gpc = false;//get_magic_quotes_gpc();
 
 require GAME_ROOT.'./include/global.func.php';
 check_authority();
