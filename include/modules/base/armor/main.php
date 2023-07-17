@@ -64,24 +64,36 @@ namespace armor
 		eval(import_module('armor','wound','logger'));
 		if (in_array($which,$armor_equip_list) && isset($pd[$which.'e']) && $pd[$which.'e']>0)	//有防具
 		{
-			if ($pd[$which.'s'] == $nosta)	//无限耐久防具可以抵挡一次任意损耗的攻击
+			if ($pd[$which.'s'] == $nosta)	//无限耐久防具改为减损效果值
 			{
-				$pd[$which.'s'] = $hurtvalue;
+				$x = min($pd[$which.'e'], $hurtvalue);
+				$pd[$which.'e'] -= $x;
+				if ($active)
+				{
+					$log .= "{$pd['name']}的".$pd[$which]."的效果值下降了{$x}！<br>";
+				}
+				else
+				{
+					$log .= "你的".$pd[$which]."的效果值下降了{$x}！<br>";
+				}
+						
+				if ($pd[$which.'e']<=0) armor_break($pa, $pd, $active, $which);
 			}
-			$x = min($pd[$which.'s'], $hurtvalue);
-			$pd[$which.'s'] -= $x;
-
-			if ($active)
+			else  //否则减损耐久值
 			{
-				$log .= "{$pd['name']}的".$pd[$which]."的耐久度下降了{$x}！<br>";
+				$x = min($pd[$which.'s'], $hurtvalue);
+				$pd[$which.'s'] -= $x;
+				if ($active)
+				{
+					$log .= "{$pd['name']}的".$pd[$which]."的耐久度下降了{$x}！<br>";
+				}
+				else
+				{
+					$log .= "你的".$pd[$which]."的耐久度下降了{$x}！<br>";
+				}
+						
+				if ($pd[$which.'s']<=0) armor_break($pa, $pd, $active, $which);
 			}
-			else
-			{
-				$log .= "你的".$pd[$which]."的耐久度下降了{$x}！<br>";
-			}
-					
-			if ($pd[$which.'s']<=0) armor_break($pa, $pd, $active, $which);
-			
 			return $x;
 		}
 		else  return 0;

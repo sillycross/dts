@@ -64,7 +64,6 @@ skill2,base/skills/skill2/,1
 skill3,base/skills/skill3/,1
 item_uv,base/items/item_uv/,1
 npcchat_bubble,extra/misc/npcchat_bubble/,1
-gtype5,extra/instance/gtype5/main/,1
 skill11,extra/club/skills/skill11/,1
 skill10,extra/club/skills/skill10/,1
 skill305,extra/achievement/skills/skill305/,1
@@ -251,7 +250,6 @@ skill516,extra/card/skills/skill516/,1
 club15,extra/club/clubs/club15/,1
 skill518,extra/card/skills/skill518/,1
 skill84,extra/club/skills/skill84/,1
-skill1005,extra/instance/gtype5/skill1005/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
@@ -500,7 +498,6 @@ skill367,extra/achievement/skills/skill367/,1
 skill368,extra/achievement/skills/skill368/,1
 skill369,extra/achievement/skills/skill369/,1
 skill504,extra/card/skills/skill504/,1
-skill1004,extra/instance/gtype5/skill1004/,1
 searchmemory,extra/searchmemory/,1
 skill503,extra/card/skills/skill503/,1
 skill351,extra/achievement/skills/skill351/,1
@@ -512,5 +509,8 @@ skill362,extra/activities/lunany2018/skill362/,1
 skill365,extra/activities/aprilfool2018/skill365/,1
 skill505,extra/card/skills/skill505/,1
 skill366,extra/activities/aprilfool2018/skill366/,1
+gtype5,extra/instance/gtype5/main/,0
+skill1005,extra/instance/gtype5/skill1005/,0
+skill1004,extra/instance/gtype5/skill1004/,0
 glowbutton,extra/misc/glowbutton/,0
 halloween2017,extra/activities/halloween2017/main/,0

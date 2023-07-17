@@ -170,7 +170,7 @@ namespace sys
 		global $cuser, $cpass;
 		$cuser = ${$gtablepre.'user'};
 		$cpass = ${$gtablepre.'pass'};
-		
+		 
 		//这里实在没办法，一堆文件都直接引用mode和command这两个来自input的变量，但又不能让所有文件都依赖input…… 只能恶心一下了……
 		global $mode, $command, $___MOD_SRV;
 		if ($___MOD_SRV)
