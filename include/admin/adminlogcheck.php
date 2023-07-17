@@ -7,8 +7,10 @@ include GAME_ROOT.'./templates/default/templates.lang.php';
 $lang = array_merge($language, $lang);
 $adminlogfile = GAME_ROOT.'./gamedata/adminlog_nf.php';
 $adminlogdata = array();
-foreach(openfile($adminlogfile) as $aval){
-	$adminlogdata[] = explode(',',$aval);
+if(file_exists($adminlogfile)) {
+	foreach(openfile($adminlogfile) as $aval){
+		$adminlogdata[] = explode(',',$aval);
+	}
 }
 $showdata=array();
 foreach($adminlogdata as $aval){

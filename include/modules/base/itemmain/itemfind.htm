@@ -2,5 +2,10 @@
 <br>
 <input type="hidden" id="mode" name="mode" value="itemmain">
 <input type="hidden" id="command" name="command" value="itemget">
-<input type="button" class="cmdbutton"  id="z" value="[Z]拾取" onclick="postCmd('gamecmd','command.php',this,1);this.disabled=true;"><br><br>
+<input type="button" class="cmdbutton"  id="z" value="[Z]拾取" onclick="postCmd('gamecmd','command.php',this,1);this.disabled=true;">
+<!--{eval eval(import_module('itemmain'));}-->
+<!--{if !empty($item_allow_find_and_use)}-->
+&nbsp;<input type="button" class="cmdbutton"  id="a" <!--{if \itemmain\is_equipable($itmk0)}-->value="[A]装备"<!--{else}-->value="[A]使用"<!--{/if}--> onclick="$('mode').value='command';$('command').value='itm0';postCmd('gamecmd','command.php',this,1);this.disabled=true;">
+<!--{/if}-->
+<br><br>
 <input type="button" class="cmdbutton"  id="x" value="[X]丢弃" onclick="$('command').value='dropitm0';postCmd('gamecmd','command.php',this,1);this.disabled=true;">

@@ -26,7 +26,7 @@ namespace skill505
 		$itmk = 'DA';
 		$itme = 100;
 		$itms = 2;
-		$itmsk = '';
+		$itmsk = 'Hh';
 		$db->query("INSERT INTO {$tablepre}mapitem (itm, itmk, itme, itms, itmsk ,pls) VALUES ('$itm', '$itmk', '$itme', '$itms', '$itmsk', '$rpls')");
 	}
 	

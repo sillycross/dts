@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `acbra2_log` (
   `toid` smallint(5) unsigned NOT NULL DEFAULT '0',
   `type` char(1) NOT NULL DEFAULT '',
   `time` int(10) unsigned NOT NULL DEFAULT '0',
-  `log` text NOT NULL,
+  `log` text NOT NULL DEFAULT '',
   PRIMARY KEY (`lid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
