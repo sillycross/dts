@@ -47,12 +47,19 @@ namespace itemmain
 	function itemget(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','itemmain'));
-		if(!empty($item_allow_find_and_use)){
+		if(get_item_allow_find_and_use()){
 			itemfind();
 		}else{
 			itemget_process();
 		}		
 		return;
+	}
+	
+	function get_item_allow_find_and_use(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('itemmain'));
+		if(!empty($item_allow_find_and_use)) return true;
+		else return false;
 	}
 	
 	//实际处理拾取道具的过程，如果包括无空位则询问丢弃哪一个，否则清空0号物品并把物品放入包裹

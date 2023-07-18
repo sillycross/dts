@@ -456,10 +456,24 @@ namespace itemmain
 		$chprocess($schmode);
 	}
 	
+	function pre_act(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','input'));
+		//在手里有道具的情况下阻止意料之外的指令，防止道具被洗掉
+		//如果有模块在这之前执行并且获得道具那就没办法了……
+		if(!empty($itms0) && !in_array($command, Array('itm0','dropitm0','itemget')) && false === strpos($command, 'swap')){
+			eval(import_module('logger'));
+			$log .= '你已手持道具，不能进行这一操作！<br>';
+			$mode = 'command';$command='menu';
+		}
+		$chprocess();
+	}
+	
 	function act()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','input'));
+		
 		if ($mode == 'command' && strpos($command,'itm') === 0) 
 		{
 			$item = substr($command,3);

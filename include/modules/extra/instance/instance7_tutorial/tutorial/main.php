@@ -9,6 +9,17 @@ namespace tutorial
 		$lwinfo[91]='任务成功完成，进入待机模式。';
 	}
 	
+	//更新即拾即用之后，为兼容性，需要覆盖$item_allow_find_and_use避免多余的操作
+	//主要是教程是个半成品懒得改了
+	function get_item_allow_find_and_use(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		if (17 == $gametype) {
+			return false;
+		}
+		return $chprocess();
+	}
+	
 	//退出教程命令
 	function exit_tutorial(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -462,8 +473,8 @@ namespace tutorial
 		$chprocess();
 	}
 	
-	//接管itemget()，判定推进
-	function itemget() {
+	//接管itemget_process()，判定推进
+	function itemget_process() {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
 		$r = $chprocess();
