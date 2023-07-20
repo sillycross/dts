@@ -1,13 +1,28 @@
 想购买什么物品？<br><br>
 <input type="hidden" name="mode" value="shop">
 <input type="hidden" name="shoptype" value="$shop">
-<input type="radio" name="command" id="menu" value="menu" checked><a onclick=sl('menu'); href="javascript:void(0);" onmouseover="status=' ';return true;">离开商店</a><br>
-<input type="radio" name="command" id="shop" value="shop"><a onclick=sl('shop'); href="javascript:void(0);" onmouseover="status=' ';return true;">返回列表</a><br><br>
+<input type="hidden" id="command" name="command" value="menu">
+<input type="hidden" id="buynum" name="buynum" value="1">
+<input type="button" class="cmdbutton" value="离开商店" onclick="$('command').value='menu';postCmd('gamecmd','command.php');this.disabled=true;">
+&nbsp;
+<input type="button" class="cmdbutton" value="返回列表" onclick="$('command').value='shop';postCmd('gamecmd','command.php');this.disabled=true;">
+<br><br>
 <!--{loop $itemdata $idata}-->
 <!--{if $idata['sid']}-->
-<a id="a$idata['sid']" onclick=sl("$idata['sid']"); href="javascript:void(0);" onmouseover="status=' ';return true;"><input type="radio" name="command" id="$idata['sid']" value="$idata['sid']">$idata['item']/$idata['itmk_words']/$idata['itme']/$idata['itms']<!--{if $idata['itmsk_words']}-->/$idata['itmsk_words']<!--{/if}--> 【价:$idata['price'],数:$idata['num']】</a><br>
+	<!--{eval $idsid = $idata['sid'];$buynumflag = $shop==1||$shop==2||$shop==6||$shop==7||$shop==8||$shop==10||$shop==11||$shop==12 ? 1 : 0;}-->
+	<div class="shoprow">
+		<div class="leftbox">
+			<!--{eval $tmp_shop_button_id=substr(md5($idata['item']),0,8);}-->
+			<input type="button" class="cmdbutton" value="购买" id="buy_{$tmp_shop_button_id}" onclick="$('command').value='$idsid';<!--{if $buynumflag}-->$('buynum').value=$('buynum{$idsid}').value;<!--{/if}-->postCmd('gamecmd','command.php');this.disabled=true;">
+		</div>
+		<div <!--{if $buynumflag}-->style="width:185px;"<!--{/if}-->>
+			$idata['item']/$idata['itmk_words']/$idata['itme']/$idata['itms']<!--{if $idata['itmsk_words']}-->/$idata['itmsk_words']<!--{/if}-->/价:$idata['price']/数:$idata['num']
+		</div>
+		<!--{if $buynumflag}-->
+		<div class="rightbox">
+			<input type="number" id="buynum{$idsid}" style="width:60px" value="1" min="1" max="1000"><span class="inputunit">个</span>
+		</div>
+		<!--{/if}-->		
+	</div>	
 <!--{/if}-->
 <!--{/loop}-->
-请输入购买数量：<input type="number" style="width:50px" name="buynum" value="1" min="1" max="999">
-<br><br>
-<input type="button" class="cmdbutton"  id="z" value="[Z]提交" onclick="postCmd('gamecmd','command.php');this.disabled=true;">

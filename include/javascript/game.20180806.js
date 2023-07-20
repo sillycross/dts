@@ -457,6 +457,7 @@ function showData_effect(shwData) {
 					if(efel.length > 0){
 						if(efel.is('img') || efel.is('select')) efel.addClass("TransPulse");
 			  		else efel.addClass("Pulse");
+			  		efel.css({'z-index':'5','position':'relative'});
 					}
 			  }
 			}	else if (ef == 'chatref'){

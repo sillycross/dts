@@ -187,7 +187,7 @@ background-image: url("../../img/footer_line.gif");
 .clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; } 
 .clearfix {display: inline-table;} /* Hides from IE-mac \*/ * html .clearfix {height: 1%;} .clearfix {display: block;} /* End hide from IE-mac */ 
 
-#gamecmd input.cmdbutton{
+input.cmdbutton{
 	width:80px;height:25px;margin:2;
 }
 
@@ -253,6 +253,22 @@ div.bubblebox_container{
 .shootings {
 	text-align:center;
 	display:none;
+}
+/*==========商店道具==========*/
+.shoprow{
+	width:280px;display:flex;height:40px;
+}
+
+.shoprow .leftbox{
+	width:50px;float:left;margin-right:5px;
+}
+.shoprow .leftbox input{width:50px;}
+.shoprow .rightbox{
+	width:60px;float:right;
+}
+.shoprow .rightbox input{width:60px;}
+.shoprow .rightbox .inputunit{
+	position:absolute;top:5%;right:25%;color:#aaaaaa;
 }
 /*==========雷达屏幕==========*/
 table.radar{
@@ -444,12 +460,12 @@ div.card_bar div.card_err{
 
 @-webkit-keyframes brightPulse{
 	from {  -webkit-box-shadow: 0 0 12px #666; }
-  50% { background-color: #fa5; -webkit-box-shadow: 0 0 24px 2px #fa5; }
+  50% { background-color: #fa5; -webkit-box-shadow: 0 0 24px 8px #fa5; }
   to {  -webkit-box-shadow: 0 0 12px #666; }
 }
 
 @-webkit-keyframes brightTransPulse{
 	from {  -webkit-box-shadow: 0 0 12px #666; }
-  50% {  -webkit-box-shadow: 0 0 24px 2px #fa5; }
+  50% {  -webkit-box-shadow: 0 0 24px 8px #fa5; }
   to {  -webkit-box-shadow: 0 0 12px #666; }
 }

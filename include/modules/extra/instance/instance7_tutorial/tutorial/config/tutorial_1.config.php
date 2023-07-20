@@ -170,9 +170,9 @@ $tutorial_story[1] = Array(
 		'next' => 190		
 	),
 	190 => Array(
-		'tips' => '“之后选择<span class="yellow b">【锐器】</span>类别并<span class="yellow b">【提交】</span>。”<br>',
+		'tips' => '“之后点击<span class="yellow b">【锐器】</span>按钮。”<br>',
 		'object' => 'shop4',
-		'pulse' => Array('#ashop4','#z'),
+		'pulse' => Array('#bshop4'),
 		'next' => 200		
 	),
 	200 => Array(
@@ -181,7 +181,7 @@ $tutorial_story[1] = Array(
 		'obj2' => Array(
 			'item' => '【红杀铁剑】'
 		),
-		'pulse' => Array("a:contains('【红杀铁剑】')",'#z'),
+		'pulse' => Array('#buy_f1b3f633'),
 		'next' => 202		
 	),
 	202 => Array(
@@ -334,7 +334,7 @@ $tutorial_story[1] = Array(
 		'obj2' => Array(
 			'item' => '《斩系指南》'
 		),
-		'pulse' => Array('#ashop10',"a:contains('《斩系指南》')",'#c'),
+		'pulse' => Array('#bshop10','#buy_6c086eaf'),
 		'next' => 300	
 	),
 	300 => Array(
