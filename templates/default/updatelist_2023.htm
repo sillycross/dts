@@ -1,0 +1,27 @@
+<h2>更新日志</h2>
+<h3>X月X日 (v1.13)</h3>
+<p>沉寂许久之后的更新。</p>
+<p>游戏功能更新：</p>
+<ul>
+	<li>现在可以直接使用或者装备刚拾取到的道具了。部分操作流程因此有微小的调整。</li>
+	<li>商店页面现在用按钮而非列表的形式。</li>
+	<li>耐久为“∞”的防具现在被削减耐久值时会减扣效果值，而非直接损坏。这样的防具在效果值减为0时才会毁坏。</li>
+	<li>现在如果刚拾取的道具还未处理，是不接受无关的指令的，避免手里的道具被误操作覆盖。</li>
+	<li>修改了教程最后显示的群号。</li>
+</ul>
+<p>数据调整：</p>
+<ul>
+	<li>卡片【世界制御猫】的技能带来的【巨大灯泡】现在有双抹属性了。</li>
+	<li>【钦定】技能现在可以从雾天获得额外的视野。</li>
+	<li>【德古拉的斗篷】数值改变——因为无穷耐防具的判定变了。</li>
+</ul>
+
+<div id="show2018">
+	<p>以上是2023年以后的更新日志。</p>
+	<form method="post" action="updatelist.php" name="updatelist2023">
+		<input type="hidden" id="y2018" name="y" value="2018">
+		<input type="button" onclick="$('show2018').style.display='none';$('cont2018').style.display='block';postCmd('updatelist2023','updatelist.php');$('y2018').name='y2018';" value="查看2018年之前的更新日志">
+	</form>
+</div>
+<div id="cont2018" style="display:none">
+</div>
