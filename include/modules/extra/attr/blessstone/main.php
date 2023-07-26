@@ -169,6 +169,7 @@ namespace blessstone
 		$chprocess();
 	}
 	
+	//菁英刀不能磨
 	function use_hone($itm, $itme)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -179,6 +180,20 @@ namespace blessstone
 			return 0;
 		}
 		return $chprocess($itm,$itme);
+	}
+	
+	//菁英属性不能打针线包
+	function use_sewing_kit(&$theitem)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		eval(import_module('sys','player','itemmain','logger'));
+		$ret = $chprocess($theitem);
+		if($ret && strpos($arbsk,'Z')!==false) {
+			$log .= "打上补丁之后，装备显得朴素多了。<br><span class='yellow b'>$arb</span>失去了<span class='yellow b'>{$itemspkinfo['Z']}</span>属性！<br>";
+			$arbsk = str_replace('Z','',$arbsk);
+		}
+		return $ret;
 	}
 	
 	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())

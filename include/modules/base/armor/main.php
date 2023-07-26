@@ -37,7 +37,7 @@ namespace armor
 	
 	function armor_break(&$pa, &$pd, $active, $whicharmor)
 	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		
 		eval(import_module('logger'));
 		if ($active)

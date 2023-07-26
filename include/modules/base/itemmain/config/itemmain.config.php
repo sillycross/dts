@@ -116,6 +116,7 @@ namespace itemmain
 		//^002 itemmix_sync 变星
 		//^dd ex_def_down 降防
 		//^hu ex_mhp_temp_up 升血
+		//^ac ex_attr_crack 碎甲
 		'^TEST' => '蛋疼',
 	);
 	
