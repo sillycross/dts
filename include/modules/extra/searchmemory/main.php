@@ -4,9 +4,6 @@
 
 namespace searchmemory
 {
-	//从尸体上剥物品的冷却时间，单位毫秒
-	$searchmemorycoldtime = 3000;
-	
 	function init() {}
 	
 	function searchmemory_available()

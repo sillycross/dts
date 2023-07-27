@@ -485,7 +485,7 @@ $roomtypelist = Array(
 	10 => Array(
 		'name' => '<font class="yellow b">幻界叫唤</font>',
 		'gtype' => 5, //对应的游戏模式编号
-		'available' => true,
+		'available' => false,
 		'available-start' => 1506816000, //如果设置并大于零，表明时间戳迟于此时才显示和开放
 		'available-end' => 0,//如果设置并大于零，表明时间戳早于此时才显示和开放
 		'soleroom' => false,//唯一房间，只有不存在时才会新建房间。
