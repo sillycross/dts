@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `acbra2_chat`;
 CREATE TABLE IF NOT EXISTS `acbra2_chat` (
-  `cid` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `cid` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `type` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `time` int(10) unsigned NOT NULL DEFAULT '0',
   `send` char(30) NOT NULL DEFAULT '',
@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `acbra2_log` (
   `toid` smallint(5) unsigned NOT NULL DEFAULT '0',
   `type` char(1) NOT NULL DEFAULT '',
   `time` int(10) unsigned NOT NULL DEFAULT '0',
-  `log` text NOT NULL,
+  `log` text NOT NULL DEFAULT '',
   PRIMARY KEY (`lid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -165,7 +165,7 @@ CREATE TABLE IF NOT EXISTS `acbra2_maptrap` (
 
 DROP TABLE IF EXISTS `acbra2_newsinfo`;
 CREATE TABLE IF NOT EXISTS `acbra2_newsinfo` (
-  `nid` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `nid` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `time` int(10) unsigned NOT NULL DEFAULT '0',
   `news` char(15) NOT NULL DEFAULT '',
   `a` varchar(255) NOT NULL DEFAULT '',

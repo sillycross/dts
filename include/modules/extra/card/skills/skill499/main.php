@@ -2,7 +2,7 @@
 
 namespace skill499
 {
-	$skill499_act_time = 90;
+	$skill499_act_time = 110;
 	$skill499_no_effect_array = Array();//Array(1,9,20,21,22,88);	//不免疫的npc类别
 	
 	function init() 

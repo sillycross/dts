@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_ERROR | E_WARNING | E_PARSE);
+error_reporting(E_ERROR | E_PARSE);
 //set_magic_quotes_runtime(0);
 //ini_set('date.timezone','Asia/Shanghai');
 
@@ -679,7 +679,6 @@ if(!$action) {
 
 	}
 } elseif($action == 'environment') {
-	
 
 	if($_POST['saveconfig'] && is_writeable($server_config)) {
 
@@ -714,14 +713,14 @@ if(!$action) {
 		$quit = TRUE;
 	}
 
-	if(@ini_get(file_uploads)) {
-		$max_size = @ini_get(upload_max_filesize);
-		$curr_upload_status = $lang['attach_enabled'].$max_size;
-		$msg .= $lang['attach_enabled_info'].$max_size."\t";
-	} else {
-		$curr_upload_status = $lang['attach_disabled'];
-		$msg .= "<font color=\"#FF0000\">$lang[attach_disabled_info]</font>\t";
-	}
+//	if(@ini_get(file_uploads)) {
+//		$max_size = @ini_get(upload_max_filesize);
+//		$curr_upload_status = $lang['attach_enabled'].$max_size;
+//		$msg .= $lang['attach_enabled_info'].$max_size."\t";
+//	} else {
+//		$curr_upload_status = $lang['attach_disabled'];
+//		$msg .= "<font color=\"#FF0000\">$lang[attach_disabled_info]</font>\t";
+//	}
 
 	$query = $db->query("SELECT VERSION()");
 	$curr_mysql_version = $db->result($query, 0);
@@ -811,7 +810,7 @@ if(!$action) {
 		$dbpriv_droptable = $lang['yes'];
 	}
 
-	$query - $db->query("SELECT COUNT(*) FROM $tablepre"."users", 'SILENT');
+	$query = $db->query("SELECT COUNT(*) FROM $tablepre"."users", 'SILENT');
 	if(!$db->error()) {
 		$msg .= "<font color=\"#FF0000\">$lang[db_not_null]</font>\t";
 		$alert = " onSubmit=\"return confirm('$lang[db_drop_table_confirm]');\"";
@@ -1358,7 +1357,7 @@ function createtable($sql, $dbcharset) {
 }
 
 function setconfig($string) {
-	if(!get_magic_quotes_gpc()) {
+	if(function_exists('get_magic_quotes_gpc') && !get_magic_quotes_gpc()) {
 		$string = str_replace('\'', '\\\'', $string);
 	} else {
 		$string = str_replace('\"', '"', $string);

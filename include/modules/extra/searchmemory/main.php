@@ -64,14 +64,24 @@ namespace searchmemory
 		$chprocess($data);
 	}
 	
+	//计算探索记忆格子数，由于钦定（天气负面转化为正面）这种技能存在，需要单独抽离
+	function calc_memory_slotnum(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','searchmemory'));
+		if(!isset($searchmemory_max_slotnum)) $searchmemory_max_slotnum = 1;
+		$memory_loss = 0;
+		if(isset($weather_memory_loss[$weather]))	$memory_loss = $weather_memory_loss[$weather];
+		if(\skillbase\skill_query(245)) $memory_loss = -$memory_loss;
+		return $searchmemory_max_slotnum + $memory_loss;
+	}
+	
+	//把道具加入探索记忆列表，同时也触发丢失最早的记忆
 	function add_memory($marr, $showlog = 1){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','searchmemory'));
 		if(searchmemory_available() && $marr){
-			$searchmemory_real_slotnum = $searchmemory_max_slotnum;
-			if(isset($weather_memory_loss[$weather])) $searchmemory_real_slotnum += $weather_memory_loss[$weather];
-//			if($weather == 8) $searchmemory_real_slotnum -= 2;//起雾视野-2（剩下3）
-//			elseif($weather == 9 || $weather == 12) $searchmemory_real_slotnum -= 4;//浓雾暴风雪视野-4（剩下1）
+			//计算天气等造成的记忆格子减少
+			$searchmemory_real_slotnum = calc_memory_slotnum();
 			if($searchmemory_real_slotnum < 1) $searchmemory_real_slotnum = 1;
 			while(sizeof($searchmemory) >= $searchmemory_real_slotnum){
 				remove_memory();
@@ -81,7 +91,7 @@ namespace searchmemory
 				$amn = $marr['itm'];
 				$amflag = 1;
 				if($showlog) {
-					if($fog) $log .= '你能隐约看到'.$amn.'在哪里。<br>';
+					if($fog) $log .= '你能隐约看到'.$amn.'的位置。<br>';
 					else $log .= '你设法保持对'.$amn.'的持续观察。<br>';
 				}
 			}elseif(isset($marr['Pname'])){
@@ -324,6 +334,7 @@ namespace searchmemory
 		$chprocess($moveto);
 	}
 	
+	//探索记忆的冷却时间
 	function get_searchmemory_coldtime()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

@@ -81,7 +81,7 @@ namespace song
 				'hp' => array( 'e' =>2000, 'ignore_limit' => 1),
 				'sp' => array( 'e' =>2000, 'ignore_limit' => 1),
 			)
-		),
+		), 
 		6 => array(
 			'songname' => '小苹果',
 			'noisekey' => 'ss_XPG',

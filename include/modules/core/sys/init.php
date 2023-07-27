@@ -85,7 +85,7 @@ namespace sys
 //			elseif(isset($_POST['page'])) $page = $_POST['page'];
 			//这段可能没用
 			$tmp_userdb_forced_local = $userdb_forced_local;
-			if('game' == CURSCRIPT || 'chat' == CURSCRIPT) $userdb_forced_local = 1;
+			if(defined('CURSCRIPT') && ('game' == CURSCRIPT || 'chat' == CURSCRIPT)) $userdb_forced_local = 1;
 			//强制读取本地
 			$cudata = fetch_udata_by_username(${$gtablepre.'user'});
 			$userdb_forced_local = $tmp_userdb_forced_local;
@@ -170,7 +170,7 @@ namespace sys
 		global $cuser, $cpass;
 		$cuser = ${$gtablepre.'user'};
 		$cpass = ${$gtablepre.'pass'};
-		
+		 
 		//这里实在没办法，一堆文件都直接引用mode和command这两个来自input的变量，但又不能让所有文件都依赖input…… 只能恶心一下了……
 		global $mode, $command, $___MOD_SRV;
 		if ($___MOD_SRV)
