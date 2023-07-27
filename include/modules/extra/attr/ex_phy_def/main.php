@@ -13,7 +13,8 @@ namespace ex_phy_def
 		'C' => 'C',
 		'D' => 'D',
 		'F' => 'F',
-		'J' => 'G'
+		'J' => 'G',//重枪当做射系
+		'B' => 'c'//弓当做投系
 	);
 	
 	function init() 
@@ -36,7 +37,7 @@ namespace ex_phy_def
 		$itemspkremark['G']='10%概率失效';
 		
 		$itemspkinfo['C'] = '防投';
-		$itemspkdesc['C']='受到投掷武器物理伤害减半';
+		$itemspkdesc['C']='受到投掷武器和弓箭的物理伤害减半';
 		$itemspkremark['C']='10%概率失效';
 		
 		$itemspkinfo['D'] = '防爆';

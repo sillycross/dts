@@ -326,7 +326,7 @@ namespace itemmain
 		eval(import_module('itemmain'));
 		$equipable = false;
 		foreach($itemkind_equipable as $val){
-			if(strpos($itmkstr,$val)!==false) {
+			if(strpos($itmkstr,$val)===0) {
 				$equipable = true;
 				break;
 			}

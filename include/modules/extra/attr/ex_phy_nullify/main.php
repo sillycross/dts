@@ -99,8 +99,8 @@ namespace ex_phy_nullify
 			$proc_rate = get_ex_phy_nullify_proc_rate($pa, $pd, 0);
 			$dice = rand(0,99);
 			if ($dice<$proc_rate){
-				$log .= "这是一件能免疫所有物理攻击的防具。也许你需要一根能穿透所有物理防御的针才能给它打上补丁。<br>";
-				return false;
+				$log .= "<span class='yellow b'>针折断了。</span>这是一件能免疫所有物理攻击的防具。也许你需要一根能穿透所有物理防御的针才能给它打上补丁。<br>";
+				return true;
 			}else{
 				$log .= "纳尼？{$arb}免疫物理伤害的效果竟然失效了！<br>";
 			}

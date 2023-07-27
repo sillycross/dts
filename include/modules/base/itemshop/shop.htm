@@ -9,7 +9,7 @@
 <br><br>
 <!--{loop $itemdata $idata}-->
 <!--{if $idata['sid']}-->
-	<!--{eval $idsid = $idata['sid'];$buynumflag = $shop==1||$shop==2||$shop==6||$shop==7||$shop==8||$shop==10||$shop==11||$shop==12 ? 1 : 0;}-->
+	<!--{eval $idsid = $idata['sid'];eval(import_module('itemshop'));$buynumflag = in_array($shop, $shop_allow_input_num) ? 1 : 0;}-->
 	<div class="shoprow">
 		<div class="leftbox">
 			<!--{eval $tmp_shop_button_id=substr(md5($idata['item']),0,8);}-->

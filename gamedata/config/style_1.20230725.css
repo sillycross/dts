@@ -256,7 +256,7 @@ div.bubblebox_container{
 }
 /*==========商店道具==========*/
 .shoprow{
-	width:280px;display:flex;height:40px;
+	width:280px;display:flex;min-height:40px;
 }
 
 .shoprow .leftbox{

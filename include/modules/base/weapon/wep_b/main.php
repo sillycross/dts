@@ -45,12 +45,14 @@ namespace wep_b
 		else return $chprocess($pdata);
 	}
 	
+	//弓当锐器时伤害仅为25%
 	function get_WB_att_as_WK_modifier(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return 0.25;
 	}
 	
+	//当锐器特判
 	function get_external_att(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -61,6 +63,7 @@ namespace wep_b
 		else  return $c;
 	}
 	
+	//弓当锐器时损坏率3倍
 	function calculate_wepimp_rate(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -155,16 +158,11 @@ namespace wep_b
 		$itm=&$theitem['itm']; $itmk=&$theitem['itmk'];
 		$itme=&$theitem['itme']; $itms=&$theitem['itms']; $itmsk=&$theitem['itmsk'];
 		
-		if (strpos ( $wepk, 'WB' ) !== 0) {
-			$log .= "<span class=\"red b\">你没有装备弓，不能给武器上箭。</span><br>";
-			$mode = 'command';
-			return;
-		}
-		
-		//清楚箭矢名
+		//清除箭矢名
 		$swapn = wep_b_clean_arrow_name($wepk);
 		//清除武器上的箭属性
 		$swapsk = wep_b_clean_arrow_sk($wepsk);
+		//判定卸下来的箭矢数目，然后把武器改成无穷耐
 		$swapnum = 0;
 		if ($weps !== $nosta) {
 			$swapnum = $weps;
@@ -190,9 +188,10 @@ namespace wep_b
 		if(!$swapnum)	$log .= "为<span class=\"red b\">$wep</span>选用了<span class=\"red b\">$itm</span>，<span class=\"red b\">$wep</span>发射次数增加了<span class=\"yellow b\">$arrownum</span>。<br>";
 		else $log .= "为<span class=\"red b\">$wep</span>换上了<span class=\"red b\">$itm</span>，<span class=\"red b\">$wep</span>发射次数增加了<span class=\"yellow b\">$arrownum</span>。<br>";
 		if ($itms <= 0) {
-			$log .= "<span class=\"red b\">$itm</span>用光了。<br>";
-			$itm = $itmk = $itmsk = '';
-			$itme = $itms = 0;
+			\itemmain\itms_reduce($theitem);
+//			$log .= "<span class=\"red b\">$itm</span>用光了。<br>";
+//			$itm = $itmk = $itmsk = '';
+//			$itme = $itms = 0;
 		}
 		if($swapnum){
 			$itm0 = $swapn ? $swapn : '卸下的箭';$itmk0 = 'GA';$itme0 = 1;$itms0 = $swapnum; $itmsk0 = $swapsk;
@@ -203,12 +202,23 @@ namespace wep_b
 	function itemuse(&$theitem) 
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','logger'));
 		
 		$itm=&$theitem['itm']; $itmk=&$theitem['itmk'];
 		$itme=&$theitem['itme']; $itms=&$theitem['itms']; $itmsk=&$theitem['itmsk'];
-		
+		//var_dump($theitem['itmn']);var_dump($weps);
 		if (strpos ( $itmk, 'GA' ) === 0) 
 		{
+			if (strpos ( $wepk, 'WB' ) !== 0) {
+				$log .= "<span class=\"red b\">你没有装备弓，不能给武器上箭。</span><br>";
+				$mode = 'command';
+				return;
+			} elseif('0' === $theitem['itmn'] && !empty($weps)) {
+				//捡到的箭矢不能马上拉弓，避免换箭覆盖itm0的问题
+				$log .= "你一只手捏着弓箭，一只手抓着刚捡到的箭矢，没法马上弯弓搭箭。<span class=\"red b\">还是先把箭矢收进包裹里吧。</span><br>";
+				$mode = 'command';
+				return;
+			} 
 			itemuse_uga($theitem);
 			return;
 		}
