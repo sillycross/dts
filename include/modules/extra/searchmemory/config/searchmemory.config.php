@@ -11,6 +11,9 @@ namespace searchmemory
 		9 => -4,//浓雾
 		12 => -4//暴风雪
 	);
+	
+	//从尸体上剥物品的冷却时间，单位毫秒
+	$searchmemorycoldtime = 3000;
 }
 
 ?>
