@@ -43,15 +43,16 @@ namespace itemmain
 	}
 	
 	//由于大量功能都直接跳转到itemget()，但业务上又需要有变化，估抽空原itemget()作为前置判断过程，实际流程在itemget_process()
-	//如果开启了允许当场使用道具，那么这里会回头跳转到itemfind()
+	//中间有些缘由，现在它真的只是个壳子了
 	function itemget(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','itemmain'));
-		if(get_item_allow_find_and_use()){
-			itemfind();
-		}else{
-			itemget_process();
-		}		
+//		eval(import_module('sys','player','itemmain'));
+//		if(get_item_allow_find_and_use()){
+//			itemfind();
+//		}else{
+//			itemget_process();
+//		}		
+		itemget_process();
 		return;
 	}
 	
@@ -63,6 +64,7 @@ namespace itemmain
 	}
 	
 	//实际处理拾取道具的过程，如果包括无空位则询问丢弃哪一个，否则清空0号物品并把物品放入包裹
+	//如果开启了允许当场使用道具，这里也会多出一个当场使用的按钮
 	function itemget_process() {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
