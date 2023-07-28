@@ -384,6 +384,7 @@ namespace itemmain
 	}
 	
 	//探索道具主过程
+	//返回是否探索到道具
 	function discover_item()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -395,19 +396,35 @@ namespace itemmain
 		if($itemnum <= 0){
 			$log .= '<span class="yellow b">周围找不到任何物品。</span><br>';
 			$mode = 'command';
-			return;
+			return false;
 		}
-		$itemno = rand(0,$itemnum-1);
-		$db->data_seek($result,$itemno);
-		$mi=$db->fetch_array($result);
+		$mipool = Array();
+		//从数据库一口气拉取当前地图所有道具
+		while($r = $db->fetch_array($result)){
+			if(discover_item_filter($r))
+				$mipool[] = $r;
+		}
+		//打乱数组，相当于随机取一个
+		shuffle($mipool);
+		$mi = $mipool[0];
+		
 		$itms0 = focus_item($mi);
 		if($itms0){
 			itemfind();
-			return;
+			return true;
 		} else {
 			$log .= "但是什么都没有发现。<br>";
 		}
 		$mode = 'command';
+		return false;
+	}
+	
+	//在读取数据库时就过滤掉不符合条件的道具
+	//传入$iarr为从数据库fetch的单条道具数组
+	//返回$ret为boll
+	function discover_item_filter($iarr){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return true;
 	}
 	
 	//拾取道具的过程，传入一个包含道具在数据库中id的数组，删除数据库对应行，并把对应数据放入player数据的0号道具位
@@ -450,10 +467,9 @@ namespace itemmain
 		$find_obbs = calculate_itemfind_obbs()*calculate_itemfind_obbs_multiplier();
 		$dice = rand(0,99);
 		if($dice < $find_obbs) {
-			discover_item();
-			return;
+			return discover_item();
 		}
-		$chprocess($schmode);
+		return $chprocess($schmode);
 	}
 	
 	function pre_act(){
@@ -461,7 +477,7 @@ namespace itemmain
 		eval(import_module('sys','player','input'));
 		//在手里有道具的情况下阻止意料之外的指令，防止道具被洗掉
 		//如果有模块在这之前执行并且获得道具那就没办法了……
-		if(!empty($itms0) && !in_array($command, Array('itm0','dropitm0','itemget','itemmerge','enter')) && false === strpos($command, 'swap')){
+		if(!empty($hp) && !empty($itms0) && !in_array($command, Array('itm0','dropitm0','itemget','itemmerge','enter')) && false === strpos($command, 'swap')){
 			eval(import_module('logger'));
 			$log .= '你已手持道具，不能进行这一操作！<br>';
 			$mode = 'command';$command='menu';

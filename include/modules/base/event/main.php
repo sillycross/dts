@@ -528,7 +528,7 @@ namespace event
 				return;
 			}
 		}
-		$chprocess($schmode);
+		return $chprocess($schmode);
 	}
 	
 	function event_available(){

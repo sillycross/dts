@@ -65,18 +65,30 @@ namespace skill261
 		if (($now-$l)<=$skill261_cd) return 2;
 		return 3;
 	}
-	
-	function search_area()	
-	{
+	//效果改到discover()处理后
+	function discover($schmode){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($schmode);
 		eval(import_module('sys','player','skill261'));
 		if (\skillbase\skill_query(261) && check_skill261_state($sdata)==2)
 		{
 			$wp-=5;
 			if ($wp<50) $wp=50;
 		}
-		$chprocess();
+		return $ret;
 	}
+	
+//	function search_area()	
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		eval(import_module('sys','player','skill261'));
+//		if (\skillbase\skill_query(261) && check_skill261_state($sdata)==2)
+//		{
+//			$wp-=5;
+//			if ($wp<50) $wp=50;
+//		}
+//		$chprocess();
+//	}
 	
 	function move_to_area($moveto)	
 	{

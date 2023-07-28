@@ -426,15 +426,15 @@ namespace tutorial
 			//$log .= $schmode.' '.$ct['object'];
 			if($schmode == 'move'){//教程模式下，阻止移动时遇到意料之外的事件
 				$log .= "但是什么都没有发现。<br>";
-				return;
+				return false;
 			}
 			if($schmode == 'search' && (isset($ct['obj2']['itm']) || isset($ct['obj2']['meetnpc']))){//需要探索时必定发现
 				if(isset($ct['obj2']['itm'])){//判定必定发现道具
 					discover_item();
-					return;
+					return true;
 				}elseif(isset($ct['obj2']['meetnpc'])){//判定必定发现NPC
 					discover_player();
-					return;
+					return true;
 				}
 //				elseif($ct_prev['object']=='kill' && isset($ct_prev['obj2']['meetnpc']) && $ct['object']=='money' && $tprog){//判定必定发现尸体
 //					discover_player();
@@ -442,7 +442,7 @@ namespace tutorial
 //				}
 			}
 		}
-		$chprocess($schmode);
+		return $chprocess($schmode);
 	}
 	
 	//绕过数据库伪造一个道具。
@@ -467,10 +467,10 @@ namespace tutorial
 				include template(MOD_TUTORIAL_TUTORIAL_CMD);//顺便把模板改了
 				$cmd = ob_get_contents();
 				ob_clean();
-				return;
+				return true;
 			}
 		}
-		$chprocess();
+		return $chprocess();
 	}
 	
 	//接管itemget_process()，判定推进

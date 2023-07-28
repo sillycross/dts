@@ -59,13 +59,13 @@ namespace skill505
 						$itms0 = \itemmain\focus_item($idata);
 						if($itms0){
 							\itemmain\itemfind();
-							return;
+							return true;
 						}
 					}
 				}
 			}			
 		}
-		$chprocess();		
+		return $chprocess();		
 	}
 	
 	//使用任意道具（包括装备）后如果手臂装备是【巨大灯泡】则解锁

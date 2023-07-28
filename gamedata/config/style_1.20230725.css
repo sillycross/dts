@@ -41,6 +41,7 @@ li {font:bold 10pt/16px "微软雅黑","黑体";}
 
 input {cursor: crosshair;}
 .b {font-weight:bold;}
+.u {text-decoration:underline;}
 .title {font: 900 30px/32px "微软雅黑","黑体"; margin: 6px;color: #cceafa; width: 100%;filter:blur(add=1,direction=90,strength=12):glow(strength=5,color=gold); text-decoration:underline;}
 .subtitle {font: bold 24px/32px "微软雅黑","黑体";margin: 6px;color: #cceafa; width: 100%;}
 .headerlink{}
@@ -121,6 +122,7 @@ table.admin td.tdtitle {
 .blue{color: #0000ff;}
 .red{color: #ff0000;}
 .red2 {color: #ff0000; font-size:18pt; }
+.darkred{color: #990000;}
 .green{color: #008000;}
 .lime{color: #00ff00;}
 .purple{color: #9900cc;}
@@ -269,6 +271,13 @@ div.bubblebox_container{
 .shoprow .rightbox input{width:60px;}
 .shoprow .rightbox .inputunit{
 	position:absolute;top:5%;right:25%;color:#aaaaaa;
+}
+/*==========视野按钮==========*/
+button.memory_slot{
+	width:95px;height:35px;margin:2px;padding:0;vertical-align:top;line-height:15px;
+}
+button.memory_record{
+	width:95px;min-height:35px;margin:2px;padding:0;vertical-align:top;line-height:12px;
 }
 /*==========雷达屏幕==========*/
 table.radar{

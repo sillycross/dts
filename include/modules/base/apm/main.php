@@ -20,18 +20,26 @@ namespace apm
 		$v_actionnum++;
 	}
 	
-	function move($moveto = 99) 
-	{
+	//改到discover()执行后结算
+	function discover($schmode){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($moveto);
+		$ret = $chprocess($schmode);
 		add_v_actionnum();
+		return $ret;
 	}
 	
-	function search() {
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess();
-		add_v_actionnum();
-	}
+//	function move($moveto = 99) 
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		$chprocess($moveto);
+//		add_v_actionnum();
+//	}
+//	
+//	function search() {
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		$chprocess();
+//		add_v_actionnum();
+//	}
 	
 	function itemuse($theitem)
 	{

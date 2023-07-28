@@ -13,6 +13,7 @@ namespace itemmain
 			return;
 		}
 		show_itemfind();
+		return;
 	}
 	
 	function parse_interface_gameinfo() {
@@ -127,7 +128,9 @@ namespace itemmain
 		}
 		return true;
 	}
-
+	
+	//丢弃道具
+	//输入$item是装备道具位（wep arb itm1之类），返回值为包含丢弃后地图id（键名iid）的一个标准道具数组
 	function itemdrop($item) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -166,8 +169,9 @@ namespace itemmain
 	//	writeover($mapfile,$itemdata,'ab');
 		$db->query("INSERT INTO {$tablepre}mapitem (itm, itmk, itme, itms, itmsk ,pls) VALUES ('$itm', '$itmk', '$itme', '$itms', '$itmsk', '$pls')");
 		$dropid = $db->insert_id();
-		$dropname = $itm;
-		$log .= "你丢弃了<span class=\"red b\">$dropname</span>。<br>";
+		$ret = array('iid' => $dropid, 'itm' => $itm, 'itmk' => $itmk, 'itme' => $itme, 'itms' => $itms, 'itmsk' => $itmsk);
+
+		$log .= "你丢弃了<span class=\"red b\">$itm</span>。<br>";
 		$mode = 'command';
 		if($item == 'wep'){
 		$itm = '拳头';
@@ -179,7 +183,8 @@ namespace itemmain
 		$itm = $itmk = $itmsk = '';
 		$itme = $itms = 0;
 		}
-		return array($dropid,$dropname);
+		
+		return $ret;
 	}
 	
 	function itemoff_valid_check($itm, $itmk, $itme, $itms, $itmsk)

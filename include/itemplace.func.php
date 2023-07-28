@@ -3,6 +3,7 @@ if (! defined ( 'IN_GAME' )) {
 	exit ( 'Access Denied' );
 }
 
+//生成各道具位置介绍的函数，主要用于帮助部分的显示
 
 function init_item_place()
 {

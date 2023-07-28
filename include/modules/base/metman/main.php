@@ -252,7 +252,7 @@ namespace metman
 		if(!sizeof($edata_arr)){
 			$log .= '<span class="yellow b">周围一个人都没有。</span><br>';
 			$mode = 'command';
-			return;
+			return false;
 		}
 		
 		shuffle($edata_arr);
@@ -287,7 +287,7 @@ namespace metman
 			$log .= $hidelog;
 		}
 		$mode = 'command';
-		return;
+		return false;
 	}
 	
 	function discover($schmode)
@@ -301,9 +301,9 @@ namespace metman
 		//$log .= '发现玩家判定：骰'.$dice.' 阈：'.$meetman_rate.' ';
 		if($dice < $meetman_rate) {
 			$ret = discover_player();
-			if(!can_continue_post_discover_player($ret)) return;
+			if(!can_continue_post_discover_player($ret)) return $ret;
 		} 
-		$chprocess($schmode);
+		return $chprocess($schmode);
 	}
 	
 	//探索玩家流程结束以后是否能够继续探索道具
