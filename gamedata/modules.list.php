@@ -509,6 +509,7 @@ skill361,extra/activities/lunany2018/skill361/,1
 skill362,extra/activities/lunany2018/skill362/,1
 skill365,extra/activities/aprilfool2018/skill365/,1
 skill505,extra/card/skills/skill505/,1
+skill80,extra/club/skills/skill80/,1
 skill366,extra/activities/aprilfool2018/skill366/,1
 gtype5,extra/instance/gtype5/main/,0
 skill1005,extra/instance/gtype5/skill1005/,0

@@ -274,7 +274,7 @@ div.bubblebox_container{
 }
 /*==========视野按钮==========*/
 button.memory_slot{
-	width:95px;height:35px;margin:2px;padding:0;vertical-align:top;line-height:15px;
+	width:95px;min-height:35px;margin:2px;padding:0;vertical-align:top;line-height:15px;
 }
 button.memory_record{
 	width:95px;min-height:35px;margin:2px;padding:0;vertical-align:top;line-height:12px;

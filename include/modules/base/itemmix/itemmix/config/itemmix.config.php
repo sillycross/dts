@@ -60,7 +60,7 @@ $mixinfo = array
 	array('class' => 'wk', 'stuff' => array('吼剑【地咬】','大型闹钟','GS【伪Hand_Sonic】','【逆转的女神】','触手的力量'),'result' => array('冲剑【虎啸】','WK',3170,250,'Nr^ac',),),
 	array('class' => 'wk', 'stuff' => array('吼剑【地咬】','爪拳 Haab','破魔镰·断月','『雷米尔之冲击』','5.45mm 无声手枪','空想爆弹 ~ 出乎意料'),'result' => array('冲剑【虎啸】','WK',4320,250,'Nr^ac',),),
 	array('class' => 'wk', 'stuff' => array('冲剑【虎啸】','世灭之愿','强袭之愿','CAVE社特典CD『胎慟』'),'result' => array('绝冲剑【虎王】','WK',7290,2350,'Nnrd^ac'),),
-	array('class' => 'wk', 'stuff' => array('绝冲剑【虎王】','最终战术『剑海』'),'result' => array('绝冲大剑【神威】','WK',80000,'∞','ZNnyrdf^ac'),),
+	array('class' => 'wk', 'stuff' => array('绝冲剑【虎王】','最终战术『剑海』'),'result' => array('绝冲大剑【神威】','WK',80000,'∞','ZNnyrdh^ac'),),
 	
 	array('class' => 'wk', 'stuff' => array('冰封的『Oathkeeper』','火把'),'result' => array('『Oathkeeper』','WK',300,10,'u'),),
 	array('class' => 'wk', 'stuff' => array('冰封的『Oathkeeper』','解冻药水'),'result' => array('『Oathkeeper』','WK',300,10,'u'),),

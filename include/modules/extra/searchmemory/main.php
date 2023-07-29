@@ -18,6 +18,18 @@ namespace searchmemory
 		return !in_array($gametype, $searchmemory_disabled_gtype);
 	}
 	
+	//初始化$searchmemory变量
+	//传入数据库拉取的searchmemory字段，返回gedecode过的数据
+	function init_searchmemory($smstring){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $smstring;
+		if(is_string($smstring)) {
+			$ret = gdecode($ret,1);
+			if(!is_array($ret)) $ret = Array();
+		}
+		return $ret;
+	}
+	
 	//修改丢弃按钮的提示
 	function init_playerdata() {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -25,6 +37,9 @@ namespace searchmemory
 		if(searchmemory_available()) {
 			$itemmain_drophint = '将留在视野中';
 		}
+//		if(!is_array($searchmemory)) {
+//			$searchmemory = init_searchmemory($searchmemory);
+//		}
 		$chprocess();
 	}
 	
@@ -33,14 +48,18 @@ namespace searchmemory
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','searchmemory'));
 		$chprocess($pdata);
-		if(is_string($searchmemory)) $searchmemory = gdecode($searchmemory,1);//挺丑陋的
+		if(!is_array($searchmemory)) {
+			$searchmemory = init_searchmemory($searchmemory);
+		}
 	}
 	
 	//对从数据库里读出来的raw数据的处理
 	function playerdata_construct_process($data){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$data = $chprocess($data);
-		$data['searchmemory'] = gdecode($data['searchmemory'],1);
+		if(!is_array($data['searchmemory'])) {
+			$data['searchmemory'] = init_searchmemory($data['searchmemory']);
+		}
 		return $data;
 	}
 	
@@ -57,10 +76,20 @@ namespace searchmemory
 		return $ret;
 	}
 	
+	//保存玩家数据到数据库之前，把$searchmemory转义
 	function player_save($data){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if(is_array($data['searchmemory'])) $data['searchmemory'] = gencode($data['searchmemory']);
+		if(is_array($data['searchmemory'])) {
+			$tmp_searchmemory = $data['searchmemory'];
+			$data['searchmemory'] = gencode($data['searchmemory']);
+		}
 		$chprocess($data);
+		//哇，这只虫找了我两个小时
+		//某些流程在player_save()后还会对$player数据进行处理，比如获胜，必须把$searchmemory还原回去
+		//低于8.0的php不会报FATAL ERROR，非adv模式运行路径不同也不会报错，坑爹死我了
+		if(!empty($tmp_searchmemory)){
+			$data['searchmemory'] = $tmp_searchmemory;
+		}
 	}
 	
 	//$searchmemory内的元素是数组，分为两种类型：
@@ -536,7 +565,7 @@ namespace searchmemory
 	function move_to_area($moveto){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player','logger'));
-		if(!empty($searchmemory)) {
+		if(searchmemory_available() && !empty($searchmemory)) {
 			change_memory_unseen('ALL');
 			//$log .= '你先前所见的一切东西都离开了视线。<br>';
 			//remove_memory('ALL');
