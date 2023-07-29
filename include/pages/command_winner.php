@@ -133,71 +133,87 @@ else
 	if(!empty($winner_show_winner)) {
 		$query_winner = "winner='$winner_show_winner'";
 	}
-	//先不拼接gid条件，为了获得所有符合查找条件的结果数
+	//先不拼接gid条件（当前局数指针），为了获得所有符合查找条件的结果gid，并获取最大和最小值
 	$query_where = '';
 	if(!empty($query_wmode) || !empty($query_gtype)  || !empty($query_winner)) {
 		$query_where .= $query_wmode;
 		$query_where .= (!empty($query_where) && !empty($query_gtype) ? ' AND ' : '') . $query_gtype;
 		$query_where .= (!empty($query_where) && !empty($query_winner) ? ' AND ' : '') . $query_winner;
-		$query_where = ' AND '.$query_where;
+		$query_where = 'WHERE '.$query_where;
 	}
-	$query_count = "SELECT gid FROM {$wtablepre}history WHERE gid>0 $query_where ORDER BY gid DESC";
+	$query_count = "SELECT gid FROM {$wtablepre}history $query_where ORDER BY gid DESC";
 	$result = $db->query($query_count);
-	$max_result_num = $db->num_rows($result);
-	$max_result_gamenum = 0;
+	$result_num = $db->num_rows($result);
 	
-	if ($max_result_num) {
-		$zz=$db->fetch_array($result);
-		$max_result_gamenum = $zz['gid'];
-		$db->data_seek($result, $max_result_num - 1);
-		$zz=$db->fetch_array($result);
-		$min_result_gamenum = $zz['gid'];
-	}
-	
-	//然后拼接含gid的WHERE条件
-	$query_where = '';
-	if(!empty($query_gid) || !empty($query_wmode) || !empty($query_gtype) || !empty($query_winner)) {
-		$query_where .= $query_gid;
-		$query_where .= (!empty($query_where) && !empty($query_wmode) ? ' AND ' : '') . $query_wmode;
-		$query_where .= (!empty($query_where) && !empty($query_gtype) ? ' AND ' : '') . $query_gtype;
-		$query_where .= (!empty($query_where) && !empty($query_winner) ? ' AND ' : '') . $query_winner;
-		$query_where = ' AND '.$query_where;
-	}
-	$query_limit = "SELECT gid,wmode,winner,motto,gametype,vnum,gtime,gstime,getime,hdmg,hdp,hkill,hkp,winnernum,winnerteamID,winnerlist,winnerpdata,validlist FROM {$wtablepre}history WHERE gid>0 $query_where ORDER BY gid DESC LIMIT $winlimit";
-	//echo $query;
-	$result = $db->query($query_limit);
+	$max_result_gamenum = $min_result_gamenum = 0;
 	$winfo = array();
-	while($wdata = $db->fetch_array($result)) {
-		$wdata['date'] = date("Y-m-d",$wdata['getime']);
-		$wdata['time'] = date("H:i:s",$wdata['getime']);
-		$wdata = winner_parse($wdata);
-		$wdata['duration'] = !empty($wdata['validtime']) ? $wdata['getime']-$wdata['validtime'] : $wdata['getime'] - $wdata['gstime'];
-		list($wiconImg, $wiconImgB) = \player\icon_parser(0, $wdata['gd'], $wdata['icon']);
-		$wdata['iconImg'] = $wiconImg;
-		//APM
-		list($vapm,$aapm) =  \apm\calc_winner_apm($wdata,$wdata['duration']);
-		$wdata['apm_words'] = $vapm.' / '.$aapm;
-		if('- / -' == $wdata['apm_words']) $wdata['apm_words'] = '<span class="grey b">-</span>';
-		else $wdata['apm_words'] = str_replace('-', '<span class="grey b">-</span>', $wdata['apm_words']);
-		$winfo[$wdata['gid']] = $wdata;
-		
-	}
-	$winfo_keys=array_keys($winfo);rsort($winfo_keys);
-	$max_wdata_num=$winfo_keys[0];
-	$min_wdata_num = $winfo_keys[sizeof($winfo_keys)-1];
-	if($max_result_num > $winlimit){
-		if(!isset($start) || !$start) $start = $max_result_gamenum;
-		$larger_mark = $smaller_mark = 0;
-		$largest_mark = $max_result_gamenum;
-		$smallest_mark = max($min_result_gamenum, $winlimit);
-		if($start < $largest_mark) {
-			$larger_mark = ceil(($start + $winlimit)/$winlimit)*$winlimit;
-			if($larger_mark > $largest_mark) $lager_mark = $largest_mark;
+	$largest_mark = $larger_mark = $smaller_mark = $smallest_mark= 0;
+	
+	if($result_num){
+		$wgidarr = Array();
+		while($wgid = $db->fetch_array($result)) {
+			$wgidarr[] = $wgid['gid'];
 		}
-		if($start > $smallest_mark) {
-			$smaller_mark = ceil(($start - $winlimit)/$winlimit)*$winlimit;
-			if($smaller_mark < $smallest_mark) $smaller_mark = $smallest_mark;
-			if($smaller_mark > $largest_mark) $smaller_mark = $largest_mark;
+		rsort($wgidarr);
+		$max_result_gamenum = $wgidarr[0];
+		$min_result_gamenum = $wgidarr[$result_num-1];
+		//echo $max_result_gamenum.' '.$min_result_gamenum;
+		
+		//然后拼接含gid（当前局数指针）的WHERE条件
+		$query_where = '';
+		if(!empty($query_gid) || !empty($query_wmode) || !empty($query_gtype) || !empty($query_winner)) {
+			$query_where .= $query_gid;
+			$query_where .= (!empty($query_where) && !empty($query_wmode) ? ' AND ' : '') . $query_wmode;
+			$query_where .= (!empty($query_where) && !empty($query_gtype) ? ' AND ' : '') . $query_gtype;
+			$query_where .= (!empty($query_where) && !empty($query_winner) ? ' AND ' : '') . $query_winner;
+			$query_where = 'WHERE '.$query_where;
+		}
+		$query_limit = "SELECT gid,wmode,winner,motto,gametype,vnum,gtime,gstime,getime,hdmg,hdp,hkill,hkp,winnernum,winnerteamID,winnerlist,winnerpdata,validlist FROM {$wtablepre}history $query_where ORDER BY gid DESC LIMIT $winlimit";
+		//echo $query;
+		$result = $db->query($query_limit);
+		
+		while($wdata = $db->fetch_array($result)) {
+			$wdata['date'] = date("Y-m-d",$wdata['getime']);
+			$wdata['time'] = date("H:i:s",$wdata['getime']);
+			$wdata = winner_parse($wdata);
+			$wdata['duration'] = !empty($wdata['validtime']) ? $wdata['getime']-$wdata['validtime'] : $wdata['getime'] - $wdata['gstime'];
+			list($wiconImg, $wiconImgB) = \player\icon_parser(0, $wdata['gd'], $wdata['icon']);
+			$wdata['iconImg'] = $wiconImg;
+			//APM
+			list($vapm,$aapm) =  \apm\calc_winner_apm($wdata,$wdata['duration']);
+			$wdata['apm_words'] = $vapm.' / '.$aapm;
+			if('- / -' == $wdata['apm_words']) $wdata['apm_words'] = '<span class="grey b">-</span>';
+			else $wdata['apm_words'] = str_replace('-', '<span class="grey b">-</span>', $wdata['apm_words']);
+			$winfo[$wdata['gid']] = $wdata;
+			
+		}
+		//判断分页情况
+		$winfo_keys=array_keys($winfo);rsort($winfo_keys);
+		$max_wdata_num=$winfo_keys[0];
+		$min_wdata_num = $winfo_keys[sizeof($winfo_keys)-1];
+		if($result_num > $winlimit){
+			if(!isset($start) || !$start) $start = $max_result_gamenum;
+			
+			$largest_mark = $max_result_gamenum;
+			$smallest_mark = max($min_result_gamenum, $winlimit);
+			$start_n = array_search($start, $wgidarr);
+			if($start < $largest_mark) {
+				//上一页，需要用到所有符合条件的gid数组$wgidarr
+				//注意这里larger和smaller是从gid绝对值角度而言的，从数组角度larger的下标反而小，smaller的下标反而大
+				$larger_n = max(0, $start_n - $winlimit);
+				$larger_mark = $wgidarr[$larger_n];
+				
+//				$larger_mark = ceil(($start + $winlimit)/$winlimit)*$winlimit;
+//				if($larger_mark > $largest_mark) $lager_mark = $largest_mark;
+			}
+			if($start > $smallest_mark) {
+				$smaller_n = min($result_num-1, $start_n + $winlimit);
+				$smaller_mark = $wgidarr[$smaller_n];
+				
+//				$smaller_mark = ceil(($start - $winlimit)/$winlimit)*$winlimit;
+//				if($smaller_mark < $smallest_mark) $smaller_mark = $smallest_mark;
+//				if($smaller_mark > $largest_mark) $smaller_mark = $largest_mark;
+			}
 		}
 	}
 	
