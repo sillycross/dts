@@ -22,11 +22,11 @@ $mixinfo = array
 	array('class' => 'h', 'stuff' => array('河豚鱼','氯化氢','大夭使的气息'),'result' => array('鲱鱼罐头','PR9',90,10,),),
 	array('class' => 'h', 'stuff' => array('矿泉水','杏仁豆腐','SCP-294的饮料'),'result' => array('【社系摧泪弹】','PB',3600,5,'zd'),),
 	
-	
 	array('class' => 'wc', 'stuff' => array('汽油','空瓶'),'result' => array('☆火焰瓶☆','WC',80,50,'ud'),),	
 	array('class' => 'wc', 'stuff' => array('幻之使魔','永恒之桶'),'result' => array('灵魂的结晶','WC',180,240,'rn'),),
 	array('class' => 'wc', 'stuff' => array('幻符【杀人玩偶】','★时停怀表★','永恒飞刃'),'result' => array('幻葬『夜雾幻影杀人鬼』','WC',400,'∞','krnyN'),),
 	
+	array('class' => 'wk', 'stuff' => array('【红杀铁剑】','电磁充能手套'),'result' => array('【红杀铁剑·雷击】','WK',300,45,'ed^ac'),),
 	array('class' => 'wk', 'stuff' => array('西瓜','水果刀','磨刀石'),'result' => array('西瓜刀','WK',99,'∞','c'),),
 	array('class' => 'wk', 'stuff' => array('针筒','毒药'),'result' => array('毒针','WK',32,20,'p'),),	
 	array('class' => 'wk', 'stuff' => array('毒针','毒针'),'result' => array('D.毒针','WK',48,20,'p'),),
@@ -417,7 +417,7 @@ $mixinfo = array
 	array('class' => 'hidden', 'stuff' => array('黑色碎片','十字发卡'),'result' => array('黑色发卡','X',1,1,),),
 	array('class' => 'hidden', 'stuff' => array('『T.E.R.R.A』','『A.Q.U.A』','『V.E.N.T.U.S』'),'result' => array('『G.A.M.E.O.V.E.R』','Y',1,1,),),
 	array('class' => 'hidden', 'stuff' => array('提示纸条K','提示纸条E'),'result' => array('提示纸条Y','WC',1,1,'zd'),),
-	array('class' => 'hidden', 'stuff' => array('【红杀铁剑】','电磁充能手套'),'result' => array('【红杀铁剑·雷击】','WK',300,45,'ned'),),
+	
 
 	);
 	
