@@ -3,6 +3,7 @@
 namespace skill429
 {
 	$trapdmgdown = Array(0,10,20,35,55);
+	$refuse_senditem_odds = Array(0,20,40,60,80);
 	$upgradecost = Array(5,6,7,8,-1);
 	
 	function init() 
@@ -87,6 +88,22 @@ namespace skill429
 			}
 		}
 		return array_merge($r,$chprocess($pa,$pd,$trap,$damage));
+	}
+	
+	//升级后有概率拒绝其他角色发来的道具，注意这里是从赠送者的角度判定的
+	function senditem_check($edata){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player','logger','skill429'));
+		$ret = $chprocess($edata);
+		if ($ret && $edata['pls'] == $pls && \skillbase\skill_query(429,$edata)){
+			$erefuse = $refuse_senditem_odds[\skillbase\skill_getvalue(429,'lvl',$edata)];
+			$rand = rand(0,99);
+			if($rand < $erefuse) {
+				$log .= '<span class="yellow b">对方微笑着拒绝了你的好意。<br>';
+				return false;
+			}
+		}
+		return $ret;
 	}
 }
 

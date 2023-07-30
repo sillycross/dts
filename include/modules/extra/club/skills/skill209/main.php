@@ -6,7 +6,7 @@ namespace skill209
 	{
 		define('MOD_SKILL209_INFO','club;');
 		eval(import_module('clubbase'));
-		$clubskillname[209] = '舞钢';
+		$clubskillname[209] = '断钢';
 	}
 	
 	function acquire209(&$pa)
@@ -31,6 +31,14 @@ namespace skill209
 		if ( \skillbase\skill_query(209,$pa) && check_unlocked209($pa) && \weapon\get_skillkind($pa,$pd,$active) == 'wk')
 			return abs($chprocess($pa, $pd, $active));
 		else  return $chprocess($pa, $pd, $active);
+	}
+	
+	//对装备的损耗变成2倍
+	function calculate_weapon_wound_multiplier(&$pa, &$pd, $active, $hurtposition) 
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (!\skillbase\skill_query(209,$pa) || !check_unlocked209($pa)) return $chprocess($pa, $pd, $active, $hurtposition);
+		return $chprocess($pa, $pd, $active, $hurtposition)*2;
 	}
 }
 

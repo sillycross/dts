@@ -90,7 +90,6 @@ skill443,extra/card/skills/skill443/,1
 skill477,extra/card/skills/skill477/,1
 skill479,extra/card/skills/skill479/,1
 skill327,extra/activities/nationalday2017/skill327/,1
-skill209,extra/club/skills/skill209/,1
 skill437,extra/card/skills/skill437/,1
 skill442,extra/card/skills/skill442/,1
 skill452,extra/card/skills/skill452/,1
@@ -163,7 +162,6 @@ skill420,extra/card/skills/skill420/,1
 skill424,extra/instance/gtype1/skill424/,1
 skill426,extra/instance/gtype1/skill426/,1
 skill428,extra/instance/gtype1/skill428/,1
-skill429,extra/instance/gtype1/skill429/,1
 skill430,extra/card/skills/skill430/,1
 club21,extra/club/clubs/club21/,1
 skill240,extra/club/skills/skill240/,1
@@ -254,6 +252,7 @@ wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
 wep_b,base/weapon/wep_b/,1
+skill209,extra/club/skills/skill209/,1
 event,base/event/,1
 skill5,extra/attr/skills/skill5/,1
 skill6,extra/attr/skills/skill6/,1
@@ -499,6 +498,7 @@ skill367,extra/achievement/skills/skill367/,1
 skill368,extra/achievement/skills/skill368/,1
 skill369,extra/achievement/skills/skill369/,1
 skill504,extra/card/skills/skill504/,1
+skill429,extra/instance/gtype1/skill429/,1
 searchmemory,extra/searchmemory/,1
 skill503,extra/card/skills/skill503/,1
 skill351,extra/achievement/skills/skill351/,1

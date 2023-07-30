@@ -54,7 +54,7 @@ foreach($adminlogdata as $aval){
 				$show_p .= $edk.' → '.$edv.'<br>';
 			}
 		}
-	}elseif(in_array($o, array('wthedit','hackedit','gsedit','gameover','addarea'))){
+	}elseif(in_array($o, array('wthedit','hackedit','gsedit','gameover','addarea','gametypeset'))){
 		if('wthedit'==$o) {
 			$show_o = '修改天气';
 			eval(import_module('weather'));
@@ -70,6 +70,9 @@ foreach($adminlogdata as $aval){
 		}elseif('addarea'==$o) {
 			if('I'==$p3) $show_o = '立刻增加禁区';
 			elseif('L'==$p3) $show_o = '60s后增加禁区';
+		}elseif('gametypeset'==$o) {
+			$show_o = '修改游戏类别';
+			$show_p = $gtinfo[$p3];
 		}
 		$show_gnum = adminlog_parse_gnum($p1,$p2);
 	}elseif(in_array($o, array('killpc', 'livepc', 'delpc', 'delcp', 'editpc', 'killnpc', 'livenpc', 'delnpc', 'delncp', 'editnpc'))){

@@ -5,24 +5,30 @@ namespace gtype1
 	function init() {
 	}
 	
+	
 	function prepare_new_game()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		if (room_check_subroom($room_prefix)) return $chprocess();
-		list($sec,$min,$hour,$day,$month,$year,$wday) = explode(',',date("s,i,H,j,n,Y,w",$now));
-		$tg=$gamenum-3;
-		$res=$db->query("SELECT gametype FROM {$gtablepre}history WHERE gid='$tg'");
-		$gt=1;
+		
+		//获取3局之前的游戏类别
+		$last3game=$gamenum-3;
+		$res=$db->query("SELECT gametype FROM {$gtablepre}history WHERE gid='$last3game'");
+		$gt=0;
 		if ($db->num_rows($res)){
 			$zz=$db->fetch_array($res); $gt=$zz['gametype'];
 		}
 
 		if (!$disable_event && $gt!=1){//开启活动&&最多连续3局
- 			if ( ($wday==3 && $hour>=19 && $hour<21) || ($wday==6 && $hour>=15 && $hour<17) ){ //周三19点-21点；周六15点-17点
+			list($sec,$min,$hour,$day,$month,$year,$wday) = explode(',',date("s,i,H,j,n,Y,w",$now));
+ 			if ( ($wday==3 && $hour>=19 && $hour<21) || ($wday==6 && $hour>=15 && $hour<17) || ($wday==7 && $hour>=15 && $hour<17)){ //周三19点-21点；周六15点-17点；周日15点-17点
  				$gametype=1;
- 				prepare_new_game_gtype1();
  			}
+ 		}
+ 		//由于现在admin指令也能修改$gametype，需要把修改$gametype和准备游戏数据分开处理
+ 		if(1 == $gametype) {
+ 			prepare_new_game_gtype1();
  		}
 		$chprocess();
 	}
@@ -125,16 +131,13 @@ namespace gtype1
 	}
 	
 	//递送道具时无视teamID
-	function senditem_check($edata)
+	function senditem_check_teammate($edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','logger'));
-		
+		eval(import_module('sys'));
 		if ($gametype == 1)
 		{
-			if(isset($edata) && !$edata['type'] && $edata['pls'] == $pls && $edata['hp'] > 0 && $edata['pid'] != $pid){
-				return true;
-			}
+			return true;
 		}
 		return $chprocess($edata);
 	}
