@@ -5,7 +5,7 @@
 		<div style="text-align:center;">
 			<span>视野中道具能立刻拿到，但迎战敌人可能被先制。</span><br>
 			<!--{loop $sm_slots $sm}-->
-				<button class="memory_slot" onclick="$('mode').value='command';$('command').value='memory{$sm['smn']}';postCmd('gamecmd','command.php');this.disabled=true;">
+				<button type="button" class="memory_slot" onclick="$('mode').value='command';$('command').value='memory{$sm['smn']}';postCmd('gamecmd','command.php');this.disabled=true;">
 					<!--{if isset($sm['itm'])}-->
 					<!--{eval $sm['itm']=\itemmain\parse_itmname_words($sm['itm'],1); }-->
 						<span class="b">$sm['itm']</span>
@@ -33,7 +33,7 @@
 		<div id="sm_record_hidden_box" style="display:none;text-align:center;">
 			<span>前往以下位置将离开现有视野并执行一次探索。</span><br>
 			<!--{loop $sm_records $sm}-->
-				<button class="memory_record" onclick="$('mode').value='command';$('command').value='memory{$sm['smn']}';postCmd('gamecmd','command.php');this.disabled=true;" <!--{if $sm['pls']!=$pls}-->disabled<!--{/if}-->>
+				<button type="button" class="memory_record" onclick="$('mode').value='command';$('command').value='memory{$sm['smn']}';postCmd('gamecmd','command.php');this.disabled=true;" <!--{if $sm['pls']!=$pls}-->disabled<!--{/if}-->>
 				<!--{if isset($sm['itm'])}-->
 				<!--{eval $sm['itm']=\itemmain\parse_itmname_words($sm['itm'],1); }-->
 					<span class="b">$sm['itm']</span>
