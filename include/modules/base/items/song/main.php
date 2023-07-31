@@ -14,6 +14,7 @@ namespace song
 		'def' => '防御力',
 		'money' => '金钱',
 		'rage' => '怒气',
+		'exp' => '经验值',
 		'wp' => '殴系熟练度',
 		'wk' => '斩系熟练度',
 		'wg' => '射系熟练度',
@@ -50,7 +51,7 @@ namespace song
 			}elseif($sn == '驱寒颂歌'){
 				$ret .= '歌唱：使你和同地区玩家的最大生命、最大体力和金钱上升10，RP下降10';
 			}elseif($sn == 'Butterfly'){
-				$ret .= '歌唱：使你和同地区玩家的生命和体力回复2000（无视最大值），且武器耐久变为∞';
+				$ret .= '歌唱：使你和同地区玩家的生命和体力回复2000（可超出最大值），且武器耐久变为∞';
 			}elseif($sn == '小苹果'){
 				$ret .= '歌唱：使你和同地区玩家的体力下降100，但怒气增加5';
 			}elseif($sn == '空想神话'){
@@ -67,6 +68,10 @@ namespace song
 				$ret .= '歌唱：使你和同地区玩家的生命上限上升10，体力上限上升50';
 			}elseif($sn == 'More One Night'){
 				$ret .= '歌唱：使你和同地区玩家的最大生命增加，增加值等于场上死亡NPC数，但无法再赢得「最后幸存」胜利';
+			}elseif($sn == 'Baba yetu'){
+				$ret .= '歌唱：使你和同地区玩家获得12点经验值（不会立刻升级）';
+			}elseif($sn == 'Clear Morning'){
+				$ret .= '歌唱：使你和同地区玩家的生命回复1000（可超出最大值）';
 			}
 		}
 		return $ret;
@@ -95,6 +100,8 @@ namespace song
 			$noiseinfo['ss_lb']='《遥か彼方》';
 			$noiseinfo['ss_amadare']='《雨だれの歌》';
 			$noiseinfo['ss_mon']='《More One Night》';
+			$noiseinfo['ss_BY']='《Baba yetu》';
+			$noiseinfo['ss_CM']='《Clear Morning》';
 		}
 	}
 	
@@ -178,7 +185,7 @@ namespace song
 					$o_ev = $ev;
 					$ev = $ev['e'];
 				}
-				//生成提示变化了哪里，目前仅支持HP SP 歌魂 怒气 金钱 攻防 装备道具的效果和耐久值
+				//生成提示变化了哪里，目前仅支持HP SP 歌魂 怒气 金钱 攻防 经验值 装备道具的效果和耐久值
 				if(strpos($ek,'wep')===0 || strpos($ek,'ar')===0 || strpos($ek,'itm')===0) {
 					$ss_tn = $ef_type[substr($ek,0,3)];
 					if(strpos($ek,'itm')===0) {
@@ -444,6 +451,8 @@ namespace song
 		elseif('歌词卡片星空'==$sname) $sname = '星めぐりの歌';//括号去掉了……
 		elseif('歌词卡片大地'==$sname) $sname = '遥か彼方';
 		elseif('歌词卡片海洋'==$sname) $sname = 'CANOE';
+		elseif('爸爸野猪'==$sname) $sname = 'Baba yetu';
+		elseif('快说小仓唯唱歌贼！好！听！'==$sname) $sname = 'Clear Morning';
 		return $sname;
 	}
 	
