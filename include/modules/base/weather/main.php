@@ -144,7 +144,7 @@ namespace weather
 		elseif($weather == 13) 	//冰雹
 		{
 			deal_hailstorm_weather_damage();
-			if ($hp<=0) return;
+			if ($hp<=0) return false;
 		} 
 		elseif($weather == 14)	//离子暴
 		{
@@ -193,7 +193,7 @@ namespace weather
 		{
 			//也许就不需要有效果
 		}
-		$chprocess($moveto);
+		return $chprocess($moveto);
 	}
 	
 	function search_area()	//天气对探索的特效
@@ -204,7 +204,7 @@ namespace weather
 		if($weather == 13) 
 		{
 			deal_hailstorm_weather_damage();
-			if ($hp<=0) return;
+			if ($hp<=0) return false;
 		} 
 		elseif($weather == 14)	//离子暴
 		{
@@ -253,7 +253,7 @@ namespace weather
 		{
 			//也许就不需要有效果
 		}
-		$chprocess();
+		return $chprocess();
 	}
 	
 	//天气控制道具

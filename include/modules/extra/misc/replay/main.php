@@ -170,8 +170,10 @@ namespace replay
 						$i_start=$i*$partsize;
 						$i_end=min($cnt-1,$i_start+$partsize-1);
 						$xdata=Array();
-						for ($k=$i_start; $k<=$i_end; $k++)
-							array_push($xdata,gdecode(file_get_contents($opdatalist[$k]),true));
+						for ($k=$i_start; $k<=$i_end; $k++) {
+							$fc = file_exists($opdatalist[$k]) ? file_get_contents($opdatalist[$k]) : '';
+							array_push($xdata,gdecode($fc,true));
+						}							
 							
 						$jreplaydata = json_encode($xdata);
 						$jreplaydata = '___temp_s = new String(\''.base64_encode(gzencode($jreplaydata,9)).'\');

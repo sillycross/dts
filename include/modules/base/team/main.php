@@ -63,7 +63,7 @@ namespace team
 	function senditem_check($edata){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','map','logger','player'));
-		if(!isset($edata)){
+		if(!isset($edata) || $pid==$edata['pid']){
 			$log .= "对方不存在！<br>";
 			return false;
 		} elseif($edata['pls'] != $pls) {
@@ -72,7 +72,17 @@ namespace team
 		} elseif($edata['hp'] <= 0) {
 			$log .= '<span class="yellow b">'.$edata['name'].'</span>已经死亡，不能接受物品。<br>';
 			return false;
-		} elseif(!$teamID || $edata['teamID']!=$teamID || $pid==$edata['pid']){
+		} elseif(!senditem_check_teammate($edata)){
+			return false;
+		}
+		return true;
+	}
+	
+	//因为某些功能而单独拆出来
+	function senditem_check_teammate($edata){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','logger','player'));
+		if(!$teamID || $edata['teamID']!=$teamID){
 			$log .= '<span class="yellow b">'.$edata['name'].'</span>并非你的队友，不能接受物品。<br>';
 			return false;
 		}
@@ -91,11 +101,9 @@ namespace team
 			$mode = 'command';
 			return;
 		}
-		
 		$edata=\player\fetch_playerdata_by_pid($mateid);
 		$check = senditem_check($edata);
-		if(!senditem_check($edata)){
-			
+		if(!$check){
 			$mode = 'command';
 			return;
 		}

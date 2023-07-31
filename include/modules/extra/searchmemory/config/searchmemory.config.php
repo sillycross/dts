@@ -2,8 +2,9 @@
 
 namespace searchmemory
 {
-	$searchmemory_disabled_gtype = array(1);//不启用探索记忆的游戏模式
-	$searchmemory_max_slotnum = 5;//最大记忆数
+	$searchmemory_disabled_gtype = array(1, 17);//不启用探索记忆的游戏模式：除错模式，教程模式
+	$searchmemory_max_slotnum = 5;//可显示的最大记忆数（即视野）
+	$searchmemory_max_recordnum = 30;//需记录的最大记忆数
 	$searchmemory_battle_active_debuff = -40;//迎战记忆中的敌人时，玩家先制率的减成值
 	
 	$weather_memory_loss = array(//各天气对记忆（视野）的影响

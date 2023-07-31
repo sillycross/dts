@@ -29,13 +29,17 @@
 		<!--{loop $unlock_cards $nowcard}-->
 		<!--{eval $lockcard=0;$card_achieved=in_array($nowcard['id'],$card_achieved_list);}-->
 		<li style="float:left;margin:5px;margin-bottom:10px"
+			<!--{eval $desc_skills=!empty($cards[$nowcard['id']]['desc_skills'])?$cards[$nowcard['id']]['desc_skills'].'<br><br>':'';}-->
+			title="{$desc_skills}
 			<!--{if $card_energy[$nowcard['id']]<$nowcard['energy']}-->
-			<!--{eval $t=($nowcard['energy']-$card_energy[$nowcard['id']])/$energy_recover_rate[$nowcard['rare']];}-->
-			<!--{eval echo 'title="这张卡片目前处于蓄能状态<br>需要蓄积'.$nowcard['energy'].'点能量方可使用，目前已蓄积了'.floor($card_energy[$nowcard['id']]).'点能量<br>预计在'.convert_tm($t).'后蓄能完成"';}-->
+			<!--{eval $t=($nowcard['energy']-$card_energy[$nowcard['id']])/$energy_recover_rate[$nowcard['rare']];$now_energy_show=floor($card_energy[$nowcard['id']]);$ddl=convert_tm($t);}-->
+			这张卡片目前处于蓄能状态<br>需要{$nowcard['energy']}点能量，目前已蓄积了{$now_energy_show}点能量<br>预计在{$ddl}后蓄能完成
+			<!--{elseif $nowcard['energy']}-->
+			这张卡片需要蓄积{$nowcard['energy']}点能量方可使用<br>目前已蓄能完成，可以使用
 			<!--{else}-->
-			<!--{eval echo 'title="这张卡片需要蓄积'.$nowcard['energy'].'点能量方可使用<br>目前已蓄能完成，可以使用"';}-->
+			这张卡片不需要蓄能，可以使用
 			<!--{/if}-->
-			>
+			">
 			{template MOD_CARDBASE_CARD_FRAME}
 		</li>
 		<!--{/loop}-->

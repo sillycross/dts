@@ -71,16 +71,21 @@ namespace skill247
 			$log.='技能冷却中！<br>';
 			return;
 		}
-		$trapitem=Array(
-			'itm' => '毒性【AC大逃杀革新企划书】',
-			'itmk' => 'TO',
-			'itme' => get_skill247_trap_eff(),
-			'itms' => 2,
-			'itmsk' => ''
-		);
+		$itm_name_arr = Array('毒性【ACFUN大逃杀3.0】', '毒性【ACFUN大逃杀革新企划书】', '毒性【大逃杀新界面】', '毒性【新电波大逃杀剧情模式】','有毒的腿？');
+		$itme = get_skill247_trap_eff();
+		for($i=0;$i<2;$i++){
+			shuffle($itm_name_arr);
+			$trapitem=Array(
+				'itm' => $itm_name_arr[0],
+				'itmk' => 'TO',
+				'itme' => $itme,
+				'itms' => 1,
+				'itmsk' => ''
+			);
+			\trap\trap_use($trapitem); 
+		}
 		addnews ( 0, 'bskill247', $name );
-		\trap\trap_use($trapitem); \trap\trap_use($trapitem);
-		$log.='<span class="lime b">技能「挖坑」发动成功。</span><br>';
+		$log.='你满意地看着你刚挖的大坑，它们一定能给玩家们带来笑容。<br><span class="lime b">技能「挖坑」发动成功。</span><br>';
 		\skillbase\skill_setvalue(247,'lastuse',$now);
 	}
 	

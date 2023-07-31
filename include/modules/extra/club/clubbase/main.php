@@ -19,9 +19,12 @@ namespace clubbase
 		}
 		else  $pa['club'] = $clubid;
 		
-		foreach ($clublist[$clubid]['skills'] as $key)
-			if (defined('MOD_SKILL'.$key))
+		foreach ($clublist[$clubid]['skills'] as $key){
+			if (defined('MOD_SKILL'.$key)){
 				\skillbase\skill_acquire($key,$pa);
+			}
+		}
+			
 	}
 	
 	//因为某些原因失去内定称号，$pa为NULL时代表当前玩家
