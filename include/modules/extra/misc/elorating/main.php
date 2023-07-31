@@ -608,7 +608,7 @@ namespace elorating
 		
 		$n=count($hist);
 		for ($i=1; $i<$n; $i++) $hist[$i]['diff']=$hist[$i]['rating']-$hist[$i-1]['rating'];
-		$hist[0]['diff']=$hist[0]['rating']-1500;
+		if(isset($hist[0]))	$hist[0]['diff']=$hist[0]['rating']-1500;
 		
 		//只显示最后70场
 		$data=Array();

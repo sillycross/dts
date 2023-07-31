@@ -186,7 +186,7 @@ namespace skill505
 	function skill505_check_keyitm_exists(&$pa){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$exists = 0;
-		eval(import_module('skill505'));
+		eval(import_module('skill505','player'));
 		foreach(array('wep','arb','arh','ara','arf','art','itm0','itm1','itm2','itm3','itm4','itm5','itm6') as $pv){
 			if($pa[$pv] == $skill505_keyitm){
 				$exists = 1;
@@ -194,8 +194,8 @@ namespace skill505
 			}
 		}
 		if(!$exists) {
-			foreach($pa['searchmemory'] as $sv){
-				if(isset($sv['itm']) && $sv['itm'] == $skill505_keyitm){
+			foreach($pa['searchmemory'] as $mn => $sv){
+				if(isset($sv['itm']) && $sv['itm'] == $skill505_keyitm && !\searchmemory\check_out_of_slot_edge($mn) && $sv['pls'] == $pls){
 					$exists = 1;
 					break;
 				}

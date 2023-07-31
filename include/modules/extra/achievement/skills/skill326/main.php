@@ -90,7 +90,7 @@ namespace skill326
 	//判定数据与阈值的关系，这里是计算$data的元素个数，然后跟阈值相比较
 	function ach_finalize_check_progress(&$pa, $t, $data, $achid){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if(326 == $achid) return sizeof($data) >= $t;
+		if(326 == $achid) return sizeof((Array)$data) >= $t;
 		else return $chprocess($pa, $t, $data, $achid);
 	}
 	
@@ -114,7 +114,7 @@ namespace skill326
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$x = $chprocess($achid, $x);
 		if(326 == $achid) {
-			$x = sizeof($x);
+			$x = sizeof((Array)$x);
 		}
 		return $x;
 	}

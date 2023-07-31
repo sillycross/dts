@@ -7,7 +7,7 @@ namespace skill419
 	{
 		define('MOD_SKILL419_INFO','card;unique;locked;');
 		eval(import_module('clubbase'));
-		$clubskillname[419] = '暗夜';
+		$clubskillname[419] = '修仙';
 	}
 	
 	function acquire419(&$pa)
@@ -37,8 +37,8 @@ namespace skill419
 		{
 			eval(import_module('logger'));
 			if ($active)
-				$log.="<span class=\"yellow b\">「暗夜」使你造成的最终伤害提高了12%！</span><br>";
-			else  $log.="<span class=\"yellow b\">「暗夜」使敌人造成的最终伤害提高了12%！</span><br>";
+				$log.="<span class=\"yellow b\">「修仙」使你造成的最终伤害提高了12%！</span><br>";
+			else  $log.="<span class=\"yellow b\">「修仙」使敌人造成的最终伤害提高了12%！</span><br>";
 			$r=Array(1.12);	
 		}
 		return array_merge($r,$chprocess($pa,$pd,$active));
