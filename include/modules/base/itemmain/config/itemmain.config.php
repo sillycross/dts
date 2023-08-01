@@ -114,7 +114,8 @@ namespace itemmain
 		//
 		//^001 itemmix_sync 同调（标记是同调产物）
 		//^002 itemmix_sync 变星
-		//^dd ex_def_down 降防
+		//以下复合属性，注意所有用字母开头的复合武器在实际使用时都必须用数字结尾，哪怕你的效果跟数字无关！
+		//^dd ex_def_down 降防 
 		//^hu ex_mhp_temp_up 升血
 		//^ac ex_attr_crack 碎甲
 		'^TEST' => '蛋疼',

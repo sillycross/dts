@@ -15,6 +15,7 @@ $packlist=array(
 	'Best DOTO',
 	'Balefire Rekindle',
 	'Event Bonus',
+	'Cyber Zealots',
 	'Indev',
 	'hidden'
 );
@@ -25,11 +26,14 @@ $packdesc = array(
 	'Way of Life' => '大杂烩，主要以游戏方式以及同类游戏为捏他对象的卡集。',
 	'Best DOTO' => '以电竞元素和电竞圈为吐槽对象的卡集。',
 	'Balefire Rekindle' => '以游戏版本「复燃」的新增NPC角色和游戏设定为主题的卡集。',
+	'Cyber Zealots' => '以赛博朋克和网络梗为捏他对象的卡集。',
 	'Event Bonus' => '其他一些零散成就和活动奖励卡。',
+	
 	'Indev' => '开发中的卡的暂存地',
 	'hidden' => '隐藏卡片，如果你看到这句话请联系天然呆管理员',
 );
 $packstart = array(
+	'Cyber Zealots' => 4476654671,
 	'Indev' => 4476654671,
 	'hidden' => 4476654671,
 );
@@ -3045,7 +3049,7 @@ $cards = array(
 		'pack' => 'Way of Life',
 		'desc' => '我相信着我的卡组！',
 		'effect' => '开局HP为1点，<br>额外携带1份游戏王卡牌包',
-		'energy' => 100,
+		'energy' => 0,
 		'valid' => array(
 			'hp' => 1,
 			'itm3' => '游戏王卡包',
@@ -3253,6 +3257,45 @@ $cards = array(
 		'valid' => array(
 			'skills' => array(
 				'510' => '1', 
+			),
+		)
+	),
+	212 => array(
+		'name' => '只因',
+		'rare' => 'C',
+		'pack' => 'Cyber Zealots',
+		'desc' => '跳、唱、rap、篮球',
+		'effect' => '你干嘛，哎哟',
+		'desc_skills' => '开局获得5点歌魂和5点体力上限，并装备篮球和背带裤',
+		'energy' => 0,
+		'valid' => array(
+			'mhp' => 105,
+			'hp' => 105,
+			'mss' => 5,
+			'ss' => 5,
+			'wep' => '篮球',
+			'wepk' => 'WC',
+			'wepe' => '12',
+			'weps' => '1',
+			'wepsk' => '',
+			'arb' => '背带裤',
+			'arbk' => 'DB',
+			'arbe' => '5',
+			'arbs' => '15',
+			'arbsk' => '',
+		)
+	),
+	213 => array(
+		'name' => '反思怪',
+		'rare' => 'C',
+		'pack' => 'Cyber Zealots',
+		'desc' => '你应该反思',
+		'effect' => '获得拆弹专家技能「反思」',
+		'desc_skills' => '「反思」：使用爆系武器时，即使攻击没有命中，也可以获得1点经验值',
+		'energy' => 0,
+		'valid' => array(
+			'skills' => array(
+				'213' => '0', 
 			),
 		)
 	),
