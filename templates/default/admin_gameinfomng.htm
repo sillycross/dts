@@ -105,6 +105,17 @@
 			</td>
 		</tr>
 		<tr>
+			<td>下局游戏类型</td>
+			<td>
+				<select name="sgtype">
+					<!--{loop $sgtypelist $n}-->
+					<option value="$n" <!--{if $gametype == $n}-->selected<!--{/if}-->>$gtinfo[$n]
+					<!--{/loop}-->
+				</select>
+			</td>
+			<td><input type="submit" value="修改类型" onclick="$('command').value='gametypeset'"></td>
+		</tr>
+		<tr>
 			<td>禁区解除</td>
 			<td>
 				<input type="radio" name="ihack" value="1" <!--{if $hack}-->checked<!--{/if}-->>是&nbsp;&nbsp;&nbsp;<input type="radio" name="ihack" value="0" <!--{if !$hack}-->checked<!--{/if}-->>否

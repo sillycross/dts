@@ -320,6 +320,20 @@ namespace itemmain
 		}
 	}
 	
+	//判断道具类型是否可以装备的小函数，主要用于显示
+	function is_equipable($itmkstr){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		eval(import_module('itemmain'));
+		$equipable = false;
+		foreach($itemkind_equipable as $val){
+			if(strpos($itmkstr,$val)===0) {
+				$equipable = true;
+				break;
+			}
+		}
+		return $equipable;
+	}
+	
 	//同名道具的data处理
 	//天然带毒物品的NPC pid自动处理
 	//也用于某些模式特殊处理数据
@@ -347,6 +361,7 @@ namespace itemmain
 		return array($iname, $ikind, $ieff, $ista, $iskind, $imap);
 	}
 	
+	//跟道具有关的几个配置文件的读取
 	function get_itemfilecont(){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		$file = __DIR__.'/config/mapitem.config.php';
@@ -368,6 +383,8 @@ namespace itemmain
 		return $l;
 	}
 	
+	//探索道具主过程
+	//返回是否探索到道具
 	function discover_item()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -379,21 +396,38 @@ namespace itemmain
 		if($itemnum <= 0){
 			$log .= '<span class="yellow b">周围找不到任何物品。</span><br>';
 			$mode = 'command';
-			return;
+			return false;
 		}
-		$itemno = rand(0,$itemnum-1);
-		$db->data_seek($result,$itemno);
-		$mi=$db->fetch_array($result);
+		$mipool = Array();
+		//从数据库一口气拉取当前地图所有道具
+		while($r = $db->fetch_array($result)){
+			if(discover_item_filter($r))
+				$mipool[] = $r;
+		}
+		//打乱数组，相当于随机取一个
+		shuffle($mipool);
+		$mi = $mipool[0];
+		
 		$itms0 = focus_item($mi);
 		if($itms0){
 			itemfind();
-			return;
+			return true;
 		} else {
 			$log .= "但是什么都没有发现。<br>";
 		}
 		$mode = 'command';
+		return false;
 	}
 	
+	//在读取数据库时就过滤掉不符合条件的道具
+	//传入$iarr为从数据库fetch的单条道具数组
+	//返回$ret为boll
+	function discover_item_filter($iarr){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return true;
+	}
+	
+	//拾取道具的过程，传入一个包含道具在数据库中id的数组，删除数据库对应行，并把对应数据放入player数据的0号道具位
 	function focus_item($iarr){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
@@ -410,6 +444,7 @@ namespace itemmain
 		return false;
 	}
 	
+	//计算道具发现率
 	function calculate_itemfind_obbs()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -417,12 +452,14 @@ namespace itemmain
 		return $item_obbs;
 	}
 	
+	//计算道具发现率的因子
 	function calculate_itemfind_obbs_multiplier()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return 1.0;
 	}
 	
+	//继承发现主过程
 	function discover($schmode)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -430,16 +467,29 @@ namespace itemmain
 		$find_obbs = calculate_itemfind_obbs()*calculate_itemfind_obbs_multiplier();
 		$dice = rand(0,99);
 		if($dice < $find_obbs) {
-			discover_item();
-			return;
+			return discover_item();
 		}
-		$chprocess($schmode);
+		return $chprocess($schmode);
+	}
+	
+	function pre_act(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','input'));
+		//在手里有道具的情况下阻止意料之外的指令，防止道具被洗掉
+		//如果有模块在这之前执行并且获得道具那就没办法了……
+		if(!empty($hp) && !empty($itms0) && !in_array($command, Array('itm0','dropitm0','itemget','itemmerge','enter')) && false === strpos($command, 'swap')){
+			eval(import_module('logger'));
+			$log .= '你已手持道具，不能进行这一操作！<br>';
+			$mode = 'command';$command='menu';
+		}
+		$chprocess();
 	}
 	
 	function act()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','input'));
+		
 		if ($mode == 'command' && strpos($command,'itm') === 0) 
 		{
 			$item = substr($command,3);
@@ -458,7 +508,7 @@ namespace itemmain
 		}
 		if($mode == 'itemmain') {
 			if($command == 'itemget') {
-				itemget();
+				itemget_process();
 			} elseif($command == 'itemadd') {
 				itemadd();
 			} elseif($command == 'itemmerge') {
@@ -485,11 +535,6 @@ namespace itemmain
 					if(${str_replace('itm','itms',$swap_item)}) itemdrop($swap_item);
 					itemadd(substr($swap_item,3,1));
 				}
-				//如果要允许直接换上拾取的装备，请取消此行注释
-				//else {
-//					if(${$swap_item.'s'}) itemdrop($swap_item);
-//					itemuse_wrapper(0);
-//				}
 			} 
 		}
 		$chprocess();

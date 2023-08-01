@@ -49,6 +49,12 @@ namespace wound
 		return $wep_infobbs[$pa['wep_kind']];
 	}
 	
+	function calculate_weapon_wound_base(&$pa, &$pd, $active, $hurtposition)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 1;
+	}
+	
 	function calculate_weapon_wound_multiplier(&$pa, &$pd, $active, $hurtposition) 
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -59,7 +65,8 @@ namespace wound
 	function weapon_wound_success(&$pa, &$pd, $active, $hurtposition)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$pa['attack_wounded_'.$hurtposition]+=calculate_weapon_wound_multiplier($pa, $pd, $active, $hurtposition);
+		if(empty($pa['attack_wounded_'.$hurtposition])) $pa['attack_wounded_'.$hurtposition] = 0;
+		$pa['attack_wounded_'.$hurtposition]+=calculate_weapon_wound_base($pa, $pd, $active, $hurtposition) * calculate_weapon_wound_multiplier($pa, $pd, $active, $hurtposition);
 	}
 	
 	//判定受伤是否发生

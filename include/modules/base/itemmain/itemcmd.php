@@ -2,6 +2,7 @@
 
 namespace itemmain
 {	
+	//决定是拾取还是丢弃的画面的过程，正常只有discover_item()会跳转过来，而如果开启了允许当场使用道具，则大量功能会通过itemget()跳转到此处
 	function itemfind() {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -12,6 +13,7 @@ namespace itemmain
 			return;
 		}
 		show_itemfind();
+		return;
 	}
 	
 	function parse_interface_gameinfo() {
@@ -21,7 +23,8 @@ namespace itemmain
 			$tpldata['itmk0_words']=parse_itmk_words($itmk0);
 			$tpldata['itmsk0_words']=parse_itmsk_words($itmsk0);
 			//if(!empty(trim($log))) $log .= '<br>';
-			if(strpos($log, $itm0) === false) $log .= "<br>发现了物品 <span class='yellow b'>{$itm0}</span>，<br>";
+			if(false === strpos($log, $itm0)) $log .= "<br>发现了物品 <span class='yellow b'>{$itm0}</span>，<br>";
+			else $log .= "<br>你正握着物品 <span class='yellow b'>{$itm0}</span>，<br>";
 			$log .= "类型：{$tpldata['itmk0_words']}";
 			if ($itmsk0 && !is_numeric($itmsk0)) $log .= "，属性：{$tpldata['itmsk0_words']}";
 			$log .= "，效：{$itme0}，耐：{$itms0}。";
@@ -39,8 +42,31 @@ namespace itemmain
 		$cmd = ob_get_contents();
 		ob_end_clean();
 	}
-
-	function itemget() {
+	
+	//由于大量功能都直接跳转到itemget()，但业务上又需要有变化，估抽空原itemget()作为前置判断过程，实际流程在itemget_process()
+	//中间有些缘由，现在它真的只是个壳子了
+	function itemget(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		eval(import_module('sys','player','itemmain'));
+//		if(get_item_allow_find_and_use()){
+//			itemfind();
+//		}else{
+//			itemget_process();
+//		}		
+		itemget_process();
+		return;
+	}
+	
+	function get_item_allow_find_and_use(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('itemmain'));
+		if(!empty($item_allow_find_and_use)) return true;
+		else return false;
+	}
+	
+	//实际处理拾取道具的过程，如果包括无空位则询问丢弃哪一个，否则清空0号物品并把物品放入包裹
+	//如果开启了允许当场使用道具，这里也会多出一个当场使用的按钮
+	function itemget_process() {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','player','logger'));
@@ -102,7 +128,9 @@ namespace itemmain
 		}
 		return true;
 	}
-
+	
+	//丢弃道具
+	//输入$item是装备道具位（wep arb itm1之类），返回值为包含丢弃后地图id（键名iid）的一个标准道具数组
 	function itemdrop($item) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -141,8 +169,9 @@ namespace itemmain
 	//	writeover($mapfile,$itemdata,'ab');
 		$db->query("INSERT INTO {$tablepre}mapitem (itm, itmk, itme, itms, itmsk ,pls) VALUES ('$itm', '$itmk', '$itme', '$itms', '$itmsk', '$pls')");
 		$dropid = $db->insert_id();
-		$dropname = $itm;
-		$log .= "你丢弃了<span class=\"red b\">$dropname</span>。<br>";
+		$ret = array('iid' => $dropid, 'itm' => $itm, 'itmk' => $itmk, 'itme' => $itme, 'itms' => $itms, 'itmsk' => $itmsk);
+
+		$log .= "你丢弃了<span class=\"red b\">$itm</span>。<br>";
 		$mode = 'command';
 		if($item == 'wep'){
 		$itm = '拳头';
@@ -154,7 +183,8 @@ namespace itemmain
 		$itm = $itmk = $itmsk = '';
 		$itme = $itms = 0;
 		}
-		return array($dropid,$dropname);
+		
+		return $ret;
 	}
 	
 	function itemoff_valid_check($itm, $itmk, $itme, $itms, $itmsk)

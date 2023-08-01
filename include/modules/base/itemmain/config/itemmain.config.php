@@ -8,6 +8,8 @@ namespace itemmain
 	
 	$itemmain_drophint = '将离开视线';
 	
+	$item_allow_find_and_use = true;//是否即拾即用
+	
 	//■ 无限耐久度 ■
 	$nosta = '∞';
 	//■ 无属性 ■
@@ -18,6 +20,9 @@ namespace itemmain
 	
 	//不会有物品掉落的地区列表
 	$map_noitemdrop_arealist = Array(0, 34);
+	
+	//可装备的道具类型开头，应该主要用于显示
+	$itemkind_equipable = Array('W','D','A');
 	
 	//物品类型
 	//请在对应模块中赋值，这里只写注释代表哪些名字已经被哪些模块占用了
@@ -111,6 +116,7 @@ namespace itemmain
 		//^002 itemmix_sync 变星
 		//^dd ex_def_down 降防
 		//^hu ex_mhp_temp_up 升血
+		//^ac ex_attr_crack 碎甲
 		'^TEST' => '蛋疼',
 	);
 	

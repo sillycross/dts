@@ -192,15 +192,7 @@ namespace empowers
 			} 
 			elseif ($itm == '针线包') 
 			{
-				if (($arb == $noarb) || ! $arb) {
-					$log .= '你没有装备防具，不能使用针线包。<br>';
-				} elseif(strpos($arbsk,'Z')!==false){
-					$log .= '<span class="yellow b">该防具太单薄以至于不能使用针线包。</span><br>你感到一阵蛋疼菊紧，你的蛋疼度增加了<span class="yellow b">233</span>点。<br>';
-				}else {
-					$arbe += (rand ( 0, 2 ) + $itme);
-					$log .= "用<span class=\"yellow b\">$itm</span>给防具打了补丁，<span class=\"yellow b\">$arb</span>的防御力变成了<span class=\"yellow b\">$arbe</span>。<br>";
-					\itemmain\itms_reduce($theitem);
-				}
+				if (use_sewing_kit($theitem)) \itemmain\itms_reduce($theitem);
 				return;
 			}
 			elseif ($itm == '武器师安雅的奖赏') 
@@ -213,6 +205,27 @@ namespace empowers
 			return;
 		}
 		$chprocess($theitem);
+	}
+	
+	//针线包
+	function use_sewing_kit(&$theitem)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		eval(import_module('sys','player','itemmain','armor','logger'));
+		
+		$ret = false;
+		$itm=&$theitem['itm']; $itmk=&$theitem['itmk'];
+		$itme=&$theitem['itme']; $itms=&$theitem['itms']; $itmsk=&$theitem['itmsk'];
+		
+		if (($arb == $noarb) || ! $arb) {
+			$log .= "你没有装备防具，不能使用<span class=\"yellow b\">$itm</span>！<br>";
+		} else {
+			$arbe += (rand ( 0, 2 ) + $itme);
+			$log .= "用<span class=\"yellow b\">$itm</span>给防具打了补丁，<span class=\"yellow b\">$arb</span>的防御力变成了<span class=\"yellow b\">$arbe</span>。<br>";
+			$ret = true;
+		}
+		return $ret;
 	}
 	
 	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())

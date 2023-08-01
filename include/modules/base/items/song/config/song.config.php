@@ -81,7 +81,7 @@ namespace song
 				'hp' => array( 'e' =>2000, 'ignore_limit' => 1),
 				'sp' => array( 'e' =>2000, 'ignore_limit' => 1),
 			)
-		),
+		), 
 		6 => array(
 			'songname' => '小苹果',
 			'noisekey' => 'ss_XPG',
@@ -305,6 +305,34 @@ namespace song
 			'effect' => array(
 				'special' => 2,
 				'addskill' => 501,
+			)
+		),
+		14 => array(
+			'songname' => 'Baba yetu',
+			'noisekey' => 'ss_BY',
+			'cost' => 88,
+			'lyrics' => array(
+				'♪ Baba yetu, yetu uliye ♪',
+				'♪ Mbinguni yetu, yetu, Amina! ♪',
+				'♪ Baba yetu, yetu, uliye ♪',
+				'♪ ..Jina lako litukuzwe. ♪'
+			),
+			'effect' => array(
+				'exp' => 12
+			)
+		),
+		15 => array(
+			'songname' => 'Clear Morning',
+			'noisekey' => 'ss_CM',
+			'cost' => 100,
+			'lyrics' => array(
+				'♪ 荧光屏幕（Tap Tap）画面流转（Tic Tac） ♪',
+				'♪ 映入视线（时间戳）已是早晨（一如既往） ♪',
+				'♪ 令人欣喜的（话题）或是怦然心动的（好消息） ♪',
+				'♪ 心灵的门扉（轻轻敲开）对着崭新的今日说（Hello!!） ♪'
+			),
+			'effect' => array(
+				'hp' => array( 'e' =>1000, 'ignore_limit' => 1),
 			)
 		),
 	);

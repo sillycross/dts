@@ -75,7 +75,7 @@ namespace skill424
 		$req1 = $req2 = $req3 = $req4 = '';
 		
 		
-		if(0==$clv) {
+		if(0==$clv) {//第一次必定是电池或者探测器电池
 			$req1='电池';$req2='探测器电池';
 		}elseif($clv <= 10){//前10层只产生个数在40以上的地图道具或30以上的商店道具，且各1枚
 			$req1 = wdebug_getreq('mapitem', 40, 499, $aready);

@@ -370,6 +370,7 @@ function udata_check(){
 	return $udata;
 }
 
+//判定用户取的名字是否合规：非空，不能超过15字符，不能有某些特殊字符，不能包含被禁关键词
 function name_check($username){
 	global $nmlimit;
 	if(!isset($username) || strlen($username)===0){
@@ -401,7 +402,7 @@ function create_cookiepass($pass){//获得cookie密码，单纯对输入密码�
 	return md5($pass);
 }
 
-function create_storedpass($cuser, $cpass){//获得储存密码（加盐）
+function create_storedpass($cuser, $cpass){//获得储存密码（加盐，用用户名做盐）
 	return md5($cuser.$cpass);
 }
 

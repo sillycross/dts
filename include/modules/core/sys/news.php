@@ -7,10 +7,14 @@ namespace sys
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		
-		if($news == 'newgame') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red b\">第{$a}回ACFUN大逃杀开始了</span></li>";
-		elseif($news == 'gameover') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red b\">第{$a}回ACFUN大逃杀结束了</span></li>";
+		if($news == 'newgame') {
+			$gprefix = $groomtype ? '房间局' : '';
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red b\">{$gprefix}第{$a}回ACFUN大逃杀开始了</span></li>";
+		}
+		elseif($news == 'gameover') {
+			$gprefix = $groomtype ? '房间局' : '';
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red b\">{$gprefix}第{$a}回ACFUN大逃杀结束了</span></li>";
+		}
 		elseif($news == 'newpc') 
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">{$a}({$b})进入了大逃杀战场</span></li>";
 		elseif($news == 'newgm') 

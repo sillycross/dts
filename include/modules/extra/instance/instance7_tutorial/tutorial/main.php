@@ -9,6 +9,17 @@ namespace tutorial
 		$lwinfo[91]='任务成功完成，进入待机模式。';
 	}
 	
+	//更新即拾即用之后，为兼容性，需要覆盖$item_allow_find_and_use避免多余的操作
+	//主要是教程是个半成品懒得改了
+	function get_item_allow_find_and_use(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		if (17 == $gametype) {
+			return false;
+		}
+		return $chprocess();
+	}
+	
 	//退出教程命令
 	function exit_tutorial(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -415,15 +426,15 @@ namespace tutorial
 			//$log .= $schmode.' '.$ct['object'];
 			if($schmode == 'move'){//教程模式下，阻止移动时遇到意料之外的事件
 				$log .= "但是什么都没有发现。<br>";
-				return;
+				return false;
 			}
 			if($schmode == 'search' && (isset($ct['obj2']['itm']) || isset($ct['obj2']['meetnpc']))){//需要探索时必定发现
 				if(isset($ct['obj2']['itm'])){//判定必定发现道具
 					discover_item();
-					return;
+					return true;
 				}elseif(isset($ct['obj2']['meetnpc'])){//判定必定发现NPC
 					discover_player();
-					return;
+					return true;
 				}
 //				elseif($ct_prev['object']=='kill' && isset($ct_prev['obj2']['meetnpc']) && $ct['object']=='money' && $tprog){//判定必定发现尸体
 //					discover_player();
@@ -431,7 +442,7 @@ namespace tutorial
 //				}
 			}
 		}
-		$chprocess($schmode);
+		return $chprocess($schmode);
 	}
 	
 	//绕过数据库伪造一个道具。
@@ -456,14 +467,14 @@ namespace tutorial
 				include template(MOD_TUTORIAL_TUTORIAL_CMD);//顺便把模板改了
 				$cmd = ob_get_contents();
 				ob_clean();
-				return;
+				return true;
 			}
 		}
-		$chprocess();
+		return $chprocess();
 	}
 	
-	//接管itemget()，判定推进
-	function itemget() {
+	//接管itemget_process()，判定推进
+	function itemget_process() {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
 		$r = $chprocess();

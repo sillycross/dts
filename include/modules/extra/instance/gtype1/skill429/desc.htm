@@ -10,7 +10,8 @@
 <!--{eval $totlv = count($upgradecost)-1; }-->
 <span class="lime b">当前级别$clv/$totlv</span>&nbsp;
 <!--{if $upgradecost[$clv] !== -1}-->消耗<span class="lime b">$upgradecost[$clv]</span>点技能点升至下一级<!--{/if}--><br>
-你受到的陷阱伤害减少<span class="yellow b">$trapdmgdown[$clv]%</span>
+你受到的陷阱伤害减少<span class="yellow b">$trapdmgdown[$clv]%</span><br>
+你接收其他玩家的道具时有<span class="yellow b">$refuse_senditem_odds[$clv]%</span>概率拒绝
 </span></td>
 <td class="skilldesc_right b3">
 <!--{if $upgradecost[$clv] !== -1}-->

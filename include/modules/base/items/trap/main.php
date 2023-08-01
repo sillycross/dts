@@ -387,11 +387,11 @@ namespace trap
 		//echo 'trap ';
 		eval(import_module('trap','logger'));
 		$trap_dice=rand(0,99);//随机数，开始判断是否踩陷阱
-		if($trap_dice < $trap_max_obbs)
-			if (trapcheck()) 
-				return;
+		if($trap_dice < $trap_max_obbs){
+			if (trapcheck()) return false; //踩陷阱肯定是没有发现东西
+		}			
 				
-		$chprocess($schmode);
+		return $chprocess($schmode);
 	}
 	
 	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())

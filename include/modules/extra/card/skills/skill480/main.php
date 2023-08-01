@@ -54,16 +54,24 @@ namespace skill480
 		}
 	}
 	
-	function move($moveto) {
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($moveto);
-		skill480_post_activated_effect();
-	}
+//	function move($moveto) {
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		$chprocess($moveto);
+//		skill480_post_activated_effect();
+//	}
+//	
+//	function search(){
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		$chprocess();
+//		skill480_post_activated_effect();
+//	}
 	
-	function search(){
+	//改到discover执行后结算
+	function discover($schmode){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess();
+		$ret = $chprocess($schmode);
 		skill480_post_activated_effect();
+		return $ret;
 	}
 	
 	function act()

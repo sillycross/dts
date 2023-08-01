@@ -4,7 +4,7 @@ nohup.out
 include/modules/core/sys/config/server.config.php
 include/modules/core/sys/config/system.config.php
 include/modulemng/modulemng.config.php
-gamedata/adminlog.php
+gamedata/adminlog_nf.php
 gamedata/adminmsg.htm
 gamedata/systemmsg.htm
 gamedata/modules.list.temp.php

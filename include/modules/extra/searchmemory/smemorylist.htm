@@ -1,23 +1,57 @@
 <!--{if !empty($searchmemory)}-->
-<hr>
-<div>
-<!--{loop $searchmemory $smn $sm}-->
-<input type="button" 
-	<!--{if isset($sm['itm'])}-->
-	<!--{eval $sm['itm']=\itemmain\parse_itmname_words($sm['itm'],1); }-->
-		value="获取 $sm['itm']"
-	<!--{elseif isset($sm['Pname'])}-->
-		<!--{if $sm['smtype'] == 'enemy'}-->
-			<!--{if $fog}-->value="再探 ？？？"
-			<!--{else}-->value="迎战 $sm['Pname']"
-			<!--{/if}-->
-		<!--{elseif $sm['smtype'] == 'corpse'}-->value="检查 $sm['Pname'] 的尸体"
-		<!--{elseif $sm['smtype'] == 'team'}-->
-			<!--{if $fog}-->value="再探 ？？？"
-			<!--{else}-->value="和 $sm['Pname'] 打招呼"
-			<!--{/if}-->
-		<!--{/if}-->
-	<!--{/if}--> onclick="$('mode').value='command';$('command').value='memory{$smn}';postCmd('gamecmd','command.php');this.disabled=true;">
-<!--{/loop}-->
-</div>
+<!--{eval list($sm_slots, $sm_records) = \searchmemory\searchmemory_display_prepare();}-->
+	<!--{if !empty($sm_slots)}-->
+		<hr>
+		<div style="text-align:center;">
+			<span>视野中道具能立刻拿到，但迎战敌人可能被先制。</span><br>
+			<!--{loop $sm_slots $sm}-->
+				<button type="button" class="memory_slot" onclick="$('mode').value='command';$('command').value='memory{$sm['smn']}';postCmd('gamecmd','command.php');this.disabled=true;">
+					<!--{if isset($sm['itm'])}-->
+					<!--{eval $sm['itm']=\itemmain\parse_itmname_words($sm['itm'],1); }-->
+						<span class="b">$sm['itm']</span>
+					<!--{elseif isset($sm['Pname'])}-->
+						<!--{if $sm['smtype'] == 'enemy' || $sm['smtype'] == 'unknown'}-->
+							<!--{if $fog || $sm['smtype'] == 'unknown'}--><span class="darkred b">？？？</span>
+							<!--{else}--><span class="darkred b">$sm['Pname']</span>
+							<!--{/if}-->
+						<!--{elseif $sm['smtype'] == 'corpse'}--><span class="darkred b">$sm['Pname']</span>的尸体
+						<!--{elseif $sm['smtype'] == 'team'}-->
+							<!--{if $fog}--><span class="b">？？？</span>
+							<!--{else}-->和<span class="darkred b">$sm['Pname']</span>打招呼
+							<!--{/if}-->
+						<!--{/if}-->
+					<!--{/if}--> 
+				</button>
+			<!--{/loop}-->
+		</div>
+	<!--{/if}--> 
+	<!--{if !empty($sm_records)}-->
+		<hr>
+		<div id="sm_record_switch" style="text-align:center;">
+			<a onclick="this.style.display='none';$('sm_record_hidden_box').style.display='block';">点击以展开记忆列表</a>
+		</div>
+		<div id="sm_record_hidden_box" style="display:none;text-align:center;">
+			<span>前往以下位置将离开现有视野并执行一次探索。</span><br>
+			<!--{loop $sm_records $sm}-->
+				<button type="button" class="memory_record" onclick="$('mode').value='command';$('command').value='memory{$sm['smn']}';postCmd('gamecmd','command.php');this.disabled=true;" <!--{if $sm['pls']!=$pls}-->disabled<!--{/if}-->>
+				<!--{if isset($sm['itm'])}-->
+				<!--{eval $sm['itm']=\itemmain\parse_itmname_words($sm['itm'],1); }-->
+					<span class="b">$sm['itm']</span>
+				<!--{elseif isset($sm['Pname'])}-->
+					<!--{if $sm['smtype'] == 'enemy' || $sm['smtype'] == 'unknown'}-->
+						<!--{if $sm['smtype'] == 'unknown'}--><span class="darkred b">？？？</span>
+						<!--{else}--><span class="darkred b">$sm['Pname']</span>
+						<!--{/if}-->
+					<!--{elseif $sm['smtype'] == 'corpse'}--><span class="darkred b">$sm['Pname'] </span>的尸体
+					<!--{elseif $sm['smtype'] == 'team'}-->
+						<span class="darkred b">$sm['Pname']</span>
+					<!--{/if}-->
+				<!--{/if}--> 
+				<!--{if $sm['pls']!=$pls}-->
+					<br>（<span class="red">$plsinfo[$sm['pls']]</span>）
+				<!--{/if}--> 
+				</button>
+			<!--{/loop}-->
+		</div>
+	<!--{/if}-->
 <!--{/if}-->

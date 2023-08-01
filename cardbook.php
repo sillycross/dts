@@ -8,7 +8,7 @@ eval(import_module('cardbase'));
 
 $_REQUEST = gstrfilter($_REQUEST);
 
-if ($_REQUEST["playerID"]=="") {
+if (empty($_REQUEST["playerID"])) {
 	$udata = udata_check();
 	
 	$n=$cuser;

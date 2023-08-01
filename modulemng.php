@@ -6,7 +6,7 @@ define('IN_MODULEMNG', TRUE);
 define('IN_GAME', TRUE);
 define('GAME_ROOT', dirname(__FILE__).'/');
 error_reporting(0);
-$magic_quotes_gpc = get_magic_quotes_gpc();
+$magic_quotes_gpc = false;//get_magic_quotes_gpc();
 
 require GAME_ROOT.'./include/global.func.php';
 check_authority();
@@ -175,7 +175,7 @@ if($page == 'index') {
 	echo show_adv_state().'<br>';
 	echo '<a href="modulemng.php?mode=edit" style="text-decoration: none"><span><font color="red">[进入编辑模式]</font></span></a> 添加或修改模块可用性。<br>';
 	echo '<a href="modulemng.php?action=save" style="text-decoration: none"><span><font color="green">[重设代码缓存]</font></span></a> 整体重设模块结构和adv模式代码。<br>';
-	echo '<a href="modulemng.php?action=save&mode=quick" style="text-decoration: none"><span><font color="green">[重设代码缓存（快速）]</font></span></a> 只重设有改动的代码函数。新增模块或函数时切勿使用。<br><br>';  
+	echo '<a href="modulemng.php?action=save&mode=quick" style="text-decoration: none"><span><font color="green">[重设代码缓存（快速）]</font></span></a> 只重设有改动的代码函数。新增模块、函数，或模块依赖顺序有调整时切勿使用！<br><br>';  
 	//printmodtable(GAME_ROOT.'./gamedata/modules.list.php',1);
 	
 }elseif($page == 'edit'){

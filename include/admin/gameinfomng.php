@@ -6,7 +6,9 @@ if(!defined('IN_ADMIN')) {
 //	exit($_ERROR['no_power']);
 //}
 
-eval(import_module('weather'));
+eval(import_module('sys','weather'));
+
+$sgtypelist = Array(0,1,4,18,19);//主房间允许改出来的游戏类型
 
 if($command == 'wthedit'){
 	$iweather = (int)$_POST['iweather'];
@@ -106,6 +108,19 @@ if($command == 'wthedit'){
 		$cmd_info = '下一次禁区时间已设为60秒后。请访问任意游戏页面以刷新游戏状态。';
 		adminlog('addarea',$room_prefix,$gamenum,'L');
 		addnews($now,'sysaddarea');	
+	}
+}elseif($command == 'gametypeset'){
+	//echo $sgtype;
+	if(!in_array($sgtype, $sgtypelist)){
+		$cmd_info = "游戏类型修改错误！";
+	}elseif($groomtype > 0){
+		$cmd_info = "房间不允许修改下局类型！";
+	}else{
+		$gamevars['next_gametype'] = (int)$sgtype;
+		save_gameinfo();
+		$cmd_info = '游戏类型修改成功。';
+		adminlog('gametypeset',$room_prefix,$gamenum,$sgtype);
+		addnews($now,'gametypeset',$sgtype);	
 	}
 }
 
