@@ -93,7 +93,7 @@ function parse_template($tplfile, $objfile, $templateid, $tpldir, $nospace=1) {
 		}, $template);
 	}
 	
-	//[[[换回{，]]]换回}
+	//[@[换回{，]@]换回}
 	$template = str_replace("[@[", "{", $template);
 	$template = str_replace("]@]", "}", $template);
 	//常量替换
