@@ -4,7 +4,7 @@
 <input type="hidden" id="command" name="command" value="">
 <input type="button" class="cmdbutton" id="z" value="[Z]丢弃" onclick="$('command').value='dropitm0';postCmd('gamecmd','command.php');this.disabled=true;">$itm0/$itme0/$itms0
 <!--{if \itemmain\get_item_allow_find_and_use()}-->
-&nbsp;<input type="button" class="cmdbutton" <!--{if \itemmain\is_equipable($itmk0)}-->value="装备"<!--{else}-->value="使用"<!--{/if}--> onclick="$('mode').value='command';$('command').value='itm0';postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="button" class="cmdbutton" style="float:right;" <!--{if \itemmain\is_equipable($itmk0)}-->value="装备"<!--{else}-->value="使用"<!--{/if}--> onclick="$('mode').value='command';$('command').value='itm0';postCmd('gamecmd','command.php');this.disabled=true;">
 <!--{/if}-->
 <br><br>
 <br><br>

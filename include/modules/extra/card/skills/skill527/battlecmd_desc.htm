@@ -1,0 +1,5 @@
+<!--{if !\clubbase\check_battle_skill_unactivatable($sdata,$edata,527)}-->
+	本次攻击结束时，让你的基础攻击力翻倍。<!--{eval $rmt = \skill527\get_remaintime527($sdata);}-->本局还能发动<span class="yellow b">{$rmt}</span>次。
+<!--{else}-->
+	你本局已经不能再发动这个技能了。
+<!--{/if}-->

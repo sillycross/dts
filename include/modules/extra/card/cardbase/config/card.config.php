@@ -14,8 +14,9 @@ $packlist=array(
 	'Way of Life',
 	'Best DOTO',
 	'Balefire Rekindle',
-	'Event Bonus',
 	'Cyber Zealots',
+	'Event Bonus',
+	
 	'Indev',
 	'hidden'
 );
@@ -26,9 +27,8 @@ $packdesc = array(
 	'Way of Life' => '大杂烩，主要以游戏方式以及同类游戏为捏他对象的卡集。',
 	'Best DOTO' => '以电竞元素和电竞圈为吐槽对象的卡集。',
 	'Balefire Rekindle' => '以游戏版本「复燃」的新增NPC角色和游戏设定为主题的卡集。',
-	'Cyber Zealots' => '以赛博朋克和网络梗为捏他对象的卡集。',
 	'Event Bonus' => '其他一些零散成就和活动奖励卡。',
-	
+	'Cyber Zealots' => '以赛博朋克和网络梗为捏他对象的卡集。',
 	'Indev' => '开发中的卡的暂存地',
 	'hidden' => '隐藏卡片，如果你看到这句话请联系天然呆管理员',
 );
@@ -3296,6 +3296,21 @@ $cards = array(
 		'valid' => array(
 			'skills' => array(
 				'213' => '0', 
+			),
+		)
+	),
+	214 => array(
+		'name' => '源神',
+		'rare' => 'A',
+		'pack' => 'Cyber Zealots',
+		'desc' => '你说得对，但是《源神》是由上千主上自主研发的一款全新开放世界冒险游戏。游戏发生在一个被称作「源数网络」的幻想世界，在这里被神选中的人将被授予「源数之壁」，引导源批之力。你将扮演一位名为「源数直上」的神秘角色，在自由的旅行中邂逅性格各异、能力独特的源数之门们，和它们一起击败强敌，找回不存在的亲人的同时，逐步发掘「源数代码」的真相。',
+		'effect' => '获得技能「攻击」',
+		'desc_skills' => '「攻击」：你的攻击性有待提高。<br>每局最多4次，你可以在攻击结束时让你的的基础攻击力永久翻倍',
+		'bigdesc' => 1,
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'527' => '0', 
 			),
 		)
 	),

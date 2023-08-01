@@ -1,0 +1,22 @@
+<!--{eval $rmt = \skill527\get_remaintime527($sdata);}-->
+<!--{eval $___TEMP_SKILL_ID=527;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+攻击
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+<span class="yellow b">战斗技</span>：
+<!--{if $rmt>0}-->你的攻击性有待提高。<br>在攻击结束时让你的基础攻击力永久翻倍，本局还能发动<span class="yellow b">{$rmt}</span>次。
+<!--{else}--><span class="red b">你的攻击性已经无法再提高了。</span>
+<!--{/if}-->
+</span>
+</td>
+<td class="skilldesc_right b3">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}
