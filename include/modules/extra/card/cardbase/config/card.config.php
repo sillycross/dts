@@ -47,6 +47,7 @@ $cardindex=array(
 	'M'=>array()
 	//M卡的爆率实际属于C
 	//pop子实际爆率是B
+	
 );
 $card_rarecolor=array(
 	'S'=>'gold b ',
@@ -810,7 +811,7 @@ $cards = array(
 		'desc' => '<span class="ltazure b">“蓝凝我觉得啊，<br>这个地方没什么好写的。<br>总之我比红暮可强得多了，<br>哈哈哈！”</span>',
 		'effect' => '<span class="ltazure b">“蓝凝觉得你进游戏实际体验一下<br>比较好哦！”</span>',
 		'desc_skills' => '<span class=\'ltazure b\'>“快进游戏实际体验一下吧！”</span>',
-		'energy' => 50,
+		'energy' => 60,
 		'valid' => array(
 			'hp' => '260',
 			'mhp' => '260',
@@ -3066,14 +3067,15 @@ $cards = array(
 		'name' => 'ycNaN',
 		'rare' => 'A',
 		'pack' => 'Event Bonus',
-		'desc' => '过去经历一切不明的女骇客，其typing能力就算在糟糕级骇客中也实际强大！',
+		'desc' => '过去经历一切不明的女骇客，<br>其typing能力就算在糟糕级骇客中也实际强大！',
 		'effect' => '如果你上一次操作在代码层面没有顺利完成，你获得7点经验和7点全系熟练度，还会给这个游戏的天然呆程序员发去一封站内信。',
 		'energy' => 100,
 		'valid' => array(
 			'skills' => array(
 				'528' => '0', 
 			),
-		)
+		),
+		'ignore_global_ach' => 1,//不参与终生成就判定
 	),
 	/////////////////////////////////////////////////
 	

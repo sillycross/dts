@@ -4,6 +4,7 @@ namespace skill528
 {
 	$skill528_expup = 7;
 	$skill528_skillup = 7;
+	$skill528_gmlist = Array('Yoshiko_G');
 
 	function init() 
 	{
@@ -87,8 +88,7 @@ namespace skill528
 				$log .= '你成功定位到了一处损坏代码，不过你已经无法获得经验值和全系熟练度了，当然你还是可以用垃圾邮件轰炸管理员。<br>';
 			}
 			include_once './include/messages.func.php';
-			$gmarr = Array('admin', 'Yoshiko_G');
-			foreach($gmarr as $v){
+			foreach($skill528_gmlist as $v){
 				$r = fetch_udata('uid', "username='$v'");
 				if(empty($r)) continue;
 				message_create(

@@ -16,7 +16,7 @@ CREATE TABLE bra_log (
 
 --
 -- 表的结构 `bra_chat`
--- 公聊 0，队聊 1，私聊 2 ，系统 3，公告 4，
+-- 公聊 0，队�? 1，私�? 2 ，系�? 3，公�? 4�?
 --
 
 DROP TABLE IF EXISTS bra_chat;
@@ -33,7 +33,7 @@ CREATE TABLE bra_chat (
 
 --
 -- 表的结构 `bra_mapitem`
--- 储存地图道具的信息
+-- 储存地图道具的信�?
 --
 
 DROP TABLE IF EXISTS bra_mapitem;
@@ -51,7 +51,7 @@ CREATE TABLE bra_mapitem (
 
 --
 -- 表的结构 `bra_maptrap`
--- 储存地图陷阱的信息
+-- 储存地图陷阱的信�?
 --
 
 DROP TABLE IF EXISTS bra_maptrap;
@@ -69,15 +69,15 @@ CREATE TABLE bra_maptrap (
 
 --
 -- 表的结构 `bra_newsinfo`
--- 储存进行状况的信息
+-- 储存进行状况的信�?
 --
 
 DROP TABLE IF EXISTS bra_newsinfo;
 CREATE TABLE bra_newsinfo (
   nid mediumint unsigned NOT NULL auto_increment,
  `time` int(10) unsigned NOT NULL default '0',
- `news` char(15) NOT NULL default '',
- `a` varchar(255) NOT NULL default '',
+ `news` varchar(20) NOT NULL default '',
+ `a` text NOT NULL default '',
  `b` varchar(255) NOT NULL default '',
  `c` varchar(255) NOT NULL default '',
  `d` varchar(255) NOT NULL default '',

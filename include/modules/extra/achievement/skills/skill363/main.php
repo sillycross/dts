@@ -66,7 +66,7 @@ namespace skill363
 			eval(import_module('cardbase'));
 			$flag = 1;
 			foreach($cards as $ci => $cv){
-				if('hidden' != $cv['pack'] && \cardbase\check_pack_availble($cv['pack'])){//不判定隐藏卡（软件工程师等）以及没开放的卡
+				if('hidden' != $cv['pack'] && \cardbase\check_pack_availble($cv['pack']) && empty($cv['ignore_global_ach'])){//不判定隐藏卡（软件工程师等）、没开放的卡以及标明不参与终身成就判定的卡
 					if(!in_array($ci, $var326)) {
 						$flag = 0;
 						break;
