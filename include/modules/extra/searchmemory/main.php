@@ -78,18 +78,16 @@ namespace searchmemory
 	
 	//保存玩家数据到数据库之前，把$searchmemory转义
 	function player_save($data){
-		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (eval(__MAGIC__)) return $___RET_VALUE;		
+		$tmp_searchmemory = $data['searchmemory'];
 		if(is_array($data['searchmemory'])) {
-			$tmp_searchmemory = $data['searchmemory'];
 			$data['searchmemory'] = gencode($data['searchmemory']);
 		}
 		$chprocess($data);
 		//哇，这只虫找了我两个小时
 		//某些流程在player_save()后还会对$player数据进行处理，比如获胜，必须把$searchmemory还原回去
 		//低于8.0的php不会报FATAL ERROR，非adv模式运行路径不同也不会报错，坑爹死我了
-		if(!empty($tmp_searchmemory)){
-			$data['searchmemory'] = $tmp_searchmemory;
-		}
+		$data['searchmemory'] = $tmp_searchmemory;			
 	}
 	
 	//$searchmemory内的元素是数组，分为两种类型：

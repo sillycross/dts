@@ -20,6 +20,7 @@ $packlist=array(
 	'Indev',
 	'hidden'
 );
+//卡包介绍
 $packdesc = array(
 	'Standard Pack' => '基本称号卡集。',
 	'Crimson Swear' => '以游戏阵营「红杀」组织以及其马甲「金龙通讯社」为主题的卡集。',
@@ -32,8 +33,9 @@ $packdesc = array(
 	'Indev' => '开发中的卡的暂存地',
 	'hidden' => '隐藏卡片，如果你看到这句话请联系天然呆管理员',
 );
+//卡包实装的时间戳，可以用来隐藏卡包
 $packstart = array(
-	'Cyber Zealots' => 4476654671,
+	//'Cyber Zealots' => 4476654671,
 	'Indev' => 4476654671,
 	'hidden' => 4476654671,
 );
@@ -808,7 +810,7 @@ $cards = array(
 		'desc' => '<span class="ltazure b">“蓝凝我觉得啊，<br>这个地方没什么好写的。<br>总之我比红暮可强得多了，<br>哈哈哈！”</span>',
 		'effect' => '<span class="ltazure b">“蓝凝觉得你进游戏实际体验一下<br>比较好哦！”</span>',
 		'desc_skills' => '<span class=\'ltazure b\'>“快进游戏实际体验一下吧！”</span>',
-		'energy' => 90,
+		'energy' => 50,
 		'valid' => array(
 			'hp' => '260',
 			'mhp' => '260',
@@ -818,6 +820,7 @@ $cards = array(
 				'12' => '0', 
 				'406' => '0',
 				'432' => '0', 
+				'462' => '0', 
 			),
 			'club' => '17',
 		)
@@ -3059,6 +3062,19 @@ $cards = array(
 			'itmsk3' => '',
 		)
 	),
+	190 => array(
+		'name' => 'ycNaN',
+		'rare' => 'A',
+		'pack' => 'Event Bonus',
+		'desc' => '过去经历一切不明的女骇客，其typing能力就算在糟糕级骇客中也实际强大！',
+		'effect' => '如果你上一次操作在代码层面没有顺利完成，你获得7点经验和7点全系熟练度，还会给这个游戏的天然呆程序员发去一封站内信。',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'528' => '0', 
+			),
+		)
+	),
 	/////////////////////////////////////////////////
 	
 	//////////////////////////////////////////////////
@@ -3314,6 +3330,57 @@ $cards = array(
 			),
 		)
 	),
+	215 => array(
+		'name' => '超天酱',
+		'rare' => 'B',
+		'pack' => 'Cyber Zealots',
+		'desc' => '✝︎ 当代互联网小天使，堂堂降临! ✝︎',
+		'effect' => '即将化身为小天使的地雷',
+		'desc_skills' => '开局携带一枚效果值为800的陷阱，但最大生命值只有正常的一半',
+		'energy' => 100,
+		'valid' => array(
+		  'hp' => '200',
+		  'mhp' => '200',
+			'itm3' => '超天新龙 异色眼革命龙★12',
+			'itmk3' => 'TN12',
+			'itme3' => '800',
+			'itms3' => '1',
+			'itmsk3' => '',
+		)
+	),
+	216 => array(
+		'name' => '吧友',
+		'rare' => 'C',
+		'pack' => 'Cyber Zealots',
+		'desc' => '经验+3',
+		'effect' => '告辞',
+		'energy' => 0,
+		'valid' => array(
+		  'exp' => '3',
+		)
+	),
+	217 => array(
+		'name' => '章鱼猫',
+		'rare' => 'C',
+		'pack' => 'Cyber Zealots',
+		'desc' => '一种神奇的电子界生物，擅长版本控制和同性交友',
+		'effect' => '开局携带建立分叉和拉取请球',
+		//'desc_skills' => '',
+		'energy' => 0,
+		'valid' => array(
+		  'wep' => '建立分叉',
+			'wepk' => 'WK',
+			'wepe' => '120',
+			'weps' => '5',
+			'wepsk' => 'eg',
+			'itm3' => '拉取请球',
+			'itmk3' => 'DH',
+			'itme3' => '120',
+			'itms3' => '5',
+			'itmsk3' => 'eg',
+		)
+	),
+	
 	
 	1000 => array(
 		'name'=>'补给品',

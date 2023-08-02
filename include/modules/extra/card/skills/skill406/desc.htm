@@ -1,12 +1,13 @@
-<!--{eval eval(import_module('skill406'));}-->
+<!--{eval eval(import_module('skill406'));$skill406_r = \skill406\get_skill406_r($sdata);}-->
 <!--{eval $___TEMP_SKILL_ID=406;}-->
 {template MOD_CLUBBASE_SKILLDESC_START}
 <span>
-心火
+$clubskillname[406]
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class="skilldesc_left b3"><span class="skilldesc">
-造成的战斗伤害<span class="yellow b">×2</span>。<br>
+造成的战斗伤害<span class="yellow b">翻倍</span>，之后如果你的生命值小于最大值的1/2、1/4、1/8……都再次<span class="yellow b">翻倍</span>，以此类推（最高倍数为1024倍）。<br>
+当前为<span class="yellow b">{$skill406_r}倍</span>。
 </span></td>
 <td class="skilldesc_right b3">
 </td>

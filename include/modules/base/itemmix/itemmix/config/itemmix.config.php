@@ -245,7 +245,7 @@ $mixinfo = array
 	array('class' => 'cube', 'stuff' => array('MEGA宝石方块','绿色方块'),'result' => array('叶精灵之刃','WK',386,'∞','p'),),
 	array('class' => 'cube', 'stuff' => array('MEGA宝石方块','蓝色方块'),'result' => array('水精灵之波','WC',386,'∞','i'),),
 	array('class' => 'cube', 'stuff' => array('MEGA宝石方块','黄色方块'),'result' => array('雷精灵之闪','WP',386,'∞','e'),),
-	array('class' => 'cube', 'stuff' => array('MEGA宝石方块','水晶方块'),'result' => array('冰精灵之镜','DB',386,493,'AI'),),
+	array('class' => 'cube', 'stuff' => array('MEGA宝石方块','水晶方块'),'result' => array('冰精灵之镜','DB',386,'∞','AI'),),
 	array('class' => 'cube', 'stuff' => array('MEGA宝石方块','白色方块'),'result' => array('太阳精灵之光','WD',386,'∞','d'),),
 	array('class' => 'cube', 'stuff' => array('MEGA宝石方块','黑色方块'),'result' => array('月亮精灵之影','WF',386,'∞','w'),),
 	array('class' => 'cube', 'stuff' => array('MEGA宝石方块','MEGA宝石方块'),'result' => array('仙子精灵之吻','WJ',251,'∞','n'),),

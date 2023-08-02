@@ -420,10 +420,11 @@ namespace player
 //		$alivenum = $db->result($db->query("SELECT COUNT(*) FROM {$tablepre}players WHERE hp>0 AND type=0"), 0);
 //		$chprocess($where,$atime);
 //	}
-	
+	//在command_act.php执行到最后可以调用的一个接口，目前只有一个技能接管过这里……
 	function update_sdata()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return;
 	}
 	
 	
