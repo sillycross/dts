@@ -199,13 +199,16 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip=NULL)
 	}
 	///////////////////////////////////////////////////////////////
 	foreach ($card_valid_info as $key => $value){
-		if (substr($key,0,3)=="itm"){
-			$tt=substr($key,-1);
-			$ts=substr($key,0,strlen($key)-1);
+		$checkstr = substr($key,0,3);
+		if (in_array($checkstr, Array('wep','arb','arh','ara','arf','art','itm'))){//道具类的，如果是数组则随机选一个
 			if(is_array($value)){
 				shuffle($value);
 				$value = $value[0];
 			}
+		}
+		if ('itm' == $checkstr){//如果以itm开头则换成valid专用的格式，回头需要重构掉
+			$tt=substr($key,-1);
+			$ts=substr($key,0,strlen($key)-1);
 			${$ts}[$tt]=$value;
 		}else{
 			${$key}=$value;

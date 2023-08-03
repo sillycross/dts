@@ -2,9 +2,9 @@
 	<!--{if !empty($noticelog)}-->
 		<span class="yellow b">$noticelog</span>
 	<!--{elseif isset($gamevars['next_gametype'])}-->
-		<span class="yellow b">下一局标准房的游戏模式已设置为{$gtinfo[$gamevars['next_gametype']]}</span>
+		<span class="yellow b">下一局游戏模式已设置为{$gtinfo[$gamevars['next_gametype']]}</span>
 	<!--{else}-->
-		<span class="yellow b">请选择下一局标准房的游戏模式：</span>
+		<span class="yellow b">你可以选择下一局游戏的模式：</span>
 	<!--{/if}-->
 </div>
 <!--{if !isset($gamevars['next_gametype'])}-->

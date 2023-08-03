@@ -971,10 +971,10 @@ $cards = array(
 		'rare' => 'B',
 		'pack' => 'Crimson Swear',
 		'desc' => '善于肉搏的红杀特工',
-		'effect' => '开局殴熟+35',
+		'effect' => '开局殴熟+50',
 		'energy' => 100,
 		'valid' => array(
-			'wp' => '35',
+			'wp' => '50',
 		)
 	),
 	52 => array(
@@ -982,10 +982,10 @@ $cards = array(
 		'rare' => 'B',
 		'pack' => 'Crimson Swear',
 		'desc' => '善于使用冷兵器的红杀特工',
-		'effect' => '开局斩熟+35',
+		'effect' => '开局斩熟+50',
 		'energy' => 100,
 		'valid' => array(
-			'wk' => '35',
+			'wk' => '50',
 		)
 	),
 	53 => array(
@@ -993,10 +993,10 @@ $cards = array(
 		'rare' => 'B',
 		'pack' => 'Crimson Swear',
 		'desc' => '善于使用飞行道具的红杀特工',
-		'effect' => '开局投熟+35',
+		'effect' => '开局投熟+50',
 		'energy' => 100,
 		'valid' => array(
-			'wc' => '35',
+			'wc' => '50',
 		)
 	),
 	54 => array(
@@ -1004,10 +1004,10 @@ $cards = array(
 		'rare' => 'B',
 		'pack' => 'Crimson Swear',
 		'desc' => '善于使用枪械的红杀特工',
-		'effect' => '开局射熟+35',
+		'effect' => '开局射熟+50',
 		'energy' => 100,
 		'valid' => array(
-			'wg' => '35',
+			'wg' => '50',
 		)
 	),
 	55 => array(
@@ -1015,10 +1015,10 @@ $cards = array(
 		'rare' => 'B',
 		'pack' => 'Crimson Swear',
 		'desc' => '善于使用爆炸物的红杀特工',
-		'effect' => '开局爆熟+35',
+		'effect' => '开局爆熟+50',
 		'energy' => 100,
 		'valid' => array(
-			'wd' => '35',
+			'wd' => '50',
 		)
 	),
 	56 => array(
@@ -1026,14 +1026,14 @@ $cards = array(
 		'rare' => 'B',
 		'pack' => 'Crimson Swear',
 		'desc' => '战斗风格多变的红杀特工',
-		'effect' => '开局灵熟以外的熟练度+15',
+		'effect' => '开局灵熟以外的熟练度+20',
 		'energy' => 100,
 		'valid' => array(
-			'wp' => '15',
-			'wk' => '15',
-			'wc' => '15',
-			'wg' => '15',
-			'wd' => '15',
+			'wp' => '20',
+			'wk' => '20',
+			'wc' => '20',
+			'wg' => '20',
+			'wd' => '20',
 		)
 	),
 	57 => array(
@@ -2548,10 +2548,10 @@ $cards = array(
 		'rare' => 'B',
 		'pack' => 'Crimson Swear',
 		'desc' => '其实红杀里并没有超能力者。<br>不知道这个特工是哪儿来的。',
-		'effect' => '开局灵熟+35',
+		'effect' => '开局灵熟+50',
 		'energy' => 100,
 		'valid' => array(
-			'wf' => '35',
+			'wf' => '50',
 		)
 	),
 	162 => array(
@@ -3380,6 +3380,222 @@ $cards = array(
 			'itme3' => '120',
 			'itms3' => '5',
 			'itmsk3' => 'eg',
+		)
+	),
+	218 => array(
+		'name' => '撸贷人',
+		'rare' => 'M',
+		'pack' => 'Cyber Zealots',
+		'desc' => '凭本事借的钱，为什么要还？',
+		'effect' => '他因为撸小贷被限制消费了',
+		'desc_skills' => '初始金额为100元，但获取金额时不能超过上限。可以消耗技能点还款来解除限制。',
+		'energy' => 0,
+		'valid' => array(
+		  'money' => '100',
+			'skills' => array(
+				'495' => '0', 
+			),
+		)
+	),
+	219 => array(
+		'name' => '福瑞控',
+		'rare' => 'C',
+		'pack' => 'Cyber Zealots',
+		'desc' => '24小时穿着等身大熊装的福瑞控',
+		'effect' => '开局装备【智代专用熊装】',
+		'desc_skills' => '但是没有防御属性',
+		'energy' => 0,
+		'valid' => array(
+		  'arb' => '【智代专用熊装】',
+			'arbk' => 'DB',
+			'arbe' => '80',
+			'arbs' => '20',
+			'arbsk' => '',
+		)
+	),
+	220 => array(
+		'name' => '钓鱼吧老哥',
+		'rare' => 'C',
+		'pack' => 'Cyber Zealots',
+		'desc' => '不知道，大概40斤吧',
+		'effect' => '开局装备钓鱼杆并携带他的收获',
+		//'desc_skills' => '但是没有防御属性',
+		'energy' => 0,
+		'valid' => array(
+		  'ara' => Array('钓鱼竿','钓鱼竿','钓鱼竿','钓鱼竿','钓鱼竿','钓鱼竿','钓鱼竿','钓鱼竿','钓鱼竿','钓鱼竿','钓鱼竿','钓鱼竿','钓鱼竿','钓鱼竿','钓鱼竿','钓鱼竿','钓鱼竿','钓鱼竿','钓鱼竿','《小黄的钓鱼竿》'),
+			'arak' => 'DA',
+			'arae' => '50',
+			'aras' => '70',
+			'arask' => '',
+			'itm3' => Array('垃圾','光盘','破鞋','塑料袋','石头','树枝','骨头','原型武器K','鲨鱼鳍','凸眼鱼'),
+			'itmk3' => Array('X','Y','HH','HS','HB','PB','PB2'),
+			'itme3' => '70',
+			'itms3' => '5',
+			'itmsk3' => 'z',
+		)
+	),
+	221 => array(
+		'name' => '221',
+		'rare' => 'A',
+		'pack' => 'Cyber Zealots',
+		'desc' => '上古著名职人',
+		'effect' => '开局携带『和谐你全家』',
+		//'desc_skills' => '',
+		'energy' => 120,
+		'valid' => array(
+		  'wep' => '『和谐你全家』',
+			'wepk' => 'WP',
+			'wepe' => '88',
+			'weps' => '8',
+			'wepsk' => 'uiewp',
+		)
+	),
+	222 => array(
+		'name' => '门锁',
+		'rare' => 'C',
+		'pack' => 'Cyber Zealots',
+		'desc' => '拍完记得装回去',
+		'effect' => '开局携带门锁',
+		'desc_skills' => '门锁可以变为探测仪器，但是装不回去了',
+		'energy' => 0,
+		'valid' => array(
+		  'wep' => '门锁',
+			'wepk' => 'WP',
+			'wepe' => '50',
+			'weps' => '1',
+			'wepsk' => 'j',
+		)
+	),
+	223 => array(
+		'name' => '汽车人',
+		'rare' => 'C',
+		'pack' => 'Cyber Zealots',
+		'desc' => '新能源汽车人才有机会直接落户上海',
+		'effect' => '你开局携带的面包的名字变为电池，矿泉水的名字变为探测器电池',
+		'energy' => 0,
+		'valid' => array(
+		  'itm1' => '电池',
+		  'itm2' => '探测器电池',
+		)
+	),
+	224 => array(
+		'name' => '翻唱职人',
+		'rare' => 'C',
+		'pack' => 'Cyber Zealots',
+		'desc' => '弹幕网站上那些翻唱名曲毁耳不倦的职人',
+		'effect' => '开局装备销魂之歌',
+		'energy' => 0,
+		'valid' => array(
+		  'wep' => '销魂之歌',
+			'wepk' => 'WK',
+			'wepe' => '50',
+			'weps' => '50',
+			'wepsk' => '',
+		)
+	),
+	225 => array(
+		'name' => '字幕职人',
+		'rare' => 'C',
+		'pack' => 'Cyber Zealots',
+		'desc' => '弹幕网站上那些把弹幕当积木摆的职人',
+		'effect' => '开局装备神字幕',
+		'energy' => 0,
+		'valid' => array(
+		  'wep' => '神字幕',
+			'wepk' => 'WC',
+			'wepe' => '50',
+			'weps' => '50',
+			'wepsk' => '',
+		)
+	),
+	226 => array(
+		'name' => '搬运职人',
+		'rare' => 'C',
+		'pack' => 'Cyber Zealots',
+		'desc' => '弹幕网站上那些搬运其他网站视频的职人',
+		'effect' => '开局装备搬运之拳',
+		'energy' => 0,
+		'valid' => array(
+		  'wep' => '搬运之拳',
+			'wepk' => 'WP',
+			'wepe' => '50',
+			'weps' => '50',
+			'wepsk' => '',
+		)
+	),
+	227 => array(
+		'name' => '专业喷子',
+		'rare' => 'C',
+		'pack' => 'Cyber Zealots',
+		'desc' => '一个普通的喷子，全身上下只有嘴是硬的',
+		'effect' => '开局装备嘴炮',
+		'energy' => 0,
+		'valid' => array(
+		  'wep' => '嘴炮',
+			'wepk' => 'WG',
+			'wepe' => '50',
+			'weps' => '50',
+			'wepsk' => '',
+		)
+	),
+	228 => array(
+		'name' => '小鬼',
+		'rare' => 'C',
+		'pack' => 'Cyber Zealots',
+		'desc' => '他很热衷于网络80',
+		'effect' => '开局装备网暴',
+		'energy' => 0,
+		'valid' => array(
+		  'wep' => '网暴',
+			'wepk' => 'WD',
+			'wepe' => '50',
+			'weps' => '50',
+			'wepsk' => '',
+		)
+	),
+	229 => array(
+		'name' => '车万人',
+		'rare' => 'C',
+		'pack' => 'Cyber Zealots',
+		'desc' => '车万人下雨不用伞',
+		'effect' => '开局装备符卡',
+		'energy' => 0,
+		'valid' => array(
+		  'wep' => '符卡',
+			'wepk' => 'WF',
+			'wepe' => '30',
+			'weps' => '50',
+			'wepsk' => '',
+		)
+	),
+	230 => array(
+		'name' => '老八',
+		'rare' => 'M',
+		'pack' => 'Cyber Zealots',
+		'desc' => '奥利给！干了兄弟们！',
+		'effect' => '你可以吃翔来表达对满场沙包的不屑',
+		'energy' => 0,
+		'valid' => array(
+		  'itm3' => '『我是说在座的各位都是垃圾』',
+			'itmk3' => 'Y',
+			'itme3' => '1',
+			'itms3' => '3',
+			'itmsk3' => '',
+		)
+	),
+	231 => array(
+		'name' => '卡片男',
+		'rare' => 'C',
+		'pack' => 'Cyber Zealots',
+		'desc' => '看，这个男人捡到了一张神秘的小卡片',
+		'effect' => '开局携带一份卡牌包',
+		'energy' => 0,
+		'valid' => array(
+		  'itm3' => '卡牌包',
+			'itmk3' => 'VO9',
+			'itme3' => '1',
+			'itms3' => '1',
+			'itmsk3' => '',
 		)
 	),
 	

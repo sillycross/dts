@@ -48,8 +48,8 @@ weapon,base/weapon/weapon/,1
 npcchat,base/npcchat/,1
 skill21,extra/club/skills/skill21/,1
 skill1000,extra/instance/instance7_tutorial/skill1000/,1
-set_gametype,extra/misc/set_gametype/,1
 kujibase,extra/card/kujibase/,1
+set_gametype,extra/misc/set_gametype/,1
 clubbase,extra/club/clubbase/,1
 wep_n,base/weapon/wep_n/,1
 wep_p,base/weapon/wep_p/,1

@@ -2,8 +2,8 @@
 
 namespace skill495
 {
-	$moneylimit = Array(10000,15000,25000,36000);
-	$upgradecost = Array(5,12,15,-1);
+	$moneylimit = Array(200,2000,20000,999999999);
+	$upgradecost = Array(5,10,15,-1);
 	
 	function init() 
 	{
@@ -42,7 +42,7 @@ namespace skill495
 		$ucost = $upgradecost[$clv];
 		if ($clv == -1)
 		{
-			$log.='你已经升级完成了，不能继续升级！<br>';
+			$log.='你已经不需要再还款了。<br>';
 			return;
 		}
 		if ($skillpoint<$ucost) 
@@ -51,7 +51,7 @@ namespace skill495
 			return;
 		}
 		$skillpoint-=$ucost; \skillbase\skill_setvalue(495,'lvl',$clv+1);
-		$log.='升级成功。<br>';
+		$log.='还款成功。<br>';
 	}
 	
 	function get_money_limit495($pa)
@@ -69,7 +69,7 @@ namespace skill495
 		eval(import_module('skill495','sys','player'));
 		if(\skillbase\skill_query(495) && $money + $edata['money'] > get_money_limit495($sdata)) {
 			eval(import_module('corpse'));
-			$cannot_pick_notice = '超过你金钱容量，无法拾取';
+			$cannot_pick_notice = '幻境银行提醒您：您的额度已受限，请消耗技能点积极还款，谢谢！';
 			return false;
 		}
 		return $chprocess($edata);

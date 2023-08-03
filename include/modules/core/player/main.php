@@ -297,17 +297,17 @@ namespace player
 		$hpcolor = 'cyan b';
 		if($hp <= $mhp*0.2) $hpcolor = 'red b';
 		elseif($hp <= $mhp*0.5) $hpcolor = 'yellow b';
-		$newhppre = 6+floor(155*(1-$hp/$mhp));
+		$newhppre = 6+floor(155*(1-$hp/max($mhp,1)));
 		$newhpimg = '<img src="img/hpman.gif" style="position:absolute; clip:rect('.$newhppre.'px,55px,160px,0px);">';
-		$hpltp = 3+floor(155*(1-$hp/$mhp));
+		$hpltp = 3+floor(155*(1-$hp/max($mhp,1)));
 		$hplt = '<img src="img/hplt.gif" style="position:absolute; clip:rect('.$hpltp.'px,55px,160px,0px);">';
 		
 		$spcolor = 'cyan b';
 		if($sp <= $msp*0.2) $spcolor = 'grey b';
 		elseif($sp <= $msp*0.5) $spcolor = 'yellow b';
-		$newsppre = 6+floor(155*(1-$sp/$msp));
+		$newsppre = 6+floor(155*(1-$sp/max($msp,1)));
 		$newspimg = '<img src="img/spman.gif" style="position:absolute; clip:rect('.$newsppre.'px,55px,160px,0px);">';
-		$spltp = 3+floor(155*(1-$sp/$msp));
+		$spltp = 3+floor(155*(1-$sp/max($msp,1)));
 		$splt = '<img src="img/splt.gif" style="position:absolute; clip:rect('.$spltp.'px,55px,160px,0px);">';
 		
 		//旧界面用的一些参数

@@ -93,6 +93,11 @@ namespace team
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','map','logger','player','metman','input'));
+		
+		if('back' == $command){
+			$mode = 'command';
+			return;
+		}
 	
 		$mateid = str_replace('team','',$action);
 		if(!$mateid || strpos($action,'team')===false){
@@ -107,29 +112,6 @@ namespace team
 			$mode = 'command';
 			return;
 		}
-//		if(!isset($edata)){
-//			$log .= "对方不存在！<br>";
-//			
-//			$mode = 'command';
-//			return;
-//		}
-//
-//		if($edata['pls'] != $pls) {
-//			$log .= '<span class="yellow b">'.$edata['name'].'</span>已经离开了<span class="yellow b">'.$plsinfo[$pls].'</span>。<br>';
-//			$mode = 'command';
-//			
-//			return;
-//		} elseif($edata['hp'] <= 0) {
-//			$log .= '<span class="yellow b">'.$edata['name'].'</span>已经死亡，不能接受物品。<br>';
-//			$mode = 'command';
-//			
-//			return;
-//		} elseif(!$teamID || $edata['teamID']!=$teamID || $pid==$edata['pid']){
-//			$log .= '<span class="yellow b">'.$edata['name'].'</span>并非你的队友，不能接受物品。<br>';
-//			$mode = 'command';
-//			
-//			return;
-//		}
 
 		if($message){
 			$log .= "<span class=\"lime b\">你对{$edata['name']}说：“{$message}”</span><br>";
@@ -137,37 +119,36 @@ namespace team
 			if(!$edata['type']) \logger\logsave($edata['pid'],$now,$x,'c');
 		}
 		
-		if($command != 'back'){
-			$itmn = substr($command, 4);
-			if (!${'itms'.$itmn}) {
-				$log .= '此道具不存在！';
+		$itmn = substr($command, 4);
+		if (!${'itms'.$itmn}) {
+			$log .= '此道具不存在！';
+			
+			$mode = 'command';
+			return;
+		}
+		$itm = & ${'itm'.$itmn};
+		$itmk = & ${'itmk'.$itmn};
+		$itme = & ${'itme'.$itmn};
+		$itms = & ${'itms'.$itmn};
+		$itmsk = & ${'itmsk'.$itmn};
+
+		for($i = 1;$i <= 6; $i++){
+			if(!$edata['itms'.$i]) {
+				$edata['itm'.$i] = $itm; $edata['itmk'.$i] = $itmk; 
+				$edata['itme'.$i] = $itme; $edata['itms'.$i] = $itms; $edata['itmsk'.$i] = $itmsk;
+				$log .= "你将<span class=\"yellow b\">".$edata['itm'.$i]."</span>送给了<span class=\"yellow b\">{$edata['name']}</span>。<br>";
+				$x = "<span class=\"yellow b\">$name</span>将<span class=\"yellow b\">".$edata['itm'.$i]."</span>送给了你。";
+				if(!$edata['type']) \logger\logsave($edata['pid'],$now,$x,'t');
+				addnews($now,'senditem',$name,$edata['name'],$itm);
+				\player\player_save($edata);
+				$itm = $itmk = $itmsk = '';
+				$itme = $itms = 0;
 				
-				$mode = 'command';
 				return;
 			}
-			$itm = & ${'itm'.$itmn};
-			$itmk = & ${'itmk'.$itmn};
-			$itme = & ${'itme'.$itmn};
-			$itms = & ${'itms'.$itmn};
-			$itmsk = & ${'itmsk'.$itmn};
-
-			for($i = 1;$i <= 6; $i++){
-				if(!$edata['itms'.$i]) {
-					$edata['itm'.$i] = $itm; $edata['itmk'.$i] = $itmk; 
-					$edata['itme'.$i] = $itme; $edata['itms'.$i] = $itms; $edata['itmsk'.$i] = $itmsk;
-					$log .= "你将<span class=\"yellow b\">".$edata['itm'.$i]."</span>送给了<span class=\"yellow b\">{$edata['name']}</span>。<br>";
-					$x = "<span class=\"yellow b\">$name</span>将<span class=\"yellow b\">".$edata['itm'.$i]."</span>送给了你。";
-					if(!$edata['type']) \logger\logsave($edata['pid'],$now,$x,'t');
-					addnews($now,'senditem',$name,$edata['name'],$itm);
-					\player\player_save($edata);
-					$itm = $itmk = $itmsk = '';
-					$itme = $itms = 0;
-					
-					return;
-				}
-			}
-			$log .= "<span class=\"yellow b\">{$edata['name']}</span> 的包裹已经满了，不能赠送物品。<br>";
 		}
+		$log .= "<span class=\"yellow b\">{$edata['name']}</span> 的包裹已经满了，不能赠送物品。<br>";
+	
 		
 		$mode = 'command';
 		return;

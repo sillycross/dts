@@ -55,7 +55,7 @@ namespace skill430
 		$in = sizeof($itemlist);
 		$i=rand(4,$in-1);//妈了个臀
 		list($iarea,$imap,$inum,$iname,$ikind,$ieff,$ista,$iskind) = explode(',',$itemlist[$i]);
-		while (strpos($iskind,"x")!==false){
+		while (!is_numeric($iarea) || strpos($iskind,"x")!==false){
 			$i=rand(4,$in-1);
 			list($iarea,$imap,$inum,$iname,$ikind,$ieff,$ista,$iskind) = explode(',',$itemlist[$i]);
 		}

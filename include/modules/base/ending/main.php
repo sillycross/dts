@@ -1,9 +1,12 @@
 <?php
 
+//结局剧情模块
+//这个模块是可选继承set_gametype模块的，因此交替切换下一局类型的功能是在set_gametype模块
 namespace ending
 {
 	function init() {}
 	
+	//是否允许用分镜方式显示剧情，如果关闭则显示整版网页（注意整版网页的剧情是旧版的）
 	function ending_by_shootings_available()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -12,6 +15,7 @@ namespace ending
 		return false;
 	}
 	
+	//是否允许在结束时设置下一局游戏模式
 	function ending_changing_gamevars_available()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

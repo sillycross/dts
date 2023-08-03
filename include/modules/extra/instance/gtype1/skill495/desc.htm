@@ -6,18 +6,21 @@
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class="skilldesc_left b3"><span class="skilldesc">
-<!--{eval $clv = (int)\skillbase\skill_getvalue(495,'lvl'); }-->
-<!--{eval $totlv = count($upgradecost)-1; }-->
-<span class="lime b">当前级别$clv/$totlv</span>&nbsp;
-<!--{if $upgradecost[$clv] !== -1}-->消耗<span class="lime b">$upgradecost[$clv]</span>点技能点升至下一级<!--{/if}--><br>
-只有在拾取后总金钱数不超过<span class="yellow b">$moneylimit[$clv]</span>时才能拾取金钱<br>
+<!--{eval $clv = (int)\skillbase\skill_getvalue(495,'lvl');$rmtlv = count($upgradecost) -1 - $clv; }-->
+<!--{if $rmtlv}-->
+你已被限额了！只有在拾取后总金钱数不超过<span class="yellow b">$moneylimit[$clv]</span>时才能拾取金钱<br>
+<span class="yellow b">当前还需还款{$rmtlv}次</span>&nbsp;
+消耗<span class="yellow b">$upgradecost[$clv]</span>点技能点还款
+<!--{else}-->
+<span class="lime b">您的欠款已还清，谢谢惠顾！</span>
+<!--{/if}-->
 </span></td>
 <td class="skilldesc_right b3">
 <!--{if $upgradecost[$clv] !== -1}-->
 <!--{if $skillpoint>=$upgradecost[$clv]}-->
-<input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill495_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="升级">
+<input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill495_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="还款">
 <!--{else}-->
-<input type="button" style="width:46px" disabled="true" value="升级">
+<input type="button" style="width:46px" disabled="true" value="还款">
 <!--{/if}-->
 <!--{/if}-->
 </td>

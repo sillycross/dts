@@ -2,7 +2,17 @@
 
 namespace set_gametype
 {
+	$set_gametype_allow_list = Array(0,4);//只允许设置到的游戏类型
+	
 	function init() {}
+	
+	//判定要设置到的游戏类型是否被允许
+	function check_gametype_set_valid($gt){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		eval(import_module('set_gametype'));
+		if(in_array($gt, $set_gametype_allow_list)) return true;
+		return false;
+	}
 	
 	function user_set_gamevars_list_init($registered_gamevars = array()){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
