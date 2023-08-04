@@ -9,7 +9,6 @@ gameflow_antiafk,core/gameflow/gameflow_antiafk/,1
 logger,base/logger/,1
 skillbase,base/skillbase/,1
 replay,extra/misc/replay/,1
-elorating,extra/misc/elorating/,1
 bufficons,extra/misc/bufficons/,1
 explore,base/explore/,1
 noise,base/noise/,1
@@ -17,6 +16,7 @@ lvlctl,base/lvlctl/,1
 skill4,base/skills/skill4/,1
 npc,base/npc/,1
 itemmain,base/itemmain/,1
+elorating,extra/misc/elorating/,1
 metman,base/metman/,1
 itemmix,base/itemmix/itemmix/,1
 itemshop,base/itemshop/,1

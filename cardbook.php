@@ -24,6 +24,8 @@ if (empty($_REQUEST["playerID"])) {
 	$n=$uname;
 }
 
+//刷新卡包cardindex
+\cardbase\parse_card_index();
 //刷新卡片获得方式
 \cardbase\parse_card_gaining_method();
 //读取卡片获得方式

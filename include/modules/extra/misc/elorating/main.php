@@ -8,6 +8,19 @@ namespace elorating
 
 	}
 	
+	//入场时，如果是要计算积分的模式，则增加面包矿泉水数量，并且开局道具增加探测器。不知为何这个变量放在sys模块里，可能是图省事吧
+	function init_enter_battlefield_items($ebp){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		$ebp = $chprocess($ebp);
+		eval(import_module('sys'));
+		if (in_array($gametype,$elorated_mode))
+		{
+			$ebp['itms1'] = 50; $ebp['itms2'] = 50;
+			$ebp['itm5'] = '生命探测器'; $ebp['itmk5'] = 'ER'; $ebp['itme5'] = 5; $ebp['itms5'] = 1;$ebp['itmsk5'] = '';
+		}
+		return $ebp;
+	}
+	
 	function get_servermark() {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys', 'elorating'));

@@ -9,6 +9,21 @@ namespace instance9
 		$valid_skills[19] = array(1001,1002);
 	}
 	
+	//入场时，如果极速模式，增加全身装备和异常药
+	function init_enter_battlefield_items($ebp){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		$ebp = $chprocess($ebp);
+		eval(import_module('sys'));
+		if(19==$gametype){
+			$ebp['arb'] = '挑战者战斗服';$ebp['arbk'] = 'DB'; $ebp['arbe'] = 60; $ebp['arbs'] = 10; $ebp['arbsk'] = '';
+			$ebp['arh'] = '挑战者头盔';$ebp['arhk'] = 'DH'; $ebp['arhe'] = 37; $ebp['arhs'] = 5; $ebp['arhsk'] = '';
+			$ebp['ara'] = '挑战者护手';$ebp['arak'] = 'DA'; $ebp['arae'] = 37; $ebp['aras'] = 5; $ebp['arask'] = '';
+			$ebp['arf'] = '挑战者靴子';$ebp['arfk'] = 'DF'; $ebp['arfe'] = 37; $ebp['arfs'] = 5; $ebp['arfsk'] = '';
+			$ebp['itm5'] = '全恢复药剂'; $ebp['itmk5'] = 'Ca'; $ebp['itme5'] = 1; $ebp['itms5'] = 3;$ebp['itmsk5'] = '';
+		}
+		return $ebp;
+	}
+	
 	function get_npclist(){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		eval(import_module('sys','instance9'));

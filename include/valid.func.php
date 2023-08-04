@@ -54,6 +54,7 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip=NULL)
 	$eb_pdata['exp'] += $areanum * 20;
 	
 	//调用itemmain模块的初始化武器装备
+	//各模式特殊的初始装备在各对应模块里接管这个函数实现
 	$eb_pdata = \itemmain\init_enter_battlefield_items($eb_pdata);
 	
 	//游戏账户判定以及留言等的赋值
@@ -85,28 +86,6 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip=NULL)
 		$eb_pdata['art'] = 'TDG地雷的证明'; $eb_pdata['artk'] = 'A'; $eb_pdata['arte'] = 1; $eb_pdata['arts'] = 1; $eb_pdata['artsk'] = 'zZ';
 	}
 	
-	//特殊开局规则，分步重构，先丢这里
-	
-	//solo局补给增加，配发探测器
-	if (in_array($gametype,$elorated_mode))
-	{
-		$eb_pdata['itms1'] = 50; $eb_pdata['itms2'] = 50;
-		$eb_pdata['itm5'] = '生命探测器'; $eb_pdata['itmk5'] = 'ER'; $eb_pdata['itme5'] = 5; $eb_pdata['itms5'] = 1;$eb_pdata['itmsk5'] = '';
-	}
-	//荣耀模式配发探测器和药剂
-	elseif(18==$gametype){
-		$eb_pdata['itm4'] = '生命探测器'; $eb_pdata['itmk4'] = 'ER'; $eb_pdata['itme4'] = 3; $eb_pdata['itms4'] = 1;$eb_pdata['itmsk4'] = '';
-		$eb_pdata['itm5'] = '全恢复药剂'; $eb_pdata['itmk5'] = 'Ca'; $eb_pdata['itme5'] = 1; $eb_pdata['itms5'] = 3;$eb_pdata['itmsk5'] = '';
-	}
-	//极速模式开局发全身装备
-	elseif(19==$gametype){
-		$eb_pdata['arb'] = '挑战者战斗服';$eb_pdata['arbk'] = 'DB'; $eb_pdata['arbe'] = 60; $eb_pdata['arbs'] = 10; $eb_pdata['arbsk'] = '';
-		$eb_pdata['arh'] = '挑战者头盔';$eb_pdata['arhk'] = 'DH'; $eb_pdata['arhe'] = 37; $eb_pdata['arhs'] = 5; $eb_pdata['arhsk'] = '';
-		$eb_pdata['ara'] = '挑战者护手';$eb_pdata['arak'] = 'DA'; $eb_pdata['arae'] = 37; $eb_pdata['aras'] = 5; $eb_pdata['arask'] = '';
-		$eb_pdata['arf'] = '挑战者靴子';$eb_pdata['arfk'] = 'DF'; $eb_pdata['arfe'] = 37; $eb_pdata['arfs'] = 5; $eb_pdata['arfsk'] = '';
-		$eb_pdata['itm5'] = '全恢复药剂'; $eb_pdata['itmk5'] = 'Ca'; $eb_pdata['itme5'] = 1; $eb_pdata['itms5'] = 3;$eb_pdata['itmsk5'] = '';
-	}
-	
 	//////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////卡片处理/////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////
@@ -127,29 +106,14 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip=NULL)
 			}
 		}	
 		
-		//篝火挑战者，进行状况、游戏入场判定、成就判定都是篝火，但是功能和显示是随出来的卡。因为没有自己的技能，先放这里
-		
-		if ($card==81){
-			$o_card = $eb_pdata['o_card'] = $card;
-			$arr=array('0');
-			do{
-				$r=rand(1,100);
-				if ($r<=20){
-					$arr=$cardindex['S'];
-				}else if($r<=60){
-					$arr=$cardindex['A'];
-				}else if($r<=80){
-					$arr=$cardindex['B'];
-				}else{
-					$arr=$cardindex['C'];
-				}
-				$c=count($arr)-1;
-				$card=$arr[rand(0,$c)];
-			}while($card == 81);
-		}
-		
 		//卡片效果的实际处理
 		list($eb_pdata, $skills, $prefix) = \cardbase\enter_battlefield_cardproc($eb_pdata, $card);
+		
+		//记录原本的卡
+		if(!empty($eb_pdata['o_card'])) {
+			$o_card = $eb_pdata['o_card'];
+			unset($eb_pdata['o_card'], $eb_pdata['cardchange']);
+		}
 	}
 	
 	//在技能载入前先在数据库插入玩家数据

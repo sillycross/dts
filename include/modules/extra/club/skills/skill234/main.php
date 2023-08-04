@@ -67,7 +67,7 @@ namespace skill234
 				${'itm'.$position} = ${'itmk'.$position} = ${'itmsk'.$position} = '';
 				${'itme'.$position} =${'itms'.$position} =0;
 				if ($clv==50){
-					$log .="<span class=\"evergreen b\">游戏系统已经完全破解。</span><br />";
+					$log .="<span class=\"evergreen b\">幻境系统已经被完全破解。</span><br />";
 					${'itm'.$position} = '游戏解除钥匙';
 					${'itmk'.$position} = 'Y';
 					${'itmsk'.$position} = 'Z';

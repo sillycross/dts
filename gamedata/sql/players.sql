@@ -58,7 +58,7 @@ CREATE TABLE bra_players (
   `icon` varchar(255) NOT NULL DEFAULT '0',
   `teamID` char(15) NOT NULL DEFAULT '',
   `teamPass` char(15) NOT NULL DEFAULT '',
-  `card` int(10) NOT NULL DEFAULT '0',
+  `card` smallint(5) NOT NULL DEFAULT '0',
   `cardname` varchar(50) NOT NULL DEFAULT '',
   `wep` varchar(30) NOT NULL DEFAULT '',
   `wepk` varchar(15) NOT NULL DEFAULT '',

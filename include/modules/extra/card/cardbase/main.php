@@ -2,6 +2,9 @@
 
 namespace cardbase
 {
+	$card_config_file = GAME_ROOT.'/include/modules/extra/card/cardbase/config/card.config.php';
+	$card_main_file = GAME_ROOT.'/include/modules/extra/card/cardbase/main.php';
+		
 	function init() {}
 	
 	function cardlist_decode($str){
@@ -191,12 +194,62 @@ namespace cardbase
 		return $card;
 	}
 	
+	//效果是随机发动一张卡的卡片
+	function cardchange($card){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('cardbase'));
+		if(empty($cards[$card]['valid']['cardchange'])) return $card;
+		$cs = $cards[$card]['valid']['cardchange'];
+		//判定卡片概率，注意卡片设定里的几个概率是单项概率
+		$S_odds = !empty($cs['S_odds']) ? $cs['S_odds'] : 0;
+		$A_odds = !empty($cs['A_odds']) ? $cs['A_odds'] : 0;
+		$B_odds = !empty($cs['B_odds']) ? $cs['B_odds'] : 0;
+		$C_odds = !empty($cs['C_odds']) ? $cs['C_odds'] : 0;//实际上不顶用，SAB都没选到就一定是C
+		$forced = !empty($cs['forced']) ? $cs['forced'] : Array();
+		$ignore = !empty($cs['ignore_cards']) ? $cs['ignore_cards'] : Array();
+		
+		//实际随机卡片
+		$arr=array('0');
+		do{
+			$r=rand(1,100);
+			if(!empty($cs['real_random'])) {//真随机，把所有卡集合并
+				$arr = array_merge($cardindex['S'],$cardindex['A'],$cardindex['B'],$cardindex['C'],$cardindex['EB'],);
+			}else{
+				if ($r<=$S_odds){
+					$arr=$cardindex['S'];
+					if(!empty($cs['allow_EB'])) $arr=array_merge($arr, $cardindex['EB_S']);
+				}elseif($r - $S_odds <= $A_odds){
+					$arr=$cardindex['A'];
+					if(!empty($cs['allow_EB'])) $arr=array_merge($arr, $cardindex['EB_A']);
+				}elseif($r - $S_odds - $A_odds <= $B_odds){
+					$arr=$cardindex['B'];
+					if(!empty($cs['allow_EB'])) $arr=array_merge($arr, $cardindex['EB_B']);
+				}else{
+					$arr=$cardindex['C'];
+					if(!empty($cs['allow_EB'])) $arr=array_merge($arr, $cardindex['EB_C']);
+				}
+			}
+			
+			$arr = array_merge($arr, $forced);
+			$arr = array_unique($arr);
+			shuffle($arr);
+			$ret = $arr[0];
+		}while($ret == $card || in_array($ret, $ignore));//必定选不到自己
+		return $ret;
+	}
+	
 	//进入游戏时根据所用卡片对玩家数据的操作
 	//输入$ebp即valid.func.php里初始化的玩家数组，$card是所用卡的编号
 	//返回Array($eb_pdata, $skills, $prefix)其中$skills是需要载入的技能列表，$prefix是消息中的玩家名前缀
 	function enter_battlefield_cardproc($ebp, $card){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('cardbase'));
+		
+		//先判定是否随机发动一张卡
+		if(!empty($cards[$card]['valid']['cardchange'])){
+			$ebp['o_card'] = $card;//记录原本的卡
+			$card = cardchange($card);
+		}
 		
 		//获取卡片的具体设定
 		$card_valid_info = $cards[$card]['valid'];
@@ -207,11 +260,9 @@ namespace cardbase
 		if(!empty($cards[$card]['title'])) $cardname = $cards[$card]['title'];//有定义了title的卡，用title来显示
 		
 		//如果卡片本身有换卡效果（随机卡等），在这里把消息用的卡名换回来
-		if(isset($ebp['o_card'])) {
-			$o_card = $ebp['o_card'];
-			unset($ebp['o_card']);
-			$newscardname=$cards[$o_card]['name'];
-			$newscardrare=$cards[$o_card]['rare'];
+		if(!empty($ebp['o_card'])) {
+			$newscardname=$cards[$ebp['o_card']]['name'];
+			$newscardrare=$cards[$ebp['o_card']]['rare'];
 		}
 		//生成玩家名前缀
 		$prefix = '<span class="'.$card_rarecolor[$newscardrare].'">'.$newscardname.'</span> ';
@@ -494,6 +545,75 @@ namespace cardbase
 		}
 	}
 	
+	//根据card.config.php的修改时间自动刷新$cardindex也就是各种罕贵的卡编号组成的数组，用于抽卡和随机卡
+	function parse_card_index(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		//生成文件名
+		//目前放在card.config.php里
+		//$card_index_file = GAME_ROOT.'./gamedata/cache/card_index.config.php';
+		
+		eval(import_module('sys','cardbase'));//载入$card_main_file和$card_config_file
+		//如果文件存在且最新，就不改变
+		if(file_exists($card_index_file) && filemtime($card_main_file) < filemtime($card_index_file) && filemtime($card_config_file) < filemtime($file)) return;
+		
+		$new_cardindex = Array(
+			'All' => Array(),//All是所有卡（无视开放情况和隐藏）
+			'S' => Array(),//可抽到的卡
+			'A' => Array(),
+			'B' => Array(),
+			'C' => Array(),//M卡算C卡
+			'EB' => Array(),//SABC和Event Bonus加一起是可获得的全部卡，注意有些只能事件获得的卡比如篝火，虽然在别的卡包，也算EB
+			'EB_S' => Array(),//奖励卡里区分SABC
+			'EB_A' => Array(),
+			'EB_B' => Array(),
+			'EB_C' => Array(),
+			'hidden' => Array(),//隐藏卡单开一列，一般不参与任何随机		
+		);
+		
+		foreach($cards as $ci => $cv){
+			//$new_cardindex['All'][] = $ci;
+			$pack = $cv['pack'];
+			if('hidden' == $pack) $new_cardindex['hidden'][] = $ci;//隐藏卡，注意隐藏卡不算卡包开放			
+			if(!$ci || !check_pack_availble($pack)) continue;//卡包未开放，则不继续判定；0号卡挑战者也不继续判定
+			$rare = !empty($cv['real_rare']) ? $cv['real_rare'] : $cv['rare'];//如果有真实罕贵则填真实罕贵
+			if('M' == $rare) $rare = 'C';//M卡实际罕贵是C
+			
+			$prefix = '';
+			//判定是要归到正常卡还是Event Bonus卡
+			if('Event Bonus' == $pack || !empty($cv['ignore_kuji']) || in_array($cv['pack'], $pack_ignore_kuji)) {
+				$new_cardindex['EB'][] = $ci;
+				$prefix = 'EB_';
+			}
+			if('S' == $rare) $new_cardindex[$prefix.'S'][] = $ci;
+			elseif('A' == $rare) $new_cardindex[$prefix.'A'][] = $ci;
+			elseif('B' == $rare) $new_cardindex[$prefix.'B'][] = $ci;
+			else $new_cardindex[$prefix.'C'][] = $ci;
+			
+		}
+		
+		if(empty($new_cardindex)) return;
+		
+		//开始生成文件
+		$contents = str_replace('?>','',$checkstr);//"<?php\r\nif(!defined('IN_GAME')) exit('Access Denied');\r\n";
+		$contents .= '$cardindex = Array('."\r\n";
+		$i = 1;$z = sizeof($new_cardindex);
+		foreach($new_cardindex as $nk => $nv){
+			$contents .= "  '$nk' => Array(\r\n";
+			foreach($nv as $nvi) {
+				$contents .= '    '.$nvi.', //'.$cards[$nvi]['name']."\r\n";
+			}
+			$contents .= ($i < $z ? '  ),' : '  )') . "\r\n";
+			$i++;
+		}
+		$contents .= ');';
+		//$contents .= '$cardindex = '.var_export($new_cardindex,1).';';
+		
+		file_put_contents($card_index_file, $contents);
+		chmod($card_index_file, 0777);
+		return;
+	}
+	
 	//如果成就或者卡片设定有变，更新卡片获得方式
 	function parse_card_gaining_method()
 	{
@@ -503,15 +623,14 @@ namespace cardbase
 		$filename = 'card_gaining_method';
 		$file = $dir.'/'.$filename.'.config.php';
 		
-		$card_config_file = GAME_ROOT.'/include/modules/extra/card/cardbase/config/card.config.php';
-		$card_main_file = GAME_ROOT.'/include/modules/extra/card/cardbase/main.php';
+		eval(import_module('sys','cardbase'));//载入$card_main_file和$card_config_file
 		$ach_config_file = GAME_ROOT.'/include/modules/extra/achievement/achievement_base/config/achievement_base.config.php';
 		
 		//如果文件存在且最新，就不改变
 		if(file_exists($file) && filemtime($card_main_file) < filemtime($file) && filemtime($card_config_file) < filemtime($file) && filemtime($ach_config_file) < filemtime($file)) return;
 		
 		$cgmethod = array();
-		eval(import_module('sys','cardbase'));
+		
 		//抽卡
 		foreach($cardindex as $ckey => $cval){
 			foreach($cval as $ci)

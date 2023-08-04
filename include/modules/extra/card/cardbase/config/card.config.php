@@ -1,5 +1,8 @@
 <?php
 namespace cardbase{
+	
+$card_index_file = GAME_ROOT.'./gamedata/cache/card_index.config.php';
+
 $cardtypecd=array(//卡片类别CD，单位秒
 	'S' => 43200,
 	'A' => 7200,
@@ -33,13 +36,15 @@ $packdesc = array(
 	'Indev' => '开发中的卡的暂存地',
 	'hidden' => '隐藏卡片，如果你看到这句话请联系天然呆管理员',
 );
+//不参与抽卡的卡包
+$pack_ignore_kuji = Array('Balefire Rekindle','Event Bonus','Cyber Zealots');
 //卡包实装的时间戳，可以用来隐藏卡包
 $packstart = array(
 	//'Cyber Zealots' => 4476654671,
 	'Indev' => 4476654671,
 	'hidden' => 4476654671,
 );
-$cardindex=array(
+$cardindex=array(//已停止更新，现在$cardindex是自动生成的，文件见下
 	'S'=>array(1,  5,  16, 38, 39, 40, 41, 64, 65, 67, 71, 95, 99, 100,101,102,117,145,152,153,168,174),
 	'A'=>array(2,  13, 14, 20, 22, 23, 26, 27, 32, 37, 43, 44, 45, 46, 47, 48, 49, 50, 68, 72, 75, 81, 103,104,105,106,120,121,124,135,136,137,139,141,148,154,169,173),
 	'B'=>array(3,  12, 15, 21, 24, 25, 28, 35, 51, 52, 53, 54, 55, 56, 66, 69, 70, 76, 78, 80, 83, 97, 108,109,110,111,112,123,140,142,144,146,147,149,157,161,163,164,170,171,210,187,188),
@@ -47,8 +52,10 @@ $cardindex=array(
 	'M'=>array()
 	//M卡的爆率实际属于C
 	//pop子实际爆率是B
-	
 );
+
+if(file_exists($card_index_file)) include $card_index_file;//载入真正的$cardindex
+
 $card_rarecolor=array(
 	'S'=>'gold b ',
 	'A'=>'cyan b ',
@@ -75,6 +82,7 @@ $cards = array(
 	0 => array(
 		'name' => '挑战者',
 		'rare' => 'C',
+		'ignore_kuji' => true,
 		'pack' => 'Standard Pack',
 		'desc' => '默认的身份卡',
 		'effect' => '无',
@@ -1433,7 +1441,14 @@ $cards = array(
 		'effect' => '随机发动一张身份卡的效果<br>S:20% A:40% B:20% C:20%',
 		'energy' => 100,
 		'valid' => array(
-			'pls' => '0',
+			'cardchange' => Array(
+				'S_odds' => 20,
+				'A_odds' => 40,
+				'B_odds' => 20,
+				'C_odds' => 20,
+				'allow_EB' => true,//开启后会把Event Bonus等需要特殊方式才能获得的卡也一并考虑
+				'ignore_cards' => Array()//机制上必定选不到自己，这里可以放其他不想被选到的卡
+			)
 		)
 	),
 	82 => array(
@@ -3249,6 +3264,7 @@ $cards = array(
 		'name' => 'pop子',
 		'title' => 'pop子',
 		'rare' => 'S',
+		'real_rare' => 'B',//真实的爆率
 		'pack' => 'Way of Life',
 		'desc' => '一月霸权动漫<br>《pop子与pipi美的日常》主角',
 		'effect' => '「生气了吗……？」',
@@ -3631,12 +3647,88 @@ $cards = array(
 			),
 		)
 	),
+	234 => array(
+		'name' => '黑莲花',
+		'rare' => 'A',
+		'pack' => 'Cyber Zealots',
+		'desc' => 'All their base are belong to us!',
+		'effect' => '<u>法力+3</u>获得锡安成员技能「网瘾」、「破解」及「探测」',
+		'desc_skills' => '「网瘾」：你干扰禁区的成功率为95%且完全无风险
+		<br>「破解」：通过消耗特定的物品来破解游戏系统，每次破解成功都会获得奖励
+		<br>「探测」：消耗1个技能点可以进行一次广域探测',
+		'energy' => 100,
+		'valid' => array(
+		  'skills' => array(
+				'233' => '0', 
+				'234' => '0', 
+				'235' => '0', 
+			),
+		)
+	),
+	235 => array(
+		'name' => '幻境助手 艾茵',
+		'title' => '幻境助手',
+		'rare' => 'C',
+		'pack' => 'Cyber Zealots',
+		'desc' => '哈啰？这里是幻境全息助手艾茵，<br>要探索幻境请务必找我哟！',
+		'effect' => '开局携带一个银色盒子',
+		'energy' => 0,
+		'valid' => array(
+		  'itm3' => '黯淡的银色盒子',
+			'itmk3' => 'p2',
+			'itme3' => '1',
+			'itms3' => '1',
+			'itmsk3' => '',
+		)
+	),
+	236 => array(
+		'name' => '模因测试员',
+		'rare' => 'C',
+		'pack' => 'Cyber Zealots',
+		'desc' => '今天没吃药，感觉自己萌萌哒',
+		'effect' => '开局携带15个模因原液',
+		'energy' => 0,
+		'valid' => array(
+		  'itm3' => '模因原液',
+			'itmk3' => Array('MA','MD','MH','MS','ME','MV'),
+			'itme3' => '1',
+			'itms3' => '5',
+			'itmsk3' => '',
+			'itm4' => '模因原液',
+			'itmk4' => Array('MA','MD','MH','MS','ME','MV'),
+			'itme4' => '1',
+			'itms4' => '5',
+			'itmsk4' => '',
+			'itm5' => '模因原液',
+			'itmk5' => Array('MA','MD','MH','MS','ME','MV'),
+			'itme5' => '1',
+			'itms5' => '5',
+			'itmsk5' => '',
+		)
+	),
+	237 => array(
+		'name' => '『维因·索菲尔』',
+		'title' => '维因·索菲尔',
+		'rare' => 'S',
+		'pack' => 'Cyber Zealots',
+		'desc' => '『时空护卫』的中坚力量之一，<br>能轻易记住其他超能力者的超能力，并用自己的方式施展出来。<br><br>“就算在那群固执的疯子里<br>也是最固执而最疯的一个。”<br>——林苍月',
+		'effect' => '随机发动一张S级卡片的效果',
+		'energy' => 50,
+		'valid' => array(
+			'cardchange' => Array(
+				'S_odds' => 100,
+				'allow_EB' => true,
+				'forced' => Array(210),//无视概率强制加入选择的卡
+				'ignore_cards' => Array()//机制上必定选不到自己，这里可以放其他不想被选到的卡
+			)
+		)
+	),
 	
 	1000 => array(
 		'name'=>'补给品',
 		'rare'=>'C',
-		'desc'=>'教程模式用卡',
 		'pack'=>'hidden',
+		'desc'=>'教程模式用卡',
 		'effect'=>'教程模式技能载体',
 		'energy'=>0,
 		'valid' => array(
@@ -3651,29 +3743,21 @@ $cards = array(
 			)
 		)
 	),
-//	1001 => array(
-//		'name'=>'小白鼠',
-//		'rare'=>'C',
-//		'desc'=>'荣耀模式用卡',
-//		'pack'=>'hidden',
-//		'effect'=>'荣耀模式技能载体',
-//		'energy'=>0,
-//		'valid' => array(
-//			'itm4' => '紧急药剂',
-//			'itmk4' => 'Ca',
-//			'itme4' => '1',
-//			'itms4' => '3',
-//			'itmsk4' => '',
-//			'itm5' => '生命探测器',
-//			'itmk5' => 'ER',
-//			'itme5' => '3',
-//			'itms5' => '1',
-//			'itmsk5' => '',
-//			'skills'=>array(
-//				'1001'=>'0'
-//			)
-//		)
-//	),
+	1001 => array(
+		'name'=>'肉鸽来客',
+		'rare'=>'A',
+		'pack'=>'hidden',
+		'desc'=>'今天凹了一晚上，想要的卡一张都没有',
+		'effect'=>'我草，怎么天亮了？',
+		'energy'=>120,
+		'valid' => array(
+			'cardchange' => Array(
+				'real_random' => 1,//真随机，所有卡选1张
+				'forced' => Array(42,63,86,87,89,94,96,98,118,119,156,158,159,160,165,167,181,190),//无视概率强制加入选择的卡
+				'ignore_cards' => Array()//机制上必定选不到自己，这里可以放其他不想被选到的卡
+			)
+		)
+	),
 );
 }
 ?>

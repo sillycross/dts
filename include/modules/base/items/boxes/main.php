@@ -4,6 +4,7 @@ namespace boxes
 {
 	$item_boxes_list_file = Array(
 		'p' => '/config/present.config.php',
+		'p2' => '/config/present2.config.php',
 		'ygo' => '/config/ygobox.config.php',
 		'fy' => '/config/fybox.config.php',
 		'kj3' => '/config/kj3box.config.php',
@@ -13,6 +14,7 @@ namespace boxes
 	{
 		eval(import_module('itemmain'));
 		$iteminfo['p'] = '礼物';
+		$iteminfo['p2'] = '礼物';
 		$iteminfo['ygo'] = '卡包';
 		$iteminfo['fy'] = '全图唯一的野生浮云礼盒';
 		$iteminfo['kj3'] = '礼包';
