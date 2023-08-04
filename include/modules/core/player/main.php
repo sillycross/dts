@@ -743,6 +743,7 @@ namespace player
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
+	//加入战场前的事件
 	function post_enterbattlefield_events(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

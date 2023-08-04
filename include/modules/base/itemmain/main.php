@@ -383,6 +383,30 @@ namespace itemmain
 		return $l;
 	}
 	
+	//初始化开局装备道具，仅在valid流程调用，也非引用而是直接传回数组
+	function init_enter_battlefield_items($ebp){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		$ebp['arb'] = $ebp['gd'] == 'm' ? '男生校服' : '女生校服';
+		$ebp['arbk'] = 'DB'; $ebp['arbe'] = 5; $ebp['arbs'] = 15;
+		$ebp['itm1'] = '面包'; $ebp['itmk1'] = 'HH'; $ebp['itme1'] = 100; $ebp['itms1'] = 30;
+		$ebp['itm2'] = '矿泉水'; $ebp['itmk2'] = 'HS'; $ebp['itme2'] = 100; $ebp['itms2'] = 30;
+		
+		$weplist = get_startingwepfilecont();
+		do { 
+			$index = rand(1,count($weplist)-1); 
+			list($ebp['wep'],$ebp['wepk'],$ebp['wepe'],$ebp['weps'],$ebp['wepsk']) = explode(",",$weplist[$index]);
+		} while(!$ebp['wepk']);
+
+		$stitemlist = get_startingitemfilecont();
+		for($i=3;$i<=4;$i++){
+			do { 
+				$index = rand(1,count($stitemlist)-1); 
+				list($ebp['itm'.$i],$ebp['itmk'.$i],$ebp['itme'.$i],$ebp['itms'.$i],$ebp['itmsk'.$i]) = explode(",",$stitemlist[$index]);
+			} while(!$ebp['itms'.$i]);
+		}
+		return $ebp;
+	}
+	
 	//探索道具主过程
 	//返回是否探索到道具
 	function discover_item()

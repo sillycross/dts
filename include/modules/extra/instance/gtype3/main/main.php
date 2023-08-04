@@ -4,6 +4,17 @@ namespace gtype3
 {
 	function init() {}
 	
+	//宝石乱斗模式专用卡（虹光塑师）
+	function get_enter_battlefield_card($card){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		$card = $chprocess($card);
+		if (3==$gametype){
+			$card=151;
+		}
+		return $card;
+	}
+	
 	function prepare_new_game()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

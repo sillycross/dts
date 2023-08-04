@@ -177,6 +177,14 @@ namespace skill1003
 			}
 		}
 	}
+	
+	//所有模式入场都会获得skill1003
+	function post_enterbattlefield_events(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		\skillbase\skill_acquire(1003,$pa);
+		return $chprocess($pa);
+	}
 }
 
 ?>

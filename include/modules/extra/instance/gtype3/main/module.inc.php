@@ -3,7 +3,7 @@
 namespace gtype3
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'sys player logger metman gameflow_combo map weather lvlctl';
+	$___MODULE_dependency = 'sys player logger metman gameflow_combo map weather lvlctl cardbase';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

@@ -3,6 +3,17 @@
 namespace instance7
 {
 	function init() {}
+	
+	//教程固定卡片（教程技能+开局紧急药剂）
+	function get_enter_battlefield_card($card){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		$card = $chprocess($card);
+		if(17==$gametype) {
+			$card = 1000;
+		}	
+		return $card;
+	}
 
 	//教程房特殊的npcinfo
 	function get_npclist(){

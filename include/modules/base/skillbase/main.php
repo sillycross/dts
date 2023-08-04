@@ -332,6 +332,42 @@ namespace skillbase
 		}
 	}
 	
+	//玩家加入战场时处理所有的技能，要求传入的$pa里有skills元素
+	function post_enterbattlefield_events(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','skillbase'));
+		$ret = $chprocess($pa);
+		
+		//为了灵活性，直接处理所有技能，在固定称号的时候记得要写入skills不然进游戏就没技能了
+		if (!empty($pa['skills'])){
+			foreach ($pa['skills'] as $key=>$value){
+				if (defined('MOD_SKILL'.$key)){
+					skill_acquire($key,$pa);
+					if(is_array($value)){
+						foreach($value as $vk => $vv){
+							skill_setvalue($key,$vk,$vv,$pa);
+						}
+					}elseif ($value>0){
+						skill_setvalue($key,'lvl',$value,$pa);
+					}
+				}	
+			}
+		}
+		//如果是篝火挑战者，或者别的会换卡的卡，在这里把$card换回原卡
+		//这样成就按篝火判定，但是技能是换到的卡的技能
+		if(!empty($pa['o_card'])) {
+			$pa['card'] = $pa['o_card'];
+		}
+		//追加模式入场技能
+		if(isset($valid_skills[$gametype])){
+			foreach($valid_skills[$gametype] as $vsv){
+				if(defined('MOD_SKILL'.$vsv))
+					\skillbase\skill_acquire($vsv,$pa);
+			}
+		}
+		return $ret;
+	}
 }
 
 ?>

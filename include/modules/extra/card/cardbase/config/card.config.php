@@ -3579,7 +3579,7 @@ $cards = array(
 		  'itm3' => '『我是说在座的各位都是垃圾』',
 			'itmk3' => 'Y',
 			'itme3' => '1',
-			'itms3' => '3',
+			'itms3' => '1',
 			'itmsk3' => '',
 		)
 	),
@@ -3598,7 +3598,39 @@ $cards = array(
 			'itmsk3' => '',
 		)
 	),
-	
+	232 => array(
+		'name' => '驴友',
+		'rare' => 'M',
+		'pack' => 'Cyber Zealots',
+		'desc' => '他觉得自己很懂野外生存',
+		'effect' => '开局不携带面包和矿泉水',
+		'energy' => 0,
+		'valid' => array(
+		  'itm1' => '我来幻境是我的自由',
+			'itmk1' => 'X',
+			'itme1' => '1',
+			'itms1' => '1',
+			'itmsk1' => '',
+			'itm2' => '你们怎么还不来救我？',
+			'itmk2' => 'X',
+			'itme2' => '1',
+			'itms2' => '1',
+			'itmsk2' => '',
+		)
+	),
+	233 => array(
+		'name' => '阿林百人众',
+		'rare' => 'B',
+		'pack' => 'Cyber Zealots',
+		'desc' => '据说林无月前两年已经死了，<br>现在管理幻境的都是她的亲友团<br>「阿林百人众」。<br>她临死前给每个人发了一个小本子，里面是一百多页如何扮演她的心得。',
+		'effect' => '开局能复制并获得场上存活的NPC身上的一件道具',
+		'energy' => 100,
+		'valid' => array(
+		  'skills' => array(
+				'529' => '0', 
+			),
+		)
+	),
 	
 	1000 => array(
 		'name'=>'补给品',

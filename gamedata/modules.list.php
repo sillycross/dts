@@ -41,13 +41,12 @@ battle,base/battle/,1
 gameflow_combo,core/gameflow/gameflow_combo/,1
 advteam,extra/misc/advteam/,1
 attack,base/attack/,1
-instance7,extra/instance/instance7_tutorial/,1
 instance0,extra/instance/instance0/,1
 cardbase,extra/card/cardbase/,1
 weapon,base/weapon/weapon/,1
 npcchat,base/npcchat/,1
 skill21,extra/club/skills/skill21/,1
-skill1000,extra/instance/instance7_tutorial/skill1000/,1
+instance7,extra/instance/instance7_tutorial/,1
 kujibase,extra/card/kujibase/,1
 set_gametype,extra/misc/set_gametype/,1
 clubbase,extra/club/clubbase/,1
@@ -64,6 +63,7 @@ skill2,base/skills/skill2/,1
 skill3,base/skills/skill3/,1
 item_uv,base/items/item_uv/,1
 npcchat_bubble,extra/misc/npcchat_bubble/,1
+skill1000,extra/instance/instance7_tutorial/skill1000/,1
 skill11,extra/club/skills/skill11/,1
 skill10,extra/club/skills/skill10/,1
 skill305,extra/achievement/skills/skill305/,1
@@ -250,6 +250,7 @@ skill518,extra/card/skills/skill518/,1
 skill84,extra/club/skills/skill84/,1
 skill527,extra/card/skills/skill527/,1
 skill528,extra/card/skills/skill528/,1
+skill529,extra/card/skills/skill529/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1

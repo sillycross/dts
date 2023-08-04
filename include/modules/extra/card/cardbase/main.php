@@ -180,6 +180,67 @@ namespace cardbase
 		return $ret;
 	}
 	
+	//某些特殊模式的限定用卡，主要是enter_battlefield()过程调用
+	function get_enter_battlefield_card($card){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		//标准模式禁用卡片
+		if(0==$gametype){
+			$card = 0;
+		}
+		return $card;
+	}
+	
+	//进入游戏时根据所用卡片对玩家数据的操作
+	//输入$ebp即valid.func.php里初始化的玩家数组，$card是所用卡的编号
+	//返回Array($eb_pdata, $skills, $prefix)其中$skills是需要载入的技能列表，$prefix是消息中的玩家名前缀
+	function enter_battlefield_cardproc($ebp, $card){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('cardbase'));
+		
+		//获取卡片的具体设定
+		$card_valid_info = $cards[$card]['valid'];
+	
+		$cardname = $newscardname = $cards[$card]['name'];
+		$cardrare = $newscardrare = $cards[$card]['rare'];
+		
+		if(!empty($cards[$card]['title'])) $cardname = $cards[$card]['title'];//有定义了title的卡，用title来显示
+		
+		//如果卡片本身有换卡效果（随机卡等），在这里把消息用的卡名换回来
+		if(isset($ebp['o_card'])) {
+			$o_card = $ebp['o_card'];
+			unset($ebp['o_card']);
+			$newscardname=$cards[$o_card]['name'];
+			$newscardrare=$cards[$o_card]['rare'];
+		}
+		//生成玩家名前缀
+		$prefix = '<span class="'.$card_rarecolor[$newscardrare].'">'.$newscardname.'</span> ';
+		
+		///////////////////////////////////////////////////////////////
+		//实际卡片效果的载入
+		//////////////////////////////////////////////////////////////
+		$skills = Array();
+		foreach ($card_valid_info as $key => $value){
+			if('skills' == $key) {
+				$skills = $value;
+				continue;//技能另外判定，不直接写入
+			}
+			$checkstr = substr($key,0,3);
+			if (in_array($checkstr, Array('wep','arb','arh','ara','arf','art','itm'))){//道具类的，如果是数组则随机选一个
+				if(is_array($value)){
+					shuffle($value);
+					$value = $value[0];
+				}
+			}
+			$ebp[$key] = $value;
+		}
+		
+		$ebp['card'] = $card;
+		$ebp['cardname'] = $cardname;
+		
+		return Array($ebp, $skills, $prefix);
+	}
+	
 	//获得卡的外壳，主要是数据库读写
 	function get_card($ci,&$pa=NULL,$ignore_qiegao=0)
 	{

@@ -5,6 +5,16 @@ namespace gtype1
 	function init() {
 	}
 	
+	//除错模式固定卡片（软件测试工程师）
+	function get_enter_battlefield_card($card){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		$card = $chprocess($card);
+		if (1==$gametype){
+			$card=93;
+		}
+		return $card;
+	}
 	
 	function prepare_new_game()
 	{
