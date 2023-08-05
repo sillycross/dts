@@ -247,7 +247,7 @@ namespace cardbase
 		
 		//先判定是否随机发动一张卡
 		if(!empty($cards[$card]['valid']['cardchange'])){
-			$ebp['o_card'] = $card;//记录原本的卡
+			if(empty($cards[$card]['valid']['perm_change'])) $ebp['o_card'] = $card;//只要不是永久变化，就记录原本的卡
 			$card = cardchange($card);
 		}
 		
@@ -543,6 +543,23 @@ namespace cardbase
 				$tdata['cardinfo'] = $cards[$w_card]['title'];
 			else $tdata['cardinfo'] = $w_cardname;
 		}
+	}
+	
+	//玩家加入战场时有一次性效果的卡片的处理，主要是修改gamevars等
+	function post_enterbattlefield_events(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','cardbase'));
+		$ret = $chprocess($pa);
+		$card = $pa['card'];
+		//入场修改$gamevars
+		if(!empty($cards[$card]['valid']['gamevars'])) {
+			$cgarr = $cards[$card]['valid']['gamevars'];
+			foreach ($cgarr as $cgk => $cgv){
+				$gamevars[$cgk] = $cgv;
+			}
+		}
+		return $ret;
 	}
 	
 	//根据card.config.php的修改时间自动刷新$cardindex也就是各种罕贵的卡编号组成的数组，用于抽卡和随机卡

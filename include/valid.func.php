@@ -116,6 +116,8 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip=NULL)
 		}
 	}
 	
+	if(isset($eb_pdata['gamevars'])) unset($eb_pdata['gamevars']);
+	
 	//在技能载入前先在数据库插入玩家数据
 	$db->array_insert("{$tablepre}players", $eb_pdata);
 	
@@ -134,7 +136,7 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip=NULL)
 	$sk_pdata['skills'] = $skills;
 	$sk_pdata['o_card'] = $o_card;
 	
-	//实际处理由skillbase接管post_enterbattlefield_events()完成
+	//实际处理由skillbase等模块接管post_enterbattlefield_events()完成
 	\player\post_enterbattlefield_events($sk_pdata);
 	
 	//第二次保存数据

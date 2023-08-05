@@ -46,11 +46,24 @@ namespace gameflow_combo
 		checkcombo($atime);
 	}	
 	
+	//判定连斗死亡人数阈值
 	function calculate_combonum($reset = false){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','gameflow_combo'));
+		//默认是标准局的死亡人数
 		$dlimit = $deathlimit_by_gtype[0];
+		//如果游戏类型定义了另外的死亡人数则采用
 		if(!empty($deathlimit_by_gtype[$gametype])) $dlimit = $deathlimit_by_gtype[$gametype];
+		//如果$gamevars定义了死亡人数阈值的变化量则适用
+		if(!empty($gamevars['combonum'])){
+			$gvc_str = $gamevars['combonum'];
+			$gvc_op = substr($gvc_str,0,1);
+			$gvc_num = (int)substr($gvc_str,1);
+			if('+' == $gvc_op) $dlimit += $gvc_num;
+			elseif('-' == $gvc_op) $dlimit -= $gvc_num;
+			elseif('=' == $gvc_op) $dlimit = $gvc_num;
+		}
+		//如果不重置死亡人数，每20入场玩家还会增加20名死亡人数阈值
 		if(!$reset)	return $dlimit + ceil($validnum/$deathdeno) * $deathnume;
 		else return $dlimit;
 	}

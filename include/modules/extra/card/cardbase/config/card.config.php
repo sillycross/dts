@@ -3083,7 +3083,7 @@ $cards = array(
 		'rare' => 'A',
 		'pack' => 'Event Bonus',
 		'desc' => '过去经历一切不明的女骇客，<br>其typing能力就算在糟糕级骇客中也实际强大！',
-		'effect' => '如果你上一次操作在代码层面没有顺利完成，你获得7点经验和7点全系熟练度，还会给这个游戏的天然呆程序员发去一封站内信。',
+		'effect' => '如果你上一次操作在程序执行时没有顺利完成，你获得7点经验和全系熟练，还会给这个游戏的天然呆程序员发一封站内信。',
 		'energy' => 100,
 		'valid' => array(
 			'skills' => array(
@@ -3711,9 +3711,9 @@ $cards = array(
 		'title' => '维因·索菲尔',
 		'rare' => 'S',
 		'pack' => 'Cyber Zealots',
-		'desc' => '『时空护卫』的中坚力量之一，<br>能轻易记住其他超能力者的超能力，并用自己的方式施展出来。<br><br>“就算在那群固执的疯子里<br>也是最固执而最疯的一个。”<br>——林苍月',
+		'desc' => '『时空护卫』的中坚力量之一，<br>能轻易记住其他超能力者的超能力，并用自己的方式施展出来。<br><br><span class="seagreen b">“就算在那群固执的疯子里<br>也是最固执而最疯的一个。”</span><br>——林苍月',
 		'effect' => '随机发动一张S级卡片的效果',
-		'energy' => 50,
+		'energy' => 100,
 		'valid' => array(
 			'cardchange' => Array(
 				'S_odds' => 100,
@@ -3721,6 +3721,60 @@ $cards = array(
 				'forced' => Array(210),//无视概率强制加入选择的卡
 				'ignore_cards' => Array()//机制上必定选不到自己，这里可以放其他不想被选到的卡
 			)
+		)
+	),
+	238 => array(
+		'name' => '『黑衣少女』',
+		'title' => '黑衣少女',
+		'rare' => 'S',
+		'pack' => 'Cyber Zealots',
+		'desc' => '接管了整个林氏集团的神秘少女。<br>虽然她自称只是林无月的女儿，也没有干预幻境的运转，但她显露出的卓越洞察力和深不可测的举止，都表明她并不是凡庸之辈。<br><br><span class="ltcrimson b">“我们的敌人比预想的更加麻烦。”</span><br>——红暮',
+		'effect' => '只要你入场，连斗判定人数增加200名',
+		'energy' => 200,
+		'valid' => array(
+			'gamevars' => Array(
+				'combonum' => '+200',
+			)
+		)
+	),
+	239 => array(
+		'name' => '孤魂挑战者',
+		'rare' => 'C',
+		'pack' => 'Way of Life',
+		'desc' => '他很喜欢满身孤魂的感觉',
+		'effect' => '开局全身装备埃克法-孤魂',
+		'energy' => 0,
+		'valid' => array(
+		'wep' => '埃克法-孤魂',
+			'wepk' => 'WP',
+			'wepe' => '25',
+			'weps' => '1',
+			'wepsk' => 'cZ',
+			'arb' => '埃克法-孤魂',
+			'arbk' => 'DB',
+			'arbe' => '5',
+			'arbs' => '25',
+			'arbsk' => 'zZ',
+			'arh' => '埃克法-孤魂',
+			'arhk' => 'DH',
+			'arhe' => '5',
+			'arhs' => '25',
+			'arhsk' => 'zZ',
+			'ara' => '埃克法-孤魂',
+			'arak' => 'DA',
+			'arae' => '5',
+			'aras' => '25',
+			'arask' => 'zZ',
+			'arf' => '埃克法-孤魂',
+			'arfk' => 'DF',
+			'arfe' => '5',
+			'arfs' => '25',
+			'arfsk' => 'zZ',
+			'art' => '埃克法-孤魂',
+			'artk' => 'TN',
+			'arte' => '25',
+			'arts' => '1',
+			'artsk' => 'cZ',
 		)
 	),
 	
@@ -3752,8 +3806,9 @@ $cards = array(
 		'energy'=>120,
 		'valid' => array(
 			'cardchange' => Array(
-				'real_random' => 1,//真随机，所有卡选1张
-				'forced' => Array(42,63,86,87,89,94,96,98,118,119,156,158,159,160,165,167,181,190),//无视概率强制加入选择的卡
+				'real_random' => true,//真随机，所有卡选1张
+				'perm_change' => true,//永久改变，换卡之后不会再把card字段切回来，也不会按这张卡判定成就
+				'forced' => Array(),//无视概率强制加入选择的卡
 				'ignore_cards' => Array()//机制上必定选不到自己，这里可以放其他不想被选到的卡
 			)
 		)
