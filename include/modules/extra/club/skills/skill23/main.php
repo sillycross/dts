@@ -67,6 +67,12 @@ namespace skill23
 		
 		$itm=&${$t1}; $itmk=&${$t1.'k'}; $itme=&${$t1.'e'}; $itms=&${$t1.'s'}; $itmsk=&${$t1.'sk'};
 		
+		if(in_array('O', \itemmain\get_itmsk_array($itmsk))) {
+			$log.='<span class="red b">目标道具附带的诅咒把宝石弹开了。</span><br>';
+			$mode = 'command';
+			return;
+		}
+		
 		if ($t1=='wep'|| !$itme || !$itms)
 		{
 			if ($itmk=='WN')

@@ -16,6 +16,39 @@ namespace gtype1
 		return $card;
 	}
 	
+	//除错模式自动选择工程师，禁止其他卡片
+	function card_validate_get_forbidden_cards($card_disabledlist, $card_ownlist){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		
+		$card_disabledlist = $chprocess($card_disabledlist, $card_ownlist);
+		if (1==$gametype)	//除错模式自动选择工程师
+		{
+			foreach($card_ownlist as $cv){
+				if(93 != $cv) $card_disabledlist[$cv][]='e3';
+			}
+		}
+		return $card_disabledlist;
+	}
+	
+	//除错模式选卡界面特殊显示
+	function card_validate_display($cardChosen, $card_ownlist, $packlist, $hideDisableButton){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','cardbase'));
+		//标准模式自动选择挑战者
+		list($cardChosen, $card_ownlist, $packlist, $hideDisableButton) = $chprocess($cardChosen, $card_ownlist, $packlist, $hideDisableButton);
+		
+		if (1==$gametype)	//除错模式自动选择工程师
+		{
+			$cardChosen = 93;//自动选择软件测试工程师
+			$card_ownlist[] = 93;
+			$packlist[] = $cards[93]['pack'] = 'Testing Fan Club';
+			$hideDisableButton = 0;
+		}
+		
+		return array($cardChosen, $card_ownlist, $packlist, $hideDisableButton);
+	}
+	
 	function prepare_new_game()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -32,7 +65,7 @@ namespace gtype1
 
 		if (!$disable_event && $gt!=1){//开启活动&&最多连续3局
 			list($sec,$min,$hour,$day,$month,$year,$wday) = explode(',',date("s,i,H,j,n,Y,w",$now));
- 			if ( ($wday==3 && $hour>=19 && $hour<21) || ($wday==6 && $hour>=15 && $hour<17) || ($wday==7 && $hour>=15 && $hour<17)){ //周三19点-21点；周六15点-17点；周日15点-17点
+ 			if ( ($wday==3 && $hour>=19 && $hour<21) || ($wday==6 && $hour>=15 && $hour<17) || ($wday==0 && $hour>=15 && $hour<17)){ //周三19点-21点；周六15点-17点；周日15点-17点
  				$gametype=1;
  			}
  		}

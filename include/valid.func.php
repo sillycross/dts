@@ -133,8 +133,8 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip=NULL)
 	$sk_pdata=\player\fetch_playerdata($xuser);
 	
 	//把skills、$o_card数组存回$sk_pdata方便调用
-	$sk_pdata['skills'] = $skills;
-	$sk_pdata['o_card'] = $o_card;
+	if(!empty($skills)) $sk_pdata['skills'] = $skills;
+	if(!empty($o_card)) $sk_pdata['o_card'] = $o_card;
 	
 	//实际处理由skillbase等模块接管post_enterbattlefield_events()完成
 	\player\post_enterbattlefield_events($sk_pdata);
@@ -158,126 +158,4 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip=NULL)
 	save_gameinfo();
 }
 
-//你们卡片系统没有自己的函数吗？
-function check_card_in_ownlist($card, $card_ownlist){
-	global $gametype;
-	if(in_array($card,$card_ownlist) || (5==$gametype && in_array($card,array(182, 183, 184, 185)))) return true;
-	return false;
-}
-
-function card_validate($udata){
-	eval(import_module('sys','cardbase'));
-	
-	$card = $udata['card'];
-	
-	$userCardData = \cardbase\get_user_cardinfo($udata['username']);
-	$card_ownlist = $userCardData['cardlist'];
-	$card_energy = $userCardData['cardenergy'];
-	$cardChosen = $userCardData['cardchosen'];
-	
-	/*
-	 * $card_disabledlist id => errid
-	 * id: 卡片ID errid: 不能使用这张卡的原因
-	 * 原因可以叠加
-	 * e0: S卡总体CD
-	 * e1: 单卡CD
-	 * e2: 有人于本局使用了同名卡
-	 * e3: 本游戏模式不可用
-	 *
-	 * $card_error errid => msg
-	 */
-	$card_disabledlist=Array();
-	$card_error=Array();
-	
-	$energy_recover_rate = \cardbase\get_energy_recover_rate($card_ownlist, $udata['gold']);
-	
-	//最低优先级错误原因：同名非C卡
-	$result = $db->query("SELECT card FROM {$tablepre}players WHERE type = 0");
-	$t=Array();
-	while ($cdata = $db->fetch_array($result)) $t[$cdata['card']]=1;
-	if(in_array($gametype, array(2,4,18,19))) //只有卡片模式、无限复活模式、荣耀房、极速房才限制卡片
-		foreach ($card_ownlist as $key)
-			if (!in_array($cards[$key]['rare'], array('C', 'M')) && isset($t[$key])) 
-			{
-				$card_disabledlist[$key][] = 'e2';
-				$card_error['e2'] = '这张卡片暂时不能使用，因为本局已经有其他人使用了这张卡片<br>请下局早点入场吧！';
-			}
-	
-	//次高优先级错误原因：单卡CD
-	foreach ($card_ownlist as $key)
-		if ($card_energy[$key]<$cards[$key]['energy'])
-		{
-			$t=($cards[$key]['energy']-$card_energy[$key])/$energy_recover_rate[$cards[$key]['rare']];
-			$card_disabledlist[$key][] = 'e1'.$key;
-			$card_error['e1'.$key] = '这张卡片暂时不能使用，因为它目前正处于蓄能状态<br>这张卡片需要蓄积'.$cards[$key]['energy'].'点能量方可使用，预计在'.convert_tm($t).'后蓄能完成';
-		}
-	
-	//最高优先级错误原因：卡片类别时间限制
-	foreach($cardtypecd as $ct => $ctcd){
-		if(!empty($ctcd)){
-			$ctcdstr = seconds2hms($ctcd);
-			$card_error['e0'.$ct] = '这张卡片暂时不能使用，因为最近'.$ctcdstr.'内你已经使用过'.$ct.'卡了<br>在'.convert_tm($ctcd-($now-$udata['cd_'.strtolower($ct)])).'后你才能再次使用'.$ct.'卡';
-	
-			if (($now-$udata['cd_'.strtolower($ct)]) < $ctcd){
-				foreach ($card_ownlist as $key)
-					if ($cards[$key]['rare']==$ct)
-						$card_disabledlist[$key][] = 'e0'.$ct;
-			}
-		}
-	}
-	
-	//最高优先级错误原因：本游戏模式不可用
-	$card_error['e3'] = '这张卡片在本游戏模式下禁止使用！';
-	
-	if(0==$gametype) //标准模式禁用挑战者以外的一切卡
-	{
-		foreach($card_ownlist as $cv){
-			if($cv) $card_disabledlist[$cv][]='e3';
-		}
-		global $cardChosen,$hideDisableButton;
-		$cardChosen = 0;//自动选择挑战者
-		$hideDisableButton = 0;
-	}
-	elseif (1==$gametype)	//除错模式自动选择工程师
-	{
-		foreach($card_ownlist as $cv){
-			if(93 != $cv) $card_disabledlist[$cv][]='e3';
-		}
-		global $cc,$cardChosen,$card_ownlist,$packlist,$cards,$hideDisableButton;
-		$cc = $cardChosen = 93;//自动选择软件测试工程师
-		$card_ownlist[] = 93;
-		$packlist[] = $cards[93]['pack'] = 'Testing Fan Club';
-		$hideDisableButton = 0;
-	}
-	elseif (5==$gametype)	//圣诞模式只允许某4张卡
-	{
-		$tmp_add_hidden_list = array(182, 183, 184, 185);
-		foreach($card_ownlist as $cv){
-			if(!in_array($cv, $tmp_add_hidden_list)) $card_disabledlist[$cv][]='e3';
-		}
-		global $cc,$cardChosen,$card_ownlist,$packlist,$cards,$hideDisableButton;
-		$cardChosen = $cc;
-		if(!in_array($cardChosen, $tmp_add_hidden_list)) {
-			$cc = $cardChosen = $tmp_add_hidden_list[0];//自动选择简单难度
-		}
-		foreach ($tmp_add_hidden_list as $adv){
-			$card_ownlist[] = $adv;
-			$cards[$adv]['pack'] = 'Difficulty';
-		}
-		$packlist[] = 'Difficulty';
-		$hideDisableButton = 0;
-	}
-	elseif (2==$gametype)	//deathmatch模式禁用蛋服和炸弹人
-	{
-		if (in_array(97,$card_ownlist)) $card_disabledlist[97][]='e3';
-		if (in_array(144,$card_ownlist)) $card_disabledlist[144][]='e3';
-	}
-	elseif (19==$gametype)//极速模式禁用6D和CTY
-	{
-		if (in_array(123,$card_ownlist)) $card_disabledlist[123][]='e3';
-		if (in_array(124,$card_ownlist)) $card_disabledlist[124][]='e3';
-	}
-	
-	return array($card_disabledlist,$card_error);
-}
 ?>

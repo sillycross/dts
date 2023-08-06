@@ -79,7 +79,7 @@ namespace npc
 			$npc['pid'] = -2;//0和-1都会出问题
 			$npc['skills']['460']='0';
 			$npc['nskill'] = $npc['nskillpara'] = '';
-			\skillbase\skillbase_load($npc);
+			\skillbase\skillbase_load($npc, 1);
 			foreach ($npc['skills'] as $key=>$value){
 				if (defined('MOD_SKILL'.$key)){
 					\skillbase\skill_acquire($key,$npc);

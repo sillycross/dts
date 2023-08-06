@@ -5,7 +5,8 @@ namespace skill48
 	//怒气消耗
 	$ragecost = 8; 
 	
-	$wepk_req = 'WC';
+	//$wepk_req = 'WC';
+	$wep_skillkind_req = 'wc';
 	
 	//共享属性加成的属性
 	$skill48_ex_map = Array(

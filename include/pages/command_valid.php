@@ -23,12 +23,11 @@ if($gamestate >= 30 && $udata['groupid'] < 6 && $cuser != $gamefounder) {
 	return;
 }
 
-eval(import_module('cardbase'));
-
-//入场
+//接收入场命令，这里是在修改用户资料和卡片的页面提交的
 if($mode == 'enter') {
 	$ip = $udata['ip'];
 	
+	//达到了IP限制
 	if($iplimit) {
 		$result = $db->query("SELECT * FROM {$tablepre}players WHERE type=0 AND ip='$ip'");
 		if($db->num_rows($result) >= $iplimit) {
@@ -36,17 +35,20 @@ if($mode == 'enter') {
 			return;
 		}
 	}	
-
-	//$ip = real_ip();
 	
-	
-	$userCardData = \cardbase\get_user_cardinfo($cuser);
-	$card_ownlist = $userCardData['cardlist'];
-	$card_energy = $userCardData['cardenergy'];
-	if (!check_card_in_ownlist($card, $card_ownlist)) {
-		$card=0;
+	//激活数达到上限
+	if($validnum >= $validlimit) {
+		gexit($_ERROR['player_limit'],__file__, __line__);
+		return;
+	}
+	//玩家已存在
+	$result = $db->query("SELECT * FROM {$tablepre}players WHERE name = '$cuser' AND type = 0");
+	if($db->num_rows($result)) {
+		gexit($_ERROR['player_exist'], __file__, __line__);
+		return;
 	}
 	
+	//载入提交的用户资料，口头禅之类的
 	if ($gender !== 'm' && $gender !== 'f'){
 		$gender = 'f';
 	}
@@ -55,42 +57,68 @@ if($mode == 'enter') {
 		'icon' => $icon,
 		'motto' => $motto,
 		'killmsg' => $killmsg,
-		'card' => $card,
 		'lastword'=>$lastword
 	);
+	
+	//接受对用户资料的修改。注意：就算卡片不适用，这里也先接受口头禅之类的修改
 	update_udata_by_username($updatearr, $udata['username']);
-	if($validnum >= $validlimit) {
-		gexit($_ERROR['player_limit'],__file__, __line__);
-		return;
-	}
-	$result = $db->query("SELECT * FROM {$tablepre}players WHERE name = '$cuser' AND type = 0");
-	if($db->num_rows($result)) {
-		gexit($_ERROR['player_exist'], __file__, __line__);
-		return;
-	}
+	
 	
 	$enterable = true;
-	$cc=$card;
-	$cardinfo=$cards[$cc];
-	$r=$cardinfo['rare'];
-	$cf=true;
-	list($card_disabledlist,$card_error) = card_validate($udata);
-	if(!empty($card_disabledlist[$cc])) //当前卡片无法使用
-	{
-		$enterable = false;
-	}
-	elseif($cardinfo['energy'] && in_array($gametype, array(2,4,18,19))) //当卡片需要能量，且游戏模式为卡片模式、无限复活模式、荣耀模式、极速模式时，更新卡片CD时间
-	{
-		if(18 == $gametype || 19 == $gametype) $userCardData['cardenergy'][$cc] = round($cards[$cc]['energy'] / 2);//荣誉模式CD减半
-		else $userCardData['cardenergy'][$cc] = 0;
-		\cardbase\save_cardenergy($userCardData,$cuser);
-		if(!empty($cardtypecd[$r])){
-			$ctcdtime = $now;
-			if(18 == $gametype || 19 == $gametype) $ctcdtime -= round($cardtypecd[$r] / 2);//荣誉模式、极速模式类别CD减半
-			$updatearr = array('cd_'.strtolower($r) => $ctcdtime);
-			update_udata_by_username($updatearr, $udata['username']);
+	
+	//判定卡片数据是否合理
+	if(defined('MOD_CARDBASE')){
+		eval(import_module('cardbase'));
+		$userCardData = \cardbase\get_user_cardinfo($cuser);
+		$card_ownlist = $userCardData['cardlist'];
+		$card_energy = $userCardData['cardenergy'];
+		$cardChosen = $card;
+		$hideDisableButton = 1;
+		list($cardChosen, $card_ownlist, $packlist, $hideDisableButton) = \cardbase\card_validate_display($cardChosen, $card_ownlist, $packlist, $hideDisableButton);
+		//提交了使用并未拥有的卡片的命令
+		if (!\cardbase\check_card_in_ownlist($card, $card_ownlist)) {
+			$enterable = false;
+			$card = 0;
+			$updatearr = Array('card' => 0);
+			update_udata_by_username($updatearr, $udata['username']);//立刻更新数据库中的当前卡片，避免一些BUG导致的死循环
+		}else{
+			$cc=$card;
+			$cardinfo=$cards[$cc];
+			$r=$cardinfo['rare'];
+			$cf=true;
+			$updatearr = Array();
+			list($card_disabledlist,$card_error) = \cardbase\card_validate($udata);
+			if(!empty($card_disabledlist[$cc])) //当前卡片无法使用
+			{
+				$enterable = false;
+			}
+			elseif($cardinfo['energy'] && in_array($gametype, $card_need_charge_gtype)) //当卡片需要能量，且游戏模式为卡片模式、无限复活模式、荣耀模式、极速模式时，更新卡片CD时间
+			{
+				if(!empty($card_cooldown_discount_gtype[$gametype])) {
+					$userCardData['cardenergy'][$cc] = round($cards[$cc]['energy'] * $card_cooldown_discount_gtype[$gametype]);//荣誉模式CD减半
+				}else {
+					$userCardData['cardenergy'][$cc] = 0;
+				}
+				\cardbase\save_cardenergy($userCardData,$cuser);//更新卡片冷却信息
+				//以下是更新卡片类别的冷却，感觉可以再重构得更优美一点，跟冷却本身合并，但是回头再说吧
+				if(!empty($cardtypecd[$r])){
+					$ctcdtime = $now;
+					if(!empty($card_cooldown_discount_gtype[$gametype])) {
+						$ctcdtime -= round($cardtypecd[$r] * $card_cooldown_discount_gtype[$gametype]);//荣誉模式、极速模式类别CD减半
+					}
+					$updatearr ['cd_'.strtolower($r)] = $ctcdtime;
+				}
+			}
+			if($enterable) {
+				if(in_array($gametype, $card_need_charge_gtype) && !empty($updatearr)) {//能自选卡片的模式，把卡片和CD时间写回数据库
+					$updatearr['card'] = $card;
+					update_udata_by_username($updatearr, $udata['username']);
+				}
+			}
 		}
 	}
+	
+	
 	
 	if(false==$enterable) {
 		echo 'redirect:valid.php';
@@ -108,6 +136,8 @@ if($mode == 'enter') {
 	include template('notice');
 } else {
 	extract($udata);
+	
+eval(import_module('cardbase'));
 	
 	$result = $db->query("SELECT * FROM {$tablepre}players WHERE name = '$cuser' AND type = 0");
 	if($db->num_rows($result)) {
@@ -128,7 +158,9 @@ if($mode == 'enter') {
 	$cardChosen = $userCardData['cardchosen'];
 	$packlist = \cardbase\pack_filter($packlist);
 	$hideDisableButton = 1;
-	list($card_disabledlist,$card_error) = card_validate($udata);
+	list($cardChosen, $card_ownlist, $packlist, $hideDisableButton) = \cardbase\card_validate_display($cardChosen, $card_ownlist, $packlist, $hideDisableButton);
+	list($card_disabledlist,$card_error) = \cardbase\card_validate($udata);
+	
 	
 	$d_achievements = \achievement_base\decode_achievements($udata);
 	$card_achieved_list = array();

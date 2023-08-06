@@ -37,7 +37,9 @@ namespace skill509
 			eval(import_module('skill509','weapon'));
 			$l_att_method = \weapon\get_attack_method($ldata);
 			$range_509 = $rangeinfo[$l_att_method];
-			if(!$range_509) $range_509 = 9;//爆系射程算比重枪还远，会-36%，因为在加算阶段，所以实际非常伤
+			if(empty($range_509)) $range_509 = 9;//爆系射程算比重枪还远，因为在加算阶段，所以实际非常伤
+			//削弱，从投系射程开始才有加值。现在最高的爆系的效果是20%，重枪是16%，普通枪械12%，投系是4%
+			$range_509 = max(0, $range_509 - 4);
 			$ret = $range_509 * $skill509_factor;
 		}
 		return $ret;

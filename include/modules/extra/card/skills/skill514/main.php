@@ -37,6 +37,23 @@ namespace skill514
 		return min($ret, $skill514_var);
 	}
 	
+	//运算直死概率上限的函数，因为显示也需要用到所以提取出来
+	function get_seckill_limit514($seckill_r, $skill514_var){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return max(1,ceil($seckill_r * (100 - $skill514_var) / 100));
+	}
+	
+	//直死概率乘以（100-那个数），但不会低于1%
+	function get_ex_seckill_proc_rate(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($pa,$pd,$active);
+		if (!\skillbase\skill_query(514, $pa)) return $ret;
+		$skill514_var = \skillbase\skill_getvalue(514,'var',$pa)/10;//1至100
+		$ret = get_seckill_limit514($ret, $skill514_var);
+		return $ret;
+	}
+	
 	//攻击结束时如果命中则做那个值翻倍
 	function attack_finish(&$pa,&$pd,$active)
 	{

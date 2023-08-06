@@ -4,7 +4,7 @@ namespace skill21
 	{
 	$enpcinfo = array
 		( 
-		12 => array(
+		12 => array( 
 			'Dark Force幼体' => array(
 				'name' => 'Dark Force',
 				'gd' => 'f',

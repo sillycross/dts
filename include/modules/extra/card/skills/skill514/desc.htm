@@ -6,7 +6,8 @@ $clubskillname[$___TEMP_SKILL_ID]
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class="skilldesc_left b3"><span class="skilldesc">
-敌人对你攻击的命中率不会高于<span class="yellow">{$skill514_var}%</span>。<br>每当你命中敌人，攻击结束后这个值都会翻倍。
+敌人对你攻击的命中率不会高于<span class="yellow b">{$skill514_var}%</span>。<br>每当你命中敌人，攻击结束后这个值都会翻倍。
+<br>此外，你的直死属性生效的概率不会高于<span class="yellow b"><!--{eval echo \skill514\get_seckill_limit514(10,$skill514_var);}-->%</span>。
 </span></td>
 <td class="skilldesc_right b3">
 </td>

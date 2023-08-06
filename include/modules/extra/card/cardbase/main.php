@@ -213,7 +213,7 @@ namespace cardbase
 		do{
 			$r=rand(1,100);
 			if(!empty($cs['real_random'])) {//真随机，把所有卡集合并
-				$arr = array_merge($cardindex['S'],$cardindex['A'],$cardindex['B'],$cardindex['C'],$cardindex['EB'],);
+				$arr = array_merge($cardindex['S'],$cardindex['A'],$cardindex['B'],$cardindex['C'],$cardindex['EB']);
 			}else{
 				if ($r<=$S_odds){
 					$arr=$cardindex['S'];
@@ -273,8 +273,24 @@ namespace cardbase
 		$skills = Array();
 		foreach ($card_valid_info as $key => $value){
 			if('skills' == $key) {
-				$skills = $value;
-				continue;//技能另外判定，不直接写入
+				//$skills = $value;
+				//考虑到跟rand_skill的顺序不确定，应该逐个赋值。也不能用array_merge()，至于理由，你可以试一试（
+				foreach($value as $sk => $sv){
+					$skills[$sk] = $sv;
+				}
+				continue;//技能另外判定，不直接写入，也不把skills写进$ebp
+			}elseif('rand_skills' == $key){//随机技能，rand_skills下每一个数组代表一组随机，rnum键名的元素代表选取数目
+				foreach($value as $rk => $rv){
+					$rnum = 1;
+					if(!empty($rv['rnum'])) $rnum = $rv['rnum'];
+					unset($rv['rnum']);
+					$rkeys = array_keys($rv);
+					shuffle($rkeys);
+					for($i = 1;$i <= $rnum;$i++){
+						$skills[$rkeys[$i]] = $rv[$rkeys[$i]];
+					}
+				}
+				continue;
 			}
 			$checkstr = substr($key,0,3);
 			if (in_array($checkstr, Array('wep','arb','arh','ara','arf','art','itm'))){//道具类的，如果是数组则随机选一个
@@ -292,7 +308,15 @@ namespace cardbase
 		return Array($ebp, $skills, $prefix);
 	}
 	
-	//获得卡的外壳，主要是数据库读写
+	//判断一张卡当前是否在持有列表中
+	function check_card_in_ownlist($card, $card_ownlist){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		if(in_array($card,$card_ownlist) || (5==$gametype && in_array($card,array(182, 183, 184, 185)))) return true;
+		return false;
+	}
+	
+	//根据用户名或者玩家数据，从数据库查询当前所用卡片，主要是数据库读写
 	function get_card($ci,&$pa=NULL,$ignore_qiegao=0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -760,6 +784,142 @@ namespace cardbase
 		
 		file_put_contents($file, $contents);
 		chmod($file, 0777);
+	}
+	
+	//进入游戏前判定卡片是否可用
+	//传入$udata即用户数据，返回$card_disabledlist,$card_error两个数组
+	//$card_disabledlist：键值是卡片编号，errid为错误编号
+	//$card_error：错误编号的解释说明
+	function card_validate($udata){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','cardbase'));
+		
+		$nowcard = $udata['card'];
+		
+		$userCardData = get_user_cardinfo($udata['username']);
+		$card_ownlist = $userCardData['cardlist'];
+		$card_energy = $userCardData['cardenergy'];
+		$cardChosen = $userCardData['cardchosen'];
+		
+		/*
+		 * $card_disabledlist id => errid
+		 * id: 卡片ID errid: 不能使用这张卡的原因
+		 * 原因可以叠加
+		 * e0: S卡总体CD
+		 * e1: 单卡CD
+		 * e2: 有人于本局使用了同名卡
+		 * e3: 本游戏模式不可用
+		 *
+		 * $card_error errid => msg
+		 */
+		$card_disabledlist=Array();
+		$card_error=Array();
+		
+		$energy_recover_rate = get_energy_recover_rate($card_ownlist, $udata['gold']);
+		
+		//最低优先级错误原因：同名非C卡
+		$result = $db->query("SELECT card FROM {$tablepre}players WHERE type = 0");
+		$t=Array();
+		while ($cdata = $db->fetch_array($result)) $t[$cdata['card']]=1;
+		//限制同名卡片入场：在$card_prohibit_same_gtype中设定，instance文件夹下的各模块会修改这个变量，没有单独模块的游戏模式直接写在card.config.php里
+		//只有卡片模式、无限复活模式、荣耀房、极速房才限制卡片
+		if(in_array($gametype, $card_force_different_gtype)) 
+			foreach ($card_ownlist as $key)
+				if (!in_array($cards[$key]['rare'], array('C', 'M')) && isset($t[$key])) 
+				{
+					$card_disabledlist[$key][] = 'e2';
+					$card_error['e2'] = '这张卡片暂时不能使用，因为本局已经有其他人使用了这张卡片<br>请下局早点入场吧！';
+				}
+		
+		//次高优先级错误原因：单卡CD
+		foreach ($card_ownlist as $key)
+			if ($card_energy[$key]<$cards[$key]['energy'] && in_array($gametype, $card_need_charge_gtype))
+			{
+				$t=($cards[$key]['energy']-$card_energy[$key])/$energy_recover_rate[$cards[$key]['rare']];
+				$card_disabledlist[$key][] = 'e1'.$key;
+				$card_error['e1'.$key] = '这张卡片暂时不能使用，因为它目前正处于蓄能状态<br>这张卡片需要蓄积'.$cards[$key]['energy'].'点能量方可使用，预计在'.convert_tm($t).'后蓄能完成';
+			}
+		
+		//最高优先级错误原因：卡片类别时间限制
+		foreach($cardtypecd as $ct => $ctcd){
+			if(!empty($ctcd) && in_array($gametype, $card_need_charge_gtype)){
+				$ctcdstr = seconds2hms($ctcd);
+				$card_error['e0'.$ct] = '这张卡片暂时不能使用，因为最近'.$ctcdstr.'内你已经使用过'.$ct.'卡了<br>在'.convert_tm($ctcd-($now-$udata['cd_'.strtolower($ct)])).'后你才能再次使用'.$ct.'卡';
+		
+				if (($now-$udata['cd_'.strtolower($ct)]) < $ctcd){
+					foreach ($card_ownlist as $key)
+						if ($cards[$key]['rare']==$ct)
+							$card_disabledlist[$key][] = 'e0'.$ct;
+				}
+			}
+		}
+		
+		//最高优先级错误原因：本游戏模式不可用
+		$card_error['e3'] = '这张卡片在本游戏模式下禁止使用！';
+		
+		//获取各模式禁卡表
+		$card_disabledlist = card_validate_get_forbidden_cards($card_disabledlist, $card_ownlist);
+		
+		return array($card_disabledlist,$card_error);
+	}
+	
+	//获取各模式的特殊禁用卡表，各gtype模块可以继承这个函数
+	function card_validate_get_forbidden_cards($card_disabledlist, $card_ownlist){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		
+		if(0==$gametype) //标准模式禁用挑战者以外的一切卡
+		{
+			foreach($card_ownlist as $cv){
+				if($cv) $card_disabledlist[$cv][]='e3';
+			}
+		}
+		elseif (5==$gametype)	//圣诞模式只允许某4张卡，按理应该拆分掉的，不想改了！反正圣诞模式黑历史了
+		{
+			$tmp_add_hidden_list = array(182, 183, 184, 185);
+			foreach($card_ownlist as $cv){
+				if(!in_array($cv, $tmp_add_hidden_list)) $card_disabledlist[$cv][]='e3';
+			}
+		}
+		elseif (2==$gametype)	//deathmatch模式禁用蛋服和炸弹人。死掉的模式不拆分了
+		{
+			if (in_array(97,$card_ownlist)) $card_disabledlist[97][]='e3';
+			if (in_array(144,$card_ownlist)) $card_disabledlist[144][]='e3';
+		}
+		
+		return $card_disabledlist;
+	}
+	
+	//选卡界面的一些特殊显示，全是欺骗
+	//返回：
+	//$cardChosen当前选择卡片
+	//$card_ownlist拥有的卡片清单
+	//$packlist存在的卡包清单
+	//$hideDisableButton是否默认显示不可用卡片（并隐藏切换按钮）
+	function card_validate_display($cardChosen, $card_ownlist, $packlist, $hideDisableButton){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','cardbase'));
+		//标准模式自动选择挑战者
+		if(0==$gametype) //标准模式禁用挑战者以外的一切卡
+		{
+			$cardChosen = 0;//自动选择挑战者
+			$hideDisableButton = 0;
+		}
+		elseif (5==$gametype)	//圣诞模式只允许某4张卡
+		{
+			$tmp_add_hidden_list = array(182, 183, 184, 185);
+			if(!in_array($cardChosen, $tmp_add_hidden_list)) {
+				$cardChosen = $tmp_add_hidden_list[0];//自动选择简单难度
+			}
+			foreach ($tmp_add_hidden_list as $adv){
+				$card_ownlist[] = $adv;
+				$cards[$adv]['pack'] = 'Difficulty';
+			}
+			$packlist[] = 'Difficulty';
+			$hideDisableButton = 0;
+		}
+		
+		return array($cardChosen, $card_ownlist, $packlist, $hideDisableButton);
 	}
 }
 

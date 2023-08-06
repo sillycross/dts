@@ -67,21 +67,25 @@ namespace skillbase
 		return $para_list;
 	}
 	
-	function skillbase_load(&$pa)
+	//把技能字符串转义为技能数组，并直接存入$pa
+	//$dummy开启时认为这个$pa不是实际存在的玩家对象，不判定$pid也不触发onload_event
+	function skillbase_load(&$pa, $dummy = false)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player'));
 		
 		list($pa['acquired_list'], $pa['parameter_list']) = skillbase_load_process($pa['nskill'], $pa['nskillpara']);
 		
-		if ($pa['pid']==$pid)
-		{
-			eval(import_module('skillbase'));
-			$acquired_list = $pa['acquired_list'];
-			$parameter_list = $pa['parameter_list'];
+		if(empty($dummy)){
+			if ($pa['pid']==$pid)
+			{
+				eval(import_module('skillbase'));
+				$acquired_list = $pa['acquired_list'];
+				$parameter_list = $pa['parameter_list'];
+			}
+			
+			skill_onload_event($pa);
 		}
-		
-		skill_onload_event($pa);
 	}
 	
 	function skillbase_load_process($ss, $sps){
@@ -238,7 +242,7 @@ namespace skillbase
 		eval(import_module('player', 'skillbase'));
 		$skillid=(int)$skillid;
 		if ($ppid==-1) skillbase_set_ppid();
-		if ($pa == NULL || $pa['pid']==$ppid) return !empty($acquired_list[$skillid]) && skill_enabled($skillid, $sdata);
+		if ($pa == NULL || (!empty($pa['pid']) && $pa['pid']==$ppid)) return !empty($acquired_list[$skillid]) && skill_enabled($skillid, $sdata);
 		return !empty($pa['acquired_list'][$skillid]) && skill_enabled($skillid, $pa);
 	}
 	
@@ -261,7 +265,7 @@ namespace skillbase
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skillbase'));
 		if ($ppid==-1) skillbase_set_ppid();
-		if ($pa == NULL || $pa['pid']==$ppid)
+		if ($pa == NULL || (!empty($pa['pid']) && $pa['pid']==$ppid))
 		{
 			$ret=Array();
 			foreach($acquired_list as $key=>$value) if ($value==1) array_push($ret,$key);
@@ -281,7 +285,7 @@ namespace skillbase
 		eval(import_module('skillbase'));
 		$skillkey=$skillid.'_'.$skillkey;
 		if ($ppid==-1) skillbase_set_ppid();
-		if ($pa == NULL || $pa['pid']==$ppid) 
+		if ($pa == NULL || (!empty($pa['pid']) && $pa['pid']==$ppid)) 
 		{
 			$parameter_list[$skillkey]=$skillvalue;
 		}
@@ -297,7 +301,7 @@ namespace skillbase
 		eval(import_module('skillbase'));
 		$skillkey=$skillid.'_'.$skillkey;
 		if ($ppid==-1) skillbase_set_ppid();
-		if ($pa == NULL || $pa['pid']==$ppid) 
+		if ($pa == NULL || (!empty($pa['pid']) && $pa['pid']==$ppid)) 
 		{
 			if (isset($parameter_list[$skillkey])) return $parameter_list[$skillkey]; else return NULL;
 		}

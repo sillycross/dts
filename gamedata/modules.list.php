@@ -34,7 +34,6 @@ item_slip,extra/item_extra/item_slip/,1
 itemmix_sync,base/itemmix/itemmix_sync/,1
 enemy,base/enemy/,1
 gameflow_duel,core/gameflow/gameflow_duel/,1
-instance8,extra/instance/instance8_proud/,1
 itemmix_overlay,base/itemmix/itemmix_overlay/,1
 team,base/team/,1
 battle,base/battle/,1
@@ -46,6 +45,7 @@ cardbase,extra/card/cardbase/,1
 weapon,base/weapon/weapon/,1
 npcchat,base/npcchat/,1
 skill21,extra/club/skills/skill21/,1
+instance8,extra/instance/instance8_proud/,1
 instance7,extra/instance/instance7_tutorial/,1
 kujibase,extra/card/kujibase/,1
 set_gametype,extra/misc/set_gametype/,1

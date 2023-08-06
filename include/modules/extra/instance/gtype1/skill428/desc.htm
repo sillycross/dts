@@ -10,7 +10,8 @@
 <!--{eval $totlv = count($upgradecost)-1; }-->
 <span class="lime b">当前级别$clv/$totlv</span>&nbsp;
 <!--{if $upgradecost[$clv] !== -1}-->消耗<span class="lime b">$upgradecost[$clv]</span>点技能点升至下一级<!--{/if}--><br>
-你放置的陷阱伤害提高<span class="yellow b">$dmggain[$clv]%</span><br>杀死对方时其额外损失<span class="yellow b">$extralvllost[$clv]</span>层除错进度，你获得<span class="lime b">$skptbonus[$clv]</span>点技能点奖励<br>
+你放置的陷阱伤害提高<span class="yellow b">$dmggain[$clv]%</span>
+<!--{if $gametype == 1}--><br>杀死对方时其额外损失<span class="yellow b">$extralvllost[$clv]</span>层除错进度，你获得<span class="lime b">$skptbonus[$clv]</span>点技能点奖励<!--{/if}-->
 </span></td>
 <td class="skilldesc_right b3">
 <!--{if $upgradecost[$clv] !== -1}-->
