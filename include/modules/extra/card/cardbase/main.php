@@ -247,7 +247,7 @@ namespace cardbase
 		
 		//先判定是否随机发动一张卡
 		if(!empty($cards[$card]['valid']['cardchange'])){
-			if(empty($cards[$card]['valid']['perm_change'])) $ebp['o_card'] = $card;//只要不是永久变化，就记录原本的卡
+			if(empty($cards[$card]['valid']['cardchange']['perm_change'])) $ebp['o_card'] = $card;//只要不是永久变化，就记录原本的卡
 			$card = cardchange($card);
 		}
 		
@@ -874,18 +874,18 @@ namespace cardbase
 				if($cv) $card_disabledlist[$cv][]='e3';
 			}
 		}
-		elseif (5==$gametype)	//圣诞模式只允许某4张卡，按理应该拆分掉的，不想改了！反正圣诞模式黑历史了
-		{
-			$tmp_add_hidden_list = array(182, 183, 184, 185);
-			foreach($card_ownlist as $cv){
-				if(!in_array($cv, $tmp_add_hidden_list)) $card_disabledlist[$cv][]='e3';
-			}
-		}
-		elseif (2==$gametype)	//deathmatch模式禁用蛋服和炸弹人。死掉的模式不拆分了
-		{
-			if (in_array(97,$card_ownlist)) $card_disabledlist[97][]='e3';
-			if (in_array(144,$card_ownlist)) $card_disabledlist[144][]='e3';
-		}
+//		elseif (2==$gametype)	//deathmatch模式禁用蛋服和炸弹人。死掉的模式不拆分了
+//		{
+//			if (in_array(97,$card_ownlist)) $card_disabledlist[97][]='e3';
+//			if (in_array(144,$card_ownlist)) $card_disabledlist[144][]='e3';
+//		}
+//		elseif (5==$gametype)	//圣诞模式只允许某4张卡，按理应该拆分掉的，不想改了！反正圣诞模式黑历史了
+//		{
+//			$tmp_add_hidden_list = array(182, 183, 184, 185);
+//			foreach($card_ownlist as $cv){
+//				if(!in_array($cv, $tmp_add_hidden_list)) $card_disabledlist[$cv][]='e3';
+//			}
+//		}
 		
 		return $card_disabledlist;
 	}
@@ -905,19 +905,20 @@ namespace cardbase
 			$cardChosen = 0;//自动选择挑战者
 			$hideDisableButton = 0;
 		}
-		elseif (5==$gametype)	//圣诞模式只允许某4张卡
-		{
-			$tmp_add_hidden_list = array(182, 183, 184, 185);
-			if(!in_array($cardChosen, $tmp_add_hidden_list)) {
-				$cardChosen = $tmp_add_hidden_list[0];//自动选择简单难度
-			}
-			foreach ($tmp_add_hidden_list as $adv){
-				$card_ownlist[] = $adv;
-				$cards[$adv]['pack'] = 'Difficulty';
-			}
-			$packlist[] = 'Difficulty';
-			$hideDisableButton = 0;
-		}
+//		elseif (5==$gametype)	//圣诞模式只允许某4张卡
+//		{
+//			$tmp_add_hidden_list = array(182, 183, 184, 185);
+//			if(!in_array($cardChosen, $tmp_add_hidden_list)) {
+//				$cardChosen = $tmp_add_hidden_list[0];//自动选择简单难度
+//			}
+//			foreach ($tmp_add_hidden_list as $adv){
+//				$card_ownlist[] = $adv;
+//				$cards[$adv]['pack'] = 'Difficulty';
+//			}
+//			$packlist[] = 'Difficulty';
+//			$hideDisableButton = 0;
+//		}
+		
 		
 		return array($cardChosen, $card_ownlist, $packlist, $hideDisableButton);
 	}

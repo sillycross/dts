@@ -2,7 +2,7 @@
 
 namespace set_gametype
 {
-	$set_gametype_allow_list = Array(0,4);//只允许设置到的游戏类型
+	$set_gametype_allow_list = Array(0,4,6);//只允许设置到的游戏类型
 	
 	function init() {}
 	
@@ -29,10 +29,10 @@ namespace set_gametype
 			if(isset($gamevars['next_gametype'])) {//如果指定了下一局模式
 				$gametype = (int)($gamevars['next_gametype']);
 				unset($gamevars['next_gametype']);
-			} elseif(0==$gametype) {//经典房交替开启经典和卡片模式。
-				$gametype = 4;
+			} elseif(4==$gametype) {//经典房交替开启自选卡片和随机卡片模式。
+				$gametype = 6;
 			} else {
-				$gametype = 0;
+				$gametype = 4;
 			}
 		}
 	}

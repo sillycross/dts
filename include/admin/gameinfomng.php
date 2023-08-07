@@ -8,7 +8,7 @@ if(!defined('IN_ADMIN')) {
 
 eval(import_module('sys','weather'));
 
-$sgtypelist = Array(0,1,4,18,19);//主房间允许改出来的游戏类型
+$sgtypelist = Array(0,1,4,6,18,19);//主房间允许改出来的游戏类型
 
 if($command == 'wthedit'){
 	$iweather = (int)$_POST['iweather'];

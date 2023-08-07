@@ -28,6 +28,10 @@
 	line-height:20px;
 }
 
+.glow_buttons span.h50{
+	line-height:50px;
+}
+
 .glow_buttons:hover {
 	-webkit-box-shadow: 0 0 12px #fff;
 	        box-shadow: 0 0 12px #fff;

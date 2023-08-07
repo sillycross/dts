@@ -6,8 +6,8 @@ error_reporting(E_ERROR | E_PARSE);
 define('IN_GAME', TRUE);
 define('GAME_ROOT', '');
 
-if(PHP_VERSION < '5.5.0') {
-	exit('PHP version must >= 5.5.0!');
+if(PHP_VERSION < '7.0.0') {
+	exit('PHP version must >= 7.0.0!');
 }
 
 $action = $_POST['action'] ? $_POST['action'] : $_GET['action'];
@@ -41,8 +41,17 @@ if (!file_exists($system_config)){
 	}
 }
 
-$game_config = './include/modules/core/sys/config/game.config.php';
-if(!file_exists($game_config))	exit('"game.config.php" doesn\'t exist.');
+$game_config =  './include/modules/core/sys/config/game.config.php';
+$game_config_sample =  './include/modules/core/sys/config/game.config.sample.php';
+if (!file_exists($game_config)){
+	if(!file_exists($game_config_sample))	exit('"game.config.sample.php" doesn\'t exist.');
+	else {
+		if(!copy($game_config_sample,$game_config)) exit('Cannot create "game.config.php".');
+	}
+}
+
+//$game_config = './include/modules/core/sys/config/game.config.php';
+//if(!file_exists($game_config))	exit('"game.config.php" doesn\'t exist.');
 
 $mdcontents = file_get_contents($modulemng_config);
 $mdcontents = preg_replace("/[$]___MOD_CODE_ADV1\s*\=\s*-?[0-9]+;/is", "\$___MOD_CODE_ADV1 = 0;", $mdcontents);

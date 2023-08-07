@@ -44,6 +44,11 @@ namespace sys
 		18=>'<font class="cyan">荣耀模式</font>',
 		19=>'<font class="red">极速模式</font>',
 	);
+	$gtdesc=array(
+		0=>'不能使用卡片',
+		4=>'入场时自选一张卡片',
+		6=>'入场时使用随机卡片'
+	);
 	$week = Array('日','一','二','三','四','五','六');
 	$gamevarsinfo = array(
 		'next_gametype' => '游戏模式'

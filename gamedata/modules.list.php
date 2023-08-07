@@ -49,6 +49,7 @@ instance8,extra/instance/instance8_proud/,1
 instance7,extra/instance/instance7_tutorial/,1
 kujibase,extra/card/kujibase/,1
 set_gametype,extra/misc/set_gametype/,1
+gtype6,extra\instance\gtype6_randomcard/,1
 clubbase,extra/club/clubbase/,1
 wep_n,base/weapon/wep_n/,1
 wep_p,base/weapon/wep_p/,1
@@ -402,8 +403,6 @@ addnpc,base/addnpc/,1
 skill50,extra/club/skills/skill50/,1
 skill245,extra/club/skills/skill245/,1
 skill252,extra/club/skills/skill252/,1
-gtype2,extra/instance/gtype2/main/,1
-gtype3,extra/instance/gtype3/main/,1
 skill270,extra/club/skills/skill270/,1
 skill604,extra/club/skills/skill604/,1
 ex_gender_attr,extra/attr/ex_gender_attr/,1
@@ -514,6 +513,8 @@ skill365,extra/activities/aprilfool2018/skill365/,1
 skill505,extra/card/skills/skill505/,1
 skill80,extra/club/skills/skill80/,1
 skill366,extra/activities/aprilfool2018/skill366/,1
+gtype2,extra/instance/gtype2/main/,0
+gtype3,extra/instance/gtype3/main/,0
 gtype5,extra/instance/gtype5/main/,0
 skill1005,extra/instance/gtype5/skill1005/,0
 skill1004,extra/instance/gtype5/skill1004/,0
