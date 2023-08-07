@@ -27,3 +27,4 @@ include/modules/extra/club/skills/skill206/desc - 副本.htm
 include/modules/extra/club/skills/skill206/main - 副本.php
 gamedata/adminlog_nf.php
 !callmesilly.txt
+include/modules/core/sys/config/game.config.php
