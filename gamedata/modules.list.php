@@ -49,7 +49,7 @@ instance8,extra/instance/instance8_proud/,1
 instance7,extra/instance/instance7_tutorial/,1
 kujibase,extra/card/kujibase/,1
 set_gametype,extra/misc/set_gametype/,1
-gtype6,extra\instance\gtype6_randomcard/,1
+gtype6,extra/instance/gtype6_randomcard/,1
 clubbase,extra/club/clubbase/,1
 wep_n,base/weapon/wep_n/,1
 wep_p,base/weapon/wep_p/,1
@@ -499,6 +499,7 @@ aprilfool2018,extra/activities/aprilfool2018/main/,1
 skill367,extra/achievement/skills/skill367/,1
 skill368,extra/achievement/skills/skill368/,1
 skill369,extra/achievement/skills/skill369/,1
+skill370,extra/achievement/skills/skill370/,1
 skill504,extra/card/skills/skill504/,1
 skill429,extra/instance/gtype1/skill429/,1
 searchmemory,extra/searchmemory/,1
