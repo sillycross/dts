@@ -9,26 +9,26 @@
 </div>
 <!--{if !isset($gamevars['next_gametype'])}-->
 	<div class="glow_buttons h50 w115 cyan" style="display:inline-block" onclick="$('ngametype').value='6';postCmd('nextgamevarsform','end.php');">
-		<span class="h50 b">$gtinfo[6]</span>
+		<span class="h50 b">$gtinfo[6]模式</span>
 	</div>
 	<div class="glow_buttons h50 w115 red" style="display:inline-block;margin:0 0 0 50px" onclick="$('ngametype').value='4';postCmd('nextgamevarsform','end.php');">
-		<span class="h50 b">$gtinfo[4]</span>
+		<span class="h50 b">$gtinfo[4]模式</span>
 	</div>
 <!--{else}-->
 	<!--暂时只有两个选项-->
 	<!--{if 4 != $gamevars['next_gametype']}-->
 		<div class="glow_buttons h50 w115 cyan" style="display:inline-block">
-			<span class="h50 b">$gtinfo[6]</span>
+			<span class="h50 b">$gtinfo[6]模式</span>
 		</div>
 		<div class="glow_buttons h50 w115 darkgrey forbidden" style="display:inline-block;margin:0 0 0 50px">
-			<span class="h50 b">$gtinfo[4]</span>
+			<span class="h50 b">$gtinfo[4]模式</span>
 		</div>
 	<!--{else}-->
 		<div class="glow_buttons h50 w115 darkgrey forbidden" style="display:inline-block">
-			<span class="h50 b">$gtinfo[6]</span>
+			<span class="h50 b">$gtinfo[6]模式</span>
 		</div>
 		<div class="glow_buttons h50 w115 red" style="display:inline-block;margin:0 0 0 50px">
-			<span class="h50 b">$gtinfo[4]</span>
+			<span class="h50 b">$gtinfo[4]模式</span>
 		</div>
 	<!--{/if}-->
 <!--{/if}-->
