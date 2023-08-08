@@ -119,18 +119,30 @@ namespace item_slip
 				}
 			}elseif($dice < 50){//纸条50%概率有提示
 				//目前只提示NPC
-				if(empty($item_slip_npclist)){
-					//如果没拉取过NPC资料，则一次性拉取并储存
+				$updateflag = 0;
+				$islip_gameprefix = empty($groomid) ? $gamenum : 's_'.$gamenum;//每局都应该是不同的前缀，防止穿透读取大房间
+				if(empty($item_slip_npclist)) {
+					$item_slip_npclist = Array();
+					$updateflag = 1;
+				}elseif(empty($item_slip_npclist[$islip_gameprefix])){
+					$updateflag = 1;
+				}
+				
+				if($updateflag){//如果没拉取过NPC资料，则一次性拉取并储存
+					
+					$item_slip_npclist[$islip_gameprefix] = Array();
 					$where = "'".implode("','",$item_slip_npc)."'";
 					$result = $db->query("SELECT pid, type, pls FROM {$tablepre}players WHERE type IN ($where)");
 					while($nd = $db->fetch_array($result)) {
-						$item_slip_npclist[$nd['pid']] = $nd;
+						$item_slip_npclist[$islip_gameprefix][$nd['pid']] = $nd;
 					}
 				}
-				if(!empty($item_slip_npclist)){
-					$nlist = array_keys($item_slip_npclist);
+				
+				$isnl = & $item_slip_npclist[$islip_gameprefix];
+				if(!empty($isnl)){
+					$nlist = array_keys($isnl);
 					shuffle($nlist);
-					$iskind = $nlist[0] * 1000 + $item_slip_npclist[$nlist[0]]['pls'];
+					$iskind = $nlist[0] * 1000 + $isnl[$nlist[0]]['pls'];
 				}else{
 					$iskind = '';
 				}

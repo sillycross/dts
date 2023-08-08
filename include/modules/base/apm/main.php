@@ -53,6 +53,7 @@ namespace apm
 			add_v_actionnum();
 	}
 	
+	//$use_endtime=1则用该玩家最后一次操作的时间作为apm分母，这样反映玩家真正在动的时间段的APM
 	//返回值：0=>有效vapm；1=>所有apm
 	function calc_apm($pa, $use_endtime=0)
 	{
@@ -61,6 +62,7 @@ namespace apm
 		if(!$use_endtime && $pa['hp'] > 0 && $gamestate >= 20) $judgetime = $now;
 		else $judgetime = $pa['endtime'];
 		$judgemin = ($judgetime - $pa['validtime']) / 60;
+		if($judgemin < 1) $judgemin = 1;//避免除以0的错误
 		$vapm = round($pa['v_actionnum'] / $judgemin * 10) / 10;
 		$aapm = round($pa['a_actionnum'] / $judgemin * 10) / 10;
 		return array($vapm, $aapm);

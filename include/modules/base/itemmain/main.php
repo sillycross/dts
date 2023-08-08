@@ -503,8 +503,9 @@ namespace itemmain
 		//如果有模块在这之前执行并且获得道具那就没办法了……
 		if(!empty($hp) && !empty($itms0) && !in_array($command, Array('itm0','dropitm0','itemget','itemmerge','enter')) && false === strpos($command, 'swap')){
 			eval(import_module('logger'));
-			$log .= '你已手持道具，不能进行这一操作！<br>';
-			$mode = 'command';$command='menu';
+			$log .= '你的双手都已经抓满了东西。为了完成所想，你集中意念召唤幻肢……<br>什么都没有发生，除了你的脑壳痛了起来。<br><br>';
+			$mode = 'command';
+			$command='menu';
 		}
 		$chprocess();
 	}

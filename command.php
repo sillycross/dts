@@ -80,7 +80,7 @@ if ($___MOD_SRV)
 		}
 		if (socket_listen($___TEMP_socket,5)===false) __SOCKET_ERRORLOG__('socket_listen失败。'); 
 		
-		//以端口号为名创建文件夹，其中可能存在busy子文件夹，start_time文件，is_root文件
+		//以端口号为名创建文件夹，其中可能存在busy文件，start_time文件，is_root文件，worknum文件
 		mymkdir(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT);
 		touch(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT.'/start_time');
 		if($___TEMP_is_root) touch(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT.'/is_root');
@@ -175,6 +175,13 @@ if ($___MOD_SRV)
 						//有确定指令的时候才进入忙碌状态
 						__SOCKET_DEBUGLOG__("进入忙碌状态。");
 						touch(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT.'/busy');
+						
+						//更新访问数
+						$___TEMP_WORKNUM=1;
+						if(file_exists(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT.'/worknum')) {
+							$___TEMP_WORKNUM += (int)file_get_contents(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT.'/worknum');
+						}
+						file_put_contents(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT.'/worknum', $___TEMP_WORKNUM);
 						
 						eval(import_module('sys','map','player','logger','itemmain','input'));
 						\sys\routine();

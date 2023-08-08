@@ -179,12 +179,14 @@ namespace searchmemory
 			}
 			//有道具被从视野挤到了记忆部分
 			if(sizeof($searchmemory) > $searchmemory_real_slotnum){
-				$thatm = $searchmemory[get_slot_edge() - 1];
+				$thatm = & $searchmemory[get_slot_edge() - 1];
 				//如果在同一地图且没有被标注unseen则提示一下
 				if($showlog && empty($thatm['unseen']) && $thatm['pls'] == $pls) {
 					$rmn = get_memory_name($thatm);
 					if($fog && isset($thatm['Pname']) && $thatm['smtype'] != 'corpse') $log .= '先前的人影看不见了，但你仍记得其大致方位。<br>';
 					else $log .= $rmn.'看不见了，但你仍记得其大致方位。<br>';
+					//标记unseen，确保不反复被提示，也避免拾取道具之后又让移出视野的道具自己长脚跑回来
+					$thatm['unseen'] = 1;
 				}
 			}
 			//超出记忆范围则删掉最老的记忆
@@ -447,7 +449,7 @@ namespace searchmemory
 				return;
 			}
 			//如果下标超出视野，临时把unseen标为1
-			if(check_out_of_slot_edge($mn)) $marr['unseen'] = 1;
+			if(check_out_of_slot_edge($mn) && empty($marr['unseen'])) $marr['unseen'] = 1;
 			//判断逻辑：如果不在视野中而是凭记忆的，先进行一次探索流程，然后把那个探索记忆加到视野最新的地方
 			//这里调用search_area()但不触发search()函数本体，所以不会触发冷却，需要额外判定
 			if($marr['unseen']) {

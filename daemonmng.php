@@ -112,18 +112,23 @@ if ($handle=opendir(GAME_ROOT.'./gamedata/tmp/server'))
 		die();
 	}
 	
+	$now = time();
 	$i=0;
 	foreach ($srvlist as $key)
 	{
 		$i++;
+		$keyadrs = GAME_ROOT.'./gamedata/tmp/server/'.$key;
 		
 		$r=__SEND_TOUCH_CMD__($key);
 		if ($r == 'ok' || $r=='ok_root')
 		{
 			if ($r=='ok')
 				echo "&nbsp;&nbsp;　&nbsp;&nbsp;进程 {$i}: 端口 <font color=\"blue\">{$key}</font> 状态 ";
-			else  echo "&nbsp;[根]&nbsp;进程 {$i}: 端口 <font color=\"blue\">{$key}</font> 状态 ";
-			echo '<font color="green">正常</font>';
+			else echo "&nbsp;[根]&nbsp;进程 {$i}: 端口 <font color=\"blue\">{$key}</font> 状态 ";
+			if(file_exists($keyadrs.'/busy')) echo '<font color="yellow">正常&忙碌</font>';
+			else echo '<font color="green">正常</font>';
+			
+			echo '&nbsp;分均请求数：'.ceil((int)file_get_contents($keyadrs.'/worknum') / (max(1, $now - filemtime($keyadrs.'/start_time')) / 60) * 1000) / 1000;
 		}
 		else
 		{

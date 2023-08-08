@@ -26,7 +26,7 @@ $mixinfo = array
 	array('class' => 'wc', 'stuff' => array('幻之使魔','永恒之桶'),'result' => array('灵魂的结晶','WC',180,240,'rn'),),
 	array('class' => 'wc', 'stuff' => array('幻符【杀人玩偶】','★时停怀表★','永恒飞刃'),'result' => array('幻葬『夜雾幻影杀人鬼』','WC',400,'∞','krnyN'),),
 	
-	array('class' => 'wk', 'stuff' => array('【红杀铁剑】','电磁充能手套'),'result' => array('【红杀铁剑·雷击】','WK',300,45,'ed^ac1'),),
+	array('class' => 'wk', 'stuff' => array('【红杀铁剑】','电磁充能手套'),'result' => array('【红杀铁剑·雷击】','WK',300,45,'eu^ac1'),),
 	array('class' => 'wk', 'stuff' => array('西瓜','水果刀','磨刀石'),'result' => array('西瓜刀','WK',99,'∞','c'),),
 	array('class' => 'wk', 'stuff' => array('针筒','毒药'),'result' => array('毒针','WK',32,20,'p'),),	
 	array('class' => 'wk', 'stuff' => array('毒针','毒针'),'result' => array('D.毒针','WK',48,20,'p'),),

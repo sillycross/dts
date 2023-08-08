@@ -209,12 +209,12 @@ namespace cardbase
 		$ignore = !empty($cs['ignore_cards']) ? $cs['ignore_cards'] : Array();
 		
 		//实际随机卡片
-		$arr=array('0');
+		$arr=array(0);
 		do{
-			$r=rand(1,100);
 			if(!empty($cs['real_random'])) {//真随机，把所有卡集合并
-				$arr = array_merge($cardindex['S'],$cardindex['A'],$cardindex['B'],$cardindex['C'],$cardindex['EB']);
+				$arr = array_merge($arr,$cardindex['S'],$cardindex['A'],$cardindex['B'],$cardindex['C'],$cardindex['EB']);
 			}else{
+				$r=rand(1,100);
 				if ($r<=$S_odds){
 					$arr=$cardindex['S'];
 					if(!empty($cs['allow_EB'])) $arr=array_merge($arr, $cardindex['EB_S']);
@@ -249,6 +249,23 @@ namespace cardbase
 		if(!empty($cards[$card]['valid']['cardchange'])){
 			if(empty($cards[$card]['valid']['cardchange']['perm_change'])) $ebp['o_card'] = $card;//只要不是永久变化，就记录原本的卡
 			$card = cardchange($card);
+			//有些问题，先这样
+			
+			if(empty($cards[$card])) {
+				//这游戏有一种另类的debug办法
+				eval(import_module('sys'));
+				include_once './include/messages.func.php';
+				foreach(Array('admin','Yoshiko_G') as $v){
+					$r = fetch_udata('uid', "username='$v'");
+					if(empty($r)) continue;
+					message_create(
+						$v,
+						'截获big',
+						($groomtype ? '房间' : '') . "第{$gamenum}局中，{$name}在入场时随到了空白的卡。卡片编号：".$card
+					);
+				}	
+				$card = 0;				
+			}
 		}
 		
 		//获取卡片的具体设定
@@ -762,6 +779,8 @@ namespace cardbase
 		$cgmethod[159][] = '通过礼品盒开出的★闪熠着光辉的大逃杀卡牌包★获得（15%概率）';
 		$cgmethod[160][] = '完成2017万圣节活动「噩梦之夜 LV2」获得';
 		$cgmethod[165][] = '<br><br>这张卡片要如何获得喵？';//'<br>当你看到某张小纸条有「奇怪的空白」时，你可以按下F12。<br>这张卡的获得方式，就藏在那段空白对应的页面代码的位置。<br>　　　　　　　　　　　　　　　　　　　　——林苍月';
+		$cgmethod[190][] = '帮助游戏抓到BUG后由管理员奖励获得';
+		
 		for($ci=200;$ci<=204;$ci++) {
 			$cgmethod[$ci][] = '<font color=grey>完成2017十一活动「新的战场 LV2」可能获得</font>';
 			$cgmethod[$ci][] = '<font color=grey>完成2017十一活动「新的战场 LV3」可能获得</font>';
@@ -776,7 +795,7 @@ namespace cardbase
 		$cgmethod[204][] = '在「荣耀模式」模式击杀「全息实体 麻烦妖精 Sophia」后，使用缴获的★蠢萌的卡牌包★获得（15%概率）';
 		$cgmethod[211][] = '击杀场上所有NPC之后，击杀入场的「断罪女神 一一五」，之后使用缴获的★印着「Mind Over Matters」的卡牌包★获得（必定获得）';
 		
-		$cgmethod[190][] = '帮助游戏抓到BUG后由管理员奖励获得';
+		
 		if(empty($cgmethod)) return;
 		$contents = str_replace('?>','',$checkstr);//"<?php\r\nif(!defined('IN_GAME')) exit('Access Denied');\r\n";
 

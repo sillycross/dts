@@ -12,6 +12,7 @@
 	</p>
 	<p>
 		<input type="checkbox" id="winner_show_gtype_0" name="winner_show_gtype_0" <!--{if $winner_show_gtype_0}-->checked<!--{/if}-->><a onclick="$('winner_show_gtype_0').click();">$gtinfo[0]</a>&nbsp;&nbsp;
+		<input type="checkbox" id="winner_show_gtype_6" name="winner_show_gtype_6" <!--{if $winner_show_gtype_6}-->checked<!--{/if}-->><a onclick="$('winner_show_gtype_6').click();">$gtinfo[6]</a>&nbsp;&nbsp;
 		<input type="checkbox" id="winner_show_gtype_4" name="winner_show_gtype_4" <!--{if $winner_show_gtype_4}-->checked<!--{/if}-->><a onclick="$('winner_show_gtype_4').click();">$gtinfo[4]</a>&nbsp;&nbsp;
 		<input type="checkbox" id="winner_show_gtype_1" name="winner_show_gtype_1" <!--{if $winner_show_gtype_1}-->checked<!--{/if}-->><a onclick="$('winner_show_gtype_1').click();">$gtinfo[1]</a>&nbsp;&nbsp;
 		<input type="checkbox" id="winner_show_gtype_10" name="winner_show_gtype_10" <!--{if $winner_show_gtype_10}-->checked<!--{/if}-->><a onclick="$('winner_show_gtype_10').click();">$gtinfo[10]</a>&nbsp;&nbsp;
@@ -28,6 +29,7 @@
 		<input type="checkbox" id="winner_show_wmode_7" name="winner_show_wmode_7" <!--{if $winner_show_wmode_7}-->checked<!--{/if}-->><a onclick="$('winner_show_wmode_7').click();">$gwin[7]</a>&nbsp;&nbsp;
 		<input type="checkbox" id="winner_show_wmode_8" name="winner_show_wmode_8" <!--{if $winner_show_wmode_8}-->checked<!--{/if}-->><a onclick="$('winner_show_wmode_8').click();">$gwin[8]</a>&nbsp;&nbsp;
 		搜索玩家：<input id="winner_show_winner" name="winner_show_winner" style="width: 120px;" type="text" value="$winner_show_winner">
+		<input type="button" class="cmdbutton" value="搜索" onclick="document.list.command.value='list';document.list.submit();">
 	</p>
 	<p>
 	<!--{if $result_num > $winlimit}-->
@@ -42,7 +44,7 @@
 	<!--{/if}-->
 	</p>
 	<br>
-	<TABLE border="1" cellspacing="0" cellpadding="0">
+	<TABLE border="1" cellspacing="0" cellpadding="3">
 		<TR height="20">
 			<TD class="b1"><span>回</span></TD>
 			<TD class="b1"><span>游戏模式</span></TD>

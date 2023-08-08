@@ -26,6 +26,12 @@ namespace boxes
 		
 		eval(import_module('sys','player','itemmain','logger','boxes'));
 		
+		if(!empty($itms0)) {
+			$log .= '<span class="yellow b">你正握着礼品盒呢，还是先把它放下再开盒吧！</span><br>';
+			$mode = 'command';
+			return;
+		}
+		
 		$itm=&$theitem['itm']; $itmk=&$theitem['itmk'];
 		$itme=&$theitem['itme']; $itms=&$theitem['itms']; $itmsk=&$theitem['itmsk'];
 		
