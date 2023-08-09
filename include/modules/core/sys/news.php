@@ -84,7 +84,7 @@ namespace sys
 		elseif($news == 'editpc') 
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red b\">{$a}遭到了黑幕的生化改造！</span></li>";
 		elseif($news == 'roominfo')
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，本局游戏为<span class=\"yellow b\">{$a}</span>，{$b}</li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，本局游戏为<span class=\"yellow b\">{$a}</span>，{$b}{$c}{$d}{$e}</li>";
 		
 		return "<li>$time,$news,$a,$b,$c,$d<br>\n";
 	}

@@ -408,17 +408,20 @@ namespace searchmemory
 	
 	//探物姿态自动回避已经探到的角色，其他姿态不变
 	//在从数据库获取角色时就把记忆里已有的过滤掉
-	function discover_player_filter($edata){
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		//先初始化两个数组
-		eval(import_module('player','searchmemory'));
-		if(empty($searchmemory_now_pids)) $searchmemory_now_pids = get_searchmemory_now_ids('pid');
-		if(3 == $pose && in_array($edata['pid'], $searchmemory_now_pids)) {
-			//echo '搜寻到id:'.$edata['pid'].'名称:'.$edata['name'].'已回避<br>';
-			return false;
-		}
-		return $chprocess($edata);
-	}
+	
+	//暂时取消这个功能
+	
+//	function discover_player_filter($edata){
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		//先初始化两个数组
+//		eval(import_module('player','searchmemory'));
+//		if(empty($searchmemory_now_pids)) $searchmemory_now_pids = get_searchmemory_now_ids('pid');
+//		if(3 == $pose && in_array($edata['pid'], $searchmemory_now_pids)) {
+//			//echo '搜寻到id:'.$edata['pid'].'名称:'.$edata['name'].'已回避<br>';
+//			return false;
+//		}
+//		return $chprocess($edata);
+//	}
 	
 //	function findenemy(&$edata){
 //		if (eval(__MAGIC__)) return $___RET_VALUE;

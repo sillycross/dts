@@ -352,10 +352,11 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 				{
 					$groupnum = room_get_vars($roomdata,'group-num');
 					$newsarr = array();
+					//组队模式玩家情况的字符串较长，放$e
 					for($gi=0;$gi<$groupnum;$gi++){
 						$newsarr[] = '<span style="color:'.(room_get_vars($roomdata, 'color')[$gi*5]).'">'.(room_get_vars($roomdata, 'teamID')[$gi*5]).'&nbsp;'.room_getteamhtml($roomdata,$gi*5).'</span>';
 					}
-					addnews($now,'roominfo',room_get_vars($roomdata, 'name'),'对决者:&nbsp;'.implode('&nbsp;<span class="yellow b">VS</span>&nbsp;', $newsarr).'！');
+					addnews($now,'roominfo',room_get_vars($roomdata, 'name'),'对决者:&nbsp;','','',implode('&nbsp;<span class="yellow b">VS</span>&nbsp;', $newsarr).'！');
 				}
 				else if ($roomdata['roomtype']==5)	//单人挑战
 				{	
