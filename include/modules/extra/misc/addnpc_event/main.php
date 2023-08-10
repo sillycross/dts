@@ -10,7 +10,7 @@ namespace addnpc_event
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess($pa, $pd, $active);		
 		eval(import_module('sys','gameflow_combo'));
-		if ( in_array($gametype, array(0, 4, 18)) && $pd['type'] && $pd['hp'] <= 0 && $deathnum > $combonum)
+		if ( in_array($gametype, array(0, 4, 6, 18)) && $pd['type'] && $pd['hp'] <= 0 && $deathnum > $combonum)
 		{
 			$pdpid = $pd['pid'];
 			//条件1：没有其他存活NPC
