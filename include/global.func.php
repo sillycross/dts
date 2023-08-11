@@ -105,7 +105,7 @@ function global_shutdown_function(){
 }
 
 //循环判断锁是否存在，如果存在则挂起10毫秒之后继续判定，直到时间耗尽，起到阻塞作用
-//返回true表示锁存在，false表示锁不存在
+//返回true表示锁存在，false表示锁不存在或者超时
 //如果加了$timeout，会阻塞到时间耗尽或者锁释放为止。$timeout时间是毫秒
 //如果加了$key，会检测锁文件内容，如果跟$key对应，则认为锁不存在
 function check_lock($dirname, $filename, $timeout=0, $key='')

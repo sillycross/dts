@@ -38,7 +38,7 @@ CREATE TABLE `bra_roomlisteners` (
   `timestamp` int(10) unsigned NOT NULL DEFAULT '0',
   `roomid` int(10) unsigned NOT NULL DEFAULT '0',
   `uniqid` char(35) NOT NULL DEFAULT ''
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `bra_messages`
@@ -59,7 +59,7 @@ CREATE TABLE `bra_messages` (
   INDEX `RECEIVER` (`receiver`),
   INDEX `SENDER` (`sender`)
   
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `bra_del_messages`
@@ -81,7 +81,7 @@ CREATE TABLE `bra_del_messages` (
   INDEX `RECEIVER` (`receiver`),
   INDEX `SENDER` (`sender`)
   
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `bra_users`
