@@ -14,12 +14,21 @@ $card_need_charge_gtype = Array(2,4);//18,19
 $card_cooldown_discount_gtype = Array();//18=>0.5,19=>0.5
 
 $cardtypecd=array(//卡片类别CD，单位秒
-	'S' => 43200,
-	'A' => 7200,
-	'B' => 3600,
+	'S' => 7200,//S卡类别CD：2小时
+	'A' => 3600,//A卡类别CD：1小时
+	'B' => 1800,//A卡类别CD：半小时
 	'C' => 0,
 	'M' => 0
 );
+
+$card_recrate_base=array(//单卡CD基础时间，单位秒
+	'S' => 7200,
+	'A' => 3600,
+	'B' => 1800,
+	'C' => 0,
+	'M' => 0
+);
+
 $packlist=array(
 	'Standard Pack',
 	'Crimson Swear',
@@ -807,8 +816,8 @@ $cards = array(
 		)
 	),
 	39 => array(
-		'name' => '『红暮（Crimson）』',
-		'title' => '『红暮』',
+		'name' => '『红暮』',
+		'ruby' => 'Crimson',
 		'rare' => 'S',
 		'pack' => 'Crimson Swear',
 		'desc' => '英姿飒爽的年轻女性。<br>表面上是城内世家的千金，以及湾城最大的实业『金龙通讯社』的CEO，<br>实际是佣兵组织『红杀』的现任当家',
@@ -822,8 +831,8 @@ $cards = array(
 		)
 	),
 	40 => array(
-		'name' => '『蓝凝（Azure）』',
-		'title' => '『蓝凝』',
+		'name' => '『蓝凝』',
+		'ruby' => 'Azure',
 		'rare' => 'S',
 		'pack' => 'Crimson Swear',
 		'desc' => '<span class="ltazure b">“蓝凝我觉得啊，<br>这个地方没什么好写的。<br>总之我比红暮可强得多了，<br>哈哈哈！”</span>',
@@ -845,8 +854,8 @@ $cards = array(
 		)
 	),
 	41 => array(
-		'name' => '『丁香（Lila）』',
-		'title' => '『丁香』',
+		'name' => '『丁香』',
+		'ruby' => 'Lila',
 		'rare' => 'S',
 		'pack' => 'Crimson Swear',
 		'desc' => '芙蓉的妹妹，现年初二，<br>在一般的平民初中就读。是学校演剧部的部长，也备有无数的戏服用品。<br>爱好是写剧本和读其他人的剧本',
@@ -873,8 +882,8 @@ $cards = array(
 		)
 	),
 	43 => array(
-		'name' => '『飞龙（Wyvern）』',
-		'title' => '『飞龙』',
+		'name' => '『飞龙』',
+		'ruby' => 'Wyvern',
 		'rare' => 'A',
 		'pack' => 'Crimson Swear',
 		'desc' => '红暮和蓝凝的爷爷。<br>前代红杀将军。<br>在二人的父亲『幻铁』行踪不明后，抚养二人长大。目前隐居在城外的乡村中卖中药为生。',
@@ -887,8 +896,8 @@ $cards = array(
 		)
 	),
 	44 => array(
-		'name' => '『翼虎（Manticore）』',
-		'title' => '『翼虎』',
+		'name' => '『翼虎』',
+		'ruby' => 'Manticore',
 		'rare' => 'A',
 		'pack' => 'Crimson Swear',
 		'desc' => '『飞龙』的好友。<br>前代红杀菁英。<br>据说只要他的盾还在身上，<br>没什么东西能伤得了他。<br>目前他的盾由红暮收藏，他自己则在飞龙之前就已经退役了。',
@@ -901,8 +910,8 @@ $cards = array(
 		)
 	),
 	45 => array(
-		'name' => '『铁城（Rook）』',
-		'title' => '『铁城』',
+		'name' => '『铁城』',
+		'ruby' => 'Rook',
 		'rare' => 'A',
 		'pack' => 'Crimson Swear',
 		'desc' => '红杀的拳脚教头',
@@ -915,8 +924,8 @@ $cards = array(
 		)
 	),
 	46 => array(
-		'name' => '『灵翼（Bishop）』',
-		'title' => '『灵翼』',
+		'name' => '『灵翼』',
+		'ruby' => 'Bishop',
 		'rare' => 'A',
 		'pack' => 'Crimson Swear',
 		'desc' => '红杀的火器教头',
@@ -929,8 +938,8 @@ $cards = array(
 		)
 	),
 	47 => array(
-		'name' => '『破石（Knight）』',
-		'title' => '『破石』',
+		'name' => '『破石』',
+		'ruby' => 'Knight',
 		'rare' => 'A',
 		'pack' => 'Crimson Swear',
 		'desc' => '红杀的冷兵器教头',
@@ -943,8 +952,8 @@ $cards = array(
 		)
 	),
 	48 => array(
-		'name' => '『银锤（Pawn）』',
-		'title' => '『银锤』',
+		'name' => '『银锤』',
+		'ruby' => 'Pawn',
 		'rare' => 'A',
 		'pack' => 'Crimson Swear',
 		'desc' => '红杀的爆炸物教头',
@@ -957,8 +966,8 @@ $cards = array(
 		)
 	),
 	49 => array(
-		'name' => '『电返（King）』',
-		'title' => '『电返』',
+		'name' => '『电返』',
+		'ruby' => 'King',
 		'rare' => 'A',
 		'pack' => 'Crimson Swear',
 		'desc' => '红杀的信息技术教头',
@@ -971,8 +980,8 @@ $cards = array(
 		)
 	),
 	50 => array(
-		'name' => '『三步（Queen）』',
-		'title' => '『三步』',
+		'name' => '『三步』',
+		'ruby' => 'Queen',
 		'rare' => 'A',
 		'pack' => 'Crimson Swear',
 		'desc' => '红杀的轻功体能教头',
@@ -1682,8 +1691,8 @@ $cards = array(
 		)
 	),
 	95 => array(
-		'name' => '『冰炎（Rimefire）』',
-		'title' => '『冰炎』',
+		'name' => '『冰炎』',
+		'ruby' => 'Rimefire',
 		'rare' => 'S',
 		'pack' => 'Crimson Swear',
 		'desc' => '可能是家庭暴力的受害者',
@@ -3092,7 +3101,7 @@ $cards = array(
 		'pack' => 'Event Bonus',
 		'desc' => '过去经历一切不明的女骇客，<br>其typing能力就算在糟糕级骇客中也实际强大！',
 		'effect' => '如果你上一次操作在程序执行时没有顺利完成，你获得7点经验和全系熟练，还会给这个游戏的天然呆程序员发一封站内信。',
-		'energy' => 100,
+		'energy' => 10,
 		'valid' => array(
 			'skills' => array(
 				'528' => '0', 
@@ -3353,8 +3362,8 @@ $cards = array(
 		)
 	),
 	208 => array(
-		'name' => '『无我（Absentia）』',
-		'title' => '『无我』',
+		'name' => '『无我』',
+		'ruby' => 'Absentia',
 		'rare' => 'S',
 		'pack' => 'Balefire Rekindle',
 		'desc' => '狂飙最珍视的朋友和最厉害的对手，每次比赛总让狂飙屈居亚军。<br>然而她的时间永远定格在了3年前。<br>狂飙再也没有机会<br>从她那里夺回冠军宝座了。',

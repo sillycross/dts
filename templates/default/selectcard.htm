@@ -129,6 +129,7 @@ cardSearchInit = function()
 					<div style="display:inline-block; width:10px;">
 					<!--{eval $row=0; $flag=1; $last=-1;}-->
 					<!--{loop $cardindex $cardrank $t}-->
+					<!--{eval if(!in_array($cardrank, array_keys($cardtypecd))) continue;}-->
 						<!--{loop Array(0,1) $disableValue}-->
 							<!--{if $disableValue<=$showDisableVal}-->
 								<!--{loop $cards $cardid $t}-->

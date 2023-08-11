@@ -120,14 +120,14 @@ namespace attack
 		}
 		//var_dump($pa['dmg_dealt']);
 		$tmp_dmg = $pa['dmg_dealt'];
-		//最终伤害修正阶段，应用对总伤害的特殊修正
-		//最优先：无敌
+		//最终伤害修正阶段，应用对总伤害的特殊修正。后判定的会大于先判定的。
+		//最先：无敌
 		if($pa['dmg_dealt']) apply_total_damage_modifier_invincible($pa,$pd,$active);
-		//第二优先：特殊变化
+		//第二：特殊变化
 		if($pa['dmg_dealt']) apply_total_damage_modifier_special($pa,$pd,$active);
-		//第三优先：伤害限制类
+		//第三：伤害限制类
 		if($pa['dmg_dealt']) apply_total_damage_modifier_limit($pa,$pd,$active);
-		//第四优先：保命类
+		//第四：保命类
 		if($pa['dmg_dealt']) apply_total_damage_modifier_insurance($pa,$pd,$active);
 		//秒杀技，最后判定
 		//成功秒杀则$pa['seckill']会是1

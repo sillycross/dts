@@ -501,7 +501,7 @@ function convert_tm($t, $simple=0)
 	$s3=round(($t%3600)/60);
 	$ret='';
 	if ($s1>0) $ret.=$s1.'天';
-	if($simple) $s2 = round(($t%86400)/3600);
+	if($simple && $s1 > 0 && $s3 > 30) $s2 += 1;//如果$simple，有天数显示（则不显示分钟数），那么如果分钟数大于30则小时数+1
 	if($s2 > 0) $ret.=$s2.'小时';
 	if($s1 <= 0 || !$simple) $ret.=$s3.'分钟';//超过1天，在$simple时不显示详细分钟数
 	return $ret;

@@ -41,48 +41,43 @@ namespace cardbase
 		 * 返回 Array ('S'=>..,'A'=>..,'B'=>..,'C'=>0)
 		 */
 		/*
-		 * 新规：S卡CD时间大约在1-3天
-		 * A卡CD时间大约在半天-1天
-		 * B卡CD时间大约为几小时
+		 * 新规：S卡CD时间为2小时-1天
+		 * A卡CD时间大约在1-12小时
+		 * B卡CD时间大约为0.5-6小时
 		 */
 		$ret = Array();
-		//$ret['S']=100.0/7/86400;	//S卡固定基准CD 7天
-		$ret['C']=0;			//C卡不受能量制影响
-		$ret['M']=0;			//M卡更不受能量制影响
-		$cnt=Array(); $cnt['S']=0; $cnt['A']=0; $cnt['B']=0;
-		//计算S卡、A卡、B卡的数目
+		
+		$cnt=Array();
+		$cnt['S']=$cnt['A']=$cnt['B']=0;
+		//计算玩家拥有的能抽到的S卡、A卡、B卡的总数目
+		//$cardlist仅包含玩家拥有卡片的编号
 		foreach ($cardlist as $key)
 		{
-			if ($cards[$key]['rare']=='S') $cnt['S']++;
-			if ($cards[$key]['rare']=='A') $cnt['A']++;
-			if ($cards[$key]['rare']=='B') $cnt['B']++;
+			$vrare = $cards[$key]['rare'];
+			if('S' == $vrare || 'A' == $vrare || 'B' == $vrare) {
+				if(in_array($key, $cardindex[$vrare]))//只计算能抽到的卡，不计算奖励卡
+					$cnt[$vrare]++;
+			}
 		}
-		//估算现有切糕对卡片数量的影响，也即还可抽出多少张新卡
-//		$bcost = Array('S'=> 90/0.01, 'A' => 90/0.05, 'B'=>90/0.2);
-//		foreach (Array('S','A','B') as $ty)
-//		{
-//			$z=$qiegao;
-//			$all=count($cardindex[$ty]);
-//			while ($cnt[$ty]<$all && $z>$bcost[$ty]*$all/($all-$cnt[$ty]))
-//			{
-//				$z-=$bcost[$ty]*$all/($all-$cnt[$ty]);
-//				$cnt[$ty]++;
-//			}
-//		}
 		
-		$tbase = Array('S' => 86400.0, 'A' => 28800.0, 'B' => 3600.0);
+		//计算所有能抽到的S、A、B卡的总数目
+		$ttl['S'] = sizeof($cardindex['S']);
+		$ttl['A'] = sizeof($cardindex['A']);
+		$ttl['B'] = sizeof($cardindex['B']);
+		
+		$tbase = $card_recrate_base;//基础值在card.config.php定义
+		
 		foreach (Array('S','A','B') as $ty)
 		{
-			//卡片数目开根号
-			$z = round(sqrt($cnt[$ty]));
-			if($z<1) $z = 1;
-//			$z=$cnt[$ty]/2;
-//			if ($cnt[$ty]<=6) $z=$cnt[$ty]*2/3; 
-//			if ($cnt[$ty]<=3) $z=2; 
+			//如果玩家只有1张该类别的卡那么CD膨胀系数是1；如果抽满了该类别的卡那么CD膨胀系数是12；
+			//file_put_contents('a.txt', $cnt[$ty].' '.$ttl[$ty]);
+			$fct = max(0, min(1, $cnt[$ty] / $ttl[$ty])); //计算玩家拥有卡片占该类可抽到卡片的比例，最小0最大1
+			$rate = pow($fct,2) * 11 + 1;//通过二次函数计算膨胀系数，最小1最大12
 			
-			$tbase[$ty]*=$z;
-			$ret[$ty]=100.0/$tbase[$ty];
+			$ret[$ty]=100.0/($tbase[$ty]*$rate);
 		}
+		$ret['C']=$ret['M']=0;//C、M卡不需要CD
+		
 		return $ret;
 	}
 		
@@ -98,7 +93,7 @@ namespace cardbase
 			$udata = fetch_udata_by_username($who);
 		}
 		
-		$cardlist = get_user_cards_process($udata);		
+		$cardlist = get_user_cards_process($udata);		//仅包含玩家拥有卡片的编号
 		$energy_recover_rate = get_energy_recover_rate($cardlist, $udata['gold']);
 		
 		$cardenergy=Array();
@@ -621,6 +616,7 @@ namespace cardbase
 			'A' => Array(),
 			'B' => Array(),
 			'C' => Array(),//M卡算C卡
+			'M' => Array(),//占位符
 			'EB' => Array(),//SABC和Event Bonus加一起是可获得的全部卡，注意有些只能事件获得的卡比如篝火，虽然在别的卡包，也算EB
 			'EB_S' => Array(),//奖励卡里区分SABC
 			'EB_A' => Array(),
@@ -689,10 +685,13 @@ namespace cardbase
 		
 		$cgmethod = array();
 		
+		$tmp_cardtypes = array_keys($cardtypecd);
 		//抽卡
 		foreach($cardindex as $ckey => $cval){
-			foreach($cval as $ci)
-				$cgmethod[$ci] = array('通过抽卡获得');
+			if(in_array($ckey, $tmp_cardtypes))	
+				foreach($cval as $ci)
+					$cgmethod[$ci] = array('通过抽卡获得');
+				
 		}
 		//成就
 		if(defined('MOD_ACHIEVEMENT_BASE')){

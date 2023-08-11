@@ -678,5 +678,12 @@ function check_room_available($roomtypedata){
 	return $ret;
 }
 
+//关闭房间，如果不提供$rid则关闭玩家当前所在的房间
+//只有当前存活玩家数为0的时候，房主才能关闭房间
+//
+function room_close_in_game($rid = 0){
+	eval(import_module('sys'));
+}
+
 /* End of file roommng.func.php */
 /* Location: /include/roommng/roommng.func.php */

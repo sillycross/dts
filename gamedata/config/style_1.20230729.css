@@ -387,6 +387,11 @@ div.card_bar div.card_err{
 	height:25px;
 	width:170px;
 }
+div.card_frame_inner rt{
+	font-size:12px; 
+  transform: scale(1);
+  -webkit-transform: scale(1);
+}
 /*==========进度条==========*/
 #progressbar-border
 {

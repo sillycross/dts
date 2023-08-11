@@ -168,7 +168,7 @@ if($urcmd == 'ban' || $urcmd == 'unban' || $urcmd == 'del' || $urcmd == 'sendmes
 	$operlist = $gfaillist = $ffaillist = array();
 	for($i=0;$i<$showlimit;$i++){
 		if(isset(${'user_'.$i})) {
-			if(isset($urdata[$i]) && $urdata[$i]['uid'] == ${'user_'.$i} && $urdata[$i]['groupid'] < $mygroup){
+			if(isset($urdata[$i]) && $urdata[$i]['uid'] == ${'user_'.$i} && $urdata[$i]['groupid'] <= $mygroup){
 				$operlist[${'user_'.$i}] = $urdata[$i]['username'];
 				if($urcmd == 'ban'){
 					$urdata[$i]['groupid'] = 0;

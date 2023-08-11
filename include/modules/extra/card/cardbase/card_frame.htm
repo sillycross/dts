@@ -11,13 +11,13 @@
 			frame_B
 		<!--{/if}-->
 		">
-		
+		<!--{eval $nowcardname = !empty($nowcard['ruby']) ? '<ruby>'.$nowcard['name'].'<rt>'.$nowcard['ruby'].'</rt></ruby>' : $nowcard['name'];}-->
 		<div class="card_frame_middler">
 			<div class="card_frame_inner" style="margin-left:50px;width:187px;height:45px;">
 				<!--{if !empty($nownew)}-->
-					<span id="cname">$nowcard['name']</span>&nbsp;&nbsp;<span class="L5 b">NEW!</span>
+					<span id="cname">$nowcardname</span>&nbsp;&nbsp;<span class="L5 b">NEW!</span>
 				<!--{else}-->
-					<span id="cname">$nowcard['name']</span>
+					<span id="cname">$nowcardname</span>
 				<!--{/if}-->
 			</div>
 			<div class="card_frame_inner" style="height:<!--{if !empty($nowcard['bigdesc']) && empty($lockcard)}-->200px<!--{else}-->140px<!--{/if}-->;margin-top:3px">
