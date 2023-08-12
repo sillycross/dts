@@ -168,7 +168,7 @@ if($urcmd == 'ban' || $urcmd == 'unban' || $urcmd == 'del' || $urcmd == 'sendmes
 	$operlist = $gfaillist = $ffaillist = array();
 	for($i=0;$i<$showlimit;$i++){
 		if(isset(${'user_'.$i})) {
-			if(isset($urdata[$i]) && $urdata[$i]['uid'] == ${'user_'.$i} && $urdata[$i]['groupid'] <= $mygroup){
+			if(isset($urdata[$i]) && $urdata[$i]['uid'] == ${'user_'.$i} && ($urdata[$i]['groupid'] < $mygroup || $urcmd == 'sendmessage')){ //发邮件不需要权限更大
 				$operlist[${'user_'.$i}] = $urdata[$i]['username'];
 				if($urcmd == 'ban'){
 					$urdata[$i]['groupid'] = 0;
@@ -206,7 +206,7 @@ if($urcmd == 'ban' || $urcmd == 'unban' || $urcmd == 'del' || $urcmd == 'sendmes
 				}
 				$opernames = implode(',',($operlist));
 				$cmd_info .= " 给帐户 $opernames 发送了邮件 。<br>";
-				adminlog($urcmd.'ur',$opernames,array($stitle,$scontent,$senclosure));
+				adminlog($urcmd.'ur',$opernames,gencode($stitle,$scontent,$senclosure));
 			}else{
 				$qrywhere = 'uid IN ('.implode(',',array_keys($operlist)).')';
 				$opernames = implode(',',($operlist));

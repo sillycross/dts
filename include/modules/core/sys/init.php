@@ -191,15 +191,12 @@ namespace sys
 			$command=$___LOCAL_INPUT__VARS__command;
 		}
 		
-		//只要登陆就检查一下有没有新站内信，由于就几行，不需要直接include整个messages.func.php
-		$new_messages = 0;
-		if($cuser){
-			$result = $db->query("SELECT mid FROM {$gtablepre}messages WHERE receiver='$cuser' AND rd=0");
-			$new_messages = $db->num_rows($result);
-		}
-		
-	}
-	
+		//只要登陆就检查一下有没有新站内信
+		//messages.func.php现在在common.inc.php里载入
+		if(!empty($cuser)){			
+			$new_messages = message_check_new($cuser);
+		}		
+	}	
 }
 
 ?>

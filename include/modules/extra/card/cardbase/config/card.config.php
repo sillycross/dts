@@ -802,8 +802,8 @@ $cards = array(
 		)
 	),
 	38 => array(
-		'name' => '『芙蓉（Fleur）』',
-		'title' => '『芙蓉』',
+		'name' => '『芙蓉』',
+		'ruby' => 'Fleur',
 		'rare' => 'S',
 		'pack' => 'Crimson Swear',
 		'desc' => '低调行事的年轻女性，<br>红暮的青梅竹马。<br>目前是红暮的影一样的存在。<br>担当红杀组织中并不存在的<br>隐秘行动课程的教头。',

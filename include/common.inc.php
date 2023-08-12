@@ -9,8 +9,8 @@ defined('IN_GAME') || define('IN_GAME', TRUE);
 defined('GAME_ROOT') || define('GAME_ROOT', substr(dirname(__FILE__), 0, -7));
 define('GAMENAME', 'bra');
 
-if(PHP_VERSION < '5.5.0') {
-	exit('PHP version must >= 5.5.0!');
+if(PHP_VERSION < '7.0.0') {
+	exit('PHP version must >= 7.0.0!');
 }
 
 require GAME_ROOT.'./include/global.func.php';
@@ -25,6 +25,7 @@ $magic_quotes_gpc = false;//get_magic_quotes_gpc();
 require GAME_ROOT.'./include/modules/modules.func.php';
 require GAME_ROOT.'./include/user.func.php';
 require GAME_ROOT.'./include/roommng/room.func.php';
+require GAME_ROOT.'./include/messages.func.php';
 
 define('STYLEID', '1');
 define('TEMPLATEID', '1');

@@ -4,14 +4,27 @@ if(!defined('IN_GAME')) {
 	exit('Access Denied');
 }
 
+//判定是邮箱页面还是垃圾箱页面，并拉取对应的站内信数据
 function init_messages($mode){
-	if('showdel' == $mode || 'recover' == $mode) {
+	if('showdel' == $mode || 'recover' == $mode || 'del2' == $mode) {
 		return deleted_message_load();
 	}else{
 		return message_load();
 	}
 }
 
+//判断指定用户有没有新站内信，基本上每次载入页面都需要调用
+//如果没有新站内信则返回0，否则返回新站内信的数目
+function message_check_new($username)
+{
+	global $db,$gtablepre;
+	$result = $db->query("SELECT mid FROM {$gtablepre}messages WHERE receiver='$username' AND rd=0");
+	$num = $db->num_rows($result);
+	return $num;
+}
+
+//创建一封新邮件
+//$to为接收用户名，$title为标题，$content为内容文字，$enclosure为附件（现支持getqeigao_xxx和getcard_xxx两种附件），$from为发件人，$t为时间
 function message_create($to, $title='', $content='', $enclosure='', $from='sys', $t=0)
 {
 	global $now,$db,$gtablepre;
@@ -28,15 +41,7 @@ function message_create($to, $title='', $content='', $enclosure='', $from='sys',
 	$db->array_insert("{$gtablepre}messages", $ins_arr);
 }
 
-//虽然直接放到sys模块里了，但是某些地方需要第二次更新的话，还是需要这个
-function message_check_new($username)
-{
-	global $db,$gtablepre;
-	$result = $db->query("SELECT mid FROM {$gtablepre}messages WHERE receiver='$username' AND rd=0");
-	$num = $db->num_rows($result);
-	return $num;
-}
-
+//载入当前用户有关的全部邮件，如果传入$mid_only则只拉取mid字段（一般是拉取数量用）
 function message_load($mid_only=0)
 {
 	global $udata,$db,$gtablepre;
@@ -50,11 +55,13 @@ function message_load($mid_only=0)
 	return $messages;
 }
 
-function deleted_message_load()
+//载入当前用户相关的垃圾箱邮件
+function deleted_message_load($mid_only=0)
 {
 	global $udata,$db,$gtablepre;
 	$username = $udata['username'];
-	$result = $db->query("SELECT * FROM {$gtablepre}del_messages WHERE receiver='$username' ORDER BY dtimestamp DESC, mid DESC");
+	if($mid_only) $result = $db->query("SELECT mid FROM {$gtablepre}del_messages WHERE receiver='$username' ORDER BY timestamp DESC, mid DESC");
+	else $result = $db->query("SELECT * FROM {$gtablepre}del_messages WHERE receiver='$username' ORDER BY dtimestamp DESC, mid DESC");
 	$d_messages = array();
 	while($r = $db->fetch_array($result)){
 		$d_messages[$r['mid']] = $r;
@@ -62,6 +69,7 @@ function deleted_message_load()
 	return $d_messages;
 }
 
+//获得站内信附件中的数字，$tp为传入的前缀，会匹配并返回"tp_xxx"中的xxx数字
 function message_get_encl_num($encl, $tp)
 {
 	preg_match('/'.$tp.'_(\d+)/s', $encl, $matches);
@@ -69,6 +77,7 @@ function message_get_encl_num($encl, $tp)
 	else return 0;
 }
 
+//显示站内信前的处理
 function message_disp($messages)
 {
 	global $udata;
@@ -114,6 +123,7 @@ function message_disp($messages)
 	return $messages;
 }
 
+//查收站内信，传入的$checklist是包含站内信cid的数组
 function message_check($checklist, $messages)
 {
 	global $udata,$db,$gtablepre,$info;
