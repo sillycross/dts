@@ -77,7 +77,7 @@
 		<!--{/if}-->
 
 	</div>
-	<div class="scroll-pane" style="max-width:1210px;max-height:640px;overflow:hidden;vertical-align:top">
+	<div class="gscroll" style="max-width:1210px;max-height:640px;overflow-x:hidden;overflow-y:auto;vertical-align:top">
 		<!--{if empty($messages)}-->
 		<span class="grey b">一条信息都没有呢</span>
 		<!--{else}-->
@@ -114,5 +114,5 @@
 			<!--{/loop}-->
 		<!--{/if}-->
 	</div>
-	<img type="hidden" style="display:none" src="img/blank.png" onload="jQuery(function() { jQuery('.scroll-pane').jScrollPane(); });">
+	<!--<img type="hidden" style="display:none" src="img/blank.png" onload="jQuery(function() { jQuery('.scroll-pane').jScrollPane(); });">-->
 </div>

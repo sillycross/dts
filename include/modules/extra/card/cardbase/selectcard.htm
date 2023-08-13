@@ -124,7 +124,7 @@ cardSearchInit = function()
 			<!--{eval $packid++;}-->
 			<!--{loop Array(0,1) $showDisableVal}-->
 				<!--{if $showDisableVal<=$hideDisableButton}-->
-				<div id="cardpanel$packid-$showDisableVal" class="cardpanel b3" style="display: <!--{if $packid==$current_pack && $showDisableVal==0}-->block<!--{else}-->none<!--{/if}-->">
+				<div id="cardpanel$packid-$showDisableVal" class="cardpanel gscroll b3" style="display: <!--{if $packid==$current_pack && $showDisableVal==0}-->block<!--{else}-->none<!--{/if}-->">
 					
 					<!--坑爹的html中的空格问题，每个div的close tag只好在生成下一个div时输出了-->
 					<div id="a$packid-$showDisableVal" style="display:inline-block; width:0px;">
