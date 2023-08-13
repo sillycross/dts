@@ -4,7 +4,7 @@ namespace skill79
 {
 	function init() 
 	{
-		define('MOD_SKILL79_INFO','club;locked;');
+		define('MOD_SKILL79_INFO','club;locked;feature;');
 		eval(import_module('clubbase'));
 		$clubskillname[79] = '肌肉';
 		//肌肉的特性显示实际上用的是这个技能

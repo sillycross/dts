@@ -3,9 +3,11 @@
 namespace skill21
 	{
 	$enpcinfo = array
+	( 
+		12 => array
 		( 
-		12 => array( 
-			'Dark Force幼体' => array(
+			'Dark Force幼体' => array
+			(
 				'name' => 'Dark Force',
 				'gd' => 'f',
 				'icon' => 82,		
@@ -65,7 +67,8 @@ namespace skill21
 			)
 		),
 		
-		14 => array(
+		14 => array
+		(
 			'讲解员 梦美' => array
 			(
 				'name' => '战斗模式 梦美',
@@ -77,7 +80,7 @@ namespace skill21
 				'state' => 1,
 				'pose'=> 2,
 				'tactic' => 3,
-				'skills'=>array('401'=>'3','400'=>'5','461'=>'1','462'=>'0'),
+				'skills'=>array('400'=>'5','201'=>array('lvl'=>'5','spent'=>'14')),
 				'mhp' => 6700,
 				'msp' => 500,
 				'att' => 2840,
@@ -131,13 +134,13 @@ namespace skill21
 				'name' => '本气（？） 叶留佳',
 				'gd' => 'f',
 				'icon' => 64,
-				'club' => 4,
+				'club' => 6,
 				'inf' => '',
 				'rage' => 255,
 				'state' => 1,
 				'pose'=> 2,
 				'tactic' => 3,
-				'skills'=>array('401'=>'3','400'=>'5','461'=>'1','462'=>'0'),
+				'skills'=>array('401'=>'3','462'=>'0','251'=>'0','254'=>'0'),
 				'mhp' => 8200,
 				'msp' => 500,
 				'att' => 1717,
@@ -240,7 +243,7 @@ namespace skill21
 //			'itms1' => 1
 //		),
 	
-		'风纪委员 静流' => array
+			'风纪委员 静流' => array
 			(
 				'name' => '守卫者 静流',
 				'gd' => 'f',
@@ -251,7 +254,7 @@ namespace skill21
 				'state' => 1,
 				'pose'=> 2,
 				'tactic' => 3,
-				'skills'=>array('81'=>'0','401'=>'3','400'=>'5','461'=>'1','462'=>'0'),
+				'skills'=>array('81'=>'0','461'=>'1','209'=>'0','206'=>array('forced' => '1'),'217'=>'4'),
 				'mhp' => 4200,
 				'msp' => 500,
 				'att' => 2470,
@@ -308,7 +311,7 @@ namespace skill21
 				'itmk4' => 'WF',
 				'itme4' => 1600,
 				'itms4' => 1000,
-				'itmsk4' => 'Nnp',
+				'itmsk4' => 'Nnypuiew',
 				'itm5' => '对魔物用巨大卵石',
 				'itmk5' => 'WC',
 				'itme5' => 240,

@@ -12,6 +12,7 @@ namespace skill206
 	function acquire206(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		\skillbase\skill_setvalue(206,'forced',0,$pa);
 	}
 	
 	function lost206(&$pa)
@@ -37,7 +38,7 @@ namespace skill206
 	function check_unlocked206(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return (get_gunner_skillpoint_need($pa)<=0);
+		return (get_gunner_skillpoint_need($pa)<=0 || !empty(\skillbase\skill_getvalue(206,'forced',$pa)));
 	}
 	
 	function apply_total_damage_modifier_seckill(&$pa,&$pd,$active){

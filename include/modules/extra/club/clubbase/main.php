@@ -21,10 +21,9 @@ namespace clubbase
 		
 		foreach ($clublist[$clubid]['skills'] as $key){
 			if (defined('MOD_SKILL'.$key)){
-				\skillbase\skill_acquire($key,$pa);
+				\skillbase\skill_acquire($key,$pa,1);//现在称号技能在重复获得时不会覆盖原有技能的数据
 			}
 		}
-			
 	}
 	
 	//因为某些原因失去内定称号，$pa为NULL时代表当前玩家
@@ -384,7 +383,7 @@ namespace clubbase
 	function check_npc_clubskill_load(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('clubbase','logger'));
+		eval(import_module('clubbase'));
 		
 		if (!isset($clublist[$pa['club']]) || !isset($clublist[$pa['club']]['skills']) || count($clublist[$pa['club']]['skills'])==0)
 			return;
@@ -405,18 +404,48 @@ namespace clubbase
 		$chprocess($pa, $pd, $active);
 	}
 	
+	//显示NPC技能页，目前会显示能生效的称号技能，但是屏蔽生命、攻防、治愈、所有战斗技和不能生效的称号技能
 	function get_npcskillpage($pn)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('player','clubbase'));
+		eval(import_module('player','skillbase','clubbase'));
 		$___TEMP_inclist = Array();
 		$who = $pn;
-		foreach (\skillbase\get_acquired_skill_array($pn) as $key) 
-			if (defined('MOD_SKILL'.$key.'_INFO') && !\skillbase\check_skill_info($key, 'achievement') 
-			&& !\skillbase\check_skill_info($key, 'hidden') && (!$pn['club'] || !in_array($key, $clublist[$pn['club']]['skills']))) {
-				array_push($___TEMP_inclist,template(constant('MOD_SKILL'.$key.'_DESC'))); 
+		foreach (\skillbase\get_acquired_skill_array($pn) as $key) {
+			//第一层，屏蔽成就、战斗技、主动技、限制技、隐藏技能、除天赋亡灵之外的称号特性
+			if (defined('MOD_SKILL'.$key.'_INFO') && !\skillbase\check_skill_info($key, 'achievement') && !\skillbase\check_skill_info($key, 'battle') 
+				&& !\skillbase\check_skill_info($key, 'active') && !\skillbase\check_skill_info($key, 'limited') 
+				&& !\skillbase\check_skill_info($key, 'hidden') && (!\skillbase\check_skill_info($key, 'feature') || $key == 58 || $key == 70)) 
+			{
+				//第二层，屏蔽未解锁的技能、需要升级但是0级的技能，以及10、11、12、233、252号技能（生命、攻防、治愈、网瘾、天眼）
+				$check_unlocked_func = 'skill'.$key.'\\check_unlocked'.$key;
+				if(!in_array($key, Array(10,11,12,252)) && (!\skillbase\check_skill_info($key, 'upgrade') || !empty(\skillbase\skill_getvalue($key, 'lvl', $pn))) 
+					&& function_exists($check_unlocked_func) && $check_unlocked_func($pn)){
+					array_push($___TEMP_inclist,template(constant('MOD_SKILL'.$key.'_DESC'))); 
+				}
 			}
+		}
+		sort($___TEMP_inclist);
+		//file_put_contents('a.txt', var_export($pn,1));
+		//为了显示正确的技能等级，在显示前移花接木一下
+		//$sdata的替换，这一步只是换容器，不会影响传引用
+		$o_sdata = $sdata;
+		$sdata = $pn;
+		//$parameter_list的替换
+		$o_parameter_list = $parameter_list;
+		$parameter_list = $pn['parameter_list'];
+		//熟练度的生成，这里主要是方便帮助列表的显示
+		if(isset($sdata['skill'])) {
+			$wsarr = Array('wp','wk','wg','wc','wd','wf');
+			foreach($wsarr as $wsv) {
+				if(is_array($sdata['skill'])) $sdata[$wsv] = $sdata['skill'][$wsv];
+				else $sdata[$wsv] = $sdata['skill'];
+			}
+		}		
 		foreach ($___TEMP_inclist as $___TEMP_template_name) include $___TEMP_template_name;
+		//切换回去
+		$parameter_list = $o_parameter_list;
+		$sdata = $o_sdata;
 	}
 	
 	//-1 技能不存在 0 解锁 1 等级不够 2 存在互斥技能且尚未选择 4 互斥技能解锁

@@ -1188,11 +1188,10 @@ NPC不会被禁区杀死。此外，多数NPC也会自动回避禁区。<br>
 各个称号的特性与技能请参见下表：</p>
 <BR>
 
-<!--{eval eval(import_module('clubbase'));$tmp_clublist=Array(1,2,3,4,5,9,6,7,8,10,11,13,14,18,19,20,21,24);}-->
+<!--{eval eval(import_module('skillbase','clubbase'));$tmp_clublist=Array(1,2,3,4,5,9,6,7,8,10,11,13,14,18,19,20,21,24);}-->
 <!--{loop $tmp_clublist $nowclub}-->
-	<!--{eval $sdata = \player\create_dummy_playerdata();\clubbase\club_acquire($nowclub);}-->
+	<!--{eval $sdata = \player\create_dummy_playerdata();\clubbase\club_acquire($nowclub, $sdata);$acquired_list = $sdata['acquired_list'];$parameter_list=$sdata['parameter_list'];}-->
 	{template MOD_CLUBBASE_SKILLPAGE}
-	<!--{eval \clubbase\club_lost();}-->
 <!--{/loop}-->
 	
 

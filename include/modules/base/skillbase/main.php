@@ -200,22 +200,35 @@ namespace skillbase
 		$chprocess($data);
 	}
 	
-	function skill_acquire($skillid, &$pa = NULL)
+	//获得技能。$skillid为技能编号，$pa为传入的角色数据（如果留空则会调用$sdata即当前玩家）
+	//$no_cover如果为真则在重复获得技能时不会再次执行acquirexxx()（一般用来获得一些参数）
+	function skill_acquire($skillid, &$pa = NULL, $no_cover=0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player','skillbase'));
 		$skillid=(int)$skillid;
-		if ($pa == NULL || $pa['pid']==$pid)
+		$already = 1;
+		if ($pa == NULL || (!empty($pa['pid']) && $pa['pid']==$pid))//当前玩家
 		{
-			if ($pa == NULL) { \player\update_sdata(); $pa=$sdata; }
-			$acquired_list[$skillid]=1;
+			if ($pa == NULL) {
+				\player\update_sdata();
+				$pa=$sdata;
+			}
+			if(empty($acquired_list[$skillid])) {
+				$already = 0;
+				$acquired_list[$skillid]=1;
+			}			
 		}
 		else
 		{
-			$pa['acquired_list'][$skillid]=1;
+			if(empty($pa['acquired_list'][$skillid])) {
+				$already = 0;
+				$pa['acquired_list'][$skillid]=1;
+			}
 		}
 		$func='skill'.$skillid.'\\acquire'.$skillid;
-		if (defined('MOD_SKILL'.$skillid)) $func($pa);
+		//称号技能重复获得时不会再次触发acquirexxx()
+		if (defined('MOD_SKILL'.$skillid) && !($already && $no_cover)) $func($pa);
 	}
 	
 	function skill_lost($skillid, &$pa = NULL)

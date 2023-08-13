@@ -25,12 +25,12 @@ namespace skill461
 		return 1;
 	}
 	
-	function skill_acquire($skillid, &$pa = NULL)	//阻止角色获得带有debuff标签的技能
+	function skill_acquire($skillid, &$pa = NULL, $no_cover=0)	//阻止角色获得带有debuff标签的技能
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (\skillbase\check_skill_info($skillid,'debuff') && \skillbase\skill_query(461,$pa)) 
 				return;
-		return $chprocess($skillid,$pa);
+		return $chprocess($skillid,$pa,$no_cover);
 	}
 	
 	function assault_finish(&$pa, &$pd, $active)

@@ -38,7 +38,7 @@
 <p><span class="lime b">全息幻象NPC简介</span>：</p>
 全息幻象虽然比杂兵更难以击倒，但也掉落<span class="lime b">更多的金钱</span>以及<span class="lime b">各系优秀的武器或强化道具</span>。
 <br>借助<span class="lime b">探测器、进行状况，甚至记忆</span>来找到全息幻象的位置并尽快击倒，往往是<span class="yellow b">拉开玩家差距、建立优势乃至取得最终胜利的关键</span>。
-<br>此外，{$gtinfo[18]}拥有特殊的全息幻象NPC。<input class="bigbutton" onclick="bubblebox_show('i8_npc');" value="点击这里查看" type="button"><br>
+<br>此外，把同名的全息幻象击倒后，会有对应的<span class="yellow b">全息实体</span>加入战场。<input class="bigbutton" onclick="bubblebox_show('i8_npc');" value="点击这里查看" type="button"><br>
 <br>
 <!--{loop Array(2) $key}-->
 <!--{eval \npcinfo\npcinfo_get_npc_description_all($key);}-->
@@ -48,12 +48,9 @@
 
 <!--{eval \bubblebox\bubblebox_set_style('id:i8_npc;height:560;width:772;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:10px;');}-->
 {template MOD_BUBBLEBOX_START}
-<p><span class="lime b">{$gtinfo[18]} 全息幻象NPC简介</span>：</p>
-<p>{$gtinfo[18]}拥有特殊的全息幻象NPC。他们比标准模式的NPC强度更高，且<span class="yellow b">具有独特的技能</span>，虽然对玩家一般不会有什么威胁，但<span class="yellow b">击杀难度也稍大</span>。</p>
+<p><span class="lime b">{$gtinfo[18]} 全息实体NPC简介</span>：</p>
+<p>全息实体比全息幻象的强度更高且<span class="yellow b">具有独特的技能</span>，对玩家具有一定的威胁性，<span class="yellow b">击杀难度也稍大</span>。</p>
 <br>
-<!--{loop Array(2) $key}-->
-<!--{eval \npcinfo\npcinfo_get_npc_description_all($key, $npcinfo_instance8);}-->
-<!--{/loop}-->
 <!--{loop Array(46) $key}-->
 <!--{eval \npcinfo\npcinfo_get_npc_description_all($key, $anpcinfo);}-->
 <!--{/loop}-->
@@ -92,7 +89,7 @@
 <p>女主的第二形态实力强大，无准备的情况下遭遇她们<span class="yellow b">有性命之忧！</span>不过，击倒她们也是<span class="lime b">特殊胜利</span>的必经之路。</p>
 <br>
 <!--{loop Array(14) $key}-->
-<!--{eval \npcinfo\npcinfo_get_npc_description_all($key, $enpcinfo_show);}-->
+<!--{eval $enpcinfo_show['enpcflag']=1;\npcinfo\npcinfo_get_npc_description_all($key, $enpcinfo_show);}-->
 <!--{/loop}-->
 <br> 
 {template MOD_BUBBLEBOX_END}
