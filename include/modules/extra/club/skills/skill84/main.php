@@ -1,7 +1,7 @@
 <?php
 
 namespace skill84
-{	
+{		
 	function init() 
 	{
 		define('MOD_SKILL84_INFO','club;hidden;debuff;');
@@ -19,7 +19,7 @@ namespace skill84
 	
 	function check_skill84_state(&$pa){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','skill84'));
+		eval(import_module('sys','player'));
 		if (!\skillbase\skill_query(84,$pa)) return 0;
 		$e=\skillbase\skill_getvalue(84,'end',$pa);
 		if ($now<$e) return 1;
@@ -77,6 +77,47 @@ namespace skill84
 			\bufficons\bufficon_show('img/skill84.gif',$z);
 		}
 		$chprocess();
+	}
+	
+	//避难所探测器不显示特殊指令页面（就是有返回按钮的那个页面）
+	function check_include_radar_cmdpage($radarsk = 0){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(5 == $radarsk) return false;
+		return $chprocess($radarsk);
+	}
+	
+	//使用雷达后的事件。现在避难所生命探测器是在这里实现
+	function post_radar_event($radarsk = 0){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($radarsk);
+		if(5 == $radarsk) {
+			eval(import_module('sys','player', 'logger'));
+			//如果没有获得84号技能，则获得之
+			if(!\skillbase\skill_query(84)) {
+				\skillbase\skill_acquire(84);
+			}
+			if(!\skill84\check_skill84_state($sdata)) {
+				\skillbase\skill_setvalue(84,'start',$now);
+				\skillbase\skill_setvalue(84,'end',$now+\skill84\get_skill84_time($sdata));
+			}
+			$remtime = \skillbase\skill_getvalue(84,'end') - $now;
+			$log .= '在<span class="lime b">'.$remtime.'秒</span>内你可以无消耗使用避难所生命探测器，且你的<span class="lime b">先制率+'.round(\skill84\get_skill84_effect($sdata)*100-100).'%</span>。<br><br>';
+
+		}
+		return $ret;
+	}
+	
+	//避难所生命探测器开启中不需要消耗电力
+	function item_radar_reduce(&$theitem)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player'));
+		
+		if(5 == $theitem['itmsk'] && check_skill84_state($sdata)){
+			return false;
+		}
+		
+		return $chprocess($theitem);
 	}
 }
 

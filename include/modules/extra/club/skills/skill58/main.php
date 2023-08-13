@@ -77,13 +77,13 @@ namespace skill58
 		
 		$ret = $chprocess($pa,$pd);
 		
-		eval(import_module('sys','logger'));
+		eval(import_module('sys','logger','trap'));
 		
 		if(!empty($pd['skill58_flag'])){
 			if ($pd['o_state']==27)	//陷阱
 			{
 				$log.= "<span class=\"lime b\">但是，由于你及时按下了BOMB键，你原地满血复活了！</span><br>";
-				if(!$pd['sourceless']){
+				if(!$pd['sourceless'] && !$selflag){//自杀不提示
 					$w_log = "<span class=\"lime b\">但是，由于{$pd['name']}及时按下了BOMB键，其原地满血复活了！</span><br>";
 					\logger\logsave ( $pa['pid'], $now, $w_log ,'b');
 				}
