@@ -16,6 +16,13 @@ namespace gameflow_combo
 		//save_gameinfo();//已改到外侧
 	}
 	
+	//判定当前是否已经连斗。有大量没有使用这个函数的判定，遇到再慢慢改吧
+	function is_gamestate_combo(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		return $gamestate >= 40;
+	}
+	
 	function checkcombo($time = 0){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','gameflow_combo'));
@@ -95,8 +102,7 @@ namespace gameflow_combo
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($edata);
-		eval(import_module('sys'));
-		if ($gamestate >= 40) 
+		if (is_gamestate_combo()) 
 			$ret = false;	
 		return $ret;
 	}
@@ -112,8 +118,7 @@ namespace gameflow_combo
 	function calculate_meetman_rate($schmode)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys'));
-		if($gamestate >= 40) //连斗以后遇敌率上升
+		if(is_gamestate_combo()) //连斗以后遇敌率上升
 		{
 			if ($schmode == 'search') return $chprocess($schmode) + 20;//*1.2;
 			if ($schmode == 'move') return $chprocess($schmode) + 10;//*1.1;
@@ -127,7 +132,7 @@ namespace gameflow_combo
 		eval(import_module('sys','player','logger'));
 		if (defined('MOD_TEAM'))
 		{
-			if($gamestate>=40 && !in_array($gametype,$teamwin_mode)){
+			if(is_gamestate_combo() && !in_array($gametype,$teamwin_mode)){
 				$log .= '<span class="yellow b">连斗阶段无法赠送物品！</span><br>';
 				return false;
 			}
@@ -141,7 +146,7 @@ namespace gameflow_combo
 		eval(import_module('sys','player','logger'));
 		if (defined('MOD_TEAM'))
 		{
-			if($gamestate>=40 && !in_array($gametype,$teamwin_mode)){
+			if(is_gamestate_combo() && !in_array($gametype,$teamwin_mode)){
 				$log .= '<span class="yellow b">连斗阶段所有队伍取消！</span><br>';
 				
 				$mode = 'command';
@@ -156,7 +161,7 @@ namespace gameflow_combo
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
 		if (defined('MOD_TEAM'))
-			if($gamestate >= 40) {
+			if(is_gamestate_combo()) {
 				$log .= '连斗时不能组建队伍。<br>';
 				$mode = 'command';
 				return;
@@ -170,7 +175,7 @@ namespace gameflow_combo
 		eval(import_module('sys','player','logger'));
 		if (defined('MOD_TEAM'))
 		{
-			if($gamestate >= 40) {
+			if(is_gamestate_combo()) {
 				$log .= '连斗时不能加入队伍。<br>';
 				$mode = 'command';
 				return;
@@ -185,7 +190,7 @@ namespace gameflow_combo
 		eval(import_module('sys','player','logger'));
 		if (defined('MOD_TEAM'))
 		{
-			if($gamestate>=40){
+			if(is_gamestate_combo()){
 				$log .= '你不在队伍中。<br>';
 				$mode = 'command';
 			}
@@ -196,19 +201,18 @@ namespace gameflow_combo
 	function check_team_button_exist()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','logger'));
 		if (defined('MOD_TEAM'))
 		{
-			if($gamestate>=40) return 0; else return $chprocess();
+			if(is_gamestate_combo()) return 0; 
+			return $chprocess();
 		}
 	}
 	
 	function calculate_real_trap_obbs()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player'));
 		$r=0;
-		if($gamestate >= 40) $r=2.5;	//连斗以后略容易踩陷阱
+		if(is_gamestate_combo()) $r=2.5;	//连斗以后略容易踩陷阱
 		return $chprocess()+$r;
 	}
 }		

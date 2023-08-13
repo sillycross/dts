@@ -111,11 +111,11 @@ namespace item_slip
 		if(strpos($iname,'提示纸条')===0){
 			eval(import_module('sys','item_slip'));
 			$dice = rand(0,99);
-			if(in_array(substr($iname, strlen($iname)-1), Array('N','I','K','O')) && $dice < 20){//20%概率给mega game提示
+			if(in_array(substr($iname, strlen($iname)-1), Array('N','I','K','O')) && $dice < 20){//20%概率给meta-game提示
 				$metaid = item_slip_set_puzzle($iname);
 				list($istuff,$iresult) = item_slip_get_puzzle($gamevars['metagame']);
 				if(in_array($iname, $istuff)) {
-					$iskind = $metaid;//保证只有在合成表里的纸条才参与合成，不然有可能要找4张纸条……
+					$iskind = $metaid;//保证提示只会写在有参与合成的纸条上，不然有可能要找4张纸条……
 				}
 			}elseif($dice < 50){//纸条50%概率有提示
 				//目前只提示NPC

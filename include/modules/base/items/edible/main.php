@@ -28,11 +28,20 @@ namespace edible
 		
 		eval(import_module('sys','player','itemmain','logger'));
 		$hp+=$hpup; $sp+=$spup;
-		$log .= "你使用了<span class=\"red b\">$itm</span>，恢复了";
-		if ($hpup>0) $log.="<span class=\"yellow b\">$hpup</span>点生命";
-		if ($hpup>0 && $spup>0) $log.='和';
-		if ($spup>0) $log.="<span class=\"yellow b\">$spup</span>点体力";
-		$log.="。<br>";
+		$log .= "你使用了<span class=\"lime b\">$itm</span>";
+		$recoverlog = '';
+		if ($hpup>0) {
+			$recoverlog .= "<span class=\"yellow b\">$hpup</span>点生命";
+			if($spup>0) $recoverlog.='和';
+		}
+		if ($spup>0) {
+			$recoverlog .= "<span class=\"yellow b\">$spup</span>点体力";
+		}
+		if (!empty($recoverlog)) {
+			$log .= '，恢复了'.$recoverlog.'。<br>';
+		}else{
+			$log .= '。这东西味同嚼蜡，吃了跟没吃一样。<br>';
+		}
 	}
 	
 	//获得最大SP值

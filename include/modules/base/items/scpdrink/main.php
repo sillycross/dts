@@ -39,8 +39,6 @@ namespace scpdrink
 			} elseif (strpos($itm, '溶剂SCP-294')===0) {
 			
 				if (defined('MOD_CLUBBASE')) \clubbase\club_lost();
-				$club = 17;
-				if (defined('MOD_CLUBBASE')) \clubbase\club_acquire($club);
 				
 				if($itm == '溶剂SCP-294_PT_Poini_Kune'){
 					$log .= '你考虑了一会，一扬手喝下了杯中中冒着紫色幽光的液体。<br><span class="yellow b">你感到全身就像燃烧起来一样，不禁扪心自问这值得么？</span><br>';
@@ -116,6 +114,8 @@ namespace scpdrink
 					\player\load_playerdata($sdata);
 				} else {
 					addnews ( $now, 'notworthit', $name );
+					$club = 17;
+					if (defined('MOD_CLUBBASE')) \clubbase\club_acquire($club);
 				}
 				\itemmain\itms_reduce($theitem);
 				return;

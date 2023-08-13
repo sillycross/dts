@@ -23,6 +23,13 @@ namespace gameflow_duel
 			return 50;
 		}	
 	}
+	
+	//判定当前是否已经死斗。有大量没有使用这个函数的判定，遇到再慢慢改吧
+	function is_gamestate_duel(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		return $gamestate >= 50;
+	}
 
 	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{
@@ -50,8 +57,7 @@ namespace gameflow_duel
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($edata);
-		eval(import_module('sys'));
-		if ($edata['type']>0 && $gamestate >= 50) 
+		if ($edata['type']>0 && is_gamestate_duel()) 
 			$ret = false;	
 		return $ret;
 	}
@@ -59,8 +65,7 @@ namespace gameflow_duel
 	function calculate_meetman_rate($schmode)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys'));
-		if($gamestate >= 50) //死斗以后遇敌率上升
+		if(is_gamestate_duel()) //死斗以后遇敌率上升
 		{
 			if ($schmode == 'search') return $chprocess($schmode) + 10;//*1.1;
 			if ($schmode == 'move') return $chprocess($schmode) + 5;//*1.05;
