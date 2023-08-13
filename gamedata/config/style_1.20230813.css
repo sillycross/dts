@@ -330,6 +330,15 @@ div.skilllearn_desc_container{
 {
 	filter:alpha(opacity=0.55); -moz-opacity:0.55;opacity: 0.55;
 }
+div.cardpanel
+{
+	position:absolute; white-space:nowrap;
+	left:0px; top:0px; 
+	padding:10px;
+	height:310px; width:710px; 
+	text-align:left; 
+	overflow-x:auto; overflow-y:hidden;
+}
 div.cardpack_bar{
 	position:relative;
 	height:40px;

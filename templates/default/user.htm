@@ -21,10 +21,13 @@
 		{template useradvdata}
 		</div>
 		</div>
+		<!--{if defined('MOD_CARDBASE')}-->
 		<!--{eval $hideDisableButton=0; $showCardUnavailableHint=0;}-->
-		<span class ="yellow b">身份卡选择</span><br>
-		<div style="height:3px">&nbsp;</div>
-		{template selectcard}
+			<span class ="yellow b">身份卡选择</span><br>
+			<div style="height:3px">&nbsp;</div>
+		
+			{template MOD_CARDBASE_SELECTCARD}
+		<!--{/if}-->
 		<div id="postdata">
 			<br />
 			<input type="submit" class="b_button bc_black" id="post" onClick="$('newCardChoice').value=chosen_card_id; postCmd('userdata','user.php');return false;" value="{lang submit}">

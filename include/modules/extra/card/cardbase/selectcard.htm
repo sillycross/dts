@@ -101,8 +101,8 @@ cardSearchInit = function()
 	<div style="display:inline-block;width:90px" id="cardsearch_feedback" class="yellow">
 	</div>
 </div>
-<div style="height:320px; width:1125px; margin:auto">
-<div style="display:inline-block; height:320px; width:160px; vertical-align:top;">
+<div style="height:330px; width:1200px; margin:auto">
+<div style="display:inline-block; height:330px; width:160px; vertical-align:top;">
 	<div style="height:10px;"></div>
 	<!--{eval $packid=-1;}-->
 	<!--{loop $packlist $cardpack}-->
@@ -116,17 +116,18 @@ cardSearchInit = function()
 			</div>
 		</div>
 	<!--{/loop}-->
-</div><div style="display:inline-block; height:320px; width:710px;">
-	<div style="position: relative; height:320px; width:710px;"> 
+</div>
+<div style="display:inline-block; height:330px; width:710px;">
+	<div id="selectcard_middle" style="position: relative; height:330px; width:710px;"> 
 		<!--{eval $packid=-1;}-->
 		<!--{loop $packlist $cardpack}-->
 			<!--{eval $packid++;}-->
 			<!--{loop Array(0,1) $showDisableVal}-->
 				<!--{if $showDisableVal<=$hideDisableButton}-->
-				<div id="cardpanel$packid-$showDisableVal" class="b3" style="position:absolute; left:0px; top:0px; height:320px; width:710px; text-align:left; display: <!--{if $packid==$current_pack && $showDisableVal==0}-->block<!--{else}-->none<!--{/if}-->">
-					<div style="height:10px;"></div>
+				<div id="cardpanel$packid-$showDisableVal" class="cardpanel b3" style="display: <!--{if $packid==$current_pack && $showDisableVal==0}-->block<!--{else}-->none<!--{/if}-->">
+					
 					<!--坑爹的html中的空格问题，每个div的close tag只好在生成下一个div时输出了-->
-					<div style="display:inline-block; width:10px;">
+					<div id="a$packid-$showDisableVal" style="display:inline-block; width:0px;">
 					<!--{eval $row=0; $flag=1; $last=-1;}-->
 					<!--{loop $cardindex $cardrank $t}-->
 					<!--{eval if(!in_array($cardrank, array_keys($cardtypecd))) continue;}-->
@@ -188,7 +189,7 @@ cardSearchInit = function()
 		<!--{/if}-->
 	</div>
 </div>
-<div style="display:inline-block; height:320px; width:240px; vertical-align:top;">
+<div style="display:inline-block; height:330px; width:240px; vertical-align:top; margin-left:30px">
 	<div style="height:30px;">
 		<span class="yellow b" style="line-height:30px">当前被选择的卡片</span>
 	</div>

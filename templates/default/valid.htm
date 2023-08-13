@@ -26,11 +26,10 @@
 			<input type="hidden" id="cardChosen" name="card" value="$cardChosen"> 
 			<span class ="yellow b">选择一张身份卡</span><br>
 			<div style="height:3px">&nbsp;</div>
-			{template selectcard}
+			<!--{if defined('MOD_CARDBASE')}-->
+				{template MOD_CARDBASE_SELECTCARD}
+			<!--{/if}-->
 			</center>
-			<!--{if $stime>$now}--><span class="orange">{$std}开始才可再使用S级身份卡</span><br><!--{/if}-->
-			<!--{if $atime>$now}--><span class="linen b">{$atd}开始才可再使用A级身份卡</span><br><!--{/if}-->
-			<!--{if $btime>$now}--><span class="brickred">{$btd}开始才可再使用B级身份卡</span><br><!--{/if}-->
 			<br />
 			<input type="submit" class="b_button bc_black" onClick="$('cardChosen').value=chosen_card_id;" value="{lang submit}">
 			<input type="reset" class="b_button bc_black" value="{lang reset}">
