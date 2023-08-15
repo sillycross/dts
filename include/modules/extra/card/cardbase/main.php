@@ -556,6 +556,7 @@ namespace cardbase
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess();
 		eval(import_module('sys','player','cardbase'));
+		//卡片名称显示
 		if($cardname == $cards[$card]['name']) {
 			if(!empty($cards[$card]['title'])) 
 				$uip['cardname_show'] = $cards[$card]['title'];
@@ -563,6 +564,13 @@ namespace cardbase
 				$uip['cardname_show'] = $cards[$card]['name'];
 		}else{
 			$uip['cardname_show'] = $cardname;
+		}
+		//卡片罕贵显示
+		$uip['cardrare_show'] = $card_rarecolor[$cards[$card]['rare']];
+		//卡片本体渲染
+		if($card && 'hidden' != $cards[$card]['pack']) {//挑战者和隐藏卡就不显示了
+			$uip['cardinfo_show'] = $cards[$card];
+			$uip['card_rarecolor'] = $card_rarecolor;
 		}
 	}
 	
@@ -787,11 +795,11 @@ namespace cardbase
 			$cgmethod[$ci][] = '<font color=grey>完成2017十一活动「极光处刑 LV3」可能获得</font>';
 			$cgmethod[$ci][] = '<font color=grey>完成2017万圣节活动「不给糖就解禁」可能获得</font>';
 		}
-		$cgmethod[200][] = '在「荣耀模式」模式击杀「全息实体 幻影斗将神 S.A.S」后，使用缴获的★锋利的卡牌包★获得（15%概率）';
-		$cgmethod[201][] = '在「荣耀模式」模式击杀「全息实体 熵魔法传人 Howling」后，使用缴获的★长着兽耳的卡牌包★获得（15%概率）';
-		$cgmethod[202][] = '在「荣耀模式」模式击杀「全息实体 通灵冒险家 星海」后，使用缴获的★套了好几层的卡牌包★获得（15%概率）';
-		$cgmethod[203][] = '在「荣耀模式」模式击杀「全息实体 银白愿天使 Annabelle」后，使用缴获的★羽翼卡牌包★获得（15%概率）';
-		$cgmethod[204][] = '在「荣耀模式」模式击杀「全息实体 麻烦妖精 Sophia」后，使用缴获的★蠢萌的卡牌包★获得（15%概率）';
+		$cgmethod[200][] = '击杀「全息实体 幻影斗将神 S.A.S」后，使用缴获的★锋利的卡牌包★获得（15%概率）';
+		$cgmethod[201][] = '击杀「全息实体 熵魔法传人 Howling」后，使用缴获的★长着兽耳的卡牌包★获得（15%概率）';
+		$cgmethod[202][] = '击杀「全息实体 通灵冒险家 星海」后，使用缴获的★套了好几层的卡牌包★获得（15%概率）';
+		$cgmethod[203][] = '击杀「全息实体 银白愿天使 Annabelle」后，使用缴获的★羽翼卡牌包★获得（15%概率）';
+		$cgmethod[204][] = '击杀「全息实体 麻烦妖精 Sophia」后，使用缴获的★蠢萌的卡牌包★获得（15%概率）';
 		$cgmethod[211][] = '击杀场上所有NPC之后，击杀入场的「断罪女神 一一五」，之后使用缴获的★印着「Mind Over Matters」的卡牌包★获得（必定获得）';
 		
 		

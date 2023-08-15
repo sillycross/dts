@@ -32,7 +32,7 @@ namespace npc
 		$npc['endtime'] = $now;
 		$npc['hp'] = $npc['mhp'];
 		$npc['sp'] = $npc['msp'];
-		$npc['ss'] = $npc['mss'];
+		if(!empty($npc['mss'])) $npc['ss'] = $npc['mss'];
 		//经验值是刚好达到这个等级要求的
 		$npc['exp'] = \lvlctl\calc_upexp($npc['lvl'] - 1);
 		//熟练度，如果是整数则六系都是这个数值，如果是有键名的数组则直接merge，懒得作输入检查了，有问题请自行排查
@@ -80,15 +80,18 @@ namespace npc
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		if (!empty($npc['club']) || (!empty($npc['skills']) && is_array($npc['skills']))){
 			$npc['pid'] = -2;//0和-1都会出问题
-			$npc['skills']['460']='0';
+			
 			$npc['nskill'] = $npc['nskillpara'] = '';
 			\skillbase\skillbase_load($npc, 1);
 			
 			//NPC先获得称号技能
 			\clubbase\check_npc_clubskill_load($npc);
 			
-			//再获得特有技能
-			init_npcdata_skills_get_custom($npc);
+			if(!empty($npc['skills']) && is_array($npc['skills'])){
+				$npc['skills']['460']='0';
+				//再获得特有技能
+				init_npcdata_skills_get_custom($npc);
+			}			
 			
 			\skillbase\skillbase_save($npc);
 			unset($npc['pid']);

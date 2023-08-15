@@ -1,0 +1,13 @@
+<span id="cardname_n_name" class="$uip['cardrare_show']" 
+<!--{if !empty($uip['cardinfo_show'])}-->
+onmouseenter="$('cardframe_show').style.display='block';" onmouseleave="$('cardframe_show').style.display='none';" 
+<!--{/if}-->
+>
+	$uip['cardname_show'] $name
+</span> 
+<!--{if !empty($uip['cardinfo_show'])}-->
+<!--{eval $showpack = 1;$nowcard = $uip['cardinfo_show'];$card_rarecolor = $uip['card_rarecolor'];}-->
+<div id="cardframe_show" class="cardframe_show" style="display:none;position:absolute;z-index:30;left:5px;top:20px;">
+	{template MOD_CARDBASE_CARD_FRAME}
+</div>
+<!--{/if}-->

@@ -8,9 +8,13 @@
 				</tr>
 				<tr>
 					<td colspan="3" class="b1">
-						<span>
-							$uip['cardname_show'] $name
+						<!--{if defined('MOD_CARDBASE')}-->
+							{template MOD_CARDBASE_PROFILE_CARDNAME}
+						<!--{else}-->
+						<span id="name">
+							$name
 						</span>
+						<!--{/if}-->						
 					</td>
 					<td colspan="1" class="b1"><span>{$sexinfo[$gd]}{$sNo}号</span></td>
 					<!--{if defined('MOD_WEATHER')}-->

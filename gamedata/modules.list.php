@@ -31,13 +31,13 @@ item_addarea,extra/item_extra/item_addarea/,1
 radar,base/items/radar/,1
 corpse,base/corpse/,1
 trap,base/items/trap/,1
-item_slip,extra/item_extra/item_slip/,1
 itemmix_sync,base/itemmix/itemmix_sync/,1
 enemy,base/enemy/,1
 gameflow_duel,core/gameflow/gameflow_duel/,1
 itemmix_overlay,base/itemmix/itemmix_overlay/,1
 team,base/team/,1
 battle,base/battle/,1
+item_slip,extra/item_extra/item_slip/,1
 gameflow_combo,core/gameflow/gameflow_combo/,1
 advteam,extra/misc/advteam/,1
 attack,base/attack/,1

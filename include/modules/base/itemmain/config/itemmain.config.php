@@ -73,7 +73,7 @@ namespace itemmain
 		//G ex_phy_def 防弹
 		//g ex_gender_attr 同志
 		//H ex_hp_def 控噬（HP制御）
-		//h ex_hp_def 控血（伤害制御）
+		//h ex_hp_def 控伤（伤害制御）
 		//I ex_dmg_def 防冻
 		//i ex_dmg_att 冻气
 		//J itemmix_overlay 超量素材

@@ -326,6 +326,12 @@ div.skilllearn_desc_container{
 	filter:alpha(opacity=95); opacity:0.95; background-color:#000000
 }
 /*==========卡片==========*/
+.cardframe_show div{
+	position:absolute;
+}
+.cardframe_show span{
+	font-weight:normal;
+}
 .lockcard
 {
 	filter:alpha(opacity=0.55); -moz-opacity:0.55;opacity: 0.55;
