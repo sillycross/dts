@@ -41,6 +41,7 @@ namespace skill529
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		$spool = skill529_get_skillpool();
+		gwrite_var('a.txt', $spool);
 		if(!empty($spool)){
 			do{
 				shuffle($spool);
@@ -64,6 +65,20 @@ namespace skill529
 				$spool = array_merge($spool, array_keys($npc['acquired_list']));
 			}
 		}
+		$spool = skill529_skill_filter($spool);
+		return $spool;
+	}
+	
+	//技能池过滤：除去不适合给玩家的技能，主要包括460号占位符、512号幻象技能
+	function skill529_skill_filter($spool){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//eval(import_module('clubbase'));
+		$filter = Array(460,512);
+//		foreach($clublist as $csv){
+//			if(!empty($csv['skills']))
+//				$filter = array_merge($filter, $csv['skills']);
+//		}
+		$spool = array_diff($spool, array_unique($filter));
 		return $spool;
 	}
 	

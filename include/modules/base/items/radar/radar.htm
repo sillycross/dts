@@ -3,14 +3,14 @@
 	<table style="min-width:720px" class="radar">
 		<tr>
 			<td class="b2" width="120px"></td>
-			<!--{loop $radar_npctplist $ni}-->
+			<!--{loop $radar_tplist $ni}-->
 				<td class="b2">{$typeinfo[$ni]}</td>
 			<!--{/loop}-->
 		</tr>
 		<!--{loop $plsinfo $plsi $plsn}-->
 			<tr>
 				<td class="b2">{$plsn}</td>
-				<!--{loop $radar_npctplist $ni}-->
+				<!--{loop $radar_tplist $ni}-->
 					<td class="b3">
 						<!--{if is_array($radardata[$plsi])}-->
 							<span <!--{if $plsi==$pls}-->class="yellow b"<!--{/if}-->>

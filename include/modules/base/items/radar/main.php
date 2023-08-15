@@ -2,7 +2,7 @@
 
 namespace radar
 {
-	global $radardata, $radar_npctplist;
+	global $radardata, $radar_tplist;
 	
 	function init()
 	{
@@ -35,8 +35,9 @@ namespace radar
 		}
 		
 		$existing_npctp = array();
+		$radardata_raw = $radardata = array();
 		//第一轮循环，得到原始的存活角色数据
-		$radardata_raw = array();
+		
 		$result = $db->query("SELECT name,type,pls,hp FROM {$tablepre}players");
 		while($cd = $db->fetch_array($result)) {
 			$cdname = $cd['name']; $cdtype = $cd['type']; $cdpls = $cd['pls']; $cdhp = $cd['hp'];
@@ -51,9 +52,10 @@ namespace radar
 				if(in_array($cdtype, array(0, 2, 5, 7, 11, 14, 20, 21, 22, 45, 46))) $radardata_raw[$cdpls][$cdtype]['namelist'][] = $cdname;
 			}
 		}
-		$radar_npctplist = get_radar_npc_type_list($radarsk, $existing_npctp);
+		
+		$radar_tplist = array_merge(Array(0), get_radar_npc_type_list($radarsk, $existing_npctp));
+		
 		//第二轮循环，形成显示用数据
-		$radardata = array();
 		foreach($plsinfo as $plsi => $plsn) {
 			$radardata[$plsi] = array();
 			if(array_search($plsi,$arealist) <= $areanum && !$hack) {
@@ -62,8 +64,9 @@ namespace radar
 				$radardata[$plsi] = '?';//探测不到，全部写问号
 			} else {
 				$radardata[$plsi] = array();
-				foreach($radar_npctplist as $typei){
-					if(!empty($radardata_raw[$plsi][$typei]['num'])) {
+				//玩家是一定显示的，其他NPC则要根据死斗情况判定是否显示
+				foreach($radar_tplist as $typei){
+					if((!\gameflow_duel\is_gamestate_duel() || !$typei) && !empty($radardata_raw[$plsi][$typei]['num'])) {
 						$radardata[$plsi][$typei]['num'] = $radardata_raw[$plsi][$typei]['num'];
 						if(3 == $radarsk && !in_array($typei, array(6, 90))) $radardata[$plsi][$typei]['namelist'] = radar_parse_namelist($radardata_raw[$plsi][$typei]['namelist']);
 						elseif(4 == $radarsk && in_array($typei, array(21,45,46))) $radardata[$plsi][$typei]['namelist'] = radar_parse_namelist($radardata_raw[$plsi][$typei]['namelist']);
@@ -107,11 +110,12 @@ namespace radar
 		else return str_replace('"',"'",implode('<br>',$arr));
 	}
 	
+	//根据雷达类型返回能显示的NPC类型
 	function get_radar_npc_type_list($radarsk, $existing_npctp=array()){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		//基本显示：玩家、杂兵、全息幻象、豆腐、猴子、幻影执行官、职人、女主
-		$ret = Array(0,90,2,5,6,7,11,14);
+		//基本显示：杂兵、全息幻象、豆腐、猴子、幻影执行官、职人、女主
+		$ret = Array(90,2,5,6,7,11,14);
 		if(!empty($existing_npctp)){
 			//如果幻影执行官没入场，不会显示执行官
 			if(!in_array(7, $existing_npctp)) $ret = array_diff($ret, array(7));

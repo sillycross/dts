@@ -395,14 +395,15 @@ namespace clubbase
 	}
 			
 	//让NPC获取称号技能
-	function battle_prepare(&$pa, &$pd, $active)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('clubbase'));
-		if ($pa['type'] && $pa['club']) check_npc_clubskill_load($pa);
-		if ($pd['type'] && $pd['club']) check_npc_clubskill_load($pd);
-		$chprocess($pa, $pd, $active);
-	}
+	//现在移动到init_npcdata()时自动完成
+//	function battle_prepare(&$pa, &$pd, $active)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		eval(import_module('clubbase'));
+//		if ($pa['type'] && $pa['club']) check_npc_clubskill_load($pa);
+//		if ($pd['type'] && $pd['club']) check_npc_clubskill_load($pd);
+//		$chprocess($pa, $pd, $active);
+//	}
 	
 	//显示NPC技能页，目前会显示能生效的称号技能，但是屏蔽生命、攻防、治愈、所有战斗技和不能生效的称号技能
 	function get_npcskillpage($pn)

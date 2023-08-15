@@ -149,7 +149,7 @@ namespace searchmemory
 	function add_memory($marr, $showlog = 1){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','searchmemory'));
-		if($marr['smtype'] == 'corpse' && \gameflow_combo\is_gamestate_combo()) return;//连斗后不会把尸体加入视野
+		if(!empty($marr['smtype']) && $marr['smtype'] == 'corpse' && \gameflow_combo\is_gamestate_combo()) return;//连斗后不会把尸体加入视野
 		if(searchmemory_available() && $marr){
 			//获取实际的视野和记忆数
 			$searchmemory_real_slotnum = calc_memory_slotnum();

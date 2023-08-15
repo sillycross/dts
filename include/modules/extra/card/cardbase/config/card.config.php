@@ -59,7 +59,7 @@ $packdesc = array(
 $pack_ignore_kuji = Array('Balefire Rekindle','Event Bonus');
 //卡包实装的时间戳，可以用来隐藏卡包
 $packstart = array(
-	'Cyber Zealots' => 4476654671,
+	//'Cyber Zealots' => 4476654671,
 	'Indev' => 4476654671,
 	'hidden' => 4476654671,
 );
@@ -3850,8 +3850,7 @@ $cards = array(
 		)
 	),
 	237 => array(
-		'name' => '『维因·索菲尔』',
-		'title' => '维因·索菲尔',
+		'name' => '『零·虚光』',
 		'rare' => 'S',
 		'pack' => 'Cyber Zealots',
 		'desc' => '『时空护卫』的中坚力量之一，<br>能轻易记住其他超能力者的超能力，并用自己的方式施展出来。<br><br><span class="seagreen b">“就算在那群固执的疯子里<br>也是最固执而最疯的一个。”</span><br>——林苍月',
@@ -3868,7 +3867,6 @@ $cards = array(
 	),
 	238 => array(
 		'name' => '『黑衣少女』',
-		'title' => '黑衣少女',
 		'rare' => 'S',
 		'pack' => 'Cyber Zealots',
 		'desc' => '接管了整个林氏集团的神秘少女。<br>虽然她自称只是林无月的女儿，也没有干预幻境的运转，但她显露出的卓越洞察力和深不可测的举止，都表明她并不是凡庸之辈。<br><br><span class="ltcrimson b">“我们的敌人比预想的更加麻烦。”</span><br>——红暮',

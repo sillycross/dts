@@ -78,7 +78,7 @@ namespace skill262
 				$z=($t-$pretime)/1000*$dmgperc;
 				$z=min($z,$maxdmgperc);
 				$z=round($z);
-				$log.='<span class="lime b">你积蓄力量打出了致命的一拳！伤害增加了'.$z.'%！</span><br>';
+				$log.='<span class="lime b">你积蓄力量打出了强力的一击！伤害增加了'.$z.'%！</span><br>';
 			}
 			$r=Array(1+$z/100);
 		}

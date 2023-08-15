@@ -445,38 +445,38 @@ function real_ip()
 		elseif (isset($_SERVER['HTTP_CLIENT_IP']))  
 		{  
 			$realip = $_SERVER['HTTP_CLIENT_IP'];  
+		} 
+		# If a site is proxied through CloudFLare, we use the CloudFLare value here to grab the original IP of the user.
+		elseif (isset($_SERVER['HTTP_CF_CONNECTING_IP']))  
+		{  
+			$realip = $_SERVER['HTTP_CF_CONNECTING_IP'];  
+		} 
+		elseif (isset($_SERVER['REMOTE_ADDR']))  
+		{  
+			$realip = $_SERVER['REMOTE_ADDR'];  
 		}  
 		else 
 		{  
-			if (isset($_SERVER['REMOTE_ADDR']))  
-			{  
-				$realip = $_SERVER['REMOTE_ADDR'];  
-			}  
-			else 
-			{  
-				$realip = '0.0.0.0';  
-			}  
-		}  
+			$realip = '0.0.0.0';  
+		}
 	}
+	elseif (getenv('HTTP_X_FORWARDED_FOR'))  
+	{  
+		$realip = getenv('HTTP_X_FORWARDED_FOR');  
+	}  
+	elseif (getenv('HTTP_CLIENT_IP'))  
+	{  
+		$realip = getenv('HTTP_CLIENT_IP');  
+	}  
 	else 
 	{  
-		if (getenv('HTTP_X_FORWARDED_FOR'))  
-		{  
-			$realip = getenv('HTTP_X_FORWARDED_FOR');  
-		}  
-		elseif (getenv('HTTP_CLIENT_IP'))  
-		{  
-			$realip = getenv('HTTP_CLIENT_IP');  
-		}  
-		else 
-		{  
-			$realip = getenv('REMOTE_ADDR');  
-		}  
+		$realip = getenv('REMOTE_ADDR');  
 	}  
+	  
 	preg_match("/[\d\.]{7,15}/", $realip, $onlineip);  
 	$realip = !empty($onlineip[0]) ? $onlineip[0] : '0.0.0.0';  
-	global $cuser;
-	if($cuser == 'Yoshiko' || $cuser == 'Yoshiko_G'){$realip = '70.54.1.30';}
+//	global $cuser;
+//	if($cuser == 'Yoshiko' || $cuser == 'Yoshiko_G'){$realip = '70.54.1.30';}
 	return $realip;  
 } 
 

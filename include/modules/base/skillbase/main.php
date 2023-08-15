@@ -77,7 +77,7 @@ namespace skillbase
 		list($pa['acquired_list'], $pa['parameter_list']) = skillbase_load_process($pa['nskill'], $pa['nskillpara']);
 		
 		if(empty($dummy)){
-			if ($pa['pid']==$pid)
+			if (!empty($pa['pid']) && $pa['pid']==$pid)
 			{
 				eval(import_module('skillbase'));
 				$acquired_list = $pa['acquired_list'];

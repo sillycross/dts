@@ -56,9 +56,11 @@ namespace npc
 		}	
 		//npc初始状态默认为睡眠
 		if(!isset($npc['state'])){$npc['state'] = 1;}
-		//技能的获取
-		init_npcdata_skills($npc);
 		
+		//称号、技能的获取
+		if(defined('MOD_CLUBBASE') && defined('MOD_SKILLBASE')) {
+			init_npcdata_skills($npc);
+		}
 		return $npc;
 	}
 	
@@ -72,29 +74,41 @@ namespace npc
 		return $ret;
 	}
 	
+	//初始化NPC技能
 	function init_npcdata_skills(&$npc)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
-		if (isset($npc['skills']) && is_array($npc['skills'])){
+		if (!empty($npc['club']) || (!empty($npc['skills']) && is_array($npc['skills']))){
 			$npc['pid'] = -2;//0和-1都会出问题
 			$npc['skills']['460']='0';
 			$npc['nskill'] = $npc['nskillpara'] = '';
 			\skillbase\skillbase_load($npc, 1);
-			foreach ($npc['skills'] as $key=>$value){
-				if (defined('MOD_SKILL'.$key)){
-					\skillbase\skill_acquire($key,$npc);
-					if(is_array($value)){
-						foreach($value as $vk => $vv){
-							\skillbase\skill_setvalue($key,$vk,$vv,$npc);
-						}
-					}elseif ($value>0){
-						\skillbase\skill_setvalue($key,'lvl',$value,$npc);
-					}
-				}	
-			}
+			
+			//NPC先获得称号技能
+			\clubbase\check_npc_clubskill_load($npc);
+			
+			//再获得特有技能
+			init_npcdata_skills_get_custom($npc);
 			
 			\skillbase\skillbase_save($npc);
 			unset($npc['pid']);
+		}
+	}
+	
+	//获得skills元素里定义的专有技能
+	function init_npcdata_skills_get_custom(&$npc){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		foreach ($npc['skills'] as $key=>$value){
+			if (defined('MOD_SKILL'.$key)){
+				\skillbase\skill_acquire($key,$npc);
+				if(is_array($value)){
+					foreach($value as $vk => $vv){
+						\skillbase\skill_setvalue($key,$vk,$vv,$npc);
+					}
+				}elseif ($value>0){
+					\skillbase\skill_setvalue($key,'lvl',$value,$npc);
+				}
+			}	
 		}
 	}
 	
@@ -116,12 +130,19 @@ namespace npc
 			$pls_available2 = \map\get_safe_plslist(1, 1);
 			//外循环：type，编号可以不连续
 			foreach ($ninfo as $i => $npcs){
+				//重设npc个性化参数（sub数组）
+				$tmp_sub = Array();
 				if(!empty($npcs)) {
 					//检查当前模式允许不允许这个type的NPC加入
 					if (!check_initnpcadd($i)) continue;
+					//暂存sub数组，然后unset掉原数组，避免array_merge后数组过大影响性能
+					if(!empty($npcs['sub'])){
+						$tmp_sub = $npcs['sub'];
+						unset($npcs['sub']);
+					}
 					//得到此type的NPC的加入列表
-					$subnum = sizeof($npcs['sub']);
-					$jarr = $jarr0 = array_keys($npcs['sub']);
+					$subnum = sizeof($tmp_sub);
+					$jarr = $jarr0 = array_keys($tmp_sub);
 					//定义数或者加入数目是0，不加入
 					if (!$subnum || !$npcs['num']) $jarr=array();
 					//定义数目大于加入数目，作随机选取
@@ -139,8 +160,8 @@ namespace npc
 					foreach($jarr as $j){
 						//载入npc初始化参数，打个底以免漏变量
 						$npc = array_merge($npcinit,$npcs);
-						//载入npc个性化参数（sub）
-						if(isset($npc['sub']) && is_array($npc['sub'])) $npc = array_merge($npc,$npc['sub'][$j]);
+						//载入npc个性化参数（原sub数组）
+						if(!empty($tmp_sub) && is_array($tmp_sub)) $npc = array_merge($npc,$tmp_sub[$j]);
 						//类型和编号，放进初始化函数有点蠢
 						$npc['type'] = $i;
 						$npc['sNo'] = $j;
@@ -149,56 +170,11 @@ namespace npc
 						//初始化函数
 						$npc = init_npcdata($npc, $tmp_pls_available);
 						//writeover('a.txt',json_encode($npc['nskillpara']));
-//						$npc['endtime'] = $now;
-//						$npc['hp'] = $npc['mhp'];
-//						$npc['sp'] = $npc['msp'];
-//						$npc['ss'] = $npc['mss'];
-//						$npc['exp'] = \lvlctl\calc_upexp($npc['lvl'] - 1);
-//						if(is_array($npc['skill'])) {$npc = $npc = array_merge($npc,$npc['skill']);}
-//						else { $npc['wp'] = $npc['wk'] = $npc['wg'] = $npc['wc'] = $npc['wd'] = $npc['wf'] = $npc['skill'];}						
-//						if($npc['gd'] == 'r'){$npc['gd'] = rand(0,1) ? 'm':'f';}
-//						do{$rpls=rand(1,$plsnum-1);}
-//						while ($rpls==34);
-//						if($npc['pls'] == 99){$npc['pls'] = $rpls; }
-//						$npc['state'] = 1;
 
 						//按数据表字段进行格式化并insert
 						$npc=\player\player_format_with_db_structure($npc);
 						$db->array_insert("{$tablepre}players", $npc);
 						
-//						$npcqrylit = "(";
-//						$npcqry = "(";
-//						foreach ($npc as $key => $value)
-//						{
-//							if (in_array($key,$db_player_structure))
-//							{
-//								$npcqrylit .= $key.",";
-//								$npcqry .= "'".$npc[$key]."',";
-//							}
-//						}
-//						$npcqrylit=substr($npcqrylit,0,strlen($npcqrylit)-1).")";
-//						$npcqry=substr($npcqry,0,strlen($npcqry)-1).")";
-//						
-//						$qry = "INSERT INTO {$tablepre}players ".$npcqrylit." VALUES ".$npcqry;
-//						$db->query($qry);
-//						unset($qry);
-						
-//						if (isset($npc['skills']) && is_array($npc['skills'])){
-//							$npc['skills']['460']='0';
-//							$qry="SELECT * FROM {$tablepre}players WHERE type>'0' ORDER BY pid DESC LIMIT 1";
-//							$result=$db->query($qry);
-//							$pr=$db->fetch_array($result);
-//							$pp=\player\fetch_playerdata_by_pid($pr['pid']);
-//							foreach ($npc['skills'] as $key=>$value){
-//								if (defined('MOD_SKILL'.$key)){
-//									\skillbase\skill_acquire($key,$pp);
-//									if ($value>0){
-//										\skillbase\skill_setvalue($key,'lvl',$value,$pp);
-//									}
-//								}	
-//							}
-//							\player\player_save($pp);
-//						}
 						//藏好自己，做好清理
 						unset($npc);
 					}

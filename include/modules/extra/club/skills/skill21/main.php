@@ -4,7 +4,8 @@ namespace skill21
 {
 	function init() 
 	{
-		define('MOD_SKILL21_INFO','club;hidden;feature;');
+		define('MOD_SKILL21_INFO','club;feature;');
+		$clubskillname[21] = '变身';
 	}
 	
 	function acquire21(&$pa)
@@ -67,23 +68,19 @@ namespace skill21
 				foreach (\skillbase\get_acquired_skill_array($pd) as $key) 
 					if (defined('MOD_SKILL'.$key.'_INFO') && !\skillbase\check_skill_info($key, 'achievement') && \skillbase\check_skill_info($key, 'unique')) 
 						\skillbase\skill_lost($key,$pd);
+				
+				//修改NPC的称号
+				if(!empty($pd['club'])) {
+					\clubbase\check_npc_clubskill_load($pd);
+				}				
 				//然后获得新的专有技能
-				if (is_array($npcdata['skills'])){
-					$npcdata['skills']['460']='0';
-					foreach ($npcdata['skills'] as $key=>$value){
-						if (defined('MOD_SKILL'.$key)){
-							\skillbase\skill_acquire($key,$pd);
-							if (is_array($value)){
-								foreach($value as $vk => $vv){
-									\skillbase\skill_setvalue($key,$vk,$vv,$pd);
-								}
-							}
-							elseif ($value>0){
-								\skillbase\skill_setvalue($key,'lvl',$value,$pd);
-							}
-						}	
-					}
+				$pd['skills'] = $npcdata['skills'];
+				if(!empty($pd['skills']) && is_array($pd['skills'])) {
+					$pd['skills']['460']='0';
+					\npc\init_npcdata_skills_get_custom($pd);
 				}
+				unset($pd['skills']);
+
 				$pd['npc_evolved'] = 1;
 			}	
 		}

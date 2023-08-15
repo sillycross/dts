@@ -91,7 +91,10 @@ namespace item_slip
 						eval(import_module('npc','map'));
 						$edata = $db->fetch_array($result);
 						$log .= '除此之外，纸条上还草草写着……<br>“<span class="yellow b">「'.$npc_typeinfo[$edata['type']].'」'.$edata['name'].'</span>目前位于<span class="yellow b">'.$plsinfo[$npls].'</span>。”<br><br>';
-						if($edata['pls'] != $npls) {
+						if(\gameflow_duel\is_gamestate_duel()){
+							$log .= '不过，游戏已经进入了死斗阶段。<span class="yellow b">'.$edata['name'].'肯定已经不在那里了。</span><br><br>';
+						}
+						elseif($edata['pls'] != $npls) {
 							$log .= '不过，这和禁区状况对不上。<span class="yellow b">你怀疑'.$edata['name'].'现在已经不在那里了。</span><br><br>';
 						}
 					}else{

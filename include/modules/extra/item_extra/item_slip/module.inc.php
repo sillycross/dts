@@ -3,7 +3,7 @@
 namespace item_slip
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'sys player itemmain logger itemmix';
+	$___MODULE_dependency = 'sys player itemmain logger itemmix gameflow_duel';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';
