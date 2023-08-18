@@ -106,11 +106,14 @@ namespace skillbase
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
-	function skillbase_save(&$pa)
+	//格式化并储存技能参数，基本上只有player_save()调用
+	//$in_proc代表进程执行中的额外储存
+	function skillbase_save(&$pa, $in_proc = 0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		skill_onsave_event($pa);
+		//如果是进程执行中的储存，不进行onsave_event的判断（目前调用这个函数的基本上是受伤和异常状态等临时技能）
+		if(!$in_proc) skill_onsave_event($pa);
 		
 		eval(import_module('player','skillbase'));
 		if ($pa['pid']==$pid)
@@ -193,11 +196,11 @@ namespace skillbase
 //		return $pa;
 //	}
 	
-	function player_save($data)
+	function player_save($data, $in_proc = 0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		skillbase_save($data);
-		$chprocess($data);
+		skillbase_save($data, $in_proc);
+		$chprocess($data, $in_proc);
 	}
 	
 	//获得技能。$skillid为技能编号，$pa为传入的角色数据（如果留空则会调用$sdata即当前玩家）

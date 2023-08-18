@@ -464,7 +464,10 @@ namespace player
 		}
 	}
 	
-	function player_save($data)
+	//按数据库要求格式化并储存玩家数据
+	//其他模块继承这个函数的时候可能会追加各种数据处理
+	//$data为玩家数组，$in_proc=1表示是进程处理中的额外储存
+	function player_save($data, $in_proc = 0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -472,6 +475,7 @@ namespace player
 		if(isset($data['pid']))
 		{
 			$spid = $data['pid'];
+			$sname = $data['name'];
 			//unset($data['pid']);
 			//$ndata=Array();
 			//if(!$spid) writeover('a.txt','seems problem.'.debug_backtrace()[0]['function']);
@@ -500,11 +504,11 @@ namespace player
 //			}
 			
 			if (sizeof($ndata)>0){
-				$db->array_update("{$tablepre}players",$ndata,"pid='$spid'");
-				//这里困扰了我一晚上，不知道为什么加了下面这句话就会导致$pdata_origin_pool里的$action自动变化以至于无法写入，最后注释掉了事……
-				//知道了，见前面的load_playerdata()定义，全局变量$sdata里每一个键值都是对外面变量的引用……
-				//简直是醉，这么牛逼的逻辑谁写的，要知道我写3.0的时候硬生生把所有地方都改成写数组，也不敢瞎引用
-				//现在这里是一个数组浅拷贝
+				//对玩家增加一项name的条件，阻止房间号改变的情况下会覆盖其他房间数据的可能
+				$where = "pid='$spid'";
+				if(!$data['type']) $where .= " AND name='$sname'";
+				$db->array_update("{$tablepre}players", $ndata, $where);
+				//全局变量$sdata里每一个键值都是对外面变量的引用，要加入玩家数据池而不污染$sdata，必须创造数组浅拷贝
 				$pdata_origin_pool[$spid] = array_clone($data);
 			}
 		}

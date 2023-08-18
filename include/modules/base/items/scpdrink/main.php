@@ -15,7 +15,7 @@ namespace scpdrink
 		
 		if (strpos ( $itmk, 'Y' ) === 0 || strpos ( $itmk, 'Z' ) === 0) {
 			if ($itm == '装有H173的注射器') {
-				$log .= '你考虑了一会，<br>把袖子卷了起来，给自己注射了H173。<br>';
+				$log .= '你考虑了一会儿，<br>把袖子卷了起来，给自己注射了H173。<br>';
 				$deathdice = rand ( 0, 8191 );
 				if ($club == 15){
 					$log .= '你的身体里已经充满了病毒，什么也没发生。<br>';
@@ -41,7 +41,7 @@ namespace scpdrink
 				if (defined('MOD_CLUBBASE')) \clubbase\club_lost();
 				
 				if($itm == '溶剂SCP-294_PT_Poini_Kune'){
-					$log .= '你考虑了一会，一扬手喝下了杯中中冒着紫色幽光的液体。<br><span class="yellow b">你感到全身就像燃烧起来一样，不禁扪心自问这值得么？</span><br>';
+					$log .= '你考虑了一会儿，一扬手喝下了杯中冒着紫色幽光的液体。<br><span class="yellow b">你感到全身就像燃烧起来一样，不禁扪心自问这值得么？</span><br>';
 					if ($mhp > 573){
 						$up = rand (0, $mhp + $msp);
 					} else{
@@ -63,7 +63,7 @@ namespace scpdrink
 					$msp = $msp - $spdown;				
 					$log .= '你的生命上限减少了<span class="yellow b">'.$hpdown.'</span>点，体力上限减少了<span class="yellow b">'.$spdown.'</span>点，而你的全系熟练度提升了<span class="yellow b">'.$up.'</span>点！<br>';
 				} elseif ($itm == '溶剂SCP-294_PT_Arnval'){
-					$log .= '你考虑了一会，一扬手喝下了杯中中冒着白色气泡的清澈液体。<br><span class="yellow b">你感到全身就像燃烧起来一样，不禁扪心自问这值得么？</span><br>';
+					$log .= '你考虑了一会儿，一扬手喝下了杯中冒着白色气泡的清澈液体。<br><span class="yellow b">你感到全身就像燃烧起来一样，不禁扪心自问这值得么？</span><br>';
 					if ($msp > 573){
 						$up = rand (0, $msp * 1.5);
 					} else{
@@ -78,7 +78,7 @@ namespace scpdrink
 					
 					$log .= '你的体力上限和攻击力减少了<span class="yellow b">'.$down.'</span>点，而你的生命上限和防御力提升了<span class="yellow b">'.$up.'</span>点！<br>';
 				} elseif ($itm == '溶剂SCP-294_PT_Strarf') {
-					$log .= '你考虑了一会，一扬手喝下了杯中中冒着灰色气泡的清澈液体。<br><span class="yellow b">你感到全身就像燃烧起来一样，不禁扪心自问这值得么？</span><br>';
+					$log .= '你考虑了一会儿，一扬手喝下了杯中冒着灰色气泡的清澈液体。<br><span class="yellow b">你感到全身就像燃烧起来一样，不禁扪心自问这值得么？</span><br>';
 					if ($mhp > 573){
 						$up = rand (0, $msp * 1.5);
 					} else{
@@ -92,7 +92,7 @@ namespace scpdrink
 					$def = $def - $down;
 					$log .= '你的生命上限和防御力减少了<span class="yellow b">'.$down.'</span>点，而你的体力上限和攻击力提升了<span class="yellow b">'.$up.'</span>点！<br>';
 				} elseif ($itm == '溶剂SCP-294_PT_ErulTron') {
-					$log .= '你考虑了一会，<br>一扬手喝下了杯中中冒着粉红光辉的液体。<br>你感到你整个人貌似变得更普通了点。<br>';
+					$log .= '你考虑了一会儿，一扬手喝下了杯中冒着粉红光辉的液体。<br>你感到你整个人貌似变得更普通了点。<br>';
 					$lvl = $exp = 0;
 					$att = round($att * 0.8);
 					$def = round($def * 0.8);
