@@ -72,7 +72,7 @@ if ($___MOD_SRV)
 {
 	$timecost = microtime(true) - $pagestartimez;
 	$timecost = sprintf("%.4f",$timecost); 
-	if ($timecost >= 0.05) __SOCKET_WARNLOG__("本次操作同步问题触发窗口达到了 $timecost 秒");
+	if ($timecost >= 0.05) __SOCKET_WARNLOG__("本次操作同步问题触发窗口达到了 $timecost 秒。游戏状态：".$gamestate."；操作信息：".(!empty($command) ? $command : '-')."；操作者：".$cuser);
 }
 
 //$timecost = get_script_runtime($pagestartime);

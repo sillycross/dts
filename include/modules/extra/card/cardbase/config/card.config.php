@@ -4001,16 +4001,16 @@ $cards = array(
 	
 	
 	1000 => array(
-		'name'=>'补给品',
+		'name'=>'萌新',
 		'rare'=>'C',
 		'pack'=>'hidden',
-		'desc'=>'教程模式用卡',
-		'effect'=>'教程模式技能载体',
+		'desc'=>'<span class="linen b">“这里是「卡片」，这个「虚拟幻境」给与的能力的其中一个载体。”</span>',
+		'effect'=>'<span class="linen b">“不同的卡片拥有不同的效果，你可以之后自行探究。<br>而现在，不想落地成盒的话，就不要东张西望，认真听我说。”</span>',
 		'energy'=>0,
 		'valid' => array(
 			'club' => '17',
-			'itm3' => '紧急药剂',
-			'itmk3' => 'Ca',
+			'itm3' => '解毒剂',
+			'itmk3' => 'Cp',
 			'itme3' => '1',
 			'itms3' => '10',
 			'itmsk3' => '',

@@ -2,7 +2,7 @@
 
 namespace wep_j
 {
-	//重枪默认无法发动任何战斗技能，但以下技能可以发动
+	//重枪默认无法发动任何战斗技能，但以下技能可以发动。在具体技能模块里设定
 	$wj_allowed_bskill = array();
 	
 	function init() 

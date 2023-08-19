@@ -314,9 +314,9 @@ namespace player
 		$uip['innerHTML']['pls'] = $plsinfo[$pls];
 		$uip['value']['teamID'] = $teamID;
 		if($teamID){
-			$uip['innerHTML']['chattype'] = "<select name=\"chattype\" value=\"2\"><option value=\"0\" selected>$chatinfo[0]<option value=\"1\" >$chatinfo[1]</select>";
+			$uip['innerHTML']['chattype'] = '<select name="chattype"><option value="0">'.$chatinfo[0].'</option><option value="1" selected>'.$chatinfo[1].'</option></select>';
 		}else{
-			$uip['innerHTML']['chattype'] = "<select name=\"chattype\" value=\"2\"><option value=\"0\" selected>$chatinfo[0]</select>";
+			$uip['innerHTML']['chattype'] = '<select name="chattype"><option value="0" selected>'.$chatinfo[0].'</option></select>';
 		}
 		//禁区倒计时
 		\map\init_areatiming();

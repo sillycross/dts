@@ -88,7 +88,7 @@ namespace skill246
 			$pdata['bskill']=246; 
 		elseif (\skillbase\skill_query(246,$pdata) && check_skill246_state($pdata)==2)
 			$pdata['bskill']=0; 
-		else  $chprocess($pdata);
+		else $chprocess($pdata);
 	}
 	
 	function strike_prepare(&$pa, &$pd, $active)
@@ -161,7 +161,7 @@ namespace skill246
 				$z['totsec']=$skill246_act_time;
 				$z['nowsec']=$skill246_time;
 			}
-			else  if ($skill246_time<$skill246_act_time+$skill246_cd)
+			elseif ($skill246_time<$skill246_act_time+$skill246_cd)
 			{
 				$z['style']=2;
 				$z['totsec']=$skill246_cd;

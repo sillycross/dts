@@ -457,7 +457,7 @@ namespace itemmain
 		eval(import_module('sys','player'));
 		if(isset($iarr['iid'])){
 			$iid = $iarr['iid'];
-			$db->query("DELETE FROM {$tablepre}mapitem WHERE iid='$iid'");
+			if($iid > 0) $db->query("DELETE FROM {$tablepre}mapitem WHERE iid='$iid'");
 			$itm0=$iarr['itm'];
 			$itmk0=$iarr['itmk'];
 			$itme0=$iarr['itme'];

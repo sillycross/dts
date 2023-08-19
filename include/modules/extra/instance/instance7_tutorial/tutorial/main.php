@@ -321,7 +321,7 @@ namespace tutorial
 				$push_flag = 'OK';
 			}elseif ($command == 'continue' || $ct['object'] ==  'any'){//continue和any则直接推进，之后返回
 				$push_flag = 'OK';
-			}elseif (($ct['object'] == 'clubsel' && $club) || ($ct['object'] == 'inff' && strpos($inf,'f')===false) || ($ct['object'] == 'itm3' && strpos($inf,'p')===false) || ($ct['object'] == 'move' && in_array('shop',$ct['obj2']) && \itemshop\check_in_shop_area($pls))){//防呆设计
+			}elseif (tutorial_fail_safing($ct)){//防呆设计
 				$log .= "看来你比较熟练呢，我们继续。<br>";
 				$push_flag = 'OK';
 			}else{//否则判定推进一半
@@ -331,6 +331,44 @@ namespace tutorial
 			elseif('PROG' === $push_flag) tutorial_pushforward_process('PROG');
 		}
 		return $chprocess();
+	}
+	
+	//防呆判定
+	function tutorial_fail_safing($ct){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player'));
+		$ret = false;
+		if($ct['object'] == 'clubsel' && $club) $ret = true; //在选择称号任务之前就已经选择了称号
+		elseif($ct['object'] == 'inff' && strpos($inf,'f')===false) $ret = true; //在疗伤任务之前就已经治好了
+		elseif($ct['object'] == 'itemuse') 
+		{
+			if(is_array($ct['obj2']['itmk'])) {
+				$itmk = '';
+				foreach($ct['obj2']['itmk'] as $ov) {
+					if('Ca' != $ov) {//忽略掉全系药剂，其他的道具类别取第一个
+						$itmk = $ov; break; 
+					}
+				}
+			}else{
+				$itmk = $ct['obj2']['itmk'];
+			}
+			if(strpos($itmk,'C')===0 && strpos($inf,substr($itmk,1,1))===false){//判定在使用药剂任务之前就治好了异常
+				$ret = true;
+			}
+		}
+		elseif($ct['object'] == 'move' && in_array('shop',$ct['obj2']) && \itemshop\check_in_shop_area($pls)) $ret = true; //在移动到商店任务之前就移动到了商店地图
+		elseif($ct['object'] == 'itemmix') 
+		{
+			eval(import_module('armor', 'itemmain'));
+			$posarr = array_merge(Array('wep'), $armor_equip_list, $item_equip_list);
+			foreach($posarr as $pv) {
+				if(!empty(${$pv}) && ${$pv} == $ct['obj2']['item']){//判定在合成任务前就完成了合成
+					$ret = true;
+					break;
+				}
+			}
+		}
+		return $ret;
 	}
 	
 	function tutorial_addchat($addc_arr){
@@ -446,20 +484,32 @@ namespace tutorial
 	}
 	
 	//绕过数据库伪造一个道具。
-	//如果玩家卡在这一步，可以无限刷道具。不过教程房里怎样都好。
 	function discover_item(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','itemmain'));
 		if($gametype == 17){
 			$ct = get_tutorial();
 			if(isset($ct['obj2']['itm'])){
+				//现在不绕过数据库了，先判定当前地图是否有同名同类，没有的话才新建一个
+				$result = $db->query("SELECT * FROM {$tablepre}mapitem WHERE pls='$pls' AND itm='".$ct['obj2']['itm']."' AND itmk='".$ct['obj2']['itmk']."'");
+				if(!$db->num_rows($result)) {
+					$itm = Array(
+						'iid' => 0, 
+						'itm' => $ct['obj2']['itm'],
+						'itmk' => $ct['obj2']['itmk'],
+						'itme' => $ct['obj2']['itme'],
+						'itms' => $ct['obj2']['itms'],
+						'itmsk' => $ct['obj2']['itmsk']
+					);
+				}else{//地图上有的话，会删掉找到的第一个道具
+					$itm = $db->fetch_array($result);
+				}
 				$itm0 = $itmk0 = $itmsk0 = '';
 				$itme0 = $itms0 = 0;
-				$itm0=$ct['obj2']['itm'];
-				$itmk0=$ct['obj2']['itmk'];
-				$itme0=$ct['obj2']['itme'];
-				$itms0=$ct['obj2']['itms'];
-				$itmsk0=$ct['obj2']['itmsk'];
+				
+				\itemmain\focus_item($itm);
+				
+				//绕过show_itemfind()
 				$tpldata['itmk0_words'] = \itemmain\parse_itmk_words($itmk0);
 				$tpldata['itmsk0_words'] = \itemmain\parse_itmsk_words($itmsk0);
 				ob_clean();
@@ -692,12 +742,16 @@ namespace tutorial
 	function itemuse(&$theitem) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','itemmain','logger','tutorial'));
+		$oitm = $theitem['itm'];
 		$oitmk = $theitem['itmk'];
 		$chprocess($theitem);
 		if($gametype == 17) {
 			$ct = get_tutorial();
-			if($ct['object'] == 'itemuse' && isset($ct['obj2']['itmk']) && in_array($oitmk,$ct['obj2']['itmk'])){//按教程使用道具之后推进教程进度
-				tutorial_pushforward_process();
+			$flag = 0;
+			if($ct['object'] == 'itemuse'){//按教程使用道具之后推进教程进度
+				if(isset($ct['obj2']['itm']) && $oitm = $ct['obj2']['itm']) $flag = 1;
+				if(isset($ct['obj2']['itmk']) && in_array($oitmk,$ct['obj2']['itmk'])) $flag = 1;
+				if($flag) tutorial_pushforward_process();
 			}
 		}
 		return;
@@ -710,7 +764,7 @@ namespace tutorial
 		$chprocess($hurtposition, $pa);
 		if($gametype == 17) {
 			$ct = get_tutorial();
-			if(strpos($ct['object'] ,'inf')===0 && $hurtposition = substr($ct['object'],3,1)){//按教程治疗伤口之后推进教程进度
+			if(strpos($ct['object'] ,'inf')===0 && $hurtposition == substr($ct['object'],3,1)){//按教程治疗伤口之后推进教程进度
 				tutorial_pushforward_process();
 			}
 		}

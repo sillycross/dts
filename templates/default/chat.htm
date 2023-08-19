@@ -39,9 +39,9 @@
 					<input type="hidden" id="chatpid" name="chatpid" value="$pid">
 					<input type="hidden" id="sendmode" name="sendmode" value="ref">
 					<span id="chattype">
-						<select name="chattype" value="2">
-							<option value="0" selected>$chatinfo[0]
-							<!--{if $teamID}--><option value="1" >$chatinfo[1]<!--{/if}-->
+						<select name="chattype">
+							<option value="0">$chatinfo[0]</option>
+							<!--{if $teamID}--><option value="1" selected>$chatinfo[1]</option><!--{/if}-->
 						</select>
 					</span>
 					<input type="text" id="chatmsg" name="chatmsg" maxlength="60" >

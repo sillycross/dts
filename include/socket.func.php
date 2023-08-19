@@ -218,7 +218,7 @@ function __SOCKET_SEND_TO_SERVER__()
 	
 	global $cli_pagestartime;
 	$timecost = get_script_runtime($cli_pagestartime);
-	if ($timecost > 0.15) __SOCKET_WARNLOG__("警告：本次操作耗时较长，耗时为 ".$timecost." 秒。");
+	if ($timecost > 0.15) __SOCKET_WARNLOG__("警告：本次操作耗时较长，耗时为 ".$timecost." 秒。游戏状态：".$gamestate."；操作信息：".(!empty($command) ? $command : '-')."；操作者：".$cuser);
 	/*
 	$___TEMP_res = str_replace('_____PAGE_RUNNING_TIME_____',(string)$timecost,$___TEMP_res);
 	*/
