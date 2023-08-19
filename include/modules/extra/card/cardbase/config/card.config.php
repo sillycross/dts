@@ -39,7 +39,7 @@ $packlist=array(
 	'Cyber Zealots',
 	'Event Bonus',
 	
-	'Indev',
+	'Stealth',
 	'hidden'
 );
 //卡包介绍
@@ -52,15 +52,15 @@ $packdesc = array(
 	'Balefire Rekindle' => '以游戏版本「复燃」的新增NPC角色和游戏设定为主题的卡集。',
 	'Event Bonus' => '其他一些零散成就和活动奖励卡。',
 	'Cyber Zealots' => '以赛博朋克和网络梗为捏他对象的卡集。',
-	'Indev' => '开发中的卡的暂存地',
-	'hidden' => '隐藏卡片，如果你看到这句话请联系天然呆管理员',
+	'Stealth' => '一些需要显示卡片介绍的隐藏卡',
+	'hidden' => '隐藏卡片，不会悬浮显示卡片介绍，如果你看到这句话请联系天然呆管理员',
 );
 //不参与抽卡的卡包
 $pack_ignore_kuji = Array('Balefire Rekindle','Event Bonus');
 //卡包实装的时间戳，可以用来隐藏卡包
 $packstart = array(
 	'Cyber Zealots' => 4476654671,
-	'Indev' => 4476654671,
+	'Stealth' => 4476654671,
 	'hidden' => 4476654671,
 );
 $cardindex=array(//已停止更新，现在$cardindex是自动生成的，文件见下
@@ -4002,13 +4002,13 @@ $cards = array(
 	
 	1000 => array(
 		'name'=>'萌新',
-		'rare'=>'C',
-		'pack'=>'hidden',
-		'desc'=>'<span class="linen b">“这里是「卡片」，这个「虚拟幻境」给与的能力的其中一个载体。”</span>',
-		'effect'=>'<span class="linen b">“不同的卡片拥有不同的效果，你可以之后自行探究。<br>而现在，不想落地成盒的话，就不要东张西望，认真听我说。”</span>',
+		'rare'=>'A',
+		'pack'=>'Stealth',
+		'desc'=>'<span class="linen" style="font-weight:bold">“这是「卡片」，是「虚拟幻境」给与的能力的其中一个载体。<br>不同的卡片拥有不同的效果，你可以之后自行探究。”</span>',
+		'effect'=>'<span class="linen" style="font-weight:bold">“而现在，如果你不想落地成盒的话，就不要东张西望，认真听我说。”</span>',
 		'energy'=>0,
 		'valid' => array(
-			'club' => '17',
+			'pls' => 33,
 			'itm3' => '解毒剂',
 			'itmk3' => 'Cp',
 			'itme3' => '1',

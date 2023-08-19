@@ -23,7 +23,7 @@
 					<td colspan="2" class="b1"></td>
 					<!--{/if}-->
 					<td colspan="1" class="b1">
-							<!--{if ($gamestate == 40 ||($gametype == 17 && \skillbase\skill_getvalue(1000,'step')>=206))}--><span class="yellow b">{lang combo}</span><!--{/if}--><!--{if $gamestate == 50 }--><span class="red b">{lang duel}</span><!--{/if}--> 
+						<!--{if \gameflow_duel\is_gamestate_duel(1)}--><span class="red b">{lang duel}</span><!--{elseif \gameflow_combo\is_gamestate_combo(1)}--><span class="yellow b">{lang combo}</span><!--{/if}--> 
 						{template MOD_MAP_PROFILE_AREAINFO}
 					</td>
 				</tr>

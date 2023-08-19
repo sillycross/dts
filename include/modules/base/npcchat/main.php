@@ -4,6 +4,7 @@ namespace npcchat
 {
 	function init() {}
 	
+	//主函数，在各个地方调用这个函数并给出$situation，函数会选择合适的npc台词并返回。注意这里不会直接显示台词
 	function npcchat(&$pa, &$pd, $active, $situation, $print = 1)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -41,6 +42,7 @@ namespace npcchat
 		return $chatlog;
 	}
 	
+	//显示NPC台词
 	function npcchat_print($printlog)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -48,6 +50,7 @@ namespace npcchat
 		$log .= $printlog;
 	}
 	
+	//给NPC台词外面加span标签并赋予对应的class
 	function npcchat_decorate($chatlog, $nchat, $chattag)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -61,6 +64,7 @@ namespace npcchat
 		return $printlog;
 	}
 	
+	//从台词资源中提取对应的台词，兼容新旧两种格式（旧是数字下标，新有键名）
 	function npcchat_get_chatlog($chattag,$sid,$nchat){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chatlog = NULL;
@@ -76,6 +80,7 @@ namespace npcchat
 		return $chatlog;
 	}
 	
+	//npcchat的核心函数，根据$situation和双方数据，给出新旧两种格式的台词编号
 	function npcchat_tag_process(&$pa, &$pd, $active, $situation, $npc_active, $nchat){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$sid = -1;

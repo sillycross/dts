@@ -1,6 +1,6 @@
 <!--{eval eval(import_module('tactic'));}-->
 <td class="b2" height=20px><span>{lang tactic}</span></td>
-<td class="b3" style="height:20px;">
+<td class="b3" style="height:20px;" title="$tacticdesc[$tactic]">
 	<span style="height:20px;">
 		<select id="tactic" name="tactic" onchange="$('mode').value='special';$('command').value=$('tactic').value;postCmd('gamecmd','command.php');return false;" <!--{if CURSCRIPT != 'game' || $mode != 'command'}-->disabled<!--{/if}-->>
 			<!--{loop $tacinfo $key $value}-->

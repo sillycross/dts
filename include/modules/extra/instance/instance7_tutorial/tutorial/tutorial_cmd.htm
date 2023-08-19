@@ -1,8 +1,10 @@
 <!--{eval eval(import_module('sys','player','tutorial'));}-->
 <!--{eval list($t_tips,$t_object) = \tutorial\init_current_tutorial();}-->
 <br>
+<!--{if !empty(\skillbase\skill_getvalue(1000,'showtips'))}-->
 <span class="linen b">
 {$t_tips}
 </span>
+<!--{/if}-->
 <br/>
 <!--{eval include template($uip['tutorial_cmd_inner_tpl']);}-->

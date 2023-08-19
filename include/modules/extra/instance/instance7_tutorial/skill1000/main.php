@@ -14,6 +14,8 @@ namespace skill1000
 		\skillbase\skill_setvalue(1000,'tno','1',$pa);
 		\skillbase\skill_setvalue(1000,'step','10',$pa);
 		\skillbase\skill_setvalue(1000,'prog','0',$pa);
+		\skillbase\skill_setvalue(1000,'showtips','1',$pa);
+		\skillbase\skill_setvalue(1000,'countdown','0',$pa);
 	}
 	
 	function lost1000(&$pa)

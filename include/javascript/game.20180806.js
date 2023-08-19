@@ -372,6 +372,9 @@ function showData(sdata){
 			var sDt = shwData['timing'];
 			for(var tid in sDt){
 				if(sDt[tid]['on']==true){
+					if('undefined'!=typeof(timingforbidden[tid])) {//如果被禁用，那么开启
+						delete(timingforbidden[tid]);
+					}
 					var t = sDt[tid]['timing'];
 					var tm = sDt[tid]['mode'];
 					intv = fmt = null;
@@ -386,6 +389,8 @@ function showData(sdata){
 						timinglist[tid]['mode'] = tm;
 						if(restart_flag) updateTime(tid,t,tm,intv,fmt);
 					}
+				}else{//on==false时关闭计时器
+					timingforbidden[tid] = 1;
 				}
 			}
 		}
