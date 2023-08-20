@@ -2,6 +2,8 @@
 
 namespace achievement_base
 {
+	$ach_list = $ach_expired_list = Array();
+	
 	define('POSITIVE_PLAYER_DESC','与你IP不同、获得金钱不少于1000且APM不少于10');
 	function init() {
 	}
@@ -9,19 +11,19 @@ namespace achievement_base
 	function ach_show_init(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('achievement_base'));
-		$n_achtype = $bk_list = array();
+		$ach_list = $ach_expired_list = array();
 		foreach($achtype as $ak => $av){
 			//未开始直接不显示
 			if(1 == check_achtype_available($ak)){
-				$n_achtype[$ak] = $av;
-			}elseif(2 == check_achtype_available($ak)){//过期的放后面
-				$bk_list[$ak] = $av;
+				$ach_list[$ak] = $av;
+			}elseif(2 == check_achtype_available($ak)){//过期的另算
+				$ach_expired_list[$ak] = $av;
 			}
 		}
-		foreach($bk_list as $bk => $bv){
-			$n_achtype[$bk] = $bv;
-		}
-		$achtype = $n_achtype;
+//		foreach($bk_list as $bk => $bv){
+//			$n_achtype[$bk] = $bv;
+//		}
+//		$achtype = $n_achtype;
 	}
 	
 	//判定成就是否合法存在
@@ -573,6 +575,7 @@ namespace achievement_base
 			$ach_state_desc = '<span class="lime b">[完成]</span>';
 		}
 		$ach_icon = show_achievement_icon($achid, $c, $top_flag);
+		
 		if(!file_exists(GAME_ROOT."/img/ach/{$ach_icon}")) {
 			if(!$c) $ach_icon = 'N.gif';
 			elseif($top_flag) $ach_icon = 'DA.gif';

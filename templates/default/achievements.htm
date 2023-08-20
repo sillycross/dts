@@ -1,40 +1,23 @@
 <!--{eval eval(import_module('sys','achievement_base'));}-->
 <!--{eval \achievement_base\ach_show_init();}-->
 <table>
-	<!--{loop $achtype $k $v}-->
-		<tr><td>
-		<span class="subtitle" align="left">$v</span>
-		<!--{if isset($ach_available_period[$k]) && $ach_available_period[$k][0] > 0}-->
-			开始时间：<!--{eval echo gmstrftime('%Y-%m-%d', $ach_available_period[$k][0]);}-->
-		<!--{/if}-->
-		&nbsp;&nbsp;&nbsp;
-		<!--{if isset($ach_available_period[$k]) && $ach_available_period[$k][1] > 0}-->
-			结束时间：<!--{eval echo gmstrftime('%Y-%m-%d', $ach_available_period[$k][1]);}-->
-			<!--{if $ach_available_period[$k][1] < $now}-->
-				 <span class="red b">已结束</span>
-			<!--{/if}-->
-		<!--{/if}-->
-		<!--{if $v=='日常任务'}-->
-		<!--{if $curuser}--><!--{if !$ff}--><span class="yellow b">下次可获取每日任务时间：{$ftd}</span><!--{else}--><button type="button" onclick="window.location.href='user_profile.php?action=refdaily';this.disabled=true">点击获得新的每日任务</button><!--{/if}--><!--{/if}-->
-		<br>
-		<!--{/if}-->
-		<div>
-			<!--{eval $showarr = \achievement_base\show_achievements_single_type($u_acharr,$k);}-->
-			<!--{loop $showarr $si $sv}-->
-				<!--{if $si % $ach_show_num_per_row == 0}-->
-				<div>
-				<!--{/if}-->
-					<div class="<!--{if $sv}-->ach_box<!--{else}-->ach_box_empty<!--{/if}-->" align="left" valign="top">
-						<div>$sv</div>
-					</div>
-				<!--{if $si % $ach_show_num_per_row == $ach_show_num_per_row - 1}-->
-				</div>
-				<!--{/if}-->
-			<!--{/loop}-->
-		</div>
-		</td></tr>
+	<!--{loop $ach_list $k $v}-->
+		{template achievement_row}
 	<!--{/loop}-->
 </table>
+
+<!--{if !empty($ach_expired_list)}-->
+<div style="height:60px;">
+	<button type="button" class="b_button bc_black" style="width:300px;margin:15px;" onclick="$('ach_expired_list').style.display='block';this.style.display='none'">点击查看既往活动成就</button>
+</div>
+<div id="ach_expired_list" style="display:none">
+<table>
+	<!--{loop $ach_expired_list $k $v}-->
+		{template achievement_row}
+	<!--{/loop}-->
+</table>
+</div>
+<!--{/if}-->
 
 <!--{if $refdaily_flag}-->
 <!--{eval \bubblebox\bubblebox_set_style('id:newdailyquest;height:200;width:1060;cancellable:1;');}-->
