@@ -89,17 +89,6 @@ else
 
 if (defined('NO_SYS_UPDATE')) return;
 
-if (CURSCRIPT == 'index') {//首页，所有房间刷新
-	if($___MOD_SRV) {//如果daemon开启，则试图调用daemon
-		$routine_url = 'http://'.$_SERVER['HTTP_HOST'].substr($_SERVER['PHP_SELF'],0,-9).'command.php';
-		$routine_context = array('command'=>'room_routine','nowroom'=>$room_id);
-		curl_post($routine_url,$routine_context,NULL,0.1);//相当于异步
-		unset($routine_url,$routine_context);
-	}else{
-		include_once './include/roommng/roommng.func.php';
-		room_all_routine();
-	}
-}
-if (!defined('LOAD_CORE_ONLY') && !in_array(CURSCRIPT, array('help')) && !(CURSCRIPT == 'news' && isset($sendmode) && $sendmode=='news')) \sys\routine();//聊天、游戏内进行状况、帮助页面不刷新游戏状态
+if (!defined('LOAD_CORE_ONLY') && !in_array(CURSCRIPT, array('chat','help')) && !(CURSCRIPT == 'news' && isset($sendmode) && $sendmode=='news')) \sys\routine();//聊天、游戏内进行状况、帮助页面不刷新游戏状态
 
 ?>

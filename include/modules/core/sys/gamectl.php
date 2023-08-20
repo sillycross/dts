@@ -373,15 +373,12 @@ namespace sys
 	function routine()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys'));
-		if(CURSCRIPT !== 'chat') 
-		{
-			process_lock();
-			load_gameinfo();
-			updategame();
-			save_gameinfo();
-			process_unlock();
-		}
+		//file_put_contents('a.txt', $GLOBALS['room_id'].'  '.var_export(debug_backtrace(),1)."\r\n\r\n\r\n", FILE_APPEND);
+		process_lock();
+		load_gameinfo();
+		updategame();
+		save_gameinfo();
+		process_unlock();
 	}
 	
 	function gameover_set_credits()

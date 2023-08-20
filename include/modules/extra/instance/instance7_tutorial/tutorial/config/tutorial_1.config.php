@@ -113,9 +113,9 @@ $tutorial_story[1] = Array(
 	1300 => Array(
 		'tips' => '“除了有毒食物，也有其他的持有负面效果的道具存在，探索时需要谨慎。<br>现在再次点击<span class="yellow b">【探索】</span>按钮。”<br>',
 		'object' => 'search',
-		'obj2' => Array(
-			'meetnpc' => 91, 'meetsub' => 0,'active' => 0,'inf' => 'f','ex_inf' => 'p','always_hit' => 1
-		),
+//		'obj2' => Array(
+//			'meetnpc' => 91, 'meetsub' => 0,'active' => 0,'inf' => 'f','ex_inf' => 'p','always_hit' => 1
+//		),
 		'pulse' => '#zz',
 		'next' => 1400
 	),
@@ -298,9 +298,9 @@ $tutorial_story[1] = Array(
 	2800 => Array(
 		'tips' => '“<span class="yellow b">【聊天记录】</span>会显示死去玩家和NPC的<span class="red b">遗言</span>，看起来有另一个玩家开始屠杀NPC了，请务必小心行事。”<br>',
 		'object' => 'search',
-		'obj2' => Array(
-			'meetnpc' => 9, 'meetsub' => 0,'active' => 0,'always_hit' => 1
-		),
+//		'obj2' => Array(
+//			'meetnpc' => 9, 'meetsub' => 0,'active' => 0,'changehp' => 3000,'always_hit' => 1
+//		),
 		'pulse' => Array('#chat','#zz'),
 		'next' => 2900	
 	),
@@ -308,7 +308,7 @@ $tutorial_story[1] = Array(
 		'tips' => '“她直接找到你了！战场上这很常见，高手玩家多半会使用生命探测器来判断你的位置。而且，看起来你们之间的实力差距相当之大。”<br>',
 		'object' => 'any',
 		'obj2' => Array(
-			'meetnpc' => 9, 'meetsub' => 0,'active' => 0,'always_hit' => 1
+			'meetnpc' => 9, 'meetsub' => 0,'active' => 0,'changehp' => 3000,'always_hit' => 1
 		),
 		'pulse' => '#z',
 		'next' => 3000	
@@ -391,9 +391,9 @@ $tutorial_story[1] = Array(
 	3700 => Array(
 		'tips' => '“现在，你有资格跟那个玩家一较高下了。”<br>',
 		'object' => 'search',
-		'obj2' => Array(
-			'meetnpc' => 9, 'meetsub' => 0,
-		),
+//		'obj2' => Array(
+//			'meetnpc' => 9, 'meetsub' => 0, 'changehp' => 400,
+//		),
 		'pulse' => '#zz',
 		'next' => 3800
 	),
@@ -401,7 +401,7 @@ $tutorial_story[1] = Array(
 		'tips' => '“以你目前的实力击倒她应该不难，之后就拥抱胜利吧。”<br>',
 		'object' => 'kill',
 		'obj2' => Array(
-			'meetnpc' => 9, 'meetsub' => 0,
+			'meetnpc' => 9, 'meetsub' => 0, 'changehp' => 400,
 		),
 		'pulse' => Array(
 			'wep!=【红杀铁剑·雷击】' => ".itmsingle :contains('【红杀铁剑·雷击】') __BUTTON__",

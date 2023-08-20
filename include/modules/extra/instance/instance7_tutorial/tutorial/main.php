@@ -626,12 +626,13 @@ namespace tutorial
 		if($gametype == 17){
 			$ct = get_tutorial();
 			//$ct_prev = get_tutorial('PREV');
-			//list($tno, $tstep, $tprog) = get_current_tutorial_step();
+			list($tno, $tstep, $tprog) = get_current_tutorial_step();
 			if(isset($ct['obj2']['meetnpc'])){
 				if(!isset($ct['obj2']['corpse'])){//活的
 					$nid = tutorial_movenpc($ct['obj2']['meetnpc'],$ct['obj2']['meetsub'],$pid);//判定NPC是否存在，顺便把NPC移到玩家所在地点
-					if(isset($ct['obj2']['changehp'])){//有设定时，改动NPC血量
-						$n = tutorial_changehp_npc($ct['obj2']['meetnpc'],$ct['obj2']['meetsub'],$pid,1,$nid);
+					if(isset($ct['obj2']['changehp']) && !$tprog){//有设定并且第一次执行，改动NPC血量
+						
+						$n = tutorial_changehp_npc($ct['obj2']['meetnpc'],$ct['obj2']['meetsub'],$pid,$ct['obj2']['changehp'],$nid);
 					}
 					\metman\meetman($nid);
 					return true;

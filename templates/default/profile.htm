@@ -59,7 +59,11 @@
 								<!--{/if}-->
 							</tr>
 							<tr>
-								<!--{if defined('MOD_BUFFICONS')}-->
+								<!--{if defined('MOD_TUTORIAL') && 17==$gametype}-->
+								<td colspan=2 style="height:40px;text-align:center;vertical-align:middle">
+									<input type="button" class="cmdbutton" id="exittutorial" value="退出教程" onclick="$('command').value='exittutorial';postCmd('gamecmd','command.php');this.disabled=true;">
+								</td>
+								<!--{elseif defined('MOD_BUFFICONS')}-->
 								{template MOD_BUFFICONS_PROFILE}
 								<!--{else}-->
 								<td colspan=2 style="height:40px;text-align:middle;vertical-align:middle"></td>

@@ -184,7 +184,10 @@ if ($___MOD_SRV)
 						file_put_contents(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT.'/worknum', $___TEMP_WORKNUM);
 						
 						eval(import_module('sys','map','player','logger','itemmain','input'));
-						\sys\routine();
+						
+						//非聊天界面刷新进行状况的调用，那么刷新一次当前游戏状态
+						//聊天界面开着进行状况模式的话会3秒一次地访问command.php，如果都刷新当前游戏状态会有较大的开销
+						if (!(isset($sendmode) && $sendmode == 'news')) \sys\routine();
 
 						$___TEMP_EXEC_START_TIME=microtime(true);;
 						
@@ -490,9 +493,7 @@ if(isset($command)){
 		echo $jgamedata;
 		ob_end_flush();
 		return;
-	}elseif('room_routine' == $command){//刷新房间内游戏状态
-		include_once './include/roommng/roommng.func.php';
-		room_all_routine($nowroom);
+	}elseif('room_routine_single' == $command){//刷新房间内游戏状态。什么都不用做，command.php被唤醒时自动routine()过了
 		return;
 	}elseif('maintain' == $command || 3 == date('H', $now)){//凌晨3点有访问时自动维护，也可以手动启动维护
 		include_once GAME_ROOT.'./include/auto_maintain/auto_maintain_misc.func.php';

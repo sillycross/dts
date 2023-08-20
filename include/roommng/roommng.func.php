@@ -3,7 +3,8 @@
 //房间运转的大部分重要函数
 //gamedata/tmp/rooms下的文件现在只起一个开关作用。
 
-//检查并刷新所有房间状态，一般从首页调用
+//检查并刷新所有房间状态，一般从首页调用。
+//会导致严重的脏数据问题，当前已废弃，改为从首页多次发送对单个房间的routine()
 function room_all_routine($nowroom = NULL){
 	eval(import_module('sys'));
 	//startmicrotime();
