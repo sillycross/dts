@@ -166,12 +166,12 @@ $cards = array(
 		'effect' => '开局全熟+5',
 		'energy' => 0,
 		'valid' => array(
-			'wp' => '5',
-			'wk' => '5',
-			'wc' => '5',
-			'wg' => '5',
-			'wf' => '5',
-			'wd' => '5',
+			'wp' => '+5',
+			'wk' => '+5',
+			'wc' => '+5',
+			'wg' => '+5',
+			'wf' => '+5',
+			'wd' => '+5',
 		)
 	),
 	5 => array(
@@ -657,10 +657,10 @@ $cards = array(
 		'rare' => 'C',
 		'pack' => 'Standard Pack',
 		'desc' => '其实他也不是特别有钱',
-		'effect' => '起始金钱为100',
+		'effect' => '起始金钱为100元',
 		'energy' => 0,
 		'valid' => array(
-			'money' => '100',
+			'money' => '+80',
 		)
 	),
 	30 => array(
@@ -668,10 +668,10 @@ $cards = array(
 		'rare' => 'C',
 		'pack' => 'Way of Life',
 		'desc' => '和全世界为敌的男人',
-		'effect' => '起始怒气为100',
+		'effect' => '起始怒气增加100点',
 		'energy' => 0,
 		'valid' => array(
-			'rage' => '100',
+			'rage' => '+100',
 		)
 	),
 	31 => array(
@@ -722,6 +722,7 @@ $cards = array(
 		'pack' => 'Standard Pack',
 		'desc' => '孤高的拳法家，<br>对各种小伎俩不屑一顾',
 		'effect' => '拳法家不需要多余的技能',
+		'desc_skills' => '开局HP、最大HP、殴熟和攻击力都增加50，但失去大部分技能',
 		'energy' => 0,
 		'valid' => array(
 			'club' => '14',
@@ -730,10 +731,10 @@ $cards = array(
 				'11' => '0', 
 				'12' => '0', 
 			),
-			'hp' => '450',
-			'mhp' => '450',
-			'wp' => '50',
-			'att' => '150',
+			'hp' => '+50',
+			'mhp' => '+50',
+			'wp' => '+50',
+			'att' => '+50',
 		)
 	),
 	34 => array(
@@ -784,21 +785,22 @@ $cards = array(
 		'pack' => 'Way of Life',
 		'desc' => '美国著名新闻工作者',
 		'effect' => '初始属性不知道高到哪里去了',
+		'desc_skills' => '开局HP、最大HP、SP、最大SP、攻击力、防御力、金钱和全系熟练度都增加50点',
 		'energy' => 150,
 		'valid' => array(
-			'hp' => '450',
-			'mhp' => '450',
-			'sp' => '450',
-			'msp' => '450',
-			'att' => '150',
-			'def' => '150',
-			'money' => '50',
-			'wp' => '50',
-			'wk' => '50',
-			'wc' => '50',
-			'wg' => '50',
-			'wd' => '50',
-			'wf' => '50',
+			'hp' => '+50',
+			'mhp' => '+50',
+			'sp' => '+50',
+			'msp' => '+50',
+			'att' => '+50',
+			'def' => '+50',
+			'money' => '+50',
+			'wp' => '+50',
+			'wk' => '+50',
+			'wc' => '+50',
+			'wg' => '+50',
+			'wd' => '+50',
+			'wf' => '+50',
 		)
 	),
 	38 => array(
@@ -808,7 +810,7 @@ $cards = array(
 		'pack' => 'Crimson Swear',
 		'desc' => '低调行事的年轻女性，<br>红暮的青梅竹马。<br>目前是红暮的影一样的存在。<br>担当红杀组织中并不存在的<br>隐秘行动课程的教头。',
 		'effect' => '获得技能「疾走」：<br>被发现率降低15%，爆系和斩系伤害提高20%',
-		'energy' => 100,
+		'energy' => 50,
 		'valid' => array(
 			'skills' => array(
 				'405' => '0', 
@@ -840,8 +842,9 @@ $cards = array(
 		'desc_skills' => '<span class=\'ltazure b\'>“快进游戏实际体验一下吧！”</span>',
 		'energy' => 60,
 		'valid' => array(
-			'hp' => '260',
-			'mhp' => '260',
+			'hp' => '-140',
+			'mhp' => '-140',
+			'club' => '17',
 			'skills' => array(
 				'10' => '0', 
 				'11' => '0', 
@@ -850,7 +853,6 @@ $cards = array(
 				'432' => '0', 
 				'462' => '0', 
 			),
-			'club' => '17',
 		)
 	),
 	41 => array(
@@ -1001,7 +1003,7 @@ $cards = array(
 		'effect' => '开局殴熟+50',
 		'energy' => 100,
 		'valid' => array(
-			'wp' => '50',
+			'wp' => '+50',
 		)
 	),
 	52 => array(
@@ -1012,7 +1014,7 @@ $cards = array(
 		'effect' => '开局斩熟+50',
 		'energy' => 100,
 		'valid' => array(
-			'wk' => '50',
+			'wk' => '+50',
 		)
 	),
 	53 => array(
@@ -1023,7 +1025,7 @@ $cards = array(
 		'effect' => '开局投熟+50',
 		'energy' => 100,
 		'valid' => array(
-			'wc' => '50',
+			'wc' => '+50',
 		)
 	),
 	54 => array(
@@ -1034,7 +1036,7 @@ $cards = array(
 		'effect' => '开局射熟+50',
 		'energy' => 100,
 		'valid' => array(
-			'wg' => '50',
+			'wg' => '+50',
 		)
 	),
 	55 => array(
@@ -1045,7 +1047,7 @@ $cards = array(
 		'effect' => '开局爆熟+50',
 		'energy' => 100,
 		'valid' => array(
-			'wd' => '50',
+			'wd' => '+50',
 		)
 	),
 	56 => array(
@@ -1056,11 +1058,11 @@ $cards = array(
 		'effect' => '开局灵熟以外的熟练度+40',
 		'energy' => 100,
 		'valid' => array(
-			'wp' => '40',
-			'wk' => '40',
-			'wc' => '40',
-			'wg' => '40',
-			'wd' => '40',
+			'wp' => '+40',
+			'wk' => '+40',
+			'wc' => '+40',
+			'wg' => '+40',
+			'wd' => '+40',
 		)
 	),
 	57 => array(
@@ -1069,11 +1071,11 @@ $cards = array(
 		'rare' => 'C',
 		'pack' => 'Crimson Swear',
 		'desc' => '在时空特使里默默无闻的工作人员。<br>某次事件之后就消失了',
-		'effect' => '开局攻防为123',
+		'effect' => '开局攻防增加23点',
 		'energy' => 0,
 		'valid' => array(
-			'att' => '123',
-			'def' => '123',
+			'att' => '+23',
+			'def' => '+23',
 		)
 	),
 	58 => array(
@@ -1114,8 +1116,8 @@ $cards = array(
 		'effect' => '初始攻击大幅降低，防御大幅提高',
 		'energy' => 0,
 		'valid' => array(
-			'att' => '15',
-			'def' => '155',
+			'att' => '-80',
+			'def' => '+80',
 		)
 	),
 	61 => array(
@@ -1123,12 +1125,12 @@ $cards = array(
 		'rare' => 'M',
 		'pack' => 'Crimson Swear',
 		'desc' => '由于长期坐办公室，<br>他的身材已经严重走形了',
-		'effect' => '初始经验值为65，但体力大幅下降',
+		'effect' => '初始经验值增加65点，但体力大幅下降',
 		'energy' => 0,
 		'valid' => array(
-			'sp' => '40',
-			'msp' => '40',
-			'exp' => '65',
+			'sp' => '-360',
+			'msp' => '-360',
+			'exp' => '+65',
 		)
 	),
 	62 => array(
@@ -1330,8 +1332,8 @@ $cards = array(
 		'effect' => '初始生命+300，体力+300',
 		'energy' => 0,
 		'valid' => array(
-			'hp' => '700',
-			'sp' => '700',
+			'hp' => '+300',
+			'sp' => '+300',
 		)
 	),
 	75 => array(
@@ -1419,8 +1421,8 @@ $cards = array(
 		'effect' => '最大生命值大幅提高，但是无法选择称号',
 		'energy' => 0,
 		'valid' => array(
-			'hp' => '800',
-			'mhp' => '800',
+			'hp' => '+400',
+			'mhp' => '+400',
 			'club' => '17',
 			'skills' => array(
 				'12' => '0', 
@@ -1478,8 +1480,8 @@ $cards = array(
 		'effect' => '初始攻防和行动CD都提高<br>推荐网速不佳的时候使用这张卡',
 		'energy' => 0,
 		'valid' => array(
-			'att' => '250',
-			'def' => '250',
+			'att' => '+150',
+			'def' => '+150',
 			'skills' => array(
 				'417' => '0', 
 			),
@@ -1601,7 +1603,7 @@ $cards = array(
 				'73' => '0', 
 				'59' => '0', 
 			),
-			'skillpoint' => '5',
+			'skillpoint' => '+5',
 		)
 	),
 	91 => array(
@@ -2024,7 +2026,7 @@ $cards = array(
 		'effect' => '开局金钱为0元',
 		'energy' => 0,
 		'valid' => array(
-			'money' => 0,
+			'money' => '-20',
 		)
 	),
 	119 => array(
@@ -2353,10 +2355,10 @@ $cards = array(
 			'skills' => array(
 				'474' => '0', 
 			),
-			'hp' => '500',
-			'mhp' => '500',
-			'sp' => '500',
-			'msp' => '500',
+			'hp' => '+100',
+			'mhp' => '+100',
+			'sp' => '+100',
+			'msp' => '+100',
 		)
 	),
 	151 => array(
@@ -2411,7 +2413,7 @@ $cards = array(
 		'effect' => '开局赠送600点歌魂。对歌魂小于30的玩家和NPC造成的伤害+30%',
 		'energy' => 100,
 		'valid' => array(
-			'ss' => 600,
+			'ss' => '+600',
 			'skills' => array(
 				'477' => '0', 
 			),
@@ -2441,7 +2443,7 @@ $cards = array(
 		'effect' => '以4000点LP开局。面包替换为掘豆盘。',
 		'energy' => 100,
 		'valid' => array(
-			'hp' => 4000,
+			'hp' => '+3600',
 			'itm1' => '掘豆盘',
 			'itmk1' => 'DA',
 			'itme1' => '25',
@@ -2529,7 +2531,7 @@ $cards = array(
 		'pack' => 'Event Bonus',
 		'desc' => '宝石噩梦才刚刚开始，亲爱的',
 		'effect' => '称号固定为宝石骑士，且每隔一段时间能生成一个方块。开局包裹里道具全部变为随机方块。',
-		'energy' => 150,
+		'energy' => 100,
 		'valid' => array(
 			'club' => '20',
 			'skills' => array(
@@ -2585,7 +2587,7 @@ $cards = array(
 		'effect' => '开局灵熟+70',
 		'energy' => 100,
 		'valid' => array(
-			'wf' => '70',
+			'wf' => '+70',
 		)
 	),
 	162 => array(
@@ -2596,8 +2598,8 @@ $cards = array(
 		'effect' => '开局歌魂+30',
 		'energy' => 0,
 		'valid' => array(
-			'ss' => '30',
-			'mss' => '30',
+			'ss' => '+30',
+			'mss' => '+30',
 		)
 	),
 	163 => array(
@@ -2620,20 +2622,20 @@ $cards = array(
 		'rare' => 'B',
 		'pack' => 'Way of Life',
 		'desc' => '这个人有两大爱好，一是叫爸爸，二是假装自己是SCP',
-		'effect' => '开局金钱是88，经验、怒气、全熟、歌魂和最大歌魂都是8',
+		'effect' => '开局金钱是88，经验、怒气、全熟、歌魂和最大歌魂都增加8',
 		'energy' => 88,
 		'valid' => array(
-			'money' => '88',
-			'exp' => '8',
-			'rage' => '8',
-			'wp' => '8',
-			'wk' => '8',
-			'wg' => '8',
-			'wc' => '8',
-			'wd' => '8',
-			'wf' => '8',
-			'ss' => '8',
-			'mss' => '8',
+			'money' => '+68',
+			'exp' => '+8',
+			'rage' => '+8',
+			'wp' => '+8',
+			'wk' => '+8',
+			'wg' => '+8',
+			'wc' => '+8',
+			'wd' => '+8',
+			'wf' => '+8',
+			'ss' => '+8',
+			'mss' => '+8',
 		)
 	),
 	165 => array(
@@ -3100,12 +3102,12 @@ $cards = array(
 		'rare' => 'A',
 		'pack' => 'Event Bonus',
 		'desc' => '过去经历一切不明的女骇客，<br>其typing能力就算在糟糕级骇客中也实际强大！',
-		'effect' => '开局获得77点经验、金钱和怒气。<br>如果你上一次操作在程序执行时<br>没有顺利完成，你获得7点经验和全系熟练，还会给这个游戏的天然呆程序员发一封站内信。',
+		'effect' => '开局经验、金钱和怒气都是77点。<br>如果你上一次操作在程序执行时<br>没有顺利完成，你获得7点经验和全系熟练，还会给这个游戏的天然呆程序员发一封站内信。',
 		'energy' => 100,
 		'valid' => array(
-			'money' => 77,
-			'exp' => 77,
-			'rage' => 77,
+			'money' => '+77',
+			'exp' => '+77',
+			'rage' => '+77',
 			'skills' => array(
 				'528' => '0', 
 			),
@@ -3443,13 +3445,13 @@ $cards = array(
 		'pack' => 'Cyber Zealots',
 		'desc' => '跳、唱、rap、篮球',
 		'effect' => '你干嘛，哎哟',
-		'desc_skills' => '开局获得5点歌魂和5点体力上限，并装备篮球和背带裤',
+		'desc_skills' => '开局获得5点生命、最大生命、歌魂和最大歌魂，并装备篮球和背带裤',
 		'energy' => 0,
 		'valid' => array(
-			'mhp' => 105,
-			'hp' => 105,
-			'mss' => 5,
-			'ss' => 5,
+			'mhp' => '+5',
+			'hp' => '+5',
+			'mss' => '+5',
+			'ss' => '+5',
 			'wep' => '篮球',
 			'wepk' => 'WC',
 			'wepe' => '12',
@@ -3500,8 +3502,8 @@ $cards = array(
 		'desc_skills' => '开局携带一枚效果值为800的陷阱，但最大生命值只有正常的一半',
 		'energy' => 100,
 		'valid' => array(
-		  'hp' => '200',
-		  'mhp' => '200',
+		  'hp' => '-200',
+		  'mhp' => '-200',
 			'itm3' => '超天新龙 异色眼革命龙★12',
 			'itmk3' => 'TN12',
 			'itme3' => '800',
@@ -3517,7 +3519,7 @@ $cards = array(
 		'effect' => '告辞',
 		'energy' => 0,
 		'valid' => array(
-		  'exp' => '3',
+		  'exp' => '+3',
 		)
 	),
 	217 => array(
@@ -3550,7 +3552,7 @@ $cards = array(
 		'desc_skills' => '初始金额为100元，但获取金额时不能超过上限。可以消耗技能点还款来解除限制。',
 		'energy' => 0,
 		'valid' => array(
-		  'money' => '100',
+		  'money' => '+80',
 			'skills' => array(
 				'495' => '0', 
 			),
@@ -3943,11 +3945,11 @@ $cards = array(
 		'rare' => 'C',
 		'pack' => 'Cyber Zealots',
 		'desc' => '我先叠个甲',
-		'effect' => '开局防御力变为200',
+		'effect' => '开局防御力+200',
 		//'desc_skills' => '',
 		'energy' => 0,
 		'valid' => array(
-		  'def'=> '200',
+		  'def'=> '+200',
 		)
 	),
 	244 => array(

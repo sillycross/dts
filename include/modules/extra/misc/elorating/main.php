@@ -362,6 +362,7 @@ namespace elorating
 					$data['winner']=0;
 					$data['alive']=0;
 				}
+				//file_put_contents('a.txt',$data['state'],FILE_APPEND);
 				array_push($tlist,$data);
 			}
 			elorating_calculate_update($tlist);
@@ -500,7 +501,7 @@ namespace elorating
 		echo '<div style="position:absolute; left:3px; top:3px;">';
 		echo '<img src="img/rating-point-highest.png" style="height:8px; width:8px;">';
 		echo '</div></div>';
-		echo '<div id="user-rating-point-'.$p['id'].'" style="position:absolute; z-index:10010; width:100px; text-align:left; display:none; filter:alpha(opacity=80); opacity:0.8; background-color:#ffffff; left:'.($p['x']+12).'px; top:'.$p['y'].'px;">';
+		echo '<div id="user-rating-point-'.$p['id'].'" style="position:absolute; z-index:10010; width:100px; text-align:left; display:none; filter:alpha(opacity=80); opacity:0.8; background-color:#ffffff; left:'.(($p['x']>500) ? ($p['x']-112) : ($p['x']+12)).'px; top:'.$p['y'].'px;">';
 		echo '<span style="display:block; margin:2px 2px 2px 2px; color:#000000; font-size:11px;">';
 		echo '= '.$p['rating'];
 		if (isset($p['diff'])) 

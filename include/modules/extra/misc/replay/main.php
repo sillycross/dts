@@ -372,7 +372,7 @@ namespace replay
 		}
 		$arr=explode(',',file_get_contents($replay_path.$room_gprefix.$gnum.'.rep.index'));
 		$lis=Array(); 
-		if ($wmode!=4 && $wmode!=1 && $wmode!=6) $ff=1;
+		if ($wmode!=4 && $wmode!=1 && $wmode!=6) $ff=1;//非无人参加、全灭、GM中止，需要显示优胜者，默认第一个是优胜者
 		foreach ($arr as $key)
 		{
 			if ($key=='') continue;

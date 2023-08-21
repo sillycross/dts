@@ -311,7 +311,16 @@ namespace cardbase
 					$value = $value[0];
 				}
 			}
-			$ebp[$key] = $value;
+			//如果是数值类的字段，先判定是增加减少还是赋值。没有前缀的当做赋值
+			$val1 = substr($value, 0, 1);
+			$val2 = substr($value, 1);
+			if(in_array($val1, Array('+','-','=')) && is_numeric($val2)){
+				if('+' == $val1) $ebp[$key] += $val2;
+				elseif('-' == $val1) $ebp[$key] -= $val2;
+				else $ebp[$key] = $val2;
+			}else{
+				$ebp[$key] = $value;
+			}
 		}
 		
 		$ebp['card'] = $card;

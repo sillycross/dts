@@ -189,7 +189,7 @@ namespace sys
 						if($alivenum == 1) {
 							$winmode = 2;
 							$winnum = 1;
-							$wdata = array_pop($gameover_alivelist);
+							foreach($gameover_alivelist as &$wdata){ break;}
 							$winner = $wdata['name'];
 							$wdata['state'] = 5;
 							\player\player_save($wdata);
@@ -216,7 +216,7 @@ namespace sys
 						{
 							if (!$firstteamID)	//单人胜利
 							{	
-								$wdata = array_pop($gameover_alivelist);
+								foreach($gameover_alivelist as &$wdata){ break;}
 								$wdata['state'] = 5;
 								\player\player_save($wdata);
 								$winnum = 1;
