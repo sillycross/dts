@@ -148,7 +148,7 @@ $tutorial_story[1] = Array(
 		'tips' => '“很好，现在你从受伤状态完全恢复了。<br>除了使用道具之外，消耗<span class="lime b">【技能点数】</span>或者<span class="lime b">【静养】</span>一定时间也可以解除异常状态。<br><br>敌人还在当前地点，让我们去还以颜色。点击<span class="yellow b">【探索】</span>来寻找敌人。”<br>',
 		'object' => 'search',
 		'obj2' => Array(
-			'meetnpc' => 91, 'meetsub' => 0,'active' => 1,'changehp' => 1,'always_hit' => 1
+			'meetnpc' => 91, 'meetsub' => 0,'active' => 1,'changevar' => Array('hp' => 1),'always_hit' => 1
 		),
 		'pulse' => '#zz',
 		'next' => 1800
@@ -157,7 +157,7 @@ $tutorial_story[1] = Array(
 		'tips' => '“这次你应该能够先手了。<br>找到敌人的话，就点击具体的<span class="yellow b">【攻击方式】</span>按钮。”<br>',
 		'object' => 'kill',
 		'obj2' => Array(
-			'meetnpc' => 91, 'meetsub' => 0,'active' => 1,'changehp' => 1,'always_hit' => 1
+			'meetnpc' => 91, 'meetsub' => 0,'active' => 1,'changevar' => Array('hp' => 1),'always_hit' => 1
 		),
 		'pulse' => '#z',		
 		'prog' => '“错过攻击机会也没有关系，在原地<span class="yellow b">探索</span>仍有机会发现同一个敌人。”<br>',
@@ -170,7 +170,7 @@ $tutorial_story[1] = Array(
 		'obj2' => Array(
 			'meetnpc' => 91, 'meetsub' => 0,'corpse' => 1
 		),
-		'prog' => '“拿了别的东西？没关系，在原地<span class="yellow b">探索</span>仍有机会发现那具尸体。<br>不过，游戏进入<span class="red b">【连斗】</span>阶段或者其他玩家将尸体销毁后，就没法再发现尸体了。<br>',
+		'prog' => '“拿了别的东西？没关系，在原地<span class="yellow b">探索</span>仍有机会发现那具尸体。<br>不过，游戏进入<span class="red b">【连斗】</span>阶段或者其他玩家将尸体销毁后，就没法再发现尸体了。”<br>',
 		'next' => 2000
 	),
 	2000 => Array(
@@ -196,9 +196,13 @@ $tutorial_story[1] = Array(
 		'tips' => '“之后选择<span class="red b">【红杀铁剑】</span>并购买吧。”<br>',
 		'object' => 'itembuy',
 		'obj2' => Array(
-			'item' => '【红杀铁剑】'
+			'item' => '【红杀铁剑】',
 		),
 		'pulse' => Array('#buy_f1b3f633'),
+		'prog' => Array(
+			'money<1300' => '“钱不够了？在<span class="yellow b">天使队移动格纳库</span>能找到我留下的一些盘缠。”<br>',
+			'“不要乱买东西，后面还需要用到钱的。”',//注意如果要修改编号，得把事件相关给改了
+		),
 		'next' => 2400	
 	),
 	2400 => Array(
@@ -308,7 +312,7 @@ $tutorial_story[1] = Array(
 		'tips' => '“她直接找到你了！战场上这很常见，高手玩家多半会使用生命探测器来判断你的位置。而且，看起来你们之间的实力差距相当之大。”<br>',
 		'object' => 'any',
 		'obj2' => Array(
-			'meetnpc' => 9, 'meetsub' => 0,'active' => 0,'changehp' => 3000,'always_hit' => 1
+			'meetnpc' => 9, 'meetsub' => 0,'active' => 0,'changevar' => Array('hp' => 3000),'always_hit' => 1
 		),
 		'pulse' => '#z',
 		'next' => 3000	
@@ -401,7 +405,7 @@ $tutorial_story[1] = Array(
 		'tips' => '“以你目前的实力击倒她应该不难，之后就拥抱胜利吧。”<br>',
 		'object' => 'kill',
 		'obj2' => Array(
-			'meetnpc' => 9, 'meetsub' => 0, 'changehp' => 400,
+			'meetnpc' => 9, 'meetsub' => 0, 'changevar' => Array('hp' => 400),
 		),
 		'pulse' => Array(
 			'wep!=【红杀铁剑·雷击】' => ".itmsingle :contains('【红杀铁剑·雷击】') __BUTTON__",

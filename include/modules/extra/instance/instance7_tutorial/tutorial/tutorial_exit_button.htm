@@ -1,0 +1,24 @@
+<td colspan=2 style="height:40px;text-align:center;vertical-align:middle">
+	<input type="button" class="cmdbutton" id="exittutorial_button" value="退出教程" onclick="bubblebox_show('exittutorial_box');">
+<form method="post" id="exittutorial" name="exittutorial" style="margin: 0px" >
+	<input type="hidden" id="dummycommand" name="dummycommand" value="exittutorial">
+</form>
+<!--{eval \bubblebox\bubblebox_set_style('id:exittutorial_box;height:120;width:240;cancellable:1');}-->
+{template MOD_BUBBLEBOX_START}
+<div style="margin:20px">
+	<span class="yellow b" style="font-size:14px">真的要退出教程吗？</span>
+</div>
+<div style="margin:20px">
+	<a class="b_button bc_black" onclick=
+	"if(null!=$('command')) {
+		$('command').value='exittutorial';
+		postCmd('gamecmd','command.php');
+	}else{
+		$('dummycommand').name='command';
+		postCmd('exittutorial','command.php');
+	}
+	"
+	>退出</a>&nbsp;&nbsp;&nbsp;<a class="b_button bc_black" onclick="bubblebox_hide_all();">取消</a>
+</div>
+{template MOD_BUBBLEBOX_END}
+</td>

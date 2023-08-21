@@ -191,7 +191,7 @@ namespace pose
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player'));
-		if(!$dpret && 3==$pose) return true;
+		if(!$dpret && $hp>0 && 3==$pose) return true;
 		return $chprocess($dpret);
 	}	
 		

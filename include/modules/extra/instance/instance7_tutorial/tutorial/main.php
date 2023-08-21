@@ -24,7 +24,11 @@ namespace tutorial
 	function exit_tutorial(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
-		$alivenum--;
+		
+		if($hp > 0 && $state <= 3) {
+			$alivenum--;
+			save_gameinfo();
+		}
 		$sdata['endtime'] = -1;//负数会在command_act.php最后被变为0，下次进房会触发教程重置角色功能
 		set_current_roomid(0);
 		//update_udata_by_username(array('roomid' => 0), $cuser);
@@ -250,11 +254,7 @@ namespace tutorial
 			}
 			if($ct['next'] < 0){//游戏结束判定
 				//$log.='教程结束。这句话最终版应该删掉。<br>';
-				$state = 4;
-				$endtime = -1;
-				addnews($now, 'wintutorial', $name);	
-				$url = 'end.php';
-				//\sys\gameover ( $now, 'end9', $name );
+				tutorial_win();
 			}else{
 				\skillbase\skill_setvalue(1000,'step',$ct['next']);
 				\skillbase\skill_setvalue(1000,'prog',0);
@@ -307,7 +307,26 @@ namespace tutorial
 		return $mpid;
 	}
 	
+	//把NPC的变量变成指定数值
+	//$cvar为数组
+	//如果给出了$cpid的值，那么跳过判定NPC存在的步骤
+	function tutorial_changevar_npc($ctype,$csub,$cteam,$cvar,$cpid=0){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','logger'));
+		if($cpid == 0){
+			$cpid = tutorial_checknpc($ctype,$csub,$cteam,1);
+			if(!$cpid){ $log.='NPC生成出错，请检查代码。';return; }
+		}
+		$npc_upd = Array();
+		foreach($cvar as $ck => $cv){
+			$npc_upd[$ck] = $cv;
+		}
+		$db->array_update("{$tablepre}players",$npc_upd,"pid='$cpid'");
+		return $cpid;
+	}
+	
 	//把NPC的HP变成指定数值
+	//已废弃，请用tutorial_changevar_npc()
 	//$chp最小为1
 	//如果给出了$cpid的值，那么跳过判定NPC存在的步骤
 	function tutorial_changehp_npc($ctype,$csub,$cteam,$chp,$cpid=0){
@@ -322,23 +341,24 @@ namespace tutorial
 		return $cpid;
 	}
 	
+	//教程退出命令，接管pre_act()
+	function pre_act()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		if($gametype == 17 && strpos($command,'exittutorial')===0){
+			exit_tutorial();
+			return;
+		}
+		$chprocess();
+	}
+	
 	//接管act()，判定continue或者任意命令下的玩家教程阶段推进
 	//理论上一切推进判定都可以写在act()里，然而由于act()继承次数太多，难以弄清顺序，同时大量具体的参数需要在具体模块里才能得到，所以很多判定放到具体模块里了
 	function act(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','input','map'));
 		if($gametype == 17) {
-			if(strpos($command,'exittutorial')===0){
-				if('exittutorial_2'==$command) {//确认命令，退出教程
-					exit_tutorial();
-				}else{
-					ob_start();
-					include template(MOD_TUTORIAL_TUTORIAL_EXIT);
-					$cmd = ob_get_contents();
-					ob_end_clean();
-				}
-				return;
-			}
 			$ct = get_tutorial();
 			list($tno, $tstep, $tprog) = get_current_tutorial_step();
 			if(isset($ct['obj2']['addnpc'])){//判定是否需要addnpc
@@ -400,12 +420,12 @@ namespace tutorial
 			}
 		}
 		elseif($ct['object'] == 'move' && in_array('shop',$ct['obj2']) && \itemshop\check_in_shop_area($pls)) $ret = true; //在移动到商店任务之前就移动到了商店地图
-		elseif($ct['object'] == 'itemmix') 
+		elseif($ct['object'] == 'itemmix' || $ct['object'] == 'itembuy') 
 		{
 			eval(import_module('armor', 'itemmain'));
 			$posarr = array_merge(Array('wep'), $armor_equip_list, $item_equip_list);
 			foreach($posarr as $pv) {
-				if(!empty(${$pv}) && ${$pv} == $ct['obj2']['item']){//判定在合成任务前就完成了合成
+				if(!empty(${$pv}) && ${$pv} == $ct['obj2']['item']){//判定在任务前就完成了合成或者购买
 					$ret = true;
 					break;
 				}
@@ -547,11 +567,13 @@ namespace tutorial
 				$log .= "但是什么都没有发现。<br>";
 				return false;
 			}
+			
 			if($schmode == 'search' && (isset($ct['obj2']['itm']) || isset($ct['obj2']['meetnpc']))){//需要探索时必定发现
 				if(isset($ct['obj2']['itm'])){//判定必定发现道具
 					discover_item();
 					return true;
-				}elseif(isset($ct['obj2']['meetnpc'])){//判定必定发现NPC
+				}
+				elseif(isset($ct['obj2']['meetnpc'])){//判定必定发现NPC
 					discover_player();
 					return true;
 				}
@@ -630,9 +652,8 @@ namespace tutorial
 			if(isset($ct['obj2']['meetnpc'])){
 				if(!isset($ct['obj2']['corpse'])){//活的
 					$nid = tutorial_movenpc($ct['obj2']['meetnpc'],$ct['obj2']['meetsub'],$pid);//判定NPC是否存在，顺便把NPC移到玩家所在地点
-					if(isset($ct['obj2']['changehp']) && !$tprog){//有设定并且第一次执行，改动NPC血量
-						
-						$n = tutorial_changehp_npc($ct['obj2']['meetnpc'],$ct['obj2']['meetsub'],$pid,$ct['obj2']['changehp'],$nid);
+					if(isset($ct['obj2']['changevar']) && !$tprog){//有设定并且第一次执行，改动NPC数值
+						$n = tutorial_changevar_npc($ct['obj2']['meetnpc'],$ct['obj2']['meetsub'],$pid,$ct['obj2']['changevar'],$nid);
 					}
 					\metman\meetman($nid);
 					return true;
@@ -783,6 +804,19 @@ namespace tutorial
 		}
 	}
 	
+	//教程单人胜利，只能由玩家主动触发
+	function tutorial_win(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player'));
+		$state = 4;
+		$endtime = -1;
+		addnews($now, 'wintutorial', $name);	
+		$alivenum --;
+		save_gameinfo();
+		$url = 'end.php';
+		return;
+	}
+	
 	//接管get_hitrate()
 	//如果设定遭遇NPC时必定命中，那么命中率100%
 	function get_hitrate_change(&$pa,&$pd,$active,$hitrate){
@@ -838,10 +872,7 @@ namespace tutorial
 		$chprocess($theitem);
 		if($gametype == 17) {
 			if(('Y' == $theitem['itmk'] || 'Z' == $theitem['itmk']) && '教程解除钥匙' == $theitem['itm']){
-				$state = 4;
-				$endtime = -1;
-				addnews($now, 'wintutorial', $name);	
-				$url = 'end.php';
+				tutorial_win();
 			}else{
 				$ct = get_tutorial();
 				$flag = 0;
@@ -907,21 +938,26 @@ namespace tutorial
 	//接管itembuy()，主要为了推进
 	function itembuy($item,$shop,$bnum=1) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;		
-		eval(import_module('sys','map','player','logger','itemmain','tutorial'));
+		eval(import_module('sys'));
+		$ret = $chprocess($item,$shop,$bnum);
 		if($gametype == 17) {
-			$ct = get_tutorial();
-			$shopiteminfo = \itemshop\get_shopiteminfo($item);
-			if($ct['object']=='itembuy' && $shopiteminfo['item'] == $ct['obj2']['item']){//玩家购买特定名字的商品后推进进度
-				tutorial_pushforward_process();
+			$ct = get_tutorial();//玩家购买特定名字的商品后推进进度
+			eval(import_module('armor','itemmain','player'));
+			$posarr = array_merge(Array('wep'), $armor_equip_list, $item_equip_list);
+			foreach($posarr as $pv) {
+				if(!empty(${$pv}) && ${$pv} == $ct['obj2']['item']){
+					tutorial_pushforward_process();
+					break;
+				}
 			}
 		}
-		return $chprocess($item,$shop,$bnum);
+		return $ret;
 	}
 	
 	//接管player_selectclub()，主要为了推进
 	function player_selectclub($id){
 		if (eval(__MAGIC__)) return $___RET_VALUE;		
-		eval(import_module('sys','player','clubbase','tutorial','logger'));
+		eval(import_module('sys'));
 		$r = $chprocess($id);
 		if($gametype == 17) {
 			$ct = get_tutorial();
@@ -1028,6 +1064,38 @@ namespace tutorial
 		$ret = $chprocess();
 		if(17 == $gametype){
 			$ret[1] = 2;//见敌必斩
+		}
+		return $ret;
+	}
+	
+	//仅在特定步骤能在天使队捡到钱袋
+	function search_area()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player'));
+		list($tno, $tstep, $tprog) = get_current_tutorial_step();
+		if(17 == $gametype && 2300==$tstep && 30 == $pls){//寻找钱袋，临时调整事件概率
+			eval(import_module('event'));
+			$event_obbs = 40;
+		}
+		return $chprocess();
+	}
+	
+	//仅在特定步骤能在天使队捡到钱袋
+	function event()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player', 'logger'));
+		
+		$ret = $chprocess();
+		if(17 == $gametype && 30 == $pls) {
+			list($tno, $tstep, $tprog) = get_current_tutorial_step();
+			if($money < 1300 && 2300 == $tstep){
+				$get = rand(573,765);
+				$money += $get;
+				$log .= '你在一个虚掩着的保险箱里捡到了一些电子货币，或者说能被当做货币使用的垃圾——大约值<span class="yellow b">'.$get.'</span>元。<BR>';
+				$ret = 1;
+			}
 		}
 		return $ret;
 	}
