@@ -168,7 +168,8 @@ eval(import_module('cardbase'));
 	
 	$showCardUnavailableHint = 1;
 	
-	$no_select = (0 == $gametype || 1 == $gametype) ? 1 : 0;
+	//标准模式或者禁用了挑战者卡的模式（一般是特殊局）屏蔽卡片搜索条
+	$no_select = (0 == $gametype || !empty($card_disabledlist[0])) ? 1 : 0;
 	include template('valid');
 }
 

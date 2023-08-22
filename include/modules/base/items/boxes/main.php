@@ -2,22 +2,27 @@
 
 namespace boxes
 {
+	$room_mode_can_get_card_from_boxes = Array(0,1,4,6,18,19);//能够从礼品盒开出卡片的游戏模式
+	
+	//各礼品盒对应的文件
 	$item_boxes_list_file = Array(
 		'p' => '/config/present.config.php',
 		'p2' => '/config/present2.config.php',
 		'ygo' => '/config/ygobox.config.php',
 		'fy' => '/config/fybox.config.php',
 		'kj3' => '/config/kj3box.config.php',
+		'prd' => '/config/rdoll.config.php',
 	);
 		
 	function init()
 	{
 		eval(import_module('itemmain'));
 		$iteminfo['p'] = '礼物';
-		$iteminfo['p2'] = '礼物';
+		$iteminfo['p2'] = '礼盒';
 		$iteminfo['ygo'] = '卡包';
 		$iteminfo['fy'] = '全图唯一的野生浮云礼盒';
 		$iteminfo['kj3'] = '礼包';
+		$iteminfo['prd'] = '礼盒？';
 	}
 	
 	//各种礼物盒的核心函数，从对应的文件里读取记录并随机选择一个
@@ -27,7 +32,7 @@ namespace boxes
 		eval(import_module('sys','player','itemmain','logger','boxes'));
 		
 		if(!empty($itms0)) {
-			$log .= '<span class="yellow b">你正握着礼品盒呢，还是先把它放下再开盒吧！</span><br>';
+			$log .= '<span class="yellow b">'.$iteminfo[$itmk0].'正被你攥着呢，还是先把它放下再打开吧！</span><br>';
 			$mode = 'command';
 			return;
 		}
@@ -40,16 +45,14 @@ namespace boxes
 		$tmp_itm = $itm;
 		\itemmain\itms_reduce($theitem);
 		$plist = openfile($file);
-		while (1)
+		do
 		{
 			$rand = rand(0,count($plist)-1);
 			list($in,$ik,$ie,$is,$isk) = explode(',',$plist[$rand]);
 			$itm0 = $in;$itmk0=$ik;$itme0=$ie;$itms0=$is;$itmsk0=$isk;
-			//房间模式内开不出卡
-			if (!in_array($gametype,$room_mode) || substr($ik,0,2)!='VO') {
-				break;
-			}
 		}
+		while(!in_array($gametype,$room_mode_can_get_card_from_boxes) && substr($ik,0,2)=='VO');//房间模式内开不出卡
+		
 		addnews($now,'present',$name,$tmp_itm,$in);
 		\itemmain\itemget();		
 		return;

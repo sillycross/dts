@@ -24,7 +24,7 @@ namespace gtype6
 		if(6==$gametype)
 		{
 			foreach($card_ownlist as $cv){
-				if($cv) $card_disabledlist[$cv][]='e3';
+				if(1001 != $cv) $card_disabledlist[$cv][]='e3';
 			}
 		}
 		return $card_disabledlist;
