@@ -87,8 +87,11 @@ if($mode == 'edit') {
 	$packlist = \cardbase\pack_filter($packlist);
 	
 	$card_achieved_list = array();
-	$d_achievements = \achievement_base\decode_achievements($udata);
-	if(!empty($d_achievements['326'])) $card_achieved_list = $d_achievements['326'];
+	if(defined('MOD_ACHIEVEMENT_BASE')) {
+		$d_achievements = \achievement_base\decode_achievements($udata);
+		if(!empty($d_achievements['326'])) $card_achieved_list = $d_achievements['326'];
+	}
+	
 	include template('user');
 }
 

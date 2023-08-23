@@ -87,12 +87,8 @@ namespace skill529
 	//若过滤，返回0；否则返回$skillid
 	function skill529_skill_filter($skillid){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		//eval(import_module('clubbase'));
 		$filter_arr = Array(460,512);
-//		foreach($clublist as $csv){
-//			if(!empty($csv['skills']))
-//				$filter = array_merge($filter, $csv['skills']);
-//		}
+
 		if(in_array($skillid, $filter_arr)) $skillid = 0;
 		return $skillid;
 	}

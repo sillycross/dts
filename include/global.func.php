@@ -42,6 +42,7 @@ function gexit($message = '',$file = '', $line = 0) {
 	defined('STYLEID') || define('STYLEID', '1');
 	defined('TEMPLATEID') || define('TEMPLATEID', '1');
 	defined('TPLDIR') || define('TPLDIR', './templates/default');
+	
 	if (defined('IN_DAEMON'))
 	{
 		if (defined('GEXIT_RETURN_JSON'))
@@ -53,6 +54,7 @@ function gexit($message = '',$file = '', $line = 0) {
 		}
 		else
 		{
+			global $bbsurl,$homepage;
 			ob_clean();
 			throw new Exception( include template('error'));
 		}
@@ -69,6 +71,7 @@ function gexit($message = '',$file = '', $line = 0) {
 		}
 		else
 		{
+			global $bbsurl,$homepage;
 			ob_clean();
 			include template('error');
 			exit();

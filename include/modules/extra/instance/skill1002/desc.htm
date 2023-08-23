@@ -6,8 +6,8 @@
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class="skilldesc_left b3"><span class="skilldesc">
-<!--{eval $skill1002_time = ($now-$starttime); $skill1002_rm = $skill1002_act_time-$skill1002_time;}-->
-进入游戏后<span class="yellow b">$skill1002_act_time</span>秒内，你免疫100点以上的战斗和陷阱伤害（对少数NPC无效）<br>但是，你不能遭遇尸体。
+<!--{eval $skill1002_rm = \skillbase\skill_getvalue(1002,'expire') - $now;}-->
+进入游戏后<span class="yellow b">$skill1002_act_time</span>秒内，你免疫100点以上的战斗和陷阱伤害<br>（对少数NPC无效）<br>但是，你不能遭遇尸体。
 <!--{if $skill1002_rm>0}-->
 <span class="yellow b">技能作用有效时间还剩<span>$skill1002_rm</span>秒。</span><br>
 <!--{else}-->
