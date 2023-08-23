@@ -221,7 +221,7 @@ function __SOCKET_SEND_TO_SERVER__()
 	global $cli_pagestartime;
 	$timecost = get_script_runtime($cli_pagestartime);
 	if ($timecost > 0.15) {
-		__SOCKET_WARNLOG__("警告：本次操作耗时较长，耗时为 ".$timecost." 秒。页面：".$___TEMP_data_debug['page']."；操作信息：".(!empty($___TEMP_data_debug['command']) ? $___TEMP_data_debug['command'] : '-')."；操作者：".$___TEMP_data_debug['acbra2_cuser']);
+		__SOCKET_WARNLOG__("警告：本次操作耗时较长，耗时为 ".$timecost." 秒。页面：".$___TEMP_data_debug['page']."；操作信息：".(!empty($___TEMP_data_debug['command']) ? $___TEMP_data_debug['command'] : '-')."；操作者：".$___TEMP_data_debug['acbra2_user']);
 	}
 	/*
 	$___TEMP_res = str_replace('_____PAGE_RUNNING_TIME_____',(string)$timecost,$___TEMP_res);
