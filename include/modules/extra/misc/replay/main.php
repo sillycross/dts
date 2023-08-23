@@ -246,7 +246,7 @@ namespace replay
 					$filelist[] = GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.'.$data['pid'].'.rep.bmp';
 					//logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-玩家'.$data['pid'].'-生成略缩图');
 					$data['opnum']=-$cnt;
-					if ($data['name']==$winname) $data['opnum']=-2000000000;
+					if (\sys\is_winner($data['name'],$winname)) $data['opnum']=-2000000000;
 					array_push($plis,$data);
 				}
 			}

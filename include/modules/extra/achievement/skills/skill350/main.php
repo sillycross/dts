@@ -58,7 +58,7 @@ namespace skill350
 		$ret = $chprocess($pa, $data, $achid);
 		if($achid == 350){
 			eval(import_module('sys'));
-			if($winner === $pa['name'] && 19==$gametype && 3==$winmode) $ret += 1;
+			if(\sys\is_winner($pa['name'],$winner) && 19==$gametype && 3==$winmode) $ret += 1;
 		}
 		return $ret;
 	}

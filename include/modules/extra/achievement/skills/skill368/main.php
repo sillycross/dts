@@ -55,7 +55,7 @@ namespace skill368
 		$ret = $chprocess($pa, $data, $achid);
 		if($achid == 368){
 			eval(import_module('sys'));
-			if($winner === $pa['name'] && $gamestate < 50) {
+			if(\sys\is_winner($pa['name'],$winner) && $gamestate < 50) {
 				//判定场上是否没有存活着的NPC了
 				$result = $db->query("SELECT pid,hp FROM {$tablepre}players WHERE type > 0 AND hp > 0");
 				if(!$db->num_rows($result))

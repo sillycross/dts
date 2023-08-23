@@ -76,9 +76,9 @@ namespace set_gametype
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$retlog = $chprocess($gamevar_key,$gamevar_val,$valid_gamevars);
 		if('next_gametype' == $gamevar_key) {
-			eval(import_module('sys'));
+			eval(import_module('sys','player'));
 			$retlog = '已将下一局游戏的'.$gamevarsinfo[$gamevar_key].'设定为'.$gtinfo[$gamevar_val].'。';
-			addnews(0,'setnextgametype', $winner, $gamevar_val);
+			addnews(0,'setnextgametype', $name, $gamevar_val);
 		}
 		return $retlog;
 	}

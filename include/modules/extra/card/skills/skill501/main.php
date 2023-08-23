@@ -29,7 +29,7 @@ namespace skill501
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		if(2 == $winmode) {
-			//独存=死亡
+			//独存=死亡。团队幸存不是这个winmode
 			$pa = \player\fetch_playerdata($wn);
 			if(\skillbase\skill_query(501,$pa)) {
 				$pa['state'] = 42;

@@ -79,7 +79,7 @@ namespace skill347
 		$ret = $chprocess($pa, $data, $achid);
 		if($achid == 347){
 			eval(import_module('sys'));
-			if($winner === $pa['name'] && 1==\skillbase\skill_getvalue(347,'valid',$pa)) $ret += 1;
+			if(\sys\is_winner($pa['name'],$winner) && 1==\skillbase\skill_getvalue(347,'valid',$pa)) $ret += 1;
 		}
 		return $ret;
 	}

@@ -49,6 +49,15 @@ namespace ending
 					}
 				}
 			}
+			//显示胜利者姓名
+			if(false!==strpos($winner, ',')) {
+				if(\sys\is_winner($name, $winner)) $uip['winner_show'] = $name;
+				else $uip['winner_show'] = explode($winner, ',')[0];
+				$uip['winner_pronoun'] = '你们';
+			}else {
+				$uip['winner_show'] = $winner;
+				$uip['winner_pronoun'] = '你';
+			}
 			//攻击过和杀死过的重要NPC
 			$uip['attacked_vip'] = explode(',',\skillbase\skill_getvalue(1003,'attacked_vip'));
 			$uip['killed_vip'] = explode(',',\skillbase\skill_getvalue(1003,'killed_vip'));

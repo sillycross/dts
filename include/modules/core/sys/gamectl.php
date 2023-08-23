@@ -208,7 +208,7 @@ namespace sys
 								$first=0;
 								$firstteamID=$data['teamID'];
 							}elseif($firstteamID!=$data['teamID'] || !$data['teamID']){
-								//如果有超过一种teamID，或有超过一个人没有teamID，则游戏还未就结束
+								//如果有超过一种teamID，或有超过一个人没有teamID，则游戏还未结束
 								$flag=0; break;
 							}
 						}
@@ -222,25 +222,23 @@ namespace sys
 								$winnum = 1;
 								$winner = $wdata['name'];
 							}
-							else				//团队胜利，要记录已经死掉的玩家的名字，所以重新读1次数据库
+							else				//团队胜利，要记录已经死掉的玩家的名字，所以重新读1次玩家池
 							{
-								foreach($gameover_alivelist as &$wdata){
+								$teammatelist = array();
+								foreach($gameover_plist as &$wdata){
 									if($wdata['teamID'] == $firstteamID){
-										$wdata['state'] = 5; //实际上只是处理热数据，并没有在这里存数据库
+										$wdata['state'] = 5; //把队伍里所有玩家的状态改为获胜，用于天梯积分等判定。
+										$teammatelist[] = $wdata['name'];//保存队友数据
 									}
 								}
 								$db->query("UPDATE {$tablepre}players SET state='5' WHERE type = 0 AND teamID = '$firstteamID'");
 								
-								$teammatelist = array();
-								foreach($gameover_plist as $tname => $tdata){
-									if($tdata['teamID'] == $firstteamID) $teammatelist[] = $tname;
-								}
 								$winnum=count($teammatelist);
 								if ($winnum == 1)
 								{
 									$winner = $teammatelist[0];
 								}elseif($winnum > 1){
-									$winner = $namelist = implode(',',$teammatelist);
+									$winner = $namelist = implode(',',$teammatelist);//注意，从这里开始，组队模式$winner会是一个用逗号分隔的字符串
 								}
 							}
 							
@@ -365,6 +363,17 @@ namespace sys
 		return;
 	}
 	
+	//判断是不是获胜者的函数（获胜者可能是一个逗号分隔字符串）
+	function is_winner($n,$w){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(false===strpos($w, ',')) {
+			return $n==$w;
+		}else {
+			$w_a = explode(',', $w);
+			return in_array($n, $w_a);
+		}
+	}
+	
 	function get_gameover_udata_update_fields(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return array('username', 'validgames', 'wingames', 'lastwin', 'credits', 'gold', 'u_achievements');
@@ -381,6 +390,7 @@ namespace sys
 		process_unlock();
 	}
 	
+	//结算积分和切糕
 	function gameover_set_credits()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -404,12 +414,13 @@ namespace sys
 		return;
 	}
 
+	//结算积分，注意不能获得切糕的房同样不能获得积分
 	function gameover_get_credit_up($data,$winner = '',$winmode = 0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		if (in_array($gametype,$qiegao_ignore_mode)) return 0;
-		if($data['name'] == $winner){//获胜
+		if(is_winner($data['name'],$winner)){//获胜
 			if($winmode == 2){$up = 200;}//最后幸存+200
 			elseif($winmode == 3){$up = 500;}//解禁+500
 			elseif($winmode == 5){$up = 100;}//核弹+100
@@ -434,13 +445,14 @@ namespace sys
 		$up += round($data['money']/500);//每500点金钱加1
 		return $up;
 	}
-
+	
+	//结算切糕
 	function gameover_get_gold_up($data, $winner = '',$winmode = 0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		if (in_array($gametype,$qiegao_ignore_mode)) return 0;//嘻嘻
-		if($data['name'] == $winner){//获胜
+		if(is_winner($data['name'],$winner)){//获胜
 			if($winmode == 3){$up = 60;}//解禁
 			elseif($winmode == 7){$up = 150;}//解离
 			else{$up = 40;}//其他胜利方式

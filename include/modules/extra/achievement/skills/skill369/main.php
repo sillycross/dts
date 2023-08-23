@@ -55,7 +55,7 @@ namespace skill369
 		$ret = $chprocess($pa, $data, $achid);
 		if($achid == 369){
 			eval(import_module('sys'));
-			if($winner === $pa['name']) {
+			if(\sys\is_winner($pa['name'],$winner)) {
 				$cnt=\skillbase\skill_getvalue(369, 'cnt', $pa);
 				$cnt = array_filter(explode(',', $cnt));
 				if(sizeof($cnt) >= 3) $ret += 1;

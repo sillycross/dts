@@ -63,7 +63,7 @@ namespace skill370
 		$ret = $chprocess($pa, $data, $achid);
 		if($achid == 370){
 			eval(import_module('sys','skill370'));
-			if($winner === $pa['name']) {
+			if(\sys\is_winner($pa['name'],$winner)) {
 				if($pa['mhp'] > $ret) $ret = $pa['mhp'];
 			}
 		}

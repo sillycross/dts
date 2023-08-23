@@ -114,7 +114,7 @@
 			</div>
 			<div id="op_sht_2" class="shootings">
 				你心底似乎有什么被触动了，如条件反射般张口报出了那段熟悉的台词。<BR>
-				<span class="yellow b">“挑战者{$sNo}号，{$winner}。 ”</span><BR>
+				<span class="yellow b">“挑战者{$sNo}号，{$uip['winner_show']}。 ”</span><BR>
 				<br>
 				几乎是瞬间，你身边再次出现了传送光环。<BR>
 				<!--{if $uip['boss_data']['hp'] < $uip['boss_data']['mhp'] && in_array(15, $uip['attacked_vip'])}-->
@@ -192,7 +192,7 @@
 		<!--{if $killnum = 0 || 10>\skillbase\skill_getvalue(1005,'lvl')}-->
 			“喂喂喂，醒醒，我们清场了！” 你被一个元气满满的声音吵醒。<br>
 			你睁开了眼睛，在你面前的，是一个穿着花里胡哨的衣服，戴着巨大的方框眼镜的女孩子。<br>
-			“清场了清场了，你是<span class="yellow b">{$winner}</span>吧，将你拖出来花了不少时间。”<br>
+			“清场了清场了，你是<span class="yellow b">{$uip['winner_show']}</span>吧，将你拖出来花了不少时间。”<br>
 			听她这么说，你才发现你现在是睡在了场馆角落的地面上。<br>
 			你脑内构思了一下这个女孩子奋力将你从设备中拖出来的囧样，不禁嘴角一扬。<br>
 			“还乐——”少女撅起嘴看着你，“你知道我花了多少功夫和上司说你不是个流浪汉然后让你睡在这里么。”<br>
@@ -222,7 +222,7 @@
 			视野在你面前重新聚焦了起来。<br>
 			你看见了你的脚下的……一只黑猫？<br>
 			<br>
-			“了不起啊，<span class="yellow b">{$winner}</span>。果然不是一般人。”一个你之前没有听见过的声音直接在你的脑海中回响着。<br>
+			“了不起啊，<span class="yellow b">{$uip['winner_show']}</span>。果然不是一般人。”一个你之前没有听见过的声音直接在你的脑海中回响着。<br>
 			“我觉得你也不是一般的猫。”你冷静地回答道。<br>
 			“彼此彼此。所以说，你为什么故意留在这里，我只问一次。”<br>
 			<br>
@@ -245,7 +245,7 @@
 			果然是FOREST。<br>
 			你握住了她的手——暖洋洋的。她就这么将你拽了起来。<br>
 			<br>
-			“此地不宜久留，所以迟迟没有你的消息我就来亲自找你了，确认一下，你是<span class="yellow b">{$winner}</span>吧。”<br>
+			“此地不宜久留，所以迟迟没有你的消息我就来亲自找你了，确认一下，你是<span class="yellow b">{$uip['winner_show']}</span>吧。”<br>
 			你点了点头。<br>
 			“那好，爱丽丝，带这位勇敢的挑战者出去。”<br>
 			你瞬间被一团白雾吞没。<br>
@@ -287,7 +287,13 @@
 					<!--{/if}-->
 				<!--{else}-->
 					<!--//红暮没损血，或者不是你打的红暮//-->
-					<!--{if $killnum > 0 && 0==\skillbase\skill_getvalue(1003,'last_kill_type')}-->
+					<!--{if false !== strpos($winner, ',')}-->
+						<!--//多个胜利者，即组队模式幸存//-->
+						<span class="b">“现在，该放我们出去了吧。”</span><br><br>
+						在你和队友的完美配合下，最后一名敌对的“挑战者”也落败了。<br>
+						虽然，你们继续打下去，大概连红暮都能干掉，<br>
+						但考虑到敌对的队伍也是有备而来，尽早从这个是非之地撤离才是上策。<br>
+					<!--{elseif $killnum > 0 && 0==\skillbase\skill_getvalue(1003,'last_kill_type')}-->
 						<!--//最后打死的是活人//-->
 						<span class="b">“抱歉，但我必须活着出去。”</span><br><br>
 						<!--{eval $tmp_method = \skillbase\skill_getvalue(1003,'last_kill_method');}-->
@@ -296,13 +302,13 @@
 							巨大的响动声传来，你明白最后一名竞争者也中招了。<BR>
 							你谨慎地回到自己设下的陷阱旁，亲眼看到了那名“挑战者”支离破碎的尸体。<BR>
 							这是结束这场死亡竞赛最保险的办法。<BR>
-							虽然不情愿，但危机关头，让自己活下去才是第一要务。<BR>
+							虽然不情愿，但在这危机关头，自己活下去才是最重要的。<BR>
 						<!--{elseif 25==$tmp_method }-->
 							你默念着这句话，摁下了按钮。<BR>
 							随着震耳欲聋的爆炸声，你的视野瞬间被火光和烟尘吞没了。<BR>
 							最后一名“挑战者”被你刚设下的爆炸物炸上了天。<BR>
 							硝烟散去，你毫发无伤。不过你并没有感到丝毫喜悦。<br>
-							虽然不情愿，但危机关头，让自己活下去才是第一要务。<BR>
+							虽然不情愿，但在这危机关头，自己活下去才是最重要的。<BR>
 						<!--{elseif in_array($tmp_method, array(20,21,22,23,24,29))}-->
 							对峙中，你向最后一名“挑战者”道出了这句话。<BR>
 							他的眼神坚毅而锐利，显然为了性命也豁出去了。<BR>
@@ -314,12 +320,12 @@
 								你挥舞双拳
 							<!--{/if}-->上前应战。<BR>
 							仅仅一招，你们便分出了胜负。对方缓缓倒下，而你依旧站立着。<BR>
-							虽然不情愿，但危机关头，让自己活下去才是第一要务。<BR>
+							虽然不情愿，但在这危机关头，自己活下去才是最重要的。<BR>
 						<!--{else}-->
 							你默念着这句话，不得已痛下杀手。<br>
 							哪怕你们曾经是同伴，在这场生死战中，只能各自为政。<br>
 							于是，最后一名“挑战者”也失去了生命。<br>
-							虽然不情愿，但危机关头，让自己活下去才是第一要务。<BR>
+							虽然不情愿，但在这危机关头，自己活下去才是最重要的。<BR>
 						<!--{/if}-->							
 					<!--{elseif $killnum > 0}-->
 						<!--//最后打死的不是活人，但是杀过人//-->
@@ -329,7 +335,7 @@
 						你能确定，你击杀的这些“挑战者”大部分都只是数据的残片而已。<br>
 						其中究竟有几个，是你本该拯救的人们呢？，<br>
 						你轻轻摇了摇头，把这个念头赶出了脑海。毕竟，你还有更重要的事要做。<br>
-						虽然不情愿，但危机关头，让自己活下去才是第一要务。<BR>
+						虽然不情愿，但在这危机关头，自己活下去才是最重要的。<BR>
 					<!--{else}-->
 						<!--//没打死人//-->
 						<!--{if $validnum > 1}-->
@@ -363,53 +369,56 @@
 						尽管红暮的“尸体”正躺在无月之影，但这是幻境，她显然不会就此退场。<BR>
 						<BR>
 					<!--{/if}-->
-					<span class="b">“这个挑战，我完成了！”</span><BR>
+					<!--{if false !== strpos($winner, ',')}-->
+						<span class="b">“我们活到了最后！”</span><BR>
+					<!--{else}-->
+						<span class="b">“这个挑战，我完成了！”</span><BR>
+					<!--{/if}-->
 					你朝着天空喊出了这句话，你知道红暮一定能听见，<BR>
 					<span class="b">“你打算旁观到什么时候？”</span>
 				<!--{/if}-->
 			</div>
 			<div id="op_sht_1" class="shootings">
 				<!--{if $uip['boss_data']['hp'] < $uip['boss_data']['mhp'] && in_array(1, $uip['attacked_vip'])}-->
-					<span class="ltcrimson"> “虽然你试图违反这场挑战的规则，<br>
-						我还是要祝贺你成为了最后的幸存者。”</span><br>
+					<span class="ltcrimson"> “虽然{$uip['winner_pronoun']}试图违反这场挑战的规则，<br>
+						我还是要祝贺{$uip['winner_pronoun']}成为了最后的幸存者。”</span><br>
 				<!--{else}-->
-					<span class="ltcrimson"> “祝贺你，最后的幸存者。”</span><br>
-					红暮果然现身了，凭空出现在你的面前，<span class="ltcrimson">“身手还挺不错的。”</span><br>
+					<span class="ltcrimson"> “祝贺{$uip['winner_pronoun']}，最后的幸存者。”</span><br>
+					红暮果然现身了，凭空出现在{$uip['winner_pronoun']}的面前，<span class="ltcrimson">“身手还挺不错的。”</span><br>
 				<!--{/if}-->
 				<br>
 				<img border="0" src="./img/story_ne2.png" style="width:450px;"><br>
 				<br>
 				她微笑着向你伸出右手，不过你把她的“好意”瞪了回去。<br>
-				<span class="ltcrimson">“别这么拘谨嘛，既然你通过了考验，那你就是我们的座上宾了。”</span><br>
-				你按捺住了吐唾沫的欲望：<span class="b">“逼我向无辜者和同伴下手，这是侮辱。”</span><br>
-				<span class="ltcrimson">“你的同伙打乱了我们的计划，还把幻境搞得乱七八糟，<br>
+				<span class="ltcrimson">“别这么拘谨嘛，既然{$uip['winner_pronoun']}通过了考验，那就是我们的座上宾了。”</span><br>
+				你按捺住吐唾沫的欲望：<span class="b">“逼我向无辜者和同伴下手，这是侮辱。”</span><br>
+				<span class="ltcrimson">“你和你的同伙打乱了我们的计划，还把幻境搞得乱七八糟，<br>
 					我给你一次活下去的机会，已经很仁慈了。”</span><br>
 				<span class="b">“那为何不直接杀了我？”</span><br>
 				<br>
-				红暮邪魅一笑：<span class="ltcrimson">“因为你对我有价值。”</span><br>
+				红暮邪魅一笑：<span class="ltcrimson">“因为{$uip['winner_pronoun']}对我有价值。”</span><br>
 			</div>
 			<div id="op_sht_2" class="shootings">
 				<span class="ltcrimson">“这个「虚拟幻境」的真正目的，是激发人类的潜能。<br>
 				换句话说，这里是个超能力开发场所。至少林无月的初衷是如此。<br><br>
 				打个比方，不会游泳的人，扔进泳池里扑腾几下，多半也能浮起来。<br>
-				而这里就是那个游泳池，只不过装的不是水，<br>
-				而是现实里永远无法实现的动作，永远无法体验的感受。<br>
-				并且，在这里沉浸得越久，你受到的影响就越深。<br>
-				当你带着这种影响回到现实，也许就打开了新世界的大门。<br>
-				虽然我不懂技术细节，不过我确实亲眼见证过。”</span><br>
+				这幻境就是那个游泳池，只不过装的不是水，<br>
+				而是现实里永远无法做到的事、永远无法体验到的感受。<br>
+				随后，当你带着这份体验回到现实，也许就打开了新世界的大门。<br>
+				我没有亲身体会，不过我确实亲眼见证过。”</span><br>
 				红暮举起右手，朝你竖起一根食指：<br>
 				<br>
 				<span class="ltcrimson">“而你，难道不想亲眼目睹自己的可能性吗？”</span><br>
 				<br>
 				这段连时空特使都从未提及的信息，让你的好奇心熊熊地燃烧起来。<br>
-				怪不得，那些挑战者不惧恐怖的传言，无数次地回到这里……<br>
-				你感觉心中有一部分微妙地动摇了<br>
+				怪不得，总有人顶着那些令人恐惧的传言，一而再、再而三回到这里……<br>
+				你感觉心中有一部分微妙地动摇了。<br>
 			</div>
 			<div id="op_sht_3" class="shootings">
-				<span class="ltcrimson">“无论如何，你是本场「大逃杀」的获胜者，我肯定会保证你的人身安全。<br>
-				不过，我们「金龙通讯社」也正处于发展期，迫切需要你这样身手不凡的人。”<br>
-				如果你加入，我们会提供必需的训练，帮助你真正掌握新获得的能力……<br>
-				以及，克服虚拟幻境带来的「后遗症」。”</span><br>
+				<span class="ltcrimson">“无论如何，{$uip['winner_pronoun']}是本场「大逃杀」的获胜者，我肯定会保证{$uip['winner_pronoun']}的人身安全。<br>
+				不过，我们「金龙通讯社」也正处于发展期，迫切需要{$uip['winner_pronoun']}这样身手不凡的人。”<br>
+				只要{$uip['winner_pronoun']}加入，我们会提供必要的训练，帮助{$uip['winner_pronoun']}真正掌握新获得的能力……<br>
+				以及，克服幻境带来的「后遗症」。”</span><br>
 				这破地方……竟然还有后遗症？<br>
 				<br>
 				红暮似乎看穿了你在想什么：<br>
@@ -418,23 +427,25 @@
 				被难以驾驭的超能力反噬的例子，也有不少。<br>
 				这也是林无月曾经最为头疼的问题，她直到最后都在寻找对策。<br>
 				不过对我们「金龙通讯社」来说，却并非坏事。<br>
-				当然，你也可以选择直接离开。哪怕你继续与我们为敌，我也不会阻拦。<br>
-				但其后果，也由你自己承受。”</span><br>
+				当然，{$uip['winner_pronoun']}也可以选择直接离开。哪怕{$uip['winner_pronoun']}继续与我们为敌，我也不会阻拦。<br>
+				但其后果，也由{$uip['winner_pronoun']}自己承受。”</span><br>
 				<br>
 				真是才出狼穴，又入虎口。你心中暗暗叫苦。<br>
 			</div>
 			<div id="op_sht_4" class="shootings">
-				<span class="ltcrimson">“总之，接下来的道路，由你自己来决定。”</span><br>
+				<span class="ltcrimson">“总之，接下来的道路，由{$uip['winner_pronoun']}自己来决定。”</span><br>
+				<!--{if false !== strpos($winner, ',')}-->
+					<span class="ltcrimson">“你们每一个，都能有选择的机会。”</span><br>
+				<!--{/if}-->
 				红暮打了一个响指，指尖变出了两支「钥匙」。<br>
 				<br>
 				<img border="0" src="./img/story_ne3.png" style="width:450px;"><br>
 				<br>
 				她亮出<span class="red">红钥匙</span>：<span class="red b" style="font-size:12pt">“是 <span class="b" style="font-size:14pt"><ruby>加入我们<rt style="font-size:9px">Betrayal of the duty</rt></ruby></span>，拥抱自己崭新的人生？”</span><br>
-				<br>
+				
 				之后是<span class="cyan">蓝钥匙</span>：<span class="cyan b" style="font-size:12pt">“还是 <span class="b" style="font-size:14pt"><ruby>拒绝我们<rt style="font-size:9px">Be loyal to the duty</rt></ruby></span>，拾起自己灰暗的命运？”</span><br>
 				<br>
 				<span class="ltcrimson">“报出你的名字，结束这场挑战。”</span>两支钥匙都被递到你面前。<br>
-				<br>
 				<span class="ltcrimson">“然后，做出你的选择。”</span><br>
 			</div>
 			<div id="op_sht_5" class="shootings">
@@ -445,7 +456,7 @@
 				<br>
 				踌躇良久，你伸出颤抖的手。<br>
 				<br>
-				<span class="yellow b">“我是 挑战者{$sNo}号，{$winner}。<br>
+				<span class="yellow b">“我是 挑战者{$sNo}号，{$uip['winner_show']}。<br>
 					“我选择……”</span><BR>
 				<br>
 				<br>
@@ -503,7 +514,7 @@
 				随身对讲机里传来的话让你回过神来。<br>
 				你举起武器指向狂飙，说出了那一句烂熟于心的话：<br>
 				<br>
-				<span class="yellow b">“我是 {$winner}。精神锁定解除。”</span><br>
+				<span class="yellow b">“我是 {$uip['winner_show']}。精神锁定解除。”</span><br>
 				<br>
 				刹那间，整个虚拟世界都开始抖动。<br>
 				随后，从天顶开始，世界像雪崩一样坍塌下来。<br>
@@ -560,7 +571,7 @@
 				最坏的设想应验了！<br>
 				<br>
 				<!--{if $wepe > 100}-->你迅速摸向你的{$wep}，却发现它已不翼而飞。<!--{else}-->然而你专注于破解幻境系统，可谓是手无寸铁。<!--{/if}--><br><br>
-				<span class="evergreen">“ <span class="yellow b">{$sexinfo[$gd]}{$sNo}号，{$winner} </span>……是吗？”<br>
+				<span class="evergreen">“ <span class="yellow b">{$sexinfo[$gd]}{$sNo}号，{$uip['winner_show']} </span>……是吗？”<br>
 					“别担心，至少这一次我不会伤害你。”</span><br>
 				林无月的神色里似乎有一丝……哀伤？<br>
 				<span class="evergreen">“或者说，我没想过要伤害任何人。”</span>
@@ -623,7 +634,7 @@
 				但你完全听不清楚……<br>
 			</div>
 			<div id="op_sht_2" class="shootings">
-			<span class="yellow b">“{$sexinfo[$gd]}{$sNo}号，{$winner} 。在这里登出。”</span><br>
+			<span class="yellow b">“{$sexinfo[$gd]}{$sNo}号，{$uip['winner_show']} 。在这里登出。”</span><br>
 				<br>
 				在最后的一瞬间，你听到了一句不属于任何你认识的人的低语。<br>
 				她是谁？在你思索着这个问题的时候，你的意识也坠入了黑暗当中。<br>
@@ -835,7 +846,7 @@
 				<!--{/if}-->
 				<br>
 				你重新在游戏解除钥匙上集中注意力。瞬间，你明白了如何启动它。<br>
-				<span class="yellow b">“挑战者{$sNo}号，{$winner}。”</span>你发出了号令，<span class="yellow b">“精神锁定解除！”</span><br>
+				<span class="yellow b">“挑战者{$sNo}号，{$uip['winner_show']}。”</span>你发出了号令，<span class="yellow b">“精神锁定解除！”</span><br>
 			</div>
 			<div id="op_sht_5" class="shootings">
 				话音既出，整个虚拟世界开始动摇，天穹如雪片般崩塌下来，化为代码的碎片。<br>
@@ -878,7 +889,7 @@
 				那个勇敢的挑战者果然还是被杀了吗？还是说，他……<br>
 				你不敢继续想下去。<br>
 				虚拟幻境里，忽然响起这样一句声音：<br>
-				<span class="yellow b">“我是 {$winner}。精神锁定解除。”</span><br>
+				<span class="yellow b">“我是 {$uip['winner_show']}。精神锁定解除。”</span><br>
 				这么说，他成功了！那我们都可以不用死在这里了！<br>
 			</div>
 			<div id="op_sht_1" class="shootings">
@@ -944,7 +955,7 @@
 					<span class="b">“别丧气，”</span>你悄声说道，<span class="b">“多亏了你，我们才能全身而退。”</span><br>
 					他憔悴的脸上逐渐浮现出感激的微笑。<br>
 					<br>
-					<span class="yellow b">“挑战者{$sNo}号，{$winner}。精神锁定解除！”</span><br>
+					<span class="yellow b">“挑战者{$sNo}号，{$uip['winner_show']}。精神锁定解除！”</span><br>
 					随着对方发出的号令，整个虚拟世界开始动摇。<br>
 					天穹如雪片般崩塌下来，化为代码的碎片。<br>
 					传送光环充满了你的视野，现实世界已触手可及。<br>
@@ -957,7 +968,7 @@
 					看来那名勇敢的挑战者已经成功了。<br>
 					救援者反被待救援者给救下了。你自嘲地摇了摇头。<br>
 					<br>
-					<span class="yellow b">“挑战者{$sNo}号，{$winner}。精神锁定解除！”</span><br>
+					<span class="yellow b">“挑战者{$sNo}号，{$uip['winner_show']}。精神锁定解除！”</span><br>
 					宣告游戏结束的号令声回响在天地间，整个虚拟世界随之开始动摇。<br>
 					天穹如雪片般崩塌下来，化为代码的碎片。<br>
 					你感觉自己逐渐失去了形体，正化为代码飘向空中。<br>
@@ -1189,7 +1200,7 @@
 			<span class="lightblue b">“你当然会觉得我很眼熟，毕竟这只是方便你和我交流的<span style="font-size:12pt;font-weight:bold"><ruby>精灵图像<rt>Sprite</rt></ruby></span>。<br>
 			这个「虚拟幻境」有一个中枢程序，而我就是它的<span style="font-size:12pt;font-weight:bold"><ruby>守护精灵<rt>Daemon Sprite</rt></ruby></span>。<br>
 			你能来到这里，说明你已经突破了这个虚拟世界的表象。<br>
-			<span class="yellow b">{$winner}，You are now crowned a 'Fighter'.”</span></span><br>
+			<span class="yellow b">{$uip['winner_show']}，You are now crowned a 'Fighter'.”</span></span><br>
 			少女伸出一只手，将你从地上拉了起来。<br>
 			<br>
 			<span class="lightblue b">“你们人类难以想象这个幻境有多么复杂，”</span><br>
@@ -1387,7 +1398,7 @@
 			他究竟去了哪里？<br>
 			<br>
 			<br>
-			<span class="yellow b">{$winner}，You are now crowned a 'Fighter'.”</span></span><br>
+			<span class="yellow b">{$uip['winner_show']}，You are now crowned a 'Fighter'.”</span></span><br>
 			<br>
 			<br>
 			<span class="lightblue b"><i>『愿我的血，成为黑夜中闪耀的星光——』</i></span><br>

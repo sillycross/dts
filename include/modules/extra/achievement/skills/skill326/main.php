@@ -79,7 +79,7 @@ namespace skill326
 		if($achid == 326){
 			if(!is_array($ret)) $ret = array();
 			eval(import_module('sys'));
-			if($winner === $pa['name'] && !in_array($pa['card'], $ret)) {
+			if(\sys\is_winner($pa['name'],$winner) && !in_array($pa['card'], $ret)) {
 				$ret[] = $pa['card'];
 				$ret = array_unique($ret);
 			}
