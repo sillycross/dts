@@ -59,7 +59,7 @@ $packdesc = array(
 $pack_ignore_kuji = Array('Balefire Rekindle','Event Bonus');
 //卡包实装的时间戳，可以用来隐藏卡包
 $packstart = array(
-	'Cyber Zealots' => 4476654671,
+	//'Cyber Zealots' => 4476654671,
 	'Stealth' => 4476654671,
 	'hidden' => 4476654671,
 );
@@ -3784,7 +3784,7 @@ $cards = array(
 		'rare' => 'A',
 		'pack' => 'Cyber Zealots',
 		'desc' => '据说林无月前两年已经死了，<br>现在管理幻境的都是她的亲友团<br>「阿林百人众」。<br>她临死前给每个人发了一个小本子，里面是一百多页如何扮演她的心得。',
-		'effect' => '开局能复制并获取场上存活NPC的一项技能',
+		'effect' => '开局能复制并获取场上存活NPC的一项技能（包括称号技能）',
 		'energy' => 100,
 		'valid' => array(
 		  'skills' => array(

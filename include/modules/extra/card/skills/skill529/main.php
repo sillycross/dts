@@ -41,18 +41,26 @@ namespace skill529
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		$spool = skill529_get_skillpool();
-		gwrite_var('a.txt', $spool);
+		//gwrite_var('a.txt', $spool);
 		if(!empty($spool)){
+			$spool_keys = Array_keys($spool);
 			do{
-				shuffle($spool);
-				$getskillid = $spool[0];
+				shuffle($spool_keys);
+				list($nid, $getskillid) = explode('_',$spool_keys[0]);
 			} while(strpos(constant('MOD_SKILL'.$getskillid.'_INFO'),'hidden;')!==false);//获得的技能不能带有hidden标签
 			
 			\skillbase\skill_acquire($getskillid,$pa);
+			
+			$getskillval = $spool[$nid.'_'.$getskillid];
+			//gwrite_var('b.txt', $getskillval);
+			foreach($getskillval as $gk => $gv){
+				\skillbase\skill_setvalue($getskillid, $gk, $gv, $pa);//获得对应技能
+			}
 		}
 	}
 	
 	//获取全部存活NPC的技能编号数据
+	//返回$spool[$nid_$skillid][$skillval_key] = $skillval_value
 	function skill529_get_skillpool(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
@@ -62,24 +70,31 @@ namespace skill529
 		while($npc = $db->fetch_array($result)){
 			\skillbase\skillbase_load($npc, 1);
 			if(!empty($npc['acquired_list'])) {
-				$spool = array_merge($spool, array_keys($npc['acquired_list']));
+				
+				foreach($npc['parameter_list'] as $pk => $pv){
+					list($sid,$skey) = explode('_',$pk);
+					if(!skill529_skill_filter($sid)) continue;//过滤技能id
+					$poolid = $npc['pid'].'_'.$sid;//以pid_skillid为键名储存技能参数
+					if(!isset($spool[$poolid])) $spool[$poolid] = Array();
+					$spool[$poolid][$skey] = $pv;
+				}
 			}
 		}
-		$spool = skill529_skill_filter($spool);
 		return $spool;
 	}
 	
 	//技能池过滤：除去不适合给玩家的技能，主要包括460号占位符、512号幻象技能
-	function skill529_skill_filter($spool){
+	//若过滤，返回0；否则返回$skillid
+	function skill529_skill_filter($skillid){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		//eval(import_module('clubbase'));
-		$filter = Array(460,512);
+		$filter_arr = Array(460,512);
 //		foreach($clublist as $csv){
 //			if(!empty($csv['skills']))
 //				$filter = array_merge($filter, $csv['skills']);
 //		}
-		$spool = array_diff($spool, array_unique($filter));
-		return $spool;
+		if(in_array($skillid, $filter_arr)) $skillid = 0;
+		return $skillid;
 	}
 	
 	//获得道具，会自动选一个空位放，没有就放0

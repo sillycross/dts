@@ -565,22 +565,26 @@ namespace cardbase
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess();
 		eval(import_module('sys','player','cardbase'));
+		
 		//卡片名称显示
-		if($cardname == $cards[$card]['name']) {
+		if($cardname == $cards[$card]['name']) {//卡名与卡号相符，自行判断用缩写还是全名
 			if(!empty($cards[$card]['title'])) 
 				$uip['cardname_show'] = $cards[$card]['title'];
 			else
 				$uip['cardname_show'] = $cards[$card]['name'];
-		}else{
+			//卡片罕贵显示
+			$uip['cardrare_show'] = $card_rarecolor[$cards[$card]['rare']];
+		}else{//卡名与卡号不符，用记录的卡名（缩写），并反查要显示的卡片信息
 			$uip['cardname_show'] = $cardname;
+			$show_card = $cardindex_reverse[$cardname];
+			$uip['cardrare_show'] = $card_rarecolor[$cards[$show_card]['rare']];
 		}
-		//卡片罕贵显示
-		$uip['cardrare_show'] = $card_rarecolor[$cards[$card]['rare']];
+		
 		//卡片本体渲染
 		if($card && 'hidden' != $cards[$card]['pack']) {//挑战者和隐藏卡就不显示了
-			$uip['cardinfo_show'] = $cards[$card];
-			$uip['card_rarecolor'] = $card_rarecolor;
+			$uip['cardinfo_show'] = isset($show_card) ? $cards[$show_card] : $cards[$card];
 		}
+		$uip['card_rarecolor'] = $card_rarecolor;
 	}
 	
 	//战斗界面显示敌方卡片
@@ -616,6 +620,7 @@ namespace cardbase
 	}
 	
 	//根据card.config.php的修改时间自动刷新$cardindex也就是各种罕贵的卡编号组成的数组，用于抽卡和随机卡
+	//并生成一个卡名转卡号的数组$cardindex_reverse用于反查
 	function parse_card_index(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -642,6 +647,8 @@ namespace cardbase
 			'hidden' => Array(),//隐藏卡单开一列，一般不参与任何随机		
 		);
 		
+		$new_cardindex_reverse = Array();
+		
 		foreach($cards as $ci => $cv){
 			//$new_cardindex['All'][] = $ci;
 			$pack = $cv['pack'];
@@ -661,11 +668,13 @@ namespace cardbase
 			elseif('B' == $rare) $new_cardindex[$prefix.'B'][] = $ci;
 			else $new_cardindex[$prefix.'C'][] = $ci;
 			
+			if(!empty($cv['title'])) $new_cardindex_reverse[$cv['title']] = $ci;
+			else $new_cardindex_reverse[$cv['name']] = $ci;
 		}
 		
 		if(empty($new_cardindex)) return;
 		
-		//开始生成文件
+		//开始生成文件。这里不直接用var_export()是为了生成方便查看的文件结构
 		$contents = str_replace('?>','',$checkstr);//"<?php\r\nif(!defined('IN_GAME')) exit('Access Denied');\r\n";
 		$contents .= '$cardindex = Array('."\r\n";
 		$i = 1;$z = sizeof($new_cardindex);
@@ -678,7 +687,9 @@ namespace cardbase
 			$i++;
 		}
 		$contents .= ');';
-		//$contents .= '$cardindex = '.var_export($new_cardindex,1).';';
+		
+		//反查数组就无所谓了
+		$contents .= '$cardindex_reverse = '.var_export($new_cardindex_reverse,1).';';
 		
 		file_put_contents($card_index_file, $contents);
 		chmod($card_index_file, 0777);
