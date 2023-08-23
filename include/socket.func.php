@@ -124,6 +124,8 @@ function __SOCKET_SEND_TO_SERVER__()
 	
 	//存储用户输入数据
 	$___TEMP_uid=uniqid('',true);		//获取唯一ID
+	//DEBUG
+	$___TEMP_data_debug = $___TEMP_data;
 	ob_clean();
 	var_export($___TEMP_data);
 	$___TEMP_data=ob_get_contents();
@@ -218,13 +220,17 @@ function __SOCKET_SEND_TO_SERVER__()
 	
 	global $cli_pagestartime;
 	$timecost = get_script_runtime($cli_pagestartime);
-	if ($timecost > 0.15) __SOCKET_WARNLOG__("警告：本次操作耗时较长，耗时为 ".$timecost." 秒。游戏状态：".$gamestate."；操作信息：".(!empty($command) ? $command : '-')."；操作者：".$cuser);
+	if ($timecost > 0.15) {
+		__SOCKET_WARNLOG__("警告：本次操作耗时较长，耗时为 ".$timecost." 秒。页面：".$___TEMP_data_debug['page']."；操作信息：".(!empty($___TEMP_data_debug['command']) ? $___TEMP_data_debug['command'] : '-')."；操作者：".$___TEMP_data_debug['acbra2_cuser']);
+	}
 	/*
 	$___TEMP_res = str_replace('_____PAGE_RUNNING_TIME_____',(string)$timecost,$___TEMP_res);
 	*/
 	ob_clean();
 	echo $___TEMP_res;
 	ob_end_flush();
+	
+	//file_put_contents('a.txt', var_export($___TEMP_data_debug,1));
 }
 
 function __SOCKET_LOAD_DATA__(&$___TEMP_connection)
