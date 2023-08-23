@@ -163,28 +163,67 @@ namespace itemmain
 			$mode = 'command';
 			return;
 		}
-
-	//	$mapfile = GAME_ROOT."./gamedata/mapitem/{$pls}mapitem.php";
-	//	$itemdata = "$itm,$itmk,$itme,$itms,$itmsk,\n";
-	//	writeover($mapfile,$itemdata,'ab');
-		$db->query("INSERT INTO {$tablepre}mapitem (itm, itmk, itme, itms, itmsk ,pls) VALUES ('$itm', '$itmk', '$itme', '$itms', '$itmsk', '$pls')");
-		$dropid = $db->insert_id();
+		
+//		$db->query("INSERT INTO {$tablepre}mapitem (itm, itmk, itme, itms, itmsk ,pls) VALUES ('$itm', '$itmk', '$itme', '$itms', '$itmsk', '$pls')");
+//		$dropid = $db->insert_id();
+		$dropid = itemdrop_query($itm, $itmk, $itme, $itms, $itmsk, $pls);
 		$ret = array('iid' => $dropid, 'itm' => $itm, 'itmk' => $itmk, 'itme' => $itme, 'itms' => $itms, 'itmsk' => $itmsk);
 
 		$log .= "你丢弃了<span class=\"red b\">$itm</span>。<br>";
 		$mode = 'command';
-		if($item == 'wep'){
-		$itm = '拳头';
-		$itmsk = '';
-		$itmk = 'WN';
-		$itme = 0;
-		$itms = $nosta;
-		} else {
-		$itm = $itmk = $itmsk = '';
-		$itme = $itms = 0;
-		}
+		
+		item_destroy_core($item, $sdata);
 		
 		return $ret;
+	}
+	
+	//丢弃道具核心函数，在数据库里追加对应的数据，返回iid
+	function itemdrop_query($itm, $itmk, $itme, $itms, $itmsk, $pls){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		$db->query("INSERT INTO {$tablepre}mapitem (itm, itmk, itme, itms, itmsk ,pls) VALUES ('$itm', '$itmk', '$itme', '$itms', '$itmsk', '$pls')");
+		return $db->insert_id();
+	}
+	
+	//摧毁道具用的内部函数，把对应位置的道具数据清空，视位置会自动替换成拳头或者内衣
+	function item_destroy_core($item, &$pa) {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','itemmain'));
+
+		if($item == 'wep'){
+			$itm = & $pa['wep'];
+			$itmk = & $pa['wepk'];
+			$itme = & $pa['wepe'];
+			$itms = & $pa['weps'];
+			$itmsk = & $pa['wepsk'];
+		} elseif(strpos($item,'ar') === 0) {
+			$itm = & $pa[$item];
+			$itmk = & $pa[$item.'k'];
+			$itme = & $pa[$item.'e'];
+			$itms = & $pa[$item.'s'];
+			$itmsk = & $pa[$item.'sk'];
+
+		} elseif(strpos($item,'itm') === 0) {
+			$itmn = substr($item,3,1);
+			$itm = & $pa['itm'.$itmn];
+			$itmk = & $pa['itmk'.$itmn];
+			$itme = & $pa['itme'.$itmn];
+			$itms = & $pa['itms'.$itmn];
+			$itmsk = & $pa['itmsk'.$itmn];
+		}
+		
+		if($item == 'wep'){
+			$itm = $nowep;
+			$itmk = 'WN';
+			$itme = 0;
+			$itms = $nosta;
+			$itmsk = '';
+		} else {
+			$itm = $itmk = $itmsk = '';
+			$itme = $itms = 0;
+		}
+		
+		return;
 	}
 	
 	function itemoff_valid_check($itm, $itmk, $itme, $itms, $itmsk)

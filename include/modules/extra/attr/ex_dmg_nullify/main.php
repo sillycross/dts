@@ -13,7 +13,7 @@ namespace ex_dmg_nullify
 	function get_ex_dmg_nullify_proc_rate(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return 95;
+		return 96;
 	}
 	
 	function check_ex_dmg_nullify(&$pa, &$pd, $active)

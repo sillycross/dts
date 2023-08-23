@@ -646,5 +646,25 @@ namespace searchmemory
 		//返回倒序便于显示
 		return Array(array_reverse($sm_slots), array_reverse($sm_records));
 	}
+	
+	//如果队友道具栏满了，会把东西放在队友的视野里
+//	function senditem_before_log_event($itmn, $sendflag, &$edata) {
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		if(!$sendflag && searchmemory_available()) {
+//			eval(import_module('sys','logger','player'));
+//			$itm = & ${'itm'.$itmn};
+//			$itmk = & ${'itmk'.$itmn};
+//			$itme = & ${'itme'.$itmn};
+//			$itms = & ${'itms'.$itmn};
+//			$itmsk = & ${'itmsk'.$itmn};
+//			//先丢弃道具
+//			$dropid = \itemmain\itemdrop_query($itm, $itmk, $itme, $itms, $itmsk, $pls);
+//			//把该道具放到队友的视野
+//			
+//			//然后销毁当前道具
+//			\itemmain\item_destroy_core('itm'.$itmn, $sdata);
+//		}
+//		return $sendflag;
+//	}
 }
 ?>

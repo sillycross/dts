@@ -27,12 +27,26 @@ namespace team
 		return $ret;
 	}
 	
+	//判定当前环境能否识别出队友（要求队伍生效和无雾）
+	function teammate_checkable(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		return (!$fog && team_available());
+	}
+	
+	//判定队伍是否生效（要求非连斗）
+	function team_available(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return !\gameflow_combo\is_gamestate_combo();
+	}
+	
+	//识别队友
 	function meetman_alternative($edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','logger'));
-		if($edata['hp']>0 && $teamID && (!$fog) && $gamestate<40 && $teamID == $edata['teamID'] && !in_array($gametype,$teamwin_mode))
+		eval(import_module('sys','player'));
+		if($edata['hp']>0 && !empty($teamID) && teammate_checkable() && $teamID == $edata['teamID'] && !in_array($gametype,$teamwin_mode))
 		{
 			findteam($edata);
 			return;
@@ -82,7 +96,7 @@ namespace team
 	function senditem_check_teammate($edata){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','logger','player'));
-		if(!$teamID || $edata['teamID']!=$teamID){
+		if(!$teamID || $edata['teamID']!=$teamID || !team_available()){
 			$log .= '<span class="yellow b">'.$edata['name'].'</span>并非你的队友，不能接受物品。<br>';
 			return false;
 		}
@@ -131,27 +145,41 @@ namespace team
 		$itme = & ${'itme'.$itmn};
 		$itms = & ${'itms'.$itmn};
 		$itmsk = & ${'itmsk'.$itmn};
-
+		
+		$sendflag = 0;
 		for($i = 1;$i <= 6; $i++){
 			if(!$edata['itms'.$i]) {
 				$edata['itm'.$i] = $itm; $edata['itmk'.$i] = $itmk; 
 				$edata['itme'.$i] = $itme; $edata['itms'.$i] = $itms; $edata['itmsk'.$i] = $itmsk;
+				
 				$log .= "你将<span class=\"yellow b\">".$edata['itm'.$i]."</span>送给了<span class=\"yellow b\">{$edata['name']}</span>。<br>";
 				$x = "<span class=\"yellow b\">$name</span>将<span class=\"yellow b\">".$edata['itm'.$i]."</span>送给了你。";
+				
 				if(!$edata['type']) \logger\logsave($edata['pid'],$now,$x,'t');
 				addnews($now,'senditem',$name,$edata['name'],$itm);
 				\player\player_save($edata);
 				$itm = $itmk = $itmsk = '';
 				$itme = $itms = 0;
 				
-				return;
+				$sendflag = 1;
+				break;
 			}
 		}
-		$log .= "<span class=\"yellow b\">{$edata['name']}</span> 的包裹已经满了，不能赠送物品。<br>";
-	
+		
+		$sendflag = senditem_before_log_event($itmn, $sendflag, $edata);
+		
+		if(!$sendflag) {
+			$log .= "<span class=\"yellow b\">{$edata['name']}</span> 的包裹已经满了，不能赠送物品。<br>";
+		}
 		
 		$mode = 'command';
 		return;
+	}
+	
+	//赠送物品后，确定赠送成功还是失败之前的事件
+	function senditem_before_log_event($itmn, $sendflag, &$edata) {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $sendflag;
 	}
 	
 	function post_act()

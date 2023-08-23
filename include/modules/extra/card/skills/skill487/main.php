@@ -215,27 +215,6 @@ namespace skill487
 		}
 	}
 	
-	//如果道具耗尽，则检查列表。
-//	function itms_reduce(&$theitem)
-//	{
-//		if (eval(__MAGIC__)) return $___RET_VALUE;
-//		$chprocess($theitem);
-//		eval(import_module('player'));
-//		if(!\skillbase\skill_query(487,$sdata)) return;
-//		if(!$theitem['itms']){
-//			check_hlist487($sdata);
-//		}
-//	}
-	
-	//道具丢弃，则检查列表
-//	function itemdrop($item) {
-//		if (eval(__MAGIC__)) return $___RET_VALUE;
-//		$ret = $chprocess($item);
-//		eval(import_module('player'));
-//		if(\skillbase\skill_query(487,$sdata)) check_hlist487($sdata);
-//		return $ret;
-//	}
-	
 	//每次行动结束时检查列表
 	function act(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;

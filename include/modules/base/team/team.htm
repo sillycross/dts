@@ -1,7 +1,8 @@
-<input type="hidden" name="mode" value="team">
-<input type="hidden" name="command" value="$teamcmd">
+<input type="hidden" id="mode" name="mode" value="team">
+<input type="hidden" id="command" name="command" value="$teamcmd">
 <div>队伍名称 : <input size="15" type="text" name="nteamID" maxlength="30"></div>
-<div>15个字以内。<div>
+<div>15个字以内。<div><br>
 <div>队伍密码 : <input size="15" type="text" name="nteamPass" maxlength="30"></div>
-<div>15个字以内。<div>
-<input type="button" class="cmdbutton"  id="z" value="[Z]提交" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
+<div>15个字以内。<div><br>
+<input type="button" class="cmdbutton"  id="z" value="[Z]提交" onclick="postCmd('gamecmd','command.php');this.disabled=true;"> 
+<input type="button" class="cmdbutton"  id="x" value="[X]取消" onclick="$('mode').value='command';$('command').value='';postCmd('gamecmd','command.php');this.disabled=true;">

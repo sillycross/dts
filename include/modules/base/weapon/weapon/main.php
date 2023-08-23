@@ -458,12 +458,8 @@ namespace weapon
 		else  if ($wepimprate[$pa['wep_kind']]<1000)
 				$log .= "{$pa['name']}的<span class=\"red b\">{$pa['wep']}</span>使用过度，已经损坏，无法再装备了！<br>";
 			else  $log .= "{$pa['name']}的<span class=\"red b\">{$pa['wep']}</span>用光了！<br>";
-			
-		$pa['wep'] = '拳头';
-		$pa['wepk'] = 'WN';
-		$pa['wepe']= 0;
-		$pa['weps']= $nosta;
-		$pa['wepsk']= '';
+		
+		\itemmain\item_destroy_core('wep', $pa);
 	}
 	
 	function apply_weapon_imp(&$pa, &$pd, $active)

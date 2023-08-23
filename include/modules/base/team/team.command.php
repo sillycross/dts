@@ -6,7 +6,10 @@ namespace team
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','logger','player','team','input'));
-		if($teamID) {
+		if(!team_available()){
+			$log .= '当前不允许建立或加入队伍。<br>';
+			$mode = 'command';
+		}	elseif($teamID) {
 			$log .= '你已经加入了队伍<span class="yellow b">'.$teamID.'</span>，请先退出队伍。<br>';
 			$mode = 'command';
 		} elseif($teamcmd == 'teammake' && $sp <= $team_sp) {
