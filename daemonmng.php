@@ -2,6 +2,7 @@
 header('Content-Type: text/HTML; charset=utf-8');
 define('IN_GAME', TRUE);
 define('GAME_ROOT', dirname(__FILE__).'/');
+define('CURSCRIPT', 'daemonmng');
 error_reporting(0);
 $magic_quotes_gpc = false;//get_magic_quotes_gpc();
 require GAME_ROOT.'./include/global.func.php';

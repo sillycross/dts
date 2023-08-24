@@ -578,6 +578,7 @@ namespace cardbase
 	
 	//通过记录卡名与卡号判定实际卡号
 	function check_realcard($c, $cn) {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('cardbase'));
 		$ret = $c;
 		//卡名与卡号不符，分两种情况，一种是缩写，另一种是篝火等随机卡片，都通过反查确定显示的卡片信息
