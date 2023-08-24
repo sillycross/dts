@@ -45,7 +45,7 @@ namespace skill81
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$s_arr = check_swapable_items81($pa);
-		if(!$s_arr) return;
+		if(!$s_arr || !$pa['type']) return;//玩家没效果
 		$r1 = \weapon\get_weapon_range($pa, $active);
 		$r2 = \weapon\get_weapon_range($pd, 1-$active);
 		if(!$r2) return;//爆系无法反击，不换武器
@@ -65,9 +65,17 @@ namespace skill81
 		//echo 'sarr ';var_dump($s_arr);echo '<br>';
 		if(empty($s_arr)) return;//没有可以更换的，直接返回
 		eval(import_module('weapon'));
+		//给自己的熟练度排序
+		$skill_arr = Array('wp' => $pa['wp'], 'wk' => $pa['wk'], 'wg' => $pa['wg'], 'wc' => $pa['wc'], 'wd' => $pa['wd'], 'wf' => $pa['wf']);
+		arsort($skill_arr);
+		$skill_keys = array_keys($skill_arr);
+		$fav0 = $fav1 = '';
+		if($skill_arr[$skill_keys[0]] > $skill_arr[$skill_keys[5]]) $fav0 = $skill_keys[0];//如果熟练度最高的系别至少比最低的高而不是相等，记录第一高的熟练
+		if($skill_arr[$skill_keys[1]] > $skill_arr[$skill_keys[2]]) $fav1 = $skill_keys[1];//如果熟练第二高的大于第三高的，记录第二高的
 		//给要更换的武器加权
 		$r_arr = array();
 		$r_sum = 0;
+		
 		foreach($s_arr as $si){
 			$svar = 100;//初始值100
 			$itm=$pa['itm'.$si];
@@ -75,18 +83,30 @@ namespace skill81
 			$itme=$pa['itme'.$si];
 			$itms=$pa['itms'.$si];
 			$itmsk=$pa['itmsk'.$si];
-			//如果武器有以下属性则每一种提高20加权
-			foreach(Array('N','n','f','k','t','B','b','r','d') as $val){
-				if(strpos($itmsk, $val) !== false) $svar += 20;
+			
+			$skind = $skillinfo[substr($itmk,1,1)];
+			//var_dump($skind);
+			//最得意的系别提高100加权
+			if($fav0 == $skind) $svar += 100;
+			//次得意的系别提高50加权
+			elseif($fav1 == $skind) $svar += 50;
+			
+			//连击、双穿武器提高50加权
+			foreach(Array('r','n','y') as $val){
+				if(strpos($itmsk, $val) !== false) $svar += 50;
 			}
-			//如果玩家没有这种武器的防御属性，则提高100加权
+			//如果武器有以下属性则每一种提高15加权
+			foreach(Array('N','d','f','k','t','B','b') as $val){
+				if(strpos($itmsk, $val) !== false) $svar += 15;
+			}
+			//如果玩家没有这种武器的防御属性，则提高200加权
 			$ex_def_array = \attrbase\get_ex_def_array($pa, $pd, $active);
 			eval(import_module('ex_phy_def'));
 			$this_def_kind = $def_kind[substr($itmk,1,1)];
-			if(!in_array('A', $ex_def_array) && !in_array($this_def_kind, $ex_def_array)) $svar += 100;
-			//符提高25加权
-			if($this_def_kind == 'F') $svar += 25;
-			//如果武器不是无限耐且即将耗尽，则降低200加权
+			if(!in_array('A', $ex_def_array) && !in_array($this_def_kind, $ex_def_array)) $svar += 200;
+			//符提高50加权
+			if($this_def_kind == 'F') $svar += 50;
+			//如果武器不是无限耐且即将耗尽，则降低200加权，如果耐久极少则降低1000加权
 			eval(import_module('itemmain'));
 			if($itms != $nosta && $itms < 10) $svar -= 1000;
 			elseif($itms != $nosta && $itms < 50) $svar -= 200;
@@ -98,7 +118,12 @@ namespace skill81
 			$r_arr[$si] = $svar;
 			$r_sum += $svar;
 		}
-		//echo 'rarr ';var_dump($r_arr);echo '<br>';
+		//DEBUG用
+//		$r_arr_show = array();
+//		foreach($r_arr as $i => $v){
+//			$r_arr_show[$pa['itm'.$i]] = $v;
+//		}
+//		echo 'rarr ';var_dump($r_arr_show);echo '<br>';
 		
 		if($flag || rand(0,99) < calc_skill81rate($pa, $pd, $active)){//如果并非必须反击，则50%概率换武器
 			$dice = rand(0, $r_sum);

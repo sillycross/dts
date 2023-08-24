@@ -83,11 +83,11 @@ namespace skill529
 		return $spool;
 	}
 	
-	//技能池过滤：除去不适合给玩家的技能，主要包括460号占位符、512号幻象技能
+	//技能池过滤：除去不适合给玩家的技能，主要包括81号换装、460号占位符、512号幻象技能
 	//若过滤，返回0；否则返回$skillid
 	function skill529_skill_filter($skillid){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$filter_arr = Array(460,512);
+		$filter_arr = Array(81,460,512);
 
 		if(in_array($skillid, $filter_arr)) $skillid = 0;
 		return $skillid;

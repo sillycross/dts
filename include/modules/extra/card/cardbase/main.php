@@ -566,25 +566,25 @@ namespace cardbase
 		$chprocess();
 		eval(import_module('sys','player','cardbase'));
 		
-		//卡片名称显示
-		if($cardname == $cards[$card]['name']) {//卡名与卡号相符，自行判断用缩写还是全名
-			if(!empty($cards[$card]['title'])) 
-				$uip['cardname_show'] = $cards[$card]['title'];
-			else
-				$uip['cardname_show'] = $cards[$card]['name'];
-			//卡片罕贵显示
-			$uip['cardrare_show'] = $card_rarecolor[$cards[$card]['rare']];
-		}else{//卡名与卡号不符，用记录的卡名（缩写），并反查要显示的卡片信息
-			$uip['cardname_show'] = $cardname;
-			$show_card = $cardindex_reverse[$cardname];
-			$uip['cardrare_show'] = $card_rarecolor[$cards[$show_card]['rare']];
+		//显示的卡名一定是$cardname
+		$uip['cardname_show'] = $cardname;
+		//罕贵和卡面显示
+		$real_cardid = check_realcard($card, $cardname);
+		$uip['cardinfo_show'] = $cards[$real_cardid];
+		$uip['cardrare_show'] = $card_rarecolor[$cards[$real_cardid]['rare']];
+
+		$uip['card_rarecolor'] = $card_rarecolor;//备用
+	}
+	
+	//通过记录卡名与卡号判定实际卡号
+	function check_realcard($c, $cn) {
+		eval(import_module('cardbase'));
+		$ret = $c;
+		//卡名与卡号不符，分两种情况，一种是缩写，另一种是篝火等随机卡片，都通过反查确定显示的卡片信息
+		if($cn != $cards[$c]['name'] || empty($cards[$c]['title']) || $cn != $cards[$c]['title']) {
+			$ret = $cardindex_reverse[md5sub($cn,10)];
 		}
-		
-		//卡片本体渲染
-		if($card && 'hidden' != $cards[$card]['pack']) {//挑战者和隐藏卡就不显示了
-			$uip['cardinfo_show'] = isset($show_card) ? $cards[$show_card] : $cards[$card];
-		}
-		$uip['card_rarecolor'] = $card_rarecolor;
+		return $ret;
 	}
 	
 	//战斗界面显示敌方卡片
@@ -668,8 +668,8 @@ namespace cardbase
 			elseif('B' == $rare) $new_cardindex[$prefix.'B'][] = $ci;
 			else $new_cardindex[$prefix.'C'][] = $ci;
 			
-			if(!empty($cv['title'])) $new_cardindex_reverse[$cv['title']] = $ci;
-			else $new_cardindex_reverse[$cv['name']] = $ci;
+			if(!empty($cv['title'])) $new_cardindex_reverse[md5sub($cv['title'],10)] = $ci;
+			else $new_cardindex_reverse[md5sub($cv['name'],10)] = $ci;
 		}
 		
 		if(empty($new_cardindex)) return;
@@ -686,7 +686,7 @@ namespace cardbase
 			$contents .= ($i < $z ? '  ),' : '  )') . "\r\n";
 			$i++;
 		}
-		$contents .= ');';
+		$contents .= ");\r\n\r\n";
 		
 		//反查数组就无所谓了
 		$contents .= '$cardindex_reverse = '.var_export($new_cardindex_reverse,1).';';

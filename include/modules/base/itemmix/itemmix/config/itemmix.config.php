@@ -18,9 +18,12 @@ $mixinfo = array
 	array('class' => 'h', 'stuff' => array('曾经的荣光-橙黄','面包'),'result' => array('更改菜谱后的不甜酱包','HB',300,4,'Z'),), 
 	array('class' => 'h', 'stuff' => array('早苗面包','仙贝面包','海星面包','彩虹光芒的面包'),'result' => array('禁忌「Four of a Bread」','HB',444,4,'z'),),
 	array('class' => 'h', 'stuff' => array('寂寞','脸','杯子'),'result' => array('淡定红茶','HB',200,20,),),
+	array('class' => 'h', 'stuff' => array('护士帽','白衣','针筒'),'result' => array('「注射天使-莉莉」★3','PB3',1000,15,'z'),),
 	array('class' => 'h', 'stuff' => array('凸眼鱼','面包','锅'),'result' => array('仰望星空派','HR',30,3,),),
 	array('class' => 'h', 'stuff' => array('河豚鱼','氯化氢','大夭使的气息'),'result' => array('鲱鱼罐头','PR9',90,10,),),
 	array('class' => 'h', 'stuff' => array('矿泉水','杏仁豆腐','SCP-294的饮料'),'result' => array('【社系摧泪弹】','PB',3600,5,'zd'),),
+	array('class' => 'h', 'stuff' => array('油炖萌物「金鲤」','油炖萌物「石斑」'),'result' => array('油炖萌物「什锦板栗」','HB',900,'∞',),),
+	array('class' => 'h', 'stuff' => array('油炖油炖萌萌金鲤鲤','油炖油炖萌萌石斑斑'),'result' => array('油炖油炖萌萌什锦什锦板板栗栗','HB',4500,'∞',),),
 	
 	array('class' => 'wc', 'stuff' => array('汽油','空瓶'),'result' => array('☆火焰瓶☆','WC',80,50,'ud'),),	
 	array('class' => 'wc', 'stuff' => array('幻之使魔','永恒之桶'),'result' => array('灵魂的结晶','WC',180,240,'rn'),),

@@ -24,9 +24,9 @@ if(!file_exists($writefile) || filemtime($selffile) > filemtime($writefile) || f
 				$ikind_w=\itemmain\parse_itmk_words($ikind,0);
 				if (substr($ikind,0,2)=="TO")
 					$ikind_w.="（已埋设）";
-				else  if (substr($ikind,0,2)=="TN")
+				elseif (substr($ikind,0,2)=="TN")
 					$ikind_w.="（可拾取）";
-				else  if ($ikind[0]=="P") 
+				elseif ($ikind[0]=="P") 
 				{
 					$psign = strlen($ikind) >= 3 ? substr($ikind,2,1) : 0;
 					if('1' === $psign) $psign=1.5;
