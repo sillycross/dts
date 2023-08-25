@@ -52,45 +52,69 @@ namespace skill23
 			$itme+=$up_e; $itms+=$up_s;
 		}
 	}
+	
+	//检查目标装备是否合法
+	function geming_objvalid($t1, $itm, $itmk, $itme, $itms ,$itmsk){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = true;
+		eval(import_module('sys','player','itemmain','weapon','armor','logger'));
+		$objvalid_list = array_merge($wep_equip_list, $armor_equip_list);
+		if (!in_array($t1, $objvalid_list))
+		{
+			$log.='你只能给你的武器/防具增加属性。<br>';
+			$ret = false;
+		}
+		elseif ('WN' == $itmk || ('wep'==$t1 && !$itms))
+		{
+			$log.='你试图改造你的武器，但是你没有装备武器。<br>';
+			$ret = false;
+		}
+		elseif ('DN' == $itmk || !$itms) 
+		{
+			$log.='本防具不存在，请重新选择。<br>';
+			$ret = false;
+		}
+		return $ret;
+	}
 
 	function gemming($t1, $t2)	//宝石骑士宝石buff技能
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','itemmain','logger','skill23'));
 
-		if ($t1!='wep' && $t1!='arb' && $t1!='arh' && $t1!='ara' && $t1!='arf')
-		{
-			$log.='你只能给你的武器/防具增加属性。<br>';
-			$mode = 'command';
-			return;
-		}
-		
+//		if ($t1!='wep' && $t1!='arb' && $t1!='arh' && $t1!='ara' && $t1!='arf')
+//		{
+//			$log.='你只能给你的武器/防具增加属性。<br>';
+//			$mode = 'command';
+//			return;
+//		}
+//		
 		$itm=&${$t1}; $itmk=&${$t1.'k'}; $itme=&${$t1.'e'}; $itms=&${$t1.'s'}; $itmsk=&${$t1.'sk'};
 		
-		if(in_array('O', \itemmain\get_itmsk_array($itmsk))) {
-			$log.='<span class="red b">目标道具附带的诅咒把宝石弹开了。</span><br>';
+		$valid = geming_objvalid($t1, $itm, $itmk, $itme, $itms ,$itmsk);
+		if(!$valid) {
 			$mode = 'command';
 			return;
 		}
 		
-		if ($t1=='wep'|| !$itme || !$itms)
-		{
-			if ($itmk=='WN')
-			{
-				$log.='你试图改造你的武器，但是你没有装备武器。<br>';
-				$mode = 'command';
-				return;
-			}
-		}
-		else
-		{
-			if (($itms <= 0) && ($itms != $nosta)) 
-			{
-				$log.='本防具不存在，请重新选择。<br>';
-				$mode = 'command';
-				return;
-			}
-		}
+//		if ($t1=='wep'|| !$itme || !$itms)
+//		{
+//			if ($itmk=='WN')
+//			{
+//				$log.='你试图改造你的武器，但是你没有装备武器。<br>';
+//				$mode = 'command';
+//				return;
+//			}
+//		}
+//		else
+//		{
+//			if (($itms <= 0) && ($itms != $nosta)) 
+//			{
+//				$log.='本防具不存在，请重新选择。<br>';
+//				$mode = 'command';
+//				return;
+//			}
+//		}
 		
 		$clv = \skillbase\skill_getvalue(23,'lvl');
 		$maxsknum = $skill23max[$clv];

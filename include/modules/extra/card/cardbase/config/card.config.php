@@ -73,7 +73,7 @@ $cardindex=array(//已停止更新，现在$cardindex是自动生成的，文件
 	//pop子实际爆率是B
 );
 
-if(file_exists($card_index_file)) include $card_index_file;//载入真正的$cardindex
+if(file_exists($card_index_file)) include_once $card_index_file;//载入真正的$cardindex
 
 $card_rarecolor=array(
 	'S'=>'gold b ',

@@ -325,7 +325,6 @@ function dir_clear($dir) {
 //读取文件
 function readover($filename,$method="rb"){
 	strpos($filename,'..')!==false && debug_print_backtrace() && exit('Forbidden');
-	//$filedata=file_get_contents($filename);
 	$handle=fopen($filename,$method);
 	if(flock($handle,LOCK_SH)){
 		$filedata='';

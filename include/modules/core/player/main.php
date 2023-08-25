@@ -248,7 +248,7 @@ namespace player
 		}
 		if(!$arbs) {
 			$arb = $noarb;$arbk = 'DN'; $arbsk = '';
-			$arbe = 0; $arbs = $nosta;
+			$arbe = 0; $arbs = 0;
 		}
 	}
 	

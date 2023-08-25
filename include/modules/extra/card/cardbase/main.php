@@ -581,8 +581,8 @@ namespace cardbase
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('cardbase'));
 		$ret = $c;
-		//卡名与卡号不符，分两种情况，一种是缩写，另一种是篝火等随机卡片，都通过反查确定显示的卡片信息
-		if($cn != $cards[$c]['name'] || empty($cards[$c]['title']) || $cn != $cards[$c]['title']) {
+		//卡名与卡号不符，并且卡名与头衔不符，那么认为是篝火等随机卡片，需通过反查确定显示的卡片信息
+		if($cn != $cards[$c]['name'] && (empty($cards[$c]['title']) || $cn != $cards[$c]['title'])) {
 			$ret = $cardindex_reverse[md5sub($cn,10)];
 		}
 		return $ret;

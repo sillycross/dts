@@ -102,7 +102,6 @@ CREATE TABLE `bra_users` (
   `lastword` char(30) NOT NULL DEFAULT '', 
   `lastwin` int(10) unsigned NOT NULL DEFAULT '0',
   `lastgame` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `lastroomgame` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `validgames` smallint(5) unsigned NOT NULL DEFAULT '0',
   `wingames` smallint(5) unsigned NOT NULL DEFAULT '0',  
   `credits` int(10) NOT NULL DEFAULT '0',
@@ -128,7 +127,8 @@ CREATE TABLE `bra_users` (
   `n_achievements` text NOT NULL DEFAULT '',
   
   PRIMARY KEY (`uid`),
-  UNIQUE KEY `username` (`username`)
+  UNIQUE KEY `username` (`username`),
+  INDEX `DFT` (`credits`, `wingames`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --

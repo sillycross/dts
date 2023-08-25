@@ -422,9 +422,7 @@ namespace tutorial
 		elseif($ct['object'] == 'move' && in_array('shop',$ct['obj2']) && \itemshop\check_in_shop_area($pls)) $ret = true; //在移动到商店任务之前就移动到了商店地图
 		elseif($ct['object'] == 'itemmix' || $ct['object'] == 'itembuy') 
 		{
-			eval(import_module('armor', 'itemmain'));
-			$posarr = array_merge(Array('wep'), $armor_equip_list, $item_equip_list);
-			foreach($posarr as $pv) {
+			foreach($equip_list as $pv) {
 				if(!empty(${$pv}) && ${$pv} == $ct['obj2']['item']){//判定在任务前就完成了合成或者购买
 					$ret = true;
 					break;
@@ -942,9 +940,8 @@ namespace tutorial
 		$ret = $chprocess($item,$shop,$bnum);
 		if($gametype == 17) {
 			$ct = get_tutorial();//玩家购买特定名字的商品后推进进度
-			eval(import_module('armor','itemmain','player'));
-			$posarr = array_merge(Array('wep'), $armor_equip_list, $item_equip_list);
-			foreach($posarr as $pv) {
+			eval(import_module('player'));
+			foreach($equip_list as $pv) {
 				if(!empty(${$pv}) && ${$pv} == $ct['obj2']['item']){
 					tutorial_pushforward_process();
 					break;

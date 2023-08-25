@@ -81,6 +81,18 @@ namespace ex_cursed
 		}
 		return $flag;
 	}
+	
+	//诅咒属性不能加宝石
+	function geming_objvalid($t1, $itm, $itmk, $itme, $itms ,$itmsk){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($t1, $itm, $itmk, $itme, $itms ,$itmsk);
+		if($ret && !check_enkan() && in_array('O',\itemmain\get_itmsk_array($itmsk))) {
+			eval(import_module('logger'));
+			$log.='<span class="red b">目标道具附带的诅咒把宝石弹开了。</span><br>';
+			$ret = false;
+		}
+		return $ret;
+	}
 }
 
 

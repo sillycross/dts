@@ -264,6 +264,7 @@ OVERLAY_HELP_WRITE_CONTENT;
 	writeover($writefile,$writecont);
 }
 
+//NPC列表自动生成
 $npcfile = GAME_ROOT.'./include/modules/base/npc/config/npc.data.config.php';
 $npcfile_i8 = GAME_ROOT.'./include/modules/extra/instance/instance8_proud/config/npc.data.config.php';
 $npcfile_i9 = GAME_ROOT.'./include/modules/extra/instance/instance9_rush/config/npc.data.config.php';
@@ -283,7 +284,6 @@ foreach ($enpcinfo as $enkey => $enval){
 $srcfile = GAME_ROOT.TPLDIR.'/npchelp.htm';
 $writefile = GAME_ROOT.TPLDIR.'/tmp_npchelp.htm';
 
-//NPC列表自动生成
 $need_refresh = 0;
 if(!file_exists($writefile)){
 	$need_refresh = 1;
@@ -295,6 +295,24 @@ if(!file_exists($writefile)){
 
 if($need_refresh){
 	$writecont = dump_template('npchelp');
+	writeover($writefile,$writecont);
+}
+
+//称号技能列表自动生成
+eval(import_module('skillbase','clubbase'));//这个是动态的所以横竖都得载入
+$sdata = \player\create_dummy_playerdata();
+
+$srcfile = GAME_ROOT.TPLDIR.'/clubhelp.htm';
+$writefile = GAME_ROOT.TPLDIR.'/tmp_clubhelp.htm';
+$tmp_clublist=Array(1,2,3,4,5,9,6,7,8,10,11,13,14,18,19,20,21,24);//需要展示的称号
+
+$need_refresh = 0;
+if(!file_exists($writefile) || filemtime($srcfile) > filemtime($writefile)){//称号涉及的东西太多了，用clubhelp.htm来当开关吧，不一个一个技能判定了
+	$need_refresh = 1;
+}
+
+if($need_refresh){
+	$writecont = dump_template('clubhelp');
 	writeover($writefile,$writecont);
 }
 

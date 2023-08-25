@@ -94,18 +94,39 @@ namespace ex_phy_nullify
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','player','itemmain','logger'));
-		if(strpos($arbsk,'B')!==false) {
+		if(in_array('B',\itemmain\get_itmsk_array($theitem['itmsk']))) {
 			$pa = $pd = Array();
 			$proc_rate = get_ex_phy_nullify_proc_rate($pa, $pd, 0);
 			$dice = rand(0,99);
 			if ($dice<$proc_rate){
-				$log .= "<span class='yellow b'>针折断了。</span>这是一件能免疫所有物理攻击的防具。也许你需要一根能穿透所有物理防御的针才能给它打上补丁。<br>";
+				$log .= "<span class='yellow b'>针折断了。</span>这是一件能免疫所有物理攻击的防具，也许你需要一根能穿透所有物理防御的针才能给它打上补丁。<br>";
 				return true;
 			}else{
 				$log .= "纳尼？{$arb}免疫物理伤害的效果竟然失效了！<br>";
 			}
 		}
 		return $chprocess($theitem);
+	}
+	
+	//物抹属性打宝石有大概率失败
+	function geming_objvalid($t1, $itm, $itmk, $itme, $itms ,$itmsk){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($t1, $itm, $itmk, $itme, $itms ,$itmsk);
+		if($ret && in_array('B',\itemmain\get_itmsk_array($itmsk))) {
+			eval(import_module('logger'));
+			$pa = $pd = Array();
+			$proc_rate = get_ex_phy_nullify_proc_rate($pa, $pd, 0);
+			$dice = rand(0,99);
+			if ($dice<$proc_rate){
+				$log .= "<span class='yellow b'>宝石被装备弹开了</span>，连你的手也被震得发疼。这是一件能免疫所有物理攻击的装备，也许你需要一颗能穿透所有物理防御的宝石才能用来强化它。<br>";
+				$ret = false;
+				//加个cd时间以免有人用连点器作乱
+				\cooldown\set_coldtime(1000);
+			}else{
+				$log .= "纳尼？{$itm}免疫物理伤害的效果竟然失效了！<br>";
+			}
+		}
+		return $ret;
 	}
 }
 

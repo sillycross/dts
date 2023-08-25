@@ -34,7 +34,8 @@ namespace skill432
 		}
 		return $chprocess($pa,$pd,$active);
 	}
-
+	
+	//被攻击时双方都无法增长怒气
 	function calculate_attack_rage_gain_change(&$pa, &$pd, $active, $rageup)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
