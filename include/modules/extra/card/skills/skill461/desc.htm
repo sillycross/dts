@@ -2,12 +2,16 @@
 <!--{eval $___TEMP_SKILL_ID=461;}-->
 {template MOD_CLUBBASE_SKILLDESC_START}
 <span>
-驱散
+<!--{if \skillbase\skill_getvalue(461,'lvl',$who)==1}-->
+免疫
+<!--{else}-->
+镇定
+<!--{/if}-->
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class="skilldesc_left b3"><span class="skilldesc">
 敌人无法对你施加任何时效性负面状态。<br>
-<!--{if \skillbase\skill_getvalue(461,'lvl',$who)==1}-->战斗结束后，你自动从所有异常状态中恢复。<br><!--{/if}-->
+<!--{if \skillbase\skill_getvalue(461,'lvl',$who)==1}-->战斗结束后，你自动从所有异常状态中恢复。<!--{/if}-->
 </span></td>
 <td class="skilldesc_right b3">
 </td>

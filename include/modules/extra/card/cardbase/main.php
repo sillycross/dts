@@ -570,7 +570,7 @@ namespace cardbase
 		$uip['cardname_show'] = $cardname;
 		//罕贵和卡面显示
 		$real_cardid = check_realcard($card, $cardname);
-		$uip['cardinfo_show'] = $cards[$real_cardid];
+		if($real_cardid && 'hidden' != $cards[$real_cardid]['pack']) $uip['cardinfo_show'] = $cards[$real_cardid];
 		$uip['cardrare_show'] = $card_rarecolor[$cards[$real_cardid]['rare']];
 
 		$uip['card_rarecolor'] = $card_rarecolor;//备用
