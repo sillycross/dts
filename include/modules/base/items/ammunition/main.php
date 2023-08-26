@@ -44,9 +44,9 @@ namespace ammunition
 		eval(import_module('ammunition'));
 		$retk = 'GB'; $retn = 6;
 		foreach($ammukind as $ak => $av){
-			if((strpos($ak, 'W')===0 && strpos($cwepk, $ak) === 0) || (strpos($ak, 'W')!==0 && strpos($cwepsk, $ak) !== false)){
+			if((strpos($ak, 'W')===0 && strpos($cwepk, $ak) === 0) || (strpos($ak, 'W')!==0 && \itemmain\check_in_itmsk($ak, $cwepsk))){
 				$retk = $av[0]; $retn = $av[1];
-				if($retn <= 10 && strpos($cwepsk, 'r') !== false) {
+				if($retn <= 10 && \itemmain\check_in_itmsk('r', $cwepsk)) {
 					if('GBh'==$retk) $retn = 6;//连击重枪弹夹数为6
 					else $retn = 12;//带连击的气体和能源枪的弹夹数变成12
 				}
@@ -96,7 +96,7 @@ namespace ammunition
 		}
 		$itms -= $bullet;
 		$weps += $bullet;
-		$log .= "为<span class=\"red b\">$wep</span>装填了<span class=\"red b\">$itm</span>，<span class=\"red b\">$wep</span>残弹数增加<span class=\"yellow b\">$bullet</span>。<br>";
+		$log .= "为<span class=\"red b\">$wep</span>装填了<span class=\"red b\">$itm</span>，<span class=\"red b\">$wep</span>残弹数增加了<span class=\"yellow b\">$bullet</span>。<br>";
 		if ($itms <= 0) {
 			$log .= "<span class=\"red b\">$itm</span>用光了。<br>";
 			$itm = $itmk = $itmsk = '';

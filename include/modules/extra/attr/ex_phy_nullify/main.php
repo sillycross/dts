@@ -94,7 +94,7 @@ namespace ex_phy_nullify
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','player','itemmain','logger'));
-		if(in_array('B',\itemmain\get_itmsk_array($theitem['itmsk']))) {
+		if(\itemmain\check_in_itmsk('B', $arbsk)) {
 			$pa = $pd = Array();
 			$proc_rate = get_ex_phy_nullify_proc_rate($pa, $pd, 0);
 			$dice = rand(0,99);
@@ -112,7 +112,7 @@ namespace ex_phy_nullify
 	function geming_objvalid($t1, $itm, $itmk, $itme, $itms ,$itmsk){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($t1, $itm, $itmk, $itme, $itms ,$itmsk);
-		if($ret && in_array('B',\itemmain\get_itmsk_array($itmsk))) {
+		if($ret && \itemmain\check_in_itmsk('B', $itmsk)) {
 			eval(import_module('logger'));
 			$pa = $pd = Array();
 			$proc_rate = get_ex_phy_nullify_proc_rate($pa, $pd, 0);
@@ -121,7 +121,7 @@ namespace ex_phy_nullify
 				$log .= "<span class='yellow b'>宝石被装备弹开了</span>，连你的手也被震得发疼。这是一件能免疫所有物理攻击的装备，也许你需要一颗能穿透所有物理防御的宝石才能用来强化它。<br>";
 				$ret = false;
 				//加个cd时间以免有人用连点器作乱
-				\cooldown\set_coldtime(1000);
+				\cooldown\set_coldtime(3000);
 			}else{
 				$log .= "纳尼？{$itm}免疫物理伤害的效果竟然失效了！<br>";
 			}

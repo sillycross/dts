@@ -34,7 +34,7 @@ namespace skill219
 			$mode = 'command';
 			return;
 		}
-		if (strpos($wepsk,'j')!==false){
+		if (\itemmain\check_in_itmsk('j', $wepsk)){
 			$log.='多重武器不能改造。<br>';
 			$mode='command';
 			return;

@@ -14,7 +14,7 @@ namespace ex_cursed
 	function itemdrop_valid_check($itm, $itmk, $itme, $itms, $itmsk)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if(in_array('O',\itemmain\get_itmsk_array($itmsk))){
+		if(\itemmain\check_in_itmsk('O', $itmsk)){
 			eval(import_module('logger'));
 			if(check_enkan()) {
 				$log .= '<span class="lime b">圆环之理的光辉暂时消解了装备的诅咒。</span><br>';
@@ -29,7 +29,7 @@ namespace ex_cursed
 	function itemoff_valid_check($itm, $itmk, $itme, $itms, $itmsk)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if(in_array('O',\itemmain\get_itmsk_array($itmsk))){
+		if(\itemmain\check_in_itmsk('O', $itmsk)){
 			eval(import_module('logger'));
 			if(check_enkan()) {
 				$log .= '<span class="lime b">圆环之理的光辉暂时消解了装备的诅咒。</span><br>';
@@ -56,7 +56,7 @@ namespace ex_cursed
 			elseif(strpos ( $itmk, 'DA' ) === 0) $obj = 'ara';
 			elseif(strpos ( $itmk, 'DF' ) === 0) $obj = 'arf';
 			elseif(strpos ( $itmk, 'A' ) === 0) $obj = 'art';
-			if(in_array('O',\itemmain\get_itmsk_array(${$obj.'sk'}))){
+			if(\itemmain\check_in_itmsk('O', ${$obj.'sk'})){
 				if(check_enkan()) {
 					$log .= '<span class="lime b">圆环之理的光辉暂时消解了装备的诅咒。</span><br>';
 				}else{
@@ -86,7 +86,7 @@ namespace ex_cursed
 	function geming_objvalid($t1, $itm, $itmk, $itme, $itms ,$itmsk){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($t1, $itm, $itmk, $itme, $itms ,$itmsk);
-		if($ret && !check_enkan() && in_array('O',\itemmain\get_itmsk_array($itmsk))) {
+		if($ret && !check_enkan() && \itemmain\check_in_itmsk('O', $itmsk)) {
 			eval(import_module('logger'));
 			$log.='<span class="red b">目标道具附带的诅咒把宝石弹开了。</span><br>';
 			$ret = false;

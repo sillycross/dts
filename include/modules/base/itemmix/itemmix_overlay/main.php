@@ -47,7 +47,7 @@ namespace itemmix_overlay
 	function check_valid_overlay_material($itm, $itmsk, $star)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if(strpos($itmsk,'J')!==false) return true;
+		if(\itemmain\check_in_itmsk('J',$itmsk)) return true;
 		preg_match('/★(\d+)/s', $itm, $matches);
 		//gwrite_var('a.txt',$matches);
 		if(!empty($matches) && $star == $matches[1] && strpos($itm,'-仮')===false) return true;

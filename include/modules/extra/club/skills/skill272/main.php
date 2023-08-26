@@ -149,13 +149,20 @@ namespace skill272
 		$effect_num = 0;
 		$itmsk_after = $itmsk;
 		$affected_arr = array();
-		foreach($effect_list as $eval){
-			if(strpos($itmsk, $eval)!==false){
-				$effect_num ++ ;
-				$itmsk_after = str_replace($eval,'',$itmsk_after);
-				$affected_arr[] = $eval;
+		if(!empty($itmsk)) {
+			//echo $itmsk.'=>';
+			$itmsk_arr = \itemmain\get_itmsk_array($itmsk);
+			foreach($itmsk_arr as &$isk){
+				if(in_array($isk, $effect_list)){
+					$effect_num ++ ;
+					$affected_arr[] = $isk;
+					$isk = '';
+				}
 			}
+			$itmsk_after = implode('', $itmsk_arr);
+			//echo $itmsk_after.'  ';
 		}
+		
 		return array($effect_num, $itmsk_after, $affected_arr);
 	}
 	

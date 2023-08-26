@@ -1,4 +1,4 @@
-<!--{if strpos($wepsk,'j')!==false}-->
+<!--{if \itemmain\check_in_itmsk('j', $wepsk)}-->
 	<div class="cmd_positioner common_cmd">
 		<input type="button" class="cmd_button common_cmd glow_buttons white" value="变换武器形态" 
 			onclick="$('command').value='special';$('subcmd').name='sp_cmd';$('subcmd').value='sp_weapon';postCmd('gamecmd','command.php',this);">

@@ -81,7 +81,7 @@ namespace blessstone
 			$mode = 'command';
 			return;
 		}
-		if(!$itms || strpos ( $itmsk, 'Z' ) === false) {
+		if(!$itms || !\itemmain\check_in_itmsk('Z', $itmsk)) {
 			$log .= '被强化道具选择错误，请重新选择。<br>';
 			$mode = 'command';
 			return;
@@ -147,7 +147,7 @@ namespace blessstone
 		}			
 		$gems--;
 		if($gems <= 0){
-			$log .= "<span class=\"red b\">$gem</span> 用光了。<br>";
+			$log .= "<span class=\"red b\">$gem</span>用光了。<br>";
 			$gem = $gemk = $gemsk = '';$geme = $gems = 0;
 		}	
 		$mode = 'command';
@@ -175,21 +175,21 @@ namespace blessstone
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('player','logger'));
-		if(strpos ( $wepsk, 'Z' ) !== false){
+		if(\itemmain\check_in_itmsk('Z', $wepsk)){
 			$log .= '咦……刀刃过于薄了，感觉稍微磨一点都会造成不可逆的损伤呢……<br>';
 			return 0;
 		}
 		return $chprocess($itm,$itme);
 	}
 	
-	//菁英属性不能打针线包
+	//菁英属性打针线包会失去精英
 	function use_sewing_kit(&$theitem)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','player','itemmain','logger'));
 		$ret = $chprocess($theitem);
-		if($ret && strpos($arbsk,'Z')!==false) {
+		if($ret && \itemmain\check_in_itmsk('Z', $arbsk)) {
 			$log .= "打上补丁之后，装备显得朴素多了。<br><span class='yellow b'>$arb</span>失去了<span class='yellow b'>{$itemspkinfo['Z']}</span>属性！<br>";
 			$arbsk = str_replace('Z','',$arbsk);
 		}

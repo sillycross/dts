@@ -15,7 +15,7 @@ namespace wepchange
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
 		
-		if (strpos($wepsk,'j')===false)
+		if (!\itemmain\check_in_itmsk('j', $wepsk))
 		{
 			$log.='你的武器不能变换。<br>';
 			$mode = 'command';
@@ -69,7 +69,7 @@ namespace wepchange
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('player','logger'));
-		if (strpos($wepsk,'j')!==false)
+		if (\itemmain\check_in_itmsk('j', $wepsk))
 		{
 			$log.='多重武器不能改造。<br>';
 			return 0;
@@ -82,7 +82,7 @@ namespace wepchange
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('player','logger'));
-		if (strpos($wepsk,'j')!==false)
+		if (\itemmain\check_in_itmsk('j', $wepsk))
 		{
 			$log.='多重武器不能改造。<br>';
 			return 0;
@@ -95,7 +95,7 @@ namespace wepchange
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('player','logger'));
-		if (strpos($wepsk,'j')!==false)
+		if (\itemmain\check_in_itmsk('j', $wepsk))
 		{
 			$log.='多重武器不能改造。<br>';
 			return 0;

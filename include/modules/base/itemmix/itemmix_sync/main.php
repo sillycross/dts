@@ -42,7 +42,7 @@ namespace itemmix_sync
 		$tunner=false;
 		if(${'itms'.$itmn}){
 			$star = itemmix_get_star(${'itmk'.$itmn});
-			if(strpos(${'itmsk'.$itmn},'s')!==false) $tunner = true;
+			if(\itemmain\check_in_itmsk('s', ${'itmsk'.$itmn})) $tunner = true;
 		}
 		return array($star, $tunner);
 	}
@@ -59,7 +59,7 @@ namespace itemmix_sync
 	function itemmix_sync_check($mlist){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','itemmix'));
-		//判断是否存在调整，并计算总星数
+		//判断是否存在调整，并计算总星数 
 		$star = $star2 = 0;
 		$tunner = $stuff = array();
 		foreach($mlist as $mval){
@@ -74,7 +74,7 @@ namespace itemmix_sync
 			if($mtunner){
 				$tunner[] = $mval;
 			}
-			if(in_array('^002',\itemmain\get_itmsk_array(${'itmsk'.$mval})))//生命肌瘤龙变星效果
+			if(\itemmain\check_in_itmsk('^002', ${'itmsk'.$mval}))//生命肌瘤龙变星效果 
 			{
 				$streamstar = $mstar;
 			}
@@ -82,32 +82,32 @@ namespace itemmix_sync
 		
 		$chc_res = array();
 		if($star && count($tunner) == 1){
-			if(!empty($streamstar)){//生命肌瘤龙的变星实际上提供两个星数分支
+			if(!empty($streamstar)){//生命肌瘤龙的变星实际上提供两个星数分支 
 				$star2 = $streamstar + count($mlist) - 1;
 			}
-			//然后判断是否存在对应的同调成果
+			//然后判断是否存在对应的同调产物 
 			$prp_res = itemmix_prepare_sync();
 			foreach($prp_res as $pra){
 				$pstar = $pra[5];
 				$preq = $pra[6];
 				$preqflag = true;
-				if($preq){//检查是不是有特殊需求
+				if($preq){//检查是不是有特殊需求 
 					$req=explode('+',$preq);
 					$mname = array();
 					foreach($mlist as $mi){
 						$mname[] = \itemmix\itemmix_name_proc(${'itm'.$mi});
 					}
-					//如果素材没有满足则认为无法合成
+					//如果素材没有满足则认为无法合成 
 					foreach($req as $rv){
-						if('st'==$rv){//调整要求是同调
+						if('st'==$rv){//调整要求是同调属性的 
 							$tunnersk = ${'itmsk'.$tunner[0]};
-							if(!in_array('^001',\itemmain\get_itmsk_array($tunnersk))) $preqflag = false;
-						}elseif(strpos($rv,'sm')===0){//调整以外要求是同调
+							if(!\itemmain\check_in_itmsk('^001', $tunnersk)) $preqflag = false;
+						}elseif(strpos($rv,'sm')===0){//调整以外要求是同调属性的 
 							$smnum = (int)substr($rv,2);
 							foreach($mlist as $mi){
 								if(!in_array($mi, $tunner)){
 									$misk = ${'itmsk'.$mi};
-									if(!in_array('^001',\itemmain\get_itmsk_array($misk))) {
+									if(!\itemmain\check_in_itmsk('^001', $misk)) {
 										$preqflag = false;
 										break;
 									}
@@ -122,7 +122,7 @@ namespace itemmix_sync
 				if(($pstar == $star || $pstar == $star2) && $preqflag){
 					if($pstar == $star2) list($star, $star2) = array($star2, $star);
 					if(empty($chc_res[$star])) $chc_res[$star] = array();
-					//用键名记录星数和素材数方便提示
+					//用键名记录星数和素材数方便提示 
 					$chc_res[$star][] = array('stuff' => $stuff, 'list' => $mlist, 'result' => $pra, 'type' => 'sync');
 				}
 			}
@@ -150,7 +150,7 @@ namespace itemmix_sync
 //		eval(import_module('sys','player','logger','itemmix'));
 //		$chc_res = itemmix_sync_check($mlist);
 //
-//		//无满足条件的同调结果，失败
+//		//无满足条件的同调结果，失败 
 //		if (!$chc_res) return $chprocess($mlist, $itemselect);	
 //		$chc = array_pop($chc_res);
 //		if ($itemselect==-1)

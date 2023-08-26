@@ -53,12 +53,10 @@ namespace skill430
 		$file=GAME_ROOT."./include/modules/base/itemmain/config/mapitem.config.php";//真是丑陋！
 		$itemlist = openfile($file);
 		$in = sizeof($itemlist);
-		$i=rand(4,$in-1);//妈了个臀
-		list($iarea,$imap,$inum,$iname,$ikind,$ieff,$ista,$iskind) = explode(',',$itemlist[$i]);
-		while (!is_numeric($iarea) || strpos($iskind,"x")!==false){
-			$i=rand(4,$in-1);
+		do{
+			$i=rand(4,$in-1);//妈了个臀
 			list($iarea,$imap,$inum,$iname,$ikind,$ieff,$ista,$iskind) = explode(',',$itemlist[$i]);
-		}
+		} while (!is_numeric($iarea) || \itemmain\check_in_itmsk('x', $iskind));
 		$itm0=$iname;$itme0=$ieff;$itms0=$ista;$itmsk0=$iskind;$itmk0=$ikind;
 		addnews ( 0, 'bskill430', $name,$iname );
 		\itemmain\itemget();

@@ -3,7 +3,7 @@
 namespace skill23
 {
 	$skill23max = Array(6,7,8,9,10,11,12);//最大格子数
-	$upgradecost = Array(2,3,4,5,6,7,-1);//升级所需技能点
+	$upgradecost = Array(1,2,2,3,3,4,-1);//升级所需技能点
 	
 	function init() 
 	{
@@ -175,12 +175,12 @@ namespace skill23
 			if ($dice<=$value[0])
 			{
 				$flag=1;
-				$exists = strpos($itmsk,$value[1])!==false;
+				$exists = \itemmain\check_in_itmsk($value[1], $itmsk);
 				gemming_itme_buff($itm,$itmk,$itme,$itms,$itmsk,$lb,$ub,$exists);
 				if(!$exists)	$log.="同时，你的装备<span class=\"yellow b\">{$itm}</span>还获得了“<span class=\"yellow b\">{$itemspkinfo[$value[1]]}</span>”属性！<br>";
 				else $log.="你的装备<span class=\"yellow b\">{$itm}</span>获得了“<span class=\"yellow b\">{$itemspkinfo[$value[1]]}</span>”属性，不过好像它本来已经有了。<br>";
 				addnews ( 0, 'gemming', $name, $gem, $itm, $itemspkinfo[$value[1]]);
-				if (strpos($itmsk,$value[1]) === false) $itmsk.=$value[1];
+				if (!$exists) $itmsk.=$value[1];
 				break;
 			}
 			else  $dice-=$value[0];

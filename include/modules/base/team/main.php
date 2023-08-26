@@ -30,7 +30,7 @@ namespace team
 	//判定当前环境能否识别出队友（要求队伍生效和无雾）
 	function teammate_checkable(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys'));
+		eval(import_module('player'));
 		return (!$fog && team_available());
 	}
 	

@@ -2,6 +2,8 @@
 
 namespace itemmain
 {
+	$tmp_itmsk_arr_pool = Array();//道具属性字符串转数组的临时池子，减少反复判定道具属性的开销
+	
 	function init() 
 	{
 		eval(import_module('player'));
@@ -105,6 +107,14 @@ namespace itemmain
 	function get_itmsk_array($sk_value)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		eval(import_module('itemmain'));
+		//如果之前判定过完全相同的属性就直接用，避免多次性能开销
+		if(!empty($tmp_itmsk_arr_pool[$sk_value])) {
+			//echo $sk_value.' ';
+			return $tmp_itmsk_arr_pool[$sk_value];
+		}
+		
 		$ret = Array();
 		$i = 0;
 		while ($i < strlen($sk_value))
@@ -127,11 +137,39 @@ namespace itemmain
 				array_push($ret,$sub);
 			}
 		}
-		//if(!empty($flag)) var_dump($ret);
+		$tmp_itmsk_arr_pool[$sk_value] = $ret;
+		
 		return $ret;		
 	}
 	
-	//获得复合属性的代号和数值。非复合属性返回NULL
+	//判定一个属性数组里是不是有给定的属性代号
+	//输入$mark是用来判定的单字母属性或者以^字母为形式的复合属性前缀
+	//输入$skarr是已经经过get_itmsk_array()处理的属性数组，直接输入属性字符串也会自动转换
+	//如果$count==1，则会统计属性总数。复合属性一定会统计总数——计算这一属性数值的总和
+	//如果属性不存在，返回false；如果是复合属性或者要统计总数，会返回数值。
+	
+	//这里还不涉及复合属性的判定，实际处理在attrbase模块里完成，请注意	
+	function check_in_itmsk($mark, $skarr, $count = 0)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!is_array($skarr)) $skarr = get_itmsk_array($skarr);
+		
+		$flag = false;
+		if(in_array($mark, $skarr)) {
+			if(!$count) $flag = true;
+			else {
+				$flag = 0;
+				foreach($skarr as $v){
+					if($v === $mark) $flag ++;
+				}
+			}
+		} 
+		
+		return $flag;
+	}
+	
+	//从单属性字段，获得复合属性的代号和数值。非复合属性返回NULL
+	//返回两个变量：^+字母部分和数字部分
 	function get_comp_itmsk_info($str){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(!is_string($str) || '^' != $str[0]) return NULL;

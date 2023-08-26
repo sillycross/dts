@@ -34,7 +34,8 @@ namespace skill230
 			$mode = 'command';
 			return;
 		}
-		if (strpos($wepsk,'j')!==false){
+		$wepsk_arr = \itemmain\get_itmsk_array($wepsk);
+		if (\itemmain\check_in_itmsk('j', $wepsk_arr)){
 			$log.='多重武器不能改造。<br>';
 			$mode='command';
 			return;
@@ -49,8 +50,7 @@ namespace skill230
 				}
 			}
 			if($position){
-				$wepsk_arr = \itemmain\get_itmsk_array($wepsk);
-				if(in_array('e',$wepsk_arr)){
+				if(\itemmain\check_in_itmsk('e', $wepsk_arr)){
 					$log .= '<span class="red b">武器已经带电，不用改造！</span><br />';
 					$mode = 'command';
 					return;

@@ -6,10 +6,10 @@
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class="skilldesc_left b3"><span class="skilldesc">
-<!--{eval $skill430_lst = (int)\skillbase\skill_getvalue(430,'lastuse'); $skill430_time = ($now-$skill430_lst);$skill430_cd_left=($skill430_cd+$skill430_act_time-$skill430_time);$skill430_rem=($skill430_act_time-$skill430_time);}-->
+<!--{eval $skill430_lst = (int)\skillbase\skill_getvalue(430,'lastuse'); $skill430_time = ($now-$skill430_lst);$skill430_cd_left=$skill430_cd-$skill430_time;}-->
 随机获得一个地图上的物品
 <!--{if $skill430_time<$skill430_cd}-->
-<span class="cyan b">技能冷却中，冷却时间还剩<span>$skill430_cd_left</span>秒。</span><br>
+<span class="cyan b"><br>技能冷却中，冷却时间还剩<span>$skill430_cd_left</span>秒。</span><br>
 <!--{/if}-->
 </span></td>
 <td class="skilldesc_right b3">
