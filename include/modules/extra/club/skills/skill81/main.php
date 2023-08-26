@@ -93,11 +93,11 @@ namespace skill81
 			
 			//连击、双穿武器提高50加权
 			foreach(Array('r','n','y') as $val){
-				if(strpos($itmsk, $val) !== false) $svar += 50;
+				if(\itemmain\check_in_itmsk($val, $itmsk)) $svar += 50;
 			}
 			//如果武器有以下属性则每一种提高15加权
 			foreach(Array('N','d','f','k','t','B','b') as $val){
-				if(strpos($itmsk, $val) !== false) $svar += 15;
+				if(\itemmain\check_in_itmsk($val, $itmsk)) $svar += 15;
 			}
 			//如果玩家没有这种武器的防御属性，则提高200加权
 			$ex_def_array = \attrbase\get_ex_def_array($pa, $pd, $active);

@@ -10,7 +10,7 @@
 
 <div class="cmd_row">
 <!--{loop range(1,6) $i}-->
-	<!--{if strpos ( ${'itmsk'.$i}, 'Z' ) !== false && strpos ( ${'itm'.$i}, '宝石』' ) === false}-->
+	<!--{if \itemmain\check_in_itmsk('Z', ${'itmsk'.$i}) && strpos ( ${'itm'.$i}, '宝石』' ) === false}-->
 		<div class="cmd_positioner common_cmd zx_cmd">
 			<!--{eval $tmp_itmname = \itemmain\parse_itmname_words(${'itm'.$i}, 1, 18); $tmp_itme = \itemmain\parse_itmnum_words(${'itme'.$i}, 1);$tmp_itms = \itemmain\parse_itmnum_words(${'itms'.$i}, 1);}-->
 			<input type="button" class="cmd_button common_cmd glow_buttons white" id="<!--{eval echo substr($item_hotkey_id_list[$i],0,1);}-->" value="$tmp_itmname / $tmp_itme / $tmp_itms" 

@@ -84,7 +84,7 @@ namespace empowers
 		
 		eval(import_module('sys','player','itemmain','logger'));
 		
-		if (strpos ( $wepk, 'K' ) == 1 && strpos ( $wepsk, 'Z' ) === false) 
+		if (strpos ( $wepk, 'K' ) == 1 && !\itemmain\check_in_itmsk('Z', $wepsk)) 
 		{
 			$dice = rand ( 0, 100 );
 			if ($dice >= 15) 

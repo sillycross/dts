@@ -38,12 +38,12 @@ namespace ex_attr_silencer
 			{
 				if (strpos ( $wepk, 'WG' ) !== 0) {
 					$log .= '你没有装备枪械，不能使用消音器。<br>';
-				} elseif (strpos ( $wepsk, 'S' ) === false) {
+				} elseif (\itemmain\check_in_itmsk('S', $wepsk)) {
+					$log .= "你的武器已经安装了消音器。<br>";
+				} else {
 					$wepsk .= 'S';
 					$log .= "你给<span class=\"yellow b\">$wep</span>安装了<span class=\"yellow b\">$itm</span>。<br>";
 					\itemmain\itms_reduce($theitem);
-				} else {
-					$log .= "你的武器已经安装了消音器。<br>";
 				}
 				return;
 			}

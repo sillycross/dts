@@ -71,8 +71,8 @@ namespace ammunition
 			return;
 		}
 		
-		if (strpos ( $wepsk, 'o' ) !== false) {
-			$log .= "<span class=\"red b\">{$wep}不能装填弹药。</span><br>";
+		if (\itemmain\check_in_itmsk('o', $wepsk)) {
+			$log .= "<span class=\"red b\">{$wep}的弹匣是焊死的，不能装填弹药。</span><br>";
 			$mode = 'command';
 			return;
 		}

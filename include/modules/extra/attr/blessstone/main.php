@@ -24,7 +24,7 @@ namespace blessstone
 			{
 				$flag = false;
 				for($i = 1; $i <= 6; $i ++) {
-					if ((strpos ( ${'itmsk' . $i}, 'Z' ) !== false) && (strpos ( ${'itm' . $i}, '宝石』' ) === false)) {
+					if (\itemmain\check_in_itmsk('Z', ${'itmsk' . $i}) && strpos ( ${'itm' . $i}, '宝石』' ) === false) {
 						$flag = true;
 						break;
 					}

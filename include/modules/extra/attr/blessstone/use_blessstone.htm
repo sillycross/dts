@@ -4,7 +4,7 @@
 你想强化哪一件装备？<br>
 <input type="radio" name="command" id="menu" value="menu" checked><a onclick="sl('menu');">返回</a><br>
 <!--{loop range(1,6) $i}-->
-	<!--{if strpos ( ${'itmsk'.$i}, 'Z' ) !== false && strpos ( ${'itm'.$i}, '宝石』' ) === false}-->
+	<!--{if \itemmain\check_in_itmsk('Z', ${'itmsk'.$i}) && strpos ( ${'itm'.$i}, '宝石』' ) === false}-->
 	<input type="radio" name="command" id="itm$i" value="itm$i"><a onclick="sl('itm$i');">${'itm'.$i}/${'itme'.$i}/${'itms'.$i}</a><br>
 	<!--{/if}-->
 <!--{/loop}-->
