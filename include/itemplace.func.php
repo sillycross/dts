@@ -20,8 +20,10 @@ function init_item_place()
 		'syncitem' => GAME_ROOT.'./include/modules/base/itemmix/itemmix_sync/config/sync.config.php',
 		'overlayitem' => GAME_ROOT.'./include/modules/base/itemmix/itemmix_overlay/config/overlay.config.php',
 		'presentitem' => GAME_ROOT.'./include/modules/base/items/boxes/config/present.config.php',
+		'present2item' => GAME_ROOT.'./include/modules/base/items/boxes/config/present2.config.php',
 		'ygoitem' => GAME_ROOT.'./include/modules/base/items/boxes/config/ygobox.config.php',
 		'fyboxitem' => GAME_ROOT.'./include/modules/base/items/boxes/config/fybox.config.php',
+		'rdollitem' => GAME_ROOT.'./include/modules/base/items/boxes/config/rdoll.config.php',
 		'npc' => GAME_ROOT.'./include/modules/base/npc/config/npc.data.config.php',
 		'npc_i8' => GAME_ROOT.'./include/modules/extra/instance/instance8_proud/config/npc.data.config.php',
 		'npc_i9' => GAME_ROOT.'./include/modules/extra/instance/instance9_rush/config/npc.data.config.php',
@@ -157,13 +159,15 @@ function init_item_place()
 				}
 			}
 			//各类礼品盒
-			elseif(strpos($ipdkey, 'present')===0 || strpos($ipdkey, 'ygo')===0 || strpos($ipdkey, 'fybox')===0){
+			elseif(strpos($ipdkey, 'present')===0 || strpos($ipdkey, 'ygo')===0 || strpos($ipdkey, 'fybox')===0 || strpos($ipdkey, 'rdoll')===0){
 				if(!empty($ipdval2) && strpos($ipdval2,',')!==false)
 				{
 					list($iname,$kind)=explode(',',$ipdval2);
 					if(strpos($ipdkey, 'present')===0) $idata = '打开礼品盒时有概率获得';
+					elseif(strpos($ipdkey, 'present2')===0) $idata = '打开银色盒子时有概率获得';
 					elseif(strpos($ipdkey, 'ygo')===0) $idata = '打开游戏王卡包时有概率获得';
 					elseif(strpos($ipdkey, 'fybox')===0) $idata = '打开浮云时有概率获得';
+					elseif(strpos($ipdkey, 'rdoll')===0) $idata = '打开★奇怪的盒子★时有概率获得';
 				}
 			}
 			//NPC

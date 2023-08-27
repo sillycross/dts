@@ -6,7 +6,7 @@ namespace itemmix
 $itmname_ignore = Array('/锋利的/si','/电气/si','/毒性/si','/-改/si');
 
 $mixinfo = array
-	( 
+	(
 	array('class' => 'h', 'stuff' => array('杂炊','松茸'),'result' => array('松茸御饭','HS',120,10,),),
 	array('class' => 'h', 'stuff' => array('咖喱','面包'),'result' => array('咖喱面包','HH',140,2,),),
 	array('class' => 'h', 'stuff' => array('牛奶','立顿茶包','糯米丸子'),'result' => array('珍珠奶茶','HB',270,9,),),
