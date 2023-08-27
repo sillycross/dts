@@ -61,8 +61,8 @@ if($mode == 'enter') {
 	);
 	
 	//接受对用户资料的修改。注意：就算卡片不适用，这里也先接受口头禅之类的修改
+	//注意在enter_battlefield()里还有对卡片和实际进入游戏局数的修改，也就是会更新两次
 	update_udata_by_username($updatearr, $udata['username']);
-	
 	
 	$enterable = true;
 	

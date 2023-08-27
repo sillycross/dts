@@ -60,7 +60,7 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip=NULL)
 	//游戏账户判定以及留言等的赋值
 	global $gamefounder, $cuser;
 	if($xuser != $cuser) {
-		$r = fetch_udata_by_username($xuser, 'groupid,ip,motto,killmsg,lastword');
+		$r = fetch_udata_by_username($xuser, 'groupid,ip,motto,killmsg,lastword,cardlist');
 		if(empty($r)) return;
 	}else{
 		$r = $cudata;
@@ -85,6 +85,9 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip=NULL)
 	}elseif($xuser == '枪毙的某神' || $xuser == '精灵们的手指舞') {
 		$eb_pdata['art'] = 'TDG地雷的证明'; $eb_pdata['artk'] = 'A'; $eb_pdata['arte'] = 1; $eb_pdata['arts'] = 1; $eb_pdata['artsk'] = 'zZ';
 	}
+	
+	//准备对用户数据的二次更新
+	$updatearr = Array();
 	
 	//////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////卡片处理/////////////////////////////////
@@ -122,7 +125,13 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip=NULL)
 	$db->array_insert("{$tablepre}players", $eb_pdata);
 	
 	//更新用户账户最后局数
-	update_udata_by_username(array('lastgame' => $gamenum), $xuser);
+	$updatearr['lastgame'] = $gamenum;
+	
+	//如果卡片合法，记录改变的卡
+	$upd_card = !empty($o_card) ? $o_card : $card;
+	if(!empty($upd_card) && \cardbase\check_card_in_ownlist($upd_card, explode('_', $r['cardlist']))) $updatearr['card'] = $upd_card;
+	
+	update_udata_by_username($updatearr, $xuser);
 	
 	//////////////////////////////////////////////////////////////////////////
 	///////////////////////////技能等入场后事件处理///////////////////////////

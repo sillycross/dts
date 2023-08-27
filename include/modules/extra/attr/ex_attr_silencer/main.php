@@ -36,7 +36,7 @@ namespace ex_attr_silencer
 		if (strpos ( $itmk, 'Y' ) === 0 || strpos ( $itmk, 'Z' ) === 0) 
 			if ($itm == '消音器') 
 			{
-				if (strpos ( $wepk, 'WG' ) !== 0) {
+				if (strpos ( $wepk, 'WG' ) !== 0 && strpos ( $wepk, 'WJ' ) !== 0) {
 					$log .= '你没有装备枪械，不能使用消音器。<br>';
 				} elseif (\itemmain\check_in_itmsk('S', $wepsk)) {
 					$log .= "你的武器已经安装了消音器。<br>";
