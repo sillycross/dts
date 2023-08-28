@@ -346,6 +346,7 @@ function room_team_leader_check($roomdata,$pos) {
 }
 
 //建立新房间，由于永续房和荣耀房等一些怪东西，判定有些绕
+//注意这只是建立房间，开启游戏是在PVP房开始或者永续房进房等操作时才进行的
 function room_create($roomtype)
 {
 	eval(import_module('sys'));
@@ -518,7 +519,8 @@ function room_enter($id)
 	$roomdata = gdecode($rd['roomvars'], 1);
 	//global $cuser;
 	global $roomtypelist, $gametype, $startime, $now, $room_prefix, $alivenum, $soleroom_resettime, $soleroom_private_resettime;
-	//不需要点击准备的房间，要么直接加入，要么跳转加入画面
+	//不需要点击准备的房间，主要是永续房（教程）或者荣耀等随时开放的房间。
+	//这类房间在游戏开启后是不显示准备界面的，永续房进入后会跳过选卡界面直接进入游戏，其他房间进入后显示首页，可以点选加入游戏或者查看进行状态
 	if($roomtypelist[$rd['groomtype']]['without-ready']){
 		//系统维护中，不能通过加入房间来创建新房间
 		if ($rd['groomstatus'] < 40 && ($disable_newgame || $disable_newroom)) {
@@ -535,6 +537,7 @@ function room_enter($id)
 		\sys\load_gameinfo();
 		$init_state = room_init_db_process($room_id); 
 		//判定是否需要重置房间
+		//暂定需要修改这里：只有新创建房间或者点击开始时才重置，旧房结束后不会自动重置
 		$need_reset = $rd['groomstatus'] == 10 ? true : false;//未开始游戏则重置房间
 		if($roomtypelist[$rd['groomtype']]['soleroom'] && !($init_state & 4)){//教程房特殊设定，读取最后有玩家行动的时间，如果超时则需要重置，防止房间各种记录飙得太长
 			$result = $db->query("SELECT endtime FROM {$tablepre}players WHERE type=0 ORDER BY endtime DESC LIMIT 1");
@@ -545,7 +548,7 @@ function room_enter($id)
 		}
 		//重置房间：把房间状态设为进行中，同时初始化$gamestate、$gametype等当前局数据
 		if($need_reset){	
-			//$db->query("UPDATE {$gtablepre}game SET groomstatus = 2 WHERE groomid = '$id'");
+			//这段基本没法复用，就这么写吧（需要准备的房间有一套更琐碎的流程）
 			$groomstatus = 40;
 			$gamestate = 0;
 			$gametype = $roomtypelist[$rd['groomtype']]['gtype'];
@@ -553,7 +556,7 @@ function room_enter($id)
 			\sys\save_gameinfo(0);
 			\sys\routine();
 		}
-		//如果直接进入房间，在这里处理
+		//如果不显示选卡界面就直接进入房间，在这里处理（目前只有教程）
 		if($roomtypelist[$rd['groomtype']]['without-valid']){
 			$pname = (string)$cuser;
 			global $cudata;
@@ -576,7 +579,9 @@ function room_enter($id)
 			}
 		}
 		//最后设定跳转到的页面
+		//新开始游戏或者永续房，则直接转入游戏页面
 		if($gamestate < 30 && ($need_reset || $roomtypelist[$rd['groomtype']]['soleroom'])) $header = 'game.php';
+		//否则打开首页房间小窗
 		else $header = 'index.php';
 	}else{
 		//需要准备的房间，只是加入房间准备页面
@@ -590,6 +595,7 @@ function room_enter($id)
 	echo 'redirect:'.$header;
 	return 1;
 }
+
 
 //重载房间准备界面
 function room_showdata($roomdata, $user)

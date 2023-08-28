@@ -1,7 +1,7 @@
 <?php
 
 //玩家进入战场的主函数，由于是老代码而且涉及很多用户输入，就保留文件位置
-function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip=NULL)
+function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 {
 	include_once GAME_ROOT.'./include/user.func.php';
 	eval(import_module('sys'));
@@ -60,7 +60,7 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip=NULL)
 	//游戏账户判定以及留言等的赋值
 	global $gamefounder, $cuser;
 	if($xuser != $cuser) {
-		$r = fetch_udata_by_username($xuser, 'groupid,ip,motto,killmsg,lastword,cardlist');
+		$r = fetch_udata_by_username($xuser, 'groupid,motto,killmsg,lastword,cardlist');
 		if(empty($r)) return;
 	}else{
 		$r = $cudata;
@@ -69,11 +69,6 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip=NULL)
 	$eb_pdata['motto'] = $r['motto'];
 	$eb_pdata['killmsg'] = $r['killmsg'];
 	$eb_pdata['lastword'] = $r['lastword'];
-	
-	//如果没有提供ip，则自行查询
-	if(empty($ip)) {
-		$ip = $r['ip'];
-	}
 	
 	//权限和一些名字特判，不应该放在模块里，就放这里吧
 	if ($xuser == $gamefounder || $groupid >= 5) {

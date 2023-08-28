@@ -292,6 +292,10 @@ namespace song
 				break;
 			}
 		}
+		if('ss' != $artk) {
+			$log .= '<span class="yellow b">你没有装备歌词卡片！</span><br>';
+			return;
+		}
 		if(!$songcfg) {
 			$log .= '好像不存在这样一首歌呢……<br>';
 			return;

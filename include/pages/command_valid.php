@@ -25,7 +25,7 @@ if($gamestate >= 30 && $udata['groupid'] < 6 && $cuser != $gamefounder) {
 
 //接收入场命令，这里是在修改用户资料和卡片的页面提交的
 if($mode == 'enter') {
-	$ip = $udata['ip'];
+	$ip = !empty($valid_ip) ? $valid_ip : $udata['ip'];
 	
 	//达到了IP限制
 	if($iplimit) {
@@ -57,7 +57,8 @@ if($mode == 'enter') {
 		'icon' => $icon,
 		'motto' => $motto,
 		'killmsg' => $killmsg,
-		'lastword'=>$lastword
+		'lastword'=>$lastword,
+		'ip'=>$ip
 	);
 	
 	//接受对用户资料的修改。注意：就算卡片不适用，这里也先接受口头禅之类的修改
