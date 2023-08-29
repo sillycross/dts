@@ -180,8 +180,8 @@ function postCmd(formName,sendto,srcdom,disableall){
 		}
 	}
 	
-	if (in_replay_mode == 1) return;
-	if (disableAllCommands == 1) return;
+	if (in_replay_mode == 1) return false;
+	if (disableAllCommands == 1) return false;
 	jQuery('#hoverHintMsg').css({'display':'none'});//清除悬停提示
 	if(disableall) jQuery('.cmdbutton').attr("disabled","disabled");//屏蔽所有按钮
 	hotkey_ok = false;//屏蔽快捷键
@@ -224,6 +224,7 @@ function postCmd(formName,sendto,srcdom,disableall){
 	{
 		$('oprecorder').value=""; last_sender='';
 	}
+	return false;
 }
 
 //adv3开启时才有效的html缓存解码函数

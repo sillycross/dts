@@ -339,6 +339,11 @@ function room_refresh_team_pos(&$roomdata,$pos){
 			}
 }
 
+//得到房主位置，目前条件只有处于0号格子
+function room_creater_check($pos) {
+	return 0==$pos;
+}
+
 //得到一个位置所属队伍的队长位置
 function room_team_leader_check($roomdata,$pos) {
 	//global $roomtypelist;
@@ -491,7 +496,8 @@ function room_new_chat(&$roomdata,$str)
 }
 
 //进入房间
-function room_enter($id)
+//$force_reset==1则强制reset房间（重开游戏）仅对不需要准备的房间有效，需要准备的房间在开启时才重开
+function room_enter($id, $force_reset = 0)
 {
 	eval(import_module('sys'));
 	$id=(int)$id;
@@ -538,7 +544,7 @@ function room_enter($id)
 		$init_state = room_init_db_process($room_id); 
 		//判定是否需要重置房间
 		//暂定需要修改这里：只有新创建房间或者点击开始时才重置，旧房结束后不会自动重置
-		$need_reset = $rd['groomstatus'] == 10 ? true : false;//未开始游戏则重置房间
+		$need_reset = $rd['groomstatus'] == 10 && $force_reset ? true : false;
 		if($roomtypelist[$rd['groomtype']]['soleroom'] && !($init_state & 4)){//教程房特殊设定，读取最后有玩家行动的时间，如果超时则需要重置，防止房间各种记录飙得太长
 			$result = $db->query("SELECT endtime FROM {$tablepre}players WHERE type=0 ORDER BY endtime DESC LIMIT 1");
 			if($db->num_rows($result)){
@@ -547,7 +553,7 @@ function room_enter($id)
 			}
 		}
 		//重置房间：把房间状态设为进行中，同时初始化$gamestate、$gametype等当前局数据
-		if($need_reset){	
+		if($need_reset){
 			//这段基本没法复用，就这么写吧（需要准备的房间有一套更琐碎的流程）
 			$groomstatus = 40;
 			$gamestate = 0;

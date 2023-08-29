@@ -24,7 +24,7 @@ if ($command=='newroom' || $command=='enterroom')
 	if(!room_check_subroom($room_prefix)) {
 		if($command=='newroom') {
 			$rn = room_create($para1);
-			if($rn > 0) room_enter($rn);
+			if($rn > 0) room_enter($rn, 1);//第二个参数表示触发非准备房的重载
 			else return;
 		}elseif($command=='enterroom') room_enter($para1);
 		return;
@@ -111,11 +111,11 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 	}	
 	elseif (strpos($command,'pos')===0)
 	{
-		$para1=(int)$para1;
+		$para1= ('all' == $para1) ? $para1 : (int)$para1;//过滤
 		$upos = room_upos_check($roomdata);
 		if($para1 == $upos) 
 			room_new_chat($roomdata,"<span class=\"red b\">{$cuser}试图操作他自己的位置</span><br>");
-		elseif($para1 < 0 || $para1 >= room_get_vars($roomdata,'pnum')) 
+		elseif('all' != $para1 && ($para1 < 0 || $para1 >= room_get_vars($roomdata,'pnum'))) 
 			room_new_chat($roomdata,"<span class=\"red b\">{$cuser}试图操作一个不存在的位置</span><br>");
 		
 		//进入位置，任何人都能操作
@@ -144,23 +144,45 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 				room_new_chat($roomdata,"<span class=\"red b\">不在房间内的{$cuser}试图操作一个位置</span><br>");
 			//启用和禁用位置，只有房主或队长可以操作
 			elseif($command=='pos_disable' || $command=='pos_enable'){
-				if($upos!=0 && $upos != room_team_leader_check($roomdata,$para1))
+				$checkpos = is_numeric($para1) ? $para1 : $upos;//如果$para1不是数字（是all之类指令），用$upos来判定是不是队长
+				if(!is_numeric($para1) && 'all' != $para1){
+					room_new_chat($roomdata,"<span class=\"red b\">{$cuser}试图操作一个错误的位置</span><br>");
+				}
+				elseif(!room_creater_check($upos) && $upos != room_team_leader_check($roomdata,$checkpos))
+				{
 					room_new_chat($roomdata,"<span class=\"red b\">并非队长的{$cuser}试图操作一个位置</span><br>");
+				}
 				elseif($roomdata['player'][$para1]['name']) 
+				{
 					room_new_chat($roomdata,"<span class=\"red b\">{$cuser}试图操作一个有人的位置</span><br>");
+				}
 				else{
-					$roomdata['player'][$para1]['name']='';
-					$roomdata['player'][$upos]['ready']=0;
+					$roomdata['player'][$upos]['ready']=0;//禁用和启用会让自己退出准备状态
 					if($command=='pos_disable'){
 						if(!empty(room_get_vars($roomdata, 'cannot-forbid'))){
 							room_new_chat($roomdata,"<span class=\"red b\">{$cuser}试图禁用一个位置，但本房间不允许禁用</span><br>");
 						}else{
-							$roomdata['player'][$para1]['forbidden']=1;
-							if($upos!=0) room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}禁用了其队伍的一个位置</span><br>");
-							else room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}禁用了房间的一个位置</span><br>");
+							if('all' == $para1) {//提交all指令，房主则禁用全部空格子，队长禁用本队空格子
+								if(room_creater_check($upos)) {
+									foreach($roomdata['player'] as $rk => &$rv){
+										if(empty($rv['name'])) $rv['forbidden'] = 1;
+									}
+									room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}禁用了全部空位置</span><br>");
+								}else{
+									foreach($roomdata['player'] as $rk => &$rv){
+										if(empty($rv['name']) && $upos == room_team_leader_check($roomdata,$rk)) $rv['forbidden'] = 1;
+									}
+									room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}禁用了其队伍中的全部空位置</span><br>");
+								}
+							}else{//单个位置
+								$roomdata['player'][$para1]['name']='';							
+								$roomdata['player'][$para1]['forbidden']=1;
+								if(!room_creater_check($upos)) room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}禁用了其队伍的一个位置</span><br>");
+								else room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}禁用了房间的一个位置</span><br>");
+							}
 						}
-						
 					}elseif($command=='pos_enable'){
+						$roomdata['player'][$para1]['name']='';		
 						$roomdata['player'][$para1]['forbidden']=0;
 						if($upos!=0) room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}重新启用了其队伍的一个位置</span><br>");
 						else room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}重新启用了房间的一个位置</span><br>");
@@ -170,10 +192,10 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 			}elseif($command=='pos_kick'){
 				if(!$roomdata['player'][$para1]['name']) 
 					room_new_chat($roomdata,"<span class=\"red b\">{$cuser}试图踢掉一个不存在的玩家</span><br>");
-				elseif($upos!=0 && $upos != room_team_leader_check($roomdata,$para1))
+				elseif(!room_creater_check($upos) && $upos != room_team_leader_check($roomdata,$para1))
 					room_new_chat($roomdata,"<span class=\"red b\">并非房主或队长的{$cuser}试图踢人</span><br>");
-				elseif($upos!=0 && $para1 == room_team_leader_check($roomdata,$para1))
-					room_new_chat($roomdata,"<span class=\"red b\">并非房主的{$cuser}试图踢队长</span><br>");
+				elseif($upos == $para1)
+					room_new_chat($roomdata,"<span class=\"red b\">{$cuser}试图踢自己</span><br>");
 				else{
 					//如踢掉队长，该队所有位置重新回到启用状态
 					if ($para1 == room_team_leader_check($roomdata,$para1))
@@ -198,37 +220,34 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 		
 		if (	$upos==0 
 			&& 0<=$para1 && $para1<count($roomtypelist) && $para1!=$roomdata['roomtype'] && !$roomtypelist[$para1]['soleroom'])
+		{
+			//$tot=0;
+			$nroomdata=room_init($para1);
+			$nroomdata['chatdata']=$roomdata['chatdata'];//复制聊天记录
+			
+			$rdplist = & room_get_vars($roomdata, 'player');
+			$nrdplist = & room_get_vars($nroomdata, 'player');
+			$rdpnum = room_get_vars($roomdata, 'pnum');
+			$nrdpnum = room_get_vars($nroomdata, 'pnum');
+			$inum = min($rdpnum,$nrdpnum);
+			for ($i=0; $i < $inum; $i++)
 			{
-				//$tot=0;
-				$nroomdata=room_init($para1);
-				$nroomdata['chatdata']=$roomdata['chatdata'];//复制聊天记录
-				
-				$rdplist = & room_get_vars($roomdata, 'player');
-				$nrdplist = & room_get_vars($nroomdata, 'player');
-				$rdpnum = room_get_vars($roomdata, 'pnum');
-				$nrdpnum = room_get_vars($nroomdata, 'pnum');
-				$inum = min($rdpnum,$nrdpnum);
-				for ($i=0; $i < $inum; $i++)
+				if (in_array($para1, array(1,2,3,4)) && $rdplist[$i]['forbidden'] && !$rdplist[$i]['name'])//组队模式切换时复制禁用位置
 				{
-					if (in_array($para1, array(1,2,3,4)) && $rdplist[$i]['forbidden'] && !$rdplist[$i]['name'])//组队模式切换时复制禁用位置
-					{
-						$nrdplist[$i]['forbidden'] = 1;
-					}elseif ($rdplist[$i]['name'])//复制玩家位置
-					{
-						$nrdplist[$i]['name']=$rdplist[$i]['name'];
-//						if ($tot < $nrdpnum)
-//						{
-//							
-//							$tot++;
-//						}
-					}
+					$nrdplist[$i]['forbidden'] = 1;
+				}elseif ($rdplist[$i]['name'])//复制玩家位置
+				{
+					$nrdplist[$i]['name']=$rdplist[$i]['name'];
 				}
-				$nroomdata['timestamp']=$roomdata['timestamp'];
-				$roomdata=$nroomdata;
-				$rname = room_get_vars($roomdata, 'name');
-				room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}将房间模式修改为了{$rname}</span><br>");
-				room_save_broadcast($room_id_r,$roomdata);
 			}
+			$nroomdata['timestamp']=$roomdata['timestamp'];
+			$roomdata=$nroomdata;
+			$rname = room_get_vars($roomdata, 'name');
+			room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}将房间模式修改为了{$rname}</span><br>");
+			room_save_broadcast($room_id_r,$roomdata);
+		}else{
+			room_new_chat($roomdata,"<span class=\"red b\">{$cuser}试图修改房间模式但未成功</span><br>");
+		}
 	}
 	elseif('game-option'==$command)
 	{
