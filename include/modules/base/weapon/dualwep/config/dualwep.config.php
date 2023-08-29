@@ -3,6 +3,8 @@
 namespace dualwep
 {
 	$dualwep_iteminfo=Array(
+		'WDP' => '爆拳',
+		'WPD' => '爆拳',
 		'WGK' => '枪刃',
 		'WKG' => '枪刃',
 		'WFC' => '灵弹',

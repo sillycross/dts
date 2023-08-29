@@ -74,6 +74,8 @@ $mixinfo = array
 	array('class' => 'wp', 'stuff' => array('电击鞭','原型武器P','实验装甲A'),'result' => array('『T-LINK念动冲拳』','WP',180,'∞','e'),),
 	array('class' => 'wp', 'stuff' => array('☆电击器☆','原型武器P','实验装甲A'),'result' => array('『T-LINK念动冲拳』','WP',240,'∞','e'),),
 	array('class' => 'wp', 'stuff' => array('『T-LINK念动冲拳』','增幅设备'),'result' => array('『T-LINK天上天下念动连击拳』','WP',240,'∞','erN'),),
+	array('class' => 'wp', 'stuff' => array('『T-LINK天上天下念动连击拳』','某种机械设备'),'result' => array('『作战队形R』','WP',600,'∞','erNLd'),),
+	array('class' => 'wp', 'stuff' => array('『作战队形R』','『高性能双重激光』'),'result' => array('『T-LINK天上天下一击必杀炮』','WPD',3000,'∞','erNLdZ'),),
 	array('class' => 'wp', 'stuff' => array('冰沙','小棍棒','御神签'),'result' => array('冰棍棒','WP',19,39,'ir'),),
 	array('class' => 'wp', 'stuff' => array('【北斗百裂拳】','《北斗神拳》'),'result' => array('【北斗有情破颜拳】','WP',390,100,'drny'),),
 	array('class' => 'wp', 'stuff' => array('☆金属拳套☆','压缩气罐'),'result' => array('☆简易火箭飞拳☆','WP',160,'∞','cd'),),

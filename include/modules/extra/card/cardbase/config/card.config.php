@@ -118,11 +118,11 @@ $cards = array(
 		'effect' => '开局获得11份经验药',
 		'energy' => 100,
 		'valid' => array(
-			'itm5' => '思念数据',
-			'itmk5' => 'ME',
-			'itme5' => '9',
-			'itms5' => '11',
-			'itmsk5' => '',
+			'itm6' => '思念数据',
+			'itmk6' => 'ME',
+			'itme6' => '9',
+			'itms6' => '11',
+			'itmsk6' => '',
 		)
 	),
 	2 => array(
@@ -709,11 +709,11 @@ $cards = array(
 		'effect' => '自带雷达',
 		'energy' => 80,
 		'valid' => array(
-			'itm3' => '雷达',
-			'itmk3' => 'ER',
-			'itme3' => '44',
-			'itms3' => '44',
-			'itmsk3' => '2',
+			'itm6' => '雷达',
+			'itmk6' => 'ER',
+			'itme6' => '44',
+			'itms6' => '44',
+			'itmsk6' => '2',
 		)
 	),
 	33 => array(
@@ -1245,11 +1245,11 @@ $cards = array(
 		'effect' => '开局携带【风神的神德】',
 		'energy' => 100,
 		'valid' => array(
-			'itm3' => '【风神的神德】',
-			'itmk3' => 'WF',
-			'itme3' => '233',
-			'itms3' => '10',
-			'itmsk3' => 'z',
+			'itm6' => '【风神的神德】',
+			'itmk6' => 'WF',
+			'itme6' => '233',
+			'itms6' => '10',
+			'itmsk6' => 'z',
 		)
 	),
 	69 => array(
@@ -1260,11 +1260,11 @@ $cards = array(
 		'effect' => '开局携带驱云弹',
 		'energy' => 200,
 		'valid' => array(
-			'itm3' => '驱云弹',
-			'itmk3' => 'EW',
-			'itme3' => '1',
-			'itms3' => '1',
-			'itmsk3' => '1',
+			'itm6' => '驱云弹',
+			'itmk6' => 'EW',
+			'itme6' => '1',
+			'itms6' => '1',
+			'itmsk6' => '1',
 		)
 	),
 	70 => array(
@@ -1406,11 +1406,11 @@ $cards = array(
 		'desc_skills' => '实际上携带的是「杏仁豆腐的ID卡模样的杏仁豆腐」',
 		'energy' => 100,
 		'valid' => array(
-			'itm3' => '杏仁豆腐的ID卡模样的杏仁豆腐',
-			'itmk3' => 'HB',
-			'itme3' => '77',
-			'itms3' => '77',
-			'itmsk3' => 'Z',
+			'itm6' => '杏仁豆腐的ID卡模样的杏仁豆腐',
+			'itmk6' => 'HB',
+			'itme6' => '77',
+			'itms6' => '77',
+			'itmsk6' => 'Z',
 		)
 	),
 	79 => array(
@@ -2109,6 +2109,36 @@ $cards = array(
 			),
 		)
 	),
+	125 => array(
+		'name' => '植物人',
+		'rare' => 'C',
+		'pack' => 'Way of Life',
+		'desc' => '第一次见到肥料就一口啃下去的萌新',
+		'effect' => '开局携带肥料',
+		'energy' => 0,
+		'valid' => array(
+			'itm6' => '肥料',
+			'itmk6' => 'HB',
+			'itme6' => '200',
+			'itms6' => '1',
+			'itmsk6' => '',
+		)
+	),
+	126 => array(
+		'name' => '闹球肾',
+		'rare' => 'C',
+		'pack' => 'Top Players',
+		'desc' => '一个半角引号引发的血案',
+		'effect' => '开局携带\' OR 1',
+		'energy' => 0,
+		'valid' => array(
+			'itm6' => '’ OR 1',
+			'itmk6' => 'WF',
+			'itme6' => '190',
+			'itms6' => '5',
+			'itmsk6' => '',
+		)
+	),
 	
 	//这里怎么有10张卡的空白
 	
@@ -2213,16 +2243,16 @@ $cards = array(
 			'skills' => array(
 				'465' => '0', 
 			),
-			'itm3' => '火把',
-			'itmk3' => 'WP',
-			'itme3' => '40',
-			'itms3' => '3',
-			'itmsk3' => 'u',
-			'itm4' => '汽油',
-			'itmk4' => 'PS2',
-			'itme4' => '200',
-			'itms4' => '1',
-			'itmsk4' => '',
+			'itm5' => '火把',
+			'itmk5' => 'WP',
+			'itme5' => '40',
+			'itms5' => '3',
+			'itmsk5' => 'u',
+			'itm6' => '汽油',
+			'itmk6' => 'PS2',
+			'itme6' => '200',
+			'itms6' => '1',
+			'itmsk6' => '',
 		)
 	),
 	141 => array(
@@ -2431,11 +2461,11 @@ $cards = array(
 		'desc_skills' => '《ACFUN大逃杀原案》：使用后获得100点全系熟练度，但是之后你会更加倒霉',
 		'energy' => 130,
 		'valid' => array(
-			'itm3' => '《ACFUN大逃杀原案》',
-			'itmk3' => 'VVS',
-			'itme3' => '100',
-			'itms3' => '1',
-			'itmsk3' => '478',
+			'itm6' => '《ACFUN大逃杀原案》',
+			'itmk6' => 'VVS',
+			'itme6' => '100',
+			'itms6' => '1',
+			'itmsk6' => '478',
 		)
 	),
 	154 => array(
@@ -2875,11 +2905,11 @@ $cards = array(
 		'effect' => '开局随机携带增幅设备、某种电子零件、手机、笔记本电脑、探测器电池中的其中一个',
 		'energy' => 0,
 		'valid' => array(
-			'itm5' => array('增幅设备','某种电子零件','手机','笔记本电脑','探测器电池'),
-			'itmk5' => 'X',
-			'itme5' => '1',
-			'itms5' => '1',
-			'itmsk5' => '',
+			'itm6' => array('增幅设备','某种电子零件','手机','笔记本电脑','探测器电池'),
+			'itmk6' => 'X',
+			'itme6' => '1',
+			'itms6' => '1',
+			'itmsk6' => '',
 		)
 	),
 	180 => array(
@@ -2890,11 +2920,6 @@ $cards = array(
 		'effect' => '已申请采购全套灭鼠装备',
 		'energy' => 0,
 		'valid' => array(
-			'itm3' => array('捕鼠夹','捕鼠笼','捕鼠胶','粘鼠板','电子灭鼠器','灭鼠无人机'),
-			'itmk3' => 'TN',
-			'itme3' => '25',
-			'itms3' => '3',
-			'itmsk3' => '',
 			'itm4' => array('捕鼠夹','捕鼠笼','捕鼠胶','粘鼠板','电子灭鼠器','灭鼠无人机'),
 			'itmk4' => 'TN',
 			'itme4' => '25',
@@ -2905,6 +2930,11 @@ $cards = array(
 			'itme5' => '25',
 			'itms5' => '3',
 			'itmsk5' => '',
+			'itm6' => array('捕鼠夹','捕鼠笼','捕鼠胶','粘鼠板','电子灭鼠器','灭鼠无人机'),
+			'itmk6' => 'TN',
+			'itme6' => '25',
+			'itms6' => '3',
+			'itmsk6' => '',
 		)
 	),
 	181 => array(
@@ -3077,11 +3107,11 @@ $cards = array(
 		'effect' => '开局携带一张随机歌词卡片',
 		'energy' => 100,
 		'valid' => array(
-			'itm3' => Array('小苹果', 'Alicemagic', 'Crow Song', '驱寒颂歌', '雨だれの歌', '快说小仓唯唱歌贼！好！听！', '黄鸡之歌'),
-			'itmk3' => 'ss',
-			'itme3' => '1',
-			'itms3' => '1',
-			'itmsk3' => 'z',
+			'itm6' => Array('小苹果', 'Alicemagic', 'Crow Song', '驱寒颂歌', '雨だれの歌', '快说小仓唯唱歌贼！好！听！', '黄鸡之歌'),
+			'itmk6' => 'ss',
+			'itme6' => '1',
+			'itms6' => '1',
+			'itmsk6' => 'z',
 		)
 	),
 	189 => array(
@@ -3093,11 +3123,11 @@ $cards = array(
 		'energy' => 0,
 		'valid' => array(
 			'hp' => 1,
-			'itm3' => '游戏王卡包',
-			'itmk3' => 'ygo',
-			'itme3' => '1',
-			'itms3' => '1',
-			'itmsk3' => '',
+			'itm6' => '游戏王卡包',
+			'itmk6' => 'ygo',
+			'itme6' => '1',
+			'itms6' => '1',
+			'itmsk6' => '',
 		)
 	),
 	190 => array(
@@ -3182,15 +3212,15 @@ $cards = array(
 		//'desc_skills' => '',
 		'energy' => 0,
 		'valid' => array(
-		  'itm5' => Array('社畜专用的ID卡', '社员砖用的ID卡', '社长专用的ID卡', '社恐专用的ID卡', '社员专甩的ID卡',
+		  'itm6' => Array('社畜专用的ID卡', '社员砖用的ID卡', '社长专用的ID卡', '社恐专用的ID卡', '社员专甩的ID卡',
 		  '社员不用的ID卡', '社死专用的ID卡', '社保专用的ID卡', '社精专用的ID卡', '社会专用的ID卡',
 		  '社员专用的IC卡', '社员专用的IP卡', '社员专用的IQ卡', '社员专用的1D卡', '社员专用的IO卡', '社员专用的lD卡', '社员专用的|D卡', '社员专用的ＩＤ卡',
 		  '社元专用的ID卡', '社员专角的ID卡', '社贡专用的ID卡', '社员专卖的ID卡', '社员专享的ID卡',
 		  '社员专精的ID卡', '涩员专用的ID卡', '杜员专用的ID卡', '壮员专用的ID卡', '社员专月的ID卡',),
-			'itmk5' => 'Y',
-			'itme5' => '1',
-			'itms5' => '1',
-			'itmsk5' => '',
+			'itmk6' => 'Y',
+			'itme6' => '1',
+			'itms6' => '1',
+			'itmsk6' => '',
 		)
 	),
 	194 => array(
@@ -3507,11 +3537,11 @@ $cards = array(
 		'valid' => array(
 		  'hp' => '-200',
 		  'mhp' => '-200',
-			'itm3' => '超天新龙 异色眼革命龙★12',
-			'itmk3' => 'TN12',
-			'itme3' => '800',
-			'itms3' => '1',
-			'itmsk3' => '',
+			'itm6' => '超天新龙 异色眼革命龙★12',
+			'itmk6' => 'TN12',
+			'itme6' => '800',
+			'itms6' => '1',
+			'itmsk6' => '',
 		)
 	),
 	216 => array(
@@ -3539,11 +3569,11 @@ $cards = array(
 			'wepe' => '120',
 			'weps' => '5',
 			'wepsk' => 'eg',
-			'itm3' => '拉取请球',
-			'itmk3' => 'DH',
-			'itme3' => '120',
-			'itms3' => '5',
-			'itmsk3' => 'eg',
+			'itm6' => '拉取请球',
+			'itmk6' => 'DH',
+			'itme6' => '120',
+			'itms6' => '5',
+			'itmsk6' => 'eg',
 		)
 	),
 	218 => array(
@@ -3591,11 +3621,11 @@ $cards = array(
 			'arae' => '50',
 			'aras' => '70',
 			'arask' => '',
-			'itm3' => Array('垃圾','光盘','破鞋','塑料袋','石头','树枝','骨头','原型武器K','鲨鱼鳍','凸眼鱼'),
-			'itmk3' => Array('X','Y','HH','HS','HB','PB','PB2'),
-			'itme3' => '70',
-			'itms3' => '5',
-			'itmsk3' => 'z',
+			'itm6' => Array('垃圾','光盘','破鞋','塑料袋','石头','树枝','骨头','原型武器K','鲨鱼鳍','凸眼鱼'),
+			'itmk6' => Array('X','Y','HH','HS','HB','PB','PB2'),
+			'itme6' => '70',
+			'itms6' => '5',
+			'itmsk6' => 'z',
 		)
 	),
 	221 => array(
@@ -3740,11 +3770,11 @@ $cards = array(
 		'effect' => '你可以吃翔来表达对满场沙包的不屑',
 		'energy' => 0,
 		'valid' => array(
-		  'itm3' => '『我是说在座的各位都是垃圾』',
-			'itmk3' => 'Y',
-			'itme3' => '1',
-			'itms3' => '1',
-			'itmsk3' => '',
+		  'itm6' => '『我是说在座的各位都是垃圾』',
+			'itmk6' => 'Y',
+			'itme6' => '1',
+			'itms6' => '1',
+			'itmsk6' => '',
 		)
 	),
 	231 => array(
@@ -3755,11 +3785,11 @@ $cards = array(
 		'effect' => '开局携带一份卡牌包',
 		'energy' => 0,
 		'valid' => array(
-		  'itm3' => '卡牌包',
-			'itmk3' => 'VO9',
-			'itme3' => '1',
-			'itms3' => '1',
-			'itmsk3' => '',
+		  'itm6' => '卡牌包',
+			'itmk6' => 'VO9',
+			'itme6' => '1',
+			'itms6' => '1',
+			'itmsk6' => '',
 		)
 	),
 	232 => array(
@@ -3822,11 +3852,11 @@ $cards = array(
 		'effect' => '开局携带一个银色盒子',
 		'energy' => 0,
 		'valid' => array(
-		  'itm3' => '黯淡的银色盒子',
-			'itmk3' => 'p2',
-			'itme3' => '1',
-			'itms3' => '1',
-			'itmsk3' => '',
+		  'itm6' => '黯淡的银色盒子',
+			'itmk6' => 'p2',
+			'itme6' => '1',
+			'itms6' => '1',
+			'itmsk6' => '',
 		)
 	),
 	236 => array(
@@ -3837,11 +3867,6 @@ $cards = array(
 		'effect' => '开局携带15个模因原液',
 		'energy' => 0,
 		'valid' => array(
-		  'itm3' => '模因原液',
-			'itmk3' => Array('MA','MD','MH','MS','ME','MV'),
-			'itme3' => '1',
-			'itms3' => '5',
-			'itmsk3' => '',
 			'itm4' => '模因原液',
 			'itmk4' => Array('MA','MD','MH','MS','ME','MV'),
 			'itme4' => '1',
@@ -3852,6 +3877,11 @@ $cards = array(
 			'itme5' => '1',
 			'itms5' => '5',
 			'itmsk5' => '',
+			'itm6' => '模因原液',
+			'itmk6' => Array('MA','MD','MH','MS','ME','MV'),
+			'itme6' => '1',
+			'itms6' => '5',
+			'itmsk6' => '',
 		)
 	),
 	237 => array(
@@ -3964,11 +3994,11 @@ $cards = array(
 		//'desc_skills' => '',
 		'energy' => 100,
 		'valid' => array(
-		  'itm5' => '某种电子零件',
-			'itmk5' => Array('HB','HB','HB','HB','HB','HB','HB','HB','HB','PB2'),
-			'itme5' => '199',
-			'itms5' => '5',
-			'itmsk5' => '',
+		  'itm6' => '某种电子零件',
+			'itmk6' => Array('HB','HB','HB','HB','HB','HB','HB','HB','HB','PB2'),
+			'itme6' => '199',
+			'itms6' => '5',
+			'itmsk6' => '',
 		)
 	),
 	245 => array(
@@ -3980,11 +4010,11 @@ $cards = array(
 		//'desc_skills' => '',
 		'energy' => 100,
 		'valid' => array(
-		  'itm5' => '寂寞',
-			'itmk5' => Array('WP','WK','WD','WC','WG','WF','WB','PB2','DB','DH','DA','DF','A'),
-			'itme5' => '76',
-			'itms5' => '5',
-			'itmsk5' => '',
+		  'itm6' => '寂寞',
+			'itmk6' => Array('WP','WK','WD','WC','WG','WF','WB','PB2','DB','DH','DA','DF','A'),
+			'itme6' => '76',
+			'itms6' => '5',
+			'itmsk6' => '',
 		)
 	),
 	246 => array(
@@ -3996,11 +4026,11 @@ $cards = array(
 		//'desc_skills' => '',
 		'energy' => 100,
 		'valid' => array(
-		  'itm5' => '箭症',
-			'itmk5' => 'GA',
-			'itme5' => '1',
-			'itms5' => '44',
-			'itmsk5' => Array('e', 'p', 'u', 'i', 'w'),
+		  'itm6' => '箭症',
+			'itmk6' => 'GA',
+			'itme6' => '1',
+			'itms6' => '44',
+			'itmsk6' => Array('e', 'p', 'u', 'i', 'w'),
 		)
 	),
 	247 => array(
