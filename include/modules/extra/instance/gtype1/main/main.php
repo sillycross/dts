@@ -219,8 +219,8 @@ namespace gtype1
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','map'));
 		if ($gametype==1){
-			if($alivenum <= 0){
-				\sys\gameover($atime,'end1');//理论不会这样，防BUG
+			if($alivenum <= 0 && $areanum>=$areaadd*3){//理论不会这样，防BUG
+				\sys\gameover($atime,'end1');
 				return;
 			}
 			if ($areanum>=($areaadd*2)){//限时2禁

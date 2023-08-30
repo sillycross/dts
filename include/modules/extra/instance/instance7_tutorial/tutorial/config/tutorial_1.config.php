@@ -197,16 +197,17 @@ $tutorial_story[1] = Array(
 		'object' => 'itembuy',
 		'obj2' => Array(
 			'item' => '【红杀铁剑】',
+			'min_money' => 1000
 		),
 		'pulse' => Array('#buy_f1b3f633'),
 		'prog' => Array(
-			'money<1300' => '“钱不够了？在<span class="yellow b">天使队移动格纳库</span>能找到我留下的一些盘缠。”<br>',
-			'“不要乱买东西，后面还需要用到钱的。”',//注意如果要修改编号，得把事件相关给改了
+			'money<1000' => '“钱不够了？在<span class="yellow b">天使队移动格纳库</span>能找到我留下的一些盘缠。”<br>',
+			'“选择<span class="red b">【红杀铁剑】</span>并购买吧。”',
 		),
 		'next' => 2400	
 	),
 	2400 => Array(
-		'tips' => '“这把剑显然比你的初始武器好多了。<br><span class="lime b">商店购买</span>、<span class="lime b">地图探索</span>，或者拾取<span class="lime b">战利品</span>，都有可能给你带来更好的武器，如何尽快获得高级武器是一门学问。”<br>',
+		'tips' => '“这把剑显然比你的初始武器好多了，它的<span class="yellow b">效果值</span>较高，能够造成更高伤害；同时它的<span class="yellow b">耐久值</span>适中，不至于很快就损坏了。<br><span class="lime b">商店购买</span>、<span class="lime b">地图探索</span>，或者拾取<span class="lime b">战利品</span>，都有可能给你带来更好的武器，如何尽快获得高级武器是一门学问。”<br>',
 		'object' => 'continue',
 		'obj2' => Array(
 			'addchat' => Array(
@@ -363,10 +364,15 @@ $tutorial_story[1] = Array(
 		'next' => 3500
 	),
 	3500 => Array(
-		'tips' => '“可以在商店购买【技能书】来提升你的熟练度。<br>刀剑类武器对应<span class="yellow b">【斩熟】</span>，其技能书位于<span class="yellow b">【商店页面】→【书籍】→【斩系指南】</span>。”<br>',
+		'tips' => '“可以在商店购买【技能书】来提升你的熟练度。<br>刀剑类武器对应<span class="yellow b">【斩熟】</span>，其技能书位于<span class="yellow b">【商店页面】→【书籍】→《斩系指南》</span>。”<br>',
 		'object' => 'itembuy',
 		'obj2' => Array(
-			'item' => '《斩系指南》'
+			'item' => '《斩系指南》',
+			'min_money' => 300
+		),
+		'prog' => Array(
+			'money<300' => '“钱不够了？在<span class="yellow b">天使队移动格纳库</span>能找到我留下的一些盘缠。”<br>',
+			'“赶紧回去购买《斩系指南》吧。”',
 		),
 		'pulse' => Array('#c','#bshop10','#buy_6c086eaf'),
 		'next' => 3600	

@@ -17,7 +17,7 @@ namespace ex_def_down
 		$ret = $chprocess($pa,$pd,$active);
 		$flag = \attrbase\check_in_itmsk('^dd', \attrbase\get_ex_def_array($pa, $pd, $active), 1);
 		if (false !== $flag) {
-			if($flag > 100) $flag = 100;
+			if($flag > 99) $flag = 99;//最多降99%
 			$var = 1 - $flag / 100;
 			array_unshift($ret, $var);
 		}

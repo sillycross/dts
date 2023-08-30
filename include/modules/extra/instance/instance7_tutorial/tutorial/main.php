@@ -383,7 +383,7 @@ namespace tutorial
 			}elseif ($command == 'continue' || $ct['object'] ==  'any'){//continue和any则直接推进，之后返回
 				$push_flag = 'OK';
 			}elseif (tutorial_fail_safing($ct)){//防呆设计
-				$log .= '<span class="linen b">看来你比较熟练呢，我们继续。</span><br>';
+				$log .= '<span class="linen b">“看来你比较熟练呢，我们继续。”</span><br>';
 				$push_flag = 'OK';
 			}else{//否则判定推进一半
 				$push_flag = 'PROG';
@@ -940,11 +940,13 @@ namespace tutorial
 		$ret = $chprocess($item,$shop,$bnum);
 		if($gametype == 17) {
 			$ct = get_tutorial();//玩家购买特定名字的商品后推进进度
-			eval(import_module('player'));
-			foreach($equip_list as $pv) {
-				if(!empty(${$pv}) && ${$pv} == $ct['obj2']['item']){
-					tutorial_pushforward_process();
-					break;
+			if(!empty($ct['obj2']['item'])){
+				eval(import_module('player'));
+				foreach($equip_list as $pv) {
+					if(!empty(${$pv}) && ${$pv} == $ct['obj2']['item']){
+						tutorial_pushforward_process();
+						break;
+					}
 				}
 			}
 		}
@@ -1070,11 +1072,15 @@ namespace tutorial
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
-		list($tno, $tstep, $tprog) = get_current_tutorial_step();
-		if(17 == $gametype && 2300==$tstep && 30 == $pls){//寻找钱袋，临时调整事件概率
-			eval(import_module('event'));
-			$event_obbs = 40;
+		//list($tno, $tstep, $tprog) = get_current_tutorial_step();
+		if(17 == $gametype){
+			$ct = get_tutorial();
+			if(30 == $pls && !empty($ct['obj2']['min_money'])){//寻找钱袋，临时调整事件概率
+				eval(import_module('event'));
+				$event_obbs = 40;
+			}
 		}
+		
 		return $chprocess();
 	}
 	
@@ -1085,15 +1091,19 @@ namespace tutorial
 		eval(import_module('sys','player', 'logger'));
 		
 		$ret = $chprocess();
-		if(17 == $gametype && 30 == $pls) {
-			list($tno, $tstep, $tprog) = get_current_tutorial_step();
-			if($money < 1300 && 2300 == $tstep){
-				$get = rand(573,765);
-				$money += $get;
-				$log .= '你在一个虚掩着的保险箱里捡到了一些电子货币，或者说能被当做货币使用的垃圾——大约值<span class="yellow b">'.$get.'</span>元。<BR>';
-				$ret = 1;
+		$ct = get_tutorial();
+		if(17 == $gametype){
+			if(30 == $pls && !empty($ct['obj2']['min_money'])) {
+				list($tno, $tstep, $tprog) = get_current_tutorial_step();
+				if($money < $ct['obj2']['min_money']){
+					$get = rand(573,765);
+					$money += $get;
+					$log .= '你在一个虚掩着的保险箱里捡到了一些电子货币，或者说能被当做货币使用的垃圾——大约值<span class="yellow b">'.$get.'</span>元。<BR>';
+					$ret = 1;
+				}
 			}
 		}
+		
 		return $ret;
 	}
 	
