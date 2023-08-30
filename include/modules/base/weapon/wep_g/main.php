@@ -37,14 +37,23 @@ namespace wep_g
 		if (defined('MOD_NOISE')) $noiseinfo['G'] = '枪声';
 	}
 	
+	//判定枪托攻击，更改wep_kind类型
 	function get_attack_method(&$pdata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('weapon'));
-		if (substr($pdata['wepk'],1,1) == 'G' && $pdata['weps']==$nosta) {
+		if (check_WG_att_as_WP($pdata)) {
 			return 'P';
 		}
 		else  return $chprocess($pdata);
+	}
+	
+	//判定枪托攻击的核心函数（例如追击等判定的时候需要调用）
+	//如果是枪托攻击，返回true
+	function check_WG_att_as_WP(&$pdata){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('weapon'));
+		return (substr($pdata['wepk'],1,1) == 'G' && $pdata['weps']==$nosta);
 	}
 	
 	function get_WG_att_as_WP_modifier(&$pa,&$pd,$active)
@@ -75,7 +84,7 @@ namespace wep_g
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('weapon','logger'));
+		eval(import_module('sys','weapon','logger'));
 		if ($pa['wep_kind']=='G')	//射系武器log提示改变
 		{
 			if (isset($pa['wepimp']) && $pa['wepimp'])

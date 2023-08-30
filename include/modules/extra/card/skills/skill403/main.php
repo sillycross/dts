@@ -46,6 +46,8 @@ namespace skill403
 		$var_403=get_skill403_procrate($pa,$pd,$active);
 		while (rand(0,99)<$var_403){
 			$log.="<span class=\"cyan b\">追加攻击！</span><br>";
+			//可能因为武器耗尽等缘故修改了攻击方式，需要重新判定
+			if(\wep_g\check_WG_att_as_WP($pa)) $pa['wep_kind'] = \weapon\get_attack_method($pa);
 			$chprocess($pa,$pd,$active);
 		}
 	}

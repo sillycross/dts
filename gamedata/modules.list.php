@@ -208,7 +208,6 @@ skill216,extra/club/skills/skill216/,1
 skill404,extra/card/skills/skill404/,1
 skill405,extra/card/skills/skill405/,1
 skill406,extra/card/skills/skill406/,1
-skill403,extra/card/skills/skill403/,1
 skill400,extra/card/skills/skill400/,1
 skill402,extra/card/skills/skill402/,1
 skill401,extra/card/skills/skill401/,1
@@ -283,9 +282,9 @@ skill59,extra/club/skills/skill59/,1
 skill425,extra/instance/gtype1/skill425/,1
 skill427,extra/instance/gtype1/skill427/,1
 skill260,extra/club/skills/skill260/,1
-skill492,extra/card/skills/skill492/,1
 skill261,extra/club/skills/skill261/,1
 skill274,extra/club/skills/skill274/,1
+skill403,extra/card/skills/skill403/,1
 skill203,extra/club/skills/skill203/,1
 dualwep,base/weapon/dualwep/,1
 ammunition,base/items/ammunition/,1
@@ -301,6 +300,7 @@ pose,base/pose/,1
 skill1,base/skills/skill1/,1
 skill600,extra/club/skills/skill600/,1
 skill20,extra/club/skills/skill20/,1
+skill492,extra/card/skills/skill492/,1
 empowers,base/items/empowers/,1
 skill70,extra/club/skills/skill70/,1
 skill246,extra/club/skills/skill246/,1

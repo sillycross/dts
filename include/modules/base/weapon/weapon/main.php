@@ -381,7 +381,10 @@ namespace weapon
 		$z=calculate_wepimp_rate($pa, $pd, $active);
 		if (!$is_hit && $z<1000) return;	//没有击中，且非消耗性武器，不会损失耐久
 		$dice=rand(0,99);
-		if ($dice<$z) $pa['wepimp']++;
+		if ($dice<$z) {
+			if(empty($pa['wepimp'])) $pa['wepimp'] = 1;
+			else $pa['wepimp']++;
+		}
 	}
 	
 	//武器伤害计算后事件
