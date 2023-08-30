@@ -30,16 +30,14 @@ namespace skill437
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','map','player','logger','metman','input','weapon'));
-		if($mode == 'combat') 
+		if($mode == 'combat' && $command == 'back' && strpos($action, 'enemy')===0) 
 		{
-			if ($command == 'back') 
-			{
-				if ((\skillbase\skill_query(437))&&(check_unlocked437())){
-					${$skillinfo[substr($wepk,1,1)]}+=3;
-					\lvlctl\getexp(2);
-				}
+			if ((\skillbase\skill_query(437))&&(check_unlocked437())){
+				${$skillinfo[substr($wepk,1,1)]}+=3;
+				\lvlctl\getexp(2);
 			}
 		}
+		
 		$chprocess();
 	}
 }
