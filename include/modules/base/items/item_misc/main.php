@@ -112,10 +112,10 @@ namespace item_misc
 					${'itm'.$i} = ${'itmk'.$i} = ${'itmsk'.$i} = '';
 					${'itme'.$i} = ${'itms'.$i} = 0;
 				}
-				$karma=$rp*$killnum-$def+$att;
+				
 				$f1=$f2=$f3=false;
 				//『G.A.M.E.O.V.E.R』itmk:Y itme:1 itms:1 itmsk:zxZ
-				if (($ss>=600)&&($killnum<=15)){
+				if ($ss>=233){//歌魂大于等于233点
 					$itm0='『T.E.R.R.A』';
 					$itmk0='Y';
 					$itme0=1;
@@ -124,7 +124,9 @@ namespace item_misc
 					\itemmain\itemget();
 					$f1=true;
 				}
-				if ($karma<=2000){
+				//杀玩家数小于等于100
+				//$karma=$rp*$killnum-$def+$att;
+				if ($killnum<=100){
 					$itm0='『A.Q.U.A』';
 					$itmk0='Y';
 					$itme0=1;
@@ -133,7 +135,7 @@ namespace item_misc
 					\itemmain\itemget();
 					$f2=true;
 				}
-				if ($flag==true){
+				if ($flag==true){//拥有黑色发卡
 					$itm0='『V.E.N.T.U.S』';
 					$itmk0='Y';
 					$itme0=1;
