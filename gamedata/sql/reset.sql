@@ -24,9 +24,9 @@ CREATE TABLE bra_chat (
   cid mediumint unsigned NOT NULL auto_increment,
   type tinyint(1) unsigned NOT NULL default '0',
  `time` int(10) unsigned NOT NULL default '0',
-  send char(30) NOT NULL default '',
-  recv char(15) NOT NULL default '',
-  msg char(60) NOT NULL default '',
+  send varchar(60) NOT NULL default '',
+  recv varchar(15) NOT NULL default '',
+  msg varchar(60) NOT NULL default '',
 
   PRIMARY KEY  (cid)
 ) ENGINE=HEAP;

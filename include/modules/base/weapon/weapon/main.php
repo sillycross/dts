@@ -572,9 +572,8 @@ namespace weapon
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('lvlctl'));
-		if ($pa['physical_dmg_dealt'] > 0) //有伤害才获得经验
-			\lvlctl\getexp(calculate_attack_exp_gain($pa, $pd, $active), $pa);
+		//eval(import_module('lvlctl'));
+		if($pa['hp'])	\lvlctl\getexp(calculate_attack_exp_gain($pa, $pd, $active), $pa);
 	}
 	
 	function strike_finish(&$pa, &$pd, $active)
@@ -600,9 +599,11 @@ namespace weapon
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		apply_attack_exp_gain($pa, $pd, $active);
+		if($pa['physical_dmg_dealt'] > 0) $exp_flag = 1;//有造成过伤害才增加经验值
 		
 		$chprocess($pa, $pd, $active);
+		
+		if(!empty($exp_flag)) apply_attack_exp_gain($pa, $pd, $active);
 	}
 		
 	function calculate_counter_rate(&$pa, &$pd, $active)
