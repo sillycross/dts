@@ -572,8 +572,8 @@ namespace weapon
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		//eval(import_module('lvlctl'));
-		if($pa['hp'])	\lvlctl\getexp(calculate_attack_exp_gain($pa, $pd, $active), $pa);
+		if($pa['hp'])	//存活才能获得经验
+			\lvlctl\getexp(calculate_attack_exp_gain($pa, $pd, $active), $pa);
 	}
 	
 	function strike_finish(&$pa, &$pd, $active)

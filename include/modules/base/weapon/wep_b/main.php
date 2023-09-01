@@ -38,11 +38,17 @@ namespace wep_b
 	function get_attack_method(&$pdata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('weapon'));
-		if (substr($pdata['wepk'],1,1) == 'B' && $pdata['weps']==$nosta) {
+		
+		if (check_WB_att_as_WK($pdata)) {
 			return 'K';
 		}
 		else return $chprocess($pdata);
+	}
+	
+	function check_WB_att_as_WK(&$pdata){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('weapon'));
+		return substr($pdata['wepk'],1,1) == 'B' && $pdata['weps']==$nosta;
 	}
 	
 	//弓当锐器时伤害仅为25%

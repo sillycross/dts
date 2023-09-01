@@ -11,7 +11,7 @@ namespace skill358
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach358_desc= array(
-		1=>'合成方块系道具<:threshold:>次。房间内无法完成',
+		1=>'合成方块系道具<:threshold:>次',
 	);
 	
 	$ach358_proc_words = '目前进度';

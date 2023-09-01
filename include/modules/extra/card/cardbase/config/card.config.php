@@ -2139,6 +2139,31 @@ $cards = array(
 			'itmsk6' => '',
 		)
 	),
+	127 => array(
+		'name' => '坂田铜时',
+		'rare' => 'C',
+		'pack' => 'hidden',
+		'desc' => '对幻境使用受王拳吧',
+		'effect' => '效果值在10000以上的殴系武器不会损耗',
+		'energy' => 0,
+		'valid' => array(
+			'pls' => '0',//todo
+		)
+	),
+	128 => array(
+		'name' => '网魔',
+		'rare' => 'C',
+		'pack' => 'Way of Life',
+		'desc' => '谁把天才变成了魔兽？',
+		'effect' => '获得锡安成员技能「网瘾」',
+		'desc_skills' => '「网瘾」：使用移动PC解除禁区成功率为95%，且完全无风险',
+		'energy' => 0,
+		'valid' => array(
+		  'skills' => array(
+				'233' => '0', 
+			),
+		)
+	),
 	
 	//这里怎么有10张卡的空白
 	

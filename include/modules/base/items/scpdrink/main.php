@@ -37,8 +37,6 @@ namespace scpdrink
 				}
 				return;
 			} elseif (strpos($itm, '溶剂SCP-294')===0) {
-			
-				if (defined('MOD_CLUBBASE')) \clubbase\club_lost();
 				
 				if($itm == '溶剂SCP-294_PT_Poini_Kune'){
 					$log .= '你考虑了一会儿，一扬手喝下了杯中冒着紫色幽光的液体。<br><span class="yellow b">你感到全身就像燃烧起来一样，不禁扪心自问这值得么？</span><br>';
@@ -105,6 +103,15 @@ namespace scpdrink
 				$deathflag = false;
 				if($mhp <= 0){$hp = $mhp =0;$deathflag = true;}
 				if($msp <= 0){$sp = $msp =0;$deathflag = true;}
+				
+				addnews ( $now, 'notworthit', $name );//现在无论是不是死亡都会提示和改称号
+				
+				if (defined('MOD_CLUBBASE') && 17 != $club) {//如果非萌物，失去称号
+					\clubbase\club_lost();
+					$club = 17;
+					\clubbase\club_acquire($club);
+				}
+				
 				if($deathflag){
 					$log .= '<span class="yellow b">看起来你的身体无法承受药剂的能量……<br>果然这一点都不值得……<br></span>';
 					$state = 34;
@@ -112,11 +119,12 @@ namespace scpdrink
 					\player\kill($sdata,$sdata);
 					\player\player_save($sdata);
 					\player\load_playerdata($sdata);
-				} else {
-					addnews ( $now, 'notworthit', $name );
-					$club = 17;
-					if (defined('MOD_CLUBBASE')) \clubbase\club_acquire($club);
-				}
+				} 
+//				else {//移到前面去
+//					addnews ( $now, 'notworthit', $name );
+//					$club = 17;
+//					if (defined('MOD_CLUBBASE')) \clubbase\club_acquire($club);
+//				}
 				\itemmain\itms_reduce($theitem);
 				return;
 			}

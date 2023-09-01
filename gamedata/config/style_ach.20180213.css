@@ -2,7 +2,7 @@ div.ach_box
 {
 	background-color:rgba(20,22,24,0.5); *BACKGROUND: rgb(20,22,24); *filter:alpha(opacity=50); 
 	display:Inline-block;
-	width:320px; min-height:106px;text-align:left; vertical-align:top;
+	width:320px; min-height:110px;text-align:left; vertical-align:top;
 	margin:5px;	border:1px solid #666;	border-radius:7px;
 }
 

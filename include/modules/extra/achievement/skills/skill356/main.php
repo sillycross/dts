@@ -11,7 +11,7 @@ namespace skill356
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach356_desc= array(
-		1=>'一场游戏中使用<span class="yellow b" title="殴、斩、射、投、爆、灵、陷阱、下毒、DN各算一种">4种或更多方式</span>击杀玩家，总计<:threshold:>场</span>',
+		1=>'一场游戏中使用<span class="yellow b" title="殴、斩、射、投、爆、灵、陷阱、下毒、DN各算一种">4种或更多方式</span>击杀玩家，总计<:threshold:>场</span>。伐木和解离模式不能完成',
 	);
 	
 	$ach356_proc_words = '完成场次';

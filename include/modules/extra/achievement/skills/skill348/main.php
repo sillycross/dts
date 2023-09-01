@@ -11,7 +11,7 @@ namespace skill348
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach348_desc= array(
-		1=>'使用C或M级卡片时击杀<:threshold:>名使用S或A级卡片的<span class="yellow b" title=\''.POSITIVE_PLAYER_DESC.'\'>活跃玩家</span>',
+		1=>'使用C或M级卡片时击杀<:threshold:>名使用S或A级卡片的<span class="yellow b" title=\''.POSITIVE_PLAYER_DESC.'\'>活跃玩家</span>。只能在自选、随机、荣耀、极速模式完成',
 	);
 	
 	$ach348_proc_words = '击杀总数';

@@ -41,13 +41,14 @@ namespace skill403
 	function attack(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$tmp_skill403_o_weps = $pa['weps'];
 		$chprocess($pa,$pd,$active);
-		eval(import_module('logger','skill403'));
+		eval(import_module('logger','skill403','weapon'));
 		$var_403=get_skill403_procrate($pa,$pd,$active);
 		while (rand(0,99)<$var_403){
 			$log.="<span class=\"cyan b\">追加攻击！</span><br>";
-			//可能因为武器耗尽等缘故修改了攻击方式，需要重新判定
-			if(\wep_g\check_WG_att_as_WP($pa)) $pa['wep_kind'] = \weapon\get_attack_method($pa);
+			//武器耐久值本来不是∞，攻击后变为∞了，可能因为武器耗尽等缘故修改了攻击方式，需要重新判定
+			if($tmp_skill403_o_weps != $nosta && $pa['weps'] == $nosta) $pa['wep_kind'] = \weapon\get_attack_method($pa);
 			$chprocess($pa,$pd,$active);
 		}
 	}
