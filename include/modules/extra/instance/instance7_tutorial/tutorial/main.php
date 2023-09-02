@@ -1091,8 +1091,8 @@ namespace tutorial
 		eval(import_module('sys','player', 'logger'));
 		
 		$ret = $chprocess();
-		$ct = get_tutorial();
 		if(17 == $gametype){
+			$ct = get_tutorial();
 			if(30 == $pls && !empty($ct['obj2']['min_money'])) {
 				list($tno, $tstep, $tprog) = get_current_tutorial_step();
 				if($money < $ct['obj2']['min_money']){

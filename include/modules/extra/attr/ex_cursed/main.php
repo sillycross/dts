@@ -68,6 +68,27 @@ namespace ex_cursed
 		$chprocess($theitem);
 	}
 	
+	//不能把诅咒道具送给队友
+	function senditem_check($edata){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','logger','player'));
+		$ret = $chprocess($edata);
+		if($ret){
+			$itmn = substr($command, 4);
+			if (!empty(${'itms'.$itmn})) {
+				if(\itemmain\check_in_itmsk('O', ${'itmsk'.$itmn})){
+					if(check_enkan()) {
+						$log .= '<span class="lime b">圆环之理的光辉暂时消解了装备的诅咒。</span><br>';
+					}else{
+						$log .= '<span class="red b">摆脱这个装备的诅咒是不可能的。</span><br>';
+						$ret = false;
+					}
+				}
+			}			
+		}
+		return $ret;
+	}
+	
 	//恶趣味，装备或者包裹里有破则的时候，诅咒暂时失效
 	function check_enkan(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;

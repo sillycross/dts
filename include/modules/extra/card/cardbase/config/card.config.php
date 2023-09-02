@@ -408,7 +408,7 @@ $cards = array(
 		'effect' => '开局获得3个技能点',
 		'energy' => 0,
 		'valid' => array(
-			'skillpoint' => '3',
+			'skillpoint' => '+3',
 		)
 	),
 	18 => array(

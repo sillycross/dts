@@ -84,12 +84,12 @@ namespace dualwep
 	}
 	
 	//多重武器消耗规则：
-	//无限耐投爆灵 > 射 > 殴斩 > 有限耐投爆灵
+	//无限耐投爆灵 > 射/弓 > 殴斩 > 有限耐投爆灵
 	function get_dualwep_imp_kind_tier($ak, $weps){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('weapon'));
 		if(in_array($ak, array('C','D','F')) && $nosta === $weps) return 40;
-		elseif(in_array($ak, array('G','J'))) return 30;
+		elseif(in_array($ak, array('G','J','B'))) return 30;
 		elseif(in_array($ak, array('N','P','K'))) return 20;
 		return 10;
 	}
