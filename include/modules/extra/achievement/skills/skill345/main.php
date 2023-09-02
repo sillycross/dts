@@ -53,7 +53,7 @@ namespace skill345
 	function player_kill_enemy(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess($pa, $pd, $active);		
-		if ( \skillbase\skill_query(345,$pa) && !$pd['type'] && $pd['hp'] <= 0)
+		if ( \skillbase\skill_query(345,$pa) && !$pd['type'])
 		{
 			//武器为小黄，且对方为活跃玩家
 			if(check_wep345($pa['o_wep']) && \achievement_base\ach_check_positive_player($pa,$pd)){

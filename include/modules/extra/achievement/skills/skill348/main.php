@@ -68,7 +68,7 @@ namespace skill348
 	function player_kill_enemy(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess($pa, $pd, $active);		
-		if ( \skillbase\skill_query(348,$pa) && !$pd['type'] && $pd['hp'] <= 0)
+		if ( \skillbase\skill_query(348,$pa) && !$pd['type'])
 		{
 			if(check_card348($pa,$pd) && \achievement_base\ach_check_positive_player($pa,$pd)){
 				$x=(int)\skillbase\skill_getvalue(348,'cnt',$pa);

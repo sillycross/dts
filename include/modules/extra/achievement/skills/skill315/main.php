@@ -48,7 +48,7 @@ namespace skill315
 	function player_kill_enemy(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess($pa, $pd, $active);		
-		if ( \skillbase\skill_query(315,$pa) && !$pd['type'] && $pd['hp'] <= 0)
+		if ( \skillbase\skill_query(315,$pa) && !$pd['type'])
 		{
 			//对方为活跃玩家
 			if(\achievement_base\ach_check_positive_player($pa,$pd)){

@@ -677,8 +677,8 @@ namespace achievement_base
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		list($vapm, $aapm) = \apm\calc_apm($pe);
 
-		if($pe['type']) return false;
-		if($pl['ip'] == $pe['ip'] || $vapm < 10) return false;
+		if($pe['type']) return false;//排除NPC
+		if($pl['ip'] == $pe['ip'] || $vapm < 10) return false;//排除双方IP相同，或者对方VAPM<10
 		$skill1003_got = \skillbase\skill_getvalue(1003,'money_got', $pe);	
 		if($skill1003_got < 1000) return false;
 		return true;
