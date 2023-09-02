@@ -7,8 +7,8 @@ namespace ex_mhp_temp_up
 	{
 		eval(import_module('itemmain'));
 		$itemspkinfo['^hu'] = '升血';
-		$itemspkdesc['^hu']='允许恢复道具把你的生命值最多回复到最大值+<:skn:>点，效果可叠加。';
-		$itemspkremark['^hu']='具体增加数值视装备而定。卸下此装备时会扣除所有额外的生命值。';
+		$itemspkdesc['^hu']='允许用恢复道具把生命值回复到最大值+<:skn:>点，效果可叠加';
+		$itemspkremark['^hu']='具体增加数值视装备而定。卸下此装备时会扣除所有额外的生命值';
 	}
 	
 	function itemuse_edible_get_mhp(){

@@ -240,7 +240,7 @@ namespace weapon
 		$primary_dmg_fixed = get_primary_fixed_dmg($pa, $pd, $active);
 		if($primary_dmg_fixed) {
 			$damage += $primary_dmg_fixed;
-			$pa['mult_words_pridmgbs'] .= '+'.$pa['mult_words_pridmgfxdbs'];
+			$pa['mult_words_pridmgbs'] = \attack\add_format($pa['mult_words_pridmgfxdbs'],$pa['mult_words_pridmgbs']);
 		}
 		return $damage;
 	}

@@ -168,50 +168,20 @@ namespace itemmain
 		return $flag;
 	}
 	
-	//从单属性字段，获得复合属性的代号和数值。非复合属性返回NULL
-	//返回两个变量：^+字母部分和数字部分
-	function get_comp_itmsk_info($str){
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if(!is_string($str) || '^' != $str[0]) return NULL;
-		$skk = $skn = '';
-		for($i=1;$i<strlen($str);$i++) {
-			if('0'<=$str[$i] && $str[$i]<='9') {
-				if(empty($skk)) return NULL;
-				else $skn .= $str[$i];
-			}else{
-				$skk .= $str[$i];
-			}
-		}
-		$skk = '^'.$skk;
-		return array($skk, $skn);
-	}
-	
 	function get_itmsk_words_single($str)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('itemmain'));
-		$cinfo = get_comp_itmsk_info($str);
-		if(!empty($cinfo)) return $itemspkinfo[$cinfo[0]];
-		elseif(!empty($itemspkinfo[$str])) return $itemspkinfo[$str];
-		else return '';
+		if(!empty($itemspkinfo[$str])) return $itemspkinfo[$str];
+		return '';
 	}
 	
 	function get_itmsk_desc_single($str)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('itemmain'));
-		$cinfo = get_comp_itmsk_info($str);
-		if(!empty($cinfo)) {
-			$desc = $itemspkdesc[$cinfo[0]];
-			$desc = str_replace('<:skn:>', get_itmsk_desc_single_comp_process($cinfo[0], $cinfo[1]), $desc);
-			return $desc;
-		}elseif(!empty($itemspkdesc[$str])) return $itemspkdesc[$str];
-		else return '';
-	}
-	
-	function get_itmsk_desc_single_comp_process($skk, $skn) {
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return $skn;
+		if(!empty($itemspkdesc[$str])) return $itemspkdesc[$str];
+		return '';
 	}
 	
 	function parse_itmsk_words($sk_value, $simple = 0, $elli = 0)

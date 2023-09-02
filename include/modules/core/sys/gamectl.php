@@ -442,8 +442,19 @@ namespace sys
 		rsort ( $skill );
 		$maxskill = $skill[0];
 		$up += round($maxskill / 25);//熟练度最高的系每25点熟练加1
-		$up += round($data['money']/500);//每500点金钱加1
+		
+		$money_got = gameover_check_money_got($data);
+		
+		$up += round($money_got/500);//每500点金钱加1
+		
+		//file_put_contents('a.txt', $up.' ',FILE_APPEND);
 		return $up;
+	}
+	
+	//判定玩家金钱数，可供其他模块接管
+	function gameover_check_money_got($data){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $data['money'];
 	}
 	
 	//结算切糕

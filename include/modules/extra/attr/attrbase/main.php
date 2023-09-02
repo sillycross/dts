@@ -59,12 +59,31 @@ namespace attrbase
 		}
 		return $ret;
 	}
-			
+	
+	//判定武器是否作为本系属性使用，名字是遗留问题	
 	function attr_dmg_check_not_WPG(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		//必须作为本系武器使用才有属性伤害（枪械当钝器没有）
 		return (strpos($pa['wepk'],$pa['wep_kind'])!==false);
+	}
+	
+	//从单属性字段，获得复合属性的代号和数值。非复合属性返回NULL
+	//返回两个变量：^+字母部分和数字部分
+	function get_comp_itmsk_info($str){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!is_string($str) || '^' != $str[0]) return NULL;
+		$skk = $skn = '';
+		for($i=1;$i<strlen($str);$i++) {
+			if('0'<=$str[$i] && $str[$i]<='9') {
+				if(empty($skk)) return NULL;
+				else $skn .= $str[$i];
+			}else{
+				$skk .= $str[$i];
+			}
+		}
+		$skk = '^'.$skk;
+		return array($skk, $skn);
 	}
 	
 	//判断两个属性代号$ssk是不是与$mark一致。其中$ssk是从具体道具属性字段里取出的，$mark是需要判定是否存在的（复合属性时，$mark应只有^字母）
@@ -90,14 +109,14 @@ namespace attrbase
 			if(!is_array($skarr)) $skarr = \itemmain\get_itmsk_array($skarr);
 			
 			//判定是不是合法的复合属性
-			$compret = \itemmain\get_comp_itmsk_info($mark);
+			$compret = get_comp_itmsk_info($mark);
 			if(NULL !== $compret) {
 				$flag = false;
 				list($skk, $null) = $compret;
 				foreach($skarr as $v) {
 					if (check_itmsk_single_mark($v, $skk)) {
 						
-						list($null, $skn) = \itemmain\get_comp_itmsk_info($v);
+						list($null, $skn) = get_comp_itmsk_info($v);
 						if(!$flag) $flag = $skn;
 						else $flag += $skn;
 						if(!$count) break;
@@ -132,6 +151,45 @@ namespace attrbase
 						return 1;
 			return 0;
 		}
+	}
+	
+	//使itmsk描述增加对复合属性的支持
+	function get_itmsk_words_single($str)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($str);
+		
+		if(empty($ret)){
+			$cinfo = get_comp_itmsk_info($str);
+			if(!empty($cinfo)) {
+				eval(import_module('itemmain'));
+				$ret = $itemspkinfo[$cinfo[0]];
+			}
+		}
+		
+		return $ret;
+	}
+	
+	function get_itmsk_desc_single($str)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($str);
+		
+		if(empty($ret)){
+			$cinfo = get_comp_itmsk_info($str);
+			if(!empty($cinfo)) {
+				eval(import_module('itemmain'));
+				$ret = str_replace('<:skn:>', get_itmsk_desc_single_comp_process($cinfo[0], $cinfo[1]), $itemspkdesc[$cinfo[0]]);
+			}
+		}
+		
+		return $ret;
+	}
+	
+	//对复合属性数值的处理接口，某些需要调整显示的功能可以继承这个
+	function get_itmsk_desc_single_comp_process($skk, $skn) {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $skn;
 	}
 }
 

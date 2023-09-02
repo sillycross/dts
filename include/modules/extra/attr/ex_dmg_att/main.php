@@ -172,7 +172,8 @@ namespace ex_dmg_att
 			//这里具体是red还是yellow有待后头决定
 			$log .= '造成了<span class="<:ex_single_dmg:>">'.$pa['ex_dmg_'.$key.'_dealt'].'</span>点属性伤害！';
 		else  $log .= $exdmgname[$key].'造成了<span class="<:ex_single_dmg:>">'.$pa['ex_dmg_'.$key.'_dealt'].'</span>点属性伤害！';
-		$pa['mult_words_exdmgbs'] .= empty($pa['mult_words_exdmgbs']) ? $pa['ex_dmg_'.$key.'_dealt'] : '+'.$pa['ex_dmg_'.$key.'_dealt'];
+		if(empty($pa['mult_words_exdmgbs'])) $pa['mult_words_exdmgbs'] = $pa['ex_dmg_'.$key.'_dealt'];
+		else $pa['mult_words_exdmgbs'] = \attack\add_format($pa['ex_dmg_'.$key.'_dealt'],$pa['mult_words_exdmgbs']);
 	}
 	
 	//执行单个属性攻击

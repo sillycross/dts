@@ -64,7 +64,7 @@ namespace skill1003
 		}
 	}
 	
-	//战斗获得切糕改为先暂存在这个技能里，战斗结束才结算
+	//游戏中获得切糕改为先暂存在这个技能里，游戏结束才结算
 	function battle_get_qiegao_update($qiegaogain,&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -76,15 +76,40 @@ namespace skill1003
 		}
 	}
 	
-	//战斗结束时的结算
+	//游戏结束时的切糕结算
 	function gameover_get_gold_up($data, $winner = '',$winmode = 0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($data, $winner, $winmode);
-		$tmp_data = $data;
-		list($tmp_data['acquired_list'], $tmp_data['parameter_list']) = \skillbase\skillbase_load_process($data['nskill'], $data['nskillpara']);
-		if(\skillbase\skill_query(1003, $tmp_data)) {
-			$ret += \skillbase\skill_getvalue(1003,'qiegao_got', $tmp_data);	
+		if(\skillbase\skill_query(1003, $data)) {
+			$ret += \skillbase\skill_getvalue(1003,'qiegao_got', $data);	
+		}
+		return $ret;
+	}
+	
+	function gameover_get_credit_up($data,$winner = '',$winmode = 0)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($data,$winner,$winmode);
+		
+		if(\skillbase\skill_query(1003, $data)) {
+			$killed_vip = explode(',',\skillbase\skill_getvalue(1003,'killed_vip', $data));
+			//file_put_contents('a.txt', var_export($killed_vip,1).' ',FILE_APPEND);
+			if(!empty($killed_vip)){
+				if(in_array(42, $killed_vip)) $ret += 1800;//杀死115，额外奖励1800点积分
+			}
+		}
+		
+		return $ret;
+	}
+	
+	//用最大金钱数代替结束时金钱数进行积分结算
+	function gameover_check_money_got($data){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($data);
+		if(\skillbase\skill_query(1003, $data)){
+			$money_got1003 = \skillbase\skill_getvalue(1003,'money_got', $data);
+			if($ret < $money_got1003) $ret = $money_got1003;
 		}
 		return $ret;
 	}
