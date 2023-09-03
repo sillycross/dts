@@ -60,13 +60,21 @@ namespace metman
 			}
 		}
 		
-		if($w_wepe >= 400) {
+		if ($w_wepe >= 400000) {
+			$tdata['wepestate'] = "$wepeinfo[7]";
+		} elseif ($w_wepe >= 40000) {
+			$tdata['wepestate'] = "$wepeinfo[6]";
+		} elseif ($w_wepe >= 4000) {
+			$tdata['wepestate'] = "$wepeinfo[5]";
+		} elseif($w_wepe >= 1000) {
+			$tdata['wepestate'] = "$wepeinfo[4]";
+		} elseif($w_wepe >= 300) {
 			$tdata['wepestate'] = "$wepeinfo[3]";
-		} elseif($w_wepe >= 200) {
+		} elseif($w_wepe >= 120) {
 			$tdata['wepestate'] = "$wepeinfo[2]";
 		} elseif($w_wepe >= 60) {
 			$tdata['wepestate'] = "$wepeinfo[1]";
-		} else {
+		}else {
 			$tdata['wepestate'] = "$wepeinfo[0]";
 		}
 		

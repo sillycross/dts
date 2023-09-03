@@ -47,7 +47,7 @@
 </tr>
 <tr>
 	<td class="b3" height=20px colspan=2>
-	<!--{if room_creater_check($upos) || $upos == room_team_leader_check($roomdata,$upos)}-->
+	<!--{if room_get_vars($roomdata,'pnum') > 2 && (room_creater_check($upos) || $upos == room_team_leader_check($roomdata,$upos))}-->
 	<div class="glow_buttons" style="float:left;left:25px;width:90px;" onclick="$('command').value='pos_disable';$('para1').value='all';postCmd('roomcmd','roomcmd.php');">
 		<!--{if room_creater_check($upos)}-->禁用所有空位<!--{else}-->禁用本队空位<!--{/if}-->
 	</div>

@@ -159,7 +159,7 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 				else{
 					$roomdata['player'][$upos]['ready']=0;//禁用和启用会让自己退出准备状态
 					if($command=='pos_disable'){
-						if(!empty(room_get_vars($roomdata, 'cannot-forbid'))){
+						if(!empty(room_get_vars($roomdata, 'cannot-forbid')) || room_get_vars($roomdata, 'pnum') <= 2){
 							room_new_chat($roomdata,"<span class=\"red b\">{$cuser}试图禁用一个位置，但本房间不允许禁用</span><br>");
 						}else{
 							if('all' == $para1) {//提交all指令，房主则禁用全部空格子，队长禁用本队空格子
