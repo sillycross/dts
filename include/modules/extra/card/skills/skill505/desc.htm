@@ -14,9 +14,15 @@ $clubskillname[$___TEMP_SKILL_ID]
 {template MOD_CLUBBASE_SKILLDESC_MID2}
 <!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
-	<!--{eval $plsname = $plsinfo[\skillbase\skill_getvalue(505,'rpls')];}-->
+	<!--{eval $rpls=\skill505\check_pls505();}-->
 	找到并装备上{$skill505_keyitm}以解锁<br>
-	{$skill505_keyitm}位于{$plsname}
+	<!--{if 0 > $rpls}-->
+	<span class="red b">{$skill505_keyitm}不在它本该在的位置了！</span>
+	<!--{elseif 0 == $rpls}-->
+	{$skill505_keyitm}在你的怀抱中
+	<!--{else}-->
+	{$skill505_keyitm}位于<!--{eval echo $plsinfo[$rpls];}-->
+	<!--{/if}-->
 </span>
 <!--{/if}-->
 {template MOD_CLUBBASE_SKILLDESC_END}

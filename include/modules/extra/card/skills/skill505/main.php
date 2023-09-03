@@ -42,6 +42,25 @@ namespace skill505
 		return \skillbase\skill_getvalue(505,'u',$pa);
 	}
 	
+	//判定灯泡是不是在初始位置的函数
+	//返回0指灯泡在身上，-1指灯泡不在原来的位置，正数指具体地点
+	function check_pls505()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','itemmain','skill505'));
+		if(check_unlocked505($sdata)) return 0;
+		foreach($item_equip_list as $v){
+			if($skill505_keyitm == ${$v}) {
+				return 0;
+				break;
+			}
+		}
+		$rpls = \skillbase\skill_getvalue(505,'rpls');
+		$result = $db->query("SELECT iid FROM {$tablepre}mapitem WHERE itm='$skill505_keyitm' AND pls='$rpls'");
+		if(!$db->num_rows($result)) $rpls = -1;
+		return $rpls;
+	}
+	
 	//只要是在skill505标记的地图，每次探索都有额外5%的概率发现巨大灯泡
 	//当然如果灯泡捡起来了就没这回事了
 	function discover_item()
