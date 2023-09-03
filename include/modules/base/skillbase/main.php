@@ -116,6 +116,7 @@ namespace skillbase
 		if(!$in_proc) skill_onsave_event($pa);
 		
 		eval(import_module('player','skillbase'));
+		
 		if ($pa['pid']==$pid)
 		{
 			$ac_list=$acquired_list;
@@ -142,6 +143,7 @@ namespace skillbase
 	function skillbase_save_process($sa, $spa){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ns='';
+		
 		foreach ($sa as $skillkey => $skillvalue)
 		{
 			if ($skillvalue == 1)
@@ -239,17 +241,29 @@ namespace skillbase
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player','skillbase'));
 		$skillid=(int)$skillid;
+		$changed = 0;
 		if ($pa == NULL || $pa['pid']==$pid)
 		{
-			if ($pa == NULL) { \player\update_sdata(); $pa=$sdata; }
-			$acquired_list[$skillid]=0;
+			if ($pa == NULL) {
+				\player\update_sdata();
+				$pa=$sdata;
+			}
+			if(!empty($acquired_list[$skillid])){
+				$changed = 1;
+				$acquired_list[$skillid]=0;
+			}
 		}
 		else
 		{
-			$pa['acquired_list'][$skillid]=0;
+			if(!empty($pa['acquired_list'][$skillid])){
+				$changed = 1;
+				$pa['acquired_list'][$skillid]=0;
+			}
 		}
-		$func='skill'.$skillid.'\\lost'.$skillid;
-		if (defined('MOD_SKILL'.$skillid)) $func($pa);
+		if($changed) {
+			$func='skill'.$skillid.'\\lost'.$skillid;
+			if (defined('MOD_SKILL'.$skillid)) $func($pa);
+		}
 	}
 	
 	function skill_query($skillid, &$pa = NULL)

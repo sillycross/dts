@@ -158,6 +158,7 @@ ob_clean();
 echo $jgamedata;
 
 \player\update_sdata();
+\player\before_last_player_save_event();
 \player\player_save($sdata);
 
 /* End of file command_act.php */

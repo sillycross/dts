@@ -4,9 +4,9 @@
 
 //根据$room_id生成$tablepre，单纯是统一用
 //若$without_num=true则返回的是只带前缀的（也无下划线）
-function room_get_tablepre($room_prefix='', $without_num=false){
+function room_get_tablepre($room_prefix=NULL, $without_num=false){
 	global $gtablepre;
-	if(!$room_prefix) global $room_prefix;
+	if(NULL === $room_prefix) global $room_prefix;
 	if (room_check_subroom($room_prefix))
 		return $without_num ? $gtablepre.room_prefix_kind($room_prefix) : $gtablepre.$room_prefix.'_';
 	else return $gtablepre;

@@ -286,8 +286,8 @@ skill261,extra/club/skills/skill261/,1
 skill274,extra/club/skills/skill274/,1
 skill403,extra/card/skills/skill403/,1
 skill203,extra/club/skills/skill203/,1
-dualwep,base/weapon/dualwep/,1
 ammunition,base/items/ammunition/,1
+dualwep,base/weapon/dualwep/,1
 skill487,extra/card/skills/skill487/,1
 armor_art,base/armor_art/,1
 skill23,extra/club/skills/skill23/,1
@@ -505,6 +505,7 @@ skill369,extra/achievement/skills/skill369/,1
 skill370,extra/achievement/skills/skill370/,1
 skill351,extra/achievement/skills/skill351/,1
 skill352,extra/achievement/skills/skill352/,1
+skill530,extra/card/skills/skill530/,1
 skill504,extra/card/skills/skill504/,1
 skill505,extra/card/skills/skill505/,1
 skill80,extra/club/skills/skill80/,1

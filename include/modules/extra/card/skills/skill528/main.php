@@ -61,8 +61,7 @@ namespace skill528
 	}
 	
 	//在command_act.php执行的最后，player_save()之前，把标记抹除
-	//哭了，update_sdata()终于用上了
-	function update_sdata()
+	function before_last_player_save_event()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess();

@@ -47,9 +47,11 @@ namespace achievement_base
 		return $ret;
 	}
 	
-	function skill_onload_event(&$pa)//技能模块载入时直接加载所有成就
+	//进入游戏时加载所有成就
+	function post_enterbattlefield_events(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($pa);
 		eval(import_module('sys','achievement_base'));
 		$alist = array();
 		foreach($achlist as $atk => $atv){
@@ -68,7 +70,7 @@ namespace achievement_base
 				&& !\skillbase\skill_query($av,$pa))
 			\skillbase\skill_acquire($av,$pa);
 		}
-		$chprocess($pa);
+		return $ret;
 	}
 	
 	//传入成就数组，进行成就编码

@@ -92,9 +92,9 @@ namespace ex_cursed
 	//恶趣味，装备或者包裹里有破则的时候，诅咒暂时失效
 	function check_enkan(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('player','itemmain','armor'));
+		eval(import_module('player','itemmain'));
 		$flag = 0;
-		foreach(array_merge( Array('wep'), array_merge($item_equip_list, $armor_equip_list)) as $v){
+		foreach($equip_list as $v){
 			if(strpos(${$v}, '概念武装『破则』')!==false){
 				$flag = 1;
 				break;
