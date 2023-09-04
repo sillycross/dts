@@ -244,7 +244,7 @@ $mixinfo = array
 	array('class' => 'cube', 'stuff' => array('水晶方块','水晶方块','水晶方块'),'result' => array('★灭亡之歌★','TN',960,2,),),
 	array('class' => 'cube', 'stuff' => array('白色方块','白色方块','白色方块'),'result' => array('★交织火焰★','WJ',76,1,'ui'),),
 	array('class' => 'cube', 'stuff' => array('黑色方块','黑色方块','黑色方块'),'result' => array('★交织闪电★','WJ',76,1,'ew'),),
-	array('class' => 'hidden', 'stuff' => array('黄鸡方块','黄鸡方块','黄鸡方块'),'result' => array('★黄鸡风暴★','WK',90,35,'rpd'),),
+	
 	array('class' => 'cube', 'stuff' => array('X方块','Y方块'),'result' => array('MEGA宝石方块','X',1,1,''),),
 	array('class' => 'cube', 'stuff' => array('MEGA宝石方块','红色方块'),'result' => array('火精灵之焰','WG',386,'∞','u'),),
 	array('class' => 'cube', 'stuff' => array('MEGA宝石方块','绿色方块'),'result' => array('叶精灵之刃','WK',386,'∞','p'),),
@@ -254,6 +254,9 @@ $mixinfo = array
 	array('class' => 'cube', 'stuff' => array('MEGA宝石方块','白色方块'),'result' => array('太阳精灵之光','WD',386,'∞','d'),),
 	array('class' => 'cube', 'stuff' => array('MEGA宝石方块','黑色方块'),'result' => array('月亮精灵之影','WF',386,'∞','w'),),
 	array('class' => 'cube', 'stuff' => array('MEGA宝石方块','MEGA宝石方块'),'result' => array('仙子精灵之吻','WJ',251,'∞','n'),),
+	array('class' => 'cube', 'stuff' => array('黄鸡方块','黄鸡方块','黄鸡方块'),'result' => array('★黄鸡风暴★','WK',90,35,'rpd'),),
+	array('class' => 'cube', 'stuff' => array('★黄鸡风暴★','★黄鸡风暴★','★黄鸡风暴★'),'result' => array('★黄鸡经世★','WP',88888,8888,'rpdBb'),),
+	
 	
 	array('class' => 'wf', 'stuff' => array('空白符卡','☆博丽护符☆'),'result' => array('霊符「夢想妙珠」','WF',40,'∞','r'),),
 	array('class' => 'wf', 'stuff' => array('空白符卡','红色方块','白色方块'),'result' => array('阴阳玉','WFC',90,'∞','d'),),
@@ -293,6 +296,7 @@ $mixinfo = array
 	array('class' => 'wf', 'stuff' => array('「妖怪测谎机」','☆守矢神签☆','触手的力量'),'result' => array('『被厌恶者的哲学』','WF',8800,1,'nZ'),),
 	array('class' => 'wf', 'stuff' => array('正体不明的UFO','被遗忘的伞','触手的力量'),'result' => array('『平安京的恶梦』','WF',9900,1,'LZ'),),
 	array('class' => 'wf', 'stuff' => array('秘弹『之后就一个人都没有了吗？』','『被厌恶者的哲学』','『平安京的恶梦』'),'result' => array('模式『EX』','WF',72000,'∞','crZyVLn'),),//crazy valian
+	array('class' => 'wf', 'stuff' => array('南京挂花鸭','「西贡直升机」','【北斗百裂拳】','《东方永夜抄》'),'result' => array('★ 大 四 喜 ★','WF',4444,'∞','ZrnyLh'),),
 	
 	array('class' => 'wf_pn', 'stuff' => array('红色方块','打火机','空白符卡'),'result' => array('火符「Agni Shine」','WF',60,'∞','uU'),),
 	array('class' => 'wf_pn', 'stuff' => array('蓝色方块','水','空白符卡'),'result' => array('水符「Princess Undine」','WF',70,'∞','iI'),),

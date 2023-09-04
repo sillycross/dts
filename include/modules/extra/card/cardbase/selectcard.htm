@@ -211,7 +211,7 @@ cardSearchInit = function()
 	</div>
 </div>
 </div>
-<div style="position:absolute;left:200px;text-align:right;">
+<div style="position:absolute;left:200px;text-align:right;<!--{if !empty($no_select)}-->display:none;<!--{/if}-->">
 	<!--{if $cd_s+$cardtypecd['S']>$now}--><span class="gold b"><!--{eval echo convert_tm($cd_s+$cardtypecd['S']-$now);}-->后才可使用S级身份卡</span><br><!--{/if}-->
 	<!--{if $cd_a+$cardtypecd['A']>$now}--><span class="cyan b"><!--{eval echo convert_tm($cd_a+$cardtypecd['A']-$now);}-->后才可使用A级身份卡</span><br><!--{/if}-->
 	<!--{if $cd_b+$cardtypecd['B']>$now}--><span class="brickred b"><!--{eval echo convert_tm($cd_b+$cardtypecd['B']-$now);}-->后才可使用B级身份卡</span><br><!--{/if}-->
