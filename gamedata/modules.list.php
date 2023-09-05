@@ -250,6 +250,7 @@ skill527,extra/card/skills/skill527/,1
 skill528,extra/card/skills/skill528/,1
 skill529,extra/card/skills/skill529/,1
 skill531,extra/card/skills/skill531/,1
+skill532,extra/card/skills/skill532/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1

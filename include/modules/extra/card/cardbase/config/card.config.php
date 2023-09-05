@@ -2142,12 +2142,14 @@ $cards = array(
 	127 => array(
 		'name' => '坂田铜时',
 		'rare' => 'C',
-		'pack' => 'hidden',
+		'pack' => 'Top Players',
 		'desc' => '对幻境使用受王拳吧',
-		'effect' => '效果值在10000以上的殴系武器不会损耗',
+		'effect' => '使用效果值大于10000的殴系武器时，不会损耗耐久值',
 		'energy' => 0,
 		'valid' => array(
-			'pls' => '0',//todo
+			'skills' => array(
+				'532' => '0', 
+			),
 		)
 	),
 	128 => array(
