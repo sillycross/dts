@@ -183,6 +183,7 @@ namespace achievement_base
 	}
 	
 	//更新单个玩家的成就记录
+	//注意这个函数不负责写数据库，实际写数据库在gameover()判定的最后完成
 	function update_achievements_by_udata(&$udata, &$pdata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

@@ -57,6 +57,17 @@ namespace instance7
 		}else return $chprocess();
 	}
 	
+	//教程房特殊的stitem.config
+	function get_startingitemfilecont(){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		eval(import_module('sys'));
+		if (17 == $gametype){
+			$file = __DIR__.'/config/stitem.config.php';
+			$l = openfile($file);
+			return $l;
+		}else return $chprocess();
+	}
+	
 	//待调整
 //	function check_addarea_gameover($atime){
 //		if (eval(__MAGIC__)) return $___RET_VALUE;
