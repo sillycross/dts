@@ -241,7 +241,6 @@ skill269,extra/club/skills/skill269/,1
 skill78,extra/club/skills/skill78/,1
 skill496,extra/card/skills/skill496/,1
 skill506,extra/card/skills/skill506/,1
-skill511,extra/card/skills/skill511/,1
 skill515,extra/card/skills/skill515/,1
 skill516,extra/card/skills/skill516/,1
 club15,extra/club/clubs/club15/,1
@@ -250,6 +249,7 @@ skill84,extra/club/skills/skill84/,1
 skill527,extra/card/skills/skill527/,1
 skill528,extra/card/skills/skill528/,1
 skill529,extra/card/skills/skill529/,1
+skill531,extra/card/skills/skill531/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
@@ -284,6 +284,7 @@ skill427,extra/instance/gtype1/skill427/,1
 skill260,extra/club/skills/skill260/,1
 skill261,extra/club/skills/skill261/,1
 skill274,extra/club/skills/skill274/,1
+skill511,extra/card/skills/skill511/,1
 skill403,extra/card/skills/skill403/,1
 skill203,extra/club/skills/skill203/,1
 ammunition,base/items/ammunition/,1

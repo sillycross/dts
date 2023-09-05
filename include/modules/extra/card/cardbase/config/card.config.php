@@ -3325,12 +3325,19 @@ $cards = array(
 		'name' => '武侠强者 李天明',
 		'title' => '武侠强者',
 		'rare' => 'A',
-		'pack' => 'hidden',
-		'desc' => '<span class="linen b">“对一一五来说，面前这四个触手比十亿个杀人狂魔更恐怖……更可怕呀！”</span>',
-		'effect' => '开局装备「红杀铁剑」。此外，涉及到你的进行状况伤害描述都改为强者语',
+		'pack' => 'Event Bonus',
+		'desc' => '<span class="linen b">“对一一五来说，面前这四个触手比十亿个杀人魔更恐怖…更可怕呀！”</span>',
+		'effect' => '开局装备「红杀铁剑」。此外，涉及到你的描述伤害的进行状况都改用强者语',
 		'energy' => 100,
 		'valid' => array(
-			'pls' => '0',//todo
+			'wep' => '【红杀铁剑】',
+			'wepk' => 'WK',
+			'wepe' => '50',
+			'weps' => '15',
+			'wepsk' => '',
+			'skills' => array(
+				'531' => '0', 
+			),
 		)
 	),
 	

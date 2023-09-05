@@ -631,7 +631,7 @@ namespace cardbase
 		
 		eval(import_module('sys','cardbase'));//载入$card_main_file和$card_config_file
 		//如果文件存在且最新，就不改变
-		if(file_exists($card_index_file) && filemtime($card_main_file) < filemtime($card_index_file) && filemtime($card_config_file) < filemtime($file)) return;
+		if(file_exists($card_index_file) && filemtime($card_main_file) < filemtime($card_index_file) && filemtime($card_config_file) < filemtime($card_index_file)) return;
 		
 		$new_cardindex = Array(
 			'All' => Array(),//All是所有卡（无视开放情况和隐藏）

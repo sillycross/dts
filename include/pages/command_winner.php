@@ -196,7 +196,14 @@ else
 			
 			$largest_mark = $max_result_gamenum;
 			$smallest_mark = max($min_result_gamenum, $winlimit);
-			$start_n = array_search($start, $wgidarr);
+			if(in_array($start, $wgidarr)) {
+				$start_n = array_search($start, $wgidarr);
+			}else{
+				$tmp_wgidarr = $wgidarr;
+				$tmp_wgidarr[] = $start;
+				rsort($tmp_wgidarr);
+				$start_n = array_search($start, $tmp_wgidarr);
+			}
 			if($start < $largest_mark) {
 				//上一页，需要用到所有符合条件的gid数组$wgidarr
 				//注意这里larger和smaller是从gid绝对值角度而言的，从数组角度larger的下标反而小，smaller的下标反而大
