@@ -4,7 +4,7 @@ namespace achievement_base
 {
 	$ach_list = $ach_expired_list = Array();
 	
-	define('POSITIVE_PLAYER_DESC','与你IP不同、获得金钱不少于1000且APM不少于10');
+	define('POSITIVE_PLAYER_DESC','与你IP不同且APM不少于10');
 	function init() {
 	}
 	
@@ -682,8 +682,8 @@ namespace achievement_base
 
 		if($pe['type']) return false;//排除NPC
 		if($pl['ip'] == $pe['ip'] || $vapm < 10) return false;//排除双方IP相同，或者对方VAPM<10
-		$skill1003_got = \skillbase\skill_getvalue(1003,'money_got', $pe);	
-		if($skill1003_got < 1000) return false;
+//		$skill1003_got = \skillbase\skill_getvalue(1003,'money_got', $pe);	
+//		if($skill1003_got < 1000) return false;
 		return true;
 		//return !$pl['type'] && $pl['lvl'] >= 7 && $pl['money'] >= 1000;
 	}

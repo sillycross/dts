@@ -2109,6 +2109,7 @@ $cards = array(
 			),
 		)
 	),
+	//这里曾经有10张卡的空白，后来被我填满了。所以这部分卡跟之前和之后的卡是有代沟的
 	125 => array(
 		'name' => '植物人',
 		'rare' => 'C',
@@ -2166,10 +2167,111 @@ $cards = array(
 			),
 		)
 	),
+	129 => array(
+		'name' => '吉祥物',
+		'rare' => 'M',
+		'pack' => 'Standard Pack',
+		'desc' => '总之就是非常可爱',
+		'effect' => '称号固定为走路萌物',
+		//'desc_skills' => '「网瘾」：使用移动PC解除禁区成功率为95%，且完全无风险',
+		'energy' => 0,
+		'valid' => array(
+		  'club' => '17',
+			'skills' => array(
+				'10' => '0', 
+				'11' => '0', 
+				'12' => '0',
+			),
+		)
+	),
+	130 => array(
+		'name' => '士兵 丁',
+		'rare' => 'M',
+		'pack' => 'Top Players',
+		'desc' => '远古时期参与出征265g，为dts菜鸟们长脸的神秘黑客高手',
+		'effect' => '称号固定为装逼战士。开局携带能增长全系熟练度的药剂',
+		//'desc_skills' => '「网瘾」：使用移动PC解除禁区成功率为95%，且完全无风险',
+		'energy' => 0,
+		'valid' => array(
+		  'club' => '97',
+			'skills' => array(
+				'10' => '0', 
+				'11' => '0', 
+				'12' => '0',
+			),
+			'itm6' => 'DTS.EXE',
+			'itmk6' => 'MV',
+			'itme6' => '1',
+			'itms6' => '100',
+			'itmsk6' => '',
+		)
+	),
+	131 => array(
+		'name' => '北京推倒你',
+		'rare' => 'B',
+		'pack' => 'Top Players',
+		'desc' => '虽然代码令人一言难尽，但他创造了宝石强化系统',
+		'effect' => '开局携带『祝福宝石』',
+		//'desc_skills' => '「网瘾」：使用移动PC解除禁区成功率为95%，且完全无风险',
+		'energy' => 100,
+		'valid' => array(
+			'itm6' => '『祝福宝石』',
+			'itmk6' => 'Y',
+			'itme6' => '1',
+			'itms6' => '1',
+			'itmsk6' => '',
+		)
+	),
+	132 => array(
+		'name' => '搬运⑨课',
+		'rare' => 'C',
+		'pack' => 'Top Players',
+		'desc' => '弹幕网站上古时期的一群知名UP主，<br>也是这个游戏最早的一批玩家',
+		'effect' => '看看弹幕的力量！',
+		'desc_skills' => '开局携带10颗重装弹药',
+		'energy' => 0,
+		'valid' => array(
+			'itm6' => '重装弹药',
+			'itmk6' => 'GBh',
+			'itme6' => '1',
+			'itms6' => '10',
+			'itmsk6' => '',
+		)
+	),
+	133 => array(
+		'name' => '777',
+		'rare' => 'B',
+		'pack' => 'Top Players',
+		'desc' => '桃箱服的提供者，为常磐系大逃杀的延续赌上了自己的备案',
+		'effect' => '开局携带「背岸之盾」',
+		'desc_skills' => '「背岸之盾」：拥有777防御的随机单防手部防具',
+		'energy' => 100,
+		'valid' => array(
+			'ara' => '背岸之盾',
+			'arak' => 'DA',
+			'arae' => '777',
+			'aras' => '77',
+			'arask' => Array('P','K','G','C','D','F','U','I','E','q','W','R'),
+		)
+	),
+	134 => array(
+		'name' => '我是高达',
+		'rare' => 'C',
+		'pack' => 'Top Players',
+		'desc' => '这是什么？是尸体，凸一下',
+		'effect' => '尸体为什么会有无敌时间呢？',
+		'desc_skills' => '开局携带凸眼鱼',
+		'energy' => 0,
+		'valid' => array(
+			'itm6' => '凸眼鱼',
+			'itmk6' => Array('HB','HS','HH','PB','PH','PS'),
+			'itme6' => '120',
+			'itms6' => '5',
+			'itmsk6' => '',
+		)
+	),
 	
-	
-	//这里怎么有10张卡的空白
-	
+	//10张卡的空白结束了
 	135 => array(
 		'name' => '旋风管家',
 		'rare' => 'A',
