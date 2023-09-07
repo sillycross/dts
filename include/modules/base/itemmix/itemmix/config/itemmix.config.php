@@ -419,6 +419,7 @@ $mixinfo = array
 	array('class' => 'hidden', 'stuff' => array('歌词卡片【海洋】','歌词卡片【大地】','歌词卡片【星空】'),'result' => array('破灭之诗','Y',1,1,95),),
 	array('class' => 'hidden', 'stuff' => array('矿泉水','面包','女生校服'),'result' => array('Untainted Glory','A',1,1,'Z'),),
 	array('class' => 'hidden', 'stuff' => array('矿泉水','面包','男生校服'),'result' => array('Untainted Glory','A',1,1,'Z'),),
+	array('class' => 'hidden', 'stuff' => array('「空想道具」','「空想道具」'),'result' => array('「空想道具」','X',1,1,'z'),),
 	array('class' => 'hidden', 'stuff' => array('COCO☆酱','YES♂SIR','鼓舞士气的头带'),'result' => array('FFF团集体出动','WG',100000,998,'BbdcN'),),
 	array('class' => 'hidden', 'stuff' => array('武神之魂','琉璃血'),'result' => array('『C.H.A.O.S』','Y',1,1,),'karma1'=>'-500','karma2'=>'2000',),
 	array('class' => 'hidden', 'stuff' => array('《黑熊语录》','琉璃血'),'result' => array('『C.H.A.O.S』','Y',1,1,),'karma1'=>'-500','karma2'=>'2000',),

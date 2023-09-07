@@ -113,7 +113,7 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 	{
 		$para1= ('all' == $para1) ? $para1 : (int)$para1;//过滤
 		$upos = room_upos_check($roomdata);
-		if($para1 == $upos) 
+		if('all' != $para1 && $para1 == $upos) 
 			room_new_chat($roomdata,"<span class=\"red b\">{$cuser}试图操作他自己的位置</span><br>");
 		elseif('all' != $para1 && ($para1 < 0 || $para1 >= room_get_vars($roomdata,'pnum'))) 
 			room_new_chat($roomdata,"<span class=\"red b\">{$cuser}试图操作一个不存在的位置</span><br>");

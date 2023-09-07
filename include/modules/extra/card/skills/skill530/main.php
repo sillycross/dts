@@ -29,7 +29,7 @@ namespace skill530
 	function process_530(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
-		
+		//前置条件
 		if (!\skillbase\skill_query(530)) 
 		{
 			$log.='你没有这个技能。';
@@ -41,11 +41,16 @@ namespace skill530
 			$mode = 'command';
 			$command = '';
 			return;
+		}elseif(!empty($gamevars['skill530_jumped'])){
+			$log.='<span class="red b">这里已经被维度跳跃产生的「慢雾」笼罩，不能再跳跃了。</span><br>';
+			$mode = 'command';
+			$command = '';
+			return;
 		}
 		
 		include_once './include/roommng/room.func.php';
-		//第一步，获取适用的房间
-		$result = $db->query("SELECT groomid,gametype FROM {$gtablepre}game WHERE groomid != '$room_id' AND groomstatus>=40 AND gamestate >= 10 AND gamestate < 30");
+		//第一步，获取适用的房间：房间开启且游戏已开放，但不判定连斗（就算连斗也能空降过去），房间类别合适，且不存在同名玩家
+		$result = $db->query("SELECT groomid,gametype FROM {$gtablepre}game WHERE groomid != '$room_id' AND groomstatus>=40 AND gamestate > 10");
 		$gamepool = Array();
 		while($rarr = $db->fetch_array($result)){
 			if(!in_array($rarr['gametype'], Array(1, 15, 17))) {//不会空降到除错、伐木、教程房
@@ -127,6 +132,10 @@ namespace skill530
 		$room_id = $o_room_id;
 		$room_prefix = room_id2prefix($room_id);
 		$tablepre = room_get_tablepre();
+		
+		//设置全局变量，记录本局游戏已经有玩家跳跃过一次了
+		$gamevars['skill530_jumped'] = 1;//设一个全局变量
+		save_gameinfo();
 		
 		//第四步，自杀@v@
 		
