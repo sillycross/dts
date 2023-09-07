@@ -15,7 +15,7 @@ namespace skill519
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		\skillbase\skill_setvalue(519,'lastrev',$now,$pa);
+		\skillbase\skill_setvalue(519,'lastrev',0,$pa);//开局就可使用
 	}
 
 	function lost519(&$pa)

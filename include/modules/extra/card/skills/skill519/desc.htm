@@ -10,6 +10,8 @@ $clubskillname[$___TEMP_SKILL_ID]
 <!--{eval $skill519_lst = (int)\skillbase\skill_getvalue(519,'lastrev',$who); $skill519_time = ($now-$skill519_lst); $skill519_rem = $skill519_cd - $skill519_time;}-->
 <!--{if $skill519_time<$skill519_cd}-->
 <span class="red b">技能冷却中，冷却时间还剩<span>$skill519_rem</span>秒。</span><br>
+<!--{else}-->
+<span class="cyan b">技能冷却完毕。</span><br>
 <!--{/if}-->
 </span></td>
 <td class="skilldesc_right b3">

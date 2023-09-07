@@ -114,9 +114,21 @@ namespace instance5
 			if ($itm == '伐木解除钥匙') 
 			{
 				if(15==$gametype) {
-					$url = 'end.php';
 					addnews ( $now, 'itemuse', $name, $itm );
-					\sys\gameover ( $now, 'end8', $name );
+					if(defined('MOD_SKILL313')){
+						if(\skillbase\skill_getvalue(313, 'max_money', $sdata) < 30000) {//伐木无法完成任何一个成就会变成死亡
+							$log .= '钥匙突然跳了起来，给了你两个大逼兜子：<br><span class="yellow b">“踏马的，没钱你装什么逼？”</span><br>你稀里糊涂地倒了下去。<br>';
+							$state = 47;
+							$sdata['sourceless'] = 1; 
+							\player\kill($sdata,$sdata);
+							return;
+						}
+					}
+					if($hp > 0) {
+						$url = 'end.php';
+					
+						\sys\gameover ( $now, 'end8', $name );
+					}
 				}else{
 					$log .= '这玩意究竟是怎么冒出来的呢？<br>';
 					$mode = 'command';
@@ -151,6 +163,17 @@ namespace instance5
 			}
 		}
 		return $ret;
+	}
+	
+	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())	
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player'));
+		if($news == 'death47') 
+		{
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red b\">{$a}被「伐木解除钥匙」殴打致死</span></li>";
+		}
+		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 }
 

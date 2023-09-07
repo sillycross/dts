@@ -138,7 +138,7 @@ if($mode == 'enter') {
 } else {
 	extract($udata);
 	
-eval(import_module('cardbase'));
+	eval(import_module('cardbase'));
 	
 	$result = $db->query("SELECT * FROM {$tablepre}players WHERE name = '$cuser' AND type = 0");
 	if($db->num_rows($result)) {

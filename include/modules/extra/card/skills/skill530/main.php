@@ -151,7 +151,6 @@ namespace skill530
 		$hp = 0;
 		$state = 46;
 		$sdata['sourceless'] = 1; 
-		$sdata['attackwith'] = $itm;
 		\player\kill($sdata,$sdata);
 		
 		//第五步，修改cookie的房间号
