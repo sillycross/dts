@@ -32,7 +32,7 @@ namespace skill213
 		$chprocess($pa,$pd,$active);
 		
 		eval(import_module('lvlctl'));
-		if (($pa['physical_dmg_dealt'] <= 0)&&(\skillbase\skill_query(213,$pa))&&(check_unlocked213($pa))&&(\weapon\get_skillkind($pa,$pd,$active) == 'wd')) //如果没有伤害，则获得1点经验
+		if ((!empty($pa['physical_dmg_dealt']) && $pa['physical_dmg_dealt'] <= 0)&&(\skillbase\skill_query(213,$pa))&&(check_unlocked213($pa))&&(\weapon\get_skillkind($pa,$pd,$active) == 'wd')) //如果没有伤害，则获得1点经验
 			\lvlctl\getexp(\weapon\calculate_attack_exp_gain($pa, $pd, $active, 1), $pa);//这样可以享受经验加成
 //			\lvlctl\getexp(1,$pa);
 	}

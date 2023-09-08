@@ -1,5 +1,5 @@
 <!--{eval eval(import_module('skill73'));}-->
-<!--{eval $ragecost = \skill73\get_rage_cost73();}-->
+<!--{eval $ragecost = \skill73\get_rage_cost73($who);}-->
 <!--{eval $___TEMP_SKILL_ID=73;}-->
 {template MOD_CLUBBASE_SKILLDESC_START}
 <span>
@@ -7,7 +7,7 @@
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class="skilldesc_left b3"><span class="skilldesc">
-<!--{if $club==9}--><span class="yellow b">战斗技</span>&nbsp;&nbsp;本次攻击造成物理伤害<span class="yellow b">×2</span><br>消耗<span class="yellow b">$ragecost</span>点怒气，<span class="yellow b">集气</span>属性会额外返还<span class="yellow b">15</span>点怒气<!--{else}--><span class="yellow b">战斗技</span>&nbsp;&nbsp;本次攻击造成物理伤害<span class="yellow b">×2</span>，消耗<span class="yellow b">$ragecost</span>点怒气<!--{/if}-->
+<!--{if $who['club']==9}--><span class="yellow b">战斗技</span>&nbsp;&nbsp;本次攻击造成物理伤害<span class="yellow b">×2</span><br>消耗<span class="yellow b">$ragecost</span>点怒气，<span class="yellow b">集气</span>属性会额外返还<span class="yellow b">15</span>点怒气<!--{else}--><span class="yellow b">战斗技</span>&nbsp;&nbsp;本次攻击造成物理伤害<span class="yellow b">×2</span>，消耗<span class="yellow b">$ragecost</span>点怒气<!--{/if}-->
 </span></td>
 <td class="skilldesc_right b3">
 </td>

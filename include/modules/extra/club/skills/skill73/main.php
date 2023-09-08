@@ -33,7 +33,7 @@ namespace skill73
 		if ($pa===NULL)
 		{
 			eval(import_module('player'));
-			$clb=$club;
+			//$clb=$club;
 		}
 		else  $club=$pa['club'];
 		return ($club==9?40:85);

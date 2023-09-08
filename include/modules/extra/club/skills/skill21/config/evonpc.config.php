@@ -405,6 +405,7 @@ namespace skill21
 				'mode' => 3,
 				'skill' => 200,
 				'money' => 46666,
+				'skills' => array('461'=>'1'),
 				'wep' => '超⑨制霸武神斩',
 				'wepk' => 'WK',
 				'wepe' => 150,

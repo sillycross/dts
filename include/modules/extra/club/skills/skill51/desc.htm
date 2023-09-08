@@ -10,7 +10,7 @@
 <!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}--><span style="height:8px; display:block;">&nbsp;</span><!--{/if}-->
 持投系武器时物理伤害<span class="yellow b">+2x%</span>，其中<span class="yellow b">x</span>是你发动“<span class="yellow b">附魔</span>”的次数<br>
 <!--{if !empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
-<!--{eval $sk51cadd=\skill51\get_skill51_multiplier($sdata);}-->
+<!--{eval $sk51cadd=\skill51\get_skill51_multiplier($who);}-->
 当前情况：持投系武器时，你造成的物理伤害将<span class="yellow b">+$sk51cadd%</span>
 <!--{/if}-->
 <!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}--><span style="height:8px; display:block;">&nbsp;</span><!--{/if}-->
@@ -20,7 +20,7 @@
 {template MOD_CLUBBASE_SKILLDESC_MID2}
 <!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
-<!--{eval $sk51progress=\skill51\get_skill48_maxbuff($sdata);}-->
+<!--{eval $sk51progress=\skill51\get_skill48_maxbuff($who);}-->
 “附魔”中最高的属性伤害加成达到120%时解锁<br>
 <span class="cyan b">当前进度$sk51progress/120</span>
 </span>

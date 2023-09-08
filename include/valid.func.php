@@ -1,7 +1,7 @@
 <?php
 
 //玩家进入战场的主函数，由于是老代码而且涉及很多用户输入，就保留文件位置
-function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
+function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip='')
 {
 	include_once GAME_ROOT.'./include/user.func.php';
 	eval(import_module('sys'));
@@ -21,7 +21,8 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0)
 		'type' => 0,
 		'endtime' => $now,
 		'validtime' => $now,
-		'sNo' => $validnum
+		'sNo' => $validnum,
+		'ip' => $ip
 	);
 	$eb_pdata['hp'] = $eb_pdata['mhp'] = $hplimit;
 	$eb_pdata['sp'] = $eb_pdata['msp'] = $splimit;

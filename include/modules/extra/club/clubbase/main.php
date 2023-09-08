@@ -187,8 +187,10 @@ namespace clubbase
 		$id=(int)$id;
 		
 		$func = 'skill'.$id.'\\check_unlocked'.$id;
-		eval(import_module('player'));
-		if(!$who) $who = $sdata;
+		if(!$who) {
+			eval(import_module('player'));
+			$who = $sdata;
+		}
 		return $func($who);
 	}
 	
@@ -411,6 +413,7 @@ namespace clubbase
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player','skillbase','clubbase'));
 		$___TEMP_inclist = Array();
+		//传入npc数组
 		$who = $pn;
 		foreach (\skillbase\get_acquired_skill_array($pn) as $key) {
 			//第一层，屏蔽成就、战斗技、主动技、限制技、隐藏技能、除天赋、亡灵之外的称号特性
@@ -430,6 +433,7 @@ namespace clubbase
 		//file_put_contents('a.txt', var_export($pn,1));
 		//为了显示正确的技能等级，在显示前移花接木一下
 		//$sdata的替换，这一步只是换容器，不会影响传引用
+		//技能页面如果用的是$who而不是$sdata则原则上不会有这个问题的，但是……
 		$o_sdata = $sdata;
 		$sdata = $pn;
 		//$parameter_list的替换
