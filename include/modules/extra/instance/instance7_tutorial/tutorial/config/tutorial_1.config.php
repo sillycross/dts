@@ -107,7 +107,12 @@ $tutorial_story[1] = Array(
 			'itmk' => Array('Ca','Cp'),
 		),
 		'pulse' => ".itmsingle :contains('解毒剂') __BUTTON__",
-		'prog' => '“如果已经处理完了，请随便执行一次行动。”<br>',
+		
+		'prog' => Array(
+		'inf!=p' => '“如果已经处理完了，请随便执行一次行动。”<br>',
+		'hp<mhp*0.5' => '“中毒后每次探索和移动都会损失生命值，务必及时<span class="lime b">回复生命</span>。”<br>',
+		'“如果你提前把解毒剂炫完了，那就到处搜索一下吧，路边偶尔是能出现解毒剂的。”<br>'
+		),
 		'next' => 1300
 	),
 	1300 => Array(
@@ -356,7 +361,7 @@ $tutorial_story[1] = Array(
 		'next' => 3400	
 	),
 	3400 => Array(
-		'tips' => '“成功了！现在你在武器上已经有优势了。不过，要发挥武器的最大威力，还需要你提升对应的<span class="yellow b">【武器熟练度】</span>。<br><span class="yellow b">使用武器作战</span>是提升对应的熟练度的主要途径，也就是熟能生巧；不过，也有一些道具能快速提升熟练度。<br><br>先回到<span class="yellow b">【商店】</span>所在的地图吧。”<br>',
+		'tips' => '“成功了！<br>【红杀铁剑·雷击】不只是效果值更高了，它拥有的<span class="yellow b">电击</span>和<span class="red b">火焰</span>属性也能造成额外的伤害，<span class="white b">碎甲</span>属性更能够迅速破会对方的防具。强大的武器往往具有一系列能造成伤害的属性。<br>现在你在武器上已经有优势了，不过，要发挥武器的最大威力，还需要你提升对应的<span class="yellow b">【武器熟练度】</span>。<br><span class="yellow b">使用武器作战</span>是提升对应的熟练度的主要途径，也就是熟能生巧；不过，也有一些道具能快速提升熟练度。<br><br>先回到<span class="yellow b">【商店】</span>所在的地图吧。”<br>',
 		'object' => 'move',
 		'obj2' => Array('shop'),
 		'pulse' => Array('#wk','#wkv','#moveto'),
