@@ -14,7 +14,7 @@ namespace ex_phy_def
 		'D' => 'D',
 		'F' => 'F',
 		'J' => 'G',//重枪当做射系
-		'B' => 'c'//弓当做投系
+		'B' => 'C'//弓当做投系
 	);
 	
 	function init() 

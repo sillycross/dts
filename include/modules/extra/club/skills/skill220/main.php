@@ -25,6 +25,22 @@ namespace skill220
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return 1;
 	}
+	
+	//毒师技能改成常时生效
+	function parse_itmk_words($k_value, $reveal=0)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($k_value, $reveal);
+		if('game' == CURSCRIPT) {//parse_itmk_words()函数较为底层，被大量调用，限制只在游戏中进行本技能的判定
+			eval(import_module('player'));
+			if(!$reveal && !empty($sdata) && \skillbase\skill_query(220, $sdata)){
+				if(strpos($k_value, 'P')===0) {
+					$ret = '<span class="purple b">'.parse_itmk_words($k_value, 1).'</span>';
+				}
+			}
+		}
+		return $ret;
+	}
 
 	function pcheck($itmn){
 		if (eval(__MAGIC__)) return $___RET_VALUE;

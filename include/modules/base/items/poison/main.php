@@ -120,7 +120,9 @@ namespace poison
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','input'));
-		if ( $itmp < 1 || $itmp > 6 ) {
+		
+		//竟然是直接从input里传入$itmp，有点危险
+		if ( $itmp < 1 || $itmp > 6 || $itmn < 1 || $itmn > 6) {
 			$log .= '此道具不存在，请重新选择。';
 			$mode = 'command';
 			return;
@@ -130,11 +132,7 @@ namespace poison
 		$poisone = & ${'itme'.$itmp};
 		$poisons = & ${'itms'.$itmp};
 		$poisonsk = & ${'itmsk'.$itmp};
-		if ( $itmn < 1 || $itmn > 6 ) {
-			$log .= '此道具不存在，请重新选择。';
-			$mode = 'command';
-			return;
-		}
+
 		$itm = & ${'itm'.$itmn};
 		$itmk = & ${'itmk'.$itmn};
 		$itmsk = & ${'itmsk'.$itmn};

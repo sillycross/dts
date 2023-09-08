@@ -108,11 +108,11 @@ namespace ex_phy_nullify
 		return $chprocess($theitem);
 	}
 	
-	//物抹属性打宝石有大概率失败
+	//物抹属性的防具打宝石有大概率失败（其他类型不受影响）
 	function geming_objvalid($t1, $itm, $itmk, $itme, $itms ,$itmsk){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($t1, $itm, $itmk, $itme, $itms ,$itmsk);
-		if($ret && \itemmain\check_in_itmsk('B', $itmsk)) {
+		if($ret && \itemmain\check_in_itmsk('B', $itmsk) && strpos($itmk, 'D')===0) {
 			eval(import_module('logger'));
 			$pa = $pd = Array();
 			$proc_rate = get_ex_phy_nullify_proc_rate($pa, $pd, 0);

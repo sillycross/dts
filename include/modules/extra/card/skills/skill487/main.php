@@ -72,6 +72,7 @@ namespace skill487
 		$theitem['itmsk'] = &$pa['itmsk'.$item]; 
 		eval(import_module('logger'));
 		$tmp_hp = $pa['hp'];
+		$tmp_itm = $theitem['itm'];
 		$delflag = 0;
 		$tmp_log = $log;//拦截log
 		$i = 0;
@@ -84,7 +85,7 @@ namespace skill487
 				\edible\itemuse_edible($theitem);
 				$ignore_tmp_log = 1;
 			}elseif(strpos($theitem['itmk'],'P') === 0){
-				$log .= "你紧急服用了{$theitem['itm']}。";
+				$log .= "你紧急服用了{$tmp_itm}。";
 				\poison\itemuse($theitem);
 				$delflag = 1;
 				break;
@@ -100,7 +101,7 @@ namespace skill487
 		}
 		if($pa['hp'] > $tmp_hp) {
 			$hpup = $pa['hp'] - $tmp_hp;
-			$log .= "幸好你留有后手，紧急服用了{$i}个{$theitem['itm']}，<span class='lime b'>回复了{$hpup}点生命！</span>";
+			$log .= "幸好你留有后手，紧急服用了{$i}个{$tmp_itm}，<span class='lime b'>回复了{$hpup}点生命！</span>";
 		}
 		return $i;
 	}
@@ -262,6 +263,17 @@ namespace skill487
 			set_hlist487($hlist, $pa);
 		}
 		return $ret;
+	}
+	
+	//下毒后把被下毒的道具从列表里删除
+	function poison($itmn = 0) 
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($itmn);
+		if( \skillbase\skill_query(487)) {
+			eval(import_module('player'));
+			del_hlist487($itmn, $sdata);
+		}
 	}
 	
 	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())

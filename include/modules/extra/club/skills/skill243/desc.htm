@@ -9,9 +9,9 @@
 <!--{eval eval(import_module('ex_phy_def'));}-->
 <!--{eval $def_kind0 = $def_kind;}-->
 <!--{eval eval(import_module('ex_dmg_def'));}-->
-<!--{eval $def_kind = array_merge($def_kind, $def_kind0);}-->
-<!--{eval $def_kind[] = 'R';}-->
-<!--{loop $def_kind $key $value}-->
+<!--{eval $def_kind0 = array_merge($def_kind, $def_kind0);}-->
+<!--{eval $def_kind0[] = 'R';}-->
+<!--{loop $def_kind0 $key $value}-->
 <!--{eval if (strpos($sk243l,$value)!==false) $sk243list.=$itemspkinfo[$value].' ';}-->
 <!--{eval $sk243l=str_replace($value,'',$sk243l);}-->
 <!--{/loop}-->
