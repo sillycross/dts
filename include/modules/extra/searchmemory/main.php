@@ -170,7 +170,7 @@ namespace searchmemory
 				if($showlog) {
 					if($marr['smtype'] == 'corpse' )$log .=  '你设法保持对'.$amn.'的尸体的持续观察。<br>';
 					elseif($fog) $log .= '你努力让那个人影保持在视野之内。<br>';
-					else $log .= '你一边躲开，一边设法继续观察着'.$amn.'。<br>';
+					else $log .= '在离开的同时，你设法保持对'.$amn.'的持续观察。<br>';
 				}
 			}
 			//实际加入记忆
@@ -531,7 +531,7 @@ namespace searchmemory
 					}else{
 						$log .= '你看到<span class="lime b">'.$marr['Pname'].'还在原来的位置。</span><br>';
 					}
-					$log .= '你决定暂时不去惊动对方。<br>';
+					if('corpse' != $marr['smtype']) $log .= '你决定暂时不去惊动对方。<br>';
 					add_memory_core($marr);
 				}else{
 					if($fog && 'corpse' != $marr['smtype']){

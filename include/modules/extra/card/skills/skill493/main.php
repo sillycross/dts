@@ -59,7 +59,8 @@ namespace skill493
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa, $pd, $active, $skillup);
 		if (\skillbase\skill_query(493,$pa) && check_unlocked493($pa)) {
-			$pa['skill493_o_skillup'] = $ret;
+			if(empty($pa['skill493_o_skillup'])) $pa['skill493_o_skillup'] = 0;
+			$pa['skill493_o_skillup'] += $ret;
 			$ret = 0;
 		}
 		return $ret;
@@ -71,7 +72,8 @@ namespace skill493
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa, $pd, $active, $expup);
 		if (\skillbase\skill_query(493,$pa) && check_unlocked493($pa)) {
-			$pa['skill493_o_expup'] = $ret;
+			if(empty($pa['skill493_o_expup'])) $pa['skill493_o_expup'] = 0;
+			$pa['skill493_o_expup'] += $ret;
 			$ret = 0;
 		}
 		return $ret;

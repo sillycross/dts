@@ -174,8 +174,16 @@ namespace enemy
 			}
 			
 			\player\update_sdata();
-			$ldata=$sdata;
-			battle_wrapper($ldata,$edata,1);
+			
+			//$ldata=$sdata;
+			//battle_wrapper($ldata,$edata,1);
+			
+			//如上，这里原本是把$sdata复制了一个$ldata，然后把$ldata传入battle_wrapper()，合理推测是早期代码担心$sdata被污染导致player_save()的时候出现莫名其妙的问题
+			//由于$ldata与$sdata不是完全的引用关系（$sdata的元素大多数是引用，$ldata复制的这些引用也保持引用关系，但$ldata建立后赋值的元素就不是引用关系了）
+			//会导致一些诡异的问题（比如给$pa赋值的变量诡异地丢失）
+			//由于被敌方玩家先制时是直接传$sdata的，而且player_save()现在也有兜底代码了，就改成直接传$sdata进去吧
+			//反正查出有BIG就给玩家发奖励就是了……2023.09.09
+			battle_wrapper($sdata,$edata,1);
 			return;
 		}
 		$chprocess();
