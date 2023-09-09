@@ -70,7 +70,8 @@ namespace skill23
 		'黑色方块' => Array(
 			'W' => Array(
 				Array(1,'B'),
-				Array(5,'n')
+				Array(5,'n'),
+				Array(5,'y')
 			),
 			'D' => Array(
 				Array(35,'g'),
@@ -80,7 +81,8 @@ namespace skill23
 		'白色方块' => Array(
 			'W' => Array(
 				Array(1,'b'),
-				Array(5,'N')
+				Array(5,'N'),
+				Array(5,'L')
 			),
 			'D' => Array(
 				Array(35,'l'),
@@ -177,9 +179,10 @@ namespace skill23
 				Array(5,'t'),
 				Array(5,'f'),
 				Array(5,'k'),
-				Array(6,'n'),
-				Array(6,'N'),
-				Array(8,'c'),
+				Array(5,'n'),
+				Array(5,'N'),
+				Array(5,'y'),
+				Array(5,'c'),
 				Array(12,'u'),
 				Array(12,'i'),
 				Array(12,'p'),

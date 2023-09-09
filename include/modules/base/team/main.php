@@ -34,10 +34,11 @@ namespace team
 		return (!$fog && team_available());
 	}
 	
-	//判定队伍是否生效（要求非连斗）
+	//判定队伍是否生效（要求非连斗，或者组队模式）
 	function team_available(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return !\gameflow_combo\is_gamestate_combo();
+		eval(import_module('sys'));
+		return (!\gameflow_combo\is_gamestate_combo() || in_array($gametype,$teamwin_mode));
 	}
 	
 	//识别队友
