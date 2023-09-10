@@ -24,6 +24,8 @@ namespace radar
 	//4:感应生命探测器，可以看所有地图，并可以知道电波幽灵、全息实体、DF、英灵殿NPC的位置和名字
 	//5:避难所生命探测器，可以看所有地图，每次使用后15s自己在当前地图的先制率+3%
 	
+	//
+	
 	function use_radar($radarsk = 0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
