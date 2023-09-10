@@ -684,22 +684,22 @@ function merge_split_paren_adv($find_str, $find_type, $subject, &$find_offset=NU
 //用$replacement（代码块字符串）替换$subject里的第一个$chprocess()
 //并非简单替换，要在$chprocess()所在行的前一行先给$ret赋值，然后用$ret_varname替换$chprocess()
 //为了正常运行，需要先给单行代码块加花括号
-function merge_replace_chprocess($ret_varname, $replacement, $subject, $modname, $funcname=NULL){
+function merge_replace_chprocess($ret_varname, $replacement, $subject, $modname, $funcname=NULL, $funcvarsarr=Array()){
 	//获得三段
 	list($ret_behind, $ret_middle, $ret_ahead) = merge_add_braces('/(\$chprocess)/s', array(T_VARIABLE), $subject);
 	if(empty($ret_middle)) return $ret_behind;
 	
-	//把作为下一个函数参数的变量提取并排除
+	//提取子函数传参
 	list($ret_a, $ret_b, $ret_c, $ret_d, $ret_e) = merge_split_paren_adv('$chprocess', T_VARIABLE, $ret_middle);
-	$func_vars_arr = explode(',', $ret_d);
-	foreach($func_vars_arr as &$fval){
+	$chp_args_arr = explode(',', $ret_d);
+	foreach($chp_args_arr as &$fval){
 		$fval = trim($fval);
 	}
 	//需要在$chprocess()之前暂存变量，执行完后把变量写回来
 	//思路：识别出$ret_behind里面的本地变量，之后将$replacement里有同名变量的那些变量暂存，其他变量不管
 	$this_im_variables = merge_get_imported_variables($ret_behind);
 	$this_gl_variables = merge_get_global_variables($ret_behind);
-	$exceptions = array_merge($this_im_variables, $this_gl_variables, $func_vars_arr);
+	$exceptions = array_merge($this_im_variables, $this_gl_variables, $chp_args_arr);
 	list($local_variables, $local_variables_ref) = merge_get_local_variables($ret_behind, $exceptions, true);
 	list($replacement_variables, $replacement_variables_ref) = merge_get_local_variables($replacement, array(), true);
 	foreach($replacement_variables_ref as &$rfval){//$replacement里只判定变量名，无视是否是引用
@@ -707,12 +707,31 @@ function merge_replace_chprocess($ret_varname, $replacement, $subject, $modname,
 	}
 	$vdc_behind = $vdc_ahead = '';
 	$dumped_list = array();
+	//2023.09.10修改：在开启了$___MOD_CODE_COMBINE之后，需要防止子函数对传入变量修改而污染父函数变量		
+	//因此，非引用的传参也必须暂存，但不能unset，另行处理吧
+	
+	//先判定引用类的传参
+	$chp_args_arr_exceptions = Array();
+	$c = count($funcvarsarr);
+	for($i=0; $i < $c; $i++){
+		if(!empty($funcvarsarr[$i]['ref'])) {
+			$chp_args_arr_exceptions[] = $funcvarsarr[$i]['name'];
+		}
+	}
+	//然后处理
+	foreach($chp_args_arr as $lval){
+		if(empty($lval) || in_array($lval, $dumped_list) || in_array($lval, $chp_args_arr_exceptions)) continue;
+		$dump_name = '$__VAR_DUMP_MOD_'.$modname.'_VARS_'.substr($lval, 1);
+		$vdc_behind .= 'if(isset('.$lval.')) {'.$dump_name.' = '.$lval.'; } else {'.$dump_name.' = NULL;} ';
+		$vdc_ahead .= ''.$lval.' = '.$dump_name.'; ';
+		$dumped_list[] = $lval;
+	}
 	//引用变量优先级更高
 	foreach($local_variables_ref as $lval){
 		//$ori_name = $lval[1];
 		$lval = $lval[0];
 		if(!in_array($lval, $replacement_variables) || in_array($lval, $dumped_list)) continue;
-		$dump_name = '$__VAR_DUMP_VARS_'.$modname.'_'.substr($lval, 1);
+		$dump_name = '$__VAR_DUMP_MOD_'.$modname.'_VARS_'.substr($lval, 1);
 		$vdc_behind .= 'if(isset('.$lval.')) {'.$dump_name.' = &'.$lval.'; unset('.$lval.'); } else {'.$dump_name.' = NULL;}';
 		$vdc_ahead .= ''.$lval.' = &'.$dump_name.'; ';
 		$dumped_list[] = $lval;
@@ -720,7 +739,7 @@ function merge_replace_chprocess($ret_varname, $replacement, $subject, $modname,
 	//通常变量
 	foreach($local_variables as $lval){
 		if(!in_array($lval, $replacement_variables) || in_array($lval, $dumped_list)) continue;
-		$dump_name = '$__VAR_DUMP_VARS_'.$modname.'_'.substr($lval, 1);
+		$dump_name = '$__VAR_DUMP_MOD_'.$modname.'_VARS_'.substr($lval, 1);
 		$vdc_behind .= 'if(isset('.$lval.')) {'.$dump_name.' = '.$lval.'; unset('.$lval.'); } else {'.$dump_name.' = NULL;} ';
 		$vdc_ahead .= ''.$lval.' = '.$dump_name.'; ';
 		$dumped_list[] = $lval;
@@ -1019,7 +1038,7 @@ function merge_contents_calc($modid)
 			if(!empty($tmp_stored_contents)){
 				//如果有暂存内容，则先用暂存内容替换节点内容里的$chprocess
 				//节点函数有两个以上$chprocess的情况下，不存在暂存内容，所以不用考虑
-				$contents = merge_replace_chprocess($___TEMP_last_ret_varname[$key], $tmp_stored_contents, $contents, $modn[$modid], $key);
+				$contents = merge_replace_chprocess($___TEMP_last_ret_varname[$key], $tmp_stored_contents, $contents, $modn[$modid], $key, $___TEMP_func_contents[$modid][$key]['vars']);
 				unset($tmp_stored_contents);
 			}
 			//将本函数内容里的$chprocess替换为上一个节点
@@ -1096,11 +1115,11 @@ function merge_contents_calc($modid)
 		}
 		else//该函数的父函数只有1个chprocess，对该函数的内容处理以后作暂存，清空该函数内容
 		{			
-			//参数处理
+			//参数处理，主要是调用子函数的变量名和子函数传参的定义名不同的情况
 			list($null, $null, $null, $parent_chpvars, $null) = merge_split_paren_adv('$chprocess', T_VARIABLE, $parent_func_contents['contents']);
 			$parent_varname_change = '';
 			$vars_varname_list = array();
-			$parent_vars_inherit_list = array();//记录继承的父函数变量名，后面变量改名需要豁免
+			$parent_vars_inherit_list = array();//记录继承的父函数变量名，后面变量改名需要豁免 //好像最后没用上
 			if(!empty($parent_chpvars)){
 				$vars_arr = $___TEMP_func_contents[$modid][$key]['vars'];
 				$parent_chpvars = explode(',',$parent_chpvars);
@@ -1154,7 +1173,7 @@ function merge_contents_calc($modid)
 			
 			//return处理			
 			//开头初始化$$ret_varname以避免未初始化的notice
-			$ret_varname = '$'.$modn[$modid].'_'.$key.'_ret';
+			$ret_varname = '$___TMP_MOD_'.$modn[$modid].'_FUNC_'.$key.'_RET';
 			$contents = $ret_varname." = NULL;\r\n".$contents;
 			//之后把return换为$$ret_varname并且加break;
 			$contents = merge_replace_return($ret_varname, $contents);
@@ -1169,7 +1188,7 @@ function merge_contents_calc($modid)
 				$___TEMP_stored_func_contents[$key] = $contents;
 			//$contents里只有1个$chprocess，先用$sfc替换本函数$chprocess，再将本函数全部暂存
 			} else {
-				$___TEMP_stored_func_contents[$key] = merge_replace_chprocess($___TEMP_last_ret_varname[$key], $___TEMP_stored_func_contents[$key], $contents, $modn[$modid], $key);
+				$___TEMP_stored_func_contents[$key] = merge_replace_chprocess($___TEMP_last_ret_varname[$key], $___TEMP_stored_func_contents[$key], $contents, $modn[$modid], $key, $___TEMP_func_contents[$modid][$key]['vars']);
 			}
 			
 			//本函数内容清空，只留跳转
