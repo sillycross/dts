@@ -80,6 +80,16 @@ namespace sklearn_util
 		else $str = '';
 		return $str;
 	}
+	
+	//学习类技能遗忘原技能的共用函数，如果原技能同时也是当前称号的技能，那么不遗忘
+	//虽然跟显示学习界面没有关系，但是学习类技能都会继承这个模块的吧，就也放在这里吧
+	//暂时应该只有窃取用到了这个函数（学习、灵感和家教都不会学到自己称号的技能）
+	function sklearn_skill_lost($skillid){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player','clubbase'));
+		if(!empty($club) && in_array($skillid, $clublist[$club]['skills'])) return;
+		\skillbase\skill_lost($skillid);
+	}
 }
 
 ?>

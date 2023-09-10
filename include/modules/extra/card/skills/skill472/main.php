@@ -65,7 +65,7 @@ namespace skill472
 			return;
 		}
 		if (((int)\skillbase\skill_getvalue(472,'l'))!=0)
-			\skillbase\skill_lost((int)\skillbase\skill_getvalue(472,'l'));
+			\sklearn_util\sklearn_skill_lost((int)\skillbase\skill_getvalue(472,'l'));
 
 		\skillbase\skill_setvalue(472,'l',$skillpara1);
 		\skillbase\skill_acquire($skillpara1);
