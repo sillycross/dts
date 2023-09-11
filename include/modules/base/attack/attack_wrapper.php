@@ -266,6 +266,7 @@ namespace attack
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		player_damaged_enemy($pa,$pd,$active);
 		post_player_damaged_enemy_event($pa,$pd,$active);
+//这是废弃的更改，不需要每一次都记录wep_kind，仅在有必要的时候（比如双系武器）进行记录
 //		$pa_o_wepkind = $pa['wep_kind'];
 //		$pd_o_wepkind = $pd['wep_kind'];
 		if ($pd['hp']<=0){

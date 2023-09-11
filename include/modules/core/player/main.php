@@ -168,6 +168,8 @@ namespace player
 		return $data;
 	}
 	
+	//根据输入的$pdata的值，重置$sdata以及player命名空间下的所有变量
+	//这个过程中不是player表的字段会丢失
 	//注意！全局变量$sdata虽然是个数组，但是其中的每一个键值都是引用，单纯复制这个数组会导致引用问题！
 	function load_playerdata($pdata)//其实最早这个函数是显示用的
 	{
@@ -550,7 +552,7 @@ namespace player
 		$lwname = $typeinfo [$pd['type']] . ' ' . $pd['name'];
 		$lstwd = \player\get_player_lastword($pd);
 		\sys\addchat(3, $lstwd, '【'.$plsinfo[$pd['pls']].'】 '.$lwname);
-		if ($pd['sourceless']) $x=''; else $x=$pa['name'];
+		if (!empty($pd['sourceless'])) $x=''; else $x=$pa['name'];
 		\sys\addnews ( $now, 'death' . $pd['state'], $pd['name'], $pd['type'], $x , $pa['attackwith'], $lstwd );
 	}
 	

@@ -199,6 +199,7 @@ namespace itemmain
 				foreach($sk_arr as $sv){
 					if(!in_array($sv,$got)){
 						$skw = get_itmsk_words_single($sv);
+						if(empty($skw)) continue;
 						if(!$i){
 							$ret .= $skw;
 						}elseif($elli && $i >= 3 && $i < $imax-1){
@@ -238,6 +239,7 @@ namespace itemmain
 			if(!empty($sk_arr)){
 				foreach($sk_arr as $sv){
 					$skw = get_itmsk_words_single($sv);
+					if(empty($skw)) continue;
 					$ret .= $skw.'：'.get_itmsk_desc_single($sv).'<br>';
 				}
 				$ret = substr($ret,0,-4);

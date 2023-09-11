@@ -3,6 +3,7 @@
 namespace dualwep
 {
 	//双系武器默认无法发动任何战斗技能，但以下技能可以发动
+	//已修改，双系武器可以发动本系战斗技能
 	$dualwep_allowed_bskill = array();
 	
 	function init() 
@@ -10,6 +11,21 @@ namespace dualwep
 		eval(import_module('itemmain'));
 		global $dualwep_iteminfo;
 		$iteminfo+=$dualwep_iteminfo;
+	}
+	
+	//如果是双系武器，在重置$sdata前后，记录wep_kind变量
+	function load_playerdata($pdata)//其实最早这个函数是显示用的
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!empty(get_sec_attack_method($pdata)) && !empty($pdata['wep_kind'])) {
+			$dw_pdata_o_wep_kind = $pdata['wep_kind'];
+		}
+		$chprocess($pdata);
+		//注意由于这个函数对$pdata是传值，而实际修改的是$sdata，后边这里也得是$sdata
+		if(!empty($dw_pdata_o_wep_kind)) {
+			eval(import_module('player'));
+			$sdata['wep_kind'] = $dw_pdata_o_wep_kind;
+		}
 	}
 	
 	function check_w2_valid($w2, $weps, $orig=0)

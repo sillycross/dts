@@ -161,7 +161,7 @@ namespace attrbase
 		
 		if(empty($ret)){
 			$cinfo = get_comp_itmsk_info($str);
-			if(!empty($cinfo)) {
+			if(!empty($cinfo) && check_comp_itmsk_visible($cinfo)) {
 				eval(import_module('itemmain'));
 				$ret = $itemspkinfo[$cinfo[0]];
 			}
@@ -177,13 +177,19 @@ namespace attrbase
 		
 		if(empty($ret)){
 			$cinfo = get_comp_itmsk_info($str);
-			if(!empty($cinfo)) {
+			if(!empty($cinfo) && check_comp_itmsk_visible($cinfo)) {
 				eval(import_module('itemmain'));
 				$ret = str_replace('<:skn:>', get_itmsk_desc_single_comp_process($cinfo[0], $cinfo[1]), $itemspkdesc[$cinfo[0]]);
 			}
 		}
 		
 		return $ret;
+	}
+	
+	//判定复合属性是否显示
+	function check_comp_itmsk_visible($cinfo){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return true;
 	}
 	
 	//对复合属性数值的处理接口，某些需要调整显示的功能可以继承这个

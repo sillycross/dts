@@ -328,6 +328,7 @@ ex_seckill,extra/attr/ex_seckill/,1
 ex_cursed,extra/attr/ex_cursed/,1
 ex_def_down,extra/attr/ex_def_down/,1
 ex_armor_crack,extra/attr/ex_armor_crack/,1
+ex_attr_digit,extra/attr/ex_attr_digit/,1
 weather,base/weather/,1
 npcinfo,extra/misc/npcinfo/,1
 skill502,extra/card/skills/skill502/,1

@@ -186,7 +186,7 @@ namespace npcchat
 		//复活了别说话
 		if(!empty($pd['npc_revived'])) $npcchat_pdflag = 0;
 		//没打中别说话，否则太话痨了
-		if($pa['dmg_dealt'] <= 0) $npcchat_pdflag = 0;
+		if(empty($pa['dmg_dealt']) && $pa['dmg_dealt'] <= 0) $npcchat_pdflag = 0;
 		if ($pd['type'] && $pd['hp']>0 && $npcchat_pdflag) npcchat($pa, $pd, $active, 'battle');
 	}
 	
