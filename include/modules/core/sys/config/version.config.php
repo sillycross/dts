@@ -1,6 +1,6 @@
 <?php
 //游戏版本
-$gameversion = 'N.E.W. v1.14.03';
+$gameversion = 'N.E.W. v1.14.04';
 //版权信息
 $gamecredits = <<<GAMECREDITS
 	<a href="https://github.com/winddramon/dts/">DTS $gameversion developed by sillycross, Lein, Yoshiko_G</a><br>
