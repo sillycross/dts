@@ -65,6 +65,7 @@ skill3,base/skills/skill3/,1
 item_uv,base/items/item_uv/,1
 npcchat_bubble,extra/misc/npcchat_bubble/,1
 skill1000,extra/instance/instance7_tutorial/skill1000/,1
+skill533,extra/card/skills/skill533/,1
 skill11,extra/club/skills/skill11/,1
 skill10,extra/club/skills/skill10/,1
 skill305,extra/achievement/skills/skill305/,1

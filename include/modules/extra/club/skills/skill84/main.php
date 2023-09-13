@@ -26,6 +26,7 @@ namespace skill84
 		return 0;
 	}
 	
+	//锡安有加成
 	function get_skill84_time(&$pa){//单位是秒
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(7 == $pa['club']) return 20;
@@ -82,7 +83,10 @@ namespace skill84
 	//避难所探测器不显示特殊指令页面（就是有返回按钮的那个页面）
 	function check_include_radar_cmdpage($radarsk = 0){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if(5 == $radarsk) return false;
+		
+		$radar_digit = \radar\check_radar_digit($radarsk);
+		
+		if($radar_digit & 32) return false;
 		return $chprocess($radarsk);
 	}
 	
@@ -90,7 +94,10 @@ namespace skill84
 	function post_radar_event($radarsk = 0){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($radarsk);
-		if(5 == $radarsk) {
+		
+		$radar_digit = \radar\check_radar_digit($radarsk);
+		
+		if($radar_digit & 32) {
 			eval(import_module('sys','player', 'logger'));
 			//如果没有获得84号技能，则获得之
 			if(!\skillbase\skill_query(84)) {
@@ -113,7 +120,9 @@ namespace skill84
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player'));
 		
-		if(5 == $theitem['itmsk'] && check_skill84_state($sdata)){
+		$radar_digit = \radar\check_radar_digit($theitem['itmsk']);
+		
+		if($radar_digit & 32 && check_skill84_state($sdata)){
 			return false;
 		}
 		

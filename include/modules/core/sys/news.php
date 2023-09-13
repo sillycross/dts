@@ -164,6 +164,14 @@ namespace sys
 		);
 		return $ret;
 	}
+	
+	//入场时对玩家名和学号的处理，基本上只为了某个恶搞卡片而剥离出来
+	//返回由玩家名和学号为元素的数组
+	function get_valid_disp_user_info($pdata){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		return Array($pdata['name'], $sexinfo[$pdata['gd']] . $pdata['sNo'] . '号');
+	}
 }
 
 ?>

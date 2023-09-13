@@ -49,6 +49,9 @@ while($playerdata = $db->fetch_array($query)) {
 		$playerdata['bounty']=(int)\skillbase\skill_getvalue_direct(475,'bounty',$playerdata['nskillpara']);
 	}
 	
+	//生成显示名字和显示学号
+	list($playerdata['dispname'], $playerdata['sexnsno']) = \sys\get_valid_disp_user_info($playerdata);
+	
 	$alivedata[$playerdata['name']] = $playerdata;
 }
 

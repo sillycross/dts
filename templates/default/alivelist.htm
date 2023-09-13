@@ -15,7 +15,7 @@
 	<!--{eval $alive['urlname']=htmlentities(urlencode($alive['name']));}-->
 	<!--{eval list($alive['vapm'],$alive['aapm'])=\apm\calc_apm($alive);}-->
 	<tr class="b3">
-		<td align="center" class="b3"><a style="cursor:pointer;" href="user_profile.php?playerID=$alive['urlname']"><span>$alive['name']<br>$sexinfo[$alive['gd']] $alive['sNo'] 号</span></a></td>
+		<td align="center" class="b3"><a style="cursor:pointer;" href="user_profile.php?playerID=$alive['urlname']"><span>$alive['dispname']<br>$alive['sexnsno']</span></a></td>
 		<td align="center" class="b3"><span><IMG src="img/$alive['iconImg']" width="140" height="80" border="0" align="absmiddle"></span></td>
 		<!--{if defined('MOD_APM')}--><td class="b3"><span>{$alive['vapm']}</span></td><!--{/if}-->
 		<td class="b3"><span>$alive['lvl']</span></td>

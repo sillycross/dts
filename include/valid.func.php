@@ -149,11 +149,13 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip='')
 	
 	///////////////////////////////////////////////////////////////
 	//发布游戏内消息
+	
+	list($valid_disp_user, $valid_disp_sex_sNo_info) = \sys\get_valid_disp_user_info($sk_pdata);
 
 	if($gamestate >= 30 && ($groupid >= 6 || $xuser == $gamefounder)){
-		addnews($now,'newgm', $prefix.' '.$xuser,"{$sexinfo[$sk_pdata['gd']]}{$sk_pdata['sNo']}号");
+		addnews($now,'newgm', $prefix.' '.$valid_disp_user,$valid_disp_sex_sNo_info);
 	}else{
-		addnews($now,'newpc', $prefix.' '.$xuser,"{$sexinfo[$sk_pdata['gd']]}{$sk_pdata['sNo']}号");
+		addnews($now,'newpc', $prefix.' '.$valid_disp_user,$valid_disp_sex_sNo_info);
 	}
 	
 	//在这里判定一次游戏停止激活……？还有这种事？

@@ -3406,20 +3406,22 @@ $cards = array(
 	197 => array(
 		'name' => '萤火抑智',
 		'rare' => 'C',
-		'pack' => 'hidden',
+		'pack' => 'Best DOTO',
 		'desc' => '今天吃鸡腿',
-		'effect' => '你的角色名显示为学号，学号显示为角色名',
+		'effect' => '在入场讯息和当前幸存页面，<br>你的角色名和学号互换',
 		'energy' => 0,
 		'valid' => array(
-			'pls' => '0',//todo
+			'skills' => array(
+				'533' => '1', 
+			),
 		)
 	),
 	198 => array(
 		'name' => '非常非常二',
 		'rare' => 'B',
 		'pack' => 'hidden',
-		'desc' => 'IG空间，全称Imaginary Geometry虚数几何空间，只有极少数擅长钻空子的能力者才能把物质自由地送到那里',
-		'effect' => '获得技能【空子】：你能把道具存进虚数空间或者从中取出，最多同时储存两个道具',
+		'desc' => 'IG空间，全称<ruby>虚数几何空间<rt>Imaginary Geometry</rt></ruby>，只有极少数擅长钻空子的能力者才能把物质自由地送到那里',
+		'effect' => '获得技能【空子】：你能把道具存进虚数空间或者从中取出。最多同时储存两个道具',
 		'energy' => 0,
 		'valid' => array(
 			'pls' => '0',//todo
