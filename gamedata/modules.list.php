@@ -527,3 +527,5 @@ skill1005,extra/instance/gtype5/skill1005/,0
 skill1004,extra/instance/gtype5/skill1004/,0
 glowbutton,extra/misc/glowbutton/,0
 halloween2017,extra/activities/halloween2017/main/,0
+skill551,extra/card/skills/skill551/,1
+skill552,extra/card/skills/skill552/,1

@@ -1,0 +1,20 @@
+<!--{eval eval(import_module('skill552','sys'));}-->
+<!--{eval $___TEMP_SKILL_ID=552;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+你可以消耗<span class="yellow b">{$skill552_cost}</span>点生命上限，<br>将手持武器改造锐器并更名为{$skill552_wep}（只能发动一次）。<br>
+当你装备该武器在战斗中击杀敌人时，<br>立即获得<span class="yellow b">（武器熟练度×{$skill552_gain_rate}）</span>元的金钱。
+</span></td>
+<td class="skilldesc_right b3">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+12级时解锁
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}
