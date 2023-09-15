@@ -147,7 +147,7 @@ namespace item_uee
 		if(isset($exarr['dword'])) $e0 = $exarr['dword'];
 			
 		if($news == 'death14') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">$a</span>因<span class=\"red b\">干扰幻境系统失败</span>死亡{$e0}</li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">$a</span>因<span class=\"red b\">遭到幻境系统清缴</span>死亡{$e0}</li>";
 	
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

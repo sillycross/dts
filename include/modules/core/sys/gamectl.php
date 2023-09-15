@@ -143,7 +143,7 @@ namespace sys
 	function gameover($time = 0, $gmode = '', $winname = '') {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
-		startmicrotime();
+//		startmicrotime();
 		//先加锁以阻塞对game表的读取，免得这个进程还在执行时，别的请求穿透到数据库造成各种各样的脏数据问题
 		process_lock();
 		load_gameinfo();
@@ -265,7 +265,7 @@ namespace sys
 		$gamevars['o_starttime'] = $starttime; $starttime = 0; //偶尔会发生穿透事故，先这么一修看看情况
 		save_gameinfo();
 		$starttime = $gamevars['o_starttime'];
-		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-模式判断');
+//		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-模式判断');
 		//以下开始真正处理gameover的各种数据修改
 		$time = $time ? $time : $now;
 		//计算当前是哪一局，以优胜列表为准
@@ -306,16 +306,17 @@ namespace sys
 		$db->array_insert("{$wtablepre}history", $winnerdata);
 		//$insert_id = $db->insert_id();
 		$insert_gid = $gamenum;
-		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-优胜记录修改');
+//		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-优胜记录修改');
 		//发放切糕工资
 		gameover_set_credits();
-		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-切糕发放');
+//		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-切糕发放');
 		//重置游戏开始时间和当前游戏状态
 		rs_sttime();
 		
 		//进行天梯积分计算、录像处理之类的后期工作
+		startmicrotime();
 		post_gameover_events();//录像，可能的性能瓶颈2号
-		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-录像等后续处理');
+		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-录像等处理全部结束');
 		//echo '**游戏结束**';
 		
 		//这里把$gameover_ulist一起更新
@@ -334,7 +335,7 @@ namespace sys
 		systemputchat($time,'gameover');
 		$newsinfo = load_news();
 		$newsinfo = '<ul>'.implode('',$newsinfo).'</ul>';
-		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-读取和渲染消息');
+//		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-读取和渲染消息');
 		$newsinfo = gencode($newsinfo);
 		if($hnewsstorage) 
 		{//如果设置数据库储存
@@ -359,7 +360,7 @@ namespace sys
 		//至此解锁，保证所有处理都不出错
 		process_unlock();
 		
-		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-写入消息并结束');
+//		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-写入消息并结束');
 		return;
 	}
 	

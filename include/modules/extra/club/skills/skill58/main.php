@@ -45,7 +45,7 @@ namespace skill58
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa, $pd, $rkey);
-		if('skill58' == $rkey && in_array($pd['state'],Array(20,21,22,23,24,25,27,29,39,40,41))){
+		if('skill58' == $rkey && in_array($pd['state'],Array(20,21,22,23,24,25,27,29,39,40,41,43))){
 			if((int)\skillbase\skill_getvalue(58,'r',$pd) == 0)
 			$ret = true;
 		}

@@ -2,7 +2,7 @@
 
 namespace player
 {
-	global $db_player_structure, $db_player_structure_types, $gamedata, $cmd, $main, $sdata;//注意，$sdata所有键值都是引用！
+	global $db_player_structure, $db_player_structure_types, $gamedata, $cmd, $main, $sdata;//注意，$sdata所有来自数据库的键值都是引用！
 	global $fog,$upexp,$lvlupexp,$iconImg,$iconImgB,$iconImgBwidth,$ardef;//这些鬼玩意可以回头全部丢进$uip
 	global $hpcolor,$spcolor,$newhpimg,$newspimg,$splt,$hplt, $tpldata; 
 	
@@ -578,7 +578,8 @@ namespace player
 	function revive_process(&$pa, &$pd)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if(empty($pd['revive_sequence'])) return;
+		//没有复活技能或者有一票否决的效果，就完全不判定
+		if(empty($pd['revive_sequence']) || revive_veto($pa, $pd)) return;
 		//var_dump($pd['revive_sequence']);
 		ksort($pd['revive_sequence']);
 		//writeover('a.txt',var_export($pd['revive_sequence'],1));
@@ -593,6 +594,13 @@ namespace player
 				break;
 			}
 		}
+	}
+	
+	//复活一票否决，比其他复活判定优先级更高
+	function revive_veto(&$pa, &$pd)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return false;
 	}
 	
 	//复活判定，建议采用或的逻辑关系

@@ -723,7 +723,7 @@ function merge_replace_chprocess($ret_varname, $replacement, $subject, $modname,
 		if(empty($lval) || in_array($lval, $dumped_list) || in_array($lval, $chp_args_arr_exceptions)) continue;
 		$dump_name = '$__VAR_DUMP_MOD_'.$modname.'_VARS_'.substr($lval, 1);
 		$vdc_behind .= 'if(isset('.$lval.')) {'.$dump_name.' = '.$lval.'; } else {'.$dump_name.' = NULL;} ';
-		$vdc_ahead .= ''.$lval.' = '.$dump_name.'; ';
+		$vdc_ahead .= ''.$lval.' = '.$dump_name.'; unset('.$dump_name.');';
 		$dumped_list[] = $lval;
 	}
 	//引用变量优先级更高

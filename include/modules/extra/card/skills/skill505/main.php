@@ -170,6 +170,15 @@ namespace skill505
 		$chprocess($pa,$pd,$active);
 	}
 	
+	//复活一票否决，比其他复活判定优先级更高
+	function revive_veto(&$pa, &$pd)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//如果灯泡被打碎，否决所有复活
+		if(!empty($pd['skill505_fatal'])) return true;
+		return $chprocess($pa, $pd);
+	}
+	
 	//平时操作完成后，如果灯泡在身上、地上都不存在，则死亡
 	function act(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;

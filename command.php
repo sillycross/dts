@@ -31,6 +31,7 @@ if ($___MOD_SRV)
 		//开始执行
 		if (!empty($_POST['is_root'])) $___TEMP_is_root=1; else $___TEMP_is_root=0;
 		
+		//清除所有超级全局变量。保证command.php调用自身时不陷入死循环应该也是这里清掉了$_POST['conn_passwd']所致
 		unset($_COOKIE); unset($_POST); unset($_GET); unset($_REQUEST); unset($_FILES);
 		
 		//执行时间设定，介于$___MOD_SRV_MIN_EXECUTION_TIME与$___MOD_SRV_MAX_EXECUTION_TIME之间
@@ -506,6 +507,7 @@ if(isset($command)){
 //////////////////////////执行页面//////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
 
+//command.php调用自身时才会实际执行这里
 if(!isset($page) || 'command' == $page) {
 	$___CURSCRIPT = 'ACT';
 	include GAME_ROOT.'./include/pages/command_act.php';

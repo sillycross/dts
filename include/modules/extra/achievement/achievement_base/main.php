@@ -249,6 +249,7 @@ namespace achievement_base
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		update_achievements();
+		logmicrotime('成就处理');
 		$chprocess();
 	}
 	

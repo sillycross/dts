@@ -239,6 +239,7 @@ namespace item_slip
 			$file = GAME_ROOT.'./gamedata/cache/'.$gamevars['metagame'].'.htm';
 			if(file_exists($file)) unlink($file);
 		}
+		logmicrotime('清除纸条和猫的提示');
 	}
 }
 ?>
