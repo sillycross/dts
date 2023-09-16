@@ -1,0 +1,12 @@
+<input type="hidden" name="mode" value="special">
+<input type="hidden" id="command" name="command" value="skill1012_special">
+<input type="hidden" id="subcmd" name="subcmd" value="show_var">
+<span class="yellow b">输入时请搞清楚你在做什么。</span><br>
+请输入命名空间，留空为全局变量：<br>
+<input type="text" name="show_ns" value=""><br>
+请输入变量名（不需要加美元符号）：<br>
+<input type="text" name="show_vn" value=""><br>
+
+<br>
+<input type="button" class="cmdbutton"  value="提交" onclick="postCmd('gamecmd','command.php');this.disabled=true;"> 
+<input type="button" class="cmdbutton"  value="返回" onclick="$('command').value='menu'; postCmd('gamecmd','command.php');this.disabled=true;">

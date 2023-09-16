@@ -210,7 +210,7 @@ namespace item_misc
 					$itm1='美味补给';$itmk1 = 'HB';$itmsk1 = '';$itme1 = 2777;$itms1 = 277;
 					$itm2='全恢复药剂';$itmk2 = 'Ca';$itmsk2 = '';$itme2 = 1;$itms2 = 44;
 					$itm3='食堂的剩饭';$itmk3 = 'HR';$itmsk3 = '';$itme3 = 100;$itms3 = 15;
-					$itm4='哔哔小马';$itmk4 = 'ER';$itmsk4 = '5';$itme4 = 20;$itms4 = 1;
+					$itm4='哔哔小马';$itmk4 = 'ER';$itmsk4 = '^rdsk58';$itme4 = 20;$itms4 = 1;
 					$itm5='聪明药';$itmk5 = 'ME';$itmsk5 = '';$itme5 = 100;$itms5 = 4;
 					//$itm5='游戏解除钥匙';$itmk5 = 'Y';$itmsk5 = '';$itme5 = 1;$itms5 = 1;
 					$arb='代码聚合体的长袍';$arbk = 'DB';$arbsk = 'Bb';$arbe = 5000;$arbs = 1000;
@@ -219,7 +219,7 @@ namespace item_misc
 					$arf='代码聚合体的鞋子';$arfk = 'DF';$arfsk = 'Mm';$arfe = 5000;$arfs = 1000;
 					$art='Untainted Glory';$artk = 'A';$artsk = '';$arte = 1;$arts = 1;
 					if (defined('MOD_CLUBBASE')) eval(import_module('clubbase'));
-					foreach(array(1010,1011) as $skv){
+					foreach(array(1010,1011,1012) as $skv){
 						if(defined('MOD_SKILL'.$skv)) {
 							if (!\skillbase\skill_query($skv)) {
 								$log.="你获得了技能「<span class=\"yellow b\">$clubskillname[$skv]</span>」！<br>";
@@ -369,6 +369,14 @@ namespace item_misc
 				sleep(10);
 				$log .= "刚才那是什么，是卡了么？<br>";
 				//$hp = 1;
+				return;
+			} elseif(strpos($itm,'测试用查看常量设备')!==false){
+				eval(import_module('clubbase'));
+				for($i=10;$i<610;$i++){
+					if(defined('MOD_SKILL'.$i.'_INFO')) {
+						$log .= $i.'号技能「'.$clubskillname[$i].'」标签：'.constant('MOD_SKILL'.$i.'_INFO').'<br>';
+					}
+				}
 				return;
 			} elseif('『我是说在座的各位都是垃圾』' === $itm){
 				$mhpdown = 100;

@@ -42,8 +42,6 @@ hidden	隐藏	这个技能不会在技能页面中显示。有这个标签的技
 feature	称号特性	标明这个技能是称号特性。有这个标签的技能自动视为locked。
 
 limited	有限	这个技能有次数限制。有这个标签的技能自动视为locked。
-				
-name		名字		如果既没有locked标签也没有hidden标签则这个标签必须存在，代表技能的名字。格式是name=名字;
 
 假如你的称号技能在技能页面中有“升级”以外的可用操作（或者你的操作有特殊需要），
 请一律将变量设置为mode='special' command='skill编号_special' subcmd='你的操作'，

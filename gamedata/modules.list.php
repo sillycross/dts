@@ -252,6 +252,8 @@ skill528,extra/card/skills/skill528/,1
 skill529,extra/card/skills/skill529/,1
 skill531,extra/card/skills/skill531/,1
 skill532,extra/card/skills/skill532/,1
+skill552,extra/card/skills/skill552/,1
+skill1012,extra/gmskills/skill1012/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
@@ -514,6 +516,7 @@ skill371,extra/achievement/skills/skill371/,1
 skill504,extra/card/skills/skill504/,1
 skill505,extra/card/skills/skill505/,1
 skill80,extra/club/skills/skill80/,1
+skill551,extra/card/skills/skill551/,1
 skill363,extra/achievement/skills/skill363/,1
 instance5,extra/instance/instance5/,1
 skill361,extra/activities/lunany2018/skill361/,1
@@ -527,5 +530,3 @@ skill1005,extra/instance/gtype5/skill1005/,0
 skill1004,extra/instance/gtype5/skill1004/,0
 glowbutton,extra/misc/glowbutton/,0
 halloween2017,extra/activities/halloween2017/main/,0
-skill551,extra/card/skills/skill551/,1
-skill552,extra/card/skills/skill552/,1
