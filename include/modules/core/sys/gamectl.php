@@ -314,9 +314,9 @@ namespace sys
 		rs_sttime();
 		
 		//进行天梯积分计算、录像处理之类的后期工作
-		startmicrotime();
+//		startmicrotime();
 		post_gameover_events();//录像，可能的性能瓶颈2号
-		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-录像等处理全部结束');
+//		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-录像等处理全部结束');
 		//echo '**游戏结束**';
 		
 		//这里把$gameover_ulist一起更新

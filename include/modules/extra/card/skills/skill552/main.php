@@ -64,6 +64,11 @@ namespace skill552
 			$log .= '多重武器不能改造。<br>';
 			return;
 		}
+		if ($mhp <= 80)
+		{
+			$log .= '你手中的'.$wep.'突然对你喊道：“你连'.$skill552_cost.'点最大生命值都没有，就不要铸我了，还是去铸币吧！”<br>';
+			return;
+		}
 		$mhp -= $skill552_cost;
 		if ($mhp <= 0) $mhp = 1;
 		if ($hp > $mhp) $hp = $mhp;

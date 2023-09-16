@@ -79,7 +79,7 @@ namespace skill506
 				}
 			}
 		}
-		logmicrotime('506号接力技能处理');
+//		logmicrotime('506号接力技能处理');
 	}
 	
 	//嗯？好像完全没有用到技能id的样子

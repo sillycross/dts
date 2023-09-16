@@ -303,7 +303,7 @@ namespace replay
 //		global $___MOD_TMP_FILE_DIRECTORY;
 //		clear_dir($___MOD_TMP_FILE_DIRECTORY.$room_id.'_/',1);
 		//logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-清空目录');
-		logmicrotime('录像处理');
+//		logmicrotime('录像处理');
 	}
 	
 	function replay_validify_record($str)

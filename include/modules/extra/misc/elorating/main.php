@@ -402,7 +402,7 @@ namespace elorating
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		elorating_update();
-		logmicrotime('天梯积分计算');
+//		logmicrotime('天梯积分计算');
 		$chprocess();
 	}
 	

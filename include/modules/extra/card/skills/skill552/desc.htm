@@ -6,7 +6,12 @@ $clubskillname[$___TEMP_SKILL_ID]
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class="skilldesc_left b3"><span class="skilldesc">
-你可以消耗<span class="yellow b">{$skill552_cost}</span>点生命上限，<br>将手持武器改造锐器并更名为{$skill552_wep}（只能发动一次）。<br>
+<!--{if empty(\skillbase\skill_getvalue(552,'activated',$who))}-->
+你可以消耗<span class="yellow b">{$skill552_cost}</span>点生命上限，<br>将手持武器改造为锐器，并改名为「{$skill552_wep}」（只能发动一次）。
+<!--{else}-->
+<span class="yellow b">你已经铸造过一把伐木斧了！</span>
+<!--{/if}-->
+<br>
 当你装备该武器在战斗中击杀敌人时，<br>立即获得<span class="yellow b">（武器熟练度×{$skill552_gain_rate}）</span>元的金钱。
 </span></td>
 <td class="skilldesc_right b3">
