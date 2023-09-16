@@ -6,7 +6,7 @@ namespace skill519
 	
 	function init() 
 	{
-		define('MOD_SKILL519_INFO','club;feature;unique;');
+		define('MOD_SKILL519_INFO','club;feature;locked;');
 		eval(import_module('clubbase'));
 		$clubskillname[519] = '幽灵';
 	}

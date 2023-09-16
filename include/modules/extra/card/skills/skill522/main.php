@@ -5,7 +5,7 @@ namespace skill522
 
 	function init()
 	{
-		define('MOD_SKILL522_INFO','card;unique;locked;feature;');
+		define('MOD_SKILL522_INFO','card;unique;');
 		eval(import_module('clubbase'));
 		$clubskillname[522] = '水精';
 	}

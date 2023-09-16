@@ -5,7 +5,7 @@ namespace skill409
 	
 	function init() 
 	{
-		define('MOD_SKILL409_INFO','card;unique;locked;');
+		define('MOD_SKILL409_INFO','card;unique;');
 		eval(import_module('clubbase'));
 		$clubskillname[409] = '不动';
 	}

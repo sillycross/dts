@@ -4,7 +4,7 @@ namespace skill488
 {	
 	function init() 
 	{
-		define('MOD_SKILL488_INFO','card;unique;');
+		define('MOD_SKILL488_INFO','unique;');
 		eval(import_module('clubbase'));
 		$clubskillname[488] = '后路';
 	}

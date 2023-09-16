@@ -4,7 +4,7 @@ namespace skill470
 {
 	function init() 
 	{
-		define('MOD_SKILL470_INFO','card;unique;');
+		define('MOD_SKILL470_INFO','card;');
 		eval(import_module('clubbase'));
 		$clubskillname[470] = '狙击';
 	}

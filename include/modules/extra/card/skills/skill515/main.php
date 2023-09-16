@@ -4,7 +4,7 @@ namespace skill515
 {
 	function init() 
 	{
-		define('MOD_SKILL515_INFO','card;unique;');
+		define('MOD_SKILL515_INFO','card;');
 		eval(import_module('clubbase'));
 		$clubskillname[515] = '杀意';
 	}

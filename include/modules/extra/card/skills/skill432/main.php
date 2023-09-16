@@ -5,7 +5,7 @@ namespace skill432
 	
 	function init() 
 	{
-		define('MOD_SKILL432_INFO','card;unique;locked;');
+		define('MOD_SKILL432_INFO','card;unique;');
 		eval(import_module('clubbase'));
 		$clubskillname[432] = '凝心';
 	}

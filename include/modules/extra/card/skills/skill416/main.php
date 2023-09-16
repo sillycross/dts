@@ -6,7 +6,7 @@ namespace skill416
 	
 	function init() 
 	{
-		define('MOD_SKILL416_INFO','card;unique;locked;');
+		define('MOD_SKILL416_INFO','card;');
 		eval(import_module('clubbase'));
 		$clubskillname[416] = '团结';
 	}

@@ -4,7 +4,7 @@ namespace skill447
 {
 	function init() 
 	{
-		define('MOD_SKILL447_INFO','card;locked;unique;');
+		define('MOD_SKILL447_INFO','card;');
 		eval(import_module('clubbase'));
 		$clubskillname[447] = '热寂';
 	}

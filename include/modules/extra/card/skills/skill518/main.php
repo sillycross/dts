@@ -4,7 +4,7 @@ namespace skill518
 {
 	function init() 
 	{
-		define('MOD_SKILL518_INFO','card;unique;');
+		define('MOD_SKILL518_INFO','card;');
 		eval(import_module('clubbase'));
 		$clubskillname[518] = '回归';
 	}

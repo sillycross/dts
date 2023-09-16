@@ -7,7 +7,7 @@ namespace skill401
 	
 	function init() 
 	{
-		define('MOD_SKILL401_INFO','card;unique;locked;');
+		define('MOD_SKILL401_INFO','card;unique;');
 		eval(import_module('clubbase'));
 		$clubskillname[401] = '硬化';
 	}

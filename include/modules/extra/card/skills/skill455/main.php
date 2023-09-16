@@ -7,7 +7,7 @@ namespace skill455
 	
 	function init() 
 	{
-		define('MOD_SKILL455_INFO','card;upgrade;locked;unique;');
+		define('MOD_SKILL455_INFO','card;upgrade;');
 		eval(import_module('clubbase'));
 		$clubskillname[455] = '无敌';
 	}

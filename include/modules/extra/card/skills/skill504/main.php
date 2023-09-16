@@ -4,7 +4,7 @@ namespace skill504
 {
 	function init() 
 	{
-		define('MOD_SKILL504_INFO','card;unique;hidden;');
+		define('MOD_SKILL504_INFO','card;hidden;');
 		eval(import_module('clubbase'));
 		$clubskillname[504] = 'pop子';
 	}

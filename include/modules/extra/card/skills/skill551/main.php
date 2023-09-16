@@ -28,7 +28,7 @@ namespace skill551
 	
 	function init() 
 	{
-		define('MOD_SKILL551_INFO','card;unique;');
+		define('MOD_SKILL551_INFO','card;');
 		eval(import_module('clubbase'));
 		$clubskillname[551] = '放生';
 	}

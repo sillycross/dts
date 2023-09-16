@@ -5,7 +5,7 @@ namespace skill602
 
 	function init() 
 	{
-		define('MOD_SKILL602_INFO','club;hidden;debuff;');
+		define('MOD_SKILL602_INFO','hidden;debuff;');
 		eval(import_module('clubbase'));
 		$clubskillname[602] = '晕眩';
 	}

@@ -10,7 +10,7 @@ namespace skill493
 	
 	function init() 
 	{
-		define('MOD_SKILL493_INFO','card;unique;upgrade;locked;');
+		define('MOD_SKILL493_INFO','card;upgrade;');
 		eval(import_module('clubbase'));
 		$clubskillname[493] = '通感';
 	}

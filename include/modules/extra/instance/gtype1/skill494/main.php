@@ -7,7 +7,7 @@ namespace skill494
 	
 	function init() 
 	{
-		define('MOD_SKILL494_INFO','card;unique;upgrade;');
+		define('MOD_SKILL494_INFO','card;upgrade;');
 		eval(import_module('clubbase'));
 		$clubskillname[494] = '摸鱼';
 	}

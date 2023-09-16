@@ -4,7 +4,7 @@ namespace skill443
 {
 	function init() 
 	{
-		define('MOD_SKILL443_INFO','card;unique;locked;');
+		define('MOD_SKILL443_INFO','card;');
 		eval(import_module('clubbase'));
 		$clubskillname[443] = '决斗';
 	}

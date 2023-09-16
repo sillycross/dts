@@ -4,7 +4,7 @@ namespace skill492
 {	
 	function init() 
 	{
-		define('MOD_SKILL492_INFO','card;unique;');
+		define('MOD_SKILL492_INFO','unique;');
 		eval(import_module('clubbase'));
 		$clubskillname[492] = '冲刺';
 	}

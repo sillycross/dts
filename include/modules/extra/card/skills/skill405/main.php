@@ -5,7 +5,7 @@ namespace skill405
 	
 	function init() 
 	{
-		define('MOD_SKILL405_INFO','card;unique;locked;');
+		define('MOD_SKILL405_INFO','card;unique;');
 		eval(import_module('clubbase'));
 		$clubskillname[405] = '疾走';
 	}

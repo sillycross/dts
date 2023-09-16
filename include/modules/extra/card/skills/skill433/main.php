@@ -5,7 +5,7 @@ namespace skill433
 	
 	function init() 
 	{
-		define('MOD_SKILL433_INFO','card;unique;locked;');
+		define('MOD_SKILL433_INFO','card;');
 		eval(import_module('clubbase'));
 		$clubskillname[433] = '白板';
 	}

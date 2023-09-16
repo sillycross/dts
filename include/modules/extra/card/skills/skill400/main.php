@@ -8,7 +8,7 @@ namespace skill400
 
 	function init() 
 	{
-		define('MOD_SKILL400_INFO','card;unique;locked;');
+		define('MOD_SKILL400_INFO','card;unique;');
 		eval(import_module('clubbase'));
 		$clubskillname[400] = '重击';
 	}

@@ -7,7 +7,7 @@ namespace skill404
 	
 	function init() 
 	{
-		define('MOD_SKILL404_INFO','card;unique;locked;');
+		define('MOD_SKILL404_INFO','card;unique;');
 		eval(import_module('clubbase'));
 		$clubskillname[404] = '底力';
 	}

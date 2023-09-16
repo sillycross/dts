@@ -7,7 +7,7 @@ namespace skill446
 	
 	function init() 
 	{
-		define('MOD_SKILL446_INFO','card;upgrade;locked;unique;');
+		define('MOD_SKILL446_INFO','card;upgrade;');
 		eval(import_module('clubbase'));
 		$clubskillname[446] = '死线';
 	}

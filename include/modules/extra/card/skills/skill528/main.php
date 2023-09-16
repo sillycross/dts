@@ -8,7 +8,7 @@ namespace skill528
 
 	function init() 
 	{
-		define('MOD_SKILL528_INFO','card;unique;');
+		define('MOD_SKILL528_INFO','card;');
 		eval(import_module('clubbase'));
 		$clubskillname[528] = '骇客';
 	}

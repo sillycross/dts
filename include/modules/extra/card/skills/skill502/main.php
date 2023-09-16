@@ -4,7 +4,7 @@ namespace skill502
 {
 	function init() 
 	{
-		define('MOD_SKILL502_INFO','card;unique;');
+		define('MOD_SKILL502_INFO','card;');
 		eval(import_module('clubbase'));
 		$clubskillname[502] = '唯快';
 	}

@@ -4,7 +4,7 @@ namespace skill478
 {
 	function init() 
 	{
-		define('MOD_SKILL478_INFO','card;unique;');
+		define('MOD_SKILL478_INFO','card;');
 		eval(import_module('clubbase'));
 		$clubskillname[478] = '悲运';
 	}

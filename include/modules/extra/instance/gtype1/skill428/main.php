@@ -9,7 +9,7 @@ namespace skill428
 	
 	function init() 
 	{
-		define('MOD_SKILL428_INFO','card;unique;upgrade;');
+		define('MOD_SKILL428_INFO','card;upgrade;');
 		eval(import_module('clubbase'));
 		$clubskillname[428] = '阴谋';
 	}

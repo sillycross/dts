@@ -4,7 +4,7 @@ namespace skill501
 {
 	function init() 
 	{
-		define('MOD_SKILL501_INFO','card;unique;');
+		define('MOD_SKILL501_INFO','card;');
 		eval(import_module('clubbase'));
 		$clubskillname[501] = '无尽';
 	}

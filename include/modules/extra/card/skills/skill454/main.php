@@ -5,7 +5,7 @@ namespace skill454
 
 	function init() 
 	{
-		define('MOD_SKILL454_INFO','card;card;locked;unique;');
+		define('MOD_SKILL454_INFO','card;');
 		eval(import_module('clubbase'));
 		$clubskillname[454] = '团购';
 	}

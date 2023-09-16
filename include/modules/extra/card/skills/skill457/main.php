@@ -5,7 +5,7 @@ namespace skill457
 
 	function init() 
 	{
-		define('MOD_SKILL457_INFO','card;card;locked;unique;');
+		define('MOD_SKILL457_INFO','card;');
 		eval(import_module('clubbase'));
 		$clubskillname[457] = '文盲';
 	}

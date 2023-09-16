@@ -4,7 +4,7 @@ namespace skill439
 {
 	function init() 
 	{
-		define('MOD_SKILL439_INFO','card;unique;locked;');
+		define('MOD_SKILL439_INFO','card;');
 		eval(import_module('clubbase'));
 		$clubskillname[439] = '面子';
 	}

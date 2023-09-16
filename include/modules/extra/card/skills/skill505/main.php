@@ -8,7 +8,7 @@ namespace skill505
 	
 	function init() 
 	{
-		define('MOD_SKILL505_INFO','card;unique;');
+		define('MOD_SKILL505_INFO','card;');
 		eval(import_module('clubbase'));
 		$clubskillname[505] = '一决';
 	}

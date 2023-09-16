@@ -9,7 +9,7 @@ namespace skill453
 	
 	function init() 
 	{
-		define('MOD_SKILL453_INFO','card;locked;unique;');
+		define('MOD_SKILL453_INFO','card;');
 		eval(import_module('clubbase'));
 		$clubskillname[453] = '狂击';
 	}

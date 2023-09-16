@@ -5,7 +5,7 @@ namespace skill422
 	
 	function init() 
 	{
-		define('MOD_SKILL422_INFO','card;unique;locked;hidden;');
+		define('MOD_SKILL422_INFO','card;unique;hidden;');
 		eval(import_module('clubbase'));
 		$clubskillname[422] = '枪斗';
 	}

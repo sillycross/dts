@@ -5,7 +5,7 @@ namespace skill407
 	
 	function init() 
 	{
-		define('MOD_SKILL407_INFO','card;unique;locked;');
+		define('MOD_SKILL407_INFO','card;unique;');
 		eval(import_module('clubbase'));
 		$clubskillname[407] = '红石';
 	}

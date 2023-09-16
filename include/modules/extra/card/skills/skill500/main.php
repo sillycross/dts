@@ -9,7 +9,7 @@ namespace skill500
 	
 	function init() 
 	{
-		define('MOD_SKILL500_INFO','card;upgrade;unique');
+		define('MOD_SKILL500_INFO','card;upgrade;');
 		eval(import_module('clubbase'));
 		$clubskillname[500] = '时停';
 	}

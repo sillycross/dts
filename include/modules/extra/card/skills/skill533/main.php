@@ -4,7 +4,7 @@ namespace skill533
 {
 	function init() 
 	{
-		define('MOD_SKILL533_INFO','card;unique;hidden;');
+		define('MOD_SKILL533_INFO','card;hidden;');
 		eval(import_module('clubbase'));
 		$clubskillname[533] = '实名';
 	}

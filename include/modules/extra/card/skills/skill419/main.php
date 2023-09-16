@@ -5,7 +5,7 @@ namespace skill419
 	
 	function init() 
 	{
-		define('MOD_SKILL419_INFO','card;unique;locked;');
+		define('MOD_SKILL419_INFO','card;');
 		eval(import_module('clubbase'));
 		$clubskillname[419] = '修仙';
 	}

@@ -5,7 +5,7 @@ namespace skill412
 	
 	function init() 
 	{
-		define('MOD_SKILL412_INFO','card;unique;locked;');
+		define('MOD_SKILL412_INFO','unique;');
 		eval(import_module('clubbase'));
 		$clubskillname[412] = '反演';
 	}

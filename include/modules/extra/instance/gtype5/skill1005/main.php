@@ -4,7 +4,7 @@ namespace skill1005
 {
 	function init() 
 	{
-		define('MOD_SKILL1005_INFO','card;unique;active;locked;');
+		define('MOD_SKILL1005_INFO','card;active;');
 		eval(import_module('clubbase'));
 		$clubskillname[1005] = '修复';
 	}

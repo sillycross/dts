@@ -7,7 +7,7 @@ namespace skill431
 	
 	function init() 
 	{
-		define('MOD_SKILL431_INFO','card;unique;');
+		define('MOD_SKILL431_INFO','card;');
 		eval(import_module('clubbase'));
 		$clubskillname[431] = '巧手';
 	}

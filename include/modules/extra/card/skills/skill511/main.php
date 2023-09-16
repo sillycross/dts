@@ -4,7 +4,7 @@ namespace skill511
 {
 	function init() 
 	{
-		define('MOD_SKILL511_INFO','card;unique;');
+		define('MOD_SKILL511_INFO','card;');
 		eval(import_module('clubbase'));
 		$clubskillname[511] = '嘴强';
 	}

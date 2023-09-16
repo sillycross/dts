@@ -6,7 +6,7 @@ namespace skill440
 	
 	function init() 
 	{
-		define('MOD_SKILL440_INFO','card;battle;unique;locked;');
+		define('MOD_SKILL440_INFO','card;battle;');
 		eval(import_module('clubbase'));
 		$clubskillname[440] = '父爱';
 	}

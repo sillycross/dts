@@ -4,7 +4,7 @@ namespace skill424
 {
 	function init() 
 	{
-		define('MOD_SKILL424_INFO','card;unique;active;locked;');
+		define('MOD_SKILL424_INFO','card;active;');
 		eval(import_module('clubbase'));
 		$clubskillname[424] = '除错';
 	}

@@ -7,7 +7,7 @@ namespace skill425
 	
 	function init() 
 	{
-		define('MOD_SKILL425_INFO','card;unique;upgrade;');
+		define('MOD_SKILL425_INFO','card;upgrade;');
 		eval(import_module('clubbase'));
 		$clubskillname[425] = '重载';
 	}

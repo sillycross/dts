@@ -7,7 +7,7 @@ namespace skill499
 	
 	function init() 
 	{
-		define('MOD_SKILL499_INFO','card;locked;unique;');
+		define('MOD_SKILL499_INFO','card;');
 		eval(import_module('clubbase'));
 		$clubskillname[499] = '决然';
 	}

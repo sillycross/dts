@@ -5,7 +5,7 @@ namespace skill503
 	
 	function init() 
 	{
-		define('MOD_SKILL503_INFO','card;unique;');
+		define('MOD_SKILL503_INFO','card;');
 		eval(import_module('clubbase'));
 		$clubskillname[503] = '幻禁';
 	}

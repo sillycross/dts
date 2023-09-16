@@ -6,7 +6,7 @@ namespace skill481
 
 	function init() 
 	{
-		define('MOD_SKILL481_INFO','card;unique;');
+		define('MOD_SKILL481_INFO','card;');
 		eval(import_module('clubbase'));
 		$clubskillname[481] = '■■';
 	}

@@ -4,7 +4,7 @@ namespace skill466
 {
 	function init() 
 	{
-		define('MOD_SKILL466_INFO','card;unique;');
+		define('MOD_SKILL466_INFO','card;');
 		eval(import_module('clubbase'));
 		$clubskillname[466] = '死神';
 	}

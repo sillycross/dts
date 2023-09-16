@@ -13,7 +13,7 @@ namespace skill507
 	
 	function init() 
 	{
-		define('MOD_SKILL507_INFO','card;unique;');
+		define('MOD_SKILL507_INFO','unique;');
 		eval(import_module('clubbase'));
 		$clubskillname[507] = '断罪';
 	}

@@ -4,7 +4,7 @@ namespace skill516
 {
 	function init() 
 	{
-		define('MOD_SKILL516_INFO','card;unique;');
+		define('MOD_SKILL516_INFO','card;');
 		eval(import_module('clubbase'));
 		$clubskillname[516] = '分割';
 	}

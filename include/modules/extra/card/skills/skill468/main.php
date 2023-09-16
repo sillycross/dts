@@ -4,7 +4,7 @@ namespace skill468
 {
 	function init() 
 	{
-		define('MOD_SKILL468_INFO','card;unique;');
+		define('MOD_SKILL468_INFO','card;');
 		eval(import_module('clubbase'));
 		$clubskillname[468] = '崎岖';
 	}

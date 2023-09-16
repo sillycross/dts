@@ -4,7 +4,7 @@ namespace skill472
 {
 	function init() 
 	{
-		define('MOD_SKILL472_INFO','card;upgrade;locked;unique;');
+		define('MOD_SKILL472_INFO','card;upgrade;');
 	}
 	
 	function acquire472(&$pa)

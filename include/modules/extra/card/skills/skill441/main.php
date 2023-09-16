@@ -5,7 +5,7 @@ namespace skill441
 	
 	function init() 
 	{
-		define('MOD_SKILL441_INFO','card;unique;locked;');
+		define('MOD_SKILL441_INFO','card;');
 		eval(import_module('clubbase'));
 		$clubskillname[441] = '嗑药';
 	}

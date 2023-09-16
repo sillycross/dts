@@ -4,7 +4,7 @@ namespace skill530
 {
 	function init() 
 	{
-		define('MOD_SKILL530_INFO','card;unique;');
+		define('MOD_SKILL530_INFO','card;');
 		eval(import_module('clubbase'));
 		$clubskillname[530] = '降维';
 	}

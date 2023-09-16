@@ -4,7 +4,7 @@ namespace skill480
 {
 	function init() 
 	{
-		define('MOD_SKILL480_INFO','card;unique;');
+		define('MOD_SKILL480_INFO','card;');
 		eval(import_module('clubbase'));
 		$clubskillname[480] = '泡沫';
 	}

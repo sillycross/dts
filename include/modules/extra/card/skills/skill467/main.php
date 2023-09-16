@@ -4,7 +4,7 @@ namespace skill467
 {
 	function init() 
 	{
-		define('MOD_SKILL467_INFO','card;unique;');
+		define('MOD_SKILL467_INFO','card;');
 		eval(import_module('clubbase'));
 		$clubskillname[467] = '巨力';
 	}

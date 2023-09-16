@@ -5,7 +5,7 @@ namespace skill524
 
 	function init()
 	{
-		define('MOD_SKILL524_INFO','card;unique;locked;feature;');
+		define('MOD_SKILL524_INFO','card;unique;');
 		eval(import_module('clubbase'));
 		$clubskillname[524] = '月精';
 	}

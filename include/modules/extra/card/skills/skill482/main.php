@@ -5,7 +5,7 @@ namespace skill482
 
 	function init() 
 	{
-		define('MOD_SKILL482_INFO','card;unique;');
+		define('MOD_SKILL482_INFO','card;');
 		eval(import_module('clubbase'));
 		$clubskillname[482] = '梦想<br>天生';
 	}
