@@ -3406,7 +3406,7 @@ $cards = array(
 	197 => array(
 		'name' => '萤火抑智',
 		'rare' => 'C',
-		'pack' => 'hidden',
+		'pack' => 'Best DOTO',
 		'desc' => '今天吃鸡腿',
 		'effect' => '在入场讯息和当前幸存页面，<br>你的角色名和学号互换',
 		'energy' => 0,
@@ -4243,6 +4243,31 @@ $cards = array(
 		'energy' => 0,
 		'valid' => array(
 			'pls' => '0',//todo
+		)
+	),
+	//文本要改
+	250 => array(
+		'name' => '功德仙人',
+		'rare' => 'B',
+		'pack' => 'hidden',
+		'desc' => '没有买卖，就没有杀害',
+		'effect' => '随喜赞叹放生功德',
+		'desc_skills' => '可以在清水池和风祭森林进行放生',
+		'energy' => 80,
+		'skills'=>array(
+			'551'=>'1'
+		)
+	),
+	251 => array(
+		'name' => '伐木挑战者',
+		'rare' => 'A',
+		'pack' => 'hidden',
+		'desc' => '伐伐伐伐伐木工',
+		'effect' => '要致富 先撸树',
+		'desc_skills' => '获得一次性可将武器改造为锐器和使用该武器击杀敌人获得额外金钱的技能',
+		'energy' => 120,
+		'skills'=>array(
+			'552'=>'1'
 		)
 	),
 	
