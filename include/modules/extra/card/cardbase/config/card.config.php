@@ -4254,8 +4254,10 @@ $cards = array(
 		'effect' => '随喜赞叹放生功德',
 		'desc_skills' => '可以在清水池和风祭森林进行放生',
 		'energy' => 80,
-		'skills'=>array(
-			'551'=>'0'
+		'valid' => array(
+			'skills'=>array(
+				'551' => '0'
+			)
 		)
 	),
 	251 => array(
@@ -4266,8 +4268,53 @@ $cards = array(
 		'effect' => '要致富 先撸树',
 		'desc_skills' => '获得技能「伐木」：只能发动一次，可将武器改造为伐木斧，使用该武器击杀敌人时获得额外金钱',
 		'energy' => 120,
-		'skills'=>array(
-			'552'=>'0'
+		'valid' => array(
+			'skills'=>array(
+				'552' => '0'
+			)
+		)
+	),
+	252 => array(
+		'name' => '炸鸡勇者',
+		'rare' => 'C',
+		'pack' => 'hidden',
+		'desc' => 'V我50.jpg',
+		'effect' => '周四时开局补给大幅强化，<br>但是，代价是什么呢？',
+		'energy' => 0,
+		'valid' => array(
+			'skills' => array(
+				'553' => '0'
+			)
+		)
+	),
+	//没有想到特别好的梗
+	253 => array(
+		'name' => '大考挑战者',
+		'rare' => 'B',
+		'pack' => 'Way of Life',
+		'desc' => '“我考，完了！”',
+		'effect' => '获得最强大脑称号特性「脑力」，但视野只有两格',
+		'energy' => 0,
+		'valid' => array(
+			'skills' => array(
+				'80' => '0',
+				'554' => '0'
+			)
+		)
+	),
+	//没有想到特别好的梗
+	254 => array(
+		'name' => '兵法大师',
+		'rare' => 'B',
+		'pack' => 'hidden',
+		'desc' => '训练家眼神对上了就要对战',
+		'effect' => '快 逃.jpg',
+		'desc_skills' => '获得技能「止水」：发动后一段时间内主动探索时不会遇到任何敌人和尸体',
+		'energy' => 0,
+		'valid' => array(
+			'skills' => array(
+				'555' => '0'
+			)
 		)
 	),
 	

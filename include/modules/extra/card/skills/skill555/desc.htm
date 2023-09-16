@@ -1,0 +1,27 @@
+<!--{eval eval(import_module('skill555','sys'));}-->
+<!--{eval $___TEMP_SKILL_ID=555;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+发动后，主动探索时不会遇到任何敌人和尸体，效果持续<span class="yellow b">{$skill555_act_time}</span>秒，<br>
+冷却时间<span class="cyan b">{$skill555_cd}</span>秒。<br>
+<!--{eval $skill555_lst = (int)\skillbase\skill_getvalue(555,'lastuse'); $skill555_time = ($now-$skill555_lst);$skill555_cd_left=($skill555_cd+$skill555_act_time-$skill555_time);$skill555_rem=($skill555_act_time-$skill555_time);}-->
+<!--{if $skill555_time>$skill555_act_time && $skill555_time<$skill555_cd+$skill555_act_time}-->
+<span class="cyan b">技能冷却中，冷却时间还剩<span>{$skill555_cd_left}</span>秒。</span><br>
+<!--{else}-->
+<!--{if $skill555_time<=$skill555_act_time}-->
+<span class="yellow b">技能发动中！持续时间还剩<span>{$skill555_rem}</span>秒。</span><br>
+<!--{/if}-->
+<!--{/if}-->
+</span></td>
+<td class="skilldesc_right b3">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

@@ -517,6 +517,9 @@ skill504,extra/card/skills/skill504/,1
 skill505,extra/card/skills/skill505/,1
 skill80,extra/club/skills/skill80/,1
 skill551,extra/card/skills/skill551/,1
+skill553,extra/card/skills/skill553/,1
+skill554,extra/card/skills/skill554/,1
+skill555,extra/card/skills/skill555/,1
 skill363,extra/achievement/skills/skill363/,1
 instance5,extra/instance/instance5/,1
 skill361,extra/activities/lunany2018/skill361/,1
