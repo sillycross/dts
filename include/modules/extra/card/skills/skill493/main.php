@@ -129,12 +129,11 @@ namespace skill493
 		return $chprocess($pa, $pd, $active);
 	}
 	
-	//攻击结束时根据所选项来转化
-	function post_player_damaged_enemy_event(&$pa,&$pd,$active)
+	//单次攻击结束时，根据所选项转化
+	function attack_finish(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('rage'));
-		
+		$chprocess($pa,$pd, $active);
 		foreach(array(&$pa, &$pd) as &$pl){
 			if($pl['hp'] > 0 && \skillbase\skill_query(493,$pl) && check_unlocked493($pl)){
 				$skill493var = \skillbase\skill_getvalue(493,'choice');
@@ -149,8 +148,7 @@ namespace skill493
 				elseif(2==$skill493var) \lvlctl\getexp($allup, $pl);
 				else \rage\get_rage($allup, $pl);
 			}
-		}
-		$chprocess($pa,$pd, $active);
+		}		
 	}
 }
 
