@@ -7,7 +7,7 @@ namespace skill555
 	
 	function init() 
 	{
-		define('MOD_SKILL555_INFO','card;upgrade;unique;');
+		define('MOD_SKILL555_INFO','card;upgrade;');
 		eval(import_module('clubbase'));
 		$clubskillname[555] = '止水';
 	}
