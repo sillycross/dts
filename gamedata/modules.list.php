@@ -254,6 +254,8 @@ skill531,extra/card/skills/skill531/,1
 skill532,extra/card/skills/skill532/,1
 skill552,extra/card/skills/skill552/,1
 skill1012,extra/gmskills/skill1012/,1
+skill553,extra/card/skills/skill553/,1
+skill555,extra/card/skills/skill555/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
@@ -301,6 +303,7 @@ skill407,extra/card/skills/skill407/,1
 skill32,extra/club/skills/skill32/,1
 skill202,extra/club/skills/skill202/,1
 skill445,extra/card/skills/skill445/,1
+skill557,extra/card/skills/skill557/,1
 pose,base/pose/,1
 skill1,base/skills/skill1/,1
 skill600,extra/club/skills/skill600/,1
@@ -517,10 +520,7 @@ skill504,extra/card/skills/skill504/,1
 skill505,extra/card/skills/skill505/,1
 skill80,extra/club/skills/skill80/,1
 skill551,extra/card/skills/skill551/,1
-skill553,extra/card/skills/skill553/,1
 skill554,extra/card/skills/skill554/,1
-skill555,extra/card/skills/skill555/,1
-skill555,extra/card/skills/skill557/,1
 skill363,extra/achievement/skills/skill363/,1
 instance5,extra/instance/instance5/,1
 skill361,extra/activities/lunany2018/skill361/,1
