@@ -4,19 +4,32 @@ if(!defined('IN_GAME')) {
 	exit('Access Denied');
 }
 
+function define_am_logfile()
+{
+	return GAME_ROOT.'./gamedata/tmp/log/auto_maintain.txt';
+}
+
+//记录维护日志
 function am_log($mlog)
 {
-	global $am_logfile;
+	$am_logfile = define_am_logfile();
 	writeover($am_logfile, $mlog."\r\n", 'ab+');
 }
 
-function am_main($mcode)
-{
-	global $db, $gtablepre, $now, $replay_remote_storage, $am_logfile;
-	$am_logfile = GAME_ROOT.'./gamedata/tmp/log/auto_maintain.txt';
-	//24小时内执行过维护，则直接返回
-	if(file_exists($am_logfile) && time() - filemtime($am_logfile) < 86400) return;
+//判定上一次维护是不是足够久（超过24小时），是的话返回true也就是允许维护
+function am_is_last_maintain_old_enough(){
+	$am_logfile = define_am_logfile();
+	if(file_exists($am_logfile) && time() - filemtime($am_logfile) < 86400) return false;
+	return true;
+}
 
+//维护主程序
+function am_main($mcode, $forced = 0)
+{
+	global $db, $gtablepre, $now, $replay_remote_storage;
+	//24小时内执行过维护，则返回
+	if(!$forced && !am_is_last_maintain_old_enough()) return;
+	
 	am_log(date("Y-m-d H:i:s")."\r\nAuto-maintaining code started.");
 
 	if(empty($mcode)) $mcode = 0;

@@ -21,7 +21,7 @@ namespace sklearn_util
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player','clubbase'));
-		
+//		logmicrotime('前置处理');//这之前性能消耗都不大
 		$is_show_cost=$callback_funcname('show_cost');
 		$caller_id=$callback_funcname('caller_id');
 		
@@ -42,7 +42,9 @@ namespace sklearn_util
 					}
 				}
 			}
+//		logmicrotime('第一断点');//吃性能大户1，因为代码没改，可学习性就不会改，可以做成静态的
 		include template(MOD_SKLEARN_UTIL_SKILLLEARN_TABLE);
+//		logmicrotime('第二断点');//这边也有一定的消耗
 		$___TEMP_str='';
 		global $___tmp_disable_codeadv3;
 		$___tmp_disable_codeadv3_old = $___tmp_disable_codeadv3;
@@ -62,6 +64,7 @@ namespace sklearn_util
 			
 			//$___TEMP_str.='$(\'skl_util_'.$caller_id.'_skilllearn_tabrow_'.$___TEMP_now_skillid.'\').deleteCell(1);';
 		}
+//		logmicrotime('第三断点');//吃性能大户2
 		$___tmp_disable_codeadv3 = $___tmp_disable_codeadv3_old;
 		//echo '<img style="display:none;" type="hidden" src="img/blank.png" onload="'.$___TEMP_str.'">';
 	}

@@ -71,10 +71,12 @@ while ($data = $db->fetch_array($roomresult))
 			//如果daemon开启，安排每个房间routine()一下，刷新房间内的游戏状态
 			//非daemon模式强行载入每个房间会导致严重的脏数据，考虑到非daemon模式基本用于开发，就不刷新房间了
 			if($___MOD_SRV) {
-				$routine_url = 'http://'.$_SERVER['HTTP_HOST'].substr($_SERVER['PHP_SELF'],0,-9).'command.php';
-				$routine_context = array('command'=>'room_routine_single','game_roomid'=>$data['groomid']);
-				curl_post($routine_url,$routine_context,NULL,0.1);//相当于异步
-				unset($routine_url,$routine_context);
+				curl_post(
+					url_dir().'command.php',
+					array('command'=>'room_routine_single','game_roomid'=>$data['groomid']),
+					NULL,
+					0.1
+				);//相当于异步
 			}
 			//$roomdata = gdecode(file_get_contents(GAME_ROOT.'./gamedata/tmp/rooms/'.$data['groomid'].'.txt'),1);
 			$roomdata = gdecode($data['roomvars'] ,1);

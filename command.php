@@ -485,6 +485,19 @@ else	//未开启server-client模式，正常执行准备流程
 ////////////////////////////////////////////////////////////////////////////
 
 if(isset($command)){
+	if(3 == date('H', $now) && $___MOD_SRV) {//凌晨3点有访问时自动维护，需要开启$___MOD_SRV
+		//另开一个进程异步处理
+		include_once GAME_ROOT.'./include/auto_maintain/auto_maintain_misc.func.php';
+		if(am_is_last_maintain_old_enough()) {
+			curl_post(
+				url_dir().'command.php',
+				array('command'=>'maintain'),
+				NULL,
+				0.1
+			);
+		}
+	}
+	
 	if('area_timing_refresh' == $command){//刷新禁区时间
 		//\sys\routine();
 		\map\init_areatiming();
@@ -496,10 +509,10 @@ if(isset($command)){
 		return;
 	}elseif('room_routine_single' == $command){//刷新房间内游戏状态。什么都不用做，command.php被唤醒时自动routine()过了
 		return;
-	}elseif('maintain' == $command || 3 == date('H', $now)){//凌晨3点有访问时自动维护，也可以手动启动维护
+	}elseif('maintain' == $command){//手动启动维护
 		include_once GAME_ROOT.'./include/auto_maintain/auto_maintain_misc.func.php';
 		am_main(1+2+4+8+16+32);
-		if('maintain' == $command) return;
+		return;
 	}
 }
 

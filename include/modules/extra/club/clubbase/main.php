@@ -348,23 +348,42 @@ namespace clubbase
 		
 	}
 	
+	//生成技能表页面
+	//为了调整显示顺序，不是按获得顺序直接显示的
 	function get_skillpage()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player','clubbase'));
-		$___TEMP_inclist = Array();
-		$clubskill_list = array();
+		startmicrotime();
+		$checked_list = $___TEMP_inclist = Array();
+		//第一顺位，生命、攻防、治疗三大件，固定顺序（肌肉和根性的同名技能视为生命和攻防，先写死在这里吧）
+		foreach(Array(10, 29, 11, 39, 12) as $key) {
+			if (defined('MOD_SKILL'.$key.'_INFO') && \skillbase\skill_query($key)) {
+				array_push($___TEMP_inclist,template(constant('MOD_SKILL'.$key.'_DESC')));
+				$checked_list[] = $key;
+			}
+		}
+		//第二顺位，本系的其他技能
 		if($club) {
 			$clubskill_list = $clublist[$club]['skills'];
-			foreach ($clubskill_list as $key) 
-				if (defined('MOD_SKILL'.$key.'_INFO') && \skillbase\check_skill_info($key, 'club') && !\skillbase\check_skill_info($key, 'hidden') && \skillbase\skill_query($key)) 
+			foreach ($clubskill_list as $key) {
+				if (defined('MOD_SKILL'.$key.'_INFO') && !in_array($key, $checked_list) && \skillbase\check_skill_info($key, 'club') && !\skillbase\check_skill_info($key, 'hidden') && \skillbase\skill_query($key)) {
 					array_push($___TEMP_inclist,template(constant('MOD_SKILL'.$key.'_DESC')));
+					$checked_list[] = $key;
+				}
+			}
 		}
-		foreach (\skillbase\get_acquired_skill_array() as $key) 
-			if (!in_array($key,$clubskill_list))
-				if (defined('MOD_SKILL'.$key.'_INFO') && !\skillbase\check_skill_info($key, 'achievement') && !\skillbase\check_skill_info($key, 'hidden')) 
-					array_push($___TEMP_inclist,template(constant('MOD_SKILL'.$key.'_DESC'))); 
-		foreach ($___TEMP_inclist as $___TEMP_template_name) include $___TEMP_template_name;
+		//第三顺位，其他技能
+		foreach (\skillbase\get_acquired_skill_array() as $key) {
+			if (defined('MOD_SKILL'.$key.'_INFO') && !in_array($key, $checked_list) && !\skillbase\check_skill_info($key, 'achievement') && !\skillbase\check_skill_info($key, 'hidden')) {
+				array_push($___TEMP_inclist,template(constant('MOD_SKILL'.$key.'_DESC'))); 
+				$checked_list[] = $key;
+			}
+		}
+		foreach ($___TEMP_inclist as $___TEMP_template_name) {
+			include $___TEMP_template_name;
+		}
+//		logmicrotime('完成处理');
 	}
 	
 	//载入玩家发动的攻击技能
