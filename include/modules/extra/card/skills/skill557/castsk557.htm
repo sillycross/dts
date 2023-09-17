@@ -1,8 +1,7 @@
-<input type="hidden" id="mode" name="mode" value="item">
-<input type="hidden" id="command" name="command" value="castsk557">
-<input type="hidden" name="itmp" value="{$theitem['itmn']}">
+<input type="hidden" id="mode" name="mode" value="command">
+<input type="hidden" id="command" name="command" value="itm{$theitem['itmn']}">
 <input type="hidden" id="skill557_choice" name="skill557_choice" value="arf">
-<span class="gold b">“马有四条腿，可以穿两套鞋子。”</span><br><br>你要将<span class="yellow b">{$itm}</span>装备到哪个位置？<br><br> 
+<span class="gold b">“马有四条腿，可以穿两双鞋子。”</span><br><br>你要将<span class="yellow b">{$theitem['itm']}</span>装备到哪个位置？<br><br> 
 <input type="button" class="cmdbutton" value="前腿" onclick="$('skill557_choice').value='ara';postCmd('gamecmd','command.php');this.disabled=true;">
 <input type="button" class="cmdbutton" value="后腿" onclick="$('skill557_choice').value='arf';postCmd('gamecmd','command.php');this.disabled=true;">
 <input type="button" class="cmdbutton"  id="x" value="[X]返回" onclick="$('command').value='menu'; postCmd('gamecmd','command.php');this.disabled=true;">

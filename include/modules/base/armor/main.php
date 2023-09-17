@@ -112,47 +112,63 @@ namespace armor
 		$chprocess($pa, $pd, $active);
 	}
 	
-	function itemuse(&$theitem) 
+	//装备防具的核心函数
+	//$pos为要换上的目标位置，留空则默认
+	function use_armor(&$theitem, $pos = '')
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
 		eval(import_module('sys','player','itemmain','logger'));
 		
 		$itm=&$theitem['itm']; $itmk=&$theitem['itmk'];
 		$itme=&$theitem['itme']; $itms=&$theitem['itms']; $itmsk=&$theitem['itmsk'];
 		
-		if (strpos ( $itmk, 'D' ) === 0)
-		{
+		if(!$pos) {
 			if(strpos ( $itmk, 'DB' ) === 0) {
-				$eqp = 'arb';
+				$pos = 'arb';
 				$noeqp = 'DN';
 			}elseif(strpos ( $itmk, 'DH' ) === 0) {
-				$eqp = 'arh';
+				$pos = 'arh';
 				$noeqp = '';
 			}elseif(strpos ( $itmk, 'DA' ) === 0) {
-				$eqp = 'ara';
+				$pos = 'ara';
 				$noeqp = '';
 			}elseif(strpos ( $itmk, 'DF' ) === 0) {
-				$eqp = 'arf';
+				$pos = 'arf';
 				$noeqp = '';
 			}
-			if (($noeqp && strpos ( ${$eqp.'k'}, $noeqp ) === 0) || ! ${$eqp.'s'}) {
-				${$eqp} = $itm;
-				${$eqp.'k'} = $itmk;
-				${$eqp.'e'} = $itme;
-				${$eqp.'s'} = $itms;
-				${$eqp.'sk'} = $itmsk;
+		}
+		
+		if(!in_array($pos, Array('arb', 'arh', 'ara', 'arf'))){//防呆，比如哪个函数传入了怪的指令
+			$log .= "指令错误。<br>";
+			return;
+		}else{
+			if ((!empty($noeqp) && strpos ( ${$pos.'k'}, $noeqp ) === 0) || ! ${$pos.'s'}) {
+				${$pos} = $itm;
+				${$pos.'k'} = $itmk;
+				${$pos.'e'} = $itme;
+				${$pos.'s'} = $itms;
+				${$pos.'sk'} = $itmsk;
 				$log .= "装备了<span class=\"yellow b\">$itm</span>。<br>";
 				$itm = $itmk = $itmsk = '';
 				$itme = $itms = 0;
 			} else {
-				swap(${$eqp},$itm);
-				swap(${$eqp.'k'},$itmk);
-				swap(${$eqp.'e'},$itme);
-				swap(${$eqp.'s'},$itms);
-				swap(${$eqp.'sk'},$itmsk);
-				$log .= "卸下了<span class=\"red b\">$itm</span>，装备了<span class=\"yellow b\">${$eqp}</span>。<br>";
+				swap(${$pos},$itm);
+				swap(${$pos.'k'},$itmk);
+				swap(${$pos.'e'},$itme);
+				swap(${$pos.'s'},$itms);
+				swap(${$pos.'sk'},$itmsk);
+				$log .= "卸下了<span class=\"red b\">$itm</span>，装备了<span class=\"yellow b\">${$pos}</span>。<br>";
 			}
+		}
+		return;
+	}
+	
+	function itemuse(&$theitem) 
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		if (strpos ( $theitem['itmk'], 'D' ) === 0) {
+			use_armor($theitem);
 			return;
 		}
 		$chprocess($theitem);

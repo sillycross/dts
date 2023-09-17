@@ -36,7 +36,7 @@ namespace skill445
 	function get_internal_att(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ((\skillbase\skill_query(445,$pa))&&(check_unlocked445($pa))) return 1;
+		if ((\skillbase\skill_query(445,$pa))&&(check_unlocked445($pa))) return $chprocess($pa,$pd,$active)*0.5;
 		return $chprocess($pa,$pd,$active);
 	}
 }
