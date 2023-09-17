@@ -4291,7 +4291,7 @@ $cards = array(
 	253 => array(
 		'name' => '大考挑战者',
 		'rare' => 'B',
-		'pack' => 'Way of Life',
+		'pack' => 'hidden',
 		'desc' => '“我考，完了！”',
 		'effect' => '获得最强大脑称号特性「脑力」，但视野只有两格',
 		'energy' => 0,
@@ -4314,6 +4314,21 @@ $cards = array(
 		'valid' => array(
 			'skills' => array(
 				'555' => '0'
+			)
+		)
+	),
+	//小马
+	256 => array(
+		'name' => '……',
+		'rare' => 'C',
+		'pack' => 'hidden',
+		'desc' => '……',
+		'effect' => '……',
+		'desc_skills' => '马有四条腿，可以穿两套鞋子',
+		'energy' => 120,
+		'valid' => array(
+			'skills'=>array(
+				'557' => '0'
 			)
 		)
 	),
