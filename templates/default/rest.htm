@@ -1,10 +1,10 @@
 <!--{eval eval(import_module('sys','rest'));}-->
 <!--{eval \rest\init_rest_timing();}-->
-{$restinfo[$state]}中……已经过<span class="yellow b" id="rest_timing">{$uip['timing']['rest_timing']['timing']}</span>秒。<br>
+{$restinfo[$state]}中……已经过<span class="yellow b" id="rest_timing">{$uip['timing']['rest_timing']['timing_r']}</span>秒。<br>
 <input type="hidden" id="mode" name="mode" value="rest">
 <input type="hidden" id="command" name="command" value="rest">
 <input type="button" class="cmdbutton" value="$restinfo[$state]" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
 <input type="button" class="cmdbutton" value="返回" onclick="$('command').value='back';postCmd('gamecmd','command.php');this.disabled=true;">
 <!--{if CURSCRIPT == 'game'}-->
-<script type="text/javascript">updateTime('rest_timing', {$uip['timing']['rest_timing']['timing']}, {$uip['timing']['rest_timing']['mode']}, 1000, 's');</script>
+<script type="text/javascript">updateTime('rest_timing', {$uip['timing']['rest_timing']['timing']}, {$uip['timing']['rest_timing']['mode']}, 1000, 'mm:ss');</script>
 <!--{/if}--> 
