@@ -3419,12 +3419,14 @@ $cards = array(
 	198 => array(
 		'name' => '非常非常二',
 		'rare' => 'B',
-		'pack' => 'hidden',
-		'desc' => 'IG空间，全称<ruby>虚数几何空间<rt>Imaginary Geometry</rt></ruby>，只有极少数擅长钻空子的能力者才能把物质自由地送到那里',
-		'effect' => '获得技能【空子】：你能把道具存进虚数空间或者从中取出。最多同时储存两个道具',
+		'pack' => 'Top Players',
+		'desc' => 'IG空间，全称 <ruby>虚数几何空间<rt>Imaginary Geometry</rt></ruby>，<br>只有极少数擅长钻空子的能力者才能把物质自由地送到那里',
+		'effect' => '获得技能「空子」：你能把道具存进异空间或者从中取出。<br>最多同时储存两个道具',
 		'energy' => 0,
 		'valid' => array(
-			'pls' => '0',//todo
+			'skills' => array(
+				'534' => '2', 
+			),
 		)
 	),
 	199 => array(
