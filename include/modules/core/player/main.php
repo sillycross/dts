@@ -55,7 +55,7 @@ namespace player
 		if(isset($pdata_lock_pool[$pdid])) return 1;//如果玩家池已存在，认为已经上锁了
 		$dir = GAME_ROOT.'./gamedata/tmp/playerlock/room'.$groomid.'/';
 		$file = 'player_'.$pdid.'.nlk';
-		$lstate = check_lock($dir, $file, 2000);//最多允许2秒等待，之后穿透
+		$lstate = check_lock($dir, $file, 15000);//最多允许2秒等待，之后穿透 //2023.9.23由于可能出现长达十几秒的卡顿，把穿透等待时间增加到15秒
 		$res = 2;
 		if(!$lstate) {
 			if(create_lock($dir, $file)) {
