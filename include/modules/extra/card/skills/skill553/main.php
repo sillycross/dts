@@ -51,7 +51,7 @@ namespace skill553
 		if (\skillbase\skill_query(553,$sdata) && $money >= $debt)
 		{
 			//还钱
-			$log .= "你还清了借来的{$debt}元。<br>";		
+			$log .= "你还清了借来的{$debt}元。<br>";
 			$money -= $debt;
 			\skillbase\skill_lost(553);
 		}
