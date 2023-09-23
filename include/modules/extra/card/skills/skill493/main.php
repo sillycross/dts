@@ -150,6 +150,26 @@ namespace skill493
 			}
 		}		
 	}
+	
+	//在重置$sdata前后，记录skill493的值
+	function load_playerdata($pdata)//其实最早这个函数是显示用的
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(\skillbase\skill_query(493,$pdata)) {
+			eval(import_module('player'));//写在这里是为了后面使用$sdata
+			foreach(array('skill493_o_skillup','skill493_o_expup','skill493_o_rageup') as $nval){
+				${$nval.'before_load_playerdata'} = !empty($pdata[$nval]) ? $pdata[$nval] : 0;
+			}
+		}
+		$chprocess($pdata);
+		//注意由于这个函数对$pdata是传值，而实际修改的是$sdata，后边这里也得是$sdata
+		foreach(array('skill493_o_skillup','skill493_o_expup','skill493_o_rageup') as $nval){
+			if(!empty(${$nval.'before_load_playerdata'})) {
+				$sdata[$nval] = ${$nval.'before_load_playerdata'};
+			}
+			${$nval.'before_load_playerdata'} = !empty($pdata[$nval]) ? $pdata[$nval] : 0;
+		}
+	}
 }
 
 ?>

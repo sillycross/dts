@@ -473,7 +473,7 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 			$roomdata['readystat']=2;
 			$roomdata['timestamp']++;
 			room_save_broadcast($room_id_r,$roomdata);
-			usleep(100000);//性能歧视
+			//usleep(100000);//忘了之前为什么写这句了，先删掉看看会出什么篓子
 			$db->query("UPDATE {$gtablepre}game SET groomstatus=40 WHERE groomid='$room_id_r'");
 			$roomdata['readystat']=0;
 			$roomdata['timestamp']++;

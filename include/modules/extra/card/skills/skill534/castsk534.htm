@@ -1,0 +1,21 @@
+<!--{eval eval(import_module('skill534','sys','clubbase'));}-->
+<!--{eval $skill534_itmarr=\skill534\skill534_prepare_itmarr();$skill534_nowcount=sizeof($skill534_itmarr);$skill534_size=\skill534\skill534_get_packsize();}-->
+<input type="hidden" name="mode" value="special">
+<input type="hidden" id="command" name="command" value="skill534_special">
+<input type="hidden" id="subcmd" name="subcmd" value="">
+<input type="hidden" id="skill534_sendin" name="skill534_sendin" value="">
+<input type="hidden" id="skill534_fetchout" name="skill534_fetchout" value="">
+当前异次元中已存放 <span class="yellow b">{$skill534_nowcount}/{$skill534_size}</span> 个道具<br>
+<!--{loop $skill534_itmarr $i $v}-->
+<input type="button" class="cmdbutton" value="取出" onclick="$('skill534_fetchout').value='<!--{eval echo $i+1;}-->';$('skill534_sendin').value='';postCmd('gamecmd','command.php');this.disabled=true;">
+$v['itm']/$v['itme']/$v['itms']<br>
+<!--{/loop}-->
+<br><br>
+<!--{loop Array(1,2,3,4,5,6) $i}-->
+<!--{if !empty(${'itms'.$i})}-->
+<input type="button" class="cmdbutton" value="存入" onclick="$('skill534_fetchout').value='';$('skill534_sendin').value='{$i}';postCmd('gamecmd','command.php');this.disabled=true;">
+${'itm'.$i}/${'itme'.$i}/${'itms'.$i}<br>
+<!--{/if}-->
+<!--{/loop}-->
+<br><br>
+<input type="button" class="cmdbutton"  id="x" value="[X]返回" onclick="$('command').value='menu'; postCmd('gamecmd','command.php');this.disabled=true;">

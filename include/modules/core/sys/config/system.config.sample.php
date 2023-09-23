@@ -11,7 +11,7 @@ namespace sys
 	//是否缓存css文件。0=不缓存，1=缓存
 	$allowcsscache = 1;
 	//是否用数据库储存历史进行状况。0=/gamedata/bak/文件储存，1=数据库history表hnews字段储存。建议根据服务器配置灵活设置
-	$hnewsstorage = 0;
+	$hnewsstorage = 1;
 	//游戏所用配置文件
 	$gamecfg = 1;
 	

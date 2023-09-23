@@ -1170,7 +1170,7 @@ if(!$action) {
 	runquery($sql);
 	runquery($extrasql);
 
-loginit('adminlog');
+loginit('adminlog_nf');
 loginit('newsinfo');
 
 dir_clear('./gamedata/bak');

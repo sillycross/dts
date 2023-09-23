@@ -41,7 +41,7 @@ namespace skill313
 	
 	//各级给的卡片奖励
 	$ach313_card_prize = array(
-		2 => 23,
+		2 => 251,
 		3 => 89,
 		4 => 118,
 		5 => 156,
