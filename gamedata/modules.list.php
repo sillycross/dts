@@ -296,6 +296,7 @@ skill403,extra/card/skills/skill403/,1
 skill203,extra/club/skills/skill203/,1
 ammunition,base/items/ammunition/,1
 dualwep,base/weapon/dualwep/,1
+wep_b_extra_reloading,extra/item_extra/wep_b_extra_reloading/,1
 skill487,extra/card/skills/skill487/,1
 armor_art,base/armor_art/,1
 skill23,extra/club/skills/skill23/,1

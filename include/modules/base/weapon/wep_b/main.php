@@ -219,7 +219,7 @@ namespace wep_b
 				$log .= "<span class=\"red b\">你没有装备弓，不能给武器上箭。</span><br>";
 				$mode = 'command';
 				return;
-			} elseif('0' === $theitem['itmn'] && !empty($weps)) {
+			} elseif('0' === $theitem['itmn']) {
 				//捡到的箭矢不能马上拉弓，避免换箭覆盖itm0的问题
 				$log .= "你一只手捏着弓箭，一只手抓着刚捡到的箭矢，没法马上弯弓搭箭。<span class=\"red b\">还是先把箭矢收进包裹里吧。</span><br>";
 				$mode = 'command';

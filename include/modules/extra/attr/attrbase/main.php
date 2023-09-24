@@ -163,7 +163,8 @@ namespace attrbase
 			$cinfo = get_comp_itmsk_info($str);
 			if(!empty($cinfo) && check_comp_itmsk_visible($cinfo)) {
 				eval(import_module('itemmain'));
-				$ret = $itemspkinfo[$cinfo[0]];
+				if(!empty($itemspkinfo[$cinfo[0]])) $ret = $itemspkinfo[$cinfo[0]];
+				else $ret = '';
 			}
 		}
 		
