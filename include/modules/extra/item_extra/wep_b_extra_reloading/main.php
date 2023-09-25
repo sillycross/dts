@@ -70,16 +70,18 @@ namespace wep_b_extra_reloading
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','itemmain','weapon'));
-		$addatt = 0;
 		//如果原本的箭矢是投掷武器，就必须先抵扣
 		$swapitem = \wep_b\wep_b_get_ari($wepsk);
 		if(!empty($swapitem) && strpos($swapitem['itmk'], 'WC')===0) {
-			$addatt -= $swapitem['itme'];
+			$wepe -= $swapitem['itme'];
 		}
+		//先结算，如果扣到负数，变成0
+		if($wepe < 0) $wepe = 0;
+		
 		if(strpos($theitem['itmk'], 'WC')===0) {
-			$addatt += $theitem['itme'];
+			$wepe += $theitem['itme'];
 		}
-		$wepe += $addatt;
+		
 		$chprocess($theitem);
 	}
 	
