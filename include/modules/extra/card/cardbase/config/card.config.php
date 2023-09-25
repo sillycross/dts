@@ -37,6 +37,7 @@ $packlist=array(
 	'Best DOTO',
 	'Balefire Rekindle',
 	'Cyber Zealots',
+	'東埔寨Project',//中文卡集名测试
 	'Event Bonus',
 	
 	'Stealth',
@@ -52,6 +53,7 @@ $packdesc = array(
 	'Balefire Rekindle' => '以游戏版本「复燃」的新增NPC角色和游戏设定为主题的卡集。',
 	'Event Bonus' => '其他一些零散成就和活动奖励卡。',
 	'Cyber Zealots' => '以赛博朋克和网络梗为捏他对象的卡集。',
+	'東埔寨Project' => '以东之国旗舰级同人企划『朹方Project』为主题的卡集，与幻想作品如有雷同纯属必然。',
 	'Stealth' => '一些需要显示卡片介绍的隐藏卡',
 	'hidden' => '隐藏卡片，不会悬浮显示卡片介绍，如果你看到这句话请联系天然呆管理员',
 );
@@ -60,6 +62,7 @@ $pack_ignore_kuji = Array('Balefire Rekindle','Event Bonus');
 //卡包实装的时间戳，可以用来隐藏卡包
 $packstart = array(
 	'Cyber Zealots' => 4476654671,
+	'東埔寨Project' => 4476654671,
 	'Stealth' => 4476654671,
 	'hidden' => 4476654671,
 );
@@ -2589,7 +2592,7 @@ $cards = array(
 		'desc' => '她说：“要有大逃杀。”<br>然后她就平地摔了',
 		'effect' => '开局携带《ACFUN大逃杀原案》',
 		'desc_skills' => '《ACFUN大逃杀原案》：使用后获得150点全系熟练度，但是之后你会更加倒霉',
-		'energy' => 150,
+		'energy' => 120,
 		'valid' => array(
 			'itm6' => '《ACFUN大逃杀原案》',
 			'itmk6' => 'VVS',
@@ -4237,14 +4240,23 @@ $cards = array(
 		)
 	),
 	249 => array(
-		'name' => '水仙女人鱼',
-		'rare' => 'M',
-		'pack' => 'hidden',
-		'desc' => '家人们，水懂啊，这个科乐美要枪尖我',
-		'effect' => '敌方使用的枪械对你来说都视为重枪',
+		'name' => '毛玉',
+		'rare' => 'C',
+		'pack' => '東埔寨Project',
+		'desc' => '能在天上飞行的神秘毛球，<br>是杂鱼中的杂鱼',
+		'effect' => '开局携带P点和蓝点',
 		'energy' => 0,
 		'valid' => array(
-			'pls' => '0',//todo
+			'itm5' => '[P]',
+			'itmk5' => 'MA',
+			'itme5' => '1',
+			'itms5' => '50',
+			'itmsk5' => '',
+			'itm6' => '[点]',
+			'itmk6' => 'MS',
+			'itme6' => '1',
+			'itms6' => '50',
+			'itmsk6' => '',
 		)
 	),
 	
@@ -4334,6 +4346,7 @@ $cards = array(
 			)
 		)
 	),
+
 	257 => array(
 		'name' => '挑战挑战者者',
 		'rare' => 'B',
@@ -4365,7 +4378,41 @@ $cards = array(
 			'skills' => array(
 				'560' => '0',
 				'561' => '0'
-			)
+			),
+    )
+  ),
+	//老板，来个20个卡位的空白
+	280 => array(
+		'name' => 'Acg_xilin',
+		'rare' => 'B',
+		'pack' => 'Top Players',
+		'desc' => 'ACFUN的创建者，是他在ACFUN主页上挂上了dts的链接，推动dts迈出了最重要的一步',
+		'effect' => '这就是你们把猴子杀了几万遍的理由吗？',
+		'desc_skills' => '开局携带游戏解除钥匙（一把锐器）',
+		'energy' => 100,
+		'valid' => array(
+			'itm6' => '「游戏解除钥匙」',
+			'itmk6' => 'WK',
+			'itme6' => '160',
+			'itms6' => '360',
+			'itmsk6' => Array('g', 'l'),
+		)
+	),
+	281 => array(
+		'name' => 'Azazil',
+		'rare' => 'B',
+		'pack' => 'Top Players',
+		'desc' => '简中环境下流传的各类php大逃杀的最初的编写者',
+		'effect' => '就算在十几年过去的今天，游戏代码的一些角落里依然能找到他当初的痕迹',
+		'desc_skills' => '开局携带■生 存 游 戏■源代码（一把拥有物抹+属抹的远程武器）',
+		'energy' => 100,
+		'valid' => array(
+			'itm6' => '■生 存 游 戏■源代码',
+			'itmk6' => 'WG',
+			'itme6' => '7',
+			'itms6' => '7',
+			'itmsk6' => 'oBbS',
+     
 		)
 	),
 	
@@ -4394,7 +4441,7 @@ $cards = array(
 		'pack'=>'hidden',
 		'desc'=>'今天凹了一晚上，想要的卡一张没有',
 		'effect'=>'我草，怎么天亮了？',
-		'energy'=>120,
+		'energy'=>0,
 		'valid' => array(
 			'cardchange' => Array(
 				'real_random' => true,//真随机，所有卡选1张

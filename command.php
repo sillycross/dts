@@ -179,10 +179,12 @@ if ($___MOD_SRV)
 						
 						//更新访问数
 						$___TEMP_WORKNUM=1;
+						$___TEMP_MEMORYSIZE = memory_get_usage();
 						if(file_exists(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT.'/worknum')) {
-							$___TEMP_WORKNUM += (int)file_get_contents(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT.'/worknum');
+							list($___TEMP_WORKNUM, $null) = explode(',', file_get_contents(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT.'/worknum'));
+							$___TEMP_WORKNUM = (int)$___TEMP_WORKNUM + 1;
 						}
-						file_put_contents(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT.'/worknum', $___TEMP_WORKNUM);
+						file_put_contents(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT.'/worknum', $___TEMP_WORKNUM.','.$___TEMP_MEMORYSIZE);
 						
 						eval(import_module('sys','map','player','logger','itemmain','input'));
 						

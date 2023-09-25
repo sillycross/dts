@@ -32,6 +32,9 @@ namespace wep_b
 		$wepimprate['B'] = 10000;
 		//以该类武器击杀敌人后的死亡状态标号
 		$wepdeathstate['B'] = 43;
+		
+		$itemspkinfo['^ari'] = '存箭';
+		$itemspkdesc['^ari'] = '当前所装箭矢的信息为：<:skn:>';
 	}
 	
 	//弓没弓箭时当做锐器
@@ -101,15 +104,18 @@ namespace wep_b
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('weapon','logger'));
 		if ($pa['wep_kind']=='B')	//弓系武器损坏特判（箭矢用光）
 		{
+			eval(import_module('player','weapon','logger'));
 			$log .= \battle\battlelog_parser($pa, $pd, $active, "<:pa_name:>的<span class=\"red b\">{$pa['wep']}</span>的箭矢用光了！<br>");
 			$pa['weps']=$nosta;
-			//箭矢用光时抹掉箭矢名
-			wep_b_clean_arrow_name($pa['wepk']);
+//			//箭矢用光时抹掉箭矢名
+//			wep_b_clean_arrow_name($pa['wepk']);
+
 			//箭矢用光时抹掉箭矢带来的属性
 			wep_b_clean_arrow_sk($pa['wepsk']);
+			//箭矢用光时清除换上的箭矢的信息
+			$pa['wepsk'] = wep_b_put_ari($pa['wepsk'], Array());
 		}
 		else $chprocess($pa,$pd,$active);
 	}
@@ -129,8 +135,50 @@ namespace wep_b
 		return $r;
 	}
 	
+	//从武器属性字符串获取所储存箭矢的信息，所用复合属性为^ari_XXXXX1这样的
+	function wep_b_get_ari($wsk){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = Array();
+		$aris = \itemmain\check_in_itmsk('^ari', $wsk);
+		if(empty($aris)) return $ret;
+		$aris = \attrbase\base64_decode_comp_itmsk($aris);
+		
+		if(!empty($aris)) {
+			$ariarr = explode(',', $aris);
+			$ret = Array(
+				'itm' => $ariarr[0],
+				'itmk' => $ariarr[1],
+				'itme' => $ariarr[2],
+				'itms' => $ariarr[3],
+				'itmsk' => $ariarr[4]
+			);
+		}
+		//var_dump($ret);
+		return $ret;
+	}
+	
+	//把箭矢信息保存到武器属性字符串，所用复合属性为^ari_XXXXX1这样的，如果提供空数组则会把这个属性清除
+	//返回一个修改过的武器属性字符串
+	function wep_b_put_ari($wsk, $ariarr){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		$nowaris = \itemmain\check_in_itmsk('^ari', $wsk);
+		//如果已经存在这个属性，先抹掉
+		if(!empty($nowaris)) {
+			$wsk = preg_replace('/\^ari[_]?[a-zA-Z\+\/\=\)\!\@\#\$\%\-\&\*\(]+?[0-9]/s', '', $wsk);//先抹掉原^ari属性字符串，不管原来的内容是什么
+		}
+		//如果传入的数组非空，构造一个属性并加在$wsk后面
+		if(!empty($ariarr)){
+			//注意这里不会一一检测传入数组的字段是否符合要求
+			$aris = $ariarr['itm'].','.$ariarr['itmk'].','.$ariarr['itme'].','.$ariarr['itms'].','.$ariarr['itmsk'];
+			$wsk .= '^ari_'.\attrbase\base64_encode_comp_itmsk($aris).'1';
+		}
+		return $wsk;
+	}
+	
 	//把箭矢名字抹掉
 	//认为武器类别|后的都是箭矢名，返回抹掉的名字
+	//已废弃不再使用
 	function wep_b_clean_arrow_name(&$itmk){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(strpos($itmk,'|')===false) return '';
@@ -163,11 +211,17 @@ namespace wep_b
 		
 		$itm=&$theitem['itm']; $itmk=&$theitem['itmk'];
 		$itme=&$theitem['itme']; $itms=&$theitem['itms']; $itmsk=&$theitem['itmsk'];
-		
-		//清除箭矢名
-		$swapn = wep_b_clean_arrow_name($wepk);
-		//清除武器上的箭属性
+		//获得原本保存的箭矢数值
+		$swapitem = wep_b_get_ari($wepsk);
+//		//清除箭矢名
+//		$swapn = wep_b_clean_arrow_name($wepk);
+		//清除武器上的箭属性，这里不能直接扣除箭矢的属性（会误伤弓本来有的属性）
 		$swapsk = wep_b_clean_arrow_sk($wepsk);
+		//如果卸下来的箭矢是投掷武器那么从武器效果值扣除投掷武器的部分
+//		if(!empty($swapitem) && strpos($swapitem['itmk'], 'WC')===0){
+//			$wepe -= $swapitem['itme'];
+//		}
+		
 		//判定卸下来的箭矢数目，然后把武器改成无穷耐
 		$swapnum = 0;
 		if ($weps !== $nosta) {
@@ -182,8 +236,18 @@ namespace wep_b
 		$weps = $arrownum;
 		$itms -= $arrownum;
 		
-		//记录箭矢名
-		$wepk .= '|'.$itm;
+		//记录换上的箭矢数值
+		$reloadsk = Array(
+			'itm' => $itm,
+			'itmk' => $itmk,
+			'itme' => $itme,
+			'itms' => $arrownum,
+			'itmsk' => $itmsk
+		);
+		$wepsk = wep_b_put_ari($wepsk, $reloadsk);
+		
+//		//记录箭矢名
+//		$wepk .= '|'.$itm;
 		//为武器增加箭属性
 		if(!empty($itmsk_arr)){
 //			$add_arr = array_diff($itmsk_arr,$wepsk_arr);
@@ -199,8 +263,21 @@ namespace wep_b
 //			$itm = $itmk = $itmsk = '';
 //			$itme = $itms = 0;
 		}
+		//获得卸下的箭矢
 		if($swapnum){
-			$itm0 = $swapn ? $swapn : '卸下的箭';$itmk0 = 'GA';$itme0 = 1;$itms0 = $swapnum; $itmsk0 = $swapsk;
+			if(empty($swapitem)) {
+				$itm0 = '卸下的箭';
+				$itmk0 = 'GA';
+				$itme0 = 1;
+				$itms0 = $swapnum;
+				$itmsk0 = $swapsk;
+			}else{
+				$itm0 = $swapitem['itm'];
+				$itmk0 = $swapitem['itmk'];
+				$itme0 = $swapitem['itme'];
+				$itms0 = !empty($swapnum) ? $swapnum : $swapitem['itms'];
+				$itmsk0 = $swapitem['itmsk'];
+			}
 			\itemmain\itemget();
 		}
 	}
@@ -219,7 +296,7 @@ namespace wep_b
 				$log .= "<span class=\"red b\">你没有装备弓，不能给武器上箭。</span><br>";
 				$mode = 'command';
 				return;
-			} elseif('0' === $theitem['itmn'] && !empty($weps)) {
+			} elseif('0' === $theitem['itmn']) {
 				//捡到的箭矢不能马上拉弓，避免换箭覆盖itm0的问题
 				$log .= "你一只手捏着弓箭，一只手抓着刚捡到的箭矢，没法马上弯弓搭箭。<span class=\"red b\">还是先把箭矢收进包裹里吧。</span><br>";
 				$mode = 'command';
@@ -258,6 +335,22 @@ namespace wep_b
 		$ret = $chprocess($edata);
 		if(!empty($tmp_log_2)) $log .= $tmp_log_2;
 		return $ret;
+	}
+	
+	//覆盖$skn返回值，显示箭矢信息
+	function get_itmsk_desc_single_comp_process($skk, $skn, $sks) {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$skn = $chprocess($skk, $skn, $sks);
+		if(strpos($skk, '^ari')===0) {
+			$skarr = explode(',',\attrbase\base64_decode_comp_itmsk($sks));
+			$itm = $skarr[0];
+			$itmk_words = \itemmain\parse_itmk_words($skarr[1]);
+			$itme = $skarr[2];
+			$itms = $skarr[3];
+			$itmsk_words = \itemmain\parse_itmsk_words($skarr[4]);
+			$skn = $itm.'/'.$itmk_words.'/'.$itme.'/'.$itms.(!empty($itmsk_words) ? '/'.$itmsk_words : '');
+		}
+		return $skn;
 	}
 }
 

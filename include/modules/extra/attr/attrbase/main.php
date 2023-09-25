@@ -70,6 +70,7 @@ namespace attrbase
 	
 	//从单属性字段，获得复合属性的代号和数值。非复合属性返回NULL
 	//返回两个变量：^+字母部分和数字部分
+	//如果^+字母部分有下划线，那么把下划线后的部分作为第三个变量返回
 	function get_comp_itmsk_info($str){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(!is_string($str) || '^' != $str[0]) return NULL;
@@ -83,10 +84,12 @@ namespace attrbase
 			}
 		}
 		$skk = '^'.$skk;
-		return array($skk, $skn);
+		$sks = '';
+		if(strpos($skk, '_')!==false) list($null, $sks) = explode('_', $skk, 2);
+		return array($skk, $skn, $sks);
 	}
 	
-	//判断两个属性代号$ssk是不是与$mark一致。其中$ssk是从具体道具属性字段里取出的，$mark是需要判定是否存在的（复合属性时，$mark应只有^字母）
+	//判断属性代号$ssk是不是与$mark一致。其中$ssk是从具体道具属性字段里取出的，$mark是需要判定是否存在的（复合属性时，$mark应只有^字母）
 	function check_itmsk_single_mark($ssk, $mark)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -100,7 +103,7 @@ namespace attrbase
 	//输入$mark是用来判定的单字母属性或者以^字母为形式的复合属性前缀
 	//输入$skarr是已经经过get_itmsk_array()处理的属性数组，直接输入属性字符串也会自动转换
 	//如果$count==1，则会统计属性总数。
-	//如果属性不存在，返回false；如果是复合属性或者要统计总数，会返回数值。
+	//如果属性不存在，返回false；存在则返回1；如果是复合属性或者要统计总数，会返回具体数值；如果有记录特殊变量，则返回特殊变量。
 	
 	function check_in_itmsk($mark, $skarr, $count = 0)
 	{
@@ -112,13 +115,18 @@ namespace attrbase
 			$compret = get_comp_itmsk_info($mark);
 			if(NULL !== $compret) {
 				$flag = false;
-				list($skk, $null) = $compret;
+				$skk = $compret[0];
 				foreach($skarr as $v) {
+					//真正判定，对属性数组中的每一个变量，判定头部是否相等
 					if (check_itmsk_single_mark($v, $skk)) {
-						
-						list($null, $skn) = get_comp_itmsk_info($v);
-						if(!$flag) $flag = $skn;
-						else $flag += $skn;
+						list($null, $skn, $sks) = get_comp_itmsk_info($v);
+						//返回值默认是数字部分
+						$flag = !$flag ? $skn : $flag + $skn;
+						//如果get_comp_itmsk_info()的第三个返回值非空（记录特殊变量）那么丢弃数字部分，返回第三个返回值（此时$count失效）
+						if(!empty($sks)) {
+							$flag = $sks;
+							$count = 0;
+						}
 						if(!$count) break;
 					}
 				}
@@ -163,13 +171,17 @@ namespace attrbase
 			$cinfo = get_comp_itmsk_info($str);
 			if(!empty($cinfo) && check_comp_itmsk_visible($cinfo)) {
 				eval(import_module('itemmain'));
-				$ret = $itemspkinfo[$cinfo[0]];
+				$ck = $cinfo[0];
+				if(strpos($ck, '_')!==false) $ck = explode('_', $ck)[0];
+				if(!empty($itemspkinfo[$ck])) $ret = $itemspkinfo[$ck];
+				else $ret = '';
 			}
 		}
 		
 		return $ret;
 	}
 	
+	//使itmsk描述(悬浮显示)增加对复合属性的支持
 	function get_itmsk_desc_single($str)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -179,7 +191,9 @@ namespace attrbase
 			$cinfo = get_comp_itmsk_info($str);
 			if(!empty($cinfo) && check_comp_itmsk_visible($cinfo)) {
 				eval(import_module('itemmain'));
-				$ret = str_replace('<:skn:>', get_itmsk_desc_single_comp_process($cinfo[0], $cinfo[1]), $itemspkdesc[$cinfo[0]]);
+				$ck = $cinfo[0];
+				if(strpos($ck, '_')!==false) $ck = explode('_', $ck)[0];
+				$ret = str_replace('<:skn:>', get_itmsk_desc_single_comp_process($ck, $cinfo[1], $cinfo[2]), $itemspkdesc[$ck]);
 			}
 		}
 		
@@ -193,9 +207,31 @@ namespace attrbase
 	}
 	
 	//对复合属性数值的处理接口，某些需要调整显示的功能可以继承这个
-	function get_itmsk_desc_single_comp_process($skk, $skn) {
+	function get_itmsk_desc_single_comp_process($skk, $skn, $sks) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return $skn;
+	}
+	
+	//把任意字符串转换为可以嵌入复合属性的非标准base64字符串（用其他符号一一替代数字，但不含已经被base64使用的+ / =）
+	function base64_encode_comp_itmsk($str){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$dict = ')!@#$%-&*(';//对应键盘数字键的上标符号，其中^替换成-
+		$ret = base64_encode($str);
+		for($i=0;$i<=9;$i++){
+			$ret = str_replace($i, $dict[$i], $ret);
+		}
+		return $ret;
+	}
+	
+	//对应的逆运算
+	function base64_decode_comp_itmsk($str){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$dict = ')!@#$%-&*(';//对应键盘数字键的上标符号，其中^替换成-
+		for($i=0;$i<=9;$i++){
+			$str = str_replace($dict[$i], $i, $str);
+		}
+		$ret = base64_decode($str);
+		return $ret;
 	}
 }
 

@@ -317,9 +317,16 @@ namespace attack
 	function add_format($var, $str, $space=1)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$asign = $var>=0 ? '+' : '-';
+		
+		if(is_numeric($var)){
+			$asign = $var>=0 ? '+' : '-';
+			$var = abs($var);
+		} else {
+			$asign = '+';
+		}
 		if($space) $asign = ' '.$asign.' ';
-		return $str.$asign.abs($var);
+		
+		return $str.$asign.$var;
 	}
 	
 	//在字符串右边乘数字的玩意。与下面那个算系数的不是一个思路

@@ -10,7 +10,7 @@
 <tr>          			  
 	<TD class=b2 height="26"><span><!--{if ${'itms'.$i} && $tpldata['itmk'.$i.'_words']}-->$tpldata['itmk'.$i.'_words']<!--{else}--><span class="grey b">{lang pack}{$i}</span><!--{/if}--></span></TD>
 	<TD class=b3><span><!--{if ${'itms'.$i}}-->$tpldata['itm'.$i.'_words']<!--{else}-->$noitm<!--{/if}--></span></TD>
-	<TD class=b3><span <!--{if ${'itms'.$i} && $tpldata['itmsk'.$i.'_desc']}-->title="{$tpldata['itmsk'.$i.'_desc']}"<!--{/if}-->><!--{if ${'itms'.$i}}-->$tpldata['itmsk'.$i.'_words']<!--{else}-->--<!--{/if}--></span></TD>
+	<TD class=b3><span <!--{if ${'itms'.$i} && $tpldata['itmsk'.$i.'_desc']}-->title="{$tpldata['itmsk'.$i.'_desc']}"<!--{/if}-->><!--{if !empty($tpldata['itmsk'.$i.'_words'])}-->$tpldata['itmsk'.$i.'_words']<!--{else}-->--<!--{/if}--></span></TD>
 	<TD class=b3><span><!--{if ${'itms'.$i}}-->${'itme'.$i}<!--{else}-->0<!--{/if}--></span></TD>
 	<TD class=b3><span>${'itms'.$i}</span></TD>
 </tr>
