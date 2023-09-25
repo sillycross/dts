@@ -64,5 +64,36 @@ namespace wep_b_extra_reloading
 		}
 		$chprocess($theitem);
 	}
+	
+	//投掷武器上箭会增加/抵扣武器效果值
+	function itemuse_uga(&$theitem)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','itemmain','weapon'));
+		$addatt = 0;
+		//如果原本的箭矢是投掷武器，就必须先抵扣
+		$swapitem = \wep_b\wep_b_get_ari($wepsk);
+		if(!empty($swapitem) && strpos($swapitem['itmk'], 'WC')===0) {
+			$addatt -= $swapitem['itme'];
+		}
+		if(strpos($theitem['itmk'], 'WC')===0) {
+			$addatt += $theitem['itme'];
+		}
+		$wepe += $addatt;
+		$chprocess($theitem);
+	}
+	
+	//用掉投掷武器做的箭也会失去武器效果值
+	function weapon_break(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if ($pa['wep_kind']=='B')	//弓系武器损坏特判（箭矢用光）
+		{
+			$swapitem = \wep_b\wep_b_get_ari($pa['wepsk']);
+			if(strpos($swapitem['itmk'], 'WC')===0) $pa['wepe'] -= $swapitem['itme'];
+			if($pa['wepe']<0) $pa['wepe']=0;
+		}
+		$chprocess($pa, $pd, $active);
+	}
 }
 ?>

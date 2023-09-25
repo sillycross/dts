@@ -34,7 +34,7 @@ namespace wep_b
 		$wepdeathstate['B'] = 43;
 		
 		$itemspkinfo['^ari'] = '存箭';
-		$itemspkdesc['^ari'] = '当前所装箭矢的信息为：<:sks:>';
+		$itemspkdesc['^ari'] = '当前所装箭矢的信息为：<:skn:>';
 	}
 	
 	//弓没弓箭时当做锐器
@@ -104,15 +104,18 @@ namespace wep_b
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('weapon','logger'));
 		if ($pa['wep_kind']=='B')	//弓系武器损坏特判（箭矢用光）
 		{
+			eval(import_module('player','weapon','logger'));
 			$log .= \battle\battlelog_parser($pa, $pd, $active, "<:pa_name:>的<span class=\"red b\">{$pa['wep']}</span>的箭矢用光了！<br>");
 			$pa['weps']=$nosta;
-			//箭矢用光时抹掉箭矢名
-			wep_b_clean_arrow_name($pa['wepk']);
+//			//箭矢用光时抹掉箭矢名
+//			wep_b_clean_arrow_name($pa['wepk']);
+
 			//箭矢用光时抹掉箭矢带来的属性
 			wep_b_clean_arrow_sk($pa['wepsk']);
+			//箭矢用光时清除换上的箭矢的信息
+			$pa['wepsk'] = wep_b_put_ari($pa['wepsk'], Array());
 		}
 		else $chprocess($pa,$pd,$active);
 	}
@@ -272,7 +275,7 @@ namespace wep_b
 				$itm0 = $swapitem['itm'];
 				$itmk0 = $swapitem['itmk'];
 				$itme0 = $swapitem['itme'];
-				$itms0 = $swapitem['itms'];
+				$itms0 = !empty($swapnum) ? $swapnum : $swapitem['itms'];
 				$itmsk0 = $swapitem['itmsk'];
 			}
 			\itemmain\itemget();
@@ -332,6 +335,22 @@ namespace wep_b
 		$ret = $chprocess($edata);
 		if(!empty($tmp_log_2)) $log .= $tmp_log_2;
 		return $ret;
+	}
+	
+	//覆盖$skn返回值，显示箭矢信息
+	function get_itmsk_desc_single_comp_process($skk, $skn, $sks) {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$skn = $chprocess($skk, $skn, $sks);
+		if(strpos($skk, '^ari')===0) {
+			$skarr = explode(',',\attrbase\base64_decode_comp_itmsk($sks));
+			$itm = $skarr[0];
+			$itmk_words = \itemmain\parse_itmk_words($skarr[1]);
+			$itme = $skarr[2];
+			$itms = $skarr[3];
+			$itmsk_words = \itemmain\parse_itmsk_words($skarr[4]);
+			$skn = $itm.'/'.$itmk_words.'/'.$itme.'/'.$itms.(!empty($itmsk_words) ? '/'.$itmsk_words : '');
+		}
+		return $skn;
 	}
 }
 

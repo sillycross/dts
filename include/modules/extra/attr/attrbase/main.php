@@ -171,7 +171,9 @@ namespace attrbase
 			$cinfo = get_comp_itmsk_info($str);
 			if(!empty($cinfo) && check_comp_itmsk_visible($cinfo)) {
 				eval(import_module('itemmain'));
-				if(!empty($itemspkinfo[$cinfo[0]])) $ret = $itemspkinfo[$cinfo[0]];
+				$ck = $cinfo[0];
+				if(strpos($ck, '_')!==false) $ck = explode('_', $ck)[0];
+				if(!empty($itemspkinfo[$ck])) $ret = $itemspkinfo[$ck];
 				else $ret = '';
 			}
 		}
@@ -179,6 +181,7 @@ namespace attrbase
 		return $ret;
 	}
 	
+	//使itmsk描述(悬浮显示)增加对复合属性的支持
 	function get_itmsk_desc_single($str)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -188,7 +191,9 @@ namespace attrbase
 			$cinfo = get_comp_itmsk_info($str);
 			if(!empty($cinfo) && check_comp_itmsk_visible($cinfo)) {
 				eval(import_module('itemmain'));
-				$ret = str_replace('<:skn:>', get_itmsk_desc_single_comp_process($cinfo[0], $cinfo[1]), $itemspkdesc[$cinfo[0]]);
+				$ck = $cinfo[0];
+				if(strpos($ck, '_')!==false) $ck = explode('_', $ck)[0];
+				$ret = str_replace('<:skn:>', get_itmsk_desc_single_comp_process($ck, $cinfo[1], $cinfo[2]), $itemspkdesc[$ck]);
 			}
 		}
 		
@@ -202,7 +207,7 @@ namespace attrbase
 	}
 	
 	//对复合属性数值的处理接口，某些需要调整显示的功能可以继承这个
-	function get_itmsk_desc_single_comp_process($skk, $skn) {
+	function get_itmsk_desc_single_comp_process($skk, $skn, $sks) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return $skn;
 	}
