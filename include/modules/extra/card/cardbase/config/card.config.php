@@ -4346,6 +4346,41 @@ $cards = array(
 			)
 		)
 	),
+
+	257 => array(
+		'name' => '挑战挑战者者',
+		'rare' => 'B',
+		'pack' => 'hidden',
+		'desc' => '“你是挑战者吗？”',
+		'effect' => '“你才是挑战者，你全家都是挑战者”',
+		'desc_skills' => '获得技能「抗争」：战斗中对卡片名称中含有“挑战者”的玩家伤害+30%',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'558' => '0',  
+			),
+		)
+	),
+	258 => array(
+		'name' => '老大爷',
+		'rare' => 'A',
+		'pack' => 'hidden',
+		'desc' => '猜猜他的腿是怎么断的',
+		'effect' => '获得战斗技「碰瓷」，开局装备轮椅且移动和探索消耗的体力增加',
+		'desc_skills' => '「碰瓷」：放弃攻击并受到对方攻击，然后从对方处获得金钱',
+		'energy' => 100,
+		'valid' => array(
+			'arf' => '轮椅',
+			'arfk' => 'DF',
+			'arfe' => '99',
+			'arfs' => '∞',
+			'arfsk' => '',
+			'skills' => array(
+				'560' => '0',
+				'561' => '0'
+			),
+    )
+  ),
 	//老板，来个20个卡位的空白
 	280 => array(
 		'name' => 'Acg_xilin',
@@ -4377,6 +4412,7 @@ $cards = array(
 			'itme6' => '7',
 			'itms6' => '7',
 			'itmsk6' => 'oBbS',
+     
 		)
 	),
 	

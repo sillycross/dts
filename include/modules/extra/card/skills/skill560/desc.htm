@@ -1,0 +1,18 @@
+<!--{eval eval(import_module('skill560'));}-->
+<!--{eval $___TEMP_SKILL_ID=560;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+<span class="yellow b">战斗技</span>&nbsp;&nbsp;在发现敌人时，可选择放弃攻击并受到对方攻击，<br>然后从对方处获得等同<span class="yellow b">（自身异常状态数×{$skill560_gain}）</span>元的金钱。<br>消耗<span class="yellow b">$ragecost</span>点怒气<br>
+</span></td>
+<td class="skilldesc_right b3">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}
