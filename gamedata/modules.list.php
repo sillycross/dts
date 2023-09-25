@@ -438,10 +438,6 @@ skill323,extra/achievement/skills/skill323/,1
 skill244,extra/club/skills/skill244/,1
 skill508,extra/card/skills/skill508/,1
 skill233,extra/club/skills/skill233/,1
-skill26,extra/club/skills/skill26/,1
-skill265,extra/club/skills/skill265/,1
-skill507,extra/card/skills/skill507/,1
-ex_purity,extra/attr/ex_purity/,1
 gtype1,extra/instance/gtype1/main/,1
 randmix,extra/misc/randmix/,1
 skill57,extra/club/skills/skill57/,1
@@ -521,6 +517,7 @@ skill505,extra/card/skills/skill505/,1
 skill80,extra/club/skills/skill80/,1
 skill551,extra/card/skills/skill551/,1
 skill554,extra/card/skills/skill554/,1
+ex_purity,extra/attr/ex_purity/,1
 skill26,extra/club/skills/skill26/,1
 skill265,extra/club/skills/skill265/,1
 skill507,extra/card/skills/skill507/,1

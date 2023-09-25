@@ -26,10 +26,11 @@ namespace ex_purity
 	function check_phy_pierce_proc(&$pa, &$pd, $active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		//纯粹伤害跳过物穿判定
-		if ($pa['purity']) {
+		if (!empty($pa['purity'])) {
 			eval(import_module('logger'));
-			if ($active) $log .= "<span class=\"white b\">你的攻击释放出了纯粹的能量！<br>纯粹的能量穿透了敌人的防御！</span><br>";
-			else $log .= "<span class=\"white b\">敌人的攻击释放出了纯粹的能量！<br>纯粹的能量穿透了你的防御！</span><br>";
+			$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="white b"><:pa_name:>释放出了纯粹的能量，穿透了<:pd_name:>的防御！</span><br>');
+//			if ($active) $log .= "<span class=\"white b\">你的攻击释放出了纯粹的能量，穿透了敌人的防御！</span><br>";
+//			else $log .= "<span class=\"white b\">敌人的攻击释放出了纯粹的能量，穿透了你的防御！</span><br>";
 			return;
 		}
 		$chprocess($pa,$pd,$active);
@@ -39,7 +40,7 @@ namespace ex_purity
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		//纯粹伤害跳过属穿判定
-		if ($pa['purity']) return;
+		if (!empty($pa['purity'])) return;
 		$chprocess($pa,$pd,$active);
 	}	
 	
@@ -49,7 +50,7 @@ namespace ex_purity
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret =  $chprocess($pa, $pd, $active);
 		//纯粹伤害跳过防连判定
-		if ($pa['purity']) $ret = 0;
+		if (!empty($pa['purity'])) $ret = 0;
 		return $ret;
 	}	
 
@@ -57,7 +58,7 @@ namespace ex_purity
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		//纯粹伤害跳过减半属性判定
-		if ($pa['purity']) return Array();
+		if (!empty($pa['purity'])) return Array();
 		return $chprocess($pa, $pd, $active);
 	}
 }
