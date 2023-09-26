@@ -20,6 +20,7 @@ if(!file_exists($writefile) || filemtime($selffile) > filemtime($writefile) || f
 			if(!empty($itemlist[$i]) && strpos($itemlist[$i],',')!==false)
 			{
 				list($iarea,$imap,$inum,$iname,$ikind,$ieff,$ista,$iskind) = explode(',',$itemlist[$i]);
+				if ($iarea >100) continue;//隐藏道具
 				if ($imap==99) $imap_w = '全图随机'; else $imap_w = $plsinfo[$imap];
 				$ikind_w=\itemmain\parse_itmk_words($ikind,0);
 				if (substr($ikind,0,2)=="TO")

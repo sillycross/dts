@@ -33,7 +33,7 @@ namespace wep_b
 		//以该类武器击杀敌人后的死亡状态标号
 		$wepdeathstate['B'] = 43;
 		
-		$itemspkinfo['^ari'] = '存箭';
+		$itemspkinfo['^ari'] = '箭矢';
 		$itemspkdesc['^ari'] = '当前所装箭矢的信息为：<:skn:>';
 	}
 	
@@ -231,7 +231,7 @@ namespace wep_b
 		
 		$wepsk_arr = \itemmain\get_itmsk_array($wepsk);
 		$itmsk_arr = \itemmain\get_itmsk_array($itmsk);
-		$arrowmax = (in_array('r',$itmsk_arr) || in_array('r',$wepsk_arr)) ? 2 + min ( floor(${$skillinfo['B']} / 200), 4 ) : 1;
+		$arrowmax = (\attrbase\check_in_itmsk('r',$itmsk_arr) || \attrbase\check_in_itmsk('r',$wepsk_arr)) ? 2 + min ( floor(${$skillinfo['B']} / 200), 4 ) : 1;
 		$arrownum = min($arrowmax, $itms);
 		$weps = $arrownum;
 		$itms -= $arrownum;

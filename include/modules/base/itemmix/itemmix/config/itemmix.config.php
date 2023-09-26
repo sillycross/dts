@@ -294,7 +294,7 @@ $mixinfo = array
 	array('class' => 'wf', 'stuff' => array('空白符卡','蛇符【神代大蛇】','「D.D.乌鸦」 ★1-仮'),'result' => array('地狱波动炮','WF',133,'∞','Yz'),),
 	array('class' => 'wf', 'stuff' => array('空白符卡','蛇符【神代大蛇】','「D.D.乌鸦」 ★1'),'result' => array('地狱波动炮','WF',333,'∞','Yz'),),
 	array('class' => 'wf', 'stuff' => array('地狱波动炮','★制御棒★'),'result' => array('爆符『百万耀斑』','WF',666,'∞','Yz'),),
-	array('class' => 'wf', 'stuff' => array('爆符『百万耀斑』','日符「Royal Flare」'),'result' => array('『地狱的人造太阳』','WF',6000,'∞','Yz'),),
+	array('class' => 'wf', 'stuff' => array('爆符『百万耀斑』','日符「Royal Flare」'),'result' => array('『地狱的人造太阳』','WF',6666,'∞','Yz'),),
 	array('class' => 'wf', 'stuff' => array('鲜红的生血','长矛','造雾设备'),'result' => array('神枪『Spear The Gungnir』','WF',5500,1,'c'),),
 	array('class' => 'wf', 'stuff' => array('《东方幻想乡》','触手的力量','【触手的萃取液】'),'result' => array('梦幻『幻月』','WF',900,'∞','rdcm'),),
 	array('class' => 'wf', 'stuff' => array('■魔剑－雷瓦丁■','☆残页的魔导书☆','触手的力量'),'result' => array('秘弹『之后就一个人都没有了吗？』','WF',7700,1,'NZ'),),

@@ -81,6 +81,7 @@ namespace skill490
 		$itemfc = \itemmain\get_itemfilecont();
 		foreach($itemfc as $ival){
 			$ival = explode(',',$ival);
+			if(is_numeric($ival[0]) && $ival[0] > 100) continue;//禁数在100以上的道具不考虑
 			if(isset($ival[4])) $itemklist[] = $ival[4];
 			if(isset($ival[7])) $itemsklist[] = $ival[7];
 //			if(isset($ival[4]) && !in_array($ival[4], $itemklist)) $itemklist[] = $ival[4];
