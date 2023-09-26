@@ -98,7 +98,7 @@ namespace ex_rapid_attr
 	function weapon_strike(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!in_array('r',check_rapid($pa, $pd, $active)))
+		if (!\attrbase\check_in_itmsk('r',check_rapid($pa, $pd, $active)))
 		{
 			$chprocess($pa, $pd, $active);
 			return;

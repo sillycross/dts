@@ -22,7 +22,7 @@ namespace ex_hp_def
 		$rate = 0.5;
 		if ($pa['dmg_dealt']>=2000) $rate = 2.0/3.0;
 		if ($pa['dmg_dealt']>=5000) $rate = 0.8;
-		if (in_array('H', \attrbase\get_ex_attack_array($pa, $pd, $active))) $rate *= 0.1;
+		if (\attrbase\check_in_itmsk('H', \attrbase\get_ex_attack_array($pa, $pd, $active))) $rate *= 0.1;
 		$damage = round($pa['hp']*$rate);
 		if ($damage >= $pa['hp']) $damage = $pa['hp'] - 1;
 		return $damage;
@@ -40,7 +40,7 @@ namespace ex_hp_def
 		//判定伤害制御
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('logger'));
-		if (in_array('h',\attrbase\get_ex_def_array($pa, $pd, $active)))
+		if (\attrbase\check_in_itmsk('h',\attrbase\get_ex_def_array($pa, $pd, $active)))
 		{
 			//$dmg_dice = rand(1950,2050);
 			$dmg_dice = 1997;

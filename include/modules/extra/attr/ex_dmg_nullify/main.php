@@ -24,8 +24,13 @@ namespace ex_dmg_nullify
 		$ex_def_array = \attrbase\get_ex_def_array($pa, $pd, $active);
 		//有属性攻击才进入判断
 		$flag = 0; $exnum = 0;
-		foreach ($ex_attack_list as $key) if (in_array($key,$ex_att_array)) { $flag = 1; $exnum++; }
-		if ($flag && in_array('b', $ex_def_array))
+		foreach ($ex_attack_list as $key) {
+			if (\attrbase\check_in_itmsk($key,$ex_att_array)) { 
+				$flag = 1;
+				$exnum++; 
+			}
+		}
+		if ($flag && \attrbase\check_in_itmsk('b', $ex_def_array))
 		{
 			$proc_rate = get_ex_dmg_nullify_proc_rate($pa, $pd, $active);
 			$dice = rand(0,99);

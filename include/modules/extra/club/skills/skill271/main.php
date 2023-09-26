@@ -72,11 +72,11 @@ namespace skill271
 		//var_dump($ad_arr);
 		if(!$ad_arr) return array();
 		$arr = \attrbase\get_ex_def_array($pa, $pd, $active);		
-		if(in_array('A', $arr)) {
+		if(\attrbase\check_in_itmsk('A', $arr)) {
 			eval(import_module('ex_phy_def'));
 			$arr = array_diff(array_merge($arr, array_values($def_kind)), array('A'));
 		}
-		if(in_array('a', $arr)) {
+		if(\attrbase\check_in_itmsk('a', $arr)) {
 			eval(import_module('ex_dmg_def'));
 			$arr = array_diff(array_merge($arr, array_values($def_kind)), array('a'));
 		}

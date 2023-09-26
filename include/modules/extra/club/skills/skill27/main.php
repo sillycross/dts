@@ -62,8 +62,8 @@ namespace skill27
 			{
 				$target = Array($armor_equip_list[rand(0,count($armor_equip_list)-1)]);
 				$damage = 0;
-				if (in_array('u',\attrbase\get_ex_attack_array($pa, $pd, $active))) $damage+=1;
-				if (in_array('f',\attrbase\get_ex_attack_array($pa, $pd, $active))) $damage+=2;
+				if (\attrbase\check_in_itmsk('u',\attrbase\get_ex_attack_array($pa, $pd, $active))) $damage+=1;
+				if (\attrbase\check_in_itmsk('f',\attrbase\get_ex_attack_array($pa, $pd, $active))) $damage+=2;
 			}
 			
 			if ($damage > 0)

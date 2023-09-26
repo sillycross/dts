@@ -18,8 +18,8 @@ namespace ex_seckill
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = 0;
-		if(in_array('v', \attrbase\get_ex_attack_array($pa, $pd, $active))) $ret = 10;
-		if(in_array('V', \attrbase\get_ex_attack_array($pa, $pd, $active))) $ret = 30;
+		if(\attrbase\check_in_itmsk('V', \attrbase\get_ex_attack_array($pa, $pd, $active))) $ret = 30;
+		elseif(\attrbase\check_in_itmsk('v', \attrbase\get_ex_attack_array($pa, $pd, $active))) $ret = 10;		
 		return $ret;
 	}
 	
@@ -28,13 +28,13 @@ namespace ex_seckill
 		if ($pa['is_hit'] && rand(0,99) < get_ex_seckill_proc_rate($pa, $pd, $active)){
 			$pa['dmg_dealt']=$pd['hp'];
 			eval(import_module('logger'));
-			if(in_array('v', \attrbase\get_ex_attack_array($pa, $pd, $active))) {
-				if ($active) $log .= "<span class=\"red b\">你的攻击直接击碎了敌人的死线！</span><br>";
-				else $log .= "<span class=\"red b\">敌人的攻击直接击碎了你的死线！</span><br>";
-			}
-			elseif(in_array('V', \attrbase\get_ex_attack_array($pa, $pd, $active))) {
+			if(\attrbase\check_in_itmsk('V', \attrbase\get_ex_attack_array($pa, $pd, $active))) {
 				if ($active) $log .= "<span class=\"red b\">一股比希望更炽热、比绝望更深邃的魔力将敌人的生命改写成了虚无！</span><br>";
 				else $log .= "<span class=\"red b\">一股比希望更炽热、比绝望更深邃的魔力将你的生命改写成了虚无！</span><br>";
+			}
+			elseif(\attrbase\check_in_itmsk('v', \attrbase\get_ex_attack_array($pa, $pd, $active))) {
+				if ($active) $log .= "<span class=\"red b\">你的攻击直接击碎了敌人的死线！</span><br>";
+				else $log .= "<span class=\"red b\">敌人的攻击直接击碎了你的死线！</span><br>";
 			}
 			
 			$pa['seckill'] = 1;

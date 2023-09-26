@@ -103,7 +103,7 @@ namespace skill81
 			$ex_def_array = \attrbase\get_ex_def_array($pa, $pd, $active);
 			eval(import_module('ex_phy_def'));
 			$this_def_kind = $def_kind[substr($itmk,1,1)];
-			if(!in_array('A', $ex_def_array) && !in_array($this_def_kind, $ex_def_array)) $svar += 200;
+			if(!\attrbase\check_in_itmsk('A', $ex_def_array) && !\attrbase\check_in_itmsk($this_def_kind, $ex_def_array)) $svar += 200;
 			//符提高50加权
 			if($this_def_kind == 'F') $svar += 50;
 			//如果武器不是无限耐且即将耗尽，则降低200加权，如果耐久极少则降低1000加权

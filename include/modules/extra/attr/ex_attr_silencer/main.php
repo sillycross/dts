@@ -13,14 +13,14 @@ namespace ex_attr_silencer
 	function weapon_WG_addnoise(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (in_array('S',\attrbase\get_ex_attack_array($pa, $pd, $active))) return; 
+		if (\attrbase\check_in_itmsk('S',\attrbase\get_ex_attack_array($pa, $pd, $active))) return; 
 		$chprocess($pa, $pd, $active);
 	}
 	
 	function weapon_WJ_addnoise(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (in_array('S',\attrbase\get_ex_attack_array($pa, $pd, $active))) return;
+		if (\attrbase\check_in_itmsk('S',\attrbase\get_ex_attack_array($pa, $pd, $active))) return;
 		$chprocess($pa, $pd, $active);
 	}
 	

@@ -268,7 +268,7 @@ namespace ex_dmg_att
 		$pa['ex_attack_num'] = 0;
 		$ex_attack_array = \attrbase\get_ex_attack_array($pa, $pd, $active);
 		foreach ( $ex_attack_list as $key )
-			if (in_array($key, $ex_attack_array))
+			if (\attrbase\check_in_itmsk($key, $ex_attack_array))
 			{
 				$pa['ex_attack_num'] ++ ;
 				$damage = calculate_ex_single_dmg($pa, $pd, $active, $key);
@@ -323,11 +323,11 @@ namespace ex_dmg_att
 	function add_ex_att_noise(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (defined('MOD_NOISE') && in_array('d',\attrbase\get_ex_attack_array($pa, $pd, $active)))
+		if (defined('MOD_NOISE') && \attrbase\check_in_itmsk('d',\attrbase\get_ex_attack_array($pa, $pd, $active)))
 		{
 			\noise\addnoise($pa['pls'],'d',$pa['pid'],$pd['pid']);
 		}
-		if (defined('MOD_NOISE') && in_array('t',\attrbase\get_ex_attack_array($pa, $pd, $active)))
+		if (defined('MOD_NOISE') && \attrbase\check_in_itmsk('t',\attrbase\get_ex_attack_array($pa, $pd, $active)))
 		{
 			\noise\addnoise($pa['pls'],'t',$pa['pid'],$pd['pid']);
 		}

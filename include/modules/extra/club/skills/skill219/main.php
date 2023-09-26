@@ -50,7 +50,7 @@ namespace skill219
 			}
 			if($position){
 				$wepsk_arr = \itemmain\get_itmsk_array($wepsk);
-				if(in_array('p',$wepsk_arr)){
+				if(\attrbase\check_in_itmsk('p',$wepsk_arr)){
 					$log .= '<span class="red b">武器已经带毒，不用改造！</span><br />';
 					$mode = 'command';
 					return;

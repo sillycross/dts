@@ -69,7 +69,7 @@ namespace ex_dmg_def
 		if (isset($def_kind[$key])) 
 		{
 			$ex_def_array = \attrbase\get_ex_def_array($pa, $pd, $active);
-			if (in_array($def_kind[$key], $ex_def_array) || in_array('a', $ex_def_array))
+			if (\attrbase\check_in_itmsk($def_kind[$key], $ex_def_array) || \attrbase\check_in_itmsk('a', $ex_def_array))
 			{
 				if (check_ex_dmg_def_proc($pa, $pd, $active, $key))
 				{

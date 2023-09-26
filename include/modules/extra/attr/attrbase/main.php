@@ -29,6 +29,7 @@ namespace attrbase
 	}
 	
 	//获取攻击属性列表（武器防具和饰品）
+	//如果要加入属性，请继承core函数；如果要删除属性，请继承函数本体并在最后对数组进行操作
 	function get_ex_attack_array(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

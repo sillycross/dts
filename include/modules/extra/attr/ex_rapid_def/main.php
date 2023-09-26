@@ -28,8 +28,8 @@ namespace ex_rapid_def
 	function check_ex_rapid_def_exists(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$attarr=\attrbase\get_ex_def_array($pa, $pd, $active);
-		return in_array('R',$attarr);
+		$defarr=\attrbase\get_ex_def_array($pa, $pd, $active);
+		return \attrbase\check_in_itmsk('R',$defarr);
 	}
 	
 	function check_ex_rapid_def(&$pa, &$pd, $active)
@@ -39,10 +39,10 @@ namespace ex_rapid_def
 		$ret = 0;
 		if (check_ex_rapid_def_exists($pa, $pd, $active)) {
 			if(check_ex_rapid_def_proc($pa, $pd, $active)){
-				$log .= \battle\battlelog_parser($pa, $pd, $active, '然而<:pd_name:>的防具削弱了<:pa_name:>的后几次连续攻击！');
+				$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow b">然而<:pd_name:>的防具削弱了<:pa_name:>的后几次连续攻击！</span><br>');
 				$ret = 1;
 			}else{
-				$log .= \battle\battlelog_parser($pa, $pd, $active, '<:pd_name:>的防具没能削弱<:pa_name:>的连续攻击。');
+				$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="red b"><:pd_name:>的防具没能削弱<:pa_name:>的连续攻击！</span><br>');
 			}
 		}
 		return $ret;

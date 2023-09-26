@@ -35,11 +35,11 @@ namespace ex_gender_attr
 		eval(import_module('logger'));
 		$ex_att_array = \attrbase\get_ex_attack_array($pa, $pd, $active);
 		//无对应属性直接返回
-		if (!in_array('l',$ex_att_array) && !in_array('g',$ex_att_array)) return Array();
+		if (!\attrbase\check_in_itmsk('l',$ex_att_array) && !\attrbase\check_in_itmsk('g',$ex_att_array)) return Array();
 		//有一方无性别时直接返回
 		if ($pa['gd'] === 0 || $pd['gd'] === 0) return Array(); 
 		//都出现时视为l
-		if (in_array('l',$ex_att_array)) $ty = 1; else $ty = 0;
+		if (\attrbase\check_in_itmsk('l',$ex_att_array)) $ty = 1; else $ty = 0;
 		if (($ty==1 && $pa['gd']!=$pd['gd']) || ($ty == 0 && $pa['gd']==$pd['gd']))
 		{
 			//判迷惑

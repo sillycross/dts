@@ -22,7 +22,7 @@ namespace ex_attr_charge
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('logger'));
 		$ex_att_array = \attrbase\get_ex_attack_array($pa, $pd, $active);
-		if (in_array('N', $ex_att_array))
+		if (\attrbase\check_in_itmsk('N', $ex_att_array))
 		{
 			$proc_rate = get_ex_charge_proc_rate($pa, $pd, $active);
 			$dice = rand(0,99);

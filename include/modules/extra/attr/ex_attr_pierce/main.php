@@ -38,7 +38,7 @@ namespace ex_attr_pierce
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('logger'));
 		$ex_att_array = \attrbase\get_ex_attack_array($pa, $pd, $active);
-		if (in_array('n', $ex_att_array))
+		if (\attrbase\check_in_itmsk('n', $ex_att_array))
 		{
 			$proc_rate = get_ex_pierce_proc_rate($pa, $pd, $active);
 			$dice = rand(0,99);
@@ -56,7 +56,7 @@ namespace ex_attr_pierce
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('logger'));
 		$ex_att_array = \attrbase\get_ex_attack_array($pa, $pd, $active);
-		if (in_array('y', $ex_att_array))
+		if (\attrbase\check_in_itmsk('y', $ex_att_array))
 		{
 			$proc_rate = get_attr_pierce_proc_rate($pa, $pd, $active);
 			$dice = rand(0,99);
@@ -138,7 +138,7 @@ namespace ex_attr_pierce
 	function check_dmg_def_attr(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if(!empty($pa['physical_pierce_success']) && !empty($pa['attr_pierce_success']) && in_array('h',\attrbase\get_ex_def_array($pa, $pd, $active)))
+		if(!empty($pa['physical_pierce_success']) && !empty($pa['attr_pierce_success']) && \attrbase\check_in_itmsk('h',\attrbase\get_ex_def_array($pa, $pd, $active)))
 		{
 			eval(import_module('logger'));
 			$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="red b"><:pa_name:>的攻击贯穿了<:pd_name:>的控血属性！</span><br>');

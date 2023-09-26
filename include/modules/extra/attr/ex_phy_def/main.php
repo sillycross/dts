@@ -75,7 +75,7 @@ namespace ex_phy_def
 		if (isset($def_kind[$pa['wep_kind']])) 
 		{
 			$ex_def_array = \attrbase\get_ex_def_array($pa, $pd, $active);
-			if (in_array($def_kind[$pa['wep_kind']], $ex_def_array) || in_array('A', $ex_def_array))
+			if (\attrbase\check_in_itmsk($def_kind[$pa['wep_kind']], $ex_def_array) || \attrbase\check_in_itmsk('A', $ex_def_array))
 			{
 				if (check_ex_phy_def_proc($pa,$pd,$active))
 				{

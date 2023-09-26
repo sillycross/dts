@@ -78,7 +78,7 @@ namespace skill215
 		if ($pa['bskill']==215) 
 		{
 			$ex_att_array = \attrbase\get_ex_attack_array($pa, $pd, $active);
-			if (in_array('d', $ex_att_array))
+			if (\attrbase\check_in_itmsk('d', $ex_att_array))
 			{
 				eval(import_module('logger'));
 				if ($active)

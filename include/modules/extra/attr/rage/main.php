@@ -106,7 +106,7 @@ namespace rage
 		{
 			$rageupd = calculate_attack_rage_gain($pa, $pd, $active, 'pd');
 			get_rage($rageupd, $pd);
-			if (in_array('c', \attrbase\get_ex_attack_array($pa, $pd, $active))){//如果攻击玩家有集气属性，则按基础值1获得
+			if (\attrbase\check_in_itmsk('c', \attrbase\get_ex_attack_array($pa, $pd, $active))){//如果攻击玩家有集气属性，则按基础值1获得
 				$rageupa = calculate_attack_rage_gain($pa, $pd, $active, 'pa', 1);
 				get_rage($rageupa, $pa);
 				//echo '集气获得：'.$rageupa;
@@ -157,7 +157,7 @@ namespace rage
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('rage'));
-		if (in_array('c', \attrbase\get_ex_attack_array($pa, $pd, $active)))
+		if (\attrbase\check_in_itmsk('c', \attrbase\get_ex_attack_array($pa, $pd, $active)))
 		{
 			$lost_rage = $pa['original_rage']-$pa['rage'];
 			if ($lost_rage > 0)

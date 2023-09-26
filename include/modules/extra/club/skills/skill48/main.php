@@ -177,7 +177,7 @@ namespace skill48
 				$lis=Array();
 				$ex_attack_array = \attrbase\get_ex_attack_array($pa, $pd, $active);
 				foreach ( $ex_attack_list as $key )
-					if (in_array($key, $ex_attack_array))
+					if (\attrbase\check_in_itmsk($key, $ex_attack_array))
 						if (isset($skill48_ex_map[$key]))
 							array_push($lis,$skill48_ex_map[$key]);
 						else  array_push($lis,$key);
