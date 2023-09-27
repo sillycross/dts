@@ -183,7 +183,7 @@ namespace wep_j
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player','wep_j'));
 		//var_dump(in_array($skillno, $wj_allowed_bskill));
-		if (strpos($wepk, 'WJ')===0 && !in_array($skillno, $wj_allowed_bskill)) return false;
+		if (strpos($wepk, 'J')!==false && !in_array($skillno, $wj_allowed_bskill)) return false;
 		else return $chprocess($edata,$skillno);
 	}
 
@@ -192,7 +192,7 @@ namespace wep_j
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('wep_j'));
-		if (strpos($wepk, 'WJ')===0 && !in_array($pa['bskill'], $wj_allowed_bskill)) $pa['bskill']=0;
+		if (strpos($pa['wepk'], 'J')!==false && !in_array($pa['bskill'], $wj_allowed_bskill)) $pa['bskill']=0;
 		
 		return $chprocess($pa, $pd, $active);
 	}

@@ -118,6 +118,7 @@ namespace sys
 		//$room_id = room_prefix2id($room_prefix);
 		
 		//判断所在房间是否存在/是否已经关闭，如果不存在或关闭则将玩家所在房间调整为0（主游戏）
+		//2023.09.27 思考过要不要把这段判定房间的部分拆出来，但是好像也只能放这里
 		global $gameinfo; 
 		$gameinfo = NULL;
 		//$room_status = 0;
