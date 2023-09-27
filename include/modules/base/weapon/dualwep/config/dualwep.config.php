@@ -11,6 +11,8 @@ namespace dualwep
 		'WCF' => '灵弹',
 		'WFK' => '灵刃',
 		'WKF' => '灵刃',
+		'WFP' => '灵力钝器',
+		'WPF' => '灵力钝器',
 		'WFG' => '灵枪',
 		'WGF' => '灵枪',
 		'WFB' => '灵弓',

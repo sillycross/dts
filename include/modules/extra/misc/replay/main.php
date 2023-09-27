@@ -4,7 +4,7 @@ namespace replay
 {
 	//录像文件每块保存的操作数目
 	//一般来说这个值越大压缩效果越好，但更吃内存
-	$partsize=1000;
+	$partsize=200;
 	
 	function init() {}
 	
@@ -187,14 +187,14 @@ namespace replay
 							$jreplaydata .='jQuery.cachedScript("gamedata/replays/'.$room_gprefix.$gamenum.'.'.$data['pid'].'.replay.data.'.($i+1).'.js");';
 						else  $jreplaydata .='replay_init();';
 							
-						writeover(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.'.$data['pid'].'.replay.data.'.$i.'.js',$jreplaydata);
+						file_put_contents(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.'.$data['pid'].'.replay.data.'.$i.'.js',$jreplaydata);
 						$filelist[] = GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.'.$data['pid'].'.replay.data.'.$i.'.js';
 						$totsz += strlen($jreplaydata);
 					}
 					logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-玩家'.$data['pid'].'-写界面数据');
 					$totsz = (round($totsz / 1024 * 10)/10).'KB';
 					//保存当前的html缓存
-					writeover(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.'.$data['pid'].'.rep',base64_encode($curdatalib).','.$gamenum.','.base64_encode($data['name']).','.$totsz.','.$cnt.',');
+					file_put_contents(GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.'.$data['pid'].'.rep',base64_encode($curdatalib).','.$gamenum.','.base64_encode($data['name']).','.$totsz.','.$cnt.',');
 					$filelist[] = GAME_ROOT.'./gamedata/replays/'.$room_gprefix.$gamenum.'.'.$data['pid'].'.rep';
 					logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-玩家'.$data['pid'].'-写html缓存');
 					//生成缩略图

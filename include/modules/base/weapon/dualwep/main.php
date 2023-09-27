@@ -17,7 +17,7 @@ namespace dualwep
 	function load_playerdata($pdata)//其实最早这个函数是显示用的
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if(!empty(get_sec_attack_method($pdata)) && !empty($pdata['wep_kind'])) {
+		if(!empty($pdata['wep_kind']) && !empty(get_sec_attack_method($pdata))) {
 			$dw_pdata_o_wep_kind = $pdata['wep_kind'];
 		}
 		$chprocess($pdata);
@@ -25,6 +25,20 @@ namespace dualwep
 		if(!empty($dw_pdata_o_wep_kind)) {
 			eval(import_module('player'));
 			$sdata['wep_kind'] = $dw_pdata_o_wep_kind;
+		}
+	}
+	
+	//此外，双系武器类别增加主系别，仅在主界面有效
+	function parse_interface_profile()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		$chprocess();
+		eval(import_module('player'));
+		if(!empty(get_sec_attack_method($sdata))){
+			eval(import_module('weapon'));
+			$pri_wepkind_words = $skilltypeinfo[$skillinfo[substr($sdata['wepk'],1,1)]];
+			if(!empty($pri_wepkind_words)) $tpldata['wepk_words'] .= '('.$pri_wepkind_words.')';
 		}
 	}
 	
