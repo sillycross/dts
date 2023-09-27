@@ -27,11 +27,14 @@ namespace skill80
 	}
 	
 	//探索记忆总数加倍
-	function calc_memory_recordnum(){
+	function calc_memory_recordnum(&$pa=NULL){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('player'));
-		$ret = $chprocess();
-		if(\skillbase\skill_query(80,$sdata) && check_unlocked80($sdata)) $ret *= 2;
+		if(empty($pa)) {
+			eval(import_module('player'));
+			$pa = & $sdata;
+		}	
+		$ret = $chprocess($pa);
+		if(\skillbase\skill_query(80,$pa) && check_unlocked80($pa)) $ret *= 2;
 		return $ret;
 	}
 }

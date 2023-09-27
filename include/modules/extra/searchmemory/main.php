@@ -20,11 +20,14 @@ namespace searchmemory
 	
 	//初始化$searchmemory变量
 	//传入数据库拉取的searchmemory字段，返回gedecode过的数据
+	//传入空值或者不是合法字符串的任何其他东西都会返回空数组
 	function init_searchmemory($smstring){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$ret = $smstring;
-		if(is_string($smstring)) {
-			$ret = gdecode($ret,1);
+		if(empty($smstring)) {
+			$ret = Array();
+		}
+		elseif(is_string($smstring)) {
+			$ret = gdecode($smstring,1);
 			if(!is_array($ret)) $ret = Array();
 		}
 		return $ret;
@@ -37,12 +40,10 @@ namespace searchmemory
 		if(searchmemory_available()) {
 			$itemmain_drophint = '将留在视野中';
 		}
-//		if(!is_array($searchmemory)) {
-//			$searchmemory = init_searchmemory($searchmemory);
-//		}
 		$chprocess();
 	}
 	
+	//玩家数据的处理
 	function load_playerdata($pdata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -64,11 +65,16 @@ namespace searchmemory
 	}
 	
 	//获得当前记忆中所有物品iid或者pid组成的数组
-	function get_searchmemory_now_ids($tp = 'iid'){
+	//2023.09.27全部改成兼容操作其他玩家数据的
+	function get_searchmemory_now_ids($tp = 'iid', &$pa=NULL){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('player'));
+		if(empty($pa)) {
+			eval(import_module('player'));
+			$pa = & $sdata;
+		}
+		$smarr_all = & $pa['searchmemory'];
 		$ret = Array();
-		foreach($searchmemory as $val){
+		foreach($smarr_all as $val){
 			if(isset($val[$tp])){
 				$ret[] = $val[$tp];
 			}
@@ -97,12 +103,17 @@ namespace searchmemory
 	
 	//计算视野数
 	//由于钦定（天气负面转化为正面）这种技能存在，需要单独抽离
-	function calc_memory_slotnum(){
+	function calc_memory_slotnum(&$pa=NULL){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','searchmemory'));
+//		if(empty($pa)) {
+//			eval(import_module('player'));
+//			$pa = & $sdata;
+//		}	
+		eval(import_module('sys','searchmemory'));
 		if(!isset($searchmemory_max_slotnum)) $searchmemory_max_slotnum = 1;
 		$memory_loss = 0;
 		if(isset($weather_memory_loss[$weather]))	$memory_loss = $weather_memory_loss[$weather];
+		//钦定来得早，视野来得迟，为了避免循环继承，耦合就耦合了吧
 		if(\skillbase\skill_query(245)) $memory_loss = -$memory_loss;
 		$ret = $searchmemory_max_slotnum + $memory_loss;
 		if($ret < 1) $ret = 1;
@@ -110,7 +121,7 @@ namespace searchmemory
 	}
 	
 	//计算记录数
-	function calc_memory_recordnum(){
+	function calc_memory_recordnum(&$pa=NULL){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('searchmemory'));
 		$ret = $searchmemory_max_recordnum;
@@ -135,25 +146,34 @@ namespace searchmemory
 	//把传入的$marr数组插入数组，也负责对数组初始化
 	//加入的一定是可见的
 	//返回$marr
-	function add_memory_core($marr){
+	function add_memory_core($marr, &$pa=NULL){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('player'));
-		if(empty($searchmemory)) $searchmemory = array();
+		if(empty($pa)) {
+			eval(import_module('player'));
+			$pa = & $sdata;
+		}
+		if(empty($pa['searchmemory'])) $pa['searchmemory'] = Array();//当前玩家数据的$searchmemory其实已经初始化过了，这里是防御性的写法
+		$smarr_all = & $pa['searchmemory'];
 		if(!empty($marr['unseen'])) $marr['unseen'] = 0;
 		//if(!empty($marr['smtype']) && 'unknown' == $marr['smtype']) $marr['smtype'] = 'enemy';
-		array_push($searchmemory, $marr);
+		array_push($smarr_all, $marr);
 		return $marr;
 	}
 	
 	//把道具加入视野和记忆列表，同时也触发丢失最早的视野/记忆
-	function add_memory($marr, $showlog = 1){
+	function add_memory($marr, $showlog = 1, &$pa=NULL){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','logger','searchmemory'));
+		if(empty($pa)) {
+			eval(import_module('player'));
+			$pa = & $sdata;
+		}
+		$smarr_all = & $pa['searchmemory'];
+		eval(import_module('sys','logger','searchmemory'));
 		if(!empty($marr['smtype']) && $marr['smtype'] == 'corpse' && \gameflow_combo\is_gamestate_combo()) return;//连斗后不会把尸体加入视野
 		if(searchmemory_available() && $marr){
 			//获取实际的视野和记忆数
-			$searchmemory_real_slotnum = calc_memory_slotnum();
-			$searchmemory_real_recordnum = calc_memory_recordnum();
+			$searchmemory_real_slotnum = calc_memory_slotnum($pa);
+			$searchmemory_real_recordnum = calc_memory_recordnum($pa);
 			
 			//加入记忆一定加入视野，所以这里显示的是视野相关的提示
 			$amflag = 0;
@@ -168,22 +188,24 @@ namespace searchmemory
 				$amn = $marr['Pname'];
 				$amflag = 1;
 				if($showlog) {
-					if($marr['smtype'] == 'corpse' )$log .=  '你设法保持对'.$amn.'的尸体的持续观察。<br>';
+					if($marr['smtype'] == 'corpse' ) $log .=  '你设法保持对'.$amn.'的尸体的持续观察。<br>';
 					elseif($fog) $log .= '你努力让那个人影保持在视野之内。<br>';
 					else $log .= '在离开的同时，你设法保持对'.$amn.'的持续观察。<br>';
 				}
 			}
 			//实际加入记忆
 			if($amflag){
-				add_memory_core($marr);
+				add_memory_core($marr, $pa);
 				//array_push($searchmemory, $marr);
 			}
-			//有道具被从视野挤到了记忆部分
-			if(sizeof($searchmemory) > $searchmemory_real_slotnum){
-				$thatm = & $searchmemory[get_slot_edge() - 1];
+			//如果因为视野已满导致有道具被从视野挤到了记忆部分，提示并标注unseen
+			//首先，只有总记忆数超过视野数的时候才做这个判定，很显然
+			if(sizeof($smarr_all) > $searchmemory_real_slotnum){
+				//只检测位于视野边界的那个道具
+				$thatm = & $smarr_all[get_slot_edge($pa) - 1];
 				//如果在同一地图且没有被标注unseen则提示一下
 				if($showlog && empty($thatm['unseen']) && $thatm['pls'] == $pls) {
-					$rmn = get_memory_name($thatm);
+					$rmn = get_memory_name($thatm, $pa);
 					if($fog && isset($thatm['Pname']) && $thatm['smtype'] != 'corpse') $log .= '先前的人影看不见了，但你仍记得其大致方位。<br>';
 					else $log .= $rmn.'看不见了，但你仍记得其大致方位。<br>';
 					//标记unseen，确保不反复被提示，也避免拾取道具之后又让移出视野的道具自己长脚跑回来
@@ -191,35 +213,42 @@ namespace searchmemory
 				}
 			}
 			//超出记忆范围则删掉最老的记忆
-			while(sizeof($searchmemory) > $searchmemory_real_recordnum){
-				remove_memory();
+			while(sizeof($smarr_all) > $searchmemory_real_recordnum){
+				remove_memory();//这里要改
 			}
 		}
 		return;
 	}
 	
 	//获得当前视野边缘（仍位于视野）的记忆的下标（注意不是个数）
-	function get_slot_edge(){
+	function get_slot_edge(&$pa=NULL){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('player'));
-		return sizeof($searchmemory) - calc_memory_slotnum();
+		if(empty($pa)) {
+			eval(import_module('player'));
+			$pa = & $sdata;
+		}
+		return sizeof($pa['searchmemory']) - calc_memory_slotnum($pa);
 	}
 	
 	//判断一个下标是不是超出了视野
-	function check_out_of_slot_edge($mn){
+	function check_out_of_slot_edge($mn, &$pa=NULL){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = false;
-		if($mn < get_slot_edge()) $ret = true;
+		if($mn < get_slot_edge($pa)) $ret = true;
 		return $ret;
 	}
 	
 	//查找特定iid或者pid的记忆，$id为需查找的id，$ikind为类别（默认为pid）
 	//返回记忆数组下标
-	function seek_memory_by_id($id, $ikind = 'pid'){
+	function seek_memory_by_id($id, $ikind = 'pid', &$pa=NULL){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player'));
+		if(empty($pa)) {
+			eval(import_module('player'));
+			$pa = & $sdata;
+		}
+		$smarr_all = & $pa['searchmemory'];
 		if(searchmemory_available()){
-			foreach($searchmemory as $i => $sm){
+			foreach($smarr_all as $i => $sm){
 				if(isset($sm[$ikind]) && $sm[$ikind] == $id){
 					return $i;
 				}
@@ -231,30 +260,37 @@ namespace searchmemory
 	//把特定记忆改为不可见，目前主要是移动后用于把所有视野里的道具都改为不可见
 	//$mn为修改哪一个下标的数组，默认是0，如果为-1则是最末位，如果是字符串'ALL'则把整个$searchmemory改为不可见
 	//返回被修改的那个数组，如果是全部修改则返回整个$searchmemory
-	function change_memory_unseen($mn = 0){
+	function change_memory_unseen($mn = 0, $showlog = 1, &$pa=NULL){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('player','logger'));
+		if(empty($pa)) {
+			eval(import_module('player'));
+			$pa = & $sdata;
+		}
+		$smarr_all = & $pa['searchmemory'];
+		
 		$ret = Array();
 		if($mn === 'ALL'){
-			
-			$ret = $searchmemory;
+			$ret = $smarr_all;
 			$flag = 0;
-			foreach($searchmemory as &$v){
+			foreach($smarr_all as &$v){
 				if(empty($v['unseen']))
 				{
 					$v['unseen'] = 1;
 					$flag = 1;
 				}
 			}
-			if($flag) $log .= '你先前所见的一切东西都离开了视线。<br>';
+			if($flag && $showlog) {
+				eval(import_module('logger'));
+				$log .= '你先前所见的一切东西都离开了视线。<br>';
+			}
 			return $ret;
 		}
 		if($mn == -1){
-			$mn = sizeof($searchmemory) - 1;
+			$mn = sizeof($smarr_all) - 1;
 		}
-		if(isset($searchmemory[$mn])){
-			$ret = $searchmemory[$mn];
-			$searchmemory[$mn]['unseen'] = 1;
+		if(isset($smarr_all[$mn])){
+			$ret = $smarr_all[$mn];
+			$smarr_all[$mn]['unseen'] = 1;
 		}
 		return $ret;
 	}
@@ -262,27 +298,31 @@ namespace searchmemory
 	//移除记忆的核心函数，根据传入的指令移除不同的记忆数组
 	//$mn为移除哪一个下标的数组，默认是0，如果为-1则是最末位，如果是字符串'ALL'则重置整个$searchmemory数组
 	//返回被移除的那个数组，如果是全部删除则返回整个$searchmemory
-	function remove_memory_core($mn = 0){
+	function remove_memory_core($mn = 0, &$pa=NULL){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('player'));
+		if(empty($pa)) {
+			eval(import_module('player'));
+			$pa = & $sdata;
+		}
+		$smarr_all = & $pa['searchmemory'];
 		$ret = Array();
 		if($mn === 'ALL'){
-			$ret = $searchmemory;
-			$searchmemory = array();
+			$ret = array_clone($smarr_all);
+			$smarr_all = array();
 			return $ret;
 		}
 		if($mn == -1){//把刚拿到的忘掉
-			$mn = sizeof($searchmemory) - 1;
+			$mn = sizeof($smarr_all) - 1;
 		}
-		if(isset($searchmemory[$mn])){
-			$ret = $searchmemory[$mn];
-			array_splice($searchmemory,$mn,1);
+		if(isset($smarr_all[$mn])){
+			$ret = $smarr_all[$mn];
+			array_splice($smarr_all,$mn,1);
 		}
 		return $ret;
 	}
 	
 	//获得记忆数组的名称（道具名或者角色名）
-	function get_memory_name($marr){
+	function get_memory_name($marr, &$pa=NULL){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = '';
 		if(isset($marr['itm'])) $ret = $marr['itm'];
@@ -293,17 +333,22 @@ namespace searchmemory
 	//移除记忆
 	//$mn为移除哪一个下标的数组，默认是0，如果为-1则是最末位，如果是字符串'ALL'则重置整个$searchmemory数组
 	//$shwlog不为空则会对$log进行操作，1为正常显示，2某些不想显示的操作会用到
-	function remove_memory($mn = 0, $shwlog = 1){
+	function remove_memory($mn = 0, $shwlog = 1, &$pa=NULL){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','logger'));
+		if(empty($pa)) {
+			eval(import_module('player'));
+			$pa = & $sdata;
+		}
+		$smarr_all = & $pa['searchmemory'];
+		eval(import_module('sys','logger'));
 		if(searchmemory_available()){
 			if($mn === 'ALL'){
-				remove_memory_core($mn);
+				remove_memory_core($mn, $pa);
 				if($shwlog) $log .= '你遗忘了所有遇到过的东西的位置。<br>';
 			}else{
-				$ra = remove_memory_core($mn);
+				$ra = remove_memory_core($mn, $pa);
 				if(1==$shwlog){
-					$rmn = get_memory_name($ra);
+					$rmn = get_memory_name($ra, $pa);
 					if($fog && isset($ra['Pname']) && $ra['smtype'] != 'corpse') $log .= '你不再记得那个神秘人影的位置。<br>';
 					else $log .= '你不再记得'.$rmn.'的位置。<br>';
 				}
@@ -314,7 +359,7 @@ namespace searchmemory
 	
 	//搜到了记忆里的道具，移除记忆
 	//因为iid在拿到手上时就改变了，必须在finditem()之前就判断是不是记忆里的道具
-	//目前不会探到记忆里的道具，这一条基本绕过了
+	//注意：目前探物姿态不会探到记忆里的道具，会绕过这一条判定。其他姿态会正常触发这里
 	function focus_item($iarr){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(isset($iarr['iid'])){
@@ -648,23 +693,34 @@ namespace searchmemory
 	}
 	
 	//如果队友道具栏满了，会把东西放在队友的视野里
-//	function senditem_before_log_event($itmn, $sendflag, &$edata) {
-//		if (eval(__MAGIC__)) return $___RET_VALUE;
-//		if(!$sendflag && searchmemory_available()) {
-//			eval(import_module('sys','logger','player'));
-//			$itm = & ${'itm'.$itmn};
-//			$itmk = & ${'itmk'.$itmn};
-//			$itme = & ${'itme'.$itmn};
-//			$itms = & ${'itms'.$itmn};
-//			$itmsk = & ${'itmsk'.$itmn};
-//			//先丢弃道具
-//			$dropid = \itemmain\itemdrop_query($itm, $itmk, $itme, $itms, $itmsk, $pls);
-//			//把该道具放到队友的视野
-//			
-//			//然后销毁当前道具
-//			\itemmain\item_destroy_core('itm'.$itmn, $sdata);
-//		}
-//		return $sendflag;
-//	}
+	function senditem_before_log_event($itmn, $sendflag, &$edata) {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!$sendflag && searchmemory_available() && !$edata['type']) {//只能送到玩家的视野里
+			eval(import_module('sys','logger','player'));
+			$itm = & ${'itm'.$itmn};
+			$itmk = & ${'itmk'.$itmn};
+			$itme = & ${'itme'.$itmn};
+			$itms = & ${'itms'.$itmn};
+			$itmsk = & ${'itmsk'.$itmn};
+			//先把道具数据插入地图
+			$dropid = \itemmain\itemdrop_query($itm, $itmk, $itme, $itms, $itmsk, $pls);
+			//把该道具放到队友的视野
+			$amarr = array('iid' => $dropid, 'itm' => $itm, 'pls' => $pls, 'unseen' => 0);
+			add_memory($amarr, 0, $edata);
+			//进行提示和保存对方数据
+			$log .= "你将<span class=\"yellow b\">".$itm."</span>送到了<span class=\"yellow b\">{$edata['name']}</span>的身旁。<br>";
+			$x = "<span class=\"yellow b\">$name</span>将<span class=\"yellow b\">".$itm."</span>送到了你的身旁。";
+				
+			\logger\logsave($edata['pid'],$now,$x,'t');
+			addnews($now,'senditem',$name,$edata['name'],$itm);
+			\player\player_save($edata);
+
+			//然后销毁当前道具
+			\itemmain\item_destroy_core('itm'.$itmn, $sdata);
+			
+			$sendflag = 1;
+		}
+		return $sendflag;
+	}
 }
 ?>

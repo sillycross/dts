@@ -86,21 +86,21 @@ namespace skill560
 	function check_can_counter(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (1 == $pa['skill560_flag']) return 1;
+		if (!empty($pa['skill560_flag'])) return 1;
 		return $chprocess($pa, $pd, $active);
 	}
 
 	function player_attack_enemy(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;	
-		if (!($pa['is_counter'] && \skillbase\skill_query(560,$pd) && 1 == $pa['skill560_flag'])) $chprocess($pa, $pd, $active);
+		if (!($pa['is_counter'] && \skillbase\skill_query(560,$pd) && !empty($pa['skill560_flag']))) $chprocess($pa, $pd, $active);
 	}
 	
 	function strike_finish(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;		
 		eval(import_module('player'));
-		if (\skillbase\skill_query(560,$pd) && 1 == $pa['skill560_flag']) {
+		if (\skillbase\skill_query(560,$pd) && !empty($pa['skill560_flag'])) {
 			if (isset($pd['inf'])) {
 				eval(import_module('logger'));
 				if (strlen($pd['inf']) > 0) {
@@ -130,7 +130,7 @@ namespace skill560
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player'));		
-		if (\skillbase\skill_query(560,$pd) && 1 == $pa['skill560_flag']) {
+		if (\skillbase\skill_query(560,$pd) && !empty($pa['skill560_flag'])) {
 			if ($pd['hp'] <= 0) {
 				eval(import_module('logger'));
 				if (1-$active) $log .= "<span class=\"red b\">哎呀……看来你今天撞了大运！</span><br>";

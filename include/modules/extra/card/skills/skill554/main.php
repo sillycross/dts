@@ -19,12 +19,19 @@ namespace skill554
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
-	function calc_memory_slotnum()
+	function calc_memory_slotnum(&$pa=NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('player','searchmemory','skill554'));
-		$ret = $chprocess();
-		if (\skillbase\skill_query(554)) $ret = min($ret, $skill554_slotnum);
+		if(empty($pa)) {
+			eval(import_module('player'));
+			$pa = & $sdata;
+		}	
+		
+		$ret = $chprocess($pa);
+		if (\skillbase\skill_query(554,$pa)) {
+			eval(import_module('skill554'));
+			$ret = min($ret, $skill554_slotnum);
+		}
 		return $ret;
 	}
 }
