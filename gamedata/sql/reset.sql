@@ -43,7 +43,7 @@ CREATE TABLE bra_mapitem (
   itmk varchar(15) not null default '',
   itme int(10) unsigned NOT NULL default '0',
   itms varchar(10) not null default '0',
-  itmsk varchar(40) not null default '',
+  itmsk varchar(255) not null default '',
   pls tinyint unsigned not null default '0',
   
   PRIMARY KEY  (iid)
