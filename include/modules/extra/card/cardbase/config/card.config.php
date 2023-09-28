@@ -3858,6 +3858,7 @@ $cards = array(
 		'pack' => 'Cyber Zealots',
 		'desc' => '弹幕网站上那些翻唱名曲毁耳不倦的职人',
 		'effect' => '开局装备销魂之歌',
+		'desc_skills' => '还有ACFUN的账号',
 		'energy' => 0,
 		'valid' => array(
 		  'wep' => '销魂之歌',
@@ -3865,6 +3866,11 @@ $cards = array(
 			'wepe' => '50',
 			'weps' => '50',
 			'wepsk' => '',
+			'art' => 'ACFUN的账号',
+			'artk' => 'A',
+			'arte' => '20',
+			'arts' => '10',
+			'artsk' => Array('l','g'),
 		)
 	),
 	225 => array(
@@ -3873,6 +3879,7 @@ $cards = array(
 		'pack' => 'Cyber Zealots',
 		'desc' => '弹幕网站上那些把弹幕当积木摆的职人',
 		'effect' => '开局装备神字幕',
+		'desc_skills' => '还有ACFUN的账号',
 		'energy' => 0,
 		'valid' => array(
 		  'wep' => '神字幕',
@@ -3880,6 +3887,11 @@ $cards = array(
 			'wepe' => '50',
 			'weps' => '50',
 			'wepsk' => '',
+			'art' => 'ACFUN的账号',
+			'artk' => 'A',
+			'arte' => '20',
+			'arts' => '10',
+			'artsk' => Array('l','g'),
 		)
 	),
 	226 => array(
@@ -3888,6 +3900,7 @@ $cards = array(
 		'pack' => 'Cyber Zealots',
 		'desc' => '弹幕网站上那些搬运其他网站视频的职人',
 		'effect' => '开局装备搬运之拳',
+		'desc_skills' => '还有ACFUN的账号',
 		'energy' => 0,
 		'valid' => array(
 		  'wep' => '搬运之拳',
@@ -3895,6 +3908,11 @@ $cards = array(
 			'wepe' => '50',
 			'weps' => '50',
 			'wepsk' => '',
+			'art' => 'ACFUN的账号',
+			'artk' => 'A',
+			'arte' => '20',
+			'arts' => '10',
+			'artsk' => Array('l','g'),
 		)
 	),
 	227 => array(
@@ -3903,6 +3921,7 @@ $cards = array(
 		'pack' => 'Cyber Zealots',
 		'desc' => '一个普通的喷子，全身上下只有嘴是硬的',
 		'effect' => '开局装备嘴炮',
+		'desc_skills' => '还有ACFUN的账号',
 		'energy' => 0,
 		'valid' => array(
 		  'wep' => '嘴炮',
@@ -3910,6 +3929,11 @@ $cards = array(
 			'wepe' => '50',
 			'weps' => '50',
 			'wepsk' => '',
+			'art' => 'ACFUN的账号',
+			'artk' => 'A',
+			'arte' => '20',
+			'arts' => '10',
+			'artsk' => Array('l','g'),
 		)
 	),
 	228 => array(
@@ -3918,6 +3942,7 @@ $cards = array(
 		'pack' => 'Cyber Zealots',
 		'desc' => '他很热衷于网络80',
 		'effect' => '开局装备网暴',
+		'desc_skills' => '他也有ACFUN的账号',
 		'energy' => 0,
 		'valid' => array(
 		  'wep' => '网暴',
@@ -3925,6 +3950,11 @@ $cards = array(
 			'wepe' => '50',
 			'weps' => '50',
 			'wepsk' => '',
+			'art' => 'ACFUN的账号',
+			'artk' => 'A',
+			'arte' => '20',
+			'arts' => '10',
+			'artsk' => Array('l','g'),
 		)
 	),
 	229 => array(
@@ -3933,11 +3963,12 @@ $cards = array(
 		'pack' => 'Cyber Zealots',
 		'desc' => '车万人下雨不用伞',
 		'effect' => '开局装备符卡',
+		'desc_skills' => '他不屑于在ACFUN注册账号',
 		'energy' => 0,
 		'valid' => array(
 		  'wep' => '符卡',
 			'wepk' => 'WF',
-			'wepe' => '30',
+			'wepe' => '50',
 			'weps' => '50',
 			'wepsk' => '',
 		)
@@ -4186,10 +4217,20 @@ $cards = array(
 		'rare' => 'C',
 		'pack' => 'Cyber Zealots',
 		'desc' => '这么晚还在打大逃杀，你一定也很寂寞吧',
-		'effect' => '开局携带寂寞',
+		'effect' => '开局携带3个寂寞',
 		//'desc_skills' => '',
 		'energy' => 100,
 		'valid' => array(
+			'itm4' => '寂寞',
+			'itmk4' => Array('WP','WK','WD','WC','WG','WF','WB','PB2','DB','DH','DA','DF','A'),
+			'itme4' => '76',
+			'itms4' => '5',
+			'itmsk4' => '',
+			'itm5' => '寂寞',
+			'itmk5' => Array('WP','WK','WD','WC','WG','WF','WB','PB2','DB','DH','DA','DF','A'),
+			'itme5' => '76',
+			'itms5' => '5',
+			'itmsk5' => '',
 		  'itm6' => '寂寞',
 			'itmk6' => Array('WP','WK','WD','WC','WG','WF','WB','PB2','DB','DH','DA','DF','A'),
 			'itme6' => '76',
@@ -4209,7 +4250,7 @@ $cards = array(
 		  'itm6' => '箭症',
 			'itmk6' => 'GA',
 			'itme6' => '1',
-			'itms6' => '44',
+			'itms6' => '99',
 			'itmsk6' => Array('e', 'p', 'u', 'i', 'w'),
 		)
 	),
@@ -4218,12 +4259,12 @@ $cards = array(
 		'rare' => 'C',
 		'pack' => 'Cyber Zealots',
 		'desc' => '咕、杀了我',
-		'effect' => '获得技能【挖矿】：你的休息、治疗和静养不会回复体力和生命，而是每休息1秒有概率获得1元',
+		'effect' => '获得技能「挖矿」：你在休息、治疗和静养时无法得到恢复，改为每秒有10%概率获得1元',
 		//'desc_skills' => '「网瘾」：使用移动PC解除禁区成功率为95%，且完全无风险',
 		'energy' => 0,
 		'valid' => array(
 		  'skills' => array(
-				'233' => '0', //todo
+				'535' => '0',
 			),
 		)
 	),
@@ -4247,7 +4288,7 @@ $cards = array(
 		'effect' => '开局携带P点和蓝点',
 		'energy' => 0,
 		'valid' => array(
-			'itm5' => '[P]',
+			'itm5' => '[Ｐ]',
 			'itmk5' => 'MA',
 			'itme5' => '1',
 			'itms5' => '50',
@@ -4301,14 +4342,14 @@ $cards = array(
 			)
 		)
 	),
-	//没有想到特别好的梗
 	253 => array(
-		'name' => '大考挑战者',
+		'name' => '蟑螂',
 		'rare' => 'B',
-		'pack' => 'hidden',
-		'desc' => '“我考，完了！”',
-		'effect' => '获得最强大脑称号特性「脑力」，但视野只有两格',
-		'energy' => 0,
+		'pack' => 'Best DOTO',
+		'desc' => '一个命名了智力计量单位的人',
+		'effect' => '他根本不需要视力',
+		'desc_skills' => '获得最强大脑称号特性「脑力」，但视野只有两格',
+		'energy' => 100,
 		'valid' => array(
 			'skills' => array(
 				'80' => '0',

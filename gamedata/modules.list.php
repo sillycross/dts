@@ -338,6 +338,7 @@ dualwep,base/weapon/dualwep/,1
 wep_b_extra_reloading,extra/item_extra/wep_b_extra_reloading/,1
 skill28,extra/club/skills/skill28/,1
 skill254,extra/club/skills/skill254/,1
+skill535,extra/card/skills/skill535/,1
 song,base/items/song/,1
 instance9,extra/instance/instance9_rush/,1
 skill37,extra/club/skills/skill37/,1

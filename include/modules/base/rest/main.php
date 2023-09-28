@@ -44,7 +44,7 @@ namespace rest
 			$sp += $upsp; $sp = min($sp, $msp);
 			$upsp = $sp - $oldsp;
 			$upsp=max(0,$upsp);
-			$log .= "你的体力恢复了<span class=\"yellow b\">$upsp</span>点。";
+			if($upsp) $log .= "你的体力恢复了<span class=\"yellow b\">$upsp</span>点。";
 		} 
 		
 		if ($state == 2 || $state == 3) {
@@ -53,7 +53,7 @@ namespace rest
 			$hp += $uphp; $hp = min($hp, $mhp);
 			$uphp = $hp - $oldhp;
 			$uphp=max(0,$uphp);
-			$log .= "你的生命恢复了<span class=\"yellow b\">$uphp</span>点。";
+			if($uphp) $log .= "你的生命恢复了<span class=\"yellow b\">$uphp</span>点。";
 		} 
 		
 		$log .= '<br>';
@@ -76,11 +76,7 @@ namespace rest
 			}
 		} 
 		
-		if ($restcommand != 'rest') {
-			$state = 0;
-			$endtime = $now;
-			$mode = 'command';
-		}
+		
 		return;
 	}
 	
@@ -120,6 +116,11 @@ namespace rest
 		if($mode == 'rest')
 		{
 			rest($command);
+			if ($command != 'rest') {
+				$state = 0;
+				$endtime = $now;
+				$mode = 'command';
+			}
 			return;
 		}
 		

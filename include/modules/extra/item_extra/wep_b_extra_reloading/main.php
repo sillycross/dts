@@ -69,11 +69,15 @@ namespace wep_b_extra_reloading
 	function itemuse_uga(&$theitem)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','itemmain','weapon'));
-		//如果原本的箭矢是投掷武器，就必须先抵扣
+		eval(import_module('sys','player','itemmain','weapon','logger'));
 		$swapitem = \wep_b\wep_b_get_ari($wepsk);
+		
+		//如果原本的箭矢是投掷武器，就必须先抵扣		
+		//2023.09.28 现在已经装了投掷武器就不能取下来了，免得轻易分割投掷武器
 		if(!empty($swapitem) && strpos($swapitem['itmk'], 'WC')===0) {
-			$wepe -= $swapitem['itme'];
+			$log .= '你已经给弓装上了'.$swapitem['itm'].'，先把它射出去再说吧！<br>';
+			return;
+//			$wepe -= $swapitem['itme'];
 		}
 		//先结算，如果扣到负数，变成0
 		if($wepe < 0) $wepe = 0;
