@@ -105,13 +105,14 @@ namespace itemmain
 	//2、^数字。如^001=>同调。
 	//3、^字母数字。如^dd20=>降防20%。注意：就算效果和数字无关，使用时也必须以数字结尾。
 	//此外，第三项在字母后加下划线，可以通过get_comp_itmsk_info($itmsk)获取下划线后面至数字之间的内容，具体见attrbase模块
-	function get_itmsk_array($sk_value)
+	//如果$not_ignore传入真值，会把竖线等本应被忽略的字符也当做属性返回，用于一些需要严格判断的场合。
+	function get_itmsk_array($sk_value, $not_ignore = 0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('itemmain'));
-		//如果之前判定过完全相同的属性就直接用，避免多次性能开销
-		if(!empty($tmp_itmsk_arr_pool[$sk_value])) {
+		//如果之前判定过完全相同的属性就直接用，避免多次性能开销。注意如果$not_ignore开启，不能使用这个功能
+		if(!empty($tmp_itmsk_arr_pool[$sk_value]) && !$not_ignore) {
 			//echo $sk_value.' ';
 			return $tmp_itmsk_arr_pool[$sk_value];
 		}
@@ -122,7 +123,7 @@ namespace itemmain
 		{
 			$sub = substr($sk_value,$i,1); 
 			$i++;
-			if(!empty($sub) && !in_array($sub, array('|'))){
+			if(!empty($sub) && ($not_ignore || !in_array($sub, array('|')))){
 				if ($sub=='^')
 				{
 					$flag = 1;

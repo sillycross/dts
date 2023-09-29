@@ -151,7 +151,7 @@ namespace skill272
 		$affected_arr = array();
 		if(!empty($itmsk)) {
 			//echo $itmsk.'=>';
-			$itmsk_arr = \itemmain\get_itmsk_array($itmsk);
+			$itmsk_arr = \itemmain\get_itmsk_array($itmsk,1);//不忽略竖线
 			foreach($itmsk_arr as &$isk){
 				if(in_array($isk, $effect_list)){
 					$effect_num ++ ;
