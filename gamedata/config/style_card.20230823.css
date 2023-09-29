@@ -1,3 +1,39 @@
+div.cardbox
+{
+	/* 使该盒子具有3D属性 */
+  transform-style: preserve-3d;
+
+  /*动画效果历时1秒 */
+  transition: 1s;
+
+  /* 使具有旋转效果 */
+  perspective: 1000px;
+}
+
+.cardfront {
+	/* 让卡片背面与正面重合 */
+  position: absolute;
+  
+  /* 隐藏卡片背面 */
+  backface-visibility: hidden;
+}
+
+.cardback {
+	/* 让卡片背面与正面重合 */
+  position: absolute;
+  
+  /* 隐藏卡片背面 */
+  backface-visibility: hidden;
+  
+  /* 让在背面显示的内容转到背面 */
+  transform: rotateY(180deg);
+}
+
+/* 点击时切换的样式 */
+.card_flipped {
+  transform: rotateY(180deg);
+}
+
 img.card_achieved{width:35px;height:20px;position:absolute;z-index:20;top:-13px;left:11px;}
 
 div.card_frame_outer
