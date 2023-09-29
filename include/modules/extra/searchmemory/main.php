@@ -214,7 +214,7 @@ namespace searchmemory
 			}
 			//超出记忆范围则删掉最老的记忆
 			while(sizeof($smarr_all) > $searchmemory_real_recordnum){
-				remove_memory();//这里要改
+				remove_memory(0, 0, $pa);
 			}
 		}
 		return;
