@@ -11,7 +11,7 @@ div.cardbox
   width:240px; height:320px;
 }
 
-.cardfront {
+.showfront {
 	/* 让卡片背面与正面重合 */
   position: absolute;
   
@@ -19,7 +19,7 @@ div.cardbox
   backface-visibility: hidden;
 }
 
-.cardback {
+.showback {
 	/* 让卡片背面与正面重合 */
   position: absolute;
   
@@ -39,6 +39,13 @@ div.cardbox
   -moz-transform: perspective(800) rotateY(180deg);
   -webkit-transform: perspective(800) rotateY(180deg);
   transform: perspective(800) rotateY(180deg);
+}
+
+img.cardback{
+	width:240px;height:320px;
+	-moz-border-radius:9px; 
+	-webkit-border-radius:9px;
+	border-radius:9px;
 }
 
 img.card_achieved{width:35px;height:20px;position:absolute;z-index:20;top:-13px;left:11px;}

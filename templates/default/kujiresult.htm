@@ -1,13 +1,23 @@
 {template header}
 <!--{eval eval(import_module('cardbase'));$showpack=1;}-->
 <div class="subtitle" align="center">抽卡结果</div>
+<script type="text/javascript">
+	
+	function show_card_and_sleep (i, t) {
+		if(null!=$('cardbox'+i)) {
+			$('cardbox'+i).classList.toggle('card_flipped');
+			i++;
+			setTimeout('show_card_and_sleep('+i+','+t+')', t);
+		}
+	}
+</script>
 <center>
 <div style="width:1024px;">
 <div style="width:950px; text-align:left">抽卡结果</div>
 <ul style="width:1000px;list-style-type:none; ">
 	<!--{loop $kres $k $r}-->
 	<li style="float:left;margin:5px">
-		
+		<!--{eval if(!isset($i0)) $i0 = $k;}-->
 		<div style="
 		<!--{if $ktype==0 || $ktype==2}-->
 		cursor:pointer; 
@@ -26,14 +36,16 @@
 		title="点击再抽一发"
 		onclick="window.location.href='kuji.php?type=$ktype';"
 		<!--{/if}-->>
-		<!--{eval $nowcard=$cards[$r];$nownew=$isnew[$k]?1:0;}-->
-		{template MOD_CARDBASE_CARD_FRAME}
-		<!--{if isset($ishighlight[$k]) && !$ishighlight[$k]}-->
-		<div style="position:absolute; top:0px; left:0px; background-color:#000000; 
-		height:320px; width:240px; 
-		filter:alpha(opacity=50); -moz-opacity:0.5; opacity:0.5; -khtml-opacity: 0.5;">
-		</div>
-		<!--{/if}-->
+			<!--{eval $nowcard=$cards[$r];$nownew=$isnew[$k]?1:0;}-->
+			<div class="cardbox" id="cardbox$k">
+				{template MOD_CARDBASE_CARD_BACK_FRONT_BOX}
+			</div>
+			<!--{if isset($ishighlight[$k]) && !$ishighlight[$k]}-->
+			<div style="position:absolute; top:0px; left:0px; background-color:#000000; 
+			height:320px; width:240px; 
+			filter:alpha(opacity=50); -moz-opacity:0.5; opacity:0.5; -khtml-opacity: 0.5;">
+			</div>
+			<!--{/if}-->
 		</div>
 	</li>
 	<!--{/loop}-->
@@ -60,5 +72,7 @@
 <form method="post" name="backindex" action="kujilist.php">
 	<input type="submit" class="b_button bc_white" name="enter" value="返回选择页面">
 </form>
+<img style="display:none;" type="hidden" src="img/blank.png" 
+	onload="setTimeout('show_card_and_sleep ($i0, 100)',200);" />
 {template footer}
 
