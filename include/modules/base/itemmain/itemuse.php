@@ -3,7 +3,7 @@
 namespace itemmain
 {
 
-	function itms_reduce(&$theitem)
+	function itms_reduce(&$theitem, $reducen = 1)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -12,8 +12,8 @@ namespace itemmain
 		$itm=&$theitem['itm']; $itmk=&$theitem['itmk'];
 		$itme=&$theitem['itme']; $itms=&$theitem['itms']; $itmsk=&$theitem['itmsk'];
 		
-		if ($itms != $nosta) {
-			$itms --;
+		if ($itms !== $nosta) {
+			$itms -= $reducen;
 			if ($itms <= 0) {
 				$log .= "<span class=\"red b\">$itm</span>用光了。<br>";
 				$itm = $itmk = $itmsk = '';

@@ -5,9 +5,10 @@ div.cardbox
 
   /*动画效果历时1秒 */
   transition: 1s;
-
-  /* 使具有旋转效果 */
-  perspective: 1000px;
+  
+  transform-origin: 50% 50%;
+  
+  width:240px; height:320px;
 }
 
 .cardfront {
@@ -31,7 +32,13 @@ div.cardbox
 
 /* 点击时切换的样式 */
 .card_flipped {
+  -moz-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);
+  -moz-transform: perspective(800) rotateY(180deg);
+  -webkit-transform: perspective(800) rotateY(180deg);
+  transform: perspective(800) rotateY(180deg);
 }
 
 img.card_achieved{width:35px;height:20px;position:absolute;z-index:20;top:-13px;left:11px;}

@@ -234,7 +234,6 @@ namespace wep_b
 		$arrowmax = (\attrbase\check_in_itmsk('r',$itmsk_arr) || \attrbase\check_in_itmsk('r',$wepsk_arr)) ? 2 + min ( floor(${$skillinfo['B']} / 200), 4 ) : 1;
 		$arrownum = min($arrowmax, $itms);
 		$weps = $arrownum;
-		$itms -= $arrownum;
 		
 		//记录换上的箭矢数值
 		$reloadsk = Array(
@@ -257,12 +256,8 @@ namespace wep_b
 		
 		if(!$swapnum)	$log .= "为<span class=\"red b\">$wep</span>选用了<span class=\"red b\">$itm</span>，<span class=\"red b\">$wep</span>发射次数增加了<span class=\"yellow b\">$arrownum</span>。<br>";
 		else $log .= "为<span class=\"red b\">$wep</span>换上了<span class=\"red b\">$itm</span>，<span class=\"red b\">$wep</span>发射次数增加了<span class=\"yellow b\">$arrownum</span>。<br>";
-		if ($itms <= 0) {
-			\itemmain\itms_reduce($theitem);
-//			$log .= "<span class=\"red b\">$itm</span>用光了。<br>";
-//			$itm = $itmk = $itmsk = '';
-//			$itme = $itms = 0;
-		}
+		\itemmain\itms_reduce($theitem, $arrownum);
+
 		//获得卸下的箭矢
 		if($swapnum){
 			if(empty($swapitem)) {

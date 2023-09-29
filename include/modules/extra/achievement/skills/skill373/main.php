@@ -63,7 +63,7 @@ namespace skill373
 	function itemmix_success()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player',));
+		eval(import_module('sys','player'));
 		$chprocess();
 		if(\skillbase\skill_query(373)){
 			$cnt = (int)\skillbase\skill_getvalue(373,'cnt') + 1;

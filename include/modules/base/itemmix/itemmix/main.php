@@ -6,6 +6,15 @@ namespace itemmix
 	
 	function init() {}
 	
+	//获得$mixinfo的函数，要往数组里添加临时合成可以继承这里。注意继承的时候不要import同名变量进来导致又污染了。
+	function get_mixinfo()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('itemmix'));
+		return $mixinfo;
+	}
+	
+	//合成成功时的提示以及道具的获得，要进行其他处理的功能可以继承这里
 	function itemmix_success()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -66,13 +75,14 @@ namespace itemmix
 	//$mi已改为道具数组
 	function itemmix_recipe_check($mixitem){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','itemmix'));
+		eval(import_module('sys','player'));
 		$res = array();
 		if(count($mixitem) >= 2){
+			$recipe = get_mixinfo();
 			$mi_names = array();
 			foreach($mixitem as $i) $mi_names[] = itemmix_name_proc($i['itm']);
 			sort($mi_names);
-			foreach($mixinfo as $minfo){
+			foreach($recipe as $minfo){
 				$ms = $minfo['stuff'];
 				sort($ms);
 				if(count($mi_names)==count($ms) && $mi_names == $ms) {

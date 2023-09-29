@@ -199,19 +199,35 @@ namespace item_slip
 	}
 	
 	//meta特殊合成
-	function itemmix_recipe_check($mixitem){
+	//现在改到get_mixinfo()这里
+	function get_mixinfo()
+	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','itemmix','item_slip'));
-		if(count($mixitem) >= 2){	
-			if(!empty($gamevars['metagame'])) {//如果有metagame数据，则追加一项合成
-				list($stuff,$result) = item_slip_get_puzzle($gamevars['metagame']);
-				if(isset($item_slip_metagame_list[$result]) && empty($mixinfo['metagame'])) {
-					$mixinfo['metagame'] = array('class' => 'hidden', 'stuff' => $stuff, 'result' => $item_slip_metagame_list[$result]);
-				}
+		$ret = $chprocess();
+		eval(import_module('sys'));
+		if(!empty($gamevars['metagame'])) {//如果有metagame数据，则追加一项合成
+			eval(import_module('item_slip'));
+			list($stuff,$result) = item_slip_get_puzzle($gamevars['metagame']);
+			if(isset($item_slip_metagame_list[$result])) {
+				$ret['metagame'] = array('class' => 'hidden', 'stuff' => $stuff, 'result' => $item_slip_metagame_list[$result]);
 			}
 		}
-		return $chprocess($mixitem);
+		return $ret;
 	}
+	
+//	function itemmix_recipe_check($mixitem){
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		eval(import_module('sys','itemmix','item_slip'));
+//		if(count($mixitem) >= 2){	
+//			if(!empty($gamevars['metagame'])) {//如果有metagame数据，则追加一项合成
+//				list($stuff,$result) = item_slip_get_puzzle($gamevars['metagame']);
+//				if(isset($item_slip_metagame_list[$result]) && empty($mixinfo['metagame'])) {
+//					$mixinfo['metagame'] = array('class' => 'hidden', 'stuff' => $stuff, 'result' => $item_slip_metagame_list[$result]);
+//				}
+//			}
+//		}
+//		return $chprocess($mixitem);
+//	}
 	
 	function item_slip_get_puzzle($puzzleid){
 		if (eval(__MAGIC__)) return $___RET_VALUE;

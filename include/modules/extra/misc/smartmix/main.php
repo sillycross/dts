@@ -9,10 +9,11 @@ namespace smartmix
 	//返回mixinfo里的单个array
 	function smartmix_find_recipe($itm, $tp=0){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','itemmix'));
+		eval(import_module('sys','player'));
+		$recipe = get_mixinfo();
 		$mix_res = array();		
 		$itm = htmlspecialchars_decode(\itemmix\itemmix_name_proc($itm));
-		foreach ($mixinfo as $ma){
+		foreach ($recipe as $ma){
 			$ma['type'] = 'normal';
 			//隐藏合成是无法查到的
 			if(($tp & 1 && in_array($itm, $ma['stuff']) && $ma['class']!='hidden') || ($tp & 2 && $itm == $ma['result'][0])){
