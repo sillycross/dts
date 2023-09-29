@@ -181,7 +181,7 @@ namespace searchmemory
 				$amn = $marr['itm'];
 				$amflag = 1;
 				if($showlog) {
-					if($fog) $log .= '你能隐约看到'.$amn.'的位置。<br>';
+					if(\player\check_fog()) $log .= '你能隐约看到'.$amn.'的位置。<br>';
 					else $log .= '你设法保持对'.$amn.'的持续观察。<br>';
 				}
 			}elseif(isset($marr['Pname'])){
@@ -189,7 +189,7 @@ namespace searchmemory
 				$amflag = 1;
 				if($showlog) {
 					if($marr['smtype'] == 'corpse' ) $log .=  '你设法保持对'.$amn.'的尸体的持续观察。<br>';
-					elseif($fog) $log .= '你努力让那个人影保持在视野之内。<br>';
+					elseif(\player\check_fog()) $log .= '你努力让那个人影保持在视野之内。<br>';
 					else $log .= '在离开的同时，你设法保持对'.$amn.'的持续观察。<br>';
 				}
 			}
@@ -206,7 +206,7 @@ namespace searchmemory
 				//如果在同一地图且没有被标注unseen则提示一下
 				if($showlog && empty($thatm['unseen']) && $thatm['pls'] == $pls) {
 					$rmn = get_memory_name($thatm, $pa);
-					if($fog && isset($thatm['Pname']) && $thatm['smtype'] != 'corpse') $log .= '先前的人影看不见了，但你仍记得其大致方位。<br>';
+					if(\player\check_fog() && isset($thatm['Pname']) && $thatm['smtype'] != 'corpse') $log .= '先前的人影看不见了，但你仍记得其大致方位。<br>';
 					else $log .= $rmn.'看不见了，但你仍记得其大致方位。<br>';
 					//标记unseen，确保不反复被提示，也避免拾取道具之后又让移出视野的道具自己长脚跑回来
 					$thatm['unseen'] = 1;
@@ -214,7 +214,7 @@ namespace searchmemory
 			}
 			//超出记忆范围则删掉最老的记忆
 			while(sizeof($smarr_all) > $searchmemory_real_recordnum){
-				remove_memory(0, 0, $pa);
+				remove_memory(0, $showlog, $pa);
 			}
 		}
 		return;
@@ -349,7 +349,7 @@ namespace searchmemory
 				$ra = remove_memory_core($mn, $pa);
 				if(1==$shwlog){
 					$rmn = get_memory_name($ra, $pa);
-					if($fog && isset($ra['Pname']) && $ra['smtype'] != 'corpse') $log .= '你不再记得那个神秘人影的位置。<br>';
+					if(\player\check_fog() && isset($ra['Pname']) && $ra['smtype'] != 'corpse') $log .= '你不再记得那个神秘人影的位置。<br>';
 					else $log .= '你不再记得'.$rmn.'的位置。<br>';
 				}
 			}

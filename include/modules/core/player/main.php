@@ -236,6 +236,13 @@ namespace player
 		return array($iconImg, $iconImgB, $iconImgBwidth);
 	}
 	
+	//$fog变量是在player模块定义的，很多模块的依赖顺序都受这个影响，所以check_fog函数必须放这个player模块，然后才被weather模块继承
+	function check_fog()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return false;
+	}
+	
 	function init_playerdata(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -252,6 +259,9 @@ namespace player
 			$arb = $noarb;$arbk = 'DN'; $arbsk = '';
 			$arbe = 0; $arbs = 0;
 		}
+		
+		//雾天变量$fog的定义从weather模块改到这里，weather模块改继承并修改check_fog函数
+		$fog = check_fog();
 	}
 	
 	//玩家界面非profile的信息渲染，目前而言只有command需要调用
