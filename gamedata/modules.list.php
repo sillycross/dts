@@ -257,11 +257,13 @@ skill1012,extra/gmskills/skill1012/,1
 skill553,extra/card/skills/skill553/,1
 skill555,extra/card/skills/skill555/,1
 skill560,extra/card/skills/skill560/,1
-skill561,extra/card/skills/skill561/,1
 skill534,extra/card/skills/skill534/,1
+skill561,extra/card/skills/skill561/,1
+skill556,extra/card/skills/skill556/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
+item_umb,extra/item_extra/item_umb/,1
 skill209,extra/club/skills/skill209/,1
 event,base/event/,1
 skill5,extra/attr/skills/skill5/,1
@@ -403,6 +405,7 @@ cooldown,base/cooldown/,1
 item_misc,base/items/item_misc/,1
 skill458,extra/card/skills/skill458/,1
 skill498,extra/card/skills/skill498/,1
+skill562,extra/card/skills/skill562/,1
 skill514,extra/card/skills/skill514/,1
 skill206,extra/club/skills/skill206/,1
 miracletrap,base/items/miracletrap/,1
@@ -430,6 +433,7 @@ autopower,extra/misc/autopower/,1
 skill601,extra/club/skills/skill601/,1
 skill602,extra/club/skills/skill602/,1
 skill603,extra/club/skills/skill603/,1
+item_uys,extra/item_extra/item_uys/,1
 skill1003,extra/club/skills/skill1003/,1
 skill301,extra/achievement/skills/skill301/,1
 skill307,extra/achievement/skills/skill307/,1
@@ -461,6 +465,7 @@ skill497,extra/card/skills/skill497/,1
 skill429,extra/instance/gtype1/skill429/,1
 searchmemory,extra/searchmemory/,1
 skill503,extra/card/skills/skill503/,1
+skill559,extra/card/skills/skill559/,1
 skill604,extra/club/skills/skill604/,1
 ex_gender_attr,extra/attr/ex_gender_attr/,1
 ex_attr_pierce,extra/attr/ex_attr_pierce/,1
@@ -521,6 +526,7 @@ skill505,extra/card/skills/skill505/,1
 skill80,extra/club/skills/skill80/,1
 skill551,extra/card/skills/skill551/,1
 skill554,extra/card/skills/skill554/,1
+skill563,extra/card/skills/skill563/,1
 ex_purity,extra/attr/ex_purity/,1
 skill26,extra/club/skills/skill26/,1
 skill265,extra/club/skills/skill265/,1

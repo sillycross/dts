@@ -1,0 +1,27 @@
+<!--{eval eval(import_module('skill559'));}-->
+<!--{eval $___TEMP_SKILL_ID=559;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+你拥有额外的合成知识。<br>
+已掌握的合成表：
+<!--{if empty(\skillbase\skill_getvalue(559,'classes'))}-->
+<br><span class="yellow b">无</span>
+<!--{else}-->
+<!--{eval $extmixinfo=\skill559\get_sk559_mixinfo($who);$showrecipe=\skill559\show_sk559_recipe($extmixinfo);}-->
+<!--{loop $showrecipe $i}-->
+<br><span class="yellow b">$i</span>
+<!--{/loop}-->
+<!--{/if}-->
+</span></td>
+<td class="skilldesc_right b3">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}
