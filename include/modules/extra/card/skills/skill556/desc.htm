@@ -1,0 +1,41 @@
+<!--{eval eval(import_module('skill556'));}-->
+<!--{eval $___TEMP_SKILL_ID=556;}-->
+<!--{eval $skill556var=\skillbase\skill_getvalue(556,'choice');}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+<span class="yellow b">战斗技</span>&nbsp;&nbsp;标记敌人，可在移动或探索时显示该敌人的位置，<br>仅对玩家有效且只能同时标记一名，消耗<span class="yellow b">$ragecost</span>点怒气<br>
+当前标记的敌人：
+<!--{eval $tarpid = (int)\skillbase\skill_getvalue(556,'targetpid');}-->
+<!--{eval if (0 == $tarpid) $targetname = '无'; else $targetname = (\player\fetch_playerdata_by_pid($tarpid))['name'];}-->
+<span class="yellow b">$targetname</span><br>
+<!--{if 1 == $skill556var}-->
+<span class="yellow b">当前不显示目标位置</span>
+<!--{else}-->
+	<span class="cyan b">当前会显示目标位置</span>
+	<!--{if (0 == $tarpid)}-->
+	<span class="cyan b">，</span><span class="yellow b">但没有标记的敌人</span>
+	<!--{/if}-->
+<!--{/if}-->
+<br>
+<!--{loop range(1,2) $i}-->
+	<!--{if $skill556var==$i}-->
+		<input type="button" style="width:70px;margin:4px" disabled value="[已选择]">
+	<!--{else}-->
+		<input type="button" style="width:70px;margin:4px" onclick="$('mode').value='special';$('command').value='skill556_special';$('subcmd').value='upgrade';$('skillpara1').value='$i';postCmd('gamecmd','command.php');this.disabled=true;" value="$skill556stateinfo[$i]">
+	<!--{/if}-->
+	<!--{if $i<2}-->&nbsp;&nbsp;&nbsp;<!--{/if}-->
+<!--{/loop}-->
+</span></td>
+<td class="skilldesc_right b3">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+10级时解锁
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

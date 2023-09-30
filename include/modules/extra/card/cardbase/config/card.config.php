@@ -4420,8 +4420,23 @@ $cards = array(
 				'560' => '0',
 				'561' => '0'
 			),
-    )
-  ),
+		)
+	),
+	//缺梗
+	259 => array(
+		'name' => '……',
+		'rare' => 'A',
+		'pack' => 'hidden',
+		'desc' => '……',
+		'effect' => '……',
+		'desc_skills' => '根据内定称号，获得额外的合成知识',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'563' => '0',
+			),
+		)
+	),
 	//老板，来个20个卡位的空白
 	280 => array(
 		'name' => 'Acg_xilin',

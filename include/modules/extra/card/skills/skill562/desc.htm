@@ -1,0 +1,28 @@
+<!--{eval eval(import_module('skill562','song'));}-->
+<!--{eval $___TEMP_SKILL_ID=562;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+升级时获得<span class="yellow b">$skill562_lvlup_ss</span>点歌魂上限；歌唱时有<span class="yellow b">{$skill562_nocost_rate}%</span>不消耗歌魂；<br>使用歌词卡片后可习得该歌词卡片对应的歌曲；<br>你歌唱已习得的歌曲不需要装备歌词卡片。<br>
+当前已习得的歌曲：<br>
+<!--{eval $learnedsongs = \skillbase\skill_getvalue(562,'learnedsongs');}-->
+<!--{if '' === $learnedsongs}-->
+<span class="yellow b">无</span><br>
+<!--{else}-->
+<!--{eval $ls = explode('_',$learnedsongs);}-->
+<!--{loop $ls $i}-->
+<span class="yellow b">$songlist[$i]['songname']</span><br>
+<!--{/loop}-->
+<!--{/if}-->
+</span></td>
+<td class="skilldesc_right b3">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}
