@@ -5,16 +5,18 @@ namespace skill559
 	$skill559_mixinfo = array
 	(
 		//街霸
-		array('class' => 'club1', 'stuff' => array('钉棍棒','铁链'),'result' => array('铁钉','Y',10,5,),),
+		array('class' => 'club1', 'stuff' => array('《殴系指南》','实验装甲F'),'result' => array('虎膝钉','Y',30,3,),),
+		array('class' => 'club1', 'stuff' => array('埃克法-明拳','原型武器P','巨大路灯柱'),'result' => array('「音速手刀」模样的棍棒','WP',90,50,'cw'),),
 		//见敌
-		array('class' => 'club2', 'stuff' => array('岩石','磨刀石'),'result' => array('磨刀石','Y',20,3,),),
+		array('class' => 'club2', 'stuff' => array('键盘侠之证','磨刀石'),'result' => array('勋章模样的磨刀石','Y',20,3,),),
+		array('class' => 'club2', 'stuff' => array('埃克法-玄铁','『王国之键』'),'result' => array('圣剑「格兰·圣丘里奥」','WK',10,'∞','cZ'),),
 		//鹰眼
-		array('class' => 'club3', 'stuff' => array('玩具手枪','机枪子弹'),'result' => array('玩具手枪','WG',40,30,'ro'),),
-		array('class' => 'club3', 'stuff' => array('玩具手枪','压缩气罐'),'result' => array('玩具手枪','WG',30,12,'uo'),),
-		array('class' => 'club3', 'stuff' => array('玩具手枪','枪械电池'),'result' => array('玩具手枪','WG',50,24,'eo'),),
+		array('class' => 'club3', 'stuff' => array('机枪子弹','★炸药★'),'result' => array('土制重弹','GBh',1,1,),),
+		array('class' => 'club3', 'stuff' => array('原型装甲A','「W-弹射飞翼」 ★4','提示纸条P'),'result' => array('AWP大阻','WJ',120,1,),),
 		//灌篮
-		array('class' => 'club4', 'stuff' => array('棒球','轻质球棒'),'result' => array('棒球工具组合','DA',133,33,'c'),),
-		array('class' => 'club4', 'stuff' => array('棒球','棒球手套'),'result' => array('棒球工具组合','DA',133,33,'c'),),
+		array('class' => 'club4', 'stuff' => array('棒球手套','轻质球棒'),'result' => array('「超级运动员 猛力打击手」 ★5','WC05',230,50,'Nj'),),
+		array('class' => 'club4', 'stuff' => array('棒球手套','铝球棒'),'result' => array('「超级运动员 猛力打击手」 ★5','WC05',230,50,'Nj'),),
+		array('class' => 'club4', 'stuff' => array('「超级运动员 无畏扣篮手」-仮','☆七星认证☆'),'result' => array('「超级运动员 无畏扣篮手」 ★7','WC07',250,100,'ytd^ac1'),),
 		//拆弹
 		array('class' => 'club5', 'stuff' => array('地雷','导火线',),'result' => array('便携式地雷','WD',300,3,'d'),),
 		array('class' => 'club5', 'stuff' => array('地雷','信管',),'result' => array('便携式地雷','WD',300,3,'d'),),

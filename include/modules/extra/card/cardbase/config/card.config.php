@@ -4372,7 +4372,6 @@ $cards = array(
 			)
 		)
 	),
-	//小马
 	256 => array(
 		'name' => '彩虹小马',
 		'rare' => 'B',
@@ -4424,12 +4423,12 @@ $cards = array(
 	),
 	//缺梗
 	259 => array(
-		'name' => '……',
-		'rare' => 'A',
-		'pack' => 'hidden',
-		'desc' => '……',
-		'effect' => '……',
-		'desc_skills' => '根据内定称号，获得额外的合成知识',
+		'name' => '冻鳗婆罗门',
+		'rare' => 'S',
+		'pack' => 'Standard Pack',
+		'desc' => '愤怒了，这个游戏的制作者根本不懂<br>什么才是真正的冻鳗梗！',
+		'effect' => '我要好好教教你们真正的冻鳗姿势',
+		'desc_skills' => '根据内定称号，获得额外的合成姿势',
 		'energy' => 100,
 		'valid' => array(
 			'skills' => array(
