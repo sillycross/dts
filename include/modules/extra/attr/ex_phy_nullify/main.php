@@ -107,7 +107,7 @@ namespace ex_phy_nullify
 		return $chprocess($theitem);
 	}
 	
-	function autosewingkit_single($nowi, &$theitem, &$sewingkit){
+	function autosewingkit_single($nowi, &$theitem, &$sewingkit, $sewing_results){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(\itemmain\check_in_itmsk('B', $theitem['itmsk'])) {
 			eval(import_module('logger'));
@@ -121,7 +121,7 @@ namespace ex_phy_nullify
 				$log .= "纳尼？{$theitem['itm']}免疫物理伤害的效果竟然失效了！<br>";
 			}
 		}
-		return $chprocess($nowi, $theitem, $sewingkit);
+		return $chprocess($nowi, $theitem, $sewingkit, $sewing_results);
 	}
 	
 	//物抹属性的防具打宝石有大概率失败（其他类型不受影响）

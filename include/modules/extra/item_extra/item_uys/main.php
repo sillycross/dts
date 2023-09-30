@@ -108,7 +108,7 @@ namespace item_uys
 			$log .= '<span id="autopower'.$i.'" style="display:none">';
 			
 			//单次处理，返回true为强化成功。注意在这里面会让针线包的耐久-1
-			$sewing_results[] = autosewingkit_single($i, $theitem, $sewingkit);
+			$sewing_results[] = autosewingkit_single($i, $theitem, $sewingkit, $sewing_results);
 			
 			if ($i == $sknum && $sks > 0) 
 			{
@@ -133,7 +133,7 @@ namespace item_uys
 	}
 	
 	//单次强化的处理
-	function autosewingkit_single($nowi, &$theitem, &$sewingkit){
+	function autosewingkit_single($nowi, &$theitem, &$sewingkit, $sewing_results){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('itemmain','logger'));
 		
@@ -153,7 +153,13 @@ namespace item_uys
 		$itms_up = $nosta !== $itms ? floor(min($ske / 10, $itms / 2)) : 0;//如果不是无限耐，稍微增加一点耐久
 		$itms += $itms_up;
 		
-		$log .= "用<span class=\"yellow b\">$sk</span>给<span class=\"yellow b\">$itm</span>叠上了{$nowi}层附加装甲，<span class=\"yellow b\">$itm</span>的效果值变成了<span class=\"yellow b\">$itme</span>";
+		//统计先前强化成功次数。注意本次强化也是成功的
+		$last_success_num = 1;
+		foreach($sewing_results as $v) {
+			if($v) $last_success_num++;
+		}
+		
+		$log .= "用<span class=\"yellow b\">$sk</span>给<span class=\"yellow b\">$itm</span>叠上了{$last_success_num}层附加装甲，<span class=\"yellow b\">$itm</span>的效果值变成了<span class=\"yellow b\">$itme</span>";
 		if ($itms_up > 0)
 		{
 			$log .= "，耐久值变成了<span class=\"yellow b\">$itms</span>点";
