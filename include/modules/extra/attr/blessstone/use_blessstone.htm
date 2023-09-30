@@ -1,12 +1,12 @@
-<input type="hidden" id="mode" name="mode" value="item">
+<input type="hidden" id="mode" name="mode" value="command">
 <input type="hidden" name="usemode" value="blessstone">
 <input type="hidden" name="itmp" value="{$theitem['itmn']}">
 你想强化哪一件装备？<br>
-<input type="radio" name="command" id="menu" value="menu" checked><a onclick="sl('menu');">返回</a><br>
+<input type="radio" name="command" id="menu" value="menu" checked><a onclick="sl('menu');$('mode').value='command';">返回</a><br>
 <!--{loop range(1,6) $i}-->
-	<!--{if \itemmain\check_in_itmsk('Z', ${'itmsk'.$i}) && strpos ( ${'itm'.$i}, '宝石』' ) === false}-->
-	<input type="radio" name="command" id="itm$i" value="itm$i"><a onclick="sl('itm$i');">${'itm'.$i}/${'itme'.$i}/${'itms'.$i}</a><br>
+	<!--{if \itemmain\check_in_itmsk('Z', ${'itmsk'.$i}) && strpos ( ${'itm'.$i}, '宝石』' ) === false && strpos ( ${'itmsk'.$i}, '|' ) === false}-->
+	<input type="radio" name="command" id="itm$i" value="itm$i"><a onclick="sl('itm$i');$('mode').value='item';">${'itm'.$i}/${'itme'.$i}/${'itms'.$i}</a><br>
 	<!--{/if}-->
 <!--{/loop}-->
 <br>
-<input type="button" id="z" onclick="postCmd('gamecmd','command.php');" value="[Z]提交">
+<input type="button" class="cmdbutton" id="z" onclick="postCmd('gamecmd','command.php');this.disabled=true;" value="[Z]提交">

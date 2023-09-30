@@ -8,7 +8,8 @@ $mapitemfile = GAME_ROOT.'/include/modules/base/itemmain/config/mapitem.config.p
 $mapitemfile_i8 = GAME_ROOT.'./include/modules/extra/instance/instance8_proud/config/mapitem.config.php';
 $mapitemfile_i9 = GAME_ROOT.'./include/modules/extra/instance/instance9_rush/config/mapitem.config.php';
 $writefile = GAME_ROOT.TPLDIR.'/tmp_itemhelp.htm';
-if(!file_exists($writefile) || filemtime($selffile) > filemtime($writefile) || filemtime($mapitemfile) > filemtime($writefile) || filemtime($mapitemfile_i8) > filemtime($writefile)  || filemtime($mapitemfile_i9) > filemtime($writefile))
+//if(!file_exists($writefile) || filemtime($selffile) > filemtime($writefile) || filemtime($mapitemfile) > filemtime($writefile) || filemtime($mapitemfile_i8) > filemtime($writefile)  || filemtime($mapitemfile_i9) > filemtime($writefile))
+if(check_filemtime_expired($writefile, Array($selffile, $mapitemfile, $mapitemfile_i8, $mapitemfile_i9)))
 {
 	$iinfo_all = array();
 	$list = Array('标准局道具列表' => $mapitemfile, '荣耀模式道具列表' => $mapitemfile_i8, '极速模式道具列表' => $mapitemfile_i9);

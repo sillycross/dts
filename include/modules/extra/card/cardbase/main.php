@@ -691,6 +691,7 @@ namespace cardbase
 		
 		//反查数组就无所谓了
 		$contents .= '$cardindex_reverse = '.var_export($new_cardindex_reverse,1).';';
+		$contents .= "\r\n/* End of file card_index.config.php */";
 		
 		file_put_contents($card_index_file, $contents);
 		chmod($card_index_file, 0777);

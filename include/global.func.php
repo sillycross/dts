@@ -169,6 +169,7 @@ function release_lock($dirname, $filename, $key='')
 //              输入输出函数
 //----------------------------------------
 
+//对字符串进行过滤
 function gstrfilter($str) {
 	if(is_array($str)) {
 		foreach($str as $key => $val) {
@@ -186,6 +187,7 @@ function gstrfilter($str) {
 	return $str;
 }
 
+//修改使用的语言文件，基本没用
 function language($file, $templateid = 0, $tpldir = '') {
 	if(!$templateid) $templateid = TEMPLATEID;
 	if(TEMPLATEID == $templateid || !$tpldir) $tpldir = TPLDIR;
@@ -199,6 +201,20 @@ function language($file, $templateid = 0, $tpldir = '') {
 	}
 }
 
+//判定目标文件是否比源文件旧。
+//输入的变量都是文件名字符串。如果源文件是个数组，会把数组元素分别当做源文件来判定
+//比较迟才加入的函数，有些老地方还是挨个判定，慢慢改掉或者不改都行
+function check_filemtime_expired($objfile, $srcfile){
+	if(!file_exists($objfile)) return true;
+	$objtime = filemtime($objfile);
+	if(!is_array($srcfile)) $srcfile = Array($srcfile);
+	foreach($srcfile as $v){
+		if(file_exists($v) && filemtime($v) > $objtime) return true;
+	}
+	return false;
+}
+
+//利用缓冲区，载入htm并把显示作为字符串返回
 function dump_template($file, $templateid = 0){
 	extract($GLOBALS);
 	ob_start();
@@ -208,6 +224,8 @@ function dump_template($file, $templateid = 0){
 	return $ret;
 }
 
+//载入htm，会自动判定是否刷新缓存
+//来自DZ2.0的古老代码
 function template($file, $templateid = NULL) {
 	global $tplrefresh, $u_templateid;
 	

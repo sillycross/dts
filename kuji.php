@@ -21,6 +21,8 @@ extract($udata);
 $userCardData = \cardbase\get_user_cardinfo($cuser);
 $oc = $userCardData['cardlist'];
 
+//刷新卡包cardindex
+\cardbase\parse_card_index();
 
 if ($ktype==1 || $choice>0)
 {

@@ -64,6 +64,51 @@ namespace skill490
 		}
 	}
 	
+	//计算空想类别和属性表。会自动生成缓存文件。
+	//现在空想只根据itemmain和itemshop模块的道具配置文件来生成。
+	function get_random_itmksklist490()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		
+		$writefile = GAME_ROOT.'/gamedata/cache/skill490itmksk.config.php';
+		$mapitemfile = GAME_ROOT.'/include/modules/base/itemmain/config/mapitem.config.php';
+		$shopitemfile = GAME_ROOT.'/include/modules/base/itemshop/config/shopitem.config.php';
+		
+		//文件过期，需要重生成
+		if(check_filemtime_expired($writefile, Array($mapitemfile, $shopitemfile))){
+			$itemklist = $itemsklist = array();
+			//类别和属性是从地图和商店道具里随机一个的
+			$itemfc = openfile($mapitemfile);
+			foreach($itemfc as $ival){
+				$ival = explode(',',$ival);
+				if(is_numeric($ival[0]) && $ival[0] > 100) continue;//禁数在100以上的道具不考虑
+				if(isset($ival[4])) $itemklist[] = $ival[4];
+				if(isset($ival[7])) $itemsklist[] = $ival[7];
+			}
+			$shoplist = openfile($shopitemfile);
+			foreach($shoplist as $lst){
+				if(!empty($lst) && strpos($lst,',')!==false){
+					list($kind,$num,$price,$area,$item,$itmk,$itme,$itms,$itmsk)=explode(',',$lst);
+					if($kind != 0){
+						$itemklist[] = $itmk;
+						$itemsklist[] = $itmsk;
+					}
+				}	
+			}
+			$writecont = str_replace('?>','',$checkstr);//"<?php\r\nif(!defined('IN_GAME')) exit('Access Denied');\r\n";
+			$writecont .= '$itemklist = '.var_export($itemklist, 1).";\r\n\r\n";
+			$writecont .= '$itemsklist = '.var_export($itemsklist, 1).";\r\n\r\n";
+			$writecont .= "/* End of file skill490itmksk.config.php */";
+			
+			file_put_contents($writefile, $writecont);
+		}else{
+			include_once $writefile;
+		}
+
+		return Array($itemklist, $itemsklist);
+	}
+	
 	//获得道具的主技能
 	function get_random_item490($spdown){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -76,28 +121,9 @@ namespace skill490
 			$ritme += $r;
 			$ritms += $rmax - $r;
 		}
-		$itemklist = $itemsklist = array();
-		//类别和属性是从地图和商店道具里随机一个的
-		$itemfc = \itemmain\get_itemfilecont();
-		foreach($itemfc as $ival){
-			$ival = explode(',',$ival);
-			if(is_numeric($ival[0]) && $ival[0] > 100) continue;//禁数在100以上的道具不考虑
-			if(isset($ival[4])) $itemklist[] = $ival[4];
-			if(isset($ival[7])) $itemsklist[] = $ival[7];
-//			if(isset($ival[4]) && !in_array($ival[4], $itemklist)) $itemklist[] = $ival[4];
-//			if(isset($ival[7]) && !in_array($ival[7], $itemsklist)) $itemsklist[] = $ival[7];
-		}
-		$shoplist=\itemshop\get_shopconfig();
-		foreach($shoplist as $lst){
-			if(!empty($lst) && strpos($lst,',')!==false){
-				list($kind,$num,$price,$area,$item,$itmk,$itme,$itms,$itmsk)=explode(',',$lst);
-				if($kind != 0){
-					$itemklist[] = $itmk;$itemsklist[] = $itmsk;
-//					if(!in_array($itmk, $itemklist)) $itemklist[] = $itmk;
-//					if(!in_array($itmsk, $itemsklist)) $itemsklist[] = $itmsk;
-				}
-			}	
-		}
+		
+		list($itemklist, $itemsklist) = get_random_itmksklist490();
+		
 		$exception = array('TNc','TOc','VS','Y','Z');//不管怎样都不会出现奇迹雷、获得技能的技能书、特殊道具
 		if($ritms > 1) $exception[] = 'VO';//随出的耐久大于1时，阻止出现卡片礼物
 		if($ritms > 3) $exception = array_merge($exception, array('TN', 'TO'));//随出的耐久大于3时，阻止出现陷阱
