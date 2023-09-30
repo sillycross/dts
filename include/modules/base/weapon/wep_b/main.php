@@ -165,7 +165,8 @@ namespace wep_b
 		$nowaris = \itemmain\check_in_itmsk('^ari', $wsk);
 		//如果已经存在这个属性，先抹掉
 		if(!empty($nowaris)) {
-			$wsk = preg_replace('/\^ari[_]?[a-zA-Z\+\/\=\)\!\@\#\$\%\-\&\*\(]+?[0-9]/s', '', $wsk);//先抹掉原^ari属性字符串，不管原来的内容是什么
+			$wsk =  \itemmain\replace_in_itmsk('^ari','',$wsk);
+//			$wsk = preg_replace('/\^ari[_]?[a-zA-Z\+\/\=\)\!\@\#\$\%\-\&\*\(]+?[0-9]/s', '', $wsk);//先抹掉原^ari属性字符串，不管原来的内容是什么
 		}
 		//如果传入的数组非空，构造一个属性并加在$wsk后面
 		if(!empty($ariarr)){

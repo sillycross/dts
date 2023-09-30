@@ -170,6 +170,14 @@ namespace itemmain
 		return $flag;
 	}
 	
+	//从属性字符串中替换单个属性。注意不会检测$replacement是否合法
+	function replace_in_itmsk($needle, $replacement, $itmsk)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//这里只处理单个属性或者数字编号属性，直接str_replace()。对复合属性的处理在attrbase模块
+		return str_replace($needle, $replacement, $itmsk);
+	}
+	
 	function get_itmsk_words_single($str)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

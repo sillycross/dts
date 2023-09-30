@@ -1,7 +1,7 @@
 <input type="hidden" id="mode" name="mode" value="item">
 <input type="hidden" name="usemode" value="sewingkit">
 <input type="hidden" name="itmp" value="{$theitem['itmn']}">
-请选择你将使用针线包强化的防具：<br><br>
+请选择你打算强化的防具：<br><br>
 <input type="radio" name="command" id="menu" value="menu" checked><a onclick="sl('menu');">返回</a><br>
 <!--{loop range(1,6) $i}-->
 	<!--{if 0 === strpos(${'itmk'.$i}, 'D')}-->
@@ -9,7 +9,7 @@
 	<!--{/if}-->
 <!--{/loop}-->
 <br><br>
-要使用针线包的数量：
+要强化的次数：
 <input type="number" name="sknum" style="width:60px" value="$theitem['itms']" min="1" max="$theitem['itms']">
 <br><br>
 <input type="button" class="cmdbutton" id="z" value="[Z]提交" onclick="postCmd('gamecmd','command.php');this.disabled=true;">

@@ -90,13 +90,13 @@ namespace attrbase
 		return array($skk, $skn, $sks);
 	}
 	
-	//判断属性代号$ssk是不是与$mark一致。其中$ssk是从具体道具属性字段里取出的，$mark是需要判定是否存在的（复合属性时，$mark应只有^字母）
-	function check_itmsk_single_mark($ssk, $mark)
+	//判断属性代号$single_sk是不是与$skhead一致。其中$single_sk是从具体道具属性字段里取出的，$skhead是需要判定是否存在的（复合属性时，$skhead应只有^字母）
+	function check_single_sk_head_equal($single_sk, $skhead)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$flag = false;
-		if($ssk === $mark) $flag = true;
-		elseif(strpos($mark, '^')===0 && strpos($ssk, $mark)===0) $flag = true;
+		if($single_sk === $skhead) $flag = true;
+		elseif(strpos($skhead, '^')===0 && strpos($single_sk, $skhead)===0) $flag = true;
 		return $flag;
 	}
 	
@@ -119,7 +119,7 @@ namespace attrbase
 				$skk = $compret[0];
 				foreach($skarr as $v) {
 					//真正判定，对属性数组中的每一个变量，判定头部是否相等
-					if (check_itmsk_single_mark($v, $skk)) {
+					if (check_single_sk_head_equal($v, $skk)) {
 						list($null, $skn, $sks) = get_comp_itmsk_info($v);
 						//返回值默认是数字部分
 						$flag = !$flag ? $skn : $flag + $skn;
@@ -138,6 +138,31 @@ namespace attrbase
 		return $chprocess($mark, $skarr, $count);
 	}
 	
+	//从属性字符串中替换单个属性。注意不会检测$replacement是否合法
+	//这里是对复合属性的处理。如果$strict=1那么会严格判定复合属性相等，否则只要头部相等就替换
+	function replace_in_itmsk($needle, $replacement, $itmsk, $strict = 0)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//判定是不是合法的复合属性
+		$compret = get_comp_itmsk_info($needle);
+		if(NULL !== $compret) {
+			//获得复合属性头
+			$skhead = $compret[0];
+			//将itmsk转化为属性数组（不忽略竖线）
+			$itmsk_arr = \itemmain\get_itmsk_array($itmsk,1);
+			//对每个元素进行判定，如果属性前部相等，就把该元素替换
+			foreach($itmsk_arr as &$isk){
+				if((empty($strict) && check_single_sk_head_equal($isk, $skhead)) || $isk === $skhead){
+					$isk = $replacement;
+				}
+			}
+			//重组元素，生成替换过的属性字符串
+			$ret = implode('', $itmsk_arr);
+			return $ret;
+		}
+		return $chprocess($needle, $replacement, $itmsk);
+	}
+	
 	//检查$pa是否具有$nm属性，如$pa为NULL则检查当前玩家
 	//警告：本函数不供战斗使用！！！！！本函数只应当被用来检查非战斗相关属性！！！
 	function check_itmsk($nm, &$pa = NULL)
@@ -148,7 +173,7 @@ namespace attrbase
 		{
 			foreach ($battle_equip_list as $itm)
 				foreach (\itemmain\get_itmsk_array(${$itm.'sk'}) as $key)
-					if (check_itmsk_single_mark($key, $nm))
+					if (check_single_sk_head_equal($key, $nm))
 						return 1;
 			return 0;
 		}
@@ -156,7 +181,7 @@ namespace attrbase
 		{
 			foreach ($battle_equip_list as $itm)
 				foreach (\itemmain\get_itmsk_array($pa[$itm.'sk']) as $key)
-					if (check_itmsk_single_mark($key, $nm))
+					if (check_single_sk_head_equal($key, $nm))
 						return 1;
 			return 0;
 		}

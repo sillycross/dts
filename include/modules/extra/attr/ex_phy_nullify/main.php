@@ -92,9 +92,8 @@ namespace ex_phy_nullify
 	function use_sewing_kit(&$theitem)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
-		eval(import_module('sys','player','itemmain','logger'));
 		if(\itemmain\check_in_itmsk('B', $arbsk)) {
+			eval(import_module('sys','player','itemmain','logger'));
 			$pa = $pd = Array();
 			$proc_rate = get_ex_phy_nullify_proc_rate($pa, $pd, 0);
 			$dice = rand(0,99);
@@ -106,6 +105,23 @@ namespace ex_phy_nullify
 			}
 		}
 		return $chprocess($theitem);
+	}
+	
+	function autosewingkit_single($nowi, &$theitem, &$sewingkit){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(\itemmain\check_in_itmsk('B', $theitem['itmsk'])) {
+			eval(import_module('logger'));
+			$pa = $pd = Array();
+			$proc_rate = get_ex_phy_nullify_proc_rate($pa, $pd, 0);
+			$dice = rand(0,99);
+			if ($dice<$proc_rate){
+				$log .= "<span class='yellow b'>对{$theitem['itm']}的第{$nowi}次强化失败了！</span>这是一件能免疫所有物理攻击的防具，也许你需要一件能穿透所有物理防御的强化道具才能强化它。<br>";
+				return false;
+			}else{
+				$log .= "纳尼？{$theitem['itm']}免疫物理伤害的效果竟然失效了！<br>";
+			}
+		}
+		return $chprocess($nowi, $theitem, $sewingkit);
 	}
 	
 	//物抹属性的防具打宝石有大概率失败（其他类型不受影响）
