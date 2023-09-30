@@ -279,6 +279,8 @@ namespace sys
 			$msg = '警告，幻境遭到干扰，下一次禁区将在60秒后提前到来！';
 		}elseif($type == 'hack3'){
 			$msg = '警告，幻境遭到干扰，未来禁区顺序已遭篡改！';
+		}elseif($type == 'hack4'){
+			$msg = '警告，幻境遭到干扰，未来禁区时间延后了！';
 		}
 		$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,msg) VALUES ('5','$time','','$msg')");
 		return;

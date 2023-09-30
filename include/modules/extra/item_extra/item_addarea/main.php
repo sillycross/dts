@@ -3,6 +3,7 @@
 namespace item_addarea
 {
 	$item_addarea_nlist = array('不要按这个按钮','好想按这个按钮','这个是什么按钮');
+	$item_delayarea_nlist = array('你不准增加禁区');
 	
 	function init() 
 	{
@@ -15,6 +16,8 @@ namespace item_addarea
 			eval(import_module('item_addarea'));
 			if (in_array($n, $item_addarea_nlist)){
 				$ret .= '使用后会将下次禁区时间提前到1分钟以后';
+			}elseif(in_array($n, $item_delayarea_nlist)){
+				$ret .= '使用后会将下次禁区时间延迟30分钟';
 			}
 		}
 		return $ret;
@@ -47,6 +50,15 @@ namespace item_addarea
 					$log .= "好像什么都没发生……<br>";
 				}				
 				return;
+			}elseif(in_array($itm, $item_delayarea_nlist)){
+				$log .= '你使用了<span class=\"yellow b\">「'.$itm.'」</span>。<br>';
+				$log .= '天边隐约传来轰鸣声，你惊奇地发现<span class="red b">下次禁区时间竟然延后了！</span><br>';
+				$areatime += 60*30;
+				save_gameinfo();
+				addnews($now, 'item_delayarea', $name, $itm);
+				\sys\systemputchat($now,'hack4');
+				\itemmain\itms_reduce($theitem);
+				return;
 			}
 		}
 		$chprocess($theitem);
@@ -58,6 +70,8 @@ namespace item_addarea
 				
 		if($news == 'item_addarea') 
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">{$a}按下了{$b}，使禁区时间提前了！</span></li>";
+		elseif($news == 'item_delayarea') 
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">{$a}使用了{$b}，使禁区时间延后了！</span></li>";
 	
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
