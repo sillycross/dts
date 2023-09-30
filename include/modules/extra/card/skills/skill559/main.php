@@ -27,18 +27,6 @@ namespace skill559
 		return 1;
 	}
 	
-	//选择称号后自动获得对应的特殊合成
-	function club_acquire($clubid, &$pa = NULL)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
-		$chprocess($clubid, $pa);
-		
-		if(\skillbase\skill_query(559, $pa)) {
-			sk559_getnewclass($pa, 'club'.$clubid);
-		}
-	}
-	
 	//这里没做$pa=NULL时的判定，但是似乎也没有用到$pa的具体元素，而用到的技能函数都会自动处理$pa=NULL时的情况，所以能跑通，甚为奇特……
 	function sk559_getnewclass(&$pa, $class)
 	{
@@ -55,7 +43,11 @@ namespace skill559
 			$classes = implode('_',$ls);
 			\skillbase\skill_setvalue(559,'classes',$classes,$pa);
 			eval(import_module('logger'));
+			$showrecipe=show_sk559_recipe(get_sk559_mixinfo());
 			$log .= "你学会了新的合成公式！<br>";
+			foreach($showrecipe as $v){
+				$log .= '<span class="yellow b">'.$v.'</span><br>';
+			}
 		}
 	}
 	

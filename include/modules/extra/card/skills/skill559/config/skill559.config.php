@@ -18,10 +18,8 @@ namespace skill559
 		array('class' => 'club4', 'stuff' => array('棒球手套','铝球棒'),'result' => array('「超级运动员 猛力打击手」 ★5','WC05',230,50,'Nj'),),
 		array('class' => 'club4', 'stuff' => array('「超级运动员 无畏扣篮手」-仮','☆七星认证☆'),'result' => array('「超级运动员 无畏扣篮手」 ★7','WC07',250,100,'ytd^ac1'),),
 		//拆弹
-		array('class' => 'club5', 'stuff' => array('地雷','导火线',),'result' => array('便携式地雷','WD',300,3,'d'),),
-		array('class' => 'club5', 'stuff' => array('地雷','信管',),'result' => array('便携式地雷','WD',300,3,'d'),),
-		array('class' => 'club5', 'stuff' => array('★阔剑地雷★','导火线',),'result' => array('便携式阔剑地雷','WD',800,1,'d'),),
-		array('class' => 'club5', 'stuff' => array('★阔剑地雷★','信管',),'result' => array('便携式阔剑地雷','WD',800,1,'d'),),
+		array('class' => 'club5', 'stuff' => array('某种电子零件','笔记本电脑','精神界面'),'result' => array('防爆透视仪','DH',80,40,'DM'),),
+		array('class' => 'club5', 'stuff' => array('卡片汽车 D ★2','笔记本电脑','钢琴线'),'result' => array('拆弹无人车','WD',400,1,'dmj'),),
 		//疾风
 		array('class' => 'club6', 'stuff' => array('白色的羽毛','白色的羽毛','埃克法-明足'),'result' => array('疾风之靴','DF',99,33,'R'),),
 		array('class' => 'club6', 'stuff' => array('妖精的羽翼','埃克法-明足'),'result' => array('疾风之靴','DF',99,33,'R'),),

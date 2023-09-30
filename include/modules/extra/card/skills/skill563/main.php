@@ -23,8 +23,9 @@ namespace skill563
 	function club_acquire($clubid, &$pa = NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_query(563)) \skill559\sk559_getnewclass($pa, 'club'.$clubid);
+		
 		$chprocess($clubid, $pa);
+		if (\skillbase\skill_query(563)) \skill559\sk559_getnewclass($pa, 'club'.$clubid);
 	}
 
 }
