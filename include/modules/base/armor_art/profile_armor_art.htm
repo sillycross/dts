@@ -5,6 +5,6 @@
 	<span><!--{if $arts}-->$tpldata['art_words']<!--{else}-->$noitm<!--{/if}--></span>
 	</TD>
 	<TD class=b3><span <!--{if $arts && $tpldata['artsk_desc']}-->title="{$tpldata['artsk_desc']}"<!--{/if}-->><!--{if !empty($tpldata['artsk_words'])}-->$tpldata['artsk_words']<!--{else}-->--<!--{/if}--></span></TD>
-	<TD class=b3><span><!--{if $arts}-->$arte<!--{else}-->0<!--{/if}--></span></TD>
-	<TD class=b3><span>$arts</span></TD>
+	<TD class=b3><span><!--{if $arts}-->$tpldata['arte_words']<!--{else}-->0<!--{/if}--></span></TD>
+	<TD class=b3><span>$tpldata['arts_words']</span></TD>
 </tr> 

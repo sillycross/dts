@@ -7,7 +7,7 @@
 	<span><!--{if ${'ar'.$apl.'s'}}-->$tpldata['ar'.$apl.'_words']<!--{elseif 'b'==$apl}-->$noarb<!--{else}-->$noitm<!--{/if}--></span>
 	</TD>
 	<TD class=b3><span <!--{if ${'ar'.$apl.'s'} && $tpldata['ar'.$apl.'sk_desc']}-->title="{$tpldata['ar'.$apl.'sk_desc']}"<!--{/if}-->><!--{if !empty($tpldata['ar'.$apl.'sk_words'])}-->$tpldata['ar'.$apl.'sk_words']<!--{else}-->--<!--{/if}--></span></TD>
-	<TD class=b3><span><!--{if ${'ar'.$apl.'s'}}-->${'ar'.$apl.'e'}<!--{else}-->0<!--{/if}--></span></TD>
-	<TD class=b3><span>${'ar'.$apl.'s'}</span></TD>
+	<TD class=b3><span><!--{if ${'ar'.$apl.'s'}}-->$tpldata['ar'.$apl.'e_words']<!--{else}-->0<!--{/if}--></span></TD>
+	<TD class=b3><span>$tpldata['ar'.$apl.'s_words']</span></TD>
 </tr>
 <!--{/loop}-->

@@ -21,17 +21,34 @@ namespace weapon
 		return $ret;
 	}
 	
+	//武器耐久值低下的提示
+	function parse_item_words($edata, $simple = 0, $elli = 0)	
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($edata, $simple, $elli);
+		eval(import_module('weapon'));
+		//非枪、弓武器
+		if(strpos($edata['wepk'], 'G')===false && strpos($edata['wepk'], 'J')===false && strpos($edata['wepk'], 'B')===false){
+			if(is_numeric($edata['weps'])){
+				if($edata['weps'] <= 3) $ret['weps_words'] = '<span class="red b">'.$ret['weps_words'].'</span>';
+				elseif($edata['weps'] <= 6) $ret['weps_words'] = '<span class="yellow b">'.$ret['weps_words'].'</span>';
+			}
+		//枪和弓
+		}else{
+			if($nosta == $edata['weps']) $ret['weps_words'] = '<span class="red b">'.$ret['weps_words'].'</span>';
+		}
+		return $ret;
+	}
+	
 	function get_internal_att(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('weapon'));
 		return $pa['att'];
 	}
 	
 	function get_external_att(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('weapon'));
 		return $pa['wepe']*2;		//维持奇葩的老设定，实际计算效果是面板数值*2
 	}
 	
