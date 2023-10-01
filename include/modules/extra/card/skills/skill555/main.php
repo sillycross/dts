@@ -9,7 +9,7 @@ namespace skill555
 	{
 		define('MOD_SKILL555_INFO','card;upgrade;');
 		eval(import_module('clubbase'));
-		$clubskillname[555] = '止水';
+		$clubskillname[555] = '迷彩';
 	}
 	
 	function acquire555(&$pa)
@@ -54,7 +54,7 @@ namespace skill555
 			return;
 		}
 		\skillbase\skill_setvalue(555,'lastuse',$now);
-		$log .= '<span class="lime b">技能「止水」发动成功。</span><br>';
+		$log .= '<span class="lime b">你发动了「光学迷彩」，现在谁也注意不到你了！——虽然有效时间很短。</span><br>';
 	}
 	
 	//return 1:技能生效中 2:技能冷却中 3:技能冷却完毕 其他:不能使用这个技能
@@ -81,8 +81,8 @@ namespace skill555
 			$z = Array(
 				'disappear' => 0,
 				'clickable' => 1,
-				'hint' => '技能「止水」',
-				'activate_hint' => '点击发动技能「止水」',
+				'hint' => '技能「迷彩」',
+				'activate_hint' => '点击发动技能「迷彩」',
 				'onclick' => "$('mode').value='special';$('command').value='skill555_special';$('subcmd').value='activate';postCmd('gamecmd','command.php');this.disabled=true;",
 			);
 			if ($skill555_time < $skill555_act_time)
@@ -106,13 +106,13 @@ namespace skill555
 		$chprocess();
 	}
 	
-	//止水状态不会主动遇到敌人和尸体
+	//迷彩状态不会主动遇到敌人和尸体
 	function discover_player()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player','logger'));		
 		if (1 == check_skill555_state($sdata)) {
-			$log .= "<span class=\"yellow b\">你调动五感，行走于无人察觉的盲区和阴影，避开了全部敌人。</span><br>";
+			$log .= "<span class=\"yellow b\">你借助光学迷彩避开了全部敌人，专心摸鱼。</span><br>";
 			return false;
 		}
 		return $chprocess();

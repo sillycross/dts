@@ -92,7 +92,7 @@ namespace skill211
 		$var = 1;
 		if (\skillbase\skill_query(211,$ldata) && check_unlocked211($ldata)) {
 			$var = get_skill211_extra_act_gain($ldata, $edata);
-			if($r != 1) $ldata['active_words'] = \attack\multiply_format($var, $ldata['active_words'],0);
+			if($var != 1) $ldata['active_words'] = \attack\multiply_format($var, $ldata['active_words'],0);
 		}
 		return $chprocess($ldata,$edata)*$var;
 	}

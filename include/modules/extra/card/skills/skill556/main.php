@@ -9,7 +9,7 @@ namespace skill556
 	{
 		define('MOD_SKILL556_INFO','card;battle;upgrade;');
 		eval(import_module('clubbase'));
-		$clubskillname[556] = '标记';
+		$clubskillname[556] = '追猎';
 	}
 	
 	function acquire556(&$pa)
@@ -88,8 +88,8 @@ namespace skill556
 			{
 				eval(import_module('logger'));
 				if ($active)
-					$log .= "<span class=\"lime b\">你对{$pd['name']}发动了技能「标记」！</span><br>";
-				else  $log .= "<span class=\"lime b\">{$pa['name']}对你发动了技能「标记」！</span><br>";
+					$log .= "<span class=\"lime b\">你对{$pd['name']}发动了技能「追猎」！</span><br>";
+				else  $log .= "<span class=\"lime b\">{$pa['name']}对你发动了技能「追猎」！</span><br>";
 				$pa['rage'] -= $rcost;
 				\skillbase\skill_setvalue(556, 'targetpid', $pd['pid'], $pa);
 			}
@@ -120,7 +120,7 @@ namespace skill556
 				else
 				{
 					eval(import_module('map'));
-					$log .= "<span class=\"red b\">你感应到目标正位于{$plsinfo[$edata['pls']]}……</span><br>";
+					$log .= "<span class=\"red b\">你感应到目标正位于{$plsinfo[$edata['pls']]}！</span><br>";
 				}
 			}
 		}

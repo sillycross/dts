@@ -37,7 +37,7 @@ $packlist=array(
 	'Best DOTO',
 	'Balefire Rekindle',
 	'Cyber Zealots',
-	'東埔寨Project',//中文卡集名测试
+	'東埔寨Protoject',//中文卡集名测试
 	'Event Bonus',
 	
 	'Stealth',
@@ -53,7 +53,7 @@ $packdesc = array(
 	'Balefire Rekindle' => '以游戏版本「复燃」的新增NPC角色和游戏设定为主题的卡集。',
 	'Event Bonus' => '其他一些零散成就和活动奖励卡。',
 	'Cyber Zealots' => '以赛博朋克和网络梗为捏他对象的卡集。',
-	'東埔寨Project' => '以东之国旗舰级同人企划『朹方Project』为主题的卡集，与幻想作品如有雷同纯属必然。',
+	'東埔寨Protoject' => '以东之国旗舰级同人企划『朹方Project』为主题的卡集，与幻想作品如有雷同纯属必然。',
 	'Stealth' => '一些需要显示卡片介绍的隐藏卡',
 	'hidden' => '隐藏卡片，不会悬浮显示卡片介绍，如果你看到这句话请联系天然呆管理员',
 );
@@ -62,7 +62,7 @@ $pack_ignore_kuji = Array('Balefire Rekindle','Event Bonus');
 //卡包实装的时间戳，可以用来隐藏卡包
 $packstart = array(
 	'Cyber Zealots' => 4476654671,
-	'東埔寨Project' => 4476654671,
+	'東埔寨Protoject' => 4476654671,
 	'Stealth' => 4476654671,
 	'hidden' => 4476654671,
 );
@@ -4282,7 +4282,7 @@ $cards = array(
 	249 => array(
 		'name' => '毛玉',
 		'rare' => 'C',
-		'pack' => '東埔寨Project',
+		'pack' => '東埔寨Protoject',
 		'desc' => '能在天上飞行的神秘毛球，<br>是杂鱼中的杂鱼',
 		'effect' => '开局携带P点和蓝点',
 		'energy' => 0,
@@ -4356,14 +4356,13 @@ $cards = array(
 			)
 		)
 	),
-	//没有想到特别好的梗
 	254 => array(
-		'name' => '兵法大师',
+		'name' => '河童打灰人',
 		'rare' => 'B',
-		'pack' => 'hidden',
-		'desc' => '训练家眼神对上了就要对战',
-		'effect' => '快 逃.jpg',
-		'desc_skills' => '获得技能「止水」：发动后一段时间内主动探索时不会遇到任何敌人和尸体',
+		'pack' => '東埔寨Protoject',
+		'desc' => '通知：光学迷彩服严禁用于带薪拉屎',
+		'effect' => '老大，你亲自来上厕所啊？',
+		'desc_skills' => '获得技能「迷彩」：发动后20秒内，你探索时不会遇到任何敌人和尸体',
 		'energy' => 0,
 		'valid' => array(
 			'skills' => array(
@@ -4371,6 +4370,7 @@ $cards = array(
 			)
 		)
 	),
+	
 	256 => array(
 		'name' => '彩虹小马',
 		'rare' => 'B',
@@ -4390,7 +4390,7 @@ $cards = array(
 		'name' => '挑战挑战者者',
 		'rare' => 'B',
 		'pack' => 'Way of Life',
-		'desc' => '“DOMO，挑战者=SAN，挑战挑战者者 DESU.”',
+		'desc' => '“DOMO，挑战者=SAN，<br>挑战挑战者者 DESU.”',
 		'effect' => '“挑战者，该战！”',
 		'desc_skills' => '获得技能「挑战」：战斗中对卡片名称中含有「挑战者」的玩家伤害+30%，但自己受到的反噬伤害也会+30%',
 		'energy' => 100,
@@ -4403,7 +4403,7 @@ $cards = array(
 	258 => array(
 		'name' => '老大爷',
 		'rare' => 'A',
-		'pack' => 'hidden',
+		'pack' => 'hidden',//梗可以再改改
 		'desc' => '猜猜他的腿是怎么断的',
 		'effect' => '获得战斗技「碰瓷」，开局装备轮椅且移动和探索消耗的体力增加',
 		'desc_skills' => '「碰瓷」：放弃攻击并受到对方攻击，然后从对方处获得金钱',
@@ -4512,6 +4512,20 @@ $cards = array(
 		'valid' => array(
 			'skills' => array(
 				'276' => '0',
+			),
+		)
+	),
+	284 => array(
+		'name' => '黄泉重女',
+		'rare' => 'B',
+		'pack' => '東埔寨Protoject',
+		'desc' => '就算在变态层出不穷的東埔寨，<br>她也是变态跟踪狂里最变态的那一个',
+		'effect' => '获得战斗技「追猎」：战斗中可以标记玩家，之后能持续获知该玩家的位置',
+		'desc_skills' => '10级时解锁。同时只能标记一名玩家',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'556' => '0',
 			),
 		)
 	),
