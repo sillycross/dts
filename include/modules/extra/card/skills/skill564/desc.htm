@@ -1,0 +1,40 @@
+<!--{eval eval(import_module('skill564'));}-->
+<!--{eval $___TEMP_SKILL_ID=564;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+每升<span class="yellow b">$sk564_lvl_req</span>级，可在三个非限定技能或称号特性中选择一个学习，<br>
+<!--{eval $sk564_limit=(int)\skillbase\skill_getvalue(564,'limit');}-->
+最多学习<span class="yellow b">$sk564_chance_limit</span>次，还能获得<span class="yellow b">$sk564_limit</span>次<br>
+<!--{eval $sk564_chance=(int)\skillbase\skill_getvalue(564,'chance');}-->
+当前可以学习<span class="yellow b">$sk564_chance</span>次
+<!--{eval \bubblebox\bubblebox_set_style('id:learntable564;height:400;width:655;cancellable:1;margin-right:8;');}-->
+{template MOD_BUBBLEBOX_START}
+<p style="margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px;">
+以下是你可以学习的称号技能列表。少数技能不可以被学习，因此它们没有被显示。<br>
+<span class="yellow b">请注意使用“查看”按钮查看技能时，技能的解锁条件没有显示。</span>请阅读帮助以获得完整的技能解锁要求。<br>
+少数几个技能出于游戏平衡原因，相对原版技能有所削弱，也请注意查看。<br>
+<br>
+</p>
+<!--{eval \sklearn_util\get_skilllearn_table('\\skill564\\sklearn_checker564');}-->
+<br>
+<input type="button" onclick="bubblebox_show('clubskill');" value="返回">
+{template MOD_BUBBLEBOX_END}
+
+</span></td>
+<td class="skilldesc_right b3">
+<!--{if $sk564_chance>0}-->
+<input type="button" style="width:46px" onclick="bubblebox_show('learntable564');" value="学习">
+<!--{else}-->
+<input type="button" style="width:46px" onclick="bubblebox_show('learntable564');" disabled="true" value="学习">
+<!--{/if}-->
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}
