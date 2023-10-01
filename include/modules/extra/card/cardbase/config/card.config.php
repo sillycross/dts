@@ -4436,6 +4436,25 @@ $cards = array(
 			),
 		)
 	),
+	//缺梗
+	260 => array(
+		'name' => '……',
+		'rare' => 'S',
+		'pack' => 'hidden',
+		'desc' => '……',
+		'effect' => '……',
+		'desc_skills' => '称号固定为装逼战士。每升5级可以从三个称号技能中选一个学习',
+		'energy' => 100,
+		'valid' => array(
+			'club' => '97',
+			'skills' => array(
+				'10' => '0', 
+				'11' => '0', 
+				'12' => '0',
+				'564' => '0',
+			),
+		)
+	),
 	//老板，来个20个卡位的空白
 	280 => array(
 		'name' => 'Acg_xilin',

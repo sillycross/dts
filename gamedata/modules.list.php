@@ -287,6 +287,7 @@ skill55,extra/club/skills/skill55/,1
 skill72,extra/club/skills/skill72/,1
 skill227,extra/club/skills/skill227/,1
 skill472,extra/card/skills/skill472/,1
+skill564,extra/card/skills/skill564/,1
 skill475,extra/instance/gtype2/skill475/,1
 skill59,extra/club/skills/skill59/,1
 skill425,extra/instance/gtype1/skill425/,1
