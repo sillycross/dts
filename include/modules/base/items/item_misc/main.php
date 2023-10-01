@@ -5,7 +5,7 @@ namespace item_misc
 	function init() 
 	{
 		eval(import_module('itemmain'));
-		$iteminfo['U']='扫雷设备';
+		
 		if (defined('MOD_NOISE'))
 		{
 			eval(import_module('noise'));
@@ -16,9 +16,8 @@ namespace item_misc
 	function parse_itmuse_desc($n, $k, $e, $s, $sk){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($n, $k, $e, $s, $sk);
-		if(strpos($k,'U')===0) {
-			$ret .= '使用后将扫除当前地区1枚效果值不小于'.$e.'的陷阱';
-		}elseif(strpos($k,'Y')===0 || strpos($k,'Z')===0){
+		
+		if(strpos($k,'Y')===0 || strpos($k,'Z')===0){
 			if ($n == '凸眼鱼'){
 				$ret .= '使用后可以销毁整个战场现有的尸体';
 			}elseif ($n == '■DeathNote■') {
@@ -51,25 +50,7 @@ namespace item_misc
 		$itm=&$theitem['itm']; $itmk=&$theitem['itmk'];
 		$itme=&$theitem['itme']; $itms=&$theitem['itms']; $itmsk=&$theitem['itmsk'];
 		
-		if ($itmk=='U') 
-		{
-			$trapresult = $db->query("SELECT * FROM {$tablepre}maptrap WHERE pls = '$pls' AND itme>='$itme'");
-			$trpnum = $db->num_rows($trapresult);
-			if ($trpnum>0){
-				$itemno = rand(0,$trpnum-1);
-				$db->data_seek($trapresult,$itemno);
-				$mi=$db->fetch_array($trapresult);
-				$deld = $mi['itm'];
-				$delp = $mi['tid'];
-				$db->query("DELETE FROM {$tablepre}maptrap WHERE tid='$delp'");
-				if($itm=='☆混沌人肉探雷车★') $log.="远方传来一阵爆炸声，伟大的<span class=\"yellow b\">{$itm}</span>用生命和鲜血扫除了<span class=\"yellow b\">{$deld}</span>。<br><span class=\"red b\">实在是大快人心啊！</span><br>";
-				else $log.="远方传来一阵爆炸声，<span class=\"yellow b\">{$itm}</span>扫除了<span class=\"yellow b\">{$deld}</span>。<br>";
-			}else{
-				$log.="你使用了<span class=\"yellow b\">{$itm}</span>，但是没有发现陷阱。<br>";
-			}
-			\itemmain\itms_reduce($theitem);
-			return;
-		}elseif (strpos ( $itmk, 'Y' ) === 0 || strpos ( $itmk, 'Z' ) === 0) {	
+		if (strpos ( $itmk, 'Y' ) === 0 || strpos ( $itmk, 'Z' ) === 0) {	
 			if ($itm == '御神签') {
 				$log .= "使用了<span class=\"yellow b\">$itm</span>。<br>";
 				divining ();

@@ -8,7 +8,7 @@ namespace skill558
 	{
 		define('MOD_SKILL558_INFO','card;unique;');
 		eval(import_module('clubbase'));
-		$clubskillname[558] = '抗争';
+		$clubskillname[558] = '挑战';
 	}
 	
 	function acquire558(&$pa)
@@ -35,8 +35,8 @@ namespace skill558
 			eval(import_module('skill558'));
 			if (strpos($pa['cardname'], $skill558_keyword) !== false) {
 				eval(import_module('logger'));
-				if ($active) $log.="<span class=\"yellow b\">你的「抗争」使你受到的反噬伤害增加了30%！</span><br>";
-				else $log.="<span class=\"yellow b\">敌人的「抗争」使其受到的反噬伤害增加了30%！</span><br>";
+//				if ($active) $log.="<span class=\"yellow b\">你的「挑战」使你受到的反噬伤害增加了30%！</span><br>";
+//				else $log.="<span class=\"yellow b\">敌人的「挑战」使其受到的反噬伤害增加了30%！</span><br>";
 				return min(round(1.3 * $chprocess($pa,$pd,$active)), $pa['hp'] - 1);
 			}
 		}
@@ -49,10 +49,11 @@ namespace skill558
 		$r = Array();
 		if ((\skillbase\skill_query(558,$pa))&&(check_unlocked558($pa)))
 		{
-			eval(import_module('skill558','logger'));
+			eval(import_module('skill558'));
 			if (strpos($pd['cardname'], $skill558_keyword) !== false) {
-				if ($active) $log.="<span class=\"yellow b\">「抗争」使你造成的最终伤害增加了30%！</span><br>";
-				else $log.="<span class=\"yellow b\">「抗争」使敌人造成的最终伤害增加了30%！</span><br>";
+				eval(import_module('logger'));
+				if ($active) $log.="<span class=\"yellow b\">「挑战」使你造成的最终伤害增加了30%！</span><br>";
+				else $log.="<span class=\"yellow b\">「挑战」使敌人造成的最终伤害增加了30%！</span><br>";
 				$r = Array(1.3);
 			}
 		}

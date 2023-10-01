@@ -43,11 +43,11 @@ namespace skill559
 			$classes = implode('_',$ls);
 			\skillbase\skill_setvalue(559,'classes',$classes,$pa);
 			eval(import_module('logger'));
-			$showrecipe=show_sk559_recipe(get_sk559_mixinfo());
-			$log .= "你学会了新的合成公式！<br>";
-			foreach($showrecipe as $v){
-				$log .= '<span class="yellow b">'.$v.'</span><br>';
-			}
+//			$showrecipe=show_sk559_recipe(get_sk559_mixinfo());
+			$log .= "<span class='yellow b'>你学会了新的合成公式！请到技能页面查看。</span><br>";
+//			foreach($showrecipe as $v){
+//				$log .= '<span class="yellow b">'.$v.'</span><br>';
+//			}
 		}
 	}
 	

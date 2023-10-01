@@ -4260,7 +4260,6 @@ $cards = array(
 		'pack' => 'Cyber Zealots',
 		'desc' => '咕、杀了我',
 		'effect' => '获得技能「挖矿」：你在休息、治疗和静养时无法得到恢复，改为每秒有10%概率获得1元',
-		//'desc_skills' => '「网瘾」：使用移动PC解除禁区成功率为95%，且完全无风险',
 		'energy' => 0,
 		'valid' => array(
 		  'skills' => array(
@@ -4390,10 +4389,10 @@ $cards = array(
 	257 => array(
 		'name' => '挑战挑战者者',
 		'rare' => 'B',
-		'pack' => 'hidden',
-		'desc' => '“你是挑战者吗？”',
-		'effect' => '“你才是挑战者，你全家都是挑战者”',
-		'desc_skills' => '获得技能「抗争」：战斗中对卡片名称中含有“挑战者”的玩家伤害+30%',
+		'pack' => 'Way of Life',
+		'desc' => '“DOMO，挑战者=SAN，挑战挑战者者 DESU.”',
+		'effect' => '“挑战者，该战！”',
+		'desc_skills' => '获得技能「挑战」：战斗中对卡片名称中含有「挑战者」的玩家伤害+30%，但自己受到的反噬伤害也会+30%',
 		'energy' => 100,
 		'valid' => array(
 			'skills' => array(
@@ -4421,11 +4420,10 @@ $cards = array(
 			),
 		)
 	),
-	//缺梗
 	259 => array(
 		'name' => '冻鳗婆罗门',
-		'rare' => 'S',
-		'pack' => 'Standard Pack',
+		'rare' => 'A',
+		'pack' => 'Cyber Zealots',
 		'desc' => '愤怒了，这个游戏的制作者根本不懂<br>什么才是真正的冻鳗梗！',
 		'effect' => '我要好好教教你们真正的冻鳗姿势',
 		'desc_skills' => '根据内定称号，获得额外的合成姿势',
@@ -4468,6 +4466,34 @@ $cards = array(
 			'itms6' => '7',
 			'itmsk6' => 'oBbS',
      
+		)
+	),
+	282 => array(
+		'name' => '银色盒子的触手',
+		'rare' => 'S',
+		'pack' => 'Standard Pack',
+		'desc' => '幻境的初心，也是幻境的终点',
+		'effect' => '开局可以选择任何一个称号',
+		//'desc_skills' => '',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'275' => '0',
+			),
+		)
+	),
+	283 => array(
+		'name' => '随便',
+		'rare' => 'C',
+		'pack' => 'Standard Pack',
+		'desc' => '随便',
+		'effect' => '随便',
+		'desc_skills' => '开局随便选一个称号',
+		'energy' => 0,
+		'valid' => array(
+			'skills' => array(
+				'276' => '0',
+			),
 		)
 	),
 	
