@@ -2,7 +2,7 @@
 <input type="hidden" id="command" name="command" value="itm{$theitem['itmn']}">
 <input type="hidden" id="subcmd" name="subcmd" value="normal">
 你要如何使用<span class="yellow b">{$theitem['itm']}</span>？<br><br> 
-<input type="button" class="cmdbutton" id="z" value="[Z]装备" onclick="postCmd('gamecmd','command.php');this.disabled=true;"> 
-<input type="button" class="cmdbutton" value="装填到弓上" onclick="$('subcmd').value='extra_reloading';postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="button" class="cmdbutton" id="z" value="[Z]装填到弓上" onclick="$('subcmd').value='extra_reloading';postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="button" class="cmdbutton" value="装备" onclick="postCmd('gamecmd','command.php');this.disabled=true;"> 
 <br><br>
 <input type="button" class="cmdbutton" id="x" value="[X]返回" onclick="$('command').value='menu'; postCmd('gamecmd','command.php');this.disabled=true;">

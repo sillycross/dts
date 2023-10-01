@@ -46,20 +46,30 @@ namespace wep_b_extra_reloading
 		
 		if (strpos ( $itmk, 'WC' ) === 0 && strpos ( $wepk, 'WB' ) === 0)
 		{
-			if(empty($subcmd)){
-				//指令为空，显示选择界面
-				ob_start();
-				include template(MOD_WEP_B_EXTRA_RELOADING_RELOAD_SELECT);
-				$cmd = ob_get_contents();
-				ob_end_clean();	
-				return;
-			}elseif('extra_reloading' == $subcmd){
-				//把武器当做箭来装填
-				if(wep_b_extra_reloading_check($theitem)){
-					\wep_b\itemuse_uga($theitem);
-				}
+			//现在装备弓而使用投掷武器直接作为装填的指令，如果要换武器就先卸下弓
+			if(wep_b_extra_reloading_check($theitem)){
+				\wep_b\itemuse_uga($theitem);
 				return;
 			}
+			if($nosta == $theitem['itms']) {//无限耐投掷武器，自动识别为切换装备（继续执行）
+				$log .= '系统自动将你的指令识别为切换武器。<br>';
+			}else{//其他无法装填的情形，什么都不做而返回
+				return;
+			}
+//			if(empty($subcmd)){
+//				//指令为空，显示选择界面
+//				ob_start();
+//				include template(MOD_WEP_B_EXTRA_RELOADING_RELOAD_SELECT);
+//				$cmd = ob_get_contents();
+//				ob_end_clean();	
+//				return;
+//			}elseif('extra_reloading' == $subcmd){
+//				//把武器当做箭来装填
+//				if(wep_b_extra_reloading_check($theitem)){
+//					\wep_b\itemuse_uga($theitem);
+//				}
+//				return;
+//			}
 			//其他指令，正常继续判定（切换武器）
 		}
 		$chprocess($theitem);
