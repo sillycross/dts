@@ -4529,6 +4529,20 @@ $cards = array(
 			),
 		)
 	),
+	285 => array(
+		'name' => '数字生命',
+		'rare' => 'B',
+		'pack' => 'Cyber Zealots',
+		'desc' => '这个月幻境的访问量多了26倍，你有什么头猪吗？',
+		'effect' => '连斗前不会显示在幸存名单中',
+		//'desc_skills' => '10级时解锁。同时只能标记一名玩家',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'536' => '0',
+			),
+		)
+	),
 	
 	1000 => array(
 		'name'=>'萌新',

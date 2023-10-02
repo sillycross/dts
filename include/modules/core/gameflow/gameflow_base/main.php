@@ -84,6 +84,29 @@ namespace gameflow_base
 		}
 	}
 	
+	//刷新入场、存活玩家数。注意不会自动保存
+	function update_valid_alivenum()
+	{	
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		if($gamestate<20) return; //游戏未开始则不会计算
+		$validnum = $alivenum =  0;
+		$result = $db->query("SELECT * FROM {$tablepre}players WHERE type=0");
+		while($pdata = $db->fetch_array($result)){
+			list($vadd, $aadd) = check_valid_alivenum_single($pdata);
+			if($vadd) $validnum ++;
+			if($aadd) $alivenum ++;
+		}
+	}
+	
+	function check_valid_alivenum_single($pdata)
+	{	
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$vadd = 1; $aadd = 0;
+		if($pdata['hp'] > 0) $aadd = 1;
+		return Array($vadd, $aadd);
+	}
+	
 	function updategame()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -91,6 +114,8 @@ namespace gameflow_base
 		$chprocess();
 		
 		gamestateupdate();
+		
+		update_valid_alivenum();
 		
 		checkendgame();
 	}

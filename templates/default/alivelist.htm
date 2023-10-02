@@ -12,6 +12,7 @@
 	</tr>
 
 	<!--{loop $alivedata $alive}-->
+	<!--{eval if(!\player\check_alive_player_displayable($alive)) continue; }-->
 	<!--{eval $alive['urlname']=htmlentities(urlencode($alive['name']));}-->
 	<!--{eval list($alive['vapm'],$alive['aapm'])=\apm\calc_apm($alive);}-->
 	<tr class="b3">
@@ -29,4 +30,4 @@
 	<!--{/loop}-->
 
 </table><BR>
-【生存者数：{$alivenum}人】
+【生存者数：<!--{eval echo \player\get_alivenum_for_display(); }-->人】

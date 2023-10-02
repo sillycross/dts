@@ -182,6 +182,23 @@ namespace player
 		$sdata['state_backup']=$pdata['state_backup'];	//见上个函数注释
 	}
 	
+	//玩家界面对当前幸存玩家数的显示。注意这个函数只用于显示
+	//为了某个恶搞技能单独抽离出来
+	function get_alivenum_for_display()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		return $alivenum;
+	}
+	
+	//判定单个玩家是否可以被alive页面显示。
+	//为了某个恶搞技能单独抽离出来
+	function check_alive_player_displayable($pdata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return true;
+	}
+	
 	function get_player_killmsg(&$pdata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -270,7 +287,7 @@ namespace player
 		eval(import_module('sys','player','logger'));
 		
 		$uip['innerHTML']['log'] = $log;
-		if ($gametype!=2) $uip['innerHTML']['anum'] = $alivenum;
+		if ($gametype!=2) $uip['innerHTML']['anum'] = get_alivenum_for_display();
 		else $uip['innerHTML']['anum'] = $validnum;
 //		$uip['innerHTML']['weather'] = $wthinfo[$weather];
 //		$uip['innerHTML']['gamedate'] = "{$month}月{$day}日 星期{$week[$wday]} {$hour}:{$min}";
