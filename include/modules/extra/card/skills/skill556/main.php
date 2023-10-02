@@ -116,7 +116,7 @@ namespace skill556
 			{
 				$edata = \player\fetch_playerdata_by_pid($tarpid);
 				eval(import_module('logger'));
-				if ($edata['player_dead_flag']) $log .= "<span class=\"red b\">你感应到目标已经失去了气息……</span><br>";
+				if ($edata['player_dead_flag']) $log .= "<span class=\"red b\">你感应到目标已经失去了气息。没有人能逃离地狱！</span><br>";
 				else
 				{
 					eval(import_module('map'));

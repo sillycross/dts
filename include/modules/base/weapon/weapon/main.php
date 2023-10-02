@@ -442,21 +442,14 @@ namespace weapon
 		weapon_strike($pa,$pd,$active);
 	}
 	
+	//攻击方式宣言和一些基本变量的准备
 	function strike_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('weapon','logger'));
-		if(isset($attinfo2[$pa['wep_kind']])) $attwords = $attinfo2[$pa['wep_kind']];
-		else $attwords = $attinfo[$pa['wep_kind']];
-		if ($active)
-		{
-			$log .= "使用{$pa['wep']}<span class=\"yellow b\">{$attwords}</span>{$pd['name']}！<br>";
-		}
-		else  
-		{
-			$log .= "{$pa['name']}使用{$pa['wep']}<span class=\"yellow b\">{$attwords}</span>你！<br>";
-		}
+		
+		$log .= get_attackwords($pa, $pd, $active);
 		
 		$pd['deathmark']=$wepdeathstate[$pa['wep_kind']];
 		$pa['attackwith']=$pa['wep'];
@@ -464,6 +457,26 @@ namespace weapon
 		$pa['fin_hitrate']=get_hitrate($pa,$pd,$active);
 		
 		$chprocess($pa, $pd, $active);
+	}
+	
+	//返回攻击方式的$log描述
+	function get_attackwords(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		eval(import_module('weapon'));
+		if(isset($attinfo2[$pa['wep_kind']])) $att_method_words = $attinfo2[$pa['wep_kind']];
+		else $att_method_words = $attinfo[$pa['wep_kind']];
+		
+		if ($active)
+		{
+			$ret = "使用{$pa['wep']}<span class=\"yellow b\">{$att_method_words}</span>{$pd['name']}！<br>";
+		}
+		else  
+		{
+			$ret = "{$pa['name']}使用{$pa['wep']}<span class=\"yellow b\">{$att_method_words}</span>你！<br>";
+		}
+		return $ret;
 	}
 	
 	function weapon_break(&$pa, &$pd, $active)

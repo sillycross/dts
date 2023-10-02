@@ -93,8 +93,8 @@ namespace attack
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">$a</span>被<span class=\"yellow b\">$c</span>埋设<span class=\"red b\">$d</span>伏击炸死$e0</li>";
 		} elseif($news == 'death29') {
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">$a</span>被<span class=\"yellow b\">$c</span>发动<span class=\"red b\">$d</span>以灵力杀死$e0</li>";
-		} elseif($news == 'death43') {
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">$a</span>被<span class=\"yellow b\">$c</span>使用<span class=\"red b\">$d</span>投射致死$e0</li>";
+//		} elseif($news == 'death43') {//弓系放到弓的模块里了
+//			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">$a</span>被<span class=\"yellow b\">$c</span>使用<span class=\"red b\">$d</span>投射致死$e0</li>";
 		} elseif($news == 'damage') {//兼容老代码
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">$a</span></li>";
 		} elseif($news == 'damage_signal') {

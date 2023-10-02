@@ -348,6 +348,107 @@ namespace wep_b
 		}
 		return $skn;
 	}
+	
+	//弓系特殊的攻击宣言
+	function get_attackwords(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		if('B' == $pa['wep_kind']) {
+			$arrow = wep_b_get_ari($pa['wepsk']);
+			//如果有箭矢信息那么导出特殊的攻击宣言
+			if(!empty($arrow['itm'])) {
+				eval(import_module('weapon'));
+			
+				if(isset($attinfo2[$pa['wep_kind']])) $att_method_words = $attinfo2[$pa['wep_kind']];
+				else $att_method_words = $attinfo[$pa['wep_kind']];
+				
+				$arrowname = $arrow['itm'];
+				
+				if ($active)
+				{
+					$ret = "使用{$pa['wep']}向{$pd['name']}<span class=\"yellow b\">{$att_method_words}</span>出<span class=\"yellow b\">{$arrowname}</span>！<br>";
+				}
+				else  
+				{
+					$ret = "{$pa['name']}使用{$pa['wep']}向你<span class=\"yellow b\">{$att_method_words}</span>出<span class=\"yellow b\">{$arrowname}</span>！<br>";
+				}
+				return $ret;
+			}
+		}
+		
+		return $chprocess($pa, $pd, $active);
+	}
+	
+	//弓系特有的击杀讯息
+	
+	//在攻击准备时记录箭矢数值
+	function strike_prepare(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		if('B' == $pa['wep_kind']) {
+			$arrow = wep_b_get_ari($pa['wepsk']);
+			if(!empty($arrow['itm'])) {
+				$pa['attackwith_arrowarr'] = $arrow;
+			}
+		}else{
+			unset($pa['attackwith_arrowarr']);
+		}
+		
+		$chprocess($pa, $pd, $active);
+	}
+	
+	//在重置$sdata前后，保留箭矢信息
+	//好像并不需要
+//	function load_playerdata($pdata)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		if(!empty($pdata['attackwith_arrowarr'])) {
+//			$o_attackwith_arrowarr = $pdata['attackwith_arrowarr'];
+//		}
+//		$chprocess($pdata);
+//		//注意由于这个函数对$pdata是传值，而实际修改的是$sdata，后边这里也得是$sdata
+//		if(!empty($o_attackwith_arrowarr)) {
+//			eval(import_module('player'));
+//			$sdata['attackwith_arrowarr'] = $o_attackwith_arrowarr;
+//		}
+//	}
+	
+	//生成击杀进行状况时提交记录的箭矢信息。这里不能直接读$pa是因为箭矢已经被用掉啦
+	function deathnews(&$pa, &$pd)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if('B' == $pa['wep_kind'] && !empty($pa['attackwith_arrowarr'])) {
+			//如果有箭矢信息那么提供箭矢的信息，并用特殊的分隔符隔开
+			if(!empty($pa['attackwith_arrowarr']['itm'])) {
+				$o_pa_attackwith = $pa['attackwith'];
+				$pa['attackwith'] .= '<:sep:>'.$pa['attackwith_arrowarr']['itm'];
+			}
+		}
+		$chprocess($pa, $pd);
+		
+		if(!empty($o_pa_attackwith)) {
+			$pa['attackwith'] = $o_pa_attackwith;
+			unset($o_pa_attackwith);
+		}
+	}
+	
+	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player'));
+		if(isset($exarr['dword'])) $e0 = $exarr['dword'];
+
+		if($news == 'death43') {
+			if(strpos($d, '<:sep:>')!==false) {
+				list($d, $d2) = explode('<:sep:>', $d);
+			}
+			if(empty($d2)) return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">$a</span>被<span class=\"yellow b\">$c</span>使用<span class=\"red b\">$d</span>投射致死$e0</li>";
+			else return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">$a</span>被<span class=\"yellow b\">$c</span>使用<span class=\"red b\">$d</span>投射<span class=\"red b\">$d2</span>致死$e0</li>";
+		}
+		else return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
+	}
 }
 
 ?>
