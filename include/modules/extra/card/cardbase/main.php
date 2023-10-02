@@ -513,8 +513,8 @@ namespace cardbase
 		if (defined('MOD_KUJIBASE')) {
 			$kr=\kujibase\kujidraw($ktype, $pa, $is_dryrun);
 			if (!is_array($kr)){
-				if ($kr==-1){
-					return -1;
+				if (empty($kr) || $kr==-1){
+					return $kr;
 				}else{
 					$dr=array($kr);
 				}
@@ -541,20 +541,21 @@ namespace cardbase
 	}
 	
 	//卡包过滤器核心代码，过滤没开放的卡包
-	function check_pack_availble($pn){
+	function check_pack_availble($pn, $ignore_kuji = 0){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','cardbase'));
-		$ret = true;
-		if(isset($packstart[$pn]) && $packstart[$pn] > $now) $ret = false;
-		return $ret;
+		if(in_array($pn, Array('hidden', 'stealth'))) return false;
+		if(!empty($packstart[$pn]) && $packstart[$pn] > $now) return false;
+		if($ignore_kuji && in_array($pn,$pack_ignore_kuji)) return false;
+		return true;
 	}
 	
 	//卡包过滤器，过滤没开放的卡包。
-	function pack_filter($packlist){
+	function pack_filter($packlist, $ignore_kuji = 0){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$n_packlist = array();
 		foreach($packlist as $pv){
-			if(check_pack_availble($pv)) $n_packlist[]=$pv;
+			if(check_pack_availble($pv, $ignore_kuji)) $n_packlist[]=$pv;
 		}
 		return $n_packlist;
 	}

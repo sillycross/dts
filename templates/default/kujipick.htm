@@ -3,6 +3,7 @@
 <div class="subtitle" align="center">抽卡</div>
 <center>
 <div style="width:1024px;">
+<!--{if 0==$ktype || 2==$ktype}-->
 <div style="width:950px; text-align:left">请随便选一张翻开吧。</div>
 <ul style="width:1000px;list-style-type:none; ">
 	<!--{loop Array(1,2,3,4) $i}-->
@@ -29,11 +30,22 @@
 </center>
 点击卡片以抽卡
 <br>
-<form method="post" name="backindex" action="kujilist.php">
-	<input type="submit" name="enter" value="返回选择页面">
-</form>
 <form method="post" name="flipcard" action="kuji.php?type=$ktype">
 	<input type="hidden" id="cardchoice" name="choice" value="">
 </form>
+<!--{elseif 3==$ktype}-->
+<div style="width:950px; text-align:left">请点击一个卡集来抽取。</div>
+<form method="post" name="ktype3" action="kuji.php?type=$ktype">
+	<input type="hidden" id="packchoice" name="packchoice" value="">
+	<!--{eval $pl = \cardbase\pack_filter($packlist,1);}-->
+	<!--{loop $pl $v}-->
+		<input type="submit" name="enter" class="b_button bc_white" value="{$v}" onclick="$('packchoice').value='$v'; document.ktype3.submit();">
+	<!--{/loop}-->
+</form>
+<!--{/if}-->
+<form method="post" name="backindex" action="kujilist.php">
+	<input type="submit" name="enter" class="b_button bc_white" value="返回选择页面">
+</form>
+
 {template footer}
 
