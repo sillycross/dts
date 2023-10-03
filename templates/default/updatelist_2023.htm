@@ -64,8 +64,8 @@ FEATUREs TO ADD：
 31、
 32、瞭望（根据经过的时间给视野里加入道具）
 33、增加一个可以取消或者延迟反挂机的道具
-34、在写if(￥{'itm'.(int)￥itmn} == ￥skill505_keyitm) {}这样的语句后面直接跟$chprocess的时候，大括号的闭合会不正常，排查一下底层
-35、
+34、在写if(${'itm'.(int)$itmn} == $skill505_keyitm) {}这样的语句后面直接跟$chprocess的时候，大括号的闭合会不正常，排查一下底层
+35、skill536改用array_filter判定空值
 36、
 37、
 -->
@@ -74,11 +74,12 @@ FEATUREs TO ADD：
 <ul>
 	<li>（△）修复了【随便】卡的技能会乱选出称号A的名称和称号B的技能池的问题，虽然这很随便但是是BIG，要修复。</li>
 	<li>（△）修复了反查合成公式会让进程卡死的严重问题。</li>
+	<li>（△）修复了【空想】技能高概率刷出空类型的装备道具的问题。</li>
 	<li>（△）修复了自动叠甲装置给无限耐装备打补丁会让道具消失、给物抹装备打补丁失败时耐久不减等问题。此外现在世界制御猫的灯泡也不能用自动叠甲装置打补丁了。</li>
 </ul>
 <p>底层和开发相关：</p>
 <ul>
-	<li>（+）新增了一个\player\post_load_profile_event()函数用于一些入场后执行一次，但较复杂而不能放在skill_onload_event()里的效果。另外提一句，skill_onload_event()执行顺序很早，而且底层对$acquired_list $parameter_list $sdata $pa等的引用关系的设计有点问题，导致在这里进行过于复杂的处理如选称号等，处理结果会被覆盖，复杂的处理不应该再放进skill_onload_event()里了。</li>
+	<li>（+）新增了一个\player\post_load_profile_event()函数用于一些入场后执行一次，但较复杂而不能放在skill_onload_event()里的效果。另外提一句，skill_onload_event()执行顺序很早，而且底层对&#36;acquired_list &#36;parameter_list &#36;sdata &#36;pa等的引用关系的设计有点问题，导致在这里进行过于复杂的处理如选称号等，处理结果会被覆盖，复杂的处理不应该再放进skill_onload_event()里了。</li>
 </ul>
 <h3>10月3日(v1.14.08)</h3>
 <p>功能更新：</p>

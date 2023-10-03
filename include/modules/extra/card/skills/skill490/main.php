@@ -103,7 +103,7 @@ namespace skill490
 			
 			file_put_contents($writefile, $writecont);
 		}else{
-			include_once $writefile;
+			include $writefile;
 		}
 
 		return Array($itemklist, $itemsklist);
@@ -142,6 +142,7 @@ namespace skill490
 			}
 		}
 		$itemklist = array_filter($itemklist);
+		if(empty($itemklist)) $itemklist[] = 'X';//当随机出的数值很高的时候，可选类型会被过滤清空，这时用合成专用来保底
 		shuffle($itemklist); $ritmk = $itemklist[0];
 		shuffle($itemsklist); $ritmsk = $itemsklist[0];
 		$itm0 = $ritm; $itmk0 = $ritmk; $itmsk0 = $ritmsk;
