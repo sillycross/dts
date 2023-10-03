@@ -5,8 +5,9 @@ namespace ex_attr_digit
 	function init() 
 	{
 		eval(import_module('itemmain'));
-		$itemspkinfo['^dg'] = '计数';//实际上这个是不会显示的
+		$itemspkinfo['^dg'] = '计数';//在继承了本模块并重载了check_comp_itmsk_visible()之后，可以避免显示这个属性名
 		$itemspkdesc['^dg']='当前计数为<:skn:>';
+		//探测器等级计数写在这里是因为radar模块比较基础，不宜改变继承顺序。新加模块应该继承本模块，不建议直接写在这里。
 		$itemspkinfo['^rdsk'] = '探测器等级';
 	}
 	

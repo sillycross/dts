@@ -268,7 +268,6 @@ skill536,extra/card/skills/skill536/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
-item_umb,extra/item_extra/item_umb/,1
 skill209,extra/club/skills/skill209/,1
 event,base/event/,1
 skill5,extra/attr/skills/skill5/,1
@@ -397,6 +396,7 @@ skill232,extra/club/skills/skill232/,1
 skill432,extra/card/skills/skill432/,1
 skill558,extra/card/skills/skill558/,1
 skill513,extra/card/skills/skill513/,1
+item_umb,extra/item_extra/item_umb/,1
 instance6,extra/instance/instance6/,1
 skill42,extra/club/skills/skill42/,1
 addnpc,base/addnpc/,1

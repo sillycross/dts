@@ -249,6 +249,7 @@ namespace item_recipe
 
 	function check_sum_possible($sum, $numbers, &$m = array())
 	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (isset($m[$sum])) return $m[$sum];
 		if ($sum === 0) return true;
 		if ($sum < 0) return false;
