@@ -150,8 +150,10 @@ namespace item_uys
 		$itmsk = & $theitem['itmsk'];
 		
 		$itme += (rand (0, 2) + $ske);
-		$itms_up = $nosta !== $itms ? floor(min($ske / 10, $itms / 2)) : 0;//如果不是无限耐，稍微增加一点耐久
-		$itms += $itms_up;
+		if($nosta !== $itms) {//如果不是无限耐，稍微增加一点耐久
+			$itms_up = floor(min($ske / 10, $itms / 2));
+			$itms += $itms_up;
+		}
 		
 		//统计先前强化成功次数。注意本次强化也是成功的
 		$last_success_num = 1;
