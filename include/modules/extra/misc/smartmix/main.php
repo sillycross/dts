@@ -10,7 +10,7 @@ namespace smartmix
 	function smartmix_find_recipe($itm, $tp=0){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
-		$recipe = get_mixinfo();
+		$recipe = \itemmix\get_mixinfo();
 		$mix_res = array();		
 		$itm = htmlspecialchars_decode(\itemmix\itemmix_name_proc($itm));
 		foreach ($recipe as $ma){
