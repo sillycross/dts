@@ -116,6 +116,7 @@ namespace ex_phy_nullify
 			$dice = rand(0,99);
 			if ($dice<$proc_rate){
 				$log .= "<span class='yellow b'>对{$theitem['itm']}的第{$nowi}次强化失败了！</span>这是一件能免疫所有物理攻击的防具，也许你需要一件能穿透所有物理防御的强化道具才能强化它。<br>";
+				$sewingkit['itms'] -- ;
 				return false;
 			}else{
 				$log .= "纳尼？{$theitem['itm']}免疫物理伤害的效果竟然失效了！<br>";

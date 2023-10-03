@@ -238,11 +238,23 @@ namespace skill505
 		eval(import_module('sys','player','skill505','logger'));
 		$itm=&${$t1}; 
 		if($itm == $skill505_keyitm){
-			$log.='在灯泡上镶嵌宝石是会坏的！<br>';
+			$log.='在灯泡上镶嵌宝石是会坏的！<br>* 担忧的猫叫声 *<br>';
 			$mode = 'command';
 			return;
 		}
 		$chprocess($t1, $t2);
+	}
+	
+	function autosewingkit($itmn = 0)//自动针线包
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;	
+		eval(import_module('sys','player','skill505','logger'));
+		if(${'itm'.(int)$itmn} == $skill505_keyitm) {
+			$log.='在灯泡上叠甲的话，肯定要坏掉的啊！<br>* 担忧的猫叫声 *<br>';
+			$mode = 'command';
+			return;
+		}
+		$chprocess($itmn);
 	}
 	
 	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
