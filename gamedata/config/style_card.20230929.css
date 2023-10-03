@@ -50,6 +50,29 @@ img.cardback{
 
 img.card_achieved{width:35px;height:20px;position:absolute;z-index:20;top:-13px;left:11px;}
 
+div.card_highlight{
+	-moz-border-radius:9px; 
+	-webkit-border-radius:9px;
+}
+
+div.card_highlight.hl_cyan{
+	box-shadow: 0 0 18px rgba(  0,255,255,  1);
+	-webkit-box-shadow: 0 0 18px rgba(  0,255,255,  1);
+	-moz-box-shadow: 0 0 18px rgba(  0,255,255,  1);
+}
+
+div.card_highlight.hl_gold{
+	box-shadow: 0 0 18px rgba(252,174, 10,  1);
+	-webkit-box-shadow: 0 0 18px rgba(252,174, 10,  1);
+	-moz-box-shadow: 0 0 18px rgba(252,174, 10,  1);
+}
+
+div.card_highlight.hl_purple{
+	box-shadow: 0 0 18px rgba(128,  0,128,  1);
+	-webkit-box-shadow: 0 0 18px rgba(128,  0,128,  1);
+	-moz-box-shadow: 0 0 18px rgba(128,  0,128,  1);
+}
+
 div.card_frame_outer
 {
 	position:relative;

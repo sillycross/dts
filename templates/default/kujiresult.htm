@@ -19,19 +19,17 @@
 	<li style="float:left;margin:5px">
 		<!--{eval if(!isset($i0)) $i0 = $k;}-->
 		<div style="
-		<!--{if $ktype==0 || $ktype==2}-->
-		cursor:pointer; 
-		<!--{/if}-->
-		position:relative;
+			position:relative;
+			<!--{if $ktype==0 || $ktype==2}-->
+			cursor:pointer; 
+			<!--{/if}-->
+		"
 		
 		<!--{if isset($ishighlight[$k]) && $ishighlight[$k]}-->
-		-moz-border-radius:12px; 
-		-webkit-border-radius:12px;
-		 box-shadow: 0 0 18px rgba(0,255,255, 1);
-		-webkit-box-shadow: 0 0 18px rgba(0, 255,255, 1);
-		-moz-box-shadow: 0 0 18px rgba(0, 255,255, 1);
-		<!--{/if}-->
-		"
+		class="card_highlight 
+			<!--{if $ktype==0 || $ktype==2}-->hl_cyan<!--{elseif $ktype==3}-->hl_purple<!--{/if}-->
+		"<!--{/if}-->
+		
 		<!--{if $ktype==0 || $ktype==2}-->
 		title="点击再抽一发"
 		onclick="window.location.href='kuji.php?type=$ktype';"
@@ -40,7 +38,7 @@
 			<div class="cardbox" id="cardbox$k">
 				{template MOD_CARDBASE_CARD_BACK_FRONT_BOX}
 			</div>
-			<!--{if isset($ishighlight[$k]) && !$ishighlight[$k]}-->
+			<!--{if ($ktype==0 || $ktype==2) && isset($ishighlight[$k]) && !$ishighlight[$k]}-->
 			<div style="position:absolute; top:0px; left:0px; background-color:#000000; 
 			height:320px; width:240px; 
 			filter:alpha(opacity=50); -moz-opacity:0.5; opacity:0.5; -khtml-opacity: 0.5;">
