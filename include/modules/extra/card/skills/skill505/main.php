@@ -249,12 +249,12 @@ namespace skill505
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;	
 		eval(import_module('sys','player','skill505','logger'));
-		$itm = ${'itm'.(int)$itmn};
-		if($itm == $skill505_keyitm) {
+		if(${'itm'.(int)$itmn} == $skill505_keyitm) {
 			$log.='在灯泡上叠甲的话，肯定要坏掉的啊！<br>* 担忧的猫叫声 *<br>';
 			$mode = 'command';
 			return;
 		}
+		;//如果去掉这个逗号，adv模式编译的时候会把上面那个if{}后面的}弄丢，然后出问题。我很想找出big，但是我得开始加班了
 		$chprocess($itmn);
 	}
 	
