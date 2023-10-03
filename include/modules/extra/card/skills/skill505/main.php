@@ -249,7 +249,8 @@ namespace skill505
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;	
 		eval(import_module('sys','player','skill505','logger'));
-		if(${'itm'.(int)$itmn} == $skill505_keyitm) {
+		$itm = ${'itm'.(int)$itmn};
+		if($itm == $skill505_keyitm) {
 			$log.='在灯泡上叠甲的话，肯定要坏掉的啊！<br>* 担忧的猫叫声 *<br>';
 			$mode = 'command';
 			return;
