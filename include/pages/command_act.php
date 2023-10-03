@@ -53,6 +53,7 @@ $log = $cmd = $main = '';
 $pagestartimez=microtime(true); 
 
 \player\load_playerdata(\player\fetch_playerdata($cuser));
+\player\post_load_profile_event();
 
 $gamedata = array(
 	'innerHTML' => array(),

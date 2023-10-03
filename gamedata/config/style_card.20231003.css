@@ -68,9 +68,9 @@ div.card_highlight.hl_gold{
 }
 
 div.card_highlight.hl_purple{
-	box-shadow: 0 0 18px rgba(128,  0,128,  1);
-	-webkit-box-shadow: 0 0 18px rgba(128,  0,128,  1);
-	-moz-box-shadow: 0 0 18px rgba(128,  0,128,  1);
+	box-shadow: 0 0 18px rgba(192,  0,192,  1);
+	-webkit-box-shadow: 0 0 18px rgba(192,  0,192,  1);
+	-moz-box-shadow: 0 0 18px rgba(192,  0,192,  1);
 }
 
 div.card_frame_outer

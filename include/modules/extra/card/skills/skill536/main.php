@@ -36,7 +36,7 @@ namespace skill536
 		{
 			eval(import_module('sys','player'));
 			if(empty($gamevars['alive_ignore_pid'])) $gamevars['alive_ignore_pid'] = Array($pid);
-			else $gamevars['alive_ignore_pid'][] = $pid;
+			elseif(!in_array($pid, $gamevars['alive_ignore_pid'])) $gamevars['alive_ignore_pid'][] = $pid;
 			save_gameinfo();
 			\skillbase\skill_setvalue(536,'activated',1,$pa);
 		}

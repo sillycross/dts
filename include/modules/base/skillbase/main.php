@@ -101,6 +101,9 @@ namespace skillbase
 		return array($ac_list, $para_list);
 	}
 	
+	//角色载入技能数据时进行的处理
+	//这个skill_onload_event()执行顺序很早，而且底层对$acquired_list $parameter_list $sdata $pa等的引用关系的设计有点问题，导致在这里进行过于复杂的处理如选称号等，处理结果会被覆盖
+	//涉及较复杂的判定建议延后处理，不要继承这个函数！
 	function skill_onload_event(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -217,7 +220,7 @@ namespace skillbase
 		{
 			if ($pa == NULL) {
 				\player\update_sdata();
-				$pa=$sdata;
+				$pa=$sdata;//这句要不要加引用呢，原本是没加的，需要找个时间排查一下加了会带来什么
 			}
 			if(empty($acquired_list[$skillid])) {
 				$already = 0;

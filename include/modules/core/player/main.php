@@ -182,6 +182,12 @@ namespace player
 		$sdata['state_backup']=$pdata['state_backup'];	//见上个函数注释
 	}
 	
+	//玩家指令，在load_playerdata()执行完后被command.php调用的函数
+	//可用于入场后执行一次的技能。注意如果因为网络原因，入场后没有显示出界面，继承这个函数的处理会不正常
+	function post_load_profile_event(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+	}
+	
 	//玩家界面对当前幸存玩家数的显示。注意这个函数只用于显示
 	//为了某个恶搞技能单独抽离出来
 	function get_alivenum_for_display()
