@@ -32,6 +32,7 @@ item_uu,extra/item_extra/item_uu/,1
 corpse,base/corpse/,1
 trap,base/items/trap/,1
 itemmix_sync,base/itemmix/itemmix_sync/,1
+item_recipe,extra/item_extra/item_recipe/,1
 enemy,base/enemy/,1
 gameflow_duel,core/gameflow/gameflow_duel/,1
 itemmix_overlay,base/itemmix/itemmix_overlay/,1
@@ -338,6 +339,7 @@ ex_cursed,extra/attr/ex_cursed/,1
 ex_def_down,extra/attr/ex_def_down/,1
 ex_armor_crack,extra/attr/ex_armor_crack/,1
 ex_attr_digit,extra/attr/ex_attr_digit/,1
+ex_weapon_crack,extra/attr/ex_weapon_crack/,1
 weather,base/weather/,1
 npcinfo,extra/misc/npcinfo/,1
 skill502,extra/card/skills/skill502/,1

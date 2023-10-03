@@ -37,6 +37,8 @@ namespace item_umb
 				$log .= "参数错误，这应该是一个BUG，请联系管理员。<br>";
 				return;
 			}
+			
+			\itemmain\itms_reduce($theitem);
 		}
 		else $chprocess($theitem);
 	}
