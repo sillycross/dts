@@ -15,26 +15,26 @@ namespace skill529
 		\skillbase\skill_setvalue(529,'activated',0,$pa);
 	}
 	
-	function skill_onload_event(&$pa)//因为lvl是在加载技能后写入的，判定获得道具和技能的效果得后置到onload事件
-	{
+	//因为lvl是在加载技能后写入的，判定获得道具和技能的效果得后置到玩家入场自动刷新界面时
+	function post_load_profile_event(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_query(529,$pa) && empty(\skillbase\skill_getvalue(529,'activated',$pa)))
+		if (\skillbase\skill_query(529) && empty(\skillbase\skill_getvalue(529,'activated')))
 		{
-			eval(import_module('input'));
+			eval(import_module('player'));
+			$command = \input\get_var('command');
 			//玩家第一次进入游戏的界面是不会player_save的，要正常执行，应该在玩家自动刷新界面时生成
-			if(!$pa['type'] && !empty($command)){
+			if(!empty($command)){
 				//lvl=1，获得时自动获取场上NPC的一件道具
-				if(1 == \skillbase\skill_getvalue(529,'lvl',$pa)){
-					skill529_get_item($pa);
+				if(1 == \skillbase\skill_getvalue(529,'lvl',$sdata)){
+					skill529_get_item($sdata);
 				//lvl=2，获得时自动复制场上NPC的一个技能
-				}elseif(2 == \skillbase\skill_getvalue(529,'lvl',$pa)){
-					skill529_get_skill($pa);
+				}elseif(2 == \skillbase\skill_getvalue(529,'lvl',$sdata)){
+					skill529_get_skill($sdata);
 				}
-				\skillbase\skill_setvalue(529,'activated',1,$pa);
-				//\skillbase\skill_lost(529, $pa);
+				\skillbase\skill_setvalue(529,'activated',1,$sdata);
 			}
 		}
-		return $chprocess($pa);
+		$chprocess();
 	}
 	
 	function skill529_get_skill(&$pa){
