@@ -25,7 +25,7 @@ namespace skill564
 	{	
 		define('MOD_SKILL564_INFO','card;upgrade;');
 		eval(import_module('clubbase'));
-		$clubskillname[564] = '塔客';
+		$clubskillname[564] = '最优';
 	}
 	
 	function acquire564(&$pa)

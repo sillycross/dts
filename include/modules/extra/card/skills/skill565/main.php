@@ -28,7 +28,7 @@ namespace skill565
 	{	
 		define('MOD_SKILL565_INFO','card;hidden;');
 		eval(import_module('clubbase'));
-		$clubskillname[565] = '通才';
+		$clubskillname[565] = '神抽';
 	}
 	
 	function acquire565(&$pa)

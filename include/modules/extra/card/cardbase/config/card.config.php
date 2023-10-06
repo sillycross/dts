@@ -4454,7 +4454,7 @@ $cards = array(
 		'ruby' => 'FirstMove',
 		'rare' => 'S',
 		'pack' => 'Standard Pack',
-		'desc' => '西之国2017年制造的最先进的人工智能，下井字棋的水平远远超过人类。<br><br><span class="evergreen b">『它在完全信息博弈中是不败的。<br>可惜的是现实并不是一个<br>完全信息博弈游戏。』</span>',
+		'desc' => '西之国于2017年制造的最先进的AI，下井字棋的水平远远超过人类。<br><br><span class="evergreen b">『它在完全信息博弈中是不败的。<br>可惜的是现实并不是一个<br>完全信息博弈游戏。』</span>',
 		'effect' => '称号固定为走路萌物，但每升5级可以从三个称号技能中选择一个学习（最多学习8次，某些技能不可选）',
 		'energy' => 100,
 		'valid' => array(
@@ -4469,10 +4469,10 @@ $cards = array(
 	),
 	261 => array(
 		'name' => '随机数眷顾者',
-		'rare' => 'A',
+		'rare' => 'B',
 		'pack' => 'Standard Pack',
-		'desc' => '每次抽签都有好结果的幸运儿。<br><br><span class="evergreen b">『随机看起来最弱，<br>有时却是最强。』</span>',
-		'effect' => '称号固定为走路萌物，但开局时会随机获得称号特性和6个技能',
+		'desc' => '每次抽签都有好结果的幸运儿<br><br><span class="evergreen b">『随机看起来最弱，<br>有时却是最强。』</span>',
+		'effect' => '称号固定为走路萌物，但开局时会随机获得1个称号特性和6个技能',
 		'energy' => 100,
 		'valid' => array(
 			'club' => '17',
@@ -4523,7 +4523,7 @@ $cards = array(
 		'rare' => 'S',
 		'pack' => 'Standard Pack',
 		'desc' => '幻境的初心，也是幻境的终点',
-		'effect' => '开局可以选择任何一个称号',
+		'effect' => '开局可以选择任意一个称号',
 		//'desc_skills' => '',
 		'energy' => 100,
 		'valid' => array(
