@@ -18,10 +18,10 @@ namespace skill564
 		//黑衣称号特性
 		219 => array(224),
 		//锡安称号特性
-		230 => array(231),		
+		230 => array(231),
 	);
 	
-	function init() 
+	function init()
 	{	
 		define('MOD_SKILL564_INFO','card;upgrade;');
 		eval(import_module('clubbase'));
@@ -34,8 +34,8 @@ namespace skill564
 		eval(import_module('skill564'));
 		\skillbase\skill_setvalue(564, 'lastlvl', $pa['lvl'], $pa);
 		\skillbase\skill_setvalue(564, 'chance', 1, $pa);
-		\skillbase\skill_setvalue(564, 'limit', $sk564_chance_limit, $pa);
-		\skillbase\skill_setvalue(564, 'choices', generate_sk564_choice(1), $pa);
+		\skillbase\skill_setvalue(564, 'limit', $sk564_chance_limit - 1, $pa);
+		\skillbase\skill_setvalue(564, 'choices', '0', $pa);
 	}
 	
 	function lost564(&$pa)
@@ -86,8 +86,9 @@ namespace skill564
 		{
 			eval(import_module('skill564'));
 			if (in_array((int)$b, $sk564_banlist)) return 0;
-			eval(import_module('player'));
-			$choices = \skillbase\skill_getvalue(564, 'choices', $sdata);
+			eval(import_module('player'));		
+			if ('0' === \skillbase\skill_getvalue(564, 'choices')) \skillbase\skill_setvalue(564, 'choices', generate_sk564_choice(1));
+			$choices = \skillbase\skill_getvalue(564, 'choices');
 			if ('' !== $choices)
 			{
 				$ls = explode('_', $choices);
@@ -110,7 +111,7 @@ namespace skill564
 				foreach ($arr['skills'] as $skillid) 
 				{
 					//不会随机出已学会的技能和被ban的技能
-					if (sklearn_basecheck($skillid) && !\skillbase\skill_query($skillid, $sdata))
+					if (sklearn_basecheck($skillid) && !\skillbase\skill_query($skillid))
 					{
 						//第一次必然为三个称号特性选一
 						if (1 === $first)
@@ -158,7 +159,7 @@ namespace skill564
 		eval(import_module('skill564','player','logger','input'));
 		$skillpara1 = (int)$skillpara1;
 		$chance = (int)\skillbase\skill_getvalue(564, 'chance', $pa);
-		if (!\skillbase\skill_query(564) || !check_unlocked564($sdata)) 
+		if (!\skillbase\skill_query(564) || !check_unlocked564()) 
 		{
 			$log .= '你没有这个技能。<br>';
 			return;
@@ -190,7 +191,7 @@ namespace skill564
 			foreach ($sk564_feature[$skillpara1] as $extra_skillid) \skillbase\skill_acquire($extra_skillid, $pa);
 		}
 		\skillbase\skill_setvalue(564, 'chance', $chance - 1, $pa);
-		\skillbase\skill_setvalue(564, 'choices', generate_sk564_choice(), $pa);	
+		\skillbase\skill_setvalue(564, 'choices', generate_sk564_choice(), $pa);
 		$log .= '学习成功。<br>';
 	}
 }
