@@ -4,10 +4,22 @@ namespace skill564
 {
 	$sk564_lvl_req = 5;
 	$sk564_chance_limit = 8;
-	//亡灵的复活和一些没名字的隐藏技能
-	//先全ban了再说，杀杀杀
-	$sk564_banlist = array(19,20,21,22,24,29,31,39,56,57,58,59,79);
+	
+	//亡灵的复活；保镖、家教、学习和灵感；一些衍生技能
+	$sk564_banlist = array(10,11,12,19,20,21,22,24,29,31,39,41,42,55,56,57,58,59,72,78,79,224,231,242);
+	
 	$sk564_allowclublist = array(1,2,3,4,5,6,7,8,9,10,11,13,14,18,19,20,21,24);
+	
+	//允许的称号特性附带的技能
+	$sk564_feature = array
+	(
+		//拆弹称号特性
+		17 => array(19,20),
+		//黑衣称号特性
+		219 => array(224),
+		//锡安称号特性
+		230 => array(231),		
+	);
 	
 	function init() 
 	{	
@@ -89,7 +101,7 @@ namespace skill564
 	function generate_sk564_choice($first=0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('clubbase','player','skill564'));	
+		eval(import_module('clubbase','skill564'));	
 		$ls_skills = array();
 		foreach ($clublist as $club => $arr)
 		{
@@ -101,7 +113,7 @@ namespace skill564
 					if (sklearn_basecheck($skillid) && !\skillbase\skill_query($skillid, $sdata))
 					{
 						//第一次必然为三个称号特性选一
-						if (1 == $first)
+						if (1 === $first)
 						{
 							if (strpos(constant('MOD_SKILL'.$skillid.'_INFO'),'feature;')!==false) $ls_skills[] = $skillid;
 						}
@@ -172,6 +184,11 @@ namespace skill564
 			return;
 		}
 		\skillbase\skill_acquire($skillpara1);
+		//部分技能实际由几个技能组成的处理
+		if (array_key_exists($skillpara1, $sk564_feature))
+		{
+			foreach ($sk564_feature[$skillpara1] as $extra_skillid) \skillbase\skill_acquire($extra_skillid, $pa);
+		}
 		\skillbase\skill_setvalue(564, 'chance', $chance - 1, $pa);
 		\skillbase\skill_setvalue(564, 'choices', generate_sk564_choice(), $pa);	
 		$log .= '学习成功。<br>';

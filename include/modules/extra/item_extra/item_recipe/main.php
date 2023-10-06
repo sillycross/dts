@@ -107,7 +107,7 @@ namespace item_recipe
 			}
 			if (false === $recipe['extra']['allow_repeat']) $recipe_tip .= '素材不允许重复，';
 			if (true === $recipe['extra']['consume_recipe']) $recipe_tip .= '消耗配方，';			
-		}			
+		}
 		
 		$recipe_tip .= '<br>合成结果：<br>'.\itemmix\parse_itemmix_resultshow($recipe['result']);
 
@@ -166,7 +166,7 @@ namespace item_recipe
 		{
 			if (false === check_item_extra($item, $stuff['extra'])) return false;
 		}
-		return true;		
+		return true;
 	}
 	
 	function check_item_extra($itm, $itmk, $itmsk, $extra)
@@ -185,7 +185,7 @@ namespace item_recipe
 			$prp_res = \itemmix_overlay\itemmix_prepare_overlay();
 			foreach($prp_res as $pra){
 				if (0 === strpos($pra[0], $itm)) return true;
-			}		
+			}
 		}
 		else if ('edible' === $extra)
 		{
