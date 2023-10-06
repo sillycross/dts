@@ -20,8 +20,9 @@ namespace battle
 	
 	function send_battle_msg(&$pa, &$pd, $active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','logger','input'));
+		$message = \input\get_var('message');
 		if(!empty($message)){
+			eval(import_module('logger'));
 			$log .= "<span class=\"lime b\">你向{$pd['name']}喊道：“{$message}”</span><br>";
 			$pd['battle_msg'] = "<span class=\"lime b\">{$pa['name']}向你喊道：“{$message}”</span><br><br>";
 			\sys\addchat(6, "{$pa['name']}高喊着“{$message}”杀向了{$pd['name']}");
