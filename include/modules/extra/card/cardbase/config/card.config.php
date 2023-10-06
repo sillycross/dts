@@ -4140,7 +4140,7 @@ $cards = array(
 	),
 	240 => array(
 		'name' => '网络爬虫',
-		'rare' => 'C',
+		'rare' => 'B',
 		'pack' => 'Cyber Zealots',
 		'desc' => '爬吗？',
 		'effect' => '爬',
@@ -4357,12 +4357,12 @@ $cards = array(
 		)
 	),
 	254 => array(
-		'name' => '河童打灰人',
+		'name' => '河童',
 		'rare' => 'B',
 		'pack' => '東埔寨Protoject',
 		'desc' => '通知：光学迷彩服严禁用于带薪拉屎',
-		'effect' => '老大，你亲自来上厕所啊？',
-		'desc_skills' => '获得技能「迷彩」：发动后20秒内，你探索时不会遇到任何敌人和尸体',
+		'effect' => '获得技能「迷彩」：发动后20秒内，你探索时不会遇到任何敌人和尸体',
+		//'desc_skills' => '',
 		'energy' => 0,
 		'valid' => array(
 			'skills' => array(
@@ -4370,7 +4370,21 @@ $cards = array(
 			)
 		)
 	),
-	
+	255 => array(
+		'name' => '编乎用户',
+		'rare' => 'B',
+		'pack' => 'Cyber Zealots',
+		'desc' => '分享你刚编的故事',
+		'effect' => '开局获得20点技能点，但直到30级前都不能再获得技能点',
+		//'desc_skills' => '',
+		'energy' => 100,
+		'valid' => array(
+			'skillpoint' => '+20',
+			'skills' => array(
+				'537' => '0',
+			),
+		)
+	),
 	256 => array(
 		'name' => '彩虹小马',
 		'rare' => 'B',
@@ -4434,22 +4448,39 @@ $cards = array(
 			),
 		)
 	),
-	//缺梗
+	
 	260 => array(
-		'name' => '……',
+		'name' => '初动',
+		'ruby' => 'FirstMove',
 		'rare' => 'S',
-		'pack' => 'hidden',
-		'desc' => '……',
-		'effect' => '……',
-		'desc_skills' => '称号固定为装逼战士。每升5级可以从三个称号技能中选一个学习',
+		'pack' => 'Standard Pack',
+		'desc' => '西之国2017年制造的最先进的人工智能，下井字棋的水平远远超过人类。<br><br><span class="evergreen b">『它在完全信息博弈中是不败的。<br>可惜的是现实并不是一个<br>完全信息博弈游戏。』</span>',
+		'effect' => '称号固定为走路萌物，但每升5级可以从三个称号技能中选择一个学习（最多学习8次，某些技能不可选）',
 		'energy' => 100,
 		'valid' => array(
-			'club' => '97',
+			'club' => '17',
 			'skills' => array(
 				'10' => '0', 
 				'11' => '0', 
 				'12' => '0',
 				'564' => '0',
+			),
+		)
+	),
+	261 => array(
+		'name' => '随机数眷顾者',
+		'rare' => 'A',
+		'pack' => 'Standard Pack',
+		'desc' => '每次抽签都有好结果的幸运儿。<br><br><span class="evergreen b">『随机看起来最弱，<br>有时却是最强。』</span>',
+		'effect' => '称号固定为走路萌物，但开局时会随机获得称号特性和6个技能',
+		'energy' => 100,
+		'valid' => array(
+			'club' => '17',
+			'skills' => array(
+				'10' => '0', 
+				'11' => '0', 
+				'12' => '0',
+				'565' => '0',
 			),
 		)
 	),
@@ -4535,7 +4566,7 @@ $cards = array(
 		'pack' => 'Cyber Zealots',
 		'desc' => '这个月幻境的访问量多了26倍，你有什么头猪吗？',
 		'effect' => '连斗前不会显示在幸存名单中',
-		//'desc_skills' => '10级时解锁。同时只能标记一名玩家',
+		//'desc_skills' => '',
 		'energy' => 100,
 		'valid' => array(
 			'skills' => array(
@@ -4543,7 +4574,7 @@ $cards = array(
 			),
 		)
 	),
-	
+
 	1000 => array(
 		'name'=>'萌新',
 		'rare'=>'A',

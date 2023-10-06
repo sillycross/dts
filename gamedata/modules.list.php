@@ -265,9 +265,10 @@ skill556,extra/card/skills/skill556/,1
 skill275,extra/club/skills/skill275/,1
 skill276,extra/club/skills/skill276/,1
 skill536,extra/card/skills/skill536/,1
+skill565,extra/card/skills/skill565/,1
+skill537,extra/card/skills/skill537/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
-skill565,extra/card/skills/skill565/,1
 skill273,extra/club/skills/skill273/,1
 skill209,extra/club/skills/skill209/,1
 event,base/event/,1
