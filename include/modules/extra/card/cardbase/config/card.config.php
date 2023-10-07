@@ -4487,6 +4487,53 @@ $cards = array(
 			),
 		)
 	),
+	262 => array(
+		'name' => 'SGGK',
+		'rare' => 'A',
+		'pack' => '東埔寨Protoject',
+		'desc' => '“T O · M E · R U ! ! !”',
+		'effect' => '获得技能「百战」且开局即解锁，<br>但闪避率-20%',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'566' => '0',
+				'34' => '0',		
+			),
+		)
+	),
+	263 => array(
+		'name' => '自律人偶M',
+		'rare' => 'C',
+		'real_rare' => 'A',
+		'pack' => '東埔寨Protoject',
+		'desc' => '看起来人畜无害的人偶妖怪',
+		'effect' => '这草有毒',
+		'desc_skills' => '获得自动给地图补给和敌人包裹内补给下毒的被动技能',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'567' => '0',
+			),
+		)
+	),
+	264 => array(
+		'name' => '……',//我再想想怎么用梗
+		'rare' => 'B',
+		'pack' => 'hidden',
+		'desc' => '……',
+		'effect' => '开局装备能看到神秘数字的眼镜',
+		'energy' => 100,
+		'valid' => array(
+			'arh' => '战斗力指示器',
+			'arhk' => 'DH',
+			'arhe' => '76',
+			'arhs' => '54',
+			'arhsk' => 'c',
+			'skills' => array(
+				'568' => '0',
+			),
+		)
+	),
 	//老板，来个20个卡位的空白
 	280 => array(
 		'name' => 'Acg_xilin',

@@ -306,6 +306,7 @@ skill403,extra/card/skills/skill403/,1
 skill203,extra/club/skills/skill203/,1
 ammunition,base/items/ammunition/,1
 skill487,extra/card/skills/skill487/,1
+skill567,extra/card/skills/skill567/,1
 armor_art,base/armor_art/,1
 skill23,extra/club/skills/skill23/,1
 skill517,extra/card/skills/skill517/,1
@@ -341,6 +342,7 @@ ex_def_down,extra/attr/ex_def_down/,1
 ex_armor_crack,extra/attr/ex_armor_crack/,1
 ex_attr_digit,extra/attr/ex_attr_digit/,1
 ex_weapon_crack,extra/attr/ex_weapon_crack/,1
+skill568,extra/card/skills/skill568/,1
 weather,base/weather/,1
 npcinfo,extra/misc/npcinfo/,1
 skill502,extra/card/skills/skill502/,1
@@ -534,6 +536,7 @@ skill80,extra/club/skills/skill80/,1
 skill551,extra/card/skills/skill551/,1
 skill554,extra/card/skills/skill554/,1
 skill563,extra/card/skills/skill563/,1
+skill566,extra/card/skills/skill566/,1
 skill604,extra/club/skills/skill604/,1
 ex_gender_attr,extra/attr/ex_gender_attr/,1
 ex_attr_pierce,extra/attr/ex_attr_pierce/,1
