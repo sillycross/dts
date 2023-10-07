@@ -98,7 +98,12 @@ namespace skill265
 		}
 		if (\skillbase\skill_getvalue(265,'unlocked') > 0)
 		{
-			$log .= '你已经选择了这个技能<br>';
+			$log .= '你已经选择了这个技能！<br>';
+			return;
+		}
+		if(\clubbase\skill_check_unlocked_state(265) & 4)
+		{
+			$log .= '你已经选择了互斥的技能！<br>';
 			return;
 		}
 

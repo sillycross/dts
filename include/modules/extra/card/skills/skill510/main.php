@@ -3,13 +3,13 @@
 namespace skill510
 {	
 	//1: 玩家 2: 特殊NPC
-	$phydef510 = array( 1 => 94, 2 => 100);
-	$exdef510 = array( 1 => 94, 2 => 100);
-	$phynullify510 = array( 1 => 97, 2 => 100);
-	$exnullify510 = array( 1 => 97, 2 => 100);
+	$phydef510 = array( 1 => 100, 2 => 100);
+	$exdef510 = array( 1 => 100, 2 => 100);
+	$phynullify510 = array( 1 => 100, 2 => 100);
+	$exnullify510 = array( 1 => 100, 2 => 100);
 	$phypierce510 = array( 1 => 0.5, 2 => 0.1);//系数
 	$expierce510 = array( 1 => 0.5, 2 => 0.1);//系数
-	$hpdef510 = array( 2 => 100);
+	$hpdef510 = array( 1 => 95, 2 => 100);
 	
 	function init() 
 	{

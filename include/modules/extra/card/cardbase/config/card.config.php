@@ -62,7 +62,7 @@ $pack_ignore_kuji = Array('Balefire Rekindle','Event Bonus');
 //卡包实装的时间戳，可以用来隐藏卡包
 $packstart = array(
 	'Cyber Zealots' => 4476654671,
-	'東埔寨Protoject' => 4476654671,
+	//'東埔寨Protoject' => 4476654671,
 	'Stealth' => 4476654671,
 	'hidden' => 4476654671,
 );
@@ -1073,7 +1073,7 @@ $cards = array(
 		'title' => '书卷使',
 		'rare' => 'C',
 		'pack' => 'Crimson Swear',
-		'desc' => '在时空特使里默默无闻的工作人员。<br>某次事件之后就消失了',
+		'desc' => '<span class="white b">『时空特使里默默无闻的工作人员。<br>某次事件之后就消失了。』</span>',
 		'effect' => '开局攻防增加23点',
 		'energy' => 0,
 		'valid' => array(
@@ -3472,12 +3472,12 @@ $cards = array(
 		'rare' => 'A',
 		'pack' => 'Balefire Rekindle',
 		'desc' => '“银月哨兵是不死之身！”',
-		'effect' => '获得技能「无垠」：战斗中死亡时有50%概率复活，但之后因此复活的概率减半',
+		'effect' => '获得技能「无垠」：战斗中死亡时有100%概率复活，但之后因此复活的概率减半',
 		//：双方攻击结束时，如果你的HP<1，则有30%概率变为1。此技能每发动1次，这一概率减半。
 		'energy' => 120,
 		'valid' => array(
 			'skills' => array(
-				'486' => '1', 
+				'486' => '2', 
 			),
 		)
 	),
@@ -3644,7 +3644,7 @@ $cards = array(
 		'rare' => 'S',
 		'pack' => 'Balefire Rekindle',
 		'desc' => '身为主播，运气是非常重要的。<br>这位朋友问我的运气？你觉得呢？',
-		'effect' => '获得技能「胜天」：你的防御和抹消属性失效概率减半，被贯穿概率减半',
+		'effect' => '获得技能「胜天」：你的减半防御和抹消类属性不会自然失效，控伤失效和被贯穿概率减半',
 		'energy' => 100,
 		'valid' => array(
 			'skills' => array(
@@ -4203,7 +4203,7 @@ $cards = array(
 		'desc' => '芯片又不能当饭吃',
 		'effect' => '开局携带可以吃的电子零件',
 		//'desc_skills' => '',
-		'energy' => 100,
+		'energy' => 0,
 		'valid' => array(
 		  'itm6' => '某种电子零件',
 			'itmk6' => Array('HB','HB','HB','HB','HB','HB','HB','HB','HB','PB2'),
@@ -4219,7 +4219,7 @@ $cards = array(
 		'desc' => '这么晚还在打大逃杀，你一定也很寂寞吧',
 		'effect' => '开局携带3个寂寞',
 		//'desc_skills' => '',
-		'energy' => 100,
+		'energy' => 0,
 		'valid' => array(
 			'itm4' => '寂寞',
 			'itmk4' => Array('WP','WK','WD','WC','WG','WF','WB','PB2','DB','DH','DA','DF','A'),
@@ -4363,7 +4363,7 @@ $cards = array(
 		'desc' => '通知：光学迷彩服严禁用于带薪拉屎',
 		'effect' => '获得技能「迷彩」：发动后20秒内，你探索时不会遇到任何敌人和尸体',
 		//'desc_skills' => '',
-		'energy' => 0,
+		'energy' => 100,
 		'valid' => array(
 			'skills' => array(
 				'555' => '0'
@@ -4452,7 +4452,7 @@ $cards = array(
 	260 => array(
 		'name' => '初动',
 		'ruby' => 'FirstMove',
-		'rare' => 'S',
+		'rare' => 'A',
 		'pack' => 'Standard Pack',
 		'desc' => '西之国于2017年制造的最先进的AI，下井字棋的水平远远超过人类。<br><br><span class="evergreen b">『它在完全信息博弈中是不败的。<br>可惜的是现实并不是一个<br>完全信息博弈游戏。』</span>',
 		'effect' => '称号固定为走路萌物，但每升5级可以从三个称号技能中选择一个学习（最多学习8次，某些技能不可选）',
@@ -4522,7 +4522,7 @@ $cards = array(
 		'name' => '银色盒子的触手',
 		'rare' => 'S',
 		'pack' => 'Standard Pack',
-		'desc' => '幻境的初心，也是幻境的终点',
+		'desc' => '<span class="white b">『这就是所谓幻境的最终目标？<br>不，这只是一个开始。』</span>',
 		'effect' => '开局可以选择任意一个称号',
 		//'desc_skills' => '',
 		'energy' => 100,
@@ -4571,6 +4571,23 @@ $cards = array(
 		'valid' => array(
 			'skills' => array(
 				'536' => '0',
+			),
+		)
+	),
+	286 => array(
+		'name' => '小绵羊',
+		'rare' => 'B',
+		'pack' => '東埔寨Protoject',
+		'desc' => '饕餮为什么不上？',
+		'effect' => '今天，我手震；今天，我心疼。…为什么会这样？我付出一切，却得不到想要的一点爱。…<br>蓝…蓝…我…我…<br>我是真的好很爱你的，为何你要这样对我呀？！呜—哇——呱——咩——',
+		'desc_skills' => '获得亡灵骑士技能「黑暗」，但是开局体力上限-300
+		<br>「黑暗」：攻击敌人时有一定概率吸取对方1点全系熟练度和1点生命上限',
+		'energy' => 100,
+		'valid' => array(
+			'sp' => '-300',
+			'msp' => '-300',
+			'skills' => array(
+				'61' => '0',
 			),
 		)
 	),
