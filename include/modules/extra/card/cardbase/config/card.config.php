@@ -62,7 +62,7 @@ $pack_ignore_kuji = Array('Balefire Rekindle','Event Bonus');
 //卡包实装的时间戳，可以用来隐藏卡包
 $packstart = array(
 	'Cyber Zealots' => 4476654671,
-	//'東埔寨Protoject' => 4476654671,
+	'東埔寨Protoject' => 4476654671,
 	'Stealth' => 4476654671,
 	'hidden' => 4476654671,
 );
@@ -2810,7 +2810,7 @@ $cards = array(
 		'pack' => 'Event Bonus',
 		'desc' => '猫用四条腿走路！',
 		'effect' => '所以不是猫！',
-		'desc_skills' => '找到并装备【巨大灯泡】以后，你将免疫一切战斗和陷阱伤害。<br>但是如果你装备、包裹及视野中都不存在【巨大灯泡】，你会立即从这局游戏中消失',
+		'desc_skills' => '找到并装备「巨大灯泡」以后，你将免疫一切战斗和陷阱伤害。<br>但是如果你装备、包裹及视野中都不存在【巨大灯泡】，你会立即从这局游戏中消失',
 		'energy' => 120,
 		'valid' => array(
 			'skills' => array(
@@ -2864,12 +2864,15 @@ $cards = array(
 		'pack' => 'Top Players',
 		'desc' => '曾经的ACFUN大逃杀开发者，<br>其脑洞对玩家十分<ruby>友<rt>bao</rt></ruby><ruby>好<rt>she</rt></ruby>',
 		'effect' => '咸鱼的目标从来不是杀死玩家',
-		'desc_skills' => '获得技能「鱼弹」：战斗技，本次物理伤害变成0，但对方随机一件防具的耐久值下降你的武器效果值，每局只能发动2次',
+		'desc_skills' => '开局装备有「碎甲」属性的饰品',
+		//'desc_skills' => '获得技能「鱼弹」：战斗技，本次物理伤害变成0，但对方随机一件防具的耐久值下降你的武器效果值，每局只能发动2次',
 		'energy' => 100,
 		'valid' => array(
-			'skills' => array(
-				'517' => '0', 
-			),
+			'art' => Array('油炖萌物「金鲤」', '油炖萌物「石斑」'),
+			'artk' => 'A',
+			'arte' => '12',
+			'arts' => '450',
+			'artsk' => 'z^ac1',
 		)
 	),
 	170 => array(
@@ -4589,6 +4592,23 @@ $cards = array(
 			'skills' => array(
 				'61' => '0',
 			),
+		)
+	),
+	287 => array(
+		'name' => '老板娘 有江露美',
+		'title' => '老板娘',
+		'rare' => 'C',
+		'pack' => '東埔寨Protoject',
+		'desc' => '有着暴躁的性格与谩骂顾客的口癖。对于一直不付钱的顾客会毫不留情地进行制裁。
+	<br>但这却获得了某方面人士们的好评，现在已经不再有会付钱的顾客',
+		'effect' => '开局携带随机一种饮料',
+		'energy' => 0,
+		'valid' => array(
+			'itm6' => Array('伏特加','一杯八分满的啤酒','咖啡酒','百利甜','柠檬汁','红石榴汁','牛肉汤','バカ⑨制冰块'),
+			'itmk6' => 'HB',
+			'itme6' => '100',
+			'itms6' => '1',
+			'itmsk6' => '',
 		)
 	),
 

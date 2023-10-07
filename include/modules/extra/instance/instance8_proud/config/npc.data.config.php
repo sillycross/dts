@@ -2330,7 +2330,7 @@ namespace instance8
 					'wepk' => 'WJ',
 					'wepe' => 1,
 					'weps' => 9999,
-					'wepsk' => 'rdpn',
+					'wepsk' => 'rdpn^ac1',
 					'arb' => '可爱标记拼成的披风',
 					'arh' => '天马经理的面罩',
 					'arf' => '刀锋般的后腿',

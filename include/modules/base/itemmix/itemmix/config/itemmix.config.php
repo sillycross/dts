@@ -23,7 +23,7 @@ $mixinfo = array
 	array('class' => 'h', 'stuff' => array('河豚鱼','氯化氢','大夭使的气息'),'result' => array('鲱鱼罐头','PR9',90,10,),),
 	array('class' => 'h', 'stuff' => array('矿泉水','杏仁豆腐','SCP-294的饮料'),'result' => array('【社系摧泪弹】','PB',3600,5,'zd'),),
 	array('class' => 'h', 'stuff' => array('油炖萌物「金鲤」','油炖萌物「石斑」'),'result' => array('油炖萌物「什锦板栗」','HB',900,'∞',),),
-	array('class' => 'h', 'stuff' => array('油炖油炖萌萌金鲤鲤','油炖油炖萌萌石斑斑'),'result' => array('油炖油炖萌萌什锦什锦板板栗栗','HB',4500,'∞',),),
+	array('class' => 'h', 'stuff' => array('油炖油炖萌萌金鲤鲤','油炖油炖萌萌石斑斑'),'result' => array('油炖油炖萌萌什锦什锦板板栗栗','HB',1245,'∞',),),
 	
 	array('class' => 'wc', 'stuff' => array('汽油','空瓶'),'result' => array('☆火焰瓶☆','WC',80,50,'ud'),),	
 	array('class' => 'wc', 'stuff' => array('幻之使魔','永恒之桶'),'result' => array('灵魂的结晶','WC',180,240,'rn'),),
