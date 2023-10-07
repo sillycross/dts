@@ -46,27 +46,30 @@ if($_GET['mode']=='advmng')
 	//$edfmt = Array('___MOD_CODE_ADV1'=>'int','___MOD_CODE_ADV2'=>'int','___MOD_CODE_ADV3'=>'int','___MOD_SRV'=>'int');
 	if($_GET['action'] == 'turn_on') $edvar = 1;
 	elseif($_GET['action'] == 'turn_off') $edvar = 0;
-	if($_GET['type'] == 1) {
+	if($_GET['type'] == 10) {
 		if ($edvar) $edcfg = array('___MOD_CODE_ADV1' => 1);
 		else $edcfg = array('___MOD_CODE_ADV1' => 0, '___MOD_CODE_ADV2' => 0, '___MOD_CODE_ADV3' => 0, '___MOD_SRV' => 0);
-	} elseif($_GET['type'] == 2) {
+	} elseif($_GET['type'] == 20) {
 		if ($edvar) $edcfg = array('___MOD_CODE_ADV1' => 1, '___MOD_CODE_ADV2' => 1);
 		else $edcfg = array('___MOD_CODE_ADV2' => 0, '___MOD_CODE_ADV3' => 0, '___MOD_SRV' => 0);
-	} elseif($_GET['type'] == 3) {
+	} elseif($_GET['type'] == 25) {
+		if ($edvar) $edcfg = array('___MOD_CODE_ADV1' => 1, '___MOD_CODE_ADV2' => 1, '___MOD_CODE_COMBINE' => 1);
+		else $edcfg = array('___MOD_CODE_COMBINE' => 0);
+	} elseif($_GET['type'] == 30) {
 		if ($edvar) $edcfg = array('___MOD_CODE_ADV1' => 1, '___MOD_CODE_ADV2' => 1, '___MOD_CODE_ADV3' => 1);
 		else $edcfg = array('___MOD_CODE_ADV3' => 0);
-	} elseif($_GET['type'] == 4) {
+	} elseif($_GET['type'] == 40) {
 		if ($edvar) $edcfg = array('___MOD_CODE_ADV1' => 1, '___MOD_CODE_ADV2' => 1, '___MOD_SRV' => 1);
 		else $edcfg = array('___MOD_SRV' => 0);
 	}
 	
 	if(isset($edcfg) && isset($edvar)){
+		$mf=GAME_ROOT.'./include/modulemng/modulemng.config.php';
+		$config_cont = file_get_contents($mf);
 		foreach($edcfg as $ek => $ev){
-			$mf=GAME_ROOT.'./include/modulemng/modulemng.config.php';
-			$config_cont = file_get_contents($mf);
 			$config_cont = preg_replace("/[$]{$ek}\s*\=\s*-?[0-9]+;/is", "\${$ek} = {$ev};", $config_cont);
-			file_put_contents($mf,$config_cont);
 		}
+		file_put_contents($mf,$config_cont);
 	}
 	include GAME_ROOT.'./include/modulemng/modulemng.config.php';
 }

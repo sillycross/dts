@@ -255,6 +255,7 @@ namespace skill505
 			return;
 		}
 		;//如果去掉这个逗号，adv模式编译的时候会把上面那个if{}后面的}弄丢，然后出问题。我很想找出big，但是我得开始加班了
+		//现在的处理方式是不再使用mod_combine模式
 		$chprocess($itmn);
 	}
 	

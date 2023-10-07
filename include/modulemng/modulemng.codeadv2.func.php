@@ -190,12 +190,12 @@ function check_eval_magic($modid, $tplfile, &$content, &$i2, &$ret)
 	if (!check_word($content,$i,'return')) return 0;
 	if (!check_word($content,$i,'$___RET_VALUE')) return 0;
 	if (!check_word($content,$i,';')) return 0;
-	global $___MOD_CODE_COMBINE;
+	global $___MOD_CODE_COMBINE, $now_funcname;
 	if($___MOD_CODE_COMBINE){
 		$i2=$i;
 		$ret = '';
 	}else{
-		$funcname = parse_get_funcname($content,$i2);
+		$now_funcname = $funcname = parse_get_funcname($content,$i2);
 		$i2=$i;	
 		$ret = get_magic_content(strtolower($funcname), $modid);
 		//测试
@@ -203,6 +203,18 @@ function check_eval_magic($modid, $tplfile, &$content, &$i2, &$ret)
 		//$ret='global $___TEMP_CALLS_COUNT; $___TEMP_CALLS_COUNT[\''.$funcname.'\']=1; '.$ret;
 		$ret=str_replace("\n",' ',$ret);
 	}
+	return 1;
+}
+
+function check_chprocess($modid, $tplfile, &$content, &$i2, &$ret)
+{
+	$i=$i2;
+	if (!check_word($content,$i,'$chprocess',1)) return 0;
+	if (!check_word($content,$i,'(')) return 0;
+	global $___TEMP_modfuncs, $now_funcname;
+	$i2=$i;
+	$ret = '\\'.$___TEMP_modfuncs[$modid][strtolower($now_funcname)]['chprocess'].'(';
+	
 	return 1;
 }
 
@@ -1223,6 +1235,11 @@ function parse($modid, $tplfile, $objfile)
 			$result.=$s; 
 		}
 		elseif (check_import_module($tplfile, $content, $i, $s))
+		{
+			$result.=$s; 
+		}
+		//2023.10.07 静态化$chprocess，加快执行速度 我怀疑COMBINE模式折腾半天其实就是省了这部分开销
+		elseif (check_chprocess($modid, $tplfile, $content, $i, $s))
 		{
 			$result.=$s; 
 		}

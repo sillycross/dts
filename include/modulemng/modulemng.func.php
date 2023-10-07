@@ -416,7 +416,7 @@ function printmodtable($file, $readonly=0)
 }
 
 function show_adv_state(){
-	global $___MOD_CODE_ADV1, $___MOD_CODE_ADV2, $___MOD_CODE_ADV3, $___MOD_SRV;
+	global $___MOD_CODE_ADV1, $___MOD_CODE_ADV2, $___MOD_CODE_COMBINE, $___MOD_CODE_ADV3, $___MOD_SRV;
 	$lang_on = '<font color="green">已开启</font>';
 	$lang_off = '<font>已关闭</font>';
 	$lang_unav = '<font color="red">无法正常运行</font>';
@@ -425,16 +425,19 @@ function show_adv_state(){
 	$adv_state_log = '';
 	$adv_state_log .= '<span>代码预处理(ADV1)'.
 		($___MOD_CODE_ADV1 ? $lang_on : $lang_off).'。'.
-			($___MOD_CODE_ADV1 ? '<a href="modulemng.php?mode=advmng&action=turn_off&type=1">'.$lang_turn_off.'</a>' : '<a href="modulemng.php?mode=advmng&action=turn_on&type=1">'.$lang_turn_on.'</a>').'</span><br>';
+			($___MOD_CODE_ADV1 ? '<a href="modulemng.php?mode=advmng&action=turn_off&type=10">'.$lang_turn_off.'</a>' : '<a href="modulemng.php?mode=advmng&action=turn_on&type=10">'.$lang_turn_on.'</a>').'</span> 提升模块加载速度，建议生产环境开启<br>';
 	$adv_state_log .= '<span>eval预处理(ADV2)'.
 		($___MOD_CODE_ADV2 ? ($___MOD_CODE_ADV1 ? $lang_on : $lang_unav) : $lang_off).'。'.
-			($___MOD_CODE_ADV2 ? '<a href="modulemng.php?mode=advmng&action=turn_off&type=2">'.$lang_turn_off.'</a>' : '<a href="modulemng.php?mode=advmng&action=turn_on&type=2">'.$lang_turn_on.'</a>').'</span><br>';
+			($___MOD_CODE_ADV2 ? '<a href="modulemng.php?mode=advmng&action=turn_off&type=20">'.$lang_turn_off.'</a>' : '<a href="modulemng.php?mode=advmng&action=turn_on&type=20">'.$lang_turn_on.'</a>').'</span> 降低模块加载速度，但提高模块执行速度，建议生产环境开启并搭配DAEMON模式使用<br>';
+	$adv_state_log .= '<span>函数合并(COMBINE)'.
+		($___MOD_CODE_COMBINE ? ($___MOD_CODE_ADV2 ? $lang_on : $lang_unav) : $lang_off).'。'.
+			($___MOD_CODE_COMBINE ? '<a href="modulemng.php?mode=advmng&action=turn_off&type=25">'.$lang_turn_off.'</a>' : '<a href="modulemng.php?mode=advmng&action=turn_on&type=25">'.$lang_turn_on.'</a>').'</span> 提高模块执行速度，但兼容性堪忧，建议仅在需要确认函数继承顺序时开启<br>';
 	$adv_state_log .= '<span>模板html预处理(ADV3)'.
 		($___MOD_CODE_ADV3 ? ($___MOD_CODE_ADV2 ? ($___MOD_CODE_ADV1 ? $lang_on : $lang_unav) : $lang_unav) : $lang_off).'。'.
-			($___MOD_CODE_ADV3 ? '<a href="modulemng.php?mode=advmng&action=turn_off&type=3">'.$lang_turn_off.'</a>' : '<a href="modulemng.php?mode=advmng&action=turn_on&type=3">'.$lang_turn_on.'</a>').'</span><br>';
+			($___MOD_CODE_ADV3 ? '<a href="modulemng.php?mode=advmng&action=turn_off&type=30">'.$lang_turn_off.'</a>' : '<a href="modulemng.php?mode=advmng&action=turn_on&type=30">'.$lang_turn_on.'</a>').'</span> 降低流量消耗且允许使用录像功能，建议生产环境开启<br>';
 	$adv_state_log .= '<span>daemon模式(SRV)'.
 		($___MOD_SRV ? ($___MOD_CODE_ADV2 ? ($___MOD_CODE_ADV1 ? $lang_on : $lang_unav) : $lang_unav) : $lang_off).'。'.
-			($___MOD_SRV ? '<a href="modulemng.php?mode=advmng&action=turn_off&type=4">'.$lang_turn_off.'</a>' : '<a href="modulemng.php?mode=advmng&action=turn_on&type=4">'.$lang_turn_on.'</a>').'</span><br>';
+			($___MOD_SRV ? '<a href="modulemng.php?mode=advmng&action=turn_off&type=40">'.$lang_turn_off.'</a>' : '<a href="modulemng.php?mode=advmng&action=turn_on&type=40">'.$lang_turn_on.'</a>').'</span> 完全消除模块加载时间，建议生产环境开启并搭配外部触发程序使用<br>';
 	return $adv_state_log;
 }
 		
