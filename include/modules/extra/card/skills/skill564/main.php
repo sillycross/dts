@@ -3,7 +3,7 @@
 namespace skill564
 {
 	$sk564_lvl_req = 5;
-	$sk564_chance_limit = 8;
+	$sk564_chance_limit = 10;
 	
 	//亡灵的复活；保镖、家教、学习和灵感；一些衍生技能
 	$sk564_banlist = array(10,11,12,19,20,21,22,24,29,31,39,41,42,55,56,57,58,59,72,78,79,224,231,242);
@@ -33,8 +33,8 @@ namespace skill564
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill564'));
 		\skillbase\skill_setvalue(564, 'lastlvl', $pa['lvl'], $pa);
-		\skillbase\skill_setvalue(564, 'chance', 1, $pa);
-		\skillbase\skill_setvalue(564, 'limit', $sk564_chance_limit - 1, $pa);
+		\skillbase\skill_setvalue(564, 'chance', 3, $pa);
+		\skillbase\skill_setvalue(564, 'limit', $sk564_chance_limit - 3, $pa);
 		\skillbase\skill_setvalue(564, 'choices', '0', $pa);
 	}
 	
@@ -123,7 +123,7 @@ namespace skill564
 				}
 			}
 		}
-		$randkeys = array_rand($ls_skills, 3);
+		$randkeys = array_rand($ls_skills, 5);
 		$ls = array();
 		foreach ($randkeys as $key) $ls[] = $ls_skills[$key];
 		$choices = implode('_', $ls);
