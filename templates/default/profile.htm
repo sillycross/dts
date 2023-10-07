@@ -61,6 +61,8 @@
 							<tr>
 								<!--{if defined('MOD_TUTORIAL') && 17==$gametype}-->
 								{template MOD_TUTORIAL_TUTORIAL_EXIT_BUTTON}
+								<!--{elseif !$hp && defined('MOD_INSTANCE_CLOSE_BUTTON') && \instance_close_button\check_instance_close_available()}-->
+								{template MOD_INSTANCE_CLOSE_BUTTON_INSTANCE_CLOSE_BUTTON}
 								<!--{elseif defined('MOD_BUFFICONS')}-->
 								{template MOD_BUFFICONS_PROFILE}
 								<!--{else}-->

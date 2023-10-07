@@ -1,0 +1,24 @@
+<td colspan=2 style="height:40px;text-align:center;vertical-align:middle">
+	<input type="button" class="cmdbutton" id="instance_close_button" value="关闭当前房间" onclick="bubblebox_show('instance_close_box');">
+<form method="post" id="instance_close" name="instance_close" style="margin: 0px" >
+	<input type="hidden" id="dummycommand" name="dummycommand" value="instance_close">
+</form>
+<!--{eval \bubblebox\bubblebox_set_style('id:instance_close_box;height:120;width:240;cancellable:1');}-->
+{template MOD_BUBBLEBOX_START}
+<div style="margin:20px">
+	<span class="yellow b" style="font-size:14px">真的要关闭当前房间吗？</span>
+</div>
+<div style="margin:20px">
+	<a class="b_button bc_black" onclick=
+	"if(null!=$('command')) {
+		$('command').value='instance_close';
+		postCmd('gamecmd','command.php');
+	}else{
+		$('dummycommand').name='command';
+		postCmd('instance_close','command.php');
+	}
+	"
+	>是</a>&nbsp;&nbsp;&nbsp;<a class="b_button bc_black" onclick="bubblebox_hide_all();">否</a>
+</div>
+{template MOD_BUBBLEBOX_END}
+</td>

@@ -66,8 +66,9 @@ namespace skill536
 			if(sizeof($o_alive_ignore_pid) != sizeof($gamevars['alive_ignore_pid'])) {
 				save_gameinfo();
 			}
-			//扣减返回值
+			//扣减返回值。先不判定该玩家是否死亡了，一是简化计算，二是我觉得倒扣也挺特色的。
 			$ret -= sizeof($gamevars['alive_ignore_pid']);
+			//$ret = max($ret, 0);
 		}
 		return $ret;
 	}

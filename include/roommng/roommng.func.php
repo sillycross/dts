@@ -301,6 +301,12 @@ function room_upos_check($roomdata, $user=NULL){
 	$upos = -1;
 	$rdplist = room_get_vars($roomdata, 'player');
 	$rdpnum = room_get_vars($roomdata, 'pnum');
+	if(empty($rdpnum)) //会出现这个情况一般是从daemon调用的
+	{
+		global $roomtypelist;
+		include GAME_ROOT.'./include/roommng/roommng.config.php';
+		$rdpnum = room_get_vars($roomdata, 'pnum');
+	}
 	for ($i=0; $i < $rdpnum; $i++) {
 		if (!$rdplist[$i]['forbidden'] && $rdplist[$i]['name']==$user){
 			$upos = $i;
