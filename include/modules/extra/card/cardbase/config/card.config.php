@@ -61,8 +61,8 @@ $packdesc = array(
 $pack_ignore_kuji = Array('Balefire Rekindle','Event Bonus');
 //卡包实装的时间戳，可以用来隐藏卡包
 $packstart = array(
-	'Cyber Zealots' => 4476654671,
-	'東埔寨Protoject' => 4476654671,
+	//'Cyber Zealots' => 4476654671,
+	//'東埔寨Protoject' => 4476654671,
 	'Stealth' => 4476654671,
 	'hidden' => 4476654671,
 );
@@ -3860,7 +3860,7 @@ $cards = array(
 		'name' => '翻唱职人',
 		'rare' => 'C',
 		'pack' => 'Cyber Zealots',
-		'desc' => '弹幕网站上那些翻唱名曲毁耳不倦的职人',
+		'desc' => '弹幕网站上翻唱名曲毁耳不倦的职人',
 		'effect' => '开局装备销魂之歌',
 		'desc_skills' => '还有ACFUN的账号',
 		'energy' => 0,
@@ -3881,7 +3881,7 @@ $cards = array(
 		'name' => '字幕职人',
 		'rare' => 'C',
 		'pack' => 'Cyber Zealots',
-		'desc' => '弹幕网站上那些把弹幕当积木摆的职人',
+		'desc' => '弹幕网站上把弹幕当积木摆的职人',
 		'effect' => '开局装备神字幕',
 		'desc_skills' => '还有ACFUN的账号',
 		'energy' => 0,
@@ -3902,7 +3902,7 @@ $cards = array(
 		'name' => '搬运职人',
 		'rare' => 'C',
 		'pack' => 'Cyber Zealots',
-		'desc' => '弹幕网站上那些搬运其他网站视频的职人',
+		'desc' => '弹幕网站上搬运其他网站视频的职人',
 		'effect' => '开局装备搬运之拳',
 		'desc_skills' => '还有ACFUN的账号',
 		'energy' => 0,
@@ -4220,7 +4220,7 @@ $cards = array(
 		'name' => '网抑云',
 		'rare' => 'C',
 		'pack' => 'Cyber Zealots',
-		'desc' => '这么晚还在打大逃杀，你一定也很寂寞吧',
+		'desc' => '这么晚还在打大逃杀，<br>你一定也很寂寞吧',
 		'effect' => '开局携带3个寂寞',
 		//'desc_skills' => '',
 		'energy' => 0,
@@ -4668,6 +4668,20 @@ $cards = array(
 			'itme6' => '60',
 			'itms6' => '5',
 			'itmsk6' => '',
+		)
+	),
+	289 => array(
+		'name' => '拷贝猫',
+		'rare' => 'B',
+		'pack' => 'Cyber Zealots',
+		'desc' => '这张图猫鼠队铁定跑不出来',
+		'effect' => '结算！',
+		'desc_skills' => '开局能复制并获取场上存活玩家的一项技能（包括称号技能）',
+		'energy' => 100,
+		'valid' => array(
+		  'skills' => array(
+				'529' => '3', 
+			),
 		)
 	),
 

@@ -25,11 +25,15 @@ namespace skill529
 			//玩家第一次进入游戏的界面是不会player_save的，要正常执行，应该在玩家自动刷新界面时生成
 			if(!empty($command)){
 				//lvl=1，获得时自动获取场上NPC的一件道具
-				if(1 == \skillbase\skill_getvalue(529,'lvl',$sdata)){
+				$skill529lvl = \skillbase\skill_getvalue(529,'lvl',$sdata);
+				if(1 == $skill529lvl){
 					skill529_get_item($sdata);
 				//lvl=2，获得时自动复制场上NPC的一个技能
-				}elseif(2 == \skillbase\skill_getvalue(529,'lvl',$sdata)){
-					skill529_get_skill($sdata);
+				}elseif(2 == $skill529lvl){
+					skill529_get_skill($sdata, 1);
+				//lvl=3，获得时自动复制场上玩家的一个技能
+				}elseif(3 == $skill529lvl){
+					skill529_get_skill($sdata, 0);
 				}
 				\skillbase\skill_setvalue(529,'activated',1,$sdata);
 			}
@@ -37,34 +41,36 @@ namespace skill529
 		$chprocess();
 	}
 	
-	function skill529_get_skill(&$pa){
+	//$gettype=1表示获得NPC，=0表示获得玩家
+	function skill529_get_skill(&$pa, $gettype = 1){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		$spool = skill529_get_skillpool();
+		$spool = skill529_get_skillpool($gettype);
 		//gwrite_var('a.txt', $spool);
 		if(!empty($spool)){
 			$spool_keys = Array_keys($spool);
 			do{
 				shuffle($spool_keys);
 				list($nid, $getskillid) = explode('_',$spool_keys[0]);
-			} while(strpos(constant('MOD_SKILL'.$getskillid.'_INFO'),'hidden;')!==false);//获得的技能不能带有hidden标签
+			} while(strpos(constant('MOD_SKILL'.$getskillid.'_INFO'),'hidden;')!==false || strpos(constant('MOD_SKILL'.$getskillid.'_INFO'),'achievement;')!==false);//获得的技能不能带有hidden标签或者achievement标签
 			
 			\skillbase\skill_acquire($getskillid,$pa);
 			
 			$getskillval = $spool[$nid.'_'.$getskillid];
-			//gwrite_var('b.txt', $getskillval);
+			//gwrite_var('a.txt', $getskillid);
 			foreach($getskillval as $gk => $gv){
 				\skillbase\skill_setvalue($getskillid, $gk, $gv, $pa);//获得对应技能
 			}
 		}
 	}
 	
-	//获取全部存活NPC的技能编号数据
+	//获取全部存活玩家或者NPC的技能编号数据
 	//返回$spool[$nid_$skillid][$skillval_key] = $skillval_value
-	function skill529_get_skillpool(){
+	function skill529_get_skillpool($gettype = 1){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys'));
-		$query = "SELECT * FROM {$tablepre}players WHERE type > 0 AND hp > 0";
+		eval(import_module('sys','player'));
+		if(empty($gettype)) $query = "SELECT * FROM {$tablepre}players WHERE type = 0 AND hp > 0 AND pid != '$pid'";
+		else $query = "SELECT * FROM {$tablepre}players WHERE type > 0 AND hp > 0";
 		$result = $db->query($query);
 		$spool = Array();
 		while($npc = $db->fetch_array($result)){
