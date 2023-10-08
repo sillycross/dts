@@ -12,7 +12,7 @@ namespace skill537
 	function acquire537(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-			\skillbase\skill_setvalue(537,'activated','0',$pa);
+		\skillbase\skill_setvalue(537,'activated','0',$pa);
 	}
 	
 	function lost537(&$pa)

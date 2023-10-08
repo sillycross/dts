@@ -41,11 +41,21 @@ namespace skill405
 		return array_merge($r,$chprocess($pa,$pd,$active));
 	}
 	
+	//隐蔽率+15%
 	function calculate_hide_obbs(&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!\skillbase\skill_query(405,$edata) || !check_unlocked405($edata)) return $chprocess($edata);
 		return $chprocess($edata)+15;
+	}
+	
+	//先攻率+10%
+	function calculate_active_obbs(&$ldata,&$edata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$r = $chprocess($ldata,$edata);
+		if (\skillbase\skill_query(405,$ldata) && check_unlocked405($ldata)) $r += 10;
+		return $r;
 	}
 }
 

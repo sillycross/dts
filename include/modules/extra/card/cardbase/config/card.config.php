@@ -812,8 +812,8 @@ $cards = array(
 		'rare' => 'S',
 		'pack' => 'Crimson Swear',
 		'desc' => '低调行事的年轻女性，<br>红暮的青梅竹马。<br>目前是红暮的影一样的存在。<br>担当红杀组织中并不存在的<br>隐秘行动课程的教头。',
-		'effect' => '获得技能「疾走」：<br>被发现率降低15%，爆系和斩系伤害提高20%',
-		'energy' => 50,
+		'effect' => '获得技能「疾走」：被发现率降低15%，主动探索先攻率增加10%，爆系和斩系伤害提高20%',
+		'energy' => 100,
 		'valid' => array(
 			'skills' => array(
 				'405' => '0', 
@@ -864,7 +864,8 @@ $cards = array(
 		'rare' => 'S',
 		'pack' => 'Crimson Swear',
 		'desc' => '芙蓉的妹妹，现年初二，<br>在一般的平民初中就读。是学校演剧部的部长，也备有无数的戏服用品。<br>爱好是写剧本和读其他人的剧本',
-		'effect' => '获得技能「红石」：<br>生命值高于一半则把防御力的一半加到攻击力上，反之则把攻击力的一半加到防御力上',
+		'effect' => '获得技能「红石」：生命值高于一半则把攻击力的一半加到防御力上，反之则把防御力的一半加到攻击力上',
+		'desc_skills' => '增加值不会超过10万',
 		'energy' => 100,
 		'valid' => array(
 			'skills' => array(
@@ -878,8 +879,8 @@ $cards = array(
 		'rare' => 'S',
 		'pack' => 'Event Bonus',
 		'desc' => '低调行事的年轻女性，<br>红暮的青梅竹马。<br>目前是红暮的影一样的存在。<br>担当红杀组织中并不存在的<br>隐秘行动课程的教头。',
-		'effect' => '获得技能「疾走」：<br>被发现率降低15%，爆系和斩系伤害提高20%',
-		'energy' => 50,
+		'effect' => '获得技能「疾走」：被发现率降低15%，主动探索先攻率增加10%，爆系和斩系伤害提高20%',
+		'energy' => 100,
 		'valid' => array(
 			'skills' => array(
 				'405' => '0', 
@@ -4418,22 +4419,16 @@ $cards = array(
 		)
 	),
 	258 => array(
-		'name' => '老大爷',
+		'name' => '鬼叫王',
 		'rare' => 'A',
-		'pack' => 'hidden',//梗可以再改改
-		'desc' => '猜猜他的腿是怎么断的',
-		'effect' => '获得战斗技「碰瓷」，开局装备轮椅且移动和探索消耗的体力增加',
-		'desc_skills' => '「碰瓷」：放弃攻击并受到对方攻击，然后从对方处获得金钱',
+		'pack' => '東埔寨Protoject',
+		'desc' => '靠着独有的配音征服了地狱的鬼，<br>那一声声凄厉的鬼叫刻断了不知多少听众的DNA',
+		'effect' => '获得战斗技「鬼叫」，放弃攻击并受到对方攻击，之后的游戏中对该角色的先制率上升15%',
+		//'desc_skills' => '',
 		'energy' => 100,
 		'valid' => array(
-			'arf' => '轮椅',
-			'arfk' => 'DF',
-			'arfe' => '99',
-			'arfs' => '∞',
-			'arfsk' => '',
 			'skills' => array(
 				'560' => '0',
-				'561' => '0'
 			),
 		)
 	),
@@ -4488,7 +4483,7 @@ $cards = array(
 		)
 	),
 	262 => array(
-		'name' => 'SGGK',
+		'name' => 'S.G.G.K',
 		'rare' => 'A',
 		'pack' => '東埔寨Protoject',
 		'desc' => '“T O · M E · R U ! ! !”',
@@ -4497,17 +4492,16 @@ $cards = array(
 		'valid' => array(
 			'skills' => array(
 				'566' => '0',
-				'34' => '0',		
+				'34' => '0',
 			),
 		)
 	),
 	263 => array(
-		'name' => '自律人偶M',
-		'rare' => 'C',
-		'real_rare' => 'A',
+		'name' => '毒人偶',//需要修改下
+		'rare' => 'B',
 		'pack' => '東埔寨Protoject',
-		'desc' => '看起来人畜无害的人偶妖怪',
-		'effect' => '这草有毒',
+		'desc' => '非常没有人气的人偶',
+		'effect' => '毒性极大',
 		'desc_skills' => '获得自动给地图补给和敌人包裹内补给下毒的被动技能',
 		'energy' => 100,
 		'valid' => array(
@@ -4655,6 +4649,21 @@ $cards = array(
 			'itmk6' => 'HB',
 			'itme6' => '100',
 			'itms6' => '1',
+			'itmsk6' => '',
+		)
+	),
+	288 => array(
+		'name' => '西瓜',
+		'rare' => 'C',
+		'pack' => '東埔寨Protoject',
+		'desc' => '伊吹县的名物',
+		'effect' => '开局携带西瓜',
+		'energy' => 0,
+		'valid' => array(
+			'itm6' => '西瓜',
+			'itmk6' => 'HB',
+			'itme6' => '60',
+			'itms6' => '5',
 			'itmsk6' => '',
 		)
 	),

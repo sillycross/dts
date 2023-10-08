@@ -22,6 +22,10 @@
 		<span class="yellow b">技能冷却中</span>
 	<!--{elseif 5==$skill_state}-->
 		<span class="red b">剩余次数用尽</span>
+	<!--{elseif 8==$skill_state}-->
+		<span class="red b">不能对NPC使用</span>
+	<!--{elseif 9==$skill_state}-->
+		<span class="red b">已经标记对方</span>
 	<!--{else}-->
 		<!--{if defined($desc_htm)}-->
 			{template $desc_htm}

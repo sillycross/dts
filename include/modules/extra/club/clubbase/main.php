@@ -212,7 +212,8 @@ namespace clubbase
 	//6以后自定义
 	//6:神击特殊提示
 	//7:浴血特殊提示
-	//8:不能对NPC发动
+	//8:不能对NPC发动（追猎，其他技能要使用需要自行判定）
+	//9:已经标记了该NPC（鬼叫，其他技能要使用需要自行判定）
 	function check_battle_skill_unactivatable(&$ldata,&$edata,$skillno)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
