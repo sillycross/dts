@@ -289,26 +289,20 @@ namespace clubbase
 	function get_battle_skill_entry(&$edata,$which)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($which==3) $zflag = 1; else $zflag = 0;
 		eval(import_module('sys','clubbase','player'));
 		//一次性获得所有战斗技能，然后根据$which的值来生成页面
 		//会占用$uip['blist']
-		if(!isset($uip['blist'])) $uip['blist'] = get_battle_skill_entry_array($edata);
-		foreach($uip['blist'] as $key){
-			$which--;
-			if ($which==0)
-			{
-				if ($zflag && 2 != $u_templateid) echo '<span style="display:block;height:6px;">&nbsp;</span>';
-				ob_start();
-				include template(MOD_CLUBBASE_BATTLECMD_COMMON);
-				$default = ob_get_contents();
-				ob_end_clean();
-				//兼容旧模式，请勿在battlecmd_common.htm里写任何非空格的意外输出，注释也不行
-				if (empty(trim($default))) include template(constant('MOD_SKILL'.$key.'_BATTLECMD'));
-				else echo $default;
-				return;
-			}
+		if(!isset($uip['blist'])) {
+			$uip['blist'] = get_battle_skill_entry_array($edata);
 		}
+		$key = $uip['blist'][$which];
+		ob_start();
+		include template(MOD_CLUBBASE_BATTLECMD_COMMON);
+		$default = ob_get_contents();
+		ob_end_clean();
+		//兼容旧模式，请勿在battlecmd_common.htm里写任何非空格的意外输出，注释也不行
+		if (empty(trim($default))) include template(constant('MOD_SKILL'.$key.'_BATTLECMD'));
+		else echo $default;
 	}
 					
 	function get_profile_skill_buttons()

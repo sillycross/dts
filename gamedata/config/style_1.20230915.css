@@ -325,6 +325,12 @@ div.skilllearn_desc_container{
 	width:420px;z-index:100;position:fixed;
 	filter:alpha(opacity=95); opacity:0.95; background-color:#000000
 }
+div.battlecmd_desc{
+	position:absolute; left:5px; top:30px;
+	width:95px;
+	text-align:left;
+	background-color:rgba(0,0,0,0.75);
+}
 /*==========卡片==========*/
 .cardframe_show div{
 	position:absolute;

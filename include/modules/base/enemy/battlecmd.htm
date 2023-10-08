@@ -6,29 +6,43 @@
 <input type="hidden" name="mode" value="combat">
 <input type="hidden" id="command" name="command" value="back">
 <!--{if (!defined('MOD_CLUBBASE'))}-->
-<!--{if (defined('MOD_WEAPON'))}-->
-{template MOD_WEAPON_ATT_METHOD}
-<!--{/if}-->
-<br><input type="button" class="cmdbutton" id="x" value="[X]逃跑" onclick="postCmd('gamecmd','command.php');this.disabled=true;"> 
+	<!--{if (defined('MOD_WEAPON'))}-->
+	{template MOD_WEAPON_ATT_METHOD}
+	<!--{/if}-->
+	<br><input type="button" class="cmdbutton" id="x" value="[X]逃跑" onclick="postCmd('gamecmd','command.php');this.disabled=true;"> 
 <!--{else}-->
-<input type="hidden" id="bskill" name="bskill" value="0">
-<input type="hidden" id="bskillpara" name="bskillpara" value="">
-<table cellSpacing=0 cellPadding=0 width=300px style="table-layout:fixed;">
-<tr><td width=100px align="center" style="vertical-align:top">
-<!--{if (defined('MOD_WEAPON'))}-->
-{template MOD_WEAPON_ATT_METHOD}
-<!--{/if}-->
-<!--{eval \clubbase\get_battle_skill_entry($edata,3);}-->
-<br><input type="button" class="cmdbutton" id="x" value="[X]逃跑" onclick="postCmd('gamecmd','command.php');this.disabled=true;"> 
-</td>
-<td width=100px align="center" style="vertical-align:top">
-<!--{eval \clubbase\get_battle_skill_entry($edata,1);}-->
-</td>
-<td width=100px align="center" style="vertical-align:top">
-<!--{eval \clubbase\get_battle_skill_entry($edata,2);}-->
-</td>
-</tr>
-</table>
+	<!--{eval if(!isset($uip['blist'])) $uip['blist'] = \clubbase\get_battle_skill_entry_array($edata);}-->
+	<input type="hidden" id="bskill" name="bskill" value="0">
+	<input type="hidden" id="bskillpara" name="bskillpara" value="">
+	<table cellSpacing=0 cellPadding=0 width=300px style="table-layout:fixed;">
+	<tr><td width=100px align="center" style="vertical-align:top">
+	<!--{if (defined('MOD_WEAPON'))}-->
+	{template MOD_WEAPON_ATT_METHOD}
+	<!--{/if}-->
+	<br><input type="button" class="cmdbutton" id="x" value="[X]逃跑" onclick="postCmd('gamecmd','command.php');this.disabled=true;"> 
+	</td>
+	<td width=100px align="center" style="vertical-align:top">
+	<!--{loop $uip['blist'] $i $bskill_disp}-->
+		<!--{if (!($i%2))}-->
+			<!--{if ($i>1)}-->
+			<span style="display:block;height:6px;">&nbsp;</span>
+			<!--{/if}-->
+			<!--{eval \clubbase\get_battle_skill_entry($edata,$i);}-->
+		<!--{/if}-->
+	<!--{/loop}-->
+	</td>
+	<td width=100px align="center" style="vertical-align:top">
+	<!--{loop $uip['blist'] $i $bskill_disp}-->
+		<!--{if ($i%2)}-->
+			<!--{if ($i>1)}-->
+			<span style="display:block;height:6px;">&nbsp;</span>
+			<!--{/if}-->
+			<!--{eval \clubbase\get_battle_skill_entry($edata,$i);}-->
+		<!--{/if}-->
+	<!--{/loop}-->
+	</td>
+	</tr>
+	</table>
 <!--{/if}-->
 {template MOD_CLUBBASE_NPCSKILLPAGE}
 

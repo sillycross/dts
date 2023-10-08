@@ -3741,7 +3741,7 @@ $cards = array(
 	),
 	217 => array(
 		'name' => '章鱼猫',
-		'rare' => 'C',
+		'rare' => 'B',
 		'pack' => 'Cyber Zealots',
 		'desc' => '一种神奇的电子界生物，擅长版本控制和同性交友',
 		'effect' => '开局携带建立分叉和拉取请球',
@@ -3750,14 +3750,14 @@ $cards = array(
 		'valid' => array(
 		  'wep' => '建立分叉',
 			'wepk' => 'WK',
-			'wepe' => '120',
-			'weps' => '5',
-			'wepsk' => 'eg',
+			'wepe' => '133',
+			'weps' => '7',
+			'wepsk' => 'fOrk',
 			'itm6' => '拉取请球',
 			'itmk6' => 'DH',
-			'itme6' => '120',
-			'itms6' => '5',
-			'itmsk6' => 'eg',
+			'itme6' => '133',
+			'itms6' => '7',
+			'itmsk6' => 'g',
 		)
 	),
 	218 => array(
@@ -3846,7 +3846,7 @@ $cards = array(
 	),
 	223 => array(
 		'name' => '汽车人',
-		'rare' => 'C',
+		'rare' => 'B',
 		'pack' => 'Cyber Zealots',
 		'desc' => '新能源汽车人才有机会直接落户上海',
 		'effect' => '你开局携带的面包的名字变为电池，矿泉水的名字变为探测器电池',
@@ -3994,14 +3994,14 @@ $cards = array(
 	),
 	231 => array(
 		'name' => '卡片男',
-		'rare' => 'C',
+		'rare' => 'B',
 		'pack' => 'Cyber Zealots',
 		'desc' => '看，这个男人捡到一张神秘的小卡片',
 		'effect' => '开局携带一份卡牌包',
 		'energy' => 0,
 		'valid' => array(
 		  'itm6' => '卡牌包',
-			'itmk6' => 'VO9',
+			'itmk6' => Array('VO3', 'VO2', 'VO2', 'VO2', 'VO9', 'VO9', 'VO9', 'VO9', 'VO9', 'VO9'),
 			'itme6' => '1',
 			'itms6' => '1',
 			'itmsk6' => '',
