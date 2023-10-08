@@ -3,7 +3,7 @@
 namespace skill560
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'sys player skillbase clubbase battle attack logger';
+	$___MODULE_dependency = 'sys player skillbase clubbase battle attack logger enemy';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';
