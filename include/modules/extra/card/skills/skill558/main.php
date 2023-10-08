@@ -6,7 +6,7 @@ namespace skill558
 	
 	function init() 
 	{
-		define('MOD_SKILL558_INFO','card;unique;');
+		define('MOD_SKILL558_INFO','card;');
 		eval(import_module('clubbase'));
 		$clubskillname[558] = '挑战';
 	}
