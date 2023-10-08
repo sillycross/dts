@@ -24,35 +24,30 @@ namespace skill567
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return 1;
 	}
-	
-	function discover($schmode){
+
+	function itemdrop($item)
+	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','itemmain'));			
+		if(strpos($item,'itm') === 0)
+		{
+			$itmn = substr($item,3,1);
+			$itmk = & ${'itmk'.$itmn};
+			$itmsk = & ${'itmsk'.$itmn};
+		}
 		if (\skillbase\skill_query(567))
 		{
-			eval(import_module('sys','player'));
-			$result = $db->query("SELECT * FROM {$tablepre}mapitem WHERE pls = '$pls' AND itmk LIKE 'H%'");
-			$edibles = array();
-			while($itmarr = $db->fetch_array($result))
+			if (in_array($itmk[0], array('H','P')))
 			{
-				$edibles[] = $itmarr;
+				$itmk = substr_replace($itmk,'P',0,1);
+				//check_poison_factor还有额外的log……直接判技能吧
+				if(\skillbase\skill_query(220) && (int)substr($itmk,2,1) < 2) $itmk = substr_replace($itmk,$p_factor,2,1);
+				$itmsk = $pid;
+				eval(import_module('logger'));
+				$log .= "<span class=\"purple b\">你周身散发出的毒雾渗透了丢弃的物品！</span><br>";
 			}
-			shuffle($edibles);
-			$count = rand(1,5);
-			$i = 0;
-			foreach($edibles as $itm)
-			{
-				$iid = $itm['iid'];
-				$itmk = substr_replace($itm['itmk'],'P',0,1);
-				
-				$db->query("UPDATE {$tablepre}mapitem SET itmk = '$itmk', itmsk = '$pid' WHERE iid = '$iid'");
-				$i += 1;
-				if ($i >= $count) break;
-			}
-			//每次都显示的话有点吵……
-			//eval(import_module('logger'));
-			//$log .= "<span class=\"purple b\">你周身散发出的毒雾渗透了周围的物品！</span><br>";
 		}
-		return $chprocess($schmode);
+		$chprocess($item);
 	}
 	
 	function strike_finish(&$pa, &$pd, $active)
@@ -63,14 +58,15 @@ namespace skill567
 			$flag = 0;
 			for ($i=0; $i<=6; $i++)
 			{
-				if (0 === strpos($pd['itmk'.$i], 'H'))
+				if (in_array($pd['itmk'.$i][0], array('H','P')))
 				{
-					if (rand(0,1) < 1)
+					if (rand(0,2) < 1)
 					{
 						$pd['itmk'.$i][0] = 'P';
+						if (\skillbase\skill_query(220, $pa) && (int)substr($pd['itmk'.$i],2,1) < 2) $pd['itmk'.$i] = substr_replace($pd['itmk'.$i],'2',2,1);
 						$pd['itmsk'.$i] = $pa['pid'];
+						$flag = 1;
 					}
-					$flag = 1;
 				}
 			}
 			if (1 === $flag)

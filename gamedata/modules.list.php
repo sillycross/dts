@@ -306,7 +306,6 @@ skill403,extra/card/skills/skill403/,1
 skill203,extra/club/skills/skill203/,1
 ammunition,base/items/ammunition/,1
 skill487,extra/card/skills/skill487/,1
-skill567,extra/card/skills/skill567/,1
 armor_art,base/armor_art/,1
 skill23,extra/club/skills/skill23/,1
 skill517,extra/card/skills/skill517/,1
@@ -531,6 +530,7 @@ skill372,extra/achievement/skills/skill372/,1
 skill373,extra/achievement/skills/skill373/,1
 skill374,extra/achievement/skills/skill374/,1
 skill504,extra/card/skills/skill504/,1
+skill567,extra/card/skills/skill567/,1
 skill505,extra/card/skills/skill505/,1
 skill80,extra/club/skills/skill80/,1
 skill551,extra/card/skills/skill551/,1
