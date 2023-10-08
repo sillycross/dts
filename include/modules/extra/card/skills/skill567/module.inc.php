@@ -3,8 +3,8 @@
 namespace skill567
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'sys player skillbase clubbase explore attack poison edible itemmain';
-	$___MODULE_dependency_optional = '';
+	$___MODULE_dependency = 'sys player skillbase clubbase logger itemmain poison edible attack searchmemory';
+	$___MODULE_dependency_optional = 'rage song';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';
 	$___MODULE_templatelist = 'desc';
