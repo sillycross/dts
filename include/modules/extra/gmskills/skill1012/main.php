@@ -50,7 +50,7 @@ namespace skill1012
 			$log .= $show_namespace . '命名空间下的';
 		}
 		if(!isset(${$show_varname})) $log .= '变量<span class="yellow b">$'.$show_varname.'</span>没有定义。<br>';
-		else $log .= '变量<span class="yellow b">$'.$show_varname.'</span>的值是：'. var_export(${$show_varname}, 1).'。<br>';
+		else $log .= '变量<span class="yellow b">$'.$show_varname.'</span>的值是：'. str_replace('style="color: #000000"', '', highlight_string(var_export(${$show_varname}, 1), 1)).'。<br>';
 		return;
 		
 	}

@@ -313,6 +313,7 @@ namespace itemmain
 			$plsnum = sizeof($plsinfo);
 			$iqry = '';
 			$itemlist = get_itemfilecont();
+			$itemlist = itemlist_data_process($itemlist);
 			$in = sizeof($itemlist);
 			$an = $areanum ? ceil($areanum/$areaadd) : 0;
 			for($i = 1; $i < $in; $i++) {
@@ -354,7 +355,14 @@ namespace itemmain
 		return $equipable;
 	}
 	
-	//同名道具的data处理
+	//整个mapitem文件转成数组后的数据处理
+	//本模块里是直接返回，其他模块需要对数据做整体修改的请继承这个函数
+	function itemlist_data_process($data){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		return $data;
+	}
+	
+	//单条mapitem记录的data处理
 	//天然带毒物品的NPC pid自动处理
 	//也用于某些模式特殊处理数据
 	function mapitem_data_process($data){
