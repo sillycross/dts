@@ -123,6 +123,9 @@ namespace itemmain
 		//^hu ex_mhp_temp_up 升血
 		//^ac ex_attr_crack 碎甲
 		//^ari wep_b 存箭（记录所用箭矢的信息）
+		//^dg ex_attr_digit 编号范例，没有实际作用
+		//^rdsk radar 探测器等级
+		//^psr poison 下毒者编号
 		'^TEST' => '蛋疼',
 	);
 	

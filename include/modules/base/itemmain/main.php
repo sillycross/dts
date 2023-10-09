@@ -367,17 +367,18 @@ namespace itemmain
 	//也用于某些模式特殊处理数据
 	function mapitem_data_process($data){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
-		if(!empty($data[7])){
-			$iskind = $data[7];
-			if(strpos($iskind,'=')===0){
-				eval(import_module('sys'));
-				$tmp_pa_name = substr($iskind,1);
-				$iskind = '';
-				$result = $db->query("SELECT pid FROM {$tablepre}players WHERE name='$tmp_pa_name' AND type>0");
-				if($db->num_rows($result)){
-					$iskind = $db->fetch_array($result)['pid'];
-				}
-				$data[7] = $iskind;
+		if(!empty($data[7]) && strpos($data[7],'=')===0){//如果属性以=开头，认为后面是NPC的名字
+			$isk = & $data[7];
+			eval(import_module('sys'));
+			$tmp_pa_name = substr($isk,1);
+			$isk = '';//无论有没有对应的NPC存在，先把data的属性写成空的
+			$result = $db->query("SELECT pid FROM {$tablepre}players WHERE name='$tmp_pa_name' AND type>0");
+			if($db->num_rows($result)){
+				$npcid = $db->fetch_array($result)['pid'];
+			}
+			if(!empty($npcid)) {//如果poison模块存在则调用对应函数，否则直接把id写入属性
+				if(defined('MOD_POISON')) \poison\poison_record_pid($isk, $npcid);
+				else $isk = $npcid;
 			}
 		}
 		return $data;

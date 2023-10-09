@@ -57,17 +57,18 @@ namespace poison
 			$hp -= $damage;
 			
 			$playerflag = 0;
-			if ($itmsk && is_numeric($itmsk)) $playerflag = 1;
+			$poisonerid = poison_check_pid($itmsk);
+			if (!empty($poisonerid)) $playerflag = 1;
 			$selflag = 0;
-			if ($playerflag && $itmsk == $pid) $selflag = 1;
+			if ($playerflag && $poisonerid == $pid) $selflag = 1;
 			if  ($playerflag)
 			{
-				$wdata = \player\fetch_playerdata_by_pid($itmsk);
+				$wdata = \player\fetch_playerdata_by_pid($poisonerid);
 				$wprefix = '<span class="yellow b">'.$wdata['name'].'</span>';
 				if ($selflag) $wprefix = '你自己';
 				$log .= "糟糕，<span class=\"yellow b\">$itm</span>中被{$wprefix}掺入了毒药！你受到了<span class=\"dmg\">$damage</span>点伤害！<br>";
 				addnews ( $now, 'poison', $name, $wdata ['name'], $itm );
-				if (!$selflag) send_poison_enemylog($itm,$itmsk);
+				if (!$selflag) send_poison_enemylog($itm,$poisonerid);
 			} else {
 				$log .= "糟糕，<span class=\"yellow b\">$itm</span>有毒！你受到了<span class=\"dmg\">$damage</span>点伤害！<br>";
 			}
@@ -78,12 +79,12 @@ namespace poison
 				
 				if ($playerflag && !$selflag) 	//有来源且不是自己
 				{	
-					$sdata['bid'] = $itmsk;
+					$sdata['bid'] = $poisonerid;
 					$log .= "你被<span class=\"red b\">" . $wdata ['name'] . "</span>毒死了！";
 				}
 				else  if ($playerflag)			//有来源，来源是自己（自己下的毒）
 				{
-					$sdata['bid'] = $itmsk;
+					$sdata['bid'] = $poisonerid;
 					$wdata = &$sdata;
 					$log .= "你被毒死了！";
 				}
@@ -122,9 +123,9 @@ namespace poison
 	function poison($itmn = 0) 
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','logger','input'));
+		eval(import_module('sys','player','logger'));
 		
-		//竟然是直接从input里传入$itmp，有点危险
+		$itmp = \input\get_var('itmp');
 		if ( $itmp < 1 || $itmp > 6 || $itmn < 1 || $itmn > 6) {
 			$log .= '此道具不存在，请重新选择。';
 			$mode = 'command';
@@ -155,7 +156,7 @@ namespace poison
 			$log .= "一种神秘的力量净化了毒药，你的毒药变成了解毒剂！";
 			if(!$itmsk || is_numeric($itmsk)) $itmsk = 'z';
 		}else{
-			$itmsk = $pid;
+			poison_record_pid($itmsk, $pid);
 		}
 		if($art == '妖精的羽翼') {
 			$log .= "使用了 <span class=\"red b\">$poison</span> ，<span class=\"yellow b\">${'itm'.$itmn}</span> 被净化了！<br>";
@@ -171,6 +172,38 @@ namespace poison
 
 		$mode = 'command';
 		return;
+	}
+	
+	//把下毒者的pid记录到itmsk中。
+	//如果不存在ex_attr_digit模块，则单纯的把itmsk变为数字
+	function poison_record_pid(&$itmsk, $id)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(defined('MOD_EX_ATTR_DIGIT')) {
+			$addsk = '^psr'.$id;
+			if(!empty(\attrbase\check_in_itmsk('^psr', $itmsk))) {
+				$itmsk = \attrbase\replace_in_itmsk('^psr', $addsk, $itmsk);
+			}else{
+				$itmsk .= $addsk;
+			}
+		}else{
+			$itmsk = $id;
+		}
+	}
+	
+	//从itmsk中读取下毒者的pid
+	//如果不存在ex_attr_digit模块，则单纯的判定是否为数字
+	//如果没有符合条件的结果，返回0
+	function poison_check_pid($itmsk)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//注意：就算ex_attr_digit模块存在，也需要兼容纯数字属性
+		if(defined('MOD_EX_ATTR_DIGIT')) {
+			$id = \attrbase\check_in_itmsk('^psr', $itmsk);
+			if(!empty($id) && is_numeric($id)) return (int)$id;
+		}
+		if(!empty($itmsk) && is_numeric($itmsk)) return (int)$itmsk;
+		return 0;
 	}
 	
 	function check_poison_factor(){
