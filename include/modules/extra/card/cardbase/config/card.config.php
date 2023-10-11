@@ -61,8 +61,8 @@ $packdesc = array(
 $pack_ignore_kuji = Array('Balefire Rekindle','Event Bonus');
 //卡包实装的时间戳，可以用来隐藏卡包
 $packstart = array(
-	'Cyber Zealots' => 4476654671,
-	'東埔寨Protoject' => 4476654671,
+	//'Cyber Zealots' => 4476654671,
+	//'東埔寨Protoject' => 4476654671,
 	'Stealth' => 4476654671,
 	'hidden' => 4476654671,
 );
@@ -4681,6 +4681,54 @@ $cards = array(
 		  'skills' => array(
 				'529' => '3', 
 			),
+		)
+	),
+	290 => array(
+		'name' => '蓬莱人的外形',//TODO
+		'rare' => 'S',
+		'pack' => '東埔寨Protoject',
+		'desc' => '不老不死。<br>没有比这个更强、更不看前提条件的能力了吧',
+		'effect' => '攻击……防御……回避……策略……<br>在不死的存在看来，一切都只是<br>游戏的规则而已',
+		'desc_skills' => '被杀死1分钟后你将复活。不过，你死亡期间别人可以正常拾取你尸体上的道具，也会正常获得幸存等胜利',
+		'energy' => 200,
+		'valid' => array(
+		  'skills' => array(
+				'529' => '3', //TODO
+			),
+		)
+	),
+	291 => array(
+		'name' => '根流',//TODO
+		'ruby' => 'root_stream',
+		'rare' => 'S',
+		'pack' => 'Cyber Zealots',
+		'desc' => '『肆起』的人工智能助手，『硅邦』的数字经济战略形象大使，也是『伊甸』的竞技场的电子播报员。为了方便它的主人朝令夕改，根流被赋予了极高的权限，可以轻易调动硅邦的一切资源，所幸它只是一个没法通过图灵测试的国产人工智能而已',
+		'effect' => '获得技能「提权」：你可以消耗5个升级点，更换可选的称号列表。此外，每个称号仅限一次，你可以在称号列表中任意切换称号，但切换后不保留原称号技能的数值',
+		'energy' => 100,
+		'valid' => array(
+		  'skills' => array(
+				'529' => '3', //TODO
+			),
+		)
+	),
+	292 => array(
+		'name' => '地狱三头犬',
+		'rare' => 'C',
+		'pack' => '東埔寨Protoject',
+		'desc' => '新作获得意外的高人气的白毛兽娘',
+		'effect' => '开局携带两个捕兽夹',
+		'energy' => 0,
+		'valid' => array(
+	  	'wep' => '捕兽夹',
+			'wepk' => 'WPC',
+			'wepe' => '240',
+			'weps' => '1',
+			'wepsk' => '',
+			'ara' => '捕兽夹',
+			'arak' => 'WCP',
+			'arae' => '240',
+			'aras' => '1',
+			'arask' => '',
 		)
 	),
 

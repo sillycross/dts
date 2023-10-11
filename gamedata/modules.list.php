@@ -28,7 +28,6 @@ item_uee,base/items/item_uee/,1
 apm,base/apm/,1
 item_addarea,extra/item_extra/item_addarea/,1
 radar,base/items/radar/,1
-item_uu,extra/item_extra/item_uu/,1
 corpse,base/corpse/,1
 trap,base/items/trap/,1
 itemmix_sync,base/itemmix/itemmix_sync/,1
@@ -399,6 +398,7 @@ skill232,extra/club/skills/skill232/,1
 skill432,extra/card/skills/skill432/,1
 skill558,extra/card/skills/skill558/,1
 skill513,extra/card/skills/skill513/,1
+item_uu,extra/item_extra/item_uu/,1
 item_umb,extra/item_extra/item_umb/,1
 instance6,extra/instance/instance6/,1
 skill42,extra/club/skills/skill42/,1

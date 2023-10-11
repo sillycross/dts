@@ -46,7 +46,7 @@ namespace item_uu
 					$i++;
 				}
 				
-				if($i>=10) break;//最多一次扫除10个雷
+				if($i>=77) break;//最多一次扫除77个雷
 			}
 			
 			if(!empty($traps_swept_ids)) {
