@@ -1,0 +1,12 @@
+<input type="hidden" id="mode" name="mode" value="item">
+<input type="hidden" name="usemode" value="armor_empower">
+<input type="hidden" name="itmp" value="{$theitem['itmn']}">
+请选择你要改造的防具：<br><br>
+<input type="radio" name="command" id="menu" value="menu" checked><a onclick="sl('menu');">返回</a><br>
+<!--{loop range(1,6) $i}-->
+	<!--{if 0 === strpos(${'itmk'.$i}, 'D')}-->
+	<input type="radio" name="command" id="itm$i" value="itm$i"><a onclick="sl('itm$i');">${'itm'.$i}/${'itme'.$i}/${'itms'.$i}</a><br>
+	<!--{/if}-->
+<!--{/loop}-->
+<br><br>
+<input type="button" class="cmdbutton" id="z" value="[Z]提交" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
