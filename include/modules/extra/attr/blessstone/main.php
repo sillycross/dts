@@ -87,7 +87,7 @@ namespace blessstone
 			return;
 		}
 		if(strpos ( $itmsk, '|' ) !== false) {
-			$log .= '咦，你要强化的道具还装着箭呢，把箭取下来再强化吧!DA☆ZE<br>';
+			$log .= '咦，你要强化的道具还装着东西呢，先取下来再强化吧!DA☆ZE<br>';
 			$mode = 'command';
 			return;
 		}
