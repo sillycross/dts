@@ -481,6 +481,7 @@ skill559,extra/card/skills/skill559/,1
 skill36,extra/club/skills/skill36/,1
 skill38,extra/club/skills/skill38/,1
 skill34,extra/club/skills/skill34/,1
+skill538,extra/card/skills/skill538/,1
 ex_phy_nullify,extra/attr/ex_phy_nullify/,1
 skill302,extra/achievement/skills/skill302/,1
 skill303,extra/achievement/skills/skill303/,1

@@ -600,6 +600,7 @@ namespace player
 	
 	//维护一个名为'revive_sequence'的列表
 	//键名为顺序，顺序越小越优先执行；键值在revive_process()里处理
+	//目前已经注册的效果有：40除错续命 50极光 70幽灵 100氪金 150无垠 160地雷殿回归 200亡灵复活 300邪教徒一百层
 	function set_revive_sequence(&$pa, &$pd)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

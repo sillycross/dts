@@ -120,8 +120,8 @@ namespace skill424
 			$func = '\gtype1\prepare_new_game_gtype1';
 			if(!file_exists($file) && function_exists($func)) {
 				$func();
-				include $file;
 			}
+			include $file;
 		}
 		if(!is_array($kind)) $kind = array($kind);
 		if(!is_array($aready)) $aready = array($aready);
@@ -171,7 +171,17 @@ namespace skill424
 			$clv=\skillbase\skill_getvalue(424,'lvl');
 			$prize=100+floor($clv/10)*100;
 			return $prize;
-		}else return 0;
+		}
+		return 0;
+	}
+	
+	//每级1个技能点
+	function get_wdebug_skillpoint(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(\skillbase\skill_query(424)){
+			return 1;
+		}
+		return 0;
 	}
 	
 	//如果杀死NPC等级数/5大于当前除错等级，每多1则扣50，扣到0为止
@@ -186,12 +196,13 @@ namespace skill424
 			return $punish;
 		}else return 0;
 	}
-		
+	
+	//除错主函数，成功除错返回true，否则返回false
 	function wdebug(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','itemmain','logger','skill424','skillbase','map'));
 		if(\skillbase\skill_query(424)){
-			$clv=\skillbase\skill_getvalue(424,'lvl');
+			$clv=(int)\skillbase\skill_getvalue(424,'lvl');
 			$position = wdebug_check();
 			if($position){
 				$itm = ${'itm'.$position};
@@ -213,12 +224,17 @@ namespace skill424
 					$money_prize = max(0, $money_prize-$money_punish);
 					$money += $money_prize;
 					
-					$skillpoint_prize = 1;
+					$skillpoint_prize = get_wdebug_skillpoint();
 					$skillpoint += $skillpoint_prize;
 					//提示
-					$log .="<span class=\"yellow b\">获得了{$money_prize}元";
-					if($skillpoint_prize) $log .="和{$skillpoint_prize}个技能点";
-					$log .= "。</span><br />";
+					$log .= '<span class="yellow b">';
+					if(!empty($money_prize)) {
+						$log .="获得了{$money_prize}元";
+						if($skillpoint_prize) $log .="和{$skillpoint_prize}个技能点。";
+					}elseif(!empty($skillpoint_prize)) {
+						$log .="获得了{$skillpoint_prize}个技能点。";
+					}
+					$log .= "</span><br />";
 					if ($gdice==1){
 						$wp+=10;$wk+=10;$wc+=10;$wd+=10;$wg+=10;$wf+=10;
 						$log .="<span class=\"yellow b\">获得了10点全熟练。</span><br />";
@@ -239,19 +255,19 @@ namespace skill424
 				if($clv > $mlv) \skillbase\skill_setvalue(424,'maxlvl',$clv);
 				
 				wdebug_reset();
-				$log .='下次除错需要物品'.wdebug_showreq();
+				$log .='下次除错需要物品'.wdebug_showreq().'<br />';
 				
 				$mode = 'command';
-				return;
+				return true;
 			}else{
 				$log .= '本次除错需要物品'.wdebug_showreq().'。你没有进行除错所需的物品。<br />';
 				$mode = 'command';
-				return;
+				return false;
 			}
 		}else{
 			$log .= '<span class="red b">你没有这个技能！</span><br />';
 			$mode = 'command';
-			return;
+			return false;
 		}
 	}
 	

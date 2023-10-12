@@ -75,7 +75,7 @@ namespace skill568
 		}
 		else
 		{
-			if ($bp <= 10) $tips = "对方不过是个战斗力<span class=\"yellow b\">{$bp}</span>的渣滓罢了。<br>";
+			if ($bp <= 10) $tips = "不过是个战斗力<span class=\"yellow b\">{$bp}</span>的渣滓罢了。<br>";
 			else if ($bp >= 5000) $tips = "对方的战斗力竟高达<span class=\"red b\">{$bp}</span>点！<br>";
 			else $tips = "对方的战斗力为<span class=\"yellow b\">{$bp}</span>点。<br>";
 		}
