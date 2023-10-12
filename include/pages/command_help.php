@@ -40,7 +40,7 @@ if(!file_exists($writefile) || filemtime($mixfile) > filemtime($writefile)){
 		'h' => array('补给品','lime b'),
 		'wp_mrm'=> array('殴系武器（人形降临系列）','yellow b'),
 		'wf_pn'=> array('灵系武器（帕秋莉·诺雷姬系列）','yellow b'),
-		'wf_ks'=> array('灵系武器（古明地觉系列）','yellow b'),
+		'ut'=> array('地下系武器','yellow b'),
 		'pokemon'=> array('小黄系武器','yellow b'),
 		'ocg'=> array('游戏王系武器','cyan b'),
 		'key'=> array('KEY系道具','lime b'),
