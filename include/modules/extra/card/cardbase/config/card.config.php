@@ -4530,6 +4530,24 @@ $cards = array(
 			),
 		)
 	),
+	265 => array(
+		'name' => '未确认生命态',
+		'rare' => 'A',
+		'pack' => '東埔寨Protoject',
+		'desc' => '不过是路过的小石头而已',
+		'effect' => '开局携带可暂时隐身的药剂。如果<br>激活人数大于5，将所有其他玩家传送到墓地',
+		'energy' => 100,
+		'valid' => array(
+			'itm6' => '「被厌恶者的哲学」',
+			'itmk6' => 'MB',
+			'itme6' => '1',
+			'itms6' => '1',
+			'itmsk6' => '^mbid246',
+			'skills' => array(
+				'569' => '0',
+			),
+		)
+	),
 	//老板，来个20个卡位的空白
 	280 => array(
 		'name' => 'Acg_xilin',
