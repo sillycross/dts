@@ -389,23 +389,24 @@ namespace item_ext_armor
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($edata, $simple, $elli);
-		eval(import_module('armor','player'));
+		eval(import_module('itemmain','player'));
 		if($edata['pid'] == $pid) $selflag = 1;
-		foreach($armor_equip_list as $pos) {
-			$sus = \itemmain\check_in_itmsk('^su', $edata[$pos.'sk']);
-			if(!empty($sus)) {
-				$sus = \attrbase\base64_decode_comp_itmsk($sus);
-				if(!empty($sus)) {
-					$susitm = explode(',', $sus)[0];
-					$itm = \itemmain\parse_itmname_words($susitm, $elli);
-					$itm_short = \itemmain\parse_itmname_words($susitm, 1, 15);
-					$ret[$pos.'_words'] = $itm . (!empty($selflag) ? '<br>' : '') . '(' . $ret[$pos.'_words'] . ')'; //如果是玩家界面的调用，换个行
-					$ret[$pos.'_words_short'] = $itm_short . (!empty($selflag) ? '<br>' : '') . '(' . $ret[$pos.'_words_short'] . ')';
-				}
+		foreach($equip_list as $pos) {
+			if(strpos($pos,'itm')===0) $suitem = armor_get_su($edata['itmsk'.substr($pos, 3)]);
+			else $suitem = armor_get_su($edata[$pos.'sk']);
+			if(!empty($suitem)) {
+				$suitem_name = $suitem['itm'];
+				$itm = \itemmain\parse_itmname_words($suitem_name, $elli);
+				$itm_short = \itemmain\parse_itmname_words($suitem_name, 1, 15);
+				$ret[$pos.'_words'] = $itm . (!empty($selflag) ? '<br>' : '') . '(' . $ret[$pos.'_words'] . ')'; //如果是玩家界面的调用，换个行
+				$ret[$pos.'_words_short'] = $itm_short . (!empty($selflag) ? '<br>' : '') . '(' . $ret[$pos.'_words_short'] . ')';
 			}
 		}
 		return $ret;
 	}
+	
+	//NPC载入时，如果存在外甲数据，自动装上外甲
+
 }
 
 ?>

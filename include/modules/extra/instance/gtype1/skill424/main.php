@@ -114,9 +114,15 @@ namespace skill424
 		eval(import_module('sys','map'));
 		$nowarea = floor($areanum/$areaadd);
 		//daemon模式下，include_once会出问题
-		//为保证同1次执行时不反复调用文件，只能这么办了
 		global $cont_mapitem,$cont_shopitem,$cont_mixitem,$cont_syncitem,$cont_overlayitem,$cont_presentitem,$cont_ygoitem,$cont_fyboxitem,$cont_npcinfo_gtype1;
-		if(empty($cont_mapitem)) include GAME_ROOT.'/gamedata/cache/gtype1item.config.php';
+		if(empty($cont_mapitem)) {
+			$file = GAME_ROOT.'/gamedata/cache/gtype1item.config.php';
+			$func = '\gtype1\prepare_new_game_gtype1';
+			if(!file_exists($file) && function_exists($func)) {
+				$func();
+				include $file;
+			}
+		}
 		if(!is_array($kind)) $kind = array($kind);
 		if(!is_array($aready)) $aready = array($aready);
 		$nowkindarr = array();

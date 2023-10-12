@@ -4731,6 +4731,34 @@ $cards = array(
 			'arask' => '',
 		)
 	),
+	292 => array(
+		'name' => '邪教徒',
+		'rare' => 'B',
+		'pack' => 'hidden',
+		'desc' => '他除错的力量无人能及',
+		'effect' => '获得除错模式特殊技能「除错」，但不会获得金钱奖励，而是每层都会让物理固定伤害增加3点',
+		'desc_skills' => '「除错」：提交指定的物品来追查病毒、修复幻境系统，除错成功会获得奖励',
+		'energy' => 0,
+		'valid' => array(
+		  'skills' => array(
+				'424' => '0', //TODO
+			),
+		)
+	),
+	293 => array(
+		'name' => '门番',
+		'rare' => 'C',
+		'pack' => '東埔寨Protoject',
+		'desc' => 'zzzzzZZZZZ',
+		'effect' => '这个门番在睡觉的时候大声喊出Z来假装自己在探索',
+		'desc_skills' => '在睡眠、治疗、静养时视为强袭姿态',
+		'energy' => 0,
+		'valid' => array(
+		  'skills' => array(
+				'424' => '0', //TODO
+			),
+		)
+	),
 
 	1000 => array(
 		'name'=>'萌新',
