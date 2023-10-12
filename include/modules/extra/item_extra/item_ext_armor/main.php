@@ -384,6 +384,28 @@ namespace item_ext_armor
 		return $ret;
 	}
 	
+	//外甲道具名的显示
+	function parse_item_words($edata, $simple = 0, $elli = 0)	
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($edata, $simple, $elli);
+		eval(import_module('armor','player'));
+		if($edata['pid'] == $pid) $selflag = 1;
+		foreach($armor_equip_list as $pos) {
+			$sus = \itemmain\check_in_itmsk('^su', $edata[$pos.'sk']);
+			if(!empty($sus)) {
+				$sus = \attrbase\base64_decode_comp_itmsk($sus);
+				if(!empty($sus)) {
+					$susitm = explode(',', $sus)[0];
+					$itm = \itemmain\parse_itmname_words($susitm, $elli);
+					$itm_short = \itemmain\parse_itmname_words($susitm, 1, 15);
+					$ret[$pos.'_words'] = $itm . (!empty($selflag) ? '<br>' : '') . '(' . $ret[$pos.'_words'] . ')'; //如果是玩家界面的调用，换个行
+					$ret[$pos.'_words_short'] = $itm_short . (!empty($selflag) ? '<br>' : '') . '(' . $ret[$pos.'_words_short'] . ')';
+				}
+			}
+		}
+		return $ret;
+	}
 }
 
 ?>
