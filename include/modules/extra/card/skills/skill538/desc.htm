@@ -1,0 +1,26 @@
+<!--{eval $___TEMP_SKILL_ID=538;}-->
+<!--{eval $dummy = Array();$skill538_dmg=\skill538\get_skill538_extdmg($who,$dummy,$dummy);}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+仪式
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+你每除错1层，战斗中就增加3点物理固定伤害。当前的数值是<span class="yellow b">{$skill538_dmg}</span>点。
+在某些层数能获得额外的除错奖励，但前20层没有金钱和技能点奖励。<br>
+<!--{if !empty(\skillbase\skill_getvalue(538,'revive_unlocked',$who))}-->
+	<!--{if !empty(\skillbase\skill_getvalue(538,'revive_activated',$who))}-->
+	<span class="red b">你已觉醒，但你的残机已经用光了</span>
+	<!--{else}-->
+	<span class="cyan b">你已觉醒！现在你可以复活一次！</span>（部分死亡方式无效）
+	<!--{/if}-->
+<!--{/if}-->
+</span></td>
+<td class="skilldesc_right b3">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

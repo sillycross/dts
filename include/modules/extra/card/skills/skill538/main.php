@@ -4,9 +4,9 @@ namespace skill538
 {
 	function init() 
 	{
-		define('MOD_SKILL538_INFO','card;hidden;');
+		define('MOD_SKILL538_INFO','card;');
 		eval(import_module('clubbase'));
-		$clubskillname[538] = '咔咔';
+		$clubskillname[538] = '仪式';
 	}
 	
 	function acquire538(&$pa)
