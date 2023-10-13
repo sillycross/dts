@@ -267,7 +267,7 @@ namespace sys
 		$starttime = $gamevars['o_starttime'];
 //		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-模式判断');
 		//以下开始真正处理gameover的各种数据修改
-		$time = $time ? $time : $now;
+		$time = !empty($time) ? $time : $now;
 		//计算当前是哪一局，以优胜列表为准
 		$result = $db->query("SELECT gid FROM {$wtablepre}history ORDER BY gid DESC LIMIT 1");
 		if($db->num_rows($result)&&($gamenum <= $db->result($result, 0))) {

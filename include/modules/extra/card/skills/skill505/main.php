@@ -249,13 +249,12 @@ namespace skill505
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;	
 		eval(import_module('sys','player','skill505','logger'));
-		if(${'itm'.(int)$itmn} == $skill505_keyitm) {
+		if(${'itm'.(int)$itmn} == $skill505_keyitm) {//2023.10.14现在ADV_COMBINE模式可以支持可变变量名写法了，但还是建议不要搞太多的花活
 			$log.='在灯泡上叠甲的话，肯定要坏掉的啊！<br>* 担忧的猫叫声 *<br>';
 			$mode = 'command';
 			return;
 		}
-		;//如果去掉这个逗号，adv模式编译的时候会把上面那个if{}后面的}弄丢，然后出问题。我很想找出big，但是我得开始加班了
-		//现在的处理方式是不再使用mod_combine模式
+
 		$chprocess($itmn);
 	}
 	
