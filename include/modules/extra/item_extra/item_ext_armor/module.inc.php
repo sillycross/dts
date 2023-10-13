@@ -3,7 +3,7 @@
 namespace item_ext_armor
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'sys player itemmain logger armor attrbase ex_attr_digit';
+	$___MODULE_dependency = 'sys player itemmain logger armor attrbase ex_attr_digit corpse';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';
