@@ -70,48 +70,15 @@ namespace item_ext_armor
 		{
 			if ((!empty($noeqp) && strpos(${$pos.'k'}, $noeqp) !== 0) || ${$pos.'s'})
 			{
-				$suitem = armor_get_su(${$pos.'sk'});
-				armor_clean_suit_sk(${$pos.'sk'});
+				$aritm = array('itm' => &${$pos}, 'itmk' => &${$pos.'k'}, 'itme' => &${$pos.'e'},'itms' => &${$pos.'s'},'itmsk' => &${$pos.'sk'});
+				$moveto = array('itm' => &$itm0, 'itmk' => &$itmk0, 'itme' => &$itme0,'itms' => &$itms0,'itmsk' => &$itmsk0);
+				
+				$result = armor_remove_su($aritm, $moveto);
+				
 				${$pos.'sk'} = armor_put_su(${$pos.'sk'}, $theitem);
 				$itmsk_arr = \itemmain\get_itmsk_array($itmsk);
 				if (!empty($itmsk_arr)){
 					${$pos.'sk'} .= '|'.implode('', $itmsk_arr).'|';
-				}
-				
-				if ($suitem)
-				{
-					$itm0 = $suitem['itm'];
-					$itmk0 = $suitem['itmk'];
-					$itme0 = $suitem['itme'];
-					$itms0 = $suitem['itms'];
-					$itmsk0 = $suitem['itmsk'];
-					$are = \itemmain\check_in_itmsk('^are', ${$pos.'sk'});
-					//如果记录了原防具的效果值，则先恢复防具效果到记录值
-					if (false !== $are)
-					{
-						$itme0 = max(${$pos.'e'} - $are, 0);
-						${$pos.'e'} = $are;
-						${$pos.'sk'} = \itemmain\replace_in_itmsk('^are','',${$pos.'sk'});
-					}
-					else
-					{
-						${$pos.'e'} -= $itme0;
-						if (${$pos.'e'} < 0) ${$pos.'e'} = 0;
-						//如果记录了原防具的耐久值，则先恢复防具耐久到记录值
-						$ars = \itemmain\check_in_itmsk('^ars', ${$pos.'sk'});
-						if (false === $ars) $ars = 1;
-						if (0 === (int)$ars)
-						{
-							$itms0 = ${$pos.'s'};
-							${$pos.'s'} = $nosta;
-						}
-						else
-						{
-							$itms0 = max(${$pos.'s'} - $ars, 1);
-							${$pos.'s'} = $ars;
-						}
-						${$pos.'sk'} = \itemmain\replace_in_itmsk('^ars','',${$pos.'sk'});
-					}
 				}
 				
 				//根据装备外甲后，损耗的是效果还是耐久，记录效果值或耐久值
@@ -134,7 +101,7 @@ namespace item_ext_armor
 				}			
 				${$pos.'e'} += $itme;
 							
-				if ($suitem)
+				if (1 === $result)
 				{	
 					$log .= "你脱下了<span class=\"yellow b\">$itm0</span>，然后在<span class=\"yellow b\">${$pos}</span>外面套上了<span class=\"yellow b\">$itm</span>。<br>";
 					\itemmain\itemget();
@@ -281,49 +248,41 @@ namespace item_ext_armor
 				return;
 			}
 			
-			$suitem = armor_get_su($itmsk);
-			if ($suitem)
+			$aritm = array('itm' => &${'ar'.$itmn}, 'itmk' => &${'ar'.$itmn.'k'}, 'itme' => &${'ar'.$itmn.'e'},'itms' => &${'ar'.$itmn.'s'},'itmsk' => &${'ar'.$itmn.'sk'});
+			$moveto = array('itm' => &$itm0, 'itmk' => &$itmk0, 'itme' => &$itme0,'itms' => &$itms0,'itmsk' => &$itmsk0);
+			
+			$result = armor_remove_su($aritm, $moveto);
+			if (1 === $result)
 			{
-				armor_clean_suit_sk($itmsk);
-				$itmsk = \itemmain\replace_in_itmsk('^su','',$itmsk);
-				
-				$itm0 = $suitem['itm'];
-				$itmk0 = $suitem['itmk'];
-				$itme0 = $suitem['itme'];
-				$itms0 = $suitem['itms'];
-				$itmsk0 = $suitem['itmsk'];
 				$log .= "你卸下了外甲<span class=\"yellow b\">$itm0</span>。<br>";
-				
-				$are = \itemmain\check_in_itmsk('^are', $itmsk);
-				if (false !== $are)
-				{			
-					$itme0 = max($itme - $are,0);
-					$itme = $are;
-					$itmsk = \itemmain\replace_in_itmsk('^are','',$itmsk);
-				}
-				else
-				{
-					$itme -= $itme0;
-					if ($itme < 0) $itme = 0;
-					$ars = \itemmain\check_in_itmsk('^ars', $itmsk);
-					if (false === $ars) $ars = 1;
-					if (0 === (int)$ars)
-					{
-						$itms0 = $itms;
-						$itms = $nosta;
-					}
-					else
-					{
-						$itms0 = max($itms - $ars,1);
-						$itms = $ars;
-					}
-					$itmsk = \itemmain\replace_in_itmsk('^ars','',$itmsk);
-				}
 				\itemmain\itemget();
 				return;
 			}
 		}
 		$chprocess($item);
+	}
+		
+	//在尸体上拾取防具时，如果包含外甲，则仅拾取外甲
+	function getcorpse_action(&$edata, $item)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		eval(import_module('sys','player','logger'));
+		
+		if(strpos($item,'ar') === 0)
+		{
+			$aritm = array('itm' => &$edata[$item], 'itmk' => &$edata[$item.'k'], 'itme' => &$edata[$item.'e'],'itms' => &$edata[$item.'s'],'itmsk' => &$edata[$item.'sk']);
+			$moveto = array('itm' => &$itm0, 'itmk' => &$itmk0, 'itme' => &$itme0,'itms' => &$itms0,'itmsk' => &$itmsk0);
+			
+			$result = armor_remove_su($aritm, $moveto);
+			if (1 === $result)
+			{
+				\itemmain\itemget();
+				$mode = 'command';
+				return;
+			}
+		}
+		$chprocess($edata, $item);
 	}
 	
 	function armor_get_su($itmsk){
@@ -358,6 +317,53 @@ namespace item_ext_armor
 			$itmsk .= '^su_'.\attrbase\base64_encode_comp_itmsk($sus).'1';
 		}
 		return $itmsk;
+	}
+	
+	//将一件防具上的外甲移动到另一个道具位，通常用于卸下外甲到itm0
+	function armor_remove_su(&$itm, &$moveto){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('armor'));
+		$suitem = armor_get_su($itm['itmsk']);			
+		if ($suitem)
+		{
+			armor_clean_suit_sk($itm['itmsk']);
+			$itm['itmsk'] = \itemmain\replace_in_itmsk('^su','',$itm['itmsk']);	
+			
+			$moveto['itm'] = $suitem['itm'];
+			$moveto['itmk'] = $suitem['itmk'];
+			$moveto['itme'] = $suitem['itme'];
+			$moveto['itms'] = $suitem['itms'];
+			$moveto['itmsk']= $suitem['itmsk'];
+			$are = \itemmain\check_in_itmsk('^are', $itm['itmsk']);
+			//如果记录了原防具的效果值，则先恢复防具效果到记录值
+			if (false !== $are)
+			{
+				$moveto['itme'] = max($itm['itme'] - $are, 0);
+				$itm['itme'] = $are;
+				$itm['itmsk'] = \itemmain\replace_in_itmsk('^are','',$itm['itmsk']);
+			}
+			else
+			{
+				$itm['itme'] -= $moveto['itme'];
+				if ($itm['itme'] < 0) $itm['itme'] = 0;
+				//如果记录了原防具的耐久值，则先恢复防具耐久到记录值
+				$ars = \itemmain\check_in_itmsk('^ars', $itm['itmsk']);
+				if (false === $ars) $ars = 1;
+				if (0 === (int)$ars)
+				{
+					$moveto['itms'] = $itm['itms'];
+					$itm['itms'] = $nosta;
+				}
+				else
+				{
+					$moveto['itms'] = max($itm['itms'] - $ars, 1);
+					$itm['itms'] = $ars;
+				}
+				$itm['itmsk'] = \itemmain\replace_in_itmsk('^ars','',$itm['itmsk']);
+			}
+			return 1;
+		}
+		return 0;
 	}
 	
 	function armor_clean_suit_sk(&$itmsk){

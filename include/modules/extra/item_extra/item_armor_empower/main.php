@@ -91,7 +91,7 @@ namespace item_armor_empower
 		$itmk = & $theitem['itmk'];
 		$itmsk = & $theitem['itmsk'];
 		
-		eval(import_module('sys','player','logger'));
+		eval(import_module('sys','player','logger','armor'));
 		$log .= "你使用了<span class=\"yellow b\">$emp</span>，";
 		$dice = rand(0, 99);
 		if ($dice < 30 && strpos(substr($itmk,2),'S') === false)
@@ -100,7 +100,7 @@ namespace item_armor_empower
 			$itmk = substr_replace($itmk, 'S', 2, 1);
 			$log .= "将<span class=\"yellow b\">{$itm}</span>改造成了一件外甲！";
 		}
-		elseif ($dice < 70)
+		elseif ($dice < 60)
 		{
 			//获得升血属性
 			$hu_up = (int)(min($itme/2, $mhp/2));
@@ -152,7 +152,7 @@ namespace item_armor_empower
 			else
 			{
 				$itme += (int)$itme/2;
-				$itms += (int)$itms/2;
+				if ($nosta !== $itms) $itms += (int)$itms/2;
 				$log .= "增强了<span class=\"yellow b\">{$itm}</span>的效果和耐久！";
 			}
 		}	
