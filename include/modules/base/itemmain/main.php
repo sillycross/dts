@@ -194,6 +194,13 @@ namespace itemmain
 		return '';
 	}
 	
+	//在显示界面把换行符注释变成真的换行符，需要手动调用
+	function replace_crlf($str)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return str_replace('<!--CRLF-->','<BR />',$str);
+	}
+
 	function parse_itmsk_words($sk_value, $simple = 0, $elli = 0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

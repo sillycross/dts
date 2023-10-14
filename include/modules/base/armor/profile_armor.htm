@@ -1,5 +1,6 @@
 <!--{eval $tmp_arpos = Array('b'=>'B', 'h'=>'H', 'a'=>'A', 'f'=>'F');}-->
 <!--{loop $tmp_arpos $apl $apu}-->
+<!--{eval if(${'ar'.$apl.'s'}) $tpldata['ar'.$apl.'_words']=\itemmain\replace_crlf($tpldata['ar'.$apl.'_words']);}-->
 <tr>
 	<TD class=b2 height="26"><span><!--{if ${'ar'.$apl.'s'}}-->$iteminfo['D'.$apu]<!--{else}--><span class="grey b">$iteminfo['D'.$apu]</span><!--{/if}--></span></TD>
 	<TD class=b3>

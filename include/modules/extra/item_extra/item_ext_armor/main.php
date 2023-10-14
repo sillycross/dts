@@ -65,41 +65,20 @@ namespace item_ext_armor
 			}
 		}		
 		
-		//如果要穿的外甲也包含外甲，则会替换当前防具
+		//叠甲外甲的判定
+		//仅在对应部位有装备且要换上的装备是空外甲才会走这段判定，如果要换上的是内外双甲或者身上没穿则直接走$chprocess()的替换防具流程
 		if (false !== strpos(substr($itmk,2),'S') && !\itemmain\check_in_itmsk('^su', $itmsk))
 		{
 			if ((!empty($noeqp) && strpos(${$pos.'k'}, $noeqp) !== 0) || ${$pos.'s'})
 			{
-				$aritm = array('itm' => &${$pos}, 'itmk' => &${$pos.'k'}, 'itme' => &${$pos.'e'},'itms' => &${$pos.'s'},'itmsk' => &${$pos.'sk'});
-				$moveto = array('itm' => &$itm0, 'itmk' => &$itmk0, 'itme' => &$itme0,'itms' => &$itms0,'itmsk' => &$itmsk0);
+				$positem = array('itm' => &${$pos}, 'itmk' => &${$pos.'k'}, 'itme' => &${$pos.'e'},'itms' => &${$pos.'s'},'itmsk' => &${$pos.'sk'});
+				$getitem = array('itm' => &$itm0, 'itmk' => &$itmk0, 'itme' => &$itme0,'itms' => &$itms0,'itmsk' => &$itmsk0);
 				
-				$result = armor_remove_su($aritm, $moveto);
+				//清除原位置的外甲数据，并放到$getitem
+				$result = armor_remove_su($positem, $getitem);
 				
-				${$pos.'sk'} = armor_put_su(${$pos.'sk'}, $theitem);
-				$itmsk_arr = \itemmain\get_itmsk_array($itmsk);
-				if (!empty($itmsk_arr)){
-					${$pos.'sk'} .= '|'.implode('', $itmsk_arr).'|';
-				}
-				
-				//根据装备外甲后，损耗的是效果还是耐久，记录效果值或耐久值
-				if ($itms === $nosta)
-				{
-					${$pos.'sk'} .= '^are'.${$pos.'e'};
-				}
-				else
-				{
-					if (${$pos.'s'} === $nosta)
-					{
-						${$pos.'sk'} .= '^ars'.'0';
-						${$pos.'s'} = $itms;
-					}				
-					else
-					{
-						${$pos.'sk'} .= '^ars'.${$pos.'s'};
-						${$pos.'s'} += $itms;
-					}
-				}			
-				${$pos.'e'} += $itme;
+				//由于记录外甲属性、添加临时属性和替换效果值一定是绑定的，提取出来做一个核心函数
+				use_armor_ext_armor_process($theitem, $positem);
 							
 				if (1 === $result)
 				{	
@@ -113,6 +92,50 @@ namespace item_ext_armor
 			}
 		}	
 		$chprocess($theitem, $pos);
+	}
+	
+	//使用外甲数据来修改防具部位数据的函数，包含记录外甲数据、临时属性和效果耐久值三个功能
+	//传入&$theitem, &$positem两个道具数组，数组元素都应该是引用对应的数值，类似itemmain模块的$theitem参数的结构
+	function use_armor_ext_armor_process(&$theitem, &$positem)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','armor'));
+		
+		if(empty($theitem['itms']) || empty($positem['itms'])) return; //防呆措施
+		
+		//把外甲数据记录到装备属性
+		$positem['itmsk'] = armor_put_su($positem['itmsk'], $theitem);
+		
+		//如果外甲有属性，把属性临时写到装备属性位
+		$itmsk_arr = \itemmain\get_itmsk_array($theitem['itmsk']);
+		$itmsk_arr = array_diff($itmsk_arr, Array('Z'));//不会把外甲的菁英属性写到装备属性位
+		if (!empty($itmsk_arr)){
+			$positem['itmsk'] .= '|'.implode('', $itmsk_arr).'|';
+		}
+		
+		//根据装备外甲后，损耗的是效果还是耐久，记录原防具效果值或耐久值
+		if ($theitem['itms'] === $nosta)
+		{
+			//外甲无限耐，则记录原防具效果值
+			$positem['itmsk'] .= '^are'.$positem['itme'];
+		}
+		else
+		{
+			//外甲耐久有限
+			//如果原防具是无限耐，记录原防具耐久为0，并把原防具耐久值改成外甲耐久值
+			if ($positem['itms'] === $nosta)
+			{
+				$positem['itmsk'] .= '^ars'.'0';
+				$positem['itms'] = $theitem['itms'];
+			}				
+			else//原防具耐久也有限，则记录原防具耐久，并把外甲耐久加到原防具耐久值上
+			{
+				$positem['itmsk'] .= '^ars'.$positem['itms'];
+				$positem['itms'] += $theitem['itms'];
+			}
+		}			
+		//最后，把外甲效果值加到原防具效果值上
+		$positem['itme'] += $theitem['itme'];
 	}
 	
 	//防具受损时，检测外甲是否完全损坏
@@ -248,10 +271,10 @@ namespace item_ext_armor
 				return;
 			}
 			
-			$aritm = array('itm' => &${'ar'.$itmn}, 'itmk' => &${'ar'.$itmn.'k'}, 'itme' => &${'ar'.$itmn.'e'},'itms' => &${'ar'.$itmn.'s'},'itmsk' => &${'ar'.$itmn.'sk'});
-			$moveto = array('itm' => &$itm0, 'itmk' => &$itmk0, 'itme' => &$itme0,'itms' => &$itms0,'itmsk' => &$itmsk0);
+			$positem = array('itm' => &${'ar'.$itmn}, 'itmk' => &${'ar'.$itmn.'k'}, 'itme' => &${'ar'.$itmn.'e'},'itms' => &${'ar'.$itmn.'s'},'itmsk' => &${'ar'.$itmn.'sk'});
+			$getitem = array('itm' => &$itm0, 'itmk' => &$itmk0, 'itme' => &$itme0,'itms' => &$itms0,'itmsk' => &$itmsk0);
 			
-			$result = armor_remove_su($aritm, $moveto);
+			$result = armor_remove_su($positem, $getitem);
 			if (1 === $result)
 			{
 				$log .= "你卸下了外甲<span class=\"yellow b\">$itm0</span>。<br>";
@@ -271,10 +294,10 @@ namespace item_ext_armor
 		
 		if(strpos($item,'ar') === 0)
 		{
-			$aritm = array('itm' => &$edata[$item], 'itmk' => &$edata[$item.'k'], 'itme' => &$edata[$item.'e'],'itms' => &$edata[$item.'s'],'itmsk' => &$edata[$item.'sk']);
-			$moveto = array('itm' => &$itm0, 'itmk' => &$itmk0, 'itme' => &$itme0,'itms' => &$itms0,'itmsk' => &$itmsk0);
+			$positem = array('itm' => &$edata[$item], 'itmk' => &$edata[$item.'k'], 'itme' => &$edata[$item.'e'],'itms' => &$edata[$item.'s'],'itmsk' => &$edata[$item.'sk']);
+			$getitem = array('itm' => &$itm0, 'itmk' => &$itmk0, 'itme' => &$itme0,'itms' => &$itms0,'itmsk' => &$itmsk0);
 			
-			$result = armor_remove_su($aritm, $moveto);
+			$result = armor_remove_su($positem, $getitem);
 			if (1 === $result)
 			{
 				\itemmain\itemget();
@@ -285,6 +308,7 @@ namespace item_ext_armor
 		$chprocess($edata, $item);
 	}
 	
+	//从外甲属性字符串返回外甲道具数组
 	function armor_get_su($itmsk){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = Array();
@@ -305,6 +329,7 @@ namespace item_ext_armor
 		return $ret;
 	}
 	
+	//把外甲数据覆盖到$itmsk字符串并返回，并没有改变原值
 	function armor_put_su($itmsk, $suarr){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -320,52 +345,53 @@ namespace item_ext_armor
 	}
 	
 	//将一件防具上的外甲移动到另一个道具位，通常用于卸下外甲到itm0
-	function armor_remove_su(&$itm, &$moveto){
+	function armor_remove_su(&$positem, &$getitem){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('armor'));
-		$suitem = armor_get_su($itm['itmsk']);			
+		$suitem = armor_get_su($positem['itmsk']);			
 		if ($suitem)
 		{
-			armor_clean_suit_sk($itm['itmsk']);
-			$itm['itmsk'] = \itemmain\replace_in_itmsk('^su','',$itm['itmsk']);	
+			armor_clean_suit_sk($positem['itmsk']);
+			$positem['itmsk'] = \itemmain\replace_in_itmsk('^su','',$positem['itmsk']);	
 			
-			$moveto['itm'] = $suitem['itm'];
-			$moveto['itmk'] = $suitem['itmk'];
-			$moveto['itme'] = $suitem['itme'];
-			$moveto['itms'] = $suitem['itms'];
-			$moveto['itmsk']= $suitem['itmsk'];
-			$are = \itemmain\check_in_itmsk('^are', $itm['itmsk']);
+			$getitem['itm'] = $suitem['itm'];
+			$getitem['itmk'] = $suitem['itmk'];
+			$getitem['itme'] = $suitem['itme'];
+			$getitem['itms'] = $suitem['itms'];
+			$getitem['itmsk']= $suitem['itmsk'];
+			$are = \itemmain\check_in_itmsk('^are', $positem['itmsk']);
 			//如果记录了原防具的效果值，则先恢复防具效果到记录值
 			if (false !== $are)
 			{
-				$moveto['itme'] = max($itm['itme'] - $are, 0);
-				$itm['itme'] = $are;
-				$itm['itmsk'] = \itemmain\replace_in_itmsk('^are','',$itm['itmsk']);
+				$getitem['itme'] = max($positem['itme'] - $are, 0);
+				$positem['itme'] = $are;
+				$positem['itmsk'] = \itemmain\replace_in_itmsk('^are','',$positem['itmsk']);
 			}
 			else
 			{
-				$itm['itme'] -= $moveto['itme'];
-				if ($itm['itme'] < 0) $itm['itme'] = 0;
+				$positem['itme'] -= $getitem['itme'];
+				if ($positem['itme'] < 0) $positem['itme'] = 0;
 				//如果记录了原防具的耐久值，则先恢复防具耐久到记录值
-				$ars = \itemmain\check_in_itmsk('^ars', $itm['itmsk']);
+				$ars = \itemmain\check_in_itmsk('^ars', $positem['itmsk']);
 				if (false === $ars) $ars = 1;
 				if (0 === (int)$ars)
 				{
-					$moveto['itms'] = $itm['itms'];
-					$itm['itms'] = $nosta;
+					$getitem['itms'] = $positem['itms'];
+					$positem['itms'] = $nosta;
 				}
 				else
 				{
-					$moveto['itms'] = max($itm['itms'] - $ars, 1);
-					$itm['itms'] = $ars;
+					$getitem['itms'] = max($positem['itms'] - $ars, 1);
+					$positem['itms'] = $ars;
 				}
-				$itm['itmsk'] = \itemmain\replace_in_itmsk('^ars','',$itm['itmsk']);
+				$positem['itmsk'] = \itemmain\replace_in_itmsk('^ars','',$positem['itmsk']);
 			}
 			return 1;
 		}
 		return 0;
 	}
 	
+	//清除目标属性字符串的临时属性
 	function armor_clean_suit_sk(&$itmsk){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(strpos($itmsk,'|')===false) return '';
@@ -396,7 +422,6 @@ namespace item_ext_armor
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($edata, $simple, $elli);
 		eval(import_module('itemmain','player'));
-		if($edata['pid'] == $pid) $selflag = 1;
 		foreach($equip_list as $pos) {
 			if(strpos($pos,'itm')===0) $suitem = armor_get_su($edata['itmsk'.substr($pos, 3)]);
 			else $suitem = armor_get_su($edata[$pos.'sk']);
@@ -404,8 +429,8 @@ namespace item_ext_armor
 				$suitem_name = $suitem['itm'];
 				$itm = \itemmain\parse_itmname_words($suitem_name, $elli);
 				$itm_short = \itemmain\parse_itmname_words($suitem_name, 1, 15);
-				$ret[$pos.'_words'] = $itm . (!empty($selflag) ? '<br>' : '') . '(' . $ret[$pos.'_words'] . ')'; //如果是玩家界面的调用，换个行
-				$ret[$pos.'_words_short'] = $itm_short . (!empty($selflag) ? '<br>' : '') . '(' . $ret[$pos.'_words_short'] . ')';
+				$ret[$pos.'_words'] = $itm . '<!--CRLF-->' . '(' . $ret[$pos.'_words'] . ')'; //在玩家界面显示的时候会把这个字符串替换成换行
+				$ret[$pos.'_words_short'] = $itm_short . '<!--CRLF-->' . '(' . $ret[$pos.'_words_short'] . ')';
 			}
 		}
 		return $ret;
@@ -416,10 +441,45 @@ namespace item_ext_armor
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		$npc = $chprocess($npc, $plslist);
 		if(!empty($npc['ext_armor'])) {
-			eval(import_module('itemmain'));
+			eval(import_module('player'));
 			foreach($equip_list as $pos) {
+				if(in_array($pos, Array('wep', 'art'))) continue;//武器和饰物一定不可能是外甲，跳过
 				if(!empty($npc['ext_armor'][$pos])) {
+					if(strpos($pos, 'itm')===0) {
+						$n = substr($pos, 3);
+						$ik = 'itmk'.$n; $ie = 'itme'.$n; $is = 'itms'.$n; $isk = 'itmsk'.$n;
+					}else{
+						$ik = $pos.'k'; $ie = $pos.'e'; $is = $pos.'s'; $isk = $pos.'sk';
+					}
+					if(substr($npc[$ik],0,1) != 'D' || substr($npc['ext_armor'][$ik],0,1) != 'D' || substr($npc['ext_armor'][$ik],2,1) != 'S') continue;//不是防具，跳过
 					
+					//数据初始化防呆措施，防止没有写属性值的数据出错。
+					if(empty($npc[$pos])) $npc[$pos] = '';
+					if(empty($npc[$ik])) $npc[$ik] = '';
+					if(empty($npc[$ie])) $npc[$ie] = 0;
+					if(empty($npc[$is])) $npc[$is] = 0;
+					if(empty($npc[$isk])) $npc[$isk] = '';
+					
+					//外甲的名字类别没写就根本不会到这里。耐久没写就跳过
+					if(empty($npc['ext_armor'][$ie])) $npc['ext_armor'][$ie] = 0;
+					if(empty($npc['ext_armor'][$is])) continue;//如果你中了这招说明你是天然呆
+					if(empty($npc['ext_armor'][$isk])) $npc['ext_armor'][$isk] = '';
+					
+					$theitem = Array(
+						'itm' => &$npc['ext_armor'][$pos],
+						'itmk' => &$npc['ext_armor'][$ik],
+						'itme' => &$npc['ext_armor'][$ie],
+						'itms' => &$npc['ext_armor'][$is],
+						'itmsk' => &$npc['ext_armor'][$isk]
+					);
+					$positem = Array(
+						'itm' => &$npc[$pos],
+						'itmk' => &$npc[$ik],
+						'itme' => &$npc[$ie],
+						'itms' => &$npc[$is],
+						'itmsk' => &$npc[$isk]
+					);
+					use_armor_ext_armor_process($theitem, $positem);
 				}
 			}
 		}

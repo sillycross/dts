@@ -317,15 +317,12 @@ namespace itemmain
 			$mode = 'command';
 			return;
 		}
-		//$log .= '你的包裹已经满了。想要丢掉哪个物品？<br>';
+		
+		//这里在parse_interface_profile()之前，需要单独生成每个道具的itm_words
+		//在网页里生成吧
 		include template(MOD_ITEMMAIN_ITEMDROP0);
 		$cmd = ob_get_contents();
 		ob_clean();
-	//	$cmd .= '<input type="hidden" name="mode" value="itemmain"><br><input type="radio" name="command" id="dropitm0" value="dropitm0" checked><a onclick=sl("dropitm0"); href="javascript:void(0);" >'."$itm0/$itme0/$itms0".'</a><br><br>';
-	//
-	//	for($i = 1;$i <= 6;$i++){
-	//		$cmd .= '<input type="radio" name="command" id="swapitm'.$i.'" value="swapitm'.$i.'"><a onclick=sl("swapitm'.$i.'"); href="javascript:void(0);" >'."${'itm'.$i}/${'itme'.$i}/${'itms'.$i}".'</a><br>';
-	//	}
 		return;
 	}
 
