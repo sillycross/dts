@@ -412,7 +412,19 @@ namespace item_ext_armor
 	}
 	
 	//NPC载入时，如果存在外甲数据，自动装上外甲
-
+	function init_npcdata($npc, $plslist=array()){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		$npc = $chprocess($npc, $plslist);
+		if(!empty($npc['ext_armor'])) {
+			eval(import_module('itemmain'));
+			foreach($equip_list as $pos) {
+				if(!empty($npc['ext_armor'][$pos])) {
+					
+				}
+			}
+		}
+		return $npc;
+	}
 }
 
 ?>

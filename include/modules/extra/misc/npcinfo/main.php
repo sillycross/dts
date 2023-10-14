@@ -52,7 +52,7 @@ namespace npcinfo
 //		}
 		//技能和称号初始化
 //		if(!empty($nownpc['club'])) \clubbase\club_acquire($nownpc['club'],$nownpc);
-//		\npc\init_npcdata_skills($nownpc);
+//		\clubbase\init_npcdata_skills($nownpc);
 		
 		//if($nownpc['type'] == 14) file_put_contents('a.txt', var_export($nownpc,1)."\r\n\r\n",FILE_APPEND);
 		//还原性别和地点

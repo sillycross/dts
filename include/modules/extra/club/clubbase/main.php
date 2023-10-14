@@ -119,6 +119,7 @@ namespace clubbase
 		return $ret;
 	}
 	
+	//玩家选择称号技能的指令处理
 	function player_selectclub($id)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -179,6 +180,54 @@ namespace clubbase
 		}
 			
 		$chprocess();
+	}
+	
+	//NPC获得称号和技能，是对NPC原始数据进行处理
+	//继承NPC模块的函数
+	function init_npcdata($npc, $plslist=array()){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		$npc = $chprocess($npc, $plslist);
+		init_npcdata_skills($npc);
+		return $npc;
+	}
+	
+	function init_npcdata_skills(&$npc)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		if (!empty($npc['club']) || (!empty($npc['skills']) && is_array($npc['skills']))){
+			$npc['pid'] = -2;//0和-1都会出问题
+			
+			$npc['nskill'] = $npc['nskillpara'] = '';
+			\skillbase\skillbase_load($npc, 1);
+			
+			//NPC先获得称号技能
+			check_npc_clubskill_load($npc);
+			
+			if(!empty($npc['skills']) && is_array($npc['skills'])){
+				$npc['skills']['460']='0';
+				//再获得特有技能
+				init_npcdata_skills_get_custom($npc);
+			}			
+			
+			\skillbase\skillbase_save($npc);
+			unset($npc['pid']);
+		}
+	}
+	
+	function init_npcdata_skills_get_custom(&$npc){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		foreach ($npc['skills'] as $key=>$value){
+			if (defined('MOD_SKILL'.$key)){
+				\skillbase\skill_acquire($key,$npc);
+				if(is_array($value)){
+					foreach($value as $vk => $vv){
+						\skillbase\skill_setvalue($key,$vk,$vv,$npc);
+					}
+				}elseif ($value>0){
+					\skillbase\skill_setvalue($key,'lvl',$value,$npc);
+				}
+			}	
+		}
 	}
 	
 	function skill_query_unlocked($id,$who=NULL)

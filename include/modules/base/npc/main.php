@@ -58,9 +58,10 @@ namespace npc
 		if(!isset($npc['state'])){$npc['state'] = 1;}
 		
 		//称号、技能的获取
-		if(defined('MOD_CLUBBASE') && defined('MOD_SKILLBASE')) {
-			init_npcdata_skills($npc);
-		}
+		//这部分放到clubbase模块里
+//		if(defined('MOD_CLUBBASE') && defined('MOD_SKILLBASE')) {
+//			init_npcdata_skills($npc);
+//		}
 		return $npc;
 	}
 	
@@ -75,45 +76,47 @@ namespace npc
 	}
 	
 	//初始化NPC技能
-	function init_npcdata_skills(&$npc)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE; 
-		if (!empty($npc['club']) || (!empty($npc['skills']) && is_array($npc['skills']))){
-			$npc['pid'] = -2;//0和-1都会出问题
-			
-			$npc['nskill'] = $npc['nskillpara'] = '';
-			\skillbase\skillbase_load($npc, 1);
-			
-			//NPC先获得称号技能
-			\clubbase\check_npc_clubskill_load($npc);
-			
-			if(!empty($npc['skills']) && is_array($npc['skills'])){
-				$npc['skills']['460']='0';
-				//再获得特有技能
-				init_npcdata_skills_get_custom($npc);
-			}			
-			
-			\skillbase\skillbase_save($npc);
-			unset($npc['pid']);
-		}
-	}
+	//以下两个函数现在放到clubbase模块
+	
+//	function init_npcdata_skills(&$npc)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE; 
+//		if (!empty($npc['club']) || (!empty($npc['skills']) && is_array($npc['skills']))){
+//			$npc['pid'] = -2;//0和-1都会出问题
+//			
+//			$npc['nskill'] = $npc['nskillpara'] = '';
+//			\skillbase\skillbase_load($npc, 1);
+//			
+//			//NPC先获得称号技能
+//			\clubbase\check_npc_clubskill_load($npc);
+//			
+//			if(!empty($npc['skills']) && is_array($npc['skills'])){
+//				$npc['skills']['460']='0';
+//				//再获得特有技能
+//				init_npcdata_skills_get_custom($npc);
+//			}			
+//			
+//			\skillbase\skillbase_save($npc);
+//			unset($npc['pid']);
+//		}
+//	}
 	
 	//获得skills元素里定义的专有技能
-	function init_npcdata_skills_get_custom(&$npc){
-		if (eval(__MAGIC__)) return $___RET_VALUE; 
-		foreach ($npc['skills'] as $key=>$value){
-			if (defined('MOD_SKILL'.$key)){
-				\skillbase\skill_acquire($key,$npc);
-				if(is_array($value)){
-					foreach($value as $vk => $vv){
-						\skillbase\skill_setvalue($key,$vk,$vv,$npc);
-					}
-				}elseif ($value>0){
-					\skillbase\skill_setvalue($key,'lvl',$value,$npc);
-				}
-			}	
-		}
-	}
+//	function init_npcdata_skills_get_custom(&$npc){
+//		if (eval(__MAGIC__)) return $___RET_VALUE; 
+//		foreach ($npc['skills'] as $key=>$value){
+//			if (defined('MOD_SKILL'.$key)){
+//				\skillbase\skill_acquire($key,$npc);
+//				if(is_array($value)){
+//					foreach($value as $vk => $vv){
+//						\skillbase\skill_setvalue($key,$vk,$vv,$npc);
+//					}
+//				}elseif ($value>0){
+//					\skillbase\skill_setvalue($key,'lvl',$value,$npc);
+//				}
+//			}	
+//		}
+//	}
 	
 	function rs_game($xmode = 0) {
 		if (eval(__MAGIC__)) return $___RET_VALUE; 

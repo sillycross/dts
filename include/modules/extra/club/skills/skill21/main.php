@@ -77,7 +77,7 @@ namespace skill21
 				$pd['skills'] = $npcdata['skills'];
 				if(!empty($pd['skills']) && is_array($pd['skills'])) {
 					$pd['skills']['460']='0';
-					\npc\init_npcdata_skills_get_custom($pd);
+					\clubbase\init_npcdata_skills_get_custom($pd);
 				}
 				unset($pd['skills']);
 
