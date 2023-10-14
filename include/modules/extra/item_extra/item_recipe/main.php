@@ -114,13 +114,9 @@ namespace item_recipe
 		return $recipe_tip;
 	}
 
-	function check_single_item($item, $stuff)
+	function check_single_item($itm, $itmk, $itmsk, $stuff)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
-		$itm = $item['itm'];
-		$itmk = $item['itmk'];
-		$itmsk = $item['itmsk'];
 		
 		//名称判定
 		if (0 === $stuff['itm_match'])
@@ -164,7 +160,7 @@ namespace item_recipe
 		//额外判定
 		if (isset($stuff['extra']))
 		{
-			if (false === check_item_extra($item, $stuff['extra'])) return false;
+			if (false === check_item_extra($itm, $itmk, $itmsk, $stuff['extra'])) return false;
 		}
 		return true;
 	}
