@@ -76,13 +76,14 @@ namespace item_recipe
 		}
 		if (isset($stuff['extra']))
 		{
+			$flag = 1;
 			if ('ygo' === $stuff['extra']) $s .= '游戏王道具';
 			else if ('edible' === $stuff['extra']) $s .= '回复道具';
 			else if ('weapon' === $stuff['extra']) $s .= '武器';
-			else if ('armor' === $stuff['extra']) $s .= '防具';
-			else if (0 === $flag) $s .= '道具';
+			else if ('armor' === $stuff['extra']) $s .= '防具';	
 		}
-		if (isset($stuff['if_consume']) && false === $stuff['if_consume']) $s .= '（不消耗）';
+		if (0 === $flag) $s .= '道具';
+		if (isset($stuff['if_consume']) && (false === $stuff['if_consume'])) $s .= '（不消耗）';
 		return $s;
 	}
 
@@ -122,6 +123,8 @@ namespace item_recipe
 		}
 		
 		$recipe_tip .= '<br>合成结果：<br>'.\itemmix\parse_itemmix_resultshow($recipe['result']);
+		
+		if (('R' === $recipe['result'][1]) && isset($recipe['result'][4])) $recipe_tip .= '<br><br>下一级配方公式为：<br>'.show_recipe($recipe['result'][4]);
 
 		return $recipe_tip;
 	}
@@ -174,7 +177,7 @@ namespace item_recipe
 			}
 			else if (1 === $stuff['itmsk_match'])
 			{
-				if (false === \attrbase\check_in_itmsk($stuff['itmsk_match'], $itmsk)) return false;
+				if (false === \itemmain\check_in_itmsk($stuff['itmsk'], $itmsk)) return false;
 			}
 		}
 		
@@ -195,14 +198,14 @@ namespace item_recipe
 			//有星级视作游戏王卡，肥料当然是游戏王卡
 			if (\itemmix_sync\itemmix_get_star($itmk) > 0) return true;
 			//连接卡视作游戏王卡
-			if (false !== \attrbase\check_in_itmsk('^l', $itmsk)) return true;
+			if (false !== \itemmain\check_in_itmsk('^l', $itmsk)) return true;
 			//超量怪视作游戏王卡
-			//if (false !== \attrbase\check_in_itmsk('^xyz', $itmsk)) return true;
-			$itm = \itemmix\itemmix_name_proc($itm);
-			$prp_res = \itemmix_overlay\itemmix_prepare_overlay();
-			foreach($prp_res as $pra){
-				if (0 === strpos($pra[0], $itm)) return true;
-			}
+			if (false !== \itemmain\check_in_itmsk('^xyz', $itmsk)) return true;
+			// $itm = \itemmix\itemmix_name_proc($itm);
+			// $prp_res = \itemmix_overlay\itemmix_prepare_overlay();
+			// foreach($prp_res as $pra){
+				// if (0 === strpos($pra[0], $itm)) return true;
+			// }
 		}
 		else if ('edible' === $extra)
 		{
@@ -228,7 +231,7 @@ namespace item_recipe
 			$link_list = array();
 			foreach($mlist as $mval)
 			{
-				$link = \attrbase\check_in_itmsk('^l',${'itmsk'.$mval});
+				$link = \itemmain\check_in_itmsk('^l',${'itmsk'.$mval});
 				if (false === $link) $link = 1;
 				$link_list[] = $link;
 			}
@@ -253,7 +256,7 @@ namespace item_recipe
 			}
 			else if(count($mlist) !== (int)$recipe_extra['materials']) return false;
 		}
-		if (isset($recipe_extra['allow_repeat']) && false === $recipe_extra['allow_repeat'])
+		if (isset($recipe_extra['allow_repeat']) && (false === $recipe_extra['allow_repeat']))
 		{
 			eval(import_module('player'));
 			$namelist = array();
@@ -376,7 +379,7 @@ namespace item_recipe
 			$i += 1;
 		}
 		//配方一次用一张
-		if (isset($minfo['extra']['consume_recipe']) && true === $minfo['extra']['consume_recipe']) \itemmix\itemreduce('itm'.$itmp);
+		if (isset($minfo['extra']['consume_recipe']) && (true === $minfo['extra']['consume_recipe'])) \itemmix\itemreduce('itm'.$itmp);
 		$itm0 = $minfo['result'][0];
 		$itmk0 = $minfo['result'][1];
 		$itme0 = $minfo['result'][2];
@@ -410,7 +413,7 @@ namespace item_recipe
 					{
 						$seq[] = $val;
 						unset($mlist[array_search($val, $mlist)]);
-						$flag = 0;
+						$flag = 1;
 						break;
 					}
 				}
@@ -418,11 +421,14 @@ namespace item_recipe
 			}
 			else break;
 		}
-		$stuff = $minfo['stuffa'];
-		foreach ($mlist as $val)
+		if (isset($minfo['stuffa']))
 		{
-			if (!check_single_item(${'itm'.$val}, ${'itmk'.$val}, ${'itmsk'.$val}, $stuff)) return false;
-			$seq[] = $val;
+			$stuff = $minfo['stuffa'];
+			foreach ($mlist as $val)
+			{
+				if (!check_single_item(${'itm'.$val}, ${'itmk'.$val}, ${'itmsk'.$val}, $stuff)) return false;
+				$seq[] = $val;
+			}
 		}
 		return $seq;
 	}
