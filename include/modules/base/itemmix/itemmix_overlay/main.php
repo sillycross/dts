@@ -8,6 +8,8 @@ namespace itemmix_overlay
 		$itemspkinfo['J'] = '超量素材';
 		$itemspkdesc['J']='可以参与超量合成';
 		$itemspkremark['J']='……';
+		$itemspkinfo['^xyz'] = '超量';
+		$itemspkdesc['^xyz']='这一道具是超量合成的产物';
 		$mix_type['overlay'] = '超量';
 	}
 	
