@@ -186,7 +186,7 @@ function postCmd(formName,sendto,srcdom,disableall){
 	
 	if (in_replay_mode == 1) return false;
 	if (disableAllCommands == 1) return false;
-	jQuery('#hoverHintMsg').css({'display':'none'});//清除悬停提示
+	//jQuery('#hoverHintMsg').css({'display':'none'});//清除悬停提示 效果不好，改到show的时候清除
 	if(disableall) jQuery('.cmdbutton').attr("disabled","disabled");//屏蔽所有按钮
 	hotkey_ok = false;//屏蔽快捷键
 	
@@ -259,6 +259,7 @@ log_cont_raw = '';
 //处理AJAX返回值的主函数
 function showData(sdata){
 	if (js_stop_flag) return;
+	jQuery('#hoverHintMsg').css({'display':'none'});//清除悬浮提示
 	if(jQuery('#loading').length > 0) jQuery('#loading').css({'display':'none'});//隐藏Loading画面
 	hotkey_ok = true;//重启快捷键
 	log_cont_raw = '';//重置log原始记录
