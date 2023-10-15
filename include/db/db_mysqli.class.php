@@ -36,6 +36,10 @@ class dbstuff {
 		return mysqli_fetch_array ( $query, $result_type );
 	}
 	
+	function fetch_all($query, $result_type = MYSQLI_ASSOC) {
+		return mysqli_fetch_all ( $query, $result_type );
+	}
+	
 	function query($sql, $type = '') {
 		//mysqli不存在unbuffered指令，游戏也从来没用到过这个参数
 		//$func = $type == 'UNBUFFERED' && function_exists ( 'mysqli_unbuffered_query' ) ? 'mysqli_unbuffered_query' : 'mysqli_query';

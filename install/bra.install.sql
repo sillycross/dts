@@ -120,6 +120,7 @@ CREATE TABLE `bra_users` (
   `cardenergylastupd` int(10) unsigned NOT NULL DEFAULT '0',
   `u_templateid` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `icon` varchar(255) NOT NULL DEFAULT '0',
+  `card_data` text NOT NULL DEFAULT '',
   `cardenergy` text NOT NULL DEFAULT '',
   `cardlist` text NOT NULL DEFAULT '',
   `elo_history` text NOT NULL DEFAULT '',
