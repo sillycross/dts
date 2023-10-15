@@ -141,13 +141,14 @@ namespace addnpc
 				addnpc ( 4, 0,1);
 				eval(import_module('weather'));
 				$log .= '世界响应着这旋律，产生了异变……<br>';
-				\weather\wthchange( $itm,$itmsk);
+				\weather\wthchange( $itm, 95);//现在破灭之诗使用后天气一定是极光
 				addnews ($now , 'thiphase', $name);
 				$hack = 1;
 				$log .= '因为破灭之歌的作用，全部锁定被打破了！<br>';
 				//\map\movehtm();
 				addnews($now,'hackb',$name);
 				\sys\systemputchat($now,'hack');
+				$gamevars['forbid_antiAFK'] = 1;//现在破灭之诗使用后阻止反挂机
 				save_gameinfo();
 				$itm = $itmk = $itmsk = '';
 				$itme = $itms = 0;

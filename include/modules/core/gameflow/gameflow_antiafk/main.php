@@ -16,47 +16,72 @@ namespace gameflow_antiafk
 		//save_gameinfo();//已改到外侧
 	}
 	
+	//判定是否到点触发反挂机
+	//反挂机规则：从游戏开始后，每隔规定的时间（10分钟）判定一次，杀死所有10分钟没动的玩家。所以有时玩家存活时间会大于10分钟
+	function check_triggered_antiAFK()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','map'));
+		if($gamestate >= 20 && empty($gamevars['forbid_antiAFK'])) {//游戏开始后才判定反挂机。如果$gamevars['forbid_antiAFK']为真，会直接跳过触发
+			//标准房是连斗后反挂机，房间内是1禁后反挂机
+			if(0==$room_id && \gameflow_combo\is_gamestate_combo() && $now > $afktime + get_antiAFKertime() * 60) 
+				return true;
+			if($room_id > 0 && $areanum>=$areaadd && $now > $afktime + get_antiAFKertime() * 60)
+				return true;
+		}
+		return false;
+	}
+	
+	//根据房间号获得对应的反挂机间隔时间
+	function get_antiAFKertime()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','gameflow_antiafk'));
+		if($room_id > 0) return $antiAFKertime_room;
+		return $antiAFKertime_normal;
+	}
+	
 	function gamestateupdate()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','map','gameflow_antiafk'));
-		//长时间没人刷新游戏后，优先反挂机再禁区
-		if($gamestate > 10) {
-			//标准房是连斗后反挂机，房间内是1禁后反挂机
-			if ( $gametype < 10 && $gamestate >= 40 && $now > $afktime + $antiAFKertime_normal * 60) {
-				antiAFK($antiAFKertime_normal);
-			}elseif ($gametype >= 10 && $areanum>=$areaadd && $now > $afktime + $antiAFKertime_room * 60) {
-				antiAFK($antiAFKertime_room);
-			}
-		}
+		//长时间没人刷新游戏后，优先反挂机再禁区，所以在$chprocess之前
+		if(check_triggered_antiAFK()) antiAFK(get_antiAFKertime());
+
 		$chprocess();
 	}
 	
+	//反挂机主函数
 	function antiAFK($timelimit = 0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','gameflow_antiafk'));
 		if(empty($timelimit)){
-			$timelimit = $antiAFKertime_normal;
+			$timelimit = get_antiAFKertime();
 		}
 		$timelimit *= 60;
 		$deadline=$now-$timelimit;
+		$updatelist = $afkerlist = Array();
 		
 		$result = $db->query("SELECT * FROM {$tablepre}players WHERE type=0 AND endtime < '$deadline' AND hp>'0' AND state<'10'");
 		while($al = $db->fetch_array($result)) {
-			$afkerlist[$al['pid']]=Array('name' => $al['name'] ,'pls' => $al['pls']);
+			$updatelist[]=Array('name' => $al['name'] ,'pid' => $al['pid'], 'hp' => 0, 'state' => 32);
+			$afkerlist[]=Array('name' => $al['name'] ,'pls' => $al['pls']);
 		}
 
-		if(empty($afkerlist)){return;}
-		foreach($afkerlist as $kid => $kcontent){
-			$db->query("UPDATE {$tablepre}players SET hp='0',state='32' WHERE pid='$kid' AND type='0' AND hp>'0' AND state<'10'");
-			if($db->affected_rows()){
-				addnews($now,'death32',$kcontent['name'],'',$kcontent['pls']);
-				$alivenum--;
-				$deathnum++;			
-			}
+		if(empty($updatelist)) return;
+		
+		$antiAFKnum = sizeof($updatelist);
+		$db->multi_update("{$tablepre}players", $updatelist, 'pid');//一次性更新player表
+		
+		foreach($afkerlist as $av){//更新进行状况，因为可能有模块继承了addnews函数，暂时只能在循环体里处理。以后应该改掉
+			addnews($now,'death32',$av['name'],'',$av['pls']);
 		}
+		
+		$alivenum -= $antiAFKnum; if($alivenum < 0) $alivenum = 0;
+		$deathnum += $antiAFKnum;
+		
 		$afktime = $now;
 		save_gameinfo();
 		return;
