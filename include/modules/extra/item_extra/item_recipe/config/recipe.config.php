@@ -200,7 +200,7 @@ namespace item_recipe
 		30 => array
 		(
 			'stuff1' => array('itm'=>'☆十星认证☆','itm_match'=>0),
-			'result' => array('「鲜花女男爵」★10','WC10',300,'∞','wdyaM^001'),
+			'result' => array('「鲜花女男爵」★10','WC10',300,'∞','wdya^ac1^001'),
 			'extra' => array('materials'=>1, 'consume_recipe'=>true,),
 		),
 		31 => array

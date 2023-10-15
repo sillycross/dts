@@ -4548,6 +4548,95 @@ $cards = array(
 			),
 		)
 	),
+	266 => array(
+		'name' => '鼠鼠',
+		'rare' => 'C',
+		'pack' => '東埔寨Protoject',
+		'desc' => '鼠鼠我啊，最喜欢钱了！',
+		'effect' => '开局携带硬币和金色方块',
+		'energy' => 0,
+		'valid' => array(
+			'wep' => '硬币',
+			'wepk' => 'WC',
+			'wepe' => '2',
+			'weps' => '233',
+			'wepsk' => '',
+			'itm6' => '金色方块',
+			'itmk6' => 'X',
+			'itme6' => '1',
+			'itms6' => '1',
+			'itmsk6' => '',
+		)
+	),
+	267 => array(
+		'name' => '地震雷火事老爹',
+		'rare' => 'B',
+		'pack' => '東埔寨Protoject',
+		'desc' => '会表演眼部激光的顽固老爹',
+		'effect' => '怒气上限为255',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'570' => '0',
+			),
+		)
+	),
+	268 => array(
+		'name' => '入魔骑士',
+		'rare' => 'C',
+		'pack' => '東埔寨Protoject',
+		'desc' => '才不是蟑螂',
+		'effect' => '是萤火虫啦！',
+		'desc_skills' => '开局为空手，但带有集气属性',
+		'energy' => 0,
+		'valid' => array(
+			'wep' => '☆骑士飞踢☆',
+			'wepk' => 'WN',
+			'wepe' => '0',
+			'weps' => '∞',
+			'wepsk' => 'c',
+		)
+	),
+	269 => array(
+		'name' => '超次元巨大机器人',
+		'rare' => 'S',
+		'real_rare' => 'C',
+		'pack' => '東埔寨Protoject',
+		'desc' => '河童出品的高109米重约2吨的巨型<br>机器人',
+		'effect' => '它正是最强的无敌的魔神（大嘘）',
+		'energy' => 0,
+		'valid' => array(
+			'skills' => array(
+				'571' => '0',
+			),
+		)
+	),
+	270 => array(
+		'name' => '稻田姬',
+		'rare' => 'B',
+		'pack' => '東埔寨Protoject',
+		'desc' => '堆肥桶不是冰箱！',
+		'effect' => '进场时地图上刷新额外的回复道具',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'572' => '0',
+			),
+		)
+	),
+	271 => array(
+		'name' => '稀神老仙',
+		'rare' => 'B',
+		'pack' => '東埔寨Protoject',
+		'desc' => '“哎呀不可能输的，这怎么奶死嘛！”',
+		'effect' => '进场时祝福在场的其他玩家',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'573' => '0',
+			),
+		)
+	),
 	//老板，来个20个卡位的空白
 	280 => array(
 		'name' => 'Acg_xilin',
