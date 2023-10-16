@@ -1061,12 +1061,26 @@ function systemputchat($time,$type,$msg = ''){
 	\sys\systemputchat($time,$type,$msg );
 }
 
+//游戏版本比较
 function gversion_compare($v1, $v2){
 	preg_match('/\d*\.\d*\.\d*/s', $v1, $matches);
 	$v1e = $matches[0];
 	preg_match('/\d*\.\d*\.\d*/s', $v2, $matches);
 	$v2e = $matches[0];
 	return version_compare($v1e, $v2e);
+}
+
+//游戏显示用的等效字符串长度，只是一种粗略的估计
+//假设汉字是英文的1.8倍（平均）
+function gshow_len($str){
+	$ilen=mb_strlen($str);
+	$slen=0;
+	for($i=0;$i<$ilen;$i++){
+		$c=mb_substr($str,$i,1);
+		if(strlen($c) > mb_strlen($c)) $slen+=1.8;//是汉字或别的UTF-8字符，显示宽度+1.8
+		else $slen+=1;//是英文字母或其他ascii字符，显示宽度+1
+	}
+	return $slen;
 }
 
 /* End of file global.func.php */

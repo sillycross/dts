@@ -114,17 +114,27 @@ namespace smartmix
 		if(isset($itemindex)){
 			$mix_res = smartmix_find_recipe($itemindex, 1 + 2);				
 			if($mix_res){
-				$mhint .= '<span class="yellow b">'.$itemindex.'</span>涉及的合成公式有：<br>';
+				$mhint .= '<span class="yellow b">'.$itemindex.'</span>涉及的合成公式有：<br><ul>';
 				foreach($mix_res as $mval){
+					$mhint_single = '<li>';
+//					$mhint_slen_calc = '';
 					if(!isset($mval['type']) || $mval['type'] == 'normal'){
 						foreach($mval['stuff'] as $ms){
-							$mhint .= parse_smartmix_recipelink($ms).' + ';
+							$mhint_single .= parse_smartmix_recipelink($ms).' + ';
+//							$mhint_slen_calc .= $ms.' + ';
 						}
-						$mhint = substr($mhint,0,-3);
+						$mhint_single = substr($mhint_single,0,-3);
+//						$mhint_slen_calc = substr($mhint_slen_calc,0,-3);
 					}
 					$mr = $mval['result'][0];
-					$mhint .= ' → '.parse_smartmix_recipelink($mr, \itemmix\parse_itemmix_resultshow($mval['result'])).'<br>';
+					$mhint_single .= ' → '.parse_smartmix_recipelink($mr, \itemmix\parse_itemmix_resultshow($mval['result'])).'</li>';
+//					$mhint_slen_calc .= ' → '.\itemmix\parse_itemmix_resultshow($mval['result']);
+//					if(gshow_len($mhint_slen_calc) > 110) {//经测算这个粗估值大于95就会换行。如果两行都写不下，那么分行处理
+//						$mhint_single = str_replace(' → ', '<br> → ', $mhint_single);
+//					}
+					$mhint .= $mhint_single;
 				}
+				$mhint .= '</ul>';
 			}	else{
 				$mhint .= '所选道具不存在相关的合成公式。<br>';
 			}
