@@ -64,7 +64,9 @@
 <!--{else}-->
 <form method="post" name="kujiagain" action="kuji.php?type=$ktype">
 	<input type="submit" class="b_button bc_white" style="width:300px" name="enter" value="再抽一发！">
+	<!--{if isset($packchoice)}-->
 	<input type="hidden" id="packchoice" name="packchoice" value="$packchoice">
+	<!--{/if}-->
 </form>
 <!--{/if}-->
 <!--{/if}-->

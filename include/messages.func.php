@@ -82,7 +82,9 @@ function message_disp($messages)
 {
 	global $udata;
 	if(defined('MOD_CARDBASE')) eval(import_module('cardbase'));
-	$user_cards = explode('_',$udata['cardlist']);
+	$user_cards = $udata['cardlist'];
+	if(!is_array($user_cards))
+		$user_cards = explode('_',$user_cards);
 	//显示卡片的基本参数
 	$showpack=1;
 	foreach($messages as $mi => &$mv){
@@ -153,7 +155,7 @@ function message_check($checklist, $messages)
 				else $info[] = '已有卡片“<span class="'.$card_rarecolor[$getrare].'">'.$getname.'</span>”，转化为了'.$card_price[$getrare].'切糕！';
 				//\cardbase\get_card($getcard, $udata);
 				//不直接写数据库，最后统一写
-				\cardbase\get_card_process($getcard, $udata);
+				\cardbase\get_card_alternative($getcard, $udata);
 				$getcardflag = 1;
 			}
 			//获得因果
@@ -164,13 +166,17 @@ function message_check($checklist, $messages)
 			}
 		}
 	}
-	if(!empty($cl_changed)) $udata['cardlist'] = implode('_',$udata['cardlist']);
+	//if(!empty($cl_changed)) $udata['cardlist'] = implode('_',$udata['cardlist']);
 	if($getqiegaosum || $getcardflag || $getkarmasum) {
 		$n = $udata['username'];
+		//3202.10.15 这里保存一次$card_data
+		//游戏内获得卡片的时候$pa是即时读取的，站内信和抽卡则会有一段距离，这中间对$cardlist的修改会丢失。不过$cardlist本来也不是引用，应该不算问题
+		//每次get_card_alternative()之后$card_data就是编码过的了
 		$upd = array(
 			'gold' => $udata['gold']+$getqiegaosum,
 			'gold2' => $udata['gold2']+$getkarmasum,
-			'cardlist' => $udata['cardlist'],
+			//'cardlist' => $udata['cardlist'],
+			'card_data' => $udata['card_data'],
 		);
 		update_udata_by_username($upd, $udata['username']);
 	}

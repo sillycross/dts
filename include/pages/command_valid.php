@@ -68,11 +68,13 @@ if($mode == 'enter') {
 	$enterable = true;
 	
 	//判定卡片数据是否合理
+	//这部分和cardselect.htm的变量命名都非常混乱，但出于能跑就不动的考虑，就不改了
 	if(defined('MOD_CARDBASE')){
 		eval(import_module('cardbase'));
 		$userCardData = \cardbase\get_user_cardinfo($cuser);
-		$card_ownlist = $userCardData['cardlist'];
+		$card_ownlist = $userCardData['cardlist'];//这里这两个变量故意起了不一样的名字，历史原因不改了
 		$card_energy = $userCardData['cardenergy'];
+		$card_data_fetched = $userCardData['card_data'];//这里也跟上面一样故意起不一样的名字吧，有问蹄再改回来
 		$cardChosen = $card;
 		$hideDisableButton = 1;
 		list($cardChosen, $card_ownlist, $packlist, $hideDisableButton) = \cardbase\card_validate_display($cardChosen, $card_ownlist, $packlist, $hideDisableButton);
@@ -100,7 +102,9 @@ if($mode == 'enter') {
 				}else {
 					$userCardData['cardenergy'][$cc] = 0;
 				}
-				\cardbase\save_cardenergy($userCardData,$cuser);//更新卡片冷却信息
+				//\cardbase\save_cardenergy($userCardData,$cuser);
+				//更新卡片冷却信息。因为上面没有改$card_energy，这里也只能用原数组
+				\cardbase\save_cardenergy_to_db($card_ownlist, $userCardData['cardenergy'], $card_data_fetched, $udata);
 				//以下是更新卡片类别的冷却，感觉可以再重构得更优美一点，跟冷却本身合并，但是回头再说吧
 				if(!empty($cardtypecd[$r])){
 					$ctcdtime = $now;
