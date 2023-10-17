@@ -225,7 +225,7 @@ namespace item_recipe
 			'stuff2' => array('itm'=>'《现代游戏王》','itm_match'=>0),
 			'stuff3' => array('itm'=>'「失衡！不削！必亡！」','itm_match'=>0),
 			'stuff4' => array('itm'=>'奇怪的按钮','itm_match'=>0),
-			'result' => array('☆坐☆牢☆','WD',65535,'∞','fxckKonAmiLV^001'),
+			'result' => array('☆坐☆牢☆','WD',65535,'∞','FUCKkOnamItilExpLodeV^001'),
 			'extra' => array('materials'=>4, 'consume_recipe'=>true,),
 		),
 		52 => array
@@ -233,7 +233,7 @@ namespace item_recipe
 			'stuff1' => array('itm'=>'触手的力量','itm_match'=>0),
 			'stuff2' => array('itm'=>'蘑菇','itm_match'=>1),
 			'stuff3' => array('itm'=>'魔导书','itm_match'=>1),
-			'result' => array('码符「终极BUG·拉电闸」','WF',1000,5,'r'),
+			'result' => array('码符「终极BUG·拉电闸」','WF',1000,6,'r'),
 			'extra' => array('materials'=>3, 'consume_recipe'=>true,),
 		),
 	);

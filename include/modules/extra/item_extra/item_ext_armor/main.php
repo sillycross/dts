@@ -72,22 +72,34 @@ namespace item_ext_armor
 			if ((!empty($noeqp) && strpos(${$pos.'k'}, $noeqp) !== 0) || ${$pos.'s'})
 			{
 				$positem = array('itm' => &${$pos}, 'itmk' => &${$pos.'k'}, 'itme' => &${$pos.'e'},'itms' => &${$pos.'s'},'itmsk' => &${$pos.'sk'});
-				$getitem = array('itm' => &$itm0, 'itmk' => &$itmk0, 'itme' => &$itme0,'itms' => &$itms0,'itmsk' => &$itmsk0);
+				//$getitem = array('itm' => &$itm0, 'itmk' => &$itmk0, 'itme' => &$itme0,'itms' => &$itms0,'itmsk' => &$itmsk0);
 				
-				//清除原位置的外甲数据，并放到$getitem
-				$result = armor_remove_su($positem, $getitem);
+				$tmpitem = Array();
+				//清除原位置的外甲数据，并保存。由于可能从itm0装备道具，此时放到一个暂存的变量里
+				$result = armor_remove_su($positem, $tmpitem);
 				
 				//由于记录外甲属性、添加临时属性和替换效果值一定是绑定的，提取出来做一个核心函数
 				use_armor_ext_armor_process($theitem, $positem);
+				
+				//清除来源数据
+				$o_itm = $itm;
+				$itm = $itmk = $itmsk = '';
+				$itme = $itms = 0;
 							
 				if (1 === $result)
 				{	
-					$log .= "你脱下了<span class=\"yellow b\">$itm0</span>，然后在<span class=\"yellow b\">${$pos}</span>外面套上了<span class=\"yellow b\">$itm</span>。<br>";
+					//把暂存的变量放入itm0
+					$itm0 = $tmpitem['itm'];
+					$itmk0 = $tmpitem['itmk'];
+					$itme0 = $tmpitem['itme'];
+					$itms0 = $tmpitem['itms'];
+					$itmsk0 = $tmpitem['itmsk'];
+					
+					$log .= "你脱下了<span class=\"yellow b\">$itm0</span>，然后在<span class=\"yellow b\">${$pos}</span>外面套上了<span class=\"yellow b\">$o_itm</span>。<br>";
 					\itemmain\itemget();
 				}
-				else $log .= "你在<span class=\"yellow b\">${$pos}</span>外面套上了<span class=\"yellow b\">$itm</span>。<br>";
-				$itm = $itmk = $itmsk = '';
-				$itme = $itms = 0;
+				else $log .= "你在<span class=\"yellow b\">${$pos}</span>外面套上了<span class=\"yellow b\">$o_itm</span>。<br>";
+				
 				return;
 			}
 		}	

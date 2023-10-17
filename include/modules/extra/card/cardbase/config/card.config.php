@@ -4570,9 +4570,10 @@ $cards = array(
 	),
 	267 => array(
 		'name' => '地震雷火事老爹',
+		'title' => '老爹',
 		'rare' => 'B',
 		'pack' => '東埔寨Protoject',
-		'desc' => '会表演眼部激光的顽固老爹',
+		'desc' => '会表演用眼部激光煎鸡蛋的顽固老爹',
 		'effect' => '怒气上限为255',
 		'energy' => 100,
 		'valid' => array(
@@ -4582,7 +4583,7 @@ $cards = array(
 		)
 	),
 	268 => array(
-		'name' => '入魔骑士',
+		'name' => 'G战队·闪光黑',
 		'rare' => 'C',
 		'pack' => '東埔寨Protoject',
 		'desc' => '才不是蟑螂',
@@ -4604,6 +4605,7 @@ $cards = array(
 		'pack' => '東埔寨Protoject',
 		'desc' => '河童出品的高109米重约2吨的巨型<br>机器人',
 		'effect' => '它正是最强的无敌的魔神（大嘘）',
+		'desc_skills' => '攻击力和防御力是正常的上万倍（仅限显示）',
 		'energy' => 0,
 		'valid' => array(
 			'skills' => array(
@@ -4869,10 +4871,11 @@ $cards = array(
 	),
 	294 => array(
 		'name' => 'Martin_Chloride',
+		'title' => 'Martin',
 		'rare' => 'B',
 		'pack' => 'Top Players',
 		'desc' => '竞品游戏《东方大逃杀》的编写者。虽然游戏已经很久没更新了，但其代码给了本游戏不少启发',
-		'effect' => '开局携带一份特色合成配方：触手的力量 + 名字包含「蘑菇」的道具 + 名字包含「魔导书」的道具 = 码符「终极BUG·拉电闸」/灵力兵器/1000/5/连击',
+		'effect' => '开局携带一份特色合成配方：触手的力量 + 名字包含「蘑菇」的道具 + 名字包含「魔导书」的道具 = 码符「终极BUG·拉电闸」/灵力兵器/1000/6/连击',
 		//'desc_skills' => '',
 		'energy' => 100,
 		'valid' => array(
