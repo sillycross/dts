@@ -692,7 +692,18 @@ namespace searchmemory
 		return Array(array_reverse($sm_slots), array_reverse($sm_records));
 	}
 	
+	//把道具送给对方，如果对方包裹没空位则会送到视野。因为这个处理很常见所以单独拆分出来
+	//传参&$theitem为标准道具格式，&$pa和&$pd为标准玩家格式，其中$pa为发送方
+	//如果送到对方包裹里则返回1，如果送到视野返回2。如果有“未成功”的判定，返回0
+	function searchmemory_senditem(&$theitem, &$pa, &$pd)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//这里只是一个接口，具体的判定请在模块里继承并重写
+		return 0;
+	}
+	
 	//如果队友道具栏满了，会把东西放在队友的视野里
+	//由于searchmemory模块是继承team模块，不方便像上面那个函数一样直截了当地合并，因而还是保留现有的判定
 	function senditem_before_log_event($itmn, $sendflag, &$edata) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(!$sendflag && searchmemory_available() && !$edata['type']) {//只能送到玩家的视野里
