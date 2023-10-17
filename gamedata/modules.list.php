@@ -267,6 +267,10 @@ skill536,extra/card/skills/skill536/,1
 skill565,extra/card/skills/skill565/,1
 skill537,extra/card/skills/skill537/,1
 skill569,extra/card/skills/skill569/,1
+skill571,extra/card/skills/skill571/,1
+skill572,extra/card/skills/skill572/,1
+skill573,extra/card/skills/skill573/,1
+skill574,extra/card/skills/skill574/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
@@ -355,6 +359,7 @@ instance9,extra/instance/instance9_rush/,1
 skill37,extra/club/skills/skill37/,1
 skill73,extra/club/skills/skill73/,1
 skill410,extra/card/skills/skill410/,1
+skill570,extra/card/skills/skill570/,1
 skill258,extra/club/skills/skill258/,1
 skill444,extra/card/skills/skill444/,1
 skill207,extra/club/skills/skill207/,1
