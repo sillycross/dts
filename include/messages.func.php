@@ -82,9 +82,7 @@ function message_disp($messages)
 {
 	global $udata;
 	if(defined('MOD_CARDBASE')) eval(import_module('cardbase'));
-	$user_cards = $udata['cardlist'];
-	if(!is_array($user_cards))
-		$user_cards = explode('_',$user_cards);
+	$user_cards = \cardbase\get_cardlist_energy_from_udata($udata)[0];
 	//显示卡片的基本参数
 	$showpack=1;
 	foreach($messages as $mi => &$mv){

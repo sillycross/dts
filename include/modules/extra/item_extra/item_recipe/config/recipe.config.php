@@ -228,6 +228,14 @@ namespace item_recipe
 			'result' => array('☆坐☆牢☆','WD',65535,'∞','fxckKonAmiLV^001'),
 			'extra' => array('materials'=>4, 'consume_recipe'=>true,),
 		),
+		52 => array
+		(
+			'stuff1' => array('itm'=>'触手的力量','itm_match'=>0),
+			'stuff2' => array('itm'=>'蘑菇','itm_match'=>1),
+			'stuff3' => array('itm'=>'魔导书','itm_match'=>1),
+			'result' => array('码符「终极BUG·拉电闸」','WF',1000,5,'r'),
+			'extra' => array('materials'=>3, 'consume_recipe'=>true,),
+		),
 	);
 }
 
