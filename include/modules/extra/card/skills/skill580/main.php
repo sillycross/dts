@@ -105,7 +105,7 @@ namespace skill580
 				$log .= "<span class=\"yellow b\">{$itm0}</span>好像不见了。<br>";
 				$itm0 = $itmk0 = $itmsk0 = '';
 				$itme0 = $itms0 = 0;
-				\skillbase\skill_delvalue(1003,'sk580_sid',$sdata);				
+				\skillbase\skill_delvalue(1003,'sk580_sid',$sdata);
 				return;
 			}
 		}
@@ -116,11 +116,7 @@ namespace skill580
 	function check_enemy_meet_active(&$ldata,&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!empty(\skillbase\skill_getvalue(1003,'sk580_sid')))
-		{
-			
-			return 0;
-		}
+		if (!empty(\skillbase\skill_getvalue(1003,'sk580_sid'))) return 0;
 		else return $chprocess($ldata,$edata);
 	}
 }
