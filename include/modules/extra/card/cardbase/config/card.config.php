@@ -4243,19 +4243,19 @@ $cards = array(
 		)
 	),
 	246 => array(
-		'name' => '箭怔人',
+		'name' => '豪有根',
 		'rare' => 'C',
-		'pack' => 'Cyber Zealots',
-		'desc' => '顺我者屠殿大佬，逆我者无名沙包',
+		'pack' => '東埔寨Protoject',
+		'desc' => '神灵庙出产的人形大萝卜，有两个尖',
 		'effect' => '开局携带大量箭矢',
 		//'desc_skills' => '',
 		'energy' => 0,
 		'valid' => array(
-		  'itm6' => '箭症',
+		  'itm6' => '雷矢「元兴寺的旋风」',
 			'itmk6' => 'GA',
 			'itme6' => '1',
 			'itms6' => '99',
-			'itmsk6' => Array('e', 'p', 'u', 'i', 'w'),
+			'itmsk6' => 'e',
 		)
 	),
 	247 => array(
