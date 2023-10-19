@@ -3,8 +3,7 @@
 namespace skill580
 {
 	$skill580_itmlist = array('被遗忘的伞', '☆被遗忘的伞☆', '★被遗忘的伞★');
-	$skill580_act_rate = 100;
-	// $skill580_act_rate = 30;
+	$skill580_act_rate = 30;
 	
 	function init() 
 	{
@@ -36,7 +35,8 @@ namespace skill580
 		eval(import_module('sys','player','skill580'));
 		\player\update_sdata();	
 		$edata = \player\fetch_playerdata_by_pid($sid);
-		if (\skillbase\skill_query(580,$edata) && check_unlocked580($edata))
+		
+		if (\skillbase\skill_query(580,$edata) && check_unlocked580($edata) && empty(\skillbase\skill_getvalue(1003,'sk580_sid')))
 		{
 			eval(import_module('sys'));
 			$dice = rand(0,99);
@@ -48,6 +48,7 @@ namespace skill580
 			}
 		}
 		$chprocess($sid);
+		\skillbase\skill_delvalue(1003,'sk580_sid');
 	}
 	
 	//用一个道具替换物品
@@ -86,11 +87,27 @@ namespace skill580
 			eval(import_module('input'));
 			if (($mode == 'itemmain' && $command == 'itemget') || ($mode == 'command' && $command == 'itm0'))
 			{
-				//这里有一个问题
+				$itm = array(
+					'iid' => 0, 
+					'itm' => '',
+					'itmk' => '',
+					'itme' => 0,
+					'itms' => 0,
+					'itmsk' => ''
+				);
+				\itemmain\focus_item($itm);
 				\metman\meetman($sid);
 				return;
 			}
-			else \skillbase\skill_delvalue(1003,'sk580_sid');
+			else if ($mode == 'itemmain' && $command == 'dropitm0')
+			{
+				eval(import_module('player','logger'));
+				$log .= "<span class=\"yellow b\">{$itm0}</span>好像不见了。<br>";
+				$itm0 = $itmk0 = $itmsk0 = '';
+				$itme0 = $itms0 = 0;
+				\skillbase\skill_delvalue(1003,'sk580_sid',$sdata);
+				return;
+			}
 		}
 		$chprocess();
 	}
@@ -99,11 +116,7 @@ namespace skill580
 	function check_enemy_meet_active(&$ldata,&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!empty(\skillbase\skill_getvalue(1003,'sk580_sid')))
-		{
-			\skillbase\skill_delvalue(1003,'sk580_sid');
-			return 0;
-		}
+		if (!empty(\skillbase\skill_getvalue(1003,'sk580_sid'))) return 0;
 		else return $chprocess($ldata,$edata);
 	}
 }

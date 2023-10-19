@@ -18,6 +18,7 @@
 //是否已跳过开局剧情 opening_skip 位于base/opening
 //上一次拾取尸体道具的毫秒数 last_corpse_time 位于extra/searchmemory
 //上一次拾取尸体的pid last_corpse_pid 位于extra/searchmemory
+//怪伞技能记录pid sk580_sid 位于extra/card/skills/skill580
 
 namespace skill1003
 {
