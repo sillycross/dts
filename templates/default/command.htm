@@ -19,7 +19,7 @@
 			<input type="button" id="{$hotkeys[$n]}{$hotkeys[$n]}" class="cmdbutton" 
 			<!--{if \itemmain\is_equipable(${'itmk'.$n})}-->value="[{$hotkeysu[$n]}]装备"<!--{else}-->value="[{$hotkeysu[$n]}]使用"<!--{/if}--> 
 			title="{$tpldata['itm'.$n.'_itmuse_desc']}"
-			onclick="$('mode').value='command';$('command').value='itm{$n}';postCmd('gamecmd','command.php');this.disabled=true;"><span title="{$tpldata['itm'.$n.'_itmuse_desc']}"><span class="yellow b">{$tpldata['itm'.$n.'_words']}</span>/${'itme'.$n}/${'itme'.$n}</span>
+			onclick="$('mode').value='command';$('command').value='itm{$n}';postCmd('gamecmd','command.php');this.disabled=true;"><span title="{$tpldata['itm'.$n.'_itmuse_desc']}"><span class="yellow b">{$tpldata['itm'.$n.'_words']}</span>/${'itme'.$n}/${'itms'.$n}</span>
 		</div>
 	<!--{/if}-->
 <!--{/loop}-->

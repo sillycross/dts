@@ -65,6 +65,12 @@
 			hexagon_B
 		<!--{/if}-->
 		">
-		<span id="crare" class="{$card_rarecolor[$nowcard['rare']]}">$nowcard['rare']</span>
+		<span id="crare" class="{$card_rarecolor[$nowcard['rare']]}">
+			<!--{if !empty($nowcard['print_rare_mark'])}-->
+				$nowcard['print_rare_mark']
+			<!--{else}-->
+				$nowcard['rare']
+			<!--{/if}-->
+		</span>
 	</div>
 </div>

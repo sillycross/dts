@@ -4886,6 +4886,66 @@ $cards = array(
 			'itmsk6' => '52',
 		)
 	),
+	295 => array(
+		'name' => '搞事铃',
+		'rare' => 'B',
+		'pack' => '東埔寨Protoject',
+		'desc' => '租书店的妖怪，种族是防撞桶，拥有作死程度的能力',
+		'effect' => '获得亡灵骑士技能「腐蚀」。开局携带妖魔书',
+		'desc_skills' => '「腐蚀」：每次发动提升50点生命上限，但降低自己的战斗伤害7%，每局最多使用7次',
+		'energy' => 100,
+		'valid' => array(
+		  'skills' => array(
+				'62' => '0',
+			),
+			'itm6' => '妖魔书',
+			'itmk6' => 'VF',
+			'itme6' => '50',
+			'itms6' => '1',
+			'itmsk6' => '',
+		)
+	),
+	
+	//这里先来3个空位
+	
+	299 => array(
+		'name' => '⑨',
+		'rare' => 'A',
+		'real_rare' => 'C',//真实的爆率
+		'print_rare_mark' => '⑨',//只在显示罕贵字母时用的
+		'pack' => '東埔寨Protoject',
+		'desc' => '最强！',
+		'effect' => '获得一个冰雪聪明的头像',
+		//'desc_skills' => '「腐蚀」：每次发动提升50点生命上限，但降低自己的战斗伤害7%，每局最多使用7次',
+		'energy' => 9,
+		'valid' => array(
+			'icon' => 'n_999.gif',
+			'sNo' => 9,
+		)
+	),
+	
+	300 => array(
+		'name' => '海丽丝',
+		'ruby' => 'H.A.I.Lice',
+		'rare' => 'S',
+		'pack' => '東埔寨Protoject',
+		'desc' => '「東埔寨Protoject」的创作者，独自搭建了庞大幻想世界的奇异少女，最喜欢喝的东西是东之国的啤酒。<br>谁也没有在线下见过她，许多爱好者据此脑补她并非人类，而是一个<br>拥有实体的高等人工智能。<br><br>但她的真身其实是一名妖怪。<br>在这个赛博末法时代隐居起来的、<br>真正的妖怪。',
+		'effect' => '随机发动一张「東埔寨Protoject」卡包的S、A或B卡的效果',
+		'desc_skills' => 'S卡、A卡和B卡的几率分别为25%、30%和45%',
+		'bigdesc' => 1,
+		'energy' => 50,
+		'valid' => array(
+			'cardchange' => Array(
+				'S_odds' => 25,
+				'A_odds' => 35,
+				'B_odds' => 45,
+				'packlimit' => '東埔寨Protoject',
+				'allow_EB' => false,
+				'forced' => Array(),//无视概率强制加入选择的卡
+				'ignore_cards' => Array()//机制上必定选不到自己，这里可以放其他不想被选到的卡
+			)
+		)
+	),
 
 	1000 => array(
 		'name'=>'萌新',

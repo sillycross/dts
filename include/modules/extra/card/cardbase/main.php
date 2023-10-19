@@ -432,6 +432,7 @@ namespace cardbase
 		$A_odds = !empty($cs['A_odds']) ? $cs['A_odds'] : 0;
 		$B_odds = !empty($cs['B_odds']) ? $cs['B_odds'] : 0;
 		$C_odds = !empty($cs['C_odds']) ? $cs['C_odds'] : 0;//实际上不顶用，SAB都没选到就一定是C
+		$packlimit = !empty($cs['packlimit']) ? $cs['packlimit'] : '';
 		$forced = !empty($cs['forced']) ? $cs['forced'] : Array();
 		$ignore = !empty($cs['ignore_cards']) ? $cs['ignore_cards'] : Array();
 		
@@ -441,6 +442,7 @@ namespace cardbase
 			if(!empty($cs['real_random'])) {//真随机，把所有卡集合并
 				$arr = array_merge($arr,$cardindex['S'],$cardindex['A'],$cardindex['B'],$cardindex['C'],$cardindex['EB']);
 			}else{
+				//判定随机到的卡的罕贵
 				$r=rand(1,100);
 				if ($r<=$S_odds){
 					$arr=$cardindex['S'];
@@ -455,6 +457,14 @@ namespace cardbase
 					$arr=$cardindex['C'];
 					if(!empty($cs['allow_EB'])) $arr=array_merge($arr, $cardindex['EB_C']);
 				}
+			}
+			
+			if(!empty($packlimit)){//有卡包限制，那么对选择集挨个判定一遍卡包
+				foreach($arr as $i => $v) {
+					if($cards[$v]['pack'] != $packlimit) 
+						unset($arr[$i]);
+				}
+				$arr = array_filter($arr);
 			}
 			
 			$arr = array_merge($arr, $forced);
