@@ -270,7 +270,6 @@ skill569,extra/card/skills/skill569/,1
 skill571,extra/card/skills/skill571/,1
 skill572,extra/card/skills/skill572/,1
 skill573,extra/card/skills/skill573/,1
-skill574,extra/card/skills/skill574/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
@@ -369,6 +368,7 @@ skill201,extra/club/skills/skill201/,1
 skill248,extra/club/skills/skill248/,1
 ex_rapid_def,extra/attr/ex_rapid_def/,1
 skill82,extra/club/skills/skill82/,1
+skill574,extra/card/skills/skill574/,1
 ex_attr_trap,extra/attr/ex_attr_trap/,1
 skill422,extra/card/skills/skill422/,1
 skill230,extra/club/skills/skill230/,1

@@ -103,8 +103,7 @@ namespace cooldown
 		global $___MOD_SRV;
 		if ($___MOD_SRV)	//daemon模式下使用client的开始执行时的时间作为页面开始时间，由于以三个下划线开头，是安全的
 		{
-			eval(import_module('input'));
-			return $___PAGE_STARTTIME_VALUE;
+			return get_var_in_module('___PAGE_STARTTIME_VALUE', 'input');
 		}
 		else			//非daemon模式下使用正常的command.php的开始时间作为页面开始时间
 		{

@@ -190,6 +190,24 @@ function import_module()
 	return $ret;
 }
 
+//从模块中获取单个变量，用于大量循环调用eval(import_module())会降低性能的情况
+function & get_var_in_module($varname, $modulename)
+{
+	if(empty($varname) || !defined('MOD_'.strtoupper($modulename))) return NULL;
+	global $___MOD_SRV;
+	$ret = NULL;
+	if($___MOD_SRV && $modulename == 'input'){
+		global $___LOCAL_INPUT__VARS__INPUT_VAR_LIST;
+		if(isset($___LOCAL_INPUT__VARS__INPUT_VAR_LIST[$varname]))
+			$ret = & $___LOCAL_INPUT__VARS__INPUT_VAR_LIST[$varname];
+		return $ret;
+	}
+	global ${'___LOCAL_'.strtoupper($modulename).'__VARS__'.$varname};
+	if(isset($GLOBALS['___LOCAL_'.strtoupper($modulename).'__VARS__'.$varname]))
+		$ret = & $GLOBALS['___LOCAL_'.strtoupper($modulename).'__VARS__'.$varname];
+	return $ret;
+}
+
 function __MODULE_GET_TEMPLATE__($file, $templateid=NULL)
 {
 	if (!defined($file)) throw new Exception('undefined template constant '.$file);
