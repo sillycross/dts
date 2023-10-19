@@ -62,13 +62,13 @@ namespace item_recipe
 		{
 			if (0 === $stuff['itmk_match'])
 			{
-				$s .= $itemspkinfo[$stuff['itmk']];
+				$s .= $iteminfo[$stuff['itmk']];
 				$flag = 1;
 			}
 			else if (1 === $stuff['itmk_match'])
 			{
 				//我觉得没法写出区别
-				$s .= $itemspkinfo[$stuff['itmk']];
+				$s .= $iteminfo[$stuff['itmk']];
 				$flag = 1;
 			}
 			//理论上匹配方式2只用来判断游戏王星级

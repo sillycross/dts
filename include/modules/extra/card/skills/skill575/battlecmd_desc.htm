@@ -1,0 +1,8 @@
+<!--{eval $r = \clubbase\check_battle_skill_unactivatable($sdata,$edata,575);}-->
+<!--{if !$r}-->
+使对手获得一道难题，仅对玩家有效且对每名玩家限一次。消耗<span class="red b">$rageneed</span>怒气
+<!--{elseif $r == 6}-->
+你已对该玩家使用过此技能
+<!--{else}-->
+只能对玩家发动
+<!--{/if}-->

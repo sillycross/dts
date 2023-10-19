@@ -1,20 +1,20 @@
 <?php
 
-namespace skill573
+namespace skill577
 {
 	function init() 
 	{
-		define('MOD_SKILL573_INFO','card;hidden;');
+		define('MOD_SKILL577_INFO','card;hidden;');
 		eval(import_module('clubbase'));
-		$clubskillname[573] = '毒奶';
+		$clubskillname[577] = '毒奶';
 	}
 	
-	function acquire573(&$pa)
+	function acquire577(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
-	function lost573(&$pa)
+	function lost577(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
@@ -24,7 +24,7 @@ namespace skill573
 		if (eval(__MAGIC__)) return $___RET_VALUE;		
 		$chprocess($pa);
 		eval(import_module('sys','player'));
-		if (\skillbase\skill_query(573, $pa))
+		if (\skillbase\skill_query(577, $pa))
 		{
 			$result = $db->query("SELECT pid FROM {$tablepre}players WHERE type=0 AND hp>0 AND pid != {$pa['pid']}");
 			if($db->num_rows($result))
@@ -36,13 +36,13 @@ namespace skill573
 				$pdlist = array();
 				foreach($list as $pdid){
 					$pdata = \player\fetch_playerdata_by_pid($pdid);
-					\skillbase\skill_acquire(574, $pdata);
+					\skillbase\skill_acquire(578, $pdata);
 					$bless_log = '你感到自己受到了来自一位贤者的祝福！<br>';
 					\logger\logsave($pdata['pid'], $now, $bless_log ,'o');			
 					\player\player_save($pdata);	
 				}
 			}
-			lost573($pa);
+			lost577($pa);
 		}
 	}
 	

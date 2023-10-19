@@ -1,0 +1,24 @@
+<!--{eval eval(import_module('skill576','sys','item_recipe'));}-->
+<!--{eval $___TEMP_SKILL_ID=576;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+<!--{eval $mpid = (int)\skillbase\skill_getvalue(576,'mpid');}-->
+<!--{eval $mname = (\player\fetch_playerdata_by_pid($mpid))['name'];}-->
+你无法遇到<span class="yellow b">$mname</span>且被对方攻击时所有非称号特性技能无效，<br>直到完成以下配方合成：<br>
+<!--{eval $recipeid = \skillbase\skill_getvalue(576,'recipeid');}-->
+<span class="yellow b">$recipe_mixinfo[$recipeid]['result'][0]</span><br>
+完成此配方时，会自动将合成产物交给<span class="yellow b">$mname</span>。<br>
+<span class="yellow b">当你被战斗/陷阱击杀时失去此技能</span><br>
+</span></td>
+<td class="skilldesc_right b3">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

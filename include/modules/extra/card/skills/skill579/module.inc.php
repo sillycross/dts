@@ -1,9 +1,9 @@
 <?php
 
-namespace skill574
+namespace skill579
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase clubbase sys player itemmain edible';
+	$___MODULE_dependency = 'sys player skillbase clubbase rest pose';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

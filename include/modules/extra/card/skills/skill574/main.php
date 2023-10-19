@@ -2,11 +2,13 @@
 
 namespace skill574
 {
+	$skill574_itmlist = array('「增殖的G」','夜雀歌谱','牛肉汤');
+	
 	function init() 
 	{
 		define('MOD_SKILL574_INFO','card;');
 		eval(import_module('clubbase'));
-		$clubskillname[574] = '祥瑞';
+		$clubskillname[574] = '好味';
 	}
 	
 	function acquire574(&$pa)
@@ -18,70 +20,31 @@ namespace skill574
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
-
-	function check_unlocked574(&$pa=NULL)
+	
+	function check_unlocked574(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return 1;
 	}
 	
-	function strike(&$pa, &$pd, $active)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;	
-		if (\skillbase\skill_query(574,$pd) && check_unlocked574($pd))
-		{
-			eval(import_module('logger','player'));
-			$pd['temp_log'] = $log;
-		}
-		$chprocess($pa, $pd, $active);
-	}
-	
-	function player_kill_enemy(&$pa,&$pd,$active)
+	function itemuse(&$theitem) 
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
-		eval(import_module('sys','logger','player'));
-		$chprocess($pa,$pd,$active);
-		if (\skillbase\skill_query(574,$pd) && check_unlocked574($pd))
+		eval(import_module('player','skill574'));
+		if (\skillbase\skill_query(574, $sdata) && check_unlocked574($sdata) && in_array($theitem['itm'], $skill574_itmlist))
 		{
-			$log = $pd['temp_log'];
-			$dice = rand(0,1);
-			if ($dice == 0) $log .= "但是没有击中！";
-			else
+			$temp_itmk = $theitem['itmk'];
+			$temp_itme = $theitem['itme'];
+			$theitem['itmk'] = 'HB';
+			$theitem['itme'] = '200';		
+			$chprocess($theitem);
+			if (!empty($theitem['itms']))
 			{
-				$ex_att_array = \attrbase\get_ex_attack_array($pa, $pd, $active);
-				eval(import_module('ex_dmg_att'));
-				$flag = 0;
-				$exnum = 0;
-				foreach ($ex_attack_list as $key)
-				{
-					if (in_array($key,$ex_att_array))
-					{
-						$flag = 1;
-						$exnum += 1;
-					}
-				}
-				if ($active)
-				{
-					$log .= "<span class=\"yellow b\">你的攻击完全被{$pd['name']}的装备吸收了！</span><br>造成了<span class=\"red b\">1</span>点物理伤害！<br>";
-				}
-				else
-				{
-					$log .= "<span class=\"yellow b\">{$pa['name']}的攻击完全被你的装备吸收了！</span><br>造成了<span class=\"red b\">1</span>点物理伤害！<br>";
-				}
-				if ($flag == 0)
-				{
-					
-					$log .= "<span class=\"yellow b\">造成的总伤害：<span class=\"red b\">1</span>。</span><br>";
-				}
-				else
-				{
-					$log .= "<span class=\"yellow b\">属性攻击的力量完全被防具吸收了！</span>只造成了<span class=\"red b\">{$exnum}</span>点伤害！</span><br>";
-					$fakedmg = $exnum + 1;
-					$log .= "<span class=\"yellow b\">造成的总伤害：1 + {$exnum} = <span class=\"red b\">{$fakedmg}</span>。</span><br>";
-				}
+				$theitem['itmk'] = $temp_itmk;
+				$theitem['itme'] = $temp_itme;
 			}
 		}
+		else return $chprocess($theitem);
 	}
 	
 }

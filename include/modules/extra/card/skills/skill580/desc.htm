@@ -1,17 +1,12 @@
-<!--{eval eval(import_module('skill574'));}-->
-<!--{eval $___TEMP_SKILL_ID=574;}-->
+<!--{eval eval(import_module('skill580'));}-->
+<!--{eval $___TEMP_SKILL_ID=580;}-->
 {template MOD_CLUBBASE_SKILLDESC_START}
 <span>
 $clubskillname[$___TEMP_SKILL_ID]
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class="skilldesc_left b3"><span class="skilldesc">
-你可以把以下物品当做<span class="yellow b">龙料理/命体恢复/200/1</span>使用：<br>
-<span class="yellow b">
-<!--{loop $skill574_itmlist $i}-->
-{$i}&nbsp;
-<!--{/loop}-->
-</span>
+其他玩家探索发现你时，有<span class="yellow b">{$skill580_act_rate}%</span>改为发现一个特殊的道具。<br>若对手拾取此道具，则会受到你的先制攻击。
 </span></td>
 <td class="skilldesc_right b3">
 </td>
