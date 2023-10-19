@@ -4635,10 +4635,153 @@ $cards = array(
 		'energy' => 100,
 		'valid' => array(
 			'skills' => array(
-				'573' => '0',
+				'577' => '0',
 			),
 		)
 	),
+	272 => array(
+		'name' => '擂鼓达人',
+		'rare' => 'B',
+		'pack' => '東埔寨Protoject',
+		'desc' => '实至名归的节奏大师',
+		'effect' => '开局装备鼓棒和太鼓',
+		'energy' => 120,
+		'valid' => array(
+			'wep' => '达人的太鼓棍棒',
+			'wepk' => 'WP',
+			'wepe' => '7',
+			'weps' => '7',
+			'wepsk' => 'N',
+			'ara' => '达人的太鼓棍棒',
+			'arak' => 'WP',
+			'arae' => '6',
+			'aras' => '6',
+			'arask' => 'e',
+			'arf' => '和太鼓',
+			'arfk' => 'WP',
+			'arfe' => '5',
+			'arfs' => '5',
+			'arfsk' => 'c',
+		)
+	),
+	273 => array(
+		'name' => '月之公主',
+		'rare' => 'S',
+		'pack' => '東埔寨Protoject',
+		'desc' => '“玩过DTS，我便考你一考”',
+		'effect' => '获得战斗技「难题」',
+		'desc_skills' => '「难题」：战斗技，使对方玩家获得一个配方，该玩家未完成此配方时，探索无法遇到你且受到你攻击时所有技能无效；该玩家完成此配方时，自动将合成产物交给你。<br>15级时解锁，对每名玩家限一次',
+		'energy' => 120,
+		'valid' => array(
+			'skills' => array(
+				'575' => '0',
+			),
+		)
+	),
+	274 => array(
+		'name' => '船长',
+		'rare' => 'B',
+		'pack' => '東埔寨Protoject',
+		'desc' => '宝船『青冥号』的船长，擅长制造<br>沉船事件',
+		'effect' => '开局装备带有冻气和冲击属性的钝器',
+		'energy' => 100,
+		'valid' => array(
+			'wep' => '☆大保底☆',
+			'wepk' => 'WP',
+			'wepe' => '44',
+			'weps' => '648',
+			'wepsk' => 'iN',
+		)
+	),
+	275 => array(
+		'name' => '路人甲',
+		'rare' => 'B',
+		'pack' => '東埔寨Protoject',
+		'desc' => '史上最强一面',
+		'effect' => '你可以把「增殖的G」、夜雀歌谱和<br>牛肉汤当做龙料理使用',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'574' => '0',
+			),
+		)
+	),
+	276 => array(
+		'name' => '见习巫女',
+		'rare' => 'C',
+		'pack' => '東埔寨Protoject',
+		'desc' => '我有御御症',
+		'effect' => '开局获得御币和御神签',
+		'energy' => 0,
+		'valid' => array(
+			'skills' => array(
+				'wep' => '御币',
+				'wepk' => 'WP',
+				'wepe' => '15',
+				'weps' => '10',
+				'wepsk' => '',
+				'itm6' => '御神签',
+				'itmk6' => 'Y',
+				'itme6' => '1',
+				'itms6' => '5',
+				'itmsk6' => '',
+			),
+		)
+	),
+	277 => array(
+		'name' => '月战老兵',
+		'rare' => 'A',
+		'pack' => '東埔寨Protoject',
+		'desc' => '月兔不死，只会逐渐沦为大人物的<br>玩物',
+		'effect' => '开局获得枪械和弹药，并获得黑衣组织技能「衰弱」',
+		'energy' => 100,
+		'valid' => array(
+			'wep' => '『疯狂杀人兔』',
+			'wepk' => 'WG',
+			'wepe' => '77',
+			'weps' => '1',
+			'wepsk' => 'wy',
+			'itm6' => '座药',
+			'itmk6' => 'GBe',
+			'itme6' => '1',
+			'itms6' => '55',
+			'itmsk6' => '',
+			'skills' => array(
+				'221' => '0', 
+			),
+		)
+	),
+	278 => array(
+		'name' => '淡水人鱼',
+		'rare' => 'C',
+		'pack' => '東埔寨Protoject',
+		'desc' => '在过于强大的同族灭绝之后，她成为了需要保护的水产品',
+		'effect' => '开局位于墓地，并装备可能很稀有的投系武器',
+		'energy' => 0,
+		'valid' => array(
+			'pls' => '9',
+			'wep' => array('「珠泪哀歌族·梅洛人鱼」-仮', '「珠泪哀歌族·小美人鱼」-仮','「珠泪哀歌族·塞壬人鱼」-仮','「珠泪哀歌族·水仙女人鱼」-仮','「梦幻崩影·人鱼」-仮','浅水奇袭','浅水奇袭II','鱼弹突击'),
+			'wepk' => 'WC',
+			'wepe' => '33',
+			'weps' => '33',
+			'wepsk' => '',
+		)
+	),
+	279 => array(
+		'name' => '吃灰的茄子伞',
+		'rare' => 'B',
+		'pack' => '東埔寨Protoject',
+		'desc' => '驱云弹的过度使用让她失去了存在的意义',
+		'effect' => '在被探索发现时，可能会显示为发现<br>一个道具',
+		'desc_skills' => '要是拾取的话就会被吓一跳！',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'580' => '0', 
+			),
+		)
+	),
+	//已经填上了
 	//老板，来个20个卡位的空白
 	280 => array(
 		'name' => 'Acg_xilin',
@@ -4865,7 +5008,7 @@ $cards = array(
 		'energy' => 0,
 		'valid' => array(
 		  'skills' => array(
-				'424' => '0', //TODO
+				'579' => '0',
 			),
 		)
 	),
@@ -4946,7 +5089,39 @@ $cards = array(
 			)
 		)
 	),
-
+	//留空位
+	341 => array(
+		'name' => '半人厨师',
+		'rare' => 'A',
+		'pack' => '東埔寨Protoject',
+		'desc' => '刀是厨师的命根子',
+		'effect' => '开局装备稀有的斩系武器，装备斩系武器时合成补给品耐久翻倍',
+		'energy' => 100,
+		'valid' => array(
+			'wep' => array('☆楼观剑☆', '☆白楼剑☆'),
+			'wepk' => 'WK',
+			'wepe' => '177',
+			'weps' => '33',
+			'wepsk' => 'H',
+			'skills' => array(
+				'581' => '0'
+			)
+		)
+	),
+	342 => array(
+		'name' => '开门大吉猫咪',
+		'rare' => 'C',
+		'pack' => '東埔寨Protoject',
+		'desc' => '这里是肯東基，没有1+1，也没有双吉',
+		'effect' => '获得技能「招福」：可选择探索时获得金钱但角色发现率降低；或失去金钱但角色发现率增加',
+		'energy' => 0,
+		'valid' => array(
+			'skills' => array(
+				'582' => '0'
+			)
+		)
+	),
+	
 	1000 => array(
 		'name'=>'萌新',
 		'rare'=>'A',

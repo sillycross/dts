@@ -236,6 +236,74 @@ namespace item_recipe
 			'result' => array('码符「终极BUG·拉电闸」','WF',1000,6,'r'),
 			'extra' => array('materials'=>3, 'consume_recipe'=>true,),
 		),
+		//辉夜卡配方
+		100 => array
+		(
+			'stuff1' => array('itm'=>'Untainted Glory','itm_match'=>0),
+			'stuff2' => array('itm'=>'地板','itm_match'=>1),
+			'result' => array('「英灵殿的一块天花板」','WP',333,33,'Nd'),
+			'extra' => array('materials'=>2, 'consume_recipe'=>true,),
+		),
+		101 => array
+		(
+			'stuff1' => array('itm'=>'氢','itm_match'=>1),
+			'stuff2' => array('itm'=>'K','itm_match'=>1),
+			'stuff3' => array('itm'=>'气','itm_match'=>1),
+			'stuff4' => array('itm'=>'电磁','itm_match'=>1),
+			'result' => array('「常温超导材料」','EI',1,1,),
+			'extra' => array('materials'=>4, 'consume_recipe'=>true,),
+		),
+		102 => array
+		(
+			'stuff1' => array('itm'=>'月光','itm_match'=>1),
+			'stuff2' => array('itm'=>'岩石','itm_match'=>2),
+			'stuff3' => array('itm'=>'车','itm_match'=>1),
+			'result' => array('☆变色月壤☆','ME',33,2,'x'),
+			'extra' => array('materials'=>3, 'consume_recipe'=>true,),
+		),
+		103 => array
+		(
+			'stuff1' => array('itm'=>'黑色方块','itm_match'=>0),
+			'stuff2' => array('itmsk'=>'B','itmsk_match'=>1),
+			'result' => array('★基岩★','WP',64,65535,'Bb'),
+			'extra' => array('materials'=>2, 'consume_recipe'=>true,),
+		),
+		104 => array
+		(
+			'stuff1' => array('itm'=>'黄鸡','itm_match'=>1),
+			'stuff2' => array('itm'=>'大衣','itm_match'=>1),
+			'result' => array('☆黄鸡的皮衣☆','DB',133,333,'Aaz'),
+			'extra' => array('materials'=>2, 'consume_recipe'=>true,),
+		),
+		105 => array
+		(
+			'stuff1' => array('itm'=>'卡牌包','itm_match'=>1),
+			'stuff2' => array('itmsk'=>'^ac','itmsk_match'=>1,'extra'=>'weapon'),
+			'result' => array('★混沌碎纸★','WC',199,4,'v'),
+			'extra' => array('materials'=>2, 'consume_recipe'=>true,),
+		),
+		106 => array
+		(
+			'stuffa' => array('itmk'=>'WF','itmk_match'=>1,'itmsk'=>'e','itmsk_match'=>1),
+			'result' => array('「宏电子」','WF',444,22,'e'),
+			'extra' => array('materials'=>3, 'consume_recipe'=>true,),
+		),
+		107 => array
+		(
+			'stuff1' => array('itm'=>'盟军 次时代鸟人 ★3','itm_match'=>2),
+			'stuff2' => array('itm'=>'星见兽 加里斯 ★3','itm_match'=>2),
+			'stuff3' => array('itm'=>'核成恶魔 ★3','itm_match'=>2),
+			'result' => array('『星见炮』','WC',200,'∞','rwt'),
+			'extra' => array('materials'=>3, 'consume_recipe'=>true,),
+		),
+		108 => array
+		(
+			'stuff1' => array('itm'=>'空想','itm_match'=>1),
+			'stuff2' => array('itm'=>'睡衣','itm_match'=>1),
+			'stuff3' => array('itm'=>'梦','itm_match'=>1),
+			'result' => array('☆AC大逃杀振兴计划☆','HR',233,3,'AcdtS'),
+			'extra' => array('materials'=>3, 'consume_recipe'=>true,),
+		),
 	);
 }
 

@@ -269,7 +269,12 @@ skill537,extra/card/skills/skill537/,1
 skill569,extra/card/skills/skill569/,1
 skill571,extra/card/skills/skill571/,1
 skill572,extra/card/skills/skill572/,1
-skill573,extra/card/skills/skill573/,1
+skill577,extra/card/skills/skill577/,1
+skill578,extra/card/skills/skill578/,1
+skill574,extra/card/skills/skill574/,1
+skill581,extra/card/skills/skill581/,1
+skill582,extra/card/skills/skill582/,1
+skill580,extra/card/skills/skill580/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
@@ -325,6 +330,7 @@ skill492,extra/card/skills/skill492/,1
 attrbase,extra/attr/attrbase/,1
 skill24,extra/club/skills/skill24/,1
 skill33,extra/club/skills/skill33/,1
+skill579,extra/card/skills/skill579/,1
 tactic,base/tactic/,1
 wep_b,base/weapon/wep_b/,1
 ex_phy_def,extra/attr/ex_phy_def/,1
@@ -544,6 +550,8 @@ skill505,extra/card/skills/skill505/,1
 skill80,extra/club/skills/skill80/,1
 skill551,extra/card/skills/skill551/,1
 skill554,extra/card/skills/skill554/,1
+skill576,extra/card/skills/skill576/,1
+skill575,extra/card/skills/skill575/,1
 skill563,extra/card/skills/skill563/,1
 skill566,extra/card/skills/skill566/,1
 skill604,extra/club/skills/skill604/,1

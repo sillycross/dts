@@ -1,9 +1,9 @@
 <?php
 
-namespace skill574
+namespace skill580
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase clubbase sys player itemmain edible';
+	$___MODULE_dependency = 'sys player skillbase clubbase metman enemy itemmain skill1003';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';
