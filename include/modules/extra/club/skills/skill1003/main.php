@@ -13,7 +13,6 @@
 //上一次击杀的方式 last_kill_method
 //击杀过的重要NPC killed_vip
 //攻击过的重要NPC attacked_vip
-//本局实际使用的卡片 actual_card 位于valid.func.php
 //上一次唱过的歌 songkind 位于base/items/song
 //上一次唱到的地方 songpos 位于base/items/song
 //是否已跳过开局剧情 opening_skip 位于base/opening

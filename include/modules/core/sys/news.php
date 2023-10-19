@@ -2,6 +2,23 @@
 
 namespace sys
 {
+	//新版渲染进行状况函数
+	//传入$news是一个数组，需包含nid、timestamp、hour、min、sec、a、b、c、d、e等元素
+	function render_news($news)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$prefix = '<li id="nid'.$news['nid'].'" timestamp="'.$news['timestamp'].'">'.$news['hour'].'时'.$news['min'].'分'.$news['sec'].'秒，';
+		$postfix = '</li>';
+		return $prefix . render_news_core($news) . $postfix;
+	}
+	
+	//核心处理函数，改成大部分按数组哈希来处理，而不是大量的if else
+	function render_news_core($news)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$render_news_list = get_var_in_module('render_news_list', 'sys');
+	}
+	
 	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -94,30 +111,18 @@ namespace sys
 		eval(import_module('sys'));
 		if(!$rprefix) $rprefix=$room_prefix;
 		$ntablepre = room_get_tablepre($rprefix);
-		//$file = $file ? $file : $newsfile;	
-		//$ninfo = openfile($file);
-		//if(0 == $range){$range = $newslimit;}
-		//elseif(-1 == $range){$range = 16777215;}
-		//if(16777215 == $range){startmicrotime();}
+
 		$query = "SELECT * FROM {$ntablepre}newsinfo ";
 		if($start) $query .= "WHERE nid > $start ";
 		$query .= "ORDER BY nid DESC ";
 		if($range > 0) $query .= "LIMIT $range";
-		//if($start) $result = $db->query("SELECT * FROM {$tablepre}newsinfo WHERE nid > $start ORDER BY nid DESC LIMIT $range");
+
 		$result = $db->query($query);
-		//$r = sizeof($ninfo) - 1;
-	//	$rnum=$db->num_rows($result);
-	//	if($range && ($range <= $rnum)) {
-	//		$nnum = $range;
-	//	} else{
-	//		$nnum = $rnum;
-	//	}
+
 		$nday = 0;
-		//for($i = $start;$i <= $r;$i++) {
-		//for($i = 0;$i < $nnum;$i++) {
+
 		$newslist = array();
 		while($news0=$db->fetch_array($result)) {
-			//$news0=$db->fetch_array($result);
 			$nid=$news0['nid'];$time=$news0['time'];$news=$news0['news'];$a=$news0['a'];$b=$news0['b'];$c=$news0['c'];$d=$news0['d'];$e=$news0['e'];
 			list($sec,$min,$hour,$day,$month,$year,$wday) = explode(',',date("s,i,H,j,n,Y,w",$time));
 			if(!$noday && $day != $nday) {//跨日消息
@@ -129,8 +134,7 @@ namespace sys
 			$tmp_np = parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 			if($tmp_np) $newslist['nid'.$nid] = $tmp_np;
 		}
-		//if(16777215 == $range){logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-拉取全部消息'.debug_backtrace()[1]['function']);}
-		//rsort($newslist);
+
 		return $newslist;
 	}
 	
