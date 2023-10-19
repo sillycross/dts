@@ -32,7 +32,7 @@ namespace skill276
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player'));
 		if (!$club && \skillbase\skill_query(276) && empty(\skillbase\skill_getvalue(276,'activated'))) {
-			$command = \input\get_var('command');
+			$command = get_var_in_module('command', 'input');
 			//玩家第一次进入游戏的界面是不会player_save的，要正常执行，应该在玩家自动刷新界面时生成
 			if(!empty($command)){
 				eval(import_module('clubbase'));

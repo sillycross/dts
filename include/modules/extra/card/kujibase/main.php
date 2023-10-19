@@ -11,7 +11,7 @@ namespace kujibase
 		eval(import_module('sys','cardbase','kujibase'));
 		$cost = $kujicost[$kujiid];
 		$num = $kujinum[$kujiid];
-		$packchoice = \input\get_var('packchoice');
+		$packchoice = get_var_in_module('packchoice', 'input');
 		if(empty($cost)) return;
 		if((empty($packchoice) || !in_array($packchoice, \cardbase\pack_filter($packlist))) && $kujinum_in_pack[$kujiid] > 0) return;
 		

@@ -21,7 +21,7 @@ namespace skill529
 		if (\skillbase\skill_query(529) && empty(\skillbase\skill_getvalue(529,'activated')))
 		{
 			eval(import_module('player'));
-			$command = \input\get_var('command');
+			$command = get_var_in_module('command', 'input');
 			//玩家第一次进入游戏的界面是不会player_save的，要正常执行，应该在玩家自动刷新界面时生成
 			if(!empty($command)){
 				//lvl=1，获得时自动获取场上NPC的一件道具

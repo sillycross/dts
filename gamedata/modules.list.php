@@ -270,11 +270,8 @@ skill569,extra/card/skills/skill569/,1
 skill571,extra/card/skills/skill571/,1
 skill572,extra/card/skills/skill572/,1
 skill577,extra/card/skills/skill577/,1
-skill578,extra/card/skills/skill578/,1
-skill574,extra/card/skills/skill574/,1
 skill581,extra/card/skills/skill581/,1
 skill582,extra/card/skills/skill582/,1
-skill580,extra/card/skills/skill580/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
@@ -374,7 +371,7 @@ skill201,extra/club/skills/skill201/,1
 skill248,extra/club/skills/skill248/,1
 ex_rapid_def,extra/attr/ex_rapid_def/,1
 skill82,extra/club/skills/skill82/,1
-skill574,extra/card/skills/skill574/,1
+skill578,extra/card/skills/skill578/,1
 ex_attr_trap,extra/attr/ex_attr_trap/,1
 skill422,extra/card/skills/skill422/,1
 skill230,extra/club/skills/skill230/,1
@@ -482,6 +479,7 @@ skill481,extra/card/skills/skill481/,1
 skill482,extra/card/skills/skill482/,1
 skill500,extra/card/skills/skill500/,1
 blessstone,extra/attr/blessstone/,1
+skill580,extra/card/skills/skill580/,1
 achievement_base,extra/achievement/achievement_base/,1
 opening,base/opening/,1
 ending,base/ending/,1

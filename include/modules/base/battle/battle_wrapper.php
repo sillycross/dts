@@ -20,7 +20,7 @@ namespace battle
 	
 	function send_battle_msg(&$pa, &$pd, $active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$message = \input\get_var('message');
+		$message = get_var_in_module('message', 'input');
 		if(!empty($message)){
 			eval(import_module('logger'));
 			$log .= "<span class=\"lime b\">你向{$pd['name']}喊道：“{$message}”</span><br>";

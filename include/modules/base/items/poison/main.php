@@ -125,7 +125,7 @@ namespace poison
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
 		
-		$itmp = \input\get_var('itmp');
+		$itmp = get_var_in_module('itmp', 'input');
 		if ( $itmp < 1 || $itmp > 6 || $itmn < 1 || $itmn > 6) {
 			$log .= '此道具不存在，请重新选择。';
 			$mode = 'command';

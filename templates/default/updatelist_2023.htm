@@ -352,7 +352,7 @@ FEATUREs TO ADD：
 	<li>（+）现在可以在NPC数据中加入外甲了。</li>
 	<li>（△）在chprocess()之前使用可变变量名将不再导致ADV_COMBINE模式编译代码出问题，但依然不鼓励采用太整活的写法。</li>
 	<li>（△）修改了卡片的储存方式，现在从底层储存格式上支持了碎闪卡和卡片等级之类的特性，但对应的代码还有待编写。</li>
-	<li>（△）把input模块get_var()函数改为传引用以支持直接修改对应的值，注意使用时需要这么写：&#36;command=&\input\get_var('command')。</li>
+	<li>（△）把input模块get_var()函数改为modules.func.php中定义的get_var_in_module()函数，现在支持获取任意模块的变量，并可传引用以支持直接修改对应的值，注意使用时需要这么写才能传引用：&#36;command=&get_var_in_module('command','input')。</li>
 </ul>
 
 <h3>10月9日(v1.14.09)</h3>
