@@ -1472,7 +1472,7 @@ $cards = array(
 				'B_odds' => 20,
 				'C_odds' => 20,
 				'allow_EB' => true,//开启后会把Event Bonus等需要特殊方式才能获得的卡也一并考虑
-				'ignore_cards' => Array(237)//机制上必定选不到自己，这里可以放其他不想被选到的卡
+				'ignore_cards' => Array(237, 300, 344)//机制上必定选不到自己，这里可以放其他不想被选到的卡
 			)
 		)
 	),
@@ -2647,7 +2647,7 @@ $cards = array(
 	157 => array(
 		'name' => '洩矢诹访子',
 		'rare' => 'B',
-		'pack' => 'Way of Life',
+		'pack' => '東埔寨Protoject',
 		'desc' => '曾经统领着一个王国，<br>拥有着令人吃惊的信仰心',
 		'effect' => '被你攻击的敌人会眩晕1秒',
 		'energy' => 130,
@@ -4111,7 +4111,7 @@ $cards = array(
 				'S_odds' => 100,
 				'allow_EB' => true,
 				'forced' => Array(),//无视概率强制加入选择的卡
-				'ignore_cards' => Array(81)//机制上必定选不到自己，这里可以放其他不想被选到的卡
+				'ignore_cards' => Array(300)//机制上必定选不到自己，这里可以放其他不想被选到的卡
 			)
 		)
 	),
@@ -4157,19 +4157,25 @@ $cards = array(
 		)
 	),
 	241 => array(
-		'name' => '✦复燃的烽火',
-		'rare' => 'B',
-		'pack' => 'Cyber Zealots',
-		'desc' => '神秘出现在大逃杀幻境里的一群<br>可爱萝莉',
-		'effect' => '开局携带能挡下所有攻击的防具，但是只能挡一点点',
-		//'desc_skills' => '',
-		'energy' => 100,
+		'name' => '海丽丝',
+		'ruby' => 'H.A.I.Lice',
+		'rare' => 'S',
+		'pack' => '東埔寨Protoject',
+		'desc' => '「東埔寨Protoject」的创作者，独自搭建了庞大幻想世界的奇异少女，最喜欢喝的东西是东之国的啤酒。<br>谁也没有在线下见过她，许多爱好者据此脑补她并非人类，而是一个<br>拥有实体的高等人工智能。<br><br>但她的真身其实是一名妖怪。<br>在这个赛博末法时代隐居起来的、<br>真正的妖怪。',
+		'effect' => '随机发动一张「東埔寨Protoject」卡包的S、A或B卡的效果',
+		'desc_skills' => 'S卡、A卡和B卡的几率分别为25%、30%和45%',
+		'bigdesc' => 1,
+		'energy' => 50,
 		'valid' => array(
-		  'arh' => '✦烽火之恋',
-			'arhk' => 'DH',
-			'arhe' => '1',
-			'arhs' => '1',
-			'arhsk' => 'BbO',
+			'cardchange' => Array(
+				'S_odds' => 25,
+				'A_odds' => 35,
+				'B_odds' => 45,
+				'packlimit' => '東埔寨Protoject',
+				'allow_EB' => false,
+				'forced' => Array(),//无视概率强制加入选择的卡
+				'ignore_cards' => Array(344)//机制上必定选不到自己，这里可以放其他不想被选到的卡
+			)
 		)
 	),
 	242 => array(
@@ -4284,23 +4290,19 @@ $cards = array(
 		)
 	),
 	249 => array(
-		'name' => '毛玉',
-		'rare' => 'C',
-		'pack' => '東埔寨Protoject',
-		'desc' => '能在天上飞行的神秘毛球，<br>是杂鱼中的杂鱼',
-		'effect' => '开局携带P点和蓝点',
-		'energy' => 0,
+		'name' => '✦复燃的烽火',
+		'rare' => 'B',
+		'pack' => 'Cyber Zealots',
+		'desc' => '神秘出现在大逃杀幻境里的一群<br>可爱萝莉',
+		'effect' => '开局携带能挡下所有攻击的防具，但是只能挡一点点',
+		//'desc_skills' => '',
+		'energy' => 100,
 		'valid' => array(
-			'itm5' => '[Ｐ]',
-			'itmk5' => 'MA',
-			'itme5' => '1',
-			'itms5' => '50',
-			'itmsk5' => '',
-			'itm6' => '[点]',
-			'itmk6' => 'MS',
-			'itme6' => '1',
-			'itms6' => '50',
-			'itmsk6' => '',
+		  'arh' => '✦烽火之恋',
+			'arhk' => 'DH',
+			'arhe' => '1',
+			'arhs' => '1',
+			'arhsk' => 'BbO',
 		)
 	),
 	
@@ -4969,26 +4971,6 @@ $cards = array(
 		)
 	),
 	292 => array(
-		'name' => '地狱三头犬',
-		'rare' => 'C',
-		'pack' => '東埔寨Protoject',
-		'desc' => '新作获得意外的高人气的白毛红瞳兽娘',
-		'effect' => '开局携带两个捕兽夹',
-		'energy' => 0,
-		'valid' => array(
-	  	'wep' => '捕兽夹',
-			'wepk' => 'WPC',
-			'wepe' => '240',
-			'weps' => '2',
-			'wepsk' => '',
-			'ara' => '捕兽夹',
-			'arak' => 'WCP',
-			'arae' => '240',
-			'aras' => '2',
-			'arask' => '',
-		)
-	),
-	292 => array(
 		'name' => '邪教徒',
 		'rare' => 'A',
 		'pack' => 'Top Players',
@@ -5053,6 +5035,46 @@ $cards = array(
 			'itmsk6' => '',
 		)
 	),
+	296 => array(
+		'name' => '地狱三头犬',
+		'rare' => 'C',
+		'pack' => '東埔寨Protoject',
+		'desc' => '新作获得意外的高人气的白毛红瞳兽娘',
+		'effect' => '开局携带两个捕兽夹',
+		'energy' => 0,
+		'valid' => array(
+	  	'wep' => '捕兽夹',
+			'wepk' => 'WPC',
+			'wepe' => '240',
+			'weps' => '2',
+			'wepsk' => '',
+			'ara' => '捕兽夹',
+			'arak' => 'WCP',
+			'arae' => '240',
+			'aras' => '2',
+			'arask' => '',
+		)
+	),
+	297 => array(
+		'name' => '毛玉',
+		'rare' => 'C',
+		'pack' => '東埔寨Protoject',
+		'desc' => '能在天上飞行的神秘毛球，<br>是杂鱼中的杂鱼',
+		'effect' => '开局携带P点和蓝点',
+		'energy' => 0,
+		'valid' => array(
+			'itm5' => '[Ｐ]',
+			'itmk5' => 'MA',
+			'itme5' => '1',
+			'itms5' => '50',
+			'itmsk5' => '',
+			'itm6' => '[点]',
+			'itmk6' => 'MS',
+			'itme6' => '1',
+			'itms6' => '50',
+			'itmsk6' => '',
+		)
+	),
 	
 	//这里先来3个空位
 	
@@ -5073,25 +5095,15 @@ $cards = array(
 	),
 	
 	300 => array(
-		'name' => '海丽丝',
-		'ruby' => 'H.A.I.Lice',
-		'rare' => 'S',
-		'pack' => '東埔寨Protoject',
-		'desc' => '「東埔寨Protoject」的创作者，独自搭建了庞大幻想世界的奇异少女，最喜欢喝的东西是东之国的啤酒。<br>谁也没有在线下见过她，许多爱好者据此脑补她并非人类，而是一个<br>拥有实体的高等人工智能。<br><br>但她的真身其实是一名妖怪。<br>在这个赛博末法时代隐居起来的、<br>真正的妖怪。',
-		'effect' => '随机发动一张「東埔寨Protoject」卡包的S、A或B卡的效果',
-		'desc_skills' => 'S卡、A卡和B卡的几率分别为25%、30%和45%',
-		'bigdesc' => 1,
-		'energy' => 50,
+		'name' => '占位符，搞点大的',
+		'rare' => 'C',
+		'pack' => 'hidden',
+		'desc' => '占位符',
+		'effect' => '占位符占位符',
+		'desc_skills' => '占位符占位符占位符',
+		'energy' => 0,
 		'valid' => array(
-			'cardchange' => Array(
-				'S_odds' => 25,
-				'A_odds' => 35,
-				'B_odds' => 45,
-				'packlimit' => '東埔寨Protoject',
-				'allow_EB' => false,
-				'forced' => Array(),//无视概率强制加入选择的卡
-				'ignore_cards' => Array()//机制上必定选不到自己，这里可以放其他不想被选到的卡
-			)
+			'pls' => 0,
 		)
 	),
 	//留空位
@@ -5146,7 +5158,12 @@ $cards = array(
 		'rare' => 'M',
 		'pack' => '東埔寨Protoject',
 		'desc' => '一种形似馒头的生物，品种繁多',
-		'effect' => '随机发动一张「東埔寨Protoject」卡，但称号固定为走路萌物，且只有技能「治疗」',
+		'effect' => '<span style="font-size:9pt;font-family:Saitamaar,\'MS PGothic\',IPAMonaPGothic;">
+<br>＿人人人人人人人人人人人人人人人＿
+<br>＞　　　ゆっくりしていってね！！！　　　＜
+<br>￣^Ｙ^Ｙ^Ｙ^Ｙ^Ｙ^Ｙ^Ｙ^Ｙ^Ｙ^Ｙ^Ｙ^Ｙ^Ｙ^Ｙ^￣
+</span>',
+		'desc_skills' => '随机发动一张「東埔寨Protoject」卡，但称号固定为走路萌物，且只有技能「治疗」',
 		'energy' => 0,
 		'valid' => array(
 			//技能和称号的处理在skill584模块里
@@ -5157,7 +5174,7 @@ $cards = array(
 				'C_odds' => 30,
 				'packlimit' => '東埔寨Protoject',
 				'allow_EB' => false,
-				'forced' => Array(),//无视概率强制加入选择的卡
+				'forced' => Array(117, 153, 157, 158, 186),//无视概率强制加入选择的卡（星莲船，冴冴，诹访子，灵梦，超魔理沙）
 				'ignore_cards' => Array(300)//机制上必定选不到自己，这里可以放其他不想被选到的卡
 			),
 		)
@@ -5208,7 +5225,7 @@ $cards = array(
 				'real_random' => true,//真随机，所有卡选1张
 				'perm_change' => true,//永久改变，换卡之后不会再把card字段切回来，也不会按这张卡判定成就
 				'forced' => Array(),//无视概率强制加入选择的卡
-				'ignore_cards' => Array(81, 237)//机制上必定选不到自己，这里可以放其他不想被选到的卡
+				'ignore_cards' => Array(81, 237, 300, 344)//机制上必定选不到自己，这里可以放其他不想被选到的卡
 			)
 		)
 	),
