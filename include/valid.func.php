@@ -61,7 +61,7 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip='')
 	//游戏账户判定以及留言等的赋值
 	global $gamefounder, $cuser;
 	if($xuser != $cuser) {
-		$r = fetch_udata_by_username($xuser, 'groupid,motto,killmsg,lastword,cardlist');
+		$r = fetch_udata_by_username($xuser, 'groupid,motto,killmsg,lastword,cardlist,card_data');
 		if(empty($r)) return;
 	}else{
 		$r = $cudata;
@@ -125,7 +125,8 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip='')
 	
 	//如果卡片合法，记录改变的卡
 	$upd_card = !empty($o_card) ? $o_card : $card;
-	if(!empty($upd_card) && \cardbase\check_card_in_ownlist($upd_card, explode('_', $r['cardlist']))) $updatearr['card'] = $upd_card;
+	$cardlist = \cardbase\get_cardlist_energy_from_udata($r)[0];
+	if(!empty($upd_card) && \cardbase\check_card_in_ownlist($upd_card, $cardlist)) $updatearr['card'] = $upd_card;
 	
 	update_udata_by_username($updatearr, $xuser);
 	

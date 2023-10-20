@@ -1,18 +1,26 @@
-<table><tr>
-<td>
-	<img src="img/ach/{$ach_icon}">
-</td>
-<td class="ach_cont">
-<!--{eval $globalflag = \skillbase\check_skill_info($achid, 'global');}-->
-<span class="ach_title" <!--{if !$globalflag && $atitle }-->title="$atitle"<!--{/if}-->>
-	$stitle
-</span>
-{$ach_state_desc}
-<br>
-<!--{if !$globalflag || $p }-->
-<span class="yellow b" style="font-weight:normal" <!--{if $ptitle }-->title="$ptitle"<!--{/if}-->>{$proc_words}：{$p}{$unit}{$proc_words2}</span><br>
-<!--{/if}-->
-<font color="olive">奖励：</font>{$prize_desc}<br> 
-{$ach_desc}
-</td>
-</tr></table>
+<table>
+	<tr>
+		<td>
+			<img src="img/ach/{$ach_icon}">
+		</td>
+		<td class="ach_cont">
+			<!--{if !\skillbase\check_skill_info($achid, 'secret;') || !empty($p)}-->
+				<!--{eval $globalflag = \skillbase\check_skill_info($achid, 'global');}-->
+				<span class="ach_title" <!--{if !$globalflag && $atitle }-->title="$atitle"<!--{/if}-->>
+					$stitle
+				</span>
+				{$ach_state_desc}
+				<br>
+				<!--{if !$globalflag || $p }-->
+				<span class="yellow b" style="font-weight:normal" <!--{if $ptitle }-->title="$ptitle"<!--{/if}-->>{$proc_words}：{$p}{$unit}{$proc_words2}</span><br>
+				<!--{/if}-->
+				<font color="olive">奖励：</font>{$prize_desc}<br> 
+				{$ach_desc}
+			<!--{else}-->
+				<span class="grey b">
+					………………？………………
+				</span>
+			<!--{/if}-->
+		</td>
+	</tr>
+</table>

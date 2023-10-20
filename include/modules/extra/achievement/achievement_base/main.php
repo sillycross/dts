@@ -350,13 +350,18 @@ namespace achievement_base
 		update_udata_by_username(array('u_achievements' => $ud_str, 'cd_a1' => $now), $udata['username']);
 	}
 	
+	//获取当前等级的成就名称
+	//如果是隐藏成就会自动解码
+	//$tp=1会连续输出所有完成的同编号成就名并用空格隔开
 	function show_ach_title($achid, $achlv, $tp=0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill'.$achid));
 		$ret = '';
 		if(!empty(${'ach'.$achid.'_name'})) {
+			if(\skillbase\check_skill_info($achid, 'secret;')) $secret_flag = 1;
 			foreach(${'ach'.$achid.'_name'} as $lv => $n){
+				if(!empty($secret_flag)) $n = achievement_secret_decode($n);
 				if($lv <= $achlv) {
 					if($tp) $ret .= $n.' ';
 					else $ret = $n;
@@ -368,6 +373,7 @@ namespace achievement_base
 		return $ret;		
 	}
 	
+	//获取成就获得方式等的悬浮提示
 	function show_ach_title_2($achid, $achlv)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -523,6 +529,14 @@ namespace achievement_base
 		return $x;
 	}
 	
+	//隐藏成就文本解密函数，很粗糙，就是单纯检测前缀然后gdecode
+	function achievement_secret_decode($str)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(substr($str,0,10)!='<:secret:>') return $str;
+		return gdecode(substr($str,10),1);
+	}
+	
 	//成就通用显示函数，需要成就模块里至少定义$achXXX_threshold
 	function show_achievement_single($data, $achid)
 	{
@@ -564,9 +578,9 @@ namespace achievement_base
 			}
 		}		
 		
-		$stitle = \achievement_base\show_ach_title($achid, $cu);
-		$atitle = \achievement_base\show_ach_title_2($achid, $c+1);
-		$ptitle = \achievement_base\show_ach_title_3($achid, $data);
+		$stitle = \achievement_base\show_ach_title($achid, $cu);//成就名
+		$atitle = \achievement_base\show_ach_title_2($achid, $c+1);//成就悬浮提示
+		$ptitle = \achievement_base\show_ach_title_3($achid, $data);//其他一些需要提示的东西
 		$dailytype = \skillbase\check_skill_info($achid, 'daily') ? \achievement_base\get_daily_type($achid) : 0;
 		$prize_desc = show_prize_single($cu, $achid);
 		$ach_desc = show_achievement_single_desc($cu, $achid, $ach_threshold[$cu]);
@@ -603,14 +617,19 @@ namespace achievement_base
 		return $ach_icon;
 	}
 	
+	//获得当前级别的成就描述。如果是隐藏成就会自动解码
 	function show_achievement_single_desc($data, $achid, $tval)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill'.$achid));
 		if(empty(${'ach'.$achid.'_desc'})) return '';
 		else $ach_desc = ${'ach'.$achid.'_desc'};
+		if(\skillbase\check_skill_info($achid, 'secret;')) $secret_flag = 1;
 		foreach($ach_desc as $dk => $dv){
-			if($data >= $dk) $ret = $dv;
+			if($data >= $dk) {
+				if(!empty($secret_flag)) $ret = achievement_secret_decode($dv);
+				else $ret = $dv;
+			}
 		}
 		$ret = str_replace('<:threshold:>', $tval, $ret);
 		return $ret;

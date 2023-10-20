@@ -2,7 +2,7 @@
 
 namespace sys
 {
-	//新版渲染进行状况函数
+	//新版渲染进行状况函数。还没做完
 	//传入$news是一个数组，需包含nid、timestamp、hour、min、sec、a、b、c、d、e等元素
 	function render_news($news)
 	{

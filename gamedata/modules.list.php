@@ -542,6 +542,8 @@ skill371,extra/achievement/skills/skill371/,1
 skill372,extra/achievement/skills/skill372/,1
 skill373,extra/achievement/skills/skill373/,1
 skill374,extra/achievement/skills/skill374/,1
+skill375,extra/achievement/skills/skill375/,1
+skill376,extra/achievement/skills/skill376/,1
 skill504,extra/card/skills/skill504/,1
 skill567,extra/card/skills/skill567/,1
 skill505,extra/card/skills/skill505/,1

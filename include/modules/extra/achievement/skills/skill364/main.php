@@ -9,7 +9,7 @@ namespace skill364
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach364_desc= array(
-		1=>'完成所有成就（日常任务、限期活动和终生成就除外）',
+		1=>'完成所有成就（日常任务、限期活动、隐藏成就和终生成就除外）',
 	);
 	
 	$ach364_proc_words = '完成版本';
@@ -65,7 +65,7 @@ namespace skill364
 			$flag = 1;
 			foreach($achlist as $aclass => $av){
 				foreach($av as $ai){
-					if($achid != $ai && !\skillbase\check_skill_info($ai, 'daily') && !\skillbase\check_skill_info($ai, 'spec-activity') && !\skillbase\check_skill_info($ai, 'clobal'))
+					if($achid != $ai && !\skillbase\check_skill_info($ai, 'daily') && !\skillbase\check_skill_info($ai, 'spec-activity') && !\skillbase\check_skill_info($ai, 'secret') && !\skillbase\check_skill_info($ai, 'global'))
 					{
 						eval(import_module('skill'.$ai));
 						if(!empty(${'ach'.$ai.'_threshold'})){
