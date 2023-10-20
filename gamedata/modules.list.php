@@ -272,6 +272,8 @@ skill572,extra/card/skills/skill572/,1
 skill577,extra/card/skills/skill577/,1
 skill581,extra/card/skills/skill581/,1
 skill582,extra/card/skills/skill582/,1
+skill583,extra/card/skills/skill583/,1
+skill584,extra/card/skills/skill584/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
@@ -348,6 +350,7 @@ ex_armor_crack,extra/attr/ex_armor_crack/,1
 ex_attr_digit,extra/attr/ex_attr_digit/,1
 ex_weapon_crack,extra/attr/ex_weapon_crack/,1
 skill568,extra/card/skills/skill568/,1
+skill585,extra/card/skills/skill585/,1
 weather,base/weather/,1
 npcinfo,extra/misc/npcinfo/,1
 skill502,extra/card/skills/skill502/,1
