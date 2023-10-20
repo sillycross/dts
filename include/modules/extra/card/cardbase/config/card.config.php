@@ -5096,20 +5096,21 @@ $cards = array(
 	),
 	//留空位
 	341 => array(
-		'name' => '半人厨师',
-		'rare' => 'A',
+		'name' => '半人园丁',
+		'rare' => 'B',
 		'pack' => '東埔寨Protoject',
-		'desc' => '广州人射怪关我鸟事',
-		'effect' => '开局装备稀有的斩系武器，装备斩系武器时合成补给品耐久翻倍',
+		'desc' => '连一刻也没有为主子的晚餐哀悼，<br>立刻赶到战场的是',
+		'effect' => '怎么只来了半个人？',
+		'desc_skills' => '在幸存名单中显示为0.5人，开局携带半个灵力武器材料',
 		'energy' => 100,
 		'valid' => array(
-			'wep' => array('☆楼观剑☆', '☆白楼剑☆'),
-			'wepk' => 'WK',
-			'wepe' => '177',
-			'weps' => '33',
-			'wepsk' => 'H',
+			'itm6' => '★瓦衣山彐★',
+			'itmk6' => 'X',
+			'itme6' => '1',
+			'itms6' => '1',
+			'itmsk6' => 'z',
 			'skills' => array(
-				'581' => '0'
+				'583' => '0'
 			)
 		)
 	),
@@ -5123,6 +5124,55 @@ $cards = array(
 		'valid' => array(
 			'skills' => array(
 				'582' => '0'
+			)
+		)
+	),
+	343 => array(
+		'name' => '妖精女仆',
+		'rare' => 'M',
+		'pack' => '東埔寨Protoject',
+		'desc' => '主要负责增加女仆长的工作量',
+		'effect' => '不获得技能「疾风」「人杰」<br>「整备」「谨慎」「团结」',
+		'desc_skills' => '获得技能「摸鱼」',
+		'energy' => 0,
+		'valid' => array(
+			'skills' => array(
+				'494' => '0'
+			)
+		)
+	),
+	344 => array(
+		'name' => '油库里',
+		'rare' => 'M',
+		'pack' => '東埔寨Protoject',
+		'desc' => '一种形似馒头的生物，品种繁多',
+		'effect' => '随机发动一张「東埔寨Protoject」卡，但称号固定为走路萌物，且只有技能「治疗」',
+		'energy' => 0,
+		'valid' => array(
+			//技能和称号的处理在skill584模块里
+			'cardchange' => Array(
+				'S_odds' => 20,
+				'A_odds' => 20,
+				'B_odds' => 30,
+				'C_odds' => 30,
+				'packlimit' => '東埔寨Protoject',
+				'allow_EB' => false,
+				'forced' => Array(),//无视概率强制加入选择的卡
+				'ignore_cards' => Array(300)//机制上必定选不到自己，这里可以放其他不想被选到的卡
+			),
+		)
+	),
+	345 => array(
+		'name' => '复读机',
+		'rare' => 'C',
+		'pack' => '東埔寨Protoject',
+		'desc' => '「yahoo——」<br>「yahoo——」<br><br>「我可爱吗？——」<br>「我可爱吗？——」',
+		'effect' => '「请关注博丽神社谢谢喵——」<br>「yahoo——」',
+		'desc_skills' => '当前地图存在其他复读机时，攻击时视为具有音波属性',
+		'energy' => 0,
+		'valid' => array(
+			'skills' => array(
+				'585' => '0'
 			)
 		)
 	),
