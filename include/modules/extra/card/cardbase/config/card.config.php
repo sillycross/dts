@@ -4743,7 +4743,7 @@ $cards = array(
 		'desc_skills' => '「衰弱」：被你击中的敌人在10秒内无法处理伤口或异常状态',
 		'energy' => 100,
 		'valid' => array(
-			'wep' => '『疯狂杀人兔』',
+			'wep' => '☆粉红毛兔兔☆',
 			'wepk' => 'WG',
 			'wepe' => '77',
 			'weps' => '1',
@@ -5191,6 +5191,34 @@ $cards = array(
 			'skills' => array(
 				'585' => '0'
 			)
+		)
+	),
+	346 => array(
+		'name' => '不良天人',
+		'rare' => 'A',
+		'pack' => '東埔寨Protoject',
+		'desc' => '桃子什么的已经吃腻了',
+		'effect' => '我要制造世间的纷争！',
+		'desc_skills' => '获得一次性技能「天变」「地异」<br>「天变」：随机改变天气，12级时解锁<br>「地异」：将地图顺序上下翻转，直到下一次禁区，12级时解锁',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'588' => '0',
+				'589' => '0',
+			),
+		)
+	),
+	347 => array(
+		'name' => '仓鼠挑战者',
+		'rare' => 'B',
+		'pack' => 'Way of Life',
+		'desc' => '为什么大家都不抽新卡，就因为没更新新卡吗？',
+		'effect' => '持有切糕越多，受到的战斗伤害越低（至多-20%）',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'590' => '0',
+			),
 		)
 	),
 	

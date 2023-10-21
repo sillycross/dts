@@ -1,0 +1,19 @@
+<!--{eval $___TEMP_SKILL_ID=590;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+持有切糕越多，受到的战斗伤害越低<br>
+<!--{eval $sk590_dmgreduce = \skill590\get_sk590_dmgreduce($who);}-->
+当前受到战斗伤害<span class="yellow b">-{$sk590_dmgreduce}%</span>
+</span></td>
+<td class="skilldesc_right b3">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

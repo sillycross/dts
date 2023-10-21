@@ -274,6 +274,8 @@ skill581,extra/card/skills/skill581/,1
 skill582,extra/card/skills/skill582/,1
 skill583,extra/card/skills/skill583/,1
 skill584,extra/card/skills/skill584/,1
+skill589,extra/card/skills/skill589/,1
+skill590,extra/card/skills/skill590/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
@@ -420,6 +422,7 @@ skill50,extra/club/skills/skill50/,1
 skill245,extra/club/skills/skill245/,1
 skill252,extra/club/skills/skill252/,1
 skill270,extra/club/skills/skill270/,1
+skill588,extra/card/skills/skill588/,1
 empowers,base/items/empowers/,1
 skill70,extra/club/skills/skill70/,1
 skill246,extra/club/skills/skill246/,1
