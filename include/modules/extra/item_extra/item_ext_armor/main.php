@@ -10,6 +10,7 @@ namespace item_ext_armor
 		$iteminfo['DFS'] = '腿部外甲';		
 		$itemspkinfo['^su'] = '外甲';
 		$itemspkdesc['^su'] = '当前装备外甲的信息为：<:skn:>';
+		$itemspkinfo['^arn'] = '原防具名';//不会显示
 		$itemspkinfo['^are'] = '原防具效果值';//不会显示
 		$itemspkinfo['^ars'] = '原防具耐久值';//不会显示
 	}
@@ -78,6 +79,8 @@ namespace item_ext_armor
 				//清除原位置的外甲数据，并保存。由于可能从itm0装备道具，此时放到一个暂存的变量里
 				$result = armor_remove_su($positem, $tmpitem);
 				
+				$o_posname = ${$pos};
+				
 				//由于记录外甲属性、添加临时属性和替换效果值一定是绑定的，提取出来做一个核心函数
 				use_armor_ext_armor_process($theitem, $positem);
 				
@@ -95,10 +98,10 @@ namespace item_ext_armor
 					$itms0 = $tmpitem['itms'];
 					$itmsk0 = $tmpitem['itmsk'];
 					
-					$log .= "你脱下了<span class=\"yellow b\">$itm0</span>，然后在<span class=\"yellow b\">${$pos}</span>外面套上了<span class=\"yellow b\">$o_itm</span>。<br>";
+					$log .= "你脱下了<span class=\"yellow b\">$itm0</span>，然后在<span class=\"yellow b\">$o_posname</span>外面套上了<span class=\"yellow b\">$o_itm</span>。<br>";
 					\itemmain\itemget();
 				}
-				else $log .= "你在<span class=\"yellow b\">${$pos}</span>外面套上了<span class=\"yellow b\">$o_itm</span>。<br>";
+				else $log .= "你在<span class=\"yellow b\">$o_posname</span>外面套上了<span class=\"yellow b\">$o_itm</span>。<br>";
 				
 				return;
 			}
@@ -106,7 +109,7 @@ namespace item_ext_armor
 		$chprocess($theitem, $pos);
 	}
 	
-	//使用外甲数据来修改防具部位数据的函数，包含记录外甲数据、临时属性和效果耐久值三个功能
+	//使用外甲数据来修改防具部位数据的函数，包含修改道具名、记录外甲数据、临时属性和效果耐久值四个功能
 	//传入&$theitem, &$positem两个道具数组，数组元素都应该是引用对应的数值，类似itemmain模块的$theitem参数的结构
 	function use_armor_ext_armor_process(&$theitem, &$positem)
 	{
@@ -137,7 +140,7 @@ namespace item_ext_armor
 			//如果原防具是无限耐，记录原防具耐久为0，并把原防具耐久值改成外甲耐久值
 			if ($positem['itms'] === $nosta)
 			{
-				$positem['itmsk'] .= '^ars'.'0';
+				$positem['itmsk'] .= '^ars0';
 				$positem['itms'] = $theitem['itms'];
 			}				
 			else//原防具耐久也有限，则记录原防具耐久，并把外甲耐久加到原防具耐久值上
@@ -146,8 +149,22 @@ namespace item_ext_armor
 				$positem['itms'] += $theitem['itms'];
 			}
 		}			
-		//最后，把外甲效果值加到原防具效果值上
+		//之后，把外甲效果值加到原防具效果值上，这个顺序能保证数据不出错
 		$positem['itme'] += $theitem['itme'];
+		//修改道具名成为外甲（内部衣服）的形式，并保存原有的道具名
+		armor_changename_to_ext($theitem, $positem);
+	}
+	
+	//修改道具名成为外甲（内部衣服）的形式，并保存原有的道具名
+	function armor_changename_to_ext(&$theitem, &$positem)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!empty(\itemmain\check_in_itmsk('^arn', $positem['itmsk']))) {
+			$positem['itmsk'] = \itemmain\replace_in_itmsk('^arn','',$positem['itmsk']);
+		}
+		$positem['itmsk'] .= '^arn_'.\attrbase\base64_encode_comp_itmsk($positem['itm']).'1';
+		$positem['itm'] = $theitem['itm'].'('.$positem['itm'].')';
+		return;
 	}
 	
 	//防具受损时，检测外甲是否完全损坏
@@ -256,9 +273,15 @@ namespace item_ext_armor
 		}
 		else  $log .= "你的外甲<span class=\"red b\">".$suitem['itm']."</span>受损过重，无法再装备了！<br>";
 		
-		$pd[$whicharmor.'sk'] = \itemmain\replace_in_itmsk('^su', '', $pd[$whicharmor.'sk']);
+		$pd[$whicharmor.'sk'] = \itemmain\replace_in_itmsk('^su', '', $pd[$whicharmor.'sk']);		
 		$pd[$whicharmor.'sk'] = \itemmain\replace_in_itmsk('^are', '', $pd[$whicharmor.'sk']);
 		$pd[$whicharmor.'sk'] = \itemmain\replace_in_itmsk('^ars', '', $pd[$whicharmor.'sk']);
+		
+		//恢复原来的护甲名
+		$null = NULL;
+		$positem = Array('itm' => &$pd[$whicharmor], 'itmsk' => &$pd[$whicharmor.'sk']);
+		armor_changename_from_ext($positem, $null);
+		
 		armor_clean_suit_sk($pd[$whicharmor.'sk']);		
 	}
 	
@@ -398,9 +421,21 @@ namespace item_ext_armor
 				}
 				$positem['itmsk'] = \itemmain\replace_in_itmsk('^ars','',$positem['itmsk']);
 			}
+			//恢复原防具的名字
+			armor_changename_from_ext($positem, $getitem);
 			return 1;
 		}
 		return 0;
+	}
+	
+	//把道具名恢复成内部衣服
+	function armor_changename_from_ext(&$positem, &$getitem)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$arn = \itemmain\check_in_itmsk('^arn', $positem['itmsk']);
+		if(!empty($arn))
+			$positem['itm'] = \attrbase\base64_decode_comp_itmsk($arn);
+		$positem['itmsk'] = \itemmain\replace_in_itmsk('^arn','',$positem['itmsk']);
 	}
 	
 	//清除目标属性字符串的临时属性
@@ -422,40 +457,23 @@ namespace item_ext_armor
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($cinfo);
 		if($ret) {
+			if(substr($cinfo[0],0,4) ==='^arn') return false;
 			if('^are' == $cinfo[0]) return false;
 			if('^ars' == $cinfo[0]) return false;
 		}
 		return $ret;
 	}
 	
-	//外甲道具名的显示
-	function parse_item_words($edata, $simple = 0, $elli = 0)	
+	//必须先把外甲拆开才能丢弃
+	function itemdrop_valid_check($itm, $itmk, $itme, $itms, $itmsk)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$ret = $chprocess($edata, $simple, $elli);
-		eval(import_module('itemmain','player'));
-		foreach($equip_list as $pos) {
-			if(strpos($pos,'itm')===0) $itmsk = $edata['itmsk'.substr($pos, 3)];
-			else $itmsk = $edata[$pos.'sk'];
-			list($ret[$pos.'_words'], $ret[$pos.'_words_short']) = parse_ext_armor_words($ret[$pos.'_words'], $ret[$pos.'_words_short'], $itmsk, $simple, $elli);
+		if(\itemmain\check_in_itmsk('^su', $itmsk)){
+			eval(import_module('logger'));
+			$log .= '<span class="yellow b">必须先把外甲卸下来才能丢弃！</span><br>';
+			return false;
 		}
-		return $ret;
-	}
-	
-	//外甲道具名的单项处理
-	function parse_ext_armor_words($itm_words, $itm_words_short, $itmsk, $simple = 0, $elli = 0)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$suitem = armor_get_su($itmsk);
-		$ret = Array($itm_words, $itm_words_short);
-		if(!empty($suitem)) {
-			$suitem_name = $suitem['itm'];
-			$ext = \itemmain\parse_itmname_words($suitem_name, $elli);
-			$ext_short = \itemmain\parse_itmname_words($suitem_name, 1, 15);
-			$ret[0] = $ext . '<!--CRLF-->' . '(' . $itm_words . ')'; //在玩家界面显示的时候会把这个字符串替换成换行
-			$ret[1] = $ext_short . '<!--CRLF-->' . '(' . $itm_words_short . ')';
-		}
-		return $ret;
+		return $chprocess($itm, $itmk, $itme, $itms, $itmsk);
 	}
 	
 	//NPC载入时，如果存在外甲数据，自动装上外甲
@@ -509,15 +527,15 @@ namespace item_ext_armor
 	}
 	
 	//加入视野时处理外甲显示
-	function add_memory_itm_process($marr, &$pa=NULL){
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$ret = $chprocess($marr, $pa);
-		if(!empty($ret['itmsk'])) {
-			$ret['itm'] = parse_ext_armor_words($ret['itm'], '', $ret['itmsk'])[0];
-			if(strpos($ret['itm'], '<!--CRLF-->')!==false) $ret['itm'] = str_replace('<!--CRLF-->', '', $ret['itm']);
-		}
-		return $ret;
-	}
+//	function add_memory_itm_process($marr, &$pa=NULL){
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		$ret = $chprocess($marr, $pa);
+//		if(!empty($ret['itmsk'])) {
+//			$ret['itm'] = parse_ext_armor_words($ret['itm'], '', $ret['itmsk'])[0];
+//			if(strpos($ret['itm'], '<!--CRLF-->')!==false) $ret['itm'] = str_replace('<!--CRLF-->', '', $ret['itm']);
+//		}
+//		return $ret;
+//	}
 }
 
 ?>
