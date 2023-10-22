@@ -412,7 +412,6 @@ skill232,extra/club/skills/skill232/,1
 skill432,extra/card/skills/skill432/,1
 skill558,extra/card/skills/skill558/,1
 skill513,extra/card/skills/skill513/,1
-item_ext_armor,extra/item_extra/item_ext_armor/,1
 item_uu,extra/item_extra/item_uu/,1
 item_umb,extra/item_extra/item_umb/,1
 instance6,extra/instance/instance6/,1
@@ -455,7 +454,6 @@ skill512,extra/card/skills/skill512/,1
 addnpc_event,extra/misc/addnpc_event/,1
 wepchange,extra/attr/wepchange/,1
 skill77,extra/club/skills/skill77/,1
-item_armor_empower,extra/item_extra/item_armor_empower/,1
 autopower,extra/misc/autopower/,1
 skill601,extra/club/skills/skill601/,1
 skill602,extra/club/skills/skill602/,1
@@ -551,6 +549,7 @@ skill374,extra/achievement/skills/skill374/,1
 skill375,extra/achievement/skills/skill375/,1
 skill376,extra/achievement/skills/skill376/,1
 skill504,extra/card/skills/skill504/,1
+item_ext_armor,extra/item_extra/item_ext_armor/,1
 skill567,extra/card/skills/skill567/,1
 skill505,extra/card/skills/skill505/,1
 skill80,extra/club/skills/skill80/,1
@@ -568,6 +567,7 @@ instance5,extra/instance/instance5/,1
 skill361,extra/activities/lunany2018/skill361/,1
 skill362,extra/activities/lunany2018/skill362/,1
 skill365,extra/activities/aprilfool2018/skill365/,1
+item_armor_empower,extra/item_extra/item_armor_empower/,1
 ex_purity,extra/attr/ex_purity/,1
 skill26,extra/club/skills/skill26/,1
 skill265,extra/club/skills/skill265/,1

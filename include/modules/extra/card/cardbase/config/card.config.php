@@ -61,7 +61,7 @@ $packdesc = array(
 $pack_ignore_kuji = Array('Balefire Rekindle','Event Bonus');
 //卡包实装的时间戳，可以用来隐藏卡包
 $packstart = array(
-	//'Cyber Zealots' => 4476654671,
+	'Cyber Zealots' => 4476654671,
 	//'東埔寨Protoject' => 4476654671,
 	'Stealth' => 4476654671,
 	'hidden' => 4476654671,
@@ -4966,7 +4966,7 @@ $cards = array(
 		'energy' => 100,
 		'valid' => array(
 		  'skills' => array(
-				'529' => '3', //TODO
+				'pls' => '0', //TODO
 			),
 		)
 	),

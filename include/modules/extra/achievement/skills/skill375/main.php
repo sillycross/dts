@@ -9,7 +9,7 @@ namespace skill375
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach375_desc= array(
-		1=>'<:secret:>H4sIAAAAAAAACjWN0Q0AIQhDd7kJPFCEXfg5FTZg/0MTf5rmNW0fjWr4aZAwaDT3ln4QaTDP9FiKaXTGmim8cojftDGNTMFfDRm177WaRIqv26XpyZt963ab9b2PY3OXVDLkVDjLZc39BfL8oZP6KZ4AAAA=',
+		1=>'<:secret:>H4sIAAAAAAAACjWMyRHAMAjEenEFPgBDL3x80QH9hyTjn0aa3aQOpw11Eq7qaIbBk0ideQW3nI965wZRa5HP2K3INKNWK+oyob9vEEay7bulZeHxjN9YegCOngf+dAAAAA==',
 	);
 	
 	$ach375_proc_words = '当前纪录';
@@ -67,9 +67,10 @@ namespace skill375
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa, $data, $achid);
 		if($achid == 375 && !empty(\skillbase\skill_getvalue(375,'cnt',$pa))){
-			eval(import_module('sys'));
-			if(\sys\is_winner($pa['name'],$winner))
-				$ret += 1;
+			$ret += 1;
+//			eval(import_module('sys'));
+//			if(\sys\is_winner($pa['name'],$winner))
+//				$ret += 1;
 		}
 		return $ret;
 	}

@@ -178,7 +178,9 @@ namespace searchmemory
 			//加入记忆一定加入视野，所以这里显示的是视野相关的提示
 			$amflag = 0;
 			if(isset($marr['itm'])){
+				$marr = add_memory_itm_process($marr, $pa);
 				$amn = $marr['itm'];
+				var_dump($amn);
 				$amflag = 1;
 				if($showlog) {
 					if(\player\check_fog()) $log .= '你能隐约看到'.$amn.'的位置。<br>';
@@ -218,6 +220,12 @@ namespace searchmemory
 			}
 		}
 		return;
+	}
+	
+	//在加入视野前对道具进行处理的函数，本模块不会进行任何处理。返回道具数组，注意不会对传入的道具数组做修改
+	function add_memory_itm_process($marr, &$pa=NULL){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $marr;
 	}
 	
 	//获得当前视野边缘（仍位于视野）的记忆的下标（注意不是个数）
@@ -375,7 +383,7 @@ namespace searchmemory
 		eval(import_module('player'));
 		$res = $chprocess($item);
 		if(!empty($res)) {
-			$amarr = array('iid' => $res['iid'], 'itm' => $res['itm'], 'pls' => $pls, 'unseen' => 0);
+			$amarr = array('iid' => $res['iid'], 'itm' => $res['itm'], 'pls' => $pls, 'unseen' => 0, 'itmsk'=>$res['itmsk']);
 			add_memory($amarr);
 		}
 		return $res;
@@ -716,7 +724,7 @@ namespace searchmemory
 			//先把道具数据插入地图
 			$dropid = \itemmain\itemdrop_query($itm, $itmk, $itme, $itms, $itmsk, $pls);
 			//把该道具放到队友的视野
-			$amarr = array('iid' => $dropid, 'itm' => $itm, 'pls' => $pls, 'unseen' => 0);
+			$amarr = array('iid' => $dropid, 'itm' => $itm, 'pls' => $pls, 'unseen' => 0, 'itmsk' => $itmsk);
 			add_memory($amarr, 0, $edata);
 			//进行提示和保存对方数据
 			$log .= "你将<span class=\"yellow b\">".$itm."</span>送到了<span class=\"yellow b\">{$edata['name']}</span>的身旁。<br>";

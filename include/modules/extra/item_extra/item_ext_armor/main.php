@@ -435,15 +435,25 @@ namespace item_ext_armor
 		$ret = $chprocess($edata, $simple, $elli);
 		eval(import_module('itemmain','player'));
 		foreach($equip_list as $pos) {
-			if(strpos($pos,'itm')===0) $suitem = armor_get_su($edata['itmsk'.substr($pos, 3)]);
-			else $suitem = armor_get_su($edata[$pos.'sk']);
-			if(!empty($suitem)) {
-				$suitem_name = $suitem['itm'];
-				$itm = \itemmain\parse_itmname_words($suitem_name, $elli);
-				$itm_short = \itemmain\parse_itmname_words($suitem_name, 1, 15);
-				$ret[$pos.'_words'] = $itm . '<!--CRLF-->' . '(' . $ret[$pos.'_words'] . ')'; //在玩家界面显示的时候会把这个字符串替换成换行
-				$ret[$pos.'_words_short'] = $itm_short . '<!--CRLF-->' . '(' . $ret[$pos.'_words_short'] . ')';
-			}
+			if(strpos($pos,'itm')===0) $itmsk = $edata['itmsk'.substr($pos, 3)];
+			else $itmsk = $edata[$pos.'sk'];
+			list($ret[$pos.'_words'], $ret[$pos.'_words_short']) = parse_ext_armor_words($ret[$pos.'_words'], $ret[$pos.'_words_short'], $itmsk, $simple, $elli);
+		}
+		return $ret;
+	}
+	
+	//外甲道具名的单项处理
+	function parse_ext_armor_words($itm_words, $itm_words_short, $itmsk, $simple = 0, $elli = 0)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$suitem = armor_get_su($itmsk);
+		$ret = Array($itm_words, $itm_words_short);
+		if(!empty($suitem)) {
+			$suitem_name = $suitem['itm'];
+			$ext = \itemmain\parse_itmname_words($suitem_name, $elli);
+			$ext_short = \itemmain\parse_itmname_words($suitem_name, 1, 15);
+			$ret[0] = $ext . '<!--CRLF-->' . '(' . $itm_words . ')'; //在玩家界面显示的时候会把这个字符串替换成换行
+			$ret[1] = $ext_short . '<!--CRLF-->' . '(' . $itm_words_short . ')';
 		}
 		return $ret;
 	}
@@ -496,6 +506,17 @@ namespace item_ext_armor
 			}
 		}
 		return $npc;
+	}
+	
+	//加入视野时处理外甲显示
+	function add_memory_itm_process($marr, &$pa=NULL){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($marr, $pa);
+		if(!empty($ret['itmsk'])) {
+			$ret['itm'] = parse_ext_armor_words($ret['itm'], '', $ret['itmsk'])[0];
+			if(strpos($ret['itm'], '<!--CRLF-->')!==false) $ret['itm'] = str_replace('<!--CRLF-->', '', $ret['itm']);
+		}
+		return $ret;
 	}
 }
 
