@@ -180,7 +180,6 @@ namespace searchmemory
 			if(isset($marr['itm'])){
 				$marr = add_memory_itm_process($marr, $pa);
 				$amn = $marr['itm'];
-				var_dump($amn);
 				$amflag = 1;
 				if($showlog) {
 					if(\player\check_fog()) $log .= '你能隐约看到'.$amn.'的位置。<br>';
