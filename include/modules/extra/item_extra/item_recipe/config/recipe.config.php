@@ -147,7 +147,7 @@ namespace item_recipe
 		22 => array
 		(
 			'stuffa' => array('extra'=>'ygo'),
-			'result' => array('「闭锁世界的冥神」LINK-5','WC',300,'∞','iMb'),
+			'result' => array('「闭锁世界的冥神」LINK-5','WC',300,'∞','iMb^l5'),
 			'extra' => array('link'=>5, 'materials'=>'>3', 'consume_recipe'=>true,),
 		),
 		23 => array
@@ -210,6 +210,12 @@ namespace item_recipe
 			'stuff3' => array('itm'=>'☆八星认证☆','itm_match'=>0),
 			'result' => array('「珠泪哀歌族·鲁莎卡人鱼」★8','WC',300,'∞','rikAyZ'),
 			'extra' => array('materials'=>3, 'consume_recipe'=>true,),
+		),
+		32 => array
+		(
+			'stuff1' => array('itm'=>'★连接认证2★','itm_match'=>0),
+			'result' => array('「铁兽战线 块击之贝尔布鲁厄姆」LINK-2','WC',170,'∞','rcNj^l2'),
+			'extra' => array('materials'=>1, 'consume_recipe'=>true,),
 		),
 		//以上为游戏王相关配方合成
 		50 => array

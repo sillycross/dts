@@ -12,11 +12,13 @@ namespace skill590
 	function acquire590(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		\skillbase\skill_setvalue(590, 'dmgreduce', get_sk590_dmgreduce($pa), $pa);	
 	}
 	
 	function lost590(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		\skillbase\skill_delvalue(590, 'dmgreduce', $pa);
 	}
 	
 	function check_unlocked590(&$pa)
@@ -29,9 +31,9 @@ namespace skill590
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;		
 		$udata = fetch_udata_by_username($pa['name']);
-		$gold = $udata['gold'];	
-		if ($gold <= 1000) $r = 0;
-		else $r = min(15 * log10($gold) - 45, 20);
+		$gold = $udata['gold'];
+		$r = 0;
+		if ($gold > 1000) $r = min(15 * log10($gold) - 45, 20);
 		return $r;
 	}
 
@@ -42,7 +44,7 @@ namespace skill590
 		if (\skillbase\skill_query(590, $pd) && check_unlocked590($pd))
 		{
 			eval(import_module('logger'));
-			$sk590_dmgreduce = get_sk590_dmgreduce($pd);
+			$sk590_dmgreduce = \skillbase\skill_getvalue(590, 'dmgreduce', $pd);
 			if ($sk590_dmgreduce > 0){
 				if ($active) $log .= "<span class=\"yellow b\">「囤积」使敌人受到的最终伤害降低了{$sk590_dmgreduce}%！</span><br>";
 				else $log .= "<span class=\"yellow b\">「囤积」使你受到的最终伤害降低了{$sk590_dmgreduce}%！</span><br>";
