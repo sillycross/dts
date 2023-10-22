@@ -201,7 +201,7 @@ namespace item_armor_empower
 		eval(import_module('sys','player'));
 		if (get_var_in_module('mode','input') == 'item' && get_var_in_module('usemode','input') == 'armor_empower')
 		{
-			$item = substr(\input\get_var_in_module('command','input'), 3);
+			$item = substr(get_var_in_module('command','input'), 3);
 			use_armor_empower($item);
 			return;
 		}		
