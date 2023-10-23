@@ -100,6 +100,7 @@ $card_blink_rate_I = Array(//闪卡比例（百分比）。对应blink=1
 	'S' => 5,
 	'A' => 5,
 	'B' => 5,
+	'C' => 5,
 );
 //卡片返回切糕的价格
 $card_price = array(

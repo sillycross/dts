@@ -52,7 +52,8 @@ if(!isset($cmd)){
 				'motto' => $motto,
 				'killmsg' => $killmsg,
 				'lastword' => $lastword,
-				'cardlist' => '0',
+				'card_data' => gencode(Array(0=>Array('cardid'=>0,'cardenergy'=>0))),//因为注册是只载入核心模块的，只能这么干
+//				'cardlist' => '0',
 			);
 			$result = insert_udata($i_udata);
 			if($result){

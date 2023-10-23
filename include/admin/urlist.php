@@ -259,7 +259,7 @@ if($urcmd == 'ban' || $urcmd == 'unban' || $urcmd == 'del' || $urcmd == 'sendmes
 		$urdata[$no]['lastword'] = $urlastword = astrfilter(${'lastword_'.$no});
 		$urdata[$no]['gold'] = $urgold = astrfilter(${'gold_'.$no});
 		$urdata[$no]['icon'] = $uricon = (int)(${'icon_'.$no});
-		$urdata[$no]['cardlist'] = $urcardlist = astrfilter(${'cardlist_'.$no});
+//		$urdata[$no]['cardlist'] = $urcardlist = astrfilter(${'cardlist_'.$no});
 		$urdata[$no]['a_achievements'] = astrfilter(${'a_achievements_'.$no});
 		
 		$tmp_urna = json_decode(htmlspecialchars_decode(${'a_achievements_'.$no}),1);
@@ -282,7 +282,7 @@ if($urcmd == 'ban' || $urcmd == 'unban' || $urcmd == 'del' || $urcmd == 'sendmes
 			'icon' => $uricon,
 			'gender' => $urgender,
 			'gold' => $urgold,
-			'cardlist' => $urcardlist,
+//			'cardlist' => $urcardlist,
 		);
 		
 		$extrasql='';

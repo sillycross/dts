@@ -422,19 +422,19 @@ namespace achievement_base
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		if(!$pa || !$achid) return;
-		if(defined('IN_MAINTAIN')) {
-			global $gudata;
-			$gudata['gold'] += $getqiegao;
-			$gudata['cardlist'] = explode('_', $gudata['cardlist'] );
-			if(!in_array($getcard, $gudata['cardlist'])) {
-				$gudata['cardlist'][] = $getcard;
-				$gudata['cardlist'] = implode('_', $gudata['cardlist'] );
-			}else{
-				eval(import_module('cardbase'));
-				$gudata['gold'] += $card_price[$cards[$getcard]['rare']];
-			}
-			return;
-		}
+//		if(defined('IN_MAINTAIN')) {
+//			global $gudata;
+//			$gudata['gold'] += $getqiegao;
+//			$gudata['cardlist'] = explode('_', $gudata['cardlist'] );
+//			if(!in_array($getcard, $gudata['cardlist'])) {
+//				$gudata['cardlist'][] = $getcard;
+//				$gudata['cardlist'] = implode('_', $gudata['cardlist'] );
+//			}else{
+//				eval(import_module('cardbase'));
+//				$gudata['gold'] += $card_price[$cards[$getcard]['rare']];
+//			}
+//			return;
+//		}
 		if (isset($pa['username'])) $n=$pa['username'];
 		else $n=$pa['name'];
 		
@@ -494,7 +494,7 @@ namespace achievement_base
 					if($card_flag && !empty($card_prize[$tk])) {
 						$getcard = $card_prize[$tk];
 						if(is_array($getcard)) {
-							$cardlist_got = explode('_', $ud['cardlist']);
+							$cardlist_got = \cardbase\get_cardlist_energy_from_udata($ud)[0];
 							$getcard = array_diff($getcard, $cardlist_got);//优先获得没有拿到过的卡
 							if(empty($getcard)) $getcard = $card_prize[$tk];//如果这个卡集全部获得了，那么随机一个
 							shuffle($getcard);

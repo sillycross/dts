@@ -393,8 +393,9 @@ namespace cardbase
 			else $n=$pa['name'];
 		}
 		//判定卡片是不是新卡，当场显示用
-		$result = fetch_udata_by_username($n,'cardlist');
+		$result = fetch_udata_by_username($n);
 		if(empty($result)) return;
+		
 		//if(!empty($ext)) $ext.='<br>';
 		include_once './include/messages.func.php';
 		message_create(
@@ -405,7 +406,7 @@ namespace cardbase
 		);
 		
 		$ret = 0;
-		$clist = explode('_',$result['cardlist']);
+		$clist = get_cardlist_energy_from_udata($result)[0];
 		if (!in_array($ci,$clist)) $ret = 1;
 		return $ret;
 	}
@@ -635,7 +636,7 @@ namespace cardbase
 	
 	//新模式的获得卡片判定。如果卡片重复则换算成切糕
 	//会自动更新$udata里$card_data的值，但不会写数据库
-	//如果获得卡片返回1，否则返回0
+	//返回一个数组array($isnew, $qiegao)，$isnew为真则表示获得卡片，$qiegao则代表转化成的切糕数
 	function get_card_alternative($cardid, &$udata, $ignore_qiegao=0, $blink=0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -647,13 +648,13 @@ namespace cardbase
 				$udata['gold'] += $getqiegao;
 			}
 				
-			$ret = 0;
+			$ret = Array(false, $getqiegao);
 		}
 		else
 		{
 			$cardlist[] = $cardid;
 			put_cardlist_energy_to_udata($cardlist, $cardenergy, $card_data, $udata);//这里实际上只保存了$card_data
-			$ret = 1;
+			$ret = Array(true, 0);
 		}
 		return $ret;
 	}

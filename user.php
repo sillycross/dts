@@ -40,16 +40,11 @@ if($mode == 'edit') {
 		//$passqry = '';
 		$gamedata['innerHTML']['info'] .= $_INFO['pass_failure'].'<br />';
 	}
-	
-	$carr = explode('_',$udata['cardlist']);
-	$cflag=0;
-	foreach ($carr as $val){
-		if ($val==$card){
-			$cflag=true;
-			break;
-		}
+	$cardlist = \cardbase\get_cardlist_energy_from_udata($udata)[0];
+	if(!in_array($card, $cardlist)) {
+		$card = 0;
 	}
-	if (!$cflag) $card=0;
+
 	$updarr = array(
 		'gender' => $gender,
 		'icon' => $icon,

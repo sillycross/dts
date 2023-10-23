@@ -129,10 +129,7 @@ function message_check($checklist, $messages)
 	global $udata,$db,$gtablepre,$info;
 	if(defined('MOD_CARDBASE')) eval(import_module('cardbase'));
 	if(!defined('MOD_CARDBASE')) return;
-	if(!is_array($udata['cardlist'])) {
-		$cl_changed = 1;
-		$udata['cardlist'] = explode('_',$udata['cardlist']);
-	}
+	
 	$getqiegaosum = $getcardflag = $getkarmasum = 0;
 	
 	foreach($checklist as $cid){
@@ -149,11 +146,11 @@ function message_check($checklist, $messages)
 			if($getcard) {
 				$getname = $cards[$getcard]['name'];
 				$getrare = $cards[$getcard]['rare'];
-				if(!in_array($getcard, $udata['cardlist'])) $info[] = '获得了卡片“<span class="'.$card_rarecolor[$getrare].'">'.$getname.'</span>”！';
-				else $info[] = '已有卡片“<span class="'.$card_rarecolor[$getrare].'">'.$getname.'</span>”，转化为了'.$card_price[$getrare].'切糕！';
 				//\cardbase\get_card($getcard, $udata);
 				//不直接写数据库，最后统一写
-				\cardbase\get_card_alternative($getcard, $udata);
+				list($isnew, $cardqiegao) = \cardbase\get_card_alternative($getcard, $udata);
+				if($isnew) $info[] = '获得了卡片“<span class="'.$card_rarecolor[$getrare].'">'.$getname.'</span>”！';
+				if($cardqiegao) $info[] = '已有卡片“<span class="'.$card_rarecolor[$getrare].'">'.$getname.'</span>”，转化为了'.$cardqiegao.'切糕！';
 				$getcardflag = 1;
 			}
 			//获得因果
