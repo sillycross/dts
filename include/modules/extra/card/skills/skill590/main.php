@@ -33,7 +33,7 @@ namespace skill590
 		$udata = fetch_udata_by_username($pa['name']);
 		$gold = $udata['gold'];
 		$r = 0;
-		if ($gold > 1000) $r = min(15 * log10($gold) - 45, 20);
+		if ($gold > 1000) $r = min(floor(150 * log10($gold) - 450) / 10, 20);
 		return $r;
 	}
 
