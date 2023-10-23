@@ -636,14 +636,17 @@ namespace cardbase
 	//新模式的获得卡片判定。如果卡片重复则换算成切糕
 	//会自动更新$udata里$card_data的值，但不会写数据库
 	//如果获得卡片返回1，否则返回0
-	function get_card_alternative($cardid, &$udata, $ignore_qiegao=0)
+	function get_card_alternative($cardid, &$udata, $ignore_qiegao=0, $blink=0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		list($cardlist, $cardenergy, $card_data) = get_cardlist_energy_from_udata($udata);
 		if(in_array($cardid, $cardlist))//卡存在，那么换算成切糕
 		{
-			eval(import_module('sys','player','cardbase'));
-			if(!$ignore_qiegao) $udata['gold'] += $card_price[$cards[$cardid]['rare']];
+			if(!$ignore_qiegao) {
+				$getqiegao = get_card_transfer_to_qiegao($cardid, $udata, $blink);
+				$udata['gold'] += $getqiegao;
+			}
+				
 			$ret = 0;
 		}
 		else
@@ -651,6 +654,21 @@ namespace cardbase
 			$cardlist[] = $cardid;
 			put_cardlist_energy_to_udata($cardlist, $cardenergy, $card_data, $udata);//这里实际上只保存了$card_data
 			$ret = 1;
+		}
+		return $ret;
+	}
+	
+	//计算卡片转换成切糕的数值（不会直接修改$udata）
+	function get_card_transfer_to_qiegao($cardid, &$udata, $blink=0)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('cardbase'));
+		$ret = $card_price[$cards[$cardid]['rare']];
+		if(!empty($blink)) {
+			if(2==$blink) $ret *= 20;//镜碎卡返回20倍切糕（其实纯亏）
+			else{
+				$ret *= 5;//闪卡返回5倍切糕
+			}
 		}
 		return $ret;
 	}

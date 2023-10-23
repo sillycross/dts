@@ -2,6 +2,13 @@
 	<!--{if !empty($card_achieved)}-->
 		<img class="card_achieved" src="img/card_achieved.png" />
 	<!--{/if}-->
+	<!--{if !empty($card_blink)}-->
+		<div class="card_blink_container">
+			<div 
+			<!--{if 'S'==$nowcard['rare']}-->class="card_blink blink_gold"<!--{elseif 'A'==$nowcard['rare']}-->class="card_blink blink_cyan"<!--{elseif 'B'==$nowcard['rare']}-->class="card_blink blink_brickred"<!--{/if}-->
+			> </div>
+		</div>
+	<!--{/if}-->
 	<div class="card_frame_outer 
 		<!--{if 'S'==$nowcard['rare']}-->
 			frame_S

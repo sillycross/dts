@@ -179,3 +179,53 @@ div.hexagon_A:after{ border-top: 12px solid rgb(90,220,240);}
 div.hexagon_B{background:rgb(220,108,90);}
 div.hexagon_B:before{ border-bottom: 12px solid rgb(220,108,90);}
 div.hexagon_B:after{ border-top: 12px solid rgb(220,108,90);}
+
+div.card_blink_container {
+	position: absolute;
+	top: 0;
+  left: 0;
+  width: 240px;
+  height: 320px;
+  z-index:11;
+  overflow:hidden;
+  -moz-border-radius:9px; 
+	-webkit-border-radius:9px;
+	border-radius:9px;
+	
+	-webkit-mask-image: url("../../img/card_blink_mask.png");
+	mask-image: url("../../img/card_blink_mask.png");
+	-webkit-mask-size: 100% 100%;
+	mask-size: 100% 100%;
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+}
+
+div.card_blink {
+	position: absolute;
+	top: -100px;
+	left: 20px;
+	width:200px;
+	height:520px;
+  animation: rotation 5s infinite linear;
+}
+
+div.blink_gold {
+  background: linear-gradient(90deg, transparent, #ffeebb, transparent);
+}
+
+div.blink_cyan {
+  background: linear-gradient(90deg, transparent, #ddffff, transparent);
+}
+
+div.blink_brickred {
+  background: linear-gradient(90deg, transparent, #ffaa99, transparent);
+}
+
+@keyframes rotation{
+	0% {
+		transform: rotateZ(0deg);
+	}
+	100% {
+		transform: rotateZ(360deg);
+	}
+}

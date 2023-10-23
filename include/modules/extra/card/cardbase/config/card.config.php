@@ -92,6 +92,15 @@ $card_rarity_html = array(
 	'C'=>'<span class="'.$card_rarecolor['C'].'">C</span>',
 	'M'=>'<span class="'.$card_rarecolor['M'].'">M</span>'
 );	
+$card_blink_rate_II = Array(//碎卡比例（百分比），先判定是不是碎卡再判定是不是闪卡。对应blink=2
+	'S' => 1,
+	'A' => 1,
+);
+$card_blink_rate_I = Array(//闪卡比例（百分比）。对应blink=1
+	'S' => 5,
+	'A' => 5,
+	'B' => 5,
+);
 //卡片返回切糕的价格
 $card_price = array(
 	'S'=>499,
