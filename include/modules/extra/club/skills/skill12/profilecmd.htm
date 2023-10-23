@@ -1,0 +1,5 @@
+<!--{if $skillpoint >= 1}-->
+<input type="button" class="cmdbutton" id="b" value="[B]治疗" onclick="$('mode').value='special';$('command').value='skill12_special';$('subcmd').value='castsk12';postCmd('gamecmd','command.php');this.disabled=true;">
+<!--{else}-->
+<input type="button" class="cmdbutton" id="b" value="[B]治疗" disabled="true">
+<!--{/if}-->

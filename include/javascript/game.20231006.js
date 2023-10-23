@@ -50,6 +50,9 @@ function hotkey(evt)
 			else if(ky==70){
 				hotkey_click('f');
 			}
+			else if(ky==66){
+				hotkey_click('b');
+			}
 			//数字键123456
 			else if(ky >= 49 && ky <= 54){
 				var kc=(ky-48).toString();

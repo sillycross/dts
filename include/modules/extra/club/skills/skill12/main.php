@@ -4,7 +4,7 @@ namespace skill12
 {
 	function init() 
 	{
-		define('MOD_SKILL12_INFO','club;upgrade;locked;');
+		define('MOD_SKILL12_INFO','club;active;locked;');
 	}
 	
 	function acquire12(&$pa)
@@ -23,7 +23,19 @@ namespace skill12
 		return 1;
 	}
 	
-	function upgrade12()
+	function act()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;		
+		eval(import_module('sys','player','logger'));
+		if (get_var_in_module('mode', 'input') == 'special' && get_var_in_module('command', 'input') == 'skill12_special' && get_var_in_module('subcmd', 'input') == 'castsk12') 
+		{
+			cast_skill12();
+			return;
+		}
+		$chprocess();
+	}
+	
+	function cast_skill12()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player','logger'));
