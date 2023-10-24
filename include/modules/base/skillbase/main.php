@@ -107,6 +107,8 @@ namespace skillbase
 	function skill_onload_event(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//判定临时技能的失去
+		check_tempskill_process($pa);
 	}
 	
 	//格式化并储存技能参数，基本上只有player_save()调用
@@ -237,6 +239,8 @@ namespace skillbase
 		$func='skill'.$skillid.'\\acquire'.$skillid;
 		//称号技能重复获得时不会再次触发acquirexxx()
 		if (defined('MOD_SKILL'.$skillid) && !($already && $no_cover)) $func($pa);
+		//每次获得技能时把临时参数删掉，避免获得了非临时技能被临时技能删掉
+		skill_delvalue($skillid, 'tsk_expire', $pa);
 	}
 	
 	function skill_lost($skillid, &$pa = NULL)
@@ -405,6 +409,35 @@ namespace skillbase
 		}
 		return $ret;
 	}
+	
+	function check_tempskill_process(&$pa = NULL)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$arr = get_acquired_skill_array($pa);
+		foreach ($arr as $key)
+		{
+			if (defined('MOD_SKILL'.$key.'_INFO') && (strpos(constant('MOD_SKILL'.$key.'_INFO'),'club;')!==false || strpos(constant('MOD_SKILL'.$key.'_INFO'),'card;')!==false))
+			{
+				check_skill_tempskill($key, $pa);
+			}
+		}
+	}
+	
+	function check_skill_tempskill($skillid, &$pa = NULL)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		$tsk_expire = skill_getvalue($skillid, 'tsk_expire', $pa);
+		if (skill_query($skillid, $pa) && !empty($tsk_expire))
+		{
+			if ($now > $tsk_expire)
+			{
+				skill_lost($skillid, $pa);
+				skill_delvalue($skillid, 'tsk_expire', $pa);
+			}
+		}
+	}
+
 }
 
 ?>
