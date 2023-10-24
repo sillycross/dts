@@ -51,6 +51,13 @@ namespace skill580
 		\skillbase\skill_delvalue(1003,'sk580_sid');
 	}
 	
+	//给当前行动玩家的itm0赋值，并假造一个发现道具的界面
+	function skill580_discover_umbrella()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+	}
+	
 	//用一个道具替换物品
 	function discover_item()
 	{
@@ -87,22 +94,18 @@ namespace skill580
 			eval(import_module('input'));
 			if (($mode == 'itemmain' && $command == 'itemget') || ($mode == 'command' && $command == 'itm0'))
 			{
-				$itm = array(
-					'iid' => 0, 
-					'itm' => '',
-					'itmk' => '',
-					'itme' => 0,
-					'itms' => 0,
-					'itmsk' => ''
-				);
-				\itemmain\focus_item($itm);
+				eval(import_module('player'));
+				if(!empty($itms0)) {
+					$itm0 = $itmk0 = $itmsk0 = '';
+					$itme0 = $itms0 = 0;
+				}
 				\metman\meetman($sid);
 				return;
 			}
 			else if ($mode == 'itemmain' && $command == 'dropitm0')
 			{
 				eval(import_module('player','logger'));
-				$log .= "<span class=\"yellow b\">{$itm0}</span>好像不见了。<br>";
+				$log .= "<span class=\"yellow b\">{$itm0}</span>发出唉的一声，然后不见了。<br>";
 				$itm0 = $itmk0 = $itmsk0 = '';
 				$itme0 = $itms0 = 0;
 				\skillbase\skill_delvalue(1003,'sk580_sid',$sdata);

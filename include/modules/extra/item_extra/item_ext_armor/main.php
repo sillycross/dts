@@ -256,7 +256,7 @@ namespace item_ext_armor
 				return $x;
 			}
 		}
-		$chprocess($pa, $pd, $active, $which, $hurtvalue);
+		return $chprocess($pa, $pd, $active, $which, $hurtvalue);
 	}
 	
 	//外甲损坏的效果和耐久值处理在armor_hurt中完成
