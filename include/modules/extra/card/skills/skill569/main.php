@@ -40,9 +40,9 @@ namespace skill569
 					foreach($list as $pdid){
 						$pdata = \player\fetch_playerdata_by_pid($pdid);
 						$pdata['pls'] = 9;
-						$mvpls_log = '伴随着一阵强劲的冲击，你感觉到自己被解放了！<br>……<br>等你清醒过来的时候，你发现自己身处于墓地。<br>这是怎么回事呢？<br>';
-						\logger\logsave($pdata['pid'], $now, $mvpls_log ,'o');			
-						\player\player_save($pdata);	
+						$mvpls_log = '在你毫无察觉的时候，你的深层无意识似乎被解放了！<br>……<br>等你清醒过来的时候，你发现自己身处于墓地。<br>这是怎么回事呢？<br>';
+						\logger\logsave($pdata['pid'], $now, $mvpls_log ,'o');
+						\player\player_save($pdata);
 					}
 					addnews($now, 'signal_569', $pa['name']);
 				}
@@ -55,7 +55,7 @@ namespace skill569
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
-		if($news == 'signal_569') 
+		if($news == 'signal_569')
 		{
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">随着".$a."的进场，其他玩家都被送去了墓地！大家好像都被解放了！</span></li>";
 		}
