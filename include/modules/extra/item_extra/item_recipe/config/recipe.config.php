@@ -220,9 +220,11 @@ namespace item_recipe
 		//以上为游戏王相关配方合成
 		50 => array
 		(
-			'stuffa' => array('extra'=>'edible'),
 			'stuff1' => array('itm'=>'碗','itm_match'=>2,'if_consume'=>false),
-			'result' => array('迷之炖菜','HB',240,60,),
+			'stuff2' => array('itm'=>'菇','itm_match'=>1),
+			'stuff3' => array('itm'=>'菇','itm_match'=>1),
+			'stuff4' => array('itm'=>'雏菊','itm_match'=>1),
+			'result' => array('迷之炖菜','HB',320,60,),
 			'extra' => array('materials'=>4, 'allow_repeat'=>true,),
 		),
 		51 => array

@@ -62,8 +62,7 @@ namespace item_umb
 				}
 				//否则失去该技能，用于刷新该技能状态
 				\skillbase\skill_lost($buff_id);
-			}
-			$log .= "你获得了状态「<span class=\"yellow b\">".$clubskillname[$buff_id]."</span>」";
+			}		
 			\skillbase\skill_acquire($buff_id);
 			//如果是需要发动一次的技能（如隐身），立刻发动
 			$activate_funcname = 'skill'.$buff_id.'\\activate'.$buff_id;
@@ -75,10 +74,10 @@ namespace item_umb
 			//如果$buff_time非空，则设置持续时间；仅适用于非时效技能
 			if (!empty($buff_time))
 			{
-				$log .= "，持续时间<span class=\"yellow b\">".$buff_time."</span>秒";
+				$log .= "你获得了临时技能「<span class=\"yellow b\">".$clubskillname[$buff_id]."</span>」，持续时间<span class=\"yellow b\">".$buff_time."</span>秒！<br>";
 				\skillbase\skill_setvalue($buff_id, 'tsk_expire', $now + $buff_time);
 			}
-			$log .= "！<br>";
+			else $log .= "你获得了状态「<span class=\"yellow b\">".$clubskillname[$buff_id]."</span>」！<br>";
 		}
 		else
 		{

@@ -54,9 +54,6 @@ namespace skill576
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
-		var_dump(\skillbase\skill_query(576,$sdata));
-		var_dump(check_unlocked576($sdata));
-		var_dump(\skillbase\skill_getvalue(576,'completeflag',$sdata));
 		if (\skillbase\skill_query(576,$sdata) && check_unlocked576($sdata) && 1 === (int)\skillbase\skill_getvalue(576,'completeflag',$sdata))
 		{
 			eval(import_module('sys','player','logger'));
