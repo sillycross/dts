@@ -370,13 +370,13 @@ namespace item_recipe
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','item_recipe'));
-		$i = 1;
+		$i = 0;
 		foreach($seq as $val)
 		{
+			$i += 1;
 			if (isset($minfo['stuff'.$i]) && (isset($minfo['stuff'.$i]['if_consume'])) && (false === $minfo['stuff'.$i]['if_consume'])) continue;
 			if (!isset($minfo['stuff'.$i]) && (isset($minfo['stuffa']['if_consume'])) && (false === $minfo['stuffa']['if_consume'])) continue;
 			\itemmix\itemreduce('itm'.$val);
-			$i += 1;
 		}
 		//配方一次用一张
 		if (isset($minfo['extra']['consume_recipe']) && (true === $minfo['extra']['consume_recipe'])) \itemmix\itemreduce('itm'.$itmp);

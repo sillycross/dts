@@ -2,7 +2,11 @@
 
 namespace skill583
 {
-	$sk583_mixinfo = array('class' => 'card', 'stuff' => array('空白符卡','★瓦衣山彐★'),'result' => array('「自家割草」','WF',75,'∞','c'));
+	$sk583_mixinfo = array
+	(
+		array('class' => 'card', 'stuff' => array('空白符卡','★瓦衣山彐★'),'result' => array('「自家割草」','WF',75,'∞','c')),
+		array('class' => 'card', 'stuff' => array('★瓦衣山彐★','★瓦衣山彐★'),'result' => array('★瓶装幽灵★','X',1,1,)),
+	);
 	
 	function init() 
 	{
@@ -86,7 +90,7 @@ namespace skill583
 		if (\skillbase\skill_query(583) && check_unlocked583())
 		{
 			eval(import_module('skill583'));
-			$ret[] = $sk583_mixinfo;
+			$ret = array_merge($ret, $sk583_mixinfo);
 		}
 		return $ret;
 	}
