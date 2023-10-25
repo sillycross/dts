@@ -41,7 +41,7 @@ namespace skill569
 						$pdata = \player\fetch_playerdata_by_pid($pdid);
 						$pdata['pls'] = 9;
 						$mvpls_log = '在你毫无察觉的时候，你的深层无意识似乎被解放了！<br>……<br>等你清醒过来的时候，你发现自己身处于墓地。<br>这是怎么回事呢？<br>';
-						\logger\logsave($pdata['pid'], $now, $mvpls_log ,'o');
+						\logger\logsave($pdata['pid'], $now, $mvpls_log ,'s');
 						\player\player_save($pdata);
 					}
 					addnews($now, 'signal_569', $pa['name']);

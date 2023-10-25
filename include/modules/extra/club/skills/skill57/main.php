@@ -64,7 +64,7 @@ namespace skill57
 						$lastsal+=60;
 						\skillbase\skill_setvalue(56,'l'.$i,$lastsal,$employer);
 						$w_log = '你支付了<span class="yellow b">'.$mercsal.'</span>元作为佣兵<span class="yellow b">'.$skill56_npc['sub'][$ty]['name'].'</span>的薪水！<br>';
-						\logger\logsave($z, $lastsal, $w_log ,'b');
+						\logger\logsave($z, $lastsal, $w_log ,'s');
 						$infochanged = 1;
 						$pa['infochanged']=1;
 					}
@@ -80,7 +80,7 @@ namespace skill57
 							\skillbase\skill_setvalue(56,'h'.$i,2,$employer);
 							if ($skill56_npc['sub'][$ty]['mercfireaction']==1) $pa['pls']=999;
 							$w_log = '<span class="red b">因为你长期拖欠佣兵<span class="yellow b">'.$skill56_npc['sub'][$ty]['name'].'</span>的薪水，佣兵<span class="yellow b">'.$skill56_npc['sub'][$ty]['name'].'</span>与你解除了雇佣合同！</span><br>';
-							\logger\logsave($z, $lastsal, $w_log ,'b');
+							\logger\logsave($z, $lastsal, $w_log ,'s');
 							$infochanged = 1;
 							$pa['infochanged']=1;
 							break;

@@ -127,7 +127,7 @@ namespace skill530
 		//发进行状况，这是抵达的
 		addnews ( $now, 'jumpin530', $name );
 		//提前发一个log
-		\logger\logsave($tmp_pid, $now, '<span class="cyan b">你成功地抵达了这个维度！</span>但作为代价，你的装备几乎都遗失了。' ,'b');
+		\logger\logsave($tmp_pid, $now, '<span class="cyan b">你成功地抵达了这个维度！</span>但作为代价，你的装备几乎都遗失了。' ,'s');
 
 		//把房间号改回来
 		$room_id = $o_room_id;

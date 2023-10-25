@@ -1,0 +1,19 @@
+<!--{eval $___TEMP_SKILL_ID=539;}-->
+<!--{eval $skill539_interval=\skill539\get_skill539_revive_interval($who);}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+不死
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+你死亡后能在<span class="yellow b">{$skill539_interval}</span>秒后复活。每次复活后，这个时间都会翻倍。<br>
+注意：你必须在倒计时结束后刷新游戏界面才能复活。在你死亡期间，其他玩家可以正常拾取你尸体上的道具，也可以正常获得幸存等胜利
+</span></td>
+<td class="skilldesc_right b3">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

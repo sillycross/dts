@@ -38,7 +38,7 @@ namespace skill577
 					$pdata = \player\fetch_playerdata_by_pid($pdid);
 					\skillbase\skill_acquire(578, $pdata);
 					$bless_log = '你感到自己受到了来自一位贤者的祝福！<br>';
-					\logger\logsave($pdata['pid'], $now, $bless_log ,'o');			
+					\logger\logsave($pdata['pid'], $now, $bless_log ,'s');			
 					\player\player_save($pdata);	
 				}
 			}

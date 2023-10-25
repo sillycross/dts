@@ -6,6 +6,8 @@ namespace logger
 	
 	function init() {}
 	
+	//保存敌人的战斗log
+	//类型：c对话、t队友、b作战、s系统
 	function logsave($pid,$time,$log = '',$type = 's'){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
