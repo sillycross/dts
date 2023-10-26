@@ -38,7 +38,7 @@ namespace item_recipe
 		(
 			'stuff1' => array('itmsk'=>'s','itmsk_match'=>1,'extra'=>'ygo'),
 			'stuff2' => array('extra'=>'ygo'),
-			'result' => array('「水晶机巧-继承玻纤」LINK-2','DA',150,80,'c^l2'),
+			'result' => array('「水晶机巧-继承玻纤」LINK-2','DA',150,80,'Hc^l2'),
 			'extra' => array('link'=>2, 'materials'=>2, 'consume_recipe'=>true,),
 		),
 		5 => array
@@ -104,7 +104,7 @@ namespace item_recipe
 		15 => array
 		(
 			'stuff1' => array('itm'=>'★连接认证4★','itm_match'=>0),
-			'result' => array('「刺刀枪管龙」LINK-4','WGK',300,77,'bArReL^l4'),
+			'result' => array('「刺刀枪管龙」LINK-4','WGK',300,77,'bArReLZ^l4'),
 			'extra' => array('materials'=>1, 'consume_recipe'=>true,),
 		),	
 		16 => array
@@ -116,7 +116,7 @@ namespace item_recipe
 		17 => array
 		(
 			'stuff1' => array('itm'=>'★连接认证4★','itm_match'=>0),
-			'result' => array('「召命之神弓-阿波罗萨」LINK-4','WB',320,1,'rHA^l4'),
+			'result' => array('「召命之神弓-阿波罗萨」LINK-4','WB',320,1,'rkHA^l4'),
 			'extra' => array('materials'=>1, 'consume_recipe'=>true,),
 		),
 		18 => array
@@ -128,7 +128,7 @@ namespace item_recipe
 		19 => array
 		(
 			'stuff1' => array('itm'=>'★连接认证4★','itm_match'=>0),
-			'result' => array('「访问码语者」LINK-4','WD',430,'∞','rdy^ac1^l4'),
+			'result' => array('「访问码语者」LINK-4','WD',530,'∞','rdNy^ac1^l4'),
 			'extra' => array('materials'=>1, 'consume_recipe'=>true,),
 		),
 		20 => array
