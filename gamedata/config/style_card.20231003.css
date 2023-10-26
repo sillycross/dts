@@ -192,12 +192,17 @@ div.card_blink_container {
 	-webkit-border-radius:9px;
 	border-radius:9px;
 	
-	-webkit-mask-image: url("../../img/card_blink_mask.png");
-	mask-image: url("../../img/card_blink_mask.png");
+	-webkit-mask-image: url("../../img/card_blink_mask_2.png");
+	mask-image: url("../../img/card_blink_mask_2.png");
 	-webkit-mask-size: 100% 100%;
 	mask-size: 100% 100%;
 	-webkit-mask-repeat: no-repeat;
 	mask-repeat: no-repeat;
+}
+
+div.blink_maskii {
+	-webkit-mask-image: url("../../img/card_blink_mask_3.png");
+	mask-image: url("../../img/card_blink_mask_3.png");
 }
 
 div.card_blink {
@@ -207,6 +212,15 @@ div.card_blink {
 	width:200px;
 	height:520px;
   animation: rotation 5s infinite linear;
+}
+
+div.card_blinkii {
+	position: absolute;
+	top: -1300px;
+	left: 400px;
+	width:200px;
+	height:2000px;
+  animation: rotation 10s infinite linear;
 }
 
 div.blink_gold {
