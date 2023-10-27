@@ -197,7 +197,7 @@ cardSearchInit = function()
 	<div style="position: relative;">
 		<!--{eval $showpack=0;}-->
 		<!--{loop $cards $cardid $nowcard}-->
-			<!--{eval $nowcard['id']=$cardid;}-->
+			<!--{eval $nowcard['id']=$cardid;$nowcard['blink']=!empty($card_data_fetched[$cardid]['blink'])?$card_data_fetched[$cardid]['blink']:0;}-->
 			<!--{if in_array($cardid,$card_ownlist) && !in_array($cardid, array_keys($card_disabledlist))}-->
 				<!--{eval $card_achieved=in_array($cardid,$card_achieved_list);}-->
 				<div id="card{$cardid}" class="cardoption"<!--{if $chosencard!=$cardid}--> style="display:none"<!--{/if}--> <!--{if !empty($nowcard['desc_skills'])}-->title="$nowcard['desc_skills']"<!--{/if}-->>

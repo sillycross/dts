@@ -109,7 +109,7 @@ namespace cardbase
 		
 		if(!in_array(0, $card_data_keys)) $add_cards[] = 0;//必定拥有0号卡挑战者
 		
-		//有新增卡片的情况
+		//有新增卡片的情况。由于增加了碎闪的判定，获得单项新卡并不是在这里进行了，这里只是一个保底
 		if(!empty($add_cards)) {
 			foreach($add_cards as $cid) {
 				$card_data[$cid] = init_card_data_single($cid);
@@ -634,6 +634,20 @@ namespace cardbase
 		return $ret;
 	}
 	
+	//获得卡时判定闪烁等级（也就是类似游戏王镜碎啦闪卡啦这种东西）
+	//目前有两种等级$blink=20代表镜碎，$blink=10代表闪，概率对应config里$card_blink_rate_20和$card_blink_rate_10两个
+	//M卡目前不能获得任何闪烁等级，C卡不能获得镜碎等级
+	function get_card_calc_blink($cardid, &$udata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('cardbase'));
+		$rare = $cards[$cardid]['rare'];
+		$r = rand(0,99);
+		if(!empty($card_blink_rate_20[$rare]) && $r < $card_blink_rate_20[$rare]) return 20;
+		if(!empty($card_blink_rate_10[$rare]) && $r < $card_blink_rate_10[$rare]) return 10;
+		return 0;
+	}
+	
 	//新模式的获得卡片判定。如果卡片重复则换算成切糕
 	//会自动更新$udata里$card_data的值，但不会写数据库
 	//返回一个数组array($isnew, $qiegao)，$isnew为真则表示获得卡片，$qiegao则代表转化成的切糕数
@@ -641,19 +655,34 @@ namespace cardbase
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		list($cardlist, $cardenergy, $card_data) = get_cardlist_energy_from_udata($udata);
-		if(in_array($cardid, $cardlist))//卡存在，那么换算成切糕
+		if(in_array($cardid, $cardlist))//卡存在，原卡换算成切糕，如果闪碎等级高则会刷新闪碎等级
 		{
+			$getqiegao = 0;
+			$o_blink = !empty($card_data[$cardid]['blink']) ? $card_data[$cardid]['blink'] : 0;//把原卡按闪碎等级和罕贵换算成切糕
 			if(!$ignore_qiegao) {
-				$getqiegao = get_card_transfer_to_qiegao($cardid, $udata, $blink);
+				//按原卡和新卡里闪碎等级较小的那个判定切糕
+				$getqiegao = get_card_transfer_to_qiegao($cardid, $udata, min($o_blink, $blink));
 				$udata['gold'] += $getqiegao;
+				//如果新卡闪碎等级高于原卡，那么更新原卡的闪碎等级。只有$ignore_qiegao=0才会生效
+				if($blink > $o_blink) {
+					$card_data[$cardid]['blink'] = $blink;
+					put_cardlist_energy_to_udata($cardlist, $cardenergy, $card_data, $udata);
+				}
 			}
 				
 			$ret = Array(false, $getqiegao);
 		}
-		else
+		else//卡不存在，但是由于可能有闪碎等级，不能直接交给put_cardlist_energy_to_udata()
 		{
+			eval(import_module('cardbase'));
 			$cardlist[] = $cardid;
-			put_cardlist_energy_to_udata($cardlist, $cardenergy, $card_data, $udata);//这里实际上只保存了$card_data
+			$card_data[$cardid] = init_card_data_single($cardid);
+			$cardenergy[$cardid] = $cards[$cardid]['energy'];
+			if(!empty($blink)) {
+				$card_data[$cardid]['blink'] = $blink;
+			}
+			//其实这里可以直接用put_encoded_card_data()，但保留原来的逻辑吧
+			put_cardlist_energy_to_udata($cardlist, $cardenergy, $card_data, $udata);
 			$ret = Array(true, 0);
 		}
 		return $ret;
@@ -1125,6 +1154,7 @@ namespace cardbase
 		$userCardData = get_user_cardinfo($udata['username']);
 		$card_ownlist = $userCardData['cardlist'];
 		$card_energy = $userCardData['cardenergy'];
+		$card_data_fetched = $userCardData['card_data'];
 		$cardChosen = $userCardData['cardchosen'];
 		
 		/*

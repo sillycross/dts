@@ -160,6 +160,7 @@ if($mode == 'enter') {
 	$userCardData = \cardbase\get_user_cardinfo($udata['username']);
 	$card_ownlist = $userCardData['cardlist'];
 	$card_energy = $userCardData['cardenergy'];
+	$card_data_fetched = $userCardData['card_data'];
 	$cardChosen = $userCardData['cardchosen'];
 	$packlist = \cardbase\pack_filter($packlist);
 	$hideDisableButton = 1;

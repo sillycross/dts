@@ -76,6 +76,7 @@ if($mode == 'edit') {
 	$userCardData = \cardbase\get_user_cardinfo($cuser);
 	$card_ownlist = $userCardData['cardlist'];;
 	$card_energy = $userCardData['cardenergy'];
+	$card_data_fetched = $userCardData['card_data'];
 	$cardChosen = $userCardData['cardchosen'];
 	$card_disabledlist=Array();
 	$card_error=Array();

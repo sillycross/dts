@@ -235,6 +235,10 @@ div.blink_brickred {
   background: linear-gradient(90deg, transparent, #ffaa99, transparent);
 }
 
+div.blink_grey {
+  background: linear-gradient(90deg, transparent, #cccccc, transparent);
+}
+
 @keyframes rotation{
 	0% {
 		transform: rotateZ(0deg);

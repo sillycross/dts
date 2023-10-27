@@ -24,10 +24,14 @@
 <p>一张卡都没有呢</p>
 <!--{/if}-->
 </center>
+<!--{loop $card_data_fetched $ci $cv}-->
+<!--{eval if(!empty($cv['blink'])) echo $cards[$ci]['name'].' ';}-->
+<!--{/loop}-->
 <center>
 	<ul style="width:1000px;list-style-type:none;">
 		<!--{loop $unlock_cards $nowcard}-->
 		<!--{eval $lockcard=0;$card_achieved=in_array($nowcard['id'],$card_achieved_list);}-->
+		<!--{eval $nowcard['blink']=!empty($card_data_fetched[$nowcard['id']]['blink'])?$card_data_fetched[$nowcard['id']]['blink']:0;}-->
 		<li style="float:left;margin:5px;margin-bottom:10px"
 			<!--{eval $desc_skills=!empty($cards[$nowcard['id']]['desc_skills'])?$cards[$nowcard['id']]['desc_skills'].'<br><br>':'';}-->
 			title="{$desc_skills}

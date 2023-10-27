@@ -5,7 +5,7 @@ namespace kujibase
 	function init() {}
 	
 	//抽卡主函数。
-	//返回0表示指令错误，返回-1表示抽卡失败，返回以卡片编号为元素的数组表示抽卡成功
+	//返回0表示指令错误，返回-1表示抽卡失败，返回以卡片编号或者“卡片编号_镜碎等级”为元素的数组表示抽卡成功
 	function kujidraw($kujiid, &$pa, $is_dryrun = false){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','cardbase','kujibase'));
@@ -39,9 +39,12 @@ namespace kujibase
 				$r=$arr[rand(0,$c)];
 			}while(!empty($kujinum_in_pack[$kujiid]) && $i < $kujinum_in_pack[$kujiid] && $cards[$r]['pack'] != $packchoice);
 			
+			$blink = 0;
 			if (!$is_dryrun)
 			{
-				\cardbase\get_card_alternative($r, $pa);
+				$blink = \cardbase\get_card_calc_blink($r, $pa);
+				\cardbase\get_card_alternative($r, $pa, 0, $blink);
+				if(!empty($blink)) $r.='_'.$blink;//如果镜碎等级不为零则返回“编号_镜碎等级”这样的字符串，接收时注意处理
 				//\cardbase\get_card_process($r,$pa);
 			}
 			$rr[] = $r;

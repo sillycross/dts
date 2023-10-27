@@ -35,6 +35,7 @@ if(file_exists($cgmfile)) include $cgmfile;
 $userCardData = \cardbase\get_user_cardinfo($n);
 $user_cards = $userCardData['cardlist'];
 $card_energy = $userCardData['cardenergy'];
+$card_data_fetched = $userCardData['card_data'];
 $cardChosen = $userCardData['cardchosen'];
 $packlist = \cardbase\pack_filter($packlist);
 

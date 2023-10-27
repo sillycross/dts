@@ -60,6 +60,13 @@ if ($ktype==1 || $choice>0 || !empty($packchoice))
 				$ishighlight[$i-1]=1;
 			}
 		}
+		//把卡片编号和镜碎等级分离
+		$isblink = Array();
+		foreach($kres as $key => $val) {
+			if(strpos($val, '_')!==false){
+				list($kres[$key], $isblink[$key]) = explode('_', $val);
+			}
+		}
 		//判定哪些卡是新获得的卡
 		foreach($kres as $key => $val){
 			if (($ktype==0 || $ktype==2) && $choice!=$key)	//单抽没有真正获得的卡不显示new字样

@@ -148,7 +148,8 @@ function message_check($checklist, $messages)
 				$getrare = $cards[$getcard]['rare'];
 				//\cardbase\get_card($getcard, $udata);
 				//不直接写数据库，最后统一写
-				list($isnew, $cardqiegao) = \cardbase\get_card_alternative($getcard, $udata);
+				$blink = \cardbase\get_card_calc_blink($getcard, $udata);//判定罕贵。回头再加给与特定罕贵的卡的功能
+				list($isnew, $cardqiegao) = \cardbase\get_card_alternative($getcard, $udata, 0, $blink);
 				if($isnew) $info[] = '获得了卡片“<span class="'.$card_rarecolor[$getrare].'">'.$getname.'</span>”！';
 				if($cardqiegao) $info[] = '已有卡片“<span class="'.$card_rarecolor[$getrare].'">'.$getname.'</span>”，转化为了'.$cardqiegao.'切糕！';
 				$getcardflag = 1;
