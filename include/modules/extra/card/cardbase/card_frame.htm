@@ -2,13 +2,21 @@
 	<!--{if !empty($card_achieved)}-->
 		<img class="card_achieved" src="img/card_achieved.png" />
 	<!--{/if}-->
+	<!--{eval $card_blink='S'==$nowcard['rare']?20:10;}-->
 	<!--{if empty($lockcard) && !empty($card_blink)}-->
-	<!--{eval $card_blink='S'==$nowcard['rare']?20:10;$blink_mask=$card_blink>=20?'blink_maskii':'';$blink_light=$card_blink>=20?'card_blinkii':'';}-->
-		<div class="card_blink_container $blink_mask">
-			<div 
-			<!--{if 'S'==$nowcard['rare']}-->class="card_blink $blink_light blink_gold"<!--{elseif 'A'==$nowcard['rare']}-->class="card_blink $blink_light blink_cyan"<!--{elseif 'B'==$nowcard['rare']}-->class="card_blink $blink_light blink_brickred"<!--{/if}-->
-			> </div>
-		</div>
+		<!--{if $card_blink>=20}-->
+			<div class="card_blink_container blink_maskii">
+				<div 
+				<!--{if 'S'==$nowcard['rare']}-->class="card_blinkii blink_gold"<!--{elseif 'A'==$nowcard['rare']}-->class="card_blinkii blink_cyan"<!--{elseif 'B'==$nowcard['rare']}-->class="card_blinkii blink_brickred"<!--{/if}-->
+				> </div>
+			</div>
+		<!--{else}-->
+			<div class="card_blink_container">
+				<div 
+				<!--{if 'S'==$nowcard['rare']}-->class="card_blink blink_gold"<!--{elseif 'A'==$nowcard['rare']}-->class="card_blink blink_cyan"<!--{elseif 'B'==$nowcard['rare']}-->class="card_blink blink_brickred"<!--{/if}-->
+				> </div>
+			</div>
+		<!--{/if}-->
 	<!--{/if}-->
 	<div class="card_frame_outer 
 		<!--{if 'S'==$nowcard['rare']}-->

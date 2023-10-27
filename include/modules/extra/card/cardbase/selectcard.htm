@@ -200,7 +200,7 @@ cardSearchInit = function()
 			<!--{eval $nowcard['id']=$cardid;}-->
 			<!--{if in_array($cardid,$card_ownlist) && !in_array($cardid, array_keys($card_disabledlist))}-->
 				<!--{eval $card_achieved=in_array($cardid,$card_achieved_list);}-->
-				<div id="card{$cardid}" class="cardoption"<!--{if $chosencard!=$cardid}--> style="display:none"<!--{/if}-->>
+				<div id="card{$cardid}" class="cardoption"<!--{if $chosencard!=$cardid}--> style="display:none"<!--{/if}--> <!--{if !empty($nowcard['desc_skills'])}-->title="$nowcard['desc_skills']"<!--{/if}-->>
 					{template MOD_CARDBASE_CARD_FRAME}
 				</div>
 			<!--{/if}-->
