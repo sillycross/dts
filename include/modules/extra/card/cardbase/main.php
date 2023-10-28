@@ -862,17 +862,41 @@ namespace cardbase
 		$chprocess();
 		eval(import_module('sys','player','cardbase'));
 		
-		//显示的卡名一定是$cardname
-		$uip['cardname_show'] = $cardname;
-		//罕贵和卡面显示
-		$real_cardid = check_realcard($card, $cardname);
-		if($real_cardid && 'hidden' != $cards[$real_cardid]['pack']) $uip['cardinfo_show'] = $cards[$real_cardid];
-		$uip['cardrare_show'] = $card_rarecolor[$cards[$real_cardid]['rare']];
-		//碎闪等级的显示（借用skill1003）
-		if(defined('MOD_SKILL1003') && !empty(\skillbase\skill_getvalue(1003,'nowcard_blink'))) {
-			$uip['cardinfo_show']['blink'] = \skillbase\skill_getvalue(1003,'nowcard_blink');
+		list($show_cardid, $uip['cardname_show'], $show_rare, $show_cardblink, $uip['cardinfo_show']) = parse_card_show_data($sdata);
+		
+		//如果卡片是挑战者或者是隐藏卡片，不予显示卡面
+		if(!$show_cardid || 'hidden' == $cards[$show_cardid]['pack']) {
+			unset($uip['cardinfo_show']);
 		}
+		//用于显示用的罕贵类型
+		$uip['cardrare_show'] = $card_rarecolor[$show_rare];
+		
+		//碎闪等级的显示
+		if(!empty($uip['cardinfo_show']) && $show_cardblink) $uip['cardinfo_show']['blink'] = $show_cardblink;
+
 		$uip['card_rarecolor'] = $card_rarecolor;//备用
+	}
+	
+	//从player表数据获得卡名和卡面显示的数据
+	//返回一个数组，元素分别是显示的卡片id、显示的卡名、显示的罕贵（字母）、显示的碎闪等级和用于card_frame的$nowcard数据
+	function parse_card_show_data($pdata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('cardbase'));
+		//显示的卡名，通常情况下是$cardname
+		$show_cardname = !empty($pdata['cardname']) ? $pdata['cardname'] : $cards[$pdata['card']]['name'];
+		//用显示卡名反查显示卡的id
+		$show_cardid = check_realcard($pdata['card'], $show_cardname);
+		//获得罕贵等级
+		$show_rare = $cards[$show_cardid]['rare'];
+		//获得$nowcard数据
+		$show_cardinfo = $cards[$show_cardid];
+		//碎闪等级的显示（借用skill1003，由于pdata可能是没有经过skillbase处理的，需要处理裸数据）
+		$show_cardblink = 0;
+		if(defined('MOD_SKILL1003')) {
+			$show_cardblink = (int)\skillbase\skill_getvalue_direct(1003,'nowcard_blink',$pdata['nskillpara']);
+		}
+		return Array($show_cardid, $show_cardname, $show_rare, $show_cardblink, $show_cardinfo);
 	}
 	
 	//通过记录卡名与卡号判定实际卡号

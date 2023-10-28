@@ -3,6 +3,7 @@
 		<td class="b1"><span>名字&编号</span></td>
 		<td width="140" class="b1"><span>头像</span></td>
 		<!--{if defined('MOD_APM')}--><td class="b1"><span>APM</span></td><!--{/if}-->
+		<!--{if defined('MOD_CARDBASE') && !in_array($gametype, Array(0,1))}--><td class="b1"><span>所用卡片</span></td><!--{/if}-->
 		<td class="b1"><span>等级</span></td>
 		<td class="b1" <!--{if $gametype==2}-->title="胜利点数最高的玩家将获得游戏胜利"<!--{/if}-->><span><!--{if $gametype==1}-->除错层数<!--{else}--><!--{if $gametype==2}-->胜利点数<!--{else}-->击杀玩家数<!--{/if}--><!--{/if}--></span></td>
 		<!--{if $gametype==2}--><td class="b1" title="击杀玩家将获得相当于其15%赏金的胜利点数"><span>赏金</span></td><!--{/if}-->
@@ -15,10 +16,31 @@
 	<!--{eval if(!\player\check_alive_player_displayable($alive)) continue; }-->
 	<!--{eval $alive['urlname']=htmlentities(urlencode($alive['name']));}-->
 	<!--{eval list($alive['vapm'],$alive['aapm'])=\apm\calc_apm($alive);}-->
+	<!--{eval $showpack = 1;}-->
 	<tr class="b3">
 		<td align="center" class="b3"><a style="cursor:pointer;" href="user_profile.php?playerID=$alive['urlname']"><span>$alive['dispname']<br>$alive['sexnsno']</span></a></td>
 		<td align="center" class="b3"><span><IMG src="img/$alive['iconImg']" width="140" height="80" border="0" align="absmiddle"></span></td>
 		<!--{if defined('MOD_APM')}--><td class="b3"><span>{$alive['vapm']}</span></td><!--{/if}-->
+		<!--{if defined('MOD_CARDBASE') && !in_array($gametype, Array(0,1))}-->
+			<!--{eval $nowcard=$alive['nowcardinfo'];$nowcard['blink']=$alive['nowcardblink'];$cardframe_id='cardframe_show_'.$alive['pid'];}-->
+			<td class="b3">
+				<span class="$card_rarecolor[$alive['nowcardrare']]" 
+					<!--{if !empty($nowcard)}-->
+					onmouseenter="$('$cardframe_id').style.display='block';" onmouseleave="$('$cardframe_id').style.display='none';" 
+					<!--{/if}-->
+				>
+					$alive['cardname']
+				</span>
+				<!--{if !empty($nowcard)}-->
+				<div style="position:relative;">
+					<div id="$cardframe_id" class="cardframe_show" style="display:none;position:absolute;z-index:10;left:80px;top:-50px;">
+						{template MOD_CARDBASE_CARD_FRAME}
+					</div>
+				</div>
+					
+				<!--{/if}-->
+			</td>
+		<!--{/if}-->
 		<td class="b3"><span>$alive['lvl']</span></td>
 		<td class="b3" <!--{if $gametype==2}-->title="胜利点数最高的玩家将获得游戏胜利"<!--{/if}-->><span <!--{if $gametype==2}-->class="orange"<!--{/if}-->>$alive['killnum']</span></td>
 		<!--{if $gametype==2}--><td class="b3" title="击杀玩家将获得相当于其15%赏金的胜利点数"><span>$alive['bounty']</span></td><!--{/if}-->

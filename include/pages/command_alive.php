@@ -51,6 +51,15 @@ while($playerdata = $db->fetch_array($query)) {
 	
 	//生成显示名字和显示学号
 	list($playerdata['dispname'], $playerdata['sexnsno']) = \sys\get_valid_disp_user_info($playerdata);
+	//生成所用卡片的信息
+	if(defined('MOD_CARDBASE') && !in_array($gametype, Array(0,1))) {
+		eval(import_module('cardbase'));
+		list($show_cardid, $null, $playerdata['nowcardrare'], $playerdata['nowcardblink'], $playerdata['nowcardinfo']) = \cardbase\parse_card_show_data($playerdata);
+		//如果卡片是挑战者或者是隐藏卡片，不予显示卡面
+		if(!$show_cardid || 'hidden' == $cards[$show_cardid]['pack']) {
+			$playerdata['nowcardinfo'] = NULL;
+		}
+	}
 	
 	$alivedata[$playerdata['name']] = $playerdata;
 }
