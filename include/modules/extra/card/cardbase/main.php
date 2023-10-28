@@ -490,18 +490,6 @@ namespace cardbase
 			//有些问题，先这样
 			
 			if(empty($cards[$card])) {
-				//这游戏有一种另类的debug办法
-				eval(import_module('sys'));
-				include_once './include/messages.func.php';
-				foreach(Array('admin','Yoshiko_G') as $v){
-					$r = fetch_udata('uid', "username='$v'");
-					if(empty($r)) continue;
-					message_create(
-						$v,
-						'截获big',
-						($groomtype ? '房间' : '') . "第{$gamenum}局中，{$name}在入场时随到了空白的卡。卡片编号：".$card
-					);
-				}	
 				$card = 0;				
 			}
 		}
@@ -694,11 +682,8 @@ namespace cardbase
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('cardbase'));
 		$ret = $card_price[$cards[$cardid]['rare']];
-		if(!empty($blink)) {
-			if(2==$blink) $ret *= 20;//镜碎卡返回20倍切糕（其实纯亏）
-			else{
-				$ret *= 5;//闪卡返回5倍切糕
-			}
+		if(!empty($blink) && !empty($card_price_blink_rate[$blink])) {
+			$ret *= $card_price_blink_rate[$blink];
 		}
 		return $ret;
 	}
@@ -879,7 +864,10 @@ namespace cardbase
 		$real_cardid = check_realcard($card, $cardname);
 		if($real_cardid && 'hidden' != $cards[$real_cardid]['pack']) $uip['cardinfo_show'] = $cards[$real_cardid];
 		$uip['cardrare_show'] = $card_rarecolor[$cards[$real_cardid]['rare']];
-
+		//碎闪等级的显示（借用skill1003）
+		if(defined('MOD_SKILL1003') && !empty(\skillbase\skill_getvalue(1003,'nowcard_blink'))) {
+			$uip['cardinfo_show']['blink'] = \skillbase\skill_getvalue(1003,'nowcard_blink');
+		}
 		$uip['card_rarecolor'] = $card_rarecolor;//备用
 	}
 	
@@ -911,6 +899,7 @@ namespace cardbase
 	}
 	
 	//玩家加入战场时有一次性效果的卡片的处理，主要是修改gamevars等
+	//把卡片碎闪等级写入skill1003也在这里
 	function post_enterbattlefield_events(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -923,6 +912,11 @@ namespace cardbase
 			foreach ($cgarr as $cgk => $cgv){
 				$gamevars[$cgk] = $cgv;
 			}
+		}
+		//读当前玩家数据并且写入碎闪等级
+		$card_data = \cardbase\get_cardlist_energy_from_udata($cudata)[2];
+		if(!empty($card_data[$card]['blink']) && defined('MOD_SKILL1003')) {
+			\skillbase\skill_setvalue(1003,'nowcard_blink',$card_data[$card]['blink'],$pa);
 		}
 		return $ret;
 	}

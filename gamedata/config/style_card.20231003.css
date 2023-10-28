@@ -207,11 +207,11 @@ div.blink_maskii {
 
 div.card_blink {
 	position: absolute;
-	top: -100px;
-	left: 20px;
+	top: -1300px;
+	left: 400px;
 	width:200px;
-	height:520px;
-  animation: rotation 5s infinite linear;
+	height:2000px;
+  animation: rotation 8s infinite linear;
 }
 
 div.card_blinkii {
@@ -220,7 +220,7 @@ div.card_blinkii {
 	left: 400px;
 	width:200px;
 	height:2000px;
-  animation: rotation 10s infinite linear;
+  animation: rotation 8s infinite linear;
 }
 
 div.blink_gold {
@@ -232,7 +232,7 @@ div.blink_cyan {
 }
 
 div.blink_brickred {
-  background: linear-gradient(90deg, transparent, #ffaa99, transparent);
+  background: linear-gradient(90deg, transparent, #ffbbaa, transparent);
 }
 
 div.blink_grey {

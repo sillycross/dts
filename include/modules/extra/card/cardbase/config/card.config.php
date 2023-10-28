@@ -111,6 +111,11 @@ $card_price = array(
 	'C'=>30,
 	'M'=>99
 );
+//碎卡和闪卡换算成切糕的倍率
+$card_price_blink_rate =array(
+	20=>25,
+	10=>5,
+);
 $cards = array(
 	0 => array(
 		'name' => '挑战者',

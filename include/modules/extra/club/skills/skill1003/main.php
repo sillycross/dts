@@ -19,6 +19,7 @@
 //上一次拾取尸体道具的毫秒数 last_corpse_time 位于extra/searchmemory
 //上一次拾取尸体的pid last_corpse_pid 位于extra/searchmemory
 //怪伞技能记录pid sk580_sid 位于extra/card/skills/skill580
+//当前使用卡片的碎闪等级 nowcard_blink 位于extra/card/cardbase
 
 namespace skill1003
 {
