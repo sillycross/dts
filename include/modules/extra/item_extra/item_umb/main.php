@@ -8,6 +8,7 @@ namespace item_umb
 		$iteminfo['MB'] = '状态药物';
 		$itemspkinfo['^mbid'] = '状态药物技能编号';//实际上这个是不会显示的
 		$itemspkinfo['^mbtime'] = '状态药物技能时效';//这个也是不会显示的
+		$itemspkinfo['^mblvl'] = '状态药物技能等级';//这个还是不会显示的
 	}
 
 	function itemuse_um(&$theitem)
@@ -38,7 +39,9 @@ namespace item_umb
 			
 			//注意仅适用于非时效技能，否则可能有怪问题
 			$buff_time = \attrbase\check_in_itmsk('^mbtime', $itmsk);
-			buff_acquire_process($buff_id, $buff_time);
+			//技能等级
+			$buff_lvl = \attrbase\check_in_itmsk('^mblvl', $itmsk);
+			buff_acquire_process($buff_id, $buff_time, $buff_lvl);
 			
 			\itemmain\itms_reduce($theitem);
 		}
@@ -46,7 +49,7 @@ namespace item_umb
 	}
 	
 	//添加单个时效buff或临时技能的处理
-	function buff_acquire_process($buff_id, $buff_time = NULL)
+	function buff_acquire_process($buff_id, $buff_time = NULL, $buff_lvl = NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','clubbase','player','logger'));
@@ -78,6 +81,11 @@ namespace item_umb
 				\skillbase\skill_setvalue($buff_id, 'tsk_expire', $now + $buff_time);
 			}
 			else $log .= "你获得了状态「<span class=\"yellow b\">".$clubskillname[$buff_id]."</span>」！<br>";
+			//如果$buff_lvl非空，则设置技能等级
+			if (!empty($buff_lvl))
+			{
+				\skillbase\skill_setvalue($buff_id, 'lvl', $buff_lvl);
+			}
 		}
 		else
 		{
@@ -186,6 +194,7 @@ namespace item_umb
 		if($ret) {
 			if('^mbid' == $cinfo[0]) return false;
 			if('^mbtime' == $cinfo[0]) return false;
+			if('^mblvl' == $cinfo[0]) return false;
 		}
 		return $ret;
 	}

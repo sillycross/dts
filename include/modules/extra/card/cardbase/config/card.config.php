@@ -5250,6 +5250,35 @@ $cards = array(
 			),
 		)
 	),
+	348 => array(
+		'name' => '旧地狱锅炉工',
+		'rare' => 'S',
+		'pack' => '東埔寨Protoject',
+		'desc' => '烧火的工作就算鸟脑袋也能做好',
+		'effect' => '太阳放弃了思考',
+		'desc_skills' => '获得技能「熔毁」：战斗时有33%、66%、1%概率<br>提高物理伤害6%、66%、666%，6级时解锁',
+		'energy' => 120,
+		'valid' => array(
+			'skills' => array(
+				'591' => '0',
+			),
+		)
+	),
+	349 => array(
+		'name' => '绿眼葛笼',
+		'ruby' => 'Green-Eyes Jealous Monster',
+		'rare' => 'B',
+		'pack' => '東埔寨Protoject',
+		'desc' => '凭什么那张卡值8700万？',
+		'effect' => '我好嫉妒啊！',
+		'desc_skills' => '获得技能「嫉妒」：攻击时使对手获得临时的属性弱化和同等<br>时长的临时技能「嫉妒」，时长取决于对手卡片的稀有度',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'592' => '0',
+			),
+		)
+	),
 	
 	1000 => array(
 		'name'=>'萌新',

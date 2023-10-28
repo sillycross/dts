@@ -1,0 +1,18 @@
+<!--{eval $___TEMP_SKILL_ID=591;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+战斗时有<span class="yellow b">33%</span>、<span class="yellow b">66%</span>、<span class="yellow b">1%</span>概率使造成的物理伤害提高<span class="yellow b">6%</span>、<span class="orange b">66%</span>、<span class="red b">666%</span>
+</span></td>
+<td class="skilldesc_right b3">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+6级时解锁
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}
