@@ -12,7 +12,7 @@
 		title="点击返回"
 		onclick="bubblebox_hide_all();"
 		>
-		<!--{eval $nowcard=$cards[$get_card_id];$nownew=$is_new?1:0;$showpack=1;}-->
+		<!--{eval $nowcard=$cards[$get_card_id];$nownew=$is_new?1:0;$showpack=1;$nowcard['blink']=$blink;}-->
 		<div class="cardbox" id="nowcardbox">
 			{template MOD_CARDBASE_CARD_BACK_FRONT_BOX}
 		</div>

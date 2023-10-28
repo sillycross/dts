@@ -107,6 +107,7 @@ function message_disp($messages)
 			if($getcard) {
 				$nowcard = $cards[$getcard];
 				$nownew = !in_array($getcard, $user_cards);
+				$nowcard['blink'] = message_get_encl_num($mv['enclosure'], 'getcardblink');
 				ob_start();
 				include template(MOD_CARDBASE_CARD_FRAME);
 				$tmp_cardpage = ob_get_contents();
@@ -148,7 +149,9 @@ function message_check($checklist, $messages)
 				$getrare = $cards[$getcard]['rare'];
 				//\cardbase\get_card($getcard, $udata);
 				//不直接写数据库，最后统一写
-				$blink = \cardbase\get_card_calc_blink($getcard, $udata);//判定罕贵。回头再加给与特定罕贵的卡的功能
+				//获得卡片的碎闪等级
+				$blink = message_get_encl_num($messages[$cid]['enclosure'], 'getcardblink');
+				//$blink = \cardbase\get_card_calc_blink($getcard, $udata);//不再随机生成，而是需要在生成站内信时就决定卡片的罕贵
 				list($isnew, $cardqiegao) = \cardbase\get_card_alternative($getcard, $udata, 0, $blink);
 				if($isnew) $info[] = '获得了卡片“<span class="'.$card_rarecolor[$getrare].'">'.$getname.'</span>”！';
 				if($cardqiegao) $info[] = '已有卡片“<span class="'.$card_rarecolor[$getrare].'">'.$getname.'</span>”，转化为了'.$cardqiegao.'切糕！';

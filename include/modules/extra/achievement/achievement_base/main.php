@@ -443,13 +443,24 @@ namespace achievement_base
 		
 		$pt = '祝贺你在'.($room_prefix ? '房间' : '').'第'.$gamenum.'局获得了成就<span class="yellow b">'.$achtitle.'</span>！'.$ext;
 		if($getqiegao || $getcard) $pt .= '查收本消息即可获取奖励。';
-		if($getcard) $pt .= '如果已有奖励卡片则会转化为切糕。';
+		if($getcard) {
+			$pt .= '如果已有奖励卡片则会转化为切糕。';
+			$blink = \cardbase\get_card_calc_blink($getcard, $pa);
+		}
+		
+		$prizecode='';
+		if($getqiegao) $prizecode .= 'getqiegao_'.$getqiegao.';';
+		if($getcard) {
+			$prizecode .= 'getcard_'.$getcard.';';
+			if($blink) $prizecode .= 'getcardblink_'.$blink.';';
+		}
+		if($getkarma) $prizecode .= 'getkarma_'.$getkarma.';';
 		include_once './include/messages.func.php';
 		message_create(
 			$n,
 			'成就奖励',
 			$pt,
-			($getqiegao ? 'getqiegao_'.$getqiegao : '').';'.($getcard ? 'getcard_'.$getcard : '').';'.($getkarma ? 'getkarma_'.$getkarma : '')
+			$prizecode
 		);		
 	}
 	

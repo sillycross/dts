@@ -381,8 +381,10 @@ namespace cardbase
 		update_udata_by_username($upd, $who);
 	}
 	
-	//生成一条获得卡片的站内信，返回值为1则表示是新卡
-	function get_card_message($ci,$ext='',&$pa=NULL)
+	//生成一条获得卡片的站内信
+	//$ci为卡号，$ext是额外显示的文本，$blink代表碎闪等级
+	//会自动判定是不是新卡，返回值为1则表示是新卡
+	function get_card_message($ci,$ext='',$blink=0,&$pa=NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','cardbase'));
@@ -397,12 +399,14 @@ namespace cardbase
 		if(empty($result)) return;
 		
 		//if(!empty($ext)) $ext.='<br>';
+		$prizecode = 'getcard_'.$ci.';';
+		if(!empty($blink)) $getcardcode .= 'getcardblink_'.$blink.';';
 		include_once './include/messages.func.php';
 		message_create(
 			$n,
 			'获得卡片',
 			$ext.'查收本消息即可获取此卡片，如果已有此卡片则会转化为切糕。',
-			'getcard_'.$ci
+			$prizecode
 		);
 		
 		$ret = 0;

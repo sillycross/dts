@@ -167,7 +167,11 @@ namespace item_uv
 					}
 					if($cards[$get_card_id]['rare'] == 'A') $ext.='运气不错！';
 					elseif($cards[$get_card_id]['rare'] == 'S') $ext.='一定是欧洲人吧！';
-					if ((\cardbase\get_card_message($get_card_id,$ext))==1) $is_new = "<span class=\"L5 b\">NEW!</span>";;
+					//计算卡片碎闪等级
+					$blink = \cardbase\get_card_calc_blink($get_card_id, $cudata);
+					//真正获得卡片
+					$is_new = \cardbase\get_card_message($get_card_id,$ext,$blink);
+					//if(!empty($is_new)) $is_new = "<span class=\"L5 b\">NEW!</span>";;
 					ob_clean();
 					include template('MOD_CARDBASE_CARDFLIP_RESULT');
 					$log .= ob_get_contents();
