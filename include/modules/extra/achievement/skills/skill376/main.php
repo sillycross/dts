@@ -47,12 +47,12 @@ namespace skill376
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
-	//受到MON影响则给自己加一个记录
+	//受到歌曲影响则给自己加一个记录
 	function ss_data_proc_single($sname, &$pdata, $effect, $sscost=0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($sname, $pdata, $effect, $sscost);
-		if('More One Night'==$sname) {
+		if(\achievement_base\achievement_secret_decode('<:secret:>H4sIAAAAAAAAClPyzS9KVfDPS1Xwy0zPKFECAKk9jQ8QAAAA')==$sname) {
 			\skillbase\skill_setvalue(376,'cnt',(int)\skillbase\skill_getvalue(376,'cnt',$pdata) + 1,$pdata);
 		}
 		return $ret;

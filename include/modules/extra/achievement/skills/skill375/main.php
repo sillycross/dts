@@ -53,10 +53,10 @@ namespace skill375
 		$chprocess($theitem);
 		//如果武器名符合条件，进入判定
 		eval(import_module('player'));
-		if('概念武装『破则』' == $wep && \skillbase\skill_query(375)) {
+		if(\achievement_base\achievement_secret_decode('<:secret:>H4sIAAAAAAAAClOKKTWztDCKKTVNSzMFspPMzGJKLSySgWxjA4PUmFJzC2MToKyRoSVYJE0JAOI/jhIyAAAA') == \itemmix\itemmix_name_proc($wep) && \skillbase\skill_query(375)) {
 			$checkitem = \wep_b\wep_b_get_ari($wepsk);
 			//如果箭矢名也符合，给技能参数+1
-			if('狱魇之都『泷庭』' == $checkitem['itm']) {
+			if(\achievement_base\achievement_secret_decode('<:secret:>H4sIAAAAAAAAClOKKTU3SjOMKbVMMjGPKTVJNUkCsg3SUmJKjQ0MUmNKzZLTgOKmqYkQkTQlAEcsLS8yAAAA') == \itemmix\itemmix_name_proc($checkitem['itm'])) {
 				\skillbase\skill_setvalue(375,'cnt',(int)\skillbase\skill_getvalue(375,'cnt') + 1);
 			}
 		}
