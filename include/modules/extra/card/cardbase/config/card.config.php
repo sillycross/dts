@@ -5279,6 +5279,20 @@ $cards = array(
 			),
 		)
 	),
+	350 => array(
+		'name' => '八意制药™',
+		'rare' => 'S',
+		'pack' => '東埔寨Protoject',
+		'desc' => '医一世误一时的偷家受害者',
+		'effect' => '可以制作三无药品',
+		'desc_skills' => '获得技能「秘药」：每60秒可以获得1个随机药物，<br>距上一次发动时间越长越容易得到强力的药物',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'593' => '0',
+			),
+		)
+	),
 	
 	1000 => array(
 		'name'=>'萌新',

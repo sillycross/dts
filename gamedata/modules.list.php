@@ -278,6 +278,9 @@ skill589,extra/card/skills/skill589/,1
 skill590,extra/card/skills/skill590/,1
 skill539,extra/card/skills/skill539/,1
 skill591,extra/card/skills/skill591/,1
+skill592,extra/card/skills/skill592/,1
+skill594,extra/card/skills/skill594/,1
+skill593,extra/card/skills/skill593/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
