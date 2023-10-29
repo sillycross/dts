@@ -1,0 +1,22 @@
+<!--{eval eval(import_module('skill593','sys'));}-->
+<!--{eval $___TEMP_SKILL_ID=593;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+<!--{eval $skill593_lst = (int)\skillbase\skill_getvalue(593,'lastuse'); $skill593_time = ($now-$skill593_lst);$skill593_cd_left=$skill593_cd-$skill593_time;}-->
+随机获得一个药物。距上一次发动时间越长越容易得到强力的药物
+<!--{if $skill593_time<$skill593_cd}-->
+<span class="cyan b"><br>技能冷却中，冷却时间还剩<span>$skill593_cd_left</span>秒。</span><br>
+<!--{/if}-->
+</span></td>
+<td class="skilldesc_right b3">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}
