@@ -29,7 +29,7 @@ namespace itemmain
 			if(false === strpos($log, $itm0)) $log .= "<br>发现了物品 <span class='yellow b'>{$itm}</span>，<br>";
 			else $log .= "<br>你正握着物品 <span class='yellow b'>{$itm}</span>，<br>";
 			$log .= "类型：{$tpldata['itmk0_words']}";
-			if ($itmsk0 && !is_numeric($itmsk0)) $log .= "，属性：{$tpldata['itmsk0_words']}";
+			if ($itmsk0 && !is_numeric($itmsk0) && !empty($tpldata['itmsk0_words'])) $log .= "，属性：{$tpldata['itmsk0_words']}";
 			$log .= "，效：{$itme0}，耐：{$itms0}。";
 		}
 		$chprocess();
