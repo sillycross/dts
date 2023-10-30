@@ -2,6 +2,9 @@
 	<!--{if !empty($card_achieved)}-->
 		<img class="card_achieved" src="img/card_achieved.png" />
 	<!--{/if}-->
+	<!--{if !empty($nownew)}-->
+		<div class="card_newflag"><span class="L5 b">NEW!</span></div>
+	<!--{/if}-->
 	<!--{if empty($lockcard) && !empty($nowcard['blink'])}-->
 		<!--{if $nowcard['blink']>=20}-->
 			<div class="card_blink_container blink_maskii">
@@ -29,11 +32,7 @@
 		<!--{eval $nowcardname = !empty($nowcard['ruby']) ? '<ruby>'.$nowcard['name'].'<rt>'.$nowcard['ruby'].'</rt></ruby>' : $nowcard['name'];}-->
 		<div class="card_frame_middler">
 			<div class="card_frame_inner" style="margin-left:50px;width:187px;height:45px;">
-				<!--{if !empty($nownew)}-->
-					<span id="cname">$nowcardname</span>&nbsp;&nbsp;<span class="L5 b">NEW!</span>
-				<!--{else}-->
-					<span id="cname">$nowcardname</span>
-				<!--{/if}-->
+				<span id="cname">$nowcardname</span>
 			</div>
 			<div class="card_frame_inner" style="height:<!--{if !empty($nowcard['bigdesc']) && empty($lockcard)}-->200px<!--{else}-->140px<!--{/if}-->;margin-top:3px">
 				<span id="cdesc" style="max-width:225px">$nowcard['desc']</span>
