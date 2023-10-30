@@ -59,8 +59,8 @@ namespace skill596
 			$itm0 = generate_sk596_iname();
 			if (mb_strlen($itm0, 'utf-8') > 30)
 			{
+				$log .= "你开始书写标题：<span class=\"yellow b\">{$itm0}……</span><br>尽管标题已经很长了，但你还是意犹未尽，继续添油加醋。<br>正当你写的起劲的时候，突然感到背后传来一阵浓重的杀气。<br><span class=\"red b\">\"总算让我找到了，最近假新闻的源头！\"</span><br>……<br>在一通不由分说的暴打之后，你遍体鳞伤地挣扎着爬了起来。<br><span class=\"red b\">真是大快人心啊！</span><br>";
 				$itm0 = '';
-				$log .= "正当你写的起劲的时候，突然感到背后传来一阵浓重的杀气。<br><span class=\"red b\">\"总算让我找到了，最近假新闻的源头！\"</span><br>……<br>在一通不由分说的暴打之后，你遍体鳞伤地挣扎着爬了起来。<br><span class=\"red b\">真是大快人心啊！</span><br>";
 				$hp = 1;
 				foreach(array('h','b','a','f') as $value)
 				{
