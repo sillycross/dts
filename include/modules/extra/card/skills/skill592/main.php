@@ -37,8 +37,8 @@ namespace skill592
 			if ($debuff_time > 0)
 			{
 				eval(import_module('sys','player','logger'));
-				if ($active) $log.="<span class=\"green b\">你向{$pd['name']}施加了怨恨，并唤起了对方的嫉妒心！</span><br>";
-				else $log.="<span class=\"green b\">{$pa['name']}向你施加了怨恨，并唤起了你的嫉妒心！</span><br>";
+				if ($active) $log.="<span class=\"lime b\">你向{$pd['name']}施加了怨恨，并唤起了对方的嫉妒心！</span><br>";
+				else $log.="<span class=\"lime b\">{$pa['name']}向你施加了怨恨，并唤起了你的嫉妒心！</span><br>";
 				\skillbase\skill_acquire(478, $pd);
 				\skillbase\skill_setvalue(478, 'tsk_expire', $now + $debuff_time, $pd);
 				\skillbase\skill_acquire(592, $pd);

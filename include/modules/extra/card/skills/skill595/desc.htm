@@ -1,0 +1,20 @@
+<!--{eval eval(import_module('skill595'));}-->
+<!--{eval $skill595_stunsec = $skill595_stuntime / 1000;}-->
+<!--{eval $___TEMP_SKILL_ID=595;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+<span class="yellow b">战斗技</span>&nbsp;&nbsp;物理伤害<span class="yellow b">+{$skill595_phydmg_gain}%</span>，并使对手概率获得以下若干项：晕眩<span class="cyan b">{$skill595_stunsec}</span>秒/<br>头部受伤/经验值增加/全系熟练度增加。消耗<span class="yellow b">$ragecost</span>点怒气<br>
+</span></td>
+<td class="skilldesc_right b3">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+10级时解锁
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

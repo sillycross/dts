@@ -486,6 +486,8 @@ skill467,extra/card/skills/skill467/,1
 skill468,extra/card/skills/skill468/,1
 skill481,extra/card/skills/skill481/,1
 skill482,extra/card/skills/skill482/,1
+skill596,extra/card/skills/skill596/,1
+skill595,extra/card/skills/skill595/,1
 skill500,extra/card/skills/skill500/,1
 blessstone,extra/attr/blessstone/,1
 skill580,extra/card/skills/skill580/,1
