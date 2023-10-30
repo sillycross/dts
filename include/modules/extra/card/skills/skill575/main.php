@@ -109,6 +109,7 @@ namespace skill575
 					$log .= "<span class=\"lime b\">你给{$pd['name']}留下了一道「难题」，名为</span>";
 				else  $log .= "<span class=\"lime b\">{$pa['name']}给你留下了一道「难题」，名为</span>";
 				$pa['rage'] -= $rcost;
+				addnews ( 0, 'bskill575', $pa['name'], $pd['name'] );
 				sk575_add_tpid($pa, $pd['pid']);
 				sk575_give_request($pa, $pd);
 			}
