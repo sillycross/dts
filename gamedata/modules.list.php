@@ -430,6 +430,7 @@ skill588,extra/card/skills/skill588/,1
 empowers,base/items/empowers/,1
 skill70,extra/club/skills/skill70/,1
 skill246,extra/club/skills/skill246/,1
+skill598,extra/card/skills/skill598/,1
 ex_mhp_temp_up,extra/attr/ex_mhp_temp_up/,1
 cooldown,base/cooldown/,1
 item_misc,base/items/item_misc/,1

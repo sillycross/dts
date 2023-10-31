@@ -5309,7 +5309,7 @@ $cards = array(
 	),
 	352 => array(
 		'name' => '历史老师',
-		'rare' => 'B',
+		'rare' => 'A',
 		'pack' => '東埔寨Protoject',
 		'desc' => '善于言传身教的寺子屋老师，有着发达的头脑',
 		'effect' => '获得战斗技「劝学」',
@@ -5332,6 +5332,47 @@ $cards = array(
 		'valid' => array(
 			'skills' => array(
 				'596' => '0',
+			),
+		)
+	),
+	354 => array(
+		'name' => '小桶',
+		'rare' => 'C',
+		'pack' => '東埔寨Protoject',
+		'desc' => '和钓瓶妖怪一起<del>攻克难关</del>提桶跑路',
+		'effect' => '开局装备诅咒属性的腿部防具',
+		'energy' => 0,
+		'valid' => array(
+			'arf' => '木桶',
+			'arfk' => 'DF',
+			'arfe' => '50',
+			'arfs' => '30',
+			'arfsk' => 'O',
+		)
+	),
+	355 => array(
+		'name' => '勇☆仪☆王',
+		'rare' => 'B',
+		'pack' => '東埔寨Protoject',
+		'desc' => '她有40张符卡',
+		'effect' => '可以把游戏王武器当灵系武器使用',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'598' => '0',
+			),
+		)
+	),
+	356 => array(
+		'name' => '蚀梦貘',
+		'rare' => 'B',
+		'pack' => '東埔寨Protoject',
+		'desc' => '适度酗酒益脑，沉迷睡觉伤身',
+		'effect' => '获得一次性技能「迷梦」：使当前地图的玩家和生命值低于你的NPC变为治疗姿态和重视防御，并进入睡眠',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'599' => '0',
 			),
 		)
 	),
