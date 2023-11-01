@@ -1,0 +1,16 @@
+<!--{eval eval(import_module('skill597','sys','clubbase'));}-->
+<!--{eval $skill597_itmarr=\skill597\skill597_prepare_itmarr();$skill597_nowcount=sizeof($skill597_itmarr);$skill597_size=\skill597\skill597_get_packsize();}-->
+<input type="hidden" name="mode" value="special">
+<input type="hidden" id="command" name="command" value="skill597_special">
+<input type="hidden" id="subcmd" name="subcmd" value="">
+<input type="hidden" id="skill597_empty" name="skill597_empty" value="">
+<input type="hidden" id="skill597_fetchout" name="skill597_fetchout" value="">
+推车中已存放<span class="yellow b">{$skill597_nowcount}/{$skill597_size}</span>个道具<br>
+<!--{loop $skill597_itmarr $i $v}-->
+<input type="button" class="cmdbutton" value="取出" onclick="$('skill597_fetchout').value='<!--{eval echo $i+1;}-->';$('skill597_empty').value='';postCmd('gamecmd','command.php');this.disabled=true;">
+$v['itm']/$v['itme']/$v['itms']<br>
+<!--{/loop}-->
+<br><br>
+<input type="button" class="cmdbutton" value="清空推车" onclick="$('skill597_empty').value='1';$('skill597_fetchout').value='';postCmd('gamecmd','command.php');this.disabled=true;">
+<br><br>
+<input type="button" class="cmdbutton"  id="x" value="[X]返回" onclick="$('command').value='menu'; postCmd('gamecmd','command.php');this.disabled=true;">
