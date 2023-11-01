@@ -361,6 +361,7 @@ skill585,extra/card/skills/skill585/,1
 weather,base/weather/,1
 npcinfo,extra/misc/npcinfo/,1
 skill502,extra/card/skills/skill502/,1
+skill599,extra/card/skills/skill599/,1
 dualwep,base/weapon/dualwep/,1
 wep_b_extra_reloading,extra/item_extra/wep_b_extra_reloading/,1
 skill28,extra/club/skills/skill28/,1

@@ -20,6 +20,7 @@
 //上一次拾取尸体的pid last_corpse_pid 位于extra/searchmemory
 //怪伞技能记录pid sk580_sid 位于extra/card/skills/skill580
 //当前使用卡片的碎闪等级 nowcard_blink 位于extra/card/cardbase
+//迷梦技能标记 sk599_flag 位于extra/card/skills/skill599
 
 namespace skill1003
 {

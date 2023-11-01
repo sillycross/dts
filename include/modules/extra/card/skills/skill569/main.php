@@ -36,7 +36,6 @@ namespace skill569
 					while($r = $db->fetch_array($result)){
 						$list[] = $r['pid'];
 					}
-					$pdlist = array();
 					foreach($list as $pdid){
 						$pdata = \player\fetch_playerdata_by_pid($pdid);
 						$pdata['pls'] = 9;

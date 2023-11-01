@@ -5296,14 +5296,14 @@ $cards = array(
 	351 => array(
 		'name' => 'M18“地狱猫”',
 		'title' => '地狱猫',
-		'rare' => 'B',
+		'rare' => 'A',
 		'pack' => '東埔寨Protoject',
 		'desc' => '运送尸体的打火车，其敞篷设计在乘员中的差评率至今为零',
 		'effect' => '获得技能「猫车」：移动后将当前地点尽可能多的尸体加入视野，可以把尸体打包带走',
-		'energy' => 120,
+		'energy' => 100,
 		'valid' => array(
 			'skills' => array(
-				'597' => '0',
+				'597' => '20',
 			),
 		)
 	),
@@ -5373,6 +5373,21 @@ $cards = array(
 		'valid' => array(
 			'skills' => array(
 				'599' => '0',
+			),
+		)
+	),
+	357 => array(
+		'name' => '“周六夜狂热”',
+		'rare' => 'A',
+		'pack' => '東埔寨Protoject',
+		'desc' => '身为龙宫使，负责传递来自龙神的姿势',
+		'effect' => '现在《太平要术》和《占星术导论》都是幻境必修的舞蹈教材',
+		'desc_skills' => '获得技能「雷击」「预感」',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'249' => '0',
+				'250' => '0',
 			),
 		)
 	),
