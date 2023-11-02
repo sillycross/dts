@@ -428,7 +428,7 @@ $mixinfo = array
 	array('class' => 'ocg', 'stuff' => array('「浮幽樱」 ★3-仮','☆手坑认证☆'),'result' => array('「浮幽樱」 ★3','WC03',50,'∞','pnys'),),
 	array('class' => 'ocg', 'stuff' => array('「灰流呜啦啦」 ★3','☆手坑认证☆'),'result' => array('「灰流丽」 ★3','WC03',50,'∞','fkts'),),
 	array('class' => 'ocg', 'stuff' => array('「D.D.乌鸦」 ★1-仮','☆手坑认证☆'),'result' => array('「D.D.乌鸦」 ★1','WC01',100,'∞','^ac1z'),),
-	array('class' => 'ocg', 'stuff' => array('抒情歌鸲-合唱小琉璃 ☆1 -仮','『祝福宝石』'),'result' => array('抒情歌鸲-合唱小琉璃 ☆1','DA',220,'∞','wA^sv1^sa4^xyz1'),),
+	array('class' => 'ocg', 'stuff' => array('抒情歌鸲-合唱小琉璃 ☆1 -仮','夜雀歌谱','『祝福宝石』'),'result' => array('抒情歌鸲-合唱小琉璃 ☆1','DA',220,'∞','wA^sv1^sa4^xyz1'),),
 	array('class' => 'ocg', 'stuff' => array('彼岸的旅人 但丁 ☆3','☆四星认证☆'),'result' => array('彼岸的旅人 但丁 ☆3（攻击表示）','WC',180,'∞','uR^xyz3'),),
 	array('class' => 'ocg', 'stuff' => array('彼岸的旅人 但丁 ☆3（攻击表示）','☆叠♂放☆','☆六星认证☆'),'result' => array('永远的淑女 贝阿特丽切 ☆6','WC',320,'∞','urR^xyz6'),),
 	array('class' => 'ocg', 'stuff' => array('电子龙·新星 ☆5','☆叠♂放☆','☆五星认证☆'),'result' => array('电子龙·无限 ☆5','WC',250,'∞','rdnya^xyz5'),),
