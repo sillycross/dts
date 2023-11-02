@@ -33,9 +33,9 @@ namespace skill181
 		if (\skillbase\skill_query(181,$pa))
 		{
 			eval(import_module('skill181'));
-			$dice = rand(4,6);
+			$dice = rand(4,8);
 			$lvupss += $dice;
-			$lvupssref += $dice + round($pa['mss'] * 0.2);
+			$lvupssref += $dice + round($pa['mss'] * 0.1);
 		}
 	}
 	
@@ -43,9 +43,10 @@ namespace skill181
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r = $chprocess($v, $pa);
-		if (\skillbase\skill_query(181,$pa))
+		eval(import_module('skill181'));
+		if (\skillbase\skill_query(181,$pa) && $lvupss)
 		{
-			eval(import_module('sys','player','logger','skill181'));
+			eval(import_module('sys','player','logger'));
 			$pa['mss'] += $lvupss;		
 			if ($pa['ss'] + $lvupssref >= $pa['mss'])
 			{
