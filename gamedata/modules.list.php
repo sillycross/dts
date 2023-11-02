@@ -437,7 +437,6 @@ cooldown,base/cooldown/,1
 item_misc,base/items/item_misc/,1
 skill458,extra/card/skills/skill458/,1
 skill498,extra/card/skills/skill498/,1
-skill562,extra/card/skills/skill562/,1
 instance_close_button,extra/instance/instance_close_button/,1
 skill514,extra/card/skills/skill514/,1
 skill206,extra/club/skills/skill206/,1

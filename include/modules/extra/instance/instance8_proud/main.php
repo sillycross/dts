@@ -4,7 +4,7 @@ namespace instance8
 {
 	function init() {
 		eval(import_module('skillbase', 'cardbase'));
-		$valid_skills[18] = array(1001);
+		$valid_skills[18] = array(1001,181);
 		$card_force_different_gtype[] = 18;
 		$card_need_charge_gtype[] = 18;
 		$card_cooldown_discount_gtype[18] = 0.5;

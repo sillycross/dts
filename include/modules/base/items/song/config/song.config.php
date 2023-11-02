@@ -15,7 +15,12 @@ namespace song
 			),
 			'effect' => array(
 				'def' => 30
-			)
+			),
+			//effect_sv供ex_attr_song模块使用
+			'effect_sv' => array(
+				'def' => 200,
+				'time' => 180,
+			),
 		),
 		2 => array(
 			'songname' => 'Crow Song',
@@ -30,7 +35,11 @@ namespace song
 			),
 			'effect' => array(
 				'att' => 30
-			)
+			),
+			'effect_sv' => array(
+				'att' => 200,
+				'time' => 180,
+			),
 		),
 		3 => array(
 			'songname' => 'KARMA',
@@ -41,6 +50,9 @@ namespace song
 			),
 			'effect' => array(
 				'rp' => '=0'
+			),
+			'effect_sv' => array(
+				'rp' => '=-233'
 			)
 		),
 		4 => array(
@@ -63,6 +75,11 @@ namespace song
 				'mhp' => 10,
 				'msp' => 10,
 				'money' => 10,
+				'rp' => -10
+			),
+			'effect_sv' => array(
+				'mhp' => 40,
+				'msp' => 20,
 				'rp' => -10
 			)
 		),
@@ -95,6 +112,10 @@ namespace song
 			'effect' => array(
 				'sp' => -100,
 				'rage' => 5,
+			),
+			'effect_sv' => array(
+				'sp' => -300,
+				'rage' => 30,
 			)
 		),
 		7 => array(
@@ -319,6 +340,10 @@ namespace song
 			),
 			'effect' => array(
 				'exp' => 12
+			),
+			'effect_sv' => array(
+				'addskill' => 226,
+				'time' => 120,
 			)
 		),
 		15 => array(
