@@ -144,7 +144,7 @@ namespace item_umb
 				//可能同时有多个时长不同的buff，icon仅提示有buff存在
 				$z['totsec'] = $buff_rmmax;
 				$z['nowsec'] = 0;
-				$z['hint'] = show_buff_hint($tsk_idlist, $tsk_rmlist);
+				$z['hint'] = show_buff_hint($tsk_idlist);
 			}
 			else
 			{
@@ -157,7 +157,7 @@ namespace item_umb
 		$chprocess();
 	}
 	
-	function show_buff_hint($idlist, $rmlist)
+	function show_buff_hint($idlist)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$s = '';

@@ -86,8 +86,8 @@ $mixinfo = array
 	array('class' => 'wp', 'stuff' => array('『延展御柱』','驱云弹','弹幕符札'),'result' => array('御柱「Meteoric Onbashira」','WP',200,50,'Nir'),),
 	array('class' => 'wp', 'stuff' => array('手机','手枪子弹'),'result' => array('『诺基亚』','WP',50,9999,'N'),),
 	array('class' => 'wp', 'stuff' => array('『诺基亚』','曾经的荣光-巨盾','防弹背心','防弹背心','防弹背心','防弹背心'),'result' => array('『曾经的荣光-诺基亚』','WP',255,9999,'NAZ'),),
-	array('class' => 'wp', 'stuff' => array('葱娘の葱','葱娘肉包'),'result' => array('葱娘V4X的合成器','WP',200,50,'tr'),),
-	array('class' => 'wp', 'stuff' => array('MIKU的原味内裤','MIKU的小葱'),'result' => array('MIKU V4X的双马尾','WP',600,100,'miku'),),
+	array('class' => 'wp', 'stuff' => array('葱娘の葱','葱娘肉包'),'result' => array('葱娘V4X的合成器','WP',200,50,'tr^sa2'),),
+	array('class' => 'wp', 'stuff' => array('MIKU的原味内裤','MIKU的小葱'),'result' => array('MIKU V4X的双马尾','WP',600,100,'miku^sa4'),),
 	
 	array('class' => 'wp_mrm', 'stuff' => array('雏人形','☆博丽护符☆','原型武器P'),'result' => array('【人形降临】','WP',66,666,'t'),),
 	array('class' => 'wp_mrm', 'stuff' => array('【人形降临】','触手的力量','☆十星认证☆'),'result' => array('【人形降临·白恶魔】','WP',666,666,'etAj'),),
@@ -428,6 +428,7 @@ $mixinfo = array
 	array('class' => 'ocg', 'stuff' => array('「浮幽樱」 ★3-仮','☆手坑认证☆'),'result' => array('「浮幽樱」 ★3','WC03',50,'∞','pnys'),),
 	array('class' => 'ocg', 'stuff' => array('「灰流呜啦啦」 ★3','☆手坑认证☆'),'result' => array('「灰流丽」 ★3','WC03',50,'∞','fkts'),),
 	array('class' => 'ocg', 'stuff' => array('「D.D.乌鸦」 ★1-仮','☆手坑认证☆'),'result' => array('「D.D.乌鸦」 ★1','WC01',100,'∞','^ac1z'),),
+	array('class' => 'ocg', 'stuff' => array('抒情歌鸲-合唱小琉璃 ☆1 -仮','『祝福宝石』'),'result' => array('抒情歌鸲-合唱小琉璃 ☆1','DA',220,'∞','wA^sv1^sa4^xyz1'),),
 	array('class' => 'ocg', 'stuff' => array('彼岸的旅人 但丁 ☆3','☆四星认证☆'),'result' => array('彼岸的旅人 但丁 ☆3（攻击表示）','WC',180,'∞','uR^xyz3'),),
 	array('class' => 'ocg', 'stuff' => array('彼岸的旅人 但丁 ☆3（攻击表示）','☆叠♂放☆','☆六星认证☆'),'result' => array('永远的淑女 贝阿特丽切 ☆6','WC',320,'∞','urR^xyz6'),),
 	array('class' => 'ocg', 'stuff' => array('电子龙·新星 ☆5','☆叠♂放☆','☆五星认证☆'),'result' => array('电子龙·无限 ☆5','WC',250,'∞','rdnya^xyz5'),),

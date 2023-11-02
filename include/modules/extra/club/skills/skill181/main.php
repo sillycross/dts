@@ -33,9 +33,9 @@ namespace skill181
 		if (\skillbase\skill_query(181,$pa))
 		{
 			eval(import_module('skill181'));
-			$dice = rand(4,8);
+			$dice = rand(4,6);
 			$lvupss += $dice;
-			$lvupssref += $dice + round($pa['mss'] * 0.1);
+			$lvupssref += $dice + round($pa['mss'] * 0.2);
 		}
 	}
 	

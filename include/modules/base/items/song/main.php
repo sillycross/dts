@@ -176,7 +176,7 @@ namespace song
 						if(!\skillbase\skill_query($skv, $pdata)){
 							\skillbase\skill_acquire($skv, $pdata);
 							$ss_log[] = '获得了技能<span class="cyan b">「'.$clubskillname[$skv].'」</span>';
-							if ($flag)
+							if ($timeflag)
 							{
 								$ss_log[] = "，持续时间<span class=\"yellow b\">".$effect['time']."</span>秒！<br>";
 								\skillbase\skill_setvalue($skv, 'tsk_expire', $now + $effect['time'], $pdata);
