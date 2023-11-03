@@ -196,7 +196,7 @@ function & get_var_in_module($varname, $modulename)
 	if(empty($varname) || !defined('MOD_'.strtoupper($modulename))) return NULL;
 	global $___MOD_SRV;
 	$ret = NULL;
-	if($___MOD_SRV && $modulename == 'input'){
+	if($___MOD_SRV && defined('IN_DAEMON') && $modulename == 'input'){
 		global $___LOCAL_INPUT__VARS__INPUT_VAR_LIST;
 		if(isset($___LOCAL_INPUT__VARS__INPUT_VAR_LIST[$varname]))
 			$ret = & $___LOCAL_INPUT__VARS__INPUT_VAR_LIST[$varname];
