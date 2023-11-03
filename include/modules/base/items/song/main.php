@@ -263,6 +263,8 @@ namespace song
 	function add_songbuff_value($key, $value, $time, &$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!defined('MOD_SKILL182')) return;
+		
 		if (!\skillbase\skill_query(182, $pa)) \skillbase\skill_acquire(182, $pa);
 		$skey = \skillbase\skill_getvalue(182, 'skey', $pa);
 		$svalue = \skillbase\skill_getvalue(182, 'svalue', $pa);
