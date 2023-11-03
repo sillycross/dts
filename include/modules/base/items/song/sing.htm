@@ -3,7 +3,7 @@
 <input type="hidden" id="song_choice" name="song_choice" value='0'>
 请选择你要唱的歌：<br><br>
 <!--{eval $learnedsongs = \skillbase\skill_getvalue(1003,'learnedsongs');}-->
-<!--{if '' === $learnedsongs}-->
+<!--{if empty($learnedsongs)}-->
 <span class="yellow b">好像你一首歌都不会唱的样子……</span><br>
 <!--{else}--> 
 <!--{eval $ls = explode('_',$learnedsongs);}-->

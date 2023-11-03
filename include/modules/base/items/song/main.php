@@ -178,7 +178,7 @@ namespace song
 							$ss_log[] = '获得了技能<span class="cyan b">「'.$clubskillname[$skv].'」</span>';
 							if ($timeflag)
 							{
-								$ss_log[] = "，持续时间<span class=\"yellow b\">".$effect['time']."</span>秒！<br>";
+								$ss_log[] = "持续时间<span class=\"yellow b\">".$effect['time']."</span>秒<br>";
 								\skillbase\skill_setvalue($skv, 'tsk_expire', $now + $effect['time'], $pdata);
 							}
 						}
@@ -263,7 +263,7 @@ namespace song
 	function add_songbuff_value($key, $value, $time, &$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(182, $pdata)) \skillbase\skill_acquire(182, $pa);
+		if (!\skillbase\skill_query(182, $pa)) \skillbase\skill_acquire(182, $pa);
 		$skey = \skillbase\skill_getvalue(182, 'skey', $pa);
 		$svalue = \skillbase\skill_getvalue(182, 'svalue', $pa);
 		//此处的time是结束时间
@@ -484,7 +484,7 @@ namespace song
 				if ($sval['songname'] === $sn)
 				{
 					$learnedsongs = \skillbase\skill_getvalue(1003,'learnedsongs');
-					if ('' === $learnedsongs) $ls = array();
+					if (empty($learnedsongs)) $ls = array();
 					else $ls = explode('_',$learnedsongs);
 					if (!in_array($skey, $ls)) 
 					{

@@ -5392,6 +5392,42 @@ $cards = array(
 			),
 		)
 	),
+	358 => array(
+		'name' => '烧烤与夜雀与夜色森林',
+		'title' => '烤夜雀',
+		'rare' => 'B',
+		'pack' => '東埔寨Protoject',
+		'desc' => '面对大型连锁餐厅，正在为自己的生意和鸟身安全担忧的烧烤摊老板',
+		'effect' => '有摇滚和烤串的绝活',
+		'desc_skills' => '开局获得带有变奏和激奏1属性的烤肉工具和补给',
+		'energy' => 100,
+		'valid' => array(
+			'ara' => '☆烤鳗鱼☆',
+			'arak' => 'HB',
+			'arae' => '300',
+			'aras' => '10',
+			'arask' => '^sa1',
+			'art' => '烤肉组合',
+			'artk' => 'A',
+			'arte' => '1',
+			'arts' => '1',
+			'artsk' => '^sv1',
+		)
+	),
+	359 => array(
+		'name' => '加班挑战者',
+		'rare' => 'C',
+		'pack' => 'Way of Life',
+		'desc' => '干到太晚然后在工位上睡着了',
+		'effect' => '我这是在哪？',
+		'desc_skills' => '开局处于睡眠状态，有30%概率获得额外的起始金钱',
+		'energy' => 0,
+		'valid' => array(
+			'skills' => array(
+				'562' => '0',
+			),
+		)
+	),
 	
 	1000 => array(
 		'name'=>'萌新',

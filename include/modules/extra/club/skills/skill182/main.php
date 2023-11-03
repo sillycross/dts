@@ -26,11 +26,11 @@ namespace skill182
 		\player\update_sdata();		
 		if (\skillbase\skill_query(182,$sdata))
 		{
-			$skey = \skillbase\skill_getvalue(182, 'skey', $pa);
+			$skey = \skillbase\skill_getvalue(182, 'skey', $sdata);
 			if (!empty($skey))
 			{
-				$svalue = \skillbase\skill_getvalue(182, 'svalue', $pa);
-				$stime = \skillbase\skill_getvalue(182, 'stime', $pa);
+				$svalue = \skillbase\skill_getvalue(182, 'svalue', $sdata);
+				$stime = \skillbase\skill_getvalue(182, 'stime', $sdata);
 				$lskey = explode('_', $skey);
 				$lsvalue = explode('_', $svalue);
 				$lstime = explode('_', $stime);			
@@ -65,9 +65,12 @@ namespace skill182
 		eval(import_module('sys','song'));
 		foreach ($lskey as $i => $key)
 		{
-			if ($lsvalue[$i] > 0) $o = '+';
-			else $o ='';
-			$s .= "{$ef_type[$key]}{$o}{$lsvalue[$i]} 剩<span class=\"yellow b\" id=\"songbuff{$i}\">{$uip['timing']['songbuff'.$i]['timing_r']}</span>秒<br>";
+			if (!empty($key))
+			{
+				if ($lsvalue[$i] > 0) $o = '+';
+				else $o ='';
+				$s .= "{$ef_type[$key]}{$o}{$lsvalue[$i]} 剩<span class=\"yellow b\" id=\"songbuff{$i}\">{$uip['timing']['songbuff'.$i]['timing_r']}</span>秒<br>";
+			}
 		}
 		return $s;
 	}
@@ -93,6 +96,22 @@ namespace skill182
 					if ((int)$time < $now)
 					{
 						$flag = 1;
+						$ek = $lskey[$i];
+						$change = -(int)$lsvalue[$i];		
+						if ($change > 0)
+						{
+							if (!isset($pa['m'.$ek]) || $pa[$ek] < $pa['m'.$ek])
+							{
+								if (isset($pa['m'.$ek]) && ($pa[$ek] + $change > $pa['m'.$ek])) $change = $pa['m'.$ek] - $pa[$ek];
+								$pa[$ek] += $change;
+							}
+						}
+						else
+						{
+							if ($pa[$ek] + $change < 1 && in_array($ek, array('hp','mhp','sp','msp'))) $change = 1 - $pa[$ek];
+							elseif ($pa[$ek] + $change < 0) $change = -$pa[$ek];
+							$pa[$ek] += $change;
+						}
 						unset($lskey[$i]);
 						unset($lsvalue[$i]);
 						unset($lstime[$i]);
@@ -127,6 +146,7 @@ namespace skill182
 	
 	function init_songbuff_timing_process()
 	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
 		$skey = \skillbase\skill_getvalue(182, 'skey', $pa);
 		if (!empty($skey))
@@ -135,7 +155,10 @@ namespace skill182
 			$stime = \skillbase\skill_getvalue(182, 'stime', $pa);
 			$lskey = explode('_', $skey);
 			$lstime = explode('_', $stime);
-			foreach ($lskey as $i => $key) init_songbuff_timing($i, $lstime[$i] - $now);
+			foreach ($lskey as $i => $key)
+			{
+				if (!empty($key)) init_songbuff_timing($i, $lstime[$i] - $now);
+			}
 		}
 	}
 

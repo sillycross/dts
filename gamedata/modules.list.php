@@ -330,6 +330,7 @@ skill445,extra/card/skills/skill445/,1
 skill557,extra/card/skills/skill557/,1
 pose,base/pose/,1
 skill1,base/skills/skill1/,1
+skill562,extra/card/skills/skill562/,1
 skill600,extra/club/skills/skill600/,1
 skill20,extra/club/skills/skill20/,1
 skill492,extra/card/skills/skill492/,1
@@ -433,10 +434,13 @@ skill70,extra/club/skills/skill70/,1
 skill246,extra/club/skills/skill246/,1
 skill598,extra/card/skills/skill598/,1
 ex_mhp_temp_up,extra/attr/ex_mhp_temp_up/,1
+skill182,extra/club/skills/skill182/,1
 cooldown,base/cooldown/,1
 item_misc,base/items/item_misc/,1
 skill458,extra/card/skills/skill458/,1
 skill498,extra/card/skills/skill498/,1
+ex_attr_song,extra/attr/ex_attr_song/,1
+skill181,extra/club/skills/skill181/,1
 instance_close_button,extra/instance/instance_close_button/,1
 skill514,extra/card/skills/skill514/,1
 skill206,extra/club/skills/skill206/,1
