@@ -24,7 +24,7 @@ namespace skill572
 	function add_skill572_mapitem()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','map'));
+		eval(import_module('sys','map','itemmain'));
 		
 		$plsnum = sizeof($plsinfo);
 		$iqry = '';
