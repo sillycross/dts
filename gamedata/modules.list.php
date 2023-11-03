@@ -330,6 +330,7 @@ skill445,extra/card/skills/skill445/,1
 skill557,extra/card/skills/skill557/,1
 pose,base/pose/,1
 skill1,base/skills/skill1/,1
+skill562,extra/card/skills/skill562/,1
 skill600,extra/club/skills/skill600/,1
 skill20,extra/club/skills/skill20/,1
 skill492,extra/card/skills/skill492/,1
@@ -361,6 +362,7 @@ skill585,extra/card/skills/skill585/,1
 weather,base/weather/,1
 npcinfo,extra/misc/npcinfo/,1
 skill502,extra/card/skills/skill502/,1
+skill599,extra/card/skills/skill599/,1
 dualwep,base/weapon/dualwep/,1
 wep_b_extra_reloading,extra/item_extra/wep_b_extra_reloading/,1
 skill28,extra/club/skills/skill28/,1
@@ -430,12 +432,15 @@ skill588,extra/card/skills/skill588/,1
 empowers,base/items/empowers/,1
 skill70,extra/club/skills/skill70/,1
 skill246,extra/club/skills/skill246/,1
+skill598,extra/card/skills/skill598/,1
 ex_mhp_temp_up,extra/attr/ex_mhp_temp_up/,1
+skill182,extra/club/skills/skill182/,1
 cooldown,base/cooldown/,1
 item_misc,base/items/item_misc/,1
 skill458,extra/card/skills/skill458/,1
 skill498,extra/card/skills/skill498/,1
-skill562,extra/card/skills/skill562/,1
+ex_attr_song,extra/attr/ex_attr_song/,1
+skill181,extra/club/skills/skill181/,1
 instance_close_button,extra/instance/instance_close_button/,1
 skill514,extra/card/skills/skill514/,1
 skill206,extra/club/skills/skill206/,1
@@ -566,6 +571,7 @@ skill551,extra/card/skills/skill551/,1
 skill554,extra/card/skills/skill554/,1
 skill576,extra/card/skills/skill576/,1
 skill575,extra/card/skills/skill575/,1
+skill597,extra/card/skills/skill597/,1
 skill563,extra/card/skills/skill563/,1
 skill566,extra/card/skills/skill566/,1
 skill604,extra/club/skills/skill604/,1

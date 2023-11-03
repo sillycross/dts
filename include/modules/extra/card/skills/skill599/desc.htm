@@ -1,0 +1,22 @@
+<!--{eval $___TEMP_SKILL_ID=599;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+使当前地图的玩家和生命值低于你的NPC变为治疗姿态和重视防御，<br>并进入睡眠<br>
+<!--{if empty(\skillbase\skill_getvalue(599,'activated',$who))}-->
+<span class="red b">只能发动一次</span>
+<!--{else}-->
+<span class="red b">你已经发动过此技能了！</span>
+<!--{/if}-->
+</span></td>
+<td class="skilldesc_right b3">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

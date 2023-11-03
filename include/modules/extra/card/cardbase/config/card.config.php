@@ -5296,20 +5296,21 @@ $cards = array(
 	351 => array(
 		'name' => 'M18“地狱猫”',
 		'title' => '地狱猫',
-		'rare' => 'B',
+		'rare' => 'A',
 		'pack' => '東埔寨Protoject',
 		'desc' => '运送尸体的打火车，其敞篷设计在乘员中的差评率至今为零',
-		'effect' => '获得技能「猫车」：移动后将当前地点尽可能多的尸体加入视野，可以把尸体打包带走',
-		'energy' => 120,
+		'effect' => '获得可以把尸体打包带走的技能',
+		'desc_skills' => '获得技能「猫车」：移动后将当前地点尽可能多的尸体加入视野，<br>可以把尸体上的全部道具和金钱一并带走。10级时解锁',
+		'energy' => 100,
 		'valid' => array(
 			'skills' => array(
-				'597' => '0',
+				'597' => '20',
 			),
 		)
 	),
 	352 => array(
 		'name' => '历史老师',
-		'rare' => 'B',
+		'rare' => 'A',
 		'pack' => '東埔寨Protoject',
 		'desc' => '善于言传身教的寺子屋老师，有着发达的头脑',
 		'effect' => '获得战斗技「劝学」',
@@ -5332,6 +5333,98 @@ $cards = array(
 		'valid' => array(
 			'skills' => array(
 				'596' => '0',
+			),
+		)
+	),
+	354 => array(
+		'name' => '小桶',
+		'rare' => 'C',
+		'pack' => '東埔寨Protoject',
+		'desc' => '和钓瓶妖怪一起<del>攻克难关</del>提桶跑路',
+		'effect' => '开局装备诅咒属性的腿部防具',
+		'energy' => 0,
+		'valid' => array(
+			'arf' => '木桶',
+			'arfk' => 'DF',
+			'arfe' => '50',
+			'arfs' => '30',
+			'arfsk' => 'O',
+		)
+	),
+	355 => array(
+		'name' => '勇☆仪☆王',
+		'rare' => 'B',
+		'pack' => '東埔寨Protoject',
+		'desc' => '她有40张符卡',
+		'effect' => '可以把游戏王武器当灵系武器使用',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'598' => '0',
+			),
+		)
+	),
+	356 => array(
+		'name' => '蚀梦貘',
+		'rare' => 'B',
+		'pack' => '東埔寨Protoject',
+		'desc' => '适度酗酒益脑，沉迷睡觉伤身',
+		'effect' => '获得一次性技能「迷梦」：使当前地图的玩家和生命值低于你的NPC变为治疗姿态和重视防御，并进入睡眠',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'599' => '0',
+			),
+		)
+	),
+	357 => array(
+		'name' => '“周六夜狂热”',
+		'rare' => 'A',
+		'pack' => '東埔寨Protoject',
+		'desc' => '身为龙宫使，负责传递来自龙神的姿势',
+		'effect' => '现在《太平要术》和《占星术导论》都是幻境必修的舞蹈教材',
+		'desc_skills' => '获得技能「雷击」「预感」',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'249' => '0',
+				'250' => '0',
+			),
+		)
+	),
+	358 => array(
+		'name' => '烧烤与夜雀与夜色森林',
+		'title' => '烤夜雀',
+		'rare' => 'B',
+		'pack' => '東埔寨Protoject',
+		'desc' => '面对大型连锁餐厅，正在为自己的生意和鸟身安全担忧的烧烤摊老板',
+		'effect' => '有摇滚和烤串的绝活',
+		'desc_skills' => '开局获得带有变奏和激奏1属性的烤肉工具和补给',
+		'energy' => 100,
+		'valid' => array(
+			'ara' => '☆烤鳗鱼☆',
+			'arak' => 'HB',
+			'arae' => '300',
+			'aras' => '10',
+			'arask' => '^sa1',
+			'art' => '烤肉组合',
+			'artk' => 'A',
+			'arte' => '1',
+			'arts' => '1',
+			'artsk' => '^sv1',
+		)
+	),
+	359 => array(
+		'name' => '加班挑战者',
+		'rare' => 'C',
+		'pack' => 'Way of Life',
+		'desc' => '干到太晚然后在工位上睡着了',
+		'effect' => '我这是在哪？',
+		'desc_skills' => '开局处于睡眠状态，有30%概率获得额外的起始金钱',
+		'energy' => 0,
+		'valid' => array(
+			'skills' => array(
+				'562' => '0',
 			),
 		)
 	),

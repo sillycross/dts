@@ -133,6 +133,7 @@ namespace song
 		if(empty($effect)) return $ss_log;
 		eval(import_module('sys','song'));
 		$pdata['mrage'] = \rage\get_max_rage($pdata);
+		$timeflag = isset($effect['time']);
 		//一些特殊歌的处理
 		if(!empty($effect['special'])){
 			if(1==$effect['special']){//空想神话，消耗所有歌魂，随机增加耐久
@@ -175,6 +176,11 @@ namespace song
 						if(!\skillbase\skill_query($skv, $pdata)){
 							\skillbase\skill_acquire($skv, $pdata);
 							$ss_log[] = '获得了技能<span class="cyan b">「'.$clubskillname[$skv].'」</span>';
+							if ($timeflag)
+							{
+								$ss_log[] = "持续时间<span class=\"yellow b\">".$effect['time']."</span>秒<br>";
+								\skillbase\skill_setvalue($skv, 'tsk_expire', $now + $effect['time'], $pdata);
+							}
 						}
 					}
 				}
@@ -199,12 +205,12 @@ namespace song
 				if(strpos($ev,'=')===0) {//变化值
 					$change = substr($ev,1);
 					//如果变化量是数值，那么变化量乘以一个系数
-					if(is_numeric($change)) $change *= ss_factor($pdata);
+					if(is_numeric($change)) $change = round($ev * ss_factor($pdata));
 					$pdata[$ek] = $change;
 					$ss_log[] = $ss_tn.'<span class="yellow b">变成了'.$change.'</span>';
 				}elseif(is_numeric($ev) && is_numeric($pdata[$ek]) && ($pdata[$ek] > 0 || !ss_check_s($ek))) {//无限耐的统一忽略
 					//如果变化量是数值，那么变化量乘以一个系数
-					$change = $ev * ss_factor($pdata);
+					$change = round($ev * ss_factor($pdata));
 					if($change > 0) {//增加值，要判定是否最大值。如果设置了ignore_limit则无视最大值
 						if(!isset($pdata['m'.$ek]) || $pdata[$ek] < $pdata['m'.$ek] || !empty($o_ev['ignore_limit'])){
 							if(isset($pdata['m'.$ek]) && $pdata[$ek] + $change > $pdata['m'.$ek] && empty($o_ev['ignore_limit'])) {
@@ -223,6 +229,12 @@ namespace song
 						}
 						$pdata[$ek] += $change;
 						if($change != 0) $ss_log[] = $ss_tn.'<span class="red b">减少了'.(0-$change).'</span>';
+					}
+					//记录增益/减益到skill182
+					if ($timeflag)
+					{
+						$ss_log[] = "持续时间<span class=\"yellow b\">".$effect['time']."</span>秒";
+						add_songbuff_value($ek, $change, $now + $effect['time'], $pdata);
 					}
 				}
 				//装备耐久变成0的情况
@@ -245,6 +257,38 @@ namespace song
 	function ss_check_s($dname){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return $dname=='weps' || (substr($dname,0,2) == 'ar' && substr($dname,strlen($dname)-1,1) == 's') || substr($dname,0,4) == 'itms';
+	}
+	
+	//记录歌曲临时增益，增益的失去在skill182中处理
+	function add_songbuff_value($key, $value, $time, &$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (!\skillbase\skill_query(182, $pa)) \skillbase\skill_acquire(182, $pa);
+		$skey = \skillbase\skill_getvalue(182, 'skey', $pa);
+		$svalue = \skillbase\skill_getvalue(182, 'svalue', $pa);
+		//此处的time是结束时间
+		$stime = \skillbase\skill_getvalue(182, 'stime', $pa);
+		if ('' === $skey)
+		{
+			$lskey = array();
+			$lsvalue = array();
+			$lstime = array();
+		}
+		else
+		{
+			$lskey = explode('_', $skey);
+			$lsvalue = explode('_', $svalue);
+			$lstime = explode('_', $stime);
+		}
+		$lskey[] = $key;
+		$lsvalue[] = $value;
+		$lstime[] = $time;
+		$skey = implode('_',$lskey);
+		$svalue = implode('_',$lsvalue);
+		$stime = implode('_',$lstime);
+		\skillbase\skill_setvalue(182, 'skey', $skey, $pa);
+		\skillbase\skill_setvalue(182, 'svalue', $svalue, $pa);
+		\skillbase\skill_setvalue(182, 'stime', $stime, $pa);
 	}
 	
 	//歌效果处理
@@ -286,20 +330,25 @@ namespace song
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','map','logger','noise','song'));
 		$songcfg = NULL;
-		foreach($songlist as $sval){
+		foreach($songlist as $skey => $sval){
 			if($sval['songname'] == $sn) {
 				$songcfg = $sval;
+				$k = $skey;
 				break;
 			}
-		}
-		if('ss' != $artk) {
-			$log .= '<span class="yellow b">你没有装备歌词卡片！</span><br>';
-			return;
 		}
 		if(!$songcfg) {
 			$log .= '好像不存在这样一首歌呢……<br>';
 			return;
 		}
+		$learnedsongs = \skillbase\skill_getvalue(1003,'learnedsongs');
+		$ls = explode('_',$learnedsongs);
+		if (!in_array($k, $ls))
+		{
+			$log .= '好像你并不会唱这首歌……<br>';
+			return;
+		}
+		
 		$r = ss_cost_proc($songcfg['cost']);
 		if($r === 'MAX') $r = max(1, $ss);
 		$nkey = $songcfg['noisekey'];
@@ -381,9 +430,15 @@ namespace song
 		if (defined('MOD_NOISE') && !empty($nkey)) \noise\addnoise($pls,$nkey,$pid);
 		
 		//歌效果处理核心函数
-		ss_data_proc($sn, $songcfg['effect'], $r);
+		ss_data_proc($sn, get_song_effect($songcfg), $r);
 		
 		return;
+	}
+	
+	function get_song_effect($songcfg)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $songcfg['effect'];
 	}
 	
 	function itemuse(&$theitem)
@@ -393,7 +448,7 @@ namespace song
 		$itm=&$theitem['itm']; $itmk=&$theitem['itmk'];
 		$itme=&$theitem['itme']; $itms=&$theitem['itms']; $itmsk=&$theitem['itmsk'];
 		
-		eval(import_module('sys','player','logger'));
+		eval(import_module('sys','player','logger','song'));
 		if (strpos ( $itmk, 'HM' ) === 0) {
 			$mss+=$itme;
 			if($ss+$itme <= $mss) $ss+=$itme;//现有歌魂加完以后不会超限时，也增加物品的效果值
@@ -421,6 +476,27 @@ namespace song
 		{
 			$eqp = 'art';
 			$noeqp = '';
+			
+			$sn = check_sname($itm);
+			//如果该歌曲存在，则记录
+			foreach($songlist as $skey => $sval)
+			{
+				if ($sval['songname'] === $sn)
+				{
+					$learnedsongs = \skillbase\skill_getvalue(1003,'learnedsongs');
+					if (empty($learnedsongs)) $ls = array();
+					else $ls = explode('_',$learnedsongs);
+					if (!in_array($skey, $ls)) 
+					{
+						$ls[] = $skey;
+						$learnedsongs = implode('_',$ls);
+						\skillbase\skill_setvalue(1003,'learnedsongs',$learnedsongs);
+						eval(import_module('logger'));
+						$log .= "你学会了歌曲<span class=\"yellow b\">{$sval['songname']}</span>！<br>";
+					}
+					break;
+				}
+			}
 			
 			if (($noeqp && strpos ( ${$eqp.'k'}, $noeqp ) === 0) || ! ${$eqp.'s'}) {
 				${$eqp} = $itm;
@@ -462,11 +538,28 @@ namespace song
 	
 	function act()
 	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
-		eval(import_module('sys','player'));
-		if($mode == 'command' && $command == 'song') {
-			ss_sing(check_sname($art));
+		if (eval(__MAGIC__)) return $___RET_VALUE;	
+		if (get_var_in_module('mode', 'input') == 'command' && get_var_in_module('command', 'input') == 'song')
+		{
+			eval(import_module('sys','player','logger','song'));
+			$song_choice = get_var_in_module('song_choice', 'input');
+			if (!empty($song_choice))
+			{
+				$z = (int)$song_choice;
+				if (isset($songlist[$z]['songname']))
+				{
+					ss_sing($songlist[$z]['songname']);
+					$mode = 'command';
+					return;
+				}
+				else
+				{
+					$log .= '参数不合法。<br>';
+				}
+			}
+			include template(MOD_SONG_SING);
+			$cmd = ob_get_contents();
+			ob_clean();
 			return;
 		}
 		$chprocess();
@@ -482,6 +575,7 @@ namespace song
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
+	
 }
 
 ?>

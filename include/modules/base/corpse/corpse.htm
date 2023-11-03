@@ -4,6 +4,9 @@
 <!--{if $w_can_destroy}-->
 <input type="radio" name="command" id="destroy" value="destroy" <!--{if $default_selection == 'destroy'}-->checked<!--{/if}-->><a onclick=sl('destroy'); href="javascript:void(0);" >销毁尸体</a><br>
 <!--{/if}-->
+<!--{if \skillbase\skill_query(597, $who)}-->
+<input type="radio" name="command" id="takeaway" value="takeaway"><a onclick=sl('takeaway'); href="javascript:void(0);" >打包带走！</a><br>
+<!--{/if}-->
 <input type="radio" name="command" id="menu" value="menu" <!--{if $default_selection == 'menu'}-->checked<!--{/if}-->><a onclick=sl('menu'); href="javascript:void(0);" >返回</a><br><br>
 <!--{if $w_weps && $w_wepk!='WN'}-->
 <input type="radio" name="command" id="wep" value="wep"><a onclick=sl('wep'); href="javascript:void(0);" >$w_wep_words/$w_wepk_words/$w_wepe/$w_weps<!--{if $w_wepsk_words}-->/$w_wepsk_words<!--{/if}--></a><br>

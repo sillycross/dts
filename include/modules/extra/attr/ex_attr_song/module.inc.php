@@ -1,9 +1,9 @@
 <?php
 
-namespace skill562
+namespace ex_attr_song
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'sys player skillbase clubbase rest logger';
+	$___MODULE_dependency = 'sys player logger itemmain song attrbase';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';
