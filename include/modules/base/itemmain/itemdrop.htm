@@ -1,13 +1,13 @@
 你想丢掉什么？<br><br>
 <input type="hidden" name="mode" value="itemmain">
-<!--{eval eval(import_module('player'));$item_words=\itemmain\parse_item_words($sdata);}-->
+<!--{eval eval(import_module('player'));$item_words=\itemmain\parse_item_words($sdata);$drop_equip_list=Array('wep','arb','arh','ara','arf','art','itm0','itm1','itm2','itm3','itm4','itm5','itm6');}-->
 <!--{if defined('MOD_SEARCHMEMORY') && \searchmemory\searchmemory_available()}-->
 	<input type="hidden" id="command" name="command" value="">
 	<input type="button" class="cmdbutton" id="x" value="[X]返回" onclick="$('command').value='menu';postCmd('gamecmd','command.php');this.disabled=true;"><br>
 	<br>
 	<!--{eval $hotkeys=Array('','a','s','d','q','w','e');$hotkeysu=Array('','A','S','D','Q','W','E');}-->
 	<ul style="padding-left:24px;">
-	<!--{loop $equip_list $pos}-->
+	<!--{loop $drop_equip_list $pos}-->
 		<!--{if substr($pos,0,3)!=='itm'}-->
 			<!--{if !empty(${$pos.'s'}) && (!empty(${$pos.'e'}) || ('wep' != $pos && 'arb' != $pos))}-->
 				<li>
@@ -25,13 +25,13 @@
 					<a onclick=$('$hotkeys[$in]').click();>$item_words['itm'.$in.'_words']/${'itme'.$in}/${'itms'.$in}</a>
 				</li>
 			<!--{/if}-->
-			<!--{if 'itm6'==$pos}--><br><!--{/if}-->
 		<!--{/if}-->
+		<!--{if 'art'==$pos}--><br><!--{/if}-->
 	<!--{/loop}-->
 	</ul>
 <!--{else}-->
 	<input type="radio" name="command" id="menu" value="menu" checked><a onclick=sl('menu'); href="javascript:void(0);" >返回</a><br><br>
-	<!--{loop $equip_list $pos}-->
+	<!--{loop $drop_equip_list $pos}-->
 		<!--{if substr($pos,0,3)!=='itm'}-->
 			<!--{if !empty(${$pos.'s'}) && (!empty(${$pos.'e'}) || ('wep' != $pos && 'arb' != $pos))}-->
 				<input type="radio" name="command" id="$pos" value="drop{$pos}">
@@ -45,8 +45,8 @@
 				<a onclick=sl('itm{$in}'); href="javascript:void(0);" >$item_words['itm'.$in.'_words']/${'itme'.$in}/${'itms'.$in}</a>
 				<br>
 			<!--{/if}-->
-			<!--{if 'itm6'==$pos}--><br><!--{/if}-->
 		<!--{/if}-->
+		<!--{if 'art'==$pos}--><br><!--{/if}-->
 	<!--{/loop}-->
 	<br><br>
 	<input type="button" class="cmdbutton" id="z" value="[Z]确定丢弃" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
