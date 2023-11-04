@@ -22,7 +22,7 @@
 		<td align="center" class="b3"><span><IMG src="img/$alive['iconImg']" width="140" height="80" border="0" align="absmiddle"></span></td>
 		<!--{if defined('MOD_APM')}--><td class="b3"><span>{$alive['vapm']}</span></td><!--{/if}-->
 		<!--{if defined('MOD_CARDBASE') && !in_array($gametype, Array(0,1))}-->
-			<!--{eval $nowcard=$alive['nowcardinfo'];$nowcard['blink']=$alive['nowcardblink'];$cardframe_id='cardframe_show_'.$alive['pid'];}-->
+			<!--{eval $nowcard=$alive['nowcardinfo'];$cardframe_id='cardframe_show_'.$alive['pid'];}-->
 			<td class="b3">
 				<span class="$card_rarecolor[$alive['nowcardrare']]" 
 					<!--{if !empty($nowcard)}-->
@@ -32,12 +32,12 @@
 					$alive['cardname']
 				</span>
 				<!--{if !empty($nowcard)}-->
+				<!--{eval $nowcard['blink']=$alive['nowcardblink'];}-->
 				<div style="position:relative;">
 					<div id="$cardframe_id" class="cardframe_show" style="display:none;position:absolute;z-index:10;left:80px;top:-50px;">
 						{template MOD_CARDBASE_CARD_FRAME}
 					</div>
 				</div>
-					
 				<!--{/if}-->
 			</td>
 		<!--{/if}-->

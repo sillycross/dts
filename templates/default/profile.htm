@@ -161,7 +161,7 @@
 								<!--{/if}-->
 							</tr>
 							<tr>
-								<!--{if defined('MOD_SKILL538') && defined('MOD_GTYPE1')}-->
+								<!--{if defined('MOD_SKILL538') && defined('MOD_GTYPE1') && defined('MOD_SKILLBASE') && $gametype!=1 && \skillbase\skill_query(538)}-->
 								{template MOD_GTYPE1_SHOWHACKLEVEL}
 								<!--{else}-->
 								<td class="b2" height="20"><span></span></td>

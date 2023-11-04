@@ -108,7 +108,7 @@ namespace skill364
 			$ret = 0;
 			foreach($achlist as $aclass => $av){
 				foreach($av as $ai){
-					if($achid != $ai && !\skillbase\check_skill_info($ai, 'daily') && !\skillbase\check_skill_info($ai, 'spec-activity') && !\skillbase\check_skill_info($ai, 'clobal'))
+					if($achid != $ai && !\skillbase\check_skill_info($ai, 'daily') && !\skillbase\check_skill_info($ai, 'spec-activity') && !\skillbase\check_skill_info($ai, 'secret') && !\skillbase\check_skill_info($ai, 'global'))
 					{
 						$ret ++ ;
 					}
