@@ -41,7 +41,6 @@ namespace skill598
 	function get_sec_attack_method(&$pdata, $orig=0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
 		if ((\skillbase\skill_query(598, $pdata)) && check_unlocked598($pdata) && check_wep_ygo($pdata['wepk'], $pdata['wepsk']))
 		{
 			eval(import_module('skill598'));
@@ -49,7 +48,14 @@ namespace skill598
 		}
 		return $chprocess($pdata, $orig);
 	}
-
+	
+	function check_attack_method(&$pdata, $wm)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (($wm == 'F') && \skillbase\skill_query(598, $pdata) && check_unlocked598($pdata) && check_wep_ygo($pdata['wepk'], $pdata['wepsk'])) return 1;
+		return $chprocess($pdata,$wm);
+	}
+	
 	function meetman($sid)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
