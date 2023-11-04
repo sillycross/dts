@@ -123,11 +123,11 @@ namespace lvlctl
 					$sklog = "，{$sklanginfo[$skname]}+{$lvupskill}";
 				}
 				*/
+				$tmp_log = "<span class=\"yellow b\">你升了{$lvup}级！生命上限+{$lvuphp}，体力上限+{$lvupsp}，攻击+{$lvupatt}，防御+{$lvupdef}，".(!empty($lvupspref) ? "体力恢复了{$lvupspref}{$sklog}，" : '')."获得了{$lvupskpt}点技能点！</span><br>";
 				if ($pa['pid'] === $pid) {
-					$log .= "<span class=\"yellow b\">你升了{$lvup}级！生命上限+{$lvuphp}，体力上限+{$lvupsp}，攻击+{$lvupatt}，防御+{$lvupdef}，体力恢复了{$lvupspref}{$sklog}，获得了{$lvupskpt}点技能点！</span><br>";
+					$log .= $tmp_log;
 				} elseif (!$pa['type']) {
-					$w_log = "<span class=\"yellow b\">你升了{$lvup}级！生命上限+{$lvuphp}，体力上限+{$lvupsp}，攻击+{$lvupatt}，防御+{$lvupdef}，体力恢复了{$lvupspref}{$sklog}，获得了{$lvupskpt}点技能点！</span><br>";
-					\logger\logsave ( $pa['pid'], $now, $w_log,'s');
+					\logger\logsave ( $pa['pid'], $now, $tmp_log, 's');
 				}
 			}
 		} elseif ($pa['lvl'] >= $lvllimit) {

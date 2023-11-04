@@ -46,21 +46,22 @@ namespace skill181
 		if (\skillbase\skill_query(181,$pa) && $lvupss)
 		{
 			eval(import_module('sys','player','logger'));
-			$pa['mss'] += $lvupss;		
+			$pa['mss'] += $lvupss;
+			$pa['ss'] += $lvupss;
 			if ($pa['ss'] + $lvupssref >= $pa['mss'])
 			{
 				$lvupssref = $pa['mss'] - $pa['ss'];
 			}
 			$pa['ss'] += $lvupssref;
 			
+			$tmp_log = "<span class=\"yellow b\">你的歌魂上限增加了{$lvupss}".(!empty($lvupssref) ? "，歌魂恢复了{$lvupssref}" : '')."！</span><br>";
 			if ($pa['pid'] === $pid)
 			{
-				$log .= "<span class=\"yellow b\">你的歌魂上限增加了{$lvupss}，歌魂恢复了{$lvupssref}！</span><br>";
+				$log .= $tmp_log;
 			}
 			elseif (!$pa['type'])
 			{
-				$w_log = "<span class=\"yellow b\">你的歌魂上限增加了{$lvupss}，歌魂恢复了{$lvupssref}！</span><br>";
-				\logger\logsave($pa['pid'], $now, $w_log,'s');
+				\logger\logsave($pa['pid'], $now, $tmp_log, 's');
 			}
 		}
 		return $r;
