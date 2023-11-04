@@ -183,7 +183,7 @@ namespace item_ext_armor
 				$sus = $suitem['itms'];
 				$susk = $suitem['itmsk'];
 				$su_break_flag = 0;
-				$are = \itemmain\check_in_itmsk('^are', $pd[$which.'sk']);
+				$are = \itemmain\check_in_itmsk('^are', $pd[$which.'sk']);		
 				if (false !== $are)
 				{
 					if ($hurtvalue >= $pd[$which.'e'] - $are)
@@ -191,6 +191,7 @@ namespace item_ext_armor
 						$x = max($pd[$which.'e'] - $are, 1);
 						$su_break_flag = 1;
 					}
+					else $x = $hurtvalue;
 					$pd[$which.'e'] -= $x;
 					if ($active)
 					{
@@ -236,6 +237,7 @@ namespace item_ext_armor
 							$x = max($pd[$which.'s'] - $ars, 1);
 							$su_break_flag = 1;
 						}
+						else $x = $hurtvalue;
 						if ($active)
 						{
 							$log .= "{$pd['name']}的外甲".$su."的耐久度下降了{$x}！<br>";
