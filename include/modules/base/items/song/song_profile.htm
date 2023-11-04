@@ -1,6 +1,6 @@
 <input type="button" class="cmdbutton" id="sp_weapon" value="歌唱" onclick="$('command').value='song';$('subcmd').name='song';postCmd('gamecmd','command.php');this.disabled=true;">
 <!--{eval $songkind = \skillbase\skill_getvalue(1003,'songkind');}-->
 <!--{if !empty($songkind)}-->
-<input type="hidden" id="songkind" name="songkind" value="$songkind">
-<input type="button" class="cmdbutton" id="r" value="[R]复唱" onclick="$('command').value='song';postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="hidden" id="songkind" name="songkind" value="">
+<input type="button" class="cmdbutton" id="r" value="[R]复唱" onclick="$('command').value='song';$('songkind').value='$songkind';postCmd('gamecmd','command.php');this.disabled=true;">
 <!--{/if}-->
