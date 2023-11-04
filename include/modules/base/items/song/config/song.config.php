@@ -268,6 +268,12 @@ namespace song
 				'hp' => 10,
 				'msp' => 50,
 				'sp' => 50,
+			),
+			'effect_sv' => array(
+				'mhp' => 30,
+				'hp' => 30,
+				'msp' => 20,
+				'sp' => 20,
 			)
 		),
 		13 => array(
