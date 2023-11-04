@@ -183,7 +183,7 @@ namespace item_ext_armor
 				$sus = $suitem['itms'];
 				$susk = $suitem['itmsk'];
 				$su_break_flag = 0;
-				$are = \itemmain\check_in_itmsk('^are', $pd[$which.'sk']);		
+				$are = \itemmain\check_in_itmsk('^are', $pd[$which.'sk']);
 				if (false !== $are)
 				{
 					if ($hurtvalue >= $pd[$which.'e'] - $are)
