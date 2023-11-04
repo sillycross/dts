@@ -12,11 +12,50 @@ namespace skill182
 	function acquire182(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		\skillbase\skill_setvalue(182, 'skey', '', $pa);
+		\skillbase\skill_setvalue(182, 'svalue', '', $pa);
+		\skillbase\skill_setvalue(182, 'stime', '', $pa);
 	}
 	
 	function lost182(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+	}
+	
+	function ss_record_tempbuff($key, $value, $bufftime, &$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		$expire = $now + $bufftime;
+		if (!\skillbase\skill_query(182, $pa)) \skillbase\skill_acquire(182, $pa);
+		$skey = \skillbase\skill_getvalue(182, 'skey', $pa);
+		$svalue = \skillbase\skill_getvalue(182, 'svalue', $pa);
+		//此处的time是结束时间
+		$stime = \skillbase\skill_getvalue(182, 'stime', $pa);
+		if ('' === $skey)
+		{
+			$lskey = array();
+			$lsvalue = array();
+			$lstime = array();
+		}
+		else
+		{
+			$lskey = explode('_', $skey);
+			$lsvalue = explode('_', $svalue);
+			$lstime = explode('_', $stime);
+		}
+		$lskey[] = $key;
+		$lsvalue[] = $value;
+		$lstime[] = $expire;
+		$skey = implode('_',$lskey);
+		$svalue = implode('_',$lsvalue);
+		$stime = implode('_',$lstime);
+		\skillbase\skill_setvalue(182, 'skey', $skey, $pa);
+		\skillbase\skill_setvalue(182, 'svalue', $svalue, $pa);
+		\skillbase\skill_setvalue(182, 'stime', $stime, $pa);
+		
+		$s = "持续时间<span class=\"yellow b\">".$bufftime."</span>秒";
+		return $s;
 	}
 	
 	function bufficons_list()
@@ -129,7 +168,7 @@ namespace skill182
 			}
 		}
 	}
-		
+	
 	function act()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
