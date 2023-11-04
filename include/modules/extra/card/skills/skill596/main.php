@@ -134,15 +134,15 @@ namespace skill596
 			$pd['rage'] = min($pd['rage'] + $rageup, \rage\get_max_rage($pd));
 			if ($rageup > 75)
 			{
-				if ($active) $log .= "<span class=\"yellow b\">{$pd['name']}被你的捏造新闻气晕了！</span><br>";
-				else $log .= "<span class=\"yellow b\">你被{$pa['name']}的捏造新闻气晕了！</span><br>";
+				if ($active) $log .= "<span class=\"yellow b\">{$pd['name']}被你捏造的新闻气晕了！</span><br>";
+				else $log .= "<span class=\"yellow b\">你被{$pa['name']}捏造的新闻气晕了！</span><br>";
 				\skill602\set_stun_period(1000, $pd);
 				\skill602\send_stun_battle_news($pa['name'], $pd['name']);
 			}
 			else
 			{
-				if ($active) $log .= "<span class=\"red b\">你的捏造新闻让{$pd['name']}怒火中烧！</span><br>";
-				else $log .= "<span class=\"red b\">{$pa['name']}的捏造新闻让你怒火中烧！</span><br>";
+				if ($active) $log .= "<span class=\"red b\">你捏造的新闻让{$pd['name']}怒火中烧！</span><br>";
+				else $log .= "<span class=\"red b\">{$pa['name']}捏造的新闻让你怒火中烧！</span><br>";
 			}
 		}	
 	}
