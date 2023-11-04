@@ -196,15 +196,15 @@ function & get_var_in_module($varname, $modulename)
 	if(empty($varname) || !defined('MOD_'.strtoupper($modulename))) return NULL;
 	global $___MOD_SRV;
 	$ret = NULL;
-	if($___MOD_SRV && defined('IN_DAEMON') && $modulename == 'input'){
+	//DAEMON模式并且来源是input模块，先判定有没有被初始化过，如果没有，就去$___LOCAL_INPUT__VARS__INPUT_VAR_LIST里找
+	if(isset($GLOBALS['___LOCAL_'.strtoupper($modulename).'__VARS__'.$varname])) {
+		$ret = & $GLOBALS['___LOCAL_'.strtoupper($modulename).'__VARS__'.$varname];
+	}
+	elseif($___MOD_SRV && defined('IN_DAEMON') && $modulename == 'input'){
 		global $___LOCAL_INPUT__VARS__INPUT_VAR_LIST;
 		if(isset($___LOCAL_INPUT__VARS__INPUT_VAR_LIST[$varname]))
 			$ret = & $___LOCAL_INPUT__VARS__INPUT_VAR_LIST[$varname];
-		return $ret;
 	}
-	global ${'___LOCAL_'.strtoupper($modulename).'__VARS__'.$varname};
-	if(isset($GLOBALS['___LOCAL_'.strtoupper($modulename).'__VARS__'.$varname]))
-		$ret = & $GLOBALS['___LOCAL_'.strtoupper($modulename).'__VARS__'.$varname];
 	return $ret;
 }
 
