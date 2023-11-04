@@ -559,6 +559,16 @@ namespace song
 					$log .= '参数不合法。<br>';
 				}
 			}
+			else
+			{
+				$songkind = get_var_in_module('songkind', 'input');
+				if (!empty($songkind))
+				{
+					ss_sing($songkind);
+					$mode = 'command';
+					return;
+				}
+			}
 			include template(MOD_SONG_SING);
 			$cmd = ob_get_contents();
 			ob_clean();
