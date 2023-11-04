@@ -40,9 +40,13 @@ namespace skill596
 		$itm=&$theitem['itm']; $itmk=&$theitem['itmk'];
 		$itme=&$theitem['itme']; $itms=&$theitem['itms']; $itmsk=&$theitem['itmsk'];
 		
-		if (($itm == '手机') && (false === \itemmain\check_in_itmsk('^eflag', $itmsk)))
+		if ($itm == '手机' && \skillbase\skill_query(596))
 		{
 			eval(import_module('player','logger','skill596'));
+			if(false !== \itemmain\check_in_itmsk('^eflag', $itmsk)) {
+				$log .= "<span class=\"yellow b\">$itm</span>没电了，没法快乐瞎编了。<br>";
+				return;
+			}
 			$log .= "你打开了<span class=\"yellow b\">$itm</span>，开始搜索素材并编写新闻……<br>";
 			if (rand(0,2) < 1)
 			{
@@ -53,7 +57,7 @@ namespace skill596
 				}
 				else{
 					$itmsk = '^eflag596';
-					$log .= "手机没电了，没法再使用了。<br>";
+					$log .= "手机没电了。<br>";
 				}
 			}
 			$itm0 = generate_sk596_iname();
