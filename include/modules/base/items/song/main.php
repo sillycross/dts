@@ -453,10 +453,11 @@ namespace song
 		eval(import_module('sys','player','logger','song'));
 		if (strpos ( $itmk, 'HM' ) === 0) {
 			$mss+=$itme;
-			if($ss+$itme <= $mss) $ss+=$itme;//现有歌魂加完以后不会超限时，也增加物品的效果值
-			elseif($ss <= $mss) $ss = $mss;//现有歌魂加完以后会超限，加到最大歌魂
+			$ss+=$itme;//2023.11.05 现在和生命体力一样，同时增加最大歌魂和当前歌魂，没必要弄那一点克扣了
+//			if($ss+$itme <= $mss) $ss+=$itme;//现有歌魂加完以后不会超限时，也增加物品的效果值
+//			elseif($ss <= $mss) $ss = $mss;//现有歌魂加完以后会超限，加到最大歌魂
 			//现有歌魂已经比最大歌魂大时，不加
-			$log .= "你使用了<span class=\"red b\">$itm</span>，增加了<span class=\"yellow b\">$itme</span>点歌魂。<br>";
+			$log .= "你使用了<span class=\"red b\">$itm</span>，增加了<span class=\"yellow b\">$itme</span>点歌魂上限。<br>";
 			\itemmain\itms_reduce($theitem);
 			return;
 		}elseif (strpos ( $itmk, 'HT' ) === 0) {
@@ -466,7 +467,7 @@ namespace song
 				$ss += $ssup;
 				$ss = $ss > $mss ? $mss : $ss;
 				$oldss = $ss - $oldss;
-				$log .= "你使用了<span class=\"red b\">$itm</span>，恢复了<span class=\"yellow b\">$oldss</span>点歌魂。<br>";
+				$log .= "你使用了<span class=\"red b\">$itm</span>，恢复了<span class=\"yellow b\">$oldss</span>点歌魂上限。<br>";
 				\itemmain\itms_reduce($theitem);
 			} else {
 				$log .= '你的歌魂不需要恢复。<br>';

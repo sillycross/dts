@@ -52,6 +52,7 @@ namespace skill181
 			{
 				$lvupssref = $pa['mss'] - $pa['ss'];
 			}
+			if($lvupssref < 0) $lvupssref = 0;
 			$pa['ss'] += $lvupssref;
 			
 			$tmp_log = "<span class=\"yellow b\">你的歌魂上限增加了{$lvupss}".(!empty($lvupssref) ? "，歌魂恢复了{$lvupssref}" : '')."！</span><br>";
