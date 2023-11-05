@@ -383,7 +383,7 @@ function showData(sdata){
 		{
 			var sDt = shwData['timing'];
 			for(var tid in sDt){
-				if(sDt[tid]['on']==true){
+				if(sDt[tid]['on']==true && in_replay_mode==0){//非录像模式才计时
 					if('undefined'!=typeof(timingforbidden[tid])) {//如果被禁用，那么开启
 						delete(timingforbidden[tid]);
 					}

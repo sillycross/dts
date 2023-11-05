@@ -109,7 +109,7 @@ $jrepindexdata=gencode($repindexdata);
 $repdatalib=base64_decode($repdatalib);
 
 //$repbg = 'gamedata/replays/'.$repid.'.rep.bmp';
-
+$sdata = \player\create_dummy_playerdata();
 \player\init_playerdata();
 \player\parse_interface_profile();
 
