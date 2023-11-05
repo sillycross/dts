@@ -128,8 +128,6 @@ namespace enemy
 		
 		eval(import_module('sys','map','player','logger','metman'));
 		
-		$command = & get_var_in_module('command', 'input');
-		$mode = & get_var_in_module('mode', 'input');
 		if($command == 'enter')
 			$sdata['keep_enemy'] = 1;
 		if($mode == 'combat') 

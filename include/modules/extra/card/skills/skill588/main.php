@@ -30,8 +30,8 @@ namespace skill588
 	function act()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;		
-		eval(import_module('sys','player','logger'));
-		if (get_var_in_module('mode', 'input') == 'special' && get_var_in_module('command', 'input') == 'skill588_special' && get_var_in_module('subcmd', 'input') == 'castsk588') 
+		
+		if (get_var_in_module('mode', 'sys') == 'special' && get_var_in_module('command', 'sys') == 'skill588_special' && get_var_in_module('subcmd', 'input') == 'castsk588') 
 		{
 			cast_skill588();
 			return;

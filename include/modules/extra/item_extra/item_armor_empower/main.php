@@ -199,9 +199,9 @@ namespace item_armor_empower
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','player'));
-		if (get_var_in_module('mode','input') == 'item' && get_var_in_module('usemode','input') == 'armor_empower')
+		if ($mode == 'item' && get_var_in_module('usemode','input') == 'armor_empower')
 		{
-			$item = substr(get_var_in_module('command','input'), 3);
+			$item = substr($command, 3);
 			use_armor_empower($item);
 			return;
 		}		

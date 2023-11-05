@@ -534,7 +534,7 @@ namespace itemmain
 	
 	function pre_act(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','input'));
+		eval(import_module('sys','player'));
 		//在手里有道具的情况下阻止意料之外的指令，防止道具被洗掉
 		//如果有模块在这之前执行并且获得道具那就没办法了……
 		if(!empty($hp) && !empty($itms0) && strpos($action,'corpse')===false && !in_array($command, Array('itm0','dropitm0','itemget','itemmerge','enter')) && false === strpos($command, 'swap')){

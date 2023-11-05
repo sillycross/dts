@@ -27,9 +27,8 @@ namespace skill589
 
 	function act()
 	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;		
-		eval(import_module('sys','player','logger'));
-		if (get_var_in_module('mode', 'input') == 'special' && get_var_in_module('command', 'input') == 'skill589_special' && get_var_in_module('subcmd', 'input') == 'castsk589') 
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (get_var_in_module('mode', 'sys') == 'special' && get_var_in_module('command', 'sys') == 'skill589_special' && get_var_in_module('subcmd', 'input') == 'castsk589') 
 		{
 			cast_skill589();
 			return;

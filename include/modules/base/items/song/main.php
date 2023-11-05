@@ -542,7 +542,8 @@ namespace song
 	function act()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;	
-		if (get_var_in_module('mode', 'input') == 'command' && get_var_in_module('command', 'input') == 'song')
+		eval(import_module('sys'));
+		if ($mode == 'command' && $command == 'song')
 		{
 			eval(import_module('sys','player','logger','song'));
 			$song_choice = get_var_in_module('song_choice', 'input');

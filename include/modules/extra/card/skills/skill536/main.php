@@ -33,10 +33,10 @@ namespace skill536
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (\skillbase\skill_query(536) && empty(\skillbase\skill_getvalue(536,'activated')))
 		{
-			$command = get_var_in_module('command', 'input');
+			eval(import_module('sys'));
 			//玩家第一次进入游戏的界面是不会player_save的，要正常执行，应该在玩家自动刷新界面时生成
 			if(!empty($command)){
-				eval(import_module('sys','player'));
+				eval(import_module('player'));
 				if(empty($gamevars['alive_ignore_pid'])) $gamevars['alive_ignore_pid'] = Array($pid);
 				elseif(!in_array($pid, $gamevars['alive_ignore_pid'])) $gamevars['alive_ignore_pid'][] = $pid;
 				save_gameinfo();

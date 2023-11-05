@@ -25,7 +25,7 @@ namespace skill562
 	function act()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;	
-		if (get_var_in_module('mode','input') == 'rest' && get_var_in_module('command','input') == 'back' && \skillbase\skill_query(562))
+		if (get_var_in_module('mode','sys') == 'rest' && get_var_in_module('command','sys') == 'back' && \skillbase\skill_query(562))
 		{
 			eval(import_module('logger'));
 			$log = "<span class=\"yellow b\">刚才好像做了个奇怪的梦……咦我这是在哪？</span><br><br>……<br><br>";

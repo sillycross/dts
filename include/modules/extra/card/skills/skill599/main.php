@@ -25,20 +25,28 @@ namespace skill599
 		return 1;
 	}
 	
+	function pre_act()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess();
+		if (!empty(\skillbase\skill_getvalue(1003,'sk599_flag')))
+		{
+			eval(import_module('sys','player','logger','rest'));
+			\skillbase\skill_delvalue(1003,'sk599_flag');
+			$state = 1;
+			$endtime = $now;
+			$mode = 'rest';
+			$command = 'rest';
+			$log .= "你感到昏昏欲睡，然后克制不住睡意倒了下去。<br>你开始了{$restinfo[$state]}…<br>";
+		}
+	}
+	
 	function act()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','logger'));
-		if (!empty(\skillbase\skill_getvalue(1003,'sk599_flag')))
-		{
-			\skillbase\skill_delvalue(1003,'sk599_flag');
-			eval(import_module('rest'));
-			$state = 1;
-			$mode = 'rest';
-			$log .= "你感到昏昏欲睡，然后克制不住睡意倒了下去。<br>你开始了{$restinfo[$state]}…<br>";
-			return;
-		}
-		if (get_var_in_module('mode','input') == 'special' && get_var_in_module('command','input') == 'skill599_special' && get_var_in_module('subcmd','input') == 'castsk599') 
+		eval(import_module('sys'));
+		
+		if ($mode == 'special' && $command == 'skill599_special' && get_var_in_module('subcmd','input') == 'castsk599') 
 		{
 			cast_skill599();
 			return;

@@ -38,10 +38,10 @@ namespace skill583
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (\skillbase\skill_query(583) && empty(\skillbase\skill_getvalue(583,'activated')))
 		{
-			$command = get_var_in_module('command', 'input');
+			eval(import_module('sys'));
 			//玩家第一次进入游戏的界面是不会player_save的，要正常执行，应该在玩家自动刷新界面时生成
 			if(!empty($command)){
-				eval(import_module('sys','player'));
+				eval(import_module('player'));
 				if(empty($gamevars['alive_half_pid'])) $gamevars['alive_half_pid'] = Array($pid);
 				elseif(!in_array($pid, $gamevars['alive_half_pid'])) $gamevars['alive_half_pid'][] = $pid;
 				save_gameinfo();

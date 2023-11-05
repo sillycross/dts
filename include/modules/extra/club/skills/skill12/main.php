@@ -26,8 +26,8 @@ namespace skill12
 	function act()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;		
-		eval(import_module('sys','player','logger'));
-		if (get_var_in_module('mode', 'input') == 'special' && get_var_in_module('command', 'input') == 'skill12_special' && get_var_in_module('subcmd', 'input') == 'castsk12') 
+		eval(import_module('sys'));
+		if ($mode == 'special' && $command == 'skill12_special' && get_var_in_module('subcmd', 'input') == 'castsk12') 
 		{
 			cast_skill12();
 			return;

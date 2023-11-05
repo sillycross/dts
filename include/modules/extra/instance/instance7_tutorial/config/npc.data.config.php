@@ -48,7 +48,7 @@ namespace instance7
 			'aras' => 600,
 			'arask' => 'B',
 			'art' => 'cosplay用强者光环',
-			'artk' => 'DA',
+			'artk' => 'A',
 			'arte' => 1,
 			'arts' => 1,
 			'artsk' => 'AaH',
