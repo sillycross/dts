@@ -179,7 +179,8 @@ namespace player
 		$sdata=Array();
 		foreach ($db_player_structure as $key)
 			$sdata[$key]=&$$key;
-		$sdata['state_backup']=$pdata['state_backup'];	//见上个函数注释
+		if(!empty($pdata['state_backup']))
+			$sdata['state_backup']=$pdata['state_backup'];	//见上个函数注释
 	}
 	
 	//玩家指令，在load_playerdata()执行完后被command.php调用的函数

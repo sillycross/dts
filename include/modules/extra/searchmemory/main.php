@@ -127,22 +127,7 @@ namespace searchmemory
 		$ret = $searchmemory_max_recordnum;
 		return $ret;
 	}
-	
-	//分析记忆数组，返回三个值：有效记忆数、有效记忆的最小下标和最大下标，请用list接收
-//	function memory_analyze($memory){
-//		if (eval(__MAGIC__)) return $___RET_VALUE;
-//		$mcount = $mmin = $mmax = 0;
-//		foreach($memory as $k => $v){
-//			if(!empty($v)){
-//				$mcount ++; 
-//				if(!$mmin) $mmin = $k;
-//				$mmax = $k;
-//			}
-//		}
-//		return Array($mcount, $mmin, $mmax);
-//	}
 
-	
 	//把传入的$marr数组插入数组，也负责对数组初始化
 	//加入的一定是可见的
 	//返回$marr

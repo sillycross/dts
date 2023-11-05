@@ -422,19 +422,6 @@ namespace achievement_base
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		if(!$pa || !$achid) return;
-//		if(defined('IN_MAINTAIN')) {
-//			global $gudata;
-//			$gudata['gold'] += $getqiegao;
-//			$gudata['cardlist'] = explode('_', $gudata['cardlist'] );
-//			if(!in_array($getcard, $gudata['cardlist'])) {
-//				$gudata['cardlist'][] = $getcard;
-//				$gudata['cardlist'] = implode('_', $gudata['cardlist'] );
-//			}else{
-//				eval(import_module('cardbase'));
-//				$gudata['gold'] += $card_price[$cards[$getcard]['rare']];
-//			}
-//			return;
-//		}
 		if (isset($pa['username'])) $n=$pa['username'];
 		else $n=$pa['name'];
 		

@@ -4736,18 +4736,16 @@ $cards = array(
 		'desc_skills' => '开局获得御币和一个随机的方块',
 		'energy' => 0,
 		'valid' => array(
-			'skills' => array(
-				'wep' => '御币',
-				'wepk' => 'WP',
-				'wepe' => '15',
-				'weps' => '10',
-				'wepsk' => '',
-				'itm6' => array('红色方块', '白色方块', '黄色方块', '黑色方块', '绿色方块', 'X方块', 'Y方块'),
-				'itmk6' => 'Z',
-				'itme6' => '1',
-				'itms6' => '1',
-				'itmsk6' => '',
-			),
+			'wep' => '御币',
+			'wepk' => 'WP',
+			'wepe' => '15',
+			'weps' => '10',
+			'wepsk' => '',
+			'itm6' => array('红色方块', '白色方块', '黄色方块', '黑色方块', '绿色方块', 'X方块', 'Y方块'),
+			'itmk6' => 'Z',
+			'itme6' => '1',
+			'itms6' => '1',
+			'itmsk6' => '',
 		)
 	),
 	277 => array(

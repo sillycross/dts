@@ -46,6 +46,12 @@ namespace skill1003
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
+	function check_unlocked1003(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 1;
+	}
+	
 	function pre_act(){//每次行动记录得到的金钱
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player','skill1003'));
