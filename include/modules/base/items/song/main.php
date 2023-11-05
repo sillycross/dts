@@ -440,7 +440,7 @@ namespace song
 				$ss += $ssup;
 				$ss = $ss > $mss ? $mss : $ss;
 				$oldss = $ss - $oldss;
-				$log .= "你使用了<span class=\"red b\">$itm</span>，恢复了<span class=\"yellow b\">$oldss</span>点歌魂上限。<br>";
+				$log .= "你使用了<span class=\"red b\">$itm</span>，恢复了<span class=\"yellow b\">$oldss</span>点歌魂。<br>";
 				\itemmain\itms_reduce($theitem);
 			} else {
 				$log .= '你的歌魂不需要恢复。<br>';
