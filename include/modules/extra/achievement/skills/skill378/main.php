@@ -9,7 +9,7 @@ namespace skill378
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach378_desc= array(
-		1=>'<:secret:>H4sIAAAAAAAAClWNQQ7AIAgE/+ILUBH0L1xqKz/g/109NOmFTDaTIVmwq1toK91iSAeL1suilUrYpTO4SgYXVgt3urEsFdzsc/sMkxetXRP6Nxsfn+n5OqeJJwPLnJJeuy26d4YAAAA=',
+		1=>'<:secret:>H4sIAAAAAAAACnWOsQ3AIAwEd2ECA8aGXWjiBG/A/nlHSpEijXU6v16f5m5a+tzs6nNrCx7SwaL1ABMNZEolfKUzuEoGF9bXCJ0NPhsuL7K53ekM4xY9TN9+ZFYYgW/8JJmu/34MiQ1mkm64W0d1sAAAAA==',
 	);
 	
 	$ach378_proc_words = '当前纪录';
