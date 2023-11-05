@@ -230,11 +230,11 @@ namespace song
 						$pdata[$ek] += $change;
 						if($change != 0) $ss_log[] = $ss_tn.'<span class="red b">减少了'.(0-$change).'</span>';
 					}
-					//记录增益/减益到skill182
+					//记录增益/减益，需要模组skill182
 					if ($timeflag)
 					{
-						$ss_log[] = "持续时间<span class=\"yellow b\">".$effect['time']."</span>秒";
-						add_songbuff_value($ek, $change, $now + $effect['time'], $pdata);
+						$tempbuff_log = ss_record_tempbuff($ek, $change, $effect['time'], $pdata);
+						if (!empty($tempbuff_log)) $ss_log[] = $tempbuff_log;
 					}
 				}
 				//装备耐久变成0的情况
@@ -259,38 +259,11 @@ namespace song
 		return $dname=='weps' || (substr($dname,0,2) == 'ar' && substr($dname,strlen($dname)-1,1) == 's') || substr($dname,0,4) == 'itms';
 	}
 	
-	//记录歌曲临时增益，增益的失去在skill182中处理
-	function add_songbuff_value($key, $value, $time, &$pa)
+	//在skill182中记录歌曲临时增益和处理增益的失去，返回的是显示增益时长的log
+	function ss_record_tempbuff($key, $value, $bufftime, &$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if(!defined('MOD_SKILL182')) return;
-		
-		if (!\skillbase\skill_query(182, $pa)) \skillbase\skill_acquire(182, $pa);
-		$skey = \skillbase\skill_getvalue(182, 'skey', $pa);
-		$svalue = \skillbase\skill_getvalue(182, 'svalue', $pa);
-		//此处的time是结束时间
-		$stime = \skillbase\skill_getvalue(182, 'stime', $pa);
-		if ('' === $skey)
-		{
-			$lskey = array();
-			$lsvalue = array();
-			$lstime = array();
-		}
-		else
-		{
-			$lskey = explode('_', $skey);
-			$lsvalue = explode('_', $svalue);
-			$lstime = explode('_', $stime);
-		}
-		$lskey[] = $key;
-		$lsvalue[] = $value;
-		$lstime[] = $time;
-		$skey = implode('_',$lskey);
-		$svalue = implode('_',$lsvalue);
-		$stime = implode('_',$lstime);
-		\skillbase\skill_setvalue(182, 'skey', $skey, $pa);
-		\skillbase\skill_setvalue(182, 'svalue', $svalue, $pa);
-		\skillbase\skill_setvalue(182, 'stime', $stime, $pa);
+		return '';
 	}
 	
 	//歌效果处理

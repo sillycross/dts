@@ -330,7 +330,6 @@ $mixinfo = array
 	array('class' => 'ut', 'stuff' => array('空白符卡','「僵尸之主」 ★4','妖精的羽翼'),'result' => array('咒精「Zombie Fairy」','WF',166,'∞','pd'),),
 	array('class' => 'ut', 'stuff' => array('食堂的盒饭','凸眼鱼','轮椅'),'result' => array('★小推车★','DFS',177,'∞','PG'),),
 	array('class' => 'ut', 'stuff' => array('猫符「怨灵猫乱步」','咒精「Zombie Fairy」','★小推车★'),'result' => array('「死体繁华街」','WF',333,'∞','uwpd'),),
-	array('class' => 'ut', 'stuff' => array('空白符卡','生命探测器','精神制剂'),'result' => array('想起「恐怖催眠术」','WF',65,100,'cd'),),
 	array('class' => 'ut', 'stuff' => array('空白符卡','蛇符【神代大蛇】','「D.D.乌鸦」 ★1'),'result' => array('地狱波动炮','WF',233,'∞','Yz'),),
 	array('class' => 'ut', 'stuff' => array('地狱波动炮','★制御棒★'),'result' => array('爆符『百万耀斑』','WF',666,'∞','Yz'),),
 	array('class' => 'ut', 'stuff' => array('爆符『百万耀斑』','日符「Royal Flare」'),'result' => array('『地狱的人造太阳』','WF',6666,'∞','Yz'),),
