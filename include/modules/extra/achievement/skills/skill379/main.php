@@ -61,6 +61,19 @@ namespace skill379
 		return;
 	}
 	
+	//特判
+	function skill539_revive_player(&$pdata=NULL) {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($pdata);
+		if(!$pdata) {
+			eval(import_module('player'));
+			$pdata = &$sdata;
+		}
+		if(\skillbase\skill_query(379,$pdata)) {
+			\skillbase\skill_setvalue(379,'allowed',1,$pdata);
+		}
+	}
+	
 	//攻击记录逻辑
 	function player_damaged_enemy(&$pa, &$pd, $active)
 	{
@@ -80,7 +93,6 @@ namespace skill379
 				\skillbase\skill_setvalue(379,'haga','',$pa);
 				\skillbase\skill_setvalue(379,'num',0,$pa);
 			}
-
 		}
 	}
 	
