@@ -10,7 +10,7 @@ namespace skill367
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach367_desc= array(
-		1=>'让锡安成员的<span class="yellow b">「破解」</span>技能层数达到<:threshold:>层（4禁前有效）',
+		1=>'让边缘行者的<span class="yellow b">「破解」</span>技能层数达到<:threshold:>层（4禁前有效）',
 	);
 	
 	$ach367_proc_words = '最高纪录';
