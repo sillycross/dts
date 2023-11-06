@@ -104,6 +104,15 @@ foreach ($arr as $key)
 	$rfullsz += ((double)substr($d['repsz'],0,-2));
 }
 
+//获取history表的基本数据备查
+$wtablepre = $gtablepre.(!is_numeric(substr($prefix,0,1)) ? substr($prefix,0,1) : '');
+$hgnum = 
+$result = $db->query("SELECT winner,gstime FROM {$wtablepre}history WHERE gid='$repgnum'");
+$result = $db->fetch_array($result);
+$rwinner = $result['winner'];
+$rgstime = $result['gstime'];
+//由于replay_header被装进了闭包性质的东西里面，gstime很难直接塞进去，只能放外面了。有兴趣者可以看一下录像部分的数据结构有多么的迷宫爱好者
+
 $jrepindexdata=gencode($repindexdata);
 
 $repdatalib=base64_decode($repdatalib);

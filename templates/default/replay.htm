@@ -176,6 +176,7 @@ $('replay_bar').addEventListener('mousedown',replay_bar_mouse_down_handler);
 		<!-- 时间显示 START -->
 		<td>
 			<div class="noselect" style="z-index:10020;font-size:16px">时间&nbsp;<span id="replay_now_player_time"></span>&nbsp;/&nbsp;<span id="replay_tot_player_time"></span></div>
+			<div class="noselect" style="z-index:10020;font-size:16px">时刻&nbsp;<span id="replay_now_global_sec"></span></div>
 		</td>
 		<!-- 时间显示 END -->
 
@@ -301,6 +302,7 @@ $('replay_bar').addEventListener('mousedown',replay_bar_mouse_down_handler);
 <!-- 载入录像 -->
 <script type="text/javascript">
 replay_player_num_tot = $replay_player_num_tot;
+replay_game_starttime = $rgstime;
 <!--{eval echo '___temp_s = new String(\''.$jrepindexdata.'\');'."\n";}-->
 replay_data_full = JSON.parse(JXG.decompress(___temp_s));
 delete ___temp_s;

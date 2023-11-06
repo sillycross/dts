@@ -17,6 +17,15 @@ function replay_cursor_get_time(t)
 	else  return Number(hr).toString()+':'+replay_show_time_leadzero(Number(mi).toString())+':'+replay_show_time_leadzero(Number(sc).toString());
 }
 
+//获得当前进度条对应的全局时刻
+function replay_cursor_get_global_sec(t)
+{
+	var tobj = new Date();
+	tobj.setTime((t + replay_game_starttime)*1000);
+	var tstr = tobj.Format('hh时mm分ss秒');
+	return tstr;
+}
+
 function replay_get_frame(t)
 {
 	left=0; right=replay_data.length;
@@ -43,6 +52,7 @@ function replay_set_time(t)
 {
 	replay_now=t;
 	$('replay_now_player_time').innerHTML=replay_cursor_get_time(replay_now);
+	$('replay_now_global_sec').innerHTML=replay_cursor_get_global_sec(replay_now);
 	var replay_nframe = replay_get_frame(replay_now);
 	if (replay_nframe != replay_nowframe || replay_force_refresh == 1)
 	{

@@ -63,15 +63,17 @@ namespace skill583
 			$gamevars['alive_half_pid'] = array_filter(array_unique($gamevars['alive_half_pid']));
 			
 			//把尸体多扣的半个人补回来
-			foreach($gamevars['alive_half_pid'] as $k => $v)
-			{
-				$pdata = \player\fetch_playerdata_by_pid($v);
-				if ($pdata['player_dead_flag'])
-				{
-					$ret += 0.5;
-					unset($gamevars['alive_ignore_pid'][$k]);
-				}
-			}
+			//现在不补了，半个人死了扣一个人的量，很特色吧！
+			//主要是因为以下的写法会造成诡异的问题，但要改正的边际效益又很小
+//			foreach($gamevars['alive_half_pid'] as $k => $v)
+//			{
+//				$pdata = \player\fetch_playerdata_by_pid($v);
+//				if ($pdata['player_dead_flag'])
+//				{
+//					$ret += 0.5;
+//					unset($gamevars['alive_ignore_pid'][$k]);
+//				}
+//			}
 	
 			if(sizeof($o_alive_half_pid) != sizeof($gamevars['alive_half_pid']))
 			{
