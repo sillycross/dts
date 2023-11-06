@@ -232,6 +232,26 @@ namespace attrbase
 		return true;
 	}
 	
+	//$ignore_invisible表示是否忽略不显示的复合属性，默认不忽略
+	function count_itmsk_num($sk_value, $ignore_invisible = 1)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($sk_value, $ignore_invisible);
+		$sk_arr = \itemmain\get_itmsk_array($sk_value);
+		if (!$ignore_invisible)
+		{
+			foreach ($sk_arr as $sk)
+			{
+				if ('^' == $sk[0])
+				{
+					$cinfo = get_comp_itmsk_info($sk);
+					if (!check_comp_itmsk_visible($cinfo)) $ret -= 1;
+				}
+			}
+		}
+		return $ret;
+	}
+	
 	//对复合属性数值的处理接口，某些需要调整显示的功能可以继承这个
 	function get_itmsk_desc_single_comp_process($skk, $skn, $sks) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;

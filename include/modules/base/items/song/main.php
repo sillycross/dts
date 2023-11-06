@@ -300,6 +300,38 @@ namespace song
 		return 1;
 	}
 	
+	function get_available_songlist(&$pdata = NULL)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (!$pdata)
+		{
+			eval(import_module('player'));
+			$pdata = $sdata;
+		}
+		$learnedsongs = \skillbase\skill_getvalue(1003,'learnedsongs',$pdata);
+		if (empty($learnedsongs)) $ls = array();
+		else $ls = explode('_',$learnedsongs);
+		if ($pdata['artk'] == 'ss')
+		{
+			eval(import_module('song'));
+			$sn = check_sname($pdata['art']);
+			if (!empty($sn))
+			{
+				$k = 0;
+				foreach($songlist as $skey => $sval)
+				{
+					if($sval['songname'] == $sn)
+					{
+						$k = $skey;
+						break;
+					}
+				}
+			}
+			if ($k && !in_array($k, $ls)) $ls[] = $k;
+		}
+		return $ls;
+	}
+	
 	function ss_sing($sn)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -316,9 +348,8 @@ namespace song
 			$log .= '好像不存在这样一首歌呢……<br>';
 			return;
 		}
-		$learnedsongs = \skillbase\skill_getvalue(1003,'learnedsongs');
-		$ls = explode('_',$learnedsongs);
-		if (!in_array($k, $ls))
+		
+		if (!in_array($k, get_available_songlist($sdata)))
 		{
 			$log .= '好像你并不会唱这首歌……<br>';
 			return;
@@ -406,8 +437,36 @@ namespace song
 		
 		//歌效果处理核心函数
 		ss_data_proc($sn, get_song_effect($songcfg), $r);
+		//唱完之后学会这首歌
+		learn_song_process($sn);
 		
 		return;
+	}
+	
+	function learn_song_process($sn)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('song'));
+		//如果该歌曲存在，则记录
+		//考虑到之后可能会有技能不需要唱就能学会，所以还是做一个是否存在的判定
+		foreach($songlist as $skey => $sval)
+		{
+			if ($sval['songname'] === $sn)
+			{
+				$learnedsongs = \skillbase\skill_getvalue(1003,'learnedsongs');
+				if (empty($learnedsongs)) $ls = array();
+				else $ls = explode('_',$learnedsongs);
+				if (!in_array($skey, $ls)) 
+				{
+					$ls[] = $skey;
+					$learnedsongs = implode('_',$ls);
+					\skillbase\skill_setvalue(1003,'learnedsongs',$learnedsongs);
+					eval(import_module('logger'));
+					$log .= "你学会了歌曲<span class=\"yellow b\">{$sval['songname']}</span>！<br>";
+				}
+				break;
+			}
+		}
 	}
 	
 	function get_song_effect($songcfg)
@@ -452,27 +511,6 @@ namespace song
 		{
 			$eqp = 'art';
 			$noeqp = '';
-			
-			$sn = check_sname($itm);
-			//如果该歌曲存在，则记录
-			foreach($songlist as $skey => $sval)
-			{
-				if ($sval['songname'] === $sn)
-				{
-					$learnedsongs = \skillbase\skill_getvalue(1003,'learnedsongs');
-					if (empty($learnedsongs)) $ls = array();
-					else $ls = explode('_',$learnedsongs);
-					if (!in_array($skey, $ls)) 
-					{
-						$ls[] = $skey;
-						$learnedsongs = implode('_',$ls);
-						\skillbase\skill_setvalue(1003,'learnedsongs',$learnedsongs);
-						eval(import_module('logger'));
-						$log .= "你学会了歌曲<span class=\"yellow b\">{$sval['songname']}</span>！<br>";
-					}
-					break;
-				}
-			}
 			
 			if (($noeqp && strpos ( ${$eqp.'k'}, $noeqp ) === 0) || ! ${$eqp.'s'}) {
 				${$eqp} = $itm;

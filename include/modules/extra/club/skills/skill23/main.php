@@ -119,7 +119,7 @@ namespace skill23
 		$clv = \skillbase\skill_getvalue(23,'lvl');
 		$maxsknum = $skill23max[$clv];
 		
-		if(\itemmain\count_itmsk_num($itmsk)>=$maxsknum){
+		if(\itemmain\count_itmsk_num($itmsk, 0)>=$maxsknum){
 			if($upgradecost[$clv]==-1) $log .= '<span class="red b">你选择的物品属性数目已达到'.$maxsknum.'个属性的上限，无法改造！</span><br>';
 			else $log .= '<span class="yellow b">你最多只能把物品属性加到'.$maxsknum.'个，请升级技能！</span><br>';
 			$mode = 'command';
