@@ -1,0 +1,17 @@
+version: '3'
+services:
+  php:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html:z
+
+  mariadb:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: mydatabase
+      MYSQL_DATABASE: mydatabase
+    ports:
+      - "3306:3306"
