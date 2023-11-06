@@ -84,7 +84,8 @@ namespace itemmain
 		return '';
 	}
 	
-	function count_itmsk_num($sk_value)
+	//$ignore_invisible表示是否忽略不显示的复合属性，默认不忽略，判定在attrbase模块中
+	function count_itmsk_num($sk_value, $ignore_invisible = 1)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$sk_arr = get_itmsk_array($sk_value);
