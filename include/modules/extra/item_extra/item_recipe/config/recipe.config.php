@@ -141,8 +141,8 @@ namespace item_recipe
 		(
 			'stuff1' => array('itm'=>'★连接认证4★','itm_match'=>0),
 			'stuff2' => array('itm'=>'★连接认证1★','itm_match'=>0),
-			'result' => array('「防火龙·暗流体」LINK-5','WC',300,'∞','reNdbLZ^l5'),
-			'extra' => array('materials'=>1, 'consume_recipe'=>true,),
+			'result' => array('「防火龙·暗流体」LINK-5','WC',450,'∞','reNdbLZ^l5'),
+			'extra' => array('materials'=>2, 'consume_recipe'=>true,),
 		),
 		22 => array
 		(
