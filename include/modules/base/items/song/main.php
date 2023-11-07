@@ -175,7 +175,7 @@ namespace song
 					foreach($ev as $skv){
 						if(!\skillbase\skill_query($skv, $pdata)){
 							\skillbase\skill_acquire($skv, $pdata);
-							$ss_log[] = '获得了技能<span class="cyan b">「'.$clubskillname[$skv].'」</span>';		
+							$ss_log[] = '获得了技能<span class="cyan b">「'.$clubskillname[$skv].'」</span>';
 							if ($timeflag)
 							{
 								$tsk_time = round($effect['time'] * ss_factor($pdata));
