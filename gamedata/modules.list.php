@@ -566,7 +566,6 @@ skill379,extra/achievement/skills/skill379/,1
 skill504,extra/card/skills/skill504/,1
 item_ext_armor,extra/item_extra/item_ext_armor/,1
 skill567,extra/card/skills/skill567/,1
-skill505,extra/card/skills/skill505/,1
 skill80,extra/club/skills/skill80/,1
 skill551,extra/card/skills/skill551/,1
 skill554,extra/card/skills/skill554/,1
@@ -589,6 +588,7 @@ skill26,extra/club/skills/skill26/,1
 skill265,extra/club/skills/skill265/,1
 skill507,extra/card/skills/skill507/,1
 skill366,extra/activities/aprilfool2018/skill366/,1
+skill505,extra/card/skills/skill505/,1
 skill27,extra/club/skills/skill27/,1
 skill489,extra/card/skills/skill489/,1
 skill266,extra/club/skills/skill266/,1
