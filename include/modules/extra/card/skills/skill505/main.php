@@ -258,6 +258,48 @@ namespace skill505
 		$chprocess($itmn);
 	}
 	
+	function use_armor_empower($itmn = 0)//防具改造
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','skill505','logger'));
+		if(${'itm'.(int)$itmn} == $skill505_keyitm) {
+			$log.='灯泡经不起敲敲打打的啊！<br>* 担忧的猫叫声 *<br>';
+			$mode = 'command';
+			return;
+		}
+
+		$chprocess($itmn);
+	}
+	
+	function use_armor(&$theitem, $pos = '')//使用外甲
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','armor','skill505','logger'));		
+		$itm=&$theitem['itm']; $itmk=&$theitem['itmk'];			
+		if(!$pos) {
+			if(strpos ( $itmk, 'DB' ) === 0) {
+				$pos = 'arb';
+				$noeqp = 'DN';
+			}elseif(strpos ( $itmk, 'DH' ) === 0) {
+				$pos = 'arh';
+				$noeqp = '';
+			}elseif(strpos ( $itmk, 'DA' ) === 0) {
+				$pos = 'ara';
+				$noeqp = '';
+			}elseif(strpos ( $itmk, 'DF' ) === 0) {
+				$pos = 'arf';
+				$noeqp = '';
+			}
+		}	
+		if (false !== strpos(substr($itmk,2),'S') && ${$pos} == $skill505_keyitm)
+		{
+			$log .= "你抱着灯泡，腾不出手来装备<span class=\"yellow b\">{$itm}</span>。<br>";
+			$mode = 'command';
+			return;
+		}
+		$chprocess($theitem, $pos);
+	}
+	
 	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
