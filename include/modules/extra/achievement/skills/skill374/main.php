@@ -61,7 +61,8 @@ namespace skill374
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa, $data, $achid);
-		if($achid == 374 && check_card374($pa)){
+		eval(import_module('sys'));
+		if($achid == 374 && check_card374($pa) && \sys\is_winner($pa['name'],$winner)){
 			$ret += 1;
 		}
 		return $ret;
