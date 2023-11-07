@@ -35,17 +35,14 @@ namespace skill567
 			$itmk = & ${'itmk'.$itmn};
 			$itmsk = & ${'itmsk'.$itmn};
 		}
-		if (\skillbase\skill_query(567))
+		if (\skillbase\skill_query(567) && ($itmk[0] == 'H'))
 		{
-			if (in_array($itmk[0], array('H','P')))
-			{
-				$itmk = substr_replace($itmk,'P',0,1);
-				//check_poison_factor还有额外的log……直接判技能吧
-				if(\skillbase\skill_query(220) && (int)substr($itmk,2,1) < 2) $itmk = substr_replace($itmk,$p_factor,2,1);
-				$itmsk = $pid;
-				eval(import_module('logger'));
-				$log .= "<span class=\"purple b\">你周身散发出的毒雾渗透了丢弃的物品！</span><br>";
-			}
+			$itmk = substr_replace($itmk,'P',0,1);
+			//check_poison_factor还有额外的log……直接判技能吧
+			if(\skillbase\skill_query(220) && (int)substr($itmk,2,1) < 2) $itmk = substr_replace($itmk,$p_factor,2,1);
+			$itmsk = $pid;
+			eval(import_module('logger'));
+			$log .= "<span class=\"purple b\">你周身散发出的毒雾渗透了丢弃的物品！</span><br>";
 		}
 		$chprocess($item);
 	}

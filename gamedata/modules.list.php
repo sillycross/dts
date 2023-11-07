@@ -566,7 +566,6 @@ skill379,extra/achievement/skills/skill379/,1
 skill504,extra/card/skills/skill504/,1
 item_ext_armor,extra/item_extra/item_ext_armor/,1
 skill567,extra/card/skills/skill567/,1
-skill505,extra/card/skills/skill505/,1
 skill80,extra/club/skills/skill80/,1
 skill551,extra/card/skills/skill551/,1
 skill554,extra/card/skills/skill554/,1

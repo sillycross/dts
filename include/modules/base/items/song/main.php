@@ -175,11 +175,12 @@ namespace song
 					foreach($ev as $skv){
 						if(!\skillbase\skill_query($skv, $pdata)){
 							\skillbase\skill_acquire($skv, $pdata);
-							$ss_log[] = '获得了技能<span class="cyan b">「'.$clubskillname[$skv].'」</span>';
+							$ss_log[] = '获得了技能<span class="cyan b">「'.$clubskillname[$skv].'」</span>';		
 							if ($timeflag)
 							{
-								$ss_log[] = "持续时间<span class=\"yellow b\">".$effect['time']."</span>秒<br>";
-								\skillbase\skill_setvalue($skv, 'tsk_expire', $now + $effect['time'], $pdata);
+								$tsk_time = round($effect['time'] * ss_factor($pdata));
+								$ss_log[] = "持续时间<span class=\"yellow b\">".$tsk_time."</span>秒<br>";
+								\skillbase\skill_setvalue($skv, 'tsk_expire', $now + $tsk_time, $pdata);
 							}
 						}
 					}
