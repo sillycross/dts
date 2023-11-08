@@ -53,7 +53,7 @@ if(!isset($command) || $start != $ostart){
 	$rankdata = Array();
 	$n = $start+1;
 	foreach($result as $data){
-		list($riconImg, $riconImgB) = \player\icon_parser(0, $data['gender'], $data['icon']);
+		list($riconImg, $riconImgB) = \player\icon_parser_shell($data);
 		$data['img'] = $riconImg;
 		//$data['img'] = $data['gender'] == 'm' ? 'm_'.$data['icon'].'.gif' : 'f_'.$data['icon'].'.gif';
 		//$data['motto'] = $data['motto'] ? rep_label($data['motto']) : '';

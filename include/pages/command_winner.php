@@ -177,7 +177,7 @@ else
 			$wdata['time'] = date("H:i:s",$wdata['getime']);
 			$wdata = winner_parse($wdata);
 			$wdata['duration'] = !empty($wdata['validtime']) ? $wdata['getime']-$wdata['validtime'] : $wdata['getime'] - $wdata['gstime'];
-			list($wiconImg, $wiconImgB) = \player\icon_parser(0, $wdata['gd'], $wdata['icon']);
+			list($wiconImg, $wiconImgB) = \player\icon_parser_shell($wdata);
 			$wdata['iconImg'] = $wiconImg;
 			//APM
 			list($vapm,$aapm) =  \apm\calc_winner_apm($wdata,$wdata['duration']);

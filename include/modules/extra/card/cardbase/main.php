@@ -1300,6 +1300,22 @@ namespace cardbase
 		
 		return array($cardChosen, $card_ownlist, $packlist, $hideDisableButton);
 	}
+	
+	//⑨卡头像特判放这里，毕竟⑨没有自己的模块
+	function icon_parser_valid(&$pdata=NULL)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!$pdata) {
+			eval(import_module('player'));
+			$pdata = &$sdata;
+		}
+		$ret = $chprocess($pdata);
+		if(!$ret && !empty($pdata['card']) && !empty($pdata['cardname'])) {
+			if(check_realcard($pdata['card'], $pdata['cardname'])==299)
+				$ret = true;
+		}
+		return $ret;
+	}
 }
 
 ?>

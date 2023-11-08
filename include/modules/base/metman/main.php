@@ -81,7 +81,8 @@ namespace metman
 		$tdata['sNoinfo'] = $typeinfo[$w_type];
 		if(!$w_type) $tdata['sNoinfo'] .= "({$sexinfo[$w_gd]}{$w_sNo}号)";
 		else $tdata['sNoinfo'] .= "({$sexinfo[$w_gd]})";
-		list($tdata['iconImg'], $tdata['iconImgB'], $tdata['iconImgBwidth']) = \player\icon_parser($w_type, $w_gd, $w_icon);
+		$w_data = Array('type' => $w_type, 'gd' => $w_gd, 'icon' =>$w_icon, 'card' => $w_card, 'cardname' => $w_cardname);//历史遗留问题，只能这么裱糊一下
+		list($tdata['iconImg'], $tdata['iconImgB'], $tdata['iconImgBwidth']) = \player\icon_parser_shell($w_data);
 //		echo 'img/'.$wiconImgB;
 //		if(file_exists('img/'.$wiconImgB)) $tdata['iconImg'] = $wiconImgB;
 //		else $tdata['iconImg'] = $wiconImg;

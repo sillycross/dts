@@ -180,7 +180,7 @@ function gstrfilter($str) {
 			$str = stripslashes($str);
 		}
 		$str = str_replace("'","",$str);//屏蔽单引号'
-		$str = str_replace("\\","",$str);//屏蔽反斜杠/
+		$str = str_replace("\\","",$str);//屏蔽反斜杠\
 		$str = htmlspecialchars($str,ENT_COMPAT);//转义html特殊字符，即"<>&
 		$str = str_replace("___","",$str);//屏蔽连续的三个下划线，由于模块化用到了这些变量。防止注入
 	}

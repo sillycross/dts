@@ -235,6 +235,46 @@ namespace player
 		return $dummy;
 	}
 	
+	//头像判定，返回$iconImg, $iconImgB, $iconImgBwidth三个变量
+	//$iconImg为小头像，$iconImgB为竖版头像，$iconImgBwidth为竖版头像的宽度（用于正确显示比例）
+	//会自动识别$pdata的头像是否合法，如果不合法会返回一个代用的头像
+	//注意这里传进来的可能会是$udata
+	function icon_parser_shell(&$pdata=NULL)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!$pdata) {
+			eval(import_module('player'));
+			$pdata = &$sdata;
+		}
+		if(!icon_parser_valid($pdata)) {
+			$iconImg = 'punish.png';
+			$iconImgB = '';
+			$iconImgBwidth = 0;
+		}else{
+			$itp = isset($pdata['type']) ? $pdata['type'] : 0;
+			$igd = isset($pdata['gender']) ? $pdata['gender'] : (isset($pdata['gd']) ? $pdata['gd'] : 'm');
+			list($iconImg, $iconImgB, $iconImgBwidth) = icon_parser($itp, $igd, $pdata['icon']);
+		}
+		return Array($iconImg, $iconImgB, $iconImgBwidth);
+	}
+	
+	//头像字段合法性检测。本模块只允许玩家使用数字头像，其他模块可以继承此模块做额外的判定
+	//注意这里传进来的可能会是$udata或者metman模块构造的临时数组
+	function icon_parser_valid(&$pdata=NULL)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!$pdata) {
+			eval(import_module('player'));
+			$pdata = &$sdata;
+		}
+		$ret = true;
+		if(empty($pdata['type']) && (!is_numeric($pdata['icon']) || (int)$pdata['icon'] != $pdata['icon'] || $pdata['icon'] > 20 || $pdata['icon'] < 0)) {
+			$ret = false;
+		}
+		
+		return $ret;
+	}
+	
 	function icon_parser($type, $gd, $icon){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -275,7 +315,7 @@ namespace player
 		eval(import_module('sys','player'));
 		
 		//$ardef = $arbe + $arhe + $arae + $arfe;
-		list($iconImg, $iconImgB, $iconImgBwidth) = icon_parser($type, $gd, $icon);
+		list($iconImg, $iconImgB, $iconImgBwidth) = icon_parser_shell($sdata);
 		
 		if(!$weps) {
 			$wep = $nowep;$wepk = 'WN';$wepsk = '';

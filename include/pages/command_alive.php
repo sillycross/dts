@@ -33,7 +33,7 @@ if(!isset($alivemode) || $alivemode == 'last') $limit = " LIMIT $alivelimit";
 $query = $db->query("SELECT * FROM {$tablepre}players".$cond.$sort.$limit);
 
 while($playerdata = $db->fetch_array($query)) {
-	list($iconImg, $iconImgB) = \player\icon_parser(0, $playerdata['gd'], $playerdata['icon']);
+	list($iconImg, $iconImgB) = \player\icon_parser_shell($playerdata);
 	$playerdata['iconImg'] = $iconImg;
 	
 	/**
