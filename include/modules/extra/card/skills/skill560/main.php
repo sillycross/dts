@@ -188,6 +188,15 @@ namespace skill560
 		return $ret;
 	}
 	
+	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player'));
+		if($news == 'bskill560')
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}对{$b}发动了技能<span class=\"yellow b\">「鬼叫」</span></span></li>";
+		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
+	}
+	
 //	function strike_finish(&$pa, &$pd, $active)
 //	{
 //		if (eval(__MAGIC__)) return $___RET_VALUE;		

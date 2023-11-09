@@ -46,8 +46,8 @@ namespace skill594
 		$pa['msp'] -= 200;
 		if ($pa['msp'] <= 0) $pa['msp'] = 1;
 		$pa['sp'] = min($pa['sp'], $pa['msp']);
-		$pa['att'] += 666;
-		$pa['def'] += 666;
+		$pa['att'] -= 666;
+		$pa['def'] -= 666;
 	}
 
 }
