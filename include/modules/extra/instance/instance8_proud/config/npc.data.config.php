@@ -195,7 +195,7 @@ namespace instance8
 					'arfe' => 100,
 					'arfs' => 100,
 					'arfsk' => 'MH',
-					'itm1' => '新发售的卡牌包',
+					'itm1' => '☆开完变30元的卡牌包☆',
 					'itmk1' => 'ygo2',
 					'itme1' => 1,
 					'itms1' => 7,
