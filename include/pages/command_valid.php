@@ -107,11 +107,15 @@ if($mode == 'enter') {
 				\cardbase\save_cardenergy_to_db($card_ownlist, $userCardData['cardenergy'], $card_data_fetched, $udata);
 				//以下是更新卡片类别的冷却，感觉可以再重构得更优美一点，跟冷却本身合并，但是回头再说吧
 				if(!empty($cardtypecd[$r])){
-					$ctcdtime = $now;
+					$cardtype_cd_period = $cardtypecd[$r];
 					if(!empty($card_cooldown_discount_gtype[$gametype])) {
-						$ctcdtime -= round($cardtypecd[$r] * $card_cooldown_discount_gtype[$gametype]);//荣誉模式、极速模式类别CD减半
+						$cardtype_cd_period *= $card_cooldown_discount_gtype[$gametype];//荣誉模式、极速模式类别CD减半
 					}
-					$updatearr ['cd_'.strtolower($r)] = $ctcdtime;
+					if($cards[$cc]['energy'] < 100) {//如果卡片本身的能量小于100，那么根据能量叠加一层折数
+						$cardtype_cd_period *= $cards[$cc]['energy']/100;
+					}
+					$cardtype_cd_period = round($cardtype_cd_period);
+					$updatearr ['cd_'.strtolower($r)] = $now + $cardtype_cd_period - $cardtypecd[$r];//实际记录的是(到期时间-原始类别CD)的时间戳
 				}
 			}
 			if($enterable) {
