@@ -24,9 +24,13 @@ namespace skill597
 		\skillbase\skill_delvalue(597,'lvl',$pa);
 	}
 	
-	function check_unlocked597(&$pa)
+	function check_unlocked597(&$pa=NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(empty($pa)) {
+			eval(import_module('player'));
+			$pa = $sdata;
+		}
 		return $pa['lvl'] >= 10;
 	}
 	
@@ -63,9 +67,9 @@ namespace skill597
 			eval(import_module('player'));
 			$pa = $sdata;
 		}
-		if (!\skillbase\skill_query(597, $pa)) 
+		if (!\skillbase\skill_query(597, $pa) && check_unlocked597($pa)) 
 		{
-			$log.='你没有自己的小推车。<br>';
+			$log.='你还没有自己的小推车。<br>';
 			return Array();
 		}
 		$ret = \skillbase\skill_getvalue(597,'itmarr', $pa);
@@ -77,16 +81,36 @@ namespace skill597
 		return $ret;
 	}
 	
-	//移动后发现尽可能多的尸体
-	function move($moveto = 99)
+	//移动后，添加一个标记
+	function move_to_area($moveto)
 	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$movesp = \explore\allow_move_check($moveto);
-		$chprocess($moveto);
-		if(\skillbase\skill_query(597) && !\gameflow_combo\is_gamestate_combo() && (false !== $movesp))
+		if (eval(__MAGIC__)) return $___RET_VALUE;	
+		if(\skillbase\skill_query(597) && check_unlocked597() && !\gameflow_combo\is_gamestate_combo())
+		{
+			\skillbase\skill_setvalue(597, 'moveflag', 1);
+		}
+		return $chprocess($moveto);
+	}
+	
+	//移动的这一步不会发现敌人和尸体
+	// function discover_player()
+	// {
+		// if (eval(__MAGIC__)) return $___RET_VALUE;
+		// if (\skillbase\skill_query(597) && check_unlocked597() && \skillbase\skill_getvalue(597, 'moveflag'))
+		// {
+			// \skillbase\skill_setvalue(597, 'moveflag', 0);
+			// return false;
+		// }
+		// return $chprocess();
+	// }
+	
+	//发现尸体并清除标记
+	function discover($schmode)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;		
+		if(\skillbase\skill_query(597) && check_unlocked597() && \skillbase\skill_getvalue(597, 'moveflag'))
 		{
 			eval(import_module('sys','logger','player'));
-			
 			$result = $db->query("SELECT pid FROM {$tablepre}players WHERE pls='$pls' AND hp<=0");
 			$i = 0;
 			if ($db->num_rows($result)) 
@@ -100,15 +124,19 @@ namespace skill597
 					if (($pdata['endtime'] <= $tm) && \metman\discover_player_filter_corpse($pdata))
 					{
 						$amarr = array('pid' => $pdata['pid'], 'Pname' => $pdata['name'], 'pls' => $pls, 'smtype' => 'corpse', 'unseen' => 0);
+						$smn = \searchmemory\seek_memory_by_id($pdata['pid'], 'pid');
+						if($smn >= 0) \searchmemory\remove_memory($smn,2);
 						\searchmemory\add_memory($amarr, 0);
 						$i += 1;
 						if ($i >= $slotnum) break;
 					}
-				}				
+				}
 			}
 			if ($i > 0) $log .= "<span class=\"yellow b\">此处的尸体被你尽收眼底。</span><br>";
 			else $log .= "<span class=\"yellow b\">你没能找到新的尸体。</span><br>";
+			\skillbase\skill_setvalue(597, 'moveflag', 0);
 		}
+		$chprocess($schmode);
 	}
 	
 	//带走尸体
@@ -118,8 +146,8 @@ namespace skill597
 		eval(import_module('sys','player','logger','corpse'));
 		if($item == 'takeaway')
 		{
-			if(!\skillbase\skill_query(597, $sdata)){
-				$log .= '你没有自己的小推车。<br>';
+			if(!\skillbase\skill_query(597, $sdata) && check_unlocked597($sdata)){
+				$log .= '你还没有自己的小推车。<br>';
 				$mode = 'command';
 				return;
 			}
@@ -196,9 +224,9 @@ namespace skill597
 		if(empty($pa)) {
 			$pa = $sdata;
 		}
-		if (!\skillbase\skill_query(597, $pa)) 
+		if (!\skillbase\skill_query(597, $pa) && check_unlocked597($pa)) 
 		{
-			if($showlog) $log.='你没有这个技能。<br>';
+			if($showlog) $log.='你无法使用这个技能。<br>';
 			return;
 		}	elseif($bagn < 0) {
 			if($showlog) $log .= '道具参数错误。<br>';
@@ -254,9 +282,9 @@ namespace skill597
 		if(empty($pa)) {
 			$pa = $sdata;
 		}
-		if (!\skillbase\skill_query(597, $pa))
+		if (!\skillbase\skill_query(597, $pa) && check_unlocked597($pa))
 		{
-			if($showlog) $log .= '你没有这个技能。<br>';
+			if($showlog) $log .= '你无法使用这个技能。<br>';
 			return;
 		}
 		elseif (empty(\skillbase\skill_getvalue(597,'itmarr',$pa)))
@@ -273,9 +301,9 @@ namespace skill597
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','logger','player','input'));
-		if (!\skillbase\skill_query(597)) 
+		if (!\skillbase\skill_query(597) && check_unlocked597()) 
 		{
-			$log.='你没有这个技能。';
+			$log.='你无法使用这个技能。';
 			return;
 		}
 		$flag = 0;
