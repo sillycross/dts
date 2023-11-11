@@ -217,6 +217,13 @@ namespace item_recipe
 			'result' => array('「铁兽战线 块击之贝尔布鲁厄姆」LINK-2','WC',170,'∞','rcNj^l2'),
 			'extra' => array('materials'=>1, 'consume_recipe'=>true,),
 		),
+		33 => array
+		(
+			'stuff1' => array('itm'=>'自奏圣乐','itm_match'=>1),
+			'stuff2' => array('extra'=>'ygo'),
+			'result' => array('自奏圣乐·伽拉忒亚 LINK-2','WC',180,120,'wA^sv1j^l2'),
+			'extra' => array('link'=>2, 'materials'=>2, 'consume_recipe'=>true,),
+		),
 		//以上为游戏王相关配方合成
 		50 => array
 		(

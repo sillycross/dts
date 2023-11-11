@@ -4,7 +4,7 @@ namespace skill512
 {
 	function init() 
 	{
-		define('MOD_SKILL512_INFO','unique;');
+		define('MOD_SKILL512_INFO','unique;feature;');//设为feature，不会被直击无效
 		eval(import_module('clubbase'));
 		$clubskillname[512] = '幻象';
 		//效果：被打死时判定一下本类别同名NPC是否已经全部死亡，如果是，则addnpc

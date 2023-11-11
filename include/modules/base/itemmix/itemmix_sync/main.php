@@ -81,7 +81,8 @@ namespace itemmix_sync
 		}
 		
 		$chc_res = array();
-		if($star && count($tunner) == 1){
+		$tcount = count($tunner);
+		if($star && $tcount > 0){
 			if(!empty($streamstar)){//生命肌瘤龙的变星实际上提供两个星数分支 
 				$star2 = $streamstar + count($mlist) - 1;
 			}
@@ -91,6 +92,7 @@ namespace itemmix_sync
 				$pstar = $pra[5];
 				$preq = $pra[6];
 				$preqflag = true;
+				$tnum = 1;
 				if($preq){//检查是不是有特殊需求 
 					$req=explode('+',$preq);
 					$mname = array();
@@ -99,9 +101,21 @@ namespace itemmix_sync
 					}
 					//如果素材没有满足则认为无法合成 
 					foreach($req as $rv){
-						if('st'==$rv){//调整要求是同调属性的 
+						if(strpos($rv,'t')===0){//需求调整素材数量 
+							$tnum = (int)substr($rv,1);
+							if ($tcount != $tnum)
+							{
+								$preqflag = false;
+								break;
+							}
+						}elseif('st'==$rv){//调整要求是同调属性的 
+							var_dump($tunner);
 							$tunnersk = ${'itmsk'.$tunner[0]};
-							if(!\itemmain\check_in_itmsk('^001', $tunnersk)) $preqflag = false;
+							if(!\itemmain\check_in_itmsk('^001', $tunnersk))
+							{
+								$preqflag = false;
+								break;
+							}
 						}elseif(strpos($rv,'sm')===0){//调整以外要求是同调属性的 
 							$smnum = (int)substr($rv,2);
 							foreach($mlist as $mi){
@@ -114,11 +128,17 @@ namespace itemmix_sync
 								}
 							}
 							if(count($mlist) <= $smnum) $preqflag = false;//素材数目不足
+							if(!$preqflag) break;
 						}else{//其他，认为是名字要求
-							if(!in_array($rv, $mname)) $preqflag = false;
+							if(!in_array($rv, $mname))
+							{
+								$preqflag = false;
+								break;
+							}
 						}
 					}
 				}
+				if ($tcount != $tnum) $preqflag = false;
 				if(($pstar == $star || $pstar == $star2) && $preqflag){
 					if($pstar == $star2) list($star, $star2) = array($star2, $star);
 					if(empty($chc_res[$star])) $chc_res[$star] = array();
