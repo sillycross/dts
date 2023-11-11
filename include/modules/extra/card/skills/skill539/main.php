@@ -4,7 +4,7 @@ namespace skill539
 {
 	function init() 
 	{
-		define('MOD_SKILL539_INFO','card;');
+		define('MOD_SKILL539_INFO','card;feature;');//设为feature防止被直击失去记录时间的功能
 		eval(import_module('clubbase'));
 		$clubskillname[539] = '不死';
 	}
