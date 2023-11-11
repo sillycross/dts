@@ -413,8 +413,8 @@ if ($___MOD_SRV)
 						__SOCKET_DEBUGLOG__("进程{$sid}异常，跳过。"); 
 						continue;
 					}
-					//该进程即将结束，跳过（比主动结束早15秒）
-					if(time()-filemtime(GAME_ROOT.'./gamedata/tmp/server/'.((string)$sid).'/start_time')+$___MOD_SRV_WAKETIME+15>$___TEMP_max_time){
+					//该进程即将结束，跳过（比主动结束早20秒）
+					if(time()-filemtime(GAME_ROOT.'./gamedata/tmp/server/'.((string)$sid).'/start_time')+$___MOD_SRV_WAKETIME+20>$___TEMP_max_time){
 						__SOCKET_DEBUGLOG__("进程{$sid}即将结束，跳过。"); 
 						continue;
 					}

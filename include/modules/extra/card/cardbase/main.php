@@ -400,7 +400,7 @@ namespace cardbase
 		
 		//if(!empty($ext)) $ext.='<br>';
 		$prizecode = 'getcard_'.$ci.';';
-		if(!empty($blink)) $getcardcode .= 'getcardblink_'.$blink.';';
+		if(!empty($blink)) $prizecode .= 'getcardblink_'.$blink.';';
 		include_once './include/messages.func.php';
 		message_create(
 			$n,
