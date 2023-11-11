@@ -521,13 +521,14 @@ namespace searchmemory
 					$mode = 'command';
 					return;
 				}
-				//原本不在视野中，并且探索没有结果，那么只是加入视野
-				if($marr['unseen'] && !empty($search_flag)) {
+				//原本不在视野中，并且探索有其他结果，那么只是加入视野
+				if($marr['unseen'] && (!empty($search_flag) || !empty($cmd))) {
 					$log .= '此外，你看到<span class="lime b">'.$marr['itm'].'还在原来的位置。</span><br>';
 					add_memory_core($marr);
 					return;
 				}
 				$log .= '<span class="lime b">'.$marr['itm'].'还在原来的位置，你轻松拿到了它。</span><br>';
+				
 				\cooldown\set_coldtime(\cooldown\get_search_coldtime());
 				$nmarr=$db->fetch_array($result);
 				focus_item($nmarr);

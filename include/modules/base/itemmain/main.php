@@ -19,12 +19,19 @@ namespace itemmain
 		else return 0;
 	}
 	
+	//道具名处理
+	//会自动进行道具省略显示的转换
+	function parse_itmname_words_shell($name_value, &$pa=NULL, $elli = 0, $width=20, $end=1)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return parse_itmname_words($name_value, $elli, $width, $end);
+	}
+	
 	//省略显示
 	//显示宽度20英文字符，假设汉字的显示宽度大约是英文字母的1.8倍
 	function parse_itmname_words($name_value, $elli = 0, $width=20, $end=1){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(!$elli) return $name_value;
-		
 		if($width<=6) $width = 6;
 		$ilen=mb_strlen($name_value);
 		$slen=0;
@@ -284,8 +291,9 @@ namespace itemmain
 			$ev=$p1.'e'.$p2;
 			$sv=$p1.'s'.$p2;
 			$skv=$p1.'sk'.$p2;
-			$r[$v.'_words'] = parse_itmname_words($edata[$v], $elli);//这里如果$elli==0则会省略到20个字符
-			$r[$v.'_words_short'] = parse_itmname_words($edata[$v], 1, 15);//常用到的一个省略
+			$r[$v.'_words'] = parse_itmname_words_shell($edata[$v], $edata, $elli);//这里如果$elli==0则会省略到20个字符
+			$r[$v.'_words_short'] = parse_itmname_words_shell($edata[$v], $edata, 1, 15);//常用到的一个省略
+			$r[$v.'_words_noelli'] = parse_itmname_words_shell($edata[$v], $edata, 0);//要求不省略但是进行其他处理时
 			$r[$kv.'_words'] = parse_itmk_words($edata[$kv]);
 			$r[$ev.'_words'] = parse_itmnum_words($edata[$ev], $elli);
 			$r[$sv.'_words'] = parse_itmnum_words($edata[$sv], $elli);

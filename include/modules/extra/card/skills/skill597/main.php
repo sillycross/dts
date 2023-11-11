@@ -136,7 +136,7 @@ namespace skill597
 			else $log .= "<span class=\"yellow b\">你没能找到新的尸体。</span><br>";
 			\skillbase\skill_setvalue(597, 'moveflag', 0);
 		}
-		$chprocess($schmode);
+		return $chprocess($schmode);
 	}
 	
 	//带走尸体

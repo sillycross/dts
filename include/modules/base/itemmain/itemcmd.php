@@ -21,7 +21,7 @@ namespace itemmain
 		eval(import_module('player'));
 		if($itm0 && $itmk0 && $itms0) {
 			eval(import_module('sys','logger'));
-			if(!empty($tpldata['itm0_words'])) $itm = $tpldata['itm0_words'];
+			if(!empty($tpldata['itm0_words_noelli'])) $itm = $tpldata['itm0_words_noelli'];
 			else $itm = $itm0;
 			//$tpldata['itmk0_words']=parse_itmk_words($itmk0);
 			$tpldata['itmsk0_words']=parse_itmsk_words($itmsk0);//获取的道具属性是完整显示的
@@ -40,6 +40,7 @@ namespace itemmain
 		eval(import_module('sys','player'));
 //		$tpldata['itmk0_words']=parse_itmk_words($itmk0);
 //		$tpldata['itmsk0_words']=parse_itmsk_words($itmsk0);
+		if(empty($itms0)) return;
 		ob_start();
 		include template(MOD_ITEMMAIN_ITEMFIND);
 		$cmd = ob_get_contents();
