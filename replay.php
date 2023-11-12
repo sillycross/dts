@@ -119,6 +119,8 @@ $repdatalib=base64_decode($repdatalib);
 
 //$repbg = 'gamedata/replays/'.$repid.'.rep.bmp';
 $sdata = \player\create_dummy_playerdata();
+$sdata['gd'] = 'f';
+$sdata['icon'] = 0;
 \player\init_playerdata();
 \player\parse_interface_profile();
 
