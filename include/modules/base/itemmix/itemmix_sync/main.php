@@ -108,8 +108,7 @@ namespace itemmix_sync
 								$preqflag = false;
 								break;
 							}
-						}elseif('st'==$rv){//调整要求是同调属性的 
-							var_dump($tunner);
+						}elseif('st'==$rv){//调整要求是同调属性的
 							$tunnersk = ${'itmsk'.$tunner[0]};
 							if(!\itemmain\check_in_itmsk('^001', $tunnersk))
 							{
