@@ -4704,14 +4704,14 @@ $cards = array(
 		'pack' => '東埔寨Protoject',
 		'desc' => '宝船『亲民号』的船长，超亲民',
 		'effect' => '東埔寨造舰一直不繁荣，为什么呢？',
-		'desc_skills' => '开局装备带有冻气和冲击属性的钝器',
+		'desc_skills' => '开局装备带有冻气、冰华和冲击属性的钝器',
 		'energy' => 100,
 		'valid' => array(
 			'wep' => '大建「沉船幽灵」',
 			'wepk' => 'WP',
 			'wepe' => '44',
 			'weps' => '648',
-			'wepsk' => 'iN',
+			'wepsk' => 'ikN',
 		)
 	),
 	275 => array(
