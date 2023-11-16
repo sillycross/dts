@@ -40,7 +40,7 @@ namespace skill567
 			$itmk = substr_replace($itmk,'P',0,1);
 			//check_poison_factor还有额外的log……直接判技能吧
 			if(\skillbase\skill_query(220) && (int)substr($itmk,2,1) < 2) $itmk = substr_replace($itmk,$p_factor,2,1);
-			$itmsk = $pid;
+			\poison\poison_record_pid($itmsk, $pid);
 			eval(import_module('logger'));
 			$log .= "<span class=\"purple b\">你周身散发出的毒雾渗透了丢弃的物品！</span><br>";
 		}
@@ -61,7 +61,7 @@ namespace skill567
 					{
 						$pd['itmk'.$i][0] = 'P';
 						if (\skillbase\skill_query(220, $pa) && (int)substr($pd['itmk'.$i],2,1) < 2) $pd['itmk'.$i] = substr_replace($pd['itmk'.$i],'2',2,1);
-						$pd['itmsk'.$i] = $pa['pid'];
+						\poison\poison_record_pid($pd['itmsk'.$i], $pa['pid']);
 						$flag = 1;
 					}
 				}
@@ -80,7 +80,7 @@ namespace skill567
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player'));
-		if (\skillbase\skill_query(567) && ($theitem['itmk'][0] === 'P') && ($pid === $theitem['itmsk']))
+		if (\skillbase\skill_query(567) && ($theitem['itmk'][0] === 'P') && (\poison\poison_check_pid($theitem['itmsk']) === (int)$pid))
 		{
 			$theitem['itmk'][0] = 'H';
 			$ret = $chprocess($theitem);
