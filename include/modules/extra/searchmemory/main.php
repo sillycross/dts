@@ -473,123 +473,150 @@ namespace searchmemory
 	//参数值代表访问searchmemory的元素的下标（0是最早的记忆）
 	function searchmemory_discover($mn){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','logger','input','cooldown'));
+		eval(import_module('sys','player','logger','cooldown'));
 		$mn = (int)$mn;
-		//$searchmemory = array_decode($searchmemory);
-		//$mn = (int)substr($schmode,6) - 1;
-		//正在CD时无法探索视野里的东西
-		if(\cooldown\check_in_coldtime()) return;
-	
-		if(isset($searchmemory[$mn])){
-			$marr = $searchmemory[$mn];
-			//首先需要在同一地点
-			$mpls = $marr['pls'];
-			if($pls != $mpls){
-				$log .= '<span class="yellow b">你和寻找对象不在同一地点。</span><br>';
-				$mode = 'command';
-				return;
-			}
-			//如果下标超出视野，临时把unseen标为1
-			if(check_out_of_slot_edge($mn) && empty($marr['unseen'])) $marr['unseen'] = 1;
-			//判断逻辑：如果不在视野中而是凭记忆的，先进行一次探索流程，然后把那个探索记忆加到视野最新的地方
-			//这里调用search_area()但不触发search()函数本体，所以不会触发冷却，需要额外判定
-			if($marr['unseen']) {
-				$schsp = \explore\allow_search_check();
 		
-				if(false !== $schsp && $hp) {
-					$sp -= $schsp;
-					$log .= "消耗<span class=\"yellow b\">{$schsp}</span>点体力，你向记忆中的地点探索而去……<br>";
-					//执行探索冷却时间
-					if($coldtimeon) \cooldown\set_coldtime(\cooldown\get_search_coldtime());
-					//把视野里的都标注成不可见
-					change_memory_unseen('ALL');
-					$search_flag = \explore\search_area();//判定这次探索是否有别的结果
-				}else{
-					return;
-				}
-				//探索流程有可能造成死亡，所以需要存活才继续
-				if(!$hp) return;
-			}
-			//接下来的流程无论结果，都可以把该记忆元素删掉了
-			remove_memory($mn,0);
-			if(isset($marr['itm'])){//道具的判定
-				$mid = $marr['iid'];
-				$result = $db->query("SELECT * FROM {$tablepre}mapitem WHERE iid = '$mid' AND pls = '$mpls'");
-				$itemnum = $db->num_rows($result);
-				if($itemnum <= 0){
-					$log .= '<span class="yellow b">道具已经不在原先的位置了，可能是被谁捡走了吧。</span><br>';
-					$mode = 'command';
-					return;
-				}
-				//原本不在视野中，并且探索有其他结果，那么只是加入视野
-				if($marr['unseen'] && (!empty($search_flag) || !empty($cmd))) {
-					$log .= '此外，你看到<span class="lime b">'.$marr['itm'].'还在原来的位置。</span><br>';
-					add_memory_core($marr);
-					return;
-				}
-				$log .= '<span class="lime b">'.$marr['itm'].'还在原来的位置，你轻松拿到了它。</span><br>';
-				
-				\cooldown\set_coldtime(\cooldown\get_search_coldtime());
-				$nmarr=$db->fetch_array($result);
-				focus_item($nmarr);
-				\itemmain\itemget();
-				
-				return;
-				
-			}elseif(isset($marr['Pname'])){
-				$mid = $marr['pid'];
-				$result = $db->query("SELECT * FROM {$tablepre}players WHERE pid = '$mid' AND pls = '$mpls'");
-				$pnum = $db->num_rows($result);
-				if($pnum <= 0){
-					$log .= '<span class="yellow b">角色已经不在原来的位置了，可能是已经离开了吧。</span><br>';
-					$mode = 'command';
-					return;
-				}
-				$nmarr=$db->fetch_array($result);
-				if(!\metman\discover_player_filter_alive($nmarr)){//死斗后不会遇到NPC
-					$log .= '<span class="red b">角色已经不在原来的位置了……</span><br>';
-					$mode = 'command';
-					return;
-				}elseif($nmarr['hp']<=0 && $marr['smtype'] != 'corpse') {
-					$log .= '<span class="red b">角色已经不在原来的位置了，地上只有一摊血迹……</span><br>';
-					$mode = 'command';
-					return;
-				}elseif($nmarr['hp']<=0 && !\metman\discover_player_filter_corpse($nmarr)){
-					$log .= '<span class="red b">尸体好像已经被毁尸灭迹了。</span><br>';
-					$mode = 'command';
-					return;
-				}
-				//原本不在视野中的，只是加入视野
-				if($marr['unseen']) {
-					if($fog && 'corpse' != $marr['smtype']) {
-						$log .= '<span class="lime b">你隐约看到原来的位置有个人影。</span><br>';
-					}elseif('unknown' == $marr['smtype']){
-						$log .= '你看到<span class="lime b">'.$marr['Pname'].'站在你记忆中的位置。</span><br>';
-						$marr['smtype'] = 'enemy';
-					}else{
-						$log .= '你看到<span class="lime b">'.$marr['Pname'].'还在原来的位置。</span><br>';
-					}
-					if('corpse' != $marr['smtype']) $log .= '你决定暂时不去惊动对方。<br>';
-					add_memory_core($marr);
-				}else{
-					if($fog && 'corpse' != $marr['smtype']){
-						$log .= '<span class="lime b">人影还在原来的位置。</span><br>';
-					}elseif('unknown' == $marr['smtype']){
-						$log .= '你看到<span class="lime b">'.$marr['Pname'].'站在你刚才看到的位置。</span><br>';
-					}	else {
-						$log .= '你看到<span class="lime b">'.$marr['Pname'].'还在原来的位置。</span><br>';
-					}
-					\cooldown\set_coldtime(\cooldown\get_search_coldtime());
-					$sdata['sm_active_debuff'] = 1;
-					\metman\meetman($mid);
-					unset($sdata['sm_active_debuff']);
-				}
-				return;
-			}
-		}else{
+		if(!isset($searchmemory[$mn])) {
 			$log .= '探索记忆参数有误。<br>';
 			$mode = 'command';
 			return;
+		}
+		
+		$marr = $searchmemory[$mn];
+		
+		//探索可行性判定
+		if(!searchmemory_discover_valid_check($marr)) return;
+		
+		//如果下标超出视野，临时把unseen标为1
+		if(check_out_of_slot_edge($mn) && empty($marr['unseen'])) $marr['unseen'] = 1;
+		
+		//记忆格子的额外判定：先进行一次探索流程，然后把那个记忆对应的东西加到视野最新的地方
+		//这里调用search_area()但不触发search()函数本体，所以不会触发冷却，需要额外判定
+		$search_flag = 0;
+		if($marr['unseen']) {
+			$schsp = \explore\allow_search_check();
+	
+			if(false !== $schsp && $hp) {
+				$sp -= $schsp;
+				$log .= "消耗<span class=\"yellow b\">{$schsp}</span>点体力，你向记忆中的地点探索而去……<br>";
+				//执行探索冷却时间
+				if($coldtimeon) \cooldown\set_coldtime(\cooldown\get_search_coldtime());
+				//把视野里的都标注成不可见
+				change_memory_unseen('ALL');
+				$search_flag = \explore\search_area();//判定这次探索是否有别的结果
+			}else{
+				return;
+			}
+			//探索流程有可能造成死亡，所以需要存活才继续
+			if(!$hp) return;
+		}
+		
+		//接下来的流程无论结果，都可以把该记忆元素删掉了
+		remove_memory($mn,0);
+		//调用核心函数
+		searchmemory_discover_core($marr, $search_flag);
+	}
+	
+	//探索特定视野可行性判定，可行返回true，否则返回false
+	//会直接对$log输出一些错误提示
+	function searchmemory_discover_valid_check($marr)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		//正在CD时无法探索视野里的东西
+		if(\cooldown\check_in_coldtime()) {
+			$mode = 'command';
+			return false;
+		}
+		
+		eval(import_module('sys','player','logger'));
+		
+		//需要在同一地点
+		if($pls != $marr['pls']){
+			$log .= '<span class="yellow b">你和寻找对象不在同一地点。</span><br>';
+			$mode = 'command';
+			return false;
+		}
+		
+		return true;
+	}
+	
+	//具体探索特定视野或者记忆的核心函数
+	//传参为单个视野数组和记录之前是否有探索结果的布尔值变量$search_flag
+	function searchmemory_discover_core($marr, $search_flag = 0){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','logger'));
+		$mpls = $marr['pls'];
+		if(isset($marr['itm'])){//道具的判定
+			$mid = $marr['iid'];
+			$result = $db->query("SELECT * FROM {$tablepre}mapitem WHERE iid = '$mid' AND pls = '$mpls'");
+			$itemnum = $db->num_rows($result);
+			if($itemnum <= 0){
+				$log .= '<span class="yellow b">道具已经不在原先的位置了，可能是被谁捡走了吧。</span><br>';
+				$mode = 'command';
+				return;
+			}
+			//原本不在视野中，并且探索有其他结果，那么只是加入视野
+			if($marr['unseen'] && (!empty($search_flag) || !empty($cmd))) {
+				$log .= '此外，你看到<span class="lime b">'.$marr['itm'].'还在原来的位置。</span><br>';
+				add_memory_core($marr);
+				return;
+			}
+			$log .= '<span class="lime b">'.$marr['itm'].'还在原来的位置，你轻松拿到了它。</span><br>';
+			
+			\cooldown\set_coldtime(\cooldown\get_search_coldtime());
+			$nmarr=$db->fetch_array($result);
+			focus_item($nmarr);
+			\itemmain\itemget();
+			
+		}elseif(isset($marr['Pname'])){
+			$mid = $marr['pid'];
+			$result = $db->query("SELECT * FROM {$tablepre}players WHERE pid = '$mid' AND pls = '$mpls'");
+			$pnum = $db->num_rows($result);
+			if($pnum <= 0){
+				$log .= '<span class="yellow b">角色已经不在原来的位置了，可能是已经离开了吧。</span><br>';
+				$mode = 'command';
+				return;
+			}
+			$nmarr=$db->fetch_array($result);
+			if(!\metman\discover_player_filter_alive($nmarr)){//死斗后不会遇到NPC
+				$log .= '<span class="red b">角色已经不在原来的位置了……</span><br>';
+				$mode = 'command';
+				return;
+			}elseif($nmarr['hp']<=0 && $marr['smtype'] != 'corpse') {
+				$log .= '<span class="red b">角色已经不在原来的位置了，地上只有一摊血迹……</span><br>';
+				$mode = 'command';
+				return;
+			}elseif($nmarr['hp']<=0 && !\metman\discover_player_filter_corpse($nmarr)){
+				$log .= '<span class="red b">尸体好像已经被毁尸灭迹了。</span><br>';
+				$mode = 'command';
+				return;
+			}
+			//原本不在视野中的，只是加入视野
+			if($marr['unseen']) {
+				if($fog && 'corpse' != $marr['smtype']) {
+					$log .= '<span class="lime b">你隐约看到原来的位置有个人影。</span><br>';
+				}elseif('unknown' == $marr['smtype']){
+					$log .= '你看到<span class="lime b">'.$marr['Pname'].'站在你记忆中的位置。</span><br>';
+					$marr['smtype'] = 'enemy';
+				}else{
+					$log .= '你看到<span class="lime b">'.$marr['Pname'].'还在原来的位置。</span><br>';
+				}
+				if('corpse' != $marr['smtype']) $log .= '你决定暂时不去惊动对方。<br>';
+				add_memory_core($marr);
+			}else{
+				if($fog && 'corpse' != $marr['smtype']){
+					$log .= '<span class="lime b">人影还在原来的位置。</span><br>';
+				}elseif('unknown' == $marr['smtype']){
+					$log .= '你看到<span class="lime b">'.$marr['Pname'].'站在你刚才看到的位置。</span><br>';
+				}	else {
+					$log .= '你看到<span class="lime b">'.$marr['Pname'].'还在原来的位置。</span><br>';
+				}
+				\cooldown\set_coldtime(\cooldown\get_search_coldtime());
+				$sdata['sm_active_debuff'] = 1;
+				\metman\meetman($mid);
+				unset($sdata['sm_active_debuff']);
+			}
 		}
 	}
 	
