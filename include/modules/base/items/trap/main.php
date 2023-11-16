@@ -289,7 +289,7 @@ namespace trap
 	function trap_miss()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('player','trap','logger'));
+		eval(import_module('sys','player','trap','logger'));
 		if ($playerflag)
 		{
 			addnews($now,'trapmiss',$name,$trname,$itm0);

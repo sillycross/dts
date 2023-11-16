@@ -70,14 +70,40 @@ namespace skill369
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess($pa, $pd, $rkey);
 		if(\skillbase\skill_query(369, $pd)){
-			$cnt=\skillbase\skill_getvalue(369, 'cnt', $pd);
-			$cnt = array_filter(explode(',', $cnt));
-			if(!in_array($rkey, $cnt)) {
-				$cnt[] = $rkey;
-				\skillbase\skill_setvalue(369, 'cnt', implode(',', $cnt), $pd);
+			if(check_diverse369($pd, $rkey)) {
+				save_deathkey369($pd, $rkey);
 			}
 		}
 		return;
+	}
+	
+	//妹红卡特殊裁定
+	function skill539_revive_player(&$pdata=NULL) {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($pdata);
+		if(\skillbase\skill_query(369, $pdata)){
+			if(check_diverse369($pdata, 'skill539')) {
+				save_deathkey369($pdata, 'skill539');
+			}
+		}
+	}
+	
+	//判定是否已记录有相同的死亡方式
+	function check_diverse369(&$pdata, $key) {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$cnt=array_filter(explode(',', \skillbase\skill_getvalue(369, 'cnt', $pdata)));
+		if(!in_array($key, $cnt)) {
+			return true;
+		}
+		return false;
+	}
+	
+	//记录死亡方式，直接加在字符串后面就可以
+	function save_deathkey369(&$pdata, $key) {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$cnt=array_filter(explode(',', \skillbase\skill_getvalue(369, 'cnt', $pdata)));
+		$cnt[] = $key;
+		\skillbase\skill_setvalue(369, 'cnt', implode(',', $cnt), $pdata);
 	}
 }
 

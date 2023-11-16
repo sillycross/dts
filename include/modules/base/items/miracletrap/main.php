@@ -11,7 +11,10 @@ namespace miracletrap
 		eval(import_module('sys','player'));
 		$trapresult = $db->query("SELECT * FROM {$tablepre}maptrap WHERE pls = '$pls' ORDER BY itmk DESC");
 		$xtrp = $db->fetch_array($trapresult);
-		if($xtrp['itmk'] == 'TOc') { \trap\trapget($xtrp); return 1; }
+		if(!empty($xtrp) && $xtrp['itmk'] == 'TOc') {
+			\trap\trapget($xtrp);
+			return 1;
+		}
 		return $chprocess();
 	}
 	
