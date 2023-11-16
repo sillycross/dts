@@ -381,7 +381,7 @@ $mixinfo = array
 	array('class' => 'ocg', 'stuff' => array('「黑魔术师」-仮','☆七星认证☆'),'result' => array('「黑魔术师」 ★7','WC07',250,'∞','cC'),),
 	array('class' => 'ocg', 'stuff' => array('「黑魔术师」 ★7','「破龙剑士」 ★7'),'result' => array('「超魔导剑士-黑暗帕拉丁」 ★8','WC08',300,'∞','crdZy'),),
 	array('class' => 'ocg', 'stuff' => array('「青眼白龙」-仮','☆八星认证☆'),'result' => array('「青眼白龙」 ★8','WC08',300,'∞','d'),),
-	array('class' => 'ocg', 'stuff' => array('「青眼白龙」 ★8','「青眼白龙」 ★8','「青眼白龙」 ★8'),'result' => array('「青眼究极龙」 ★10','WC10',450,'∞','rdZ'),),
+	array('class' => 'ocg', 'stuff' => array('「青眼白龙」 ★8','「青眼白龙」 ★8','「青眼白龙」 ★8'),'result' => array('「青眼究极龙」 ★12','WC12',450,'∞','rdNZ'),),
 	array('class' => 'ocg', 'stuff' => array('「奥西里斯之天空龙」-仮','★神卡认证★'),'result' => array('『奥西里斯之天空龙』 ★10','WC10',4000,'∞','ncrtZ'),),
 	array('class' => 'ocg', 'stuff' => array('「欧贝利斯克之巨神兵」-仮','★神卡认证★'),'result' => array('『欧贝利斯克之巨神兵』 ★10','WC10',4000,'∞','NcrkZ'),),
 	array('class' => 'ocg', 'stuff' => array('「太阳神之翼神龙」-仮','★神卡认证★'),'result' => array('『太阳神之翼神龙』 ★10','WC10',4000,'∞','ycrfZ'),),

@@ -44,7 +44,7 @@ namespace skill574
 				$theitem['itme'] = $temp_itme;
 			}
 		}
-		else return $chprocess($theitem);
+		else $chprocess($theitem);
 	}
 	
 }
