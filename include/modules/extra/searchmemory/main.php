@@ -148,61 +148,67 @@ namespace searchmemory
 	//把道具加入视野和记忆列表，同时也触发丢失最早的视野/记忆
 	function add_memory($marr, $showlog = 1, &$pa=NULL){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		//必须开启视野且传入数组合法
+		if(!searchmemory_available() || empty($marr)) return;
+		
+		//连斗后不会把尸体加入视野
+		if(!empty($marr['smtype']) && $marr['smtype'] == 'corpse' && \gameflow_combo\is_gamestate_combo()) return;
+		
 		if(empty($pa)) {
 			eval(import_module('player'));
 			$pa = & $sdata;
 		}
 		$smarr_all = & $pa['searchmemory'];
 		eval(import_module('sys','logger','searchmemory'));
-		if(!empty($marr['smtype']) && $marr['smtype'] == 'corpse' && \gameflow_combo\is_gamestate_combo()) return;//连斗后不会把尸体加入视野
-		if(searchmemory_available() && $marr){
-			//获取实际的视野和记忆数
-			$searchmemory_real_slotnum = calc_memory_slotnum($pa);
-			$searchmemory_real_recordnum = calc_memory_recordnum($pa);
-			
-			//加入记忆一定加入视野，所以这里显示的是视野相关的提示
-			$amflag = 0;
-			if(isset($marr['itm'])){
-				$marr = add_memory_itm_process($marr, $pa);
-				$amn = $marr['itm'];
-				$amflag = 1;
-				if($showlog) {
-					if(\player\check_fog()) $log .= '你能隐约看到'.$amn.'的位置。<br>';
-					else $log .= '你设法保持对'.$amn.'的持续观察。<br>';
-				}
-			}elseif(isset($marr['Pname'])){
-				$amn = $marr['Pname'];
-				$amflag = 1;
-				if($showlog) {
-					if($marr['smtype'] == 'corpse' ) $log .=  '你设法保持对'.$amn.'的尸体的持续观察。<br>';
-					elseif(\player\check_fog()) $log .= '你努力让那个人影保持在视野之内。<br>';
-					else $log .= '在离开的同时，你设法保持对'.$amn.'的持续观察。<br>';
-				}
+	
+		//获取实际的视野和记忆数
+		$searchmemory_real_slotnum = calc_memory_slotnum($pa);
+		$searchmemory_real_recordnum = calc_memory_recordnum($pa);
+		
+		//加入记忆一定加入视野，所以这里显示的是视野相关的提示
+		$amflag = 0;
+		if(isset($marr['itm'])){
+			$marr = add_memory_itm_process($marr, $pa);
+			$amn = $marr['itm'];
+			$amflag = 1;
+			if($showlog) {
+				if(\player\check_fog()) $log .= '你能隐约看到'.$amn.'的位置。<br>';
+				else $log .= '你设法保持对'.$amn.'的持续观察。<br>';
 			}
-			//实际加入记忆
-			if($amflag){
-				add_memory_core($marr, $pa);
-				//array_push($searchmemory, $marr);
-			}
-			//如果因为视野已满导致有道具被从视野挤到了记忆部分，提示并标注unseen
-			//首先，只有总记忆数超过视野数的时候才做这个判定，很显然
-			if(sizeof($smarr_all) > $searchmemory_real_slotnum){
-				//只检测位于视野边界的那个道具
-				$thatm = & $smarr_all[get_slot_edge($pa) - 1];
-				//如果在同一地图且没有被标注unseen则提示一下
-				if($showlog && empty($thatm['unseen']) && $thatm['pls'] == $pls) {
-					$rmn = get_memory_name($thatm, $pa);
-					if(\player\check_fog() && isset($thatm['Pname']) && $thatm['smtype'] != 'corpse') $log .= '先前的人影看不见了，但你仍记得其大致方位。<br>';
-					else $log .= $rmn.'看不见了，但你仍记得其大致方位。<br>';
-					//标记unseen，确保不反复被提示，也避免拾取道具之后又让移出视野的道具自己长脚跑回来
-					$thatm['unseen'] = 1;
-				}
-			}
-			//超出记忆范围则删掉最老的记忆
-			while(sizeof($smarr_all) > $searchmemory_real_recordnum){
-				remove_memory(0, $showlog, $pa);
+		}elseif(isset($marr['Pname'])){
+			$amn = $marr['Pname'];
+			$amflag = 1;
+			if($showlog) {
+				if($marr['smtype'] == 'corpse' ) $log .=  '你设法保持对'.$amn.'的尸体的持续观察。<br>';
+				elseif(\player\check_fog()) $log .= '你努力让那个人影保持在视野之内。<br>';
+				else $log .= '在离开的同时，你设法保持对'.$amn.'的持续观察。<br>';
 			}
 		}
+		//实际加入记忆
+		if($amflag){
+			add_memory_core($marr, $pa);
+			//array_push($searchmemory, $marr);
+		}
+		//如果因为视野已满导致有道具被从视野挤到了记忆部分，提示并标注unseen
+		//首先，只有总记忆数超过视野数的时候才做这个判定，很显然
+		if(sizeof($smarr_all) > $searchmemory_real_slotnum){
+			//只检测位于视野边界的那个道具
+			$thatm = & $smarr_all[get_slot_edge($pa) - 1];
+			//如果在同一地图且没有被标注unseen则提示一下
+			if($showlog && empty($thatm['unseen']) && $thatm['pls'] == $pls) {
+				$rmn = get_memory_name($thatm, $pa);
+				if(\player\check_fog() && isset($thatm['Pname']) && $thatm['smtype'] != 'corpse') $log .= '先前的人影看不见了，但你仍记得其大致方位。<br>';
+				else $log .= $rmn.'看不见了，但你仍记得其大致方位。<br>';
+				//标记unseen，确保不反复被提示，也避免拾取道具之后又让移出视野的道具自己长脚跑回来
+				$thatm['unseen'] = 1;
+			}
+		}
+		//超出记忆范围则删掉最老的记忆
+		while(sizeof($smarr_all) > $searchmemory_real_recordnum){
+			remove_memory(0, $showlog, $pa);
+		}
+	
 		return;
 	}
 	
@@ -376,7 +382,7 @@ namespace searchmemory
 	//主命令函数中再探视野或记忆中道具的相关判断
 	function act(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','input','logger'));
+		eval(import_module('sys','player','logger'));
 		$tmp_pls = $pls;
 		if(searchmemory_available()){
 			//再探的判断
@@ -722,36 +728,11 @@ namespace searchmemory
 		return 0;
 	}
 	
-	//如果队友道具栏满了，会把东西放在队友的视野里
-	//由于searchmemory模块是继承team模块，不方便像上面那个函数一样直截了当地合并，因而还是保留现有的判定
-	function senditem_before_log_event($itmn, $sendflag, &$edata) {
+	//界面显示用的判定函数，本模块直接返回false主要用于临时视野模块重载
+	function is_searchmemory_extra_displayed()
+	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if(!$sendflag && searchmemory_available() && !$edata['type']) {//只能送到玩家的视野里
-			eval(import_module('sys','logger','player'));
-			$itm = & ${'itm'.$itmn};
-			$itmk = & ${'itmk'.$itmn};
-			$itme = & ${'itme'.$itmn};
-			$itms = & ${'itms'.$itmn};
-			$itmsk = & ${'itmsk'.$itmn};
-			//先把道具数据插入地图
-			$dropid = \itemmain\itemdrop_query($itm, $itmk, $itme, $itms, $itmsk, $pls);
-			//把该道具放到队友的视野
-			$amarr = array('iid' => $dropid, 'itm' => $itm, 'pls' => $pls, 'unseen' => 0, 'itmsk' => $itmsk);
-			add_memory($amarr, 0, $edata);
-			//进行提示和保存对方数据
-			$log .= "你将<span class=\"yellow b\">".$itm."</span>送到了<span class=\"yellow b\">{$edata['name']}</span>的身旁。<br>";
-			$x = "<span class=\"yellow b\">$name</span>将<span class=\"yellow b\">".$itm."</span>送到了你的身旁。";
-				
-			\logger\logsave($edata['pid'],$now,$x,'t');
-			addnews($now,'senditem',$name,$edata['name'],$itm);
-			\player\player_save($edata);
-
-			//然后销毁当前道具
-			\itemmain\item_destroy_core('itm'.$itmn, $sdata);
-			
-			$sendflag = 1;
-		}
-		return $sendflag;
+		return false;
 	}
 }
 ?>
