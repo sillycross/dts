@@ -5435,6 +5435,108 @@ $cards = array(
 			),
 		)
 	),
+	//空一下360
+	361 => array(
+		'name' => '全麻挑战者',
+		'rare' => 'B',
+		//'pack' => 'Way of Life',
+		'pack' => 'hidden',
+		'desc' => '这个真不辣？',
+		'effect' => '额哇额额额哇啊啊啊啊啊',
+		'desc_skills' => '开局获得使用后获得已升级的临时技能「聚能」的药物',
+		'energy' => 100,
+		'valid' => array(
+			'itm6' => array('☆水煮肉片☆','☆辣子鸡☆','☆藤椒鱼☆'),
+			'itmk6' => 'MB',
+			'itme6' => '100',
+			'itms6' => '1',
+			'itmsk6' => '^mbid26^mblvl2^mbtime480',
+		)
+	),
+	362 => array(
+		'name' => '阿Q',
+		'rare' => 'B',
+		//'pack' => '東埔寨Protoject',
+		'pack' => 'hidden',
+		'desc' => '准备杀出冥界',
+		'effect' => '过目不忘，但是寿命论受害者',
+		'desc_skills' => '视野与记忆上限为200格，但升级到30级后会死亡',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'701' => '0',
+			),
+		)
+	),
+	363 => array(
+		'name' => '十进制',
+		'rare' => 'M',
+		//'pack' => '東埔寨Protoject',
+		'pack' => 'hidden',
+		'desc' => '是——这样吗——',
+		'effect' => '开局装备发带。可以藏身于黑暗之中',
+		'desc_skills' => '获得技能「宵暗」：你发现其他角色和其他角色发现你时显示为？？？',
+		'energy' => 0,
+		'valid' => array(
+			'arh' => '红色的发带',
+			'arhk' => 'DH',
+			'arhe' => '10',
+			'arhs' => '10',
+			'arhsk' => '',
+			'skills' => array(	
+				'702' => '0',
+			),
+		)
+	),
+	364 => array(
+		'name' => '月光蝶',
+		'rare' => 'C',
+		//'pack' => '東埔寨Protoject',
+		'pack' => 'hidden',
+		'desc' => '_____，这是最好的',
+		'effect' => '开局装备消音属性的饰品。你战斗时不会发出任何声音',
+		'energy' => 0,
+		'valid' => array(
+			'art' => '月光碎片',
+			'artk' => 'A',
+			'arte' => '1',
+			'arts' => '1',
+			'artsk' => 'S',
+			'skills' => array(	
+				'703' => '0',
+			),
+		)
+	),
+	365 => array(
+		'name' => '大鹌鹑',
+		'rare' => 'C',
+		//'pack' => 'Way of Life',
+		'pack' => 'hidden',
+		'desc' => '曾经登场于电波春节活动的大型野生动物（？）',
+		'effect' => '在攻击时可能会发出特殊的台词',
+		'energy' => 0,
+		'valid' => array(
+			'skills' => array(	
+				'704' => '0',
+			),
+		)
+	),
+	366 => array(
+		'name' => '恶魔导书士',
+		'rare' => 'C',
+		//'pack' => '東埔寨Protoject',
+		'pack' => 'hidden',
+		'desc' => '居住于魔法图书馆的使魔',
+		'effect' => '开局携带一本随机魔导书',
+		'energy' => 0,
+		'valid' => array(
+			'itm6' => array('☆魔导书整理☆','☆残页的魔导书☆','☆冰火之魔导书☆','☆创造之魔导书☆','☆奥义之魔导书☆','☆蜡板之魔导书☆','☆水卜之魔导书☆','☆恶灵之魔导书☆','☆律法之魔导书☆','☆死灵之魔导书☆','☆隐藏的魔导书☆','☆魔导书的神判☆'),
+			'itmk6' => array('VF','VF','VF','VF','VF','VF','VF','VS'),
+			'itme6' => '30',
+			'itms6' => '1',
+			'itmsk6' => '',
+		)
+	),
 	
 	1000 => array(
 		'name'=>'萌新',
