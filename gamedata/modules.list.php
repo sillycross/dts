@@ -363,6 +363,7 @@ ex_attr_digit,extra/attr/ex_attr_digit/,1
 ex_weapon_crack,extra/attr/ex_weapon_crack/,1
 skill568,extra/card/skills/skill568/,1
 skill585,extra/card/skills/skill585/,1
+ex_residue,extra/attr/ex_residue/,1
 weather,base/weather/,1
 npcinfo,extra/misc/npcinfo/,1
 skill502,extra/card/skills/skill502/,1

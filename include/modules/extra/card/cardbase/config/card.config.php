@@ -5483,7 +5483,7 @@ $cards = array(
 			'arhe' => '10',
 			'arhs' => '10',
 			'arhsk' => '',
-			'skills' => array(	
+			'skills' => array(
 				'702' => '0',
 			),
 		)
@@ -5502,7 +5502,7 @@ $cards = array(
 			'arte' => '1',
 			'arts' => '1',
 			'artsk' => 'S',
-			'skills' => array(	
+			'skills' => array(
 				'703' => '0',
 			),
 		)
@@ -5516,7 +5516,7 @@ $cards = array(
 		'effect' => '在攻击时可能会发出特殊的台词',
 		'energy' => 0,
 		'valid' => array(
-			'skills' => array(	
+			'skills' => array(
 				'704' => '0',
 			),
 		)
