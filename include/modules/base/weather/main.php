@@ -396,8 +396,8 @@ namespace weather
 	function apply_fog_meetenemy_effect($ismeet)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','metman'));
-		if ($fog && !$ismeet)
+		eval(import_module('metman'));
+		if (check_fog() && !$ismeet)
 		{
 			$tdata['sNoinfo'] = '？？？';
 			$tdata['iconImg'] = 'question.gif';

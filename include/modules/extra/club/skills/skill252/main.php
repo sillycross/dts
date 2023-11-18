@@ -2,6 +2,8 @@
 
 namespace skill252
 {
+	$skill252_flag = 0;//战斗界面临时记录是否免疫雾天效果
+	
 	function init() 
 	{
 		define('MOD_SKILL252_INFO','club;');
@@ -19,18 +21,40 @@ namespace skill252
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
-	function check_unlocked252(&$pa)
+	function check_unlocked252(&$pa=NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(empty($pa)) {
+			$pa = & get_var_in_module('sdata', 'player');
+		}
 		return $pa['lvl']>=7;
 	}
 	
-	function apply_fog_meetenemy_effect($ismeet)	//无视雾天影响
+	//仅在战斗界面中消除雾天的显示影响，主要影响check_fog()
+	function init_battle($ismeet = 0) 
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('player'));
-		if (\skillbase\skill_query(252) && check_unlocked252($sdata)) return;
-		return $chprocess($ismeet);
+		if (\skillbase\skill_query(252) && check_unlocked252()) {
+			
+			eval(import_module('skill252'));
+			$skill252_flag = 1;
+		}
+		
+		$chprocess($ismeet);
+		
+		if(!empty($skill252_flag)) {
+			$skill252_flag = 0;
+			apply_sk252_effect();//改变部分数值的显示
+		}
+	}
+	
+	function check_fog()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('skill252'));
+		if(!empty($skill252_flag)) return false;
+		
+		return $chprocess();
 	}
 	
 	function apply_sk252_effect()
@@ -60,14 +84,6 @@ namespace skill252
 			}
 		}
 		$tdata['wepestate'] = $w_wepe;
-	}
-	
-	function init_battle($ismeet)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('player'));
-		$chprocess($ismeet);
-		if (\skillbase\skill_query(252) && check_unlocked252($sdata)) apply_sk252_effect();
 	}
 }
 
