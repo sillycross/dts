@@ -3,7 +3,7 @@
 namespace skill576
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'sys player skillbase clubbase item_recipe logger metman trap attack searchmemory';
+	$___MODULE_dependency = 'sys player skillbase clubbase item_recipe logger metman trap attack searchmemory skill1006';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

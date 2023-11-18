@@ -8,7 +8,7 @@
 		onmouseenter="$('desc{$key}').style.display='block';"
 		onmouseleave="$('desc{$key}').style.display='none';"
 	><br />
-	<div id="desc{$key}" class="battlecmd_desc" style="display:none;">
+	<div id="desc{$key}" class="battlecmd_desc" style="display:none;z-index:5;">
 	<!--{if 1==$skill_state}-->
 		<!--{eval eval(import_module('itemmain'));}-->
 		<!--{if 'WN' == $wepk_req}-->
@@ -41,7 +41,7 @@
 		onmouseenter="$('desc{$key}').style.display='block';"
 		onmouseleave="$('desc{$key}').style.display='none';"
 		onclick="$('command').value='';$('bskill').value={$key};postCmd('gamecmd','command.php');this.disabled=true;"><br />
-	<div id="desc{$key}" class="battlecmd_desc" style="display:none;">
+	<div id="desc{$key}" class="battlecmd_desc" style="display:none;z-index:5;">
 		{template $desc_htm}
 	</div>
 	<!--{/if}-->
