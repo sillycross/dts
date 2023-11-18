@@ -32,12 +32,11 @@ namespace skill539
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(\skillbase\skill_query(539)) {
-			eval(import_module('player'));
+			eval(import_module('player','sys','logger'));
 			if(check_skill539_revive_available())//满足复活条件则判定复活
 			{
 				skill539_revive_player();
 			}elseif($hp <= 0) {//其他情况下添加一条带倒计时的复活提示
-				eval(import_module('sys','logger'));
 				$countdown = \skillbase\skill_getvalue(539,'lastdeath') + get_skill539_revive_interval() - $now;
 				$timing_r = $countdown > 3600 ? date('hh:mm:ss', $countdown) : date('mm:ss', $countdown);
 				//$timing_r = sprintf("%02d", floor($countdown/60)).':'.sprintf("%02d", $countdown%60);
@@ -46,6 +45,9 @@ namespace skill539
 				$log .= '你在<span class="yellow b" id="timer_skill539">'.$timing_r.'</span>后可以复活。如果倒计时结束，请刷新游戏界面。<br>';
 				//因为game页面不会执行shwData()也就不会触发自动的updateTime()，这里手动触发
 				$log .= "<img style=\"display:none;\" type=\"hidden\" src=\"img/blank.png\" onload=\"updateTime('timer_skill539', $timing, 0, 1000, '$format');\">";
+			}elseif(!empty(\skillbase\skill_getvalue(539,'need_log'))) {//其他情况下才判断是否显示复活信息
+				\skillbase\skill_setvalue(539, 'need_log', 0);
+				$log .= '<span class="yellow b">不死鸟的力量唤醒了你，你化为一团火焰重生了！</span><br>';
 			}
 		}
 		
@@ -72,8 +74,8 @@ namespace skill539
 		}
 		if(\skillbase\skill_query(539,$pdata) && skill539_revive_player_core($pdata)) {
 			eval(import_module('sys','logger'));
-			\logger\logsave ( $pdata['pid'], $now, '<span class="yellow b">不死鸟的力量唤醒了你，你化为一团火焰重生了！</span><br>' ,'s');
 			\skillbase\skill_setvalue(539, 'activated_num', (int)\skillbase\skill_getvalue(539,'activated_num', $pdata) + 1, $pdata);
+			\skillbase\skill_setvalue(539, 'need_log', 1, $pdata);
 			addnews($now,'revive539',$pdata['name']);
 			$deathnum --; $alivenum ++;
 			save_gameinfo();
@@ -93,6 +95,7 @@ namespace skill539
 		if($pdata['mhp'] <= 0) $pdata['mhp'] = 1;
 		$pdata['hp'] = $pdata['mhp'];
 		$pdata['state']=0;
+		$pdata['inf']='';
 		$pdata['player_dead_flag']=0;
 		eval(import_module('sys'));
 		$db->query("UPDATE {$tablepre}players SET player_dead_flag='0' WHERE pid='".$pdata['pid']."'");
