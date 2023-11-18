@@ -174,7 +174,7 @@ namespace skill575
 				eval(import_module('sys','player'));
 				$dropid = \itemmain\itemdrop_query($itm, $itmk, $itme, $itms, $itmsk, $pd['pls']);
 				$amarr = array('iid' => $dropid, 'itm' => $itm, 'pls' => $pd['pls'], 'unseen' => 0);
-				\searchmemory\add_memory($amarr, 0, $pd);
+				\skill1006\add_beacon($amarr, $pd);//2023.11.18改用临时视野
 				\player\player_save($pd);
 			}
 		}

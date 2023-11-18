@@ -1,6 +1,6 @@
 <!--{eval $beacons = \skill1006\decode_beacon($sdata);}-->
 <!--{loop $beacons $bi $bm}-->
-	<button type="button" class="memory_slot" onclick="$('mode').value='command';$('command').value='beacon{$bi}';postCmd('gamecmd','command.php');this.disabled=true;">
+	<button type="button" class="memory_slot beacon_slot" onclick="$('mode').value='command';$('command').value='beacon{$bi}';postCmd('gamecmd','command.php');this.disabled=true;">
 		<!--{if isset($bm['itm'])}-->
 		<!--{eval $bm['itm']=\itemmain\parse_itmname_words($bm['itm'],1); }-->
 			<span class="b">$bm['itm']</span>
@@ -18,4 +18,3 @@
 		<!--{/if}--> 
 	</button>
 <!--{/loop}-->
-<!--{if !empty($beacons)}--><br><!--{/if}--> 

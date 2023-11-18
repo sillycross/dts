@@ -919,7 +919,9 @@ namespace cardbase
 		eval(import_module('sys','player','metman','cardbase'));
 		
 		$tdata['cardinfo'] = '';
-		if(!empty($w_cardname)){
+		
+		if(!empty($w_cardname) && (!\weather\check_fog() || $ismeet))
+		{
 			if(!empty($cards[$w_card]['title']))
 				$tdata['cardinfo'] = $cards[$w_card]['title'];
 			else $tdata['cardinfo'] = $w_cardname;
