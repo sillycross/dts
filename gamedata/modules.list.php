@@ -271,6 +271,9 @@ skill591,extra/card/skills/skill591/,1
 skill594,extra/card/skills/skill594/,1
 skill593,extra/card/skills/skill593/,1
 skill574,extra/card/skills/skill574/,1
+skill702,extra/card/skills/skill702/,1
+skill704,extra/card/skills/skill704/,1
+skill703,extra/card/skills/skill703/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
@@ -349,6 +352,7 @@ ex_attr_digit,extra/attr/ex_attr_digit/,1
 ex_weapon_crack,extra/attr/ex_weapon_crack/,1
 skill568,extra/card/skills/skill568/,1
 skill585,extra/card/skills/skill585/,1
+ex_residue,extra/attr/ex_residue/,1
 weather,base/weather/,1
 npcinfo,extra/misc/npcinfo/,1
 skill502,extra/card/skills/skill502/,1
@@ -561,6 +565,7 @@ skill377,extra/achievement/skills/skill377/,1
 skill378,extra/achievement/skills/skill378/,1
 skill379,extra/achievement/skills/skill379/,1
 skill504,extra/card/skills/skill504/,1
+skill701,extra/card/skills/skill701/,1
 smartmix,extra/misc/smartmix/,1
 searchmemory,extra/searchmemory/,1
 skill371,extra/achievement/skills/skill371/,1
