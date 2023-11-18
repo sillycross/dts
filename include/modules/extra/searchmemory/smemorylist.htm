@@ -6,7 +6,7 @@
 			<span>视野中道具能立刻拿到，但迎战敌人可能被先制。</span><br>
 			<!--{if defined('MOD_SKILL1006')}-->
 				{template MOD_SKILL1006_BEACONLIST}
-			<!--{/if}--> 
+			<!--{/if}-->
 			<!--{loop $sm_slots $sm}-->
 				<button type="button" class="memory_slot" onclick="$('mode').value='command';$('command').value='memory{$sm['smn']}';postCmd('gamecmd','command.php');this.disabled=true;">
 					<!--{if isset($sm['itm'])}-->

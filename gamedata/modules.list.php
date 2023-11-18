@@ -581,7 +581,6 @@ skill551,extra/card/skills/skill551/,1
 skill554,extra/card/skills/skill554/,1
 skill576,extra/card/skills/skill576/,1
 skill575,extra/card/skills/skill575/,1
-skill597,extra/card/skills/skill597/,1
 skill1006,extra/club/skills/skill1006/,1
 ex_purity,extra/attr/ex_purity/,1
 skill26,extra/club/skills/skill26/,1
@@ -590,6 +589,7 @@ skill507,extra/card/skills/skill507/,1
 skill366,extra/activities/aprilfool2018/skill366/,1
 skill563,extra/card/skills/skill563/,1
 item_armor_empower,extra/item_extra/item_armor_empower/,1
+skill597,extra/card/skills/skill597/,1
 skill27,extra/club/skills/skill27/,1
 skill489,extra/card/skills/skill489/,1
 skill266,extra/club/skills/skill266/,1

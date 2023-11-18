@@ -69,8 +69,7 @@ namespace searchmemory
 	function get_searchmemory_now_ids($tp = 'iid', &$pa=NULL){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(empty($pa)) {
-			eval(import_module('player'));
-			$pa = & $sdata;
+			$pa = & get_var_in_module('sdata', 'player');
 		}
 		$smarr_all = & $pa['searchmemory'];
 		$ret = Array();
@@ -134,8 +133,7 @@ namespace searchmemory
 	function add_memory_core($marr, &$pa=NULL){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(empty($pa)) {
-			eval(import_module('player'));
-			$pa = & $sdata;
+			$pa = & get_var_in_module('sdata', 'player');
 		}
 		if(empty($pa['searchmemory'])) $pa['searchmemory'] = Array();//当前玩家数据的$searchmemory其实已经初始化过了，这里是防御性的写法
 		$smarr_all = & $pa['searchmemory'];
@@ -156,8 +154,7 @@ namespace searchmemory
 		if(!empty($marr['smtype']) && $marr['smtype'] == 'corpse' && \gameflow_combo\is_gamestate_combo()) return;
 		
 		if(empty($pa)) {
-			eval(import_module('player'));
-			$pa = & $sdata;
+			$pa = & get_var_in_module('sdata', 'player');
 		}
 		$smarr_all = & $pa['searchmemory'];
 		eval(import_module('sys','logger','searchmemory'));
@@ -222,8 +219,7 @@ namespace searchmemory
 	function get_slot_edge(&$pa=NULL){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(empty($pa)) {
-			eval(import_module('player'));
-			$pa = & $sdata;
+			$pa = & get_var_in_module('sdata', 'player');
 		}
 		return sizeof($pa['searchmemory']) - calc_memory_slotnum($pa);
 	}
@@ -241,8 +237,7 @@ namespace searchmemory
 	function seek_memory_by_id($id, $ikind = 'pid', &$pa=NULL){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(empty($pa)) {
-			eval(import_module('player'));
-			$pa = & $sdata;
+			$pa = & get_var_in_module('sdata', 'player');
 		}
 		$smarr_all = & $pa['searchmemory'];
 		if(searchmemory_available()){
@@ -261,12 +256,14 @@ namespace searchmemory
 	function change_memory_unseen($mn = 0, $showlog = 1, &$pa=NULL){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(empty($pa)) {
-			eval(import_module('player'));
-			$pa = & $sdata;
+			$pa = & get_var_in_module('sdata', 'player');
 		}
 		$smarr_all = & $pa['searchmemory'];
 		
 		$ret = Array();
+		
+		if(empty($smarr_all)) return $ret;//如果视野本来就是空的就什么都不做
+		
 		if($mn === 'ALL'){
 			$ret = $smarr_all;
 			$flag = 0;
@@ -299,8 +296,7 @@ namespace searchmemory
 	function remove_memory_core($mn = 0, &$pa=NULL){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(empty($pa)) {
-			eval(import_module('player'));
-			$pa = & $sdata;
+			$pa = & get_var_in_module('sdata', 'player');
 		}
 		$smarr_all = & $pa['searchmemory'];
 		$ret = Array();
@@ -334,8 +330,7 @@ namespace searchmemory
 	function remove_memory($mn = 0, $shwlog = 1, &$pa=NULL){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(empty($pa)) {
-			eval(import_module('player'));
-			$pa = & $sdata;
+			$pa = & get_var_in_module('sdata', 'player');
 		}
 		$smarr_all = & $pa['searchmemory'];
 		eval(import_module('sys','logger'));
@@ -417,7 +412,7 @@ namespace searchmemory
 				add_memory($amarr);
 			}
 		}
-		if($pls != $tmp_pls && !empty($searchmemory) && 'move' != $command) {//如果因为移动之外的原因变更过地点，则把所有视野设为不可见
+		if($pls != $tmp_pls && 'move' != $command) {//如果因为移动之外的原因变更过地点，则把所有视野设为不可见
 			change_memory_unseen('ALL');
 			//$log .= '你先前所见的一切东西都离开了视线。<br>';
 			//remove_memory('ALL');
@@ -644,7 +639,7 @@ namespace searchmemory
 	function move_to_area($moveto){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player','logger'));
-		if(searchmemory_available() && !empty($searchmemory)) {
+		if(searchmemory_available()) {
 			change_memory_unseen('ALL');
 			//$log .= '你先前所见的一切东西都离开了视线。<br>';
 			//remove_memory('ALL');

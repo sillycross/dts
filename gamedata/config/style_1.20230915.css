@@ -279,6 +279,9 @@ button.memory_slot{
 button.memory_record{
 	width:95px;min-height:35px;margin:2px;padding:0;vertical-align:top;line-height:12px;word-wrap:break-word;
 }
+button.beacon_slot{
+	box-shadow: 0 0 4px 1px rgba(255, 127, 0, .5) inset;
+}
 /*==========雷达屏幕==========*/
 table.radar{
 	border:0;margin:0;border-collapse:collapse;border-spacing:0;text-align:center;

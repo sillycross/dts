@@ -126,7 +126,7 @@ namespace skill597
 						$amarr = array('pid' => $pdata['pid'], 'Pname' => $pdata['name'], 'pls' => $pls, 'smtype' => 'corpse', 'unseen' => 0);
 						$smn = \searchmemory\seek_memory_by_id($pdata['pid'], 'pid');
 						if($smn >= 0) \searchmemory\remove_memory($smn,2);
-						\searchmemory\add_memory($amarr, 0);
+						\skill1006\add_beacon($amarr);//2023.11.18改为使用临时视野
 						$i += 1;
 						if ($i >= $slotnum) break;
 					}
