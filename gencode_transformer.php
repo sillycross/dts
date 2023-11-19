@@ -103,17 +103,24 @@ function gdecode($para, $assoc = false){
 	else return json_decode(mgzdecode(base64_decode($para)),$assoc);
 }
 
-if(!empty($_GET['trans'])) {
-	$show = gencode($_GET['trans']);
+if(!empty($_GET['method']) && !empty($_GET['trans'])) {
+	if('gencode' == $_GET['method']) {
+		$show = gencode($_GET['trans']);
+	}
+	elseif('gdecode' == $_GET['method']) {
+		$show = gdecode($_GET['trans']);
+	}
 }
-else{
-	$show = '请输入要gencode的字符串';
+if(empty($show)) {
+	$show = '请输入要转换的字符串';
 }
 
 ?>
-<form>
+<form id="form">
 	<fieldset>
 		转换结果：<input type="text" size="60" value="<?php echo $show;?>" name="trans"/><br />
-		<input type="submit" value="提交" />
+		<input type="hidden" id="method" name="method" value="gencode" />
+		<input type="button" value="编码" onclick="document.getElementById('method').value='gencode';document.getElementById('form').submit();"/>
+		<input type="button" value="解码" onclick="document.getElementById('method').value='gdecode';document.getElementById('form').submit();"/>
 	</fieldset>
 </form>

@@ -5437,16 +5437,14 @@ $cards = array(
 	),
 	//空一下360
 	361 => array(
-		'name' => '全麻挑战者',
+		'name' => '纵火狂',
 		'rare' => 'B',
-		//'pack' => 'Way of Life',
-		'pack' => 'hidden',
-		'desc' => '这个真不辣？',
-		'effect' => '额哇额额额哇啊啊啊啊啊',
-		'desc_skills' => '开局获得使用后获得已升级的临时技能「聚能」的药物',
+		'pack' => '東埔寨Protoject',
+		'desc' => '喜欢放火的熊孩子',
+		'effect' => '开局携带使用后获得已升级的临时技能「聚能」的药物',
 		'energy' => 100,
 		'valid' => array(
-			'itm6' => array('☆水煮肉片☆','☆辣子鸡☆','☆藤椒鱼☆'),
+			'itm6' => '炎符「火烧命莲寺」',
 			'itmk6' => 'MB',
 			'itme6' => '100',
 			'itms6' => '1',
@@ -5454,12 +5452,12 @@ $cards = array(
 		)
 	),
 	362 => array(
-		'name' => '阿Q',
+		'name' => '阿加莎克里斯Q',
+		'title' => '阿Q',
 		'rare' => 'B',
-		//'pack' => '東埔寨Protoject',
-		'pack' => 'hidden',
-		'desc' => '准备杀出冥界',
-		'effect' => '过目不忘，但是寿命论受害者',
+		'pack' => '東埔寨Protoject',
+		'desc' => '人类村落的著名小说家，有着过目不忘的能力',
+		'effect' => '她意思之间，似乎觉得人生天地间，大约本来有时也未免要早夭的',
 		'desc_skills' => '视野与记忆上限为200格，但升级到30级后会死亡',
 		'energy' => 100,
 		'valid' => array(
