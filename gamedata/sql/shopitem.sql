@@ -13,11 +13,8 @@ CREATE TABLE bra_shopitem (
   itmk char(5) NOT NULL default '',
   itme mediumint(8) unsigned NOT NULL default '0',
   itms char(5) NOT NULL default '0',
-  itmsk varchar(40) NOT NULL default '',
+  itmsk text NOT NULL default '',
 
   PRIMARY KEY  (sid),
   INDEX KIND (kind, area)
 ) ENGINE=MyISAM;
-
-
-
