@@ -63,11 +63,75 @@ namespace ex_residue
 						$itm=$resitem['itm']; $itmk=$resitem['itmk'];
 						$itme=$resitem['itme']; $itms=$resitem['itms']; $itmsk=$resitem['itmsk'];
 					}
+					elseif (defined('MOD_SEARCHMEMORY') && defined('MOD_SKILL1006'))
+					{
+						if (\searchmemory\searchmemory_available())
+						{
+							eval(import_module('player'));
+							$log .= "<span class=\"red b\">{$resitem['itm']}</span>掉到了你的脚边。<br>";
+							$dropid = \itemmain\itemdrop_query($resitem['itm'], $resitem['itmk'], $resitem['itme'], $resitem['itms'], $resitem['itmsk'], $pls);
+							$amarr = array('iid' => $dropid, 'itm' => $resitem['itm'], 'pls' => $pls, 'unseen' => 0);
+							\skill1006\add_beacon($amarr, $sdata);
+							\player\player_save($sdata);
+						}
+					}
 				}
 			}
 			else $chprocess($theitem);
 		}
 		else $chprocess($theitem);
+	}
+	
+	//这个在itemmix
+	function itemreduce($item){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','logger'));
+		if(strpos($item,'itm') === 0) {
+			$itmn = substr($item,3,1);
+			$itm = & ${'itm'.$itmn};
+			$itmk = & ${'itmk'.$itmn};
+			$itme = & ${'itme'.$itmn};
+			$itms = & ${'itms'.$itmn};
+			$itmsk = & ${'itmsk'.$itmn};
+		} else {
+			return;
+		}
+		
+		if(!$itms) return;
+		
+		if (1 == (int)\itemmain\check_in_itmsk('^rtype', $itmsk))
+		{
+			$resitem = get_res_itm($itmsk);
+			if (!empty($resitem))
+			{
+				if($itms !== $nosta && preg_match('/^(Y|B|C|X|TN|GB|H|P|V|M)/',$itmk)){
+					$itms--;
+				}
+				else{
+					$itms=0;
+				}
+				if ($itms <= 0)
+				{
+					$log .= "<span class=\"red b\">$itm</span>用光了。<br>你获得了<span class=\"red b\">{$resitem['itm']}</span>。<br>";
+					$itm=$resitem['itm']; $itmk=$resitem['itmk'];
+					$itme=$resitem['itme']; $itms=$resitem['itms']; $itmsk=$resitem['itmsk'];
+				}
+				elseif (defined('MOD_SEARCHMEMORY') && defined('MOD_SKILL1006'))
+				{
+					if (\searchmemory\searchmemory_available())
+					{
+						$log .= "<span class=\"red b\">{$resitem['itm']}</span>掉到了你的脚边。<br>";
+						$dropid = \itemmain\itemdrop_query($resitem['itm'], $resitem['itmk'], $resitem['itme'], $resitem['itms'], $resitem['itmsk'], $pls);
+						$amarr = array('iid' => $dropid, 'itm' => $resitem['itm'], 'pls' => $pls, 'unseen' => 0);
+						\skill1006\add_beacon($amarr, $sdata);
+						\player\player_save($sdata);
+					}
+				}
+				return;
+			}
+			else $chprocess($item);
+		}
+		else $chprocess($item);
 	}
 	
 	//类型2和3
