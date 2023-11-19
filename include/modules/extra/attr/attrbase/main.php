@@ -261,7 +261,7 @@ namespace attrbase
 	//把任意字符串转换为可以嵌入复合属性的非标准base64字符串（用其他符号一一替代数字，但不含已经被base64使用的+ / =）
 	function base64_encode_comp_itmsk($str){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$dict = ')!@#$%-&*(';//对应键盘数字键的上标符号，其中^替换成-
+		$dict = ')!@#$%-~*(';//对应键盘数字键的上标符号，其中^替换成-，&替换成~
 		$ret = base64_encode($str);
 		for($i=0;$i<=9;$i++){
 			$ret = str_replace($i, $dict[$i], $ret);
@@ -272,7 +272,7 @@ namespace attrbase
 	//对应的逆运算
 	function base64_decode_comp_itmsk($str){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$dict = ')!@#$%-&*(';//对应键盘数字键的上标符号，其中^替换成-
+		$dict = ')!@#$%-~*(';//对应键盘数字键的上标符号，其中^替换成-，&替换成~
 		for($i=0;$i<=9;$i++){
 			$str = str_replace($dict[$i], $i, $str);
 		}

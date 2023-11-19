@@ -352,7 +352,7 @@ ex_attr_digit,extra/attr/ex_attr_digit/,1
 ex_weapon_crack,extra/attr/ex_weapon_crack/,1
 skill568,extra/card/skills/skill568/,1
 skill585,extra/card/skills/skill585/,1
-ex_residue,extra/attr/ex_residue/,1
+skill705,extra/card/skills/skill705/,1
 weather,base/weather/,1
 npcinfo,extra/misc/npcinfo/,1
 skill502,extra/card/skills/skill502/,1
@@ -565,7 +565,6 @@ skill377,extra/achievement/skills/skill377/,1
 skill378,extra/achievement/skills/skill378/,1
 skill379,extra/achievement/skills/skill379/,1
 skill504,extra/card/skills/skill504/,1
-skill701,extra/card/skills/skill701/,1
 smartmix,extra/misc/smartmix/,1
 searchmemory,extra/searchmemory/,1
 skill371,extra/achievement/skills/skill371/,1
@@ -579,6 +578,7 @@ skill361,extra/activities/lunany2018/skill361/,1
 skill362,extra/activities/lunany2018/skill362/,1
 skill365,extra/activities/aprilfool2018/skill365/,1
 skill559,extra/card/skills/skill559/,1
+skill701,extra/card/skills/skill701/,1
 item_ext_armor,extra/item_extra/item_ext_armor/,1
 skill567,extra/card/skills/skill567/,1
 skill80,extra/club/skills/skill80/,1
@@ -592,6 +592,7 @@ skill507,extra/card/skills/skill507/,1
 skill366,extra/activities/aprilfool2018/skill366/,1
 skill563,extra/card/skills/skill563/,1
 item_armor_empower,extra/item_extra/item_armor_empower/,1
+ex_residue,extra/attr/ex_residue/,1
 skill576,extra/card/skills/skill576/,1
 skill575,extra/card/skills/skill575/,1
 skill597,extra/card/skills/skill597/,1
