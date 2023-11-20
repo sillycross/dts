@@ -89,7 +89,7 @@ namespace itemshop
 		}
 	}
 	
-	//某些模式特殊处理数据
+	//单条数据处理，用于某些特殊模式
 	function shopitem_data_process($data){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		return $data;

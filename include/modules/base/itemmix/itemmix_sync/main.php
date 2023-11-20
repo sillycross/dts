@@ -162,64 +162,6 @@ namespace itemmix_sync
 		}
 		return $ret;
 	}
-	
-//	function itemmix($mlist, $itemselect=-1) 
-//	{
-//		if (eval(__MAGIC__)) return $___RET_VALUE;
-//		eval(import_module('sys','player','logger','itemmix'));
-//		$chc_res = itemmix_sync_check($mlist);
-//
-//		//无满足条件的同调结果，失败 
-//		if (!$chc_res) return $chprocess($mlist, $itemselect);	
-//		$chc = array_pop($chc_res);
-//		if ($itemselect==-1)
-//		{
-//			$mask=0;
-//			foreach($chc['list'] as $k)
-//				if (1<=$k && $k<=6)
-//					$mask|=(1<<((int)$k-1));
-//				
-//			$cmd.='<input type="hidden" id="mode" name="mode" value="itemmain">';
-//			$cmd.='<input type="hidden" id="command" name="command" value="itemmix">';
-//			$cmd.='<input type="hidden" id="mixmask" name="mixmask" value="'.$mask.'">';
-//			$cmd.='<input type="hidden" id="itemselect" name="itemselect" value="999">';
-//			$cmd.= "请选择同调结果<br><br>";
-//			$sync = count($chc['result']);
-//			for($i=0;$i<$sync;$i++){
-//				$tn=$chc['result'][$i][0];
-//				$cmd.="<input type=\"button\" class=\"cmdbutton\"  style=\"width:200\" value=\"".$tn."\" onclick=\"$('itemselect').value='".$i."';postCmd('gamecmd','command.php');this.disabled=true;\">";
-//			}
-//			$cmd.="<input type=\"button\" class=\"cmdbutton\"  style=\"width:200\" value=\"返回\" onclick=\"postCmd('gamecmd','command.php');this.disabled=true;\">";
-//			return;
-//		}
-//		else
-//		{
-//			$i=(int)$itemselect;
-//			if ($i<0 || $i > count($chc['result']) - 1)
-//			{
-//				$mode='command'; return; 
-//			}
-//			foreach($chc['list'] as $val)
-//			{
-//				\itemmix\itemreduce('itm'.$val);
-//			}
-//			list($itm0,$itmk0,$itme0,$itms0,$itmsk0) = $chc['result'][$i];
-//			addnews($now,'syncmix',$name,$itm0);
-//			\itemmain\itemget();
-//			$mode = 'command';
-//			return;
-//		}
-//		$chprocess($mlist, $itemselect);
-//	}
-//	
-//	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
-//	{
-//		if (eval(__MAGIC__)) return $___RET_VALUE;
-//		eval(import_module('sys'));
-//		if($news == 'syncmix') 
-//			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime b\">{$a}同调合成了{$b}</span></li>";
-//		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
-//	}
 }
 
 ?>

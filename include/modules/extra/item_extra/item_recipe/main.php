@@ -376,10 +376,10 @@ namespace item_recipe
 			$i += 1;
 			if (isset($minfo['stuff'.$i]) && (isset($minfo['stuff'.$i]['if_consume'])) && (false === $minfo['stuff'.$i]['if_consume'])) continue;
 			if (!isset($minfo['stuff'.$i]) && (isset($minfo['stuffa']['if_consume'])) && (false === $minfo['stuffa']['if_consume'])) continue;
-			\itemmix\itemreduce('itm'.$val);
+			\itemmix\itemmix_reduce('itm'.$val);
 		}
 		//配方一次用一张
-		if (isset($minfo['extra']['consume_recipe']) && (true === $minfo['extra']['consume_recipe'])) \itemmix\itemreduce('itm'.$itmp);
+		if (isset($minfo['extra']['consume_recipe']) && (true === $minfo['extra']['consume_recipe'])) \itemmix\itemmix_reduce('itm'.$itmp);
 		$itm0 = $minfo['result'][0];
 		$itmk0 = $minfo['result'][1];
 		$itme0 = $minfo['result'][2];

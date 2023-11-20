@@ -84,7 +84,7 @@ namespace skill490
 				$ival = explode(',',$ival);
 				if(is_numeric($ival[0]) && $ival[0] > 100) continue;//禁数在100以上的道具不考虑
 				if(isset($ival[4])) $itemklist[] = $ival[4];
-				if(isset($ival[7])) $itemsklist[] = $ival[7];
+				if(isset($ival[7])) $itemsklist[] = \attrbase\config_process_encode_comp_itmsk($ival[7]);
 			}
 			$shoplist = openfile($shopitemfile);
 			foreach($shoplist as $lst){
@@ -92,7 +92,7 @@ namespace skill490
 					list($kind,$num,$price,$area,$item,$itmk,$itme,$itms,$itmsk)=explode(',',$lst);
 					if($kind != 0){
 						$itemklist[] = $itmk;
-						$itemsklist[] = $itmsk;
+						$itemsklist[] = \attrbase\config_process_encode_comp_itmsk($itmsk);
 					}
 				}	
 			}

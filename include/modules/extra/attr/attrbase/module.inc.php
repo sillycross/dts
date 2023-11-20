@@ -3,7 +3,7 @@
 namespace attrbase
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'sys player itemmain';
+	$___MODULE_dependency = 'sys player itemmain itemmix itemshop npc';
 	$___MODULE_dependency_optional = 'armor_art armor';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

@@ -279,6 +279,52 @@ namespace attrbase
 		$ret = base64_decode($str);
 		return $ret;
 	}
+	
+	//将道具属性值里的特定内容转化为复合属性非标准base64字符串的函数
+	//会将<:comp_itmsk:>{xxx}里xxx的内容转化为非标准base64字符串，使用时类似这样：^res_<:comp_itmsk:>{xxx}1。注意xxx里的下划线会被转换成半角逗号
+	//会递归地转换直到不存在类似的字符串为止，但目前只支持并联的多个复合属性，不支持串连（套娃）。套娃请自行编码，谢谢！
+	function config_process_encode_comp_itmsk($str){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $str;
+		while(preg_match("/\<\:comp_itmsk\:\>\{(.+?)\}/s",$ret)>0) {
+			$ret = preg_replace_callback("/\<\:comp_itmsk\:\>\{(.+?)\}/s", '\attrbase\config_process_encode_comp_itmsk_callback', $ret);
+		}
+		return $ret;
+	}
+	
+	//电波框架不支持匿名函数（至少暂时不支持），所以只能再定义一个函数
+	//会把下划线转化成半角逗号
+	function config_process_encode_comp_itmsk_callback($matches){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return base64_encode_comp_itmsk(str_replace('_',',',$matches[1]));
+	}
+	
+	//地图道具里复合属性的处理
+	function mapitem_single_data_process($iname, $ikind, $ieff, $ista, $iskind, $imap){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		list($iname, $ikind, $ieff, $ista, $iskind, $imap) = $chprocess($iname, $ikind, $ieff, $ista, $iskind, $imap);
+		$iskind = config_process_encode_comp_itmsk($iskind);
+		return array($iname, $ikind, $ieff, $ista, $iskind, $imap);
+	}
+	
+	//合成成功时复合属性的处理
+	function itemmix_success()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player'));
+		$itmsk0 = config_process_encode_comp_itmsk($itmsk0);
+		$chprocess();
+	}
+	
+	//商店数据的单条处理
+	function shopitem_data_process($data){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		$ret = $chprocess($data);
+		$ret[8] = config_process_encode_comp_itmsk($ret[8]);
+		return $ret;
+	}
+	
+	//NPC暂时不支持，等需要时再加
 }
 
 ?>

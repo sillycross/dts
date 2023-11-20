@@ -83,7 +83,7 @@ namespace ex_residue
 	}
 	
 	//这个在itemmix
-	function itemreduce($item){
+	function itemmix_reduce($item){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
 		if(strpos($item,'itm') === 0) {

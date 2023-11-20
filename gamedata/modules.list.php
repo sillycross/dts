@@ -116,7 +116,6 @@ skill16,extra/club/skills/skill16/,1
 skill17,extra/club/skills/skill17/,1
 skill13,extra/club/skills/skill13/,1
 skill14,extra/club/skills/skill14/,1
-skill490,extra/card/skills/skill490/,1
 skill480,extra/card/skills/skill480/,1
 skill1011,extra/gmskills/skill1011/,1
 skill1010,extra/gmskills/skill1010/,1
@@ -155,7 +154,6 @@ skill420,extra/card/skills/skill420/,1
 skill424,extra/instance/gtype1/skill424/,1
 skill426,extra/instance/gtype1/skill426/,1
 skill428,extra/instance/gtype1/skill428/,1
-skill430,extra/card/skills/skill430/,1
 club21,extra/club/clubs/club21/,1
 skill240,extra/club/skills/skill240/,1
 skill241,extra/club/skills/skill241/,1
@@ -332,6 +330,8 @@ skill24,extra/club/skills/skill24/,1
 skill33,extra/club/skills/skill33/,1
 skill579,extra/card/skills/skill579/,1
 tactic,base/tactic/,1
+skill490,extra/card/skills/skill490/,1
+skill430,extra/card/skills/skill430/,1
 wep_b,base/weapon/wep_b/,1
 ex_phy_def,extra/attr/ex_phy_def/,1
 rage,extra/attr/rage/,1

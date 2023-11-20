@@ -178,7 +178,7 @@ namespace itemmix
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
 		foreach($mlist as $val){
-			itemreduce('itm'.$val);
+			itemmix_reduce('itm'.$val);
 		}
 		$itm0 = $minfo['result'][0];
 		$itmk0 = $minfo['result'][1];
@@ -200,7 +200,7 @@ namespace itemmix
 		return MOD_ITEMMIX_ITEMMIX;
 	}
 	
-	function itemreduce($item){ //只限合成使用！！
+	function itemmix_reduce($item){ //只限合成使用！！
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
 		if(strpos($item,'itm') === 0) {
