@@ -39,21 +39,27 @@ namespace rest
 		$endtime = $now;
 		
 		if ($state == 1 || $state == 3) {
-			$oldsp = $sp;
-			$upsp = calculate_rest_upsp($resttime);
-			$sp += $upsp; $sp = min($sp, $msp);
-			$upsp = $sp - $oldsp;
-			$upsp=max(0,$upsp);
-			if($upsp) $log .= "你的体力恢复了<span class=\"yellow b\">$upsp</span>点。";
+			if ($sp < $msp)
+			{
+				$oldsp = $sp;
+				$upsp = calculate_rest_upsp($resttime);
+				$sp += $upsp; $sp = min($sp, $msp);
+				$upsp = $sp - $oldsp;
+				$upsp=max(0,$upsp);
+				if($upsp) $log .= "你的体力恢复了<span class=\"yellow b\">$upsp</span>点。";
+			}
 		} 
 		
 		if ($state == 2 || $state == 3) {
-			$oldhp = $hp;
-			$uphp = calculate_rest_uphp($resttime);
-			$hp += $uphp; $hp = min($hp, $mhp);
-			$uphp = $hp - $oldhp;
-			$uphp=max(0,$uphp);
-			if($uphp) $log .= "你的生命恢复了<span class=\"yellow b\">$uphp</span>点。";
+			if ($hp < $mhp)
+			{
+				$oldhp = $hp;
+				$uphp = calculate_rest_uphp($resttime);
+				$hp += $uphp; $hp = min($hp, $mhp);
+				$uphp = $hp - $oldhp;
+				$uphp=max(0,$uphp);
+				if($uphp) $log .= "你的生命恢复了<span class=\"yellow b\">$uphp</span>点。";
+			}
 		} 
 		
 		$log .= '<br>';
