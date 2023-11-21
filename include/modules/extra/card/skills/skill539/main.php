@@ -58,11 +58,12 @@ namespace skill539
 	function kill(&$pa, &$pd) 
 	{	
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($pa, $pd);
+		$ret = $chprocess($pa, $pd);
 		if($pd['hp'] <= 0 && \skillbase\skill_query(539,$pd)) {
 			eval(import_module('sys'));
 			\skillbase\skill_setvalue(539, 'lastdeath', $now, $pd);
 		}
+		return $ret;
 	}
 	
 	//复活处理。
