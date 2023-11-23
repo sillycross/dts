@@ -5530,7 +5530,7 @@ $cards = array(
 			'itmk6' => array('VF','VF','VF','VF','VF','VF','VF','VS'),
 			'itme6' => '30',
 			'itms6' => '1',
-			'itmsk6' => '',
+			'itmsk6' => '236',
 		)
 	),
 	
