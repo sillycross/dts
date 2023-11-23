@@ -200,7 +200,7 @@ namespace item_recipe
 		30 => array
 		(
 			'stuff1' => array('itm'=>'☆十星认证☆','itm_match'=>0),
-			'result' => array('「鲜花女男爵」★10','WC10',300,'∞','wdya^ac1^001'),
+			'result' => array('「鲜花女男爵」★10','WC10',500,'∞','wdya^ac1^001'),
 			'extra' => array('materials'=>1, 'consume_recipe'=>true,),
 		),
 		31 => array
@@ -208,7 +208,7 @@ namespace item_recipe
 			'stuff1' => array('itm'=>'「珠泪哀歌族·水仙女人鱼」★5','itm_match'=>2),
 			'stuff2' => array('itm'=>'珠泪哀歌族','itm_match'=>1),
 			'stuff3' => array('itm'=>'☆八星认证☆','itm_match'=>0),
-			'result' => array('「珠泪哀歌族·鲁莎卡人鱼」★8','WC',300,'∞','rikAyZ'),
+			'result' => array('「珠泪哀歌族·鲁莎卡人鱼」★8','WC08',300,'∞','rikAyZ'),
 			'extra' => array('materials'=>3, 'consume_recipe'=>true,),
 		),
 		32 => array
