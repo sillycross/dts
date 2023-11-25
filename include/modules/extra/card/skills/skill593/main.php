@@ -128,6 +128,23 @@ namespace skill593
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
+	
+	function parse_itmuse_desc($n, $k, $e, $s, $sk)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($n, $k, $e, $s, $sk);
+		if ($n == '「蝴蝶梦丸」'){
+			$ret .= '服用后会精神舒畅';
+		}elseif ($n == '「蝴蝶梦丸噩梦」') {
+			$ret .= '服用后会噩梦缠身';
+		}elseif ($n == '「国士无双之药」') {
+			$ret .= '服用后身体会变得强壮，但使用第四次后会发生意外';
+		}elseif ($n == '「蓬莱之药」') {
+			$ret .= '服用后会受到永生的诅咒';
+		}
+		return $ret;
+	}
+	
 }
 
 ?>
