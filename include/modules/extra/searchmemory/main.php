@@ -513,7 +513,12 @@ namespace searchmemory
 		}
 		
 		//接下来的流程无论结果，都可以把该记忆元素删掉了
-		remove_memory($mn,0);
+		//2023.11.25由于前面的探索流程有可能改变了视野数组的顺序，这里需要用id来删除
+		if(isset($marr['pid'])) {
+			remove_memory(seek_memory_by_id($marr['pid'], 'pid'), 0);
+		}elseif(isset($marr['iid'])) {
+			remove_memory(seek_memory_by_id($marr['iid'], 'iid'), 0);
+		}
 		//调用核心函数
 		searchmemory_discover_core($marr, $search_flag);
 	}
