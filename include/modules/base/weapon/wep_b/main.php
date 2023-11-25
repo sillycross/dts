@@ -129,7 +129,7 @@ namespace wep_b
 		if($pa['wep_kind']=='B') {
 			eval(import_module('weapon'));
 			$r_add = floor($pa[$skillinfo[$pa['wep_kind']]] / 200);
-			if($r_add > 3) $r = 3;
+			if($r_add > 3) $r_add = 3;
 			$r += $r_add;
 		}
 		return $r;
