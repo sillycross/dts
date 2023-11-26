@@ -2,22 +2,60 @@
 
 namespace sys
 {
-	//新版渲染进行状况函数。还没做完
-	//传入$news是一个数组，需包含nid、timestamp、hour、min、sec、a、b、c、d、e等元素
-	function render_news($news)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$prefix = '<li id="nid'.$news['nid'].'" timestamp="'.$news['timestamp'].'">'.$news['hour'].'时'.$news['min'].'分'.$news['sec'].'秒，';
-		$postfix = '</li>';
-		return $prefix . render_news_core($news) . $postfix;
-	}
+	//不改了，遇到非要重构的时候再说吧
 	
-	//核心处理函数，改成大部分按数组哈希来处理，而不是大量的if else
-	function render_news_core($news)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$render_news_list = get_var_in_module('render_news_list', 'sys');
-	}
+//	$news_render_list = Array(
+//		'newgame' => '<span class="red b">{$gprefix}第{$a}回ACFUN大逃杀开始了</span>',
+//	);
+//	//新版渲染进行状况函数。还没做完
+//	//传入$narr是一个数组，需包含nid、news、timestamp、hour、min、sec、a、b、c、d、e等元素
+//	function render_news_single($narr)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		$prefix = '<li id="nid'.$narr['nid'].'" timestamp="'.$narr['timestamp'].'">'.$narr['hour'].'时'.$narr['min'].'分'.$narr['sec'].'秒，';
+//		$postfix = '</li>';
+//		return $prefix . render_news_single_core($narr) . $postfix;
+//	}
+//	
+//	//核心处理函数，改成大部分按数组哈希来处理，而不是大量的if else
+//	function render_news_single_core($narr)
+//	{
+//		if (eval(__MAGIC__)) return $___RET_VALUE;
+//		eval(import_module('sys'));
+//		//$news_render_list = get_var_in_module('news_render_list', 'sys');
+//		$ncode = $narr['news'];
+//		$a = $narr['a'];
+//		$b = $narr['b'];
+//		$c = $narr['c'];
+//		$d = $narr['d'];
+//		$e = $narr['e'];
+//		//一些在sys模块就定义了的特殊处理放在这里
+//		if($ncode == 'newgame') {
+//			$gprefix = $groomtype ? '房间局' : '';
+//			$ret = "<span class=\"red b\">{$gprefix}第{$a}回ACFUN大逃杀开始了</span>";
+//		}
+//		elseif($ncode == 'gameover') {
+//			$gprefix = $groomtype ? '房间局' : '';
+//			$ret = "<span class=\"red b\">{$gprefix}第{$a}回ACFUN大逃杀结束了</span>";
+//		}
+//		//这个还挺不好处理
+//		elseif(strpos($news,'death') === 0) {
+//			if(isset($exarr['dword'])) $e0 = $exarr['dword'];
+//			if($news == 'death15') {
+//				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">$a</span>被<span class=\"red b\">时空特使强行消除</span>{$e0}</li>";
+//			} elseif($news == 'death16') {
+//				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">$a</span>被<span class=\"red b\">由理直接拉入SSS团</span>{$e0}</li>";
+//			} else {
+//				return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">$a</span>因<span class=\"red b\">不明原因</span>死亡{$e0}</li>";
+//			}
+//		}
+//		if(!empty($news_render_list[$ncode])) {
+//			$ret = '';
+//		}else{
+//			$ret = implode(',',$news);
+//		}
+//		return $ret;
+//	}
 	
 	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{

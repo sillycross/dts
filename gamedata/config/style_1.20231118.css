@@ -341,6 +341,9 @@ div.battlecmd_desc{
 .cardframe_show span{
 	font-weight:normal;
 }
+.cardframe_show span.b{
+	font-weight:bold;
+}
 .lockcard
 {
 	filter:alpha(opacity=0.55); -moz-opacity:0.55;opacity: 0.55;
