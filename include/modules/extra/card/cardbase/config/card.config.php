@@ -1488,7 +1488,7 @@ $cards = array(
 				'B_odds' => 20,
 				'C_odds' => 20,
 				'allow_EB' => true,//开启后会把Event Bonus等需要特殊方式才能获得的卡也一并考虑
-				'ignore_cards' => Array(237, 300, 344)//机制上必定选不到自己，这里可以放其他不想被选到的卡
+				'ignore_cards' => Array(237, 241, 344)//机制上必定选不到自己，这里可以放其他不想被选到的卡
 			)
 		)
 	),
@@ -5203,7 +5203,7 @@ $cards = array(
 				'packlimit' => '東埔寨Protoject',
 				'allow_EB' => false,
 				'forced' => Array(117, 153, 157, 158, 186),//无视概率强制加入选择的卡（星莲船，冴冴，诹访子，灵梦，超魔理沙）
-				'ignore_cards' => Array(300)//机制上必定选不到自己，这里可以放其他不想被选到的卡
+				'ignore_cards' => Array(241)//机制上必定选不到自己，这里可以放其他不想被选到的卡
 			),
 		)
 	),
