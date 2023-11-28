@@ -127,8 +127,8 @@ namespace skill272
 //		}
 //		$effect_list = array_unique($effect_list);
 		
-		//现在改成只吸下位5属性的攻击、防御属性，6系的防御属性，以及集气属性
-		$effect_list = Array('c');
+		//现在改成只吸下位5属性的攻击、防御属性，6系的防御属性，以及集气属性、同志、热恋属性
+		$effect_list = Array('c','l','g');
 		eval(import_module('ex_phy_def'));
 		foreach($def_kind as $dv){
 			$effect_list[] = $dv;
@@ -138,7 +138,7 @@ namespace skill272
 			$effect_list[] = $dk;
 			$effect_list[] = $dv;
 		}
-		$effect_list = array_diff($effect_list,array('d'));
+		$effect_list = array_diff($effect_list,array('d'));//去除爆炸属性
 		$effect_list = array_unique($effect_list);
 		return $effect_list;
 	}

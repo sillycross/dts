@@ -170,6 +170,14 @@ namespace skill81
 		}else{
 			$noeqp = 'DN';
 		}
+//		if(empty($eqps) || $noeqp == $eqpk) {//如果主武器是拳头，直接覆盖
+//			$eqp = $itm;
+//			$eqpk = $itmk;
+//			$eqpe = $itme;
+//			$eqps = $itms;
+//			$eqpsk = $itmsk;
+//		}
+		//考虑到需要支持一开始是空手，被打一次换上武器的情况，无论是不是拳头都先交换
 		swap($eqp,$itm);
 		swap($eqpk,$itmk);
 		swap($eqpe,$itme);
@@ -182,10 +190,15 @@ namespace skill81
 				$log .= "{$pa['name']}卸下了<span class=\"yellow b\">$itm</span>。<br>";
 			} elseif(strpos ( $itmk , $noeqp ) === 0 || !$itms) {
 				$log .= "{$pa['name']}迅速装备了<span class=\"yellow b\">$eqp</span>。<br>";
-			}else{
+			} else {
 				$log .= "{$pa['name']}迅速将<span class=\"red b\">$itm</span>卸下，装备了<span class=\"yellow b\">$eqp</span>！<br>";
 			}
 		}
+		//然后，如果itm是拳头，消除这个道具
+		if(strpos ( $itmk , $noeqp ) === 0 || !$itms) {
+			$itm = $itmk = $itmsk = '';
+			$itme = $itms = 0;
+		} 
 		
 		return;
 	}
