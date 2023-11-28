@@ -5550,12 +5550,12 @@ $cards = array(
 		)
 	),
 	368 => array(
-		'name' => '程序猿',
-		'rare' => 'B',	
-		//'pack' => 'Cyber Zealots',
-		'pack' => 'hidden',
-		'desc' => '这次更新我们用两个BUG修复了一个BUG',
-		'effect' => '程序和人有一个能跑就行',
+		'name' => '重构码语者',
+		'rare' => 'A',	
+		'pack' => 'Event Bonus',
+		'desc' => '很多愣头青觉得自己是天才，<br>可以把屎山重构了。<br>他们中的大部分人引发了屎崩，<br>永远埋在了几千米高的屎山之下。<br><br>极少数人活了下来。<br>他们真的做到了，<br>他们真的重构了整座屎山！',
+		'bigdesc' => 1,
+		'effect' => '重构之后的那个东西，被后人称为——<br>屎山2.0。',
 		'desc_skills' => '踩雷率大幅提高，在受到陷阱伤害但幸存后获得<br>一个1.2倍效果值的同名陷阱',
 		'energy' => 100,
 		'valid' => array(

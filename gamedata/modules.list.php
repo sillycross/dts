@@ -273,7 +273,6 @@ skill702,extra/card/skills/skill702/,1
 skill704,extra/card/skills/skill704/,1
 skill703,extra/card/skills/skill703/,1
 skill706,extra/card/skills/skill706/,1
-skill707,extra/card/skills/skill707/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
@@ -594,6 +593,7 @@ skill507,extra/card/skills/skill507/,1
 skill366,extra/activities/aprilfool2018/skill366/,1
 skill563,extra/card/skills/skill563/,1
 item_armor_empower,extra/item_extra/item_armor_empower/,1
+skill707,extra/card/skills/skill707/,1
 ex_residue,extra/attr/ex_residue/,1
 skill576,extra/card/skills/skill576/,1
 skill575,extra/card/skills/skill575/,1

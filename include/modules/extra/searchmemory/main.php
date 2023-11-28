@@ -193,7 +193,7 @@ namespace searchmemory
 			//只检测位于视野边界的那个道具
 			$thatm = & $smarr_all[get_slot_edge($pa) - 1];
 			//如果在同一地图且没有被标注unseen则提示一下
-			if($showlog && empty($thatm['unseen']) && $thatm['pls'] == $pls) {
+			if($showlog && empty($thatm['unseen']) && $thatm['pls'] == $pa['pls']) {
 				$rmn = get_memory_name($thatm, $pa);
 				if(\player\check_fog() && isset($thatm['Pname']) && $thatm['smtype'] != 'corpse') $log .= '先前的人影看不见了，但你仍记得其大致方位。<br>';
 				else $log .= $rmn.'看不见了，但你仍记得其大致方位。<br>';
