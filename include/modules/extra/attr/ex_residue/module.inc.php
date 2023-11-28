@@ -3,7 +3,7 @@
 namespace ex_residue
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'itemmain attrbase itemmix logger';
+	$___MODULE_dependency = 'itemmain attrbase itemmix logger weapon armor';
 	$___MODULE_dependency_optional = 'searchmemory skill1006';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';
