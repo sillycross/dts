@@ -272,6 +272,8 @@ skill574,extra/card/skills/skill574/,1
 skill702,extra/card/skills/skill702/,1
 skill704,extra/card/skills/skill704/,1
 skill703,extra/card/skills/skill703/,1
+skill706,extra/card/skills/skill706/,1
+skill707,extra/card/skills/skill707/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1

@@ -5533,6 +5533,37 @@ $cards = array(
 			'itmsk6' => '236',
 		)
 	),
+	367 => array(
+		'name' => '六〇年的東埔寨裁判',
+		'title' => '東埔寨裁判',
+		'rare' => 'B',
+		//'pack' => '東埔寨Protoject',
+		'pack' => 'hidden',
+		'desc' => '有罪！',
+		'effect' => '可以明辨黑白',
+		'desc_skills' => '你对名字、类别、卡片名、装备或持有物品中含有“黑”的角色<br>造成的伤害+70%，含有“白”的角色造成的伤害-30%',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'706' => '0',
+			),
+		)
+	),
+	368 => array(
+		'name' => '程序猿',
+		'rare' => 'B',	
+		//'pack' => 'Cyber Zealots',
+		'pack' => 'hidden',
+		'desc' => '这次更新我们用两个BUG修复了一个BUG',
+		'effect' => '程序和人有一个能跑就行',
+		'desc_skills' => '踩雷率大幅提高，在受到陷阱伤害但幸存后获得<br>一个1.2倍效果值的同名陷阱',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'707' => '0',
+			),
+		)
+	),
 	
 	1000 => array(
 		'name'=>'萌新',
