@@ -324,7 +324,26 @@ namespace attrbase
 		return $ret;
 	}
 	
-	//NPC暂时不支持，等需要时再加
+	//NPC载入时的复合属性处理，会对所有装备道具位都判定一次，为了性能就直接把栏位写死吧
+	function init_npcdata($npc, $plslist=array()){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		$npc = $chprocess($npc, $plslist);
+		
+		//为了性能，把栏位写死。
+		$equip_list = Array('wep', 'arb', 'arh', 'ara', 'arf', 'art', 'itm0', 'itm1', 'itm2', 'itm3', 'itm4', 'itm5', 'itm6');
+		foreach($equip_list as $pos) {
+			if(strpos($pos, 'itm')===0) {
+				$posskn = 'itmsk'.substr($pos, 3);
+			}else{
+				$posskn = $pos.'sk';
+			}
+			if(!empty($npc[$posskn])) {
+				$npc[$posskn] = config_process_encode_comp_itmsk($npc[$posskn]);
+			}
+		}
+		
+		return $npc;
+	}
 }
 
 ?>

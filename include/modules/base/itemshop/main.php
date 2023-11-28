@@ -200,8 +200,8 @@ namespace itemshop
 		$db->query("UPDATE {$tablepre}shopitem SET num = '$inum' WHERE sid = '$sid'");
 
 		$money -= $cost;
-	
-		addnews($now,'itembuy',$name,$shopiteminfo['item']);
+		//原设定是会发一条隐藏的进行状况的
+		//addnews($now,'itembuy',$name,$shopiteminfo['item']);
 		$log .= "购买成功。";
 		$itm0 = $shopiteminfo['item'];
 		$itmk0 = $shopiteminfo['itmk'];
@@ -246,23 +246,20 @@ namespace itemshop
 			if(check_in_shop_area($pls)){
 				if ($command == 'menu') {	//离开商店
 					$mode = 'command';
-					return;
 				} 
-				else if($command == 'shop') {	//返回初级页面
+				elseif($command == 'shop') {	//返回初级页面
 					ob_clean();
 					include template(get_sp_shop_filename());
 					$cmd = ob_get_contents();
 					ob_clean();
-					return;
 				} else {
 					itembuy($command,$shoptype,$buynum);
-					return;
 				}
 			}else{
 				$log .= '<span class="yellow b">你所在的地区没有商店。</span><br />';
 				$mode = 'command';
-				return;
 			}
+			return;
 		}
 		$chprocess();
 	}
@@ -272,8 +269,7 @@ namespace itemshop
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
 		if($news == 'itembuy') {
-			//return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime b\">{$a}购买了{$b}</span></li>";
-			return '';
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime b\">{$a}购买了{$b}</span></li>";
 		}
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

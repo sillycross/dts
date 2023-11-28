@@ -483,9 +483,9 @@ namespace item_ext_armor
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		$npc = $chprocess($npc, $plslist);
 		if(!empty($npc['ext_armor'])) {
-			eval(import_module('player'));
+			//为了性能，把栏位写死。另外武器和饰物一定不可能是外甲，跳过
+			$equip_list = Array('arb', 'arh', 'ara', 'arf', 'itm0', 'itm1', 'itm2', 'itm3', 'itm4', 'itm5', 'itm6');
 			foreach($equip_list as $pos) {
-				if(in_array($pos, Array('wep', 'art'))) continue;//武器和饰物一定不可能是外甲，跳过
 				if(!empty($npc['ext_armor'][$pos])) {
 					if(strpos($pos, 'itm')===0) {
 						$n = substr($pos, 3);
