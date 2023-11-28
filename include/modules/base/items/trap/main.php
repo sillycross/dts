@@ -253,11 +253,20 @@ namespace trap
 				$log .= "<span class=\"yellow b\">{$trname}对你说：“{$killmsg}”</span><br>";
 			}				
 		}
+		else
+		{
+			trap_survive();
+		}
 		
 		$itm0 = $itmk0 = $itmsk0 = '';
 		$itme0 = $itms0 = 0;
 	}
-		
+	
+	function trap_survive()	//受到陷阱伤害并幸存
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+	}
+	
 	function calculate_trap_reuse_rate()	//重复利用陷阱的概率
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
