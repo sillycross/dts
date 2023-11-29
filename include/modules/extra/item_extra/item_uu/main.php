@@ -53,10 +53,22 @@ namespace item_uu
 				$delc = implode(',',$traps_swept_ids);
 				$db->query("DELETE FROM {$tablepre}maptrap WHERE tid IN ($delc)");
 			
-				$traps_swept_names_str = implode('、',$traps_swept_names);
-				if($itm=='☆混沌人肉探雷车★') $log.="远方传来一阵爆炸声，伟大的<span class=\"yellow b\">{$itm}</span>用生命和鲜血扫除了<span class=\"yellow b\">{$traps_swept_names_str}</span>。<br><span class=\"red b\">实在是大快人心啊！</span><br>";
-				else $log.="远方传来一阵爆炸声，<span class=\"yellow b\">{$itm}</span>引爆并扫除了<span class=\"yellow b\">{$traps_swept_names_str}</span>。<br>";
-				\sys\addnews ( 0, 'minesweep', $name, $itm, $traps_swept_names_str, $pls);
+				$traps_swept_names_log = $traps_swept_names_by_name = array();
+				//分名字显示。其实也可以写在前面那段，但因为这里是后来加的，懒得改已经验证过的代码了，反正性能差距不会很大。
+				foreach($traps_swept_names as $nv) {
+					if(empty($traps_swept_names_by_name[$nv])) {
+						$traps_swept_names_by_name[$nv] = 1;
+					}else{
+						$traps_swept_names_by_name[$nv] ++;
+					}
+				}
+				foreach($traps_swept_names_by_name as $nk => $nv) {
+					$traps_swept_names_log[] = $nv.'个'.$nk;
+				}
+				$traps_swept_names_log = implode('、', $traps_swept_names_log);
+				if($itm=='☆混沌人肉探雷车★') $log.="远方传来一阵爆炸声，伟大的<span class=\"yellow b\">{$itm}</span>用生命和鲜血扫除了<span class=\"yellow b\">{$traps_swept_names_log}</span>。<br><span class=\"red b\">实在是大快人心啊！</span><br>";
+				else $log.="远方传来一阵爆炸声，<span class=\"yellow b\">{$itm}</span>引爆并扫除了<span class=\"yellow b\">{$traps_swept_names_log}</span>。<br>";
+				\sys\addnews ( 0, 'minesweep', $name, $itm, $traps_swept_names_log, $pls);
 			}else{
 				$log.="但是，没有触发任何陷阱。<br>";
 			}
@@ -74,7 +86,7 @@ namespace item_uu
 		eval(import_module('sys','player','map'));
 		
 		if($news == 'minesweep') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">{$a}使用了{$b}，引爆并清除了{$plsinfo[$d]}的陷阱{$c}！</span></li>";	
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">{$a}使用了{$b}，引爆并清除了{$plsinfo[$d]}的{$c}！</span></li>";	
 		
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
