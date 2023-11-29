@@ -354,6 +354,7 @@ ex_weapon_crack,extra/attr/ex_weapon_crack/,1
 skill568,extra/card/skills/skill568/,1
 skill585,extra/card/skills/skill585/,1
 skill705,extra/card/skills/skill705/,1
+ex_alternative,extra/attr/ex_alternative/,1
 weather,base/weather/,1
 npcinfo,extra/misc/npcinfo/,1
 skill502,extra/card/skills/skill502/,1
