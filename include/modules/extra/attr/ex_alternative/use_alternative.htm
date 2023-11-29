@@ -1,0 +1,11 @@
+<input type="hidden" id="mode" name="mode" value="command">
+<input type="hidden" id="command" name="command" value="itm{$theitem['itmn']}">
+<input type="hidden" id="alternative_choice" name="alternative_choice" value="0">
+你要将<span class="yellow b">{$theitem['itm']}</span>作为哪种类别使用？<br><br>
+<!--{eval $itmk_words = \itemmain\parse_itmk_words($theitem['itmk']);}-->
+<input type="button" class="cmdbutton" value="{$itmk_words}" onclick="$('alternative_choice').value='1';postCmd('gamecmd','command.php');this.disabled=true;">
+<!--{eval $altitmk = \ex_alternative\get_altitmk($theitem['itmsk']); $altitmk_words = \itemmain\parse_itmk_words($altitmk);}-->
+<!--{if !empty($itmk_words)}-->
+<input type="button" class="cmdbutton" value="{$altitmk_words}" onclick="$('alternative_choice').value='2';postCmd('gamecmd','command.php');this.disabled=true;">
+<!--{/if}-->
+<input type="button" class="cmdbutton"  id="x" value="[X]返回" onclick="$('command').value='menu'; postCmd('gamecmd','command.php');this.disabled=true;">
