@@ -439,7 +439,7 @@ namespace item_recipe
 		if (isset($minfo['key']))
 		{
 			//不消耗配方并且未设置不能学习；或者设置了可以学习
-			if (((!isset($minfo['extra']['consume_recipe']) || (false === $minfo['extra']['comsume_recipe'])) && !isset($minfo['extra']['if_learnable'])) || (isset($minfo['extra']['if_learnable']) && $minfo['extra']['if_learnable']))
+			if (((!isset($minfo['extra']['consume_recipe']) || (false === $minfo['extra']['consume_recipe'])) && !isset($minfo['extra']['if_learnable'])) || (isset($minfo['extra']['if_learnable']) && $minfo['extra']['if_learnable']))
 			{
 				learn_recipe_process($minfo);
 			}
