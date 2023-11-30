@@ -161,7 +161,7 @@ namespace item_recipe
 		(
 			'stuff1' => array('extra'=>'ygo'),
 			'stuff2' => array('itm'=>'☆叠♂放☆','itm_match'=>0),
-			'result' => array('「灾厄之星 堤·丰」☆12','DBS',290,290,'aZ^xyz12'),
+			'result' => array('「灾厄之星 堤·丰」☆12','DBS',290,290,'Aa^wc1Z^xyz12'),
 			'extra' => array('materials'=>2, 'consume_recipe'=>true,),
 		),
 		25 => array
