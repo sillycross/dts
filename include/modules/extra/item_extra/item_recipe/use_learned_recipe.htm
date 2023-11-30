@@ -1,0 +1,18 @@
+<input type="hidden" id="mode" name="mode" value="recipe">
+<input type="hidden" id="command" name="command" value="recipe">
+<input type="hidden" name="rkey" value="$rkey">
+<!--{eval $recipe_tip=\item_recipe\show_recipe($rkey);}-->
+<!--{if !empty($recipe_tip)}-->
+配方显示的公式为：<br>
+<span class="yellow b">$recipe_tip</span><br><br>
+请选择要使用的素材：<br><br>
+<!--{if $itms1}--><div class="slitmsingle"><input type="checkbox" id="mitm1" name="mitm1" value="1"><a onclick="$('mitm1').click();" href="javascript:void(0);">$itm1/$itme1/$itms1</a></div><!--{/if}-->
+<!--{if $itms2}--><div class="slitmsingle"><input type="checkbox" id="mitm2" name="mitm2" value="1"><a onclick="$('mitm2').click();" href="javascript:void(0);">$itm2/$itme2/$itms2</a></div><!--{/if}-->
+<!--{if $itms3}--><div class="slitmsingle"><input type="checkbox" id="mitm3" name="mitm3" value="1"><a onclick="$('mitm3').click();" href="javascript:void(0);">$itm3/$itme3/$itms3</a></div><!--{/if}-->
+<!--{if $itms4}--><div class="slitmsingle"><input type="checkbox" id="mitm4" name="mitm4" value="1"><a onclick="$('mitm4').click();" href="javascript:void(0);">$itm4/$itme4/$itms4</a></div><!--{/if}-->
+<!--{if $itms5}--><div class="slitmsingle"><input type="checkbox" id="mitm5" name="mitm5" value="1"><a onclick="$('mitm5').click();" href="javascript:void(0);">$itm5/$itme5/$itms5</a></div><!--{/if}-->
+<!--{if $itms6}--><div class="slitmsingle"><input type="checkbox" id="mitm6" name="mitm6" value="1"><a onclick="$('mitm6').click();" href="javascript:void(0);">$itm6/$itme6/$itms6</a></div><!--{/if}-->
+<br>
+<input type="button" class="cmdbutton" id="z" value="[Z]提交" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
+<!--{/if}-->
+<input type="button" class="cmdbutton" id="x" value="[X]放弃" onclick="$('command').value='menu';postCmd('gamecmd','command.php');this.disabled=true;">

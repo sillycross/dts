@@ -291,9 +291,9 @@ namespace item_recipe
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
 		$mlist2 = array_unique($mlist);
-		if (empty($mlist))
+		if (empty($mlist) || (count($mlist) > 5))
 		{
-			$log .= '你没有选择道具！';
+			$log .= '选择道具数量不正确！';
 			return false;
 		}
 		if (in_array($itmp, $mlist))
@@ -337,8 +337,53 @@ namespace item_recipe
 			}
 			eval(import_module('item_recipe'));
 			$minfo = $recipe_mixinfo[${'itmsk'.(int)$itmp}];
+			//这里把配方id塞进$minfo，作为使用配方道具合成的标记
+			$minfo['key'] = ${'itmsk'.(int)$itmp};
 			recipe_mix($mixlist, $itmp, $minfo);
-		}		
+		}
+		if ($mode == 'command' && $command == 'recipe')
+		{
+			eval(import_module('sys','player'));
+			$recipe_choice = get_var_in_module('recipe_choice', 'input');
+			if (!empty($recipe_choice))
+			{
+				$rkey = (int)$recipe_choice;
+				ob_start();
+				include template(MOD_ITEM_RECIPE_USE_LEARNED_RECIPE);
+				$cmd = ob_get_contents();
+				ob_end_clean();
+				return;
+			}
+			include template(MOD_ITEM_RECIPE_CHOOSE_RECIPE);
+			$cmd = ob_get_contents();
+			ob_clean();
+			return;
+		}
+		if ($mode == 'recipe' && $command == 'recipe')
+		{
+			if ($command == 'menu')
+			{
+				$mode = 'command';
+				return;
+			} 
+			$mixlist = array();
+			for($i=1; $i<=6; $i++)
+			{
+				if(!empty(${'mitm'.$i}))
+					$mixlist[] = $i;
+			}
+			eval(import_module('item_recipe'));
+			$minfo = $recipe_mixinfo[$rkey];
+			$ls = get_learned_recipes();
+			if (empty($minfo) || !in_array($rkey, $ls))
+			{
+				eval(import_module('logger'));
+				$log .= '输入参数不正确！';
+				$mode = 'command';
+				return;
+			}
+			recipe_mix($mixlist, 0, $minfo);
+		}
 		$chprocess();
 	}
 	
@@ -360,7 +405,7 @@ namespace item_recipe
 		{
 			$mixitemname = array();
 			foreach($mlist as $val) $mixitemname[] = ${'itm'.$val};
-			$uip['itmstr'] = implode(' ', $mixitemname);		
+			$uip['itmstr'] = implode(' ', $mixitemname);
 			recipe_mix_proc($seq, $itmp, $minfo);
 		}
 		return;
@@ -379,7 +424,7 @@ namespace item_recipe
 			\itemmix\itemmix_reduce('itm'.$val);
 		}
 		//配方一次用一张
-		if (isset($minfo['extra']['consume_recipe']) && (true === $minfo['extra']['consume_recipe'])) \itemmix\itemmix_reduce('itm'.$itmp);
+		if ($itmp && isset($minfo['extra']['consume_recipe']) && (true === $minfo['extra']['consume_recipe'])) \itemmix\itemmix_reduce('itm'.$itmp);
 		$itm0 = $minfo['result'][0];
 		$itmk0 = $minfo['result'][1];
 		$itme0 = $minfo['result'][2];
@@ -391,6 +436,14 @@ namespace item_recipe
 		}
 		if (isset($minfo['extra']['link'])) $uip['mixtp'] = $mix_type['link'];
 		else $uip['mixtp'] = '使用配方';
+		if (isset($minfo['key']))
+		{
+			//不消耗配方并且未设置不能学习；或者设置了可以学习
+			if (((!isset($minfo['extra']['consume_recipe']) || (false === $minfo['extra']['comsume_recipe'])) && !isset($minfo['extra']['if_learnable'])) || (isset($minfo['extra']['if_learnable']) && $minfo['extra']['if_learnable']))
+			{
+				learn_recipe_process($minfo);
+			}
+		}
 		recipe_mix_success();
 	}
 	
@@ -444,6 +497,34 @@ namespace item_recipe
 		addnews($now,'recipe_mix',$name,$itm0,$tpstr);
 
 		\itemmain\itemget();
+	}
+	
+	function get_learned_recipes(&$pdata = NULL)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (!$pdata)
+		{
+			eval(import_module('player'));
+			$pdata = $sdata;
+		}
+		$learnedrecipes = \skillbase\skill_getvalue(1003,'learnedrecipes',$pdata);
+		if (empty($learnedrecipes)) $ls = array();
+		else $ls = explode('_',$learnedrecipes);
+		return $ls;
+	}
+	
+	function learn_recipe_process($minfo)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ls = get_learned_recipes();
+		if (isset($minfo['key']) && !in_array($minfo['key'], $ls)) 
+		{
+			$ls[] = $minfo['key'];
+			$learnedrecipes = implode('_',$ls);
+			\skillbase\skill_setvalue(1003,'learnedrecipes',$learnedrecipes);
+			eval(import_module('logger'));
+			$log .= "你学会了配方<span class=\"yellow b\">{$minfo['result'][0]}</span>！<br>";
+		}
 	}
 	
 	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())

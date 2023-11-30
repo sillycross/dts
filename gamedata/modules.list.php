@@ -31,7 +31,6 @@ radar,base/items/radar/,1
 corpse,base/corpse/,1
 trap,base/items/trap/,1
 itemmix_sync,base/itemmix/itemmix_sync/,1
-item_recipe,extra/item_extra/item_recipe/,1
 enemy,base/enemy/,1
 gameflow_duel,core/gameflow/gameflow_duel/,1
 itemmix_overlay,base/itemmix/itemmix_overlay/,1
@@ -500,6 +499,7 @@ skill596,extra/card/skills/skill596/,1
 skill595,extra/card/skills/skill595/,1
 skill500,extra/card/skills/skill500/,1
 blessstone,extra/attr/blessstone/,1
+item_recipe,extra/item_extra/item_recipe/,1
 skill580,extra/card/skills/skill580/,1
 achievement_base,extra/achievement/achievement_base/,1
 opening,base/opening/,1

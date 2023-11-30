@@ -3,7 +3,7 @@
 namespace song
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'sys player itemmain logger rage';
+	$___MODULE_dependency = 'sys player itemmain logger rage skill1003';
 	$___MODULE_dependency_optional = 'noise skillbase';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php config/song.config.php';

@@ -1,0 +1,15 @@
+<input type="hidden" name="mode" value="command">
+<input type="hidden" id="command" name="command" value="recipe">
+<input type="hidden" id="recipe_choice" name="recipe_choice" value='0'>
+请选择配方：<br><br>
+<!--{eval $ls = \item_recipe\get_learned_recipes();}-->
+<!--{if empty($ls)}-->
+<span class="yellow b">你并没有学会任何配方。</span><br>
+<!--{else}--> 
+<!--{eval eval(import_module('item_recipe'));}-->
+<!--{loop $ls $i}-->
+<input type="button" class="cmdbutton" value="{$recipe_mixinfo[$i]['result'][0]}" style="width: 150px;" onclick="$('recipe_choice').value='{$i}';postCmd('gamecmd','command.php');this.disabled=true;"><br>
+<!--{/loop}-->
+<!--{/if}-->
+<br>
+<input type="button" class="cmdbutton" id="x" value="[X]返回" onclick="$('command').value='menu'; postCmd('gamecmd','command.php');this.disabled=true;">
