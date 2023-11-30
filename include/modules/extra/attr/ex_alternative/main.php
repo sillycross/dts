@@ -48,7 +48,8 @@ namespace ex_alternative
 		$itm=&$theitem['itm']; $itmk=&$theitem['itmk'];
 		$itme=&$theitem['itme']; $itms=&$theitem['itms']; $itmsk=&$theitem['itmsk'];
 		
-		if (\itemmain\check_in_itmsk('^alt', $itmsk)) 
+		//如果是装着箭的弓或者装着外甲的防具，不会触发两用
+		if (!\itemmain\check_in_itmsk('^ari', $itmsk) && !\itemmain\check_in_itmsk('^su', $itmsk) && \itemmain\check_in_itmsk('^alt', $itmsk)) 
 		{
 			$alternative_choice = get_var_in_module('alternative_choice', 'input');
 			if (empty($alternative_choice))

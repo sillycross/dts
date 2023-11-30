@@ -13,7 +13,7 @@ namespace item_recipe
 	//if_consume: 是否消耗该素材，默认为true
 	//extra: 素材额外条件，'ygo'表示为游戏王道具，'edible'表示为回复道具，'weapon'表示为武器，'armor'表示为防具	
 	//result: 合成结果数组
-	//extra: 合成额外条件，'link':连接合成的link数，'materials':需要的合成材料数（具体数字或大于数字），'allow_repeat':是否允许重复，默认为true， 'consume_recipe':是否消耗配方，默认为false
+	//extra: 合成额外条件，'link':连接合成的link数，'materials':需要的合成材料数（具体数字或大于数字），'allow_repeat':是否允许重复，默认为true， 'consume_recipe':是否消耗配方，默认为false，'if_learnable':配方是否能学习，如果配方不消耗则默认为true，配方消耗则默认为false
 	$recipe_mixinfo = array
 	(
 		1 => array

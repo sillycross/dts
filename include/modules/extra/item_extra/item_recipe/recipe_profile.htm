@@ -1,0 +1,4 @@
+<!--{eval $learnedrecipes = \skillbase\skill_getvalue(1003,'learnedrecipes');}-->
+<!--{if !empty($learnedrecipes)}-->
+<input type="button" class="cmdbutton" id="sp_recipe" value="配方合成" onclick="$('command').value='recipe';$('subcmd').name='recipe';postCmd('gamecmd','command.php');this.disabled=true;">
+<!--{/if}-->
