@@ -8,7 +8,7 @@ namespace poison
 		$iteminfo['PS'] = '体力恢复（有毒）';
 		$iteminfo['PB'] = '命体恢复（有毒）';
 		$iteminfo['PM'] = '歌魂增加（有毒）';
-		$iteminfo['PT'] = '歌魂增加（有毒）';
+		$iteminfo['PT'] = '歌魂恢复（有毒）';
 		$iteminfo['PR'] = '怒气增加（有毒）';
 	}
 	

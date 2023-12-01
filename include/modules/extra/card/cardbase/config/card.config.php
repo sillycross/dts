@@ -5539,13 +5539,13 @@ $cards = array(
 		'rare' => 'B',
 		//'pack' => '東埔寨Protoject',
 		'pack' => 'hidden',
-		'desc' => '有罪！',
-		'effect' => '可以明辨黑白',
-		'desc_skills' => '你对名字、类别、卡片名、装备或持有物品中含有“黑”的角色<br>造成的伤害+70%，含有“白”的角色造成的伤害-30%',
+		'desc' => '乐园的最高裁判长',
+		'effect' => '你有点太极端了',
+		'desc_skills' => '你对使用「東埔寨Protoject」卡的角色时有微小概率直接杀死敌人',
 		'energy' => 100,
 		'valid' => array(
 			'skills' => array(
-				'706' => '0',
+				'706' => '0',//TODO
 			),
 		)
 	),
@@ -5562,7 +5562,8 @@ $cards = array(
 			'skills' => array(
 				'707' => '0',
 			),
-		)
+		),
+		'ignore_global_ach' => 1,//不参与终生成就判定
 	),
 	
 	1000 => array(
