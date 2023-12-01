@@ -287,7 +287,7 @@ namespace item_recipe
 		(
 			'stuff1' => array('itm'=>'土符「Lazy Trilithon」','itm_match'=>0),
 			'stuff2' => array('itm'=>'木符「Sylphy Horn」','itm_match'=>0),
-			'result' => array('土&木符「打灰仙人」','WF',325,∞,'cAd^res_%Z@RLEhSLDk%LDEsLA==1^reptype1'),
+			'result' => array('土&木符「打灰仙人」','WF',325,'∞','cAd^res_%Z@RLEhSLDk%LDEsLA==1^reptype1'),
 			'extra' => array('materials'=>2),
 		),
 		//辉夜卡配方
