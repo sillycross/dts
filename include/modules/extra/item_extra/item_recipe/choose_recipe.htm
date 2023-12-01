@@ -8,7 +8,7 @@
 <!--{else}--> 
 <!--{eval eval(import_module('item_recipe'));}-->
 <!--{loop $ls $i}-->
-<input type="button" class="cmdbutton" value="{$recipe_mixinfo[$i]['result'][0]}" style="width: 150px;" onclick="$('recipe_choice').value='{$i}';postCmd('gamecmd','command.php');this.disabled=true;"><br>
+<input type="button" class="cmdbutton" value="{$recipe_mixinfo[$i]['result'][0]}" style="width: 200px;" onclick="$('recipe_choice').value='{$i}';postCmd('gamecmd','command.php');this.disabled=true;"><br>
 <!--{/loop}-->
 <!--{/if}-->
 <br>

@@ -45,6 +45,7 @@ namespace item_recipe
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('itemmain'));
+		if (isset($stuff['tips'])) return $stuff['tips'];
 		$s = '';
 		if (isset($stuff['itm_match']))
 		{
@@ -340,6 +341,7 @@ namespace item_recipe
 			//这里把配方id塞进$minfo，作为使用配方道具合成的标记
 			$minfo['key'] = ${'itmsk'.(int)$itmp};
 			recipe_mix($mixlist, $itmp, $minfo);
+			$command = 'menu';
 		}
 		if ($mode == 'command' && $command == 'recipe')
 		{
