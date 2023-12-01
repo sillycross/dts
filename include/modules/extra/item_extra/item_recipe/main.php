@@ -46,7 +46,7 @@ namespace item_recipe
 		
 		eval(import_module('itemmain'));
 		if (isset($stuff['tips'])) return $stuff['tips'];
-		$s = '';	
+		$s = '';
 		if (isset($stuff['itm_match']))
 		{
 			if (0 === $stuff['itm_match']) $s .= '名称与"'.$stuff['itm'].'"完全一致的';
@@ -339,7 +339,7 @@ namespace item_recipe
 			eval(import_module('item_recipe'));
 			$minfo = $recipe_mixinfo[${'itmsk'.(int)$itmp}];
 			//这里把配方id塞进$minfo，作为使用配方道具合成的标记
-			$minfo['key'] = ${'itmsk'.(int)$itmp};		
+			$minfo['key'] = ${'itmsk'.(int)$itmp};
 			recipe_mix($mixlist, $itmp, $minfo);
 			$command = 'menu';
 		}
