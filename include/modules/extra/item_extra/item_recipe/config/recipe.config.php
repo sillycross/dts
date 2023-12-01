@@ -5,13 +5,14 @@ namespace item_recipe
 	//stuff1, stuff2, ..., stuff5: 5个素材分别满足的条件（配方自身不作为选项参与合成）
 	//stuffa: 未定义单独条件的素材要满足的条件
 	//多个素材有单独条件的情况，按stuff1, stuff2, ...写，不能跳过
-	//多个素材可能被同一个素材匹配的情况，包里靠前的道具会优先匹配stuff1，所以如果一个素材的条件完全包含另一个，那它要写到前面
+	//多个素材可能被同一个素材匹配的情况，包里靠前的道具会优先匹配stuff1，所以如果一个素材的条件包含另一个的全部条件，那它要写到前面
 	//但还是会有条件交叉的情况，这时候要手动交换包里道具的顺序；主要是如果要匹配更智能的话，判断那个函数写起来会很麻烦……呃啊
 	//itm: 名字字符串，itm_match: 0:严格匹配，1:包含，2:去除前后缀
 	//itmk: 类别字符串，itmk_match: 0:严格匹配，1:开始，2:结束（理论只用来判断游戏王星级）
 	//itmsk: 子属性字符串（暂时只允许单个子属性），itmsk_match: 0:严格匹配，1:包含
 	//if_consume: 是否消耗该素材，默认为true
-	//extra: 素材额外条件，'ygo'表示为游戏王道具，'edible'表示为回复道具，'weapon'表示为武器，'armor'表示为防具	
+	//extra: 素材额外条件，'ygo'表示为游戏王道具，'edible'表示为回复道具，'weapon'表示为武器，'armor'表示为防具
+	//tips: 素材的文字说明，设置后会覆盖自动生成的文字说明		
 	//result: 合成结果数组
 	//extra: 合成额外条件，'link':连接合成的link数，'materials':需要的合成材料数（具体数字或大于数字），'allow_repeat':是否允许重复，默认为true， 'consume_recipe':是否消耗配方，默认为false，'if_learnable':配方是否能学习，如果配方不消耗则默认为true，配方消耗则默认为false
 	$recipe_mixinfo = array
@@ -250,6 +251,44 @@ namespace item_recipe
 			'stuff3' => array('itm'=>'魔导书','itm_match'=>1),
 			'result' => array('码符「终极BUG·拉电闸」','WF',1000,6,'r'),
 			'extra' => array('materials'=>3, 'consume_recipe'=>true,),
+		),
+		53 => array
+		(
+			'stuff1' => array('itm'=>'面包','itm_match'=>1),
+			'stuff2' => array('itm'=>'棍棒','itm_match'=>1),
+			'stuff3' => array('itm'=>'『祝福宝石』','itm_match'=>0),
+			'result' => array('☆面包骑士的棍棒☆','WP',200,100,'c^alt_HB1'),
+			'extra' => array('materials'=>3),
+		),
+		54 => array
+		(
+			'stuff1' => array('itm'=>'发射','itm_match'=>1,'tips'=>'一个发射器或发射装置'),
+			'stuff2' => array('itm'=>'方块','itm_match'=>1,'tips'=>'作为充能弹药的方块'),
+			'result' => array('☆三色彩蛋发射器☆','WG',333,33,'uieo'),
+			'extra' => array('materials'=>2),
+		),
+		55 => array
+		(
+			'stuff1' => array('itm'=>'礼品盒','itm_match'=>1),
+			'stuff2' => array('itm'=>'毒药','itm_match'=>0),
+			'stuff3' => array('itm'=>'喷雾器罐','itm_match'=>0),
+			'result' => array('残存的礼品盒','p',1,1,'^res_%q+S%rCU%Za#-Zu+LFBCLDc#NywxLCw=1^reptype1'),
+			'extra' => array('materials'=>3),
+		),
+		56 => array
+		(
+			'stuff1' => array('itm'=>'钻石','itm_match'=>0,'tips'=>'最坚硬的物质'),
+			'stuff2' => array('itm'=>'黑色方块','itm_match'=>0,'tips'=>'黑色的底座材料'),
+			'stuff3' => array('itm'=>'书','itm_match'=>1,'tips'=>'知识的载体'),
+			'result' => array('《宝石魔法入门》','VS',1,1,'23'),
+			'extra' => array('materials'=>3),
+		),
+		57 => array
+		(
+			'stuff1' => array('itm'=>'土符「Lazy Trilithon」','itm_match'=>0),
+			'stuff2' => array('itm'=>'木符「Sylphy Horn」','itm_match'=>0),
+			'result' => array('土&木符「打灰仙人」','WF',325,∞,'cAd^res_%Z@RLEhSLDk%LDEsLA==1^reptype1'),
+			'extra' => array('materials'=>2),
 		),
 		//辉夜卡配方
 		100 => array
