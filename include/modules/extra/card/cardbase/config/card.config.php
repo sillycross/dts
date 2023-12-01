@@ -5565,6 +5565,22 @@ $cards = array(
 		),
 		'ignore_global_ach' => 1,//不参与终生成就判定
 	),
+	369 => array(
+		'name' => '"Trojan"',
+		'rare' => 'S',	
+		//'pack' => 'Event Bonus',
+		'pack' => 'hidden',
+		'desc' => '我猜这里有一个BIG',
+		'effect' => '你即是错误的化身',
+		'desc_skills' => '合成时你可以将一个素材当做仅相差一个字符的素材使用<br>同一次合成中仅限一个素材，18级时解锁',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'708' => '0',
+			),
+		),
+		'ignore_global_ach' => 1,//不参与终生成就判定
+	),
 	
 	1000 => array(
 		'name'=>'萌新',
