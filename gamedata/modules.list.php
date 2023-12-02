@@ -458,6 +458,7 @@ skill584,extra/card/skills/skill584/,1
 skill592,extra/card/skills/skill592/,1
 instance9,extra/instance/instance9_rush/,1
 skill1003,extra/club/skills/skill1003/,1
+skill541,extra/card/skills/skill541/,1
 skill43,extra/club/skills/skill43/,1
 itemnumlist,extra/item_extra/itemnumlist/,1
 skill56,extra/club/skills/skill56/,1
