@@ -15,7 +15,12 @@
 			<!--{eval $tmp_shop_button_id=substr(md5($idata['item']),0,8);}-->
 			<input type="button" class="cmdbutton" value="购买" id="buy_{$tmp_shop_button_id}" onclick="$('command').value='$idsid';<!--{if $buynumflag}-->$('buynum').value=$('buynum{$idsid}').value;<!--{/if}-->postCmd('gamecmd','command.php');this.disabled=true;">
 		</div>
-		<div <!--{if $buynumflag}-->style="width:185px;"<!--{/if}-->>
+		<!--{if $idata['itmk'] == 'R'}-->
+			<!--{eval $desc=\item_recipe\show_recipe($idata['itmsk']);}-->
+		<!--{else}-->
+			<!--{eval $desc=\itemmain\parse_itmuse_desc($idata['item'], $idata['itmk'], $idata['itme'], $idata['itms'], $idata['itmsk']);}-->
+		<!--{/if}-->
+		<div <!--{if $buynumflag}-->style="width:185px;"<!--{/if}--> <!--{if $desc}-->style="cursor:pointer;" title="$desc"<!--{/if}-->>
 			$idata['item']/$idata['itmk_words']/$idata['itme']/$idata['itms']<!--{if $idata['itmsk_words']}-->/$idata['itmsk_words']<!--{/if}-->/价:$idata['price']/数:$idata['num']
 		</div>
 		<!--{if $buynumflag}-->

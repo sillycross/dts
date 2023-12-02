@@ -49,14 +49,14 @@ namespace item_recipe
 		$s = '';
 		if (isset($stuff['itm_match']))
 		{
-			if (0 === $stuff['itm_match']) $s .= '名称与"'.$stuff['itm'].'"完全一致的';
-			else if (1 === $stuff['itm_match']) $s .= '名称包含"'.$stuff['itm'].'"的';
-			else if (2 === $stuff['itm_match']) $s .= '名称为"'.$stuff['itm'].'"的';
+			if (0 === $stuff['itm_match']) $s .= '名称与“'.$stuff['itm'].'”完全一致的';
+			else if (1 === $stuff['itm_match']) $s .= '名称包含“'.$stuff['itm'].'”的';
+			else if (2 === $stuff['itm_match']) $s .= '名称为“'.$stuff['itm'].'”的';
 		}
 		if (isset($stuff['itmsk_match']))
 		{
-			if (0 === $stuff['itmsk_match']) $s .= '属性仅有"'.$itemspkinfo[$stuff['itmsk']].'"的';
-			else if (1 === $stuff['itmsk_match']) $s .= '属性包含"'.$itemspkinfo[$stuff['itmsk']].'"的';
+			if (0 === $stuff['itmsk_match']) $s .= '属性仅有“'.$itemspkinfo[$stuff['itmsk']].'”的';
+			else if (1 === $stuff['itmsk_match']) $s .= '属性包含“'.$itemspkinfo[$stuff['itmsk']].'”的';
 		}
 		$flag = 0;
 		if (isset($stuff['itmk_match']))
