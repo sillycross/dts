@@ -5530,16 +5530,15 @@ $cards = array(
 	367 => array(
 		'name' => '六〇年的東埔寨裁判',
 		'title' => '東埔寨裁判',
-		'rare' => 'B',
-		//'pack' => '東埔寨Protoject',
-		'pack' => 'hidden',
-		'desc' => '乐园的最高裁判长',
+		'rare' => 'A',
+		'pack' => '東埔寨Protoject',
+		'desc' => '“法律是■■■■所定下的约束。<br>法无法制裁的罪过就由我来制裁。”',
 		'effect' => '你有点太极端了',
-		'desc_skills' => '你对使用「東埔寨Protoject」卡的角色时有微小概率直接杀死敌人',
+		'desc_skills' => '对使用「東埔寨Protoject」卡的角色造成超过80%当前生命值的伤害时，自动将其秒杀',
 		'energy' => 100,
 		'valid' => array(
 			'skills' => array(
-				'706' => '0',//TODO
+				'541' => '0',
 			),
 		)
 	),

@@ -211,7 +211,7 @@ function module_validity_check($file)
 	
 	if ($tail!=$n+1)
 	{
-		$log.="<span><font color=\"red\">模块出现了循环依赖，请检查。</font></span><br>";
+		$log.="<span><font color=\"red\">模块{$modn[$tail]}出现了循环依赖，请检查。</font></span><br>";
 		return $log;
 	}
 	

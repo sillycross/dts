@@ -899,7 +899,7 @@ namespace cardbase
 		return Array($show_cardid, $show_cardname, $show_rare, $show_cardblink, $show_cardinfo);
 	}
 	
-	//通过记录卡名与卡号判定实际卡号
+	//通过记录卡名与卡号判定实际卡号（$cardname所记录的卡）
 	function check_realcard($c, $cn) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('cardbase'));
