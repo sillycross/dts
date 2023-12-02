@@ -5574,6 +5574,20 @@ $cards = array(
 		),
 		'ignore_global_ach' => 1,//不参与终生成就判定
 	),
+	370 => array(
+		'name' => '魔术狸猫',
+		'rare' => 'A',
+		'pack' => '東埔寨Protoject',
+		'desc' => '本地的妖怪实在是太没有狸猫了！',
+		'effect' => '获得战斗技「调换」：命中后把对方的武器打落到视野里，并混入两个假道具中。只能对玩家使用',
+		'desc_skills' => '6级时解锁',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'709' => '0',
+			),
+		)
+	),
 	
 	1000 => array(
 		'name'=>'萌新',

@@ -598,6 +598,7 @@ skill604,extra/club/skills/skill604/,1
 ex_gender_attr,extra/attr/ex_gender_attr/,1
 ex_attr_pierce,extra/attr/ex_attr_pierce/,1
 skill505,extra/card/skills/skill505/,1
+skill709,extra/card/skills/skill709/,1
 ex_purity,extra/attr/ex_purity/,1
 skill26,extra/club/skills/skill26/,1
 skill265,extra/club/skills/skill265/,1

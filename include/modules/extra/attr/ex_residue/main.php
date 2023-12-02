@@ -193,18 +193,39 @@ namespace ex_residue
 	function itemuse(&$theitem)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('itemmain','logger'));
+		eval(import_module('itemmain','logger','player'));
 		$itm=&$theitem['itm']; $itmk=&$theitem['itmk'];
 		$itme=&$theitem['itme']; $itms=&$theitem['itms']; $itmsk=&$theitem['itmsk'];
 		$reptype = (int)\itemmain\check_in_itmsk('^reptype', $itmsk);
 		if (in_array($reptype, array(1,3)))
 		{
 			$resitem = get_res_itm($itmsk);
+			$rtype = (int)\itemmain\check_in_itmsk('^rtype', $itmsk);
 			if (!empty($resitem))
 			{
 				$log .= "你使用了<span class=\"yellow b\">$itm</span>……不对，这分明是<span class=\"yellow b\">{$resitem['itm']}</span>！<br>";
-				$chprocess($resitem);
-				$rtype = (int)\itemmain\check_in_itmsk('^rtype', $itmsk);
+				if (in_array($resitem['itmk'][0], array('W','D')))
+				{
+					if (4 == $rtype)
+					{
+						$itm=$resitem['itm']; $itmk=$resitem['itmk'];
+						$itme=$resitem['itme']; $itms=$resitem['itms']; $itmsk=$resitem['itmsk'];
+						$chprocess($theitem);
+					}
+					else
+					{
+						if (defined('MOD_SEARCHMEMORY') && defined('MOD_SKILL1006') && \searchmemory\searchmemory_available())
+						{
+							$log .= "<span class=\"red b\">{$resitem['itm']}</span>掉到了你的脚边。<br>";
+							$dropid = \itemmain\itemdrop_query($resitem['itm'], $resitem['itmk'], $resitem['itme'], $resitem['itms'], $resitem['itmsk'], $pls);
+							$amarr = array('iid' => $dropid, 'itm' => $resitem['itm'], 'pls' => $pls, 'unseen' => 0);
+							\skill1006\add_beacon($amarr, $sdata);
+							\player\player_save($sdata);
+							$resitem['itms'] = 0;
+						}
+					}
+				}
+				else $chprocess($resitem);
 				if ($resitem['itms'] > 0)
 				{
 					if (3 == $rtype)

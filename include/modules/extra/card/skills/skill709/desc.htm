@@ -1,0 +1,19 @@
+<!--{eval eval(import_module('skill709'));}-->
+<!--{eval $___TEMP_SKILL_ID=709;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+<span class="yellow b">战斗技</span>&nbsp;&nbsp;命中后把对方的武器打落到视野里，并混入两个假道具中。<br>消耗<span class="yellow b">$ragecost</span>点怒气，只能对玩家使用
+</span></td>
+<td class="skilldesc_right b3">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+6级时解锁
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}
