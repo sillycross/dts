@@ -295,6 +295,7 @@ rest,base/rest/,1
 item_uc,base/items/item_uc/,1
 skill12,extra/club/skills/skill12/,1
 skill223,extra/club/skills/skill223/,1
+skill710,extra/card/skills/skill710/,1
 skill331,extra/activities/halloween2017/skill331/,1
 skill19,extra/club/skills/skill19/,1
 skill79,extra/club/skills/skill79/,1
