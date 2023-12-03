@@ -121,7 +121,7 @@ namespace skill709
 					$amarr = array('iid' => $dropid, 'itm' => $fakeitm, 'pls' => $pd['pls'], 'unseen' => 0);
 					\skill1006\add_beacon($amarr, $pd);
 					\player\player_save($pd);
-				}				
+				}
 				$pd['wep'] = $nowep;
 				$pd['wepk'] = 'WN';
 				$pd['wepe'] = 0;
