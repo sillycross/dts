@@ -334,11 +334,11 @@ namespace skill21
 				'itmk6' => 'ss',
 				'itme6' => 100,
 				'itms6' => 1,
-				'itm0' => '《守护者训练章程》',
-				'itmk0' => 'VS',
+				'itm0' => '『re-inCarnation』',
+				'itmk0' => 'MB',
 				'itme0' => '1',
 				'itms0' => '1',
-				'itmsk0' => '710',
+				'itmsk0' => '^mbid710',
 				'description' => '风纪委员 静流的第二形态，以飒爽的战斗姿态出现的强大超能力者。在数据碎片中攻击面最强，防御面最弱，虽然一推就倒但也让无数玩家阴沟里翻船。'
 			)
 		),

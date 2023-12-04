@@ -3461,11 +3461,11 @@ $cards = array(
 		'effect' => '开局获得「红杀铁剑」与额外的合成知识。此外，涉及到你的描述伤害的进行状况都改用强者语',
 		'energy' => 100,
 		'valid' => array(
-			'wep' => '【红杀铁剑】',
-			'wepk' => 'WK',
-			'wepe' => '80',
-			'weps' => '60',
-			'wepsk' => 'u',
+			'itm6' => '【红杀铁剑】',
+			'itmk6' => 'WK',
+			'itme6' => '80',
+			'itms6' => '60',
+			'itmsk6' => 'u',
 			'skills' => array(
 				'531' => '0', 
 			),
@@ -5467,20 +5467,15 @@ $cards = array(
 		)
 	),
 	363 => array(
-		'name' => '十进制',
+		'name' => '邪神·神之化身',
+		'title' => '⑩',
 		'rare' => 'M',
-		//'pack' => '東埔寨Protoject',
-		'pack' => 'hidden',
-		'desc' => '是——这样吗——',
-		'effect' => '开局装备发带。可以藏身于黑暗之中',
-		'desc_skills' => '获得技能「宵暗」：你发现其他角色和其他角色发现你时显示为？？？',
+		'pack' => '東埔寨Protoject',
+		'desc' => '光天化日之下潜藏于黑暗中的魔物',
+		'effect' => '你的身躯永远藏于黑暗之中<br>……是这样吗？',
+		'desc_skills' => '获得技能「宵暗」：你发现其他角色和其他角色发现你时都显示为？？？',
 		'energy' => 0,
 		'valid' => array(
-			'arh' => '红色的发带',
-			'arhk' => 'DH',
-			'arhe' => '10',
-			'arhs' => '10',
-			'arhsk' => '',
 			'skills' => array(
 				'702' => '0',
 			),
@@ -5559,7 +5554,7 @@ $cards = array(
 		'ignore_global_ach' => 1,//不参与终生成就判定
 	),
 	369 => array(
-		'name' => '"Trojan"',
+		'name' => '池沼地的魔受王',
 		'rare' => 'S',	
 		//'pack' => 'Event Bonus',
 		'pack' => 'hidden',
