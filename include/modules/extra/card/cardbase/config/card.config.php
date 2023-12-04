@@ -3458,14 +3458,14 @@ $cards = array(
 		'rare' => 'A',
 		'pack' => 'Event Bonus',
 		'desc' => '<span class="linen b">“对一一五来说，面前这四个触手比十亿个杀人魔更恐怖…更可怕呀！”</span>',
-		'effect' => '开局装备「红杀铁剑」。此外，涉及到你的描述伤害的进行状况都改用强者语',
+		'effect' => '开局获得「红杀铁剑」与额外的合成知识。此外，涉及到你的描述伤害的进行状况都改用强者语',
 		'energy' => 100,
 		'valid' => array(
 			'wep' => '【红杀铁剑】',
 			'wepk' => 'WK',
-			'wepe' => '50',
-			'weps' => '15',
-			'wepsk' => '',
+			'wepe' => '80',
+			'weps' => '60',
+			'wepsk' => 'u',
 			'skills' => array(
 				'531' => '0', 
 			),

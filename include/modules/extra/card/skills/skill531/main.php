@@ -2,7 +2,25 @@
 
 namespace skill531
 {
-	function init() 
+	$sk531_log = array
+	(
+		'剑柄中开始播放录音：<span class="linen b">“看在你没准还是新手的份上，就再给你一些提示吧。这把剑可以与商店中购买的光束刀合成为另一种形态。”</span><br>',
+		'剑柄中开始播放录音：<span class="linen b">“接下来寻找一个全息幻象干掉，再拿它的手套和商店里购买的『祝福宝石』一起和这把剑合成吧。”</span><br>',
+		'剑柄中开始播放录音：<span class="linen b">“然后是购买『军用火焰放射器』和☆十星认证☆，用来合成它的下一个形态。”</span><br>',
+		'剑柄中开始播放录音：<span class="linen b">“它现在足够你用到最后了。当然，你也可以尝试再将它与最终战术『剑海』合成。之后祝你好运。”</span><br>',
+	);
+	
+	$sk531_mixinfo = array
+	(
+		array('class' => 'card', 'stuff' => array('【红杀铁剑】','光束刀'),'result' => array('【红杀铁剑·流火】','WK',180,100,'uc')),
+		array('class' => 'card', 'stuff' => array('【红杀铁剑·流火】','全息幻象的虚拟手套','『祝福宝石』'),'result' => array('【红杀铁剑·奔焰】','WK',440,160,'ufc')),
+		array('class' => 'card', 'stuff' => array('【红杀铁剑·奔焰】','『军用火焰放射器』','☆十星认证☆'),'result' => array('【红杀铁剑·龙炎】','WKG',1200,'∞','ufdyc')),
+		array('class' => 'card', 'stuff' => array('【红杀铁剑·龙炎】','最终战术『剑海』'),'result' => array('【红杀铁剑·焚烬】','WKG',88888,'∞','rufdycZ')),
+	);
+	
+	$sk531_itm = array('【红杀铁剑】','【红杀铁剑·流火】','【红杀铁剑·奔焰】','【红杀铁剑·龙炎】');
+	
+	function init()
 	{
 		define('MOD_SKILL531_INFO','card;unique;');
 		eval(import_module('clubbase'));
@@ -74,6 +92,37 @@ namespace skill531
 		}
 		return $chprocess($a, $b, $c, $d, $e, $exarr);
 	}
+	
+	function itemuse(&$theitem)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$itm = &$theitem['itm'];
+		if (\skillbase\skill_query(531) && check_unlocked531())
+		{
+			eval(import_module('skill531'));
+			$i = array_search($itm, $sk531_itm);
+			if (false !== $i)
+			{
+				eval(import_module('logger'));
+				$log .= $sk531_log[$i];
+			}
+		}
+		$chprocess($theitem);
+	}
+	
+	//添加额外合成线
+	function get_mixinfo()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess();
+		if (\skillbase\skill_query(531) && check_unlocked531())
+		{
+			eval(import_module('skill531'));
+			$ret = array_merge($ret, $sk531_mixinfo);
+		}
+		return $ret;
+	}
+	
 }
 
 ?>

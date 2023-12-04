@@ -14,11 +14,26 @@ namespace item_um
 		$iteminfo['MV'] = '熟练强化';
 	}
 	
-	function calc_skillbook_value($x, $v)
+	function calc_skillmed_value($x, $v)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$k=pow($v,0.5)/25+1.05;
 		return pow($x/($k-1)/$v+1,1-$k)*$v;
+	}
+	
+	function calc_skillmed_efct($itme, $skcnt, $ws_sum)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$skill_minimum = 60;
+		$skill_limit = 600;
+		if ($ws_sum < $skill_minimum * $skcnt) {
+			$mefct = $itme;
+		} elseif ($ws_sum < $skill_limit * $skcnt) {
+			$mefct = round(calc_skillmed_value($ws_sum-$skill_minimum*$skcnt,$itme));
+		} else {
+			$mefct = 0;
+		}
+		return $mefct;
 	}
 
 	function itemuse_um(&$theitem)
@@ -88,23 +103,14 @@ namespace item_um
 			$mhp += $mefct;
 			$mdname = "生命上限";
 		} elseif (strpos ( $itmk, 'MV' ) === 0) {
-			$skill_minimum = 60;
-			$skill_limit = 600;
 			$skcnt = 0; $ws_sum = 0;
 			foreach (array_unique(array_values($skillinfo)) as $key)
 			{
 				$skcnt++;
 				$ws_sum += $$key;
 			}
-			$dice = rand ( - 10, 10 );
-		
-			if ($ws_sum < $skill_minimum * $skcnt) {
-				$mefct = $itme;
-			} elseif ($ws_sum < $skill_limit * $skcnt) {
-				$mefct = round(calc_skillbook_value($ws_sum-$skill_minimum*$skcnt,$itme));
-			} else {
-				$mefct = 0;
-			}
+			// $dice = rand ( - 10, 10 );
+			$mefct = calc_skillmed_efct($itme, $skcnt, $ws_sum);
 			/*
 			if ($mefct < 10) {
 				if ($mefct < $dice) {

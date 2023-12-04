@@ -17,6 +17,28 @@ namespace item_uv
 		$iteminfo['VF'] = '灵系书籍';
 	}
 	
+	function calc_skillbook_efct($itme, $skcnt, $ws_sum)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$skill_minimum = 100;
+		$skill_limit = 300;
+		$dice = rand ( - 5, 5 );
+		
+		if ($ws_sum < $skill_minimum * $skcnt) {
+			$vefct = $itme;
+		} elseif ($ws_sum < $skill_limit * $skcnt) {
+			$vefct = round ( $itme * (1 - ($ws_sum - $skill_minimum * $skcnt) / ($skill_limit * $skcnt - $skill_minimum * $skcnt)) );
+		} else {
+			$vefct = 0;
+		}
+		if ($vefct < 5) {
+			if ($vefct < $dice) {
+				$vefct = - $dice;
+			}
+		}
+		return $vefct;
+	}
+	
 	function itemuse(&$theitem) 
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -208,18 +230,7 @@ namespace item_uv
 					$skcnt++;
 					$ws_sum += $$key;
 				}
-				if ($ws_sum < $skill_minimum * $skcnt) {
-					$vefct = $itme;
-				} elseif ($ws_sum < $skill_limit * $skcnt) {
-					$vefct = round ( $itme * (1 - ($ws_sum - $skill_minimum * $skcnt) / ($skill_limit * $skcnt - $skill_minimum * $skcnt)) );
-				} else {
-					$vefct = 0;
-				}
-				if ($vefct < 5) {
-					if ($vefct < $dice) {
-						$vefct = - $dice;
-					}
-				}
+				$vefct = calc_skillbook_efct($itme, $skcnt, $ws_sum);
 				foreach (array_unique(array_values($skillinfo)) as $key)
 				{
 					$$key+=$vefct;
@@ -227,98 +238,33 @@ namespace item_uv
 				$wsname = "全系熟练度";
 				$useflag = 1;
 			} elseif (strpos ( substr($itmk,1), 'P' ) !== false) {
-				if ($wp < $skill_minimum) {
-					$vefct = $itme;
-				} elseif ($wp < $skill_limit) {
-					$vefct = round ( $itme * (1 - ($wp - $skill_minimum) / ($skill_limit - $skill_minimum)) );
-				} else {
-					$vefct = 0;
-				}
-				if ($vefct < 5) {
-					if ($vefct < $dice) {
-						$vefct = - $dice;
-					}
-				}
+				//保留了一部分六个elseif的原汁原味
+				$vefct = calc_skillbook_efct($itme, 1, $wp);
 				$wp += $vefct; //$itme;
 				$wsname = "斗殴熟练度";
 				$useflag = 1;
 			} elseif (strpos ( substr($itmk,1), 'K' ) !== false) {
-				if ($wk < $skill_minimum) {
-					$vefct = $itme;
-				} elseif ($wk < $skill_limit) {
-					$vefct = round ( $itme * (1 - ($wk - $skill_minimum) / ($skill_limit - $skill_minimum)) );
-				} else {
-					$vefct = 0;
-				}
-				if ($vefct < 5) {
-					if ($vefct < $dice) {
-						$vefct = - $dice;
-					}
-				}
+				$vefct = calc_skillbook_efct($itme, 1, $wk);
 				$wk += $vefct;
 				$wsname = "斩刺熟练度";
 				$useflag = 1;
 			} elseif (strpos ( substr($itmk,1), 'G' ) !== false) {
-				if ($wg < $skill_minimum) {
-					$vefct = $itme;
-				} elseif ($wg < $skill_limit) {
-					$vefct = round ( $itme * (1 - ($wg - $skill_minimum) / ($skill_limit - $skill_minimum)) );
-				} else {
-					$vefct = 0;
-				}
-				if ($vefct < 5) {
-					if ($vefct < $dice) {
-						$vefct = - $dice;
-					}
-				}
+				$vefct = calc_skillbook_efct($itme, 1, $wg);
 				$wg += $vefct;
 				$wsname = "射击熟练度";
 				$useflag = 1;
 			} elseif (strpos ( substr($itmk,1), 'C' ) !== false) {
-				if ($wc < $skill_minimum) {
-					$vefct = $itme;
-				} elseif ($wc < $skill_limit) {
-					$vefct = round ( $itme * (1 - ($wc - $skill_minimum) / ($skill_limit - $skill_minimum)) );
-				} else {
-					$vefct = 0;
-				}
-				if ($vefct < 5) {
-					if ($vefct < $dice) {
-						$vefct = - $dice;
-					}
-				}
+				$vefct = calc_skillbook_efct($itme, 1, $wc);
 				$wc += $vefct;
 				$wsname = "投掷熟练度";
 				$useflag = 1;
 			} elseif (strpos ( substr($itmk,1), 'D' ) !== false) {
-				if ($wd < $skill_minimum) {
-					$vefct = $itme;
-				} elseif ($wd < $skill_limit) {
-					$vefct = round ( $itme * (1 - ($wd - $skill_minimum) / ($skill_limit - $skill_minimum)) );
-				} else {
-					$vefct = 0;
-				}
-				if ($vefct < 5) {
-					if ($vefct < $dice) {
-						$vefct = - $dice;
-					}
-				}
+				$vefct = calc_skillbook_efct($itme, 1, $wd);
 				$wd += $vefct;
 				$wsname = "引爆熟练度";
 				$useflag = 1;
 			} elseif (strpos ( substr($itmk,1), 'F' ) !== false) {
-				if ($wf < $skill_minimum) {
-					$vefct = $itme;
-				} elseif ($wf < $skill_limit) {
-					$vefct = round ( $itme * (1 - ($wf - $skill_minimum) / ($skill_limit - $skill_minimum)) );
-				} else {
-					$vefct = 0;
-				}
-				if ($vefct < 5) {
-					if ($vefct < $dice) {
-						$vefct = - $dice;
-					}
-				}
+				$vefct = calc_skillbook_efct($itme, 1, $wf);
 				$wf += $vefct;
 				$wsname = "灵击熟练度";
 				$useflag = 1;

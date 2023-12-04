@@ -1,9 +1,9 @@
 <?php
 
-namespace skill531
+namespace skill710
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase clubbase sys player logger attack battle itemmain itemmix';
+	$___MODULE_dependency = 'skillbase clubbase sys player item_uv item_um';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

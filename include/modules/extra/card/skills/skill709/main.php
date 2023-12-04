@@ -127,6 +127,7 @@ namespace skill709
 				$pd['wepe'] = 0;
 				$pd['weps'] = $nosta;
 				$pd['wepsk'] = '';
+				$pd['battlelog'] .= "<span class=\"yellow b\">{$pa['name']}用戏法将你的武器藏到了三顶礼帽中！</span><br>";
 			}
 		}
 	}
