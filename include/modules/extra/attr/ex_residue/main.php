@@ -260,20 +260,18 @@ namespace ex_residue
 	}
 	
 	//根据reptype决定是否在合成时代表记录物品
-	function itemmix_get_result($mlist){
+	function itemmix_recipe_check($mixitem)
+	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('player'));
-		$mixitem = array();
-		foreach($mlist as $val){
-			$reptype = (int)\itemmain\check_in_itmsk('^reptype', ${'itmsk'.$val});
-			$flag = 0;
+		foreach($mixitem as &$mi)
+		{
+			$reptype = (int)\itemmain\check_in_itmsk('^reptype', $mi['itmsk']);
 			if (in_array($reptype, array(2,3)))
-			{				
-				$resitem = get_res_itm(${'itmsk'.$val});
+			{
+				$resitem = get_res_itm($mi['itmsk']);
 				if (!empty($resitem))
 				{
-					$flag = 1;
-					$mixitem[$val] = array(
+					$mi = array(
 						'itm' => $resitem['itm'],
 						'itmk' => $resitem['itmk'],
 						'itme' => $resitem['itme'],
@@ -281,19 +279,9 @@ namespace ex_residue
 						'itmsk' => $resitem['itmsk'],
 					);
 				}
-			}		
-			if (empty($flag))
-			{
-				$mixitem[$val] = array(
-					'itm' => ${'itm'.$val},
-					'itmk' => ${'itmk'.$val},
-					'itme' => ${'itme'.$val},
-					'itms' => ${'itms'.$val},
-					'itmsk' => ${'itmsk'.$val},
-				);
 			}
 		}
-		return \itemmix\itemmix_recipe_check($mixitem);
+		return $chprocess($mixitem);
 	}
 	
 	//rtype类别5
