@@ -39,7 +39,7 @@ namespace item_recipe
 		(
 			'stuff1' => array('itmsk'=>'s','itmsk_match'=>1,'extra'=>'ygo'),
 			'stuff2' => array('extra'=>'ygo'),
-			'result' => array('「水晶机巧-继承玻纤」LINK-2','DA',150,80,'Hc^l2'),
+			'result' => array('「水晶机巧-继承玻纤」LINK-2','DA',150,80,'Hc^l2^reptype1^res_%Za#%rCU%ZCM-LCD%aOrIOKYhTEsV)MsNTAsMTAscyw=1'),
 			'extra' => array('link'=>2, 'materials'=>2, 'consume_recipe'=>true,),
 		),
 		5 => array

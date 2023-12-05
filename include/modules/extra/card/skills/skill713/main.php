@@ -12,7 +12,9 @@ namespace skill713
 	function acquire713(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		\skillbase\skill_setvalue(713,'lvl','0',$pa);
+		$sk713_lvl = \skillbase\skill_getvalue(713,'lvl',$pa);
+		if (empty($sk713_lvl)) \skillbase\skill_setvalue(713,'lvl','5',$pa);
+		else \skillbase\skill_setvalue(713,'lvl',strval($sk713_lvl+5),$pa);
 	}
 	
 	function lost713(&$pa)
@@ -28,7 +30,7 @@ namespace skill713
 
 	function discover_extra_item($mipool)
 	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;		
+		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$itemnum = count($mipool);
 		if (($itemnum > 1) && \skillbase\skill_query(713) && check_unlocked713())
 		{
@@ -42,7 +44,7 @@ namespace skill713
 				$log .= "你额外发现了一些道具。<br>";
 			}
 		}
-		$chprocess($mipool);		
+		$chprocess($mipool);
 	}
 	
 }

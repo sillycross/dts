@@ -2,7 +2,7 @@
 
 namespace skill712
 {
-	$skill712_cd = 180;
+	$skill712_cd = 30;
 	
 	function init() 
 	{
@@ -68,16 +68,9 @@ namespace skill712
 				$mipool[] = $r;
 		}
 		shuffle($mipool);
-		//这里不计入临时视野
-		$bcount = sizeof($searchmemory);
-		if ($bcount <= 0){
-			$log .= '<span class="yellow b">你的视野里空无一物，你换了个锤子！</span><br>';
-			return;
-		}
-		//清除全部视野
-		\skill1006\remove_beacon_core('ALL');
-		\searchmemory\remove_memory_core('ALL');
-		\skill1006\add_beacon_from_itempool($mipool, $bcount);
+		//将全部视野置入记忆
+		\searchmemory\change_memory_unseen('ALL');
+		\skill1006\add_beacon_from_itempool($mipool, \searchmemory\calc_memory_slotnum());
 		$log .= '<span class="yellow b">你挥动万宝槌，将全部视野刷新了！</span><br>';
 	}
 

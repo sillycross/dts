@@ -484,7 +484,7 @@ namespace itemmain
 			return true;
 		} else {
 			$log .= "但是什么都没有发现。<br>";
-		}	
+		}
 		$mode = 'command';
 		return false;
 	}
