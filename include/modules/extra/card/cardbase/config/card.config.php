@@ -5583,6 +5583,33 @@ $cards = array(
 			),
 		)
 	),
+	371 => array(
+		'name' => '针剑士',
+		'rare' => 'B',
+		'pack' => '東埔寨Protoject',
+		'desc' => '你变大吧！',
+		'effect' => '获得技能「宝槌」：将全部视野与记忆随机更换为当前地点的道具，冷却时间3分钟',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'712' => '0',
+			),
+		)
+	),
+	372 => array(
+		'name' => '白狼片警',
+		'rare' => 'A',
+		'pack' => '東埔寨Protoject',
+		'desc' => '现役山村警卫，爱好是巡山和下棋',
+		'effect' => '有着过人的视力',
+		'desc_skills' => '获得技能「极目」：每当你探索发现物品后，将3个额外道具<br>置入临时视野',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'713' => '3',
+			),
+		)
+	),
 	
 	1000 => array(
 		'name'=>'萌新',

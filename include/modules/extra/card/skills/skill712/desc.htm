@@ -1,0 +1,18 @@
+<!--{eval $___TEMP_SKILL_ID=712;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+<!--{eval $sk712_lvl = \skillbase\skill_getvalue(712,'lvl',$who);}-->
+每当你探索发现物品后，将<span class="yellow b">$sk712_lvl</span>个额外道具置入你的视野。
+</span></td>
+<td class="skilldesc_right b3">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}
