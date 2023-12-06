@@ -91,7 +91,8 @@ namespace player
 	}
 	
 	//注意这个函数默认情况下只能找玩家
-	//注意这两个函数在skillbase模块里会自动初始化技能参数，如果在指令执行过程中额外使用了这两个函数找玩家本身的数据，就会导致技能部分出现不可预料的问题！
+	//注意这个fetch_playerdata()及后面那个fetch_playerdata_by_pid()在skillbase模块里会自动初始化技能参数，如果是当前玩家则会修改$acquired_list及$parameter_list两个变量
+	//这导致如果在同一次请求中第二次执行这两个函数获取当前玩家数据，将会把技能变量覆盖，出现不可预料的问题！
 	function fetch_playerdata($Pname, $Ptype = 0, $ignore_pool = 0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -124,7 +125,7 @@ namespace player
 		return $pdata;
 	}
 	
-	//注意这两个函数在skillbase模块里会自动初始化技能参数，如果在指令执行过程中额外使用了这两个函数找玩家本身的数据，就会导致技能部分出现不可预料的问题！
+	//注意事项见上！
 	function fetch_playerdata_by_pid($pid)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

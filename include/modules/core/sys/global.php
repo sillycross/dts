@@ -173,6 +173,8 @@ namespace sys
 		touch($newsfile);
 	}
 	
+	//发送聊天信息。
+	//$ctype代表含义见下方parse_chat()
 	function addchat($ctype, $msg,  $csender = '', $creceiver = '', $ctime = 0){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
