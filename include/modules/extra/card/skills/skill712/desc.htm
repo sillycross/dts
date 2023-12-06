@@ -1,0 +1,22 @@
+<!--{eval eval(import_module('skill712','sys'));}-->
+<!--{eval $___TEMP_SKILL_ID=712;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+<!--{eval $skill712_lst = (int)\skillbase\skill_getvalue(712,'lastuse'); $skill712_time = ($now-$skill712_lst);$skill712_cd_left=$skill712_cd-$skill712_time;}-->
+将全部视野置入记忆，并将等同于视野上限个数的当前地点道具加入临时视野。
+<!--{if $skill712_time<$skill712_cd}-->
+<span class="cyan b"><br>技能冷却中，冷却时间还剩<span>$skill712_cd_left</span>秒。</span><br>
+<!--{/if}-->
+</span></td>
+<td class="skilldesc_right b3">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

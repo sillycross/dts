@@ -6,7 +6,7 @@ namespace instance9
 		eval(import_module('map','gameflow_combo','skillbase','cardbase'));
 		$areainterval[19] = 10;
 		$deathlimit_by_gtype[19] = 100;
-		$valid_skills[19] = array(1001,1002);
+		$valid_skills[19] = array(1001,1002,713);
 		$card_force_different_gtype[] = 19;
 		$card_need_charge_gtype[] = 19;
 		$card_cooldown_discount_gtype[19] = 0.5;

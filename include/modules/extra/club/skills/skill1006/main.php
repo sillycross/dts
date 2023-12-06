@@ -281,6 +281,35 @@ namespace skill1006
 		}
 		return $ret;
 	}
+	
+	//从一个道具池中添加一定数量的道具到临时视野
+	function add_beacon_from_itempool($mipool, $num, &$pa=NULL)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(empty($pa)) {
+			$pa = & get_var_in_module('sdata', 'player');
+		}
+		//先把先前的临时视野都扔进视野
+		if(!empty(\skillbase\skill_getvalue(1006,'beacons',$pa))) {
+			$beacons = decode_beacon($pa);
+			if(!empty($beacons)) {
+				foreach($beacons as $bv) {
+					\searchmemory\add_memory($bv, 0, $pa);
+				}
+				$beacons = Array();
+				encode_beacon($beacons, $pa);
+			}
+		}
+		$itemnum = count($mipool);
+		for ($i=0;$i<min($num,$itemnum);$i++)
+		{
+			$dropid = \itemmain\itemdrop_query($mipool[$i]['itm'], $mipool[$i]['itmk'], $mipool[$i]['itme'], $mipool[$i]['itms'], $mipool[$i]['itmsk'], $pa['pls']);
+			$amarr = array('iid' => $dropid, 'itm' => $mipool[$i]['itm'], 'pls' => $pa['pls'], 'unseen' => 0);
+			add_beacon($amarr, $pa);
+		}
+		\player\player_save($pa);
+	}
+	
 }
 
 ?>

@@ -480,12 +480,18 @@ namespace itemmain
 		$itms0 = focus_item($mi);
 		if($itms0){
 			itemfind();
+			discover_extra_item($mipool);
 			return true;
 		} else {
 			$log .= "但是什么都没有发现。<br>";
 		}
 		$mode = 'command';
 		return false;
+	}
+	
+	//用于发现额外物品
+	function discover_extra_item($mipool){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
 	//在读取数据库时就过滤掉不符合条件的道具
