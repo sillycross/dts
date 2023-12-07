@@ -75,8 +75,10 @@ namespace skill458
 		if (\skillbase\skill_query(458) && $theitem['itmk'][0]=='P')
 		{
 			$theitem['itmk'][0]='H';
+			$itm_temp = $theitem['itm'];
+			$itmk_temp = $theitem['itmk'];
 			$ret=$chprocess($theitem);
-			if ($theitem['itmk']!='') $theitem['itmk'][0]='P';
+			if (($theitem['itm'] == $itm_temp) && ($theitem['itmk'] == $itmk_temp)) $theitem['itmk'][0]='P';
 			return $ret;
 		}
 		else	return $chprocess($theitem);
