@@ -2,6 +2,7 @@
 
 namespace itemmain
 {	
+	$itemfind_extra_log = '';
 	//决定是拾取还是丢弃的画面的过程，正常只有discover_item()会跳转过来，而如果开启了允许当场使用道具，则大量功能会通过itemget()跳转到此处
 	function itemfind() {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -20,17 +21,21 @@ namespace itemmain
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player'));
 		if($itm0 && $itmk0 && $itms0) {
-			eval(import_module('sys','logger'));
+			eval(import_module('sys','logger','itemmain'));
 			if(!empty($tpldata['itm0_words_noelli'])) $itm = $tpldata['itm0_words_noelli'];
 			else $itm = $itm0;
 			//$tpldata['itmk0_words']=parse_itmk_words($itmk0);
 			$tpldata['itmsk0_words']=parse_itmsk_words($itmsk0);//获取的道具属性是完整显示的
 			//if(!empty(trim($log))) $log .= '<br>';
+			if(!empty($itemfind_extra_log)) $log .= '<:ex_log:>';//额外发现道具的提示不影响此处“发现”还是“握着”的判定
+			
 			if(false === strpos($log, $itm0)) $log .= "<br>发现了物品 <span class='yellow b'>{$itm}</span>，<br>";
 			else $log .= "<br>你正握着物品 <span class='yellow b'>{$itm}</span>，<br>";
 			$log .= "类型：{$tpldata['itmk0_words']}";
 			if ($itmsk0 && !is_numeric($itmsk0) && !empty($tpldata['itmsk0_words'])) $log .= "，属性：{$tpldata['itmsk0_words']}";
 			$log .= "，效：{$itme0}，耐：{$itms0}。";
+			
+			if(!empty($itemfind_extra_log)) $log = str_replace('<:ex_log:>', $itemfind_extra_log, $log);
 		}
 		$chprocess();
 	}

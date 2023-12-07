@@ -289,10 +289,11 @@ namespace skill1006
 		if(empty($pa)) {
 			$pa = & get_var_in_module('sdata', 'player');
 		}
-		//先把先前的临时视野都扔进视野
+		//先把先前的临时视野都扔进视野。注意需要倒序。
 		if(!empty(\skillbase\skill_getvalue(1006,'beacons',$pa))) {
 			$beacons = decode_beacon($pa);
 			if(!empty($beacons)) {
+				$beacons = array_reverse($beacons);
 				foreach($beacons as $bv) {
 					\searchmemory\add_memory($bv, 0, $pa);
 				}

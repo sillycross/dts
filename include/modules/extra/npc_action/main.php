@@ -157,24 +157,40 @@ namespace npc_action
 		//行动执行
 		$setting_act = $setting['setting'][$act];
 		
-		if('move' == $act) {
+		//涉及移动的NPC动作
+		if(in_array($act, Array('move','chase','evade'))) {
+			
 			eval(import_module('map'));
-			shuffle($setting_act['maplist']);
-			$moveto = $setting_act['maplist'][0];
-			if(99 == $moveto) {
-				if(!empty($setting_act['avoid_forbidden'])) {
-					$moveto_list = \npc\get_safe_plslist($setting_act['avoid_dangerous']);
-				}else{
-					$moveto_list = $plsinfo;
-				}
+			$moveto = $npc['pls'];
+			//可用移动目的地计算。在禁区数较多时会造成NPC行动减缓
+			if(!empty($setting_act['avoid_forbidden'])) {
+				$safe_plslist = \npc\get_safe_plslist($setting_act['avoid_dangerous']);
+				if(empty($safe_plslist)) //如果所有的可用移动目的地都是禁区，则不移动
+					return;
+			}
+			
+			//移动目的地计算，根据moveto_list设置，可以是指定地点或者随机移动。
+			if('move' == $act) {
+				$moveto_list = $setting_act['moveto_list'];
+				$moveto_list = array_intersect($moveto_list, array_merge($safe_plslist, Array(99)));
+				
+				if(empty($moveto_list)) //如果所有的目的地都是禁区，则不移动
+					return;
 				shuffle($moveto_list);
 				$moveto = $moveto_list[0];
+				if(99 == $moveto) {//99号代表随机一个可用地点
+					shuffle($safe_plslist);
+					$moveto = $safe_plslist[0];
+				}
 			}
-			if($moveto == $npc['pls']) {//随机到的目的地与NPC当前位置不同，才执行行动。如果不是，就跳过本次行动
+
+			//随机到的目的地与NPC当前位置不同，才执行行动。如果不是，就跳过本次行动
+			if($moveto == $npc['pls']) {
 				return $ret;
 			}
+			//真正给返回值赋值
 			$o_pls = $npc['pls'];
-			$npc['pls'] = $moveto;//真正给返回值赋值
+			$npc['pls'] = $moveto;
 			//给addchat的参数赋值
 			$para1 = $plsinfo[$o_pls]; $para2 = $plsinfo[$moveto];
 			$ret = $npc;

@@ -257,6 +257,10 @@ namespace sys
 			$winnum = 1;
 			$winner = $winname;
 		}
+		//2023.12.07 如果全灭，额外检查一次，把所有没有死的玩家设为死亡（视为禁死）。不过这会被当前玩家的刷新覆盖，在end.php界面需要单独处理
+		if(1==$winmode) {
+			$db->query("UPDATE {$tablepre}players SET hp=0 AND state=11 WHERE type=0 AND hp>0");
+		}
 		
 		//需要先判定获胜者的成就请重载这里
 		post_winnercheck_events($winner);		

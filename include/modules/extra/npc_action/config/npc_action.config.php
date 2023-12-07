@@ -15,7 +15,7 @@ namespace npc_action
 			),
 			'setting' => Array(//行动设定。
 				'move' => Array(
-					'maplist' => Array(99),//随机移动，会在列表里选一个地点，如果为99则随机选一个
+					'moveto_list' => Array(99),//随机移动，会在列表里选一个地点，如果为99则随机选一个
 					'avoid_forbidden' => 1,//随机移动是否躲避禁区
 					'avoid_dangerous' => 1,//随机移动是否躲避危险地图
 					'addchat' => 1,//是否发送聊天记录
