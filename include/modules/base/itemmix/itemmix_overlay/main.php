@@ -46,13 +46,15 @@ namespace itemmix_overlay
 	}
 	
 	//有效的超量素材：带有“超量素材”属性，或者是真卡（名称里有★数字，数字与星数一致，并且没有“-仮”字样）
+	//现条件改为：带有“超量素材”属性，或者名称里没有“-仮”字样
 	function check_valid_overlay_material($itm, $itmsk, $star)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(\itemmain\check_in_itmsk('J',$itmsk)) return true;
-		preg_match('/★(\d+)/s', $itm, $matches);
+		//preg_match('/★(\d+)/s', $itm, $matches);
 		//gwrite_var('a.txt',$matches);
-		if(!empty($matches) && $star == $matches[1] && strpos($itm,'-仮')===false) return true;
+		//if(!empty($matches) && $star == $matches[1] && strpos($itm,'-仮')===false) return true;
+		if(strpos($itm,'-仮')===false) return true;
 		return false;
 	}
 	
