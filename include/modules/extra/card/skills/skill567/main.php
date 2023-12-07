@@ -83,8 +83,10 @@ namespace skill567
 		if (\skillbase\skill_query(567) && ($theitem['itmk'][0] === 'P') && (\poison\poison_check_pid($theitem['itmsk']) === (int)$pid))
 		{
 			$theitem['itmk'][0] = 'H';
+			$itm_temp = $theitem['itm'];
+			$itmk_temp = $theitem['itmk'];
 			$ret = $chprocess($theitem);
-			if ($theitem['itmk'] != '') $theitem['itmk'][0] = 'P';
+			if (($theitem['itm'] == $itm_temp) && ($theitem['itmk'] == $itmk_temp)) $theitem['itmk'][0] = 'P';
 			return $ret;
 		}
 		else return $chprocess($theitem);

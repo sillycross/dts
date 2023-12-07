@@ -263,7 +263,7 @@ namespace item_recipe
 		54 => array
 		(
 			'stuff1' => array('itm'=>'发射','itm_match'=>1,'tips'=>'一个发射器或发射装置'),
-			'stuff2' => array('itm'=>'方块','itm_match'=>1,'tips'=>'作为充能弹药的方块'),
+			'stuff2' => array('itm'=>'方块','itm_match'=>1,'tips'=>'任意一个方块作为弹药'),
 			'result' => array('☆三色彩蛋发射器☆','WG',333,33,'uieo'),
 			'extra' => array('materials'=>2),
 		),
