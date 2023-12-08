@@ -583,6 +583,7 @@ skill80,extra/club/skills/skill80/,1
 skill551,extra/card/skills/skill551/,1
 skill554,extra/card/skills/skill554/,1
 skill1006,extra/club/skills/skill1006/,1
+skill542,extra/card/skills/skill542/,1
 skill366,extra/activities/aprilfool2018/skill366/,1
 skill563,extra/card/skills/skill563/,1
 skill36,extra/club/skills/skill36/,1

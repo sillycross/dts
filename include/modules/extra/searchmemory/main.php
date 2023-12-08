@@ -126,6 +126,22 @@ namespace searchmemory
 		$ret = $searchmemory_max_recordnum;
 		return $ret;
 	}
+	
+	//获得当前视野里可见的东西个数，也就是显示出来的按钮数
+	function get_seen_num(&$pa=NULL)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(empty($pa)) {
+			$pa = & get_var_in_module('sdata', 'player');
+		}
+		$sm_last = sizeof($pa['searchmemory']) - 1;
+		for($i=$sm_last; $i>=0; $i--) {
+			if(!empty($pa['searchmemory'][$i]['unseen'])) {
+				break;
+			}
+		}
+		return min($sm_last - $i, calc_memory_slotnum($pa));//视野数不会超过数值上限，也不计算临时视野
+	}
 
 	//把传入的$marr数组插入数组，也负责对数组初始化
 	//加入的一定是可见的
