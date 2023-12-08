@@ -45,7 +45,7 @@ namespace ex_residue
 	}
 	
 	//根据rtype决定如何得到记录物品
-	function itms_reduce(&$theitem)
+	function itms_reduce(&$theitem, $reducen = 1)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('itemmain','logger'));
@@ -60,7 +60,7 @@ namespace ex_residue
 			{
 				if ($itms != $nosta)
 				{
-					$itms --;
+					$itms -= $reducen;
 					if ($itms <= 0)
 					{
 						$log .= "<span class=\"red b\">$itm</span>用光了。<br>你获得了<span class=\"red b\">{$resitem['itm']}</span>。<br>";
@@ -87,9 +87,9 @@ namespace ex_residue
 					}
 				}
 			}
-			else $chprocess($theitem);
+			else $chprocess($theitem, $reducen);
 		}
-		else $chprocess($theitem);
+		else $chprocess($theitem, $reducen);
 	}
 	
 	//itemmix中如何得到记录物品的处理，添加了合成时代表其他物品的处理
