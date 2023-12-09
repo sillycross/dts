@@ -92,8 +92,9 @@ namespace ex_phy_nullify
 	function use_sewing_kit(&$theitem)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player'));
 		if(\itemmain\check_in_itmsk('B', $arbsk)) {
-			eval(import_module('sys','player','itemmain','logger'));
+			eval(import_module('sys','itemmain','logger'));
 			$pa = $pd = Array();
 			$proc_rate = get_ex_phy_nullify_proc_rate($pa, $pd, 0);
 			$dice = rand(0,99);
