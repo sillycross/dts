@@ -63,7 +63,7 @@ $gamedata = array(
 \player\init_playerdata();
 
 \player\pre_act();
-if ($hp > 0 && $state <= 3) \player\act();
+if ($gamestate >= 20 && $hp > 0 && $state <= 3) \player\act();//2023.12.09新增：如果游戏没有开放，拒绝玩家指令，尝试修复游戏结算较长时的脏数据问题
 \player\post_act();
 
 if($endtime < 0) $endtime = 0;//$endtime若为负数则变为0，某些特殊功能会用到

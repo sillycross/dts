@@ -26,7 +26,7 @@
 	<p>
 	<!--{if $winmode == 1}-->
 		<div class="subtitle">游戏结束</div>
-	<!--{elseif $winmode == 2 && $state == 5}-->
+	<!--{elseif $winmode == 2 && $winner_flag == $winmode}-->
 		<div class="subtitle">最后幸存</div>
 	<!--{elseif $winmode == 2}-->
 		<div class="subtitle">游戏结束</div>
@@ -52,7 +52,7 @@
 		<!--{if $winmode == 1}-->
 			<!--游戏结束-->
 			全灭结局，理论上不应该出现这行字，请联系管理员。<br>
-		<!--{elseif $winmode == 2 && $state == 5}-->
+		<!--{elseif $winmode == 2 && $winner_flag == $winmode}-->
 			<!--最后幸存-->
 			<!--{if 19 == $gametype}-->
 				<p>
@@ -214,7 +214,7 @@
 		<!--{elseif $winmode == 2}-->
 			<!--最后幸存（非获胜玩家）-->
 			你被杀了，理论上不应该出现这行字，请联系管理员。<br>
-		<!--{elseif $winmode == 3 && $state == 6}-->
+		<!--{elseif $winmode == 3 && $winner_flag == $winmode}-->
 			<!--锁定解除-->
 			<!--{if 19 == $gametype}-->
 				<p>
@@ -511,7 +511,7 @@
 				<br>
 				<span class="evergreen b" style="font-weight:700;font-size:18pt;line-height:18pt;">其他玩家已完成「锁定解除」胜利，请再接再厉！</span>
 			<!--{/if}-->
-		<!--{elseif $winmode == 5 && $state == 6}-->
+		<!--{elseif $winmode == 5 && $winner_flag == $winmode}-->
 			<!--核弹引爆-->
 			<p>手中的按钮装置发出刺耳的“哔哔”声。<BR>
 			真烦，不赶快把这东西丢掉的话，肯定会暴露位置，招来别人的攻击。</p>
@@ -574,7 +574,7 @@
 		<!--{elseif $winmode == 6}-->
 			<!--游戏被GM中止-->
 			<p>本局游戏被GM中止，请返回游戏首页。</p>
-		<!--{elseif $winmode == 7 && $state == 6 }-->
+		<!--{elseif $winmode == 7 && $winner_flag == $winmode }-->
 			<!--幻境解离-->
 			<p>一切都结束了。<br>
 			你拿着三个光球样的物体，来到了那个位置。<br>
@@ -787,12 +787,12 @@
 				<!--{/if}-->
 		<!--{else}-->
 			未知胜利方式，可能是开发者尚未编写结局说明，请返回游戏首页！<br>
-			state={$state} winmode={$winmode}
+			winner_flag={$winner_flag} winmode={$winmode}
 		<!--{/if}-->
 	<!--{/if}-->
 	<br><br>
 	<!--{if !(defined('MOD_ENDING') && \ending\ending_by_shootings_available())}-->
-		<!--{if !$groomid && in_array($winmode, array(2,3,5,7)) && ($state == 5 || $state == 6)}-->
+		<!--{if !$groomid && in_array($winmode, array(2,3,5,7)) && $winner_flag}-->
 			<p>
 				<a name="nextgamevars"></a><h2 class="subtitle2">下一局游戏数据设定</h2>
 				<form method="post" id="nextgamevarsform" name="nextgamevarsform">

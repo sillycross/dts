@@ -39,7 +39,7 @@ if(isset($ecommand) && 'nextgamevars' == $ecommand){
 		$noticelog = '缺少必要模块！<br>';
 	}elseif($groomid){
 		$noticelog = '只有标准房才能修改下一局模式！<br>';
-	}elseif(!in_array($winmode, array(2,3,5,7)) || $cuser != $winner || ($state != 5 && $state != 6)){
+	}elseif(!in_array($winmode, array(2,3,5,7)) || $cuser != $winner || !$winner_flag){
 		$noticelog = '你不是获胜者，不能修改下一局模式！<br>';
 	}elseif(!\set_gametype\check_gametype_set_valid($ngametype)){
 		$noticelog = '不允许把下一局游戏设为该模式！<br>';

@@ -20,7 +20,7 @@ namespace ending
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
-		return !$groomid && in_array($winmode, array(2,3,5,7)) && ($state == 5 || $state == 6);
+		return !$groomid && in_array($winmode, array(2,3,5,7)) && $winner_flag;
 	}
 	
 	function get_gametype_setting_html()

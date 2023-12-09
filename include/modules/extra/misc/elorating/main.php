@@ -352,7 +352,7 @@ namespace elorating
 				$data['vol']=$z['elo_volatility'];
 				$data['timesPlayed']=$z['elo_playedtimes'];
 				$data['elo_history']=$z['elo_history'];
-				if ($data['state']==5)
+				if ($data['winner_flag'])
 				{
 					$data['winner']=1;
 					if ($data['hp']>0) $data['alive']=1; else $data['alive']=0;

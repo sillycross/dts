@@ -191,7 +191,7 @@ namespace sys
 							$winnum = 1;
 							foreach($gameover_alivelist as &$wdata){ break;}
 							$winner = $wdata['name'];
-							$wdata['state'] = 5;
+							$wdata['winner_flag'] = $winmode;
 							\player\player_save($wdata);
 						} 
 						else
@@ -217,7 +217,7 @@ namespace sys
 							if (!$firstteamID)	//单人胜利
 							{	
 								foreach($gameover_alivelist as &$wdata){ break;}
-								$wdata['state'] = 5;
+								$wdata['winner_flag'] = 2;
 								\player\player_save($wdata);
 								$winnum = 1;
 								$winner = $wdata['name'];
@@ -227,11 +227,11 @@ namespace sys
 								$teammatelist = array();
 								foreach($gameover_plist as &$wdata){
 									if($wdata['teamID'] == $firstteamID){
-										$wdata['state'] = 5; //把队伍里所有玩家的状态改为获胜，用于天梯积分等判定。
+										$wdata['winner_flag'] = 2; //把队伍里所有玩家的状态改为获胜，用于天梯积分等判定。
 										$teammatelist[] = $wdata['name'];//保存队友数据
 									}
 								}
-								$db->query("UPDATE {$tablepre}players SET state='5' WHERE type = 0 AND teamID = '$firstteamID'");
+								$db->query("UPDATE {$tablepre}players SET winner_flag='2' WHERE type = 0 AND teamID = '$firstteamID'");
 								
 								$winnum=count($teammatelist);
 								if ($winnum == 1)

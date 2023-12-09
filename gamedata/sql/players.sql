@@ -13,6 +13,7 @@ CREATE TABLE bra_players (
   `motto` char(30) NOT NULL DEFAULT '',
   `killmsg` char(30) NOT NULL DEFAULT '',
   `lastword` char(30) NOT NULL DEFAULT '', 
+  `winner_flag` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `player_dead_flag` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `corpse_clear_flag` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `gd` char(1) NOT NULL DEFAULT 'm',

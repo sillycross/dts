@@ -570,7 +570,6 @@ namespace player
 			//键名合法化
 			$ndata = player_format_with_db_structure($data);
 			//任意列的数值没变就不写数据库
-			//会导致严重的脏数据问题，在player表加行锁前就先不搞这个了
 			$ndata = player_diff_from_poll($ndata);
 			unset($ndata['pid']);
 			//建国后不准成精，你们复活别想啦
@@ -593,6 +592,11 @@ namespace player
 				//对玩家增加一项name的条件，阻止房间号改变的情况下会覆盖其他房间数据的可能
 				$where = "pid='$spid'";
 				if(!$data['type']) $where .= " AND name='$sname'";
+				
+//				if(!empty($ndata['state'])) {
+//					file_put_contents('a.txt', debug_backtrace()[5]['file'].':'.debug_backtrace()[5]['line']."\r\n\r\n",FILE_APPEND);
+//				}
+				
 				$db->array_update("{$tablepre}players", $ndata, $where);
 				//全局变量$sdata里每一个键值都是对外面变量的引用，要加入玩家数据池而不污染$sdata，必须创造数组浅拷贝
 				$pdata_origin_pool[$spid] = array_clone($data);
