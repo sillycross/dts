@@ -79,6 +79,7 @@ namespace item_misc
 			} elseif ($itm == '游戏解除钥匙') {
 				//$state = 6;
 				$winner_flag = 3;//2023.12.09 获胜标记现在写入$winner_flag而不是$state，避免脏数据污染
+				\player\player_save($sdata, 1);
 				$url = 'end.php';
 				\sys\gameover ( $now, 'end3', $name );
 			}elseif ($itm == '『C.H.A.O.S』') {
@@ -162,6 +163,7 @@ namespace item_misc
 			}elseif ($itm == '『G.A.M.E.O.V.E.R』') {
 				//$state = 6;
 				$winner_flag = 7;//2023.12.09 获胜标记现在写入$winner_flag而不是$state，避免脏数据污染
+				\player\player_save($sdata, 1);
 				$url = 'end.php';
 				\sys\gameover ( $now, 'end7', $name );
 			}elseif ($itm == '杏仁豆腐的ID卡') {
@@ -232,6 +234,7 @@ namespace item_misc
 				} elseif ($button_dice < 8) {
 					//$state = 6;
 					$winner_flag = 5;//2023.12.09 获胜标记现在写入$winner_flag而不是$state，避免脏数据污染
+					\player\player_save($sdata, 1);
 					$url = 'end.php';
 					\sys\gameover ( $now, 'end5', $name );
 				} else {
