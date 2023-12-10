@@ -1,0 +1,24 @@
+<!--{eval eval(import_module('skill715','sys'));}-->
+<!--{eval $___TEMP_SKILL_ID=715;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+无法行动，达到<span class="yellow b">$skill715_act_time</span>秒或受到其他人的攻击时解除。<br>解除后的第一次探索必定发现一件特定的腿部外甲防具。<br>
+<!--{eval $skill715_rm = \skillbase\skill_getvalue(715,'expire') - $now;}-->
+<!--{if $skill715_rm>0}-->
+<span class="yellow b">技能生效时间还剩<span>$skill715_rm</span>秒。</span><br>
+<!--{else}-->
+<span class="yellow b">技能生效时间已经结束。</span><br>
+<!--{/if}-->
+</span></td>
+<td class="skilldesc_right b3">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

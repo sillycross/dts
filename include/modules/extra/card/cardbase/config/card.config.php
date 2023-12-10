@@ -5614,6 +5614,74 @@ $cards = array(
 			),
 		)
 	),
+	373 => array(
+		'name' => '转转',
+		'rare' => 'B',
+		'pack' => '東埔寨Protoject',
+		'desc' => '不转不是東埔寨人',
+		'effect' => '开局携带一堆雏人形',
+		'energy' => 100,
+		'valid' => array(
+			'wep' => '雏人形',
+			'wepk' => 'WF',
+			'wepe' => '50',
+			'weps' => '20',
+			'wepsk' => '',
+			'itm5' => '雏人形',
+			'itmk5' => 'TN',
+			'itme5' => '50',
+			'itms5' => '5',
+			'itmsk5' => 'O',
+			'itm6' => '雏人形',
+			'itmk6' => 'X',
+			'itme6' => '1',
+			'itms6' => '3',
+			'itmsk6' => '',
+		)
+	),
+	374 => array(
+		'name' => '白与黑的春化精',
+		'rare' => 'B',
+		'pack' => '東埔寨Protoject',
+		'desc' => '春天到了！春天到了！',
+		'effect' => '春天来了，万物复苏，下略',
+		'desc_skills' => '进场后直到下一次禁区，所有角色视为随机拥有热恋或同志属性',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'714' => '0',
+			),
+		)
+	),
+	375 => array(
+		'name' => '机车超人',
+		'rare' => 'S',
+		'pack' => '東埔寨Protoject',
+		'desc' => '因为超速驾驶而暂被拘留',
+		'effect' => '开局时被封印。解除后获得技能<br>「灵力」「圣光」「金刚」「神速」<br>和一件强力的腿部外甲防具',
+		'desc_skills' => '「封印」：无法行动，达到10分钟或受到其他人的攻击时解除。<br>解除后的第一次探索必定发现特定的腿部外甲防具',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'715' => '0',
+			),
+		)
+	),
+	376 => array(
+		'name' => '紫色隐者',
+		'rare' => 'S',
+		'pack' => '東埔寨Protoject',
+		'desc' => '自称十七岁的冬眠妖怪，特点是神出鬼没和BBabgsfvnodz',
+		'effect' => '拥有蛮不讲理的“境界”能力',
+		'desc_skills' => '获得技能「神隐」「废线」<br>「神隐」：可以将道具和生命值低于自己的NPC装入异次元<br>「废线」：战斗技，可以使用异次元中的道具和NPC攻击对手',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'586' => '0',//todo
+				'587' => '0',//todo
+			),
+		)
+	),
 	
 	1000 => array(
 		'name'=>'萌新',

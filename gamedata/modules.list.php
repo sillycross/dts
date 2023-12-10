@@ -279,6 +279,7 @@ skill307,extra/achievement/skills/skill307/,1
 skill318,extra/achievement/skills/skill318/,1
 skill322,extra/achievement/skills/skill322/,1
 skill323,extra/achievement/skills/skill323/,1
+skill715,extra/card/skills/skill715/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
@@ -605,6 +606,7 @@ ex_gender_attr,extra/attr/ex_gender_attr/,1
 ex_attr_pierce,extra/attr/ex_attr_pierce/,1
 skill505,extra/card/skills/skill505/,1
 skill709,extra/card/skills/skill709/,1
+skill714,extra/card/skills/skill714/,1
 ex_purity,extra/attr/ex_purity/,1
 skill26,extra/club/skills/skill26/,1
 skill265,extra/club/skills/skill265/,1
