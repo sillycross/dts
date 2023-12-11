@@ -1,0 +1,28 @@
+<!--{eval eval(import_module('skill586','sys','clubbase','npc'));}-->
+<!--{eval $___TEMP_SKILL_ID=586;}-->
+<!--{eval $skill586_itmarr=\skill586\skill586_prepare_itmarr();$skill586_nowcount_item=sizeof($skill586_itmarr);$skill586_npcarr=\skill586\skill586_get_npcarr();$skill586_nowcount_npc=sizeof($skill586_npcarr);$skill586_totalcount=$skill586_nowcount_item + $skill586_nowcount_npc;$skill586_size=\skill586\skill586_get_packsize();}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+当前异次元中已存放<span class="yellow b">{$skill586_nowcount_item}</span>个道具和<span class="yellow b">{$skill586_nowcount_npc}</span>个NPC<br>已使用空间为<span class="yellow b">{$skill586_totalcount} / {$skill586_size}</span><br>
+<!--{loop $skill586_itmarr $v}-->
+<span class="cyan b">$v['itm'] / $v['itme'] / $v['itms']</span><br>
+<!--{/loop}-->
+<!--{loop $skill586_npcarr $i}-->
+<!--{eval $tnpc = \player\fetch_playerdata_by_pid($i);}-->
+<span class="cyan b">{$npc_typeinfo[$tnpc['type']]} {$tnpc['name']}/Lv. {$tnpc['lvl']}</span><br>
+<!--{/loop}-->
+<span class="yellow b">战斗技</span>&nbsp;&nbsp;将生命值低于自己的NPC装入异次元，消耗<span class="yellow b">$ragecost</span>点怒气
+</span></td>
+<td class="skilldesc_right b3">
+	<input type="button" class="cmdbutton" id="sp_castskill586" value="打开隙间" onclick="$('mode').value='special';$('command').value='skill586_special';$('subcmd').value='show';postCmd('gamecmd','command.php');this.disabled=true;">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}
