@@ -73,7 +73,7 @@ namespace instance3
 			\sys\rs_game(16+32);
 			return;
 		}
-		$chprocess($atime);	
+		$chprocess($atime);
 	}
 	
 	function init_enter_battlefield_items($ebp)

@@ -86,21 +86,27 @@
 		<div>
 			<span class="white b">$goval['title']</span> 
 			<!--{if $goval['type']=='number'}-->
-				<input type="number" name="{$gokey}" id="{$gokey}" onchange="$('command').value='game-option';$('para1').value='$gokey';$('para2').value=this.value;postCmd('roomcmd','roomcmd.php');" value="{$goval['value']}" min="{$goval['min']}" max="{$goval['max']}" style="width:50px" required>
+				<!--{eval $current_go=room_get_vars($roomdata, 'current_game_option');$nval=(int)$current_go[$gokey];}-->
+				<input type="number" name="{$gokey}" id="{$gokey}" value="{$nval}" min="{$goval['min']}" max="{$goval['max']}" style="width:50px" required>
+				&nbsp;&nbsp;&nbsp;<input type="button" value="确认" onclick="$('command').value='game-option';$('para1').value='$gokey';$('para2').value=document.getElementById('$gokey').value;postCmd('roomcmd','roomcmd.php');">
+				<!--{eval $gtype=room_get_vars($roomdata, 'gtype');}-->
+				<!--{if $gtype=='13'}-->
+				<!--{eval $current_go=room_get_vars($roomdata, 'current_game_option');$alvl=(int)$current_go['lvl'];$debuff_tips=get_instance3_debuff_tips($alvl);}-->
+				<div id="debuff_tips_switch" style="text-align:center;">
+					<a id="debuff_tips_open" onclick="this.style.display='none';$('debuff_tips_shut').style.display='inline';$('debuff_tips_hidden_box').style.display='block';">点击查看进阶规则列表</a>
+					<a id="debuff_tips_shut" style="display:none" onclick="this.style.display='none';$('debuff_tips_open').style.display='inline';$('debuff_tips_hidden_box').style.display='none';">关闭进阶规则列表</a>
+				</div>
+				<div id="debuff_tips_hidden_box" style="display:none;text-align:center;">
+					{$debuff_tips}
+				</div>
+				<!--{/if}-->
 			<!--{else}-->
-			<!--{loop $goval['options'] $oval}-->			
+			<!--{loop $goval['options'] $oval}-->
 				<input type="{$goval['type']}" name="{$gokey}" id="{$gokey}_{$oval['value']}"
 					onchange="$('command').value='game-option';$('para1').value='$gokey';$('para2').value='{$oval['value']}';postCmd('roomcmd','roomcmd.php');"
 					<!--{if $oval['value']==$roomdata['current_game_option'][$gokey]}-->checked<!--{/if}-->>
-				<a onclick="$('{$gokey}_{$oval['value']}').click();" title="{$oval['title']}">$oval['name']</a>&nbsp;&nbsp;&nbsp;				
+				<a onclick="$('{$gokey}_{$oval['value']}').click();" title="{$oval['title']}">$oval['name']</a>&nbsp;&nbsp;&nbsp;
 			<!--{/loop}-->
-			<!--{/if}-->
-			<!--{eval $gtype=room_get_vars($roomdata, 'gtype');}-->
-			<!--{if $gtype=='13'}-->
-			<br>
-			<!--{eval $game_option=room_get_vars($roomdata, 'game-option');$alvl=(int)$game_option['lvl'];$debuff_tips=get_instance3_debuff_tips($alvl);}-->
-			<span class="white b">当前等级进阶规则：</span><br>
-			{$debuff_tips}
 			<!--{/if}-->
 		</div>
 		<!--{/loop}-->

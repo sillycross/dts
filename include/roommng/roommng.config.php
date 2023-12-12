@@ -530,7 +530,6 @@ $roomtypelist = Array(
 			'lvl' => array(//变量名
 				'title' => '进阶等级',//界面显示的提示
 				'type' => 'number',//input类型
-				'value' => '0',
 				'min' => '0',
 				'max' => '30',
 			),

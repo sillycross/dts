@@ -32,7 +32,7 @@ namespace skill904
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill904'));
-		$sk904_lvl = (int)\skillbase\skill_getvalue(904,'lvl',$pa);		
+		$sk904_lvl = (int)\skillbase\skill_getvalue(904,'lvl',$pa);
 		return $sk904_dmggain[$sk904_lvl];
 	}
 	

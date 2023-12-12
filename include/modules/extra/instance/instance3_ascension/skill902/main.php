@@ -17,7 +17,7 @@ namespace skill902
 	
 	function lost902(&$pa)
 	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;	
+		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
 	function check_unlocked902(&$pa)

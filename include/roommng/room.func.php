@@ -95,9 +95,12 @@ function get_instance3_debuff_tips($alvl){
 		30 => '先制率-20%，命中率-20%',
 	);
 	$s = $club_tips[floor(max($alvl-1,0)/10)].'<br>';
-	for ($i=1;$i<=$alvl;$i++)
+	if ($alvl > 0)
 	{
-		$s .= $debuff_tips[$i].'<br>';
+		for ($i=1;$i<=$alvl;$i++)
+		{
+			$s .= $debuff_tips[$i].'<br>';
+		}
 	}
 	return $s;
 }

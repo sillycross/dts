@@ -260,12 +260,22 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 			$go = room_get_vars($roomdata,'game-option');
 			$gokey_words = $go[$para1]['title'];
 			$o_oval = room_get_vars($roomdata,'current_game_option')[$para1];
-			foreach($go[$para1]['options'] as $ov){
-				if($ov['value'] == $o_oval) $o_oval_words = $ov['name'];
-				if($ov['value'] == $para2) $n_oval_words = $ov['name'];
-				if(isset($o_oval_words) && isset($n_oval_words)) break;
-			}
-			room_set_game_option($roomdata, $para1, $para2);
+			if ($go[$para1]['type'] == 'number')
+			{
+				if (empty($o_oval)) $o_oval = 0;
+				$o_oval_words = $o_oval;
+				$n_oval_words = $para2;
+				room_set_game_option($roomdata, $para1, $para2);
+			}			
+			else
+			{
+				foreach($go[$para1]['options'] as $ov){
+					if($ov['value'] == $o_oval) $o_oval_words = $ov['name'];
+					if($ov['value'] == $para2) $n_oval_words = $ov['name'];
+					if(isset($o_oval_words) && isset($n_oval_words)) break;
+				}
+				room_set_game_option($roomdata, $para1, $para2);
+			}			
 			room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}将 {$gokey_words} 从 {$o_oval_words} 变为 {$n_oval_words} </span><br>");
 			//队伍数目特判，改变队伍数目时刷新新增或者删去的队伍位置
 			if('group-num'==$para1){
