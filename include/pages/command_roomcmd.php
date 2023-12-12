@@ -266,7 +266,7 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 				$o_oval_words = $o_oval;
 				$n_oval_words = $para2;
 				room_set_game_option($roomdata, $para1, $para2);
-			}			
+			}
 			else
 			{
 				foreach($go[$para1]['options'] as $ov){
@@ -275,7 +275,7 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 					if(isset($o_oval_words) && isset($n_oval_words)) break;
 				}
 				room_set_game_option($roomdata, $para1, $para2);
-			}			
+			}
 			room_new_chat($roomdata,"<span class=\"grey b\">{$cuser}将 {$gokey_words} 从 {$o_oval_words} 变为 {$n_oval_words} </span><br>");
 			//队伍数目特判，改变队伍数目时刷新新增或者删去的队伍位置
 			if('group-num'==$para1){
