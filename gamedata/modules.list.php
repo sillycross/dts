@@ -280,6 +280,8 @@ skill318,extra/achievement/skills/skill318/,1
 skill322,extra/achievement/skills/skill322/,1
 skill323,extra/achievement/skills/skill323/,1
 skill715,extra/card/skills/skill715/,1
+skill711,extra/card/skills/skill711/,1
+skill586,extra/card/skills/skill586/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
@@ -600,6 +602,7 @@ skill575,extra/card/skills/skill575/,1
 skill597,extra/card/skills/skill597/,1
 skill713,extra/card/skills/skill713/,1
 skill712,extra/card/skills/skill712/,1
+skill587,extra/card/skills/skill587/,1
 skill566,extra/card/skills/skill566/,1
 skill604,extra/club/skills/skill604/,1
 ex_gender_attr,extra/attr/ex_gender_attr/,1

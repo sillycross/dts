@@ -1,0 +1,26 @@
+<!--{eval eval(import_module('skill586','sys','clubbase','npc'));}-->
+<!--{eval $skill586_itmarr=\skill586\skill586_prepare_itmarr();$skill586_nowcount_item=sizeof($skill586_itmarr);$skill586_npcarr=\skill586\skill586_get_npcarr();$skill586_nowcount_npc=sizeof($skill586_npcarr);$skill586_totalcount=$skill586_nowcount_item + $skill586_nowcount_npc;$skill586_size=\skill586\skill586_get_packsize();}-->
+<input type="hidden" name="mode" value="special">
+<input type="hidden" id="command" name="command" value="skill586_special">
+<input type="hidden" id="subcmd" name="subcmd" value="">
+<input type="hidden" id="skill586_sendin" name="skill586_sendin" value="">
+<input type="hidden" id="skill586_fetchout" name="skill586_fetchout" value="">
+当前异次元中已存放<span class="yellow b">{$skill586_nowcount_item}</span>个道具和<span class="yellow b">{$skill586_nowcount_npc}</span>个NPC<br>已使用空间为<span class="yellow b">{$skill586_totalcount} / {$skill586_size}</span><br>
+<!--{loop $skill586_itmarr $i $v}-->
+<input type="button" class="cmdbutton" value="取出" onclick="$('skill586_fetchout').value='<!--{eval echo $i+1;}-->';$('skill586_sendin').value='';postCmd('gamecmd','command.php');this.disabled=true;">
+$v['itm']/$v['itme']/$v['itms']<br>
+<!--{/loop}-->
+<!--{loop $skill586_npcarr $i}-->
+<!--{eval $tnpc = \player\fetch_playerdata_by_pid($i);}-->
+<input type="button" class="cmdbutton" value="放出" onclick="$('skill586_fetchout').value='<!--{eval echo $i+101;}-->';$('skill586_sendin').value='';postCmd('gamecmd','command.php');this.disabled=true;">
+{$npc_typeinfo[$tnpc['type']]} {$tnpc['name']}/Lv. {$tnpc['lvl']}<br>
+<!--{/loop}-->
+<br><br>
+<!--{loop Array(1,2,3,4,5,6) $i}-->
+<!--{if !empty(${'itms'.$i})}-->
+<input type="button" class="cmdbutton" value="存入" onclick="$('skill586_fetchout').value='';$('skill586_sendin').value='{$i}';postCmd('gamecmd','command.php');this.disabled=true;">
+${'itm'.$i}/${'itme'.$i}/${'itms'.$i}<br>
+<!--{/if}-->
+<!--{/loop}-->
+<br><br>
+<input type="button" class="cmdbutton"  id="x" value="[X]返回" onclick="$('command').value='menu'; postCmd('gamecmd','command.php');this.disabled=true;">
