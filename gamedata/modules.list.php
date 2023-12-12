@@ -282,6 +282,9 @@ skill323,extra/achievement/skills/skill323/,1
 skill715,extra/card/skills/skill715/,1
 skill711,extra/card/skills/skill711/,1
 skill586,extra/card/skills/skill586/,1
+skill902,extra/instance/instance3_ascension/skill902/,1
+skill907,extra/instance/instance3_ascension/skill907/,1
+skill904,extra/instance/instance3_ascension/skill904/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
@@ -322,6 +325,7 @@ skill403,extra/card/skills/skill403/,1
 skill203,extra/club/skills/skill203/,1
 ammunition,base/items/ammunition/,1
 skill487,extra/card/skills/skill487/,1
+skill901,extra/instance/instance3_ascension/skill901/,1
 armor_art,base/armor_art/,1
 skill23,extra/club/skills/skill23/,1
 skill517,extra/card/skills/skill517/,1
@@ -341,6 +345,7 @@ skill24,extra/club/skills/skill24/,1
 skill33,extra/club/skills/skill33/,1
 skill579,extra/card/skills/skill579/,1
 tactic,base/tactic/,1
+skill906,extra/instance/instance3_ascension/skill906/,1
 skill490,extra/card/skills/skill490/,1
 skill430,extra/card/skills/skill430/,1
 wep_b,base/weapon/wep_b/,1
@@ -452,6 +457,7 @@ skill215,extra/club/skills/skill215/,1
 skill271,extra/club/skills/skill271/,1
 skill51,extra/club/skills/skill51/,1
 skill493,extra/card/skills/skill493/,1
+instance3,extra/instance/instance3_ascension/,1
 instance8,extra/instance/instance8_proud/,1
 instance7,extra/instance/instance7_tutorial/,1
 kujibase,extra/card/kujibase/,1
@@ -587,6 +593,7 @@ skill551,extra/card/skills/skill551/,1
 skill554,extra/card/skills/skill554/,1
 skill1006,extra/club/skills/skill1006/,1
 skill542,extra/card/skills/skill542/,1
+skill905,extra/instance/instance3_ascension/skill905/,1
 skill366,extra/activities/aprilfool2018/skill366/,1
 skill563,extra/card/skills/skill563/,1
 skill36,extra/club/skills/skill36/,1
@@ -607,6 +614,7 @@ skill566,extra/card/skills/skill566/,1
 skill604,extra/club/skills/skill604/,1
 ex_gender_attr,extra/attr/ex_gender_attr/,1
 ex_attr_pierce,extra/attr/ex_attr_pierce/,1
+skill903,extra/instance/instance3_ascension/skill903/,1
 skill505,extra/card/skills/skill505/,1
 skill709,extra/card/skills/skill709/,1
 skill714,extra/card/skills/skill714/,1

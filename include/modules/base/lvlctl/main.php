@@ -60,14 +60,20 @@ namespace lvlctl
 		$pa['lvl']++;
 	}
 	
+	function get_lvllimit(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player'));
+		if(strpos($db_player_structure_types['lvl'],'tinyint')===0) return 250;
+		else return 65000;
+	}
+	
 	function checklvlup($v, &$pa) //这个函数不应该从外部直接调用
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger','lvlctl'));
 		$up_exp_temp = calc_upexp($pa['lvl']);
-		//$up_exp_temp = round ( (2 * $pa['lvl'] + 1) * $baseexp );
-		if(strpos($db_player_structure_types['lvl'],'tinyint')===0) $lvllimit = 250;
-		else $lvllimit = 65000;
+		$lvllimit = get_lvllimit($pa);
 		$upflag = 1;
 		if ($pa['lvl'] < $lvllimit) 
 		{

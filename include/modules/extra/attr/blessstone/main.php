@@ -192,8 +192,9 @@ namespace blessstone
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($theitem);
+		eval(import_module('player'));
 		if($ret && \itemmain\check_in_itmsk('Z', $arbsk)) {
-			eval(import_module('sys','player','itemmain','logger'));
+			eval(import_module('sys','itemmain','logger'));
 			$log .= "打上补丁之后，装备显得朴素多了。<br><span class='yellow b'>$arb</span>失去了<span class='yellow b'>{$itemspkinfo['Z']}</span>属性！<br>";
 			$arbsk = \itemmain\replace_in_itmsk('Z','',$arbsk);
 		}

@@ -201,12 +201,21 @@ function room_check_game_option($roomtype, $gokey, $oval){
 	if(!isset($roomtypelist[$roomtype]['game-option'])) {return false;}
 	$go = $roomtypelist[$roomtype]['game-option'];
 	if(!isset($go[$gokey])) {return false;}
-	$ovlist = array();
-	foreach($go[$gokey]['options'] as $ov){
-		$ovlist[] = $ov['value'];
+	if($go[$gokey]['type'] == 'number')
+	{
+		if (isset($go[$gokey]['min']) && ((int)$oval < $go[$gokey]['min'])) return false;
+		if (isset($go[$gokey]['max']) && ((int)$oval > $go[$gokey]['max'])) return false;
+		return true;
 	}
-	if(!in_array($oval, $ovlist)) {return false;}
-	else {return true;}
+	else
+	{
+		$ovlist = array();
+		foreach($go[$gokey]['options'] as $ov){
+			$ovlist[] = $ov['value'];
+		}
+		if(!in_array($oval, $ovlist)) {return false;}
+		else {return true;}
+	}
 }
 
 //加载游戏特殊参数

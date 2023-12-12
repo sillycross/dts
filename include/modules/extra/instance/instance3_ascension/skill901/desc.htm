@@ -1,0 +1,32 @@
+<!--{eval $___TEMP_SKILL_ID=901;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+<!--{eval $skill901_lvl = (int)\skillbase\skill_getvalue(901,'lvl',$who);}-->
+<!--{if $skill901_lvl >= 1}-->
+等级上限<span class="yellow b">-100</span>
+	<!--{if $skill901_lvl >= 2}-->
+	，购买物品价格<span class="yellow b">+25%</span>
+		<!--{if $skill901_lvl >= 3}-->
+		，<br>开局欠债<span class="yellow b">1000</span>元
+			<!--{if $skill901_lvl >= 4}-->
+			，开局<span class="yellow b">5</span>分钟内攻击无法获得熟练度
+				<!--{if $skill901_lvl >= 5}-->
+				，<br>无法装备身体防具
+				<!--{/if}-->
+			<!--{/if}-->
+		<!--{/if}-->
+	<!--{/if}-->
+<!--{/if}-->
+</span></td>
+<td class="skilldesc_right b3">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

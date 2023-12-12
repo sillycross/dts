@@ -1,0 +1,29 @@
+<!--{eval $___TEMP_SKILL_ID=902;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+<!--{eval $skill902_lvl = (int)\skillbase\skill_getvalue(902,'lvl',$who);}-->
+<!--{if $skill902_lvl >= 1}-->
+全息幻象受到伤害<span class="yellow b">-15%</span>
+	<!--{if $skill902_lvl >= 2}-->
+	<br>杏仁豆腐、黑幕、真职人、电波幽灵受到伤害<span class="yellow b">-15%</span>
+		<!--{if $skill902_lvl >= 3}-->
+		<br>数据碎片NPC造成伤害<span class="yellow b">+25%</span>
+			<!--{if $skill902_lvl >= 4}-->
+			<br>剧情BOSS和英灵殿NPC造成伤害<span class="yellow b">+25%</span>
+			<!--{/if}-->
+		<!--{/if}-->
+	<!--{/if}-->
+<!--{/if}-->
+</span></td>
+<td class="skilldesc_right b3">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}
