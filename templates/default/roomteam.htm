@@ -326,3 +326,30 @@
 </tr>
 </table>
 <!--{/if}-->
+<!--{if $roomdata['roomtype']==11}-->
+<table CellSpacing=0 CellPadding=0 width=100%>
+<tr>
+	<td class="b3" height=10px colspan=5>
+	</td>
+</tr>
+<tr>
+	<td class="b3" colspan=3 height=25px width=310px>
+		<span class="red b">本模式供熟练玩家挑战自我使用！</span>
+	</td>
+</tr>
+<tr>
+	<td class="b3" height=40px width=250>
+	</td>
+	<!--{eval $i=0;}-->
+	<td id="room-position-$i" class="b3" width=150px align=center style="position:relative;">
+		{template roomslot}
+	</td>
+	<td class="b3">
+	</td>
+</tr>
+<tr>
+	<td class="b3" height=15px colspan=5>
+	</td>
+</tr>
+</table>
+<!--{/if}-->

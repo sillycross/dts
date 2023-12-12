@@ -1,0 +1,32 @@
+<!--{eval $___TEMP_SKILL_ID=903;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+<!--{eval $skill903_lvl = (int)\skillbase\skill_getvalue(903,'lvl',$who);}-->
+<!--{if $skill903_lvl >= 1}-->
+陷阱遭遇率<span class="yellow b">+20%</span>
+	<!--{if $skill903_lvl >= 2}-->
+	，物品/角色发现率<span class="yellow b">-20%</span>
+		<!--{if $skill903_lvl >= 3}-->
+		，<br>抹消基础失效率变为<span class="yellow b">10%</span>
+			<!--{if $skill903_lvl >= 4}-->
+			，控伤基础失效率变为<span class="yellow b">15%</span>
+				<!--{if $skill903_lvl >= 5}-->
+				，<br>先制率<span class="yellow b">-20%</span>，命中率<span class="yellow b">-20%</span>
+				<!--{/if}-->
+			<!--{/if}-->
+		<!--{/if}-->
+	<!--{/if}-->
+<!--{/if}-->
+</span></td>
+<td class="skilldesc_right b3">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

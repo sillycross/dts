@@ -506,6 +506,36 @@ $roomtypelist = Array(
 		),
 		'show-team-leader' => 0,	//是否显示“队长”标签（如队伍大于1人设为1）
 	),
+	11 => Array(
+		'name' => '<font class="red b">试炼模式</font>',
+		'gtype' => 13, //对应的游戏模式编号
+		'available' => true,
+		'soleroom' => false,//唯一房间，只有不存在时才会新建房间。
+		'without-ready' => false,//是否不需要点击“准备”就直接进入房间。
+		'without-valid' => false,//是否跳过加入游戏画面就直接进入房间。
+		'pnum' => 1,	//最大参与人数，只有开启准备才有效
+		'globalnum' => 0,	//全场最大开启数目，不设或者0认为无限制
+		'privatenum' => 1,	//单人最大开启数目，不设或者0认为无限制；不需要准备的房间无视这个值
+		'leader-position' => Array(	//各个编号位置的所属队伍队长位置
+			0 => 0,
+		),
+		'color' => Array(		//队伍颜色，只需对队长设置即可
+			0 => 'ff0022',
+		),
+		'teamID' => Array(	//队伍名，只需对队长设置即可。
+			0 => '试炼者',
+		),
+		'show-team-leader' => 0,	//是否显示“队长”标签（如队伍大于1人设为1）
+		'game-option' => array(
+			'lvl' => array(//变量名
+				'title' => '进阶等级',//界面显示的提示
+				'type' => 'number',//input类型
+				'value' => '0',
+				'min' => '0',
+				'max' => '30',
+			),
+		),
+	),
 );
 	
 /* End of file roommng.config.php */

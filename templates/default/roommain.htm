@@ -85,12 +85,23 @@
 		<!--{loop $game_option $gokey $goval}-->
 		<div>
 			<span class="white b">$goval['title']</span> 
-			<!--{loop $goval['options'] $oval}-->
-				<input type="{$goval['type']}" name="{$gokey}" id="{$gokey}_{$oval['value']}" 
+			<!--{if $goval['type']=='number'}-->
+				<input type="number" name="{$gokey}" id="{$gokey}" onchange="$('command').value='game-option';$('para1').value='$gokey';$('para2').value=this.value;postCmd('roomcmd','roomcmd.php');" value="{$goval['value']}" min="{$goval['min']}" max="{$goval['max']}" style="width:50px" required>
+			<!--{else}-->
+			<!--{loop $goval['options'] $oval}-->			
+				<input type="{$goval['type']}" name="{$gokey}" id="{$gokey}_{$oval['value']}"
 					onchange="$('command').value='game-option';$('para1').value='$gokey';$('para2').value='{$oval['value']}';postCmd('roomcmd','roomcmd.php');"
 					<!--{if $oval['value']==$roomdata['current_game_option'][$gokey]}-->checked<!--{/if}-->>
-				<a onclick="$('{$gokey}_{$oval['value']}').click();" title="{$oval['title']}">$oval['name']</a>&nbsp;&nbsp;&nbsp;
+				<a onclick="$('{$gokey}_{$oval['value']}').click();" title="{$oval['title']}">$oval['name']</a>&nbsp;&nbsp;&nbsp;				
 			<!--{/loop}-->
+			<!--{/if}-->
+			<!--{eval $gtype=room_get_vars($roomdata, 'gtype');}-->
+			<!--{if $gtype=='13'}-->
+			<br>
+			<!--{eval $game_option=room_get_vars($roomdata, 'game-option');$alvl=(int)$game_option['lvl'];$debuff_tips=get_instance3_debuff_tips($alvl);}-->
+			<span class="white b">当前等级进阶规则：</span><br>
+			{$debuff_tips}
+			<!--{/if}-->
 		</div>
 		<!--{/loop}-->
 		<!--{/if}-->

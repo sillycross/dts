@@ -1,0 +1,23 @@
+<!--{eval $___TEMP_SKILL_ID=906;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+<!--{eval $skill906_lvl = (int)\skillbase\skill_getvalue(906,'lvl',$who);}-->
+<!--{if $skill906_lvl >= 1}-->
+受伤或受到异常状态后<span class="yellow b">20</span>秒内无法去除
+	<!--{if $skill906_lvl >= 2}-->
+	，<br>受伤或受到异常状态时生命上限<span class="yellow b">-10</span>
+	<!--{/if}-->
+<!--{/if}-->
+</span></td>
+<td class="skilldesc_right b3">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}
