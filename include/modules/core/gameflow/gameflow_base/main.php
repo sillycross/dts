@@ -48,10 +48,16 @@ namespace gameflow_base
 		}
 	}
 	
+	//连斗判定，具体在连斗模块重载
+	function is_gamestate_combo($disp = 0){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $gamestate;
+	}
+	
 	function checkendgame(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys')); 
-		if($gamestate >= 40) {
+		if(is_gamestate_combo()) {
 			//队伍胜利模式游戏结束判断
 			if (in_array($gametype,$teamwin_mode))
 			{
