@@ -172,7 +172,7 @@ namespace achievement_base
 		return $ret;
 	}
 	
-	//判定单个成就是否获得（主要涉及日常任务）
+	//判定单个成就是否拥有（拥有，不是完成。主要是日常任务在用）
 	function check_ach_got($key, $val)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

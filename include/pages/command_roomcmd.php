@@ -219,7 +219,7 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 //				$upos = $i;
 		
 		if (	$upos==0 
-			&& 0<=$para1 && $para1<count($roomtypelist) && $para1!=$roomdata['roomtype'] && !$roomtypelist[$para1]['soleroom'])
+			&& in_array($para1, array_keys($roomtypelist)) && $para1!=$roomdata['roomtype'] && !$roomtypelist[$para1]['soleroom'])
 		{
 			//$tot=0;
 			$nroomdata=room_init($para1);
@@ -440,6 +440,7 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 					}
 				//进入连斗
 				$opgamestate = room_get_vars($roomdata,'opening-gamestate');
+				$gamestate = 30;
 				if (in_array($roomdata['roomtype'],array(0,1,2,3,4)) && (empty($opgamestate) || 40 == $opgamestate)){
 					$gamestate = 40;
 					addnews($now,'combo');
@@ -455,9 +456,6 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 						addnews($now,'combo');
 						systemputchat($now,'combo');
 					}
-					else $gamestate = 30;
-				}else{
-					$gamestate = 30;
 				}
 				save_gameinfo();
 				

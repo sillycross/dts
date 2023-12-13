@@ -12,7 +12,7 @@
 	“接下来，你能走多远，就靠你自己了。”</span>
 	</p><br>
 <!--{elseif ($hp <= 0 || $state >= 10) && !($gametype == 1 && $winmode == 8)}-->
-	<!--{eval if(1==$winmode) $state = 11;}-->
+	<!--{eval if($state < 10 && 1==$winmode) $state = 11;}-->
 	<div class="subtitle">$stateinfo[$state]</div>
 	<div><IMG src="img/$iconImg" width="140" height="80" border="0"align="middle" style="filter: grayscale(100%)"></div>
 	<div class="yellow b">$motto</div>

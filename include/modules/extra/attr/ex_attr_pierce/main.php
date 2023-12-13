@@ -141,7 +141,7 @@ namespace ex_attr_pierce
 		if(!empty($pa['physical_pierce_success']) && !empty($pa['attr_pierce_success']) && \attrbase\check_in_itmsk('h',\attrbase\get_ex_def_array($pa, $pd, $active)))
 		{
 			eval(import_module('logger'));
-			$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="red b"><:pa_name:>的攻击贯穿了<:pd_name:>的控血属性！</span><br>');
+			$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="red b"><:pa_name:>的攻击贯穿了<:pd_name:>的控伤属性！</span><br>');
 			return;
 		}
 		$chprocess($pa, $pd, $active);
