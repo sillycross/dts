@@ -143,16 +143,30 @@ namespace attrbase
 	function replace_in_itmsk($needle, $replacement, $itmsk, $strict = 0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		//判定是不是合法的复合属性
+		//判定$needle是不是合法的复合属性
 		$compret = get_comp_itmsk_info($needle);
 		if(NULL !== $compret) {
 			//获得复合属性头
 			$skhead = $compret[0];
 			//将itmsk转化为属性数组（不忽略竖线）
 			$itmsk_arr = \itemmain\get_itmsk_array($itmsk,1);
-			//对每个元素进行判定，如果属性前部相等，就把该元素替换
+			//对每个元素进行判定，如果元素前部相等，就把该元素替换
 			foreach($itmsk_arr as &$isk){
 				if((empty($strict) && check_single_sk_head_equal($isk, $skhead)) || $isk === $skhead){
+					$isk = $replacement;
+				}
+			}
+			//重组元素，生成替换过的属性字符串
+			$ret = implode('', $itmsk_arr);
+			return $ret;
+		}
+		//判断$itmsk是否包含其他复合属性，如果是，必须拆开成单个属性做替换，不能直接str_replace()
+		elseif(strpos($itmsk, '^')!==false)
+		{
+			$itmsk_arr = \itemmain\get_itmsk_array($itmsk,1);
+			//对每个元素进行判定，如果元素完全相等则替换
+			foreach($itmsk_arr as &$isk){
+				if($isk === $needle){
 					$isk = $replacement;
 				}
 			}
