@@ -36,6 +36,18 @@ namespace skill1006
 		return $chprocess($pa);
 	}
 	
+	//测试用函数
+	function skill1006_get_beacon_pool()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('skill1006'));
+		$ret = '';
+		foreach($beacon_pool as $k => $v) {
+			$ret .= var_export(gdecode($k, 1),1).' ====> '.var_export($v, 1).' ;;;; ';
+		}
+		return $ret;
+	}
+	
 	//临时视野构思：只在显示时挂靠在视野的界面上，实际处理都是走的本模块。
 	//临时视野不参与各种视野边缘之类的判定，会因为正常探索到该内容而被消除，移动后临时视野会转化为正常的记忆
 	//不存在“临时记忆”
@@ -108,6 +120,7 @@ namespace skill1006
 		if(empty($pa)) {
 			$pa = & get_var_in_module('sdata', 'player');
 		}
+		//echo 'before add '.skill1006_get_beacon_pool();
 		add_beacon_core($marr, $pa);
 	}
 	
