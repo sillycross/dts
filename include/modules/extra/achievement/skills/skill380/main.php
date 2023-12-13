@@ -63,7 +63,7 @@ namespace skill380
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa, $data, $achid);
 		if($achid == 380){
-			eval(import_module('sys'));	
+			eval(import_module('sys'));
 			if(\sys\is_winner($pa['name'],$winner) && ($winmode == 7))
 			{
 				$alvl = (int)\skillbase\skill_getvalue(1003,'instance3_lvl',$pa);

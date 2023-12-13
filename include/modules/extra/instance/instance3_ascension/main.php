@@ -66,14 +66,26 @@ namespace instance3
 			if ($areanum>=($areaadd*2)){//限时2禁
 				$result = $db->query("SELECT * FROM {$tablepre}players WHERE hp>0 AND type=0 ORDER BY card LIMIT 1");
 				$wdata = $db->fetch_array($result);
-				$winner = $wdata['name'];
-				\sys\gameover($atime,'end8',$winner);
+				//杀杀杀
+				$wdata['state'] = 50;
+				$wdata['sourceless'] = 1; 
+				\player\kill($wdata,$wdata);
+				\player\player_save($wdata);
+				\sys\gameover($atime,'end1');
 				return;
 			}
 			\sys\rs_game(16+32);
 			return;
 		}
 		$chprocess($atime);
+	}
+	
+	//无法最后幸存
+	function gameover($time = 0, $gmode = '', $winname = '') {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		if ((13==$gametype) && ((($gmode=='') && ($alivenum==1)) || ($gmode=='end2'))) return;
+		$chprocess($time,$gmode,$winname);
 	}
 	
 	function init_enter_battlefield_items($ebp)
