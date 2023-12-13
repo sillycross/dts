@@ -1,9 +1,9 @@
 <?php
 
-namespace instance3
+namespace skill380
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'sys player logger gameflow_combo map weather npc itemshop itemmain cardbase skillbase';
+	$___MODULE_dependency = 'skillbase clubbase sys player achievement_base';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

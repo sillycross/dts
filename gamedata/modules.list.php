@@ -554,6 +554,7 @@ skill376,extra/achievement/skills/skill376/,1
 skill377,extra/achievement/skills/skill377/,1
 skill378,extra/achievement/skills/skill378/,1
 skill379,extra/achievement/skills/skill379/,1
+skill380,extra/achievement/skills/skill380/,1
 skill504,extra/card/skills/skill504/,1
 skill429,extra/instance/gtype1/skill429/,1
 skill503,extra/card/skills/skill503/,1
