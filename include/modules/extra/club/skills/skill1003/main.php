@@ -22,6 +22,7 @@
 //怪伞技能记录pid sk580_sid 位于extra/card/skills/skill580
 //当前使用卡片的碎闪等级 nowcard_blink 位于extra/card/cardbase
 //迷梦技能标记 sk599_flag 位于extra/card/skills/skill599
+//试炼模式等级 instance3_lvl 位于extra/instance/instance3_ascension
 
 namespace skill1003
 {

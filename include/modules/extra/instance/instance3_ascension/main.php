@@ -66,14 +66,26 @@ namespace instance3
 			if ($areanum>=($areaadd*2)){//限时2禁
 				$result = $db->query("SELECT * FROM {$tablepre}players WHERE hp>0 AND type=0 ORDER BY card LIMIT 1");
 				$wdata = $db->fetch_array($result);
-				$winner = $wdata['name'];
-				\sys\gameover($atime,'end8',$winner);
+				//杀杀杀
+				$wdata['state'] = 50;
+				$wdata['sourceless'] = 1; 
+				\player\kill($wdata,$wdata);
+				\player\player_save($wdata);
+				\sys\gameover($atime,'end1');
 				return;
 			}
 			\sys\rs_game(16+32);
 			return;
 		}
 		$chprocess($atime);
+	}
+	
+	//无法最后幸存
+	function gameover($time = 0, $gmode = '', $winname = '') {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		if ((13==$gametype) && ((($gmode=='') && ($alivenum==1)) || ($gmode=='end2'))) return;
+		$chprocess($time,$gmode,$winname);
 	}
 	
 	function init_enter_battlefield_items($ebp)
@@ -157,6 +169,8 @@ namespace instance3
 	function instance3_add_skills($proc, $alvl)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//厌食
+		if ($alvl >= 9) $proc[1][474] = '0';
 		//神弃
 		if ($alvl >= 26) $proc[1][901] = '5';
 		elseif ($alvl >= 13) $proc[1][901] = '4';
@@ -190,7 +204,7 @@ namespace instance3
 		return $proc;
 	}
 	
-	//进阶20开局连斗
+	//进场记录进阶等级
 	function post_enterbattlefield_events(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -201,15 +215,49 @@ namespace instance3
 			if(isset($option['lvl']))
 			{
 				$alvl = (int)$option['lvl'];
-				if ($alvl >= 18)
-				{
-					$gamestate = 40;
-					addnews($now,'combo');
-					systemputchat($now,'combo');
-					save_gameinfo();
+				if (\skillbase\skill_query(1003,$pa)) \skillbase\skill_setvalue(1003,'instance3_lvl',$alvl,$pa);
+			}
+		}
+	}
+	
+	function itemuse(&$theitem) //使用试炼解除钥匙立刻结束游戏
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		eval(import_module('sys','player','itemmain','logger'));
+		
+		$itm=&$theitem['itm']; $itmk=&$theitem['itmk'];
+		$itme=&$theitem['itme']; $itms=&$theitem['itms']; $itmsk=&$theitem['itmsk'];
+		
+		if (strpos ( $itmk, 'Y' ) === 0 || strpos ( $itmk, 'Z' ) === 0) {
+			if ($itm == '试炼解除钥匙') 
+			{
+				if(13==$gametype){
+					addnews ( $now, 'itemuse', $name, $itm );
+					$log .= '<span class="red b">钥匙中涌出无边的黑暗，将你的身体和灵魂吞噬了。</span><br>';
+					$state = 50;
+					$sdata['sourceless'] = 1; 
+					\player\kill($sdata,$sdata);
+					return;
+				}else{
+					$log .= '这玩意究竟是怎么冒出来的呢？<br>';
+					$mode = 'command';
+					return;
 				}
 			}
 		}
+		$chprocess($theitem);
+	}
+	
+	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())	
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player'));
+		if($news == 'death50') 
+		{
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red b\">{$a}被黑暗吞噬了</span></li>";
+		}
+		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 	
 }
