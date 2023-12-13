@@ -167,8 +167,12 @@ namespace trap
 		eval(import_module('sys','player','trap','logger'));
 		
 		$bid = $itmsk0;
-		if($bid) {
-			$pa=\player\fetch_playerdata_by_pid($bid);
+		if(!empty($bid)) {
+			if($bid == $pid) {
+				$pa = $sdata;
+			}else{
+				$pa=\player\fetch_playerdata_by_pid($bid);
+			}
 		}else {
 			$pa=\player\create_dummy_playerdata();
 		}
