@@ -446,6 +446,16 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 					systemputchat($now,'combo');
 				}elseif(!empty($opgamestate)){
 					$gamestate = $opgamestate;
+				}elseif ($roomdata['roomtype'] == 11){
+					$current_go=room_get_vars($roomdata, 'current_game_option');
+					$alvl = (int)$current_go['lvl'];
+					if ($alvl >= 18)
+					{
+						$gamestate = 40;
+						addnews($now,'combo');
+						systemputchat($now,'combo');
+					}
+					else $gamestate = 30;
 				}else{
 					$gamestate = 30;
 				}
