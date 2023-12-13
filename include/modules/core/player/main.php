@@ -106,6 +106,7 @@ namespace player
 				}
 			}
 		}
+		if($Pname == get_var_in_module('name', 'player')) file_put_contents('log.txt', 'fetch_playerdata with selfs name at'.debug_backtrace()[0]['file'].':'.debug_backtrace()[1]['function'].':'.debug_backtrace()[0]['line']."\r\n", FILE_APPEND);
 		if(empty($pdata)){
 			//先进行玩家锁判定
 			$query = "SELECT pid FROM {$tablepre}players WHERE name = '$Pname' AND type = '$Ptype'";
@@ -130,6 +131,7 @@ namespace player
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
+		if($pid == get_var_in_module('pid', 'player')) file_put_contents('log.txt', 'fetch_playerdata_by_pid with selfs pid at '.debug_backtrace()[0]['file'].':'.debug_backtrace()[1]['function'].':'.debug_backtrace()[0]['line']."\r\n", FILE_APPEND);
 		if(isset($pdata_pool[$pid])){
 			$pdata = $pdata_pool[$pid];
 		}else{
