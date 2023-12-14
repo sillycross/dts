@@ -130,6 +130,7 @@ namespace instance3
 				$card = array(90,282,129)[floor(max($alvl-1,0)/10)];
 				return $card;
 			}
+			else return 90;
 		}
 		return $chprocess($card);
 	}
