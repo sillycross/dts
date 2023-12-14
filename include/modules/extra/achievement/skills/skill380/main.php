@@ -12,7 +12,7 @@ namespace skill380
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach380_desc= array(
-		1=>'在<span class="red b">试炼模式</span>中完成结局幻境解离',
+		1=>'在<span class="red b">试炼模式</span>的进阶<:threshold:>难度中完成结局幻境解离',
 	);
 	
 	$ach380_proc_words = '最高纪录';
