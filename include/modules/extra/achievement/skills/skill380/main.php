@@ -67,7 +67,41 @@ namespace skill380
 			if(\sys\is_winner($pa['name'],$winner) && ($winmode == 7))
 			{
 				$alvl = (int)\skillbase\skill_getvalue(1003,'instance3_lvl',$pa);
-				if ($alvl > $ret) $ret = $alvl;
+				if ($alvl > $ret)
+				{
+					$ret = $alvl;
+					//仅一次的发卡，但是不计入成就
+					if ($alvl >= 20)
+					{
+						include_once './include/messages.func.php';
+						message_create(
+							$pa['name'],
+							'试炼模式奖励',
+							'祝贺你在房间第'.$gamenum.'局试炼模式获得了奖励！<br>',
+							'getcard_282;getcardblink_10'
+						);
+					}
+					if ($alvl >= 25)
+					{
+						include_once './include/messages.func.php';
+						message_create(
+							$pa['name'],
+							'试炼模式奖励',
+							'祝贺你在房间第'.$gamenum.'局试炼模式获得了奖励！<br>',
+							'getcard_199;getcardblink_10'
+						);
+					}
+					if ($alvl >= 30)
+					{
+						include_once './include/messages.func.php';
+						message_create(
+							$pa['name'],
+							'试炼模式奖励',
+							'祝贺你在房间第'.$gamenum.'局试炼模式获得了奖励！<br>',
+							'getcard_199;getcardblink_20'
+						);
+					}
+				}
 			}
 		}
 		return $ret;

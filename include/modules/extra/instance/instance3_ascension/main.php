@@ -130,6 +130,7 @@ namespace instance3
 				$card = array(90,282,129)[floor(max($alvl-1,0)/10)];
 				return $card;
 			}
+			else return 90;
 		}
 		return $chprocess($card);
 	}
@@ -258,6 +259,39 @@ namespace instance3
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"red b\">{$a}被黑暗吞噬了</span></li>";
 		}
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
+	}
+	
+	function instance3_calc_qiegao_prize($alvl)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if ($alvl == 0) return 100;
+		elseif ($alvl <= 10) return 400*$alvl;
+		elseif ($alvl < 20) return 1000*$alvl-6000;
+		elseif ($alvl < 30) return 1000*$alvl-2000;
+		else return 30000;
+	}
+	
+	function post_winnercheck_events($winner)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($winner);
+		eval(import_module('sys'));
+		if ($winmode == 7)
+		{
+			$pa = \player\fetch_playerdata($winner);
+			$alvl = (int)\skillbase\skill_getvalue(1003,'instance3_lvl',$pa);
+			$qiegao_prize = instance3_calc_qiegao_prize($alvl);
+			if ($qiegao_prize)
+			{
+				include_once './include/messages.func.php';
+				message_create(
+					$pa['name'],
+					'试炼模式奖励',
+					'祝贺你在房间第'.$gamenum.'局试炼模式获得了奖励！<br>',
+					'getqiegao_'.$qiegao_prize
+				);
+			}
+		}
 	}
 	
 }
