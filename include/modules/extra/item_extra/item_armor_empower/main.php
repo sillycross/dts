@@ -151,8 +151,8 @@ namespace item_armor_empower
 			if ($i > 0) $log .= "使<span class=\"yellow b\">{$itm}</span>获得了额外的防御属性！";
 			else
 			{
-				$itme += (int)$itme/2;
-				if ($nosta !== $itms) $itms += (int)$itms/2;
+				$itme += ceil($itme/2);
+				if ($nosta !== $itms) $itms += ceil($itms/2);
 				$log .= "增强了<span class=\"yellow b\">{$itm}</span>的效果和耐久！";
 			}
 		}	
