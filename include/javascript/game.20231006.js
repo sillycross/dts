@@ -675,7 +675,7 @@ function AutopowerLogTimer()
 	$('autopower'+Number(curnum).toString()).style.display = 'inline';
 	$('autopower_curnum').innerHTML=Number(curnum+1).toString();
 	
-	if (curnum == totnum)
+	if (curnum == totnum && typeof AutopowerTimerId !== 'undefined')
 	{	
 		clearInterval(AutopowerTimerId);
 		delete AutopowerTimerId;

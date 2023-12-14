@@ -427,8 +427,8 @@ namespace achievement_base
 		
 		eval(import_module('sys','skill'.$achid));
 		$achtitle = ${'ach'.$achid.'_name'}[$c];
-		
-		$pt = '祝贺你在'.($room_prefix ? '房间' : '').'第'.$gamenum.'局获得了成就<span class="yellow b">'.achievement_secret_decode($achtitle).'</span>！'.$ext;
+		$achtitle = str_replace('<br>', '', achievement_secret_decode($achtitle));
+		$pt = '祝贺你在'.($room_prefix ? '房间' : '').'第'.$gamenum.'局获得了成就<span class="yellow b">'.$achtitle.'</span>！'.$ext;
 		if($getqiegao || $getcard) $pt .= '查收本消息即可获取奖励。';
 		if($getcard) {
 			$pt .= '如果已有奖励卡片则会转化为切糕。';
