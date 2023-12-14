@@ -507,7 +507,7 @@ $roomtypelist = Array(
 		'show-team-leader' => 0,	//是否显示“队长”标签（如队伍大于1人设为1）
 	),
 	11 => Array(
-		'name' => '<font class="red b">试炼模式</font>',
+		'name' => '<font class="vermilion b">试炼模式</font>',
 		'gtype' => 13, //对应的游戏模式编号
 		'available' => true,
 		'soleroom' => false,//唯一房间，只有不存在时才会新建房间。

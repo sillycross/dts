@@ -512,7 +512,7 @@ namespace searchmemory
 		$search_flag = 0;
 		if($marr['unseen']) {
 			$schsp = \explore\allow_search_check();
-	
+			$o_pls = $pls;
 			if(false !== $schsp && $hp) {
 				$sp -= $schsp;
 				$log .= "消耗<span class=\"yellow b\">{$schsp}</span>点体力，你向记忆中的地点探索而去……<br>";
@@ -526,6 +526,8 @@ namespace searchmemory
 			}
 			//探索流程有可能造成死亡，所以需要存活才继续
 			if(!$hp) return;
+			//探索流程有可能移到别的地图（英灵殿，龙卷风），所以需要前后地点对应才能继续
+			if($pls != $o_pls) return;
 		}
 		
 		//接下来的流程无论结果，都可以把该记忆元素删掉了

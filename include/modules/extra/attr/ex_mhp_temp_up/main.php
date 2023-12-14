@@ -39,12 +39,12 @@ namespace ex_mhp_temp_up
 		}
 	}
 	
-	function itemdrop_valid_check($itm, $itmk, $itme, $itms, $itmsk)
+	function itemdrop_valid_check($itm, $itmk, $itme, $itms, $itmsk, $itmpos)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$ret = $chprocess($itm, $itmk, $itme, $itms, $itmsk);
+		$ret = $chprocess($itm, $itmk, $itme, $itms, $itmsk, $itmpos);
 		$flag = \attrbase\check_in_itmsk('^hu',\itemmain\get_itmsk_array($itmsk));
-		if(false !== $flag){
+		if(false !== $flag && substr($itmpos, 0, 3) !== 'itm'){
 			ex_mhp_temp_lose();
 		}
 		return $ret;

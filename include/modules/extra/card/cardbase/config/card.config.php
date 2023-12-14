@@ -3457,7 +3457,7 @@ $cards = array(
 		'title' => '武侠强者',
 		'rare' => 'A',
 		'pack' => 'Event Bonus',
-		'desc' => '<span class="linen b">“对一一五来说，面前这四个触手比十亿个杀人魔更恐怖…更可怕呀！”</span>',
+		'desc' => '<span class="vermilion b">“对一一五来说，面前这四个触手比十亿个杀人魔更恐怖…更可怕呀！”</span>',
 		'effect' => '开局获得「红杀铁剑」与额外的合成知识。此外，涉及到你的描述伤害的进行状况都改用强者语',
 		'energy' => 100,
 		'valid' => array(
@@ -5691,8 +5691,8 @@ $cards = array(
 		'name'=>'萌新',
 		'rare'=>'A',
 		'pack'=>'Stealth',
-		'desc'=>'<span class="linen" style="font-weight:bold">“这是「卡片」，是「虚拟幻境」给与的能力的其中一个载体。<br>不同的卡片拥有不同的效果，你可以之后自行探究。”</span>',
-		'effect'=>'<span class="linen" style="font-weight:bold">“而现在，如果你不想落地成盒的话，就不要东张西望，认真听我说。”</span>',
+		'desc'=>'<span class="vermilion b">“这是「卡片」，是「虚拟幻境」给与的能力的其中一个载体。<br>不同的卡片拥有不同的效果，你可以之后自行探究。”</span>',
+		'effect'=>'<span class="vermilion b">“而现在，如果你不想落地成盒的话，就不要东张西望，认真听我说。”</span>',
 		'energy'=>0,
 		'valid' => array(
 			'pls' => 33,

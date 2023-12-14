@@ -247,7 +247,7 @@ namespace npcchat
 			'critical' => array(
 				'“他娘的体内文明转动九十九重周天！死线疾走——！！！”',
 			),
-			'color' => 'linen b'
+			'color' => 'vermilion b'
 		)
 	),
 	12 => Array(

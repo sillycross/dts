@@ -383,7 +383,7 @@ namespace tutorial
 			}elseif ($command == 'continue' || $ct['object'] ==  'any'){//continue和any则直接推进，之后返回
 				$push_flag = 'OK';
 			}elseif (tutorial_fail_safing($ct)){//防呆设计
-				$log .= '<span class="linen b">“看来你比较熟练呢，我们继续。”</span><br>';
+				$log .= '<span class="ltvermilion b">“看来你比较熟练呢，我们继续。”</span><br>';
 				$push_flag = 'OK';
 			}else{//否则判定推进一半
 				$push_flag = 'PROG';
@@ -791,7 +791,7 @@ namespace tutorial
 				(($active && $pd['type'] && $o_pa_hp > $tutorial_tough_hp && $pa['hp'] < $tutorial_tough_hp)
 				 || (!$active && $pa['type'] && $o_pd_hp > $tutorial_tough_hp && $pd['hp'] < $tutorial_tough_hp))){
 					$pd['hp'] = $tutorial_tough_hp;
-					$log.='<span class="linen b">“你也太脆了，真是伤脑筋啊……”</span>不知为何，你忽然觉得受到的伤害没那么严重了。<br>';
+					$log.='<span class="ltvermilion b">“你也太脆了，真是伤脑筋啊……”</span>不知为何，你忽然觉得受到的伤害没那么严重了。<br>';
 				}
 			}else{//与李天明发生战斗，如果李天明扣血了
 				if(($pa['type'] > 0 && $pa['hp'] < $pa['mhp']) || ($pd['type'] > 0 && $pd['hp'] < $pd['mhp'])) {

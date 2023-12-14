@@ -4,10 +4,10 @@ namespace skill531
 {
 	$sk531_log = array
 	(
-		'剑柄中开始播放录音：<span class="linen b">“看在你没准还是新手的份上，就再给你一些提示吧。这把剑可以与商店中购买的光束刀合成为另一种形态。”</span><br>',
-		'剑柄中开始播放录音：<span class="linen b">“接下来寻找一个全息幻象干掉，再拿它的手套和商店里购买的『祝福宝石』一起和这把剑合成吧。”</span><br>',
-		'剑柄中开始播放录音：<span class="linen b">“然后是购买『军用火焰放射器』和☆十星认证☆，用来合成它的下一个形态。”</span><br>',
-		'剑柄中开始播放录音：<span class="linen b">“它现在足够你用到最后了。当然，你也可以尝试再将它与最终战术『剑海』合成。之后祝你好运。”</span><br>',
+		'剑柄中开始播放录音：<span class="vermilion b">“看在你没准还是新手的份上，就再给你一些提示吧。这把剑可以与商店中购买的光束刀合成为另一种形态。”</span><br>',
+		'剑柄中开始播放录音：<span class="vermilion b">“接下来寻找一个全息幻象干掉，再拿它的手套和商店里购买的『祝福宝石』一起和这把剑合成吧。”</span><br>',
+		'剑柄中开始播放录音：<span class="vermilion b">“然后是购买『军用火焰放射器』和☆十星认证☆，用来合成它的下一个形态。”</span><br>',
+		'剑柄中开始播放录音：<span class="vermilion b">“它现在足够你用到最后了。当然，你也可以尝试再将它与最终战术『剑海』合成。之后祝你好运。”</span><br>',
 	);
 	
 	$sk531_mixinfo = array
@@ -62,7 +62,7 @@ namespace skill531
 		{
 			//通过对parse_damage_news传入$exarr参数来提示用另一种描述
 			$exarr['flag531'] = 1;
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"linen b\">『".parse_damage_news($a, $b, $c, $d, $e, $exarr)."』</span></li>";
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"vermilion b\">『".parse_damage_news($a, $b, $c, $d, $e, $exarr)."』</span></li>";
 		}
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}

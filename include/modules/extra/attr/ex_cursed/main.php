@@ -11,7 +11,7 @@ namespace ex_cursed
 		$itemspkremark['O']='……';
 	}
 	
-	function itemdrop_valid_check($itm, $itmk, $itme, $itms, $itmsk)
+	function itemdrop_valid_check($itm, $itmk, $itme, $itms, $itmsk, $itmpos)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(\itemmain\check_in_itmsk('O', $itmsk)){
@@ -23,7 +23,7 @@ namespace ex_cursed
 				return false;
 			}
 		}
-		return $chprocess($itm, $itmk, $itme, $itms, $itmsk);
+		return $chprocess($itm, $itmk, $itme, $itms, $itmsk, $itmpos);
 	}
 	
 	function itemoff_valid_check($itm, $itmk, $itme, $itms, $itmsk)

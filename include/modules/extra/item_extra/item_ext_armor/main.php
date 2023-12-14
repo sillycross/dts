@@ -467,7 +467,7 @@ namespace item_ext_armor
 	}
 	
 	//必须先把外甲拆开才能丢弃
-	function itemdrop_valid_check($itm, $itmk, $itme, $itms, $itmsk)
+	function itemdrop_valid_check($itm, $itmk, $itme, $itms, $itmsk, $itmpos)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(\itemmain\check_in_itmsk('^su', $itmsk)){
@@ -475,7 +475,7 @@ namespace item_ext_armor
 			$log .= '<span class="yellow b">必须先把外甲卸下来才能丢弃！</span><br>';
 			return false;
 		}
-		return $chprocess($itm, $itmk, $itme, $itms, $itmsk);
+		return $chprocess($itm, $itmk, $itme, $itms, $itmsk, $itmpos);
 	}
 	
 	//NPC载入时，如果存在外甲数据，自动装上外甲

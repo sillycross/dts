@@ -127,7 +127,7 @@ namespace itemmain
 		return;
 	}
 
-	function itemdrop_valid_check($itm, $itmk, $itme, $itms, $itmsk)
+	function itemdrop_valid_check($itm, $itmk, $itme, $itms, $itmsk, $itmpos)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(!$itms||!$itmk||$itmk=='WN'||$itmk=='DN'){
@@ -168,7 +168,7 @@ namespace itemmain
 			$itmsk = & ${'itmsk'.$itmn};
 		}
 		
-		if(!itemdrop_valid_check($itm, $itmk, $itme, $itms, $itmsk)){
+		if(!itemdrop_valid_check($itm, $itmk, $itme, $itms, $itmsk, $item)){
 			$mode = 'command';
 			return;
 		}
