@@ -408,7 +408,7 @@ namespace instance9
 			'pass' => 'bra',
 			'bid' => 0,
 			'inf' => '',
-			'rage' => 150,
+			'rage' => 0,
 			'pose'=> 1,
 			'tactic' => 3,
 			'killnum' => 0,
