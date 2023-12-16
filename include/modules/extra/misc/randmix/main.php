@@ -200,8 +200,7 @@ namespace randmix
 //		}
 		//if(!empty($retsk)) $retn .= $itemspkinfo[$retsk[0]];
 		$narr = $randmix_name_kind_list[$retk];
-		shuffle($narr);
-		$retn .= $narr[0];
+		$retn .= array_randompick($narr);
 		
 		return array($retn, $retk, $rete, $rets, $retsk);
 	}

@@ -309,9 +309,7 @@ namespace weather
 		eval(import_module('sys'));
 		if ($xmode & 2) 
 		{
-			$opening_weather_list = array(0, 2, 3, 4, 7);//开局只会是晴天 多云 小雨 暴雨 下雪
-			shuffle($opening_weather_list);
-			$weather = $opening_weather_list[0];
+			$weather = array_randompick(array(0, 2, 3, 4, 7));//开局只会是晴天 多云 小雨 暴雨 下雪
 		}
 	}
 	

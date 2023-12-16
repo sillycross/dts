@@ -49,8 +49,7 @@ namespace skill529
 		if(!empty($spool)){
 			$spool_keys = Array_keys($spool);
 			do{
-				shuffle($spool_keys);
-				list($nid, $getskillid) = explode('_',$spool_keys[0]);
+				list($nid, $getskillid) = explode('_',array_randompick($spool_keys));
 			} while(strpos(constant('MOD_SKILL'.$getskillid.'_INFO'),'hidden;')!==false || strpos(constant('MOD_SKILL'.$getskillid.'_INFO'),'achievement;')!==false);//获得的技能不能带有hidden标签或者achievement标签
 			
 			\skillbase\skill_acquire($getskillid,$pa);

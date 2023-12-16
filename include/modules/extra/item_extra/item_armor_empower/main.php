@@ -122,20 +122,19 @@ namespace item_armor_empower
 			$i = 0;
 			if (rand(0,3) < 1)
 			{
-				shuffle($ea_itmsk['sup']);
-				if (!\itemmain\check_in_itmsk($ea_itmsk['sup'][0], $itmsk))
+				$tmpsk = array_randompick($ea_itmsk['sup']);
+				if (!\itemmain\check_in_itmsk($tmpsk, $itmsk))
 				{
-					$itmsk .= $ea_itmsk['sup'][0];
+					$itmsk .= $tmpsk;
 					$i += 1;
-					
 				}
 			}
 			if (rand(0,2) < 1)
 			{
-				shuffle($ea_itmsk['misc']);
-				if (!\itemmain\check_in_itmsk($ea_itmsk['misc'][0], $itmsk))
+				$tmpsk = array_randompick($ea_itmsk['misc']);
+				if (!\itemmain\check_in_itmsk($tmpsk, $itmsk))
 				{
-					$itmsk .= $ea_itmsk['misc'][0];
+					$itmsk .= $tmpsk;
 					$i += 1;
 				}
 			}

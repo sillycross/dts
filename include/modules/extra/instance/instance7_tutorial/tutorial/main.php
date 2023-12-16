@@ -77,8 +77,7 @@ namespace tutorial
 					$prog_tips = check_tutorial_condition_arr($cond_tips);
 				}
 				if((empty($cond_tips) || empty($prog_tips)) && !empty($random_tips)) {
-					shuffle($random_tips);
-					$prog_tips = $random_tips[0];
+					$prog_tips = array_randompick($random_tips);
 				}
 			}
 			$r = Array(

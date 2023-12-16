@@ -143,9 +143,8 @@ namespace item_slip
 				
 				$isnl = & $item_slip_npclist[$islip_gameprefix];
 				if(!empty($isnl)){
-					$nlist = array_keys($isnl);
-					shuffle($nlist);
-					$iskind = $nlist[0] * 1000 + $isnl[$nlist[0]]['pls'];
+					$nlist0 = array_randompick(array_keys($isnl));
+					$iskind = $nlist0 * 1000 + $isnl[$nlist0]['pls'];
 				}else{
 					$iskind = '';
 				}
@@ -176,8 +175,7 @@ namespace item_slip
 				if(in_array($itm, $v)) {
 					$nowv = $itm;
 				}else{
-					shuffle($v);
-					$nowv = $v[0];
+					$nowv = array_randompick($v);
 				}
 				$stuff[] = $nowv;
 			}

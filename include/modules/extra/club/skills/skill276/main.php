@@ -43,8 +43,8 @@ namespace skill276
 						}
 					}
 				}
-				shuffle($sl);
-				\clubbase\club_acquire($sl[0]);
+				
+				\clubbase\club_acquire(array_randompick($sl));
 				\skillbase\skill_setvalue(276,'activated',1);
 			}
 		}

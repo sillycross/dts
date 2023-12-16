@@ -164,8 +164,7 @@ namespace skill48
 				//var_dump(array_intersect($att_arr, $ex_attack_list));
 				if(empty(check_available_attr48($pa, $pd, $active))){
 					$lis = Array('p', 'u', 'i', 'e', 'w');
-					shuffle($lis);
-					$pa['skill48_flag2']=$lis[0];
+					$pa['skill48_flag2']=array_randompick($lis);
 				}
 				
 				//更新附魔发动次数

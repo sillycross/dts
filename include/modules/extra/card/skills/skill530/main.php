@@ -54,7 +54,7 @@ namespace skill530
 		$result = $db->query("SELECT groomid,gametype FROM {$gtablepre}game WHERE groomid != '$room_id' AND groomstatus>=40 AND gamestate >= 20 AND starttime <= '$starttime_threshold'");
 		$gamepool = Array();
 		while($rarr = $db->fetch_array($result)){
-			if(!in_array($rarr['gametype'], Array(1, 15, 17))) {//不会空降到除错、伐木、教程房
+			if(!in_array($rarr['gametype'], Array(1, 13, 15, 17))) {//不会空降到除错、试炼、伐木、教程房
 				
 				//判定一下该房间有没有同名玩家
 				$tmp_prefix = room_id2prefix($rarr['groomid']);
@@ -73,8 +73,7 @@ namespace skill530
 			return;
 		}
 		//writeover('a.txt', var_export($gamepool,1));
-		shuffle($gamepool);
-		$objroomid = $gamepool[0];
+		$objroomid = array_randompick($gamepool);
 
 		//第二步，修改当前玩家的数值，主要是抹掉道具、金钱数和技能，一方面这么做比较方便，第二也是防止刷积分
 		eval(import_module('itemmain','skillbase','achievement_base'));

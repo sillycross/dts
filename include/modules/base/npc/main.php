@@ -48,8 +48,7 @@ namespace npc
 //		}
 		if($npc['pls'] == 99){
 			if(!empty($plslist)){
-				shuffle($plslist);
-				$npc['pls'] = $plslist[0];
+				$npc['pls'] = array_randompick($plslist);
 			}else{
 				$npc['pls'] = 0;
 			}
@@ -153,8 +152,7 @@ namespace npc
 					if (!$subnum || !$npcs['num']) $jarr=array();
 					//定义数目大于加入数目，作随机选取
 					elseif ($subnum > $npcs['num']) {
-						shuffle($jarr);
-						$jarr=array_slice($jarr,0,$npcs['num']);
+						$jarr = array_randompick($jarr, $npcs['num']);
 					//定义数目小于加入数目，补足到加入数目
 					}elseif ($subnum < $npcs['num']) {
 						while(sizeof($jarr) < $npcs['num']) {
@@ -207,8 +205,7 @@ namespace npc
 		if($sub['type'] && !in_array($sub['type'],$killzone_resistant_typelist) && $pls_available){
 			//选择所用的安全区列表
 			$tmp_pls_available = 14 == $sub['type'] ? $pls_available2 : $pls_available;
-			shuffle($tmp_pls_available);
-			$sub['pls'] = $tmp_pls_available[0];
+			$sub['pls'] = array_randompick($tmp_pls_available);
 			$db->array_update("{$tablepre}players",$sub,"pid='$pid'",$o_sub);
 			\player\post_pc_avoid_killarea($sub, $atime);
 			//echo $sub['pid'].' ';

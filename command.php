@@ -383,7 +383,7 @@ if ($___MOD_SRV)
 					unset($tmp_log);
 				}
 				$srvlist = array();
-				//打乱驻留进程列表，尝试解决CPU0的问题
+				//打乱驻留进程列表，避免逮着一个进程薅
 				shuffle($dirlist);
 				//内层循环体：选择有效进程
 				foreach($dirlist as $sid) {

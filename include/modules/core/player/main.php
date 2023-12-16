@@ -451,8 +451,7 @@ namespace player
 			}else{
 				$pls_available = \map\get_safe_plslist();//不能移动去的区域
 				if(!$pls_available) $pls_available = \map\get_safe_plslist(0);//如果只能移动到危险区域，就移动到危险区域
-				shuffle($pls_available);
-				$sub['pls'] = $pls_available[0];
+				$sub['pls'] = array_randompick($pls_available);
 				$db->array_update("{$tablepre}players",$sub,"pid='$pid'",$o_sub);
 				post_pc_avoid_killarea($sub, $atime);
 			}

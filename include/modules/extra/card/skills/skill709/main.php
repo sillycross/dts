@@ -113,7 +113,7 @@ namespace skill709
 				$skill709_itmsk[] = '^wepflag709^rtype4^reptype1^res_'.\attrbase\base64_encode_comp_itmsk($weparr).'1';
 				$skill709_itmsk[] = '^rtype4^reptype1^res_'.\attrbase\base64_encode_comp_itmsk($skill709_resitem[0]).'1';
 				$skill709_itmsk[] = '^rtype4^reptype1^res_'.\attrbase\base64_encode_comp_itmsk($skill709_resitem[1]).'1';
-				shuffle($skill709_itmsk);//仪式感
+				shuffle($skill709_itmsk);//仪式感//←草，赛博近景魔术是吧
 				for ($i=0;$i<3;$i++)
 				{
 					$fakeitm = $skill709_fakeitem[rand(0,2)];

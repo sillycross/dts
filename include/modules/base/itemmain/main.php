@@ -473,9 +473,8 @@ namespace itemmain
 			if(discover_item_filter($r))
 				$mipool[] = $r;
 		}
-		//打乱数组，相当于随机取一个
-		shuffle($mipool);
-		$mi = $mipool[0];
+
+		$mi = array_randompick($mipool);
 		
 		$itms0 = focus_item($mi);
 		if($itms0){

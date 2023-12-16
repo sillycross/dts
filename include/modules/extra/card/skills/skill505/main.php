@@ -19,8 +19,7 @@ namespace skill505
 		eval(import_module('sys','skill505'));
 		\skillbase\skill_setvalue(505,'u','0',$pa);
 		//开局在某几个特定随机地点空降一个巨大灯泡
-		shuffle($skill505_plslist);
-		$rpls = $skill505_plslist[0];
+		$rpls = array_randompick($skill505_plslist);
 		\skillbase\skill_setvalue(505,'rpls',$rpls,$pa);
 		$itm = $skill505_keyitm;
 		$itmk = 'DA';

@@ -143,8 +143,8 @@ namespace skill490
 		}
 		$itemklist = array_filter($itemklist);
 		if(empty($itemklist)) $itemklist[] = 'X';//当随机出的数值很高的时候，可选类型会被过滤清空，这时用合成专用来保底
-		shuffle($itemklist); $ritmk = $itemklist[0];
-		shuffle($itemsklist); $ritmsk = $itemsklist[0];
+		$ritmk = array_randompick($itemklist);
+		$ritmsk = array_randompick($itemsklist);
 		$itm0 = $ritm; $itmk0 = $ritmk; $itmsk0 = $ritmsk;
 		$itme0 = $ritme; $itms0 = $ritms;
 		return;

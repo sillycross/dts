@@ -474,8 +474,7 @@ namespace cardbase
 			
 			$arr = array_merge($arr, $forced);
 			$arr = array_unique($arr);
-			shuffle($arr);
-			$ret = $arr[0];
+			$ret = array_randompick($arr);
 		}while($ret == $card || in_array($ret, $ignore));//必定选不到自己
 		return $ret;
 	}
@@ -542,8 +541,7 @@ namespace cardbase
 			$checkstr = substr($key,0,3);
 			if (in_array($checkstr, Array('wep','arb','arh','ara','arf','art','itm'))){//道具类的，如果是数组则随机选一个
 				if(is_array($value)){
-					shuffle($value);
-					$value = $value[0];
+					$value = array_randompick($value);
 				}
 			}
 			//如果是数值类的字段，先判定是增加减少还是赋值。没有前缀的当做赋值

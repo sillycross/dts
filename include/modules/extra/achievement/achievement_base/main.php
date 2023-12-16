@@ -335,8 +335,15 @@ namespace achievement_base
 		
 		$daily_got = array();
 		foreach($daily_type as $dtv){
-			shuffle($dtv);
-			if(check_ach_valid($dtv[0])) $daily_got[] = $dtv[0];
+			$i = $flag = 0;
+			do{
+				$dtv0 = array_randompick($dtv);
+				if(check_ach_valid($dtv0)) {
+					$daily_got[] = $dtv0;
+					$flag = 1;
+				}
+				$i ++;
+			} while(!$flag && $i < 10);
 		}
 		
 		foreach ($achlist[20] as $key){
@@ -495,8 +502,7 @@ namespace achievement_base
 							$cardlist_got = \cardbase\get_cardlist_energy_from_udata($ud)[0];
 							$getcard = array_diff($getcard, $cardlist_got);//优先获得没有拿到过的卡
 							if(empty($getcard)) $getcard = $card_prize[$tk];//如果这个卡集全部获得了，那么随机一个
-							shuffle($getcard);
-							$getcard = $getcard[0];
+							$getcard = array_randompick($getcard);
 						}
 						//\cardbase\get_card($card_got,$pa);
 					}

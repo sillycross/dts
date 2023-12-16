@@ -71,8 +71,7 @@ namespace npcchat
 		if(isset($nchat[$chattag])) {
 			$chatlog = $nchat[$chattag];
 			if(is_array($chatlog)){
-				shuffle($chatlog);
-				$chatlog = $chatlog[0];
+				$chatlog = array_randompick($chatlog);
 			}
 		}elseif(isset($nchat[$sid])){
 			$chatlog = $nchat[$sid];
