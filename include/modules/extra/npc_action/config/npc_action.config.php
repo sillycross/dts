@@ -12,7 +12,7 @@ namespace npc_action
 			'actions' => Array(//会执行的行动及对应的概率。具体执行时先取满足条件的行动，然后根据比例来判定概率。可选项有move（随机移动）、chase（追杀）、evade（躲避）
 				'move' => 1,
 				'chase' => 100,
-				//'evade' => 100,
+				//'evade' => 100,//注意提前批行动会单独计算概率
 			),
 			'setting' => Array(//行动设定。
 				'move' => Array(
@@ -20,8 +20,8 @@ namespace npc_action
 					'avoid_forbidden' => 1,//随机移动是否躲避禁区
 					'avoid_dangerous' => 1,//随机移动是否躲避危险地图
 					//'need_awake' => 1,//是否在清醒状态（被打后）才会开始执行本项行动
-					//'need_rage_GE' => 100,//怒气最少要到达哪个值才会开始执行本行动，注意这个值一般比较大
-					//'need_rage_LE' => 30,//怒气不能超过哪个值才会开始执行本行动，注意这个值一般比较小
+					//'need_rage_GE' => 100,//怒气最少要到达哪个值才会开始执行本行动
+					//'need_rage_LE' => 30,//怒气不能超过哪个值才会开始执行本行动
 					//'rage_change_after_action' => 0,//执行后怒气变化量，可正可负
 					'addchat' => 1,//是否发送聊天记录
 					'addchat_txt' => Array(//发送特定的聊天记录，用<:para1:>和<:para2:>代表出发地和目的地
@@ -29,12 +29,12 @@ namespace npc_action
 					),
 				),
 				'chase' => Array(
-					'object' => Array('R'),//追逐对象，R为随机选一个玩家，T为追头名，B为追最弱的，P:XXX为追踪名字为XXX的玩家，N:XXX为追踪名字为XXX的NPC
+					'object' => Array('T'),//追逐对象，R为随机选一个玩家，T为追头名，B为追最弱的，P:XXX为追踪名字为XXX的玩家，N:XXX为追踪名字为XXX的NPC
 					'avoid_forbidden' => 0,//是否躲避禁区
 					'avoid_dangerous' => 0,//是否躲避危险地图
 					//'need_awake' => 1,//是否在清醒状态（被打后）才会开始执行本项行动
-					'need_rage_GE' => 30,//怒气最少要到达哪个值才会开始执行本行动，注意这个值一般比较大
-					//'need_rage_LE' => 30,//怒气不能超过哪个值才会开始执行本行动，注意这个值一般比较小
+					'need_rage_GE' => 30,//怒气最少要到达哪个值才会开始执行本行动
+					//'need_rage_LE' => 30,//怒气不能超过哪个值才会开始执行本行动
 					'rage_change_after_action' => -3,//执行后怒气变化量，可正可负
 					'addchat' => 1,//是否发送聊天记录
 					'addchat_txt' => Array(//发送特定的聊天记录，用<:para1:>和<:para2:>代表出发地和目的地，用<:para3:>代表追踪目标
@@ -43,6 +43,18 @@ namespace npc_action
 					
 				),
 				'evade' => Array(
+					'early_action' => 1,//是否为提前批行动，如果是则不满足条件后还会再执行一遍其他行动
+					'object' => Array('B'),//躲避对象，R为随机选一个玩家，T为躲头名，B为躲最弱的，P:XXX为追踪名字为XXX的玩家，N:XXX为追踪名字为XXX的NPC
+					'avoid_forbidden' => 1,//是否躲避禁区
+					'avoid_dangerous' => 1,//是否躲避危险地图
+					//'need_awake' => 1,//是否在清醒状态（被打后）才会开始执行本项行动
+					//'need_rage_GE' => 30,//怒气最少要到达哪个值才会开始执行本行动
+					'need_rage_LE' => 70,//怒气不能超过哪个值才会开始执行本行动
+					//'rage_change_after_action' => -3,//执行后怒气变化量，可正可负
+					'addchat' => 1,//是否发送聊天记录
+					'addchat_txt' => Array(//发送特定的聊天记录，用<:para1:>和<:para2:>代表出发地和目的地，用<:para3:>代表追踪目标
+						'【EVADE: "<:para3:>" . MOVED TO "<:para2:>". 】',
+					),
 				),
 			),
 		)
