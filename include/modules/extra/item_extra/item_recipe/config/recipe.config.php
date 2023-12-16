@@ -14,7 +14,7 @@ namespace item_recipe
 	//extra: 素材额外条件，'ygo'表示为游戏王道具，'edible'表示为回复道具，'weapon'表示为武器，'armor'表示为防具
 	//tips: 素材的文字说明，设置后会覆盖自动生成的文字说明
 	//result: 合成结果数组
-	//extra: 合成额外条件，'link':连接合成的link数，'materials':需要的合成材料数（具体数字或大于数字），'allow_repeat':是否允许重复，默认为true， 'consume_recipe':是否消耗配方，默认为false，'if_learnable':配方是否能学习，如果配方不消耗则默认为true，配方消耗则默认为false
+	//extra: 合成额外条件，'link':连接合成的link数，'materials':需要的合成材料数（具体数字或大于数字），'allow_repeat':是否允许重复，默认为true， 'consume_recipe':是否消耗配方，默认为false，'if_learnable':配方是否能学习，如果配方不消耗则默认为true，配方消耗则默认为false，'ex_learn':合成后学习到的额外配方，可为单个配方id或id数组
 	$recipe_mixinfo = array
 	(
 		1 => array
@@ -298,6 +298,65 @@ namespace item_recipe
 			'stuff3' => array('itm'=>'☆爆裂模式☆','itm_match'=>0),
 			'result' => array('「幻想风靡」','WF',1444,'∞','rdnc^res_$$CK-aOO%-We%pyo%Y+@-ZqQ-Lqr%pyv$$CLLFZTLDEsMSwyNTEs1^reptype1'),
 			'extra' => array('materials'=>3, 'consume_recipe'=>true,),
+		),
+		//极速模式配方留空结束
+		//杂项配方
+		71 => array
+		(
+			'stuff1' => array('itm'=>'★','itm_match'=>1,'extra'=>'weapon'),
+			'stuff2' => array('itm'=>'☆','itm_match'=>1,'extra'=>'weapon'),
+			'stuff3' => array('itm'=>'方块','itm_match'=>1),
+			'result' => array('星之碎片','X',1,1,'x'),
+			'extra' => array('materials'=>3, 'ex_learn'=>array(72,73,74,75,76,77,78)),
+		),
+		72 => array
+		(
+			'stuff1' => array('itm'=>'星之碎片','itm_match'=>0),
+			'stuff2' => array('itm'=>'刀','itm_match'=>1,'extra'=>'weapon'),
+			'result' => array('星力之毒刃','R',180,100,'upn'),
+			'extra' => array('materials'=>2),
+		),
+		73 => array
+		(
+			'stuff1' => array('itm'=>'星之碎片','itm_match'=>0),
+			'stuff2' => array('itm'=>'棍棒','itm_match'=>1,'extra'=>'weapon'),
+			'result' => array('星力之棍棒','WP',180,90,'ueN'),
+			'extra' => array('materials'=>2),
+		),
+		74 => array
+		(
+			'stuff1' => array('itm'=>'星之碎片','itm_match'=>0),
+			'stuff2' => array('itm'=>'炸弹','itm_match'=>1,'extra'=>'weapon'),
+			'result' => array('星力之艺术','WD',180,70,'uwd'),
+			'extra' => array('materials'=>2),
+		),
+		75 => array
+		(
+			'stuff1' => array('itm'=>'星之碎片','itm_match'=>0),
+			'stuff2' => array('itm'=>'球','itm_match'=>1,'extra'=>'weapon'),
+			'result' => array('星力之精准','WC',180,140,'uik'),
+			'extra' => array('materials'=>2),
+		),
+		76 => array
+		(
+			'stuff1' => array('itm'=>'星之碎片','itm_match'=>0),
+			'stuff2' => array('itm'=>'枪','itm_match'=>1,'extra'=>'weapon'),
+			'result' => array('星力之扫荡','WG',180,50,'uf^ac1'),
+			'extra' => array('materials'=>2),
+		),
+		77 => array
+		(
+			'stuff1' => array('itm'=>'星之碎片','itm_match'=>0),
+			'stuff2' => array('itm'=>'符','itm_match'=>1,'extra'=>'weapon'),
+			'result' => array('星力之意念','WF',180,60,'udM'),
+			'extra' => array('materials'=>2),
+		),
+		78 => array
+		(
+			'stuff1' => array('itm'=>'星之碎片','itm_match'=>0),
+			'stuff2' => array('itmk'=>'WJ','itmk_match'=>1),
+			'result' => array('星力之决断','WJ',252,3,'ro'),
+			'extra' => array('materials'=>2),
 		),
 		//辉夜卡配方
 		100 => array
