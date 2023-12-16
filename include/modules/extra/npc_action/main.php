@@ -2,6 +2,8 @@
 
 namespace npc_action
 {
+	$npc_action_tmp_paras = Array();
+	
 	function init() {}
 	
 	//确定npc_action是否开启，本模块用$npc_action_gametype判定游戏模式
@@ -107,7 +109,7 @@ namespace npc_action
 		}
 	}
 	
-	//单个NPC的单个行动的判定
+	//单个NPC的行动的判定
 	//输入从player表获得的npc标准格式。如果有提供$act，则根据其来行动，如果没有则自行选择行动
 	//如果有修改，返回$npc；如果没有修改返回NULL
 	//会修改$gamevars变量的$last_npc_action数组
@@ -146,9 +148,9 @@ namespace npc_action
 		
 		//如果没有给出$act，根据config进行行动选择
 		if(empty($act)) {
-			//第一轮，筛选出符合条件的行动，并计算概率分母
-			$rate_total = 0;
-			$action_list = Array();
+			//第一轮，筛选出符合条件的行动，并计算概率分母。注意提前批行动是单独计算的
+			$rate_total = $rate_total_early = 0;
+			$action_list = $action_list_early = Array();
 			foreach($setting['actions'] as $ak => $av) {
 				if(!empty($setting['setting'][$ak])) {
 					$allow_flag = 1;
@@ -165,36 +167,88 @@ namespace npc_action
 						$allow_flag = 0;
 					}
 					if($allow_flag) {
-						$rate_total += $av;
-						$action_list[$ak] = $av;
+						if(!empty($setting_act['early_action'])) {//提前批行动单独计算概率
+							$rate_total_early += $av;
+							$action_list_early[$ak] = $av;
+						}else{
+							$rate_total += $av;
+							$action_list[$ak] = $av;
+						}
 					}
 				}
 			}
 			
 			//第二轮，从符合条件行动中选出执行哪个行动，如果多个行动则按概率和概率分母的比例加权随机
-			if(count($action_list)>1){
-				$rand = rand(0,99);
-				foreach($action_list as $ak => $av) {
-					if($rand < $av/$rate_total*100) {
-						$act = $ak;
-						break;
-					}
-				}
-			}elseif($action_list > 0){
-				$act = array_keys($action_list)[0];
+			if(!empty($action_list_early)) {//先计算是否有提前批行动
+				$act_early = get_npc_action_list_chosen ($action_list_early, $rate_total_early);
 			}
+			if(!empty($action_list)) {
+				$act = get_npc_action_list_chosen ($action_list, $rate_total);
+			}
+		}	
+		
+		if(!empty($act_early) && !empty($setting['setting'][$act_early])) {//先执行提前批行动
+			$setting_act_early = $setting['setting'][$act_early];
+			$ret = npc_action_single_core($npc, $act_early, $setting_act_early);
+			if(!empty($ret)) $early_flag = 1;
+		}
+		
+		if(empty($ret) && !empty($act) && !empty($setting['setting'][$act])) {//提前批无结果，再正常执行
+			$setting_act = $setting['setting'][$act];
+			$ret = npc_action_single_core($npc, $act, $setting_act);
 		}		
 		
-		if(empty($act) || empty($setting['setting'][$act]))
-			return $ret;
-		//行动执行
-		$setting_act = $setting['setting'][$act];
+		if(!empty($ret)) {//如果返回值有值，则进行后续行动处理
+			if(!empty($early_flag)) {//返回的是提前批行动，把$act和$setting_act改为对应的值
+				$act = $act_early;
+				$setting_act = $setting_act_early;
+			}
+			//记录NPC行动时间。save_gameinfo()在外部执行。
+			if(empty($gamevars['last_npc_action'])) {
+				$gamevars['last_npc_action'] = Array();
+			}
+			//如果行动后会改变怒气，在这里处理
+			if(!empty($setting_act['rage_change_after_action'])) {
+				$ret['rage'] += $setting_act['rage_change_after_action'];
+				//这里就简单把怒气范围设为0-100吧，不考虑突破上限
+				if($ret['rage'] < 0) $ret['rage'] = 0;
+				elseif($ret['rage'] > 100) $ret['rage'] = 100;
+			}
+			//判定是否进行addchat
+			if(!empty($setting_act['addchat'])) {
+				$addchat_txt = array_randompick($setting_act['addchat_txt']);
+				for($c=1;$c<10;$c++) {
+					if(!empty($npc_action_tmp_paras['para'.$c])) {
+						$addchat_txt = str_replace('<:para'.$c.':>', $npc_action_tmp_paras['para'.$c], $addchat_txt);
+					}
+				}
+				\sys\addchat(6, $addchat_txt, $npc['name']);
+			}
+			$gamevars['last_npc_action'][$npc['name']] = $now;
+			
+			//单个NPC行动更新的后续处理
+			$ret = post_npc_action_single($ret);
+			//清除临时变量
+			$npc_action_tmp_paras = Array();
+		}
 		
+		return $ret;
+	}
+	
+	//单个NPC的单个行动的具体执行，不进行任何判定，可能作为行动组合的其中一部分多次调用自身
+	//传入的setting参数来自config，但也可被临时修改，函数中不再取config中的数据
+	function npc_action_single_core($npc, $act, $setting_act)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		
+		$npc_action_tmp_paras = & get_var_in_module('npc_action_tmp_paras', 'npc_action');
+
 		//涉及移动的NPC动作
 		if(in_array($act, Array('move','chase','evade'))) {
-			
 			eval(import_module('map'));
 			$moveto = $npc['pls'];//保底赋值，防止飞到无月去
+			$o_pls = $npc['pls'];//记录原地点
 			$safe_plslist = array_keys($plsinfo);
 			//可用移动目的地计算。在禁区数较多时会造成NPC行动减缓
 			if(!empty($setting_act['avoid_forbidden'])) {
@@ -210,6 +264,8 @@ namespace npc_action
 				if(!is_array($moveto_list)) 
 					$moveto_list = Array($moveto_list);
 				$moveto_list = array_intersect($moveto_list, array_merge($safe_plslist, Array(99)));
+				//移除npc所处位置
+				$moveto_list = array_diff($moveto_list, Array($npc['pls']));
 				
 				if(empty($moveto_list)) //如果所有的目的地都是禁区，则不移动
 					return;
@@ -217,9 +273,12 @@ namespace npc_action
 				$moveto = array_randompick($moveto_list);
 
 				if(99 == $moveto) {//99号代表随机一个可用地点
-					$moveto = array_randompick($safe_plslist);
+					$moveto_list = array_diff($safe_plslist, Array($npc['pls']));
+					if(empty($moveto_list)) //如果所有的目的地都是禁区，则不移动
+						return;
+					$moveto = array_randompick($moveto_list);
 				}
-			}elseif('chase' == $act) {//追杀特定角色
+			}elseif('chase' == $act || 'evade' == $act) {//追杀或躲避特定角色
 				//如果object键值有多个元素，随机取一个
 				if(empty($setting_act['object'])) {
 					$chase_object = Array('R');
@@ -258,52 +317,34 @@ namespace npc_action
 				if(empty($cdatas)) //没有可用目标则跳过本次行动
 					return;
 				$cdata = array_randompick($cdatas);
-				$moveto = $cdata['pls'];
+				if('evade' == $act) {//躲避
+					if($npc['pls'] != $cdata['pls']) //执行到这里如果本来就不在相关地图，直接返回
+						return;
+					$npc['pls'] = $cdata['pls'];
+					//调用自己，执行一次随机移动
+					$setting_act['moveto_list'] = Array(99);
+					$ret0 = npc_action_single_core($npc, 'move', $setting_act);
+					if(empty($ret0)) 
+						return;
+					$moveto = $ret0['pls'];
+				}else{//追杀
+					$moveto = $cdata['pls'];
+				}
+				
 				//给addchat的参数赋值
-				$para3 = $cdata['name'];
+				$npc_action_tmp_paras['para3'] = $cdata['name'];
 			}
 
 			//随机到的目的地与NPC当前位置不同，才执行行动。如果不是，就跳过本次行动
 			if($moveto == $npc['pls']) {
-				return $ret;
+				return;
 			}
 			//真正给返回值赋值
-			$o_pls = $npc['pls'];
 			$npc['pls'] = $moveto;
 			//给addchat的参数赋值
-			$para1 = $plsinfo[$o_pls]; $para2 = $plsinfo[$moveto];
-			$ret = $npc;
+			$npc_action_tmp_paras['para1'] = $plsinfo[$o_pls]; $npc_action_tmp_paras['para2'] = $plsinfo[$moveto];
 		}
-		
-		if(!empty($ret)) {//如果返回值有值，则进行后续行动处理
-			//记录NPC行动时间。save_gameinfo()在外部执行。
-			if(empty($gamevars['last_npc_action'])) {
-				$gamevars['last_npc_action'] = Array();
-			}
-			//如果行动后会改变怒气，在这里处理
-			if(!empty($setting_act['rage_change_after_action'])) {
-				$ret['rage'] += $setting_act['rage_change_after_action'];
-				//这里就简单把怒气范围设为0-100吧，不考虑突破上限
-				if($ret['rage'] < 0) $ret['rage'] = 0;
-				elseif($ret['rage'] > 100) $ret['rage'] = 100;
-			}
-			//判定是否进行addchat
-			if(!empty($setting_act['addchat'])) {
-				$addchat_txt = array_randompick($setting_act['addchat_txt']);
-				for($c=1;$c<10;$c++) {
-					if(!empty(${'para'.$c})) {
-						$addchat_txt = str_replace('<:para'.$c.':>', ${'para'.$c}, $addchat_txt);
-					}
-				}
-				\sys\addchat(6, $addchat_txt, $npc['name']);
-			}
-			$gamevars['last_npc_action'][$npc['name']] = $now;
-			
-			//单个NPC行动更新的后续处理
-			$ret = post_npc_action_single($ret);
-		}
-		
-		return $ret;
+		return $npc;
 	}
 	
 	//单个NPC行动更新的后续处理。本模块不进行任何操作，其他模块可重载本函数
@@ -312,6 +353,32 @@ namespace npc_action
 	function post_npc_action_single($npc) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return $npc;
+	}
+	
+	//从形如array('move' => 100)这样的加权概率数组中随机选出一个行动（键名）
+	//如果有给出$rate_total会直接用（之前代码是那么写的，省点运算量）如果没有则会重新算一遍
+	function get_npc_action_list_chosen($action_list, $rate_total=0){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(empty($rate_total)) {
+			$rate_total = 0;
+			foreach($action_list as $ak => $av) {
+				$rate_total += (int)$av;
+			}
+		}
+		if(empty($rate_total))
+			return;
+		if(count($action_list)>1){
+			$rand = rand(0,99);
+			foreach($action_list as $ak => $av) {
+				if($rand < $av/$rate_total*100) {
+					$act = $ak;
+					break;
+				}
+			}
+		}elseif($action_list > 0){
+			$act = array_keys($action_list)[0];
+		}
+		return $act;
 	}
 	
 	//判断给定名字的NPC是否存在
