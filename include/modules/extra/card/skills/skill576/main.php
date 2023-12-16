@@ -40,7 +40,8 @@ namespace skill576
 		{
 			eval(import_module('item_recipe'));
 			$recipeid = \skillbase\skill_getvalue(576,'recipeid',$sdata);
-			if ($recipe_mixinfo[$recipeid] === $minfo)
+			//只判定产物名字相同，该配方无法通过其他途径获得
+			if ($recipe_mixinfo[$recipeid]['result'][0] === $minfo['result'][0])
 			{
 				eval(import_module('logger'));
 				$log .= "<span class=\"yellow b\">你已经完成了「难题」！</span><br>";
