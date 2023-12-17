@@ -304,6 +304,10 @@ namespace npc_action
 				}elseif('N' == substr($chase_object,0,1)){
 					$pname = explode(':', $chase_object)[1];
 					$cond = "name='$pname' AND type>0 AND hp>0";
+				}elseif('W' == $chase_object) {//上一次与自己作战的玩家
+					//$wid = \skillbase\skill_getvalue(1007,'last_enemy',$npc);
+					$wid = $npc['bid'];
+					if(!empty($wid)) $cond = "pid='$wid' AND type=0 AND hp>0";
 				}
 				if(empty($cond)) 
 					return;

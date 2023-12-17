@@ -491,6 +491,7 @@ skill580,extra/card/skills/skill580/,1
 achievement_base,extra/achievement/achievement_base/,1
 opening,base/opening/,1
 ending,base/ending/,1
+skill1007,extra/npc_action/skill1007/,1
 gtype1,extra/instance/gtype1/main/,1
 randmix,extra/misc/randmix/,1
 skill57,extra/club/skills/skill57/,1

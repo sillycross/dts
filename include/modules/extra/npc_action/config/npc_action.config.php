@@ -14,6 +14,7 @@ namespace npc_action
 				'chase' => 100,
 				//'evade' => 100,//注意提前批行动会单独计算概率
 			),
+			
 			'setting' => Array(//行动设定。
 				'move' => Array(
 					'moveto_list' => Array(99),//随机移动，会在列表里选一个地点，如果为99则随机选一个
@@ -29,7 +30,7 @@ namespace npc_action
 					),
 				),
 				'chase' => Array(
-					'object' => Array('T'),//追逐对象，R为随机选一个玩家，T为追头名，B为追最弱的，P:XXX为追踪名字为XXX的玩家，N:XXX为追踪名字为XXX的NPC
+					'object' => Array('W'),//追逐对象，R为随机选一个玩家，T为追头名，B为追最弱的，P:XXX为追踪名字为XXX的玩家，N:XXX为追踪名字为XXX的NPC，W为追上一次与自己作战的玩家
 					'avoid_forbidden' => 0,//是否躲避禁区
 					'avoid_dangerous' => 0,//是否躲避危险地图
 					//'need_awake' => 1,//是否在清醒状态（被打后）才会开始执行本项行动
@@ -44,7 +45,7 @@ namespace npc_action
 				),
 				'evade' => Array(
 					'early_action' => 1,//是否为提前批行动，如果是则不满足条件后还会再执行一遍其他行动
-					'object' => Array('B'),//躲避对象，R为随机选一个玩家，T为躲头名，B为躲最弱的，P:XXX为追踪名字为XXX的玩家，N:XXX为追踪名字为XXX的NPC
+					'object' => Array('B'),//躲避对象，R为随机选一个玩家，T为躲头名，B为躲最弱的，P:XXX为追踪名字为XXX的玩家，N:XXX为追踪名字为XXX的NPC，W为追上一次与自己作战的玩家（需skill1007支持）
 					'avoid_forbidden' => 1,//是否躲避禁区
 					'avoid_dangerous' => 1,//是否躲避危险地图
 					//'need_awake' => 1,//是否在清醒状态（被打后）才会开始执行本项行动
