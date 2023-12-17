@@ -125,7 +125,10 @@ namespace item_recipe
 		
 		$recipe_tip .= '<br>合成结果：<br>'.\itemmix\parse_itemmix_resultshow($recipe['result']);
 		
-		if (('R' === $recipe['result'][1]) && isset($recipe['result'][4])) $recipe_tip .= '<br><br>下一级配方公式为：<br>'.show_recipe($recipe['result'][4]);
+		if(sizeof(debug_backtrace()) > 573) return '<span class="red b">你写出死循环了，笨蛋！如果你不是这个笨蛋，请通知那个笨蛋程序员。</span>';
+		if (('R' === $recipe['result'][1]) && isset($recipe['result'][4])) {
+			$recipe_tip .= '<br><br>下一级配方公式为：<br>'.show_recipe($recipe['result'][4]);
+		}
 		
 		return $recipe_tip;
 	}

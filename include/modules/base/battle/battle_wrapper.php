@@ -32,7 +32,10 @@ namespace battle
 	function battle_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//判定是否发送战斗叫喊（？）
 		send_battle_msg($pa, $pd, $active);
+		//互相保存对方id。这个字段在相当长的一段时间里莫名其妙地失去了作用
+		$pa['bid'] = $pd['pid']; $pd['bid'] = $pa['pid'];
 	}
 	
 	function battle_finish(&$pa, &$pd, $active)
