@@ -5,39 +5,43 @@ namespace ex_alternative
 	function init() 
 	{
 		eval(import_module('itemmain'));
-		$itemspkinfo['^alt'] = '两用';
-		$itemspkdesc['^alt'] = '这一道具能当做<:skn:>使用';
+		$itemspkinfo['^alt'] = '变化';
+		$itemspkdesc['^alt'] = '这一道具能当做其他类别、名称或属性使用';
+		$itemspkinfo['^atype'] = '可改变哪一项';//不显示，0:类别；1:名称；2:属性
 	}
 	
-	function get_altitmk($itmsk)
+	function get_altlist($itmsk)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		//该函数没有类别是否合法的检测
-		$altitmk = \itemmain\check_in_itmsk('^alt', $itmsk);
-		$dict = ')!@#$%-~*(';//对应键盘数字键的上标符号，其中^替换成-，&替换成~
-		for($i=0;$i<=9;$i++){
-			$altitmk = str_replace($dict[$i], $i, $altitmk);
-		}
-		return $altitmk;
+		//该函数没有类别或属性是否合法的检测
+		$alts = \itemmain\check_in_itmsk('^alt', $itmsk);	
+		if (empty($alts)) return array();
+		$alts = \attrbase\base64_decode_comp_itmsk($alts);
+		$altlist = explode(',', $alts);
+		return $altlist;
 	}
-		
-	function swap_altitmk(&$theitem)
+	
+	//encode前形似WC,WP,WK这样，用半角逗号分割
+	//属性切换不需要在切换的属性字符串里写^alt和^atype
+	function alt_change(&$theitem, $atype, $idx = 0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$itm=&$theitem['itm'];
 		$itmk=&$theitem['itmk'];
-		$itmsk=&$theitem['itmsk'];	
-		$altitmk = get_altitmk($itmsk);
-		if (!empty($altitmk))
+		$itmsk=&$theitem['itmsk'];
+		if (2 == $atype) $key = 'itmsk';
+		elseif (1 == $atype) $key = 'itm';
+		else $key = 'itmk';
+		$altlist = get_altlist($itmsk);
+		if (!empty($altlist))
 		{
 			$itmsk = \itemmain\replace_in_itmsk('^alt','',$itmsk);
-			//为什么会有游戏王和剧毒？
-			$dict = ')!@#$%-~*(';//对应键盘数字键的上标符号，其中^替换成-，&替换成~
-			for($i=0;$i<=9;$i++){
-				$itmk = str_replace($i, $dict[$i], $itmk);
-			}
-			$itmsk .= '^alt_'.$itmk.'1';
+			if (2 == $atype) $itmsk = \itemmain\replace_in_itmsk('^atype','',$itmsk);
+			swap($theitem[$key], $altlist[$idx]);
+			$alts = implode(',', $altlist);
+			$itmsk .= '^alt_'.\attrbase\base64_encode_comp_itmsk($alts).'1';
+			if (2 == $atype) $itmsk .= '^atype2';
 		}
-		$itmk = $altitmk;
 	}
 	
 	function itemuse(&$theitem)
@@ -48,7 +52,7 @@ namespace ex_alternative
 		$itm=&$theitem['itm']; $itmk=&$theitem['itmk'];
 		$itme=&$theitem['itme']; $itms=&$theitem['itms']; $itmsk=&$theitem['itmsk'];
 		
-		//如果是装着箭的弓或者装着外甲的防具，不会触发两用
+		//如果是装着箭的弓或者装着外甲的防具，不会触发变化
 		if (!\itemmain\check_in_itmsk('^ari', $itmsk) && !\itemmain\check_in_itmsk('^su', $itmsk) && \itemmain\check_in_itmsk('^alt', $itmsk)) 
 		{
 			$alternative_choice = get_var_in_module('alternative_choice', 'input');
@@ -66,37 +70,73 @@ namespace ex_alternative
 				{
 					$chprocess($theitem);
 				}
-				elseif (2 == $alternative_choice)
-				{
-					$altitmk = get_altitmk($itmsk);
-					$altitmk_words = \itemmain\parse_itmk_words($altitmk);
-					$log .= "你把<span class=\"yellow b\">$itm</span>当做了<span class=\"yellow b\">$altitmk_words</span>使用。<br>";
-					swap_altitmk($theitem);
-					$chprocess($theitem);
-				}
 				else
 				{
-					$log .= '参数不合法。<br>';
-					$mode = 'command';
-					return;
+					$altlist = get_altlist($itmsk);
+					if ($alternative_choice > count($altlist) + 1)
+					{
+						$log .= '参数不合法。<br>';
+						$mode = 'command';
+						return;
+					}
+					$atype = (int)\itemmain\check_in_itmsk('^atype', $itmsk);
+					$altwords = get_altwords($altlist[$alternative_choice-2], $atype, 1);
+					$log .= "你把<span class=\"yellow b\">$itm</span>当做了<span class=\"yellow b\">$altwords</span>使用。<br>";
+					alt_change($theitem, $atype, $alternative_choice - 2);
+					$chprocess($theitem);
 				}
 			}
 		}
 		else $chprocess($theitem);
 	}
 	
-	function get_itmsk_desc_single_comp_process($skk, $skn, $sks)
+	//$atype: 0:类别；1:名称；2:属性，$suf: 是否加后缀（属性、类别），默认不显示
+	function get_altwords($alts, $atype, $suf = 0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$skn = $chprocess($skk, $skn, $sks);
-		if(strpos($skk, '^alt')===0) {
-			$dict = ')!@#$%-~*(';
-			for($i=0;$i<=9;$i++){
-				$sks = str_replace($dict[$i], $i, $sks);
-			}
-			$skn = \itemmain\parse_itmk_words($sks);
+		if (2 == $atype)
+		{
+			//先把变化属性抹掉
+			$alts = \itemmain\replace_in_itmsk('^alt','',$alts);
+			//可以切换成白板道具，真会出现这样的情况吗？总之先考虑进去了
+			$altwords = !empty($alts) ? \itemmain\parse_itmsk_words($alts,1) : '';
+			if (empty($altwords)) $altwords = '无';
+			if ($suf) $altwords .= '属性';
 		}
-		return $skn;
+		elseif (1 == $atype)
+		{
+			$altwords = $alts;
+		}
+		else
+		{
+			$altwords = \itemmain\parse_itmk_words($alts);
+			if ($suf) $altwords .= '类别';
+		}
+		return $altwords;
+	}	
+	
+	// function get_itmsk_desc_single_comp_process($skk, $skn, $sks)
+	// {
+		// if (eval(__MAGIC__)) return $___RET_VALUE;
+		// $skn = $chprocess($skk, $skn, $sks);
+		// if(strpos($skk, '^alt')===0) {
+			// $dict = ')!@#$%-~*(';
+			// for($i=0;$i<=9;$i++){
+				// $sks = str_replace($dict[$i], $i, $sks);
+			// }
+			// $skn = \itemmain\parse_itmk_words($sks);
+		// }
+		// return $skn;
+	// }
+	
+	//判定复合属性是否显示
+	function check_comp_itmsk_visible($cinfo){
+		if (eval(__MAGIC__)) return $___RET_VALUE;	
+		$ret = $chprocess($cinfo);
+		if ($ret) {
+			if ('^atype' == $cinfo[0]) return false;
+		}
+		return $ret;
 	}
 	
 }

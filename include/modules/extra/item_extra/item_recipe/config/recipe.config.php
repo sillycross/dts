@@ -257,7 +257,7 @@ namespace item_recipe
 			'stuff1' => array('itm'=>'面包','itm_match'=>1),
 			'stuff2' => array('itm'=>'棍棒','itm_match'=>1),
 			'stuff3' => array('itm'=>'『祝福宝石』','itm_match'=>0),
-			'result' => array('☆面包骑士的棍棒☆','WP',200,100,'c^alt_HB1'),
+			'result' => array('☆面包骑士的棍棒☆','WP',200,100,'c^alt_SEI=1'),
 			'extra' => array('materials'=>3),
 		),
 		54 => array
@@ -417,7 +417,7 @@ namespace item_recipe
 			'stuff2' => array('itm'=>'铁锤','itm_match'=>0),
 			'result' => array('燃烧的信仰','A',1,1,'cAmpfiRe'),
 			'extra' => array('materials'=>2, 'consume_recipe'=>true,),
-		),		
+		),
 		//辉夜卡配方
 		100 => array
 		(
