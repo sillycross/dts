@@ -6,7 +6,7 @@ namespace skill708
 	{
 		define('MOD_SKILL708_INFO','card;');
 		eval(import_module('clubbase'));
-		$clubskillname[708] = '漏洞';
+		$clubskillname[708] = '得了';
 	}
 	
 	function acquire708(&$pa)

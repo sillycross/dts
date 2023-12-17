@@ -3,6 +3,7 @@
 namespace smartmix
 {
 	$mix_successful_flag = 0;
+	$tmp_itemselect = -1;
 	
 	function init() {}
 	
@@ -211,39 +212,66 @@ namespace smartmix
 		
 		eval(import_module('smartmix'));
 		$mix_successful_flag = 0;
+		$tmp_itemselect = $itemselect;//暂时记录二级选项
 		
 		if(is_lastmix_allowed() && 'lastmix' == get_var_in_module('subcmd','input')){
-			list($lastlist, $lastres) = get_lastmix();
+			list($lastlist, $lastres, $lastselect) = get_lastmix();
 			if(!empty($lastlist)) {
 				$mlist = $lastlist;
+				if($lastselect > 0) {//如果上一次合成有选择二级选项，直接提交二级选项
+					$itemselect = $lastselect;
+				}
 			}
 		}
 		
 		$chprocess($mlist, $itemselect);
 		
-		if(!$mix_successful_flag) //合成不成功则清空上一次合成的记录
-			save_lastmix(Array(), Array());
+		if(is_lastmix_allowed()){
+			if(!$mix_successful_flag) {//合成不成功则清空上一次合成的记录
+				list($lastlist, $lastres) = get_lastmix();
+				if(!empty($lastlist)) {
+					echo '222222';
+					save_lastmix(Array(), Array());
+					//这里由于执行顺序，需要重新生成一遍指令
+					eval(import_module('player'));
+					ob_clean();
+					include template(get_itemmix_filename());
+					$cmd = ob_get_contents();
+					ob_clean();
+				}
+			}
+		}
 	}
 	
-	//在合成处理之后，储存合成的选项，并给合成成功标记赋值
+	//在合成处理之后，储存合成的选项
 	function itemmix_proc($mlist, $minfo)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		$chprocess($mlist, $minfo);
 		if(is_lastmix_allowed()) {
-			save_lastmix($mlist, $minfo);
+			eval(import_module('smartmix'));
+			save_lastmix($mlist, $minfo, $tmp_itemselect);
 		}
+	}
+	
+	//合成成功时，给合成成功标记赋值
+	function itemmix_success()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		$chprocess();
 		eval(import_module('smartmix'));
 		$mix_successful_flag = 1;
 	}
 	
 	//【上一次合成】核心函数，使用skill1003来储存
-	function save_lastmix($mlist, $minfo) {
+	function save_lastmix($mlist, $minfo, $msel=-1) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(\skillbase\skill_query(1003)) {
 			\skillbase\skill_setvalue(1003, 'last_mix_list', gencode($mlist));
 			\skillbase\skill_setvalue(1003, 'last_mix_result', gencode($minfo));
+			\skillbase\skill_setvalue(1003, 'last_mix_select', $msel);
 		}
 	}
 	
@@ -256,8 +284,9 @@ namespace smartmix
 			if(!empty($mlist)) $mlist = gdecode($mlist,1);
 			$mres = \skillbase\skill_getvalue(1003, 'last_mix_result');
 			if(!empty($mres)) $mres = gdecode($mres,1);
+			$msel = \skillbase\skill_getvalue(1003, 'last_mix_select');
 		}
-		return Array($mlist, $mres);
+		return Array($mlist, $mres, $msel);
 	}
 }
 
