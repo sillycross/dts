@@ -2,6 +2,13 @@
 <input type="hidden" name="command" id="command" value="menu">
 <input type="hidden" id="subcmd" name="subcmd" value="">
 <input type="hidden" id="subcmd2" name="subcmd2" value="">
+<!--{if \smartmix\is_lastmix_allowed()}-->
+	<!--{eval list($lastlist, $lastres)=\smartmix\get_lastmix();}-->
+	<!--{if !empty($lastlist)}-->
+		<input type="button" class="cmdbutton" id="c" value="[C]按上一次合成" onclick="$('command').value='itemmix';$('subcmd').value='lastmix';postCmd('gamecmd','command.php');this.disabled=true;">
+		<span>将合成：<span class="yellow b">$lastres['result'][0]</span></span><br>
+	<!--{/if}-->
+<!--{/if}-->
 <br>
 <!--{if $itms1}--><div class="slitmsingle"><input type="checkbox" id="mitm1" name="mitm1" value="1"><a onclick="$('mitm1').click();" href="javascript:void(0);">$itm1/$itme1/$itms1</a>&nbsp;&nbsp;&nbsp;<!--{eval echo \smartmix\parse_smartmix_recipelink($itm1,'查公式');}--></div><!--{/if}-->
 <!--{if $itms2}--><div class="slitmsingle"><input type="checkbox" id="mitm2" name="mitm2" value="1"><a onclick="$('mitm2').click();" href="javascript:void(0);">$itm2/$itme2/$itms2</a>&nbsp;&nbsp;&nbsp;<!--{eval echo \smartmix\parse_smartmix_recipelink($itm2,'查公式');}--></div><!--{/if}-->

@@ -2,6 +2,8 @@
 
 namespace smartmix
 {
+	$mix_successful_flag = 0;
+	
 	function init() {}
 	
 	//以道具名反查mixinfo数据
@@ -194,6 +196,68 @@ namespace smartmix
 			}
 		}
 		$chprocess();
+	}
+	
+	//是否允许【按上一次合成】功能。本模块只判断skill1003是否存在
+	function is_lastmix_allowed()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return defined('MOD_SKILL1003');
+	}
+	
+	//检测是否提交按上一次合成的指令，并判定合成是否成功
+	function itemmix($mlist, $itemselect=-1) {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		eval(import_module('smartmix'));
+		$mix_successful_flag = 0;
+		
+		if(is_lastmix_allowed() && 'lastmix' == get_var_in_module('subcmd','input')){
+			list($lastlist, $lastres) = get_lastmix();
+			if(!empty($lastlist)) {
+				$mlist = $lastlist;
+			}
+		}
+		
+		$chprocess($mlist, $itemselect);
+		
+		if(!$mix_successful_flag) //合成不成功则清空上一次合成的记录
+			save_lastmix(Array(), Array());
+	}
+	
+	//在合成处理之后，储存合成的选项，并给合成成功标记赋值
+	function itemmix_proc($mlist, $minfo)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		$chprocess($mlist, $minfo);
+		if(is_lastmix_allowed()) {
+			save_lastmix($mlist, $minfo);
+		}
+		eval(import_module('smartmix'));
+		$mix_successful_flag = 1;
+	}
+	
+	//【上一次合成】核心函数，使用skill1003来储存
+	function save_lastmix($mlist, $minfo) {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(\skillbase\skill_query(1003)) {
+			\skillbase\skill_setvalue(1003, 'last_mix_list', gencode($mlist));
+			\skillbase\skill_setvalue(1003, 'last_mix_result', gencode($minfo));
+		}
+	}
+	
+	//从skill1003读取上一次合成的值
+	function get_lastmix() {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$mlist = $mres = Array();
+		if(\skillbase\skill_query(1003)) {
+			$mlist = \skillbase\skill_getvalue(1003, 'last_mix_list');
+			if(!empty($mlist)) $mlist = gdecode($mlist,1);
+			$mres = \skillbase\skill_getvalue(1003, 'last_mix_result');
+			if(!empty($mres)) $mres = gdecode($mres,1);
+		}
+		return Array($mlist, $mres);
 	}
 }
 

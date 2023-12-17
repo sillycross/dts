@@ -23,6 +23,8 @@
 //当前使用卡片的碎闪等级 nowcard_blink 位于extra/card/cardbase
 //迷梦技能标记 sk599_flag 位于extra/card/skills/skill599
 //试炼模式等级 instance3_lvl 位于extra/instance/instance3_ascension
+//上一次合成选项 last_mix_list 位于extra/misc/smartmix
+//上一次合成产物 last_mix_result 位于extra/misc/smartmix
 
 namespace skill1003
 {
