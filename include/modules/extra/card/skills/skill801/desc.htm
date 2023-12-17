@@ -1,0 +1,36 @@
+<!--{eval $___TEMP_SKILL_ID=801;}-->
+<!--{eval eval(import_module('clubbase'));}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+<!--{if \skillbase\skill_getvalue(801,'lvl',$who)}-->首领<!--{else}-->爪牙<!--{/if}-->
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+<!--{if \skillbase\skill_getvalue(801,'lvl',$who)}-->
+	<!--{eval $fpid = \skill801\skill801_get_pidlist();}-->
+	你是以下角色的首领：<br>
+	<!--{if (empty($fpid))}-->
+	<span class="yellow b">无</span>
+	<!--{else}-->
+	<!--{loop $fpid $i}-->
+	<!--{eval $fname = (\player\fetch_playerdata_by_pid($i))['name'];}-->
+	<span class="yellow b">$fname</span>&nbsp; 
+	<!--{/loop}-->
+	<!--{/if}-->
+	<br>你被击败后，这些角色会立即脱离战场。
+<!--{else}-->
+	<!--{eval $lpid = \skill801\skill801_get_pidlist();}-->
+	<!--{if (!empty($lpid))}-->
+	<!--{eval $lname = (\player\fetch_playerdata_by_pid($lpid[0]))['name'];}-->
+	你是<span class="yellow b">$lname</span>的手下。<br>首领被击败后，你会立即脱离战场。
+	<!--{/if}-->
+<!--{/if}-->
+</span></td>
+<td class="skilldesc_right b3">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

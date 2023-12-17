@@ -285,6 +285,7 @@ skill586,extra/card/skills/skill586/,1
 skill902,extra/instance/instance3_ascension/skill902/,1
 skill907,extra/instance/instance3_ascension/skill907/,1
 skill904,extra/instance/instance3_ascension/skill904/,1
+skill801,extra/card/skills/skill801/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
