@@ -14,7 +14,7 @@ namespace item_recipe
 	//extra: 素材额外条件，'ygo'表示为游戏王道具，'edible'表示为回复道具，'weapon'表示为武器，'armor'表示为防具
 	//tips: 素材的文字说明，设置后会覆盖自动生成的文字说明
 	//result: 合成结果数组
-	//extra: 合成额外条件，'link':连接合成的link数，'materials':需要的合成材料数（具体数字或大于数字），'allow_repeat':是否允许重复，默认为true， 'consume_recipe':是否消耗配方，默认为false，'if_learnable':配方是否能学习，如果配方不消耗则默认为true，配方消耗则默认为false
+	//extra: 合成额外条件，'link':连接合成的link数，'materials':需要的合成材料数（具体数字或大于数字），'allow_repeat':是否允许重复，默认为true， 'consume_recipe':是否消耗配方，默认为false，'if_learnable':配方是否能学习，如果配方不消耗则默认为true，配方消耗则默认为false，'ex_learn':合成后学习到的额外配方，可为单个配方id或id数组
 	$recipe_mixinfo = array
 	(
 		1 => array
@@ -299,6 +299,125 @@ namespace item_recipe
 			'result' => array('「幻想风靡」','WF',1444,'∞','rdnc^res_$$CK-aOO%-We%pyo%Y+@-ZqQ-Lqr%pyv$$CLLFZTLDEsMSwyNTEs1^reptype1'),
 			'extra' => array('materials'=>3, 'consume_recipe'=>true,),
 		),
+		//极速模式配方留空结束
+		//杂项配方
+		71 => array
+		(
+			'stuff1' => array('itm'=>'★','itm_match'=>1,'extra'=>'weapon'),
+			'stuff2' => array('itm'=>'☆','itm_match'=>1,'extra'=>'weapon'),
+			'stuff3' => array('itm'=>'方块','itm_match'=>1),
+			'result' => array('星之碎片','X',1,1,'x^res_%pif%Yqb%LmL%ZmsLFgsMSwxLE*s1^rtype1'),
+			'extra' => array('materials'=>3, 'ex_learn'=>array(72,73,74,75,76,77,78)),
+		),
+		72 => array
+		(
+			'stuff1' => array('itm'=>'星之碎片','itm_match'=>0),
+			'stuff2' => array('itm'=>'刀','itm_match'=>1,'extra'=>'weapon'),
+			'result' => array('星力之毒刃','WK',180,100,'upn'),
+			'extra' => array('materials'=>2),
+		),
+		73 => array
+		(
+			'stuff1' => array('itm'=>'星之碎片','itm_match'=>0),
+			'stuff2' => array('itm'=>'棍棒','itm_match'=>1,'extra'=>'weapon'),
+			'result' => array('星力之棍棒','WP',180,90,'ueN'),
+			'extra' => array('materials'=>2),
+		),
+		74 => array
+		(
+			'stuff1' => array('itm'=>'星之碎片','itm_match'=>0),
+			'stuff2' => array('itm'=>'炸弹','itm_match'=>1,'extra'=>'weapon'),
+			'result' => array('星力之艺术','WD',180,60,'uwd'),
+			'extra' => array('materials'=>2),
+		),
+		75 => array
+		(
+			'stuff1' => array('itm'=>'星之碎片','itm_match'=>0),
+			'stuff2' => array('itm'=>'球','itm_match'=>1,'extra'=>'weapon'),
+			'result' => array('星力之精准','WC',180,140,'uik'),
+			'extra' => array('materials'=>2),
+		),
+		76 => array
+		(
+			'stuff1' => array('itm'=>'星之碎片','itm_match'=>0),
+			'stuff2' => array('itm'=>'枪','itm_match'=>1,'extra'=>'weapon'),
+			'result' => array('星力之扫荡','WG',180,50,'uf^ac1'),
+			'extra' => array('materials'=>2),
+		),
+		77 => array
+		(
+			'stuff1' => array('itm'=>'星之碎片','itm_match'=>0),
+			'stuff2' => array('itm'=>'符','itm_match'=>1,'extra'=>'weapon'),
+			'result' => array('星力之意念','WF',180,70,'udM'),
+			'extra' => array('materials'=>2),
+		),
+		78 => array
+		(
+			'stuff1' => array('itm'=>'星之碎片','itm_match'=>0),
+			'stuff2' => array('itmk'=>'WJ','itmk_match'=>1),
+			'result' => array('星力之决断','WJ',252,2,'ro'),
+			'extra' => array('materials'=>2),
+		),
+		79 => array
+		(
+			'stuff1' => array('itm'=>'☆','itm_match'=>1,'extra'=>'armor'),
+			'stuff2' => array('itm'=>'方块','itm_match'=>1),
+			'result' => array('星之碎片','X',1,1,'x^res_%pif%Yqb%LmL%ZmsLFgsMSwxLE*s1^rtype1'),
+			'extra' => array('materials'=>2, 'ex_learn'=>array(80,81,82,83,84)),
+		),
+		80 => array
+		(
+			'stuff1' => array('itm'=>'星之碎片','itm_match'=>0),
+			'stuff2' => array('itmk'=>'DB','itmk_match'=>1),
+			'stuff3' => array('itm'=>'『祝福宝石』','itm_match'=>0),
+			'result' => array('星力之庇佑','DB',240,90,'A'),
+			'extra' => array('materials'=>3),
+		),
+		81 => array
+		(
+			'stuff1' => array('itm'=>'星之碎片','itm_match'=>0),
+			'stuff2' => array('itmk'=>'DH','itmk_match'=>1),
+			'stuff3' => array('itmk'=>'V','itmk_match'=>1),
+			'result' => array('星力之才智','DH',120,180,'a'),
+			'extra' => array('materials'=>3),
+		),
+		82 => array
+		(
+			'stuff1' => array('itm'=>'星之碎片','itm_match'=>0),
+			'stuff2' => array('itm'=>'卡牌包','itm_match'=>1),
+			'stuff3' => array('itm'=>'闪光','itm_match'=>1),
+			'result' => array('星力之掌控','DA',480,10,'Hh'),
+			'extra' => array('materials'=>3),
+		),
+		83 => array
+		(
+			'stuff1' => array('itm'=>'星之碎片','itm_match'=>0),
+			'stuff2' => array('itmsk'=>'B','itmsk_match'=>1),
+			'stuff3' => array('itmsk'=>'b','itmsk_match'=>1),
+			'result' => array('星力之藐视','DF',360,30,'Bb'),
+			'extra' => array('materials'=>3),
+		),
+		84 => array
+		(
+			'stuff1' => array('itm'=>'星之碎片','itm_match'=>0),
+			'stuffa' => array('itmk'=>'ss','itmk_match'=>0),
+			'result' => array('星力之穿云','A',1,1,'nL'),
+			'extra' => array('materials'=>5),
+		),
+		85 => array
+		(
+			'stuff1' => array('itm'=>'笔记本电脑','itm_match'=>0),
+			'stuff2' => array('itm'=>'生命探测器','itm_match'=>0),
+			'result' => array('广域生命探测器','ER',1,1,'^rdsk2'),
+			'extra' => array('materials'=>2),
+		),
+		88 => array
+		(
+			'stuff1' => array('itm'=>'镰刀','itm_match'=>0),
+			'stuff2' => array('itm'=>'铁锤','itm_match'=>0),
+			'result' => array('燃烧的信仰','A',1,1,'cAmpfiRe'),
+			'extra' => array('materials'=>2, 'consume_recipe'=>true,),
+		),		
 		//辉夜卡配方
 		100 => array
 		(

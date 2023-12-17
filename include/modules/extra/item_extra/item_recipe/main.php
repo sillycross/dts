@@ -448,6 +448,29 @@ namespace item_recipe
 			{
 				learn_recipe_process($minfo);
 			}
+			//学习额外配方
+			if (isset($minfo['extra']['ex_learn']))
+			{
+				$ex_learn = $minfo['extra']['ex_learn'];
+				if (is_array($ex_learn))
+				{
+					foreach ($ex_learn as $exrkey)
+					{
+						if (isset($recipe_mixinfo[$exrkey]))
+						{
+							$exminfo = $recipe_mixinfo[$exrkey];
+							$exminfo['key'] = $exrkey;
+							learn_recipe_process($exminfo);
+						}
+					}
+				}
+				elseif (isset($recipe_mixinfo[$ex_learn]))
+				{
+					$exminfo = $recipe_mixinfo[$ex_learn];
+					$exminfo['key'] = $ex_learn;
+					learn_recipe_process($exminfo);
+				}
+			}
 		}
 		recipe_mix_success();
 	}
