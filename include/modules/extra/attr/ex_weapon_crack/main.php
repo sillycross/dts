@@ -53,8 +53,8 @@ namespace ex_weapon_crack
 				eval(import_module('logger'));
 				if ($pa['wep_kind'] == 'N')
 				{
-					if ($active) $log .= "<span class=\"yellow b\">{$pd['name']}的装备使你的<span class=\"red b\">手</span>部受伤了！</span><br>";
-					else $log .= "<span class=\"yellow b\">你的装备使{$pa['name']}的<span class=\"red b\">手</span>部受伤了！</span><br>";
+					if ($active) $log .= "<span class=\"yellow b\">{$pd['name']}的装备使你的<span class=\"red b\">腕</span>部受伤了！</span><br>";
+					else $log .= "<span class=\"yellow b\">你的装备使{$pa['name']}的<span class=\"red b\">腕</span>部受伤了！</span><br>";
 					\wound\get_inf('a', $pa);
 				}
 				else
