@@ -5,8 +5,8 @@
 <!--{if \smartmix\is_lastmix_allowed()}-->
 	<!--{eval list($lastlist, $lastres)=\smartmix\get_lastmix();}-->
 	<!--{if !empty($lastlist)}-->
-		<input type="button" class="cmdbutton" id="c" value="[C]按上一次合成" onclick="$('command').value='itemmix';$('subcmd').value='lastmix';postCmd('gamecmd','command.php');this.disabled=true;">
-		<span>将合成：<span class="yellow b">$lastres['result'][0]</span></span><br>
+		<input type="button" class="cmdbutton" id="c" value="[C]重复上次操作" onclick="$('command').value='itemmix';$('subcmd').value='lastmix';postCmd('gamecmd','command.php');this.disabled=true;">
+		<span>上次产物：<span class="yellow b">$lastres['result'][0]</span></span><br>
 	<!--{/if}-->
 <!--{/if}-->
 <br>

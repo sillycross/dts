@@ -227,17 +227,18 @@ namespace smartmix
 		$chprocess($mlist, $itemselect);
 		
 		if(is_lastmix_allowed()){
-			if(!$mix_successful_flag) {//合成不成功则清空上一次合成的记录
+			if(!$mix_successful_flag && $itemselect < 0) {//合成不成功则清空上一次合成的记录
 				list($lastlist, $lastres) = get_lastmix();
 				if(!empty($lastlist)) {
-					echo '222222';
 					save_lastmix(Array(), Array());
 					//这里由于执行顺序，需要重新生成一遍指令
 					eval(import_module('player'));
-					ob_clean();
-					include template(get_itemmix_filename());
-					$cmd = ob_get_contents();
-					ob_clean();
+					if(!empty($cmd) && strpos($cmd, 'itemmain')!==false) {
+						ob_clean();
+						include template(get_itemmix_filename());
+						$cmd = ob_get_contents();
+						ob_clean();
+					}					
 				}
 			}
 		}
