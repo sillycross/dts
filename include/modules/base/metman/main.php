@@ -117,7 +117,7 @@ namespace metman
 		$find_obbs = calculate_findman_obbs($edata);
 		$hide_obbs = calculate_hide_obbs($edata);
 		$enemy_dice = rand(0,99);
-		//$log .= '最终发现率：'.$find_obbs.' 对方最终隐蔽率：'.$hide_obbs.' 发现骰：'.$enemy_dice.' ';
+		//gwrite_var('a.txt', '最终发现率：'.$find_obbs.' 对方最终隐蔽率：'.$hide_obbs.' 发现骰：'.$enemy_dice.' ');
 		if($enemy_dice < $find_obbs - $hide_obbs) 
 			return 1; 
 		else 

@@ -93,7 +93,7 @@ namespace player
 	//注意这个函数默认情况下只能找玩家
 	//注意这个fetch_playerdata()及后面那个fetch_playerdata_by_pid()在skillbase模块里会自动初始化技能参数，如果是当前玩家则会修改$acquired_list及$parameter_list两个变量
 	//这导致如果在同一次请求中第二次执行这两个函数获取当前玩家数据，将会把技能变量覆盖，出现不可预料的问题！
-	function fetch_playerdata($Pname, $Ptype = 0, $ignore_pool = 0)
+	function fetch_playerdata($Pname, $Ptype = 0, $ignore_pool = 0, $ignore_lock = 0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
@@ -108,13 +108,14 @@ namespace player
 		}
 		if($Pname == get_var_in_module('name', 'player')) file_put_contents('log.txt', 'fetch_playerdata with selfs name at'.debug_backtrace()[0]['file'].':'.debug_backtrace()[1]['function'].':'.debug_backtrace()[0]['line']."\r\n", FILE_APPEND);
 		if(empty($pdata)){
-			//先进行玩家锁判定
+			//先判定玩家是否存在
 			$query = "SELECT pid FROM {$tablepre}players WHERE name = '$Pname' AND type = '$Ptype'";
 			$result = $db->query($query);
 			if(!$db->num_rows($result)) return NULL;
 			$pdid = $db->fetch_array($result);
 			$pdid = $pdid['pid'];
-			create_player_lock($pdid);
+			//正常情况给玩家加锁，某些特定需求情况下不加锁
+			if(!$ignore_lock) create_player_lock($pdid);
 			//阻塞结束后再真正取玩家数据，牺牲性能避免脏数据
 			$query = "SELECT * FROM {$tablepre}players WHERE pid = '$pdid'";
 			$result = $db->query($query);
@@ -127,19 +128,21 @@ namespace player
 	}
 	
 	//注意事项见上！
-	function fetch_playerdata_by_pid($pid)
+	function fetch_playerdata_by_pid($pid, $ignore_pool = 0, $ignore_lock = 0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		if($pid == get_var_in_module('pid', 'player')) file_put_contents('log.txt', 'fetch_playerdata_by_pid with selfs pid at '.debug_backtrace()[0]['file'].':'.debug_backtrace()[1]['function'].':'.debug_backtrace()[0]['line']."\r\n", FILE_APPEND);
-		if(isset($pdata_pool[$pid])){
+		if(!$ignore_pool && isset($pdata_pool[$pid])){
 			$pdata = $pdata_pool[$pid];
 		}else{
+			//先判定角色是否存在
 			$result = $db->query("SELECT pid FROM {$tablepre}players WHERE pid = '$pid'");
 			if(!$db->num_rows($result)) return NULL;
 			$pdid = $db->fetch_array($result);
 			$pdid = $pdid['pid'];
-			create_player_lock($pdid);
+			//正常情况给玩家加锁，某些特定需求情况下不加锁
+			if(!$ignore_lock) create_player_lock($pdid);
 			$query = "SELECT * FROM {$tablepre}players WHERE pid = '$pdid'";
 			$result = $db->query($query);
 			$pdata = $db->fetch_array($result);

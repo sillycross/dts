@@ -12,6 +12,7 @@ namespace npc_action
 			'actions' => Array(//会执行的行动及对应的概率。具体执行时先取满足条件的行动，然后根据比例来判定概率。可选项有move（随机移动）、chase（追杀）、evade（躲避）
 				'move' => 1,
 				'chase' => 100,
+				'ambush' => 100,
 				//'evade' => 100,//注意提前批行动会单独计算概率
 			),
 			
@@ -41,11 +42,10 @@ namespace npc_action
 					'addchat_txt' => Array(//发送特定的聊天记录，用<:para1:>和<:para2:>代表出发地和目的地，用<:para3:>代表追踪目标
 						'【CHASE: "<:para3:>" . MOVED TO "<:para2:>". 】',
 					),
-					
 				),
 				'evade' => Array(
 					'early_action' => 1,//是否为提前批行动，如果是则不满足条件后还会再执行一遍其他行动
-					'object' => Array('B'),//躲避对象，R为随机选一个玩家，T为躲头名，B为躲最弱的，P:XXX为追踪名字为XXX的玩家，N:XXX为追踪名字为XXX的NPC，W为追上一次与自己作战的玩家（需skill1007支持）
+					'object' => Array('B'),//躲避对象，R为随机选一个玩家，T为躲头名，B为躲最弱的，P:XXX为追踪名字为XXX的玩家，N:XXX为追踪名字为XXX的NPC，W为追上一次与自己作战的玩家
 					'avoid_forbidden' => 1,//是否躲避禁区
 					'avoid_dangerous' => 1,//是否躲避危险地图
 					//'need_awake' => 1,//是否在清醒状态（被打后）才会开始执行本项行动
@@ -55,6 +55,18 @@ namespace npc_action
 					'addchat' => 1,//是否发送聊天记录
 					'addchat_txt' => Array(//发送特定的聊天记录，用<:para1:>和<:para2:>代表出发地和目的地，用<:para3:>代表追踪目标
 						'【EVADE: "<:para3:>" . MOVED TO "<:para2:>". 】',
+					),
+				),
+				'ambush' => Array(//问候前允许偷袭一次！就算不是探索也有概率先制玩家，但需要在同一个地图
+					'early_action' => 1,//是否为提前批行动，如果是则不满足条件后还会再执行一遍其他行动
+					'object' => Array('A'),//偷袭对象，A为不分条件，S为偷袭较强的，L为偷袭较弱的，P:XXX为名字为XXX的玩家，W为偷袭上一次与自己作战的玩家
+					//'need_awake' => 1,//是否在清醒状态（被打后）才会开始执行本项行动
+					'need_rage_GE' => 30,//怒气最少要到达哪个值才会开始执行本行动
+					'rage_change_after_action' => -5,//执行后怒气变化量，可正可负
+					'ambush_findrate_buff' => 0,//先攻率加成（减成）
+					'addchat' => 1,//是否发送聊天记录
+					'addchat_txt' => Array(//发送特定的聊天记录，用<:para1:>和<:para2:>代表出发地和目的地，用<:para3:>代表追踪目标
+						'【AMBUSH: "<:para3:>" BEFORE AISATSU! 】',
 					),
 				),
 			),

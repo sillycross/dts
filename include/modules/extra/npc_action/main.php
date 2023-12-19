@@ -179,6 +179,7 @@ namespace npc_action
 			}
 			
 			//第二轮，从符合条件行动中选出执行哪个行动，如果多个行动则按概率和概率分母的比例加权随机
+			
 			if(!empty($action_list_early)) {//先计算是否有提前批行动
 				$act_early = get_npc_action_list_chosen ($action_list_early, $rate_total_early);
 			}
@@ -186,6 +187,7 @@ namespace npc_action
 				$act = get_npc_action_list_chosen ($action_list, $rate_total);
 			}
 		}	
+		$npc['chatflag'] = 0;//NPC发送聊天记录的标记
 		
 		if(!empty($act_early) && !empty($setting['setting'][$act_early])) {//先执行提前批行动
 			$setting_act_early = $setting['setting'][$act_early];
@@ -199,23 +201,24 @@ namespace npc_action
 		}		
 		
 		if(!empty($ret)) {//如果返回值有值，则进行后续行动处理
+			$npc['successflag'] = 0;
 			if(!empty($early_flag)) {//返回的是提前批行动，把$act和$setting_act改为对应的值
 				$act = $act_early;
 				$setting_act = $setting_act_early;
 			}
-			//记录NPC行动时间。save_gameinfo()在外部执行。
+			//记录NPC行动时间。save_gameinfo()在外部执行。这里只要有返回$npc，无论是否成功都执行
 			if(empty($gamevars['last_npc_action'])) {
 				$gamevars['last_npc_action'] = Array();
 			}
 			//如果行动后会改变怒气，在这里处理
-			if(!empty($setting_act['rage_change_after_action'])) {
+			if(!empty($setting_act['rage_change_after_action']) && !empty($ret['successflag'])) {
 				$ret['rage'] += $setting_act['rage_change_after_action'];
 				//这里就简单把怒气范围设为0-100吧，不考虑突破上限
 				if($ret['rage'] < 0) $ret['rage'] = 0;
 				elseif($ret['rage'] > 100) $ret['rage'] = 100;
 			}
 			//判定是否进行addchat
-			if(!empty($setting_act['addchat'])) {
+			if(!empty($setting_act['addchat']) && !empty($ret['chatflag'])) {
 				$addchat_txt = array_randompick($setting_act['addchat_txt']);
 				for($c=1;$c<10;$c++) {
 					if(!empty($npc_action_tmp_paras['para'.$c])) {
@@ -230,6 +233,7 @@ namespace npc_action
 			$ret = post_npc_action_single($ret);
 			//清除临时变量
 			$npc_action_tmp_paras = Array();
+			unset($ret['chatflag'], $npc['successflag']);
 		}
 		
 		return $ret;
@@ -240,10 +244,10 @@ namespace npc_action
 	function npc_action_single_core($npc, $act, $setting_act)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys'));
+		eval(import_module('sys','logger'));
 		
 		$npc_action_tmp_paras = & get_var_in_module('npc_action_tmp_paras', 'npc_action');
-
+		
 		//涉及移动的NPC动作
 		if(in_array($act, Array('move','chase','evade'))) {
 			eval(import_module('map'));
@@ -343,10 +347,92 @@ namespace npc_action
 			if($moveto == $npc['pls']) {
 				return;
 			}
+			
 			//真正给返回值赋值
 			$npc['pls'] = $moveto;
 			//给addchat的参数赋值
 			$npc_action_tmp_paras['para1'] = $plsinfo[$o_pls]; $npc_action_tmp_paras['para2'] = $plsinfo[$moveto];
+			$npc['chatflag'] = $npc['successflag'] = 1;
+		} 
+		//偷袭，就算玩家没有进行行动，也有概率袭击当前玩家，这个时候必定先制玩家
+		elseif('ambush' == $act) {
+			//当前是否为玩家指令，如果不是，或者当前玩家指令不合适，则返回
+			if(empty($mode) || empty($command) || in_array($command, Array('move', 'search', 'npc_action', 'back', 'menu', 'enter')))
+				return;
+			//如果sdata不存在或者一些不可能是玩家指令的情况，则返回
+			eval(import_module('player'));
+			if(empty($sdata) || empty($hp)) 
+				return;
+			//不在当前地点，返回
+			if($npc['pls'] != $pls)
+				return;
+			//判定当前玩家是否符合config条件，不符合则返回
+			//如果object键值有多个元素，随机取一个
+			//可能以后可以改成有更丰富的交并集关系
+			if(empty($setting_act['object'])) {
+				$ambush_object = Array('R');
+			}else{
+				$ambush_object = $setting_act['object'];
+				if(!is_array($ambush_object)) 
+					$ambush_object = Array($ambush_object);
+			}
+			if(empty($ambush_object)) 
+				return;
+			$ambush_object = array_randompick($ambush_object);
+			if('A' == $ambush_object) {
+				//必定通过，但是占个位置
+			}elseif('S' == $ambush_object){
+				//只偷袭强者，这里判定标准是击杀过玩家或者击杀NPC数>=10
+				if($killnum < 0 && $npckillnum < 10)
+					return;
+			}elseif('L' == $ambush_object){
+				//只偷袭弱者，这里判定标准是没有杀过玩家且击杀NPC数<10
+				if($killnum > 0 || $npckillnum >= 10)
+					return;
+			}elseif('P' == substr($ambush_object,0,1)){
+				//只袭击指定名字的玩家
+				$pname = explode(':', $ambush_object)[1];
+				if($pname != $name)
+					return;
+			}elseif('W' == $ambush_object) {
+				//只袭击上一次与自己作战的玩家
+				$wid = $npc['bid'];
+				if($pid != $wid)
+					return;
+			}
+			//计算遇敌率
+			//这里调用另一个进程载入NPC的数据，并由NPC对玩家执行一次发现判定，这样导致的BIG最少
+			$responce = curl_post(
+				url_dir().'command.php',
+				array(
+					'sign' => $userdb_remote_storage_sign,
+					'room_id'=> $room_id,
+					'mode'=>'bot',
+					'command'=>'npc_action',
+					'nid' => $npc['pid'],
+					'npc_action' => 'calc_findenemy',
+					'object' => $pid
+				),
+			);
+			$responce = (int)$responce;
+			if(!$responce) 
+				return;
+			//计算先制率，这里直接让当前玩家执行就可以了
+			if(!empty($setting_act['ambush_findrate_buff'])) {
+				$npc['npc_action_buff'] = $setting_act['ambush_findrate_buff'];
+			}
+			$active = \enemy\check_enemy_meet_active($sdata,$npc);
+			unset($npc['npc_action_buff']);
+			if($active)
+				return $npc;//注意，这里是如果当前玩家被NPC先制，才进入下一步判定
+			//调用战斗函数
+			$log .= '<br><span class="yellow b">什么，旁边的草丛里竟然传来声音……？</span><br>';
+			\enemy\battle_wrapper($npc,$sdata,0);
+			//消除当前玩家的指令避免后续判定，也就是认为玩家的指令被NPC打断。这里其实已经执行完行动了……
+			$mode = $command = '';
+			//给addchat的参数赋值
+			$npc_action_tmp_paras['para3'] = $name;
+			$npc['chatflag'] = $npc['successflag'] = 1;
 		}
 		return $npc;
 	}
@@ -415,11 +501,57 @@ namespace npc_action
 		return $ret;
 	}
 	
+	//NPC行动时额外的先制率
+	function calculate_active_obbs(&$ldata,&$edata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player','logger','searchmemory'));
+		$ret = $chprocess($ldata,$edata);
+		if(!empty($edata['npc_action_buff'])) {
+			//注意这里正负号是相反的
+			$ldata['active_words'] = \attack\add_format(-$edata['npc_action_buff'], $ldata['active_words'],0);
+			$ret -= $edata['npc_action_buff'];
+		}
+		return $ret;
+	}
+	
+	//执行主函数
 	function post_act()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess();
 		npc_action_main();
+	}
+	
+	//从command.php调用，执行一些需要切换到npc数据的操作。注意执行这个函数的时候还没有载入当前玩家
+	//直接返回需要返回的值（好像有点绕）。这里指的是不需要echo之类的操作显示出来
+	function bot_action()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//前置判定
+		eval(import_module('sys'));
+		
+		if('bot' != $mode && 'npc_action' != $command)
+			return;
+		$room_id = get_var_in_module('room_id', 'input');
+		$room_prefix = room_id2prefix($room_id);
+		$tablepre = room_get_tablepre();
+		\sys\load_gameinfo();
+		//gwrite_var('b.txt', $tablepre.' '.$gamestate);
+		if($gamestate < 20 || !is_npc_action_allowed())
+			return;
+		$nid = get_var_in_module('nid', 'input');
+		$npc_action = get_var_in_module('npc_action', 'input');
+		$object = get_var_in_module('object', 'input');
+		
+		//把NPC当做玩家载入
+		\player\load_playerdata(\player\fetch_playerdata_by_pid((int)$nid, 0, 1));
+		if('calc_findenemy' == $npc_action) {
+			$edata = \player\fetch_playerdata_by_pid((int)$object, 0, 1);
+			
+			$ret = \metman\check_alive_discover($edata);
+		}
+		return $ret;
 	}
 }
 ?>

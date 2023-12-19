@@ -33,7 +33,7 @@ namespace sys
 	//用户数据库远程存放地址（是特定的一个接收php），留空为存本地
 	//开启后，本地数据库相当于缓存，实际以远端数据库为准
 	$userdb_remote_storage = '';
-	//用户数据远程存放签名
+	//用户数据远程存放签名。也用作部分进程间通信的标记，生产环境建议修改。
 	$userdb_remote_storage_sign = 'local';
 	//用户数据远程存放密钥
 	$userdb_remote_storage_pass = '142857';
