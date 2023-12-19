@@ -1,0 +1,26 @@
+<input type="hidden" name="mode" value="special">
+<input type="hidden" id="command" name="command" value="storage">
+<input type="hidden" id="subcmd" name="subcmd" value="">
+<input type="hidden" id="pos" name="pos" value="0">
+<input type="hidden" id="storage_sendin" name="storage_sendin" value="">
+<input type="hidden" id="storage_fetchout" name="storage_fetchout" value="">
+<!--{loop array('wep','arb','arh','ara','arf','art') $ipos}-->
+	<!--{if \itemmain\check_in_itmsk('^st', ${$ipos.'sk'})}-->
+		<!--{eval $storage_itmarr=\ex_storage\get_item_storage(${$ipos.'sk'});$stcount = sizeof($storage_itmarr);$vol = (int)\itemmain\check_in_itmsk('^vol', ${$ipos.'sk'});}-->
+		<span class="yellow b">$sdata[$ipos]</span>中已存放 <span class="yellow b">{$stcount}/{$vol}</span> 个道具<br>
+		<!--{loop $storage_itmarr $i $v}-->
+		<input type="button" class="cmdbutton" value="取出" onclick="$('storage_fetchout').value='<!--{eval echo $i+1;}-->';$('storage_sendin').value='';$('pos').value='{$ipos}';postCmd('gamecmd','command.php');this.disabled=true;">
+		$v['itm']/$v['itme']/$v['itms']<br>
+		<!--{/loop}-->
+		<br>
+	<!--{/if}-->
+<!--{/loop}-->
+<br><br>
+<!--{loop Array(1,2,3,4,5,6) $i}-->
+<!--{if !empty(${'itms'.$i})}-->
+<input type="button" class="cmdbutton" value="存入" onclick="$('storage_fetchout').value='';$('storage_sendin').value='{$i}';postCmd('gamecmd','command.php');this.disabled=true;">
+${'itm'.$i}/${'itme'.$i}/${'itms'.$i}<br>
+<!--{/if}-->
+<!--{/loop}-->
+<br><br>
+<input type="button" class="cmdbutton"  id="x" value="[X]返回" onclick="$('command').value='menu'; postCmd('gamecmd','command.php');this.disabled=true;">
