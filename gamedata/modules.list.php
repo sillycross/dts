@@ -605,6 +605,7 @@ skill38,extra/club/skills/skill38/,1
 skill34,extra/club/skills/skill34/,1
 skill538,extra/card/skills/skill538/,1
 ex_phy_nullify,extra/attr/ex_phy_nullify/,1
+ex_storage,extra/attr/ex_storage/,1
 item_armor_empower,extra/item_extra/item_armor_empower/,1
 skill707,extra/card/skills/skill707/,1
 ex_residue,extra/attr/ex_residue/,1
