@@ -6,7 +6,7 @@ namespace skill718
 	{
 		define('MOD_SKILL718_INFO','card;');
 		eval(import_module('clubbase'));
-		$clubskillname[718] = '逆转';
+		$clubskillname[718] = '双面';
 	}
 	
 	function acquire718(&$pa)
