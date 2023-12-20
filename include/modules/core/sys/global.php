@@ -196,27 +196,26 @@ namespace sys
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		$msg = '【'.$chatinfo[$chat['type']].'】'.$chat['send'].'：'.$chat['msg'].'('.date("H:i:s",$chat['time']).')';
-		$premsg = '<span id="cid'.$chat['cid'].'"';
+		$msgclass = $chatclass[$chat['type']].($chat['type'] ? ' b' : '').' chat'.(int)$chat['type'];
+		
+		$premsg = '<span id="cid'.$chat['cid'].'" class="'.$msgclass.'">';
 		$postmsg = '<br></span>';
 		
 		//0=公聊； 1=队聊； 2=私聊； 3=遗言； 4=系统； 5=公告； 6=剧情
 		if(0 == $chat['type']) {
-			$premsg .= ' class="chat0">';
+			//占位符
 		} elseif(1 == $chat['type']) {
-			$premsg .= ' class="cyan b chat1">';
+			//占位符
 		} elseif(3 == $chat['type']) {
-			$premsg .= ' class="red b chat3">';
 			if ($chat['msg']){
 			} else {
 				$msg = '【'.$chatinfo[$chat['type']].'】'.$chat['send'].'什么都没说就死去了 ('.date("H:i:s",$chat['time']).')';
 			}
 		} elseif(4 == $chat['type']) {
-			$premsg .= ' class="yellow b chat4">';
+			//占位符
 		} elseif(5 == $chat['type']) {
-			$premsg .= ' class="yellow b chat5">';
 			$msg = '【'.$chatinfo[$chat['type']].'】'.$chat['msg'].'('.date("H:i:s",$chat['time']).')';
 		} elseif(6 == $chat['type']) {
-			$premsg .= ' class="lime b chat6">';
 			$sender = '';
 			if(!empty($chat['send'])) $sender = $chat['send'].'：';
 			$msg = '【'.$chatinfo[$chat['type']].'】'.$sender.$chat['msg'].'('.date("H:i:s",$chat['time']).')';

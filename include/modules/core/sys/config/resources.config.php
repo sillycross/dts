@@ -150,7 +150,9 @@ namespace sys
 	
 	$sexinfo = Array(0=> '未定', 'm' => '男生', 'f' => '女生');
 	
-	$chatinfo = Array(0 => '全员', 1 => '队伍', 2 => '密语', 3 => '遗言', 4 => '公告', 5 => '系统', 6 => '剧情');
+	$chatinfo = Array(0 => '全员', 1 => '队伍', 2 => '密语', 3 => '遗言', 4 => '公告', 5 => '系统', 6 => '对话');
+	
+	$chatclass = Array(0 => '', 1 => 'cyan', 2 => '', 3 => 'red', 4 => 'yellow', 5 => 'yellow', 6 => 'seagreen');
 
 	/*Infomations*/
 	$_INFO = Array(

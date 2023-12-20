@@ -5136,18 +5136,41 @@ $cards = array(
 	//这里有40张空位，是一个卡组
 	301 => array(
 		'name' => '乌冬馄饨',
+		'ruby' => 'サークル　うどんワンタン',
 		'rare' => 'B',
 		'pack' => 'Top Players',
 		'desc' => '画技相当高超的画师，<br>为dts贡献了核爆结局的动图',
 		'effect' => '开局获得一个奇怪的按钮',
 		'desc_skills' => '这个按钮显然是不能按的',
-		'energy' => 100,
+		'energy' => 120,
 		'valid' => array(
 			'itm6' => '奇怪的按钮',
 			'itmk6' => 'PB',
 			'itme6' => '1',
 			'itms6' => '1',
-			'itmsk6' => '^res_<:comp_itmsk:>{《分镜绘制指南》_VD_50_2__}1^reptype1',
+			'itmsk6' => '^res_<:comp_itmsk:>{《分镜绘制指南》_VD_30_2__}1^reptype1',
+		)
+	),
+	302 => array(
+		'name' => '猫耳吸血鬼',
+		'ruby' => 'noui',
+		'rare' => 'B',
+		'pack' => 'Top Players',
+		'desc' => 'dts开头和结尾剧情插图的绘制者',
+		'effect' => '开局获得红色和蓝色的两把钥匙',
+		'desc_skills' => '红钥匙和蓝钥匙分别是拥有火焰+碎甲和冻气+碎刃属性的投掷武器',
+		'energy' => 100,
+		'valid' => array(
+			'wep' => '对不起做不到的蓝钥匙',
+			'wepk' => 'WC',
+			'wepe' => '100',
+			'weps' => '15',
+			'wepsk' => 'i^wc1',
+			'itm6' => '打不过就加入的红钥匙',
+			'itmk6' => 'WC',
+			'itme6' => '100',
+			'itms6' => '15',
+			'itmsk6' => 'u^ac1',
 		)
 	),
 	341 => array(

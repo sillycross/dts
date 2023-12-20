@@ -111,6 +111,15 @@ table.admin td.tdtitle {
 
 .Disabled{opacity:0.7;}
 
+#changelog li{
+	line-height:1.2;
+	padding:10px 0;
+}
+
+#changelog li ul li{
+	padding:0;
+}
+
 /*==========各种颜色==========*/
 .black{color:#000000; }
 .yellow{color:#ffff00;}

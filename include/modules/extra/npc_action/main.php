@@ -42,7 +42,8 @@ namespace npc_action
 			$npc_action_list = get_npc_action_list();
 			if(empty($npc_action_list)) 
 				return;
-				
+			if(!empty($gamevars['timestopped']))//NPC不准在停止的时间里行动
+				return;
 			//暂时不save，本函数后续处理可能还会修改到gamevars，最后一起save
 			$needupdate_gameinfo = 1;
 		}
@@ -88,6 +89,7 @@ namespace npc_action
 			$npc_action_data = array_merge($npc_action_data, $gamevars['npc_action_extradata']);
 		}
 		
+		//var_dump(array_keys($npc_action_pdata_list));
 		$needupdate_players = Array();
 		foreach($npc_action_pdata_list as $nk => $nv) {
 			$nv = npc_action_single($nv);//这个函数返回要更新的$npc标准格式数组，如果不用更新则返回NULL
