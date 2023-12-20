@@ -5723,6 +5723,46 @@ $cards = array(
 			),
 		)
 	),
+	377 => array(
+		'name' => '随机数挑战者',
+		'rare' => 'C',
+		'pack' => 'Way of Life',
+		'desc' => '如果有什么操作着这个世界的随机的话，那么这就是我的反叛！',
+		'effect' => '你可以随时抛硬币和丢骰子',
+		'desc_skills' => '但是没有什么额外的作用',
+		'energy' => 0,
+		'valid' => array(
+			'skills' => array(
+				'716' => '0',
+			),
+		)
+	),
+	378 => array(
+		'name' => '随机数大神叛军',
+		'rare' => 'M',
+		'pack' => 'Way of Life',
+		'desc' => '闭眼选一个',
+		'effect' => '你移动时会随机选择一个目标地点；获得物品时会变为获得一个随机商店或地图道具；遭遇NPC时会变为遭遇随机地点的一个NPC',
+		'energy' => 0,
+		'valid' => array(
+			'skills' => array(
+				'717' => '0',//todo
+			),
+		)
+	),
+	379 => array(
+		'name' => '硬币（？）',
+		'rare' => 'M',
+		'pack' => 'Way of Life',
+		'desc' => '你是一枚硬币。随机数大神的信徒们抛出你，以此祈求神迹',
+		'effect' => '你入场时有一半概率变为正面朝下',
+		'energy' => 0,
+		'valid' => array(
+			'skills' => array(
+				'718' => '0',
+			),
+		)
+	),
 	
 	1000 => array(
 		'name'=>'萌新',
