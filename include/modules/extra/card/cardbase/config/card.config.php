@@ -5134,7 +5134,22 @@ $cards = array(
 		)
 	),
 	//这里有40张空位，是一个卡组
-	
+	301 => array(
+		'name' => '乌冬馄饨',
+		'rare' => 'B',
+		'pack' => 'Top Players',
+		'desc' => '画技相当高超的画师，<br>为dts贡献了核爆结局的动图',
+		'effect' => '开局获得一个奇怪的按钮',
+		'desc_skills' => '这个按钮显然是不能按的',
+		'energy' => 100,
+		'valid' => array(
+			'itm6' => '奇怪的按钮',
+			'itmk6' => 'PB',
+			'itme6' => '1',
+			'itms6' => '1',
+			'itmsk6' => '^res_<:comp_itmsk:>{《分镜绘制指南》_VD_50_2__}1^reptype1',
+		)
+	),
 	341 => array(
 		'name' => '麻薯',
 		'rare' => 'B',

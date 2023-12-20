@@ -358,6 +358,17 @@ namespace attrbase
 		
 		return $npc;
 	}
+	
+	//入场卡片生效时，单项数据的处理。
+	function enter_battlefield_cardproc_valueproc($key, $value){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($key, $value);
+		if(in_array(substr($key,0,3), Array('wep','arb','arh','ara','arf','art','itm')) && strpos($key, 'sk')!==false)
+		{
+			$ret = config_process_encode_comp_itmsk($ret);
+		}
+		return $ret;
+	}
 }
 
 ?>

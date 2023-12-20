@@ -538,12 +538,12 @@ namespace cardbase
 				}
 				continue;
 			}
-			$checkstr = substr($key,0,3);
-			if (in_array($checkstr, Array('wep','arb','arh','ara','arf','art','itm'))){//道具类的，如果是数组则随机选一个
+			if (in_array(substr($key,0,3), Array('wep','arb','arh','ara','arf','art','itm'))){//道具类的，如果是数组则随机选一个
 				if(is_array($value)){
 					$value = array_randompick($value);
 				}
 			}
+			$value = enter_battlefield_cardproc_valueproc($key, $value);//单项数据的处理
 			//如果是数值类的字段，先判定是增加减少还是赋值。没有前缀的当做赋值
 			$val1 = substr($value, 0, 1);
 			$val2 = substr($value, 1);
@@ -560,6 +560,13 @@ namespace cardbase
 		$ebp['cardname'] = $cardname;
 		
 		return Array($ebp, $skills, $prefix);
+	}
+	
+	//入场卡片生效时，单项数据的处理。本模块是空的
+	//传参$key为为卡片config里记录的键名，$value为键值
+	function enter_battlefield_cardproc_valueproc($key, $value){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $value;
 	}
 	
 	//判断一张卡当前是否在持有列表中
