@@ -172,7 +172,13 @@
 					</td>
 					<td class="b3" style="height:192px;text-align:middle;vertical-align:middle">
 						<div style="margin-left:4px; margin-right:5px;">
-							<table border="0" width=215px height=180px cellspacing="0" cellpadding="0" style="position:relative">
+							<table border="0" width=215px height=180px cellspacing="0" cellpadding="0" style="position:relative;
+							<!--{if defined('MOD_SKILL718')}-->
+								<!--{if \skillbase\skill_query(718)}-->
+								transform: rotate(180deg);
+								<!--{/if}-->
+							<!--{/if}-->
+							">
 								<tr>
 									<td height=10px colspan=2></td>
 								</tr>
