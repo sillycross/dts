@@ -96,8 +96,9 @@ namespace skill801
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
-		if($news == 'defeat801') 
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime b\">{$a}被击败后，手下们一哄而散了！</span></li>";
+		//暂时没用到
+		// if($news == 'defeat801') 
+			// return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime b\">{$a}被击败后，手下们一哄而散了！</span></li>";
 		if($news == 'escape801') 
 			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"lime b\">{$a}逃离了战场！</span></li>";
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);

@@ -305,7 +305,7 @@ namespace ex_storage
 		return $ret;
 	}
 	
-	//如果储物外甲被打爆，东西会掉
+	//如果储物外甲被打爆，东西会消失
 	function suit_break(&$pa, &$pd, $active, $whicharmor)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
