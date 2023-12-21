@@ -86,7 +86,7 @@ $mixinfo = array
 	array('class' => 'wp', 'stuff' => array('『延展御柱』','驱云弹','弹幕符札'),'result' => array('御柱「Meteoric Onbashira」','WP',200,140,'NirZ'),),
 	array('class' => 'wp', 'stuff' => array('手机','手枪子弹'),'result' => array('『诺基亚』','WP',50,9999,'Nw'),),
 	array('class' => 'wp', 'stuff' => array('『诺基亚』','曾经的荣光-巨盾','防弹背心','防弹背心','防弹背心','防弹背心'),'result' => array('『诺基亚3210』','WP',321,9999,'NA^ac1^wc1Z'),),
-	array('class' => 'wp', 'stuff' => array('『诺基亚3210』[+4]','数据……碎片'),'result' => array('『曾经的荣光-诺基亚』','WP',1865,9999,'NAR^ac1^wc1^alt_DB1Z'),),
+	array('class' => 'wp', 'stuff' => array('『诺基亚3210』[+4]','数据……碎片'),'result' => array('『曾经的荣光-诺基亚』','WP',1865,9999,'NAR^ac1^wc1^alt_REI=1Z'),),
 	array('class' => 'wp', 'stuff' => array('葱娘の葱','葱娘肉包'),'result' => array('葱娘V4X的合成器','WP',200,50,'tr^sa2'),),
 	array('class' => 'wp', 'stuff' => array('MIKU的原味内裤','MIKU的小葱'),'result' => array('MIKU V4X的双马尾','WP',600,100,'miku^sa4'),),
 	

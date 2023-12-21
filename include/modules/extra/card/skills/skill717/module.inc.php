@@ -1,9 +1,9 @@
 <?php
 
-namespace skill718
+namespace skill717
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'sys player skillbase clubbase itemmain';
+	$___MODULE_dependency = 'sys player skillbase clubbase logger map explore itemmain itemshop metman corpse';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

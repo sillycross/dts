@@ -5740,13 +5740,13 @@ $cards = array(
 	378 => array(
 		'name' => '随机数大神叛军',
 		'rare' => 'M',
-		'pack' => 'hidden',
+		'pack' => 'Way of Life',
 		'desc' => '闭眼选一个',
 		'effect' => '你移动时会随机选择一个目标地点；获得物品时会变为获得一个随机商店或地图道具；遭遇NPC时会变为遭遇随机地点的一个NPC',
 		'energy' => 0,
 		'valid' => array(
 			'skills' => array(
-				'717' => '0',//todo
+				'717' => '0',
 			),
 		)
 	),
