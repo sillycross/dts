@@ -422,7 +422,7 @@ namespace instance8
 			'pass' => 'bra',
 			'bid' => 0,
 			'inf' => '',
-			'rage' => 0,
+			'rage' => 20,
 			'pose'=> 1,
 			'tactic' => 3,
 			'killnum' => 0,
