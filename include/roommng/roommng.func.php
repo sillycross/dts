@@ -60,7 +60,8 @@ function update_roomstate(&$roomdata, $runflag)
 	if (!$runflag && $flag && $roomdata['readystat']==0)
 	{
 		$roomdata['readystat']=1;
-		$roomdata['kicktime']=time()+30;
+		$ready_expired_time = !empty($roomtypelist[$roomdata['roomtype']]['ready-expire-time']) ? $roomtypelist[$roomdata['roomtype']]['ready-expire-time'] : 30;
+		$roomdata['kicktime']=time()+$ready_expired_time;
 		$roomdata['timestamp']++;
 		for ($i=0; $i<$roomtypelist[$roomdata['roomtype']]['pnum']; $i++) $roomdata['player'][$i]['ready']=0;
 		$changeflag = 1;
