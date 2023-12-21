@@ -26,6 +26,19 @@ namespace skill718
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return 1;
 	}
+	
+	function itemget()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player'));
+		$itm0_temp = $itm0;
+		$chprocess();
+		if (\skillbase\skill_query(718,$sdata) && $itm0_temp == '硬币')
+		{
+			eval(import_module('logger'));
+			$log .= "<span class=\"yellow b\">脸朝下的你与它惺惺相惜。</span><br>";
+		}
+	}
 
 }
 
