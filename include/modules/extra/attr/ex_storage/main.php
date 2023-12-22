@@ -93,6 +93,13 @@ namespace ex_storage
 		
 		storage_sendin_core($theitem, $pos, $pa);
 		
+		//不要在包里放答辩
+		if (\itemmain\check_in_itmsk('O', $theitem['itmsk']) && !\itemmain\check_in_itmsk('O', $pa[$pos.'sk']))
+		{
+			$log .= '<span class="red b">'.$theitem['itm'].'附带的诅咒将'.$pa[$pos].'污染了！</span><br>';
+			$pa[$pos.'sk'] .= 'O';
+		}
+		
 		$pa['itm'.$itmn] = $pa['itmk'.$itmn] = $pa['itmsk'.$itmn] = '';
 		$pa['itme'.$itmn] = $pa['itms'.$itmn] = 0;
 	}
@@ -117,7 +124,7 @@ namespace ex_storage
 		return NULL;
 	}
 	
-	//存入道具核心函数，包括加解密、修改技能参数
+	//存入道具核心函数
 	function storage_sendin_core(&$theitem, $pos, &$pa=NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -153,8 +160,16 @@ namespace ex_storage
 		$ret = storage_fetchout_core($bagn, $pos, $pa);
 		
 		if(empty($ret)) {
-			if($showlog) $log.='技能参数错误。<br>';
+			if($showlog) $log.='道具参数错误。<br>';
 			return;
+		}
+		if(\itemmain\check_in_itmsk('O', $ret['itmsk'])) {
+			if (!\ex_cursed\check_enkan())
+			{
+				if($showlog) $log.='<span class="red b">'.$ret['itm'].'像是被强力胶粘在了'.$pa[$pos].'上，拿不下来。</span><br>';
+				return;
+			}
+			elseif($showlog) $log .= '<span class="lime b">圆环之理的光辉使你顺利地拿出了被诅咒的'.$ret['itm'].'。</span><br>';
 		}
 		
 		$pa['itm0'] = $ret['itm'];
@@ -169,7 +184,7 @@ namespace ex_storage
 		return;
 	}
 	
-	//取出道具核心函数，包括加解密、修改技能参数，返回道具数组。
+	//取出道具核心函数
 	//注意对超过道具数组下标的指令会返回NULL，然后具体的错误提示是在上面的外壳函数storage_fetchout()处理。
 	function storage_fetchout_core($bagn, $pos, &$pa=NULL)
 	{
@@ -187,11 +202,13 @@ namespace ex_storage
 			unset($storage_itmarr[$bagn]);
 		}
 		
-		$pa[$pos.'sk'] = \itemmain\replace_in_itmsk('^st','',$pa[$pos.'sk']);
-		//坑
-		if (empty($storage_itmarr)) $pa[$pos.'sk'] .= '^st1';
-		else $pa[$pos.'sk'] .= '^st_'.storage_encode_itmarr($storage_itmarr).'1';
-		
+		if (!\itemmain\check_in_itmsk('O', $ret['itmsk']) || \ex_cursed\check_enkan())
+		{
+			$pa[$pos.'sk'] = \itemmain\replace_in_itmsk('^st','',$pa[$pos.'sk']);
+			//坑
+			if (empty($storage_itmarr)) $pa[$pos.'sk'] .= '^st1';
+			else $pa[$pos.'sk'] .= '^st_'.storage_encode_itmarr($storage_itmarr).'1';
+		}
 		return $ret;
 	}
 	
