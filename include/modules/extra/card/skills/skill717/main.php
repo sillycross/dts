@@ -59,6 +59,8 @@ namespace skill717
 				$itemnum = $db->num_rows($result);
 				if($itemnum > 0)
 				{
+					//原道具与另一个道具交换位置
+					$db->query("INSERT INTO {$tablepre}mapitem (itm, itmk, itme, itms, itmsk ,pls) VALUES ('$itm0', '$itmk0', '$itme0', '$itms0', '$itmsk0', '$rand_pls')");
 					$mipool = array();
 					while($r = $db->fetch_array($result)){
 						$mipool[] = $r;
@@ -78,21 +80,28 @@ namespace skill717
 				eval(import_module('map'));
 				$an = $areanum / $areaadd;
 				if (rand(0,33) < 33) $result = $db->query("SELECT * FROM {$tablepre}shopitem WHERE num>0 AND area<='$an' AND price<=1500");
-				else $result = $db->query("SELECT * FROM {$tablepre}shopitem WHERE num>0 AND area<='$an' AND price>1500");
-				$sipool = array();
-				while($r = $db->fetch_array($result))
+				else $result = $db->query("SELECT * FROM {$tablepre}shopitem WHERE num>0 AND area<='$an' AND price>1500");				
+				$itemnum = $db->num_rows($result);
+				//不会真有人把商店买空吧！
+				if($itemnum > 0)
 				{
-					$sipool[] = $r;
+					//原道具留在原地
+					$db->query("INSERT INTO {$tablepre}mapitem (itm, itmk, itme, itms, itmsk ,pls) VALUES ('$itm0', '$itmk0', '$itme0', '$itms0', '$itmsk0', '$pls')");
+					$sipool = array();
+					while($r = $db->fetch_array($result))
+					{
+						$sipool[] = $r;
+					}
+					$shopiteminfo = array_randompick($sipool);
+					$inum = $shopiteminfo['num']-1;
+					$sid = $shopiteminfo['sid'];
+					$db->query("UPDATE {$tablepre}shopitem SET num = '$inum' WHERE sid = '$sid'");
+					$itm0 = $shopiteminfo['item'];
+					$itmk0 = $shopiteminfo['itmk'];
+					$itme0 = $shopiteminfo['itme'];
+					$itms0 = $shopiteminfo['itms'];
+					$itmsk0 = $shopiteminfo['itmsk'];
 				}
-				$shopiteminfo = array_randompick($sipool);
-				$inum = $shopiteminfo['num']-1;
-				$sid = $shopiteminfo['sid'];
-				$db->query("UPDATE {$tablepre}shopitem SET num = '$inum' WHERE sid = '$sid'");
-				$itm0 = $shopiteminfo['item'];
-				$itmk0 = $shopiteminfo['itmk'];
-				$itme0 = $shopiteminfo['itme'];
-				$itms0 = $shopiteminfo['itms'];
-				$itmsk0 = $shopiteminfo['itmsk'];
 			}
 			eval(import_module('logger'));
 			$log .= "<span class=\"yellow b\">$itm_temp</span>变成了<span class=\"yellow b\">$itm0</span>。<br>";
@@ -123,7 +132,7 @@ namespace skill717
 	
 	function act()
 	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;	
+		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
 		if (\skillbase\skill_query(717,$sdata) && ($mode == 'combat')) 
 		{
