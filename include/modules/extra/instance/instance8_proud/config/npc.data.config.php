@@ -799,7 +799,7 @@ namespace instance8
 			'club' => 0,
 			'bid' => 0,
 			'inf' => '',
-			'rage' => 88,
+			'rage' => 0,
 			'pose'=> 1,
 			'tactic' => 3,
 			'killnum' => 0,

@@ -21,7 +21,7 @@ namespace npc_action
 					'moveto_list' => Array(99),//随机移动，会在列表里选一个地点，如果为99则随机选一个
 					'avoid_forbidden' => 1,//随机移动是否躲避禁区
 					'avoid_dangerous' => 1,//随机移动是否躲避危险地图
-					//'need_awake' => 1,//是否在清醒状态（被打后）才会开始执行本项行动
+					//'need_awake' => 1,//是否在清醒状态（先制任意玩家后）才会开始执行本项行动
 					//'need_rage_GE' => 100,//怒气最少要到达哪个值才会开始执行本行动
 					//'need_rage_LE' => 30,//怒气不能超过哪个值才会开始执行本行动
 					//'rage_change_after_action' => 0,//执行后怒气变化量，可正可负
@@ -34,7 +34,7 @@ namespace npc_action
 					'object' => Array('W'),//追逐对象，R为随机选一个玩家，T为追头名，B为追最弱的，P:XXX为追踪名字为XXX的玩家，N:XXX为追踪名字为XXX的NPC，W为追上一次与自己作战的玩家
 					'avoid_forbidden' => 0,//是否躲避禁区
 					'avoid_dangerous' => 0,//是否躲避危险地图
-					//'need_awake' => 1,//是否在清醒状态（被打后）才会开始执行本项行动
+					//'need_awake' => 1,//是否在清醒状态（先制任意玩家后）才会开始执行本项行动
 					'need_rage_GE' => 30,//怒气最少要到达哪个值才会开始执行本行动
 					//'need_rage_LE' => 30,//怒气不能超过哪个值才会开始执行本行动
 					'rage_change_after_action' => -3,//执行后怒气变化量，可正可负
@@ -48,7 +48,7 @@ namespace npc_action
 					'object' => Array('B'),//躲避对象，R为随机选一个玩家，T为躲头名，B为躲最弱的，P:XXX为追踪名字为XXX的玩家，N:XXX为追踪名字为XXX的NPC，W为追上一次与自己作战的玩家
 					'avoid_forbidden' => 1,//是否躲避禁区
 					'avoid_dangerous' => 1,//是否躲避危险地图
-					//'need_awake' => 1,//是否在清醒状态（被打后）才会开始执行本项行动
+					//'need_awake' => 1,//是否在清醒状态（先制任意玩家后）才会开始执行本项行动
 					//'need_rage_GE' => 30,//怒气最少要到达哪个值才会开始执行本行动
 					'need_rage_LE' => 70,//怒气不能超过哪个值才会开始执行本行动
 					//'rage_change_after_action' => -3,//执行后怒气变化量，可正可负
@@ -60,7 +60,7 @@ namespace npc_action
 				'ambush' => Array(//问候前允许偷袭一次！就算不是探索也有概率先制玩家，但需要在同一个地图
 					'early_action' => 1,//是否为提前批行动，如果是则不满足条件后还会再执行一遍其他行动
 					'object' => Array('A'),//偷袭对象，A为不分条件，S为偷袭较强的，L为偷袭较弱的，P:XXX为名字为XXX的玩家，W为偷袭上一次与自己作战的玩家
-					//'need_awake' => 1,//是否在清醒状态（被打后）才会开始执行本项行动
+					//'need_awake' => 1,//是否在清醒状态（先制任意玩家后）才会开始执行本项行动
 					'need_rage_GE' => 30,//怒气最少要到达哪个值才会开始执行本行动
 					'rage_change_after_action' => -5,//执行后怒气变化量，可正可负
 					'ambush_findrate_buff' => 0,//先攻率加成（减成）
@@ -87,8 +87,8 @@ namespace npc_action
 					'moveto_list' => Array(99),//随机移动，会在列表里选一个地点，如果为99则随机选一个
 					'avoid_forbidden' => 1,//随机移动是否躲避禁区
 					'avoid_dangerous' => 1,//随机移动是否躲避危险地图
-					//'need_awake' => 1,//是否在清醒状态（被打后）才会开始执行本项行动
-					//'need_rage_GE' => 100,//怒气最少要到达哪个值才会开始执行本行动
+					//'need_awake' => 1,//是否在清醒状态（先制任意玩家后）才会开始执行本项行动
+					//'need_rage_GE' => 10,//怒气最少要到达哪个值才会开始执行本行动
 					//'need_rage_LE' => 30,//怒气不能超过哪个值才会开始执行本行动
 					//'rage_change_after_action' => 0,//执行后怒气变化量，可正可负
 					'addchat' => 1,//是否发送聊天记录
@@ -103,7 +103,7 @@ namespace npc_action
 					'object' => Array('T'),//躲避对象，R为随机选一个玩家，T为躲头名，B为躲最弱的，P:XXX为追踪名字为XXX的玩家，N:XXX为追踪名字为XXX的NPC，W为追上一次与自己作战的玩家
 					'avoid_forbidden' => 1,//是否躲避禁区
 					'avoid_dangerous' => 1,//是否躲避危险地图
-					//'need_awake' => 1,//是否在清醒状态（被打后）才会开始执行本项行动
+					//'need_awake' => 1,//是否在清醒状态（先制任意玩家后）才会开始执行本项行动
 					'need_rage_GE' => 30,//怒气最少要到达哪个值才会开始执行本行动
 					//'need_rage_LE' => 70,//怒气不能超过哪个值才会开始执行本行动
 					'rage_change_after_action' => -3,//执行后怒气变化量，可正可负
@@ -115,7 +115,7 @@ namespace npc_action
 				'ambush' => Array(//问候前允许偷袭一次！就算不是探索也有概率先制玩家，但需要在同一个地图
 					'early_action' => 1,//是否为提前批行动，如果是则不满足条件后还会再执行一遍其他行动
 					'object' => Array('A'),//偷袭对象，A为不分条件，S为偷袭较强的，L为偷袭较弱的，P:XXX为名字为XXX的玩家，W为偷袭上一次与自己作战的玩家
-					//'need_awake' => 1,//是否在清醒状态（被打后）才会开始执行本项行动
+					//'need_awake' => 1,//是否在清醒状态（先制任意玩家后）才会开始执行本项行动
 					'need_rage_GE' => 30,//怒气最少要到达哪个值才会开始执行本行动
 					'rage_change_after_action' => -5,//执行后怒气变化量，可正可负
 					'ambush_findrate_buff' => 0,//先攻率加成（减成）
@@ -127,6 +127,57 @@ namespace npc_action
 			),
 		),
 		//END OF 某四面
+		
+		'便当盒' => Array(
+			'intv' => 300,//行动间隔
+			'devi' => Array(-60, 60),//行动间隔偏差值，第一个数值为负偏差，第二个数值为正偏差，会在范围内随机取值
+			'actions' => Array(//会执行的行动及对应的概率。具体执行时先取满足条件的行动，然后根据比例来判定概率。可选项有move（随机移动）、chase（追杀）、evade（躲避）
+				'move' => 100,
+			),
+			
+			'setting' => Array(//行动设定。
+				'move' => Array(
+					'moveto_list' => Array(99),//随机移动，会在列表里选一个地点，如果为99则随机选一个
+					'avoid_forbidden' => 1,//随机移动是否躲避禁区
+					'avoid_dangerous' => 1,//随机移动是否躲避危险地图
+					//'need_awake' => 1,//是否在清醒状态（先制任意玩家后）才会开始执行本项行动
+					'need_rage_GE' => 100,//怒气最少要到达哪个值才会开始执行本行动
+					//'need_rage_LE' => 30,//怒气不能超过哪个值才会开始执行本行动
+					'rage_change_after_action' => -100,//执行后怒气变化量，可正可负
+					'addchat' => 1,//是否发送聊天记录
+					'addchat_txt' => Array(//发送特定的聊天记录，用<:para1:>和<:para2:>代表出发地和目的地
+						'ybb，赶紧切地图！'
+					),
+				),
+			),
+		),
+		//END OF 便当盒
+		
+		'KHIBIKI《黑曲》' => Array(
+			'type' => 11,//如果有设置，会额外判定type是否一致，有同名NPC时使用
+			'intv' => 300,//行动间隔
+			'devi' => Array(-60, 60),//行动间隔偏差值，第一个数值为负偏差，第二个数值为正偏差，会在范围内随机取值
+			'actions' => Array(//会执行的行动及对应的概率。具体执行时先取满足条件的行动，然后根据比例来判定概率。可选项有move（随机移动）、chase（追杀）、evade（躲避）
+				'move' => 100,
+			),
+			
+			'setting' => Array(//行动设定。
+				'move' => Array(
+					'moveto_list' => Array(99),//随机移动，会在列表里选一个地点，如果为99则随机选一个
+					'avoid_forbidden' => 1,//随机移动是否躲避禁区
+					'avoid_dangerous' => 1,//随机移动是否躲避危险地图
+					//'need_awake' => 1,//是否在清醒状态（先制任意玩家后）才会开始执行本项行动
+					'need_rage_GE' => 100,//怒气最少要到达哪个值才会开始执行本行动
+					//'need_rage_LE' => 30,//怒气不能超过哪个值才会开始执行本行动
+					'rage_change_after_action' => -100,//执行后怒气变化量，可正可负
+					'addchat' => 1,//是否发送聊天记录
+					'addchat_txt' => Array(//发送特定的聊天记录，用<:para1:>和<:para2:>代表出发地和目的地
+						'OAO?'
+					),
+				),
+			),
+		),
+		//END OF KHIBIKI《黑曲》
 		
 		'一一五 i' => Array(
 			'intv' => 60,//行动间隔
@@ -141,27 +192,29 @@ namespace npc_action
 					'object' => Array('T'),//追逐对象，R为随机选一个玩家，T为追头名，B为追最弱的，P:XXX为追踪名字为XXX的玩家，N:XXX为追踪名字为XXX的NPC，W为追上一次与自己作战的玩家
 					'avoid_forbidden' => 0,//是否躲避禁区
 					'avoid_dangerous' => 0,//是否躲避危险地图
-					//'need_awake' => 1,//是否在清醒状态（被打后）才会开始执行本项行动
+					//'need_awake' => 1,//是否在清醒状态（先制任意玩家后）才会开始执行本项行动
 					//'need_rage_GE' => 30,//怒气最少要到达哪个值才会开始执行本行动
 					//'need_rage_LE' => 30,//怒气不能超过哪个值才会开始执行本行动
 					//'rage_change_after_action' => -3,//执行后怒气变化量，可正可负
 					'addchat' => 1,//是否发送聊天记录
 					'addchat_txt' => Array(//发送特定的聊天记录，用<:para1:>和<:para2:>代表出发地和目的地，用<:para3:>代表追踪目标
-						'“发动魔法卡『位置移动』！”',
-						'“曾经有一个游戏开创了『传送击杀』这么一个东西，可惜大逃杀在传送后不能马上攻击。”'
+						'发动魔法卡『位置移动』！',
+						'曾经有一个游戏开创了『传送击杀』这么一个东西，可惜大逃杀在传送后不能马上攻击。',
+						'听说会打枪的猫又妖怪是先尾行再扔手雷的，但我觉得能一击毙命的时候还是大刺刺追击更好',
 					),
 				),
 				'ambush' => Array(//问候前允许偷袭一次！就算不是探索也有概率先制玩家，但需要在同一个地图
 					'early_action' => 1,//是否为提前批行动，如果是则不满足条件后还会再执行一遍其他行动
 					'object' => Array('A'),//偷袭对象，A为不分条件，S为偷袭较强的，L为偷袭较弱的，P:XXX为名字为XXX的玩家，W为偷袭上一次与自己作战的玩家
-					//'need_awake' => 1,//是否在清醒状态（被打后）才会开始执行本项行动
+					//'need_awake' => 1,//是否在清醒状态（先制任意玩家后）才会开始执行本项行动
 					//'need_rage_GE' => 30,//怒气最少要到达哪个值才会开始执行本行动
 					//'rage_change_after_action' => -5,//执行后怒气变化量，可正可负
 					'ambush_findrate_buff' => 10,//先攻率加成（减成）
 					'addchat' => 1,//是否发送聊天记录
 					'addchat_txt' => Array(//发送特定的聊天记录，用<:para1:>和<:para2:>代表出发地和目的地，用<:para3:>代表追踪目标
-						'“难道你以为我只是一个血条比较厚的木桩？”',
-						'“我的回合，抽卡，进战阶！”'
+						'难道你以为我只是一个血条比较厚的木桩？',
+						'我的回合，抽卡，进战阶！',
+						'SURPRISE——',
 					),
 				),
 			),

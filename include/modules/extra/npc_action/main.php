@@ -56,6 +56,7 @@ namespace npc_action
 		$npc_action_pdata_list = npc_action_checknpc($npc_action_list);
 		if(empty($npc_action_pdata_list)) 
 			return;
+		//var_dump(array_keys($npc_action_pdata_list));
 			
 		//如果存在列表同$gamevars记录的不同，修改$gamevars。注意这样会导致evonpc需要额外把NPC名字写入$gamevars
 		foreach($npc_action_list as $nk => $nv) {
@@ -64,6 +65,7 @@ namespace npc_action
 				$needupdate_gameinfo = 1;
 			}
 		}
+		//var_dump($npc_action_list);
 		
 		//更新gamevars
 		if($needupdate_gameinfo) {
@@ -164,6 +166,7 @@ namespace npc_action
 					//判定是否符合怒气条件
 					if(isset($setting_act['need_rage_GE']) && $npc['rage'] < $setting_act['need_rage_GE']) {
 						$allow_flag = 0;
+						//echo $npc['name'].'-'.$npc['type'].":".$npc['rage'].' ';
 					}
 					if(isset($setting_act['need_rage_LE']) && $npc['rage'] > $setting_act['need_rage_LE']) {
 						$allow_flag = 0;
@@ -473,12 +476,12 @@ namespace npc_action
 		return $act;
 	}
 	
-	//判断给定名字的NPC是否存在
+	//判断给定名字的NPC是否存在。如果config里给定了type，则还会额外判定type是否相同
 	//传参$narr为数组，元素为NPC名字，返回值为数组，键名为NPC名字，键值为二级数组，二级键名为pid，二级键值为fetch到的值（目前为*）。尽量不要对存在同名NPC的角色定行动方针
 	function npc_action_checknpc($narr){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(empty($narr)) return;
-		eval(import_module('sys'));
+		eval(import_module('sys', 'npc_action'));
 		
 		$narr = array_unique($narr);
 		$narr_str = "'".implode("','", $narr)."'";
@@ -486,13 +489,16 @@ namespace npc_action
 		
 		//考虑到npc_action是在post_act()执行，玩家池里常是有数据的，用player模块的fetch函数能节省一点数据开支
 		//这里分两步，第一步用sql获得符合条件NPC的pid，第二步用fetch获得完整的信息
-		$result = $db->query("SELECT pid FROM {$tablepre}players WHERE type>0 AND name IN (".$narr_str.")");
+		$result = $db->query("SELECT pid,name,type FROM {$tablepre}players WHERE type>0 AND name IN (".$narr_str.")");
 		if(!$db->num_rows($result))
 			return $ret;
 		
 		$pids = Array();
 		while($npcd = $db->fetch_array($result)){
-			$pids[] = $npcd['pid'];
+			if(empty($npc_action_data[$npcd['name']]['type']) || $npcd['type'] == $npc_action_data[$npcd['name']]['type'])
+			{
+				$pids[] = $npcd['pid'];
+			}
 		}
 		
 		foreach($pids as $p) {
