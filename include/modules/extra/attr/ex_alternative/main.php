@@ -5,7 +5,7 @@ namespace ex_alternative
 	function init() 
 	{
 		eval(import_module('itemmain'));
-		$itemspkinfo['^alt'] = '变化';
+		$itemspkinfo['^alt'] = '变化';//现在不显示了
 		$itemspkdesc['^alt'] = '这一道具能当做其他类别、名称或属性使用';
 		$itemspkinfo['^atype'] = '可改变哪一项';//不显示，0:类别；1:名称；2:属性
 	}
@@ -134,6 +134,7 @@ namespace ex_alternative
 		if (eval(__MAGIC__)) return $___RET_VALUE;	
 		$ret = $chprocess($cinfo);
 		if ($ret) {
+			if (strpos($cinfo[0], '^alt') === 0) return false;
 			if ('^atype' == $cinfo[0]) return false;
 		}
 		return $ret;
