@@ -124,6 +124,9 @@ namespace skill1011
 					$itme0=$item['itme'];
 					$itms0=$item['itms'];
 					$itmsk0=$item['itmsk'];
+					if(defined('MOD_ATTRBASE')) {
+						$itmsk0=\attrbase\config_process_encode_comp_itmsk($itmsk0);
+					}
 					addnews (0, 'admin_cons', $name, $itm0 );
 					\itemmain\itemget();
 				}else{
