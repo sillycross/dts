@@ -15,6 +15,10 @@ if($gamestate < 20) {
 	gexit($_ERROR['no_start'],__file__,__line__);
 	return;
 }
+//如果存在远端数据库，登陆时强制读取一次
+if(!empty($userdb_remote_storage))
+	$cudata = fetch_udata_by_username($username);
+//在udata_check()里会用到$cudata
 $udata = udata_check();
 if(!$udata) return;
 
