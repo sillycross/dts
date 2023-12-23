@@ -25,6 +25,7 @@
 //试炼模式等级 instance3_lvl 位于extra/instance/instance3_ascension
 //上一次合成选项 last_mix_list 位于extra/misc/smartmix
 //上一次合成产物 last_mix_result 位于extra/misc/smartmix
+//试炼模式事件标记 instance3_flag0 位于extra/instance/instance3_ascension
 
 namespace skill1003
 {
