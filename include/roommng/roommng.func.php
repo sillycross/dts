@@ -506,11 +506,20 @@ function room_create($roomtype)
 
 //发送房内聊天
 //只保留10条记录，嗯……不愧是sc，思路清奇
+//会无视空的消息
 function room_new_chat(&$roomdata,$str)
 {
-	for ($i=1; $i<=9; $i++) $roomdata['chatdata'][$i-1]=$roomdata['chatdata'][$i];
-	$roomdata['chatdata'][9]['cid']=max($roomdata['chatdata'][8]['cid'],0)+1;
-	$roomdata['chatdata'][9]['data']=$str;
+	if(!empty($str)) {
+		for ($i=1; $i<=9; $i++) $roomdata['chatdata'][$i-1]=$roomdata['chatdata'][$i];
+		$roomdata['chatdata'][9]['cid']=max($roomdata['chatdata'][8]['cid'],0)+1;
+		$roomdata['chatdata'][9]['data']=$str;
+	}
+	room_timestamp_tick($roomdata);
+}
+
+//房间时间计数+1，用来推送消息
+function room_timestamp_tick(&$roomdata)
+{
 	$roomdata['timestamp']++;
 }
 

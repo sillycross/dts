@@ -534,6 +534,10 @@ $roomtypelist = Array(
 				'type' => 'number',//input类型
 				'min' => '0',
 				'max' => '30',
+				'no-notice-when-modified' => 1,//修改变量不会发出通知
+				'tip-function' => 'get_instance3_debuff_tips',//定义一个函数来生成更复杂的提示。所定义的函数应该位于room.func.php且应传入设定变量的值
+				'tip-box-height' => '80px',//提示框的高度
+				'tip-need-ok' => 1,//需要确认才能提交数据，目前仅对number类型有效。会多出一个确认按钮，建议选项极多的number项使用
 			),
 		),
 	),
