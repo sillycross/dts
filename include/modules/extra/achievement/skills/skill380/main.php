@@ -39,7 +39,8 @@ namespace skill380
 	//各级给的卡片奖励
 	$ach380_card_prize = array(
 		2 => 26,
-		4 => 282,
+		3 => 282,
+		4 => 380,//很巧吧！
 	);
 	
 	function init() 
@@ -88,7 +89,7 @@ namespace skill380
 							$pa['name'],
 							'试炼模式奖励',
 							'祝贺你在房间第'.$gamenum.'局试炼模式获得了奖励！<br>',
-							'getcard_199;getcardblink_10'
+							'getcard_199;getcardblink_20'
 						);
 					}
 					if ($alvl >= 30)
@@ -98,7 +99,7 @@ namespace skill380
 							$pa['name'],
 							'试炼模式奖励',
 							'祝贺你在房间第'.$gamenum.'局试炼模式获得了奖励！<br>',
-							'getcard_199;getcardblink_20'
+							'getcard_380;getcardblink_20'
 						);
 					}
 				}
