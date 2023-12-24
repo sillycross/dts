@@ -33,7 +33,7 @@ namespace npc_action
 		
 		//如果$gamevars没有记录npc_action_list，则把$npc_action_names写入
 		$needupdate_gameinfo = 0;
-		eval(import_module('sys'));
+		eval(import_module('sys', 'npc_action'));
 		//此时有可能游戏结束或者什么的，作为保险再判定一次$gamestate
 		if($gamestate < 20)
 			return;
@@ -52,20 +52,18 @@ namespace npc_action
 		else{
 			$npc_action_list = $gamevars['npc_action_list'];
 		}
-		//判定config里规定的NPC是否存在
-		$npc_action_pdata_list = npc_action_checknpc($npc_action_list);
-		if(empty($npc_action_pdata_list)) 
-			return;
-		//var_dump(array_keys($npc_action_pdata_list));
+		
+		//判定NPC是否存在
+		$npc_action_pid_list = npc_action_checknpc($npc_action_list);
+		//var_dump(array_keys($npc_action_pid_list));
 			
 		//如果存在列表同$gamevars记录的不同，修改$gamevars。注意这样会导致evonpc需要额外把NPC名字写入$gamevars
 		foreach($npc_action_list as $nk => $nv) {
-			if(empty($npc_action_pdata_list[$nv])) {
+			if(empty($npc_action_pid_list[$nv])) {
 				unset($npc_action_list[$nk]);
 				$needupdate_gameinfo = 1;
 			}
 		}
-		//var_dump($npc_action_list);
 		
 		//更新gamevars
 		if($needupdate_gameinfo) {
@@ -73,6 +71,42 @@ namespace npc_action
 			save_gameinfo();
 		}
 		
+		if(empty($npc_action_list)) 
+			return;
+		
+		//判定本轮是否满足NPC行动的时间条件，前置到这里判断有助于减少数据库开销
+		$npc_action_list_nowact = $npc_action_list;
+		foreach($npc_action_list_nowact as $nk => $nv) {
+			$last_act = $starttime;
+			$act_flag = 0;
+			if(!empty($gamevars['last_npc_action'][$nv])) {
+				$last_act = $gamevars['last_npc_action'][$nv];
+			}
+			$setting = $npc_action_data[$nv];
+			if($now - $last_act > $npc_action_min_intv) {//间隔时间大于NPC最小间隔才会行动
+				if(!empty($setting['intv'])) {
+					$intv = $setting['intv'];
+					list($devi1, $devi2) = $setting['devi'];
+					if($devi1 > 0) $devi1 = 0-$devi1;
+					$range1 = $intv + $devi1; $range2 = $intv + $devi2;
+					if($now - $last_act >= $range2) {//间隔时间比NPC行动间隔加上正偏差还要大，则必定行动
+						$act_flag = 1;
+					}else{
+						$rand = rand($range1, $range2);
+						if($now - $last_act >= $rand) {//间隔时间介于正负偏差之间，则随机判定行动，间隔越久概率越大
+							$act_flag = 1;
+						}
+					}
+				}
+			}
+			if(!$act_flag) {//不行动，则从$npc_action_list_nowact里删去，并且同时更新$npc_action_pid_list
+				unset($npc_action_list_nowact[$nk]);
+				unset($npc_action_pid_list[$nv]);
+			}
+		}
+		
+		//根据$npc_action_list_nowact拉取所有NPC数据
+		$npc_action_pdata_list = npc_action_loadnpc($npc_action_pid_list);
 		//判定NPC存活
 		foreach($npc_action_pdata_list as $nk => $nv) {
 			if($nv['hp'] <= 0) {
@@ -91,7 +125,6 @@ namespace npc_action
 			$npc_action_data = array_merge($npc_action_data, $gamevars['npc_action_extradata']);
 		}
 		
-		//var_dump(array_keys($npc_action_pdata_list));
 		$needupdate_players = Array();
 		foreach($npc_action_pdata_list as $nk => $nv) {
 			$nv = npc_action_single($nv);//这个函数返回要更新的$npc标准格式数组，如果不用更新则返回NULL
@@ -121,34 +154,9 @@ namespace npc_action
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = NULL;
 		
-		//首先判定是否行动
-		$act_flag = 0;
 		eval(import_module('sys','npc_action'));
 		
-		$last_act = $starttime;
-		if(!empty($gamevars['last_npc_action'][$npc['name']])) {
-			$last_act = $gamevars['last_npc_action'][$npc['name']];
-		}
 		$setting = $npc_action_data[$npc['name']];
-		if($now - $last_act > $npc_action_min_intv) {//间隔时间大于NPC最小间隔才会行动
-			if(!empty($setting['intv'])) {
-				$intv = $setting['intv'];
-				list($devi1, $devi2) = $setting['devi'];
-				if($devi1 > 0) $devi1 = 0-$devi1;
-				$range1 = $intv + $devi1; $range2 = $intv + $devi2;
-				if($now - $last_act >= $range2) {//间隔时间比NPC行动间隔加上正偏差还要大，则必定行动
-					$act_flag = 1;
-				}else{
-					$rand = rand($range1, $range2);
-					if($now - $last_act >= $rand) {//间隔时间介于正负偏差之间，则随机判定行动，间隔越久概率越大
-						$act_flag = 1;
-					}
-				}
-			}
-		}
-		if(!$act_flag)
-			return $ret;
-		//echo '经过时间：'.($now - $last_act).'秒，行动。';
 		
 		//如果没有给出$act，根据config进行行动选择
 		if(empty($act)) {
@@ -232,7 +240,12 @@ namespace npc_action
 				}
 				\sys\addchat(6, $addchat_txt, $npc['name']);
 			}
+			//更新上次NPC行动时间
 			$gamevars['last_npc_action'][$npc['name']] = $now;
+			if(!empty($npc['guard_time'])) {
+				$gamevars['last_npc_action'][$npc['name']] -= $npc['guard_time'];
+				unset($npc['guard_time']);
+			}
 			
 			//单个NPC行动更新的后续处理
 			$ret = post_npc_action_single($ret);
@@ -249,12 +262,17 @@ namespace npc_action
 	function npc_action_single_core($npc, $act, $setting_act)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','logger'));
+		eval(import_module('sys','logger','npc_action'));
 		
 		$npc_action_tmp_paras = & get_var_in_module('npc_action_tmp_paras', 'npc_action');
 		
+		//警觉，什么都不做，但是修改endtime，使NPC下一次行动时间提前若干秒。也可以作为空技能
+		if('guard' == $act) {
+			$npc['guart_time'] = !empty($setting_act['guard_time']) ? $setting_act['guard_time'] : 0;
+			$npc['successflag'] = 1;
+		}
 		//涉及移动的NPC动作
-		if(in_array($act, Array('move','chase','evade'))) {
+		elseif(in_array($act, Array('move','chase','evade'))) {
 			eval(import_module('map'));
 			$moveto = $npc['pls'];//保底赋值，防止飞到无月去
 			$o_pls = $npc['pls'];//记录原地点
@@ -405,6 +423,7 @@ namespace npc_action
 				if($pid != $wid)
 					return;
 			}
+			//从这里开始，就算没有成功袭击，也会判定为执行过了行动
 			//计算遇敌率
 			//这里调用另一个进程载入NPC的数据，并由NPC对玩家执行一次发现判定，这样导致的BIG最少
 			$responce = curl_post(
@@ -420,24 +439,31 @@ namespace npc_action
 				),
 			);
 			$responce = (int)$responce;
-			if(!$responce) 
-				return;
-			//计算先制率，这里直接让当前玩家执行就可以了
-			if(!empty($setting_act['ambush_findrate_buff'])) {
-				$npc['npc_action_buff'] = $setting_act['ambush_findrate_buff'];
+			//成功发现当前玩家
+			if($responce) {
+				//计算先制率，这里直接让当前玩家执行就可以了
+				if(!empty($setting_act['ambush_findrate_buff'])) {
+					$npc['npc_action_buff'] = $setting_act['ambush_findrate_buff'];
+				}
+				$active = \enemy\check_enemy_meet_active($sdata,$npc);
+				unset($npc['npc_action_buff']);
+				//成功先制当前玩家
+				if($active) {
+					//调用战斗函数
+					$log .= '<br><span class="yellow b">什么，旁边的草丛里竟然传来声音……？</span><br>';
+					\enemy\battle_wrapper($npc,$sdata,0);
+					//消除当前玩家的指令避免后续判定，也就是认为玩家的指令被NPC打断。这里其实已经执行完行动了……
+					$mode = $command = '';
+					//给addchat的参数赋值
+					$npc_action_tmp_paras['para3'] = $name;
+					$npc['chatflag'] = $npc['successflag'] = 1;
+				}
 			}
-			$active = \enemy\check_enemy_meet_active($sdata,$npc);
-			unset($npc['npc_action_buff']);
-			if($active)
-				return $npc;//注意，这里是如果当前玩家被NPC先制，才进入下一步判定
-			//调用战斗函数
-			$log .= '<br><span class="yellow b">什么，旁边的草丛里竟然传来声音……？</span><br>';
-			\enemy\battle_wrapper($npc,$sdata,0);
-			//消除当前玩家的指令避免后续判定，也就是认为玩家的指令被NPC打断。这里其实已经执行完行动了……
-			$mode = $command = '';
-			//给addchat的参数赋值
-			$npc_action_tmp_paras['para3'] = $name;
-			$npc['chatflag'] = $npc['successflag'] = 1;
+		}
+		if(empty($npc['successflag'])) {//没有顺利执行
+			if(!empty($setting_act['action_if_fail']) && !empty($npc_action_data[$npc['name']]['setting'][$setting_act['action_if_fail']])) {//如果规定了失败动作，执行一次
+				npc_action_single_core($npc, $setting_act['action_if_fail'], $npc_action_data[$npc['name']]['setting'][$setting_act['action_if_fail']]);
+			}
 		}
 		return $npc;
 	}
@@ -477,7 +503,7 @@ namespace npc_action
 	}
 	
 	//判断给定名字的NPC是否存在。如果config里给定了type，则还会额外判定type是否相同
-	//传参$narr为数组，元素为NPC名字，返回值为数组，键名为NPC名字，键值为二级数组，二级键名为pid，二级键值为fetch到的值（目前为*）。尽量不要对存在同名NPC的角色定行动方针
+	//现在只返回键名为npc名字，键值为pid的数组
 	function npc_action_checknpc($narr){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(empty($narr)) return;
@@ -487,25 +513,35 @@ namespace npc_action
 		$narr_str = "'".implode("','", $narr)."'";
 		$ret = Array();
 		
-		//考虑到npc_action是在post_act()执行，玩家池里常是有数据的，用player模块的fetch函数能节省一点数据开支
-		//这里分两步，第一步用sql获得符合条件NPC的pid，第二步用fetch获得完整的信息
+		
 		$result = $db->query("SELECT pid,name,type FROM {$tablepre}players WHERE type>0 AND name IN (".$narr_str.")");
 		if(!$db->num_rows($result))
 			return $ret;
 		
-		$pids = Array();
 		while($npcd = $db->fetch_array($result)){
 			if(empty($npc_action_data[$npcd['name']]['type']) || $npcd['type'] == $npc_action_data[$npcd['name']]['type'])
 			{
-				$pids[] = $npcd['pid'];
+				$ret[$npcd['name']] = $npcd['pid'];
 			}
 		}
+		return $ret;
+	}
+	
+	//拉取给定pid的NPC
+	//考虑到npc_action是在post_act()执行，玩家池里常是有数据的，用player模块的fetch函数能节省一点数据开支
+	//传参$npid_arr为数组，键名随意，键值为NPC的pid
+	//返回值为数组，键名为NPC名字，键值为二级数组，为fetch到的值（目前为*）。尽量不要对存在同名NPC的角色定行动方针
+	function npc_action_loadnpc($npid_arr){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = Array();
 		
-		foreach($pids as $p) {
+		if(empty($npid_arr)) return $ret;
+		
+		foreach($npid_arr as $p) {
+			//echo 'fetch: '.$p.' ';
 			$npcd = \player\fetch_playerdata_by_pid($p);
 			$ret[$npcd['name']] = $npcd;
 		}
-		
 		return $ret;
 	}
 	
@@ -561,5 +597,23 @@ namespace npc_action
 		}
 		return $ret;
 	}
+	
+	//NPC进化变身时判定并追加npc_action参数
+	function evonpc($xtype,$xname)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($xtype,$xname);
+		if(!empty($ret)){
+			eval(import_module('sys','npc_action'));
+			if(!empty($npc_action_data[$ret['name']]) && (empty($npc_action_data[$ret['name']]['type']) || $npc_action_data[$ret['name']]['type'] == $xtype)){
+				$npc_action_list = $gamevars['npc_action_list'];
+				if(!in_array($ret['name'], $npc_action_list)) {
+					$npc_action_list[] = $ret['name'];
+					save_gameinfo();
+				}
+			}
+		}
+		return $ret;
+	}	
 }
 ?>

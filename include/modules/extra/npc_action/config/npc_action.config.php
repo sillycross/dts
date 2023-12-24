@@ -30,6 +30,9 @@ namespace npc_action
 						'【MOVED TO "<:para2:>". 】',
 					),
 				),
+				'guard' => Array(//警惕，使下一次行动时间提前，也可以做为空技能
+					'guard_time' => 60,
+				),
 				'chase' => Array(
 					'object' => Array('W'),//追逐对象，R为随机选一个玩家，T为追头名，B为追最弱的，P:XXX为追踪名字为XXX的玩家，N:XXX为追踪名字为XXX的NPC，W为追上一次与自己作战的玩家
 					'avoid_forbidden' => 0,//是否躲避禁区
@@ -64,6 +67,7 @@ namespace npc_action
 					'need_rage_GE' => 30,//怒气最少要到达哪个值才会开始执行本行动
 					'rage_change_after_action' => -5,//执行后怒气变化量，可正可负
 					'ambush_findrate_buff' => 0,//先攻率加成（减成）
+					'action_if_fail' => 'guard',//偷袭失败后执行的动作
 					'addchat' => 1,//是否发送聊天记录
 					'addchat_txt' => Array(//发送特定的聊天记录，用<:para1:>和<:para2:>代表出发地和目的地，用<:para3:>代表追踪目标
 						'【AMBUSH: "<:para3:>" BEFORE AISATSU! 】',
@@ -98,6 +102,9 @@ namespace npc_action
 						'♪ ’ Cept bringin’  about "<:para2:>"’ s destruction ♪'
 					),
 				),
+				'guard' => Array(//警惕，使下一次行动时间提前，也可以做为空技能
+					'guard_time' => 60,
+				),
 				'evade' => Array(
 					'early_action' => 1,//是否为提前批行动，如果是则不满足条件后还会再执行一遍其他行动
 					'object' => Array('T'),//躲避对象，R为随机选一个玩家，T为躲头名，B为躲最弱的，P:XXX为追踪名字为XXX的玩家，N:XXX为追踪名字为XXX的NPC，W为追上一次与自己作战的玩家
@@ -119,6 +126,7 @@ namespace npc_action
 					'need_rage_GE' => 30,//怒气最少要到达哪个值才会开始执行本行动
 					'rage_change_after_action' => -5,//执行后怒气变化量，可正可负
 					'ambush_findrate_buff' => 0,//先攻率加成（减成）
+					'action_if_fail' => 'guard',//偷袭失败后执行的动作
 					'addchat' => 1,//是否发送聊天记录
 					'addchat_txt' => Array(//发送特定的聊天记录，用<:para1:>和<:para2:>代表出发地和目的地，用<:para3:>代表追踪目标
 						'♪ "<:para3:>"’ve crossed the line, it’s time to fight them back! ♪',
@@ -129,14 +137,16 @@ namespace npc_action
 		//END OF 某四面
 		
 		'便当盒' => Array(
-			'intv' => 300,//行动间隔
-			'devi' => Array(-60, 60),//行动间隔偏差值，第一个数值为负偏差，第二个数值为正偏差，会在范围内随机取值
+			'intv' => 60,//行动间隔
+			'devi' => Array(-10, 10),//行动间隔偏差值，第一个数值为负偏差，第二个数值为正偏差，会在范围内随机取值
 			'actions' => Array(//会执行的行动及对应的概率。具体执行时先取满足条件的行动，然后根据比例来判定概率。可选项有move（随机移动）、chase（追杀）、evade（躲避）
 				'move' => 100,
+				'guard' => 100,
 			),
 			
 			'setting' => Array(//行动设定。
 				'move' => Array(
+					'early_action' => 1,//是否为提前批行动，如果是则不满足条件后还会再执行一遍其他行动
 					'moveto_list' => Array(99),//随机移动，会在列表里选一个地点，如果为99则随机选一个
 					'avoid_forbidden' => 1,//随机移动是否躲避禁区
 					'avoid_dangerous' => 1,//随机移动是否躲避危险地图
@@ -149,16 +159,20 @@ namespace npc_action
 						'ybb，赶紧切地图！'
 					),
 				),
+				'guard' => Array(//警惕，使下一次行动时间提前，也可以做为空技能
+					'guard_time' => 0,
+				),
 			),
 		),
 		//END OF 便当盒
 		
 		'KHIBIKI《黑曲》' => Array(
 			'type' => 11,//如果有设置，会额外判定type是否一致，有同名NPC时使用
-			'intv' => 300,//行动间隔
-			'devi' => Array(-60, 60),//行动间隔偏差值，第一个数值为负偏差，第二个数值为正偏差，会在范围内随机取值
+			'intv' => 60,//行动间隔
+			'devi' => Array(-10, 10),//行动间隔偏差值，第一个数值为负偏差，第二个数值为正偏差，会在范围内随机取值
 			'actions' => Array(//会执行的行动及对应的概率。具体执行时先取满足条件的行动，然后根据比例来判定概率。可选项有move（随机移动）、chase（追杀）、evade（躲避）
 				'move' => 100,
+				'guard' => 100,
 			),
 			
 			'setting' => Array(//行动设定。
@@ -175,6 +189,9 @@ namespace npc_action
 						'OAO?'
 					),
 				),
+				'guard' => Array(//警惕，使下一次行动时间提前，也可以做为空技能
+					'guard_time' => 0,
+				),
 			),
 		),
 		//END OF KHIBIKI《黑曲》
@@ -188,6 +205,9 @@ namespace npc_action
 			),
 			
 			'setting' => Array(//行动设定。
+				'guard' => Array(//警惕，使下一次行动时间提前，也可以做为空技能
+					'guard_time' => 30,
+				),
 				'chase' => Array(
 					'object' => Array('T'),//追逐对象，R为随机选一个玩家，T为追头名，B为追最弱的，P:XXX为追踪名字为XXX的玩家，N:XXX为追踪名字为XXX的NPC，W为追上一次与自己作战的玩家
 					'avoid_forbidden' => 0,//是否躲避禁区
@@ -210,6 +230,7 @@ namespace npc_action
 					//'need_rage_GE' => 30,//怒气最少要到达哪个值才会开始执行本行动
 					//'rage_change_after_action' => -5,//执行后怒气变化量，可正可负
 					'ambush_findrate_buff' => 10,//先攻率加成（减成）
+					'action_if_fail' => 'guard',//偷袭失败后执行的动作
 					'addchat' => 1,//是否发送聊天记录
 					'addchat_txt' => Array(//发送特定的聊天记录，用<:para1:>和<:para2:>代表出发地和目的地，用<:para3:>代表追踪目标
 						'难道你以为我只是一个血条比较厚的木桩？',
