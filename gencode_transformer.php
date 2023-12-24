@@ -109,6 +109,7 @@ if(!empty($_GET['method']) && !empty($_GET['trans'])) {
 	}
 	elseif('gdecode' == $_GET['method']) {
 		$show = gdecode($_GET['trans']);
+		if(!is_string($show)) $show = var_export($show,1);
 	}
 }
 if(empty($show)) {

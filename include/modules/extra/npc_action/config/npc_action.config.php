@@ -229,7 +229,7 @@ namespace npc_action
 					//'need_awake' => 1,//是否在清醒状态（先制任意玩家后）才会开始执行本项行动
 					//'need_rage_GE' => 30,//怒气最少要到达哪个值才会开始执行本行动
 					//'rage_change_after_action' => -5,//执行后怒气变化量，可正可负
-					'ambush_findrate_buff' => 10,//先攻率加成（减成）
+					'ambush_findrate_buff' => 20,//先攻率加成（减成）
 					'action_if_fail' => 'guard',//偷袭失败后执行的动作
 					'addchat' => 1,//是否发送聊天记录
 					'addchat_txt' => Array(//发送特定的聊天记录，用<:para1:>和<:para2:>代表出发地和目的地，用<:para3:>代表追踪目标
