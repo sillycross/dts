@@ -1,0 +1,33 @@
+<!--{eval $___TEMP_SKILL_ID=719;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+<!--{eval $skill719_count = (int)\skillbase\skill_getvalue(719,'acount'); $skill719_release = \skillbase\skill_getvalue(719,'release');}-->
+<!--{if empty($skill719_release)}-->
+每次发动先制率<span class="yellow b">-1.5%</span>，命中率、闪避率、发现率、造成伤害<span class="yellow b">-5%</span><br>若上一次发动后击杀了<span class="yellow b">15</span>个敌人，则将所有减益变为等量的增益，<br>然后不再能发动此技能<br>
+<!--{/if}-->
+<!--{if $skill719_count>0}-->
+<!--{eval $val1 = 1.5*$skill719_count; $val2 = 5*$skill719_count; }-->
+	<!--{if empty($skill719_release)}-->
+	<!--{eval $knum = $killnum + $npckillnum - (int)\skillbase\skill_getvalue(719,'lastkillnum'); }-->
+	当前先制率<span class="yellow b">-{$val1}%</span>，命中率、闪避率、发现率、造成伤害<span class="yellow b">-{$val2}%</span><br>
+	上一次发动后击杀了<span class="yellow b">$knum</span>个敌人
+	<!--{else}-->
+	先制率<span class="yellow b">+{$val1}%</span>，命中率、闪避率、发现率、造成伤害<span class="yellow b">+{$val2}%</span>
+	<!--{/if}-->
+<!--{/if}-->
+</span></td>
+<td class="skilldesc_right b3">
+<!--{if empty($skill719_release)}-->
+<input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill719_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="发动">
+<!--{/if}-->
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}
