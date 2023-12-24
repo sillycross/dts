@@ -173,12 +173,12 @@ namespace skill719
 				if (\skillbase\skill_getvalue(719, 'release', $pa))
 				{
 					if ($active) $log .= "<span class=\"red b\">「炼狱」使你造成的最终伤害增加了{$dmggain}%！</span><br>";
-					else $log .= "<span class=\"red b\">「炼狱」使{$pd['name']}造成的最终伤害增加了{$dmggain}%！</span><br>";
+					else $log .= "<span class=\"red b\">「炼狱」使{$pa['name']}造成的最终伤害增加了{$dmggain}%！</span><br>";
 				}
 				else
 				{
 					if ($active) $log .= "<span class=\"red b\">「炼狱」使你造成的最终伤害降低了{$dmggain}%！</span><br>";
-					else $log .= "<span class=\"red b\">「炼狱」使{$pd['name']}造成的最终伤害降低了{$dmggain}%！</span><br>";
+					else $log .= "<span class=\"red b\">「炼狱」使{$pa['name']}造成的最终伤害降低了{$dmggain}%！</span><br>";
 					$dmggain = -$dmggain;
 				}
 				$r = array(1 + $dmggain/100);
