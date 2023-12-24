@@ -6,7 +6,7 @@ namespace opening
 	$opening_by_shootings = true;
 	
 	//游戏中剧情所适用的游戏模式
-	$opening_by_shootings_gametype = array(0, 4, 6, 1, 18, 19, 5);
+	$opening_by_shootings_gametype = array(0, 4, 6, 1, 13, 18, 19, 5);
 }
 
 ?>
