@@ -1354,3 +1354,4 @@
 0,99,1,【Brain Power】,MB,1,1,^mbid80^mbtime367,
 0,99,1,油豆腐,MB,1,1,^mbid71^mbtime240,
 0,99,1,迷之食谱,R,1,1,50,
+0,99,1,★王家之盾★,DA,100,30,P^alt_<:comp_itmsk:>{K_G_F_D_C}1^atype2,

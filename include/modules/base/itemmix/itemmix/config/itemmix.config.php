@@ -445,6 +445,7 @@ $mixinfo = array
 	array('class' => 'hidden', 'stuff' => array('《黑熊语录》','琉璃血'),'result' => array('『C.H.A.O.S』','Y',1,1,),'karma1'=>'-500','karma2'=>'2000',),
 	array('class' => 'hidden', 'stuff' => array('《董子语录》','琉璃血'),'result' => array('『C.H.A.O.S』','Y',1,1,),'karma1'=>'-500','karma2'=>'2000',),
 	array('class' => 'hidden', 'stuff' => array('圣光啊!你有看到那个敌人吗！','琉璃血'),'result' => array('『C.H.A.O.S』','Y',1,1,),'karma1'=>'-500','karma2'=>'2000',),
+	array('class' => 'hidden', 'stuff' => array('解离之楔','琉璃血'),'result' => array('『C.H.A.O.S』','Y',1,1,),'karma1'=>'-500','karma2'=>'2000',),
 	array('class' => 'hidden', 'stuff' => array('黑色碎片','十字发卡'),'result' => array('黑色发卡','X',1,1,),),
 	array('class' => 'hidden', 'stuff' => array('『T.E.R.R.A』','『A.Q.U.A』','『V.E.N.T.U.S』'),'result' => array('『G.A.M.E.O.V.E.R』','Y',1,1,),),
 	array('class' => 'hidden', 'stuff' => array('提示纸条K','提示纸条E'),'result' => array('提示纸条Y','WC',1,1,'zd'),),

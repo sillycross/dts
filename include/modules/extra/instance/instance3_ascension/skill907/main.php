@@ -29,11 +29,14 @@ namespace skill907
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$itm=&$theitem['itm']; $itmk=&$theitem['itmk'];
-		if (\skillbase\skill_query(907) && (strpos($itmk, 'EE') === 0 || strpos($itmk, 'ER') === 0)) 
+		if (\skillbase\skill_query(907))
 		{
-			eval(import_module('logger'));	
-			$log .= "周围充斥的强电磁波使你使用{$itm}的尝试失败了。<br>";
-			return;
+			if (strpos($itmk, 'EE') === 0 || ((strpos($itmk, 'ER') === 0) && rand(0,9)))
+			{
+				eval(import_module('logger'));	
+				$log .= "周围充斥的强电磁波使你使用{$itm}的尝试失败了。<br>";
+				return;
+			}
 		}
 		$chprocess($theitem);
 	}

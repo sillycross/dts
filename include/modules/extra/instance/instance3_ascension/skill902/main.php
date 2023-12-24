@@ -44,7 +44,7 @@ namespace skill902
 		if (\skillbase\skill_query(902, $pd))
 		{
 			$skill902_lvl = (int)\skillbase\skill_getvalue(902, 'lvl', $pd);
-			if ((($pa['type'] == 14) && ($skill902_lvl >= 3)) || (in_array($pa['type'], array(1,9,20,21,22)) && ($skill902_lvl >= 4)))
+			if ((($pa['type'] == 14) && ($skill902_lvl >= 3)) || (in_array($pa['type'], array(1,9,15,16,20,21,22)) && ($skill902_lvl >= 4)))
 			{
 				eval(import_module('logger'));
 				if ($active) $log .= "<span class=\"red b\">「恶敌」使敌人受到的最终伤害增加了25%！</span><br>";

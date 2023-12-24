@@ -123,11 +123,12 @@ namespace skill717
 			$pls = array_randompick($pls_available);
 			\skillbase\skill_setvalue(717,'pls',$pls,$sdata);
 		}
-		$chprocess();
+		$ret = $chprocess();
 		if (\skillbase\skill_query(717,$sdata) && !empty($pls_temp))
 		{
 			$pls = $pls_temp;
 		}
+		return $ret;
 	}
 	
 	function act()

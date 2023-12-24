@@ -2,7 +2,7 @@
 
 namespace npc_action
 {
-	$npc_action_gametype = Array(18);//开启NPC行动的游戏模式
+	$npc_action_gametype = Array(18,13);//开启NPC行动的游戏模式
 	$npc_action_min_intv = 30;//NPC行动的最小间隔时间，单位秒。间隔时间少于这个或者没设置的，以这个为准
 	
 	$npc_action_data = Array(//定义哪些NPC会自动行动。

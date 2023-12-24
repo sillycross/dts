@@ -24,6 +24,14 @@ namespace instance3
 		}else return $chprocess();
 	}
 	
+	function get_npclist(){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		eval(import_module('sys','instance3'));
+		if (13 == $gametype){
+			return $npcinfo_instance3;
+		}else return $chprocess();
+	}
+	
 	function checkcombo($time){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','map','gameflow_combo'));
@@ -103,10 +111,10 @@ namespace instance3
 				$alvl = (int)$option['lvl'];
 				if ($alvl >= 14)
 				{
-					$ebp['itm5'] = '铃铛的诅咒'; $ebp['itmk5'] = 'Z'; $ebp['itme5'] = 1; $ebp['itms5'] = 1;$ebp['itmsk5'] = 'O';
+					$ebp['itm5'] = '沉重的枷锁'; $ebp['itmk5'] = 'Z'; $ebp['itme5'] = 1; $ebp['itms5'] = 1;$ebp['itmsk5'] = 'O';
 					if ($alvl >= 22)
 					{
-						$ebp['itm6'] = '死灵的诅咒'; $ebp['itmk6'] = 'Z'; $ebp['itme6'] = 1; $ebp['itms6'] = 1;$ebp['itmsk6'] = 'O';
+						$ebp['itm6'] = '沉重的枷锁'; $ebp['itmk6'] = 'Z'; $ebp['itme6'] = 1; $ebp['itms6'] = 1;$ebp['itmsk6'] = 'O';
 						if ($alvl >= 26)
 						{
 							$ebp['arb'] = '受缚之躯'; $ebp['arbk'] = 'DB'; $ebp['arbe'] = 10; $ebp['arbs'] = 9999;$ebp['arbsk'] = 'O';
@@ -248,6 +256,60 @@ namespace instance3
 			}
 		}
 		$chprocess($theitem);
+	}
+	
+	//在无月没有NPC后会发现一个保险箱
+	function search_area()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player'));
+		if(13 == $gametype)
+		{
+			if(0 == $pls)
+			{
+				$result = $db->query("SELECT pid FROM {$tablepre}players WHERE pls='0' AND type>0 AND hp>0");
+				if(!$db->num_rows($result))
+				{
+					eval(import_module('event'));
+					$event_obbs = 100;
+				}
+			}
+		}
+		
+		return $chprocess();
+	}
+	
+	function event()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','logger'));
+		
+		$ret = $chprocess();
+		if(13 == $gametype){
+			if((0 == $pls) && \skillbase\skill_query(1003,$sdata) && !\skillbase\skill_getvalue(1003,'instance3_flag0',$sdata))
+			{
+				$result = $db->query("SELECT pid FROM {$tablepre}players WHERE pls='0' AND type>0 AND hp>0");
+				if(!$db->num_rows($result))
+				{
+					$log .= '你发现了一个破旧的保险箱，其中有一些废弃的资料。<br>';//待补充
+					$option = $roomvars['current_game_option'];
+					if(isset($option['lvl'])) 
+					{
+						$alvl = (int)$option['lvl'];
+						//高进阶开局连斗，补一点钱
+						if ($alvl >= 20)
+						{
+							$log .= '除此之外，你还发现了大约<span class="yellow b">76573</span>元的纸币。<br>';
+							$money += 76573;
+						}
+					}
+					\skillbase\skill_setvalue(1003,'instance3_flag0','1',$sdata);
+					$ret = 1;
+				}
+			}
+		}
+		
+		return $ret;
 	}
 	
 	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())	
