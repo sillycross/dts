@@ -191,19 +191,15 @@ namespace skill719
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess($pa,$pd,$active);
-		if (\skillbase\skill_query(719, $pa))
+		if (\skillbase\skill_query(719, $pa) && empty(\skillbase\skill_getvalue(719, 'release', $pa)) && \skillbase\skill_getvalue(719, 'acount', $pa))
 		{
-			$skill719_count = (int)\skillbase\skill_getvalue(719, 'acount', $pa);
-			if ($skill719_count && empty(\skillbase\skill_getvalue(719, 'release', $pa)))
-			{				
-				if ($pa['killnum'] + $pa['npckillnum'] - (int)\skillbase\skill_getvalue(719, 'lastkillnum', $pa) >= 15)
+			if ($pa['killnum'] + $pa['npckillnum'] - (int)\skillbase\skill_getvalue(719, 'lastkillnum', $pa) >= 15)
+			{
+				\skillbase\skill_setvalue(719, 'release', 1, $pa);
+				if ($active)
 				{
-					\skillbase\skill_setvalue(719, 'release', 1, $pa);
-					if ($active)
-					{
-						eval(import_module('logger'));
-						$log .= "<span class=\"red b\">你已经克服了身上的重压！</span><br>";
-					}
+					eval(import_module('logger'));
+					$log .= "<span class=\"red b\">你已经克服了身上的重压！</span><br>";
 				}
 			}
 		}
