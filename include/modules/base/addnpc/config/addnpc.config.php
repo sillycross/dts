@@ -331,7 +331,7 @@ namespace addnpc
 			'teamPass' => '',
 			'gd' => 'f',
 			'pls' => 34,
-			'mhp' => 1,
+			'mhp' => 37000000,
 			'msp' => 8000,
 			'att' => 115,
 			'def' => 115,

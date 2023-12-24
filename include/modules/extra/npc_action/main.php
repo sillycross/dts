@@ -46,13 +46,11 @@ namespace npc_action
 				return;
 			//暂时不save，本函数后续处理可能还会修改到gamevars，最后一起save
 			$needupdate_gameinfo = 1;
-		}
-		
+		}		
 		//如果$gamevars有记录npc_action_list，则直接使用，避免反复判断因为游戏模式等原因而不可能入场的NPC，提高效率
 		else{
 			$npc_action_list = $gamevars['npc_action_list'];
 		}
-		
 		//判定NPC是否存在
 		$npc_action_pid_list = npc_action_checknpc($npc_action_list);
 		//var_dump(array_keys($npc_action_pid_list));
@@ -606,9 +604,8 @@ namespace npc_action
 		if(!empty($ret)){
 			eval(import_module('sys','npc_action'));
 			if(!empty($npc_action_data[$ret['name']]) && (empty($npc_action_data[$ret['name']]['type']) || $npc_action_data[$ret['name']]['type'] == $xtype)){
-				$npc_action_list = $gamevars['npc_action_list'];
-				if(!in_array($ret['name'], $npc_action_list)) {
-					$npc_action_list[] = $ret['name'];
+				if(!in_array($ret['name'], $gamevars['npc_action_list'])) {
+					$gamevars['npc_action_list'][] = $ret['name'];
 					save_gameinfo();
 				}
 			}
