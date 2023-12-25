@@ -105,7 +105,7 @@ namespace battle
 		$main = MOD_METMAN_MEETMAN;
 		\metman\init_battle(1);
 		
-		if (substr($action,0,6)=='corpse')
+		if (substr($action,0,6)=='corpse' && (int)substr($action,6) == $edata['pid'])
 		{
 			\corpse\findcorpse($edata);
 		}

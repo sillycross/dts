@@ -404,13 +404,15 @@ namespace searchmemory
 			}elseif(($mode == 'combat' && $command == 'back')
 				 || (!\gameflow_combo\is_gamestate_combo() && $mode == 'corpse' && ($command == 'menu' || (check_keep_corpse_in_searchmemory() && $command != 'destroy')))){//测试，荣耀模式只要不销毁尸体，视野都留着
 				$eid = str_replace('enemy','',str_replace('corpse','',$action));
-				$smedata = \player\fetch_playerdata_by_pid($eid);
-				$amarr = array('pid' => $smedata['pid'], 'Pname' => $smedata['name'], 'pls' => $pls, 'smtype' => 'unknown', 'unseen' => 0);
-				if($mode == 'combat' && !$fog) $amarr['smtype'] = 'enemy';
-				elseif($mode == 'corpse') {
-					$amarr['smtype'] = 'corpse';
-					$check_corpse = 1;
-				}
+				if(!empty($eid)) {
+					$smedata = \player\fetch_playerdata_by_pid($eid);
+					$amarr = array('pid' => $smedata['pid'], 'Pname' => $smedata['name'], 'pls' => $pls, 'smtype' => 'unknown', 'unseen' => 0);
+					if($mode == 'combat' && !$fog) $amarr['smtype'] = 'enemy';
+					elseif($mode == 'corpse') {
+						$amarr['smtype'] = 'corpse';
+						$check_corpse = 1;
+					}
+				}				
 			}
 		}
 		
