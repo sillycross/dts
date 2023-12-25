@@ -1488,7 +1488,7 @@ $cards = array(
 				'B_odds' => 20,
 				'C_odds' => 20,
 				'allow_EB' => true,//开启后会把Event Bonus等需要特殊方式才能获得的卡也一并考虑
-				'ignore_cards' => Array(237, 241, 344)//机制上必定选不到自己，这里可以放其他不想被选到的卡
+				'ignore_cards' => Array(237, 241, 344, 381)//机制上必定选不到自己，这里可以放其他不想被选到的卡
 			)
 		)
 	),
@@ -5777,6 +5777,26 @@ $cards = array(
 			),
 		)
 	),
+	381 => array(
+		'name' => '双料特工',
+		'rare' => 'B',
+		'pack' => 'Way of Life',
+		'desc' => '啊哈哈哈哈！鸡汤来咯！',
+		'effect' => '开局携带毒物说明书和手榴弹',
+		'desc_skills' => '进场后会显示为一张随机S-C卡',
+		'energy' => 150,
+		'valid' => array(
+			//在skill720模块处理
+			'cardchange' => Array(
+				'S_odds' => 30,
+				'A_odds' => 30,
+				'B_odds' => 20,
+				'C_odds' => 20,
+				'allow_EB' => true,
+				'ignore_cards' => Array(81, 237, 241, 344)//机制上必定选不到自己，这里可以放其他不想被选到的卡
+			)
+		)
+	),
 	
 	1000 => array(
 		'name'=>'萌新',
@@ -5809,7 +5829,7 @@ $cards = array(
 				'real_random' => true,//真随机，所有卡选1张
 				'perm_change' => true,//永久改变，换卡之后不会再把card字段切回来，也不会按这张卡判定成就
 				'forced' => Array(),//无视概率强制加入选择的卡
-				'ignore_cards' => Array(81, 237, 300, 344)//机制上必定选不到自己，这里可以放其他不想被选到的卡
+				'ignore_cards' => Array(81, 237, 300, 344, 381)//机制上必定选不到自己，这里可以放其他不想被选到的卡
 			)
 		)
 	),
