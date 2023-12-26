@@ -1,0 +1,17 @@
+<!--{eval $___TEMP_SKILL_ID=721;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+你使用<span class="yellow b">笔记本电脑</span>后，会进入一段操作冷却时间，<br>然后增加随机数量的<span class="yellow b">经验值</span>，<br>并且可能额外获得一定量的<span class="yellow b">体力上限</span>、<span class="yellow b">歌魂上限</span>、<span class="yellow b">怒气</span>等属性
+</span></td>
+<td class="skilldesc_right b3">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

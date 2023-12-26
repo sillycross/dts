@@ -573,6 +573,7 @@ skill601,extra/club/skills/skill601/,1
 skill602,extra/club/skills/skill602/,1
 skill603,extra/club/skills/skill603/,1
 item_uys,extra/item_extra/item_uys/,1
+skill721,extra/card/skills/skill721/,1
 skill244,extra/club/skills/skill244/,1
 skill508,extra/card/skills/skill508/,1
 skill233,extra/club/skills/skill233/,1
