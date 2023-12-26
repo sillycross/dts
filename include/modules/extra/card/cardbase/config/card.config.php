@@ -5797,6 +5797,20 @@ $cards = array(
 			)
 		)
 	),
+	382 => array(
+		'name' => '俏佳人',
+		'rare' => 'C',
+		'pack' => 'hidden',
+		//'pack' => 'Way of Life',
+		'desc' => '打电动是你为数不多的爱好之一',
+		'effect' => '可以用笔记本电脑玩最新最潮的游戏<br>——ACFUN大逃杀',
+		'energy' => 0,
+		'valid' => array(
+		  'skills' => array(
+				'721' => '0', 
+			),
+		)
+	),
 	
 	1000 => array(
 		'name'=>'萌新',
