@@ -377,6 +377,7 @@ skill592,extra/card/skills/skill592/,1
 skill1003,extra/club/skills/skill1003/,1
 skill541,extra/card/skills/skill541/,1
 npc_action,extra/npc_action/,1
+skill720,extra/card/skills/skill720/,1
 skill43,extra/club/skills/skill43/,1
 itemnumlist,extra/item_extra/itemnumlist/,1
 skill56,extra/club/skills/skill56/,1

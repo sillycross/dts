@@ -94,11 +94,18 @@ namespace skill220
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('logger'));
 		$ret = $chprocess();
-		if (\skillbase\skill_query(220) && (int)$ret < 2) {
-			$log .= '你的专业知识让毒剂更加危险了。';
-			$ret = '2';
+		if (\skillbase\skill_query(220)) {
+			if (!empty($ret) && ($ret[0] == '+') && ((int)($ret[1]) < 2))
+			{
+				$log .= '你的专业知识让毒剂更加危险了。<br>';
+				$ret[1] = '2';
+			}
+			elseif ((int)$ret < 2)
+			{
+				$log .= '你的专业知识让毒剂更加危险了。<br>';
+				$ret = '2';
+			}
 		}
-		
 		return $ret;
 	}
 	

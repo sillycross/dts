@@ -149,7 +149,16 @@ namespace poison
 		$itmk = substr_replace($itmk,'P',0,1);
 		//if($club == 8){ $itmk = substr_replace($itmk,'2',2,1); }
 		$p_factor = check_poison_factor();
-		if(!empty($p_factor) && (int)substr($itmk,2,1) < (int)$p_factor) $itmk = substr_replace($itmk,$p_factor,2,1);
+		if(!empty($p_factor))
+		{
+			if ($p_factor[0] == '+')
+			{
+				$p_lvl = (int)substr($itmk,2,1);
+				$p_lvl = min($p_lvl + (int)($p_factor[1]), 9);
+				$itmk = substr_replace($itmk,$p_lvl,2,1);
+			}
+			elseif ((int)substr($itmk,2,1) < (int)$p_factor) $itmk = substr_replace($itmk,$p_factor,2,1);
+		}
 		if($art == '妖精的羽翼') {
 			$itmk = substr_replace($itmk,'H',0,1);
 			if((int)substr($itmk,2,1) > 0) $itmk = substr_replace($itmk,'0',2,1);
@@ -206,13 +215,14 @@ namespace poison
 		return 0;
 	}
 	
+	//返回'+'开头的字符串表示毒性增强；数字字符串表示毒性系数
 	function check_poison_factor(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player','logger'));
 		$ret = '';
 		if($art == '毒物说明书') {
-			$log .= '毒物说明书让你调制的毒物更加危险。';
-			$ret = '1';
+			$log .= '毒物说明书让你调制的毒物变得更加危险了。<br>';
+			$ret = '+1';
 		}
 		return $ret;
 	}
