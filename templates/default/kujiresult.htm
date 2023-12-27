@@ -33,7 +33,7 @@
 		title="点击再抽一发"
 		onclick="window.location.href='kuji.php?type=$ktype';"
 		<!--{/if}-->>
-			<!--{eval $nowcard=$cards[$r];$nownew=$isnew[$k]?1:0;$nowcard['blink']=!empty($isblink[$k])?$isblink[$k]:0;}-->
+			<!--{eval $nowcard=$cards[$r];$nownew=$isnew[$k];$nowcard['blink']=!empty($isblink[$k])?$isblink[$k]:0;}-->
 			<div class="cardbox" id="cardbox$k">
 				{template MOD_CARDBASE_CARD_BACK_FRONT_BOX}
 			</div>

@@ -3,7 +3,11 @@
 		<img class="card_achieved" src="img/card_achieved.png" />
 	<!--{/if}-->
 	<!--{if !empty($nownew)}-->
-		<div class="card_newflag"><span class="L5 b">NEW!</span></div>
+		<!--{if 1==$nownew}-->
+			<div class="card_newflag"><span class="L5 b">NEW!</span></div>
+		<!--{elseif 2==$nownew}-->
+			<div class="card_newflag"><span class="ltazure b">Wow!</span></div>
+		<!--{/if}-->
 	<!--{/if}-->
 	<!--{if empty($lockcard) && !empty($nowcard['blink'])}-->
 		<!--{if $nowcard['blink']>=20}-->
