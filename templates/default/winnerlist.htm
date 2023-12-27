@@ -99,8 +99,8 @@
 			<!--{/loop}-->
 			<TD class="b3" colspan=2>队伍成员: <!--{eval echo substr($x,0,-1)}--></TD>
 			<!--{else}-->
-			<TD class="b3"><!--{if $info['motto']}--><span class="white b">$info['motto']</span><!--{else}--><span class="grey b">无</span><!--{/if}--></TD>
-			<TD class="b3"><!--{if $info['wep']}--><span class="white b">$info['wep']</span><!--{else}--><span class="grey b">无</span><!--{/if}--></TD>
+			<TD class="b3" style="max-width:250px;"><!--{if $info['motto']}--><span class="white b">$info['motto']</span><!--{else}--><span class="grey b">无</span><!--{/if}--></TD>
+			<TD class="b3" style="max-width:250px;"><!--{if $info['wep']}--><span class="white b">$info['wep']</span><!--{else}--><span class="grey b">无</span><!--{/if}--></TD>
 			<!--{/if}-->
 			<TD class="b3"><span>$info['apm_words']</span></TD>
 			<!--{eval $info['urlhdp']=htmlentities(urlencode($info['hdp']));}-->
