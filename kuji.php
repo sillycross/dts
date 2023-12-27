@@ -75,7 +75,7 @@ if ($ktype==1 || $choice>0 || !empty($packchoice))
 			}
 			if (!in_array($val,$oc)){
 				$isnew[$key]=1;
-			}elseif ($isblink[$key] > $userCardData[$key]['blink']){
+			}elseif ($isblink[$key] > $userCardData['card_data'][$val]['blink']){
 				$isnew[$key]=2;
 			}else{
 				$isnew[$key]=0;
