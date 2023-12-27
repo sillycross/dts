@@ -1178,20 +1178,12 @@
 		<!--////////////////////  （解离者）  ////////////////////-->
 		<!--{if $winner_flag == $winmode}-->
 			<div id="op_sht_0" class="shootings">
-				沾满鲜血的三个光球。<br>
-				如行刑台一般高大的祭坛。<br>
-				以及四周无尽深渊的虚空。<br>
-				你再次踏上了这个地方。<br>
-				和记忆里别无二致。<br>
-				<br>
+				沾满鲜血的三个光球。如行刑台一般高大的祭坛。以及四周无尽深渊的虚空。<br>
+				和记忆里别无二致。你再次踏上了这个地方。<br>
 				<!--{if $alvl <= 10}-->
 					但你决定不再按常理出牌。<br>
 					<br>
-					你把三个光球推向虚空，<br>
-					然后朝着祭坛喊道：<br>
-					<br>
-					<span>“出来，红暮！”</span><br>
-					<span>“兑现你该死的承诺！”</span><br>
+					你把三个光球推向虚空，然后朝着祭坛喊道：<span class="b">“出来，红暮！兑现你该死的承诺！”</span><br>
 					<br>
 					世界像眨眼般闪烁了一下。<br>
 					<br>
@@ -1202,9 +1194,7 @@
 					<span id="j15">『DUMMY』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="j12">『DUMMY』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="j8">『DUMMY』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><br>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="j9">『DUMMY』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="j10">『DUMMY』</span><span id="j11">『DUMMY』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><br>
 					<span id="j14">『DUMMY』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="j13">『DUMMY』</span>
-					<br>
-					<br>
-					伴随着飞速消失的警告信息，红暮在你面前悄然现身。<br>
+
 				<!--{elseif $alvl <= 20}-->
 				
 				<!--{elseif $alvl <= 29}-->
@@ -1215,44 +1205,45 @@
 				
 				<!--{/if}-->
 			</div>
-			<div id="op_sht_1" class="shootings">
-				<!--{if $alvl <= 10}-->
-					<span class="ltcrimson">『欢迎来到检查点。』</span>红暮的声音带着轻微的失真。<br>
+			<!--因为剧情差分长度不一，从1号分镜开始每个alvl单独处理-->
+			<!--{if $alvl <= 10}-->
+				<div id="op_sht_1" class="shootings">
+					<span class="ltcrimson">『欢迎来到检查点。』</span><br>
+					伴随着飞速消失的警告信息，红暮在你面前悄然现身。她的声音带着轻微的失真。<br>
 					<br>
-					<span>“你真的来了，这么听话，”</span>你揶揄道，<span>“我以为你会继续用纸片人来搪塞我。”</span><br>
+					<span class="b">“你真的来了，这么听话，”</span>你揶揄道，<span>“我以为你会继续用纸片人来搪塞我。”</span><br>
 					<span class="ltcrimson">『为了训练一个杂鱼而消耗宝贵的中枢程序，那可太奢侈了。』</span><br>
-					<span>“这不是训练，只是折磨，为了满足你那无聊的施虐癖。<br>
+					<span class="b">“这不是训练，只是折磨，为了满足你那无聊的施虐癖。<br>
 					“更何况，我还是赢了。你那些折腾人的小伎俩毫无意义。<br>
 					“如果你还有一点尊严，就老实放我出去。”</span><br>
 					<br>
 					<span class="ltcrimson">『看来我们可爱的时空特使D级战斗员害怕了。<br>
 					只可惜这个倒霉孩子离完成试炼还有<span class="yellow b"><!--{eval echo 30-$alvl;}--></span>个初学者的距离。』</span><br>
 					<br>
-					带着一点恼羞成怒，你出其不意地向红暮发动了攻击，但只击穿了空气。<br>
+					怀着试探的意味，你装作恼羞成怒，向红暮发动了攻击，但只击穿了空气。<br>
 					面前的“红暮”只是一个幻影。<br>
 					<br>
-					<span class="ltcrimson">『你以为获得能力有这么简单？<br>
-					『从「红杀」最底层的战斗员晋升到尖兵，需要至少十年的时间。<br>
+					<span class="b">“你不敢面对我。”</span><br>
+					你尝试着用言语引诱对方露出破绽。<br>
+					<span class="b">“你根本不打算让我获得超能力。”</span><br>
+				</div>
+				<div id="op_sht_2" class="shootings">
+					<span class="ltcrimson">『你以为获得能力有这么简单？』</span><br>
+					红暮似乎上钩了。<br>
+					<br>
+					<span class="ltcrimson">『从「红杀」最底层的战斗员晋升到尖兵，需要至少十年的时间。<br>
 					『这期间要经历修罗地狱般的严酷训练，和数不清的生死战。<br>
 					『许多颇有天赋的年轻人都没能挺到出人头地的那一刻。<br>
 					『即便如此，尖兵不过是凡人的顶峰，在真正的超能力面前连两招都接不下。』</span><br>
 					红暮的眼神像利刃般刺来。<br>
+					<br>
 					<span class="ltcrimson">『而你，凭着蚍蜉撼树一样的战斗，就敢妄想获得超越常人的力量了吗？』</span><br>
 					<br>
-					你一时语塞，竟想不出反驳的话。<br>
-				<!--{elseif $alvl <= 20}-->
-				
-				<!--{elseif $alvl <= 29}-->
-				
-				<!--{elseif $alvl <= 30}-->
-				
-				<!--{else}-->
-				
-				<!--{/if}-->
-			</div>
-			
-			<div id="op_sht_2" class="shootings">
-				<!--{if $alvl <= 10}-->
+					<br>
+					你一边装作无法反驳的样子，一边思考着继续刺激红暮泄露情报的办法。<br>
+					<span class="b">“所以你才占据了这个「虚拟幻境」，你要用它来培养你的私兵，不是吗？”</span><br>
+				</div>
+				<div id="op_sht_3" class="shootings">
 					<span class="ltcrimson">『这个「幻境」是一个完美的梦。』</span><br>
 					红暮轻抚长发，四周的景象开始不断幻化。<br>
 					<br>
@@ -1262,28 +1253,20 @@
 					<br>
 					<span class="ltcrimson">『随心所欲地做梦，醒来后也不会忘记。<br>
 					如果人人都能做这样的清明梦，不知世界会是怎样一种光景呢？<br>
-					只可惜，像我这样的粗人，只知道用它来制造杀人机器。<br>
-					让人们在这样美好的梦里去战斗，去……杀。』</span><br>
-					随着红暮停下动作，骚动的景色也重归一片黑暗。<br>
+					只可惜，像我这样的粗人，只知道用肮脏的现实沾染这里，用幻境制造杀人机器。』</span><br>
 					<br>
-				<!--{elseif $alvl <= 20}-->
-				
-				<!--{elseif $alvl <= 29}-->
-				
-				<!--{elseif $alvl <= 30}-->
-				
-				<!--{else}-->
-				
-				<!--{/if}-->
-			</div>
-			<div id="op_sht_3" class="shootings">
-				<!--{if $alvl <= 10}-->
+					随着红暮停下动作，骚动的景色也重归一片黑暗。<br>
+					<span class="ltcrimson">『让人们在这样的梦里去战斗，去……杀。』</span><br>
+					<br>
+				</div>
+				<div id="op_sht_4" class="shootings">
 					<span class="ltcrimson">『小时候，我曾有一个……朋友。<br>
 					『她告诉我她的父母在做一个梦，她长大以后也要一起做那个梦。<br>
 					『在那个除了训练就是应付阴谋的年岁，我深深向往着她的执着……和单纯。<br>
 					<br>
 					『那是好像黑暗中的火种一般耀眼的东西。』</span><br>
 					红暮转过身去背对着你。<br>
+					你开始对话题的走向有些隐隐的不安。<br>
 					<br>
 					<span class="ltcrimson">『我们没有相处多久就分开了。<br>
 					『再次相见时，我们都已经遍体鳞伤。<br>
@@ -1292,70 +1275,83 @@
 					随着红暮的低声述说，周围的黑暗中也像涌出了某种东西，如拥有生命一般悸动着。<br>
 					<br>
 					<span class="ltcrimson">『而这里，就是她拼尽全力也要做下去的那个梦。』</span><br>
-				<!--{elseif $alvl <= 20}-->
-				
-				<!--{elseif $alvl <= 29}-->
-				
-				<!--{elseif $alvl <= 30}-->
-				
-				<!--{else}-->
-				
-				<!--{/if}-->
-			</div>
-			<div id="op_sht_4" class="shootings">
-				<!--{if $alvl <= 10}-->
-					趁着红暮一时沉默，你试探道：<br>
-					<span>“所以，你要我来当这个护梦使者？这和我又有什么关系？”</span><br>
+				</div>
+				<div id="op_sht_5" class="shootings">
+					获得了不少情报，但进展得是否有些太顺利了？你迅速思考着。<br>
+					红暮是这么健谈的对手吗？<br>
+					还是说……<br>
 					<br>
-					<span class="ltcrimson">『看来我说了些没有必要的话，是太寂寞了吗。』</span><br>
-					红暮转过身来。<br>
-					<span class="ltcrimson">『和你没有什么关系。你被困在这里的理由就是你想变强。』</span><br>
-				<!--{elseif $alvl <= 20}-->
-				
-				<!--{elseif $alvl <= 29}-->
-				
-				<!--{elseif $alvl <= 30}-->
-				
-				<!--{else}-->
-				
-				<!--{/if}-->
-			</div>
-			<div id="op_sht_3" class="shootings">
-				<!--{if $alvl <= 10}-->
-					
+					<span class="ltcrimson">『看来我说了些没有必要的话，也许是太寂寞了吧。』</span><br>
+					在你举棋不定的当口，红暮转过身来。<br>
+					她的嘴角微微扬起，难以判断究竟是嘲弄还是满意。<br>
+					<span class="ltcrimson">『那么，作为容忍我这一点点任性的补偿，告诉你一条好消息。』</span><br>
+				</div>
+				<div id="op_sht_6" class="shootings">
+					<span style="color:#ff0000;font:bold 16px 微软雅黑">『你已经没有回头路了。』</span><br>
+				</div>
+				<div id="op_sht_7" class="shootings">
+					<span id="p9">『去看看这世界吧——』</span><br>
+					<span id="p10">『愿你眼中的景色永远明亮清晰——』</span><br>
+					<span id="p3">『我的朋友便是我的力量！』</span><br>
+					<span id="p4">『你便将给我败啊啊啊啊啊啊啊啊——』</span><br>
+					<span id="p5">『英雄是有保质期限的，请接过……』</span><br>
+					<span id="p6">『战争，战争永恒不变』</span><br>
+					<span id="p7">『反抗我的都要灭！』</span><br>
+					<span id="p8">『吃下这■的战斗伤害吧！■直接攻击！粉碎玉碎大喝彩！』</span><br>
+					<span id="p1">『我的血将承载这黑暗，我的灵将承载这痛苦』</span><br>
 					<br>
-					<!--{if $alvl <= 9}-->
-						<span class="ltcrimson">『现在还不到火候。』</span><br>
-						红暮神色淡然。你则感到十分懊恼。<br>
-					<!--{else}-->
-						<span class="ltcrimson">『不，你已经没有回头路了。』</span><br>
-						红暮的嘴角微微扬起。你难以判断那究竟是嘲弄还是满意。<br>
-					<!--{/if}-->
 					<br>
-					<span class="ltcrimson">『在』</span><br>
-				<!--{elseif $alvl <= 20}-->
+					来不及惊愕，汹涌而熟悉的数据流充斥了你的视野。<br>
+					你竭力抵挡着撕扯精神的攻击，试图找到驾驭自己的办法。<br>
+				</div>
+				<div id="op_sht_8" class="shootings">
+					<span id="p2">『CONGRATULATIONS，你的游戏，已经结束了。』</span><br>
+					<span id="p11">『I have bested the spikes, the fruit, and the moon!』</span><br>
+					<span id="p12">『起床了啊！』</span><br>
+					<span id="p13">『被凝固的日常，将重新开始转动。』</span><br>
+					<span id="p14">『你们都统统去给我读古生物书读到心脏怦怦乱跳为止再回来玩！』</span><br>
+					<span id="p15">『浪子的口袋里面是永远不缺崭新的钞票的』</span><br>
+					<span id="p16">『啊～啊我招了吧，这永续的黑夜，这异常的月亮，还有在罗汉像上放上帽子这些都是■干的，现在给我让开！』</span><br>
+					<span id="p17">『想证明给我看的话，就从我身上轧过去吧！』</span><br>
+					<br>
+					<br>
+					<span class="b">■■线……■■线……</span><br>
+					可恶，那被封印的关键词……<br>
+					<br>
+					<span style="color:#ff0000;font:bold 16px 微软雅黑">为什么<font style="font-size:24px">看不</font><font style="font-size:32px">清楚啊</font><font style="font-size:24px">————！！！</font></span><br>
+				</div>
+				<div id="op_sht_9" class="shootings">
+					意识正在逆流。<br>
+					万物回到正轨。<br>
+					<br>
+					<br>
+					……<br>
+					…………<br>
+					………………<br>
+					<br>
+					<br>
+					意识朦胧之际，耳边似有呢喃的低语。<br>
+					<span class="white b">只有猜想和睡梦才能窥见的世界，<br>
+					又岂是肉眼凡胎所能染指？</span><br>
+					<br>
+					<br>
+					………………<br>
+					…………<br>
+					……<br>
+					<br>
+					<br>
+					你第无数次站在那栋灰色的建筑前，手里握着你已经记不清名字的钥匙状武器。<br>
+					带着那份执念，你向前走去。<br>
+				</div>
+			<!--{elseif $alvl <= 20}-->
 				
-				<!--{elseif $alvl <= 29}-->
+			<!--{elseif $alvl <= 29}-->
 				
-				<!--{elseif $alvl <= 30}-->
+			<!--{elseif $alvl <= 30}-->
 				
-				<!--{else}-->
+			<!--{else}-->
 				
-				<!--{/if}-->
-			</div>
-			<div id="op_sht_4" class="shootings">
-				<!--{if $alvl <= 10}-->
-					
-				<!--{elseif $alvl <= 20}-->
-				
-				<!--{elseif $alvl <= 29}-->
-				
-				<!--{elseif $alvl <= 30}-->
-				
-				<!--{else}-->
-				
-				<!--{/if}-->
-			</div>
+			<!--{/if}-->
 		<!--////////////////////  （非解离者）  ////////////////////-->
 		<!--{else}-->
 			<div id="op_sht_0" class="shootings">
