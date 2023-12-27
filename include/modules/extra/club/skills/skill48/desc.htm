@@ -10,6 +10,20 @@
 持投掷兵器方可发动，消耗<span class="yellow b">$ragecost</span>点怒气。目前各属性加成统计：<br>
 <span style="height:4px; display:block;">&nbsp;</span>
 <!--{eval \skill48\get_status_html48();}-->
+<!--{eval $skill48var=\skillbase\skill_getvalue(48,'choice');}-->
+<!--{if $skill48var==1}-->
+<span class="yellow b">本技能当前默认不发动</span>。<br>
+<!--{else}-->
+<span class="cyan b">本技能当前默认发动</span>。<br>
+<!--{/if}-->
+<!--{loop range(1,2) $i}-->
+	<!--{if $skill48var==$i}-->
+		<input type="button" style="width:70px;margin:4px" disabled value="[已选择]">
+	<!--{else}-->
+		<input type="button" style="width:70px;margin:4px" onclick="$('mode').value='special';$('command').value='skill48_special';$('subcmd').value='upgrade';$('skillpara1').value='$i';postCmd('gamecmd','command.php');this.disabled=true;" value="$skill48stateinfo[$i]">
+	<!--{/if}-->
+	<!--{if $i<2}-->&nbsp;&nbsp;&nbsp;<!--{/if}-->
+<!--{/loop}-->
 </span></td>
 <td class="skilldesc_right b3">
 </td>
