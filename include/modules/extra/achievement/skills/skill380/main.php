@@ -39,8 +39,7 @@ namespace skill380
 	//各级给的卡片奖励
 	$ach380_card_prize = array(
 		2 => 26,
-		3 => 282,
-		4 => 380,//很巧吧！
+		4 => 282,
 	);
 	
 	function init() 

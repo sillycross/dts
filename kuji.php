@@ -71,12 +71,14 @@ if ($ktype==1 || $choice>0 || !empty($packchoice))
 		foreach($kres as $key => $val){
 			if (($ktype==0 || $ktype==2) && $choice!=$key)	//单抽没有真正获得的卡不显示new字样
 			{
-				$isnew[$key]=""; continue;
+				$isnew[$key]=0; continue;
 			}
 			if (!in_array($val,$oc)){
-				$isnew[$key]="<span class=\"L5 b\">NEW!</span>";
+				$isnew[$key]=1;
+			}elseif ($isblink[$key] > $userCardData['card_data'][$val]['blink']){
+				$isnew[$key]=2;
 			}else{
-				$isnew[$key]="";
+				$isnew[$key]=0;
 			}
 		}
 		include template('kujiresult');

@@ -15,9 +15,11 @@ namespace skill48
 		't' => 'w',
 	);
 	
+	$skill48stateinfo = array(1 => '关闭', 2 => '开启');
+	
 	function init() 
 	{
-		define('MOD_SKILL48_INFO','club;battle;');
+		define('MOD_SKILL48_INFO','club;battle;upgrade;');
 		eval(import_module('clubbase'));
 		$clubskillname[48] = '附魔';
 		eval(import_module('itemmain','ex_dmg_att'));
@@ -39,6 +41,7 @@ namespace skill48
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill48'));
 		\skillbase\skill_setvalue(48,'tot','0',$pa);
+		\skillbase\skill_setvalue(48,'choice','1',$pa);
 		foreach ($skill48_ex_kind_list as $key => $value)
 			\skillbase\skill_setvalue(48,$key,'0',$pa);
 	}
@@ -48,6 +51,7 @@ namespace skill48
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill48'));
 		\skillbase\skill_delvalue(48,'tot',$pa);
+		\skillbase\skill_delvalue(48,'choice',$pa);
 		foreach ($skill48_ex_kind_list as $key => $value)
 			\skillbase\skill_delvalue(48,$key,$pa);
 	}
@@ -56,6 +60,27 @@ namespace skill48
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return $pa['lvl']>=5;
+	}
+	
+	function upgrade48()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player','logger'));
+		if (!\skillbase\skill_query(48) || !check_unlocked48($sdata))
+		{
+			$log .= '你没有这个技能。<br>';
+			return;
+		}
+		eval(import_module('input'));
+		$val = (int)$skillpara1;
+		if ($val < 1 || $val > 2)
+		{
+			$log .= '参数不合法。<br>';
+			return;
+		}
+		\skillbase\skill_setvalue(48,'choice',$val);
+		if(1 == $val) $log .= '现在不会默认发动<span class="yellow b">「附魔」</span>。<br>';
+		else $log .= '现在会默认发动<span class="yellow b">「附魔」</span>。<br>';
 	}
 	
 	function get_rage_cost48(&$pa = NULL)
@@ -140,6 +165,7 @@ namespace skill48
 	function strike_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if ($active && \skillbase\skill_query(48,$pa) && check_unlocked48($pa) && empty($pa['bskill']) && (2 == \skillbase\skill_getvalue(48,'choice',$pa))) $pa['bskill']=48;
 		if ($pa['bskill']!=48) return $chprocess($pa, $pd, $active);
 		if (!\skillbase\skill_query(48,$pa) || !check_unlocked48($pa))
 		{
@@ -187,11 +213,11 @@ namespace skill48
 			}
 			else
 			{
-				if ($active)
-				{
-					eval(import_module('logger'));
-					$log.='怒气不足或其他原因不能发动。<br>';
-				}
+				// if ($active)
+				// {
+					// eval(import_module('logger'));
+					// $log.='怒气不足或其他原因不能发动。<br>';
+				// }
 				$pa['bskill']=0;
 			}
 		}
