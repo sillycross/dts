@@ -93,8 +93,20 @@ namespace ex_storage
 		
 		storage_sendin_core($theitem, $pos, $pa);
 		
+		//故意的
+		if (strlen($pa[$pos.'sk']) > 65500)
+		{	
+			$pa['hp'] = 1;
+			foreach(array('h','b','a','f') as $value)
+			{
+				$pa['inf'] = str_replace($value,'',$pa['inf']);
+			}
+			$pa['inf'] .= 'hbaf';
+			if ($pa == $sdata) $log .= '<span class="red b">糟糕，'.$pa[$pos].'爆炸了！你被炸得差点爬不起来。</span><br>';
+			\itemmain\item_destroy_core($pos, $pa);
+		}
 		//不要在包里放答辩
-		if (\itemmain\check_in_itmsk('O', $theitem['itmsk']) && !\itemmain\check_in_itmsk('O', $pa[$pos.'sk']))
+		elseif (\itemmain\check_in_itmsk('O', $theitem['itmsk']) && !\itemmain\check_in_itmsk('O', $pa[$pos.'sk']))
 		{
 			$log .= '<span class="red b">'.$theitem['itm'].'附带的诅咒将'.$pa[$pos].'污染了！</span><br>';
 			$pa[$pos.'sk'] .= 'O';
@@ -235,7 +247,7 @@ namespace ex_storage
 		if(!$flag && 'show' != $subcmd) {
 			$log.='参数不合法。<br>';
 		}
-		if(empty($itms0)) {//为了防止卡死，手里是空的才显示界面
+		if(\attrbase\check_itmsk('^st') && empty($itms0)) {//为了防止卡死，手里是空的才显示界面
 			ob_start();
 			include template(MOD_EX_STORAGE_OPEN_STORAGE);
 			$cmd=ob_get_contents();

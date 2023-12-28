@@ -69,8 +69,8 @@ namespace skill596
 				foreach(array('h','b','a','f') as $value)
 				{
 					$inf = str_replace($value,'',$inf);
-					$inf .= 'hbaf';
 				}
+				$inf .= 'hbaf';
 			}
 			else
 			{

@@ -1,0 +1,15 @@
+<input type="hidden" id="mode" name="mode" value="command">
+<input type="hidden" id="command" name="command" value="itm{$theitem['itmn']}">
+<input type="hidden" id="skcore_choice" name="skcore_choice" value="0">
+<!--{eval $sclist = \item_randskills\get_skcore_skilllist($theitem['itmsk']);}-->
+<!--{if empty($sclist)}-->
+你好像没有可以学习的技能。<br>
+<!--{else}-->
+	<!--{eval eval(import_module('clubbase'));}-->
+	你可以习得以下技能中的其中一个：<br><br>
+	<!--{loop $sclist $k $i}-->
+	<!--{eval $id = $k+1;}-->
+	<input type="button" class="cmdbutton" value="{$clubskillname[$i]}" onclick="$('skcore_choice').value='{$id}';postCmd('gamecmd','command.php');this.disabled=true;">
+	<!--{/loop}-->
+<!--{/if}-->
+<input type="button" class="cmdbutton"  id="x" value="[X]返回" onclick="$('command').value='menu'; postCmd('gamecmd','command.php');this.disabled=true;">
