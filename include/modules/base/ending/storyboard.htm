@@ -1171,10 +1171,11 @@
 <!--///////////////////////////////////////////////////-->
 <!--{elseif $winmode == 7}-->
 	<!--{eval $alvl = 13==$gametype ? (int)$roomvars['current_game_option']['lvl'] : 0;}-->
+	<!--{eval $alvl_scale = (int)(30-$alvl)/30*100;}-->
+	<!--{eval $randclass_pool = Array('red', 'yellow', 'blue', 'lightblue', 'cyan', 'lime', 'green', 'darkred', 'orange', 'gold', 'brickred', 'purple', 'ltpurple', 'seagreen', 'lightpink', 'ltcrimson', 'ltazure', 'linen', 'vermilion', 'ltvermilion'); shuffle($randclass_pool); $imax=sizeof($randclass_pool); for($i=1;$i<=$imax;$i++) ${'randclass'.$i}=array_pop($randclass_pool);}-->
 	<!--////////////////////  试炼模式，且$alvl>1  ////////////////////-->
 	<!--////////////////////  等级0和1是在其他模式的解离结局上进行差分  ////////////////////-->
-	<!--{if 13==$gametype && $alvl > 1}-->
-	<!--{eval $alvl = (int)$roomvars['current_game_option']['lvl'];}-->
+	<!--{if 13==$gametype && $alvl > 1}-->	
 		<!--////////////////////  （解离者）  ////////////////////-->
 		<!--{if $winner_flag == $winmode}-->
 			<div id="op_sht_0" class="shootings">
@@ -1190,13 +1191,25 @@
 					<span id="j3">『DUMMY』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="j2">『DUMMY』</span><br><br>
 					<span id="j1">『DUMMY』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="j4">『DUMMY』</span><br><br>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="j5">『DUMMY』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="j6">『DUMMY』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><br>
-					<span id="j16">『DUMMY』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ff0000;font:bold 31px 微软雅黑">DUMMY MODE...</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="j7">『DUMMY』</span><br><br>
+					<span id="j16">『DUMMY』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ff0000;font:bold 21px 'Viner Hand ITC'">LOADING DUMMY MODE...</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="j7">『DUMMY』</span><br><br>
 					<span id="j15">『DUMMY』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="j12">『DUMMY』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="j8">『DUMMY』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><br>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="j9">『DUMMY』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="j10">『DUMMY』</span><span id="j11">『DUMMY』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><br>
 					<span id="j14">『DUMMY』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="j13">『DUMMY』</span>
 
 				<!--{elseif $alvl <= 20}-->
-				
+					<br>
+					没有黑色衣服的少女的身影，也没有红暮的幻影。<br>
+					等待着你的，是芙蓉。<br>
+					如你所料。<br>
+					<br>
+					<span id="j3">『DUMMY』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="j2">『DUMMY』</span><br><br>
+					<span id="j1">『DUMMY』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="j4">『DUMMY』</span><br><br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="j5">『DUMMY』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="j6">『DUMMY』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><br>
+					<span id="j16">『DUMMY』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ff0000;font:bold 21px 'Viner Hand ITC'">LOADING DUMMY MODE...</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="j7">『DUMMY』</span><br><br>
+					<span id="j15">『DUMMY』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="j12">『DUMMY』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="j8">『DUMMY』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="j9">『DUMMY』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="j10">『DUMMY』</span><span id="j11">『DUMMY』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><br>
+					<span id="j14">『DUMMY』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="j13">『DUMMY』</span>
+					
 				<!--{elseif $alvl <= 29}-->
 				
 				<!--{elseif $alvl <= 30}-->
@@ -1277,9 +1290,9 @@
 					<span class="ltcrimson">『而这里，就是她拼尽全力也要做下去的那个梦。』</span><br>
 				</div>
 				<div id="op_sht_5" class="shootings">
-					获得了不少情报，但进展得是否有些太顺利了？你迅速思考着。<br>
-					红暮是这么健谈的对手吗？<br>
-					还是说……<br>
+					<span class="b">获得了不少情报，但进展得是否有些太顺利了？</span>你迅速思考着。<br>
+					<span class="b">红暮是这么健谈的对手吗？<br>
+					还是说……</span><br>
 					<br>
 					<span class="ltcrimson">『看来我说了些没有必要的话，也许是太寂寞了吧。』</span><br>
 					在你举棋不定的当口，红暮转过身来。<br>
@@ -1290,33 +1303,33 @@
 					<span style="color:#ff0000;font:bold 16px 微软雅黑">『你已经没有回头路了。』</span><br>
 				</div>
 				<div id="op_sht_7" class="shootings">
-					<span id="p9">『去看看这世界吧——』</span><br>
-					<span id="p10">『愿你眼中的景色永远明亮清晰——』</span><br>
-					<span id="p3">『我的朋友便是我的力量！』</span><br>
-					<span id="p4">『你便将给我败啊啊啊啊啊啊啊啊——』</span><br>
-					<span id="p5">『英雄是有保质期限的，请接过……』</span><br>
-					<span id="p6">『战争，战争永恒不变』</span><br>
-					<span id="p7">『反抗我的都要灭！』</span><br>
-					<span id="p8">『吃下这■的战斗伤害吧！■直接攻击！粉碎玉碎大喝彩！』</span><br>
-					<span id="p1">『我的血将承载这黑暗，我的灵将承载这痛苦』</span><br>
+					<span class="$randclass9">『去看看这世界吧——』</span><br>
+					<span class="$randclass10">『愿你眼中的景色永远明亮清晰——』</span><br>
+					<span class="$randclass3">『我的朋友便是我的力量！』</span><br>
+					<span class="$randclass4">『你便将给我败啊啊啊啊啊啊啊啊——』</span><br>
+					<span class="$randclass5">『英雄是有保质期限的，请接过……』</span><br>
+					<span class="$randclass6">『战争，战争永恒不变』</span><br>
+					<span class="$randclass7">『反抗我的都要灭！』</span><br>
+					<span class="$randclass8">『吃下这■的战斗伤害吧！■直接攻击！粉碎玉碎大喝彩！』</span><br>
+					<span class="$randclass1">『我的血将承载这黑暗，我的灵将承载这痛苦』</span><br>
 					<br>
 					<br>
-					来不及惊愕，汹涌而熟悉的数据流充斥了你的视野。<br>
-					你竭力抵挡着撕扯精神的攻击，试图找到驾驭自己的办法。<br>
+					来不及惊愕，漫天的纸条充斥了你的视野，数据流开始撕扯你的精神。<br>
+					你竭力抵挡着，试图找到驾驭自己的办法。<br>
 				</div>
 				<div id="op_sht_8" class="shootings">
-					<span id="p2">『CONGRATULATIONS，你的游戏，已经结束了。』</span><br>
-					<span id="p11">『I have bested the spikes, the fruit, and the moon!』</span><br>
-					<span id="p12">『起床了啊！』</span><br>
-					<span id="p13">『被凝固的日常，将重新开始转动。』</span><br>
-					<span id="p14">『你们都统统去给我读古生物书读到心脏怦怦乱跳为止再回来玩！』</span><br>
-					<span id="p15">『浪子的口袋里面是永远不缺崭新的钞票的』</span><br>
-					<span id="p16">『啊～啊我招了吧，这永续的黑夜，这异常的月亮，还有在罗汉像上放上帽子这些都是■干的，现在给我让开！』</span><br>
-					<span id="p17">『想证明给我看的话，就从我身上轧过去吧！』</span><br>
+					<span class="$randclass2">『CONGRATULATIONS，你的游戏，已经结束了。』</span><br>
+					<span class="$randclass11">『I have bested the spikes, the fruit, and the moon!』</span><br>
+					<span class="$randclass12">『起床了啊！』</span><br>
+					<span class="$randclass13">『被凝固的日常，将重新开始转动。』</span><br>
+					<span class="$randclass14">『你们都统统去给我读古生物书读到心脏怦怦乱跳为止再回来玩！』</span><br>
+					<span class="$randclass15">『浪子的口袋里面是永远不缺崭新的钞票的』</span><br>
+					<span class="$randclass16">『啊～啊我招了吧，这永续的黑夜，这异常的月亮，还有在罗汉像上放上帽子这些都是■干的，现在给我让开！』</span><br>
+					<span class="$randclass17">『想证明给我看的话，就从我身上轧过去吧！』</span><br>
 					<br>
 					<br>
-					<span class="b">■■线……■■线……</span><br>
-					可恶，那被封印的关键词……<br>
+					<span class="b">■■线……■■线……<br>
+					可恶，那被封印的关键词……</span><br>
 					<br>
 					<span style="color:#ff0000;font:bold 16px 微软雅黑">为什么<font style="font-size:24px">看不</font><font style="font-size:32px">清楚啊</font><font style="font-size:24px">————！！！</font></span><br>
 				</div>
@@ -1344,7 +1357,149 @@
 					带着那份执念，你向前走去。<br>
 				</div>
 			<!--{elseif $alvl <= 20}-->
-				
+				<div id="op_sht_1" class="shootings">
+					<span class="vermilion">『还是难不倒你。』</span><br>
+					和先前的“红暮”一样，芙蓉的身影带着一些轻微的失真。你猜测她也只是个幻象。<br>
+					<span class="vermilion">『就算匹数被限制了，仍然以一人之力击败了整个幻境。想要什么奖励吗？』</span><br>
+					<br>
+					<span class="b">“我要离开这里。”</span>你脱口而出。<br>
+					有那么一个瞬间，对生存的渴望压倒了任务与执念。不过你很快反应过来，把思绪收拢回到伪装之中。<br>
+					<br>
+					<span class="vermilion">『很可惜，办不到。除了完成这个试炼，你没有任何办法出去。』</span><br>
+					芙蓉耸了耸肩。<br>
+					<span class="vermilion">『这个规则从代码底层上就写死了。』</span><br>
+					<br>
+					抄近路失败了，但你觉得依然能尝试套点情报。<br>
+					<span class="b">“你说过，是你设计了这整个牢笼。你究竟想干什么？”</span><br>
+				</div>
+				<div id="op_sht_2" class="shootings">
+					<span class="vermilion">『最开始，我只是应红暮的命令，定制一个虚拟的训练场。<br>
+					『很快我就发现，针对某些特殊个体来高度特化，比海选式的训练要高效得多。<br>
+					『多亏了薇娜他们留下的数据，我们找到了最合适的个体……<br>
+					『……能承受得住成百上千倍的时间加速，乃至多线程、高并发的精神摧残。』</span><br>
+					<br>
+					<span class="b">“所以我成了小白鼠，而你们称之为高效……”</span>你一边揶揄，一边咀嚼着芙蓉话中的信息。<br>
+					<span class="b">“……等一下，你是说我现在处于时间加速之中？”</span><br>
+					<br>
+					<span class="vermilion">『是这样。具体的速率已不得而知。也许真实世界只过去了短短几天吧。』</span><br>
+					<br>
+					<span class="b">“你不知道现实里的情况？你只是一个自动程序吗？”</span><br>
+					<br>
+					芙蓉笑而不答。<br>
+					<br>
+					<span class="b">真可疑。</span>你心想道。<br>
+					<span class="b">跟红暮一样，莫名其妙而慷慨地给出信息。到底有几句是真话呢？</span><br>
+					<span class="b">如果这个芙蓉的背后并不是真人在控制，有没有什么办法验证……？</span><br>
+				</div>
+				<div id="op_sht_3" class="shootings">
+					<span class="b">“这个训练场里劣化的红暮、蓝凝，还有其他一些异象，也是你设计的一部分吗？”</span><br>
+					<br>
+					芙蓉挑起眉毛，似乎有些困惑。<br>
+					<span class="vermilion">『劣化？异象？你指的是什么？』</span><br>
+					<br>
+					<span class="b">这是破绽吗？</span><br>
+					<br>
+					<span class="b">“你没注意到吗？那些<span class="black b">黑块</span>……”</span>你发觉很难描述出你看到的那些异象，<span class="b">“……数据损坏的感觉，之类的？”</span><br>
+					<br>
+					芙蓉摇摇头。<br>
+					<span class="vermilion">『这个计划是有些仓促，但我并没有安排什么损坏的数据。<br>
+					『你说的黑块，是在什么地方看到的？』</span><br>
+					<br>
+					<br>
+					你正要细说，却突然感到一阵剧烈的眩晕。<br>
+					<br>
+					耳鸣声重叠成某种摄人心魄的吟唱。某种东西从记忆中不怀好意地探出身。潜意识在朝你拼命呼救。<br>
+					<br>
+					<span class="b">究竟……怎么回事？</span><br>
+				</div>
+				<div id="op_sht_4" class="shootings">
+					<span class="ltpurple b" style="font:bold 32px 'Symeteo'; background-color: #bb55ff;">U recgniz we!</span><br>
+				</div>
+				<div id="op_sht_5" class="shootings">
+					<span class="$randclass9"><!--{eval echo \ending\ending_psyche_attack_txt_parse('『去看看这世界吧——』', $alvl_scale);}--></span><br>
+					<span class="$randclass10"><!--{eval echo \ending\ending_psyche_attack_txt_parse('『愿你眼中的景色永远明亮清晰——』', $alvl_scale);}--></span><br>
+					<span class="$randclass3"><!--{eval echo \ending\ending_psyche_attack_txt_parse('『我的朋友便是我的力量！』', $alvl_scale);}--></span><br>
+					<span class="$randclass4"><!--{eval echo \ending\ending_psyche_attack_txt_parse('『你便将给我败啊啊啊啊啊啊啊啊——』', $alvl_scale);}--></span><br>
+					<span class="$randclass5"><!--{eval echo \ending\ending_psyche_attack_txt_parse('『英雄是有保质期限的，请接过……』', $alvl_scale);}--></span><br>
+					<span class="$randclass6"><!--{eval echo \ending\ending_psyche_attack_txt_parse('『战争，战争永恒不变』', $alvl_scale);}--></span><br>
+					<span class="$randclass7"><!--{eval echo \ending\ending_psyche_attack_txt_parse('『反抗我的都要灭！』', $alvl_scale);}--></span><br>
+					<span class="$randclass8"><!--{eval echo \ending\ending_psyche_attack_txt_parse('『吃下这■的战斗伤害吧！■直接攻击！粉碎玉碎大喝彩！』', $alvl_scale);}--></span><br>
+					<span class="$randclass1"><!--{eval echo \ending\ending_psyche_attack_txt_parse('『我的血将承载这黑暗，我的灵将承载这痛苦』', $alvl_scale);}--></span><br>
+					<br>
+					<br>
+					精神攻击如潮水般涌来，撕扯你的神智，就像撕碎纸条一般。<br>
+					你感受到<span class="ltpurple b">那个东西</span>刺骨的寒意，却几乎无法招架。<br>
+				</div>
+				<div id="op_sht_6" class="shootings">
+					<span class="$randclass2"><!--{eval echo \ending\ending_psyche_attack_txt_parse('『CONGRATULATIONS，你的游戏，已经结束了。』', $alvl_scale);}--></span><br>
+					<span class="$randclass11"><!--{eval echo \ending\ending_psyche_attack_txt_parse('『I have bested the spikes, the fruit, and the moon!』', $alvl_scale);}--></span><br>
+					<span class="$randclass12"><!--{eval echo \ending\ending_psyche_attack_txt_parse('『起床了啊！』', $alvl_scale);}--></span><br>
+					<span class="$randclass13"><!--{eval echo \ending\ending_psyche_attack_txt_parse('『被凝固的日常，将重新开始转动。』', $alvl_scale);}--></span><br>
+					<span class="$randclass14"><!--{eval echo \ending\ending_psyche_attack_txt_parse('『你们都统统去给我读古生物书读到心脏怦怦乱跳为止再回来玩！』', $alvl_scale);}--></span><br>
+					<span class="$randclass15"><!--{eval echo \ending\ending_psyche_attack_txt_parse('『浪子的口袋里面是永远不缺崭新的钞票的』', $alvl_scale);}--></span><br>
+					<span class="$randclass16"><!--{eval echo \ending\ending_psyche_attack_txt_parse('『啊～啊我招了吧，这永续的黑夜，这异常的月亮，还有在罗汉像上放上帽子这些都是■干的，现在给我让开！』', $alvl_scale);}--></span><br>
+					<span class="$randclass17"><!--{eval echo \ending\ending_psyche_attack_txt_parse('『想证明给我看的话，就从我身上轧过去吧！』', $alvl_scale);}--></span><br>
+					<br>
+					<br>
+					越是挣扎，思维就越化为碎片……<br>
+					<br>
+					<span class="b">■■线……</span><br>
+					<br>
+					就连维系意识的救命稻草……<br>
+					<br>
+					<span class="b">■■线……■■线……的……</span><br>
+					<br>
+					也……<br>
+				</div>
+				<div id="op_sht_7" class="shootings">
+					<span class="ltcrimson">『人类是什么？』</span><br>
+					<br>
+					<span class="evergreen">『人类是芦苇。』</span><br>
+					<br>
+					<span class="ltcrimson">『长满地球的芦苇？』</span><br>
+					<br>
+					<span class="evergreen">『挡了路就会被践踏、长得高就会被收割的芦苇。』</span><br>
+					<br>
+					<span class="ltcrimson">『芦苇能生存吗？』</span><br>
+					<br>
+					<span class="evergreen">『芦苇■■■■■。』</span><br>
+					<br>
+					<span class="ltcrimson">『芦苇■■■■■……』</span><br>
+					<br>
+					<span class="evergreen">『……』</span><br>
+				</div>
+				<div id="op_sht_8" class="shootings">
+					不知道来自何方的记忆残片，让你抓住了随后一丝力量。<br>
+					<br>
+					遥远的掌心传来坚硬的质感。<br>
+					纵然眼前一片黑暗，你却坚信那是你再熟悉不过的一把钥匙。<br>
+					也是你最可靠的武器。<br>
+					<br>
+					握紧。然后，<br>
+					拼尽全身力气，朝着你认为是敌人的方向，<br>
+					<span class="b">重重劈下。</span><br>
+				</div>
+				<div id="op_sht_9" class="shootings">
+					意识正在逆流。<br>
+					万物回到正轨。<br>
+					……<br>
+					…………<br>
+					………………<br>
+					<br>
+					<br>
+					意识朦胧之际，耳边似有呢喃的低语。<br>
+					<span class="white b">人类如履薄冰地前行，<br>
+					却不知早已身处险境。</span><br>
+					<br>
+					<br>
+					………………<br>
+					…………<br>
+					……<br>
+					<br>
+					<br>
+					你第无数次站在那栋灰色的建筑前，手里握着你已经记不清名字的钥匙状武器。<br>
+					带着那份执念，你向前走去。<br>
+				</div>
 			<!--{elseif $alvl <= 29}-->
 				
 			<!--{elseif $alvl <= 30}-->
@@ -1474,18 +1629,23 @@
 				<span class="lightblue b">“或者，让你亲身体验一下吧，幻境中交织的「使命」数量，究竟有多浩瀚。”</span><br>
 				<br>
 				你敏锐地意识到，与刚才不同，少女的话音里似乎拥有了情感。<br>
-				<span class="lightblue b">“想改变自己的命运是错误的么？我们将永远囚于这圆环之中么？”</span><br>
 			</div>
 			<div id="op_sht_3" class="shootings">
-				<span id="p9">『去看看这世界吧——』</span><br>
-				<span id="p10">『愿你眼中的景色永远明亮清晰——』</span><br>
-				<span id="p3">『我的朋友便是我的力量！』</span><br>
-				<span id="p4">『你便将给我败啊啊啊啊啊啊啊啊——』</span><br>
-				<span id="p5">『英雄是有保质期限的，请接过……』</span><br>
-				<span id="p6">『战争，战争永恒不变』</span><br>
-				<span id="p7">『反抗我的都要灭！』</span><br>
-				<span id="p8">『吃下这■的战斗伤害吧！■直接攻击！粉碎玉碎大喝彩！』</span><br>
-				<span id="p1">『我的血将承载这黑暗，我的灵将承载这痛苦』</span><br>
+				<span class="lightblue b">“想改变自己的命运是错误的么？我们将永远囚于这圆环之中么？”</span><br>
+				<br>
+				<br>
+				刹那间，漫天的纸条绽放，充斥了你的视野。数据流开始撕扯你的精神。<br>
+				<br>
+				<br>
+				<span class="$randclass9">『去看看这世界吧——』</span><br>
+				<span class="$randclass10">『愿你眼中的景色永远明亮清晰——』</span><br>
+				<span class="$randclass3">『我的朋友便是我的力量！』</span><br>
+				<span class="$randclass4">『你便将给我败啊啊啊啊啊啊啊啊——』</span><br>
+				<span class="$randclass5">『英雄是有保质期限的，请接过……』</span><br>
+				<span class="$randclass6">『战争，战争永恒不变』</span><br>
+				<span class="$randclass7">『反抗我的都要灭！』</span><br>
+				<span class="$randclass8">『吃下这■的战斗伤害吧！■直接攻击！粉碎玉碎大喝彩！』</span><br>
+				<span class="$randclass1">『我的血将承载这黑暗，我的灵将承载这痛苦』</span><br>
 				<br>
 				<br>
 				<span style="color:red;font:bold 24px 微软雅黑;line-height:30px">…………<br>
@@ -1501,14 +1661,14 @@
 				</span>
 			</div>
 			<div id="op_sht_4" class="shootings">
-				<span id="p2">『CONGRATULATIONS，你的游戏，已经结束了。』</span><br>
-				<span id="p11">『I have bested the spikes, the fruit, and the moon!』</span><br>
-				<span id="p12">『起床了啊！』</span><br>
-				<span id="p13">『被凝固的日常，将重新开始转动。』</span><br>
-				<span id="p14">『你们都统统去给我读古生物书读到心脏怦怦乱跳为止再回来玩！』</span><br>
-				<span id="p15">『浪子的口袋里面是永远不缺崭新的钞票的』</span><br>
-				<span id="p16">『啊～啊我招了吧，这永续的黑夜，这异常的月亮，还有在罗汉像上放上帽子这些都是■干的，现在给我让开！』</span><br>
-				<span id="p17">『想证明给我看的话，就从我身上轧过去吧！』</span><br>
+				<span class="$randclass2">『CONGRATULATIONS，你的游戏，已经结束了。』</span><br>
+				<span class="$randclass11">『I have bested the spikes, the fruit, and the moon!』</span><br>
+				<span class="$randclass12">『起床了啊！』</span><br>
+				<span class="$randclass13">『被凝固的日常，将重新开始转动。』</span><br>
+				<span class="$randclass14">『你们都统统去给我读古生物书读到心脏怦怦乱跳为止再回来玩！』</span><br>
+				<span class="$randclass15">『浪子的口袋里面是永远不缺崭新的钞票的』</span><br>
+				<span class="$randclass16">『啊～啊我招了吧，这永续的黑夜，这异常的月亮，还有在罗汉像上放上帽子这些都是■干的，现在给我让开！』</span><br>
+				<span class="$randclass17">『想证明给我看的话，就从我身上轧过去吧！』</span><br>
 				<br>
 				<br>
 				承受不住巨大信息的压力，<br>
@@ -1659,7 +1819,7 @@
 					<span class="ltcrimson">“反正也没什么区别了。”</span><br>
 					这是不属于你的记忆残片。<br>
 					<br>
-					<span class="vermilion">“人嘛，撕扯到最后剩下的，就是执念了。”</span><br>
+					<span class="vermilion">“人嘛，撕扯到了最后，剩下的，就是执念了。”</span><br>
 					感觉却又和你息息相关。<br>
 				<!--{/if}-->
 				<br>

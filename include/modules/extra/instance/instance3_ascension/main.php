@@ -28,7 +28,13 @@ namespace instance3
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		eval(import_module('sys','instance3'));
 		if (13 == $gametype){
-			return $npcinfo_instance3;
+			$ret = $npcinfo_instance3;
+			//根据不同试炼等级，修改NPC情况
+			$alvl = (int)$roomvars['current_game_option']['lvl'];
+			if($alvl > 10) {
+				$ret[1]['sub'][0]['name'] = '红暮 DUMMY';
+			}
+			return $ret;
 		}else return $chprocess();
 	}
 	
