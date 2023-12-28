@@ -574,7 +574,6 @@ skill601,extra/club/skills/skill601/,1
 skill602,extra/club/skills/skill602/,1
 skill603,extra/club/skills/skill603/,1
 item_uys,extra/item_extra/item_uys/,1
-skill721,extra/card/skills/skill721/,1
 skill244,extra/club/skills/skill244/,1
 skill508,extra/card/skills/skill508/,1
 skill233,extra/club/skills/skill233/,1
@@ -582,6 +581,7 @@ smartmix,extra/misc/smartmix/,1
 skill371,extra/achievement/skills/skill371/,1
 searchmemory,extra/searchmemory/,1
 skill366,extra/activities/aprilfool2018/skill366/,1
+skill721,extra/card/skills/skill721/,1
 skill228,extra/club/skills/skill228/,1
 skill236,extra/club/skills/skill236/,1
 skill237,extra/club/skills/skill237/,1
