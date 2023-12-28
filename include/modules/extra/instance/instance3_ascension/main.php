@@ -254,6 +254,12 @@ namespace instance3
 					return;
 				}
 			}
+			elseif ($itm == '游戏解除钥匙' && 13==$gametype) 
+			{
+				$log .= '<span class="ltcrimson">『忘了我说的话了？』</span><br><br><span class="yellow b">看起来这把钥匙没有任何功能。</span><br>';
+				$mode = 'command';
+				return;
+			}
 		}
 		$chprocess($theitem);
 	}
