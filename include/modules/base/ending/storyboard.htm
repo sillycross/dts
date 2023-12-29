@@ -1179,9 +1179,9 @@
 		<!--////////////////////  （解离者）  ////////////////////-->
 		<!--{if $winner_flag == $winmode}-->
 			<div id="op_sht_0" class="shootings">
-				沾满鲜血的三个光球。如行刑台一般高大的祭坛。以及四周无尽深渊的虚空。<br>
-				和记忆里别无二致。你再次踏上了这个地方。<br>
 				<!--{if $alvl <= 10}-->
+					沾满鲜血的三个光球。如行刑台一般高大的祭坛。以及四周无尽深渊的虚空。<br>
+					和记忆里别无二致。你再次踏上了这个地方。<br>
 					但你决定不再按常理出牌。<br>
 					<br>
 					你把三个光球推向虚空，然后朝着祭坛喊道：<span class="b">“出来，红暮！兑现你该死的承诺！”</span><br>
@@ -1197,6 +1197,8 @@
 					<span id="j14">『DUMMY』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="j13">『DUMMY』</span>
 
 				<!--{elseif $alvl <= 20}-->
+					沾满鲜血的三个光球。如行刑台一般高大的祭坛。以及四周无尽深渊的虚空。<br>
+					和记忆里别无二致。你再次踏上了这个地方。<br>
 					<br>
 					没有黑色衣服的少女的身影，也没有红暮的幻影。<br>
 					等待着你的，是芙蓉。<br>
@@ -1211,7 +1213,22 @@
 					<span id="j14">『DUMMY』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="j13">『DUMMY』</span>
 					
 				<!--{elseif $alvl <= 29}-->
-				
+					曾经庄严神秘、如有精灵加护般的祭坛，如今已蒙上了一层锈蚀腐朽的包浆。<br>
+					你收集来的光球，已经变成不祥而污浊的血红色。<br>
+					四周的深渊里，也闪动着故障和异象，犹如无数双虎视眈眈的眼睛。<br>
+					<br>
+					<br>
+					<span class="red" id="j3">『Error』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="red" id="j2">『Error』</span><br><br>
+					<span class="red" id="j1">『Error』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="red" id="j4">『Error』</span><br><br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="red" id="j5">『Error』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="red" id="j6">『Error』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><br>
+					<span class="red" id="j16">『Error』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ff0000;font:bold 21px 'Viner Hand ITC'">LOADING ■...</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="red" id="j7">『Error』</span><br><br>
+					<span class="red" id="j15">『Error』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="red" id="j12">『Error』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="red" id="j8">『Error』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="red" id="j9">『Error』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="red" id="j10">『Error』</span><span class="red" id="j11">『Error』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><br>
+					<span class="red" id="j14">『Error』</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="red" id="j13">『Error』</span>
+					<br>
+					<br>
+					<br>
+					芙蓉站立在高台上等待着，就像独自守在风暴中的孤岛上。<br>
 				<!--{elseif $alvl <= 30}-->
 				
 				<!--{else}-->
@@ -1502,9 +1519,173 @@
 					带着那份执念，你向前走去。<br>
 				</div>
 			<!--{elseif $alvl <= 29}-->
-				
+				<div id="op_sht_1" class="shootings">
+					<span class="vermilion">『你是对的。有什么地方出了问题……』</span><br>
+					“芙蓉”眉头紧锁。事态显然已经超出了她的预料。<br>
+					<br>
+					<span class="b">“情况都这样了，难道还要试炼下去吗？”</span><br>
+					你其实还想更进一步，但样子还是要装一下的。<br>
+					<br>
+					<span class="vermilion">『我试过了，没有办法。<br>
+					『试炼的运行无法中止。有某种东西剥夺了我们的权限。』</span><br>
+					<br>
+					<span class="b">“你「们」？我以为这里的你和红暮都只是录像一样的东西。”</span><br>
+					你敏锐地抓住了破绽。<br>
+					<span class="b">“你们躲在这层皮套后面遥控吗？”</span><br>
+					<br>
+					<span class="ltcrimson">『我们不是录像。当然，也不是皮套。』</span><br>
+					出乎你的意料，“红暮”在你面前再次现身。<br>
+					<br>
+					你本能地摆出姿态，应对红杀两大顶级战力的夹攻，但红暮和芙蓉似乎并不打算出击。<br>
+				</div>
+				<div id="op_sht_2" class="shootings">
+					<span class="ltcrimson">『也差不多该向你说明实情了。』</span><br>
+					红暮说着，看向芙蓉。后者点了点头。<br>
+					<span class="vermilion">『你知道我的代号是<span class="ltvermilion b">「红杀密传」</span>吧？』</span><br>
+					<br>
+					<span class="b">“保守组织的核心机密……”</span>你努力回忆从时空特使和红杀那边打探到的只言片语。<br>
+					<span class="b">“哦，还有在生死存亡的关头，作为维持红杀运作的最后手段……是这样吧？”</span><br>
+					<br>
+					<span class="vermilion">『基本上是这样。』</span><br>
+					芙蓉轻轻鼓掌。<br>
+					<span class="vermilion">『那么，并非超能力者的我和红暮，除了互为肉身备份，<br>
+					还有什么方式，能在面对你们时空特使、或者同种级别的强敌时，保留下反击的火种呢？』</span><br>
+					<br>
+					<span class="b">“该不会……”</span><br>
+					芙蓉。试炼场。模拟人格。幻境。<br>
+					毛骨悚然的感觉顺着你的脊背朝上蔓延。<br>
+					<br>
+					<span class="b">“你是说……你把你和红暮的意识，传到了这个幻境中……？”</span><br>
+					<br>
+					<span class="b">“而且，既然已经在运行了，难道你们「红杀」……”</span><br>
+				</div>
+				<div id="op_sht_3" class="shootings">
+					<span class="vermilion">『相当巧妙而大胆的计划吧？』</span><br>
+					芙蓉叉起腰，但她的神色却没有太多的得意。<br>
+					<span class="vermilion">『你说得没错。既然我们进入了这种状态，只能认为外头的「红杀」已经遭遇了不测。<br>
+					『<ruby class="ltvermilion b">「最后密传」<rt>Last Resort</rt></ruby>计划，已经在执行了。』</span><br>
+					<br>
+					<span class="ltcrimson">『当我和芙蓉在幻境中醒来时，也是惶然不知所措。<br>
+					『我只记得意识复制之前的事，花了好一阵子，才推理出自己已在计划之中。』</span><br>
+					红暮叹了口气，神色黯然。<br>
+					<br>
+					<span class="vermilion">『而且，预警机制没有生效，外部探测程序也全都没有运行。<br>
+					『如果这不是一个拙劣的玩笑，那么最乐观的猜测是……<br>
+					<br>
+					<span class="yellow b">「红杀」全灭了。</span><br>
+					<br>
+					『没有人逃脱，甚至没有人来得及反应。』</span><br>
+					<br>
+					<br>
+					你几乎惊掉下巴。这是在最荒诞的梦里也想象不到的事态。<br>
+				</div>
+				<div id="op_sht_4" class="shootings">
+					<span class="vermilion">『从这个角度来说，我们竟然还存在这一点，也变得可疑起来。<br>
+					『计划真的正确启动了吗？还是说，我们被困在了某种生态球里？<br>
+					『考虑到幻境的技术恰好来自我们的假想敌，这并不是杞人忧天。』</span><br>
+					芙蓉说着叹了口气。她面前的空气就像被激发了一样，开始闪动失真的辉光。<br>
+					<span class="vermilion">『更糟糕的是，这个幻境正在走向崩溃。<br>
+					『无论是因为计划过于草率，还是因为我们的敌人玩腻了准备拔线，我们的时间都已经所剩无几。』</span><br>
+					<br>
+					<span class="ltcrimson">『所幸，我们还有最后的秘密武器。』</span><br>
+					红暮和芙蓉的视线向你投射过来，那深邃而期切的眼神让你为之一颤。<br>
+					<span class="ltcrimson">『当时作为测试而上传的，唯一一个挑战者的意识。』</span><br>
+					<br>
+					<span class="vermilion">『你在试炼中获得的能力提升，已经远远超过我和红暮。<br>
+					『更重要的是，你还保持着与肉体的联络，在现实里大概率依然存活着。<br>
+					『如果要冲出这个幻境、反击我们的敌人，你是最合适、也是唯一的人选。』</span><br>
+				</div>
+				<div id="op_sht_5" class="shootings">
+					<span class="b">“我……我可没答应过这种事。为什么我要替你们去复仇？”</span><br>
+					你下意识地拒绝。<br>
+					<br>
+					<span class="ltcrimson">『我不是说过吗，时空特使 <span class="yellow b">$name</span>，<br>
+					你已经没有回头路了。』</span><br>
+					红暮挥手驱赶你们面前那一小团失真异象，但似乎并没有什么用。<br>
+					<br>
+					<span class="ltcrimson">『现在，你和我们在同一条贼船上。<br>
+					『你当然可以严词拒绝，但那只会让你跟我们一起归于破灭。<br>
+					『且不说权限的问题，就算我们还能够解除试炼，放你出去，<br>
+					『如果你不够强大，恐怕只会死在残酷无情的攻击之下。<br>
+					『所幸，你距离足以对抗威胁的最低限度，也只差最后一步了。』</span><br>
+					<br>
+					自苏醒在这试炼中以来，你第一次感受到了，什么叫做惶惑不安。<br>
+					<br>
+					<span class="ltcrimson b">『我们没有办法让你自由。<br>
+					想要获得自由，你得自己杀出一条血路。』</span><br>
+				</div>
+				<div id="op_sht_6" class="shootings">
+					直到红暮和芙蓉的身形消失，你都还没有从震惊中回过神来。<br>
+					解离程序已经启动，支离破碎的中枢程序泼洒出诡异的数据流，像颜料般胡乱涂抹着你的精神。<br>
+					<br>
+					<span class="$randclass9"><!--{eval echo \ending\ending_psyche_attack_txt_parse('『去看看这世界吧——』', $alvl_scale);}--></span><br>
+					<span class="$randclass10"><!--{eval echo \ending\ending_psyche_attack_txt_parse('『愿你眼中的景色永远明亮清晰——』', $alvl_scale);}--></span><br>
+					<span class="$randclass3"><!--{eval echo \ending\ending_psyche_attack_txt_parse('『我的朋友便是我的力量！』', $alvl_scale);}--></span><br>
+					<span class="$randclass4"><!--{eval echo \ending\ending_psyche_attack_txt_parse('『你便将给我败啊啊啊啊啊啊啊啊——』', $alvl_scale);}--></span><br>
+					<span class="$randclass5"><!--{eval echo \ending\ending_psyche_attack_txt_parse('『英雄是有保质期限的，请接过……』', $alvl_scale);}--></span><br>
+					<span class="$randclass6"><!--{eval echo \ending\ending_psyche_attack_txt_parse('『战争，战争永恒不变』', $alvl_scale);}--></span><br>
+					<span class="$randclass7"><!--{eval echo \ending\ending_psyche_attack_txt_parse('『反抗我的都要灭！』', $alvl_scale);}--></span><br>
+					<span class="$randclass8"><!--{eval echo \ending\ending_psyche_attack_txt_parse('『吃下这■的战斗伤害吧！■直接攻击！粉碎玉碎大喝彩！』', $alvl_scale);}--></span><br>
+					<span class="$randclass1"><!--{eval echo \ending\ending_psyche_attack_txt_parse('『我的血将承载这黑暗，我的灵将承载这痛苦』', $alvl_scale);}--></span><br>
+					<br>
+					<br>
+					
+					但真正让你动弹不得的，是这从来没有料想到的真相。<br>
+					<br>
+					<span class="b">我真的做好准备了吗？</span><br>
+					<br>
+					你想起多次遭遇<span class="ltpurple b">那个东西</span>，想起一次次从它面前逃离时的惊险和无力。<br>
+					<br>
+					<span class="b">那是幻境的异常吗？是红暮她们所说的敌人吗？<br>
+					还是……隐藏在这个幻境深处的秘密？</span><br>
+				</div>
+				<div id="op_sht_7" class="shootings">
+					<span class="$randclass2"><!--{eval echo \ending\ending_psyche_attack_txt_parse('『CONGRATULATIONS，你的游戏，已经结束了。』', $alvl_scale);}--></span><br>
+					<span class="$randclass11"><!--{eval echo \ending\ending_psyche_attack_txt_parse('『I have bested the spikes, the fruit, and the moon!』', $alvl_scale);}--></span><br>
+					<span class="$randclass12"><!--{eval echo \ending\ending_psyche_attack_txt_parse('『起床了啊！』', $alvl_scale);}--></span><br>
+					<span class="$randclass13"><!--{eval echo \ending\ending_psyche_attack_txt_parse('『被凝固的日常，将重新开始转动。』', $alvl_scale);}--></span><br>
+					<span class="$randclass14"><!--{eval echo \ending\ending_psyche_attack_txt_parse('『你们都统统去给我读古生物书读到心脏怦怦乱跳为止再回来玩！』', $alvl_scale);}--></span><br>
+					<span class="$randclass15"><!--{eval echo \ending\ending_psyche_attack_txt_parse('『浪子的口袋里面是永远不缺崭新的钞票的』', $alvl_scale);}--></span><br>
+					<span class="$randclass16"><!--{eval echo \ending\ending_psyche_attack_txt_parse('『啊～啊我招了吧，这永续的黑夜，这异常的月亮，还有在罗汉像上放上帽子这些都是■干的，现在给我让开！』', $alvl_scale);}--></span><br>
+					<span class="$randclass17"><!--{eval echo \ending\ending_psyche_attack_txt_parse('『想证明给我看的话，就从我身上轧过去吧！』', $alvl_scale);}--></span><br>
+					<br>
+					<br>
+					<br>
+					<span class="b">有一点她们说的没错。既然都走到这一步了。<br>
+					我必须自己……</span><br>
+				</div>
+				<div id="op_sht_8" class="shootings">
+					<span style="color:#ff0000;font:bold 24px 微软雅黑">杀 出 一 条 血 路 ！</span><br>
+				</div>
+				<div id="op_sht_9" class="shootings">
+					意念迸发的瞬间，精神污染逃也似的飞散开去。<br>
+					<br>
+					万物开始重新汇聚……<br>
+					<br>
+					<span class="b">遵从你的意志。</span><br>
+				</div>
+				<div id="op_sht_10" class="shootings">
+					<br>
+					<br>
+					……<br>
+					…………<br>
+					………………<br>
+					<br>
+					<br>
+					………………<br>
+					…………<br>
+					……<br>
+					<br>
+					<br>
+					灰色的建筑。那是，恶魔的会客厅。<br>
+					称手的钥匙状武器。那是，倾覆一切的火种。<br>
+					带着那份执念，你向前走去。<br>
+					<br>
+					<br>
+					<span class="b">这一次，必将是最后一次。</span><br>
+				</div>
 			<!--{elseif $alvl <= 30}-->
-				
+
 			<!--{else}-->
 				
 			<!--{/if}-->

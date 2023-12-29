@@ -29,3 +29,4 @@ gamedata/adminlog_nf.php
 !callmesilly.txt
 include/modules/core/sys/config/game.config.php
 img/card_blink_mask.psd
+log.txt
