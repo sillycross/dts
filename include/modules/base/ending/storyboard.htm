@@ -1171,7 +1171,7 @@
 <!--///////////////////////////////////////////////////-->
 <!--{elseif $winmode == 7}-->
 	<!--{eval $alvl = 13==$gametype ? (int)$roomvars['current_game_option']['lvl'] : 0;}-->
-	<!--{eval $alvl_scale = (int)(30-$alvl)/30*100;}-->
+	<!--{eval $alvl_scale = (int)$alvl/30*100;}-->
 	<!--{eval $randclass_pool = Array('red', 'yellow', 'blue', 'lightblue', 'cyan', 'lime', 'green', 'darkred', 'orange', 'gold', 'brickred', 'purple', 'ltpurple', 'seagreen', 'lightpink', 'ltcrimson', 'ltazure', 'linen', 'vermilion', 'ltvermilion'); shuffle($randclass_pool); $imax=sizeof($randclass_pool); for($i=1;$i<=$imax;$i++) ${'randclass'.$i}=array_pop($randclass_pool);}-->
 	<!--////////////////////  试炼模式，且$alvl>1  ////////////////////-->
 	<!--////////////////////  等级0和1是在其他模式的解离结局上进行差分  ////////////////////-->
@@ -1360,10 +1360,11 @@
 				<div id="op_sht_1" class="shootings">
 					<span class="vermilion">『还是难不倒你。』</span><br>
 					和先前的“红暮”一样，芙蓉的身影带着一些轻微的失真。你猜测她也只是个幻象。<br>
-					<span class="vermilion">『就算匹数被限制了，仍然以一人之力击败了整个幻境。想要什么奖励吗？』</span><br>
+					<span class="vermilion">『就算匹数被限制了，仍然以一人之力打倒了整个幻境。想要什么奖励吗？』</span><br>
 					<br>
 					<span class="b">“我要离开这里。”</span>你脱口而出。<br>
-					有那么一个瞬间，对生存的渴望压倒了任务与执念。不过你很快反应过来，把思绪收拢回到伪装之中。<br>
+					有那么一个瞬间，对生存的渴望压倒了任务与执念。<br>
+					不过你很快反应过来，把思绪收拢回到伪装之中。<br>
 					<br>
 					<span class="vermilion">『很可惜，办不到。除了完成这个试炼，你没有任何办法出去。』</span><br>
 					芙蓉耸了耸肩。<br>
