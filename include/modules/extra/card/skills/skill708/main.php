@@ -22,12 +22,14 @@ namespace skill708
 	function check_unlocked708(&$pa=NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if(empty($pa))
+		eval(import_module('sys'));
+		if ($now - $starttime >= 900) return 1;
+		if (empty($pa))
 		{
 			eval(import_module('player'));
 			$pa = $sdata;
 		}
-		return $pa['lvl'] >= 18;
+		return $pa['lvl'] >= 15;
 	}
 	
 	function itemmix_recipe_check($mixitem){
