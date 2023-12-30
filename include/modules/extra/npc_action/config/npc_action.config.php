@@ -7,7 +7,7 @@ namespace npc_action
 	
 	$npc_action_data = Array(//定义哪些NPC会自动行动。
 		'冴月 麟' => Array(
-			'intv' => 120,//行动间隔
+			'intv' => 240,//行动间隔
 			'devi' => Array(-60, 60),//行动间隔偏差值，第一个数值为负偏差，第二个数值为正偏差，会在范围内随机取值
 			'actions' => Array(//会执行的行动及对应的概率。具体执行时先取满足条件的行动，然后根据比例来判定概率。可选项有move（随机移动）、chase（追杀）、evade（躲避）
 				'move' => 1,
@@ -31,7 +31,7 @@ namespace npc_action
 					),
 				),
 				'guard' => Array(//警惕，使下一次行动时间提前，也可以做为空技能
-					'guard_time' => 60,
+					'guard_time' => 180,
 				),
 				'chase' => Array(
 					'object' => Array('W'),//追逐对象，R为随机选一个玩家，T为追头名，B为追最弱的，P:XXX为追踪名字为XXX的玩家，N:XXX为追踪名字为XXX的NPC，W为追上一次与自己作战的玩家
@@ -78,7 +78,7 @@ namespace npc_action
 		//END OF 冴月麟
 		
 		'某四面' => Array(
-			'intv' => 120,//行动间隔
+			'intv' => 240,//行动间隔
 			'devi' => Array(-60, 60),//行动间隔偏差值，第一个数值为负偏差，第二个数值为正偏差，会在范围内随机取值
 			'actions' => Array(//会执行的行动及对应的概率。具体执行时先取满足条件的行动，然后根据比例来判定概率。可选项有move（随机移动）、chase（追杀）、evade（躲避）
 				'move' => 1,
@@ -103,7 +103,7 @@ namespace npc_action
 					),
 				),
 				'guard' => Array(//警惕，使下一次行动时间提前，也可以做为空技能
-					'guard_time' => 60,
+					'guard_time' => 180,
 				),
 				'evade' => Array(
 					'early_action' => 1,//是否为提前批行动，如果是则不满足条件后还会再执行一遍其他行动
@@ -197,7 +197,7 @@ namespace npc_action
 		//END OF KHIBIKI《黑曲》
 		
 		'一一五 i' => Array(
-			'intv' => 60,//行动间隔
+			'intv' => 90,//行动间隔
 			'devi' => Array(-30, 30),//行动间隔偏差值，第一个数值为负偏差，第二个数值为正偏差，会在范围内随机取值
 			'actions' => Array(//会执行的行动及对应的概率。具体执行时先取满足条件的行动，然后根据比例来判定概率。可选项有move（随机移动）、chase（追杀）、evade（躲避）
 				'chase' => 100,

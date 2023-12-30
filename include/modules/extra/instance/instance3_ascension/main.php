@@ -266,6 +266,12 @@ namespace instance3
 				$mode = 'command';
 				return;
 			}
+			elseif ($itm == '奇怪的按钮' && 13==$gametype) 
+			{
+				$log .= '<span class="ltcrimson">『忘了我说的话了？』</span><br><br><span class="yellow b">看起来这个按钮没有任何功能。</span><br>';
+				$mode = 'command';
+				return;
+			}
 		}
 		$chprocess($theitem);
 	}
