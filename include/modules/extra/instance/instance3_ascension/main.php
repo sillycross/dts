@@ -374,6 +374,53 @@ namespace instance3
 		}
 	}
 	
+	//高层数NPC名字的失真化
+	function init_battle($ismeet = 0)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		eval(import_module('sys','player','metman'));
+		$chprocess($ismeet);
+		if(13==$gametype && !empty($roomvars['current_game_option']['lvl']) && defined('MOD_ENDING')) {
+			$alvl = $roomvars['current_game_option']['lvl'];
+			if($alvl > 10) {//第11层开始有失真
+				$dice = rand(0,99);
+				$glitch_scale = 0;//失真比例，0为没有
+				if($alvl <= 20 && $dice < $alvl) {//20层之前随机出现失真，偷懒直接用alvl值当阈值
+					$glitch_scale = $alvl;
+				}elseif($alvl > 20 && $dice < $alvl * 2) {//20层之后失真概率翻倍
+					$glitch_scale = $alvl * 2;
+				}
+				if(!empty($glitch_scale)) {
+					$tdata['name'] = \ending\ending_psyche_attack_txt_parse($tdata['name'] , $glitch_scale);
+				}
+			}
+		}
+	}
+	
+	//高层数NPC台词的失真化
+	function npcchat_get_chatlog($chattag,$sid,$nchat)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($chattag,$sid,$nchat);
+		eval(import_module('sys'));
+		if(13==$gametype && !empty($roomvars['current_game_option']['lvl']) && defined('MOD_ENDING')) {
+			$alvl = $roomvars['current_game_option']['lvl'];
+			if($alvl > 10) {//第11层开始有失真
+				$dice = rand(0,99);
+				$glitch_scale = 0;//失真比例，0为没有
+				if($alvl <= 20 && $dice <= $alvl) {//20层之前随机出现失真，偷懒直接用alvl值当阈值
+					$glitch_scale = $alvl;
+				}elseif($alvl > 20 && $dice <= $alvl * 2) {//20层之后失真概率翻倍
+					$glitch_scale = $alvl * 2;
+				}
+				if(!empty($glitch_scale)) {
+					$ret = \ending\ending_psyche_attack_txt_parse($ret, $glitch_scale);
+				}
+			}
+		}
+		return $ret;
+	}
 }
 
 ?>

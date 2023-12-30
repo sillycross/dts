@@ -364,7 +364,6 @@ skill252,extra/club/skills/skill252/,1
 skill270,extra/club/skills/skill270/,1
 skill588,extra/card/skills/skill588/,1
 attrbase,extra/attr/attrbase/,1
-instance3,extra/instance/instance3_ascension/,1
 instance8,extra/instance/instance8_proud/,1
 instance7,extra/instance/instance7_tutorial/,1
 kujibase,extra/card/kujibase/,1
@@ -531,6 +530,7 @@ skill377,extra/achievement/skills/skill377/,1
 skill378,extra/achievement/skills/skill378/,1
 skill380,extra/achievement/skills/skill380/,1
 skill504,extra/card/skills/skill504/,1
+instance3,extra/instance/instance3_ascension/,1
 skill429,extra/instance/gtype1/skill429/,1
 skill351,extra/achievement/skills/skill351/,1
 skill352,extra/achievement/skills/skill352/,1
