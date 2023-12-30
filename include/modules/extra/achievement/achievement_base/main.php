@@ -424,7 +424,7 @@ namespace achievement_base
 	}
 	
 	//用于生成一条成就奖励站内信
-	function ach_create_prize_message($pa, $achid, $c, $getqiegao=0, $getcard=0, $ext='', $getkarma=0)
+	function ach_create_prize_message($pa, $achid, $c, $getqiegao=0, $getcard=0, $getcardblink=0, $ext='', $getkarma=0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
@@ -439,7 +439,8 @@ namespace achievement_base
 		if($getqiegao || $getcard) $pt .= '查收本消息即可获取奖励。';
 		if($getcard) {
 			$pt .= '如果已有奖励卡片则会转化为切糕。';
-			$blink = \cardbase\get_card_calc_blink($getcard, $pa);
+			if (!empty($getcardblink) && in_array((int)$getcardblink, array(10,20))) $blink = (int)$getcardblink;
+			else $blink = \cardbase\get_card_calc_blink($getcard, $pa);
 		}
 		
 		$prizecode='';
@@ -485,6 +486,7 @@ namespace achievement_base
 		if(!empty(${'ach'.$achid.'_card_prize'})){
 			$card_flag = 1;
 			$card_prize = ${'ach'.$achid.'_card_prize'};
+			if(!empty(${'ach'.$achid.'_card_prize_blink'})) $card_prize_blink = ${'ach'.$achid.'_card_prize_blink'};
 		}
 		$qiegao_up = 0;
 		foreach($threshold as $tk => $tv){
@@ -493,8 +495,8 @@ namespace achievement_base
 				else{
 					$getqiegao=$getcard=0;
 					if($qiegao_flag && !empty($qiegao_prize[$tk])) {
-						//$qiegao_up += $qiegao_prize[$tk];		
-						$getqiegao = $qiegao_prize[$tk];		
+						//$qiegao_up += $qiegao_prize[$tk];
+						$getqiegao = $qiegao_prize[$tk];
 					}
 					if($card_flag && !empty($card_prize[$tk])) {
 						$getcard = $card_prize[$tk];
@@ -505,8 +507,10 @@ namespace achievement_base
 							$getcard = array_randompick($getcard);
 						}
 						//\cardbase\get_card($card_got,$pa);
+						if(isset($card_prize_blink) && isset($card_prize_blink[$tk])) $getcardblink = $card_prize_blink[$tk];
+						else $getcardblink = 0;
 					}
-					ach_create_prize_message($pa, $achid, $tk, $getqiegao, $getcard);
+					ach_create_prize_message($pa, $achid, $tk, $getqiegao, $getcard, $getcardblink);
 				}
 			}
 		}
@@ -646,6 +650,7 @@ namespace achievement_base
 		$qiegao_prize = !empty(${'ach'.$achid.'_qiegao_prize'}) ? ${'ach'.$achid.'_qiegao_prize'} : NULL;
 		$card_prize = !empty(${'ach'.$achid.'_card_prize'}) ? ${'ach'.$achid.'_card_prize'} : NULL;
 		$card_prize_desc = !empty(${'ach'.$achid.'_card_prize_desc'}) ? ${'ach'.$achid.'_card_prize_desc'} : NULL;
+		$card_prize_blink = !empty(${'ach'.$achid.'_card_prize_blink'}) ? ${'ach'.$achid.'_card_prize_blink'} : NULL;
 		$ret = '';
 		//切糕显示
 		if(!empty($qiegao_prize)) {
@@ -675,6 +680,12 @@ namespace achievement_base
 						$ret1 = '';
 						foreach($cp as $card) {
 							$ret1 .= show_prize_single_card($card);
+							if(isset($card_prize_blink) && isset($card_prize_blink[$cn]))
+							{
+								$blink = (int)$card_prize_blink[$cn];
+								if ($blink == 10) $ret1 .= '<span class="L5">（闪烁）</span>';
+								if ($blink == 20) $ret1 .= '<span class="L5">（镜碎）</span>';
+							}
 							if(count($cp) > 1) $ret1 .= '|';
 						}
 						if(substr($ret1,strlen($ret1)-1) === '|') $ret1 = substr($ret1,0,-1);
@@ -683,6 +694,12 @@ namespace achievement_base
 					}elseif($cp){
 						$card = (int)$cp;
 						$ret .= '&nbsp;'.show_prize_single_card($card);
+						if(isset($card_prize_blink) && isset($card_prize_blink[$cn]))
+						{
+							$blink = (int)$card_prize_blink[$cn];
+							if ($blink == 10) $ret .= '<span class="L5">（闪烁）</span>';
+							if ($blink == 20) $ret .= '<span class="L5">（镜碎）</span>';
+						}
 					}
 				}
 			}

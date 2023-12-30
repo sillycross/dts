@@ -8,6 +8,7 @@ namespace skill380
 		2=>'斩断荆棘',
 		3=>'冲出硝烟',
 		4=>'拥抱黑暗',
+		5=>'？？？？',
 	);
 	
 	//各级显示的要求，如果不存在则取低的
@@ -22,9 +23,10 @@ namespace skill380
 	//各级阈值，注意是达到这个阈值则升到下一级
 	$ach380_threshold = array(
 		1 => 1,
-		2 => 5,
-		3 => 10,
-		4 => 15,
+		2 => 10,
+		3 => 20,
+		4 => 25,
+		5 => 30,
 		999 => NULL
 	);
 	
@@ -33,13 +35,23 @@ namespace skill380
 		1 => 300,
 		2 => 800,
 		3 => 1500,
-		4 => 3000,
+		4 => 2400,
+		5 => 3600,
 	);
 	
 	//各级给的卡片奖励
 	$ach380_card_prize = array(
 		2 => 26,
+		3 => 199,
 		4 => 282,
+		5 => 380,
+	);
+	
+	//卡片奖励的碎闪等级
+	$ach380_card_prize_blink = array(
+		3 => 10,
+		4 => 20,
+		5 => 20,
 	);
 	
 	function init() 
@@ -70,37 +82,6 @@ namespace skill380
 				if ($alvl > $ret)
 				{
 					$ret = $alvl;
-					//仅一次的发卡，但是不计入成就
-					if ($alvl >= 20)
-					{
-						include_once './include/messages.func.php';
-						message_create(
-							$pa['name'],
-							'试炼模式奖励',
-							'祝贺你在房间第'.$gamenum.'局试炼模式获得了奖励！<br>',
-							'getcard_282;getcardblink_10'
-						);
-					}
-					if ($alvl >= 25)
-					{
-						include_once './include/messages.func.php';
-						message_create(
-							$pa['name'],
-							'试炼模式奖励',
-							'祝贺你在房间第'.$gamenum.'局试炼模式获得了奖励！<br>',
-							'getcard_199;getcardblink_20'
-						);
-					}
-					if ($alvl >= 30)
-					{
-						include_once './include/messages.func.php';
-						message_create(
-							$pa['name'],
-							'试炼模式奖励',
-							'祝贺你在房间第'.$gamenum.'局试炼模式获得了奖励！<br>',
-							'getcard_380;getcardblink_20'
-						);
-					}
 				}
 			}
 		}
