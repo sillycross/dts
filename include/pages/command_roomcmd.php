@@ -405,7 +405,8 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 				}
 				elseif ($roomdata['roomtype']==11)	//试炼模式
 				{	
-					addnews($now,'roominfo',room_get_vars($roomdata, 'name'),'挑战者：'.room_getteamhtml($roomdata,0).'，挑战等级：'.room_get_vars($roomdata, 'current_game_option')['lvl'].'。');
+					$alvl = (int)room_get_vars($roomdata, 'current_game_option')['lvl'];
+					addnews($now,'roominfo',room_get_vars($roomdata, 'name'),'挑战者：'.room_getteamhtml($roomdata,0).'，挑战等级：'.$alvl.'。');
 				}
 				//一次性查询所有玩家
 				$namelist = array();
