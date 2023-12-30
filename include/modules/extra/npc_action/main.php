@@ -434,7 +434,7 @@ namespace npc_action
 					'nid' => $npc['pid'],
 					'npc_action' => 'calc_findenemy',
 					'object' => $pid
-				),
+				)
 			);
 			$responce = (int)$responce;
 			//成功发现当前玩家
