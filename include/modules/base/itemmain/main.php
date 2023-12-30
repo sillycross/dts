@@ -473,8 +473,10 @@ namespace itemmain
 			if(discover_item_filter($r))
 				$mipool[] = $r;
 		}
-
-		$mi = array_randompick($mipool);
+		
+		//$mi = array_randompick($mipool);//从discover_extra_item()正常运行的角度考虑，必须用shuffle
+		shuffle($mipool);
+		$mi = $mipool[0];
 		
 		$itms0 = focus_item($mi);
 		if($itms0){
