@@ -3,7 +3,7 @@
 //房间设置
 
 //全局最大房间数目
-$max_room_num = 5;
+$max_room_num = 10;
 
 //单人最大房间数目
 $max_private_room_num = 3;
@@ -446,8 +446,8 @@ $roomtypelist = Array(
 		'without-valid' => false,//是否跳过加入游戏画面就直接进入房间。
 		'req-mod' => 'instance8',//前置mod
 		'pnum' => 1,	//最大参与人数，只有开启准备才有效
-		'globalnum' => 2,	//全场最大开启数目，不设或者0认为无限制
-		'privatenum' => 1,	//单人最大开启数目，不设或者0认为无限制；不需要准备的房间无视这个值
+		'globalnum' => 5,	//全场最大开启数目，不设或者0认为无限制
+		'privatenum' => 2,	//单人最大开启数目，不设或者0认为无限制；不需要准备的房间无视这个值
 		'leader-position' => Array(	//各个编号位置的所属队伍队长位置
 			0 => 0,
 		),
@@ -470,8 +470,8 @@ $roomtypelist = Array(
 		'without-valid' => false,//是否跳过加入游戏画面就直接进入房间。
 		'req-mod' => 'instance9',//前置mod
 		'pnum' => 1,	//最大参与人数，只有开启准备才有效
-		'globalnum' => 2,	//全场最大开启数目，不设或者0认为无限制
-		'privatenum' => 1,	//单人最大开启数目，不设或者0认为无限制；不需要准备的房间无视这个值
+		'globalnum' => 5,	//全场最大开启数目，不设或者0认为无限制
+		'privatenum' => 2,	//单人最大开启数目，不设或者0认为无限制；不需要准备的房间无视这个值
 		'leader-position' => Array(	//各个编号位置的所属队伍队长位置
 			0 => 0,
 		),
