@@ -30,10 +30,9 @@ namespace ending
 	}
 	
 	//用黑块随机替换一段文字的一部分（头尾字符不替换）
-	function ending_psyche_attack_txt_parse($str, $rate = 50)
+	function ending_psyche_attack_txt_parse($str, $rate = 50, $rep = '■')
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$rep = '■';
 		$len = mb_strlen($str, 'utf-8');
 		$ret = '';
 		for($i=1;$i<$len-1;$i++) {

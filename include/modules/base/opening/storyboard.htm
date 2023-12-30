@@ -267,33 +267,46 @@
 	但这并不是因为你拥有超能力，而是因为你和<ruby class="ltcrimson b">那个家伙<rt>红暮</rt></ruby>签下了契约。<br>
 	——名为<span class="red b">『红色钥匙』</span>的恶魔契约。<br>
 	以为与魔鬼做交易就能获得力量，到头来自己却被关进了瓶子里。<br>
-	真是字面意义上地狱笑话——<br>
+	真是字面意义上的地狱笑话——<br>
 	<br>
 	<br>
 	<br>
 	——在不考虑故意为之的情况下。<br>
 	为了查明幻境的真相，你不得不只身犯险。<br>
-	<!--{if $alvl <= 29}-->
+	<br>
+	<span class="b">
+	<!--{if $alvl <= 20}-->
 		前所未见的真正危险。<br>
+	<!--{elseif $alvl <= 29}-->
+		名为试炼的挑战，以及侵蚀着幻境的异象。<br>
 	<!--{else}-->
-		所幸，你马上就能触及真相了。<br>
+		所幸，距离结束这一切，只差临门一脚了。<br>
 	<!--{/if}-->
+	</span>
 </div>
 <div id="op_sht_1" class="shootings">
 	<img border="0" src="./img/story_n8.jpg" style="width:400px;"><br>
 	『无月之影』，这个幻境的入口、曾经喧嚣的地狱客厅，如今寂寥无人。<br>
 	因为这偌大的幻境，<span class="yellow b">此刻只有你一个“挑战者”</span>。<br>
-	这是监狱。你心想。而刑期是永远。<br>
-	除非……<br>
 	<br>
 	<!--{if $alvl <= 10 || $alvl > 30}-->
+		这是监狱。你心想。而刑期是永远。<br>
+		除非……<br>
 		<span class="ltcrimson">『……除非你能证明你的力量。』</span><br>
 		红暮的声音如约响起。<br>
 		<span class="ltcrimson">『如果你「解离」了这整个世界，我自然会放你离开。』</span><br>
-	<!--{else}-->
+	<!--{elseif $alvl <= 29}-->
+		这是监狱。你心想。而刑期是永远。<br>
+		除非……<br>
 		<span class="vermilion">『……除非你完成了这整个试炼。』</span><br>
 		响起的声音来自『红杀』的最强爪牙——芙蓉。<br>
 		<span class="vermilion">『这是<ruby class="ltcrimson b">红杀将军<rt>红暮</rt></ruby>留下的指令。』</span><br>
+	<!--{else}-->
+		这是监狱。<br>
+		然而这一次，也许就是破狱之日。<br>
+		<span class="vermilion">『……这就是最后的试炼了。』</span><br>
+		响起的声音来自『红杀密传』——芙蓉。<br>
+		<span class="vermilion">『如果你冲破了这一关，一切就都能结束了。』</span><br>
 	<!--{/if}-->
 </div>
 <div id="op_sht_2" class="shootings">
@@ -376,7 +389,6 @@
 		“芙蓉”的神情看起来有一丝落寞。<br>
 		虽然你已经知道，她和“红暮”一样，不过是一个没有灵魂的幻影。<br>
 		宛如这个残破幻境中最后的孤灯。<br>
-		而你距离目标，也只待踏出最后一步了。<br>
 		<br>
 		<span class="vermilion">『你是我教过的最强的徒弟。最后的规则也不可能拦住你了吧。』</span><br>
 		<span class="vermilion">『当然，恐怕我已经看不到了。』</span><br>
