@@ -132,6 +132,11 @@ namespace skill21
 				'itme3' => '1',
 				'itms3' => '1',
 				'itmsk3' => '503',
+				'itm6' => '提示纸条AC',
+				'itmk6' => 'Y',
+				'itme6' => 1,
+				'itms6' => 1,
+				'itmsk6' => '',
 				'description' => '讲解员 梦美的第二形态，装备反装甲武器、能够镇压任何失控机械的『本能模式』。实力在数据碎片中属于中等。'
 			),
 		
@@ -198,6 +203,12 @@ namespace skill21
 				'itme3' => '1',
 				'itms3' => '1',
 				'itmsk3' => '^res_$piG%bCP%Y+@%a@Q%%qE%$Ot-L-j%-eY%a+G$piGLFBCLDY@Niw@LF%yZXNfJHBpRyViQ!AlWStAJWFAUSUlcUUlWXF%JSRpRyUtZVklYStHJHBpR)xGQkNMRGslT!N#JUxGJXlaWE%mSkNSRFN%VmhRRlVsY)dsUEpTVnhSUyFhYlNNdFdtbCRKQ!JEVEV$R!dsUk!SRVZ-VFZOI@VVJVVTWE!$WG%KKWVYQmxNeXc(MV%ydHlwZTMs1^rtype4^reptype1',
+				'itm6' => '提示纸条AC',
+				'itmk6' => 'Y',
+				'itme6' => 1,
+				'itms6' => 1,
+				'itmsk6' => '',
+				
 				'description' => '喧哗少女 叶留佳的第二形态。这个小叶子是吃错了什么药吗？？在数据碎片中攻击面最弱，防御面最强，因此常常被第一个拿来开刀。'
 			),
 		
@@ -338,7 +349,7 @@ namespace skill21
 				'itmk0' => 'MB',
 				'itme0' => '1',
 				'itms0' => '1',
-				'itmsk0' => '^mbid710',
+				'itmsk0' => '^mbid710^res_<:comp_itmsk:>{提示纸条AC_Y_1_1__}1^rtype1',
 				'description' => '风纪委员 静流的第二形态，以飒爽的战斗姿态出现的强大超能力者。在数据碎片中攻击面最强，防御面最弱，虽然一推就倒但也让无数玩家阴沟里翻船。'
 			)
 		),

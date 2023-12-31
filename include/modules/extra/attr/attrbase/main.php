@@ -359,6 +359,27 @@ namespace attrbase
 		return $npc;
 	}
 	
+	//NPC进化时的处理
+	function evonpc($xtype,$xname){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		$ret = $chprocess($xtype,$xname);
+		if(!empty($ret)) {
+			//为了性能，把栏位写死。
+			$equip_list = Array('wep', 'arb', 'arh', 'ara', 'arf', 'art', 'itm0', 'itm1', 'itm2', 'itm3', 'itm4', 'itm5', 'itm6');
+			foreach($equip_list as $pos) {
+				if(strpos($pos, 'itm')===0) {
+					$posskn = 'itmsk'.substr($pos, 3);
+				}else{
+					$posskn = $pos.'sk';
+				}
+				if(!empty($ret[$posskn])) {
+					$ret[$posskn] = config_process_encode_comp_itmsk($ret[$posskn]);
+				}
+			}
+		}
+		return $ret;
+	}
+	
 	//入场卡片生效时，单项数据的处理。
 	function enter_battlefield_cardproc_valueproc($key, $value){
 		if (eval(__MAGIC__)) return $___RET_VALUE;

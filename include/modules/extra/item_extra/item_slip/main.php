@@ -35,6 +35,9 @@ namespace item_slip
 		'X' => '',
 		'Y' => '“如果你看到这段文字，说明你成功创造了本来不存在的这第三张纸条。<br>是的，合成产物是凭空创造的，所以它们的作用和特性都和素材的情况完全无关，也就是说你<span class="yellow b">可以用有毒的补给来创造无毒的产物</span>。当然，<span class="red b">也有些产物本来就是有毒的！</span>”',
 		'Z' => '“（前面半张纸条被烧毁了）……以下道具：<br><span class="lime b">黑色碎片 + 十字发卡 = 黑色发卡<br>琉璃血 + 武神之魂（另有2个代用品） = 『C.H.A.O.S』</span><br>“早知道我应该带U盘来，这样就不会写不下了。<br>“如果你在商店里找不到别的纸条，那应该是被红暮的手下处理掉了。别担心，我在幻境的各个角落都放置了类似的提示，去寻找它们吧，会对你大有帮助的。”',
+		'AA' => '“看来你打败了至少一只「全息幻象」了。<br>它们携带的武器装备有一定强度，能帮助你对抗甚至击杀其他玩家。<br>如果你需要进一步提升实力，需要去寻找并击败<span class="yellow b">「真职人」</span>。”',
+		'AB' => '“看来你击败至少一只「真职人」了。<br>除了数值还算不错的防具，它们还能为你提供宝贵的<span class="yellow b">「控噬」</span>属性，让你能继续毫无顾忌地提升战斗力。<br>但如果你的目标是红暮，你还要去寻找并击败<span class="cyan b">「数据碎片」</span>，可不要小瞧了她们的真正实力！”',
+		'AC' => '“你连「数据碎片」都击倒了吗？真不简单。<br>用她提供的装备来武装自己，你就有资格挑战<span class="red b">红暮</span>了。<br>如果你还有余力继续帮助我们，就去收集齐所有三名「数据碎片」身上的「歌词卡片」吧，它们可以合成病毒的触发器「破灭之诗」。既然你都走到这一步了，战斗方面应该能照顾好自己了吧？”<br><br><br>“什么，你问我是怎么把纸条塞在这些NPC身上的？……你猜。”',
 	);
 	
 	//纸条效果：商店卖的纸条没有特殊效果；地上刷的纸条在生成时就决定了随机的效果
@@ -90,12 +93,12 @@ namespace item_slip
 					if($db->num_rows($result)){
 						eval(import_module('npc','map'));
 						$edata = $db->fetch_array($result);
-						$log .= '除此之外，纸条上还草草写着……<br>“<span class="yellow b">「'.$npc_typeinfo[$edata['type']].'」'.$edata['name'].'</span>目前位于<span class="yellow b">'.$plsinfo[$npls].'</span>。”<br><br>';
+						$log .= '除此之外，纸条上还草草写着……<br>“<span class="yellow b">「'.$npc_typeinfo[$edata['type']].'」'.$edata['name'].'</span>在游戏开始时位于<span class="yellow b">'.$plsinfo[$npls].'</span>。”<br><br>';
 						if(\gameflow_duel\is_gamestate_duel()){
 							$log .= '不过，游戏已经进入了死斗阶段。<span class="yellow b">'.$edata['name'].'肯定已经不在那里了。</span><br><br>';
 						}
 						elseif($edata['pls'] != $npls) {
-							$log .= '不过，这和禁区状况对不上。<span class="yellow b">你怀疑'.$edata['name'].'现在已经不在那里了。</span><br><br>';
+							$log .= '不过，游戏已经过去一段时间了。<span class="yellow b">你怀疑'.$edata['name'].'现在已经不在那里了。</span><br><br>';
 						}
 					}else{
 						$log .= '纸条上还有一些字迹被擦掉了。';

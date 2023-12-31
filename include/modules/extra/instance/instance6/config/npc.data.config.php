@@ -123,6 +123,11 @@ namespace instance6
 			'arte' => 20,
 			'arts' => 10,
 			'artsk' => 'c',
+			'itm6' => '提示纸条AA',
+			'itmk6' => 'Y',
+			'itme6' => 1,
+			'itms6' => 1,
+			'itmsk6' => '',
 			'sub' => array
 			(
 				0 => array
@@ -815,10 +820,11 @@ namespace instance6
 			'arte' => 888,
 			'arts' => 888,
 			'artsk' => 'c',
-	//		'itm5' => '好人卡',
-	//		'itmk5' => 'Y',
-	//		'itme5' => 1,
-	//		'itms5' => 88,
+			'itm6' => '提示纸条AB',
+			'itmk6' => 'Y',
+			'itme6' => 1,
+			'itms6' => 1,
+			'itmsk6' => '',
 			'sub' => array
 			(
 				0 => array
