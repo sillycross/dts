@@ -283,14 +283,10 @@ namespace instance3
 		eval(import_module('sys','player'));
 		if(13 == $gametype)
 		{
-			if(0 == $pls)
+			if(0 == $pls && !empty($gamevars['crimson_dead']))
 			{
-				$result = $db->query("SELECT pid FROM {$tablepre}players WHERE pls='0' AND type>0 AND hp>0");
-				if(!$db->num_rows($result))
-				{
-					eval(import_module('event'));
-					$event_obbs = 100;
-				}
+				eval(import_module('event'));
+				$event_obbs = 50;
 			}
 		}
 		
@@ -307,6 +303,8 @@ namespace instance3
 		{
 			if(($pd['type'] == 1) && ($pd['hp'] <= 0))
 			{
+				$gamevars['crimson_dead'] = 1;
+				save_gameinfo();
 				$option = $roomvars['current_game_option'];
 				if(isset($option['lvl']))
 				{
@@ -315,7 +313,7 @@ namespace instance3
 					if ($alvl >= 20)
 					{
 						eval(import_module('logger'));
-						$log .= "<br><span class=\"red b\">你看到无月之影的深处似乎藏着什么东西……是错觉吗？</span><br>";
+						$log .= "<br><span class=\"red b\">红暮的幻影正在消散。一把钥匙掉落在地上，发出沉闷的响声，随后融化在地面上的血污中。<br>不远处传来隆隆的响声，似乎有什么机关开启了。</span><br>";
 					}
 				}
 			}
@@ -330,29 +328,42 @@ namespace instance3
 		
 		$ret = $chprocess();
 		if(13 == $gametype){
-			if((0 == $pls) && \skillbase\skill_query(1003,$sdata) && !\skillbase\skill_getvalue(1003,'instance3_flag0',$sdata))
+			if(0 == $pls && $gamevars['crimson_dead'])
 			{
-				$result = $db->query("SELECT pid FROM {$tablepre}players WHERE pls='0' AND type>0 AND hp>0");
-				if(!$db->num_rows($result))
+				if(\skillbase\skill_query(1003,$sdata) && !\skillbase\skill_getvalue(1003,'instance3_flag0',$sdata)) 
 				{
-					$log .= '你发现了一个破旧的保险箱，其中有一些废弃的资料。<br>';//待补充
-					$option = $roomvars['current_game_option'];
-					if(isset($option['lvl'])) 
-					{
-						$alvl = (int)$option['lvl'];
-						//高进阶开局连斗，补一点钱
-						if ($alvl >= 20)
-						{
-							$log .= '除此之外，你还发现了大约<span class="yellow b">76573</span>元的纸币。<br>';
-							$money += 76573;
-						}
+					$alvl = !empty($roomvars['current_game_option']['lvl']) ? (int)$roomvars['current_game_option']['lvl'] : 0;
+					$log .= '一个高台突兀地悬浮在一片烟尘和血污中。从周围地面破碎的痕迹看来，它不久之前才刚刚冲破伪装，从地面升起。<br><br>
+					你踏上高台并仔细检查。<br>';
+					if($alvl < 20) {
+						$log .= '那是一圈展示着幻境各处情况的大显示屏，以及看起来像是操作面板一样的仪器，风格在这个时代可以说是相当复古。你猜测这是幻境的总控制台，虽然它们并不接受你的命令。<br>';
+					}else{
+						$log .= '几乎所有仪器和操作面板都已经遭到了严重的腐蚀破坏。看起来这并不是值得久留之地。<br>';
 					}
+					$log .= '你还发现了一个保险箱。在暴力破拆之后，你找到了一些聊胜于无的资料。<br><br>';//待补充
+					
+					$doc = Array(
+						'『林氏软件的现任董事长……或者说，假冒林无月女儿的人，现在依然在静坐。除了往公司里硬塞了一百来个鱼腩，看不出有什么动作。<br>但就凭查不清底细这一点，她就不是善茬。必须警惕。』',
+						'『我委托冰炎去分析时空特使的装备，以及……那个东西了。结果还没有出来。林无月曾经暗示过一些事，但我直到现在才想清楚应该如何去验证，以及如果验证了该怎么做。<br>我真希望是她杞人忧天，而不是我后知后觉。』',
+						'『不少人对蓝凝的「不务正业」颇有微词。确实一开始连我也很惊讶，但我觉得未尝不能将计就计。不只是为了狡兔三窟，我有一种感觉，有些东西只有她才能做到……』',
+					);
+					
+					$log .= array_randompick($doc).'<br><br>';
+					
+					if ($alvl >= 20)
+					{
+						$log .= '除此之外，你还发现了<span class="yellow b">76573</span>元的纸币。<br>';
+						$money += 76573;
+					}
+					
 					\skillbase\skill_setvalue(1003,'instance3_flag0','1',$sdata);
 					$ret = 1;
+				}else{
+					$log .= '一个高台突兀地悬浮在一片烟尘和血污中。不过你确信刚才已经仔细检查过了。<br>';
 				}
 			}
+			
 		}
-		
 		return $ret;
 	}
 	
