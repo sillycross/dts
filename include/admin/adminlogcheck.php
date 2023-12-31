@@ -9,7 +9,9 @@ $adminlogfile = GAME_ROOT.'./gamedata/adminlog_nf.php';
 $adminlogdata = array();
 if(file_exists($adminlogfile)) {
 	foreach(openfile($adminlogfile) as $aval){
-		$adminlogdata[] = explode(',',$aval);
+		$expl = explode(',',$aval);
+		if(is_numeric($expl[0]))
+			$adminlogdata[] = $expl;
 	}
 }
 $showdata=array();
@@ -48,9 +50,11 @@ foreach($adminlogdata as $aval){
 			if(is_array($edv)) {
 				foreach($edv as $edvk => $edvv){
 					if(isset($lang[$edvk])) $edvk = $lang[$edvk];
+					if(strpos($edk, '密码')!==false) $edv = '****';
 					$show_p .= $edvk.' → '.$edvv.'<br>';
 				}
 			}else{
+				if(strpos($edk, '密码')!==false) $edv = '****';
 				$show_p .= $edk.' → '.$edv.'<br>';
 			}
 		}
@@ -140,6 +144,12 @@ foreach($adminlogdata as $aval){
 				}
 				$show_p .= $ck.' → '.$cv.'<br>';
 			}
+		}
+	}elseif('sendmessageur' == $o){
+		$show_o = '发送站内邮件';
+		$show_p = '收件账户：<span class="yellow b">'.$p1.'</span>&nbsp;&nbsp;&nbsp;';
+		if('Array' != $p2) {
+			$show_p .= '邮件标题：'.gdecode($p2);
 		}
 	}else{
 		$show_o = $o;

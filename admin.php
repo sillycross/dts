@@ -59,9 +59,20 @@ ob_end_flush();
 function adminlog($op,$an1='',$an2='',$an3=''){
 	global $now,$cuser;
 	$alfile = GAME_ROOT.'./gamedata/adminlog_nf.php';
+	$checkstr = "<?php if(!defined('IN_GAME')) exit('Access Denied'); ?>\r\n";
+	if(!file_exists($alfile)) {
+		file_put_contents($alfile, $checkstr);
+	}
+	else {
+		$check = file_get_contents($alfile, 0, NULL, 0, 30);
+		if(!strpos($checkstr, $check)) {
+			$cont = file_get_contents($alfile);
+			file_put_contents($alfile, $checkstr.$cont);
+		}
+	}
 	if($op){
 		$aldata = "$now,$cuser,$op,$an1,$an2,$an3,\n";
-		writeover($alfile,$aldata,'ab+');
+		file_put_contents($alfile,$aldata,FILE_APPEND);
 	}
 	return;
 }
