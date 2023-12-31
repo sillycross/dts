@@ -32,6 +32,7 @@
 			<th>口头禅</th>
 			<th>杀人留言</th>
 			<th>遗言</th>
+			<th>卡片</th>
 			<th>成就</th>
 			<th>操作</th>
 		</tr>
@@ -87,6 +88,10 @@
 			<td><input type="text" name="motto_$n" size="12" maxlength="60" value="$ur['motto']"></td>
 			<td><input type="text" name="killmsg_$n" size="12" maxlength="60" value="$ur['killmsg']"></td>
 			<td><input type="text" name="lastword_$n" size="12" maxlength="60" value="$ur['lastword']"></td>
+			<td>
+				<input type="button" id="card_data$n" value="展开列表" onclick="this.style.display='none';$('card_data_$n').style.display='block'">
+				<textarea cols="70" rows="4" style="overflow:auto;display:none;" id="card_data_$n" name="card_data_$n">$ur['card_data']</textarea>
+			</td>
 			<td>
 				<input type="button" id="achlist$n" value="展开列表" onclick="this.style.display='none';$('a_achievements_$n').style.display='block'">
 				<textarea cols="70" rows="4" style="overflow:auto;display:none;" id="a_achievements_$n" name="a_achievements_$n">$ur['a_achievements']</textarea>

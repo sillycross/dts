@@ -156,6 +156,7 @@ if($urcmd){
 	} else {
 		foreach($urdata as &$ur) {
 			if(!$ur['gender']) $ur['gender']='0';
+			$ur['card_data'] = json_encode(gdecode($ur['card_data'],1));
 			$ur['a_achievements'] = json_encode(\achievement_base\decode_achievements($ur));
 		}
 		unset($ur);
@@ -259,11 +260,14 @@ if($urcmd == 'ban' || $urcmd == 'unban' || $urcmd == 'del' || $urcmd == 'sendmes
 		$urdata[$no]['lastword'] = $urlastword = astrfilter(${'lastword_'.$no});
 		$urdata[$no]['gold'] = $urgold = astrfilter(${'gold_'.$no});
 		$urdata[$no]['icon'] = $uricon = (int)(${'icon_'.$no});
-//		$urdata[$no]['cardlist'] = $urcardlist = astrfilter(${'cardlist_'.$no});
+		$urdata[$no]['card_data'] = astrfilter(${'card_data_'.$no});
 		$urdata[$no]['a_achievements'] = astrfilter(${'a_achievements_'.$no});
 		
-		$tmp_urna = json_decode(htmlspecialchars_decode(${'a_achievements_'.$no}),1);
+		$tmp_urcd = json_decode(htmlspecialchars_decode(${'card_data_'.$no}),1);
+		//if($tmp_urcd) echo var_export($tmp_urcd,1);
+		if($tmp_urcd) $ur_card_data = gencode($tmp_urcd);
 		
+		$tmp_urna = json_decode(htmlspecialchars_decode(${'a_achievements_'.$no}),1);		
 		if($tmp_urna) $ur_achievements = \achievement_base\encode_achievements($tmp_urna);
 		
 		if(!in_array(${'gender_'.$no},array('0','m','f'))){
@@ -273,7 +277,9 @@ if($urcmd == 'ban' || $urcmd == 'unban' || $urcmd == 'del' || $urcmd == 'sendmes
 		}
 		
 		$log_new_data = $urdata[$no];
+		$log_new_data['card_data'] = htmlspecialchars_decode(${'card_data_'.$no});
 		$log_new_data['a_achievements'] = htmlspecialchars_decode(${'a_achievements_'.$no});
+		
 		$cmd_info = '';
 		$updarr = array(
 			'motto' => $urmotto,
@@ -291,6 +297,11 @@ if($urcmd == 'ban' || $urcmd == 'unban' || $urcmd == 'del' || $urcmd == 'sendmes
 			$updarr['password'] = $urpass;
 			$updarr['alt_pswd'] = 1;
 			$cmd_info = "修改了帐户 {$urdata[$no]['username']} 的密码！<br>";
+		}
+		if(empty($tmp_urcd)) {
+			$cmd_info.="提交的卡片参数无效，已被忽略！<br>";
+		}else{
+			$updarr['card_data'] = $ur_card_data;
 		}
 		if(empty($tmp_urna)) {
 			$cmd_info.="提交的成就参数无效，已被忽略！<br>";
@@ -314,6 +325,14 @@ if($urcmd == 'ban' || $urcmd == 'unban' || $urcmd == 'del' || $urcmd == 'sendmes
 				$log_old_data['a_achievements'][326] = $log_new_data['a_achievements'][326] = '';
 			}
 			$log_diff_data['a_achievements'] =array_diff_assoc($log_new_data['a_achievements'], $log_old_data['a_achievements']);
+		}
+		if(isset($log_diff_data['card_data'])) {
+			$log_new_data['card_data'] = json_decode($log_new_data['card_data'],1);
+			foreach($log_new_data['card_data'] as &$v) $v = json_encode($v);
+			$log_old_data['card_data'] = json_decode($log_old_data['card_data'],1);
+			foreach($log_old_data['card_data'] as &$v) $v = json_encode($v);
+			$log_diff_data['card_data'] =array_diff_assoc($log_new_data['card_data'], $log_old_data['card_data']);
+			//echo var_export($log_diff_data['card_data'],1).'<br>';
 		}
 		adminlog('editur',$urdata[$no]['username'],gencode($log_diff_data));
 	}
