@@ -25,30 +25,36 @@ check_authority();
 $result = $db->query("DESCRIBE {$tablepre}users");
 $ret = $db->fetch_all($result);
 
-$validgames_need_alter = $wingames_need_alter = 0;
+$validgames_need_alter = $wingames_need_alter = $lastgame_need_alter = 0;
 $lastvisit_need_add = 1;
 
 foreach($ret as $v) {
 	if($v['Field'] == 'lastvisit') $lastvisit_need_add = 0;
-	if($v['Field'] == 'validgames' && substr($v['Type'], 0, 6)!=='medium') $validgames_need_alter = 1;
-	if($v['Field'] == 'wingames' && substr($v['Type'], 0, 6)!=='medium') $wingames_need_alter = 1;
+	if($v['Field'] == 'validgames' && substr($v['Type'], 0, 9)!=='mediumint') $validgames_need_alter = 1;
+	if($v['Field'] == 'wingames' && substr($v['Type'], 0, 9)!=='mediumint') $wingames_need_alter = 1;
+	if($v['Field'] == 'lastgame' && substr($v['Type'], 0, 4)!=='char') $lastgame_need_alter = 1;
 }
 
 //var_dump($lastvisit_need_add, $validgames_need_alter, $wingames_need_alter);
 
 if($lastvisit_need_add) {
 	echo 'Column "lastvisit" has not been added. Now adding...<br>';
-	$result = $db->query("ALTER TABLE {$tablepre}users ADD COLUMN lastvisit int(10) unsigned NOT NULL DEFAULT '0'");
+	$result = $db->query("ALTER TABLE {$tablepre}users ADD COLUMN lastvisit int(10) unsigned NOT NULL DEFAULT '0' AFTER lastword");
 	echo 'Done.<br><br>';
 }
 if($validgames_need_alter) {
 	echo 'Column "validgames" needs to be altered. Now altering...<br>';
-	$result = $db->query("ALTER TABLE {$tablepre}users MODIFY COLUMN validgames mediumint(8)");
+	$result = $db->query("ALTER TABLE {$tablepre}users MODIFY COLUMN validgames mediumint(8) unsigned NOT NULL DEFAULT '0'");
 	echo 'Done.<br><br>';
 }
 if($wingames_need_alter) {
 	echo 'Column "wingames" needs to be altered. Now altering...<br>';
-	$result = $db->query("ALTER TABLE {$tablepre}users MODIFY COLUMN wingames mediumint(8)");
+	$result = $db->query("ALTER TABLE {$tablepre}users MODIFY COLUMN wingames mediumint(8) unsigned NOT NULL DEFAULT '0'");
+	echo 'Done.<br><br>';
+}
+if($lastgame_need_alter) {
+	echo 'Column "lastgame" needs to be altered. Now altering...<br>';
+	$result = $db->query("ALTER TABLE {$tablepre}users MODIFY COLUMN lastgame char(10) NOT NULL DEFAULT ''");
 	echo 'Done.<br><br>';
 }
 
