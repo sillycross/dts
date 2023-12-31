@@ -65,7 +65,7 @@ function adminlog($op,$an1='',$an2='',$an3=''){
 	}
 	else {
 		$check = file_get_contents($alfile, 0, NULL, 0, 30);
-		if(!strpos($checkstr, $check)) {
+		if(strpos($checkstr, $check)!==0) {
 			$cont = file_get_contents($alfile);
 			file_put_contents($alfile, $checkstr.$cont);
 		}

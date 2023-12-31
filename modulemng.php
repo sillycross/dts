@@ -36,7 +36,7 @@ if (file_exists(GAME_ROOT.'./gamedata/modules.list.pass.php'))
 	unlink(GAME_ROOT.'./gamedata/modules.list.pass.php');
 }
 
-if (!file_exists(GAME_ROOT.'./gamedata/modules.list.temp.php'))
+if (!file_exists(GAME_ROOT.'./gamedata/modules.list.temp.php') || time() - filemtime(GAME_ROOT.'./gamedata/modules.list.temp.php') > 86400)//创建时间超过1天的temp文件会废弃
 {
 	copy(GAME_ROOT.'./gamedata/modules.list.php',GAME_ROOT.'./gamedata/modules.list.temp.php');
 }
