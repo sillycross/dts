@@ -31,7 +31,7 @@ namespace skill907
 		$itm=&$theitem['itm']; $itmk=&$theitem['itmk'];
 		if (\skillbase\skill_query(907))
 		{
-			if (strpos($itmk, 'EE') === 0 || ((strpos($itmk, 'ER') === 0) && rand(0,9)))
+			if (strpos($itmk, 'EE') === 0 || ((strpos($itmk, 'ER') === 0) && rand(0,99)))
 			{
 				eval(import_module('logger'));	
 				$log .= "周围充斥的强电磁波使你使用{$itm}的尝试失败了。<br>";
