@@ -1147,6 +1147,7 @@ namespace cardbase
 		$cgmethod[190][] = '帮助游戏抓到BUG后由管理员奖励获得';
 		$cgmethod[368][] = '帮助游戏抓到BUG后由管理员奖励获得';
 		$cgmethod[369][] = '帮助游戏抓到BUG后由管理员奖励获得';
+		$cgmethod[383][] = '帮助游戏抓到BUG后由管理员奖励获得';
 		
 		for($ci=200;$ci<=204;$ci++) {
 			$cgmethod[$ci][] = '<font color=grey>完成2017十一活动「新的战场 LV2」可能获得</font>';
