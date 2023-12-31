@@ -297,6 +297,32 @@ namespace instance3
 		return $chprocess();
 	}
 	
+	//击倒红暮时会有提示信息
+	function kill(&$pa, &$pd)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($pa,$pd);
+		eval(import_module('sys'));
+		if(13 == $gametype)
+		{
+			if(($pd['type'] == 1) && ($pd['hp'] <= 0))
+			{
+				$option = $roomvars['current_game_option'];
+				if(isset($option['lvl']))
+				{
+					$alvl = (int)$option['lvl'];
+					//高进阶保险箱事件的提示
+					if ($alvl >= 20)
+					{
+						eval(import_module('logger'));
+						$log .= "<br><span class=\"red b\">你看到无月之影的深处似乎藏着什么东西……是错觉吗？</span><br>";
+					}
+				}
+			}
+		}
+		return $ret;
+	}
+	
 	function event()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
