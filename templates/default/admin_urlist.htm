@@ -23,7 +23,8 @@
 			<th>账号</th>
 			<th>密码</th>
 			<th>权限</th>
-			<th>最新游戏</th>
+			<th>最近登陆</th>
+			<th>最近游戏</th>
 			<th>ip</th>
 			<th>分数</th>
 			<th>性别</th>
@@ -40,71 +41,73 @@
 		<!--{loop $urdata $n $ur}-->
 		<tr>
 			<!--{if $ur['groupid']>=$mygroup && $ur['username'] != $cuser}-->
-			<td><input type="checkbox" id="user_$n" name="user_$n" value="{$ur['uid']}" disabled="true"></td>
-			<td>{$ur['username']}</td>
-			<td><input type="text" name="pass_$n" size="12" maxlength="20" value="无法修改" disabled="true"></td>
-			<td>{$urgroup[$ur['groupid']]}</td>
-			<td>第{$ur['lastgame']}局</td>
-			<td>{$ur['ip']}</td>
-			<td>{$ur['credits']}</td>
-			<td>
-				<select name="gender_$n" disabled="true">
-					<option value="0" <!--{if $ur['gender']==0}-->selected<!--{/if}-->>$ursex['0']
-					<option value="m" <!--{if $ur['gender']=='m'}-->selected<!--{/if}-->>$ursex['m']
-					<option value="f" <!--{if $ur['gender']=='f'}-->selected<!--{/if}-->>$ursex['f']
-				</select>
-			</td>
-			<td><input type="text" name="icon_$n" size="2" maxlength="2" value="$ur['icon']" disabled="true"></td>
-			<td><input type="text" name="gold_$n" size="5" maxlength="20" value="$ur['gold']" disabled="true"></td>
-			<td><input type="text" name="motto_$n" size="12" maxlength="20" value="$ur['motto']" disabled="true"></td>
-			<td><input type="text" name="killmsg_$n" size="12" maxlength="20" value="$ur['killmsg']" disabled="true"></td>
-			<td><input type="text" name="lastword_$n" size="12" maxlength="20" value="$ur['lastword']" disabled="true"></td>
-			<td>
-				<input type="submit" value="不可修改" disabled="true">
-			</td>
-			<td>
-				<input type="submit" value="不可修改" disabled="true">
-			</td>
-			<td>
-				<input type="submit" value="修改" disabled="true">
-			</td>
+				<td><input type="checkbox" id="user_$n" name="user_$n" value="{$ur['uid']}" disabled="true"></td>
+				<td>{$ur['username']}</td>
+				<td><input type="text" name="pass_$n" size="8" maxlength="20" value="无法修改" disabled="true"></td>
+				<td>{$urgroup[$ur['groupid']]}</td>
+				<td><!--{eval echo !empty($ur['lastvisit']) ? date("Y-m-d H:i:s", $ur['lastvisit']) : '未登录';}--></td>
+				<td><!--{if 's'==substr($ur['lastgame'],0,1)}-->房间第<!--{eval echo substr($ur['lastgame'],1);}-->局<!--{else}-->第{$ur['lastgame']}局<!--{/if}--></td>
+				<td>{$ur['ip']}</td>
+				<td>{$ur['credits']}</td>
+				<td>
+					<select name="gender_$n" disabled="true">
+						<option value="0" <!--{if $ur['gender']==0}-->selected<!--{/if}-->>$ursex['0']
+						<option value="m" <!--{if $ur['gender']=='m'}-->selected<!--{/if}-->>$ursex['m']
+						<option value="f" <!--{if $ur['gender']=='f'}-->selected<!--{/if}-->>$ursex['f']
+					</select>
+				</td>
+				<td><input type="text" name="icon_$n" size="2" maxlength="2" value="$ur['icon']" disabled="true"></td>
+				<td><input type="text" name="gold_$n" size="5" maxlength="20" value="$ur['gold']" disabled="true"></td>
+				<td><input type="text" name="motto_$n" size="8" maxlength="20" value="$ur['motto']" disabled="true"></td>
+				<td><input type="text" name="killmsg_$n" size="8" maxlength="20" value="$ur['killmsg']" disabled="true"></td>
+				<td><input type="text" name="lastword_$n" size="8" maxlength="20" value="$ur['lastword']" disabled="true"></td>
+				<td>
+					<input type="submit" value="不可修改" disabled="true">
+				</td>
+				<td>
+					<input type="submit" value="不可修改" disabled="true">
+				</td>
+				<td>
+					<input type="submit" value="修改" disabled="true">
+				</td>
 			<!--{else}-->
-			<td><input type="checkbox" id="user_$n"  name="user_$n" value="{$ur['uid']}"></td>
-			<td>{$ur['username']}</td>
-			<td><input type="text" name="pass_$n" size="12" maxlength="20" value=""></td>
-			<td>{$urgroup[$ur['groupid']]}</td>
-			<td>第{$ur['lastgame']}局</td>
-			<td>{$ur['ip']}</td>
-			<td>{$ur['credits']}</td>
-			<td>
-				<select name="gender_$n">
-					<option value="0" <!--{if $ur['gender']==0}-->selected<!--{/if}-->>$ursex['0']
-					<option value="m" <!--{if $ur['gender']=='m'}-->selected<!--{/if}-->>$ursex['m']
-					<option value="f" <!--{if $ur['gender']=='f'}-->selected<!--{/if}-->>$ursex['f']
-				</select>
-			</td>
-			<td><input type="text" name="icon_$n" size="2" maxlength="2" value="$ur['icon']"></td>
-			<td><input type="text" name="gold_$n" size="5" maxlength="20" value="$ur['gold']"></td>
-			<td><input type="text" name="motto_$n" size="12" maxlength="60" value="$ur['motto']"></td>
-			<td><input type="text" name="killmsg_$n" size="12" maxlength="60" value="$ur['killmsg']"></td>
-			<td><input type="text" name="lastword_$n" size="12" maxlength="60" value="$ur['lastword']"></td>
-			<td>
-				<input type="button" id="card_data$n" value="展开列表" onclick="this.style.display='none';$('card_data_$n').style.display='block'">
-				<textarea cols="70" rows="4" style="overflow:auto;display:none;" id="card_data_$n" name="card_data_$n">$ur['card_data']</textarea>
-			</td>
-			<td>
-				<input type="button" id="achlist$n" value="展开列表" onclick="this.style.display='none';$('a_achievements_$n').style.display='block'">
-				<textarea cols="70" rows="4" style="overflow:auto;display:none;" id="a_achievements_$n" name="a_achievements_$n">$ur['a_achievements']</textarea>
-			</td>
-			<td>
-				<input type="submit" value="修改" onclick="$('urcmd').value='edit_{$n}_{$ur['uid']}'">
-			</td>
+				<td><input type="checkbox" id="user_$n"  name="user_$n" value="{$ur['uid']}"></td>
+				<td>{$ur['username']}</td>
+				<td><input type="text" name="pass_$n" size="8" maxlength="20" value=""></td>
+				<td>{$urgroup[$ur['groupid']]}</td>
+				<td><!--{eval echo !empty($ur['lastvisit']) ? date("Y-m-d H:i:s", $ur['lastvisit']) : '未登录';}--></td>
+				<td><!--{if 's'==substr($ur['lastgame'],0,1)}-->房间第<!--{eval echo substr($ur['lastgame'],1);}-->局<!--{else}-->第{$ur['lastgame']}局<!--{/if}--></td>
+				<td>{$ur['ip']}</td>
+				<td>{$ur['credits']}</td>
+				<td>
+					<select name="gender_$n">
+						<option value="0" <!--{if $ur['gender']==0}-->selected<!--{/if}-->>$ursex['0']
+						<option value="m" <!--{if $ur['gender']=='m'}-->selected<!--{/if}-->>$ursex['m']
+						<option value="f" <!--{if $ur['gender']=='f'}-->selected<!--{/if}-->>$ursex['f']
+					</select>
+				</td>
+				<td><input type="text" name="icon_$n" size="2" maxlength="2" value="$ur['icon']"></td>
+				<td><input type="text" name="gold_$n" size="5" maxlength="20" value="$ur['gold']"></td>
+				<td><input type="text" name="motto_$n" size="8" maxlength="60" value="$ur['motto']"></td>
+				<td><input type="text" name="killmsg_$n" size="8" maxlength="60" value="$ur['killmsg']"></td>
+				<td><input type="text" name="lastword_$n" size="8" maxlength="60" value="$ur['lastword']"></td>
+				<td>
+					<input type="button" id="card_data$n" value="展开列表" onclick="this.style.display='none';$('card_data_$n').style.display='block'">
+					<textarea cols="20" rows="5" style="overflow:auto;display:none;" id="card_data_$n" name="card_data_$n">$ur['card_data']</textarea>
+				</td>
+				<td>
+					<input type="button" id="achlist$n" value="展开列表" onclick="this.style.display='none';$('a_achievements_$n').style.display='block'">
+					<textarea cols="20" rows="5" style="overflow:auto;display:none;" id="a_achievements_$n" name="a_achievements_$n">$ur['a_achievements']</textarea>
+				</td>
+				<td>
+					<input type="submit" value="修改" onclick="$('urcmd').value='edit_{$n}_{$ur['uid']}'">
+				</td>
 			<!--{/if}-->
 		</tr>
 		<!--{/loop}-->
 		<tr>
 			<td colspan=2><input type="checkbox" name="user_all" onchange="for(i=0; i<=$n;i++){if(! $('user_'+i).disabled){if(this.checked==true){$('user_'+i).checked=true}else{$('user_'+i).checked=false}}}">全选</td>
-			<td colspan=12 style="text-align:center;">
+			<td colspan=15 style="text-align:center;">
 				<input type="submit" name="submit" value="封停选中玩家" onclick="$('urcmd').value='ban'">
 				<input type="submit" name="submit" value="解封选中玩家" onclick="$('urcmd').value='unban'">
 				<input type="submit" name="submit" value="删除选中玩家" onclick="$('urcmd').value='del'">
@@ -112,7 +115,7 @@
 		</tr>
 		<tr>
 			<td colspan=2></td>
-			<td colspan=12 style="text-align:center;">
+			<td colspan=15 style="text-align:center;">
 				标题：
 				<input type="text" name="stitle" size="6" maxlength="20" value="发放奖励">&nbsp;&nbsp;&nbsp;
 				正文：

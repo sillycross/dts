@@ -46,8 +46,8 @@ if(empty($userdata)) {
 		gexit($_ERROR['wrong_pw'],__file__,__line__);
 	}
 }
-//重设IP
-update_udata_by_username(array('ip' => $onlineip), $username);
+//重设IP和登陆时间
+update_udata_by_username(array('ip' => $onlineip, 'lastvisit' => $now), $username);
 
 gsetcookie('user',$userdata['username'],86400*15);
 gsetcookie('pass',$password,86400*15);
