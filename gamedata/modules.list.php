@@ -346,6 +346,7 @@ skill562,extra/card/skills/skill562/,1
 skill600,extra/club/skills/skill600/,1
 skill20,extra/club/skills/skill20/,1
 skill492,extra/card/skills/skill492/,1
+skill723,extra/card/skills/skill723/,1
 skill24,extra/club/skills/skill24/,1
 skill33,extra/club/skills/skill33/,1
 skill579,extra/card/skills/skill579/,1
