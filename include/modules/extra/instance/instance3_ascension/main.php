@@ -382,8 +382,8 @@ namespace instance3
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($alvl == 0) return 100;
-		elseif ($alvl <= 10) return 400*$alvl;
-		elseif ($alvl < 20) return 1000*$alvl-6000;
+		elseif ($alvl <= 10) return 200*$alvl;
+		elseif ($alvl < 20) return 500*$alvl-3000;
 		elseif ($alvl < 30) return 1000*$alvl-2000;
 		else return 30000;
 	}
