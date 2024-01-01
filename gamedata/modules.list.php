@@ -36,7 +36,6 @@ gameflow_duel,core/gameflow/gameflow_duel/,1
 itemmix_overlay,base/itemmix/itemmix_overlay/,1
 team,base/team/,1
 battle,base/battle/,1
-item_slip,extra/item_extra/item_slip/,1
 item_misc,base/items/item_misc/,1
 gameflow_combo,core/gameflow/gameflow_combo/,1
 advteam,extra/misc/advteam/,1
@@ -59,6 +58,7 @@ skill2,base/skills/skill2/,1
 skill3,base/skills/skill3/,1
 item_uv,base/items/item_uv/,1
 npcchat_bubble,extra/misc/npcchat_bubble/,1
+item_slip,extra/item_extra/item_slip/,1
 skill533,extra/card/skills/skill533/,1
 skill11,extra/club/skills/skill11/,1
 skill10,extra/club/skills/skill10/,1

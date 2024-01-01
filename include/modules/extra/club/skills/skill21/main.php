@@ -18,6 +18,7 @@ namespace skill21
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
+	//获得所有NPC进化数据
 	function get_enpcinfo()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -25,6 +26,14 @@ namespace skill21
 		return $enpcinfo;
 	}
 	
+	//单个NPC进化数据的提前处理。本模块是直接返回，其他模块可继承
+	function evonpc_npcdata_process($enpc, $xtype, $xname)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $enpc;
+	}
+	
+	//NPC进化主函数
 	function evonpc($xtype,$xname)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -39,7 +48,7 @@ namespace skill21
 		$num = $db->num_rows($result);
 		if(!$num) return false;
 		
-		$npc=$enpc[$xname];
+		$npc=evonpc_npcdata_process($enpc[$xname], $xtype, $xname);
 		$npc['hp'] = $npc['mhp'];
 		$npc['sp'] = $npc['msp'];
 		$npc['exp'] = \lvlctl\calc_upexp($npc['lvl'] - 1);

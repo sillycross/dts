@@ -190,19 +190,19 @@ namespace item_misc
 					$log.='大逃杀幻境已确认你的权限狗身份，正在为你输送权限套装……<br>';
 					$wp=$wk=$wg=$wc=$wd=$wf=666;
 					$ss=$mss=600;
-					$att+=200;$def+=200;
-					$money+=19980;
+					//$att+=200;$def+=200;
+					$money+=114494;
 					$itm1='美味补给';$itmk1 = 'HB';$itmsk1 = '';$itme1 = 2777;$itms1 = 277;
 					$itm2='全恢复药剂';$itmk2 = 'Ca';$itmsk2 = '';$itme2 = 1;$itms2 = 44;
 					$itm3='食堂的剩饭';$itmk3 = 'HR';$itmsk3 = '';$itme3 = 100;$itms3 = 15;
 					$itm4='哔哔小马';$itmk4 = 'ER';$itmsk4 = '^rdsk58';$itme4 = 20;$itms4 = 1;
 					$itm5='聪明药';$itmk5 = 'ME';$itmsk5 = '';$itme5 = 100;$itms5 = 4;
 					//$itm5='游戏解除钥匙';$itmk5 = 'Y';$itmsk5 = '';$itme5 = 1;$itms5 = 1;
-					$arb='代码聚合体的长袍';$arbk = 'DB';$arbsk = 'Bb';$arbe = 5000;$arbs = 1000;
-					$arh='代码聚合体的面罩';$arhk = 'DH';$arhsk = 'Aa';$arhe = 5000;$arhs = 1000;
-					$ara='代码聚合体的手套';$arak = 'DA';$arask = 'Hh';$arae = 5000;$aras = 1000;
-					$arf='代码聚合体的鞋子';$arfk = 'DF';$arfsk = 'Mm';$arfe = 5000;$arfs = 1000;
-					$art='Untainted Glory';$artk = 'A';$artsk = '';$arte = 1;$arts = 1;
+					$arb='代码聚合体的长袍';$arbk = 'DB';$arbe = 5000;$arbs = 1000;$arbsk = 'Bb';
+					$arh='代码聚合体的面罩';$arhk = 'DH';$arhe = 5000;$arhs = 1000;$arhsk = 'Aa';
+					$ara='代码聚合体的手套';$arak = 'DA';$arae = 5000;$aras = 1000;$arask = 'Hh';
+					$arf='代码聚合体的鞋子';$arfk = 'DF';$arfe = 5000;$arfs = 1000;$arfsk = 'Mm';
+					$art='Untainted Glory';$artk = 'A';$arte = 1;$arts = 1;$artsk = 'c^hu2000';
 					if (defined('MOD_CLUBBASE')) eval(import_module('clubbase'));
 					foreach(array(1010,1011,1012) as $skv){
 						if(defined('MOD_SKILL'.$skv)) {
