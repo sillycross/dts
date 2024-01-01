@@ -385,8 +385,8 @@ namespace instance3
 		elseif ($alvl <= 10) return 200*$alvl;
 		elseif ($alvl < 20) return 500*$alvl-3000;
 		elseif ($alvl == 20) return 12000;
-		elseif ($alvl < 30) return 1000*$alvl-2000;
-		else return 30000;
+		elseif ($alvl < 25) return 1000*$alvl-5000;
+		else return 2000*$alvl-30000;
 	}
 	
 	function post_winnercheck_events($winner)
