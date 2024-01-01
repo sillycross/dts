@@ -162,7 +162,7 @@ $tutorial_story[1] = Array(
 		'tips' => '“这次你应该能够先手了。<br>找到敌人的话，就点击具体的<span class="yellow b">【攻击方式】</span>按钮。”<br>',
 		'object' => 'kill',
 		'obj2' => Array(
-			'meetnpc' => 91, 'meetsub' => 0,'active' => 1,'changevar' => Array('hp' => 1),'always_hit' => 1
+			'meetnpc' => 91, 'meetsub' => 0,'active' => 1,'changevar' => Array('hp' => 1, 'money' => 2000),'always_hit' => 1
 		),
 		'pulse' => '#z',		
 		'prog' => '“错过攻击机会也没有关系，在原地<span class="yellow b">探索</span>仍有机会发现同一个敌人。”<br>',
@@ -519,7 +519,7 @@ $tutorial_npc[1] = array(
 			'def' => 80,
 			'lvl' => 1,
 			'skill' => 50,
-			'money' => 2000,
+			'money' => 1,
 			'arb' => '便服',
 			'arbk' => 'DB',
 			'arbe' => 10,
