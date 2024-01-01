@@ -73,7 +73,10 @@ namespace npc
 	);
 	
 	$npc_lwinfo = Array(
-	1 => '任务执行成功率下降，重新计算成功率。',
+	1 => Array(
+		'红暮' => '任务执行成功率下降，重新计算成功率。',
+		'红暮 DUMMY' => '[DUMMY系统机能中止]',
+	),
 	2 => Array(
     '幻影斗将神 S.A.S' => '机体受损过重，任务被迫中止。',
     '熵魔法传人 Howling' => '机体受损过重，任务被迫中止。',
@@ -102,6 +105,7 @@ namespace npc
 	8 => '系统出错了吗？',
 	9 => Array(
 		'蓝凝' => 'Mission in jeopardy, Begin ALT_ROUTINE.',
+		'蓝凝 DUMMY' => '[DUMMY系统机能中止]',
 		'"FLEUR"' => 'RETREAT.'
 	),
 	10 => '这、这不可能，我竟败了？我李天明，败了？！',
