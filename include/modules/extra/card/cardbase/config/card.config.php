@@ -5177,8 +5177,9 @@ $cards = array(
 		)
 	),
 	303 => array(
-		'name' => '其徐如林',
-		'title' => 'Normal',
+		'name' => '第一地狱·该隐环',
+		'ruby' => 'Normal',
+		'title' => '第一地狱',
 		'rare' => 'B',
 		'pack' => 'hidden',
 		'desc' => '<span class="vermilion b">『「NPC底座」可以量产精英战士，少数幸运儿甚至能成为英雄、怪物，乃至神明……』</span>',
@@ -5200,8 +5201,9 @@ $cards = array(
 		)
 	),
 	304 => array(
-		'name' => '批其逆鳞',
-		'title' => 'Hard',
+		'name' => '第二地狱·安特诺尔环',
+		'ruby' => 'Hard',
+		'title' => '第二地狱',
 		'rare' => 'A',
 		'pack' => 'hidden',
 		'desc' => '<span class="vermilion b">『熟练激发自己的潜能，而无需借助外界的力量。如果把这个能力<br>带回现实，就足够独当一面了。』</span>',
@@ -5214,8 +5216,9 @@ $cards = array(
 		)
 	),
 	305 => array(
-		'name' => '3倍冰淇淋！！！',
-		'title' => 'Lunatic',
+		'name' => '第三地狱·托勒密环',
+		'ruby' => 'Lunatic',
+		'title' => '第三地狱',
 		'rare' => 'S',
 		'pack' => 'hidden',
 		'desc' => '<span class="ltcrimson b">『脆弱、虚弱、笨拙、迷离，<br>而敌人却远比以前强大。<br><br>根本不公平……<br>你一定想这么说吧。』</span>',
@@ -5224,6 +5227,24 @@ $cards = array(
 		'valid' => array(
 		  'club' => '17',
 			'skills' => array(
+				'10' => '0', 
+				'11' => '0', 
+				'12' => '0',
+			),
+		)
+	),
+	306 => array(
+		'name' => '最终地狱·犹大环',
+		'ruby' => '3倍冰淇淋!!!!!!',
+		'title' => '最终地狱',
+		'rare' => 'M',
+		'pack' => 'hidden',
+		'desc' => '<span class="white b">既然你都来到这里了</span>',
+		'effect' => '<span class="white b">应该做好心理准备了吧？</span>',
+		'energy' => 0,
+		'valid' => array(
+		  'club' => '17',
+			'skills' => array(//todo
 				'10' => '0', 
 				'11' => '0', 
 				'12' => '0',
