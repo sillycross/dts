@@ -870,7 +870,7 @@ namespace cardbase
 		list($show_cardid, $uip['cardname_show'], $show_rare, $show_cardblink, $uip['cardinfo_show']) = parse_card_show_data($sdata);
 		
 		//如果卡片是挑战者或者是隐藏卡片，不予显示卡面
-		if(!$show_cardid || 'hidden' == $cards[$show_cardid]['pack']) {
+		if(!$show_cardid || !empty($cards[$show_cardid]['hidden_cardframe'])) {
 			unset($uip['cardinfo_show']);
 		}
 		//用于显示用的罕贵类型

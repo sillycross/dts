@@ -141,10 +141,10 @@ namespace instance3
 			if(isset($option['lvl']))
 			{
 				$alvl = (int)$option['lvl'];
-				$card = array(90,282,129)[floor(max($alvl-1,0)/10)];
+				$card = array(303,304,305)[floor(max($alvl-1,0)/10)];
 				return $card;
 			}
-			else return 90;
+			else return 303;
 		}
 		return $chprocess($card);
 	}

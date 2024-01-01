@@ -1610,6 +1610,7 @@ $cards = array(
 		'pack' => 'hidden',
 		'desc' => 'PVE房间（gtype=16）1号位。正常是看不到这句话的。',
 		'effect' => '',
+		'hidden_cardframe' => 1,//隐藏卡面显示
 		'energy' => 0,
 		'valid' => array(
 			'club' => '94',
@@ -1632,6 +1633,7 @@ $cards = array(
 		'pack' => 'hidden',
 		'desc' => 'PVE房间（gtype=16）2号位。正常是看不到这句话的。',
 		'effect' => '',
+		'hidden_cardframe' => 1,//隐藏卡面显示
 		'energy' => 0,
 		'valid' => array(
 			'club' => '95',
@@ -1653,6 +1655,7 @@ $cards = array(
 		'pack' => 'hidden',
 		'desc' => 'PVE房间（gtype=16）3号位。你刚才偷偷看了对吧？',
 		'effect' => '',
+		'hidden_cardframe' => 1,//隐藏卡面显示
 		'energy' => 0,
 		'valid' => array(
 			'club' => '96',
@@ -5171,6 +5174,60 @@ $cards = array(
 			'itme6' => '100',
 			'itms6' => '15',
 			'itmsk6' => 'u^ac1',
+		)
+	),
+	303 => array(
+		'name' => '其徐如林',
+		'title' => 'Normal',
+		'rare' => 'B',
+		'pack' => 'hidden',
+		'desc' => '<span class="vermilion b">『「NPC底座」可以量产精英战士，少数幸运儿甚至能成为英雄、怪物，乃至神明……』</span>',
+		'effect' => '<span class="vermilion b">『然而，这只是幻境的馈赠，<br>不是你自己的力量。』</span>',
+		'energy' => 0,
+		'valid' => array(
+			'club' => '94',
+			'skills' => array(
+				'10' => '0', 
+				'11' => '0', 
+				'12' => '0', 
+				'58' => '0',
+				'61' => '0', 
+				'72' => '0', 
+				'73' => '0', 
+				'59' => '0', 
+			),
+			'skillpoint' => '+5',
+		)
+	),
+	304 => array(
+		'name' => '批其逆鳞',
+		'title' => 'Hard',
+		'rare' => 'A',
+		'pack' => 'hidden',
+		'desc' => '<span class="vermilion b">『熟练激发自己的潜能，而无需借助外界的力量。如果把这个能力<br>带回现实，就足够独当一面了。』</span>',
+		'effect' => '<span class="vermilion b">『但这也只是刚刚开始。』</span>',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'275' => '0',
+			),
+		)
+	),
+	305 => array(
+		'name' => '3倍冰淇淋！！！',
+		'title' => 'Lunatic',
+		'rare' => 'S',
+		'pack' => 'hidden',
+		'desc' => '<span class="ltcrimson b">『脆弱、虚弱、笨拙、迷离，<br>而敌人却远比以前强大。<br><br>根本不公平……<br>你一定想这么说吧。』</span>',
+		'effect' => '<span class="ltcrimson b">『毕竟，这个世界<br>从一开始就没有公平过。』</span>',
+		'energy' => 0,
+		'valid' => array(
+		  'club' => '17',
+			'skills' => array(
+				'10' => '0', 
+				'11' => '0', 
+				'12' => '0',
+			),
 		)
 	),
 	341 => array(

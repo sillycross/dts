@@ -56,7 +56,7 @@ while($playerdata = $db->fetch_array($query)) {
 		eval(import_module('cardbase'));
 		list($show_cardid, $null, $playerdata['nowcardrare'], $playerdata['nowcardblink'], $playerdata['nowcardinfo']) = \cardbase\parse_card_show_data($playerdata);
 		//如果卡片是挑战者或者是隐藏卡片，不予显示卡面
-		if(!$show_cardid || 'hidden' == $cards[$show_cardid]['pack']) {
+		if(!$show_cardid || !empty($cards[$show_cardid]['hidden_cardframe'])) {
 			$playerdata['nowcardinfo'] = NULL;
 		}
 	}
