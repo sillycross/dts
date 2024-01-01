@@ -463,7 +463,7 @@ if(room_get_vars($roomdata,'soleroom')){//永续房只进行离开判定
 				}elseif ($roomdata['roomtype'] == 11){
 					$current_go=room_get_vars($roomdata, 'current_game_option');
 					$alvl = (int)$current_go['lvl'];
-					if ($alvl >= 18)
+					if ($alvl >= 20)
 					{
 						$gamestate = 40;
 						addnews($now,'combo');
