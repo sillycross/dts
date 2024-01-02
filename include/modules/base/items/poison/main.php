@@ -59,16 +59,19 @@ namespace poison
 			$playerflag = 0;
 			$poisonerid = poison_check_pid($itmsk);
 			if (!empty($poisonerid)) $playerflag = 1;
+			
 			$selflag = 0;
 			if ($playerflag && $poisonerid == $pid) $selflag = 1;
-			if  ($playerflag)
-			{
+			if ($playerflag && $selflag) {//2024.01.02如果是自己，需要避免用fetch_playerdata_by_pid取自己的数据，这会造成丢失某些临时变量
+				$log .= "糟糕，<span class=\"yellow b\">$itm</span>中被<span class=\"yellow b\">你自己</span>掺入了毒药！你受到了<span class=\"dmg\">$damage</span>点伤害！<br>";
+				addnews ( $now, 'poison', $name, $name, $itm );
+			}
+			elseif ($playerflag){
 				$wdata = \player\fetch_playerdata_by_pid($poisonerid);
 				$wprefix = '<span class="yellow b">'.$wdata['name'].'</span>';
-				if ($selflag) $wprefix = '你自己';
 				$log .= "糟糕，<span class=\"yellow b\">$itm</span>中被{$wprefix}掺入了毒药！你受到了<span class=\"dmg\">$damage</span>点伤害！<br>";
 				addnews ( $now, 'poison', $name, $wdata ['name'], $itm );
-				if (!$selflag) send_poison_enemylog($itm,$poisonerid);
+				send_poison_enemylog($itm,$poisonerid);
 			} else {
 				$log .= "糟糕，<span class=\"yellow b\">$itm</span>有毒！你受到了<span class=\"dmg\">$damage</span>点伤害！<br>";
 			}
@@ -82,7 +85,7 @@ namespace poison
 					$sdata['bid'] = $poisonerid;
 					$log .= "你被<span class=\"red b\">" . $wdata ['name'] . "</span>毒死了！";
 				}
-				else  if ($playerflag)			//有来源，来源是自己（自己下的毒）
+				elseif ($playerflag)			//有来源，来源是自己（自己下的毒）
 				{
 					$sdata['bid'] = $poisonerid;
 					$wdata = &$sdata;
@@ -92,6 +95,7 @@ namespace poison
 				{
 					$wdata = &$sdata;
 					$sdata['sourceless']=1;
+					$sdata['bid'] = 0;
 					$log .= "你被毒死了！";
 				}
 				$wdata['attackwith']=$itm;
