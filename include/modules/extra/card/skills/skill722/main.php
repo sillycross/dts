@@ -97,6 +97,7 @@ namespace skill722
 	function skill722_process_single(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$dice = rand(1,6);
 		for ($i=1;$i<=6;$i++)
 		{
 			if ($pa['itm'.$i] != '雪')
@@ -104,9 +105,10 @@ namespace skill722
 				if (!empty($pa['itms'.$i]))
 				{
 					$itmarr = implode(',', array($pa['itm'.$i], $pa['itmk'.$i], $pa['itme'.$i], $pa['itms'.$i], $pa['itmsk'.$i]));
-					$pa['itmsk'.$i] = 'O^rtype1^res_'.\attrbase\base64_encode_comp_itmsk($itmarr).'1';
+					$pa['itmsk'.$i] = '^rtype1^res_'.\attrbase\base64_encode_comp_itmsk($itmarr).'1';
 				}
-				else $pa['itmsk'.$i] = 'O';
+				else $pa['itmsk'.$i] = '';
+				if ($i != $dice) $pa['itmsk'.$i] .= 'O';
 				$pa['itm'.$i] = '雪';
 				$pa['itmk'.$i] = 'PB';
 				if (rand(0,2) == 0) $pa['itmk'.$i] .= '2';
