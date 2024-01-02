@@ -31,6 +31,7 @@ namespace skill720
 	function skill720_proc($proc, $ebp_temp)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('cardbase'));
 		$ebp_temp['card'] = $proc[0]['card'];
 		$ebp_temp['cardname'] = $proc[0]['cardname'];
 		$proc[0] = $ebp_temp;
@@ -38,6 +39,13 @@ namespace skill720
 		$proc[0]['wep'] = '手榴弹';$proc[0]['wepk'] = 'WC';$proc[0]['wepe'] = '40';$proc[0]['weps'] = '1';$proc[0]['wepsk'] = '';
 		$proc[0]['art'] = '毒物说明书';$proc[0]['artk'] = 'A';$proc[0]['arte'] = '1';$proc[0]['arts'] = '1';$proc[0]['artsk'] = '';
 		$proc[1] = array();
+			
+		$newcard = $cards[$ebp_temp['card']];
+		$newscardrare = $newcard['rare'];
+		if(!empty($newcard['title'])) $newscardname = $newcard['title'];
+		else $newscardname = $newcard['name'];
+		$proc[2] = '<span class="'.$card_rarecolor[$newscardrare].'">'.$newscardname.'</span> ';
+		
 		return $proc;
 	}
 	

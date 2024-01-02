@@ -196,8 +196,39 @@ namespace item_misc
 					$itm2='你不准增加禁区';$itmk2 = 'Z';$itme2 = 1;$itms2 = 44;$itmsk2 = '';
 					$itm3='百毒贴吧';$itmk3 = 'HR';$itme3 = 100;$itms3 = 100;$itmsk3 = '';
 					$itm4='哔哔小马';$itmk4 = 'ER';$itme4 = 20;$itms4 = 1;$itmsk4 = '^rdsk58';
-					$itm5='脑残片';$itmk5 = 'ME';$itme5 = 100;$itms5 = 100;$itmsk5 = '';
-					$itm0='权限狗的权限权杖';$itmk0 = 'WF';$itme0 = 42000000;$itms0 = '∞';$itmsk0 = 'ZrdVny';
+					$itm5='脑残片';$itmk5 = 'ME';$itme5 = 100;$itms5 = 100;$itmsk5 = '';				
+					if (defined('MOD_EX_STORAGE'))
+					{
+						//劲爆！
+						$itmarr = array
+						(
+							array('感觉像最终战术『光矢』的东西','WB',65500,'∞','Zrcdz'),
+							array('武器师安雅的奖赏','Y',1,20,'z'),
+							array('这个是什么按钮','Y',1,10,'z'),
+							array('你不准增加禁区','Y',1,10,'z'),
+							array('游戏解除钥匙','Y',1,1,'z'),
+							array('移动PC','EE',20,1,'z',),
+							array('《电波大逃杀源代码：从初学到跑路》','VS',1,10,'479'),
+							array('薛定谔的棒球棍','WP',3000,300,'cj'),
+							array('感觉像复合武器的杏仁豆腐','WFJ',999,999,'rd'),
+							array('NPC召唤设备','Y',1,1,'42'),
+							array('RP回复设备','Y',1,1,'z'),
+							array('氪金道具','VO',1,10,'159'),
+							array('隐身药水','MB',1,10,'^mbid246'),
+							array('权限狗的ID卡','Y',1,1,'z'),
+							array('『G.A.M.E.O.V.E.R』','Z',1,1,'z'),
+							array('权限狗的权限权杖','WF',42000000,'∞','ZrdVny'),
+							array('黄鸡之歌','HM',2000,20,'z'),
+							array('百毒贴吧','HR',100,100,''),
+							array('小薄本','VV',666,3,''),
+							array('《全频道阻塞干扰》','VS',1,1,'503'),
+							array('《孔明的陷阱》','VS',1,1,'252'),
+							array('『re-inCarnation』','MB',1,1,'^mbid710'),
+							array('感觉像弹幕符札的东西','WF',1,'∞',''),
+						);
+						$itm0='权限狗的全家桶';$itmk0 = 'DAS';$itme0 = 1919;$itms0 = 810;
+						$itmsk0 = '^st_'.\ex_storage\storage_encode_itmarr($itmarr).'1^vol50';
+					}
 					$arb='权限狗的毛绒兽装';$arbk = 'DB';$arbe = 5000;$arbs = 1000;$arbsk = 'Bb';
 					$arh='权限狗的毛绒头套';$arhk = 'DH';$arhe = 5000;$arhs = 1000;$arhsk = 'Aa';
 					$ara='权限狗的毛绒前爪';$arak = 'DA';$arae = 5000;$aras = 1000;$arask = 'Hh';
