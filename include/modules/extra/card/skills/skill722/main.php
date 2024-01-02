@@ -101,7 +101,7 @@ namespace skill722
 		for ($i=1;$i<=6;$i++)
 		{
 			if ($pa['itm'.$i] != '雪')
-			{		
+			{
 				if (!empty($pa['itms'.$i]))
 				{
 					$itmarr = implode(',', array($pa['itm'.$i], $pa['itmk'.$i], $pa['itme'.$i], $pa['itms'.$i], $pa['itmsk'.$i]));
