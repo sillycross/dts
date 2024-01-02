@@ -24,7 +24,7 @@ namespace cardbase
 		
 		//兼容性代码：如果数据库缺乏字段，自动新建字段。
 		//在旧服数据稳定之后可以删除这一句
-		if(1){
+		if(0){
 			$column_existed = 0;
 			eval(import_module('sys'));
 			$result = $db->query("SHOW COLUMNS FROM {$gtablepre}users");
