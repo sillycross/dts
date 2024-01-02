@@ -421,6 +421,30 @@ function clear_dir($dirName, $keep_root = 0, $expire = 0)	//递归清空目录
 	}
 }
 
+//递归获得给定文件路径下的所有文件路径，存入第二个传参$list中
+function get_all_filenames($dirName, &$list = Array())	
+{
+	if ($dirName[strlen($dirName)-1]=='/') $dirName=substr($dirName,0,-1);
+	if(!file_exists($dirName) || !is_dir($dirName)) return;
+	
+	if ($handle=opendir($dirName)) 
+	{
+		while (($item=readdir($handle))!==false) 
+		{
+			if ($item!='.' && $item!='..' && $item!='.gitignore') 
+			{
+				if (is_dir($dirName.'/'.$item)) 
+				{
+					get_all_filenames($dirName.'/'.$item, $list);
+				} else {
+					$list[] = $dirName.'/'.$item;
+				}
+			}
+		}
+		closedir($handle);
+	}
+}
+
 function mymkdir($pa)
 {
 	mkdir($pa); chmod($pa, 0777);

@@ -82,6 +82,48 @@ if ($_GET['mode']=='edit' || $_GET['action']=='reset')
 		$res = "<span><font color=\"green\">成功重置到原先状态。</font></span><br><br>";
 	}
 }
+elseif ($_GET['mode']=='autoscan') //自动搜索新增模块功能
+{
+	//首先维护一个已有模块名的列表
+	$file=GAME_ROOT.'./gamedata/modules.list.php';
+	$content=openfile($file);
+	$list = $add_list = Array();
+	foreach($content as $v) {
+		$list[] = explode(',',$v)[0];
+	}
+	//遍历modules文件夹下的所有文件，依次判定是否有更新时间较新且不在已有列表里的文件
+	$listmtime = filemtime($file);
+	$rootdir = GAME_ROOT.'./include/modules';
+	get_all_filenames($rootdir, $all_filenames);
+	$fi = 0;
+	foreach($all_filenames as $v) {
+		$filename = array_pop(explode('/',$v));
+		if('module.inc.php' == $filename) {
+			$fi ++;
+			if(filemtime($v) > $listmtime) {
+				$tmp_cont = file_get_contents($v);
+				preg_match("/namespace\s+?(\S+)\s*?\{/s", $tmp_cont, $matches);
+				if(!empty($matches[1])) {
+					$modulename = $matches[1];
+					if(!in_array($modulename, $list)) {
+						$fj ++;
+						$add_list[] = $modulename;
+						$in=sizeof($content);
+						$content[$in] = $modulename.','.substr($v, strlen($rootdir)+1, strlen($v)-strlen($rootdir)-strlen($filename)-1).',0';
+					}
+				}
+			}
+		}
+	}
+	//如果新增了模块，重写模块列表
+	if(!empty($add_list)) {
+		writeover_array($file,$content);
+		copy(GAME_ROOT.'./gamedata/modules.list.php',GAME_ROOT.'./gamedata/modules.list.temp.php');
+	}
+	$res = '遍历了'.$fi.'个模块，检测到'.sizeof($add_list).'个新增模块。';
+	if(!empty($add_list)) $res .='<br>新增模块有：'.implode(' ', $add_list).'。<br>新增模块默认关闭，请自行开启。<br><br>';
+	$page = 'edit';
+}
 elseif ($_GET['action']=='enable')
 {
 	$sid=(int)$_GET['sid'];
@@ -176,6 +218,7 @@ elseif ($_POST['action']=='add')
 if($page == 'index') {
 	echo '<br><span><font size=5>模块管理系统</font></span><br><br>';
 	echo show_adv_state().'<br>';
+	echo '<a href="modulemng.php?mode=autoscan" style="text-decoration: none"><span><font color="red">[自动检测新增模块]</font></span></a> 会自动检测新增的模块。<br>';
 	echo '<a href="modulemng.php?mode=edit" style="text-decoration: none"><span><font color="red">[进入编辑模式]</font></span></a> 添加或修改模块可用性。<br>';
 	echo '<a href="modulemng.php?action=save" style="text-decoration: none"><span><font color="green">[重设代码缓存]</font></span></a> 整体重设模块结构和adv模式代码。<br>';
 	echo '<a href="modulemng.php?action=save&mode=quick" style="text-decoration: none"><span><font color="green">[重设代码缓存（快速）]</font></span></a> 只重设有改动的代码函数。新增模块、函数，或模块依赖顺序有调整时切勿使用，建议只在微调config文件时使用。<br><br>';  
