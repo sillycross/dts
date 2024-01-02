@@ -5235,7 +5235,7 @@ $cards = array(
 	),
 	306 => array(
 		'name' => '最终地狱·犹大环',
-		'ruby' => '3倍冰淇淋!!!!!!',
+		'ruby' => '3倍☆ICE CREEEEAM!!!!!!',
 		'title' => '最终地狱',
 		'rare' => 'M',
 		'pack' => 'hidden',
