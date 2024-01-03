@@ -28,9 +28,9 @@ namespace skill83
 	function check_wepk_debuff83($owep, $owepk)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$ret = 0;
-		if($owepk!='WN') $ret = 90;
-		if($owepk=='WP' && strpos($owep,'拳')!==false) $ret = 50;
+		$ret = 90;
+		if('WN' == $owepk || strpos($owep,'拳')!==false) $ret = 0;
+		elseif('WP' == $owepk || 'WK' == $owepk) $ret = 50;
 		return $ret;
 	}
 	

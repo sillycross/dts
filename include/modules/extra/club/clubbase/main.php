@@ -76,7 +76,7 @@ namespace clubbase
 		$vatime = 233;
 		
 		$clublist = club_choice_probability_process($clublist);
-		$ret = Array(0);
+		$ret = Array();
 		for ($clubtype = 0; $clubtype <= 1; $clubtype++)
 		{
 			$clubcnt = 0; $club_waitlist = Array(); $p_sum = 0;
@@ -107,14 +107,17 @@ namespace clubbase
 				}
 			}
 		}
-		//排序时9号超能视为5.5号
-		foreach($ret as &$v) {
-			if(9==$v) $v = 5.5;
+		//排序，先一般，后特殊
+		$ret1 = $ret2 = Array();
+		foreach($ret as $v) {
+			if(9 == $v) $v = 5.5;//排序时超能排在拆弹后面
+			if(!$clublist[$v]['type']) $ret1[] = $v;
+			else $ret2[] = $v;
 		}
-		sort($ret);
-		//换回来
+		sort($ret1); sort($ret2);
+		$ret = Array_merge(Array(0), $ret1, $ret2);
 		foreach($ret as &$v) {
-			if(5.5==$v) $v = 9;
+			if(5.5 == $v) $v = 9;//换回来
 		}
 		return $ret;
 	}
