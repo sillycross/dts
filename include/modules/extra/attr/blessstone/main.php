@@ -86,7 +86,7 @@ namespace blessstone
 			$mode = 'command';
 			return;
 		}
-		if(strpos ( $itmsk, '|' ) !== false) {
+		if(\itemmain\check_in_itmsk('^ari', $itmsk) || \itemmain\check_in_itmsk('^su', $itmsk)) {
 			$log .= '咦，你要强化的道具还装着东西呢，先取下来再强化吧!DA☆ZE<br>';
 			$mode = 'command';
 			return;
