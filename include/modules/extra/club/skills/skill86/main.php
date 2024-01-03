@@ -92,7 +92,7 @@ namespace skill86
 		{
 			eval(import_module('logger','skill86'));
 			if ($pa['bskill'] == 86) $skill86_procrate = 50;
-			else $skill86_procrate = 10;
+			else $skill86_procrate = 99;
 			$skill86_flag = 0;
 			$x=(int)\skillbase\skill_getvalue(56,'t',$pa);
 			for ($i=1; $i<=$x; $i++)

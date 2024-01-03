@@ -83,24 +83,38 @@ namespace skill85
 		return $ret;
 	}
 	
-	function calculate_attack_weapon_skill_gain_base(&$pa, &$pd, $active)
+	function strike_finish(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$ret = $chprocess($pa,$pd,$active);
-		if (($pa['bskill']==85) && \skillbase\skill_query(225,$pa)) {
-			if(rand(0,2) < 2) $ret += 1;
+		$chprocess($pa,$pd,$active);
+		if (($pa['bskill']==85) && \skillbase\skill_query(225,$pa))
+		{
+			$skill85_expup = 0;
+			$skill85_wup = 0;
+			if(rand(0,2) < 2)
+			{
+				$skill85_expup = 1;
+				\lvlctl\getexp($skill85_expup,$pa);
+			}
+			if(rand(0,2) < 2)
+			{
+				$skill85_wup = 1;
+				eval(import_module('weapon'));
+				$pa[$skillinfo[$pa['wep_kind']]] += 1;
+			}
+			if ($active && (!empty($skill85_expup) || !empty($skill85_wup)))
+			{
+				eval(import_module('logger'));
+				$log .= '<span class="yellow b">「神启」使你额外获得了';
+				if ($skill85_expup) $log .= $skill85_expup.'点经验值';
+				if ($skill85_wup)
+				{
+					if ($skill85_expup) $log .= '和';
+					$log .= $skill85_wup.'点熟练度';
+				}
+				$log .= '！</span><br>';
+			}
 		}
-		return $ret;
-	}
-	
-	function calculate_attack_exp_gain_base(&$pa, &$pd, $active, $fixed_val=0)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$ret = $chprocess($pa,$pd,$active,$fixed_val);
-		if (($pa['bskill']==85) && \skillbase\skill_query(225,$pa)) {
-			if(rand(0,2) < 2) $ret += 1;
-		}
-		return $ret;
 	}
 	
 	function player_kill_enemy(&$pa,&$pd,$active)
@@ -121,8 +135,18 @@ namespace skill85
 				eval(import_module('weapon'));
 				$pa[$skillinfo[$pa['wep_kind']]] += $skill85_wup;
 			}
-			eval(import_module('logger'));
-			if ($active) $log .= "<span class=\"yellow b\">击杀敌人使你获得了额外的经验值和熟练度！</span><br>";
+			if ($active && (!empty($skill85_expup) || !empty($skill85_wup)))
+			{
+				eval(import_module('logger'));
+				$log .= '<span class="yellow b">击杀敌人使你额外获得了';
+				if ($skill85_expup) $log .= $skill85_expup.'点经验值';
+				if ($skill85_wup)
+				{
+					if ($skill85_expup) $log .= '和';
+					$log .= $skill85_wup.'点熟练度';
+				}
+				$log .= '！</span><br>';
+			}
 		}
 		$chprocess($pa,$pd,$active);
 	}
