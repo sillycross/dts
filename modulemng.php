@@ -97,7 +97,7 @@ elseif ($_GET['mode']=='autoscan') //自动搜索新增模块功能
 	get_all_filenames($rootdir, $all_filenames);
 	$fi = 0;
 	foreach($all_filenames as $v) {
-		$filename = array_pop(explode('/',$v));
+		$filename = basename($v);
 		if('module.inc.php' == $filename) {
 			$fi ++;
 			if(filemtime($v) > $listmtime) {
