@@ -1,9 +1,9 @@
 <?php
 
-namespace skill366
+namespace get_qiegao_in_battle
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase clubbase sys player achievement_base cardbase skill365 attack';
+	$___MODULE_dependency = 'sys player skillbase clubbase cardbase npc battle attack';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';
