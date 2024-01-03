@@ -53,7 +53,9 @@ namespace skill906
 			if ($skill906_lvl >= 2)
 			{
 				$pa['mhp'] -= 10;
-				$pa['hp'] = min($pa['hp'], $pa['mhp']);
+				if ($pa['mhp'] <= 0) $pa['mhp'] = 1;
+				if ($pa['hp'] > $pa['mhp'] + 10) $pa['hp'] -= 10;
+				else $pa['hp'] = min($pa['hp'], $pa['mhp']);
 			}
 		}
 		$chprocess($hurtposition, $pa);
