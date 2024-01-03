@@ -1,0 +1,20 @@
+<!--{eval eval(import_module('skill86'));}-->
+<!--{eval $___TEMP_SKILL_ID=86;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+与你在同一地点的每一个佣兵有<span class="yellow b">10%</span>在你攻击后进行一次追加攻击<br>
+<span class="yellow b">战斗技</span>&nbsp;&nbsp;佣兵的追加攻击率上升至<span class="yellow b">50%</span>。<br>消耗<span class="yellow b">$ragecost</span>点怒气，并支付每个追击的佣兵<span class="yellow b">$moneycost</span>元金钱
+</span></td>
+<td class="skilldesc_right b3">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+15级时解锁
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

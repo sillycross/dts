@@ -1,0 +1,19 @@
+<!--{eval eval(import_module('skill85'));}-->
+<!--{eval $___TEMP_SKILL_ID=85;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+<span class="yellow b">战斗技</span>&nbsp;&nbsp;本次攻击附加<span class="yellow b">40</span>点最终伤害，<br>且额外触发称号特性“<span class="yellow b">高速</span>”<span class="yellow b">1</span>次，若击杀敌人则再触发<span class="yellow b">2</span>次。<br>消耗<span class="yellow b">$ragecost</span>点怒气
+</span></td>
+<td class="skilldesc_right b3">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+3级时解锁
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}
