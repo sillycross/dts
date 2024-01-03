@@ -242,8 +242,10 @@ namespace skill56
 				}
 				if ($skill56_npc['sub'][$ty]['mercfireaction']==1)
 				{
-					$employee['pls']=999;
+					//$employee['pls']=999;
+					$db->query("DELETE FROM {$tablepre}players WHERE pid = '{$employee['pid']}'");
 				}
+				else $employee['pls'] = rand(1,33);
 				\skillbase\skill_setvalue(56,'h'.$skillpara2,0);
 				$log.='解雇成功。';
 			}
@@ -345,14 +347,15 @@ namespace skill56
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		//佣兵活着时不会与之进入战斗界面，无论是否被解雇
+		//20240103更改：现在能遇到自己解雇的佣兵了
 		eval(import_module('player'));
 		if (!\skillbase\skill_query(56) || !check_unlocked56($sdata)) return $chprocess($edata);
 		$x=(int)\skillbase\skill_getvalue(56,'t');
 		for ($i=1; $i<=$x; $i++)
 		{
 			$spid = (int)\skillbase\skill_getvalue(56,'p'.$i);
-			if ($edata['pid']==$spid)
-				return 0;
+			$is_hired = (int)\skillbase\skill_getvalue(56,'h'.$i);
+			if (($edata['pid']==$spid) && $is_hired) return 0;
 		}
 		return $chprocess($edata);
 	}

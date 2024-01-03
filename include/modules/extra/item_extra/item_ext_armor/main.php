@@ -68,9 +68,10 @@ namespace item_ext_armor
 		
 		//叠甲外甲的判定
 		//仅在对应部位有装备且要换上的装备是空外甲才会走这段判定，如果要换上的是内外双甲或者身上没穿则直接走$chprocess()的替换防具流程
-		if (false !== strpos(substr($itmk,2),'S') && !\itemmain\check_in_itmsk('^su', $itmsk))
+		if ((false !== strpos(substr($itmk,2),'S')) && !\itemmain\check_in_itmsk('^su', $itmsk))
 		{
-			if ((!empty($noeqp) && strpos(${$pos.'k'}, $noeqp) !== 0) || ${$pos.'s'})
+			//如果该位置上的不是防具，那么会将其替换下来
+			if (((!empty($noeqp) && strpos(${$pos.'k'}, $noeqp) !== 0) || ${$pos.'s'}) && in_array(substr(${$pos.'k'},0,2), array('DB','DH','DA','DF')))
 			{
 				$positem = array('itm' => &${$pos}, 'itmk' => &${$pos.'k'}, 'itme' => &${$pos.'e'},'itms' => &${$pos.'s'},'itmsk' => &${$pos.'sk'});
 				//$getitem = array('itm' => &$itm0, 'itmk' => &$itmk0, 'itme' => &$itme0,'itms' => &$itms0,'itmsk' => &$itmsk0);

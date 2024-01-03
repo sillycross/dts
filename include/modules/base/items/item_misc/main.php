@@ -218,6 +218,7 @@ namespace item_misc
 							array('权限狗的ID卡','Y',1,1,'z'),
 							array('『G.A.M.E.O.V.E.R』','Z',1,1,'z'),
 							array('权限狗的权限权杖','WF',42000000,'∞','ZrdVny'),
+							array('脑残片','ME',100,100,''),
 							array('黄鸡之歌','HM',2000,20,'z'),
 							array('百毒贴吧','HR',100,100,''),
 							array('小薄本','VV',666,3,''),
@@ -341,7 +342,7 @@ namespace item_misc
 				$flag = false;
 				
 				for($i = 1; $i <= 6; $i ++) {
-					foreach(Array('香蕉','苹果','西瓜') as $fruit){
+					foreach(Array('香蕉','苹果','西瓜','葡萄','脸') as $fruit){
 						
 						if ( strpos ( ${'itm' . $i} , $fruit ) !== false && strpos ( ${'itm' . $i} , '皮' ) === false && (strpos ( ${'itmk' . $i} , 'H' ) === 0 || strpos ( ${'itmk' . $i} , 'P' ) === 0 )) {
 							if($wk >= 120){
