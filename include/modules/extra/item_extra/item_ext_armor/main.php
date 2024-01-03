@@ -71,7 +71,7 @@ namespace item_ext_armor
 		if ((false !== strpos(substr($itmk,2),'S')) && !\itemmain\check_in_itmsk('^su', $itmsk))
 		{
 			//如果该位置上的不是防具，那么会将其替换下来
-			if (((!empty($noeqp) && strpos(${$pos.'k'}, $noeqp) !== 0) || ${$pos.'s'}) && in_array(substr($itmk,2), array('DB','DH','DA','DF')))
+			if (((!empty($noeqp) && strpos(${$pos.'k'}, $noeqp) !== 0) || ${$pos.'s'}) && in_array(substr(${$pos.'k'},0,2), array('DB','DH','DA','DF')))
 			{
 				$positem = array('itm' => &${$pos}, 'itmk' => &${$pos.'k'}, 'itme' => &${$pos.'e'},'itms' => &${$pos.'s'},'itmsk' => &${$pos.'sk'});
 				//$getitem = array('itm' => &$itm0, 'itmk' => &$itmk0, 'itme' => &$itme0,'itms' => &$itms0,'itmsk' => &$itmsk0);
