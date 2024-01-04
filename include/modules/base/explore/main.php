@@ -143,7 +143,7 @@ namespace explore
 		{
 			if ($command == 'move') 
 			{
-				move(get_var_in_module('moveto', 'input'));
+				move(get_var_input('moveto'));
 			} 
 			elseif ($command == 'search') 
 			{

@@ -190,7 +190,7 @@ function import_module()
 	return $ret;
 }
 
-//从模块中获取单个变量，用于大量循环调用eval(import_module())会降低性能的情况
+//从模块中获取单个变量的引用，用于大量循环调用eval(import_module())会降低性能的情况
 function & get_var_in_module($varname, $modulename)
 {
 	if(empty($varname) || !defined('MOD_'.strtoupper($modulename))) return NULL;
@@ -205,6 +205,19 @@ function & get_var_in_module($varname, $modulename)
 		if(isset($___LOCAL_INPUT__VARS__INPUT_VAR_LIST[$varname]))
 			$ret = & $___LOCAL_INPUT__VARS__INPUT_VAR_LIST[$varname];
 	}
+	return $ret;
+}
+
+//从input模块中获得变量的引用，如果有多个变量请用list接收
+function & get_var_input()
+{
+	$args = func_get_args();
+	$ret = Array();
+	foreach($args as $a) {
+		$ret[] = & get_var_in_module($a, 'input');
+	}
+	if(empty($ret)) $ret = NULL;
+	elseif(1 == sizeof($ret)) $ret = & $ret[0];
 	return $ret;
 }
 

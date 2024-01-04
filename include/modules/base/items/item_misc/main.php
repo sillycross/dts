@@ -559,11 +559,13 @@ namespace item_misc
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','input','logger'));
+		eval(import_module('sys','player','logger'));
 		
 		if($mode == 'deathnote') {
+			$dnname = get_var_input('dnname');
 			if($dnname){
-				deathnote($item,$dnname,$dndeath,$dngender,$dnicon);
+				list($item, $dndeath, $dngender, $dnicon) = get_var_input('item', 'dndeath', 'dngender', 'dnicon');
+				deathnote($item, $dnname, $dndeath, $dngender, $dnicon);
 			} else {
 				$log .= '嗯，暂时还不想杀人。<br>你合上了■DeathNote■。<br>';
 				$mode = 'command';

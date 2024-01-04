@@ -131,7 +131,7 @@ namespace item_uv
 					}
 				}
 				
-				eval(import_module('input'));
+				$subcmd = get_var_input('subcmd');
 				if ($subcmd == 'flipcard')
 				{
 					$get_card_id = 0;

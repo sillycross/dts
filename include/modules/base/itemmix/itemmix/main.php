@@ -233,18 +233,21 @@ namespace itemmix
 	function act()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','input'));
+		eval(import_module('sys','player'));
+		$itemcmd = get_var_input('itemcmd');
 		if($mode == 'itemmain') {
 			if($command == 'itemmix') {
-				if (isset($itemselect) && $itemselect==999)
+				//$itemselect是有二级选项时的玩家所选项，同时$mixmask是以位运算方式储存的合成素材序号
+				list($itemselect, $mixmask) = get_var_input('itemselect', 'mixmask');
+				if (999 == $itemselect)
 					$mode='command';
 				else
 				{
 					$mixlist = array();
-					if (!isset($mixmask))
+					if (NULL === $mixmask)
 					{
 						for($i=1;$i<=6;$i++)
-							if(!empty(${'mitm'.$i}))
+							if(!empty(get_var_input('mitm'.$i)))
 								$mixlist[] = $i;
 					}
 					else
@@ -253,9 +256,9 @@ namespace itemmix
 							if ($mixmask&(1<<($i-1)))
 								$mixlist[] = $i;
 					}
-					if (isset($itemselect))
-						itemmix($mixlist,$itemselect);
-					else  itemmix($mixlist);
+					if (NULL !== $itemselect)
+						itemmix($mixlist,$itemselect);//二级选项
+					else itemmix($mixlist);//直接合成
 					
 					if(!empty($uip['itemmix_option_show'])) {
 						ob_start();

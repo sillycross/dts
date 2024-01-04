@@ -792,7 +792,7 @@ namespace player
 			$mode = 'command';
 		} elseif($mode == 'command') {
 			if($command == 'special') {
-				$mode = get_var_in_module('sp_cmd', 'input');
+				$mode = get_var_input('sp_cmd');
 			} 
 		} 
 	}

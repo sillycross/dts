@@ -566,8 +566,8 @@ namespace itemmain
 	function act()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','input'));
-		
+		eval(import_module('sys','player'));
+		$itemcmd = get_var_input('itemcmd');
 		if ($mode == 'command' && strpos($command,'itm') === 0) 
 		{
 			$item = substr($command,3);
@@ -590,6 +590,7 @@ namespace itemmain
 			} elseif($command == 'itemadd') {
 				itemadd();
 			} elseif($command == 'itemmerge') {
+				list($merge1, $merge2) = get_var_input('merge1', 'merge2');
 				if($merge2 == 'n'){itemadd();}
 				else{
 					$merge_ret = itemmerge($merge1,$merge2);
@@ -600,6 +601,7 @@ namespace itemmain
 					}
 				}
 			} elseif($command == 'itemmove') {
+				list($from, $to) = get_var_input('from', 'to');
 				itemmove($from,$to);
 			} elseif(strpos($command,'drop') === 0) {
 				$drop_item = substr($command,4);
