@@ -7,7 +7,7 @@ namespace skill86
 	
 	function init()
 	{
-		define('MOD_SKILL86_INFO','card;battle;');
+		define('MOD_SKILL86_INFO','club;battle;');
 		eval(import_module('clubbase'));
 		$clubskillname[86] = '喝令';
 	}
