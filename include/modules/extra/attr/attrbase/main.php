@@ -2,6 +2,8 @@
 
 namespace attrbase
 {
+	$tmp_comp_itmsk_stack = 0;//用于存储组合属性的栈
+
 	function init() {}
 	
 	//下面这两个获取属性的函数规则如下：
@@ -296,21 +298,22 @@ namespace attrbase
 	
 	//将道具属性值里的特定内容转化为复合属性非标准base64字符串的函数
 	//会将<:comp_itmsk:>{xxx}里xxx的内容转化为非标准base64字符串，使用时类似这样：^res_<:comp_itmsk:>{xxx}1。注意xxx里的下划线会被转换成半角逗号
-	//会递归地转换直到不存在类似的字符串为止，但目前只支持并联的多个复合属性，不支持串连（套娃）。套娃请自行编码，谢谢！
+	//会递归地转换直到不存在类似的字符串为止，目前支持多个复合属性的并联和串连，如^res_<:comp_itmsk:>{xxx^res_<:comp_itmsk:>{yyy}1^res_<:comp_itmsk:>{zzz}1}1
 	function config_process_encode_comp_itmsk($str){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $str;
-		while(preg_match("/\<\:comp_itmsk\:\>\{(.+?)\}/s",$ret)>0) {
-			$ret = preg_replace_callback("/\<\:comp_itmsk\:\>\{(.+?)\}/s", '\attrbase\config_process_encode_comp_itmsk_callback', $ret);
+		$pat = "/\<\:comp_itmsk\:\>\{([^\{]+?)\}/s";
+		while(preg_match($pat, $ret)>0) {
+			$ret = preg_replace_callback($pat, '\attrbase\config_process_encode_comp_itmsk_callback', $ret);
 		}
 		return $ret;
 	}
-	
+
 	//电波框架不支持匿名函数（至少暂时不支持），所以只能再定义一个函数
-	//会把下划线转化成半角逗号
+	//由于逗号写进config文件会炸，用.号代替，这里会自动把半角句点转化成半角逗号
 	function config_process_encode_comp_itmsk_callback($matches){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return base64_encode_comp_itmsk(str_replace('_',',',$matches[1]));
+		return base64_encode_comp_itmsk(str_replace('.',',',$matches[1]));
 	}
 	
 	//地图道具里复合属性的处理

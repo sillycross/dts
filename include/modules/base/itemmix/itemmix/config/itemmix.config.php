@@ -17,7 +17,7 @@ $mixinfo = array
 	array('class' => 'h', 'stuff' => array('甜生姜','地雷酥糖'),'result' => array('曾经的荣光-橙黄','HB',50,1,),),
 	array('class' => 'h', 'stuff' => array('曾经的荣光-橙黄','面包'),'result' => array('更改菜谱后的不甜酱包','HB',300,4,'Z'),), 
 	array('class' => 'h', 'stuff' => array('早苗面包','仙贝面包','海星面包','彩虹光芒的面包'),'result' => array('禁忌「Four of a Bread」','HB',444,1,'z^res_%LiJ%L@N%LiA%L@T$$CMVGhyZWUgb@YgYSBCcmVhZOOAjSxIQiw)NDQsMSx-XnJlc!*lTHFNLVllTi!McXIkJENNVEAlbElIQmhhWElnYkBZZ!lTQkNjbVZoWk(PQWpTeElRaXcpTkRRc)!TeC!YbkpsYyEqa)pFTk%KWEIlUVNWWmFXUWxUR@xQSlhCJVFTVmFRKSpsSlhGRkpYQmxaeVZhUSkkdFdrQnBKVmwlUmlRa!EpJU!SV@hEVEVSUktVJURkI@hNU)coek!WJXlkSGx#WlRFczFecnR%cGUxLA==1^rtype1'),),
-	array('class' => 'h', 'stuff' => array('寂寞','脸','杯子'),'result' => array('淡定红茶','HB',200,20,'^res_<:comp_itmsk:>{杯子_WC_1_1__}1^rtype1'),),
+	array('class' => 'h', 'stuff' => array('寂寞','脸','杯子'),'result' => array('淡定红茶','HB',200,20,'^res_<:comp_itmsk:>{杯子.WC.1.1..}1^rtype1'),),
 	array('class' => 'h', 'stuff' => array('护士帽','白衣','针筒'),'result' => array('「注射天使-莉莉」★3','PB3',1000,15,'z'),),
 	array('class' => 'h', 'stuff' => array('凸眼鱼','面包','锅'),'result' => array('仰望星空派','HR',30,3,),),
 	array('class' => 'h', 'stuff' => array('河豚鱼','氯化氢','大夭使的气息'),'result' => array('鲱鱼罐头','PR9',90,10,),),

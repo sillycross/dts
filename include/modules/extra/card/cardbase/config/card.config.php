@@ -5149,10 +5149,10 @@ $cards = array(
 		'energy' => 120,
 		'valid' => array(
 			'itm6' => '奇怪的按钮',
-			'itmk6' => 'PB',
+			'itmk6' => 'HB',
 			'itme6' => '1',
 			'itms6' => '1',
-			'itmsk6' => '^res_<:comp_itmsk:>{《分镜绘制指南》_VD_30_2__}1^reptype1',
+			'itmsk6' => '^res_<:comp_itmsk:>{《分镜绘制指南》.VD.30.2..}1^reptype1',
 		)
 	),
 	302 => array(

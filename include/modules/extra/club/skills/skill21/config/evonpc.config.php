@@ -197,7 +197,7 @@ namespace skill21
 				'itmk3' => 'p',
 				'itme3' => '1',
 				'itms3' => '1',
-				'itmsk3' => '^res_$piG%bCP%Y+@%a@Q%%qE%$Ot-L-j%-eY%a+G$piGLFBCLDY@Niw@LF%yZXNfJHBpRyViQ!AlWStAJWFAUSUlcUUlWXF%JSRpRyUtZVklYStHJHBpR)xGQkNMRGslT!N#JUxGJXlaWE%mSkNSRFN%VmhRRlVsY)dsUEpTVnhSUyFhYlNNdFdtbCRKQ!JEVEV$R!dsUk!SRVZ-VFZOI@VVJVVTWE!$WG%KKWVYQmxNeXc(MV%ydHlwZTMs1^rtype4^reptype1',
+				'itmsk3' => 'z^res_<:comp_itmsk:>{☆小叶子的热辣★秘密☆.PB.666.6.^res_<:comp_itmsk:>{☆小叶子的劲爆❤秘密☆.PB.999.1.^res_<:comp_itmsk:>{《孔明的陷阱》.VS.1.1.252.}1^rtype3}1^rtype3}1^rtype4^reptype1',
 			
 				'description' => '喧哗少女 叶留佳的第二形态。这个小叶子是吃错了什么药吗？？在数据碎片中攻击面最弱，防御面最强，因此常常被第一个拿来开刀。'
 			),
