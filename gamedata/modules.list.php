@@ -418,7 +418,6 @@ skill1003,extra/club/skills/skill1003/,1
 gtype1,extra/instance/gtype1/main/,1
 randmix,extra/misc/randmix/,1
 skill57,extra/club/skills/skill57/,1
-skill86,extra/club/skills/skill86/,1
 skill436,extra/card/skills/skill436/,1
 dualwep,base/weapon/dualwep/,1
 wep_b_extra_reloading,extra/item_extra/wep_b_extra_reloading/,1
@@ -645,6 +644,7 @@ skill266,extra/club/skills/skill266/,1
 skill81,extra/club/skills/skill81/,1
 skill509,extra/card/skills/skill509/,1
 skill510,extra/card/skills/skill510/,1
+skill86,extra/club/skills/skill86/,0
 gtype2,extra/instance/gtype2/main/,0
 gtype3,extra/instance/gtype3/main/,0
 gtype5,extra/instance/gtype5/main/,0

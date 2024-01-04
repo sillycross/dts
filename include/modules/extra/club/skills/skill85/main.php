@@ -2,11 +2,11 @@
 
 namespace skill85
 {
-	$ragecost = 30;
+	$ragecost = 25;
 	
 	function init() 
 	{
-		define('MOD_SKILL85_INFO','card;battle;');
+		define('MOD_SKILL85_INFO','club;battle;');
 		eval(import_module('clubbase'));
 		$clubskillname[85] = '神启';
 	}
