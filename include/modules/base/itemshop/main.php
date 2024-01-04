@@ -224,7 +224,8 @@ namespace itemshop
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','logger','itemmain','itemshop','input'));
+		eval(import_module('sys','player','logger','itemmain','itemshop'));
+		$sp_cmd = get_var_input('sp_cmd');
 		if ($mode == 'command' && $command == 'special' && $sp_cmd == 'sp_shop')	//进入初级页面
 		{
 			ob_clean();
@@ -253,6 +254,7 @@ namespace itemshop
 					$cmd = ob_get_contents();
 					ob_clean();
 				} else {
+					list($shoptype,$buynum) = get_var_input('shoptype','buynum');
 					itembuy($command,$shoptype,$buynum);
 				}
 			}else{

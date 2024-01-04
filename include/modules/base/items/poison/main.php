@@ -235,8 +235,8 @@ namespace poison
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','input'));
-		if($mode == 'item' && $usemode == 'poison') 
+		eval(import_module('sys','player'));
+		if($mode == 'item' && get_var_input('usemode') == 'poison') 
 		{
 			if ($command=='menu'){
 				$mode = 'command';

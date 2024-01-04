@@ -107,7 +107,7 @@ namespace team
 	function senditem(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','map','logger','player','metman','input'));
+		eval(import_module('sys','map','logger','player','metman'));
 		
 		if('back' == $command){
 			$mode = 'command';
@@ -127,7 +127,7 @@ namespace team
 			$mode = 'command';
 			return;
 		}
-
+		$message = get_var_input('message');
 		if($message){
 			$log .= "<span class=\"lime b\">你对{$edata['name']}说：“{$message}”</span><br>";
 			$x = "<span class=\"lime b\">{$name}对你说：“{$message}”</span>";
