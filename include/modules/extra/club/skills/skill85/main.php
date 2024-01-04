@@ -93,14 +93,14 @@ namespace skill85
 			$skill85_wup = 0;
 			if(rand(0,2) < 2)
 			{
-				$skill85_expup = 1;
+				$skill85_expup += 1;
 				\lvlctl\getexp($skill85_expup,$pa);
 			}
 			if(rand(0,2) < 2)
 			{
-				$skill85_wup = 1;
+				$skill85_wup += 1;
 				eval(import_module('weapon'));
-				$pa[$skillinfo[$pa['wep_kind']]] += 1;
+				$pa[$skillinfo[$pa['wep_kind']]] += $skill85_wup;
 			}
 			if ($active && (!empty($skill85_expup) || !empty($skill85_wup)))
 			{
