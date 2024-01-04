@@ -56,14 +56,11 @@ namespace input
 	//获得特定变量的数值，避免把input模块所有变量都导入进来
 	//出于安全性考虑，以后需要用这个把所有import('input')的地方都替换掉
 	//如果需要对返回值修改并能影响input模块的对应值，需要在使用时这么写：$command = &\input\get_var('command');
-	//已经废弃，请用modules.func.php定义的get_var_in_module()函数
+	//已经废弃，请用modules.func.php定义的get_var_input()函数
 	function &get_var($varname){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = & get_var_in_module($varname, 'input');
 		return $ret;
-//		eval(import_module('input'));
-//		if(isset($$varname)) return $$varname;
-//		else return NULL;
 	}
 }
 

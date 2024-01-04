@@ -165,7 +165,7 @@ namespace weapon
 	function load_user_combat_command(&$pdata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('input'));
+		$command = get_var_in_module('command', 'sys');
 		if (check_attack_method($pdata,$command))
 			$pdata['wep_kind']=$command;
 		else  $pdata['wep_kind']=get_attack_method($pdata);

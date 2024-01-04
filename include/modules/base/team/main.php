@@ -198,7 +198,7 @@ namespace team
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','input'));
+		eval(import_module('sys','player'));
 		if($mode == 'senditem') 
 		{
 			senditem();
@@ -206,6 +206,7 @@ namespace team
 		}
 		
 		if($mode == 'command' && $command == 'team') {
+			$teamcmd = get_var_input('teamcmd');
 			if($teamcmd == 'teamquit') {				
 				teamquit();
 			} else{
@@ -215,6 +216,7 @@ namespace team
 		}
 		
 		if($mode == 'team') {
+			list($nteamID,$nteamPass) = get_var_input('nteamID','nteamPass');
 			if ($command=='teammake') 
 			{
 				teammake($nteamID,$nteamPass);
