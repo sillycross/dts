@@ -786,45 +786,15 @@ namespace player
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','input'));
+		eval(import_module('sys','player'));
 
-			if($command == 'menu') {
-				$mode = 'command';
-			} elseif($mode == 'command') {
-				if($command == 'special') {
-				/*
-					if($sp_cmd == 'sp_word'){
-						include_once GAME_ROOT.'./include/game/special.func.php';
-						getword();
-						$mode = $sp_cmd;
-					}elseif($sp_cmd == 'sp_adtsk'){
-						include_once GAME_ROOT.'./include/game/special.func.php';
-						adtsk();
-						$mode = 'command';
-					}else{
-				*/
-						$mode = $sp_cmd;
-				//	}
-					
-				} 
+		if($command == 'menu') {
+			$mode = 'command';
+		} elseif($mode == 'command') {
+			if($command == 'special') {
+				$mode = get_var_in_module('sp_cmd', 'input');
 			} 
-			/*
-			elseif($mode == 'special') {
-				include_once GAME_ROOT.'./include/game/special.func.php';
-				if(strpos($command,'chkp') === 0) {
-					$itmn = substr($command,4,1);
-					chkpoison($itmn);
-				}
-			*/
-			/*
-			} elseif($mode == 'chgpassword') {
-				include_once GAME_ROOT.'./include/game/special.func.php';
-				chgpassword($oldpswd,$newpswd,$newpswd2);
-			} elseif($mode == 'chgword') {
-				include_once GAME_ROOT.'./include/game/special.func.php';
-				chgword($newmotto,$newlastword,$newkillmsg);
-			}
-			*/
+		} 
 	}
 	
 	//用用户表中的motto、killmsg、lastword替换player的
