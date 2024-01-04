@@ -80,6 +80,18 @@ namespace instance8
 		}else return $chprocess();
 	}
 	
+	//荣耀模式测试：高速、肌肉、铁拳变为常规称号
+	function club_choice_probability_process($clublist){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		if (18 == $gametype){
+			foreach(Array(10, 14, 19) as $i) {
+				if(isset($clublist[$i])) $clublist[$i]['type'] = 0;
+				if(19 == $i) $clublist[$i]['probability'] = 100;
+			}
+			return $clublist;
+		}else return $chprocess($clublist);
+	}
 }
 
 ?>

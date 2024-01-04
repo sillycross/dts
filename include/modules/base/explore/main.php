@@ -137,15 +137,15 @@ namespace explore
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','input'));
+		eval(import_module('sys','player'));
 
 		if($mode == 'command') 
 		{
 			if ($command == 'move') 
 			{
-				move($moveto);
+				move(get_var_in_module('moveto', 'input'));
 			} 
-			else  if ($command == 'search') 
+			elseif ($command == 'search') 
 			{
 				search();
 			} 
