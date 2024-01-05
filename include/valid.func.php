@@ -121,7 +121,7 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip='')
 	$db->array_insert("{$tablepre}players", $eb_pdata);
 	
 	//更新用户账户最后局数
-	$updatearr['lastgame'] = $room_prefix.$gamenum;
+	$updatearr['lastgame'] = !empty($room_prefix) ? substr($room_prefix,0,1) . $gamenum : $gamenum;
 	
 	//如果卡片合法，记录改变的卡
 	$upd_card = !empty($o_card) ? $o_card : $card;
