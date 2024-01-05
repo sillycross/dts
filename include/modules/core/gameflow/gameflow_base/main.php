@@ -62,7 +62,13 @@ namespace gameflow_base
 			if (in_array($gametype,$teamwin_mode))
 			{
 				$result = $db->query("SELECT teamID FROM {$tablepre}players WHERE type = 0 AND hp > 0");
-				$flag=1; $first=1; 
+				$alivenum = $db->num_rows($result);//全灭直接结束游戏
+				if (!$alivenum)
+				{
+					\sys\gameover();
+				}
+
+				$flag=1; $first=1; //有玩家时，需要检查是否有多个teamID
 				while($data = $db->fetch_array($result)) 
 				{
 					if ($first) 
