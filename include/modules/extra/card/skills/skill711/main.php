@@ -28,6 +28,16 @@ namespace skill711
 		else return $chprocess($edata);
 	}
 	
+	//被神隐的NPC不进行NPC行动
+	function npc_action_single($npc, $act = '') {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (\skillbase\skill_query(711, $npc)) {
+			eval(import_module('sys'));
+			$gamevars['last_npc_action'][$npc['name']] = $now;
+			return $npc;
+		}
+		return $chprocess($npc, $act);
+	}
 }
 
 ?>

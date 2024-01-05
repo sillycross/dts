@@ -68,10 +68,12 @@ namespace npc_action
 			$gamevars['npc_action_list'] = $npc_action_list;
 			save_gameinfo();
 		}
+
+		$needupdate_gameinfo = 0;
 		
 		if(empty($npc_action_list)) 
 			return;
-		
+
 		//判定本轮是否满足NPC行动的时间条件，前置到这里判断有助于减少数据库开销
 		$npc_action_list_nowact = $npc_action_list;
 		foreach($npc_action_list_nowact as $nk => $nv) {
@@ -102,13 +104,15 @@ namespace npc_action
 				unset($npc_action_pid_list[$nv]);
 			}
 		}
-		
+		//echo 'npc_loading: '.var_export($npc_action_pid_list,1);
 		//根据$npc_action_list_nowact拉取所有NPC数据
 		$npc_action_pdata_list = npc_action_loadnpc($npc_action_pid_list);
 		//判定NPC存活
 		foreach($npc_action_pdata_list as $nk => $nv) {
 			if($nv['hp'] <= 0) {
 				unset($npc_action_pdata_list[$nk]);
+				$gamevars['last_npc_action'][$nv['name']] = $now;//如果NPC已死，记录死亡时间，下次间隔后再判定行动，避免反复判定占用资源
+				$needupdate_gameinfo = 1;
 			}
 		}
 		
@@ -131,12 +135,12 @@ namespace npc_action
 			}
 		}
 		
-		if(empty($needupdate_players)) {
+		if(empty($needupdate_gameinfo) && empty($needupdate_players)) {
 			return;
 		}else{//第二轮更新gamevars，这里是统一更新NPC上次行动时间
 			save_gameinfo();
 		}
-		
+		//echo 'npc_update: '.var_export(array_keys($needupdate_players),1);
 		//一次性更新player表
 		foreach($needupdate_players as $nv) {
 			\player\player_save($nv);

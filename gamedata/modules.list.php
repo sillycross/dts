@@ -280,7 +280,6 @@ skill318,extra/achievement/skills/skill318/,1
 skill322,extra/achievement/skills/skill322/,1
 skill323,extra/achievement/skills/skill323/,1
 skill715,extra/card/skills/skill715/,1
-skill711,extra/card/skills/skill711/,1
 skill586,extra/card/skills/skill586/,1
 skill902,extra/instance/instance3_ascension/skill902/,1
 skill907,extra/instance/instance3_ascension/skill907/,1
@@ -412,6 +411,7 @@ skill705,extra/card/skills/skill705/,1
 ex_alternative,extra/attr/ex_alternative/,1
 ex_uselog,extra/attr/ex_uselog/,1
 skill1000,extra/instance/instance7_tutorial/skill1000/,1
+skill711,extra/card/skills/skill711/,1
 skill1007,extra/npc_action/skill1007/,1
 skill418,extra/card/skills/skill418/,1
 skill1003,extra/club/skills/skill1003/,1
