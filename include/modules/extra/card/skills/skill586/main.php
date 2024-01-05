@@ -336,17 +336,24 @@ namespace skill586
 	function skill586_release($tpid, &$pa, $showlog = 0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$tnpc = \player\fetch_playerdata_by_pid($tpid);
-		if (!empty($tnpc))
+		eval(import_module('logger'));
+		if (in_array($tpid, skill586_get_npcarr($pa)))
 		{
-			$tnpc['pls'] = $pa['pls'];
-			\skillbase\skill_lost(711, $tnpc);
-			\player\player_save($tnpc);
+			$tnpc = \player\fetch_playerdata_by_pid($tpid);
+			if (!empty($tnpc))
+			{
+				$tnpc['pls'] = $pa['pls'];
+				\skillbase\skill_lost(711, $tnpc);
+				\player\player_save($tnpc);
+				skill586_remove_tpid($pa, $tpid);
+				if($showlog) $log.='<span class="cyan">异次元的电车送来了'.$tnpc['name'].'。</span><br>';
+			}
 			skill586_remove_tpid($pa, $tpid);
-			eval(import_module('logger'));
-			if($showlog) $log.='<span class="cyan">异次元的电车送来了'.$tnpc['name'].'。</span><br>';
 		}
-		skill586_remove_tpid($pa, $tpid);
+		else
+		{
+			if($showlog) $log .= '技能参数错误。<br>';
+		}
 	}
 	
 	//取出道具核心函数，包括加解密、修改技能参数，返回道具数组。
@@ -403,6 +410,26 @@ namespace skill586
 			ob_end_clean();
 		}
 		return;
+	}
+	
+	function kill(&$pa, &$pd) 
+	{	
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($pa, $pd);
+		if ($pd['hp'] <= 0 && \skillbase\skill_query(586,$pd))
+		{
+			$npcarr = skill586_get_npcarr($pd);
+			if (!empty($npcarr))
+			{
+				eval(import_module('logger'));
+				$log .= "<span class=\"yellow b\">被送去异次元的旅客们又回到了战场。</span><br>";
+				foreach($npcarr as $tpid)
+				{
+					skill586_release($tpid, $pd);
+				}
+			}
+		}
+		return $ret;
 	}
 	
 	function act()

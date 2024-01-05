@@ -27,7 +27,7 @@ namespace skill594
 		else
 		{
 			\skillbase\skill_setvalue(594,'usecount',(int)$usecount + 1,$pa);
-			$log .= '<span class="yellow b">你感到力量充满了全身！<br></span>';
+			$log .= '<span class="yellow b">你感到力量充满了全身！你的生命上限、体力上限、攻击力和防御力暂时增加了。</span><br>';
 			$pa['mhp'] += 300;
 			$pa['hp'] += 300;
 			$pa['msp'] += 300;
