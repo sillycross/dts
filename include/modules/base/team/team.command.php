@@ -5,7 +5,8 @@ namespace team
 	function teamcheck() {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','logger','player','team','input'));
+		eval(import_module('sys','logger','player','team'));
+		$teamcmd = get_var_input('teamcmd');
 		if(!team_available()){
 			$log .= '当前不允许建立或加入队伍。<br>';
 			$mode = 'command';
@@ -29,8 +30,8 @@ namespace team
 	function teammake($tID,$tPass) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','logger','player','team','input'));
-
+		eval(import_module('sys','logger','player','team'));
+		
 		if(!$tID || !$tPass) {
 			$log .= '队伍名和密码不能为空，请重新输入。<br>';
 			$mode = 'command';
@@ -76,7 +77,7 @@ namespace team
 	function teamjoin($tID,$tPass) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','logger','player','team','input'));
+		eval(import_module('sys','logger','player','team'));
 		if(!$tID || !$tPass){
 			$log .= '队伍名和密码不能为空，请重新输入。<br>';
 			$mode = 'command';
@@ -129,7 +130,7 @@ namespace team
 	function teamquit() {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','logger','player','team','input'));
+		eval(import_module('sys','logger','player','team'));
 		if($teamID){
 			$log .= '你退出了队伍<span class="yellow b">'.$teamID.'</span>。<br>';
 			addnews($now,'teamquit',$teamID,$name);

@@ -186,8 +186,9 @@ namespace dualwep
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','input'));
+		eval(import_module('sys'));
 		
+		$sp_cmd = get_var_input('sp_cmd');
 		if ($mode == 'command' && $command=='special' && $sp_cmd == 'sp_dualwep_am')
 		{
 			dualwep_change_am();
