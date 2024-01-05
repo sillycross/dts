@@ -422,7 +422,7 @@ namespace skill586
 			if (!empty($npcarr))
 			{
 				eval(import_module('logger'));
-				$log .= "<span class=\"yellow b\">被送去异次元的旅客们又回到了原处。</span><br>";
+				$log .= "<span class=\"yellow b\">被送去异次元的旅客们又回到了战场。</span><br>";
 				foreach($npcarr as $tpid)
 				{
 					skill586_release($tpid, $pd);
