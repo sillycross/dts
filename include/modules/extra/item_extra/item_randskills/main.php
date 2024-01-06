@@ -24,6 +24,16 @@ namespace item_randskills
 		230 => array(231),
 	);
 	
+	//此处S,A,B,C表示技能稀有度
+	$rs_cardskills = array
+	(
+		'S' => array(),
+		'A' => array(),
+		'B' => array(),
+		'C' => array(),
+		'X' => array(),
+	);
+	
 	function init()
 	{
 		eval(import_module('itemmain'));
@@ -34,13 +44,49 @@ namespace item_randskills
 	function parse_itmuse_desc($n, $k, $e, $s, $sk){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($n, $k, $e, $s, $sk);
-		if (strpos($k,'SC1')===0)
+		if (strpos($k,'SC01')===0)
 		{
 			$ret .= '使用后可以在三个未拥有的随机称号技能中选择一个习得';
 		}
-		elseif (strpos($k,'SC2')===0)
+		elseif (strpos($k,'SC02')===0)
 		{
 			$ret .= '使用后可以随机习得一个未拥有的称号技能';
+		}
+		elseif (strpos($k,'SCC1')===0)
+		{
+			$ret .= '使用后可以在三个C级技能中选择一个习得';
+		}
+		elseif (strpos($k,'SCC2')===0)
+		{
+			$ret .= '使用后可以随机习得一个C级技能';
+		}
+		elseif (strpos($k,'SCB1')===0)
+		{
+			$ret .= '使用后可以在三个B级技能中选择一个习得';
+		}
+		elseif (strpos($k,'SCB2')===0)
+		{
+			$ret .= '使用后可以随机习得一个B级技能';
+		}
+		elseif (strpos($k,'SCA1')===0)
+		{
+			$ret .= '使用后可以在三个A级技能中选择一个习得';
+		}
+		elseif (strpos($k,'SCA2')===0)
+		{
+			$ret .= '使用后可以随机习得一个A级技能';
+		}
+		elseif (strpos($k,'SCS1')===0)
+		{
+			$ret .= '使用后可以在三个S级技能中选择一个习得';
+		}
+		elseif (strpos($k,'SCS2')===0)
+		{
+			$ret .= '使用后可以随机习得一个S级技能';
+		}
+		elseif (strpos($k,'SCX2')===0)
+		{
+			$ret .= '使用后可以随机习得一个奇怪的技能';
 		}
 		elseif(strpos($k,'Y')===0 || strpos($k,'Z')===0)
 		{
@@ -83,7 +129,7 @@ namespace item_randskills
 				//得到新的技能
 				if ($count > 0)
 				{
-					get_randskill($sdata, $count);
+					get_rand_clubskill($sdata, $count);
 					$log .= "随着骰子的转动，你感到自己的身体变得焕然一新！<br>";
 				}
 				else
@@ -94,7 +140,7 @@ namespace item_randskills
 				return;
 			}	
 		}
-		elseif (strpos( $itmk, 'SC1' ) === 0)
+		elseif (strpos( $itmk, 'SC01' ) === 0)
 		{
 			$log .= "你使用了<span class=\"yellow b\">{$itm}</span>。<br>";
 			$sclist = get_skcore_skilllist($itmsk);
@@ -130,10 +176,10 @@ namespace item_randskills
 			\itemmain\itms_reduce($theitem);
 			return;
 		}
-		elseif (strpos( $itmk, 'SC2' ) === 0)
+		elseif (strpos( $itmk, 'SC02' ) === 0)
 		{
 			$log .= "你使用了<span class=\"yellow b\">{$itm}</span>。<br>";
-			$rs_skills = get_randskill($sdata, 1);
+			$rs_skills = get_rand_clubskill($sdata, 1);
 			if (!empty($rs_skills))
 			{
 				eval(import_module('clubbase'));
@@ -195,7 +241,7 @@ namespace item_randskills
 		else return array();
 	}
 	
-	function get_randskill(&$pa, $count, $sktype='all')
+	function get_rand_clubskill(&$pa, $count, $sktype='all')
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('item_randskills'));
