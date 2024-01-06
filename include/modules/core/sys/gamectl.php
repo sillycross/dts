@@ -407,7 +407,6 @@ namespace sys
 				$gudata = &$gameover_ulist[$key];
 				$gudata['credits'] += gameover_get_credit_up($val,$winner,$winmode);
 				$gudata['gold'] += gameover_get_gold_up($val,$winner,$winmode);
-				gwrite_var('a.txt', gameover_get_gold_up($val,$winner,$winmode));
 				//伐木不算参与次数
 				if($gametype != 15) $gudata['validgames']+= 1;
 				//非伐木房的幸存、解禁、解离、核爆，或者除错局，才算获胜次数
