@@ -394,7 +394,7 @@ namespace instance3
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess($winner);
 		eval(import_module('sys'));
-		if ($winmode == 7)
+		if ($winmode == 7 && $gametype == 13)
 		{
 			$pa = \player\fetch_playerdata($winner);
 			$alvl = (int)\skillbase\skill_getvalue(1003,'instance3_lvl',$pa);

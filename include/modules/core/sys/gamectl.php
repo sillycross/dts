@@ -468,11 +468,14 @@ namespace sys
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		if (in_array($gametype,$qiegao_ignore_mode)) return 0;//嘻嘻
-		if(is_winner($data['name'],$winner)){//获胜
-			if($winmode == 3){$up = 60;}//解禁
-			elseif($winmode == 7){$up = 150;}//解离
-			else{$up = 40;}//其他胜利方式
-		}else{$up = 10;}
+		if (is_winner($data['name'],$winner)) {//获胜
+			if($winmode == 2) $up = 100;//幸存
+			elseif($winmode == 3) $up = 150;//解禁
+			elseif($winmode == 7) $up = 150;//解离
+			else $up = 100;//其他胜利方式
+		}else{
+			$up = 50;//参与奖
+		}
 		return $up;
 	}
 }
