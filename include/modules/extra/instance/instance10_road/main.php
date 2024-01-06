@@ -263,7 +263,6 @@ namespace instance10
 			//无法使用移动PC
 			if (strpos($itmk, 'EE') === 0)
 			{
-				eval(import_module('logger'));
 				$log .= "你使用了{$itm}，却发现没有可以连接上的网络。怎么会这样？<br>";
 				return;
 			}
@@ -273,7 +272,6 @@ namespace instance10
 				$sc_count = (int)\skillbase\skill_getvalue(951,'sc_count',$sdata);
 				if ($sc_count >= 7)
 				{
-					eval(import_module('logger'));
 					$log .= "<span class=\"yellow b\">你已经使用过7个技能核心，无法再使用了。</span><br>";
 					return;
 				}
