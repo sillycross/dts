@@ -407,6 +407,7 @@ namespace sys
 				$gudata = &$gameover_ulist[$key];
 				$gudata['credits'] += gameover_get_credit_up($val,$winner,$winmode);
 				$gudata['gold'] += gameover_get_gold_up($val,$winner,$winmode);
+				gwrite_var('a.txt', gameover_get_gold_up($val,$winner,$winmode));
 				//伐木不算参与次数
 				if($gametype != 15) $gudata['validgames']+= 1;
 				//非伐木房的幸存、解禁、解离、核爆，或者除错局，才算获胜次数
@@ -469,12 +470,12 @@ namespace sys
 		eval(import_module('sys'));
 		if (in_array($gametype,$qiegao_ignore_mode)) return 0;//嘻嘻
 		if (is_winner($data['name'],$winner)) {//获胜
-			if($winmode == 2) $up = 100;//幸存
-			elseif($winmode == 3) $up = 150;//解禁
-			elseif($winmode == 7) $up = 150;//解离
+			if($winmode == 2) $up = 120;//幸存
+			elseif($winmode == 3) $up = 233;//解禁
+			elseif($winmode == 7) $up = 514;//解离
 			else $up = 100;//其他胜利方式
 		}else{
-			$up = 50;//参与奖
+			$up = 10;//参与奖
 		}
 		return $up;
 	}

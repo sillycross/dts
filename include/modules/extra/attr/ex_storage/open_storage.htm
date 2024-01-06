@@ -4,6 +4,9 @@
 <input type="hidden" id="pos" name="pos" value="0">
 <input type="hidden" id="storage_sendin" name="storage_sendin" value="">
 <input type="hidden" id="storage_fetchout" name="storage_fetchout" value="">
+<br>
+<input type="button" class="cmdbutton"  id="x" value="[X]返回" onclick="$('command').value='menu'; postCmd('gamecmd','command.php');this.disabled=true;">
+<br>
 <!--{loop array('wep','arb','arh','ara','arf','art') $ipos}-->
 	<!--{if \itemmain\check_in_itmsk('^st', ${$ipos.'sk'})}-->
 		<!--{eval $storage_itmarr=\ex_storage\get_item_storage(${$ipos.'sk'});$stcount = sizeof($storage_itmarr);$vol = (int)\itemmain\check_in_itmsk('^vol', ${$ipos.'sk'});}-->
@@ -22,5 +25,4 @@
 ${'itm'.$i}/${'itme'.$i}/${'itms'.$i}<br>
 <!--{/if}-->
 <!--{/loop}-->
-<br><br>
-<input type="button" class="cmdbutton"  id="x" value="[X]返回" onclick="$('command').value='menu'; postCmd('gamecmd','command.php');this.disabled=true;">
+<br>
