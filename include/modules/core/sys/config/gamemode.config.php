@@ -8,7 +8,7 @@ namespace sys
 	//之所以放在这里是避免global房间的参数，毕竟房间是模块外
 	$room_mode = Array(10,11,12,13,14,15,16,17,18,19,20);
 	//团队模式游戏类型列表
-	$teamwin_mode = Array(14);
+	$teamwin_mode = Array(14,20);
 	//不可完成一般成就的游戏类型列表(这个是不是放到achievement_base里比较好？不过这么写可以省一个import)
 	//已废弃，现在用的是achievement_base及各个成就文件里的$ach_allow_mode
 	//$ach_ignore_mode = Array(1,2,3,10,11,12,13,14,15,16,17);

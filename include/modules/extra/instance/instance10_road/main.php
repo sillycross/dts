@@ -125,7 +125,7 @@ namespace instance10
 		$chprocess($time);
 	}
 	
-	//开局天气初始化
+	//开局天气初始化；开局时，只有随机8个地点不为禁区
 	function rs_game($xmode = 0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -134,6 +134,10 @@ namespace instance10
 		if ((20 == $gametype)&&($xmode & 2)) 
 		{
 			$weather = 1;
+			//添加禁区
+			eval(import_module('map'));
+			$plsnum = sizeof($plsinfo) - 1;
+			$areanum += $plsnum - 8;
 		}
 	}
 	
@@ -169,27 +173,6 @@ namespace instance10
 		}
 		$chprocess($atime);
 	}
-	
-	//无法使用移动PC
-	function itemuse(&$theitem) 
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$itm=&$theitem['itm']; $itmk=&$theitem['itmk'];
-		eval(import_module('sys'));
-		if (20 == $gametype)
-		{
-			if (strpos($itmk, 'EE') === 0)
-			{
-				eval(import_module('logger'));	
-				$log .= "你使用了{$itm}，却发现没有可以连接上的网络。怎么会这样？<br>";
-				return;
-			}
-		}
-		$chprocess($theitem);
-	}
-	
-	//开局时，随机8个地点+无月之影为解锁状态，其他地点均为禁区
-	//未完成
 	
 	//商店除无月外，在随机4个地点生成
 	function check_in_shop_area($p)
@@ -253,12 +236,50 @@ namespace instance10
 		$chprocess();
 	}
 	
-	//适用队伍机制
-	function team_available(){
+	//记录吃技能核心次数
+	function use_skcore_success(&$pa)
+	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		if (20 == $gametype) return 1;
-		return $chprocess();
+		if (20 == $gametype)
+		{
+			if (\skillbase\skill_query(951,$pa))
+			{
+				$sc_count = (int)\skillbase\skill_getvalue(951,'sc_count',$pa);
+				\skillbase\skill_setvalue(951,'sc_count',$sc_count+1,$pa);
+			}
+		}
+		$chprocess($pa);
+	}
+	
+	function itemuse(&$theitem)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','logger'));
+		$itm=&$theitem['itm']; $itmk=&$theitem['itmk'];
+		$itme=&$theitem['itme']; $itms=&$theitem['itms']; $itmsk=&$theitem['itmsk'];	
+		if (20 == $gametype)
+		{
+			//无法使用移动PC
+			if (strpos($itmk, 'EE') === 0)
+			{
+				eval(import_module('logger'));
+				$log .= "你使用了{$itm}，却发现没有可以连接上的网络。怎么会这样？<br>";
+				return;
+			}
+			//每个人只能吃7个技能核心
+			elseif (strpos($itmk, 'SC') === 0)
+			{
+				$sc_count = (int)\skillbase\skill_getvalue(951,'sc_count',$sdata);
+				if ($sc_count >= 7)
+				{
+					eval(import_module('logger'));
+					$log .= "<span class=\"yellow b\">你已经使用过7个技能核心，无法再使用了。</span><br>";
+					return;
+				}
+			}
+		}
+		$chprocess($theitem);
 	}
 	
 }
