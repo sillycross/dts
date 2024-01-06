@@ -29,12 +29,14 @@ namespace skill437
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','map','player','logger','metman','input','weapon'));
+		eval(import_module('sys','player'));
 		if($mode == 'combat' && $command == 'back' && strpos($action, 'enemy')===0) 
 		{
+			eval(import_module('weapon'));
 			if ((\skillbase\skill_query(437))&&(check_unlocked437())){
 				${$skillinfo[substr($wepk,1,1)]}+=3;
 				\lvlctl\getexp(2);
+				//$log .= '<span class="grey b">“今天摸了！”</span>你一边关闭直播一边给自己补了3点熟练和2点经验。<br>';
 			}
 		}
 		

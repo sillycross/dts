@@ -11,10 +11,12 @@ namespace autopower
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('autopower','sys','player','itemmain','cooldown','logger','input'));
+		eval(import_module('autopower','sys','player','itemmain','cooldown','logger'));
 		
 		$itm=&$theitem['itm']; $itmk=&$theitem['itmk'];
 		$itme=&$theitem['itme']; $itms=&$theitem['itms']; $itmsk=&$theitem['itmsk'];
+
+		$itemselect = get_var_input('itemselect');
 		
 		if (strpos($itmk,'Z')===0 && ($itm=='全自动订书机' || $itm=='全自动磨刀砂轮'))
 		{
@@ -48,7 +50,7 @@ namespace autopower
 				
 				if (count($lis)>1)
 				{
-					if (!isset($itemselect))
+					if (empty($itemselect))
 					{
 						$cmd.='<input type="hidden" id="mode" name="mode" value="command">';
 						$cmd.='<input type="hidden" id="command" name="command" value="itm'.$theitem['itmn'].'">';

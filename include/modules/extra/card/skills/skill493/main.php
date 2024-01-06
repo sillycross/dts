@@ -42,7 +42,8 @@ namespace skill493
 			$log .= '你没有这个技能。<br>';
 			return;
 		}
-		eval(import_module('input'));
+		$skillpara1 = get_var_input('skillpara1');
+		
 		$val = (int)$skillpara1;
 		if ($val<1 || $val>3)
 		{

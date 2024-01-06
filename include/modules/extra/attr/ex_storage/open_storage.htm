@@ -7,6 +7,7 @@
 <br>
 <input type="button" class="cmdbutton"  id="x" value="[X]返回" onclick="$('command').value='menu'; postCmd('gamecmd','command.php');this.disabled=true;">
 <br>
+<br>
 <!--{loop array('wep','arb','arh','ara','arf','art') $ipos}-->
 	<!--{if \itemmain\check_in_itmsk('^st', ${$ipos.'sk'})}-->
 		<!--{eval $storage_itmarr=\ex_storage\get_item_storage(${$ipos.'sk'});$stcount = sizeof($storage_itmarr);$vol = (int)\itemmain\check_in_itmsk('^vol', ${$ipos.'sk'});}-->

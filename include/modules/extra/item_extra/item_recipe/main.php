@@ -325,7 +325,9 @@ namespace item_recipe
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','input'));
+		eval(import_module('sys','player'));
+		$usemode = get_var_input('usemode');
+		$itmp = get_var_input('itmp');
 		if ($mode == 'item' && $usemode == 'recipe') 
 		{
 			if ($command == 'menu')
@@ -336,7 +338,7 @@ namespace item_recipe
 			$mixlist = array();
 			for($i=1; $i<=6; $i++)
 			{
-				if(!empty(${'mitm'.$i}))
+				if(!empty(get_var_input('mitm'.$i)))
 					$mixlist[] = $i;
 			}
 			eval(import_module('item_recipe'));
@@ -349,7 +351,7 @@ namespace item_recipe
 		if ($mode == 'command' && $command == 'recipe')
 		{
 			eval(import_module('sys','player'));
-			$recipe_choice = get_var_in_module('recipe_choice', 'input');
+			$recipe_choice = get_var_input('recipe_choice');
 			if (!empty($recipe_choice))
 			{
 				$rkey = (int)$recipe_choice;
@@ -374,10 +376,11 @@ namespace item_recipe
 			$mixlist = array();
 			for($i=1; $i<=6; $i++)
 			{
-				if(!empty(${'mitm'.$i}))
+				if(!empty(get_var_input('mitm'.$i)))
 					$mixlist[] = $i;
 			}
 			eval(import_module('item_recipe'));
+			$rkey = get_var_input('rkey');
 			$minfo = $recipe_mixinfo[$rkey];
 			$ls = get_learned_recipes();
 			if (empty($minfo) || !in_array($rkey, $ls))

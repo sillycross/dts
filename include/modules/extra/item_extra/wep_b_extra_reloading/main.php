@@ -39,7 +39,7 @@ namespace wep_b_extra_reloading
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','itemmain','logger','input'));
+		eval(import_module('sys','player','itemmain','logger'));
 		
 		$itm=&$theitem['itm']; $itmk=&$theitem['itmk'];
 		$itme=&$theitem['itme']; $itms=&$theitem['itms']; $itmsk=&$theitem['itmsk'];
@@ -56,6 +56,7 @@ namespace wep_b_extra_reloading
 			}else{//其他无法装填的情形，什么都不做而返回
 				return;
 			}
+//			$subcmd = get_var_input('subcmd');
 //			if(empty($subcmd)){
 //				//指令为空，显示选择界面
 //				ob_start();

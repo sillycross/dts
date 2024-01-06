@@ -47,11 +47,11 @@ namespace item_uys
 	function autosewingkit($itmn = 0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;		
-		eval(import_module('sys','player','itemmain','logger','input'));
+		eval(import_module('sys','player','itemmain','logger'));
 		
 		$itmn = (int)$itmn;
-		$itmp = (int)$itmp;
-		$sknum = (int)$sknum;
+		$itmp = (int)get_var_input('itmp');
+		$sknum = (int)get_var_input('sknum');
 		
 		if ($itmp < 1 || $itmp > 6) {
 			$log .= '此道具不存在，请重新选择。';
@@ -188,8 +188,9 @@ namespace item_uys
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','input'));
-		if ($mode == 'item' && $usemode == 'sewingkit') 
+		eval(import_module('sys','player'));
+		$usemode = get_var_input('usemode');
+		if ($mode == 'item' && $usemode == 'sewingkit' && substr($command, 0, 3) == 'itm') 
 		{
 			$item = substr($command, 3);
 			autosewingkit($item);

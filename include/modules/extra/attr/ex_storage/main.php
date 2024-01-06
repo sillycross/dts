@@ -227,13 +227,17 @@ namespace ex_storage
 	function use_storage()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','logger','player','input'));
+		eval(import_module('sys','logger','player'));
 		if (!\attrbase\check_itmsk('^st')) 
 		{
 			$log .= '你没有额外的储物空间。<br>';
 			return;
 		}
 		$flag = 0;
+		$subcmd = get_var_input('subcmd');
+		$storage_sendin = get_var_input('storage_sendin');
+		$storage_fetchout = get_var_input('storage_fetchout');
+		$pos = get_var_input('pos');
 		if (!empty($storage_sendin))
 		{
 			storage_sendin($storage_sendin);
@@ -260,7 +264,7 @@ namespace ex_storage
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','logger','input'));
+		eval(import_module('sys'));
 	
 		if ($mode == 'special' && $command == 'storage') 
 		{
