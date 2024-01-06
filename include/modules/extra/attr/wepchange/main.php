@@ -52,8 +52,8 @@ namespace wepchange
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','input'));
-		
+		eval(import_module('sys','player'));
+		$sp_cmd = get_var_input('sp_cmd');
 		if ($mode == 'command' && $command=='special' && $sp_cmd == 'sp_weapon')
 		{
 			weaponswap();

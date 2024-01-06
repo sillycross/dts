@@ -80,11 +80,11 @@ for ($___TEMP_MOD_LOAD_i=1; $___TEMP_MOD_LOAD_i<=$___TEMP_MOD_LIST_n; $___TEMP_M
 
 if (CURSCRIPT == 'game' && !defined('LOAD_CORE_ONLY'))
 {
-	eval(import_module('sys','map','player','logger','itemmain','input'));
+	eval(import_module('input','sys','map','player','logger','itemmain'));
 }
 else
 {
-	eval(import_module('sys','map','input'));
+	eval(import_module('input','sys','map'));
 }
 
 if (defined('NO_SYS_UPDATE')) return;

@@ -47,10 +47,10 @@ namespace blessstone
 	function use_blessstone($itmn = 0) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','itemmain','logger','input'));
+		eval(import_module('sys','player','itemmain','logger'));
 		
 		$itmn = (int)$itmn;
-		$itmp = (int)$itmp;
+		$itmp = (int)get_var_input('itmp');
 		
 		if ( $itmp < 1 || $itmp > 6 ) {
 			$log .= '此道具不存在，请重新选择。';
@@ -163,7 +163,8 @@ namespace blessstone
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','input'));
+		eval(import_module('sys','player'));
+		$usemode = get_var_input('usemode');
 		if($mode == 'item' && $usemode == 'blessstone') 
 		{
 			$item = substr($command,3);

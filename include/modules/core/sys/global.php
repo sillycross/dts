@@ -227,8 +227,8 @@ namespace sys
 	function getchat($last,$team='',$chatpid=0,$limit=0) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chatdata = Array('lastcid' => $last, 'msg' => array());
-		eval(import_module('sys', 'input'));
-
+		eval(import_module('sys'));
+		
 		$limit = $limit ? $limit : $chatlimit;
 		
 		if('all' == $team)

@@ -186,7 +186,9 @@ if ($___MOD_SRV)
 						}
 						file_put_contents(GAME_ROOT.'./gamedata/tmp/server/'.$___TEMP_CONN_PORT.'/worknum', $___TEMP_WORKNUM.','.$___TEMP_MEMORYSIZE);
 						
-						eval(import_module('sys','map','player','logger','itemmain','input'));
+						//这几个模块都是显示所必需的，虽然很不优雅（像map和itemmain就不适合放在这里）
+						//input模块的某些变量在这里直接import作为全局变量，这也有一定的危险性，但底层竹子当柱子很难改了
+						eval(import_module('input','sys','player','map','itemmain','logger'));
 						
 						//非聊天界面刷新进行状况的调用，那么刷新一次当前游戏状态
 						//聊天界面开着进行状况模式的话会3秒一次地访问command.php，如果都刷新当前游戏状态会有较大的开销
