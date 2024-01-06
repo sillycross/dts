@@ -434,8 +434,12 @@ namespace item_recipe
 		$itmk0 = $minfo['result'][1];
 		$itme0 = $minfo['result'][2];
 		$itms0 = $minfo['result'][3];
-		if (isset($minfo['result'][4]))
+		if (isset($minfo['result'][4])){
 			$itmsk0 = $minfo['result'][4];
+			if(defined('MOD_ATTRBASE')) {
+				$itmsk0 = \attrbase\config_process_encode_comp_itmsk($itmsk0);//支持复合属性自动编码
+			}
+		}
 		else{
 			$itmsk0 = '';
 		}

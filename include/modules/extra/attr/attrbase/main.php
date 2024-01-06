@@ -333,7 +333,7 @@ namespace attrbase
 		$chprocess();
 	}
 	
-	//商店数据的单条处理
+	//商店单条数据的复合属性处理
 	function shopitem_data_process($data){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		$ret = $chprocess($data);
@@ -362,7 +362,7 @@ namespace attrbase
 		return $npc;
 	}
 	
-	//NPC进化时的处理
+	//NPC进化时的复合属性处理
 	function evonpc($xtype,$xname){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		$ret = $chprocess($xtype,$xname);
@@ -383,13 +383,34 @@ namespace attrbase
 		return $ret;
 	}
 	
-	//入场卡片生效时，单项数据的处理。
+	//入场卡片生效时，单项数据的复合属性处理。
 	function enter_battlefield_cardproc_valueproc($key, $value){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($key, $value);
 		if(in_array(substr($key,0,3), Array('wep','arb','arh','ara','arf','art','itm')) && strpos($key, 'sk')!==false)
 		{
 			$ret = config_process_encode_comp_itmsk($ret);
+		}
+		return $ret;
+	}
+
+	//入场基本数据（开局武器等）的复合属性处理
+	function init_enter_battlefield_items($ebp){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($ebp);
+		if(!empty($ret)) {
+			//为了性能，把栏位写死。
+			$equip_list = Array('wep', 'arb', 'arh', 'ara', 'arf', 'art', 'itm0', 'itm1', 'itm2', 'itm3', 'itm4', 'itm5', 'itm6');
+			foreach($equip_list as $pos) {
+				if(strpos($pos, 'itm')===0) {
+					$posskn = 'itmsk'.substr($pos, 3);
+				}else{
+					$posskn = $pos.'sk';
+				}
+				if(!empty($ret[$posskn])) {
+					$ret[$posskn] = config_process_encode_comp_itmsk($ret[$posskn]);
+				}
+			}
 		}
 		return $ret;
 	}

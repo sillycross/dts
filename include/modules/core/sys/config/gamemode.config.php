@@ -6,7 +6,7 @@ namespace sys
 
 	//跟gametype有关的一系列配置。
 	//之所以放在这里是避免global房间的参数，毕竟房间是模块外
-	$room_mode = Array(10,11,12,13,14,15,16,17,18,19);
+	$room_mode = Array(10,11,12,13,14,15,16,17,18,19,20);
 	//团队模式游戏类型列表
 	$teamwin_mode = Array(14);
 	//不可完成一般成就的游戏类型列表(这个是不是放到achievement_base里比较好？不过这么写可以省一个import)

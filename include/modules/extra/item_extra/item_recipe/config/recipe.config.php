@@ -272,7 +272,7 @@ namespace item_recipe
 			'stuff1' => array('itm'=>'礼品盒','itm_match'=>1),
 			'stuff2' => array('itm'=>'毒药','itm_match'=>0),
 			'stuff3' => array('itm'=>'喷雾器罐','itm_match'=>0),
-			'result' => array('残存的礼品盒','p',1,1,'^res_%q+S%rCU%Za#-Zu+LFBCLDc#NywxLCw=1^reptype1'),
+			'result' => array('残存的礼品盒','p',1,1,'^res_<:comp_itmsk:>{毒气喷雾.PB.777.1..}1^reptype1'),
 			'extra' => array('materials'=>3),
 		),
 		56 => array
