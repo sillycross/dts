@@ -380,7 +380,24 @@ $roomtypelist = Array(
 						'title' => '限制时间为1禁，1禁时间严格为40分钟。为熟练玩家提供最充裕的时间来挑战伐木成就。',
 					)
 				)
-			)
+			),
+			'keep_corpse_in_searchmemory' => array(
+				'title' => '尸体拾取设置',
+				'type' => 'radio',
+				'options' => array(
+					array(
+						'value' => '1',
+						'name' => '拾取后留在视野中',
+						'title' => '拾取尸体物品后，尸体依然保留在视野中，但有一定的冷却时间。',
+						'default' => true,
+					),
+					array(
+						'value' => '0',
+						'name' => '拾取后需重新探索发现',
+						'title' => '拾取尸体物品后需要再次探索才能找到尸体，与正常模式相同。',
+					)
+				)
+			),
 		)
 	),
 	6 => Array(
@@ -409,6 +426,25 @@ $roomtypelist = Array(
 			0 => '90',
 			1 => '91',
 			2 => '92',
+		),
+		'game-option' => array(
+			'keep_corpse_in_searchmemory' => array(
+				'title' => '尸体拾取设置',
+				'type' => 'radio',
+				'options' => array(
+					array(
+						'value' => '1',
+						'name' => '拾取后留在视野中',
+						'title' => '拾取尸体物品后，尸体依然保留在视野中，但有一定的冷却时间。',
+						'default' => true,
+					),
+					array(
+						'value' => '0',
+						'name' => '拾取后需重新探索发现',
+						'title' => '拾取尸体物品后需要再次探索才能找到尸体，与正常模式相同。',
+					)
+				)
+			),
 		)
 	),
 	7 => Array(//教程模式为唯一房间

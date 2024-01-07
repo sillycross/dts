@@ -685,7 +685,7 @@ namespace searchmemory
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		if(15 == $gametype || 16 == $gametype) return true;//仅单人房可用
+		if(!empty($roomvars['current_game_option']['keep_corpse_in_searchmemory'])) return true;//需要房间设置允许保留尸体
 		return false;
 	}
 	
