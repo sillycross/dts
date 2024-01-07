@@ -1,7 +1,7 @@
 <input type="hidden" id="mode" name="mode" value="command">
 <input type="hidden" id="command" name="command" value="itm{$theitem['itmn']}">
 <input type="hidden" id="skcore_choice" name="skcore_choice" value="0">
-<!--{eval $sclist = \item_randskills\get_skcore_skilllist($theitem['itmsk']);}-->
+<!--{eval $sclist = \item_randskills\get_skcore_skilllist($theitem['itmk'], $theitem['itmsk']);}-->
 <!--{if empty($sclist)}-->
 你好像没有可以学习的技能。<br>
 <!--{else}-->

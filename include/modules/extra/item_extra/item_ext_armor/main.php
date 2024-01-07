@@ -18,7 +18,7 @@ namespace item_ext_armor
 	function parse_itmuse_desc($n, $k, $e, $s, $sk){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($n, $k, $e, $s, $sk);
-		if (strpos(substr($k, 2), 'S') !== false)
+		if ((strpos($k, 'D') === 0) && (strpos(substr($k, 2), 'S') !== false))
 		{
 			$ret .= '这一防具可以叠加装备在相同位置的防具上';
 		}
