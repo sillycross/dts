@@ -1,0 +1,18 @@
+<!--{eval eval(import_module('sys','clubbase'));}-->
+<!--{eval $taskarr=\skill960\get_taskarr($who);$taskprog=\skill960\get_taskprog($who);$taskcount=sizeof($taskarr);}-->
+<input type="hidden" name="mode" value="special">
+<input type="hidden" id="command" name="command" value="skill960_special">
+<input type="hidden" id="subcmd" name="subcmd" value="">
+<input type="hidden" id="taskid_submit" name="taskid_submit" value="">
+<!--{if empty($taskcount)}-->
+<span class="yellow b">你没有接取任务。</span><br><br>
+<!--{else}-->
+当前接取了<span class="yellow b">$taskcount</span>个任务：<br><br>
+<!--{loop $taskarr $i $taskid}-->
+<!--{eval $task_tip=\skill960\show_task_tip($taskid, $taskprog[$i], 1);}-->
+$task_tip<br>
+<input type="button" class="cmdbutton" value="提交" onclick="$('taskid_submit').value='$taskid';postCmd('gamecmd','command.php');this.disabled=true;"><br><br>
+<!--{/loop}-->
+<!--{/if}-->
+<br><br>
+<input type="button" class="cmdbutton"  id="x" value="[X]返回" onclick="$('command').value='menu'; postCmd('gamecmd','command.php');this.disabled=true;">

@@ -421,7 +421,6 @@ gtype1,extra/instance/gtype1/main/,1
 randmix,extra/misc/randmix/,1
 skill57,extra/club/skills/skill57/,1
 skill436,extra/card/skills/skill436/,1
-instance10,extra/instance/instance10_road/,1
 dualwep,base/weapon/dualwep/,1
 wep_b_extra_reloading,extra/item_extra/wep_b_extra_reloading/,1
 skill28,extra/club/skills/skill28/,1
@@ -628,6 +627,7 @@ skill597,extra/card/skills/skill597/,1
 skill713,extra/card/skills/skill713/,1
 skill712,extra/card/skills/skill712/,1
 skill587,extra/card/skills/skill587/,1
+skill960,extra/instance/instance10_road/skill960/,1
 skill566,extra/card/skills/skill566/,1
 skill604,extra/club/skills/skill604/,1
 ex_gender_attr,extra/attr/ex_gender_attr/,1
@@ -636,6 +636,7 @@ skill903,extra/instance/instance3_ascension/skill903/,1
 skill505,extra/card/skills/skill505/,1
 skill709,extra/card/skills/skill709/,1
 skill722,extra/card/skills/skill722/,1
+instance10,extra/instance/instance10_road/,1
 skill714,extra/card/skills/skill714/,1
 ex_purity,extra/attr/ex_purity/,1
 skill26,extra/club/skills/skill26/,1

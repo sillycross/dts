@@ -2,7 +2,7 @@
 
 namespace skill952
 {
-	$skill952_size = 20;
+	$skill952_size = 1024;
 	
 	function init() 
 	{
@@ -15,7 +15,7 @@ namespace skill952
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		\skillbase\skill_setvalue(952,'itmarr','',$pa);
-		\skillbase\skill_setvalue(952,'lvl','20',$pa);
+		\skillbase\skill_setvalue(952,'lvl','1024',$pa);
 	}
 	
 	function lost952(&$pa)
