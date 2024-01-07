@@ -100,10 +100,11 @@ namespace skill503
 	function itemuse_uee_core($itmn)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','logger','input'));
+		eval(import_module('sys','player','logger'));
 		if(!\skillbase\skill_query(503) || !check_unlocked503()) return $chprocess($itmn);
 		$hack2_r = \skillbase\skill_getvalue(503,'hack2_r');
 		$hack3_r = \skillbase\skill_getvalue(503,'hack3_r');
+		$ueecmd = get_var_input('ueecmd');
 		if(empty($ueecmd)) {
 			$ueen = $itmn;
 			ob_start();

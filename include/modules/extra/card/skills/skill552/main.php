@@ -32,7 +32,8 @@ namespace skill552
 	function act()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;		
-		eval(import_module('sys','player','logger','input'));
+		eval(import_module('sys','player','logger'));
+		$subcmd = get_var_input('subcmd');
 		if ($mode == 'special' && $command == 'skill552_special' && $subcmd=='castsk552') 
 		{
 			cast_skill552();
@@ -44,7 +45,7 @@ namespace skill552
 	function cast_skill552()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','logger','player','input','weapon','skill552'));
+		eval(import_module('sys','logger','player','weapon','skill552'));
 		if (!\skillbase\skill_query(552)) 
 		{
 			$log .= '你没有这个技能。<br>';

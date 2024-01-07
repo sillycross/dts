@@ -156,8 +156,8 @@ namespace skill564
 	function upgrade564()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('skill564','player','logger','input'));
-		$skillpara1 = (int)$skillpara1;
+		eval(import_module('skill564','player','logger'));
+		$skillpara1 = (int)get_var_input('skillpara1');
 		$chance = (int)\skillbase\skill_getvalue(564, 'chance', $pa);
 		if (!\skillbase\skill_query(564) || !check_unlocked564()) 
 		{

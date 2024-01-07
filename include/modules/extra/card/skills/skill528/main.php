@@ -43,7 +43,7 @@ namespace skill528
 		//所以维度越高，BUG越多；BUG越多，修正越多；修正越多，维度越低。所以维度越高，维度越低
 		if (in_array($GLOBALS['___CURSCRIPT'], array('GAME', 'ACT')) && \skillbase\skill_query(528)) {
 		//if (\skillbase\skill_query(528)) {
-			eval(import_module('player','input'));
+			eval(import_module('sys','player'));
 			if(1 == \skillbase\skill_getvalue(528,'flag',$sdata)){
 				//如果标记没有消除，认为中间程序异常了，触发技能效果
 				skill528_effect();

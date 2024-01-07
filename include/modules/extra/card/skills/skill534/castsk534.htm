@@ -6,6 +6,9 @@
 <input type="hidden" id="skill534_sendin" name="skill534_sendin" value="">
 <input type="hidden" id="skill534_fetchout" name="skill534_fetchout" value="">
 当前异次元中已存放 <span class="yellow b">{$skill534_nowcount}/{$skill534_size}</span> 个道具<br>
+<br>
+<input type="button" class="cmdbutton"  id="x" value="[X]返回" onclick="$('command').value='menu'; postCmd('gamecmd','command.php');this.disabled=true;">
+<br><br>
 <!--{loop $skill534_itmarr $i $v}-->
 <input type="button" class="cmdbutton" value="取出" onclick="$('skill534_fetchout').value='<!--{eval echo $i+1;}-->';$('skill534_sendin').value='';postCmd('gamecmd','command.php');this.disabled=true;">
 $v['itm']/$v['itme']/$v['itms']<br>
@@ -17,5 +20,4 @@ $v['itm']/$v['itme']/$v['itms']<br>
 ${'itm'.$i}/${'itme'.$i}/${'itms'.$i}<br>
 <!--{/if}-->
 <!--{/loop}-->
-<br><br>
-<input type="button" class="cmdbutton"  id="x" value="[X]返回" onclick="$('command').value='menu'; postCmd('gamecmd','command.php');this.disabled=true;">
+<br>

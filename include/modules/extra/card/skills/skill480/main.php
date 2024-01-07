@@ -36,7 +36,7 @@ namespace skill480
 			return;
 		}
 		\skillbase\skill_setvalue(480,'activated',1);
-		$log .= '你发动了技能<span class="gold">「泡沫」</span><br>虽然你的钱包并没有变鼓，但你知道，在这个虚拟世界里，你已经富了整整一倍。<br>想到这里，你心里充满了幸福感<br>';
+		$log .= '你发动了技能<span class="gold">「泡沫」</span><br>虽然你的钱包并没有变鼓，但你知道，在这个虚拟世界里，你已经富了整整一倍。<br>想到这里，你心里充满了幸福。<br>';
 		$money *= 2;
 		addnews ( 0, 'bskill480', $name);
 		$mode = 'command';$command = '';
@@ -78,7 +78,7 @@ namespace skill480
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','input','logger'));
+		eval(import_module('sys','player','logger'));
 	
 		if ($mode == 'special' && $command == 'skill480_activate') 
 		{

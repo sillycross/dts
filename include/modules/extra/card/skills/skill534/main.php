@@ -200,13 +200,16 @@ namespace skill534
 	function cast_skill534()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','logger','player','input'));
+		eval(import_module('sys','logger','player'));
 		if (!\skillbase\skill_query(534)) 
 		{
 			$log.='你没有这个技能。';
 			return;
 		}
 		$flag = 0;
+		$subcmd = get_var_input('subcmd');
+		$skill534_sendin = get_var_input('skill534_sendin');
+		$skill534_fetchout = get_var_input('skill534_fetchout');
 		if (!empty($skill534_sendin))
 		{
 			skill534_sendin($skill534_sendin);
@@ -233,7 +236,7 @@ namespace skill534
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','logger','input'));
+		eval(import_module('sys','player','logger'));
 	
 		if ($mode == 'special' && $command == 'skill534_special') 
 		{

@@ -165,7 +165,7 @@ namespace skill530
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','input','logger'));
+		eval(import_module('sys','player','logger'));
 	
 		if ($mode == 'special' && $command == 'skill530_special') 
 		{

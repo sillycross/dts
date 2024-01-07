@@ -42,13 +42,14 @@ namespace skill458
 	function cast_skill458()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','logger','player','input'));
+		eval(import_module('sys','logger','player'));
 		if (!\skillbase\skill_query(458)) 
 		{
 			$log.='你没有这个技能。';
 			return;
 		}
-		if (isset($skill458_choice))
+		$skill458_choice = get_var_input('skill458_choice');
+		if (!empty($skill458_choice))
 		{
 			$z=(int)$skill458_choice;
 			if (1<=$z && $z<=6 && ${'itms'.$z} && ${'itmk'.$z}[0]!='H' && ${'itmk'.$z}[0]!='P')
@@ -88,8 +89,8 @@ namespace skill458
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','logger','input'));
-	
+		eval(import_module('sys','player','logger'));
+		$subcmd = get_var_input('subcmd');
 		if ($mode == 'special' && $command == 'skill458_special' && $subcmd=='castsk458') 
 		{
 			cast_skill458();

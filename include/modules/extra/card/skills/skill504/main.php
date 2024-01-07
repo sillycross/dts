@@ -52,7 +52,7 @@ namespace skill504
 	function act()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','input'));
+		eval(import_module('sys','player'));
 		if($mode == 'special_skill504') {
 			if($command == 'skill504_complete') {
 				skill504_popko_anime_complete();

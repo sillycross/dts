@@ -22,9 +22,10 @@ namespace skill557
 	function itemuse(&$theitem)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','itemmain','logger','input'));
+		eval(import_module('sys','player','itemmain','logger'));
 		if (\skillbase\skill_query(557) && strpos ( $theitem['itmk'], 'DF' ) === 0) 
 		{			
+			$skill557_choice = get_var_input('skill557_choice');
 			//如果没有提供目标参数，认为是从命令菜单直接点击的装备按钮
 			if (empty($skill557_choice))
 			{
