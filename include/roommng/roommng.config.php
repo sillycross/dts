@@ -310,6 +310,23 @@ $roomtypelist = Array(
 					)
 				)
 			),
+			'opening-gamestate' => array(//变量名
+				'title' => '入场后游戏状况',//界面显示的提示
+				'type' => 'radio',//input类型
+				'options' => array(
+					array(
+						'value' => '40',
+						'name' => '进入连斗',
+						'title' => '入场后连斗，容易遭遇角色，不容易摸道具',
+						'default' => true,
+					),
+					array(
+						'value' => '30',
+						'name' => '停止激活',
+						'title' => '入场后只停止激活，发现率正常，死亡180人或者2禁后进入连斗',
+					)
+				)
+			),
 			'card-select' => array(//变量名
 				'title' => '卡片设置',//界面显示的提示
 				'type' => 'radio',//input类型
