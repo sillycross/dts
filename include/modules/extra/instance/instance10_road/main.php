@@ -4,7 +4,7 @@ namespace instance10
 {
 	function init() {
 		eval(import_module('skillbase'));
-		$valid_skills[20] = array(181,951,952);
+		$valid_skills[20] = array(181,951,952,960);
 	}
 	
 	//公路模式自动选择肉鸽来客
@@ -278,6 +278,72 @@ namespace instance10
 			}
 		}
 		$chprocess($theitem);
+	}
+	
+	//进场后随机获得三个1级任务
+	function post_enterbattlefield_events(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($pa);
+		eval(import_module('sys'));
+		if (20 == $gametype)
+		{
+			\skill960\get_rand_task($pa, 1, 3);
+		}
+	}
+	
+	//失去任务时，根据调查度获得新的任务
+	function remove_task(&$pa, $taskid)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($pa, $taskid);
+		eval(import_module('sys'));
+		if (20 == $gametype)
+		{
+			\skill960\get_rand_task($pa, get_newtask_rank($pa), 1);
+		}
+	}
+	
+	//获取任务奖励约等于完成任务，在这里加禁区解锁的判定
+	function get_task_reward(&$pa, $taskid)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$chprocess($pa, $taskid);
+		eval(import_module('sys'));
+		if (20 == $gametype)
+		{
+			if (!isset($gamevars['instance10_topinv'])) $gamevars['instance10_topinv'] = 0;
+			$invscore = (int)\skillbase\skill_getvalue(960,'invscore',$pa);
+			if ($invscore > $gamevars['instance10_topinv'])
+			{
+				//最高调查度每加10，减少4个禁区
+				$map_unlock = floor($invscore/10) - floor($gamevars['instance10_topinv']/10);
+				if ($map_unlock > 0)
+				{
+					eval(import_module('map','logger'));
+					$log .= "<span class=\"yellow b\">你发现了新的地点！</span><br>";
+					$areanum -= 4 * $map_unlock;
+					$areanum = max($areanum, 0);
+				}
+				$gamevars['instance10_topinv'] = $invscore;
+			}
+			save_gameinfo();
+		}
+	}
+	
+	//由调查度决定新任务等级
+	function get_newtask_rank(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$invscore = (int)\skillbase\skill_getvalue(960,'invscore',$pa);
+		//以后可能需要细调，不写成算式了
+		if ($invscore < 10) return 1;
+		elseif ($invscore < 20) return 2;
+		elseif ($invscore < 30) return 3;
+		elseif ($invscore < 40) return 4;
+		elseif ($invscore < 50) return 5;
+		elseif ($invscore < 60) return 6;
+		else return 7;
 	}
 	
 }
