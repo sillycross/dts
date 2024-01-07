@@ -250,7 +250,7 @@ namespace skill960
 				{
 					foreach ($v as $theitem)
 					{
-						skill952_sendin_core($theitem, $pa);
+						\skill952\skill952_sendin_core($theitem, $pa);
 						$log .= "你获得了<span class=\"yellow b\">{$theitem['itm']}</span>。<br>";
 					}
 					$log .= "道具被送到了你的奖励箱中。<br>";
