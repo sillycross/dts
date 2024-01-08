@@ -66,7 +66,24 @@ namespace skill961
 	}
 	
 	//遇到护送NPC时的特殊显示
-	//待完成
+	function meetman_alternative($edata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player'));
+		if (\skillbase\skill_query(961,$sdata))
+		{
+			$vippid = (int)\skillbase\skill_getvalue(961,'vippid',$sdata);
+			if ($edata['pid'] == $vippid)
+			{
+				eval(import_module('logger'));
+				$log .= "<span class=\"yellow b\">{$edata['name']}</span>正跟随着你。<br>";
+				//在此之前应该有个固定组队的判定，之后再来写
+				\team\findteam($edata);
+				return;
+			}
+		}
+		return $chprocess($edata);
+	}
 	
 	//战斗中NPC有小概率会受到伤害
 	//待完成
@@ -189,7 +206,7 @@ namespace skill961
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('logger'));
 		$temp_log = $log;
-        $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 		if ($pa['skill961_flag'] == 1) $log = $temp_log;
 	}
 	
@@ -199,7 +216,7 @@ namespace skill961
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('logger'));
 		$temp_log = $log;
-        $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 		if ($pa['skill961_flag'] == 1) $log = $temp_log;
 	}
 	
