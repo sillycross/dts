@@ -154,7 +154,7 @@ namespace skill86
 		eval(import_module('logger'));
 		$temp_log = $log;
         $chprocess($pa, $pd, $active);
-		if ($employee['skill86_flag'] = 1) $log = $temp_log;
+		if ($employee['skill86_flag'] == 1) $log = $temp_log;
 	}
 	
 	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())

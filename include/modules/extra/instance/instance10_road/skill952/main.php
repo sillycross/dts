@@ -111,6 +111,13 @@ namespace skill952
 			$pa = $sdata;
 		}
 		$skill952_itmarr = skill952_prepare_itmarr($pa);
+		$skill952_nowcount = sizeof($skill952_itmarr);
+		if ($skill952_nowcount >= 30)
+		{
+			eval(import_module('logger'));
+			$log .= '<span class="yellow b">但是你的奖励箱已经装满了，没法获得更多道具了。</span><br>';
+			return;
+		}
 		$skill952_itmarr[] = $theitem;
 		\skillbase\skill_setvalue(952,'itmarr',skill952_encode_itmarr($skill952_itmarr),$pa);
 	}
