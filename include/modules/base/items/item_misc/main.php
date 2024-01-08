@@ -34,7 +34,7 @@ namespace item_misc
 				$ret .= '使用后达成『幻境解离』胜利';
 			}elseif ($n == '杏仁豆腐的ID卡') {
 				$ret .= '连斗后使用可以让全场NPC消失并进入『死斗阶段』';
-			}elseif ($n == '水果刀') {
+			}elseif (strpos($n,'水果刀')!==false) {
 				$ret .= '可以切水果，视你的斩系熟练度决定生成补给还是水果皮';
 			}
 		}
@@ -338,7 +338,7 @@ namespace item_misc
 					\player\load_playerdata($sdata);
 				}
 				return;
-			} elseif ($itm == '水果刀') {
+			} elseif (strpos($itm,'水果刀')!==false) {
 				$flag = false;
 				
 				for($i = 1; $i <= 6; $i ++) {
@@ -350,6 +350,7 @@ namespace item_misc
 								${'itm' . $i} = '★残骸★';
 								${'itme' . $i} *= rand(2,4);
 								${'itms' . $i} *= rand(3,5);
+								${'itmsk' . $i} = '';
 								$flag = true;
 								$wk++;
 							}else{
@@ -357,6 +358,7 @@ namespace item_misc
 								${'itm' . $i} = str_replace('唯一','不唯一',str_replace($fruit, $fruit.'皮',${'itm' . $i} ));
 								${'itmk' . $i} = 'TN';
 								${'itms' . $i} *= rand(2,4);
+								${'itmsk' . $i} = '';
 								$flag = true;
 								$wk++;
 							}
