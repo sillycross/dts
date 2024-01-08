@@ -1,10 +1,10 @@
 <!--{eval eval(import_module('skill952','sys','clubbase'));}-->
-<!--{eval $skill952_itmarr=\skill952\skill952_prepare_itmarr();$skill952_nowcount=sizeof($skill952_itmarr);$skill952_size=\skill952\skill952_get_packsize();}-->
+<!--{eval $skill952_itmarr=\skill952\skill952_prepare_itmarr();$skill952_nowcount=sizeof($skill952_itmarr);}-->
 <input type="hidden" name="mode" value="special">
 <input type="hidden" id="command" name="command" value="skill952_special">
 <input type="hidden" id="subcmd" name="subcmd" value="">
 <input type="hidden" id="skill952_fetchout" name="skill952_fetchout" value="">
-当前有 <span class="yellow b">{$skill952_nowcount}/{$skill952_size}</span> 个奖励道具未取出<br>
+当前有<span class="yellow b">{$skill952_nowcount}</span>个奖励道具未取出<br>
 <!--{loop $skill952_itmarr $i $v}-->
 <input type="button" class="cmdbutton" value="取出" onclick="$('skill952_fetchout').value='<!--{eval echo $i+1;}-->';postCmd('gamecmd','command.php');this.disabled=true;">
 $v['itm']/$v['itme']/$v['itms']<br>

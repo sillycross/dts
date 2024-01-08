@@ -6,9 +6,21 @@ $clubskillname[$___TEMP_SKILL_ID]
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class="skilldesc_left b3"><span class="skilldesc">
-<span class="yellow b">战斗技</span>&nbsp;&nbsp;本次攻击附加<span class="yellow b">40</span>点最终伤害，<br>且额外触发称号特性“<span class="yellow b">高速</span>”<span class="yellow b">1</span>次，若击杀敌人则再触发<span class="yellow b">2</span>次。<br>消耗<span class="yellow b">$ragecost</span>点怒气
+<!--{eval $clv = (int)\skillbase\skill_getvalue(85,'lvl'); }-->
+<span class="yellow b">战斗技</span>&nbsp;&nbsp;本次攻击附加<span class="yellow b">40</span>点最终伤害，<br>
+<!--{if $clv == 0}-->
+且额外触发称号特性“<span class="yellow b">高速</span>”<span class="yellow b">1</span>次，若击杀敌人则再触发<span class="yellow b">2</span>次。<br>消耗<span class="yellow b">$ragecost</span>点怒气<br>
+可花费<span class="lime b">$upgradecost</span>点技能点升级，升级后额外触发次数和击杀触发次数各增加<span class="yellow b">1</span>次
+<!--{else}-->
+且额外触发称号特性“<span class="yellow b">高速</span>”<span class="yellow b">2</span>次，若击杀敌人则再触发<span class="yellow b">3</span>次。<br>消耗<span class="yellow b">$ragecost</span>点怒气
+<!--{/if}-->
 </span></td>
 <td class="skilldesc_right b3">
+<!--{if $clv == 0 && $skillpoint >= $upgradecost}-->
+<input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill85_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="升级">
+<!--{elseif $clv == 0}-->
+<input type="button" style="width:46px" disabled="true" value="升级">
+<!--{/if}-->
 </td>
 {template MOD_CLUBBASE_SKILLDESC_MID2}
 <!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->

@@ -2,11 +2,12 @@
 
 namespace skill85
 {
+	$upgradecost = 9;
 	$ragecost = 25;
 	
 	function init() 
 	{
-		define('MOD_SKILL85_INFO','club;battle;');
+		define('MOD_SKILL85_INFO','club;battle;upgrade;');
 		eval(import_module('clubbase'));
 		$clubskillname[85] = '神启';
 	}
@@ -14,11 +15,13 @@ namespace skill85
 	function acquire85(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		\skillbase\skill_setvalue(85,'lvl','0',$pa);
 	}
 	
 	function lost85(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		\skillbase\skill_delvalue(85,'lvl',$pa);
 	}
 	
 	function check_unlocked85(&$pa)
@@ -32,6 +35,31 @@ namespace skill85
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill85'));
 		return $ragecost;
+	}
+	
+	function upgrade85()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('skill85','player','logger'));
+		if (!\skillbase\skill_query(85,$sdata))
+		{
+			$log .= '你没有这个技能！<br>';
+			return;
+		}
+		$clv = (int)\skillbase\skill_getvalue(85,'lvl',$sdata);
+		if ($clv >= 1)
+		{
+			$log .= '你已经升级完成了，不能继续升级！<br>';
+			return;
+		}
+		if ($skillpoint < $upgradecost)
+		{
+			$log .= '技能点不足。<br>';
+			return;
+		}
+		$skillpoint -= $upgradecost;
+		\skillbase\skill_setvalue(85,'lvl','1',$sdata);
+		$log .= '升级成功。<br>';
 	}
 	
 	function strike_prepare(&$pa, &$pd, $active)
@@ -89,16 +117,19 @@ namespace skill85
 		$chprocess($pa,$pd,$active);
 		if (($pa['bskill']==85) && \skillbase\skill_query(225,$pa))
 		{
+			$clv = (int)\skillbase\skill_getvalue(85,'lvl',$pa);
+			if ($clv >= 1) $acount = 2;
+			else $acount = 1;
 			$skill85_expup = 0;
 			$skill85_wup = 0;
-			if(rand(0,2) < 2)
+			for ($i=0;$i<$acount;$i++)
 			{
-				$skill85_expup += 1;
-				\lvlctl\getexp($skill85_expup,$pa);
+				if(rand(0,2) < 2) $skill85_expup += 1;
+				if(rand(0,2) < 2) $skill85_wup += 1;
 			}
-			if(rand(0,2) < 2)
+			if ($skill85_expup) \lvlctl\getexp($skill85_expup,$pa);
+			if ($skill85_wup)
 			{
-				$skill85_wup += 1;
 				eval(import_module('weapon'));
 				$pa[$skillinfo[$pa['wep_kind']]] += $skill85_wup;
 			}
@@ -119,12 +150,15 @@ namespace skill85
 	
 	function player_kill_enemy(&$pa,&$pd,$active)
 	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;	
+		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (($pa['bskill']==85) && \skillbase\skill_query(225,$pa))
 		{
+			$clv = (int)\skillbase\skill_getvalue(85,'lvl',$pa);
+			if ($clv >= 1) $acount = 3;
+			else $acount = 2;
 			$skill85_expup = 0;
 			$skill85_wup = 0;
-			for ($i=0;$i<2;$i++)
+			for ($i=0;$i<$acount;$i++)
 			{
 				if(rand(0,2) < 2) $skill85_expup += 1;
 				if(rand(0,2) < 2) $skill85_wup += 1;

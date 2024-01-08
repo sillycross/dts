@@ -1,13 +1,13 @@
 <!--{eval eval(import_module('skill952','sys','clubbase'));}-->
 <!--{eval $___TEMP_SKILL_ID=952;}-->
-<!--{eval $skill952_itmarr=\skill952\skill952_prepare_itmarr($who);$skill952_nowcount=sizeof($skill952_itmarr);$skill952_size=\skill952\skill952_get_packsize($who);}-->
+<!--{eval $skill952_itmarr=\skill952\skill952_prepare_itmarr($who);$skill952_nowcount=sizeof($skill952_itmarr);}-->
 {template MOD_CLUBBASE_SKILLDESC_START}
 <span>
 $clubskillname[$___TEMP_SKILL_ID]
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class="skilldesc_left b3"><span class="skilldesc">
-当前有 <span class="yellow b">{$skill952_nowcount}/{$skill952_size}</span> 个奖励道具未取出<br>
+当前有<span class="yellow b">{$skill952_nowcount}</span>个奖励道具未取出<br>
 <!--{loop $skill952_itmarr $v}-->
 <span class="cyan b">$v['itm'] / $v['itme'] / $v['itms']</span><br>
 <!--{/loop}-->

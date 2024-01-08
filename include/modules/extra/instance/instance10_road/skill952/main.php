@@ -2,8 +2,6 @@
 
 namespace skill952
 {
-	$skill952_size = 1024;
-	
 	function init() 
 	{
 		define('MOD_SKILL952_INFO','card;active;');
@@ -15,14 +13,12 @@ namespace skill952
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		\skillbase\skill_setvalue(952,'itmarr','',$pa);
-		\skillbase\skill_setvalue(952,'lvl','1024',$pa);
 	}
 	
 	function lost952(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		\skillbase\skill_delvalue(952,'itmarr',$pa);
-		\skillbase\skill_delvalue(952,'lvl',$pa);
 	}
 	
 	function check_unlocked952(&$pa)
@@ -69,20 +65,6 @@ namespace skill952
 				else skill952_sendin_core(array('itm'=>'银色的技能核心','itmk'=>'SCS2','itme'=>1,'itms'=>1,'itmsk'=>''), $pa);
 			}
 		}
-	}
-	
-	//下面的背包部分都基本一样的
-	//获得异空间容量大小，其实就是lvl参数
-	function skill952_get_packsize(&$pa=NULL)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if(empty($pa)) {
-			eval(import_module('player'));
-			$pa = $sdata;
-		}
-		$ret = \skillbase\skill_getvalue(952,'lvl',$pa);
-		if(empty($ret)) $ret = 0;
-		return $ret;
 	}
 	
 	//简单粗暴的加解密
