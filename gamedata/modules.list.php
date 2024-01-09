@@ -386,6 +386,7 @@ skill435,extra/card/skills/skill435/,1
 skill329,extra/activities/nationalday2017/skill329/,1
 skill512,extra/card/skills/skill512/,1
 addnpc_event,extra/misc/addnpc_event/,1
+skill961,extra/instance/instance10_road/skill961/,1
 item_randskills,extra/item_extra/item_randskills/,1
 skill490,extra/card/skills/skill490/,1
 skill430,extra/card/skills/skill430/,1

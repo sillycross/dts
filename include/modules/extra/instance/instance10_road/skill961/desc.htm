@@ -1,0 +1,21 @@
+<!--{eval $___TEMP_SKILL_ID=961;}-->
+<!--{eval eval(import_module('map'));}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+<!--{eval $dest = (int)\skillbase\skill_getvalue(961,'dest'); }-->
+<span class="yellow b">特殊任务</span>  将<span class="yellow b">『Hyper』</span>护送到<span class="yellow b">{$plsinfo[$dest]}</span><br>
+护送时你会更容易被敌人发现并攻击；<span class="yellow b">『Hyper』</span>可能会帮助你战斗<br>
+<span class="yellow b">『Hyper』</span>被击破时任务失败
+</span></td>
+<td class="skilldesc_right b3">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}
