@@ -5904,7 +5904,8 @@ $cards = array(
 		  'skills' => array(
 				'722' => '0',
 			),
-		)
+		),
+		'ignore_global_ach' => 1,//不参与终生成就判定
 	),
 	
 	1000 => array(
