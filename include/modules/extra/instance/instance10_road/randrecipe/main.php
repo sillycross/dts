@@ -88,9 +88,9 @@ namespace randrecipe
 			else $type = array_randompick(array('itmsk','itme','itms'));
 			$r['stuff'.$si] = generate_randrecipe_stuff($type, $itmk, $r['result'][4]);
 			if ($type == 'itme') $r['result'][2] += rand(30,50);
-			elseif ($type == 'itms') $r['result'][3] += rand(20,40);
-			if ($si > 5) break;
+			elseif ($type == 'itms') $r['result'][3] += rand(20,40);		
 			$si += 1;
+			if ($si > 5) break;
 		}
 		if (!empty($r['result'][4])) $r['result'][4] = implode('', array_unique($r['result'][4]));
 		$r['extra']['materials'] = $si - 1;
