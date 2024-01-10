@@ -507,6 +507,7 @@ skill271,extra/club/skills/skill271/,1
 tutorial,extra/instance/instance7_tutorial/tutorial/,1
 skill51,extra/club/skills/skill51/,1
 skill493,extra/card/skills/skill493/,1
+randrecipe,extra/instance/instance10_road/randrecipe/,1
 skill302,extra/achievement/skills/skill302/,1
 skill303,extra/achievement/skills/skill303/,1
 skill304,extra/achievement/skills/skill304/,1
