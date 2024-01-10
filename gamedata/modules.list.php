@@ -28,6 +28,7 @@ item_uee,base/items/item_uee/,1
 apm,base/apm/,1
 item_addarea,extra/item_extra/item_addarea/,1
 radar,base/items/radar/,1
+randnpc,extra/instance/instance10_road/randnpc/,1
 corpse,base/corpse/,1
 trap,base/items/trap/,1
 itemmix_sync,base/itemmix/itemmix_sync/,1
@@ -506,6 +507,7 @@ skill271,extra/club/skills/skill271/,1
 tutorial,extra/instance/instance7_tutorial/tutorial/,1
 skill51,extra/club/skills/skill51/,1
 skill493,extra/card/skills/skill493/,1
+randrecipe,extra/instance/instance10_road/randrecipe/,1
 skill302,extra/achievement/skills/skill302/,1
 skill303,extra/achievement/skills/skill303/,1
 skill304,extra/achievement/skills/skill304/,1

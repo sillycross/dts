@@ -295,6 +295,7 @@ namespace skill960
 	function check_npc_taskreq($pd, $req)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (!$pd['type']) return false;
 		if (isset($req['name']) && ($pd['name'] !== $req['name'])) return false;
 		if (isset($req['type']) && ((int)$pd['type'] !== $req['type'])) return false;
 		if (isset($req['lvl']) && ((int)$pd['lvl'] < $req['lvl'])) return false;
