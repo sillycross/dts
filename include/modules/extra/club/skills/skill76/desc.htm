@@ -6,8 +6,8 @@
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class="skilldesc_left b3"><span class="skilldesc">
-<!--{eval $skill76_lst = (int)\skillbase\skill_getvalue(76,'lastuse'); $skill76_time = ($now-$skill76_lst);$skill76_cd_left=($skill76_cd-$skill76_time);}-->
-发动后立即回复怒气至<span class="yellow b">100</span>点。<br>
+<!--{eval $skill76_lst = (int)\skillbase\skill_getvalue(76,'lastuse'); $skill76_time = ($now-$skill76_lst);$skill76_cd_left=($skill76_cd-$skill76_time);$max_rage = \rage\get_max_rage();}-->
+发动后立即回复怒气至上限（<span class="yellow b">$max_rage</span>点）。<br>
 前<span class="yellow b">2</span>次发动没有冷却时间，之后冷却时间<span class="cyan b">600</span>秒<br>
 <!--{if $skill76_lst!=0}-->
 <!--{if $skill76_time<$skill76_cd}-->

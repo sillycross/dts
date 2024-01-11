@@ -206,8 +206,9 @@ namespace skill961
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('logger'));
 		$temp_log = $log;
-		$chprocess($pa, $pd, $active);
-		if ($pa['skill961_flag'] == 1) $log = $temp_log;
+		$ret = $chprocess($pa, $pd, $active);
+		if (isset($pa['skill961_flag'])) $log = $temp_log;
+		return $ret;
 	}
 	
 	//助攻不显示耐久扣减log
@@ -217,7 +218,7 @@ namespace skill961
 		eval(import_module('logger'));
 		$temp_log = $log;
 		$chprocess($pa, $pd, $active);
-		if ($pa['skill961_flag'] == 1) $log = $temp_log;
+		if (isset($pa['skill961_flag'])) $log = $temp_log;
 	}
 	
 }
