@@ -134,8 +134,17 @@ namespace corpse
 			$itme0 = $edata['wepe'];
 			$itms0 = $edata['weps'];
 			$itmsk0 = $edata['wepsk'];
-			$edata['wep'] = $edata['wepk'] = $edata['wepsk'] = '';
-			$edata['wepe'] = $edata['weps'] = 0;  
+			if(defined('MOD_WEAPON')) {//拾取后会把物品变成拳头，但为了不循环依赖得多判定一次
+				eval(import_module('weapon'));
+				$edata['wep'] = $nowep;
+				$edata['wepk'] = 'WN';
+				$edata['wepe'] = 0;
+				$edata['weps'] = $nosta;  
+				$edata['wepsk'] = '';
+			}else{
+				$edata['wep'] = $edata['wepk'] = $edata['wepsk'] = '';
+				$edata['wepe'] = $edata['weps'] = 0;  
+			}
 		} elseif(strpos($item,'ar') === 0) {
 			$itm0 = $edata[$item];
 			$itmk0 = $edata[$item.'k'];
