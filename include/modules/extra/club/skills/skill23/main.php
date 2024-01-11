@@ -213,13 +213,15 @@ namespace skill23
 	function do_gemming()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','logger','player','input'));
+		eval(import_module('sys','logger','player'));
 		if (!\skillbase\skill_query(23)) 
 		{
 			$log.='你没有这个技能。';
 			return;
 		}
-		if (isset($skill23_t1) && isset($skill23_t2))
+		$skill23_t1 = get_var_input('skill23_t1');
+		$skill23_t2 = get_var_input('skill23_t2');
+		if (!empty($skill23_t1) && !empty($skill23_t2))
 		{
 			gemming($skill23_t1,$skill23_t2);
 			return;
@@ -258,9 +260,9 @@ namespace skill23
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','logger','input'));
+		eval(import_module('sys','player','logger'));
 	
-		if ($mode == 'special' && $command == 'skill23_special' && $subcmd=='gemming') 
+		if ($mode == 'special' && $command == 'skill23_special' && get_var_input('subcmd')=='gemming') 
 		{
 			do_gemming();
 			return;

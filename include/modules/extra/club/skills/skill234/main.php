@@ -188,9 +188,9 @@ namespace skill234
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','logger','input'));
+		eval(import_module('sys','player','logger'));
 	
-		if ($mode == 'special' && $command == 'skill234_special' && $subcmd=='wdecode') 
+		if ($mode == 'special' && $command == 'skill234_special' && get_var_input('subcmd')=='wdecode') 
 		{
 			wdecode();
 			return;

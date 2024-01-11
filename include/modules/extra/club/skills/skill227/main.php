@@ -42,8 +42,8 @@ namespace skill227
 	function upgrade227()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('player','logger','input'));
-		$skillpara1=(int)$skillpara1;
+		eval(import_module('player','logger'));
+		$skillpara1=(int)get_var_input('skillpara1');
 		if (!\skillbase\skill_query(227) || !check_unlocked227($sdata)) 
 		{
 			$log .= '你没有这个技能。<br>';

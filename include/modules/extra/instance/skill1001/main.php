@@ -67,7 +67,7 @@ namespace skill1001
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','player','logger'));
-		$subcmd = get_var_input('subcmd');
+		
 		if ($mode == 'special' && $command == 'skill1001_special') 
 		{
 			if (!\skillbase\skill_query(1001)) 
@@ -76,6 +76,7 @@ namespace skill1001
 				$mode = 'command';$command = '';
 				return;
 			}
+			$subcmd = get_var_input('subcmd');
 			if(empty($subcmd)){
 				$log.='技能参数丢失。';
 				$mode = 'command';$command = '';

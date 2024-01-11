@@ -75,12 +75,13 @@ namespace skill220
 	function do_pcheck()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','logger','player','input'));
+		eval(import_module('sys','logger','player'));
 		if (!\skillbase\skill_query(220)) 
 		{
 			$log.='你没有这个技能。';
 			return;
 		}
+		$skillpara1 = get_var_input('skillpara1');
 		if(strpos($skillpara1,'chkp') === 0) {
 			$itmn = substr($skillpara1,4,1);
 			pcheck($itmn);
@@ -113,9 +114,9 @@ namespace skill220
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','logger','input'));
-	
-		if ($mode == 'special' && $command == 'skill220_special' && $subcmd=='pcheck') 
+		eval(import_module('sys','player','logger'));
+		
+		if ($mode == 'special' && $command == 'skill220_special' && get_var_input('subcmd')=='pcheck') 
 		{
 			do_pcheck();
 			return;

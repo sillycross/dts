@@ -90,8 +90,7 @@ namespace skill219
 		
 		eval(import_module('sys','player'));
 	
-		$subcmd = get_var_input('subcmd');
-		if ($mode == 'special' && $command == 'skill219_special' && $subcmd=='wpoison') 
+		if ($mode == 'special' && $command == 'skill219_special' && get_var_input('subcmd')=='wpoison') 
 		{
 			wpoison();
 			return;

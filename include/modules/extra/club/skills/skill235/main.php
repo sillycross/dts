@@ -49,9 +49,9 @@ namespace skill235
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','logger','input'));
+		eval(import_module('sys','player','logger'));
 	
-		if ($mode == 'special' && $command == 'skill235_special' && $subcmd=='wscan') 
+		if ($mode == 'special' && $command == 'skill235_special' && get_var_input('subcmd')=='wscan') 
 		{
 			wscan();
 			return;

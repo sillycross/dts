@@ -88,10 +88,10 @@ namespace skill230
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','logger','input'));
+		eval(import_module('sys','player'));
 	
 
-		if ($mode == 'special' && $command == 'skill230_special' && $subcmd=='wele') 
+		if ($mode == 'special' && $command == 'skill230_special' && get_var_input('subcmd')=='wele') 
 		{
 			wele();
 			return;

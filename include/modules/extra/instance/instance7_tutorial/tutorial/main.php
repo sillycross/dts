@@ -356,7 +356,7 @@ namespace tutorial
 	//理论上一切推进判定都可以写在act()里，然而由于act()继承次数太多，难以弄清顺序，同时大量具体的参数需要在具体模块里才能得到，所以很多判定放到具体模块里了
 	function act(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','logger','input','map'));
+		eval(import_module('sys','player','logger','map'));
 		if($gametype == 17) {
 			$ct = get_tutorial();
 			list($tno, $tstep, $tprog) = get_current_tutorial_step();
@@ -370,6 +370,8 @@ namespace tutorial
 				tutorial_addchat($ct['obj2']['addchat']['cont']);
 			}
 			$push_flag = NULL;
+			$itemcmd = get_var_input('itemcmd');
+			$sp_cmd = get_var_input('sp_cmd');
 			if(in_array($command, Array('team','destroy'))) {//部分行动限制掉
 				$log .= '<span class="red b">教程模式不能做出这一指令，请按教程提示操作！<span><br>';
 				$push_flag = 'PROG';
@@ -377,7 +379,7 @@ namespace tutorial
 			} elseif($ct['object'] != $command && $ct['object'] !=  'any' && $ct['object'] != 'back' && $ct['object'] != 'itemget'){//一般行动不限死
 				//$log .= '<span class="yellow b">请按教程提示操作！</span><br>';
 			}
-			if ((isset($sp_cmd) && $sp_cmd == 'sp_shop' && $ct['object'] == 'sp_shop') || ($command == 'shop4' && $ct['object'] == 'shop4') || ($command == 'itemmain' && isset($itemcmd) && $itemcmd == 'itemmix' && $ct['object'] == 'itemmain' && in_array('itemmix',$ct['obj2']))){//打开商店的初级、次级页面和合成页面则直接推进
+			if (($sp_cmd == 'sp_shop' && $ct['object'] == 'sp_shop') || ($command == 'shop4' && $ct['object'] == 'shop4') || ($command == 'itemmain' && $itemcmd == 'itemmix' && $ct['object'] == 'itemmain' && in_array('itemmix',$ct['obj2']))){//打开商店的初级、次级页面和合成页面则直接推进
 				$push_flag = 'OK';
 			}elseif ($command == 'continue' || $ct['object'] ==  'any'){//continue和any则直接推进，之后返回
 				$push_flag = 'OK';
