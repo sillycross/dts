@@ -7,7 +7,7 @@ namespace skill586
 	
 	function init() 
 	{
-		define('MOD_SKILL586_INFO','card;active;battle;');
+		define('MOD_SKILL586_INFO','card;active;battle;storage;');
 		eval(import_module('clubbase'));
 		$clubskillname[586] = '神隐';
 	}
@@ -383,13 +383,16 @@ namespace skill586
 	function cast_skill586()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','logger','player','input'));
+		eval(import_module('sys','logger','player'));
 		if (!\skillbase\skill_query(586)) 
 		{
 			$log.='你没有这个技能。';
 			return;
 		}
 		$flag = 0;
+		$skill586_sendin = get_var_input('skill586_sendin');
+		$skill586_fetchout = get_var_input('skill586_fetchout');
+		$subcmd = get_var_input('subcmd');
 		if (!empty($skill586_sendin))
 		{
 			skill586_sendin($skill586_sendin);
@@ -436,7 +439,7 @@ namespace skill586
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','logger','input'));
+		eval(import_module('sys','player'));
 	
 		if ($mode == 'special' && $command == 'skill586_special') 
 		{

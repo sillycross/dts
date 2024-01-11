@@ -88,9 +88,9 @@ namespace skill219
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','logger','input'));
+		eval(import_module('sys','player'));
 	
-
+		$subcmd = get_var_input('subcmd');
 		if ($mode == 'special' && $command == 'skill219_special' && $subcmd=='wpoison') 
 		{
 			wpoison();

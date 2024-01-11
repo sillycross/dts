@@ -6,7 +6,7 @@ namespace skill534
 	
 	function init() 
 	{
-		define('MOD_SKILL534_INFO','card;active;');
+		define('MOD_SKILL534_INFO','card;active;storage;');
 		eval(import_module('clubbase'));
 		$clubskillname[534] = '空子';
 	}

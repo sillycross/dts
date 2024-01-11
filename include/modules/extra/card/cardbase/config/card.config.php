@@ -5252,6 +5252,17 @@ $cards = array(
 			),
 		)
 	),
+	307 => array(
+		'name' => '剑怔人',
+		'rare' => 'C',
+		'pack' => 'Cyber Zealots',
+		'desc' => '该用户已被封禁',
+		'effect' => '开局位于冰封墓场',
+		'energy' => 0,
+		'valid' => array(
+			'pls' => 26,
+		)
+	),
 	341 => array(
 		'name' => '麻薯',
 		'rare' => 'B',

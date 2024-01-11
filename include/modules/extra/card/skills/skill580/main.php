@@ -91,7 +91,7 @@ namespace skill580
 		$sid = \skillbase\skill_getvalue(1003,'sk580_sid');
 		if (!empty($sid))
 		{
-			eval(import_module('input'));
+			eval(import_module('sys'));
 			if (($mode == 'itemmain' && $command == 'itemget') || ($mode == 'command' && $command == 'itm0'))
 			{
 				eval(import_module('player'));
@@ -102,7 +102,7 @@ namespace skill580
 				\metman\meetman($sid);
 				return;
 			}
-			else if ($mode == 'itemmain' && $command == 'dropitm0')
+			elseif ($mode == 'itemmain' && $command == 'dropitm0')
 			{
 				eval(import_module('player','logger'));
 				$log .= "<span class=\"yellow b\">{$itm0}</span>发出唉的一声，然后不见了。<br>";

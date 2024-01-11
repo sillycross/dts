@@ -141,10 +141,10 @@ namespace clubbase
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','logger','input'));
+		eval(import_module('sys','player','logger'));
 		if($mode == 'special' && strpos($command,'clubsel') === 0) 
 		{
-			$clubchosen = substr($command,7); $clubchosen = (int)$clubchosen;
+			$clubchosen = (int)substr($command,7);
 			$retval = player_selectclub($clubchosen);
 			if ($retval==0)
 				$log.="称号选择成功。<br>";
@@ -162,7 +162,7 @@ namespace clubbase
 			$mode = MOD_CLUBBASE_SKILLPAGE;
 			return;
 		}
-		
+		$subcmd = get_var_input('subcmd');
 		if ($mode == 'special' && substr($command,0,5) == 'skill' && substr($command,-8)=='_special' && ($subcmd=='upgrade' || $subcmd=='activate')) 
 		{
 			$id=substr($command,5,-8); $id=(int)$id;
@@ -437,8 +437,9 @@ namespace clubbase
 	function load_user_battleskill_command(&$pdata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('input'));
-		$pdata['bskill']=$bskill; $pdata['bskillpara']=$bskillpara;
+
+		$pdata['bskill'] = get_var_input('bskill');
+		$pdata['bskillpara'] = get_var_input('bskillpara');
 	}
 	
 	function load_user_combat_command(&$pdata)

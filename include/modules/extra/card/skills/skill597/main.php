@@ -6,7 +6,7 @@ namespace skill597
 	
 	function init() 
 	{
-		define('MOD_SKILL597_INFO','card;active;');
+		define('MOD_SKILL597_INFO','card;active;storage;');
 		eval(import_module('clubbase'));
 		$clubskillname[597] = '猫车';
 	}
@@ -300,13 +300,16 @@ namespace skill597
 	function cast_skill597()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','logger','player','input'));
+		eval(import_module('sys','logger','player'));
 		if (!\skillbase\skill_query(597) && check_unlocked597()) 
 		{
 			$log.='你无法使用这个技能。';
 			return;
 		}
 		$flag = 0;
+		$skill597_empty = get_var_input('skill597_empty');
+		$skill597_fetchout = get_var_input('skill597_fetchout');
+		$subcmd = get_var_input('subcmd');
 		if (!empty($skill597_empty))
 		{
 			skill597_empty();
@@ -333,7 +336,7 @@ namespace skill597
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','logger','input'));
+		eval(import_module('sys','player','logger'));
 		
 		if ($mode == 'special' && $command == 'skill597_special') 
 		{
