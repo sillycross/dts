@@ -40,7 +40,7 @@ namespace skill242
 	function upgrade242()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('player','clubbase','skill242','logger','input'));
+		eval(import_module('player','clubbase','skill242','logger'));
 		if (!\skillbase\skill_query(242) || !check_unlocked242($sdata)) 
 		{
 			$log .= '你没有这个技能。<br>';

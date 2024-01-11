@@ -180,13 +180,13 @@ namespace skill248
 	function upgrade248()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('skill248','player','logger','input'));
+		eval(import_module('skill248','player','logger'));
 		if (!\skillbase\skill_query(248))
 		{
 			$log.='你没有这个技能！<br>';
 			return;
 		}
-		$which = (int)$skillpara1;
+		$which = (int)get_var_input('skillpara1');
 		if ($which<1 || $which>3)
 		{
 			$log.='参数错误。<br>';

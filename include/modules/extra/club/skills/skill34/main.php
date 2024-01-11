@@ -62,8 +62,7 @@ namespace skill34
 			$log .= '你没有这个技能。<br>';
 			return;
 		}
-		eval(import_module('input'));
-		$val = $skillpara1;
+		$val = get_var_input('skillpara1');
 		if (!in_array($val,get_avaliable_attr()))
 		{
 			$log .= '参数不合法。<br>';

@@ -97,12 +97,13 @@ namespace skill274
 	function upgrade274()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('skill274','player','logger','clubbase','input'));
+		eval(import_module('skill274','player','logger','clubbase'));
 		if (!\skillbase\skill_query(274))
 		{
 			$log .= '你没有这个技能。<br>';
 			return;
 		}
+		$skillpara1 = get_var_input('skillpara1');
 		if('choose'==$skillpara1) {
 			if (\skillbase\skill_getvalue(274,'unlocked') > 0)
 			{

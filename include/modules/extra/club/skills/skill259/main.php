@@ -52,12 +52,13 @@ namespace skill259
 	function upgrade259()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('skill259','player','logger','input','clubbase'));
+		eval(import_module('skill259','player','logger','clubbase'));
 		if (!\skillbase\skill_query(259))
 		{
 			$log.='你没有这个技能！<br>';
 			return;
 		}
+		$skillpara1 = get_var_input('skillpara1');
 		if('choose'==$skillpara1) {
 			if (\skillbase\skill_getvalue(259,'unlocked') > 0)
 			{

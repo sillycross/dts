@@ -36,14 +36,16 @@ namespace skill272
 	function skill272_command()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','logger','player','input','skill272'));
+		eval(import_module('sys','logger','player','skill272'));
 		if (!\skillbase\skill_query(272) || !check_unlocked272($sdata)) 
 		{
 			$log.='你没有这个技能。';
 			$mode='command';
 			return;
 		}
-		if ('activate'==$subcmd && isset($skill272_ipos))
+		$subcmd = get_var_input('subcmd');
+		$skill272_ipos = get_var_input('skill272_ipos');
+		if ('activate'==$subcmd && !empty($skill272_ipos))
 		{
 			activate272($skill272_ipos);
 			return;

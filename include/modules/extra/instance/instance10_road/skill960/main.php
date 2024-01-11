@@ -435,7 +435,7 @@ namespace skill960
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','logger','input'));
+		eval(import_module('sys','player'));
 	
 		if ($mode == 'special' && $command == 'skill960_special') 
 		{
