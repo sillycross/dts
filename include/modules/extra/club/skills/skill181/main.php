@@ -64,6 +64,7 @@ namespace skill181
 			{
 				\logger\logsave($pa['pid'], $now, $tmp_log, 's');
 			}
+			$lvupss = $lvupssref = 0;
 		}
 		return $r;
 	}
