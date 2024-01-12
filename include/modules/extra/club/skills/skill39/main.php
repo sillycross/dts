@@ -30,13 +30,13 @@ namespace skill39
 	function upgrade39()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('player','logger','input'));
+		eval(import_module('player','logger'));
 		if (!\skillbase\skill_query(39))
 		{
 			$log.='你没有这个技能！<br>';
 			return;
 		}
-		$skillpara1 = (int)$skillpara1;
+		$skillpara1 = (int)get_var_input('skillpara1');
 		if ($skillpara1 <= 0)
 		{
 			$log.='技能点指令错误！<br>';

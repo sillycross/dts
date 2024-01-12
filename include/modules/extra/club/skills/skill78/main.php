@@ -26,13 +26,14 @@ namespace skill78
 	function upgrade78()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('player','logger','input','weapon'));
+		eval(import_module('player','logger','weapon'));
 		if (!\skillbase\skill_query(78))
 		{
 			$log.='你没有这个技能！<br>';
 			return;
 		}
-		$skillpara1 = (int)$skillpara1;
+		$skillpara1 = (int)get_var_input('skillpara1');
+		$skillpara2 = get_var_input('skillpara2');
 		if ($skillpara1 <= 0)
 		{
 			$log.='技能点指令错误！<br>';

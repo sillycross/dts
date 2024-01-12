@@ -293,9 +293,9 @@ namespace skill1005
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','logger','input'));
+		eval(import_module('sys','player','logger'));
 	
-		if ($mode == 'special' && $command == 'skill1005_special' && $subcmd=='wdebug') 
+		if ($mode == 'special' && $command == 'skill1005_special' && get_var_input('subcmd')=='wdebug') 
 		{
 			wdebug1005();
 			return;

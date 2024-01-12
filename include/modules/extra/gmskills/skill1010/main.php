@@ -79,7 +79,7 @@ namespace skill1010
 	function skill1010_mani_page()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','input','logger'));
+		eval(import_module('sys','player','logger'));
 		global $pcs;
 		$pcs = skill1010_mani_load_pcs($pls);
 		include template(MOD_SKILL1010_MANI_PAGE);
@@ -91,10 +91,12 @@ namespace skill1010
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','input','logger'));
+		eval(import_module('sys','player','logger'));
 	
 		if ($mode == 'special' && $command == 'skill1010_special') 
 		{
+			$subcmd = get_var_input('subcmd');
+			$mpid = get_var_input('mpid');
 			if (!\skillbase\skill_query(1010)) 
 			{
 				$log.='你没有这个技能。';
