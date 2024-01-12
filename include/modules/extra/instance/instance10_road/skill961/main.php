@@ -17,6 +17,22 @@ namespace skill961
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		$vippid = \addnpc\addnpc(61,0,1,$pa['pls']);
+		//如果没有队伍则创建一个
+		if (empty($pa['teamID']))
+		{
+			do {
+				$tID = 'ST'.rand(1000,9999);
+				$tPass = rand(1000,9999);
+				$result = $db->query("SELECT pid FROM {$tablepre}players WHERE teamID='$tID'");
+			} while ($db->num_rows($result));
+			\team\teammake($tID, $tPass);
+		}
+		
+		$vip = \player\fetch_playerdata_by_pid($vippid[0]);
+		$vip['teamID'] = $pa['teamID'];
+		$vip['teamPass'] = $pa['teamPass'];
+		\player\player_save($vip);
+		
 		\skillbase\skill_setvalue(961,'vippid',$vippid[0],$pa);
 		\skillbase\skill_setvalue(961,'dest',end($arealist),$pa);
 		\skillbase\skill_setvalue(961,'lvl','0',$pa);
@@ -34,6 +50,19 @@ namespace skill961
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return 1;
+	}
+	
+	//不许退队
+	function teamquit()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (\skillbase\skill_query(961))
+		{
+			eval(import_module('logger'));
+			$log .= "<span class=\"yellow b\">你还有要完成的任务。</span><br>";
+			return;
+		}
+		$chprocess();
 	}
 	
 	//移动时NPC跟着移动
@@ -57,8 +86,9 @@ namespace skill961
 					//完成任务判定
 					if (\skillbase\skill_getvalue(961,'dest',$sdata) == $pls)
 					{
-						$log .= "<span class=\"yellow b\">你完成了护送任务！</span><br>";
+						$log .= "<span class=\"yellow b\">你完成了护送任务！</span><br>";//现在暂时还没加护送完后NPC消失或退队的处理
 						\skillbase\skill_setvalue(961,'lvl','1',$sdata);
+						\skillbase\skill_setvalue(961,'vippid','0',$sdata);
 					}
 				}
 			}
@@ -77,7 +107,6 @@ namespace skill961
 			{
 				eval(import_module('logger'));
 				$log .= "<span class=\"yellow b\">{$edata['name']}</span>正跟随着你。<br>";
-				//在此之前应该有个固定组队的判定，之后再来写
 				\team\findteam($edata);
 				return;
 			}
@@ -86,7 +115,26 @@ namespace skill961
 	}
 	
 	//战斗中NPC有小概率会受到伤害
-	//待完成
+	function strike_finish(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if ($pa['is_hit'] && \skillbase\skill_query(961,$pd) && (rand(0,99) < 10))
+		{
+			$vippid = (int)\skillbase\skill_getvalue(961,'vippid',$pd);
+			if ($vippid > 0)
+			{
+				$vip = \player\fetch_playerdata_by_pid($vippid);
+				if (($vip['hp'] > 1) && ($vip['pls'] == $pd['pls']))
+				{
+					eval(import_module('logger'));
+					$dmg = min(rand(50,130), $vip['hp'] - 1);
+					$log .= "<span class=\"red b\">{$vip['name']}被战斗的余波击伤了，受到了{$dmg}点伤害！</span><br>";
+					$vip['hp'] -= $dmg;
+					\player\player_save($vip);
+				}
+			}
+		}
+	}
 	
 	//NPC被击败时任务失败
 	function post_act()
@@ -128,20 +176,20 @@ namespace skill961
 		return $chprocess($ldata,$edata)*$r;
 	}
 	
-	//护送时受到伤害增加
-	function get_final_dmg_multiplier(&$pa, &$pd, $active)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$r = array();
-		if (\skillbase\skill_query(961, $pd) && ((int)\skillbase\skill_getvalue(961, 'lvl', $pd) == 0))
-		{
-			eval(import_module('logger'));
-			if ($active) $log .= "<span class=\"red b\">{$pd['name']}为了保护同伴，受到了更多的伤害！</span><br>";
-			else $log .= "<span class=\"red b\">你为了保护同伴，受到了更多的伤害！</span><br>";
-			$r = array(1.3);
-		}
-		return array_merge($r,$chprocess($pa,$pd,$active));
-	}
+	//护送时受到伤害增加，暂时先不要了
+	// function get_final_dmg_multiplier(&$pa, &$pd, $active)
+	// {
+		// if (eval(__MAGIC__)) return $___RET_VALUE;
+		// $r = array();
+		// if (\skillbase\skill_query(961, $pd) && ((int)\skillbase\skill_getvalue(961, 'lvl', $pd) == 0))
+		// {
+			// eval(import_module('logger'));
+			// if ($active) $log .= "<span class=\"red b\">{$pd['name']}为了保护同伴，受到的伤害增加了30%！</span><br>";
+			// else $log .= "<span class=\"red b\">你为了保护同伴，受到的伤害增加了30%！</span><br>";
+			// $r = array(1.3);
+		// }
+		// return array_merge($r,$chprocess($pa,$pd,$active));
+	// }
 	
 	//NPC助攻
 	function attack(&$pa, &$pd, $active)
@@ -183,7 +231,7 @@ namespace skill961
 					}
 				}
 			}
-		}	
+		}
 	}
 	
 	//击杀显示处理
@@ -191,7 +239,7 @@ namespace skill961
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','map','player'));
-		if (\skillbase\skill_query(961,$pa) && $pa['skill961_helped'])
+		if (\skillbase\skill_query(961,$pa) && isset($pa['skill961_helped']))
 		{
 			$vippid = (int)\skillbase\skill_getvalue(961,'vippid',$pa);
 			$vip = \player\fetch_playerdata_by_pid($vippid);
