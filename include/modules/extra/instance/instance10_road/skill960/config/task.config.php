@@ -19,10 +19,11 @@ namespace skill960
 	
 	//name：任务名
 	//rank: 任务等级
-	//tasktype：任务类型，'battle_kill'：击杀角色，'item_search'：提交道具，'special'：特殊，关联一个其他任务技能
+	//tasktype：任务类型，'battle_kill'：击杀角色，'item_search'：提交道具，'item_use'：使用道具，'special'：特殊，关联一个其他任务技能
 	//taskreq：任务条件
 	//'battle_kill'类型任务条件包括：'name'：NPC名称，'type'：NPC类别，'lvl'：NPC下限等级，'wepk'：NPC武器类别，'num'：需求击杀数
-	//'item_search'类型任务条件包括：'itmlist'：道具名称列表，'num'：需求提交道具数
+	//'item_search'类型任务条件包括：'itm'：道具名称列表，'itm_match'：0(默认):严格匹配，1:包含，'itmk'：道具类别列表，'num'：需求提交道具数
+	//'item_use'类型任务条件包括：'itm'：道具名称列表，'itm_match'：0(默认):严格匹配，1:包含，'itmk'：道具类别列表，'num'：需求提交道具数
 	//'special'类型任务条件包括：'skillid'：任务技能编号，'lvl'：任务技能需求等级
 	//reward：任务奖励，'money'：金钱，'exp'：经验，'item'：道具，'invscore'：调查度
 	$tasks_info = array
@@ -40,31 +41,31 @@ namespace skill960
 			'name' => '年年有鱼',
 			'rank' => 1,
 			'tasktype' => 'item_search',
-			'taskreq' => array('itmlist'=>array('凸眼鱼','安康鱼','河豚鱼'),'num'=>3),
+			'taskreq' => array('itm'=>array('凸眼鱼','安康鱼','河豚鱼'),'num'=>3),
 			'reward' => array('invscore'=>8,'item'=>array(array('itm'=>'淡紫色的技能核心','itmk'=>'SC02','itme'=>1,'itms'=>1,'itmsk'=>''),)),
 		),
 		3 => array
 		(
-			'name' => '测试任务Lv.1',
+			'name' => '专业报社',
 			'rank' => 1,
-			'tasktype' => 'item_search',
-			'taskreq' => array('itmlist'=>array('黄鸡方块'),'num'=>1),
+			'tasktype' => 'item_use',
+			'taskreq' => array('itm'=>array('凸眼鱼','毒药'),'num'=>3),
 			'reward' => array('invscore'=>8),
 		),
 		4 => array
 		(
-			'name' => '测试任务Lv.1',
+			'name' => '专业报社',
 			'rank' => 1,
-			'tasktype' => 'item_search',
-			'taskreq' => array('itmlist'=>array('黄鸡方块'),'num'=>1),
+			'tasktype' => 'item_use',
+			'taskreq' => array('itm'=>array('凸眼鱼','毒药'),'num'=>3),
 			'reward' => array('invscore'=>8),
 		),
 		5 => array
 		(
-			'name' => '测试任务Lv.1',
+			'name' => '专业报社',
 			'rank' => 1,
-			'tasktype' => 'item_search',
-			'taskreq' => array('itmlist'=>array('黄鸡方块'),'num'=>1),
+			'tasktype' => 'item_use',
+			'taskreq' => array('itm'=>array('凸眼鱼','毒药'),'num'=>3),
 			'reward' => array('invscore'=>8),
 		),
 		31 => array
