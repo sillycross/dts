@@ -7,7 +7,7 @@ namespace skill596
 		array('的背后故事！','也在用！','给出权威解答！','揭秘虚拟幻境！','的另一重身份！','打上门来了！','为什么要这么做？','是怎么做到的？','就是她吗？','面前，如何保护自己？','竟参与了这件事！','看了都沉默！','看了都流泪！','不为人知的奇闻轶事'),
 		array('竟有如此危害？','内幕曝光令人震惊！','让你的生活更加美好！','令人反思！','你绝对不容错过！','竟然能合成神器！','让你一夜暴富！','正在成为新时尚！','竟让他们大打出手！','大家都在用！','今天半价！','竟成为关键证据！','你还在这样使用吗？','原理受多位贤者热议！','的问题终于彻底暴露！')
 	);
-	$skill596_itmsk = array('WC','WC','ME','MA','X','X','X','X');
+	$skill596_itmk = array('WC','WC','ME','MA','X','X','X','X');
 	
 	function init() 
 	{
@@ -74,10 +74,9 @@ namespace skill596
 			}
 			else
 			{
-				$itme0=1; $itms0=1;		
+				$itme0=1; $itms0=1;
 				$itmsk0 = '^wflag596';
-				$key = array_rand($skill596_itmsk);
-				$itmk0 = $skill596_itmsk[$key];
+				$itmk0 = array_randompick($skill596_itmk);
 				addnews(0, 'bskill596', $name, $itm0);
 				\itemmain\itemget();
 			}
@@ -90,12 +89,11 @@ namespace skill596
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','skill596'));
-		$key = array_rand($skill596_prefix);
-		$iname = $skill596_prefix[$key];
+		$iname = array_randompick($skill596_prefix);
 		$dice = rand(0,2);
 		if ($dice == 0)
 		{
-			$result = $db->query("SELECT pid FROM {$tablepre}players WHERE type=0 AND pid!='$pid'");
+			$result = $db->query("SELECT name FROM {$tablepre}players WHERE type=0 AND pid!='$pid'");
 			$namelist = array();
 			if ($db->num_rows($result))
 			{
@@ -109,16 +107,11 @@ namespace skill596
 					foreach($npcs['sub'] as $npc) $namelist[] = $npc['name'];
 				}
 			}
-			$key = array_rand($namelist);
-			$iname .= $namelist[$key];
-			$key = array_rand($skill596_suffix[0]);
-			$iname .= $skill596_suffix[0][$key];
+			$iname .= array_randompick($namelist).array_randompick($skill596_suffix[0]);
 		}
 		else
 		{
-			$iname .= \skill424\wdebug_getreq(array('mapitem','mixitem','syncitem','overlayitem','presentitem','ygoitem'), 0);
-			$key = array_rand($skill596_suffix[1]);
-			$iname .= $skill596_suffix[1][$key];
+			$iname .= \skill424\wdebug_getreq(array('mapitem','mixitem','syncitem','overlayitem','presentitem','ygoitem'), 0).array_randompick($skill596_suffix[1]);
 		}
 		return $iname;
 	}
@@ -149,10 +142,10 @@ namespace skill596
 	
 	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
 	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;	
-		eval(import_module('sys','player'));		
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player'));
 		if($news == 'bskill596')
-			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}发动了技能<span class=\"yellow b\">「念写」</span>，获得了<span class=\"yellow b\">{$b}</span></span></li>";		
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"cyan b\">{$a}发动了技能<span class=\"yellow b\">「念写」</span>，获得了<span class=\"yellow b\">{$b}</span></span></li>";
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 	
