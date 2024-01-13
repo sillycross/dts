@@ -6,6 +6,8 @@ namespace ex_residue
 	{
 		eval(import_module('itemmain'));
 		$itemspkinfo['^res'] = '余物';//不显示
+		$itemspkdesc['^res'] = '道具被使用或者被耗尽时，会被视为另一道具';
+		$itemspkremark['^res'] = '游戏中不会显示。<br>根据余物类型不同，有不同的处理逻辑，如：耗尽时获得另一道具、使用时被当做另一道具、合成时被当做另一道具等。';
 		$itemspkinfo['^rtype'] = '如何获得/改变记录物品';
 		//0:不会得到或变成新的物品；1:每次消耗耐久后得到新的物品；2:耐久消耗完后得到新的物品；3:消耗耐久后变成新的物品；4:自身不存在；5:作为武器/防具损坏后会变成新的物品
 		$itemspkinfo['^reptype'] = '如何代表记录物品';

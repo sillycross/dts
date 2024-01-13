@@ -24,7 +24,7 @@ namespace npc_action
 	
 	//NPC行动主函数
 	//没有传参（函数自行获取数据）和返回值，内部有模块是否开启的判定，从外部直接调用就好
-	//暂时的考虑是在玩家行动结束时也就是post_action()的时候调用。嘛这样考虑的话最好用player表的fetch函数
+	//暂时的考虑是在玩家行动结束时也就是post_action()的时候调用
 	function npc_action_main(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		//前置处理
@@ -351,7 +351,7 @@ namespace npc_action
 					return;
 				$cdata = array_randompick($cdatas);
 				if('evade' == $act) {//躲避
-					if($npc['pls'] != $cdata['pls']) //执行到这里如果本来就不在相关地图，直接返回
+					if($npc['pls'] != $cdata['pls']) //执行到这里如果当前玩家本来就不在NPC的位置，直接返回
 						return;
 					$npc['pls'] = $cdata['pls'];
 					//调用自己，执行一次随机移动

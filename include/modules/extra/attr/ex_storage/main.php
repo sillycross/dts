@@ -7,6 +7,7 @@ namespace ex_storage
 		eval(import_module('itemmain'));
 		$itemspkinfo['^st'] = '储物';
 		$itemspkdesc['^st'] = '这一道具能储存其他道具';
+		$itemspkremark['^st'] = '储存容量根据储物属性值决定；<br>被储存的道具是跟着储物道具一起移动的，如果丢弃储物道具，玩家将失去被储存的道具，直到拾回原本的这个储物道具；如果储物道具毁坏，里面储存的道具将全部灭失！';
 		$itemspkinfo['^vol'] = '储物容量';//不显示
 	}
 	

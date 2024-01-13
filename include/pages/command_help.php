@@ -365,6 +365,14 @@ DIV.help_body A {
 DIV.help_body img {
 	margin:10px 20px;border:1.5px dashed #999;border-radius:5px;
 }
+DIV.help_body table td.b2h{
+	border:1px #000 solid;
+	border-width:1px 0;
+}
+DIV.help_body table td.b3{
+	border:1px rgba(98,135,163,0.3) solid;
+	border-width:1px 0;
+}
 </STYLE>
 EOT;
 
