@@ -8,7 +8,7 @@
 <!--{else}--> 
 <!--{eval eval(import_module('song'));}-->
 <!--{loop $ls $i}-->
-<input type="button" class="cmdbutton" value="{$songlist[$i]['songname']}" style="width: 150px;" onclick="$('song_choice').value='{$i}';postCmd('gamecmd','command.php');this.disabled=true;"><br>
+<input type="button" class="cmdbutton" value="{$songlist[$i]['songname']}" style="width: 180px;" onclick="$('song_choice').value='{$i}';postCmd('gamecmd','command.php');this.disabled=true;"><br>
 <!--{/loop}-->
 <!--{/if}-->
 <br>

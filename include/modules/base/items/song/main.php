@@ -72,6 +72,8 @@ namespace song
 				$ret .= '歌唱：使你和同地区玩家获得12点经验值（不会立刻升级）';
 			}elseif($sn == 'Clear Morning'){
 				$ret .= '歌唱：使你和同地区玩家的生命回复1000（可超出最大值）';
+			}elseif($sn == 'Never Gonna Give You Up'){
+				$ret .= '歌唱：使你和同地区玩家的怒气清空，但也有概率变为最大值';
 			}
 		}
 		return $ret;
@@ -102,6 +104,7 @@ namespace song
 			$noiseinfo['ss_mon']='《More One Night》';
 			$noiseinfo['ss_BY']='《Baba yetu》';
 			$noiseinfo['ss_CM']='《Clear Morning》';
+			$noiseinfo['ss_NG']='《Never Gonna Give You Up》';
 		}
 	}
 	
@@ -164,6 +167,16 @@ namespace song
 				$dpnum = $db->num_rows($result);
 				$dpnum = (int)$dpnum;
 				$effect['mhp'] = $dpnum;
+			}
+			elseif(3==$effect['special']){//Never Gonna Give You Up，随机让受影响玩家的怒气变为最大值或者清零
+				if(defined('MOD_RAGE')){
+					$rate = 30;//变为最大值的概率
+					if(rand(0,99)<$rate){
+						$effect['rage'] = $pdata['mrage'];
+					}else{
+						$effect['rage'] = -$pdata['rage'];
+					}
+				}
 			}
 			unset($effect['special']);
 		}
@@ -459,11 +472,26 @@ namespace song
 				else $ls = explode('_',$learnedsongs);
 				if (!in_array($skey, $ls)) 
 				{
+					if(empty($ls)){//第一次学会唱歌给一个提示
+						$tip = '<br>你耳边传来奇怪的低语：<span class="white b">“是爱唱歌的孩子呢！如果你学会了10首歌曲，我会额外教你一首歌哦！”</span><br><br>';
+					}
 					$ls[] = $skey;
+					if(sizeof($ls) == 10) {//学会第10首歌给一首额外的
+						$present = 16;
+						if(!in_array($present,$ls)){
+							eval(import_module('noise'));
+							$ls[] = $present;
+							$tip = '<br><span class="white b">“你真的学了10首歌？……好吧，这是你应得的（笑）”</span><br>奇怪的声音额外教会了你<span class="yellow b">'.$noiseinfo['ss_NG'].'</span>！<br><img src="img/ng.gif" style="width:350px;width:270px" /><br><br>';
+						}else{
+							$tip = '<br><span class="white b">“奇怪，你已经学会了，怎么回事呢？”</span><br><br>';
+						}
+					}
 					$learnedsongs = implode('_',$ls);
 					\skillbase\skill_setvalue(1003,'learnedsongs',$learnedsongs);
 					eval(import_module('logger'));
-					$log .= "你学会了歌曲<span class=\"yellow b\">{$sval['songname']}</span>！<br>";
+					$log .= "你学会了歌曲<span class=\"yellow b\">《{$sval['songname']}》</span>！<br>";
+					
+					if(!empty($tip)) $log .= $tip;
 				}
 				break;
 			}

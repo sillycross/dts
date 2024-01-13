@@ -366,6 +366,31 @@ namespace song
 				'hp' => array( 'e' =>1000, 'ignore_limit' => 1),
 			)
 		),
+		16 => array(
+			'songname' => 'Never Gonna Give You Up',
+			'noisekey' => 'ss_NG',
+			'cost' => 30,
+			'lyrics' => array(
+				'♪ We’re no strangers to love ♪',
+				'♪ You know the rules and so do I ♪',
+				'♪ A full commitment’s what I’m thinking of ♪',
+				'♪ You wouldn’t get this from any other guy ♪',
+				'♪ I just wanna tell you how I’m feeling ♪',
+				'♪ Gotta make you understand ♪',
+				'♪ Never gonna give you up ♪',
+				'♪ Never gonna let you down ♪',
+				'♪ Never gonna run around ... ♪',
+				'♪ ... and desert you ♪',
+				'♪ Never gonna make you cry ♪',
+				'♪ Never gonna say goodbye ♪',
+				'♪ Never gonna tell a lie ... ♪',
+				'♪ ... and hurt you ♪',
+			),
+			'lyricdisp' => 2,
+			'effect' => array(
+				'special' => 3,
+			)
+		),
 	);
 	
 	//聊天记录歌词显示条数
