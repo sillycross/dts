@@ -50,13 +50,13 @@
 				<div class="card_frame_inner card_frame_float_left" style="margin-right:0;width:170px;height:20px;">
 					<span>
 						<!--{if empty($lockcard) && empty($showpack)}-->
-							<!--{if $card_energy[$nowcard['id']]<$nowcard['energy']}-->
+							<!--{if empty($nowcard['energy'])}-->
+								无需充能，可以使用
+							<!--{elseif $card_energy[$nowcard['id']]<$nowcard['energy']}-->
 								<!--{eval $cd_desc=convert_tm(($nowcard['energy']-$card_energy[$nowcard['id']])/max($energy_recover_rate[$nowcard['rare']],0.00001), 1);}-->
 								<font color="red">充能中，剩余{$cd_desc}</font>
-							<!--{elseif $nowcard['energy']}-->
-								充能完成，可以使用
 							<!--{else}-->
-								无需充能，可以使用
+								充能完成，可以使用
 							<!--{/if}-->
 						<!--{else}-->
 							$nowcard['pack']
@@ -64,11 +64,11 @@
 					</span>
 				</div>
 				<div id="cenergy" class="card_frame_inner card_frame_float_right" style="width:60px;height:20px;">
-					<!--{if empty($lockcard) && empty($showpack) && $card_energy[$nowcard['id']]<$nowcard['energy']}-->
-					<!--{eval $ecolor = $card_energy[$nowcard['id']] < $nowcard['energy'] / 2 ? 'red b' : 'yellow b';$cenergy = round($card_energy[$nowcard['id']]);}-->
-					<span><span class="$ecolor">{$cenergy}</span>/{$nowcard['energy']}</span>
-					<!--{else}-->
-					<span>$nowcard['energy']</span>
+					<!--{if empty($lockcard) && empty($showpack) && !empty($nowcard['energy']) && $card_energy[$nowcard['id']]<$nowcard['energy']}-->
+						<!--{eval $ecolor = $card_energy[$nowcard['id']] < $nowcard['energy'] / 2 ? 'red b' : 'yellow b';$cenergy = round($card_energy[$nowcard['id']]);}-->
+						<span><span class="$ecolor">{$cenergy}</span>/{$nowcard['energy']}</span>
+						<!--{else}-->
+						<span>$nowcard['energy']</span>
 					<!--{/if}-->
 				</div>
 			</div>
