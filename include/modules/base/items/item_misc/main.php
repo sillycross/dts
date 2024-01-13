@@ -379,6 +379,7 @@ namespace item_misc
 				}
 				return;
 			} elseif(strpos($itm,'NPC召唤设备')!==false){
+				$log .= "你使用了<span class=\"yellow b\">$itm</span>。<br>";
 				\addnpc_event\addnpc_event($itmsk);
 				//\addnpc\addnpc($itmsk, 0, 1, 1);
 				return;

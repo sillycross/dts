@@ -21,12 +21,16 @@ namespace item_uv
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($n, $k, $e, $s, $sk);
 		if ((strpos($k,'V')===0) && (strpos($k,'S')!==false)){
+			eval(import_module('clubbase'));
+			if(!empty($clubskillname[$sk])){
+				$ret .= '使用后获得技能「'.$clubskillname[$sk].'」';
+			}
 			if ($sk == '249'){
-				$ret .= '使用后获得埋设陷阱伤害增加的技能';
+				$ret .= '：埋设陷阱伤害增加';
 			}elseif ($sk == '250') {
-				$ret .= '使用后获得受到陷阱伤害减少的技能';
+				$ret .= '：受到陷阱伤害减少';
 			}elseif ($sk == '723') {
-				$ret .= '使用后获得射系武器弹夹翻倍且自动装填弹药的技能';
+				$ret .= '：射系武器弹夹翻倍且自动装填弹药';
 			}
 		}
 		return $ret;
