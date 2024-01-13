@@ -560,6 +560,7 @@ skill380,extra/achievement/skills/skill380/,1
 skill351,extra/achievement/skills/skill351/,1
 skill352,extra/achievement/skills/skill352/,1
 skill375,extra/achievement/skills/skill375/,1
+skill382,extra/achievement/skills/skill382/,1
 skill504,extra/card/skills/skill504/,1
 instance3,extra/instance/instance3_ascension/,1
 skill182,extra/club/skills/skill182/,1
@@ -569,6 +570,7 @@ skill498,extra/card/skills/skill498/,1
 ex_attr_song,extra/attr/ex_attr_song/,1
 skill181,extra/club/skills/skill181/,1
 skill376,extra/achievement/skills/skill376/,1
+skill381,extra/achievement/skills/skill381/,1
 wepchange,extra/attr/wepchange/,1
 skill77,extra/club/skills/skill77/,1
 skill379,extra/achievement/skills/skill379/,1
