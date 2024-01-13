@@ -140,7 +140,7 @@ namespace skill960
 			if ($i !== false) 
 			{
 				$flag = 0;
-				if ($tasks_info[$taskid]['tasktype'] === 'battle_kill')
+				if (($tasks_info[$taskid]['tasktype'] === 'battle_kill') || ($tasks_info[$taskid]['tasktype'] === 'itemuse'))
 				{
 					if (isset($tasks_info[$taskid]['taskreq']['num']) && ((int)$taskprog[$i] >= $tasks_info[$taskid]['taskreq']['num']))
 					{
@@ -197,14 +197,15 @@ namespace skill960
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill960','logger'));
-		if (isset($tasks_info[$taskid]['taskreq']['itmlist']))
+		if (isset($tasks_info[$taskid]['taskreq']))
 		{
-			$itmlist = $tasks_info[$taskid]['taskreq']['itmlist'];
-			$itmnum = $tasks_info[$taskid]['taskreq']['num'];
+			if (isset($tasks_info[$taskid]['taskreq']['num'])) $itmnum = $tasks_info[$taskid]['taskreq']['num'];
+			else $itmnum = 1;
 			$flag = 0;
 			for ($i=1;$i<=6;$i++)
 			{
-				if (in_array($pa['itm'.$i], $itmlist))
+				$theitem = array('itm'=>$pa['itm'.$i], 'itmk'=>$pa['itmk'.$i], 'itme'=>$pa['itme'.$i], 'itms'=>$pa['itms'.$i], 'itmsk'=>$pa['itmsk'.$i]);
+				if (check_item_taskreq($theitem, $tasks_info[$taskid]['taskreq']))
 				{
 					$log .= "你提交了<span class=\"yellow b\">{$pa['itm'.$i]}</span>。<br>";
 					$pa['itm'.$i] = $pa['itmk'.$i] = $pa['itmsk'.$i] = '';
@@ -303,6 +304,64 @@ namespace skill960
 		return true;
 	}
 	
+	//使用道具任务
+	function itemuse($theitem)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player'));
+		if (\skillbase\skill_query(960,$sdata) && check_unlocked960($sdata))
+		{
+			$taskarr = get_taskarr($sdata);
+			$taskprog = get_taskprog($sdata);
+			eval(import_module('skill960'));
+			foreach ($taskarr as $taskid)
+			{
+				if (($tasks_info[$taskid]['tasktype'] === 'item_use') && check_item_taskreq($theitem, $tasks_info[$taskid]['taskreq']))
+				{
+					update_taskprog($sdata, $taskid, '+1');
+				}
+			}
+		}
+		$chprocess($theitem);
+	}
+	
+	//判断道具是否满足任务要求
+	function check_item_taskreq($theitem, $req)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (isset($req['itm']))
+		{
+			if (isset($req['itm_match']) && ($req['itm_match'] == 1))
+			{
+				foreach ($req['itm'] as $v)
+				{
+					$flag = 0;
+					if (strpos($theitem['itm'], $v) !== false)
+					{
+						$flag = 1;
+						break;
+					}
+					if (!$flag) return false;
+				}
+			}
+			elseif (!in_array($theitem['itm'], $req['itm'])) return false;
+		}
+		if (isset($req['itmk']))
+		{
+			foreach ($req['itmk'] as $v)
+			{
+				$flag = 0;
+				if (strpos($theitem['itmk'], $v) === 0)
+				{
+					$flag = 1;
+					break;
+				}
+				if (!$flag) return false;
+			}
+		}
+		return true;
+	}
+	
 	//获取随机任务
 	function get_rand_task(&$pa, $rank, $num)
 	{
@@ -349,18 +408,41 @@ namespace skill960
 				eval(import_module('itemmain'));
 				$task_tip .= "使用武器为<span class=\"yellow b\">{$iteminfo[$tasks_info[$taskid]['taskreq']['wepk']]}</span>的";
 			}
-			if (isset($tasks_info[$taskid]['taskreq']['lvl'])) $task_tip .= "等级至少为<span class=\"yellow b\">{$tasks_info[$taskid]['taskreq']['lvl']}</span>的";			
+			if (isset($tasks_info[$taskid]['taskreq']['lvl'])) $task_tip .= "等级至少为<span class=\"yellow b\">{$tasks_info[$taskid]['taskreq']['lvl']}</span>的";
 			if (isset($tasks_info[$taskid]['taskreq']['name'])) $task_tip .= "名称为“<span class=\"yellow b\">{$tasks_info[$taskid]['taskreq']['name']}”</span>的";
 			$task_tip .= 'NPC';
 		}
-		elseif ($tasks_info[$taskid]['tasktype'] === 'item_search')
+		elseif (($tasks_info[$taskid]['tasktype'] === 'item_search') || ($tasks_info[$taskid]['tasktype'] === 'item_use'))
 		{
-			$task_tip .= '提交以下任意道具';
-			if (isset($tasks_info[$taskid]['taskreq']['num'])) $task_tip .= "<span class=\"yellow b\">{$tasks_info[$taskid]['taskreq']['num']}</span>次：";	
-			if (isset($tasks_info[$taskid]['taskreq']['itmlist']))
+			if ($tasks_info[$taskid]['tasktype'] === 'item_search') $task_tip .= "提交";
+			else $task_tip .= "使用";
+			if (isset($tasks_info[$taskid]['taskreq']['itm']))
 			{
-				$task_tip .= "<span class=\"yellow b\">".implode(' ',$tasks_info[$taskid]['taskreq']['itmlist'])."</span>";
+				if (isset($tasks_info[$taskid]['taskreq']['itm_match']) && ($tasks_info[$taskid]['taskreq']['itm_match'] == 1)) $task_tip .= "名称包含";
+				else $task_tip .= "名称为";
+				$itm_ls = $tasks_info[$taskid]['taskreq']['itm'];
+				$c = count($itm_ls);
+				if ($c == 1) $task_tip .= $itm_ls[0];
+				elseif ($c == 2) $task_tip .= implode('或', $itm_ls);
+				else $task_tip = implode('、', array_slice($itm_ls, 0, -1)).'或'.end($itm_ls);
+				$task_tip .= "的";
 			}
+			if (isset($tasks_info[$taskid]['taskreq']['itmk']))
+			{
+				$itmk_ls = $tasks_info[$taskid]['taskreq']['itmk'];
+				$c = count($itmk_ls);
+				$itmk_info_ls = array();
+				foreach ($tasks_info[$taskid]['taskreq']['itmk'] as $v)
+				{
+					eval(import_module('itemmain'));
+					$itmk_info_ls[] = $iteminfo[$v];
+				}
+				if ($c == 1) $task_tip .= $itmk_info_ls[0];
+				elseif ($c == 2) $task_tip .= implode('或', $itmk_info_ls);
+				else $task_tip = implode('、', array_slice($itmk_info_ls, 0, -1)) . '或' . end($itmk_info_ls);
+			}
+			else $task_tip .= "道具";
+			if (isset($tasks_info[$taskid]['taskreq']['num'])) $task_tip .= "<span class=\"yellow b\">{$tasks_info[$taskid]['taskreq']['num']}</span>次";
 		}
 		elseif ($tasks_info[$taskid]['tasktype'] === 'special')
 		{

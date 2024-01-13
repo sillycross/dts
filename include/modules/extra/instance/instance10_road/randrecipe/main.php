@@ -38,7 +38,7 @@ namespace randrecipe
 		$r['result'][4] = array();
 		if ($itmk[0] == 'H')
 		{
-			$r['result'][2] = rand(50,120);
+			$r['result'][2] = rand(50,140);
 			$r['result'][3] = rand(10,30);
 		}
 		elseif ($itmk[0] == 'W')
@@ -48,16 +48,26 @@ namespace randrecipe
 			$skcount = rand(0,2);
 			if ($skcount == 1) $r['result'][4] = [array_randompick($randrecipe_itmsk_list['W'])];
 			elseif ($skcount > 1) $r['result'][4] = array_randompick($randrecipe_itmsk_list['W'], $skcount);
+			else
+			{
+				$r['result'][2] += rand(80,150);
+				$r['result'][3] += rand(30,60);
+			}
 			//爆炸物大概率有爆炸
 			if (($itmk == 'WD') && (rand(0,99) > 30)) $r['result'][4][] = 'd';
 		}
 		elseif ($itmk[0] == 'D')
 		{
-			$r['result'][2] = rand(40,150);
+			$r['result'][2] = rand(60,150);
 			$r['result'][3] = rand(15,30);
 			$skcount = rand(0,2);
 			if ($skcount == 1) $r['result'][4] = [array_randompick($randrecipe_itmsk_list['D'])];
 			elseif ($skcount > 1) $r['result'][4] = array_randompick($randrecipe_itmsk_list['D'], $skcount);
+			else
+			{
+				$r['result'][2] += rand(40,80);
+				$r['result'][3] += rand(15,30);
+			}
 		}
 		else
 		{
@@ -161,7 +171,7 @@ namespace randrecipe
 			if (!empty($change))
 			{
 				if (($type == 'itme') && ($change == 'u')) $result[5] == 1;
-				if (($type == 'itms') && ($change == 'i')) $result[3] == '∞';
+				elseif (($type == 'itms') && ($change == 'i')) $result[3] == '∞';
 				else
 				{
 					$c = (float)substr($change, 1);
@@ -259,9 +269,8 @@ namespace randrecipe
 						else $recipe_tip .= '为'.$recipe['extra']['materials'].'，';
 					}
 					if (isset($recipe['extra']['allow_repeat']) && (false === $recipe['extra']['allow_repeat'])) $recipe_tip .= '素材不允许重复，';
-					if (isset($recipe['extra']['consume_recipe']) && (true === $recipe['extra']['consume_recipe'])) $recipe_tip .= '消耗配方，';			
+					if (isset($recipe['extra']['consume_recipe']) && (true === $recipe['extra']['consume_recipe'])) $recipe_tip .= '消耗配方，';
 				}
-				
 				$recipe_tip .= '<br>合成结果：<br>'.\itemmix\parse_itemmix_resultshow($recipe['result']);
 				$log .= "你产生的配方公式：<br><span class=\"yellow b\">$recipe_tip</span><br>";
 				return;
