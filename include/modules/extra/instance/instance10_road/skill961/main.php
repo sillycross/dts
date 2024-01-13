@@ -134,6 +134,7 @@ namespace skill961
 				}
 			}
 		}
+		$chprocess($pa, $pd, $active);
 	}
 	
 	//NPC被击败时任务失败
