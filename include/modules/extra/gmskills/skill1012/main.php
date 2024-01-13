@@ -28,7 +28,7 @@ namespace skill1012
 	function skill1012_sub_page()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','input','logger'));
+		eval(import_module('sys','player'));
 		include template(MOD_SKILL1012_SUB_PAGE);
 		$cmd=ob_get_contents();
 		ob_clean();
@@ -59,7 +59,7 @@ namespace skill1012
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','input','logger'));
+		eval(import_module('sys','player','logger'));
 	
 		if ($mode == 'special' && $command == 'skill1012_special') 
 		{
@@ -69,6 +69,7 @@ namespace skill1012
 				$mode = 'command';$command = '';
 				return;
 			}
+			$subcmd = get_var_input('subcmd');
 			if(!isset($subcmd)){
 				$mode = 'command';$command = '';
 				return;
@@ -76,6 +77,8 @@ namespace skill1012
 				skill1012_sub_page();
 				return;
 			}elseif($subcmd == 'show_var'){
+				$show_ns = get_var_input('show_ns');
+				$show_vn = get_var_input('show_vn');
 				skill1012_show_var($show_ns, $show_vn);
 				return;
 			}else{

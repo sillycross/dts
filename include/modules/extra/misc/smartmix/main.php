@@ -112,9 +112,10 @@ namespace smartmix
 	function smartmix_show()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','input','itemmix'));
+		eval(import_module('sys','player','itemmix'));
 		$mhint = '';
-		if(isset($itemindex)){
+		$itemindex = get_var_input('itemindex');
+		if(!empty($itemindex)){
 			$mix_res = smartmix_find_recipe($itemindex, 1 + 2);				
 			if($mix_res){
 				$mhint .= '<span class="yellow b">'.$itemindex.'</span>涉及的合成公式有：<br><ul>';
@@ -189,8 +190,8 @@ namespace smartmix
 	//显示之前的处理
 	function act(){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','logger','input','itemmix'));
-		if ($mode == 'command' && $command == 'itemmain' && $itemcmd=='itemmix'){
+		eval(import_module('sys','player'));
+		if ($mode == 'command' && $command == 'itemmain' && get_var_input('itemcmd')=='itemmix'){
 			smartmix_show();
 			if(!empty($uip['mixhint'])) {
 				$main = MOD_SMARTMIX_MIXHINT_MAIN;

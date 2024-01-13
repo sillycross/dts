@@ -73,16 +73,18 @@ namespace skill1011
 	function skill1011_cons_page($page)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','input','logger','map'));
+		eval(import_module('sys','player','logger','map'));
 		//global $pcs;
 		//$pcs = skill1011_load_pcs($pls);
+		$cons_pls = get_var_input('cons_pls');
+		$cons_page = & get_var_input('cons_page');
 		if(2 == $page) {
-			if(!isset($cons_pls)) {
+			if(NULL==$cons_pls) {
 				$log.='错误的地点指令。';
 				$mode = 'command';$command = '';
 				return;
 			}
-			global $cons_page,$itemlist,$cons_pls;
+			global $itemlist;
 			$itemlist = skill1011_load_itemlist($cons_pls);
 			$itemlist = skill1011_parse_itemwords($itemlist);
 		}
@@ -96,7 +98,7 @@ namespace skill1011
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','input','logger'));
+		eval(import_module('sys','player','logger'));
 	
 		if ($mode == 'special' && $command == 'skill1011_special') 
 		{
@@ -106,7 +108,8 @@ namespace skill1011
 				$mode = 'command';$command = '';
 				return;
 			}
-			if(!isset($subcmd)){
+			$subcmd = get_var_input('subcmd');
+			if(empty($subcmd)){
 				$mode = 'command';$command = '';
 				return;
 			}elseif(strpos($subcmd,'cons_page')===0) {
@@ -115,6 +118,7 @@ namespace skill1011
 				skill1011_cons_page($page);
 				return;
 			}elseif(strpos($subcmd,'cons')===0){
+				$cons_pls = get_var_input('cons_pls');
 				$ciid = (int)str_replace('cons','',$subcmd);
 				$itemlist = skill1011_load_itemlist($cons_pls);
 				if(isset($itemlist[$ciid])){

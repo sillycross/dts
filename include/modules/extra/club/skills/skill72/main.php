@@ -174,8 +174,8 @@ namespace skill72
 	function upgrade72()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('skill72','player','logger','input'));
-		$skillpara1=(int)$skillpara1;
+		eval(import_module('skill72','player','logger'));
+		$skillpara1 = (int)get_var_input('skillpara1');
 		if (!\skillbase\skill_query(72) || !check_unlocked72($sdata)) 
 		{
 			$log .= '你没有这个技能。<br>';

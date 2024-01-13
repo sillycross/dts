@@ -48,8 +48,8 @@ namespace skill55
 	function upgrade55()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('skill55','player','logger','input'));
-		$skillpara1=(int)$skillpara1;
+		eval(import_module('skill55','player','logger'));
+		$skillpara1 = (int)get_var_input('skillpara1');
 		if (!\skillbase\skill_query(55) || !check_unlocked55($sdata)) 
 		{
 			$log .= '你没有这个技能。<br>';

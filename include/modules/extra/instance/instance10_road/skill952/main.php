@@ -183,13 +183,15 @@ namespace skill952
 	function cast_skill952()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','logger','player','input'));
+		eval(import_module('sys','logger','player'));
 		if (!\skillbase\skill_query(952)) 
 		{
 			$log.='你没有这个技能。';
 			return;
 		}
 		$flag = 0;
+		$subcmd = get_var_input('subcmd');
+		$skill952_fetchout = (int)get_var_input('skill952_fetchout');
 		if(!empty($skill952_fetchout))
 		{
 			skill952_fetchout($skill952_fetchout-1); //为了防止传0过来，显示的数组编号都有+1
@@ -211,7 +213,7 @@ namespace skill952
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','logger','input'));
+		eval(import_module('sys','player'));
 	
 		if ($mode == 'special' && $command == 'skill952_special') 
 		{

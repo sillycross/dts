@@ -12,12 +12,17 @@ namespace randrecipe
 	function create_randrecipe_config($num = 50)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
 		$rl = array();
 		for ($i=1; $i<=$num; $i++)
 		{
 			$rl[] = generate_randrecipe();
 		}
-		//保存为config文件
+		//保存为config文件。每个房间一个文件，这个函数应该是仅在每局开始时执行的，如果因为某些原因覆盖了那就覆盖了罢
+		$file = GAME_ROOT.'./gamedata/cache/randrecipe'.$room_id.'.php';
+		$contents = str_replace('?>','',$checkstr);//防窥屏字符串"<?php\r\nif(!defined('IN_GAME')) exit('Access Denied');\r\n";
+		$contents .= '$randrecipe = '.var_export($rl,1).';';
+		file_put_contents($file, $contents);
 	}
 	
 	//生成一个标准格式的随机配方
@@ -227,8 +232,14 @@ namespace randrecipe
 		$itme=&$theitem['itme']; $itms=&$theitem['itms']; $itmsk=&$theitem['itmsk'];
 		
 		if (strpos ( $itmk, 'Y' ) === 0 || strpos ( $itmk, 'Z' ) === 0)
-		{
-			if ($itm == '测试配方生成器')
+		{	
+			if ($itm == '测试配方config生成器')
+			{
+				$log .= "使用了<span class=\"yellow b\">$itm</span>。<br>";
+				create_randrecipe_config(12);
+				return;
+			}
+			elseif ($itm == '测试配方生成器')
 			{
 				$log .= "使用了<span class=\"yellow b\">$itm</span>。<br>";
 				$recipe = \randrecipe\generate_randrecipe();
