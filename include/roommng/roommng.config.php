@@ -598,7 +598,7 @@ $roomtypelist = Array(
 		'name' => '<font class="gold b">公路模式</font>',
 		'gtype' => 20, //对应的游戏模式编号
 		'available' => true,
-		'available-start' => 1506816000, //如果设置并大于零，表明时间戳迟于此时才显示和开放
+		'available-start' => 4200000000, //如果设置并大于零，表明时间戳迟于此时才显示和开放
 		'available-end' => 0,//如果设置并大于零，表明时间戳早于此时才显示和开放
 		'soleroom' => false,//唯一房间，只有不存在时才会新建房间。
 		'without-ready' => true,//是否不需要点击“准备”就直接进入房间。
@@ -614,7 +614,7 @@ $roomtypelist = Array(
 			0 => 'ff0022',
 		),
 		'teamID' => Array(	//队伍名，只需对队长设置即可。
-			0 => '试炼者',
+			0 => '龙旺德',
 		),
 		'show-team-leader' => 0,	//是否显示“队长”标签（如队伍大于1人设为1）
 	),
