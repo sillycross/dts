@@ -13,7 +13,7 @@ namespace skill572
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		add_skill572_mapitem();
-		lost572($pa);
+		\skillbase\skill_lost(572);
 	}
 	
 	function lost572(&$pa)

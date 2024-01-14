@@ -5263,6 +5263,26 @@ $cards = array(
 			'pls' => 26,
 		)
 	),
+	308 => array(
+		'name' => '程序员老公',
+		'rare' => 'C',
+		'pack' => 'Event Bonus',
+		'desc' => '你下班后买五个苹果，<br>如果看到红薯，买一个。',
+		'effect' => '你怎么就买了一个苹果？',
+		'desc_skills' => '开局携带一个苹果，视野里能看到红薯',
+		'energy' => 0,
+		'valid' => array(
+			'itm5' => '苹果',
+			'itmk5' => 'HB',
+			'itme5' => '90',
+			'itms5' => '1',
+			'itmsk5' => '',
+			'skills' => array(
+				'543' => '0',
+			),
+		),
+		'ignore_global_ach' => 1,//不参与终生成就判定
+	),
 	341 => array(
 		'name' => '麻薯',
 		'rare' => 'B',

@@ -633,6 +633,7 @@ skill713,extra/card/skills/skill713/,1
 skill712,extra/card/skills/skill712/,1
 skill587,extra/card/skills/skill587/,1
 skill960,extra/instance/instance10_road/skill960/,1
+skill543,extra/card/skills/skill543/,1
 skill566,extra/card/skills/skill566/,1
 skill604,extra/club/skills/skill604/,1
 ex_gender_attr,extra/attr/ex_gender_attr/,1
