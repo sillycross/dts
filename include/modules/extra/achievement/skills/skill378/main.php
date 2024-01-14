@@ -53,8 +53,8 @@ namespace skill378
 		//分两次判定，把需要import的条件放第二层
 		if(!empty($pa['card']) && \skillbase\skill_query(378,$pa) && !$pd['type'] && $pa['cardname']==$pd['cardname'])
 		{
-			eval(import_module('cardbase'));
-			if($cards[$pa['card']]['name'] != $pa['cardname']) {
+			eval(import_module('sys','cardbase'));
+			if($cards[$pa['card']]['name'] != $pa['cardname'] || 6 == $gametype) {
 				$x=(int)\skillbase\skill_getvalue(378,'cnt',$pa);
 				$x+=1;
 				\skillbase\skill_setvalue(378,'cnt',$x,$pa);
