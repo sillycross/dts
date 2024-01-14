@@ -78,10 +78,22 @@ namespace ending
 			//攻击过和杀死过的重要NPC
 			$uip['attacked_vip'] = explode(',',\skillbase\skill_getvalue(1003,'attacked_vip'));
 			$uip['killed_vip'] = explode(',',\skillbase\skill_getvalue(1003,'killed_vip'));
+			//记录是否合成过CHAOS
+			$uip['chaos_success'] = (int)\skillbase\skill_getvalue(1003,'chaos_success');
 			//BOSS状态
 			$boss_type = $gametype == 19 ? 15 : 1;
 			$result = $db->query("SELECT * FROM {$tablepre}players WHERE type='$boss_type'");
 			$uip['boss_data'] = $db->fetch_array($result);
+		}
+		$chprocess();
+	}
+
+	//合成CHAOS之后做个记录
+	function itemmix_success()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if('『C.H.A.O.S』' == get_var_in_module('itm0','player')) {
+			\skillbase\skill_setvalue(1003,'chaos_success',1);
 		}
 		$chprocess();
 	}
