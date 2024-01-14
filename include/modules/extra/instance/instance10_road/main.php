@@ -4,7 +4,10 @@ namespace instance10
 {
 	function init() {
 		eval(import_module('skillbase'));
-		$valid_skills[20] = array(181,951,952,960);
+		if(!isset($valid_skills[20])) {
+			$valid_skills[20] = array();
+		}
+		$valid_skills[20] += array(181,951,952,960);
 	}
 	
 	//公路模式自动选择肉鸽来客

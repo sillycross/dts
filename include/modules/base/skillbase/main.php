@@ -401,7 +401,7 @@ namespace skillbase
 			$pa['card'] = $pa['o_card'];
 		}
 		//追加模式入场技能
-		if(isset($valid_skills[$gametype])){
+		if(!empty($valid_skills[$gametype])){
 			foreach($valid_skills[$gametype] as $vsv){
 				if(defined('MOD_SKILL'.$vsv))
 					\skillbase\skill_acquire($vsv,$pa);

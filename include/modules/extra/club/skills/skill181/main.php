@@ -2,15 +2,22 @@
 
 namespace skill181
 {
-	global $lvupss, $lvupssref;
+	$lvupss = $lvupssref = 0;//记录升级增加歌魂上限和恢复歌魂值的临时变量
 	
 	$skill181_init_ss = 50;
 	
 	function init() 
 	{
 		define('MOD_SKILL181_INFO','club;hidden;');
-		eval(import_module('clubbase'));
+		eval(import_module('clubbase','skillbase'));
 		$clubskillname[181] = '音感';
+
+		foreach(Array(0, 4, 6, 10, 13, 14, 15, 16, 18, 19, 20) as $i) {//大部分模式开局追加音感
+			if(!isset($valid_skills[$i])) {
+				$valid_skills[$i] = array();
+			}
+			$valid_skills[$i][] = 181;
+		}
 	}
 	
 	function acquire181(&$pa)
