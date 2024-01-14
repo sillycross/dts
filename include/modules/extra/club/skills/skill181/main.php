@@ -12,7 +12,7 @@ namespace skill181
 		eval(import_module('clubbase','skillbase'));
 		$clubskillname[181] = '音感';
 
-		foreach(Array(0, 4, 6, 10, 13, 14, 15, 16, 18, 19, 20) as $i) {//大部分模式开局追加音感
+		foreach(Array(0, 4, 6, 10, 13, 14, 15, 16, 18, 19) as $i) {//大部分模式开局追加音感
 			if(!isset($valid_skills[$i])) {
 				$valid_skills[$i] = array();
 			}
