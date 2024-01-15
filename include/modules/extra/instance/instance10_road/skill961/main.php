@@ -199,7 +199,7 @@ namespace skill961
 		$chprocess($pa,$pd,$active);
 		if (\skillbase\skill_query(961,$pa))
 		{
-			if (rand(0,99) < 15)
+			if (rand(0,99) < 30)
 			{
 				$vippid = (int)\skillbase\skill_getvalue(961,'vippid',$pa);
 				if ($vippid > 0)
@@ -244,7 +244,7 @@ namespace skill961
 		{
 			$vippid = (int)\skillbase\skill_getvalue(961,'vippid',$pa);
 			$vip = \player\fetch_playerdata_by_pid($vippid);
-			deathnews($vip, $pd);
+			$chprocess($vip, $pd);
 		}
 		else $chprocess($pa, $pd);
 	}

@@ -5938,6 +5938,21 @@ $cards = array(
 		),
 		'ignore_global_ach' => 1,//不参与终生成就判定
 	),
+	384 => array(
+		'name' => '未定义索引',
+		'rare' => 'B',
+		'pack' => 'Event Bonus',
+		'desc' => '这是一个警告，但我没有看到',
+		'effect' => '你根本没在数组，你躲哪去了？',
+		'desc_skills' => '你可以进入禁区并在禁区正常行动',
+		'energy' => 100,
+		'valid' => array(
+		  'skills' => array(
+				'724' => '0',
+			),
+		),
+		'ignore_global_ach' => 1,
+	),
 	
 	1000 => array(
 		'name'=>'萌新',

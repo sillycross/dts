@@ -1,4 +1,4 @@
-<input type="button" class="cmdbutton" id="zz" value="[Z]探索" onclick="$('command').value='search';postCmd('gamecmd','command.php');this.disabled=true;" <!--{if array_search($pls,$arealist) <= $areanum && !$hack}-->disabled<!--{/if}-->>
+<input type="button" class="cmdbutton" id="zz" value="[Z]探索" onclick="$('command').value='search';postCmd('gamecmd','command.php');this.disabled=true;" <!--{if !\map\check_can_enter($pls)}-->disabled<!--{/if}-->>
 <span id="moveto_box"><select id="moveto" name="moveto" onchange="$('command').value='move';replay_record_DOM_path(this.options[this.selectedIndex]);postCmd('gamecmd','command.php');this.disabled=true;">
 {template move}
 </select></span>

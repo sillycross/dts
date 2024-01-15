@@ -1,7 +1,7 @@
 <option value="main">■ 移动 ■</option>
 <optgroup label="移动地点列表：">
 <!--{loop $plsinfo $key $value}-->
-<!--{if (array_search($key,$arealist) > $areanum || $hack)}-->
+<!--{if (\map\check_can_enter($key))}-->
 	<!--{if $pls == $key}--><optgroup label="■ 现在位置 ■">
 	<!--{else}--><option value="$key">$value($xyinfo[$key])</option>
 	<!--{/if}-->

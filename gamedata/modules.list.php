@@ -294,6 +294,7 @@ skill719,extra/card/skills/skill719/,1
 skill85,extra/club/skills/skill85/,1
 skill952,extra/instance/instance10_road/skill952/,1
 skill951,extra/instance/instance10_road/skill951/,1
+skill724,extra/card/skills/skill724/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
