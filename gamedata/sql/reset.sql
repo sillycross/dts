@@ -26,6 +26,7 @@ CREATE TABLE bra_chat (
  `time` int(10) unsigned NOT NULL default '0',
   send varchar(60) NOT NULL default '',
   recv varchar(15) NOT NULL default '',
+  pls tinyint unsigned NOT NULL default '0',
   msg varchar(255) NOT NULL default '',
 
   PRIMARY KEY  (cid)

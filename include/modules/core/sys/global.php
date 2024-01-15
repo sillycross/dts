@@ -175,15 +175,17 @@ namespace sys
 	
 	//发送聊天信息。
 	//$ctype代表含义见下方parse_chat()
-	function addchat($ctype, $msg,  $csender = '', $creceiver = '', $ctime = 0){
+	function addchat($ctype, $msg,  $csender = '', $creceiver = '', $ctime = 0, $cpls = 0){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		if(!$ctime) $ctime = $now;
+		if(!$cpls) $cpls = (int)get_var_in_module('pls','player');
 		$aarr = array(
 			'type' => $ctype,
 			'time' => $ctime,
 			'send' => $csender,
 			'recv' => $creceiver,
+			'pls' => $cpls,
 			'msg' => $msg
 		);
 		$result = $db->array_insert("{$ctablepre}chat", $aarr);
@@ -194,19 +196,30 @@ namespace sys
 	function parse_chat($chat)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys'));
-		$msg = '【'.$chatinfo[$chat['type']].'】'.$chat['send'].'：'.$chat['msg'].'('.date("H:i:s",$chat['time']).')';
+		eval(import_module('sys','map'));
+		
 		$msgclass = $chatclass[$chat['type']].($chat['type'] ? ' b' : '').' chat'.(int)$chat['type'];
 		
 		$premsg = '<span id="cid'.$chat['cid'].'" class="'.$msgclass.'">';
 		$postmsg = '<br></span>';
 		
-		//0=公聊； 1=队聊； 2=私聊； 3=遗言； 4=系统； 5=公告； 6=剧情
-		if(0 == $chat['type']) {
-			//占位符
-		} elseif(1 == $chat['type']) {
-			//占位符
+		//先对不同类型进行数据预处理，或者生成特殊格式的讯息
+		//0=公聊； 1=队聊； 2=私聊； 3=遗言； 4=公告； 5=系统； 6=剧情
+		if(0 == $chat['type'] || 1 == $chat['type']) {
+			//表情替换
+			foreach($emoticon_list as $ei => $ev){
+				$chat['msg'] = str_replace('['.$ei.']', '<img class="emoticon" src="img/emoticons/'.$ev.'" />', $chat['msg']);
+			}
+			//定型文替换
+			foreach($on_premise_chat as $ci => $cv){
+				if(strpos($chat['msg'], '['.$ci.']') !== false) {
+					//如果是需要显示地点的聊天信息则把[当前地点]替换成地点名。注意，其他类型尚不支持（记录的地点是执行页面的玩家的地点，不一定准确）
+					if(strpos($cv, '[当前地点]') !== false) $cv = str_replace('[当前地点]','【'.$plsinfo[(int)$chat['pls']].'】',$cv);
+					$chat['msg'] = str_replace('['.$ci.']', $cv, $chat['msg']);
+				}
+			}
 		} elseif(3 == $chat['type']) {
+			$chat['send'] = '【'.$plsinfo[(int)$chat['pls']].'】'.$chat['send'];
 			if ($chat['msg']){
 			} else {
 				$msg = '【'.$chatinfo[$chat['type']].'】'.$chat['send'].'什么都没说就死去了 ('.date("H:i:s",$chat['time']).')';
@@ -216,10 +229,12 @@ namespace sys
 		} elseif(5 == $chat['type']) {
 			$msg = '【'.$chatinfo[$chat['type']].'】'.$chat['msg'].'('.date("H:i:s",$chat['time']).')';
 		} elseif(6 == $chat['type']) {
-			$sender = '';
-			if(!empty($chat['send'])) $sender = $chat['send'].'：';
-			$msg = '【'.$chatinfo[$chat['type']].'】'.$sender.$chat['msg'].'('.date("H:i:s",$chat['time']).')';
+			//占位符
 		}
+
+		//拼接生成基础版聊天信息
+		if(empty($msg)) $msg = '【'.$chatinfo[$chat['type']].'】'.$chat['send'].'：'.$chat['msg'].'('.date("H:i:s",$chat['time']).')';
+		
 		return $premsg.$msg.$postmsg;
 	}
 	

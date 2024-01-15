@@ -223,6 +223,13 @@ div#loading{
 	BACKGROUND: #000;filter:alpha(opacity=50); opacity:0.5;
 	background-image: url("../../img/loading.gif");background-repeat: no-repeat;background-position:center;background-attachment: fixed;
 }
+/*==========表情包==========*/
+img.emoticon{
+	width: 80px; height: 80px; margin: 1px; cursor: pointer; 
+}
+div#chatfloatbox{
+	position: absolute; background-color: rgba(0,0,0,0.8); z-index:30;
+}
 /*==========半透明悬浮气泡框==========*/
 div.bubblebox_positioner{
 	position:fixed; left:0px; top:0px;

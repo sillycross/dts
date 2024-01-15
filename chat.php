@@ -40,9 +40,9 @@ if($ctablecorrect && $sendmode == 'send' && $chatmsg ) {//发送聊天
 		}
 	} else { 
 		if($chattype == 0) {
-			\sys\addchat(0, $chatmsg, $cuser);
+			\sys\addchat(0, $chatmsg, $cuser, '', 0, $cpls);
 		} elseif($chattype == 1) {
-			\sys\addchat(1, $chatmsg, $cuser, $teamID);
+			\sys\addchat(1, $chatmsg, $cuser, $teamID, 0, $cpls);
 		}
 	}
 }elseif($ctablecorrect && $sendmode == 'newspage'){//来自news.php的调用

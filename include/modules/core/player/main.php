@@ -398,9 +398,9 @@ namespace player
 		$uip['innerHTML']['pls'] = $plsinfo[$pls];
 		$uip['value']['teamID'] = $teamID;
 		if($teamID){
-			$uip['innerHTML']['chattype'] = '<select name="chattype"><option value="0">'.$chatinfo[0].'</option><option value="1" selected>'.$chatinfo[1].'</option></select>';
+			$uip['innerHTML']['chattype_sl'] = '<option value="0">'.$chatinfo[0].'</option><option value="1" selected>'.$chatinfo[1].'</option>';
 		}else{
-			$uip['innerHTML']['chattype'] = '<select name="chattype"><option value="0" selected>'.$chatinfo[0].'</option></select>';
+			$uip['innerHTML']['chattype_sl'] = '<option value="0" selected>'.$chatinfo[0].'</option>';
 		}
 		//禁区倒计时
 		\map\init_areatiming();
@@ -636,7 +636,7 @@ namespace player
 		eval(import_module('sys','map','player'));
 		$lwname = $typeinfo [$pd['type']] . ' ' . $pd['name'];
 		$lstwd = \player\get_player_lastword($pd);
-		\sys\addchat(3, $lstwd, '【'.$plsinfo[$pd['pls']].'】 '.$lwname);
+		\sys\addchat(3, $lstwd, $lwname, '', 0, $pd['pls']);
 		if (!empty($pd['sourceless'])) $x=''; else $x=$pa['name'];
 		\sys\addnews ( $now, 'death' . $pd['state'], $pd['name'], $pd['type'], $x , $pa['attackwith'], $lstwd );
 	}

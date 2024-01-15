@@ -2,7 +2,7 @@
 <div style="position:relative; height:100%; width:100%;">
 <div class="skill_unacquired">
 <!--{/if}-->
-<table id="chat" border="0" width="720" cellspacing="0" cellpadding="0" style="valign:top;table-layout:fixed;">
+<table id="chat" width="720" cellspacing="0" cellpadding="0" style="border:0;valign:top;table-layout:fixed;">
 	<tr>
 		<td height="20px" width="100%" class="b1"><span id="chattitle">聊天讯息</span></td>
 	</tr>
@@ -36,24 +36,27 @@
 					<input type="hidden" id="lastcid" name="lastcid" value="$chatdata['lastcid']">
 					<input type="hidden" id="lastnid" name="lastnid" value="$chatdata['lastnid']">
 					<input type="hidden" id="teamID" name="teamID" value="$teamID">
+					<input type="hidden" id="cpls" name="cpls" value="$pls">
 					<input type="hidden" id="chatpid" name="chatpid" value="$pid">
 					<input type="hidden" id="sendmode" name="sendmode" value="ref">
 					<span id="chattype">
-						<select name="chattype">
+						<select name="chattype" style="height:24px;" id="chattype_sl">
 							<option value="0">$chatinfo[0]</option>
 							<!--{if $teamID}--><option value="1" selected>$chatinfo[1]</option><!--{/if}-->
 						</select>
 					</span>
-					<input type="text" id="chatmsg" name="chatmsg" maxlength="60" >
-					<input type="submit" id="send" onClick="
+					<input type="text" id="chatmsg" name="chatmsg" maxlength="60" style="width:400px;height:22px;" />
+					<input type="submit" id="send" style="width:60px;height:24px;" onclick="
 						$('sendmode').value='send';
 						$('chatlist').style.display='block';
 						$('newslist').style.display='none';
 						$('chattitle').innerHTML='聊天讯息';
 						chat('send',$chatrefresh);
-						return false;" value="{lang send}">
-					<input type="button" id="ref" onClick="if($('sendmode').value=='send'){$('sendmode').value='ref'};chat($('sendmode').value,$chatrefresh);return false;" value="{lang refresh}">
-					<input type="button" id="switch" onClick="
+						return false;" value="{lang send}" />
+					<input type="button" id="showchatfloatbox" style="height:24px;" value="表情/定型文" onmouseenter="
+						$('chatfloatbox').style.display='block';" />
+					<!--<input type="button" id="ref" style="height:24px;" onClick="if($('sendmode').value=='send'){$('sendmode').value='ref'};chat($('sendmode').value,$chatrefresh);return false;" value="{lang refresh}">-->
+					<input type="button" id="switch" style="height:24px;" onclick="
 						if($('sendmode').value=='news'){
 							$('sendmode').value='ref';
 							$('chatlist').style.display='block';
@@ -66,11 +69,29 @@
 							$('chattitle').innerHTML='进行状况';
 						}
 						chat($('sendmode').value,$chatrefresh);
-						return false;" value="切换模式">
+						return false;" value="切换模式" />
 				</form>
 			<!--{if !defined('IN_REPLAY')}-->
 			<script type="text/javascript">chat('ref',$chatrefresh);</script>
 			<!--{/if}-->
+			<div id="chatfloatbox" style="display:none; width:850px; height:360px; bottom: 5px; left:0px;" onmouseleave="this.style.display='none';">
+				<div style="width:656px;height:100%;position: absolute;left:0px;top:0px;">
+					<div>
+					<!--{eval $i=0;}-->
+					<!--{loop $emoticon_list $ei $ev}-->
+						<img class="emoticon" src="img/emoticons/{$ev}" onclick="$('chatmsg').value+='[{$ei}]';">
+						<!--{eval $i++; if($i%8==0) echo '</div><div>'; }-->
+					<!--{/loop}-->
+					</div>
+				</div>
+				<div style="width:194px;height:100%;position: absolute;right:0px;top:0px;">
+					<!--{loop $on_premise_chat $ci $cv}-->
+						<div style="margin:8px 0;">
+							<a class="white b" onclick="$('chatmsg').value='[{$ci}]';$('send').click();$('chatfloatbox').style.display='none';">$cv</a>
+						</div>
+					<!--{/loop}-->
+				</div>
+			</div>
 			</div>
 		</td>
 	</tr>

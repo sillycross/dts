@@ -155,6 +155,58 @@ namespace sys
 	
 	$chatclass = Array(0 => '', 1 => 'cyan', 2 => '', 3 => 'red', 4 => 'yellow', 5 => 'yellow', 6 => 'seagreen');
 
+	//使用中的表情，键名为代号，键值为文件名。发送时需要用[]括起来
+	$emoticon_list = Array(
+		'AZ1' => 'Azure_1.png', 
+		'AZ2' => 'Azure_2.png', 
+		'AZ3' => 'Azure_3.png', 
+		'AZ4' => 'Azure_4.png', 
+		'CR1' => 'Crimson_1.png',
+		'CR2' => 'Crimson_2.png',
+		'CR3' => 'Crimson_3.png',
+		'CR4' => 'Crimson_4.png',
+		'FL1' => 'Fleur_1.png',
+		'FL2' => 'Fleur_2.png',
+		'FL3' => 'Fleur_3.png',
+		'FL4' => 'Fleur_4.png',
+		'GO1' => 'Gothic_1.png',
+		'GO2' => 'Gothic_2.png',
+		'GO3' => 'Gothic_3.png',
+		'GO4' => 'Gothic_4.png',
+		'LI1' => 'Lilac_1.png',
+		'LI2' => 'Lilac_2.png',
+		'LI3' => 'Lilac_3.png',
+		'LI4' => 'Lilac_4.png',
+		'MA1' => 'Marylin_1.png',
+		'MA2' => 'Marylin_2.png',
+		'MA3' => 'Marylin_3.png',
+		'MA4' => 'Marylin_4.png',
+		'SA1' => 'Sanma_1.png',
+		'SA2' => 'Sanma_2.png',
+		'SA3' => 'Sanma_3.png',
+		'SA4' => 'Sanma_4.png',
+		'VI1' => 'Vivian_1.png',
+		'VI2' => 'Vivian_2.png',
+		'VI3' => 'Vivian_3.png',
+		'VI4' => 'Vivian_4.png',
+	);
+
+	//定型文。发送时需要用[]括起来，不能和表情包同名。[当前地点]会被替换成地点信息
+	$on_premise_chat = Array(
+		'HELLO' => '大家好啊',
+		'SILENT' => '真是安静啊',
+		'WATCHME' => '全体目光向我看齐！',
+		'SANDBOX' => '区区■■无名沙包',
+		'CANCANNEED' => '康康你的', 
+		'YOURERIGHT' => '你说得对，但是ACFUN大逃杀',
+		'CANDLE' => '你的生命犹如风中残烛！',
+		'TODIE' => '你没戏唱了，快去死吧！',
+		'ATTACK' => '<span class="cyan b">杀杀杀杀杀杀杀！</span>[当前地点]',
+		'DANGER' => '<span class="red b">危！</span>[当前地点]',
+		'HELP' => '<span class="yellow b">救、救救！</span>[当前地点]',
+		'LOSE' => '大逃杀还是你玩得好啊',
+	);
+
 	/*Infomations*/
 	$_INFO = Array(
 		'reg_success' => '注册成功！请返回首页登陆游戏。',
