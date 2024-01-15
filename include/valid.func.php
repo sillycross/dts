@@ -73,7 +73,7 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip='')
 	
 	//权限和一些名字特判，不应该放在模块里，就放这里吧
 	if ($xuser == $gamefounder || $groupid >= 5) {
-		$eb_pdata['itm6'] = '权限狗的ID卡'; $eb_pdata['itmk6'] = 'Z'; $eb_pdata['itme6'] = 1; $eb_pdata['itms6'] = 1; $eb_pdata['itmsk6'] = '';
+		$eb_pdata['arf'] = '权限狗的ID卡'; $eb_pdata['arfk'] = 'Z'; $eb_pdata['arfe'] = 1; $eb_pdata['arfs'] = 1; $eb_pdata['arfsk'] = '';
 	}elseif($xuser == '霜火协奏曲') {
 		$eb_pdata['art'] = '击败思念的纹章'; $eb_pdata['artk'] = 'A'; $eb_pdata['arte'] = 1; $eb_pdata['arts'] = 1; $eb_pdata['artsk'] = 'zZ';
 	}elseif($xuser == '时期') {
