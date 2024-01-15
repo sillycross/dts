@@ -60,8 +60,8 @@ namespace skill430
 		$itm0=$iname;
 		$itme0=$ieff;
 		$itms0=$ista;
-		$itmsk0=$iskind;
-		$itmk0=\attrbase\config_process_encode_comp_itmsk($ikind);
+		$itmk0=$ikind;
+		$itmsk0=\attrbase\config_process_encode_comp_itmsk($iskind);
 		addnews ( 0, 'bskill430', $name,$iname );
 		\itemmain\itemget();
 	}
