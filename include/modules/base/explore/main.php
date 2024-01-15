@@ -69,7 +69,7 @@ namespace explore
 		} elseif($pls == $moveto){
 			$log .= '相同地点，不需要移动。<br>';
 			return false;
-		} elseif(array_search($moveto,$arealist) <= $areanum && !$hack){
+		} elseif(!\map\check_can_enter($moveto)){
 			$log .= $plsinfo[$moveto].'是禁区，还是离远点吧！<br>';
 			return false;
 		}
@@ -90,7 +90,7 @@ namespace explore
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','map','logger'));
 		
-		if(array_search($pls,$arealist) <= $areanum && !$hack){
+		if(!\map\check_can_enter($pls)){
 			$log .= $plsinfo[$pls].'是禁区，还是赶快逃跑吧！<br>';
 			return false;
 		}
@@ -99,7 +99,7 @@ namespace explore
 		
 		if($sp <= $schsp){
 			$log .= "体力不足，不能探索！<br>还是先睡会儿吧！<br>";
-			return false;	
+			return false;
 		}
 		
 		return $schsp;
