@@ -14,7 +14,6 @@ namespace skill596
 		define('MOD_SKILL596_INFO','card;');
 		eval(import_module('clubbase'));
 		$clubskillname[596] = '念写';
-		$itemspkinfo['^eflag'] = '念写手机标记';//不显示
 		$itemspkinfo['^wflag'] = '念写武器标记';//不显示
 	}
 	
@@ -43,22 +42,21 @@ namespace skill596
 		if ($itm == '手机' && \skillbase\skill_query(596))
 		{
 			eval(import_module('player','logger','skill596'));
-			if(false !== \itemmain\check_in_itmsk('^eflag', $itmsk)) {
+			if($itme <= 0) {
 				$log .= "<span class=\"yellow b\">$itm</span>没电了，没法快乐瞎编了。<br>";
 				return;
 			}
 			$log .= "你打开了<span class=\"yellow b\">$itm</span>，开始搜索素材并编写新闻……<br>";
-			if (rand(0,2) < 1)
+			$itme -= 1;
+			if ($itme == 0)
 			{
 				if ($itms > 1)
 				{
 					$log .= "手机没电了，你换了一个新的手机。<br>";
+					$itme = 1;
 					$itms -= 1;
 				}
-				else{
-					$itmsk = '^eflag596';
-					$log .= "手机没电了。<br>";
-				}
+				else $log .= "手机没电了，需要换电池了。<br>";
 			}
 			$itm0 = generate_sk596_iname();
 			if (mb_strlen($itm0, 'utf-8') > 30)
@@ -154,7 +152,6 @@ namespace skill596
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($cinfo);
 		if($ret) {
-			if('^eflag' == $cinfo[0]) return false;
 			if('^wflag' == $cinfo[0]) return false;
 		}
 		return $ret;

@@ -35,6 +35,22 @@ namespace skill721
 		
 		if ($itm == '笔记本电脑' && \skillbase\skill_query(721))
 		{
+			eval(import_module('logger'));
+			if ($itme <= 0)
+			{
+				if ($itms > 1)
+				{
+					$log .= "你换了一台新的电脑。<br>";
+					$itme = 1;
+					$itms -= 1;
+				}
+				else
+				{
+					$log .= "<span class=\"yellow b\">$itm</span>没电了，需要换电池了。<br>";
+					return;
+				}
+			}
+			else $itme -= 1;
 			skill721_simulation();
 			return;
 		}
