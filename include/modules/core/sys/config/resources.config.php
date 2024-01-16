@@ -194,17 +194,18 @@ namespace sys
 	//定型文。发送时需要用[]括起来，不能和表情包同名。[当前地点]会被替换成地点信息
 	$on_premise_chat = Array(
 		'HELLO' => '大家好啊',
-		'SILENT' => '真是安静啊',
+		'TOOQUIET' => '真是安静啊',
 		'WATCHME' => '全体目光向我看齐！',
-		'SANDBOX' => '区区■■无名沙包',
-		'CANCANNEED' => '康康你的', 
+		'NOOB' => '区区■■无名沙包',
+		'YOURTURN' => '康康你的', 
 		'YOURERIGHT' => '你说得对，但是ACFUN大逃杀',
-		'CANDLE' => '你的生命犹如风中残烛！',
-		'TODIE' => '你没戏唱了，快去死吧！',
-		'ATTACK' => '<span class="cyan b">杀杀杀杀杀杀杀！</span>[当前地点]',
+		'THREAT1' => '你的生命犹如风中残烛！',
+		'THREAT2' => '你没戏唱了，快去死吧！',
+		'SHOUT' => '哼哼哼啊啊啊啊啊啊啊啊',
+		'MOVEON' => '<span class="cyan b">杀杀杀杀杀杀杀！</span>[当前地点]',
 		'DANGER' => '<span class="red b">危！</span>[当前地点]',
 		'HELP' => '<span class="yellow b">救、救救！</span>[当前地点]',
-		'LOSE' => '大逃杀还是你玩得好啊',
+		'GG' => '大逃杀还是你玩得好啊',
 	);
 
 	/*Infomations*/

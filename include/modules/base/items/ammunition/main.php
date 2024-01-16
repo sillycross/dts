@@ -19,8 +19,11 @@ namespace ammunition
 		$iteminfo['GB'] = '手枪弹药';	
 		$iteminfo['GBr'] = '机枪弹药';
 		$iteminfo['GBi'] = '气体弹药';
-		$iteminfo['GBh'] = '重型弹药';
 		$iteminfo['GBe'] = '能源弹药';
+		$iteminfo['GBh'] = '重型弹药';
+		//以下2024.01.16合并测试
+		$iteminfo['GBss'] = '实体弹药';
+		$iteminfo['GBee'] = '能量弹药';
 		
 		$itemspkinfo['o'] = '一发';
 		$itemspkdesc['o']='本枪械不能装填弹药';
@@ -41,8 +44,20 @@ namespace ammunition
 	
 	function check_ammukind($cwepk, $cwepsk){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('ammunition'));
+		eval(import_module('sys','ammunition'));
 		$retk = 'GB'; $retn = 6;
+		if(18 == $gametype) {
+			$retk = 'GBss'; $retn = 6;
+			$ammukind = array(
+				'WJ' => array('GBh', 4),
+				'e' => array('GBee', 10),
+				'w' => array('GBee', 10),
+				'i' => array('GBee', 10),
+				'u' => array('GBee', 10),
+				'r' => array('GBss', 24),
+				'WG' => array('GBss', 6),
+			);
+		}
 		foreach($ammukind as $ak => $av){
 			if((strpos($ak, 'W')===0 && strpos($cwepk, $ak) === 0) || (strpos($ak, 'W')!==0 && \itemmain\check_in_itmsk($ak, $cwepsk))){
 				$retk = $av[0]; $retn = $av[1];
