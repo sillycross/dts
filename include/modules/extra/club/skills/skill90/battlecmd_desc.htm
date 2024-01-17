@@ -1,0 +1,10 @@
+<!--{if !\clubbase\check_battle_skill_unactivatable($sdata,$edata,90)}-->
+本次攻击属性伤害<span class="yellow b">+(30+8×“共鸣”增益数)%</span>，
+	<!--{if $rage >= $rageneed}-->
+		消耗<span class="red b">$rageneed</span>怒气
+	<!--{else}-->
+		消耗<span class="red b">$sscost</span>歌魂
+	<!--{/if}-->
+<!--{else}-->
+需要<span class="red b">$rageneed</span>怒气或<span class="red b">$sscost</span>歌魂发动
+<!--{/if}-->

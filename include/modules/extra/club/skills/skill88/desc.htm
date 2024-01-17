@@ -1,0 +1,24 @@
+<!--{eval $___TEMP_SKILL_ID=88;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+每消耗<span class="lime b">2</span>怒气，获得<span class="yellow b">1</span>点歌魂
+</span></td>
+<td class="skilldesc_right b3">
+<!--{if $rage >= 2}-->
+<input type="number" style="width:40px" id="skill88_num" name="skill88_num" min="2" max="$rage" value="1">
+<input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill88_special';$('subcmd').value='upgrade';$('skillpara1').value=$('skill88_num').value;$('skillpara2').value=jQuery('#stselect').val();postCmd('gamecmd','command.php');this.disabled=true;" value="使用">
+<!--{else}-->
+<input type="number" style="width:40px" disabled="true" value="0">
+<input type="button" style="width:46px" disabled="true" value="使用">
+<!--{/if}-->
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}
