@@ -2,6 +2,8 @@
 
 namespace skill585
 {
+	$skill585_flag = -1;
+
 	function init() 
 	{
 		define('MOD_SKILL585_INFO','club;');
@@ -31,22 +33,28 @@ namespace skill585
 		$ret = $chprocess($pa, $pd, $active);
 		if (\skillbase\skill_query(585,$pa) && check_unlocked585($pa))
 		{
-			$flag = 0;
-			eval(import_module('sys','player'));
-			$result = $db->query("SELECT pid FROM {$tablepre}players WHERE pls={$pa['pls']} AND hp>0 AND pid != {$pa['pid']}");
-			if($db->num_rows($result))
-			{
-				while($r = $db->fetch_array($result))
+			eval(import_module('sys','skill585'));
+			if($skill585_flag < 0) {//战斗中第一次取属性的时候才执行，其他时候直接用查询的结果
+				$skill585_flag = 0;
+				$apls = $pa['pls'];
+				$apid = $pa['pid'];
+				
+				$result = $db->query("SELECT pid FROM {$tablepre}players WHERE pls='$apls' AND hp>0 AND pid != '$apid'");
+				if($db->num_rows($result))
 				{
-					$pdata = \player\fetch_playerdata_by_pid($r['pid']);
-					if ((strpos($pdata['name'], '复读机') !== false) || (($pdata['type'] == 0) && ($pdata['card'] == 345)))
+					while($r = $db->fetch_array($result))
 					{
-						$flag = 1;
-						break;
+						$pdata = \player\fetch_playerdata_by_pid($r['pid']);
+						if ((strpos($pdata['name'], '复读机') !== false) || (!$pdata['type'] && '复读机' == $pdata['cardname']))
+						{
+							$skill585_flag = 1;
+							break;
+						}
 					}
 				}
 			}
-			if ($flag == 1) array_push($ret,'w');
+			
+			if ($skill585_flag) array_push($ret,'w');
 		}
 		return $ret;
 	}
