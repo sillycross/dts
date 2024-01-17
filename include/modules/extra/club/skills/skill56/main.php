@@ -86,7 +86,7 @@ namespace skill56
 	function skill56_summon_npc($nkind)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('skill56','map','sys','player','logger','input'));
+		eval(import_module('skill56','map','sys','player','logger'));
 		$log.='你召唤出了佣兵<span class="yellow b">'.$skill56_npc['sub'][$nkind]['name'].'</span>来保护你！<br>';
 		$x=(int)\skillbase\skill_getvalue(56,'t');
 		$spids = \addnpc\addnpc(25,$nkind,1);
@@ -151,15 +151,15 @@ namespace skill56
 	function action56()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('skill56','sys','map','player','logger','input'));
+		eval(import_module('skill56','sys','map','player','logger'));
 		if (!\skillbase\skill_query(56) || !check_unlocked56($sdata)) 
 		{
 			$log .= '你没有这个技能。<br>';
 			return;
 		}
-		$skillpara1=(int)$skillpara1;
-		$skillpara2=(int)$skillpara2;
-		$skillpara3=(int)$skillpara3;
+		$skillpara1=(int)get_var_input('skillpara1');
+		$skillpara2=(int)get_var_input('skillpara2');
+		$skillpara3=(int)get_var_input('skillpara3');
 		if ($skillpara1==1)
 		{
 			//雇佣
@@ -319,8 +319,8 @@ namespace skill56
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','logger','input'));
-	
+		eval(import_module('sys','player','logger'));
+		$subcmd = get_var_input('subcmd');
 		if ($mode == 'special' && $command == 'skill56_special' && $subcmd=='summon') 
 		{
 			ob_clean();
