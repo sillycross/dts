@@ -7,7 +7,7 @@ namespace skill89
 	
 	function init()
 	{
-		define('MOD_skill89_INFO','club;upgrade;');
+		define('MOD_SKILL89_INFO','club;upgrade;');
 		eval(import_module('clubbase'));
 		$clubskillname[89] = '强音';
 	}
@@ -26,8 +26,7 @@ namespace skill89
 	function check_unlocked89(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		// return $pa['lvl']>=3;
-		return 1;
+		return $pa['lvl']>=3;
 	}
 	
 	function upgrade89()
@@ -83,7 +82,7 @@ namespace skill89
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa, $pd, $active);
-		if (\skillbase\skill_query(89, $pa) && check_unlocked89($pa) && ($pa['wepk'] != 'WN') && ((int)\skillbase\skill_getvalue(89, 'lvl', $pa) >= 2)) array_push($ret,'^sa1');
+		if (\skillbase\skill_query(89, $pd) && check_unlocked89($pd) && ($pd['wepk'] != 'WN') && ((int)\skillbase\skill_getvalue(89, 'lvl', $pd) >= 2)) array_push($ret,'^sa1');
 		return $ret;
 	}
 	
