@@ -32,7 +32,7 @@ namespace skill90
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill90'));
-		return ragecost;
+		return $ragecost;
 	}
 	
 	function check_battle_skill_unactivatable(&$ldata,&$edata,$skillno)
@@ -65,14 +65,14 @@ namespace skill90
 				eval(import_module('logger'));
 				if ($active)
 					$log.="<span class=\"lime b\">你对{$pd['name']}发动了技能「安魂」！</span><br>";
-				else  $log.="<span class=\"lime b\">{$pa['name']}对你发动了技能「安魂」！</span><br>";
+				else $log.="<span class=\"lime b\">{$pa['name']}对你发动了技能「安魂」！</span><br>";
 				$pa['rage']-=$rcost;
 				addnews ( 0, 'bskill90', $pa['name'], $pd['name'] );
 			}elseif (!\clubbase\check_battle_skill_unactivatable($pa,$pd,90)){
-				eval(import_module('logger','skill90s'));
+				eval(import_module('logger','skill90'));
 				if ($active)
 					$log.="<span class=\"lime b\">你对{$pd['name']}发动了技能「安魂」！</span><br>";
-				else  $log.="<span class=\"lime b\">{$pa['name']}对你发动了技能「安魂」！</span><br>";
+				else $log.="<span class=\"lime b\">{$pa['name']}对你发动了技能「安魂」！</span><br>";
 				$pa['ss']-=$sscost;
 				addnews ( 0, 'bskill90', $pa['name'], $pd['name'] );
 			}else
@@ -112,10 +112,11 @@ namespace skill90
 		$r = array();
 		if ($pa['bskill']==90)
 		{
+			eval(import_module('logger'));
 			$skill90_exdmggain = get_skill90_extra_dmg_gain($pa, $pd, $active);
 			if ($active)
-				$log .= '<span class="lime b">「安魂」使你造成的属性伤害增加了{$skill90_exdmggain}%！</span><br>';
-			else  $log .= '<span class="lime b">「安魂」使敌人造成的属性伤害增加了{$skill90_exdmggain}%！</span><br>';
+				$log .= "<span class=\"lime b\">「安魂」使你造成的属性伤害增加了{$skill90_exdmggain}%！</span><br>";
+			else  $log .= "<span class=\"lime b\">「安魂」使敌人造成的属性伤害增加了{$skill90_exdmggain}%！</span><br>";
 			$r[] = 1 + $skill90_exdmggain / 100;
 		}
 		return array_merge($r,$chprocess($pa,$pd,$active));
