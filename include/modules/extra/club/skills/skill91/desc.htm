@@ -1,0 +1,22 @@
+<!--{eval $___TEMP_SKILL_ID=91;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+每当你保持在同一地点歌唱消耗歌魂达到<span class="yellow b">240</span>时，当前地点所有其他角色获得技能“<span class="yellow b">倾心</span>”：若为NPC，生命值低于你时不会先制攻击你，<br>攻击其他角色最终伤害<span class="yellow b">+40%</span>，受到其他角色伤害<span class="yellow b">-20%</span>；<br>若为玩家，对你先制率<span class="yellow b">-30%</span><br>（再次获得“<span class="yellow b">倾心</span>”时，生效目标角色会被替代）<br>
+<!--{eval $uss = (int)\skillbase\skill_getvalue(91,'uss'); }-->
+<!--{if $uss}-->
+在当前地点已歌唱消耗<span class="yellow b">$uss</span>歌魂
+<!--{/if}-->
+</span></td>
+<td class="skilldesc_right b3">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+7级时解锁
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

@@ -295,6 +295,8 @@ skill85,extra/club/skills/skill85/,1
 skill952,extra/instance/instance10_road/skill952/,1
 skill951,extra/instance/instance10_road/skill951/,1
 skill724,extra/card/skills/skill724/,1
+club25,extra\club\clubs\club25/,1
+skill95,extra/club/skills/skill95/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
@@ -415,6 +417,7 @@ skill585,extra/card/skills/skill585/,1
 skill705,extra/card/skills/skill705/,1
 ex_alternative,extra/attr/ex_alternative/,1
 ex_uselog,extra/attr/ex_uselog/,1
+skill89,extra/club/skills/skill89/,1
 skill1000,extra/instance/instance7_tutorial/skill1000/,1
 skill711,extra/card/skills/skill711/,1
 skill1007,extra/npc_action/skill1007/,1
@@ -476,6 +479,8 @@ skill523,extra/card/skills/skill523/,1
 skill524,extra/card/skills/skill524/,1
 skill525,extra/card/skills/skill525/,1
 skill526,extra/card/skills/skill526/,1
+skill90,extra/club/skills/skill90/,1
+skill93,extra/club/skills/skill93/,1
 skill232,extra/club/skills/skill232/,1
 skill432,extra/card/skills/skill432/,1
 skill558,extra/card/skills/skill558/,1
@@ -572,6 +577,8 @@ ex_attr_song,extra/attr/ex_attr_song/,1
 skill181,extra/club/skills/skill181/,1
 skill376,extra/achievement/skills/skill376/,1
 skill381,extra/achievement/skills/skill381/,1
+skill88,extra/club/skills/skill88/,1
+skill91,extra/club/skills/skill91/,1
 wepchange,extra/attr/wepchange/,1
 skill77,extra/club/skills/skill77/,1
 skill379,extra/achievement/skills/skill379/,1
@@ -591,6 +598,7 @@ skill602,extra/club/skills/skill602/,1
 skill603,extra/club/skills/skill603/,1
 item_uys,extra/item_extra/item_uys/,1
 searchmemory,extra/searchmemory/,1
+skill87,extra/club/skills/skill87/,1
 skill497,extra/card/skills/skill497/,1
 skill503,extra/card/skills/skill503/,1
 skill559,extra/card/skills/skill559/,1
