@@ -579,6 +579,7 @@ skill376,extra/achievement/skills/skill376/,1
 skill381,extra/achievement/skills/skill381/,1
 skill88,extra/club/skills/skill88/,1
 skill91,extra/club/skills/skill91/,1
+skill92,extra/club/skills/skill92/,1
 wepchange,extra/attr/wepchange/,1
 skill77,extra/club/skills/skill77/,1
 skill379,extra/achievement/skills/skill379/,1
