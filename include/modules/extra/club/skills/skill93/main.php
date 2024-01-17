@@ -4,7 +4,7 @@ namespace skill93
 {
 	function init()
 	{
-		define('MOD_skill93_INFO','club;');
+		define('MOD_SKILL93_INFO','club;');
 		eval(import_module('clubbase'));
 		$clubskillname[93] = '回响';
 	}

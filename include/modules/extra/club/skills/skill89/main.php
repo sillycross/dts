@@ -7,7 +7,7 @@ namespace skill89
 	
 	function init()
 	{
-		define('MOD_skill89_INFO','club;upgrade;');
+		define('MOD_SKILL89_INFO','club;upgrade;');
 		eval(import_module('clubbase'));
 		$clubskillname[89] = '强音';
 	}
