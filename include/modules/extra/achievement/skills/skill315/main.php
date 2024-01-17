@@ -9,7 +9,7 @@ namespace skill315
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach315_desc= array(
-		1=>'战斗击杀<:threshold:>名<span class="yellow b" title=\''.POSITIVE_PLAYER_DESC.'\'>活跃玩家</span>。伐木和解离模式不能完成',
+		1=>'战斗击杀<:threshold:>名<span class="yellow b" title=\''.POSITIVE_PLAYER_DESC.'\'>活跃玩家</span>。伐木、解离和试炼模式不能完成',
 	);
 	
 	$ach315_proc_words = '击杀总数';

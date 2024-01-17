@@ -9,7 +9,7 @@ namespace skill345
 	
 	//各级显示的要求，如果不存在则取低的
 	$ach345_desc= array(
-		1=>'使用【小黄的】武器击杀<:threshold:>名<span class="yellow b" title=\''.POSITIVE_PLAYER_DESC.'\'>活跃玩家</span>。伐木、解离模式不能完成',
+		1=>'使用【小黄的】武器击杀<:threshold:>名<span class="yellow b" title=\''.POSITIVE_PLAYER_DESC.'\'>活跃玩家</span>。伐木、解离和试炼模式不能完成',
 	);
 	
 	$ach345_proc_words = '击杀总数';
