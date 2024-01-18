@@ -418,6 +418,7 @@ skill705,extra/card/skills/skill705/,1
 ex_alternative,extra/attr/ex_alternative/,1
 ex_uselog,extra/attr/ex_uselog/,1
 skill89,extra/club/skills/skill89/,1
+skill96,extra/club/skills/skill96/,1
 skill1000,extra/instance/instance7_tutorial/skill1000/,1
 skill711,extra/card/skills/skill711/,1
 skill1007,extra/npc_action/skill1007/,1
@@ -579,6 +580,7 @@ skill376,extra/achievement/skills/skill376/,1
 skill381,extra/achievement/skills/skill381/,1
 skill88,extra/club/skills/skill88/,1
 skill91,extra/club/skills/skill91/,1
+skill92,extra/club/skills/skill92/,1
 wepchange,extra/attr/wepchange/,1
 skill77,extra/club/skills/skill77/,1
 skill379,extra/achievement/skills/skill379/,1
@@ -599,6 +601,7 @@ skill603,extra/club/skills/skill603/,1
 item_uys,extra/item_extra/item_uys/,1
 searchmemory,extra/searchmemory/,1
 skill87,extra/club/skills/skill87/,1
+skill94,extra/club/skills/skill94/,1
 skill497,extra/card/skills/skill497/,1
 skill503,extra/card/skills/skill503/,1
 skill559,extra/card/skills/skill559/,1

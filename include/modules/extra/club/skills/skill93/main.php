@@ -45,9 +45,10 @@ namespace skill93
 		$ret = $chprocess($pa, $pd, $active, $key);
 		if (($key == 'w') && isset($pa['skill93_flag']))
 		{
-			if ($active) $log.="<span class=\"yellow b\">「回响」使你造成的音波伤害大幅增加了！</span><br>";
-			else $log.="<span class=\"yellow b\">「回响」使{$pa['name']}造成的音波伤害大幅增加了！</span><br>";
-			$ret *= 2.5;
+			eval(import_module('logger'));
+			if ($active) $log.="<br><span class=\"yellow b\">「回响」使你造成的音波伤害大幅增加了！</span><br>";
+			else $log.="<br><span class=\"yellow b\">「回响」使{$pa['name']}造成的音波伤害大幅增加了！</span><br>";
+			$ret *= 2;
 		}
 		return $ret;
 	}

@@ -35,7 +35,7 @@ namespace skill88
 			return;
 		}
 		$skillpara1 = (int)get_var_input('skillpara1');
-		if ($skillpara1 <= 0)
+		if ($skillpara1 <= 1)
 		{
 			$log .= '输入参数错误！<br>';
 			return;

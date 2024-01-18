@@ -26,7 +26,8 @@ namespace skill577
 		eval(import_module('sys','player'));
 		if (\skillbase\skill_query(577, $pa))
 		{
-			$result = $db->query("SELECT pid FROM {$tablepre}players WHERE type=0 AND hp>0 AND pid != {$pa['pid']}");
+			$apid = $pa['pid'];
+			$result = $db->query("SELECT pid FROM {$tablepre}players WHERE type=0 AND hp>0 AND pid != '$apid'");
 			if($db->num_rows($result))
 			{
 				$list = array();

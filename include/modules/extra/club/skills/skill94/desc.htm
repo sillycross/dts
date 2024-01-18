@@ -1,0 +1,30 @@
+<!--{eval eval(import_module('skill94'));}-->
+<!--{eval $___TEMP_SKILL_ID=94;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+你可以演唱自定义的歌曲，作用时间与效果随消耗歌魂增加而增加<br>
+<!--{eval $schoice = \skillbase\skill_getvalue(94,'schoice'); }-->
+当前自定义歌曲效果为：<br><span class="yellow b"><!--{if !empty($schoice)}-->{$skill94_song_words[1][$schoice[0]]}，{$skill94_song_words[2][$schoice[1]]}并{$skill94_song_words[3][$schoice[2]]}<!--{else}-->无<!--{/if}--></span><br>
+<!--{loop range(1,3) $i}-->
+<select name="skill94_choice$i" id="skill94_choice$i" style="width:120px">
+	<!--{loop range(1,3) $k}-->
+	<option value="$k" <!--{if $k==$schoice[$i-1]}-->selected<!--{/if}-->>$skill94_song_words[$i][$k]<br />
+	<!--{/loop}-->
+</select>
+<!--{/loop}-->
+<br>只能同时存在一种“<span class="yellow b">天籁</span>”增益
+</span></td>
+<td class="skilldesc_right b3">
+<input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill94_special';$('subcmd').value='upgrade';$('skillpara1').value=$('skill94_choice1').value;$('skillpara2').value=$('skill94_choice2').value;$('skillpara3').value=$('skill94_choice3').value;postCmd('gamecmd','command.php');this.disabled=true;" value="切换">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+17级时解锁
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}
