@@ -62,8 +62,8 @@ namespace skill95
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r = 1;
-		if (\skillbase\skill_query(95,$ldata) && !$edata['type'] && (\skillbase\skill_getvalue(95, 'spid', $edata) == $ldata['pid'])) $r *= 1.3;
-		if (\skillbase\skill_query(95,$edata) && !$ldata['type'] && (\skillbase\skill_getvalue(95, 'spid', $ldata) == $edata['pid'])) $r /= 1.3;
+		if (\skillbase\skill_query(95,$edata) && !$edata['type'] && (\skillbase\skill_getvalue(95, 'spid', $edata) == $ldata['pid'])) $r *= 1.3;
+		if (\skillbase\skill_query(95,$ldata) && !$ldata['type'] && (\skillbase\skill_getvalue(95, 'spid', $ldata) == $edata['pid'])) $r /= 1.3;
 		if($r != 1) $ldata['active_words'] = \attack\multiply_format($r, $ldata['active_words'],0);
 		return $chprocess($ldata,$edata)*$r;
 	}
