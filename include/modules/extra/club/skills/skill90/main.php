@@ -93,14 +93,14 @@ namespace skill90
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill90','player','logger'));
 		$exdmggain = 30;
-		//每个临时增益+8%属伤
+		//每个临时增益+5%属伤
 		if (\skillbase\skill_query(182, $pa))
 		{
 			$skey = \skillbase\skill_getvalue(182, 'skey', $pa);
 			if (!empty($skey))
 			{
 				$lskey = explode('_', $skey);
-				$exdmggain += 8 * count($lskey);
+				$exdmggain += 5 * count($lskey);
 			}
 		}
 		return $exdmggain;

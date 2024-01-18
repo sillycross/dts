@@ -29,7 +29,8 @@ namespace skill569
 			if (5 < $validnum)
 			{
 				eval(import_module('sys'));
-				$result = $db->query("SELECT pid FROM {$tablepre}players WHERE type=0 AND hp>0 AND pid != {$pa['pid']}");
+				$apid = $pa['pid'];
+				$result = $db->query("SELECT pid FROM {$tablepre}players WHERE type=0 AND hp>0 AND pid != '$apid'");
 				if($db->num_rows($result))
 				{
 					$list = array();

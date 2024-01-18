@@ -35,9 +35,9 @@ namespace skill91
 		eval(import_module('player'));
 		$ss_temp = $ss;
 		$chprocess($sn);
-		if (\skillbase\skill_query(91, $sdata) && check_unlocked91($sdata) && ($ss < $sstemp))
+		if (\skillbase\skill_query(91, $sdata) && check_unlocked91($sdata) && ($ss < $ss_temp))
 		{
-			$ssuse = $ss - $ss_temp;
+			$ssuse = $ss_temp - $ss;
 			$skill91_pls = (int)\skillbase\skill_getvalue(91,'pls',$sdata);
 			if ($pls == $skill91_pls)
 			{
@@ -64,10 +64,11 @@ namespace skill91
 	function skill91_process()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('player'));
+		eval(import_module('sys','player','logger'));
 		$result = $db->query("SELECT pid FROM {$tablepre}players WHERE pls='$pls' AND hp>0 AND pid != '$pid'");
-		if (!$db->num_rows($result))
+		if ($db->num_rows($result))
 		{
+			$log .= "<span class=\"yellow b\">你的演出俘获了在场所有人的目光！</span><br>";
 			$list = array();
 			while($r = $db->fetch_array($result)){
 				$list[] = $r['pid'];
@@ -86,6 +87,10 @@ namespace skill91
 			}
 			eval(import_module('map'));
 			addnews($now, 'signal91', $name, $plsinfo[$pls]);
+		}
+		else
+		{
+			$log .= "<span class=\"yellow b\">你接连唱了好几首歌，但是好像没人来听的样子……</span><br>";
 		}
 	}
 	
