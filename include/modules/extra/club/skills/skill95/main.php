@@ -43,14 +43,14 @@ namespace skill95
 		if (\skillbase\skill_query(95, $pa) && $pa['type'] && (\skillbase\skill_getvalue(95, 'spid', $pa) != $pd['pid']))
 		{
 			eval(import_module('logger'));
-			if ($active) $log .= "<span class=\"red b\">「倾心」使敌人造成的最终伤害增加了40%！</span><br>";
-			else $log .= "<span class=\"red b\">「倾心」使你造成的最终伤害增加了40%！</span><br>";
+			if ($active) $log .= "<span class=\"red b\">「倾心」使你造成的最终伤害增加了40%！</span><br>";
+			else $log .= "<span class=\"red b\">「倾心」使{$pa['name']}造成的最终伤害增加了40%！</span><br>";
 			$r = array(1.4);
 		}
 		elseif (\skillbase\skill_query(95, $pd) && $pd['type'] && (\skillbase\skill_getvalue(95, 'spid', $pd) != $pa['pid']))
 		{
 			eval(import_module('logger'));
-			if ($active) $log .= "<span class=\"red b\">「倾心」使敌人受到的最终伤害降低了20%！</span><br>";
+			if ($active) $log .= "<span class=\"red b\">「倾心」使{$pd['name']}受到的最终伤害降低了20%！</span><br>";
 			else $log .= "<span class=\"red b\">「倾心」使你受到的最终伤害降低了20%！</span><br>";
 			$r = array(0.8);
 		}

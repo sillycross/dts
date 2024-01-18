@@ -3,7 +3,7 @@
 namespace skill89
 {
 	//升级所需技能点数值
-	$upgradecost = array(3,3,-1);
+	$upgradecost = array(4,4,-1);
 	
 	function init()
 	{

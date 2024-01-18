@@ -67,13 +67,17 @@ namespace skill92
 			eval(import_module('skill92'));
 			$clv = (int)\skillbase\skill_getvalue(92, 'lvl', $sdata);
 			$erate = $encorerate[$clv];
-			while (rand(0,99) < $erate)
+			$learnedsongs = \song\get_available_songlist($sdata);
+			if (!empty($learnedsongs))
 			{
-				\skillbase\skill_setvalue(92,'encore_flag','1',$pa);
 				eval(import_module('logger', 'song'));
-				$log .= "<br><span class=\"L5 b\">但是演出还没有结束！</span><br>";
-				$songid = (int)array_randompick(\song\get_available_songlist($sdata));
-				$chprocess($songlist[$songid]['songname']);
+				while (rand(0,99) < $erate)
+				{
+					\skillbase\skill_setvalue(92,'encore_flag','1',$pa);
+					$log .= "<br><span class=\"L5 b\">但是演出还没有结束！</span><br>";
+					$songid = (int)array_randompick($learnedsongs);
+					$chprocess($songlist[$songid]['songname']);
+				}
 			}
 		}
 	}

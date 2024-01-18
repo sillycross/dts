@@ -1,0 +1,45 @@
+<!--{eval eval(import_module('sys'));}-->
+<!--{eval $___TEMP_SKILL_ID=96;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+<!--{eval $skill96_type = \skillbase\skill_getvalue(96,'type'); $skill96_effect = (int)\skillbase\skill_getvalue(96,'effect');}-->
+<!--{if $skill96_type[0]==1}-->
+<!--{eval $v1 = 20 + round(0.1 * $skill96_effect);}-->
+造成最终伤害<span class="yellow b">+{$v1}%</span>，
+<!--{elseif $skill96_type[0]==2}-->
+<!--{eval $v2 = round(0.06 * $skill96_effect);}-->
+先制率<span class="yellow b">+{$v2}%</span>，
+<!--{else}-->
+<!--{eval $v3 = 7 * $skill96_effect - 500;}-->
+视为具有<span class="yellow b">+{$v3}</span>生命上限的<span class="yellow b">升血</span>属性，
+<!--{/if}-->
+<br>
+<!--{if $skill96_type[1]==1}-->
+视为具有<span class="yellow b">激奏3</span>属性
+<!--{elseif $skill96_type[1]==2}-->
+视为具有<span class="yellow b">音爆</span>属性
+<!--{else}-->
+<!--{eval $v6 = 30 + round(0.1 * $skill96_effect);}-->
+受到最终伤害<span class="yellow b">-{$v6}%</span>
+<!--{/if}-->
+<br>
+<!--{eval $skill96_rm = \skillbase\skill_getvalue(96,'expire') - $now;}-->
+<!--{if $skill96_rm>0}-->
+<span class="yellow b">状态有效时间还剩<span>$skill96_rm</span>秒。</span><br>
+<!--{else}-->
+<span class="yellow b">状态生效时间已经结束。</span><br>
+<!--{/if}-->
+</span></td>
+<td class="skilldesc_right b3">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+13级时解锁
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}
