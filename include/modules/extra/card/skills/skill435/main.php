@@ -86,7 +86,7 @@ namespace skill435
 	function skill435_summon_npc($nkind)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('skill435','map','sys','player','logger','input'));
+		eval(import_module('skill435','map','sys','player','logger'));
 		$log.='你召唤出了保安<span class="yellow b">'.$skill435_npc['sub'][$nkind]['name'].'</span>来保护你！<br>';
 		$x=(int)\skillbase\skill_getvalue(435,'t');
 		$spids = \addnpc\addnpc(25,$nkind,1);
@@ -151,15 +151,15 @@ namespace skill435
 	function action435()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('skill435','sys','map','player','logger','input'));
+		eval(import_module('skill435','sys','map','player','logger'));
 		if (!\skillbase\skill_query(435) || !check_unlocked435($sdata)) 
 		{
 			$log .= '你没有这个技能。<br>';
 			return;
 		}
-		$skillpara1=(int)$skillpara1;
-		$skillpara2=(int)$skillpara2;
-		$skillpara3=(int)$skillpara3;
+		$skillpara1=(int)get_var_input('skillpara1');
+		$skillpara2=(int)get_var_input('skillpara2');
+		$skillpara3=(int)get_var_input('skillpara3');
 		if ($skillpara1==1)
 		{
 			//雇佣
@@ -317,8 +317,8 @@ namespace skill435
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		eval(import_module('sys','player','logger','input'));
-	
+		eval(import_module('sys','player','logger'));
+		$subcmd = get_var_input('subcmd');
 		if ($mode == 'special' && $command == 'skill435_special' && $subcmd=='summon') 
 		{
 			ob_clean();
