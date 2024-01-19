@@ -27,7 +27,7 @@ namespace skill95
 		return 1;
 	}
 	
-	//NPC生命值低于歌姬1/3时对歌姬先制率为0
+	//NPC生命值低于歌姬生命值3倍时对歌姬先制率为0
 	function check_enemy_meet_active(&$ldata,&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

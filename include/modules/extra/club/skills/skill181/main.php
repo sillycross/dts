@@ -37,7 +37,7 @@ namespace skill181
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess($pa);
-		if (\skillbase\skill_query(181,$pa))
+		if (\skillbase\skill_query(181,$pa) && ($pa['club'] != 17))
 		{
 			eval(import_module('skill181'));
 			$lvupss += rand(1,2);
@@ -50,7 +50,7 @@ namespace skill181
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$r = $chprocess($v, $pa);
 		eval(import_module('skill181'));
-		if (\skillbase\skill_query(181,$pa) && $lvupss)
+		if (\skillbase\skill_query(181,$pa) && ($pa['club'] != 17) && $lvupss)
 		{
 			eval(import_module('sys','player','logger'));
 			$pa['mss'] += $lvupss;

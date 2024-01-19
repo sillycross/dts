@@ -29,7 +29,7 @@ namespace skill381
 	
 	//各级给的卡片奖励
 	$ach381_card_prize = array(
-		//1 => 22,
+		1 => 385,
 	);
 	
 	function init() 
