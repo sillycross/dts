@@ -24,9 +24,9 @@ namespace instance5
 	
 	function checkcombo($time){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','map','gameflow_combo'));
+		eval(import_module('sys'));
 		if(15 == $gametype){
-			if($areanum < $areaadd * 4 && $alivenum>0){//4禁前只有玩家跪了才会连斗
+			if(\map\get_area_wavenum() < 4 && $alivenum>0){//4禁前只有玩家跪了才会连斗
 				return;
 			}
 		}
@@ -58,21 +58,6 @@ namespace instance5
 		return $chprocess();
 	}
 	
-//	function add_once_area($atime)	//一禁时记录玩家身上金钱
-//	{
-//		if (eval(__MAGIC__)) return $___RET_VALUE;
-//		eval(import_module('sys','map'));
-//		$chprocess($atime);
-//		if($gametype==15 && $areanum==$areaadd) {
-//			$result = $db->query("SELECT pid FROM {$tablepre}players WHERE type=0");
-//			while($apid = $db->fetch_array($result)) {
-//				$apid = $apid['pid'];
-//				$apdata = \skillbase\fetch_playerdata_by_pid($apid);
-//				\skillbase\skill_setvalue(313,'area1_money',$apdata['money'],$apdata);
-//			}
-//		}
-//	}
-	
 	function check_addarea_gameover($atime){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','map'));
@@ -88,7 +73,7 @@ namespace instance5
 					$alimit = 1;//极限挑战模式，1禁就结束；否则3禁结束。
 				}
 			}
-			if (ceil($areanum/$areaadd) >= $alimit){
+			if (\map\get_area_wavenum() >= $alimit){
 				$result = $db->query("SELECT * FROM {$tablepre}players WHERE hp>0 AND type=0");
 				$wdata = $db->fetch_array($result);
 				$winner = $wdata['name'];

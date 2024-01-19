@@ -147,23 +147,9 @@ namespace skill503
 					return;
 				}
 				
-//				$tmp_areanum = $hack ? 0 : $areanum;
-//				$n_arealist = array_slice($arealist, 1 + $tmp_areanum);
-//				shuffle($n_arealist);
-//				$arealist = array_merge(array_slice($arealist,0,1 + $tmp_areanum), $n_arealist);
-//				
-//				if($hack) $log .= '<span class="yellow b">干扰成功，你打乱了未来的禁区顺序！</span><br>';
-//				else $log .= '<span class="yellow b">干扰成功，你打乱了全部禁区的顺序！</span><br>';
-				
-//				eval(import_module('map'));
-//				$log .= '新禁区顺序列表如下：';
-//				foreach($arealist as $av){
-//					$log .= $plsinfo[$av].' ';
-//				}
-
-				$n_arealist = array_slice($arealist, 1 + $areanum);
+				$n_arealist = array_slice($arealist, $areanum);//2024.1.19考虑到拼起来需要是完整的$arealist，这里不能直接用函数了，万一别的模块会加料就可能出事
 				shuffle($n_arealist);
-				$arealist = array_merge(array_slice($arealist,0,1 + $areanum), $n_arealist);
+				$arealist = array_merge(array_slice($arealist, 0, $areanum), $n_arealist);
 				
 				$log .= '<span class="yellow b">干扰成功，你打乱了未来的禁区顺序！</span><br>';
 				\skillbase\skill_setvalue(503,'hack3_r',$hack3_r - 1);

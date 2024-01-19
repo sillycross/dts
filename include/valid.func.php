@@ -51,8 +51,8 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip='')
 		${'itme'.$i} = ${'itms'.$i} = 0;
 	}
 	
-	//禁区不为0时经验补偿
-	$eb_pdata['exp'] += $areanum * 20;
+	//禁区波数不为0时经验补偿，每一波补偿80
+	$eb_pdata['exp'] += \map\get_area_wavenum() * 80;
 	
 	//调用itemmain模块的初始化武器装备
 	//各模式特殊的初始装备在各对应模块里接管这个函数实现

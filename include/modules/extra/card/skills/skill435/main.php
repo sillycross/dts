@@ -176,7 +176,15 @@ namespace skill435
 				return;
 			}
 			
-			if (in_array($pls,$arealist) && (array_search($pls,$arealist) > $areanum || $hack))
+			if(!in_array($pls,\map\get_all_plsno())){
+				$log.='电话里传来保安的骂声：哥们，脚踏实地一点好吗？<br>';
+				return;
+			}
+			elseif(!\map\check_can_enter($pls)){
+				$log.='不能在禁区招募保安。<br>';
+				return;
+			}
+			else
 			{	
 				addnews ( 0, 'bskill435', $name );
 				
@@ -197,11 +205,6 @@ namespace skill435
 					}
 					else  $dice-=$skill435_npc['sub'][$i]['probability'];
 				}
-			}
-			else
-			{
-				$log.='不能在禁区招募保安。<br>';
-				return;
 			}
 		}
 		else 
@@ -258,17 +261,20 @@ namespace skill435
 						$log.='保安已经在该地点，不需移动。<br>';
 						return;
 					}
-					if (in_array($skillpara3,$arealist) && (array_search($skillpara3,$arealist) > $areanum || $hack))
+					elseif(!in_array($skillpara3,\map\get_all_plsno())){
+						$log.='不能将保安派遣到虚空！<br>';
+						return;
+					}
+					elseif(!\map\check_can_enter($skillpara3)){
+						$log.='不能将保安移动到禁区！<br>';
+						return;
+					}
+					else
 					{
 						$money-=$cost;
 						$employee['money']+=$cost;
 						$employee['pls']=$skillpara3;
 						$log.="消耗了<span class=\"yellow b\">$cost</span>元，保安<span class=\"yellow b\">{$employee['name']}</span>移动到了<span class=\"yellow b\">{$plsinfo[$employee['pls']]}</span>。<br>";
-					}
-					else
-					{
-						$log.='不能将保安移动到禁区。<br>';
-						return;
 					}
 				}
 				else

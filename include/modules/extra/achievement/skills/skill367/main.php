@@ -57,7 +57,7 @@ namespace skill367
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess();
 		eval(import_module('sys','map'));
-		if($areanum/$areaadd < 4 && \skillbase\skill_query(234)) {//第51层会失去234号破解技能，所以这里大概最多只能记录到50层，不过已经够了
+		if(\map\get_area_wavenum() < 4 && \skillbase\skill_query(234)) {//第51层会失去234号破解技能，所以这里大概最多只能记录到50层，不过已经够了
 			$var = (int)\skillbase\skill_getvalue(234, 'lvl');
 			$cnt = (int)\skillbase\skill_getvalue(367, 'cnt');
 			\skillbase\skill_setvalue(367,'cnt', max($var, $cnt));

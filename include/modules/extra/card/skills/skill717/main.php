@@ -32,12 +32,8 @@ namespace skill717
 		if (\skillbase\skill_query(717))
 		{
 			eval(import_module('sys','map','player','logger'));
-			if ($hack) $pls = rand(0,sizeof($plsinfo)-1);
-			else
-			{
-				$pls = rand($areanum+1,sizeof($plsinfo)-1);
-				$pls=$arealist[$pls];
-			}
+			if($hack) $pls = array_randompick(\map\get_all_plsno());
+			else $pls = array_randompick(\map\get_safe_plslist());
 			$log .= "你随缘走到了<span class=\"yellow b\">$plsinfo[$pls]</span>！<br>";
 		}
 		return $chprocess($moveto);
@@ -78,7 +74,7 @@ namespace skill717
 			else //抽一个商店道具
 			{
 				eval(import_module('map'));
-				$an = $areanum / $areaadd;
+				$an = \map\get_area_wavenum();
 				if (rand(0,33) < 33) $result = $db->query("SELECT * FROM {$tablepre}shopitem WHERE num>0 AND area<='$an' AND price<=1500");
 				else $result = $db->query("SELECT * FROM {$tablepre}shopitem WHERE num>0 AND area<='$an' AND price>1500");				
 				$itemnum = $db->num_rows($result);

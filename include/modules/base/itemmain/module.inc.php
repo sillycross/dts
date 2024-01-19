@@ -3,7 +3,7 @@
 namespace itemmain
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'sys player logger input';
+	$___MODULE_dependency = 'sys map player logger input';
 	$___MODULE_dependency_optional = 'explore npc';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php itemuse.php itemcmd.php config/itemmain.config.php';

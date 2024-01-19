@@ -3,7 +3,7 @@
 namespace skill367
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase clubbase sys player achievement_base skill234';
+	$___MODULE_dependency = 'skillbase clubbase sys map player achievement_base skill234';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

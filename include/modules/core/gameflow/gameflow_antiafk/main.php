@@ -26,7 +26,7 @@ namespace gameflow_antiafk
 			//标准房是连斗后反挂机，房间内是1禁后反挂机
 			if(0==$room_id && \gameflow_combo\is_gamestate_combo() && $now > $afktime + get_antiAFKertime() * 60) 
 				return true;
-			if($room_id > 0 && $areanum>=$areaadd && $now > $afktime + get_antiAFKertime() * 60)
+			if($room_id > 0 && \map\get_area_wavenum() > 0 && $now > $afktime + get_antiAFKertime() * 60)
 				return true;
 		}
 		return false;

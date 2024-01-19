@@ -112,8 +112,8 @@ namespace skill1005
 	//在类别为$kind、数量在$min, $max之间的道具里随机选择1个并返回名字，且禁区符合要求
 /* 	function wdebug_getreq($kind, $minnum, $maxnum=-1, &$aready=''){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','map'));
-		$nowarea = floor($areanum/$areaadd);
+		eval(import_module('sys'));
+		$nowarea = \map\get_area_wavenum();
 		//daemon模式下，include_once会出问题
 		//为保证同1次执行时不反复调用文件，只能这么办了
 		global $cont_mapitem,$cont_shopitem,$cont_mixitem,$cont_syncitem,$cont_overlayitem,$cont_presentitem,$cont_ygoitem,$cont_fyboxitem,$cont_npcinfo_gtype1;

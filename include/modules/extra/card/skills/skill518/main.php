@@ -46,7 +46,7 @@ namespace skill518
 			if($skill518_addtime + $tmp_skill518_rmtime > 2) $skill518_addtime = max(0, 2 - $tmp_skill518_rmtime);
 		}
 		if($skill518_addtime > 0) {
-			\skillbase\skill_setvalue(518,'rmtime',round(get_remaintime518()+$skill518_addtime));
+			\skillbase\skill_setvalue(518,'rmtime',round($tmp_skill518_rmtime+$skill518_addtime));
 			$log.= "<span class=\"lime b\">你的回归次数增加了{$skill518_addtime}次。</span><br>";
 		}
 		\skillbase\skill_setvalue(518,'areanum',$areanum);

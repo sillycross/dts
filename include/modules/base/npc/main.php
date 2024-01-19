@@ -212,30 +212,6 @@ namespace npc
 		}
 	}
 	
-//	function add_new_killarea($where,$atime)
-//	{
-//		if (eval(__MAGIC__)) return $___RET_VALUE;
-//		
-//		eval(import_module('sys','map','npc'));
-//		$plsnum = sizeof($plsinfo) - 1;
-//		if ($areanum >= sizeof($plsinfo) - 1) return $chprocess($where);
-//		$query = $db->query("SELECT * FROM {$tablepre}players WHERE pls={$where} AND type>0 AND hp>0");
-//		while($sub = $db->fetch_array($query)) 
-//		{
-//			$pid = $sub['pid'];
-//			if (!in_array($sub['type'],$killzone_resistant_typelist))
-//			{
-//				$pls = $arealist[rand($areanum+1,$plsnum)];
-//				if ($areanum+1 < $plsnum)
-//				{
-//					while ($pls==34) {$pls = $arealist[rand($areanum+1,$plsnum)];}
-//				}
-//				$db->query("UPDATE {$tablepre}players SET pls='$pls' WHERE pid=$pid");
-//			}
-//		}
-//		$chprocess($where,$atime);
-//	}
-	
 	function get_player_killmsg(&$pdata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

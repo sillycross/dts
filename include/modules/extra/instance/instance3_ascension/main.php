@@ -41,7 +41,8 @@ namespace instance3
 	function checkcombo($time){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','map','gameflow_combo'));
-		if ($gametype==13 && $areanum < $areaadd*2 && $alivenum>0 ){
+		//如果开局没有连斗，那么2禁前都不会判定连斗
+		if ($gametype==13 && \map\get_area_wavenum() <= 2 && $alivenum>0 ){
 			return;
 		}
 		$chprocess($time);
@@ -71,13 +72,13 @@ namespace instance3
 	
 	function check_addarea_gameover($atime){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','map'));
+		eval(import_module('sys'));
 		if ($gametype==13){
 			if($alivenum <= 0){
 				\sys\gameover($atime,'end1');
 				return;
 			}
-			if ($areanum>=($areaadd*2)){//限时2禁
+			if (\map\get_area_wavenum() >= 2){//限时2禁
 				$result = $db->query("SELECT * FROM {$tablepre}players WHERE hp>0 AND type=0 ORDER BY card LIMIT 1");
 				$wdata = $db->fetch_array($result);
 				//杀杀杀

@@ -331,7 +331,7 @@ namespace itemmain
 			$itemlist = get_itemfilecont();
 			$itemlist = itemlist_data_process($itemlist);
 			$in = sizeof($itemlist);
-			$an = $areanum ? ceil($areanum/$areaadd) : 0;
+			$an = \map\get_area_wavenum();
 			for($i = 1; $i < $in; $i++) {
 				if(!empty($itemlist[$i]) && strpos($itemlist[$i],',')!==false){
 					list($iarea,$imap,$inum,$iname,$ikind,$ieff,$ista,$iskind) = mapitem_data_process(explode(',',$itemlist[$i]));

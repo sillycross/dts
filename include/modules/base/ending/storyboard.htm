@@ -2290,7 +2290,7 @@
 	<!--////////////////////  伐木模式  ////////////////////-->
 	<!--{elseif $gametype == 15 && \skillbase\skill_query(313)}-->
 		<span>你本局的有效最大金钱为：<span class="yellow">
-		<!--{if $areanum<$areaadd}-->
+		<!--{if !\map\get_area_wavenum()}-->
 			<!--{eval echo max($money, \skillbase\skill_getvalue(313,'max_money'));}-->
 		<!--{else}-->
 			<!--{eval echo \skillbase\skill_getvalue(313,'max_money');}-->
