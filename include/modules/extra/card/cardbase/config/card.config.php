@@ -5975,12 +5975,12 @@ $cards = array(
 	),
 	385 => array(
 		'name' => '吉吉国民',
-		'rare' => 'C',
+		'rare' => 'A',
 		'pack' => 'Standard Pack',
 		'desc' => '啊米浴说的道理',
 		'effect' => '欧内的手好汉',
 		'desc_skills' => '称号固定为偶像歌姬',
-		'energy' => 0,
+		'energy' => 100,
 		'valid' => array(
 			'club' => '25',
 			'skills' => array(
