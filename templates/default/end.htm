@@ -775,7 +775,7 @@
 				<!--{elseif $gametype == 15}-->
 					<p>
 						你本局的有效最大金钱为：
-						<!--{if $areanum<$areaadd}-->
+						<!--{if !\map\get_area_wavenum()}-->
 							<!--{eval echo max($money, \skillbase\skill_getvalue(313,'max_money'));}-->
 						<!--{else}-->
 							<!--{eval echo \skillbase\skill_getvalue(313,'max_money');}-->

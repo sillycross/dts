@@ -37,8 +37,8 @@ namespace gtype2
 	
 	function checkcombo($time){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','map','gameflow_combo'));
-		if ( $gametype==2 && $areanum<$areaadd*2 && $alivenum>0 ){
+		eval(import_module('sys','gameflow_combo'));
+		if ( $gametype==2 &&  \map\get_area_wavenum()<2 && $alivenum>0 ){
 			return;
 		}
 		$chprocess($time);
@@ -122,7 +122,7 @@ namespace gtype2
 				\sys\gameover($atime,'end1');//理论不会这样，防BUG
 				return;
 			}
-			if ($areanum>=($areaadd*2)){//限时2禁
+			if (\map\get_area_wavenum() >= 2){//限时2禁
 				$result = $db->query("SELECT * FROM {$tablepre}players WHERE type=0 ORDER BY pid DESC");
 				$ml=-1;
 				$winner='';

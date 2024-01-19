@@ -29,8 +29,7 @@ namespace skill492
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa,$pd,$active);
 		if($ret && \skillbase\skill_query(492, $pa) && check_unlocked492($pa)){
-			eval(import_module('sys','map'));
-			$an = floor($areanum / $areaadd);
+			$an = \map\get_area_wavenum();
 			$ret += $an*20;//每禁区1次，追击率+20%
 			if($ret > 95) $ret = 95;//追击率不会超过95%
 		}

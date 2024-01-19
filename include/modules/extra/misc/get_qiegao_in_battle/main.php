@@ -11,35 +11,36 @@ namespace get_qiegao_in_battle
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('cardbase','sys','logger','map'));
 		$qiegaogain=0;
+		$now_wavenum = \map\get_area_wavenum();
 		if (!in_array($gametype,$qiegao_ignore_mode)){		
 			if ($pd['type']==90)	//杂兵
 			{
-				if ($areanum/$areaadd<1)	//0禁
+				if ($now_wavenum<1)	//0禁
 				{
 					$dice = rand(0,99);
 					if ($dice<5) 
 						$qiegaogain=rand(7,15);
-					else if ($dice<20)
+					elseif ($dice<20)
 						$qiegaogain=rand(3,7);
-					else if ($dice<50)
+					elseif ($dice<50)
 						$qiegaogain=rand(1,3);
 				}
-				else if ($areanum/$areaadd<2)	//1禁
+				elseif ($now_wavenum<2)	//1禁
 				{
 					$dice = rand(0,99);
 					if ($dice<5) 
 						$qiegaogain=rand(3,5);
-					else if ($dice<15)
+					elseif ($dice<15)
 						$qiegaogain=rand(1,3);
 				}
 			}
 			if ($pd['type']==2)	//幻象
 			{
-				if ($areanum/$areaadd<1)
+				if ($now_wavenum<1)	//0禁
 				{
 					$qiegaogain=rand(9,19);
 				}
-				else if ($areanum/$areaadd<2)
+				elseif ($now_wavenum<2)	//1禁
 				{
 					$dice=rand(0,99);
 					if ($dice<30)

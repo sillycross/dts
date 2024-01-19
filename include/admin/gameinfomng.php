@@ -87,9 +87,10 @@ if($command == 'wthedit'){
 		}
 	}
 }elseif($command == 'areaadd'){
+	$areawave = \map\get_area_wavenum();
 	if($gamestate <= 10){
 		$cmd_info = "本局游戏尚未开始，不能增加禁区。";
-	}elseif((!$areanum && $starttime + 10 > $now) || ($areanum && $areatime - \map\get_area_interval() * 60 + 10 > $now)){
+	}elseif((!$areawave && $starttime + 10 > $now) || ($areawave && $areatime - \map\get_area_interval() * 60 + 10 > $now)){
 		$cmd_info = "禁区到来后10秒内不能增加禁区。";
 	}else{
 		$areatime = $now;
@@ -137,7 +138,7 @@ if($starttime){
 
 $arealiststr = $nextarealiststr = '';
 $col = 0;
-$areaarr = array_slice($arealist,0,$areanum+1);
+$areaarr = \map\get_current_area();
 foreach($areaarr as $val){
 	if($col == 4){
 		$arealiststr .= $plsinfo[$val].'<br>';
@@ -148,7 +149,7 @@ foreach($areaarr as $val){
 	}	
 }
 $col = 0;
-$nareaarr = array_slice($arealist,0,$areanum+$areaadd);
+$nareaarr = \map\get_current_area(1);
 foreach($nareaarr as $val){
 	if($col == 4){
 		$nextarealiststr .= $plsinfo[$val].'<br>';

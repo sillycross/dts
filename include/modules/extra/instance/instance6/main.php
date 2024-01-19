@@ -16,8 +16,8 @@ namespace instance6
 	
 	function checkcombo($time){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','map','gameflow_combo'));
-		if ( $gametype==16 && $areanum < $areaadd*2 && $alivenum>0 ){
+		eval(import_module('sys'));
+		if ( $gametype==16 && \map\get_area_wavenum() < 2 && $alivenum>0 ){
 			return;
 		}
 		$chprocess($time);
@@ -46,13 +46,13 @@ namespace instance6
 	
 	function check_addarea_gameover($atime){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','map'));
+		eval(import_module('sys'));
 		if ($gametype==16){
 			if($alivenum <= 0){
 				\sys\gameover($atime,'end1');
 				return;
 			}
-			if ($areanum>=($areaadd*4)){//限时4禁
+			if (\map\get_area_wavenum() >= 4){//限时4禁
 				$result = $db->query("SELECT * FROM {$tablepre}players WHERE hp>0 AND type=0 ORDER BY card LIMIT 1");
 				$wdata = $db->fetch_array($result);
 				$winner = $wdata['name'];

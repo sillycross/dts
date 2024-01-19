@@ -404,7 +404,7 @@ namespace player
 		}
 		//禁区倒计时
 		\map\init_areatiming();
-		//下次禁区列表
+/* 		下次禁区列表，用于2号界面
 		$tmp_nextarea = \map\get_area_plsname(1);
 		$tmp_nextarea_str = implode('&nbsp;', $tmp_nextarea);
 		if($areatime - $now <= 60) {
@@ -412,7 +412,7 @@ namespace player
 			if(\map\check_in_forbidden_area($pls)) $tmp_nextarea_str = '<span class="red b">('.$tmp_plsname.')</span>&nbsp;'.$tmp_nextarea_str;
 			if(in_array($tmp_plsname, $tmp_nextarea)) $tmp_nextarea_str = str_replace($tmp_plsname, '<span class="red b">'.$tmp_plsname.'</span>&nbsp;', $tmp_nextarea_str);		
 		}
-		$uip['next_area'] = $tmp_nextarea_str;
+		$uip['next_area'] = $tmp_nextarea_str; */
 		return;
 	}
 
@@ -421,8 +421,8 @@ namespace player
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','map'));
-		if($areanum >= sizeof($plsinfo) - 1) return;//如果禁区数已达上限，跳过所有处理（gameover()函数会判定游戏结束）
-		$now_areaarr = array_slice($arealist,0,$areanum+1);
+		if(empty(\map\get_current_not_area())) return;//如果禁区数已达上限，跳过所有处理（gameover()函数会判定游戏结束）
+		$now_areaarr = \map\get_current_area(); //虽然目前area和not_area是互斥的，但也许以后其他模块会有别的判定，所以还是执行两次不同的函数
 		$where = "('".implode("','",$now_areaarr)."')";//构建查询列表——当前所有禁区
 		$result = $db->query("SELECT * FROM {$tablepre}players WHERE pls IN $where AND hp>0");
 		while($sub = $db->fetch_array($result)) 
@@ -452,7 +452,7 @@ namespace player
 				addnews($atime,'death11',$sub['name'],$sub['type'],$sub['pls']);
 				$deathnum++;
 			}else{
-				$pls_available = \map\get_safe_plslist();//不能移动去的区域
+				$pls_available = \map\get_safe_plslist();//首选安全区域
 				if(!$pls_available) $pls_available = \map\get_safe_plslist(0);//如果只能移动到危险区域，就移动到危险区域
 				$sub['pls'] = array_randompick($pls_available);
 				$db->array_update("{$tablepre}players",$sub,"pid='$pid'",$o_sub);
@@ -471,38 +471,6 @@ namespace player
 	function post_pc_avoid_killarea($sub, $atime){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
-
-//	function add_new_killarea($where,$atime)
-//	{
-//		if (eval(__MAGIC__)) return $___RET_VALUE;
-//		
-//		eval(import_module('sys','map'));
-//		$plsnum = sizeof($plsinfo) - 1;
-//		if ($areanum >= sizeof($plsinfo) - 1) return $chprocess($where);
-//		$query = $db->query("SELECT * FROM {$tablepre}players WHERE pls={$where} AND type=0 AND hp>0");
-//		while($sub = $db->fetch_array($query)) 
-//		{
-//			$pid = $sub['pid'];
-//			if (($gamestate >= 40 && (!$areaesc && ($sub['tactic']!=4))) || $areanum >= $plsnum)
-//			{
-//				$hp = 0;
-//				$state = 11;
-//				$deathpls = $sub['pls'];
-//				$bid = 0;
-//				$endtime = $atime;
-//				$db->query("UPDATE {$tablepre}players SET hp='$hp', bid='$bid', state='$state', endtime='$endtime' WHERE pid=$pid");
-//				addnews($endtime,"death$state",$sub['name'],$sub['type'],$deathpls);
-//				$deathnum++;
-//			}
-//			else
-//			{	
-//				$pls = $arealist[rand($areanum+1,$plsnum)];
-//				$db->query("UPDATE {$tablepre}players SET pls='$pls' WHERE pid=$pid");
-//			}
-//		} 
-//		$alivenum = $db->result($db->query("SELECT COUNT(*) FROM {$tablepre}players WHERE hp>0 AND type=0"), 0);
-//		$chprocess($where,$atime);
-//	}
 
 	//一个被大量调用但是完全没有其他模块重载的奇怪函数
 	function update_sdata()

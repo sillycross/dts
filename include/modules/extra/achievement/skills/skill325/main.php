@@ -56,7 +56,7 @@ namespace skill325
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess($pa, $pd, $active);		
 		eval(import_module('sys'));
-		if (!$areanum &&  \skillbase\skill_query(325,$pa) && $pd['type']>0 && $pd['hp'] <= 0 && (strpos($pa['attackwith'], '小黄的')!==false || $pa['attackwith']=='精灵球'))
+		if (!\map\get_area_wavenum() &&  \skillbase\skill_query(325,$pa) && $pd['type']>0 && $pd['hp'] <= 0 && (strpos($pa['attackwith'], '小黄的')!==false || $pa['attackwith']=='精灵球'))
 		{
 			$x=(int)\skillbase\skill_getvalue(325,'cnt',$pa);
 			$x+=1;

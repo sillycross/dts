@@ -14,7 +14,10 @@ namespace map
 	$arealimit = 2;
 	//是否激活自动躲避禁区
 	$areaesc = 0;
+	//开局必定为禁区的地图。这些地图必定在禁区顺序的最前面，且开局就计入禁区总数
+	$area_on_start = Array(0);
 	
+	//地点数据，地点编号 => 地点名
 	$plsinfo = Array(
 		0=>'无月之影',
 		1=>'端点',
@@ -52,6 +55,8 @@ namespace map
 		33=>'雏菊之丘',
 		34=>'英灵殿'
 	);
+
+	//2号模板用的简短版地点名，目前没什么用
 	$plsinfo_for_short = Array(
 		11=>'对天使',
 		21=>'圣G学园',
@@ -60,6 +65,10 @@ namespace map
 		31=>'和田町',
 		32=>'ＳＣＰ',
 	)+$plsinfo;
+
+	//危险地区列表，NPC和玩家躲避禁区时使用
+	$dangerous_zone = Array(0,32,34);//无月、SCP、英灵
+
 	$xyinfo = Array(
 		0=>'B-2',
 		1=>'A-6',

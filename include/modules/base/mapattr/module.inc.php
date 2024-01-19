@@ -3,7 +3,7 @@
 namespace mapattr
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'sys player';
+	$___MODULE_dependency = 'sys map player';
 	$___MODULE_dependency_optional = 'itemmain metman weapon trap';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php config/mapattr.config.php';

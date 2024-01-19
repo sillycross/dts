@@ -415,16 +415,20 @@ namespace event
 			}
 		}elseif ($pls==34){//英灵殿
 			if (($art!='Untainted Glory')&&($gamestate != 50)&&($gametype!=2)){
-				$rpls=-1;
-				while ($rpls<0 || $arealist[$rpls]==34){
-					if($hack){$rpls = rand(0,sizeof($plsinfo)-1);}
-					else {$rpls = rand($areanum+1,sizeof($plsinfo)-1);}
-				} 
-				$pls=$arealist[$rpls];
-				$log.="殿堂的深处传来一个声音：<span class=\"evergreen b\">“你还没有进入这里的资格”。</span><br>一股未知的力量包围了你，当你反应过来的时候，发现自己正身处<span class=\"yellow b\">{$plsinfo[$pls]}</span>。<br>";
-				if (CURSCRIPT !== 'botservice') $log.="<span id=\"HsUipfcGhU\"></span>";
+				$safe_plslist = \map\get_safe_plslist(0);
+				if($hack || sizeof($safe_plslist) > 1) {
+					do{
+						if($hack) $rpls = array_randompick(\map\get_all_plsno());
+						else $rpls = array_randompick($safe_plslist);
+					}
+					while ($rpls == 34);
+					$pls=$rpls;
+					$log.="殿堂的深处传来一个声音：<span class=\"evergreen b\">“你还没有进入这里的资格”。</span><br>一股未知的力量包围了你，当你反应过来的时候，发现自己正身处<span class=\"yellow b\">{$plsinfo[$pls]}</span>。<br>";
+					if (CURSCRIPT !== 'botservice') $log.="<span id=\"HsUipfcGhU\"></span>";
+					$ret = 1;
+				}
 			}
-			$ret = 1;
+			
 		}	else {
 		}
 

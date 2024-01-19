@@ -100,7 +100,7 @@ namespace itemshop
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','map','itemmain'));
-		$arean = floor($areanum / $areaadd); 
+		$arean = \map\get_area_wavenum();
 		$result=$db->query("SELECT * FROM {$tablepre}shopitem WHERE kind = '$sn' AND area <= '$arean' AND num > '0' AND price > '0' ORDER BY sid");
 		$shopnum = $db->num_rows($result);
 		for($i=0;$i< $shopnum;$i++){
@@ -189,7 +189,7 @@ namespace itemshop
 			$log .= '此物品一次只能购买一个。<br><br>';
 			$mode = 'command';
 			return;
-		}elseif($shopiteminfo['area']> $areanum/$areaadd){
+		}elseif($shopiteminfo['area'] > \map\get_area_wavenum()){
 			$log .= '此物品尚未开放出售！<br><br>';
 			$mode = 'command';
 			return;

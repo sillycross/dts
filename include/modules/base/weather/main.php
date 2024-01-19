@@ -121,15 +121,12 @@ namespace weather
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','map','player','logger'));
-		if($hack)
-		{
-			$pls = rand(0,sizeof($plsinfo)-1);
+		$safe_plslist = \map\get_safe_plslist(0);
+		if($hack || sizeof($safe_plslist) > 1) {
+			if($hack) $pls = array_randompick(\map\get_all_plsno());
+			else $pls = array_randompick($safe_plslist);
+			$log .= "但是强烈的龙卷风把你吹到了<span class=\"yellow b\">$plsinfo[$pls]</span>！<br>";
 		}
-		else 
-		{
-			$pls = rand($areanum+1,sizeof($plsinfo)-1);$pls=$arealist[$pls];
-		}
-		$log .= "但是强烈的龙卷风把你吹到了<span class=\"yellow b\">$plsinfo[$pls]</span>！<br>";
 	}
 	
 	function move_to_area($moveto)	//天气对移动的特效

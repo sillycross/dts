@@ -88,8 +88,8 @@
 每次移动这名佣兵需要花费<span class="yellow b">$now_mercmovecost</span>元。<br>
 移动到
 <select name="skill435_movepls" id="skill435_movepls">
-<!--{loop range(0,count($arealist)-1) $pl}-->
-<!--{if array_search($pl,$arealist) > $areanum || $hack}-->
+<!--{loop \map\get_all_plsno() $pl}-->
+<!--{if \map\check_can_enter($pl)}-->
 <option value="$pl" <!--{if $nowmerc['pls']==$pl}-->selected<!--{/if}-->>$plsinfo[$pl]<br />
 <!--{/if}-->
 <!--{/loop}-->

@@ -144,7 +144,7 @@ namespace radar
 		//第二轮循环，形成显示用数据
 		foreach($plsinfo as $plsi => $plsn) {
 			$radardata[$plsi] = array();
-			if(array_search($plsi,$arealist) <= $areanum && !$hack) {
+			if(!\map\check_can_enter($plsi)) {
 				$radardata[$plsi] = 'x';//禁区，全部写红叉
 			} elseif((!($radar_digit & 1) && !($radar_digit & 2) && $plsi!=$pls) || (($radar_digit & 1) && !($radar_digit & 2) && ($plsi < $pls - 1 || $plsi > $pls + 1))) {
 				$radardata[$plsi] = '?';//探测不到，全部写问号

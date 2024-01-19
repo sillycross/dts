@@ -158,7 +158,6 @@ namespace sys
 			global ${$key};
 			${$key}=$value;
 		}
-		//$arealist = explode(',',$arealist);
 		
 		//为$tablepre赋值，之后除game表之外的数据库操作都被引入对应前缀的数据表
 		$tablepre = room_get_tablepre();

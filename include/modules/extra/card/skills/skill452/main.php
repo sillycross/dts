@@ -31,15 +31,17 @@ namespace skill452
 		if (\skillbase\skill_query(452,$pd) && check_unlocked452($pd) && $pa['dmg_dealt']>=150 && $pd['hp']>0 && $pd['tactic']==4)
 		{
 			eval(import_module('logger','map','sys'));
-			$plsnum = sizeof($plsinfo) - 1;
-			$pls452 = $arealist[rand($areanum+1,$plsnum)];	
-			if ($areanum+1 < $plsnum){
-				while ($pls452==34) {$pls452 = $arealist[rand($areanum+1,$plsnum)];}
+			$safe_plslist = \map\get_safe_plslist(0);
+			if($hack || sizeof($safe_plslist) > 1) {
+				do{
+					if($hack) $rpls = array_randompick(\map\get_all_plsno());
+					else $rpls = array_randompick($safe_plslist);
+				}
+				while ($rpls == $pd['pls']);
+				$pd['pls']=$rpls;
+				if ($active) $log.="<span class=\"cyan b\">{$pd['name']}通过相位裂隙紧急转移到了{$plsinfo[$rpls]}！</span><br>";
+				else $log.="<span class=\"cyan b\">你通过相位裂隙紧急转移到了{$plsinfo[$rpls]}！</span><br>";
 			}
-			if ($active)
-				$log.="<span class=\"cyan b\">{$pd['name']}通过相位裂隙紧急转移到了{$plsinfo[$pls452]}！</span><br>";
-			else  $log.="<span class=\"cyan b\">你通过相位裂隙紧急转移到了{$plsinfo[$pls452]}！</span><br>";
-			$pd['pls']=$pls452;
 		}
 		$chprocess($pa,$pd,$active);
 	}

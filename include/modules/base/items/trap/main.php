@@ -22,7 +22,7 @@ namespace trap
 			$iqry = '';
 			$itemlist = get_trapfilecont();
 			$in = sizeof($itemlist);
-			$an = $areanum ? ceil($areanum/$areaadd) : 0;
+			$an = \map\get_area_wavenum();
 			for($i = 1; $i < $in; $i++) {
 				if(!empty($itemlist[$i]) && strpos($itemlist[$i],',')!==false){
 					list($iarea,$imap,$inum,$iname,$ikind,$ieff,$ista,$iskind) = explode(',',$itemlist[$i]);
