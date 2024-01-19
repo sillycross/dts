@@ -5974,11 +5974,11 @@ $cards = array(
 		'ignore_global_ach' => 1,
 	),
 	385 => array(
-		'name' => '灵魂鸽者',
+		'name' => '吉吉国民',
 		'rare' => 'A',
 		'pack' => 'Standard Pack',
-		'desc' => '熟练的活字印刷玩家',
-		'effect' => '你就是歌姬吧',
+		'desc' => '啊米浴说的道理',
+		'effect' => '欧内的手好汉',
 		'desc_skills' => '称号固定为偶像歌姬',
 		'energy' => 100,
 		'valid' => array(
