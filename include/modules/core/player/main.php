@@ -452,7 +452,7 @@ namespace player
 				addnews($atime,'death11',$sub['name'],$sub['type'],$sub['pls']);
 				$deathnum++;
 			}else{
-				$pls_available = \map\get_safe_plslist();//不能移动去的区域
+				$pls_available = \map\get_safe_plslist();//首选安全区域
 				if(!$pls_available) $pls_available = \map\get_safe_plslist(0);//如果只能移动到危险区域，就移动到危险区域
 				$sub['pls'] = array_randompick($pls_available);
 				$db->array_update("{$tablepre}players",$sub,"pid='$pid'",$o_sub);

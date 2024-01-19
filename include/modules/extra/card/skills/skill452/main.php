@@ -37,7 +37,7 @@ namespace skill452
 					if($hack) $rpls = array_randompick(\map\get_all_plsno());
 					else $rpls = array_randompick($safe_plslist);
 				}
-				while ($rpls == $pls);
+				while ($rpls == $pd['pls']);
 				$pd['pls']=$rpls;
 				if ($active) $log.="<span class=\"cyan b\">{$pd['name']}通过相位裂隙紧急转移到了{$plsinfo[$rpls]}！</span><br>";
 				else $log.="<span class=\"cyan b\">你通过相位裂隙紧急转移到了{$plsinfo[$rpls]}！</span><br>";

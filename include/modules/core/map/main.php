@@ -192,12 +192,11 @@ namespace map
 			list($sec,$min,$hour,$day,$month,$year,$wday,$yday,$isdst) = localtime($starttime);
 			$areatime = rs_areatime();
 			//init_areatiming();
-			$plsnum = get_plsnum();
 			$areanum = sizeof($area_on_start);//初始禁区数目
-			$arealist = array_diff(get_all_plsno(), $area_on_start);//生成其余禁区列表并随机化
+			$all_plsno = get_all_plsno();
+			$arealist = array_diff($all_plsno, $area_on_start);//生成其余禁区列表并随机化
 			shuffle($arealist);
-			$arealist = $area_on_start + $arealist;//合并禁区顺序列表
-			
+			$arealist = array_merge($area_on_start, $arealist);//合并禁区顺序列表
 			$hack = 0;
 			$areawarn = 0;
 		}
@@ -306,12 +305,11 @@ namespace map
 		
 		if($gamestate == 20) {
 			$arealimit = $arealimit > 0 ? $arealimit : 1; 
-			if(get_area_wavenum() >= $arealimit) {//判定前提：禁区波数大于等于设定值
-				if($validnum <= 0) {//判定无人参加并结束游戏
-					\sys\gameover($areatime-get_area_interval()*60+1,'end4');
-				}elseif($validnum >= $validlimit){//判定游戏停止激活
-					$gamestate = 30;
-				}
+			$now_wavenum = get_area_wavenum();
+			if( $validnum <= 0 && $now_wavenum >= $arealimit ) {//判定无人参加并结束游戏
+				\sys\gameover($areatime-get_area_interval()*60+1,'end4');
+			} elseif( $now_wavenum >= $arealimit || $validnum >= $validlimit ) {//判定游戏停止激活
+				$gamestate = 30;
 			}
 		}
 	}
