@@ -81,7 +81,7 @@ namespace skill92
 					$chprocess($sn_new);
 				}
 				//1003中改回原先要唱的歌
-				if ($sn_new != $sn)
+				if (isset($sn_new) && ($sn_new != $sn))
 				{
 					\skillbase\skill_setvalue(1003,'songpos',0,$sdata);
 					\skillbase\skill_setvalue(1003,'songkind',$sn,$sdata);
