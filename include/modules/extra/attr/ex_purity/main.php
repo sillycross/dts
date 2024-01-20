@@ -9,8 +9,8 @@ namespace ex_purity
 	{
 		eval(import_module('itemmain'));
 		$itemspkinfo['Y'] = '纯粹';
-		$itemspkdesc['Y'] = '攻击时其他攻击属性全部无效，无视对方装备的所有物理防御属性';		
-		$itemspkremark['Y'] = '无视自身所有其他攻击属性；<br>无视对方物理防御属性列表：物防、防殴、防斩、防弹、防投、防爆、防灵、防连';
+		$itemspkdesc['Y'] = '攻击时其他攻击属性全部无效，无视对方的所有物理防御属性';		
+		$itemspkremark['Y'] = '无视自身所有其他攻击属性；<br>无视防御属性列表：物防、防殴、防斩、防弹、防投、防爆、防灵、防连';
 	}
 
 	//攻击属性全部无效直到战斗结束
