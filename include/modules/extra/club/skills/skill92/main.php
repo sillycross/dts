@@ -35,7 +35,7 @@ namespace skill92
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill92','player','logger'));
-		if (!\skillbase\skill_query(92, $sdata))
+		if (!(\skillbase\skill_query(92, $sdata) && check_unlocked92($sdata)))
 		{
 			$log .= '你没有这个技能！<br>';
 			return;
@@ -60,9 +60,10 @@ namespace skill92
 	function ss_sing($sn)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($sn);
 		eval(import_module('player'));
-		if (\skillbase\skill_query(92, $sdata))
+		$ss_temp = $ss;
+		$chprocess($sn);
+		if (\skillbase\skill_query(92, $sdata) && check_unlocked92($sdata) && ($ss < $ss_temp))
 		{
 			eval(import_module('skill92'));
 			$clv = (int)\skillbase\skill_getvalue(92, 'lvl', $sdata);
@@ -86,7 +87,7 @@ namespace skill92
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player'));
-		if (\skillbase\skill_query(92, $sdata) && !empty(\skillbase\skill_getvalue(92, 'encore_flag', $sdata)))
+		if (\skillbase\skill_query(92, $sdata) && check_unlocked92($sdata) && !empty(\skillbase\skill_getvalue(92, 'encore_flag', $sdata)))
 		{
 			\skillbase\skill_delvalue(92,'encore_flag',$sdata);
 			return 0;
