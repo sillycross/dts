@@ -21,6 +21,12 @@ namespace map
 		return array_keys(get_var_in_module('plsinfo','map'));
 	}
 
+	//判定某个地图编号是否可用。本模块单纯判定是不是$plsinfo的其中一个键名
+	function is_plsno_available($plsno) {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return in_array($plsno, get_all_plsno());
+	}
+
 	//获取当前是第几波禁区。
 	//纯粹用(当前禁区数-开局禁区数)除以禁区每次增加数来计算。其他模式如果有修改禁区计算方式，请一并继承并修改这个函数
 	function get_area_wavenum(){

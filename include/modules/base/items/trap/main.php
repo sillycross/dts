@@ -18,7 +18,7 @@ namespace trap
 		
 		eval(import_module('sys','map','itemmain','trap'));
 		if ($xmode & 16) {	//地图陷阱初始化
-			$plsnum = sizeof($plsinfo);
+			$plsnum = \map\get_plsnum();
 			$iqry = '';
 			$itemlist = get_trapfilecont();
 			$in = sizeof($itemlist);

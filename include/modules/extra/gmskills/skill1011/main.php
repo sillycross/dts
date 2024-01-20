@@ -30,7 +30,7 @@ namespace skill1011
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','map','itemmain','itemmix','itemmix_sync','itemmix_overlay'));
 		$r = array();
-		if(99==$t || $t<=sizeof($plsinfo)-1){
+		if(99==$t || \map\is_plsno_available($t)){
 			$itemfc = \itemmain\get_itemfilecont();
 			foreach($itemfc as $ival){
 				$ival = explode(',',$ival);

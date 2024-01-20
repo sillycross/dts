@@ -41,11 +41,6 @@ namespace npc
 		//性别，r为随机
 		if($npc['gd'] == 'r'){$npc['gd'] = rand(0,1) ? 'm':'f';}
 		//如果地点数据为随机，则根据输入的数组随机选地点
-//		if($npc['pls'] == 99){
-//			$plsnum = sizeof($plsinfo);
-//			do{$rpls=rand(1,$plsnum-1);}while ($rpls==34);
-//			$npc['pls'] = $rpls;
-//		}
 		if($npc['pls'] == 99){
 			if(!empty($plslist)){
 				$npc['pls'] = array_randompick($plslist);
@@ -122,11 +117,10 @@ namespace npc
 		
 		$chprocess($xmode);
 		
-		eval(import_module('sys','map','player','npc','lvlctl','skillbase'));
+		eval(import_module('sys','player','npc','lvlctl','skillbase'));
 		if ($xmode & 8) {
 			//echo " - NPC初始化 - ";
 			$db->query("DELETE FROM {$tablepre}players WHERE type>0 ");
-			//$plsnum = sizeof($plsinfo);
 			$npcqry = '';
 			$ninfo = get_npclist();
 			//生成非禁区列表（不含英灵殿）

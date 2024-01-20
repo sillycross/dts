@@ -273,21 +273,24 @@ $tutorial_story[1] = Array(
 				'cont' => array(
 					Array(
 						'type' => 3,
-						'cname' => '<:pls:> 各路党派 AC搬运职人',
+						'cname' => '各路党派 AC搬运职人',
 						'crecv' => 'pid',
-						'ccont' => '我觉得我还可以抢救一下……'
+						'ccont' => '我觉得我还可以抢救一下……',
+						'cpls' => 99//当前玩家位置
 					),
 					Array(
 						'type' => 3,
-						'cname' => '<:rpls:> 各路党派 AC字幕职人',
+						'cname' => '各路党派 AC字幕职人',
 						'crecv' => 'pid',
-						'ccont' => '我觉得我还可以抢救一下……'
+						'ccont' => '我觉得我还可以抢救一下……',
+						'cpls' => 99
 					),
 					Array(
 						'type' => 3,
-						'cname' => '<:rpls:> 各路党派 AC翻唱职人',
+						'cname' => '各路党派 AC翻唱职人',
 						'crecv' => 'pid',
-						'ccont' => '我觉得我还可以抢救一下……'
+						'ccont' => '我觉得我还可以抢救一下……',
+						'cpls' => 98
 					)
 				)				
 			),

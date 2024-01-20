@@ -440,14 +440,17 @@ namespace tutorial
 		$add_chats = Array();
 		$uip['effect']['chatref'] = 1;
 		if(!empty($addc_arr) && is_array($addc_arr)){
+			$plsnum = \map\get_plsnum();
 			foreach($addc_arr as $cval){
 				$ctype = $cval['type'];
 				$cname = $cval['cname'];
 				$crecv = $cval['crecv'];
+				$cpls = !empty($cval['cpls']) ? $cval['cpls'] : 0;
 				if($crecv == 'pid'){$crecv = $pid;}
-				
-				if(strpos($cname,'<:rpls:>')!==false){	$cname = str_replace('<:rpls:>','【'.$plsinfo[rand(0,sizeof($plsinfo)-1)].'】',$cname);}
-				elseif(strpos($cname,'<:pls:>')!==false){	$cname = str_replace('<:pls:>','【'.$plsinfo[$pls].'】',$cname);}
+				if(99 == $cpls) $cpls = rand(0,$plsnum-1);
+				elseif(98 == $cpls) $cpls = $pls;
+				// if(strpos($cname,'<:rpls:>')!==false){	$cname = str_replace('<:rpls:>','【'.$plsinfo[rand(0,$plsnum-1)].'】',$cname);}
+				// elseif(strpos($cname,'<:pls:>')!==false){	$cname = str_replace('<:pls:>','【'.$plsinfo[$pls].'】',$cname);}
 				
 				$ccont = $cval['ccont'];
 				if(strpos($ccont,'o_pls')!==false){
@@ -463,7 +466,8 @@ namespace tutorial
 					'time' => $now,
 					'send' => $cname,
 					'recv' => $crecv,
-					'msg' => $ccont
+					'msg' => $ccont,
+					'pls' => $cpls
 				);
 				$db->array_insert("{$tablepre}chat", $add_chats);
 			}	
