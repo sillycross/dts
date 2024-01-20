@@ -115,13 +115,13 @@ namespace instance3
 				$alvl = (int)$option['lvl'];
 				if ($alvl >= 14)
 				{
-					$ebp['itm5'] = '沉重的枷锁'; $ebp['itmk5'] = 'Z'; $ebp['itme5'] = 1; $ebp['itms5'] = 1;$ebp['itmsk5'] = 'O';
+					$ebp['itm6'] = '闪回的心伤'; $ebp['itmk6'] = 'Z'; $ebp['itme6'] = 1; $ebp['itms6'] = 1;$ebp['itmsk6'] = 'O';
 					if ($alvl >= 22)
 					{
-						$ebp['itm6'] = '沉重的枷锁'; $ebp['itmk6'] = 'Z'; $ebp['itme6'] = 1; $ebp['itms6'] = 1;$ebp['itmsk6'] = 'O';
+						$ebp['itm5'] = '难抑的焦虑'; $ebp['itmk5'] = 'Z'; $ebp['itme5'] = 1; $ebp['itms5'] = 1;$ebp['itmsk5'] = 'O';
 						if ($alvl >= 26)
 						{
-							$ebp['arb'] = '受缚之躯'; $ebp['arbk'] = 'DB'; $ebp['arbe'] = 10; $ebp['arbs'] = 9999;$ebp['arbsk'] = 'O';
+							$ebp['arb'] = '躯体化的恐惧'; $ebp['arbk'] = 'DB'; $ebp['arbe'] = 10; $ebp['arbs'] = 9999;$ebp['arbsk'] = 'O';
 						}
 					}
 				}
