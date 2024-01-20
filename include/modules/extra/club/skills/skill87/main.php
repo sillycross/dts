@@ -41,7 +41,7 @@ namespace skill87
 		{
 			eval(import_module('skill181'));
 			$lvupss += rand(2,4);
-			$lvupssref += rand(2,4);
+			$lvupssref += rand(3,7);
 		}
 	}
 

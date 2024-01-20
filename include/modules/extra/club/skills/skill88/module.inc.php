@@ -3,7 +3,7 @@
 namespace skill88
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'sys player skillbase clubbase logger song rage';
+	$___MODULE_dependency = 'sys player skillbase clubbase logger song';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

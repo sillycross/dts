@@ -166,7 +166,7 @@ namespace skill94
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
 		$buff_e = floor((1+$r/1000)*100);
-		$buff_time = ceil($r * $buff_e / 200 * \song\ss_factor($sdata));
+		$buff_time = ceil($r * $buff_e / 80 * \song\ss_factor($sdata));
 		//处理自己
 		skill94_data_process_single($sdata, $effect1, $effect2, $buff_time, $buff_e);
 		//获取所有影响到的玩家

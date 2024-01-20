@@ -9,7 +9,7 @@ namespace ex_attr_song
 	{
 		eval(import_module('itemmain'));
 		$itemspkinfo['^sv'] = '变奏';
-		$itemspkdesc['^sv'] = '使歌唱的效果变为歌曲的隐藏效果';
+		$itemspkdesc['^sv'] = '作战或偷袭姿态时，使歌唱的效果变为歌曲的隐藏效果';
 		$itemspkremark['^sv'] = '仅对部分歌曲有效';
 		$itemspkinfo['^sa'] = '激奏';
 		$itemspkdesc['^sa'] = '增强歌唱的效果，每1级提升20%';
@@ -27,8 +27,12 @@ namespace ex_attr_song
 	function get_song_effect($songcfg)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\attrbase\check_itmsk('^sv') && isset($songcfg['effect_sv'])) return $songcfg['effect_sv']; 
-		else return $songcfg['effect'];
+		if (\attrbase\check_itmsk('^sv') && isset($songcfg['effect_sv']))
+		{
+			eval(import_module('player'));
+			if (($pose == 1) || ($pose == 4)) return $songcfg['effect_sv'];
+		}
+		return $songcfg['effect'];
 	}
 	
 	//激奏增加歌唱效果加成系数
