@@ -18,7 +18,7 @@ namespace song
 			),
 			//effect_sv供ex_attr_song模块使用
 			'effect_sv' => array(
-				'def' => 200,
+				'def' => 100,
 				'time' => 180,
 			),
 		),
@@ -37,7 +37,7 @@ namespace song
 				'att' => 30
 			),
 			'effect_sv' => array(
-				'att' => 200,
+				'att' => 150,
 				'time' => 180,
 			),
 		),
