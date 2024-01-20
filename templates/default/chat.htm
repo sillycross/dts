@@ -39,14 +39,14 @@
 					<input type="hidden" id="cpls" name="cpls" value="$pls">
 					<input type="hidden" id="chatpid" name="chatpid" value="$pid">
 					<input type="hidden" id="sendmode" name="sendmode" value="ref">
+					<input type="button" id="showchatfloatbox" style="height:24px;" value="表情/定型文" onmouseenter="
+						$('chatfloatbox').style.display='block';" />
 					<span id="chattype">
 						<select name="chattype" style="height:24px;" id="chattype_sl">
 							<option value="0">$chatinfo[0]</option>
 							<!--{if $teamID}--><option value="1" selected>$chatinfo[1]</option><!--{/if}-->
 						</select>
 					</span>
-					<input type="button" id="showchatfloatbox" style="height:24px;" value="表情/定型文" onmouseenter="
-						$('chatfloatbox').style.display='block';" />
 					<input type="text" id="chatmsg" name="chatmsg" maxlength="60" style="width:400px;height:22px;" />
 					<input type="submit" id="send" style="width:60px;height:24px;" onclick="
 						$('sendmode').value='send';
