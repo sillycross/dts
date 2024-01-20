@@ -64,7 +64,7 @@ namespace skill89
 			eval(import_module('player'));
 			$pa = $sdata;
 		}
-		if (($nm == '^sv') && ($pa['wepk'] != 'WN') && \skillbase\skill_query(89, $pa) && check_unlocked89($pa)) return true;
+		if (($nm == '^sv') && \skillbase\skill_query(89, $pa) && check_unlocked89($pa)) return true;
 		return $chprocess($nm, $pa);
 	}
 	
@@ -73,7 +73,7 @@ namespace skill89
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa, $pd, $active);
-		if (\skillbase\skill_query(89, $pa) && check_unlocked89($pa) && ($pa['wepk'] != 'WN') && ((int)\skillbase\skill_getvalue(89, 'lvl', $pa) >= 1)) array_push($ret,'w');
+		if (\skillbase\skill_query(89, $pa) && check_unlocked89($pa) && ((int)\skillbase\skill_getvalue(89, 'lvl', $pa) >= 1)) array_push($ret,'w');
 		return $ret;
 	}
 	
@@ -82,7 +82,7 @@ namespace skill89
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa, $pd, $active);
-		if (\skillbase\skill_query(89, $pd) && check_unlocked89($pd) && ($pd['wepk'] != 'WN') && ((int)\skillbase\skill_getvalue(89, 'lvl', $pd) >= 2)) array_push($ret,'^sa1');
+		if (\skillbase\skill_query(89, $pd) && check_unlocked89($pd) && ((int)\skillbase\skill_getvalue(89, 'lvl', $pd) >= 2)) array_push($ret,'^sa1');
 		return $ret;
 	}
 	
