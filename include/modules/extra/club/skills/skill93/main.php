@@ -48,7 +48,7 @@ namespace skill93
 			eval(import_module('logger'));
 			if ($active) $log.="<br><span class=\"yellow b\">「回响」使你造成的音波伤害大幅增加了！</span><br>";
 			else $log.="<br><span class=\"yellow b\">「回响」使{$pa['name']}造成的音波伤害大幅增加了！</span><br>";
-			$ret *= 2;
+			$ret *= 1.6;
 		}
 		return $ret;
 	}
