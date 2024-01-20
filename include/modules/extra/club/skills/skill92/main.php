@@ -60,9 +60,10 @@ namespace skill92
 	function ss_sing($sn)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$chprocess($sn);
 		eval(import_module('player'));
-		if (\skillbase\skill_query(92, $sdata))
+		$ss_temp = $ss;
+		$chprocess($sn);
+		if (\skillbase\skill_query(92, $sdata) && ($ss < $ss_temp))
 		{
 			eval(import_module('skill92'));
 			$clv = (int)\skillbase\skill_getvalue(92, 'lvl', $sdata);
