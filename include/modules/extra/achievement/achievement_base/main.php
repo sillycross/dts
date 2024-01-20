@@ -498,6 +498,7 @@ namespace achievement_base
 						//$qiegao_up += $qiegao_prize[$tk];
 						$getqiegao = $qiegao_prize[$tk];
 					}
+					$getcardblink = 0;
 					if($card_flag && !empty($card_prize[$tk])) {
 						$getcard = $card_prize[$tk];
 						if(is_array($getcard)) {
@@ -508,7 +509,6 @@ namespace achievement_base
 						}
 						//\cardbase\get_card($card_got,$pa);
 						if(isset($card_prize_blink) && isset($card_prize_blink[$tk])) $getcardblink = $card_prize_blink[$tk];
-						else $getcardblink = 0;
 					}
 					ach_create_prize_message($pa, $achid, $tk, $getqiegao, $getcard, $getcardblink);
 				}

@@ -45,6 +45,8 @@
 							<!--{if $teamID}--><option value="1" selected>$chatinfo[1]</option><!--{/if}-->
 						</select>
 					</span>
+					<input type="button" id="showchatfloatbox" style="height:24px;" value="表情/定型文" onmouseenter="
+						$('chatfloatbox').style.display='block';" />
 					<input type="text" id="chatmsg" name="chatmsg" maxlength="60" style="width:400px;height:22px;" />
 					<input type="submit" id="send" style="width:60px;height:24px;" onclick="
 						$('sendmode').value='send';
@@ -53,8 +55,7 @@
 						$('chattitle').innerHTML='聊天讯息';
 						chat('send',$chatrefresh);
 						return false;" value="{lang send}" />
-					<input type="button" id="showchatfloatbox" style="height:24px;" value="表情/定型文" onmouseenter="
-						$('chatfloatbox').style.display='block';" />
+					
 					<!--<input type="button" id="ref" style="height:24px;" onClick="if($('sendmode').value=='send'){$('sendmode').value='ref'};chat($('sendmode').value,$chatrefresh);return false;" value="{lang refresh}">-->
 					<input type="button" id="switch" style="height:24px;" onclick="
 						if($('sendmode').value=='news'){
