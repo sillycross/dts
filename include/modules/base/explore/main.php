@@ -60,16 +60,16 @@ namespace explore
 	function allow_move_check($moveto)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','map','logger'));
+		eval(import_module('sys','player','logger'));
 		
-		$plsnum = sizeof($plsinfo);
-		if($moveto == 'main' || $moveto < 0  || $moveto >= $plsnum){
+		if($moveto == 'main' || !\map\is_plsno_available($moveto)){
 			$log .= '请选择正确的移动地点。<br>';
 			return false;
 		} elseif($pls == $moveto){
 			$log .= '相同地点，不需要移动。<br>';
 			return false;
 		} elseif(!\map\check_can_enter($moveto)){
+			eval(import_module('map'));
 			$log .= $plsinfo[$moveto].'是禁区，还是离远点吧！<br>';
 			return false;
 		}

@@ -208,7 +208,7 @@ namespace sys
 		if(0 == $chat['type'] || 1 == $chat['type']) {
 			//表情替换
 			foreach($emoticon_list as $ei => $ev){
-				$chat['msg'] = str_replace('['.$ei.']', '<img class="emoticon" src="img/emoticons/'.$ev.'" />', $chat['msg']);
+				$chat['msg'] = str_replace('['.$ei.']', '<img class="emoticon" src="img/emoticons/'.$ev.'" style="width:40px;height:40px;" title="<img class=emoticon src=img/emoticons/'.$ev.' />" />', $chat['msg']);
 			}
 			//定型文替换
 			foreach($on_premise_chat as $ci => $cv){

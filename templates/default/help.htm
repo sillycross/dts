@@ -237,7 +237,7 @@
 <p><a name="禁区和连斗"><span class="subtitle2">3.禁区和连斗</span></a></p>
 <!--{eval eval(import_module('sys','map','gameflow_combo'));}-->
 <img src="img/help/help_3.1.gif"><br>
-<!--{eval $plsnum1=sizeof($plsinfo);}-->
+<!--{eval $plsnum1=\map\get_plsnum();}-->
 <p>ACFUN大逃杀地图中共有{$plsnum1}个区域。<br>
 <span class="yellow b">无月之影</span>是玩家的出生地，也是默认的禁区，离开之后就不能返回。<br>
 此外，每隔一定的时间，就会有一些地区变为<span class="yellow b">禁区</span>。禁区的间隔时间因模式而异，通常为30分钟增加1次禁区，极速模式为10分钟增加1次禁区。<br>

@@ -26,7 +26,7 @@ namespace skill572
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','map','itemmain'));
 		
-		$plsnum = sizeof($plsinfo);
+		$plsnum = \map\get_plsnum();
 		$iqry = '';
 		$file = __DIR__.'/config/skill572.config.php';
 		$itemlist = openfile($file);

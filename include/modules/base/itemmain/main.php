@@ -326,7 +326,7 @@ namespace itemmain
 		
 		eval(import_module('sys','map','itemmain'));
 		if ($xmode & 16) {	//地图道具初始化
-			$plsnum = sizeof($plsinfo);
+			$plsnum = \map\get_plsnum();
 			$iqry = '';
 			$itemlist = get_itemfilecont();
 			$itemlist = itemlist_data_process($itemlist);

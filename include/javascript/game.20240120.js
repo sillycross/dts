@@ -558,6 +558,7 @@ function showChatdata(chatdata) {
 			newchat += cdata[cid];
 		}
 		if(newchat) $(pdomid).innerHTML=newchat+$(pdomid).innerHTML;
+		floating_hint();
 	}
 }
 

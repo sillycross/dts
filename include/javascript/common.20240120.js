@@ -158,9 +158,19 @@ Cookie.deleteCookie=function(name){
 //悬浮提示本体，需要与ajax配合才能生效的
 function floating_hint()
 {
+	//如果元素有已经保存了的悬浮提示，并且该元素不具有title属性，则用旧的
+	jQuery('[saved_floating_hint]').each(function() {
+		var hint = jQuery(this).attr('saved_floating_hint');
+		var msg = jQuery(this).attr('title');
+		if(hint !== undefined && hint.trim() != "" && msg === undefined){
+			jQuery(this).attr('title', hint);
+			jQuery(this).removeAttr('saved_floating_hint');
+		}
+	});
+	//为每一个有title属性的元素绑定悬浮事件
 	jQuery('[title]').each(function() {
 		var msg = jQuery(this).attr('title');
-		if(''!=msg){
+		if(msg !== undefined && msg.trim() != ""){
 			jQuery(this).on({
 				mouseover: function(e) { 
 					jQuery('#hoverHintMsgInner').html(msg);
@@ -182,7 +192,8 @@ function floating_hint()
 					});
 				}
 			});
-			jQuery(this).attr('title','');
+			jQuery(this).attr('saved_floating_hint', msg);
+			jQuery(this).removeAttr('title');
 		}
 	});
 }
