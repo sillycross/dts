@@ -159,19 +159,16 @@ namespace instance10
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','map'));
 		if (20 == $gametype){
-			if($alivenum <= 0){
+			if($alivenum <= 0){//这个确定要这么判定吗？过禁时全灭就结束？
 				\sys\gameover($atime,'end1');
-				return;
 			}
-			if (\map\get_area_wavenum() >= 1){//限时1禁
+			elseif (\map\get_area_wavenum() >= 1){//限时1禁
 				//胜利条件待修改
 				$result = $db->query("SELECT * FROM {$tablepre}players WHERE hp>0 AND type=0 ORDER BY card LIMIT 1");
 				$wdata = $db->fetch_array($result);
 				$winner = $wdata;
 				\sys\gameover($atime,'end8',$winner);
-				return;
 			}
-			\sys\rs_game(16+32);
 			return;
 		}
 		$chprocess($atime);

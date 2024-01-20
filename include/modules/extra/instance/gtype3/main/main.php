@@ -44,16 +44,13 @@ namespace gtype3
 		if ($gametype==3){
 			if($alivenum <= 0){
 				\sys\gameover($atime,'end1');
-				return;
 			}
-			if (\map\get_area_wavenum() >= 2){//限时2禁
+			elseif (\map\get_area_wavenum() >= 2){//限时2禁
 				$result = $db->query("SELECT * FROM {$tablepre}players WHERE hp>0 AND type=0 ORDER BY killnum DESC LIMIT 1");
 				$wdata = $db->fetch_array($result);
 				$winner = $wdata['name'];
 				\sys\gameover($atime,'end8',$winner);
-				return;
 			}
-			\sys\rs_game(16+32);
 			return;
 		}
 		$chprocess($atime);	

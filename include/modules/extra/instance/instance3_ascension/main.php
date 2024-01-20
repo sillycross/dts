@@ -74,11 +74,10 @@ namespace instance3
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		if ($gametype==13){
-			if($alivenum <= 0){
+			if($alivenum <= 0){//全灭
 				\sys\gameover($atime,'end1');
-				return;
 			}
-			if (\map\get_area_wavenum() >= 2){//限时2禁
+			elseif (\map\get_area_wavenum() >= 2){//限时2禁
 				$result = $db->query("SELECT * FROM {$tablepre}players WHERE hp>0 AND type=0 ORDER BY card LIMIT 1");
 				$wdata = $db->fetch_array($result);
 				//杀杀杀
@@ -87,9 +86,7 @@ namespace instance3
 				\player\kill($wdata,$wdata);
 				\player\player_save($wdata);
 				\sys\gameover($atime,'end1');
-				return;
 			}
-			\sys\rs_game(16+32);
 			return;
 		}
 		$chprocess($atime);

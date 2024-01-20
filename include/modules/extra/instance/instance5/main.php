@@ -62,15 +62,15 @@ namespace instance5
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','map'));
 		if ($gametype==15){
-			if($alivenum <= 0){
+			if($alivenum <= 0){//过禁时全灭就直接结束
 				\sys\gameover($atime,'end1');
 				return;
 			}
-			$alimit = 3;
+			$alimit = 3;//判定游戏模式，如果是极限挑战模式则1禁就结束；否则3禁结束。
 			if(isset($roomvars['current_game_option'])){
 				$option = $roomvars['current_game_option'];
 				if(isset($option['area-mode']) && 'extreme'==$option['area-mode']){
-					$alimit = 1;//极限挑战模式，1禁就结束；否则3禁结束。
+					$alimit = 1;
 				}
 			}
 			if (\map\get_area_wavenum() >= $alimit){
@@ -78,9 +78,8 @@ namespace instance5
 				$wdata = $db->fetch_array($result);
 				$winner = $wdata['name'];
 				\sys\gameover($atime,'end8',$winner);
-				return;
+				
 			}
-			\sys\rs_game(16+32);
 			return;
 		}
 		$chprocess($atime);	

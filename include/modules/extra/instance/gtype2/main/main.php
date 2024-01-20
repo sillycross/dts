@@ -120,9 +120,8 @@ namespace gtype2
 		if ($gametype==2){
 			if($alivenum <= 0){
 				\sys\gameover($atime,'end1');//理论不会这样，防BUG
-				return;
 			}
-			if (\map\get_area_wavenum() >= 2){//限时2禁
+			elseif (\map\get_area_wavenum() >= 2){//限时2禁
 				$result = $db->query("SELECT * FROM {$tablepre}players WHERE type=0 ORDER BY pid DESC");
 				$ml=-1;
 				$winner='';
@@ -183,9 +182,7 @@ namespace gtype2
 						addnews(0,'g2announce',$i,$bestlist[$i][0],$bestlist[$i][1]);
 						
 				\sys\gameover($atime,'end8',$winner);
-				return;
 			}
-			\sys\rs_game(16+32);
 			return;
 		}
 		$chprocess($atime);	

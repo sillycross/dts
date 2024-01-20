@@ -216,14 +216,12 @@ namespace gtype1
 		\player\player_save($pa);
 	}
 	
+	//除错模式的结束游戏方式只有限时已到
 	function check_addarea_gameover($atime){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		if ($gametype==1){
-			// if($alivenum <= 0 && $now_wavenum >= 3){//这里会导致，如果玩家死亡而且直到3禁才有人刷新游戏，会全灭而不是结束
-			// 	\sys\gameover($atime,'end1');
-			// 	return;
-			// }
+			//无人参加在\map\check_game_stop_joining()已经处理
 			if (\map\get_area_wavenum() >= 2){//限时2禁
 				$result = $db->query("SELECT * FROM {$tablepre}players WHERE type=0 ORDER BY pid DESC");
 				$ml=-1;
@@ -296,9 +294,7 @@ namespace gtype1
 						addnews(0,'g1announce',$i,$bestlist[$i][0],$bestlist[$i][1]);
 						
 				\sys\gameover($atime,'end8',$winner);
-				return;
 			}
-			\sys\rs_game(16+32);
 			return;
 		}
 		$chprocess($atime);	

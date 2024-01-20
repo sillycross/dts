@@ -48,18 +48,15 @@ namespace instance6
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		if ($gametype==16){
-			if($alivenum <= 0){
+			if($alivenum <= 0){//过禁时全灭就结束
 				\sys\gameover($atime,'end1');
-				return;
 			}
-			if (\map\get_area_wavenum() >= 4){//限时4禁
+			elseif (\map\get_area_wavenum() >= 4){//限时4禁
 				$result = $db->query("SELECT * FROM {$tablepre}players WHERE hp>0 AND type=0 ORDER BY card LIMIT 1");
 				$wdata = $db->fetch_array($result);
 				$winner = $wdata['name'];
 				\sys\gameover($atime,'end8',$winner);
-				return;
 			}
-			\sys\rs_game(16+32);
 			return;
 		}
 		$chprocess($atime);	

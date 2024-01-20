@@ -130,9 +130,7 @@ namespace map
 			return;
 		} elseif( $alivenum <= 0 && $gamestate >= 30 ) {
 			\sys\gameover($atime,'end1');
-		} else {//没有游戏结束则重置商店和道具
-			\sys\rs_game(16+32);
-		}
+		} 
 	}
 	
 	//单次禁区增加
@@ -141,16 +139,18 @@ namespace map
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
 		eval(import_module('sys','map'));
-		if ( $gamestate > 10 && $now > $atime ) {
+		if ( $gamestate > 10 && $now > $atime ) {//增加禁区
 			$plsnum = sizeof($arealist);
 			$areaaddlist = get_arealist_nextadd();
 			$areanum += $areaadd;
 			if($areanum >= $plsnum) $areanum = $plsnum;
 			if($hack > 0) $hack--;
 
-			post_addarea_process($atime, $areaaddlist);
+			post_addarea_process($atime, $areaaddlist);//这里判定停止激活和无人参加结局
 			
-			check_addarea_gameover($atime);
+			check_addarea_gameover($atime);//判定游戏是否结束。有一大串模块继承这里
+
+			if($gamestate > 0) \sys\rs_game(16+32); //2024.01.20 若游戏没有结束，则重置商店和道具改到这里
 		} else {
 			return;
 		}
