@@ -77,7 +77,14 @@ namespace skill92
 					\skillbase\skill_setvalue(92,'encore_flag','1',$pa);
 					$log .= "<br><span class=\"L5 b\">但是演出还没有结束！</span><br>";
 					$songid = (int)array_randompick($learnedsongs);
-					$chprocess($songlist[$songid]['songname']);
+					$sn_new = $songlist[$songid]['songname'];
+					$chprocess($sn_new);
+				}
+				//1003中改回原先要唱的歌
+				if ($sn_new != $sn)
+				{
+					\skillbase\skill_setvalue(1003,'songpos',0,$sdata);
+					\skillbase\skill_setvalue(1003,'songkind',$sn,$sdata);
 				}
 			}
 		}

@@ -35,20 +35,21 @@ namespace skill88
 			return;
 		}
 		$skillpara1 = (int)get_var_input('skillpara1');
-		if ($skillpara1 <= 1)
+		if ($skillpara1 <= 0)
 		{
 			$log .= '输入参数错误！<br>';
 			return;
 		}
-		if ($rage < 2 || $rage < $skillpara1)
+		if ($skillpoint < 1 || $skillpoint < $skillpara1)
 		{
-			$log .= '怒气不足。<br>';
+			$log .= '技能点不足。<br>';
 			return;
 		}
-		$mssup = floor($skillpara1 * 0.5);
+		$mssup = $skillpara1 * 4;
+		$mss += $mssup;
 		$ss += $mssup;
-		$log .= '消耗了<span class="lime b">'.$skillpara1.'</span>点怒气，获得了<span class="yellow b">'.$mssup.'</span>点歌魂。<br>';
-		$rage -= $skillpara1;
+		$log .= '消耗了<span class="lime b">'.$skillpara1.'</span>点技能点，增加了<span class="yellow b">'.$mssup.'</span>点歌魂上限。<br>';
+		$skillpoint -= $skillpara1;
 	}
 }
 
