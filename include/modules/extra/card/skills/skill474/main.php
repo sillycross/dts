@@ -28,14 +28,14 @@ namespace skill474
 	function get_edible_hpup(&$theitem)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_query(474,$pa)) return round($chprocess($theitem)*0.7);
+		if (\skillbase\skill_query(474)) return round($chprocess($theitem)*0.7);
 		return $chprocess($theitem);
 	}
 	
 	function get_edible_spup(&$theitem)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_query(474,$pa)) return round($chprocess($theitem)*0.7);
+		if (\skillbase\skill_query(474)) return round($chprocess($theitem)*0.7);
 		return $chprocess($theitem);
 	}
 	
