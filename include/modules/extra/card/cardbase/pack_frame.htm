@@ -1,0 +1,13 @@
+<div class="pack_frame">
+    <div class="pack_frame_title" <!--{if isset($title_height)}-->style="height:{$title_height}px"<!--{/if}-->>
+        $pack_title
+    </div>
+    <div class="pack_frame_content">
+        <!--{eval $icon = !empty($packicon[$packname]) ? $packicon[$packname] : $packicon['Standard Pack']}-->
+        <a <!--{if !empty($pack_href)}-->href="$pack_href"<!--{/if}-->>
+            <div class="pack_border">
+                <img class="pack_icon" src="img/cards/{$icon}" />
+            </div>
+        </a>
+    </div>
+</div>

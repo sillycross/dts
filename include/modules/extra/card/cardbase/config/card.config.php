@@ -35,14 +35,15 @@ $packlist=array(
 	'Top Players',
 	'Way of Life',
 	'Best DOTO',
-	'Balefire Rekindle',
 	'Cyber Zealots',
 	'東埔寨Protoject',//中文卡集名测试
+	'Balefire Rekindle',
 	'Event Bonus',
 	
 	'Stealth',
 	'hidden'
 );
+
 //卡包介绍
 $packdesc = array(
 	'Standard Pack' => '基本称号卡集。',
@@ -57,8 +58,10 @@ $packdesc = array(
 	'Stealth' => '一些需要显示卡片介绍的隐藏卡',
 	'hidden' => '隐藏卡片，不会悬浮显示卡片介绍，如果你看到这句话请联系天然呆管理员',
 );
+
 //不参与抽卡的卡包
 $pack_ignore_kuji = Array('Balefire Rekindle','Event Bonus');
+
 //卡包实装的时间戳，可以用来隐藏卡包
 $packstart = array(
 	'Cyber Zealots' => 4476654671,
@@ -66,6 +69,19 @@ $packstart = array(
 	'Stealth' => 4476654671,
 	'hidden' => 4476654671,
 );
+
+//卡包对应的图标，默认按Standard Pack的pack_default.png
+$packicon = array(
+	'Standard Pack' => 'pack_default.png',
+	'Crimson Swear' => 'pack_crimson.png',
+	'Top Players' => 'pack_topplayers.png',
+	'Way of Life' => 'pack_wayoflife.png',
+	'Best DOTO' => 'pack_game.png',
+	'東埔寨Protoject' => 'pack_touhodia.png',
+	'Balefire Rekindle' => 'annabelle_a.png',
+	'Event Bonus' => 'pack_eventbonus.png',
+);
+
 $cardindex=array(//已停止更新，现在$cardindex是自动生成的，文件见下
 	'S'=>array(1,  5,  16, 38, 39, 40, 41, 64, 65, 67, 71, 95, 99, 100,101,102,117,145,152,153,168,174),
 	'A'=>array(2,  13, 14, 20, 22, 23, 26, 27, 32, 37, 43, 44, 45, 46, 47, 48, 49, 50, 68, 72, 75, 81, 103,104,105,106,120,121,124,135,136,137,139,141,148,154,169,173),
