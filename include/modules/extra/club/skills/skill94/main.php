@@ -185,11 +185,11 @@ namespace skill94
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		\skillbase\skill_acquire(96, $pdata);
-		\skillbase\skill_setvalue(96, 'bufftime', $buff_time, $pdata);
-		\skillbase\skill_setvalue(96, 'expire', $now + $buff_time, $pdata);
-		\skillbase\skill_setvalue(96, 'type', $effect1.$effect2, $pdata);
-		\skillbase\skill_setvalue(96, 'effect', $buff_e, $pdata);
+		\skillbase\skill_acquire(96, $pa);
+		\skillbase\skill_setvalue(96, 'bufftime', $buff_time, $pa);
+		\skillbase\skill_setvalue(96, 'expire', $now + $buff_time, $pa);
+		\skillbase\skill_setvalue(96, 'type', $effect1.$effect2, $pa);
+		\skillbase\skill_setvalue(96, 'effect', $buff_e, $pa);
 		$skill94_log = "获得了状态<span class=\"cyan b\">「魂音」</span>，持续时间<span class=\"yellow b\">$buff_time</span>秒！<br>";
 		return $skill94_log;
 	}
