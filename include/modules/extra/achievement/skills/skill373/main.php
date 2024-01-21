@@ -28,9 +28,9 @@ namespace skill373
 	);
 	
 	//各级给的卡片奖励
-//	$ach373_card_prize = array(
-//		1 => 22,
-//	);
+	$ach373_card_prize = array(
+		1 => 386,
+	);
 	
 	function init() 
 	{
