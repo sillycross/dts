@@ -2,26 +2,42 @@
 
 <div class="subtitle" align="center">卡册</div>
 <center>
-	<!--{loop $packlist $packname}-->
-		<!--{if $pname == $packname}-->
-			&nbsp;&nbsp;<h2 class="evergreen b" style="display:inline">$packname</h2>&nbsp;&nbsp;
-		<!--{else}-->
-			<!--{if $curuser}-->
-				&nbsp;&nbsp;<a href="cardbook.php?packName={$packname}">{$packname}</a>&nbsp;&nbsp;
+	<div>
+		<!--{loop $packlist $packname}-->
+			<!--{if $pname == $packname}-->
+				&nbsp;&nbsp;<h2 class="evergreen b" style="display:inline">$packname</h2>&nbsp;&nbsp;
 			<!--{else}-->
-				<a href="cardbook.php?packName={$packname}&playerID={$n}">{$packname}</a>&nbsp;&nbsp;
+				<!--{if $curuser}-->
+					&nbsp;&nbsp;<a href="cardbook.php?packName={$packname}">{$packname}</a>&nbsp;&nbsp;
+				<!--{else}-->
+					<a href="cardbook.php?packName={$packname}&playerID={$n}">{$packname}</a>&nbsp;&nbsp;
+				<!--{/if}-->
 			<!--{/if}-->
-		<!--{/if}-->
-	<!--{/loop}-->
+		<!--{/loop}-->
+	</div>
+	
 </center>
 <!--{if $pname}-->
 <center>
-<p id="packdesc">$packdesc[$pname]</p>
-<p>$unlock_num/$pack_num</p>
+<div style="width:600px;height:160px;position: relative;">
+	<!--{eval $packname = $pname; }-->
+	<div style="position: absolute;top:0px;left:0px;">
+		{template MOD_CARDBASE_PACK_FRAME}
+	</div>
+	<div style="text-align:left;position: absolute;top:40px;left:160px; width: 440px;">
+		<span>当前卡集：<span class="evergreen b" style="font-size:24px; font-weight: bold;">$pname</span></span>
+		<br>
+		<br>
+		<span>$packdesc[$pname]</span>
+		<br>
+		<br>
+		<span>拥有卡数：{$unlock_num}/{$pack_num}</span>
+	</div>
+</div>
 <!--{if $unlock_cards}-->
-<p>下面是你拥有的卡片和未解锁的卡片</p>
+<p>下面是你拥有的卡片和未解锁的卡片：</p>
 <!--{else}-->
-<p>一张卡都没有呢</p>
+<p>一张卡都没有呢……</p>
 <!--{/if}-->
 </center>
 <!--{loop $card_data_fetched $ci $cv}-->

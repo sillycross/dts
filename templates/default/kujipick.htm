@@ -34,13 +34,17 @@
 	<input type="hidden" id="cardchoice" name="choice" value="">
 </form>
 <!--{elseif 3==$ktype}-->
-<div style="width:950px; text-align:left">请点击一个卡集来抽取。</div>
+<div style="width:950px; height:24px; text-align:left">请点击一个卡集来抽取。</div>
 <form method="post" name="ktype3" action="kuji.php?type=$ktype">
 	<input type="hidden" id="packchoice" name="packchoice" value="">
 	<!--{eval $pl = \cardbase\pack_filter($packlist,1);}-->
+	<div>
 	<!--{loop $pl $v}-->
-		<input type="submit" name="enter" class="b_button bc_white" value="{$v}" onclick="$('packchoice').value='$v'; document.ktype3.submit();">
-	<!--{/loop}-->
+		<!--{eval $packname = $v; $title_height = 32;}-->
+		<!--{eval $pack_title = '<input type="submit" name="enter" class="b_button bc_white" value="'.$v.'" onclick="$(\'packchoice\').value=\''.$v.'\'; document.ktype3.submit();">';}-->
+		{template MOD_CARDBASE_PACK_FRAME}
+		<!--{/loop}-->
+	</div>
 </form>
 <!--{/if}-->
 <form method="post" name="backindex" action="kujilist.php">

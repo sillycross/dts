@@ -1,3 +1,40 @@
+/*==========卡包背景==========*/
+div.pack_frame{
+	height:152px;min-width:160px;
+	display:inline-block;
+	position:relative;
+	text-align: center;
+}
+div.pack_frame div.pack_frame_title{
+	height:24px;
+}
+div.pack_frame div.pack_frame_title a{
+	line-height:24px;
+}
+div.pack_frame div.pack_frame_title h2{
+	line-height:24px;
+}
+div.pack_frame div.pack_frame_content{
+	height:128px;
+}
+div.pack_border{
+	display:inline-block;
+	position:relative;
+	width:128px;height:128px;
+	background-image: url('../../img/cards/pack_border.png');
+}
+.pack_icon{
+	position:absolute;
+	left:0px;bottom:0px;
+	width:128px;height:128px;
+	-webkit-mask-image: url('../../img/cards/pack_mask.png');
+	mask-image: url('../../img/cards/pack_mask.png');
+	-webkit-mask-size: 100% 100%;
+	mask-size: 100% 100%;
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+	z-index:5;
+}
 /*==========卡片基础显示==========*/
 .cardframe_show div{
 	position:absolute;
@@ -80,9 +117,11 @@ div.card_bar div.card_err{
 }
 div.card_frame_inner rt{
 	font-size:12px; 
-  transform: scale(1);
-  -webkit-transform: scale(1);
+	transform: scale(1);
+	-webkit-transform: scale(1);
 }
+
+div.card_newflag {position:absolute;z-index:20;top:-2px;left:10px;text-shadow:1px 1px 0 #000,-1px 1px 0 #000,1px -1px 0 #000,-1px -1px 0 #000;}
 /*==========卡片动画显示==========*/
 div.cardbox
 {
@@ -139,6 +178,7 @@ img.card_achieved{width:35px;height:20px;position:absolute;z-index:20;top:-13px;
 div.card_highlight{
 	-moz-border-radius:9px; 
 	-webkit-border-radius:9px;
+	border-radius:9px;
 }
 
 div.card_highlight.hl_cyan{
@@ -297,7 +337,7 @@ div.card_blink {
 	left: 400px;
 	width:200px;
 	height:2000px;
-  animation: rotation 8s infinite linear;
+  animation: rotation 6s infinite linear;
 }
 
 div.card_blinkii {
@@ -306,7 +346,7 @@ div.card_blinkii {
 	left: 400px;
 	width:200px;
 	height:2000px;
-  animation: rotation 8s infinite linear;
+  animation: rotation 6s infinite linear;
 }
 
 div.blink_gold {
@@ -333,5 +373,3 @@ div.blink_grey {
 		transform: rotateZ(360deg);
 	}
 }
-
-div.card_newflag {position:absolute;z-index:20;top:-2px;left:10px;text-shadow:1px 1px 0 #000,-1px 1px 0 #000,1px -1px 0 #000,-1px -1px 0 #000;}
