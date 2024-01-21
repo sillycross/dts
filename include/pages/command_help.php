@@ -311,7 +311,7 @@ $sdata = \player\create_dummy_playerdata();
 
 $srcfile = GAME_ROOT.TPLDIR.'/clubhelp.htm';
 $writefile = GAME_ROOT.TPLDIR.'/tmp_clubhelp.htm';
-$tmp_clublist=Array(1,2,3,4,5,9,6,7,8,10,11,13,14,18,19,20,21,24,25);//需要展示的称号
+$tmp_clublist=Array(1,2,3,4,5,9,6,7,8,10,11,13,14,18,19,20,21,24,25,26);//需要展示的称号
 
 $need_refresh = 0;
 if(!file_exists($writefile) || filemtime($srcfile) > filemtime($writefile)){//称号涉及的东西太多了，用clubhelp.htm来当开关吧，不一个一个技能判定了

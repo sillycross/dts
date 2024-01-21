@@ -1,0 +1,25 @@
+<!--{eval $___TEMP_SKILL_ID=103;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+你可以在身体里嵌入一把武器，并可以更换该武器，<br>但更换时原先嵌入的武器会消失。<br>你的基础攻击力上升嵌入武器的<span class="yellow b">35%</span>，<br>且在战斗中视为具有嵌入武器的全部属性（对部分属性无效）<br>
+<!--{eval $soulwep = \skillbase\skill_getvalue(103,'soulwep');}-->
+<!--{if empty($soulwep)}-->
+<span class="cyan b">当前未嵌入武器</span>
+<!--{else}-->
+<!--{eval $soulwep_arr=\skill103\skill103_decode_itmarr($soulwep); $soulwep_txt = \itemmix\parse_itemmix_resultshow($soulwep_arr);}-->
+当前嵌入的武器为：<br><span class="yellow b">$soulwep_txt</span>
+<!--{/if}-->
+</span></td>
+<td class="skilldesc_right b3">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+20级时解锁
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}
