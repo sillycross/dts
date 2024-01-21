@@ -315,6 +315,9 @@ namespace song
 		//依次处理玩家
 		foreach($pdlist as $pdata){
 			$ss_log = ss_data_proc_single($sname, $pdata, $effect, $sscost);
+			if(empty($ss_log)) {//歌的返回值是空的，说明没有影响任何参数。
+				$ss_log = '你听到了歌声，但并没有受到触动。<br>';
+			}
 			\logger\logsave ( $pdata['pid'], $now, $ss_log ,'o');			
 			\player\player_save($pdata);
 		}
