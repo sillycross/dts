@@ -80,7 +80,7 @@
 					<div>
 					<!--{eval $i=0;}-->
 					<!--{loop $emoticon_list $ei $ev}-->
-						<img class="emoticon" src="img/emoticons/{$ev}" onclick="$('chatmsg').value+='[{$ei}]';">
+						<img class="emoticon" src="img/emoticons/{$ev}" onclick="addtxt='[{$ei}]';if($('chatmsg').value.length+addtxt.length<=$('chatmsg').getAttribute('maxlength')) $('chatmsg').value+='[{$ei}]';">
 						<!--{eval $i++; if($i%8==0) echo '</div><div>'; }-->
 					<!--{/loop}-->
 					</div>
