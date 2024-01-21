@@ -97,7 +97,7 @@ namespace item_armor_empower
 		if ($dice < 30 && strpos(substr($itmk,2),'S') === false)
 		{
 			//将防具改造为外甲
-			$itmk = substr_replace($itmk, 'S', 2, 1);
+			$itmk = substr($itmk, 0, 2).'S'.substr($itmk, 2);
 			$log .= "将<span class=\"yellow b\">{$itm}</span>改造成了一件外甲！";
 		}
 		elseif ($dice < 60)

@@ -74,7 +74,7 @@ namespace skill92
 				eval(import_module('logger', 'song'));
 				while (rand(0,99) < $erate)
 				{
-					\skillbase\skill_setvalue(92,'encore_flag','1',$pa);
+					\skillbase\skill_setvalue(92,'encore_flag','1',$sdata);
 					$log .= "<br><span class=\"L5 b\">但是演出还没有结束！</span><br>";
 					$songid = (int)array_randompick($learnedsongs);
 					$sn_new = $songlist[$songid]['songname'];

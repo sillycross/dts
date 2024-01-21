@@ -1,0 +1,27 @@
+<!--{eval $___TEMP_SKILL_ID=100;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+消耗所有怒气值（至少<span class="yellow b">10</span>点），<br>使下一次合成产物的效果值与耐久值<span class="yellow b">+(消耗怒气值/4)%</span>
+<!--{eval $skill100_rageused = \skillbase\skill_getvalue(100,'rageused');}-->
+<!--{if $skill100_rageused}-->
+<br><span class="cyan b">你的下一次合成产物将被强化</span>
+<!--{/if}-->
+</span></td>
+<td class="skilldesc_right b3">
+<!--{if !$skill100_rageused && ($rage>=10)}-->
+<input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill100_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="发动">
+<!--{else}-->
+<input type="button" style="width:46px" disabled="true" value="发动">
+<!--{/if}-->
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+6级时解锁
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

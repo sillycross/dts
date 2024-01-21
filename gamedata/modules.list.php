@@ -297,6 +297,7 @@ skill951,extra/instance/instance10_road/skill951/,1
 skill724,extra/card/skills/skill724/,1
 club25,extra/club/clubs/club25/,1
 skill95,extra/club/skills/skill95/,1
+club26,extra/club/clubs/club26/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
@@ -419,6 +420,8 @@ ex_alternative,extra/attr/ex_alternative/,1
 ex_uselog,extra/attr/ex_uselog/,1
 skill89,extra/club/skills/skill89/,1
 skill96,extra/club/skills/skill96/,1
+skill102,extra/club/skills/skill102/,1
+skill103,extra/club/skills/skill103/,1
 skill1000,extra/instance/instance7_tutorial/skill1000/,1
 skill711,extra/card/skills/skill711/,1
 skill1007,extra/npc_action/skill1007/,1
@@ -515,6 +518,11 @@ tutorial,extra/instance/instance7_tutorial/tutorial/,1
 skill51,extra/club/skills/skill51/,1
 skill493,extra/card/skills/skill493/,1
 randrecipe,extra/instance/instance10_road/randrecipe/,1
+skill100,extra/club/skills/skill100/,1
+skill101,extra/club/skills/skill101/,1
+skill98,extra/club/skills/skill98/,1
+skill99,extra/club/skills/skill99/,1
+skill97,extra/club/skills/skill97/,1
 skill302,extra/achievement/skills/skill302/,1
 skill303,extra/achievement/skills/skill303/,1
 skill304,extra/achievement/skills/skill304/,1

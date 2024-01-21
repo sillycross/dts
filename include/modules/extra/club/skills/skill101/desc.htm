@@ -1,0 +1,27 @@
+<!--{eval $___TEMP_SKILL_ID=101;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+消耗<span class="yellow b">50</span>点生命上限，使下一次合成产物（武器、防具或补给品）<br>获得至多<span class="yellow b">3</span>个随机额外属性，且产物类别可能发生变化
+<!--{eval $skill101_act = \skillbase\skill_getvalue(101,'activated');}-->
+<!--{if $skill101_act}-->
+<br><span class="cyan b">你的下一次合成产物将被强化</span>
+<!--{/if}-->
+</span></td>
+<td class="skilldesc_right b3">
+<!--{if !$skill101_act && ($mhp>50)}-->
+<input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill101_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="发动">
+<!--{else}-->
+<input type="button" style="width:46px" disabled="true" value="发动">
+<!--{/if}-->
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+10级时解锁
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}
