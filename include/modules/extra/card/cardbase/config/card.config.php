@@ -6016,10 +6016,11 @@ $cards = array(
 		),
 	),
 	386 => array(
-		'name' => '手工L',
+		'name' => '铁兽战线·姬特',
+		'title' => '姬哥',
 		'rare' => 'A',
 		'pack' => 'Standard Pack',
-		'desc' => '熟练的搓合成玩家',
+		'desc' => '厉不厉害你姬哥',
 		'effect' => '称号固定为妙手天成',
 		'energy' => 100,
 		'valid' => array(
