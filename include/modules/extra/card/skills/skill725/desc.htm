@@ -1,0 +1,33 @@
+<!--{eval eval(import_module('skill725'));}-->
+<!--{eval $___TEMP_SKILL_ID=725;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+你销毁尸体时会得到命体回复类别的灵魂碎片，<br>并可以使用打火机强化灵魂碎片，但食用其他补给品效果<span class="yellow b">-70%</span><br>
+<!--{eval $skill725var=\skillbase\skill_getvalue(725,'choice');}-->
+<!--{if 1 == $skill725var}-->
+<span class="yellow b">当前不会提取灵魂碎片</span>
+<!--{else}-->
+<span class="cyan b">当前会提取灵魂碎片</span>
+<!--{/if}-->
+<br>
+<!--{loop range(1,2) $i}-->
+	<!--{if $skill725var==$i}-->
+		<input type="button" style="width:70px;margin:4px" disabled value="[已选择]">
+	<!--{else}-->
+		<input type="button" style="width:70px;margin:4px" onclick="$('mode').value='special';$('command').value='skill725_special';$('subcmd').value='upgrade';$('skillpara1').value='$i';postCmd('gamecmd','command.php');this.disabled=true;" value="$skill725stateinfo[$i]">
+	<!--{/if}-->
+	<!--{if $i<2}-->&nbsp;&nbsp;&nbsp;<!--{/if}-->
+<!--{/loop}-->
+</span></td>
+<td class="skilldesc_right b3">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}
