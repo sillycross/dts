@@ -298,6 +298,7 @@ skill724,extra/card/skills/skill724/,1
 club25,extra/club/clubs/club25/,1
 skill95,extra/club/skills/skill95/,1
 club26,extra/club/clubs/club26/,1
+skill725,extra/card/skills/skill725/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
@@ -491,6 +492,7 @@ skill558,extra/card/skills/skill558/,1
 skill513,extra/card/skills/skill513/,1
 item_uu,extra/item_extra/item_uu/,1
 item_umb,extra/item_extra/item_umb/,1
+skill726,extra/card/skills/skill726/,1
 item_recipe,extra/item_extra/item_recipe/,1
 skill580,extra/card/skills/skill580/,1
 achievement_base,extra/achievement/achievement_base/,1

@@ -1,2 +1,2 @@
-<input type="button" class="cmdbutton" id="itemmix"  value="道具合成" onclick="$('command').value='itemmain';$('subcmd').name='itemcmd';$('subcmd').value='itemmix';postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="button" class="cmdbutton <!--{if defined('MOD_SKILL100') || defined('MOD_SKILL101')}--><!--{if \skillbase\skill_getvalue(100,'rageused') || \skillbase\skill_getvalue(101,'activated')}-->Pulse<!--{/if}--><!--{/if}-->" id="itemmix"  value="道具合成" onclick="$('command').value='itemmain';$('subcmd').name='itemcmd';$('subcmd').value='itemmix';postCmd('gamecmd','command.php');this.disabled=true;">
  
