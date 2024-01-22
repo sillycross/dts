@@ -1,3 +1,4 @@
+<!--{eval eval(import_module('map'));}-->
 <!--{eval $___TEMP_SKILL_ID=91;}-->
 {template MOD_CLUBBASE_SKILLDESC_START}
 <span>
@@ -8,7 +9,8 @@ $clubskillname[$___TEMP_SKILL_ID]
 每当你连续在同一地点歌唱消耗歌魂达到<span class="yellow b">240</span>时，<br>当前地点所有其他角色获得技能“<span class="yellow b">倾心</span>”：<br>若为NPC，生命值低于你的<span class="yellow b">3</span>倍时不会先制攻击你，<br>攻击其他角色最终伤害<span class="yellow b">+40%</span>，受到其他角色伤害<span class="yellow b">-20%</span>；<br>若为玩家，对你先制率<span class="yellow b">-30%</span><br>（再次获得“<span class="yellow b">倾心</span>”时，记录的来源角色会被替换）<br>
 <!--{eval $uss = (int)\skillbase\skill_getvalue(91,'uss'); }-->
 <!--{if $uss}-->
-在当前地点已歌唱消耗<span class="yellow b">$uss</span>歌魂
+<!--{eval $pls = (int)\skillbase\skill_getvalue(91,'pls'); }-->
+在<span class="yellow b">$plsinfo[$pls]</span>已歌唱消耗<span class="yellow b">$uss</span>歌魂
 <!--{/if}-->
 </span></td>
 <td class="skilldesc_right b3">
