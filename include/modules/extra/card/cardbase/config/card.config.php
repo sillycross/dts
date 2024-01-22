@@ -6039,6 +6039,19 @@ $cards = array(
 			),
 		),
 	),
+	387 => array(
+		'name' => '回坑挑战者',
+		'rare' => 'A',
+		'pack' => 'Way of Life',
+		'desc' => '先氪个直升包',
+		'effect' => '开局为30级，并获得8点技能点',
+		'desc_skills' => '但是初始经验不变',
+		'energy' => 100,
+		'valid' => array(
+			'lvl' => '30',
+			'skillpoint' => '+8',
+		),
+	),
 	
 	1000 => array(
 		'name'=>'萌新',
