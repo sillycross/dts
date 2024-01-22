@@ -78,9 +78,10 @@ namespace skill100
 				eval(import_module('sys','logger'));
 				$log .= "<span class=\"yellow b\">你沉下心来，仔细雕琢着你的成果……</span><br>";
 				\skillbase\skill_setvalue(100,'rageused',0,$sdata);
+				if (in_array($itmk0[0], array('Y','Z','E'))) return;
 				//合成产物的效果、耐久值强化
-				$itme0 += ceil($skill100_rageused / 400 * $itme0);
-				if ($itms0 != $nosta) $itms0 += ceil($skill100_rageused / 400 * $itms0);
+				$itme0 += round($skill100_rageused / 400 * $itme0);
+				if ($itms0 != $nosta) $itms0 += round($skill100_rageused / 400 * $itms0);
 			}
 		}
 	}

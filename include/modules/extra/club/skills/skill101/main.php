@@ -155,8 +155,16 @@ namespace skill101
 			{
 				if ($dice < 8)
 				{
-					if ($dice < 1) $itmk0 = 'HM'.substr($itmk0,2);
-					elseif ($dice < 3) $itmk0 = 'HT'.substr($itmk0,2);
+					if ($dice < 1)
+					{
+						$itmk0 = 'HM'.substr($itmk0,2);
+						$itms0 = rand(2,4);
+					}
+					elseif ($dice < 3)
+					{
+						$itmk0 = 'HT'.substr($itmk0,2);
+						$itms0 = rand(2,4);
+					}
 					else $itmk0 = 'HR'.substr($itmk0,2);
 					if (strpos($itm0, '-改') === false) $itm0 = $itm0.'-改';
 				}
