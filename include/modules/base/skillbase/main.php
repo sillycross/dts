@@ -12,20 +12,27 @@ namespace skillbase
 		global $ppid; $ppid = -1;
 	}
 	
+	//判定指定编号的技能设定数据里是否包含指定的标签
 	function check_skill_info($skillno, $str){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$str = str_replace(';','',$str).';';
 		if(defined('MOD_SKILL'.$skillno.'_INFO') && strpos(constant('MOD_SKILL'.$skillno.'_INFO'), $str)!==false) return true;
 		else return false;
 	}
-	
+
+	//设置本模块当前玩家pid。在ppid=-1时也就是没有初始化时会被调用
 	function skillbase_set_ppid()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('skillbase','player'));
-		if (isset($pid) && $pid>0) $ppid = $pid;
+		
+		$pid = get_var_in_module('pid', 'player');
+		if (!empty($pid)) {
+			eval(import_module('skillbase'));
+			$ppid = $pid;
+		}
 	}
 	
+	//技能储存用base64转化函数
 	function b64_conv_to_value($c)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -67,6 +74,8 @@ namespace skillbase
 		return $para_list;
 	}
 	
+	//载入指定角色的所有技能
+	//传入的$pa是标准格式的玩家数组
 	//把技能字符串转义为技能数组，并直接存入$pa
 	//$dummy开启时认为这个$pa不是实际存在的玩家对象，不判定$pid也不触发onload_event
 	function skillbase_load(&$pa, $dummy = false)
@@ -203,6 +212,7 @@ namespace skillbase
 //		return $pa;
 //	}
 	
+	//角色数据储存之前，格式化技能字段数据
 	function player_save($data, $in_proc = 0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -210,7 +220,8 @@ namespace skillbase
 		$chprocess($data, $in_proc);
 	}
 	
-	//获得技能。$skillid为技能编号，$pa为传入的角色数据（如果留空则会调用$sdata即当前玩家）
+	//获得技能
+	//$skillid为技能编号，$pa为传入的角色数据（如果留空则会调用$sdata即当前玩家）
 	//$no_cover如果为真则在重复获得技能时不会再次执行acquirexxx()（一般用来获得一些参数）
 	function skill_acquire($skillid, &$pa = NULL, $no_cover=0)
 	{
@@ -243,6 +254,9 @@ namespace skillbase
 		skill_delvalue($skillid, 'tsk_expire', $pa);
 	}
 	
+	//失去技能
+	//$skillid为技能编号，$pa为传入的角色数据（如果留空则会调用$sdata即当前玩家）
+	//会触发对应技能的lostxxx()函数
 	function skill_lost($skillid, &$pa = NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -273,6 +287,8 @@ namespace skillbase
 		}
 	}
 	
+	//判定角色是否拥有指定编号的技能
+	//$skillid为技能编号，$pa为传入的角色数据（如果留空则会用$acquired_list判定当前玩家的技能情况）
 	function skill_query($skillid, &$pa = NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -283,6 +299,8 @@ namespace skillbase
 		return !empty($pa['acquired_list'][$skillid]) && skill_enabled($skillid, $pa);
 	}
 	
+	//判定角色指定编号的技能是否解锁
+	//$skillid为技能编号，$pa为传入的角色数据。注意这里$pa不能留空，代码就是这样写的，很蛋疼。
 	//“禁用无效”>“禁用”
 	//所以要禁用请继承skill_enabled_core()，要保证启用请继承skill_enabled()
 	function skill_enabled($skillid, &$pa)
@@ -291,10 +309,35 @@ namespace skillbase
 		return skill_enabled_core($skillid, $pa);
 	}
 	
+	//判定技能是否解锁的核心函数
 	function skill_enabled_core($skillid, &$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return true;
+	}
+
+	//判定角色是否拥有包含指定标签的技能
+	//$str为需查询的标签，$pa为传入的角色数据（如果留空则会用$acquired_list判定当前玩家的技能情况）
+	function check_have_skill_info($str, &$pa = NULL) {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('skillbase'));
+		if ($ppid==-1) skillbase_set_ppid();
+		if ($pa == NULL || (!empty($pa['pid']) && $pa['pid']==$ppid)) 
+		{
+			$check_skill_list = $acquired_list;
+		}
+		else
+		{
+			$check_skill_list = $pa['acquired_list'];
+		}
+		$ret = 0;
+		foreach($check_skill_list as $skillno => $v) {
+			if(check_skill_info($skillno, $str)){
+				$ret = 1;
+				break;
+			}
+		}
+		return $ret;
 	}
 	
 	function get_acquired_skill_array(&$pa = NULL)

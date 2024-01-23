@@ -18,7 +18,7 @@ namespace ex_mhp_temp_up
 		eval(import_module('player'));
 		//由于有可能在战斗时回复HP，这里不应该用地图时的属性判断函数
 		$dummy = \player\create_dummy_playerdata();
-		$flag = \attrbase\check_in_itmsk('^hu', \attrbase\get_ex_def_array($dummp, $sdata, 0), 1);
+		$flag = \attrbase\check_in_itmsk('^hu', \attrbase\get_ex_def_array($dummy, $sdata, 0), 1);
 		//毅重状态下不能升血
 		if(\skillbase\skill_query(28) && \skill28\check_unlocked28($sdata) && 2 == \skillbase\skill_getvalue(28,'choice',$sdata))
 			$flag = false;

@@ -64,7 +64,7 @@ namespace skill500
 		$gamevars['timestopped'] = 1;//设一个全局变量
 		save_gameinfo();
 		$rage -= $skill500_rage;
-		//所有同地点玩家获得2秒的眩晕
+		//所有同地点玩家获得3秒的眩晕
 		$pids = array();
 		$result = $db->query("SELECT pid FROM {$tablepre}players WHERE type=0 AND pls='$pls' AND pid!='$pid'");
 		if($db->num_rows($result)){
@@ -74,6 +74,7 @@ namespace skill500
 		}
 		foreach($pids as $piv){
 			$edata = \player\fetch_playerdata_by_pid($piv);
+			if(check_timectl($edata)) continue; //拥有“时间操作”标签的技能的角色不受影响
 			\skill603\set_stun_period603($skill500_act_time*1000,$edata);
 			//就不挨个发送提示了
 			\skillbase\skill_setvalue(603,'timestop',1,$edata);
@@ -107,7 +108,6 @@ namespace skill500
 			save_gameinfo();
 			addnews ( 0, 'bskill500_end');
 		}
-
 	}
 	
 	//命中率变为原来的150%
@@ -115,7 +115,7 @@ namespace skill500
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret=$chprocess($pa, $pd, $active);
-		if (1 == check_skill500_state($pa)) $ret *= 1.5;
+		if (1 == check_skill500_state($pa) && !check_timectl($pd)) $ret *= 1.5;
 		return $ret;
 	}
 	
@@ -123,7 +123,7 @@ namespace skill500
 	function check_alive_discover(&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (1 == check_skill500_state($edata))
+		if (1 == check_skill500_state($edata) && !check_timectl())
 			return 0;
 		else  return $chprocess($edata);
 	}
@@ -132,7 +132,7 @@ namespace skill500
 	function check_enemy_meet_active(&$ldata,&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (1 == check_skill500_state($ldata))
+		if (1 == check_skill500_state($ldata) && !check_timectl($edata))
 			return 1;
 		else  return $chprocess($ldata,$edata);
 	}
@@ -153,8 +153,14 @@ namespace skill500
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		//注意判定的是$pa能否反击$pd
-		if (1 == check_skill500_state($pd)) return 0; 
+		if (1 == check_skill500_state($pd) && !check_timectl($pa)) return 0; 
 		return $chprocess($pa, $pd, $active);
+	}
+
+	//判定$pa是否拥有带有时间操作标签的技能，如果有则返回1，否则返回0
+	function check_timectl(&$pa = NULL){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return \skillbase\check_have_skill_info('timectl', $pa);
 	}
 	
 	function bufficons_list()
