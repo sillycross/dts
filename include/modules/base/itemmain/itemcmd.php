@@ -108,16 +108,12 @@ namespace itemmain
 				}
 			}
 			if(isset($sameitem[0])){
-				$log .= "是否将 <span class='yellow b'>$itm0</span>与以下物品合并？";
+//				$log .= "是否将 <span class='yellow b'>$itm0</span>与以下物品合并？";
 //				$tpldata['itme0_words'] = \itemmain\parse_itmnum_words($itme,1);
 //				$tpldata['itms0_words'] = \itemmain\parse_itmnum_words($itms,1);
 				include template(MOD_ITEMMAIN_ITEMMERGE0);
 				$cmd = ob_get_contents();
 				ob_clean();
-	//			$cmd .= '<input type="hidden" name="mode" value="itemmain"><input type="hidden" name="command" value="itemmerge"><input type="hidden" name="merge1" value="0"><br>是否将 <span class="yellow b">'.$itm0.'</span> 与以下物品合并？<br><input type="radio" name="merge2" id="itmn" value="n" checked><a onclick=sl("itmn"); href="javascript:void(0);" >不合并</a><br><br>';
-	//			foreach($sameitem as $n) {
-	//				$cmd .= '<input type="radio" name="merge2" id="itm'.$n.'" value="'.$n.'"><a onclick=sl("itm'.$n.'"); href="javascript:void(0);">'."${'itm'.$n}/${'itme'.$n}/${'itms'.$n}".'</a><br>';
-	//			}
 				return;
 			}
 			
