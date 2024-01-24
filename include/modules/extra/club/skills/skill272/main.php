@@ -3,9 +3,15 @@
 namespace skill272
 {
 	$skill272_cd = 120;
-	$skill272_act_time = 60;
+	$skill272_act_time = 40;
 	$skill272_factor = 15;//每种吸收的属性+15%属性伤害
 	$skill272_pos_list = Array('wep','arh','arb','ara','arf','art','itm1','itm2','itm3','itm4','itm5','itm6');//可以吸收的部位
+	
+	$skill272_itmsk_cube = array(
+		'c'=>'黄色方块', 'l'=>'X方块', 'g'=>'Y方块',
+		'P'=>'红色方块', 'K'=>'绿色方块', 'G'=>'蓝色方块', 'C'=>'金色方块', 'D'=>'黄色方块', 'F'=>'银色方块',
+		'p'=>'绿色方块', 'q'=>'绿色方块', 'u'=>'红色方块', 'U'=>'红色方块', 'i'=>'蓝色方块', 'I'=>'蓝色方块', 'e'=>'金色方块', 'E'=>'金色方块', 'w'=>'银色方块', 'W'=>'银色方块'
+	);
 	
 	function init() 
 	{
@@ -17,20 +23,25 @@ namespace skill272
 	function acquire272(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','skill272'));
 		\skillbase\skill_setvalue(272,'lastuse',0,$pa);
+		\skillbase\skill_setvalue(272,'unlockcount',0,$pa);
+		\skillbase\skill_setvalue(272,'lvl',0,$pa);
 		\skillbase\skill_setvalue(272,'num',0,$pa);
 	}
 	
 	function lost272(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		\skillbase\skill_delvalue(272,'lastuse',$pa);
+		\skillbase\skill_delvalue(272,'unlockcount',$pa);
+		\skillbase\skill_delvalue(272,'lvl',$pa);
+		\skillbase\skill_delvalue(272,'num',$pa);
 	}
 	
 	function check_unlocked272(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return $pa['lvl']>=15;
+		return $pa['lvl']>=3;
 	}
 	
 	function skill272_command()
@@ -218,11 +229,46 @@ namespace skill272
 		addnews ( 0, 'bskill272', $name );
 		eval(import_module('skill272','itemmain'));
 		$tmp_list='';
+		$cubes = array();
 		foreach($affected_arr as $eval){
 			$tmp_list.=$itemspkinfo[$eval].'+';
+			//概率得到方块
+			if (rand(0,99) < 60)
+			{
+				$citm = $skill272_itmsk_cube[$eval];
+				$cubes[] = $citm;
+				$dropid = \itemmain\itemdrop_query($citm, 'X', 1, 1, '', $pls);
+				$amarr = array('iid' => $dropid, 'itm' => $citm, 'pls' => $pls, 'unseen' => 0);
+				\skill1006\add_beacon($amarr, $sdata);
+			}
+		}
+		$clv = (int)\skillbase\skill_getvalue(272,'lvl',$sdata);
+		if (!$clv)
+		{
+			$ucount = (int)\skillbase\skill_getvalue(272,'unlockcount',$sdata);
+			$ucount += count($affected_arr);
+			if ($ucount >= 12)
+			{
+				$log .= "<span class=\"yellow b\">你可以更熟练地使用「吸光」了。</span><br><br>";
+				\skillbase\skill_setvalue(272,'lvl',1,$sdata);
+			}
+			else \skillbase\skill_setvalue(272,'unlockcount',$ucount,$sdata);
+		}
+		$extrac_rate = $clv ? 20 : 5;
+		if (rand(0,99) < $extrac_rate)
+		{
+			$citm = array_randompick(array('X方块','X方块','Y方块','Y方块','黄鸡方块'));
+			$cubes[] = $citm;
+			$dropid = \itemmain\itemdrop_query($citm, 'X', 1, 1, '', $pls);
+			$amarr = array('iid' => $dropid, 'itm' => $citm, 'pls' => $pls, 'unseen' => 0);
+			\skill1006\add_beacon($amarr, $sdata);
 		}
 		if(!empty($tmp_list)) $tmp_list = str_replace('+','、',substr($tmp_list,0,-1));
+		$cube_count = count($cubes);
+		if ($cube_count > 1) $cube_txt = implode('、', array_slice($cubes, 0, $cube_count - 1)).'和'.end($cubes);
+		else $cube_txt = $cubes[0];
 		$log.='<span class="lime b">技能「吸光」发动成功。</span><br>你将'.$itm.'上的'.$tmp_list.'属性化为了自己的力量！<br>效果时间内，你的属性伤害将<span class="cyan b">增加'.($skill272_factor*$effect_num).'%</span>。<br>';
+		if(!empty($cubes)) $log .= "<span class=\"yellow b\">$cube_txt</span>在光芒中凝结而成，掉在了你的身旁。<br>";
 		$mode = 'command';
 		return;
 	}
@@ -233,8 +279,9 @@ namespace skill272
 		if (!\skillbase\skill_query(272, $pa) || !check_unlocked272($pa)) return 0;
 		eval(import_module('sys','player','skill272'));
 		$l=\skillbase\skill_getvalue(272,'lastuse',$pa);
+		$clv = (int)\skillbase\skill_getvalue(272,'lvl',$pa);
 		if (($now-$l)<=$skill272_act_time) return 1;
-		if (($now-$l)<=$skill272_act_time+$skill272_cd) return 2;
+		if (!$clv && (($now-$l)<=$skill272_act_time+$skill272_cd)) return 2;
 		return 3;
 	}
 	
@@ -288,6 +335,7 @@ namespace skill272
 		{
 			eval(import_module('skill272'));
 			$skill272_lst = (int)\skillbase\skill_getvalue(272,'lastuse'); 
+			$skill272_clv = (int)\skillbase\skill_getvalue(272,'lvl');
 			$skill272_time = $now-$skill272_lst; 
 			$z=Array(
 				'disappear' => 0,
@@ -302,7 +350,7 @@ namespace skill272
 				$z['totsec']=$skill272_act_time;
 				$z['nowsec']=$skill272_time;
 			}
-			else  if ($skill272_time<$skill272_act_time+$skill272_cd)
+			elseif (!$skill272_clv && ($skill272_time<$skill272_act_time+$skill272_cd))
 			{
 				$z['style']=2;
 				$z['totsec']=$skill272_cd;

@@ -8,8 +8,8 @@
 <td class="skilldesc_left b3"><span class="skilldesc">
 <!--{eval $clv=(int)\skillbase\skill_getvalue(54,'lvl');}-->
 <!--{eval $totlv = count($upgradecost)-1; }-->
-你受到的所有属性伤害<span class="yellow b">-$dmgreduction[$clv]%</span><br>
-<!--{if $upgradecost[$clv] !== -1}-->可花费<span class="lime b">$upgradecost[$clv]</span>点技能升级，升级后减伤提高至<span class="yellow b">-$dmgreduction[1]%</span><!--{/if}--><br>
+你受到的所有属性伤害<span class="yellow b">-$dmgreduction[$clv]%</span>
+<!--{if $upgradecost[$clv] !== -1}--><br>可花费<span class="lime b">$upgradecost[$clv]</span>点技能点升级，升级后减伤提高至<span class="yellow b">-$dmgreduction[1]%</span><!--{/if}--><br>
 </td>
 <td class="skilldesc_right b3">
 <!--{if $upgradecost[$clv] !== -1}-->
@@ -23,7 +23,7 @@
 {template MOD_CLUBBASE_SKILLDESC_MID2}
 <!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
 <span class="yellow b">
-7级时解锁
+8级时解锁
 </span>
 <!--{/if}-->
 {template MOD_CLUBBASE_SKILLDESC_END}
