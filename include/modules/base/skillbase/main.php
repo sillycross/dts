@@ -223,7 +223,7 @@ namespace skillbase
 	//获得技能
 	//$skillid为技能编号，$pa为传入的角色数据（如果留空则会调用$sdata即当前玩家）
 	//$no_cover如果为真则在重复获得技能时不会再次执行acquirexxx()（一般用来获得一些参数）
-	function skill_acquire($skillid, &$pa = NULL, $no_cover=0)
+	function skill_acquire($skillid, &$pa = NULL, $no_cover = 0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player','skillbase'));

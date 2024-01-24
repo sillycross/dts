@@ -1,5 +1,5 @@
-# 技能基础模块
-本模块（skillbase）实现了技能的基本功能函数，包括载入、查询、获得、失去技能等
+# 技能基础功能模块
+本模块（skillbase）实现了技能的基础功能函数，包括载入、查询、获得、失去技能等
 
 ## 模块变量
 本模块有4个模块变量：
@@ -25,19 +25,63 @@
 玩家入场时会获得的技能和参数列表。
 本模块是空的，其他模块（如部分游戏模式）会操作这个变量。
 
-## 模块函数
-本模块有以下模块函数：
+## 常用模块函数
+本模块常用的函数有以下：
 
-skill_onload_event(&$pa) 从数据库载入玩家$pa时这个函数会被调用，$pa不会为NULL
-skill_onsave_event(&$pa) 保存玩家$pa到数据库时这个函数会被调用
+### skill_acquire($skillid, &$pa = NULL, $no_cover = 0)
+使指定角色获得指定编号的技能。
+会自动执行该技能模块的`acquireXXX()`函数。如非必要，不建议继承此函数，而是应该修改`acquireXXX()`函数。
+传参：`$skillid`为技能编号；`$pa`为角色数据（对应player表的标准角色数组，如果留空则会调用`$sdata`即当前玩家）；`$no_cover`非覆盖，如果为真则在已有这个技能并再次获得技能时，不会再次执行该技能模块的`acquirexxx()`函数。
+返回值：无。
 
-skill_acquire(技能号,&$pa = NULL) 登记技能获得，不带$pa参数或设$pa参数为NULL则代表是当前玩家，下同
-skill_query(技能号,&$pa = NULL) 询问技能是否获得
-skill_lost(技能号,&$pa = NULL) 登记技能失去
+### skill_lost($skillid, &$pa = NULL)
+使指定角色失去指定编号的技能。
+会自动执行该技能模块的`lostXXX()`函数。如非必要，不建议继承此函数，而是应该修改`lostXXX()`函数。
+传参：`$skillid`为技能编号；`$pa`为角色数据。
+返回值：无。
 
-skill_setvalue(技能号,键,值,&$pa = NULL) 保存值（值是记在数据库里的，永久性的）
-skill_getvalue(技能号,键,&$pa = NULL) 获取值
-skill_delvalue(技能号,键,&$pa = NULL) 删除值
+### skill_query($skillid, &$pa = NULL)
+查询指定角色是否拥有指定编号技能。会依次判定`$pa['acquired_list']`的对应编号元素是否非空，并调用`\skillbase\skill_enabled()`判定技能是否启用。如非必要，不建议继承此函数。
+传参：`$skillid`为技能编号；`$pa`为角色数据（对应player表的标准角色数组，如果留空则会调用`$sdata`即当前玩家，但查询的实际上是本模块下的`$acquired_list`数组的情况）
+返回值：boolean，true为拥有并已解锁，false为没有或者未解锁。
+
+### skill_enable($skillid, &$pa)
+查询指定角色的技能是否启用，正常情况返回true。注意“启用”不同于“解锁”，这里用于实现“禁止某角色使用技能”、“让某角色的技能失效”这样的效果。
+实现方式实际上是由需要的模块来继承这个函数并作实现，条件可能各不相同。可以继承此函数。
+函数内部有有一个`\skillbase\skill_enabled_core()`函数，禁用请继承`skill_enabled_core()`，要保证启用请继承`skill_enabled()`
+传参：`$skillid`为技能编号；`$pa`为角色数据。注意这里不能为空，代码原本就如此，后续可能会整体改掉。
+返回值：boolean，true为解锁，false为未解锁。
+
+### skill_setvalue($skillid, $skillkey, $skillvalue, &$pa = NULL)
+为指定角色的指定技能的指定参数设置参数值。如非必要，不建议继承此函数。
+传参：`$skillid`为技能编号；`$skillkey`为参数名；`$skillvalue`为参数值；`$pa`为角色数据（对应player表的标准角色数组，如果留空则会调用`$sdata`即当前玩家，但修改的实际上是本模块下的`$parameter_list`数组的情况）
+参数名和参数值支持字符串，不支持数组和对象，后两类数据请自行转义之后传入。
+返回值：无。
+
+### skill_getvalue($skillid, $skillkey, &$pa = NULL)
+查询指定角色的指定技能的指定参数的参数值。如非必要，不建议继承此函数。
+传参：`$skillid`为技能编号；`$skillkey`为参数名；`$pa`为角色数据（对应player表的标准角色数组，如果留空则会调用`$sdata`即当前玩家，但查询的实际上是本模块下的`$parameter_list`数组的情况）
+返回值：查询参数的具体值。
+
+### skill_delvalue($skillid, $skillkey, &$pa = NULL)
+删除指定角色的指定技能的指定参数的参数值。如非必要，不建议继承此函数。
+某些技能失去时会调用这个函数来删除已经记录的参数值。注意并不是每个技能模块都需要删除参数值，如复活技能用于记录角色是否已经消耗了复活次数，此时可以考虑就算失去技能也不删除参数值，防止玩家利用某些效果反复刷新复活次数。
+传参：`$skillid`为技能编号；`$skillkey`为参数名；`$skillvalue`为参数值；`$pa`为角色数据（对应player表的标准角色数组，如果留空则会调用`$sdata`即当前玩家，但修改的实际上是本模块下的`$parameter_list`数组的情况）
+返回值：无。
+
+### skill_onload_event(&$pa)
+角色数据`$pa`被建立时会被调用的事件函数。本模块为空的，其他模块需要时可以继承这个函数。
+这个函数的调用顺序实际上是`\player\fetch_playerdata()`等函数-->`\player\playerdata_construct_process()`或`\player\load_playerdata()`-->`\skillbase\skillbase_load()`-->`skill_onload_event()`。
+
+### skill_onsave_event(&$pa)
+角色数据`$pa`被保存时会被调用的事件函数。本模块为空的，其他模块需要时可以继承这个函数。
+这个函数的调用顺序实际上是`\player\player_save()`-->`\skillbase\skillbase_save()`-->`\skillbase\skill_onsave_event()`。
+
+### skill_getvalue_direct($skillid, $skillkey, $paradata)
+直接查询指定角色的指定技能的指定参数的参数值。
+与`\skillbase\skill_getvalue()`函数类似，区别在于，本函数是直接从角色数组的nskillpara元素中读出某个元素的值，不需要通过`\skillbase\skillbase_load()`初始化player结构。
+
+## 技能模块范例
 
 技能的统一代码模板大概是这样的
 
