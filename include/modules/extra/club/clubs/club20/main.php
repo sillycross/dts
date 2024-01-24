@@ -8,10 +8,10 @@ namespace club20
 		$clubinfo[20] = '宝石骑士';
 		$clublist[20] = Array(
 			'type' => 1,
-			'probability' => 100, 
+			'probability' => 100,
 			'skills' => Array(
-				10,11,12,		
-				23,27,26,24,54,25,272		
+				10,11,12,
+				23,104,272,105,24,54,25,106
 			)
 		);
 	}
