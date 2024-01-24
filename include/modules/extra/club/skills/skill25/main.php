@@ -22,7 +22,7 @@ namespace skill25
 	function check_unlocked25(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return $pa['lvl']>=11;
+		return $pa['lvl']>=15;
 	}
 	
 	function get_ex_inf_dmg_punish(&$pa, &$pd, $active, $key)
@@ -39,7 +39,7 @@ namespace skill25
 		$r=Array();
 		if (\skillbase\skill_query(25,$pa) && check_unlocked25($pa))
 		{
-			$r=Array(1.15);
+			$r=Array(1.25);
 		}
 		return array_merge($r,$chprocess($pa,$pd,$active));
 	}

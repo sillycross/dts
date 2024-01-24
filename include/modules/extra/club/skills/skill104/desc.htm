@@ -1,0 +1,38 @@
+<!--{eval eval(import_module('skill104'));}-->
+<!--{eval $___TEMP_SKILL_ID=104;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+<!--{eval $clv = (int)\skillbase\skill_getvalue(104,'lvl',$who); }-->
+你可以吸收至多<span class="yellow b">$cubemax[$clv]</span>个方块，超出上限时会回收最早被吸收的方块。<br>战斗中，对每个吸收的方块有<span class="yellow b">15%</span>概率视为具有其对应的攻击属性之一<br>
+<!--{if $upgradecost[$clv] !== -1}-->
+可花费<span class="lime b">$upgradecost[$clv]</span>点技能点升级，升级后可吸收至多<span class="yellow b">5</span>个方块<br>
+<!--{/if}-->
+<!--{eval $skill104_itmarr=\skill104\skill104_prepare_itmarr($who);$skill104_nowcount=sizeof($skill104_itmarr);}-->
+<!--{if $skill104_nowcount}-->
+当前已吸收的方块：
+<!--{loop $skill104_itmarr $v}-->
+<span class="yellow b">$v['itm']</span> 
+<!--{/loop}-->
+<!--{else}-->
+<span class="cyan b">当前未吸收方块</span>
+<!--{/if}-->
+</span></td>
+<td class="skilldesc_right b3">
+<!--{if $upgradecost[$clv] !== -1}-->
+	<!--{if $skillpoint>=$upgradecost[$clv]}-->
+	<input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill104_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="升级">
+	<!--{else}-->
+	<input type="button" style="width:46px" disabled="true" value="升级">
+	<!--{/if}-->
+<!--{/if}-->
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

@@ -1,0 +1,24 @@
+<input type="hidden" name="mode" value="special">
+<input type="hidden" id="command" name="command" value="skill104_special">
+<input type="hidden" id="subcmd" name="subcmd" value="castsk104">
+你可以吸收一个方块，吸收后在战斗中有概率视为具有该方块对应的属性。<br><br>
+<!--{eval $skill104_itmarr=\skill104\skill104_prepare_itmarr($who);$skill104_nowcount=sizeof($skill104_itmarr);}-->
+<!--{if $skill104_nowcount}-->
+当前已吸收的方块：
+<!--{loop $skill104_itmarr $v}-->
+<span class="yellow b">$v['itm']</span> 
+<!--{/loop}-->
+<br><br>
+<!--{/if}-->
+请选择要吸收的方块：<br>
+<select id="skill104_choice" name="skill104_choice" value="back">
+<option value="back">返回<br>
+<!--{loop range(1,6) $i}-->
+	<!--{if ${'itms'.$i} && strpos(${'itm'.$i},'方块')!==false}-->
+	<option value="$i"><span class="yellow b">${'itm'.$i}</span>/${'itme'.$i}/${'itms'.$i}<br>
+	<!--{/if}-->
+<!--{/loop}-->
+</select>
+<br><br>
+<input type="button" class="cmdbutton"  id="z" value="[Z]提交" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="button" class="cmdbutton"  id="x" value="[X]返回" onclick="$('command').value='menu'; postCmd('gamecmd','command.php');this.disabled=true;">
