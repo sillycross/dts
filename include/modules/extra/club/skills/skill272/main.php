@@ -249,7 +249,7 @@ namespace skill272
 			$ucount += count($affected_arr);
 			if ($ucount >= 12)
 			{
-				$log .= '你可以更熟练地使用「吸光」了。<br>';
+				$log .= "<span class=\"yellow b\">你可以更熟练地使用「吸光」了。</span><br><br>";
 				\skillbase\skill_setvalue(272,'lvl',1,$sdata);
 			}
 			else \skillbase\skill_setvalue(272,'unlockcount',$ucount,$sdata);
