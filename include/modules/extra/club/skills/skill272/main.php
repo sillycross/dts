@@ -264,11 +264,14 @@ namespace skill272
 			\skill1006\add_beacon($amarr, $sdata);
 		}
 		if(!empty($tmp_list)) $tmp_list = str_replace('+','、',substr($tmp_list,0,-1));
-		$cube_count = count($cubes);
-		if ($cube_count > 1) $cube_txt = implode('、', array_slice($cubes, 0, $cube_count - 1)).'和'.end($cubes);
-		else $cube_txt = $cubes[0];
+		
 		$log.='<span class="lime b">技能「吸光」发动成功。</span><br>你将'.$itm.'上的'.$tmp_list.'属性化为了自己的力量！<br>效果时间内，你的属性伤害将<span class="cyan b">增加'.($skill272_factor*$effect_num).'%</span>。<br>';
-		if(!empty($cubes)) $log .= "<span class=\"yellow b\">$cube_txt</span>在光芒中凝结而成，掉在了你的身旁。<br>";
+		if(!empty($cubes)) {
+			$cube_count = count($cubes);
+			if ($cube_count > 1) $cube_txt = implode('、', array_slice($cubes, 0, $cube_count - 1)).'和'.end($cubes);
+			else $cube_txt = $cubes[0];
+			$log .= "<span class=\"yellow b\">$cube_txt</span>在光芒中凝结而成，掉在了你的身旁。<br>";
+		}
 		$mode = 'command';
 		return;
 	}
