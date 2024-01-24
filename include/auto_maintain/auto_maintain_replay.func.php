@@ -4,7 +4,7 @@ if(!defined('IN_GAME')) {
 	exit('Access Denied');
 }
 
-//¼ÇÂ¼Ã¿´ÎÎ¬»¤µÄ½ø¶È
+//è®°å½•æ¯æ¬¡ç»´æŠ¤çš„è¿›åº¦
 function amr_maintain_progress_save()
 {
 	global $amr_progress_no, $amr_progress_sno, $amr_failure_no, $amr_failure_sno;
@@ -12,7 +12,7 @@ function amr_maintain_progress_save()
 	writeover($mfile, "<?php\r\n\$amr_progress_no = {$amr_progress_no};\r\n\$amr_progress_sno = {$amr_progress_sno};\r\n\$amr_failure_no = ".var_export($amr_failure_no,1).";\r\n\$amr_failure_sno = ".var_export($amr_failure_sno,1).";");
 }
 
-//¶ÁÈ¡Ã¿´ÎÎ¬»¤µÄ½ø¶È
+//è¯»å–æ¯æ¬¡ç»´æŠ¤çš„è¿›åº¦
 function amr_maintain_progress_get()
 {
 	$amr_progress_no = $amr_progress_sno = 0;
@@ -24,7 +24,7 @@ function amr_maintain_progress_get()
 	return array($amr_progress_no, $amr_progress_sno, $amr_failure_no, $amr_failure_sno);
 }
 
-//´´½¨ĞèÒª´«µİµÄÂ¼ÏñÁĞ±í
+//åˆ›å»ºéœ€è¦ä¼ é€’çš„å½•åƒåˆ—è¡¨
 function amr_list_create($file){
 	global $amr_progress_no, $amr_progress_sno, $amr_failure_no, $amr_failure_sno;
 	list($amr_progress_no, $amr_progress_sno, $amr_failure_no, $amr_failure_sno) = amr_maintain_progress_get();
@@ -45,7 +45,7 @@ function amr_list_create($file){
 	return $list;
 }
 
-//ÅĞ¶¨Ò»¸öÎÄ¼şÃûµÄÂ¼ÏñÊÇ·ñË³Àû·¢ËÍ¹ı
+//åˆ¤å®šä¸€ä¸ªæ–‡ä»¶åçš„å½•åƒæ˜¯å¦é¡ºåˆ©å‘é€è¿‡
 function amr_check_replay_sent($filename){
 	global $amr_progress_no, $amr_progress_sno, $amr_failure_no, $amr_failure_sno;
 	$ret = 1;
@@ -59,7 +59,7 @@ function amr_check_replay_sent($filename){
 	return $ret;
 }
 
-//»ñÈ¡ĞèÒª´«µİµÄÂ¼ÏñÁĞ±í£¬Èç¹û²»´æÔÚÔòĞÂ½¨
+//è·å–éœ€è¦ä¼ é€’çš„å½•åƒåˆ—è¡¨ï¼Œå¦‚æœä¸å­˜åœ¨åˆ™æ–°å»º
 function amr_list_get($file) {
 	if(!file_exists($file)){
 		$list = amr_list_create($file);
@@ -69,8 +69,8 @@ function amr_list_get($file) {
 	return $list;
 }
 
-//ÅĞ¶¨curl_post¸øÔ¶¶Ëreplay_receive.phpµÄ·µ»ØÖµ
-//0ÎªÕı³£´«µİ£¬1ÎªÔ¶¶ËÒÑ¾­´æÔÚ£¬2ÒÔºóÎª¸÷ÖÖ´íÎó
+//åˆ¤å®šcurl_postç»™è¿œç«¯replay_receive.phpçš„è¿”å›å€¼
+//0ä¸ºæ­£å¸¸ä¼ é€’ï¼Œ1ä¸ºè¿œç«¯å·²ç»å­˜åœ¨ï¼Œ2ä»¥åä¸ºå„ç§é”™è¯¯
 function amr_check_send_success($response){
 	$ret = 99;
 	if(strpos($response, 'Successfully')!==false) $ret = 0;
@@ -79,7 +79,7 @@ function amr_check_send_success($response){
 	return $ret;
 }
 
-//´«µİÂ¼Ïñ
+//ä¼ é€’å½•åƒ
 function amr_curl_post($filename){
 	global $replay_remote_storage, $replay_remote_storage_sign, $replay_remote_storage_key, $gameurl;
 	if(!$replay_remote_storage) return;
@@ -93,7 +93,7 @@ function amr_curl_post($filename){
 		'no-overlap'=>1,
 	);
 	
-	//Èç¹û²»³É¹¦£¬Í¬±àºÅ×î¶à³¢ÊÔ3´Î
+	//å¦‚æœä¸æˆåŠŸï¼ŒåŒç¼–å·æœ€å¤šå°è¯•3æ¬¡
 	for($i=0;$i<3;$i++) {
 		$ret = curl_post($replay_remote_storage, $context);
 		$retno = amr_check_send_success($ret);
@@ -112,7 +112,7 @@ function amr_main(){
 		return;
 	}
 	$list = amr_list_get($file);
-	//Çå¿ÕÊ§°ÜÁĞ±í
+	//æ¸…ç©ºå¤±è´¥åˆ—è¡¨
 	$amr_failure_no = $amr_failure_sno = array();
 	foreach($list as $li => $filename){
 		$mark = substr($filename,0,1) == 's' ? 's' : '';
@@ -126,7 +126,7 @@ function amr_main(){
 			$amr_progress_sno = $no;
 		}
 		amr_log("File $filename sent. ".($retno <= 1 ? 'Successful. ' : 'Failure: ')."$ret ");
-		if(!$retno) sleep(5);//Èç¹û³É¹¦´«Êä£¬µÈ´ı5Ãë£¬±ÜÃâÁ÷Á¿ºäÕ¨
+		if(!$retno) sleep(5);//å¦‚æœæˆåŠŸä¼ è¾“ï¼Œç­‰å¾…5ç§’ï¼Œé¿å…æµé‡è½°ç‚¸
 	}
 	amr_maintain_progress_save();
 	amr_log("Maintaining over.\r\n--------------------------------\r\n");
