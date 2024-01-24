@@ -118,7 +118,8 @@ namespace lvlctl
 				}
 				*/
 				
-				if ($pa['sp']+$lvupspref >= $pa['msp']) 
+				if ($pa['sp'] >= $pa['msp']) $lvupspref = 0;
+				elseif ($pa['sp']+$lvupspref >= $pa['msp'])
 				{
 					$lvupspref = $pa['msp'] - $pa['sp'];
 				}

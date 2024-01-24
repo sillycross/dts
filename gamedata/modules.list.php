@@ -423,6 +423,7 @@ skill89,extra/club/skills/skill89/,1
 skill96,extra/club/skills/skill96/,1
 skill102,extra/club/skills/skill102/,1
 skill103,extra/club/skills/skill103/,1
+skill104,extra/club/skills/skill104/,1
 skill1000,extra/instance/instance7_tutorial/skill1000/,1
 skill711,extra/card/skills/skill711/,1
 skill1007,extra/npc_action/skill1007/,1
@@ -493,6 +494,8 @@ skill513,extra/card/skills/skill513/,1
 item_uu,extra/item_extra/item_uu/,1
 item_umb,extra/item_extra/item_umb/,1
 skill726,extra/card/skills/skill726/,1
+skill105,extra/club/skills/skill105/,1
+skill106,extra/club/skills/skill106/,1
 item_recipe,extra/item_extra/item_recipe/,1
 skill580,extra/card/skills/skill580/,1
 achievement_base,extra/achievement/achievement_base/,1
