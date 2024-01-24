@@ -2,26 +2,19 @@
 <input type="hidden" name="command" value="itemmerge">
 <input type="hidden" name="merge1" value="0">
 <input type="hidden" id="merge2" name="merge2" value="n">
+是否将 <span class='yellow b'>$itm0</span>与以下物品合并？
 <br>
 <br>
-
-<!--{if in_array(1,$sameitem)}-->
-<input type="button" id="a" value="[A]$itm1/$itme1/$itms1" onclick="$('merge2').value='1';postCmd('gamecmd','command.php');return false;"><br> 
-<!--{/if}-->
-<!--{if in_array(2,$sameitem)}-->
-<input type="button" id="s" value="[S]$itm2/$itme2/$itms2" onclick="$('merge2').value='2';postCmd('gamecmd','command.php');return false;"><br> 
-<!--{/if}-->
-<!--{if in_array(3,$sameitem)}-->
-<input type="button" id="d" value="[D]$itm3/$itme3/$itms3" onclick="$('merge2').value='3';postCmd('gamecmd','command.php');return false;"><br> 
-<!--{/if}-->
-<!--{if in_array(4,$sameitem)}-->
-<input type="button" id="q" value="[Q]$itm4/$itme4/$itms4" onclick="$('merge2').value='4';postCmd('gamecmd','command.php');return false;"><br> 
-<!--{/if}-->
-<!--{if in_array(5,$sameitem)}-->
-<input type="button" id="w" value="[W]$itm5/$itme5/$itms5" onclick="$('merge2').value='5';postCmd('gamecmd','command.php');return false;"><br> 
-<!--{/if}-->
-<!--{if in_array(6,$sameitem)}-->
-<input type="button" id="e" value="[E]$itm6/$itme6/$itms6" onclick="$('merge2').value='6';postCmd('gamecmd','command.php');return false;"><br> 
+<!--{if 1 == sizeof($sameitem)}-->
+    <!--{eval $i = array_pop($sameitem);}-->
+    <input type="button" id="a" value="[A]${'itm'.$i}/${'itme'.$i}/${'itms'.$i}" onclick="$('merge2').value='{$i}';postCmd('gamecmd','command.php');return false;"><br> 
+<!--{else}-->
+    <!--{eval $k = '0asdqwe'; $ku = '0ASDQWE';}-->
+    <!--{loop range(1,6) $i}-->
+        <!--{if in_array($i,$sameitem)}-->
+            <input type="button" id="{$k[$i]}" value="[{$ku[$i]}]${'itm'.$i}/${'itme'.$i}/${'itms'.$i}" onclick="$('merge2').value='{$i}';postCmd('gamecmd','command.php');return false;"><br> 
+        <!--{/if}-->
+    <!--{/loop}-->
 <!--{/if}-->
 <br>
 <input type="button" class="cmdbutton"  id="z" value="[Z]不合并" onclick="postCmd('gamecmd','command.php');return false;">
