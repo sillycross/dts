@@ -6,9 +6,11 @@
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class="skilldesc_left b3"><span class="skilldesc">
+	<span class="ltpurple b">时间能力</span> 
 <!--{eval $skill500_lst = (int)\skillbase\skill_getvalue(500,'lastuse'); $skill500_time = ($now-$skill500_lst);$skill500_cd_left=($skill500_cd-$skill500_time);}-->
-消耗{$skill500_rage}点怒气，让当前地图其他玩家的时间停止<span class="cyan b">{$skill500_act_time}秒</span>。CD时间{$skill500_cd}秒。<br>
-若时间停止中，你的命中率变为原来的150%，不会被发现、被先制、被反击，也不会遭遇任何陷阱。<br>
+消耗<span class="yellow b">{$skill500_rage}</span>怒气，让所有NPC和当前地图其他玩家<span class="cyan b">时间停止{$skill500_act_time}秒</span>。<br>
+在时间停止中，你不会遭遇任何陷阱，命中率变为原来的<span class="yellow b">150%</span>，不会被其他角色发现、先制、反击，但对同样拥有时间能力的角色无效。<br>
+CD时间<span class="yellow b">{$skill500_cd}秒</span>
 <!--{if $skill500_lst!=0}-->
 	<!--{if $skill500_time<$skill500_act_time}-->
 	<span class="cyan b">时间停止中！</span><br>

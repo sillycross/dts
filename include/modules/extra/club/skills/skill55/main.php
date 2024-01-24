@@ -2,7 +2,7 @@
 
 namespace skill55
 {
-	//变更技能需要的金钱
+	//变更技能需要的初始金钱。每次使用后都会翻倍
 	$skill55_need = 50;
 	
 	function init() 
@@ -13,7 +13,8 @@ namespace skill55
 	function acquire55(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		\skillbase\skill_setvalue(55,'l','0',$pa);
+		\skillbase\skill_setvalue(55,'l','0',$pa);//所学技能
+		\skillbase\skill_setvalue(55,'at','0',$pa);//已发动次数
 	}
 	
 	function lost55(&$pa)
@@ -41,8 +42,16 @@ namespace skill55
 		{
 			if (((int)\skillbase\skill_getvalue(55,'l'))==0) return 1;
 			eval(import_module('skill55','player'));
-			if ($money>=$skill55_need) return 1; else return 0;
+			if ($money>=get_needed_money55()) return 1; else return 0;
 		}
+	}
+
+	//现在需要的钱数每次都会翻倍
+	function get_needed_money55(&$pa = NULL){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('skill55'));
+		$at = (int)\skillbase\skill_getvalue(55, 'at', $pa);
+		return $skill55_need * pow(2, $at);
 	}
 	
 	function upgrade55()
@@ -73,7 +82,8 @@ namespace skill55
 		if (((int)\skillbase\skill_getvalue(55,'l'))!=0)
 		{
 			\skillbase\skill_lost((int)\skillbase\skill_getvalue(55,'l'));
-			$money-=$skill55_need;
+			$money-=get_needed_money55();
+			\skillbase\skill_setvalue(55,'at',(int)\skillbase\skill_getvalue(55,'at')+1);
 		}
 		
 		\skillbase\skill_setvalue(55,'l',$skillpara1);

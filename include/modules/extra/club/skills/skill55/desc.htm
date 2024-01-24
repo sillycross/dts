@@ -6,15 +6,15 @@
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class="skilldesc_left b3"><span class="skilldesc">
-<!--{eval $skill55_nchoice=(int)\skillbase\skill_getvalue(55,'l');}-->
+<!--{eval $skill55_nchoice=(int)\skillbase\skill_getvalue(55,'l'); $needed_money = \skill55\get_needed_money55();}-->
 <!--{if $skill55_nchoice==0}-->
 学习任意一个非限定技能<br>
-可以随意变更学习的技能，但每次变更技能需花费<span class="yellow b">$skill55_need</span>元<br>
+可以随意变更学习的技能，但需花费<span class="yellow b">$needed_money</span>元<br>
 <!--{else}-->
 你当前习得的技能是“<span class="yellow b">$clubskillname[$skill55_nchoice]</span>”<br>
-可以重新学习一个技能，但这将花费<span class="yellow b">$skill55_need</span>元<br>
+可以重新学习一个技能，但这将花费<span class="yellow b">$needed_money</span>元<br>
 <!--{/if}-->
-
+每次更换技能都将使下次的花费翻倍
 <!--{eval \bubblebox\bubblebox_set_style('id:learntable55;height:620;width:655;cancellable:1;margin-right:8;');}-->
 {template MOD_BUBBLEBOX_START}
 <p style="margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px;">
@@ -22,7 +22,7 @@
 <span class="yellow b">请注意使用“查看”按钮查看技能时，技能的解锁条件没有显示。</span>请阅读帮助以获得完整的技能解锁要求。<br>
 少数几个技能出于游戏平衡原因，相对原版技能有所削弱，也请注意查看。<br>
 <!--{if $skill55_nchoice!=0}-->
-本次学习将花费<span class="yellow b">$skill55_need</span>元，并失去目前已习得的技能<span class="yellow b">$clubskillname[$skill55_nchoice]</span>。<br>
+本次学习将花费<span class="yellow b">$needed_money</span>元，并失去目前已习得的技能<span class="yellow b">$clubskillname[$skill55_nchoice]</span>。<br>
 <!--{/if}-->
 <br>
 </p>
