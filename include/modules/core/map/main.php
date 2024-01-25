@@ -15,13 +15,13 @@ namespace map
 	}
 
 	//获取可用地图的下标的数组。
-	//本模块单纯获取$plsinfo的键名。
+	//本模块单纯获取$plsinfo的键名。需要随机地图之类的模块可以重载这个函数。
 	function get_all_plsno() {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return array_keys(get_var_in_module('plsinfo','map'));
 	}
 
-	//判定某个地图编号是否可用。本模块单纯判定是不是$plsinfo的其中一个键名
+	//判定某个地图编号是否可用。本模块单纯判定是不是$plsinfo的其中一个键名。需要随机地图之类的模块可以重载这个函数。
 	function is_plsno_available($plsno) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return in_array($plsno, get_all_plsno());
@@ -50,15 +50,17 @@ namespace map
 		return array_slice(get_var_in_module('arealist', 'sys'), get_var_in_module('areanum', 'sys') + $wave * get_var_in_module('areaadd', 'map'));
 	}
 	
-	//检查一个地区编号是否是禁区，与hack无关。
+	//检查一个地图编号是否是禁区，与hack无关。
 	//$wave指额外增加的禁数（如2就是下第二波）
 	//注意，数组的前n个元素一定被视为禁区，这个n是$area_on_start的元素个数
+	//由于原理是判定地图编号是否在禁区数组中，如果某个地图编号不在arealist字段数据里（如随机地图等），也会被认为不属于禁区，无论禁数是多少。
 	function check_in_forbidden_area($pno, $wave=0){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return in_array($pno, get_current_area($wave));
 	}
 	
-	//检查一个地区是否可进入，包含解禁和hack两种情况
+	//检查一个地图编号是否可进入，包含解禁和hack两种情况
+	//只判定非禁区，因此就算arealist字段数据里没有这个地图编号，也会被认为是可进入的
 	function check_can_enter($pno){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return !check_in_forbidden_area($pno) || get_var_in_module('hack', 'sys');
@@ -97,6 +99,7 @@ namespace map
 	//安全区域列表
 	//返回并非禁区的区域列表，如果传参$no_dangerous_zone为真，则再排除掉SCP、英灵殿等危险地区
 	//传参$type是给继承的函数用的
+	//由于原理是截取arealist的一部分，如果某个地图编号不在arealist字段数据里（如随机地图等），也会被认为不属于安全区，无论禁数是多少。
 	function get_safe_plslist($no_dangerous_zone = true, $type = 0){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		$ret = get_current_not_area();
