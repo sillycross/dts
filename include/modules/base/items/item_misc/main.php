@@ -482,6 +482,8 @@ namespace item_misc
 		
 		$hp-=$uphp;
 		$mhp-=$uphp;
+		$hp = max($hp, 1);
+		$mhp = max($mhp, 1);
 		$att-=$upatt;
 		$def-=$updef;
 
