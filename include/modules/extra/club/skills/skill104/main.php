@@ -120,14 +120,23 @@ namespace skill104
 		$log .= "你吸收了<span class=\"yellow b\">{$theitem['itm']}</span>。<br>";
 		if ($skill104_nowcount > $cmax)
 		{
-			${'itm'.$itmn} = $skill104_itmarr[0]['itm'];
-			${'itmk'.$itmn} = $skill104_itmarr[0]['itmk'];
-			${'itme'.$itmn} = $skill104_itmarr[0]['itme'];
-			${'itms'.$itmn} = $skill104_itmarr[0]['itms'];
-			${'itmsk'.$itmn} = $skill104_itmarr[0]['itmsk'];
+			if (rand(0,99) < 85)
+			{
+				${'itm'.$itmn} = $skill104_itmarr[0]['itm'];
+				${'itmk'.$itmn} = $skill104_itmarr[0]['itmk'];
+				${'itme'.$itmn} = $skill104_itmarr[0]['itme'];
+				${'itms'.$itmn} = $skill104_itmarr[0]['itms'];
+				${'itmsk'.$itmn} = $skill104_itmarr[0]['itmsk'];
+				$log .= "<span class=\"yellow b\">${'itm'.$itmn}</span>回到了包裹中。<br>";
+			}
+			else
+			{
+				$log .= "<span class=\"yellow b\">{$skill104_itmarr[0]['itm']}</span>化为光芒消失了。<br>";
+				${'itm'.$itmn} = ${'itmk'.$itmn} = ${'itmsk'.$itmn} = '';
+				${'itme'.$itmn} = ${'itms'.$itmn} = 0;
+			}
 			unset($skill104_itmarr[0]);
 			$skill104_itmarr = array_values($skill104_itmarr);
-			$log .= "<span class=\"yellow b\">${'itm'.$itmn}</span>回到了包裹中。<br>";
 		}
 		else
 		{
