@@ -552,12 +552,23 @@ namespace itemmain
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		//echo 'itemmain ';
-		$find_obbs = calculate_itemfind_obbs()*calculate_itemfind_obbs_multiplier();
-		$dice = rand(0,99);
-		if($dice < $find_obbs) {
+		if(check_discover_item_found()) {
 			return discover_item();
 		}
 		return $chprocess($schmode);
+	}
+
+	//判定是否发现道具
+	//传参$debuff为发现率增益值（减益值）
+	function check_discover_item_found($buff = 0){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$find_obbs = $buff + calculate_itemfind_obbs()*calculate_itemfind_obbs_multiplier();
+		$dice = rand(0,99);
+		//echo $dice.' '.$find_obbs.'<br>';
+		if($dice < $find_obbs) {
+			return true;
+		}
+		return false;
 	}
 	
 	function pre_act(){
