@@ -486,7 +486,7 @@ namespace clubbase
 			//第一层，屏蔽成就、战斗技、主动技、限制技、隐藏技能、除天赋、亡灵之外的称号特性
 			if (defined('MOD_SKILL'.$key.'_INFO') && !\skillbase\check_skill_info($key, 'achievement') && !\skillbase\check_skill_info($key, 'battle') 
 				&& !\skillbase\check_skill_info($key, 'active') && !\skillbase\check_skill_info($key, 'limited') 
-				&& !\skillbase\check_skill_info($key, 'hidden') && (!\skillbase\check_skill_info($key, 'feature') || in_array($key, array(58, 70)))) 
+				&& !\skillbase\check_skill_info($key, 'hidden') && (!\skillbase\check_skill_info($key, 'feature') || in_array($key, array(58, 70, 512, 803, 804)))) 
 			{
 				//第二层，屏蔽未解锁的技能、需要升级但是0级的技能，以及10、11、12、233、252号技能（生命、攻防、治愈、网瘾、天眼）
 				$check_unlocked_func = 'skill'.$key.'\\check_unlocked'.$key;
