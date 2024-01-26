@@ -3,8 +3,8 @@
 namespace skill272
 {
 	$skill272_cd = 120;
-	$skill272_act_time = 40;
-	$skill272_factor = 15;//每种吸收的属性+15%属性伤害
+	$skill272_act_time = 60;
+	$skill272_factor = 10;//每种吸收的属性+10%属性伤害
 	$skill272_pos_list = Array('wep','arh','arb','ara','arf','art','itm1','itm2','itm3','itm4','itm5','itm6');//可以吸收的部位
 	
 	$skill272_itmsk_cube = array(
@@ -233,7 +233,7 @@ namespace skill272
 		foreach($affected_arr as $eval){
 			$tmp_list.=$itemspkinfo[$eval].'+';
 			//概率得到方块
-			if (rand(0,99) < 60)
+			if (rand(0,99) < 30)
 			{
 				$citm = $skill272_itmsk_cube[$eval];
 				$cubes[] = $citm;
@@ -247,7 +247,7 @@ namespace skill272
 		{
 			$ucount = (int)\skillbase\skill_getvalue(272,'unlockcount',$sdata);
 			$ucount += count($affected_arr);
-			if ($ucount >= 12)
+			if ($ucount >= 15)
 			{
 				$log .= "<span class=\"yellow b\">你可以更熟练地使用「吸光」了。</span><br><br>";
 				\skillbase\skill_setvalue(272,'lvl',1,$sdata);

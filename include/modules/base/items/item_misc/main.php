@@ -450,7 +450,7 @@ namespace item_misc
 		} else {
 			$up = 3;
 			list($uphp,$upatt,$updef) = explode(',',divining2($up));
-			$log .= "大凶？总觉得有什么可怕的事快要发生了<BR><span class=\"red b\">【命】-$uphp 【攻】-$upatt 【防】-$updef</span><BR>";
+			$log .= "大凶？总觉得有什么可怕的事快要发生了……<BR><span class=\"red b\">【命】-$uphp 【攻】-$upatt 【防】-$updef</span><BR>";
 		}
 		return;
 	}
@@ -482,6 +482,8 @@ namespace item_misc
 		
 		$hp-=$uphp;
 		$mhp-=$uphp;
+		$hp = max($hp, 1);
+		$mhp = max($mhp, 1);
 		$att-=$upatt;
 		$def-=$updef;
 

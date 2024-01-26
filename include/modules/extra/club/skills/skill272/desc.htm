@@ -17,7 +17,7 @@ $itemspkinfo[$skval]
 <!--{/loop}-->
 </span>
 <br>
-你将吸收掉这些属性，对每个吸收属性有<span class="yellow b">60%</span>获得一个对应的方块，<br>且属性伤害增加<span class="yellow b">吸收属性数目×{$skill272_factor}%</span>，持续<span class="cyan b">{$skill272_act_time}</span>秒，冷却时间<span class="cyan b">$skill272_cd</span>秒。<br>
+你将吸收掉这些属性，对每个吸收属性有<span class="yellow b">30%</span>获得一个对应的方块，<br>且属性伤害增加<span class="yellow b">吸收属性数目×{$skill272_factor}%</span>，持续<span class="cyan b">{$skill272_act_time}</span>秒，冷却时间<span class="cyan b">$skill272_cd</span>秒。<br>
 <!--{if !$clv && $skill272_time>$skill272_act_time && $skill272_time<$skill272_cd+$skill272_act_time}-->
 	<span class="cyan b">技能冷却时间还剩<span>$skill272_cd_left</span>秒。</span><br>
 <!--{elseif $skill272_time<=$skill272_act_time}-->
