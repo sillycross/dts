@@ -32,14 +32,17 @@ namespace supplycrate_event
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess($pa, $pd, $active);
 		eval(import_module('sys'));
-		if (in_array($gametype, array(18)) && (rand(0,999) < 3))
+		if (in_array($gametype, array(18)) && (rand(0,99) < 1))
 		{
 			if (!isset($gamevars['crimson_dead']))
 			{
 				$chatlog = "看来有热心观众投递了一份场外支援。";
 				\sys\addchat(6, $chatlog, '红暮');
 			}
-			\addnpc\addnpc(26,0,1,1);
+			$dice = rand(0,99);
+			if ($dice < 5) \addnpc\addnpc(26,0,1,1);
+			elseif ($dice < 40) \addnpc\addnpc(26,1,1,1);
+			else \addnpc\addnpc(26,2,1,1);
 		}
 	}
 	
