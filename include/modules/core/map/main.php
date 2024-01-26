@@ -63,7 +63,7 @@ namespace map
 	//只判定非禁区，因此就算arealist字段数据里没有这个地图编号，也会被认为是可进入的
 	function check_can_enter($pno){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return !check_in_forbidden_area($pno) || get_var_in_module('hack', 'sys');
+		return is_plsno_available($pno) && (!check_in_forbidden_area($pno) || get_var_in_module('hack', 'sys'));
 	}
 
 	//计算禁区倒计时，显示用
