@@ -301,6 +301,13 @@ button.memory_record{
 button.beacon_slot{
 	box-shadow: 0 0 4px 1px rgba(255, 127, 0, .5) inset;
 }
+@-moz-document url-prefix() { /*火狐专用css hack*/
+	button.beacon_slot{
+		border-color:rgba(255, 127, 0, 0.5);
+		border-width: 3px;
+		border-radius: 6px;
+	}
+  }
 /*==========雷达屏幕==========*/
 table.radar{
 	border:0;margin:0;border-collapse:collapse;border-spacing:0;text-align:center;
