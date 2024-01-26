@@ -6,7 +6,7 @@ namespace skill804
 	{
 		define('MOD_SKILL804_INFO','card;feature;');
 		eval(import_module('clubbase'));
-		$clubskillname[804] = '珍藏';
+		$clubskillname[804] = '速递';
 	}
 	
 	function acquire804(&$pa)
