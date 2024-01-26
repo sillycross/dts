@@ -32,11 +32,12 @@ namespace skill804
 		$chprocess($pa, $pd, $active);
 		if (\skillbase\skill_query(804, $pd) && ($pd['hp'] <= 0))
 		{
+			$clv = (int)\skillbase\skill_getvalue(804,'lvl',$pd);
 			//生成奖励道具列表
-			$file = __DIR__.'/config/skill804.config.php';
+			$file = __DIR__.'/config/skill804_'.$clv.'.config.php';
 			$itemlist = openfile($file);
 			$in = sizeof($itemlist);
-			$prizeid = array_randompick(range(0, $in-1), rand(2,5));
+			$prizeid = array_randompick(range(0, $in-1), rand(2,4));
 			$i = 1;
 			foreach ($prizeid as $v)
 			{

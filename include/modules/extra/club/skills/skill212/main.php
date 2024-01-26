@@ -62,8 +62,8 @@ namespace skill212
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill212','player','logger'));
 		if (!\skillbase\skill_query(212) || !check_unlocked212()) return 0;
-		$hidegainrate = $hidegain[\skillbase\skill_getvalue(212,'lvl')];
-		return $hidegainrate;
+		$evgainrate = $evgain[\skillbase\skill_getvalue(212,'lvl')];
+		return $evgainrate;
 	}
 	
 	function get_skill212_extra_reuse_gain()

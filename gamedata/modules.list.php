@@ -498,6 +498,7 @@ item_uu,extra/item_extra/item_uu/,1
 item_umb,extra/item_extra/item_umb/,1
 skill726,extra/card/skills/skill726/,1
 skill105,extra/club/skills/skill105/,1
+skill727,extra/card/skills/skill727/,1
 skill106,extra/club/skills/skill106/,1
 item_recipe,extra/item_extra/item_recipe/,1
 skill580,extra/card/skills/skill580/,1
