@@ -1,0 +1,10 @@
+<input type="hidden" name="mode" value="special">
+<input type="hidden" id="command" name="command" value="skill728_special">
+<input type="hidden" id="subcmd" name="subcmd" value="castsk728">
+你可以往盒子中投入任意数量金钱，投入的金钱有一半概率<span class="yellow b">翻倍</span>，也有一半概率<span class="red b">消失</span>。<br><br>
+请输入要投入的金钱：<br>
+<input type="number" name="skill728_cost" style="width:120px" value="1" min="1" max="$money">
+</select>
+<br><br>
+<input type="button" class="cmdbutton"  id="z" value="[Z]提交" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="button" class="cmdbutton"  id="x" value="[X]返回" onclick="$('command').value='menu'; postCmd('gamecmd','command.php');this.disabled=true;">
