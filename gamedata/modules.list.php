@@ -300,6 +300,7 @@ skill95,extra/club/skills/skill95/,1
 club26,extra/club/clubs/club26/,1
 skill725,extra/card/skills/skill725/,1
 skill804,extra/card/skills/skill804/,1
+skill728,extra/card/skills/skill728/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
@@ -435,6 +436,7 @@ randmix,extra/misc/randmix/,1
 skill57,extra/club/skills/skill57/,1
 skill436,extra/card/skills/skill436/,1
 supplycrate_event,extra/misc/supplycrate_event/,1
+skill729,extra/card/skills/skill729/,1
 dualwep,base/weapon/dualwep/,1
 wep_b_extra_reloading,extra/item_extra/wep_b_extra_reloading/,1
 skill28,extra/club/skills/skill28/,1
