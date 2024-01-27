@@ -1,5 +1,13 @@
 {template header}
-<div class="subtitle" >$message
+<div class="subtitle" style="margin:10px 0">
+    $message
+</div>
+<div>
+    <!--{if trim($message) == $GLOBALS['_ERROR']['access_disabled']}-->
+        <img style="width:512px;height:512px" src="img/ERROR_1.png" />
+    <!--{else}-->
+        <img style="width:512px;height:512px" src="img/ERROR_2.png" />
+    <!--{/if}-->
 </div>
 <!--{if $errorinfo}-->file=$file<br \>line=$line<!--{/if}-->
 <br>

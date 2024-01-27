@@ -2,6 +2,8 @@
 
 namespace sys
 {
+	//是否禁止访问大部分页面（用于更新等）
+	$disable_access = 0;
 	//是否禁止曜日活动
 	$disable_event = 1;
 	//是否禁止沙盒模式

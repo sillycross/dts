@@ -1,0 +1,11 @@
+{template header}
+<div class="subtitle">用户登录</div>
+<div>
+<form method="post" name="login" action="login.php">
+    <input type="hidden" name="mode" value="main">
+    {lang username}<input type="text" name="username" size="20" maxlength="20" value="$cuser"><br>
+    {lang password}<input type="password" name="password" size="20" maxlength="24" value="$cpass"><br>
+    <input type="submit" name="enter" value="{lang login}">
+</form>
+</div>
+{template footer}

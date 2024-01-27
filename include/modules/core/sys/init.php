@@ -8,7 +8,7 @@ namespace sys
 	//$plock进程锁的文件
 	//$url如果存在，ajax将会直接跳转
 	//$uip其他要传给界面的变量请写在这里
-	global $mode, $command, $db, $plock, $url, $uip, $cudata;
+	global $mode, $command, $db, $plock, $url, $uip, $cudata, $disable_access;
 	//玩家数据池，fetch的时候先判断池里存不存在，如果有则优先调用池里的；
 	//万一以后pdata_pool要变成引用呢？所以多一个origin池
 	//daemon进程结束以及commmand_act.php结束时都会检查并释放玩家池对应的锁文件

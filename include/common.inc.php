@@ -87,6 +87,11 @@ else
 	eval(import_module('input','sys','map'));
 }
 
+/////////////////////Check access diabled////////////////////////
+if(!empty($disable_access) && !in_array(CURSCRIPT, Array('login', 'admin'))) {
+	gexit($_ERROR['access_disabled'],__file__,__line__);
+}
+
 if (defined('NO_SYS_UPDATE')) return;
 
 if (!defined('LOAD_CORE_ONLY') && !in_array(CURSCRIPT, array('chat','help')) && !(CURSCRIPT == 'news' && isset($sendmode) && $sendmode=='news')) \sys\routine();//聊天、游戏内进行状况、帮助页面不刷新游戏状态

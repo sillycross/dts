@@ -562,7 +562,8 @@ function filelist_unachieve($srcfile)
 }
 
 function fold($objfile, $filelist){
-	//return fold_core($objfile, $filelist);
+	//return fold_core($objfile, $filelist);
+
 	return filelist_achieve($objfile, $filelist);
 }
 

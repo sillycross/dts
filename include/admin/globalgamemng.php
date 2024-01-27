@@ -24,6 +24,7 @@ if($command == 'edit') {
 		'chatrefresh'=>'int',
 		'chatinnews'=>'int',
 		'max_room_num'=>'int',
+		'disable_access'=>'int',
 		'disable_event'=>'int',
 		'disable_newgame'=>'int',
 		'disable_newroom'=>'int'

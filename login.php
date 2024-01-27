@@ -5,16 +5,17 @@ define('LOAD_CORE_ONLY', TRUE);
 
 require './include/common.inc.php';
 
-
-
-if($mode == 'quit') {
-
+if($mode == 'quit') {//退出指令最优先
 	gsetcookie('user','');
 	gsetcookie('pass','');
 	header("Location: index.php");
 	exit();
-
 }
+if(!isset($username) && empty($cuser)) {//如果用户名为空则显示一个登陆用的界面
+	include template('login_page');
+	exit();
+}
+//其他情况下验证登陆，出错则显示错误页面，通过则跳转首页
 include './gamedata/banlist.list';
 
 $name_check = name_check($username);

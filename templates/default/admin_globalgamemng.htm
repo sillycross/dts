@@ -78,6 +78,15 @@
 			<td>{$lang['max_room_num_comment']}</td>
 		</tr>
 		<tr>
+			<td>{$lang['disable_access']}</td>
+			<td>
+				<input type="radio" name="disable_access" value="1" <!--{if $disable_access}-->checked<!--{/if}-->>是
+				&nbsp;&nbsp;&nbsp;
+				<input type="radio" name="disable_access" value="0" <!--{if !$disable_access}-->checked<!--{/if}-->>否
+			</td>
+			<td>{$lang['disable_access_comment']}</td>
+		</tr>
+		<tr>
 			<td>{$lang['disable_event']}</td>
 			<td>
 				<input type="radio" name="disable_event" value="1" <!--{if $disable_event}-->checked<!--{/if}-->>是
