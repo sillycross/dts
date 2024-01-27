@@ -16,7 +16,7 @@ namespace skill597
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill597'));
 		\skillbase\skill_setvalue(597,'itmarr','',$pa);
-		\skillbase\skill_delvalue(597,'lvl',$skill597_size,$pa);
+		\skillbase\skill_setvalue(597,'lvl',$skill597_size,$pa);
 	}
 	
 	function lost597(&$pa)
