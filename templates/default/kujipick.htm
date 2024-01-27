@@ -43,7 +43,7 @@
 	<!--{eval $title_height = 40;}-->
 	<!--{loop $pl $v}-->
 		<!--{eval $packname = $v; }-->
-		<!--{eval $pack_title = '<input type="submit" name="enter" class="b_button bc_white" value="'.$v.'" onclick="$(\'packchoice\').value=\''.$v.'\'; document.ktype3.submit();">';}-->
+		<!--{eval $pack_title = '<input type="submit" name="enter" class="b_button bc_white pack_title_button" value="'.$v.'" onclick="$(\'packchoice\').value=\''.$v.'\'; document.ktype3.submit();">';}-->
 		{template MOD_CARDBASE_PACK_FRAME}
 		<!--{/loop}-->
 	</div>

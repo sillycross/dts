@@ -1,6 +1,6 @@
 /*==========卡包背景==========*/
 div.pack_frame{
-	height:152px;min-width:160px;
+	height:180px;min-width:160px;
 	display:inline-block;
 	position:relative;
 	text-align: center;
@@ -34,6 +34,9 @@ div.pack_border{
 	-webkit-mask-repeat: no-repeat;
 	mask-repeat: no-repeat;
 	z-index:5;
+}
+.pack_title_button{
+	width:128px;padding: 7px 0!important;
 }
 /*==========卡片基础显示==========*/
 .cardframe_show div{
