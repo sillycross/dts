@@ -40,11 +40,11 @@ namespace skill728
 			$moneycost = (int)$skill728_cost;
 			if ($moneycost <= 0)
 			{
-				$log .= "盒子突然开口说话：<span class=\"yellow b\">“不赌赶紧走，我还要睡觉呢。”</span><br>";
+				$log .= "盒子里传来话音：<span class=\"yellow b\">“喵，你已经没有钱了喵。”</span><br>";
 			}
 			elseif ($moneycost > $money)
 			{
-				$log .= "盒子突然开口说话：<span class=\"yellow b\">“你哪有那么多钱？”</span><br>";
+				$log .= "盒子里传来话音：<span class=\"yellow b\">“喵，你没有那么多钱，再确认一下喵。”</span><br>";
 			}
 			else
 			{
@@ -61,7 +61,7 @@ namespace skill728
 					$money -= $moneycost;
 					$log .= "盒子晃动了两下，然后静止了下来。盒子里什么也没有出现，投入的金钱也消失了。<br>";
 					$log .= "你失去了<span class=\"yellow b\">$moneycost</span>元。<br>";
-					if ($moneycost > 3000) $log .= "你似乎听到盒子里传出嘲笑声……是错觉吗？<br>";
+					if ($moneycost > 3000) $log .= "你似乎听到盒子里传出*嘲笑的猫叫声*……是错觉吗？<br>";
 					if ($money == 0) $log .= "<span class=\"red b\">这下破产了……</span><br>";
 				}
 				$mode = 'command';
