@@ -6,8 +6,8 @@ $clubskillname[$___TEMP_SKILL_ID]
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class="skilldesc_left b3"><span class="skilldesc">
-<!--{eval $clv = (int)\skillbase\skill_getvalue(104,'lvl',$who); }-->
-你可以吸收至多<span class="yellow b">$cubemax[$clv]</span>个方块，<br>超出上限时，有<span class="yellow b">85%</span>概率回收最早被吸收的方块。<br>战斗中，对每个吸收的方块有<span class="yellow b">15%</span>概率视为具有其对应的攻击属性之一<br>
+<!--{eval $clv = (int)\skillbase\skill_getvalue(104,'lvl',$who); $skill104_actrate = \skill104\get_skill104_actrate($who);}-->
+你可以吸收至多<span class="yellow b">$cubemax[$clv]</span>个方块，<br>超出上限时，有<span class="yellow b">85%</span>概率回收最早被吸收的方块。<br>战斗中，对每个吸收的方块有<span class="yellow b">{$skill104_actrate}%</span>概率视为具有其对应的攻击属性之一<br>
 <!--{if $upgradecost[$clv] !== -1}-->
 可花费<span class="lime b">$upgradecost[$clv]</span>点技能点升级，升级后可吸收至多<span class="yellow b">5</span>个方块<br>
 <!--{/if}-->
