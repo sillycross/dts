@@ -91,6 +91,9 @@ namespace song
 				case 'Never Gonna Give You Up':
 					$ret .= '歌唱：使你和同地区玩家的怒气清空，但也有概率变为最大值';
 					break;
+				case '『勇者』':
+					$ret .= '歌唱：使你和同地区玩家的灵熟上升30，其他系熟练度上升5';
+					break;
 				default :
 					$ret .= '好像不存在这样一首歌呢……';
 					break;
@@ -125,6 +128,7 @@ namespace song
 			$noiseinfo['ss_BY']='《Baba yetu》';
 			$noiseinfo['ss_CM']='《Clear Morning》';
 			$noiseinfo['ss_NG']='《Never Gonna Give You Up》';
+			$noiseinfo['ss_ys']='『勇者』';
 		}
 	}
 	
@@ -599,6 +603,7 @@ namespace song
 		elseif('歌词卡片海洋'==$sname) $sname = 'CANOE';
 		elseif('爸爸野猪'==$sname) $sname = 'Baba yetu';
 		elseif('快说小仓唯唱歌贼！好！听！'==$sname) $sname = 'Clear Morning';
+		elseif('赠送的芙蓉王'==$sname) $sname = '『勇者』';
 		return $sname;
 	}
 	
