@@ -14,7 +14,7 @@ namespace skill486
 	function acquire486(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		\skillbase\skill_setvalue(486,'lvl','0',$pa);
+		\skillbase\skill_setvalue(486,'lvl','2',$pa);
 		\skillbase\skill_setvalue(486,'rtime','0',$pa);
 	}
 	
