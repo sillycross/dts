@@ -181,7 +181,12 @@ namespace instance8
 					'itmk1' => 'WK',
 					'itme1' => 280,
 					'itms1' => 100,
-					'itmsk1' => 'kj',
+					'itmsk1' => 'ikj',
+					'itm2' => '汇灵戒·吞星',
+					'itmk2' => 'DAS',
+					'itme2' => 70,
+					'itms2' => 20,
+					'itmsk2' => '^st1^vol4',
 					'description' => '全息幻象 幻影斗将神 S.A.S，本名叫做『Salina』，东之国著名角色扮演游戏《重生之地》的女主角之一，使用符合设定的巨大镰刀进行攻击。掉落优秀的斩系武器（可变为DN刀）。',
 				),
 				2 => array
