@@ -130,12 +130,12 @@ namespace skill424
 			if(!isset(${'cont_'.$kv})) return NULL;
 			$nowkindarr = array_merge($nowkindarr, ${'cont_'.$kv});
 		}
-		for($i=0;$i<99;$i++){
+		for($i=0;$i<9999;$i++){//执行循环最多9999次。这会导致某些选项被漏过去，但是暂时懒得改……
 			if(empty($nowkindarr)) break;
 			$iname = array_rand($nowkindarr);
-			
-			if(in_array($iname,$aready) || $nowkindarr[$iname][0] < $minnum
-				 || ($maxnum > 0 && $nowkindarr[$iname][0] > $maxnum) || $nowkindarr[$iname][1] > $nowarea)
+			//四种情况下，删掉不符合要求的元素并重新进行循环，否则跳出
+			if(in_array($iname,$aready) || $nowkindarr[$iname][0] < $minnum || //1、元素已经在$aready变量中 2、不符合最小数目要求
+				($maxnum > 0 && $nowkindarr[$iname][0] > $maxnum) || $nowkindarr[$iname][1] > $nowarea) //3、不符合最大数目要求 4、禁区数不符合
 			{
 				unset($nowkindarr[$iname]);
 			}else{
