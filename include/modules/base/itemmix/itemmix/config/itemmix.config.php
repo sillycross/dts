@@ -79,6 +79,7 @@ $mixinfo = array
 	array('class' => 'wp', 'stuff' => array('冰沙','小棍棒','御神签'),'result' => array('冰棍棒','WP',19,39,'ir'),),
 	array('class' => 'wp', 'stuff' => array('【北斗百裂拳】','《北斗神拳》'),'result' => array('【北斗有情破颜拳】','WP',390,100,'drny'),),
 	array('class' => 'wp', 'stuff' => array('☆金属拳套☆','压缩气罐'),'result' => array('☆简易火箭飞拳☆','WP',160,'∞','cd'),),
+	array('class' => 'wp', 'stuff' => array('☆金属拳套☆','能量弹药'),'result' => array('☆简易火箭飞拳☆','WP',160,'∞','cd'),),
 	array('class' => 'wp', 'stuff' => array('☆简易火箭飞拳☆','电磁发射装置'),'result' => array('★火箭飞拳★','WP',400,'∞','cdN'),),
 	array('class' => 'wp', 'stuff' => array('《哲♂学》','小棍棒','增幅设备'),'result' => array('森之妖精的棍棒','WP',200,60,'re'),),
 	array('class' => 'wp', 'stuff' => array('『祝福宝石』','『心灵激光鞭』'),'result' => array('萨卡兰姆神圣棍棒','WP',150,140,'Nwcy'),),

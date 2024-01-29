@@ -4,7 +4,7 @@ namespace skill728
 {
 	function init()
 	{
-		define('MOD_SKILL728_INFO','club;active;hidden;');
+		define('MOD_SKILL728_INFO','card;active;hidden;');
 		eval(import_module('clubbase'));
 		$clubskillname[728] = '魔盒';
 	}

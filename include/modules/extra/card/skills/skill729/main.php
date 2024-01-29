@@ -4,7 +4,7 @@ namespace skill729
 {
 	function init()
 	{
-		define('MOD_SKILL729_INFO','club;hidden;');
+		define('MOD_SKILL729_INFO','card;hidden;');
 		eval(import_module('clubbase'));
 		$clubskillname[729] = '天命';
 	}

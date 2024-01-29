@@ -517,6 +517,17 @@ namespace cardbase
 		//实际卡片效果的载入
 		//////////////////////////////////////////////////////////////
 		$skills = Array();
+		list($ebp, $skills) = card_valid_info_process($card_valid_info, $ebp, $skills);
+		
+		$ebp['card'] = $card;
+		$ebp['cardname'] = $cardname;
+		
+		return Array($ebp, $skills, $prefix);
+	}
+	
+	//实际卡片效果的载入
+	function card_valid_info_process($card_valid_info, &$ebp, &$skills){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
 		foreach ($card_valid_info as $key => $value){
 			if('skills' == $key) {
 				//$skills = $value;
@@ -537,6 +548,9 @@ namespace cardbase
 					}
 				}
 				continue;
+			}elseif('rand_sets' == $key){//从若干个配置中选一个
+				list($ebp, $skills) = card_valid_info_process(array_randompick($value), $ebp, $skills);
+				continue;
 			}
 			if (in_array(substr($key,0,3), Array('wep','arb','arh','ara','arf','art','itm'))){//道具类的，如果是数组则随机选一个
 				if(is_array($value)){
@@ -555,13 +569,9 @@ namespace cardbase
 				$ebp[$key] = $value;
 			}
 		}
-		
-		$ebp['card'] = $card;
-		$ebp['cardname'] = $cardname;
-		
-		return Array($ebp, $skills, $prefix);
+		return array($ebp, $skills);
 	}
-	
+
 	//入场卡片生效时，单项数据的处理。本模块是空的
 	//传参$key为为卡片config里记录的键名，$value为键值
 	function enter_battlefield_cardproc_valueproc($key, $value){
