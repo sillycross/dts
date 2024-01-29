@@ -4072,7 +4072,7 @@ $cards = array(
 		'rare' => 'A',
 		'pack' => 'Ranmen',
 		'desc' => '据说林无月前两年已经死了，<br>现在管理幻境的都是她的亲友团<br>「阿林百人众」。<br>她临死前给每个人发了一个小本子，里面是一百多页如何扮演她的心得。',
-		'effect' => '开局能随机复制并获取场上存活NPC的一项技能（包括称号技能）',
+		'effect' => '开局能复制并获取场上存活NPC的一项技能（包括称号技能）',
 		'energy' => 100,
 		'valid' => array(
 		  'skills' => array(
@@ -4188,7 +4188,7 @@ $cards = array(
 		'pack' => 'Ranmen',
 		'desc' => '爬吗？',
 		'effect' => '爬',
-		'desc_skills' => '开局能随机复制并获得场上存活的NPC身上的一件道具',
+		'desc_skills' => '开局能复制并获得场上存活的NPC身上的一件道具',
 		'energy' => 100,
 		'valid' => array(
 		  'skills' => array(
@@ -4972,7 +4972,7 @@ $cards = array(
 		'pack' => 'Ranmen',
 		'desc' => '这张图猫鼠队铁定跑不出来',
 		'effect' => '结算！',
-		'desc_skills' => '开局能随机复制并获取场上存活玩家的一项技能（包括称号技能）',
+		'desc_skills' => '开局能复制并获取场上存活玩家的一项技能（包括称号技能）',
 		'energy' => 100,
 		'valid' => array(
 		  'skills' => array(
@@ -6207,6 +6207,82 @@ $cards = array(
 			'itmsk6' => '',
 			'skills' => array(
 				'729' => '0',
+			),
+		),
+	),
+	395 => array(
+		'name' => '麦块挑战者',
+		'rare' => 'B',
+		'pack' => 'Ranmen',
+		'desc' => '接下来我要推荐一款没有圆的游戏',
+		'effect' => '开局获得一个特殊的方块',
+		'desc_skills' => '这个方块当然是有用的',
+		'energy' => 120,
+		'valid' => array(
+			'rand_sets' => array(
+				array(
+					'itm6' => '红石方块',
+					'itmk6' => 'X',
+					'itme6' => '1',
+					'itms6' => '1',
+					'itmsk6' => '^res_<:comp_itmsk:>{红色方块.X.1.3..}1^reptype2^rtype4',
+				),
+				array(
+					'itm6' => '草方块',
+					'itmk6' => 'X',
+					'itme6' => '1',
+					'itms6' => '1',
+					'itmsk6' => '^res_<:comp_itmsk:>{绿色方块.X.1.3..}1^reptype2^rtype4',
+				),
+				array(
+					'itm6' => '蓝冰方块',
+					'itmk6' => 'X',
+					'itme6' => '1',
+					'itms6' => '1',
+					'itmsk6' => '^res_<:comp_itmsk:>{蓝色方块.X.1.3..}1^reptype2^rtype4',
+				),
+				array(
+					'itm6' => '泥土方块',
+					'itmk6' => 'X',
+					'itme6' => '1',
+					'itms6' => '1',
+					'itmsk6' => '^res_<:comp_itmsk:>{黄色方块.X.1.3..}1^reptype2^rtype4',
+				),
+				array(
+					'itm6' => '黄金方块',
+					'itmk6' => 'X',
+					'itme6' => '1',
+					'itms6' => '1',
+					'itmsk6' => '^res_<:comp_itmsk:>{金色方块.X.1.3..}1^reptype2^rtype4',
+				),
+				array(
+					'itm6' => '煤炭方块',
+					'itmk6' => 'X',
+					'itme6' => '1',
+					'itms6' => '1',
+					'itmsk6' => '^res_<:comp_itmsk:>{黑色方块.X.1.3..}1^reptype2^rtype4',
+				),
+				array(
+					'itm6' => '石英方块',
+					'itmk6' => 'X',
+					'itme6' => '1',
+					'itms6' => '1',
+					'itmsk6' => '^res_<:comp_itmsk:>{白色方块.X.1.3..}1^reptype2^rtype4',
+				),
+				array(
+					'itm6' => '雪方块',
+					'itmk6' => 'X',
+					'itme6' => '1',
+					'itms6' => '1',
+					'itmsk6' => 'O^res_<:comp_itmsk:>{白色方块.X.1.3..}1^reptype2^rtype4',
+				),
+				array(
+					'itm6' => '玻璃方块',
+					'itmk6' => 'X',
+					'itme6' => '1',
+					'itms6' => '1',
+					'itmsk6' => '^res_<:comp_itmsk:>{水晶方块.X.1.3..}1^reptype2^rtype4',
+				),
 			),
 		),
 	),
