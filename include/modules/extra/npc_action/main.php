@@ -349,7 +349,11 @@ namespace npc_action
 				}
 				if(empty($cdatas)) //没有可用目标则跳过本次行动
 					return;
-				$cdata = array_randompick($cdatas);
+				if('R' == $chase_object) {
+					$cdata = array_randompick($cdatas);//只有'R' == $chase_object才需要random
+				}else{
+					$cdata = $cdatas[0];
+				}
 				if('evade' == $act) {//躲避
 					if($npc['pls'] != $cdata['pls']) //执行到这里如果当前玩家本来就不在NPC的位置，直接返回
 						return;
