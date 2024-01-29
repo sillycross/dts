@@ -1,1 +1,1 @@
-<input type="button" class="cmdbutton" id="f" value="[F]除错" onclick="$('mode').value='special';$('command').value='skill424_special';$('subcmd').value='wdebug';postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="button" class="cmdbutton <!--{if !\skillbase\skill_getvalue(424,'lvl')}-->Pulse<!--{/if}-->" id="f" value="[F]除错" onclick="$('mode').value='special';$('command').value='skill424_special';$('subcmd').value='wdebug';postCmd('gamecmd','command.php');this.disabled=true;">
