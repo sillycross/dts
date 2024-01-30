@@ -40,9 +40,14 @@ namespace skill731
 		return 1;
 	}
 	
-	function skill731_get_prices(&$pa)
+	function skill731_get_prices(&$pa=NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (empty($pa))
+		{
+			eval(import_module('player'));
+			$pa = $sdata;
+		}
 		$prices_str = \skillbase\skill_getvalue(731,'prices',$pa);
 		if (empty($prices_str)) $prices = skill731_prices_update($pa);
 		else
