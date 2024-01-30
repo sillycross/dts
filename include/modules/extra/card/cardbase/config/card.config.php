@@ -6303,6 +6303,49 @@ $cards = array(
 			),
 		),
 	),
+	398 => array(
+		'name' => '水管工',
+		'rare' => 'M',
+		'pack' => 'Event Bonus',
+		'desc' => '该供水系统依靠漏水运行',
+		'effect' => '开局获得三根漏水的水管。你可以修好水管以获得经验，但某一根水管修好之后会发生意外',
+		'energy' => 0,
+		'valid' => array(
+			'itm4' => '漏水的水管',
+			'itmk4' => 'Z',
+			'itme4' => '1',
+			'itms4' => '1',
+			'itm5' => '漏水的水管',
+			'itmk5' => 'Z',
+			'itme5' => '1',
+			'itms5' => '1',
+			'itm6' => '漏水的水管',
+			'itmk6' => 'Z',
+			'itme6' => '1',
+			'itms6' => '1',
+			'rand_sets' => array(
+				array(
+					'itmsk4' => 'O^skflag732',
+					'itmsk5' => 'O',
+					'itmsk6' => 'O'
+				),
+				array(
+					'itmsk4' => 'O',
+					'itmsk5' => 'O^skflag732',
+					'itmsk6' => 'O'
+				),
+				array(
+					'itmsk4' => 'O',
+					'itmsk5' => 'O',
+					'itmsk6' => 'O^skflag732'
+				)
+			),
+			'skills' => array(
+				'732' => '0',
+			),
+		),
+		'ignore_global_ach' => 1,
+	),
 	
 	1000 => array(
 		'name'=>'萌新',
