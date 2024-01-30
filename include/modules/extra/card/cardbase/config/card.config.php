@@ -6290,6 +6290,19 @@ $cards = array(
 			),
 		),
 	),
+	397 => array(
+		'name' => '二道贩子',
+		'rare' => 'B',
+		'pack' => 'Ranmen',
+		'desc' => '回收——<br><br>冰箱——<br>彩电——<br>空调——<br>洗衣机——',
+		'effect' => '可以买卖特定道具',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'731' => '0',
+			),
+		),
+	),
 	
 	1000 => array(
 		'name'=>'萌新',

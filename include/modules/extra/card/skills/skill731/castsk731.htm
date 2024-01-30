@@ -1,0 +1,28 @@
+<!--{eval eval(import_module('skill731','clubbase','itemmain'));}-->
+<!--{eval $skill731_prices = \skill731\skill731_get_prices($sdata);}-->
+<input type="hidden" name="mode" value="special">
+<input type="hidden" id="command" name="command" value="skill731_special">
+<input type="hidden" id="skill731_bitmn" name="skill731_bitmn" value="">
+<input type="hidden" id="skill731_sitmn" name="skill731_sitmn" value="">
+<input type="hidden" id="skill731_bnum" name="skill731_bnum" value="1">
+<input type="hidden" id="skill731_snum" name="skill731_snum" value="1">
+你可以购买或卖出以下道具：<br><br>
+<table>
+<tbody>
+<!--{loop $skill731_itemlist $i $v}-->
+<!--{eval $k=$i+1;}-->
+<tr>
+	<td style="width:90px">
+		<input type="number" id="num{$k}" style="width:60px" value="1" min="1"><br>
+		<input type="button" style="width:40px" value="购买" onclick="$('skill731_bitmn').value='$k';$('skill731_sitmn').value='';$('skill731_bnum').value=$('num{$k}').value;postCmd('gamecmd','command.php');this.disabled=true;">
+		<input type="button" style="width:40px" value="卖出" onclick="$('skill731_sitmn').value='$k';$('skill731_bitmn').value='';$('skill731_snum').value=$('num{$k}').value;postCmd('gamecmd','command.php');this.disabled=true;">
+	</td>
+	<td>
+		$v[0]/$iteminfo[$v[1]]/$v[2]/$v[3]/价:$skill731_prices[$i]
+	</td>
+</tr>
+<!--{/loop}-->
+</tbody>
+</table>
+<br><br>
+<input type="button" class="cmdbutton"  id="x" value="[X]返回" onclick="$('command').value='menu'; postCmd('gamecmd','command.php');this.disabled=true;">
