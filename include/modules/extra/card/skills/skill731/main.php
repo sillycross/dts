@@ -132,7 +132,7 @@ namespace skill731
 			if (${'itm'.$i} == $skill731_itemlist[$sitmn-1][0])
 			{
 				if ((${'itms'.$i} === '∞') && ($snum == 1)) ${'itms'.$i} = 0;
-				elseif (${'itms'.$i} >= $snum) ${'itms'.$i} -= $snum;
+				elseif (is_numeric(${'itms'.$i}) && (${'itms'.$i} >= $snum)) ${'itms'.$i} -= $snum;
 				else continue;
 				$flag = 1;
 				if (${'itms'.$i} <= 0)
