@@ -18,6 +18,7 @@ $language = array
 	'winner' => '历史优胜',
 	'rank' => '玩家排行',
 	'help' => '游戏帮助',
+	'logistics' => '后勤商店',
 	'homepage' => '官方网站',
 	'admin' => '游戏管理',
 	'report' => '官方讨论区',
