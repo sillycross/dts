@@ -188,7 +188,7 @@ $tutorial_story[1] = Array(
 	2100 => Array(
 		'tips' => '“然后点击<span class="yellow b">【商店】</span>按钮。”<br>',
 		'object' => 'sp_shop',
-		'pulse' => '#c',
+		'pulse' => '#t',
 		'next' => 2200		
 	),
 	2200 => Array(
