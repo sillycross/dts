@@ -301,6 +301,7 @@ club26,extra/club/clubs/club26/,1
 skill725,extra/card/skills/skill725/,1
 skill804,extra/card/skills/skill804/,1
 skill728,extra/card/skills/skill728/,1
+skill731,extra/card/skills/skill731/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
@@ -387,6 +388,7 @@ skill541,extra/card/skills/skill541/,1
 npc_action,extra/npc_action/,1
 skill720,extra/card/skills/skill720/,1
 get_qiegao_in_battle,extra/misc/get_qiegao_in_battle/,1
+logistics,extra/misc/logistics/,1
 skill43,extra/club/skills/skill43/,1
 itemnumlist,extra/item_extra/itemnumlist/,1
 skill56,extra/club/skills/skill56/,1
@@ -427,6 +429,7 @@ skill96,extra/club/skills/skill96/,1
 skill102,extra/club/skills/skill102/,1
 skill103,extra/club/skills/skill103/,1
 skill104,extra/club/skills/skill104/,1
+skill732,extra/card/skills/skill732/,1
 skill1000,extra/instance/instance7_tutorial/skill1000/,1
 skill711,extra/card/skills/skill711/,1
 skill1007,extra/npc_action/skill1007/,1

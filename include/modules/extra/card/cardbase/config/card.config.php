@@ -6095,9 +6095,19 @@ $cards = array(
 		'pack' => 'Way of Life',
 		'desc' => '拥有吞食灵魂能力的篝火服幸存者',
 		'effect' => '做人最重要的是火候',
-		'desc_skills' => '销毁尸体时会得到命体回复类别的灵魂碎片，并可以使用<br>打火机强化灵魂碎片，但食用其他补给品效果-70%',
+		'desc_skills' => '开局携带的面包和矿泉水变为灵魂碎片但效耐降低<br>销毁尸体时会得到命体回复类别的灵魂碎片，并可以使用<br>打火机强化灵魂碎片，但食用其他补给品效果-70%',
 		'energy' => 100,
 		'valid' => array(
+			'itm1' => '褪色的灵魂碎片',
+			'itmk1' => 'HB',
+			'itme1' => '70',
+			'itms1' => '10',
+			'itmsk1' => '',
+			'itm2' => '褪色的灵魂碎片',
+			'itmk2' => 'HB',
+			'itme2' => '70',
+			'itms2' => '10',
+			'itmsk2' => '',
 			'skills' => array(
 				'725' => '0',
 			),
@@ -6222,68 +6232,44 @@ $cards = array(
 			'rand_sets' => array(
 				array(
 					'itm6' => '红石方块',
-					'itmk6' => 'X',
-					'itme6' => '1',
-					'itms6' => '1',
 					'itmsk6' => '^res_<:comp_itmsk:>{红色方块.X.1.3..}1^reptype2^rtype4',
 				),
 				array(
 					'itm6' => '草方块',
-					'itmk6' => 'X',
-					'itme6' => '1',
-					'itms6' => '1',
 					'itmsk6' => '^res_<:comp_itmsk:>{绿色方块.X.1.3..}1^reptype2^rtype4',
 				),
 				array(
 					'itm6' => '蓝冰方块',
-					'itmk6' => 'X',
-					'itme6' => '1',
-					'itms6' => '1',
 					'itmsk6' => '^res_<:comp_itmsk:>{蓝色方块.X.1.3..}1^reptype2^rtype4',
 				),
 				array(
 					'itm6' => '泥土方块',
-					'itmk6' => 'X',
-					'itme6' => '1',
-					'itms6' => '1',
 					'itmsk6' => '^res_<:comp_itmsk:>{黄色方块.X.1.3..}1^reptype2^rtype4',
 				),
 				array(
 					'itm6' => '黄金方块',
-					'itmk6' => 'X',
-					'itme6' => '1',
-					'itms6' => '1',
 					'itmsk6' => '^res_<:comp_itmsk:>{金色方块.X.1.3..}1^reptype2^rtype4',
 				),
 				array(
 					'itm6' => '煤炭方块',
-					'itmk6' => 'X',
-					'itme6' => '1',
-					'itms6' => '1',
 					'itmsk6' => '^res_<:comp_itmsk:>{黑色方块.X.1.3..}1^reptype2^rtype4',
 				),
 				array(
 					'itm6' => '石英方块',
-					'itmk6' => 'X',
-					'itme6' => '1',
-					'itms6' => '1',
 					'itmsk6' => '^res_<:comp_itmsk:>{白色方块.X.1.3..}1^reptype2^rtype4',
 				),
 				array(
 					'itm6' => '雪方块',
-					'itmk6' => 'X',
-					'itme6' => '1',
-					'itms6' => '1',
 					'itmsk6' => 'O^res_<:comp_itmsk:>{白色方块.X.1.3..}1^reptype2^rtype4',
 				),
 				array(
 					'itm6' => '玻璃方块',
-					'itmk6' => 'X',
-					'itme6' => '1',
-					'itms6' => '1',
 					'itmsk6' => '^res_<:comp_itmsk:>{水晶方块.X.1.3..}1^reptype2^rtype4',
 				),
 			),
+			'itmk6' => 'X',
+			'itme6' => '1',
+			'itms6' => '1',
 		),
 	),
 	396 => array(
@@ -6303,6 +6289,63 @@ $cards = array(
 				'730' => '0',
 			),
 		),
+	),
+	397 => array(
+		'name' => '二道贩子',
+		'rare' => 'B',
+		'pack' => 'Ranmen',
+		'desc' => '回收——<br><br>冰箱——<br>彩电——<br>空调——<br>洗衣机——',
+		'effect' => '可以买卖特定道具',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'731' => '0',
+			),
+		),
+	),
+	398 => array(
+		'name' => '水管工',
+		'rare' => 'M',
+		'pack' => 'Event Bonus',
+		'desc' => '你负责维护大楼的下水系统。尽管水管不停漏水，但旁边留着上一任老水管工留下的字迹：',
+		'effect' => '不要动它！不要动它！不要动它！',
+		'desc_skills' => '开局获得三根漏水的水管。你可以修好水管以获得经验，<br>但某一根水管修好之后会发生意外',
+		'energy' => 0,
+		'valid' => array(
+			'itm4' => '漏水的水管',
+			'itmk4' => 'Z',
+			'itme4' => '1',
+			'itms4' => '1',
+			'itm5' => '漏水的水管',
+			'itmk5' => 'Z',
+			'itme5' => '1',
+			'itms5' => '1',
+			'itm6' => '漏水的水管',
+			'itmk6' => 'Z',
+			'itme6' => '1',
+			'itms6' => '1',
+			'rand_sets' => array(
+				array(
+					'itmsk4' => 'O^skflag732',
+					'itmsk5' => 'O',
+					'itmsk6' => 'O'
+				),
+				array(
+					'itmsk4' => 'O',
+					'itmsk5' => 'O^skflag732',
+					'itmsk6' => 'O'
+				),
+				array(
+					'itmsk4' => 'O',
+					'itmsk5' => 'O',
+					'itmsk6' => 'O^skflag732'
+				)
+			),
+			'skills' => array(
+				'732' => '0',
+			),
+		),
+		'ignore_global_ach' => 1,
 	),
 	
 	1000 => array(

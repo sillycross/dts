@@ -30,10 +30,14 @@ namespace skill262
 	function findenemy(&$edata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$ct = floor(getmicrotime()*1000);
-		//eval(import_module('logger'));
-		\skillbase\skill_setvalue(262,'ct',$ct);
-		//$log .= '$ct='.$ct.'<br>';
+		eval(import_module('player'));
+		if (\skillbase\skill_query(262,$sdata) && check_unlocked262($sdata))
+		{
+			$ct = floor(getmicrotime()*1000);
+			//eval(import_module('logger'));
+			\skillbase\skill_setvalue(262,'ct',$ct,$sdata);
+			//$log .= '$ct='.$ct.'<br>';
+		}
 		return $chprocess($edata);
 	}
 	
