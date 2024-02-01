@@ -101,7 +101,7 @@ namespace skill101
 		}
 		elseif ($itmk0[0] == 'D')
 		{
-			$tmpsk[] = array_randompick(array('B','b','Z','h','A','a','^wc1','P','K','G','C','D','F','R','q','U','I','E','W','H','M','m','z'), 3);
+			$tmpsk = array_randompick(array('B','b','Z','h','A','a','^wc1','P','K','G','C','D','F','R','q','U','I','E','W','H','M','m','z'), 3);
 		}
 		foreach($tmpsk as $sk)
 		{
@@ -141,9 +141,9 @@ namespace skill101
 		}
 		elseif ($itmk0[0] == 'D')
 		{
-			if ($dice < 40)
+			if (($dice < 40) && (strpos(substr($itmk0,2),'S') === false))
 			{
-				$itmk = substr($itmk0, 0, 2).'S'.substr($itmk0, 2);
+				$itmk0 = substr($itmk0, 0, 2).'S'.substr($itmk0, 2);
 				if (strpos($itm0, '-改') === false) $itm0 = $itm0.'-改';
 			}
 		}
