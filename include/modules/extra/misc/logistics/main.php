@@ -171,7 +171,6 @@ namespace logistics
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$itemlist = logistics_get_itemlist_from_udata($pa);
-		if ($num <= 0) return 0;
 		if (isset($itemlist[$itemid])) $itemlist[$itemid] += $num;
 		else $itemlist[$itemid] = $num;
 		$pa = logistics_put_itemlist_to_udata($itemlist, $pa);
@@ -213,7 +212,7 @@ namespace logistics
 				$qiegaocost = $cardblink_upgrade_cost[$cards[$para]['rare']][0];
 				if ($qiegaocost <= 0 || ($pa['gold'] < $qiegaocost)) return 0;
 				
-				\cardbase\get_qiegao($qiegaocost, $pa);
+				\cardbase\get_qiegao(-$qiegaocost, $pa);
 				$log .= "消耗{$qiegaocost}切糕，使卡片【{$cards[$para]['name']}】变为了闪烁。<br>";
 				
 				\cardbase\get_card_alternative($para, $pa, 1, 10);
@@ -233,7 +232,7 @@ namespace logistics
 				$qiegaocost = $cardblink_upgrade_cost[$cards[$para]['rare']][1];
 				if ($qiegaocost <= 0 || ($pa['gold'] < $qiegaocost)) return 0;
 				
-				\cardbase\get_qiegao($qiegaocost, $pa);
+				\cardbase\get_qiegao(-$qiegaocost, $pa);
 				$log .= "消耗{$qiegaocost}切糕，使卡片【{$cards[$para]['name']}】变为了镜碎。<br>";
 				
 				\cardbase\get_card_alternative($para, $pa, 1, 20);
