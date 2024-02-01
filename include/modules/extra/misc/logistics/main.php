@@ -3,9 +3,9 @@
 namespace logistics
 {
 	function init() {
-
+		
 	}
-
+	
 	//获取商店卡片列表
 	function get_cardshop_list($udata){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -22,7 +22,7 @@ namespace logistics
 		$cardid_list[3] = $cardindex['B'][$fatenum % count($cardindex['B'])];
 		$arr = array_merge($cardindex['S'],$cardindex['A'],$cardindex['B'],$cardindex['C']);
 		$arr = array_diff($arr, $cardid_list);
-
+		
 		srand($fatenum);
 		$rand_keys = array_rand($arr, 5);
 		$i = 4;
@@ -31,7 +31,7 @@ namespace logistics
 			$cardid_list[$i] = $arr[$key];
 			$i += 1;
 		}
-
+		
 		$cardshop_list = array();
 		foreach ($cardid_list as $k=>$v)
 		{
@@ -50,7 +50,7 @@ namespace logistics
 		if (isset($b20)) $cardshop_list[$b20]['blink'] = 20;
 		return $cardshop_list;
 	}
-
+	
 	//后勤商店购买道具，暂时只完成了卡片
 	//$type为1表示卡片，2表示道具
 	//返回0表示指令错误，返回-1表示购买失败，返回1表示购买成功
@@ -58,29 +58,28 @@ namespace logistics
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!in_array($type, array(1,2))) return 0;
-
+		
 		if ($type == 1)
 		{
 			$cardshop_list = get_cardshop_list($pa);
 			if (!isset($cardshop_list[$itemid])) return 0;
 			$nowcard = $cardshop_list[$itemid];
-
+			
 			$cost = get_card_price($nowcard);
 			if (empty($cost)) return 0;
 			if ($pa['gold'] < $cost) return -1;
 			$card_data = \cardbase\get_cardlist_energy_from_udata($pa)[2];
 			$o_blink = !empty($card_data[$nowcard['id']]['blink']) ? $card_data[$nowcard['id']]['blink'] : 0;
 			if ($o_blink >= $nowcard['blink']) return -1;
-
+			
 			if (!empty($pa)) \cardbase\get_qiegao(-$cost,$pa);
-
+			
 			if (isset($nowcard['blink'])) $blink = $nowcard['blink'];
 			else $blink = 0;
 			\cardbase\get_card_alternative($nowcard['id'], $pa, 0, $blink);
-
+			
 			if($pa){
 				$un = $pa['username'];
-
 				$upd = Array(
 					'gold' => $pa['gold'],
 					'card_data' => $pa['card_data'],
@@ -97,12 +96,11 @@ namespace logistics
 			if ($pa['gold'] < $cost) return -1;
 			
 			if (!empty($pa)) \cardbase\get_qiegao(-$cost,$pa);
-
+			
 			logistics_itemget($itemid, $pa, 1);
-
+			
 			if($pa){
 				$un = $pa['username'];
-
 				$upd = Array(
 					'gold' => $pa['gold'],
 					'log_itemlist' => $pa['log_itemlist'],
@@ -112,7 +110,7 @@ namespace logistics
 		}
 		return 1;
 	}
-
+	
 	//根据卡片稀有度和闪/碎计算售价
 	function get_card_price($nowcard)
 	{
@@ -179,7 +177,7 @@ namespace logistics
 		$pa = logistics_put_itemlist_to_udata($itemlist, $pa);
 		return 1;
 	}
-
+	
 	//使用仓库道具
 	//使用成功返回使用结果的字符串，返回0表示指令错误或使用失败
 	function logistics_itemuse($itemid, $para, &$pa)
@@ -270,7 +268,7 @@ namespace logistics
 		
 		return $log;
 	}
-
+	
 }
 
 ?>
