@@ -48,16 +48,16 @@ namespace skill529
 		//gwrite_var('a.txt', $spool);
 		if(!empty($spool)){
 			$spool_keys = Array_keys($spool);
-			do{
-				list($nid, $getskillid) = explode('_',array_randompick($spool_keys));
-			} while(strpos(constant('MOD_SKILL'.$getskillid.'_INFO'),'hidden;')!==false || strpos(constant('MOD_SKILL'.$getskillid.'_INFO'),'achievement;')!==false);//获得的技能不能带有hidden标签或者achievement标签
+			list($nid, $getskillid) = explode('_',array_randompick($spool_keys));
 			
 			\skillbase\skill_acquire($getskillid,$pa);
 			
 			$getskillval = $spool[$nid.'_'.$getskillid];
 			//gwrite_var('a.txt', $getskillid);
-			foreach($getskillval as $gk => $gv){
-				\skillbase\skill_setvalue($getskillid, $gk, $gv, $pa);//获得对应技能
+			if(!empty($getskillval)){
+				foreach($getskillval as $gk => $gv){
+					\skillbase\skill_setvalue($getskillid, $gk, $gv, $pa);//获得对应技能
+				}
 			}
 		}
 	}
@@ -74,26 +74,38 @@ namespace skill529
 		while($npc = $db->fetch_array($result)){
 			\skillbase\skillbase_load($npc, 1);
 			if(!empty($npc['acquired_list'])) {
-				
-				foreach($npc['parameter_list'] as $pk => $pv){
-					list($sid,$skey) = explode('_',$pk);
-					if(!skill529_skill_filter($sid)) continue;//过滤技能id
-					$poolid = $npc['pid'].'_'.$sid;//以pid_skillid为键名储存技能参数
-					if(!isset($spool[$poolid])) $spool[$poolid] = Array();
+				//第一次循环：根据acquired_list列表建立技能数组
+				foreach($npc['acquired_list'] as $pk => $pv){//acquired_list列表是skillid => 0/1的形式
+					if(!skill529_skill_filter($pk)) continue;//过滤技能id
+					if(!empty($pv)) {
+						//以pid_skillid为键名建立技能数组
+						$spool[$npc['pid'].'_'.$pk] = Array();
+					}
+				}
+				//第二次循环：根据parameter_list列表填充技能参数
+				foreach($npc['parameter_list'] as $pk => $pv){//parameter_list列表是skillid_key => val的形式
+					list($sid,$skey) = explode('_',$pk,2);
+					$poolid = $npc['pid'].'_'.$sid;
+					if(!isset($spool[$poolid])) continue;//如果第一步循环没有建立过这个技能数组就跳过
 					$spool[$poolid][$skey] = $pv;
 				}
 			}
 		}
+		//gwrite_var('a.txt',$spool);
 		return $spool;
 	}
 	
-	//技能池过滤：除去不适合给玩家的技能，主要包括81号换装、460号占位符、512号幻象技能
+	//技能池过滤：除去不适合给玩家的技能，主要为隐藏技能、成就，以及个别技能（包括10、11、12号技能，81号换装、460号占位符、512号幻象技能）
 	//若过滤，返回0；否则返回$skillid
 	function skill529_skill_filter($skillid){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$filter_arr = Array(81,460,512);
+		$filter_arr = Array(10,11,12,81,460,512);
 
 		if(in_array($skillid, $filter_arr)) $skillid = 0;
+		else{
+			$const = constant('MOD_SKILL'.$skillid.'_INFO');
+			if(strpos($const,'hidden')!==false || strpos($const,'achievement')!==false) $skillid = 0;
+		}
 		return $skillid;
 	}
 	

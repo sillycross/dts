@@ -118,7 +118,7 @@ namespace map
 		return array_slice($arealist, $areanum + ($wave - 1) * $areaadd, $areaadd);
 	}
 	
-	//增加禁区时的角色处理。本模块是空的
+	//增加禁区时的角色处理。本模块是空的，实际处理在player和npc模块
 	function addarea_pc_process($atime)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

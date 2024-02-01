@@ -152,20 +152,24 @@ namespace sys
 		if(is_array($a)){
 			$a=implode('_',$a);
 		}
-	
+		
+		//部分死亡方式在addnews的时候同时发送聊天记录（遗言）
 		//这尼玛写的太坑了吧…… 不管了直接import map模块进来了……
-		eval(import_module('map'));
-		if(strpos($n,'death11') === 0  || strpos($n,'death32') === 0) {
+		//嗯，就是太坑了
+		$plsinfo = get_var_in_module('plsinfo', 'map');
+		if(strpos($n,'death11') === 0  || strpos($n,'death32') === 0) {//禁区死、挂机死，$c是死亡地点
 			$result = $db->query("SELECT lastword FROM {$tablepre}players WHERE name = '$a'");
 			$r = $db->fetch_array($result);
 			$e = $lastword = $r['lastword'];
-			$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,recv,msg) VALUES ('3','$t','【{$plsinfo[$c]}】 $a','','$lastword')");
-		}	elseif(strpos($n,'death15') === 0 || strpos($n,'death16') === 0) {
+			addchat('3', $lastword, $a, '', $t, $c);
+			//$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,recv,msg,pls) VALUES ('3','$t','$a','','$lastword','$c')");
+		}elseif(strpos($n,'death15') === 0 || strpos($n,'death16') === 0) {
 			$result = $db->query("SELECT lastword,pls FROM {$tablepre}players WHERE name = '$a'");
 			$r = $db->fetch_array($result);
 			$e = $lastword = $r['lastword'];
 			$place = $r['pls'];
-			$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,recv,msg) VALUES ('3','$t','【{$plsinfo[$place]}】 $a','','$lastword')");
+			addchat('3', $lastword, $a, '', $t, $place);
+			//$db->query("INSERT INTO {$tablepre}chat (type,`time`,send,recv,msg) VALUES ('3','$t','【{$plsinfo[$place]}】 $a','','$lastword')");
 		}
 		$db->query("INSERT INTO {$tablepre}newsinfo (`time`,`news`,`a`,`b`,`c`,`d`,`e`) VALUES ('$t','$n','$a','$b','$c','$d','$e')");
 		
