@@ -272,6 +272,68 @@ namespace logistics
 		return $log;
 	}
 	
+	//获取展柜卡片列表
+	function get_showcase_cardlist_from_udata($udata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		if(!empty($udata['log_s_cardlist'])) $ret = explode('_', $udata['log_s_cardlist']);
+		else $ret = array(0,0,0);
+		if (count($ret) != 3) $ret = array(0,0,0);
+		
+		//新建字段
+		if(1){
+			$column_existed = 0;
+			eval(import_module('sys'));
+			$result = $db->query("SHOW COLUMNS FROM {$gtablepre}users");
+			while($r = $db->fetch_array($result)){
+				if($r['Field'] == 'log_s_cardlist') {
+					$column_existed = 1;
+					break;
+				}
+			}
+			if(!$column_existed) {
+				$db->query("ALTER TABLE {$gtablepre}users ADD COLUMN `log_s_cardlist` text NOT NULL DEFAULT '' AFTER `n_achievements`");
+			}
+		}
+		
+		return $ret;
+	}
+	
+	//储存展柜卡片列表
+	function put_showcase_cardlist_to_udata(&$s_cardlist, &$udata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (is_array($s_cardlist)) $udata['log_s_cardlist'] = implode('_', $s_cardlist);
+		return $udata;
+	}
+	
+	//设置展柜卡牌
+	function set_showcase_card($cardchoice, $cardpos, &$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$cardchoice = (int)$cardchoice;
+		$cardpos = (int)$cardpos;
+		
+		if (!in_array($cardpos, array(1,2,3))) return 0;
+		
+		$cardlist = \cardbase\get_cardlist_energy_from_udata($pa)[0];
+		if (!in_array($cardchoice, $cardlist)) return 0;
+		
+		$s_cardlist = get_showcase_cardlist_from_udata($pa);
+		if (in_array($cardchoice, $s_cardlist)) return 0;
+		$s_cardlist[$cardpos-1] = $cardchoice;
+		
+		put_showcase_cardlist_to_udata($s_cardlist, $pa);
+		
+		$upd = array();
+		$un = $pa['username'];
+		$upd['log_s_cardlist'] = $pa['log_s_cardlist'];
+		update_udata_by_username($upd, $un);
+		
+		return 1;
+	}
+	
 }
 
 ?>

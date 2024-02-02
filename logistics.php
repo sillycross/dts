@@ -37,22 +37,25 @@ elseif ($type == 2)
 	
 	include template('log_itemshop');
 }
-// elseif ($type == 3)
-// {
-	// eval(import_module('logistics','cardbase'));
-	// $showcase_cardlist = \logistics\get_showcase_cardlist_from_udata($udata);
+elseif ($type == 4)
+{
+	eval(import_module('logistics','cardbase'));
+	$showcase_cardlist = \logistics\get_showcase_cardlist_from_udata($udata);
+	$cardlist = \cardbase\get_cardlist_energy_from_udata($udata)[0];
+	$card_data = \cardbase\get_cardlist_energy_from_udata($udata)[2];
 	// $showcase_gameitemlist = \logistics\get_showcase_gameitemlist_from_udata($udata);
+	$showcase_gameitemlist = array();
 	// $showcase_logitemlist = \logistics\get_showcase_logitemlist_from_udata($udata);
-	// $cardlist = \cardbase\get_cardlist_energy_from_udata($udata)[0];
+	$showcase_logitemlist = array();
 	
-	// if (!empty($cardchoice))
-	// {
-		// \logistics\set_showcase_card($cardchoice, $cardpos, $udata);
-		// header("Refresh:0");
-	// }
+	if (!empty($cardchoice))
+	{
+		\logistics\set_showcase_card($cardchoice, $cardpos, $udata);
+		header("Refresh:0");
+	}
 	
-	// include template('log_showcase');
-// }
+	include template('log_showcase');
+}
 else
 {
 	eval(import_module('logistics','cardbase'));
