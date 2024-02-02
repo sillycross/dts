@@ -91,6 +91,7 @@ namespace logistics
 		{
 			eval(import_module('logistics'));
 			if (!isset($logistics_shop_items[$itemid])) return 0;
+			if ($logistics_shop_items[$itemid][4]) return 0;
 			$cost = $logistics_shop_items[$itemid][2];
 			if ($cost <= 0) return -1;
 			if ($pa['gold'] < $cost) return -1;
@@ -196,7 +197,7 @@ namespace logistics
 			case 1://切糕盒，使用后随机获得1-200切糕
 				$qiegaogain = rand(1,200);
 				\cardbase\get_qiegao($qiegaogain, $pa);
-				$log .= "使用了切糕盒子，获得了{$qiegaogain}切糕。<br>";
+				$log .= "使用了切糕盒子，获得了<span class=\"yellow b\">{$qiegaogain}</span>切糕。<br>";
 				logistics_itemget($itemid, $pa, -1);
 				
 				$upd['gold'] = $pa['gold'];
@@ -213,9 +214,10 @@ namespace logistics
 				if ($qiegaocost <= 0 || ($pa['gold'] < $qiegaocost)) return 0;
 				
 				\cardbase\get_qiegao(-$qiegaocost, $pa);
-				$log .= "消耗{$qiegaocost}切糕，使卡片【{$cards[$para]['name']}】变为了闪烁。<br>";
+				$rarecolor = $card_rarecolor[$cards[$para]['rare']];
+				$log .= "消耗<span class=\"yellow b\">{$qiegaocost}</span>切糕，使卡片<span class=\"{$rarecolor} b\">【{$cards[$para]['name']}】</span>变为了闪烁。<br>";
 				
-				\cardbase\get_card_alternative($para, $pa, 1, 10);
+				\cardbase\get_card_alternative($para, $pa, 0, 10);
 				logistics_itemget($itemid, $pa, -1);
 				
 				$upd['gold'] = $pa['gold'];
@@ -233,9 +235,10 @@ namespace logistics
 				if ($qiegaocost <= 0 || ($pa['gold'] < $qiegaocost)) return 0;
 				
 				\cardbase\get_qiegao(-$qiegaocost, $pa);
-				$log .= "消耗{$qiegaocost}切糕，使卡片【{$cards[$para]['name']}】变为了镜碎。<br>";
+				$rarecolor = $card_rarecolor[$cards[$para]['rare']];
+				$log .= "消耗<span class=\"yellow b\">{$qiegaocost}</span>切糕，使卡片<span class=\"{$rarecolor} b\">【{$cards[$para]['name']}】</span>变为了镜碎。<br>";
 				
-				\cardbase\get_card_alternative($para, $pa, 1, 20);
+				\cardbase\get_card_alternative($para, $pa, 0, 20);
 				logistics_itemget($itemid, $pa, -1);
 				
 				$upd['gold'] = $pa['gold'];
@@ -247,9 +250,10 @@ namespace logistics
 				
 				eval(import_module('cardbase'));
 				$cardenergy[$para] = $cards[$para]['energy'];
-				$log .= "卡片【{$cards[$para]['name']}】完成充能了。<br>";
+				$rarecolor = $card_rarecolor[$cards[$para]['rare']];
+				$log .= "卡片<span class=\"{$rarecolor} b\">【{$cards[$para]['name']}】</span>完成充能了。<br>";
 				
-				put_cardlist_energy_to_udata($cardlist, $cardenergy, $card_data, $pa);
+				\cardbase\put_cardlist_energy_to_udata($cardlist, $cardenergy, $card_data, $pa);
 				logistics_itemget($itemid, $pa, -1);
 				
 				$upd['card_data'] = $pa['card_data'];

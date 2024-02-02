@@ -27,6 +27,7 @@
 				<th></th>
 			</tr>
 			<!--{loop $logistics_shop_items $k $lsitem}-->
+			<!--{if !$lsitem[4]}-->
 			<!--{eval $price=$lsitem[2]; $num=!empty($logitemlist[$k])?$logitemlist[$k]:0;}-->
 			<tr>
 				<td style="text-align:center;font-weight:bold;">{$lsitem[0]}</td>
@@ -35,6 +36,7 @@
 				<td style="text-align:center;">$num</td>
 				<td><input type="button" class="b_button" style="width:120" value="购买" onclick="$('itemchoice').value='$k'; document.logshop.submit();" <!--{if $cg<$price}-->disabled<!--{/if}-->></td>
 			</tr>
+			<!--{/if}-->
 			<!--{/loop}-->
 		</table>
 	</form>
