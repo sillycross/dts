@@ -13,16 +13,18 @@
 <!--{eval $k=$i+1;}-->
 <tr>
 	<td style="width:90px">
-		<input type="number" id="num{$k}" style="width:60px" value="1" min="1"><br>
+		<input type="number" id="num{$k}" style="width:85px" value="1" min="1"><br>
 		<input type="button" style="width:40px" value="购买" onclick="$('skill731_bitmn').value='$k';$('skill731_sitmn').value='';$('skill731_bnum').value=$('num{$k}').value;postCmd('gamecmd','command.php');this.disabled=true;">
 		<input type="button" style="width:40px" value="卖出" onclick="$('skill731_sitmn').value='$k';$('skill731_bitmn').value='';$('skill731_snum').value=$('num{$k}').value;postCmd('gamecmd','command.php');this.disabled=true;">
 	</td>
 	<td>
-		$v[0]/$iteminfo[$v[1]]/$v[2]/$v[3]/价:$skill731_prices[$i]
+		$v[0]/<!--{eval echo \itemmain\parse_itmk_words($v[1]);}-->/$v[2]/$v[3]/价:$skill731_prices[$i]
 	</td>
 </tr>
 <!--{/loop}-->
 </tbody>
 </table>
+<br>
+<span style="font-size:6px">注：卖出会扣除5%的手续费。</span>
 <br><br>
 <input type="button" class="cmdbutton"  id="x" value="[X]返回" onclick="$('command').value='menu'; postCmd('gamecmd','command.php');this.disabled=true;">

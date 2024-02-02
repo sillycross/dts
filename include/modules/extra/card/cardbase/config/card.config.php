@@ -6291,11 +6291,12 @@ $cards = array(
 		),
 	),
 	397 => array(
-		'name' => '二道贩子',
+		'name' => '韭菜',
 		'rare' => 'B',
 		'pack' => 'Ranmen',
-		'desc' => '回收——<br><br>冰箱——<br>彩电——<br>空调——<br>洗衣机——',
-		'effect' => '可以买卖特定道具',
+		'desc' => '我相信今天是大奇迹日，<br>一定会涨的！',
+		'effect' => '今天回到家，煮了点面吃',
+		'desc_skills' => '可以在市场中买卖特定道具，这些道具的价格会随机涨跌',
 		'energy' => 100,
 		'valid' => array(
 			'skills' => array(

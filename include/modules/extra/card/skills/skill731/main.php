@@ -3,21 +3,23 @@
 namespace skill731
 {
 	$skill731_itemlist = array(
-		array('空瓶','X','1','1','','10'),
-		array('小薄本','VG','30','1','','300'),
-		array('打火机','X','1','1','','600'),
-		array('某种电子零件','X','1','1','','1200'),
-		array('洗衣机','WC','200','1','','1800'),
-		array('电视机','WC','100','1','','2500'),
-		array('冰箱','WC','350','1','i^st1^vol6','3200'),	
-		array('空调','WC','300','1','','4000')
+		array('杀币','Y','1','1','','250'),
+		array('大菠萝3','HB','33','1','','500'),
+		array('红茅药酒','PH2','100','1','','1000'),
+		array('文文。核桃','WC','1','1','z','1500'),
+		array('OC头像','DH','20','1','','3000'),
+		array('GTX690战略核显卡','WD','400','1','d','5000'),
+		array('悲叹之种','X','1','1','','8000'),
+		array('精致的大逃杀卡牌套','X','1','1','','20000'),
+		array('AI智能纳米区块链量子养生壶','A','1','1','q','100000'),
+		array('黄金青眼白龙 ★8','WC08','3000','1','','87000000'),
 	);
 	
 	function init() 
 	{
 		define('MOD_SKILL731_INFO','card;active;');
 		eval(import_module('clubbase'));
-		$clubskillname[731] = '黑商';
+		$clubskillname[731] = '开盘';
 	}
 	
 	function acquire731(&$pa)
@@ -63,7 +65,8 @@ namespace skill731
 	function skill731_prices_update(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','skill731'));
+		eval(import_module('sys','skill731','logger'));
+		
 		$prices = array();
 		foreach ($skill731_itemlist as $v)
 		{
@@ -76,6 +79,7 @@ namespace skill731
 		$prices_str = implode('_', $prices);
 		\skillbase\skill_setvalue(731,'prices',$prices_str,$pa);
 		\skillbase\skill_setvalue(731,'updtime',$now,$pa);
+		$log .= '<span class="yellow b">市场价格更新了。</span><br><br>';
 		return $prices;
 	}
 	
@@ -88,7 +92,7 @@ namespace skill731
 			$log .= '你没有这个技能。<br>';
 			return;
 		}
-		elseif ($bnum <= 0 || $bitmn <= 0 || $bitmn >= count($skill731_itemlist))
+		elseif ($bnum <= 0 || $bitmn <= 0 || $bitmn > count($skill731_itemlist))
 		{
 			$log .= '输入参数错误。<br>';
 			return;
@@ -121,7 +125,7 @@ namespace skill731
 			$log .= '你没有这个技能。<br>';
 			return;
 		}
-		elseif ($snum <= 0 || $sitmn <= 0 || $sitmn >= count($skill731_itemlist))
+		elseif ($snum <= 0 || $sitmn <= 0 || $sitmn > count($skill731_itemlist))
 		{
 			$log .= '输入参数错误。<br>';
 			return;
@@ -149,10 +153,12 @@ namespace skill731
 			return;
 		}
 		$skill731_prices = skill731_get_prices($sdata);
-		$gain = $snum * $skill731_prices[$sitmn-1];
+		$gain =  $snum * $skill731_prices[$sitmn-1];
+		$cmsn = round($gain * 0.05);
+		$gain -= $cmsn;
 		$money += $gain;
 		
-		$log .= "出售成功。<br>";
+		$log .= "出售成功，获得了<span class='yellow b'>$gain</span>元<span style='font-size:6px'>（已扣除手续费{$cmsn}元）</span>。<br>";
 		return;
 	}
 	
