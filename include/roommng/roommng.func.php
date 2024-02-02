@@ -573,7 +573,7 @@ function room_enter($id, $force_reset = 0)
 		//判定是否需要重置房间
 		//暂定需要修改这里：只有新创建房间或者点击开始时才重置，旧房结束后不会自动重置
 		$need_reset = $rd['groomstatus'] == 10 && $force_reset ? true : false;
-		if($roomtypelist[$rd['groomtype']]['soleroom'] && !($init_state & 4)){//教程房特殊设定，读取最后有玩家行动的时间，如果超时则需要重置，防止房间各种记录飙得太长
+		if($roomtypelist[$rd['groomtype']]['soleroom'] && !($init_state & 4)){//唯一房间特殊设定，读取最后有玩家行动的时间，如果超时则需要重置，防止房间各种记录飙得太长
 			$result = $db->query("SELECT endtime FROM {$tablepre}players WHERE type=0 ORDER BY endtime DESC LIMIT 1");
 			if($db->num_rows($result)){
 				$lastendtime = $db->fetch_array($result)['endtime'];				

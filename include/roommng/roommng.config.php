@@ -468,7 +468,7 @@ $roomtypelist = Array(
 		'name' => '<font class="red b">教程模式</font>',
 		'gtype' => 17, //对应的游戏模式编号
 		'available' => true,
-		'soleroom' => true,//唯一房间，只有不存在时才会新建房间。
+		'soleroom' => true,//唯一房间，只有不存在时才会新建房间，而且房间空置过长会自动刷新整个房间。
 		'without-ready' => true,//是否不需要点击“准备”就直接进入房间。
 		'without-valid' => true,//是否跳过加入游戏画面就直接进入房间。
 		'pnum' => 1,	//最大参与人数，只有开启准备才有效
