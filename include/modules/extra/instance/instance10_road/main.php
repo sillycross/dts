@@ -45,7 +45,7 @@ namespace instance10
 		{
 			$cardChosen = 1001;//自动选择肉鸽来客
 			$card_ownlist[] = 1001;
-			$packlist[] = $cards[1001]['pack'] = 'Divine Random';
+			$cards[1001]['pack'] = 'Ranmen';
 			$hideDisableButton = 0;
 		}
 		return array($cardChosen, $card_ownlist, $packlist, $hideDisableButton);

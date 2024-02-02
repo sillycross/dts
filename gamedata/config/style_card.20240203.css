@@ -57,7 +57,7 @@ div.cardpanel
 	position:absolute; white-space:nowrap;
 	left:0px; top:0px; 
 	padding:10px;
-	height:310px; width:710px; 
+	height:460px; width:710px; 
 	text-align:left; 
 	overflow-x:auto; overflow-y:hidden;
 }
