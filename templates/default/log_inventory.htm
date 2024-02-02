@@ -1,0 +1,88 @@
+{template header}
+<br><br>
+<center>
+<input type="button" class="b_button bc_white" style="width:198" value="抽卡系统" onclick="window.location.href='kujilist.php'">
+<input type="button" class="b_button bc_white" style="width:198" value="卡片商店" onclick="window.location.href='logistics.php?type=1'">
+<input type="button" class="b_button bc_white" style="width:198" value="道具商店" onclick="window.location.href='logistics.php?type=2'">
+<input type="button" class="b_button bc_white" style="width:198" value="道具仓库" onclick="window.location.href='logistics.php?type=3'">
+<input type="button" class="b_button bc_white" style="width:198" value="道具展柜" onclick="window.location.href='logistics.php?type=4'">
+</center>
+<br>
+
+<div class="subtitle" align="center">道具仓库</div>
+<center>
+<br>
+<div style="width:600px;text-align:center;font-size:14px;">在这里可以查看你拥有的道具和装饰品。</div>
+<br>
+<div style="width:600px;text-align:center;">当前的切糕数量：<span class="evergreen b">$cg</span><br></div>
+<br>
+<center>
+	<form method="post" name="inventory">
+		<input type="hidden" id="itemchoice" name="itemchoice" value="">
+		<input type="hidden" id="itempara" name="itempara" value="">
+		<center>
+		<table style="width:1000px;">
+			<tr style="text-align:center;font-size:18px;">
+				<th>名称</th>
+				<th>描述</th>
+				<th>持有数</th>
+				<th></th>
+			</tr>
+			<!--{loop $logistics_shop_items $k $lsitem}-->
+			<!--{eval $num=!empty($logitemlist[$k])?$logitemlist[$k]:0;}-->
+			<!--{if $num}-->
+			<tr>
+				<td style="text-align:center;font-weight:bold;">{$lsitem[0]}</td>
+				<td style="text-align:center;">$logistics_itemtype[$lsitem[1]]。{$lsitem[3]}</td>
+				<td style="text-align:center;">$num</td>
+				<td><input type="button" class="b_button" style="width:120" value="使用" onclick="$('itemchoice').value='$k';
+				<!--{if in_array($k, array(2,3,4))}-->bubblebox_show('logitemuse{$k}');<!--{else}-->document.inventory.submit();<!--{/if}-->"></td>
+			</tr>
+			<!--{eval \bubblebox\bubblebox_set_style('id:logitemuse'.$k.';height:150;width:600;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:10px;');}-->
+			{template MOD_BUBBLEBOX_START}
+			<div style="margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px;">
+			<center>
+			<div style="font-weight:bold;">
+			<!--{if $k == 2}-->
+			使稀有度为<span class="gold b">S</span>、<span class="cyan b">A</span>、<span class="brickred b">B</span>、<span class="white b">C</span>卡片变为闪烁分别需要花费<span class="yellow b">{$cardblink_upgrade_cost['S'][0]}/{$cardblink_upgrade_cost['A'][0]}/{$cardblink_upgrade_cost['B'][0]}/{$cardblink_upgrade_cost['C'][0]}</span>切糕。<br><br>请选择要镀层的卡片：<br><br>
+			<!--{elseif $k == 3}-->
+			使稀有度为<span class="gold b">S</span>、<span class="cyan b">A</span>、<span class="brickred b">B</span>卡片变为镜碎分别需要花费<span class="yellow b">{$cardblink_upgrade_cost['S'][1]}/{$cardblink_upgrade_cost['A'][1]}/{$cardblink_upgrade_cost['B'][1]}</span>切糕。<br><br>请选择要镀层的卡片：<br><br>
+			<!--{elseif $k == 4}-->
+			请选择要充能的卡片：<br><br>
+			<!--{/if}-->
+			</div>
+			<!--{if in_array($k, array(2,3,4))}-->
+			<select name="cardid" id="cardid">
+			<!--{loop $cardlist $cid}-->
+			<option value="$cid">$cards[$cid]['name']<br>
+			<!--{/loop}-->
+			</select>
+			<!--{/if}-->
+			<br><br>
+			<input type="button" class="b_button" style="width:120" value="使用" onclick="$('itempara').value=$('cardid').value;document.inventory.submit();">
+			</center>
+			</div>
+			{template MOD_BUBBLEBOX_END}
+			<!--{/if}-->
+			<!--{/loop}-->
+		</table>
+		</center>
+	</form>
+</center>
+<br>
+</center>
+
+<!--{if !empty($res)}-->
+<!--{eval \bubblebox\bubblebox_set_style('id:logitemresult;height:100;width:600;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:10px;');}-->
+{template MOD_BUBBLEBOX_START}
+<div style="margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px;">
+<center>
+<br><div style="font-weight:bold;">$res</div><br>
+页面将自动刷新……
+</center>
+</div>
+{template MOD_BUBBLEBOX_END}
+<script>bubblebox_show('logitemresult');</script>
+<!--{/if}-->
+
+{template footer}

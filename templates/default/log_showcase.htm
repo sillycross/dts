@@ -1,0 +1,118 @@
+{template header}
+<br><br>
+<center>
+<input type="button" class="b_button bc_white" style="width:198" value="抽卡系统" onclick="window.location.href='kujilist.php'">
+<input type="button" class="b_button bc_white" style="width:198" value="卡片商店" onclick="window.location.href='logistics.php?type=1'">
+<input type="button" class="b_button bc_white" style="width:198" value="道具商店" onclick="window.location.href='logistics.php?type=2'">
+<input type="button" class="b_button bc_white" style="width:198" value="道具仓库" onclick="window.location.href='logistics.php?type=3'">
+<input type="button" class="b_button bc_white" style="width:198" value="道具展柜" onclick="window.location.href='logistics.php?type=4'">
+</center>
+<br>
+
+<div class="subtitle" align="center">道具展柜</div>
+<center>
+<br>
+<div style="width:600px;text-align:center;font-size:14px;">在这里可以展示你拥有的卡片、游戏道具或装饰品。</div>
+<br>
+
+<div class="subtitle" align="center">卡片陈列</div>
+<center>
+	<!--{if $showcase_cardlist}-->
+	<form method="post" name="showcase">
+	<input type="hidden" id="cardchoice" name="cardchoice" value="">
+	<input type="hidden" id="cardpos" name="cardpos" value="0">
+	<!--{eval $showpack=1;}-->
+	<ul style="width:750px;list-style-type:none;">
+		<!--{loop $showcase_cardlist $i $cid}-->
+		<li style="float:left;margin:5px;margin-bottom:10px">
+			<!--{eval $k=$i+1; $nowcard=$cards[$cid]; $desc_skills=!empty($nowcard['desc_skills'])?$nowcard['desc_skills']:'';}-->
+			<!--{eval $nowcard['blink']=!empty($card_data[$cid]['blink'])?$card_data[$cid]['blink']:0;}-->
+			<div title="{$desc_skills}">
+			{template MOD_CARDBASE_CARD_FRAME}
+			</div>
+			<br>
+			<input type="button" class="b_button" style="width:120" value="更换" onclick="$('cardpos').value='$k';bubblebox_show('cardchange{$k}');">
+		</li>
+		<!--{eval \bubblebox\bubblebox_set_style('id:cardchange'.$k.';height:150;width:600;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:10px;');}-->
+			{template MOD_BUBBLEBOX_START}
+			<div style="margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px;">
+			<center>
+			<div style="font-weight:bold;">
+			请选择要设置的卡片：<br><br>
+			</div>
+			<select name="cardid" id="cardid">
+			<!--{loop $cardlist $cid}-->
+			<option value="$cid">$cards[$cid]['name']<br>
+			<!--{/loop}-->
+			</select>
+			<br><br>
+			<input type="button" class="b_button" style="width:120" value="设置" onclick="$('cardchoice').value=$('cardid').value;document.showcase.submit();">
+			</center>
+			</div>
+			{template MOD_BUBBLEBOX_END}
+		<!--{/loop}-->
+		<div style="clear:both;"></div>
+	</ul>
+	</form>
+	<!--{else}-->
+	<div style="width:600px;text-align:center;font-size:14px;">这里什么也没有呢……</div>
+	<!--{/if}-->
+</center>
+
+<br>
+<div class="subtitle" align="center">道具陈列</div>
+<center>
+	<!--{if $showcase_gameitemlist}-->
+	<table style="width:600px;">
+		<tr>
+			<td class=b1 width="60"><span>道具类别</span></td>
+			<td class=b1><span>名称</span></td>
+			<td class=b1 width="150"><span>属性</span></td>
+			<td class=b1 width="40"><span>效</span></td>
+			<td class=b1 width="40"><span>耐</span></td>
+		</td>
+		<!--{loop $showcase_gameitemlist $gitm}-->
+		<!--{if $gitm}-->
+		<tr>
+			<td class=b2 height="26"><span><!--{eval echo \itemmain\parse_itmk_words($gitm[1],1);}--></span></td>
+			<td class=b3><span>$gitm[0]</span></td>
+			<td class=b3><span><!--{eval echo \itemmain\parse_itmsk_words($gitm[4],1);}--></span></td>
+			<td class=b3><span>$gitm[2]</td>
+			<td class=b3><span>$gitm[3]</span></td>
+		</tr>
+		<!--{/if}-->
+		<!--{/loop}-->
+	</table>
+	<!--{else}-->
+	<div style="width:600px;text-align:center;font-size:14px;">这里什么也没有呢……</div>
+	<!--{/if}-->
+</center>
+
+<br>
+<div class="subtitle" align="center">装饰陈列</div>
+<center>
+	<!--{if $showcase_logitemlist}-->
+	<table style="width:1000px;">
+		<tr style="text-align:center;font-size:18px;">
+			<th>名称</th>
+			<th>描述</th>
+		</tr>
+		<!--{loop $showcase_logitemlist $lid}-->
+		<!--{eval $lsitem=$logistics_shop_items[$lid];}-->
+		<!--{if $lsitem}-->
+		<tr>
+			<td style="text-align:center;font-weight:bold;">{$lsitem[0]}</td>
+			<td style="text-align:center;">$logistics_itemtype[$lsitem[1]]。{$lsitem[3]}</td>
+		</tr>
+		<!--{/if}-->
+		<!--{/loop}-->
+	</table>
+	<!--{else}-->
+	<div style="width:600px;text-align:center;font-size:14px;">这里什么也没有呢……</div>
+	<!--{/if}-->
+</center>
+
+<br>
+</center>
+
+{template footer}

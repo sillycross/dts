@@ -1,0 +1,48 @@
+{template header}
+<br><br>
+<center>
+<input type="button" class="b_button bc_white" style="width:198" value="抽卡系统" onclick="window.location.href='kujilist.php'">
+<input type="button" class="b_button bc_white" style="width:198" value="卡片商店" onclick="window.location.href='logistics.php?type=1'">
+<input type="button" class="b_button bc_white" style="width:198" value="道具商店" onclick="window.location.href='logistics.php?type=2'">
+<input type="button" class="b_button bc_white" style="width:198" value="道具仓库" onclick="window.location.href='logistics.php?type=3'">
+<input type="button" class="b_button bc_white" style="width:198" value="道具展柜" onclick="window.location.href='logistics.php?type=4'">
+</center>
+<br>
+
+<div class="subtitle" align="center">道具商店</div>
+<center>
+<br>
+<div style="width:600px;text-align:center;font-size:14px;">在这里可以用切糕交换一些非游戏中使用的道具或装饰品。</div>
+<br>
+<div style="width:600px;text-align:center;">当前的切糕数量：<span class="evergreen b">$cg</span><br></div>
+<br>
+<center>
+	<form method="post" name="logshop">
+		<input type="hidden" id="itemchoice" name="itemchoice" value="">
+		<table style="width:1000px;">
+			<tr style="text-align:center;font-size:18px;">
+				<th>名称</th>
+				<th>描述</th>
+				<th>价格</th>
+				<th>持有数</th>
+				<th></th>
+			</tr>
+			<!--{loop $logistics_shop_items $k $lsitem}-->
+			<!--{if !$lsitem[4]}-->
+			<!--{eval $price=$lsitem[2]; $num=!empty($logitemlist[$k])?$logitemlist[$k]:0;}-->
+			<tr>
+				<td style="text-align:center;font-weight:bold;">{$lsitem[0]}</td>
+				<td style="text-align:center;">$logistics_itemtype[$lsitem[1]]。{$lsitem[3]}</td>
+				<td style="text-align:center;">$price</td>
+				<td style="text-align:center;">$num</td>
+				<td><input type="button" class="b_button" style="width:120" value="购买" onclick="$('itemchoice').value='$k'; document.logshop.submit();" <!--{if $cg<$price}-->disabled<!--{/if}-->></td>
+			</tr>
+			<!--{/if}-->
+			<!--{/loop}-->
+		</table>
+	</form>
+</center>
+<br>
+</center>
+
+{template footer}
