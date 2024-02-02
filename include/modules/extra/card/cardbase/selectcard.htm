@@ -102,8 +102,8 @@ cardSearchInit = function()
 	<div style="display:inline-block;width:90px" id="cardsearch_feedback" class="yellow">
 	</div>
 </div>
-<div style="height:330px; width:1200px; margin:auto">
-<div style="display:inline-block; height:330px; width:160px; vertical-align:top;">
+<div style="height:480px; width:1200px; margin:auto">
+<div style="display:inline-block; height:480px; width:160px; vertical-align:top;">
 	<div style="height:10px;"></div>
 	<!--{eval $packid=-1;}-->
 	<!--{loop $packlist $cardpack}-->
@@ -118,8 +118,8 @@ cardSearchInit = function()
 		</div>
 	<!--{/loop}-->
 </div>
-<div style="display:inline-block; height:330px; width:710px;">
-	<div id="selectcard_middle" style="position: relative; height:330px; width:710px;"> 
+<div style="display:inline-block; height:480px; width:710px;">
+	<div id="selectcard_middle" style="position: relative; height:480px; width:710px;"> 
 		<!--{eval $packid=-1;}-->
 		<!--{loop $packlist $cardpack}-->
 			<!--{eval $packid++;}-->
@@ -169,7 +169,7 @@ cardSearchInit = function()
 												<!--{/if}-->
 											</div>
 											<!--{eval $row=$row+1; $last=$cardid;}-->
-											<!--{if $row==12}-->
+											<!--{if $row==18}-->
 												<!--{eval $row=0; $flag=1; }-->
 											<!--{/if}-->
 										<!--{/if}-->
@@ -190,7 +190,7 @@ cardSearchInit = function()
 		<!--{/if}-->
 	</div>
 </div>
-<div style="display:inline-block; height:330px; width:240px; vertical-align:top; margin-left:30px">
+<div style="display:inline-block; height:480px; width:240px; vertical-align:top; margin-left:30px">
 	<div style="height:30px;">
 		<span class="yellow b" style="line-height:30px">当前被选择的卡片</span>
 	</div>
