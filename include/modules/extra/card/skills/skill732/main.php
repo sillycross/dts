@@ -37,7 +37,7 @@ namespace skill732
 		
 		if (strpos ( $itmk, 'Z' ) === 0) 
 		{
-			if (\skillbase\skill_query(732,$sdata) && check_unlocked732($sdata) && ($itm == '漏水的水管'))
+			if (\skillbase\skill_query(732,$sdata) && check_unlocked732($sdata) && ($itm == '漏水的雪管' || $itm == '漏雪的水管' || $itm == '漏雪的雪管'))
 			{
 				$log .= "你修好了<span class=\"yellow b\">{$itm}</span>！<br>";
 				if ((int)\itemmain\check_in_itmsk('^skflag', $itmsk) == 732)
