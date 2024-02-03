@@ -301,7 +301,6 @@ club26,extra/club/clubs/club26/,1
 skill725,extra/card/skills/skill725/,1
 skill804,extra/card/skills/skill804/,1
 skill728,extra/card/skills/skill728/,1
-skill731,extra/card/skills/skill731/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
@@ -398,6 +397,7 @@ skill512,extra/card/skills/skill512/,1
 addnpc_event,extra/misc/addnpc_event/,1
 skill961,extra/instance/instance10_road/skill961/,1
 supplycrate_event,extra/misc/supplycrate_event/,1
+skill731,extra/card/skills/skill731/,1
 item_randskills,extra/item_extra/item_randskills/,1
 skill490,extra/card/skills/skill490/,1
 skill430,extra/card/skills/skill430/,1

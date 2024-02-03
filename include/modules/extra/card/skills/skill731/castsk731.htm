@@ -1,5 +1,6 @@
-<!--{eval eval(import_module('skill731','itemmain'));}-->
-<!--{eval $skill731_prices = \skill731\skill731_get_prices();}-->
+<!--{eval eval(import_module('skill731','itemmain'));\skill731\skill731_refresh_prices();}-->
+<!--{eval $skill731_prices = $gamevars['skill731_prices'];}-->
+<!--{eval $skill731_stocks = $gamevars['skill731_stocks'];}-->
 <input type="hidden" name="mode" value="special">
 <input type="hidden" id="command" name="command" value="skill731_special">
 <input type="hidden" id="skill731_bitmn" name="skill731_bitmn" value="">
@@ -11,6 +12,7 @@
 <tbody>
 <!--{loop $skill731_itemlist $i $v}-->
 <!--{eval $k=$i+1;}-->
+<!--{eval if(!empty($skill731_trends[$i])) $trends = $skill731_trends[$i]>0 ? '<span class="red b">↑</span>' : ($skill731_trends[$i]<0 ? '<span class="lime b">↓</span>' : ''); else $trends = '';}-->
 <tr>
 	<td style="width:90px">
 		<input type="number" id="num{$k}" style="width:85px" value="1" min="1"><br>
@@ -18,7 +20,7 @@
 		<input type="button" style="width:40px" value="卖出" onclick="$('skill731_sitmn').value='$k';$('skill731_bitmn').value='';$('skill731_snum').value=$('num{$k}').value;postCmd('gamecmd','command.php');this.disabled=true;">
 	</td>
 	<td>
-		$v[0]/<!--{eval echo \itemmain\parse_itmk_words($v[1]);}-->/$v[2]/$v[3]/价:$skill731_prices[$i]
+		$v[0]/<!--{eval echo \itemmain\parse_itmk_words($v[1]);}-->/$v[2]/$v[3]/价:$skill731_prices[$i]{$trends}/剩:$skill731_stocks[$i]
 	</td>
 </tr>
 <!--{/loop}-->

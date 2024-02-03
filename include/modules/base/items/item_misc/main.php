@@ -342,7 +342,7 @@ namespace item_misc
 				$flag = false;
 				
 				for($i = 1; $i <= 6; $i ++) {
-					foreach(Array('香蕉','苹果','西瓜','葡萄','脸') as $fruit){
+					foreach(Array('香蕉','苹果','西瓜','葡萄','菠萝','脸') as $fruit){
 						
 						if ( strpos ( ${'itm' . $i} , $fruit ) !== false && strpos ( ${'itm' . $i} , '皮' ) === false && (strpos ( ${'itmk' . $i} , 'H' ) === 0 || strpos ( ${'itmk' . $i} , 'P' ) === 0 )) {
 							if($wk >= 120){
