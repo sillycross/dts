@@ -22,7 +22,7 @@ namespace skill731
 	{
 		define('MOD_SKILL731_INFO','card;active;');
 		eval(import_module('clubbase'));
-		$clubskillname[731] = '开盘';
+		$clubskillname[731] = '欺货';
 	}
 	
 	function acquire731(&$pa)
@@ -173,7 +173,8 @@ namespace skill731
 		$skill731_stocks[$bi] -= $bnum;
 		$gamevars['skill731_stocks'] = $skill731_stocks;
 		save_gameinfo();
-		$log .= "购买成功。<br>";
+		$log .= "购买成功，总计花费<span class='yellow b'>$cost</span>元。<br>";
+		addnews(0, 'buy731', $name, $bnum, $skill731_itemlist[$bi][0]);
 		\itemmain\itemget();
 		return;
 	}
@@ -223,7 +224,7 @@ namespace skill731
 			return;
 		}
 		$gain =  $snum * $skill731_prices[$si];
-		$cmsn = round($gain * 0.05);
+		$cmsn = round($gain * 0.1);
 		$gain -= $cmsn;
 		$money += $gain;
 		//更新库存
@@ -232,6 +233,7 @@ namespace skill731
 		$gamevars['skill731_stocks'] = $skill731_stocks;
 		save_gameinfo();
 		$log .= "出售成功，获得了<span class='yellow b'>$gain</span>元<span style='font-size:6px'>（已扣除手续费{$cmsn}元）</span>。<br>";
+		addnews(0, 'sell731', $name, $snum, $skill731_itemlist[$si][0]);
 		return;
 	}
 	
@@ -279,6 +281,19 @@ namespace skill731
 		}
 			
 		$chprocess();
+	}
+
+	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		eval(import_module('sys','player'));
+		
+		if($news == 'buy731')
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">{$a}在欺货市场买入了{$b}个{$c}。</span></li>";
+		elseif($news == 'sell731')
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">{$a}在欺货市场卖出了{$b}个{$c}。</span></li>";
+		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 }
 

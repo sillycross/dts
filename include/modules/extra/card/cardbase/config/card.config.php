@@ -5861,12 +5861,11 @@ $cards = array(
 		)
 	),
 	374 => array(
-		'name' => '白与黑的春化精',
+		'name' => '春化精',
 		'rare' => 'B',
-		'pack' => 'hidden',
-		'desc' => '春天到了！春天到了！',
-		'effect' => '春天来了，万物复苏，下略',
-		'desc_skills' => '进场后直到下一次禁区，所有角色视为随机拥有热恋或同志属性',
+		'pack' => '東埔寨Protoject',
+		'desc' => '发春了哦！',
+		'effect' => '进场后直到下一次禁区，所有角色视为随机拥有热恋或同志属性',
 		'energy' => 100,
 		'valid' => array(
 			'skills' => array(
@@ -6296,7 +6295,7 @@ $cards = array(
 		'pack' => 'Ranmen',
 		'desc' => '我相信今天是大奇迹日，<br>一定会涨的！',
 		'effect' => '今天回到家，煮了点面吃',
-		'desc_skills' => '可以在市场中买卖特定道具，这些道具的价格会随机涨跌',
+		'desc_skills' => '可以在『欺货市场』中买入或卖出特定道具，这些道具的价格会随机涨跌',
 		'energy' => 100,
 		'valid' => array(
 			'skills' => array(
