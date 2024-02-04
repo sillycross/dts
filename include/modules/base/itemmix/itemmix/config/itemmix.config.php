@@ -105,7 +105,6 @@ $mixinfo = array
 	
 	
 	array('class' => 'wg', 'stuff' => array('『环形激光』','红宝石方块','原型武器G'),'result' => array('『红石光束炮』','WG',240,360,'ud'),),
-	array('class' => 'hidden', 'stuff' => array('红宝石方块','蓝宝石方块','绿宝石方块','非法枪械部件'),'result' => array('『宝石光束炮-试作型』','WG',1800,144,'ndo'),),
 	array('class' => 'wg', 'stuff' => array('老式火枪','原型武器G','某种电子零件'),'result' => array('★发条式突击步枪★','WG',150,100,'r'),),
 	array('class' => 'wg', 'stuff' => array('『60mm火神炮』','鲨鱼鳍','原型武器G'),'result' => array('『迷你鲨』','WG',20,12,'r'),),
 	array('class' => 'wg', 'stuff' => array('『120mm火神炮』','鲨鱼鳍','原型武器G'),'result' => array('『迷你鲨』','WG',30,12,'r'),),
@@ -123,6 +122,7 @@ $mixinfo = array
 	array('class' => 'wg', 'stuff' => array('『高性能双重激光』','增幅设备','巨大透镜'),'result' => array('【最终鬼畜兵器】','WG',640,300,'uNd'),),
 	array('class' => 'wg', 'stuff' => array('【最终鬼畜兵器】','『奥丁巨核装备』','非法枪械部件'),'result' => array('【霜火协奏曲】','WG',1024,256,'rNuwde'),),
 	array('class' => 'hidden', 'stuff' => array('诚实与魔法','忠诚与慷慨','善良与欢笑'),'result' => array('我剥光了小马才做出来的【彩虹光束炮】','WG',777,777,'uiwepd'),),
+	array('class' => 'wg', 'stuff' => array('红宝石方块','蓝宝石方块','绿宝石方块','非法枪械部件'),'result' => array('『宝石光束炮-试作型』','WG',1800,144,'ndo'),),
 	
 	array('class' => 'wd', 'stuff' => array('轻油','肥料'),'result' => array('火药','X',1,1,),),
 	array('class' => 'wd', 'stuff' => array('信管','火药'),'result' => array('★炸药★','WD',160,60,'d'),),
@@ -161,7 +161,7 @@ $mixinfo = array
 	array('class' => 'item', 'stuff' => array('广域生命探测器','弱点探测器','某种电子零件'),'result' => array('避难所生命探测器','ER',1,1,'^rdsk34'),),
 	array('class' => 'item', 'stuff' => array('高清型生命探测器','心灵式生命探测器'),'result' => array('电子战型探测器','ER',1,1,'^rdsk26'),),
 	//array('class' => 'item', 'stuff' => array('☆自爆电池☆','☆★☆大打击☆★☆'),'result' => array('★捆绑式炸药★','Y',1,1,),), 
-	array('class' => 'item', 'stuff' => array('安雅人体冰雕','火把'),'result' => array('武器师安雅的奖赏','Y',1,1,),),
+	array('class' => 'item', 'stuff' => array('安雅人体冰雕','火把'),'result' => array('武器师安雅的奖赏','Y',1,1,2),),
 	array('class' => 'item', 'stuff' => array('安雅人体冰雕','解冻药水'),'result' => array('武器师安雅的奖赏','Y',1,1,),),
 	array('class' => 'item', 'stuff' => array('幻铁的改造结晶','解冻药水'),'result' => array('武器改造晶体·山铜','EI',1,1,),),
 	array('class' => 'item', 'stuff' => array('幻铁的改造结晶','解冻药水','『祝福宝石』'),'result' => array('武器改造晶体·精钢','EI',1,1,1),),
