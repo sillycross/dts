@@ -143,6 +143,22 @@ function update_udata_from_remote($udata, $username)
 //$userdb_forced_local为真时强制查询本地
 function fetch_udata($fields='', $where='', $sort='', $keytype=0, $nolock=0){
 	global $db, $gtablepre, $userdb_remote_storage, $userdb_forced_local, $userdb_forced_key;
+
+	//新建usettings字段
+	if(1){
+		$column_existed = 0;
+		$result = $db->query("SHOW COLUMNS FROM {$gtablepre}users");
+		while($r = $db->fetch_array($result)){
+			if($r['Field'] == 'u_settings') {
+				$column_existed = 1;
+				break;
+			}
+		}
+		if(!$column_existed) {
+			$db->query("ALTER TABLE {$gtablepre}users ADD COLUMN `u_settings` text NOT NULL DEFAULT '' AFTER `n_achievements`");
+		}
+	}
+
 	//缺省查询
 	if(empty($fields)) $fields = '*';
 	if(empty($where)) $where = '1';
@@ -485,11 +501,9 @@ function get_iconlist(){
 	global $iconlimit,$icon;
 	$iconarray = array();
 	for($n = 0; $n <= $iconlimit; $n++)	{
-		if($icon == $n) {
-			$iconarray[] = '<OPTION value='.$n.' selected>'.$n.'</OPTION>';
-		} else {
-			$iconarray[] = '<OPTION value='.$n.' >'.$n.'</OPTION>';
-		}
+		$n_show = $n;
+		if(!$n) $n_show .= '（随机）';
+		$iconarray[] = '<option value='.$n.($icon == $n ? ' selected' : '').'>'.$n_show.'</option>';
 	}
 	return $iconarray;
 }

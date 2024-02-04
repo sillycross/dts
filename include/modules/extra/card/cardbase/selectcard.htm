@@ -96,12 +96,6 @@ cardSearchInit = function()
 	}
 }
 </script>
-<div <!--{if !empty($no_select)}-->style="display:none"<!--{/if}-->>
-	<input type="text" id="cardsearch_input" size="20">&nbsp;&nbsp;&nbsp;
-	<input type="button" class="b_button bc_black" value="搜索/下一个" onclick="cardSearchInit()">&nbsp;&nbsp;&nbsp;
-	<div style="display:inline-block;width:90px" id="cardsearch_feedback" class="yellow">
-	</div>
-</div>
 <div style="height:480px; width:1200px; margin:auto">
 <div style="display:inline-block; height:480px; width:160px; vertical-align:top;">
 	<div style="height:10px;"></div>
@@ -191,6 +185,13 @@ cardSearchInit = function()
 	</div>
 </div>
 <div style="display:inline-block; height:480px; width:240px; vertical-align:top; margin-left:30px">
+	<div <!--{if !empty($no_select)}-->style="display:none"<!--{/if}-->>
+		<input type="text" id="cardsearch_input" size="12">&nbsp;&nbsp;
+		<input type="button" class="b_button bc_black" style="width:100px;padding-left: 0;padding-right: 0;" value="搜索/下一个" onclick="cardSearchInit()">&nbsp;&nbsp;&nbsp;
+		<div id="cardsearch_feedback" class="yellow b">
+			&nbsp;
+		</div>
+	</div>
 	<div style="height:30px;">
 		<span class="yellow b" style="line-height:30px">当前被选择的卡片</span>
 	</div>

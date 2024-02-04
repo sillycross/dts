@@ -2,50 +2,41 @@
 	<!--{if CURSCRIPT == 'register'}-->
 		<tr>
 			<td>{lang username}</td>
-			<td><input type="text" name="username" size="24" maxlength="15" value=""></td>
-			<td>{lang username_comment}</td>
+			<td><input type="text" name="username" size="24" maxlength="15" value="" placeholder="{lang username_comment}"></td>
 		</tr>
 		<tr>
 			<td>{lang npass}</td>
-			<td><input type="password" id="npass" name="npass" size="24" maxlength="24" value=""></td>
-			<td>{lang password_comment}</td>
+			<td><input type="password" id="npass" name="npass" size="24" maxlength="24" value="" placeholder="{lang password_comment}"></td>
 		</tr>
 		<tr>
 			<td>{lang rnpass}</td>
-			<td><input type="password" id="rnpass" name="rnpass" size="24" maxlength="24" value=""></td>
-			<td>{lang password_comment}</td>
+			<td><input type="password" id="rnpass" name="rnpass" size="24" maxlength="24" value="" placeholder="{lang r_password_comment}"></td>
 		</tr>
 	<!--{elseif CURSCRIPT == 'user'}-->
 		<tr>
 			<td>{lang username}</td>
 			<td>$username</td>
-			<td> </td>
 		</tr>
 		<tr>
 			<td>{lang opass}</td>
-			<td><input type="password" id="opass" name="opass" size="24" maxlength="24" value=""></td>
-			<td> </td>
+			<td><input type="password" id="opass" name="opass" size="24" maxlength="24" value="" placeholder="{lang o_password_comment}"></td>
 		</tr>
 		<tr>
 			<td>{lang npass}</td>
-			<td><input type="password" id="npass" name="npass" size="24" maxlength="24" value=""></td>
-			<td>{lang password_comment}</td>
+			<td><input type="password" id="npass" name="npass" size="24" maxlength="24" value="" placeholder="{lang n_password_comment}"/></td>
 		</tr>
 		<tr>
 			<td>{lang rnpass}</td>
-			<td><input type="password" id="rnpass" name="rnpass" size="24" maxlength="24" value=""></td>
-			<td>{lang password_comment}</td>
+			<td><input type="password" id="rnpass" name="rnpass" size="24" maxlength="24" value="" placeholder="{lang n_password_comment}"></td>
 		</tr>
 	<!--{else}-->
 		<tr>
 			<td>{lang username}</td>
 			<td>$username</td>
-			<td> </td>
 		</tr>
 		<tr>
 			<td>{lang password}</td>
 			<td>{lang cannotedit}</td>
-			<td> </td>
 		</tr>
 	<!--{/if}-->
 </table>
