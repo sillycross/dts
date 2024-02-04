@@ -14,7 +14,7 @@ namespace logistics
 		$uname = $udata['username'];
 		list($sec,$min,$hour,$day,$month,$year,$wday) = explode(',',date("s,i,H,j,n,Y,w",$now));
 		$hash = md5($uid.$uname.$day.$month.$year.$wday);
-		$fatenum = crc32($hash);
+		$fatenum = hexdec(substr($hash, 0, 5).substr($hash, -5));
 		$cardid_list = array();
 		//固定包括1张S、1张A、1张B
 		$cardid_list[1] = $cardindex['S'][$fatenum % count($cardindex['S'])];
