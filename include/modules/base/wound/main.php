@@ -147,7 +147,8 @@ namespace wound
 	function assault_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($active) $pd['original_inf']=$pd['inf']; else $pa['original_inf']=$pa['inf'];
+		$pa['original_inf']=$pa['inf'];
+		$pd['original_inf']=$pd['inf'];
 		$chprocess($pa, $pd, $active);
 	}
 		

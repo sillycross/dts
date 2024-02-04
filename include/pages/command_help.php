@@ -22,6 +22,7 @@ if(!file_exists($writefile) || filemtime($mixfile) > filemtime($writefile)){
 			if(!empty($mix['result'][4])) $mixitmsk = \itemmain\parse_itmsk_words($mix['result'][4]);
 			if ($mixitmsk == '--') $mixitmsk = '';
 			$resultjwords = get_resultjwords($mix['result']);
+			if (!empty($mix['tips'])) $resultjwords = '<span class=\'yellow b\'>'.$mix['tips'].'</span><br>'.$resultjwords;
 
 			$mixitem[$mix['class']][] = array('stuff' => $mix['stuff'], 'result' => array($mix['result'][0],$mixitmk,$mix['result'][2],$mix['result'][3],$mixitmsk), 'resultjwords' => $resultjwords);
 		}
