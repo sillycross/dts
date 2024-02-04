@@ -136,7 +136,9 @@ function room_init($roomtype)
 	//2 即将开始（正在进行游戏初始化工作）
 	
 	$a['readystat']=0;
-	$a['roomfounder']='';
+	
+	global $cuser;
+	$a['roomfounder']=$cuser;
 	
 	//踢人时间，由使roomstat进入1的操作者负责设置
 	$a['kicktime']=0;
