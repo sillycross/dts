@@ -40,6 +40,7 @@ $language = array
 	
 	'basicdata' => '账户基本资料',
 	'advanceddata' => '账户个性化资料',
+	'usersettings' => '游戏设置',
 	'opass' => '原密码',
 	'npass' => '新密码',
 	'rnpass' => '重复新密码',

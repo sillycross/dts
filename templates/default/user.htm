@@ -9,14 +9,20 @@
 	<form method="post" action="user.php" name="userdata">
 		<input type="hidden" name="mode" value="edit">
 		<input type="hidden" id="newCardChoice" name="card" value="$cardChosen">
-		<div>
+		<div style="vertical-align:top;">
 			<div style="display:inline-block;">
-			<span class ="yellow b">{lang basicdata}</span>
-			{template userbasicdata}
-			</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<span class ="yellow b">{lang basicdata}</span>
+				{template userbasicdata}
+			</div>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 			<div style="display:inline-block;">
-			<span class ="yellow b">{lang advanceddata}</span>
-			{template useradvdata}
+				<span class ="yellow b">{lang advanceddata}</span>
+				{template useradvdata}
+			</div>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+			<div style="display:inline-block;">
+				<span class ="yellow b">{lang usersettings}</span>
+				{template usersettings}
 			</div>
 		</div>
 		<div id="postdata" style="height:60px">

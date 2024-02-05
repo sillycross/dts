@@ -18,15 +18,13 @@ namespace opening
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player'));
 		//只要不是自动刷新，就跳过
-		if($hp > 0 && opening_by_shootings_available()) {
-			if(\skillbase\skill_query(1003) && !\skillbase\skill_getvalue(1003,'opening_skip')) {
-				if ($command != 'enter') 
-				{
-					\skillbase\skill_setvalue(1003,'opening_skip',1);
-				}else{
-					eval(import_module('logger'));
-					$log .= '<br><span class="yellow b">点击以下任意按钮皆可跳过开场剧情。</span><br>';
-				}
+		if($hp > 0 && \skillbase\skill_query(1003) && !\skillbase\skill_getvalue(1003,'opening_skip')) {
+			if ($command != 'enter') 
+			{
+				\skillbase\skill_setvalue(1003,'opening_skip',1);
+			}elseif(opening_by_shootings_available()){
+				eval(import_module('logger'));
+				$log .= '<br><span class="yellow b">点击以下任意按钮皆可跳过开场剧情。</span><br>';
 			}
 		}
 		

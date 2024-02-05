@@ -589,6 +589,7 @@ skill352,extra/achievement/skills/skill352/,1
 skill375,extra/achievement/skills/skill375/,1
 skill382,extra/achievement/skills/skill382/,1
 skill504,extra/card/skills/skill504/,1
+user_settings,extra/misc/user_settings/,1
 instance3,extra/instance/instance3_ascension/,1
 skill182,extra/club/skills/skill182/,1
 cooldown,base/cooldown/,1
