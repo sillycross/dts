@@ -1,0 +1,13 @@
+<!--{eval eval(import_module('skill733'));}-->
+<input type="hidden" name="mode" value="special">
+<input type="hidden" id="command" name="command" value="skill733_special">
+请选择要抽取的扭蛋：<br><br>
+<!--{loop $skill733_gachalist $k $v}-->
+<input type="radio" name="skill733_gachaid" id="gachaid$k" value="$k"><a class="yellow b" onclick="sl('gachaid$k');" title="$v['desc']">【$v['name']】</a> /价：$v['price']<br>
+<!--{/loop}-->
+<br>
+要抽取的个数（单次至多5个）：
+<input type="number" name="skill733_gnum" style="width:60px" value="1" min="1" max="5">
+<br><br>
+<input type="button" class="cmdbutton" id="z" value="[Z]提交" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="button" class="cmdbutton" id="x" value="[X]返回" onclick="$('command').value='menu';postCmd('gamecmd','command.php');this.disabled=true;">
