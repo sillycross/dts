@@ -1,0 +1,65 @@
+<!--{eval eval(import_module('player','cardbase'));}-->
+<input type="hidden" name="mode" value="special">
+<input type="hidden" id="command" name="command" value="skill734_special">
+<input type="hidden" id="skill734_opid" name="skill734_opid" value="1000">
+<table>
+<tr>
+	<th>
+	你的卡片：<br>
+	<!--{eval $pa_step = (int)\skillbase\skill_getvalue(734,'step',$sdata); $pa_cards=gdecode(\skillbase\skill_getvalue(734,'cards',$sdata), 1);}-->
+	<!--{loop $pa_cards $v}-->
+	<span class="$card_rarecolor[$cards[$v['cid']]['rare']]">【$cards[$v['cid']]['name'] $cards[$v['cid']]['rare']】<!--{if isset($v['open'])}-->（明牌）<!--{/if}--></span><br>
+	<!--{/loop}-->
+	</th>
+	<th>
+	对手的卡片：<br>
+	<!--{eval if (empty($pd)) $pd_cards = gdecode(\skillbase\skill_getvalue(734,'cards_op',$sdata), 1);}-->
+	<!--{loop $pd_cards $v}-->
+	<!--{if isset($v['open'])}-->
+	<span class="$card_rarecolor[$cards[$v['cid']]['rare']]">【$cards[$v['cid']]['name'] $cards[$v['cid']]['rare']】</span><br>
+	<!--{else}-->
+	<span class="grey b">【未知】</span><br>
+	<!--{/if}-->
+	<!--{/loop}-->
+	</th>
+</tr>
+<!--{if $pa_step==2}-->
+<tr>
+	<th>
+	你的出牌：<br>
+	<!--{loop $pa_cards $v}-->
+	<!--{if isset($v['played'])}-->
+	<span class="$card_rarecolor[$cards[$v['cid']]['rare']]">【$cards[$v['cid']]['name'] $cards[$v['cid']]['rare']】<!--{if isset($v['open'])}-->（明牌）<!--{/if}--></span><br>
+	<!--{/if}-->
+	<!--{/loop}-->
+	</th>
+	<th>
+	对手的出牌：<br>
+	<!--{loop $pd_cards $v}-->
+	<!--{if isset($v['played'])}-->
+	<!--{if isset($v['open'])}-->
+	<span class="$card_rarecolor[$cards[$v['cid']]['rare']]">【$cards[$v['cid']]['name'] $cards[$v['cid']]['rare']】</span><br>
+	<!--{else}-->
+	<span class="grey b">【未知】</span><br>
+	<!--{/if}-->
+	<!--{/if}-->
+	<!--{/loop}-->
+	</th>
+</tr>
+<!--{/if}-->
+</table>
+<br>要出的牌：<br>
+<!--{eval if ($pa_step==2) $x=1;}-->
+<!--{loop range(1,3) $i}-->
+<select name="skill734_card$i" id="skill734_card$i" style="width:160px">
+	<!--{loop range(1,5) $k}-->
+	<!--{if $pa_step==1 || ($pa_step==2 && isset($pa_cards[$k]['played']))}-->
+	<option value="$k" <!--{if $k==$i}-->selected<!--{/if}-->>【$cards[$pa_cards[$k]['cid']]['name'] $cards[$pa_cards[$k]['cid']]['rare']】<br />
+	<!--{/if}-->
+	<!--{/loop}-->
+</select>
+<!--{if $pa_step==1 && $i==1}-->（这张牌会变为明牌）<!--{/if}--><br>
+<!--{/loop}-->
+<br>
+<input type="button" class="cmdbutton" id="z" value="[Z]提交" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="button" class="cmdbutton" id="x" value="[X]返回" onclick="$('command').value='menu';postCmd('gamecmd','command.php');this.disabled=true;">
