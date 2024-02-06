@@ -24,6 +24,7 @@
 	</th>
 </tr>
 <!--{if $pa_step==2}-->
+<!--{eval $s=0;}-->
 <tr>
 	<th>
 	你的出牌：<br>
@@ -49,12 +50,14 @@
 <!--{/if}-->
 </table>
 <br>要出的牌：<br>
-<!--{eval if ($pa_step==2) $x=1;}-->
 <!--{loop range(1,3) $i}-->
+<!--{eval $flag=0;}-->
 <select name="skill734_card$i" id="skill734_card$i" style="width:160px">
 	<!--{loop range(1,5) $k}-->
-	<!--{if $pa_step==1 || ($pa_step==2 && isset($pa_cards[$k]['played']))}-->
+	<!--{if $pa_step==1}-->
 	<option value="$k" <!--{if $k==$i}-->selected<!--{/if}-->>【$cards[$pa_cards[$k]['cid']]['name'] $cards[$pa_cards[$k]['cid']]['rare']】<br />
+	<!--{elseif $pa_step==2 && isset($pa_cards[$k]['played'])}-->
+	<option value="$k" <!--{if $k>$s && !$flag}--><!--{eval $flag=1;$s=$k;}-->selected<!--{/if}-->>【$cards[$pa_cards[$k]['cid']]['name'] $cards[$pa_cards[$k]['cid']]['rare']】<br />
 	<!--{/if}-->
 	<!--{/loop}-->
 </select>
