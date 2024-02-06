@@ -215,7 +215,7 @@ namespace skill734
 				}
 				if (!empty($bonus2))
 				{
-					foreach ($bonus1 as $v)
+					foreach ($bonus2 as $v)
 					{
 						$log .= "对手触发了卡片组合<span class=\"yellow b\">{$v['bname']}</span>，奖励<span class=\"yellow b\">{$v['score']}</span>分！<br>";
 						$scoresum -= $v['score'];
