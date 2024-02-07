@@ -1,4 +1,7 @@
-<div <!--{if !empty($lockcard)}-->class="lockcard"<!--{/if}--> style="position:relative;">
+<div <!--{if !empty($lockcard) || !empty($unavailable)}-->class="lockcard"<!--{/if}--> style="position:relative;">
+	<!--{if !empty($lockcard) || !empty($unavailable)}-->
+		<img class="card_locked_logo" src="img/locked.png" />
+	<!--{/if}-->
 	<!--{if !empty($card_achieved)}-->
 		<img class="card_achieved" src="img/card_achieved.png" />
 	<!--{/if}-->

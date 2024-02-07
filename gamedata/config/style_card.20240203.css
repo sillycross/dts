@@ -176,6 +176,8 @@ img.cardback{
 	border-radius:9px;
 }
 
+img.card_locked_logo{width:150px;height:150px;position:absolute;z-index:30;top:110px;left:45px;}
+
 img.card_achieved{width:35px;height:20px;position:absolute;z-index:20;top:-13px;left:11px;}
 
 div.card_highlight{
