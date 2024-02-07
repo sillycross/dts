@@ -38,7 +38,7 @@ CREATE TABLE bra_players (
   `pls` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `lvl` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `exp` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `money` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `money` int(10) unsigned NOT NULL DEFAULT '0',
   `rp` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `bid` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `inf` char(10) NOT NULL DEFAULT '',
