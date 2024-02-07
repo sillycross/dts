@@ -139,26 +139,24 @@ namespace skill733
 		}
 		$gachainfo['wsum'] = $wsum;
 		
+		$log .= "花费<span class='yellow b'>$cost</span>元，抽取了<span class='yellow b'>$gnum</span>次<span class=\"yellow b\">【{$gachainfo['name']}】</span>。<br>";
+		
 		$gacha_result = array();
+		$gacha_result_words = array();
 		for ($i=0; $i<$gnum; $i++)
 		{
-			$gacha_result[] = skill733_get_gacha_result($gachainfo);
+			$gacha_item = skill733_get_gacha_result($gachainfo);
+			$gacha_result_words[] = "<span class=\"{$skill733_rarecolor[$gacha_item[6]]} b\">{$gacha_item[0]}</span>";
+			$gacha_result[] = array('itm'=>$gacha_item[0], 'itmk'=>$gacha_item[1], 'itme'=>$gacha_item[2], 'itms'=>$gacha_item[3], 'itmsk'=>$gacha_item[4]);
 		}
 		
-		$gacha_result_words = array();
-		foreach($gacha_result as $v)
-		{
-			$gacha_result_words[] = "<span class=\"{$skill733_rarecolor[$v[6]]} b\">{$v[0]}</span>";
-			$dropid = \itemmain\itemdrop_query($v[0], $v[1], $v[2], $v[3], $v[4], $pls);
-			$amarr = array('iid' => $dropid, 'itm' => $v[0], 'pls' => $pls, 'unseen' => 0);
-			\skill1006\add_beacon($amarr, $sdata);
-		}
 		$grcount = count($gacha_result);
 		if ($grcount > 1) $gacha_result_words = implode('、', array_slice($gacha_result_words, 0, $grcount - 1)).'和'.end($gacha_result_words);
 		else $gacha_result_words = $gacha_result_words[0];
 		
-		$log .= "花费<span class='yellow b'>$cost</span>元，抽取了<span class='yellow b'>$gnum</span>次<span class=\"yellow b\">【{$gachainfo['name']}】</span>。<br>";
-		$log .= "{$gacha_result_words}掉到了你的脚边。<br>";
+		\skill1006\multi_itemget($gacha_result, $sdata, 0);
+		$log .= "你获得了{$gacha_result_words}。<br>";
+		
 		addnews(0, 'gacha733', $name, $gnum, $skill733_gachalist[$gachaid]['name'], $gacha_result_words);
 		return;
 	}
