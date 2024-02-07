@@ -155,7 +155,7 @@ namespace skill733
 		else $gacha_result_words = $gacha_result_words[0];
 		
 		\skill1006\multi_itemget($gacha_result, $sdata, 0);
-		$log .= "你获得了{$gacha_result_words}。<br>";
+		$log .= "{$gacha_result_words}从扭蛋机里掉了出来。<br>";
 		
 		addnews(0, 'gacha733', $name, $gnum, $skill733_gachalist[$gachaid]['name'], $gacha_result_words);
 		return;

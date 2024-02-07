@@ -198,7 +198,7 @@ namespace corpse
 			$edata['state'] = 16;
 			\player\player_save($edata);
 			$log .= '尸体成功销毁！';
-			if(!in_array($edata['type'], $no_destroy_news_type)) addnews ( 0, 'cdestroy', $sdata['name'], $edata['name'] );
+			if(!in_array($edata['type'], $no_destroy_news_type)) corpsedestroy_news($sdata, $edata);
 			$mode = 'command';
 			return;
 		} else {
@@ -214,6 +214,12 @@ namespace corpse
 		}
 		
 		$mode = 'command';
+	}
+	
+	function corpsedestroy_news(&$pa, &$pd)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		addnews ( 0, 'cdestroy', $pa['name'], $pd['name'] );
 	}
 	
 	function getcorpse($item){
