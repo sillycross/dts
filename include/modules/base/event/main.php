@@ -3,7 +3,64 @@
 namespace event
 {
 	function init() {}
+
+	//是否允许事件发生。本模块恒为是
+	function event_available(){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return true;
+	}
 	
+	//探索时概率触发事件
+	function discover($schmode) {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		if(check_event_happen()){
+			$ret = event();
+			if(!can_continue_post_event_proc($ret)) {
+				eval(import_module('sys'));
+				$mode = 'command';
+				return;
+			}
+		}
+		return $chprocess($schmode);
+	}
+
+	//判定是否发生事件。
+	//本模块的一般事件是纯概率判定，英灵殿则是必定发生事件。
+	function check_event_happen()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = false;
+		if(event_available()) {
+			if(rand(0,99) < get_var_in_module('event_obbs', 'event') || check_event_happen_special()) {
+				$ret = true;
+			}
+		}
+		return $ret;
+	}
+
+	//无视概率必定发生的事件
+	//如果别的模块需要增加必定事件则需要重载此函数。
+	function check_event_happen_special()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player'));
+		$ret = false;
+		if($art!="Untainted Glory" && $pls==34 && !\gameflow_duel\is_gamestate_duel()) {
+			$ret = true;
+		}
+		return $ret;
+	}
+	
+	//没有事件的地图，执行event事件以后继续判定遭遇敌人
+	function can_continue_post_event_proc($evret)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return !$evret;
+	}
+
+	//事件主函数
+	//事件默认只对当前玩家生效，所以大多数直接操作sdata的内容	
 	function event()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -520,32 +577,7 @@ namespace event
 		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 	
-	function discover($schmode) {
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		//echo 'event ';
-		eval(import_module('sys','player','map','logger','event'));
-		$event_dice = rand(0,99);
-		if(event_available() && ($event_dice < $event_obbs || ( $art!="Untainted Glory" && $pls==34 && $gamestate != 50 ))){
-			$ret = event();
-			if(!can_continue_post_event_proc($ret)) {
-				$mode = 'command';
-				return;
-			}
-		}
-		return $chprocess($schmode);
-	}
 	
-	function event_available(){
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return true;
-	}
-	
-	//没有事件的地图，执行event事件以后继续判定遭遇敌人
-	function can_continue_post_event_proc($evret)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return !$evret;
-	}
 }
 
 ?>
