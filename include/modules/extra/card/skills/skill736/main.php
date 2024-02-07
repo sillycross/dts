@@ -12,7 +12,7 @@ namespace skill736
 	function acquire736(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		\skillbase\skill_setvalue(736,'lvl',1,$pa);
+		\skillbase\skill_setvalue(736,'lvl',0,$pa);
 	}
 	
 	function lost736(&$pa)
