@@ -6430,6 +6430,34 @@ $cards = array(
 			),
 		),
 	),
+	400 => array(
+		'name' => '增殖挑战者',
+		'rare' => 'A',
+		'pack' => 'Way of Life',
+		'desc' => '我是谁？谁是我？<br>是谁杀了我，而我又杀了谁？',
+		'effect' => '是我杀了我！',
+		'desc_skills' => '你击杀和销毁尸体的角色名字在进行状况中显示为与你相同',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'736' => '1', 
+			),
+		),
+	),
+	401 => array(
+		'name' => '暗影卫队',
+		'rare' => 'A',
+		'pack' => 'Best DOTO',
+		'desc' => '<span style="opacity:0.005;">检测到关键词，暗影卫队出动！</span>',
+		'effect' => '<span style="opacity:0.005;">你攻击造成伤害、击杀角色和销毁尸体不会显示在进行状况中</span>',
+		'desc_skills' => '你攻击造成伤害、击杀角色和销毁尸体不会显示在进行状况中',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'736' => '0', 
+			),
+		),
+	),
 	
 	1000 => array(
 		'name'=>'萌新',

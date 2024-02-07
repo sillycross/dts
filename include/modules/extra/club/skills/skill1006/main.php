@@ -324,6 +324,81 @@ namespace skill1006
 		\player\player_save($pa);
 	}
 	
+	//获得一个道具列表中所有的道具，该列表中每个元素都是类似$theitem的标准形式，优先加入包裹中的空位，多余的会进入临时视野
+	function multi_itemget($items, &$pa=NULL, $showlog=1)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$selflag = 0;
+		if(empty($pa)) {
+			$pa = & get_var_in_module('sdata', 'player');
+			$selflag = 1;
+		}
+		elseif ($pa['pid'] == get_var_in_module('pid', 'player')) $selflag = 1;
+		
+		$smflag = 1;
+		if (!\searchmemory\searchmemory_available() || !\skillbase\skill_query(1006, $pa)) $smflag = 0;
+		if (empty($items)) return;
+		
+		$pos = 1;
+		$topack_item_names = array();
+		$drop_item_names = array();
+		foreach ($items as $item)
+		{
+			$packflag = 0;
+			if ($pos < 6)
+			{
+				for ($i=$pos;$i<=6;$i++)
+				{
+					$pos = $i;
+					if (empty($pa['itms'.$i]))
+					{
+						$pa['itm'.$i] = $item['itm'];
+						$pa['itmk'.$i] = $item['itmk'];
+						$pa['itme'.$i] = $item['itme'];
+						$pa['itms'.$i] = $item['itms'];
+						$pa['itmsk'.$i] = $item['itmsk'];
+						$topack_item_names[] = "<span class=\"yellow b\">{$item['itm']}</span>";
+						$packflag = 1;
+						break;
+					}
+				}
+			}
+			if (!$packflag)
+			{
+				$dropid = \itemmain\itemdrop_query($item['itm'], $item['itmk'], $item['itme'], $item['itms'], $item['itmsk'], $pa['pls']);
+				$drop_item_names[] = "<span class=\"yellow b\">{$item['itm']}</span>";
+				if ($smflag)
+				{
+					$amarr = array('iid' => $dropid, 'itm' => $item['itm'], 'pls' => $pa['pls'], 'unseen' => 0);
+					add_beacon($amarr, $pa);
+				}
+			}
+		}
+		if ($showlog) eval(import_module('logger'));
+		$picount = count($topack_item_names);
+		if ($picount)
+		{
+			if ($picount > 1) $pi_words = implode('、', array_slice($topack_item_names, 0, $picount - 1)).'和'.end($topack_item_names);
+			else $pi_words = $topack_item_names[0];
+			if ($selflag && $showlog)
+			{
+				$log .= "你获得了{$pi_words}。<br>";
+			}
+		}
+		$dicount = count($drop_item_names);
+		if ($dicount)
+		{
+			if ($dicount > 1) $di_words = implode('、', array_slice($drop_item_names, 0, $dicount - 1)).'和'.end($drop_item_names);
+			else $di_words = $drop_item_names[0];
+			if ($selflag && $showlog)
+			{
+				if ($smflag) $log .= "{$di_words}掉到了你的脚边。<br>";
+				else $log .= "{$di_words}掉到了地上。<br>";
+			}
+		}
+		\player\player_save($pa);
+	}
+	
 }
 
 ?>
