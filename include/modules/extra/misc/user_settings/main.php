@@ -33,17 +33,18 @@ namespace user_settings
 		return $ret;
 	}
 
-	//只要能合并的道具就自动合并。本质是令check_mergable()本来应该返回2的都返回1
-	function check_mergable($ik){
+	//只要能合并的道具就自动合并。
+	function itemget_mergable_type2_process($sameitem){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$ret = $chprocess($ik);
 		$u_settings = get_u_settings();
-		if(!empty($u_settings['item_auto_merge']) && 2 == $ret){
-			$ret = 1;
+		if(!empty($u_settings['item_auto_merge'])){
 			eval(import_module('logger'));
 			$log .= '<span class="yellow b">因为游戏设置，自动合并了道具。</span><br>';
+			$i = $sameitem[0];
+			\itemmain\itemmerge(0,$i);
+			return;
 		}
-		return $ret;
+		return $chprocess($sameitem);
 	}
 }
 

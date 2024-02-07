@@ -108,14 +108,22 @@ namespace itemmain
 				}
 			}
 			if(!empty($sameitem)){
-				include template(MOD_ITEMMAIN_ITEMMERGE0);
-				$cmd = ob_get_contents();
-				ob_clean();
+				itemget_mergable_type2_process($sameitem);
 				return;
 			}
 		}
 
 		itemadd();
+		return;
+	}
+
+	//获得物品时如果是补给类型的合并处理。本模块默认是给出提示是否合并的界面。
+	function itemget_mergable_type2_process($sameitem){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player'));
+		include template(MOD_ITEMMAIN_ITEMMERGE0);
+		$cmd = ob_get_contents();
+		ob_clean();
 		return;
 	}
 
