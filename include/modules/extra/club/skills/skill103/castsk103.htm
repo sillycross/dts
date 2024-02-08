@@ -4,7 +4,7 @@
 你可以在身体里嵌入一把武器，并可以更换该武器，但更换时原先嵌入的武器会消失。<br><br>
 请选择要嵌入的武器：<br><br>
 <!--{loop range(1,6) $i}-->
-	<!--{if ${'itms'.$i} && ${'itmk'.$i}[0]=='W'}-->	
+	<!--{if ${'itms'.$i} && ${'itmk'.$i}[0]=='W'}-->
 	<input type="radio" name="skill103_choice" id="skill103_choice$i" value="$i"><a onclick="sl('skill103_choice$i');">${'itm'.$i}/${'itme'.$i}/${'itms'.$i}
 	<!--{eval $itmskw = !empty(${'itmsk'.$i}) ? \itemmain\parse_itmsk_words(${'itmsk'.$i},1) : '';}-->
 	<!--{if $itmskw}-->/$itmskw<!--{/if}--></a><br>

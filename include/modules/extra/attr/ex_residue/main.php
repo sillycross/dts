@@ -227,7 +227,7 @@ namespace ex_residue
 						}
 					}
 				}
-				else $chprocess($resitem);
+				else \itemmain\itemuse($resitem);
 				if ($resitem['itms'] > 0)
 				{
 					if (3 == $rtype)
