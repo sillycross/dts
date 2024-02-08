@@ -6458,6 +6458,21 @@ $cards = array(
 			),
 		),
 	),
+	402 => array(
+		'name' => '雕花匠人',
+		'rare' => 'B',
+		'pack' => 'Event Bonus',
+		'desc' => '雕花是一种传统工艺技术，通过在材料表面上刻划出各种图案和纹样，以达到美化和增强物品观赏性的目的',
+		'effect' => '现在在赛博世界同样大放光彩',
+		'desc_skills' => '你可以将补给品道具变为黄色雏菊/歌魂增加/120/1/天然，<br>但使用效果不变',
+		'energy' => 80,
+		'valid' => array(
+			'skills' => array(
+				'737' => '0',
+			),
+		),
+		'ignore_global_ach' => 1,
+	),
 	
 	1000 => array(
 		'name'=>'萌新',
