@@ -446,11 +446,11 @@ namespace sys
 		$skill = array ($data['wp'] , $data['wk'] , $data['wg'] , $data['wc'] , $data['wd'] , $data['wf']);
 		rsort ( $skill );
 		$maxskill = $skill[0];
-		$up += round($maxskill / 25);//熟练度最高的系每25点熟练加1
+		$up += min(2000, round($maxskill / 25));//熟练度最高的系每25点熟练加1，但最高2000分（对应5万熟练）
 		
 		$money_got = gameover_check_money_got($data);
 		
-		$up += round($money_got/500);//每500点金钱加1
+		$up += min(2000, round($money_got/500));//每500点金钱加1，但最高2000分（对应100万元）
 		
 		//file_put_contents('a.txt', $up.' ',FILE_APPEND);
 		return $up;
