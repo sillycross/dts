@@ -212,7 +212,8 @@ namespace ex_residue
 					{
 						$itm=$resitem['itm']; $itmk=$resitem['itmk'];
 						$itme=$resitem['itme']; $itms=$resitem['itms']; $itmsk=$resitem['itmsk'];
-						$chprocess($theitem);
+						\itemmain\itemuse($theitem);
+						return;
 					}
 					else
 					{
