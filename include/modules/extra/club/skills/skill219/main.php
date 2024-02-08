@@ -54,11 +54,12 @@ namespace skill219
 					$log .= '<span class="red b">武器已经带毒，不用改造！</span><br />';
 					$mode = 'command';
 					return;
-				}elseif(count($wepsk_arr) >= 12){
-					$log .= '<span class="red b">武器属性数目达到上限，无法改造！</span><br />';
-					$mode = 'command';
-					return;
 				}
+				// elseif(count($wepsk_arr) >= 12){
+					// $log .= '<span class="red b">武器属性数目达到上限，无法改造！</span><br />';
+					// $mode = 'command';
+					// return;
+				// }
 				$wepsk .= 'p';
 				$log .= "<span class=\"yellow b\">用毒药为{$wep}淬毒了，{$wep}增加了带毒属性！</span><br />";
 				if(strpos($wep,'毒性')===false)
