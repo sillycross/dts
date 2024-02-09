@@ -212,7 +212,8 @@ namespace ex_residue
 					{
 						$itm=$resitem['itm']; $itmk=$resitem['itmk'];
 						$itme=$resitem['itme']; $itms=$resitem['itms']; $itmsk=$resitem['itmsk'];
-						$chprocess($theitem);
+						\itemmain\itemuse($theitem);
+						return;
 					}
 					else
 					{
@@ -227,7 +228,7 @@ namespace ex_residue
 						}
 					}
 				}
-				else $chprocess($resitem);
+				else \itemmain\itemuse($resitem);
 				if ($resitem['itms'] > 0)
 				{
 					if (3 == $rtype)

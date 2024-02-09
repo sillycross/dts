@@ -9,7 +9,7 @@ $clubskillname[$___TEMP_SKILL_ID]
 <!--{if !empty($spid)}-->
 	<!--{eval $sname = (\player\fetch_playerdata_by_pid($spid))['name'];}-->
 	<!--{if $who['type']>0}-->
-	生命值低于<span class="yellow b">$sname</span>的<span class="yellow b">3</span>倍时对其先制率为<span class="yellow b">0</span>，<br>攻击<span class="yellow b">$sname</span>外的其他角色时最终伤害<span class="yellow b">+40%</span>，<br>受到<span class="yellow b">$sname</span>外的其他角色攻击时最终伤害<span class="yellow b">-20%</span>
+	生命值低于<span class="yellow b">$sname</span>的生命值的<span class="yellow b">3</span>倍时对其先制率为<span class="yellow b">0</span>，<br>攻击<span class="yellow b">$sname</span>外的其他角色时最终伤害<span class="yellow b">+40%</span>，<br>受到<span class="yellow b">$sname</span>外的其他角色攻击时最终伤害<span class="yellow b">-20%</span>
 	<!--{else}-->
 	对<span class="yellow b">$sname</span>先制率<span class="yellow b">-30%</span>
 	<!--{/if}-->

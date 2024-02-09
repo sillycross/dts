@@ -54,11 +54,12 @@ namespace skill230
 					$log .= '<span class="red b">武器已经带电，不用改造！</span><br />';
 					$mode = 'command';
 					return;
-				}elseif(count($wepsk_arr) >= 12){
-					$log .= '<span class="red b">武器属性数目达到上限，无法改造！</span><br />';
-					$mode = 'command';
-					return;
 				}
+				// elseif(count($wepsk_arr) >= 12){
+					// $log .= '<span class="red b">武器属性数目达到上限，无法改造！</span><br />';
+					// $mode = 'command';
+					// return;
+				// }
 				${'itms'.$position}-=1;
 				$itm = ${'itm'.$position};
 				$log .= "<span class=\"yellow b\">用{$itm}改造了{$wep}，{$wep}增加了电击属性！</span><br />";

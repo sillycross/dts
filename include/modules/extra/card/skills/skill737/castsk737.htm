@@ -1,0 +1,13 @@
+<input type="hidden" name="mode" value="special">
+<input type="hidden" id="command" name="command" value="skill737_special">
+<input type="hidden" id="subcmd" name="subcmd" value="castsk737">
+你可以选择一个补给品道具，将其变为<span class="yellow b">黄色雏菊/歌魂增加/120/1/天然</span>，但使用效果不变。<br><br>
+请选择要雕花的道具：<br><br>
+<!--{loop range(1,6) $i}-->
+	<!--{if ${'itms'.$i} && (${'itmk'.$i}[0]=='H' || ${'itmk'.$i}[0]=='P')}-->	
+	<input type="radio" name="skill737_choice" id="skill737_choice$i" value="$i"><a onclick="sl('skill737_choice$i');">${'itm'.$i}/${'itme'.$i}/${'itms'.$i}</a><br>
+	<!--{/if}-->
+<!--{/loop}-->
+<br><br>
+<input type="button" class="cmdbutton"  id="z" value="[Z]提交" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="button" class="cmdbutton"  id="x" value="[X]返回" onclick="$('command').value='menu'; postCmd('gamecmd','command.php');this.disabled=true;">

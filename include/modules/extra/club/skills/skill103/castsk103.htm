@@ -2,17 +2,14 @@
 <input type="hidden" id="command" name="command" value="skill103_special">
 <input type="hidden" id="subcmd" name="subcmd" value="castsk103">
 你可以在身体里嵌入一把武器，并可以更换该武器，但更换时原先嵌入的武器会消失。<br><br>
-请选择要嵌入的武器：<br>
-<select id="skill103_choice" name="skill103_choice" value="back">
-<option value="back">返回<br>
+请选择要嵌入的武器：<br><br>
 <!--{loop range(1,6) $i}-->
 	<!--{if ${'itms'.$i} && ${'itmk'.$i}[0]=='W'}-->
-	<option value="$i"><span class="yellow b">${'itm'.$i}</span>/${'itme'.$i}/${'itms'.$i}
+	<input type="radio" name="skill103_choice" id="skill103_choice$i" value="$i"><a onclick="sl('skill103_choice$i');">${'itm'.$i}/${'itme'.$i}/${'itms'.$i}
 	<!--{eval $itmskw = !empty(${'itmsk'.$i}) ? \itemmain\parse_itmsk_words(${'itmsk'.$i},1) : '';}-->
-	<!--{if $itmskw}-->/$itmskw<!--{/if}--><br>
+	<!--{if $itmskw}-->/$itmskw<!--{/if}--></a><br>
 	<!--{/if}-->
 <!--{/loop}-->
-</select>
 <br><br>
 <input type="button" class="cmdbutton"  id="z" value="[Z]提交" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
 <input type="button" class="cmdbutton"  id="x" value="[X]返回" onclick="$('command').value='menu'; postCmd('gamecmd','command.php');this.disabled=true;">

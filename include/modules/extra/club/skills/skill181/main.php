@@ -4,7 +4,8 @@ namespace skill181
 {
 	$lvupss = $lvupssref = 0;//记录升级增加歌魂上限和恢复歌魂值的临时变量
 	
-	$skill181_init_ss = 50;
+	$skill181_init_mss = 100;
+	$skill181_init_ss = 30;
 	
 	function init() 
 	{
@@ -24,7 +25,7 @@ namespace skill181
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('skill181'));
-		$pa['mss'] += $skill181_init_ss;
+		$pa['mss'] += $skill181_init_mss;
 		$pa['ss'] += $skill181_init_ss;
 	}
 	
