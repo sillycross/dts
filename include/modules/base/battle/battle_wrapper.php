@@ -2,6 +2,8 @@
 
 namespace battle
 {
+	$o_edata = Array();//记录敌人初始数据的数组。视野模块之后才添加的，所以很多早期模块并没有用到这个变量
+	
 	//注意，各种攻击函数的$active都是相对于玩家而言的，$active=1代表$pa（攻击者）是玩家
 	
 	//保存敌人的战斗log
@@ -54,6 +56,14 @@ namespace battle
 	function battle_wrapper(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//记录初始的敌人数据
+		eval(import_module('battle'));
+		if($active) {
+			$o_edata = $pd;
+		}else{
+			$o_edata = $pa;
+		}
+
 		battle_prepare($pa, $pd, $active);
 		battle($pa, $pd, $active);
 		battle_finish($pa, $pd, $active);

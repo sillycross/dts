@@ -5,10 +5,10 @@
 
 namespace searchmemory
 {
-	function init() {}
-	
 	$searchmemory_now_iids = Array();//当前记忆中所有物品iid组成的数组
 	$searchmemory_now_pids = Array();//当前记忆中所有角色pid组成的数组
+
+	function init() {}	
 	
 	//判定当前游戏类型（或者其他一些情况）是否开启探索记忆模式
 	function searchmemory_available()
@@ -186,16 +186,16 @@ namespace searchmemory
 			$amn = $marr['itm'];
 			$amflag = 1;
 			if($showlog) {
-				if(\player\check_fog()) $log .= '你能隐约看到'.$amn.'的位置。<br>';
-				else $log .= '你设法保持对'.$amn.'的持续观察。<br>';
+				if(\player\check_fog()) $log .= '你努力让'.$amn.'的位置保持在视野之内。<br>';
+				else $log .= $amn.'仍位于你的视野中。<br>';
 			}
 		}elseif(isset($marr['Pname'])){
 			$amn = $marr['Pname'];
 			$amflag = 1;
 			if($showlog) {
-				if($marr['smtype'] == 'corpse' ) $log .=  '你设法保持对'.$amn.'的尸体的持续观察。<br>';
+				if($marr['smtype'] == 'corpse' ) $log .=  $amn.'的尸体仍位于你的视野中。<br>';
 				elseif(\player\check_fog()) $log .= '你努力让那个人影保持在视野之内。<br>';
-				else $log .= '在离开的同时，你设法保持对'.$amn.'的持续观察。<br>';
+				else $log .= $amn.'仍位于你的视野中。<br>';
 			}
 		}
 		//实际加入记忆
@@ -395,45 +395,62 @@ namespace searchmemory
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
 		$tmp_pls = $pls;
+		$tmp_eid = 0;
+		$tmp_eid_mode = '';
 		if(searchmemory_available()){
 			//再探的判断
 			if ($mode == 'command' && strpos($command,'memory')===0){
 				$smn = substr($command,6);
 				searchmemory_discover($smn);
-			//逃跑时记录敌人数据
-			}elseif(($mode == 'combat' && $command == 'back')
-				 || (!\gameflow_combo\is_gamestate_combo() && $mode == 'corpse' && ($command == 'menu' || (check_keep_corpse_in_searchmemory() && $command != 'destroy')))){//测试，荣耀模式只要不销毁尸体，视野都留着
-				$eid = str_replace('enemy','',str_replace('corpse','',$action));
-				if(!empty($eid)) {
-					$smedata = \player\fetch_playerdata_by_pid($eid);
-					$amarr = array('pid' => $smedata['pid'], 'Pname' => $smedata['name'], 'pls' => $pls, 'smtype' => 'unknown', 'unseen' => 0);
-					if($mode == 'combat' && !$fog) $amarr['smtype'] = 'enemy';
-					elseif($mode == 'corpse') {
-						$amarr['smtype'] = 'corpse';
-						$check_corpse = 1;
-					}
-				}				
+			//逃跑时记录敌人数据。因为这个流程不会加载edata，必须提前判定
+			}elseif('enemy' == substr($action,0,5) && 'back' == $command)
+			{
+				$tmp_eid = (int)substr($action, 5);
+				$tmp_eid_mode = 'enemy';
+			}
+			//离开尸体时记录尸体数据。部分游戏模式无论是否拾取道具都能记录
+			elseif('corpse' == substr($action,0,6) && !\gameflow_combo\is_gamestate_combo() && ('menu' == $command || (check_keep_corpse_in_searchmemory() && 'destroy' != $command)))
+			{
+				$tmp_eid = (int)substr($action, 6);
+				$tmp_eid_mode = 'corpse';
 			}
 		}
 		
 		$chprocess();
-		
-		if(!empty($amarr)) {//前一段是逃跑并记录敌人数据，才会满足这里的条件并执行
-			if(!empty($check_corpse)){//如果是尸体，额外判定一次空尸体不会留在视野里
-				$smedata = \player\fetch_playerdata_by_pid($eid);
-				if(\metman\discover_player_filter_corpse($smedata)) {
-					add_memory($amarr);
-				}else {
-					$log .= $smedata['name'].'的尸体上已经不剩什么了。<br>';
-				}
-			}else{
-				add_memory($amarr);
+
+		//某些游戏流程只要进行过战斗，都记录敌人数据。
+		if(empty($tmp_eid) && check_keep_enemy_in_searchmemory()) {
+			if(!empty(get_var_in_module('o_edata', 'battle'))) {
+				$o_edata = get_var_in_module('o_edata', 'battle');
+				$tmp_eid = (int)$o_edata['pid'];
+				$tmp_eid_mode = 'enemy';
 			}
 		}
+
+		if(!empty($tmp_eid)) {
+			$smedata = \player\fetch_playerdata_by_pid($tmp_eid);
+			if(empty($smedata)) {
+				$log .= '视野或记忆数据有误。<br>';
+			}elseif(('enemy' == $tmp_eid_mode && $smedata['hp'] > 0) || ('corpse' == $tmp_eid_mode && $smedata['hp'] <= 0)) {
+				if('corpse' == $tmp_eid_mode && !\metman\discover_player_filter_corpse($smedata)) {
+					$log .= $smedata['name'].'的尸体上已经不剩什么了。<br>';
+				}else{
+					$amarr = array(
+						'pid' => $smedata['pid'],
+						'Pname' => $smedata['name'],
+						'pls' => $smedata['pls'],
+						'smtype' => 'corpse' == $tmp_eid_mode ? 'corpse' : ($fog ? 'unknown' : 'enemy'),
+						'unseen' => 0
+					);
+					add_memory($amarr);
+				}
+			}else{
+				//$log .= '错误的探索记忆指令。<br>';
+			}
+		}	
+		
 		if($pls != $tmp_pls && 'move' != $command) {//如果因为移动之外的原因变更过地点，则把所有视野设为不可见
 			change_memory_unseen('ALL');
-			//$log .= '你先前所见的一切东西都离开了视线。<br>';
-			//remove_memory('ALL');
 		}
 	}
 //	
@@ -620,11 +637,22 @@ namespace searchmemory
 			}
 			//原本不在视野中的，只是加入视野
 			if($marr['unseen']) {
+				//2024.02.09 重访不在视野中的角色有概率失败（视为角色已经移动了）
+				if($nmarr['hp'] > 0) {
+					eval(import_module('searchmemory'));
+					if(rand(0, 99) < $searchmemory_enemy_in_memory_escape_rate) {
+						$log .= '<span class="yellow b">'.$marr['Pname'].'已经不在原来的位置了……</span><br>';
+						$mode = 'command';
+						return;
+					}
+				}
 				if($fog && 'corpse' != $marr['smtype']) {
 					$log .= '<span class="lime b">你隐约看到原来的位置有个人影。</span><br>';
 				}elseif('unknown' == $marr['smtype']){
 					$log .= '你看到<span class="lime b">'.$marr['Pname'].'站在你记忆中的位置。</span><br>';
 					$marr['smtype'] = 'enemy';
+				}elseif('corpse' == $marr['smtype']){
+					$log .= '你看到<span class="lime b">'.$marr['Pname'].'的尸体还在原来的位置。</span><br>';
 				}else{
 					$log .= '你看到<span class="lime b">'.$marr['Pname'].'还在原来的位置。</span><br>';
 				}
@@ -679,13 +707,24 @@ namespace searchmemory
 		eval(import_module('searchmemory'));
 		return $searchmemorycoldtime;
 	}
+
+	//是否能在和敌人发生战斗后让敌人留在视野中，要求特定房间
+	function check_keep_enemy_in_searchmemory()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','searchmemory'));
+		//极速房测试
+		if(in_array($gametype, $gametype_keep_enemy_in_searchmemory)) return true;
+		return false;
+	}
 	
-	//是否能在捡取尸体之后让尸体留在视野中
+	//是否能在捡取尸体之后让尸体留在视野中，要求特定房间
 	function check_keep_corpse_in_searchmemory()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys'));
-		if(!empty($roomvars['current_game_option']['keep_corpse_in_searchmemory'])) return true;//需要房间设置允许保留尸体
+		eval(import_module('sys','searchmemory'));
+		//PVE、伐木房需要房间设置允许保留尸体，极速房测试
+		if(in_array($gametype, $gametype_keep_corpse_in_searchmemory) || !empty($roomvars['current_game_option']['keep_corpse_in_searchmemory'])) return true;
 		return false;
 	}
 	
