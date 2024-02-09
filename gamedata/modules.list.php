@@ -613,6 +613,7 @@ skill508,extra/card/skills/skill508/,1
 skill233,extra/club/skills/skill233/,1
 smartmix,extra/misc/smartmix/,1
 skill371,extra/achievement/skills/skill371/,1
+skill544,extra/card/skills/skill544/,1
 skill363,extra/achievement/skills/skill363/,1
 instance5,extra/instance/instance5/,1
 skill361,extra/activities/lunany2018/skill361/,1

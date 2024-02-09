@@ -5356,7 +5356,20 @@ $cards = array(
 			),
 		)
 	),
-	
+	311 => array(
+		'name' => '谷泽龙二',
+		'rare' => 'B',
+		'pack' => 'Standard Pack',
+		'desc' => '复活赛有人教他基础了',
+		'effect' => '只要你入场，所有玩家正常选择称号时只能选到一般称号',
+		'desc_skills' => '部分卡片额外增加的称号选项不受影响',
+		'energy' => 100,
+		'valid' => array(
+			'skills' => array(
+				'544' => '0'
+			)
+		)
+	),
 	341 => array(
 		'name' => '麻薯',
 		'rare' => 'B',
