@@ -149,19 +149,26 @@ namespace ex_dmg_att
 	function check_ex_inf_infliction(&$pa, &$pd, $active, $key)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','ex_dmg_att','wound','logger'));
 		//判定造成异常状态
-		$inf_rate = calculate_ex_inf_rate($pa, $pd, $active, $key)+get_ex_inf_rate_modifier($pa, $pd, $active, $key);
+		$inf_rate = calculate_ex_inf_rate($pa, $pd, $active, $key) + get_ex_inf_rate_modifier($pa, $pd, $active, $key);
 		$inf_dice = rand(0,99);
 		if ($inf_dice < $inf_rate)
 		{
-			$infkey = array_search($ex_inf[$key], $infskillinfo);
-			if ($active)
-				$log .= "并致使{$pd['name']}{$infname[$infkey]}了！";
-			else  $log .= "并致使你{$infname[$infkey]}了！";
-			\wound\get_inf($infkey,$pd);
-			addnews($now,'inf',$pa['name'],$pd['name'],$infkey);
+			get_ex_inf_main($pa, $pd, $active, $key);
 		}
+	}
+
+	//执行致异常状态（单个）
+	function get_ex_inf_main(&$pa, &$pd, $active, $key)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','ex_dmg_att','wound','logger'));
+		$infkey = array_search($ex_inf[$key], $infskillinfo);
+		if ($active)
+			$log .= "并致使{$pd['name']}{$infname[$infkey]}了！";
+		else  $log .= "并致使你{$infname[$infkey]}了！";
+		\wound\get_inf($infkey,$pd);
+		addnews($now,'inf',$pa['name'],$pd['name'],$infkey);
 	}
 	
 	function showlog_ex_single_dmg(&$pa, &$pd, $active, $key)

@@ -36,7 +36,7 @@ namespace skill517
 	function strike_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill']==517) {
+		if (!empty($pa['bskill']) && $pa['bskill']==517) {
 			if (!\skillbase\skill_query(517,$pa) || !check_unlocked517($pa))
 			{
 				eval(import_module('logger'));
@@ -75,7 +75,7 @@ namespace skill517
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($pa, $pd, $active, $dmg);
-		if ($pa['bskill']==517) 
+		if (!empty($pa['bskill']) && $pa['bskill']==517) 
 		{
 			eval(import_module('logger'));
 			$log .=  \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow b"><:pa_name:>的攻击并没有瞄准<:pd_name:>本身……</span><br>');
@@ -87,7 +87,7 @@ namespace skill517
 	function armor_hurt(&$pa, &$pd, $active, $which, $hurtvalue)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill']==517 && 1 == $pa['skill517_hit_flag']) 
+		if (!empty($pa['bskill']) && $pa['bskill']==517 && 1 == $pa['skill517_hit_flag']) 
 		{
 			eval(import_module('logger'));
 			$log .= \battle\battlelog_parser($pa, $pd, $active, "<span class=\"yellow b\">然而，攻击瞄准的是<:pd_name:>的防具！</span><br>");
@@ -101,7 +101,7 @@ namespace skill517
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$chprocess($pa, $pd, $active, $hurtposition);
-		if ($pa['bskill']==517 && empty($pa['skill517_hit_flag'])) 
+		if (!empty($pa['bskill']) && $pa['bskill']==517 && empty($pa['skill517_hit_flag'])) 
 		{
 			$pa['attack_wounded_'.$hurtposition]+=$pa['wepe'];//round($pa['wepe']/2);
 			$pa['skill517_hit_flag'] = 1;
@@ -112,7 +112,7 @@ namespace skill517
 	function check_weapon_inf_rate_hit(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if($pa['bskill']==517 && empty($pa['skill517_hit_flag'])){
+		if(!empty($pa['bskill']) && $pa['bskill']==517 && empty($pa['skill517_hit_flag'])){
 			return 1;
 		}
 		return $chprocess($pa, $pd, $active);
