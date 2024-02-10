@@ -9,7 +9,7 @@ $clubskillname[$___TEMP_SKILL_ID]
 </span></td>
 <td class="skilldesc_right b3">
 <!--{if $ss >= 1}-->
-<input type="number" style="width:40px" id="skill739_num" name="skill739_num" min="1" max="$skillpoint" value="1">
+<input type="number" style="width:40px" id="skill739_num" name="skill739_num" min="1" max="$ss" value="1">
 <input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill739_special';$('subcmd').value='upgrade';$('skillpara1').value=$('skill739_num').value;postCmd('gamecmd','command.php');this.disabled=true;" value="使用">
 <!--{else}-->
 <input type="number" style="width:40px" disabled="true" value="0">
