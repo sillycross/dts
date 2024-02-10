@@ -5,6 +5,8 @@ namespace skill78
 	function init() 
 	{
 		define('MOD_SKILL78_INFO','club;upgrade;locked;');
+		eval(import_module('clubbase'));
+		$clubskillname[78] = '神技';
 	}
 	
 	function acquire78(&$pa)

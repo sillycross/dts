@@ -303,6 +303,8 @@ skill804,extra/card/skills/skill804/,1
 skill728,extra/card/skills/skill728/,1
 skill735,extra/card/skills/skill735/,1
 skill736,extra/card/skills/skill736/,1
+skill110,extra/club/skills/skill110/,1
+club27,extra/club/clubs/club27/,1
 wep_g,base/weapon/wep_g/,1
 wep_j,base/weapon/wep_j/,1
 skill273,extra/club/skills/skill273/,1
@@ -443,6 +445,7 @@ randmix,extra/misc/randmix/,1
 skill57,extra/club/skills/skill57/,1
 skill436,extra/card/skills/skill436/,1
 skill729,extra/card/skills/skill729/,1
+skill107,extra/club/skills/skill107/,1
 dualwep,base/weapon/dualwep/,1
 wep_b_extra_reloading,extra/item_extra/wep_b_extra_reloading/,1
 skill28,extra/club/skills/skill28/,1
@@ -513,6 +516,9 @@ opening,base/opening/,1
 ending,base/ending/,1
 song,base/items/song/,1
 skill429,extra/instance/gtype1/skill429/,1
+skill108,extra/club/skills/skill108/,1
+skill109,extra/club/skills/skill109/,1
+skill111,extra/club/skills/skill111/,1
 empowers,base/items/empowers/,1
 skill70,extra/club/skills/skill70/,1
 skill246,extra/club/skills/skill246/,1
@@ -530,6 +536,7 @@ skill208,extra/club/skills/skill208/,1
 skill215,extra/club/skills/skill215/,1
 skill271,extra/club/skills/skill271/,1
 tutorial,extra/instance/instance7_tutorial/tutorial/,1
+skill112,extra/club/skills/skill112/,1
 skill51,extra/club/skills/skill51/,1
 skill493,extra/card/skills/skill493/,1
 randrecipe,extra/instance/instance10_road/randrecipe/,1
@@ -605,6 +612,7 @@ skill381,extra/achievement/skills/skill381/,1
 skill88,extra/club/skills/skill88/,1
 skill91,extra/club/skills/skill91/,1
 skill92,extra/club/skills/skill92/,1
+skill739,extra/card/skills/skill739/,1
 wepchange,extra/attr/wepchange/,1
 skill77,extra/club/skills/skill77/,1
 skill379,extra/achievement/skills/skill379/,1
@@ -625,6 +633,7 @@ skill602,extra/club/skills/skill602/,1
 skill603,extra/club/skills/skill603/,1
 item_uys,extra/item_extra/item_uys/,1
 searchmemory,extra/searchmemory/,1
+skill738,extra/card/skills/skill738/,1
 skill87,extra/club/skills/skill87/,1
 skill94,extra/club/skills/skill94/,1
 skill497,extra/card/skills/skill497/,1
@@ -690,6 +699,7 @@ ex_purity,extra/attr/ex_purity/,1
 skill26,extra/club/skills/skill26/,1
 skill265,extra/club/skills/skill265/,1
 skill507,extra/card/skills/skill507/,1
+skill113,extra/club/skills/skill113/,1
 skill27,extra/club/skills/skill27/,1
 skill489,extra/card/skills/skill489/,1
 skill266,extra/club/skills/skill266/,1

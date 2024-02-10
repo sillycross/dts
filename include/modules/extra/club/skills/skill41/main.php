@@ -5,6 +5,8 @@ namespace skill41
 	function init() 
 	{
 		define('MOD_SKILL41_INFO','club;locked;');
+		eval(import_module('clubbase'));
+		$clubskillname[41] = '神速';
 	}
 	
 	function acquire41(&$pa)

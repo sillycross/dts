@@ -4,7 +4,7 @@ namespace skill31
 {
 	function init() 
 	{
-		define('MOD_SKILL31_INFO','club;locked;');
+		define('MOD_SKILL31_INFO','club;locked;feature;');
 		eval(import_module('clubbase'));
 		$clubskillname[31] = '根性';
 		$clubdesc_a[13] .= '<br>食用补给HP恢复效果变为250%';//根性的特性显示实际上用的是这个技能

@@ -1,0 +1,37 @@
+<!--{eval $___TEMP_SKILL_ID=738;}-->
+<!--{eval $nchoice = (int)\skillbase\skill_getvalue(738,'choice'); }-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+<div style="text-align:left; display:inline-block;">
+你可以随意于下列三个状态间切换：<br>
+<table>
+<tr><td>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--{if $nchoice==1}--><span ><!--{/if}-->(1) 移动和探索消耗体力<br>减少<span class="yellow b">(体力上限-400)/50</span>点 <!--{if $nchoice==1}--></span><!--{/if}-->
+</td><td>
+<!--{if $nchoice==1}--><span class="lime b">[当前选择]</span><!--{else}--><input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill738_special';$('subcmd').value='upgrade';$('skillpara1').value='1';postCmd('gamecmd','command.php');this.disabled=true;" value="选择"><!--{/if}-->
+</td></tr>
+<tr><td>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--{if $nchoice==2}--><span ><!--{/if}-->(2) 无效果 <!--{if $nchoice==2}--></span><!--{/if}-->
+</td><td>
+<!--{if $nchoice==2}--><span class="lime b">[当前选择]</span><!--{else}--><input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill738_special';$('subcmd').value='upgrade';$('skillpara1').value='2';postCmd('gamecmd','command.php');this.disabled=true;" value="选择"><!--{/if}-->
+</td></tr>
+<tr><td>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--{if $nchoice==3}--><span ><!--{/if}-->(3) 移动和探索消耗体力<br>增加<span class="yellow b">(体力上限/50)</span>点，<br>冷却时间<span class="yellow b">-(体力上限/50)%</span> <!--{if $nchoice==3}--></span><!--{/if}-->
+</td><td>
+<!--{if $nchoice==3}--><span class="lime b">[当前选择]</span><!--{else}--><input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill738_special';$('subcmd').value='upgrade';$('skillpara1').value='3';postCmd('gamecmd','command.php');this.disabled=true;" value="选择"><!--{/if}-->
+</td></tr>
+</table>
+</div>
+</span></td>
+<td class="skilldesc_right b3">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

@@ -5,6 +5,8 @@ namespace skill42
 	function init() 
 	{
 		define('MOD_SKILL42_INFO','club;locked;');
+		eval(import_module('clubbase'));
+		$clubskillname[42] = '恃勇';
 	}
 	
 	function acquire42(&$pa)

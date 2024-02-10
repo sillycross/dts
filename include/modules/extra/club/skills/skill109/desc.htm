@@ -1,0 +1,24 @@
+<!--{eval eval(import_module('skill109'));}-->
+<!--{eval $___TEMP_SKILL_ID=109;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+可花费<span class="lime b">2</span>点技能点，并有<span class="yellow b">35%</span>概率额外花费<span class="yellow b">1</span>点理智值，<br>随机获得一个称号技能，该<span class="cyan b">临时</span>技能持续<span class="cyan b">$skill109_tempskill_time</span>秒
+</span></td>
+<td class="skilldesc_right b3">
+<!--{if $skillpoint>=2}-->
+<input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill109_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="发动">
+<!--{else}-->
+<input type="button" style="width:46px" disabled="true" value="发动">
+<!--{/if}-->
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+3级时解锁
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

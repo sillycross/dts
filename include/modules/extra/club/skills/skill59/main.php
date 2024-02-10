@@ -4,7 +4,7 @@ namespace skill59
 {
 	function init() 
 	{
-		define('MOD_SKILL59_INFO','club;locked;');
+		define('MOD_SKILL59_INFO','club;locked;feature;');
 		eval(import_module('clubbase'));
 		$clubskillname[59] = '新生';
 	}

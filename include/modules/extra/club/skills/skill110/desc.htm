@@ -1,0 +1,28 @@
+<!--{eval eval(import_module('skill110','sys'));}-->
+<!--{eval $___TEMP_SKILL_ID=110;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+发动后可选择一个<span class="cyan b">临时</span>技能永久获得，冷却时间<span class="cyan b">$skill110_cd</span>秒
+<!--{eval $skill110_lst = (int)\skillbase\skill_getvalue(110,'lastuse'); $skill110_time = $now-$skill110_lst;$skill110_cd_left=$skill110_cd-$skill110_time;}-->
+<!--{if $skill110_time<$skill110_cd}-->
+<br><span class="cyan b">技能冷却中，冷却时间还剩<span>$skill110_cd_left</span>秒。</span>
+<!--{/if}-->
+</span></td>
+<td class="skilldesc_right b3">
+<!--{if $skill110_time>=$skill110_cd}-->
+<input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill110_special';$('subcmd').value='castsk110';postCmd('gamecmd','command.php');this.disabled=true;" value="发动">
+<!--{else}-->
+<input type="button" style="width:46px" disabled="true" value="发动">
+<!--{/if}-->
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+7级时解锁
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}

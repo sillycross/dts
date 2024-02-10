@@ -99,7 +99,7 @@ namespace skill529
 	//若过滤，返回0；否则返回$skillid
 	function skill529_skill_filter($skillid){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$filter_arr = Array(10,11,12,81,460,512);
+		$filter_arr = Array(1,2,3,4,5,6,7,8,9,10,11,12,81,460,512);
 
 		if(in_array($skillid, $filter_arr)) $skillid = 0;
 		else{
