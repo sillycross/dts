@@ -1,0 +1,16 @@
+<!--{eval eval(import_module('clubbase'));}-->
+<input type="hidden" name="mode" value="special">
+<input type="hidden" id="command" name="command" value="skill110_special">
+<input type="hidden" id="subcmd" name="subcmd" value="castsk110">
+你可以选择一个已习得的临时技能，并永久获得它。<br><br>
+<!--{eval $tsklist=\skill110\skill110_tempskill_list($who);}-->
+请选择要记住的技能：<br>
+<select id="skill110_skillid" name="skill110_skillid" style="width:120px" value="back">
+<option value="back">返回<br>
+<!--{loop $tsklist $v}-->
+	<option value="$v">技能【$clubskillname[$v]】<br>
+<!--{/loop}-->
+</select>
+<br><br>
+<input type="button" class="cmdbutton"  id="z" value="[Z]提交" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
+<input type="button" class="cmdbutton"  id="x" value="[X]返回" onclick="$('command').value='menu'; postCmd('gamecmd','command.php');this.disabled=true;">

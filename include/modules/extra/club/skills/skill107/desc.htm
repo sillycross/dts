@@ -1,0 +1,29 @@
+<!--{eval eval(import_module('skill107'));}-->
+<!--{eval $___TEMP_SKILL_ID=107;}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+<!--{eval $sanity = (int)\skillbase\skill_getvalue(107,'sanity',$who); $clv = (int)\skillbase\skill_getvalue(107,'lvl',$who);}-->
+<span class="cyan b">称号特性</span> 拥有<span class="yellow b">$sanity/7</span>点理智值<br>
+<!--{eval $totlv = count($upgradecost)-1;}-->
+<span class="lime b">当前级别$clv/$totlv</span>&nbsp;&nbsp;损失理智值时有<span class="yellow b">$skill107_actrate[$clv]%</span>概率获得一个随机技能<br>
+<!--{if $upgradecost[$clv] !== -1}-->消耗<span class="lime b">$upgradecost[$clv]</span>点技能点升级<!--{/if}-->
+</span></td>
+<td class="skilldesc_right b3">
+<!--{if $upgradecost[$clv] !== -1}-->
+	<!--{if $skillpoint>=$upgradecost[$clv]}-->
+	<input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill107_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="升级">
+	<!--{else}-->
+	<input type="button" style="width:46px" disabled="true" value="升级">
+	<!--{/if}-->
+<!--{/if}-->
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}
