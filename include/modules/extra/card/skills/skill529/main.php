@@ -95,16 +95,22 @@ namespace skill529
 		return $spool;
 	}
 	
-	//技能池过滤：除去不适合给玩家的技能，主要为隐藏技能、成就，以及个别技能（包括10、11、12号技能，81号换装、460号占位符、512号幻象技能）
+	//技能池过滤：除去不适合给玩家的技能，主要为隐藏技能、成就，以及个别技能（包括异常状态、10、11、12号技能，81号换装、460号占位符、512号幻象技能）
 	//若过滤，返回0；否则返回$skillid
 	function skill529_skill_filter($skillid){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$filter_arr = Array(1,2,3,4,5,6,7,8,9,10,11,12,81,460,512);
+		$filter_id_arr = array_merge(range(1,9), Array(10,11,12,81,460,512));
+		$filter_info_arr = Array('hidden', 'achievement', 'debuff');
 
-		if(in_array($skillid, $filter_arr)) $skillid = 0;
+		if(in_array($skillid, $filter_id_arr)) $skillid = 0;
 		else{
 			$const = constant('MOD_SKILL'.$skillid.'_INFO');
-			if(strpos($const,'hidden')!==false || strpos($const,'achievement')!==false) $skillid = 0;
+			foreach($filter_info_arr as $v) {
+				if(strpos($const, $v)!==false) {
+					$skillid = 0;
+					break;
+				}
+			}
 		}
 		return $skillid;
 	}
