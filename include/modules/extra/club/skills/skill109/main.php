@@ -42,7 +42,7 @@ namespace skill109
 			return;
 		}
 		$skillpoint -= 2;
-		if (\skillbase\skill_query(107, $sdata) && (rand(0,99) < 25)) \skill107\skill107_lose_sanity(1, $sdata);
+		if (\skillbase\skill_query(107, $sdata) && (rand(0,99) < 35)) \skill107\skill107_lose_sanity(1, $sdata);
 		$rs_skills = \item_randskills\get_rand_clubskill($sdata, 1, 'club27');
 		if (!empty($rs_skills))
 		{
