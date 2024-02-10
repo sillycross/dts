@@ -4,7 +4,7 @@ namespace skill107
 {
 	$skill107_actrate = array(10,20,35,50);
 	//升级所需技能点数值
-	$upgradecost = array(3,3,3,-1);
+	$upgradecost = array(2,3,3,-1);
 	
 	function init()
 	{

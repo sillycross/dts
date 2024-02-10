@@ -17,6 +17,7 @@ namespace skill41
 	function lost41(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		\skillbase\skill_delvalue(41,'u',$pa);
 	}
 	
 	function unlock41(&$pa)
