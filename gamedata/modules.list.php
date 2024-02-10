@@ -605,6 +605,7 @@ skill381,extra/achievement/skills/skill381/,1
 skill88,extra/club/skills/skill88/,1
 skill91,extra/club/skills/skill91/,1
 skill92,extra/club/skills/skill92/,1
+skill739,extra/card/skills/skill739/,1
 wepchange,extra/attr/wepchange/,1
 skill77,extra/club/skills/skill77/,1
 skill379,extra/achievement/skills/skill379/,1
@@ -625,6 +626,7 @@ skill602,extra/club/skills/skill602/,1
 skill603,extra/club/skills/skill603/,1
 item_uys,extra/item_extra/item_uys/,1
 searchmemory,extra/searchmemory/,1
+skill738,extra/card/skills/skill738/,1
 skill87,extra/club/skills/skill87/,1
 skill94,extra/club/skills/skill94/,1
 skill497,extra/card/skills/skill497/,1

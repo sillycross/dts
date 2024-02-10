@@ -1,16 +1,16 @@
-<!--{eval $___TEMP_SKILL_ID=88;}-->
+<!--{eval $___TEMP_SKILL_ID=739;}-->
 {template MOD_CLUBBASE_SKILLDESC_START}
 <span>
 $clubskillname[$___TEMP_SKILL_ID]
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class="skilldesc_left b3"><span class="skilldesc">
-每消耗<span class="lime b">1</span>技能点，歌魂上限<span class="yellow b">+3</span>点
+每消耗<span class="lime b">1</span>歌魂，获得<span class="yellow b">1</span>点空歌魂上限
 </span></td>
 <td class="skilldesc_right b3">
-<!--{if $skillpoint >= 1}-->
-<input type="number" style="width:40px" id="skill88_num" name="skill88_num" min="1" max="$skillpoint" value="1">
-<input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill88_special';$('subcmd').value='upgrade';$('skillpara1').value=$('skill88_num').value;postCmd('gamecmd','command.php');this.disabled=true;" value="使用">
+<!--{if $ss >= 1}-->
+<input type="number" style="width:40px" id="skill739_num" name="skill739_num" min="1" max="$skillpoint" value="1">
+<input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill739_special';$('subcmd').value='upgrade';$('skillpara1').value=$('skill739_num').value;postCmd('gamecmd','command.php');this.disabled=true;" value="使用">
 <!--{else}-->
 <input type="number" style="width:40px" disabled="true" value="0">
 <input type="button" style="width:46px" disabled="true" value="使用">
