@@ -1,57 +1,151 @@
 <?php
 
-namespace skill43
+namespace skill42
 {
 	function init() 
 	{
-		define('MOD_SKILL43_INFO','club;upgrade;limited;');
+		define('MOD_SKILL42_INFO','club;locked;');
 		eval(import_module('clubbase'));
-		$clubskillname[43] = '龙胆';
+		$clubskillname[42] = '恃勇';
 	}
 	
-	function acquire43(&$pa)
+	function acquire42(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
-	function lost43(&$pa)
+	function lost42(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
-	function check_unlocked43(&$pa)
+	// function unlock42(&$pa)
+	// {
+		// if (eval(__MAGIC__)) return $___RET_VALUE;
+		// \skillbase\skill_setvalue(42,'u','1',$pa);
+	// }
+	
+	function lock42(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return $pa['lvl']>=7;
+		\skillbase\skill_setvalue(42,'u','0',$pa);
 	}
 	
-	function upgrade43()
+	function check_unlocked42(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('player','logger'));
-		if (!\skillbase\skill_query(43) || !check_unlocked43($sdata))
+		$skill42_u = \skillbase\skill_getvalue(42,'u',$pa);
+		if ($skill42_u === '1') return 1;
+		elseif ($skill42_u === '0') return 0;
+		if (\skillbase\skill_query(43,$pa)) return 0;
+		return 1;
+	}
+	
+	//战斗中基础防御力增加
+	function get_internal_def(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (!\skillbase\skill_query(42,$pd) || !check_unlocked42($pd)) return $chprocess($pa,$pd,$active);
+		return $chprocess($pa,$pd,$active)*1.35;
+	}
+	
+	//每次被攻击增加2点基础防御
+	function attack_finish(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (\skillbase\skill_query(42,$pd) && check_unlocked42($pd))
 		{
-			$log .= '你没有这个技能。<br>';
-			return;
+			$pd['def']+=2;
 		}
-		$val = (int)get_var_input('skillpara1');
-		if ($val!=1 && $val!=2)
+		$chprocess($pa, $pd, $active);
+	}
+	
+	//击杀敌人时攻击+1防御+2
+	function player_kill_enemy(&$pa,&$pd,$active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (\skillbase\skill_query(42,$pa) && check_unlocked42($pa))
 		{
-			$log.='参数不合法。<br>';
-			return;
+			//$pa['att']+=2; $pa['def']+=4;
+			$pa['att']+=1; $pa['def']+=2;
 		}
-		if ($val==1)
+		$chprocess($pa, $pd, $active);
+	}
+	
+	//先攻率+12%
+	function calculate_active_obbs_multiplier(&$ldata,&$edata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$r = 1;
+		if (\skillbase\skill_query(42,$ldata) && check_unlocked42($ldata)) $r*=1.12;
+		if (\skillbase\skill_query(42,$edata) && check_unlocked42($edata)) $r/=1.12;
+		if($r != 1) $ldata['active_words'] = \attack\multiply_format($r, $ldata['active_words'],0);
+		return $chprocess($ldata,$edata)*$r;
+	}
+	
+	//暂时获得并解锁神速
+	function skill42_temp_acquire41(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$pa['skill42_flag1']=1;
+		if (!\skillbase\skill_query(41,$pa))
 		{
-			if (!\skillbase\skill_query(41)) \skillbase\skill_acquire(41);
-			if (\skillbase\skill_query(42)) \skill42\lock42($sdata);
+			//原先没有神速
+			\skillbase\skill_acquire(41,$pa);
+			$pa['skill42_flag2']=1;
 		}
 		else
 		{
-			if (!\skillbase\skill_query(42)) \skillbase\skill_acquire(42);
-			if (\skillbase\skill_query(41)) \skill41\lock41($sdata);
+			$stat = \skill41\check_unlocked41($pa);
+			if ($stat) 
+				$pa['skill42_flag2']=3; 
+			else
+			{
+				\skill41\unlock41($pa);
+				$pa['skill42_flag2']=2; 
+			}
 		}
-		\skillbase\skill_lost(43);
-		$log.='选择成功。<br>';
+	}
+	
+	//恢复原神速技能状态
+	function skill42_restore_skill41(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if (!isset($pa['skill42_flag1']) || !$pa['skill42_flag1']) return;
+		if ($pa['skill42_flag2']==1)
+		{
+			\skillbase\skill_lost(41,$pa);
+		}
+		else  if ($pa['skill42_flag2']==2)
+		{
+			\skill41\lock41($pa);
+		}
+	}
+	
+	function battle_prepare(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('logger'));
+		if (\skillbase\skill_query(42,$pa) && check_unlocked42($pa))
+		{
+			//敌方视为具有神速
+			skill42_temp_acquire41($pd);
+		}
+		if (\skillbase\skill_query(42,$pd) && check_unlocked42($pd))
+		{
+			//敌方视为具有神速
+			skill42_temp_acquire41($pa);
+		}
+		$chprocess($pa, $pd, $active);
+	}
+	
+	function battle_finish(&$pa, &$pd, $active)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		//恢复神速技能状态
+		skill42_restore_skill41($pa);
+		skill42_restore_skill41($pd);
+		$chprocess($pa, $pd, $active);
 	}
 }
 
