@@ -45,7 +45,7 @@ namespace skill88
 			$log .= '技能点不足。<br>';
 			return;
 		}
-		$mssup = $skillpara1 * 4;
+		$mssup = $skillpara1 * 3;
 		$mss += $mssup;
 		$ss += $mssup;
 		$log .= '消耗了<span class="lime b">'.$skillpara1.'</span>点技能点，增加了<span class="yellow b">'.$mssup.'</span>点歌魂上限。<br>';

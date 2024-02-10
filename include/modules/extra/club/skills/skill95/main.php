@@ -4,7 +4,7 @@ namespace skill95
 {
 	function init()
 	{
-		define('MOD_SKILL95_INFO','club;');
+		define('MOD_SKILL95_INFO','club;debuff;');
 		eval(import_module('clubbase'));
 		$clubskillname[95] = '倾心';
 	}
