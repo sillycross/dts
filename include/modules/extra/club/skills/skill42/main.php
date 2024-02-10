@@ -19,11 +19,11 @@ namespace skill42
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 	}
 	
-	// function unlock42(&$pa)
-	// {
-		// if (eval(__MAGIC__)) return $___RET_VALUE;
-		// \skillbase\skill_setvalue(42,'u','1',$pa);
-	// }
+	function unlock42(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		\skillbase\skill_setvalue(42,'u','1',$pa);
+	}
 	
 	function lock42(&$pa)
 	{
@@ -116,7 +116,7 @@ namespace skill42
 		{
 			\skillbase\skill_lost(41,$pa);
 		}
-		else  if ($pa['skill42_flag2']==2)
+		elseif ($pa['skill42_flag2']==2)
 		{
 			\skill41\lock41($pa);
 		}
