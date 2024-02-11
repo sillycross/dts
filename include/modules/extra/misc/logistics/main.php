@@ -245,8 +245,6 @@ namespace logistics
 						$log .= "你将<span class=\"yellow b\">{$logistics_shop_items[$itemid][0]}</span>摆到了展柜中。<br>";
 					}
 				}
-				
-				$upd['card_data'] = $pa['card_data'];
 				break;
 		}
 		
