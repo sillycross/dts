@@ -12,12 +12,12 @@ namespace skill42
 	function acquire42(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		\skillbase\skill_setvalue(42,'u','0',$pa);	//是否已经被解锁
 	}
 	
 	function lost42(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		\skillbase\skill_delvalue(42,'u',$pa);
 	}
 	
 	function unlock42(&$pa)
@@ -26,10 +26,20 @@ namespace skill42
 		\skillbase\skill_setvalue(42,'u','1',$pa);
 	}
 	
+	function lock42(&$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		\skillbase\skill_setvalue(42,'u','0',$pa);
+	}
+	
 	function check_unlocked42(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_getvalue(42,'u',$pa)=='1') return 1; else return 0;
+		$skill42_u = \skillbase\skill_getvalue(42,'u',$pa);
+		if ($skill42_u === '1') return 1;
+		elseif ($skill42_u === '0') return 0;
+		if (\skillbase\skill_query(43,$pa)) return 0;
+		return 1;
 	}
 	
 	//战斗中基础防御力增加
@@ -83,7 +93,6 @@ namespace skill42
 		{
 			//原先没有神速
 			\skillbase\skill_acquire(41,$pa);
-			\skill41\unlock41($pa);
 			$pa['skill42_flag2']=1;
 		}
 		else
@@ -108,9 +117,9 @@ namespace skill42
 		{
 			\skillbase\skill_lost(41,$pa);
 		}
-		else  if ($pa['skill42_flag2']==2)
+		elseif ($pa['skill42_flag2']==2)
 		{
-			\skill41\relock41($pa);
+			\skill41\lock41($pa);
 		}
 	}
 	

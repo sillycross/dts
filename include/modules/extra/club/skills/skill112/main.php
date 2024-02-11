@@ -124,10 +124,17 @@ namespace skill112
 		{
 			$pd_skills = \skillbase\get_acquired_skill_array($pd);
 			$pd_skills = array_diff($pd_skills, array(1,2,3,4,5,6,7,8,9,10,11,12,55,56,72,81,106,242,460,512));
-			foreach($pd_skills as $k => $v)
+			if ($pd['type'] == 0) $filter_info_arr = array('hidden', 'achievement', 'debuff', 'feature', 'card');
+			else $filter_info_arr = array('hidden', 'achievement', 'debuff', 'feature');
+			foreach($pd_skills as $k => $skid)
 			{
-				$const = constant('MOD_SKILL'.$v.'_INFO');
-				if (strpos($const,'hidden')!==false || strpos($const,'feature')!==false || strpos($const,'achievement')!==false) unset($pd_skills[$k]);
+				$const = constant('MOD_SKILL'.$skid.'_INFO');
+				foreach ($filter_info_arr as $v) {
+					if(strpos($const, $v)!==false) {
+						unset($pd_skills[$k]);
+						break;
+					}
+				}
 			}
 			if (!empty($pd_skills))
 			{
