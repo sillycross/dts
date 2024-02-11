@@ -86,20 +86,21 @@
 	<!--{else}-->
 	<div style="width:600px;text-align:center;font-size:14px;">这里什么也没有呢……</div>
 	<!--{/if}-->
+	<br><div style="width:600px;text-align:center;font-size:14px;">在游戏中可使用商店中购买的<span class="yellow b">“记录用投影底座”</span>将道具投影保存到展柜中。</div>
 </center>
 
 <br>
 <div class="subtitle" align="center">装饰陈列</div>
 <center>
 	<!--{if $showcase_logitemlist}-->
-	<table style="width:1000px;">
+	<table style="width:600px;">
 		<tr style="text-align:center;font-size:18px;">
 			<th>名称</th>
 			<th>描述</th>
 		</tr>
 		<!--{loop $showcase_logitemlist $lid}-->
+		<!--{if isset($logistics_shop_items[$lid])}-->
 		<!--{eval $lsitem=$logistics_shop_items[$lid];}-->
-		<!--{if $lsitem}-->
 		<tr>
 			<td style="text-align:center;font-weight:bold;">{$lsitem[0]}</td>
 			<td style="text-align:center;">$logistics_itemtype[$lsitem[1]]。{$lsitem[3]}</td>
@@ -110,6 +111,7 @@
 	<!--{else}-->
 	<div style="width:600px;text-align:center;font-size:14px;">这里什么也没有呢……</div>
 	<!--{/if}-->
+	<br><div style="width:600px;text-align:center;font-size:14px;">可在道具仓库中使用装饰品将其摆放到展柜中。</div>
 </center>
 
 <br>

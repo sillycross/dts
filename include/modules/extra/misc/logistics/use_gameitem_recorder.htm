@@ -1,0 +1,27 @@
+<input type="hidden" id="mode" name="mode" value="item">
+<input type="hidden" name="usemode" value="gameitemrecorder">
+<input type="hidden" name="itmp" value="{$theitem['itmn']}">
+<input type="hidden" name="pos" value="1">
+请选择你要记录的道具：<br><br>
+<input type="radio" name="command" id="menu" value="menu"><a onclick="sl('menu');$('mode').value='command';">返回</a><br>
+<!--{loop range(1,6) $i}-->
+	<!--{if $i !== $theitem['itmn'] && ${'itms'.$i}}-->
+	<!--{eval $itmkw = !empty(${'itmk'.$i}) ? \itemmain\parse_itmk_words(${'itmk'.$i},1) : '';}-->
+	<!--{eval $itmskw = !empty(${'itmsk'.$i}) ? \itemmain\parse_itmsk_words(${'itmsk'.$i},1) : '';}-->
+	<input type="radio" name="command" id="itm$i" value="itm$i"><a onclick="sl('itm$i');">${'itm'.$i}/{$itmkw}/${'itme'.$i}/${'itms'.$i}<!--{if $itmskw}-->/$itmskw<!--{/if}--></a><br>
+	<!--{/if}-->
+<!--{/loop}-->
+<br><br>
+请选择要记录到的位置：<br><br>
+<!--{eval $udata = fetch_udata_by_username($name); $s_gameitemlist = \logistics\get_showcase_gameitemlist_from_udata($udata);}-->
+<!--{loop range(1,4) $j}-->
+	<!--{if isset($s_gameitemlist[$j])}-->
+	<!--{eval $gi = $s_gameitemlist[$j]; $itmkw = !empty($gi[1]) ? \itemmain\parse_itmk_words($gi[1],1) : '';}-->
+	<!--{eval $itmskw = !empty($gi[4]) ? \itemmain\parse_itmsk_words($gi[4],1) : '';}-->
+	<input type="radio" name="pos" id="pos$j" value="$j"><a onclick="sl('pos$j');">$gi[0]/{$itmkw}/$gi[2]/$gi[3]<!--{if $itmskw}-->/$itmskw<!--{/if}--></a><br>
+	<!--{else}-->
+	<input type="radio" name="pos" id="pos$j" value="$j"><a onclick="sl('pos$j');">无道具</a><br>
+	<!--{/if}-->
+<!--{/loop}-->
+<br><br>
+<input type="button" class="cmdbutton" id="z" value="[Z]提交" onclick="postCmd('gamecmd','command.php');this.disabled=true;">

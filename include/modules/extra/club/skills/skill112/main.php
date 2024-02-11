@@ -66,7 +66,11 @@ namespace skill112
 					$log.="<span class=\"lime b\">你对{$pd['name']}发动了技能「通灵」！</span><br>";
 				else $log.="<span class=\"lime b\">{$pa['name']}对你发动了技能「通灵」！</span><br>";
 				$pa['rage']-=$rcost;
-				\skill107\skill107_lose_sanity(1, $pa);
+				if (rand(0,99) < 30)
+				{
+					$pa['skill112_sanflag'] = 1;
+					\skill107\skill107_lose_sanity(1, $pa);
+				}
 				addnews ( 0, 'bskill112', $pa['name'], $pd['name'] );
 			}
 			else
@@ -122,6 +126,7 @@ namespace skill112
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($pa['bskill']==112)
 		{
+			if (!isset($pa['skill112_sanflag'])) \skill107\skill107_lose_sanity(1, $pa);
 			$pd_skills = \skillbase\get_acquired_skill_array($pd);
 			$pd_skills = array_diff($pd_skills, array(1,2,3,4,5,6,7,8,9,10,11,12,55,56,72,81,106,242,460,512));
 			if ($pd['type'] == 0) $filter_info_arr = array('hidden', 'achievement', 'debuff', 'feature', 'card');
@@ -148,6 +153,11 @@ namespace skill112
 				eval(import_module('sys','skill112','logger'));
 				if ($active) $log .= "<span class=\"cyan b\">你从敌人的灵魂中汲取了新的知识！</span><br>";
 				\skillbase\skill_setvalue($newskillid, 'tsk_expire', $now + $skill112_tempskill_time);
+			}
+			else
+			{
+				eval(import_module('logger'));
+				if ($active) $log .= "<span class=\"yellow b\">敌人的灵魂中似乎没有什么有价值的知识……</span><br>";
 			}
 		}
 		$chprocess($pa,$pd,$active);

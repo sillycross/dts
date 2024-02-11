@@ -14,11 +14,13 @@ namespace skill109
 	function acquire109(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		\skillbase\skill_setvalue(109,'unused','1',$pa);
 	}
 	
 	function lost109(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		\skillbase\skill_delvalue(109,'unused',$pa);
 	}
 	
 	function check_unlocked109(&$pa)
@@ -36,12 +38,16 @@ namespace skill109
 			$log .= '你没有这个技能！<br>';
 			return;
 		}
-		if ($skillpoint < 2)
+		if (\skillbase\skill_getvalue(109,'unused',$sdata)) \skillbase\skill_delvalue(109,'unused',$sdata);
+		else
 		{
-			$log .= '技能点不足。<br>';
-			return;
+			if ($skillpoint < 2)
+			{
+				$log .= '技能点不足。<br>';
+				return;
+			}
+			$skillpoint -= 2;
 		}
-		$skillpoint -= 2;
 		if (\skillbase\skill_query(107, $sdata) && (rand(0,99) < 35)) \skill107\skill107_lose_sanity(1, $sdata);
 		$rs_skills = \item_randskills\get_rand_clubskill($sdata, 1, 'club27');
 		if (!empty($rs_skills))

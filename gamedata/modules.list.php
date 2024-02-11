@@ -44,7 +44,6 @@ attack,base/attack/,1
 instance0,extra/instance/instance0/,1
 weapon,base/weapon/weapon/,1
 npcchat,base/npcchat/,1
-skill21,extra/club/skills/skill21/,1
 clubbase,extra/club/clubbase/,1
 wep_n,base/weapon/wep_n/,1
 wep_p,base/weapon/wep_p/,1
@@ -59,6 +58,7 @@ skill2,base/skills/skill2/,1
 skill3,base/skills/skill3/,1
 item_uv,base/items/item_uv/,1
 npcchat_bubble,extra/misc/npcchat_bubble/,1
+skill21,extra/club/skills/skill21/,1
 item_slip,extra/item_extra/item_slip/,1
 skill533,extra/card/skills/skill533/,1
 skill11,extra/club/skills/skill11/,1
@@ -389,7 +389,6 @@ skill541,extra/card/skills/skill541/,1
 npc_action,extra/npc_action/,1
 skill720,extra/card/skills/skill720/,1
 get_qiegao_in_battle,extra/misc/get_qiegao_in_battle/,1
-logistics,extra/misc/logistics/,1
 skill734,extra/card/skills/skill734/,1
 skill43,extra/club/skills/skill43/,1
 itemnumlist,extra/item_extra/itemnumlist/,1
@@ -626,6 +625,7 @@ instance5,extra/instance/instance5/,1
 skill361,extra/activities/lunany2018/skill361/,1
 skill362,extra/activities/lunany2018/skill362/,1
 skill365,extra/activities/aprilfool2018/skill365/,1
+logistics,extra/misc/logistics/,1
 autopower,extra/misc/autopower/,1
 skill601,extra/club/skills/skill601/,1
 skill602,extra/club/skills/skill602/,1
