@@ -319,13 +319,13 @@ namespace instance3
 		return $ret;
 	}
 	
-	function event()
+	function event_core($dice, $dice2)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
 		
-		$ret = $chprocess();
-		if(13 == $gametype){
+		$ret = $chprocess($dice, $dice2);
+		if(!$ret && 13 == $gametype){
 			if(0 == $pls && $gamevars['crimson_dead'])
 			{
 				if(\skillbase\skill_query(1003,$sdata) && !\skillbase\skill_getvalue(1003,'instance3_flag0',$sdata)) 
@@ -351,7 +351,7 @@ namespace instance3
 					if ($alvl >= 20)
 					{
 						$log .= '除此之外，你还发现了<span class="yellow b">76573</span>元的纸币。<br>';
-						$money += 76573;
+						\event\event_get_money(76573);
 					}
 					
 					\skillbase\skill_setvalue(1003,'instance3_flag0','1',$sdata);

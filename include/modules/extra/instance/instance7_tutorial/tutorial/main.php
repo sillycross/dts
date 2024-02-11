@@ -1090,23 +1090,24 @@ namespace tutorial
 	}
 	
 	//仅在特定步骤能在天使队捡到钱袋
-	function event()
+	function event_core($dice, $dice2)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player', 'logger'));
-		
-		$ret = $chprocess();
-		if(17 == $gametype){
+		eval(import_module('sys', 'player', 'logger'));
+
+		$ret = $chprocess($dice, $dice2);
+		if(!$ret && 17 == $gametype) {
 			$ct = get_tutorial();
 			if(30 == $pls && !empty($ct['obj2']['min_money'])) {
 				list($tno, $tstep, $tprog) = get_current_tutorial_step();
 				if($money < $ct['obj2']['min_money']){
 					$get = rand(573,765);
-					$money += $get;
-					$log .= '你在一个虚掩着的保险箱里捡到了一些电子货币，或者说能被当做货币使用的垃圾——大约值<span class="yellow b">'.$get.'</span>元。<BR>';
+					$log .= '你在一个虚掩着的保险箱里捡到了一些电子货币，或者说能被当做货币使用的垃圾——大约值<span class="yellow b">'.$get.'</span>元。<br>';
+					\event\event_get_money($get);
 					$ret = 1;
 				}
 			}
+		
 		}
 		
 		return $ret;

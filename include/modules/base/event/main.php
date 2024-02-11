@@ -86,7 +86,7 @@ namespace event
 	function event_core($dice, $dice2)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('sys','player','logger'));
+		eval(import_module('sys','player','logger','map'));
 		$ret = 0;
 		
 		switch ($pls) {
@@ -101,7 +101,7 @@ namespace event
 						event_get_money($dice2);
 						event_get_rp(15);
 					}else{
-						$log .= '<span class="yellow b">借此机会，你顺利逃跑了。</span><br>';
+						$log .= '借此机会，你顺利逃跑了。<br>';
 					}
 				}else{
 					$log .= '“呜嘛呜——！”怪人挥动长矛（的柄），打中了你的脑袋！<br>';
@@ -111,6 +111,61 @@ namespace event
 						event_suffer_dmg($dice2);
 					}
 				}
+				$ret = 1;
+				break;
+			
+			case 3://雪之镇
+				if($rp <= 70){//rp较小时遇到小天使1号
+					$log .= '在你正要穿过商店街拐角时，一名拿着纸袋的少女朝你撞来！<br><br>';
+					//基础回避率20%，每有3级则回避率+1%.虽然这个有必要回避吗？
+					$escrate = event_escrate_process(20 + $lvl/3);
+					if($dice < $escrate) {
+						$log .= '你敏捷地一闪，成功回避了被撞倒的厄运，而少女面朝下重重地摔在地上。<br>少女“呜咕……”地哭泣着，爬起来跑掉了。而你觉得有些过意不去。<br>';
+						event_get_rp($dice2);
+					}else{
+						$log .= '你回避不及，被少女撞个正着！<br>你重重地摔在地上，而少女因为有你做缓冲，幸免于难。<br>';
+						event_suffer_dmg($dice2);
+						event_suffer_inf('b');
+						$log .= '<br>少女忙不迭地向你道歉，并把她手中的鲷鱼烧塞给了你，然后飞快地跑掉了。<br>';
+						$getitem = Array(
+							'itm' => '鲷鱼烧',
+							'itmk' => 'HB',
+							'itme' => 500,
+							'itms' => 2,
+							'itmsk' => 'z'
+						);
+						event_get_item($getitem);
+						event_get_rp($dice2);
+					}
+				}else{//rp较高时遇到小天使2号
+					$log .= '在你正要穿过商店街拐角时，一个瘦高的身影朝你撞来！<br>哗，原来是一具穿着围巾和披风的大只骷髅！<br>从那热忱的眼神，开朗的笑意，便知他是骷髅中的极品了！<br><br>';
+					//基础回避率20%，每有3级则回避率+1%
+					$escrate = event_escrate_process(20 + $lvl/3);
+					if($dice < $escrate){
+						$log .= '你敏捷地一闪，成功回避了被撞倒的厄运，而骷髅面朝下重重地摔在地上。<br>看着骷髅在地上扑腾的诡异光景，你吓得转身就跑。<br>';
+						event_get_rp($dice2);
+					}
+					else{
+						$log .= '你回避不及，被骷髅撞个正着！<br>你重重地摔在地上，而骷髅因为有你做缓冲，幸免于难。<br>';
+						event_suffer_dmg($dice2 * 2);
+						event_suffer_inf('b');
+						if($rp < 1000) {
+							$log .= '<br>骷髅忙不迭地向你道歉，向你解释说他是这里的保安，并把他的名片塞给了你。<br>';
+							$getitem = Array(
+								'itm' => '自奏圣乐·谐谑曲骷髅 ★3',
+								'itmk' => 'WC03',
+								'itme' => 120,
+								'itms' => 1,
+								'itmsk' => 'O'
+							);
+							event_get_item($getitem);
+							$log .= '直到骷髅离开，你依然觉得此事甚为诡异。<br>';
+							event_get_rp($dice2);
+						}else{
+							$log .= '<br>骷髅把你拉了起来，对你进行了一通安全教育之后离开了。<br>';
+						}
+					}
+				}		
 				$ret = 1;
 				break;
 
@@ -133,8 +188,8 @@ namespace event
 						if($dice < 5 && $rp < 100) {
 							$log .= '<br>你看见驾驶着棕色机体的少女向你飞来。<br>“实在对不起，我们看起来没有放假的时候啊。危险躲藏在每个大意之中不是么？”<br>她扔给了你一叠东西，看起来是面额为573的『纸币』？<br>“祝你好运！”少女这么说完就飞走了。<br>';
 							event_get_money(573);
-							event_get_rp(100);
 							$log .= '<br>这样的纸钞真的能用吗……？<br>';
+							event_get_rp(100);
 						}
 					}else{
 						$log .= '<br>在弹幕的狂风中，你徒劳地试图回避弹幕……<br>擦弹什么的根本做不到啊！<br><br>你被少女们打成了筛子！<br>';
@@ -177,6 +232,24 @@ namespace event
 				}
 				$ret = 1;
 				break;
+			case 7://清水池
+				$log .= '在你东张西望时，四周突然聚集起一股寒气。<br>一名<span class="cyan b">看起来很智慧的冰精</span>在湖面上现身，并向你发出决定最强者的挑战！<br><br>';
+				//基础胜率9%，每有1个多余的技能点+9%
+				$winrate = event_winrate_process(9 + $skillpoint * 9);
+				if($dice < $winrate) {
+					$log .= '你急中生智，向对方发问：⑨+10等于多少？<br>冰精果然掰起手指开始计算，而你趁机逃离了现场。<br>';
+				}else{
+					$log .= '没等你回应，成片的冰柱就向你射来！你手忙脚乱地开始躲避弹幕。<br>';
+					$spdown = $dice2;
+					event_get_field(-$spdown, 'sp');
+					if($rp > 1000) {
+						event_suffer_inf('i');
+					}
+					$log .= '冰柱掀起的烟尘遮盖了视线，你连忙逃离了现场。<br>';
+				}
+
+				$ret = 1;
+				break;
 
 			case 33://雏菊
 				$kdata = \player\fetch_playerdata('■', 4);
@@ -189,12 +262,12 @@ namespace event
 				}
 				unset($kdata);
 
+				$log .= '<br>';
 				if(1 == $flag){
 					$log .= '端坐在雏菊之丘的少女现在拥有敌意。<br>明白这一点的你，刻意躲避着少女的追踪——现在不用担心被绘卷搞得七窍流血了。<br>';
 				}elseif(2 == $flag){
 					$log .= '雏菊盛开的山丘上，少女的尸体静静地躺着，犹如睡着了一般——这里再也没有任何危险了。<br>但不知为何，你丝毫没有轻松的感觉。<br>';
 				}else{
-					$log .= '<br>';
 					if ($dice < 30){//30%概率，低互动度，收益不高但风险也不大，不会死亡
 						if ($rp < 40){
 							$log .= '少女抬头看了你一眼，随后低下头去继续她的研究。<br>';
@@ -352,8 +425,25 @@ namespace event
 				}
 				break;
 
+			case 34://英灵殿
+				if (!check_pls34_enterable()) {
+					$safe_plslist = \map\get_safe_plslist(0);
+					if($hack || sizeof($safe_plslist) > 1) {
+						do{
+							if($hack) $rpls = array_randompick(\map\get_all_plsno());
+							else $rpls = array_randompick($safe_plslist);
+						}
+						while ($rpls == 34);
+						$pls=$rpls;
+						$log .= "殿堂的深处传来一个声音：<span class=\"evergreen b\">“你还没有进入这里的资格”。</span><br>一股未知的力量包围了你，当你反应过来的时候，发现自己正身处<span class=\"yellow b\">{$plsinfo[$pls]}</span>。<br>";
+						
+						$ret = 1;
+					}
+				}
+				break;
+
 			default:
-				$log .= '错误的事件参数。<br>';
+				//$log .= '错误的事件参数。<br>';
 				break;
 		}
 
@@ -365,6 +455,7 @@ namespace event
 	}
 
 	//事件主函数
+	//现在已经废弃！
 	//事件默认只对当前玩家生效，所以大多数直接操作sdata的内容	
 	function event()
 	{
@@ -929,6 +1020,23 @@ namespace event
 		return $got;
 	}
 
+	//因事件获得道具
+	//传参为标准的theitem数组
+	function event_get_item(&$theitem)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!empty($theitem['itms'])) {
+			eval(import_module('player'));
+			$itm0 = $theitem['itm'];
+			$itmk0 = $theitem['itmk'];
+			$itme0 = $theitem['itme'];
+			$itms0 = $theitem['itms'];
+			$itmsk0 = $theitem['itmsk'];
+			
+			\itemmain\itemget();
+		}
+	}
+
 	//因事件获得/失去金钱
 	//返回实际的增加值
 	function event_get_money($got, $show_log = 1){
@@ -964,17 +1072,31 @@ namespace event
 	}
 
 	//事件中各种胜率的处理，本模块直接返回
-	function event_winrate_process($eid, $winrate)
+	//其他模块如果需要判定是哪个事件，可以设置一个本地变量来判定
+	function event_winrate_process($winrate)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return $winrate;
 	}
 
 	//事件中各种回避率的处理，本模块直接返回
-	function event_escrate_process($eid, $escrate)
+	function event_escrate_process($escrate)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return $escrate;
+	}
+
+	//英灵殿进入性检查
+	//不可进入返回0，可进入返回1
+	function check_pls34_enterable()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = 1;
+		eval(import_module('player'));
+		if('Untainted Glory' != $art && !\gameflow_duel\is_gamestate_duel()){
+			$ret = 0;
+		}
+		return $ret;
 	}
 	
 	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())	
