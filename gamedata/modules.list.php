@@ -44,7 +44,6 @@ attack,base/attack/,1
 instance0,extra/instance/instance0/,1
 weapon,base/weapon/weapon/,1
 npcchat,base/npcchat/,1
-skill21,extra/club/skills/skill21/,1
 clubbase,extra/club/clubbase/,1
 wep_n,base/weapon/wep_n/,1
 wep_p,base/weapon/wep_p/,1
@@ -59,6 +58,7 @@ skill2,base/skills/skill2/,1
 skill3,base/skills/skill3/,1
 item_uv,base/items/item_uv/,1
 npcchat_bubble,extra/misc/npcchat_bubble/,1
+skill21,extra/club/skills/skill21/,1
 item_slip,extra/item_extra/item_slip/,1
 skill533,extra/card/skills/skill533/,1
 skill11,extra/club/skills/skill11/,1
