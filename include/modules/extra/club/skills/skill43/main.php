@@ -44,11 +44,13 @@ namespace skill43
 		{
 			if (!\skillbase\skill_query(41)) \skillbase\skill_acquire(41);
 			\skill41\unlock41($sdata);
+			if (\skillbase\skill_query(42)) \skill42\lock42($sdata);
 		}
 		else
 		{
 			if (!\skillbase\skill_query(42)) \skillbase\skill_acquire(42);
 			\skill42\unlock42($sdata);
+			if (\skillbase\skill_query(41)) \skill41\lock41($sdata);
 		}
 		\skillbase\skill_lost(43);
 		$log.='选择成功。<br>';

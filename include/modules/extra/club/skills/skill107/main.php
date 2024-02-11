@@ -4,7 +4,7 @@ namespace skill107
 {
 	$skill107_actrate = array(10,20,35,50);
 	//升级所需技能点数值
-	$upgradecost = array(3,3,3,-1);
+	$upgradecost = array(2,3,3,-1);
 	
 	function init()
 	{
@@ -65,14 +65,15 @@ namespace skill107
 		if (!\skillbase\skill_query(107,$pa)) return;
 		$sanity = (int)\skillbase\skill_getvalue(107,'sanity',$pa);
 		if ($sanity <= 0) return;
-		eval(import_module('skill107'));
+		\skillbase\skill_setvalue(107, 'sanity', max($sanity-$sandown, 0), $pa);
+		eval(import_module('logger','skill107'));
+		$log .= "<span class=\"red b\">陌生的知识冲击着你的头脑……</span><br>";
 		$clv = (int)\skillbase\skill_getvalue(107,'lvl',$pa);
 		if (rand(0,99) < $skill107_actrate[$clv])
 		{
-			eval(import_module('logger','clubbase'));
-			\skillbase\skill_setvalue(107,'sanity',$sanity-$sandown,$pa);
+			eval(import_module('clubbase'));
 			$newskillid = skill107_get_randskill($pa);
-			if (!empty($newskillid)) $log .= "陌生的知识冲击着你的头脑……你习得了技能<span class=\"yellow b\">「{$clubskillname[$newskillid]}」</span>！<br>";
+			if (!empty($newskillid)) $log .= "你习得了技能<span class=\"yellow b\">「{$clubskillname[$newskillid]}」</span>！<br>";
 		}
 	}
 	

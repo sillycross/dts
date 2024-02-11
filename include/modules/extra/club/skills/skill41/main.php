@@ -12,12 +12,12 @@ namespace skill41
 	function acquire41(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		\skillbase\skill_setvalue(41,'u','0',$pa);	//是否已经被解锁
 	}
 	
 	function lost41(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		\skillbase\skill_delvalue(41,'u',$pa);
 	}
 	
 	function unlock41(&$pa)
@@ -26,7 +26,7 @@ namespace skill41
 		\skillbase\skill_setvalue(41,'u','1',$pa);
 	}
 	
-	function relock41(&$pa)
+	function lock41(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		\skillbase\skill_setvalue(41,'u','0',$pa);
@@ -35,7 +35,11 @@ namespace skill41
 	function check_unlocked41(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (\skillbase\skill_getvalue(41,'u',$pa)=='1') return 1; else return 0;
+		$skill41_u = \skillbase\skill_getvalue(41,'u',$pa);
+		if ($skill41_u === '1') return 1;
+		elseif ($skill41_u === '0') return 0;
+		if (\skillbase\skill_query(43,$pa)) return 0;
+		return 1;
 	}
 	
 	//战斗中基础攻击力增加
