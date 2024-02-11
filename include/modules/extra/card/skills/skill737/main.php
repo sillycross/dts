@@ -80,8 +80,7 @@ namespace skill737
 	function act()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
-		eval(import_module('sys','player','logger'));
+		eval(import_module('sys'));
 		if ($mode == 'special' && $command == 'skill737_special' && get_var_input('subcmd')=='castsk737') 
 		{
 			cast_skill737();

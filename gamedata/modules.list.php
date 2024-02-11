@@ -389,7 +389,6 @@ skill541,extra/card/skills/skill541/,1
 npc_action,extra/npc_action/,1
 skill720,extra/card/skills/skill720/,1
 get_qiegao_in_battle,extra/misc/get_qiegao_in_battle/,1
-logistics,extra/misc/logistics/,1
 skill734,extra/card/skills/skill734/,1
 skill43,extra/club/skills/skill43/,1
 itemnumlist,extra/item_extra/itemnumlist/,1
@@ -626,6 +625,7 @@ instance5,extra/instance/instance5/,1
 skill361,extra/activities/lunany2018/skill361/,1
 skill362,extra/activities/lunany2018/skill362/,1
 skill365,extra/activities/aprilfool2018/skill365/,1
+logistics,extra/misc/logistics/,1
 autopower,extra/misc/autopower/,1
 skill601,extra/club/skills/skill601/,1
 skill602,extra/club/skills/skill602/,1

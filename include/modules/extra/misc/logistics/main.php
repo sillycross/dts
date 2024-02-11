@@ -104,7 +104,7 @@ namespace logistics
 				$un = $pa['username'];
 				$upd = Array(
 					'gold' => $pa['gold'],
-					'log_itemlist' => $pa['log_itemlist'],
+					'u_settings' => $pa['u_settings'],
 				);
 				update_udata_by_username($upd, $un);
 			}
@@ -128,25 +128,9 @@ namespace logistics
 	function logistics_get_itemlist_from_udata($udata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
-		$ret = logistics_get_decoded_itemlist($udata);
-		
-		//新建字段
-		if(1){
-			$column_existed = 0;
-			eval(import_module('sys'));
-			$result = $db->query("SHOW COLUMNS FROM {$gtablepre}users");
-			while($r = $db->fetch_array($result)){
-				if($r['Field'] == 'log_itemlist') {
-					$column_existed = 1;
-					break;
-				}
-			}
-			if(!$column_existed) {
-				$db->query("ALTER TABLE {$gtablepre}users ADD COLUMN `log_itemlist` text NOT NULL DEFAULT '' AFTER `n_achievements`");
-			}
-		}
-		
+		$u_settings = \user_settings\get_u_settings();
+		if (isset($u_settings['log_itemlist'])) $ret = $u_settings['log_itemlist'];
+		else $ret = array();
 		return $ret;
 	}
 	
@@ -154,17 +138,10 @@ namespace logistics
 	function logistics_put_itemlist_to_udata(&$itemlist, &$udata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (is_array($itemlist)) $udata['log_itemlist'] = gencode($itemlist);
+		$u_settings = \user_settings\get_u_settings();
+		$u_settings['log_itemlist'] = $itemlist;
+		$udata['u_settings'] = gencode($u_settings);
 		return $udata;
-	}
-	
-	//从$udata获取解码的$itemlist
-	function logistics_get_decoded_itemlist($udata)
-	{
-		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if(!empty($udata['log_itemlist'])) $ret = gdecode($udata['log_itemlist'], 1);
-		else $ret = array();
-		return $ret;
 	}
 	
 	//获得仓库道具
@@ -259,13 +236,25 @@ namespace logistics
 				$upd['card_data'] = $pa['card_data'];
 				break;
 			default:
+				//装饰品
+				if ($logistics_shop_items[$itemid][1] == 2)
+				{
+					$ret = set_showcase_logitem($itemid, $para, $pa);
+					if ($ret)
+					{
+						$log .= "你将<span class=\"yellow b\">{$logistics_shop_items[$itemid][0]}</span>摆到了展柜中。<br>";
+						$upd['log_s_logitemlist'] = $pa['log_s_logitemlist'];
+					}
+				}
+				
+				$upd['card_data'] = $pa['card_data'];
 				break;
 		}
 		
 		if ($log)
 		{
 			$un = $pa['username'];
-			$upd['log_itemlist'] = $pa['log_itemlist'];
+			$upd['u_settings'] = $pa['u_settings'];
 			update_udata_by_username($upd, $un);
 		}
 		
@@ -276,27 +265,10 @@ namespace logistics
 	function get_showcase_cardlist_from_udata($udata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
-		if(!empty($udata['log_s_cardlist'])) $ret = explode('_', $udata['log_s_cardlist']);
+		$u_settings = \user_settings\get_u_settings();
+		if (isset($u_settings['log_s_cardlist'])) $ret = $u_settings['log_s_cardlist'];
 		else $ret = array(0,0,0);
 		if (count($ret) != 3) $ret = array(0,0,0);
-		
-		//新建字段
-		if(1){
-			$column_existed = 0;
-			eval(import_module('sys'));
-			$result = $db->query("SHOW COLUMNS FROM {$gtablepre}users");
-			while($r = $db->fetch_array($result)){
-				if($r['Field'] == 'log_s_cardlist') {
-					$column_existed = 1;
-					break;
-				}
-			}
-			if(!$column_existed) {
-				$db->query("ALTER TABLE {$gtablepre}users ADD COLUMN `log_s_cardlist` text NOT NULL DEFAULT '' AFTER `n_achievements`");
-			}
-		}
-		
 		return $ret;
 	}
 	
@@ -304,7 +276,9 @@ namespace logistics
 	function put_showcase_cardlist_to_udata(&$s_cardlist, &$udata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (is_array($s_cardlist)) $udata['log_s_cardlist'] = implode('_', $s_cardlist);
+		$u_settings = \user_settings\get_u_settings();
+		$u_settings['log_s_cardlist'] = $s_cardlist;
+		$udata['u_settings'] = gencode($u_settings);
 		return $udata;
 	}
 	
@@ -328,7 +302,189 @@ namespace logistics
 		
 		$upd = array();
 		$un = $pa['username'];
-		$upd['log_s_cardlist'] = $pa['log_s_cardlist'];
+		$upd['u_settings'] = $pa['u_settings'];
+		update_udata_by_username($upd, $un);
+		
+		return 1;
+	}
+	
+	//获取展柜游戏道具列表
+	function get_showcase_gameitemlist_from_udata($udata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$u_settings = \user_settings\get_u_settings();
+		if (isset($u_settings['log_s_gameitemlist'])) $ret = $u_settings['log_s_gameitemlist'];
+		else $ret = array();
+		return $ret;
+	}
+	
+	//储存持有道具列表
+	function put_showcase_gameitemlist_to_udata(&$s_gameitemlist, &$udata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$u_settings = \user_settings\get_u_settings();
+		$u_settings['log_s_gameitemlist'] = $s_gameitemlist;
+		$udata['u_settings'] = gencode($u_settings);
+		return $udata;
+	}
+	
+	//记录道具
+	function parse_itmuse_desc($n, $k, $e, $s, $sk){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $chprocess($n, $k, $e, $s, $sk);
+		if(strpos($k,'Y')===0 || strpos($k,'Z')===0){
+			if ($n == '记录用投影底座'){
+				$ret .= '可以选择一个包裹中的道具，将它的投影记录到展柜中';
+			}
+		}
+		return $ret;
+	}
+	
+	//设置展柜游戏道具
+	function itemuse(&$theitem)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','player','logger'));
+		$itm=&$theitem['itm']; $itmk=&$theitem['itmk'];
+		$itme=&$theitem['itme']; $itms=&$theitem['itms']; $itmsk=&$theitem['itmsk'];
+		
+		if (strpos($itmk, 'Y') === 0 || strpos($itmk, 'Z') === 0)
+		{	
+			if ($itm == '记录用投影底座') {
+				include template(MOD_LOGISTICS_USE_GAMEITEM_RECORDER);
+				$cmd = ob_get_contents();
+				ob_clean();
+				$log .= "使用了<span class=\"yellow b\">$itm</span>。<br>";
+				return;
+			} 
+		}
+		$chprocess($theitem);
+	}
+	
+	function act()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys'));
+		$usemode = get_var_input('usemode');
+		if ($mode == 'item' && $usemode == 'gameitemrecorder') 
+		{
+			$itmn = (int)substr($command, 3);
+			$itmp = (int)get_var_input('itmp');
+			$pos = (int)get_var_input('pos');
+			set_showcase_gameitem($itmp, $itmn, $pos);
+			return;
+		}
+		$chprocess();
+	}
+	
+	function set_showcase_gameitem($itmp, $itmn, $pos)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player','logger'));
+		if ($pos < 1 || $pos > 4)
+		{
+			$log .= '输入参数错误。';
+			$mode = 'command';
+			return;
+		}
+		
+		if ($itmp < 1 || $itmp > 6 || $itmn < 1 || $itmn > 6 || $itmn == $itmp)
+		{
+			$log .= '道具选择错误，请重新选择。<br>';
+			$mode = 'command';
+			return;
+		}
+		
+		$rec = & ${'itm'.$itmp};
+		$recs = & ${'itms'.$itmp};
+		
+		if (!$recs || ('记录用投影底座' !== $rec))
+		{
+			$log .= '道具选择错误，请重新选择。<br>';
+			$mode = 'command';
+			return;
+		}
+		
+		$itm = & ${'itm'.$itmn};
+		$itme = & ${'itme'.$itmn};
+		$itms = & ${'itms'.$itmn};
+		$itmk = & ${'itmk'.$itmn};
+		$itmsk = & ${'itmsk'.$itmn};
+		
+		if (!$itms)
+		{
+			$log .= '道具选择错误，请重新选择。<br>';
+			$mode = 'command';
+			return;
+		}
+		elseif (strlen($itmsk > 1024))
+		{
+			$log .= '记录仪试图记录这个道具，然而失败了。<br>';
+			$mode = 'command';
+			return;
+		}
+		
+		$theitem = array($itm, $itmk, $itme, $itms, $itmsk);
+		
+		$udata = fetch_udata_by_username($name);
+		$s_gameitemlist = get_showcase_gameitemlist_from_udata($udata);
+		$s_gameitemlist[$pos] = $theitem;
+		put_showcase_gameitemlist_to_udata($s_gameitemlist, $udata);
+		
+		$upd = array();
+		$un = $udata['username'];
+		$upd['u_settings'] = $udata['u_settings'];
+		update_udata_by_username($upd, $un);
+		
+		$log .= "你将<span class=\"yellow b\">{$itm}</span>的投影保存到了装置中。<br>";
+
+		$mode = 'command';
+		return;
+	}
+	
+	//获取展柜装饰品列表
+	function get_showcase_logitemlist_from_udata($udata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$u_settings = \user_settings\get_u_settings();
+		if (isset($u_settings['log_s_logitemlist'])) $ret = $u_settings['log_s_logitemlist'];
+		else $ret = array();
+		return $ret;
+	}
+	
+	//储存展柜装饰品列表
+	function put_showcase_logitemlist_to_udata(&$s_logitemlist, &$udata)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$u_settings = \user_settings\get_u_settings();
+		$u_settings['log_s_logitemlist'] = $s_logitemlist;
+		$udata['u_settings'] = gencode($u_settings);
+		return $udata;
+	}
+	
+	//设置展柜装饰品
+	function set_showcase_logitem($itemid, $itempos, &$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$itemid = (int)$itemid;
+		$itempos = (int)$itempos;
+		
+		if (!in_array($itempos, array(1,2,3,4,5))) return 0;
+		
+		$itemlist = logistics_get_itemlist_from_udata($pa);
+		if ($itemlist[$itemid] <= 0) return 0;
+		
+		$s_logitemlist = get_showcase_logitemlist_from_udata($pa);
+		if (empty($s_logitemlist) || (count($s_logitemlist) != 5)) $s_logitemlist = array(0,0,0,0,0);
+		
+		if (in_array($itemid, $s_logitemlist)) return 0;
+		$s_logitemlist[$itempos-1] = $itemid;
+		
+		put_showcase_logitemlist_to_udata($s_logitemlist, $pa);
+		
+		$upd = array();
+		$un = $pa['username'];
+		$upd['u_settings'] = $pa['u_settings'];
 		update_udata_by_username($upd, $un);
 		
 		return 1;
