@@ -243,7 +243,6 @@ namespace logistics
 					if ($ret)
 					{
 						$log .= "你将<span class=\"yellow b\">{$logistics_shop_items[$itemid][0]}</span>摆到了展柜中。<br>";
-						$upd['log_s_logitemlist'] = $pa['log_s_logitemlist'];
 					}
 				}
 				

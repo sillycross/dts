@@ -33,7 +33,7 @@
 			<br>
 			<input type="button" class="b_button" style="width:120" value="更换" onclick="$('cardpos').value='$k';bubblebox_show('cardchange{$k}');">
 		</li>
-		<!--{eval \bubblebox\bubblebox_set_style('id:cardchange'.$k.';height:150;width:600;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:10px;');}-->
+		<!--{eval \bubblebox\bubblebox_set_style('id:cardchange'.$k.';height:150;width:600;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:10px;z-index-base:30;');}-->
 			{template MOD_BUBBLEBOX_START}
 			<div style="margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px;">
 			<center>
@@ -86,6 +86,7 @@
 	<!--{else}-->
 	<div style="width:600px;text-align:center;font-size:14px;">这里什么也没有呢……</div>
 	<!--{/if}-->
+	<br><div style="width:600px;text-align:center;font-size:14px;">在游戏中可使用商店中购买的<span class="yellow b">“记录用投影底座”</span>将道具投影保存到展柜中。</div>
 </center>
 
 <br>
@@ -110,6 +111,7 @@
 	<!--{else}-->
 	<div style="width:600px;text-align:center;font-size:14px;">这里什么也没有呢……</div>
 	<!--{/if}-->
+	<br><div style="width:600px;text-align:center;font-size:14px;">可在道具仓库中使用装饰品将其摆放到展柜中。</div>
 </center>
 
 <br>

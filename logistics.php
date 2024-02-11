@@ -58,6 +58,7 @@ else
 	eval(import_module('logistics','cardbase'));
 	$logitemlist = \logistics\logistics_get_itemlist_from_udata($udata);
 	$cardlist = \cardbase\get_cardlist_energy_from_udata($udata)[0];
+	$showcase_logitemlist = \logistics\get_showcase_logitemlist_from_udata($udata);
 	
 	if (!empty($itemchoice))
 	{
