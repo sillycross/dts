@@ -2,23 +2,34 @@
 
 namespace map
 {
+	$all_plsno_cache = Array();//所有可用地图下标的暂存（因为现在是根据game表的arealist字段即时生成，生成后缓存一下会快一点）
+
 	function init() 
 	{
 		
 	}
 
 	//获取可用地图总数。一般用于游戏结束判定
-	//本模块单纯计算所有的地图，如果需要有其他判断请继承这个函数
-	function get_plsnum() {
+	//如果传参$use_config == 1则用$plsinfo的数据，否则会用game表对应记录的arealist字段来计算
+	//如果需要有其他判断请继承这个函数
+	function get_plsnum($use_config = 0) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return sizeof(get_var_in_module('plsinfo','map'));
+		if($use_config) return sizeof(get_var_in_module('plsinfo','map'));
+		return sizeof(get_var_in_module('arealist', 'sys'));
 	}
 
 	//获取可用地图的下标的数组。
-	//本模块单纯获取$plsinfo的键名。需要随机地图之类的模块可以重载这个函数。
-	function get_all_plsno() {
+	//如果传参$use_config == 1则用$plsinfo的数据，否则会用game表对应记录的arealist字段来计算
+	//需要随机地图之类的模块可以重载这个函数。
+	function get_all_plsno($use_config = 0) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return array_keys(get_var_in_module('plsinfo','map'));
+		if($use_config) return array_keys(get_var_in_module('plsinfo','map'));
+
+		$ret = & get_var_in_module('all_plsno_cache', 'map');
+		if(!empty($ret)) return $ret;
+		$ret = get_var_in_module('arealist', 'sys');
+		sort($ret);
+		return $ret;
 	}
 
 	//判定某个地图编号是否可用。本模块单纯判定是不是$plsinfo的其中一个键名。需要随机地图之类的模块可以重载这个函数。
@@ -202,7 +213,7 @@ namespace map
 			$areatime = rs_areatime();
 			//init_areatiming();
 			$areanum = sizeof($area_on_start);//初始禁区数目
-			$all_plsno = get_all_plsno();
+			$all_plsno = get_all_plsno(1);//只有这里根据config来重置arealist
 			$arealist = array_diff($all_plsno, $area_on_start);//生成其余禁区列表并随机化
 			shuffle($arealist);
 			$arealist = array_merge($area_on_start, $arealist);//合并禁区顺序列表
