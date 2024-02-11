@@ -51,10 +51,13 @@ namespace skill108
 		if (empty($pa))
 		{
 			eval(import_module('player'));
-			\player\update_sdata();
-			$pa = &$sdata;
+			if (\skillbase\skill_query(108,$sdata) && check_unlocked108($sdata))
+			{
+				$sanity = (int)\skillbase\skill_getvalue(107,'sanity',$sdata);
+				if ($sanity < 4) return 0;
+			}
 		}
-		if (\skillbase\skill_query(108,$pa) && check_unlocked108($pa))
+		elseif (\skillbase\skill_query(108,$pa) && check_unlocked108($pa))
 		{
 			$sanity = (int)\skillbase\skill_getvalue(107,'sanity',$pa);
 			if ($sanity < 4) return 0;
