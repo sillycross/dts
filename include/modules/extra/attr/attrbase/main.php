@@ -414,6 +414,16 @@ namespace attrbase
 		}
 		return $ret;
 	}
+
+	//因事件获得道具时的复合属性处理
+	function event_get_item(&$theitem)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!empty($theitem['itmsk'])) {
+			$theitem['itmsk'] = config_process_encode_comp_itmsk($theitem['itmsk']);
+		}
+		$chprocess($theitem);
+	}
 }
 
 ?>

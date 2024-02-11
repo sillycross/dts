@@ -59,7 +59,6 @@ skill3,base/skills/skill3/,1
 item_uv,base/items/item_uv/,1
 npcchat_bubble,extra/misc/npcchat_bubble/,1
 skill21,extra/club/skills/skill21/,1
-item_slip,extra/item_extra/item_slip/,1
 skill533,extra/card/skills/skill533/,1
 skill11,extra/club/skills/skill11/,1
 skill10,extra/club/skills/skill10/,1
@@ -320,7 +319,9 @@ rest,base/rest/,1
 item_uc,base/items/item_uc/,1
 skill12,extra/club/skills/skill12/,1
 skill223,extra/club/skills/skill223/,1
+event,base/event/,1
 skill710,extra/card/skills/skill710/,1
+item_slip,extra/item_extra/item_slip/,1
 skill331,extra/activities/halloween2017/skill331/,1
 skill19,extra/club/skills/skill19/,1
 skill79,extra/club/skills/skill79/,1
@@ -356,6 +357,7 @@ pose,base/pose/,1
 skill1,base/skills/skill1/,1
 skill562,extra/card/skills/skill562/,1
 skill600,extra/club/skills/skill600/,1
+skill487,extra/card/skills/skill487/,1
 skill20,extra/club/skills/skill20/,1
 skill492,extra/card/skills/skill492/,1
 skill723,extra/card/skills/skill723/,1
@@ -438,6 +440,7 @@ skill1007,extra/npc_action/skill1007/,1
 skill418,extra/card/skills/skill418/,1
 skill1003,extra/club/skills/skill1003/,1
 randmix,extra/misc/randmix/,1
+gtype1,extra/instance/gtype1/main/,1
 skill57,extra/club/skills/skill57/,1
 skill436,extra/card/skills/skill436/,1
 skill729,extra/card/skills/skill729/,1
@@ -451,6 +454,7 @@ skill37,extra/club/skills/skill37/,1
 skill73,extra/club/skills/skill73/,1
 skill410,extra/card/skills/skill410/,1
 skill570,extra/card/skills/skill570/,1
+instance9,extra/instance/instance9_rush/,1
 skill258,extra/club/skills/skill258/,1
 skill444,extra/card/skills/skill444/,1
 skill207,extra/club/skills/skill207/,1
@@ -504,13 +508,13 @@ item_umb,extra/item_extra/item_umb/,1
 skill726,extra/card/skills/skill726/,1
 skill105,extra/club/skills/skill105/,1
 skill727,extra/card/skills/skill727/,1
-event,base/event/,1
 item_recipe,extra/item_extra/item_recipe/,1
 skill580,extra/card/skills/skill580/,1
 achievement_base,extra/achievement/achievement_base/,1
 opening,base/opening/,1
 ending,base/ending/,1
 song,base/items/song/,1
+skill429,extra/instance/gtype1/skill429/,1
 skill108,extra/club/skills/skill108/,1
 skill109,extra/club/skills/skill109/,1
 skill111,extra/club/skills/skill111/,1
@@ -519,6 +523,7 @@ skill70,extra/club/skills/skill70/,1
 skill246,extra/club/skills/skill246/,1
 skill598,extra/card/skills/skill598/,1
 ex_mhp_temp_up,extra/attr/ex_mhp_temp_up/,1
+instance_close_button,extra/instance/instance_close_button/,1
 skill514,extra/card/skills/skill514/,1
 skill206,extra/club/skills/skill206/,1
 miracletrap,base/items/miracletrap/,1
@@ -530,12 +535,9 @@ skill208,extra/club/skills/skill208/,1
 skill215,extra/club/skills/skill215/,1
 skill271,extra/club/skills/skill271/,1
 skill112,extra/club/skills/skill112/,1
+tutorial,extra/instance/instance7_tutorial/tutorial/,1
 skill51,extra/club/skills/skill51/,1
 skill493,extra/card/skills/skill493/,1
-skill487,extra/card/skills/skill487/,1
-gtype1,extra/instance/gtype1/main/,1
-instance9,extra/instance/instance9_rush/,1
-tutorial,extra/instance/instance7_tutorial/tutorial/,1
 randrecipe,extra/instance/instance10_road/randrecipe/,1
 skill100,extra/club/skills/skill100/,1
 skill101,extra/club/skills/skill101/,1
@@ -593,6 +595,8 @@ skill378,extra/achievement/skills/skill378/,1
 skill380,extra/achievement/skills/skill380/,1
 skill375,extra/achievement/skills/skill375/,1
 skill382,extra/achievement/skills/skill382/,1
+skill351,extra/achievement/skills/skill351/,1
+skill352,extra/achievement/skills/skill352/,1
 skill504,extra/card/skills/skill504/,1
 user_settings,extra/misc/user_settings/,1
 instance3,extra/instance/instance3_ascension/,1
@@ -614,10 +618,6 @@ skill379,extra/achievement/skills/skill379/,1
 skill244,extra/club/skills/skill244/,1
 skill508,extra/card/skills/skill508/,1
 skill233,extra/club/skills/skill233/,1
-skill429,extra/instance/gtype1/skill429/,1
-skill351,extra/achievement/skills/skill351/,1
-skill352,extra/achievement/skills/skill352/,1
-instance_close_button,extra/instance/instance_close_button/,1
 smartmix,extra/misc/smartmix/,1
 skill371,extra/achievement/skills/skill371/,1
 skill363,extra/achievement/skills/skill363/,1
