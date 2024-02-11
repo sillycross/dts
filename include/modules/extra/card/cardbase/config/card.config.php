@@ -5172,7 +5172,7 @@ $cards = array(
 			'itmk6' => 'HB',
 			'itme6' => '1',
 			'itms6' => '1',
-			'itmsk6' => '^res_<:comp_itmsk:>{《分镜绘制指南》.VD.30.2..}1^reptype1',
+			'itmsk6' => '^res_<:comp_itmsk:>{《分镜绘制指南》,VD,30,2,,}1^reptype1',
 		)
 	),
 	302 => array(
@@ -6244,39 +6244,39 @@ $cards = array(
 			'rand_sets' => array(
 				array(
 					'itm6' => '红石方块',
-					'itmsk6' => '^res_<:comp_itmsk:>{红色方块.X.1.3..}1^reptype2^rtype4',
+					'itmsk6' => '^res_<:comp_itmsk:>{红色方块,X,1,3,,}1^reptype2^rtype4',
 				),
 				array(
 					'itm6' => '草方块',
-					'itmsk6' => '^res_<:comp_itmsk:>{绿色方块.X.1.3..}1^reptype2^rtype4',
+					'itmsk6' => '^res_<:comp_itmsk:>{绿色方块,X,1,3,,}1^reptype2^rtype4',
 				),
 				array(
 					'itm6' => '蓝冰方块',
-					'itmsk6' => '^res_<:comp_itmsk:>{蓝色方块.X.1.3..}1^reptype2^rtype4',
+					'itmsk6' => '^res_<:comp_itmsk:>{蓝色方块,X,1,3,,}1^reptype2^rtype4',
 				),
 				array(
 					'itm6' => '泥土方块',
-					'itmsk6' => '^res_<:comp_itmsk:>{黄色方块.X.1.3..}1^reptype2^rtype4',
+					'itmsk6' => '^res_<:comp_itmsk:>{黄色方块,X,1,3,,}1^reptype2^rtype4',
 				),
 				array(
 					'itm6' => '黄金方块',
-					'itmsk6' => '^res_<:comp_itmsk:>{金色方块.X.1.3..}1^reptype2^rtype4',
+					'itmsk6' => '^res_<:comp_itmsk:>{金色方块,X,1,3,,}1^reptype2^rtype4',
 				),
 				array(
 					'itm6' => '煤炭方块',
-					'itmsk6' => '^res_<:comp_itmsk:>{黑色方块.X.1.3..}1^reptype2^rtype4',
+					'itmsk6' => '^res_<:comp_itmsk:>{黑色方块,X,1,3,,}1^reptype2^rtype4',
 				),
 				array(
 					'itm6' => '石英方块',
-					'itmsk6' => '^res_<:comp_itmsk:>{白色方块.X.1.3..}1^reptype2^rtype4',
+					'itmsk6' => '^res_<:comp_itmsk:>{白色方块,X,1,3,,}1^reptype2^rtype4',
 				),
 				array(
 					'itm6' => '雪方块',
-					'itmsk6' => 'O^res_<:comp_itmsk:>{白色方块.X.1.3..}1^reptype2^rtype4',
+					'itmsk6' => 'O^res_<:comp_itmsk:>{白色方块,X,1,3,,}1^reptype2^rtype4',
 				),
 				array(
 					'itm6' => '玻璃方块',
-					'itmsk6' => '^res_<:comp_itmsk:>{水晶方块.X.1.3..}1^reptype2^rtype4',
+					'itmsk6' => '^res_<:comp_itmsk:>{水晶方块,X,1,3,,}1^reptype2^rtype4',
 				),
 			),
 			'itmk6' => 'X',

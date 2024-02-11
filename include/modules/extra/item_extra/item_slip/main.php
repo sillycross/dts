@@ -274,7 +274,7 @@ namespace item_slip
 				$ret['itms6'] = 1;
 				$ret['itmsk6'] = '';
 			}elseif('守卫者 静流' == $ret['name']) {
-				$ret['itmsk0'] .= '^res_<:comp_itmsk:>{提示纸条AC.Y.1.1..}1^rtype1';
+				$ret['itmsk0'] .= '^res_<:comp_itmsk:>{提示纸条AC,Y,1,1,,}1^rtype1';
 			}
 		}
 		return $ret;
