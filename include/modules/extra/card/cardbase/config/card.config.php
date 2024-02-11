@@ -6180,7 +6180,13 @@ $cards = array(
 			'itmk6' => 'p',
 			'itme6' => '1',
 			'itms6' => '1',
-			'itmsk6' => array('^res_<:comp_itmsk:>{棕色的Howling手办.A.1.1.N.}1^rtype4^reptype1', '^res_<:comp_itmsk:>{深蓝色的SAS手办.A.1.1.n.}1^rtype4^reptype1', '^res_<:comp_itmsk:>{天青色的Annabelle手办.A.1.1.i.}1^rtype4^reptype1', '^res_<:comp_itmsk:>{红色的星海手办.A.1.1.M.}1^rtype4^reptype1', '^res_<:comp_itmsk:>{粉色的Sophia手办.A.1.1.w.}1^rtype4^reptype1'),
+			'itmsk6' => array(
+				'^res_<:comp_itmsk:>{棕色的Howling手办,A,1,1,N,}1^rtype4^reptype1',
+				'^res_<:comp_itmsk:>{深蓝色的SAS手办,A,1,1,n,}1^rtype4^reptype1',
+				'^res_<:comp_itmsk:>{天青色的Annabelle手办,A,1,1,i,}1^rtype4^reptype1',
+				'^res_<:comp_itmsk:>{红色的星海手办,A,1,1,M,}1^rtype4^reptype1',
+				'^res_<:comp_itmsk:>{粉色的Sophia手办,A,1,1,w,}1^rtype4^reptype1'
+			),
 		),
 	),
 	392 => array(
@@ -6210,7 +6216,7 @@ $cards = array(
 			'itmk6' => 'MH',
 			'itme6' => array('10','30','50','70','90','110'),
 			'itms6' => '1',
-			'itmsk6' => array('','','','','','','','','','^res_<:comp_itmsk:>{悔恨.Y.1.1.O.}1^rtype3^reptype1'),
+			'itmsk6' => array('','','','','','','','','','^res_<:comp_itmsk:>{悔恨,Y,1,1,O,}1^rtype3^reptype1'),
 		),
 	),
 	394 => array(
