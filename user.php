@@ -55,13 +55,8 @@ if($mode == 'edit') {
 		}
 	}
 	//$u_settings字段的修改。这个字段是用gencode格式储存的
-	$u_settings = $udata['u_settings'];
-	if(!empty($u_settings)) {
-		$u_settings = gdecode($u_settings, 1);
-	}
-	if(!is_array($u_settings)) {
-		$u_settings = Array();
-	}
+	$u_settings = \user_settings\get_u_settings($udata);
+	
 	$ustgkeys = Array(
 		'skip_opening' => 'int', //是否跳过开场剧情
 		'item_auto_merge' => 'int', //是否自动合并可合并的道具

@@ -7,16 +7,22 @@ namespace user_settings
 	function init() {}
 	
 	//获得u_settings，如果本次进程已经解码过，会使用$decoded_u_settings的值
-	function get_u_settings() {
+	function get_u_settings($ud = NULL) {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','user_settings'));
+		if(empty($ud)) $ud = $cudata;
+
 		$ret = Array();
-		if(!empty($decoded_u_settings)) {
-			$ret = $decoded_u_settings;
+		if(!empty($decoded_u_settings[$ud['username']])) {
+			$ret = $decoded_u_settings[$ud['username']];
 		}
-		elseif(!empty($cudata['u_settings'])) {
-			$ret = gdecode($cudata['u_settings'], 1);
-			if(!is_array($ret)) $ret = Array();
+		elseif(!empty($ud['u_settings'])) {
+			$ret = gdecode($ud['u_settings'], 1);
+			if(is_array($ret) && !empty($ret)) {
+				$decoded_u_settings[$ud['username']] = $ret;
+			}else{
+				$ret = Array();
+			}
 		}
 		return $ret;
 	}

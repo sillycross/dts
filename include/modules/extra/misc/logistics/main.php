@@ -128,7 +128,7 @@ namespace logistics
 	function logistics_get_itemlist_from_udata($udata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$u_settings = \user_settings\get_u_settings();
+		$u_settings = \user_settings\get_u_settings($udata);
 		if (isset($u_settings['log_itemlist'])) $ret = $u_settings['log_itemlist'];
 		else $ret = array();
 		return $ret;
@@ -138,7 +138,7 @@ namespace logistics
 	function logistics_put_itemlist_to_udata(&$itemlist, &$udata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$u_settings = \user_settings\get_u_settings();
+		$u_settings = \user_settings\get_u_settings($udata);
 		$u_settings['log_itemlist'] = $itemlist;
 		$udata['u_settings'] = gencode($u_settings);
 		return $udata;
@@ -262,7 +262,7 @@ namespace logistics
 	function get_showcase_cardlist_from_udata($udata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$u_settings = \user_settings\get_u_settings();
+		$u_settings = \user_settings\get_u_settings($udata);
 		if (isset($u_settings['log_s_cardlist'])) $ret = $u_settings['log_s_cardlist'];
 		else $ret = array(0,0,0);
 		if (count($ret) != 3) $ret = array(0,0,0);
@@ -273,7 +273,7 @@ namespace logistics
 	function put_showcase_cardlist_to_udata(&$s_cardlist, &$udata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$u_settings = \user_settings\get_u_settings();
+		$u_settings = \user_settings\get_u_settings($udata);
 		$u_settings['log_s_cardlist'] = $s_cardlist;
 		$udata['u_settings'] = gencode($u_settings);
 		return $udata;
@@ -309,7 +309,7 @@ namespace logistics
 	function get_showcase_gameitemlist_from_udata($udata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$u_settings = \user_settings\get_u_settings();
+		$u_settings = \user_settings\get_u_settings($udata);
 		if (isset($u_settings['log_s_gameitemlist'])) $ret = $u_settings['log_s_gameitemlist'];
 		else $ret = array();
 		return $ret;
@@ -319,7 +319,7 @@ namespace logistics
 	function put_showcase_gameitemlist_to_udata(&$s_gameitemlist, &$udata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$u_settings = \user_settings\get_u_settings();
+		$u_settings = \user_settings\get_u_settings($udata);
 		$u_settings['log_s_gameitemlist'] = $s_gameitemlist;
 		$udata['u_settings'] = gencode($u_settings);
 		return $udata;
@@ -443,7 +443,7 @@ namespace logistics
 	function get_showcase_logitemlist_from_udata($udata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$u_settings = \user_settings\get_u_settings();
+		$u_settings = \user_settings\get_u_settings($udata);
 		if (isset($u_settings['log_s_logitemlist'])) $ret = $u_settings['log_s_logitemlist'];
 		else $ret = array();
 		return $ret;
@@ -453,7 +453,7 @@ namespace logistics
 	function put_showcase_logitemlist_to_udata(&$s_logitemlist, &$udata)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$u_settings = \user_settings\get_u_settings();
+		$u_settings = \user_settings\get_u_settings($udata);
 		$u_settings['log_s_logitemlist'] = $s_logitemlist;
 		$udata['u_settings'] = gencode($u_settings);
 		return $udata;
