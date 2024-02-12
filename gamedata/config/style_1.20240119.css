@@ -152,6 +152,11 @@ table.admin td.tdtitle {
 .ltvermilion{color:rgb(255,200,120);}
 .L5{color: #ff0000;background:url("../../img/backround4.gif") repeat-x;}
 
+/*==========文字描边==========*/
+.white-shadow{text-shadow: 1px 1px 2px #fff}
+.black-shadow{text-shadow: 1px 1px 2px #000}
+.grey-shadow{text-shadow: 1px 1px 2px #ccc}
+
 /*==========杂项界面==========*/
 #main {
 white-space:nowrap;
