@@ -15,7 +15,7 @@ namespace logistics
 		list($sec,$min,$hour,$day,$month,$year,$wday) = explode(',',date("s,i,H,j,n,Y,w",$now));
 		//经历了crc32()得到负数、大数用%取模得到负数、srand()不起作用等依赖于硬件环境的BUG以后，现在的代码如下。32位和64位的差别真的头大
 		$hash = md5($uid.$uname.$day.$month.$year.$wday);
-		$fatenum = hexdec(substr($hash, 0, 5).substr($hash, -5));
+		$fatenum = abs(hexdec(substr($hash, 0, 5).substr($hash, -5)));
 		if($fatenum < 1997) $fatenum += 999983;
 		$cardid_list = array();
 		//固定包括1张S、1张A、1张B
@@ -39,11 +39,11 @@ namespace logistics
 			$cardshop_list[$k]['blink'] = 0;
 		}
 		//生成随机碎闪
-		$b10 = fmod($fatenum, 10 + 1);
+		$b10 = fmod($fatenum, 10) + 1;
 		if ($b10 > 8)
 		{
-			$b10 = fmod($fatenum, 8 + 1);
-			$b20 = fmod($fatenum, 3 + 1);
+			$b10 = fmod($fatenum, 8) + 1;
+			$b20 = fmod($fatenum, 3) + 1;
 		}
 		if ($cardshop_list[$b10]['rare'] != 'M') $cardshop_list[$b10]['blink'] = 10;
 		if (isset($b20)) $cardshop_list[$b20]['blink'] = 20;
