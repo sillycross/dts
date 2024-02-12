@@ -465,6 +465,7 @@ skill248,extra/club/skills/skill248/,1
 ex_rapid_def,extra/attr/ex_rapid_def/,1
 skill82,extra/club/skills/skill82/,1
 skill50,extra/club/skills/skill50/,1
+skill741,extra/card/skills/skill741/,1
 skill578,extra/card/skills/skill578/,1
 ex_attr_trap,extra/attr/ex_attr_trap/,1
 skill422,extra/card/skills/skill422/,1
@@ -599,6 +600,7 @@ skill351,extra/achievement/skills/skill351/,1
 skill352,extra/achievement/skills/skill352/,1
 skill504,extra/card/skills/skill504/,1
 user_settings,extra/misc/user_settings/,1
+skill740,extra/card/skills/skill740/,1
 instance3,extra/instance/instance3_ascension/,1
 skill182,extra/club/skills/skill182/,1
 cooldown,base/cooldown/,1
