@@ -6,7 +6,7 @@ namespace skill741
 	{
 		define('MOD_SKILL741_INFO','card;');
 		eval(import_module('clubbase'));
-		$clubskillname[741] = '出千';
+		$clubskillname[741] = '机变';
 	}
 	
 	function acquire741(&$pa)
