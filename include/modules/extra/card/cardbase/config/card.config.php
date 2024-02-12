@@ -538,7 +538,7 @@ $cards = array(
 		'pack' => 'Standard Pack',
 		'desc' => '熟练的富家子弟玩家',
 		'effect' => '称号固定为富家子弟',
-		'energy' => 250,
+		'energy' => 150,
 		'valid' => array(
 			'club' => '11',
 			'skills' => array(
@@ -1729,7 +1729,7 @@ $cards = array(
 		'pack' => 'Event Bonus',
 		'desc' => '他能找到别人找不到的东西',
 		'effect' => '每60秒可以随机获得一个地图上刷新的物品',
-		'energy' => 250,
+		'energy' => 150,
 		'valid' => array(
 			'skills' => array(
 				'430' => '0', 
@@ -3562,7 +3562,7 @@ $cards = array(
 		'desc' => '“今天的Sophia也是<br>元气满满的哟！”',
 		'effect' => '获得技能「空想」：每60秒可以获得1个类别、效果、耐久和属性皆随机的「空想道具」',
 		//：每60秒可以获得1个类别、效果、耐久和属性皆随机的「空想道具」，其效和耐合计值不超过发动时支付的体力。
-		'energy' => 250,
+		'energy' => 150,
 		'valid' => array(
 			'skills' => array(
 				'490' => '0', 
@@ -6512,6 +6512,40 @@ $cards = array(
 				'111' => '0',
 				'112' => '0',
 				'113' => '0',
+			),
+		),
+	),
+	//404暂时留空
+	405 => array(
+		'name' => 'skip党',
+		'rare' => 'C',
+		'pack' => 'Way of Life',
+		'desc' => '我不知道这是哪，我不知道我是谁',
+		'effect' => '我只知道我要大开杀戒',
+		'desc_skills' => '开局全系熟练度+8，但会跳过开局剧情和地点事件的显示',
+		'energy' => 0,
+		'valid' => array(
+			'wp' => '+8',
+			'wk' => '+8',
+			'wc' => '+8',
+			'wg' => '+8',
+			'wf' => '+8',
+			'wd' => '+8',
+			'skills' => array(
+				'740' => '0',
+			),
+		),
+	),
+	406 => array(
+		'name' => '老千',
+		'rare' => 'A',
+		'pack' => 'Ranmen',
+		'desc' => '他有一个灌铅的骰子',
+		'effect' => '连击属性更容易命中较多次',
+		'energy' => 120,
+		'valid' => array(
+			'skills' => array(
+				'741' => '0',
 			),
 		),
 	),
