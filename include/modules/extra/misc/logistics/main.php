@@ -14,9 +14,19 @@ namespace logistics
 		$uname = $udata['username'];
 		list($sec,$min,$hour,$day,$month,$year,$wday) = explode(',',date("s,i,H,j,n,Y,w",$now));
 		//经历了crc32()得到负数、大数用%取模得到负数、srand()不起作用等依赖于硬件环境的BUG以后，现在的代码如下。32位和64位的差别真的头大
-		$hash = md5($uid.$uname.$day.$month.$year.$wday);
-		$fatenum = abs(hexdec(substr($hash, 0, 5).substr($hash, -5)));
+		$hash = md5($uid.$uname.$day.$month.$year.$wday.$now);
+		$hash = substr($hash, 0, 10).substr($hash, -10);
+		$fatenum_str = '';
+		for($i=0;$i<strlen($hash);$i++) {
+			if(is_numeric($hash[$i])) $fatenum_str .= $hash[$i];
+		}
+		if(!$fatenum_str) {
+			$fatenum = hexdec(substr($hash, 0, 3));
+		}else{
+			$fatenum = (int)$fatenum_str;
+		}
 		if($fatenum < 1997) $fatenum += 999983;
+		echo $fatenum;
 		$cardid_list = array();
 		//固定包括1张S、1张A、1张B
 		$cardid_list[1] = $cardindex['S'][fmod($fatenum, count($cardindex['S']))];
