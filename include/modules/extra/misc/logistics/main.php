@@ -23,13 +23,10 @@ namespace logistics
 		$arr = array_merge($cardindex['S'],$cardindex['A'],$cardindex['B'],$cardindex['C']);
 		$arr = array_diff($arr, $cardid_list);
 		
-		srand($fatenum);
-		$rand_keys = array_rand($arr, 5);
-		$i = 4;
-		foreach ($rand_keys as $key)
-		{
-			$cardid_list[$i] = $arr[$key];
-			$i += 1;
+		$count_arr = count($arr);
+		$magic_arr = Array(11,101,233,571,1997);
+		for($i=4;$i<=8;$i++){
+			$cardid_list[$i] = $arr[round($fatenum / $magic_arr[$i-4]) % count($arr)];
 		}
 		
 		$cardshop_list = array();
