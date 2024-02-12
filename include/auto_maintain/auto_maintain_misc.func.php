@@ -59,6 +59,7 @@ function am_main($mcode, $forced = 0)
 		}
 		am_log("All non .dat files in /gamedata/replays/ deleted. Affected $am_num files.");
 	}
+
 	if($mcode & 4) {
 		if(!empty($replay_remote_storage)) {
 			//把录像传到远端。消耗时间可能较长
@@ -92,6 +93,10 @@ function am_main($mcode, $forced = 0)
 			am_log("All replay files sent to remote server and created over 30 days ago deleted. Affected $am_num files.");
 		}
 	}
+
+	//由于文件缓存的原因，可能穿透，这里再判断一次
+	if(!$forced && !am_is_last_maintain_old_enough()) return;
+
 	if($mcode & 16) {
 		global $checkstr;
 		//保留3天的用户数据
