@@ -27,7 +27,7 @@ namespace skill564
 	
 	function init()
 	{	
-		define('MOD_SKILL564_INFO','card;upgrade;');
+		define('MOD_SKILL564_INFO','club;upgrade;');//标签为club，防ET药刷技能点
 		eval(import_module('clubbase'));
 		$clubskillname[564] = '最优';
 	}
