@@ -1,0 +1,20 @@
+<input type="hidden" id="mode" name="mode" value="command">
+<input type="hidden" id="command" name="command" value="event">
+<input type="hidden" id="event_selection" name="event_selection" value="99">
+<div style="text-align:center;">
+	<!--{loop $now_texts['now_pace']['branches'] $i $v}-->
+	<!--{eval if(!empty($v['hint'])) $v['hint'] = \extra_event\extra_event_text_parse($now_event, $now_pace, $v['hint']);}-->
+	<div>
+		<!--{if 'button' == $v['type']}-->
+			<input type="button" id="selection{$i}" value="{$v['text']}" class="b_button bc_white <!--{if !empty($v['class'])}-->{$v['class']}<!--{/if}-->" style="margin:2px 0;"
+			<!--{if !empty($v['hint'])}-->title="{$v['hint']}"<!--{/if}--> 
+			onclick="$('event_selection').value='{$i}';postCmd('gamecmd','command.php');this.disabled=true;" />
+		<!--{elseif 'a' == $v['type']}-->
+			<a <!--{if !empty($v['hint'])}-->title="{$v['hint']}"<!--{/if}--> <!--{if !empty($v['class'])}-->class="{$v['class']}"<!--{/if}--> 
+				onclick="$('event_selection').value='{$i}';postCmd('gamecmd','command.php');this.disabled=true;" />>
+				$v['text']
+			</a>
+		<!--{/if}-->
+		</div>
+	<!--{/loop}-->
+</div>

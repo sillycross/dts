@@ -648,6 +648,8 @@ namespace event
 			'wd' => '爆系熟练度',
 			'wf' => '灵系熟练度',
 			'exp' => '经验值',
+			'att' => '基础攻击力',
+			'def' => '基础防御力',
 		);
 		if(!empty($got) && !empty($field_list[$field])) {
 			$o_field_num = $sdata[$field];
