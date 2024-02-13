@@ -26,7 +26,6 @@ namespace logistics
 			$fatenum = (int)$fatenum_str;
 		}
 		if($fatenum < 1997) $fatenum += 999983;
-		echo $fatenum;
 		$cardid_list = array();
 		//固定包括1张S、1张A、1张B
 		$cardid_list[1] = $cardindex['S'][fmod($fatenum, count($cardindex['S']))];
@@ -38,7 +37,12 @@ namespace logistics
 		$count_arr = count($arr);
 		$magic_arr = Array(11,101,233,571,1997);
 		for($i=4;$i<=8;$i++){
-			$cardid_list[$i] = $arr[fmod(round($fatenum / $magic_arr[$i-4]), count($arr))];
+			$j = fmod(round($fatenum / $magic_arr[$i-4]), $count_arr);
+			do {
+				$cardid_list[$i] = $arr[$j];
+				$j += 1;
+				if($j > $count_arr) $j = 1;
+			}while(empty($arr[$j-1]));
 		}
 		
 		$cardshop_list = array();
