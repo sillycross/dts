@@ -63,6 +63,23 @@ namespace logistics
 		if (isset($b20)) $cardshop_list[$b20]['blink'] = 20;
 		return $cardshop_list;
 	}
+
+	//原有卡片罕贵判定。没有这张卡片则返回-1
+	function card_check_o_blink($cardid, &$pa)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$card_data = \cardbase\get_cardlist_energy_from_udata($pa)[2];
+		if(empty($card_data[$cardid])) {
+			$ret = -1;
+		}else{
+			if(!empty($card_data[$cardid]['blink'])) {
+				$ret = $card_data[$cardid]['blink'];
+			}else{
+				$ret = 0;
+			}
+		}
+		return $ret;
+	}
 	
 	//后勤商店购买道具，暂时只完成了卡片
 	//$type为1表示卡片，2表示道具
@@ -81,10 +98,8 @@ namespace logistics
 			$cost = get_card_price($nowcard);
 			if (empty($cost)) return 0;
 			if ($pa['gold'] < $cost) return -1;
-			$card_data = \cardbase\get_cardlist_energy_from_udata($pa)[2];
-			$o_blink = !empty($card_data[$nowcard['id']]['blink']) ? $card_data[$nowcard['id']]['blink'] : 0;
+			$o_blink = card_check_o_blink($nowcard['id'], $pa);
 			if ($o_blink >= $nowcard['blink']) return -1;
-			
 			if (!empty($pa)) \cardbase\get_qiegao(-$cost,$pa);
 			
 			if (isset($nowcard['blink'])) $blink = $nowcard['blink'];

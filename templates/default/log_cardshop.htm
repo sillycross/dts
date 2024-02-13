@@ -22,7 +22,7 @@
 	<!--{eval $showpack=1;}-->
 	<ul style="width:1000px;list-style-type:none;">
 		<!--{loop $cardshop_list $k $nowcard}-->
-		<!--{eval $price=\logistics\get_card_price($nowcard); if(!empty($card_data[$nowcard['id']])) $o_blink = !empty($card_data[$nowcard['id']]['blink']) ? $card_data[$nowcard['id']]['blink'] : 0; else $o_blink = -1;}-->
+		<!--{eval $price=\logistics\get_card_price($nowcard); $o_blink = \logistics\card_check_o_blink($nowcard['id'], $cudata);}-->
 		<li style="float:left;margin:5px;margin-bottom:10px">
 			<!--{eval $desc_skills=!empty($nowcard['desc_skills'])?$nowcard['desc_skills']:'';}-->
 			<div title="{$desc_skills}">
