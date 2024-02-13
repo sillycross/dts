@@ -14,7 +14,7 @@ namespace logistics
 		$uname = $udata['username'];
 		list($sec,$min,$hour,$day,$month,$year,$wday) = explode(',',date("s,i,H,j,n,Y,w",$now));
 		//经历了crc32()得到负数、大数用%取模得到负数、srand()不起作用等依赖于硬件环境的BUG以后，现在的代码如下。32位和64位的差别真的头大
-		$hash = md5($uid.$uname.$day.$month.$year.$wday.$now);
+		$hash = md5($uid.$uname.$day.$month.$year.$wday);
 		$hash = substr($hash, 0, 10).substr($hash, -10);
 		$fatenum_str = '';
 		for($i=0;$i<strlen($hash);$i++) {
