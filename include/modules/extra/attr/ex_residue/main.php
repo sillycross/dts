@@ -120,7 +120,7 @@ namespace ex_residue
 			{
 				if ($resitem['itms'] !== $nosta && preg_match('/^(Y|B|C|X|TN|GB|H|P|V|M)/',$resitem['itmk'])) $resitem['itms']--;
 				else $resitem['itms'] = 0;
-				if ($resitem['itms'] > 0)
+				if (!empty($resitem['itms']))
 				{
 					if (3 == $rtype)
 					{
@@ -229,7 +229,7 @@ namespace ex_residue
 					}
 				}
 				else \itemmain\itemuse($resitem);
-				if ($resitem['itms'] > 0)
+				if (!empty($resitem['itms']))
 				{
 					if (3 == $rtype)
 					{

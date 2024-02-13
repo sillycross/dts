@@ -31,7 +31,7 @@ namespace skill111
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('player'));
-		if (($state == 1) && \skillbase\skill_query(107,$sdata))
+		if (($state == 1) && \skillbase\skill_query(111,$sdata) && check_unlocked111($sdata) && \skillbase\skill_query(107,$sdata))
 		{
 			eval(import_module('sys','logger','rest'));
 			$resttime = $now - $endtime;
