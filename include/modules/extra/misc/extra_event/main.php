@@ -140,7 +140,7 @@ namespace extra_event
 	}
 
 	//事件选项效果处理，并显示结果文本
-	//因为类型和变化较多，数值暂时写在这里而不是config
+	//因为类型和变化较多，处理写在这里而不是config
 	function extra_event_selection_process(&$now_event, &$now_pace, $selection)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -195,6 +195,8 @@ namespace extra_event
 	}
 
 	//事件选项参数的准备
+	//需要根据一定规则生成并记录参数（比如随机值）则需要修改此函数
+	//没有返回值，会直接修改本模块的$extra_event_para变量
 	function extra_event_para_prepare($now_event, $now_pace)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
