@@ -26,7 +26,7 @@ namespace skill110
 	function check_unlocked110(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return $pa['lvl']>=7;
+		return $pa['lvl']>=5;
 	}
 	
 	function skill110_tempskill_list(&$pa)

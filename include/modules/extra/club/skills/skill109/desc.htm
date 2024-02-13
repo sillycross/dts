@@ -6,14 +6,15 @@ $clubskillname[$___TEMP_SKILL_ID]
 </span>
 {template MOD_CLUBBASE_SKILLDESC_MID1}
 <td class="skilldesc_left b3"><span class="skilldesc">
-可花费<span class="lime b">2</span>点技能点，并有<span class="yellow b">35%</span>概率额外花费<span class="yellow b">1</span>点理智值，<br>随机获得一个称号技能，该<span class="cyan b">临时</span>技能持续<span class="cyan b">$skill109_tempskill_time</span>秒
-<!--{eval $skill109_unused = \skillbase\skill_getvalue(109,'unused',$who);}-->
-<!--{if $skill109_unused}-->
+可花费<span class="lime b">1</span>点技能点，并有<span class="yellow b">60%</span>概率额外花费<span class="yellow b">1</span>点理智值，<br>随机获得一个称号技能，该<span class="cyan b">临时</span>技能持续<span class="cyan b">$skill109_tempskill_time</span>秒
+<!--{eval $skill109_rmtime = (int)\skillbase\skill_getvalue(109,'rmtime',$who);}-->
+<!--{if $skill109_rmtime==30}-->
 <br><span class="lime b">第一次发动不消耗技能点</span>
 <!--{/if}-->
+<br>本局游戏还可以发动<span class="cyan b">$skill109_rmtime/30</span>次
 </span></td>
 <td class="skilldesc_right b3">
-<!--{if $skill109_unused || $skillpoint>=2}-->
+<!--{if $skill109_rmtime>0 && ($skill109_rmtime==30 || $skillpoint>=1)}-->
 <input type="button" style="width:46px" onclick="$('mode').value='special';$('command').value='skill109_special';$('subcmd').value='upgrade';postCmd('gamecmd','command.php');this.disabled=true;" value="发动">
 <!--{else}-->
 <input type="button" style="width:46px" disabled="true" value="发动">
