@@ -7,7 +7,7 @@
 	请最后确认您的身份数据。<br />
 </p>
 <!--{else}-->
-<p><img border="0" src="img/story_0.gif" style="align:center"></p>
+<p><img border="0" src="img/story_0.gif" style="text-align:center"></p>
 <p align="center">
 	“欢迎参加本次ACFUN动漫祭。<br />
 	“我是本次ACFUN动漫祭的工作人员。<br />
@@ -20,10 +20,11 @@
 
 	<form method="post"  action="valid.php" name="valid">
 		<input type="hidden" name="mode" value="enter">
-		{lang name} : $username <br />
+		<span class="yellow b">{lang name} : $username </span><br />
 			<center>
 			{template useradvdata}
 			<input type="hidden" id="cardChosen" name="card" value="$cardChosen"> 
+			
 			<span class ="yellow b">选择一张身份卡</span><br>
 			<div style="height:3px">&nbsp;</div>
 			<!--{if defined('MOD_CARDBASE')}-->
