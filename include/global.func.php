@@ -997,7 +997,7 @@ if ( !function_exists('mb_strlen') ) {
 }
 
 //mb_substr()兼容替代函数，直接照抄的网络
-if (!function_exists('mb_substr')) {
+if ( !function_exists('mb_substr') ) {
 	function mb_substr($str, $start, $len = '', $encoding='UTF-8'){
 		$limit = strlen($str);
 
@@ -1040,6 +1040,7 @@ if (!function_exists('mb_substr')) {
 //              重要游戏功能
 //----------------------------------------
 
+//初始化数据库操作类
 function init_dbstuff(){
 	include GAME_ROOT.'./include/modules/core/sys/config/server.config.php';
 	$default_database = PHP_VERSION >= 7.0 ? 'mysqli' : 'mysql';
@@ -1053,6 +1054,7 @@ function init_dbstuff(){
 	return $db;
 }
 
+//判定用户权限
 function check_authority()
 {
 	global $gtablepre;
@@ -1084,6 +1086,7 @@ function array_randompick($arr, $num=1)
 	return $ret;
 }
 
+//一些来自核心模块的重要函数
 //因为调用次数太多，懒得一个一个改了
 function save_gameinfo() {	
 	\sys\save_gameinfo();

@@ -4,3 +4,5 @@
 mousedown-event必须通过glowbutton_set_mousedown_event进行设置。
 
 js函数glowbutton_highlight(id)和glowbutton_dehighlight(id)可以高亮背景/去除高亮背景
+
+目前已弃用，请直接用css实现
