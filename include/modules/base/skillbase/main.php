@@ -81,7 +81,7 @@ namespace skillbase
 	function skillbase_load(&$pa, $dummy = false)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('player'));
+		eval(import_module('sys','player'));
 		
 		list($pa['acquired_list'], $pa['parameter_list']) = skillbase_load_process($pa['nskill'], $pa['nskillpara']);
 		
@@ -92,8 +92,7 @@ namespace skillbase
 				$acquired_list = $pa['acquired_list'];
 				$parameter_list = $pa['parameter_list'];
 			}
-			
-			skill_onload_event($pa);
+			if(!empty($gamestate)) skill_onload_event($pa);//2024.02.14现在游戏结束时不会载入角色技能
 		}
 	}
 	

@@ -149,6 +149,12 @@ namespace sys
 		load_gameinfo();
 		//游戏未准备的情况下直接返回
 		if($gamestate < 5) return;
+
+		//先把游戏关闭并设置游戏时间
+		$gamestate = 0;
+		$gamevars['o_starttime'] = $starttime; $starttime = 0; //偶尔会发生穿透事故，先这么一修看看情况
+		save_gameinfo();
+		$starttime = $gamevars['o_starttime'];
 		
 		//提取所有入场玩家的pdata和udata数据备用
 		$gameover_plist = $gameover_alivelist = array();
@@ -265,10 +271,6 @@ namespace sys
 		//需要先判定获胜者的成就请重载这里
 		post_winnercheck_events($winner);		
 		
-		$gamestate = 0;
-		$gamevars['o_starttime'] = $starttime; $starttime = 0; //偶尔会发生穿透事故，先这么一修看看情况
-		save_gameinfo();
-		$starttime = $gamevars['o_starttime'];
 //		logmicrotime('房间'.$room_prefix.'-第'.$gamenum.'局-模式判断');
 		//以下开始真正处理gameover的各种数据修改
 		$time = !empty($time) ? $time : $now;
