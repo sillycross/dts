@@ -9,16 +9,16 @@
 				<!--{if !$y}-->
 					<td class="map">
 						<!--{if !$x}-->
-							<div style="width:{$xw}px;height:{$yh}px">坐标</div>
+							<div style="width:49px;height:49px">坐标</div>
 						<!--{else}-->
-							<div style="width:{$xw}px;height:{$yh}px">$x</div>
+							<div style="width:{$xw}px;height:50px">$x</div>
 						<!--{/if}-->
 					</td>
 				<!--{else}-->
 					<!--{eval $now_ycoor = \map_display\map_display_y2coor($y);}-->
 					<td class="map">
 						<!--{if !$x}-->
-							<div style="width:{$xw}px;height:{$yh}px">$now_ycoor</div>
+							<div style="width:49px;height:{$yh}px">$now_ycoor</div>
 						<!--{else}-->
 							<div style="width:{$xw}px;height:{$yh}px">
 								<!--{eval $now_xycoor = $now_ycoor.'-'.$x;}-->
