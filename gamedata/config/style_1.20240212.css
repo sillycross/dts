@@ -228,6 +228,31 @@ div#loading{
 	BACKGROUND: #000;filter:alpha(opacity=50); opacity:0.5;
 	background-image: url("../../img/loading.gif");background-repeat: no-repeat;background-position:center;background-attachment: fixed;
 }
+
+table#map_display{
+	text-align:center;
+	padding:0;
+	border-collapse: collapse; border-spacing: 0;
+	border:1px;
+	position:relative;
+	table-layout: fixed;
+	background-repeat:no-repeat;background-position:right bottom;
+}
+
+table#map_display tr.map{
+	text-align:center;
+}
+
+table#map_display td.map{
+	text-align:center;
+	padding:0px;
+}
+
+table#map_display div{
+	display: table-cell;
+	vertical-align: middle;
+}
+
 /*==========表情包==========*/
 img.emoticon{
 	width: 80px; height: 80px; margin: 1px; cursor: pointer; 

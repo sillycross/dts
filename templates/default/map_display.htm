@@ -1,0 +1,44 @@
+<!--{eval eval(import_module('sys','map'));}-->
+<!--{eval $map_display_config = \map_display\get_map_display_config();$bg=$map_display_config['background-image'];}-->
+<!--{eval $xnum = $map_display_config['x']; $ynum = $map_display_config['y']; $xt = $map_display_config['background-width']; $xw = round($xt/$xnum)-1; $yt = $map_display_config['background-height']; $yh = round($yt/$ynum)-1;}-->
+<!--{eval $xrange = range(0, $xnum); $yrange = range(0, $ynum);}-->
+<table id="map_display" style="background-image:url('{$bg}');background-size: {$xt}px {$yt}px;">
+	<!--{loop $yrange $y}-->
+		<tr>
+			<!--{loop $xrange $x}-->
+				<!--{if !$y}-->
+					<td class="map">
+						<!--{if !$x}-->
+							<div style="width:{$xw}px;height:{$yh}px">坐标</div>
+						<!--{else}-->
+							<div style="width:{$xw}px;height:{$yh}px">$x</div>
+						<!--{/if}-->
+					</td>
+				<!--{else}-->
+					<!--{eval $now_ycoor = \map_display\map_display_y2coor($y);}-->
+					<td class="map">
+						<!--{if !$x}-->
+							<div style="width:{$xw}px;height:{$yh}px">$now_ycoor</div>
+						<!--{else}-->
+							<div style="width:{$xw}px;height:{$yh}px">
+								<!--{eval $now_xycoor = $now_ycoor.'-'.$x;}-->
+								<!--{if !empty($map_display_config['xyinfo'][$now_xycoor])}-->
+									<!--{eval $now_plsno = $map_display_config['xyinfo'][$now_xycoor];}-->
+									<span class="
+										<!--{if $hack || !\map\check_in_forbidden_area($now_plsno, 1)}-->
+											mapspanlime
+										<!--{elseif \map\check_in_forbidden_area($now_plsno)}-->
+											mapspanred
+										<!--{else}-->
+											mapspanyellow
+										<!--{/if}-->
+									">$plsinfo[$now_plsno]</span>									
+								<!--{/if}-->
+							</div>
+						<!--{/if}-->
+					</td>
+				<!--{/if}-->
+			<!--{/loop}-->
+		</tr>
+	<!--{/loop}-->
+</table>
