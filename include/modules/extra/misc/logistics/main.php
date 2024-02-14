@@ -168,7 +168,7 @@ namespace logistics
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$u_settings = \user_settings\get_u_settings($udata);
 		$u_settings['log_itemlist'] = $itemlist;
-		$udata['u_settings'] = gencode($u_settings);
+		\user_settings\save_u_settings($u_settings, $udata);
 		return $udata;
 	}
 	
@@ -303,7 +303,7 @@ namespace logistics
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$u_settings = \user_settings\get_u_settings($udata);
 		$u_settings['log_s_cardlist'] = $s_cardlist;
-		$udata['u_settings'] = gencode($u_settings);
+		\user_settings\save_u_settings($u_settings, $udata);
 		return $udata;
 	}
 	
@@ -349,7 +349,7 @@ namespace logistics
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$u_settings = \user_settings\get_u_settings($udata);
 		$u_settings['log_s_gameitemlist'] = $s_gameitemlist;
-		$udata['u_settings'] = gencode($u_settings);
+		\user_settings\save_u_settings($u_settings, $udata);
 		return $udata;
 	}
 	
@@ -483,7 +483,7 @@ namespace logistics
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$u_settings = \user_settings\get_u_settings($udata);
 		$u_settings['log_s_logitemlist'] = $s_logitemlist;
-		$udata['u_settings'] = gencode($u_settings);
+		\user_settings\save_u_settings($u_settings, $udata);
 		return $udata;
 	}
 	

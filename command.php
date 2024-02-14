@@ -544,7 +544,7 @@ if('bot' == $mode) {
 if(!isset($page) || 'command' == $page) {
 	$___CURSCRIPT = 'ACT';
 	include GAME_ROOT.'./include/pages/command_act.php';
-}elseif(in_array($page, array('command_game','command_roomcmd','command_valid','command_end','command_winner','command_rank','command_alive','command_help','command_news','command_aranking'))) {
+}elseif(in_array($page, array('command_game','command_roomcmd','command_valid','command_end','command_winner','command_rank','command_alive','command_help','command_news','command_aranking','command_logistics'))) {
 	$___tmp_disable_codeadv3 = 1;//暂时还做不到游戏外页面解压文字
 	$___CURSCRIPT = strtoupper(substr($page,strpos($page,'_')+1));
 	if('command_help' == $page) {

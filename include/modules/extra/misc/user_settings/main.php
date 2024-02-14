@@ -27,6 +27,18 @@ namespace user_settings
 		return $ret;
 	}
 
+	//储存u_settings，会自动更新$decoded_u_settings的值
+	//注意不会自动更新数据库
+	function save_u_settings($settings, &$ud = NULL) {
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('sys','user_settings'));
+		if(empty($ud)) $ud = &$cudata;
+
+		$decoded_u_settings[$ud['username']] = $settings;
+
+		$ud['u_settings'] = gencode($settings);
+	}
+
 	//跳过开局剧情
 	function opening_by_shootings_available()
 	{

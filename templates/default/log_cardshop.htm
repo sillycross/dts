@@ -12,7 +12,13 @@
 <div class="subtitle" align="center">卡片商店</div>
 <center>
 <br>
-<div style="width:600px;text-align:center;font-size:14px;">在这里可以用切糕交换卡片。可交换的卡片列表每天0点更新。</div>
+<div style="width:600px;text-align:center;font-size:14px;">
+	<!--{if empty($notice)}-->
+	在这里可以用切糕交换卡片。可交换的卡片列表每天0点更新。
+	<!--{else}-->
+	<span class="yellow b">$notice</span>
+	<!--{/if}-->
+</div>
 <br>
 <div style="width:600px;text-align:center;">当前的切糕数量：<span class="evergreen b">$cg</span><br></div>
 <br>
@@ -22,7 +28,7 @@
 	<!--{eval $showpack=1;}-->
 	<ul style="width:1000px;list-style-type:none;">
 		<!--{loop $cardshop_list $k $nowcard}-->
-		<!--{eval $price=\logistics\get_card_price($nowcard); $o_blink = \logistics\card_check_o_blink($nowcard['id'], $cudata);}-->
+		<!--{eval $price=\logistics\get_card_price($nowcard); $o_blink = \logistics\card_check_o_blink($nowcard['id'], $udata);}-->
 		<li style="float:left;margin:5px;margin-bottom:10px">
 			<!--{eval $desc_skills=!empty($nowcard['desc_skills'])?$nowcard['desc_skills']:'';}-->
 			<div title="{$desc_skills}">

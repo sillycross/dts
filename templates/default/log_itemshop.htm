@@ -12,7 +12,13 @@
 <div class="subtitle" align="center">道具商店</div>
 <center>
 <br>
-<div style="width:600px;text-align:center;font-size:14px;">在这里可以用切糕交换一些非游戏中使用的道具或装饰品。</div>
+<div style="width:600px;text-align:center;font-size:14px;">
+	<!--{if empty($notice)}-->
+	在这里可以用切糕交换一些非游戏中使用的道具或装饰品。
+	<!--{else}-->
+	<span class="yellow b">$notice</span>
+	<!--{/if}-->
+</div>
 <br>
 <div style="width:600px;text-align:center;">当前的切糕数量：<span class="evergreen b">$cg</span><br></div>
 <br>

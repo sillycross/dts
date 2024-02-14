@@ -12,7 +12,13 @@
 <div class="subtitle" align="center">道具仓库</div>
 <center>
 <br>
-<div style="width:600px;text-align:center;font-size:14px;">在这里可以查看你拥有的道具和装饰品。</div>
+<div style="width:600px;text-align:center;font-size:14px;">
+	<!--{if empty($notice)}-->
+	在这里可以查看你拥有的道具和装饰品。
+	<!--{else}-->
+	<span class="yellow b">$notice</span>
+	<!--{/if}-->
+</div>
 <br>
 <div style="width:600px;text-align:center;">当前的切糕数量：<span class="evergreen b">$cg</span><br></div>
 <br>
@@ -79,18 +85,5 @@
 </center>
 <br>
 </center>
-
-<!--{if !empty($res)}-->
-<!--{eval \bubblebox\bubblebox_set_style('id:logitemresult;height:100;width:600;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:10px;');}-->
-{template MOD_BUBBLEBOX_START}
-<div style="margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px;">
-<center>
-<br><div style="font-weight:bold;">$res</div><br>
-页面将自动刷新……
-</center>
-</div>
-{template MOD_BUBBLEBOX_END}
-<script>bubblebox_show('logitemresult');</script>
-<!--{/if}-->
 
 {template footer}
