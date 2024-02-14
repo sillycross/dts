@@ -2,8 +2,6 @@
 
 namespace map
 {
-	//禁区间隔时间,单位 分钟（已废弃）
-	$areahour = 30;
 	//不同游戏类型的禁区间隔时间，单位：分钟
 	$areainterval = Array( 0 => 30 );
 	//每次间隔增加的禁区数量

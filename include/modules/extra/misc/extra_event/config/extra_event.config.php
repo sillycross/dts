@@ -2,6 +2,8 @@
 
 namespace extra_event
 {
+	$extra_event_gametype = Array(18);//开启扩展事件的游戏类型，目前只在荣耀模式
+
 	$extra_event_list = Array(//扩展事件定义列表，要开启事件必须设置此参数。键名为地图，键值为该地图允许的扩展事件
 		4 => Array(1),
 	);
@@ -14,8 +16,7 @@ namespace extra_event
 
 	$extra_event_texts = Array(//注意这里只放文本
 		1 => Array(
-			'title' => '愿望',//事件标题。目前暂不显示
-			'pls' => 4, //地点，如果99则为不限制。4为索拉利斯
+			'title' => '愿望',//事件标题。目前暂不显示。位于索拉利斯
 			'overview' => '一个不属于你的念头在你的脑海中涌现。<br>',
 			
 			'texts' => Array(//这里只是文本，具体的效果和对应关系在extra_event_core()里处理，如果需要随机等非对应性的逻辑也放extra_event_core()

@@ -26,14 +26,22 @@ namespace extra_event
 		return $ret;
 	}
 
+	//判定当前游戏模式是否允许扩展事件
+	function is_extra_event_available()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return in_array(get_var_in_module('gametype', 'sys'), get_var_in_module('extra_event_gametype', 'extra_event'));
+	}
+
 	//扩展事件主函数，用于判定具体执行哪个扩展事件。
 	//如果玩家skill1003技能记录了执行到一半的事件，优先执行这个。否则根据这里的规则确定执行哪一个事件
 	function extra_event_main()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+
+		eval(import_module('extra_event'));
 		list($now_event, $now_pace) = extra_event_get_eid_pace();
 		if(!$now_event) {//玩家不在任何一个事件中，根据$extra_event_list决定执行哪个事件
-			eval(import_module('extra_event'));
 			$pls = get_var_in_module('pls', 'player');
 			if(!empty($extra_event_list[$pls])) {
 				if(is_array($extra_event_list[$pls])) $now_event = array_randompick($extra_event_list[$pls]);
@@ -352,7 +360,7 @@ namespace extra_event
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','extra_event'));
-		if(!empty($extra_event_list[$pls])) {
+		if(!empty($extra_event_list[$pls]) && is_extra_event_available()) {
 			$ret = extra_event_main();
 		}
 		if(empty($ret)) {
@@ -366,7 +374,7 @@ namespace extra_event
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		if('event' == $command) {
+		if('event' == $command && is_extra_event_available()) {
 			extra_event_main();
 			return;
 		}
