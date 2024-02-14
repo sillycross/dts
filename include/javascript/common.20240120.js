@@ -49,6 +49,8 @@ function updateTime(domid,t,tm,intv,fmt)
 		timinglist[domid]['mode'] = tm;
 		timinglist[domid]['interval'] = intv;
 		timinglist[domid]['format'] = fmt;
+		timinglist[domid]['timestamp'] = Date.now();//储存初始化时的系统时间以便比对
+		timinglist[domid]['o_t'] = t;
 	}else{
 		var t = timinglist[domid]['timing'];
 		var t0 = t;
@@ -62,6 +64,14 @@ function updateTime(domid,t,tm,intv,fmt)
 			if(t < 0) t = 0;
 		}
 		timinglist[domid]['timing'] = t;
+		//倒计时系统时间偏差判定
+		if(0==tm && t > 0){
+			var tp = timinglist[domid]['o_t'] - t;//用当前倒计时计算的已经过时间
+			var tc = Date.now()-timinglist[domid]['timestamp'];//用系统时间计算的已经过时间
+			if(tp - tc > 3000 || tp - tc < -3000){//时间偏差超过3秒，此时用系统时间来计算t，不求准确，但求大致正确
+				t = timinglist[domid]['timing'] = timinglist[domid]['o_t'] - tc;
+			}
+		}
 		if(0==t){
 			if(0 < t0 && 'timing'==domid) window.location.reload(); //首页
 //			else if('area_timing' == domid) {//游戏界面内禁区自动刷新，不过由于两边时间不同步，可能执行不正常
