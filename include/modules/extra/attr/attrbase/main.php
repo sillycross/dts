@@ -297,7 +297,7 @@ namespace attrbase
 	}
 	
 	//将道具属性值里的特定内容转化为复合属性非标准base64字符串的函数
-	//会将<:comp_itmsk:>{xxx}里xxx的内容转化为非标准base64字符串，使用时类似这样：^res_<:comp_itmsk:>{xxx}1。注意xxx里的下划线会被转换成半角逗号
+	//会将<:comp_itmsk:>{xxx}里xxx的内容转化为非标准base64字符串，使用时类似这样：^res_<:comp_itmsk:>{xxx}1
 	//会递归地转换直到不存在类似的字符串为止，目前支持多个复合属性的并联和串连，如^res_<:comp_itmsk:>{xxx^res_<:comp_itmsk:>{yyy}1^res_<:comp_itmsk:>{zzz}1}1
 	function config_process_encode_comp_itmsk($str){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -309,11 +309,29 @@ namespace attrbase
 		return $ret;
 	}
 
-	//电波框架不支持匿名函数（至少暂时不支持），所以只能再定义一个函数
-	//由于逗号写进config文件会炸，用.号代替，这里会自动把半角句点转化成半角逗号
+	//config_process_encode_comp_itmsk()的回调函数。电波框架不支持匿名函数（至少暂时不支持），所以只能再定义一个函数
+	//由于逗号写进地图、商店、礼品盒等config文件会炸，现在的做法是载入这些文件时先把大括号里的逗号变成<:sepr:>，然后在这里把<:sepr:>转化成半角逗号
 	function config_process_encode_comp_itmsk_callback($matches){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return base64_encode_comp_itmsk(str_replace('.',',',$matches[1]));
+		return base64_encode_comp_itmsk(str_replace('<:sepr:>',',',$matches[1]));
+	}
+
+	//把大括号里的逗号变成<:sepr:>
+	function config_process_encode_comp_itmsk_sepr_transfer($str){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = $str;
+		if(false !== strpos($str, '{') && false !== strpos($str, '}') && false !== strpos($str, ','))
+		{
+			$pat = "/\<\:comp_itmsk\:\>\{(.+)\}/s";
+			$ret = preg_replace_callback($pat, '\attrbase\config_process_encode_comp_itmsk_sepr_transfer_callback', $ret);
+		}
+		return $ret;
+	}
+
+	//config_process_encode_comp_itmsk_sepr_transfer()的回调函数。
+	function config_process_encode_comp_itmsk_sepr_transfer_callback($matches){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return '<:comp_itmsk:>{'.str_replace(',','<:sepr:>',$matches[1]).'}';
 	}
 	
 	//地图道具里复合属性的处理
@@ -322,6 +340,20 @@ namespace attrbase
 		list($iname, $ikind, $ieff, $ista, $iskind, $imap) = $chprocess($iname, $ikind, $ieff, $ista, $iskind, $imap);
 		$iskind = config_process_encode_comp_itmsk($iskind);
 		return array($iname, $ikind, $ieff, $ista, $iskind, $imap);
+	}
+
+	//单行mapitem记录的分割处理，在分割前先把半角逗号变成<:sepr:>
+	function itemlist_data_seperate($data){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		$data = config_process_encode_comp_itmsk_sepr_transfer($data);
+		return $chprocess($data);
+	}
+
+	//单行shopitem记录的分割处理，在分割前先把半角逗号变成<:sepr:>
+	function shopitem_data_seperate($data){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		$data = config_process_encode_comp_itmsk_sepr_transfer($data);
+		return $chprocess($data);
 	}
 	
 	//合成成功时复合属性的处理

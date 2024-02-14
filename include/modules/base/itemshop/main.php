@@ -18,7 +18,7 @@ namespace itemshop
 		$sil_bykind = array();
 		foreach($filecont as $fv){
 			if(!empty($fv) && strpos($fv,',')!==false){
-				$sil_single = shopitem_data_process(explode(',',$fv));
+				$sil_single = shopitem_data_seperate($fv);
 				if($sil_single[0]){
 					if(!isset($sil_bykind[$sil_single[0]])) $sil_bykind[$sil_single[0]] = array();
 					$sil_bykind[$sil_single[0]][] = $sil_single;
@@ -26,6 +26,13 @@ namespace itemshop
 			}			
 		}
 		return $sil_bykind;
+	}
+
+	//单行shopitem记录的分割处理
+	//本模块是explode后调用shopitem_data_process()处理
+	function shopitem_data_seperate($data){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		return shopitem_data_process(explode(',',$data));
 	}
 	
 	//自动合并不同模式的数据，并且给出正确的商店道具数组

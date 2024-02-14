@@ -344,7 +344,7 @@ namespace itemmain
 		$an = \map\get_area_wavenum();
 		for($i = 1; $i < $in; $i++) {
 			if(!empty($itemlist[$i]) && substr($itemlist[$i], 0, 1) != '=' && strpos($itemlist[$i],',')!==false){//跳过空行和注释行（没有逗号的行）
-				list($iarea,$imap,$inum,$iname,$ikind,$ieff,$ista,$iskind) = mapitem_data_process(explode(',',$itemlist[$i]));
+				list($iarea,$imap,$inum,$iname,$ikind,$ieff,$ista,$iskind) = itemlist_data_seperate($itemlist[$i]);
 				if( $iarea == $an || $iarea == 99 || ($iarea == 98 && $an > 0)) {//禁区判定，99为每禁，98为一禁后每禁
 					if($lpls == -1 || $lpls == $imap){//地图判定，-1为不限制（刷所有固定道具和全图随机道具），99为全图随机
 						for($j = $inum; $j>0; $j--) {
@@ -387,6 +387,13 @@ namespace itemmain
 	function itemlist_data_process($data){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		return $data;
+	}
+
+	//单行mapitem记录的分割处理
+	//本模块是explode后调用mapitem_data_process()处理
+	function itemlist_data_seperate($data){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		return mapitem_data_process(explode(',',$data));
 	}
 	
 	//单条mapitem记录的data处理

@@ -1066,7 +1066,7 @@ namespace instance8
 					'artk' => 'A',
 					'arte' => 1,
 					'arts' => 1,
-					'artsk' => 'Bb^st_<:comp_itmsk:>{适者生存的豪华便当.MB.1.1.^mbid401^mblvl5^mbtime900}1^vol1',
+					'artsk' => 'Bb^st_<:comp_itmsk:>{适者生存的豪华便当,MB,1,1,^mbid401^mblvl5^mbtime900,}1^vol1',
 					'itm6' => '',
 					'itmk6' => '',
 					'itme6' => 0,
