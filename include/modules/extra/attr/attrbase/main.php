@@ -176,7 +176,7 @@ namespace attrbase
 			$ret = implode('', $itmsk_arr);
 			return $ret;
 		}
-		return $chprocess($needle, $replacement, $itmsk);
+		return $chprocess($needle, $replacement, $itmsk, $strict);
 	}
 	
 	//检查$pa是否具有$nm属性，如$pa为NULL则检查当前玩家

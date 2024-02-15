@@ -68,6 +68,7 @@ function module_validity_check($file)
 			$m++; $bmodn[$m]=$modname; $bmodp[$m]=$modpath;
 		}
 	}
+	$modn_rvs = array_flip($modn);
 	
 	global $___TEMP_DRY_RUN, $___TEMP_DRY_RUN_COUNTER;
 	$___TEMP_DRY_RUN=1; 
@@ -220,20 +221,51 @@ function module_validity_check($file)
 		return $log;
 	}
 	
+	$func_conts = Array();
+	$func_paras = Array();
+	$func_chp_paras = Array();
 	for ($z=1; $z<=$n; $z++)
 	{
 		$i=$q[$z]; $modname=$modn[$i];
 		foreach ($sup_func_list[$i] as $key) if ($key!='')
 		{
 			$flag=0;
+
+			$reflect = new ReflectionFunction('\\'.$modname.'\\'.$key);
+			$pn = sizeof($reflect->getParameters());
+			if(!isset($func_paras[$i])) $func_paras[$i] = Array();
+			$func_paras[$i][$key] = $pn;
+
+			if(!function_exists('strip_comments')) include_once './include/modulemng/modulemng.codeadv2.func.php';
+			if(!isset($func_conts[$i])) {
+				$func_conts[$i] = explode("\n",strip_comments(file_get_contents($reflect->getFileName())));
+			}
+			$cn = -1;
+			if(!isset($func_chp_paras[$i])) $func_chp_paras[$i] = Array();
+			for ($ii = $reflect->getStartLine() - 1; $ii < $reflect->getEndLine(); $ii++) {
+				$tmp_str = $func_conts[$i][$ii];
+				
+				if(preg_match('/\$chprocess\s*?\((.*?)\)/s', $tmp_str, $matches)) {
+					//if('noise' == $modname && 'save_gameinfo_prepare_work' == $key) gwrite_var('n.txt', $tmp_str);
+					$tmp_str = $matches[1];
+					if(empty(trim($tmp_str))) $cn = 0;
+					else $cn = sizeof(explode(',', $tmp_str));
+					break;
+				}
+			}
+			$func_chp_paras[$i][$key] = $cn;
+
+			unset($reflect);
 			
-			foreach($dependency[$i] as $r) if ($r!='')
-				if (isset($func[$r]) && isset($func[$r][strtoupper($key)]))
+			foreach($dependency[$i] as $r) if ($r!=''){
+				if (!$flag && isset($func[$r]) && isset($func[$r][strtoupper($key)]))
 					$flag=1;
-			
-			foreach($dependency_optional[$i] as $r) if ($r!='')
-				if (isset($func[$r]) && isset($func[$r][strtoupper($key)]))
+			}
+				
+			foreach($dependency_optional[$i] as $r) if ($r!=''){
+				if (!$flag && isset($func[$r]) && isset($func[$r][strtoupper($key)]))
 					$flag=1;
+			}
 			
 			if (!$flag)
 			{
@@ -246,9 +278,45 @@ function module_validity_check($file)
 					return $log;
 				}
 			}
-				
+
 			$funclist[strtoupper($key)]=$modname;
 			$func[$modname][strtoupper($key)]=1;
+		}
+	}
+
+	for ($z=1; $z<=$n; $z++)
+	{
+		$i=$q[$z]; $modname=$modn[$i];
+		foreach ($sup_func_list[$i] as $key) if ($key!='')
+		{
+			$flag2 = $flag3 = 0;
+			$pn = $func_paras[$i][$key];
+			$cn = $func_chp_paras[$i][$key];
+			
+			foreach($dependency[$i] as $r) if ($r!=''){
+				if (!$flag2 && isset($func_paras[$modn_rvs[$r]][$key]) && $pn != $func_paras[$modn_rvs[$r]][$key])
+					$flag2=1;
+				if (!$flag3 && isset($func_paras[$modn_rvs[$r]][$key]) && $cn >= 0 && $cn != $func_paras[$modn_rvs[$r]][$key]){
+					$flag3=1;
+					//file_put_contents('a.txt', $modname.' '.$key.' '.var_export($cn,1).' '.var_export($func_paras[$modn_rvs[$r]][$key],1).' '.var_export($func_chp_paras[$modn_rvs[$r]][$key],1)."\r\n", FILE_APPEND);
+				}
+			}
+				
+			foreach($dependency_optional[$i] as $r) if ($r!=''){
+				if (!$flag2 && isset($func_paras[$modn_rvs[$r]][$key]) && $pn != $func_paras[$modn_rvs[$r]][$key])
+					$flag2=1;
+				if (!$flag3 && isset($func_paras[$modn_rvs[$r]][$key]) && $cn >= 0 && $cn != $func_paras[$modn_rvs[$r]][$key])
+					$flag3=1;
+			}
+			
+			if ($flag2)
+			{
+				$notice_log .= "<span><font color=\"orange\">模块{$modname}的函数{$key}的参数个数与至少一个所重载的函数不匹配，建议排查。</font></span><br>";
+			}
+			if ($flag3)
+			{
+				$notice_log .= "<span><font color=\"orange\">模块{$modname}的函数{$key}的\$chprocess传参个数与至少一个所重载的函数不匹配，建议排查。</font></span><br>";
+			}
 		}
 	}
 	

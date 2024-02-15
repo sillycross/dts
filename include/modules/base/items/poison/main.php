@@ -19,7 +19,7 @@ namespace poison
 			//$k_value[0]='H';
 			$k_value = 'H'.substr($k_value, 1);
 		}
-		return $chprocess($k_value);
+		return $chprocess($k_value, $reveal);
 	}
 	
 	function send_poison_enemylog($itm,$itmsk)
