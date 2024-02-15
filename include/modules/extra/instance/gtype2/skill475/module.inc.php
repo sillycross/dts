@@ -3,7 +3,7 @@
 namespace skill475
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'skillbase clubbase sys player logger itemmain bubblebox corpse';
+	$___MODULE_dependency = 'skillbase clubbase sys player logger itemmain corpse';
 	$___MODULE_dependency_optional = 'skill58';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

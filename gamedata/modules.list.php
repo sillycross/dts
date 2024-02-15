@@ -1,5 +1,4 @@
 input,core/input/,1
-bubblebox,extra/misc/bubblebox/,1
 sys,core/sys/,1
 map,core/map/,1
 bmp_util,extra/misc/bmp_util/,1
@@ -320,7 +319,6 @@ item_uc,base/items/item_uc/,1
 skill12,extra/club/skills/skill12/,1
 skill223,extra/club/skills/skill223/,1
 event,base/event/,1
-skill742,extra/card/skills/skill742/,1
 skill710,extra/card/skills/skill710/,1
 item_slip,extra/item_extra/item_slip/,1
 skill331,extra/activities/halloween2017/skill331/,1
@@ -532,6 +530,7 @@ skill514,extra/card/skills/skill514/,1
 skill206,extra/club/skills/skill206/,1
 miracletrap,base/items/miracletrap/,1
 skill231,extra/club/skills/skill231/,1
+skill742,extra/card/skills/skill742/,1
 skill220,extra/club/skills/skill220/,1
 skill224,extra/club/skills/skill224/,1
 skill243,extra/club/skills/skill243/,1
@@ -711,6 +710,7 @@ skill266,extra/club/skills/skill266/,1
 skill81,extra/club/skills/skill81/,1
 skill509,extra/card/skills/skill509/,1
 skill510,extra/card/skills/skill510/,1
+bubblebox,extra/misc/bubblebox/,0
 skill86,extra/club/skills/skill86/,0
 gtype2,extra/instance/gtype2/main/,0
 gtype3,extra/instance/gtype3/main/,0

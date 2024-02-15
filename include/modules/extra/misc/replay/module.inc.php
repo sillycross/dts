@@ -3,7 +3,7 @@
 namespace replay
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'sys player gameflow_base bmp_util bubblebox';
+	$___MODULE_dependency = 'sys player gameflow_base bmp_util';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';

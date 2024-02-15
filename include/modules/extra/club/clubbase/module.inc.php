@@ -3,7 +3,7 @@
 namespace clubbase
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'sys player logger enemy attack bubblebox weapon npc';
+	$___MODULE_dependency = 'sys player logger enemy attack weapon npc';
 	$___MODULE_dependency_optional = 'battle';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php config/clubbase.config.php';

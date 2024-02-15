@@ -3,7 +3,7 @@
 namespace cardbase
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'sys player attack itemmix bubblebox metman weather';
+	$___MODULE_dependency = 'sys player attack itemmix metman weather';
 	$___MODULE_dependency_optional = 'skillbase';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php config/card.config.php';

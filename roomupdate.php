@@ -63,7 +63,7 @@ if ($rarr['groomstatus'] >= 40)
 $roomdata = gdecode($rarr['roomvars'] ,1);
 $room_id = $rarr['groomid'];
 //载入气泡框模块和发光按钮模块
-require GAME_ROOT.'./include/modules/extra/misc/bubblebox/module.inc.php';
+//require GAME_ROOT.'./include/modules/extra/misc/bubblebox/module.inc.php';
 //require GAME_ROOT.'./include/modules/extra/misc/glowbutton/module.inc.php';
 
 $timestamp = (int)($_POST['timestamp']);
