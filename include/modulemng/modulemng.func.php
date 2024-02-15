@@ -221,9 +221,7 @@ function module_validity_check($file)
 		return $log;
 	}
 	
-	$func_conts = Array();
-	$func_paras = Array();
-	$func_chp_paras = Array();
+	$func_conts = $func_paras = $func_chp_paras = $func_need_ret = $func_send_ret = Array();
 	for ($z=1; $z<=$n; $z++)
 	{
 		$i=$q[$z]; $modname=$modn[$i];
@@ -241,19 +239,28 @@ function module_validity_check($file)
 				$func_conts[$i] = explode("\n",strip_comments(file_get_contents($reflect->getFileName())));
 			}
 			$cn = -1;
+			$rs = 0;
 			if(!isset($func_chp_paras[$i])) $func_chp_paras[$i] = Array();
 			for ($ii = $reflect->getStartLine() - 1; $ii < $reflect->getEndLine(); $ii++) {
 				$tmp_str = $func_conts[$i][$ii];
+				if(false !== strpos($tmp_str, '__MAGIC__')) continue;
 				
-				if(preg_match('/\$chprocess\s*?\((.*?)\)/s', $tmp_str, $matches)) {
-					//if('noise' == $modname && 'save_gameinfo_prepare_work' == $key) gwrite_var('n.txt', $tmp_str);
-					$tmp_str = $matches[1];
-					if(empty(trim($tmp_str))) $cn = 0;
-					else $cn = sizeof(explode(',', $tmp_str));
-					break;
+				if(preg_match('/(=*)\s*?\$chprocess\s*?\((.*?)\)/s', $tmp_str, $matches)) {
+					$tmp_str_2 = trim($matches[1]);
+					if(!empty($tmp_str_2)) $func_need_ret[$i][$key] = 1;
+					$tmp_str_3 = trim($matches[2]);
+					if(empty($tmp_str_3)) $cn = 0;
+					else $cn = sizeof(explode(',', $tmp_str_3));
 				}
+
+				if(preg_match('/return\s*?.+?\;/s', $tmp_str)) {
+					if(!isset($func_send_ret[$i])) $func_send_ret[$i] = Array();
+					$rs = 1;
+				}
+				//if('enemy' == $modname && 'findenemy' == $key) gwrite_var('n.txt', $tmp_str);
 			}
 			$func_chp_paras[$i][$key] = $cn;
+			$func_send_ret[$i][$key] = $rs;
 
 			unset($reflect);
 			
@@ -289,7 +296,7 @@ function module_validity_check($file)
 		$i=$q[$z]; $modname=$modn[$i];
 		foreach ($sup_func_list[$i] as $key) if ($key!='')
 		{
-			$flag2 = $flag3 = 0;
+			$flag2 = $flag3 = $flag4 = 0;
 			$pn = $func_paras[$i][$key];
 			$cn = $func_chp_paras[$i][$key];
 			
@@ -298,8 +305,13 @@ function module_validity_check($file)
 					$flag2=1;
 				if (!$flag3 && isset($func_paras[$modn_rvs[$r]][$key]) && $cn >= 0 && $cn != $func_paras[$modn_rvs[$r]][$key]){
 					$flag3=1;
-					//file_put_contents('a.txt', $modname.' '.$key.' '.var_export($cn,1).' '.var_export($func_paras[$modn_rvs[$r]][$key],1).' '.var_export($func_chp_paras[$modn_rvs[$r]][$key],1)."\r\n", FILE_APPEND);
 				}
+				if(!$flag4 && !empty($func_need_ret[$i][$key]) && isset($func_send_ret[$modn_rvs[$r]][$key]) && empty($func_send_ret[$modn_rvs[$r]][$key])) {
+					$flag4=1;
+					$flag4_modn = $r;
+					//file_put_contents('a.txt', $flag4_modn.' '.$key.' '.var_export($func_need_ret[$i][$key],1).' '.var_export($func_send_ret[$modn_rvs[$r]][$key],1).' '.$modn_rvs[$r]."\r\n", FILE_APPEND);
+				}
+					
 			}
 				
 			foreach($dependency_optional[$i] as $r) if ($r!=''){
@@ -307,6 +319,11 @@ function module_validity_check($file)
 					$flag2=1;
 				if (!$flag3 && isset($func_paras[$modn_rvs[$r]][$key]) && $cn >= 0 && $cn != $func_paras[$modn_rvs[$r]][$key])
 					$flag3=1;
+				if(!$flag4 && !empty($func_need_ret[$i][$key]) && isset($func_send_ret[$modn_rvs[$r]][$key]) && empty($func_send_ret[$modn_rvs[$r]][$key])){
+					$flag4=1;
+					$flag4_modn = $r;
+				}
+					
 			}
 			
 			if ($flag2)
@@ -316,6 +333,10 @@ function module_validity_check($file)
 			if ($flag3)
 			{
 				$notice_log .= "<span><font color=\"orange\">模块{$modname}的函数{$key}的\$chprocess传参个数与至少一个所重载的函数不匹配，建议排查。</font></span><br>";
+			}
+			if ($flag4)
+			{
+				$notice_log .= "<span><font color=\"orange\">模块{$flag4_modn}的函数{$key}没有提供返回值，这是模块{$modname}运算所需要的，建议排查。</font></span><br>";
 			}
 		}
 	}

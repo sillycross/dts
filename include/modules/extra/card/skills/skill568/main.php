@@ -30,7 +30,7 @@ namespace skill568
 			eval(import_module('logger','metman'));
 			$log .= skill568_tips($edata);
 		}
-		$chprocess($edata);
+		return $chprocess($edata);
 	}
 	
 	function attack_prepare(&$pa, &$pd, $active)

@@ -22,7 +22,7 @@ namespace enemy
 
 		$main = MOD_METMAN_MEETMAN;
 		
-		return;
+		return true;
 	}
 	
 	function get_battlecmd_filename(){
