@@ -102,7 +102,7 @@ namespace item_umb
 			if (defined('MOD_SKILL'.$key.'_INFO') && (strpos(constant('MOD_SKILL'.$key.'_INFO'),'club;')!==false || strpos(constant('MOD_SKILL'.$key.'_INFO'),'card;')!==false))
 			{
 				$tsk_expire = \skillbase\skill_getvalue($key, 'tsk_expire', $pa);
-				init_buff_timing($key, $tsk_expire - $now);
+				if(!empty($tsk_expire))	init_buff_timing($key, $tsk_expire - $now);
 			}
 		}
 	}
