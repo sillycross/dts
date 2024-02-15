@@ -4,7 +4,7 @@ namespace skill478
 {
 	function init() 
 	{
-		define('MOD_SKILL478_INFO','card;');
+		define('MOD_SKILL478_INFO','card;debuff;');
 		eval(import_module('clubbase'));
 		$clubskillname[478] = '悲运';
 	}
