@@ -575,7 +575,7 @@ namespace event
 	//传参$pos为字符串
 	function event_suffer_inf($pos, $hurt = 1){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		eval(import_module('player','wound','ex_dmg_att'));
+		eval(import_module('player','wound','ex_dmg_att','logger'));
 		//先判定是否肢体受伤
 		$dummy = \player\create_dummy_playerdata();
 		$inf_flag = 0;
@@ -592,7 +592,8 @@ namespace event
 		if(defined('MOD_EX_DMG_ATT')){
 			foreach(array_keys($ex_inf) as $k) {
 				if(false !== strpos($pos, $k) && false === strpos($inf_place, $k)) {//f既是足部又是灼焰，必须排除
-					\ex_dmg_att\get_ex_inf_main($dummy, $sdata, 0, $k);
+					\ex_dmg_att\get_ex_inf_main($dummy, $sdata, 0, $k, 1);
+					$log .= '你'.$infname[$k].'了！';
 				}
 			}
 		}

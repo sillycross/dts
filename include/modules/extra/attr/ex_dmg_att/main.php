@@ -159,16 +159,16 @@ namespace ex_dmg_att
 	}
 
 	//执行致异常状态（单个）
-	function get_ex_inf_main(&$pa, &$pd, $active, $key)
+	function get_ex_inf_main(&$pa, &$pd, $active, $key, $ignore_log = 0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','ex_dmg_att','wound','logger'));
 		$infkey = array_search($ex_inf[$key], $infskillinfo);
-		if ($active)
-			$log .= "并致使{$pd['name']}{$infname[$infkey]}了！";
-		else  $log .= "并致使你{$infname[$infkey]}了！";
+		if(!$ignore_log){
+			$log .= battlelog_parser($pa, $pd, $active, '并致使<:pd_name:>'.$infname[$infkey].'了！');
+			addnews($now,'inf',$pa['name'],$pd['name'],$infkey);
+		}
 		\wound\get_inf($infkey,$pd);
-		addnews($now,'inf',$pa['name'],$pd['name'],$infkey);
 	}
 	
 	function showlog_ex_single_dmg(&$pa, &$pd, $active, $key)

@@ -164,7 +164,9 @@ namespace item_umb
 		foreach ($idlist as $id)
 		{
 			eval(import_module('sys','clubbase'));
-			$s .= "「{$clubskillname[$id]}」 剩<span class=\"yellow b\" id=\"skill{$id}\">{$uip['timing']['skill'.$id]['timing_r']}</span>秒<br>";
+			//显示每个技能的剩余时间。因为只有act()后会执行init_buff_timing()，载入game.php则没有定义，所以这里需要做个判定。
+			$display_t = !empty($uip['timing']['skill'.$id]['timing_r']) ? $uip['timing']['skill'.$id]['timing_r'] : '---';
+			$s .= "「{$clubskillname[$id]}」 剩<span class=\"yellow b\" id=\"skill{$id}\">{$display_t}</span>秒<br>";
 		}
 		return $s;
 	}
