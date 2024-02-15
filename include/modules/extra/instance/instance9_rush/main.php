@@ -147,7 +147,7 @@ namespace instance9
 	}
 	
 	//急速模式地图防具的效果值翻倍，钉和磨刀石效果值x5
-	function mapitem_data_process($data){
+	function mapitem_row_data_process($data){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		$ret = $chprocess($data);
 		eval(import_module('sys'));
@@ -162,7 +162,7 @@ namespace instance9
 	}
 	
 	//急速模式商店钉和磨刀石效果值、价格x5
-	function shopitem_data_process($data){
+	function shopitem_row_data_process($data){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		$ret = $chprocess($data);
 		eval(import_module('sys'));

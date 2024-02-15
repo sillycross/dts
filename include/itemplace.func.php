@@ -269,7 +269,7 @@ function get_item_place($which)
 	for($i = 1; $i < $in; $i++) {
 		if(!empty($itemlist[$i]) && strpos($itemlist[$i],',')!==false)
 		{
-			list($iarea,$imap,$inum,$iname,$ikind,$ieff,$ista,$iskind) = explode(',',$itemlist[$i]);
+			list($iarea,$imap,$inum,$iname,$ikind,$ieff,$ista,$iskind) = \itemmain\mapitem_row_data_seperate($itemlist[$i]);
 			if ($iname==$which)
 			{
 				if ($iarea==99) $result.="每禁"; else $result.="{$iarea}禁";
@@ -283,7 +283,7 @@ function get_item_place($which)
 	foreach($shoplist as $lst){
 		if(!empty($lst) && strpos($lst,',')!==false)
 		{
-			list($kind,$num,$price,$area,$item)=explode(',',$lst);
+			list($kind,$num,$price,$area,$item)=\itemshop\shopitem_row_data_seperate($lst);
 			if ($item==$which)
 			{
 				$result.="{$area}禁起在商店中出售({$price}元)<br>";

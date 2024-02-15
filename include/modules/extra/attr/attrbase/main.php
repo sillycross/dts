@@ -334,24 +334,47 @@ namespace attrbase
 		return '<:comp_itmsk:>{'.str_replace(',','<:sepr:>',$matches[1]).'}';
 	}
 	
-	//地图道具里复合属性的处理
-	function mapitem_single_data_process($iname, $ikind, $ieff, $ista, $iskind, $imap){
+	//地图道具单条数据的复合属性的处理
+	function mapitem_row_data_process($data){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
-		list($iname, $ikind, $ieff, $ista, $iskind, $imap) = $chprocess($iname, $ikind, $ieff, $ista, $iskind, $imap);
-		$iskind = config_process_encode_comp_itmsk($iskind);
-		return array($iname, $ikind, $ieff, $ista, $iskind, $imap);
+		$data = $chprocess($data);
+		$data[7] = config_process_encode_comp_itmsk($data[7]);
+		return $data;
 	}
 
 	//单行mapitem记录的分割处理，在分割前先把半角逗号变成<:sepr:>
-	function itemlist_data_seperate($data){
+	function mapitem_row_data_seperate($data){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		$data = config_process_encode_comp_itmsk_sepr_transfer($data);
 		return $chprocess($data);
 	}
 
-	//单行shopitem记录的分割处理，在分割前先把半角逗号变成<:sepr:>
-	function shopitem_data_seperate($data){
+	//商店单条数据的复合属性处理
+	function shopitem_row_data_process($data){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		$ret = $chprocess($data);
+		$ret[8] = config_process_encode_comp_itmsk($ret[8]);
+		return $ret;
+	}
+
+	//单行shopitem记录的分割处理，在分割前先把半角逗号变成<:sepr:>
+	function shopitem_row_data_seperate($data){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		$data = config_process_encode_comp_itmsk_sepr_transfer($data);
+		return $chprocess($data);
+	}
+
+	//礼品盒的复合属性处理
+	function boxes_row_data_process($data){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		$ret = $chprocess($data);
+		$ret[4] = config_process_encode_comp_itmsk($ret[4]);
+		return $ret;
+	}
+
+	//单条boxes记录的分割处理，在分割前先把半角逗号变成<:sepr:>
+	function boxes_row_data_seperate($data){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$data = config_process_encode_comp_itmsk_sepr_transfer($data);
 		return $chprocess($data);
 	}
@@ -363,14 +386,6 @@ namespace attrbase
 		eval(import_module('player'));
 		$itmsk0 = config_process_encode_comp_itmsk($itmsk0);
 		$chprocess();
-	}
-	
-	//商店单条数据的复合属性处理
-	function shopitem_data_process($data){
-		if (eval(__MAGIC__)) return $___RET_VALUE; 
-		$ret = $chprocess($data);
-		$ret[8] = config_process_encode_comp_itmsk($ret[8]);
-		return $ret;
 	}
 	
 	//NPC载入时的复合属性处理，会对所有装备道具位都判定一次，为了性能就直接把栏位写死吧
@@ -456,6 +471,7 @@ namespace attrbase
 		}
 		$chprocess($theitem);
 	}
+
 }
 
 ?>

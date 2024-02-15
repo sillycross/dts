@@ -268,7 +268,6 @@ skill590,extra/card/skills/skill590/,1
 skill539,extra/card/skills/skill539/,1
 skill591,extra/card/skills/skill591/,1
 skill594,extra/card/skills/skill594/,1
-skill593,extra/card/skills/skill593/,1
 skill574,extra/card/skills/skill574/,1
 skill702,extra/card/skills/skill702/,1
 skill704,extra/card/skills/skill704/,1
@@ -402,6 +401,7 @@ skill512,extra/card/skills/skill512/,1
 addnpc_event,extra/misc/addnpc_event/,1
 skill961,extra/instance/instance10_road/skill961/,1
 supplycrate_event,extra/misc/supplycrate_event/,1
+skill593,extra/card/skills/skill593/,1
 skill731,extra/card/skills/skill731/,1
 item_randskills,extra/item_extra/item_randskills/,1
 skill490,extra/card/skills/skill490/,1

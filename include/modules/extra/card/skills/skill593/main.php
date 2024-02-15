@@ -70,7 +70,11 @@ namespace skill593
 		}
 		
 		list($iname,$ikind,$ieff,$ista,$iskind) = explode(',',$itemlist[$i]);
-		$itm0=$iname;$itme0=$ieff;$itms0=$ista;$itmsk0=$iskind;$itmk0=$ikind;
+		$itm0=$iname;
+		$itmk0=$ikind;
+		$itme0=$ieff;
+		$itms0=$ista;
+		$itmsk0=\attrbase\config_process_encode_comp_itmsk($iskind);
 		addnews(0, 'bskill593', $name, $iname);
 		\itemmain\itemget();
 	}

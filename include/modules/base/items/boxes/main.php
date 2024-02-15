@@ -50,7 +50,7 @@ namespace boxes
 		do
 		{
 			$rand = rand(0,count($plist)-1);
-			list($in,$ik,$ie,$is,$isk) = explode(',',$plist[$rand]);
+			list($in,$ik,$ie,$is,$isk) = boxes_row_data_seperate($plist[$rand]);
 			$itm0 = $in;$itmk0=$ik;$itme0=$ie;$itms0=$is;$itmsk0=$isk;
 		}
 		while(!in_array($gametype,$room_mode_can_get_card_from_boxes) && substr($ik,0,2)=='VO');//房间模式内开不出卡
@@ -58,6 +58,19 @@ namespace boxes
 		addnews($now,'present',$name,$tmp_itm,$in);
 		\itemmain\itemget();		
 		return;
+	}
+
+	//单行boxes记录的分割处理
+	//本模块是explode后调用boxes_row_data_process()处理
+	function boxes_row_data_seperate($data){
+		if (eval(__MAGIC__)) return $___RET_VALUE; 
+		return boxes_row_data_process(explode(',',$data));
+	}
+
+	//单条boxes记录的data处理，本模块为直接返回
+	function boxes_row_data_process($data){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $data;
 	}
 
 	function itemuse(&$theitem) 

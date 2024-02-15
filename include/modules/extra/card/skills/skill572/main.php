@@ -33,7 +33,7 @@ namespace skill572
 		$in = sizeof($itemlist);
 		for($i = 1; $i < $in; $i++) {
 			if(!empty($itemlist[$i]) && strpos($itemlist[$i],',')!==false){
-				list($iarea,$imap,$inum,$iname,$ikind,$ieff,$ista,$iskind) = \itemmain\mapitem_data_process(explode(',',$itemlist[$i]));
+				list($iarea,$imap,$inum,$iname,$ikind,$ieff,$ista,$iskind) = \itemmain\mapitem_row_data_seperate($itemlist[$i]);
 				for($j = $inum; $j>0; $j--) {
 					if ($imap == 99)
 					{
@@ -42,7 +42,7 @@ namespace skill572
 						} while (in_array($rmap,$map_noitemdrop_arealist));
 					}
 					else  $rmap = $imap;
-					list($iname, $ikind, $ieff, $ista, $iskind, $rmap) = \itemmain\mapitem_single_data_process($iname, $ikind, $ieff, $ista, $iskind, $rmap);
+					list($iname, $ikind, $ieff, $ista, $iskind, $rmap) = \itemmain\mapitem_single_data_attr_process($iname, $ikind, $ieff, $ista, $iskind, $rmap);
 					$iqry .= "('$iname', '$ikind','$ieff','$ista','$iskind','$rmap'),";
 				}
 			}

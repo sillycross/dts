@@ -35,7 +35,7 @@ namespace aprilfool2018
 	}
 	
 	//如果是大房间且在活动期间，安雅数目x10
-	function shopitem_data_process($data){
+	function shopitem_row_data_process($data){
 		if (eval(__MAGIC__)) return $___RET_VALUE; 
 		eval(import_module('sys'));
 		$ret = $chprocess($data);
