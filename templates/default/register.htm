@@ -8,14 +8,27 @@
 <center>
 	<form method="post" id="reg" name="reg">
 		<input type="hidden" name="cmd" value="post_register">
+		<input type="hidden" id="register_token" name="register_token" value="$register_token">
 		<span class ="yellow b">{lang basicdata}</span>
 		{template userbasicdata}<br />
 		<span class ="yellow b">{lang advanceddata}</span>
 		{template usergdicon}<br />
 		{template userwords}<br />
+		<!--{if !empty($vq_question_arr)}-->
+		<div>
+			<span class ="yellow b">{lang vq_question}</span><br />
+			<span class ="yellow b">{lang vq_question_desc}</span><br /><br />
+			『<span class ="evergreen b" id="vq_question">{$vq_question_arr['question']}</span>』<br /><br />
+			<!--{loop $vq_question_arr['answers'] $i $v}-->
+				<input type="radio" id="vq_answer{$i}" name="vq_answer" value="{$i}"><a onclick="$('vq_answer{$i}').click()" id="vq_answer_disp{$i}">{$v}</a>&nbsp;&nbsp;&nbsp;
+			<!--{/loop}-->
+			<br />
+		</div>
+		<!--{/if}-->
+		<br />
 		<div id="postreg">
-			<input type="submit" id="post" onClick="postCmd('reg','register.php');return false;" value="{lang submit}">
-			<input type="reset" id="reset" name="reset" value="{lang reset}">
+			<input type="submit" class="b_button bc_white" id="post" onClick="postCmd('reg','register.php');return false;" value="{lang submit}">
+			<input type="reset" class="b_button bc_white" id="reset" name="reset" value="{lang reset}">
 		</div>
 	</form>
 </center>

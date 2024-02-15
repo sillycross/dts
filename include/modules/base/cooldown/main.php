@@ -127,7 +127,7 @@ namespace cooldown
 				//用页面开始时间去计算冷却时间
 				$nowmtime = floor($pstime*1000)+$cmdcdtime;
 				$cdsec = floor($nowmtime/1000);
-				$cdmsec = fmod($nowmtime , 1000);
+				$cdmsec = (int)fmod($nowmtime , 1000);
 				$cdover = $cdsec*1000 + $cdmsec;
 				//然后用当前时间来计算CD
 				$nowmtime = floor(getmicrotime()*1000);

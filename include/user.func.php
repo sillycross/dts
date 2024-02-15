@@ -537,5 +537,118 @@ function compare_ts_pass($rsha, $pass){
 	return false;
 }
 
+//注册验证码相关随机数生成
+function register_fatenum_create($token = 0){
+	global $now,$game_url;
+	if(!$token) $token = $now.$game_url;
+	list($sec,$min,$hour,$day,$month,$year,$wday) = explode(',',date("s,i,H,j,n,Y,w",$now));
+	$fatenum = fatenum_create($token.$day.$month.$year.$wday.$game_url, 10);
+	return (int)$fatenum;
+}
+
+//通过$token生成特定范围的随机数
+function register_random_create($min, $max, $token = 0)
+{
+	$fatenum = register_fatenum_create($token);
+	return (int) ($fatenum % ($max - $min + 1) + $min);
+}
+
+//验证码问题和回答生成，需要语料库的支持
+function register_verification_question_get($token = '233'){
+	//语料库获取，如果没有则生成
+	$file = GAME_ROOT.'./gamedata/cache/vqpool.php';
+	if(!file_exists($file)) {
+		$vqpool = register_verification_question_pool_create();
+		$write = '<?php $vqpool = '.var_export($vqpool,1).';';
+		file_put_contents($file, $write);
+	}else{
+		include $file;
+	}
+
+	$vqpool_size = sizeof($vqpool);
+	//获取随机数
+	$now_fatenum = $fatenum = register_fatenum_create($token);
+
+	//生成所用语料，正确答案，干扰项
+	$answer_len = register_random_create(3, 5, $now_fatenum);
+	$answer_num = register_random_create(5, 7, (int)fmod($now_fatenum, 114514));
+	$magicnum = Array();
+	$magicnum[0] = register_random_create(0, $vqpool_size - 1, $now_fatenum);
+	$now_fatenum = register_fatenum_create($now_fatenum);
+	$question_str = trim($vqpool[$magicnum[0]]);
+	$magicnum[1] = register_random_create(2, mb_strlen($question_str, 'utf-8') - 1 - $answer_len, $now_fatenum); 
+	$now_fatenum = register_fatenum_create($now_fatenum);
+	$correct_str = mb_substr($question_str, $magicnum[1], $answer_len, 'utf-8');
+	$question_str_display = mb_substr($question_str, 0, $magicnum[1], 'utf-8') . '____' . mb_substr($question_str, $magicnum[1] + $answer_len, mb_strlen($question_str, 'utf-8') - $magicnum[1] - $answer_len, 'utf-8');
+	//$arr[] = $fatenum.' '.$magicnum[0].' '.$magicnum[1];
+
+	$wrong_str_arr = Array();
+	for($i=0;$i<$answer_num;$i++){
+		$j = 0;
+		do{
+			$tmp_a = register_random_create(0, $vqpool_size - 1, $now_fatenum);
+			$now_fatenum = register_fatenum_create($now_fatenum);
+			$tmp_str = trim($vqpool[$tmp_a]);
+			$tmp_b = register_random_create(0, mb_strlen($tmp_str, 'utf-8') - 1 - $answer_len, $now_fatenum);
+			$now_fatenum = register_fatenum_create($now_fatenum);
+			$w = mb_substr($tmp_str, $tmp_b, $answer_len, 'utf-8');
+			$j ++;
+			$now_fatenum += $j;
+			if($j > 1000){
+				break;
+			}
+			//$arr[] = $now_fatenum.' '.$tmp_a.' '.$tmp_b;
+			//gwrite_var('a.txt', $arr);
+		}while($w == $correct_str || in_array($w, $wrong_str_arr));
+		$wrong_str_arr[$i] = $w;
+	}
+	
+	$correct_i = register_random_create(0, $answer_num - 1, $now_fatenum);
+	$ret = Array(
+		'question' => $question_str_display,
+		'answers' => Array(),
+		'correct_i' => $correct_i,
+	);
+	foreach($wrong_str_arr as $i => $v) {
+		if($i == $correct_i) $ret['answers'][$i] = $correct_str;
+		else $ret['answers'][$i] = $v;
+	}
+
+	return $ret;
+}
+
+//验证码语料库的生成
+function register_verification_question_pool_create()
+{
+	$ret = Array(
+		'作为一款以文本为主要表现形式的webgame',
+		'虽然ACFUN大逃杀即将迎来她的第10个年头',
+		'但玩过它、或者涉猎过同类游戏的人依然十分稀少',
+		'也许你已经是BR原版的老玩家了',
+		'也许你虽然没怎么玩过BR大逃杀',
+		'但是对类似的网页游戏有所涉猎',
+		'当然更可能的情况是你以前并没有接触过这款网页游戏'
+	);
+	$helpfile = GAME_ROOT.'./templates/default/help.htm';
+	if(file_exists($helpfile)) {
+		$contents = file_get_contents($helpfile);
+		preg_match_all('/\>([^\<\>\&\$\;\{\}]{40,150}?)\</s', $contents, $matches);
+		$ret = $matches[1];
+	}
+	$forcheck = Array('，','。','“','”');
+	foreach($ret as &$v){
+		$v = trim($v);
+		foreach($forcheck as $c){
+			if(0 === strpos($v, $c)){
+				$v = mb_substr($v, 1, mb_strlen($v, 'utf-8') - 1, 'utf-8');
+			}
+			if(mb_strlen($v, 'utf-8') - 1 === strpos($v, $c)){
+				$v = mb_substr($v, 0, -1, 'utf-8');
+			}
+		}
+	}
+	return $ret;
+}
+
 /* End of file user.func.php */
 /* Location: /include/user.func.php */

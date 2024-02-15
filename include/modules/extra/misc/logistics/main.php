@@ -13,31 +13,19 @@ namespace logistics
 		$uid = $udata['uid'];
 		$uname = $udata['username'];
 		list($sec,$min,$hour,$day,$month,$year,$wday) = explode(',',date("s,i,H,j,n,Y,w",$now));
-		//经历了crc32()得到负数、大数用%取模得到负数、srand()不起作用等依赖于硬件环境的BUG以后，现在的代码如下。32位和64位的差别真的头大
-		$hash = md5($uid.$uname.$day.$month.$year.$wday);
-		$hash = substr($hash, 0, 10).substr($hash, -10);
-		$fatenum_str = '';
-		for($i=0;$i<strlen($hash);$i++) {
-			if(is_numeric($hash[$i])) $fatenum_str .= $hash[$i];
-		}
-		if(!$fatenum_str) {
-			$fatenum = hexdec(substr($hash, 0, 3));
-		}else{
-			$fatenum = (int)$fatenum_str;
-		}
-		if($fatenum < 1997) $fatenum += 999983;
+		$fatenum = fatenum_create($uid.$uname.$day.$month.$year.$wday, 10);
 		$cardid_list = array();
 		//固定包括1张S、1张A、1张B
-		$cardid_list[1] = $cardindex['S'][fmod($fatenum, count($cardindex['S']))];
-		$cardid_list[2] = $cardindex['A'][fmod($fatenum, count($cardindex['A']))];
-		$cardid_list[3] = $cardindex['B'][fmod($fatenum , count($cardindex['B']))];
+		$cardid_list[1] = $cardindex['S'][(int)fmod($fatenum, count($cardindex['S']))];
+		$cardid_list[2] = $cardindex['A'][(int)fmod($fatenum, count($cardindex['A']))];
+		$cardid_list[3] = $cardindex['B'][(int)fmod($fatenum , count($cardindex['B']))];
 		$arr = array_merge($cardindex['S'],$cardindex['A'],$cardindex['B'],$cardindex['C']);
 		$arr = array_diff($arr, $cardid_list);
 		
 		$count_arr = count($arr);
 		$magic_arr = Array(11,101,233,571,1997);
 		for($i=4;$i<=8;$i++){
-			$j = fmod(round($fatenum / $magic_arr[$i-4]), $count_arr);
+			$j = (int)fmod(round($fatenum / $magic_arr[$i-4]), $count_arr);
 			do {
 				$cardid_list[$i] = $arr[$j];
 				$j += 1;
@@ -53,11 +41,11 @@ namespace logistics
 			$cardshop_list[$k]['blink'] = 0;
 		}
 		//生成随机碎闪
-		$b10 = fmod($fatenum, 10) + 1;
+		$b10 = (int)fmod($fatenum, 10) + 1;
 		if ($b10 > 8)
 		{
-			$b10 = fmod($fatenum, 8) + 1;
-			$b20 = fmod($fatenum, 3) + 1;
+			$b10 = (int)fmod($fatenum, 8) + 1;
+			$b20 = (int)fmod($fatenum, 3) + 1;
 		}
 		if ($cardshop_list[$b10]['rare'] != 'M') $cardshop_list[$b10]['blink'] = 10;
 		if (isset($b20)) $cardshop_list[$b20]['blink'] = 20;

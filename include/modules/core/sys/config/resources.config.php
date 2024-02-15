@@ -232,6 +232,8 @@ namespace sys
 		'ip_banned' => '此IP已被封禁，请与管理员联系',
 		'logged_in' => '用户已登录，请先退出登陆再注册',
 		'user_not_exists' => '用户不存在，请检查用户名输入',
+		'vq_answer_retry' => '注册验证问题失效，请刷新页面重试',
+		'vq_answer_wrong' => '注册验证问题错误，请重新回答',
 		
 		'access_disabled' => '游戏正在维护中，请稍后再访问',
 		'no_login' => '用户未登陆，请从首页登录后再进入游戏',

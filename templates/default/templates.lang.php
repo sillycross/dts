@@ -62,6 +62,9 @@ $language = array
 	'validgames' => '游戏场数',
 	'wingames' => '获胜场数',
 	'winrate' => '胜率',
+
+	'vq_question' => '验证问题',
+	'vq_question_desc' => '请选出最适合填入空缺的选项：',
 	
 	'valid' => '入场手续',
 	'validover' => '入场表格填写完成',

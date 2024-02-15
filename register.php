@@ -15,12 +15,16 @@ if(!isset($cmd)){
 	$iconarray = get_iconlist();
 	$select_icon = 0;
 	$motto = $criticalmsg = $killmsg = $lastword = '';
+	$register_token = register_fatenum_create();
+	$vq_question_arr = register_verification_question_get($register_token);
 	include template('register');
 }elseif($cmd = 'post_register'){
 	//$ustate = 'register';
 	$gamedata = Array();
 	$name_check = name_check($username);
 	$pass_check = pass_check($npass,$rnpass);
+	$vq_question_arr = register_verification_question_get($register_token);
+	$vq_answer = isset($vq_answer) ? (int)$vq_answer : -1;
 	$onlineip = real_ip();
 	
 	if($name_check!='name_ok'){
@@ -29,6 +33,10 @@ if(!isset($cmd)){
 		$gamedata['innerHTML']['info'] = $_ERROR[$pass_check];
 	}elseif(preg_match($iplimit,$onlineip)){
 		$gamedata['innerHTML']['info'] = $_ERROR['ip_banned'];
+	}elseif(!$register_token){
+		$gamedata['innerHTML']['info'] = $_ERROR['vq_answer_retry'];
+	}elseif($vq_answer !== (int)$vq_question_arr['correct_i']){
+		$gamedata['innerHTML']['info'] = $_ERROR['vq_answer_wrong'];
 	}else{
 		$userdata = fetch_udata_by_username($username,'uid');
 		if(!empty($userdata)) {
@@ -67,20 +75,23 @@ if(!isset($cmd)){
 			}
 		}
 	}
-	if(!empty($ustate) && $ustate == 'check'){
-		$gamedata['innerHTML']['postreg'] = '<input type="button" value="返回游戏首页" onclick="window.location.href=\'index.php\'">';
-		if(isset($error)){$gamedata['innerHTML']['error'] = $error;}
-		ob_clean();
-		$jgamedata = gencode($gamedata);
-		echo $jgamedata;
-		ob_end_flush();
-	}else{
-		ob_clean();
-		if(isset($error)){$gamedata['innerHTML']['error'] = $error;}
-		$jgamedata = gencode($gamedata);
-		echo $jgamedata;
-		ob_end_flush();
+	//重新生成问题
+	$register_token = register_fatenum_create();
+	$vq_question_arr = register_verification_question_get($register_token);
+	$gamedata['value']['register_token'] = $register_token;
+	$gamedata['innerHTML']['vq_question'] = $vq_question_arr['question'];
+	foreach($vq_question_arr['answers'] as $i => $v){
+		$gamedata['innerHTML']['vq_answer_disp'.$i] = $v;
 	}
+	//刷新提交按钮
+	if(!empty($ustate) && $ustate == 'check'){
+		$gamedata['innerHTML']['postreg'] = '<input type="button" class="b_button bc_white" value="返回游戏首页" onclick="window.location.href=\'index.php\'">';
+	}
+	ob_clean();
+	if(isset($error)){$gamedata['innerHTML']['error'] = $error;}
+	$jgamedata = gencode($gamedata);
+	echo $jgamedata;
+	ob_end_flush();
 }
 
 ?>
