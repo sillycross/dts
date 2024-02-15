@@ -4826,8 +4826,8 @@ $cards = array(
 			),
 		)
 	),
-	//已经填上了
 	//老板，来个20个卡位的空白
+	//已经填上了
 	280 => array(
 		'name' => 'Acg_xilin',
 		'rare' => 'B',
@@ -5370,6 +5370,34 @@ $cards = array(
 			)
 		)
 	),
+	312 => array(
+		'name' => '赌玉挑战者',
+		'rare' => 'B',
+		'pack' => 'Ranmen',
+		'desc' => '赌玉？输了会有什么后果？',
+		'effect' => '开局有概率获得强力道具，但代价……',
+		'energy' => 100,
+		'valid' => array(
+			'itm5' => '原石',
+			'itmk5' => 'X',
+			'itme5' => '1',
+			'itms5' => '1',
+			'itmsk5' => Array(
+				'^res_<:comp_itmsk:>{我超，SSR！,fy,1,1,,}^rtype4^reptype1',//只有1/10概率是浮云
+				'^res_<:comp_itmsk:>{☆是石头，真是大快人心啊！☆,VS,1,1,561,}^rtype4^reptype1',
+				'^res_<:comp_itmsk:>{☆看，花岗岩！☆,VS,1,1,561,}^rtype4^reptype1',
+				'^res_<:comp_itmsk:>{☆你不理财，财不离你☆,VS,1,1,561,}^rtype4^reptype1',
+				'^res_<:comp_itmsk:>{☆一边吃面一边哭☆,VS,1,1,561,}^rtype4^reptype1',
+				'^res_<:comp_itmsk:>{☆一刀穷，一刀负☆,VS,1,1,561,}^rtype4^reptype1',
+				'^res_<:comp_itmsk:>{☆疯子卖，疯子买，还有疯子在等待☆,VS,1,1,561,}^rtype4^reptype1',
+				'^res_<:comp_itmsk:>{☆我相信今天是大奇迹日☆,VS,1,1,561,}^rtype4^reptype1',
+				'^res_<:comp_itmsk:>{☆梭哈！梭哈！！梭哈！！！☆,VS,1,1,561,}^rtype4^reptype1',
+				'^res_<:comp_itmsk:>{☆赢了会所嫩模，输了会所嫩模！☆,VS,1,1,561,}^rtype4^reptype1',
+			)
+		)
+	),
+
+
 	341 => array(
 		'name' => '麻薯',
 		'rare' => 'B',

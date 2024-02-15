@@ -93,7 +93,11 @@ namespace item_uv
 					}
 					else
 					{
-						$log.="你感觉受益匪浅。你获得了技能「<span class=\"yellow b\">".$clubskillname[$sk_kind]."</span>」，请前往技能界面查看。<br>";
+						if(!\skillbase\check_skill_info($sk_kind,'debuff')){
+							$log.="你感觉受益匪浅。你获得了技能「<span class=\"yellow b\">".$clubskillname[$sk_kind]."</span>」，请前往技能界面查看。<br>";
+						}else{
+							$log.="你获得了技能「<span class=\"yellow b\">".$clubskillname[$sk_kind]."</span>」。真是太倒霉了！<br>";
+						}
 						\skillbase\skill_acquire($sk_kind);
 						$useflag = 1;
 						//\itemmain\itms_reduce($theitem);

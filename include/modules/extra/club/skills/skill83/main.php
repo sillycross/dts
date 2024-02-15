@@ -4,7 +4,7 @@ namespace skill83
 {
 	function init() 
 	{
-		define('MOD_SKILL83_INFO','club;locked;');
+		define('MOD_SKILL83_INFO','club;locked;debuff;');
 		eval(import_module('clubbase'));
 		$clubskillname[83] = '尊严';
 	}

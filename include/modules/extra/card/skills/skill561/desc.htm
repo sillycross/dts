@@ -1,0 +1,22 @@
+<!--{eval $___TEMP_SKILL_ID=561;}-->
+<!--{eval $spcost561 = \skill561\get_spcost561($who);}-->
+{template MOD_CLUBBASE_SKILLDESC_START}
+<span>
+$clubskillname[$___TEMP_SKILL_ID]
+</span>
+{template MOD_CLUBBASE_SKILLDESC_MID1}
+<td class="skilldesc_left b3"><span class="skilldesc">
+    <!--{if \skillbase\skill_query(557, $who)}-->
+        <span class="red b">你只有三条腿了</span>
+    <!--{else}-->
+        <span class="red b">你只有一条腿了</span>
+    <!--{/if}-->。你移动和探索时的体力消耗<span class="red b">+{$spcost561}</span>。
+</span></td>
+<td class="skilldesc_right b3">
+</td>
+{template MOD_CLUBBASE_SKILLDESC_MID2}
+<!--{if empty($___TEMP_THIS_SKILL_ACQUIRED)}-->
+<span class="yellow b">
+</span>
+<!--{/if}-->
+{template MOD_CLUBBASE_SKILLDESC_END}
