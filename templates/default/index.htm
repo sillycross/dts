@@ -3,19 +3,21 @@
 	<tr>
 		<td><span class="yellow b">{lang gameversion}：</span></td>
 		<td style="text-align:left;"><span class="evergreen b">$gameversion</span></td>
+		<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 		<td style="text-align:center;padding:0 0 0 25px;"><span class="yellow b">{lang adminmsg}</span></td>
 	</tr>
 	<tr>
 		<td><span class="yellow b">{lang now}：</span></td>
-		
 		<td style="text-align:left;"><span class="evergreen b">{lang gamedate}</span></td>
-		<td rowspan="2" style="width:520px; height:100%; vertical-align:top;text-align:left;">
+		<td></td>
+		<td rowspan="3" style="width:520px; height:100%; vertical-align:top;text-align:left;">
 			<span class="evergreen b">$adminmsg</span>		
 		</td>
 	</tr>
 	<tr>
 		<td><span class="yellow b">{lang systemmsg}：</span></td>
 		<td style="text-align:left;"><span class="evergreen b">$systemmsg</span></td>
+		<td></td>
 	</tr>
 	<tr>
 		<td><span class="yellow b">{lang gameinfo}：</span></td>
@@ -36,9 +38,8 @@
 				</span>
 			</span>
 		</td>
-		<td rowspan="2" style="width:400px; vertical-align:top;text-align:left;">
-		{template roomlist}
-		</td>
+		<td></td>
+		
 	</tr>
 	<tr>
 		<td colspan="2" style="vertical-align:top;">
@@ -98,6 +99,10 @@
 				<input type="submit" name="enter" value="{lang login}">
 				</form>
 			<!--{/if}-->
+		</td>
+		<td></td>
+		<td rowspan="2" style="width:400px; vertical-align:top;text-align:left;">
+			{template roomlist}
 		</td>
 	</tr>
 </table>
