@@ -15,8 +15,7 @@
 可以重新学习一个技能，但这将花费<span class="yellow b">$needed_money</span>元<br>
 <!--{/if}-->
 每次更换技能都将使下次的花费翻倍
-<!--{eval \bubblebox\bubblebox_set_style('id:learntable55;height:620;width:655;cancellable:1;margin-right:8;');}-->
-{template MOD_BUBBLEBOX_START}
+<!--{eval bubblebox_start('id:learntable55;height:620;width:655;cancellable:1;margin-right:8;');}-->
 <p style="margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px;">
 以下是你可以学习的称号技能列表。少数技能不可以被学习，因此没有显示。<br>
 <span class="yellow b">请注意使用“查看”按钮查看技能时，技能的解锁条件没有显示。</span>请阅读帮助以获得完整的技能解锁要求。<br>
@@ -33,8 +32,7 @@
 <!--{else}-->
 <input type="button" onclick="bubblebox_show('clubskill');" value="返回">
 <!--{/if}-->
-{template MOD_BUBBLEBOX_END}
-
+<!--{eval bubblebox_end();}-->
 </span></td>
 <td class="skilldesc_right b3">
 <!--{if $skill55_nchoice==0 || $money>=$skill55_need}-->

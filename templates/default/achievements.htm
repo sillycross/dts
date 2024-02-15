@@ -20,8 +20,7 @@
 <!--{/if}-->
 
 <!--{if $refdaily_flag}-->
-<!--{eval \bubblebox\bubblebox_set_style('id:newdailyquest;height:200;width:1060;cancellable:1;');}-->
-{template MOD_BUBBLEBOX_START}
+<!--{eval bubblebox_start('id:newdailyquest;height:200;width:1060;cancellable:1;');}-->
 <div class="subtitle">获得的每日任务：</div>
 <div>
 <!--{eval $showarr = \achievement_base\show_achievements_single_type($u_acharr,20);}-->
@@ -39,6 +38,6 @@
 </div>
 <br>
 <button type="button" onclick="bubblebox_hide_all();">关闭</button> 点击气泡框外任意位置也可关闭窗口
-{template MOD_BUBBLEBOX_END}
+<!--{eval bubblebox_end();}-->
 <script>bubblebox_show('newdailyquest');</script>
 <!--{/if}-->

@@ -39,9 +39,8 @@
 			<br>
 			<input type="button" class="b_button" style="width:120" value="更换" onclick="$('cardpos').value='$k';bubblebox_show('cardchange{$k}');">
 		</li>
-		<!--{eval \bubblebox\bubblebox_set_style('id:cardchange'.$k.';height:150;width:600;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:10px;z-index-base:30;');}-->
-			{template MOD_BUBBLEBOX_START}
-			<div style="margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px;">
+		<!--{eval bubblebox_start('id:cardchange'.$k.';height:150;width:600;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:10px;z-index-base:30;');}-->
+						<div style="margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px;">
 			<center>
 			<div style="font-weight:bold;">
 			请选择要设置的卡片：<br><br>
@@ -55,8 +54,7 @@
 			<input type="button" class="b_button" style="width:120" value="设置" onclick="$('cardchoice').value=$('cardid').value;document.showcase.submit();">
 			</center>
 			</div>
-			{template MOD_BUBBLEBOX_END}
-		<!--{/loop}-->
+			<!--{eval bubblebox_end();}-->		<!--{/loop}-->
 		<div style="clear:both;"></div>
 	</ul>
 	</form>

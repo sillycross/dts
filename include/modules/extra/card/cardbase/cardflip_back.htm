@@ -1,5 +1,4 @@
-<!--{eval \bubblebox\bubblebox_set_style('id:cardback;height:406;width:246;');}-->
-{template MOD_BUBBLEBOX_START}
+<!--{eval bubblebox_start('id:cardback;height:406;width:246;');}-->
 <p>
 你撕开了礼物包装，请点击翻开卡片。<br>
 礼物： $cardpresent_desc
@@ -13,5 +12,5 @@ border-radius:8px; height:340px; width:240px; overflow:hidden;
 title="点击翻开">
 <img src="img/cardback2.png" class="cardback" onclick="$('mode').value='command';$('command').value='itm{$itmn}';$('subcmd').value='flipcard';postCmd('gamecmd','command.php');this.disabled=true;"></img>
 </div>
-{template MOD_BUBBLEBOX_END}
+<!--{eval bubblebox_end();}-->
 <img style="display:none;" type="hidden" src="img/blank.png" onload="bubblebox_show('cardback');">

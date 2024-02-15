@@ -3,8 +3,7 @@
 <form method="post" id="instance_close" name="instance_close" style="margin: 0px" >
 	<input type="hidden" id="dummycommand" name="dummycommand" value="instance_close">
 </form>
-<!--{eval \bubblebox\bubblebox_set_style('id:instance_close_box;height:120;width:240;cancellable:1');}-->
-{template MOD_BUBBLEBOX_START}
+<!--{eval bubblebox_start('id:instance_close_box;height:120;width:240;cancellable:1');}-->
 <div style="margin:20px">
 	<span class="yellow b" style="font-size:14px">真的要关闭当前房间吗？</span>
 </div>
@@ -20,5 +19,5 @@
 	"
 	>是</a>&nbsp;&nbsp;&nbsp;<a class="b_button bc_black" onclick="bubblebox_hide_all();">否</a>
 </div>
-{template MOD_BUBBLEBOX_END}
+<!--{eval bubblebox_end();}-->
 </td>

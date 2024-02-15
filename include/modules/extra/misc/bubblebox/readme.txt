@@ -4,11 +4,9 @@
 
 使用示例：
 
-<!--{eval \bubblebox\bubblebox_set_style('id:233;height:200;width:500;offset-y:50;');}-->
-{template MOD_BUBBLEBOX_START}
+<!--{eval bubblebox_start('id:233;height:200;width:500;offset-y:50;');}-->
 <p>示例内容</p>
-{template MOD_BUBBLEBOX_END}
-
+<!--{eval bubblebox_end();}-->
 上述模板将生成一个200像素高，500像素宽，居于屏幕中心偏下50像素，ID为233的一个气泡框
 
 生成的气泡框默认是隐藏的，想显示的话只需javascript调用bubblebox_show(气泡框ID)即可。例如bubblebox_show('233');

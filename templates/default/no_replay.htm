@@ -1,12 +1,11 @@
 {template header}
-<!--{eval \bubblebox\bubblebox_set_style('id:replayhint;height:200;width:500;cancellable:0;');}-->
-{template MOD_BUBBLEBOX_START}
+<!--{eval bubblebox_start('id:replayhint;height:200;width:500;cancellable:0;');}-->
 <table height=198px width=100%><tr><td align="center" valign="middle">
 <span><font size="50px">录像文件不存在</font><br><br>
 可能是由于录像功能当时还未开放，或出现了一个系统错误<br><br>
 <a href="#" onclick="if (history.length>1) javascript:history.back(-1); else window.location.href='index.php';">请点击这里返回主页</a></span>
 </td></tr></table>
-{template MOD_BUBBLEBOX_END}
+<!--{eval bubblebox_end();}-->
 <script type="text/javascript">bubblebox_show('replayhint');</script>
 {template game_interface}
 {template footer}

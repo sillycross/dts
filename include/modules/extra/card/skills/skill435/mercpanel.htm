@@ -10,14 +10,12 @@
 <!--{eval $merc_num=(int)\skillbase\skill_getvalue(435,'t');}-->
 <!--{eval $merc_num_left=$skill435_lim-$merc_num;}-->
 
-<!--{eval \bubblebox\bubblebox_set_style('id:skill435_merc;height:4350;width:772;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:10px;');}-->
-{template MOD_BUBBLEBOX_START}
+<!--{eval bubblebox_start('id:skill435_merc;height:4350;width:772;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:10px;');}-->
 <p style="margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px;">
 以下是所有可能被召唤出的佣兵的列表：<br><br>
 </p>
 <!--{eval \npcinfo\npcinfo_get_npc_description_all(26);}-->
-{template MOD_BUBBLEBOX_END}
-
+<!--{eval bubblebox_end();}-->
 你共雇佣过<span class="yellow b">$merc_num</span>名佣兵，你还可以再招募<span class="yellow b">$merc_num_left</span>名佣兵。<br>
 <!--{if $merc_num_left>0}-->
 <input type="button" style="width:120px" onclick="$('mode').value='special';$('command').value='skill435_special';$('subcmd').value='action435';$('skillpara1').value=1;postCmd('gamecmd','command.php');this.disabled=true;" value="招募一名新佣兵"><input type="button" style="width:170px" onclick="bubblebox_show('skill435_merc')" value="查看所有可能的佣兵列表">
@@ -37,10 +35,9 @@
 <!--{eval $nowmerc = \player\fetch_playerdata_by_pid($now_mercpid);}-->
 
 <!--{if $nowmerc['hp']>0}-->
-<!--{eval \bubblebox\bubblebox_set_style('id:showmercdata'.$i.';height:250;width:752;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:20px;scroll-bar:none;');}-->
-{template MOD_BUBBLEBOX_START}
+<!--{eval bubblebox_start('id:showmercdata'.$i.';height:250;width:752;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:20px;scroll-bar:none;');}-->
 <!--{eval \npcinfo\npcinfo_get_npc_description(25, $now_merctype, $nowmerc);}-->
-{template MOD_BUBBLEBOX_END}
+<!--{eval bubblebox_end();}-->
 <!--{/if}-->
 
 <table width="300px" CellPadding=0 CellSpacing=0>
@@ -118,8 +115,7 @@
 <td class="b1" height=20px>解雇佣兵</td>
 <td class="b3" colspan=3>
 
-<!--{eval \bubblebox\bubblebox_set_style('id:firemercverify'.$i.';height:100;width:300;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:20px;scroll-bar:none;');}-->
-{template MOD_BUBBLEBOX_START}
+<!--{eval bubblebox_start('id:firemercverify'.$i.';height:100;width:300;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:20px;scroll-bar:none;');}-->
 <table height=100% width=100% CellSpacing=0 CellPadding=0>
 <tr><td height=50px colspan=2 class="b3">
 你确定要解雇佣兵<span class="yellow b">$nowmerc['name']</span>吗？
@@ -132,7 +128,7 @@
 <input type="button" style="width:80px" id="z" value="[Z]返回" onclick="bubblebox_hide_all();">
 </td>
 </tr></table>
-{template MOD_BUBBLEBOX_END}
+<!--{eval bubblebox_end();}-->
 <!--{if $skill435_npc['sub'][$now_merctype]['mercfireaction']==0}-->
 解雇后，该佣兵将留在原地。<input type="button" style="width:45px; height:20px;" value="解雇" onclick="bubblebox_show('firemercverify$i');">
 <!--{else}-->

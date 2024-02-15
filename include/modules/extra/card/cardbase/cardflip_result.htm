@@ -1,5 +1,4 @@
-<!--{eval \bubblebox\bubblebox_set_style('id:cardresult;height:406;width:246;cancellable:1');}-->
-{template MOD_BUBBLEBOX_START}
+<!--{eval bubblebox_start('id:cardresult;height:406;width:246;cancellable:1');}-->
 <p>
 你翻开了卡片。<br>
 </p>
@@ -18,5 +17,5 @@
 		</div>
 		
 	</div>
-{template MOD_BUBBLEBOX_END}
+<!--{eval bubblebox_end();}-->
 <img style="display:none;" type="hidden" src="img/blank.png" onload="bubblebox_show('cardresult');$('nowcardbox').classList.toggle('card_flipped');">

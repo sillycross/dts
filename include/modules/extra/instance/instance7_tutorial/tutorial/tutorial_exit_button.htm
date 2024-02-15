@@ -3,8 +3,7 @@
 <form method="post" id="exittutorial" name="exittutorial" style="margin: 0px" >
 	<input type="hidden" id="dummycommand" name="dummycommand" value="exittutorial">
 </form>
-<!--{eval \bubblebox\bubblebox_set_style('id:exittutorial_box;height:120;width:240;cancellable:1');}-->
-{template MOD_BUBBLEBOX_START}
+<!--{eval bubblebox_start('id:exittutorial_box;height:120;width:240;cancellable:1');}-->
 <div style="margin:20px">
 	<span class="vermilion b" style="font-size:14px">真的要退出教程吗？</span>
 </div>
@@ -20,5 +19,5 @@
 	"
 	>退出</a>&nbsp;&nbsp;&nbsp;<a class="b_button bc_black" onclick="bubblebox_hide_all();">取消</a>
 </div>
-{template MOD_BUBBLEBOX_END}
+<!--{eval bubblebox_end();}-->
 </td>

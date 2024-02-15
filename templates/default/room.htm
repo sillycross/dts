@@ -1,5 +1,4 @@
-<!--{eval \bubblebox\bubblebox_set_style('id:persistent-roommain;height:460;width:740;scroll-bar:0;');}-->
-{template MOD_BUBBLEBOX_START}
+<!--{eval bubblebox_start('id:persistent-roommain;height:460;width:740;scroll-bar:0;');}-->
 <div id="roommain">
 </div>
 <div id="roomchatarea">
@@ -50,8 +49,7 @@
 <input type="hidden" id="para2" name="para2" value="">
 <input type="hidden" id="para3" name="para3" value="">
 </form>
-{template MOD_BUBBLEBOX_END}
-
+<!--{eval bubblebox_end();}-->
 {template room_setmode}
 
 <img style="display:none;" type="hidden" src="img/blank.png" onload="bubblebox_show('persistent-roommain'); room_get_update(); jQuery(function() { jQuery('.scroll-pane-chat').jScrollPane(); }); ">

@@ -44,9 +44,8 @@
 				<td><input type="button" class="b_button" style="width:120" value="使用" onclick="$('itemchoice').value='$k';
 				<!--{if in_array($k, array(2,3,4)) || $lsitem[1]==2}-->bubblebox_show('logitemuse{$k}');<!--{else}-->document.inventory.submit();<!--{/if}-->"></td>
 			</tr>
-			<!--{eval \bubblebox\bubblebox_set_style('id:logitemuse'.$k.';height:150;width:600;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:10px;');}-->
-			{template MOD_BUBBLEBOX_START}
-			<div style="margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px;">
+			<!--{eval bubblebox_start('id:logitemuse'.$k.';height:150;width:600;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:10px;');}-->
+						<div style="margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px;">
 			<center>
 			<div style="font-weight:bold;">
 			<!--{if $k == 2}-->
@@ -76,8 +75,7 @@
 			<br><br>
 			</center>
 			</div>
-			{template MOD_BUBBLEBOX_END}
-			<!--{/if}-->
+			<!--{eval bubblebox_end();}-->			<!--{/if}-->
 			<!--{/loop}-->
 		</table>
 		</center>

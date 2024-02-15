@@ -1,7 +1,6 @@
 <!--{if (($edata['type']>0)&&(!$fog)&&(\skillbase\skill_query(460,$edata)))}-->
 <!--{eval $tdata['showskill']=1;}-->
-<!--{eval \bubblebox\bubblebox_set_style('id:npcskill;height:353;width:518;cancellable:1;');}-->
-{template MOD_BUBBLEBOX_START}
+<!--{eval bubblebox_start('id:npcskill;height:353;width:518;cancellable:1;');}-->
 <p style="margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px;">
 <br>
 <!--于是经过各种边框，最后工作区的大小是height:314px width:509px--> 
@@ -22,5 +21,5 @@
 
 &nbsp;&nbsp;&nbsp; 提示:点击技能界面外任意位置也可以关闭技能列表<br>
 </p>
-{template MOD_BUBBLEBOX_END}
+<!--{eval bubblebox_end();}-->
 <!--{/if}-->

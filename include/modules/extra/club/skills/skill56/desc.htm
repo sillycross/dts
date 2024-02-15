@@ -12,14 +12,12 @@
 雇佣关系存在时，你的佣兵不会与你进入战斗界面；<br>雇佣佣兵后需每分钟耗费一定数量的金钱以维持雇佣关系；<br>
 <input type="button" onclick="bubblebox_show('skill56_merc')" value="点我查看可能召唤出的佣兵列表">
 
-<!--{eval \bubblebox\bubblebox_set_style('id:skill56_merc;height:560;width:772;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:10px;');}-->
-{template MOD_BUBBLEBOX_START}
+<!--{eval bubblebox_start('id:skill56_merc;height:560;width:772;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:10px;');}-->
 <p style="margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px;">
 以下是所有可能被召唤出的佣兵的列表：<br><br>
 </p>
 <!--{eval \npcinfo\npcinfo_get_npc_description_all(25);}-->
-{template MOD_BUBBLEBOX_END}
-
+<!--{eval bubblebox_end();}-->
 </span></td>
 <td class="skilldesc_right b3">
 </td>

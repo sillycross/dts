@@ -12,8 +12,7 @@
 <!--{eval $sk472_learnt=$clubskillname[(int)\skillbase\skill_getvalue(472,'l')];}-->
 你现在掌握的技能是“<span class="yellow b">$sk472_learnt</span>”
 <!--{/if}-->
-<!--{eval \bubblebox\bubblebox_set_style('id:learntable472;height:400;width:655;cancellable:1;margin-right:8;');}-->
-{template MOD_BUBBLEBOX_START}
+<!--{eval bubblebox_start('id:learntable472;height:400;width:655;cancellable:1;margin-right:8;');}-->
 <p style="margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px;">
 以下是你可以学习的称号技能列表。战斗技和限定技不可以被学习，因此没有显示。<br>
 <span class="yellow b">请注意使用“查看”按钮查看技能时，技能的解锁条件没有显示。</span>请阅读帮助以获得完整的技能解锁要求。<br>
@@ -23,8 +22,7 @@
 <!--{eval \sklearn_util\get_skilllearn_table('\\skill472\\sklearn_checker472');}-->
 <br>
 <input type="button" onclick="bubblebox_show('clubskill');" value="返回">
-{template MOD_BUBBLEBOX_END}
-
+<!--{eval bubblebox_end();}-->
 </span></td>
 <td class="skilldesc_right b3">
 <input type="button" style="width:46px" onclick="bubblebox_show('learntable472');" value="学习">

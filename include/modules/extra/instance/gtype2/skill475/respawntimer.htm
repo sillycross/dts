@@ -1,8 +1,7 @@
 <!--{if \skillbase\skill_query(475)}-->
 <!--{eval eval(import_module('sys','player','skill475'));}-->
 <!--{eval $sk475t=max(0,$endtime+$skill475_revive_time-$now);}-->
-<!--{eval \bubblebox\bubblebox_set_style('id:sk475respawn;height:200;width:500;');}-->
-{template MOD_BUBBLEBOX_START}
+<!--{eval bubblebox_start('id:sk475respawn;height:200;width:500;');}-->
 <div style="text-align: center;">
 <span style="line-height:68px">&nbsp;</span><br>
 <span style="font-size:20px">真是不幸，你死了。</span><br>
@@ -24,6 +23,6 @@ var sk475fId = setInterval(function() {
 	}
 },1000);
 ">
-{template MOD_BUBBLEBOX_END}
+<!--{eval bubblebox_end();}-->
 <img style="display:none;" type="hidden" src="img/blank.png" onload="bubblebox_show('sk475respawn');">
 <!--{/if}-->

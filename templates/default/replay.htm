@@ -245,8 +245,7 @@ $('replay_bar').addEventListener('mousedown',replay_bar_mouse_down_handler);
 <!-- 回放控制板 END -->
 
 <!-- 录像载入进度气泡框 START -->
-<!--{eval \bubblebox\bubblebox_set_style('id:replayhint;height:200;width:500;cancellable:0;margin-right:8px;');}-->
-{template MOD_BUBBLEBOX_START}
+<!--{eval bubblebox_start('id:replayhint;height:200;width:500;cancellable:0;margin-right:8px;');}-->
 <table height=198px width=100%><tr><td align="left" valign="middle">
 <span>少女祈祷中... </span>
 <!--{if $replay_player_num_tot>1}-->
@@ -284,19 +283,18 @@ $('replay_bar').addEventListener('mousedown',replay_bar_mouse_down_handler);
 </table>
 
 </td></tr></table>
-{template MOD_BUBBLEBOX_END}
+<!--{eval bubblebox_end();}-->
 <script type="text/javascript">bubblebox_show('replayhint');</script>
 <!-- 录像载入进度气泡框 END -->
 
 <!-- 播放结束气泡框 START -->
-<!--{eval \bubblebox\bubblebox_set_style('id:persistent-replay-endhint;height:200;width:500;cancellable:1;margin-right:8px;');}-->
-{template MOD_BUBBLEBOX_START}
+<!--{eval bubblebox_start('id:persistent-replay-endhint;height:200;width:500;cancellable:1;margin-right:8px;');}-->
 <table height=198px width=100%><tr><td align="center" valign="middle">
 <span><font size="50px">录像播放结束</font><br><br>
 <a href="#" onclick="if (history.length>1) javascript:history.back(-1); else window.location.href='index.php';">点击这里返回录像选择界面</a>，或点击气泡框外任意位置重新观看本录像
 </span>
 </td></tr></table>
-{template MOD_BUBBLEBOX_END}
+<!--{eval bubblebox_end();}-->
 <!-- 播放结束气泡框 END -->
 
 <!-- 载入录像 -->

@@ -8,8 +8,7 @@
 <!--{eval \npcinfo\npcinfo_get_npc_description_all($key);}-->
 <!--{/loop}-->
 
-<!--{eval \bubblebox\bubblebox_set_style('id:i9_npc;height:560;width:772;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:10px;');}-->
-{template MOD_BUBBLEBOX_START}
+<!--{eval bubblebox_start('id:i9_npc;height:560;width:772;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:10px;');}-->
 <p><span class="lime b">{$gtinfo[19]} 剧情BOSS NPC简介</span>：</p>
 <p>{$gtinfo[19]}的BOSS NPC的数据和技能与标准模式略有差异。由于极速模式禁区节奏较快，其BOSS<span class="yellow b">击杀难度比标准模式稍大</span>。</p>
 <br>
@@ -17,8 +16,7 @@
 <!--{eval \npcinfo\npcinfo_get_npc_description_all(15, $enpcinfo_show);}-->
 <!--{eval \npcinfo\npcinfo_get_npc_description_all(40, $npcinfo_instance9);}-->
 <br> 
-{template MOD_BUBBLEBOX_END}
-
+<!--{eval bubblebox_end();}-->
 
 <p><span class="lime b">高危NPC简介</span>：</p>
 此类NPC对玩家<span class="yellow b">均有较大威胁</span>，在<span class="yellow b">没有足够高的防御</span>的情况下，请<span class="yellow b">尽可能避免和它们的接触</span>，也<span class="yellow b">不要贸然攻击它们</span>，否则很可能导致自己被击杀。<br>
@@ -46,8 +44,7 @@
 <br>
 
 
-<!--{eval \bubblebox\bubblebox_set_style('id:i8_npc;height:560;width:772;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:10px;');}-->
-{template MOD_BUBBLEBOX_START}
+<!--{eval bubblebox_start('id:i8_npc;height:560;width:772;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:10px;');}-->
 <p><span class="lime b">{$gtinfo[18]} 全息实体NPC简介</span>：</p>
 <p>全息实体比全息幻象的强度更高且<span class="yellow b">具有独特的技能</span>，对玩家具有一定的威胁性，<span class="yellow b">击杀难度也稍大</span>。</p>
 <br>
@@ -55,8 +52,7 @@
 <!--{eval \npcinfo\npcinfo_get_npc_description_all($key, $anpcinfo);}-->
 <!--{/loop}-->
 <br> 
-{template MOD_BUBBLEBOX_END}
-
+<!--{eval bubblebox_end();}-->
 
 <p><span class="lime b">真职人NPC简介</span>：</p>
 此类NPC在开局对<span class="yellow b">无防具的玩家有较大威胁</span>，这类NPC的特点是<span class="yellow b">防御非常高</span>，且<span class="yellow b">武器均带有“电击+冻气+带毒+火焰+音波”属性</span>，很容易导致玩家中异常状态。<br>如果防具很差，或没有属性防御也没钱买药剂，请不要贸然攻击它们，否则很可能导致自己中大量异常状态后难以恢复，苦不堪言。<br>
@@ -83,8 +79,7 @@
 <!--{/loop}-->
 <br>
 
-<!--{eval \bubblebox\bubblebox_set_style('id:ev_npc;height:560;width:772;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:10px;');}-->
-{template MOD_BUBBLEBOX_START}
+<!--{eval bubblebox_start('id:ev_npc;height:560;width:772;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:10px;');}-->
 <p><span class="lime b">数据碎片第二形态NPC简介</span>：</p>
 <p>女主的第二形态实力强大，无准备的情况下遭遇她们<span class="yellow b">有性命之忧！</span>不过，击倒她们也是<span class="lime b">特殊胜利</span>的必经之路。</p>
 <br>
@@ -92,8 +87,7 @@
 <!--{eval $enpcinfo_show['enpcflag']=1;\npcinfo\npcinfo_get_npc_description_all($key, $enpcinfo_show);}-->
 <!--{/loop}-->
 <br> 
-{template MOD_BUBBLEBOX_END}
-
+<!--{eval bubblebox_end();}-->
 <p><span class="lime b">拟似意识NPC简介</span>：</p>
 在雏菊之丘有一位特殊的NPC，她平时以<span class="yellow b">特殊事件</span>的形式存在，不加入战斗。但如果玩家击倒三女主的第二形态，之后合成<span class="yellow b">破灭之诗</span>并使用，这名NPC就会加入战场。<br>
 她掉落的道具是<span class="lime b">特殊胜利</span>的必须道具。虽然她血量甚至不如玩家开局状态，但攻击力和防御力都十分吓人，并且装备属性拥有<span class="yellow b">物抹+属抹</span>的双重抗性，要击倒她必须动点脑筋。<br>
@@ -108,8 +102,7 @@
 以下是所有佣兵的列表：<input class="bigbutton" onclick="bubblebox_show('skill56_merc');" value="点击这里查看" type="button"><br>
 <br>
 
-<!--{eval \bubblebox\bubblebox_set_style('id:yl_npc;height:560;width:772;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:10px;');}-->
-{template MOD_BUBBLEBOX_START}
+<!--{eval bubblebox_start('id:yl_npc;height:560;width:772;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:10px;');}-->
 <p style="margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px;">
 以下是英灵殿中的主要NPC简介。<br><br>
 <span class="lime b">天神NPC 简介</span>：
@@ -131,16 +124,14 @@
 <!--{eval \npcinfo\npcinfo_get_npc_description_all($key);}-->
 <!--{/loop}-->
 <br> 
-{template MOD_BUBBLEBOX_END}
-
+<!--{eval bubblebox_end();}-->
 <p><span class="lime b">英灵殿NPC 简介</span>：</p>
 此外，<span class="yellow b">英灵殿</span>中还有大量高强度NPC，供有兴趣的PVE玩家挑战。<br>
 它们与正常游戏几乎没有什么关系，但如果你依然有兴趣，请点击下面的按钮查看它们的数据。<br>
 <input class="bigbutton" onclick="bubblebox_show('yl_npc');" value="点击这里查看" type="button">
 <br>
 
-<!--{eval \bubblebox\bubblebox_set_style('id:final_npc;height:560;width:772;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:10px;');}-->
-{template MOD_BUBBLEBOX_START}
+<!--{eval bubblebox_start('id:final_npc;height:560;width:772;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:10px;');}-->
 <p><span class="lime b">幻境的最后防线 简介</span>：</p>
 <p>断罪女神 一一五将会在玩家全灭场上NPC时，刷新在英灵殿。她的数值高得可怕，而且还有非常麻烦的装备属性和技能。不过对于走到这一步的玩家来说，已经没有什么可以阻挡他们了吧……？</p>
 <br>
@@ -151,8 +142,7 @@
 <!--{eval \npcinfo\npcinfo_get_npc_description_all($key, $enpcinfo_show);}-->
 <!--{/loop}-->
 <br> 
-{template MOD_BUBBLEBOX_END}
-
+<!--{eval bubblebox_end();}-->
 <p><span class="lime b">幻境的最后防线 简介</span>：</p>
 当玩家将场上的NPC全灭时，将有一名特殊的NPC入场挑战玩家。<br>
 她与正常游戏几乎没有什么关系，但如果你依然有兴趣，请点击下面的按钮查看她的数据。<br>

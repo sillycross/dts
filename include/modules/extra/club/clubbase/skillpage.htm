@@ -8,12 +8,11 @@
 <!--{/if}-->
 
 <!--{if !empty($GLOBALS['___IN_HELP'])}-->
-<!--{eval \bubblebox\bubblebox_set_style('id:club'.$nowclub.';height:584;width:568;cancellable:1;');}-->
+<!--{eval bubblebox_start('id:club'.$nowclub.';height:584;width:568;cancellable:1;');}-->
 <!--{else}-->
-<!--{eval \bubblebox\bubblebox_set_style('id:clubskill;height:584;width:568;cancellable:1;');}-->
+<!--{eval bubblebox_start('id:clubskill;height:584;width:568;cancellable:1;');}-->
 <!--{/if}-->
 
-{template MOD_BUBBLEBOX_START}
 <p style="margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px;">
 <!--{if empty($GLOBALS['___IN_HELP'])}-->
 <!--于是经过各种边框，最后工作区的大小是height:584px width:509px--> 
@@ -45,8 +44,7 @@
 
 &nbsp;&nbsp;&nbsp; 提示:点击技能界面外任意位置也可以返回主界面<br>
 </p>
-{template MOD_BUBBLEBOX_END}
-
+<!--{eval bubblebox_end();}-->
 <!--{if empty($GLOBALS['___IN_HELP'])}-->
 <img style="display:none;" type="hidden" src="img/blank.png" onload="bubblebox_show('clubskill');">
 <!--{/if}-->

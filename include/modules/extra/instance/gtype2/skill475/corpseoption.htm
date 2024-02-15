@@ -1,7 +1,6 @@
 <input type="hidden" name="mode" value="corpse">
 <input type="hidden" id="command" name="command" value="">
-<!--{eval \bubblebox\bubblebox_set_style('id:corpseoption;height:500;width:800;');}-->
-{template MOD_BUBBLEBOX_START}
+<!--{eval bubblebox_start('id:corpseoption;height:500;width:800;');}-->
 <div>
 <div style="height:50px">&nbsp;</div>
 <div style="text-align:center; height:40px;"><span class="lime b" style="font-size:40px;">击杀玩家</span></div>
@@ -86,5 +85,5 @@ if (jQuery('#itm5').is(':checked')) jQuery('#command').val('itm5');
 if (jQuery('#itm6').is(':checked')) jQuery('#command').val('itm6');
 postCmd('gamecmd','command.php');this.disabled=true;">
 </div>
-{template MOD_BUBBLEBOX_END}
+<!--{eval bubblebox_end();}-->
 <img style="display:none;" type="hidden" src="img/blank.png" onload="bubblebox_show('corpseoption');">

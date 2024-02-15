@@ -90,21 +90,18 @@
 </center>
 
 <!--{if defined('MOD_ELORATING')}-->
-<!--{eval \bubblebox\bubblebox_set_style('id:elodata;height:450;width:650;cancellable:1;');}-->
-{template MOD_BUBBLEBOX_START}
+<!--{eval bubblebox_start('id:elodata;height:450;width:650;cancellable:1;');}-->
 <!--{eval \elorating\elorating_show();}-->
 <input class="cmdbutton" onclick="bubblebox_hide_all();" value="关闭窗口" type="button">
-{template MOD_BUBBLEBOX_END}
+<!--{eval bubblebox_end();}-->
 <!--{/if}-->
 
-<!--{eval \bubblebox\bubblebox_set_style('id:carddata;height:370;width:250;cancellable:1;');}-->
-{template MOD_BUBBLEBOX_START}
+<!--{eval bubblebox_start('id:carddata;height:370;width:250;cancellable:1;');}-->
 <div style="text-align:center;">
 	<div style="margin:2px">以下是该身份卡的数据。</div>
 	<!--{eval $nowcard=$carr;}-->	
 	{template MOD_CARDBASE_CARD_FRAME}
 	<div style="margin:2px"><input class="cmdbutton" onclick="bubblebox_hide_all();" value="关闭窗口" type="button"></div>
 </div>
-{template MOD_BUBBLEBOX_END}
-
+<!--{eval bubblebox_end();}-->
 {template footer}

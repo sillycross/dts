@@ -9,8 +9,7 @@
 <!--{if \skillbase\skill_getvalue(53,'l')=='0'}-->
 学习任意一个非战斗非限定技能
 
-<!--{eval \bubblebox\bubblebox_set_style('id:learntable53;height:400;width:655;cancellable:1;margin-right:8;');}-->
-{template MOD_BUBBLEBOX_START}
+<!--{eval bubblebox_start('id:learntable53;height:400;width:655;cancellable:1;margin-right:8;');}-->
 <p style="margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px;">
 以下是你可以学习的称号技能列表。战斗技和限定技不可以被学习，因此没有显示。<br>
 <span class="yellow b">请注意使用“查看”按钮查看技能时，技能的解锁条件没有显示。</span>请阅读帮助以获得完整的技能解锁要求。<br>
@@ -24,8 +23,7 @@
 <!--{else}-->
 <input type="button" onclick="bubblebox_show('clubskill');" value="返回">
 <!--{/if}-->
-{template MOD_BUBBLEBOX_END}
-
+<!--{eval bubblebox_end();}-->
 <!--{else}-->
 <!--{eval $sk53_learnt=$clubskillname[(int)\skillbase\skill_getvalue(53,'l')];}-->
 你已经学习了技能“<span class="yellow b">$sk53_learnt</span>”
