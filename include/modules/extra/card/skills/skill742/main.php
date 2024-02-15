@@ -83,7 +83,7 @@ namespace skill742
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$ret = $chprocess($cinfo);
 		if($ret) {
-			if (strpos($cinfo[0], '^dp') === 0) return false;
+			if ('^dp' == $cinfo[0]) return false;
 		}
 		return $ret;
 	}
