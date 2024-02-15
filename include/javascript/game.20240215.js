@@ -359,6 +359,8 @@ function showData(sdata){
 						if(!timinglist[tid]['timing'] && !timinglist[tid]['mode']) restart_flag = 1;
 						timinglist[tid]['timing'] = t;
 						timinglist[tid]['mode'] = tm;
+						timinglist[tid]['timestamp'] = Date.now();
+						timinglist[tid]['o_t'] = t;
 						if(restart_flag) updateTime(tid,t,tm,intv,fmt);
 					}
 				}else{//on==false时关闭计时器

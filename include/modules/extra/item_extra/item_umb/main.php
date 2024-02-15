@@ -102,7 +102,7 @@ namespace item_umb
 			if (defined('MOD_SKILL'.$key.'_INFO') && (strpos(constant('MOD_SKILL'.$key.'_INFO'),'club;')!==false || strpos(constant('MOD_SKILL'.$key.'_INFO'),'card;')!==false))
 			{
 				$tsk_expire = \skillbase\skill_getvalue($key, 'tsk_expire', $pa);
-				init_buff_timing($key, $tsk_expire - $now);
+				if(!empty($tsk_expire))	init_buff_timing($key, $tsk_expire - $now);
 			}
 		}
 	}
@@ -164,7 +164,9 @@ namespace item_umb
 		foreach ($idlist as $id)
 		{
 			eval(import_module('sys','clubbase'));
-			$s .= "「{$clubskillname[$id]}」 剩<span class=\"yellow b\" id=\"skill{$id}\">{$uip['timing']['skill'.$id]['timing_r']}</span>秒<br>";
+			//显示每个技能的剩余时间。因为只有act()后会执行init_buff_timing()，载入game.php则没有定义，所以这里需要做个判定。
+			$display_t = !empty($uip['timing']['skill'.$id]['timing_r']) ? $uip['timing']['skill'.$id]['timing_r'] : '---';
+			$s .= "「{$clubskillname[$id]}」 剩<span class=\"yellow b\" id=\"skill{$id}\">{$display_t}</span>秒<br>";
 		}
 		return $s;
 	}

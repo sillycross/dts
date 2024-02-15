@@ -57,13 +57,6 @@ function updateTime(domid,t,tm,intv,fmt)
 		var tm = timinglist[domid]['mode'];
 		var intv = timinglist[domid]['interval'];
 		var fmt = timinglist[domid]['format'];
-		if(1==tm){
-			t += intv;
-		}else{
-			t -= intv;
-			if(t < 0) t = 0;
-		}
-		timinglist[domid]['timing'] = t;
 		//倒计时系统时间偏差判定
 		if(0==tm && t > 0){
 			var tp = timinglist[domid]['o_t'] - t;//用当前倒计时计算的已经过时间
@@ -72,6 +65,14 @@ function updateTime(domid,t,tm,intv,fmt)
 				t = timinglist[domid]['timing'] = timinglist[domid]['o_t'] - tc;
 			}
 		}
+		if(1==tm){
+			t += intv;
+		}else{
+			t -= intv;
+			if(t < 0) t = 0;
+		}
+		timinglist[domid]['timing'] = t;
+		
 		if(0==t){
 			if(0 < t0 && 'timing'==domid) window.location.reload(); //首页
 //			else if('area_timing' == domid) {//游戏界面内禁区自动刷新，不过由于两边时间不同步，可能执行不正常
