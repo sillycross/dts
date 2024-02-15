@@ -320,6 +320,7 @@ item_uc,base/items/item_uc/,1
 skill12,extra/club/skills/skill12/,1
 skill223,extra/club/skills/skill223/,1
 event,base/event/,1
+skill742,extra/card/skills/skill742/,1
 skill710,extra/card/skills/skill710/,1
 item_slip,extra/item_extra/item_slip/,1
 skill331,extra/activities/halloween2017/skill331/,1

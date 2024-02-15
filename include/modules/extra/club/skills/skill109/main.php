@@ -44,17 +44,14 @@ namespace skill109
 			$log .= '你已经无法再发动此技能了。<br>';
 			return;
 		}
-		elseif ($skill109_rmtime != 30)
+		if ($skillpoint < 1)
 		{
-			if ($skillpoint < 1)
-			{
-				$log .= '技能点不足。<br>';
-				return;
-			}
-			$skillpoint -= 1;
+			$log .= '技能点不足。<br>';
+			return;
 		}
+		$skillpoint -= 1;
 		\skillbase\skill_setvalue(109,'rmtime',$skill109_rmtime-1,$sdata);
-		if (\skillbase\skill_query(107, $sdata) && (rand(0,99) < 60)) \skill107\skill107_lose_sanity(1, $sdata);
+		if (\skillbase\skill_query(107, $sdata) && (rand(0,99) < 50)) \skill107\skill107_lose_sanity(1, $sdata);
 		$rs_skills = \item_randskills\get_rand_clubskill($sdata, 1, 'club27');
 		if (!empty($rs_skills))
 		{

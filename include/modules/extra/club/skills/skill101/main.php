@@ -111,7 +111,7 @@ namespace skill101
 		$dice = rand(0,99);
 		if ($itmk0[0] == 'W')
 		{
-			if ($dice < 99)
+			if ($dice < 40)
 			{
 				//复合武器不会改系
 				if (in_array(substr($itmk0, 2, 1), array('P','K','G','C','D','F','J','B'))) return;
