@@ -164,7 +164,8 @@ elseif ($_GET['action']=='save')
 	if ($res === 1)
 	{
 		echo "<span>没有发现致命错误，请阅读以下日志，如没有问题，请点击“<font color=\"red\">应用更改</font>”按钮令更改生效。</span><br><br>";
-		echo "<span><font color=\"green\">没有发现问题。</font></span><br><br>";
+		if(empty($notice_log)) echo "<span><font color=\"green\">没有发现问题。</font></span><br><br>";
+		else echo $notice_log.'<br>';
 		echo "<span>应用更改可能会花费几秒钟，请耐心等待。</span><br><br>";
 		if(isset($_GET['mode']) && 'quick'==$_GET['mode']) $href = 'modulemng_activate.php?mode=quick';
 		else $href = 'modulemng_activate.php';

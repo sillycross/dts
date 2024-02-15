@@ -41,6 +41,8 @@ REFLECTION_CODE;
 function module_validity_check($file)
 {
 	$log='';
+	global $notice_log;
+	$notice_log = '';//程序员是看不到notice的
 	if (!file_exists($file))
 	{
 		$log.="<span><font color=\"red\">模块列表文件不存在。</font></span><br>";
@@ -171,7 +173,10 @@ function module_validity_check($file)
 			$flag=0;
 			for ($j=1; $j<=$n; $j++)
 			{
-				if ($modn[$j]==$key) { $flag=1; array_push($g[$j],$i); $rd[$i]++; break; }
+				if ($modn[$j]==$key) {
+					if('base'==substr($modp[$i],0,4) && 'extra'==substr($modp[$j],0,5)) $notice_log .= "<span><font color=\"orange\">模块{$modn[$i]}是base模块，却依赖extra模块{$modn[$j]}，建议整理模块依赖关系。</font></span><br>";
+					$flag=1; array_push($g[$j],$i); $rd[$i]++; break;
+				}
 			}
 			if (!$flag)
 			{

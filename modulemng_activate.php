@@ -444,8 +444,8 @@ if ($___MOD_SRV)
 	echo '<font color="blue">正在重启Daemon...</font> '; ob_end_flush(); flush();
 	require GAME_ROOT.'./include/socket.func.php';
 	__STOP_ALL_SERVER__();
-	touch(GAME_ROOT.'./gamedata/tmp/server/request_new_root_server');
-	__SOCKET_LOG__("已请求脚本启动一台新的服务器。");
+	//touch(GAME_ROOT.'./gamedata/tmp/server/request_new_root_server');
+	//__SOCKET_LOG__("已请求脚本启动一台新的服务器。");
 	echo '<font color="blue">完成。</font><br><br>';
 }
 
