@@ -632,10 +632,10 @@ function register_verification_question_pool_create()
 	$helpfile = GAME_ROOT.'./templates/default/help.htm';
 	if(file_exists($helpfile)) {
 		$contents = file_get_contents($helpfile);
-		preg_match_all('/\>([^\<\>\&\$\;\{\}]{40,150}?)\</s', $contents, $matches);
-		$ret = $matches[1];
+		preg_match_all('/\>([^\<\>\&\$\;\{\}]{30,150}?)\</s', $contents, $matches);
+		$ret = $ret +$matches[1];
 	}
-	$forcheck = Array('，','。','“','”');
+	$forcheck = Array('，','。','“','”','）','（');
 	foreach($ret as &$v){
 		$v = trim($v);
 		foreach($forcheck as $c){
