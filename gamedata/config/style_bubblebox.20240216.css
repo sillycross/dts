@@ -1,0 +1,29 @@
+﻿.bubblebox_positioner_miner {
+	position:absolute; 
+	top:50%; 
+	left:50%; 
+	filter:alpha(opacity=20); opacity:0.2; 
+	background-color:#000000;
+}
+
+.bubblebox_screen_fader{
+	background-color:#000000;
+}
+
+.bubblebox_screen_fader_miner{
+	position:absolute; 
+	top:50%; 
+	left:50%; 
+	background-color:#000000;
+}
+
+.bubblebox_positioner{
+	background-color:rgba(0,0,0,0.35);
+}
+
+.bubblebox_container_miner{
+	position:relative;
+	margin:0;
+	overflow-x:hidden;
+	overflow-y:auto; 
+}

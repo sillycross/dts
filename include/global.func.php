@@ -1088,18 +1088,22 @@ function array_randompick($arr, $num=1)
 
 //一些来自核心模块的重要函数
 //因为调用次数太多，懒得一个一个改了
+//保存当前游戏局数据（对应game表）
 function save_gameinfo() {	
 	\sys\save_gameinfo();
 }
 
+//新增一条进行状况
 function addnews($t = 0, $n = '',$a='',$b='',$c = '', $d = '', $e = '') {
 	\sys\addnews($t, $n,$a,$b,$c, $d, $e);
 }
 
+//接收聊天讯息
 function getchat($last,$team='',$chatpid=0,$limit=0) {
 	return \sys\getchat($last,$team,$chatpid,$limit);
 }
 
+//发送聊天讯息
 function systemputchat($time,$type,$msg = ''){
 	\sys\systemputchat($time,$type,$msg );
 }
@@ -1146,6 +1150,9 @@ function fatenum_create($seed, $len = 10)
 	if($fatenum < 1997) $fatenum *= 999983;
 	return $fatenum;
 }
+
+//引入bubblebox功能文件
+require_once GAME_ROOT.'./include/bubblebox.func.php';
 
 /* End of file global.func.php */
 /* Location: /include/global.func.php */
