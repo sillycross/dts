@@ -18,9 +18,9 @@
 		<div>
 			<span class ="yellow b">{lang vq_question}</span><br />
 			<span class ="yellow b">{lang vq_question_desc}</span><br /><br />
-			『<span class ="evergreen b" id="vq_question">{$vq_question_arr['question']}</span>』<br /><br />
+			<span class="grey b">『</span><span class ="evergreen b" id="vq_question">{$vq_question_arr['question']}</span><span class="grey b">』</span><br /><br />
 			<!--{loop $vq_question_arr['answers'] $i $v}-->
-				<input type="radio" id="vq_answer{$i}" name="vq_answer" value="{$i}"><a onclick="$('vq_answer{$i}').click()" id="vq_answer_disp{$i}">{$v}</a>&nbsp;&nbsp;&nbsp;
+				<span class="grey b">『</span><input type="radio" id="vq_answer{$i}" name="vq_answer" value="{$i}"><a onclick="$('vq_answer{$i}').click()" id="vq_answer_disp{$i}">{$v}</a><span class="grey b">』&nbsp;&nbsp;&nbsp;</span>
 			<!--{/loop}-->
 			<br />
 		</div>
