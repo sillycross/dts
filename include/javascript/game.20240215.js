@@ -703,9 +703,11 @@ function bubblebox_clear_all()
 	}
 }
 
-function bubblebox_show(bid)
+function bubblebox_show(bid, overlay)
 {
-	bubblebox_hide_all();
+	if('undefined' == typeof overlay || !overlay) {
+		bubblebox_hide_all();
+	}
 	if ($('fmsgbox'+(bid.toString())))
 	{
 		$('fmsgbox-container').appendChild($('fmsgbox'+(bid.toString())));

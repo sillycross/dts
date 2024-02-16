@@ -16,7 +16,7 @@
 <!--构建文本框-->
 <!--全屏背景降低+跳出点击区-->
 <div class="bubblebox_positioner bubblebox_screen_fader" style="z-index:{$bbox_z_index_base_tie1};" 
-	<!--{if $bbox_cancellable}--> onclick="bubblebox_hide('{$bbox_id}');"<!--{/if}-->>
+	<!--{if !empty($bbox_change_to)}--> onclick="bubblebox_show('{$bbox_change_to}');bubblebox_hide('{$bbox_id}');"<!--{elseif !empty($bbox_cancellable)}--> onclick="bubblebox_hide('{$bbox_id}');"<!--{/if}-->>
 	<div class="bubblebox_screen_fader_miner" style="z-index:{$bbox_z_index_base_tie3};
 		margin-top:{$bbox_screen_fader_miner_margin_top}px; 
 		margin-left:{$bbox_screen_fader_miner_margin_left}px;

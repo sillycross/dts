@@ -34,6 +34,7 @@ function bubblebox_set_default()
 		'offset-y' => 0,		//气泡框中心点相对于屏幕中心点的纵向偏移
 		'opacity' => 0.95,	//气泡框本体不透明度
 		'cancellable' => 0,	//是否允许通过点击气泡框外面任意位置来消除气泡框	
+		'change-to' => '', //消除气泡框后立刻显示的气泡框，相当于跳转，虽然没有用上
 		'scroll-bar' => 1,	//是否显示滚动条
 		//下面是各种杂项设置，一般不需要改动，直接用默认配置就行
 		'border-width-x' => 5,	//横向半透明边缘宽度
@@ -94,7 +95,7 @@ function bubblebox_start($str)
 	global $bubblebox_style;
 	bubblebox_set_style($str);
 	//获取单个样式数值
-	$attr_arr = Array('id', 'width', 'height', 'z-index-base', 'offset-x', 'offset-y', 'opacity', 'cancellable', 'scroll-bar', 'border-width-x', 'border-width-y', 'margin-top', 'margin-bottom', 'margin-left', 'margin-right');
+	$attr_arr = Array('id', 'width', 'height', 'z-index-base', 'offset-x', 'offset-y', 'opacity', 'cancellable', 'change-to', 'scroll-bar', 'border-width-x', 'border-width-y', 'margin-top', 'margin-bottom', 'margin-left', 'margin-right');
 	foreach($attr_arr as $v) {
 		${'bbox_'.str_replace('-','_',$v)} = bubblebox_get_style($v);
 	}
