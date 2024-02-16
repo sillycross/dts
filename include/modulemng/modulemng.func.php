@@ -334,15 +334,15 @@ function module_validity_check($file)
 			
 			if ($flag2)
 			{
-				$notice_log .= "<span><font color=\"orange\">模块{$modname}的函数{$key}的参数个数与至少一个所重载的函数不匹配，建议检查。</font></span><br>";
+				$notice_log .= "<span><font color=\"orange\">模块{$modname}的函数{$key}的参数个数与至少一个所重载的函数不匹配，建议进行检查。</font></span><br>";
 			}
 			if ($flag3)
 			{
-				$notice_log .= "<span><font color=\"orange\">模块{$modname}的函数{$key}的\$chprocess传参个数与至少一个所重载的函数不匹配，建议检查。</font></span><br>";
+				$notice_log .= "<span><font color=\"orange\">模块{$modname}的函数{$key}的\$chprocess传参个数与至少一个所重载的函数不匹配，建议进行检查。</font></span><br>";
 			}
 			if ($flag4)
 			{
-				$notice_log .= "<span><font color=\"orange\">模块{$flag4_modn}的函数{$key}没有提供返回值，这是模块{$modname}运算所需要的，建议检查。</font></span><br>";
+				$notice_log .= "<span><font color=\"orange\">模块{$flag4_modn}的函数{$key}没有提供返回值，但模块{$modname}尝试获取返回值，这可能是新增函数遗漏了返回值导致的，建议进行检查。</font></span><br>";
 			}
 			if ($flag5)
 			{

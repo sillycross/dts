@@ -126,7 +126,7 @@ if ($handle=opendir(GAME_ROOT.'./gamedata/tmp/server'))
 			if ($r=='ok')
 				echo "&nbsp;&nbsp;　&nbsp;&nbsp;进程 {$i}: 端口 <font color=\"blue\">{$key}</font> 状态 ";
 			else echo "&nbsp;[根]&nbsp;进程 {$i}: 端口 <font color=\"blue\">{$key}</font> 状态 ";
-			if(file_exists($keyadrs.'/busy')) echo '<font color="yellow">正常&忙碌</font>';
+			if(file_exists($keyadrs.'/busy')) echo '<font color="orange">正常&忙碌</font>';
 			else echo '<font color="green">正常</font>';
 			list($worknum, $memorysize) = explode(',', file_get_contents($keyadrs.'/worknum'));
 			echo '&nbsp;分均请求数：'.ceil((int)$worknum / (max(1, $now - filemtime($keyadrs.'/start_time')) / 60) * 1000) / 1000;
