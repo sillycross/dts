@@ -62,7 +62,7 @@ namespace user_settings
 			\itemmain\itemmerge(0,$i);
 			return;
 		}
-		return $chprocess($sameitem);
+		$chprocess($sameitem);
 	}
 }
 

@@ -99,7 +99,7 @@ namespace skill261
 			$wp-=5;
 			if ($wp<50) $wp=50;
 		}
-		$chprocess($moveto);
+		return $chprocess($moveto);
 	}
 	
 	function get_skill263_chance(&$pa, &$pd, $active)

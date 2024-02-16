@@ -169,7 +169,7 @@ namespace itemshop
 		if($price<0) {
 			$log .= '要购买的道具不存在！<br><br>';
 			$mode = 'command';
-			return;
+			return false;
 		}
 
 		$bnum = (int)$bnum;
@@ -179,27 +179,27 @@ namespace itemshop
 		if($shopiteminfo['num'] <= 0) {
 			$log .= '此物品已经售空！<br><br>';
 			$mode = 'command';
-			return;
+			return false;
 		} elseif($bnum<=0) {
 			$log .= '购买数量必须为大于0的整数。<br><br>';
 			$mode = 'command';
-			return;
+			return false;
 		} elseif($bnum>$shopiteminfo['num']) {
 			$log .= '购买数量必须小于存货数量。<br><br>';
 			$mode = 'command';
-			return;
+			return false;
 		} elseif($money < $cost) {
 			$log .= '你的钱不够，不能购买此物品！<br><br>';
 			$mode = 'command';
-			return;
+			return false;
 		} elseif( ($shopiteminfo['itms']==='∞' || !preg_match('/^(WC|WD|WF|Y|B|C|TN|GA|GB|H|P|V|M|X|p|ygo|EA)/',$shopiteminfo['itmk']) )&&$bnum>1) {
 			$log .= '此物品一次只能购买一个。<br><br>';
 			$mode = 'command';
-			return;
+			return false;
 		}elseif($shopiteminfo['area'] > \map\get_area_wavenum()){
 			$log .= '此物品尚未开放出售！<br><br>';
 			$mode = 'command';
-			return;
+			return false;
 		}
 
 		$inum = $shopiteminfo['num']-$bnum;
@@ -216,8 +216,8 @@ namespace itemshop
 		$itms0 = $shopiteminfo['itms'] === '∞' ? $shopiteminfo['itms'] : $shopiteminfo['itms']*$bnum;
 		$itmsk0 = $shopiteminfo['itmsk'];
 
-		\itemmain\itemget();	
-		return;
+		\itemmain\itemget();
+		return true;
 	}
 	
 	function check_in_shop_area($p)

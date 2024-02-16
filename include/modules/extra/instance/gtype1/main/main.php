@@ -53,7 +53,10 @@ namespace gtype1
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
-		if (room_check_subroom($room_prefix)) return $chprocess();
+		if (room_check_subroom($room_prefix)) {
+			$chprocess();
+			return;
+		}
 		
 		//获取3局之前的游戏类别
 		$last3game=$gamenum-3;
@@ -367,7 +370,7 @@ EOT;
 				$inf = str_replace('u','',$inf);
 				$inf .= 'u';
 			}
-			return true;
+			return false;
 		}
 		return $chprocess($dnname,$dndeath,$dngender,$dnicon);
 	}

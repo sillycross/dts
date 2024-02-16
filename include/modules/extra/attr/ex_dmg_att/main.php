@@ -165,7 +165,7 @@ namespace ex_dmg_att
 		eval(import_module('sys','ex_dmg_att','wound','logger'));
 		$infkey = array_search($ex_inf[$key], $infskillinfo);
 		if(!$ignore_log){
-			$log .= battlelog_parser($pa, $pd, $active, '并致使<:pd_name:>'.$infname[$infkey].'了！');
+			$log .= \battle\battlelog_parser($pa, $pd, $active, '并致使<:pd_name:>'.$infname[$infkey].'了！');
 			addnews($now,'inf',$pa['name'],$pd['name'],$infkey);
 		}
 		\wound\get_inf($infkey,$pd);
@@ -250,6 +250,8 @@ namespace ex_dmg_att
 			
 			$pa['dmg_dealt'] += $dmg;
 			$pa['mult_words_fdmgbs'] = \attack\add_format($dmg, $pa['mult_words_fdmgbs']);
+
+			return $dmg;
 		}
 	}
 	

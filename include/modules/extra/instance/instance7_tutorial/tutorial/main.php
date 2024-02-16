@@ -392,7 +392,7 @@ namespace tutorial
 			if('OK' === $push_flag) tutorial_pushforward_process();
 			elseif('PROG' === $push_flag) tutorial_pushforward_process('PROG');
 		}
-		return $chprocess();
+		$chprocess();
 	}
 	
 	//防呆判定
@@ -553,7 +553,7 @@ namespace tutorial
 				tutorial_pushforward_process();
 			}
 		}
-		return $chprocess();
+		$chprocess();
 	}
 	
 	//接管discover()，玩家某几步必定发现NPC或者道具
@@ -633,14 +633,13 @@ namespace tutorial
 	function itemget_process() {
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','logger'));
-		$r = $chprocess();
+		$chprocess();
 		if($gametype == 17) {
 			$ct = get_tutorial();
 			if($ct['object'] == 'itemget'){
 				tutorial_pushforward_process();
 			}
 		}
-		return;
 	}
 	
 	//接管discover_player()，判定是否必定发现敌人/尸体
@@ -846,7 +845,7 @@ namespace tutorial
 				return;
 			}
 		}
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}
 	
 	//接管check_ex_inf_infliction(），有设定时强制异常状态
@@ -982,7 +981,7 @@ namespace tutorial
 				tutorial_pushforward_process();
 			}
 		}
-		return $chprocess();
+		$chprocess();
 	}
 	
 	//阻止addnpc进行状况提示

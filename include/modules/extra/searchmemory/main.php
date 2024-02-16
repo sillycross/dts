@@ -697,7 +697,7 @@ namespace searchmemory
 			//$log .= '你先前所见的一切东西都离开了视线。<br>';
 			//remove_memory('ALL');
 		}
-		$chprocess($moveto);
+		return $chprocess($moveto);
 	}
 	
 	//探索记忆的冷却时间

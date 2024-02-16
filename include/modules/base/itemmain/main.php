@@ -179,7 +179,7 @@ namespace itemmain
 	}
 	
 	//从属性字符串中替换单个属性。注意不会检测$replacement是否合法
-	function replace_in_itmsk($needle, $replacement, $itmsk, $dummy)
+	function replace_in_itmsk($needle, $replacement, $itmsk, $dummy = 0)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		//这里只处理单个属性或者数字编号属性，直接str_replace()。对复合属性的处理在attrbase模块
@@ -648,6 +648,18 @@ namespace itemmain
 			} 
 		}
 		$chprocess();
+	}
+
+	//把任意字符串转换为可以嵌入复合属性的非标准base64字符串。具体在attrbase里实现
+	function base64_encode_comp_itmsk($str){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $str;
+	}
+
+	//对应的逆运算。具体在attrbase里实现
+	function base64_decode_comp_itmsk($str){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return $str;
 	}
 }
 

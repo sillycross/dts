@@ -112,7 +112,7 @@ namespace skill26
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($pa['bskill']==26 && $pa['skill26_flag1']==2) return $pa['attr_pierce_success'];
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}
 	
 	function check_ex_dmg_nullify(&$pa, &$pd, $active)

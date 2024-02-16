@@ -3,8 +3,8 @@
 namespace wep_b
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'weapon itemmain wep_c enemy attrbase player';
-	$___MODULE_dependency_optional = '';
+	$___MODULE_dependency = 'weapon itemmain wep_c enemy player';
+	$___MODULE_dependency_optional = 'attrbase';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php';
 	$___MODULE_templatelist = '';

@@ -103,6 +103,7 @@ namespace skill41
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!\skillbase\skill_query(41,$pa) || !check_unlocked41($pa)) {
 			$chprocess($pa,$pd,$active);
+			return;
 		}
 		eval(import_module('logger'));
 		if ($pa['skill41_proced'])

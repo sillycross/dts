@@ -114,7 +114,6 @@ namespace itemmain
 		}
 
 		itemadd();
-		return;
 	}
 
 	//获得物品时如果是补给类型的合并处理。本模块默认是给出提示是否合并的界面。
@@ -124,7 +123,6 @@ namespace itemmain
 		include template(MOD_ITEMMAIN_ITEMMERGE0);
 		$cmd = ob_get_contents();
 		ob_clean();
-		return;
 	}
 
 	function itemdrop_valid_check($itm, $itmk, $itme, $itms, $itmsk, $itmpos)

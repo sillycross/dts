@@ -535,6 +535,7 @@ namespace item_misc
 		eval(import_module('sys','logger','player'));
 		$log .= "你将<span class=\"yellow b\">$dnname</span>的名字写在了■DeathNote■上。";
 		$result = $db->query("SELECT * FROM {$tablepre}players WHERE name='$dnname' AND type = 0 AND hp > 0");
+		$ret = false;
 		if(!$db->num_rows($result)) { 
 			$log .= "但是什么都没有发生。<br>哪里出错了？<br>"; 
 		} else {
@@ -544,9 +545,10 @@ namespace item_misc
 			} else {
 				$log .= "<br><span class=\"yellow b\">$dnname</span>被你杀死了。";
 				deathnote_process_core($sdata, $edata, $dndeath);
+				$ret = true;
 			}
 		}
-		return;
+		return $ret;
 	}
 	
 	function deathnote_process_core(&$pa, &$pd, $dndeath='')

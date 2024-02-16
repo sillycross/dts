@@ -141,7 +141,7 @@ namespace wep_b
 		$ret = Array();
 		$aris = \itemmain\check_in_itmsk('^ari', $wsk);
 		if(empty($aris)) return $ret;
-		$aris = \attrbase\base64_decode_comp_itmsk($aris);
+		$aris = \itemmain\base64_decode_comp_itmsk($aris);
 		
 		if(!empty($aris)) {
 			$ariarr = explode(',', $aris);
@@ -172,7 +172,7 @@ namespace wep_b
 		if(!empty($ariarr)){
 			//注意这里不会一一检测传入数组的字段是否符合要求
 			$aris = $ariarr['itm'].','.$ariarr['itmk'].','.$ariarr['itme'].','.$ariarr['itms'].','.$ariarr['itmsk'];
-			$wsk .= '^ari_'.\attrbase\base64_encode_comp_itmsk($aris).'1';
+			$wsk .= '^ari_'.\itemmain\base64_encode_comp_itmsk($aris).'1';
 		}
 		return $wsk;
 	}
@@ -232,7 +232,7 @@ namespace wep_b
 		
 		$wepsk_arr = \itemmain\get_itmsk_array($wepsk);
 		$itmsk_arr = \itemmain\get_itmsk_array($itmsk);
-		$arrowmax = (\attrbase\check_in_itmsk('r',$itmsk_arr) || \attrbase\check_in_itmsk('r',$wepsk_arr)) ? 2 + min ( floor(${$skillinfo['B']} / 200), 4 ) : 1;
+		$arrowmax = (\itemmain\check_in_itmsk('r',$itmsk_arr) || \itemmain\check_in_itmsk('r',$wepsk_arr)) ? 2 + min ( floor(${$skillinfo['B']} / 200), 4 ) : 1;
 		$arrownum = min($arrowmax, $itms);
 		$weps = $arrownum;
 		
@@ -337,7 +337,7 @@ namespace wep_b
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$skn = $chprocess($skk, $skn, $sks);
 		if(strpos($skk, '^ari')===0) {
-			$skarr = explode(',',\attrbase\base64_decode_comp_itmsk($sks));
+			$skarr = explode(',',\itemmain\base64_decode_comp_itmsk($sks));
 			$itm = $skarr[0];
 			$itmk_words = \itemmain\parse_itmk_words($skarr[1]);
 			$itme = $skarr[2];
