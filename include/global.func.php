@@ -1131,24 +1131,25 @@ function gshow_len($str){
 }
 
 //生成一个依赖于输入字符串但难以预测的随机大数（>1997）
-function fatenum_create($seed, $len = 10)
+//默认参数理论最大值是18个9，小于64位整型的最大值
+//返回字符串（避免32位或者超过整型范围的情况下丢失精度）
+function fatenum_create($seed, $len = 9)
 {
-	if($len > 32) $len = 32;
-	//经历了crc32()得到负数、大数用%取模得到负数、srand()、32位系统整型变量最大值等不起作用等依赖于硬件环境的BUG以后，现在的代码如下。32位和64位的差别真的头大
+	if($len > 16) $len = 16;
+	//经历了crc32()得到负数、大数用%取模得到负数、srand()、32位系统整型变量最大值不起作用等依赖于硬件环境的BUG以后，现在的代码如下。32位和64位的差别真的头大
 	$hash = md5($seed);
 	$hash = substr($hash, 0, $len).substr($hash, -$len);
 	$fatenum_str = '';
 	$l = strlen($hash);
 	for($i=0;$i<$l;$i++) {
-		if(is_numeric($hash[$i])) $fatenum_str .= $hash[$i];
+		if(is_numeric($hash[$i])) 
+			$fatenum_str .= $hash[$i];
 	}
-	if(!$fatenum_str) {
-		$fatenum = hexdec(substr($hash, 0, 3));
-	}else{
-		$fatenum = (int)$fatenum_str;
+	if(empty($fatenum_str)) {
+		$fatenum_str = hexdec(substr($hash, 0, 3));
 	}
-	if($fatenum < 1997) $fatenum *= 999983;
-	return $fatenum;
+	if((int)$fatenum_str < 1997) $fatenum_str = (int)$fatenum_str * 999983;
+	return (string)$fatenum_str;
 }
 
 //引入bubblebox功能文件

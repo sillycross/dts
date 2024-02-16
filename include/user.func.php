@@ -538,19 +538,22 @@ function compare_ts_pass($rsha, $pass){
 }
 
 //注册验证码相关随机数生成
+//返回值为用字符串表示的数字
 function register_fatenum_create($token = 0){
 	global $now,$game_url;
 	if(!$token) $token = $now.$game_url;
 	list($sec,$min,$hour,$day,$month,$year,$wday) = explode(',',date("s,i,H,j,n,Y,w",$now));
-	$fatenum = fatenum_create($token.$day.$month.$year.$wday.$game_url, 10);
-	return (int)$fatenum;
+	return fatenum_create($token.$day.$month.$year.$wday.$game_url, 10);
 }
 
 //通过$token生成特定范围的随机数
+//采用精确数学库，32位去死吧
 function register_random_create($min, $max, $token = 0)
 {
+	if($max > 2147483647) $max = 2147483647;
+	if($min >= $max) $min = $max - 1;
 	$fatenum = register_fatenum_create($token);
-	return (int) ($fatenum % ($max - $min + 1) + $min);
+	return ((int)bcmod($fatenum, ($max - $min + 1)) + (int)$min);
 }
 
 //验证码问题和回答生成，需要语料库的支持
