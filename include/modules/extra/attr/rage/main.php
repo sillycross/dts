@@ -12,6 +12,7 @@ namespace rage
 		$itemspkremark['c']='……';
 	}
 	
+	//2024.02.16改为继承player模块的同名函数
 	function get_max_rage(&$pa=NULL){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('rage'));

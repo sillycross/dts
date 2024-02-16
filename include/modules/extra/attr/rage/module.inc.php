@@ -3,7 +3,7 @@
 namespace rage
 {
 	////////// MODULE HEADER START ///////////////
-	$___MODULE_dependency = 'weapon itemmain attack attrbase rest weapon';
+	$___MODULE_dependency = 'player weapon itemmain attack attrbase rest weapon';
 	$___MODULE_dependency_optional = '';
 	$___MODULE_conflict = '';
 	$___MODULE_codelist = 'main.php config/rage.config.php';

@@ -122,7 +122,7 @@ namespace skill596
 		{
 			eval(import_module('logger'));
 			$rageup = rand(30,100);
-			$pd['rage'] = min($pd['rage'] + $rageup, \rage\get_max_rage($pd));
+			$pd['rage'] = min($pd['rage'] + $rageup, \player\get_max_rage($pd));
 			if ($rageup > 75)
 			{
 				if ($active) $log .= "<span class=\"yellow b\">{$pd['name']}被你捏造的新闻气晕了！</span><br>";

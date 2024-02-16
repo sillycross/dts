@@ -159,7 +159,7 @@ namespace song
 		$ss_log = $ss_log_2 = array();
 		if(empty($effect)) return $ss_log;
 		eval(import_module('sys','song'));
-		$pdata['mrage'] = \rage\get_max_rage($pdata);
+		$pdata['mrage'] = \player\get_max_rage($pdata);
 		$timeflag = isset($effect['time']);
 		//一些特殊歌的处理
 		if(!empty($effect['special'])){
@@ -340,7 +340,8 @@ namespace song
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return 1;
 	}
-	
+
+	//获取已经学习过的歌
 	function get_available_songlist(&$pdata = NULL)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -349,9 +350,10 @@ namespace song
 			eval(import_module('player'));
 			$pdata = $sdata;
 		}
-		$learnedsongs = \skillbase\skill_getvalue(1003,'learnedsongs',$pdata);
-		if (empty($learnedsongs)) $ls = array();
-		else $ls = explode('_',$learnedsongs);
+
+		$ls = get_learned_songs_with_skill1003();
+		
+		//临时把装备对应的歌加入歌曲列表
 		if ($pdata['artk'] == 'ss')
 		{
 			eval(import_module('song'));
@@ -484,6 +486,7 @@ namespace song
 		return;
 	}
 	
+	//学会歌曲的核心函数
 	function learn_song_process($sn)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -494,9 +497,7 @@ namespace song
 		{
 			if ($sval['songname'] === $sn)
 			{
-				$learnedsongs = \skillbase\skill_getvalue(1003,'learnedsongs');
-				if (empty($learnedsongs)) $ls = array();
-				else $ls = explode('_',$learnedsongs);
+				$ls = get_learned_songs_with_skill1003();
 				if (!in_array($skey, $ls)) 
 				{
 					if(empty($ls)){//第一次学会唱歌给一个提示
@@ -513,8 +514,7 @@ namespace song
 							$tip = '<br><span class="white b">“奇怪，你已经学会了，怎么回事呢？”</span><br><br>';
 						}
 					}
-					$learnedsongs = implode('_',$ls);
-					\skillbase\skill_setvalue(1003,'learnedsongs',$learnedsongs);
+					save_learned_songs_with_skill1003($ls);
 					eval(import_module('logger'));
 					$log .= "你学会了歌曲<span class=\"yellow b\">《{$sval['songname']}》</span>！<br>";
 					
@@ -524,13 +524,42 @@ namespace song
 			}
 		}
 	}
+
+	//从skill1003获取已经学会的歌曲列表
+	//如果skill1003不存在会直接返回空数组，以此避免base模组依赖extra模组
+	function get_learned_songs_with_skill1003()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ret = Array();
+		if(defined('MOD_SKILL1003')){
+			$learnedsongs = \skillbase\skill_getvalue(1003,'learnedsongs');
+			if (!empty($learnedsongs)) 
+				$ret = explode('_',$learnedsongs);
+		}
+		return $ret;
+	}
+
+	//把已经学会的歌曲列表保存到skill1003
+	function save_learned_songs_with_skill1003($ls)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!is_array($ls)) return false;
+		if(defined('MOD_SKILL1003')){
+			$ls = array_unique($ls);
+			$learnedsongs = implode('_',$ls);
+			\skillbase\skill_setvalue(1003,'learnedsongs',$learnedsongs);
+		}
+		return true;
+	}
 	
+	//获取歌词卡片效果
 	function get_song_effect($songcfg)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		return $songcfg['effect'];
 	}
 	
+	//使用歌词卡片（装备）
 	function itemuse(&$theitem)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

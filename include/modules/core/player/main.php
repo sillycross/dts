@@ -578,6 +578,7 @@ namespace player
 		return;
 	}
 	
+	//游戏开局重置角色数据表（player表）
 	function rs_game($xmode)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -743,6 +744,7 @@ namespace player
 		return $kilmsg;
 	}
 	
+	//玩家单次行动的前序处理
 	function pre_act()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -751,6 +753,7 @@ namespace player
 		if ($hp<=0) $player_dead_flag = 1;
 	}
 	
+	//玩家单次行动
 	function act()	
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -776,6 +779,12 @@ namespace player
 		$lastword = $cudata['lastword'];
 	}
 	
+	//返回最大怒气。本模块直接返回100，rage模块进行重载和具体实现。
+	function get_max_rage(&$pa=NULL){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 100;
+	}
+
 	function prepare_response_content()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;

@@ -70,7 +70,7 @@ namespace skill76
 		{
 			$r--; \skillbase\skill_setvalue(76,'rmt',$r,$pa);
 		}
-		$rage = \rage\get_max_rage();
+		$rage = \player\get_max_rage();
 		addnews ( 0, 'bskill76', $name );
 		$log.='<span class="lime b">技能「充能」发动成功。</span><br>';
 	}
