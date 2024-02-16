@@ -170,7 +170,7 @@ namespace skill26
 			$pa['dmg_dealt'] += $pa['ex_dmg_dealt'];
 			//$pa['mult_words_fdmgbs'] = \attack\add_format($pa['ex_dmg_dealt'], $pa['mult_words_fdmgbs']);
 			$pa['ex_dmg_dealt'] = 0;
-			return;
+			return 0;
 		}
 		
 		//只计算武器基础伤害
@@ -191,6 +191,7 @@ namespace skill26
 		$pa['dmg_dealt'] += $dmg;
 		$pa['mult_words_fdmgbs'] = \attack\add_format($dmg, $pa['mult_words_fdmgbs']);
 		$pa['skill26_flag2'] = 2;	//攻击属性判断开始正常返回（按次序计算）
+		return $dmg;
 	}
 	
 	function strike_prepare(&$pa, &$pd, $active)

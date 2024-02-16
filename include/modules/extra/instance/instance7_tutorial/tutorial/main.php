@@ -992,7 +992,7 @@ namespace tutorial
 		if($gametype == 17 && $n=='addnpc'){
 			return;
 		}
-		return $chprocess($t, $n, $a, $b, $c, $d, $e);
+		$chprocess($t, $n, $a, $b, $c, $d, $e);
 	}
 	
 	//教程房天气，禁区时间增加
@@ -1035,7 +1035,7 @@ namespace tutorial
 	function checkcombo($time){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','tutorial'));
-		if (!$tutorial_disable_combo || $gametype!=17) return $chprocess($time);
+		if (!$tutorial_disable_combo || $gametype!=17) $chprocess($time);
 	}
 	
 	//教程房对连斗的伪造显示

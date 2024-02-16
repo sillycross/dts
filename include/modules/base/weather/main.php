@@ -113,7 +113,6 @@ namespace weather
 			\player\update_sdata();
 			$sdata['selflag'] = 1;
 			\player\kill($sdata,$sdata);
-			return;
 		}
 	}
 	

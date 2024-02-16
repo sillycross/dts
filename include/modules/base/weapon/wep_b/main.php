@@ -328,9 +328,8 @@ namespace wep_b
 			$tmp_log_2 = substr($log, strlen($tmp_log));
 			$log = $tmp_log;//暂存一下$log，调整显示顺序，不过可能不利于以后扩展，再说吧……
 		}
-		$ret = $chprocess($edata);
+		$chprocess($edata);
 		if(!empty($tmp_log_2)) $log .= $tmp_log_2;
-		return $ret;
 	}
 	
 	//覆盖$skn返回值，显示箭矢信息

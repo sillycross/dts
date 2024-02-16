@@ -33,7 +33,7 @@ namespace skill1006
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		\skillbase\skill_acquire(1006,$pa);
-		return $chprocess($pa);
+		$chprocess($pa);
 	}
 	
 	//测试用函数

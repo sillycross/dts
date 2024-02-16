@@ -50,7 +50,6 @@ namespace skill531
 		if($dmg >= 100 && (\skillbase\skill_query(531, $pa) || \skillbase\skill_query(531, $pd))) 
 			addnews ( 0, 'damage_signal_531', $pa['name'], $pd['name'], '', $dmg);
 		else $chprocess($pa, $pd, $active, $dmg);
-		return;
 	}
 	
 	//处理生成进行状况

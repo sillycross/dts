@@ -38,7 +38,7 @@ namespace skill262
 			\skillbase\skill_setvalue(262,'ct',$ct,$sdata);
 			//$log .= '$ct='.$ct.'<br>';
 		}
-		return $chprocess($edata);
+		$chprocess($edata);
 	}
 	
 	function skill262_get_pretime(&$pa)

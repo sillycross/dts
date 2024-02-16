@@ -7,23 +7,27 @@ namespace gtype2
 	function prepare_new_game()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return $chprocess();
-		//先ban了
-		eval(import_module('sys'));
-		if (room_check_subroom($room_prefix)) return $chprocess();
-		list($sec,$min,$hour,$day,$month,$year,$wday) = explode(',',date("s,i,H,j,n,Y,w",$now));
-		$tg=$gamenum-3;
-		$res=$db->query("SELECT gametype FROM {$gtablepre}history WHERE gid='$tg'");
-		$gt=2;
-		if ($db->num_rows($res)){
-			$zz=$db->fetch_array($res); $gt=$zz['gametype'];
-		}
-		if ($wday==5 && !$disable_event){
-			if (($hour>=19)&&($hour<21)&&($gt!=2)){ 
-				$gametype=2;
-			}
-		}
 		$chprocess();
+		return;
+		//先ban了
+		// eval(import_module('sys'));
+		// if (room_check_subroom($room_prefix)) {
+		// 	$chprocess();
+		// 	return;
+		// }
+		// list($sec,$min,$hour,$day,$month,$year,$wday) = explode(',',date("s,i,H,j,n,Y,w",$now));
+		// $tg=$gamenum-3;
+		// $res=$db->query("SELECT gametype FROM {$gtablepre}history WHERE gid='$tg'");
+		// $gt=2;
+		// if ($db->num_rows($res)){
+		// 	$zz=$db->fetch_array($res); $gt=$zz['gametype'];
+		// }
+		// if ($wday==5 && !$disable_event){
+		// 	if (($hour>=19)&&($hour<21)&&($gt!=2)){ 
+		// 		$gametype=2;
+		// 	}
+		// }
+		// $chprocess();
 	}
 	
 	//这已经失效了，但是反正这个模式废了，懒得改
@@ -111,7 +115,7 @@ namespace gtype2
 			$pa['itms6']='1';
 			$pa['itmsk6']='';
 		}
-		return $chprocess($pa);
+		$chprocess($pa);
 	}
 	
 	function check_addarea_gameover($atime){

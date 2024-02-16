@@ -382,6 +382,7 @@ namespace weapon
 		$pa['physical_dmg_dealt']+=$fin_dmg;
 		$pa['dmg_dealt']+=$fin_dmg;
 		$pa['mult_words_fdmgbs'] = \attack\add_format($fin_dmg, $pa['mult_words_fdmgbs']);
+		return $fin_dmg;
 	}
 	
 	function calculate_wepimp_rate(&$pa, &$pd, $active)

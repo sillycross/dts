@@ -21,8 +21,6 @@ namespace enemy
 		ob_clean();
 
 		$main = MOD_METMAN_MEETMAN;
-		
-		return true;
 	}
 	
 	function get_battlecmd_filename(){

@@ -31,7 +31,7 @@ namespace skill511
 		if(\skillbase\skill_query(511,$pa) && check_unlocked511($pa)) {
 			$dmg *= rand(233, 998);
 		}
-		return $chprocess($pa, $pd, $active, $dmg);
+		$chprocess($pa, $pd, $active, $dmg);
 	}
 }
 

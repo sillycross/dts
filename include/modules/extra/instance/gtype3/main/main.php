@@ -20,22 +20,23 @@ namespace gtype3
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys'));
 		//宝石乱斗 offline
-		return $chprocess();
-		
-		if (room_check_subroom($room_prefix)) return $chprocess();
-		list($sec,$min,$hour,$day,$month,$year,$wday) = explode(',',date("s,i,H,j,n,Y,w",$now));
-		$tg=$gamenum-4;
-		$res=$db->query("SELECT gametype FROM {$gtablepre}history WHERE gid='$tg'");
-		$gt=3;
-		if ($db->num_rows($res)){
-			$zz=$db->fetch_array($res); $gt=$zz['gametype'];
-		}
-		if ($wday==0 && !$disable_event){
- 			if (($hour>=20)&&($hour<23)&&($gt!=3)){ 
- 				$gametype=3;
- 			}
- 		}
 		$chprocess();
+		return;
+		
+		// if (room_check_subroom($room_prefix)) return $chprocess();
+		// list($sec,$min,$hour,$day,$month,$year,$wday) = explode(',',date("s,i,H,j,n,Y,w",$now));
+		// $tg=$gamenum-4;
+		// $res=$db->query("SELECT gametype FROM {$gtablepre}history WHERE gid='$tg'");
+		// $gt=3;
+		// if ($db->num_rows($res)){
+		// 	$zz=$db->fetch_array($res); $gt=$zz['gametype'];
+		// }
+		// if ($wday==0 && !$disable_event){
+ 		// 	if (($hour>=20)&&($hour<23)&&($gt!=3)){ 
+ 		// 		$gametype=3;
+ 		// 	}
+ 		// }
+		// $chprocess();
 	}
 	
 	function check_addarea_gameover($atime){

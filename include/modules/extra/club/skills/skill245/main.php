@@ -58,7 +58,10 @@ namespace skill245
 	function deal_hailstorm_weather_damage()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(245)) return $chprocess();
+		if (!\skillbase\skill_query(245)) {
+			$chprocess();
+			return;
+		}
 		eval(import_module('sys','player','logger'));
 		$heal = \weather\calculate_hailstorm_weather_damage();
 		$hpup = min($heal, $mhp-$hp); $hpup = max($hpup, 0);
@@ -69,7 +72,10 @@ namespace skill245
 	function apply_tornado_weather_effect()
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(245)) return $chprocess();
+		if (!\skillbase\skill_query(245)) {
+			$chprocess();
+			return;
+		}
 		eval(import_module('logger'));
 		$log .= "<span class=\"lime b\">即使强烈的龙卷风已经把目力所及的一切都搅的一片狼藉，你竟没有受到任何影响便到达了目的地。</span><br>";
 	}

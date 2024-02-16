@@ -51,7 +51,7 @@ namespace achievement_base
 	function post_enterbattlefield_events(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$ret = $chprocess($pa);
+		$chprocess($pa);
 		eval(import_module('sys','achievement_base'));
 		$alist = array();
 		foreach($achlist as $atk => $atv){
@@ -70,7 +70,6 @@ namespace achievement_base
 				&& !\skillbase\skill_query($av,$pa))
 			\skillbase\skill_acquire($av,$pa);
 		}
-		return $ret;
 	}
 	
 	//传入成就数组，进行成就编码

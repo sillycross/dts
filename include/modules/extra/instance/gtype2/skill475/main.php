@@ -95,7 +95,10 @@ namespace skill475
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		if (!\skillbase\skill_query(475)) return $chprocess($edata, $item);
+		if (!\skillbase\skill_query(475)) {
+			$chprocess($edata, $item);
+			return;
+		}
 		
 		if ($edata['type']!=0)	
 		{
@@ -105,7 +108,8 @@ namespace skill475
 				$nbt=((int)\skillbase\skill_getvalue(475,'bounty'))+$btgain;
 				\skillbase\skill_setvalue(475,'bounty',$nbt);
 			}
-			return $chprocess($edata, $item);
+			$chprocess($edata, $item);
+			return;
 		}
 		
 		$w_log='';

@@ -883,7 +883,7 @@ namespace cardbase
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','cardbase'));
-		$ret = $chprocess($pa);
+		$chprocess($pa);
 		$card = $pa['card'];
 		//入场修改$gamevars
 		if(!empty($cards[$card]['valid']['gamevars'])) {
@@ -897,7 +897,6 @@ namespace cardbase
 		if(!empty($card_data[$card]['blink']) && defined('MOD_SKILL1003')) {
 			\skillbase\skill_setvalue(1003,'nowcard_blink',$card_data[$card]['blink'],$pa);
 		}
-		return $ret;
 	}
 	
 	//根据card.config.php的修改时间自动刷新$cardindex也就是各种罕贵的卡编号组成的数组，用于抽卡和随机卡

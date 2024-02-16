@@ -420,7 +420,7 @@ namespace skillbase
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','skillbase'));
-		$ret = $chprocess($pa);
+		$chprocess($pa);
 		
 		//为了灵活性，直接处理所有技能，在固定称号的时候记得要写入skills不然进游戏就没技能了
 		if (!empty($pa['skills'])){
@@ -449,7 +449,6 @@ namespace skillbase
 					\skillbase\skill_acquire($vsv,$pa);
 			}
 		}
-		return $ret;
 	}
 	
 	function check_tempskill_process(&$pa = NULL)

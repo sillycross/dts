@@ -127,7 +127,7 @@ namespace skill493
 				$pl['skill493_o_skillup'] = $pl['skill493_o_expup'] = $pl['skill493_o_rageup'] = 0;
 			}
 		}
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}
 	
 	//单次攻击结束时，根据所选项转化
