@@ -579,7 +579,7 @@ function register_verification_question_get($token = '233'){
 	$magicnum[1] = register_random_create(2, mb_strlen($question_str, 'utf-8') - 1 - $answer_len, $now_fatenum); 
 	$now_fatenum = register_fatenum_create($now_fatenum);
 	$correct_str = mb_substr($question_str, $magicnum[1], $answer_len, 'utf-8');
-	$question_str_display = mb_substr($question_str, 0, $magicnum[1], 'utf-8') . '____' . mb_substr($question_str, $magicnum[1] + $answer_len, mb_strlen($question_str, 'utf-8') - $magicnum[1] - $answer_len, 'utf-8');
+	$question_str_display = mb_substr($question_str, 0, $magicnum[1], 'utf-8') . '▁▁▁▁' . mb_substr($question_str, $magicnum[1] + $answer_len, mb_strlen($question_str, 'utf-8') - $magicnum[1] - $answer_len, 'utf-8');
 	//$arr[] = $fatenum.' '.$magicnum[0].' '.$magicnum[1];
 
 	$wrong_str_arr = Array();

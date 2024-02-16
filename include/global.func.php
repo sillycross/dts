@@ -1134,7 +1134,7 @@ function gshow_len($str){
 function fatenum_create($seed, $len = 10)
 {
 	if($len > 32) $len = 32;
-	//经历了crc32()得到负数、大数用%取模得到负数、srand()不起作用等依赖于硬件环境的BUG以后，现在的代码如下。32位和64位的差别真的头大
+	//经历了crc32()得到负数、大数用%取模得到负数、srand()、32位系统整型变量最大值等不起作用等依赖于硬件环境的BUG以后，现在的代码如下。32位和64位的差别真的头大
 	$hash = md5($seed);
 	$hash = substr($hash, 0, $len).substr($hash, -$len);
 	$fatenum_str = '';
