@@ -33,7 +33,7 @@ namespace skill250
 			eval(import_module('logger'));
 			$log.='<span class="cyan b">“为什么莫名地感到有些不安……” </span><br>';
 		}
-		return $chprocess();
+		$chprocess();
 	}
 	
 	function get_trap_damage_multiplier(&$pa, &$pd, $trap, $damage)

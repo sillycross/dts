@@ -83,7 +83,7 @@ namespace skill440
 				$pa['bskill']=0;
 			}
 		}
-		$chprocess($pa, $pd, $active);
+		return $chprocess($pa, $pd, $active);
 	}	
 	
 	function bufficons_list()

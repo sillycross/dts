@@ -67,7 +67,7 @@ namespace skill222
 				$pa['bskill']=0;
 			}
 		}
-		$chprocess($pa, $pd, $active);
+		return $chprocess($pa, $pd, $active);
 	}	
 	
 	function ex_attack_prepare(&$pa, &$pd, $active)
@@ -84,7 +84,7 @@ namespace skill222
 				else  $log.='<span class="yellow b">「催化」使敌人造成的毒性伤害提高了50%！</span><br>';
 			}
 		}
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}
 	
 	function calculate_ex_single_dmg_multiple(&$pa, &$pd, $active, $key)

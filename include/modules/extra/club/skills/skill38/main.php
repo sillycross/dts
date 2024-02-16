@@ -72,7 +72,7 @@ namespace skill38
 				$pa['bskill']=0;
 			}
 		}
-		$chprocess($pa, $pd, $active);
+		return $chprocess($pa, $pd, $active);
 	}	
 	
 	//必定触发技能35猛击

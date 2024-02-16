@@ -73,7 +73,7 @@ namespace skill237
 				$pa['bskill']=0;
 			}
 		}
-		$chprocess($pa, $pd, $active);
+		return $chprocess($pa, $pd, $active);
 	}	
 	
 	//变化阶段，如果有需要最后变化物理伤害的技能请继承这里

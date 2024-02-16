@@ -62,7 +62,7 @@ namespace skill527
 			$pa['skill527_flag'] = 1;
 			
 		}
-		$chprocess($pa, $pd, $active);
+		return $chprocess($pa, $pd, $active);
 	}	
 	
 	function strike_finish(&$pa, &$pd, $active)

@@ -79,7 +79,7 @@ namespace skill446
 			if ($active) $log .= "<span class=\"yellow b\">敌人的技能「死线」使你的攻击没有造成任何伤害！</span><br>";
 			else $log .= "<span class=\"yellow b\">你的技能「死线」使敌人的攻击没有造成任何伤害！</span><br>";
 		}
-		$chprocess($pa,$pd,$active);
+		return $chprocess($pa,$pd,$active);
 	}
 	
 	function bufficons_list()

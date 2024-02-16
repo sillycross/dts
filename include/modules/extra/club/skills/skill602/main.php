@@ -73,7 +73,7 @@ namespace skill602
 				unset($pa['new_stun_flag']);
 			}
 		}
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}
 	
 	function send_stun_battle_news($aname, $bname)

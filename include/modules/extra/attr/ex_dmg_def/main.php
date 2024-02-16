@@ -115,7 +115,7 @@ namespace ex_dmg_def
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('ex_dmg_att'));
 		foreach ( $ex_attack_list as $key ) $pd['ex_dmg_'.$key.'_defend_success'] = 0;
-		$chprocess($pa, $pd, $active);
+		return $chprocess($pa, $pd, $active);
 	}	
 }
 

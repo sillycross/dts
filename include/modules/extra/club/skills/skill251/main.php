@@ -40,7 +40,7 @@ namespace skill251
 			if ($active) $log .= "<span class=\"yellow b\">敌人的技能「天佑」使你的攻击没有造成任何伤害！</span><br>";
 			else $log .= "<span class=\"yellow b\">你的技能「天佑」使敌人的攻击没有造成任何伤害！</span><br>";
 		}
-		$chprocess($pa,$pd,$active);
+		return $chprocess($pa,$pd,$active);
 	}
 	
 	function kill(&$pa, &$pd)	
@@ -105,7 +105,7 @@ namespace skill251
 			$log .= '<span class="yellow b">你的技能「天佑」被触发，暂时进入了无敌状态！</span><br>';
 			\skillbase\skill_setvalue(251,'start',$now);
 		}
-		return $chprocess($pa, $sdata, $tritm, $damage);
+		$chprocess($pa, $sdata, $tritm, $damage);
 	}
 	
 	function bufficons_list()

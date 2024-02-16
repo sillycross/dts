@@ -75,7 +75,7 @@ namespace skill47
 				$pa['bskill']=0;
 			}
 		}
-		$chprocess($pa, $pd, $active);
+		return $chprocess($pa, $pd, $active);
 	}	
 	
 	function ex_attack_prepare(&$pa, &$pd, $active)
@@ -84,7 +84,7 @@ namespace skill47
 		if ($pa['bskill']!=47) return $chprocess($pa, $pd, $active);
 		eval(import_module('itemmain','logger'));
 		$log.='技能「花雨」附加了<span class="yellow b">'.$itemspkinfo[$pa['skill47_flag']].'</span>属性伤害！<br>';
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}
 	
 	function get_ex_attack_array_core(&$pa, &$pd, $active)

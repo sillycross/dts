@@ -67,7 +67,7 @@ namespace skill216
 				$pa['bskill']=0;
 			}
 		}
-		$chprocess($pa, $pd, $active);
+		return $chprocess($pa, $pd, $active);
 	}	
 	
 	function attack(&$pa, &$pd, $active)

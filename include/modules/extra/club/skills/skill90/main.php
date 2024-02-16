@@ -85,7 +85,7 @@ namespace skill90
 				$pa['bskill']=0;
 			}
 		}
-		$chprocess($pa, $pd, $active);
+		return $chprocess($pa, $pd, $active);
 	}
 	
 	function get_skill90_extra_dmg_gain(&$pa, &$pd, $active)

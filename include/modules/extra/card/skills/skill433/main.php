@@ -46,7 +46,7 @@ namespace skill433
 			}
 			
 		}
-		$chprocess($pa, $pd, $active);
+		return $chprocess($pa, $pd, $active);
 	}	
 	
 	function skill_enabled_core($skillid, &$pa = NULL)

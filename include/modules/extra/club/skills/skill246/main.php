@@ -108,7 +108,7 @@ namespace skill246
 			\skillbase\skill_lost(246, $pa);
 			addnews ( 0, 'bskill246', $pa['name'], $pd['name'] );
 		}
-		$chprocess($pa, $pd, $active);
+		return $chprocess($pa, $pd, $active);
 	}	
 	
 	//命中率增加

@@ -66,7 +66,7 @@ namespace skill223
 				$pa['bskill']=0;
 			}
 		}
-		$chprocess($pa, $pd, $active);
+		return $chprocess($pa, $pd, $active);
 	}	
 	
 	function get_hitrate_change(&$pa,&$pd,$active,$hitrate)

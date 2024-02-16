@@ -123,7 +123,7 @@ namespace skill259
 				$pa['bskill']=0;
 			}
 		}
-		$chprocess($pa, $pd, $active);
+		return $chprocess($pa, $pd, $active);
 	}	
 	
 	function get_skill259_adddmg(&$pa)

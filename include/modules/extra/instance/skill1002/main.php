@@ -58,7 +58,7 @@ namespace skill1002
 			$pa['dmg_dealt']=0;
 			$log .= \battle\battlelog_parser($pa, $pd, $active, "<span class='yellow b'><:pd_name:>的技能「无垢」使<:pa_name:>的攻击没有造成任何伤害！</span><br>");
 		}
-		$chprocess($pa,$pd,$active);
+		return $chprocess($pa,$pd,$active);
 	}
 	
 	function kill(&$pa, &$pd)	//在遇到SCP或蓝凝而死时放嘲讽

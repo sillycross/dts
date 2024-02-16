@@ -324,7 +324,7 @@ namespace ex_dmg_att
 		eval(import_module('ex_dmg_att'));
 		$pa['ex_dmg_dealt'] = 0;
 		foreach ( $ex_attack_list as $key ) $pa['ex_dmg_'.$key.'_dealt'] = 0;
-		$chprocess($pa, $pd, $active);
+		return $chprocess($pa, $pd, $active);
 	}
 	
 	function add_ex_att_noise(&$pa, &$pd, $active)

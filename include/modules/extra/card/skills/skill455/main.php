@@ -38,7 +38,7 @@ namespace skill455
 			if ($active) $log .= "<span class=\"yellow b\">敌人的技能「无敌」使你的攻击没有造成任何伤害！</span><br>";
 			else $log .= "<span class=\"yellow b\">你的技能「无敌」使敌人的攻击没有造成任何伤害！</span><br>";
 		}
-		$chprocess($pa,$pd,$active);
+		return $chprocess($pa,$pd,$active);
 	}
 	
 	function kill(&$pa, &$pd)	//在遇到SCP或蓝凝而死时放嘲讽

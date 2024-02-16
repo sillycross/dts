@@ -123,7 +123,7 @@ namespace skill575
 			}
 			$pa['bskill'] = 0;
 		}
-		$chprocess($pa, $pd, $active);
+		return $chprocess($pa, $pd, $active);
 	}
 	
 	function sk575_give_request(&$pa, &$pd)

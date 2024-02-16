@@ -220,14 +220,14 @@ namespace skill48
 				$pa['bskill']=0;
 			}
 		}
-		$chprocess($pa, $pd, $active);
+		return $chprocess($pa, $pd, $active);
 	}	
 	
 	//主动发动附魔，叠属性伤害加成
 	function ex_attack_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$r=$chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 		if ($pa['bskill']==48) {
 			eval(import_module('itemmain','logger'));
 			$headword = '技能「附魔」';
@@ -246,8 +246,6 @@ namespace skill48
 				\skillbase\skill_setvalue(48,$pa['skill48_flag'],$ori_val,$pa);
 			}
 		}
-		
-		return $r;
 	}
 	
 	//属性伤害增加（被动）

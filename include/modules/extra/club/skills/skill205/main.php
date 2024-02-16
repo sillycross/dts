@@ -80,7 +80,7 @@ namespace skill205
 				$pa['bskill']=0;
 			}
 		}
-		$chprocess($pa, $pd, $active);
+		return $chprocess($pa, $pd, $active);
 	}	
 	
 	function upgrade205()
@@ -136,7 +136,7 @@ namespace skill205
 				else  $log.='<span class="yellow b">「咆哮」使敌人造成的属性伤害提高了80%！</span><br>';
 			}
 		}
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}
 	
 //	function calculate_ex_single_dmg_multiple(&$pa, &$pd, $active, $key)

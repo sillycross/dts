@@ -75,7 +75,7 @@ namespace skill82
 				$pa['bskill']=0;
 			}
 		}
-		$chprocess($pa, $pd, $active);
+		return $chprocess($pa, $pd, $active);
 	}	
 	
 	function get_final_dmg_base(&$pa, &$pd, &$active)

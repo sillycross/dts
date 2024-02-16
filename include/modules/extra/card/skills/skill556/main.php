@@ -102,7 +102,7 @@ namespace skill556
 			}
 			$pa['bskill'] = 0;
 		}
-		$chprocess($pa, $pd, $active);
+		return $chprocess($pa, $pd, $active);
 	}
 	
 	function discover($schmode){

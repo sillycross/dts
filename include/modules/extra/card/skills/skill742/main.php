@@ -75,7 +75,7 @@ namespace skill742
 				\wound\get_inf('p', $pa);
 			}
 		}
-		$chprocess($pa, $pd, $active);
+		return $chprocess($pa, $pd, $active);
 	}
 	
 	//判定复合属性是否显示

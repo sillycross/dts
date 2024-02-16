@@ -22,6 +22,7 @@ namespace attack
 	function apply_total_damage_modifier_invincible(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		return 'dummy';
 	}
 	
 	//特殊变化类，次优先
@@ -83,6 +84,7 @@ namespace attack
 	function apply_damage(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$pd['hp']-=$pa['dmg_dealt'];
+		return $pa['dmg_dealt'];
 	}
 	
 	//伤害通告

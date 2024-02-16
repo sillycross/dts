@@ -48,7 +48,7 @@ namespace skill499
 			$pa['dmg_dealt']=0;
 			$log .= \battle\battlelog_parser($pa, $pd, $active, "<span class='yellow b'><:pd_name:>的技能「决然」使<:pa_name:>的攻击没有造成任何伤害！</span><br>");
 		}
-		$chprocess($pa,$pd,$active);
+		return $chprocess($pa,$pd,$active);
 	}
 	
 	function get_trap_final_damage_modifier_down(&$pa, &$pd, $tritm, $damage)

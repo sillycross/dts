@@ -69,7 +69,7 @@ namespace skill215
 				$pa['bskill']=0;
 			}
 		}
-		$chprocess($pa, $pd, $active);
+		return $chprocess($pa, $pd, $active);
 	}	
 	
 	function ex_attack_prepare(&$pa, &$pd, $active)
@@ -86,7 +86,7 @@ namespace skill215
 				else  $log.='<span class="yellow b">「高能」使敌人造成的爆炸伤害不受影响！</span><br>';
 			}
 		}
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}
 	
 	//计算完爆炸属性伤害基本值后，记录这个基本值

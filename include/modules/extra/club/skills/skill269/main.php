@@ -142,7 +142,7 @@ namespace skill269
 //			\skillbase\skill_setvalue(269,'rmt',$rmt-1,$pa);
 			addnews ( 0, 'bskill269', $pa['name'], $pd['name'] );
 		}
-		$chprocess($pa, $pd, $active);
+		return $chprocess($pa, $pd, $active);
 	}	
 	
 	//物理固伤

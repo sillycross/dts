@@ -131,8 +131,9 @@ namespace skill586
 			}
 			$pa['bskill'] = 0;
 		}
-		$chprocess($pa, $pd, $active);
+		$ret = $chprocess($pa, $pd, $active);
 		if (isset($temp_log)) $log = $temp_log;
+		return $ret;
 	}
 	
 	function strike(&$pa, &$pd, $active)

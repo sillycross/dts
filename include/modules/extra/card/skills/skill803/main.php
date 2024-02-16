@@ -46,7 +46,7 @@ namespace skill803
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (\skillbase\check_skill_info($skillid,'debuff') && \skillbase\skill_query(803,$pa)) return;
-		return $chprocess($skillid,$pa,$no_cover);
+		$chprocess($skillid,$pa,$no_cover);
 	}
 	
 	//受伤免疫
@@ -71,7 +71,7 @@ namespace skill803
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (\skillbase\skill_query(803, $pa)) $pa['inf']='';
 		if (\skillbase\skill_query(803, $pd)) $pd['inf']='';
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}
 	
 	//先制率为0

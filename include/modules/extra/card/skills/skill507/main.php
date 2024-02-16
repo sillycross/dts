@@ -80,7 +80,7 @@ namespace skill507
 		if (!empty($pa['skill507_flag'])) {
 			$log.=\battle\battlelog_parser($pa, $pd, $active, "<span class=\"red b\"><:pa_name:>出其不意地施展出华丽的攻击！<:pd_name:>觉得你大限将至！</span><br>");
 		}
-		$chprocess($pa, $pd, $active);
+		return $chprocess($pa, $pd, $active);
 	}
 	
 	function get_external_att(&$pa,&$pd,$active)

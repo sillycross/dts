@@ -70,8 +70,9 @@ namespace skill560
 				$pa['bskill'] = 0;
 			}
 		}
-		$chprocess($pa, $pd, $active);
+		$ret = $chprocess($pa, $pd, $active);
 		if (isset($temp_log)) $log = $temp_log;
+		return $ret;
 	}
 	
 	//把id加入列表

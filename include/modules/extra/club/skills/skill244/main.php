@@ -67,7 +67,7 @@ namespace skill244
 				$pa['bskill']=0;
 			}
 		}
-		$chprocess($pa, $pd, $active);
+		return $chprocess($pa, $pd, $active);
 	}	
 	
 	function sk244_get_factor_sum(&$pa)
