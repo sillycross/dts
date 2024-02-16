@@ -221,7 +221,7 @@ function module_validity_check($file)
 		return $log;
 	}
 	
-	$func_conts = $func_paras = $func_chp_paras = $func_need_ret = $func_send_ret = Array();
+	$func_conts = $func_paras = $func_chp_paras = $func_send_chp = $func_need_ret = $func_send_ret = Array();
 	for ($z=1; $z<=$n; $z++)
 	{
 		$i=$q[$z]; $modname=$modn[$i];
@@ -247,6 +247,7 @@ function module_validity_check($file)
 				if(false !== strpos($tmp_str, '__MAGIC__')) continue;
 				
 				if(preg_match('/\$chprocess\s*?\((.*?)\)/s', $tmp_str, $matches)) {
+					$func_send_chp[$i][$key] = 1;
 					$tmp_str_2 = trim($matches[1]);
 					if(empty($tmp_str_2)) $cn = 0;
 					else $cn = sizeof(explode(',', $tmp_str_2));
@@ -297,7 +298,7 @@ function module_validity_check($file)
 		$i=$q[$z]; $modname=$modn[$i];
 		foreach ($sup_func_list[$i] as $key) if ($key!='')
 		{
-			$flag2 = $flag3 = $flag4 = 0;
+			$flag2 = $flag3 = $flag4 = $flag5 = 0;
 			$pn = $func_paras[$i][$key];
 			$cn = $func_chp_paras[$i][$key];
 			
@@ -312,7 +313,9 @@ function module_validity_check($file)
 					$flag4_modn = $r;
 					//file_put_contents('a.txt', $flag4_modn.' '.$key.' '.var_export($func_need_ret[$i][$key],1).' '.var_export($func_send_ret[$modn_rvs[$r]][$key],1).' '.$modn_rvs[$r]."\r\n", FILE_APPEND);
 				}
-					
+				if(!$flag5 && empty($func_send_chp[$i][$key]) && !empty($func_send_chp[$modn_rvs[$r]][$key])) {
+					$flag5=1;
+				}
 			}
 				
 			foreach($dependency_optional[$i] as $r) if ($r!=''){
@@ -324,20 +327,26 @@ function module_validity_check($file)
 					$flag4=1;
 					$flag4_modn = $r;
 				}
-					
+				if(!$flag5 && empty($func_send_chp[$i][$key]) && !empty($func_send_chp[$modn_rvs[$r]][$key])) {
+					$flag5=1;
+				}
 			}
 			
 			if ($flag2)
 			{
-				$notice_log .= "<span><font color=\"orange\">模块{$modname}的函数{$key}的参数个数与至少一个所重载的函数不匹配，建议排查。</font></span><br>";
+				$notice_log .= "<span><font color=\"orange\">模块{$modname}的函数{$key}的参数个数与至少一个所重载的函数不匹配，建议检查。</font></span><br>";
 			}
 			if ($flag3)
 			{
-				$notice_log .= "<span><font color=\"orange\">模块{$modname}的函数{$key}的\$chprocess传参个数与至少一个所重载的函数不匹配，建议排查。</font></span><br>";
+				$notice_log .= "<span><font color=\"orange\">模块{$modname}的函数{$key}的\$chprocess传参个数与至少一个所重载的函数不匹配，建议检查。</font></span><br>";
 			}
 			if ($flag4)
 			{
-				$notice_log .= "<span><font color=\"orange\">模块{$flag4_modn}的函数{$key}没有提供返回值，这是模块{$modname}运算所需要的，建议排查。</font></span><br>";
+				$notice_log .= "<span><font color=\"orange\">模块{$flag4_modn}的函数{$key}没有提供返回值，这是模块{$modname}运算所需要的，建议检查。</font></span><br>";
+			}
+			if ($flag5)
+			{
+				$notice_log .= "<span><font color=\"orange\">模块{$modname}的函数{$key}没有执行\$chprocess，如果不是刻意覆盖上一层函数，建议进行检查。</font></span><br>";
 			}
 		}
 	}
