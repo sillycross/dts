@@ -124,14 +124,12 @@ namespace skill202
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		
-		$ret = $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 
 		if ((\skillbase\skill_query(202,$pa))&&(check_unlocked202($pa))&&(\weapon\get_skillkind($pa,$pd,$active) == 'wg'))
 		{
 			$pa['skill202_count']=0;
 		}
-
-		return $ret;
 	}
 		
 	function get_final_dmg_multiplier(&$pa, &$pd, $active)

@@ -41,7 +41,10 @@ namespace skill63
 	function strike_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill']!=63) return $chprocess($pa, $pd, $active);
+		if ($pa['bskill']!=63) {
+			$chprocess($pa, $pd, $active);
+			return;
+		}
 		if (!\skillbase\skill_query(63,$pa) || !check_unlocked63($pa))
 		{
 			eval(import_module('logger'));
@@ -72,7 +75,7 @@ namespace skill63
 				$pa['bskill']=0;
 			}
 		}
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}	
 	
 	function get_final_dmg_multiplier(&$pa, &$pd, $active)

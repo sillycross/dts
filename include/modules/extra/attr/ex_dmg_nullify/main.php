@@ -75,7 +75,7 @@ namespace ex_dmg_nullify
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$pd['exdmg_nullify_success'] = 0;
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}	
 }
 

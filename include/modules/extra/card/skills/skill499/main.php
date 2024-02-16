@@ -42,13 +42,16 @@ namespace skill499
 	
 	function apply_total_damage_modifier_invincible(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(499,$pd)) return $chprocess($pa,$pd,$active);
+		if (!\skillbase\skill_query(499,$pd)) {
+			$chprocess($pa,$pd,$active);
+			return;
+		}
 		eval(import_module('sys','logger','skill499'));
 		if (check_available499($pd) && !in_array($pa['type'],$skill499_no_effect_array)){	//scp和蓝凝无效
 			$pa['dmg_dealt']=0;
 			$log .= \battle\battlelog_parser($pa, $pd, $active, "<span class='yellow b'><:pd_name:>的技能「决然」使<:pa_name:>的攻击没有造成任何伤害！</span><br>");
 		}
-		return $chprocess($pa,$pd,$active);
+		$chprocess($pa,$pd,$active);
 	}
 	
 	function get_trap_final_damage_modifier_down(&$pa, &$pd, $tritm, $damage)

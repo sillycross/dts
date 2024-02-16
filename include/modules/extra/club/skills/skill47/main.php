@@ -40,7 +40,10 @@ namespace skill47
 	function strike_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill']!=47) return $chprocess($pa, $pd, $active);
+		if ($pa['bskill']!=47) {
+			$chprocess($pa, $pd, $active);
+			return;
+		}
 		if (!\skillbase\skill_query(47,$pa) || !check_unlocked47($pa))
 		{
 			eval(import_module('logger'));
@@ -75,13 +78,16 @@ namespace skill47
 				$pa['bskill']=0;
 			}
 		}
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}	
 	
 	function ex_attack_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill']!=47) return $chprocess($pa, $pd, $active);
+		if ($pa['bskill']!=47) {
+			$chprocess($pa, $pd, $active);
+			return;
+		}
 		eval(import_module('itemmain','logger'));
 		$log.='技能「花雨」附加了<span class="yellow b">'.$itemspkinfo[$pa['skill47_flag']].'</span>属性伤害！<br>';
 		$chprocess($pa, $pd, $active);

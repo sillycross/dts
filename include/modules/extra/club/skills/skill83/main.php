@@ -41,7 +41,7 @@ namespace skill83
 			$pa['skill83_owep'] = $pa['wep'];
 			$pa['skill83_owepk'] = $pa['wepk'];
 		}
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}
 	
 	function get_final_dmg_multiplier(&$pa, &$pd, $active)

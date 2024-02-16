@@ -44,7 +44,10 @@ namespace skill237
 	function strike_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill']!=237) return $chprocess($pa, $pd, $active);
+		if ($pa['bskill']!=237) {
+			$chprocess($pa, $pd, $active);
+			return;
+		}
 		if (!\skillbase\skill_query(237,$pa) || !check_unlocked237($pa))
 		{
 			eval(import_module('logger'));
@@ -73,7 +76,7 @@ namespace skill237
 				$pa['bskill']=0;
 			}
 		}
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}	
 	
 	//变化阶段，如果有需要最后变化物理伤害的技能请继承这里

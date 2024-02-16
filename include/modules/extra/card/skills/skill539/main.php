@@ -50,8 +50,7 @@ namespace skill539
 				$log .= '<span class="yellow b">不死鸟的力量唤醒了你，你化为一团火焰重生了！</span><br>';
 			}
 		}
-		
-		return $chprocess();
+		$chprocess();
 	}
 	
 	//被杀时记录被杀时间

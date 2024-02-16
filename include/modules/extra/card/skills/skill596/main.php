@@ -117,7 +117,7 @@ namespace skill596
 	function strike_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$ret = $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 		if (\attrbase\check_in_itmsk('^wflag', \attrbase\get_ex_attack_array($pa, $pd, $active)))
 		{
 			eval(import_module('logger'));
@@ -135,8 +135,7 @@ namespace skill596
 				if ($active) $log .= "<span class=\"red b\">你捏造的新闻让{$pd['name']}怒火中烧！</span><br>";
 				else $log .= "<span class=\"red b\">{$pa['name']}捏造的新闻让你怒火中烧！</span><br>";
 			}
-		}
-		return $ret;
+		}	
 	}
 	
 	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())

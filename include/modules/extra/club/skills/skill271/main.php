@@ -89,7 +89,7 @@ namespace skill271
 	function strike_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		$ret = $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 		if(\skillbase\skill_query(271, $pa) && check_unlocked271($pa)){
 			$t = get_skill271_times($pa, $pd, $active);
 			if($t > 0){
@@ -109,7 +109,6 @@ namespace skill271
 			}
 			
 		}
-		return $ret;
 	}
 	
 //	function get_ex_def_array_core(&$pa, &$pd, $active)

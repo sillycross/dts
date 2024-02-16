@@ -67,7 +67,7 @@ namespace skill517
 				}
 			}
 		}
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}
 	
 	//物理伤害变成0

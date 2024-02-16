@@ -101,7 +101,9 @@ namespace skill41
 	function counter_assault(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(41,$pa) || !check_unlocked41($pa)) return $chprocess($pa,$pd,$active);
+		if (!\skillbase\skill_query(41,$pa) || !check_unlocked41($pa)) {
+			$chprocess($pa,$pd,$active);
+		}
 		eval(import_module('logger'));
 		if ($pa['skill41_proced'])
 		{

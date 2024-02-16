@@ -194,7 +194,7 @@ namespace wep_j
 		eval(import_module('wep_j'));
 		if (strpos($pa['wepk'], 'J')!==false && !in_array($pa['bskill'], $wj_allowed_bskill)) $pa['bskill']=0;
 		
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}
 	
 }

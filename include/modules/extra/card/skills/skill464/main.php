@@ -42,7 +42,7 @@ namespace skill464
 			$$maxwhich++;
 			if (!$active) $log.='你的技能「抖M」使你的最高系熟练度增加了1！<br>';
 		}
-		return $chprocess($pa,$pd,$active);
+		$chprocess($pa,$pd,$active);
 	}
 }
 

@@ -91,7 +91,7 @@ namespace skill436
 			}
 			if ($infochanged && $employer!==NULL) \player\player_save($employer);
 		}
-		return $chprocess($pa);
+		$chprocess($pa);
 	}
 }
 

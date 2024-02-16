@@ -53,7 +53,10 @@ namespace skill440
 	function strike_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill']!=440) return $chprocess($pa, $pd, $active);
+		if ($pa['bskill']!=440) {
+			$chprocess($pa, $pd, $active);
+			return;
+		}
 		if (!\skillbase\skill_query(440,$pa) || !check_unlocked440($pa))
 		{
 			eval(import_module('logger'));
@@ -83,7 +86,7 @@ namespace skill440
 				$pa['bskill']=0;
 			}
 		}
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}	
 	
 	function bufficons_list()
@@ -135,7 +138,10 @@ namespace skill440
 	function strike_finish(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill']!=440) return $chprocess($pa, $pd, $active);
+		if ($pa['bskill']!=440) {
+			$chprocess($pa, $pd, $active);
+			return;
+		}
 		eval(import_module('logger','skill440','skill600','sys'));
 		$var_440=40;
 		if (!\skillbase\skill_query(600,$pd)){

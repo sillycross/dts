@@ -52,7 +52,10 @@ namespace skill86
 	function strike_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill'] != 86) return $chprocess($pa, $pd, $active);
+		if ($pa['bskill'] != 86) {
+			$chprocess($pa, $pd, $active);
+			return;
+		}
 		if (!\skillbase\skill_query(86,$pa) || !check_unlocked86($pa))
 		{
 			eval(import_module('logger'));
@@ -81,7 +84,7 @@ namespace skill86
 				$pa['bskill'] = 0;
 			}
 		}
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}
 	
 	function attack(&$pa, &$pd, $active)

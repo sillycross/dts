@@ -52,13 +52,16 @@ namespace skill1002
 	
 	function apply_total_damage_modifier_invincible(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(1002,$pd)) return $chprocess($pa,$pd,$active);
+		if (!\skillbase\skill_query(1002,$pd)) {
+			$chprocess($pa,$pd,$active);
+			return;
+		}
 		eval(import_module('sys','logger','skill1002'));
 		if ($pa['dmg_dealt'] >= 100 && check_available1002($pd) && !in_array($pa['type'],$skill1002_no_effect_array)){	//scp和蓝凝无效
 			$pa['dmg_dealt']=0;
 			$log .= \battle\battlelog_parser($pa, $pd, $active, "<span class='yellow b'><:pd_name:>的技能「无垢」使<:pa_name:>的攻击没有造成任何伤害！</span><br>");
 		}
-		return $chprocess($pa,$pd,$active);
+		$chprocess($pa,$pd,$active);
 	}
 	
 	function kill(&$pa, &$pd)	//在遇到SCP或蓝凝而死时放嘲讽

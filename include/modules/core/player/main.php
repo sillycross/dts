@@ -793,7 +793,7 @@ namespace player
 	function post_enterbattlefield_events(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return 'dummy';
+		return 1;
 	}
 }
 

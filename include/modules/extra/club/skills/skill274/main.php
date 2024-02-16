@@ -91,7 +91,7 @@ namespace skill274
 				}
 			}
 		}
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}	
 	
 	function upgrade274()

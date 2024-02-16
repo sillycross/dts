@@ -40,7 +40,10 @@ namespace skill38
 	function strike_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill']!=38) return $chprocess($pa, $pd, $active);
+		if ($pa['bskill']!=38) {
+			$chprocess($pa, $pd, $active);
+			return;
+		}
 		if (!\skillbase\skill_query(38,$pa) || !check_unlocked38($pa))
 		{
 			eval(import_module('logger'));
@@ -72,7 +75,7 @@ namespace skill38
 				$pa['bskill']=0;
 			}
 		}
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}	
 	
 	//必定触发技能35猛击

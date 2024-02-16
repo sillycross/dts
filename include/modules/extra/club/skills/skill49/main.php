@@ -69,7 +69,10 @@ namespace skill49
 	function strike_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill']!=49) return $chprocess($pa, $pd, $active);
+		if ($pa['bskill']!=49) {
+			$chprocess($pa, $pd, $active);
+			return;
+		}
 		if (!\skillbase\skill_query(49,$pa) || !check_unlocked49($pa))
 		{
 			eval(import_module('logger'));
@@ -98,7 +101,7 @@ namespace skill49
 				$pa['bskill']=0;
 			}
 		}
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}	
 	
 	//必中

@@ -37,7 +37,10 @@ namespace skill102
 	function strike_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill']!=102) return $chprocess($pa, $pd, $active);
+		if ($pa['bskill']!=102) {
+			$chprocess($pa, $pd, $active);
+			return;
+		}
 		if (!\skillbase\skill_query(102,$pa) || !check_unlocked102($pa))
 		{
 			eval(import_module('logger'));
@@ -66,7 +69,7 @@ namespace skill102
 				$pa['bskill']=0;
 			}
 		}
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}
 	
 	//额外攻击力

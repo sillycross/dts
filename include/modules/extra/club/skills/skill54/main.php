@@ -61,7 +61,10 @@ namespace skill54
 	function ex_attack_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(54,$pd) || !check_unlocked54($pd)) return $chprocess($pa, $pd, $active);
+		if (!\skillbase\skill_query(54,$pd) || !check_unlocked54($pd)) {
+			$chprocess($pa, $pd, $active);
+			return;
+		}
 		if (count(\attrbase\get_ex_attack_array($pa,$pd,$active))>0)
 		{
 			eval(import_module('logger'));

@@ -37,7 +37,10 @@ namespace skill105
 	function strike_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill']!=105) return $chprocess($pa, $pd, $active);
+		if ($pa['bskill']!=105) {
+			$chprocess($pa, $pd, $active);
+			return;
+		}
 		if (!\skillbase\skill_query(105,$pa) || !check_unlocked105($pa))
 		{
 			eval(import_module('logger'));
@@ -66,7 +69,7 @@ namespace skill105
 				$pa['bskill']=0;
 			}
 		}
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}
 	
 	function get_skill104_actrate(&$pa)

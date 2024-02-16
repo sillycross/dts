@@ -7,7 +7,6 @@ namespace attack
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		unset($pa['seckill'], $pd['seckill']);
-		return 'dummy';
 	}
 	
 	//打击进行

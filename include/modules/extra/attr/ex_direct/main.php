@@ -28,7 +28,7 @@ namespace ex_direct
 			$log .= \battle\battlelog_parser($pa, $pd, $active, '<span class="yellow b"><:pa_name:>的攻击无视了<:pd_name:>的一切技能！</span><br>');
 			$pd['direct_ignore_skills']=1;
 		}
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}	
 	
 	function skill_enabled_core($skillid, &$pa = NULL)

@@ -765,7 +765,7 @@ namespace tutorial
 				//没设定active则放弃这一段判定，正常判定meetman
 			}
 		}
-		return $chprocess($edata);
+		$chprocess($edata);
 	}
 	
 	//递送道具时无视teamID
@@ -862,7 +862,7 @@ namespace tutorial
 				return;
 			}
 		}
-		return $chprocess($pa, $pd, $active, $key);
+		$chprocess($pa, $pd, $active, $key);
 	}
 	
 	//接管itemuse()，主要为了推进

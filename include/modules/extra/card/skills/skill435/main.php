@@ -114,7 +114,10 @@ namespace skill435
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','skill435'));
-		if (!\skillbase\skill_query(435) || !check_unlocked435($sdata)) return $chprocess();
+		if (!\skillbase\skill_query(435) || !check_unlocked435($sdata)) {
+			$chprocess();
+			return;
+		}
 		//工资结算有两处：
 		//1. 雇佣者主动行动时（触发skill436）
 		//2. 保安被人摸到时（由skill436处理）

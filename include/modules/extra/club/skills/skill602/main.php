@@ -157,7 +157,7 @@ namespace skill602
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (check_skill602_state($pd)) $pd['stun_flag']=1;
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}
 	
 	/*function get_final_dmg_multiplier(&$pa, &$pd, $active)

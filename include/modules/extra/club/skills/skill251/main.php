@@ -31,7 +31,10 @@ namespace skill251
 	
 	function apply_total_damage_modifier_invincible(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(251,$pd)) return $chprocess($pa,$pd,$active);
+		if (!\skillbase\skill_query(251,$pd)) {
+			$chprocess($pa,$pd,$active);
+			return;
+		}
 		eval(import_module('sys','logger','skill251'));
 		$s=(int)\skillbase\skill_getvalue(251,'start',$pd);
 		$x=$now-$s;
@@ -40,7 +43,7 @@ namespace skill251
 			if ($active) $log .= "<span class=\"yellow b\">敌人的技能「天佑」使你的攻击没有造成任何伤害！</span><br>";
 			else $log .= "<span class=\"yellow b\">你的技能「天佑」使敌人的攻击没有造成任何伤害！</span><br>";
 		}
-		return $chprocess($pa,$pd,$active);
+		$chprocess($pa,$pd,$active);
 	}
 	
 	function kill(&$pa, &$pd)	

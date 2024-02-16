@@ -62,7 +62,7 @@ namespace skill803
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (\skillbase\skill_query(803, $pd)) return;
-		return $chprocess($pa, $pd, $active, $key);
+		$chprocess($pa, $pd, $active, $key);
 	}
 	
 	//清除异常

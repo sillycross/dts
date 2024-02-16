@@ -71,9 +71,9 @@ namespace ex_attr_trap
 		
 		if (\attrbase\check_itmsk('m'))
 			if (check_trapdef_proc())
-				return;
+				return 0;
 	
-		$chprocess();
+		return $chprocess();
 	}
 	
 	function trap_miss_broken()

@@ -29,14 +29,17 @@ namespace skill423
 
 	function apply_total_damage_modifier_invincible(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(423,$pd) || !check_unlocked423($pd)) return $chprocess($pa,$pd,$active);
+		if (!\skillbase\skill_query(423,$pd) || !check_unlocked423($pd)) {
+			$chprocess($pa,$pd,$active);
+			return;
+		}
 		eval(import_module('logger'));
 		if ($pa['type']==88){
 			$pa['dmg_dealt']=0;
 			if ($active) $log .= "<span class=\"yellow b\">你的攻击被敌人完全化解了！</span><br>";
 			else $log .= "<span class=\"yellow b\">不知为什么，敌人穷凶极恶的攻击只是轻轻地落在了你的身后。</span><br>";
 		}
-		return $chprocess($pa,$pd,$active);
+		$chprocess($pa,$pd,$active);
 	}
 	
 	//面对scp时，如果场上玩家数大于等于2，玩家攻击获得经验恒为1。

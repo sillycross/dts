@@ -111,7 +111,7 @@ namespace skill961
 				return;
 			}
 		}
-		return $chprocess($edata);
+		$chprocess($edata);
 	}
 	
 	//战斗中NPC有小概率会受到伤害

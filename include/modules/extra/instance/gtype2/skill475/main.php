@@ -76,7 +76,7 @@ namespace skill475
 			if ($hp<=0 && $now>=$endtime+$skill475_revive_time)	//复活
 				sk475_revive_player($sdata);
 		}
-		return $chprocess();
+		$chprocess();
 	}
 	
 	function skill_onload_event(&$pa)
@@ -88,7 +88,7 @@ namespace skill475
 			if ($pa['hp']<=0 && $now>=$pa['endtime']+$skill475_revive_time)	//复活
 				sk475_revive_player($pa);
 		}
-		return $chprocess($pa);
+		$chprocess($pa);
 	}
 	
 	function getcorpse_action(&$edata, $item)

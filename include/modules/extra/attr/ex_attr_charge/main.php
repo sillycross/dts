@@ -55,7 +55,7 @@ namespace ex_attr_charge
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$pa['physical_charge_success'] = 0;
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}
 }
 

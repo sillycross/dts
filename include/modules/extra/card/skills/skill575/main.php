@@ -92,7 +92,10 @@ namespace skill575
 		//如果攻击者有难题技能，并且受攻击者有寻宝技能
 		if (\skillbase\skill_query(575,$pa) && check_unlocked575($pa) && \skillbase\skill_query(576,$pd)) $pd['skill575_flag'] = 1;
 
-		if ($pa['bskill'] != 575) return $chprocess($pa, $pd, $active);
+		if ($pa['bskill'] != 575) {
+			$chprocess($pa, $pd, $active);
+			return;
+		}
 		if (!\skillbase\skill_query(575,$pa) || !check_unlocked575($pa))
 		{
 			eval(import_module('logger'));
@@ -123,7 +126,7 @@ namespace skill575
 			}
 			$pa['bskill'] = 0;
 		}
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}
 	
 	function sk575_give_request(&$pa, &$pd)

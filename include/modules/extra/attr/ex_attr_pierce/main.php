@@ -131,7 +131,7 @@ namespace ex_attr_pierce
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$pa['physical_pierce_success'] = $pa['attr_pierce_success'] = 0;
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}
 	
 	//双穿同时生效时控血失效

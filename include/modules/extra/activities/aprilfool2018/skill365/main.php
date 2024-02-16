@@ -106,7 +106,8 @@ namespace skill365
 			$cnt = \skillbase\skill_getvalue(365,'cnt',$pa);
 			\skillbase\skill_setvalue(365,'cnt',$cnt+$var,$pa);
 		}
-		return $chprocess($pa, $pd, $active);
+		$ret = $chprocess($pa, $pd, $active);
+		return $ret;
 	}
 	
 	function activity_ranking_show365()

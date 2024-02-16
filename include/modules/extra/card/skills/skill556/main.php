@@ -73,7 +73,10 @@ namespace skill556
 	function strike_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill'] != 556) return $chprocess($pa, $pd, $active);
+		if ($pa['bskill'] != 556) {
+			$chprocess($pa, $pd, $active);
+			return;
+		}
 		if (!\skillbase\skill_query(556,$pa) || !check_unlocked556($pa))
 		{
 			eval(import_module('logger'));
@@ -102,7 +105,7 @@ namespace skill556
 			}
 			$pa['bskill'] = 0;
 		}
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}
 	
 	function discover($schmode){

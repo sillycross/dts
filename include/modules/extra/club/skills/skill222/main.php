@@ -38,7 +38,10 @@ namespace skill222
 	function strike_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill']!=222) return $chprocess($pa, $pd, $active);
+		if ($pa['bskill']!=222) {
+			$chprocess($pa, $pd, $active);
+			return;
+		}
 		if (!\skillbase\skill_query(222,$pa) || !check_unlocked222($pa))
 		{
 			eval(import_module('logger'));
@@ -67,7 +70,7 @@ namespace skill222
 				$pa['bskill']=0;
 			}
 		}
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}	
 	
 	function ex_attack_prepare(&$pa, &$pd, $active)

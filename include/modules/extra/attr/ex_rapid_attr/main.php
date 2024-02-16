@@ -144,7 +144,7 @@ namespace ex_rapid_attr
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$pa['is_rapid_strike'] = 0;
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}
 }
 

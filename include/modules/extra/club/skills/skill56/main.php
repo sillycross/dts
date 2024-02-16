@@ -114,7 +114,10 @@ namespace skill56
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('sys','player','skill56'));
-		if (!\skillbase\skill_query(56) || !check_unlocked56($sdata)) return $chprocess();
+		if (!\skillbase\skill_query(56) || !check_unlocked56($sdata)) {
+			$chprocess();
+			return;
+		}
 		//工资结算有两处：
 		//1. 雇佣者主动行动时（触发skill57）
 		//2. 佣兵被人摸到时（由skill57处理）

@@ -456,7 +456,7 @@ namespace weapon
 		$pa['fin_skill']=get_skill($pa,$pd,$active);
 		$pa['fin_hitrate']=get_hitrate($pa,$pd,$active);
 		
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}
 	
 	//返回攻击方式的$log描述

@@ -165,7 +165,10 @@ namespace skill48
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if ($active && \skillbase\skill_query(48,$pa) && check_unlocked48($pa) && empty($pa['bskill']) && (2 == \skillbase\skill_getvalue(48,'choice',$pa))) $pa['bskill']=48;
-		if ($pa['bskill']!=48) return $chprocess($pa, $pd, $active);
+		if ($pa['bskill']!=48) {
+			$chprocess($pa, $pd, $active);
+			return;
+		};
 		if (!\skillbase\skill_query(48,$pa) || !check_unlocked48($pa))
 		{
 			eval(import_module('logger'));
@@ -220,7 +223,7 @@ namespace skill48
 				$pa['bskill']=0;
 			}
 		}
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}	
 	
 	//主动发动附魔，叠属性伤害加成

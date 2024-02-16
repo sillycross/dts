@@ -396,7 +396,7 @@ namespace wep_b
 			unset($pa['attackwith_arrowarr']);
 		}
 		
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}
 	
 	//在重置$sdata前后，保留箭矢信息

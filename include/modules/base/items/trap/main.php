@@ -219,6 +219,8 @@ namespace trap
 		}
 		
 		send_trap_enemylog(1);
+
+		return $damage;
 	}
 	
 	function trap_hit()

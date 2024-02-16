@@ -22,7 +22,6 @@ namespace attack
 	function apply_total_damage_modifier_invincible(&$pa,&$pd,$active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		return 'dummy';
 	}
 	
 	//特殊变化类，次优先

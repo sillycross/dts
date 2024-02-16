@@ -159,7 +159,7 @@ namespace gtype1
 				return;
 			}
 		}
-		return $chprocess($edata);
+		$chprocess($edata);
 	}
 	//接管calculate_hide_obbs，玩家隐蔽率上升40%（不然太容易互相遭遇）
 	function calculate_hide_obbs(&$edata)

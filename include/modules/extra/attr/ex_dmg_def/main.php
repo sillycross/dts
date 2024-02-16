@@ -99,7 +99,7 @@ namespace ex_dmg_def
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		//如果刚才防御成功了，不会中异常状态
 		if ($pd['ex_dmg_'.$key.'_defend_success'] == 1) return;
-		return $chprocess($pa, $pd, $active, $key);
+		$chprocess($pa, $pd, $active, $key);
 	}
 	
 	function calculate_ex_single_dmg_multiple(&$pa, &$pd, $active, $key)
@@ -115,7 +115,7 @@ namespace ex_dmg_def
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('ex_dmg_att'));
 		foreach ( $ex_attack_list as $key ) $pd['ex_dmg_'.$key.'_defend_success'] = 0;
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}	
 }
 

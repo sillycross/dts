@@ -30,7 +30,10 @@ namespace skill455
 	
 	function apply_total_damage_modifier_invincible(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(455,$pd)) return $chprocess($pa,$pd,$active);
+		if (!\skillbase\skill_query(455,$pd)) {
+			$chprocess($pa,$pd,$active);
+			return;
+		}
 		eval(import_module('sys','logger','skill455'));
 		$x=$now-$starttime;
 		if ($x<=$skill455_act_time && !in_array($pa['type'],$skill455_no_effect_array)){	//scp和蓝凝无效
@@ -38,7 +41,7 @@ namespace skill455
 			if ($active) $log .= "<span class=\"yellow b\">敌人的技能「无敌」使你的攻击没有造成任何伤害！</span><br>";
 			else $log .= "<span class=\"yellow b\">你的技能「无敌」使敌人的攻击没有造成任何伤害！</span><br>";
 		}
-		return $chprocess($pa,$pd,$active);
+		$chprocess($pa,$pd,$active);
 	}
 	
 	function kill(&$pa, &$pd)	//在遇到SCP或蓝凝而死时放嘲讽

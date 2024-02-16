@@ -68,7 +68,10 @@ namespace skill26
 	function check_ex_inf_infliction(&$pa, &$pd, $active, $key)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill']!=26) return $chprocess($pa, $pd, $active,$key);
+		if ($pa['bskill']!=26) {
+			$chprocess($pa, $pd, $active,$key);
+			return;
+		}
 		if ($pa['skill26_flag3']==1) return;
 		$chprocess($pa, $pd, $active, $key);
 	}
@@ -193,7 +196,10 @@ namespace skill26
 	function strike_prepare(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill']!=26) return $chprocess($pa, $pd, $active);
+		if ($pa['bskill']!=26) {
+			$chprocess($pa, $pd, $active);
+			return;
+		}
 		if (!\skillbase\skill_query(26,$pa) || !check_unlocked26($pa))
 		{
 			eval(import_module('logger'));
@@ -226,13 +232,16 @@ namespace skill26
 				$pa['bskill']=0;
 			}
 		}
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}	
 	
 	function strike_finish(&$pa, &$pd, $active)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if ($pa['bskill']!=26) return $chprocess($pa, $pd, $active);
+		if ($pa['bskill']!=26) {
+			$chprocess($pa, $pd, $active);
+			return;
+		}
 		if ($pa['is_hit'])
 		{
 			//进行一次火焰受伤判定

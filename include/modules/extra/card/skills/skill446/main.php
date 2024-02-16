@@ -71,7 +71,10 @@ namespace skill446
 	
 	function apply_total_damage_modifier_invincible(&$pa,&$pd,$active){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!\skillbase\skill_query(446,$pd) || !check_unlocked446($pd)) return $chprocess($pa,$pd,$active);
+		if (!\skillbase\skill_query(446,$pd) || !check_unlocked446($pd)) {
+			$chprocess($pa,$pd,$active);
+			return;
+		}
 		eval(import_module('logger','skill446'));
 		$var_446=check_skill446_state($pd);
 		if ($var_446==1){
@@ -79,7 +82,7 @@ namespace skill446
 			if ($active) $log .= "<span class=\"yellow b\">敌人的技能「死线」使你的攻击没有造成任何伤害！</span><br>";
 			else $log .= "<span class=\"yellow b\">你的技能「死线」使敌人的攻击没有造成任何伤害！</span><br>";
 		}
-		return $chprocess($pa,$pd,$active);
+		$chprocess($pa,$pd,$active);
 	}
 	
 	function bufficons_list()

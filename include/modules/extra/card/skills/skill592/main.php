@@ -45,7 +45,7 @@ namespace skill592
 				\skillbase\skill_setvalue(592, 'tsk_expire', $now + $debuff_time, $pd);
 			}
 		}
-		return $chprocess($pa, $pd, $active);
+		$chprocess($pa, $pd, $active);
 	}
 	
 	function get_skill592_debuff_time($pa)
