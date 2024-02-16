@@ -276,17 +276,14 @@ namespace item_randskills
 		else return array();
 	}
 	
+	//获得随机称号技能
 	function get_rand_clubskill(&$pa, $count, $sktype='all')
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		eval(import_module('item_randskills'));
-		$ls_skills = get_skilllist($sktype);
-		//排除已学会的技能
-		$ls_skills = array_diff($ls_skills, \skillbase\get_acquired_skill_array($pa));
 		
-		if (empty($ls_skills)) return array();
-		$rs_skills = array_randompick($ls_skills, $count);
-		if (!is_array($rs_skills)) $rs_skills = [$rs_skills];
+		$rs_skills = choose_rand_clubskill($pa, $count, $sktype);
+		
 		foreach ($rs_skills as $skillid)
 		{
 			\skillbase\skill_acquire($skillid, $pa);
@@ -296,6 +293,20 @@ namespace item_randskills
 				foreach ($rs_feature[$skillid] as $extra_skillid) \skillbase\skill_acquire($extra_skillid, $pa);
 			}
 		}
+		return $rs_skills;
+	}
+
+	//生成随机技能列表（但不获得）
+	function choose_rand_clubskill(&$pa, $count, $sktype='all')
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$ls_skills = get_skilllist($sktype);
+		//排除已学会的技能
+		$ls_skills = array_diff($ls_skills, \skillbase\get_acquired_skill_array($pa));
+		
+		if (empty($ls_skills)) return array();
+		$rs_skills =  array_randompick($ls_skills, $count);
+		if (!is_array($rs_skills)) $rs_skills = [$rs_skills];
 		return $rs_skills;
 	}
 	

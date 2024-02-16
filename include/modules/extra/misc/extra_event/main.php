@@ -224,7 +224,7 @@ namespace extra_event
 					//随机获得技能
 					do{
 						if(defined('MOD_ITEM_RANDSKILLS')) {
-							$get_skill_id = \item_randskills\get_rand_clubskill($sdata, 1)[0];
+							$get_skill_id = \item_randskills\choose_rand_clubskill($sdata, 1)[0];
 						}else{
 							$get_skill_id = array_randompick(Array(13, 14, 15, 16, 17, 18));
 						}
