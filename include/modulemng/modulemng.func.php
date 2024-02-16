@@ -231,33 +231,34 @@ function module_validity_check($file)
 
 			$reflect = new ReflectionFunction('\\'.$modname.'\\'.$key);
 			$pn = sizeof($reflect->getParameters());
-			if(!isset($func_paras[$i])) $func_paras[$i] = Array();
+			$filename = $reflect->getFileName();
 			$func_paras[$i][$key] = $pn;
 
 			if(!function_exists('strip_comments')) include_once './include/modulemng/modulemng.codeadv2.func.php';
-			if(!isset($func_conts[$i])) {
-				$func_conts[$i] = explode("\n",strip_comments(file_get_contents($reflect->getFileName())));
+			if(!isset($func_conts[$i][$filename])) {
+				$func_conts[$i][$filename] = explode("\n",strip_comments(file_get_contents($filename)));
+				//if('sys' == $modname && 'get_valid_disp_user_info' == $key) gwrite_var('b.txt', strip_comments(file_get_contents($filename)));
 			}
 			$cn = -1;
 			$rs = 0;
 			if(!isset($func_chp_paras[$i])) $func_chp_paras[$i] = Array();
-			for ($ii = $reflect->getStartLine() - 1; $ii < $reflect->getEndLine(); $ii++) {
-				$tmp_str = $func_conts[$i][$ii];
+			for ($ii = $reflect->getStartLine(); $ii < $reflect->getEndLine(); $ii++) {
+				$tmp_str = $func_conts[$i][$filename][$ii];
 				if(false !== strpos($tmp_str, '__MAGIC__')) continue;
 				
-				if(preg_match('/(=*)\s*?\$chprocess\s*?\((.*?)\)/s', $tmp_str, $matches)) {
+				if(preg_match('/\$chprocess\s*?\((.*?)\)/s', $tmp_str, $matches)) {
 					$tmp_str_2 = trim($matches[1]);
-					if(!empty($tmp_str_2)) $func_need_ret[$i][$key] = 1;
-					$tmp_str_3 = trim($matches[2]);
-					if(empty($tmp_str_3)) $cn = 0;
-					else $cn = sizeof(explode(',', $tmp_str_3));
+					if(empty($tmp_str_2)) $cn = 0;
+					else $cn = sizeof(explode(',', $tmp_str_2));
+
+					$tmp_str_3 = substr($tmp_str, 0, strpos($tmp_str, '$chprocess'));
+					//if('skill71' == $modname && 'strike_prepare' == $key) file_put_contents('n.txt', $tmp_str, FILE_APPEND);
+					if(preg_match('/return\s+?\$chprocess/s', $tmp_str) || preg_match('/=\s+?\$chprocess/s', $tmp_str)) $func_need_ret[$i][$key] = 1;
 				}
 
 				if(preg_match('/return\s*?.+?\;/s', $tmp_str)) {
-					if(!isset($func_send_ret[$i])) $func_send_ret[$i] = Array();
 					$rs = 1;
 				}
-				//if('enemy' == $modname && 'findenemy' == $key) gwrite_var('n.txt', $tmp_str);
 			}
 			$func_chp_paras[$i][$key] = $cn;
 			$func_send_ret[$i][$key] = $rs;
