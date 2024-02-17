@@ -35,7 +35,7 @@ function bubblebox_set_default()
 		'opacity' => 0.95,	//气泡框本体不透明度
 		'cancellable' => 0,	//是否允许通过点击气泡框外面任意位置来消除气泡框	
 		'change-to' => '', //消除气泡框后立刻显示的气泡框，相当于跳转，虽然没有用上
-		'scroll-bar' => 1,	//是否显示滚动条
+		'scroll-bar' => 0,	//是否显示滚动条，这是基于jscrollpane控件生成的滚动条，目前已弃用，改为css滚动条
 		//下面是各种杂项设置，一般不需要改动，直接用默认配置就行
 		'border-width-x' => 5,	//横向半透明边缘宽度
 		'border-width-y' => 5,	//纵向半透明边缘宽度

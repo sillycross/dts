@@ -343,6 +343,24 @@ table.radar{
 	border:0;margin:0;border-collapse:collapse;border-spacing:0;text-align:center;
 }
 table.radar tr{height:20px;}
+/*==========tooltip样式，韩的常磐，不过可能最早是多鲁基弄的==========*/
+[tooltip] {
+    position: relative;
+}
+[tooltip]:hover::before {
+    content: attr(tooltip);
+	position: absolute;
+	transform: translate(30px, 20px);
+	display: inline-block;
+	color: #ccc;
+	padding: 6px; text-align: left; white-space:pre-line;
+	/*text-shadow:1px 1px 1px rgb(106, 0, 108); text-fill-color: rgb(245, 174, 246); -webkit-text-fill-color: rgb(245, 174, 246);*/
+	/*background-clip: border-box; background-color: rgba(198, 114, 199, 0.8);*/
+	background-color:rgba(0,0,0,0.8); *BACKGROUND: rgb(0,0,0); *filter:alpha(opacity=80); 
+	border-radius: 8px; border-width: 0;	
+	
+    width:max-content; max-width: 200px; position: absolute; z-index: 5;
+}
 /*==========技能==========*/
 table.skilltable{
 	height:100%; width:100%; 

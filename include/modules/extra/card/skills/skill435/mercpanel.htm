@@ -35,7 +35,7 @@
 <!--{eval $nowmerc = \player\fetch_playerdata_by_pid($now_mercpid);}-->
 
 <!--{if $nowmerc['hp']>0}-->
-<!--{eval bubblebox_start('id:showmercdata'.$i.';height:250;width:752;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:20px;scroll-bar:none;');}-->
+<!--{eval bubblebox_start('id:showmercdata'.$i.';height:250;width:752;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:20px;scroll-bar:0;');}-->
 <!--{eval \npcinfo\npcinfo_get_npc_description(25, $now_merctype, $nowmerc);}-->
 <!--{eval bubblebox_end();}-->
 <!--{/if}-->
@@ -115,7 +115,7 @@
 <td class="b1" height=20px>解雇佣兵</td>
 <td class="b3" colspan=3>
 
-<!--{eval bubblebox_start('id:firemercverify'.$i.';height:100;width:300;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:20px;scroll-bar:none;');}-->
+<!--{eval bubblebox_start('id:firemercverify'.$i.';height:100;width:300;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:20px;scroll-bar:0;');}-->
 <table height=100% width=100% CellSpacing=0 CellPadding=0>
 <tr><td height=50px colspan=2 class="b3">
 你确定要解雇佣兵<span class="yellow b">$nowmerc['name']</span>吗？

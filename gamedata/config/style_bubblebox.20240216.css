@@ -2,8 +2,11 @@
 	position:absolute; 
 	top:50%; 
 	left:50%; 
-	filter:alpha(opacity=20); opacity:0.2; 
+	filter:alpha(opacity=40); opacity:0.4; 
 	background-color:#000000;
+	-webkit-border-radius: 12px; 
+	-moz-border-radius: 12px;
+	border-radius: 12px;
 }
 
 .bubblebox_screen_fader{
@@ -15,6 +18,9 @@
 	top:50%; 
 	left:50%; 
 	background-color:#000000;
+	-webkit-border-radius: 8px; 
+	-moz-border-radius: 8px;
+	border-radius: 8px;
 }
 
 .bubblebox_positioner{
