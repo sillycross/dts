@@ -1,8 +1,8 @@
 <div id="fmsgbox{$bbox_id}" style="display:none">
 
 <!--构建半透明外缘-->
-<div class="bubblebox_positioner" style="z-index:{$bbox_z_index_base_tie1};">
-	<div class="bubblebox_positioner_miner" style="z-index:{$bbox_z_index_base_tie2}; 
+<div class="bubblebox_positioner" style="z-index:calc({$bbox_z_index_base} + 3);">
+	<div class="bubblebox_positioner_miner" style="z-index:calc({$bbox_z_index_base} + 4); 
 		margin-top:{$bbox_positioner_miner_margin_top}px; 
 		margin-left:{$bbox_positioner_miner_margin_left}px;
 		min-width:{$bbox_positioner_miner_min_width}px; 
@@ -15,9 +15,9 @@
 
 <!--构建文本框-->
 <!--全屏背景降低+跳出点击区-->
-<div class="bubblebox_positioner bubblebox_screen_fader" style="z-index:{$bbox_z_index_base_tie1};" 
+<div class="bubblebox_positioner bubblebox_screen_fader" style="z-index:calc({$bbox_z_index_base} + 3);" 
 	<!--{if !empty($bbox_change_to)}--> onclick="bubblebox_show('{$bbox_change_to}');bubblebox_hide('{$bbox_id}');"<!--{elseif !empty($bbox_cancellable)}--> onclick="bubblebox_hide('{$bbox_id}');"<!--{/if}-->>
-	<div class="bubblebox_screen_fader_miner" style="z-index:{$bbox_z_index_base_tie3};
+	<div class="bubblebox_screen_fader_miner" style="z-index:calc({$bbox_z_index_base} + 5);
 		margin-top:{$bbox_screen_fader_miner_margin_top}px; 
 		margin-left:{$bbox_screen_fader_miner_margin_left}px;
 		min-width:{$bbox_screen_fader_miner_min_width}px;
@@ -28,7 +28,7 @@
 		opacity:{$bbox_opacity};" 
 		onclick="if (event.stopPropagation) event.stopPropagation(); else event.cancelBubble = true; "
 	>
-		<div class="bubblebox_container" style="z-index:{$bbox_z_index_base_tie4};
+		<div class="bubblebox_container" style="z-index:calc({$bbox_z_index_base} + 6);
 			margin-left:{$bbox_margin_left}px;
 			margin-top:{$bbox_margin_top}px;
 			margin-right:0px;
@@ -36,8 +36,5 @@
 			min-height:{$bubblebox_container_min_height}px;
 			max-height:{$bubblebox_container_max_height}px;"
 		>
-			<div class="bubblebox_container_miner" <!--{eval if ($bbox_scroll_bar) echo 'class="scroll-pane'.$bbox_id.'"';}--> 
-				style="max-height:{$bbox_height}px;
-				width:{$bbox_width}px; "
-			>
+			<div class="bubblebox_container_miner <!--{if $bbox_scroll_bar}-->scroll-pane{$bbox_id}<!--{/if}-->" style="max-height:{$bbox_height}px;width:{$bbox_width}px; ">
 <!--END-->

@@ -100,10 +100,10 @@ function bubblebox_start($str)
 		${'bbox_'.str_replace('-','_',$v)} = bubblebox_get_style($v);
 	}
 	//用于显示的样式数值修改
-	$bbox_z_index_base_tie1 = $bbox_z_index_base + 3;
-	$bbox_z_index_base_tie2 = $bbox_z_index_base + 4;
-	$bbox_z_index_base_tie3 = $bbox_z_index_base + 5;
-	$bbox_z_index_base_tie4 = $bbox_z_index_base + 6;
+	// $bbox_z_index_base_tie1 = $bbox_z_index_base + 3;
+	// $bbox_z_index_base_tie2 = $bbox_z_index_base + 4;
+	// $bbox_z_index_base_tie3 = $bbox_z_index_base + 5;
+	// $bbox_z_index_base_tie4 = $bbox_z_index_base + 6;
 	$bbox_positioner_miner_margin_top = $bbox_offset_y-ceil(($bbox_height+$bbox_border_width_y*2+$bbox_margin_top+$bbox_margin_bottom)/2);
 	$bbox_positioner_miner_margin_left = $bbox_offset_x-ceil(($bbox_width+$bbox_border_width_x*2+$bbox_margin_left+$bbox_margin_right)/2);
 	$bbox_positioner_miner_min_width = $bbox_width+$bbox_border_width_x*2+$bbox_margin_left+$bbox_margin_right;
