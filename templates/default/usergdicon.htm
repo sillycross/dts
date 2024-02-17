@@ -2,8 +2,8 @@
 	<tr>
 		<td>{lang gender}</td>
 		<td>
-			<input type="radio" id="male" name="gender" onclick="userIconMover()" value="m" <!--{if $gender != "f"}-->checked<!--{/if}--> ><a onclick="$('male').click()">$sexinfo['m']</a>&nbsp;&nbsp;&nbsp;
-			<input type="radio" id="female" name="gender" onclick="userIconMover()" value="f" <!--{if $gender == "f"}-->checked<!--{/if}-->><a onclick="$('female').click()">$sexinfo['f']</a>
+			<input type="radio" id="male" class="radio_comb" name="gender" onclick="userIconMover()" value="m" <!--{if $gender != "f"}-->checked<!--{/if}--> ><a onclick="$('male').click()">$sexinfo['m']</a>&nbsp;&nbsp;&nbsp;
+			<input type="radio" id="female" class="radio_comb" name="gender" onclick="userIconMover()" value="f" <!--{if $gender == "f"}-->checked<!--{/if}-->><a onclick="$('female').click()">$sexinfo['f']</a>
 		</td>
 	</tr>
 	<tr>
