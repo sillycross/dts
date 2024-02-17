@@ -358,8 +358,31 @@ table.radar tr{height:20px;}
 	/*background-clip: border-box; background-color: rgba(198, 114, 199, 0.8);*/
 	background-color:rgba(0,0,0,0.8); *BACKGROUND: rgb(0,0,0); *filter:alpha(opacity=80); 
 	border-radius: 8px; border-width: 0;	
-	
     width:max-content; max-width: 200px; position: absolute; z-index: 5;
+}
+/*==========单选、复选按钮==========*/
+input[type=radio].radio_comb, #game_interface input[type=radio] {
+	display:none;
+}
+input[type=radio].radio_comb + a, #game_interface input[type=radio] + a{
+	position:relative;
+	display:inline-block;
+	border-radius: 5px;
+	margin:2px 0;
+	padding:5px 12px 5px 24px;
+	background-color:#666;
+	font:bold 10pt/16px "微软雅黑","黑体";text-decoration: none;color: #000;
+}
+input[type=radio].radio_comb:checked + a::after, #game_interface input[type=radio]:checked + a::after{
+	position:absolute;
+	content:"√";
+	top: 6px; left: 8px;
+}
+input[type=radio].radio_comb + a:hover, #game_interface input[type=radio] + a:hover{
+	font:bold 10pt/16px "微软雅黑","黑体";text-decoration: none;color: #000;
+}
+input[type=radio].radio_comb:checked + a, #game_interface input[type=radio]:checked + a{
+	background-color:#cceafa;
 }
 /*==========技能==========*/
 table.skilltable{

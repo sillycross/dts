@@ -3,21 +3,21 @@
         <tr>
             <td><span class="linen b">跳过开局剧情：</span></td>
             <td>
-                <input type="radio" id="skip_opening_1" name="skip_opening" value="1" <!--{if !empty($skip_opening)}-->checked<!--{/if}--> ><a onclick="$('skip_opening_1').click()">是</a>
+                <input type="radio" class="radio_comb" id="skip_opening_1" name="skip_opening" value="1" <!--{if !empty($skip_opening)}-->checked<!--{/if}--> ><a onclick="$('skip_opening_1').click()">是</a>
             </td>
             <td>&nbsp;&nbsp;</td>
             <td>
-                <input type="radio" id="skip_opening_0" name="skip_opening" value="0" <!--{if empty($skip_opening)}-->checked<!--{/if}--> ><a onclick="$('skip_opening_0').click()">否</a>
+                <input type="radio" class="radio_comb" id="skip_opening_0" name="skip_opening" value="0" <!--{if empty($skip_opening)}-->checked<!--{/if}--> ><a onclick="$('skip_opening_0').click()">否</a>
             </td>
         </tr>
         <tr>
             <td><span class="linen b">获得补给时必定合并：</span></td>
             <td>
-                <input type="radio" id="item_auto_merge_1" name="item_auto_merge" value="1" <!--{if !empty($item_auto_merge)}-->checked<!--{/if}--> ><a onclick="$('item_auto_merge_1').click()">是</a>
+                <input type="radio" class="radio_comb" id="item_auto_merge_1" name="item_auto_merge" value="1" <!--{if !empty($item_auto_merge)}-->checked<!--{/if}--> ><a onclick="$('item_auto_merge_1').click()">是</a>
             </td>
             <td>&nbsp;&nbsp;</td>
             <td>
-                <input type="radio" id="item_auto_merge_0" name="item_auto_merge" value="0" <!--{if empty($item_auto_merge)}-->checked<!--{/if}--> ><a onclick="$('item_auto_merge_0').click()">否</a>
+                <input type="radio" class="radio_comb" id="item_auto_merge_0" name="item_auto_merge" value="0" <!--{if empty($item_auto_merge)}-->checked<!--{/if}--> ><a onclick="$('item_auto_merge_0').click()">否</a>
             </td>
         </tr>
     </table>
