@@ -64,7 +64,7 @@ $language = array
 	'winrate' => '胜率',
 
 	'vq_question' => '验证问题',
-	'vq_question_desc' => '请选出最适合填入空缺的选项：',
+	'vq_question_desc' => '以下词句来自帮助文档，其中一个选项填入空缺中能得到通顺的语句，其他选项则是随机生成的。<br>请选出最适合填入空缺的选项：',
 	
 	'valid' => '入场手续',
 	'validover' => '入场表格填写完成',
