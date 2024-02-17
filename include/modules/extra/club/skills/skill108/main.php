@@ -7,7 +7,7 @@ namespace skill108
 		define('MOD_SKILL108_INFO','club;feature;');
 		eval(import_module('clubbase'));
 		$clubskillname[108] = '智识';
-		$clubdesc_h[27] .= '<br>理智值不低于4时每次升级获得2-4点全系熟练度<br>理智值低于4时先攻率和造成伤害增加，但无法获得经验值';
+		$clubdesc_h[27] .= '<br>理智值不低于3时每次升级获得2-4点全系熟练度<br>理智值低于3时先攻率和造成伤害增加，但无法获得经验值';
 	}
 	
 	function acquire108(&$pa)

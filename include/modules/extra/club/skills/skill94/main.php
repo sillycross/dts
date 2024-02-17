@@ -119,11 +119,13 @@ namespace skill94
 			$log .= "需要至少<span class=\"yellow b\">{$r}</span>点歌魂才能唱这首歌！<br>";
 			return;
 		}
-		addnews($now,'song',$name,$plsinfo[$pls],'「天籁」');
 		
 		//显示歌词
 		$lyric = '♪ '.$lyric.' ♪';
 		$log .= '<span style="font-size:16px;line-height:28px">'.$lyric.'</span><br><br>';
+		
+		//添加进行状况
+		addnews($now,'skill94',$name,$plsinfo[$pls],'「天籁」',$lyric);
 		
 		//添加聊天记录
 		\sys\addchat(0, $lyric, $name);
@@ -192,6 +194,17 @@ namespace skill94
 		\skillbase\skill_setvalue(96, 'effect', $buff_e, $pa);
 		$skill94_log = "获得了状态<span class=\"cyan b\">「魂音」</span>，持续时间<span class=\"yellow b\">$buff_time</span>秒！<br>";
 		return $skill94_log;
+	}
+	
+	function parse_news($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr = array())
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		
+		eval(import_module('sys','player'));
+		
+		if($news == 'skill94')
+			return "<li id=\"nid$nid\">{$hour}时{$min}分{$sec}秒，<span class=\"yellow b\">{$a}</span>在<span class=\"yellow b\">{$b}</span>歌唱了<span class=\"red b\">{$c}</span><span class=\"yellow b\">【{$a}：“{$d}”】</span></li>";
+		return $chprocess($nid, $news, $hour, $min, $sec, $a, $b, $c, $d, $e, $exarr);
 	}
 	
 }
