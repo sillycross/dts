@@ -7,7 +7,7 @@ namespace skill108
 		define('MOD_SKILL108_INFO','club;feature;');
 		eval(import_module('clubbase'));
 		$clubskillname[108] = '智识';
-		$clubdesc_h[27] .= '<br>理智值不低于4时每次升级获得2-4点全系熟练度<br>理智值低于4时先攻率和造成伤害增加，但无法获得经验值';
+		$clubdesc_h[27] .= '<br>理智值不低于3时每次升级获得2-4点全系熟练度<br>理智值低于3时先攻率和造成伤害增加，但无法获得经验值';
 	}
 	
 	function acquire108(&$pa)
@@ -32,7 +32,7 @@ namespace skill108
 		if (\skillbase\skill_query(108,$pa) && check_unlocked108($pa))
 		{
 			$sanity = (int)\skillbase\skill_getvalue(107,'sanity',$pa);
-			if ($sanity >= 4)
+			if ($sanity >= 3)
 			{
 				$pa['wp'] += rand(2,4);
 				$pa['wk'] += rand(2,4);
@@ -54,13 +54,13 @@ namespace skill108
 			if (\skillbase\skill_query(108,$sdata) && check_unlocked108($sdata))
 			{
 				$sanity = (int)\skillbase\skill_getvalue(107,'sanity',$sdata);
-				if ($sanity < 4) return 0;
+				if ($sanity < 3) return 0;
 			}
 		}
 		elseif (\skillbase\skill_query(108,$pa) && check_unlocked108($pa))
 		{
 			$sanity = (int)\skillbase\skill_getvalue(107,'sanity',$pa);
-			if ($sanity < 4) return 0;
+			if ($sanity < 3) return 0;
 		}
 		return $chprocess($v, $pa);
 	}
@@ -73,12 +73,12 @@ namespace skill108
 		if (\skillbase\skill_query(108, $ldata) && check_unlocked108($ldata))
 		{
 			$sanity = (int)\skillbase\skill_getvalue(107,'sanity',$ldata);
-			if ($sanity < 4) $r *= 1.1;
+			if ($sanity < 3) $r *= 1.1;
 		}
 		if (\skillbase\skill_query(108, $edata) && check_unlocked108($edata))
 		{
 			$sanity = (int)\skillbase\skill_getvalue(107,'sanity',$edata);
-			if ($sanity < 4) $r /= 1.1;
+			if ($sanity < 3) $r /= 1.1;
 		}
 		if($r != 1) $ldata['active_words'] = \attack\multiply_format($r, $ldata['active_words'],0);
 		return $chprocess($ldata,$edata)*$r;
@@ -92,7 +92,7 @@ namespace skill108
 		if (\skillbase\skill_query(108, $pa) && check_unlocked108($pa))
 		{
 			$sanity = (int)\skillbase\skill_getvalue(107,'sanity',$pa);
-			if ($sanity < 4)
+			if ($sanity < 3)
 			{
 				eval(import_module('logger'));
 				if ($active) $log .= "<span class=\"yellow b\">「智识」使你造成的伤害增加了20%！</span><br>";

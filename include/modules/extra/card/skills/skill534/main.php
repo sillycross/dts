@@ -14,7 +14,9 @@ namespace skill534
 	function acquire534(&$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('skill534'));
 		\skillbase\skill_setvalue(534,'itmarr','',$pa);
+		\skillbase\skill_setvalue(534,'lvl',$skill534_size,$pa);
 	}
 	
 	function lost534(&$pa)
