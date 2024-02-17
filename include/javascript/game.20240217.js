@@ -82,10 +82,13 @@ function itemmixchooser(){
 }
 
 function userIconMover(){
+	var forbidden = $('forbidden') ? true : false;
+	if(forbidden) return;
 	var ugd = $('male').checked ? 'm' : 'f';
-	var uinum = $('sel_icon').selectedIndex;
+	var uinum = $('icon_selected').value;
 	$('userIconImg').innerHTML = '<img src="img/' + ugd + '_' + uinum + '.gif" />';
 }
+
 function dniconMover(){
 	var npc = $('npc') ? true : false;
 	var dngd = npc ? 'n' : ($('male').checked ? 'm' : 'f');

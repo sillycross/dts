@@ -96,7 +96,7 @@ if($mode == 'edit') {
 } else {
 	//把$udata中的内容全部解出来
 	extract($udata);
-	$iconarray = get_iconlist($icon);
+	//$iconarray = get_iconlist($icon);
 	$select_icon = $icon;
 	
 	//卡片部分

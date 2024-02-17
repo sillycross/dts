@@ -12,7 +12,7 @@ if(!isset($cmd)){
 	//$ustate = 'register';
 	$icon = 0;
 	$gender = 'm';
-	$iconarray = get_iconlist();
+	//$iconarray = get_iconlist();
 	$select_icon = 0;
 	$motto = $criticalmsg = $killmsg = $lastword = '';
 	$register_token = register_fatenum_create();

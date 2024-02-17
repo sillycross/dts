@@ -385,6 +385,28 @@ namespace player
 		}
 		return array($iconImg, $iconImgB, $iconImgBwidth);
 	}
+
+	//获得头像数字的上下限
+	function get_icon_num_limit($gd = 'f')
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!in_array($gd, Array('f', 'm'))) $gd = 'f';
+		$pc_icon_range = get_var_in_module('pc_icon_range', 'player');
+		return Array($pc_icon_range[$gd][0], $pc_icon_range[$gd][1]);
+	}
+
+	//随机获取一个合法的头像数字
+	function get_icon_num_random($gd = 'f')
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(!in_array($gd, Array('f', 'm'))) $gd = 'f';
+		$icon_range = get_icon_num_limit($gd);
+		$icon_list = get_pc_icon_selecting_list();
+		do {
+			$ret = rand($icon_range[0], $icon_range[1]);
+		} while(empty($icon_list[$gd][$ret]));
+		return $ret;
+	}
 	
 	//$fog变量是在player模块定义的，很多模块的依赖顺序都受这个影响，所以check_fog函数必须放这个player模块，然后才被weather模块继承
 	function check_fog()

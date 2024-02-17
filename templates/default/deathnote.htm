@@ -1,37 +1,46 @@
 <input type="hidden" id="mode" name="mode" value="deathnote">
 <input type="hidden" name="item" value="$theitem['itmn']">
+<input type="hidden" id="icon_selected" name="dnicon" value="0" />
 <!--{if $gametype==1}-->
-<input type="hidden" id="npc" value="1">
+<input type="hidden" id="forbidden" value="1">
 你发现■DeathNote■跟往常似乎有点不一样。每一页上都印满了<span class="red b">红暮</span>的大头像，没有可以落笔的地方了。<br>
 页脚上……似乎有一行留言？<br>
 <span class="red b">“红杀是雇你们来扫BUG的，不是雇你们来杀人玩的。这本DN我就收走了。”</span>——红暮<br><br>
 <!--{/if}-->
 
-请写下对方的名字(留空为不使用)<br><input size="15" type="text" name="dnname" maxlength="15"><br>
-请写下对方的死因(255字以内，不填为“心脏麻痹”)<br><input size="30" type="text" name="dndeath" maxlength="255"><br>
-请选择对方的相貌<br>
-<div id="dniconImg" class="iconimg" >
+请写下对方的名字（留空为不使用）:<br>
+<input size="15" type="text" name="dnname" maxlength="15">
+<br>
+对方的死因（最多255字，不填为“心脏麻痹”）:<br>
+<input size="30" type="text" name="dndeath" maxlength="255">
+<br>
+对方的性别：
+<!--{loop Array('female','male') $gn}-->
+	<!--{eval $g = $gn[0];$go = 'f' == $g ? 'm' : 'f';}-->
+	<input type="radio" id="$gn" name="dngender" onclick="if(!$('sel_{$g}').checked) $('sel_{$g}').click();userIconMover();" value="{$g}" <!--{if $g == "f"}-->checked<!--{/if}--> />
+	<a onclick="$('$gn').click();">$sexinfo[$g]</a>
+	&nbsp;&nbsp;&nbsp;
+<!--{/loop}-->
+<br>
+<br>
+对方的相貌:
+<br>
+<div>
+	<span class="cyan b">点击头像可展开选择页面</span>
+</div>
+<div id="userIconImg" class="iconimg" onclick="bubblebox_show('pc_icon_selecting');">
 	<!--{if $gametype==1}-->
-	<img src="img/n_7.gif" alt="0">
+		<img src="img/n_7.gif">
 	<!--{else}-->
-	<img src="img/m_0.gif" alt="0">
+		<img src="img/m_0.gif">
 	<!--{/if}-->
 </div>
-性别 : <input type="radio" id="male" name="dngender" onchange="dniconMover()" value="m" checked >男生<input type="radio" id="female" name="dngender" onchange="dniconMover()" value="f" >女生<br />
-头像 : <select id="dnicon" name="dnicon" onchange="dniconMover()">
-	<option value=0 selected>0</option>
-	<!--{loop range(1,$iconlimit) $i}-->
-		<!--{if $gametype==1}-->
-		<option value=7>$i</option>
-		<!--{else}-->
-		<option value={$i}>$i</option>
-		<!--{/if}-->
-	<!--{/loop}-->
-</select>（0为随机）<br>
-（注意，deathnote只能对玩家使用。）
-<br />
-<br />
+<br>
+<div>（注意，deathnote只能对玩家使用。）</div>
+<br>
 <!--{if $gametype==1}-->
+<!--{eval $icon_list = \player\get_pc_icon_selecting_list(); $now_gender = 'f';}-->
+<!--{eval foreach(Array('f','m') as $g) foreach($icon_list[$g] as $k => &$v) $v[0] = 'n_7.gif';}-->
 没地方落笔了，你要把名字写在红暮脸上吗？<br>
 <input type="button" value="写！" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
 <input type="button" value="算了" onclick="$('mode').value='command';postCmd('gamecmd','command.php');this.disabled=true;">
@@ -39,3 +48,7 @@
 <input type="button" value="提交" onclick="postCmd('gamecmd','command.php');this.disabled=true;">
 <input type="button" value="返回" onclick="$('mode').value='command';postCmd('gamecmd','command.php');this.disabled=true;">
 <!--{/if}-->
+<!--{eval $disable_random_icon = 1;}-->
+<!--{eval bubblebox_start('id:pc_icon_selecting;height:440;width:716;cancellable:1;z-index-base:35;');}-->
+{template pc_icon_selecting}
+<!--{eval bubblebox_end();}-->

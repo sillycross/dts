@@ -31,7 +31,7 @@ else  $refdaily_flag = false;
 $u_acharr = \achievement_base\get_valid_achievements($udata['u_achievements']);
 extract($udata);
 
-$iconarray = get_iconlist($icon);
+//$iconarray = get_iconlist($icon);
 $select_icon = $icon;
 $winning_rate=$validgames?round($wingames/$validgames*100)."%":'0%';
 

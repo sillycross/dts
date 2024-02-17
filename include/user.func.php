@@ -496,17 +496,17 @@ function real_ip()
 	return $realip;  
 } 
 
-
-function get_iconlist(){
-	global $iconlimit,$icon;
-	$iconarray = array();
-	for($n = 0; $n <= $iconlimit; $n++)	{
-		$n_show = $n;
-		if(!$n) $n_show .= '（随机）';
-		$iconarray[] = '<option value='.$n.($icon == $n ? ' selected' : '').'>'.$n_show.'</option>';
-	}
-	return $iconarray;
-}
+//旧版选头像select控件的内容，已废弃
+// function get_iconlist(){
+// 	global $iconlimit,$icon;
+// 	$iconarray = array();
+// 	for($n = 0; $n <= $iconlimit; $n++)	{
+// 		$n_show = $n;
+// 		if(!$n) $n_show .= '（随机）';
+// 		$iconarray[] = '<option value='.$n.($icon == $n ? ' selected' : '').'>'.$n_show.'</option>';
+// 	}
+// 	return $iconarray;
+// }
 
 function convert_tm($t, $simple=0)
 {

@@ -24,7 +24,7 @@ namespace sys
 
 	//同ip限制激活人数。0为不限制
 	$iplimit = 0;
-	//头像数量（男女相同）
+	//头像数量（男女相同）（已经废弃）
 	$iconlimit = 20;
 	//游戏进行状况显示条数
 	$newslimit = 50;

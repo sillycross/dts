@@ -162,7 +162,7 @@ if($mode == 'enter') {
 		gexit($_ERROR['player_limit'],__file__,__line__);
 		return;
 	}
-	$iconarray = get_iconlist($icon);
+	//$iconarray = get_iconlist($icon);
 	$select_icon = $icon;
 
 	$userCardData = \cardbase\get_user_cardinfo($udata['username']);

@@ -17,7 +17,7 @@ function enter_battlefield($xuser,$xpass,$xgender,$xicon,$card=0,$ip='')
 		'name' => $xuser,
 		'pass' => create_storedpass($xuser,$xpass),
 		'gd' => $xgender,
-		'icon' => $xicon ? $xicon : rand(1,$iconlimit),
+		'icon' => $xicon ? $xicon : \player\get_icon_num_random($xgender),
 		'type' => 0,
 		'endtime' => $now,
 		'validtime' => $now,
