@@ -1,4 +1,7 @@
 <!--{eval if(empty($icon_list)) $icon_list = \player\get_pc_icon_selecting_list(); if(empty($now_gender)) $now_gender = !empty($gender) ? $gender : (!empty($gd) ? $gd : 'f');}-->
+<!--后端把处理过的$icon_list数据传到前端供js使用-->
+<!--{eval $icon_list_contents_to_frontend = get_var_in_module('icon_list_contents_to_frontend', 'player'); $tmp_show = json_encode($icon_list_contents_to_frontend);}-->
+<div id="icon_list_contents_to_frontend" style="display:none">$tmp_show</div>
 <div style="text-align:center;">
     <div class="subtitle" style="text-align:center">头像选择</div>
     <p>
@@ -14,15 +17,12 @@
             &nbsp;&nbsp;&nbsp;
         <!--{/loop}-->
     </p>
-    <!--{if empty($disable_random_icon)}-->
-    <div>
-        <span class="b">随机头像</span><br>
-        <img src="img/{$icon_list[$g][0][0]}" onclick="$('icon_selected').value='0';bubblebox_hide_all();userIconMover();" />
-    </div>
-    <br>
-    <!--{/if}-->
     <!--{loop Array('f','m') $g}-->
-    <div id="icon_list_{$g}_container" style="text-align:center;width:716px;<!--{if $now_gender != $g}-->display:none<!--{/if}-->">
+    <div id="icon_list_{$g}_container" style="width:716px;<!--{if $now_gender != $g}-->display:none<!--{/if}-->">
+        <!--{if empty($disable_random_icon)}-->
+            <span id="icon_{$g}_0_hint" class="b" onclick="$('icon_{$g}_0').click();">随机头像</span>
+            <img id="icon_{$g}_0" src="img/{$g}_0.gif" onclick="$('icon_selected').value='0';bubblebox_hide_all();userIconMover();" />
+        <!--{/if}-->
         <!--{loop $icon_list[$g] $i $v}-->
             <!--{if $i}-->
             <img src="img/$v[0]" onclick="$('icon_selected').value='$i';bubblebox_hide_all();userIconMover();" />

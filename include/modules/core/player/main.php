@@ -6,13 +6,7 @@ namespace player
 	global $fog,$upexp,$lvlupexp,$iconImg,$iconImgB,$iconImgBwidth,$ardef;//这些鬼玩意可以回头全部丢进$uip
 	global $hpcolor,$spcolor,$newhpimg,$newspimg,$splt,$hplt, $tpldata; 
 
-	$pc_icon_range = Array(
-		'f' => Array(0, 20), //女生可选头像范围
-		'm' => Array(0, 20), //男生可选头像范围
-		'n' => Array(0, 999), //NPC可选头像范围
-	);
-
-	$icon_list = Array();
+	$icon_list = $icon_list_contents_to_frontend = Array();
 	
 	function init()
 	{
@@ -277,7 +271,7 @@ namespace player
 		eval(import_module('sys','player'));
 		if(!empty($icon_list)) return $icon_list;
 
-		$icon_list = Array();
+		$icon_list = $icon_list_contents_to_frontend = Array();
 		if(file_exists($file) && filemtime($file) >= filemtime(__FILE__)) {
 			include $file;
 		}else{
@@ -293,10 +287,16 @@ namespace player
 					list($img, $imgB, $imgBw) = icon_parser_file_check($img, $imgB);
 					if(!empty($img)) {
 						$icon_list[$g][$i] = Array($img, $imgB, $imgBw);
+						if('f' == $g || 'm' == $g) {
+							if(empty($icon_list_contents_to_frontend[$g])) {
+								$icon_list_contents_to_frontend[$g] = Array();
+							}
+							$icon_list_contents_to_frontend[$g.'_'.$i] = $img;
+						}
 					}
 				}
 			}
-			$write = '<?php $icon_list = '.var_export($icon_list,1).';';
+			$write = '<?php '."\r\n".'$icon_list = '.var_export($icon_list,1).';'."\r\n".'$icon_list_contents_to_frontend = '.var_export($icon_list_contents_to_frontend,1).';'."\r\n";
 			file_put_contents($file, $write);
 		}
 		// ob_start();
@@ -331,39 +331,37 @@ namespace player
 		return Array($iconImg, $iconImgB, $iconImgBwidth);
 	}
 	
-	//获得头像文件名的核心函数。现在改为会生成缓存文件。
-	//注意这个函数不会判定头像是否存在或者合法
+	//获得头像文件名的核心函数
+	//现在改为会生成缓存文件，对数字类型的头像文件名进行缓存
+	//字符类型的需要在npc模块加一个读取全部NPC资料进行判定，回头再说吧，现在先和原来一样每次都判定文件是否存在
 	function icon_parser($type, $gd, $icon){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 
 		$icon_list = get_pc_icon_selecting_list();
-
-		if(!$type) {
-			$ret = $icon_list[$gd][$icon];
+		if($type) $gd = 'n';
+		if(empty($icon_list[$gd][$icon])) {
+			list($iconImg, $iconImgB) = icon_parser_name_format($type, $gd, $icon);
+			$ret = icon_parser_file_check($iconImg, $iconImgB);
 		}else{
-			$ret = $icon_list['n'][$icon];
+			$ret = $icon_list[$gd][$icon];
 		}
-		
 		return $ret;
 	}
 
 	//头像文件名格式化。注意这个函数不会判定头像是否存在或者合法
+	//默认扩展名是gif
 	//返回Array($iconImg, $iconImgB)
 	function icon_parser_name_format($type, $gd, $icon)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if(is_numeric($icon)){
-			if(!$type){
-				$iconImg = $gd.'_'.$icon.'.gif';
-				$iconImgB = $gd.'_'.$icon.'a.gif';
-			}else{
-				$iconImg = 'n_'.$icon.'.gif';
-				$iconImgB = 'n_'.$icon.'a.gif';
-			}
+			if($type) $gd = 'n';
+			$iconImg = $gd.'_'.$icon.'.gif';
+			$iconImgB = $gd.'_'.$icon.'a.gif';
 		}else{
 			$iconImg = $icon;
 			$ext = pathinfo($icon,PATHINFO_EXTENSION);
-			$iconImgB = substr($icon,0,strlen($icon)-strlen($ext)-1).'_a.'.$ext;
+			$iconImgB = substr($icon,0,-strlen($ext)-1).'_a.'.$ext;
 		}
 		return Array($iconImg, $iconImgB);
 	}
@@ -373,12 +371,28 @@ namespace player
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 
 		$iconImgBwidth = 0;
-		if(!file_exists('img/'.$iconImg)) {
-			$iconImg = '';
+
+		$check_ext = Array('png','jpg');
+
+		foreach (Array('iconImg', 'iconImgB') as $c) {
+			$filename = & ${$c};
+			if(!file_exists('img/'.$filename)) {
+				$ext = pathinfo($filename,PATHINFO_EXTENSION);
+				$flag = 0;
+				foreach($check_ext as $e) {
+					$tmp_filename = substr($filename,0,-strlen($ext)).$e;
+					if(file_exists('img/'.$tmp_filename)) {
+						$filename = $tmp_filename;
+						$flag = 1;
+						break;
+					}
+				}
+				if(!$flag){
+					$filename = '';
+				}
+			}
 		}
-		if(!file_exists('img/'.$iconImgB)) {
-			$iconImgB = '';
-		}else {
+		if($iconImgB)  {
 			list($w,$h) = getimagesize('img/'.$iconImgB);
 			if($h < 340) $iconImgB = '';
 			else $iconImgBwidth = round($w/($h/340));

@@ -384,6 +384,13 @@ input[type=radio].radio_comb + a:hover, #game_interface input[type=radio] + a:ho
 input[type=radio].radio_comb:checked + a, #game_interface input[type=radio]:checked + a{
 	background-color:#cceafa;
 }
+/*==========新头像选择框==========*/
+div#icon_list_f_container, div#icon_list_m_container{
+	text-align:center;position:relative;
+}
+span#icon_f_0_hint, span#icon_m_0_hint{
+	position:absolute;top:32px;left:44px;text-shadow: 1px 1px 1px #000;
+}
 /*==========技能==========*/
 table.skilltable{
 	height:100%; width:100%; 

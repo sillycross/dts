@@ -19,6 +19,10 @@ namespace player
 	$equip_list = Array();
 	
 	$battle_equip_list = Array();
-	
+
+	$pc_icon_range = Array(
+		'f' => Array(0, 24), //女生可选头像范围
+		'm' => Array(0, 20), //男生可选头像范围
+		'n' => Array(0, 999), //NPC可选头像范围
+	);
 }
-		

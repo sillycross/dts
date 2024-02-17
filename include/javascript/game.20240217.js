@@ -84,9 +84,17 @@ function itemmixchooser(){
 function userIconMover(){
 	var forbidden = $('forbidden') ? true : false;
 	if(forbidden) return;
-	var ugd = $('male').checked ? 'm' : 'f';
-	var uinum = $('icon_selected').value;
-	$('userIconImg').innerHTML = '<img src="img/' + ugd + '_' + uinum + '.gif" />';
+	var imgkey = ($('male').checked ? 'm' : 'f') + '_' + $('icon_selected').value;
+	var imgfile = '';
+	if('undefined' != typeof $('icon_list_contents_to_frontend')){
+		var icon_list_contents = JSON.parse($('icon_list_contents_to_frontend').innerHTML);
+		if('undefined' != typeof icon_list_contents[imgkey]){
+			imgfile = icon_list_contents[imgkey];
+		}
+	}
+	if(!imgfile) imgfile = 'f_0.gif';
+	
+	$('userIconImg').innerHTML = '<img src="img/' + imgfile + '" />';
 }
 
 function dniconMover(){
