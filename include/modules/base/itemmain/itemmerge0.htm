@@ -7,14 +7,14 @@
 <br>
 <!--{if 1 == sizeof($sameitem)}-->
     <!--{eval $i = array_pop($sameitem);}-->
-    <input type="button" id="a" value="[A]${'itm'.$i}/${'itme'.$i}/${'itms'.$i}" onclick="$('merge2').value='{$i}';postCmd('gamecmd','command.php');return false;"><br> 
+    <input type="button" id="a" class="cmdbutton" value="[A]${'itm'.$i}/${'itme'.$i}/${'itms'.$i}" onclick="$('merge2').value='{$i}';postCmd('gamecmd','command.php',this);return false;"><br> 
 <!--{else}-->
     <!--{eval $k = '0asdqwe'; $ku = '0ASDQWE';}-->
     <!--{loop range(1,6) $i}-->
         <!--{if in_array($i,$sameitem)}-->
-            <input type="button" id="{$k[$i]}" value="[{$ku[$i]}]${'itm'.$i}/${'itme'.$i}/${'itms'.$i}" onclick="$('merge2').value='{$i}';postCmd('gamecmd','command.php');return false;"><br> 
+            <input type="button" id="{$k[$i]}" class="cmdbutton" value="[{$ku[$i]}]${'itm'.$i}/${'itme'.$i}/${'itms'.$i}" onclick="$('merge2').value='{$i}';postCmd('gamecmd','command.php',this);return false;"><br> 
         <!--{/if}-->
     <!--{/loop}-->
 <!--{/if}-->
 <br>
-<input type="button" class="cmdbutton"  id="z" value="[Z]不合并" onclick="postCmd('gamecmd','command.php');return false;">
+<input type="button" id="z" class="cmdbutton" value="[Z]不合并" onclick="postCmd('gamecmd','command.php',this);return false;">
