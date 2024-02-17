@@ -36,21 +36,34 @@ namespace skill111
 			eval(import_module('sys','logger','rest'));
 			$resttime = $now - $endtime;
 			$sanity = (int)\skillbase\skill_getvalue(107,'sanity',$sdata);
+			//恢复理智判定
 			$get_sanity_rate = ceil($resttime * $sanity / 5);
-			if (($sanity < 7) && (rand(0,99) < $get_sanity_rate))
+			$sangain = ceil($get_sanity_rate / 100);
+			$get_sanity_rate = $get_sanity_rate % 100;
+			if (rand(0,99) < $get_sanity_rate) $sangain += 1; 
+			$sangain = min($sangain, 7-$sanity);
+			if ($sangain > 0)
 			{
-				$log .= "你恢复了<span class=\"yellow b\">1</span>点理智值。<br>";
-				\skillbase\skill_setvalue(107,'sanity',$sanity+1,$sdata);
+				$log .= "你恢复了<span class=\"yellow b\">$sangain</span>点理智值。<br>";
+				\skillbase\skill_setvalue(107,'sanity',$sanity+$sangain,$sdata);
 			}
+			//获得新技能判定
 			$get_newskill_rate = ceil($resttime * (9 - $sanity) / 10);
-			if (rand(0,99) < $get_newskill_rate)
+			$newskillcount = ceil($get_newskill_rate / 100);
+			$get_newskill_rate = $get_newskill_rate % 100;
+			if (rand(0,99) < $get_newskill_rate) $newskillcount += 1; 
+			if ($newskillcount > 0)
 			{
-				$newskillid = \skill107\skill107_get_randskill($sdata);
-				if (!empty($newskillid))
+				$log .= "<span class=\"yellow b\">你在梦中接触到了新的知识……</span><br>";
+				for ($i=0;$i<$newskillcount;$i++)
 				{
-					eval(import_module('clubbase','skill111'));
-					$log .= "你在梦中接触到了新的知识……你习得了技能<span class=\"yellow b\">「{$clubskillname[$newskillid]}」</span>，持续时间<span class=\"cyan b\">$skill111_tempskill_time</span>秒！<br>";
-					\skillbase\skill_setvalue($newskillid, 'tsk_expire', $now + $skill111_tempskill_time, $sdata);
+					$newskillid = \skill107\skill107_get_randskill($sdata);
+					if (!empty($newskillid))
+					{
+						eval(import_module('clubbase','skill111'));
+						$log .= "你习得了技能<span class=\"yellow b\">「{$clubskillname[$newskillid]}」</span>，持续时间<span class=\"cyan b\">$skill111_tempskill_time</span>秒！<br>";
+						\skillbase\skill_setvalue($newskillid, 'tsk_expire', $now + $skill111_tempskill_time, $sdata);
+					}
 				}
 			}
 		}
