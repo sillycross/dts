@@ -1,0 +1,31 @@
+<!--{eval $icon_list = \player\get_pc_icon_selecting_list(); $now_gender = !empty($gender) ? $gender : (!empty($gd) ? $gd : 'f');}-->
+<div style="text-align:center;">
+    <div class="subtitle" style="text-align:center">头像选择</div>
+    <p>
+        <!--{loop Array('female','male') $gn}-->
+            <!--{eval $g = $gn[0];$go = 'f' == $g ? 'm' : 'f';}-->
+            <input type="radio" id="sel_{$g}" name="dummy" class="radio_comb" value="{$g}" 
+                onclick="if(!$('{$gn}').checked) $('{$gn}').click();$('icon_list_{$g}_container').style.display='block';$('icon_list_{$go}_container').style.display='none';"
+                <!--{if $now_gender == "{$g}"}-->checked<!--{/if}-->
+            />
+            <a onclick="$('sel_{$g}').click();">
+                &nbsp;&nbsp;&nbsp;$sexinfo[$g]&nbsp;&nbsp;&nbsp;
+            </a>
+            &nbsp;&nbsp;&nbsp;
+        <!--{/loop}-->
+    </p>
+    <div>
+        <span style="b">随机头像</span><br>
+        <img src="img/{$icon_list[$g][0][0]}" onclick="$('icon').selectedIndex='0';bubblebox_hide_all();userIconMover();" />
+    </div>
+    <br>
+    <!--{loop Array('f','m') $g}-->
+    <div id="icon_list_{$g}_container" style="text-align:center;width:716px;<!--{if $now_gender != $g}-->display:none<!--{/if}-->">
+        <!--{loop $icon_list[$g] $i $v}-->
+            <!--{if $i}-->
+            <img src="img/$v[0]" onclick="$('icon').selectedIndex='$i';bubblebox_hide_all();userIconMover();" />
+            <!--{/if}-->
+        <!--{/loop}-->
+    </div>
+    <!--{/loop}-->
+</div>

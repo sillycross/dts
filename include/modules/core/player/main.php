@@ -5,6 +5,14 @@ namespace player
 	global $db_player_structure, $db_player_structure_types, $gamedata, $cmd, $main, $sdata;//注意，$sdata所有来自数据库的键值都是引用！
 	global $fog,$upexp,$lvlupexp,$iconImg,$iconImgB,$iconImgBwidth,$ardef;//这些鬼玩意可以回头全部丢进$uip
 	global $hpcolor,$spcolor,$newhpimg,$newspimg,$splt,$hplt, $tpldata; 
+
+	$pc_icon_range = Array(
+		'f' => Array(0, 20), //女生可选头像范围
+		'm' => Array(0, 20), //男生可选头像范围
+		'n' => Array(0, 999), //NPC可选头像范围
+	);
+
+	$icon_list = Array();
 	
 	function init()
 	{
@@ -241,7 +249,66 @@ namespace player
 		return $dummy;
 	}
 	
-	//头像判定，返回$iconImg, $iconImgB, $iconImgBwidth三个变量
+	//头像字段合法性检测。本模块只允许玩家使用数字头像，其他模块可以继承此模块做额外的判定
+	//注意这里传进来的可能会是$udata或者metman模块构造的临时数组
+	function icon_parser_valid(&$pdata=NULL)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		eval(import_module('player'));
+		if(!$pdata) {
+			$pdata = &$sdata;
+		}
+		$g = isset($pdata['gender']) ? $pdata['gender'] : (isset($pdata['gd']) ? $pdata['gd'] : 'x');
+		$ret = true;
+		if(empty($pdata['type']) && (!is_numeric($pdata['icon']) || (int)$pdata['icon'] != $pdata['icon'] || !isset($pc_icon_range[$g]) || $pdata['icon'] > $pc_icon_range[$g][1] || $pdata['icon'] < $pc_icon_range[$g][0])) {
+			$ret = false;
+		}
+		
+		return $ret;
+	}
+
+	//获得并储存所有可选头像、NPC头像组成的数组，避免每次调用都要去读一下_a文件是不是存在
+	function get_pc_icon_selecting_list()
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		$filebasename = 'pc_icon_selecting_list';
+		$file = GAME_ROOT.'./gamedata/cache/'.$filebasename.'.php';
+
+		eval(import_module('sys','player'));
+		if(!empty($icon_list)) return $icon_list;
+
+		$icon_list = Array();
+		if(file_exists($file) && filemtime($file) >= filemtime(__FILE__)) {
+			include $file;
+		}else{
+			$icon_list = Array(
+				'f' => Array(),
+				'm' => Array(),
+			);
+			foreach(Array('f', 'm', 'n') as $g) {
+				$tp = $g != 'n' ? 0 : 1;
+				$rmin = $pc_icon_range[$g][0]; $rmax = $pc_icon_range[$g][1];
+				foreach(range($rmin, $rmax) as $i) {
+					list($img, $imgB) = icon_parser_name_format($tp, $g, $i);
+					list($img, $imgB, $imgBw) = icon_parser_file_check($img, $imgB);
+					if(!empty($img)) {
+						$icon_list[$g][$i] = Array($img, $imgB, $imgBw);
+					}
+				}
+			}
+			$write = '<?php $icon_list = '.var_export($icon_list,1).';';
+			file_put_contents($file, $write);
+		}
+		// ob_start();
+		// include template($filebasename);
+		// $content = ob_get_contents();
+		// ob_end_clean();
+		// file_put_contents($file, $content);
+
+		return $icon_list;
+	}
+	
+	//获得头像数据，返回$iconImg, $iconImgB, $iconImgBwidth三个变量
 	//$iconImg为小头像，$iconImgB为竖版头像，$iconImgBwidth为竖版头像的宽度（用于正确显示比例）
 	//会自动识别$pdata的头像是否合法，如果不合法会返回一个代用的头像
 	//注意这里传进来的可能会是$udata
@@ -258,32 +325,33 @@ namespace player
 			$iconImgBwidth = 0;
 		}else{
 			$itp = isset($pdata['type']) ? $pdata['type'] : 0;
-			$igd = isset($pdata['gender']) ? $pdata['gender'] : (isset($pdata['gd']) ? $pdata['gd'] : 'm');
+			$igd = isset($pdata['gender']) ? $pdata['gender'] : (isset($pdata['gd']) ? $pdata['gd'] : 'f');
 			list($iconImg, $iconImgB, $iconImgBwidth) = icon_parser($itp, $igd, $pdata['icon']);
 		}
 		return Array($iconImg, $iconImgB, $iconImgBwidth);
 	}
 	
-	//头像字段合法性检测。本模块只允许玩家使用数字头像，其他模块可以继承此模块做额外的判定
-	//注意这里传进来的可能会是$udata或者metman模块构造的临时数组
-	function icon_parser_valid(&$pdata=NULL)
-	{
+	//获得头像文件名的核心函数。现在改为会生成缓存文件。
+	//注意这个函数不会判定头像是否存在或者合法
+	function icon_parser($type, $gd, $icon){
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if(!$pdata) {
-			eval(import_module('player'));
-			$pdata = &$sdata;
-		}
-		$ret = true;
-		if(empty($pdata['type']) && (!is_numeric($pdata['icon']) || (int)$pdata['icon'] != $pdata['icon'] || $pdata['icon'] > 20 || $pdata['icon'] < 0)) {
-			$ret = false;
+
+		$icon_list = get_pc_icon_selecting_list();
+
+		if(!$type) {
+			$ret = $icon_list[$gd][$icon];
+		}else{
+			$ret = $icon_list['n'][$icon];
 		}
 		
 		return $ret;
 	}
-	
-	function icon_parser($type, $gd, $icon){
+
+	//头像文件名格式化。注意这个函数不会判定头像是否存在或者合法
+	//返回Array($iconImg, $iconImgB)
+	function icon_parser_name_format($type, $gd, $icon)
+	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		
 		if(is_numeric($icon)){
 			if(!$type){
 				$iconImg = $gd.'_'.$icon.'.gif';
@@ -297,7 +365,17 @@ namespace player
 			$ext = pathinfo($icon,PATHINFO_EXTENSION);
 			$iconImgB = substr($icon,0,strlen($icon)-strlen($ext)-1).'_a.'.$ext;
 		}
+		return Array($iconImg, $iconImgB);
+	}
+
+	//头像文件存在性检查，返回修正过的$iconImg、$iconImgB和获取的$iconImgBwidth
+	function icon_parser_file_check($iconImg, $iconImgB){
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+
 		$iconImgBwidth = 0;
+		if(!file_exists('img/'.$iconImg)) {
+			$iconImg = '';
+		}
 		if(!file_exists('img/'.$iconImgB)) {
 			$iconImgB = '';
 		}else {

@@ -83,8 +83,8 @@ function itemmixchooser(){
 
 function userIconMover(){
 	var ugd = $('male').checked ? 'm' : 'f';
-	var uinum = $('icon').selectedIndex;
-	$('userIconImg').innerHTML = '<img src="img/' + ugd + '_' + uinum + '.gif" alt="' + uinum + '">';
+	var uinum = $('sel_icon').selectedIndex;
+	$('userIconImg').innerHTML = '<img src="img/' + ugd + '_' + uinum + '.gif" />';
 }
 function dniconMover(){
 	var npc = $('npc') ? true : false;
