@@ -311,8 +311,7 @@ function showData(sdata){
 				var tmp_log = jQuery('#log')[0].innerHTML;
 				jQuery('#log').empty();
 				jQuery('#log').append("<div id='log_cont'><div>"+tmp_log+"</div></div>");
-				//jQuery('#log').append("<img style='display:none;' type='hidden' src='img/blank.png' onload=\"jQuery(function() { jQuery('#log_cont').jScrollPane(); });\">");
-				jQuery(function() { jQuery('#log_cont').jScrollPane(); });
+				//jQuery(function() { jQuery('#log_cont').jScrollPane(); });
 			}
 		}else {
 			jQuery('#log').css({'display':'none'});
@@ -712,7 +711,7 @@ function bubblebox_show(bid, overlay)
 	{
 		$('fmsgbox-container').appendChild($('fmsgbox'+(bid.toString())));
 		$('fmsgbox'+(bid.toString())).style.display = 'block';
-		jQuery(function() { jQuery('.scroll-pane'+(bid.toString())).jScrollPane(); });
+		//jQuery(function() { jQuery('.scroll-pane'+(bid.toString())).jScrollPane(); });
 	}
 }
 
@@ -744,20 +743,21 @@ function room_get_update()
 
 function roomchat_refresh()
 {
-	jQuery(function() 
-	{ 
-		var api = jQuery('.scroll-pane-chat').data('jsp');
-		api.destroy();
-	});
-	jQuery(function() 
-	{ 
-		jQuery('.scroll-pane-chat').jScrollPane(); 
-	});
-	jQuery(function() 
-	{ 
-		var api = jQuery('.scroll-pane-chat').data('jsp');
-		api.scrollToPercentY(100);
-	});
+	$('chatlist-content').scrollTo(0,$('chatlist-content').scrollHeight);
+	// jQuery(function() 
+	// { 
+	// 	var api = jQuery('.scroll-pane-chat').data('jsp');
+	// 	api.destroy();
+	// });
+	// jQuery(function() 
+	// { 
+	// 	jQuery('.scroll-pane-chat').jScrollPane(); 
+	// });
+	// jQuery(function() 
+	// { 
+	// 	var api = jQuery('.scroll-pane-chat').data('jsp');
+	// 	api.scrollToPercentY(100);
+	// });
 }
 
 function room_enter(t)

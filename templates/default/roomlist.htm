@@ -1,6 +1,6 @@
 <span class="evergreen b">房间列表：</span><br>
 <div style="height:5px;">&nbsp;</div>
-<div class="scroll-pane-roomlist" style="width:520px;max-height:300px;"> 
+<div class="gscroll" style="width:520px;max-height:300px;"> 
 <!--{if count($shroomlist)==0}-->
 	当前没有任何房间。
 	<!--{if $cuser && $cpass}-->
@@ -99,7 +99,7 @@
 <!--{/if}-->
 </div>
 <div style="height:5px;">&nbsp;</div>
-<img style="display:none;" type="hidden" src="img/blank.png" onload="jQuery(function() { jQuery('.scroll-pane-roomlist').jScrollPane(); });">
+
 <!--{if !$cuser || !$cpass}-->
 	你尚未登陆，请先登陆。
 <!--{elseif room_check_subroom($room_prefix)}-->

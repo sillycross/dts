@@ -1,4 +1,6 @@
-气泡框模块，用于显示一个气泡框。由于jScrollPane特性，如果有滚动条，气泡框内文字段落必须用<p>标签包起来才行。
+气泡框模块，用于显示一个气泡框。
+目前已经弃用并关闭，请用global.func.php下的bubblebox_start()和bubblebox_end()函数。
+由于jScrollPane特性，如果有滚动条，气泡框内文字段落必须用<p>标签包起来才行。
 
 各气泡框参数和默认值请参见main.php中bubblebox_set_default函数。
 

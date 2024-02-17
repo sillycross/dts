@@ -8,14 +8,14 @@
 	</tr>
 	<tr>
 		<td valign="top" class="b3" style="text-align: left" height="1px">
-			<div id="chatlist" style="display:block" class="chatlist">
+			<div id="chatlist" style="display:block" class="chatlist gscroll">
 				<!--{if !defined('IN_REPLAY')}-->
 				<!--{loop $chatdata['msg'] $msg}-->
 				$msg
 				<!--{/loop}-->
 				<!--{/if}-->
 			</div>
-			<div id="newslist" style="display:none" class="newslist">
+			<div id="newslist" style="display:none" class="newslist gscroll">
 				<!--{if !defined('IN_REPLAY')}-->
 				<!--{loop $chatdata['news'] $news}-->
 				$news

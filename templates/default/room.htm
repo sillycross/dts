@@ -10,7 +10,7 @@
 		</div>
 		<div style="margin-left:22px; margin-right:22px; background-color:rgba(17,17,17,0.5); *BACKGROUND:rgb(17,17,17); *filter:alpha(opacity=50); BORDER: #000 0px none; color: #fff; text-align: center; border-right: #111 1px solid;font:10pt '微软雅黑' serif;">
 			<div id="chatlist" class="chatlist" >
-				<div class="scroll-pane-chat" style="width:100%; height:120px; max-height:120px; overflow:auto;">
+				<div id="chatlist-content" class="gscroll" style="width:100%; height:120px; max-height:120px; overflow:auto;">
 					<p id="chatdata-text" style="margin:0 0 0 0; text-align:left; line-height:20px;">
 					</p>
 				</div>
@@ -52,4 +52,4 @@
 <!--{eval bubblebox_end();}-->
 {template room_setmode}
 
-<img style="display:none;" type="hidden" src="img/blank.png" onload="bubblebox_show('persistent-roommain'); room_get_update(); jQuery(function() { jQuery('.scroll-pane-chat').jScrollPane(); }); ">
+<img style="display:none;" type="hidden" src="img/blank.png" onload="bubblebox_show('persistent-roommain'); room_get_update(); ">

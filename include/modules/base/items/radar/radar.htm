@@ -1,5 +1,5 @@
 <!--{eval eval(import_module('radar','npc','map'));$tmp_height=(count($plsinfo)+1)*20;}-->
-<div id="scroll-pane-radarpage" style="width:720px;height:{$tmp_height}px;">
+<div id="scroll-pane-radarpage" class="gscroll" style="width:720px;height:{$tmp_height}px;">
 	<table style="min-width:720px" class="radar">
 		<tr>
 			<td class="b2" width="120px"></td>
@@ -35,4 +35,3 @@
 		<!--{/loop}-->
 	</table>
 </div>
-<img style="display:none;" type="hidden" src="img/blank.png" onload="jQuery(function() { jQuery('#scroll-pane-radarpage').jScrollPane(); });">
