@@ -1,5 +1,5 @@
 <!--{eval if(empty($icon_list)) $icon_list = \player\get_pc_icon_selecting_list(); if(empty($now_gender)) $now_gender = !empty($gender) ? $gender : (!empty($gd) ? $gd : 'f');}-->
-<!--后端把处理过的$icon_list数据传到前端供js使用-->
+<!--后端把处理过的icon_list数据传到前端供js使用-->
 <!--{eval $icon_list_contents_to_frontend = get_var_in_module('icon_list_contents_to_frontend', 'player'); $tmp_show = json_encode($icon_list_contents_to_frontend);}-->
 <div id="icon_list_contents_to_frontend" style="display:none">$tmp_show</div>
 <div style="text-align:center;">

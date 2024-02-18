@@ -7,33 +7,35 @@
 		</td>
 	</tr>
 	<tr>
-		<td valign="top" class="b3" height="540" style="position:relative;text-align: left;overflow:auto;overflow-x:hidden;">
-			<div id="log" style="height:100px;display:table-cell;vertical-align:middle;">$log</div>
-			<script>log_display='table-cell';</script>
-			<div style="position:relative">
-				<!--<div id="loading"></div>-->
-				<form method="post" id="gamecmd" name="gamecmd" style="margin: 0px" >
-					<div id="cmd_extrahead">
-						<input type="hidden" id="oprecorder" name="oprecorder" value="">
-						<input type="hidden" id="game_roomid" name="game_roomid" value="$room_id">
-						<input type="hidden" id="templateid" name="templateid" value="$u_templateid">
-					</div>
-					<div id="cmd">								
-						<!--{if $hp <= 0}-->
-						{template death}
-						<!--{elseif $gametype == 17 && defined('MOD_TUTORIAL')}-->
-						{template MOD_TUTORIAL_TUTORIAL}
-						<!--{elseif $state >=1 && $state <= 3}-->
-						{template rest}
-						<!--{elseif $itms0}-->
-						{template MOD_ITEMMAIN_ITEMFIND}
-						<!--{elseif $cmd}-->
-						$cmd
-						<!--{else}-->
-						{template command}
-						<!--{/if}-->
-					</div>						
-				</form>
+		<td valign="top" class="b3" style="position:relative;">
+			<div class="gscroll" style="min-height:570px; max-height:630px; text-align: left; overflow:auto; overflow-x:hidden; ">
+				<div id="log" style="height:100px;display:table-cell;vertical-align:middle;">$log</div>
+				<script>log_display='table-cell';</script>
+				<div style="position:relative">
+					<!--<div id="loading"></div>-->
+					<form method="post" id="gamecmd" name="gamecmd" style="margin: 0px" >
+						<div id="cmd_extrahead">
+							<input type="hidden" id="oprecorder" name="oprecorder" value="">
+							<input type="hidden" id="game_roomid" name="game_roomid" value="$room_id">
+							<input type="hidden" id="templateid" name="templateid" value="$u_templateid">
+						</div>
+						<div id="cmd">								
+							<!--{if $hp <= 0}-->
+							{template death}
+							<!--{elseif $gametype == 17 && defined('MOD_TUTORIAL')}-->
+							{template MOD_TUTORIAL_TUTORIAL}
+							<!--{elseif $state >=1 && $state <= 3}-->
+							{template rest}
+							<!--{elseif $itms0}-->
+							{template MOD_ITEMMAIN_ITEMFIND}
+							<!--{elseif $cmd}-->
+							$cmd
+							<!--{else}-->
+							{template command}
+							<!--{/if}-->
+						</div>						
+					</form>
+				</div>
 			</div>
 		</td>
 	</tr>
