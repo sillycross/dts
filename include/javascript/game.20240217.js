@@ -97,6 +97,7 @@ function userIconMover(){
 	$('userIconImg').innerHTML = '<img src="img/' + imgfile + '" />';
 }
 
+//已废弃
 function dniconMover(){
 	var npc = $('npc') ? true : false;
 	var dngd = npc ? 'n' : ($('male').checked ? 'm' : 'f');
@@ -247,8 +248,10 @@ function showData(sdata){
 		return;
 	}
 	
-	//消除上次操作的气泡框
-	bubblebox_clear_all();
+	//如果在游戏中，消除上次操作的气泡框。（游戏中气泡框数据更新频繁，每次重新生成）
+	if(jQuery('#game_interface').length > 0) {
+		bubblebox_clear_all();
+	}
 	
 	//回放模式中不需要解压
 	if (typeof in_replay_mode == 'undefined' || in_replay_mode == 0){
