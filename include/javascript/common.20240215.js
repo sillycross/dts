@@ -187,15 +187,11 @@ function floating_hint()
 					jQuery('#hoverHintMsgInner').html(msg);
 					jQuery('#hoverHintMsg').css({
 						display: "block",
-						left: Number(Math.floor(e.clientX)+10).toString()+'px',
-						top: Number(Math.floor(e.clientY)+10).toString()+'px'
 					});
+					floating_hint_XY_positioner(e);
 				},
 				mousemove: function(e) {
-					jQuery('#hoverHintMsg').css({
-						left: Number(Math.floor(e.clientX)+10).toString()+'px',
-						top: Number(Math.floor(e.clientY)+10).toString()+'px'
-					});
+					floating_hint_XY_positioner(e);
 				},
 				mouseout: function() { 
 					jQuery('#hoverHintMsg').css({
@@ -206,6 +202,20 @@ function floating_hint()
 			jQuery(this).attr('saved_floating_hint', msg);
 			jQuery(this).removeAttr('title');
 		}
+	});
+}
+
+function floating_hint_XY_positioner(e)
+{
+	var l = Number(Math.floor(e.clientX) + 10);
+	var t = Number(Math.floor(e.clientY) + 10);
+	var w = jQuery('#hoverHintMsg').width();
+	var h = jQuery('#hoverHintMsg').height();
+	if(w + l > jQuery(window).width()) l = l - w - 20;
+	if(h + t > jQuery(window).height()) t = t - h - 20;
+	jQuery('#hoverHintMsg').css({
+		left: l+'px',
+		top: t+'px'
 	});
 }
 
