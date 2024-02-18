@@ -316,12 +316,53 @@ namespace skill1006
 			}
 		}
 		$itemnum = count($mipool);
+		$itmlist = array();
 		for ($i=0;$i<min($num,$itemnum);$i++)
 		{
 			$amarr = array('iid' => $mipool[$i]['iid'], 'itm' => $mipool[$i]['itm'], 'pls' => $pa['pls'], 'unseen' => 0);
 			add_beacon($amarr, $pa);
+			$itmlist[] = $mipool[$i]['itm'];
 		}
 		\player\player_save($pa);
+		return $itmlist;
+	}
+	
+	//从一个角色池中添加一定数量的角色到临时视野
+	function add_beacon_from_edata_arr($edata_arr, $num, &$pa=NULL)
+	{
+		if (eval(__MAGIC__)) return $___RET_VALUE;
+		if(empty($pa)) {
+			$pa = & get_var_in_module('sdata', 'player');
+		}
+		if(!empty(\skillbase\skill_getvalue(1006,'beacons',$pa))) {
+			$beacons = decode_beacon($pa);
+			if(!empty($beacons)) {
+				$beacons = array_reverse($beacons);
+				foreach($beacons as $bv) {
+					\searchmemory\add_memory($bv, 0, $pa);
+				}
+				$beacons = Array();
+				encode_beacon($beacons, $pa);
+			}
+		}
+		$edatanum = count($edata_arr);
+		$enamelist = array();
+		for ($i=0;$i<min($num,$edatanum);$i++)
+		{
+			if ($edata_arr[$i]['hp'] > 0)
+			{
+				$amarr = array('pid' => $edata_arr[$i]['pid'], 'Pname' => $edata_arr[$i]['name'], 'pls' => $pa['pls'], 'smtype' => 'enemy', 'unseen' => 0);
+				$enamelist[] = $edata_arr[$i]['name'];
+			}
+			else
+			{
+				$amarr = array('pid' => $edata_arr[$i]['pid'], 'Pname' => $edata_arr[$i]['name'], 'pls' => $pa['pls'], 'smtype' => 'corpse', 'unseen' => 0);
+				$enamelist[] = $edata_arr[$i]['name'].'的尸体';
+			}
+			add_beacon($amarr, $pa);
+		}
+		\player\player_save($pa);
+		return $enamelist;
 	}
 	
 	//获得一个道具列表中所有的道具，该列表中每个元素都是类似$theitem的标准形式，优先加入包裹中的空位，多余的会进入临时视野

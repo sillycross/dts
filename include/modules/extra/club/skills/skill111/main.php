@@ -38,7 +38,7 @@ namespace skill111
 			$sanity = (int)\skillbase\skill_getvalue(107,'sanity',$sdata);
 			//恢复理智判定
 			$get_sanity_rate = ceil($resttime * $sanity / 5);
-			$sangain = ceil($get_sanity_rate / 100);
+			$sangain = floor($get_sanity_rate / 100);
 			$get_sanity_rate = $get_sanity_rate % 100;
 			if (rand(0,99) < $get_sanity_rate) $sangain += 1; 
 			$sangain = min($sangain, 7-$sanity);
@@ -49,7 +49,7 @@ namespace skill111
 			}
 			//获得新技能判定
 			$get_newskill_rate = ceil($resttime * (9 - $sanity) / 10);
-			$newskillcount = ceil($get_newskill_rate / 100);
+			$newskillcount = floor($get_newskill_rate / 100);
 			$get_newskill_rate = $get_newskill_rate % 100;
 			if (rand(0,99) < $get_newskill_rate) $newskillcount += 1; 
 			if ($newskillcount > 0)
