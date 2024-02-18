@@ -61,7 +61,7 @@
 			<table>
 			<tr><td>
 				<div id="userIconImg" class="iconImg" >
-					<img src="img/<!--{if $gender != 'f'}-->m<!--{else}-->f<!--{/if}-->_{$select_icon}.gif" alt="$select_icon">
+					<img src="img/<!--{eval echo \player\icon_parser_shell($udata)[0];}-->">
 				</div>	
 			</td></tr>
 			<tr><td>
