@@ -280,8 +280,13 @@ div.bubblebox_container{
 	left:0px; top:0px;z-index:100;position:fixed;
 	text-align:left;
 	background-color:rgba(0,0,0,0.7); *BACKGROUND: rgb(0,0,0); *filter:alpha(opacity=70); 
+	-moz-border-radius: 9px;
+	-webkit-border-radius: 9px;
+	border-radius: 9px;
 }
-#hoverHintMsgInner{margin:3px;}
+#hoverHintMsgInner{
+	margin:6px 9px;
+}
 /*==========剧情分镜==========*/
 #storyboard_container {
 	background-color:rgba(17,17,17,0.5);
