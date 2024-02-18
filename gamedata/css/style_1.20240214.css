@@ -277,7 +277,7 @@ div.bubblebox_container{
 #hoverHintMsg{
 	display:none;
 	max-width:400px;
-	left:0px; top:0px;z-index:20;position:fixed;
+	left:0px; top:0px;z-index:100;position:fixed;
 	text-align:left;
 	background-color:rgba(0,0,0,0.7); *BACKGROUND: rgb(0,0,0); *filter:alpha(opacity=70); 
 }

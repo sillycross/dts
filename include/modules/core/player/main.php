@@ -374,27 +374,41 @@ namespace player
 
 		$check_ext = Array('png','jpg');
 
-		foreach (Array('iconImg', 'iconImgB') as $c) {
-			$filename = & ${$c};
-			if(!file_exists('img/'.$filename)) {
-				$ext = pathinfo($filename,PATHINFO_EXTENSION);
-				$flag = 0;
-				foreach($check_ext as $e) {
-					$tmp_filename = substr($filename,0,-strlen($ext)).$e;
-					if(file_exists('img/'.$tmp_filename)) {
-						$filename = $tmp_filename;
-						$flag = 1;
-						break;
-					}
-				}
-				if(!$flag){
-					$filename = '';
+		if(!file_exists('img/'.$iconImg)) {
+			$ext = pathinfo($iconImg,PATHINFO_EXTENSION);
+			$flag = 0;
+			foreach($check_ext as $e) {
+				$tmp_filename = substr($iconImg,0,-strlen($ext)).$e;
+				if(file_exists('img/'.$tmp_filename)) {
+					$iconImg = $tmp_filename;
+					$flag = 1;
+					break;
 				}
 			}
+			if(!$flag){
+				$iconImg = '';
+			}
 		}
+		if(!empty($iconImg) && !file_exists('img/'.$iconImgB)) {
+			$ext = pathinfo($iconImgB,PATHINFO_EXTENSION);
+			$flag = 0;
+			foreach($check_ext as $e) {
+				$tmp_filename = substr($iconImgB,0,-strlen($ext)).$e;
+				if(file_exists('img/'.$tmp_filename)) {
+					$iconImgB = $tmp_filename;
+					$flag = 1;
+					break;
+				}
+			}
+			if(!$flag){
+				$iconImgB = '';
+			}
+		}
+
 		if($iconImgB)  {
 			list($w,$h) = getimagesize('img/'.$iconImgB);
-			if($h < 340) $iconImgB = '';
+			if($h <= 80) $iconImgB = '';
+			elseif($h <= 340) $iconImgBwidth = $w;
 			else $iconImgBwidth = round($w/($h/340));
 		}
 		return array($iconImg, $iconImgB, $iconImgBwidth);
