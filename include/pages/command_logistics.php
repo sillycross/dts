@@ -18,6 +18,8 @@ if(empty($type)) $type = 0;
 
 $template_id = '';
 
+eval(import_module('logistics'));
+
 if (!$type || ($type == 1))
 {
 	eval(import_module('cardbase'));
@@ -30,6 +32,7 @@ if (!$type || ($type == 1))
 			$notice = '购买成功。';
 		}else{
 			$notice = '购买失败。';
+			if(!empty($logistics_error_info)) $notice .= $logistics_error_info;
 		}
 	}
 
@@ -41,7 +44,6 @@ if (!$type || ($type == 1))
 }
 elseif ($type == 2)
 {
-	eval(import_module('logistics'));
 	$itemchoice = get_var_input('itemchoice');
 	if (!empty($itemchoice))
 	{
@@ -50,6 +52,7 @@ elseif ($type == 2)
 			$notice = '购买成功。';
 		}else{
 			$notice = '购买失败。';
+			if(!empty($logistics_error_info)) $notice .= $logistics_error_info;
 		}
 	}
 	$logitemlist = \logistics\logistics_get_itemlist_from_udata($udata);
@@ -58,16 +61,32 @@ elseif ($type == 2)
 }
 elseif ($type == 4)
 {
-	eval(import_module('logistics','cardbase'));
-	$cardchoice = get_var_input('cardchoice');
-	$cardpos = get_var_input('cardpos');
-	if (NULL !== $cardchoice)
-	{
-		$res = \logistics\set_showcase_card($cardchoice, $cardpos, $udata);
-		if($res > 0) {
-			$notice = '设置成功。';
-		}else{
-			$notice = '设置失败。';
+	eval(import_module('cardbase'));
+	$showcase_cmd = get_var_input('showcase_cmd');
+	if('set_card' == $showcase_cmd){
+		$cardchoice = get_var_input('cardchoice');
+		$cardpos = get_var_input('cardpos');
+		if (NULL !== $cardchoice)
+		{
+			$res = \logistics\set_showcase_card($cardchoice, $cardpos, $udata);
+			if($res > 0) {
+				$notice = '设置成功。';
+			}else{
+				$notice = '设置失败。';
+				if(!empty($logistics_error_info)) $notice .= $logistics_error_info;
+			}
+		}
+	}
+	elseif('set_item' == $showcase_cmd){
+		$itempos = get_var_input('itempos');
+		if (NULL !== $itempos) {
+			$res = \logistics\set_showcase_logitem(0, $itempos, $udata, 2);
+			if($res > 0) {
+				$notice = '取下道具成功。';
+			}else{
+				$notice = '取下道具失败。';
+				if(!empty($logistics_error_info)) $notice .= $logistics_error_info;
+			}
 		}
 	}
 
@@ -80,7 +99,7 @@ elseif ($type == 4)
 }
 else
 {
-	eval(import_module('logistics','cardbase'));
+	eval(import_module('cardbase'));
 	$itemchoice = get_var_input('itemchoice');
 	$itempara = get_var_input('itempara');
 	if (!empty($itemchoice))
@@ -91,6 +110,7 @@ else
 			$notice = '使用成功。'.$res;
 		}else{
 			$notice = '使用失败。';
+			if(!empty($logistics_error_info)) $notice .= $logistics_error_info;
 		}
 	}
 

@@ -25,6 +25,7 @@
 <center>
 	<!--{if $showcase_cardlist}-->
 	<form method="post" name="showcase">
+	<input type="hidden" name="showcase_cmd" value="set_card">
 	<input type="hidden" id="cardchoice" name="cardchoice" value="">
 	<input type="hidden" id="cardpos" name="cardpos" value="0">
 	<!--{eval $showpack=1;}-->
@@ -39,7 +40,7 @@
 			<br>
 			<input type="button" class="b_button" style="width:120" value="更换" onclick="$('cardpos').value='$k';bubblebox_show('cardchange{$k}');">
 		</li>
-		<!--{eval bubblebox_start('id:cardchange'.$k.';height:150;width:600;cancellable:1;margin-top:20px;margin-bottom:20px;margin-left:20px;margin-right:10px;z-index-base:30;');}-->
+		<!--{eval bubblebox_start('id:cardchange'.$k.';height:150;width:600;cancellable:1;margin-top:20;margin-bottom:20;margin-left:20;margin-right:10;z-index-base:30;');}-->
 						<div style="margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px;">
 			<center>
 			<div style="font-weight:bold;">
@@ -97,25 +98,31 @@
 <div class="subtitle" align="center">装饰陈列</div>
 <center>
 	<!--{if $showcase_logitemlist}-->
-	<table style="width:600px;">
+	<form method="post" name="showcase3">
+	<input type="hidden" name="showcase_cmd" value="set_item">
+	<input type="hidden" id="itempos" name="itempos" value="">
+	<table style="width:750px;">
 		<tr style="text-align:center;font-size:18px;">
 			<th>名称</th>
 			<th>描述</th>
+			<th>操作</th>
 		</tr>
-		<!--{loop $showcase_logitemlist $lid}-->
+		<!--{loop $showcase_logitemlist $i $lid}-->
 		<!--{if isset($logistics_shop_items[$lid])}-->
-		<!--{eval $lsitem=$logistics_shop_items[$lid];}-->
+		<!--{eval $lsitem=$logistics_shop_items[$lid];$show_i = $i + 1;}-->
 		<tr>
 			<td style="text-align:center;font-weight:bold;">{$lsitem[0]}</td>
 			<td style="text-align:center;">$logistics_itemtype[$lsitem[1]]。{$lsitem[3]}</td>
+			<td style="text-align:center;"><input type="button" class="b_button" style="width:120" value="取下" onclick="$('itempos').value='$show_i';document.showcase3.submit();"></td>
 		</tr>
 		<!--{/if}-->
 		<!--{/loop}-->
 	</table>
+	</form>
 	<!--{else}-->
 	<div style="width:600px;text-align:center;font-size:14px;">这里什么也没有呢……</div>
 	<!--{/if}-->
-	<br><div style="width:600px;text-align:center;font-size:14px;">可在道具仓库中使用装饰品将其摆放到展柜中。<br><span class="yellow b">相同的装饰品在展柜中只能摆放一件。</span></div>
+	<br><div style="width:600px;text-align:center;font-size:14px;">可在道具仓库中使用装饰品将其摆放到展柜中。</div>
 </center>
 
 <br>

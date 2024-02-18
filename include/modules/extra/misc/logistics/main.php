@@ -2,6 +2,8 @@
 
 namespace logistics
 {
+	$logistics_error_info = '';//错误提示
+
 	function init() {
 		
 	}
@@ -69,25 +71,40 @@ namespace logistics
 		return $ret;
 	}
 	
-	//后勤商店购买道具，暂时只完成了卡片
+	//后勤商店购买道具
 	//$type为1表示卡片，2表示道具
 	//返回0表示指令错误，返回-1表示购买失败，返回1表示购买成功
 	function logistics_buy($itemid, $type, &$pa)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
-		if (!in_array($type, array(1,2))) return 0;
+		if (!in_array($type, array(1,2))) {
+			$logistics_error_info .= '指令错误！';
+			return 0;
+		}
 		
 		if ($type == 1)
 		{
 			$cardshop_list = get_cardshop_list($pa);
-			if (!isset($cardshop_list[$itemid])) return 0;
+			if (!isset($cardshop_list[$itemid])) {
+				$logistics_error_info .= '该卡片不存在！';
+				return 0;
+			}
 			$nowcard = $cardshop_list[$itemid];
 			
 			$cost = get_card_price($nowcard);
-			if (empty($cost)) return 0;
-			if ($pa['gold'] < $cost) return -1;
+			if (empty($cost)) {
+				$logistics_error_info .= '错误的售价参数，请联系管理员。';
+				return 0;
+			}
+			if ($pa['gold'] < $cost) {
+				$logistics_error_info .= '切糕不足！';
+				return -1;
+			}
 			$o_blink = card_check_o_blink($nowcard['id'], $pa);
-			if ($o_blink >= $nowcard['blink']) return -1;
+			if ($o_blink >= $nowcard['blink']) {
+				$logistics_error_info .= '你已经拥有该卡片了！';
+				return -1;
+			}
 			if (!empty($pa)) \cardbase\get_qiegao(-$cost,$pa);
 			
 			if (isset($nowcard['blink'])) $blink = $nowcard['blink'];
@@ -106,11 +123,23 @@ namespace logistics
 		elseif ($type == 2)
 		{
 			eval(import_module('logistics'));
-			if (!isset($logistics_shop_items[$itemid])) return 0;
-			if ($logistics_shop_items[$itemid][4]) return 0;
+			if (!isset($logistics_shop_items[$itemid])) {
+				$logistics_error_info .= '错误的道具参数！';
+				return 0;
+			}
+			if ($logistics_shop_items[$itemid][4]) {
+				$logistics_error_info .= '该道具为非卖品。';
+				return 0;
+			}
 			$cost = $logistics_shop_items[$itemid][2];
-			if ($cost <= 0) return -1;
-			if ($pa['gold'] < $cost) return -1;
+			if ($cost <= 0) {
+				$logistics_error_info .= '错误的售价参数，请联系管理员。';
+				return -1;
+			}
+			if ($pa['gold'] < $cost) {
+				$logistics_error_info .= '切糕不足！';
+				return -1;
+			}
 			
 			if (!empty($pa)) \cardbase\get_qiegao(-$cost,$pa);
 			
@@ -178,10 +207,16 @@ namespace logistics
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		if (!$pa) return 0;
 		eval(import_module('logistics'));
-		if (!isset($logistics_shop_items[$itemid])) return 0;
+		if (!isset($logistics_shop_items[$itemid])) {
+			$logistics_error_info .= '错误的道具参数。';
+			return 0;
+		}
 		
 		$itemlist = logistics_get_itemlist_from_udata($pa);
-		if ($itemlist[$itemid] <= 0) return 0;
+		if ($itemlist[$itemid] <= 0) {
+			$logistics_error_info .= '所选道具数量不足！';
+			return 0;
+		}
 		
 		$upd = array();
 		$log = '';
@@ -197,14 +232,30 @@ namespace logistics
 				break;
 			case 2://消耗切糕，使一张卡片变为闪烁
 				$card_data = \cardbase\get_cardlist_energy_from_udata($pa)[2];
-				if (!isset($card_data[$para])) return 0;
+				if (!isset($card_data[$para])) {
+					$logistics_error_info .= '你没有这张卡片！';
+					return 0;
+				}
 				eval(import_module('cardbase'));
-				if ($cards[$para]['rare'] == 'M') return 0;
+				if ($cards[$para]['rare'] == 'M') {
+					$logistics_error_info .= '等级为M的卡片不能变为闪烁！';
+					return 0;
+				}
 				$o_blink = !empty($card_data[$para]['blink']) ? $card_data[$para]['blink'] : 0;
-				if ($o_blink >= 10) return 0;
+				if ($o_blink >= 10) {
+					$logistics_error_info .= '这张卡片已经是闪烁了！';
+					return 0;
+				}
 				
 				$qiegaocost = $cardblink_upgrade_cost[$cards[$para]['rare']][0];
-				if ($qiegaocost <= 0 || ($pa['gold'] < $qiegaocost)) return 0;
+				if ($qiegaocost <= 0) {
+					$logistics_error_info .= '切糕参数错误，请联系管理员。';
+					return 0;
+				}
+				if ($pa['gold'] < $qiegaocost) {
+					$logistics_error_info .= '切糕不足！';
+					return 0;
+				}
 				
 				\cardbase\get_qiegao(-$qiegaocost, $pa);
 				$rarecolor = $card_rarecolor[$cards[$para]['rare']];
@@ -218,14 +269,30 @@ namespace logistics
 				break;
 			case 3://消耗切糕，使一张卡片变为镜碎
 				$card_data = \cardbase\get_cardlist_energy_from_udata($pa)[2];
-				if (!isset($card_data[$para])) return 0;
+				if (!isset($card_data[$para])) {
+					$logistics_error_info .= '你没有这张卡片！';
+					return 0;
+				}
 				eval(import_module('cardbase'));
-				if (($cards[$para]['rare'] == 'C') || ($cards[$para]['rare'] == 'M')) return 0;
+				if (($cards[$para]['rare'] == 'C') || ($cards[$para]['rare'] == 'M')) {
+					$logistics_error_info .= '等级为C或者M的卡片不能变为镜碎！';
+					return 0;
+				}
 				$o_blink = !empty($card_data[$para]['blink']) ? $card_data[$para]['blink'] : 0;
-				if ($o_blink >= 20) return 0;
+				if ($o_blink >= 20) {
+					$logistics_error_info .= '这张卡片已经是镜碎了！';
+					return 0;
+				}
 				
 				$qiegaocost = $cardblink_upgrade_cost[$cards[$para]['rare']][1];
-				if ($qiegaocost <= 0 || ($pa['gold'] < $qiegaocost)) return 0;
+				if ($qiegaocost <= 0) {
+					$logistics_error_info .= '切糕参数错误，请联系管理员。';
+					return 0;
+				}
+				if ($pa['gold'] < $qiegaocost) {
+					$logistics_error_info .= '切糕不足！';
+					return 0;
+				}
 				
 				\cardbase\get_qiegao(-$qiegaocost, $pa);
 				$rarecolor = $card_rarecolor[$cards[$para]['rare']];
@@ -239,7 +306,10 @@ namespace logistics
 				break;
 			case 4://能量饮料，选一张卡片充能
 				list($cardlist, $cardenergy, $card_data) = \cardbase\get_cardlist_energy_from_udata($pa);
-				if (!isset($card_data[$para])) return 0;
+				if (!isset($card_data[$para])) {
+					$logistics_error_info .= '你没有这张卡片！';
+					return 0;
+				}
 				
 				eval(import_module('cardbase'));
 				$cardenergy[$para] = $cards[$para]['energy'];
@@ -259,6 +329,7 @@ namespace logistics
 					if ($ret)
 					{
 						$log .= "你将<span class=\"yellow b\">{$logistics_shop_items[$itemid][0]}</span>摆到了展柜中。<br>";
+						logistics_itemget($itemid, $pa, -1);
 					}
 				}
 				break;
@@ -301,14 +372,25 @@ namespace logistics
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$cardchoice = (int)$cardchoice;
 		$cardpos = (int)$cardpos;
+
+		$logistics_error_info = & get_var_in_module('logistics_error_info', 'logistics');
 		
-		if (!in_array($cardpos, array(1,2,3))) return 0;
+		if (!in_array($cardpos, array(1,2,3))) {
+			$logistics_error_info .= '所选卡片位置错误！';
+			return 0;
+		}
 		
 		$cardlist = \cardbase\get_cardlist_energy_from_udata($pa)[0];
-		if (!in_array($cardchoice, $cardlist)) return 0;
+		if (!in_array($cardchoice, $cardlist)) {
+			$logistics_error_info .= '你没有这张卡片！';
+			return 0;
+		}
 		
 		$s_cardlist = get_showcase_cardlist_from_udata($pa);
-		if (in_array($cardchoice, $s_cardlist)) return 0;
+		if (in_array($cardchoice, $s_cardlist)) {
+			$logistics_error_info .= '你所选的卡片已经在展示中了！';
+			return 0;
+		}
 		$s_cardlist[$cardpos-1] = $cardchoice;
 		
 		put_showcase_cardlist_to_udata($s_cardlist, $pa);
@@ -390,6 +472,7 @@ namespace logistics
 		$chprocess();
 	}
 	
+	//设置展示的游戏道具
 	function set_showcase_gameitem($itmp, $itmn, $pos)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
@@ -475,23 +558,63 @@ namespace logistics
 		return $udata;
 	}
 	
-	//设置展柜装饰品
-	function set_showcase_logitem($itemid, $itempos, &$pa)
+	//设置/取下展柜装饰品
+	//传参$tp==1为设置，$tp==2为取下。如果是取下，不会判定$itemid
+	function set_showcase_logitem($itemid, $itempos, &$pa, $tp = 1)
 	{
 		if (eval(__MAGIC__)) return $___RET_VALUE;
 		$itemid = (int)$itemid;
 		$itempos = (int)$itempos;
 		
-		if (!in_array($itempos, array(1,2,3,4,5))) return 0;
+		eval(import_module('logistics'));
 		
+		//检查目标展柜合法性
+		if (!in_array($itempos, array(1,2,3,4,5))) {
+			$logistics_error_info .= '所选展柜位置不正确！';
+			return 0;
+		}
+
+		//指令判定
+		if(!in_array($tp, Array(1,2))) {
+			$logistics_error_info .= '指令错误，请重新选择！';
+			return 0;
+		}
+		
+		//指令为设置时，检查道具数目
 		$itemlist = logistics_get_itemlist_from_udata($pa);
-		if ($itemlist[$itemid] <= 0) return 0;
+		if (1 == $tp && $itemlist[$itemid] <= 0) {
+			$logistics_error_info .= '所选道具数量不足！';
+			return 0;
+		}
 		
+		//初始化参数
 		$s_logitemlist = get_showcase_logitemlist_from_udata($pa);
 		if (empty($s_logitemlist) || (count($s_logitemlist) != 5)) $s_logitemlist = array(0,0,0,0,0);
+
+		//检查目标位置是否已经有道具了
+		if(1 == $tp && !empty($s_logitemlist[$itempos-1])) {
+			$logistics_error_info .= '该位置已经有道具了，请先把道具取出！';
+			return 0;
+		}
+
+		if(2 == $tp && empty($s_logitemlist[$itempos-1])) {
+			$logistics_error_info .= '该位置没有摆放道具！';
+			return 0;
+		}
 		
-		if (in_array($itemid, $s_logitemlist)) return 0;
-		$s_logitemlist[$itempos-1] = $itemid;
+		//检查要放的道具是否重复，如果重复不可放。
+		//2024.02.18改成可以重复
+		//if (in_array($itemid, $s_logitemlist)) return 0;
+
+		//实际执行
+		if(1 == $tp){
+			$s_logitemlist[$itempos-1] = $itemid;
+		}elseif(2 == $tp){
+			$getitemid = $s_logitemlist[$itempos-1];
+			$s_logitemlist[$itempos-1] = 0;
+			logistics_itemget($getitemid, $pa, 1);
+			//$log .= "你将<span class=\"yellow b\">{$logistics_shop_items[$getitemid][0]}</span>摆到了展柜中。<br>";
+		}
 		
 		put_showcase_logitemlist_to_udata($s_logitemlist, $pa);
 		
